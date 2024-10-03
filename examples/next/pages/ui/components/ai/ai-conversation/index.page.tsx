@@ -56,6 +56,7 @@ function Chat() {
         handleSendMessage={sendMessage}
         isLoading={isLoading}
         suggestedPrompts={suggestedPrompts}
+        allowAttachments
         variant="bubble"
       />
     </Card>

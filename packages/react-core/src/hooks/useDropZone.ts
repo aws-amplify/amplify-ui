@@ -1,9 +1,34 @@
 import { useState } from 'react';
-import { UseDropZoneProps, UseDropZoneReturn, DragState } from './types';
 import { isFunction } from '@aws-amplify/ui';
-import { filterAllowedFiles } from './filterAllowedFiles';
+import { filterAllowedFiles } from '../utils/filterAllowedFiles';
 
-export function useDropZone({
+interface DragEvents {
+  onDragStart: (event: React.DragEvent<HTMLDivElement>) => void;
+  onDragEnter: (event: React.DragEvent<HTMLDivElement>) => void;
+  onDragLeave: (event: React.DragEvent<HTMLDivElement>) => void;
+  onDragOver: (event: React.DragEvent<HTMLDivElement>) => void;
+  onDrop: (event: React.DragEvent<HTMLDivElement>) => void;
+}
+
+export interface UseDropZoneParams extends Partial<DragEvents> {
+  onDropComplete?: (props: {
+    acceptedFiles: File[];
+    rejectedFiles: File[];
+  }) => void;
+  /**
+   * List of accepted File types, values of `['*']` or undefined allow any files
+   * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept
+   */
+  acceptedFileTypes?: string[];
+}
+
+type DragState = 'accept' | 'reject' | 'inactive';
+
+interface UseDropZoneReturn extends DragEvents {
+  dragState: DragState;
+}
+
+export default function useDropZone({
   onDropComplete,
   onDragEnter: _onDragEnter,
   onDragLeave: _onDragLeave,
@@ -11,7 +36,7 @@ export function useDropZone({
   onDragStart: _onDragStart,
   onDrop: _onDrop,
   acceptedFileTypes = [],
-}: UseDropZoneProps): UseDropZoneReturn {
+}: UseDropZoneParams): UseDropZoneReturn {
   const [dragState, setDragState] = useState<DragState>('inactive');
 
   const onDragStart = (event: React.DragEvent<HTMLDivElement>) => {

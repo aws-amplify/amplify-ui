@@ -6,7 +6,7 @@ import {
   useDeprecationWarning,
   useSetUserAgent,
 } from '@aws-amplify/ui-react-core';
-import { useDropZone } from '@aws-amplify/ui-react/internal';
+import { useDropZone } from '@aws-amplify/ui-react-core';
 
 import { useFileUploader, useUploadFiles } from './hooks';
 import {
