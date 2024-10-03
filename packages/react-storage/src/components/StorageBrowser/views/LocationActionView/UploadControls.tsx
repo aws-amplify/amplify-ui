@@ -2,8 +2,15 @@ import React from 'react';
 
 import { humanFileSize } from '@aws-amplify/ui';
 
+import { displayText } from '../../displayText/en';
 import { TABLE_HEADER_BUTTON_CLASS_NAME } from '../../components/DataTable';
-import { ButtonElement, StorageBrowserElements } from '../../context/elements';
+import { DescriptionList } from '../../components/DescriptionList';
+import { UploadSummary } from '../../components/UploadSummary';
+import {
+  ButtonElement,
+  StorageBrowserElements,
+  ViewElement,
+} from '../../context/elements';
 import { useControl } from '../../context/control';
 import { compareNumbers, compareStrings } from '../utils';
 import { TaskStatus } from '../../context/types';
@@ -27,10 +34,9 @@ import {
 } from './constants';
 import { CancelableTask, useHandleUpload } from './useHandleUpload';
 
-const { Icon, DefinitionDetail, DefinitionList, DefinitionTerm } =
-  StorageBrowserElements;
+const { Icon } = StorageBrowserElements;
 
-const { Cancel, Exit, Overwrite, Primary, Summary, Table } = Controls;
+const { Cancel, Exit, Overwrite, Primary, Table } = Controls;
 
 interface LocationActionViewColumns extends CancelableTask {
   type: string;
@@ -91,19 +97,6 @@ export const ActionIcon = ({ status }: ActionIconProps): React.JSX.Element => {
         variant === 'action-progress' ? ' storage-browser__loading__icon' : ''
       }`}
     />
-  );
-};
-
-const Destination = ({ children }: { children?: React.ReactNode }) => {
-  return (
-    <DefinitionList className={DESTINATION_CLASS}>
-      <DefinitionTerm className={`${DESTINATION_CLASS}__term`}>
-        Destination:
-      </DefinitionTerm>
-      <DefinitionDetail className={`${DESTINATION_CLASS}__detail`}>
-        {children}
-      </DefinitionDetail>
-    </DefinitionList>
   );
 };
 
@@ -372,7 +365,16 @@ export const UploadControls = (): JSX.Element => {
       >
         Add files
       </ButtonElement>
-      <Destination>{history[history.length - 1].prefix}</Destination>
+      <ViewElement className={`${CLASS_BASE}__upload-destination`}>
+        <DescriptionList
+          descriptions={[
+            {
+              term: `${displayText.uploadDestination}:`,
+              details: history[history.length - 1].prefix,
+            },
+          ]}
+        />
+      </ViewElement>
       <Overwrite
         defaultChecked={!preventOverwrite}
         disabled={disableOverwrite}
@@ -381,7 +383,7 @@ export const UploadControls = (): JSX.Element => {
         }}
       />
       {taskCounts.TOTAL ? (
-        <Summary
+        <UploadSummary
           total={taskCounts.TOTAL}
           complete={taskCounts.COMPLETE}
           failed={taskCounts.FAILED}
