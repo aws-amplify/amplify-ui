@@ -1,5 +1,4 @@
 import { fetchAuthSession } from 'aws-amplify/auth';
-import { StorageAccessLevel } from '@aws-amplify/core';
 import { UploadDataWithPathInput, UploadDataInput } from 'aws-amplify/storage';
 
 import { isString, isFunction } from '@aws-amplify/ui';
@@ -7,6 +6,8 @@ import { isString, isFunction } from '@aws-amplify/ui';
 import { ProcessFile } from '../types';
 import { resolveFile } from './resolveFile';
 import { PathCallback, PathInput } from './uploadFile';
+
+type StorageAccessLevel = 'guest' | 'protected' | 'private';
 
 export interface GetInputParams {
   accessLevel: StorageAccessLevel | undefined;

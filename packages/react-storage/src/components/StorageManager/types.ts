@@ -1,7 +1,5 @@
 import * as React from 'react';
 
-import type { StorageAccessLevel } from '@aws-amplify/core';
-
 import { FileStatus } from '../FileUploader/types';
 import {
   FileUploaderDisplayText as StorageManagerDisplayText,
@@ -48,6 +46,8 @@ export type ProcessFile = (
 export interface StorageManagerHandle {
   clearFiles: () => void;
 }
+
+type StorageAccessLevel = 'guest' | 'protected' | 'private';
 
 export interface StorageManagerProps {
   /**
