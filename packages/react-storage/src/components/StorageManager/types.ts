@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { FileStatus } from '../FileUploader/types';
+import { FileStatus, StorageAccessLevel } from '../FileUploader/types';
 import {
   FileUploaderDisplayText as StorageManagerDisplayText,
   PathCallback,
@@ -46,8 +46,6 @@ export type ProcessFile = (
 export interface StorageManagerHandle {
   clearFiles: () => void;
 }
-
-type StorageAccessLevel = 'guest' | 'protected' | 'private';
 
 export interface StorageManagerProps {
   /**
