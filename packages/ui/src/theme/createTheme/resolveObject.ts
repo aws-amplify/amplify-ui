@@ -72,7 +72,7 @@ export function compileValue({ value, stack, foundCirc, fullObj }) {
   let toRet = value,
     ref;
 
-  const regex =  /\{([^}]+)\}/g;
+  const regex = createReferenceRegex();
   // Replace the reference inline, but don't replace the whole string because
   // references can be part of the value such as "1px solid {color.border.light}"
   value.replace(regex, function (match, variable) {
