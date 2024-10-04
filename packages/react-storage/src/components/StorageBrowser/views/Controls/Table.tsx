@@ -16,6 +16,7 @@ import { CLASS_BASE } from '../constants';
 import { compareDates, compareNumbers, compareStrings } from '../utils';
 
 import { DownloadControl } from './Download';
+import { CheckboxControl } from './Checkbox';
 
 export type SortDirection = 'ascending' | 'descending' | 'none';
 
@@ -40,6 +41,9 @@ const BLOCK_NAME = `${CLASS_BASE}__table`;
 const ICON_CLASS = `${BLOCK_NAME}__data__icon`;
 const TABLE_DATA_CLASS = `${BLOCK_NAME}__data`;
 const TABLE_HEADER_CLASS = `${BLOCK_NAME}__header`;
+
+const SELECT_FILE_TEXT = 'Select file';
+const SELECT_ALL_FILES_TEXT = 'Select all files';
 
 function TableData({ className, variant, ...props }: TableDataElementProps) {
   return (
@@ -83,6 +87,12 @@ export function TableDataText({
 }
 
 const LOCATION_DETAIL_VIEW_COLUMNS: Column<LocationItem>[] = [
+  {
+    // @TODO: Fix me after refactor
+    // @ts-ignore
+    key: 'select',
+    header: '',
+  },
   {
     key: 'key',
     header: 'Name',
@@ -155,6 +165,26 @@ const LocationDetailViewColumnSortMap = {
   size: compareNumbers,
 };
 
+const LocationDetailViewColumnEmptyHeaderMap = ['download'];
+
+export const LocationDetailSelectAllControl = ({
+  onSelect,
+  checked,
+}: {
+  onSelect: () => void;
+  checked: boolean;
+}): JSX.Element => {
+  return (
+    <CheckboxControl
+      checked={checked}
+      id="select-all"
+      labelHidden
+      labelText={`${SELECT_ALL_FILES_TEXT}`}
+      onSelect={onSelect}
+    />
+  );
+};
+
 export const LocationDetailViewTable = ({
   range,
 }: {
@@ -163,6 +193,8 @@ export const LocationDetailViewTable = ({
   const [start, end] = range;
 
   const [{ history, path }, handleUpdateState] = useControl('NAVIGATE');
+  const [{ selected }, handleLocationActionsState] =
+    useControl('LOCATION_ACTIONS');
 
   const [{ data }] = useAction('LIST_LOCATION_ITEMS');
 
@@ -184,6 +216,15 @@ export const LocationDetailViewTable = ({
     direction === 'ascending'
       ? pagedData.sort((a, b) => compareFn(a[selection], b[selection]))
       : pagedData.sort((a, b) => compareFn(b[selection], a[selection]));
+
+  // Selection state:
+  const files = pagedData.filter((item) => item.type === 'FILE');
+  const selectedMap: Record<string, boolean> = {};
+  selected.items?.forEach((item) => (selectedMap[item.key] = true));
+  const hasFilesToSelect = files.length > 0;
+  const allFilesSelected = hasFilesToSelect
+    ? files.every((item) => selectedMap[item.key])
+    : false;
 
   const renderHeaderItem = React.useCallback(
     (column: Column<LocationItem>) => {
@@ -209,7 +250,6 @@ export const LocationDetailViewTable = ({
               className={TABLE_HEADER_BUTTON_CLASS_NAME}
               onClick={() => {
                 setCompareFn(() => LocationDetailViewColumnSortMap[column.key]);
-
                 setSortState((prevState) => ({
                   selection: column.key,
                   direction:
@@ -232,13 +272,36 @@ export const LocationDetailViewTable = ({
                 <Icon variant="sort-indeterminate" />
               )}
             </Button>
-          ) : column.key !== ('download' as keyof LocationItem) ? (
+          ) : // @TODO: Fix me after refactor
+          // @ts-ignore
+          column.key === 'select' ? (
+            hasFilesToSelect && (
+              <LocationDetailSelectAllControl
+                checked={allFilesSelected}
+                onSelect={() => {
+                  handleLocationActionsState({
+                    type: 'TOGGLE_SELECTED_ITEMS',
+                    items: allFilesSelected ? [] : files,
+                  });
+                }}
+              />
+            )
+          ) : LocationDetailViewColumnEmptyHeaderMap.includes(
+              column.key
+            ) ? null : (
             column.header
-          ) : null}
+          )}
         </TableHeader>
       );
     },
-    [direction, selection]
+    [
+      direction,
+      files,
+      handleLocationActionsState,
+      hasFilesToSelect,
+      allFilesSelected,
+      selection,
+    ]
   );
 
   // @TODO: This should be it's own component instead of using `useCallback`
@@ -273,6 +336,26 @@ export const LocationDetailViewTable = ({
               }
               case 'download' as keyof LocationItem: {
                 return <DownloadControl fileKey={`${path}${row.key}`} />;
+              }
+              case 'select' as keyof LocationItem: {
+                const isSelected =
+                  selected.items?.some((item) => {
+                    return item.key === row.key;
+                  }) ?? false;
+                return (
+                  <CheckboxControl
+                    checked={isSelected}
+                    id={`${index}-${row.key}`}
+                    labelHidden
+                    labelText={`${SELECT_FILE_TEXT} ${row.key}`}
+                    onSelect={() => {
+                      handleLocationActionsState({
+                        type: 'TOGGLE_SELECTED_ITEM',
+                        item: row,
+                      });
+                    }}
+                  />
+                );
               }
               case 'type': {
                 const indexOfDot = row.key.lastIndexOf('.');
@@ -343,7 +426,13 @@ export const LocationDetailViewTable = ({
         </TableRow>
       );
     },
-    [handleUpdateState, currentPosition, path]
+    [
+      handleUpdateState,
+      currentPosition,
+      path,
+      selected,
+      handleLocationActionsState,
+    ]
   );
 
   return hasItems ? (

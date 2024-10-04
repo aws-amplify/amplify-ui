@@ -79,6 +79,7 @@ export const LocationDetailViewControls = (): React.JSX.Element => {
   const { path } = state;
 
   const [{ data, isLoading }, handleList] = useAction('LIST_LOCATION_ITEMS');
+  const [, handleLocationActionsState] = useControl('LOCATION_ACTIONS');
 
   const { result, nextToken } = data;
   const resultCount = result.length;
@@ -140,6 +141,7 @@ export const LocationDetailViewControls = (): React.JSX.Element => {
             prefix: path,
             options: DEFAULT_REFRESH_OPTIONS,
           });
+          handleLocationActionsState({ type: 'CLEAR' });
         }}
       />
       <ActionsMenuControl disabled={disableActionsMenu} />
@@ -149,8 +151,12 @@ export const LocationDetailViewControls = (): React.JSX.Element => {
         disablePrevious={disablePrevious}
         handleNext={() => {
           handlePaginateNext({ resultCount, hasNextToken });
+          handleLocationActionsState({ type: 'CLEAR' });
         }}
-        handlePrevious={handlePaginatePrevious}
+        handlePrevious={() => {
+          handlePaginatePrevious();
+          handleLocationActionsState({ type: 'CLEAR' });
+        }}
       />
       <LocationDetailMessage />
       <Loading show={renderLoading} />

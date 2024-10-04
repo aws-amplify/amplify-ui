@@ -178,6 +178,7 @@ export const InputElement = defineBaseElement<
   | 'onBlur'
   | 'onChange'
   | 'onFocus'
+  | 'checked'
   | 'defaultChecked'
 >({
   type: 'input',
