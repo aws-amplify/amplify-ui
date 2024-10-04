@@ -1,4 +1,3 @@
-import { usesReference } from '../../../utils';
 import {
   referenceValue,
   isDesignToken,
