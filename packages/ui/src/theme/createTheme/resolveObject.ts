@@ -2,13 +2,13 @@
 // copied from amzn/style-dictionary with the owner's permission
 import {
   cloneDeep,
-  createReferenceRegex,
   getName,
   getPathFromName,
   has,
   resolveReference,
   usesReference,
 } from '../../utils';
+import { REFERENCE_REGEX } from './constants';
 
 const DEFAULTS = {
   ignoreKeys: ['original'],
@@ -72,7 +72,7 @@ export function compileValue({ value, stack, foundCirc, fullObj }) {
   let toRet = value,
     ref;
 
-  const regex = createReferenceRegex();
+  const regex = new RegExp(REFERENCE_REGEX);
   // Replace the reference inline, but don't replace the whole string because
   // references can be part of the value such as "1px solid {color.border.light}"
   value.replace(regex, function (match, variable) {

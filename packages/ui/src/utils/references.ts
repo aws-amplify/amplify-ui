@@ -1,10 +1,5 @@
 import { has } from './utils';
-
-const OPTIONS = {
-  openingCharacter: '{',
-  closingCharacter: '}',
-  separator: '.',
-};
+import { OPTIONS, REFERENCE_REGEX } from '../theme/createTheme/constants';
 
 /**
  * Checks if the value uses a value reference.
@@ -12,7 +7,7 @@ const OPTIONS = {
  * @returns {boolean} - True, if the value uses a value reference
  */
 export function usesReference(value: unknown): boolean {
-  const regex = createReferenceRegex();
+  const regex = new RegExp(REFERENCE_REGEX);
 
   if (typeof value === 'string') {
     return regex.test(value);
@@ -58,19 +53,6 @@ export function resolveReference(path: string[], obj: object) {
   }
 
   return ref;
-}
-
-export function createReferenceRegex() {
-  return new RegExp(
-    '\\' +
-      OPTIONS.openingCharacter +
-      '([^' +
-      OPTIONS.closingCharacter +
-      ']+)' +
-      '\\' +
-      OPTIONS.closingCharacter,
-    'g'
-  );
 }
 
 /**

@@ -4,7 +4,6 @@ export * from './utils';
 export { classNames, ClassNamesArgs } from './classNames';
 export { humanFileSize } from './humanFileSize';
 export {
-  createReferenceRegex,
   getName,
   getPathFromName,
   resolveReference,
