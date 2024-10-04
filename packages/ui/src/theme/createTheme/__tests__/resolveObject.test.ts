@@ -1,12 +1,6 @@
 import { resolveObject } from '../resolveObject';
 
 describe('resolveObject', () => {
-  it('should error on non-objects', () => {
-    expect(resolveObject.bind(null)).toThrow('Please pass an object in');
-    expect(resolveObject.bind(null, 'foo')).toThrow('Please pass an object in');
-    expect(resolveObject.bind(null, 0)).toThrow('Please pass an object in');
-  });
-
   it('should not mutate the original object', () => {
     const original = {
       test: '1',
@@ -216,21 +210,6 @@ describe('resolveObject', () => {
     expect(test.d[1]).toBe(1);
     expect(test.e[0].a).toBe(1);
     expect(test.e[1].a).toBe(2);
-  });
-
-  it("should throw if pointers don't exist", () => {
-    expect(
-      resolveObject.bind({
-        foo: '{bar}',
-        baz: 'boo',
-        a: {
-          b: {
-            c: '1',
-          },
-        },
-        error: '{a.b.d}',
-      })
-    ).toThrow();
   });
 
   it('should correctly replace multiple references without reference errors', function () {

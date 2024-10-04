@@ -279,7 +279,7 @@ export function splitObject(
   return [left, right] as const;
 }
 
-export const cloneDeep = function (obj: unknown) {
+export const cloneDeep = (obj: unknown) => {
   if (obj === null || obj === undefined || typeof obj !== 'object') {
     return obj;
   }

@@ -1,5 +1,3 @@
-// Internal Style Dictionary methods
-// copied from amzn/style-dictionary with the owner's permission
 import {
   cloneDeep,
   getName,

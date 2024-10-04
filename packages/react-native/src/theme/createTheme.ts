@@ -13,10 +13,10 @@ import { defaultTheme } from './defaultTheme';
 // calling the component theme function with the already resolved base tokens
 // OR
 // resolving the component theme object
-type TokensAndComponents = {
+interface TokensAndComponents {
   components: Components;
   tokens: StrictTokens;
-};
+}
 
 const setupComponents = ({
   components,
