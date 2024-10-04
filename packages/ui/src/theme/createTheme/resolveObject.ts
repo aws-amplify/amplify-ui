@@ -1,7 +1,6 @@
 // Internal Style Dictionary methods
 // copied from amzn/style-dictionary with the owner's permission
 import {
-  cloneDeep,
   createReferenceRegex,
   getName,
   getPathFromName,
@@ -16,7 +15,7 @@ const DEFAULTS = {
 
 export function resolveObject<T>(object: Record<string, any>): T {
   const foundCirc: Record<string, boolean> = {};
-  const clone = cloneDeep(object); // This object will be edited
+  const clone = structuredClone(object); // This object will be edited
   const currentContext: string[] = []; // To maintain the context to be able to test for circular definitions
   if (typeof object === 'object') {
     return traverseObject({
