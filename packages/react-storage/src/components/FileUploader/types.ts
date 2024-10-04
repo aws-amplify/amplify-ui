@@ -50,7 +50,7 @@ export interface FileUploaderHandle {
   clearFiles: () => void;
 }
 
-type StorageAccessLevel = 'guest' | 'protected' | 'private';
+export type StorageAccessLevel = 'guest' | 'protected' | 'private';
 
 export interface FileUploaderProps {
   /**

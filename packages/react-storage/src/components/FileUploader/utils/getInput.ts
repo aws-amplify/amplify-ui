@@ -3,11 +3,9 @@ import { UploadDataWithPathInput, UploadDataInput } from 'aws-amplify/storage';
 
 import { isString, isFunction } from '@aws-amplify/ui';
 
-import { ProcessFile } from '../types';
+import { ProcessFile, StorageAccessLevel } from '../types';
 import { resolveFile } from './resolveFile';
 import { PathCallback, PathInput } from './uploadFile';
-
-type StorageAccessLevel = 'guest' | 'protected' | 'private';
 
 export interface GetInputParams {
   accessLevel: StorageAccessLevel | undefined;
