@@ -1,6 +1,7 @@
 // Internal Style Dictionary methods
 // copied from amzn/style-dictionary with the owner's permission
 import {
+  cloneDeep,
   createReferenceRegex,
   getName,
   getPathFromName,
@@ -15,7 +16,7 @@ const DEFAULTS = {
 
 export function resolveObject<T>(object: Record<string, any>): T {
   const foundCirc: Record<string, boolean> = {};
-  const clone = structuredClone(object); // This object will be edited
+  const clone = cloneDeep(object); // This object will be edited
   const currentContext: string[] = []; // To maintain the context to be able to test for circular definitions
   if (typeof object === 'object') {
     return traverseObject({
@@ -71,7 +72,7 @@ export function compileValue({ value, stack, foundCirc, fullObj }) {
   let toRet = value,
     ref;
 
-  const regex = createReferenceRegex();
+  const regex =  /\{([^}]+)\}/g;
   // Replace the reference inline, but don't replace the whole string because
   // references can be part of the value such as "1px solid {color.border.light}"
   value.replace(regex, function (match, variable) {
