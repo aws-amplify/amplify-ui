@@ -8,6 +8,8 @@ const OPTIONS = {
 
 /**
  * Checks if the value uses a value reference.
+ * @param {string} value
+ * @returns {boolean} - True, if the value uses a value reference
  */
 export function usesReference(value: unknown): boolean {
   const regex = createReferenceRegex();
@@ -37,15 +39,14 @@ export function usesReference(value: unknown): boolean {
   return false;
 }
 
-export function resolveReference(path, obj) {
-  let i,
-    ref = obj;
+export function resolveReference(path: string[], obj: object) {
+  let ref = obj;
 
   if (!Array.isArray(path)) {
     return;
   }
 
-  for (i = 0; i < path.length; i++) {
+  for (let i = 0; i < path.length; i++) {
     // Check for undefined as 0 is a valid, truthy value
     if (typeof ref[path[i]] !== 'undefined') {
       ref = ref[path[i]];
@@ -75,7 +76,7 @@ export function createReferenceRegex() {
 /**
  * Returns the path from a path name be splitting the name by a given separator.
  */
-export function getPathFromName(pathName: string): Array<string> {
+export function getPathFromName(pathName: string): string[] {
   if (typeof pathName !== 'string') {
     throw new Error('Getting path from name failed. Name must be a string');
   }

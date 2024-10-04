@@ -22,6 +22,7 @@ const dictionary = {
 
 describe('resolveReference()', () => {
   it(`returns undefined for non-strings`, () => {
+    // @ts-expect-error testing invalid input
     expect(resolveReference(42, dictionary)).toBe(undefined);
   });
 
