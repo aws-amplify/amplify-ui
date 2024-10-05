@@ -9,7 +9,7 @@ import {
 
 import { CLASS_BASE } from '../views/constants';
 
-interface DescriptionItemProps {
+export interface DescriptionItemProps {
   term?: string;
   details?: string;
 }

@@ -5,7 +5,7 @@ import { humanFileSize } from '@aws-amplify/ui';
 import { displayText } from '../../displayText/en';
 import { TABLE_HEADER_BUTTON_CLASS_NAME } from '../../components/DataTable';
 import { DescriptionList } from '../../components/DescriptionList';
-import { UploadSummary } from '../../components/UploadSummary';
+
 import {
   ButtonElement,
   StorageBrowserElements,
@@ -29,10 +29,11 @@ import {
 import { Title } from './Controls/Title';
 import {
   DEFAULT_OVERWRITE_PROTECTION,
-  INITIAL_STATUS_COUNTS,
   STATUS_DISPLAY_VALUES,
 } from './constants';
 import { CancelableTask, useHandleUpload } from './useHandleUpload';
+import { getTaskCounts } from '../../controls/getTaskCounts';
+import { StatusDisplay } from '../../controls/StatusDisplay';
 
 const { Icon } = StorageBrowserElements;
 
@@ -59,14 +60,6 @@ const LOCATION_ACTION_VIEW_COLUMNS: Column<LocationActionViewColumns>[] = [
 
 export const ICON_CLASS = `${CLASS_BASE}__action-status`;
 const DESTINATION_CLASS = `${CLASS_BASE}__destination`;
-
-const getTaskCounts = (
-  tasks: CancelableTask[] = []
-): typeof INITIAL_STATUS_COUNTS =>
-  tasks.reduce(
-    (counts, { status }) => ({ ...counts, [status]: counts[status] + 1 }),
-    { ...INITIAL_STATUS_COUNTS, TOTAL: tasks.length }
-  );
 
 export const ActionIcon = ({ status }: ActionIconProps): React.JSX.Element => {
   let variant: IconVariant = 'action-initial';
@@ -188,6 +181,8 @@ export const UploadControls = (): JSX.Element => {
   const [tasks, handleUpload, handleFileSelect, handleCancel] = useHandleUpload(
     { prefix: path, preventOverwrite }
   );
+
+  // Replace with stuff
 
   const handleFileInput = React.useRef<HTMLInputElement>(null);
   const handleFolderInput = React.useRef<HTMLInputElement>(null);
@@ -383,12 +378,11 @@ export const UploadControls = (): JSX.Element => {
         }}
       />
       {taskCounts.TOTAL ? (
-        <UploadSummary
-          total={taskCounts.TOTAL}
-          complete={taskCounts.COMPLETE}
-          failed={taskCounts.FAILED}
-          canceled={taskCounts.CANCELED}
-          queued={taskCounts.INITIAL + taskCounts.QUEUED}
+        <StatusDisplay
+          className={`${CLASS_BASE}__upload-status-display`}
+          actionType="BATCH"
+          isCancelable
+          tasks={tasks}
         />
       ) : null}
       <Table

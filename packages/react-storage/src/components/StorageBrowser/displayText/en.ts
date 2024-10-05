@@ -3,8 +3,8 @@
  */
 export const displayText = {
   uploadDestination: 'Destination',
-  uploadSummaryCompleted: 'Completed',
-  uploadSummaryFailed: 'Failed',
-  uploadSummaryCanceled: 'Canceled',
-  uploadSummaryQueued: 'Not started',
+  statusDisplayCompleted: 'Completed',
+  statusDisplayFailed: 'Failed',
+  statusDisplayCanceled: 'Canceled',
+  statusDisplayQueued: 'Not started',
 };

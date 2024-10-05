@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import { DescriptionList } from '../DescriptionList';
 
 describe('DescriptionList', () => {
-  it('renders the DescriptionList', () => {
+  it('renders', () => {
     const term = 'Description Term';
     const details = 'Description Details';
 
