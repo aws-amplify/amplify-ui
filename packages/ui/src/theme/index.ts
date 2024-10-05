@@ -1,11 +1,13 @@
 export {
   createTheme,
+  deepExtend,
   defineComponentTheme,
   createComponentClasses,
   createComponentCSS,
   createGlobalCSS,
   cssNameTransform,
   isDesignToken,
+  resolveObject,
   setupTokens,
   SetupToken,
 } from './createTheme';
