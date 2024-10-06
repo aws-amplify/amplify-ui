@@ -1,7 +1,7 @@
 import {
-  DataTaskAction,
-  DataTaskActionInput,
-  DataTaskActionOutput,
+  CancelableTaskActionOutput,
+  TaskAction,
+  TaskActionInput,
 } from '../types';
 
 export interface UploadActionOptions {
@@ -9,9 +9,10 @@ export interface UploadActionOptions {
   preventOverwrite?: boolean;
 }
 export interface UploadActionInput
-  extends DataTaskActionInput<File, UploadActionOptions> {}
-export interface UploadActionOutput extends DataTaskActionOutput {}
+  extends TaskActionInput<File, UploadActionOptions> {}
+export interface UploadActionOutput extends CancelableTaskActionOutput {}
 
-export interface UploadAction extends DataTaskAction<UploadActionInput> {}
+export interface UploadAction
+  extends TaskAction<UploadActionInput, UploadActionOutput> {}
 
 export const uploadAction: UploadAction = null as unknown as UploadAction;

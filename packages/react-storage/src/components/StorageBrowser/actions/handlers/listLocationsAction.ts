@@ -1,11 +1,8 @@
 import { Permission } from '@aws-amplify/storage/internals';
 
-import {
-  ListActionOptions,
-  ListActionOutput,
-  ListAction,
-  LocationType,
-} from '../types';
+import { ListActionOptions, ListActionOutput, ListAction } from '../types';
+
+export type LocationType = 'OBJECT' | 'PREFIX' | 'BUCKET';
 
 export interface LocationData {
   bucket: string;

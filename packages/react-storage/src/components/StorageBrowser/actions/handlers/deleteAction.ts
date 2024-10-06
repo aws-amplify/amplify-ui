@@ -1,12 +1,13 @@
-import {
-  DataTaskAction,
-  DataTaskActionInput,
-  DataTaskActionOutput,
-} from '../types';
+import { TaskAction, TaskActionInput, TaskActionOutput } from '../types';
 
-export interface DeleteActionInput extends DataTaskActionInput {}
-export interface DeleteActionOutput extends DataTaskActionOutput {}
+interface DeleteActionOptions {
+  key: string;
+}
+export interface DeleteActionInput
+  extends TaskActionInput<DeleteActionOptions> {}
+export interface DeleteActionOutput extends TaskActionOutput {}
 
-export interface DeleteAction extends DataTaskAction<DataTaskActionInput> {}
+export interface DeleteAction
+  extends TaskAction<DeleteActionInput, DeleteActionOutput> {}
 
 export const deleteAction: DeleteAction = null as unknown as DeleteAction;

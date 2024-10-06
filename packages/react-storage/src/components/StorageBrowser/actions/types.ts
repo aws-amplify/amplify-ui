@@ -1,11 +1,11 @@
 import { LocationCredentialsProvider } from '@aws-amplify/storage/internals';
 
-export type LocationType = 'OBJECT' | 'PREFIX' | 'BUCKET';
+import { ActionState } from '../context/actions/createActionStateContext';
+
 export interface ActionInputConfig {
   accountId: string;
   bucket: string;
   credentials: LocationCredentialsProvider;
-  // permission???
   region: string;
 }
 
@@ -15,22 +15,26 @@ interface ActionInput<T = any> {
   options?: T;
 }
 
-export interface DataTaskActionInput<T = never, K = undefined>
+export interface TaskActionInput<T = never, K = undefined>
   extends ActionInput<K> {
   data: T;
 }
 
-export interface DataTaskActionOutput {
-  cancel?: () => void;
+export interface TaskActionOutput<T = 'COMPLETE' | 'FAILED'> {
   key: string;
+  result: Promise<T>;
+}
+
+export interface CancelableTaskActionOutput
+  extends TaskActionOutput<'COMPLETE' | 'FAILED' | 'CANCELED'> {
+  cancel?: () => void;
   pause?: () => void;
-  result: Promise<'COMPLETE' | 'FAILED' | 'CANCELED'>;
   resume?: () => void;
 }
 
-export type DataTaskAction<T = any> = (input: T) => DataTaskActionOutput;
+export type TaskAction<T = any, K = any> = (input: T) => K;
 
-export interface ListActionOptions<T> {
+export interface ListActionOptions<T = never> {
   exclude?: T;
   nextToken?: string;
   pageSize?: number;
@@ -44,3 +48,13 @@ export interface ListActionOutput<T = any> {
 }
 
 export type ListAction<T = any, K = any> = (input: T) => Promise<K>;
+
+export type UseAction<T> = T extends
+  | ListAction<infer K, infer U>
+  | TaskAction<infer K, infer U>
+  ? ActionState<U, K>
+  : never;
+
+export type CreateUseAction = <T>(
+  actions: T
+) => <K extends keyof T>(key: K) => UseAction<T[K]>;

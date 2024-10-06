@@ -1,4 +1,6 @@
 export {
+  createFolderAction,
+  CreateFolderAction,
   listLocationItemsAction,
   ListLocationItemsAction,
   ListLocationItemsActionInput,
@@ -11,18 +13,20 @@ export {
   ListLocationsActionOutput,
   LocationData,
   LocationItem,
+  LocationItemType,
+  LocationType,
   uploadAction,
   UploadAction,
   UploadActionInput,
-  UploadActionOutput,
   UploadActionOptions,
+  UploadActionOutput,
 } from './handlers';
 
 export {
   ActionInputConfig,
-  DataTaskAction,
-  DataTaskActionInput,
-  DataTaskActionOutput,
+  TaskAction,
+  TaskActionInput,
+  TaskActionOutput,
   ListAction,
   ListActionInput,
   ListActionOptions,
