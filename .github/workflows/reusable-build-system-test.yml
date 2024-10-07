@@ -28,9 +28,16 @@ jobs:
             framework-version: 18
             build-tool: next
             build-tool-version: 13
+            pkg-manager: npm
+            language: ts
+            node-version: 20
           - framework: react
             build-tool: vite
             build-tool-version: 3
+            pkg-manager: npm
+            language: ts
+            node-version: 20
+
           - framework: angular
             build-tool: angular-cli
           - framework: angular
