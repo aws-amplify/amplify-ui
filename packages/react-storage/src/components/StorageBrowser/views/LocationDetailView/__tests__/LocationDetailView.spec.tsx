@@ -151,7 +151,7 @@ describe('LocationDetailView', () => {
       hasError: true,
       message: errorMessage,
       result: [{ key: 'test1', type: 'FOLDER' }],
-      nextToken: 'some-token',
+      nextToken: 'some-token'
     });
 
     render(
