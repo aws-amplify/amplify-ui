@@ -10,7 +10,6 @@ import { PaginateControl } from './Paginate';
 import { PrimaryControl } from './Primary';
 import { RefreshControl } from './Refresh';
 import { SearchControl } from './Search';
-import { CheckboxControl } from '../../components/Checkbox';
 import { SummaryControl } from './Summary';
 import { TableControl } from './Table';
 import { TitleControl } from './Title';
@@ -28,7 +27,6 @@ export interface Controls {
   Navigate: typeof NavigateControl;
   Refresh: typeof RefreshControl;
   Search: typeof SearchControl;
-  Checkbox: typeof CheckboxControl;
   Summary: typeof SummaryControl;
   Table: typeof TableControl;
   Title: typeof TitleControl;
@@ -47,7 +45,6 @@ export const Controls: Controls = {
   Navigate: NavigateControl,
   Refresh: RefreshControl,
   Search: SearchControl,
-  Checkbox: CheckboxControl,
   Summary: SummaryControl,
   Table: TableControl,
   Title: TitleControl,
