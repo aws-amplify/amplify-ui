@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 # Default values
 BUILD_TOOL="cra"
@@ -100,14 +101,6 @@ if [ "$BUILD_TOOL" == 'next' ]; then
     cp $AWS_EXPORTS_FILE mega-apps/${MEGA_APP_NAME}/data/aws-exports.js
     echo "cp templates/components/react/next/App.js mega-apps/${MEGA_APP_NAME}/pages/index.tsx"
     cp templates/components/react/next/App.js mega-apps/${MEGA_APP_NAME}/pages/index.tsx
-    if [ "$BUILD_TOOL_VERSION" == '11' ]; then
-        # We have to customize the package.json and tsconfig.json for Next.js 11,
-        # because create-next-app only creates the app with the latest version
-        echo "cp templates/components/react/next/template-package-${BUILD_TOOL_VERSION}.json mega-apps/${MEGA_APP_NAME}/package.json"
-        cp templates/components/react/next/template-package-${BUILD_TOOL_VERSION}.json mega-apps/${MEGA_APP_NAME}/package.json
-        echo "cp templates/components/react/next/template-tsconfig-${BUILD_TOOL_VERSION}.json mega-apps/${MEGA_APP_NAME}/tsconfig.json"
-        cp templates/components/react/next/template-tsconfig-${BUILD_TOOL_VERSION}.json mega-apps/${MEGA_APP_NAME}/tsconfig.json
-    fi
 fi
 
 if [[ "$FRAMEWORK" == 'react' && "$BUILD_TOOL" == 'vite' ]]; then

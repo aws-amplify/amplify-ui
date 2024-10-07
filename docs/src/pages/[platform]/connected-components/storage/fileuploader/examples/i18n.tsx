@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { ToggleButtonGroup, ToggleButton } from '@aws-amplify/ui-react';
-import { StorageManager } from '@aws-amplify/ui-react-storage';
+import { FileUploader } from '@aws-amplify/ui-react-storage';
 
 const dictionary = {
   // use default strings for english
@@ -58,7 +58,7 @@ export const App = () => {
         <ToggleButton value="en">En</ToggleButton>
         <ToggleButton value="es">Es</ToggleButton>
       </ToggleButtonGroup>
-      <StorageManager
+      <FileUploader
         acceptedFileTypes={['image/*']}
         path="public/"
         maxFileCount={1}

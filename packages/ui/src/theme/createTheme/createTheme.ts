@@ -1,10 +1,10 @@
 import { defaultTheme } from '../defaultTheme';
 import { Theme, DefaultTheme, WebTheme, Override } from '../types';
 import {
+  deepExtend,
+  flattenProperties,
   setupToken,
   setupTokens,
-  flattenProperties,
-  deepExtend,
 } from './utils';
 import { WebDesignToken } from '../tokens/types/designToken';
 import { createComponentCSS } from './createComponentCSS';
@@ -74,12 +74,13 @@ export function createTheme<TokensType extends WebTokens = WebTokens>(
     `\n}\n`;
 
   if (theme?.components) {
-    cssText += createComponentCSS(
-      name,
-      theme.components,
-      tokens,
-      mergedTheme.breakpoints
-    );
+    cssText += createComponentCSS({
+      theme: {
+        ...mergedTheme,
+        tokens,
+      },
+      components: theme.components,
+    });
   }
 
   let overrides: Array<Override> = [];

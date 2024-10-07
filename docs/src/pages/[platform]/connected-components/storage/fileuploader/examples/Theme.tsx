@@ -1,5 +1,5 @@
 import { ThemeProvider } from '@aws-amplify/ui-react';
-import { StorageManager } from '@aws-amplify/ui-react-storage';
+import { FileUploader } from '@aws-amplify/ui-react-storage';
 
 const theme = {
   name: 'my-theme',
@@ -8,7 +8,7 @@ const theme = {
       small: '2px',
     },
     components: {
-      storagemanager: {
+      fileuploader: {
         dropzone: {
           borderColor: '{colors.primary.60}',
         },
@@ -20,7 +20,7 @@ const theme = {
 export const App = () => {
   return (
     <ThemeProvider theme={theme}>
-      <StorageManager
+      <FileUploader
         acceptedFileTypes={['image/*']}
         path="public/"
         maxFileCount={5}

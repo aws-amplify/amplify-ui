@@ -1,4 +1,4 @@
-import { StorageManager } from '@aws-amplify/ui-react-storage';
+import { FileUploader } from '@aws-amplify/ui-react-storage';
 
 const processFile = ({ file, key }) => {
   return {
@@ -12,7 +12,7 @@ const processFile = ({ file, key }) => {
 
 export function App() {
   return (
-    <StorageManager
+    <FileUploader
       acceptedFileTypes={['image/*']}
       path="public/"
       maxFileCount={3}
