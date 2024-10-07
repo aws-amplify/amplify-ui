@@ -7,7 +7,6 @@ import '@aws-amplify/ui-react/styles.css';
 import outputs from './amplify_outputs';
 import type { Schema } from '@environments/ai/gen2/amplify/data/resource';
 import {
-  Card,
   View,
   createTheme,
   defaultDarkModeOverride,

@@ -58,8 +58,8 @@ exports[`@aws-amplify/ui overrides should match snapshot 1`] = `
 --amplify-components-ai-conversation-attachment-size-font-size: var(--amplify-font-sizes-small);
 --amplify-components-ai-conversation-attachment-size-font-weight: var(--amplify-font-weights-normal);
 --amplify-components-ai-conversation-attachment-remove-padding: var(--amplify-space-xxs);
---amplify-components-ai-conversation-attachment-image-width: 1rem;
---amplify-components-ai-conversation-attachment-image-height: 1rem;
+--amplify-components-ai-conversation-attachment-image-width: var(--amplify-font-sizes-medium);
+--amplify-components-ai-conversation-attachment-image-height: var(--amplify-font-sizes-medium);
 --amplify-components-alert-align-items: center;
 --amplify-components-alert-justify-content: space-between;
 --amplify-components-alert-color: var(--amplify-colors-font-primary);
