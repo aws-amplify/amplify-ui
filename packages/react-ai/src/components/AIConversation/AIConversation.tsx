@@ -63,6 +63,7 @@ function AIConversationBase({
       ...controls,
     },
     displayText,
+    allowAttachments,
   });
 
   const providerProps = {
@@ -73,7 +74,6 @@ function AIConversationBase({
       ...avatars,
     },
     isLoading,
-    allowAttachments,
   };
 
   return (
