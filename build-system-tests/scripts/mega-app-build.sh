@@ -28,6 +28,9 @@ while [[ $# -gt 0 ]]; do
         FRAMEWORK=$2
         shift
         ;;
+     -f | --framework-version)
+        shift # unused but allowed option
+        ;;
     -P | --pkg-manager)
         PKG_MANAGER=$2
         shift
