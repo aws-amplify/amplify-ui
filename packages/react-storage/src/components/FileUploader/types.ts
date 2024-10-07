@@ -1,7 +1,5 @@
 import * as React from 'react';
 
-import type { StorageAccessLevel } from '@aws-amplify/core';
-
 import {
   ContainerProps,
   DropZoneProps,
@@ -51,6 +49,8 @@ export type ProcessFile = (
 export interface FileUploaderHandle {
   clearFiles: () => void;
 }
+
+export type StorageAccessLevel = 'guest' | 'protected' | 'private';
 
 export interface FileUploaderProps {
   /**
