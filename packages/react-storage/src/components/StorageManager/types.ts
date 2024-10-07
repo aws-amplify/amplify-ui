@@ -1,8 +1,6 @@
 import * as React from 'react';
 
-import type { StorageAccessLevel } from '@aws-amplify/core';
-
-import { FileStatus } from '../FileUploader/types';
+import { FileStatus, StorageAccessLevel } from '../FileUploader/types';
 import {
   FileUploaderDisplayText as StorageManagerDisplayText,
   PathCallback,
