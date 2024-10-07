@@ -42,6 +42,10 @@ export {
   usePreviousValue,
   useSetUserAgent,
   useTimeout,
+  useDataState,
+  DataState,
+  useDropZone,
+  UseDropZoneParams,
 } from './hooks';
 
 export { MergeProps } from './types';

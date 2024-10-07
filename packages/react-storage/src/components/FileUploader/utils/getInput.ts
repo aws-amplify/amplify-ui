@@ -2,7 +2,7 @@ import { fetchAuthSession } from 'aws-amplify/auth';
 import { StorageAccessLevel } from '@aws-amplify/core';
 import { UploadDataWithPathInput, UploadDataInput } from 'aws-amplify/storage';
 
-import { isString, isTypedFunction } from '@aws-amplify/ui';
+import { isString, isFunction } from '@aws-amplify/ui';
 
 import { ProcessFile } from '../types';
 import { resolveFile } from './resolveFile';
@@ -12,7 +12,6 @@ export interface GetInputParams {
   accessLevel: StorageAccessLevel | undefined;
   file: File;
   key: string;
-  onProcessFileSuccess: (input: { processedKey: string }) => void;
   onProgress: NonNullable<UploadDataWithPathInput['options']>['onProgress'];
   path: string | PathCallback | undefined;
   processFile: ProcessFile | undefined;
@@ -23,14 +22,13 @@ export const getInput = ({
   accessLevel,
   file,
   key,
-  onProcessFileSuccess,
   onProgress,
   path,
   processFile,
   useAccelerateEndpoint,
 }: GetInputParams) => {
   return async (): Promise<PathInput | UploadDataInput> => {
-    const hasCallbackPath = isTypedFunction<PathCallback>(path);
+    const hasCallbackPath = isFunction(path);
     const hasStringPath = isString(path);
 
     const hasKeyInput = !!accessLevel && !hasCallbackPath;
@@ -65,11 +63,6 @@ export const getInput = ({
       }${processedKey}`;
 
       inputResult = { data: file, path: resolvedPath, options };
-    }
-
-    if (processFile) {
-      // provide post-processing value of target `key`
-      onProcessFileSuccess({ processedKey });
     }
 
     return inputResult;

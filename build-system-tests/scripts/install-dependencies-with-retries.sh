@@ -6,12 +6,18 @@
 install_dependencies_with_retries() {
     local retries=3
     local attempt=1
+    echo "Disable exit-on-error temporarily"
+    echo "set +e"
+    set +e
     while [ $attempt -le $retries ]; do
         echo "Attempt $attempt/$retries"
         echo "$1 install $2"
         "$1" install $2
         if [ $? -eq 0 ]; then
             echo "$1 install successful."
+            echo "Re-enable exit-on-error"
+            echo "set -e"
+            set -e
             break
         fi
         attempt=$((attempt + 1))
@@ -20,6 +26,9 @@ install_dependencies_with_retries() {
             sleep 5
         else
             echo "$1 install failed after $retries attempts."
+            echo "Re-enable exit-on-error"
+            echo "set -e"
+            set -e
             exit 1
         fi
     done

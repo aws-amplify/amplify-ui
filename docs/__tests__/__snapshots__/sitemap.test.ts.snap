@@ -54,6 +54,7 @@ exports[`Sitemap Snapshot 1`] = `
 /react/components/accordion, 
 /react/components/alert, 
 /react/components/autocomplete, 
+/react/components/avatar, 
 /react/components/badge, 
 /react/components/breadcrumbs, 
 /react/components/button, 

@@ -10,6 +10,14 @@ export interface BaseTextAreaFieldProps
     FlexContainerStyleProps,
     BaseTextAreaProps {
   inputStyles?: BaseStyleProps & TextAreaStyleProps;
+
+  /**
+   * @description
+   * Automatically adjusts the height of the textarea based on its content
+   * @default
+   * false
+   */
+  autoResize?: boolean;
 }
 
 export type TextAreaFieldProps<Element extends ElementType = 'textarea'> =

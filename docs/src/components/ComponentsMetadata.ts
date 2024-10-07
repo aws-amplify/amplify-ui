@@ -5,8 +5,10 @@ type ComponentClassNameKey = keyof typeof ComponentClassName;
 
 type ComponentNameKey =
   | 'Accordion'
+  | 'AIConversation'
   | 'Alert'
   | 'Autocomplete'
+  | 'Avatar'
   | 'Badge'
   | 'Breadcrumbs'
   | 'Button'
@@ -93,6 +95,116 @@ export const ComponentsMetadata: ComponentClassNameItems = {
     components: ['Accordion'],
     description: 'Accordion item trigger (summary element)',
   },
+  AIConversation: {
+    className: ComponentClassName.AIConversation,
+    components: ['AIConversation'],
+    description: 'Top level element that wraps the AIConversation primitive',
+  },
+  AIConversationAttachment: {
+    className: ComponentClassName.AIConversationAttachment,
+    components: ['AIConversation'],
+    description: 'Class applied to each attachment',
+  },
+  AIConversationAttachmentImage: {
+    className: ComponentClassName.AIConversationAttachmentImage,
+    components: ['AIConversation'],
+    description: 'Class applied to the image within an attachment',
+  },
+  AIConversationAttachmentList: {
+    className: ComponentClassName.AIConversationAttachmentList,
+    components: ['AIConversation'],
+    description: 'Class applied to the list of attachments',
+  },
+  AIConversationAttachmentName: {
+    className: ComponentClassName.AIConversationAttachmentName,
+    components: ['AIConversation'],
+    description: 'Class applied to the name of an attachment',
+  },
+  AIConversationAttachmentRemove: {
+    className: ComponentClassName.AIConversationAttachmentRemove,
+    components: ['AIConversation'],
+    description: 'Class applied to the remove button of an attachment',
+  },
+  AIConversationAttachmentSize: {
+    className: ComponentClassName.AIConversationAttachmentSize,
+    components: ['AIConversation'],
+    description: 'Class applied to the size of an attachment',
+  },
+  AIConversationForm: {
+    className: ComponentClassName.AIConversationForm,
+    components: ['AIConversation'],
+    description: 'Class applied to the form element',
+  },
+  AIConversationFormAttach: {
+    className: ComponentClassName.AIConversationFormAttach,
+    components: ['AIConversation'],
+    description: 'Class applied to the attach button',
+  },
+  AIConversationFormDropzone: {
+    className: ComponentClassName.AIConversationFormDropzone,
+    components: ['AIConversation'],
+    description: 'Class applied to the dropzone element',
+  },
+  AIConversationFormField: {
+    className: ComponentClassName.AIConversationFormField,
+    components: ['AIConversation'],
+    description: 'Class applied to the field element',
+  },
+  AIConversationFormSend: {
+    className: ComponentClassName.AIConversationFormSend,
+    components: ['AIConversation'],
+    description: 'Class applied to the send button',
+  },
+  AIConversationMessage: {
+    className: ComponentClassName.AIConversationMessage,
+    components: ['AIConversation'],
+    description: 'Class applied to each message',
+  },
+  AIConversationMessageActions: {
+    className: ComponentClassName.AIConversationMessageActions,
+    components: ['AIConversation'],
+    description: 'Class applied to the actions section of a message',
+  },
+  AIConversationMessageAvatar: {
+    className: ComponentClassName.AIConversationMessageAvatar,
+    components: ['AIConversation'],
+    description: 'Class applied to the avatar of a message',
+  },
+  AIConversationMessageBody: {
+    className: ComponentClassName.AIConversationMessageBody,
+    components: ['AIConversation'],
+    description: 'Class applied to the body of a message',
+  },
+  AIConversationMessageContent: {
+    className: ComponentClassName.AIConversationMessageContent,
+    components: ['AIConversation'],
+    description: 'Class applied to the content section of a message',
+  },
+  AIConversationMessageList: {
+    className: ComponentClassName.AIConversationMessageList,
+    components: ['AIConversation'],
+    description: 'Class applied to the list of messages',
+  },
+  AIConversationMessageSender: {
+    className: ComponentClassName.AIConversationMessageSender,
+    components: ['AIConversation'],
+    description: 'Class applied to the sender of a message',
+  },
+  AIConversationMessageSenderTimestamp: {
+    className: ComponentClassName.AIConversationMessageSenderTimestamp,
+    components: ['AIConversation'],
+    description: 'Class applied to the timestamp of a message',
+  },
+  AIConversationMessageSenderUsername: {
+    className: ComponentClassName.AIConversationMessageSenderUsername,
+    components: ['AIConversation'],
+    description: 'Class applied to the username of a message',
+  },
+  AIConversationPrompt: {
+    className: ComponentClassName.AIConversationPrompt,
+    components: ['AIConversation'],
+    description: 'Class applied to the prompt element',
+  },
   Alert: {
     className: ComponentClassName.Alert,
     components: ['Alert'],
@@ -157,6 +269,26 @@ export const ComponentsMetadata: ComponentClassNameItems = {
     className: ComponentClassName.AutocompleteMenuOptions,
     components: ['Autocomplete'],
     description: 'Class applied to ul container element',
+  },
+  Avatar: {
+    className: ComponentClassName.Avatar,
+    components: ['Avatar'],
+    description: 'Top level element that wraps the Avatar primitive',
+  },
+  AvatarImage: {
+    className: ComponentClassName.AvatarImage,
+    components: ['Avatar'],
+    description: 'Class applied to the img element',
+  },
+  AvatarIcon: {
+    className: ComponentClassName.AvatarIcon,
+    components: ['Avatar'],
+    description: 'Class applied to the icon element',
+  },
+  AvatarLoader: {
+    className: ComponentClassName.AvatarLoader,
+    components: ['Avatar'],
+    description: 'Class applied to the loader element',
   },
   Badge: {
     className: ComponentClassName.Badge,

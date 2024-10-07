@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { StorageManager } from '@aws-amplify/ui-react-storage';
+import { FileUploader } from '@aws-amplify/ui-react-storage';
 
 export const App = () => {
   const [files, setFiles] = React.useState({});
 
   return (
     <>
-      <StorageManager
+      <FileUploader
         acceptedFileTypes={['image/*']}
         // private uploads will fail intentionally in docs // IGNORE
         path={({ identityId }) => `private/${identityId}/`}

@@ -1,5 +1,5 @@
 import kebabCase from 'lodash/kebabCase.js';
-import { has, isObject, isString } from '../../utils';
+import { has, isObject, isString, usesReference } from '../../utils';
 import { WebDesignToken } from '../types';
 import { ShadowValue } from '../tokens/types/designToken';
 import { CSSProperties } from '../components/utils';
@@ -142,7 +142,7 @@ export function setupTokens({
   tokens,
   path = [],
   setupToken,
-}: SetupTokensProps): any {
+}: SetupTokensProps): Record<string, any> {
   if (has(tokens, 'value')) {
     return setupToken({ token: tokens as BaseDesignToken, path });
   }
@@ -268,37 +268,4 @@ export function deepExtend<T>(
   }
 
   return target as T;
-}
-
-/**
- * Checks if the value uses a value reference.
- * @param {string} value
- * @returns {boolean} - True, if the value uses a value reference
- */
-export function usesReference(value) {
-  const regex = new RegExp('\\{([^}]+)\\}', 'g');
-
-  if (typeof value === 'string') {
-    return regex.test(value);
-  }
-
-  if (typeof value === 'object') {
-    let hasReference = false;
-    // iterate over each property in the object,
-    // if any element passes the regex test,
-    // the whole thing should be true
-    for (const key in value) {
-      if (has(value, key)) {
-        const element = value[key];
-        let reference = usesReference(element);
-        if (reference) {
-          hasReference = true;
-          break;
-        }
-      }
-    }
-    return hasReference;
-  }
-
-  return false;
 }

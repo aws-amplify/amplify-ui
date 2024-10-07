@@ -1,4 +1,6 @@
 export * from './IconAdd';
+export * from './IconAssistant';
+export * from './IconAttach';
 export * from './IconCheckCircleOutline';
 export * from './IconCheckCircle';
 export * from './IconCheck';
@@ -14,8 +16,10 @@ export * from './IconInfo';
 export * from './IconMenu';
 export * from './IconRemove';
 export * from './IconSearch';
+export * from './IconSend';
 export * from './IconStar';
 export * from './IconUpload';
+export * from './IconUser';
 export * from './IconVisibilityOff';
 export * from './IconVisibility';
 export * from './IconWarning';

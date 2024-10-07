@@ -31,7 +31,7 @@ jobs:
             platform: ios
 
     env:
-      MEGA_APP_NAME: rn${{ matrix.framework-version }}${{ matrix.build-tool }}${{ matrix.build-tool-version }}${{ matrix.language }}${{ matrix.platform }}ui${{ inputs.dist-tag }}
+      MEGA_APP_NAME: rn-${{ matrix.framework-version }}-${{ matrix.build-tool }}-${{ matrix.build-tool-version }}-${{ matrix.language }}-${{ matrix.platform }}-ui-${{ inputs.dist-tag }}
 
     steps:
       - name: Checkout Amplify UI

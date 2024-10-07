@@ -1,5 +1,160 @@
 # @aws-amplify/ui-react
 
+## 6.5.2
+
+### Patch Changes
+
+- [#5849](https://github.com/aws-amplify/amplify-ui/pull/5849) [`22e285f58`](https://github.com/aws-amplify/amplify-ui/commit/22e285f5802e40b78c5a055a7384943c41252428) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(utils): prefer isFunction
+
+- [#5830](https://github.com/aws-amplify/amplify-ui/pull/5830) [`545aa6a60`](https://github.com/aws-amplify/amplify-ui/commit/545aa6a608b68b9fb78f5df56da0e1e09b537d58) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(rollup): upgrade rollup deps, migrate to mjs config file, enforce linting on mjs files
+
+- [#5853](https://github.com/aws-amplify/amplify-ui/pull/5853) [`87d74a7de`](https://github.com/aws-amplify/amplify-ui/commit/87d74a7deaa7d0cf393dfed3fb3cc85a3790c382) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(deps): remove @aws-amplify/core devDep from react-core
+
+- Updated dependencies [[`22e285f58`](https://github.com/aws-amplify/amplify-ui/commit/22e285f5802e40b78c5a055a7384943c41252428), [`545aa6a60`](https://github.com/aws-amplify/amplify-ui/commit/545aa6a608b68b9fb78f5df56da0e1e09b537d58), [`87d74a7de`](https://github.com/aws-amplify/amplify-ui/commit/87d74a7deaa7d0cf393dfed3fb3cc85a3790c382)]:
+  - @aws-amplify/ui-react-core@3.0.26
+  - @aws-amplify/ui@6.6.2
+
+## 6.5.1
+
+### Patch Changes
+
+- [#5796](https://github.com/aws-amplify/amplify-ui/pull/5796) [`bf9dbc334`](https://github.com/aws-amplify/amplify-ui/commit/bf9dbc334293aff844a835e1717ee529e1abded3) Thanks [@esauerbo](https://github.com/esauerbo)! - chore(deps): Fix transitive dependencies.
+
+- [#5825](https://github.com/aws-amplify/amplify-ui/pull/5825) [`3a677a1af`](https://github.com/aws-amplify/amplify-ui/commit/3a677a1afa60652fcd1a5adb734b9c94d4ba5c3d) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - feat(theming): add global style ability (experimental)
+
+  Adding the ability to create global styles with the experimental theming APIs
+
+  ```jsx
+  <GlobalStyle styles={{
+    'body': {
+      backgroundColor: 'purple'
+      // supports design tokens!
+      color: theme.tokens.colors.font.primary
+    }
+  }} />
+  ```
+
+- Updated dependencies [[`bf9dbc334`](https://github.com/aws-amplify/amplify-ui/commit/bf9dbc334293aff844a835e1717ee529e1abded3), [`3a677a1af`](https://github.com/aws-amplify/amplify-ui/commit/3a677a1afa60652fcd1a5adb734b9c94d4ba5c3d)]:
+  - @aws-amplify/ui-react-core@3.0.25
+  - @aws-amplify/ui@6.6.1
+
+## 6.5.0
+
+### Minor Changes
+
+- [#5812](https://github.com/aws-amplify/amplify-ui/pull/5812) [`0ddeea9d4`](https://github.com/aws-amplify/amplify-ui/commit/0ddeea9d432f12621e0e32dae346e72881b790db) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - feat(theming) add custom component style rendering
+
+  ```jsx
+  const customComponentTheme = defineComponentTheme({
+    name: 'custom-component',
+    theme(tokens) {
+      return {
+        color: tokens.colors.red[10]
+      }
+    }
+  });
+
+  export function CustomComponent() {
+    return (
+      <>
+        <View className={customComponentTheme.className()}>
+        </View>
+        // This will create a style tag with only the styles in the component theme
+        // the styles are scoped to the global theme
+        <ComponentStyle theme={theme} componentThemes=[customComponentTheme] />
+      </>
+    )
+  }
+  ```
+
+### Patch Changes
+
+- Updated dependencies [[`0ddeea9d4`](https://github.com/aws-amplify/amplify-ui/commit/0ddeea9d432f12621e0e32dae346e72881b790db), [`7a12237d2`](https://github.com/aws-amplify/amplify-ui/commit/7a12237d2c96107ef97d3c62d9d26d6b6f1d824c)]:
+  - @aws-amplify/ui@6.6.0
+  - @aws-amplify/ui-react-core@3.0.24
+
+## 6.4.0
+
+### Minor Changes
+
+- [#5777](https://github.com/aws-amplify/amplify-ui/pull/5777) [`0ebf8b346`](https://github.com/aws-amplify/amplify-ui/commit/0ebf8b346bc744cd73e1e7891eafc07538d6419d) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - feat(avatar): add loading state to avatar and AIConversation
+
+  ```jsx
+  <Avatar isLoading />
+  ```
+
+### Patch Changes
+
+- Updated dependencies [[`0ebf8b346`](https://github.com/aws-amplify/amplify-ui/commit/0ebf8b346bc744cd73e1e7891eafc07538d6419d)]:
+  - @aws-amplify/ui@6.5.0
+  - @aws-amplify/ui-react-core@3.0.23
+
+## 6.3.1
+
+### Patch Changes
+
+- Updated dependencies [[`9d96dd1fe`](https://github.com/aws-amplify/amplify-ui/commit/9d96dd1fe51212e8e55b0dde816122a6f5672762)]:
+  - @aws-amplify/ui@6.4.1
+  - @aws-amplify/ui-react-core@3.0.22
+
+## 6.3.0
+
+### Minor Changes
+
+- [#5767](https://github.com/aws-amplify/amplify-ui/pull/5767) [`afffa89cb`](https://github.com/aws-amplify/amplify-ui/commit/afffa89cb29bb08ff1b626c727a2c9fb93bf11b3) Thanks [@thaddmt](https://github.com/thaddmt)! - feat(textarea): add autoresizing to textarea
+
+  ```jsx
+  export const AutoresizeTextareaExample = () => {
+    const [value, setValue] = React.useState('');
+
+    return (
+      <TextAreaField
+        autoResize
+        label="Comments"
+        value={value}
+        onChange={(e) => {
+          setValue(e.target.value);
+        }}
+      />
+    );
+  };
+  ```
+
+- [#5767](https://github.com/aws-amplify/amplify-ui/pull/5767) [`afffa89cb`](https://github.com/aws-amplify/amplify-ui/commit/afffa89cb29bb08ff1b626c727a2c9fb93bf11b3) Thanks [@thaddmt](https://github.com/thaddmt)! - feat(scrollview): add autoScroll prop
+
+  ```jsx
+  <ScrollView autoScroll="smooth">{/* ... */}</ScrollView>
+  ```
+
+- [#5767](https://github.com/aws-amplify/amplify-ui/pull/5767) [`afffa89cb`](https://github.com/aws-amplify/amplify-ui/commit/afffa89cb29bb08ff1b626c727a2c9fb93bf11b3) Thanks [@thaddmt](https://github.com/thaddmt)! - feat(primitives): add Avatar primitive
+
+  ```jsx
+  {
+    /* Avatar with image */
+  }
+  <Avatar src="/cats/5.jpg" />;
+  {
+    /* Avatar with default placeholder icon */
+  }
+  <Avatar />;
+  {
+    /* Avatar with initials */
+  }
+  <Avatar>DB</Avatar>;
+  {
+    /* Avatar with custom icon */
+  }
+  <Avatar>
+    <FiSmile style={{ width: '60%', height: '60%' }} />
+  </Avatar>;
+  ```
+
+### Patch Changes
+
+- Updated dependencies [[`afffa89cb`](https://github.com/aws-amplify/amplify-ui/commit/afffa89cb29bb08ff1b626c727a2c9fb93bf11b3)]:
+  - @aws-amplify/ui@6.4.0
+  - @aws-amplify/ui-react-core@3.0.21
+
 ## 6.2.2
 
 ### Patch Changes

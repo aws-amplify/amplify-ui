@@ -6,9 +6,11 @@
     "entryFile": "src/index.ts"
   },
   "allowedNonPeerDependencies": [
+    "@angular/common",
     "@aws-amplify/ui",
     "classnames",
     "nanoid",
+    "rxjs",
     "qrcode",
     "xstate"
   ]
