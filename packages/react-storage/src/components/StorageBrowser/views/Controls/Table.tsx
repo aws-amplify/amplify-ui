@@ -217,7 +217,7 @@ export const LocationDetailViewTable = ({
       ? pagedData.sort((a, b) => compareFn(a[selection], b[selection]))
       : pagedData.sort((a, b) => compareFn(b[selection], a[selection]));
 
-  // Selection state:
+  // Logic for Select All Files functionality
   const files = pagedData.filter((item) => item.type === 'FILE');
   const selectedMap: Record<string, boolean> = {};
   selected.items?.forEach((item) => (selectedMap[item.key] = true));
