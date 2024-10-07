@@ -1,24 +1,24 @@
-import React from "react";
-import { humanFileSize } from "@aws-amplify/ui";
+import React from 'react';
+import { humanFileSize } from '@aws-amplify/ui';
 
-import { TABLE_HEADER_BUTTON_CLASS_NAME } from "../../components/DataTable";
-import { useAction } from "../../context/actions";
+import { TABLE_HEADER_BUTTON_CLASS_NAME } from '../../components/DataTable';
+import { useAction } from '../../context/actions';
 import {
   SpanElementProps,
   StorageBrowserElements,
   TableDataElementProps,
   TableHeaderElementProps,
-} from "../../context/elements";
-import { useControl } from "../../context/control";
-import { FileItem, FolderItem, LocationItem } from "../../context/types";
+} from '../../context/elements';
+import { useControl } from '../../context/control';
+import { FileItem, FolderItem, LocationItem } from '../../context/types';
 
-import { CLASS_BASE } from "../constants";
-import { compareDates, compareNumbers, compareStrings } from "../utils";
+import { CLASS_BASE } from '../constants';
+import { compareDates, compareNumbers, compareStrings } from '../utils';
 
-import { DownloadControl } from "./Download";
-import { CheckboxControl } from "../../components/Checkbox";
+import { DownloadControl } from './Download';
+import { CheckboxControl } from '../../components/Checkbox';
 
-export type SortDirection = "ascending" | "descending" | "none";
+export type SortDirection = 'ascending' | 'descending' | 'none';
 
 export type SortState<T> = {
   selection: keyof T;
@@ -42,8 +42,8 @@ const ICON_CLASS = `${BLOCK_NAME}__data__icon`;
 const TABLE_DATA_CLASS = `${BLOCK_NAME}__data`;
 const TABLE_HEADER_CLASS = `${BLOCK_NAME}__header`;
 
-const SELECT_FILE_TEXT = "Select file";
-const SELECT_ALL_FILES_TEXT = "Select all files";
+const SELECT_FILE_TEXT = 'Select file';
+const SELECT_ALL_FILES_TEXT = 'Select all files';
 
 function TableData({ className, variant, ...props }: TableDataElementProps) {
   return (
@@ -52,7 +52,7 @@ function TableData({ className, variant, ...props }: TableDataElementProps) {
       className={
         className ??
         `${TABLE_DATA_CLASS}${
-          variant ? ` ${TABLE_DATA_CLASS}--${variant}` : ""
+          variant ? ` ${TABLE_DATA_CLASS}--${variant}` : ''
         }`
       }
       variant={variant}
@@ -71,7 +71,7 @@ function TableHeader({
       className={
         className ??
         `${TABLE_HEADER_CLASS} ${
-          variant ? ` ${TABLE_HEADER_CLASS}--${variant}` : ""
+          variant ? ` ${TABLE_HEADER_CLASS}--${variant}` : ''
         }`
       }
       variant={variant}
@@ -90,28 +90,28 @@ const LOCATION_DETAIL_VIEW_COLUMNS: Column<LocationItem>[] = [
   {
     // @TODO: Fix me after refactor
     // @ts-ignore
-    key: "select",
-    header: "",
+    key: 'select',
+    header: '',
   },
   {
-    key: "key",
-    header: "Name",
+    key: 'key',
+    header: 'Name',
   },
   {
-    key: "type",
-    header: "Type",
+    key: 'type',
+    header: 'Type',
   },
   {
-    key: "lastModified" as keyof LocationItem,
-    header: "Last Modified",
+    key: 'lastModified' as keyof LocationItem,
+    header: 'Last Modified',
   },
   {
-    key: "size" as keyof LocationItem,
-    header: "Size",
+    key: 'size' as keyof LocationItem,
+    header: 'Size',
   },
   {
-    key: "download" as keyof LocationItem,
-    header: "Download",
+    key: 'download' as keyof LocationItem,
+    header: 'Download',
   },
 ];
 
@@ -137,7 +137,7 @@ export function TableControl<U>({
   renderHeaderItem,
   renderRowItem,
 }: TableControlProps<U>): React.JSX.Element {
-  const ariaLabel = "Table";
+  const ariaLabel = 'Table';
 
   return (
     <Table aria-label={ariaLabel} className={BLOCK_NAME}>
@@ -165,7 +165,7 @@ const LocationDetailViewColumnSortMap = {
   size: compareNumbers,
 };
 
-const LocationDetailViewColumnEmptyHeaderMap = ["download"];
+const LocationDetailViewColumnEmptyHeaderMap = ['download'];
 
 export const LocationDetailSelectAllControl = ({
   onSelect,
@@ -192,19 +192,19 @@ export const LocationDetailViewTable = ({
 }): JSX.Element | null => {
   const [start, end] = range;
 
-  const [{ history, path }, handleUpdateState] = useControl("NAVIGATE");
+  const [{ history, path }, handleUpdateState] = useControl('NAVIGATE');
   const [{ selected }, handleLocationActionsState] =
-    useControl("LOCATION_ACTIONS");
+    useControl('LOCATION_ACTIONS');
 
-  const [{ data }] = useAction("LIST_LOCATION_ITEMS");
+  const [{ data }] = useAction('LIST_LOCATION_ITEMS');
 
   const currentPosition = history.length;
   const hasItems = !!data.result?.length;
 
   const [compareFn, setCompareFn] = React.useState(() => compareStrings);
   const [sortState, setSortState] = React.useState<SortState<LocationItem>>({
-    selection: "key",
-    direction: "ascending",
+    selection: 'key',
+    direction: 'ascending',
   });
 
   const { direction, selection } = sortState;
@@ -213,12 +213,12 @@ export const LocationDetailViewTable = ({
   const pagedData = data.result.slice(start, end);
 
   const tableData =
-    direction === "ascending"
+    direction === 'ascending'
       ? pagedData.sort((a, b) => compareFn(a[selection], b[selection]))
       : pagedData.sort((a, b) => compareFn(b[selection], a[selection]));
 
-  // Selection state:
-  const files = pagedData.filter((item) => item.type === "FILE");
+  // Logic for Select All Files functionality
+  const files = pagedData.filter((item) => item.type === 'FILE');
   const selectedMap: Record<string, boolean> = {};
   selected.items?.forEach((item) => (selectedMap[item.key] = true));
   const hasFilesToSelect = files.length > 0;
@@ -238,11 +238,11 @@ export const LocationDetailViewTable = ({
           key={header}
           variant={key}
           aria-label={
-            key == ("download" as keyof LocationItem)
+            key == ('download' as keyof LocationItem)
               ? column.header
               : undefined
           }
-          aria-sort={selection === key ? direction : "none"}
+          aria-sort={selection === key ? direction : 'none'}
         >
           {LocationDetailViewColumnSortMap[column.key] ? (
             <Button
@@ -253,9 +253,9 @@ export const LocationDetailViewTable = ({
                 setSortState((prevState) => ({
                   selection: column.key,
                   direction:
-                    prevState.direction === "ascending"
-                      ? "descending"
-                      : "ascending",
+                    prevState.direction === 'ascending'
+                      ? 'descending'
+                      : 'ascending',
                 }));
               }}
             >
@@ -263,8 +263,8 @@ export const LocationDetailViewTable = ({
               {selection === column.key ? (
                 <Icon
                   variant={
-                    direction === "none"
-                      ? "sort-indeterminate"
+                    direction === 'none'
+                      ? 'sort-indeterminate'
                       : `sort-${direction}`
                   }
                 />
@@ -274,20 +274,20 @@ export const LocationDetailViewTable = ({
             </Button>
           ) : // @TODO: Fix me after refactor
           // @ts-ignore
-          column.key === "select" ? (
+          column.key === 'select' ? (
             hasFilesToSelect && (
               <LocationDetailSelectAllControl
                 checked={allFilesSelected}
                 onSelect={() => {
                   handleLocationActionsState({
-                    type: "TOGGLE_SELECTED_ITEMS",
+                    type: 'TOGGLE_SELECTED_ITEMS',
                     items: allFilesSelected ? [] : files,
                   });
                 }}
               />
             )
           ) : LocationDetailViewColumnEmptyHeaderMap.includes(
-              column.key,
+              column.key
             ) ? null : (
             column.header
           )}
@@ -301,7 +301,7 @@ export const LocationDetailViewTable = ({
       hasFilesToSelect,
       allFilesSelected,
       selection,
-    ],
+    ]
   );
 
   // @TODO: This should be it's own component instead of using `useCallback`
@@ -309,35 +309,35 @@ export const LocationDetailViewTable = ({
     (row, index) => {
       const renderTableData = (
         row: LocationItem,
-        column: Column<LocationItem>,
+        column: Column<LocationItem>
       ) => {
         const { type } = row;
 
         switch (type) {
-          case "FILE": {
+          case 'FILE': {
             // Casting column as Column<FileItem> to assert that we're only working with FileItems
             // since the type is 'FILE'
             const { key } = column as Column<FileItem>;
 
             switch (key) {
-              case "size": {
+              case 'size': {
                 return (
                   <TableDataText>
                     {humanFileSize(row.size ?? 0, true)}
                   </TableDataText>
                 );
               }
-              case "lastModified": {
+              case 'lastModified': {
                 return (
                   <TableDataText>
                     {new Date(row.lastModified).toLocaleString()}
                   </TableDataText>
                 );
               }
-              case "download" as keyof LocationItem: {
+              case 'download' as keyof LocationItem: {
                 return <DownloadControl fileKey={`${path}${row.key}`} />;
               }
-              case "select" as keyof LocationItem: {
+              case 'select' as keyof LocationItem: {
                 const isSelected =
                   selected.items?.some((item) => item.key === row.key) ?? false;
                 return (
@@ -348,23 +348,23 @@ export const LocationDetailViewTable = ({
                     labelText={`${SELECT_FILE_TEXT} ${row.key}`}
                     onSelect={() => {
                       handleLocationActionsState({
-                        type: "TOGGLE_SELECTED_ITEM",
+                        type: 'TOGGLE_SELECTED_ITEM',
                         item: row,
                       });
                     }}
                   />
                 );
               }
-              case "type": {
-                const indexOfDot = row.key.lastIndexOf(".");
+              case 'type': {
+                const indexOfDot = row.key.lastIndexOf('.');
 
                 return indexOfDot > -1 ? (
                   <TableDataText>{row.key.slice(indexOfDot + 1)}</TableDataText>
                 ) : (
-                  "-"
+                  '-'
                 );
               }
-              case "key": {
+              case 'key': {
                 return (
                   <TableDataText>
                     <Icon className={ICON_CLASS} variant="file" />
@@ -376,20 +376,20 @@ export const LocationDetailViewTable = ({
                 return <TableDataText>{row[column.key]}</TableDataText>;
             }
           }
-          case "FOLDER": {
+          case 'FOLDER': {
             // Casting column as Column<FolderItem> to assert that we're only working with FileItems
             // since the type is 'FOLDER'
             const { key } = column as Column<FolderItem>;
 
             switch (key) {
-              case "key": {
+              case 'key': {
                 return (
                   <Button
                     className={`${BLOCK_NAME}__data__button`}
                     variant="table-data"
                     onClick={() => {
                       handleUpdateState({
-                        type: "NAVIGATE",
+                        type: 'NAVIGATE',
                         entry: {
                           position: currentPosition + 1,
                           prefix: row.key,
@@ -402,7 +402,7 @@ export const LocationDetailViewTable = ({
                   </Button>
                 );
               }
-              case "type": {
+              case 'type': {
                 return <TableDataText>Folder</TableDataText>;
               }
               default:
@@ -430,7 +430,7 @@ export const LocationDetailViewTable = ({
       path,
       selected,
       handleLocationActionsState,
-    ],
+    ]
   );
 
   return hasItems ? (
