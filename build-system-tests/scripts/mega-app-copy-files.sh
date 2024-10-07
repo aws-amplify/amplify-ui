@@ -76,24 +76,6 @@ echo "Installing json and strip-json-comments"
 echo "npm install"
 npm install
 
-if [ "$BUILD_TOOL" == 'cra' ]; then
-    echo "cp $AWS_EXPORTS_FILE mega-apps/${MEGA_APP_NAME}/src/aws-exports.js"
-    cp $AWS_EXPORTS_FILE mega-apps/${MEGA_APP_NAME}/src/aws-exports.js
-    if [ "$LANGUAGE" == 'js' ]; then
-        echo "cp templates/components/react/cra/App.js mega-apps/${MEGA_APP_NAME}/src/App.js"
-        cp templates/components/react/cra/App.js mega-apps/${MEGA_APP_NAME}/src/App.js
-    else
-        echo "cp templates/components/react/cra/App.js mega-apps/${MEGA_APP_NAME}/src/App.tsx"
-        cp templates/components/react/cra/App.js mega-apps/${MEGA_APP_NAME}/src/App.tsx
-        if [ "$FRAMEWORK_VERSION" == '16' ]; then
-            # We have to customize the index.tsx file for React 16 because the render API changed since React 18.
-            # See more: https://legacy.reactjs.org/blog/2022/03/08/react-18-upgrade-guide.html
-            echo "cp templates/components/react/cra/index-react-${FRAMEWORK_VERSION}.js mega-apps/${MEGA_APP_NAME}/src/index.tsx"
-            cp templates/components/react/cra/index-react-${FRAMEWORK_VERSION}.js mega-apps/${MEGA_APP_NAME}/src/index.tsx
-        fi
-    fi
-fi
-
 if [ "$BUILD_TOOL" == 'next' ]; then
     echo "mkdir mega-apps/${MEGA_APP_NAME}/data"
     mkdir mega-apps/${MEGA_APP_NAME}/data
@@ -110,15 +92,6 @@ if [[ "$FRAMEWORK" == 'react' && "$BUILD_TOOL" == 'vite' ]]; then
     cp $AWS_EXPORTS_DECLARATION_FILE mega-apps/${MEGA_APP_NAME}/src/aws-exports.d.ts
     echo "cp templates/components/react/vite/App.tsx mega-apps/${MEGA_APP_NAME}/src/App.tsx"
     cp templates/components/react/vite/App.tsx mega-apps/${MEGA_APP_NAME}/src/App.tsx
-
-    # See troubleshooting:
-    # https://ui.docs.amplify.aws/react/getting-started/troubleshooting#vite
-    echo "cp templates/components/react/vite/index.html mega-apps/${MEGA_APP_NAME}/index.html"
-    cp templates/components/react/vite/index.html mega-apps/${MEGA_APP_NAME}/index.html
-    echo "cp templates/components/react/vite/template-tsconfig-vite-${BUILD_TOOL_VERSION}.json mega-apps/${MEGA_APP_NAME}/tsconfig.app.json"
-    cp templates/components/react/vite/template-tsconfig-vite-${BUILD_TOOL_VERSION}.json mega-apps/${MEGA_APP_NAME}/tsconfig.app.json
-    echo "cp templates/components/react/vite/vite.config.ts mega-apps/${MEGA_APP_NAME}/vite.config.ts"
-    cp templates/components/react/vite/vite.config.ts mega-apps/${MEGA_APP_NAME}/vite.config.ts
 fi
 
 if [[ "$FRAMEWORK" == 'angular' ]]; then
