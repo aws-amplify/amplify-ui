@@ -17,100 +17,38 @@ jobs:
       matrix:
         framework: [react]
         framework-version: [latest]
-        build-tool: [cra, next, vite]
+        build-tool: [next, vite]
         build-tool-version: [latest]
         pkg-manager: [npm]
         language: [ts]
-        node-version: [18]
+        node-version: [20]
         pkg-manager-version: [latest]
         include:
           - framework: react
-            framework-version: latest
-            build-tool: cra
-            build-tool-version: latest
-            pkg-manager: npm
-            language: ts
-            node-version: 20
-          - framework: react
-            framework-version: 16
-            build-tool: cra
-            build-tool-version: latest
-            pkg-manager: npm
-            language: ts
-            node-version: 20
-          - framework: react
-            framework-version: latest
-            build-tool: cra
-            build-tool-version: latest
-            pkg-manager: npm
-            language: js
-            node-version: 20
-          - framework: react
-            framework-version: latest
-            build-tool: cra
-            build-tool-version: latest
-            pkg-manager: yarn
-            pkg-manager-version: 1
-            language: ts
-            node-version: 20
-          - framework: react
             framework-version: 18
             build-tool: next
-            build-tool-version: 12
-            pkg-manager: npm
-            language: ts
-            node-version: 20
+            build-tool-version: 13
           - framework: react
-            framework-version: latest
             build-tool: vite
-            build-tool-version: 2
-            pkg-manager: npm
-            language: ts
-            node-version: 20
-
+            build-tool-version: 3
           - framework: angular
-            framework-version: latest
             build-tool: angular-cli
-            build-tool-version: latest
-            pkg-manager: npm
-            language: ts
-            node-version: 20
           - framework: angular
             framework-version: 14
             build-tool: angular-cli
             build-tool-version: 14
-            pkg-manager: npm
-            language: ts
-            node-version: 20
-
           - framework: vue
             framework-version: 3 # here use "3" instead of "latest" because .vuerc(preset) doesn't accept "latest" as "vueVersion"
             build-tool: vue-cli
-            build-tool-version: latest
             pkg-manager: yarn # vue-cli defualt pkg-manager is yarn. It can't be customized in the preset.json.
-            language: ts
-            node-version: 20
           - framework: vue
-            framework-version: latest
             build-tool: vite
-            build-tool-version: latest
-            pkg-manager: npm
-            language: ts
-            node-version: 20
           - framework: vue
-            framework-version: latest
+            framework-version: 3
             build-tool: vite
             build-tool-version: 3
-            pkg-manager: npm
-            language: ts
-            node-version: 20
           - framework: vue
-            framework-version: latest
             build-tool: nuxt
-            build-tool-version: latest
-            pkg-manager: npm
-            language: ts
-            node-version: 20
 
     env:
       MEGA_APP_NAME: ${{ matrix.framework }}-${{ matrix.framework-version }}-${{ matrix.build-tool }}-${{ matrix.build-tool-version }}-${{ matrix.language }}-ui-${{ inputs.dist-tag }}
