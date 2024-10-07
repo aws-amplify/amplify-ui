@@ -82,10 +82,10 @@ echo "##################"
 echo "# Setup Mega App #"
 echo "##################"
 
-BASE_OPTIONS="--build-tool $BUILD_TOOL --build-tool-version $BUILD_TOOL_VERSION --name $MEGA_APP_NAME --framework $FRAMEWORK --framework-version $FRAMEWORK_VERSION"
+BASE_OPTIONS="--build-tool $BUILD_TOOL --name $MEGA_APP_NAME --framework $FRAMEWORK --framework-version $FRAMEWORK_VERSION"
 
 # Create mega app
-./scripts/mega-app-create-app.sh $BASE_OPTIONS
+./scripts/mega-app-create-app.sh $BASE_OPTIONS --build-tool-version $BUILD_TOOL_VERSION 
 
 # Copy files
 ./scripts/mega-app-copy-files.sh $BASE_OPTIONS
