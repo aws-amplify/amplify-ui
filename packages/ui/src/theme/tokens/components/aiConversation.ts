@@ -9,8 +9,6 @@ export interface AIConversationTokens<OutputType extends OutputVariantKey> {
     | 'gap',
     OutputType
   > & {
-    list?: {};
-    avatar?: {};
     sender?: DesignTokenProperties<'gap', OutputType> & {
       username?: DesignTokenProperties<
         'color' | 'fontSize' | 'fontWeight',
@@ -25,12 +23,7 @@ export interface AIConversationTokens<OutputType extends OutputVariantKey> {
     user?: DesignTokenProperties<'backgroundColor', OutputType>;
     assistant?: DesignTokenProperties<'backgroundColor', OutputType>;
   };
-  form?: DesignTokenProperties<'gap', OutputType> & {
-    dropzone?: DesignTokenProperties<'padding', OutputType>;
-    // attatch?: {};
-    // send?: {};
-    // field?: {};
-  };
+  form?: DesignTokenProperties<'gap' | 'padding', OutputType>;
   attachment?: DesignTokenProperties<
     | 'borderColor'
     | 'borderWidth'
@@ -66,14 +59,12 @@ export const aiConversation: Required<AIConversationTokens<'default'>> = {
       backgroundColor: { value: '{colors.background.secondary.value}' },
     },
     assistant: {
-      backgroundColor: { value: '{colors.brand.primary.10.value}' },
+      backgroundColor: { value: '{colors.primary.10.value}' },
     },
-    list: {},
-    avatar: {},
     sender: {
       gap: { value: '{space.small.value}' },
       username: {
-        color: { value: 'inherit' },
+        color: { value: '{colors.font.primary.value}' },
         fontSize: { value: 'inherit' },
         fontWeight: { value: '{fontWeights.bold.value}' },
       },
@@ -88,12 +79,13 @@ export const aiConversation: Required<AIConversationTokens<'default'>> = {
 
   form: {
     gap: { value: '{space.small.value}' },
+    padding: { value: '{space.small.value}' },
   },
 
   attachment: {
     borderColor: { value: '{colors.border.secondary.value}' },
     borderWidth: { value: '{borderWidths.small.value}' },
-    borderRadius: { value: '{radii.large.value}' },
+    borderRadius: { value: '{radii.small.value}' },
     fontSize: { value: '{fontSizes.small.value}' },
     paddingBlock: { value: '{space.xxxs.value}' },
     paddingInline: { value: '{space.xs.value}' },
@@ -121,8 +113,8 @@ export const aiConversation: Required<AIConversationTokens<'default'>> = {
     },
 
     image: {
-      width: { value: '1rem' },
-      height: { value: '1rem' },
+      width: { value: '{fontSizes.medium.value}' },
+      height: { value: '{fontSizes.medium.value}' },
     },
   },
 };

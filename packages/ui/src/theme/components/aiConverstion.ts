@@ -1,4 +1,4 @@
-import { Modifiers, ComponentStyles, Elements, ColorTheme } from './utils';
+import { Modifiers, ComponentStyles, Elements } from './utils';
 
 export type AIConversationTheme<Required extends boolean = false> =
   ComponentStyles &
@@ -13,6 +13,7 @@ export type AIConversationTheme<Required extends boolean = false> =
         message__sender__timestamp?: ComponentStyles;
         message__body?: ComponentStyles;
         message__actions?: ComponentStyles;
+
         form?: ComponentStyles;
         form__dropzone?: ComponentStyles;
         form__attatch?: ComponentStyles;

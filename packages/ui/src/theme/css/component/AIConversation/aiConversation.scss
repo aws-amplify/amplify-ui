@@ -102,7 +102,7 @@
 
     &--assistant {
       --internal-bg-color: var(
-        --amplify-components-ai-conversation-message-user-background-color
+        --amplify-components-ai-conversation-message-assistant-background-color
       );
       --internal-flex-direction: row;
       --internal-body-align-items: flex-start;
@@ -114,11 +114,12 @@
     flex-direction: row;
     align-items: flex-start;
     gap: var(--amplify-components-ai-conversation-form-gap);
+    padding: var(--amplify-components-ai-conversation-form-padding);
 
     &__dropzone {
       text-align: initial;
       border: none;
-      padding: var(--amplify-components-ai-conversation-form-dropzone-padding);
+      padding: 0;
     }
 
     &__attach {
