@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 
 import { CLASS_BASE } from '../constants';
-import { Controls } from '../Controls';
+import { Controls, SearchControl } from '../Controls';
 import { useLocationsData } from '../../context/actions';
 
 import { usePaginate } from '../hooks/usePaginate';
@@ -77,6 +77,11 @@ export function LocationsView({
     });
   }, [handleList]);
 
+  const [searchTerm, setSearchTerm] = useState('');
+  const onSearch = useCallback((query: string) => {
+    setSearchTerm(query);
+  }, []);
+
   const onPaginateNext = () =>
     handleList({
       options: { ...DEFAULT_LIST_OPTIONS, nextToken },
@@ -124,7 +129,8 @@ export function LocationsView({
       />
       <LocationsMessage />
       <Loading />
-      <DataTableControl range={range} />
+      <SearchControl onSearch={onSearch} />
+      <DataTableControl range={range} searchTerm={searchTerm} />
       <LocationsEmptyMessage />
     </div>
   );

@@ -179,6 +179,9 @@ export const InputElement = defineBaseElement<
   | 'onChange'
   | 'onFocus'
   | 'defaultChecked'
+  | 'value'
+  | 'placeholder'
+  | 'onKeyUp'
 >({
   type: 'input',
   displayName: 'Input',
