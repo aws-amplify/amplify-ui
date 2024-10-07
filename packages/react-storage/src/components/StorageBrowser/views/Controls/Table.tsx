@@ -179,7 +179,7 @@ export const LocationDetailSelectAllControl = ({
       checked={checked}
       id="select-all"
       labelHidden
-      labelText={`${SELECT_ALL_FILES_TEXT}`}
+      labelText={SELECT_ALL_FILES_TEXT}
       onSelect={onSelect}
     />
   );
