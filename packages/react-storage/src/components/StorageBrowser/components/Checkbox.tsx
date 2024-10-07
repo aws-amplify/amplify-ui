@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { CLASS_BASE } from '../constants';
+import { CLASS_BASE } from '../views/constants';
 import {
   ViewElement,
   LabelElement,
   InputElement,
-} from '../../context/elements/definitions';
+} from '../context/elements/definitions';
 
 const BLOCK_NAME = `${CLASS_BASE}__checkbox`;
 const LABEL_CLASSNAME = `${BLOCK_NAME}-label`;

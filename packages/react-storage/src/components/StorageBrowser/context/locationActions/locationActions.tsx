@@ -49,7 +49,7 @@ export function locationActionsReducer(
       return { ...state, selected };
     }
     case 'TOGGLE_SELECTED_ITEMS': {
-      const selected = { ...state.selected, items: [...action.items] };
+      const selected = { ...state.selected, items: [...(action.items ?? [])] };
       return { ...state, selected };
     }
     case 'CLEAR': {

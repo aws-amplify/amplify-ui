@@ -16,7 +16,7 @@ import { CLASS_BASE } from '../constants';
 import { compareDates, compareNumbers, compareStrings } from '../utils';
 
 import { DownloadControl } from './Download';
-import { CheckboxControl } from './Checkbox';
+import { CheckboxControl } from '../../components/Checkbox';
 
 export type SortDirection = 'ascending' | 'descending' | 'none';
 

@@ -10,7 +10,7 @@ import { PaginateControl } from './Paginate';
 import { PrimaryControl } from './Primary';
 import { RefreshControl } from './Refresh';
 import { SearchControl } from './Search';
-import { CheckboxControl } from './Checkbox';
+import { CheckboxControl } from '../../components/Checkbox';
 import { SummaryControl } from './Summary';
 import { TableControl } from './Table';
 import { TitleControl } from './Title';
