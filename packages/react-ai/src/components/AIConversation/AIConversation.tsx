@@ -44,26 +44,37 @@ function AIConversationBase({
     },
   };
 
-  const Provider = createProvider({
-    elements: {
-      Text: React.forwardRef<HTMLParagraphElement, TextProps>(
-        function _Text(props, ref) {
-          return <Text {...props} ref={ref} />;
-        }
-      ),
-    },
-    actions,
-    suggestedPrompts,
-    responseComponents,
-    variant,
-    controls: {
-      MessageList,
-      PromptList,
-      Form,
-      ...controls,
-    },
-    displayText,
-  });
+  const Provider = React.useMemo(
+    () =>
+      createProvider({
+        elements: {
+          Text: React.forwardRef<HTMLParagraphElement, TextProps>(
+            function _Text(props, ref) {
+              return <Text {...props} ref={ref} />;
+            }
+          ),
+        },
+        actions,
+        suggestedPrompts,
+        responseComponents,
+        variant,
+        controls: {
+          MessageList,
+          PromptList,
+          Form,
+          ...controls,
+        },
+        displayText,
+      }),
+    [
+      actions,
+      controls,
+      displayText,
+      responseComponents,
+      suggestedPrompts,
+      variant,
+    ]
+  );
 
   const providerProps = {
     messages,
