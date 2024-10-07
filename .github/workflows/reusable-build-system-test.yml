@@ -21,7 +21,7 @@ jobs:
         build-tool-version: [latest]
         pkg-manager: [npm]
         language: [ts]
-        node-version: [18]
+        node-version: [20]
         pkg-manager-version: [latest]
         include:
           - framework: react
@@ -32,7 +32,7 @@ jobs:
             language: ts
             node-version: 20
           - framework: react
-            framework-version: latest
+            framework-version: 18
             build-tool: vite
             build-tool-version: 3
             pkg-manager: npm
@@ -69,7 +69,7 @@ jobs:
             language: ts
             node-version: 20
           - framework: vue
-            framework-version: latest
+            framework-version: 3
             build-tool: vite
             build-tool-version: 3
             pkg-manager: npm
