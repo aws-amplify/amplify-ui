@@ -1,5 +1,10 @@
 import React from 'react';
 
+// `FileSelect` input `type` must always be set to `file`
+const INPUT_TYPE = 'file';
+
+export type SelectionType = 'FILE' | 'FOLDER';
+
 /**
  * @internal @unstable
  */
@@ -7,8 +12,8 @@ export interface FileSelectProps {
   accept?: string;
   multiple?: boolean;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
+  selectionType?: SelectionType;
   testId?: string;
-  type?: 'file' | 'folder';
 }
 
 /**
@@ -18,7 +23,7 @@ export interface FileSelectOptions
   extends Omit<FileSelectProps, 'onChange' | 'type'> {}
 
 type HandleSelect = (
-  type: 'file' | 'folder',
+  selectionTyoe: SelectionType,
   options?: FileSelectOptions
 ) => void;
 
@@ -44,8 +49,8 @@ export const FileSelect = React.forwardRef<HTMLInputElement, FileSelectProps>(
   function FileSelect(
     {
       multiple = true,
+      selectionType = 'FILE',
       testId = 'amplify-file-select',
-      type = 'file',
       ...props
     },
     ref
@@ -54,11 +59,11 @@ export const FileSelect = React.forwardRef<HTMLInputElement, FileSelectProps>(
       <input
         {...DEFAULT_PROPS}
         {...props}
-        {...(type === 'folder' ? { webkitdirectory: '' } : undefined)}
+        {...(selectionType === 'FOLDER' ? { webkitdirectory: '' } : undefined)}
         data-testid={testId}
         multiple={multiple}
         ref={ref}
-        type="file"
+        type={INPUT_TYPE}
       />
     );
   }
@@ -93,9 +98,12 @@ export const useFileSelect = (
   >(undefined);
 
   const ref = React.useRef<HTMLInputElement>(null);
-  const handleSelect: HandleSelect = React.useCallback((type, options) => {
-    setInputProps({ type, ...options });
-  }, []);
+  const handleSelect: HandleSelect = React.useCallback(
+    (selectionType, options) => {
+      setInputProps({ selectionType, ...options });
+    },
+    []
+  );
 
   React.useEffect(() => {
     if (inputProps) {

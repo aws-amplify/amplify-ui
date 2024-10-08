@@ -2,14 +2,14 @@ import React from 'react';
 import { act, render, screen, waitFor } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
-import { useFileSelect } from '../FileSelect';
+import { SelectionType, useFileSelect } from '../FileSelect';
 
 const TestComponent = ({
   onSelect,
   type,
 }: {
   onSelect: (files: File[]) => void;
-  type: 'file' | 'folder';
+  type: SelectionType;
 }) => {
   const [fileSelect, handleSelect] = useFileSelect(onSelect);
 
@@ -26,7 +26,7 @@ const TestComponent = ({
 };
 
 describe('useFileSelect', () => {
-  it.each(['file', 'folder'] as const)(
+  it.each(['FILE', 'FOLDER'] as const)(
     'handles a provided %s type as expected',
     async (type) => {
       const user = userEvent.setup();
