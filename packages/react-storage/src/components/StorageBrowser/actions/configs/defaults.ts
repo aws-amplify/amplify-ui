@@ -1,8 +1,8 @@
 import {
-  listLocationItemsAction,
-  listLocationsAction,
-  createFolderAction,
-  uploadAction,
+  listLocationItemsHandler,
+  listLocationsHandler,
+  createFolderHandler,
+  uploadHandler,
 } from '../handlers';
 import {
   ListLocationItemsActionConfig,
@@ -19,14 +19,14 @@ export const createFolderActionConfig: CreateFolderActionConfig = {
     icon: 'create-folder',
     label: 'Create Folder',
   },
-  handler: createFolderAction,
+  handler: createFolderHandler,
   isCancelable: false,
   title: 'Create Folder',
   type: 'SINGLE_ACTION',
 };
 
 export const listLocationItemsActionConfig: ListLocationItemsActionConfig = {
-  handler: listLocationItemsAction,
+  handler: listLocationItemsHandler,
   title: (bucket, prefix) => {
     if (bucket && prefix) {
       const prefixes = prefix.split('/');
@@ -40,7 +40,7 @@ export const listLocationItemsActionConfig: ListLocationItemsActionConfig = {
 };
 
 export const listLocationsActionConfig: ListLocationsActionConfig = {
-  handler: listLocationsAction,
+  handler: listLocationsHandler,
   title: 'Home',
   type: 'LIST_LOCATIONS',
 };
@@ -63,7 +63,7 @@ export const uploadActionConfig: UploadActionConfig = {
     },
   ],
   isCancelable: true,
-  handler: uploadAction,
+  handler: uploadHandler,
   title: 'Upload',
   type: 'BATCH_ACTION',
 };
