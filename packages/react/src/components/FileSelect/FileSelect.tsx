@@ -23,7 +23,7 @@ export interface FileSelectOptions
   extends Omit<FileSelectProps, 'onChange' | 'type'> {}
 
 type HandleSelect = (
-  selectionTyoe: SelectionType,
+  selectionType: SelectionType,
   options?: FileSelectOptions
 ) => void;
 
