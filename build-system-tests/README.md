@@ -15,7 +15,7 @@ In this _build-system-tests_ folder, run
 
 ```sh
 $ npm run <MEGA_APP_NAME> # e.g. npm run react-latest-vite-latest-ts
-$ npm run setup:<FRAMEWORK>:<BUILD_TOOL> -- --framework-version <FRAMEWORK_VERSION_NUMBER> --build-tool-version <BUILD_TOOL_VERSION_NUMBER> # e.g npm run setup:vue:vite -- -f latest -b 2
+$ npm run test:<FRAMEWORK>:<BUILD_TOOL> -- --framework-version <FRAMEWORK_VERSION_NUMBER> --build-tool-version <BUILD_TOOL_VERSION_NUMBER> # e.g npm run test:vue:vite -- -f latest -b 2
 ```
 
 Note:
@@ -37,7 +37,7 @@ If the MegaApp you want to create is not pre-configured in the package.json, her
 ```sh
 $ ./mega-app-create-app.sh --build-tool next --build-tool-version latest --name react-latest-next-latest-node-18-ts --framework react --framework-version latest
 
-$ npm run setup:<FRAMEWORK>:<BUILD_TOOL> -- --framework-version <FRAMEWORK_VERSION_NUMBER> --build-tool-version <BUILD_TOOL_VERSION_NUMBER> # e.g npm run setup:vue:vite -- -f latest -b 2
+$ npm run test:<FRAMEWORK>:<BUILD_TOOL> -- --framework-version <FRAMEWORK_VERSION_NUMBER> --build-tool-version <BUILD_TOOL_VERSION_NUMBER> # e.g npm run test:vue:vite -- -f latest -b 2
 ```
 
 ### Setup MegaApp Step by Step
