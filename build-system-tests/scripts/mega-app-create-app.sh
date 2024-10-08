@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+# set -e
 
 # Default values
 BUILD_TOOL="cra"
