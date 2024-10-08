@@ -16,7 +16,7 @@ import {
 } from '@aws-amplify/ui-react';
 import {
   ButtonElementProps,
-  DefinitionTermElementProps,
+  DescriptionTermElementProps,
   HeadingElementProps,
   InputElementProps,
   LabelElementProps,
@@ -97,7 +97,9 @@ function Button(props: ButtonElementProps): React.JSX.Element {
   }
 }
 
-function DefinitionTerm(props: DefinitionTermElementProps): React.JSX.Element {
+function DescriptionTerm(
+  props: DescriptionTermElementProps
+): React.JSX.Element {
   return <_View {...props} as="dt" fontWeight="bold" />;
 }
 
@@ -219,7 +221,7 @@ const Nav = (props: NavElementProps): JSX.Element => (
 
 export const elementsDefault = {
   Button,
-  DefinitionTerm,
+  DescriptionTerm,
   Input,
   Label,
   Nav,
