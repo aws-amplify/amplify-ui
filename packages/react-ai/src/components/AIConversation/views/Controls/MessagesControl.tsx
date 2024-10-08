@@ -2,11 +2,11 @@ import React from 'react';
 import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
 
 import {
+  MessageRendererContext,
   MessagesContext,
   MessageVariantContext,
   RoleContext,
   useConversationDisplayText,
-  useMessageRenderer,
 } from '../../context';
 import { AIConversationElements } from '../../context/elements';
 import { convertBufferToBase64 } from '../../utils';
@@ -64,21 +64,21 @@ const ContentContainer: typeof View = React.forwardRef(
 
 export const MessageControl: MessageControl = ({ message }) => {
   const responseComponents = React.useContext(ResponseComponentsContext);
-  const { text, image } = useMessageRenderer();
+  const messageRenderer = React.useContext(MessageRendererContext);
   return (
     <ContentContainer>
       {message.content.map((content, index) => {
         if (content.text) {
-          return text ? (
-            text(content.text)
+          return messageRenderer?.text ? (
+            messageRenderer?.text(content.text)
           ) : (
             <TextContent data-testid={'text-content'} key={index}>
               {content.text}
             </TextContent>
           );
         } else if (content.image) {
-          return image ? (
-            image(content.image)
+          return messageRenderer?.image ? (
+            messageRenderer?.image(content.image)
           ) : (
             <MediaContent
               data-testid={'image-content'}
