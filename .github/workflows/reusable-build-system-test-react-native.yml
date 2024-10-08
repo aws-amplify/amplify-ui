@@ -16,7 +16,7 @@ jobs:
       fail-fast: false
       matrix:
         framework: [react-native]
-        framework-version: [latest]
+        framework-version: [latest, ^0.74.0,  ^0.73.0,  ^0.72.0,  ^0.71.0,  ^0.70.0]
         build-tool: [cli, expo]
         build-tool-version: [latest]
         pkg-manager: [npm]
@@ -116,7 +116,7 @@ jobs:
           $ANDROID_HOME/platform-tools/adb shell settings put global animator_duration_scale 0.0
 
       - name: Create MegaApp ${{ env.MEGA_APP_NAME }} and run build on NodeJS ${{ matrix.node-version }}
-        run: npm run test:${{matrix.framework}}:${{matrix.build-tool}} -- --platform ${{matrix.platform}} --tag ${{inputs.dist-tag}}
+        run: npm run test:${{matrix.framework}}:${{matrix.build-tool}} -- --platform ${{matrix.platform}} --tag ${{inputs.dist-tag}} --framework-version ${{matrix.framework-version}}
         shell: bash
         working-directory: build-system-tests
       - name: Detect Mega App Error in Log
