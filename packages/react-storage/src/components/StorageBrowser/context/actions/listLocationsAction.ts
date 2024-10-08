@@ -1,7 +1,4 @@
-import {
-  ListLocations,
-  ListLocationsOutput,
-} from '@aws-amplify/storage/internals';
+import { ListLocations, ListLocationsOutput } from '../../storage-internal';
 
 import {
   ListActionInput,

@@ -1,4 +1,4 @@
-import { CopyWithPathInput } from '@aws-amplify/storage';
+import { CopyWithPathInput } from 'aws-amplify/storage';
 import {
   DataTaskAction,
   DataTaskActionInput,
