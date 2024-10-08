@@ -1,4 +1,4 @@
-import { Permission } from '@aws-amplify/storage/internals';
+import { Permission } from '../../storage-internal';
 import { IconVariant } from '../../context/elements';
 
 import {
