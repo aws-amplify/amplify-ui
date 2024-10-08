@@ -120,6 +120,6 @@ jobs:
         shell: bash
         working-directory: build-system-tests
       - name: Detect Mega App Error in Log
-        run: npm run checkReactNativeLogs -- --log-file-name ${{ matrix.logfile }} --mega-app-name ${{ env.MEGA_APP_NAME }} --platform ${{ matrix.platform }}
+        run: npm run checkReactNativeLogs -- --log-file-name ${{ matrix.logfile }} --name ${{ env.MEGA_APP_NAME }} --platform ${{ matrix.platform }}
         shell: bash
         working-directory: build-system-tests
