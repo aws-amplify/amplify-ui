@@ -182,8 +182,6 @@ export const UploadControls = (): JSX.Element => {
     { prefix: path, preventOverwrite }
   );
 
-  // Replace with stuff
-
   const handleFileInput = React.useRef<HTMLInputElement>(null);
   const handleFolderInput = React.useRef<HTMLInputElement>(null);
 
@@ -364,7 +362,7 @@ export const UploadControls = (): JSX.Element => {
         <DescriptionList
           descriptions={[
             {
-              term: `${displayText.uploadDestination}:`,
+              term: `${displayText.actionDestination}:`,
               details: history[history.length - 1].prefix,
             },
           ]}
