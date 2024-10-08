@@ -116,7 +116,7 @@ jobs:
           $ANDROID_HOME/platform-tools/adb shell settings put global animator_duration_scale 0.0
 
       - name: Create MegaApp ${{ env.MEGA_APP_NAME }} and run build on NodeJS ${{ matrix.node-version }}
-        run: npm run ${{ env.MEGA_APP_NAME }}
+        run: npm run setup:${{matrix.framework}}:${{matrix.build-tool}} -- --platform ${{matrix.platform}} --tag ${{matrix.tag}}
         shell: bash
         working-directory: build-system-tests
       - name: Detect Mega App Error in Log
