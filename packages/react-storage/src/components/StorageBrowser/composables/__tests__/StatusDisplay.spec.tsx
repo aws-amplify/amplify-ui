@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { StatusDisplay } from '../StatusDisplay';
 
-describe('StatusDisplay composable', () => {
+describe('StatusDisplay', () => {
   it('renders', () => {
     const statuses = [
       { name: 'completed', count: 4 },

@@ -1,11 +1,11 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { getTaskCounts } from '../getTaskCounts';
-import { StatusDisplay } from '../StatusDisplay';
+import { StatusDisplayControl } from '../StatusDisplayControl';
 
 jest.mock('../getTaskCounts');
 
-describe('StatusDisplay control', () => {
+describe('StatusDisplayControl', () => {
   // assert mocks
   const mockGetTaskCounts = getTaskCounts as jest.Mock;
 
@@ -25,7 +25,7 @@ describe('StatusDisplay control', () => {
 
   it('renders', () => {
     // FIXME: Temporarily get via props. Refactor later to get via view hook
-    render(<StatusDisplay actionType="BATCH" isCancelable tasks={[]} />);
+    render(<StatusDisplayControl actionType="BATCH" isCancelable tasks={[]} />);
 
     const [completed, failed, canceled, queued] =
       screen.getAllByRole('definition');
@@ -46,7 +46,7 @@ describe('StatusDisplay control', () => {
     });
 
     // FIXME: Temporarily get via props. Refactor later to get via view hook
-    render(<StatusDisplay actionType="BATCH" tasks={[]} />);
+    render(<StatusDisplayControl actionType="BATCH" tasks={[]} />);
 
     const definitions = screen.getAllByRole('definition');
     const [completed, failed, queued] = definitions;
@@ -67,7 +67,9 @@ describe('StatusDisplay control', () => {
     });
 
     // FIXME: Temporarily get via props. Refactor later to get via view hook
-    render(<StatusDisplay actionType="SINGLE" isCancelable tasks={[]} />);
+    render(
+      <StatusDisplayControl actionType="SINGLE" isCancelable tasks={[]} />
+    );
 
     expect(screen.queryByRole('list')).not.toBeInTheDocument();
     expect(screen.queryByRole('term')).not.toBeInTheDocument();

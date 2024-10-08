@@ -33,7 +33,7 @@ import {
 } from './constants';
 import { CancelableTask, useHandleUpload } from './useHandleUpload';
 import { getTaskCounts } from '../../controls/getTaskCounts';
-import { StatusDisplay } from '../../controls/StatusDisplay';
+import { StatusDisplayControl } from '../../controls/StatusDisplayControl';
 
 const { Icon } = StorageBrowserElements;
 
@@ -376,7 +376,7 @@ export const UploadControls = (): JSX.Element => {
         }}
       />
       {taskCounts.TOTAL ? (
-        <StatusDisplay
+        <StatusDisplayControl
           className={`${CLASS_BASE}__upload-status-display`}
           actionType="BATCH"
           isCancelable

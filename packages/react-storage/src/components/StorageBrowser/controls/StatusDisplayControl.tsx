@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { StatusDisplay as StatusDisplayComposable } from '../composables/StatusDisplay';
+import { StatusDisplay } from '../composables/StatusDisplay';
 import { ViewElement } from '../context/elements';
 import { displayText } from '../displayText/en';
 import { CancelableTask } from '../views/LocationActionView/useHandleUpload';
@@ -14,7 +14,7 @@ interface TempProps extends ControlProps {
   tasks: CancelableTask[];
 }
 
-export const StatusDisplay = ({
+export const StatusDisplayControl = ({
   className,
   actionType,
   isCancelable,
@@ -40,7 +40,7 @@ export const StatusDisplay = ({
 
   return (
     <ViewElement className={className}>
-      <StatusDisplayComposable statuses={statuses} total={counts.TOTAL} />
+      <StatusDisplay statuses={statuses} total={counts.TOTAL} />
     </ViewElement>
   );
 };
