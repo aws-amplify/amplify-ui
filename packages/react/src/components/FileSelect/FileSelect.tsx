@@ -7,6 +7,7 @@ export interface FileSelectProps {
   accept?: string;
   multiple?: boolean;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
+  testId?: string;
   type?: 'file' | 'folder';
 }
 
@@ -40,14 +41,24 @@ export const DEFAULT_PROPS = {
  * @internal @unstable
  */
 export const FileSelect = React.forwardRef<HTMLInputElement, FileSelectProps>(
-  function FileSelect({ multiple = true, type = 'file', ...props }, ref) {
+  function FileSelect(
+    {
+      multiple = true,
+      testId = 'amplify-file-select',
+      type = 'file',
+      ...props
+    },
+    ref
+  ) {
     return (
       <input
         {...DEFAULT_PROPS}
-        {...(type === 'folder' ? { webkitdirectory: '' } : undefined)}
         {...props}
+        {...(type === 'folder' ? { webkitdirectory: '' } : undefined)}
+        data-testid={testId}
         multiple={multiple}
         ref={ref}
+        type="file"
       />
     );
   }
@@ -82,18 +93,14 @@ export const useFileSelect = (
   >(undefined);
 
   const ref = React.useRef<HTMLInputElement>(null);
-  const handleSelect = React.useRef<HandleSelect>((type, options) => {
+  const handleSelect: HandleSelect = React.useCallback((type, options) => {
     setInputProps({ type, ...options });
-  }).current;
+  }, []);
 
   React.useEffect(() => {
     if (inputProps) {
       ref.current?.click();
     }
-
-    return () => {
-      setInputProps(undefined);
-    };
   }, [inputProps]);
 
   const fileSelect = (
@@ -101,6 +108,7 @@ export const useFileSelect = (
       {...inputProps}
       onChange={({ target }) => {
         onSelect?.([...(target.files ?? [])]);
+        setInputProps(undefined);
       }}
       ref={ref}
     />
