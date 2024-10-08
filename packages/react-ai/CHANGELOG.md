@@ -1,5 +1,16 @@
 # @aws-amplify/ui-react-ai
 
+## 0.3.1
+
+### Patch Changes
+
+- [#5872](https://github.com/aws-amplify/amplify-ui/pull/5872) [`fcf51abc8`](https://github.com/aws-amplify/amplify-ui/commit/fcf51abc81da6eecbf8a31812b7cd5b2865999c4) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - fix(ai-conversation): allow attachments to actually work on amplify component
+
+- Updated dependencies [[`0d86485fc`](https://github.com/aws-amplify/amplify-ui/commit/0d86485fc4bf74766a1b82c69cfa322ed1e9baf7)]:
+  - @aws-amplify/ui@6.6.3
+  - @aws-amplify/ui-react@6.5.3
+  - @aws-amplify/ui-react-core@3.0.27
+
 ## 0.3.0
 
 ### Minor Changes
