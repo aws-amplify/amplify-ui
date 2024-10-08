@@ -96,6 +96,6 @@ jobs:
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
       - name: Create MegaApp ${{ env.MEGA_APP_NAME }} and run build on NodeJS ${{ matrix.node-version }}
-        run: npm run setup:${{ matrix.framework }}:${{matrix.build-tool}} -- --framework-version ${{matrix.framework-version}} --build-tool-version ${{matrix.build-tool-version}} --pkg-manager ${{matrix.pkg-manager}} --tag ${{inputs.dist-tag}}
+        run: npm run test:${{ matrix.framework }}:${{matrix.build-tool}} -- --framework-version ${{matrix.framework-version}} --build-tool-version ${{matrix.build-tool-version}} --pkg-manager ${{matrix.pkg-manager}} --tag ${{inputs.dist-tag}}
         shell: bash
         working-directory: build-system-tests
