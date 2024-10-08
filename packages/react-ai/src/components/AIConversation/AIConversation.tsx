@@ -31,6 +31,7 @@ function AIConversationBase({
   isLoading,
   displayText,
   allowAttachments,
+  messageRenderer,
 }: AIConversationBaseProps): JSX.Element {
   const icons = useIcons('aiConversation');
   const defaultAvatars: Avatars = {
@@ -64,6 +65,7 @@ function AIConversationBase({
     },
     displayText,
     allowAttachments,
+    messageRenderer,
   });
 
   const providerProps = {

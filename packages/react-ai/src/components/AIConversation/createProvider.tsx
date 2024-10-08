@@ -5,19 +5,20 @@ import { ElementsProvider } from '@aws-amplify/ui-react-core/elements';
 import { AIConversationInput, AIConversationProps } from './types';
 import { defaultAIConversationDisplayTextEn } from './displayText';
 import {
-  ConversationDisplayTextProvider,
-  SuggestedPromptProvider,
-  ConversationInputContextProvider,
-  AvatarsProvider,
   ActionsProvider,
-  MessageVariantProvider,
-  MessagesProvider,
+  AttachmentProvider,
+  AvatarsProvider,
   ControlsProvider,
+  ConversationDisplayTextProvider,
+  ConversationInputContextProvider,
   LoadingContextProvider,
+  MessagesProvider,
+  MessageRendererProvider,
+  MessageVariantProvider,
   ResponseComponentsProvider,
   SendMessageContextProvider,
+  SuggestedPromptProvider,
 } from './context';
-import { AttachmentProvider } from './context/AttachmentContext';
 
 export default function createProvider({
   elements,
@@ -28,6 +29,7 @@ export default function createProvider({
   controls,
   displayText,
   allowAttachments,
+  messageRenderer = {},
 }: Pick<
   AIConversationInput,
   | 'elements'
@@ -38,6 +40,7 @@ export default function createProvider({
   | 'controls'
   | 'displayText'
   | 'allowAttachments'
+  | 'messageRenderer'
 >) {
   return function Provider({
     children,
@@ -60,27 +63,29 @@ export default function createProvider({
         <ControlsProvider controls={controls}>
           <SuggestedPromptProvider suggestedPrompts={suggestedPrompts}>
             <ResponseComponentsProvider responseComponents={responseComponents}>
-              <AttachmentProvider allowAttachments={allowAttachments}>
-                <ConversationDisplayTextProvider {..._displayText}>
-                  <ConversationInputContextProvider>
-                    <SendMessageContextProvider
-                      handleSendMessage={handleSendMessage}
-                    >
-                      <AvatarsProvider avatars={avatars}>
-                        <ActionsProvider actions={actions}>
-                          <MessageVariantProvider variant={variant}>
-                            <MessagesProvider messages={messages}>
-                              <LoadingContextProvider isLoading={isLoading}>
-                                {children}
-                              </LoadingContextProvider>
-                            </MessagesProvider>
-                          </MessageVariantProvider>
-                        </ActionsProvider>
-                      </AvatarsProvider>
-                    </SendMessageContextProvider>
-                  </ConversationInputContextProvider>
-                </ConversationDisplayTextProvider>
-              </AttachmentProvider>
+              <MessageRendererProvider {...messageRenderer}>
+                <AttachmentProvider allowAttachments={allowAttachments}>
+                  <ConversationDisplayTextProvider {..._displayText}>
+                    <ConversationInputContextProvider>
+                      <SendMessageContextProvider
+                        handleSendMessage={handleSendMessage}
+                      >
+                        <AvatarsProvider avatars={avatars}>
+                          <ActionsProvider actions={actions}>
+                            <MessageVariantProvider variant={variant}>
+                              <MessagesProvider messages={messages}>
+                                <LoadingContextProvider isLoading={isLoading}>
+                                  {children}
+                                </LoadingContextProvider>
+                              </MessagesProvider>
+                            </MessageVariantProvider>
+                          </ActionsProvider>
+                        </AvatarsProvider>
+                      </SendMessageContextProvider>
+                    </ConversationInputContextProvider>
+                  </ConversationDisplayTextProvider>
+                </AttachmentProvider>
+              </MessageRendererProvider>
             </ResponseComponentsProvider>
           </SuggestedPromptProvider>
         </ControlsProvider>

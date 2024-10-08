@@ -6,6 +6,7 @@ import {
   MessageVariantContext,
   RoleContext,
   useConversationDisplayText,
+  useMessageRenderer,
 } from '../../context';
 import { AIConversationElements } from '../../context/elements';
 import { convertBufferToBase64 } from '../../utils';
@@ -63,17 +64,22 @@ const ContentContainer: typeof View = React.forwardRef(
 
 export const MessageControl: MessageControl = ({ message }) => {
   const responseComponents = React.useContext(ResponseComponentsContext);
+  const { text, image } = useMessageRenderer();
   return (
     <ContentContainer>
       {message.content.map((content, index) => {
         if (content.text) {
-          return (
+          return text ? (
+            text(content.text)
+          ) : (
             <TextContent data-testid={'text-content'} key={index}>
               {content.text}
             </TextContent>
           );
         } else if (content.image) {
-          return (
+          return image ? (
+            image(content.image)
+          ) : (
             <MediaContent
               data-testid={'image-content'}
               key={index}
@@ -81,7 +87,7 @@ export const MessageControl: MessageControl = ({ message }) => {
                 content.image?.source.bytes,
                 content.image?.format
               )}
-            ></MediaContent>
+            />
           );
         } else if (content.toolUse) {
           // For now tool use is limited to custom response components
