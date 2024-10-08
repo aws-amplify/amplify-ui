@@ -1,4 +1,4 @@
-import { LocationCredentialsProvider } from '@aws-amplify/storage/internals';
+import { LocationCredentialsProvider } from '../storage-internal';
 
 import { ActionState } from '../context/actions/createActionStateContext';
 

@@ -1,4 +1,4 @@
-import { CopyWithPathInput } from '@aws-amplify/storage';
+import { CopyWithPathInput } from 'aws-amplify/storage';
 import { TaskAction, TaskActionInput, TaskActionOutput } from '../types';
 
 interface CopyData extends Pick<CopyWithPathInput, 'destination' | 'source'> {}

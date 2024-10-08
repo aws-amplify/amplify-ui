@@ -1,5 +1,5 @@
 import { UploadDataWithPathInput } from 'aws-amplify/storage';
-import { LocationCredentialsProvider } from '@aws-amplify/storage/internals';
+import { LocationCredentialsProvider } from '../storage-internal';
 
 export interface FolderItem {
   key: string;
