@@ -7,6 +7,8 @@ LOG_FILE=$1
 MEGA_APP_NAME=$2
 # Define build tool
 BUILD_TOOL=$3
+# Define framework version
+FRAMEWORK_VERSION=$4
 
 # Import log function
 source "./scripts/log.sh"

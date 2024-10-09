@@ -7,6 +7,8 @@ LOG_FILE=$1
 MEGA_APP_NAME=$2
 # Define build tool
 BUILD_TOOL=$3
+# Define framework version
+FRAMEWORK_VERSION=$4
 
 # Import log function
 source "./scripts/log.sh"
@@ -39,6 +41,11 @@ else
   ./gradlew clean >$LOG_FILE
   log "command" "cd .. >$LOG_FILE"
   cd .. >$LOG_FILE
-  log "command" "npm run android >$LOG_FILE"
-  npm run android >$LOG_FILE
+  if [ $FRAMEWORK_VERSION == 0.73 ] || [ $FRAMEWORK_VERSION == 0.74 ]; then
+    log "command" "npm run start >$LOG_FILE"
+    npm run start >$LOG_FILE
+  else
+    log "command" "npm run android >$LOG_FILE"
+    npm run android >$LOG_FILE
+  fi
 fi
