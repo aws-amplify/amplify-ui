@@ -16,7 +16,15 @@ jobs:
       fail-fast: false
       matrix:
         framework: [react-native]
-        framework-version: [latest, 0.74,  0.73,  0.72,  0.71,  0.70]
+        framework-version:
+          [
+            { formatted: latest, value: latest },
+            { formatted: 074, value: 0.74 },
+            { formatted: 073, value: 0.73 },
+            { formatted: 072, value: 0.72 },
+            { formatted: 071, value: 0.71 },
+            { formatted: 070, value: 0.70 },
+          ]
         build-tool: [cli, expo]
         build-tool-version: [latest]
         pkg-manager: [npm]
@@ -32,7 +40,7 @@ jobs:
             platform: ios
 
     env:
-      MEGA_APP_NAME: rn${{ matrix.framework-version }}${{ matrix.build-tool }}${{ matrix.build-tool-version }}${{ matrix.language }}${{ matrix.platform }}ui${{ inputs.dist-tag }}
+      MEGA_APP_NAME: rn${{ matrix.framework-version.formatted }}${{ matrix.build-tool }}${{ matrix.build-tool-version }}${{ matrix.language }}${{ matrix.platform }}ui${{ inputs.dist-tag }}
 
     steps:
       - name: Checkout Amplify UI
@@ -116,7 +124,7 @@ jobs:
           $ANDROID_HOME/platform-tools/adb shell settings put global animator_duration_scale 0.0
 
       - name: Create MegaApp ${{ env.MEGA_APP_NAME }} and run build on NodeJS ${{ matrix.node-version }}
-        run: npm run test:${{matrix.framework}}:${{matrix.build-tool}} -- --name ${{ env.MEGA_APP_NAME }} --platform ${{matrix.platform}} --tag ${{inputs.dist-tag}} --framework-version ${{matrix.framework-version}}
+        run: npm run test:${{matrix.framework}}:${{matrix.build-tool}} -- --name ${{ env.MEGA_APP_NAME }} --platform ${{matrix.platform}} --tag ${{inputs.dist-tag}} --framework-version ${{matrix.framework-version.value}}
         shell: bash
         working-directory: build-system-tests
       - name: Detect Mega App Error in Log
