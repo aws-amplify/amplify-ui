@@ -43,6 +43,14 @@ jobs:
             pkg-manager: npm
             language: ts
             node-version: 20
+          - framework: react-native
+            framework-version: { formatted: 070, value: "0.70" }
+            build-tool: expo
+            build-tool-version: latest
+            platform: android
+            pkg-manager: npm
+            language: ts
+            node-version: 20
         exclude:
           - build-tool: expo
             platform: ios
