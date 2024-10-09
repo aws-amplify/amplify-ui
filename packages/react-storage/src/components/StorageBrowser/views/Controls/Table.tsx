@@ -164,10 +164,11 @@ export const LocationDetailViewTable = ({
 
   const [{ history, path }, handleUpdateState] = useControl('NAVIGATE');
 
-  const [{ data }] = useAction('LIST_LOCATION_ITEMS');
+  const [{ data, hasError }] = useAction('LIST_LOCATION_ITEMS');
 
   const currentPosition = history.length;
   const hasItems = !!data.result?.length;
+  const showTable = hasItems && !hasError;
 
   const [compareFn, setCompareFn] = React.useState(() => compareStrings);
   const [sortState, setSortState] = React.useState<SortState<LocationItem>>({
@@ -346,7 +347,7 @@ export const LocationDetailViewTable = ({
     [handleUpdateState, currentPosition, path]
   );
 
-  return hasItems ? (
+  return showTable ? (
     <TableControl
       columns={LOCATION_DETAIL_VIEW_COLUMNS}
       data={tableData}
