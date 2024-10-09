@@ -116,8 +116,8 @@ if [[ "$FRAMEWORK" == 'react-native' ]]; then
     echo "rm -rf $MEGA_APP_NAME" # Remove $MEGA_APP_NAME if it exists
     rm -rf $MEGA_APP_NAME
     if [[ "$BUILD_TOOL" == 'cli' ]]; then
-        echo "npx @react-native-community/cli init $MEGA_APP_NAME --version $FRAMEWORK_VERSION --pm npm"
-        npx @react-native-community/cli init $MEGA_APP_NAME --version $FRAMEWORK_VERSION --pm npm
+        echo "npx @react-native-community/cli@$BUILD_TOOL_VERSION init $MEGA_APP_NAME --version $FRAMEWORK_VERSION --pm npm"
+        npx @react-native-community/cli@$BUILD_TOOL_VERSION init $MEGA_APP_NAME --version $FRAMEWORK_VERSION --pm npm
         # React-Native, since 0.71.8,
         # no longer shows warning "npm WARN exec The following package was not found and will be installed: react-native@0.71.8",
         # so we log the package.json to check the versions
