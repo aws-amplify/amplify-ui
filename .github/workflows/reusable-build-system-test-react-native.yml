@@ -35,6 +35,14 @@ jobs:
         platform: [android]
         logfile: [test.log]
         pkg-manager-version: [latest]
+        include: 
+          - framework-version: { formatted: 070, value: "0.70" }
+            build-tool: cli
+            build-tool-version: 9
+            platform: android
+            pkg-manager: npm
+            language: ts
+            node-version: 20
         exclude:
           - build-tool: expo
             platform: ios
@@ -124,7 +132,7 @@ jobs:
           $ANDROID_HOME/platform-tools/adb shell settings put global animator_duration_scale 0.0
 
       - name: Create MegaApp ${{ env.MEGA_APP_NAME }} and run build on NodeJS ${{ matrix.node-version }}
-        run: npm run test:${{matrix.framework}}:${{matrix.build-tool}} -- --name ${{ env.MEGA_APP_NAME }} --platform ${{matrix.platform}} --tag ${{inputs.dist-tag}} --framework-version ${{matrix.framework-version.value}}
+        run: npm run test:${{matrix.framework}}:${{matrix.build-tool}} -- --name ${{ env.MEGA_APP_NAME }} --platform ${{matrix.platform}} --tag ${{inputs.dist-tag}} --framework-version ${{matrix.framework-version.value}} --build-tool-version ${{matrix.build-tool-version}}
         shell: bash
         working-directory: build-system-tests
       - name: Detect Mega App Error in Log
