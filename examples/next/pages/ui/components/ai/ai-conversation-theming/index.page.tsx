@@ -43,7 +43,7 @@ function AIConversationThemePage() {
       isLoading,
     },
     sendMessage,
-  ] = useAIConversation('chat');
+  ] = useAIConversation('pirateChat');
 
   return (
     <>
