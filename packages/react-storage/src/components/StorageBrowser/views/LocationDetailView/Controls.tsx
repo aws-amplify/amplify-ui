@@ -4,12 +4,14 @@ import { isString } from '@aws-amplify/ui';
 import { LocationData, useAction } from '../../context/actions';
 import { useControl } from '../../context/control';
 import { parseLocationAccess } from '../../context/navigate/utils';
+import { DropZoneElement } from '../../context/elements/DropZoneElement';
 
 import { Controls, LocationDetailViewTable } from '../Controls';
 import { usePaginate } from '../hooks/usePaginate';
 import { listViewHelpers } from '../utils';
 
 import { ActionsMenuControl } from './Controls/ActionsMenu';
+import { useHandleUpload } from '../LocationActionView/useHandleUpload';
 
 export const DEFAULT_ERROR_MESSAGE = 'There was an error loading items.';
 const DEFAULT_PAGE_SIZE = 100;
@@ -24,7 +26,6 @@ const {
   EmptyMessage,
   Loading: LoadingControl,
   Message,
-  Navigate,
   Paginate,
   Refresh,
   Title: TitleControl,
@@ -80,6 +81,29 @@ export const LocationDetailViewControls = (): React.JSX.Element => {
 
   const [{ data, isLoading }, handleList] = useAction('LIST_LOCATION_ITEMS');
 
+  const [, , handleFileSelect] = useHandleUpload({
+    prefix: path,
+    preventOverwrite: true,
+  });
+  const [, handleUpdateState] = useControl('LOCATION_ACTIONS');
+
+  const handleDroppedFiles = (files: File[]) => {
+    handleFileSelect(files);
+    if (files[0].type) {
+      handleUpdateState({
+        type: 'SET_ACTION',
+        payload: 'UPLOAD_FILES',
+        files,
+      });
+    } else {
+      handleUpdateState({
+        type: 'SET_ACTION',
+        payload: 'UPLOAD_FOLDER',
+        files,
+      });
+    }
+  };
+
   const { result, nextToken } = data;
   const resultCount = result.length;
   const hasNextToken = !!nextToken;
@@ -128,8 +152,7 @@ export const LocationDetailViewControls = (): React.JSX.Element => {
   });
 
   return (
-    <>
-      <Navigate />
+    <DropZoneElement handleDroppedFiles={(files) => handleDroppedFiles(files)}>
       <Title />
       <RefreshControl
         disableRefresh={disableRefresh}
@@ -156,6 +179,6 @@ export const LocationDetailViewControls = (): React.JSX.Element => {
       <Loading show={renderLoading} />
       <LocationDetailViewTable range={range} />
       <LocationDetailEmptyMessage />
-    </>
+    </DropZoneElement>
   );
 };

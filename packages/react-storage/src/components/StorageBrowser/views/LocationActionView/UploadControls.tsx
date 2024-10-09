@@ -34,6 +34,7 @@ import {
 import { CancelableTask, useHandleUpload } from './useHandleUpload';
 import { getTaskCounts } from '../../controls/getTaskCounts';
 import { StatusDisplayControl } from '../../controls/StatusDisplayControl';
+import { DropZoneElement } from '../../context/elements/DropZoneElement';
 
 const { Icon } = StorageBrowserElements;
 
@@ -191,7 +192,9 @@ export const UploadControls = (): JSX.Element => {
 
   React.useEffect(() => {
     if (!initialRun.current) {
-      if (selected.type === 'UPLOAD_FILES') {
+      if (selected.files) {
+        handleFileSelect(selected.files);
+      } else if (selected.type === 'UPLOAD_FILES') {
         handleFileInput.current?.click();
       } else if (selected.type === 'UPLOAD_FOLDER') {
         handleFolderInput.current?.click();
@@ -199,7 +202,7 @@ export const UploadControls = (): JSX.Element => {
 
       initialRun.current = true;
     }
-  }, [selected.type]);
+  }, [handleFileSelect, selected.files, selected.type]);
 
   const [compareFn, setCompareFn] = React.useState<(a: any, b: any) => number>(
     () => compareStrings
@@ -296,7 +299,11 @@ export const UploadControls = (): JSX.Element => {
   const disableSelectFiles = hasStarted || hasCompleted;
 
   return (
-    <>
+    <DropZoneElement
+      handleDroppedFiles={(files) => {
+        handleFileSelect(files);
+      }}
+    >
       <input
         data-testid="amplify-file-select"
         type="file"
@@ -389,6 +396,6 @@ export const UploadControls = (): JSX.Element => {
         renderHeaderItem={renderHeaderItem}
         renderRowItem={renderRowItem}
       />
-    </>
+    </DropZoneElement>
   );
 };
