@@ -163,9 +163,7 @@ export const LocationDetailViewControls = (): React.JSX.Element => {
         handleNext={() => {
           handlePaginateNext({ resultCount, hasNextToken });
         }}
-        handlePrevious={() => {
-          handlePaginatePrevious();
-        }}
+        handlePrevious={handlePaginatePrevious}
       />
       <LocationDetailMessage />
       <Loading show={renderLoading} />
