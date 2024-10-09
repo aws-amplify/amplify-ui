@@ -43,6 +43,7 @@ jobs:
             pkg-manager: npm
             language: ts
             node-version: 20
+            logfile: test.log
           - framework: react-native
             framework-version: { formatted: 070, value: "0.70" }
             build-tool: expo
@@ -51,6 +52,7 @@ jobs:
             pkg-manager: npm
             language: ts
             node-version: 20
+            logfile: test.log
         exclude:
           - build-tool: expo
             platform: ios
