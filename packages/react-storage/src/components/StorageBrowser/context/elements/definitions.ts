@@ -3,9 +3,9 @@ import { IconElement } from './IconElement';
 
 export interface StorageBrowserElements {
   Button: typeof ButtonElement;
-  DefinitionList: typeof DefinitionListElement;
-  DefinitionTerm: typeof DefinitionTermElement;
-  DefinitionDetail: typeof DefinitionDetailElement;
+  DescriptionList: typeof DescriptionListElement;
+  DescriptionTerm: typeof DescriptionTermElement;
+  DescriptionDetails: typeof DescriptionDetailsElement;
   Heading: typeof HeadingElement;
   Icon: typeof IconElement;
   Input: typeof InputElement;
@@ -47,26 +47,28 @@ export type ButtonElementVariant =
   | 'table-data'
   | PaginateVariant;
 
-export interface DefinitionListElementProps
-  extends React.ComponentProps<typeof DefinitionListElement> {}
-export const DefinitionListElement = defineBaseElement({
+export interface DescriptionListElementProps
+  extends React.ComponentProps<typeof DescriptionListElement> {}
+export const DescriptionListElement = defineBaseElement<'dl', 'id' | 'role'>({
   type: 'dl',
-  displayName: 'DefinitionList',
+  displayName: 'DescriptionList',
 });
 
-export interface DefinitionTermElementProps
-  extends React.ComponentProps<typeof DefinitionTermElement> {}
-export const DefinitionTermElement = defineBaseElement({
+export interface DescriptionTermElementProps
+  extends React.ComponentProps<typeof DescriptionTermElement> {}
+export const DescriptionTermElement = defineBaseElement<'dt', 'id' | 'role'>({
   type: 'dt',
-  displayName: 'DefinitionTerm',
+  displayName: 'DescriptionTerm',
 });
 
-export interface DefinitionDetailElementProps
-  extends React.ComponentProps<typeof DefinitionDetailElement> {}
-export const DefinitionDetailElement = defineBaseElement({
-  type: 'dd',
-  displayName: 'DefinitionDetail',
-});
+export interface DescriptionDetailsElementProps
+  extends React.ComponentProps<typeof DescriptionDetailsElement> {}
+export const DescriptionDetailsElement = defineBaseElement<'dd', 'id' | 'role'>(
+  {
+    type: 'dd',
+    displayName: 'DescriptionDetails',
+  }
+);
 
 export interface LabelElementProps
   extends React.ComponentProps<typeof LabelElement> {}
@@ -209,9 +211,9 @@ export const SpanElement = defineBaseElement<'span', 'id'>({
 
 export const StorageBrowserElements: StorageBrowserElements = {
   Button: ButtonElement,
-  DefinitionList: DefinitionListElement,
-  DefinitionTerm: DefinitionTermElement,
-  DefinitionDetail: DefinitionDetailElement,
+  DescriptionList: DescriptionListElement,
+  DescriptionTerm: DescriptionTermElement,
+  DescriptionDetails: DescriptionDetailsElement,
   Heading: HeadingElement,
   Icon: IconElement,
   Input: InputElement,

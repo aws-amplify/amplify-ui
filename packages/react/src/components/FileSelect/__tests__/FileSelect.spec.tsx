@@ -2,14 +2,14 @@ import React from 'react';
 import { act, render, screen, waitFor } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
-import { useFileSelect } from '../FileSelect';
+import { SelectionType, useFileSelect } from '../FileSelect';
 
 const TestComponent = ({
   onSelect,
   type,
 }: {
   onSelect: (files: File[]) => void;
-  type: 'file' | 'folder';
+  type: SelectionType;
 }) => {
   const [fileSelect, handleSelect] = useFileSelect(onSelect);
 
@@ -26,8 +26,8 @@ const TestComponent = ({
 };
 
 describe('useFileSelect', () => {
-  it.each(['file', 'folder'] as const)(
-    'behaves as expected with a %s type as expected',
+  it.each(['FILE', 'FOLDER'] as const)(
+    'handles a provided %s type as expected',
     async (type) => {
       const user = userEvent.setup();
       const onSelect = jest.fn();
@@ -48,7 +48,9 @@ describe('useFileSelect', () => {
       expect(input).not.toBeNull();
 
       const file = new File([], 'file one');
-      await user.upload(input!, file);
+      await waitFor(async () => {
+        await user.upload(input!, file);
+      });
 
       expect(input?.files?.[0]).toStrictEqual(file);
 

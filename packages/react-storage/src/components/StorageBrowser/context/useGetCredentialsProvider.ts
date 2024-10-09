@@ -3,7 +3,7 @@ import {
   createLocationCredentialsStore,
   GetLocationCredentials,
   LocationCredentialsStore,
-} from '@aws-amplify/storage/internals';
+} from '../storage-internal';
 
 export type RegisterAuthListener = (onStateChange: () => void) => void;
 export type GetCredentialsProvider = LocationCredentialsStore['getProvider'];

@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`defaultActionConfigs matches expected shape 1`] = `
+{
+  "CreateFolder": {
+    "actionsListItemConfig": {
+      "disable": [Function],
+      "hide": [Function],
+      "icon": "create-folder",
+      "label": "Create Folder",
+    },
+    "handler": null,
+    "isCancelable": false,
+    "title": "Create Folder",
+    "type": "SINGLE_ACTION",
+  },
+  "ListLocationItems": {
+    "handler": null,
+    "title": [Function],
+    "type": "LIST_LOCATION_ITEMS",
+  },
+  "ListLocations": {
+    "handler": null,
+    "title": "Home",
+    "type": "LIST_LOCATIONS",
+  },
+  "Upload": {
+    "actionsListItemConfig": [
+      {
+        "disable": [Function],
+        "fileSelection": "FILE",
+        "hide": [Function],
+        "icon": "upload-file",
+        "label": "Upload File",
+      },
+      {
+        "disable": [Function],
+        "fileSelection": "FOLDER",
+        "hide": [Function],
+        "icon": "upload-folder",
+        "label": "Upload FOLDER",
+      },
+    ],
+    "handler": null,
+    "isCancelable": true,
+    "title": "Upload",
+    "type": "BATCH_ACTION",
+  },
+}
+`;

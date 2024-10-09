@@ -1,4 +1,4 @@
-import { createManagedAuthConfigAdapter } from '@aws-amplify/storage/internals';
+import { createManagedAuthConfigAdapter } from '../storage-internal';
 import {
   CreateManagedAuthAdapterInput,
   StorageBrowserAuthAdapter,

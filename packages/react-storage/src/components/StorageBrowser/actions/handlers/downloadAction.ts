@@ -1,8 +1,4 @@
-import {
-  DataTaskAction,
-  DataTaskActionInput,
-  DataTaskActionOutput,
-} from '../types';
+import { TaskAction, TaskActionInput, TaskActionOutput } from '../types';
 
 interface DownloadActionData {
   key: string;
@@ -11,9 +7,9 @@ interface DownloadActionOptions {
   onProgress?: (progress: number) => void;
 }
 export interface DownloadActionInput
-  extends DataTaskActionInput<DownloadActionData, DownloadActionOptions> {}
-export interface DownloadActionOutput extends DataTaskActionOutput {}
+  extends TaskActionInput<DownloadActionData, DownloadActionOptions> {}
+export interface DownloadActionOutput extends TaskActionOutput {}
 
-export interface DownloadAction extends DataTaskAction<DataTaskActionInput> {}
+export interface DownloadAction extends TaskAction<DownloadActionInput> {}
 
 export const downloadAction: DownloadAction = null as unknown as DownloadAction;

@@ -2,8 +2,15 @@ import React from 'react';
 
 import { humanFileSize } from '@aws-amplify/ui';
 
+import { displayText } from '../../displayText/en';
 import { TABLE_HEADER_BUTTON_CLASS_NAME } from '../../components/DataTable';
-import { ButtonElement, StorageBrowserElements } from '../../context/elements';
+import { DescriptionList } from '../../components/DescriptionList';
+
+import {
+  ButtonElement,
+  StorageBrowserElements,
+  ViewElement,
+} from '../../context/elements';
 import { useControl } from '../../context/control';
 import { compareNumbers, compareStrings } from '../utils';
 import { TaskStatus } from '../../context/types';
@@ -22,15 +29,15 @@ import {
 import { Title } from './Controls/Title';
 import {
   DEFAULT_OVERWRITE_PROTECTION,
-  INITIAL_STATUS_COUNTS,
   STATUS_DISPLAY_VALUES,
 } from './constants';
 import { CancelableTask, useHandleUpload } from './useHandleUpload';
+import { getTaskCounts } from '../../controls/getTaskCounts';
+import { StatusDisplayControl } from '../../controls/StatusDisplayControl';
 
-const { Icon, DefinitionDetail, DefinitionList, DefinitionTerm } =
-  StorageBrowserElements;
+const { Icon } = StorageBrowserElements;
 
-const { Cancel, Exit, Overwrite, Primary, Summary, Table } = Controls;
+const { Cancel, Exit, Overwrite, Primary, Table } = Controls;
 
 interface LocationActionViewColumns extends CancelableTask {
   type: string;
@@ -53,14 +60,6 @@ const LOCATION_ACTION_VIEW_COLUMNS: Column<LocationActionViewColumns>[] = [
 
 export const ICON_CLASS = `${CLASS_BASE}__action-status`;
 const DESTINATION_CLASS = `${CLASS_BASE}__destination`;
-
-const getTaskCounts = (
-  tasks: CancelableTask[] = []
-): typeof INITIAL_STATUS_COUNTS =>
-  tasks.reduce(
-    (counts, { status }) => ({ ...counts, [status]: counts[status] + 1 }),
-    { ...INITIAL_STATUS_COUNTS, TOTAL: tasks.length }
-  );
 
 export const ActionIcon = ({ status }: ActionIconProps): React.JSX.Element => {
   let variant: IconVariant = 'action-initial';
@@ -91,19 +90,6 @@ export const ActionIcon = ({ status }: ActionIconProps): React.JSX.Element => {
         variant === 'action-progress' ? ' storage-browser__loading__icon' : ''
       }`}
     />
-  );
-};
-
-const Destination = ({ children }: { children?: React.ReactNode }) => {
-  return (
-    <DefinitionList className={DESTINATION_CLASS}>
-      <DefinitionTerm className={`${DESTINATION_CLASS}__term`}>
-        Destination:
-      </DefinitionTerm>
-      <DefinitionDetail className={`${DESTINATION_CLASS}__detail`}>
-        {children}
-      </DefinitionDetail>
-    </DefinitionList>
   );
 };
 
@@ -372,7 +358,16 @@ export const UploadControls = (): JSX.Element => {
       >
         Add files
       </ButtonElement>
-      <Destination>{history[history.length - 1].prefix}</Destination>
+      <ViewElement className={`${CLASS_BASE}__upload-destination`}>
+        <DescriptionList
+          descriptions={[
+            {
+              term: `${displayText.actionDestination}:`,
+              details: history[history.length - 1].prefix,
+            },
+          ]}
+        />
+      </ViewElement>
       <Overwrite
         defaultChecked={!preventOverwrite}
         disabled={disableOverwrite}
@@ -381,12 +376,11 @@ export const UploadControls = (): JSX.Element => {
         }}
       />
       {taskCounts.TOTAL ? (
-        <Summary
-          total={taskCounts.TOTAL}
-          complete={taskCounts.COMPLETE}
-          failed={taskCounts.FAILED}
-          canceled={taskCounts.CANCELED}
-          queued={taskCounts.INITIAL + taskCounts.QUEUED}
+        <StatusDisplayControl
+          className={`${CLASS_BASE}__upload-status-display`}
+          actionType="BATCH"
+          isCancelable
+          tasks={tasks}
         />
       ) : null}
       <Table

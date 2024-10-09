@@ -1,5 +1,10 @@
 import React from 'react';
 
+// `FileSelect` input `type` must always be set to `file`
+const INPUT_TYPE = 'file';
+
+export type SelectionType = 'FILE' | 'FOLDER';
+
 /**
  * @internal @unstable
  */
@@ -7,7 +12,8 @@ export interface FileSelectProps {
   accept?: string;
   multiple?: boolean;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
-  type?: 'file' | 'folder';
+  selectionType?: SelectionType;
+  testId?: string;
 }
 
 /**
@@ -17,7 +23,7 @@ export interface FileSelectOptions
   extends Omit<FileSelectProps, 'onChange' | 'type'> {}
 
 type HandleSelect = (
-  type: 'file' | 'folder',
+  selectionType: SelectionType,
   options?: FileSelectOptions
 ) => void;
 
@@ -40,14 +46,24 @@ export const DEFAULT_PROPS = {
  * @internal @unstable
  */
 export const FileSelect = React.forwardRef<HTMLInputElement, FileSelectProps>(
-  function FileSelect({ multiple = true, type = 'file', ...props }, ref) {
+  function FileSelect(
+    {
+      multiple = true,
+      selectionType = 'FILE',
+      testId = 'amplify-file-select',
+      ...props
+    },
+    ref
+  ) {
     return (
       <input
         {...DEFAULT_PROPS}
-        {...(type === 'folder' ? { webkitdirectory: '' } : undefined)}
         {...props}
+        {...(selectionType === 'FOLDER' ? { webkitdirectory: '' } : undefined)}
+        data-testid={testId}
         multiple={multiple}
         ref={ref}
+        type={INPUT_TYPE}
       />
     );
   }
@@ -82,18 +98,17 @@ export const useFileSelect = (
   >(undefined);
 
   const ref = React.useRef<HTMLInputElement>(null);
-  const handleSelect = React.useRef<HandleSelect>((type, options) => {
-    setInputProps({ type, ...options });
-  }).current;
+  const handleSelect: HandleSelect = React.useCallback(
+    (selectionType, options) => {
+      setInputProps({ selectionType, ...options });
+    },
+    []
+  );
 
   React.useEffect(() => {
     if (inputProps) {
       ref.current?.click();
     }
-
-    return () => {
-      setInputProps(undefined);
-    };
   }, [inputProps]);
 
   const fileSelect = (
@@ -101,6 +116,7 @@ export const useFileSelect = (
       {...inputProps}
       onChange={({ target }) => {
         onSelect?.([...(target.files ?? [])]);
+        setInputProps(undefined);
       }}
       ref={ref}
     />
