@@ -8,7 +8,8 @@ import {
 } from '../context/elements/definitions';
 
 const BLOCK_NAME = `${CLASS_BASE}__checkbox`;
-const LABEL_CLASSNAME = `${BLOCK_NAME}-label`;
+export const INPUT_CLASSNAME = `${BLOCK_NAME}-input`;
+export const LABEL_CLASSNAME = `${BLOCK_NAME}-label`;
 
 interface CheckboxControlProps {
   checked: boolean;
@@ -30,7 +31,7 @@ export const CheckboxControl = ({
   <ViewElement className={BLOCK_NAME}>
     <InputElement
       checked={checked}
-      className={`${BLOCK_NAME}-input`}
+      className={INPUT_CLASSNAME}
       disabled={disabled}
       id={id}
       onChange={onSelect}
