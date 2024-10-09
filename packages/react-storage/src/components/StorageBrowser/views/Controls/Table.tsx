@@ -167,24 +167,6 @@ const LocationDetailViewColumnSortMap = {
 
 const LocationDetailViewColumnEmptyHeaderMap = ['download'];
 
-export const LocationDetailSelectAllControl = ({
-  onSelect,
-  checked,
-}: {
-  onSelect: () => void;
-  checked: boolean;
-}): JSX.Element => {
-  return (
-    <CheckboxControl
-      checked={checked}
-      id="select-all"
-      labelHidden
-      labelText={SELECT_ALL_FILES_TEXT}
-      onSelect={onSelect}
-    />
-  );
-};
-
 export const LocationDetailViewTable = ({
   range,
 }: {
@@ -218,13 +200,9 @@ export const LocationDetailViewTable = ({
       : pagedData.sort((a, b) => compareFn(b[selection], a[selection]));
 
   // Logic for Select All Files functionality
-  const files = pagedData.filter((item) => item.type === 'FILE');
-  const selectedMap: Record<string, boolean> = {};
-  selected.items?.forEach((item) => (selectedMap[item.key] = true));
-  const hasFilesToSelect = files.length > 0;
-  const allFilesSelected = hasFilesToSelect
-    ? files.every((item) => selectedMap[item.key])
-    : false;
+  const allFiles = pagedData.filter((item) => item.type === 'FILE');
+  const areAllFilesSelected = selected.items?.length === allFiles.length;
+  const hasSelectableFiles = !!allFiles.length;
 
   const renderHeaderItem = React.useCallback(
     (column: Column<LocationItem>) => {
@@ -275,13 +253,16 @@ export const LocationDetailViewTable = ({
           ) : // @TODO: Fix me after refactor
           // @ts-ignore
           column.key === 'select' ? (
-            hasFilesToSelect && (
-              <LocationDetailSelectAllControl
-                checked={allFilesSelected}
+            hasSelectableFiles && (
+              <CheckboxControl
+                checked={areAllFilesSelected}
+                id="select-all"
+                labelHidden
+                labelText={SELECT_ALL_FILES_TEXT}
                 onSelect={() => {
                   handleLocationActionsState({
                     type: 'TOGGLE_SELECTED_ITEMS',
-                    items: allFilesSelected ? [] : files,
+                    items: areAllFilesSelected ? undefined : allFiles,
                   });
                 }}
               />
@@ -296,10 +277,10 @@ export const LocationDetailViewTable = ({
     },
     [
       direction,
-      files,
       handleLocationActionsState,
-      hasFilesToSelect,
-      allFilesSelected,
+      hasSelectableFiles,
+      areAllFilesSelected,
+      allFiles,
       selection,
     ]
   );

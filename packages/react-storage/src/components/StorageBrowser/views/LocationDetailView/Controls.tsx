@@ -89,10 +89,17 @@ export const LocationDetailViewControls = (): React.JSX.Element => {
   const onPaginateNext = () => {
     if (!hasValidPath) return;
 
+    handleLocationActionsState({ type: 'CLEAR' });
     handleList({
       prefix: path,
       options: { ...DEFAULT_LIST_OPTIONS, nextToken },
     });
+  };
+
+  const onPaginatePrevious = () => {
+    if (!hasValidPath) return;
+
+    handleLocationActionsState({ type: 'CLEAR' });
   };
 
   const {
@@ -100,7 +107,11 @@ export const LocationDetailViewControls = (): React.JSX.Element => {
     handlePaginateNext,
     handlePaginatePrevious,
     handleReset,
-  } = usePaginate({ onPaginateNext, pageSize: DEFAULT_PAGE_SIZE });
+  } = usePaginate({
+    onPaginateNext,
+    onPaginatePrevious,
+    pageSize: DEFAULT_PAGE_SIZE,
+  });
 
   React.useEffect(() => {
     if (!hasValidPath) return;
@@ -151,11 +162,9 @@ export const LocationDetailViewControls = (): React.JSX.Element => {
         disablePrevious={disablePrevious}
         handleNext={() => {
           handlePaginateNext({ resultCount, hasNextToken });
-          handleLocationActionsState({ type: 'CLEAR' });
         }}
         handlePrevious={() => {
           handlePaginatePrevious();
-          handleLocationActionsState({ type: 'CLEAR' });
         }}
       />
       <LocationDetailMessage />
