@@ -1,5 +1,11 @@
 import React from 'react';
-import { act, render, screen, waitFor } from '@testing-library/react';
+import {
+  act,
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import createProvider from '../../../createProvider';
@@ -19,6 +25,7 @@ const config = {
 const Provider = createProvider({ actions: {}, config });
 
 const handleList = jest.fn();
+const handleUpdateState = jest.fn();
 
 jest.spyOn(ActionsModule, 'useAction').mockReturnValue([
   {
@@ -41,7 +48,7 @@ jest.spyOn(ControlsModule, 'useControl').mockImplementation(
           actions: {},
           selected: { type: undefined, items: undefined },
         },
-        jest.fn(),
+        handleUpdateState,
       ],
       NAVIGATE: [
         {
@@ -206,6 +213,31 @@ describe('LocationDetailView', () => {
     expect(handleList).toHaveBeenCalledWith({
       prefix: '',
       options: { ...DEFAULT_LIST_OPTIONS, refresh: true },
+    });
+  });
+
+  it('sets the location action as UPLOAD_FILES and includes files dragged into drop zone', () => {
+    const files = [new File(['content'], 'file.txt', { type: 'text/plain' })];
+
+    render(
+      <Provider>
+        <LocationDetailView />
+      </Provider>
+    );
+
+    const dropzone = screen.getByTestId('dropzone');
+
+    jest.spyOn(ControlsModule, 'ControlProvider');
+
+    fireEvent.drop(dropzone, {
+      dataTransfer: {
+        files,
+      },
+    });
+
+    expect(handleUpdateState).toHaveBeenCalledWith({
+      type: 'UPLOAD_FILES',
+      items: files,
     });
   });
 });
