@@ -1,5 +1,11 @@
 # @aws-amplify/ui-react-ai
 
+## 0.3.2
+
+### Patch Changes
+
+- [#5883](https://github.com/aws-amplify/amplify-ui/pull/5883) [`77ac8b92c`](https://github.com/aws-amplify/amplify-ui/commit/77ac8b92cb601bfc034173ef39e1e0091b674566) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - fix(ai): no more unnecessary re-renders in AIConversation
+
 ## 0.3.1
 
 ### Patch Changes
