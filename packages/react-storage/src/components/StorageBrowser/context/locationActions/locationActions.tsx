@@ -26,7 +26,11 @@ export function locationActionsReducer(
 ): LocationActionsState {
   switch (action.type) {
     case 'SET_ACTION': {
-      const selected = { ...state.selected, type: action.payload };
+      const selected = {
+        ...state.selected,
+        type: action.payload,
+        files: action.files,
+      };
       return { ...state, selected };
     }
     case 'CLEAR': {

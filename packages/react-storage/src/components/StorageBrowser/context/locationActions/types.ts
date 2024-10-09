@@ -33,7 +33,7 @@ export interface LocationActions<T = Permission> {
 
 export type LocationActionsAction<T = string> =
   | { type: 'CLEAR' }
-  | { type: 'SET_ACTION'; payload: T }
+  | { type: 'SET_ACTION'; payload: T; files?: File[] }
   | { type: 'SET_LOCATION_ITEM'; item: LocationItem }
   | { type: 'UNSET_LOCATION_ITEM'; key: string };
 
@@ -42,6 +42,7 @@ export interface LocationActionsState<T = string> {
   selected: {
     type: T | undefined;
     items: LocationItem[] | undefined;
+    files?: File[] | undefined;
   };
 }
 
