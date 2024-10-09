@@ -29,15 +29,18 @@ import {
 import { Title } from './Controls/Title';
 import {
   DEFAULT_OVERWRITE_PROTECTION,
+  INITIAL_STATUS_COUNTS,
   STATUS_DISPLAY_VALUES,
 } from './constants';
 import { CancelableTask, useHandleUpload } from './useHandleUpload';
-import { getTaskCounts } from '../../controls/getTaskCounts';
 import { StatusDisplayControl } from '../../controls/StatusDisplayControl';
+import { ActionTriggerControl } from '../../controls/ActionTriggerControl';
+import { StatusCounts } from '../../controls/types';
+import { ActionCancelControl } from '../../controls/ActionCancelControl';
 
 const { Icon } = StorageBrowserElements;
 
-const { Cancel, Exit, Overwrite, Primary, Table } = Controls;
+const { Cancel, Exit, Overwrite, Table } = Controls;
 
 interface LocationActionViewColumns extends CancelableTask {
   type: string;
@@ -170,6 +173,12 @@ const renderRowItem: RenderRowItem<LocationActionViewColumns> = (
   );
 };
 
+const getStatusCounts = (tasks: CancelableTask[] = []): StatusCounts =>
+  tasks.reduce(
+    (counts, { status }) => ({ ...counts, [status]: counts[status] + 1 }),
+    { ...INITIAL_STATUS_COUNTS, TOTAL: tasks.length }
+  );
+
 export const UploadControls = (): JSX.Element => {
   const [{ history, path }] = useControl('NAVIGATE');
 
@@ -200,6 +209,19 @@ export const UploadControls = (): JSX.Element => {
       initialRun.current = true;
     }
   }, [selected.type]);
+
+  const handleAction: (
+    handlerType: { type: 'process-start' } | { type: 'process-cancel' }
+  ) => void = ({ type }) => {
+    switch (type) {
+      case 'process-start':
+        handleUpload();
+        break;
+      case 'process-cancel':
+        handleCancel();
+        break;
+    }
+  };
 
   const [compareFn, setCompareFn] = React.useState<(a: any, b: any) => number>(
     () => compareStrings
@@ -282,16 +304,16 @@ export const UploadControls = (): JSX.Element => {
     [direction, selection]
   );
 
-  const taskCounts = getTaskCounts(tasks);
+  const statusCounts = getStatusCounts(tasks);
 
-  const hasStarted = !!taskCounts.PENDING;
+  const hasStarted = !!statusCounts.PENDING;
   const hasCompleted =
-    !!taskCounts.TOTAL &&
-    taskCounts.CANCELED + taskCounts.COMPLETE + taskCounts.FAILED ===
-      taskCounts.TOTAL;
+    !!statusCounts.TOTAL &&
+    statusCounts.CANCELED + statusCounts.COMPLETE + statusCounts.FAILED ===
+      statusCounts.TOTAL;
 
-  const disableCancel = !taskCounts.TOTAL || !hasStarted || hasCompleted;
-  const disablePrimary = !taskCounts.TOTAL || hasStarted || hasCompleted;
+  const disableCancel = !statusCounts.TOTAL || !hasStarted || hasCompleted;
+  const disablePrimary = !statusCounts.TOTAL || hasStarted || hasCompleted;
   const disableOverwrite = hasStarted || hasCompleted;
   const disableSelectFiles = hasStarted || hasCompleted;
 
@@ -320,14 +342,18 @@ export const UploadControls = (): JSX.Element => {
       />
       <Exit onClick={() => handleUpdateState({ type: 'CLEAR' })} />
       <Title />
-      <Primary
+      <ActionTriggerControl
+        actionKey="Upload"
+        className={`${CLASS_BASE}__upload-action-trigger`}
         disabled={disablePrimary}
-        onClick={() => {
-          handleUpload();
-        }}
-      >
-        Start
-      </Primary>
+        handleAction={handleAction}
+      />
+      <ActionCancelControl
+        actionKey="Upload"
+        className={`${CLASS_BASE}__upload-action-cancel`}
+        disabled={disableCancel}
+        handleAction={handleAction}
+      />
       <ButtonElement
         variant="cancel"
         disabled={disableCancel}
@@ -375,12 +401,12 @@ export const UploadControls = (): JSX.Element => {
           setPreventOverwrite((overwrite) => !overwrite);
         }}
       />
-      {taskCounts.TOTAL ? (
+      {statusCounts.TOTAL ? (
         <StatusDisplayControl
           className={`${CLASS_BASE}__upload-status-display`}
-          actionType="BATCH"
+          type="BATCH_ACTION"
           isCancelable
-          tasks={tasks}
+          statusCounts={statusCounts}
         />
       ) : null}
       <Table

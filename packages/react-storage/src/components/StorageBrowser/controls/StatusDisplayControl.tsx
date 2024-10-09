@@ -3,44 +3,41 @@ import React from 'react';
 import { StatusDisplay } from '../composables/StatusDisplay';
 import { ViewElement } from '../context/elements';
 import { displayText } from '../displayText/en';
-import { CancelableTask } from '../views/LocationActionView/useHandleUpload';
-import { getTaskCounts } from './getTaskCounts';
-import { ControlProps } from './types';
+import { ControlProps, StatusCounts } from './types';
 
 // FIXME: Temporarily get via props. Refactor later to get via view hook
 interface TempProps extends ControlProps {
-  actionType: 'BATCH' | 'SINGLE';
+  type: 'BATCH_ACTION' | 'SINGLE_ACTION';
   isCancelable?: boolean;
-  tasks: CancelableTask[];
+  statusCounts: StatusCounts;
 }
 
 export const StatusDisplayControl = ({
   className,
-  actionType,
+  type,
   isCancelable,
-  tasks,
+  statusCounts,
 }: TempProps): React.JSX.Element | null => {
-  if (actionType === 'SINGLE') {
+  if (type === 'SINGLE_ACTION') {
     return null;
   }
 
-  const counts = getTaskCounts(tasks);
   const statuses = [
-    { name: displayText.statusDisplayCompleted, count: counts.COMPLETE },
-    { name: displayText.statusDisplayFailed, count: counts.FAILED },
-    { name: displayText.statusDisplayQueued, count: counts.QUEUED },
+    { name: displayText.statusDisplayCompleted, count: statusCounts.COMPLETE },
+    { name: displayText.statusDisplayFailed, count: statusCounts.FAILED },
+    { name: displayText.statusDisplayQueued, count: statusCounts.QUEUED },
   ];
 
   if (isCancelable) {
     statuses.splice(2, 0, {
       name: displayText.statusDisplayCanceled,
-      count: counts.CANCELED,
+      count: statusCounts.CANCELED,
     });
   }
 
   return (
     <ViewElement className={className}>
-      <StatusDisplay statuses={statuses} total={counts.TOTAL} />
+      <StatusDisplay statuses={statuses} total={statusCounts.TOTAL} />
     </ViewElement>
   );
 };

@@ -208,7 +208,7 @@
   align-items: center;
 }
 
-.storage-browser__primary {
+.storage-browser__upload-action-trigger {
   grid-column: 3 / -2;
   justify-self: flex-end;
 }
