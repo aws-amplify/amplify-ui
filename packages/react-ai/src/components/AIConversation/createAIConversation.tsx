@@ -14,7 +14,7 @@ import {
   MessagesControl,
   PromptControl,
 } from './views';
-import createProvider from './createProvider';
+import { AIConversationProvider } from './AIConversationProvider';
 
 /**
  * @experimental
@@ -33,28 +33,26 @@ export function createAIConversation(input: AIConversationInput = {}): {
     allowAttachments,
   } = input;
 
-  const Provider = createProvider({
-    elements,
-    actions,
-    suggestedPrompts,
-    responseComponents,
-    variant,
-    controls,
-    displayText,
-    allowAttachments,
-  });
-
   function AIConversation(props: AIConversationProps): JSX.Element {
     const { messages, avatars, handleSendMessage, isLoading } = props;
+    const providerProps = {
+      elements,
+      actions,
+      suggestedPrompts,
+      responseComponents,
+      variant,
+      controls,
+      displayText,
+      allowAttachments,
+      messages,
+      avatars,
+      handleSendMessage,
+      isLoading,
+    };
     return (
-      <Provider
-        messages={messages}
-        avatars={avatars}
-        handleSendMessage={handleSendMessage}
-        isLoading={isLoading}
-      >
+      <AIConversationProvider {...providerProps}>
         <Conversation />
-      </Provider>
+      </AIConversationProvider>
     );
   }
 
@@ -67,7 +65,7 @@ export function createAIConversation(input: AIConversationInput = {}): {
     SuggestedPrompts: PromptControl,
   };
 
-  AIConversation.Provider = Provider;
+  AIConversation.Provider = AIConversationProvider;
   AIConversation.Conversation = Conversation;
   AIConversation.Controls = Controls;
 
