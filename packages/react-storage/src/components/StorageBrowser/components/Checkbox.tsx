@@ -12,11 +12,11 @@ export const INPUT_CLASSNAME = `${BLOCK_NAME}-input`;
 export const LABEL_CLASSNAME = `${BLOCK_NAME}-label`;
 
 interface CheckboxControlProps {
-  checked: boolean;
+  checked?: boolean;
   disabled?: boolean;
-  id: string;
+  id?: string;
   labelHidden?: boolean;
-  labelText: string;
+  labelText?: string;
   onSelect?: () => void;
 }
 
