@@ -39,8 +39,9 @@ else
   ./gradlew clean >$LOG_FILE
   log "command" "cd .. >$LOG_FILE"
   cd .. >$LOG_FILE
-  log "command" "npm run start &"
-  npm run start &
+  log "command" "npm react-native start &"
+  npm react-native start &
+  npx wait-on -t 5000 tcp:8081
   log "command" "npm run android >$LOG_FILE"
   npm run android >$LOG_FILE
 fi

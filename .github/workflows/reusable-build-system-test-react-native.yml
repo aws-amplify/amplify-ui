@@ -29,9 +29,7 @@ jobs:
         pkg-manager: [npm]
         language: [ts]
         node-version: [20]
-        # uncomment to re-enable
-        # platform: [ios, android]
-        platform: [android]
+        platform: [ios, android]
         logfile: [test.log]
         pkg-manager-version: [latest]
         include: 
@@ -56,6 +54,8 @@ jobs:
         exclude:
           - build-tool: expo
             platform: ios
+          - framework-version: [{ formatted: 074, value: 0.74 }, { formatted: 073, value: 0.73 },{ formatted: 072, value: 0.72 },{ formatted: 071, value: 0.71 }]
+            platform: ios
 
     env:
       MEGA_APP_NAME: rn${{ matrix.framework-version.formatted }}${{ matrix.build-tool }}${{ matrix.build-tool-version }}${{ matrix.language }}${{ matrix.platform }}ui${{ inputs.dist-tag }}
@@ -79,7 +79,7 @@ jobs:
         uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2 https://github.com/actions/cache/commit/0c45773b623bea8c8e75f6c82b208c3cf94ea4f9
         with:
           path: ./examples/react-native/ios/Pods
-          key: ${{ runner.os }}-cocoapods-${{ inputs.commit }}
+          key: ${{ runner.os }}-cocoapods
           restore-keys: pods-${{ hashFiles('examples/react-native/ios/Podfile.lock') }}
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
@@ -91,7 +91,7 @@ jobs:
           path: |
             ./node_modules
             **/node_modules
-          key: ${{ runner.os }}-nodemodules-${{ inputs.commit }}
+          key: ${{ runner.os }}-nodemodules
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 3
       - name: Install Java 17
