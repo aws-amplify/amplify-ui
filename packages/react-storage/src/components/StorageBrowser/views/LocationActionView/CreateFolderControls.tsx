@@ -7,7 +7,7 @@ import { SpanElement } from '../../context/elements';
 
 import { Controls } from '../Controls';
 
-import { Title } from './Controls/Title';
+import { TitleControl } from '../Controls/Title';
 
 const { Exit, Message, Primary } = Controls;
 
@@ -100,7 +100,7 @@ export const CreateFolderControls = (): React.JSX.Element => {
           handleClose();
         }}
       />
-      <Title />
+      <TitleControl />
       <Primary {...primaryProps} />
       <Field
         label="Enter folder name:"

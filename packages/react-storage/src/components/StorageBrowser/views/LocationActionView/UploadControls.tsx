@@ -26,7 +26,7 @@ import {
   SortState,
 } from '../Controls/Table';
 
-import { Title } from './Controls/Title';
+import { TitleControl } from '../Controls/Title';
 import {
   DEFAULT_OVERWRITE_PROTECTION,
   STATUS_DISPLAY_VALUES,
@@ -319,7 +319,7 @@ export const UploadControls = (): JSX.Element => {
         ref={handleFolderInput}
       />
       <Exit onClick={() => handleUpdateState({ type: 'CLEAR' })} />
-      <Title />
+      <TitleControl />
       <Primary
         disabled={disablePrimary}
         onClick={() => {
