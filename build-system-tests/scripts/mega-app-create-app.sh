@@ -2,18 +2,17 @@
 set -e
 
 # Default values
-BUILD_TOOL="cra"
+BUILD_TOOL="next"
 BUILD_TOOL_VERSION="latest"
-LANGUAGE="ts"
 MEGA_APP_NAME=""
 FRAMEWORK="react"
 FRAMEWORK_VERSION="latest"
 
 # Options
 # e.g.
-# $ ./mega-app-create-app.sh --build-tool react --build-tool-version latest --language typescript --name react-latest-cra-latest-node-18-ts --framework cra --framework-version latest
-# $ ./mega-app-create-app.sh -B react -b latest -l typescript -n react-latest-cra-latest-node-18-ts -F cra -f latest
-# $ ./mega-app-create-app.sh -n react-latest-cra-latest-node-18-ts
+# $ ./mega-app-create-app.sh --build-tool react --build-tool-version latest --name react-latest-next-latest-node-18-ts --framework next --framework-version latest
+# $ ./mega-app-create-app.sh -B react -b latest -l typescript -n react-latest-next-latest-node-18-ts -F next -f latest
+# $ ./mega-app-create-app.sh -n react-latest-next-latest-node-18-ts
 
 while [[ $# -gt 0 ]]; do
     case $1 in
@@ -23,10 +22,6 @@ while [[ $# -gt 0 ]]; do
         ;;
     -b | --build-tool-version)
         BUILD_TOOL_VERSION=$2
-        shift
-        ;;
-    -l | --language)
-        LANGUAGE=$2
         shift
         ;;
     -n | --name)
@@ -44,9 +39,8 @@ while [[ $# -gt 0 ]]; do
     -h | --help)
         echo "Usage: mega-app-create-app.sh [OPTIONS]"
         echo "Options:"
-        echo "  -B, --build-tool          Specify the build tool: cra, next, vite, angular-cli, vue-cli, nuxt, react-native-cli, expo. (default: cra)"
+        echo "  -B, --build-tool          Specify the build tool: next, vite, angular-cli, vue-cli, nuxt, react-native-cli, expo. (default: next)"
         echo "  -b, --build-tool-version Specify the build tool version (default: latest)"
-        echo "  -l, --language          Specify the language: js, ts (default: js)"
         echo "  -n, --name                 Specify the mega app name (required)"
         echo "  -F, --framework           Specify the framework: react, angular, vue, react-native (default: react)"
         echo "  -f, --framework-version  Specify the framework version (default: latest)"
@@ -74,16 +68,6 @@ cd mega-apps
 # Otherwise mega-apps will be automatically created in build-system-tests/ folder even if we cd into mega-apps/ folder.
 echo "echo "{}" >package.json"
 echo "{}" >package.json
-
-if [[ "$BUILD_TOOL" == 'cra' && "$LANGUAGE" == 'js' ]]; then
-    echo "npx create-react-app ${MEGA_APP_NAME}"
-    npx create-react-app ${MEGA_APP_NAME}
-fi
-
-if [[ "$BUILD_TOOL" == 'cra' && "$LANGUAGE" == 'ts' ]]; then
-    echo "npx create-react-app ${MEGA_APP_NAME} --template typescript"
-    npx create-react-app ${MEGA_APP_NAME} --template typescript
-fi
 
 if [ "$BUILD_TOOL" == 'next' ]; then
     echo "npx create-next-app ${MEGA_APP_NAME} --ts --no-src-dir --no-experimental-app --no-eslint --no-app --no-tailwind"
