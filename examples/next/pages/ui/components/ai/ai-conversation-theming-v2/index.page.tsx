@@ -31,7 +31,7 @@ const conversationTheme = defineComponentTheme({
           borderWidth: tokens.borderWidths.small,
           borderStyle: 'solid',
           borderColor: tokens.colors.border.primary,
-          boxShadow: tokens.shadows.medium,
+          boxShadow: `${tokens.shadows.medium}`,
         },
         message__list: {
           gap: tokens.space.large,
@@ -42,7 +42,7 @@ const conversationTheme = defineComponentTheme({
           borderWidth: tokens.borderWidths.small,
           borderStyle: 'solid',
           borderColor: tokens.colors.border.primary,
-          boxShadow: tokens.shadows.medium,
+          boxShadow: `${tokens.shadows.medium}`,
         },
       },
     };
