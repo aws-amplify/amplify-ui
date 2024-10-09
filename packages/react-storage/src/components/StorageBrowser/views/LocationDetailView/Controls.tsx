@@ -26,6 +26,7 @@ const {
   EmptyMessage,
   Loading: LoadingControl,
   Message,
+  Navigate,
   Paginate,
   Refresh,
   Title: TitleControl,
@@ -153,6 +154,7 @@ export const LocationDetailViewControls = (): React.JSX.Element => {
 
   return (
     <DropZoneElement handleDroppedFiles={(files) => handleDroppedFiles(files)}>
+      <Navigate />
       <Title />
       <RefreshControl
         disableRefresh={disableRefresh}
