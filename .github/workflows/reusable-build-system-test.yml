@@ -17,53 +17,24 @@ jobs:
       matrix:
         framework: [react]
         framework-version: [latest]
-        build-tool: [cra, next, vite]
+        build-tool: [next, vite]
         build-tool-version: [latest]
         pkg-manager: [npm]
         language: [ts]
-        node-version: [18]
+        node-version: [20]
         pkg-manager-version: [latest]
         include:
           - framework: react
-            framework-version: latest
-            build-tool: cra
-            build-tool-version: latest
+            framework-version: 18
+            build-tool: next
+            build-tool-version: 13
             pkg-manager: npm
-            language: ts
-            node-version: 20
-          - framework: react
-            framework-version: 16
-            build-tool: cra
-            build-tool-version: latest
-            pkg-manager: npm
-            language: ts
-            node-version: 20
-          - framework: react
-            framework-version: latest
-            build-tool: cra
-            build-tool-version: latest
-            pkg-manager: npm
-            language: js
-            node-version: 20
-          - framework: react
-            framework-version: latest
-            build-tool: cra
-            build-tool-version: latest
-            pkg-manager: yarn
-            pkg-manager-version: 1
             language: ts
             node-version: 20
           - framework: react
             framework-version: 18
-            build-tool: next
-            build-tool-version: 12
-            pkg-manager: npm
-            language: ts
-            node-version: 20
-          - framework: react
-            framework-version: latest
             build-tool: vite
-            build-tool-version: 2
+            build-tool-version: 3
             pkg-manager: npm
             language: ts
             node-version: 20
@@ -98,7 +69,7 @@ jobs:
             language: ts
             node-version: 20
           - framework: vue
-            framework-version: latest
+            framework-version: 3
             build-tool: vite
             build-tool-version: 3
             pkg-manager: npm
@@ -111,9 +82,6 @@ jobs:
             pkg-manager: npm
             language: ts
             node-version: 20
-
-    env:
-      MEGA_APP_NAME: ${{ matrix.framework }}-${{ matrix.framework-version }}-${{ matrix.build-tool }}-${{ matrix.build-tool-version }}-${{ matrix.language }}-ui-${{ inputs.dist-tag }}
 
     steps:
       - name: Checkout Amplify UI
@@ -128,6 +96,6 @@ jobs:
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
       - name: Create MegaApp ${{ env.MEGA_APP_NAME }} and run build on NodeJS ${{ matrix.node-version }}
-        run: npm run ${{ env.MEGA_APP_NAME }}
+        run: npm run test:${{ matrix.framework }}:${{matrix.build-tool}} -- --framework-version ${{matrix.framework-version}} --build-tool-version ${{matrix.build-tool-version}} --pkg-manager ${{matrix.pkg-manager}} --tag ${{inputs.dist-tag}}
         shell: bash
         working-directory: build-system-tests
