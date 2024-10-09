@@ -13,7 +13,7 @@ import { Form } from './views/default/Form';
 import { PromptList } from './views/default/PromptList';
 import { AutoHidablePromptControl } from './views/Controls';
 import { ComponentClassName } from '@aws-amplify/ui';
-import createProvider from './createProvider';
+import { AIConversationProvider } from './AIConversationProvider';
 
 interface AIConversationBaseProps
   extends AIConversationProps,
@@ -45,7 +45,14 @@ function AIConversationBase({
     },
   };
 
-  const Provider = createProvider({
+  const providerProps = {
+    messages,
+    handleSendMessage,
+    avatars: {
+      ...defaultAvatars,
+      ...avatars,
+    },
+    isLoading,
     elements: {
       Text: React.forwardRef<HTMLParagraphElement, TextProps>(
         function _Text(props, ref) {
@@ -66,20 +73,10 @@ function AIConversationBase({
     displayText,
     allowAttachments,
     messageRenderer,
-  });
-
-  const providerProps = {
-    messages,
-    handleSendMessage,
-    avatars: {
-      ...defaultAvatars,
-      ...avatars,
-    },
-    isLoading,
   };
 
   return (
-    <Provider {...providerProps}>
+    <AIConversationProvider {...providerProps}>
       <Flex className={ComponentClassName.AIConversation}>
         <ScrollView autoScroll="smooth" flex="1">
           <AutoHidablePromptControl />
@@ -87,7 +84,7 @@ function AIConversationBase({
         </ScrollView>
         <FieldControl />
       </Flex>
-    </Provider>
+    </AIConversationProvider>
   );
 }
 
