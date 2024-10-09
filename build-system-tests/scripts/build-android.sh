@@ -27,7 +27,12 @@ if [ $? -ne 0 ]; then
 fi
 
 # Run npm run android in the background
-if [ $BUILD_TOOL == 'cli' ]; then
+if [ $BUILD_TOOL == 'expo' ]; then
+  log "command" "npm run android -- -p 19000 >$LOG_FILE &"
+  # Run npm run android in the background
+  npm run android -- -p 19000 >$LOG_FILE &
+  npx wait-on -t 20000 tcp:19000
+else
   log "command" "cd android >$LOG_FILE "
   cd android >$LOG_FILE
   log "command" "./gradlew clean >$LOG_FILE" # To prevent "installDebug FAILED" https://stackoverflow.com/a/54955869/12610324
@@ -36,8 +41,7 @@ if [ $BUILD_TOOL == 'cli' ]; then
   cd .. >$LOG_FILE
   log "command" "npm run start &"
   npm run start &
+  log "command" "npm run android >$LOG_FILE"
+  npm run android >$LOG_FILE
 fi
-  log "command" "npm run android -- -p 19000 >$LOG_FILE &"
-  # Run npm run android in the background
-  npm run android -- -p 19000 >$LOG_FILE &
-  npx wait-on -t 20000 tcp:19000
+

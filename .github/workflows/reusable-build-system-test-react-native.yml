@@ -23,7 +23,6 @@ jobs:
             { formatted: 073, value: 0.73 },
             { formatted: 072, value: 0.72 },
             { formatted: 071, value: 0.71 },
-            { formatted: 070, value: "0.70" },
           ]
         build-tool: [cli, expo]
         build-tool-version: [latest]
@@ -36,7 +35,8 @@ jobs:
         logfile: [test.log]
         pkg-manager-version: [latest]
         include: 
-          - framework-version: { formatted: 070, value: "0.70" }
+          - framework: react-native
+            framework-version: { formatted: 070, value: "0.70" }
             build-tool: cli
             build-tool-version: 9
             platform: android
