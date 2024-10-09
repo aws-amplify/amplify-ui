@@ -26,7 +26,7 @@ export const DropZoneElement = ({
   return (
     <ViewElement
       {...dropHandlers}
-      data-testId="dropzone"
+      data-testid="dropzone"
       className={`${CLASS_BASE}__drag-drop-container${
         isDragging ? '__outlined' : ''
       }`}

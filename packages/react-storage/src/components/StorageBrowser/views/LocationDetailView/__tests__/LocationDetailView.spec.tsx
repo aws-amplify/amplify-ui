@@ -14,6 +14,7 @@ import * as ControlsModule from '../../../context/control';
 
 import { LocationDetailView } from '../LocationDetailView';
 import { DEFAULT_LIST_OPTIONS, DEFAULT_ERROR_MESSAGE } from '../Controls';
+import { ListLocationItemsActionOutput } from '../../../actions';
 
 const config = {
   getLocationCredentials: jest.fn(),
@@ -25,48 +26,97 @@ const config = {
 const Provider = createProvider({ actions: {}, config });
 
 const handleList = jest.fn();
+const handleLocationActionsState = jest.fn();
 const handleUpdateState = jest.fn();
 
-jest.spyOn(ActionsModule, 'useAction').mockReturnValue([
-  {
-    data: {
-      result: [{ key: 'test1', type: 'FOLDER' }],
-      nextToken: undefined,
-    },
-    hasError: false,
-    isLoading: false,
-    message: undefined,
-  },
-  handleList,
-]);
+const prefix = 'b_prefix/';
+const getFolderPrefix = (index: number) => `a_prefix_${index}`;
+const testFolder = { type: 'FOLDER', key: 'a_prefix_test/' };
 
-jest.spyOn(ControlsModule, 'useControl').mockImplementation(
-  (type) =>
-    ({
-      LOCATION_ACTIONS: [
-        {
-          actions: {},
-          selected: { type: undefined, items: undefined },
-        },
-        handleUpdateState,
-      ],
-      NAVIGATE: [
-        {
-          location: {
-            scope: 's3://test-bucket/*',
-            permission: 'READ',
-            type: 'BUCKET',
+const generateMockItems = (
+  size: number
+): ListLocationItemsActionOutput['items'] => {
+  return Array.apply(0, new Array(size)).map((_, index) => {
+    const type = index % 2 == 0 ? 'FILE' : 'FOLDER';
+    return type === 'FOLDER'
+      ? {
+          key: getFolderPrefix(index),
+          type: 'FOLDER',
+        }
+      : {
+          key: `${prefix}key${index}`,
+          type: 'FILE',
+          lastModified: new Date(),
+          size: Math.floor(Math.random() * 1000000),
+        };
+  });
+};
+
+const testResult = [testFolder, ...generateMockItems(200)];
+
+const mockListItemsAction = ({
+  hasError = false,
+  isLoading = false,
+  message,
+  result,
+  nextToken = undefined,
+}: {
+  hasError?: boolean;
+  isLoading?: boolean;
+  message?: string;
+  result: any[];
+  nextToken?: string;
+}) => {
+  jest.spyOn(ActionsModule, 'useAction').mockReturnValue([
+    {
+      data: {
+        result,
+        nextToken,
+      },
+      hasError,
+      isLoading,
+      message,
+    },
+    handleList,
+  ]);
+};
+
+const mockUseControl = ({ prefix = '' }: { prefix: string }) => {
+  jest.spyOn(ControlsModule, 'useControl').mockImplementation(
+    (type) =>
+      ({
+        LOCATION_ACTIONS: [
+          {
+            actions: {},
+            selected: { type: undefined, items: [] },
           },
-          history: [{ prefix: 'cat-cat/' }],
-          path: 'cat-cat/',
-        },
-        jest.fn(),
-      ],
-    })[type]
-);
+          handleLocationActionsState,
+        ],
+        NAVIGATE: [
+          {
+            location: {
+              scope: 's3://test-bucket/*',
+              permission: 'READ',
+              type: 'BUCKET',
+            },
+            history: prefix ? [{ prefix }] : [],
+            path: prefix,
+          },
+          handleUpdateState,
+        ],
+      })[type]
+  );
+};
 
 describe('LocationDetailView', () => {
+  beforeEach(() => {
+    jest.resetModules();
+  });
+
   it('renders a `LocationDetailView`', async () => {
+    mockListItemsAction({ result: testResult });
+    mockUseControl({ prefix });
+
     await waitFor(() => {
       render(
         <Provider>
@@ -78,40 +128,8 @@ describe('LocationDetailView', () => {
     expect(screen.getByTestId('LOCATION_DETAIL_VIEW')).toBeInTheDocument();
   });
 
-  it('refreshes table when refresh button is clicked', async () => {
-    const user = userEvent.setup();
-
-    render(
-      <Provider>
-        <LocationDetailView />
-      </Provider>
-    );
-
-    const refreshButton = screen.getByLabelText('Refresh table');
-
-    await act(async () => {
-      await user.click(refreshButton);
-    });
-
-    expect(handleList).toHaveBeenCalledWith({
-      prefix: 'cat-cat/',
-      options: { ...DEFAULT_LIST_OPTIONS, refresh: true },
-    });
-  });
-
   it('shows a Loading element when first loaded', () => {
-    jest.spyOn(ActionsModule, 'useAction').mockReturnValue([
-      {
-        data: {
-          result: [],
-          nextToken: undefined,
-        },
-        hasError: false,
-        isLoading: true,
-        message: undefined,
-      },
-      handleList,
-    ]);
+    mockListItemsAction({ isLoading: true, result: [] });
 
     render(
       <Provider>
@@ -127,18 +145,12 @@ describe('LocationDetailView', () => {
   it('renders a returned error Message', () => {
     const errorMessage = 'A network error occurred.';
 
-    jest.spyOn(ActionsModule, 'useAction').mockReturnValue([
-      {
-        data: {
-          result: [],
-          nextToken: undefined,
-        },
-        hasError: true,
-        isLoading: true,
-        message: errorMessage,
-      },
-      handleList,
-    ]);
+    mockListItemsAction({
+      isLoading: true,
+      hasError: true,
+      message: errorMessage,
+      result: [],
+    });
 
     render(
       <Provider>
@@ -154,18 +166,7 @@ describe('LocationDetailView', () => {
   });
 
   it('renders a default error Message', () => {
-    jest.spyOn(ActionsModule, 'useAction').mockReturnValue([
-      {
-        data: {
-          result: [],
-          nextToken: undefined,
-        },
-        hasError: true,
-        isLoading: true,
-        message: undefined,
-      },
-      handleList,
-    ]);
+    mockListItemsAction({ result: [], hasError: true, message: undefined });
 
     render(
       <Provider>
@@ -178,31 +179,8 @@ describe('LocationDetailView', () => {
   });
 
   it('loads initial location items for a BUCKET location as expected', () => {
-    jest.spyOn(ControlsModule, 'useControl').mockImplementation(
-      (type) =>
-        ({
-          LOCATION_ACTIONS: [
-            {
-              actions: {},
-              selected: { type: undefined, items: undefined },
-            },
-            jest.fn(),
-          ],
-          NAVIGATE: [
-            {
-              location: {
-                scope: 's3://test-bucket/*',
-                permission: 'READ',
-                type: 'BUCKET',
-              },
-              history: [{ prefix: '' }],
-              path: '',
-            },
-            jest.fn(),
-          ],
-        })[type]
-    );
-
+    const initialPrefix = '';
+    mockUseControl({ prefix: initialPrefix });
     render(
       <Provider>
         <LocationDetailView />
@@ -211,12 +189,36 @@ describe('LocationDetailView', () => {
 
     expect(handleList).toHaveBeenCalled();
     expect(handleList).toHaveBeenCalledWith({
-      prefix: '',
+      prefix: initialPrefix,
+      options: { ...DEFAULT_LIST_OPTIONS, refresh: true },
+    });
+  });
+
+  it('refreshes table and clears selection state when refresh button is clicked', async () => {
+    const user = userEvent.setup();
+    mockUseControl({ prefix: prefix });
+    mockListItemsAction({ result: testResult });
+
+    render(
+      <Provider>
+        <LocationDetailView />
+      </Provider>
+    );
+
+    const refreshButton = screen.getByLabelText('Refresh table');
+
+    await act(async () => {
+      await user.click(refreshButton);
+    });
+
+    expect(handleList).toHaveBeenCalledWith({
+      prefix: prefix,
       options: { ...DEFAULT_LIST_OPTIONS, refresh: true },
     });
   });
 
   it('sets the location action as UPLOAD_FILES and includes files dragged into drop zone', () => {
+    mockUseControl({ prefix: prefix });
     const files = [new File(['content'], 'file.txt', { type: 'text/plain' })];
 
     render(
@@ -235,9 +237,10 @@ describe('LocationDetailView', () => {
       },
     });
 
-    expect(handleUpdateState).toHaveBeenCalledWith({
-      type: 'UPLOAD_FILES',
-      items: files,
+    expect(handleLocationActionsState).toHaveBeenCalledWith({
+      payload: 'UPLOAD_FILES',
+      type: 'SET_ACTION',
+      files: files,
     });
   });
 });
