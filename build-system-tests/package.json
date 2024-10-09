@@ -21,7 +21,7 @@
     "test:vue:nuxt": "./scripts/setup-mega-app.sh -F vue --build-tool nuxt",
     "setup:react-native": "./scripts/setup-mega-app.sh -F react-native",
     "setup:react-native:cli": "./scripts/setup-mega-app.sh -F react-native -B cli",
-    "test:react-native:expo": "./scripts/setup-mega-app.sh -F react-native -B expo",
+    "setup:react-native:expo": "./scripts/setup-mega-app.sh -F react-native -B expo",
     "rn-latest-cli-latest-ts-ios-ui-latest": "npm run setup:react-native:cli -- -A ios",
     "rn-latest-cli-latest-ts-ios-ui-next": "npm run setup:react-native:cli -- -A ios -t next",
     "rn-latest-cli-latest-ts-ios-ui-hotfix": "npm run setup:react-native:cli -- -A ios -t hotfix",
