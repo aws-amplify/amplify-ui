@@ -3,7 +3,6 @@ import {
   isDesignToken,
   cssValue,
   cssNameTransform,
-  usesReference,
   flattenProperties,
   deepExtend,
 } from '../utils';
@@ -159,45 +158,6 @@ describe('theme utils', () => {
       const ret = flattenProperties(properties);
       const sortedRet = ret.sort(sortBy('value'));
       expect(sortedRet).toEqual(sortedExpectedRet);
-    });
-  });
-
-  // https://github.com/amzn/style-dictionary/blob/main/__tests__/utils/reference/usesReference.test.js
-  describe('usesReference()', () => {
-    it(`returns false for non-strings`, () => {
-      expect(usesReference(42)).toBe(false);
-    });
-
-    it(`returns false if value uses no reference`, () => {
-      expect(usesReference('foo.bar')).toBe(false);
-    });
-
-    it(`returns true if value is a reference`, () => {
-      expect(usesReference('{foo.bar}')).toBe(true);
-    });
-
-    it(`should return true if value uses a reference`, () => {
-      expect(usesReference('baz {foo.bar}')).toBe(true);
-    });
-
-    it(`returns true if an object uses a reference`, () => {
-      expect(usesReference({ foo: '{bar}' })).toBe(true);
-    });
-
-    it(`returns false if an object doesn't have a reference`, () => {
-      expect(usesReference({ foo: 'bar' })).toBe(false);
-    });
-
-    it(`returns true if a nested object has a reference`, () => {
-      expect(usesReference({ foo: { bar: '{bar}' } })).toBe(true);
-    });
-
-    it(`returns true if an array uses a reference`, () => {
-      expect(usesReference(['foo', '{bar}'])).toBe(true);
-    });
-
-    it(`returns false if an array doesn't use a reference`, () => {
-      expect(usesReference(['foo', 'bar'])).toBe(false);
     });
   });
 

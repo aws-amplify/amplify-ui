@@ -1,6 +1,4 @@
-import deepExtend from 'style-dictionary/lib/utils/deepExtend';
-import resolveObject from 'style-dictionary/lib/utils/resolveObject';
-import usesReference from 'style-dictionary/lib/utils/references/usesReference';
+import { deepExtend, resolveObject, usesReference } from '@aws-amplify/ui';
 import { isFunction, setupTokens } from '@aws-amplify/ui';
 import {
   Theme,
@@ -15,13 +13,15 @@ import { defaultTheme } from './defaultTheme';
 // calling the component theme function with the already resolved base tokens
 // OR
 // resolving the component theme object
+interface TokensAndComponents {
+  components: Components;
+  tokens: StrictTokens;
+}
+
 const setupComponents = ({
   components,
   tokens,
-}: {
-  components: Components;
-  tokens: StrictTokens;
-}) => {
+}: TokensAndComponents): Components => {
   const output = components
     ? Object.entries(components).reduce(
         (acc, [key, value]) => ({
@@ -32,7 +32,7 @@ const setupComponents = ({
       )
     : {};
 
-  return resolveObject({
+  return resolveObject<TokensAndComponents>({
     ...tokens,
     components: output,
   }).components;
@@ -103,12 +103,7 @@ export const createTheme = (
 ): StrictTheme => {
   // merge custom `theme` param and `StrictTheme` to get the merged theme.
   // `deepExtend` is a Style Dictionary method that performs a deep merge on n objects.
-  const mergedTheme = deepExtend([
-    {},
-    defaultTheme,
-    theme,
-    // cast to `StrictTheme` as `deepExtend` returns a generic object
-  ]) as StrictTheme;
+  const mergedTheme = deepExtend<StrictTheme>([{}, defaultTheme, theme]);
 
   let { tokens: mergedTokens } = mergedTheme;
   const { spaceModifier = 1 } = mergedTheme;
@@ -119,11 +114,11 @@ export const createTheme = (
   if (theme?.overrides?.length) {
     theme.overrides.forEach((override) => {
       if (override?.colorMode === colorMode) {
-        mergedTokens = deepExtend([
+        mergedTokens = deepExtend<StrictTheme['tokens']>([
           {},
           mergedTokens,
           override.tokens,
-        ]) as StrictTheme['tokens'];
+        ]);
       }
       // more overrides in the future could happen here
     });
@@ -132,13 +127,13 @@ export const createTheme = (
   // Setup the tokens:
   // - each token will have a raw value
   // - references to tokens (strings wrapped in curly braces) are replaced by raw values
-  const tokens = resolveObject(
+  const tokens = resolveObject<StrictTheme['tokens']>(
     setupTokens({
       tokens: mergedTokens,
       setupToken: ({ token, path }) => {
         return setupToken({ token, path, spaceModifier });
       },
-    }) as StrictTheme['tokens']
+    })
   );
 
   let components;
