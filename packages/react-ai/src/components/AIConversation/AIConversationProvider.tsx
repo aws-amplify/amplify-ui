@@ -19,6 +19,12 @@ import {
 } from './context';
 import { AttachmentProvider } from './context/AttachmentContext';
 
+interface AIConversationProviderProps
+  extends AIConversationInput,
+    AIConversationProps {
+  children?: React.ReactNode;
+}
+
 export const AIConversationProvider = ({
   elements,
   actions,
@@ -33,8 +39,7 @@ export const AIConversationProvider = ({
   avatars,
   isLoading,
   children,
-}: AIConversationInput &
-  AIConversationProps & { children?: React.ReactNode }): React.JSX.Element => {
+}: AIConversationProviderProps): React.JSX.Element => {
   const _displayText = {
     ...defaultAIConversationDisplayTextEn,
     ...displayText,
