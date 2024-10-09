@@ -75,8 +75,8 @@ else
         echo "Back to build-system-tests folder"
         echo "cd -"
         cd -
-        echo "./scripts/build-${PLATFORM}.sh $LOG_FILE $MEGA_APP_NAME $BUILD_TOOL $FRAMEWORK_VERSION"
-        ./scripts/build-${PLATFORM}.sh $LOG_FILE $MEGA_APP_NAME $BUILD_TOOL $FRAMEWORK_VERSION
+        echo "./scripts/build-${PLATFORM}.sh $LOG_FILE $MEGA_APP_NAME $BUILD_TOOL"
+        ./scripts/build-${PLATFORM}.sh $LOG_FILE $MEGA_APP_NAME $BUILD_TOOL
     else
         echo "npm run build"
         npm run build

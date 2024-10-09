@@ -7,8 +7,6 @@ LOG_FILE=$1
 MEGA_APP_NAME=$2
 # Define build tool
 BUILD_TOOL=$3
-# Define framework version
-FRAMEWORK_VERSION=$4
 
 # Import log function
 source "./scripts/log.sh"
@@ -29,23 +27,17 @@ if [ $? -ne 0 ]; then
 fi
 
 # Run npm run android in the background
-if [ $BUILD_TOOL == 'expo' ]; then
-  log "command" "npm run android -- -p 19000 >$LOG_FILE &"
-  # Run npm run android in the background
-  npm run android -- -p 19000 >$LOG_FILE &
-  npx wait-on -t 20000 tcp:19000
-else
+if [ $BUILD_TOOL == 'cli' ]; then
   log "command" "cd android >$LOG_FILE "
   cd android >$LOG_FILE
   log "command" "./gradlew clean >$LOG_FILE" # To prevent "installDebug FAILED" https://stackoverflow.com/a/54955869/12610324
   ./gradlew clean >$LOG_FILE
   log "command" "cd .. >$LOG_FILE"
   cd .. >$LOG_FILE
-  if [ $FRAMEWORK_VERSION == 0.73 ] || [ $FRAMEWORK_VERSION == 0.74 ]; then
-    log "command" "npm run start >$LOG_FILE"
-    npm run start >$LOG_FILE
-  else
-    log "command" "npm run android >$LOG_FILE"
-    npm run android >$LOG_FILE
-  fi
+  log "command" "npm run start &"
+  npm run start &
 fi
+  log "command" "npm run android -- -p 19000 >$LOG_FILE &"
+  # Run npm run android in the background
+  npm run android -- -p 19000 >$LOG_FILE &
+  npx wait-on -t 20000 tcp:19000
