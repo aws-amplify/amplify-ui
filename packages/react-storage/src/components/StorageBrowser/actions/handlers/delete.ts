@@ -19,7 +19,7 @@ export const deleteHandler: DeleteHandler = ({
 }): DeleteHandlerOutput => {
   const { bucket, region, credentials } = config;
   const { key } = data;
-  const fullPath = `${prefix}/${key}`;
+  const fullPath = `${prefix}${key}`;
   const output = remove({
     path: fullPath,
     options: {

@@ -9,7 +9,7 @@ import * as PaginateModule from '../../hooks/usePaginate';
 
 import { LocationDetailView } from '../LocationDetailView';
 import { DEFAULT_LIST_OPTIONS, DEFAULT_ERROR_MESSAGE } from '../Controls';
-import { ListLocationItemsActionOutput } from '../../../actions';
+import { ListLocationItemsHandlerOutput } from '../../../actions';
 
 const config = {
   getLocationCredentials: jest.fn(),
@@ -30,7 +30,7 @@ const testFolder = { type: 'FOLDER', key: 'a_prefix_test/' };
 
 const generateMockItems = (
   size: number
-): ListLocationItemsActionOutput['items'] => {
+): ListLocationItemsHandlerOutput['items'] => {
   return Array.apply(0, new Array(size)).map((_, index) => {
     const type = index % 2 == 0 ? 'FILE' : 'FOLDER';
     return type === 'FOLDER'
