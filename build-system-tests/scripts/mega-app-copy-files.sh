@@ -77,8 +77,8 @@ fi
 if [[ "$FRAMEWORK" == 'react' && "$BUILD_TOOL" == 'vite' ]]; then
     # echo "cp $AWS_EXPORTS_FILE mega-apps/${MEGA_APP_NAME}/src/aws-exports.js"
     # cp $AWS_EXPORTS_FILE mega-apps/${MEGA_APP_NAME}/src/aws-exports.js
-    echo "cp $AWS_EXPORTS_DECLARATION_FILE mega-apps/${MEGA_APP_NAME}/src/aws-exports.d.ts"
-    cp $AWS_EXPORTS_DECLARATION_FILE mega-apps/${MEGA_APP_NAME}/src/aws-exports.d.ts
+    # echo "cp $AWS_EXPORTS_DECLARATION_FILE mega-apps/${MEGA_APP_NAME}/src/aws-exports.d.ts"
+    # cp $AWS_EXPORTS_DECLARATION_FILE mega-apps/${MEGA_APP_NAME}/src/aws-exports.d.ts
     echo "cp templates/components/react/vite/App.tsx mega-apps/${MEGA_APP_NAME}/src/App.tsx"
     cp templates/components/react/vite/App.tsx mega-apps/${MEGA_APP_NAME}/src/App.tsx
 fi
@@ -116,7 +116,7 @@ fi
 
 if [[ "$FRAMEWORK" == 'vue' ]]; then
     # AWS_EXPORTS_PATH="mega-apps/${MEGA_APP_NAME}/src/aws-exports.js"
-    AWS_EXPORTS_DECLARATION_PATH="mega-apps/${MEGA_APP_NAME}/src/aws-exports.d.ts"
+    # AWS_EXPORTS_DECLARATION_PATH="mega-apps/${MEGA_APP_NAME}/src/aws-exports.d.ts"
 
     # See Troubleshooting: https://ui.docs.amplify.aws/vue/getting-started/troubleshooting
     if [[ "$BUILD_TOOL" == 'vite' ]]; then
@@ -132,7 +132,7 @@ if [[ "$FRAMEWORK" == 'vue' ]]; then
         cp templates/components/vue/nuxt/* mega-apps/${MEGA_APP_NAME}/
 
         # AWS_EXPORTS_PATH="mega-apps/${MEGA_APP_NAME}/aws-exports.js"
-        AWS_EXPORTS_DECLARATION_PATH="mega-apps/${MEGA_APP_NAME}/aws-exports.d.ts"
+        # AWS_EXPORTS_DECLARATION_PATH="mega-apps/${MEGA_APP_NAME}/aws-exports.d.ts"
     else
         echo "cp templates/components/vue/App.vue mega-apps/${MEGA_APP_NAME}/src/App.vue"
         cp templates/components/vue/App.vue mega-apps/${MEGA_APP_NAME}/src/App.vue
@@ -140,8 +140,8 @@ if [[ "$FRAMEWORK" == 'vue' ]]; then
 
     # echo "cp $AWS_EXPORTS_FILE $AWS_EXPORTS_PATH"
     # cp $AWS_EXPORTS_FILE $AWS_EXPORTS_PATH
-    echo "cp $AWS_EXPORTS_DECLARATION_FILE $AWS_EXPORTS_DECLARATION_PATH"
-    cp $AWS_EXPORTS_DECLARATION_FILE $AWS_EXPORTS_DECLARATION_PATH
+    # echo "cp $AWS_EXPORTS_DECLARATION_FILE $AWS_EXPORTS_DECLARATION_PATH"
+    # cp $AWS_EXPORTS_DECLARATION_FILE $AWS_EXPORTS_DECLARATION_PATH
 fi
 
 if [[ "$FRAMEWORK" == "react-native" ]]; then
