@@ -81,6 +81,8 @@ if [[ "$FRAMEWORK" == 'react' && "$BUILD_TOOL" == 'vite' ]]; then
     # cp $AWS_EXPORTS_DECLARATION_FILE mega-apps/${MEGA_APP_NAME}/src/aws-exports.d.ts
     echo "cp templates/components/react/vite/App.tsx mega-apps/${MEGA_APP_NAME}/src/App.tsx"
     cp templates/components/react/vite/App.tsx mega-apps/${MEGA_APP_NAME}/src/App.tsx
+    echo "cp templates/components/react/vite/index.html mega-apps/${MEGA_APP_NAME}/index.html"
+    cp templates/components/react/vite/index.html mega-apps/${MEGA_APP_NAME}/index.html
 fi
 
 if [[ "$FRAMEWORK" == 'angular' ]]; then
