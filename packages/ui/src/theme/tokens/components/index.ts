@@ -1,4 +1,5 @@
 import { AlertTokens, alert } from './alert';
+import { AIConversationTokens, aiConversation } from './aiConversation';
 import { AutocompleteTokens, autocomplete } from './autocomplete';
 import { AuthenticatorTokens, authenticator } from './authenticator';
 import { AvatarTokens, avatar } from './avatar';
@@ -61,6 +62,7 @@ import { OutputVariantKey } from '../types/designToken';
 
 type BaseComponentTokens<Output extends OutputVariantKey> = {
   accordion?: AccordionTokens<Output>;
+  aiConversation?: AIConversationTokens<Output>;
   alert?: AlertTokens<Output>;
   authenticator?: AuthenticatorTokens<Output>;
   autocomplete?: AutocompleteTokens<Output>;
@@ -131,6 +133,7 @@ export type WebComponentTokens = Required<{
 
 export const components: DefaultComponentTokens = {
   accordion,
+  aiConversation,
   alert,
   authenticator,
   autocomplete,
