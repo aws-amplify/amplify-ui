@@ -125,8 +125,8 @@ export function DataTableControl({
   range,
 }: {
   range: [start: number, end: number];
-}): React.JSX.Element {
-  const [{ data }] = useLocationsData();
+}): React.JSX.Element | null {
+  const [{ data, hasError }] = useLocationsData();
 
   const [, handleUpdateState] = useControl('NAVIGATE');
 
@@ -159,5 +159,5 @@ export function DataTableControl({
     [data.result, handleUpdateState, sortState, start, end]
   );
 
-  return <DataTable data={locationsData} />;
+  return hasError ? null : <DataTable data={locationsData} />;
 }

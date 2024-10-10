@@ -64,7 +64,7 @@ const LocationsEmptyMessage = () => {
 export function LocationsView({
   className,
 }: LocationsViewProps): React.JSX.Element {
-  const [{ data, isLoading }, handleList] = useLocationsData();
+  const [{ data, isLoading, hasError }, handleList] = useLocationsData();
 
   const { result, nextToken } = data;
   const resultCount = result.length;
@@ -96,6 +96,7 @@ export function LocationsView({
       isLoading,
       pageSize: DEFAULT_PAGE_SIZE,
       resultCount,
+      hasError,
     });
 
   return (

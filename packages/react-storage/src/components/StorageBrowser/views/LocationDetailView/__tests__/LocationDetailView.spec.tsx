@@ -143,14 +143,15 @@ describe('LocationDetailView', () => {
     expect(text).toBeInTheDocument();
   });
 
-  it('renders a returned error Message', () => {
+  it('renders correct error state', () => {
     const errorMessage = 'A network error occurred.';
 
     mockListItemsAction({
-      isLoading: true,
+      isLoading: false,
       hasError: true,
       message: errorMessage,
-      result: [],
+      result: [{ key: 'test1', type: 'FOLDER' }],
+      nextToken: 'some-token'
     });
 
     render(
@@ -161,9 +162,18 @@ describe('LocationDetailView', () => {
 
     const message = screen.getByRole('alert');
     const messageText = screen.getByText(errorMessage);
-
     expect(message).toBeInTheDocument();
     expect(messageText).toBeInTheDocument();
+
+    // table doesn't render
+    const table = screen.queryByRole('table');
+    expect(table).not.toBeInTheDocument();
+
+    // pagination disabled
+    const nextPage = screen.getByLabelText('Go to next page');
+    expect(nextPage).toBeDisabled();
+    const prevPage = screen.getByLabelText('Go to previous page');
+    expect(prevPage).toBeDisabled();
   });
 
   it('renders a default error Message', () => {
