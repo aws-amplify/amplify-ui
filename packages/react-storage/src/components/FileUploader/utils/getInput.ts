@@ -1,10 +1,9 @@
 import { fetchAuthSession } from 'aws-amplify/auth';
-import { StorageAccessLevel } from '@aws-amplify/core';
 import { UploadDataWithPathInput, UploadDataInput } from 'aws-amplify/storage';
 
 import { isString, isFunction } from '@aws-amplify/ui';
 
-import { ProcessFile, StorageBucket } from '../types';
+import { ProcessFile, StorageAccessLevel, StorageBucket } from '../types';
 import { resolveFile } from './resolveFile';
 import { PathCallback, PathInput } from './uploadFile';
 
