@@ -46,8 +46,96 @@ describe('locationActionsReducer', () => {
     };
     expect(newState).toEqual(expectedState);
   });
-  it.todo('handles a SET_FILES as expected');
-  it.todo('handles a SELECT_LOCATION_ITEM as expected');
-  it.todo('handles a DESELECT_LOCATION_ITEM as expected');
-  it.todo('handles a DESELECT_ALL_LOCATION_ITEMS as expected');
+
+  it('handles a TOGGLE_SELECT_ITEM as expected', () => {
+    const initialState: LocationActionsState = {
+      actions: {},
+      selected: {
+        type: undefined,
+        items: [],
+      },
+    };
+    const item = {
+      key: 'key',
+      lastModified: new Date(),
+      size: 1000,
+      type: 'FILE' as const,
+    };
+    const action: LocationActionsAction = {
+      type: 'TOGGLE_SELECTED_ITEM',
+      item,
+    };
+    const newState = locationActionsReducer(initialState, action);
+
+    const expectedState = {
+      actions: {},
+      selected: {
+        type: undefined,
+        items: [item],
+      },
+    };
+    expect(newState).toEqual(expectedState);
+
+    const unToggleAction: LocationActionsAction = {
+      type: 'TOGGLE_SELECTED_ITEM',
+      item,
+    };
+    const unToggledState = locationActionsReducer(newState, unToggleAction);
+
+    const unToggledExpectedState = {
+      actions: {},
+      selected: {
+        type: undefined,
+        items: [],
+      },
+    };
+    expect(unToggledState).toEqual(unToggledExpectedState);
+  });
+
+  it('handles a TOGGLE_SELECT_ITEMS as expected', () => {
+    const initialState: LocationActionsState = {
+      actions: {},
+      selected: {
+        type: undefined,
+        items: [],
+      },
+    };
+    const item = {
+      key: 'key',
+      lastModified: new Date(),
+      size: 1000,
+      type: 'FILE' as const,
+    };
+    const action: LocationActionsAction = {
+      type: 'TOGGLE_SELECTED_ITEMS',
+      items: [item, item, item],
+    };
+    const newState = locationActionsReducer(initialState, action);
+
+    const expectedState = {
+      actions: {},
+      selected: {
+        type: undefined,
+        items: [item, item, item],
+      },
+    };
+    expect(newState).toEqual(expectedState);
+
+    const unselectAllAction: LocationActionsAction = {
+      type: 'TOGGLE_SELECTED_ITEMS',
+    };
+    const unselectAllState = locationActionsReducer(
+      initialState,
+      unselectAllAction
+    );
+
+    const unselectAllExpectedState = {
+      actions: {},
+      selected: {
+        type: undefined,
+        items: [],
+      },
+    };
+    expect(unselectAllState).toEqual(unselectAllExpectedState);
+  });
 });

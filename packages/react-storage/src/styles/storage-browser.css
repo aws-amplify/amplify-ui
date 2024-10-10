@@ -146,6 +146,10 @@
   width: 8rem;
 }
 
+.storage-browser__table__header--select {
+  width: 2rem;
+}
+
 .storage-browser__table__header--lastModified {
   width: 12rem;
 }
@@ -278,4 +282,17 @@
   color: var(--storage-browser-error-text);
   grid-column: 1 / -1;
   padding: var(--storage-browser-gap-large);
+}
+/** Util class to visually hide content only needed for accessibility */
+.storage-browser-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  fill: transparent;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }

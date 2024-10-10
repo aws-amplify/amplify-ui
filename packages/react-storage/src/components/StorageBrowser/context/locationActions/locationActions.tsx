@@ -33,6 +33,29 @@ export function locationActionsReducer(
       };
       return { ...state, selected };
     }
+    case 'TOGGLE_SELECTED_ITEM': {
+      const hasItem = !!state.selected.items?.some(
+        (item) => item.key === action.item.key
+      );
+      const selectedItems = hasItem
+        ? {
+            items: state.selected.items?.filter(
+              (item) => item.key !== action.item.key
+            ),
+          }
+        : {
+            items: [
+              ...(state.selected.items ? state.selected.items : []),
+              action.item,
+            ],
+          };
+      const selected = { ...state.selected, ...selectedItems };
+      return { ...state, selected };
+    }
+    case 'TOGGLE_SELECTED_ITEMS': {
+      const selected = { ...state.selected, items: [...(action.items ?? [])] };
+      return { ...state, selected };
+    }
     case 'CLEAR': {
       // reset state
       return getInitialState(state.actions);
