@@ -1,20 +1,21 @@
-import { TaskAction, TaskActionInput, TaskActionOutput } from '../types';
 import { remove } from 'aws-amplify/storage';
 
-interface DeleteActionOptions {
+import { TaskHandler, TaskHandlerInput, TaskHandlerOutput } from '../types';
+
+interface DeleteHandlerOptions {
   key: string;
 }
-export interface DeleteActionInput
-  extends TaskActionInput<DeleteActionOptions> {}
-export interface DeleteActionOutput extends TaskActionOutput {}
+export interface DeleteHandlerInput
+  extends TaskHandlerInput<DeleteHandlerOptions> {}
+export interface DeleteHandlerOutput extends TaskHandlerOutput {}
 
-export interface DeleteAction
-  extends TaskAction<DeleteActionInput, DeleteActionOutput> {}
+export interface DeleteHandler
+  extends TaskHandler<DeleteHandlerInput, DeleteHandlerOutput> {}
 
-export const deleteAction: DeleteAction = ({
+export const deleteHandler: DeleteHandler = ({
   config,
   prefix,
-}): DeleteActionOutput => {
+}): DeleteHandlerOutput => {
   const { bucket, region, credentials } = config;
   const output = remove({
     path: prefix,
