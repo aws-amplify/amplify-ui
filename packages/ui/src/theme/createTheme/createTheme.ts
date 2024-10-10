@@ -1,10 +1,10 @@
 import { defaultTheme } from '../defaultTheme';
 import { Theme, DefaultTheme, WebTheme, Override } from '../types';
 import {
+  deepExtend,
+  flattenProperties,
   setupToken,
   setupTokens,
-  flattenProperties,
-  deepExtend,
 } from './utils';
 import { WebDesignToken } from '../tokens/types/designToken';
 import { createComponentCSS } from './createComponentCSS';

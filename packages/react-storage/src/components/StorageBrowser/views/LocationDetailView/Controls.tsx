@@ -78,9 +78,8 @@ export const LocationDetailViewControls = (): React.JSX.Element => {
   const [state] = useControl('NAVIGATE');
   const { path } = state;
 
-  const [{ data, isLoading, hasError }, handleList] = useAction(
-    'LIST_LOCATION_ITEMS'
-  );
+  const [{ data, isLoading, hasError }, handleList] = useAction('LIST_LOCATION_ITEMS');
+  const [, handleLocationActionsState] = useControl('LOCATION_ACTIONS');
 
   const { result, nextToken } = data;
   const resultCount = result.length;
@@ -90,10 +89,17 @@ export const LocationDetailViewControls = (): React.JSX.Element => {
   const onPaginateNext = () => {
     if (!hasValidPath) return;
 
+    handleLocationActionsState({ type: 'CLEAR' });
     handleList({
       prefix: path,
       options: { ...DEFAULT_LIST_OPTIONS, nextToken },
     });
+  };
+
+  const onPaginatePrevious = () => {
+    if (!hasValidPath) return;
+
+    handleLocationActionsState({ type: 'CLEAR' });
   };
 
   const {
@@ -101,7 +107,11 @@ export const LocationDetailViewControls = (): React.JSX.Element => {
     handlePaginateNext,
     handlePaginatePrevious,
     handleReset,
-  } = usePaginate({ onPaginateNext, pageSize: DEFAULT_PAGE_SIZE });
+  } = usePaginate({
+    onPaginateNext,
+    onPaginatePrevious,
+    pageSize: DEFAULT_PAGE_SIZE,
+  });
 
   React.useEffect(() => {
     if (!hasValidPath) return;
@@ -143,6 +153,7 @@ export const LocationDetailViewControls = (): React.JSX.Element => {
             prefix: path,
             options: DEFAULT_REFRESH_OPTIONS,
           });
+          handleLocationActionsState({ type: 'CLEAR' });
         }}
       />
       <ActionsMenuControl disabled={disableActionsMenu} />

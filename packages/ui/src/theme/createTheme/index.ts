@@ -4,11 +4,13 @@ export { createComponentCSS } from './createComponentCSS';
 export { createGlobalCSS } from './createGlobalCSS';
 export {
   cssNameTransform,
+  deepExtend,
+  isDesignToken,
   setupTokens,
   SetupToken,
-  isDesignToken,
 } from './utils';
 export {
   createComponentClasses,
   ClassNameArgs,
 } from './createComponentClasses';
+export { resolveObject } from './resolveObject';
