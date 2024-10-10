@@ -97,4 +97,4 @@ BASE_OPTIONS="--build-tool $BUILD_TOOL --name $MEGA_APP_NAME --framework $FRAMEW
 ./scripts/mega-app-build.sh $BASE_OPTIONS --platform $PLATFORM
 
 # Run mega app
-./scripts/mega-app-start.sh --build-tool $BUILD_TOOL --name $MEGA_APP_NAME --framework $FRAMEWORK
+./scripts/mega-app-start.sh --build-tool $BUILD_TOOL --build-tool-version $BUILD_TOOL_VERSION --name $MEGA_APP_NAME --framework $FRAMEWORK
