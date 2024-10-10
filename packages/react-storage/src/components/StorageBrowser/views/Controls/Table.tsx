@@ -118,7 +118,7 @@ export type RenderRowItem<T> = (row: T, index: number) => JSX.Element;
 interface TableControlProps<T> {
   data: T[];
   columns: Column<T>[];
-  handleDroppedFiles: (files: File[]) => void;
+  handleDroppedFiles?: (files: File[]) => void;
   renderHeaderItem: RenderHeaderItem<T>;
   renderRowItem: RenderRowItem<T>;
 }
@@ -132,17 +132,20 @@ export function TableControl<U>({
 }: TableControlProps<U>): React.JSX.Element {
   const ariaLabel = 'Table';
 
-  const { dragState } = useDropZone({
+  const { dragState, ...dropHandlers } = useDropZone({
     acceptedFileTypes: [],
-    onDropComplete: ({ acceptedFiles }) => handleDroppedFiles(acceptedFiles),
+    onDropComplete: ({ acceptedFiles }) =>
+      handleDroppedFiles && handleDroppedFiles(acceptedFiles),
   });
 
   return (
     <Table
       aria-label={ariaLabel}
+      data-testid="storage-browser-table"
       className={`${BLOCK_NAME} ${
-        dragState !== 'inactive' && `${BLOCK_NAME}__dropzone`
+        dragState !== 'inactive' ? `${BLOCK_NAME}__dropzone` : ''
       }`}
+      {...dropHandlers}
     >
       <TableHead className={`${BLOCK_NAME}__head`}>
         <TableRow className={`${BLOCK_NAME}__row`}>

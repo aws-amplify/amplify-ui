@@ -227,7 +227,7 @@ describe('LocationDetailView', () => {
       </Provider>
     );
 
-    const dropzone = screen.getByTestId('dropzone');
+    const dropzone = screen.getByTestId('storage-browser-table');
 
     jest.spyOn(ControlsModule, 'ControlProvider');
 
@@ -238,7 +238,7 @@ describe('LocationDetailView', () => {
     });
 
     expect(handleLocationActionsState).toHaveBeenCalledWith({
-      payload: 'UPLOAD_FILES',
+      actionType: 'UPLOAD_FILES',
       type: 'SET_ACTION',
       files: files,
     });

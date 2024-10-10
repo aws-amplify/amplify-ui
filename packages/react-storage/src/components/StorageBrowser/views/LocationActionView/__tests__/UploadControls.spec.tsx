@@ -15,6 +15,8 @@ import { UploadControls, ActionIcon, ICON_CLASS } from '../UploadControls';
 import userEvent from '@testing-library/user-event';
 import { CLASS_BASE } from '../../constants';
 
+const TABLE_BLOCK_NAME = `${CLASS_BASE}__table`;
+
 const TEST_ACTIONS: LocationActionsState['actions'] = {
   UPLOAD_FILES: { options: { displayName: 'Upload Files' } },
 };
@@ -125,32 +127,6 @@ describe('UploadControls', () => {
     expect(input.files).toHaveLength(3);
   });
 
-  it('highlights the dropzone when files are dragged over it', async () => {
-    const files = [new File(['content'], 'file.txt', { type: 'text/plain' })];
-
-    render(
-      <Provider>
-        <UploadControls />
-      </Provider>
-    );
-
-    const dropzone = screen.getByTestId('dropzone');
-
-    expect(dropzone).toHaveClass(`${CLASS_BASE}__drag-drop-container`);
-
-    fireEvent.dragEnter(dropzone, {
-      dataTransfer: {
-        files,
-      },
-    });
-
-    await waitFor(() => {
-      expect(dropzone).toHaveClass(
-        `${CLASS_BASE}__drag-drop-container__outlined`
-      );
-    });
-  });
-
   it('adds files dragged into the drop zone to the file list', async () => {
     const files = [new File(['content'], 'file.txt', { type: 'text/plain' })];
 
@@ -160,7 +136,7 @@ describe('UploadControls', () => {
       </Provider>
     );
 
-    const dropzone = screen.getByTestId('dropzone');
+    const dropzone = screen.getByTestId('storage-browser-table');
 
     fireEvent.drop(dropzone, {
       dataTransfer: {

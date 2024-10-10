@@ -28,7 +28,7 @@ export function locationActionsReducer(
     case 'SET_ACTION': {
       const selected = {
         ...state.selected,
-        type: action.payload,
+        type: action.actionType,
         files: action.files,
       };
       return { ...state, selected };

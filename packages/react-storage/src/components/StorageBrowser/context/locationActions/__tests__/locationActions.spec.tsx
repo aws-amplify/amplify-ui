@@ -11,7 +11,7 @@ describe('locationActionsReducer', () => {
       },
     };
     const action: LocationActionsAction = {
-      payload: 'UPLOAD_FILES',
+      actionType: 'UPLOAD_FILES',
       type: 'SET_ACTION',
     };
 

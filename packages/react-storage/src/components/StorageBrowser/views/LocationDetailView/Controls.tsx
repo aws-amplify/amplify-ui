@@ -92,13 +92,13 @@ export const LocationDetailViewControls = (): React.JSX.Element => {
     if (files[0].type) {
       handleUpdateState({
         type: 'SET_ACTION',
-        payload: 'UPLOAD_FILES',
+        actionType: 'UPLOAD_FILES',
         files,
       });
     } else {
       handleUpdateState({
         type: 'SET_ACTION',
-        payload: 'UPLOAD_FOLDER',
+        actionType: 'UPLOAD_FOLDER',
         files,
       });
     }
