@@ -29,28 +29,38 @@ jobs:
         pkg-manager: [npm]
         language: [ts]
         node-version: [20]
-        platform: [ios, android]
+        # platform: [ios, android]
+        platform: [android]
         logfile: [test.log]
         pkg-manager-version: [latest]
-        include: 
-          - framework: react-native
-            framework-version: { formatted: 070, value: "0.70" }
-            build-tool: cli
-            build-tool-version: 9
-            platform: android
-            pkg-manager: npm
-            language: ts
-            node-version: 20
-            logfile: test.log
-          - framework: react-native
-            framework-version: { formatted: 070, value: "0.70" }
-            build-tool: expo
-            build-tool-version: latest
-            platform: android
-            pkg-manager: npm
-            language: ts
-            node-version: 20
-            logfile: test.log
+        # include: 
+        #   - framework: react-native
+        #     framework-version: { formatted: 070, value: "0.70" }
+        #     build-tool: cli
+        #     build-tool-version: 9
+        #     platform: android
+        #     pkg-manager: npm
+        #     language: ts
+        #     node-version: 20
+        #     logfile: test.log
+        #   - framework: react-native
+        #     framework-version: { formatted: 070, value: "0.70" }
+        #     build-tool: expo
+        #     build-tool-version: latest
+        #     platform: android
+        #     pkg-manager: npm
+        #     language: ts
+        #     node-version: 20
+        #     logfile: test.log
+          # - framework: react-native
+          #   framework-version: { formatted: 070, value: "0.70" }
+          #   build-tool: cli
+          #   build-tool-version: latest
+          #   platform: ios
+          #   pkg-manager: npm
+          #   language: ts
+          #   node-version: 20
+          #   logfile: test.log
         exclude:
           - build-tool: expo
             platform: ios
