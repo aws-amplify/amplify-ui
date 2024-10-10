@@ -5,7 +5,6 @@ import { deleteHandler } from '../delete';
 jest.mock('aws-amplify/storage', () => {
   const originalModule = jest.requireActual('aws-amplify/storage');
 
-  //Mock the default export and named export 'foo'
   // eslint-disable-next-line @typescript-eslint/no-unsafe-return
   return {
     __esModule: true,

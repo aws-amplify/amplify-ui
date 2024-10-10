@@ -15,10 +15,10 @@ export interface CopyHandler
 export const copyHandler: CopyHandler = ({ config, prefix, data }) => {
   const { bucket, region, credentials } = config;
   const { destinationPrefix, key } = data;
-  const fullPath = `${destinationPrefix}/${key}`;
+  const fullPath = `${destinationPrefix}${key}`;
   const output = copy({
     source: {
-      path: prefix,
+      path: `${prefix}${key}`,
       bucket: {
         bucketName: bucket,
         region: region,
