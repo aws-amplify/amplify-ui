@@ -143,9 +143,6 @@ jobs:
           key: ${{ runner.os }}-canary-cypress-${{ hashFiles('build-system-tests/e2e/yarn.lock') }}
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
-      - name: Start ${{ env.MEGA_APP_NAME }} example
-        run: npm run start & npx wait-on -c waitOnConfig.json -t 20000 http-get://localhost:3000
-        working-directory: build-system-tests/mega-apps/${{env.MEGA_APP_NAME}}
       - name: Run E2E tests against ${{ env.MEGA_APP_NAME }} example
         run: npm run test
         id: e2e
