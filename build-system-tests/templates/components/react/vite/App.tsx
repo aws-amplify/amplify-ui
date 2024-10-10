@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Amplify } from 'aws-amplify';
 
 import { AccountSettings, Authenticator, Text } from '@aws-amplify/ui-react';
