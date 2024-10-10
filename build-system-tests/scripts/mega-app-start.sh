@@ -47,19 +47,28 @@ echo "###########################"
 echo "# Start Mega App #"
 echo "###########################"
 
+WAIT_ON_CONFIG='{
+  "headers": {
+    "accept": "text/html"
+  }
+}'
+
 echo "cd ./mega-apps/${MEGA_APP_NAME}"
 cd ./mega-apps/${MEGA_APP_NAME}
 
-if [ "$BUILD_TOOL" == 'vite' ]; then
-    echo "npm run dev"
-    npm run dev
-elif [ "$FRAMEWORK" == 'vue' ] && [ "$BUILD_TOOL" == 'vue-cli' ]; then
-    echo "npm run serve"
-    npm run serve
+if [ "$BUILD_TOOL" == 'vite' ] || [ "$BUILD_TOOL" == 'nuxt' ]; then
+    echo "npm run dev -- --port 3000 &"
+    npm run dev -- --port 3000 &
+elif [ "$FRAMEWORK" == 'vue' ]; then
+    echo "npm run serve -- --port 3000 &"
+    npm run serve -- --port 3000 &
 else
-    echo "npm run start"
-    npm run start
+    echo "npm run start &"
+    npm run start &
 fi
+
+echo npx wait-on -c "$WAIT_ON_CONFIG" -t 20000 http-get://localhost:3000
+npx wait-on -c "$WAIT_ON_CONFIG" -t 20000 http-get://localhost:3000
 
 echo "Back to build-system-tests folder"
 echo "cd .."

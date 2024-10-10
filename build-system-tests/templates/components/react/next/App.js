@@ -1,4 +1,6 @@
+import dynamic from 'next/dynamic';
 import React, { useEffect } from 'react';
+
 import { Amplify } from 'aws-amplify';
 import {
   initializeInAppMessaging,
@@ -19,7 +21,7 @@ Amplify.configure(awsconfig);
 
 initializeInAppMessaging();
 
-export default function Home() {
+const Home = () => {
   useEffect(() => {
     // sync remote in-app messages
     syncMessages();
@@ -81,4 +83,8 @@ export default function Home() {
       </MapView>
     </>
   );
-}
+};
+
+export default dynamic(() => Promise.resolve(Home), {
+  ssr: false,
+});
