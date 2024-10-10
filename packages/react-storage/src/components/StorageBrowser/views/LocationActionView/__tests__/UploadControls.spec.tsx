@@ -13,9 +13,6 @@ import { LocationActionsState } from '../../../context/locationActions';
 
 import { UploadControls, ActionIcon, ICON_CLASS } from '../UploadControls';
 import userEvent from '@testing-library/user-event';
-import { CLASS_BASE } from '../../constants';
-
-const TABLE_BLOCK_NAME = `${CLASS_BASE}__table`;
 
 const TEST_ACTIONS: LocationActionsState['actions'] = {
   UPLOAD_FILES: { options: { displayName: 'Upload Files' } },
