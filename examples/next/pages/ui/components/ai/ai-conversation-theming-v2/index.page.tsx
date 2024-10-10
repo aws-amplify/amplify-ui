@@ -1,19 +1,21 @@
 import * as React from 'react';
+
 import { Amplify } from 'aws-amplify';
-import { createAIHooks, AIConversation } from '@aws-amplify/ui-react-ai';
-import { ThemeStyle, defineComponentTheme } from '@aws-amplify/ui-react/server';
 import { generateClient } from 'aws-amplify/api';
-import '@aws-amplify/ui-react/styles.css';
-import outputs from './amplify_outputs';
-import type { Schema } from '@environments/ai/gen2/amplify/data/resource';
 import {
   View,
   createTheme,
   defaultDarkModeOverride,
   withAuthenticator,
+  ColorMode,
+  Button,
 } from '@aws-amplify/ui-react';
-import { ColorMode } from '@aws-amplify/ui-react';
-import { Button } from '@aws-amplify/ui-react';
+import { createAIHooks, AIConversation } from '@aws-amplify/ui-react-ai';
+import { ThemeStyle, defineComponentTheme } from '@aws-amplify/ui-react/server';
+import '@aws-amplify/ui-react/styles.css';
+
+import outputs from './amplify_outputs';
+import type { Schema } from '@environments/ai/gen2/amplify/data/resource';
 
 const client = generateClient<Schema>({ authMode: 'userPool' });
 const { useAIConversation } = createAIHooks(client);
