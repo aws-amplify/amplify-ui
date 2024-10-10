@@ -57,8 +57,8 @@ elif [ "$FRAMEWORK" == 'vue' ]; then
     echo "npm run serve -- --port 3000 &"
     npm run serve -- --port 3000 &
 else
-    echo "npm run start &"
-    npm run start &
+    echo "npm run start -- --port 3000 &"
+    npm run start -- --port 3000  &
 fi
 
 echo npx wait-on -t 20000 http-get://localhost:3000
