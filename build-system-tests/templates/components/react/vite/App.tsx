@@ -14,7 +14,7 @@ import {
 import { MapView, LocationSearch } from '@aws-amplify/ui-react-geo';
 import '@aws-amplify/ui-react/styles.css';
 import '@aws-amplify/ui-react-geo/styles.css';
-import awsconfig from './aws-exports';
+import awsconfig from '../../../environments/auth-with-email/src/aws-exports.js';
 Amplify.configure(awsconfig);
 
 initializeInAppMessaging();
