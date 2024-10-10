@@ -12,6 +12,10 @@ When(
           }),
         ],
       },
+      /**
+       *  Since the input is hidden, this will need to be forced through Cypress
+       */
+      force: true,
     });
   }
 );
@@ -23,6 +27,10 @@ When(
       dataTransfer: {
         files: [new File([], folderName, { lastModified: Date.now() })],
       },
+      /**
+       *  Since the input is hidden, this will need to be forced through Cypress
+       */
+      force: true,
     });
   }
 );
