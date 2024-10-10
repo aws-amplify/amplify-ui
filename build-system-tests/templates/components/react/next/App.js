@@ -1,11 +1,8 @@
 import dynamic from 'next/dynamic';
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import { Amplify } from 'aws-amplify';
-import {
-  initializeInAppMessaging,
-  syncMessages,
-} from 'aws-amplify/in-app-messaging';
+
 import { AccountSettings, Authenticator, Text } from '@aws-amplify/ui-react';
 import { FaceLivenessDetector } from '@aws-amplify/ui-react-liveness';
 import { StorageManager, FileUploader } from '@aws-amplify/ui-react-storage';
@@ -16,17 +13,11 @@ import {
 import { MapView, LocationSearch } from '@aws-amplify/ui-react-geo';
 import '@aws-amplify/ui-react/styles.css';
 import '@aws-amplify/ui-react-geo/styles.css';
+
 import awsconfig from '../../../environments/auth-with-email/src/aws-exports.js';
 Amplify.configure(awsconfig);
 
-initializeInAppMessaging();
-
 const Home = () => {
-  useEffect(() => {
-    // sync remote in-app messages
-    syncMessages();
-  }, []);
-
   return (
     <Authenticator>
       {({ signOut, user = { username: '' } }) => (
