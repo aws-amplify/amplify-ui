@@ -99,10 +99,6 @@ jobs:
         with:
           aws-region: us-east-2
           role-to-assume: ${{ secrets.AUTH_E2E_ROLE_ARN }}
-      - name: Create MegaApp ${{ env.MEGA_APP_NAME }} and run build on NodeJS ${{ matrix.node-version }}
-        run: npm run setup:${{ matrix.framework }}:${{matrix.build-tool}} -- --framework-version ${{matrix.framework-version}} --build-tool-version ${{matrix.build-tool-version}} --pkg-manager ${{matrix.pkg-manager}} --tag ${{inputs.dist-tag}}
-        shell: bash
-        working-directory: build-system-tests
       # Amplify CLI does not support headless pull with temporary credentials
       # when useProfile is false.
       # See: https://github.com/aws-amplify/amplify-cli/issues/11009.
@@ -125,6 +121,10 @@ jobs:
           key: ${{ runner.os }}-canary-cypress-${{ hashFiles('build-system-tests/e2e/yarn.lock') }}
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
+      - name: Create MegaApp ${{ env.MEGA_APP_NAME }} and run build on NodeJS ${{ matrix.node-version }}
+        run: npm run setup:${{ matrix.framework }}:${{matrix.build-tool}} -- --framework-version ${{matrix.framework-version}} --build-tool-version ${{matrix.build-tool-version}} --pkg-manager ${{matrix.pkg-manager}} --tag ${{inputs.dist-tag}}
+        shell: bash
+        working-directory: build-system-tests
       - name: Install e2e packages
         uses: ./.github/actions/install-with-retries
         with:
