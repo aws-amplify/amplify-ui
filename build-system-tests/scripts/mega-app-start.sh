@@ -47,12 +47,6 @@ echo "###########################"
 echo "# Start Mega App #"
 echo "###########################"
 
-WAIT_ON_CONFIG='{
-  "headers": {
-    "accept": "text/html"
-  }
-}'
-
 echo "cd ./mega-apps/${MEGA_APP_NAME}"
 cd ./mega-apps/${MEGA_APP_NAME}
 
@@ -67,8 +61,8 @@ else
     npm run start &
 fi
 
-echo npx wait-on -c "$WAIT_ON_CONFIG" -t 20000 http-get://localhost:3000
-npx wait-on -c "$WAIT_ON_CONFIG" -t 20000 http-get://localhost:3000
+echo npx wait-on -t 20000 http-get://localhost:3000
+npx wait-on -t 20000 http-get://localhost:3000
 
 echo "Back to build-system-tests folder"
 echo "cd .."
