@@ -132,7 +132,7 @@ export function TableControl<U>({
 }: TableControlProps<U>): React.JSX.Element {
   const ariaLabel = 'Table';
 
-  const { dragState, ...dropHandlers } = useDropZone({
+  const { dragState } = useDropZone({
     acceptedFileTypes: [],
     onDropComplete: ({ acceptedFiles }) => handleDroppedFiles(acceptedFiles),
   });
@@ -143,7 +143,6 @@ export function TableControl<U>({
       className={`${BLOCK_NAME} ${
         dragState !== 'inactive' && `${BLOCK_NAME}__dropzone`
       }`}
-      {...dropHandlers}
     >
       <TableHead className={`${BLOCK_NAME}__head`}>
         <TableRow className={`${BLOCK_NAME}__row`}>
