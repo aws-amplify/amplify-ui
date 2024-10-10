@@ -1,5 +1,11 @@
 import React from 'react';
-import { act, render, screen, waitFor } from '@testing-library/react';
+import {
+  act,
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+} from '@testing-library/react';
 
 import * as ControlsModule from '../../../context/control';
 import createProvider from '../../../createProvider';
@@ -116,6 +122,28 @@ describe('UploadControls', () => {
     });
 
     expect(input.files).toHaveLength(3);
+  });
+
+  it('adds files dragged into the drop zone to the file list', async () => {
+    const files = [new File(['content'], 'file.txt', { type: 'text/plain' })];
+
+    render(
+      <Provider>
+        <UploadControls />
+      </Provider>
+    );
+
+    const dropzone = screen.getByTestId('storage-browser-table');
+
+    fireEvent.drop(dropzone, {
+      dataTransfer: {
+        files,
+      },
+    });
+
+    await waitFor(() => {
+      expect(screen.getByText('file.txt')).toBeInTheDocument();
+    });
   });
 
   it('has the webkitdirectory attribute for the input select for folders', () => {

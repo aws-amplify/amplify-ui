@@ -81,6 +81,24 @@ export const LocationDetailViewControls = (): React.JSX.Element => {
   const [{ data, isLoading, hasError }, handleList] = useAction('LIST_LOCATION_ITEMS');
   const [, handleLocationActionsState] = useControl('LOCATION_ACTIONS');
 
+  const [, handleUpdateState] = useControl('LOCATION_ACTIONS');
+
+  const handleDroppedFiles = (files: File[]) => {
+    if (files[0].type) {
+      handleUpdateState({
+        type: 'SET_ACTION',
+        actionType: 'UPLOAD_FILES',
+        files,
+      });
+    } else {
+      handleUpdateState({
+        type: 'SET_ACTION',
+        actionType: 'UPLOAD_FOLDER',
+        files,
+      });
+    }
+  };
+
   const { result, nextToken } = data;
   const resultCount = result.length;
   const hasNextToken = !!nextToken;
@@ -168,7 +186,10 @@ export const LocationDetailViewControls = (): React.JSX.Element => {
       />
       <LocationDetailMessage />
       <Loading show={renderLoading} />
-      <LocationDetailViewTable range={range} />
+      <LocationDetailViewTable
+        handleDroppedFiles={handleDroppedFiles}
+        range={range}
+      />
       <LocationDetailEmptyMessage />
     </>
   );
