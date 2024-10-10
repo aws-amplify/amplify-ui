@@ -3,6 +3,7 @@ set -e
 
 # Default values
 BUILD_TOOL="next"
+BUILD_TOOL_VERSION="latest"
 MEGA_APP_NAME=""
 FRAMEWORK="react"
 
@@ -18,6 +19,10 @@ while [[ $# -gt 0 ]]; do
         BUILD_TOOL=$2
         shift
         ;;
+    -b | --build-tool-version)
+        BUILD_TOOL_VERSION=$2
+        shift
+        ;;
     -n | --name)
         MEGA_APP_NAME=$2
         shift
@@ -30,6 +35,7 @@ while [[ $# -gt 0 ]]; do
         echo "Usage: mega-app-create-app.sh [OPTIONS]"
         echo "Options:"
         echo "  -B, --build-tool          Specify the build tool: next, vite, angular-cli, vue-cli, nuxt, react-native-cli, expo. (default: next)"
+        echo "  -b, --build-tool-version Specify the build tool version (default: latest)"
         echo "  -n, --name                 Specify the mega app name (required)"
         echo "  -F, --framework           Specify the framework: react, angular, vue, react-native (default: react)"
         echo "  -h, --help                 Show help message"
@@ -58,11 +64,17 @@ elif [ "$FRAMEWORK" == 'vue' ]; then
     npm run serve -- --port 3000 &
 else
     echo "npm run start -- --port 3000 &"
-    npm run start -- --port 3000  &
+    npm run start -- --port 3000 &
 fi
 
-echo npx wait-on -t 20000 http-get://localhost:3000
-npx wait-on -t 20000 http-get://localhost:3000
+if [ "$BUILD_TOOL" == 'vite' ] && [ "$BUILD_TOOL_VERSION" == 3 ]; then
+    # Known issue with earlier versions of vite and wait-on https://github.com/jeffbski/wait-on/issues/150
+    echo npx wait-on -t 20000 tcp:3000
+    npx wait-on -t 20000 tcp:3000
+else
+    echo npx wait-on -t 20000 http-get://localhost:3000
+    npx wait-on -t 20000 http-get://localhost:3000
+fi
 
 echo "Back to build-system-tests folder"
 echo "cd .."
