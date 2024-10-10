@@ -7,7 +7,7 @@ import {
   withControls,
 } from '../ControlsContext';
 
-const ButtonElement = () => <button data-testid="btn-ctrl" />;
+const ButtonElement = () => <button data-testId="btn-ctrl" />;
 const ViewElement = () => <button />;
 
 const controls = { Button: ButtonElement, View: ViewElement };
