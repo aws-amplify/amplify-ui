@@ -5,9 +5,11 @@ import userEvent from '@testing-library/user-event';
 import createProvider from '../../../createProvider';
 import * as ActionsModule from '../../../context/actions';
 import * as ControlsModule from '../../../context/control';
+import * as PaginateModule from '../../hooks/usePaginate';
 
 import { LocationDetailView } from '../LocationDetailView';
 import { DEFAULT_LIST_OPTIONS, DEFAULT_ERROR_MESSAGE } from '../Controls';
+import { ListLocationItemsActionOutput } from '../../../actions';
 
 const config = {
   getLocationCredentials: jest.fn(),
@@ -19,47 +21,97 @@ const config = {
 const Provider = createProvider({ actions: {}, config });
 
 const handleList = jest.fn();
+const handleLocationActionsState = jest.fn();
+const handleUpdateState = jest.fn();
 
-jest.spyOn(ActionsModule, 'useAction').mockReturnValue([
-  {
-    data: {
-      result: [{ key: 'test1', type: 'FOLDER' }],
-      nextToken: undefined,
+const prefix = 'b_prefix/';
+const getFolderPrefix = (index: number) => `a_prefix_${index}`;
+const testFolder = { type: 'FOLDER', key: 'a_prefix_test/' };
+
+const generateMockItems = (
+  size: number
+): ListLocationItemsActionOutput['items'] => {
+  return Array.apply(0, new Array(size)).map((_, index) => {
+    const type = index % 2 == 0 ? 'FILE' : 'FOLDER';
+    return type === 'FOLDER'
+      ? {
+          key: getFolderPrefix(index),
+          type: 'FOLDER',
+        }
+      : {
+          key: `${prefix}key${index}`,
+          type: 'FILE',
+          lastModified: new Date(),
+          size: Math.floor(Math.random() * 1000000),
+        };
+  });
+};
+
+const testResult = [testFolder, ...generateMockItems(200)];
+
+const mockListItemsAction = ({
+  hasError = false,
+  isLoading = false,
+  message,
+  result,
+  nextToken = undefined,
+}: {
+  hasError?: boolean;
+  isLoading?: boolean;
+  message?: string;
+  result: any[];
+  nextToken?: string;
+}) => {
+  jest.spyOn(ActionsModule, 'useAction').mockReturnValue([
+    {
+      data: {
+        result,
+        nextToken,
+      },
+      hasError,
+      isLoading,
+      message,
     },
-    hasError: false,
-    isLoading: false,
-    message: undefined,
-  },
-  handleList,
-]);
+    handleList,
+  ]);
+};
 
-jest.spyOn(ControlsModule, 'useControl').mockImplementation(
-  (type) =>
-    ({
-      LOCATION_ACTIONS: [
-        {
-          actions: {},
-          selected: { type: undefined, items: undefined },
-        },
-        jest.fn(),
-      ],
-      NAVIGATE: [
-        {
-          location: {
-            scope: 's3://test-bucket/*',
-            permission: 'READ',
-            type: 'BUCKET',
+const mockUseControl = ({ prefix = '' }: { prefix: string }) => {
+  jest.spyOn(ControlsModule, 'useControl').mockImplementation(
+    (type) =>
+      ({
+        LOCATION_ACTIONS: [
+          {
+            actions: {},
+            selected: { type: undefined, items: [] },
           },
-          history: [{ prefix: 'cat-cat/' }],
-          path: 'cat-cat/',
-        },
-        jest.fn(),
-      ],
-    })[type]
-);
+          handleLocationActionsState,
+        ],
+        NAVIGATE: [
+          {
+            location: {
+              scope: 's3://test-bucket/*',
+              permission: 'READ',
+              type: 'BUCKET',
+            },
+            history: prefix ? [{ prefix }] : [],
+            path: prefix,
+          },
+          handleUpdateState,
+        ],
+      })[type]
+  );
+};
 
 describe('LocationDetailView', () => {
+  beforeEach(() => {
+    jest.resetModules();
+  });
+
   it('renders a `LocationDetailView`', async () => {
+    mockListItemsAction({ result: testResult });
+    mockUseControl({ prefix });
+
     await waitFor(() => {
       render(
         <Provider>
@@ -71,40 +123,8 @@ describe('LocationDetailView', () => {
     expect(screen.getByTestId('LOCATION_DETAIL_VIEW')).toBeInTheDocument();
   });
 
-  it('refreshes table when refresh button is clicked', async () => {
-    const user = userEvent.setup();
-
-    render(
-      <Provider>
-        <LocationDetailView />
-      </Provider>
-    );
-
-    const refreshButton = screen.getByLabelText('Refresh table');
-
-    await act(async () => {
-      await user.click(refreshButton);
-    });
-
-    expect(handleList).toHaveBeenCalledWith({
-      prefix: 'cat-cat/',
-      options: { ...DEFAULT_LIST_OPTIONS, refresh: true },
-    });
-  });
-
   it('shows a Loading element when first loaded', () => {
-    jest.spyOn(ActionsModule, 'useAction').mockReturnValue([
-      {
-        data: {
-          result: [],
-          nextToken: undefined,
-        },
-        hasError: false,
-        isLoading: true,
-        message: undefined,
-      },
-      handleList,
-    ]);
+    mockListItemsAction({ isLoading: true, result: [] });
 
     render(
       <Provider>
@@ -120,18 +140,12 @@ describe('LocationDetailView', () => {
   it('renders a returned error Message', () => {
     const errorMessage = 'A network error occurred.';
 
-    jest.spyOn(ActionsModule, 'useAction').mockReturnValue([
-      {
-        data: {
-          result: [],
-          nextToken: undefined,
-        },
-        hasError: true,
-        isLoading: true,
-        message: errorMessage,
-      },
-      handleList,
-    ]);
+    mockListItemsAction({
+      isLoading: true,
+      hasError: true,
+      message: errorMessage,
+      result: [],
+    });
 
     render(
       <Provider>
@@ -147,18 +161,7 @@ describe('LocationDetailView', () => {
   });
 
   it('renders a default error Message', () => {
-    jest.spyOn(ActionsModule, 'useAction').mockReturnValue([
-      {
-        data: {
-          result: [],
-          nextToken: undefined,
-        },
-        hasError: true,
-        isLoading: true,
-        message: undefined,
-      },
-      handleList,
-    ]);
+    mockListItemsAction({ result: [], hasError: true, message: undefined });
 
     render(
       <Provider>
@@ -171,31 +174,8 @@ describe('LocationDetailView', () => {
   });
 
   it('loads initial location items for a BUCKET location as expected', () => {
-    jest.spyOn(ControlsModule, 'useControl').mockImplementation(
-      (type) =>
-        ({
-          LOCATION_ACTIONS: [
-            {
-              actions: {},
-              selected: { type: undefined, items: undefined },
-            },
-            jest.fn(),
-          ],
-          NAVIGATE: [
-            {
-              location: {
-                scope: 's3://test-bucket/*',
-                permission: 'READ',
-                type: 'BUCKET',
-              },
-              history: [{ prefix: '' }],
-              path: '',
-            },
-            jest.fn(),
-          ],
-        })[type]
-    );
-
+    const initialPrefix = '';
+    mockUseControl({ prefix: initialPrefix });
     render(
       <Provider>
         <LocationDetailView />
@@ -204,8 +184,135 @@ describe('LocationDetailView', () => {
 
     expect(handleList).toHaveBeenCalled();
     expect(handleList).toHaveBeenCalledWith({
-      prefix: '',
+      prefix: initialPrefix,
       options: { ...DEFAULT_LIST_OPTIONS, refresh: true },
     });
+  });
+
+  it('refreshes table and clears selection state when refresh button is clicked', async () => {
+    const user = userEvent.setup();
+    mockUseControl({ prefix: prefix });
+    mockListItemsAction({ result: testResult });
+
+    render(
+      <Provider>
+        <LocationDetailView />
+      </Provider>
+    );
+
+    const refreshButton = screen.getByLabelText('Refresh table');
+
+    await act(async () => {
+      await user.click(refreshButton);
+    });
+
+    expect(handleList).toHaveBeenCalledWith({
+      prefix: prefix,
+      options: { ...DEFAULT_LIST_OPTIONS, refresh: true },
+    });
+
+    expect(handleLocationActionsState).toHaveBeenLastCalledWith({
+      type: 'CLEAR',
+    });
+  });
+
+  it('clear selection state on breadcrumb and regular navigation', async () => {
+    const user = userEvent.setup();
+    mockUseControl({ prefix: prefix });
+    mockListItemsAction({ result: testResult });
+
+    render(
+      <Provider>
+        <LocationDetailView />
+      </Provider>
+    );
+    const breadCrumbButton = screen.getByText(prefix);
+
+    await act(async () => {
+      await user.click(breadCrumbButton);
+    });
+
+    expect(handleLocationActionsState).toHaveBeenCalledWith({ type: 'CLEAR' });
+  });
+
+  it('can paginate forwards and clear selection state', async () => {
+    const user = userEvent.setup();
+    const handlePaginateNext = jest.fn();
+    const handlePaginatePrevious = jest.fn();
+    jest
+      .spyOn<typeof PaginateModule, 'usePaginate'>(
+        PaginateModule,
+        'usePaginate'
+      )
+      .mockReturnValue({
+        currentPage: 1,
+        handlePaginateNext,
+        handlePaginatePrevious,
+        handleReset: jest.fn(),
+      });
+    mockListItemsAction({ result: testResult });
+
+    render(
+      <Provider>
+        <LocationDetailView />
+      </Provider>
+    );
+    const nextButton = screen.getByLabelText('Go to next page');
+
+    await act(async () => {
+      await user.click(nextButton);
+    });
+
+    expect(handlePaginateNext).toHaveBeenCalled();
+    expect(handlePaginatePrevious).not.toHaveBeenCalled();
+    expect(handleLocationActionsState).toHaveBeenCalledWith({ type: 'CLEAR' });
+  });
+
+  it('can paginate to previous and clear selection state', async () => {
+    const user = userEvent.setup();
+
+    const handlePaginateNext = jest.fn();
+    const handlePaginatePrevious = jest.fn();
+    jest
+      .spyOn<typeof PaginateModule, 'usePaginate'>(
+        PaginateModule,
+        'usePaginate'
+      )
+      .mockReturnValue({
+        currentPage: 2,
+        handlePaginateNext,
+        handlePaginatePrevious,
+        handleReset: jest.fn(),
+      });
+    mockListItemsAction({ result: testResult });
+
+    render(
+      <Provider>
+        <LocationDetailView />
+      </Provider>
+    );
+
+    const prevButton = screen.getByLabelText('Go to previous page');
+
+    await act(async () => {
+      await user.click(prevButton);
+    });
+
+    expect(handlePaginateNext).not.toHaveBeenCalled();
+    expect(handlePaginatePrevious).toHaveBeenCalled();
+    expect(handleLocationActionsState).toHaveBeenCalledWith({ type: 'CLEAR' });
+  });
+
+  it('does not allow selection on Folder items', () => {
+    mockListItemsAction({ result: [testFolder] });
+
+    render(
+      <Provider>
+        <LocationDetailView />
+      </Provider>
+    );
+    const checkboxes = screen.queryByRole('checkbox');
+
+    expect(checkboxes).not.toBeInTheDocument();
   });
 });
