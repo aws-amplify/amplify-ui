@@ -13,6 +13,7 @@ import { MessagesControl, MessageControl } from '../MessagesControl';
 import { convertBufferToBase64 } from '../../../utils';
 import { ConversationMessage } from '../../../../../types';
 import { ResponseComponentsProvider } from '../../../context/ResponseComponentsContext';
+import { MessageRendererProvider } from '../../../context';
 
 const AITextMessage: ConversationMessage = {
   conversationId: 'foobar',
@@ -386,5 +387,29 @@ describe('MessageControl', () => {
   it('renders nothing when only a toolUse block is sent', () => {
     const { container } = render(<MessageControl message={ToolUseMessage} />);
     expect(container.firstChild).toBeEmptyDOMElement();
+  });
+
+  it('uses text message renderer if passed', () => {
+    render(
+      <MessageRendererProvider
+        text={(message) => <div data-testid="custom-message">{message}</div>}
+      >
+        <MessageControl message={AITextMessage} />
+      </MessageRendererProvider>
+    );
+    const message = screen.getByTestId('custom-message');
+    expect(message).toBeInTheDocument();
+  });
+
+  it('uses image message renderer if passed', () => {
+    render(
+      <MessageRendererProvider
+        image={() => <img data-testid="custom-message" />}
+      >
+        <MessageControl message={AIImageMessage} />
+      </MessageRendererProvider>
+    );
+    const message = screen.getByTestId('custom-message');
+    expect(message).toBeInTheDocument();
   });
 });

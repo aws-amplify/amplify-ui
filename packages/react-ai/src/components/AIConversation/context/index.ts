@@ -34,5 +34,11 @@ export {
   RESPONSE_COMPONENT_PREFIX,
 } from './ResponseComponentsContext';
 export { SendMessageContextProvider } from './SendMessageContext';
+export {
+  MessageRendererProvider,
+  MessageRendererContext,
+  useMessageRenderer,
+} from './MessageRenderContext';
+export { AttachmentProvider, AttachmentContext } from './AttachmentContext';
 
 export * from './elements';
