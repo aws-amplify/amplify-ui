@@ -175,14 +175,7 @@ describe('StorageImage', () => {
       url: new URL(imgURL),
       expiresAt: new Date(),
     });
-    render(
-      <StorageImage
-        alt="StorageImage"
-        imgKey={imgKey}
-        accessLevel={accessLevel}
-        bucket="my-bucket"
-      />
-    );
+    render(<StorageImage alt="StorageImage" bucket="my-bucket" path={path} />);
 
     expect(getUrlSpy).toHaveBeenCalledWith(
       expect.objectContaining({

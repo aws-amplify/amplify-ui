@@ -269,13 +269,13 @@ describe('FileUploader', () => {
     // Wait for the file to be uploaded
     await waitFor(() => {
       expect(uploadDataSpy).toHaveBeenCalledWith({
-        key: file.name,
         data: file,
         options: {
           bucket: 'my-bucket',
           contentType: 'text/plain',
           onProgress: expect.any(Function),
         },
+        path: 'my-pathfile.txt',
       });
     });
   });
