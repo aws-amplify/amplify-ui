@@ -5,6 +5,7 @@ import {
   syncMessages,
 } from 'aws-amplify/in-app-messaging';
 import { AccountSettings, Authenticator, Text } from '@aws-amplify/ui-react';
+import { FaceLivenessDetector } from '@aws-amplify/ui-react-liveness';
 import { StorageManager, FileUploader } from '@aws-amplify/ui-react-storage';
 import {
   InAppMessageDisplay,
@@ -26,6 +27,11 @@ export default function Home() {
 
   return (
     <>
+      <FaceLivenessDetector
+        sessionId="123"
+        region="us-east-1"
+        onAnalysisComplete={async () => {}}
+      />
       <InAppMessagingProvider>
         <InAppMessageDisplay />
         <Text>In-App Messaging Example</Text>
