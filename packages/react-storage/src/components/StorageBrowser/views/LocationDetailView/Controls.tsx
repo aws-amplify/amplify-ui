@@ -78,7 +78,7 @@ export const LocationDetailViewControls = (): React.JSX.Element => {
   const [state] = useControl('NAVIGATE');
   const { path } = state;
 
-  const [{ data, isLoading }, handleList] = useAction('LIST_LOCATION_ITEMS');
+  const [{ data, isLoading, hasError }, handleList] = useAction('LIST_LOCATION_ITEMS');
   const [, handleLocationActionsState] = useControl('LOCATION_ACTIONS');
 
   const { result, nextToken } = data;
@@ -137,6 +137,7 @@ export const LocationDetailViewControls = (): React.JSX.Element => {
     isLoading,
     pageSize: DEFAULT_PAGE_SIZE,
     resultCount,
+    hasError,
   });
 
   return (
