@@ -151,7 +151,7 @@ describe('LocationDetailView', () => {
       hasError: true,
       message: errorMessage,
       result: [{ key: 'test1', type: 'FOLDER' }],
-      nextToken: 'some-token'
+      nextToken: 'some-token',
     });
 
     render(
@@ -256,111 +256,111 @@ describe('LocationDetailView', () => {
       type: 'SET_ACTION',
       files: files,
     });
+  });
 
-    it('clear selection state on breadcrumb and regular navigation', async () => {
-      const user = userEvent.setup();
-      mockUseControl({ prefix: prefix });
-      mockListItemsAction({ result: testResult });
+  it('clear selection state on breadcrumb and regular navigation', async () => {
+    const user = userEvent.setup();
+    mockUseControl({ prefix: prefix });
+    mockListItemsAction({ result: testResult });
 
-      render(
-        <Provider>
-          <LocationDetailView />
-        </Provider>
-      );
-      const breadCrumbButton = screen.getByText(prefix);
+    render(
+      <Provider>
+        <LocationDetailView />
+      </Provider>
+    );
+    const breadCrumbButton = screen.getByText(prefix);
 
-      await act(async () => {
-        await user.click(breadCrumbButton);
-      });
-
-      expect(handleLocationActionsState).toHaveBeenCalledWith({
-        type: 'CLEAR',
-      });
+    await act(async () => {
+      await user.click(breadCrumbButton);
     });
 
-    it('can paginate forwards and clear selection state', async () => {
-      const user = userEvent.setup();
-      const handlePaginateNext = jest.fn();
-      const handlePaginatePrevious = jest.fn();
-      jest
-        .spyOn<typeof PaginateModule, 'usePaginate'>(
-          PaginateModule,
-          'usePaginate'
-        )
-        .mockReturnValue({
-          currentPage: 1,
-          handlePaginateNext,
-          handlePaginatePrevious,
-          handleReset: jest.fn(),
-        });
-      mockListItemsAction({ result: testResult });
+    expect(handleLocationActionsState).toHaveBeenCalledWith({
+      type: 'CLEAR',
+    });
+  });
 
-      render(
-        <Provider>
-          <LocationDetailView />
-        </Provider>
-      );
-      const nextButton = screen.getByLabelText('Go to next page');
-
-      await act(async () => {
-        await user.click(nextButton);
+  it('can paginate forwards and clear selection state', async () => {
+    const user = userEvent.setup();
+    const handlePaginateNext = jest.fn();
+    const handlePaginatePrevious = jest.fn();
+    jest
+      .spyOn<typeof PaginateModule, 'usePaginate'>(
+        PaginateModule,
+        'usePaginate'
+      )
+      .mockReturnValue({
+        currentPage: 1,
+        handlePaginateNext,
+        handlePaginatePrevious,
+        handleReset: jest.fn(),
       });
+    mockListItemsAction({ result: testResult });
 
-      expect(handlePaginateNext).toHaveBeenCalled();
-      expect(handlePaginatePrevious).not.toHaveBeenCalled();
-      expect(handleLocationActionsState).toHaveBeenCalledWith({
-        type: 'CLEAR',
-      });
+    render(
+      <Provider>
+        <LocationDetailView />
+      </Provider>
+    );
+    const nextButton = screen.getByLabelText('Go to next page');
+
+    await act(async () => {
+      await user.click(nextButton);
     });
 
-    it('can paginate to previous and clear selection state', async () => {
-      const user = userEvent.setup();
+    expect(handlePaginateNext).toHaveBeenCalled();
+    expect(handlePaginatePrevious).not.toHaveBeenCalled();
+    expect(handleLocationActionsState).toHaveBeenCalledWith({
+      type: 'CLEAR',
+    });
+  });
 
-      const handlePaginateNext = jest.fn();
-      const handlePaginatePrevious = jest.fn();
-      jest
-        .spyOn<typeof PaginateModule, 'usePaginate'>(
-          PaginateModule,
-          'usePaginate'
-        )
-        .mockReturnValue({
-          currentPage: 2,
-          handlePaginateNext,
-          handlePaginatePrevious,
-          handleReset: jest.fn(),
-        });
-      mockListItemsAction({ result: testResult });
+  it('can paginate to previous and clear selection state', async () => {
+    const user = userEvent.setup();
 
-      render(
-        <Provider>
-          <LocationDetailView />
-        </Provider>
-      );
-
-      const prevButton = screen.getByLabelText('Go to previous page');
-
-      await act(async () => {
-        await user.click(prevButton);
+    const handlePaginateNext = jest.fn();
+    const handlePaginatePrevious = jest.fn();
+    jest
+      .spyOn<typeof PaginateModule, 'usePaginate'>(
+        PaginateModule,
+        'usePaginate'
+      )
+      .mockReturnValue({
+        currentPage: 2,
+        handlePaginateNext,
+        handlePaginatePrevious,
+        handleReset: jest.fn(),
       });
+    mockListItemsAction({ result: testResult });
 
-      expect(handlePaginateNext).not.toHaveBeenCalled();
-      expect(handlePaginatePrevious).toHaveBeenCalled();
-      expect(handleLocationActionsState).toHaveBeenCalledWith({
-        type: 'CLEAR',
-      });
+    render(
+      <Provider>
+        <LocationDetailView />
+      </Provider>
+    );
+
+    const prevButton = screen.getByLabelText('Go to previous page');
+
+    await act(async () => {
+      await user.click(prevButton);
     });
 
-    it('does not allow selection on Folder items', () => {
-      mockListItemsAction({ result: [testFolder] });
-
-      render(
-        <Provider>
-          <LocationDetailView />
-        </Provider>
-      );
-      const checkboxes = screen.queryByRole('checkbox');
-
-      expect(checkboxes).not.toBeInTheDocument();
+    expect(handlePaginateNext).not.toHaveBeenCalled();
+    expect(handlePaginatePrevious).toHaveBeenCalled();
+    expect(handleLocationActionsState).toHaveBeenCalledWith({
+      type: 'CLEAR',
     });
+  });
+
+  it('does not allow selection on Folder items', () => {
+    mockListItemsAction({ result: [testFolder] });
+
+    render(
+      <Provider>
+        <LocationDetailView />
+      </Provider>
+    );
+    const checkboxes = screen.queryByRole('checkbox');
+
+    expect(checkboxes).not.toBeInTheDocument();
   });
 });
