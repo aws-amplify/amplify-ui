@@ -26,7 +26,13 @@ export default function Home() {
   }, []);
 
   return (
-    <>
+    <Authenticator>
+      {({ signOut, user = { username: '' } }) => (
+        <main>
+          <h1>Hello {user.username}</h1>
+          <button onClick={signOut}>Sign out</button>
+        </main>
+      )}
       <FaceLivenessDetector
         sessionId="123"
         region="us-east-1"
@@ -36,14 +42,6 @@ export default function Home() {
         <InAppMessageDisplay />
         <Text>In-App Messaging Example</Text>
       </InAppMessagingProvider>
-      <Authenticator>
-        {({ signOut, user = { username: '' } }) => (
-          <main>
-            <h1>Hello {user.username}</h1>
-            <button onClick={signOut}>Sign out</button>
-          </main>
-        )}
-      </Authenticator>
       <AccountSettings.ChangePassword onSuccess={() => {}} />
       <AccountSettings.DeleteUser onSuccess={() => {}} />
       <StorageManager
@@ -79,6 +77,6 @@ export default function Home() {
       >
         <LocationSearch />
       </MapView>
-    </>
+    </Authenticator>
   );
 }
