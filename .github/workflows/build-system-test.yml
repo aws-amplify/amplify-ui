@@ -14,6 +14,8 @@ jobs:
     uses: ./.github/workflows/reusable-build-system-test.yml
     with:
       dist-tag: latest
+    secrets:
+      AUTH_E2E_ROLE_ARN: ${{ secrets.AUTH_E2E_ROLE_ARN }}
 
   log-failure-metric:
     # Send a failure data point to metric BuildSystemTestFailure in github-workflows@ us-east-2
