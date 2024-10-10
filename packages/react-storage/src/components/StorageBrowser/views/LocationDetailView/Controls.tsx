@@ -10,7 +10,6 @@ import { usePaginate } from '../hooks/usePaginate';
 import { listViewHelpers } from '../utils';
 
 import { ActionsMenuControl } from './Controls/ActionsMenu';
-import { useHandleUpload } from '../LocationActionView/useHandleUpload';
 
 export const DEFAULT_ERROR_MESSAGE = 'There was an error loading items.';
 const DEFAULT_PAGE_SIZE = 100;
@@ -81,14 +80,9 @@ export const LocationDetailViewControls = (): React.JSX.Element => {
 
   const [{ data, isLoading }, handleList] = useAction('LIST_LOCATION_ITEMS');
 
-  const [, , handleFileSelect] = useHandleUpload({
-    prefix: path,
-    preventOverwrite: true,
-  });
   const [, handleUpdateState] = useControl('LOCATION_ACTIONS');
 
   const handleDroppedFiles = (files: File[]) => {
-    handleFileSelect(files);
     if (files[0].type) {
       handleUpdateState({
         type: 'SET_ACTION',
