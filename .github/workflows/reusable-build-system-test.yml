@@ -7,6 +7,9 @@ on:
       dist-tag:
         required: true
         type: string
+    secrets:
+      AUTH_E2E_ROLE_ARN:
+        required: true
 
 jobs:
   build:
