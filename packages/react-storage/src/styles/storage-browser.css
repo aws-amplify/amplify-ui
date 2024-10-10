@@ -16,10 +16,6 @@
   grid-auto-rows: min-content;
 }
 
-.storage-browser__drag-drop-container__outlined {
-  outline: 2px solid var(--storage-browser-dropzone-active-color);
-}
-
 .storage-browser__title {
   margin: 0;
   grid-column: 1 / 3;
@@ -136,6 +132,10 @@
   grid-column: 1 / -1;
   table-layout: fixed;
   width: 100%;
+}
+
+.storage-browser__table__dropzone {
+  outline: 2px solid var(--storage-browser-dropzone-active-color);
 }
 
 .storage-browser__table__header--type,

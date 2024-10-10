@@ -4,7 +4,6 @@ import { isString } from '@aws-amplify/ui';
 import { LocationData, useAction } from '../../context/actions';
 import { useControl } from '../../context/control';
 import { parseLocationAccess } from '../../context/navigate/utils';
-import { DropZoneElement } from '../../context/elements/DropZoneElement';
 
 import { Controls, LocationDetailViewTable } from '../Controls';
 import { usePaginate } from '../hooks/usePaginate';
@@ -153,7 +152,7 @@ export const LocationDetailViewControls = (): React.JSX.Element => {
   });
 
   return (
-    <DropZoneElement handleDroppedFiles={(files) => handleDroppedFiles(files)}>
+    <>
       <Navigate />
       <Title />
       <RefreshControl
@@ -179,8 +178,11 @@ export const LocationDetailViewControls = (): React.JSX.Element => {
       />
       <LocationDetailMessage />
       <Loading show={renderLoading} />
-      <LocationDetailViewTable range={range} />
+      <LocationDetailViewTable
+        handleDroppedFiles={handleDroppedFiles}
+        range={range}
+      />
       <LocationDetailEmptyMessage />
-    </DropZoneElement>
+    </>
   );
 };

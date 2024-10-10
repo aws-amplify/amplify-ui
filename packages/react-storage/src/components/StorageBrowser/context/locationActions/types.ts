@@ -42,7 +42,7 @@ export interface LocationActionsState<T = string> {
   selected: {
     type: T | undefined;
     items: LocationItem[] | undefined;
-    files?: File[] | undefined;
+    files?: File[];
   };
 }
 

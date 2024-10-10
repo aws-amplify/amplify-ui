@@ -34,7 +34,6 @@ import {
 import { CancelableTask, useHandleUpload } from './useHandleUpload';
 import { getTaskCounts } from '../../controls/getTaskCounts';
 import { StatusDisplayControl } from '../../controls/StatusDisplayControl';
-import { DropZoneElement } from '../../context/elements/DropZoneElement';
 
 const { Icon } = StorageBrowserElements;
 
@@ -299,11 +298,7 @@ export const UploadControls = (): JSX.Element => {
   const disableSelectFiles = hasStarted || hasCompleted;
 
   return (
-    <DropZoneElement
-      handleDroppedFiles={(files) => {
-        handleFileSelect(files);
-      }}
-    >
+    <>
       <input
         data-testid="amplify-file-select"
         type="file"
@@ -393,9 +388,12 @@ export const UploadControls = (): JSX.Element => {
       <Table
         data={tableData}
         columns={LOCATION_ACTION_VIEW_COLUMNS}
+        handleDroppedFiles={(files) => {
+          handleFileSelect(files);
+        }}
         renderHeaderItem={renderHeaderItem}
         renderRowItem={renderRowItem}
       />
-    </DropZoneElement>
+    </>
   );
 };
