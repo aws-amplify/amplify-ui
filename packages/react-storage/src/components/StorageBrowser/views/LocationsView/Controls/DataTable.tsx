@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import { capitalize } from '@aws-amplify/ui';
 
@@ -14,13 +14,11 @@ import { LocationAccess } from '../../../context/types';
 import { ButtonElement, IconElement } from '../../../context/elements';
 
 import { compareStrings } from '../../utils';
-
-export type SortDirection = 'ascending' | 'descending' | 'none';
-
-export type SortState = {
-  selection: string;
-  direction: SortDirection;
-};
+import {
+  SortDirection,
+  SortState,
+  useTableData,
+} from '../../hooks/useTableData';
 
 const getCompareFn = (selection: string) => {
   switch (selection) {
@@ -31,16 +29,20 @@ const getCompareFn = (selection: string) => {
   }
 };
 
+function filterFunction({ scope }: LocationAccess, searchTerm: string) {
+  return scope.includes(searchTerm);
+}
+
 const getColumnItem = ({
   entry,
   selection,
   direction,
   onTableHeaderClick,
 }: {
-  entry: [string, string];
+  entry: [keyof LocationAccess, string];
   selection: string;
   direction: SortDirection;
-  onTableHeaderClick: (location: string) => void;
+  onTableHeaderClick: (location: keyof LocationAccess) => void;
 }) => {
   const [key, value] = entry;
 
@@ -64,7 +66,7 @@ const getColumnItem = ({
   };
 };
 
-const displayColumns: Record<string, string>[] = [
+const displayColumns: Partial<Record<keyof LocationAccess, string>>[] = [
   { scope: 'name' },
   { type: 'type' },
   { permission: 'permission' },
@@ -78,28 +80,21 @@ const getLocationsData = ({
 }: {
   data: LocationAccess[];
   onLocationClick: (location: LocationAccess) => void;
-  onTableHeaderClick: (location: string) => void;
-  sortState: SortState;
+  onTableHeaderClick: (location: keyof LocationAccess) => void;
+  sortState: SortState<LocationAccess>;
 }) => {
   const { selection, direction } = sortState;
 
   const columns = displayColumns.flatMap((column) =>
     Object.entries(column).map((entry) =>
-      getColumnItem({ entry, selection, direction, onTableHeaderClick })
+      getColumnItem({
+        entry: entry as [keyof LocationAccess, string],
+        selection,
+        direction,
+        onTableHeaderClick,
+      })
     )
   );
-
-  const compareFn = getCompareFn(selection);
-
-  if (compareFn) {
-    const castSelection = selection as keyof LocationAccess;
-
-    if (direction === 'ascending') {
-      data.sort((a, b) => compareFn(a[castSelection], b[castSelection]));
-    } else {
-      data.sort((a, b) => compareFn(b[castSelection], a[castSelection]));
-    }
-  }
 
   const rows = data.map((location, index) => [
     {
@@ -121,26 +116,41 @@ const getLocationsData = ({
   return { columns, rows };
 };
 
+interface DataTableControlProps {
+  range: [start: number, end: number];
+  searchTerm: string;
+}
+
 export function DataTableControl({
   range,
-}: {
-  range: [start: number, end: number];
-}): React.JSX.Element {
+  searchTerm,
+}: DataTableControlProps): React.JSX.Element {
   const [{ data }] = useLocationsData();
-
   const [, handleUpdateState] = useControl('NAVIGATE');
+  const { sortState, actions, items } = useTableData<LocationAccess>(
+    data.result,
+    {
+      range,
+      searching: {
+        filterFunction,
+        searchTerm,
+      },
+      sorting: {
+        initialSortSelection: 'scope',
+        compareFunction: (a, b, selection) => {
+          const compareFn = getCompareFn(selection) ?? compareStrings;
+          return compareFn(a[selection], b[selection]);
+        },
+      },
+    }
+  );
 
-  const [sortState, setSortState] = React.useState<SortState>({
-    selection: 'scope',
-    direction: 'ascending',
-  });
+  const { setSortState } = actions;
 
-  const [start, end] = range;
-
-  const locationsData = React.useMemo(
+  const locationsData = useMemo(
     () =>
       getLocationsData({
-        data: data.result.slice(start, end),
+        data: items,
         sortState,
         onLocationClick: (location) => {
           handleUpdateState({
@@ -148,7 +158,7 @@ export function DataTableControl({
             location,
           });
         },
-        onTableHeaderClick: (location: string) => {
+        onTableHeaderClick: (location) => {
           setSortState((prevState) => ({
             selection: location,
             direction:
@@ -156,7 +166,7 @@ export function DataTableControl({
           }));
         },
       }),
-    [data.result, handleUpdateState, sortState, start, end]
+    [items, handleUpdateState, sortState, setSortState]
   );
 
   return <DataTable data={locationsData} />;
