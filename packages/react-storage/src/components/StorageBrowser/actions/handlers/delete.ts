@@ -15,10 +15,13 @@ export interface DeleteHandler
 export const deleteHandler: DeleteHandler = ({
   config,
   prefix,
+  data,
 }): DeleteHandlerOutput => {
   const { bucket, region, credentials } = config;
+  const { key } = data;
+  const fullPath = `${prefix}/${key}`;
   const output = remove({
-    path: prefix,
+    path: fullPath,
     options: {
       bucket: {
         bucketName: bucket,
@@ -28,7 +31,7 @@ export const deleteHandler: DeleteHandler = ({
     },
   });
   return {
-    key: prefix,
+    key: fullPath,
     result: output
       .then(() => 'COMPLETE' as const)
       .catch(() => 'FAILED' as const),
