@@ -10,12 +10,14 @@ const program = new Command();
  * $ node --require esbuild-register ./scripts/generateDetoxConfig.ts --mega-app-name rnlatestclilatesttsios
  */
 program
-  .option('-n, --mega-app-name <appname>', 'Specify the mega app name')
+  .option('-n, --mega-app-name <megaAppName>', 'Specify the mega app name')
+  .option('-n, --build-tool <buildTool>', 'Specify the build tool')
+  .option('-n, --platform <platform>', 'Specify the platform')
   .parse(process.argv);
 
 program.parse();
 
-const { megaAppName } = program.opts();
+const { megaAppName, buildTool = 'cli' } = program.opts();
 
 if (!megaAppName) {
   console.error('Error: MEGA_APP_NAME parameter is missing.');
