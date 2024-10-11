@@ -80,6 +80,11 @@ if [ "$FRAMEWORK" == 'react' ]; then
     DEPENDENCIES="$DEPENDENCIES react-dom@$FRAMEWORK_VERSION @aws-amplify/ui-react-liveness@$TAG @aws-amplify/ui-react-storage@$TAG @aws-amplify/ui-react-geo@$TAG @aws-amplify/ui-react-notifications@$TAG @aws-amplify/geo"
     echo "DEPENDENCIES=$DEPENDENCIES"
 
+    if [ "$BUILD_TOOL" == 'vite' ]; then
+        DEPENDENCIES="$DEPENDENCIES @types/events @types/node"
+        echo "DEPENDENCIES=$DEPENDENCIES"
+    fi
+
 elif [ "$FRAMEWORK" == 'angular' ]; then
     # remove angular since it's deprecated https://www.npmjs.com/package/angular
     # We've install @amplify/cli when creating the app
@@ -102,7 +107,7 @@ else
         echo "npm install $DEPENDENCIES"
         npm install $DEPENDENCIES
         if [[ "$BUILD_TOOL" == "expo" ]]; then
-            echo "npx expo install --fix" 
+            echo "npx expo install --fix"
             npx expo install --fix # fix the dependencies that are incompatible with the installed expo versio
         fi
     else
