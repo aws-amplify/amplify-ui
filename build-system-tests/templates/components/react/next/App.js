@@ -2,38 +2,16 @@ import dynamic from 'next/dynamic';
 import React from 'react';
 
 import { Amplify } from 'aws-amplify';
-import {
-  initializeInAppMessaging,
-  syncMessages,
-} from 'aws-amplify/in-app-messaging';
 
-import { AccountSettings, Authenticator, Text } from '@aws-amplify/ui-react';
+import { AccountSettings, Authenticator } from '@aws-amplify/ui-react';
 import { FaceLivenessDetector } from '@aws-amplify/ui-react-liveness';
 import { StorageManager, FileUploader } from '@aws-amplify/ui-react-storage';
-import {
-  InAppMessageDisplay,
-  InAppMessagingProvider,
-} from '@aws-amplify/ui-react-notifications';
 import { MapView, LocationSearch } from '@aws-amplify/ui-react-geo';
 import '@aws-amplify/ui-react/styles.css';
 import '@aws-amplify/ui-react-geo/styles.css';
 import awsconfig from '../../../environments/auth-with-email/src/aws-exports.js';
 Amplify.configure(awsconfig);
 
-const InAppExample = () => {
-  initializeInAppMessaging();
-  React.useEffect(() => {
-    // sync remote in-app messages
-    syncMessages();
-  });
-
-  return (
-    <InAppMessagingProvider>
-      <InAppMessageDisplay />
-      <Text>In-App Messaging Example</Text>
-    </InAppMessagingProvider>
-  );
-};
 const Home = () => {
   return (
     <Authenticator>
@@ -41,7 +19,6 @@ const Home = () => {
         <main>
           <h1>Hello {user.username}</h1>
           <button onClick={signOut}>Sign out</button>
-          <InAppExample />
           <FaceLivenessDetector
             sessionId="123"
             region="us-east-1"
