@@ -16,6 +16,7 @@ import { CLASS_BASE } from '../constants';
 import { compareDates, compareNumbers, compareStrings } from '../utils';
 
 import { DownloadControl } from './Download';
+import { useDropZone } from '@aws-amplify/ui-react-core';
 import { CheckboxControl } from '../../components/Checkbox';
 
 export type SortDirection = 'ascending' | 'descending' | 'none';
@@ -127,6 +128,7 @@ export type RenderRowItem<T> = (row: T, index: number) => JSX.Element;
 interface TableControlProps<T> {
   data: T[];
   columns: Column<T>[];
+  handleDroppedFiles?: (files: File[]) => void;
   renderHeaderItem: RenderHeaderItem<T>;
   renderRowItem: RenderRowItem<T>;
 }
@@ -134,13 +136,26 @@ interface TableControlProps<T> {
 export function TableControl<U>({
   data,
   columns,
+  handleDroppedFiles,
   renderHeaderItem,
   renderRowItem,
 }: TableControlProps<U>): React.JSX.Element {
   const ariaLabel = 'Table';
 
+  const { dragState, ...dropHandlers } = useDropZone({
+    onDropComplete: ({ acceptedFiles }) =>
+      handleDroppedFiles && handleDroppedFiles(acceptedFiles),
+  });
+
   return (
-    <Table aria-label={ariaLabel} className={BLOCK_NAME}>
+    <Table
+      {...dropHandlers}
+      aria-label={ariaLabel}
+      data-testid="storage-browser-table"
+      className={`${BLOCK_NAME} ${
+        dragState !== 'inactive' ? `${BLOCK_NAME}__dropzone` : ''
+      }`}
+    >
       <TableHead className={`${BLOCK_NAME}__head`}>
         <TableRow className={`${BLOCK_NAME}__row`}>
           {columns.map((column) => renderHeaderItem(column))}
@@ -168,8 +183,10 @@ const LocationDetailViewColumnSortMap = {
 const LocationDetailViewColumnEmptyHeaderMap = ['download'];
 
 export const LocationDetailViewTable = ({
+  handleDroppedFiles,
   range,
 }: {
+  handleDroppedFiles: (files: File[]) => void;
   range: [start: number, end: number];
 }): JSX.Element | null => {
   const [start, end] = range;
@@ -419,6 +436,7 @@ export const LocationDetailViewTable = ({
     <TableControl
       columns={LOCATION_DETAIL_VIEW_COLUMNS}
       data={tableData}
+      handleDroppedFiles={handleDroppedFiles}
       renderHeaderItem={renderHeaderItem}
       renderRowItem={renderRowItem}
     />

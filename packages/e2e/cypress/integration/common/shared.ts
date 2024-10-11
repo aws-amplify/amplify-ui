@@ -264,6 +264,10 @@ When('I click the {string} button', (name: string) => {
   }).click();
 });
 
+Then('I press the {string} key', (key: string) => {
+  cy.get('body').type(key);
+});
+
 When('I click the button containing {string}', (name: string) => {
   cy.findByRole('button', {
     name: new RegExp(`${escapeRegExp(name)}`, 'i'),
