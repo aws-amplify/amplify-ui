@@ -67,14 +67,8 @@ else
     npm run start -- --port 3000 &
 fi
 
-if [ "$BUILD_TOOL" == 'vite' ] && [ "$BUILD_TOOL_VERSION" == 3 ]; then
-    # Known issue with earlier versions of vite and wait-on https://github.com/jeffbski/wait-on/issues/150
-    echo npx wait-on -t 20000 tcp:3000
-    npx wait-on -t 20000 tcp:3000
-else
-    echo npx wait-on -t 20000 http-get://localhost:3000
-    npx wait-on -t 20000 http-get://localhost:3000
-fi
+echo npx wait-on -t 20000 tcp:3000
+npx wait-on -t 20000 tcp:3000
 
 echo "Back to build-system-tests folder"
 echo "cd .."
