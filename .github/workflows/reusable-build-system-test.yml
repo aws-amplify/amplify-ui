@@ -7,7 +7,19 @@ on:
       dist-tag:
         required: true
         type: string
-
+    secrets:
+      AUTH_E2E_ROLE_ARN:
+        required: true
+      DOMAIN:
+        required: true
+      PHONE_NUMBER:
+        required: true
+      USERNAME:
+        required: true
+      NEW_PASSWORD:
+        required: true
+      VALID_PASSWORD:
+        required: true
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -20,7 +32,6 @@ jobs:
         build-tool: [next, vite]
         build-tool-version: [latest]
         pkg-manager: [npm]
-        language: [ts]
         node-version: [20]
         pkg-manager-version: [latest]
         include:
@@ -29,14 +40,12 @@ jobs:
             build-tool: next
             build-tool-version: 13
             pkg-manager: npm
-            language: ts
             node-version: 20
           - framework: react
             framework-version: 18
             build-tool: vite
             build-tool-version: 3
             pkg-manager: npm
-            language: ts
             node-version: 20
 
           - framework: angular
@@ -44,14 +53,12 @@ jobs:
             build-tool: angular-cli
             build-tool-version: latest
             pkg-manager: npm
-            language: ts
             node-version: 20
           - framework: angular
             framework-version: 14
             build-tool: angular-cli
             build-tool-version: 14
             pkg-manager: npm
-            language: ts
             node-version: 20
 
           - framework: vue
@@ -59,29 +66,28 @@ jobs:
             build-tool: vue-cli
             build-tool-version: latest
             pkg-manager: yarn # vue-cli defualt pkg-manager is yarn. It can't be customized in the preset.json.
-            language: ts
             node-version: 20
           - framework: vue
             framework-version: latest
             build-tool: vite
             build-tool-version: latest
             pkg-manager: npm
-            language: ts
             node-version: 20
           - framework: vue
             framework-version: 3
             build-tool: vite
             build-tool-version: 3
             pkg-manager: npm
-            language: ts
             node-version: 20
           - framework: vue
             framework-version: latest
             build-tool: nuxt
             build-tool-version: latest
             pkg-manager: npm
-            language: ts
             node-version: 20
+
+    env:
+      MEGA_APP_NAME: ${{matrix.framework}}-${{ matrix.framework-version }}-${{ matrix.build-tool }}-${{ matrix.build-tool-version }}-ui-${{ inputs.dist-tag }}
 
     steps:
       - name: Checkout Amplify UI
@@ -95,7 +101,76 @@ jobs:
           cache: ${{ matrix.pkg-manager }}
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
+      - name: Add Amplify CLI
+        run: yarn global add @aws-amplify/cli
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502 # v4.0.2 https://github.com/aws-actions/configure-aws-credentials/commit/e3dd6a429d7300a6a4c196c26e071d42e0343502
+        with:
+          aws-region: us-east-2
+          role-to-assume: ${{ secrets.AUTH_E2E_ROLE_ARN }}
+      # Amplify CLI does not support headless pull with temporary credentials
+      # when useProfile is false.
+      # See: https://github.com/aws-amplify/amplify-cli/issues/11009.
+      - name: Create temp AWS profile
+        run: |
+          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID && \
+          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY && \
+          aws configure set aws_session_token $AWS_SESSION_TOKEN && \
+          aws configure set default.region $AWS_REGION
+      - name: Pull down AWS environments
+        run: npm run pull
+        working-directory: build-system-tests
+      - name: Delete AWS Profile
+        run: rm -rf ~/.aws
+      - name: Restore cypress runner from Cache
+        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2 https://github.com/actions/cache/commit/0c45773b623bea8c8e75f6c82b208c3cf94ea4f9
+        id: restore-cypress-cache
+        with:
+          path: ~/.cache/Cypress
+          key: ${{ runner.os }}-canary-cypress-${{ hashFiles('build-system-tests/e2e/yarn.lock') }}
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
       - name: Create MegaApp ${{ env.MEGA_APP_NAME }} and run build on NodeJS ${{ matrix.node-version }}
-        run: npm run test:${{ matrix.framework }}:${{matrix.build-tool}} -- --framework-version ${{matrix.framework-version}} --build-tool-version ${{matrix.build-tool-version}} --pkg-manager ${{matrix.pkg-manager}} --tag ${{inputs.dist-tag}}
+        run: npm run setup:${{ matrix.framework }}:${{matrix.build-tool}} -- --framework-version ${{matrix.framework-version}} --build-tool-version ${{matrix.build-tool-version}} --pkg-manager ${{matrix.pkg-manager}} --tag ${{inputs.dist-tag}}
         shell: bash
         working-directory: build-system-tests
+      - name: Install e2e packages
+        uses: ./.github/actions/install-with-retries
+        with:
+          working-directory: build-system-tests/e2e
+          # If we got a cache hit on cypress runner, then we will skip cypress binary
+          # installation. Otherwise, it will install cypress binary.
+          skip-cypress-binary: ${{ steps.restore-cypress-cache.outputs.cache-hit }}
+        # If cypress cache was missed, then we need to create new cache entry and upload it.
+        # At this point, cypress runner should've been installed from the previous installation
+        # step, so we go ahead and update the cache entry.
+      - name: Cache cypress runner
+        if: steps.restore-cypress-cache.outputs.cache-hit != 'true'
+        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2 https://github.com/actions/cache/commit/0c45773b623bea8c8e75f6c82b208c3cf94ea4f9
+        with:
+          path: ~/.cache/Cypress
+          key: ${{ runner.os }}-canary-cypress-${{ hashFiles('build-system-tests/e2e/yarn.lock') }}
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
+      - name: Run E2E tests against ${{ env.MEGA_APP_NAME }} example
+        run: npm run test
+        id: e2e
+        working-directory: build-system-tests
+        env:
+          # Env values for testing flows
+          DOMAIN: ${{ secrets.DOMAIN }}
+          PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
+          USERNAME: ${{ secrets.USERNAME }}
+          NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
+          VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
+          TAGS: '@${{ matrix.framework }}'
+
+      - name: Upload videos and screenshots
+        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2 https://github.com/actions/upload-artifact/commit/0b7f8abb1508181956e8e162db84b466c27e18ce
+        if: ${{ failure() && steps.e2e.outcome != 'success' }}
+        with:
+          name: canary-cypress-error-${{ env.MEGA_APP_NAME }}
+          path: |
+            build-system-tests/e2e/cypress/videos/**
+            build-system-test/e2e/cypress/screenshots/**
+          retention-days: 5
