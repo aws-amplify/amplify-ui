@@ -1,5 +1,5 @@
 import React from 'react';
-import { GetLocationCredentials } from '@aws-amplify/storage/storage-browser';
+import { GetLocationCredentials } from '../storage-internal';
 
 import { LocationData } from './types';
 

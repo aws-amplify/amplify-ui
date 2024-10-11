@@ -37,6 +37,14 @@ export const AUTHENTICATOR_INPUT_BASE: Omit<
   category: Category.Auth,
 };
 
+export const FILE_UPLOADER_BASE_INPUT: Omit<
+  StorageUserAgentInput,
+  'additionalDetails'
+> = {
+  apis: [StorageAction.UploadData],
+  category: Category.Storage,
+};
+
 export const IN_APP_MESSAGING_INPUT_BASE: Omit<
   InAppMessagingUserAgentInput,
   'additionalDetails'

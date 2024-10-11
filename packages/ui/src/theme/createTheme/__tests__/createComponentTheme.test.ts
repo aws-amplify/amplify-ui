@@ -84,7 +84,7 @@ describe('defineComponentTheme', () => {
   describe('custom components', () => {
     it('should return properly typed className function', () => {
       const { className } = defineComponentTheme({
-        name: 'avatar',
+        name: 'custom-avatar',
         theme(tokens) {
           return {
             _modifiers: {
@@ -100,17 +100,19 @@ describe('defineComponentTheme', () => {
           };
         },
       });
-      expect(className()).toBe('amplify-avatar');
+      expect(className()).toBe('amplify-custom-avatar');
       expect(className({ _modifiers: 'primary' })).toBe(
-        'amplify-avatar amplify-avatar--primary'
+        'amplify-custom-avatar amplify-custom-avatar--primary'
       );
-      expect(className({ _element: 'label' })).toBe('amplify-avatar__label');
+      expect(className({ _element: 'label' })).toBe(
+        'amplify-custom-avatar__label'
+      );
     });
   });
 
   it('should return a validly typed className function', () => {
     const { className } = defineComponentTheme({
-      name: 'avatar',
+      name: 'custom-avatar',
       theme: (tokens) => {
         return {
           _modifiers: {
@@ -149,10 +151,12 @@ describe('defineComponentTheme', () => {
     // @ts-expect-error
     const c8 = className({ _element: { icon: 'foo' } });
 
-    expect(c1).toEqual('amplify-avatar__icon');
-    expect(c2).toEqual('amplify-avatar');
-    expect(c3).toEqual('amplify-avatar__icon amplify-avatar__icon--large');
-    expect(c4).toEqual('amplify-avatar amplify-avatar--small');
+    expect(c1).toEqual('amplify-custom-avatar__icon');
+    expect(c2).toEqual('amplify-custom-avatar');
+    expect(c3).toEqual(
+      'amplify-custom-avatar__icon amplify-custom-avatar__icon--large'
+    );
+    expect(c4).toEqual('amplify-custom-avatar amplify-custom-avatar--small');
   });
 
   it('should return a theme function to pass to createTheme', () => {

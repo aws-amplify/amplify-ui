@@ -83,26 +83,18 @@ jobs:
         working-directory: ./canary
 
   build-test-v2:
+    uses: ./.github/workflows/reusable-build-system-test.yml
     needs: setup
-    environment: ci
     if: ${{ needs.setup.outputs.has-changesets != 'true' }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Build test v2
-        uses: ./.github/workflows/reusable-build-system-test.yml
-        with:
-          dist-tag: next
+    with:
+      dist-tag: next
 
   build-test-v2-react-native:
+    uses: ./.github/workflows/reusable-build-system-test-react-native.yml
     needs: setup
-    environment: ci
     if: ${{ needs.setup.outputs.has-changesets != 'true' }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Build test v2 React Native
-        uses: ./.github/workflows/reusable-build-system-test-react-native.yml
-        with:
-          dist-tag: next
+    with:
+      dist-tag: next
 
   publish:
     runs-on: ubuntu-latest

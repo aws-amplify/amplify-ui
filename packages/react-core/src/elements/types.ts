@@ -42,11 +42,12 @@ type TableElementDisplayName = 'Table' | `Table${TableElementSubType}`;
  */
 export type ElementDisplayName =
   | 'Button'
-  | 'DefinitionDetail'
-  | 'DefinitionList'
-  | 'DefinitionTerm'
+  | 'DescriptionDetails'
+  | 'DescriptionList'
+  | 'DescriptionTerm'
   | 'Heading' // h1, h2, etc
   | 'Icon'
+  | 'Image'
   | 'Input'
   | 'Label'
   | 'ListItem'
@@ -54,6 +55,7 @@ export type ElementDisplayName =
   | 'ProgressBar'
   | 'Span'
   | 'Text'
+  | 'TextArea'
   | 'Title'
   | 'View'
   | ListElementDisplayName

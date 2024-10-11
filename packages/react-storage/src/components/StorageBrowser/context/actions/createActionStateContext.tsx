@@ -1,10 +1,15 @@
 import React from 'react';
 
 import {
+  AsyncDataAction,
   DataAction,
   DataState,
   useDataState,
 } from '@aws-amplify/ui-react-core';
+
+type SyncOrAsyncAction<T = any, K = any> =
+  | DataAction<T, K>
+  | AsyncDataAction<T, K>;
 
 type ContextProvider = (props: {
   children?: React.ReactNode;
@@ -20,20 +25,20 @@ interface ActionContext<X = any, Y = any> {
   Provider: ContextProvider;
 }
 
-type DataActions = { [key: string]: DataAction };
+type DataActions = { [key: string]: AsyncDataAction | DataAction };
 
 type ActionContexts<T> = {
-  [K in keyof T]: T[K] extends DataAction<infer X, infer Y>
+  [K in keyof T]: T[K] extends SyncOrAsyncAction<infer X, infer Y>
     ? ActionContext<X, Y>
     : never;
 };
 
-type InitialValue<T> = {
-  [K in keyof T]: T[K] extends DataAction<infer X> ? X : never;
+export type InitialValue<T> = {
+  [K in keyof T]: T[K] extends SyncOrAsyncAction<infer X> ? X : never;
 };
 
 type ActionsState<T> = {
-  [K in keyof T]: T[K] extends DataAction<infer X, infer U>
+  [K in keyof T]: T[K] extends SyncOrAsyncAction<infer X, infer U>
     ? ActionState<X, U>
     : never;
 };
@@ -63,10 +68,13 @@ function InitialValueProvider<T extends Record<PropertyKey, any>>({
   );
 }
 
-function createActionContext<T, K>(action: DataAction<T, K>, type: string) {
-  const ActionContext = React.createContext<
-    [DataState<T>, (...input: K[]) => void] | undefined
-  >(undefined);
+function createActionContext<T, K>(
+  action: AsyncDataAction<T, K> | DataAction<T, K>,
+  type: string
+) {
+  const ActionContext = React.createContext<ActionState<T, K> | undefined>(
+    undefined
+  );
 
   function Provider(props: { children?: React.ReactNode }) {
     const initialValue = React.useContext(InitialValue);

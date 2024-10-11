@@ -4,7 +4,7 @@ import {
   ListPaginateWithPathOutput,
 } from 'aws-amplify/storage';
 
-import { StorageSubpathStrategy } from '@aws-amplify/storage/storage-browser';
+import { StorageSubpathStrategy } from '../../storage-internal';
 
 import {
   ListActionInput,

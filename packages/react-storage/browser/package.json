@@ -1,7 +1,7 @@
 {
   "name": "@aws-amplify/ui-react-storage/browser",
   "main": "../dist/browser.js",
-  "module": "../dist/esm/components/StorageBrowser/browser.mjs",
+  "module": "../dist/esm/browser.mjs",
   "types": "../dist/types/components/StorageBrowser/index.d.ts",
   "private": true,
   "sideEffects": false

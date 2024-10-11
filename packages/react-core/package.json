@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui-react-core",
-  "version": "3.0.18",
+  "version": "3.0.26",
   "main": "dist/index.js",
   "module": "dist/esm/index.mjs",
   "react-native": "src/index.ts",
@@ -11,7 +11,7 @@
       "types": "./dist/types/index.d.ts"
     },
     "./elements": {
-      "import": "./dist/esm/elements/elements.mjs",
+      "import": "./dist/esm/elements.mjs",
       "require": "./dist/elements.js",
       "react-native": "./src/elements/index.ts",
       "types": "./dist/types/elements/index.d.ts"
@@ -33,14 +33,14 @@
     "build": "rollup --config",
     "check:esm": "node --input-type=module --eval 'import \"@aws-amplify/ui-react-core\"'",
     "dev": "yarn build --watch",
-    "lint": "yarn typecheck && eslint src",
+    "lint": "yarn typecheck && eslint .",
     "prebuild": "rimraf dist",
     "test": "jest",
     "test:watch": "yarn test --watch",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@aws-amplify/ui": "6.1.0",
+    "@aws-amplify/ui": "6.6.2",
     "@xstate/react": "^3.2.2",
     "lodash": "4.17.21",
     "react-hook-form": "^7.43.5",

@@ -88,6 +88,7 @@ function NavigateContainer({
 export function NavigateControl(): React.JSX.Element {
   const [{ history, location }, handleUpdateState] = useControl('NAVIGATE');
   const [{ isLoading }, handleUpdateList] = useAction('LIST_LOCATION_ITEMS');
+  const [, handleLocationActionsState] = useControl('LOCATION_ACTIONS');
 
   const { bucket } = location
     ? parseLocationAccess(location)
@@ -99,6 +100,7 @@ export function NavigateControl(): React.JSX.Element {
         onClick={() => {
           handleUpdateState({ type: 'EXIT' });
           handleUpdateList({ prefix: '', options: { reset: true } });
+          handleLocationActionsState({ type: 'CLEAR' });
         }}
       >
         {HOME_NAVIGATE_ITEM}
@@ -123,6 +125,7 @@ export function NavigateControl(): React.JSX.Element {
             key={`${prefix}/${position}`}
             onClick={() => {
               handleUpdateState({ type: 'NAVIGATE', entry });
+              handleLocationActionsState({ type: 'CLEAR' });
             }}
             isCurrent={isCurrent}
           >

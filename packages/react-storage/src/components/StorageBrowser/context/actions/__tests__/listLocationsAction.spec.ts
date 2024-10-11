@@ -1,6 +1,7 @@
-import { ListLocations } from '@aws-amplify/storage/storage-browser';
-import { createListLocationsAction } from '../listLocationsAction';
+import { ListLocations } from '../../../storage-internal';
 import { LocationAccess } from '../../types';
+
+import { createListLocationsAction } from '../listLocationsAction';
 
 const fakeLocation: LocationAccess = {
   scope: 's3://some-bucket/*',

@@ -3,6 +3,7 @@ import { setCustomUserAgent } from '@aws-amplify/core/internals/utils';
 import {
   ACCOUNT_SETTINGS_INPUT_BASE,
   AUTHENTICATOR_INPUT_BASE,
+  FILE_UPLOADER_BASE_INPUT,
   IN_APP_MESSAGING_INPUT_BASE,
   LOCATION_SEARCH_INPUT_BASE,
   MAP_VIEW_INPUT_BASE,
@@ -28,6 +29,7 @@ export type ComponentName =
   | 'ChangePassword'
   | 'DeleteUser'
   | 'FaceLivenessDetector'
+  | 'FileUploader'
   | 'InAppMessaging'
   | 'LocationSearch'
   | 'MapView'
@@ -73,6 +75,13 @@ export const setUserAgent = ({
       setCustomUserAgent({
         ...ACCOUNT_SETTINGS_INPUT_BASE,
         additionalDetails: [['AccountSettings'], packageData],
+      });
+      break;
+    }
+    case 'FileUploader': {
+      setCustomUserAgent({
+        ...FILE_UPLOADER_BASE_INPUT,
+        additionalDetails: [[componentName], packageData],
       });
       break;
     }

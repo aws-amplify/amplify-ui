@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { ListLocations } from '@aws-amplify/storage/storage-browser';
 import { ElementsProvider } from '@aws-amplify/ui-react-core/elements';
 
 import { ActionProvider, createListLocationsAction } from './context/actions';
@@ -11,8 +10,8 @@ import {
 import { ControlProvider } from './context/control';
 import { StorageBrowserElements } from './context/elements';
 import { LocationActions } from './context/locationActions';
-
 import { ErrorBoundary } from './ErrorBoundary';
+import { ListLocations } from './storage-internal';
 import { ViewsProvider, Views } from './views';
 
 export interface Config

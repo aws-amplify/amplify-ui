@@ -1,7 +1,11 @@
 export {
+  FileUploader,
+  FileUploaderHandle,
+  FileUploaderProps,
   StorageImage,
   StorageImageProps,
   StorageManager,
+  StorageManagerHandle,
   StorageManagerProps,
   DropZoneProps,
   ContainerProps,

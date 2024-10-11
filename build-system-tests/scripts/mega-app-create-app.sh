@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 # Default values
 BUILD_TOOL="cra"
@@ -100,12 +101,13 @@ if [[ "$FRAMEWORK" == 'angular' ]]; then
 fi
 
 if [[ "$FRAMEWORK" == 'vue' ]]; then
-    echo "npm install -g @vue/cli@${BUILD_TOOL_VERSION}"
-    npm install -g @vue/cli@${BUILD_TOOL_VERSION}
     if [ "$BUILD_TOOL" == 'vue-cli' ]; then
+        echo "npm install -g @vue/cli@${BUILD_TOOL_VERSION}"
+        npm install -g @vue/cli@${BUILD_TOOL_VERSION}
         echo "vue create --preset ../templates/components/vue/preset-${FRAMEWORK_VERSION}.json $MEGA_APP_NAME"
         echo 'Y' | vue create --preset ../templates/components/vue/preset-${FRAMEWORK_VERSION}.json $MEGA_APP_NAME
     elif [ "$BUILD_TOOL" == 'nuxt' ]; then
+        echo "npx nuxt init $MEGA_APP_NAME"
         npx nuxt init $MEGA_APP_NAME
     fi
 fi

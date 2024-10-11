@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui-react-storage",
-  "version": "3.2.0",
+  "version": "3.3.6",
   "main": "dist/index.js",
   "module": "dist/esm/index.mjs",
   "exports": {
@@ -12,7 +12,7 @@
     "./browser": {
       "main": "./dist/browser.js",
       "types": "./dist/types/components/StorageBrowser/index.d.ts",
-      "import": "./dist/esm/components/StorageBrowser/browser.mjs"
+      "import": "./dist/esm/browser.mjs"
     },
     "./styles.css": "./dist/styles.css",
     "./storage-browser-styles.css": "./dist/storage-browser-styles.css"
@@ -39,7 +39,7 @@
     "check:esm": "node --input-type=module --eval 'import \"@aws-amplify/ui-react-storage\"'",
     "clean": "rimraf dist node_modules",
     "dev": "yarn build:rollup --watch",
-    "lint": "yarn typecheck && eslint src --ext .js,.ts,.tsx",
+    "lint": "yarn typecheck && eslint .",
     "prebuild": "rimraf dist",
     "size": "yarn size-limit",
     "test": "jest",
@@ -47,9 +47,9 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@aws-amplify/ui": "6.1.0",
-    "@aws-amplify/ui-react": "6.2.0",
-    "@aws-amplify/ui-react-core": "3.0.18",
+    "@aws-amplify/ui": "6.6.2",
+    "@aws-amplify/ui-react": "6.5.2",
+    "@aws-amplify/ui-react-core": "3.0.26",
     "lodash": "4.17.21",
     "tslib": "^2.5.2"
   },
@@ -63,16 +63,28 @@
   ],
   "size-limit": [
     {
+      "name": "createStorageBrowser",
+      "path": "dist/esm/browser.mjs",
+      "import": "{ createStorageBrowser }",
+      "limit": "15.2 kB"
+    },
+    {
+      "name": "FileUploader",
+      "path": "dist/esm/index.mjs",
+      "import": "{ FileUploader }",
+      "limit": "21.5 kB"
+    },
+    {
+      "name": "StorageImage",
+      "path": "dist/esm/index.mjs",
+      "import": "{ StorageImage }",
+      "limit": "14.5 kB"
+    },
+    {
       "name": "StorageManager",
       "path": "dist/esm/index.mjs",
       "import": "{ StorageManager }",
-      "limit": "25.5 kB"
-    },
-    {
-      "name": "createStorageBrowser",
-      "path": "dist/esm/components/StorageBrowser/browser.mjs",
-      "import": "{ createStorageBrowser }",
-      "limit": "15.2 kB"
+      "limit": "21.5 kB"
     }
   ]
 }
