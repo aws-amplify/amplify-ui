@@ -26,7 +26,7 @@ const Home = () => {
   return (
     <Authenticator>
       {({ signOut, user = { username: '' } }) => {
-        useEffect(() => {
+        React.useEffect(() => {
           if (user) {
             initializeInAppMessaging(); // Ensure it only runs when the user is authenticated
             syncMessages();
