@@ -81,6 +81,7 @@ jobs:
         uses: actions/checkout@b80ff79f1755d06ba70441c368a6fe801f5f3a62 # v4.1.3 https://github.com/actions/checkout/commit/cd7d8d697e10461458bc61a30d094dc601a8b017
         with:
           persist-credentials: false
+
       - name: Setup Node.js ${{ matrix.node-version }} with ${{ matrix.pkg-manager }}
         uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2 https://github.com/actions/setup-node/commit/60edb5dd545a775178f52524783378180af0d1f8
         with:
@@ -99,6 +100,7 @@ jobs:
           restore-keys: pods-${{ hashFiles('examples/react-native/ios/Podfile.lock') }}
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
+
       - name: Restore node_modules cache
         if: ${{ matrix.platform == 'ios' }}
         uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2 https://github.com/actions/cache/commit/0c45773b623bea8c8e75f6c82b208c3cf94ea4f9
@@ -110,6 +112,7 @@ jobs:
           key: ${{ runner.os }}-nodemodules
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 3
+
       - name: Install Java 17
         if: ${{ matrix.platform == 'android' }}
         uses: actions/setup-java@de1bb2b0c5634f0fc4438d7aa9944e68f9bf86cc # 3.6.0
@@ -127,6 +130,7 @@ jobs:
           echo "ruby --version"
           ruby --version
         continue-on-error: true # brew overwrite step addresses a python install issue: https://github.com/actions/runner-images/issues/8500
+
       - name: Update CocoaPods
         if: ${{ matrix.platform == 'ios' }}
         run: |
