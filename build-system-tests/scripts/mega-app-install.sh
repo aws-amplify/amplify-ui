@@ -81,7 +81,7 @@ if [ "$FRAMEWORK" == 'react' ]; then
     echo "DEPENDENCIES=$DEPENDENCIES"
 
     if [ "$BUILD_TOOL" == 'vite' ]; then
-        DEPENDENCIES="$DEPENDENCIES @types/events @types/node"
+        DEPENDENCIES="$DEPENDENCIES events"
         echo "DEPENDENCIES=$DEPENDENCIES"
     fi
 
