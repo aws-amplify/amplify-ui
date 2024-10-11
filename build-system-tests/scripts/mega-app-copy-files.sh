@@ -150,7 +150,7 @@ if [[ "$FRAMEWORK" == "react-native" ]]; then
     echo "cp $AWS_EXPORTS_FILE mega-apps/${MEGA_APP_NAME}/aws-exports.js"
     cp $AWS_EXPORTS_FILE mega-apps/${MEGA_APP_NAME}/aws-exports.js
     if [ "$BUILD_TOOL" == 'expo' ]; then
-        echo npx json -I -f mega-apps/${MEGA_APP_NAME}/app.json -e "this.expo.android.package = 'com.anonymous.${MEGA_APP_NAME}';"
-        npx json -I -f mega-apps/${MEGA_APP_NAME}/app.json -e "this.expo.android.package = 'com.anonymous.${MEGA_APP_NAME}';"
+        echo npx json -I -f mega-apps/${MEGA_APP_NAME}/app.json -e "this.expo.android.package = 'com.anonymous.${MEGA_APP_NAME}'; this.expo.ios.bundleIdentifier = 'com.anonymous.${MEGA_APP_NAME}';"
+        npx json -I -f mega-apps/${MEGA_APP_NAME}/app.json -e "this.expo.android.package = 'com.anonymous.${MEGA_APP_NAME}'; this.expo.ios.bundleIdentifier = 'com.anonymous.${MEGA_APP_NAME}';"
     fi
 fi
