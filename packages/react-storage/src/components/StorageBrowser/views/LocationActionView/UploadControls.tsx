@@ -389,8 +389,6 @@ export const UploadControls = (): JSX.Element => {
         data={tableData}
         columns={LOCATION_ACTION_VIEW_COLUMNS}
         handleDroppedFiles={handleFileSelect}
-          handleFileSelect(files);
-        }}
         renderHeaderItem={renderHeaderItem}
         renderRowItem={renderRowItem}
       />

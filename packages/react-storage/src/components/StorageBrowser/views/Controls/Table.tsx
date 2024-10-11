@@ -143,18 +143,12 @@ export function TableControl<U>({
   const ariaLabel = 'Table';
 
   const { dragState, ...dropHandlers } = useDropZone({
-    acceptedFileTypes: [],
     onDropComplete: ({ acceptedFiles }) =>
       handleDroppedFiles && handleDroppedFiles(acceptedFiles),
   });
 
   return (
     <Table
-      aria-label={ariaLabel}
-      data-testid="storage-browser-table"
-      className={`${BLOCK_NAME} ${
-        dragState !== 'inactive' ? `${BLOCK_NAME}__dropzone` : ''
-      }`}
       {...dropHandlers}
       aria-label={ariaLabel}
       data-testid="storage-browser-table"

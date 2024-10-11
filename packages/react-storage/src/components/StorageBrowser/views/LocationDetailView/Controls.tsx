@@ -78,13 +78,18 @@ export const LocationDetailViewControls = (): React.JSX.Element => {
   const [state] = useControl('NAVIGATE');
   const { path } = state;
 
-  const [{ data, isLoading, hasError }, handleList] = useAction('LIST_LOCATION_ITEMS');
+  const [{ data, isLoading, hasError }, handleList] = useAction(
+    'LIST_LOCATION_ITEMS'
+  );
   const [, handleLocationActionsState] = useControl('LOCATION_ACTIONS');
 
   const [, handleUpdateState] = useControl('LOCATION_ACTIONS');
 
+  const isFile = (file: File) => file.type !== undefined;
+  // a folder will not have a type
+
   const handleDroppedFiles = (files: File[]) => {
-    if (files[0].type) {
+    if (isFile(files[0])) {
       handleUpdateState({
         type: 'SET_ACTION',
         actionType: 'UPLOAD_FILES',
