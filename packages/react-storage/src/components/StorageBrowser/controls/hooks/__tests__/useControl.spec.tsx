@@ -1,6 +1,18 @@
-// FIXME: Add unit tests later rather than constantly rewriting them as we iterate
+import { useStatusDisplay } from '../useStatusDisplay';
+import { useControl } from '../useControl';
+
+jest.mock('../useStatusDisplay');
+
 describe('useControl', () => {
+  const statusDisplayProps = { props: {} };
+  // assert mocks
+  const mockUseStatusDisplay = useStatusDisplay as jest.Mock;
+
+  beforeAll(() => {
+    mockUseStatusDisplay.mockReturnValue(statusDisplayProps);
+  });
+
   it('returns control data', () => {
-    expect(true).toBe(true);
+    expect(useControl('StatusDisplay')).toBe(statusDisplayProps);
   });
 });

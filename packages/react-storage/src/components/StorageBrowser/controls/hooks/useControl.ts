@@ -1,5 +1,5 @@
 import { ControlKey } from '../types';
-import { useStatusDisplay, UseStatusDisplay } from './useDisplayStatus';
+import { useStatusDisplay, UseStatusDisplay } from './useStatusDisplay';
 
 interface ControlHookTypeMap {
   StatusDisplay: [typeof useStatusDisplay, UseStatusDisplay];
