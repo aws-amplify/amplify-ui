@@ -36,11 +36,6 @@ const InAppMessagingExample = () => {
   );
 };
 const Home = () => {
-  useEffect(() => {
-    // sync remote in-app messages
-    syncMessages();
-  }, []);
-
   return (
     <Authenticator>
       {({ signOut, user = { username: '' } }) => (
