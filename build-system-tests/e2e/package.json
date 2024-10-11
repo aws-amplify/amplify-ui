@@ -25,11 +25,13 @@
     "@badeball/cypress-cucumber-preprocessor": "^18.0.6",
     "@bahmutov/cypress-esbuild-preprocessor": "~2.2.0",
     "@testing-library/cypress": "^9.0.0",
+    "@types/node": "^22.7.5",
     "cypress": "^12.17.3",
     "detox": "^20.13.1",
     "dotenv-safe": "^8.2.0",
     "rimraf": "^3.0.2",
-    "typescript": "^5.1.6"
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.3"
   },
   "resolutions": {
     "**/cypress-cucumber-preprocessor/**/semver": "6.3.1",
