@@ -1,7 +1,6 @@
 import { Then, When } from '@cucumber/cucumber';
 import { by } from 'detox';
 
-import { capitalize } from '@aws-amplify/ui';
 import { typeInInputField } from './shared';
 
 const AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX =
@@ -11,6 +10,11 @@ const getUserAlias = (status: string) =>
   `${process.env.USERNAME}+${
     status === 'UNKNOWN' ? status + Date.now() : status
   }`;
+
+function capitalize(str: string): string {
+  if (!str) return str;
+  return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+}
 
 const getInputByLoginMechanism = (loginMechanism: string) => {
   if (loginMechanism === 'email') {
