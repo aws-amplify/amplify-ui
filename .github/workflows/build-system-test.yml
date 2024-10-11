@@ -22,7 +22,6 @@ jobs:
       NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
       VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
 
-
   log-failure-metric:
     # Send a failure data point to metric BuildSystemTestFailure in github-workflows@ us-east-2
     runs-on: ubuntu-latest
