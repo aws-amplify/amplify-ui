@@ -34,6 +34,8 @@ import {
 import { CancelableTask, useHandleUpload } from './useHandleUpload';
 import { getTaskCounts } from '../../controls/getTaskCounts';
 import { StatusDisplayControl } from '../../controls/StatusDisplayControl';
+import { ControlsContextProvider } from '../../controls/context';
+import { ControlsContext } from '../../controls/types';
 
 const { Icon } = StorageBrowserElements;
 
@@ -59,7 +61,6 @@ const LOCATION_ACTION_VIEW_COLUMNS: Column<LocationActionViewColumns>[] = [
 ];
 
 export const ICON_CLASS = `${CLASS_BASE}__action-status`;
-const DESTINATION_CLASS = `${CLASS_BASE}__destination`;
 
 export const ActionIcon = ({ status }: ActionIconProps): React.JSX.Element => {
   let variant: IconVariant = 'action-initial';
@@ -295,8 +296,14 @@ export const UploadControls = (): JSX.Element => {
   const disableOverwrite = hasStarted || hasCompleted;
   const disableSelectFiles = hasStarted || hasCompleted;
 
+  // FIXME: Eventually comes from useView hook
+  const contextValue: ControlsContext = {
+    data: { taskCounts },
+    actionsConfig: { type: 'BATCH_ACTION', isCancelable: true },
+  };
+
   return (
-    <>
+    <ControlsContextProvider {...contextValue}>
       <input
         data-testid="amplify-file-select"
         type="file"
@@ -375,20 +382,15 @@ export const UploadControls = (): JSX.Element => {
           setPreventOverwrite((overwrite) => !overwrite);
         }}
       />
-      {taskCounts.TOTAL ? (
-        <StatusDisplayControl
-          className={`${CLASS_BASE}__upload-status-display`}
-          actionType="BATCH"
-          isCancelable
-          tasks={tasks}
-        />
-      ) : null}
+      <StatusDisplayControl
+        className={`${CLASS_BASE}__upload-status-display`}
+      />
       <Table
         data={tableData}
         columns={LOCATION_ACTION_VIEW_COLUMNS}
         renderHeaderItem={renderHeaderItem}
         renderRowItem={renderRowItem}
       />
-    </>
+    </ControlsContextProvider>
   );
 };
