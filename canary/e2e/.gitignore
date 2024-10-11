@@ -1,7 +1,0 @@
-# testing
-cypress/fixtures/example.json
-cypress/screenshots
-cypress/videos
-
-
-.env
