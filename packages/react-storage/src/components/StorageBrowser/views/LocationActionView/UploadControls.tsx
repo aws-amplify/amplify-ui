@@ -192,7 +192,9 @@ export const UploadControls = (): JSX.Element => {
 
   React.useEffect(() => {
     if (!initialRun.current) {
-      if (selected.type === 'UPLOAD_FILES') {
+      if (selected.files) {
+        handleFileSelect(selected.files);
+      } else if (selected.type === 'UPLOAD_FILES') {
         handleFileInput.current?.click();
       } else if (selected.type === 'UPLOAD_FOLDER') {
         handleFolderInput.current?.click();
@@ -200,7 +202,7 @@ export const UploadControls = (): JSX.Element => {
 
       initialRun.current = true;
     }
-  }, [selected.type]);
+  }, [handleFileSelect, selected.files, selected.type]);
 
   const [compareFn, setCompareFn] = React.useState<(a: any, b: any) => number>(
     () => compareStrings
@@ -388,6 +390,7 @@ export const UploadControls = (): JSX.Element => {
       <Table
         data={tableData}
         columns={LOCATION_ACTION_VIEW_COLUMNS}
+        handleDroppedFiles={handleFileSelect}
         renderHeaderItem={renderHeaderItem}
         renderRowItem={renderRowItem}
       />
