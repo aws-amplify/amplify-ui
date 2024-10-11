@@ -22,6 +22,7 @@
   },
   "author": "",
   "devDependencies": {
+    "@aws-amplify/ui": "^6.6.3",
     "@badeball/cypress-cucumber-preprocessor": "^18.0.6",
     "@bahmutov/cypress-esbuild-preprocessor": "~2.2.0",
     "@testing-library/cypress": "^9.0.0",
