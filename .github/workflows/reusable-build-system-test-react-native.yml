@@ -7,6 +7,19 @@ on:
       dist-tag:
         required: true
         type: string
+    secrets:
+      AUTH_E2E_ROLE_ARN:
+        required: true
+      DOMAIN:
+        required: true
+      PHONE_NUMBER:
+        required: true
+      USERNAME:
+        required: true
+      NEW_PASSWORD:
+        required: true
+      VALID_PASSWORD:
+        required: true
 
 jobs:
   build:
@@ -16,31 +29,27 @@ jobs:
       fail-fast: false
       matrix:
         framework: [react-native]
-        framework-version:
-          [
+        framework-version: [
             { formatted: latest, value: latest },
-            { formatted: 074, value: 0.74 },
-            { formatted: 073, value: 0.73 },
-            { formatted: 072, value: 0.72 },
-            { formatted: 071, value: 0.71 },
+            # { formatted: 074, value: 0.74 },
+            # { formatted: 073, value: 0.73 },
+            # { formatted: 072, value: 0.72 },
+            # { formatted: 071, value: 0.71 },
           ]
         build-tool: [cli, expo]
         build-tool-version: [latest]
         pkg-manager: [npm]
-        language: [ts]
         node-version: [20]
         # platform: [ios, android]
         platform: [android]
         logfile: [test.log]
-        pkg-manager-version: [latest]
-        # include: 
+        # include:
         #   - framework: react-native
         #     framework-version: { formatted: 070, value: "0.70" }
         #     build-tool: cli
         #     build-tool-version: 9
         #     platform: android
         #     pkg-manager: npm
-        #     language: ts
         #     node-version: 20
         #     logfile: test.log
         #   - framework: react-native
@@ -49,26 +58,23 @@ jobs:
         #     build-tool-version: latest
         #     platform: android
         #     pkg-manager: npm
-        #     language: ts
         #     node-version: 20
         #     logfile: test.log
-          # - framework: react-native
-          #   framework-version: { formatted: 070, value: "0.70" }
-          #   build-tool: cli
-          #   build-tool-version: latest
-          #   platform: ios
-          #   pkg-manager: npm
-          #   language: ts
-          #   node-version: 20
-          #   logfile: test.log
+        # - framework: react-native
+        #   framework-version: { formatted: 070, value: "0.70" }
+        #   build-tool: cli
+        #   build-tool-version: latest
+        #   platform: ios
+        #   pkg-manager: npm
+        #   node-version: 20
+        #   logfile: test.log
         exclude:
           - build-tool: expo
             platform: ios
-          - framework-version: [{ formatted: 074, value: 0.74 }, { formatted: 073, value: 0.73 },{ formatted: 072, value: 0.72 },{ formatted: 071, value: 0.71 }]
-            platform: ios
 
     env:
-      MEGA_APP_NAME: rn${{ matrix.framework-version.formatted }}${{ matrix.build-tool }}${{ matrix.build-tool-version }}${{ matrix.language }}${{ matrix.platform }}ui${{ inputs.dist-tag }}
+      MEGA_APP_NAME: rn${{ matrix.framework-version.formatted }}${{ matrix.build-tool }}${{ matrix.build-tool-version }}${{ matrix.platform }}ui${{ inputs.dist-tag }}
+      EMULATOR_PORT: 5554
 
     steps:
       - name: Checkout Amplify UI
@@ -126,6 +132,27 @@ jobs:
         run: |
           gem update cocoapods xcodeproj
           yarn react-native-example ios:pod-install
+          - name: Add Amplify CLI
+          run: yarn global add @aws-amplify/cli
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502 # v4.0.2 https://github.com/aws-actions/configure-aws-credentials/commit/e3dd6a429d7300a6a4c196c26e071d42e0343502
+        with:
+          aws-region: us-east-2
+          role-to-assume: ${{ secrets.AUTH_E2E_ROLE_ARN }}
+
+      - name: Create temp AWS profile
+        run: |
+          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID && \
+          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY && \
+          aws configure set aws_session_token $AWS_SESSION_TOKEN && \
+          aws configure set default.region $AWS_REGION
+
+      - name: Pull down AWS environments
+        run: npm run pull
+        working-directory: build-system-tests
+
+      - name: Delete AWS Profile
+        run: rm -rf ~/.aws
 
       - name: Install Android emulator
         if: ${{ matrix.platform == 'android' }}
@@ -138,10 +165,11 @@ jobs:
           printf 'hw.cpu.ncore=2\n' >> ~/.android/avd/Pixel_5_API_27.avd/config.ini
           printf 'hw.ramSize=2048\n' >> ~/.android/avd/Pixel_5_API_27.avd/config.ini
           printf 'hw.heapSize=576\n' >> ~/.android/avd/Pixel_5_API_27.avd/config.ini
+
       - name: Start Android emulator
         if: ${{ matrix.platform == 'android' }}
         run: |
-          nohup $ANDROID_HOME/emulator/emulator -avd Pixel_5_API_27 -no-boot-anim -no-audio -no-snapshot-load -gpu host -accel on &
+          nohup $ANDROID_HOME/emulator/emulator -avd Pixel_5_API_27 -port ${{ env.EMULATOR_PORT }} -no-boot-anim -no-audio -no-snapshot-load -gpu host -accel on &
           $ANDROID_HOME/platform-tools/adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed | tr -d '\r') ]]; do sleep 1; done; input keyevent 82'
           $ANDROID_HOME/platform-tools/adb devices
           # disable spell checker
@@ -152,10 +180,42 @@ jobs:
           $ANDROID_HOME/platform-tools/adb shell settings put global animator_duration_scale 0.0
 
       - name: Create MegaApp ${{ env.MEGA_APP_NAME }} and run build on NodeJS ${{ matrix.node-version }}
-        run: npm run test:${{matrix.framework}}:${{matrix.build-tool}} -- --name ${{ env.MEGA_APP_NAME }} --platform ${{matrix.platform}} --tag ${{inputs.dist-tag}} --framework-version ${{matrix.framework-version.value}} --build-tool-version ${{matrix.build-tool-version}}
+        run: npm run setup:${{matrix.framework}}:${{matrix.build-tool}} -- --name ${{ env.MEGA_APP_NAME }} --platform ${{matrix.platform}} --tag ${{inputs.dist-tag}} --framework-version ${{matrix.framework-version.value}} --build-tool-version ${{matrix.build-tool-version}}
         shell: bash
         working-directory: build-system-tests
-      - name: Detect Mega App Error in Log
-        run: npm run checkReactNativeLogs -- --log-file-name ${{ matrix.logfile }} --mega-app-name ${{ env.MEGA_APP_NAME }} --platform ${{ matrix.platform }}
-        shell: bash
+
+      - name: Install e2e packages
+        uses: ./.github/actions/install-with-retries
+        with:
+          working-directory: build-system-tests/e2e
+          skip-cypress-binary: true
+
+      - name: Build android example
+        run: npm run test:react-native:build
         working-directory: build-system-tests
+
+      - name: Run E2E tests against ${{ env.MEGA_APP_NAME }} example
+        run: npm run test:react-native
+        id: e2e
+        working-directory: build-system-tests
+        env:
+          # Env values for testing flows
+          DOMAIN: ${{ secrets.DOMAIN }}
+          PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
+          USERNAME: ${{ secrets.USERNAME }}
+          NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
+          VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
+
+      - name: Terminate emulators
+        if: success() || failure()
+        run: |
+          adb -s emulator-${{ env.EMULATOR_PORT }}emu kill
+
+      - name: Upload failure screenshots and errors
+        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2 https://github.com/actions/upload-artifact/commit/0b7f8abb1508181956e8e162db84b466c27e18ce
+        if: ${{ failure() && steps.e2e.outcome != 'success' }}
+        with:
+          name: e2e-detox-error-react-native-android
+          path: |
+            packages/e2e/detox/screenshots/**
+          retention-days: 5

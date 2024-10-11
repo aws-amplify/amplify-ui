@@ -6,21 +6,27 @@
   "main": "index.js",
   "scripts": {
     "clean": "rimraf node_modules",
+    "cucumber": "./node_modules/.bin/cucumber-js --config detox/cucumber.json --tags @react-native",
     "dev": "TZ=UTC cypress open",
-    "test": "TZ=UTC cypress run --spec 'features/**/*.feature'"
+    "test:web": "TZ=UTC cypress run --spec 'features/**/*.feature'",
+    "test:react-native": "TZ=UTC cypress run --spec 'features/**/*.feature'",
+    "detox:build:android:debug": "detox build --configuration android.emulator.debug",
+    "detox:e2e:android:debug": "DETOX_CONFIGURATION=android.emulator.debug yarn cucumber"
   },
   "cypress-cucumber-preprocessor": {
     "filterSpecs": true,
     "stepDefinitions": [
+      "cypress/integration/ui/[filepath]/*.steps.ts",
       "cypress/integration/common/*.ts"
     ]
   },
   "author": "",
   "devDependencies": {
-    "@badeball/cypress-cucumber-preprocessor": "^16.0.3",
+    "@badeball/cypress-cucumber-preprocessor": "^18.0.6",
     "@bahmutov/cypress-esbuild-preprocessor": "~2.2.0",
     "@testing-library/cypress": "^9.0.0",
     "cypress": "^12.17.3",
+    "detox": "^20.13.1",
     "dotenv-safe": "^8.2.0",
     "rimraf": "^3.0.2",
     "typescript": "^5.1.6"
