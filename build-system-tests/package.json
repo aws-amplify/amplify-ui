@@ -10,10 +10,12 @@
     "strip-json-comments-cli": "^2.0.2"
   },
   "scripts": {
+    "checkReactNativeLogs": "node --require esbuild-register ./scripts/checkReactNativeLog.ts",
+    "generateDetoxConfig": "node --require esbuild-register ./scripts/generateDetoxConfig.ts",
+    "pull": "./environments/pull-environments.sh",
     "test:web": "yarn --cwd e2e test:web",
     "test:react-native:build": "yarn --cwd e2e detox:build:android:debug",
     "test:react-native": "yarn --cwd e2e detox:e2e:android:debug",
-    "pull": "./environments/pull-environments.sh",
     "test:react": "./scripts/setup-mega-app.sh",
     "test:react:next": "./scripts/setup-mega-app.sh --build-tool next",
     "test:react:vite": "./scripts/setup-mega-app.sh --build-tool vite",
@@ -25,7 +27,6 @@
     "test:vue:nuxt": "./scripts/setup-mega-app.sh -F vue --build-tool nuxt",
     "setup:react-native": "./scripts/setup-mega-app.sh -F react-native",
     "setup:react-native:cli": "./scripts/setup-mega-app.sh -F react-native -B cli",
-    "setup:react-native:expo": "./scripts/setup-mega-app.sh -F react-native -B expo",
-    "checkReactNativeLogs": "node --require esbuild-register ./scripts/checkReactNativeLog.ts"
+    "setup:react-native:expo": "./scripts/setup-mega-app.sh -F react-native -B expo"
   }
 }

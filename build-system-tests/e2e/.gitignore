@@ -3,5 +3,7 @@ cypress/fixtures/example.json
 cypress/screenshots
 cypress/videos
 
+# generated file
+.detoxrc.json
 
 .env

@@ -190,6 +190,10 @@ jobs:
           working-directory: build-system-tests/e2e
           skip-cypress-binary: true
 
+      - name: Generate detox config
+        run: npm run generateDetoxConfig -- --mega-app-name ${{ env.MEGA_APP_NAME }}
+        working-directory: build-system-tests/e2e
+
       - name: Build android example
         run: npm run test:react-native:build
         working-directory: build-system-tests
