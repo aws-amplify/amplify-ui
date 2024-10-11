@@ -81,6 +81,8 @@ if [ "$FRAMEWORK" == 'react' ]; then
     echo "DEPENDENCIES=$DEPENDENCIES"
 
     if [ "$BUILD_TOOL" == 'vite' ]; then
+        # https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility
+        # Fixes `EventEmitter is not a constructor`` error with geocoder package 
         DEPENDENCIES="$DEPENDENCIES events"
         echo "DEPENDENCIES=$DEPENDENCIES"
     fi
