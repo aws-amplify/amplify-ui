@@ -7,7 +7,5 @@ const composables = {
 export type ComposableTypes = typeof composables;
 
 export interface Composables {
-  components?: {
-    [K in keyof ComposableTypes]?: (typeof composables)[K];
-  };
+  components?: ComposableTypes;
 }
