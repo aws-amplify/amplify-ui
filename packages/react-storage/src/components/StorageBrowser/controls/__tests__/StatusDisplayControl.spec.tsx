@@ -1,15 +1,15 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { resolveComposable } from '../resolveComposable';
-import { useControl } from '../hooks/useControl';
+import { useStatusDisplay } from '../hooks/useStatusDisplay';
 import { StatusDisplayControl } from '../StatusDisplayControl';
 
-jest.mock('../hooks/useControl');
+jest.mock('../hooks/useStatusDisplay');
 jest.mock('../resolveComposable');
 
 describe('StatusDisplayControl', () => {
   // assert mocks
-  const mockUseControl = useControl as jest.Mock;
+  const mockUseStatusDisplay = useStatusDisplay as jest.Mock;
   const mockResolveComposable = resolveComposable as jest.Mock;
 
   beforeAll(() => {
@@ -19,12 +19,12 @@ describe('StatusDisplayControl', () => {
   });
 
   afterEach(() => {
-    mockUseControl.mockReset();
+    mockUseStatusDisplay.mockReset();
     mockResolveComposable.mockClear();
   });
 
   it('renders', () => {
-    mockUseControl.mockReturnValue({
+    mockUseStatusDisplay.mockReturnValue({
       props: {
         statuses: [
           { name: 'foo', count: 1 },
@@ -45,7 +45,7 @@ describe('StatusDisplayControl', () => {
   });
 
   it('returns null without props', () => {
-    mockUseControl.mockReturnValue({});
+    mockUseStatusDisplay.mockReturnValue({});
 
     render(<StatusDisplayControl />);
 

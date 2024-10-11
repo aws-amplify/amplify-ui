@@ -7,13 +7,13 @@ export function resolveComposable<
   T extends React.ComponentType<any>,
   K extends keyof ComposableTypes,
 >(
-  DefaultComponent: T,
+  DefaultComposable: T,
   name: K
 ): (props: React.ComponentProps<T>) => React.JSX.Element {
   const Component = (props: React.ComponentProps<T>) => {
-    const { components } = useComposables();
-    const ResolvedComponent = components?.[name] ?? DefaultComponent;
-    return <ResolvedComponent {...props} />;
+    const { composables } = useComposables();
+    const ResolvedComposable = composables?.[name] ?? DefaultComposable;
+    return <ResolvedComposable {...props} />;
   };
 
   Component.displayName = name;

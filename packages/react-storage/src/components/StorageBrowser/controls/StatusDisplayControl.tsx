@@ -4,12 +4,12 @@ import { StatusDisplay } from '../composables/StatusDisplay';
 import { ViewElement } from '../context/elements';
 import { ControlProps } from './types';
 import { resolveComposable } from './resolveComposable';
-import { useControl } from './hooks/useControl';
+import { useStatusDisplay } from './hooks/useStatusDisplay';
 
 export const StatusDisplayControl = ({
   className,
 }: ControlProps): React.JSX.Element | null => {
-  const { props } = useControl('StatusDisplay');
+  const { props } = useStatusDisplay();
 
   if (!props) {
     return null;

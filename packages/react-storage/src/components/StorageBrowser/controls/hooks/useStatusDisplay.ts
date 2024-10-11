@@ -2,11 +2,11 @@ import { StatusDisplayProps } from '../../composables/StatusDisplay';
 import { useControlsContext } from '../../controls/context';
 import { displayText } from '../../displayText/en';
 
-export interface UseStatusDisplay {
+export type UseStatusDisplay = () => {
   props?: StatusDisplayProps;
-}
+};
 
-export const useStatusDisplay = (): UseStatusDisplay => {
+export const useStatusDisplay: UseStatusDisplay = () => {
   const { data, actionsConfig } = useControlsContext();
   const { taskCounts } = data;
   const { isCancelable, type } = actionsConfig;
