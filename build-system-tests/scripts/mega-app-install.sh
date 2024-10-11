@@ -77,8 +77,15 @@ cd "./mega-apps/${MEGA_APP_NAME}"
 
 if [ "$FRAMEWORK" == 'react' ]; then
     # add react-dom
-    DEPENDENCIES="$DEPENDENCIES react-dom@$FRAMEWORK_VERSION @aws-amplify/ui-react-storage@$TAG @aws-amplify/ui-react-geo@$TAG @aws-amplify/ui-react-notifications@$TAG @aws-amplify/geo"
+    DEPENDENCIES="$DEPENDENCIES react-dom@$FRAMEWORK_VERSION @aws-amplify/ui-react-liveness@$TAG @aws-amplify/ui-react-storage@$TAG @aws-amplify/ui-react-geo@$TAG @aws-amplify/ui-react-notifications@$TAG @aws-amplify/geo"
     echo "DEPENDENCIES=$DEPENDENCIES"
+
+    if [ "$BUILD_TOOL" == 'vite' ]; then
+        # https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility
+        # Fixes `EventEmitter is not a constructor`` error with geocoder package 
+        DEPENDENCIES="$DEPENDENCIES events"
+        echo "DEPENDENCIES=$DEPENDENCIES"
+    fi
 
 elif [ "$FRAMEWORK" == 'angular' ]; then
     # remove angular since it's deprecated https://www.npmjs.com/package/angular
@@ -102,7 +109,7 @@ else
         echo "npm install $DEPENDENCIES"
         npm install $DEPENDENCIES
         if [[ "$BUILD_TOOL" == "expo" ]]; then
-            echo "npx expo install --fix" 
+            echo "npx expo install --fix"
             npx expo install --fix # fix the dependencies that are incompatible with the installed expo versio
         fi
     else
