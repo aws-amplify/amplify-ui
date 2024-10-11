@@ -20,70 +20,76 @@ import '@aws-amplify/ui-react-geo/styles.css';
 import awsconfig from '../../../environments/auth-with-email/src/aws-exports.js';
 Amplify.configure(awsconfig);
 
-initializeInAppMessaging();
+const InAppMessagingExample = () => {
+  initializeInAppMessaging();
 
+  React.useEffect(() => {
+    // sync remote in-app messages
+    syncMessages();
+  }, []);
+
+  return (
+    <InAppMessagingProvider>
+      <InAppMessageDisplay />
+      <Text>In-App Messaging Example</Text>
+    </InAppMessagingProvider>
+  );
+};
 const Home = () => {
+  useEffect(() => {
+    // sync remote in-app messages
+    syncMessages();
+  }, []);
+
   return (
     <Authenticator>
-      {({ signOut, user = { username: '' } }) => {
-        React.useEffect(() => {
-          if (user) {
-            initializeInAppMessaging(); // Ensure it only runs when the user is authenticated
-            syncMessages();
-          }
-        }, [user]);
-        return (
-          <main>
-            <h1>Hello {user.username}</h1>
-            <button onClick={signOut}>Sign out</button>
-            <FaceLivenessDetector
-              sessionId="123"
-              region="us-east-1"
-              onAnalysisComplete={async () => {}}
-            />
-            <InAppMessagingProvider>
-              <InAppMessageDisplay />
-              <Text>In-App Messaging Example</Text>
-            </InAppMessagingProvider>
-
-            <AccountSettings.ChangePassword onSuccess={() => {}} />
-            <AccountSettings.DeleteUser onSuccess={() => {}} />
-            <StorageManager
-              acceptedFileTypes={['image/*']}
-              accessLevel="guest"
-              maxFileCount={1}
-              isResumable
-            />
-            <StorageManager
-              acceptedFileTypes={['image/*']}
-              path="public/"
-              maxFileCount={1}
-              isResumable
-            />
-            <FileUploader
-              acceptedFileTypes={['image/*']}
-              accessLevel="guest"
-              maxFileCount={1}
-              isResumable
-            />
-            <FileUploader
-              acceptedFileTypes={['image/*']}
-              path="public/"
-              maxFileCount={1}
-              isResumable
-            />
-            <MapView
-              initialViewState={{
-                latitude: 37.8,
-                longitude: -122.4,
-                zoom: 14,
-              }}
-            >
-              <LocationSearch />
-            </MapView>
-          </main>
-        );
-      }}
+      {({ signOut, user = { username: '' } }) => (
+        <main>
+          <h1>Hello {user.username}</h1>
+          <button onClick={signOut}>Sign out</button>
+          <FaceLivenessDetector
+            sessionId="123"
+            region="us-east-1"
+            onAnalysisComplete={async () => {}}
+          />
+          <InAppMessagingExample />
+          <AccountSettings.ChangePassword onSuccess={() => {}} />
+          <AccountSettings.DeleteUser onSuccess={() => {}} />
+          <StorageManager
+            acceptedFileTypes={['image/*']}
+            accessLevel="guest"
+            maxFileCount={1}
+            isResumable
+          />
+          <StorageManager
+            acceptedFileTypes={['image/*']}
+            path="public/"
+            maxFileCount={1}
+            isResumable
+          />
+          <FileUploader
+            acceptedFileTypes={['image/*']}
+            accessLevel="guest"
+            maxFileCount={1}
+            isResumable
+          />
+          <FileUploader
+            acceptedFileTypes={['image/*']}
+            path="public/"
+            maxFileCount={1}
+            isResumable
+          />
+          <MapView
+            initialViewState={{
+              latitude: 37.8,
+              longitude: -122.4,
+              zoom: 14,
+            }}
+          >
+            <LocationSearch />
+          </MapView>
+        </main>
+      )}
     </Authenticator>
   );
 };
