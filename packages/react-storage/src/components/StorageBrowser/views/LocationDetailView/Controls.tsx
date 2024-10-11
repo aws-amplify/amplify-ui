@@ -7,7 +7,7 @@ import { parseLocationAccess } from '../../context/navigate/utils';
 
 import { Controls, LocationDetailViewTable } from '../Controls';
 import { usePaginate } from '../hooks/usePaginate';
-import { listViewHelpers } from '../utils';
+import { isFile, listViewHelpers } from '../utils';
 
 import { ActionsMenuControl } from './Controls/ActionsMenu';
 
@@ -84,9 +84,6 @@ export const LocationDetailViewControls = (): React.JSX.Element => {
   const [, handleLocationActionsState] = useControl('LOCATION_ACTIONS');
 
   const [, handleUpdateState] = useControl('LOCATION_ACTIONS');
-
-  const isFile = (file: File) => file.type !== undefined;
-  // a folder will not have a type
 
   const handleDroppedFiles = (files: File[]) => {
     if (isFile(files[0])) {
