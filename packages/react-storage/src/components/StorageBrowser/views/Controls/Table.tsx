@@ -156,6 +156,11 @@ export function TableControl<U>({
         dragState !== 'inactive' ? `${BLOCK_NAME}__dropzone` : ''
       }`}
       {...dropHandlers}
+      aria-label={ariaLabel}
+      data-testid="storage-browser-table"
+      className={`${BLOCK_NAME} ${
+        dragState !== 'inactive' ? `${BLOCK_NAME}__dropzone` : ''
+      }`}
     >
       <TableHead className={`${BLOCK_NAME}__head`}>
         <TableRow className={`${BLOCK_NAME}__row`}>
