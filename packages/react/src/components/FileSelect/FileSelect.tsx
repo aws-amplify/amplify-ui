@@ -1,29 +1,32 @@
 import React from 'react';
+import { isFunction } from '@aws-amplify/ui';
+
+import { useStableId } from '../../primitives/utils/useStableId';
 
 // `FileSelect` input `type` must always be set to `file`
 const INPUT_TYPE = 'file';
 
-export type SelectionType = 'FILE' | 'FOLDER';
+export type SelectType = 'FILE' | 'FOLDER';
 
 /**
  * @internal @unstable
  */
 export interface FileSelectProps {
   accept?: string;
+  id?: string;
   multiple?: boolean;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
-  selectionType?: SelectionType;
+  selectType?: SelectType;
   testId?: string;
 }
 
 /**
  * @internal @unstable
  */
-export interface FileSelectOptions
-  extends Omit<FileSelectProps, 'onChange' | 'type'> {}
+export interface FileSelectOptions extends Omit<FileSelectProps, 'type'> {}
 
-type HandleSelect = (
-  selectionType: SelectionType,
+export type HandleFileSelect = (
+  selectType: SelectType,
   options?: FileSelectOptions
 ) => void;
 
@@ -32,7 +35,7 @@ type HandleSelect = (
  */
 export type UseFileSelect = [
   fileSelect: React.ReactNode,
-  handleSelect: HandleSelect,
+  handleFileSelect: HandleFileSelect,
 ];
 
 const TEST_ID = 'amplify-file-select';
@@ -49,7 +52,7 @@ export const FileSelect = React.forwardRef<HTMLInputElement, FileSelectProps>(
   function FileSelect(
     {
       multiple = true,
-      selectionType = 'FILE',
+      selectType = 'FILE',
       testId = 'amplify-file-select',
       ...props
     },
@@ -59,7 +62,7 @@ export const FileSelect = React.forwardRef<HTMLInputElement, FileSelectProps>(
       <input
         {...DEFAULT_PROPS}
         {...props}
-        {...(selectionType === 'FOLDER' ? { webkitdirectory: '' } : undefined)}
+        {...(selectType === 'FOLDER' ? { webkitdirectory: '' } : undefined)}
         data-testid={testId}
         multiple={multiple}
         ref={ref}
@@ -76,13 +79,13 @@ export const FileSelect = React.forwardRef<HTMLInputElement, FileSelectProps>(
  * ```tsx
  *  function MyUploadButton() {
  *    const [files, setFiles] = React.useState<File[]>([]);
- *    const [fileSelect, handleSelect] = useFileSelect(setFiles);
+ *    const [fileSelect, handleFileSelect] = useFileSelect(setFiles);
  *    return (
  *      <>
  *        {fileSelect}
  *        <Button
  *          onClick={() => {
- *            handleSelect('file');
+ *            handleFileSelect('file');
  *          }}
  *        />
  *      </>
@@ -97,30 +100,41 @@ export const useFileSelect = (
     FileSelectProps | undefined
   >(undefined);
 
+  const id = useStableId();
   const ref = React.useRef<HTMLInputElement>(null);
-  const handleSelect: HandleSelect = React.useCallback(
-    (selectionType, options) => {
-      setInputProps({ selectionType, ...options });
-    },
-    []
-  );
 
   React.useEffect(() => {
     if (inputProps) {
       ref.current?.click();
     }
-  }, [inputProps]);
+  }, [id, inputProps]);
+
+  const handleFileSelect: HandleFileSelect = React.useCallback(
+    (selectType, options) => {
+      if (id !== ref.current?.id) return;
+
+      setInputProps({ selectType, ...options });
+    },
+    [id]
+  );
 
   const fileSelect = (
     <FileSelect
       {...inputProps}
-      onChange={({ target }) => {
-        onSelect?.([...(target.files ?? [])]);
+      id={id}
+      onChange={(event) => {
+        if (isFunction(inputProps?.onChange)) inputProps?.onChange(event);
+
+        if (isFunction(onSelect) && !!event.target.files?.length) {
+          onSelect?.([...event.target.files]);
+        }
+
+        // clean up
         setInputProps(undefined);
       }}
       ref={ref}
     />
   );
 
-  return [fileSelect, handleSelect];
+  return [fileSelect, handleFileSelect];
 };

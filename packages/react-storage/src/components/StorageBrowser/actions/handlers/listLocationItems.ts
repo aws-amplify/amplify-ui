@@ -8,20 +8,19 @@ import {
 /**
  * handler types
  */
-export interface FolderItem {
+export interface FolderData {
   key: string;
   type: 'FOLDER';
 }
 
-export interface FileItem {
+export interface FileData {
   key: string;
-  data?: File;
   lastModified: Date;
   size: number;
   type: 'FILE';
 }
 
-export type LocationItem = FileItem | FolderItem;
+export type LocationItem = FileData | FolderData;
 
 export type LocationItemType = LocationItem['type'];
 
