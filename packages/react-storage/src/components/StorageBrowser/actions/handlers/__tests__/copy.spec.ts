@@ -1,54 +1,44 @@
-import { copy } from 'aws-amplify/storage';
+import * as StorageModule from 'aws-amplify/storage';
 
-import { copyHandler } from '../copy';
+import { copyHandler, CopyHandlerInput } from '../copy';
 
-jest.mock('aws-amplify/storage', () => {
-  const originalModule = jest.requireActual('aws-amplify/storage');
+const copySpy = jest.spyOn(StorageModule, 'copy');
 
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-  return {
-    __esModule: true,
-    ...originalModule,
-    copy: jest.fn(() => Promise.resolve({})),
-  };
-});
+const baseInput: CopyHandlerInput = {
+  prefix: 'prefix/',
+  config: {
+    accountId: 'accountId',
+    bucket: 'bucket',
+    credentials: jest.fn(),
+    region: 'region',
+  },
+  data: { key: 'key', payload: { destinationPrefix: 'destination/' } },
+};
 
 describe('copyHandler', () => {
-  it('calls copy and returns key', () => {
-    const locationProvider = jest.fn();
-    const { key } = copyHandler({
-      prefix: 'prefix/',
-      config: {
-        accountId: '',
-        bucket: 'bucket',
-        credentials: locationProvider,
-        region: 'region',
-      },
-      data: {
-        destinationPrefix: 'destination/',
-        key: 'key',
-      },
-      key: '',
-    });
-    expect(copy).toHaveBeenCalledWith({
-      source: {
-        path: 'prefix/key',
-        bucket: {
-          bucketName: 'bucket',
-          region: 'region',
-        },
-      },
+  it('calls `copy` and returns the expected `key`', () => {
+    const { key } = copyHandler(baseInput);
+
+    const bucket = {
+      bucketName: `${baseInput.config.bucket}`,
+      region: `${baseInput.config.region}`,
+    };
+
+    const expected: StorageModule.CopyWithPathInput = {
       destination: {
+        bucket,
         path: 'destination/key',
-        bucket: {
-          bucketName: 'bucket',
-          region: 'region',
-        },
+      },
+      source: {
+        bucket,
+        path: `${baseInput.prefix}${baseInput.data.key}`,
       },
       options: {
-        locationCredentialsProvider: locationProvider,
+        locationCredentialsProvider: baseInput.config.credentials,
       },
-    });
-    expect(key).toBe('destination/key');
+    };
+
+    expect(copySpy).toHaveBeenCalledWith(expected);
+    expect(key).toBe(baseInput.data.key);
   });
 });

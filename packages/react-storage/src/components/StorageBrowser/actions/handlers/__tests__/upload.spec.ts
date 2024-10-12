@@ -18,7 +18,7 @@ const config: UploadHandlerInput['config'] = {
   region: 'region',
 };
 
-const data = new File([], 'test-o');
+const payload = new File([], 'test-o');
 const prefix = 'prefix';
 
 const onCancel = jest.fn();
@@ -28,9 +28,8 @@ const onProgress = jest.fn();
 
 const baseInput: UploadHandlerInput = {
   config,
-  data,
+  data: { key: payload.name, payload },
   prefix,
-  key: data.name,
 };
 
 const cancel = jest.fn();
@@ -49,7 +48,7 @@ describe('uploadHandler', () => {
       cancel,
       pause,
       resume,
-      result: Promise.resolve({ key: data.name }),
+      result: Promise.resolve({ key: payload.name }),
       state: 'SUCCESS',
     });
 
@@ -60,16 +59,16 @@ describe('uploadHandler', () => {
 
     expect(await result).toBe('COMPLETE');
 
-    expect(key).toBe(baseInput.key);
+    expect(key).toBe(baseInput.data.key);
     expect(onComplete).toHaveBeenCalledTimes(1);
-    expect(onComplete).toHaveBeenCalledWith(baseInput.key);
+    expect(onComplete).toHaveBeenCalledWith(baseInput.data.key);
   });
 
   it('calls upload with the expected values', () => {
     uploadHandler({ ...baseInput, options: { preventOverwrite: true } });
 
     const expected: StorageModule.UploadDataWithPathInput = {
-      data,
+      data: payload,
       options: {
         bucket: {
           bucketName: config.bucket,
@@ -79,7 +78,7 @@ describe('uploadHandler', () => {
         onProgress: expect.any(Function),
         preventOverwrite: true,
       },
-      path: `${prefix}${data.name}`,
+      path: `${prefix}${payload.name}`,
     };
 
     expect(uploadDataSpy).toHaveBeenCalledWith(expected);
@@ -94,7 +93,7 @@ describe('uploadHandler', () => {
         cancel,
         pause,
         resume,
-        result: Promise.resolve({ key: data.name }),
+        result: Promise.resolve({ key: payload.name }),
         state: 'SUCCESS',
       };
     });
@@ -106,9 +105,9 @@ describe('uploadHandler', () => {
 
     expect(await result).toBe('COMPLETE');
 
-    expect(key).toBe(baseInput.key);
+    expect(key).toBe(baseInput.data.key);
     expect(onProgress).toHaveBeenCalledTimes(1);
-    expect(onProgress).toHaveBeenCalledWith(baseInput.key, 1);
+    expect(onProgress).toHaveBeenCalledWith(baseInput.data.key, 1);
   });
 
   it('calls provided onProgress callback as expected when `totalBytes` is `undefined`', async () => {
@@ -120,7 +119,7 @@ describe('uploadHandler', () => {
         cancel,
         pause,
         resume,
-        result: Promise.resolve({ key: data.name }),
+        result: Promise.resolve({ key: payload.name }),
         state: 'SUCCESS',
       };
     });
@@ -132,13 +131,13 @@ describe('uploadHandler', () => {
 
     expect(await result).toBe('COMPLETE');
 
-    expect(key).toBe(baseInput.key);
+    expect(key).toBe(baseInput.data.key);
     expect(onProgress).toHaveBeenCalledTimes(1);
-    expect(onProgress).toHaveBeenCalledWith(baseInput.key, undefined);
+    expect(onProgress).toHaveBeenCalledWith(baseInput.data.key, undefined);
   });
 
   it('returns the expected callback values for a file size greater than 5 mb', async () => {
-    const bigData = new File(
+    const bigFile = new File(
       [new ArrayBuffer(MULTIPART_UPLOAD_THRESHOLD_BYTES * 2)],
       '😅'
     );
@@ -147,42 +146,40 @@ describe('uploadHandler', () => {
       cancel,
       pause,
       resume,
-      result: Promise.resolve({ key: data.name }),
+      result: Promise.resolve({ key: payload.name }),
       state: 'SUCCESS',
     });
 
     const { key, result, ...callbacks } = uploadHandler({
       ...baseInput,
-      key: bigData.name,
-      data: bigData,
+      data: { key: bigFile.name, payload: bigFile },
     });
 
     expect(await result).toBe('COMPLETE');
 
-    expect(key).toBe(bigData.name);
+    expect(key).toBe(bigFile.name);
     expect(callbacks).toStrictEqual({ cancel, pause, resume });
   });
 
   it('returns undefined callback values for a file size less than 5 mb', async () => {
-    const smallData = new File([], '😅');
+    const smallFile = new File([], '😅');
 
     uploadDataSpy.mockReturnValueOnce({
       cancel,
       pause,
       resume,
-      result: Promise.resolve({ key: data.name }),
+      result: Promise.resolve({ key: payload.name }),
       state: 'SUCCESS',
     });
 
     const { key, result, ...callbacks } = uploadHandler({
       ...baseInput,
-      key: smallData.name,
-      data: smallData,
+      data: { key: smallFile.name, payload: smallFile },
     });
 
     expect(await result).toBe('COMPLETE');
 
-    expect(key).toBe(smallData.name);
+    expect(key).toBe(smallFile.name);
     expect(callbacks).toStrictEqual({
       cancel: undefined,
       pause: undefined,
@@ -204,7 +201,7 @@ describe('uploadHandler', () => {
     expect(await result).toBe('FAILED');
 
     expect(onError).toHaveBeenCalledTimes(1);
-    expect(onError).toHaveBeenCalledWith(baseInput.key, error.message);
+    expect(onError).toHaveBeenCalledWith(baseInput.data.key, error.message);
   });
 
   it('handles a cancel failure as expected', async () => {
@@ -224,6 +221,6 @@ describe('uploadHandler', () => {
     expect(await result).toBe('CANCELED');
 
     expect(onCancel).toHaveBeenCalledTimes(1);
-    expect(onCancel).toHaveBeenCalledWith(baseInput.key);
+    expect(onCancel).toHaveBeenCalledWith(baseInput.data.key);
   });
 });

@@ -1,45 +1,41 @@
 import { copy } from 'aws-amplify/storage';
-import { TaskHandler, TaskHandlerInput, TaskHandlerOutput } from '../types';
+import {
+  TaskHandler,
+  TaskHandlerOptions,
+  TaskHandlerInput,
+  TaskHandlerOutput,
+} from '../types';
 
-interface CopyData {
+import { constructBucket, resolveHandlerResult } from './utils';
+
+interface CopyPayload {
   destinationPrefix: string;
-  key: string;
 }
 
-export interface CopyHandlerInput extends TaskHandlerInput<CopyData> {}
+export interface CopyHandlerInput
+  extends TaskHandlerInput<CopyPayload, TaskHandlerOptions> {}
 export interface CopyHandlerOutput extends TaskHandlerOutput {}
 
 export interface CopyHandler
   extends TaskHandler<CopyHandlerInput, CopyHandlerOutput> {}
 
-export const copyHandler: CopyHandler = ({ config, prefix, data }) => {
-  const { bucket, region, credentials } = config;
-  const { destinationPrefix, key } = data;
-  const fullPath = `${destinationPrefix}${key}`;
-  const output = copy({
-    source: {
-      path: `${prefix}${key}`,
-      bucket: {
-        bucketName: bucket,
-        region: region,
-      },
-    },
-    destination: {
-      path: fullPath,
-      bucket: {
-        bucketName: bucket,
-        region: region,
-      },
-    },
-    options: {
-      locationCredentialsProvider: credentials,
-    },
+export const copyHandler: CopyHandler = ({ config, options, prefix, data }) => {
+  const { credentials } = config;
+  const { payload, key } = data;
+  const { destinationPrefix } = payload;
+
+  const sourceKey = `${prefix}${key}`;
+  const destinationPath = `${destinationPrefix}${key}`;
+  const bucket = constructBucket(config);
+
+  const result = copy({
+    source: { path: sourceKey, bucket },
+    destination: { path: destinationPath, bucket },
+    options: { locationCredentialsProvider: credentials },
   });
 
   return {
-    key: fullPath,
-    result: output
-      .then(() => 'COMPLETE' as const)
-      .catch(() => 'FAILED' as const),
+    key,
+    result: resolveHandlerResult({ result, key, isCancelable: false, options }),
   };
 };

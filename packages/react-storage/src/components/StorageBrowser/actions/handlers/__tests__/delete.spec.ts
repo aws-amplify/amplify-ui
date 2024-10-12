@@ -1,44 +1,37 @@
-import { remove } from 'aws-amplify/storage';
+import * as StorageModule from 'aws-amplify/storage';
 
-import { deleteHandler } from '../delete';
+import { deleteHandler, DeleteHandlerInput } from '../delete';
 
-jest.mock('aws-amplify/storage', () => {
-  const originalModule = jest.requireActual('aws-amplify/storage');
+const removeSpy = jest.spyOn(StorageModule, 'remove');
 
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-  return {
-    __esModule: true,
-    ...originalModule,
-    remove: jest.fn(() => Promise.resolve({})),
-  };
-});
+const baseInput: DeleteHandlerInput = {
+  prefix: 'prefix/',
+  config: {
+    accountId: '',
+    bucket: 'bucket',
+    credentials: jest.fn(),
+    region: 'region',
+  },
+  data: { key: 'key' },
+};
 
 describe('deleteHandler', () => {
-  it('calls remove and returns key', () => {
-    const locationProvider = jest.fn();
-    const { key } = deleteHandler({
-      prefix: 'prefix/',
-      config: {
-        accountId: '',
-        bucket: 'bucket',
-        credentials: locationProvider,
-        region: 'region',
-      },
-      data: {
-        key: 'key',
-      },
-      key: '',
-    });
-    expect(remove).toHaveBeenCalledWith({
-      path: 'prefix/key',
+  it('calls `remove` and returns the expected `key`', () => {
+    const { key } = deleteHandler(baseInput);
+
+    const expected: StorageModule.RemoveWithPathInput = {
+      path: `${baseInput.prefix}${baseInput.data.key}`,
       options: {
         bucket: {
-          bucketName: 'bucket',
-          region: 'region',
+          bucketName: baseInput.config.bucket,
+          region: baseInput.config.region,
         },
-        locationCredentialsProvider: locationProvider,
+        locationCredentialsProvider: baseInput.config.credentials,
       },
-    });
-    expect(key).toBe('prefix/key');
+    };
+
+    expect(removeSpy).toHaveBeenCalledWith(expected);
+
+    expect(key).toBe(baseInput.data.key);
   });
 });

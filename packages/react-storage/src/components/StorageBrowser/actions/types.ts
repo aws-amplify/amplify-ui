@@ -22,8 +22,7 @@ export interface TaskHandlerOptions {
 
 export interface TaskHandlerInput<T = never, K = undefined>
   extends ActionInput<K> {
-  data: T;
-  key: string;
+  data: { key: string; payload: T };
 }
 
 export interface TaskHandlerOutput<T = 'COMPLETE' | 'FAILED'> {
