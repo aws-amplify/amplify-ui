@@ -125,7 +125,7 @@
     "@types/jest": "^29.5.5",
     "@types/react-test-renderer": "^18.0.2",
     "@vitejs/plugin-vue": "^2.3.4",
-    "aws-amplify": "storage-browser",
+    "aws-amplify": "storage-browser-integrity",
     "esbuild-register": "^3.5.0",
     "eslint": "^8.44.0",
     "fs-extra": "^11.1.1",

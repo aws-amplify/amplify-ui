@@ -50,7 +50,7 @@
   },
   "peerDependencies": {
     "@aws-amplify/core": "*",
-    "aws-amplify": "storage-browser",
+    "aws-amplify": "storage-browser-integrity",
     "xstate": "^4.33.6"
   },
   "peerDependenciesMeta": {
