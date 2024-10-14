@@ -10,7 +10,7 @@ export interface UseAIGenerationHookWrapper<
   useAIGeneration: <U extends Key>(
     routeName: U
   ) => [
-    Awaited<DataState<Schema[U]['returnType']>>,
+    Awaited<GenerationState<Schema[U]['returnType']>>,
     (input: Schema[U]['args']) => void,
   ];
 }
@@ -21,7 +21,7 @@ export type UseAIGenerationHook<
 > = (
   routeName: Key
 ) => [
-  Awaited<DataState<Schema[Key]['returnType']>>,
+  Awaited<GenerationState<Schema[Key]['returnType']>>,
   (input: Schema[Key]['args']) => void,
 ];
 
@@ -43,9 +43,17 @@ type SingularReturnValue<T> = {
   errors?: GraphQLFormattedError[];
 };
 
+type GenerationState<T> = Omit<DataState<T>, 'message'> & {
+  messages?: GraphQLFormattedError[];
+};
+
 // default state
-const INITIAL_STATE = { hasError: false, isLoading: false, message: undefined };
-const LOADING_STATE = { hasError: false, isLoading: true, message: undefined };
+const INITIAL_STATE = {
+  hasError: false,
+  isLoading: false,
+  messages: undefined,
+};
+const LOADING_STATE = { hasError: false, isLoading: true, messages: undefined };
 const ERROR_STATE = { hasError: true, isLoading: false };
 
 export function createUseAIGeneration<
@@ -57,11 +65,11 @@ export function createUseAIGeneration<
   >(
     routeName: Key
   ): [
-    state: DataState<Schema[Key]['returnType']>,
+    state: GenerationState<Schema[Key]['returnType']>,
     handleAction: (input: Schema[Key]['args']) => void,
   ] => {
     const [dataState, setDataState] = React.useState<
-      DataState<Schema[Key]['returnType']>
+      GenerationState<Schema[Key]['returnType']>
     >(() => ({
       ...INITIAL_STATE,
       data: undefined,
@@ -82,7 +90,7 @@ export function createUseAIGeneration<
         setDataState({
           ...ERROR_STATE,
           data,
-          message: errors.map((error) => error.message).join(' '),
+          messages: errors,
         });
       } else {
         setDataState({ ...INITIAL_STATE, data });

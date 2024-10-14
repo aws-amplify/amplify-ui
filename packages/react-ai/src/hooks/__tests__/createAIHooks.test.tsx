@@ -211,7 +211,8 @@ describe('createAIHooks', () => {
       expect(awaitedState.data).toStrictEqual(expectedResult);
       expect(awaitedState.isLoading).toBeFalsy();
       expect(awaitedState.hasError).toBeTruthy();
-      expect(awaitedState.message).toContain('error');
+      expect(awaitedState.messages).toHaveLength(1);
+      expect(awaitedState.messages?.[0].message).toContain('error');
     });
   });
 });
