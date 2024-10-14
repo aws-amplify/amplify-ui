@@ -2,14 +2,14 @@ import { Permission } from '../../storage-internal';
 import { IconVariant } from '../../context/elements';
 
 import {
-  ListLocationsAction,
-  ListLocationItemsAction,
+  ListLocationsHandler,
+  ListLocationItemsHandler,
   LocationItem,
   LocationItemType,
-  UploadAction,
-  CreateFolderAction,
+  UploadHandler,
+  CreateFolderHandler,
 } from '../handlers';
-import { TaskAction, TaskActionOutput } from '../types';
+import { TaskHandler, TaskHandlerOutput } from '../types';
 
 /**
  * native OS file picker type. to restrict selectable file types, define the picker types
@@ -57,20 +57,18 @@ export interface ActionListItemConfig {
   label: string;
 }
 
-type IsCancelableTaskAction<T> = T extends TaskAction<
-  any,
-  TaskActionOutput<infer K>
->
-  ? K extends 'CANCELED'
-    ? true
-    : false
-  : never;
+type IsCancelableTaskHandler<T> =
+  T extends TaskHandler<any, TaskHandlerOutput<infer K>>
+    ? K extends 'CANCELED'
+      ? true
+      : false
+    : never;
 
 /**
  * defines an action to be included in the actions list of the `LocationDetailView` with
  * a dedicated subcomponent of the `LocationActionView`
  */
-export interface TaskActionConfig<T extends TaskAction> {
+export interface TaskActionConfig<T extends TaskHandler> {
   /**
    * configure action list item behavior. provide multiple configs
    * to create additional list items for a single action
@@ -80,7 +78,7 @@ export interface TaskActionConfig<T extends TaskAction> {
   /**
    * whether the action allows inflight cancellation
    */
-  isCancelable: IsCancelableTaskAction<T>;
+  isCancelable: IsCancelableTaskHandler<T>;
 
   /**
    * action handler
@@ -100,19 +98,19 @@ export interface TaskActionConfig<T extends TaskAction> {
 
 export interface ListActionConfig<T> extends ActionConfigTemplate<T> {}
 
-export interface UploadActionConfig extends TaskActionConfig<UploadAction> {}
+export interface UploadActionConfig extends TaskActionConfig<UploadHandler> {}
 
 export interface CreateFolderActionConfig
-  extends TaskActionConfig<CreateFolderAction> {}
+  extends TaskActionConfig<CreateFolderHandler> {}
 
 export interface ListLocationsActionConfig
-  extends ListActionConfig<ListLocationsAction> {
+  extends ListActionConfig<ListLocationsHandler> {
   title: string;
   type: 'LIST_LOCATIONS';
 }
 
 export interface ListLocationItemsActionConfig
-  extends ListActionConfig<ListLocationItemsAction> {
+  extends ListActionConfig<ListLocationItemsHandler> {
   title: (bucket: string | undefined, prefix: string | undefined) => string;
   type: 'LIST_LOCATION_ITEMS';
 }
@@ -129,15 +127,17 @@ export type CustomActionKey<T> = keyof Omit<T, DefaultActionKey>;
 
 export type ActionConfigs = Record<
   Capitalize<string>,
-  | TaskActionConfig<TaskAction>
+  | TaskActionConfig<TaskHandler>
   | ListLocationItemsActionConfig
   | ListLocationsActionConfig
 >;
 
-export type ResolveAction<T> = T extends
+export type ResolveActionHandler<T> = T extends
   | TaskActionConfig<infer K>
   | ListActionConfig<infer K>
   ? K
   : never;
 
-export type ResolveActions<T> = { [K in keyof T]: ResolveAction<T[K]> };
+export type ResolveActionHandlers<T> = {
+  [K in keyof T]: ResolveActionHandler<T[K]>;
+};

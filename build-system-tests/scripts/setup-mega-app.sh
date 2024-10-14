@@ -2,22 +2,20 @@
 set -e
 
 # Default values
-BUILD_TOOL="cra"
+BUILD_TOOL="next"
 BUILD_TOOL_VERSION="latest"
-LANGUAGE="ts"
 MEGA_APP_NAME=""
 FRAMEWORK="react"
 FRAMEWORK_VERSION="latest"
 PKG_MANAGER="npm"
-PKG_MANAGER_VERSION="latest"
 PLATFORM="android"
 TAG="latest"
 
 # Options
 # e.g.
-# $ ./setup-mega-app.sh --build-tool react --build-tool-version latest --language typescript --name react-latest-cra-latest-node-18-ts --framework cra --framework-version latest --pkg-manager npm --pkg-manager-version latest
-# $ ./setup-mega-app.sh -B react -b latest -l typescript -n react-latest-cra-latest-node-18-ts -F cra -f latest -P npm -p latest
-# $ ./setup-mega-app.sh -n react-latest-cra-latest-node-18-ts
+# $ ./setup-mega-app.sh --build-tool next --build-tool-version latest --name react-latest-next-latest-node-18-ts --framework react --framework-version latest --pkg-manager npm
+# $ ./setup-mega-app.sh -B next -b latest -l typescript -n react-latest-next-latest-node-18-ts -F react -f latest -P npm -p latest
+# $ ./setup-mega-app.sh -n react-latest-next-latest-node-18-ts
 
 while [[ $# -gt 0 ]]; do
   case $1 in
@@ -31,10 +29,6 @@ while [[ $# -gt 0 ]]; do
     ;;
   -b | --build-tool-version)
     BUILD_TOOL_VERSION=$2
-    shift
-    ;;
-  -l | --language)
-    LANGUAGE=$2
     shift
     ;;
   -n | --name)
@@ -53,10 +47,6 @@ while [[ $# -gt 0 ]]; do
     PKG_MANAGER=$2
     shift
     ;;
-  -p | --pkg-manager-version)
-    PKG_MANAGER_VERSION=$2
-    shift
-    ;;
   -t | --tag)
     TAG=$2
     shift
@@ -65,14 +55,12 @@ while [[ $# -gt 0 ]]; do
     echo "Usage: mega-app-create-app.sh [OPTIONS]"
     echo "Options:"
     echo "  -A, --platform              Specify the platform: android, ios (default: android)"
-    echo "  -B, --build-tool            Specify the build tool: cra, next, vite, angular-cli, vue-cli, nuxt, react-native-cli, expo. (default: cra)"
+    echo "  -B, --build-tool            Specify the build tool: next, vite, angular-cli, vue-cli, nuxt, react-native-cli, expo. (default: next)"
     echo "  -b, --build-tool-version    Specify the build tool version (default: latest)"
-    echo "  -l, --language              Specify the language: js, ts (default: js)"
     echo "  -n, --name                  Specify the mega app name (required)"
     echo "  -F, --framework             Specify the framework: react, angular, vue, react-native (default: react)"
     echo "  -f, --framework-version     Specify the framework version (default: latest)"
     echo "  -P, --pkg-manager           Specify the package manager: npm, yarn (default: npm)"
-    echo "  -p, --pkg-manager-version   Specify the package manager version (default: latest)"
     echo "  -t, --tag                   Specify the Amplify UI version tag (default: latest)"
     echo "  -h, --help                  Show help message"
     exit 0
@@ -87,23 +75,26 @@ done
 
 # Create MEGA_APP_NAME if none provided
 if [[ -z "$MEGA_APP_NAME" ]]; then
-  MEGA_APP_NAME="$FRAMEWORK-$FRAMEWORK_VERSION-$BUILD_TOOL-$BUILD_TOOL_VERSION-$LANGUAGE-ui-$TAG"
+  MEGA_APP_NAME="$FRAMEWORK-$FRAMEWORK_VERSION-$BUILD_TOOL-$BUILD_TOOL_VERSION-ui-$TAG"
 fi
 
 echo "##################"
 echo "# Setup Mega App #"
 echo "##################"
 
-BASE_OPTIONS="--build-tool $BUILD_TOOL --build-tool-version $BUILD_TOOL_VERSION --language $LANGUAGE --name $MEGA_APP_NAME --framework $FRAMEWORK --framework-version $FRAMEWORK_VERSION"
+BASE_OPTIONS="--build-tool $BUILD_TOOL --name $MEGA_APP_NAME --framework $FRAMEWORK --framework-version $FRAMEWORK_VERSION"
 
 # Create mega app
-./scripts/mega-app-create-app.sh $BASE_OPTIONS
+./scripts/mega-app-create-app.sh $BASE_OPTIONS --build-tool-version $BUILD_TOOL_VERSION 
 
 # Copy files
 ./scripts/mega-app-copy-files.sh $BASE_OPTIONS
 
 # Install dependencies
-./scripts/mega-app-install.sh $BASE_OPTIONS --pkg-manager $PKG_MANAGER --pkg-manager-version $PKG_MANAGER_VERSION --tag $TAG
+./scripts/mega-app-install.sh $BASE_OPTIONS --pkg-manager $PKG_MANAGER --tag $TAG
 
 # Build mega app
 ./scripts/mega-app-build.sh $BASE_OPTIONS --platform $PLATFORM
+
+# Run mega app
+./scripts/mega-app-start.sh --build-tool $BUILD_TOOL --build-tool-version $BUILD_TOOL_VERSION --name $MEGA_APP_NAME --framework $FRAMEWORK

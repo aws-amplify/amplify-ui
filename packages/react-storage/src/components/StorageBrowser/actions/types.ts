@@ -15,43 +15,48 @@ interface ActionInput<T = any> {
   options?: T;
 }
 
-export interface TaskActionInput<T = never, K = undefined>
-  extends ActionInput<K> {
-  data: T;
+export interface TaskHandlerOptions {
+  onError?: (key: string, message: string) => string;
+  onComplete?: (key: string) => string;
 }
 
-export interface TaskActionOutput<T = 'COMPLETE' | 'FAILED'> {
+export interface TaskHandlerInput<T = never, K = undefined>
+  extends ActionInput<K> {
+  data: { key: string; payload: T };
+}
+
+export interface TaskHandlerOutput<T = 'COMPLETE' | 'FAILED'> {
   key: string;
   result: Promise<T>;
 }
 
-export interface CancelableTaskActionOutput
-  extends TaskActionOutput<'COMPLETE' | 'FAILED' | 'CANCELED'> {
+export interface CancelableTaskHandlerOutput
+  extends TaskHandlerOutput<'COMPLETE' | 'FAILED' | 'CANCELED'> {
   cancel?: () => void;
   pause?: () => void;
   resume?: () => void;
 }
 
-export type TaskAction<T = any, K = any> = (input: T) => K;
+export type TaskHandler<T = any, K = any> = (input: T) => K;
 
-export interface ListActionOptions<T = never> {
+export interface ListHandlerOptions<T = never> {
   exclude?: T;
   nextToken?: string;
   pageSize?: number;
 }
 
-export interface ListActionInput<T = any> extends ActionInput<T> {}
+export interface ListHandlerInput<T = any> extends ActionInput<T> {}
 
-export interface ListActionOutput<T = any> {
+export interface ListHandlerOutput<T = any> {
   nextToken: string | undefined;
   items: T[];
 }
 
-export type ListAction<T = any, K = any> = (input: T) => Promise<K>;
+export type ListHandler<T = any, K = any> = (input: T) => Promise<K>;
 
 export type UseAction<T> = T extends
-  | ListAction<infer K, infer U>
-  | TaskAction<infer K, infer U>
+  | ListHandler<infer K, infer U>
+  | TaskHandler<infer K, infer U>
   ? ActionState<U, K>
   : never;
 

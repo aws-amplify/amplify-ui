@@ -32,7 +32,7 @@ const getActionsMenuData = ({
           }
           const children = getKeyedFragments(icon, displayName);
           const disabled =
-            typeof disable === 'function' ? disable(items) : disable ?? false;
+            typeof disable === 'function' ? disable(items) : (disable ?? false);
           const onClick = () => onSelect(key);
 
           return [
@@ -59,8 +59,8 @@ export function ActionsMenuControl({
       getActionsMenuData({
         actions,
         items,
-        onSelect: (payload) => {
-          handleUpdate({ type: 'SET_ACTION', payload });
+        onSelect: (actionType) => {
+          handleUpdate({ type: 'SET_ACTION', actionType });
         },
         permission,
       }),

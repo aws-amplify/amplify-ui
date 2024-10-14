@@ -41,7 +41,7 @@ exports[`defaultActionConfigs matches expected shape 1`] = `
         "label": "Upload FOLDER",
       },
     ],
-    "handler": null,
+    "handler": [Function],
     "isCancelable": true,
     "title": "Upload",
     "type": "BATCH_ACTION",

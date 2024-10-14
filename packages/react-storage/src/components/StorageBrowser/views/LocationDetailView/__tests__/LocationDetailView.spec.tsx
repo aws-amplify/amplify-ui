@@ -1,5 +1,11 @@
 import React from 'react';
-import { act, render, screen, waitFor } from '@testing-library/react';
+import {
+  act,
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import createProvider from '../../../createProvider';
@@ -9,7 +15,7 @@ import * as PaginateModule from '../../hooks/usePaginate';
 
 import { LocationDetailView } from '../LocationDetailView';
 import { DEFAULT_LIST_OPTIONS, DEFAULT_ERROR_MESSAGE } from '../Controls';
-import { ListLocationItemsActionOutput } from '../../../actions';
+import { ListLocationItemsHandlerOutput } from '../../../actions';
 
 const config = {
   getLocationCredentials: jest.fn(),
@@ -30,7 +36,7 @@ const testFolder = { type: 'FOLDER', key: 'a_prefix_test/' };
 
 const generateMockItems = (
   size: number
-): ListLocationItemsActionOutput['items'] => {
+): ListLocationItemsHandlerOutput['items'] => {
   return Array.apply(0, new Array(size)).map((_, index) => {
     const type = index % 2 == 0 ? 'FILE' : 'FOLDER';
     return type === 'FOLDER'
@@ -145,7 +151,7 @@ describe('LocationDetailView', () => {
       hasError: true,
       message: errorMessage,
       result: [{ key: 'test1', type: 'FOLDER' }],
-      nextToken: 'some-token'
+      nextToken: 'some-token',
     });
 
     render(
@@ -220,9 +226,35 @@ describe('LocationDetailView', () => {
       prefix: prefix,
       options: { ...DEFAULT_LIST_OPTIONS, refresh: true },
     });
-
     expect(handleLocationActionsState).toHaveBeenLastCalledWith({
       type: 'CLEAR',
+    });
+  });
+
+  it('sets the location action as UPLOAD_FILES and includes files dragged into drop zone', () => {
+    mockUseControl({ prefix: prefix });
+    const files = [new File(['content'], 'file.txt', { type: 'text/plain' })];
+
+    render(
+      <Provider>
+        <LocationDetailView />
+      </Provider>
+    );
+
+    const dropzone = screen.getByTestId('storage-browser-table');
+
+    jest.spyOn(ControlsModule, 'ControlProvider');
+
+    fireEvent.drop(dropzone, {
+      dataTransfer: {
+        files,
+      },
+    });
+
+    expect(handleLocationActionsState).toHaveBeenCalledWith({
+      actionType: 'UPLOAD_FILES',
+      type: 'SET_ACTION',
+      files: files,
     });
   });
 
@@ -242,7 +274,9 @@ describe('LocationDetailView', () => {
       await user.click(breadCrumbButton);
     });
 
-    expect(handleLocationActionsState).toHaveBeenCalledWith({ type: 'CLEAR' });
+    expect(handleLocationActionsState).toHaveBeenCalledWith({
+      type: 'CLEAR',
+    });
   });
 
   it('can paginate forwards and clear selection state', async () => {
@@ -250,10 +284,10 @@ describe('LocationDetailView', () => {
     const handlePaginateNext = jest.fn();
     const handlePaginatePrevious = jest.fn();
     jest
-      .spyOn<typeof PaginateModule, 'usePaginate'>(
-        PaginateModule,
+      .spyOn<
+        typeof PaginateModule,
         'usePaginate'
-      )
+      >(PaginateModule, 'usePaginate')
       .mockReturnValue({
         currentPage: 1,
         handlePaginateNext,
@@ -275,7 +309,9 @@ describe('LocationDetailView', () => {
 
     expect(handlePaginateNext).toHaveBeenCalled();
     expect(handlePaginatePrevious).not.toHaveBeenCalled();
-    expect(handleLocationActionsState).toHaveBeenCalledWith({ type: 'CLEAR' });
+    expect(handleLocationActionsState).toHaveBeenCalledWith({
+      type: 'CLEAR',
+    });
   });
 
   it('can paginate to previous and clear selection state', async () => {
@@ -284,10 +320,10 @@ describe('LocationDetailView', () => {
     const handlePaginateNext = jest.fn();
     const handlePaginatePrevious = jest.fn();
     jest
-      .spyOn<typeof PaginateModule, 'usePaginate'>(
-        PaginateModule,
+      .spyOn<
+        typeof PaginateModule,
         'usePaginate'
-      )
+      >(PaginateModule, 'usePaginate')
       .mockReturnValue({
         currentPage: 2,
         handlePaginateNext,
@@ -310,7 +346,9 @@ describe('LocationDetailView', () => {
 
     expect(handlePaginateNext).not.toHaveBeenCalled();
     expect(handlePaginatePrevious).toHaveBeenCalled();
-    expect(handleLocationActionsState).toHaveBeenCalledWith({ type: 'CLEAR' });
+    expect(handleLocationActionsState).toHaveBeenCalledWith({
+      type: 'CLEAR',
+    });
   });
 
   it('does not allow selection on Folder items', () => {
