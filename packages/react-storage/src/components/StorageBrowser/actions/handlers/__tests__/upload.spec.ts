@@ -87,7 +87,7 @@ describe('uploadHandler', () => {
 
   it('calls provided onProgress callback as expected in the happy path', async () => {
     uploadDataSpy.mockImplementation(({ options }) => {
-      // @ts-expect-error
+      // @ts-expect-error - `options` is potentially `undefined` in the `uploadData` input interface
       options.onProgress({ totalBytes: 23, transferredBytes: 23 });
 
       return {
