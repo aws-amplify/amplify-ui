@@ -1,4 +1,5 @@
-import { DataState, useDataState } from '@aws-amplify/ui-react-core';
+import * as React from 'react';
+import { DataState } from '@aws-amplify/ui-react-core';
 import { V6Client } from '@aws-amplify/api-graphql';
 import { getSchema } from '../types';
 
@@ -9,7 +10,7 @@ export interface UseAIGenerationHookWrapper<
   useAIGeneration: <U extends Key>(
     routeName: U
   ) => [
-    Awaited<GenerateState<Schema[U]['returnType']>>,
+    Awaited<DataState<Schema[U]['returnType']>>,
     (input: Schema[U]['args']) => void,
   ];
 }
@@ -20,7 +21,7 @@ export type UseAIGenerationHook<
 > = (
   routeName: Key
 ) => [
-  Awaited<GenerateState<Schema[Key]['returnType']>>,
+  Awaited<DataState<Schema[Key]['returnType']>>,
   (input: Schema[Key]['args']) => void,
 ];
 
@@ -42,9 +43,10 @@ type SingularReturnValue<T> = {
   errors?: GraphQLFormattedError[];
 };
 
-type GenerateState<T> = DataState<T> & {
-  graphqlErrors?: GraphQLFormattedError[];
-};
+// default state
+const INITIAL_STATE = { hasError: false, isLoading: false, message: undefined };
+const LOADING_STATE = { hasError: false, isLoading: true, message: undefined };
+const ERROR_STATE = { hasError: true, isLoading: false };
 
 export function createUseAIGeneration<
   Client extends Record<'generations' | 'conversations', Record<string, any>>,
@@ -55,36 +57,39 @@ export function createUseAIGeneration<
   >(
     routeName: Key
   ): [
-    state: GenerateState<Schema[Key]['returnType']>,
+    state: DataState<Schema[Key]['returnType']>,
     handleAction: (input: Schema[Key]['args']) => void,
   ] => {
-    const handleGenerate = (
-      client.generations as AIGenerationClient<Schema>['generations']
-    )[routeName];
+    const [dataState, setDataState] = React.useState<
+      DataState<Schema[Key]['returnType']>
+    >(() => ({
+      ...INITIAL_STATE,
+      data: undefined,
+    }));
 
-    const updateAIGenerationStateAction = async (
-      _prev: Schema[Key]['returnType'],
-      input: Schema[Key]['args']
-    ): Promise<Schema[Key]['returnType']> => {
-      return await handleGenerate(input);
+    const handleGeneration = async (input: Schema[Key]['args']) => {
+      setDataState(({ data }) => ({ ...LOADING_STATE, data }));
+
+      const result = await (
+        client.generations as AIGenerationClient<Schema>['generations']
+      )[routeName](input);
+
+      const { data, errors } = result as SingularReturnValue<
+        Schema[Key]['returnType']
+      >;
+
+      if (errors) {
+        setDataState({
+          ...ERROR_STATE,
+          data,
+          message: errors.map((error) => error.message).join(' '),
+        });
+      } else {
+        setDataState({ ...INITIAL_STATE, data });
+      }
     };
 
-    const [result, handler] = useDataState(
-      updateAIGenerationStateAction,
-      undefined
-    );
-
-    let { hasError, message } = result;
-
-    const { data, errors } =
-      (result?.data as SingularReturnValue<Schema[Key]['returnType']>) ?? {};
-
-    if (errors) {
-      hasError = true;
-      message = errors.map((error) => error.message).join(' ');
-    }
-
-    return [{ ...result, data, hasError, message }, handler];
+    return [dataState, handleGeneration];
   };
 
   return useAIGeneration;
