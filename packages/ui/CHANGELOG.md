@@ -1,5 +1,11 @@
 # @aws-amplify/ui
 
+## 6.6.3
+
+### Patch Changes
+
+- [#5848](https://github.com/aws-amplify/amplify-ui/pull/5848) [`0d86485fc`](https://github.com/aws-amplify/amplify-ui/commit/0d86485fc4bf74766a1b82c69cfa322ed1e9baf7) Thanks [@esauerbo](https://github.com/esauerbo)! - chore: Copy `style-dictionary` functions to ui package and export from there. Remove `style-dictionary` dependency from React Native package.
+
 ## 6.6.2
 
 ### Patch Changes
