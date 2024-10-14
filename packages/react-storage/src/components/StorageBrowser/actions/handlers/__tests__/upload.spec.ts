@@ -4,6 +4,7 @@ import {
   MULTIPART_UPLOAD_THRESHOLD_BYTES,
   uploadHandler,
   UploadHandlerInput,
+  UNDEFINED_CALLBACKS,
 } from '../upload';
 
 const isCancelErrorSpy = jest.spyOn(StorageModule, 'isCancelError');
@@ -112,7 +113,7 @@ describe('uploadHandler', () => {
 
   it('calls provided onProgress callback as expected when `totalBytes` is `undefined`', async () => {
     uploadDataSpy.mockImplementation(({ options }) => {
-      // @ts-expect-error
+      // @ts-expect-error - `options` is potentially `undefined` in the `uploadData` input interface
       options.onProgress({ transferredBytes: 23 });
 
       return {
@@ -180,11 +181,7 @@ describe('uploadHandler', () => {
     expect(await result).toBe('COMPLETE');
 
     expect(key).toBe(smallFile.name);
-    expect(callbacks).toStrictEqual({
-      cancel: undefined,
-      pause: undefined,
-      resume: undefined,
-    });
+    expect(callbacks).toStrictEqual(UNDEFINED_CALLBACKS);
   });
 
   it('handles a failure as expected', async () => {
