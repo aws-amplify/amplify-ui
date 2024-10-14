@@ -1,7 +1,7 @@
 import {
   StorageSubpathStrategy,
   list,
-  // ListPaginateInput,
+  ListPaginateInput,
   ListOutput,
 } from '../../storage-internal';
 
@@ -92,7 +92,7 @@ export async function listLocationItemsAction(
   const resolvedPageSize =
     pageSize && (!hasPrevResults || refresh) ? pageSize + 1 : pageSize;
 
-  const listInput = {
+  const listInput: ListPaginateInput = {
     path,
     options: {
       bucket,
@@ -111,5 +111,5 @@ export async function listLocationItemsAction(
     ...parseResult(output, path),
   ];
 
-  return { result, nextToken: 'output.nextToken' };
+  return { result, nextToken: output.nextToken };
 }
