@@ -1,5 +1,16 @@
 # @aws-amplify/ui-react-storage
 
+## 3.3.7
+
+### Patch Changes
+
+- [#5867](https://github.com/aws-amplify/amplify-ui/pull/5867) [`bbe4ca0aa`](https://github.com/aws-amplify/amplify-ui/commit/bbe4ca0aaf81d87905783e1f3c708a7f1150dae6) Thanks [@esauerbo](https://github.com/esauerbo)! - chore: Manually recreate `StorageAccessLevel` type and remove `@aws-amplify/core` peerDep from ui-react-storage package.
+
+- Updated dependencies [[`0d86485fc`](https://github.com/aws-amplify/amplify-ui/commit/0d86485fc4bf74766a1b82c69cfa322ed1e9baf7)]:
+  - @aws-amplify/ui@6.6.3
+  - @aws-amplify/ui-react@6.5.3
+  - @aws-amplify/ui-react-core@3.0.27
+
 ## 3.3.6
 
 ### Patch Changes

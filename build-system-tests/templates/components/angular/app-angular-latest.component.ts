@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { AmplifyAuthenticatorModule } from '@aws-amplify/ui-angular';
 
+import { Amplify } from 'aws-amplify';
+import aws_exports from '../../../../environments/auth-with-email/src/aws-exports.js';
+Amplify.configure(aws_exports);
 @Component({
   standalone: true,
   imports: [AmplifyAuthenticatorModule],
