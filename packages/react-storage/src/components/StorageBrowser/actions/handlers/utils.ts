@@ -34,7 +34,6 @@ export const resolveHandlerResult = <T extends boolean>({
     })
     .catch((error: Error) => {
       if (isCancelable && isCancelError(error)) {
-        // const { onCancel } = options ?? {};
         if (isFunction(onCancel)) onCancel(key);
         return 'CANCELED' as const;
       }
