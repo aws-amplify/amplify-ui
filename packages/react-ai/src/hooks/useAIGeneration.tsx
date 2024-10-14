@@ -75,27 +75,30 @@ export function createUseAIGeneration<
       data: undefined,
     }));
 
-    const handleGeneration = async (input: Schema[Key]['args']) => {
-      setDataState(({ data }) => ({ ...LOADING_STATE, data }));
+    const handleGeneration = React.useCallback(
+      async (input: Schema[Key]['args']) => {
+        setDataState(({ data }) => ({ ...LOADING_STATE, data }));
 
-      const result = await (
-        client.generations as AIGenerationClient<Schema>['generations']
-      )[routeName](input);
+        const result = await (
+          client.generations as AIGenerationClient<Schema>['generations']
+        )[routeName](input);
 
-      const { data, errors } = result as SingularReturnValue<
-        Schema[Key]['returnType']
-      >;
+        const { data, errors } = result as SingularReturnValue<
+          Schema[Key]['returnType']
+        >;
 
-      if (errors) {
-        setDataState({
-          ...ERROR_STATE,
-          data,
-          messages: errors,
-        });
-      } else {
-        setDataState({ ...INITIAL_STATE, data });
-      }
-    };
+        if (errors) {
+          setDataState({
+            ...ERROR_STATE,
+            data,
+            messages: errors,
+          });
+        } else {
+          setDataState({ ...INITIAL_STATE, data });
+        }
+      },
+      [routeName]
+    );
 
     return [dataState, handleGeneration];
   };
