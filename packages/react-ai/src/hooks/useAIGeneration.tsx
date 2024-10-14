@@ -74,10 +74,17 @@ export function createUseAIGeneration<
       undefined
     );
 
+    let { hasError, message } = result;
+
     const { data, errors } =
       (result?.data as SingularReturnValue<Schema[Key]['returnType']>) ?? {};
 
-    return [{ ...result, data, graphqlErrors: errors }, handler];
+    if (errors) {
+      hasError = true;
+      message = errors.map((error) => error.message).join(' ');
+    }
+
+    return [{ ...result, data, hasError, message }, handler];
   };
 
   return useAIGeneration;
