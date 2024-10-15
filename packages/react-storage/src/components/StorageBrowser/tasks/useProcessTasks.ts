@@ -1,83 +1,24 @@
 import React from 'react';
 
-import { isFunction } from '@aws-amplify/ui';
-
 import {
   CancelableTaskHandlerOutput,
   TaskHandlerInput,
   TaskHandlerOutput,
 } from '../actions';
 
+import {
+  HandleProcessTasks,
+  ProcessTasksOptions,
+  ProcessTasksState,
+  Task,
+} from './types';
+import { hasExistingTask, isCancelableOutput, updateTasks } from './utils';
+
 const QUEUED_TASK_BASE = {
   cancel: undefined,
   message: undefined,
-  progress: undefined,
   status: 'QUEUED' as const,
 };
-
-export function updateTasks<T extends { key: string }>(
-  tasks: T[],
-  task: Partial<T>
-): T[] {
-  const index = tasks.findIndex(({ key }) => key === task.key);
-  const updatedTask = { ...tasks[index], ...task };
-
-  if (index === 0) {
-    return [updatedTask, ...tasks.slice(1)];
-  }
-
-  if (index === tasks.length) {
-    return [...tasks.slice(-1), updatedTask];
-  }
-
-  return [...tasks.slice(0, index), updatedTask, ...tasks.slice(index + 1)];
-}
-
-export type TaskStatus =
-  | 'CANCELED'
-  | 'FAILED'
-  | 'COMPLETE'
-  | 'QUEUED'
-  | 'PENDING';
-
-interface ProcessTasksOptions {
-  concurrency?: number;
-  isCancelable?: boolean;
-}
-
-export type TaskHandler<T = any, K = any> = (
-  input: TaskHandlerInput<T, K>
-) => TaskHandlerOutput;
-
-export type ProcessTasks<T, K> = (
-  input: Omit<TaskHandlerInput<T, K>, 'data'>
-) => void;
-
-export interface Task<T = any> {
-  cancel: undefined | (() => void);
-  item: T;
-  key: string;
-  message: string | undefined;
-  progress: number | undefined;
-  remove: () => void;
-  status: TaskStatus;
-}
-
-const isCancelableOutput = (
-  output: TaskHandlerOutput | CancelableTaskHandlerOutput
-): output is CancelableTaskHandlerOutput =>
-  isFunction((output as CancelableTaskHandlerOutput).cancel);
-
-type HandleProcess<T, K> = (
-  ...input: Omit<TaskHandlerInput<T, K>, 'data'>[]
-) => void;
-export type ProcessTasksState<T = any, K = any> = [
-  tasks: Task<T>[],
-  handleProcess: HandleProcess<T, K>,
-];
-
-const hasExistingTask = (tasks: Task[], item: { key: string }) =>
-  tasks.some(({ key }) => key === item.key);
 
 export const useProcessTasks = <T, K>(
   handler: (
@@ -113,7 +54,7 @@ export const useProcessTasks = <T, K>(
     });
   }, [items]);
 
-  const _processTasks: ProcessTasks<T, K> = React.useCallback(
+  const _processTasks: HandleProcessTasks<T, K> = React.useCallback(
     (input) => {
       setTasks((prevTasks) => {
         const nextTask = prevTasks.find(
@@ -170,7 +111,7 @@ export const useProcessTasks = <T, K>(
     [handler]
   );
 
-  const processTasks: HandleProcess<T, K> = (input) => {
+  const processTasks: HandleProcessTasks<T, K> = (input) => {
     if (!concurrency) {
       _processTasks(input);
       return;
