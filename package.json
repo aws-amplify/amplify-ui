@@ -125,7 +125,7 @@
     "@types/jest": "^29.5.5",
     "@types/react-test-renderer": "^18.0.2",
     "@vitejs/plugin-vue": "^2.3.4",
-    "aws-amplify": "^6.6.4-storage-browser-integrity.2cc870c.0",
+    "aws-amplify": "storage-browser-integrity",
     "esbuild-register": "^3.5.0",
     "eslint": "^8.44.0",
     "fs-extra": "^11.1.1",
@@ -145,12 +145,5 @@
     "typescript": "^5.2.2",
     "vite": "^5.2.14",
     "vue-tsc": "^2.0.7"
-  },
-  "dependencies": {
-    "@types/react": "^18.2.22",
-    "@types/react-dom": "^18.2.7",
-    "browserslist": "^4.16.15",
-    "send": "^0.19.0",
-    "webpack": "^5.76.0"
   }
 }

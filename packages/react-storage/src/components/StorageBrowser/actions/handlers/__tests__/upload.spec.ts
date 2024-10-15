@@ -1,3 +1,4 @@
+import * as InternalStorageModule from '../../../storage-internal';
 import * as StorageModule from 'aws-amplify/storage';
 
 import {
@@ -8,7 +9,7 @@ import {
 } from '../upload';
 
 const isCancelErrorSpy = jest.spyOn(StorageModule, 'isCancelError');
-const uploadDataSpy = jest.spyOn(StorageModule, 'uploadData');
+const uploadDataSpy = jest.spyOn(InternalStorageModule, 'uploadData');
 
 const credentials = jest.fn();
 
@@ -49,7 +50,7 @@ describe('uploadHandler', () => {
       cancel,
       pause,
       resume,
-      result: Promise.resolve({ key: payload.name }),
+      result: Promise.resolve({ path: payload.name }),
       state: 'SUCCESS',
     });
 
@@ -68,7 +69,7 @@ describe('uploadHandler', () => {
   it('calls upload with the expected values', () => {
     uploadHandler({ ...baseInput, options: { preventOverwrite: true } });
 
-    const expected: StorageModule.UploadDataWithPathInput = {
+    const expected: InternalStorageModule.UploadDataInput = {
       data: payload,
       options: {
         bucket: {
@@ -94,7 +95,7 @@ describe('uploadHandler', () => {
         cancel,
         pause,
         resume,
-        result: Promise.resolve({ key: payload.name }),
+        result: Promise.resolve({ path: payload.name }),
         state: 'SUCCESS',
       };
     });
@@ -120,7 +121,7 @@ describe('uploadHandler', () => {
         cancel,
         pause,
         resume,
-        result: Promise.resolve({ key: payload.name }),
+        result: Promise.resolve({ path: payload.name }),
         state: 'SUCCESS',
       };
     });
@@ -147,7 +148,7 @@ describe('uploadHandler', () => {
       cancel,
       pause,
       resume,
-      result: Promise.resolve({ key: payload.name }),
+      result: Promise.resolve({ path: payload.name }),
       state: 'SUCCESS',
     });
 
@@ -169,7 +170,7 @@ describe('uploadHandler', () => {
       cancel,
       pause,
       resume,
-      result: Promise.resolve({ key: payload.name }),
+      result: Promise.resolve({ path: payload.name }),
       state: 'SUCCESS',
     });
 

@@ -1,4 +1,4 @@
-import * as StorageModule from 'aws-amplify/storage';
+import * as StorageModule from '../../../storage-internal';
 
 import { copyHandler, CopyHandlerInput } from '../copy';
 
@@ -24,7 +24,7 @@ describe('copyHandler', () => {
       region: `${baseInput.config.region}`,
     };
 
-    const expected: StorageModule.CopyWithPathInput = {
+    const expected: StorageModule.CopyInput = {
       destination: {
         bucket,
         path: 'destination/key',
