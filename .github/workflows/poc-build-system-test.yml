@@ -1,0 +1,23 @@
+# Description: this workflow runs build mega-apps that have all the connected components.
+
+name: POC / Build System Test Canary
+
+permissions:
+  id-token: write # This is required for aws-actions/configure-aws-credentials
+
+on:
+    pull_request:
+        branches: [rn-merge-build-test]
+
+jobs:
+  build:
+    uses: ./.github/workflows/reusable-build-system-test.yml
+    with:
+      dist-tag: latest
+    secrets:
+      AUTH_E2E_ROLE_ARN: ${{ secrets.AUTH_E2E_ROLE_ARN }}
+      DOMAIN: ${{ secrets.DOMAIN }}
+      PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
+      USERNAME: ${{ secrets.USERNAME }}
+      NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
+      VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
