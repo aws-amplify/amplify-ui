@@ -58,11 +58,6 @@
     "react": "^16.14.0 || ^17.0 || ^18.0",
     "react-dom": "^16.14.0 || ^17.0 || ^18.0"
   },
-  "devDependencies": {
-		"@size-limit/file": "^8.1.0",
-		"@size-limit/webpack": "^8.1.0",
-		"@size-limit/webpack-why": "^8.1.0"
-  },
   "sideEffects": [
     "dist/**/*.css"
   ],
@@ -72,6 +67,24 @@
       "path": "dist/esm/browser.mjs",
       "import": "{ createStorageBrowser }",
       "limit": "15.2 kB"
+    },
+    {
+      "name": "FileUploader",
+      "path": "dist/esm/index.mjs",
+      "import": "{ FileUploader }",
+      "limit": "21.5 kB"
+    },
+    {
+      "name": "StorageImage",
+      "path": "dist/esm/index.mjs",
+      "import": "{ StorageImage }",
+      "limit": "14.5 kB"
+    },
+    {
+      "name": "StorageManager",
+      "path": "dist/esm/index.mjs",
+      "import": "{ StorageManager }",
+      "limit": "21.5 kB"
     }
   ]
 }
