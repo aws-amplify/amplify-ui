@@ -13,6 +13,7 @@ import {
 } from './types';
 
 export const createFolderActionConfig: CreateFolderActionConfig = {
+  componentName: 'CreateFolderView',
   actionsListItemConfig: {
     disable: (selected) => !!selected,
     hide: (permission) => permission === 'READ',
@@ -21,13 +22,14 @@ export const createFolderActionConfig: CreateFolderActionConfig = {
   },
   handler: createFolderHandler,
   isCancelable: false,
-  title: 'Create Folder',
+  displayName: 'Create Folder',
   type: 'SINGLE_ACTION',
 };
 
 export const listLocationItemsActionConfig: ListLocationItemsActionConfig = {
+  componentName: 'ListLocationItemsView',
   handler: listLocationItemsHandler,
-  title: (bucket, prefix) => {
+  displayName: (bucket, prefix) => {
     if (bucket && prefix) {
       const prefixes = prefix.split('/');
       return `${bucket}: ${
@@ -40,12 +42,14 @@ export const listLocationItemsActionConfig: ListLocationItemsActionConfig = {
 };
 
 export const listLocationsActionConfig: ListLocationsActionConfig = {
+  componentName: 'ListLocationsView',
   handler: listLocationsHandler,
-  title: 'Home',
+  displayName: 'Home',
   type: 'LIST_LOCATIONS',
 };
 
 export const uploadActionConfig: UploadActionConfig = {
+  componentName: 'UploadView',
   actionsListItemConfig: [
     {
       disable: (selectedValues) => !!selectedValues,
@@ -64,7 +68,7 @@ export const uploadActionConfig: UploadActionConfig = {
   ],
   isCancelable: true,
   handler: uploadHandler,
-  title: 'Upload',
+  displayName: 'Upload',
   type: 'BATCH_ACTION',
 };
 
