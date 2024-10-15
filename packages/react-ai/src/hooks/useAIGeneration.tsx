@@ -9,7 +9,7 @@ export interface UseAIGenerationHookWrapper<
   useAIGeneration: <U extends Key>(
     routeName: U
   ) => [
-    Awaited<DataState<Schema[U]['returnType']>>,
+    Awaited<GenerateState<Schema[U]['returnType']>>,
     (input: Schema[U]['args']) => void,
   ];
 }
@@ -20,7 +20,7 @@ export type UseAIGenerationHook<
 > = (
   routeName: Key
 ) => [
-  Awaited<DataState<Schema[Key]['returnType']>>,
+  Awaited<GenerateState<Schema[Key]['returnType']>>,
   (input: Schema[Key]['args']) => void,
 ];
 
@@ -37,6 +37,15 @@ interface GraphQLFormattedError {
   };
 }
 
+type SingularReturnValue<T> = {
+  data: T | null;
+  errors?: GraphQLFormattedError[];
+};
+
+type GenerateState<T> = DataState<T> & {
+  graphqlErrors?: GraphQLFormattedError[];
+};
+
 export function createUseAIGeneration<
   Client extends Record<'generations' | 'conversations', Record<string, any>>,
   Schema extends getSchema<Client>,
@@ -45,7 +54,10 @@ export function createUseAIGeneration<
     Key extends keyof AIGenerationClient<Schema>['generations'],
   >(
     routeName: Key
-  ) => {
+  ): [
+    state: GenerateState<Schema[Key]['returnType']>,
+    handleAction: (input: Schema[Key]['args']) => void,
+  ] => {
     const handleGenerate = (
       client.generations as AIGenerationClient<Schema>['generations']
     )[routeName];
@@ -53,23 +65,19 @@ export function createUseAIGeneration<
     const updateAIGenerationStateAction = async (
       _prev: Schema[Key]['returnType'],
       input: Schema[Key]['args']
-    ): Promise<
-      Schema[Key]['returnType'] & { graphqlErrors?: GraphQLFormattedError[] }
-    > => {
-      const result = await handleGenerate(input);
-
-      // handleGenerate returns a Promised wrapper around Schema[Key]['returnType'] which includes data, errors, and clientExtensions
-      // The type of data is Schema[Key]['returnType'] which useDataState also wraps in a data return
-      // TODO: follow up with how to type handleGenerate to properly return the promise wrapper shape
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      const data = (result as any).data as Schema[Key]['returnType'];
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
-      const graphqlErrors = (result as any).errors;
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-assignment
-      return { ...data, ...(graphqlErrors ? { graphqlErrors } : {}) };
+    ): Promise<Schema[Key]['returnType']> => {
+      return await handleGenerate(input);
     };
 
-    return useDataState(updateAIGenerationStateAction, {});
+    const [result, handler] = useDataState(
+      updateAIGenerationStateAction,
+      undefined
+    );
+
+    const { data, errors } =
+      (result?.data as SingularReturnValue<Schema[Key]['returnType']>) ?? {};
+
+    return [{ ...result, data, graphqlErrors: errors }, handler];
   };
 
   return useAIGeneration;
