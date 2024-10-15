@@ -43,58 +43,19 @@ jobs:
     environment: ci
     if: ${{ needs.setup.outputs.has-changesets != 'true' }}
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@b80ff79f1755d06ba70441c368a6fe801f5f3a62 # v4.1.3 https://github.com/actions/checkout/commit/cd7d8d697e10461458bc61a30d094dc601a8b017
-      - name: Setup Node.js 20
-        uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2 https://github.com/actions/setup-node/commit/60edb5dd545a775178f52524783378180af0d1f8
-        with:
-          node-version: 20
-          cache: 'yarn'
-        env:
-          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
-      - name: Add Amplify CLI
-        run: yarn global add @aws-amplify/cli
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502 # v4.0.2 https://github.com/aws-actions/configure-aws-credentials/commit/e3dd6a429d7300a6a4c196c26e071d42e0343502
-        with:
-          aws-region: us-east-2
-          role-to-assume: ${{ secrets.AUTH_E2E_ROLE_ARN }}
-      # Amplify CLI does not support headless pull with temporary credentials
-      # when useProfile is false.
-      # See: https://github.com/aws-amplify/amplify-cli/issues/11009.
-      - name: Create temp AWS profile
-        run: |
-          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID && \
-          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY && \
-          aws configure set aws_session_token $AWS_SESSION_TOKEN && \
-          aws configure set default.region $AWS_REGION
-      - name: Pull down AWS environments
-        run: yarn pull
-        working-directory: ./canary
-      - name: Delete AWS Profile
-        run: rm -rf ~/.aws
-      - name: Setup canary apps against @hotfix
-        run: yarn setup:hotfix
-        working-directory: ./canary
-      - name: Run yarn install on each sample app
-        run: yarn install
-        working-directory: ./canary
-      - name: Run yarn build on each sample app
-        run: yarn build
-        working-directory: ./canary
-
-  build-test-v2:
-    runs-on: ubuntu-latest
-    needs: publish-hotfix
-    environment: ci
-    if: ${{ needs.setup.outputs.has-changesets != 'true' }}
-    steps:
       - name: Build test v2
         uses: ./.github/workflows/reusable-build-system-test.yml
         with:
           dist-tag: hotfix
+        env:
+          AUTH_E2E_ROLE_ARN: ${{ secrets.AUTH_E2E_ROLE_ARN }}
+          DOMAIN: ${{ secrets.DOMAIN }}
+          PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
+          USERNAME: ${{ secrets.USERNAME }}
+          NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
+          VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
 
-  build-test-v2-react-native:
+  build-test-react-native:
     runs-on: ubuntu-latest
     needs: publish-hotfix
     environment: ci
@@ -110,8 +71,7 @@ jobs:
     environment: deployment
     needs:
       - build-test
-      - build-test-v2
-      - build-test-v2-react-native
+      - build-test-react-native
     if: ${{ needs.setup.outputs.has-changesets != 'true' }}
     steps:
       - name: Checkout repo
