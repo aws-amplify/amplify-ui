@@ -153,7 +153,7 @@ jobs:
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
       - name: Run E2E tests against ${{ env.MEGA_APP_NAME }} example
-        run: npm run test
+        run: npm run test:web
         id: e2e
         working-directory: build-system-tests
         env:
