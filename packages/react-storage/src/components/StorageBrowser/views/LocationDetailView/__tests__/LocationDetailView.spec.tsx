@@ -284,10 +284,10 @@ describe('LocationDetailView', () => {
     const handlePaginateNext = jest.fn();
     const handlePaginatePrevious = jest.fn();
     jest
-      .spyOn<
-        typeof PaginateModule,
+      .spyOn<typeof PaginateModule, 'usePaginate'>(
+        PaginateModule,
         'usePaginate'
-      >(PaginateModule, 'usePaginate')
+      )
       .mockReturnValue({
         currentPage: 1,
         handlePaginateNext,
@@ -320,10 +320,10 @@ describe('LocationDetailView', () => {
     const handlePaginateNext = jest.fn();
     const handlePaginatePrevious = jest.fn();
     jest
-      .spyOn<
-        typeof PaginateModule,
+      .spyOn<typeof PaginateModule, 'usePaginate'>(
+        PaginateModule,
         'usePaginate'
-      >(PaginateModule, 'usePaginate')
+      )
       .mockReturnValue({
         currentPage: 2,
         handlePaginateNext,

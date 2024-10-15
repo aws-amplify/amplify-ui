@@ -57,12 +57,14 @@ export interface ActionListItemConfig {
   label: string;
 }
 
-type IsCancelableTaskHandler<T> =
-  T extends TaskHandler<any, TaskHandlerOutput<infer K>>
-    ? K extends 'CANCELED'
-      ? true
-      : false
-    : never;
+type IsCancelableTaskHandler<T> = T extends TaskHandler<
+  any,
+  TaskHandlerOutput<infer K>
+>
+  ? K extends 'CANCELED'
+    ? true
+    : false
+  : never;
 
 /**
  * defines an action to be included in the actions list of the `LocationDetailView` with
