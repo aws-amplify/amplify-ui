@@ -67,6 +67,17 @@ export const compareStrings = (a: string, b: string): number => {
   return a.localeCompare(b);
 };
 
+export const compareTypeStrings = (a: string, b: string): number => {
+  if (a === undefined || a[a.length - 1] === '/') return 1;
+  if (b === undefined || b[b.length - 1] === '/') return -1;
+  if (!a.includes('.')) return 1;
+  if (!b.includes('.')) return -1;
+
+  a = a.slice(a.lastIndexOf('.') + 1);
+  b = b.slice(b.lastIndexOf('.') + 1);
+  return b.localeCompare(a);
+};
+
 export const compareNumbers = (a: number, b: number): number => {
   if (a === undefined) return 1;
   if (b === undefined) return -1;
