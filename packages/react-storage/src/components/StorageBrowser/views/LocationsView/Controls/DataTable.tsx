@@ -26,7 +26,8 @@ export type SortState = {
 
 const getCompareFn = (selection: string) => {
   switch (selection) {
-    case 'scope':
+    case 'bucket':
+    case 'folder':
     case 'type':
     case 'permission':
       return compareStrings;
@@ -140,7 +141,7 @@ export function DataTableControl({
   const [, handleUpdateState] = useControl('NAVIGATE');
 
   const [sortState, setSortState] = React.useState<SortState>({
-    selection: 'scope',
+    selection: 'bucket',
     direction: 'ascending',
   });
 
