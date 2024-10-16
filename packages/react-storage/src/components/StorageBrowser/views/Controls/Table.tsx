@@ -13,7 +13,12 @@ import { useControl } from '../../context/control';
 import { FileItem, FolderItem, LocationItem } from '../../context/types';
 
 import { CLASS_BASE } from '../constants';
-import { compareDates, compareNumbers, compareStrings } from '../utils';
+import {
+  compareDates,
+  compareTypeStrings,
+  compareNumbers,
+  compareStrings,
+} from '../utils';
 
 import { DownloadControl } from './Download';
 import { useDropZone } from '@aws-amplify/ui-react-core';
@@ -175,7 +180,7 @@ TableControl.TableHeader = TableHeader;
 
 const LocationDetailViewColumnSortMap = {
   key: compareStrings,
-  type: compareStrings,
+  type: compareTypeStrings,
   lastModified: compareDates,
   size: compareNumbers,
 };
@@ -247,7 +252,7 @@ export const LocationDetailViewTable = ({
               onClick={() => {
                 setCompareFn(() => LocationDetailViewColumnSortMap[column.key]);
                 setSortState((prevState) => ({
-                  selection: column.key,
+                  selection: column.key === 'type' ? 'key' : column.key,
                   direction:
                     prevState.direction === 'ascending'
                       ? 'descending'
