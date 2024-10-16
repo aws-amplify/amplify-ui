@@ -8,6 +8,7 @@ interface UsePaginate {
   }) => void;
   handlePaginatePrevious: (input?: {}) => void;
   handleReset: () => void;
+  range: [start: number, end: number];
 }
 
 export const usePaginate = ({
@@ -24,6 +25,10 @@ export const usePaginate = ({
   const handleReset = React.useRef(() => {
     setCurrentPage(1);
   }).current;
+
+  const isInitialPage = currentPage === 1;
+  const start = isInitialPage ? 0 : (currentPage - 1) * pageSize;
+  const end = isInitialPage ? pageSize : currentPage * pageSize;
 
   return React.useMemo(
     () => ({
@@ -45,7 +50,16 @@ export const usePaginate = ({
         setCurrentPage((prev) => prev - 1);
       },
       handleReset,
+      range: [start, end],
     }),
-    [currentPage, handleReset, onPaginateNext, onPaginatePrevious, pageSize]
+    [
+      currentPage,
+      handleReset,
+      onPaginateNext,
+      onPaginatePrevious,
+      pageSize,
+      start,
+      end,
+    ]
   );
 };
