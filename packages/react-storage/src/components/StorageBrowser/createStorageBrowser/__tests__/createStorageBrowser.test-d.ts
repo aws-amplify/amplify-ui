@@ -1,7 +1,13 @@
 import { createStorageBrowser } from '..';
+import { DefaultActionConfigs } from '../../actions/configs';
 import { DerivedSubComponents } from '../types';
 
 type Expect<T extends true> = T;
+type Equal<X, Y> = (<T>() => T extends X ? 1 : 2) extends <T>() => T extends Y
+  ? 1
+  : 2
+  ? true
+  : false;
 
 describe('createStorageBrowser() type generation', () => {
   test('generate correct StorageBrowser type without any custom actions', () => {
@@ -236,6 +242,26 @@ describe('createStorageBrowser() type generation', () => {
         ? true
         : false
     >;
+
+    expect('done').toBe('done');
+  });
+
+  test('generate correct type for created `useAction`', () => {
+    const { useAction } = createStorageBrowser({
+      config: {} as any,
+      actions: {
+        Share: {
+          componentName: 'MyShareView',
+          handler: () => {},
+          isCancelable: false,
+          displayName: 'Share',
+          type: 'SINGLE_ACTION',
+        },
+      },
+    });
+
+    type ParamType = Parameters<typeof useAction>[0];
+    type _ = Expect<Equal<ParamType, keyof DefaultActionConfigs | 'Share'>>;
 
     expect('done').toBe('done');
   });
