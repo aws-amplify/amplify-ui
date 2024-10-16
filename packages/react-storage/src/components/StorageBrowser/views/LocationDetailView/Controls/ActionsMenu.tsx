@@ -59,8 +59,8 @@ export function ActionsMenuControl({
       getActionsMenuData({
         actions,
         items,
-        onSelect: (payload) => {
-          handleUpdate({ type: 'SET_ACTION', payload });
+        onSelect: (actionType) => {
+          handleUpdate({ type: 'SET_ACTION', actionType });
         },
         permission,
       }),

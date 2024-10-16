@@ -7,7 +7,7 @@ import { parseLocationAccess } from '../../context/navigate/utils';
 
 import { Controls, LocationDetailViewTable } from '../Controls';
 import { usePaginate } from '../hooks/usePaginate';
-import { listViewHelpers } from '../utils';
+import { isFile, listViewHelpers } from '../utils';
 
 import { ActionsMenuControl } from './Controls/ActionsMenu';
 
@@ -78,8 +78,28 @@ export const LocationDetailViewControls = (): React.JSX.Element => {
   const [state] = useControl('NAVIGATE');
   const { path } = state;
 
-  const [{ data, isLoading, hasError }, handleList] = useAction('LIST_LOCATION_ITEMS');
+  const [{ data, isLoading, hasError }, handleList] = useAction(
+    'LIST_LOCATION_ITEMS'
+  );
   const [, handleLocationActionsState] = useControl('LOCATION_ACTIONS');
+
+  const [, handleUpdateState] = useControl('LOCATION_ACTIONS');
+
+  const handleDroppedFiles = (files: File[]) => {
+    if (isFile(files[0])) {
+      handleUpdateState({
+        type: 'SET_ACTION',
+        actionType: 'UPLOAD_FILES',
+        files,
+      });
+    } else {
+      handleUpdateState({
+        type: 'SET_ACTION',
+        actionType: 'UPLOAD_FOLDER',
+        files,
+      });
+    }
+  };
 
   const { result, nextToken } = data;
   const resultCount = result.length;
@@ -168,7 +188,10 @@ export const LocationDetailViewControls = (): React.JSX.Element => {
       />
       <LocationDetailMessage />
       <Loading show={renderLoading} />
-      <LocationDetailViewTable range={range} />
+      <LocationDetailViewTable
+        handleDroppedFiles={handleDroppedFiles}
+        range={range}
+      />
       <LocationDetailEmptyMessage />
     </>
   );
