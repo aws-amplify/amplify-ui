@@ -418,15 +418,14 @@ export const LivenessCameraModule = (
           >
             <View as="canvas" ref={canvasRef} />
           </Flex>
-
-          {allowDeviceSelection ? (
-            <CameraSelector
-              onSelect={onCameraChange}
-              devices={selectableDevices}
-              deviceId={selectedDeviceId}
-            />
-          ) : null}
         </View>
+        {allowDeviceSelection ? (
+          <CameraSelector
+            onSelect={onCameraChange}
+            devices={selectableDevices}
+            deviceId={selectedDeviceId}
+          />
+        ) : null}
       </Flex>
 
       {isStartView && (
