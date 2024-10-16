@@ -32,7 +32,11 @@ export const SignInSignUpTabs = ({
         <Tabs.Container
           value={route}
           isLazy
-          onValueChange={() => (route === 'signIn' ? toSignUp() : toSignIn())}
+          onValueChange={(prevRoute) => {
+            if (prevRoute !== route) {
+              route === 'signIn' ? toSignUp() : toSignIn();
+            }
+          }}
         >
           <Tabs.List spacing="equal" indicatorPosition="top">
             <Tabs.Item value="signIn">{getSignInTabText()}</Tabs.Item>
