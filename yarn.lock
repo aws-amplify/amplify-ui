@@ -12339,7 +12339,7 @@ available-typed-arrays@^1.0.5:
   resolved "https://registry.npmjs.org/available-typed-arrays/-/available-typed-arrays-1.0.5.tgz#92f95616501069d07d10edb2fc37d3e1c65123b7"
   integrity sha512-DMD0KiN46eipeziST1LPP/STfDU0sufISXmjSgvVsoU2tqxctQeASejWcfNtxYKqETM1UxQ8sp2OrSBWpHY6sw==
 
-aws-amplify@^6.6.6-storage-browser-integrity.9563334.0:
+aws-amplify@storage-browser-integrity:
   version "6.6.6-storage-browser-integrity.9563334.0"
   resolved "https://registry.yarnpkg.com/aws-amplify/-/aws-amplify-6.6.6-storage-browser-integrity.9563334.0.tgz#8e36ef3e767a5571932b939f23b4e3f9073fd65b"
   integrity sha512-mzk/zTIt3OPvyso/GciquO6FbI8PYZ7BRqojz665Y+Kozhio21dPYj6OAa1GejRkY6lE8Y13yx2U5JAToNKQ3A==
