@@ -34,5 +34,9 @@ export {
   RESPONSE_COMPONENT_PREFIX,
 } from './ResponseComponentsContext';
 export { SendMessageContextProvider } from './SendMessageContext';
-
+export {
+  MessageRendererProvider,
+  MessageRendererContext,
+  useMessageRenderer,
+} from './MessageRendererContext';
 export * from './elements';
