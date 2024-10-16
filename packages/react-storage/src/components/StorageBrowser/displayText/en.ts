@@ -7,4 +7,5 @@ export const displayText = {
   statusDisplayFailed: 'Failed',
   statusDisplayCanceled: 'Canceled',
   statusDisplayQueued: 'Not started',
+  rootBucketPrefix: 'root',
 };
