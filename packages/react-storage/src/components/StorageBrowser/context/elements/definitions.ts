@@ -164,6 +164,13 @@ export const HeadingElement = defineBaseElement({
   displayName: 'Title',
 });
 
+export interface HeadingElement3Props
+  extends React.ComponentProps<typeof HeadingElement3> {}
+export const HeadingElement3 = defineBaseElement({
+  type: 'h3',
+  displayName: 'Heading',
+});
+
 export interface ProgressBarElementProps
   extends React.ComponentProps<typeof ProgressBarElement> {}
 export const ProgressBarElement = defineBaseElement({
