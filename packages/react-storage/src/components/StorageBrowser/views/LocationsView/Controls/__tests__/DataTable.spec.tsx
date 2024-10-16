@@ -17,7 +17,7 @@ const useLocationsDataSpy = jest.spyOn(
 );
 
 const mockData: LocationAccess<UseLocationsDataModule.Permission>[] = [
-  { scope: 's3://Location A/Folder A/*', type: 'BUCKET', permission: 'READ' },
+  { scope: 's3://Location A/*', type: 'BUCKET', permission: 'READ' },
   { scope: 's3://Location B/Folder B/*', type: 'PREFIX', permission: 'WRITE' },
 ];
 
@@ -42,7 +42,7 @@ describe('LocationsViewTableControl', () => {
     expect(getByText('Folder')).toBeInTheDocument();
     expect(getByText('Type')).toBeInTheDocument();
     expect(getByText('Permission')).toBeInTheDocument();
-    expect(getByText('Location A/Folder A')).toBeInTheDocument();
+    expect(getByText('Location A')).toBeInTheDocument();
     expect(getByText('Location B')).toBeInTheDocument();
     expect(getByText('Folder B/')).toBeInTheDocument();
   });
