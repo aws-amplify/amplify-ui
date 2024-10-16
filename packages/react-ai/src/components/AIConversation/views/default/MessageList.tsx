@@ -36,34 +36,34 @@ const MessageMeta = ({ message }: { message: ConversationMessage }) => {
   );
 };
 
-const LoadingMessage = () => {
-  const avatars = React.useContext(AvatarsContext);
-  const variant = React.useContext(MessageVariantContext);
-  const avatar = avatars?.ai;
+// const LoadingMessage = () => {
+//   const avatars = React.useContext(AvatarsContext);
+//   const variant = React.useContext(MessageVariantContext);
+//   const avatar = avatars?.ai;
 
-  return (
-    <View
-      className={classNames(
-        ComponentClassName.AIConversationMessage,
-        classNameModifier(ComponentClassName.AIConversationMessage, variant),
-        classNameModifier(ComponentClassName.AIConversationMessage, 'assistant')
-      )}
-    >
-      <View className={ComponentClassName.AIConversationMessageAvatar}>
-        <Avatar isLoading>{avatar?.avatar}</Avatar>
-      </View>
-      <View className={ComponentClassName.AIConversationMessageBody}>
-        <View className={ComponentClassName.AIConversationMessageSender}>
-          <Text
-            className={ComponentClassName.AIConversationMessageSenderUsername}
-          >
-            {avatar?.username}
-          </Text>
-        </View>
-      </View>
-    </View>
-  );
-};
+//   return (
+//     <View
+//       className={classNames(
+//         ComponentClassName.AIConversationMessage,
+//         classNameModifier(ComponentClassName.AIConversationMessage, variant),
+//         classNameModifier(ComponentClassName.AIConversationMessage, 'assistant')
+//       )}
+//     >
+//       <View className={ComponentClassName.AIConversationMessageAvatar}>
+//         <Avatar isLoading>{avatar?.avatar}</Avatar>
+//       </View>
+//       <View className={ComponentClassName.AIConversationMessageBody}>
+//         <View className={ComponentClassName.AIConversationMessageSender}>
+//           <Text
+//             className={ComponentClassName.AIConversationMessageSenderUsername}
+//           >
+//             {avatar?.username}
+//           </Text>
+//         </View>
+//       </View>
+//     </View>
+//   );
+// };
 
 const Message = ({
   message,

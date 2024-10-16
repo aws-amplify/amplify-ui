@@ -1,6 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React from 'react';
 import { DataState } from '@aws-amplify/ui-react-core';
-import { RouteToConversations, useAIContext } from './AIContextProvider';
 import {
   Conversation,
   ConversationMessage,
@@ -9,30 +9,6 @@ import {
   SendMessage,
 } from '../types';
 import { ResponseComponents } from '../components/AIConversation/types';
-import {
-  convertResponseComponentsToToolConfiguration,
-  prependResponseComponents,
-} from '../components/AIConversation/context/ResponseComponentsContext';
-
-function createNewConversationMessageInRoute({
-  previousValue,
-  routeName,
-  conversationId,
-  messages,
-}: {
-  previousValue: RouteToConversations;
-  routeName: string;
-  conversationId: string;
-  messages: ConversationMessage[];
-}) {
-  return {
-    ...previousValue,
-    [routeName]: {
-      ...previousValue[routeName],
-      [conversationId]: messages,
-    },
-  };
-}
 
 interface GraphQLFormattedError {
   readonly message: string;
@@ -41,11 +17,6 @@ interface GraphQLFormattedError {
     [key: string]: unknown;
   };
 }
-
-type SingularReturnValue<T> = {
-  data: T | null;
-  errors?: GraphQLFormattedError[];
-};
 
 type ConversationState<T> = Omit<DataState<T>, 'message'> & {
   messages?: GraphQLFormattedError[];
@@ -85,13 +56,6 @@ export function createUseAIConversationStreaming<
   > = (routeName: keyof T['conversations'], input = {}) => {
     const clientRoute = (client.conversations as T['conversations'])[routeName];
 
-    const { routeToConversationsMap, setRouteToConversationsMap } =
-      useAIContext();
-
-    const messagesFromAIContext = input.id
-      ? routeToConversationsMap[routeName as string]?.[input.id]
-      : undefined;
-
     const [dataState, setDataState] = React.useState<
       ConversationState<AIConversationState>
     >(() => ({
@@ -101,12 +65,6 @@ export function createUseAIConversationStreaming<
 
     const messageChunksRef = React.useRef<ConversationMessage[]>();
     const conversationRef = React.useRef<Conversation>();
-
-    const toolConfiguration = input.responseComponents
-      ? convertResponseComponentsToToolConfiguration(
-          prependResponseComponents(input.responseComponents)
-        )
-      : undefined;
 
     // On hook initialization get conversation and load all messages
     React.useEffect(() => {
@@ -140,7 +98,6 @@ export function createUseAIConversationStreaming<
 
         if (conversationRef.current) {
           subscription = conversationRef.current.onMessage((message) => {
-            console.log(message);
             // see if the message is a chunk or full message
             const isChunk = message.id.endsWith('#response');
 
@@ -231,26 +188,15 @@ export function createUseAIConversationStreaming<
                     (prev, curr) => {
                       if (curr.content && curr.content.length) {
                         const textBlock = curr.content.find((c) => c.text);
-                        const toolUseBlock = curr.content.find(
-                          (c) => c.toolUse
-                        );
 
                         if (textBlock) {
                           return prev + textBlock.text;
-                        }
-
-                        if (toolUseBlock) {
-                          console.log({ toolUseBlock });
                         }
                       }
                       return prev;
                     },
                     ''
                   );
-                  // const fullMessage = {
-                  //   ...message,
-                  //   content: [{ text: content }],
-                  // };
                   // set state by updating the last message
                   setDataState((prevState) => ({
                     ...prevState,
@@ -278,7 +224,6 @@ export function createUseAIConversationStreaming<
       initialize();
 
       return () => {
-        console.log('cleanup');
         subscription?.unsubscribe();
         setDataState({
           ...INITIAL_STATE,
@@ -315,7 +260,7 @@ export function createUseAIConversationStreaming<
               ],
             },
           }));
-          const { data, errors } = await conversationRef.current.sendMessage({
+          await conversationRef.current.sendMessage({
             content,
             aiContext,
             toolConfiguration,
