@@ -12,8 +12,10 @@ import { useLocationsData } from '../../../context/actions';
 import { useControl } from '../../../context/control';
 import { LocationAccess } from '../../../context/types';
 import { ButtonElement, IconElement } from '../../../context/elements';
+import { parseLocationAccess } from '../../../context/navigate/utils';
 
 import { compareStrings } from '../../utils';
+import { displayText } from '../../../displayText/en';
 
 export type SortDirection = 'ascending' | 'descending' | 'none';
 
@@ -65,7 +67,8 @@ const getColumnItem = ({
 };
 
 const displayColumns: Record<string, string>[] = [
-  { scope: 'name' },
+  { bucket: 'bucket' },
+  { prefix: 'folder' },
   { type: 'type' },
   { permission: 'permission' },
 ];
@@ -101,22 +104,28 @@ const getLocationsData = ({
     }
   }
 
-  const rows = data.map((location, index) => [
-    {
-      key: `td-name-${index}`,
-      children: (
-        <ButtonElement
-          className={TABLE_DATA_BUTTON_CLASS}
-          onClick={() => onLocationClick(location)}
-          variant="table-data"
-        >
-          {location.scope}
-        </ButtonElement>
-      ),
-    },
-    { key: `td-type-${index}`, children: location.type },
-    { key: `td-permission-${index}`, children: location.permission },
-  ]);
+  const rows = data.map((location, index) => {
+    const parsedLocation = parseLocationAccess(location);
+    return [
+      { key: `td-bucket-${index}`, children: parsedLocation.bucket },
+      {
+        key: `td-name-${index}`,
+        children: (
+          <ButtonElement
+            className={TABLE_DATA_BUTTON_CLASS}
+            onClick={() => onLocationClick(location)}
+            variant="table-data"
+          >
+            {parsedLocation.prefix
+              ? parsedLocation.prefix
+              : displayText.rootBucketPrefix}
+          </ButtonElement>
+        ),
+      },
+      { key: `td-type-${index}`, children: location.type },
+      { key: `td-permission-${index}`, children: location.permission },
+    ];
+  });
 
   return { columns, rows };
 };
