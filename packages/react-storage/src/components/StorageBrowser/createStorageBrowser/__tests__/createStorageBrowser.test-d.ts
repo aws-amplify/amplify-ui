@@ -1,5 +1,5 @@
 import { createStorageBrowser } from '..';
-import { CreateSubComponentsFromActionTypes } from '../types';
+import { DerivedSubComponents } from '../types';
 
 type Expect<T extends true> = T;
 
@@ -13,29 +13,23 @@ describe('createStorageBrowser() type generation', () => {
       typeof StorageBrowser extends {
         (props: {
           type:
-            | 'ListLocationItemsView'
-            | 'ListLocationsView'
+            | 'LocationDetailView'
+            | 'LocationsView'
             | 'CreateFolderView'
             | 'UploadView';
         }): React.JSX.Element;
         displayName: string;
         Provider: (props: { children?: React.ReactNode }) => React.JSX.Element;
-        readonly ListLocationItemsView: CreateSubComponentsFromActionTypes<
+        readonly LocationDetailView: DerivedSubComponents<
           'LIST_LOCATION_ITEMS',
           object
         >;
-        readonly ListLocationsView: CreateSubComponentsFromActionTypes<
-          'LIST_LOCATIONS',
-          object
-        >;
-        readonly CreateFolderView: CreateSubComponentsFromActionTypes<
+        readonly LocationsView: DerivedSubComponents<'LIST_LOCATIONS', object>;
+        readonly CreateFolderView: DerivedSubComponents<
           'SINGLE_ACTION',
           object
         >;
-        readonly UploadView: CreateSubComponentsFromActionTypes<
-          'BATCH_ACTION',
-          object
-        >;
+        readonly UploadView: DerivedSubComponents<'BATCH_ACTION', object>;
       }
         ? true
         : false
@@ -69,39 +63,27 @@ describe('createStorageBrowser() type generation', () => {
       typeof StorageBrowser extends {
         (props: {
           type:
-            | 'ListLocationItemsView'
-            | 'ListLocationsView'
-            | 'MyShareView'
-            | 'CropAllImages'
+            | 'LocationDetailView'
+            | 'LocationsView'
             | 'CreateFolderView'
-            | 'UploadView';
+            | 'UploadView'
+            | 'MyShareView'
+            | 'CropAllImages';
         }): React.JSX.Element;
         displayName: string;
         Provider: (props: { children?: React.ReactNode }) => React.JSX.Element;
-        readonly MyShareView: CreateSubComponentsFromActionTypes<
-          'SINGLE_ACTION',
-          object
-        >;
-        readonly CropAllImages: CreateSubComponentsFromActionTypes<
-          'BATCH_ACTION',
-          object
-        >;
-        readonly ListLocationItemsView: CreateSubComponentsFromActionTypes<
+        readonly MyShareView: DerivedSubComponents<'SINGLE_ACTION', object>;
+        readonly CropAllImages: DerivedSubComponents<'BATCH_ACTION', object>;
+        readonly LocationDetailView: DerivedSubComponents<
           'LIST_LOCATION_ITEMS',
           object
         >;
-        readonly ListLocationsView: CreateSubComponentsFromActionTypes<
-          'LIST_LOCATIONS',
-          object
-        >;
-        readonly CreateFolderView: CreateSubComponentsFromActionTypes<
+        readonly LocationsView: DerivedSubComponents<'LIST_LOCATIONS', object>;
+        readonly CreateFolderView: DerivedSubComponents<
           'SINGLE_ACTION',
           object
         >;
-        readonly UploadView: CreateSubComponentsFromActionTypes<
-          'BATCH_ACTION',
-          object
-        >;
+        readonly UploadView: DerivedSubComponents<'BATCH_ACTION', object>;
       }
         ? true
         : false
@@ -137,34 +119,25 @@ describe('createStorageBrowser() type generation', () => {
       typeof StorageBrowser extends {
         (props: {
           type:
-            | 'ListLocationItemsView'
-            | 'ListLocationsView'
-            | 'MyShareView'
+            | 'LocationDetailView'
+            | 'LocationsView'
             | 'CreateFolderView'
-            | 'UploadView';
+            | 'UploadView'
+            | 'MyShareView';
         }): React.JSX.Element;
         displayName: string;
         Provider: (props: { children?: React.ReactNode }) => React.JSX.Element;
-        readonly MyShareView: CreateSubComponentsFromActionTypes<
-          'SINGLE_ACTION',
-          object
-        >;
-        readonly ListLocationItemsView: CreateSubComponentsFromActionTypes<
+        readonly MyShareView: DerivedSubComponents<'SINGLE_ACTION', object>;
+        readonly LocationDetailView: DerivedSubComponents<
           'LIST_LOCATION_ITEMS',
           object
         >;
-        readonly ListLocationsView: CreateSubComponentsFromActionTypes<
-          'LIST_LOCATIONS',
-          object
-        >;
-        readonly CreateFolderView: CreateSubComponentsFromActionTypes<
+        readonly LocationsView: DerivedSubComponents<'LIST_LOCATIONS', object>;
+        readonly CreateFolderView: DerivedSubComponents<
           'SINGLE_ACTION',
           object
         >;
-        readonly UploadView: CreateSubComponentsFromActionTypes<
-          'BATCH_ACTION',
-          object
-        >;
+        readonly UploadView: DerivedSubComponents<'BATCH_ACTION', object>;
       }
         ? true
         : false
@@ -242,29 +215,23 @@ describe('createStorageBrowser() type generation', () => {
       typeof StorageBrowser extends {
         (props: {
           type:
+            | 'LocationDetailView'
+            | 'LocationsView'
             | 'CreateFolderView'
-            | 'ListLocationItemsView'
-            | 'ListLocationsView'
             | 'UploadView';
         }): React.JSX.Element;
         displayName: string;
         Provider: (props: { children?: React.ReactNode }) => React.JSX.Element;
-        readonly ListLocationItemsView: CreateSubComponentsFromActionTypes<
+        readonly LocationDetailView: DerivedSubComponents<
           'LIST_LOCATION_ITEMS',
           object
         >;
-        readonly ListLocationsView: CreateSubComponentsFromActionTypes<
-          'LIST_LOCATIONS',
-          object
-        >;
-        readonly CreateFolderView: CreateSubComponentsFromActionTypes<
+        readonly LocationsView: DerivedSubComponents<'LIST_LOCATIONS', object>;
+        readonly CreateFolderView: DerivedSubComponents<
           'SINGLE_ACTION',
           object
         >;
-        readonly UploadView: CreateSubComponentsFromActionTypes<
-          'BATCH_ACTION',
-          object
-        >;
+        readonly UploadView: DerivedSubComponents<'BATCH_ACTION', object>;
       }
         ? true
         : false

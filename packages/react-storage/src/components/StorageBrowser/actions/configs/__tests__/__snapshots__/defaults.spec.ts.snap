@@ -16,13 +16,13 @@ exports[`defaultActionConfigs matches expected shape 1`] = `
     "type": "SINGLE_ACTION",
   },
   "ListLocationItems": {
-    "componentName": "ListLocationItemsView",
+    "componentName": "LocationDetailView",
     "displayName": [Function],
     "handler": null,
     "type": "LIST_LOCATION_ITEMS",
   },
   "ListLocations": {
-    "componentName": "ListLocationsView",
+    "componentName": "LocationsView",
     "displayName": "Home",
     "handler": null,
     "type": "LIST_LOCATIONS",

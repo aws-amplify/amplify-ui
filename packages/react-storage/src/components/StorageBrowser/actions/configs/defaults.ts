@@ -27,7 +27,7 @@ export const createFolderActionConfig: CreateFolderActionConfig = {
 };
 
 export const listLocationItemsActionConfig: ListLocationItemsActionConfig = {
-  componentName: 'ListLocationItemsView',
+  componentName: 'LocationDetailView',
   handler: listLocationItemsHandler,
   displayName: (bucket, prefix) => {
     if (bucket && prefix) {
@@ -42,7 +42,7 @@ export const listLocationItemsActionConfig: ListLocationItemsActionConfig = {
 };
 
 export const listLocationsActionConfig: ListLocationsActionConfig = {
-  componentName: 'ListLocationsView',
+  componentName: 'LocationsView',
   handler: listLocationsHandler,
   displayName: 'Home',
   type: 'LIST_LOCATIONS',

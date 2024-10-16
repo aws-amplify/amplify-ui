@@ -11,6 +11,10 @@ import {
 } from '../handlers';
 import { TaskHandler, TaskHandlerOutput } from '../types';
 
+type CapitalizedStringWithoutSpaces = Capitalize<
+  Exclude<string, ` ${string}` | `${string} ` | `${string} ${string}`>
+>;
+
 /**
  * native OS file picker type. to restrict selectable file types, define the picker types
  * followed by accepted file types as strings
@@ -21,7 +25,11 @@ import { TaskHandler, TaskHandlerOutput } from '../types';
  */
 export type SelectionType = LocationItemType | [LocationItemType, ...string[]];
 
-export interface ActionConfigTemplate<T> {
+export interface ActionConfigTemplate<T, K> {
+  /**
+   * The name of the component associated with the action
+   */
+  componentName: K;
   /**
    * action handler
    */
@@ -72,9 +80,9 @@ type IsCancelableTaskHandler<T> = T extends TaskHandler<
  */
 export interface TaskActionConfig<
   T extends TaskHandler,
-  ComponentName extends Capitalize<string> = Capitalize<string>,
+  K extends CapitalizedStringWithoutSpaces = CapitalizedStringWithoutSpaces,
 > {
-  componentName: ComponentName;
+  componentName: K;
   /**
    * configure action list item behavior. provide multiple configs
    * to create additional list items for a single action
@@ -99,8 +107,8 @@ export interface TaskActionConfig<
 
 export interface BatchTaskActionConfig<
   T extends TaskHandler,
-  ComponentName extends Capitalize<string> = Capitalize<string>,
-> extends TaskActionConfig<T, ComponentName> {
+  K extends CapitalizedStringWithoutSpaces = CapitalizedStringWithoutSpaces,
+> extends TaskActionConfig<T, K> {
   /**
    * sets action view subcomponent type and action processing behavior
    */
@@ -109,18 +117,18 @@ export interface BatchTaskActionConfig<
 
 export interface SingleTaskActionConfig<
   T extends TaskHandler,
-  ComponentName extends Capitalize<string> = Capitalize<string>,
-> extends TaskActionConfig<T, ComponentName> {
+  K extends CapitalizedStringWithoutSpaces = CapitalizedStringWithoutSpaces,
+> extends TaskActionConfig<T, K> {
   /**
    * sets action view subcomponent type and action processing behavior
    */
   type: 'SINGLE_ACTION';
 }
 
-export interface ListActionConfig<T, ComponentName>
-  extends ActionConfigTemplate<T> {
-  componentName: ComponentName;
-}
+export interface ListActionConfig<
+  T,
+  K extends CapitalizedStringWithoutSpaces = CapitalizedStringWithoutSpaces,
+> extends ActionConfigTemplate<T, K> {}
 
 export interface UploadActionConfig
   extends TaskActionConfig<UploadHandler, 'UploadView'> {
@@ -135,13 +143,13 @@ export interface CreateFolderActionConfig
 }
 
 export interface ListLocationsActionConfig
-  extends ListActionConfig<ListLocationsHandler, 'ListLocationsView'> {
+  extends ListActionConfig<ListLocationsHandler, 'LocationsView'> {
   displayName: string;
   type: 'LIST_LOCATIONS';
 }
 
 export interface ListLocationItemsActionConfig
-  extends ListActionConfig<ListLocationItemsHandler, 'ListLocationItemsView'> {
+  extends ListActionConfig<ListLocationItemsHandler, 'LocationDetailView'> {
   displayName: (
     bucket: string | undefined,
     prefix: string | undefined
@@ -159,7 +167,8 @@ export interface DefaultActionConfigs {
 export type DefaultActionKeys = keyof DefaultActionConfigs;
 
 export type ActionConfigs<
-  ActionsKeys extends Capitalize<string> = Capitalize<string>,
+  ActionsKeys extends
+    CapitalizedStringWithoutSpaces = CapitalizedStringWithoutSpaces,
 > = Record<
   ActionsKeys,
   | BatchTaskActionConfig<TaskHandler>
@@ -170,7 +179,7 @@ export type ActionConfigs<
 
 export type ResolveActionHandler<T> = T extends
   | TaskActionConfig<infer K>
-  | ListActionConfig<infer K, string>
+  | ListActionConfig<infer K>
   ? K
   : never;
 

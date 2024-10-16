@@ -7,27 +7,19 @@ import { createUseAction } from '../actions/createUseAction';
 import { StorageBrowserElements } from '../context/elements';
 import { Config } from '../createProvider';
 
-interface CreateStorageBrowserInput<
-  DefinedActionConfigs extends ActionConfigs,
-> {
+interface CreateStorageBrowserInput<T extends ActionConfigs> {
   config: Config;
   elements?: Partial<StorageBrowserElements>;
-  actions?: DefinedActionConfigs;
+  actions?: T;
 }
 
-interface CreateStorageBrowserOutput<
-  DefinedActionConfigs extends ActionConfigs,
-> {
+interface CreateStorageBrowserOutput<T extends ActionConfigs> {
   StorageBrowser: {
-    (props: {
-      type: ExtractComponentNamesFromActionConfigs<DefinedActionConfigs>;
-    }): React.JSX.Element;
+    (props: { type: DerivedComponentName<T> }): React.JSX.Element;
     displayName: string;
     Provider: (props: { children?: React.ReactNode }) => React.JSX.Element;
-  } & CreateActionDerivedViews<DefinedActionConfigs>; // & the action derived views components
-  useAction: ReturnType<
-    typeof createUseAction<DefaultActionConfigs & DefinedActionConfigs>
-  >;
+  } & DerivedViews<T>; // & the action derived views components
+  useAction: ReturnType<typeof createUseAction<DefaultActionConfigs & T>>;
 }
 
 export interface CreateStorageBrowser {
@@ -44,19 +36,19 @@ export interface CreateStorageBrowser {
 /**
  * Extract component names from action configs to a string union.
  */
-type ExtractComponentNamesFromActionConfigs<CustomActionConfigs> = keyof ({
+type DerivedComponentName<T> = keyof ({
   [Key in keyof DefaultActionConfigs as DefaultActionConfigs[Key] extends {
     componentName: Capitalize<string>;
   }
     ? DefaultActionConfigs[Key]['componentName']
     : never]: undefined;
 } & {
-  [Key in keyof CustomActionConfigs as Key extends DefaultActionKeys
+  [Key in keyof T as Key extends DefaultActionKeys
     ? never
-    : CustomActionConfigs[Key] extends {
+    : T[Key] extends {
         componentName: Capitalize<string>;
       }
-    ? CustomActionConfigs[Key]['componentName']
+    ? T[Key]['componentName']
     : never]: undefined;
 });
 
@@ -66,17 +58,17 @@ type ExtractComponentNamesFromActionConfigs<CustomActionConfigs> = keyof ({
  * One can override default actions, but the view interface of the default actions
  * remain the same.
  */
-type CreateActionDerivedViews<DefinedActionConfigs> =
+type DerivedViews<T> =
   // Custom actions derived views
   {
-    readonly [Key in keyof DefinedActionConfigs as Key extends DefaultActionKeys
+    readonly [Key in keyof T as Key extends DefaultActionKeys
       ? never
-      : DefinedActionConfigs[Key] extends {
+      : T[Key] extends {
           componentName: Capitalize<string>;
         }
-      ? DefinedActionConfigs[Key]['componentName']
-      : never]: DefinedActionConfigs[Key] extends { type: infer Type }
-      ? CreateSubComponentsFromActionTypes<Type>
+      ? T[Key]['componentName']
+      : never]: T[Key] extends { type: infer Type }
+      ? DerivedSubComponents<Type>
       : never;
   } & {
     // Default actions derived views
@@ -84,28 +76,23 @@ type CreateActionDerivedViews<DefinedActionConfigs> =
       componentName: Capitalize<string>;
     }
       ? DefaultActionConfigs[Key]['componentName']
-      : never]: CreateSubComponentsFromActionTypes<
-      DefaultActionConfigs[Key]['type']
-    >;
+      : never]: DerivedSubComponents<DefaultActionConfigs[Key]['type']>;
   };
 
 /**
  * Create sub-components interfaces from action types.
  */
-export type CreateSubComponentsFromActionTypes<
-  ActionType,
-  Props extends object = object,
-> = {
-  (props: Props): React.JSX.Element;
+export type DerivedSubComponents<T, K extends object = object> = {
+  (props: K): React.JSX.Element;
   displayName: string;
   Provider: (props: { children?: React.ReactNode }) => React.JSX.Element;
-} & (ActionType extends 'SINGLE_ACTION'
+} & (T extends 'SINGLE_ACTION'
   ? SingleTaskActionViewSubComponents
-  : ActionType extends 'BATCH_ACTION'
+  : T extends 'BATCH_ACTION'
   ? BatchTaskActionViewSubComponents
-  : ActionType extends 'LIST_LOCATIONS'
+  : T extends 'LIST_LOCATIONS'
   ? ListLocationsActionViewSubComponents
-  : ActionType extends 'LIST_LOCATION_ITEMS'
+  : T extends 'LIST_LOCATION_ITEMS'
   ? ListLocationItemsActionViewSubComponents
   : never);
 
