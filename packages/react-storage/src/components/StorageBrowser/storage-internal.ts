@@ -13,6 +13,8 @@ export {
   ListPaginateInput,
   ListOutput,
   ListLocationsOutput,
+  CopyInput,
+  RemoveInput,
   list,
   uploadData,
   getUrl,
