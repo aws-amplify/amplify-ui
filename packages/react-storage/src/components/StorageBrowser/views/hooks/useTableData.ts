@@ -7,11 +7,6 @@ export type SortState<T> = {
 
 export type SortDirection = 'ascending' | 'descending' | 'none';
 
-interface TableDataSearchOptions<T> {
-  filterFunction: (item: T, searchTerm: string) => boolean;
-  searchTerm: string;
-}
-
 interface TableDataSortOptions<T> {
   compareFunction: (a: T, b: T, selection: keyof T) => number;
   initialSortSelection: keyof T;
@@ -19,8 +14,6 @@ interface TableDataSortOptions<T> {
 }
 
 interface TableDataOptions<T> {
-  range: [start: number, end: number];
-  searching: TableDataSearchOptions<T>;
   sorting: TableDataSortOptions<T>;
 }
 
@@ -35,11 +28,11 @@ interface TableDataResult<T> {
 }
 
 export function useTableData<T>(
-  allItems: T[],
+  items: T[],
   options: TableDataOptions<T>
 ): TableDataResult<T> {
-  const { range, searching, sorting } = options;
-  const { filterFunction, searchTerm } = searching;
+  const { sorting } = options;
+
   const { compareFunction, initialSortSelection, initialSortDirection } =
     sorting;
   const [sortState, setSortState] = useState<SortState<T>>({
@@ -49,31 +42,21 @@ export function useTableData<T>(
 
   const { selection } = sortState;
 
-  const [start, end] = range;
-
-  const rangedItems = useMemo(() => {
-    return allItems.slice(start, end);
-  }, [allItems, start, end]);
-
-  const filteredItems = useMemo(() => {
-    return rangedItems.filter((item) => filterFunction(item, searchTerm));
-  }, [searchTerm, rangedItems, filterFunction]);
-
-  const sortedAndFilteredItems = useMemo(() => {
+  const sortedItems = useMemo(() => {
     const { direction } = sortState;
     if (direction === 'ascending') {
-      filteredItems.sort((a, b) => compareFunction(a, b, selection));
+      items.sort((a, b) => compareFunction(a, b, selection));
     } else {
-      filteredItems.sort((a, b) => compareFunction(b, a, selection));
+      items.sort((a, b) => compareFunction(b, a, selection));
     }
-    return filteredItems;
-  }, [filteredItems, sortState, compareFunction, selection]);
+    return items;
+  }, [items, sortState, compareFunction, selection]);
 
   return {
     sortState,
     actions: {
       setSortState,
     },
-    items: sortedAndFilteredItems ?? [],
+    items: sortedItems ?? [],
   };
 }

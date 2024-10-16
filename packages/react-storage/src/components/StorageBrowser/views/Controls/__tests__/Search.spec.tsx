@@ -4,7 +4,7 @@ import { SearchControl } from '../Search';
 
 describe('SearchControl', () => {
   it('renders the SearchControl', () => {
-    render(<SearchControl />);
+    render(<SearchControl handleSearch={jest.fn()} />);
 
     const searchButton = screen.getByRole('button');
 

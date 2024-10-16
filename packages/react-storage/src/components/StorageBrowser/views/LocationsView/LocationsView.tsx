@@ -1,23 +1,16 @@
-import React, { useCallback, useState } from 'react';
-
+import React from 'react';
 import { CLASS_BASE } from '../constants';
 import { Controls, SearchControl } from '../Controls';
 import { useLocationsData } from '../../context/actions';
-
-import { usePaginate } from '../hooks/usePaginate';
-import { listViewHelpers, resolveClassName } from '../utils';
-
+import { resolveClassName } from '../utils';
 import { DataTableControl } from './Controls/DataTable';
+import { LocationAccess } from '../../context/types';
+import { useLocationsView } from './useLocationsView';
 
 export interface LocationsViewProps {
   className?: (defaultClassName: string) => string;
 }
 
-const DEFAULT_PAGE_SIZE = 100;
-export const DEFAULT_LIST_OPTIONS = {
-  exclude: 'WRITE' as const,
-  pageSize: DEFAULT_PAGE_SIZE,
-};
 export const DEFAULT_ERROR_MESSAGE = 'There was an error loading locations.';
 
 const {
@@ -64,45 +57,24 @@ const LocationsEmptyMessage = () => {
 export function LocationsView({
   className,
 }: LocationsViewProps): React.JSX.Element {
-  const [{ data, isLoading, hasError }, handleList] = useLocationsData();
+  const [{ data, isLoading, hasError }, handleAction] = useLocationsView();
 
-  const { result, nextToken } = data;
-  const resultCount = result.length;
-  const hasNextToken = !!nextToken;
+  const { items, hasMoreData, page } = data;
 
-  // initial load
-  React.useEffect(() => {
-    handleList({
-      options: { ...DEFAULT_LIST_OPTIONS, refresh: true },
+  const handleSearch = (query: string) => {
+    handleAction({
+      type: 'search',
+      query,
+      includeSubfolders: false,
     });
-  }, [handleList]);
+  };
 
-  const [searchTerm, setSearchTerm] = useState('');
-  const onSearch = useCallback((query: string) => {
-    setSearchTerm(query);
-  }, []);
+  const handleLocationClick = (location: LocationAccess) => {
+    handleAction({ type: 'select-location', location });
+  };
 
-  const onPaginateNext = () =>
-    handleList({
-      options: { ...DEFAULT_LIST_OPTIONS, nextToken },
-    });
-
-  const {
-    currentPage,
-    handlePaginateNext,
-    handlePaginatePrevious,
-    handleReset,
-  } = usePaginate({ onPaginateNext, pageSize: DEFAULT_PAGE_SIZE });
-
-  const { disableNext, disablePrevious, disableRefresh, range } =
-    listViewHelpers({
-      currentPage,
-      hasNextToken,
-      isLoading,
-      pageSize: DEFAULT_PAGE_SIZE,
-      resultCount,
-      hasError,
-    });
+  const disableNext = !hasMoreData || isLoading || hasError;
+  const disablePrevious = page <= 1 || isLoading || hasError;
 
   return (
     <div
@@ -111,27 +83,31 @@ export function LocationsView({
     >
       <Title>Home</Title>
       <RefreshControl
-        disableRefresh={disableRefresh}
+        disableRefresh={isLoading}
         handleRefresh={() => {
-          handleReset();
-          handleList({
-            options: { ...DEFAULT_LIST_OPTIONS, refresh: true },
-          });
+          handleAction({ type: 'refresh' });
         }}
       />
       <Paginate
-        currentPage={currentPage}
+        currentPage={page}
         disableNext={disableNext}
         disablePrevious={disablePrevious}
         handleNext={() => {
-          handlePaginateNext({ resultCount, hasNextToken });
+          handleAction({ type: 'paginate-next' });
         }}
-        handlePrevious={handlePaginatePrevious}
+        handlePrevious={() => {
+          handleAction({ type: 'paginate-previous' });
+        }}
       />
       <LocationsMessage />
       <Loading />
-      <SearchControl onSearch={onSearch} />
-      <DataTableControl range={range} searchTerm={searchTerm} />
+      <SearchControl handleSearch={handleSearch} />
+      {hasError ? null : (
+        <DataTableControl
+          items={items}
+          handleLocationClick={handleLocationClick}
+        />
+      )}
       <LocationsEmptyMessage />
     </div>
   );

@@ -293,6 +293,7 @@ describe('LocationDetailView', () => {
         handlePaginateNext,
         handlePaginatePrevious,
         handleReset: jest.fn(),
+        range: [0, testResult.length],
       });
     mockListItemsAction({ result: testResult });
 
@@ -329,6 +330,7 @@ describe('LocationDetailView', () => {
         handlePaginateNext,
         handlePaginatePrevious,
         handleReset: jest.fn(),
+        range: [0, testResult.length],
       });
     mockListItemsAction({ result: testResult });
 

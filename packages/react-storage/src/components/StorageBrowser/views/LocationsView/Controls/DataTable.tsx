@@ -8,8 +8,6 @@ import {
   TABLE_HEADER_BUTTON_CLASS_NAME,
   TABLE_HEADER_CLASS_NAME,
 } from '../../../components/DataTable';
-import { useLocationsData } from '../../../context/actions';
-import { useControl } from '../../../context/control';
 import { LocationAccess } from '../../../context/types';
 import { ButtonElement, IconElement } from '../../../context/elements';
 
@@ -28,10 +26,6 @@ const getCompareFn = (selection: string) => {
       return compareStrings;
   }
 };
-
-function filterFunction({ scope }: LocationAccess, searchTerm: string) {
-  return scope.includes(searchTerm);
-}
 
 const getColumnItem = ({
   entry,
@@ -117,48 +111,36 @@ const getLocationsData = ({
 };
 
 interface DataTableControlProps {
-  range: [start: number, end: number];
-  searchTerm: string;
+  items: LocationAccess[];
+  handleLocationClick: (location: LocationAccess) => void;
 }
 
 export function DataTableControl({
-  range,
-  searchTerm
+  items,
+  handleLocationClick,
 }: DataTableControlProps): React.JSX.Element | null {
-  const [{ data, hasError }] = useLocationsData();
-
-  const [, handleUpdateState] = useControl('NAVIGATE');
-  const { sortState, actions, items } = useTableData<LocationAccess>(
-    data.result,
-    {
-      range,
-      searching: {
-        filterFunction,
-        searchTerm,
+  const {
+    sortState,
+    actions,
+    items: processedItems,
+  } = useTableData<LocationAccess>(items, {
+    sorting: {
+      initialSortSelection: 'scope',
+      compareFunction: (a, b, selection) => {
+        const compareFn = getCompareFn(selection) ?? compareStrings;
+        return compareFn(a[selection], b[selection]);
       },
-      sorting: {
-        initialSortSelection: 'scope',
-        compareFunction: (a, b, selection) => {
-          const compareFn = getCompareFn(selection) ?? compareStrings;
-          return compareFn(a[selection], b[selection]);
-        },
-      },
-    }
-  );
+    },
+  });
 
   const { setSortState } = actions;
 
   const locationsData = useMemo(
     () =>
       getLocationsData({
-        data: items,
+        data: processedItems,
         sortState,
-        onLocationClick: (location) => {
-          handleUpdateState({
-            type: 'ACCESS_LOCATION',
-            location,
-          });
-        },
+        onLocationClick: handleLocationClick,
         onTableHeaderClick: (location) => {
           setSortState((prevState) => ({
             selection: location,
@@ -167,8 +149,8 @@ export function DataTableControl({
           }));
         },
       }),
-    [items, handleUpdateState, sortState, setSortState]
+    [processedItems, handleLocationClick, sortState, setSortState]
   );
 
-  return hasError ? null : <DataTable data={locationsData} />;
+  return <DataTable data={locationsData} />;
 }

@@ -10,13 +10,13 @@ const BLOCK_NAME = `${CLASS_BASE}__search`;
 const TOGGLE_BLOCK = 'toggle';
 
 interface SearchControlProps {
-  onSearch: (query: string) => void;
+  handleSearch: (query: string) => void;
   placeholder?: string;
 }
 
 export const SearchControl = ({
   placeholder,
-  onSearch,
+  handleSearch,
 }: SearchControlProps): React.JSX.Element => {
   const [inputValue, setInputValue] = useState('');
 
@@ -28,16 +28,16 @@ export const SearchControl = ({
   );
 
   const clickHandler = useCallback(() => {
-    onSearch(inputValue);
-  }, [inputValue, onSearch]);
+    handleSearch(inputValue);
+  }, [inputValue, handleSearch]);
 
   const keyUpHandler = useCallback(
     (e: React.KeyboardEvent<HTMLInputElement>) => {
       if (e.key === 'Enter') {
-        onSearch(inputValue);
+        handleSearch(inputValue);
       }
     },
-    [onSearch, inputValue]
+    [handleSearch, inputValue]
   );
 
   return (

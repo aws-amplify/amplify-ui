@@ -6,7 +6,8 @@ import * as ActionsModule from '../../../context/actions';
 import * as ControlsModule from '../../../context/control';
 
 import { LocationsView } from '..';
-import { DEFAULT_LIST_OPTIONS, DEFAULT_ERROR_MESSAGE } from '../LocationsView';
+import { DEFAULT_ERROR_MESSAGE } from '../LocationsView';
+import { DEFAULT_LIST_OPTIONS } from '../useLocationsView';
 
 const INITIAL_NAVIGATE_STATE = [
   { location: undefined, history: [], path: '' },
