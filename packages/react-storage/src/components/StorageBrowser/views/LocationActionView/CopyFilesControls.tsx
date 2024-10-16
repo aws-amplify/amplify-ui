@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 
-import { Field } from '../../components/Field';
 import { useControl } from '../../context/control';
-import { SpanElement, ViewElement } from '../../context/elements';
+import { ButtonElement, ViewElement } from '../../context/elements';
 
-import { Controls } from '../Controls';
+import { Controls, NavigateItem } from '../Controls';
 
 import { Title } from './Controls/Title';
 import { copyHandler, LocationData } from '../../actions/handlers';
@@ -13,12 +12,27 @@ import { parseLocationAccess } from '../../context/navigate/utils';
 import { DescriptionList } from '../../components/DescriptionList';
 import { displayText } from '../../displayText/en';
 import { CLASS_BASE } from '../constants';
+import { DestinationPicker } from './DestinationPicker';
 
-const { Exit, Primary } = Controls;
+import { SelectedFilesTableControl } from './SelectedFilesTableControl';
 
-// const useCopyView = ()=> {
+const { actionSelectedText, actionDestination } = displayText;
 
-// }
+const { Exit, Primary, Table, Cancel } = Controls;
+
+const getFolderFromKey = (key: string): string => {
+  return key.slice(0, key.lastIndexOf('/'));
+};
+
+const useCopyView = ({ prefix }: { prefix: string }) => {
+  const [destinationPrefix, setDestinationPrefix] = useState([prefix]);
+  return {
+    destinationPrefix,
+    setDestinationPrefix,
+    fullDestinationPrefix: destinationPrefix.join(''),
+  };
+};
+
 // onCancel would cancel unstarted tasks
 
 export const isValidDestinationPath = (name: string | undefined): boolean =>
@@ -40,37 +54,18 @@ export const CopyFilesControls = (): React.JSX.Element => {
   const { prefix: rootPrefix } = location
     ? parseLocationAccess(location)
     : ({} as LocationData);
-  const [destinationPrefix, setDestinationPrefix] = React.useState(rootPrefix);
+  const { destinationPrefix, setDestinationPrefix, fullDestinationPrefix } =
+    useCopyView({ prefix: rootPrefix });
 
   const [{ selected }] = useControl('LOCATION_ACTIONS');
   const key = selected && selected?.items?.[0].key;
-  const [fieldValidationError, setFieldValidationError] = React.useState<
-    string | undefined
-  >();
-
-  const handleBlur = () => {
-    if (!isValidDestinationPath(destinationPrefix)) {
-      setFieldValidationError(FIELD_VALIDATION_MESSAGE);
-    }
-  };
-
-  const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    // // validate on change if validation error is present
-    if (fieldValidationError && isValidDestinationPath(target.value)) {
-      setFieldValidationError(undefined);
-    }
-    if (target.value) {
-      setDestinationPrefix(`${rootPrefix}${target.value}`);
-    } else {
-      setDestinationPrefix(rootPrefix);
-    }
-  };
+  const disableCancel = false;
 
   const handleCopyFiles = async () => {
     if (destinationPrefix && key) {
       const { result } = copyHandler({
         prefix: path ?? '',
-        data: { destinationPrefix, key },
+        data: { destinationPrefix: fullDestinationPrefix, key },
         key,
         config: {
           accountId: '',
@@ -91,16 +86,21 @@ export const CopyFilesControls = (): React.JSX.Element => {
   const primaryProps =
     status === 'COMPLETE'
       ? {
-          isDisabled: true,
-          children: 'Copy',
-        }
+        isDisabled: true,
+        children: 'Copy',
+      }
       : {
-          onClick: () => {
-            handleCopyFiles();
-          },
-          children: 'Copy',
-          disabled: !destinationPrefix,
-        };
+        onClick: () => {
+          handleCopyFiles();
+        },
+        children: 'Copy',
+        disabled: !destinationPrefix,
+      };
+
+  const handleNavigatePath = (index: number) => {
+    const newPath = destinationPrefix.slice(0, index + 1);
+    setDestinationPrefix(newPath);
+  };
 
   return (
     <>
@@ -111,35 +111,44 @@ export const CopyFilesControls = (): React.JSX.Element => {
       />
       <Title />
       <ViewElement className={`${CLASS_BASE}__copy-destination`}>
-        <DescriptionList
-          descriptions={[
-            {
-              term: `${displayText.actionDestination}:`,
-              details: destinationPrefix,
-            },
-          ]}
-        />
+        <div className="storage-browser__table" style={{ display: 'flex' }}>
+          {actionDestination}
+          {destinationPrefix.length ? (
+            <>
+              {destinationPrefix.map((item, index) => (
+                <NavigateItem
+                  isCurrent={index === destinationPrefix.length - 1}
+                  key={`${item}-${index}`}
+                  onClick={() => handleNavigatePath(index)}
+                >
+                  {item?.replace('/', '')}
+                </NavigateItem>
+              ))}
+            </>
+          ) : (
+            '-'
+          )}
+        </div>
       </ViewElement>
       <Primary {...primaryProps} />
-      <Field
-        label="Enter destination:"
-        // disabled={isLoading || !!result?.status}
-        aria-invalid={fieldValidationError ? 'true' : undefined}
-        aria-describedby="fieldError"
-        type="text"
-        id="folder-name-input"
-        onBlur={handleBlur}
-        onChange={handleChange}
+      <ButtonElement
+        variant="cancel"
+        disabled={disableCancel}
+        className={`${CLASS_BASE}__cancel`}
+        onClick={() => {
+          // handleCancel();
+          console.log('cancel');
+        }}
       >
-        {fieldValidationError ? (
-          <SpanElement id={'fieldError'} variant="field-error">
-            {fieldValidationError}
-          </SpanElement>
-        ) : null}
-      </Field>
-      {selected.items?.map(({ key }) => {
-        return <em key={key}>{key}</em>;
-      })}
+        Cancel
+      </ButtonElement>
+      <DestinationPicker
+        destinationPrefix={destinationPrefix}
+        setDestinationPrefix={setDestinationPrefix}
+      />
+      {selected.items ? (
+        <SelectedFilesTableControl items={selected.items} />
+      ) : null}
     </>
   );
 };
