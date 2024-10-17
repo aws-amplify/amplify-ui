@@ -1,4 +1,4 @@
-import { ImageContent } from '../../types';
+import { ImageContentBlock } from '../../types';
 
 export function formatDate(date: Date): string {
   const dateString = date.toLocaleDateString('en-US', {
@@ -27,7 +27,7 @@ function arrayBufferToBase64(buffer: ArrayBuffer) {
 
 export function convertBufferToBase64(
   buffer: ArrayBuffer,
-  format: ImageContent['format']
+  format: ImageContentBlock['format']
 ): string {
   let base64string = '';
   // Use node-based buffer if available
