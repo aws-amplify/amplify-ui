@@ -1,4 +1,4 @@
-import { copy } from 'aws-amplify/storage';
+import { copy } from '../../storage-internal';
 import {
   TaskHandler,
   TaskHandlerOptions,

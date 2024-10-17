@@ -1,4 +1,4 @@
-import * as StorageModule from 'aws-amplify/storage';
+import * as StorageModule from '../../../storage-internal';
 import { downloadAction } from '../downloadAction';
 
 const getUrlSpy = jest.spyOn(StorageModule, 'getUrl');

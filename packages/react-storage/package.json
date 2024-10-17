@@ -54,7 +54,7 @@
     "tslib": "^2.5.2"
   },
   "peerDependencies": {
-    "aws-amplify": "storage-browser",
+    "aws-amplify": "storage-browser-integrity",
     "react": "^16.14.0 || ^17.0 || ^18.0",
     "react-dom": "^16.14.0 || ^17.0 || ^18.0"
   },
@@ -66,7 +66,8 @@
       "name": "createStorageBrowser",
       "path": "dist/esm/browser.mjs",
       "import": "{ createStorageBrowser }",
-      "limit": "15.2 kB"
+      "limit": "15.2 kB",
+      "ignore": ["@aws-amplify/storage"]
     },
     {
       "name": "FileUploader",
