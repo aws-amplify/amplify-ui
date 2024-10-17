@@ -59,10 +59,10 @@ export function LocationsView({
 }: LocationsViewProps): React.JSX.Element {
   const [{ data, isLoading, hasError }, handleAction] = useLocationsView();
 
-  const { items, hasMoreData, page } = data;
+  const { getProcessedItems, hasMoreData, page } = data;
 
   const handleLocationClick = (location: LocationAccess) => {
-    handleAction({ type: 'select-location', location });
+    handleAction({ type: 'SELECT_LOCATION', location });
   };
 
   const disableNext = !hasMoreData || isLoading || hasError;
@@ -77,7 +77,7 @@ export function LocationsView({
       <RefreshControl
         disableRefresh={isLoading}
         handleRefresh={() => {
-          handleAction({ type: 'refresh' });
+          handleAction({ type: 'REFRESH' });
         }}
       />
       <Paginate
@@ -85,17 +85,17 @@ export function LocationsView({
         disableNext={disableNext}
         disablePrevious={disablePrevious}
         handleNext={() => {
-          handleAction({ type: 'paginate-next' });
+          handleAction({ type: 'PAGINATE_NEXT' });
         }}
         handlePrevious={() => {
-          handleAction({ type: 'paginate-previous' });
+          handleAction({ type: 'PAGINATE_PREVIOUS' });
         }}
       />
       <LocationsMessage />
       <Loading />
       {hasError ? null : (
         <DataTableControl
-          items={items}
+          items={getProcessedItems()}
           handleLocationClick={handleLocationClick}
         />
       )}

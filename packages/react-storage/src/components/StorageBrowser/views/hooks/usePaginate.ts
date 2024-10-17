@@ -26,12 +26,11 @@ export const usePaginate = ({
     setCurrentPage(1);
   }).current;
 
-  const isInitialPage = currentPage === 1;
-  const start = isInitialPage ? 0 : (currentPage - 1) * pageSize;
-  const end = isInitialPage ? pageSize : currentPage * pageSize;
-
-  return React.useMemo(
-    () => ({
+  return React.useMemo(() => {
+    const isInitialPage = currentPage === 1;
+    const start = isInitialPage ? 0 : (currentPage - 1) * pageSize;
+    const end = isInitialPage ? pageSize : currentPage * pageSize;
+    return {
       currentPage,
       handlePaginateNext: (input) => {
         const { hasNextToken, resultCount } = input;
@@ -51,15 +50,6 @@ export const usePaginate = ({
       },
       handleReset,
       range: [start, end],
-    }),
-    [
-      currentPage,
-      handleReset,
-      onPaginateNext,
-      onPaginatePrevious,
-      pageSize,
-      start,
-      end,
-    ]
-  );
+    };
+  }, [currentPage, handleReset, onPaginateNext, onPaginatePrevious, pageSize]);
 };
