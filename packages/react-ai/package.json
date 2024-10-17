@@ -55,5 +55,19 @@
   "devDependencies": {
     "@types/jest-when": "^3.5.0",
     "jest-when": "^3.5.1"
-  }
+  },
+  "size-limit": [
+    {
+      "name": "AIConversation",
+      "path": "dist/esm/index.mjs",
+      "import": "{ AIConversation }",
+      "limit": "25 kB"
+    },
+    {
+      "name": "createAIConversation",
+      "path": "dist/esm/index.mjs",
+      "import": "{ createAIConversation }",
+      "limit": "7 kB"
+    }
+  ]
 }
