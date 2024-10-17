@@ -14,6 +14,8 @@ import { PromptList } from './views/default/PromptList';
 import { AutoHidablePromptControl } from './views/Controls';
 import { ComponentClassName } from '@aws-amplify/ui';
 import { AIConversationProvider } from './AIConversationProvider';
+import { useSetUserAgent } from '@aws-amplify/ui-react-core';
+import { VERSION } from '../../version';
 
 interface AIConversationBaseProps
   extends AIConversationProps,
@@ -32,6 +34,11 @@ function AIConversationBase({
   displayText,
   allowAttachments,
 }: AIConversationBaseProps): JSX.Element {
+  useSetUserAgent({
+    componentName: 'AIConversation',
+    packageName: 'react-ai',
+    version: VERSION,
+  });
   const icons = useIcons('aiConversation');
   const defaultAvatars: Avatars = {
     ai: {
