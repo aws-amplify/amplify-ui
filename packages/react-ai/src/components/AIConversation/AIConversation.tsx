@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Flex, ScrollView, Text, TextProps } from '@aws-amplify/ui-react';
+import { Flex, ScrollView, Text } from '@aws-amplify/ui-react';
 import {
   IconAssistant,
   IconUser,
@@ -50,11 +50,7 @@ function Provider({
     },
     isLoading,
     elements: {
-      Text: React.forwardRef<HTMLParagraphElement, TextProps>(
-        function _Text(props, ref) {
-          return <Text {...props} ref={ref} />;
-        }
-      ),
+      Text,
     },
     actions,
     suggestedPrompts,
