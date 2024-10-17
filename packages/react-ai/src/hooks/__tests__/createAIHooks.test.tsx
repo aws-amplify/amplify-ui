@@ -179,7 +179,14 @@ describe('createAIHooks', () => {
       };
       const generateReturn = {
         data: expectedResult,
-        errors: ['this is just one error'],
+        errors: [
+          {
+            errorType: '',
+            locations: [],
+            path: ['generateRecipe'],
+            message: 'this is just one error',
+          },
+        ],
       };
       generateRecipeMock.mockResolvedValueOnce(generateReturn);
       const { useAIGeneration } = createAIHooks(client);
@@ -202,7 +209,10 @@ describe('createAIHooks', () => {
 
       const [awaitedState] = hookResult.current;
       expect(awaitedState.data).toStrictEqual(expectedResult);
-      expect(awaitedState.graphqlErrors).toHaveLength(1);
+      expect(awaitedState.isLoading).toBeFalsy();
+      expect(awaitedState.hasError).toBeTruthy();
+      expect(awaitedState.messages).toHaveLength(1);
+      expect(awaitedState.messages?.[0].message).toContain('error');
     });
   });
 });
