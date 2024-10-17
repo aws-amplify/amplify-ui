@@ -9,11 +9,15 @@ import {
   UploadHandler,
   CreateFolderHandler,
 } from '../handlers';
-import { TaskHandler, TaskHandlerOutput } from '../types';
+import { TaskHandler } from '../types';
 
-type CapitalizedStringWithoutSpaces = Capitalize<
-  Exclude<string, ` ${string}` | `${string} ` | `${string} ${string}`>
+type StringWithoutSpaces<T extends string> = Exclude<
+  T,
+  ` ${string}` | `${string} ` | `${string} ${string}`
 >;
+
+export type ComponentName = Capitalize<`${string}View`>;
+type ActionName = StringWithoutSpaces<string>;
 
 /**
  * native OS file picker type. to restrict selectable file types, define the picker types
@@ -25,11 +29,12 @@ type CapitalizedStringWithoutSpaces = Capitalize<
  */
 export type SelectionType = LocationItemType | [LocationItemType, ...string[]];
 
-export interface ActionConfigTemplate<T, K> {
+export interface ActionConfigTemplate<T> {
   /**
    * The name of the component associated with the action
    */
-  componentName: K;
+  componentName: ComponentName;
+
   /**
    * action handler
    */
@@ -65,24 +70,12 @@ export interface ActionListItemConfig {
   label: string;
 }
 
-type IsCancelableTaskHandler<T> = T extends TaskHandler<
-  any,
-  TaskHandlerOutput<infer K>
->
-  ? 'CANCELED' extends K
-    ? true
-    : false
-  : never;
-
 /**
  * defines an action to be included in the actions list of the `LocationDetailView` with
  * a dedicated subcomponent of the `LocationActionView`
  */
-export interface TaskActionConfig<
-  T extends TaskHandler,
-  K extends CapitalizedStringWithoutSpaces = CapitalizedStringWithoutSpaces,
-> {
-  componentName: K;
+export interface TaskActionConfig<T extends TaskHandler>
+  extends ActionConfigTemplate<T> {
   /**
    * configure action list item behavior. provide multiple configs
    * to create additional list items for a single action
@@ -90,14 +83,16 @@ export interface TaskActionConfig<
   actionsListItemConfig?: ActionListItemConfig | ActionListItemConfig[];
 
   /**
-   * whether the action allows inflight cancellation
+   * whether the provided `handler` allow inflight cancellation
+   * @default false
    */
-  isCancelable: boolean;
+  isCancelable?: boolean;
 
   /**
-   * action handler
+   * show per task progress in the action task table
+   * @default false
    */
-  handler: T;
+  includeProgress?: boolean;
 
   /**
    * default display name value displayed on action view
@@ -105,56 +100,30 @@ export interface TaskActionConfig<
   displayName: string;
 }
 
-export interface BatchTaskActionConfig<
-  T extends TaskHandler,
-  K extends CapitalizedStringWithoutSpaces = CapitalizedStringWithoutSpaces,
-> extends TaskActionConfig<T, K> {
-  /**
-   * sets action view subcomponent type and action processing behavior
-   */
-  type: 'BATCH_ACTION';
-}
+export interface ListActionConfig<T> extends ActionConfigTemplate<T> {}
 
-export interface SingleTaskActionConfig<
-  T extends TaskHandler,
-  K extends CapitalizedStringWithoutSpaces = CapitalizedStringWithoutSpaces,
-> extends TaskActionConfig<T, K> {
-  /**
-   * sets action view subcomponent type and action processing behavior
-   */
-  type: 'SINGLE_ACTION';
-}
-
-export interface ListActionConfig<
-  T,
-  K extends CapitalizedStringWithoutSpaces = CapitalizedStringWithoutSpaces,
-> extends ActionConfigTemplate<T, K> {}
-
-export interface UploadActionConfig
-  extends TaskActionConfig<UploadHandler, 'UploadView'> {
-  type: 'BATCH_ACTION';
-  isCancelable: IsCancelableTaskHandler<UploadHandler>;
+export interface UploadActionConfig extends TaskActionConfig<UploadHandler> {
+  componentName: 'UploadView';
 }
 
 export interface CreateFolderActionConfig
-  extends TaskActionConfig<CreateFolderHandler, 'CreateFolderView'> {
-  type: 'SINGLE_ACTION';
-  isCancelable: IsCancelableTaskHandler<CreateFolderHandler>;
+  extends TaskActionConfig<CreateFolderHandler> {
+  componentName: 'CreateFolderView';
 }
 
 export interface ListLocationsActionConfig
-  extends ListActionConfig<ListLocationsHandler, 'LocationsView'> {
+  extends ListActionConfig<ListLocationsHandler> {
+  componentName: 'LocationsView';
   displayName: string;
-  type: 'LIST_LOCATIONS';
 }
 
 export interface ListLocationItemsActionConfig
-  extends ListActionConfig<ListLocationItemsHandler, 'LocationDetailView'> {
+  extends ListActionConfig<ListLocationItemsHandler> {
+  componentName: 'LocationDetailView';
   displayName: (
     bucket: string | undefined,
     prefix: string | undefined
   ) => string;
-  type: 'LIST_LOCATION_ITEMS';
 }
 
 export interface DefaultActionConfigs {
@@ -164,18 +133,22 @@ export interface DefaultActionConfigs {
   Upload: UploadActionConfig;
 }
 
-export type DefaultActionKeys = keyof DefaultActionConfigs;
+export type DefaultActionKey = keyof DefaultActionConfigs;
 
-export type ActionConfigs<
-  ActionsKeys extends
-    CapitalizedStringWithoutSpaces = CapitalizedStringWithoutSpaces,
-> = Record<
+export type ActionConfigs<ActionsKeys extends ActionName = ActionName> = Record<
   ActionsKeys,
-  | BatchTaskActionConfig<TaskHandler>
-  | SingleTaskActionConfig<TaskHandler>
   | ListLocationItemsActionConfig
   | ListLocationsActionConfig
+  | CreateFolderActionConfig
+  | UploadActionConfig
+  | TaskActionConfig<TaskHandler>
 >;
+
+export type _ActionConfigs<T extends ActionName = ActionName> = {
+  [K in T]: K extends DefaultActionKey
+    ? DefaultActionConfigs[K]
+    : TaskActionConfig<TaskHandler>;
+};
 
 export type ResolveActionHandler<T> = T extends
   | TaskActionConfig<infer K>

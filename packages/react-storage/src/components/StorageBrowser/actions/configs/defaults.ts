@@ -5,11 +5,11 @@ import {
   uploadHandler,
 } from '../handlers';
 import {
+  DefaultActionConfigs,
   ListLocationItemsActionConfig,
   ListLocationsActionConfig,
   CreateFolderActionConfig,
   UploadActionConfig,
-  ActionConfigs,
 } from './types';
 
 export const createFolderActionConfig: CreateFolderActionConfig = {
@@ -23,7 +23,6 @@ export const createFolderActionConfig: CreateFolderActionConfig = {
   handler: createFolderHandler,
   isCancelable: false,
   displayName: 'Create Folder',
-  type: 'SINGLE_ACTION',
 };
 
 export const listLocationItemsActionConfig: ListLocationItemsActionConfig = {
@@ -38,14 +37,12 @@ export const listLocationItemsActionConfig: ListLocationItemsActionConfig = {
     }
     return !bucket ? '-' : bucket;
   },
-  type: 'LIST_LOCATION_ITEMS',
 };
 
 export const listLocationsActionConfig: ListLocationsActionConfig = {
   componentName: 'LocationsView',
   handler: listLocationsHandler,
   displayName: 'Home',
-  type: 'LIST_LOCATIONS',
 };
 
 export const uploadActionConfig: UploadActionConfig = {
@@ -67,12 +64,12 @@ export const uploadActionConfig: UploadActionConfig = {
     },
   ],
   isCancelable: true,
+  includeProgress: true,
   handler: uploadHandler,
   displayName: 'Upload',
-  type: 'BATCH_ACTION',
 };
 
-export const defaultActionConfigs: ActionConfigs = {
+export const defaultActionConfigs: DefaultActionConfigs = {
   CreateFolder: createFolderActionConfig,
   ListLocationItems: listLocationItemsActionConfig,
   ListLocations: listLocationsActionConfig,
