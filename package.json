@@ -77,7 +77,7 @@
     "**/serve/serve-handler/minimatch": "3.0.5",
     "**/serve/serve-handler/path-to-regexp": "3.3.0",
     "@adobe/css-tools": "^4.3.2",
-    "@aws-amplify/data-schema": "1.10.0",
+    "@aws-amplify/data-schema": "1.7.0",
     "@babel/traverse": "7.23.2",
     "@cypress/request": "^3.0.0",
     "@sideway/formula": "^3.0.1",
