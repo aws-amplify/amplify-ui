@@ -32,7 +32,7 @@ export type LocationsViewActionType =
   // query locations
   | { type: 'SEARCH'; query: string; includeSubfolders?: boolean };
 
-const DEFAULT_PAGE_SIZE = 5;
+const DEFAULT_PAGE_SIZE = 100;
 export const DEFAULT_LIST_OPTIONS = {
   exclude: 'WRITE' as const,
   pageSize: DEFAULT_PAGE_SIZE,
