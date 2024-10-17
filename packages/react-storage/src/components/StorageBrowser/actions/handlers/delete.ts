@@ -1,12 +1,20 @@
 import { remove } from 'aws-amplify/storage';
 
-import { TaskHandler, TaskHandlerInput, TaskHandlerOutput } from '../types';
+import {
+  TaskHandler,
+  TaskHandlerOptions,
+  TaskHandlerInput,
+  TaskHandlerOutput,
+} from '../types';
 
-interface DeleteHandlerOptions {
-  key: string;
-}
+import { constructBucket, resolveHandlerResult } from './utils';
+
+interface DeleteHandlerOptions extends TaskHandlerOptions {}
+
 export interface DeleteHandlerInput
-  extends TaskHandlerInput<DeleteHandlerOptions> {}
+  extends Omit<TaskHandlerInput<never, DeleteHandlerOptions>, 'data'> {
+  data: { key: string };
+}
 export interface DeleteHandlerOutput extends TaskHandlerOutput {}
 
 export interface DeleteHandler
@@ -14,26 +22,20 @@ export interface DeleteHandler
 
 export const deleteHandler: DeleteHandler = ({
   config,
+  data: { key },
   prefix,
-  data,
+  options,
 }): DeleteHandlerOutput => {
-  const { bucket, region, credentials } = config;
-  const { key } = data;
-  const fullPath = `${prefix}${key}`;
-  const output = remove({
-    path: fullPath,
-    options: {
-      bucket: {
-        bucketName: bucket,
-        region: region,
-      },
-      locationCredentialsProvider: credentials,
-    },
+  const { credentials } = config;
+  const bucket = constructBucket(config);
+
+  const result = remove({
+    path: `${prefix}${key}`,
+    options: { bucket, locationCredentialsProvider: credentials },
   });
+
   return {
-    key: fullPath,
-    result: output
-      .then(() => 'COMPLETE' as const)
-      .catch(() => 'FAILED' as const),
+    key,
+    result: resolveHandlerResult({ key, isCancelable: false, options, result }),
   };
 };

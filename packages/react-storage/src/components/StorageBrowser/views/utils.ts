@@ -6,12 +6,14 @@ export const listViewHelpers = ({
   isLoading,
   pageSize,
   resultCount,
+  hasError,
 }: {
   currentPage: number;
   hasNextToken: boolean;
   isLoading: boolean;
   pageSize: number;
   resultCount: number;
+  hasError: boolean;
 }): {
   disableActionsMenu: boolean;
   disableNext: boolean;
@@ -33,12 +35,17 @@ export const listViewHelpers = ({
   return {
     disableActionsMenu: isLoading,
     disableRefresh: isLoading || hasEmptyResults,
-    disableNext: (!hasNextToken && isLastPage) || isLoading || hasEmptyResults,
-    disablePrevious: currentPage <= 1 || isLoading || hasEmptyResults,
+    disableNext:
+      (!hasNextToken && isLastPage) || isLoading || hasEmptyResults || hasError,
+    disablePrevious:
+      currentPage <= 1 || isLoading || hasEmptyResults || hasError,
     range: [start, end],
     renderLoading: isInitialPage && hasEmptyResults && isLoading,
   };
 };
+
+// checks if a dropped item is a file or a folder, as a folder will not have a type
+export const isFile = (file: File): boolean => file.type !== '';
 
 export const getPercentValue = (value: number): number =>
   Math.round(value * 100);

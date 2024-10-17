@@ -105,8 +105,14 @@ describe('LocationsListView', () => {
     useLocationsDataSpy.mockReturnValue([
       {
         data: {
-          result: [],
-          nextToken: undefined,
+          result: [
+            {
+              permission: 'READWRITE',
+              scope: 's3://test-bucket/*',
+              type: 'BUCKET',
+            },
+          ],
+          nextToken: 'some-token',
         },
         hasError: true,
         isLoading: false,
@@ -125,6 +131,16 @@ describe('LocationsListView', () => {
     const messageText = screen.getByText(errorMessage);
     expect(message).toBeInTheDocument();
     expect(messageText).toBeInTheDocument();
+
+    // table doesn't render
+    const table = screen.queryByRole('table');
+    expect(table).not.toBeInTheDocument();
+
+    // pagination disabled
+    const nextPage = screen.getByLabelText('Go to next page');
+    expect(nextPage).toBeDisabled();
+    const prevPage = screen.getByLabelText('Go to previous page');
+    expect(prevPage).toBeDisabled();
   });
 
   it('renders a fallback error message for `LocationsListView`', () => {

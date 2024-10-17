@@ -14,6 +14,8 @@ import { ErrorBoundary } from './ErrorBoundary';
 import { ListLocations } from './storage-internal';
 import { ViewsProvider, Views } from './views';
 
+import { ComposablesProvider } from './composables/context';
+
 export interface Config
   extends Pick<
     LocationConfigProviderProps,
@@ -51,7 +53,9 @@ export default function createProvider({
           <ControlProvider actions={actions}>
             <LocationConfigProvider {...config}>
               <ActionProvider listLocationsAction={listLocationsAction}>
-                <ViewsProvider views={views}>{children}</ViewsProvider>
+                <ViewsProvider views={views}>
+                  <ComposablesProvider>{children}</ComposablesProvider>
+                </ViewsProvider>
               </ActionProvider>
             </LocationConfigProvider>
           </ControlProvider>

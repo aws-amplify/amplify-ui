@@ -15,10 +15,14 @@ interface ActionInput<T = any> {
   options?: T;
 }
 
+export interface TaskHandlerOptions {
+  onError?: (key: string, message: string) => string;
+  onComplete?: (key: string) => string;
+}
+
 export interface TaskHandlerInput<T = never, K = undefined>
   extends ActionInput<K> {
-  data: T;
-  key: string;
+  data: { key: string; payload: T };
 }
 
 export interface TaskHandlerOutput<T = 'COMPLETE' | 'FAILED'> {

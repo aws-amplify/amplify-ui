@@ -171,5 +171,38 @@ describe('createAIHooks', () => {
       const [awaitedState] = hookResult.current;
       expect(awaitedState.data).toStrictEqual(expectedResult);
     });
+
+    it('returns a result with graphqlErrors', async () => {
+      const client = new mockClient();
+      const expectedResult = {
+        recipe: 'This is a recipe for chocolate cake that tastes bad',
+      };
+      const generateReturn = {
+        data: expectedResult,
+        errors: ['this is just one error'],
+      };
+      generateRecipeMock.mockResolvedValueOnce(generateReturn);
+      const { useAIGeneration } = createAIHooks(client);
+
+      const { result: hookResult, waitForNextUpdate } = renderHook(() =>
+        useAIGeneration('generateRecipe')
+      );
+
+      const [_result, generate] = hookResult.current;
+      act(() => {
+        generate({
+          description: 'I want a recipe for a gluten-free chocolate cake.',
+        });
+      });
+
+      const [loadingState] = hookResult.current;
+      expect(loadingState.isLoading).toBeTruthy();
+
+      await waitForNextUpdate();
+
+      const [awaitedState] = hookResult.current;
+      expect(awaitedState.data).toStrictEqual(expectedResult);
+      expect(awaitedState.graphqlErrors).toHaveLength(1);
+    });
   });
 });

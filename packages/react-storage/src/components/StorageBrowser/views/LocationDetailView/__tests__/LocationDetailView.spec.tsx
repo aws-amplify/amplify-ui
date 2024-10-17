@@ -1,5 +1,11 @@
 import React from 'react';
-import { act, render, screen, waitFor } from '@testing-library/react';
+import {
+  act,
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import createProvider from '../../../createProvider';
@@ -137,14 +143,15 @@ describe('LocationDetailView', () => {
     expect(text).toBeInTheDocument();
   });
 
-  it('renders a returned error Message', () => {
+  it('renders correct error state', () => {
     const errorMessage = 'A network error occurred.';
 
     mockListItemsAction({
-      isLoading: true,
+      isLoading: false,
       hasError: true,
       message: errorMessage,
-      result: [],
+      result: [{ key: 'test1', type: 'FOLDER' }],
+      nextToken: 'some-token',
     });
 
     render(
@@ -155,9 +162,18 @@ describe('LocationDetailView', () => {
 
     const message = screen.getByRole('alert');
     const messageText = screen.getByText(errorMessage);
-
     expect(message).toBeInTheDocument();
     expect(messageText).toBeInTheDocument();
+
+    // table doesn't render
+    const table = screen.queryByRole('table');
+    expect(table).not.toBeInTheDocument();
+
+    // pagination disabled
+    const nextPage = screen.getByLabelText('Go to next page');
+    expect(nextPage).toBeDisabled();
+    const prevPage = screen.getByLabelText('Go to previous page');
+    expect(prevPage).toBeDisabled();
   });
 
   it('renders a default error Message', () => {
@@ -210,9 +226,35 @@ describe('LocationDetailView', () => {
       prefix: prefix,
       options: { ...DEFAULT_LIST_OPTIONS, refresh: true },
     });
-
     expect(handleLocationActionsState).toHaveBeenLastCalledWith({
       type: 'CLEAR',
+    });
+  });
+
+  it('sets the location action as UPLOAD_FILES and includes files dragged into drop zone', () => {
+    mockUseControl({ prefix: prefix });
+    const files = [new File(['content'], 'file.txt', { type: 'text/plain' })];
+
+    render(
+      <Provider>
+        <LocationDetailView />
+      </Provider>
+    );
+
+    const dropzone = screen.getByTestId('storage-browser-table');
+
+    jest.spyOn(ControlsModule, 'ControlProvider');
+
+    fireEvent.drop(dropzone, {
+      dataTransfer: {
+        files,
+      },
+    });
+
+    expect(handleLocationActionsState).toHaveBeenCalledWith({
+      actionType: 'UPLOAD_FILES',
+      type: 'SET_ACTION',
+      files: files,
     });
   });
 
@@ -232,7 +274,9 @@ describe('LocationDetailView', () => {
       await user.click(breadCrumbButton);
     });
 
-    expect(handleLocationActionsState).toHaveBeenCalledWith({ type: 'CLEAR' });
+    expect(handleLocationActionsState).toHaveBeenCalledWith({
+      type: 'CLEAR',
+    });
   });
 
   it('can paginate forwards and clear selection state', async () => {
@@ -265,7 +309,9 @@ describe('LocationDetailView', () => {
 
     expect(handlePaginateNext).toHaveBeenCalled();
     expect(handlePaginatePrevious).not.toHaveBeenCalled();
-    expect(handleLocationActionsState).toHaveBeenCalledWith({ type: 'CLEAR' });
+    expect(handleLocationActionsState).toHaveBeenCalledWith({
+      type: 'CLEAR',
+    });
   });
 
   it('can paginate to previous and clear selection state', async () => {
@@ -300,7 +346,9 @@ describe('LocationDetailView', () => {
 
     expect(handlePaginateNext).not.toHaveBeenCalled();
     expect(handlePaginatePrevious).toHaveBeenCalled();
-    expect(handleLocationActionsState).toHaveBeenCalledWith({ type: 'CLEAR' });
+    expect(handleLocationActionsState).toHaveBeenCalledWith({
+      type: 'CLEAR',
+    });
   });
 
   it('does not allow selection on Folder items', () => {

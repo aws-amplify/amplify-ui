@@ -1,18 +1,18 @@
-import {
-  isCancelError,
-  uploadData,
-  UploadDataWithPathInput,
-} from 'aws-amplify/storage';
+import { uploadData, UploadDataWithPathInput } from 'aws-amplify/storage';
 import { isFunction } from '@aws-amplify/ui';
 
 import {
   CancelableTaskHandlerOutput,
   TaskHandler,
   TaskHandlerInput,
+  TaskHandlerOptions,
 } from '../types';
 
-export interface UploadHandlerOptions {
-  onProgress?: (key: string, progress: number) => void;
+import { constructBucket, resolveHandlerResult } from './utils';
+
+export interface UploadHandlerOptions extends TaskHandlerOptions {
+  onCancel?: (key: string) => void;
+  onProgress?: (key: string, progress: number | undefined) => void;
   preventOverwrite?: boolean;
 }
 
@@ -27,52 +27,48 @@ export interface UploadHandler
 // https://github.com/aws-amplify/amplify-js/blob/1a5366d113c9af4ce994168653df3aadb142c581/packages/storage/src/providers/s3/utils/constants.ts#L16
 export const MULTIPART_UPLOAD_THRESHOLD_BYTES = 5 * 1024 * 1024;
 
-const UNDEFINED_CALLBACKS = {
+export const UNDEFINED_CALLBACKS = {
   cancel: undefined,
   pause: undefined,
   resume: undefined,
 };
 
 export const uploadHandler: UploadHandler = ({
-  config,
-  key,
-  data,
-  options,
+  config: _config,
+  data: _data,
+  options: _options,
   prefix,
 }) => {
-  const { bucket: bucketName, credentials, region } = config;
-  const { onProgress } = options ?? {};
+  const { credentials, ...config } = _config;
+  const { key, payload: data } = _data;
+  const { onProgress, preventOverwrite, ...options } = _options ?? {};
 
-  const isMultipart = data.size > MULTIPART_UPLOAD_THRESHOLD_BYTES;
+  const bucket = constructBucket(config);
 
   const input: UploadDataWithPathInput = {
     path: `${prefix}${key}`,
     data,
     options: {
-      ...options,
-      bucket: { bucketName, region },
+      bucket,
       locationCredentialsProvider: credentials,
       onProgress: ({ totalBytes, transferredBytes }) => {
         if (isFunction(onProgress))
-          onProgress(key, totalBytes ? transferredBytes / totalBytes : 0);
+          onProgress(
+            key,
+            totalBytes ? transferredBytes / totalBytes : undefined
+          );
       },
+      preventOverwrite,
     },
   };
 
-  const { cancel, pause, resume, result: _result } = uploadData(input);
+  const { cancel, pause, resume, result } = uploadData(input);
 
-  const result = _result
-    .then(() => 'COMPLETE' as const)
-    .catch((error: Error) => {
-      if (isCancelError(error)) {
-        return 'CANCELED' as const;
-      }
-      return 'FAILED' as const;
-    });
-
-  const callbacks = !isMultipart
-    ? UNDEFINED_CALLBACKS
-    : { cancel, pause, resume };
-
-  return { ...callbacks, key, result };
+  return {
+    ...(data.size > MULTIPART_UPLOAD_THRESHOLD_BYTES
+      ? { cancel, pause, resume }
+      : UNDEFINED_CALLBACKS),
+    key,
+    result: resolveHandlerResult({ result, key, isCancelable: true, options }),
+  };
 };
