@@ -12,6 +12,7 @@ import { LocationConfig } from './types';
 import { parseLocationAccess } from './navigate/utils';
 
 export interface LocationConfigProviderProps {
+  accountId: string;
   children?: React.ReactNode;
   getLocationCredentials: GetLocationCredentials;
   registerAuthListener: RegisterAuthListener;
@@ -25,6 +26,7 @@ const LocationConfigContext = React.createContext<
 >(undefined);
 
 export function LocationConfigProvider({
+  accountId,
   children,
   getLocationCredentials,
   registerAuthListener,
@@ -52,8 +54,8 @@ export function LocationConfigProvider({
     }
 
     const credentialsProvider = getCredentialsProvider({ permission, scope });
-    return { bucket, credentialsProvider, region };
-  }, [bucket, getCredentialsProvider, permission, region, scope]);
+    return { accountId, bucket, credentialsProvider, region };
+  }, [bucket, getCredentialsProvider, permission, region, scope, accountId]);
 
   return (
     <LocationConfigContext.Provider value={value}>

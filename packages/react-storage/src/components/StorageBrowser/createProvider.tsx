@@ -19,7 +19,7 @@ import { ComposablesProvider } from './composables/context';
 export interface Config
   extends Pick<
     LocationConfigProviderProps,
-    'getLocationCredentials' | 'region' | 'registerAuthListener'
+    'accountId' | 'getLocationCredentials' | 'region' | 'registerAuthListener'
   > {
   listLocations: ListLocations;
 }
