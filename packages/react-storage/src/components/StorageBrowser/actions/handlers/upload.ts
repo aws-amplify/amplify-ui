@@ -39,7 +39,7 @@ export const uploadHandler: UploadHandler = ({
   options: _options,
   prefix,
 }) => {
-  const { credentials, ...config } = _config;
+  const { accountId, credentials, ...config } = _config;
   const { key, payload: data } = _data;
   const { onProgress, preventOverwrite, ...options } = _options ?? {};
 
@@ -50,6 +50,7 @@ export const uploadHandler: UploadHandler = ({
     data,
     options: {
       bucket,
+      expectedBucketOwner: accountId,
       locationCredentialsProvider: credentials,
       onProgress: ({ totalBytes, transferredBytes }) => {
         if (isFunction(onProgress))
