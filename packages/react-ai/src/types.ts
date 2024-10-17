@@ -16,7 +16,7 @@ export type TextContent = NonNullable<ConversationMessageContent['text']>;
 export type ImageContent = NonNullable<ConversationMessageContent['image']>;
 
 // Note: the conversation sendMessage function is an overload
-// that accepts a stirng OR an object
+// that accepts a string OR an object
 export type InputContent = Exclude<
   Parameters<Conversation['sendMessage']>[0],
   string
