@@ -20,10 +20,6 @@ const { actionSelectedText, actionDestination } = displayText;
 
 const { Exit, Primary, Table, Cancel } = Controls;
 
-const getFolderFromKey = (key: string): string => {
-  return key.slice(0, key.lastIndexOf('/'));
-};
-
 const useCopyView = ({ prefix }: { prefix: string }) => {
   const [destinationPrefix, setDestinationPrefix] = useState([prefix]);
   return {
