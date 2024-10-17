@@ -1,0 +1,43 @@
+# Description: This workflow runs unit + e2e tests, then publishes UI packages
+#              to a custom dist NPM tag of your choice. This is intended to run
+#              on release branches (e.g. `in-app-messaging/release`).
+#
+# Triggered by: This runs whenever you push a commit to the specified release branch.
+#
+# To use: replace <BRANCH> with your release branch name. Replace <TAG> with
+#         your NPM tag name.
+
+name: Test and Publish / liveness/omega
+
+on:
+  # You may change this to `pull_request` if you want to run this on a PRs.
+  # This can be useful for publishing hotfixes quickly to unblock customers,
+  # but otherwise, we recommend to use a release branch.
+  push:
+    branches: [liveness-omega]
+
+# This permission block is only required if you're running e2e tests.
+permissions:
+  id-token: write # This is required for requesting the JWT
+  contents: read # This is required for actions/checkout
+
+jobs:
+  # You can skip tests based on your use case.
+  setup-cache:
+    uses: ./.github/workflows/reusable-setup-cache.yml
+    with:
+      commit: ${{ github.sha }}
+      repository: ${{ github.repository }}
+    permissions:
+      id-token: write
+      contents: read
+    secrets: 
+      LIVENESS_E2E_CODE_ARTIFACT_ARN: ${{ secrets.LIVENESS_E2E_CODE_ARTIFACT_ARN }}    
+
+  publish:
+    uses: ./.github/workflows/reusable-tagged-publish.yml
+    needs: setup-cache
+    with:
+      dist-tag: liveness-omega
+    secrets:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
