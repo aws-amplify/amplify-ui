@@ -32,9 +32,9 @@ export const SignInSignUpTabs = ({
         <Tabs.Container
           value={route}
           isLazy
-          onValueChange={(prevRoute) => {
-            if (prevRoute !== route) {
-              route === 'signIn' ? toSignUp() : toSignIn();
+          onValueChange={(newRoute) => {
+            if (newRoute !== route) {
+              newRoute === 'signIn' ? toSignIn() : toSignUp();
             }
           }}
         >
