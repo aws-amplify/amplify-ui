@@ -10,7 +10,7 @@ feat(ai): add message renderer
   handleSendMessage={sendMessage}
   isLoading={isLoading}
   messageRenderer={{
-    text: (message) => <ReactMarkdown>{message}</ReactMarkdown>,
+    text: ({text}) => <ReactMarkdown>{text}</ReactMarkdown>,
   }}
 />
 ```

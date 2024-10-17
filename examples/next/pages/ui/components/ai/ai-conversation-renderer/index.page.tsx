@@ -53,8 +53,8 @@ function Chat() {
         isLoading={isLoading}
         allowAttachments
         messageRenderer={{
-          text: (message) => <Text className="testing">{message}</Text>,
-          image: (image) => (
+          text: ({ text }) => <Text className="testing">{text}</Text>,
+          image: ({ image }) => (
             <Image
               className="testing"
               width={200}

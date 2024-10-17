@@ -213,44 +213,6 @@ describe('MessagesControl', () => {
     expect(actionElements).toHaveLength(2);
   });
 
-  it('renders a MessagesControl element with a custom renderMessage function', () => {
-    const customMessage = jest.fn((message: ConversationMessage) => (
-      <div key={message.id} data-testid="custom-message">
-        {message.content.map((content, index) => {
-          if (content.text) {
-            return <p key={index}>{content.text}</p>;
-          } else if (content.image) {
-            return (
-              <img
-                key={index}
-                src={convertBufferToBase64(
-                  content.image?.source.bytes,
-                  content.image?.format
-                )}
-              ></img>
-            );
-          }
-        })}
-      </div>
-    ));
-
-    render(
-      <MessagesProvider
-        messages={[AITextMessage, userTextMessage, AIImageMessage]}
-      >
-        <MessagesControl renderMessage={customMessage} />
-      </MessagesProvider>
-    );
-
-    expect(customMessage).toHaveBeenCalledTimes(3);
-
-    const defaultMessageElements = screen.queryAllByTestId('message');
-    expect(defaultMessageElements).toHaveLength(0);
-
-    const customMessageElements = screen.queryAllByTestId('custom-message');
-    expect(customMessageElements).toHaveLength(3);
-  });
-
   it('renders avatars and actions appropriately if the same user sends multiple messages', () => {
     const { rerender } = render(
       <AvatarsProvider avatars={avatars}>
@@ -392,7 +354,7 @@ describe('MessageControl', () => {
   it('uses text message renderer if passed', () => {
     render(
       <MessageRendererProvider
-        text={(message) => <div data-testid="custom-message">{message}</div>}
+        text={({ text }) => <div data-testid="custom-message">{text}</div>}
       >
         <MessageControl message={AITextMessage} />
       </MessageRendererProvider>
@@ -404,7 +366,12 @@ describe('MessageControl', () => {
   it('uses image message renderer if passed', () => {
     render(
       <MessageRendererProvider
-        image={() => <img data-testid="custom-message" />}
+        image={({ image }) => (
+          <img
+            data-testid="custom-message"
+            src={convertBufferToBase64(image.source.bytes, image.format)}
+          />
+        )}
       >
         <MessageControl message={AIImageMessage} />
       </MessageRendererProvider>

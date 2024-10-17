@@ -70,7 +70,7 @@ export const MessageControl: MessageControl = ({ message }) => {
       {message.content.map((content, index) => {
         if (content.text) {
           return messageRenderer?.text ? (
-            messageRenderer?.text(content.text)
+            messageRenderer.text({ text: content.text })
           ) : (
             <TextContent data-testid={'text-content'} key={index}>
               {content.text}
@@ -78,7 +78,7 @@ export const MessageControl: MessageControl = ({ message }) => {
           );
         } else if (content.image) {
           return messageRenderer?.image ? (
-            messageRenderer?.image(content.image)
+            messageRenderer?.image({ image: content.image })
           ) : (
             <MediaContent
               data-testid={'image-content'}
@@ -170,7 +170,7 @@ const Layout: typeof View = React.forwardRef(function Layout(props, ref) {
   );
 });
 
-export const MessagesControl: MessagesControl = ({ renderMessage }) => {
+export const MessagesControl: MessagesControl = () => {
   const messages = React.useContext(MessagesContext);
   const controls = React.useContext(ControlsContext);
   const { getMessageTimestampText } = useConversationDisplayText();
@@ -232,9 +232,7 @@ export const MessagesControl: MessagesControl = ({ renderMessage }) => {
   return (
     <Layout>
       {messagesWithRenderableContent?.map((message, index) => {
-        return renderMessage ? (
-          renderMessage(message)
-        ) : (
+        return (
           <RoleContext.Provider value={message.role} key={`message-${index}`}>
             <MessageContainer
               data-testid={`message`}
@@ -275,9 +273,7 @@ MessagesControl.Message = MessageControl;
 MessagesControl.Separator = Separator;
 
 export interface MessagesControl {
-  (props: {
-    renderMessage?: (message: ConversationMessage) => React.ReactNode;
-  }): JSX.Element;
+  (): JSX.Element;
   ActionsBar: ActionsBarControl;
   Avatar: AvatarControl;
   Container: AIConversationElements['View'];
