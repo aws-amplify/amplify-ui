@@ -11,7 +11,7 @@ import {
 } from './views';
 import { DisplayTextTemplate } from '@aws-amplify/ui';
 import { AIConversationDisplayText } from './displayText';
-import { ConversationMessage, SendMessage } from '../../types';
+import { ConversationMessage, SendMessage, ImageContent } from '../../types';
 import { ControlsContextProps } from './context/ControlsContext';
 
 export interface Controls {
@@ -32,6 +32,7 @@ export interface AIConversationInput {
   variant?: MessageVariant;
   controls?: ControlsContextProps;
   allowAttachments?: boolean;
+  messageRenderer?: MessageRenderer;
 }
 
 export interface AIConversationProps {
@@ -53,6 +54,11 @@ export interface AIConversation {
 }
 
 export type MessageVariant = 'bubble' | 'default';
+
+export interface MessageRenderer {
+  text?: (message: string) => React.JSX.Element;
+  image?: (image: ImageContent) => React.JSX.Element;
+}
 
 export interface Avatar {
   username?: string;

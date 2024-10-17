@@ -36,36 +36,42 @@ const MessageMeta = ({ message }: { message: ConversationMessage }) => {
   );
 };
 
-const LoadingMessage = () => {
-  const avatars = React.useContext(AvatarsContext);
-  const variant = React.useContext(MessageVariantContext);
-  const avatar = avatars?.ai;
+// const LoadingMessage = () => {
+//   const avatars = React.useContext(AvatarsContext);
+//   const variant = React.useContext(MessageVariantContext);
+//   const avatar = avatars?.ai;
 
-  return (
-    <View
-      className={classNames(
-        ComponentClassName.AIConversationMessage,
-        classNameModifier(ComponentClassName.AIConversationMessage, variant),
-        classNameModifier(ComponentClassName.AIConversationMessage, 'assistant')
-      )}
-    >
-      <View className={ComponentClassName.AIConversationMessageAvatar}>
-        <Avatar isLoading>{avatar?.avatar}</Avatar>
-      </View>
-      <View className={ComponentClassName.AIConversationMessageBody}>
-        <View className={ComponentClassName.AIConversationMessageSender}>
-          <Text
-            className={ComponentClassName.AIConversationMessageSenderUsername}
-          >
-            {avatar?.username}
-          </Text>
-        </View>
-      </View>
-    </View>
-  );
-};
+//   return (
+//     <View
+//       className={classNames(
+//         ComponentClassName.AIConversationMessage,
+//         classNameModifier(ComponentClassName.AIConversationMessage, variant),
+//         classNameModifier(ComponentClassName.AIConversationMessage, 'assistant')
+//       )}
+//     >
+//       <View className={ComponentClassName.AIConversationMessageAvatar}>
+//         <Avatar isLoading>{avatar?.avatar}</Avatar>
+//       </View>
+//       <View className={ComponentClassName.AIConversationMessageBody}>
+//         <View className={ComponentClassName.AIConversationMessageSender}>
+//           <Text
+//             className={ComponentClassName.AIConversationMessageSenderUsername}
+//           >
+//             {avatar?.username}
+//           </Text>
+//         </View>
+//       </View>
+//     </View>
+//   );
+// };
 
-const Message = ({ message }: { message: ConversationMessage }) => {
+const Message = ({
+  message,
+  isLoading,
+}: {
+  message: ConversationMessage;
+  isLoading?: boolean;
+}) => {
   const avatars = React.useContext(AvatarsContext);
   const variant = React.useContext(MessageVariantContext);
 
@@ -83,7 +89,7 @@ const Message = ({ message }: { message: ConversationMessage }) => {
         )}
       >
         <View className={ComponentClassName.AIConversationMessageAvatar}>
-          <Avatar>{avatar?.avatar}</Avatar>
+          <Avatar isLoading={isLoading}>{avatar?.avatar}</Avatar>
         </View>
         <View className={ComponentClassName.AIConversationMessageBody}>
           <MessageMeta message={message} />
@@ -113,9 +119,13 @@ export const MessageList: ControlsContextProps['MessageList'] = ({
   return (
     <View className={ComponentClassName.AIConversationMessageList}>
       {messagesWithRenderableContent.map((message, i) => (
-        <Message key={`message-${i}`} message={message} />
+        <Message
+          key={`message-${i}`}
+          message={message}
+          isLoading={messages.length - 1 === i ? isLoading : undefined}
+        />
       ))}
-      {isLoading ? <LoadingMessage /> : null}
+      {/* {isLoading ? <LoadingMessage /> : null} */}
     </View>
   );
 };
