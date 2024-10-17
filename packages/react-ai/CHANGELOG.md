@@ -1,5 +1,20 @@
 # @aws-amplify/ui-react-ai
 
+## 0.3.2
+
+### Patch Changes
+
+- [#5816](https://github.com/aws-amplify/amplify-ui/pull/5816) [`5af986fff`](https://github.com/aws-amplify/amplify-ui/commit/5af986fff369b76de8cb624393960d0335bfc2fc) Thanks [@thaddmt](https://github.com/thaddmt)! - fix(ai): update useAIGeneration to manage its own date state
+
+- [#5900](https://github.com/aws-amplify/amplify-ui/pull/5900) [`1421ddef4`](https://github.com/aws-amplify/amplify-ui/commit/1421ddef49215f232a580d464d13920b9213b698) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - chore(ai): add graphql errors to useAIGeneration
+
+- [#5883](https://github.com/aws-amplify/amplify-ui/pull/5883) [`77ac8b92c`](https://github.com/aws-amplify/amplify-ui/commit/77ac8b92cb601bfc034173ef39e1e0091b674566) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - fix(ai): no more unnecessary re-renders in AIConversation
+
+- Updated dependencies [[`ac7cb271a`](https://github.com/aws-amplify/amplify-ui/commit/ac7cb271aff895e643fb5dc927030df9245b7c5b)]:
+  - @aws-amplify/ui@6.6.4
+  - @aws-amplify/ui-react@6.5.4
+  - @aws-amplify/ui-react-core@3.0.28
+
 ## 0.3.1
 
 ### Patch Changes
