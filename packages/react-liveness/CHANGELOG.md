@@ -1,5 +1,12 @@
 # @aws-amplify/ui-react-liveness
 
+## 3.1.15
+
+### Patch Changes
+
+- Updated dependencies [[`6fea94b89`](https://github.com/aws-amplify/amplify-ui/commit/6fea94b890d9d497a3f13e189ea0b52e8dcdadb8)]:
+  - @aws-amplify/ui-react@6.5.5
+
 ## 3.1.14
 
 ### Patch Changes

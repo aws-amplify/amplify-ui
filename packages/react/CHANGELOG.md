@@ -1,5 +1,11 @@
 # @aws-amplify/ui-react
 
+## 6.5.5
+
+### Patch Changes
+
+- [#5912](https://github.com/aws-amplify/amplify-ui/pull/5912) [`6fea94b89`](https://github.com/aws-amplify/amplify-ui/commit/6fea94b890d9d497a3f13e189ea0b52e8dcdadb8) Thanks [@hbuchel](https://github.com/hbuchel)! - fix(React/Authenticator): clicking on currently active tab no longer switches to the wrong tab
+
 ## 6.5.4
 
 ### Patch Changes
