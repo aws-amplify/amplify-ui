@@ -5,8 +5,8 @@ import { useControl } from '../../context/control';
 import React from 'react';
 import { usePaginate } from '../hooks/usePaginate';
 
-interface UseLocationsView {
-  // items to display
+interface LocationsViewState {
+  // all locations in memory
   items: LocationAccess[];
 
   // current page
@@ -15,38 +15,31 @@ interface UseLocationsView {
   // more items available to display
   hasMoreData: boolean;
 
-  // escape hatch to access internal hook state
-  getState: () => LocationsViewState;
-}
-
-interface LocationsViewState {
-  // all items in memory
-  allItems: LocationAccess[];
-  // current page size
-  pageSize: number;
+  // windowed subset of locations
+  getProcessedItems: () => LocationAccess[];
 }
 
 export type LocationsViewActionType =
   // refresh data
-  | { type: 'refresh' }
+  | { type: 'REFRESH' }
   // reset view to initial state
-  | { type: 'reset' }
+  | { type: 'RESET' }
   // paginate
-  | { type: 'paginate-next' }
-  | { type: 'paginate-previous' }
+  | { type: 'PAGINATE_NEXT' }
+  | { type: 'PAGINATE_PREVIOUS' }
   // set location to be provided to LocationDetailView
-  | { type: 'select-location'; location: LocationAccess }
+  | { type: 'SELECT_LOCATION'; location: LocationAccess }
   // query locations
-  | { type: 'search'; query: string; includeSubfolders?: boolean };
+  | { type: 'SEARCH'; query: string; includeSubfolders?: boolean };
 
-const DEFAULT_PAGE_SIZE = 100;
+const DEFAULT_PAGE_SIZE = 5;
 export const DEFAULT_LIST_OPTIONS = {
   exclude: 'WRITE' as const,
   pageSize: DEFAULT_PAGE_SIZE,
 };
 
 export function useLocationsView(): ActionState<
-  UseLocationsView,
+  LocationsViewState,
   LocationsViewActionType
 > {
   const [state, handleList] = useLocationsData();
@@ -70,6 +63,7 @@ export function useLocationsView(): ActionState<
     handleList({
       options: { ...DEFAULT_LIST_OPTIONS, nextToken },
     });
+
   const {
     currentPage,
     handlePaginateNext,
@@ -81,22 +75,22 @@ export function useLocationsView(): ActionState<
   const handleAction = (action: LocationsViewActionType) => {
     const { type } = action;
     switch (type) {
-      case 'paginate-next':
+      case 'PAGINATE_NEXT':
         handlePaginateNext({ resultCount, hasNextToken });
         break;
-      case 'paginate-previous':
+      case 'PAGINATE_PREVIOUS':
         handlePaginatePrevious();
         break;
-      case 'refresh':
+      case 'REFRESH':
         handleReset();
         handleList({
           options: { ...DEFAULT_LIST_OPTIONS, refresh: true },
         });
         break;
-      case 'search':
+      case 'SEARCH':
         // TODO
         break;
-      case 'select-location':
+      case 'SELECT_LOCATION':
         handleUpdateState({
           type: 'ACCESS_LOCATION',
           location: action.location,
@@ -117,12 +111,9 @@ export function useLocationsView(): ActionState<
     data: {
       page: currentPage,
       hasMoreData: hasNextToken,
-      items: processedItems,
-      getState() {
-        return {
-          allItems: result,
-          pageSize,
-        };
+      items: result,
+      getProcessedItems() {
+        return processedItems;
       },
     },
   };
