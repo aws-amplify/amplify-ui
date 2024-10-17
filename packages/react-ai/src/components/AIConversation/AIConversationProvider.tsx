@@ -19,7 +19,7 @@ import {
 } from './context';
 import { AttachmentProvider } from './context/AttachmentContext';
 
-interface AIConversationProviderProps
+export interface AIConversationProviderProps
   extends AIConversationInput,
     AIConversationProps {
   children?: React.ReactNode;

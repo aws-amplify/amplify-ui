@@ -7,7 +7,7 @@ import {
 } from '@aws-amplify/ui-react/internal';
 import { AIConversationInput, AIConversationProps, Avatars } from './types';
 import { MessagesControl } from './views/Controls/MessagesControl';
-import { FieldControl } from './views';
+import { FormControl } from './views/Controls/FormControl';
 import { MessageList } from './views/default/MessageList';
 import { Form } from './views/default/Form';
 import { PromptList } from './views/default/PromptList';
@@ -15,11 +15,7 @@ import { AutoHidablePromptControl } from './views/Controls';
 import { ComponentClassName } from '@aws-amplify/ui';
 import { AIConversationProvider } from './AIConversationProvider';
 
-interface AIConversationBaseProps
-  extends AIConversationProps,
-    AIConversationInput {}
-
-function AIConversationBase({
+function Provider({
   actions,
   avatars,
   controls,
@@ -31,7 +27,8 @@ function AIConversationBase({
   isLoading,
   displayText,
   allowAttachments,
-}: AIConversationBaseProps): JSX.Element {
+  children,
+}: React.PropsWithChildren<AIConversationBaseProps>): React.JSX.Element {
   const icons = useIcons('aiConversation');
   const defaultAvatars: Avatars = {
     ai: {
@@ -75,22 +72,38 @@ function AIConversationBase({
 
   return (
     <AIConversationProvider {...providerProps}>
+      {children}
+    </AIConversationProvider>
+  );
+}
+
+interface AIConversationBaseProps
+  extends AIConversationProps,
+    AIConversationInput {}
+
+function AIConversationBase(props: AIConversationBaseProps): JSX.Element {
+  return (
+    <Provider {...props}>
       <Flex className={ComponentClassName.AIConversation}>
+        {/* messages list view */}
         <ScrollView autoScroll="smooth" flex="1">
           <AutoHidablePromptControl />
           <MessagesControl />
         </ScrollView>
-        <FieldControl />
+        {/* form view */}
+        <FormControl />
       </Flex>
-    </AIConversationProvider>
+    </Provider>
   );
 }
+
+//
 
 /**
  * @experimental
  */
 export const AIConversation = Object.assign(AIConversationBase, {
-  MessageList,
-  PromptList,
-  Form,
+  Provider,
+  MessageHistory: MessagesControl,
+  Form: FormControl,
 });

@@ -1,9 +1,7 @@
-import Conversation from './ConversationView';
 import {
   ActionsBarControl,
   AvatarControl,
-  FieldControl,
-  HeaderControl,
+  FormControl,
   MessagesControl,
   PromptControl,
 } from './Controls';
@@ -11,9 +9,7 @@ import {
 export {
   ActionsBarControl,
   AvatarControl,
-  Conversation,
-  FieldControl,
-  HeaderControl,
+  FormControl,
   MessagesControl,
   PromptControl,
 };

@@ -4,8 +4,7 @@ import { AIConversationElements } from './context/elements';
 import {
   ActionsBarControl,
   AvatarControl,
-  FieldControl,
-  HeaderControl,
+  FormControl,
   MessagesControl,
   PromptControl,
 } from './views';
@@ -17,8 +16,7 @@ import { ControlsContextProps } from './context/ControlsContext';
 export interface Controls {
   Avatars: AvatarControl;
   ActionsBar: ActionsBarControl;
-  Field: FieldControl;
-  Header: HeaderControl;
+  Form: FormControl;
   Messages: MessagesControl;
   SuggestedPrompts: PromptControl;
 }
@@ -26,6 +24,7 @@ export interface Controls {
 export interface AIConversationInput {
   elements?: Partial<AIConversationElements>;
   displayText?: DisplayTextTemplate<AIConversationDisplayText>;
+  welcomeMessage?: React.ReactNode;
   suggestedPrompts?: SuggestedPrompt[];
   actions?: CustomAction[];
   responseComponents?: ResponseComponents;
@@ -43,7 +42,7 @@ export interface AIConversationProps {
 
 export interface AIConversation {
   (props: AIConversationProps): JSX.Element;
-  Conversation: () => React.JSX.Element;
+
   Controls: Controls;
   Provider: (
     props: {
@@ -73,6 +72,7 @@ export interface CustomAction {
 export interface SuggestedPrompt {
   icon?: React.ReactNode;
   header: string;
+  component?: React.ReactNode;
   inputText: string;
 }
 

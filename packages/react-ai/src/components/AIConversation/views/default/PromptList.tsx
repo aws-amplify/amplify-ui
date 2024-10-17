@@ -22,7 +22,7 @@ export const PromptList: ControlsContextProps['PromptList'] = ({
               }));
             }}
           >
-            {prompt.header}
+            {prompt.component}
           </Button>
         );
       })}
