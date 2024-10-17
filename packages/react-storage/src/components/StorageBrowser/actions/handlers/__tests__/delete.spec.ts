@@ -1,4 +1,4 @@
-import * as StorageModule from 'aws-amplify/storage';
+import * as StorageModule from '../../../storage-internal';
 
 import { deleteHandler, DeleteHandlerInput } from '../delete';
 
@@ -19,7 +19,7 @@ describe('deleteHandler', () => {
   it('calls `remove` and returns the expected `key`', () => {
     const { key } = deleteHandler(baseInput);
 
-    const expected: StorageModule.RemoveWithPathInput = {
+    const expected: StorageModule.RemoveInput = {
       path: `${baseInput.prefix}${baseInput.data.key}`,
       options: {
         bucket: {

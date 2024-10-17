@@ -1,4 +1,4 @@
-import { getUrl } from 'aws-amplify/storage';
+import { getUrl } from '../../storage-internal';
 
 import { DownloadActionInput, DownloadActionOutput } from '../types';
 

@@ -1,4 +1,4 @@
-import { uploadData } from 'aws-amplify/storage';
+import { uploadData } from '../../storage-internal';
 
 import { TaskAction, TaskActionInput, TaskActionOutput } from '../types';
 

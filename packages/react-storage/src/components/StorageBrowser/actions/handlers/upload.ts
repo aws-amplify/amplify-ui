@@ -1,4 +1,4 @@
-import { uploadData, UploadDataWithPathInput } from 'aws-amplify/storage';
+import { uploadData, UploadDataInput } from '../../storage-internal';
 import { isFunction } from '@aws-amplify/ui';
 
 import {
@@ -45,7 +45,7 @@ export const uploadHandler: UploadHandler = ({
 
   const bucket = constructBucket(config);
 
-  const input: UploadDataWithPathInput = {
+  const input: UploadDataInput = {
     path: `${prefix}${key}`,
     data,
     options: {
