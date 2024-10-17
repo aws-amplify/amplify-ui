@@ -8,7 +8,22 @@ import {
   InAppMessagingAction,
   StorageAction,
   Category,
+  AiAction,
+  AiUserAgentInput,
 } from '@aws-amplify/core/internals/utils';
+
+export const AI_INPUT_BASE: Omit<AiUserAgentInput, 'additionalDetails'> = {
+  category: Category.AI,
+  apis: [
+    AiAction.CreateConversation,
+    AiAction.DeleteConversation,
+    AiAction.ListConversations,
+    AiAction.UpdateConversation,
+    AiAction.OnMessage,
+    AiAction.SendMessage,
+    AiAction.Generation,
+  ],
+};
 
 export const ACCOUNT_SETTINGS_INPUT_BASE: Omit<
   AuthUserAgentInput,
