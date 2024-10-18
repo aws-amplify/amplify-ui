@@ -1,7 +1,6 @@
 import { useMemo, useState } from 'react';
 import { useControl } from '../../context/control';
-import { copyHandler, LocationItem } from '../../actions/handlers';
-import { LocationActionsAction } from '../../context/locationActions/types';
+import { copyHandler } from '../../actions/handlers';
 import { Task, useProcessTasks } from '../../tasks';
 import { useGetLocationConfig } from '../../context/config';
 import { isFunction } from '@aws-amplify/ui';
@@ -23,7 +22,6 @@ interface UseCopyActionView extends UseActionView {
   }>[];
   destinationList: string[];
   onSetDestinationList: (destination: string[]) => void;
-  handleUpdateState: (action: LocationActionsAction<string>) => void;
 }
 
 export const useCopyActionView = (): UseCopyActionView => {
@@ -83,7 +81,6 @@ export const useCopyActionView = (): UseCopyActionView => {
   return {
     path: path ?? '',
     tasks,
-    handleUpdateState,
     isProcessing,
     destinationList,
     onCancel,

@@ -9,43 +9,40 @@ import { displayText } from '../../displayText/en';
 import { CLASS_BASE } from '../constants';
 import { DestinationPicker } from './DestinationPicker';
 
-import { SelectedFilesTableControl } from './SelectedFilesTableControl';
 import { useCopyActionView } from '../hooks/useCopyActionView';
-import { StorageBrowserElements } from '../../context/elements';
+import { HeadingControl } from '../Controls/Heading';
+import { Column, RenderRowItem, TableDataText } from '../Controls/Table';
+import { STATUS_DISPLAY_VALUES } from './constants';
 
 
-export const FIELD_VALIDATION_MESSAGE =
-  'Destination folder name must be at least one character and cannot end with a "/".';
-export const RESULT_COMPLETE_MESSAGE = 'File copied';
-export const RESULT_FAILED_MESSAGE = 'There was an issue copying the files.';
+const RESULT_COMPLETE_MESSAGE = 'File copied';
+const RESULT_FAILED_MESSAGE = 'There was an issue copying the files.';
 
 
-const { Exit, Primary, Table, Cancel } = Controls;
-const { actionSelectedText, actionDestination } = displayText;
+const { Exit, Primary, Table } = Controls;
+const { actionDestination, actionSelectedText } = displayText;
 
-const { actionCurrentFolderSelected } = displayText;
-const { Button } = StorageBrowserElements;
-
-export const DEFAULT_ERROR_MESSAGE = 'There was an error loading items.';
-const DEFAULT_PAGE_SIZE = 10000;
-export const DEFAULT_LIST_OPTIONS = {
-  pageSize: DEFAULT_PAGE_SIZE,
-  delimiter: '/',
-};
-
-const DEFAULT_REFRESH_OPTIONS = { ...DEFAULT_LIST_OPTIONS, refresh: true };
-
-interface DestinationPickerColumns {
-  name: string;
+interface SelectedFilesColumns {
+  key: string;
+  folder: string;
+  type: string;
+  // size: string;
+  // action: string;
+  status: string;
 }
 
-const DESTINATION_PICKER_COLUMNS: Column<DestinationPickerColumns>[] = [
-  { key: 'name', header: 'Folder name' },
+const SELECTED_FILES_COLUMNS: Column<SelectedFilesColumns>[] = [
+  { key: 'key', header: 'Name' },
+  // { key: 'folder', header: 'Folder' },
+  { key: 'type', header: 'Type' },
+  { key: 'status', header: 'Status' },
 ];
 
 
+
+
 export const CopyFilesControls = (): React.JSX.Element => {
-  const { tasks, onClose, onCancel, onStart, destinationList, isProcessing, destination, onSetDestinationList, handleUpdateState } =
+  const { path, tasks, onClose, onCancel, onStart, destinationList, isProcessing, onSetDestinationList } =
     useCopyActionView();
 
   // const key = selected && selected?.items?.[0].key;
@@ -64,6 +61,97 @@ export const CopyFilesControls = (): React.JSX.Element => {
     const newPath = destinationList.slice(0, index + 1);
     onSetDestinationList(newPath);
   };
+
+  const selectedItemsData = tasks.map((item) => {
+    return { ...item, folder: path ?? '', type: item.key.slice(item.key.lastIndexOf('.') + 1) || '-' };
+  });
+
+  const renderHeaderItem = React.useCallback(
+    (column: Column<SelectedFilesColumns>) => {
+      const { header, key } = column;
+      return (
+        <Table.TableHeader
+          key={header}
+          variant={key}
+        >
+          {column.header}
+        </Table.TableHeader>
+      );
+    },
+    []
+  );
+
+  const renderRowItem: RenderRowItem<SelectedFilesColumns> = (row, index) => {
+    const renderTableData = (
+      columnKey: keyof SelectedFilesColumns,
+      row: SelectedFilesColumns
+    ) => {
+      switch (columnKey) {
+        case 'key': {
+          return (
+            <TableDataText>
+              {row.key}
+            </TableDataText>
+          );
+        }
+        case 'folder': {
+          return <TableDataText>{row.folder}</TableDataText>;
+        }
+        case 'type': {
+          const indexOfDot = row.key.lastIndexOf('.');
+
+          return indexOfDot > -1 ? (
+            <TableDataText>{row.key.slice(indexOfDot + 1)}</TableDataText>
+          ) : (
+            '-'
+          );
+        }
+        // case 'size':
+        //   return (
+        //     <TableDataText>
+        //       {humanFileSize(parseInt(row.size), true)}
+        //     </TableDataText>
+        //   );
+        case 'status':
+          return (
+            <TableDataText>{STATUS_DISPLAY_VALUES[row.status as keyof {}]}</TableDataText>
+          );
+          // case 'progress':
+          //   return (
+          //     <TableDataText>{`${getPercentValue(row.progress)}%`}</TableDataText>
+          //   );
+          // case 'action':
+          //   if (row.cancel) {
+          //     return (
+          //       <Cancel
+          //         onClick={row.cancel}
+          //         ariaLabel={`Cancel upload for ${row.key}`}
+          //       />
+          //     );
+          //   }
+
+          return null;
+        default:
+          return null;
+      }
+    };
+
+    return (
+      <Table.TableRow key={index}>
+        {SELECTED_FILES_COLUMNS.map((column) => {
+          return (
+            <Table.TableData
+              key={`${index}-${column.header}`}
+              variant={column.key}
+            >
+              {renderTableData(column.key, row)}
+            </Table.TableData>
+          );
+        })}
+      </Table.TableRow>
+    );
+  };
+
 
   return (
     <>
@@ -104,7 +192,15 @@ export const CopyFilesControls = (): React.JSX.Element => {
         destinationPrefix={destinationList}
         setDestinationPrefix={onSetDestinationList}
       />
-      <SelectedFilesTableControl tasks={tasks} />
+      <div className="storage-browser__table">
+        <HeadingControl>{actionSelectedText}</HeadingControl>
+        <Table
+          data={selectedItemsData}
+          columns={SELECTED_FILES_COLUMNS}
+          renderHeaderItem={renderHeaderItem}
+          renderRowItem={renderRowItem}
+        />
+      </div>
     </>
   );
 };

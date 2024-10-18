@@ -9,5 +9,6 @@ export const displayText = {
   statusDisplayCanceled: 'Canceled',
   statusDisplayQueued: 'Not started',
   statusEmpty: '-',
-  actionCurrentFolderSelected: 'Current folder selected',
+  actionCurrentFolderSelected:
+    'There are no more nested folders, current folder selected.',
 };

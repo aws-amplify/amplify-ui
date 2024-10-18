@@ -14,7 +14,7 @@ const { actionCurrentFolderSelected } = displayText;
 const { Button } = StorageBrowserElements;
 const { Table } = Controls;
 
-export const DEFAULT_ERROR_MESSAGE = 'There was an error loading items.';
+const DEFAULT_ERROR_MESSAGE = 'There was an error loading items.';
 const DEFAULT_PAGE_SIZE = 10000;
 export const DEFAULT_LIST_OPTIONS = {
   pageSize: DEFAULT_PAGE_SIZE,
@@ -31,9 +31,10 @@ const DESTINATION_PICKER_COLUMNS: Column<DestinationPickerColumns>[] = [
   { key: 'name', header: 'Folder name' },
 ];
 
-
-
-export const DestinationPicker = ({ destinationPrefix, setDestinationPrefix }: {
+export const DestinationPicker = ({
+  destinationPrefix,
+  setDestinationPrefix,
+}: {
   destinationPrefix: string[];
   setDestinationPrefix: (destination: string[]) => void;
 }): React.JSX.Element => {
@@ -82,7 +83,6 @@ export const DestinationPicker = ({ destinationPrefix, setDestinationPrefix }: {
     setDestinationPrefix(newPath);
   };
 
-
   const renderHeaderItem = React.useCallback(
     (column: Column<DestinationPickerColumns>) => {
       // Defining this function inside the `UploadControls` to get access
@@ -93,7 +93,7 @@ export const DestinationPicker = ({ destinationPrefix, setDestinationPrefix }: {
         <Table.TableHeader
           key={header}
           variant={key}
-        // aria-sort={selection === key ? direction : 'none'}
+          // aria-sort={selection === key ? direction : 'none'}
         >
           {column.header}
         </Table.TableHeader>
@@ -102,11 +102,15 @@ export const DestinationPicker = ({ destinationPrefix, setDestinationPrefix }: {
     []
   );
 
-  const renderRowItem: RenderRowItem<DestinationPickerColumns> = (row, index) => {
+  const renderRowItem: RenderRowItem<DestinationPickerColumns> = (
+    row,
+    index
+  ) => {
     const renderTableData = (
       columnKey: keyof DestinationPickerColumns,
       row: DestinationPickerColumns
     ) => {
+      console.log('row.name', row.name)
       switch (columnKey) {
         case 'name': {
           return (
@@ -129,16 +133,20 @@ export const DestinationPicker = ({ destinationPrefix, setDestinationPrefix }: {
 
     return (
       <Table.TableRow key={index}>
-        {DESTINATION_PICKER_COLUMNS.map((column) => {
-          return (
-            <Table.TableData
-              key={`${index}-${column.header}`}
-              variant={column.key}
-            >
-              {renderTableData(column.key, row)}
-            </Table.TableData>
-          );
-        })}
+        {row.name ? (
+          DESTINATION_PICKER_COLUMNS.map((column) => {
+            return (
+              <Table.TableData
+                key={`${index}-${column.header}`}
+                variant={column.key}
+              >
+                {renderTableData(column.key, row)}
+              </Table.TableData>
+            );
+          })
+        ) : (
+          <>{actionCurrentFolderSelected}</>
+        )}
       </Table.TableRow>
     );
   };
@@ -147,10 +155,11 @@ export const DestinationPicker = ({ destinationPrefix, setDestinationPrefix }: {
     return { name: item.key, path: destinationPrefix };
   });
 
-
   if (isLoading) {
     return <LoadingControl />;
   }
+
+  // move this back to CopyControl
   return (
     <div className="storage-browser__table">
       <Paginate
@@ -169,18 +178,6 @@ export const DestinationPicker = ({ destinationPrefix, setDestinationPrefix }: {
         renderHeaderItem={renderHeaderItem}
         renderRowItem={renderRowItem}
       />
-      {/* {folderItems.length
-        ? folderItems.map((i) => (
-          <li key={i.key} style={{ display: 'flex' }}>
-            <Button
-              variant="table-data"
-              onClick={() => handleNavigateFolder(i.key)}
-            >
-              {i.key}
-            </Button>
-          </li>
-        ))
-        : actionCurrentFolderSelected} */}
     </div>
   );
 };
