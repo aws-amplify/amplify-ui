@@ -12,7 +12,7 @@ import { LocationConfig } from './types';
 import { parseLocationAccess } from './navigate/utils';
 
 export interface LocationConfigProviderProps {
-  accountId: string;
+  accountId?: string;
   children?: React.ReactNode;
   getLocationCredentials: GetLocationCredentials;
   registerAuthListener: RegisterAuthListener;
