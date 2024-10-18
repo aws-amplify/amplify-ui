@@ -8,8 +8,6 @@ import { LocationAccess } from '../../../../context/types';
 
 import { DataTableControl } from '../DataTable';
 
-const TEST_RANGE: [number, number] = [0, 100];
-
 const useControlModuleSpy = jest.spyOn(UseControlModule, 'useControl');
 const useLocationsDataSpy = jest.spyOn(
   UseLocationsDataModule,
@@ -36,7 +34,9 @@ describe('LocationsViewTableControl', () => {
   });
 
   it('renders the table with data', () => {
-    const { getByText } = render(<DataTableControl range={TEST_RANGE} />);
+    const { getByText } = render(
+      <DataTableControl items={mockData} handleLocationClick={jest.fn()} />
+    );
 
     expect(getByText('Name')).toBeInTheDocument();
     expect(getByText('Type')).toBeInTheDocument();
@@ -46,7 +46,9 @@ describe('LocationsViewTableControl', () => {
   });
 
   it('renders the correct icon based on sort state', () => {
-    const { getByText } = render(<DataTableControl range={TEST_RANGE} />);
+    const { getByText } = render(
+      <DataTableControl items={mockData} handleLocationClick={jest.fn()} />
+    );
 
     const nameTh = screen.getByRole('columnheader', { name: 'Name' });
 
@@ -58,17 +60,17 @@ describe('LocationsViewTableControl', () => {
   });
 
   it('triggers location click handler when a row is clicked', () => {
-    const mockHandleUpdateState = jest.fn();
-    useControlModuleSpy.mockReturnValue([{}, mockHandleUpdateState]);
-
-    render(<DataTableControl range={TEST_RANGE} />);
+    const mockHandleLocationClick = jest.fn();
+    render(
+      <DataTableControl
+        items={mockData}
+        handleLocationClick={mockHandleLocationClick}
+      />
+    );
 
     const firstRowButton = screen.getByRole('button', { name: 'Location A' });
     fireEvent.click(firstRowButton);
 
-    expect(mockHandleUpdateState).toHaveBeenCalledWith({
-      type: 'ACCESS_LOCATION',
-      location: mockData[0],
-    });
+    expect(mockHandleLocationClick).toHaveBeenCalledWith(mockData[0]);
   });
 });
