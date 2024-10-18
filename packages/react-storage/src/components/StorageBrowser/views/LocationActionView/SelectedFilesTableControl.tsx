@@ -6,9 +6,10 @@ import { TableDataText, Column, RenderRowItem } from '../Controls/Table';
 
 import { Controls } from '../Controls';
 import { HeadingControl } from '../Controls/Heading';
-import { LocationItem } from '../../actions';
 import { useControl } from '../../context/control';
 import { displayText } from '../../displayText/en';
+import { Task } from '../../tasks';
+import { STATUS_DISPLAY_VALUES } from './constants';
 
 const { actionSelectedText } = displayText;
 
@@ -16,29 +17,41 @@ const { Table } = Controls;
 
 interface SelectedFilesColumns {
   key: string;
-  folder: string;
+  // folder: string;
   type: string;
-  size: string;
+  // size: string;
+  // action: string;
+  status: string;
 }
+
+// folder: string;
+// cancel: undefined | (() => void);
+// item: {
+//     destinationPrefix: string;
+// };
+// message: string | undefined;
+// remove: () => void;
+// status: TaskStatus;
 
 const SELECTED_FILES_COLUMNS: Column<SelectedFilesColumns>[] = [
   { key: 'key', header: 'Name' },
-  { key: 'folder', header: 'Folder' },
+  // { key: 'folder', header: 'Folder' },
   { key: 'type', header: 'Type' },
-  { key: 'size', header: 'Size' },
+  { key: 'status', header: 'Status' },
 ];
 
 export const SelectedFilesTableControl = ({
-  items,
+  tasks,
 }: {
-  items: LocationItem[];
+    tasks: Task<{
+      destinationPrefix: string;
+    }>[];
 }): React.JSX.Element => {
   const [{ path }] = useControl('NAVIGATE');
 
-  const selectedItemsData = items.map((item) => {
+  const selectedItemsData = tasks.map((item) => {
     return { ...item, folder: path ?? '' };
   });
-
   const renderHeaderItem = React.useCallback(
     (column: Column<SelectedFilesColumns>) => {
       // Defining this function inside the `UploadControls` to get access
@@ -58,10 +71,14 @@ export const SelectedFilesTableControl = ({
     []
   );
 
-  const renderRowItem: RenderRowItem<SelectedFilesColumns> = (row, index) => {
+  const renderRowItem: RenderRowItem<Task<{
+    destinationPrefix: string;
+  }>> = (row, index) => {
     const renderTableData = (
       columnKey: keyof SelectedFilesColumns,
-      row: SelectedFilesColumns
+      row: Task<{
+        destinationPrefix: string;
+      }>
     ) => {
       switch (columnKey) {
         case 'key': {
@@ -71,9 +88,9 @@ export const SelectedFilesTableControl = ({
             </TableDataText>
           );
         }
-        case 'folder': {
-          return <TableDataText>{row.folder}</TableDataText>;
-        }
+        // case 'folder': {
+        //   return <TableDataText>{row.folder}</TableDataText>;
+        // }
         case 'type': {
           const indexOfDot = row.key.lastIndexOf('.');
 
@@ -83,21 +100,21 @@ export const SelectedFilesTableControl = ({
             '-'
           );
         }
-        case 'size':
+        // case 'size':
+        //   return (
+        //     <TableDataText>
+        //       {humanFileSize(parseInt(row.size), true)}
+        //     </TableDataText>
+        //   );
+        case 'status':
           return (
-            <TableDataText>
-              {humanFileSize(parseInt(row.size), true)}
-            </TableDataText>
+            <TableDataText>{STATUS_DISPLAY_VALUES[row.status as keyof {}]}</TableDataText>
           );
-          // case 'status':
-          //   return (
-          //     <TableDataText>{STATUS_DISPLAY_VALUES[row.status]}</TableDataText>
-          //   );
           // case 'progress':
           //   return (
           //     <TableDataText>{`${getPercentValue(row.progress)}%`}</TableDataText>
           //   );
-          // case 'cancel':
+          // case 'action':
           //   if (row.cancel) {
           //     return (
           //       <Cancel
