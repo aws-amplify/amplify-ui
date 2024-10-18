@@ -7,6 +7,10 @@ import {
   UseAIConversationHook,
 } from './useAIConversation';
 import { getSchema } from '../types';
+// import {
+//   createUseAIConversationStreaming,
+//   UseAIConversationStreamingHook,
+// } from './useAIConversationStreaming';
 
 type UseAIHooks<
   Client extends Record<'generations' | 'conversations', Record<string, any>>,
@@ -15,6 +19,9 @@ type UseAIHooks<
   useAIConversation: UseAIConversationHook<
     Extract<keyof Client['conversations'], string>
   >;
+  // useAIConversationStreaming: UseAIConversationStreamingHook<
+  //   Extract<keyof Client['conversations'], string>
+  // >;
 } & UseAIGenerationHookWrapper<keyof Client['generations'], Schema>;
 
 /**
@@ -26,6 +33,7 @@ export function createAIHooks<
 >(_client: Client): UseAIHooks<Client, Schema> {
   const useAIConversation = createUseAIConversation(_client);
   const useAIGeneration = createUseAIGeneration(_client);
+  // const useAIConversationStreaming = createUseAIConversationStreaming(_client);
 
   return { useAIConversation, useAIGeneration };
 }

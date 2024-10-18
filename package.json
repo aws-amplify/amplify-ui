@@ -76,6 +76,7 @@
     "**/@size-limit/webpack/webpack": "^5.76.0",
     "**/serve/serve-handler/minimatch": "3.0.5",
     "**/serve/serve-handler/path-to-regexp": "3.3.0",
+    "@aws-amplify/data-schema": "0.0.0-ai-streaming-20241018163616",
     "@adobe/css-tools": "^4.3.2",
     "@babel/traverse": "7.23.2",
     "@cypress/request": "^3.0.0",

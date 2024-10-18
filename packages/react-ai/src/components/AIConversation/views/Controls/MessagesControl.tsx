@@ -2,6 +2,7 @@ import React from 'react';
 import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
 
 import {
+  MessageRendererContext,
   MessagesContext,
   MessageVariantContext,
   RoleContext,
@@ -63,11 +64,17 @@ const ContentContainer: typeof View = React.forwardRef(
 
 export const MessageControl: MessageControl = ({ message }) => {
   const responseComponents = React.useContext(ResponseComponentsContext);
+  const messageRenderer = React.useContext(MessageRendererContext);
+
   return (
     <ContentContainer>
       {message.content.map((content, index) => {
         if (content.text) {
-          return (
+          return messageRenderer?.text ? (
+            <React.Fragment key={index}>
+              {messageRenderer?.text(content.text)}
+            </React.Fragment>
+          ) : (
             <TextContent data-testid={'text-content'} key={index}>
               {content.text}
             </TextContent>
