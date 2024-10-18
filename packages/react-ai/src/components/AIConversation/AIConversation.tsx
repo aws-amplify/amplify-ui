@@ -14,6 +14,8 @@ import { PromptList } from './views/default/PromptList';
 import { AutoHidablePromptControl } from './views/Controls';
 import { ComponentClassName } from '@aws-amplify/ui';
 import { AIConversationProvider } from './AIConversationProvider';
+import { useSetUserAgent } from '@aws-amplify/ui-react-core';
+import { VERSION } from '../../version';
 
 function Provider({
   actions,
@@ -27,8 +29,15 @@ function Provider({
   isLoading,
   displayText,
   allowAttachments,
+  messageRenderer,
   children,
-}: React.PropsWithChildren<AIConversationBaseProps>): React.JSX.Element {
+}: AIConversationBaseProps): JSX.Element {
+  useSetUserAgent({
+    componentName: 'AIConversation',
+    packageName: 'react-ai',
+    version: VERSION,
+  });
+
   const icons = useIcons('aiConversation');
   const defaultAvatars: Avatars = {
     ai: {
@@ -64,6 +73,7 @@ function Provider({
     },
     displayText,
     allowAttachments,
+    messageRenderer,
   };
 
   return (

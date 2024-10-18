@@ -2,6 +2,7 @@ import React from 'react';
 import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
 
 import {
+  MessageRendererContext,
   MessagesContext,
   MessageVariantContext,
   RoleContext,
@@ -85,17 +86,23 @@ const ToolContent = ({
 };
 
 export const MessageControl: MessageControl = ({ message }) => {
+  const messageRenderer = React.useContext(MessageRendererContext);
+
   return (
     <ContentContainer>
       {message.content.map((content, index) => {
         if (content.text) {
-          return (
+          return messageRenderer?.text ? (
+            messageRenderer.text({ text: content.text })
+          ) : (
             <TextContent data-testid={'text-content'} key={index}>
               {content.text}
             </TextContent>
           );
         } else if (content.image) {
-          return (
+          return messageRenderer?.image ? (
+            messageRenderer?.image({ image: content.image })
+          ) : (
             <MediaContent
               data-testid={'image-content'}
               key={index}
@@ -103,7 +110,7 @@ export const MessageControl: MessageControl = ({ message }) => {
                 content.image?.source.bytes,
                 content.image?.format
               )}
-            ></MediaContent>
+            />
           );
         } else if (content.toolUse) {
           <ToolContent toolUse={content.toolUse} />;

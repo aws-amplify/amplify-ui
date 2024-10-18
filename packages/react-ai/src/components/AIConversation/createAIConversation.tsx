@@ -31,6 +31,7 @@ export function createAIConversation(input: AIConversationInput = {}): {
     controls,
     displayText,
     allowAttachments,
+    messageRenderer,
   } = input;
 
   function AIConversation(props: AIConversationProps): JSX.Element {
@@ -48,6 +49,7 @@ export function createAIConversation(input: AIConversationInput = {}): {
       avatars,
       handleSendMessage,
       isLoading,
+      messageRenderer,
     };
     return (
       <AIConversationProvider {...providerProps}>

@@ -46,7 +46,7 @@
     "tinycolor2": "1.4.2"
   },
   "peerDependencies": {
-    "aws-amplify": "^6.6.0",
+    "aws-amplify": "^6.6.5",
     "react": "^16.14.0 || ^17.0 || ^18.0",
     "react-dom": "^16.14.0 || ^17.0 || ^18.0"
   },
@@ -61,7 +61,7 @@
       "name": "InAppMessaging",
       "path": "dist/esm/index.mjs",
       "import": "{ InAppMessagingProvider, InAppMessageDisplay }",
-      "limit": "22 kB"
+      "limit": "23 kB"
     }
   ]
 }

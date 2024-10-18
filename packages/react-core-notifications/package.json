@@ -39,7 +39,7 @@
     "@aws-amplify/ui-react-core": "3.0.28"
   },
   "peerDependencies": {
-    "aws-amplify": "^6.6.0",
+    "aws-amplify": "^6.6.5",
     "react": "^16.14.0 || ^17.0 || ^18.0"
   },
   "sideEffects": false
