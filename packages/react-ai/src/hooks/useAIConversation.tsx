@@ -1,36 +1,19 @@
 import React from 'react';
-import { DataState } from '@aws-amplify/ui-react-core';
 import {
   Conversation,
   ConversationMessage,
   ConversationRoute,
   ConversationStreamEvent,
-  GraphQLFormattedError,
   SendMesageParameters,
   SendMessage,
 } from '../types';
-import { ERROR_STATE, INITIAL_STATE, LOADING_STATE } from './shared';
+import {
+  ERROR_STATE,
+  INITIAL_STATE,
+  LOADING_STATE,
+  DataClientState,
+} from './shared';
 import { isFunction } from '@aws-amplify/ui';
-
-// function createNewConversationMessageInRoute({
-//   previousValue,
-//   routeName,
-//   conversationId,
-//   messages,
-// }: {
-//   previousValue: RouteToConversations;
-//   routeName: string;
-//   conversationId: string;
-//   messages: ConversationMessage[];
-// }) {
-//   return {
-//     ...previousValue,
-//     [routeName]: {
-//       ...previousValue[routeName],
-//       [conversationId]: messages,
-//     },
-//   };
-// }
 
 interface ExhaustivelyListMessagesParams {
   conversation: Conversation;
@@ -71,14 +54,10 @@ interface AIConversationState {
   conversation?: Conversation;
 }
 
-type ConversationState<T> = Omit<DataState<T>, 'message'> & {
-  messages?: GraphQLFormattedError[];
-};
-
 export type UseAIConversationHook<T extends string> = (
   routeName: T,
   input?: UseAIConversationInput
-) => [ConversationState<AIConversationState>, SendMessage];
+) => [DataClientState<AIConversationState>, SendMessage];
 
 export function createUseAIConversation<
   T extends Record<'conversations', Record<string, ConversationRoute>>,
@@ -112,7 +91,7 @@ export function createUseAIConversation<
     const contentBlocksRef = React.useRef<ConversationStreamEvent[][]>();
 
     const [dataState, setDataState] = React.useState<
-      ConversationState<AIConversationState>
+      DataClientState<AIConversationState>
     >(() => ({
       ...INITIAL_STATE,
       data: { messages: [], conversation: undefined },
@@ -123,8 +102,6 @@ export function createUseAIConversation<
 
     React.useEffect(() => {
       async function initialize() {
-        // console.log('initializing', input.id);
-
         setDataState({
           ...LOADING_STATE,
           data: { messages: [], conversation: undefined },
@@ -171,9 +148,9 @@ export function createUseAIConversation<
               // previous contentBlockDeltaIndex
               contentBlockDoneAtIndex,
               // this is the text of the content block
-              contentBlockText,
+              text,
               // this is a toolUse block, will always come in a single event
-              // contentBlockToolUse,
+              // toolUse,
               // this is the final event of the conversation turn
               stopReason,
               conversationId,
@@ -216,7 +193,7 @@ export function createUseAIConversation<
                   id,
                   conversationId,
                   // TODO: use better logic here
-                  content: [{ text: contentBlockText ?? '' }],
+                  content: [{ text: text ?? '' }],
                   createdAt: new Date().toISOString(),
                   role: 'assistant',
                   isLoading: true,
@@ -248,21 +225,19 @@ export function createUseAIConversation<
             }
 
             const content = contentBlocksRef.current.map((contentBlock) => {
-              const isTextBlock = contentBlock.some(
-                (event) => event.contentBlockText
-              );
+              const isTextBlock = contentBlock.some((event) => event.text);
               if (isTextBlock) {
                 return {
                   text: contentBlock
                     .map((event) => {
-                      return event.contentBlockText;
+                      return event.text;
                     })
                     .join(''),
                 };
               }
               // tool use is never chunked
-              if (contentBlock[0].contentBlockToolUse) {
-                return contentBlock[0].contentBlockToolUse;
+              if (contentBlock[0].toolUse) {
+                return contentBlock[0].toolUse;
               }
             }) as ConversationMessage['content'];
 
@@ -300,13 +275,12 @@ export function createUseAIConversation<
       initialize();
 
       return () => {
-        // console.log('clean up');
         const stableConversation = stableConversationMap[id ?? ''];
+
         if (stableConversation) {
           stableConversation.subscription?.unsubscribe();
-        } else {
-          // console.log('no subscription');
         }
+
         contentBlocksRef.current = undefined;
         setDataState({
           ...INITIAL_STATE,
@@ -345,9 +319,6 @@ export function createUseAIConversation<
             },
           }));
           conversation.sendMessage(input);
-          // handle edge cases
-        } else {
-          // console.error('no conversation');
         }
       },
       [conversation]
