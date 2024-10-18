@@ -72,7 +72,7 @@ describe('uploadHandler', () => {
     const expected: InternalStorageModule.UploadDataInput = {
       data: payload,
       options: {
-        accountId: config.accountId,
+        expectedBucketOwner: config.accountId,
         bucket: {
           bucketName: config.bucket,
           region: config.region,
