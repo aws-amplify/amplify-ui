@@ -33,6 +33,7 @@ function AIConversationBase({
   isLoading,
   displayText,
   allowAttachments,
+  messageRenderer,
 }: AIConversationBaseProps): JSX.Element {
   useSetUserAgent({
     componentName: 'AIConversation',
@@ -78,6 +79,7 @@ function AIConversationBase({
     },
     displayText,
     allowAttachments,
+    messageRenderer,
   };
 
   return (
