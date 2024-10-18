@@ -26,12 +26,12 @@ describe('copyHandler', () => {
 
     const expected: StorageModule.CopyInput = {
       destination: {
-        accountId: baseInput.config.accountId,
+        expectedBucketOwner: baseInput.config.accountId,
         bucket,
         path: 'destination/key',
       },
       source: {
-        accountId: `${baseInput.config.accountId}`,
+        expectedBucketOwner: `${baseInput.config.accountId}`,
         bucket,
         path: `${baseInput.prefix}${baseInput.data.key}`,
       },

@@ -482,10 +482,10 @@
     "@aws-sdk/client-bedrock-runtime" "^3.622.0"
     "@smithy/types" "^3.3.0"
 
-"@aws-amplify/analytics@7.0.53-storage-browser-integrity.9563334.0+9563334":
-  version "7.0.53-storage-browser-integrity.9563334.0"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/analytics/-/analytics-7.0.53-storage-browser-integrity.9563334.0.tgz#251366d2770d7d3f8469d850f49bb25ccd3c239e"
-  integrity sha512-g5hhg1E0SC1V1Gj1GKvAx6miKsneJcaABYCotkbYL+zamwYJ4jYe/2mDmCpIz+GsVOud7Q8EaMj6YK0lL3XygQ==
+"@aws-amplify/analytics@7.0.53-storage-browser-integrity.05ef3d8.0+05ef3d8":
+  version "7.0.53-storage-browser-integrity.05ef3d8.0"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/analytics/-/analytics-7.0.53-storage-browser-integrity.05ef3d8.0.tgz#09622cb2430575a6b714e12ee2a1d4940e07d1aa"
+  integrity sha512-I58/nO8GJdKvO29nEY2EO82/IiWzqJ37m7+xJTrZowHZxjD1Sph362TbWUPNa6cTADJ01om4xhbA9VRYRdeThw==
   dependencies:
     "@aws-sdk/client-firehose" "3.621.0"
     "@aws-sdk/client-kinesis" "3.621.0"
@@ -493,13 +493,13 @@
     "@smithy/util-utf8" "2.0.0"
     tslib "^2.5.0"
 
-"@aws-amplify/api-graphql@4.4.2-storage-browser-integrity.9563334.0+9563334":
-  version "4.4.2-storage-browser-integrity.9563334.0"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/api-graphql/-/api-graphql-4.4.2-storage-browser-integrity.9563334.0.tgz#cf9c9f84188050e82b77774c0da220b74ef0f710"
-  integrity sha512-//e6o9GM6AzhRovhsSZxqy+qU2Y/puMAuiOmdowRDMrWNHBmCjW9BM5Gylph0d5AXoK2AvbxkyAFqtW1gQ+ubA==
+"@aws-amplify/api-graphql@4.4.2-storage-browser-integrity.05ef3d8.0+05ef3d8":
+  version "4.4.2-storage-browser-integrity.05ef3d8.0"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/api-graphql/-/api-graphql-4.4.2-storage-browser-integrity.05ef3d8.0.tgz#8882916c1f6bd3b2424381e02a5520dbc5e23d7d"
+  integrity sha512-tHL2GeOMsVgHuCcq1xIeUY4giOfsU0LDpR+rh1Xu+S/QHXVJIUzQKamx9uVbzCzSWEhkroUERPn15hjuIbEMQA==
   dependencies:
-    "@aws-amplify/api-rest" "4.0.53-storage-browser-integrity.9563334.0+9563334"
-    "@aws-amplify/core" "6.4.6-storage-browser-integrity.9563334.0+9563334"
+    "@aws-amplify/api-rest" "4.0.53-storage-browser-integrity.05ef3d8.0+05ef3d8"
+    "@aws-amplify/core" "6.4.6-storage-browser-integrity.05ef3d8.0+05ef3d8"
     "@aws-amplify/data-schema" "^1.7.0"
     "@aws-sdk/types" "3.387.0"
     graphql "15.8.0"
@@ -507,20 +507,20 @@
     tslib "^2.5.0"
     uuid "^9.0.0"
 
-"@aws-amplify/api-rest@4.0.53-storage-browser-integrity.9563334.0+9563334":
-  version "4.0.53-storage-browser-integrity.9563334.0"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/api-rest/-/api-rest-4.0.53-storage-browser-integrity.9563334.0.tgz#97ce751327bbf0acb015ca502259e110d03c23ed"
-  integrity sha512-i7aJcYC7Lb8qRVe4ItngAbcJZMigObmaU6nTuRHgDpRhOE8FQoNJLHDY3OMX263ZMYBLlVyccGPNEVl3if6eGQ==
+"@aws-amplify/api-rest@4.0.53-storage-browser-integrity.05ef3d8.0+05ef3d8":
+  version "4.0.53-storage-browser-integrity.05ef3d8.0"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/api-rest/-/api-rest-4.0.53-storage-browser-integrity.05ef3d8.0.tgz#f1fad0a8c582076fab61082278b937c72e8acd6a"
+  integrity sha512-zsBesCtA08xARUT5yVOwtShvAZS1qe6T50N5dLfUGtOhXTjf0kb8sqoF//drawFhJiqwUp1fPSM+Sj/S04apsA==
   dependencies:
     tslib "^2.5.0"
 
-"@aws-amplify/api@6.0.55-storage-browser-integrity.9563334.0+9563334":
-  version "6.0.55-storage-browser-integrity.9563334.0"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/api/-/api-6.0.55-storage-browser-integrity.9563334.0.tgz#ba79ccc4b444c6c91bd3481e5a089abee34bd643"
-  integrity sha512-aUCf9KpGgeWyekuTleW+jphBgBX5iHQSJvDuR1T4KZ557gj+Wv48++ujVEyX2V/70hl58fs+9HmP94tRhXja9g==
+"@aws-amplify/api@6.0.55-storage-browser-integrity.05ef3d8.0+05ef3d8":
+  version "6.0.55-storage-browser-integrity.05ef3d8.0"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/api/-/api-6.0.55-storage-browser-integrity.05ef3d8.0.tgz#5c76186b27837abad8186922dad152602e9c78cf"
+  integrity sha512-ZPeBRALOSnpnBztUU2O9zwJ3UFU+jQyOE0ufoWHL38+lF0nXoOnHta0oYzIUdEFRR6zek9zs+AUS1SBbV5YpHg==
   dependencies:
-    "@aws-amplify/api-graphql" "4.4.2-storage-browser-integrity.9563334.0+9563334"
-    "@aws-amplify/api-rest" "4.0.53-storage-browser-integrity.9563334.0+9563334"
+    "@aws-amplify/api-graphql" "4.4.2-storage-browser-integrity.05ef3d8.0+05ef3d8"
+    "@aws-amplify/api-rest" "4.0.53-storage-browser-integrity.05ef3d8.0+05ef3d8"
     tslib "^2.5.0"
 
 "@aws-amplify/appsync-modelgen-plugin@2.13.0":
@@ -549,10 +549,10 @@
     "@aws-amplify/plugin-types" "^1.2.1"
     "@aws-sdk/util-arn-parser" "^3.568.0"
 
-"@aws-amplify/auth@6.5.3-storage-browser-integrity.9563334.0+9563334":
-  version "6.5.3-storage-browser-integrity.9563334.0"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/auth/-/auth-6.5.3-storage-browser-integrity.9563334.0.tgz#cc4e777400f5637d57f0cf37cd0654e615fd5881"
-  integrity sha512-13DowxqGnD2LdlFJifZDO43jAZNel1EZwLoCu6wa6htNRKkeYyQipLPx5ZiwraF0j4Vphm8lmEJSoCrUCPY3eg==
+"@aws-amplify/auth@6.5.3-storage-browser-integrity.05ef3d8.0+05ef3d8":
+  version "6.5.3-storage-browser-integrity.05ef3d8.0"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/auth/-/auth-6.5.3-storage-browser-integrity.05ef3d8.0.tgz#53c345f63afd49a84fe5279d640670b3614362b1"
+  integrity sha512-QUsWKr3I8AwRE7bV9xt6Dq1dW2cGZUGBEml3AbXnzxCAwRVNFBZDphgBrjrIu4zHMMsywu7gNtRQoa3q0sZ7Fw==
   dependencies:
     tslib "^2.5.0"
 
@@ -665,10 +665,10 @@
     "@aws-amplify/platform-core" "^1.0.7"
     zod "^3.22.2"
 
-"@aws-amplify/core@6.4.6-storage-browser-integrity.9563334.0+9563334":
-  version "6.4.6-storage-browser-integrity.9563334.0"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/core/-/core-6.4.6-storage-browser-integrity.9563334.0.tgz#29ede699c77ee9ac38d73dee0f6cfcaed6213a4b"
-  integrity sha512-QmDkIlkUNqvCDuvb/mimBrApPp7omXMQV3LtkZmi9tpX8iz5gx5od357GW+km3rDPdmoxZXjX47DjsK5A2Kwnw==
+"@aws-amplify/core@6.4.6-storage-browser-integrity.05ef3d8.0+05ef3d8":
+  version "6.4.6-storage-browser-integrity.05ef3d8.0"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/core/-/core-6.4.6-storage-browser-integrity.05ef3d8.0.tgz#ce82b55ba329c687ad56a745d7f76accf7c9288b"
+  integrity sha512-koZSpQoX+wlzhxuAa/Mu7IZNIqGE57B0QF6fUyiteQz0xjbknbjzNjIrP0akLliNnmDMlWQ4P/Xg9Th8ULvqvw==
   dependencies:
     "@aws-crypto/sha256-js" "5.2.0"
     "@aws-sdk/types" "3.398.0"
@@ -746,12 +746,12 @@
     "@types/json-schema" "^7.0.15"
     rxjs "^7.8.1"
 
-"@aws-amplify/datastore@5.0.55-storage-browser-integrity.9563334.0+9563334":
-  version "5.0.55-storage-browser-integrity.9563334.0"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/datastore/-/datastore-5.0.55-storage-browser-integrity.9563334.0.tgz#cbf429ae52fc8d657131ed36e2552a8478ca3d46"
-  integrity sha512-ET9Omz4yp+C74kQO+mv62vvfzLnIbu8Fhq56EZg8DlRDGEaKqC0Q+9uAlLPIUHK81bnP6dM5OzOMRRkONFlVNA==
+"@aws-amplify/datastore@5.0.55-storage-browser-integrity.05ef3d8.0+05ef3d8":
+  version "5.0.55-storage-browser-integrity.05ef3d8.0"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/datastore/-/datastore-5.0.55-storage-browser-integrity.05ef3d8.0.tgz#c1a196bd6df811e69f5140491c857103f57dd8fd"
+  integrity sha512-6W1UP1DzXLbS8cjhE+NmU8OedscaTj0pupH74guC3lqu/crmkS4zkxnorYt05OlH+0ug+DsBDAD4UvO10/XMZA==
   dependencies:
-    "@aws-amplify/api" "6.0.55-storage-browser-integrity.9563334.0+9563334"
+    "@aws-amplify/api" "6.0.55-storage-browser-integrity.05ef3d8.0+05ef3d8"
     buffer "4.9.2"
     idb "5.0.6"
     immer "9.0.6"
@@ -1111,10 +1111,10 @@
     "@aws-sdk/types" "^3.609.0"
     graphql "^15.8.0"
 
-"@aws-amplify/notifications@2.0.53-storage-browser-integrity.9563334.0+9563334":
-  version "2.0.53-storage-browser-integrity.9563334.0"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/notifications/-/notifications-2.0.53-storage-browser-integrity.9563334.0.tgz#cc90e40fa69d2c00533b186849631dccb8ff2ce1"
-  integrity sha512-BeoKb9AGqbdPCVX4xn5HXyloj9sBEBrR4GEqfKZg8ONtFtye5FoI61FZXSd4zrnqPDlt9YuJXy+rAm6mtZ2/cw==
+"@aws-amplify/notifications@2.0.53-storage-browser-integrity.05ef3d8.0+05ef3d8":
+  version "2.0.53-storage-browser-integrity.05ef3d8.0"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/notifications/-/notifications-2.0.53-storage-browser-integrity.05ef3d8.0.tgz#bdfc5f74b58914bed87bd3568da019737c8b8520"
+  integrity sha512-GteoLjAvVlBua1Xa5W//QTODAtEfUjtk/Ro8IV+b7nySMbZ7jpFAmwoVpTOHjMOwwgxT7lZznRPCo4WvyMlDMQ==
   dependencies:
     lodash "^4.17.21"
     tslib "^2.5.0"
@@ -1193,10 +1193,10 @@
   resolved "https://registry.npmjs.org/@aws-amplify/rtn-web-browser/-/rtn-web-browser-1.0.30.tgz#664053391226c956dce25402b77263059b914e1c"
   integrity sha512-1n3za9kmCOMjOXh3qMGZboQm6PlefiDZED1b78cOpeyha7AzynOfJm8y8jGd71gZPODSP94FD+6aa7VNq/S/4w==
 
-"@aws-amplify/storage@6.6.11-storage-browser-integrity.9563334.0+9563334":
-  version "6.6.11-storage-browser-integrity.9563334.0"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/storage/-/storage-6.6.11-storage-browser-integrity.9563334.0.tgz#c3f245e190e3b01961305768d75fb0c678007d4d"
-  integrity sha512-3Y0bUmPdSY8+E+g0jUTiiCRIoNd4N42J52ch445pNdudbReqb8sQr++ACcyMHM9v6EVZkJo4Ussh8aWyxB1qhw==
+"@aws-amplify/storage@6.6.11-storage-browser-integrity.05ef3d8.0+05ef3d8":
+  version "6.6.11-storage-browser-integrity.05ef3d8.0"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/storage/-/storage-6.6.11-storage-browser-integrity.05ef3d8.0.tgz#1015a29b9734004ac2f87c069a385f94a8aaba96"
+  integrity sha512-vlXXLxM+OA7dWlEnXS8p679QdKrvuuvLrR8NHa2oXrI2j5bofMXC1NuP11pTI2Tzww9m1k0IErcnvKSJOPUCFA==
   dependencies:
     "@aws-sdk/types" "3.398.0"
     "@smithy/md5-js" "2.0.7"
@@ -12340,17 +12340,17 @@ available-typed-arrays@^1.0.5:
   integrity sha512-DMD0KiN46eipeziST1LPP/STfDU0sufISXmjSgvVsoU2tqxctQeASejWcfNtxYKqETM1UxQ8sp2OrSBWpHY6sw==
 
 aws-amplify@storage-browser-integrity:
-  version "6.6.6-storage-browser-integrity.9563334.0"
-  resolved "https://registry.yarnpkg.com/aws-amplify/-/aws-amplify-6.6.6-storage-browser-integrity.9563334.0.tgz#8e36ef3e767a5571932b939f23b4e3f9073fd65b"
-  integrity sha512-mzk/zTIt3OPvyso/GciquO6FbI8PYZ7BRqojz665Y+Kozhio21dPYj6OAa1GejRkY6lE8Y13yx2U5JAToNKQ3A==
+  version "6.6.6-storage-browser-integrity.05ef3d8.0"
+  resolved "https://registry.yarnpkg.com/aws-amplify/-/aws-amplify-6.6.6-storage-browser-integrity.05ef3d8.0.tgz#035ed0e4d938acab2a2ac4e2cabaa2e7d4d93387"
+  integrity sha512-8pP7Dr66fdu+9bXbGRG5Y0hYef7Gz0mlaWkSgVtBCDHvEQMiotj5JGi7yyt0Fc52MGv93OSJ3SlcJlsv+dAbUw==
   dependencies:
-    "@aws-amplify/analytics" "7.0.53-storage-browser-integrity.9563334.0+9563334"
-    "@aws-amplify/api" "6.0.55-storage-browser-integrity.9563334.0+9563334"
-    "@aws-amplify/auth" "6.5.3-storage-browser-integrity.9563334.0+9563334"
-    "@aws-amplify/core" "6.4.6-storage-browser-integrity.9563334.0+9563334"
-    "@aws-amplify/datastore" "5.0.55-storage-browser-integrity.9563334.0+9563334"
-    "@aws-amplify/notifications" "2.0.53-storage-browser-integrity.9563334.0+9563334"
-    "@aws-amplify/storage" "6.6.11-storage-browser-integrity.9563334.0+9563334"
+    "@aws-amplify/analytics" "7.0.53-storage-browser-integrity.05ef3d8.0+05ef3d8"
+    "@aws-amplify/api" "6.0.55-storage-browser-integrity.05ef3d8.0+05ef3d8"
+    "@aws-amplify/auth" "6.5.3-storage-browser-integrity.05ef3d8.0+05ef3d8"
+    "@aws-amplify/core" "6.4.6-storage-browser-integrity.05ef3d8.0+05ef3d8"
+    "@aws-amplify/datastore" "5.0.55-storage-browser-integrity.05ef3d8.0+05ef3d8"
+    "@aws-amplify/notifications" "2.0.53-storage-browser-integrity.05ef3d8.0+05ef3d8"
+    "@aws-amplify/storage" "6.6.11-storage-browser-integrity.05ef3d8.0+05ef3d8"
     tslib "^2.5.0"
 
 aws-sign2@~0.7.0:
