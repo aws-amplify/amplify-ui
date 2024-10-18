@@ -607,7 +607,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           return { ...context.videoAssociatedParams };
         },
       }),
-      stopRecording: () => {},
+      stopRecording: () => { },
       updateFaceMatchBeforeStartDetails: assign({
         faceMatchStateBeforeStart: (_, event) =>
           event.data!.faceMatchState as FaceMatchState,
@@ -932,22 +932,23 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
     services: {
       async checkVirtualCameraAndGetStream(context) {
         const { videoConstraints, isMobile } = context.videoAssociatedParams!;
-        const { Name: challengeName } =
-          context.parsedSessionInformation!.Challenge!;
+        console.log("isMobile", isMobile)
         // Get initial stream to enumerate devices with non-empty labels
         const existingDeviceId = getLastSelectedCameraId();
-        const initialStream = await navigator.mediaDevices.getUserMedia({
+        const constraints = {
           video: {
             ...videoConstraints,
-            ...(challengeName === FACE_MOVEMENT_AND_LIGHT_CHALLENGE.type &&
-            isMobile
-              ? { facingMode: 'user' }
-              : {}),
+            ...(
+              isMobile
+                ? { facingMode: 'user' }
+                : {}),
             ...(existingDeviceId ? { deviceId: existingDeviceId } : {}),
           },
           audio: false,
-        });
-
+        };
+        console.log("constraints: ", constraints);
+        const initialStream = await navigator.mediaDevices.getUserMedia(constraints);
+        console.log("initialStream :", initialStream)
         const devices = await navigator.mediaDevices.enumerateDevices();
         const realVideoDevices = devices
           .filter((device) => device.kind === 'videoinput')
@@ -985,10 +986,10 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           realVideoDeviceStream = await navigator.mediaDevices.getUserMedia({
             video: {
               ...videoConstraints,
-              ...(challengeName === FACE_MOVEMENT_AND_LIGHT_CHALLENGE.type &&
-              isMobile
-                ? { facingMode: 'user' }
-                : {}),
+              ...(
+                isMobile
+                  ? { facingMode: 'user' }
+                  : {}),
               deviceId: { exact: deviceId },
             },
             audio: false,
