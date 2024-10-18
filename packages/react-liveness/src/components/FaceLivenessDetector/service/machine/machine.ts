@@ -931,17 +931,23 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
     },
     services: {
       async checkVirtualCameraAndGetStream(context) {
-        const { videoConstraints } = context.videoAssociatedParams!;
-
+        const { videoConstraints, isMobile } = context.videoAssociatedParams!;
+        const { Name: challengeName } =
+          context.parsedSessionInformation!.Challenge!;
         // Get initial stream to enumerate devices with non-empty labels
         const existingDeviceId = getLastSelectedCameraId();
         const initialStream = await navigator.mediaDevices.getUserMedia({
           video: {
             ...videoConstraints,
+            ...(challengeName === FACE_MOVEMENT_AND_LIGHT_CHALLENGE.type &&
+            isMobile
+              ? { facingMode: 'user' }
+              : {}),
             ...(existingDeviceId ? { deviceId: existingDeviceId } : {}),
           },
           audio: false,
         });
+
         const devices = await navigator.mediaDevices.enumerateDevices();
         const realVideoDevices = devices
           .filter((device) => device.kind === 'videoinput')
@@ -979,6 +985,10 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           realVideoDeviceStream = await navigator.mediaDevices.getUserMedia({
             video: {
               ...videoConstraints,
+              ...(challengeName === FACE_MOVEMENT_AND_LIGHT_CHALLENGE.type &&
+              isMobile
+                ? { facingMode: 'user' }
+                : {}),
               deviceId: { exact: deviceId },
             },
             audio: false,
