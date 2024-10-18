@@ -26,12 +26,16 @@ export const deleteHandler: DeleteHandler = ({
   prefix,
   options,
 }): DeleteHandlerOutput => {
-  const { credentials } = config;
+  const { accountId, credentials } = config;
   const bucket = constructBucket(config);
 
   const result = remove({
     path: `${prefix}${key}`,
-    options: { bucket, locationCredentialsProvider: credentials },
+    options: {
+      bucket,
+      locationCredentialsProvider: credentials,
+      expectedBucketOwner: accountId,
+    },
   });
 
   return {

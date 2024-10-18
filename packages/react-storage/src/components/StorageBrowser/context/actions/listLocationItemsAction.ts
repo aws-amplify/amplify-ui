@@ -72,6 +72,7 @@ export async function listLocationItemsAction(
   }
 
   const {
+    accountId,
     bucket: bucketName,
     credentialsProvider,
     region,
@@ -96,6 +97,7 @@ export async function listLocationItemsAction(
     path,
     options: {
       bucket,
+      expectedBucketOwner: accountId,
       locationCredentialsProvider: credentialsProvider,
       // ignore provided `nextToken` on `refresh`
       nextToken: refresh ? undefined : nextToken,

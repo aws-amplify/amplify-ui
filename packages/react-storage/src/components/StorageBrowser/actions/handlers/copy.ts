@@ -20,7 +20,7 @@ export interface CopyHandler
   extends TaskHandler<CopyHandlerInput, CopyHandlerOutput> {}
 
 export const copyHandler: CopyHandler = ({ config, options, prefix, data }) => {
-  const { credentials } = config;
+  const { accountId, credentials } = config;
   const { payload, key } = data;
   const { destinationPrefix } = payload;
 
@@ -29,8 +29,12 @@ export const copyHandler: CopyHandler = ({ config, options, prefix, data }) => {
   const bucket = constructBucket(config);
 
   const result = copy({
-    source: { path: sourceKey, bucket },
-    destination: { path: destinationPath, bucket },
+    source: { path: sourceKey, bucket, expectedBucketOwner: accountId },
+    destination: {
+      path: destinationPath,
+      bucket,
+      expectedBucketOwner: accountId,
+    },
     options: { locationCredentialsProvider: credentials },
   });
 

@@ -14,7 +14,7 @@ const uploadDataSpy = jest.spyOn(InternalStorageModule, 'uploadData');
 const credentials = jest.fn();
 
 const config: UploadHandlerInput['config'] = {
-  accountId: 'accountId',
+  accountId: '012345678901',
   bucket: 'bucket',
   credentials,
   region: 'region',
@@ -72,6 +72,7 @@ describe('uploadHandler', () => {
     const expected: InternalStorageModule.UploadDataInput = {
       data: payload,
       options: {
+        expectedBucketOwner: config.accountId,
         bucket: {
           bucketName: config.bucket,
           region: config.region,

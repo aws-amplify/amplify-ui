@@ -7,7 +7,7 @@ const copySpy = jest.spyOn(StorageModule, 'copy');
 const baseInput: CopyHandlerInput = {
   prefix: 'prefix/',
   config: {
-    accountId: 'accountId',
+    accountId: '012345678901',
     bucket: 'bucket',
     credentials: jest.fn(),
     region: 'region',
@@ -26,10 +26,12 @@ describe('copyHandler', () => {
 
     const expected: StorageModule.CopyInput = {
       destination: {
+        expectedBucketOwner: baseInput.config.accountId,
         bucket,
         path: 'destination/key',
       },
       source: {
+        expectedBucketOwner: `${baseInput.config.accountId}`,
         bucket,
         path: `${baseInput.prefix}${baseInput.data.key}`,
       },
