@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, act } from '@testing-library/react';
 import { MessagesProvider } from '../../../context/MessagesContext';
-import { FieldControl } from '../FieldControl';
+import { FormControl } from '../FormControl';
 import { ConversationInputContextProvider } from '../../../context/ConversationInputContext';
 import userEvent from '@testing-library/user-event';
 import { SendMessageContextProvider } from '../../../context/SendMessageContext';
@@ -11,7 +11,7 @@ describe('FieldControl', () => {
   it('renders a FieldControl component with the correct elements', () => {
     const result = render(
       <AttachmentProvider allowAttachments>
-        <FieldControl />
+        <FormControl />
       </AttachmentProvider>
     );
     expect(result.container).toBeDefined();
@@ -30,7 +30,7 @@ describe('FieldControl', () => {
   it('renders FieldControl with the correct accessibility roles', () => {
     render(
       <AttachmentProvider allowAttachments>
-        <FieldControl />
+        <FormControl />
       </AttachmentProvider>
     );
 
@@ -52,7 +52,7 @@ describe('FieldControl', () => {
   it('renders correct placeholder text in the input field', () => {
     const { rerender } = render(
       <MessagesProvider messages={[]}>
-        <FieldControl />
+        <FormControl />
       </MessagesProvider>
     );
     const textInput = screen.getByTestId('text-input');
@@ -70,7 +70,7 @@ describe('FieldControl', () => {
           },
         ]}
       >
-        <FieldControl />
+        <FormControl />
       </MessagesProvider>
     );
 
@@ -80,7 +80,7 @@ describe('FieldControl', () => {
   it('disables the send button when the input field is empty', async () => {
     render(
       <ConversationInputContextProvider>
-        <FieldControl />
+        <FormControl />
       </ConversationInputContextProvider>
     );
     expect(screen.getByTestId('send-button')).toBeDisabled();
@@ -97,7 +97,7 @@ describe('FieldControl', () => {
     render(
       <SendMessageContextProvider handleSendMessage={sendMessage}>
         <ConversationInputContextProvider>
-          <FieldControl />
+          <FormControl />
         </ConversationInputContextProvider>
       </SendMessageContextProvider>
     );

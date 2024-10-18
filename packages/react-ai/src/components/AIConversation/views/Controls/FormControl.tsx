@@ -146,7 +146,7 @@ const InputContainer = withBaseElementProps(View, {
   className: `${FIELD_BLOCK}__input-container`,
 });
 
-export const FieldControl: FieldControl = () => {
+export const FormControl: FormControl = () => {
   const { input, setInput } = React.useContext(ConversationInputContext);
   const handleSendMessage = React.useContext(SendMessageContext);
   const allowAttachments = React.useContext(AttachmentContext);
@@ -241,14 +241,14 @@ export const FieldControl: FieldControl = () => {
   );
 };
 
-FieldControl.AttachFile = AttachFileControl;
-FieldControl.InputContainer = InputContainer;
-FieldControl.Label = Label;
-FieldControl.TextInput = TextInput;
-FieldControl.SendButton = SendButton;
-FieldControl.SendIcon = SendIcon;
+FormControl.AttachFile = AttachFileControl;
+FormControl.InputContainer = InputContainer;
+FormControl.Label = Label;
+FormControl.TextInput = TextInput;
+FormControl.SendButton = SendButton;
+FormControl.SendIcon = SendIcon;
 
-export interface FieldControl {
+export interface FormControl {
   (): React.JSX.Element;
   AttachFile: AttachFileControl;
   InputContainer: AIConversationElements['View'];

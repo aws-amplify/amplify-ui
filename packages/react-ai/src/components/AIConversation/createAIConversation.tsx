@@ -8,13 +8,13 @@ import {
 import {
   ActionsBarControl,
   AvatarControl,
-  Conversation,
-  FieldControl,
-  HeaderControl,
+  FormControl,
   MessagesControl,
   PromptControl,
 } from './views';
+import { ViewElement as View } from './context/elements/definitions';
 import { AIConversationProvider } from './AIConversationProvider';
+import { AutoHidablePromptControl } from './views/Controls/PromptControl';
 
 /**
  * @experimental
@@ -53,7 +53,15 @@ export function createAIConversation(input: AIConversationInput = {}): {
     };
     return (
       <AIConversationProvider {...providerProps}>
-        <Conversation />
+        <View>
+          <View>
+            <AutoHidablePromptControl />
+            <MessagesControl />
+          </View>
+          <View>
+            <FormControl />
+          </View>
+        </View>
       </AIConversationProvider>
     );
   }
@@ -61,15 +69,15 @@ export function createAIConversation(input: AIConversationInput = {}): {
   const Controls: Controls = {
     ActionsBar: ActionsBarControl,
     Avatars: AvatarControl,
-    Field: FieldControl,
-    Header: HeaderControl,
+    Form: FormControl,
     Messages: MessagesControl,
     SuggestedPrompts: PromptControl,
   };
 
   AIConversation.Provider = AIConversationProvider;
-  AIConversation.Conversation = Conversation;
   AIConversation.Controls = Controls;
+  AIConversation.Form = FormControl;
+  AIConversation.MessageList = MessagesControl;
 
   return { AIConversation };
 }

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Flex, ScrollView, Text, TextProps } from '@aws-amplify/ui-react';
+import { Flex, ScrollView, Text } from '@aws-amplify/ui-react';
 import {
   IconAssistant,
   IconUser,
@@ -7,7 +7,7 @@ import {
 } from '@aws-amplify/ui-react/internal';
 import { AIConversationInput, AIConversationProps, Avatars } from './types';
 import { MessagesControl } from './views/Controls/MessagesControl';
-import { FieldControl } from './views';
+import { FormControl } from './views/Controls/FormControl';
 import { MessageList } from './views/default/MessageList';
 import { Form } from './views/default/Form';
 import { PromptList } from './views/default/PromptList';
@@ -17,11 +17,7 @@ import { AIConversationProvider } from './AIConversationProvider';
 import { useSetUserAgent } from '@aws-amplify/ui-react-core';
 import { VERSION } from '../../version';
 
-interface AIConversationBaseProps
-  extends AIConversationProps,
-    AIConversationInput {}
-
-function AIConversationBase({
+function Provider({
   actions,
   avatars,
   controls,
@@ -34,12 +30,14 @@ function AIConversationBase({
   displayText,
   allowAttachments,
   messageRenderer,
+  children,
 }: AIConversationBaseProps): JSX.Element {
   useSetUserAgent({
     componentName: 'AIConversation',
     packageName: 'react-ai',
     version: VERSION,
   });
+
   const icons = useIcons('aiConversation');
   const defaultAvatars: Avatars = {
     ai: {
@@ -61,11 +59,7 @@ function AIConversationBase({
     },
     isLoading,
     elements: {
-      Text: React.forwardRef<HTMLParagraphElement, TextProps>(
-        function _Text(props, ref) {
-          return <Text {...props} ref={ref} />;
-        }
-      ),
+      Text,
     },
     actions,
     suggestedPrompts,
@@ -84,22 +78,38 @@ function AIConversationBase({
 
   return (
     <AIConversationProvider {...providerProps}>
+      {children}
+    </AIConversationProvider>
+  );
+}
+
+interface AIConversationBaseProps
+  extends AIConversationProps,
+    AIConversationInput {}
+
+function AIConversationBase(props: AIConversationBaseProps): JSX.Element {
+  return (
+    <Provider {...props}>
       <Flex className={ComponentClassName.AIConversation}>
+        {/* messages list view */}
         <ScrollView autoScroll="smooth" flex="1">
           <AutoHidablePromptControl />
           <MessagesControl />
         </ScrollView>
-        <FieldControl />
+        {/* form view */}
+        <FormControl />
       </Flex>
-    </AIConversationProvider>
+    </Provider>
   );
 }
+
+//
 
 /**
  * @experimental
  */
 export const AIConversation = Object.assign(AIConversationBase, {
-  MessageList,
-  PromptList,
-  Form,
+  Provider,
+  MessageHistory: MessagesControl,
+  Form: FormControl,
 });

@@ -62,9 +62,32 @@ const ContentContainer: typeof View = React.forwardRef(
   }
 );
 
-export const MessageControl: MessageControl = ({ message }) => {
+const ToolContent = ({
+  toolUse,
+}: {
+  toolUse: NonNullable<ConversationMessage['content'][number]['toolUse']>;
+}) => {
   const responseComponents = React.useContext(ResponseComponentsContext);
+
+  // For now tool use is limited to custom response components
+  const { name, input } = toolUse;
+
+  if (
+    !responseComponents ||
+    !name ||
+    !name.startsWith(RESPONSE_COMPONENT_PREFIX)
+  ) {
+    return;
+  } else {
+    const response = responseComponents[name];
+    const CustomComponent = response.component;
+    return <CustomComponent {...(input as object)} />;
+  }
+};
+
+export const MessageControl: MessageControl = ({ message }) => {
   const messageRenderer = React.useContext(MessageRendererContext);
+
   return (
     <ContentContainer>
       {message.content.map((content, index) => {
@@ -90,19 +113,7 @@ export const MessageControl: MessageControl = ({ message }) => {
             />
           );
         } else if (content.toolUse) {
-          // For now tool use is limited to custom response components
-          const { name, input } = content.toolUse;
-          if (
-            !responseComponents ||
-            !name ||
-            !name.startsWith(RESPONSE_COMPONENT_PREFIX)
-          ) {
-            return;
-          } else {
-            const response = responseComponents[name];
-            const CustomComponent = response.component;
-            return <CustomComponent {...(input as object)} key={index} />;
-          }
+          <ToolContent toolUse={content.toolUse} />;
         }
       })}
     </ContentContainer>
