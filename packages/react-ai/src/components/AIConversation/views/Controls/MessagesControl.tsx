@@ -71,7 +71,9 @@ export const MessageControl: MessageControl = ({ message }) => {
       {message.content.map((content, index) => {
         if (content.text) {
           return messageRenderer?.text ? (
-            messageRenderer?.text(content.text)
+            <React.Fragment key={index}>
+              {messageRenderer?.text(content.text)}
+            </React.Fragment>
           ) : (
             <TextContent data-testid={'text-content'} key={index}>
               {content.text}

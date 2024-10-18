@@ -63,23 +63,38 @@ function Chat() {
 
 export default function Example() {
   const router = useRouter();
-  const handleCreateChat = async () => {
-    const { data } = await client.conversations.chat.create();
-    if (data.id) {
-      router.push(`/ui/components/ai/ai-conversation-streaming/${data.id}`);
-    }
-  };
+
+  const [
+    {
+      data: { messages },
+      isLoading,
+    },
+    sendMessage,
+  ] = useAIConversation('chat', {
+    onInitialize(conversation) {
+      console.log('onInitialize', conversation);
+      router.replace(
+        `/ui/components/ai/ai-conversation-streaming/${conversation.id}`
+      );
+    },
+  });
+
   return (
     <Authenticator>
       <Flex direction="row">
         <Card flex="1" variation="outlined" height="400px" margin="large">
-          <Chat />
-        </Card>
-        <Card flex="1" variation="outlined" height="400px" margin="large">
-          <Chat />
+          <AIConversation
+            messages={messages}
+            isLoading={isLoading}
+            handleSendMessage={sendMessage}
+            messageRenderer={{
+              text: (message) => <ReactMarkdown>{message}</ReactMarkdown>,
+            }}
+            // responseComponents={responseComponents}
+          />
         </Card>
       </Flex>
-      <Button onClick={handleCreateChat}>Create chat</Button>
+
       <GlobalStyle
         styles={{
           code: {

@@ -9,7 +9,7 @@ import { GlobalStyle } from '@aws-amplify/ui-react/server';
 
 import outputs from './amplify_outputs';
 import type { Schema } from '@environments/ai/gen2/amplify/data/resource';
-import { Authenticator, Button, Card, Flex } from '@aws-amplify/ui-react';
+import { Authenticator, Button, Card } from '@aws-amplify/ui-react';
 import { useRouter } from 'next/router';
 
 const client = generateClient<Schema>({ authMode: 'userPool' });
@@ -36,14 +36,17 @@ Amplify.configure(outputs);
 //   },
 // } as const;
 
-function Chat() {
+function Chat({ id }: { id?: string }) {
   const [
     {
       data: { messages },
       isLoading,
     },
     sendMessage,
-  ] = useAIConversation('chat');
+  ] = useAIConversation('chat', {
+    id,
+  });
+
   return (
     <AIConversation
       messages={messages}
@@ -63,23 +66,22 @@ function Chat() {
 
 export default function Example() {
   const router = useRouter();
-  const handleCreateChat = async () => {
-    const { data } = await client.conversations.chat.create();
-    if (data.id) {
-      router.push(`/ui/components/ai/ai-conversation-streaming/${data.id}`);
-    }
-  };
+  const [shown, setShown] = React.useState(true);
+
   return (
     <Authenticator>
-      <Flex direction="row">
-        <Card flex="1" variation="outlined" height="400px" margin="large">
-          <Chat />
+      <Button
+        onClick={() => {
+          setShown(!shown);
+        }}
+      >
+        Toggle
+      </Button>
+      {shown ? (
+        <Card variation="outlined" height="400px" margin="large">
+          <Chat id={router.query.id} />
         </Card>
-        <Card flex="1" variation="outlined" height="400px" margin="large">
-          <Chat />
-        </Card>
-      </Flex>
-      <Button onClick={handleCreateChat}>Create chat</Button>
+      ) : null}
       <GlobalStyle
         styles={{
           code: {

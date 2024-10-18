@@ -7,7 +7,7 @@ import '@aws-amplify/ui-react/styles.css';
 import '@aws-amplify/ui-react-ai/ai-conversation-styles.css';
 import { GlobalStyle } from '@aws-amplify/ui-react/server';
 
-import outputs from './amplify_outputs';
+import outputs from '../amplify_outputs';
 import type { Schema } from '@environments/ai/gen2/amplify/data/resource';
 import { Authenticator, Button, Card, Flex } from '@aws-amplify/ui-react';
 import { useRouter } from 'next/router';
@@ -36,14 +36,17 @@ Amplify.configure(outputs);
 //   },
 // } as const;
 
-function Chat() {
+function Chat({ id }: { id?: string }) {
   const [
     {
       data: { messages },
       isLoading,
     },
     sendMessage,
-  ] = useAIConversation('chat');
+  ] = useAIConversation('chat', {
+    id,
+  });
+
   return (
     <AIConversation
       messages={messages}
@@ -52,7 +55,6 @@ function Chat() {
       messageRenderer={{
         text: (message) => <ReactMarkdown>{message}</ReactMarkdown>,
       }}
-      // responseComponents={responseComponents}
     />
   );
 }
@@ -63,23 +65,50 @@ function Chat() {
 
 export default function Example() {
   const router = useRouter();
-  const handleCreateChat = async () => {
-    const { data } = await client.conversations.chat.create();
-    if (data.id) {
-      router.push(`/ui/components/ai/ai-conversation-streaming/${data.id}`);
-    }
-  };
+  const [shown, setShown] = React.useState(true);
+  const [
+    {
+      data: { messages },
+      isLoading,
+    },
+    sendMessage,
+  ] = useAIConversation('chat', {
+    id: router.query.id,
+  });
+
   return (
     <Authenticator>
-      <Flex direction="row">
-        <Card flex="1" variation="outlined" height="400px" margin="large">
-          <Chat />
-        </Card>
-        <Card flex="1" variation="outlined" height="400px" margin="large">
-          <Chat />
-        </Card>
-      </Flex>
-      <Button onClick={handleCreateChat}>Create chat</Button>
+      <Button
+        onClick={() => {
+          setShown(!shown);
+        }}
+      >
+        Toggle
+      </Button>
+      {shown ? (
+        <Flex direction="row">
+          <Card variation="outlined" height="400px" margin="large">
+            <AIConversation
+              messages={messages}
+              isLoading={isLoading}
+              handleSendMessage={sendMessage}
+              messageRenderer={{
+                text: (message) => <ReactMarkdown>{message}</ReactMarkdown>,
+              }}
+            />
+          </Card>
+          <Card variation="outlined" height="400px" margin="large">
+            <AIConversation
+              messages={messages}
+              isLoading={isLoading}
+              handleSendMessage={sendMessage}
+              messageRenderer={{
+                text: (message) => <ReactMarkdown>{message}</ReactMarkdown>,
+              }}
+            />
+          </Card>
+        </Flex>
+      ) : null}
       <GlobalStyle
         styles={{
           code: {

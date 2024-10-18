@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Avatar, Text, View } from '@aws-amplify/ui-react';
+import { Avatar, Loader, Text, View } from '@aws-amplify/ui-react';
 import { MessageControl } from '../Controls/MessagesControl';
 import {
   AvatarsContext,
@@ -65,15 +65,10 @@ const MessageMeta = ({ message }: { message: ConversationMessage }) => {
 //   );
 // };
 
-const Message = ({
-  message,
-  isLoading,
-}: {
-  message: ConversationMessage;
-  isLoading?: boolean;
-}) => {
+const Message = ({ message }: { message: ConversationMessage }) => {
   const avatars = React.useContext(AvatarsContext);
   const variant = React.useContext(MessageVariantContext);
+  const { isLoading } = message;
 
   const avatar = message.role === 'assistant' ? avatars?.ai : avatars?.user;
   return (
@@ -118,14 +113,11 @@ export const MessageList: ControlsContextProps['MessageList'] = ({
 
   return (
     <View className={ComponentClassName.AIConversationMessageList}>
+      {/* TODO: make this a skeleton loader */}
+      {isLoading ? <Loader /> : null}
       {messagesWithRenderableContent.map((message, i) => (
-        <Message
-          key={`message-${i}`}
-          message={message}
-          isLoading={messages.length - 1 === i ? isLoading : undefined}
-        />
+        <Message key={`message-${i}`} message={message} />
       ))}
-      {/* {isLoading ? <LoadingMessage /> : null} */}
     </View>
   );
 };

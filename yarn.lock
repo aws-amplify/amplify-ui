@@ -735,21 +735,10 @@
     graphql "15.8.0"
     rxjs "^7.8.1"
 
-"@aws-amplify/data-schema@^1.0.0":
-  version "1.6.2"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/data-schema/-/data-schema-1.6.2.tgz#6d6537b163c723b7e138aaded2d32b2f94ed9bc3"
-  integrity sha512-GCntMHsm2VPBAdfpsRSv35K1csSVJ/sCBbOHcPwb3it3hea5Z88B13fK+B4ktpvUJSjy4n/m9/m6tK9h9Yky8Q==
-  dependencies:
-    "@aws-amplify/data-schema-types" "*"
-    "@smithy/util-base64" "^3.0.0"
-    "@types/aws-lambda" "^8.10.134"
-    "@types/json-schema" "^7.0.15"
-    rxjs "^7.8.1"
-
-"@aws-amplify/data-schema@^1.7.0":
-  version "1.10.0"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/data-schema/-/data-schema-1.10.0.tgz#016fe8e9e1f40d268d26867c1bd925d71e902a12"
-  integrity sha512-tp1dtpNmc5X8B9M3yg1TmkXvnMH10UicPrnfpNCVfsuCQZk7r/hNkzLaLlAyD8/f5/sXatpYl91zo7owbIuPPw==
+"@aws-amplify/data-schema@0.0.0-ai-streaming-20241018163616", "@aws-amplify/data-schema@^1.0.0", "@aws-amplify/data-schema@^1.7.0":
+  version "0.0.0-ai-streaming-20241018163616"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/data-schema/-/data-schema-0.0.0-ai-streaming-20241018163616.tgz#94d600ea2397f881e07b9c754e7b98ca29606d80"
+  integrity sha512-e8Yc/nuKamVHcH5JX7fGbKuocQMp0Arg96NIuuC2jz6akHOnriBDuooxXvwdfmw+wNOVsvSWsZCBGwGvis9eHg==
   dependencies:
     "@aws-amplify/data-schema-types" "*"
     "@smithy/util-base64" "^3.0.0"
