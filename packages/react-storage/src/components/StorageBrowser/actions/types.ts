@@ -3,7 +3,7 @@ import { LocationCredentialsProvider } from '../storage-internal';
 import { ActionState } from '../context/actions/createActionStateContext';
 
 export interface ActionInputConfig {
-  accountId: string;
+  accountId?: string;
   bucket: string;
   credentials: LocationCredentialsProvider;
   region: string;

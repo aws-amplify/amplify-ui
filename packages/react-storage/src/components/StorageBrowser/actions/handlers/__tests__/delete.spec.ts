@@ -22,8 +22,8 @@ describe('deleteHandler', () => {
     const expected: StorageModule.RemoveInput = {
       path: `${baseInput.prefix}${baseInput.data.key}`,
       options: {
+        accountId: baseInput.config.accountId,
         bucket: {
-          accountId: baseInput.config.accountId,
           bucketName: baseInput.config.bucket,
           region: baseInput.config.region,
         },

@@ -32,7 +32,7 @@ export interface LocationData<T = Permission>
 }
 
 export interface LocationConfig {
-  accountId: string;
+  accountId?: string;
   bucket: string;
   credentialsProvider: LocationCredentialsProvider;
   region: string;
