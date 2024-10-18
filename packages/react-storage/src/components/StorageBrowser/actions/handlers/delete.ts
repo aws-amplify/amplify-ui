@@ -1,4 +1,4 @@
-import { remove } from 'aws-amplify/storage';
+import { remove } from '../../storage-internal';
 
 import {
   TaskHandler,

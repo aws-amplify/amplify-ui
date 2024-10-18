@@ -1,4 +1,4 @@
-import * as StorageModule from 'aws-amplify/storage';
+import * as StorageModule from '../../../storage-internal';
 import {
   listLocationItemsAction,
   parseResult,
@@ -15,9 +15,7 @@ const options = { delimiter: '/' };
 const prefix = 'a_prefix/';
 const initialValue = { nextToken: undefined, result: [] };
 
-const generateMockItems = (
-  size: number
-): StorageModule.ListPaginateWithPathOutput['items'] => {
+const generateMockItems = (size: number): StorageModule.ListOutput['items'] => {
   return Array.apply(0, new Array(size)).map((_, index) => ({
     path: `${prefix}key${index}`,
     lastModified: new Date(),
@@ -27,7 +25,7 @@ const generateMockItems = (
 
 const generateMockSubpaths = (
   size: number
-): StorageModule.ListPaginateWithPathOutput['excludedSubpaths'] =>
+): StorageModule.ListOutput['excludedSubpaths'] =>
   Array.apply(0, new Array(size)).map((_, index) => {
     return `subpath${index}`;
   });
@@ -38,8 +36,6 @@ describe('listLocationItemsAction', () => {
   });
 
   it('returns the expected output shape in the happy path', async () => {
-    // @ts-expect-error `list` returns a union type of `ListPaginateOutput` | `ListAllOutput`
-    // causing the spy to yell due to the lack of `nextToken` on `ListAllOutput`
     listSpy.mockResolvedValueOnce({ items: [], nextToken: 'tokeno' });
 
     const { result, nextToken } = await listLocationItemsAction(initialValue, {
@@ -54,13 +50,11 @@ describe('listLocationItemsAction', () => {
   it('merges the current action result with the previous action result', async () => {
     listSpy
       .mockResolvedValueOnce({
-        // @ts-expect-error - JS union interfaces casue type issues
         items: generateMockItems(100),
         excludedSubpaths: generateMockSubpaths(10),
         nextToken: 'first',
       })
       .mockResolvedValueOnce({
-        // @ts-expect-error - JS union interfaces casue type issues
         items: generateMockItems(100),
         excludedSubpaths: generateMockSubpaths(10),
         nextToken: 'second',

@@ -15,7 +15,7 @@ Feature: Storage Browser denied access without sufficient permissions
 
   @react
   Scenario: Attempt to add folder without write access
-    Given I intercept a "POST" request to "forbidden/Blackberry/?uploads"
+    Given I intercept a "PUT" request to "forbidden/Blackberry/"
     When I type my "email" with status "CONFIRMED"
     Then I type my password
     Then I see the "Sign in" button
@@ -31,4 +31,4 @@ Feature: Storage Browser denied access without sufficient permissions
     When I type a new "Enter folder name:" with value "Blackberry"
     Then I see the "Create Folder" button
     When I click the "Create Folder" button
-    Then I confirm the "POST" request has a status of "403"
+    Then I confirm the "PUT" request has a status of "403"
