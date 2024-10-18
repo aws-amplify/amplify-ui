@@ -58,7 +58,6 @@ export function LocationsView({
   className,
 }: LocationsViewProps): React.JSX.Element {
   const [{ data, isLoading, hasError }, handleAction] = useLocationsView();
-
   const { getProcessedItems, hasMoreData, page } = data;
 
   const handleLocationClick = (location: LocationAccess) => {

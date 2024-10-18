@@ -98,7 +98,6 @@ export function useLocationsView(): ActionState<
         break;
     }
   };
-
   const processedItems = React.useMemo(() => {
     const [start, end] = range;
     return result.slice(start, end);

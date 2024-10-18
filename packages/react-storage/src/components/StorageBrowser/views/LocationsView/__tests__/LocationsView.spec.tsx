@@ -1,17 +1,19 @@
 import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
+import { act, render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import createProvider from '../../../createProvider';
 import * as ActionsModule from '../../../context/actions';
 import * as ControlsModule from '../../../context/control';
-
 import { LocationsView } from '..';
 import { DEFAULT_ERROR_MESSAGE } from '../LocationsView';
 import { DEFAULT_LIST_OPTIONS } from '../useLocationsView';
+import { LocationAccess } from '../../../context/types';
 
+const navigateSpy = jest.fn();
 const INITIAL_NAVIGATE_STATE = [
   { location: undefined, history: [], path: '' },
-  jest.fn(),
+  navigateSpy,
 ];
 const INITIAL_ACTION_STATE = [
   { selected: { type: undefined, items: undefined }, actions: {} },
@@ -55,16 +57,36 @@ const loadingState: ActionsModule.LocationsDataState = [
   handleListLocations,
 ];
 
+const EXPECTED_PAGE_SIZE = 100;
+const result: LocationAccess = {
+  permission: 'READWRITE',
+  scope: 'test-bucket',
+  type: 'BUCKET',
+};
+const results: LocationAccess[] = Array(EXPECTED_PAGE_SIZE)
+  .fill(null)
+  .map((_, idx) => ({ ...result, scope: `${result.scope}-${idx}` }));
 const resolvedState: ActionsModule.LocationsDataState = [
   {
     data: {
-      result: [
-        {
-          permission: 'READWRITE',
-          scope: 's3://test-bucket/*',
-          type: 'BUCKET',
-        },
-      ],
+      result: results,
+      nextToken: 'some-token',
+    },
+    hasError: false,
+    isLoading: false,
+    message: undefined,
+  },
+  handleListLocations,
+];
+
+const nextPageResults = results.map((item, idx) => ({
+  ...item,
+  scope: `next-page-${idx}`,
+}));
+const nextPageState: ActionsModule.LocationsDataState = [
+  {
+    data: {
+      result: [...results, ...nextPageResults],
       nextToken: undefined,
     },
     hasError: false,
@@ -75,7 +97,7 @@ const resolvedState: ActionsModule.LocationsDataState = [
 ];
 
 describe('LocationsListView', () => {
-  beforeEach(() => {
+  beforeAll(() => {
     useControlSpy.mockImplementation(
       (type) =>
         ({
@@ -83,9 +105,10 @@ describe('LocationsListView', () => {
           NAVIGATE: INITIAL_NAVIGATE_STATE,
         })[type]
     );
+  });
 
-    handleListLocations.mockClear();
-    useLocationsDataSpy.mockClear();
+  afterEach(() => {
+    jest.clearAllMocks();
   });
 
   it('renders a `LocationsListView`', async () => {
@@ -196,7 +219,7 @@ describe('LocationsListView', () => {
 
     const table = screen.getByRole('table');
 
-    expect(table).toBeDefined();
+    expect(table).toBeInTheDocument();
   });
 
   it.todo('handles failure from locations loading as expected');
@@ -272,7 +295,11 @@ describe('LocationsListView', () => {
 
     expect(handleListLocations).toHaveBeenCalledTimes(1);
     expect(handleListLocations).toHaveBeenCalledWith({
-      options: { exclude: 'WRITE', pageSize: 100, refresh: true },
+      options: {
+        exclude: 'WRITE',
+        pageSize: EXPECTED_PAGE_SIZE,
+        refresh: true,
+      },
     });
     expect(updatedHandleListLocations).not.toHaveBeenCalled();
 
@@ -291,7 +318,80 @@ describe('LocationsListView', () => {
     expect(handleListLocations).toHaveBeenCalledTimes(1);
     expect(updatedHandleListLocations).toHaveBeenCalledTimes(1);
     expect(updatedHandleListLocations).toHaveBeenCalledWith({
-      options: { exclude: 'WRITE', pageSize: 100, refresh: true },
+      options: {
+        exclude: 'WRITE',
+        pageSize: EXPECTED_PAGE_SIZE,
+        refresh: true,
+      },
+    });
+  });
+
+  it('can paginate forward and back', async () => {
+    useLocationsDataSpy.mockReturnValue(resolvedState);
+    render(
+      <Provider>
+        <LocationsView />
+      </Provider>
+    );
+
+    // table renders
+    const table = screen.queryByRole('table');
+    expect(table).toBeInTheDocument();
+
+    // pagination enabled
+    const nextPage = await screen.findByLabelText('Go to next page');
+    expect(nextPage).not.toBeDisabled();
+
+    // first page data matches input
+    expect(screen.queryByLabelText('Page 1')).toBeInTheDocument();
+    expect(screen.queryByText('test-bucket-0')).toBeInTheDocument();
+    expect(screen.queryByText('next-page-0')).not.toBeInTheDocument();
+
+    useLocationsDataSpy.mockReturnValue(nextPageState);
+
+    // go forward
+    await act(async () => {
+      await userEvent.click(nextPage);
+    });
+
+    // second page data matches input
+    expect(screen.queryByLabelText('Page 2')).toBeInTheDocument();
+    expect(screen.queryByText('test-bucket-0')).not.toBeInTheDocument();
+    expect(screen.queryByText('next-page-0')).toBeInTheDocument();
+
+    // pagination enabled
+    const previousPage = await screen.findByLabelText('Go to previous page');
+    expect(previousPage).not.toBeDisabled();
+
+    // go back
+    await act(async () => {
+      await userEvent.click(previousPage);
+    });
+
+    // first page data matches input
+    expect(screen.queryByLabelText('Page 1')).toBeInTheDocument();
+    expect(screen.queryByText('test-bucket-0')).toBeInTheDocument();
+    expect(screen.queryByText('next-page-0')).not.toBeInTheDocument();
+  });
+
+  it('should navigate to detail page when folder is clicked', async () => {
+    useLocationsDataSpy.mockReturnValue(resolvedState);
+    render(
+      <Provider>
+        <LocationsView />
+      </Provider>
+    );
+
+    const scopeButton = await screen.findByText('test-bucket-0');
+    await userEvent.click(scopeButton);
+
+    expect(navigateSpy).toHaveBeenCalledWith({
+      location: {
+        permission: 'READWRITE',
+        scope: 'test-bucket-0',
+        type: 'BUCKET',
+      },
+      type: 'ACCESS_LOCATION',
     });
   });
 });
