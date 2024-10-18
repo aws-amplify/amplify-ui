@@ -8,7 +8,6 @@ import {
   GraphQLFormattedError,
   SendMesageParameters,
   SendMessage,
-  ToolUseContent,
 } from '../types';
 import { ERROR_STATE, INITIAL_STATE, LOADING_STATE } from './shared';
 import { isFunction } from '@aws-amplify/ui';
@@ -179,7 +178,6 @@ export function createUseAIConversation<
               stopReason,
               conversationId,
               // associatedUserMessageId,
-              // @ts-expect-error will fix
               id,
             } = event;
 
@@ -264,11 +262,7 @@ export function createUseAIConversation<
               }
               // tool use is never chunked
               if (contentBlock[0].contentBlockToolUse) {
-                return {
-                  ...(JSON.parse(
-                    contentBlock[0].contentBlockToolUse
-                  ) as ToolUseContent),
-                };
+                return contentBlock[0].contentBlockToolUse;
               }
             }) as ConversationMessage['content'];
 
