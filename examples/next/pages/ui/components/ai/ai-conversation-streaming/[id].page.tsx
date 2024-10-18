@@ -43,7 +43,7 @@ function Chat({ id }: { id?: string }) {
       isLoading,
     },
     sendMessage,
-  ] = useAIConversation('chat', {
+  ] = useAIConversation('pirateChat', {
     id,
   });
 
@@ -79,7 +79,7 @@ export default function Example() {
       </Button>
       {shown ? (
         <Card variation="outlined" height="400px" margin="large">
-          <Chat id={router.query.id} />
+          <Chat id={`${router.query.id}`} />
         </Card>
       ) : null}
       <GlobalStyle

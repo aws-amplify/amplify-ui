@@ -43,7 +43,7 @@ function Chat() {
       isLoading,
     },
     sendMessage,
-  ] = useAIConversation('chat');
+  ] = useAIConversation('pirateChat');
   return (
     <AIConversation
       messages={messages}
@@ -64,7 +64,7 @@ function Chat() {
 export default function Example() {
   const router = useRouter();
   const handleCreateChat = async () => {
-    const { data } = await client.conversations.chat.create();
+    const { data } = await client.conversations.pirateChat.create();
     if (data.id) {
       router.push(`/ui/components/ai/ai-conversation-streaming/${data.id}`);
     }

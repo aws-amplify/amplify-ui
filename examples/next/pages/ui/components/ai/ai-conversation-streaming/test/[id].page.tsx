@@ -43,7 +43,7 @@ function Chat({ id }: { id?: string }) {
       isLoading,
     },
     sendMessage,
-  ] = useAIConversation('chat', {
+  ] = useAIConversation('pirateChat', {
     id,
   });
 
@@ -72,8 +72,8 @@ export default function Example() {
       isLoading,
     },
     sendMessage,
-  ] = useAIConversation('chat', {
-    id: router.query.id,
+  ] = useAIConversation('pirateChat', {
+    id: `${router.query.id}`,
   });
 
   return (

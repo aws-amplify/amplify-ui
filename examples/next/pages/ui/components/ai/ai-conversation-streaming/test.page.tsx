@@ -70,7 +70,7 @@ export default function Example() {
       isLoading,
     },
     sendMessage,
-  ] = useAIConversation('chat', {
+  ] = useAIConversation('pirateChat', {
     onInitialize(conversation) {
       console.log('onInitialize', conversation);
       router.replace(
