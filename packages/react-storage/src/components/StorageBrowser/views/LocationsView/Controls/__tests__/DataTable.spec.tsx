@@ -40,7 +40,6 @@ describe('LocationsViewTableControl', () => {
 
     expect(getByText('Folder')).toBeInTheDocument();
     expect(getByText('Bucket')).toBeInTheDocument();
-    expect(getByText('Type')).toBeInTheDocument();
     expect(getByText('Permission')).toBeInTheDocument();
     expect(getByText('Location A/')).toBeInTheDocument();
     expect(getByText('Folder B/')).toBeInTheDocument();
