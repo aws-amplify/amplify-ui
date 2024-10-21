@@ -72,9 +72,4 @@ describe('LocationsViewTableControl', () => {
       location: mockData[1],
     });
   });
-
-  it('hides the type column on the Locations view when `hideType` is true', () => {
-    render(<DataTableControl range={TEST_RANGE} hideType />);
-    expect(screen.queryByText('Type')).not.toBeInTheDocument();
-  });
 });

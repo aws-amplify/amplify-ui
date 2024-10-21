@@ -125,7 +125,7 @@ export function LocationsView({
       />
       <LocationsMessage />
       <Loading />
-      <DataTableControl range={range} hideType />
+      <DataTableControl range={range} />
       <LocationsEmptyMessage />
     </div>
   );

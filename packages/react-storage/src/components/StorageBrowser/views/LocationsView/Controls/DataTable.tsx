@@ -69,7 +69,6 @@ const getColumnItem = ({
 const displayColumns: Record<string, string>[] = [
   { prefix: 'folder' },
   { bucket: 'bucket' },
-  { type: 'type' },
   { permission: 'permission' },
 ];
 
@@ -77,22 +76,16 @@ const getLocationsData = ({
   data,
   onLocationClick,
   onTableHeaderClick,
-  hideType,
   sortState,
 }: {
   data: LocationAccess[];
   onLocationClick: (location: LocationAccess) => void;
   onTableHeaderClick: (location: string) => void;
-  hideType: boolean;
   sortState: SortState;
 }) => {
   const { selection, direction } = sortState;
 
-  const filteredDisplayColumns: Record<string, string>[] = hideType
-    ? displayColumns.filter((column) => !column.type)
-    : displayColumns;
-
-  const columns = filteredDisplayColumns.flatMap((column) =>
+  const columns = displayColumns.flatMap((column) =>
     Object.entries(column).map((entry) =>
       getColumnItem({ entry, selection, direction, onTableHeaderClick })
     )
@@ -128,12 +121,8 @@ const getLocationsData = ({
         ),
       },
       { key: `td-bucket-${index}`, children: parsedLocation.bucket },
-      { key: `td-type-${index}`, children: location.type },
       { key: `td-permission-${index}`, children: location.permission },
     ];
-    if (hideType) {
-      row.splice(2, 1);
-    }
     return row;
   });
 
@@ -142,10 +131,8 @@ const getLocationsData = ({
 
 export function DataTableControl({
   range,
-  hideType = false,
 }: {
   range: [start: number, end: number];
-  hideType?: boolean;
 }): React.JSX.Element | null {
   const [{ data, hasError }] = useLocationsData();
 
@@ -163,7 +150,6 @@ export function DataTableControl({
       getLocationsData({
         data: data.result.slice(start, end),
         sortState,
-        hideType,
         onLocationClick: (location) => {
           handleUpdateState({
             type: 'ACCESS_LOCATION',
@@ -178,7 +164,7 @@ export function DataTableControl({
           }));
         },
       }),
-    [data.result, start, end, sortState, hideType, handleUpdateState]
+    [data.result, start, end, sortState, handleUpdateState]
   );
 
   return hasError ? null : <DataTable data={locationsData} />;
