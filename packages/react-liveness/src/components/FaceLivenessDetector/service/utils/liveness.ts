@@ -278,7 +278,7 @@ export function drawStaticOval(
 
   // Compute scaleFactor which is how much our video element is scaled
   // vs the intrinsic video resolution
-  const scaleFactor = videoScaledWidth / videoEl.width;
+  const scaleFactor = videoScaledWidth / videoEl.videoWidth;
 
   // Draw oval in canvas using ovalDetails and scaleFactor
   drawLivenessOvalInCanvas({
@@ -376,8 +376,8 @@ export function estimateIllumination(
   videoEl: HTMLVideoElement
 ): IlluminationState | undefined {
   const canvasEl = document.createElement('canvas');
-  canvasEl.width = videoEl.width;
-  canvasEl.height = videoEl.width;
+  canvasEl.width = videoEl.videoWidth;
+  canvasEl.height = videoEl.videoHeight;
 
   const ctx = canvasEl.getContext('2d');
   if (ctx) {
