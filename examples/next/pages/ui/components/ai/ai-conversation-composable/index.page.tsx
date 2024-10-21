@@ -14,41 +14,6 @@ const { useAIConversation } = createAIHooks(client);
 
 Amplify.configure(outputs);
 
-// function Chat() {
-//   const [
-//     {
-//       data: { messages },
-//       isLoading,
-//     },
-//     sendMessage,
-//   ] = useAIConversation('pirateChat');
-
-//   return (
-//     <Card variation="outlined" width="50%" height="300px" margin="0 auto">
-//       <AIConversation.Provider
-//         messages={messages}
-//         handleSendMessage={sendMessage}
-//         isLoading={isLoading}
-//         allowAttachments
-//         suggestedPrompts={[
-//           {
-//             inputText: 'hello',
-//             header: 'hello',
-//           },
-//           {
-//             inputText: 'how are you?',
-//             header: 'how are you?',
-//           },
-//         ]}
-//         variant="bubble"
-//       >
-//         <AIConversation.Messages />
-//         <AIConversation.Form />
-//       </AIConversation.Provider>
-//     </Card>
-//   );
-// }
-
 function Chat() {
   const [
     {
@@ -56,22 +21,13 @@ function Chat() {
       isLoading,
     },
     sendMessage,
-  ] = useAIConversation('chat', { id: '29d29c3c-9216-4b77-b44b-b5ec69c9f235' });
-
-  React.useEffect(() => {
-    client.conversations.chat.list().then((res) => {
-      res.data.forEach((convo) => {
-        convo.listMessages().then((res) => {
-          console.log(res.data);
-        });
-      });
-    });
-  }, []);
+  ] = useAIConversation('pirateChat');
 
   return (
     <AIConversation.Provider
       messages={messages}
       handleSendMessage={sendMessage}
+      isLoading={isLoading}
       avatars={{
         user: {
           username: 'XXXX',
@@ -80,10 +36,11 @@ function Chat() {
     >
       <Flex direction="row">
         <Card variation="outlined" width="50%" flex="1">
-          <AIConversation.MessagesControl />
+          <AIConversation.DefaultMessage />
+          <AIConversation.Messages />
         </Card>
         <Card variation="outlined" width="50%" flex="1">
-          <AIConversation.FieldControl />
+          <AIConversation.Form />
         </Card>
       </Flex>
     </AIConversation.Provider>
@@ -93,9 +50,7 @@ function Chat() {
 export default function Example() {
   return (
     <Authenticator>
-      {({ user, signOut }) => {
-        return <Chat />;
-      }}
+      <Chat />
     </Authenticator>
   );
 }

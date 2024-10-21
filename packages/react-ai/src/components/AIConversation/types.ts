@@ -79,8 +79,6 @@ export interface CustomAction {
 }
 
 export interface SuggestedPrompt {
-  icon?: React.ReactNode;
-  header: string;
   component?: React.ReactNode;
   inputText: string;
 }

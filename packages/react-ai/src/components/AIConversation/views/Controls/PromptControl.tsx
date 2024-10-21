@@ -6,10 +6,9 @@ import {
   ConversationInputContext,
   SuggestedPromptsContext,
 } from '../../context';
-import { classNames } from '@aws-amplify/ui';
 import { ControlsContext } from '../../context/ControlsContext';
 
-const { View, Button, Text } = AIConversationElements;
+const { View, Button } = AIConversationElements;
 
 const PROMPT_BLOCK = 'ai-prompts';
 const PROMPT_CONTROL = `${PROMPT_BLOCK}__prompt`;
@@ -48,15 +47,7 @@ const PromptGroup: typeof PromptGroupBase = React.forwardRef(
                 }))
               }
             >
-              <Text
-                className={classNames(
-                  `${PROMPT_CARD}__header`,
-                  `${PROMPT_CARD}__text`
-                )}
-              >
-                {prompt.header}
-              </Text>
-              <Text className={`${PROMPT_CARD}__text`}>{prompt.inputText}</Text>
+              {prompt.component}
             </PromptCard>
           );
         })}
