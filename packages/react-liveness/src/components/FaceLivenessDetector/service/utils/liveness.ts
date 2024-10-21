@@ -376,8 +376,8 @@ export function estimateIllumination(
   videoEl: HTMLVideoElement
 ): IlluminationState | undefined {
   const canvasEl = document.createElement('canvas');
-  canvasEl.width = videoEl.videoWidth;
-  canvasEl.height = videoEl.videoHeight;
+  canvasEl.width = videoEl.width;
+  canvasEl.height = videoEl.width;
 
   const ctx = canvasEl.getContext('2d');
   if (ctx) {
