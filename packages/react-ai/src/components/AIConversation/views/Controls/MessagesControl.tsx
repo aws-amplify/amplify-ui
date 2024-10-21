@@ -65,7 +65,6 @@ const ContentContainer: typeof View = React.forwardRef(
 export const MessageControl: MessageControl = ({ message }) => {
   const responseComponents = React.useContext(ResponseComponentsContext);
   const messageRenderer = React.useContext(MessageRendererContext);
-
   return (
     <ContentContainer>
       {message.content.map((content, index) => {
@@ -80,7 +79,9 @@ export const MessageControl: MessageControl = ({ message }) => {
             </TextContent>
           );
         } else if (content.image) {
-          return (
+          return messageRenderer?.image ? (
+            messageRenderer?.image({ image: content.image })
+          ) : (
             <MediaContent
               data-testid={'image-content'}
               key={index}
@@ -88,7 +89,7 @@ export const MessageControl: MessageControl = ({ message }) => {
                 content.image?.source.bytes,
                 content.image?.format
               )}
-            ></MediaContent>
+            />
           );
         } else if (content.toolUse) {
           // For now tool use is limited to custom response components
@@ -171,7 +172,7 @@ const Layout: typeof View = React.forwardRef(function Layout(props, ref) {
   );
 });
 
-export const MessagesControl: MessagesControl = ({ renderMessage }) => {
+export const MessagesControl: MessagesControl = () => {
   const messages = React.useContext(MessagesContext);
   const controls = React.useContext(ControlsContext);
   const { getMessageTimestampText } = useConversationDisplayText();
@@ -233,9 +234,7 @@ export const MessagesControl: MessagesControl = ({ renderMessage }) => {
   return (
     <Layout>
       {messagesWithRenderableContent?.map((message, index) => {
-        return renderMessage ? (
-          renderMessage(message)
-        ) : (
+        return (
           <RoleContext.Provider value={message.role} key={`message-${index}`}>
             <MessageContainer
               data-testid={`message`}
@@ -276,9 +275,7 @@ MessagesControl.Message = MessageControl;
 MessagesControl.Separator = Separator;
 
 export interface MessagesControl {
-  (props: {
-    renderMessage?: (message: ConversationMessage) => React.ReactNode;
-  }): JSX.Element;
+  (): JSX.Element;
   ActionsBar: ActionsBarControl;
   Avatar: AvatarControl;
   Container: AIConversationElements['View'];

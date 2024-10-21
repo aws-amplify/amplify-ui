@@ -21,9 +21,11 @@ export type ConversationMessage = NonNullable<
 
 export type ConversationMessageContent = ConversationMessage['content'][number];
 
-export type TextContent = NonNullable<ConversationMessageContent['text']>;
+export type TextContentBlock = NonNullable<ConversationMessageContent['text']>;
 
-export type ImageContent = NonNullable<ConversationMessageContent['image']>;
+export type ImageContentBlock = NonNullable<
+  ConversationMessageContent['image']
+>;
 
 export type ToolUseContent = NonNullable<ConversationMessageContent['toolUse']>;
 

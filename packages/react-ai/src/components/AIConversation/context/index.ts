@@ -38,5 +38,7 @@ export {
   MessageRendererProvider,
   MessageRendererContext,
   useMessageRenderer,
-} from './MessageRendererContext';
+} from './MessageRenderContext';
+export { AttachmentProvider, AttachmentContext } from './AttachmentContext';
+
 export * from './elements';
