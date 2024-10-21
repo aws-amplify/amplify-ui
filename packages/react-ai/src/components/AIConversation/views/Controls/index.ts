@@ -2,7 +2,7 @@ import { ActionsBarControl } from './ActionsBarControl';
 import { AvatarControl } from './AvatarControl';
 import { FormControl } from './FormControl';
 import { MessagesControl } from './MessagesControl';
-import { AutoHidablePromptControl, PromptControl } from './PromptControl';
+import { PromptControl } from './PromptControl';
 
 export {
   ActionsBarControl,
@@ -10,5 +10,4 @@ export {
   FormControl,
   MessagesControl,
   PromptControl,
-  AutoHidablePromptControl,
 };

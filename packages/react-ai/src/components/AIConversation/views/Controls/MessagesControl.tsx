@@ -93,7 +93,9 @@ export const MessageControl: MessageControl = ({ message }) => {
       {message.content.map((content, index) => {
         if (content.text) {
           return messageRenderer?.text ? (
-            messageRenderer.text({ text: content.text })
+            <React.Fragment key={index}>
+              {messageRenderer.text({ text: content.text })}
+            </React.Fragment>
           ) : (
             <TextContent data-testid={'text-content'} key={index}>
               {content.text}
@@ -101,7 +103,9 @@ export const MessageControl: MessageControl = ({ message }) => {
           );
         } else if (content.image) {
           return messageRenderer?.image ? (
-            messageRenderer?.image({ image: content.image })
+            <React.Fragment key={index}>
+              {messageRenderer?.image({ image: content.image })}
+            </React.Fragment>
           ) : (
             <MediaContent
               data-testid={'image-content'}
@@ -113,7 +117,7 @@ export const MessageControl: MessageControl = ({ message }) => {
             />
           );
         } else if (content.toolUse) {
-          <ToolContent toolUse={content.toolUse} />;
+          return <ToolContent toolUse={content.toolUse} key={index} />;
         }
       })}
     </ContentContainer>

@@ -1,20 +1,13 @@
 import React from 'react';
 import {
-  Controls,
   AIConversationInput,
   AIConversation,
   AIConversationProps,
 } from './types';
-import {
-  ActionsBarControl,
-  AvatarControl,
-  FormControl,
-  MessagesControl,
-  PromptControl,
-} from './views';
+import { FormControl, MessagesControl } from './views';
 import { ViewElement as View } from './context/elements/definitions';
 import { AIConversationProvider } from './AIConversationProvider';
-import { AutoHidablePromptControl } from './views/Controls/PromptControl';
+import { DefaultMessageControl } from './views/Controls/DefaultMessageControl';
 
 /**
  * @experimental
@@ -55,7 +48,7 @@ export function createAIConversation(input: AIConversationInput = {}): {
       <AIConversationProvider {...providerProps}>
         <View>
           <View>
-            <AutoHidablePromptControl />
+            <DefaultMessageControl />
             <MessagesControl />
           </View>
           <View>
@@ -66,18 +59,10 @@ export function createAIConversation(input: AIConversationInput = {}): {
     );
   }
 
-  const Controls: Controls = {
-    ActionsBar: ActionsBarControl,
-    Avatars: AvatarControl,
-    Form: FormControl,
-    Messages: MessagesControl,
-    SuggestedPrompts: PromptControl,
-  };
-
   AIConversation.Provider = AIConversationProvider;
-  AIConversation.Controls = Controls;
+  AIConversation.DefaultMessage = DefaultMessageControl;
+  AIConversation.Messages = MessagesControl;
   AIConversation.Form = FormControl;
-  AIConversation.MessageList = MessagesControl;
 
   return { AIConversation };
 }

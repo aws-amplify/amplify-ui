@@ -4,7 +4,6 @@ import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
 import {
   AIConversationElements,
   ConversationInputContext,
-  MessagesContext,
   SuggestedPromptsContext,
 } from '../../context';
 import { classNames } from '@aws-amplify/ui';
@@ -89,14 +88,6 @@ export const PromptControl: PromptControl = () => {
       <PromptGroup />
     </Container>
   );
-};
-
-export const AutoHidablePromptControl = (): JSX.Element | undefined => {
-  const messages = React.useContext(MessagesContext);
-
-  if (!messages || messages.length === 0) {
-    return <PromptControl />;
-  }
 };
 
 PromptControl.Container = Container;

@@ -16,6 +16,7 @@ import {
   LoadingContextProvider,
   ResponseComponentsProvider,
   SendMessageContextProvider,
+  WelcomeMessageProvider,
 } from './context';
 import { AttachmentProvider } from './context/AttachmentContext';
 
@@ -26,19 +27,20 @@ export interface AIConversationProviderProps
 }
 
 export const AIConversationProvider = ({
-  elements,
   actions,
-  suggestedPrompts,
-  responseComponents,
-  variant,
+  allowAttachments,
+  avatars,
+  children,
   controls,
   displayText,
-  allowAttachments,
-  messages,
+  elements,
   handleSendMessage,
-  avatars,
   isLoading,
-  children,
+  messages,
+  responseComponents,
+  suggestedPrompts,
+  variant,
+  welcomeMessage,
 }: AIConversationProviderProps): React.JSX.Element => {
   const _displayText = {
     ...defaultAIConversationDisplayTextEn,
@@ -48,29 +50,31 @@ export const AIConversationProvider = ({
     <ElementsProvider elements={elements}>
       <ControlsProvider controls={controls}>
         <SuggestedPromptProvider suggestedPrompts={suggestedPrompts}>
-          <ResponseComponentsProvider responseComponents={responseComponents}>
-            <AttachmentProvider allowAttachments={allowAttachments}>
-              <ConversationDisplayTextProvider {..._displayText}>
-                <ConversationInputContextProvider>
-                  <SendMessageContextProvider
-                    handleSendMessage={handleSendMessage}
-                  >
-                    <AvatarsProvider avatars={avatars}>
-                      <ActionsProvider actions={actions}>
-                        <MessageVariantProvider variant={variant}>
-                          <MessagesProvider messages={messages}>
-                            <LoadingContextProvider isLoading={isLoading}>
-                              {children}
-                            </LoadingContextProvider>
-                          </MessagesProvider>
-                        </MessageVariantProvider>
-                      </ActionsProvider>
-                    </AvatarsProvider>
-                  </SendMessageContextProvider>
-                </ConversationInputContextProvider>
-              </ConversationDisplayTextProvider>
-            </AttachmentProvider>
-          </ResponseComponentsProvider>
+          <WelcomeMessageProvider welcomeMessage={welcomeMessage}>
+            <ResponseComponentsProvider responseComponents={responseComponents}>
+              <AttachmentProvider allowAttachments={allowAttachments}>
+                <ConversationDisplayTextProvider {..._displayText}>
+                  <ConversationInputContextProvider>
+                    <SendMessageContextProvider
+                      handleSendMessage={handleSendMessage}
+                    >
+                      <AvatarsProvider avatars={avatars}>
+                        <ActionsProvider actions={actions}>
+                          <MessageVariantProvider variant={variant}>
+                            <MessagesProvider messages={messages}>
+                              <LoadingContextProvider isLoading={isLoading}>
+                                {children}
+                              </LoadingContextProvider>
+                            </MessagesProvider>
+                          </MessageVariantProvider>
+                        </ActionsProvider>
+                      </AvatarsProvider>
+                    </SendMessageContextProvider>
+                  </ConversationInputContextProvider>
+                </ConversationDisplayTextProvider>
+              </AttachmentProvider>
+            </ResponseComponentsProvider>
+          </WelcomeMessageProvider>
         </SuggestedPromptProvider>
       </ControlsProvider>
     </ElementsProvider>

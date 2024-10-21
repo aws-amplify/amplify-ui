@@ -17,6 +17,7 @@ import {
   TextContentBlock,
 } from '../../types';
 import { ControlsContextProps } from './context/ControlsContext';
+import { AIConversationProviderProps } from './AIConversationProvider';
 
 export interface Controls {
   Avatars: AvatarControl;
@@ -48,13 +49,10 @@ export interface AIConversationProps {
 
 export interface AIConversation {
   (props: AIConversationProps): JSX.Element;
-
-  Controls: Controls;
-  Provider: (
-    props: {
-      children?: React.ReactNode;
-    } & Pick<AIConversationProps, 'messages' | 'avatars' | 'handleSendMessage'>
-  ) => React.JSX.Element;
+  DefaultMessage: () => JSX.Element | undefined;
+  Messages: () => JSX.Element;
+  Form: () => JSX.Element;
+  Provider: (props: AIConversationProviderProps) => React.JSX.Element;
 }
 
 export type MessageVariant = 'bubble' | 'default';

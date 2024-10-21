@@ -5,17 +5,25 @@ import {
   IconUser,
   useIcons,
 } from '@aws-amplify/ui-react/internal';
-import { AIConversationInput, AIConversationProps, Avatars } from './types';
+import {
+  AIConversation as AIConversationType,
+  AIConversationInput,
+  AIConversationProps,
+  Avatars,
+} from './types';
 import { MessagesControl } from './views/Controls/MessagesControl';
 import { FormControl } from './views/Controls/FormControl';
 import { MessageList } from './views/default/MessageList';
 import { Form } from './views/default/Form';
 import { PromptList } from './views/default/PromptList';
-import { AutoHidablePromptControl } from './views/Controls';
 import { ComponentClassName } from '@aws-amplify/ui';
-import { AIConversationProvider } from './AIConversationProvider';
+import {
+  AIConversationProvider,
+  AIConversationProviderProps,
+} from './AIConversationProvider';
 import { useSetUserAgent } from '@aws-amplify/ui-react-core';
 import { VERSION } from '../../version';
+import { DefaultMessageControl } from './views/Controls/DefaultMessageControl';
 
 function Provider({
   actions,
@@ -31,7 +39,7 @@ function Provider({
   allowAttachments,
   messageRenderer,
   children,
-}: AIConversationBaseProps): JSX.Element {
+}: AIConversationProviderProps): JSX.Element {
   useSetUserAgent({
     componentName: 'AIConversation',
     packageName: 'react-ai',
@@ -91,25 +99,25 @@ function AIConversationBase(props: AIConversationBaseProps): JSX.Element {
   return (
     <Provider {...props}>
       <Flex className={ComponentClassName.AIConversation}>
-        {/* messages list view */}
         <ScrollView autoScroll="smooth" flex="1">
-          <AutoHidablePromptControl />
+          <DefaultMessageControl />
           <MessagesControl />
         </ScrollView>
-        {/* form view */}
         <FormControl />
       </Flex>
     </Provider>
   );
 }
 
-//
-
 /**
  * @experimental
  */
-export const AIConversation = Object.assign(AIConversationBase, {
-  Provider,
-  MessageHistory: MessagesControl,
-  Form: FormControl,
-});
+export const AIConversation: AIConversationType = Object.assign(
+  AIConversationBase,
+  {
+    Provider,
+    DefaultMessage: DefaultMessageControl,
+    Messages: MessagesControl,
+    Form: FormControl,
+  }
+);
