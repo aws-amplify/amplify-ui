@@ -47,8 +47,10 @@ export interface AIConversationProps {
   isLoading?: boolean;
 }
 
-export interface AIConversation {
-  (props: AIConversationProps): JSX.Element;
+export interface AIConversation<
+  PropsType extends AIConversationProps = AIConversationProps,
+> {
+  (props: PropsType): JSX.Element;
   DefaultMessage: () => JSX.Element | undefined;
   Messages: () => JSX.Element;
   Form: () => JSX.Element;

@@ -112,12 +112,10 @@ function AIConversationBase(props: AIConversationBaseProps): JSX.Element {
 /**
  * @experimental
  */
-export const AIConversation: AIConversationType = Object.assign(
-  AIConversationBase,
-  {
+export const AIConversation: AIConversationType<AIConversationBaseProps> =
+  Object.assign(AIConversationBase, {
     Provider,
     DefaultMessage: DefaultMessageControl,
     Messages: MessagesControl,
     Form: FormControl,
-  }
-);
+  });
