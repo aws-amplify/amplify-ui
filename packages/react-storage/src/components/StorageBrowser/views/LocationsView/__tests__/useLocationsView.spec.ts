@@ -58,10 +58,10 @@ describe('useLocationsView', () => {
       options: { ...DEFAULT_LIST_OPTIONS, refresh: true },
     });
 
-    const [state] = result.current;
+    const state = result.current;
     expect(state.isLoading).toBe(false);
     expect(state.hasError).toBe(false);
-    expect(state.data.pageItems.length).toEqual(PAGE_SIZE);
+    expect(state.pageItems.length).toEqual(PAGE_SIZE);
   });
 
   it('should handle pagination actions', () => {
@@ -87,8 +87,8 @@ describe('useLocationsView', () => {
     const { result } = renderHook(() => useLocationsView());
 
     act(() => {
-      const [, handleAction] = result.current;
-      handleAction({ type: 'PAGINATE_NEXT' });
+      const state = result.current;
+      state.onPaginateNext();
     });
 
     expect(handlePaginateNext).toHaveBeenCalledWith({
@@ -97,8 +97,8 @@ describe('useLocationsView', () => {
     });
 
     act(() => {
-      const [, handleAction] = result.current;
-      handleAction({ type: 'PAGINATE_PREVIOUS' });
+      const state = result.current;
+      state.onPaginatePrevious();
     });
 
     expect(handlePaginatePrevious).toHaveBeenCalledWith();
@@ -125,8 +125,8 @@ describe('useLocationsView', () => {
     const { result } = renderHook(() => useLocationsView());
 
     act(() => {
-      const [, handleAction] = result.current;
-      handleAction({ type: 'REFRESH' });
+      const state = result.current;
+      state.onRefresh();
     });
 
     expect(handleReset).toHaveBeenCalled();
@@ -148,8 +148,8 @@ describe('useLocationsView', () => {
     }; // Example location object
 
     act(() => {
-      const [, handleAction] = result.current;
-      handleAction({ type: 'SELECT_LOCATION', location });
+      const state = result.current;
+      state.onNavigate(location);
     });
 
     expect(handleUpdateState).toHaveBeenCalledWith({
@@ -167,7 +167,7 @@ describe('useLocationsView', () => {
     };
     mockUseLocationsData(mockDataState);
     const { result } = renderHook(() => useLocationsView());
-    const [state] = result.current;
-    expect(state.data.pageItems).toEqual(mockData.slice(0, PAGE_SIZE));
+    const state = result.current;
+    expect(state.pageItems).toEqual(mockData.slice(0, PAGE_SIZE));
   });
 });

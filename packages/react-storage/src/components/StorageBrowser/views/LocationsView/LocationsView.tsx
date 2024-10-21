@@ -57,11 +57,11 @@ const LocationsEmptyMessage = () => {
 export function LocationsView({
   className,
 }: LocationsViewProps): React.JSX.Element {
-  const [{ data, isLoading, hasError }, handleAction] = useLocationsView();
-  const { pageItems, hasNextPage, page } = data;
+  const locationsView = useLocationsView();
+  const { pageItems, hasError, hasNextPage, page, isLoading } = locationsView;
 
   const handleLocationClick = (location: LocationAccess) => {
-    handleAction({ type: 'SELECT_LOCATION', location });
+    locationsView.onNavigate(location);
   };
 
   const disableNext = !hasNextPage || isLoading || hasError;
@@ -76,7 +76,7 @@ export function LocationsView({
       <RefreshControl
         disableRefresh={isLoading}
         handleRefresh={() => {
-          handleAction({ type: 'REFRESH' });
+          locationsView.onRefresh();
         }}
       />
       <Paginate
@@ -84,10 +84,10 @@ export function LocationsView({
         disableNext={disableNext}
         disablePrevious={disablePrevious}
         handleNext={() => {
-          handleAction({ type: 'PAGINATE_NEXT' });
+          locationsView.onPaginateNext();
         }}
         handlePrevious={() => {
-          handleAction({ type: 'PAGINATE_PREVIOUS' });
+          locationsView.onPaginatePrevious();
         }}
       />
       <LocationsMessage />

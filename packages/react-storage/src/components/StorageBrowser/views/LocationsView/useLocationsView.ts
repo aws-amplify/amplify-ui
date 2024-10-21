@@ -1,19 +1,20 @@
 import { LocationAccess } from '../../context/types';
-import { ActionState } from '../../context/actions/createActionStateContext';
 import { useLocationsData } from '../../context/actions';
 import { useControl } from '../../context/control';
 import React from 'react';
 import { usePaginate } from '../hooks/usePaginate';
 
-interface LocationsViewState {
-  // all locations in memory
-  pageItems: LocationAccess[];
-
-  // current page
-  page: number;
-
-  // more items available to display
+interface UseLocationsView {
   hasNextPage: boolean;
+  hasError: boolean;
+  isLoading: boolean;
+  message: string | undefined;
+  pageItems: LocationAccess[];
+  page: number;
+  onNavigate: (location: LocationAccess) => void;
+  onRefresh: () => void;
+  onPaginateNext: () => void;
+  onPaginatePrevious: () => void;
 }
 
 export type LocationsViewActionType =
@@ -35,10 +36,7 @@ export const DEFAULT_LIST_OPTIONS = {
   pageSize: DEFAULT_PAGE_SIZE,
 };
 
-export function useLocationsView(): ActionState<
-  LocationsViewState,
-  LocationsViewActionType
-> {
+export function useLocationsView(): UseLocationsView {
   const [state, handleList] = useLocationsData();
   const [, handleUpdateState] = useControl('NAVIGATE');
 
@@ -69,46 +67,33 @@ export function useLocationsView(): ActionState<
     range,
   } = usePaginate({ onPaginateNext, pageSize });
 
-  const handleAction = (action: LocationsViewActionType) => {
-    const { type } = action;
-    switch (type) {
-      case 'PAGINATE_NEXT':
-        handlePaginateNext({ resultCount, hasNextToken });
-        break;
-      case 'PAGINATE_PREVIOUS':
-        handlePaginatePrevious();
-        break;
-      case 'REFRESH':
-        handleReset();
-        handleList({
-          options: { ...DEFAULT_LIST_OPTIONS, refresh: true },
-        });
-        break;
-      case 'SEARCH':
-        // TODO
-        break;
-      case 'SELECT_LOCATION':
-        handleUpdateState({
-          type: 'ACCESS_LOCATION',
-          location: action.location,
-        });
-        break;
-    }
-  };
   const processedItems = React.useMemo(() => {
     const [start, end] = range;
     return result.slice(start, end);
   }, [range, result]);
 
-  const hooksState = {
+  return {
     isLoading,
     hasError,
     message,
-    data: {
-      page: currentPage,
-      hasNextPage: hasNextToken,
-      pageItems: processedItems,
+    page: currentPage,
+    hasNextPage: hasNextToken,
+    pageItems: processedItems,
+    onNavigate: (location: LocationAccess) => {
+      handleUpdateState({
+        type: 'ACCESS_LOCATION',
+        location: location,
+      });
     },
+    onRefresh: () => {
+      handleReset();
+      handleList({
+        options: { ...DEFAULT_LIST_OPTIONS, refresh: true },
+      });
+    },
+    onPaginateNext: () => {
+      handlePaginateNext({ resultCount, hasNextToken });
+    },
+    onPaginatePrevious: handlePaginatePrevious,
   };
-  return [hooksState, handleAction];
 }
