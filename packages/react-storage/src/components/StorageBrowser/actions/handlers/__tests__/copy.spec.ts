@@ -1,4 +1,4 @@
-import * as StorageModule from 'aws-amplify/storage';
+import * as StorageModule from '../../../storage-internal';
 
 import { copyHandler, CopyHandlerInput } from '../copy';
 
@@ -7,7 +7,7 @@ const copySpy = jest.spyOn(StorageModule, 'copy');
 const baseInput: CopyHandlerInput = {
   prefix: 'prefix/',
   config: {
-    accountId: 'accountId',
+    accountId: '012345678901',
     bucket: 'bucket',
     credentials: jest.fn(),
     region: 'region',
@@ -24,12 +24,14 @@ describe('copyHandler', () => {
       region: `${baseInput.config.region}`,
     };
 
-    const expected: StorageModule.CopyWithPathInput = {
+    const expected: StorageModule.CopyInput = {
       destination: {
+        expectedBucketOwner: baseInput.config.accountId,
         bucket,
         path: 'destination/key',
       },
       source: {
+        expectedBucketOwner: `${baseInput.config.accountId}`,
         bucket,
         path: `${baseInput.prefix}${baseInput.data.key}`,
       },

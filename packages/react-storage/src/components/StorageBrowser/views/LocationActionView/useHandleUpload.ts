@@ -1,9 +1,6 @@
 import React from 'react';
-import {
-  uploadData,
-  UploadDataWithPathInput,
-  isCancelError,
-} from 'aws-amplify/storage';
+import { isCancelError } from 'aws-amplify/storage';
+import { uploadData, UploadDataInput } from '../../storage-internal';
 import { isFunction, isUndefined } from '@aws-amplify/ui';
 
 import { useGetLocationConfig } from '../../context/config';
@@ -146,13 +143,19 @@ export function useHandleUpload({
       if (!task || isUndefined(prefix)) return;
 
       const { key, data } = task;
-      const { bucket: bucketName, credentialsProvider, region } = getConfig();
+      const {
+        accountId,
+        bucket: bucketName,
+        credentialsProvider,
+        region,
+      } = getConfig();
 
-      const input: UploadDataWithPathInput = {
+      const input: UploadDataInput = {
         path: `${prefix}${key}`,
         data,
         options: {
           bucket: { bucketName, region },
+          expectedBucketOwner: accountId,
           locationCredentialsProvider: credentialsProvider,
           onProgress: ({ totalBytes, transferredBytes }) => {
             const progress = totalBytes ? transferredBytes / totalBytes : 0;
