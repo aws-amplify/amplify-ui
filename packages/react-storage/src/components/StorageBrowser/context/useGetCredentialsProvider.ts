@@ -1,9 +1,9 @@
 import React from 'react';
 import {
-  createLocationCredentialsStore,
   GetLocationCredentials,
   LocationCredentialsStore,
-} from '../storage-internal';
+} from '../credentials/types';
+import { createLocationCredentialsStore } from '../credentials/store';
 
 export type RegisterAuthListener = (onStateChange: () => void) => void;
 export type GetCredentialsProvider = LocationCredentialsStore['getProvider'];

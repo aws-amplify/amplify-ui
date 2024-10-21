@@ -1,7 +1,9 @@
 import { act, renderHook } from '@testing-library/react';
-import * as StorageBrowserModule from '../../storage-internal';
+import { createLocationCredentialsStore } from '../../credentials/store';
 
 import { useGetCredentialsProvider } from '../useGetCredentialsProvider';
+
+jest.mock('../../credentials/store');
 
 class Subscription {
   // intialize as noop
@@ -12,16 +14,22 @@ class Subscription {
   };
 }
 
-const createLocationCredentialsStoreSpy = jest.spyOn(
-  StorageBrowserModule,
-  'createLocationCredentialsStore'
-);
-
 const handler = jest.fn();
 
+const mockCreateLocationCredentialsStore = jest.mocked(
+  createLocationCredentialsStore
+);
+
 describe('useGetCredentialsProvider', () => {
-  beforeEach(() => {
-    createLocationCredentialsStoreSpy.mockClear();
+  beforeAll(() => {
+    mockCreateLocationCredentialsStore.mockImplementation(() => ({
+      destroy: jest.fn(),
+      getProvider: jest.fn(),
+    }));
+  });
+
+  afterEach(() => {
+    mockCreateLocationCredentialsStore.mockClear();
     handler.mockClear();
   });
 

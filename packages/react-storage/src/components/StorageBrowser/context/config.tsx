@@ -1,5 +1,4 @@
 import React from 'react';
-import { GetLocationCredentials } from '../storage-internal';
 
 import { LocationData } from './types';
 
@@ -10,6 +9,7 @@ import {
 } from './useGetCredentialsProvider';
 import { LocationConfig } from './types';
 import { parseLocationAccess } from './navigate/utils';
+import { GetLocationCredentials } from '../credentials/types';
 
 export interface LocationConfigProviderProps {
   accountId?: string;
