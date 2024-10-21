@@ -1,10 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 import { useAction } from '../../context/actions';
 import { isString } from '@aws-amplify/ui';
-import { Paginate } from '../../components/Paginate';
 import { LoadingControl } from '../Controls/Loading';
 import { usePaginate } from '../hooks/usePaginate';
-
+import { PaginateControl } from '../../views/Controls/Paginate';
 import { Controls } from '../Controls';
 import { TableDataText, Column, RenderRowItem } from '../Controls/Table';
 import { StorageBrowserElements } from '../../context/elements';
@@ -48,8 +47,6 @@ export const DestinationPicker = ({
   const hasNextToken = !!nextToken;
 
   // TODO: move to hook:
-  const disableNext = false;
-  const disablePrevious = false;
 
   const hasValidPath = isString(destinationPrefix);
   const onPaginateNext = () => {
@@ -66,6 +63,8 @@ export const DestinationPicker = ({
       onPaginateNext,
       pageSize: DEFAULT_PAGE_SIZE,
     });
+  const disableNext = !hasNextToken;
+  const disablePrevious = currentPage === 1;
 
   useEffect(() => {
     const newPath = destinationPrefix.join('');
@@ -110,7 +109,6 @@ export const DestinationPicker = ({
       columnKey: keyof DestinationPickerColumns,
       row: DestinationPickerColumns
     ) => {
-      console.log('row.name', row.name)
       switch (columnKey) {
         case 'name': {
           return (
@@ -162,7 +160,7 @@ export const DestinationPicker = ({
   // move this back to CopyControl
   return (
     <div className="storage-browser__table">
-      <Paginate
+      <PaginateControl
         currentPage={currentPage}
         disableNext={disableNext}
         disablePrevious={disablePrevious}
