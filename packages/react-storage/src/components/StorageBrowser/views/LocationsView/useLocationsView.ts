@@ -18,16 +18,13 @@ interface UseLocationsView {
 }
 
 export type LocationsViewActionType =
-  // refresh data
   | { type: 'REFRESH' }
-  // reset view to initial state
   | { type: 'RESET' }
-  // paginate
   | { type: 'PAGINATE_NEXT' }
   | { type: 'PAGINATE_PREVIOUS' }
+  | { type: 'PAGINATE'; page: number }
   // set location to be provided to LocationDetailView
   | { type: 'SELECT_LOCATION'; location: LocationAccess }
-  // query locations
   | { type: 'SEARCH'; query: string; includeSubfolders?: boolean };
 
 const DEFAULT_PAGE_SIZE = 100;
