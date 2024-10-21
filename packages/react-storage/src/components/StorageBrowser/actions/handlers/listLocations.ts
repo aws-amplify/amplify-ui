@@ -1,15 +1,7 @@
 import { Permission } from '../../storage-internal';
 
 import { ListHandlerOptions, ListHandlerOutput, ListHandler } from '../types';
-
-export type LocationType = 'OBJECT' | 'PREFIX' | 'BUCKET';
-
-export interface LocationData {
-  bucket: string;
-  permission: Permission;
-  prefix: string;
-  type: LocationType;
-}
+import { LocationData, LocationType } from './types';
 
 type ExcludeType = Permission | LocationType;
 

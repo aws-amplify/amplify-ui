@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 
-import { LocationItem } from '../../../context/types';
+import { LocationItem } from '../../../do-not-import-from-here/types';
 
 import { Column, TableControl } from '../Table';
 

@@ -8,8 +8,8 @@ import {
 } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import createProvider from '../../../createProvider';
-import * as ActionsModule from '../../../context/actions';
+import createProvider from '../../../do-not-import-from-here/createTempActionsProvider';
+import * as ActionsModule from '../../../do-not-import-from-here/actions';
 import * as ControlsModule from '../../../context/control';
 import * as PaginateModule from '../../hooks/usePaginate';
 

@@ -1,12 +1,9 @@
+import { LocationData } from '../../actions';
 import { ListLocations, ListLocationsOutput } from '../../storage-internal';
+import { parseLocationAccess } from '../../actions/handlers/utils';
+import { Permission } from '../../storage-internal';
 
-import {
-  ListActionInput,
-  ListActionOptions,
-  ListActionOutput,
-  LocationAccess,
-  Permission,
-} from '../types';
+import { ListActionInput, ListActionOptions, ListActionOutput } from '../types';
 
 const PAGE_SIZE = 1000;
 
@@ -19,13 +16,13 @@ export interface ListLocationsActionInput<T = Permission>
     'prefix' | 'config'
   > {}
 
-export interface ListLocationsActionOutput<K = Permission>
-  extends ListActionOutput<LocationAccess<K>> {}
+export interface ListLocationsActionOutput
+  extends ListActionOutput<LocationData> {}
 
-export type ListLocationsAction<T = never> = (
+export type ListLocationsAction = (
   prevState: ListLocationsActionOutput,
   input: ListLocationsActionInput
-) => Promise<ListLocationsActionOutput<Exclude<Permission, T>>>;
+) => Promise<ListLocationsActionOutput>;
 
 const shouldExclude = <T extends Permission>(
   permission: T,
@@ -66,6 +63,7 @@ export const createListLocationsAction = (
         nextToken: nextNextToken,
         pageSize: remainingPageSize,
       });
+
       nextNextToken = output.nextToken;
 
       locationsResult = [
@@ -77,9 +75,11 @@ export const createListLocationsAction = (
       ];
     } while (nextNextToken && locationsResult.length < pageSize);
 
+    const nextLocations = locationsResult.map(parseLocationAccess);
+
     const result = refresh
-      ? locationsResult
-      : [...(prevState.result ?? []), ...locationsResult];
+      ? nextLocations
+      : [...(prevState.result ?? []), ...nextLocations];
 
     return { result, nextToken: nextNextToken };
   };

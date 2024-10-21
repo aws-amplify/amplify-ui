@@ -2,9 +2,9 @@ import React from 'react';
 
 import { render, screen, fireEvent } from '@testing-library/react';
 
-import * as UseLocationsDataModule from '../../../../context/actions';
+import * as UseLocationsDataModule from '../../../../do-not-import-from-here/actions';
 import * as UseControlModule from '../../../../context/control';
-import { LocationAccess } from '../../../../context/types';
+import { LocationAccess } from '../../../../do-not-import-from-here/types';
 
 import { DataTableControl } from '../DataTable';
 

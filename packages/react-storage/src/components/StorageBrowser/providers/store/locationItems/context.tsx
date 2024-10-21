@@ -3,23 +3,16 @@ import React from 'react';
 import { createContextUtilities } from '@aws-amplify/ui-react-core';
 import { noop } from '@aws-amplify/ui';
 
-// temp: to be replaced with listLocationItems data type during integration
-export interface FileData {
-  key: string;
-  lastModified: Date;
-  id: string;
-  size: number;
-  type: 'FILE';
-}
+import { FileData } from '../../../actions/handlers';
 
 export const DEFAULT_STATE: LocationItemsState = {
   fileDataItems: undefined,
 };
 
 export type LocationItemsAction =
-  | { type: 'RESET' }
-  | { type: 'SET_FILE_DATA'; items?: FileData[] }
-  | { type: 'REMOVE_FILE_DATA'; id: string };
+  | { type: 'SET_LOCATION_ITEMS'; items?: FileData[] }
+  | { type: 'REMOVE_LOCATION_ITEM'; id: string }
+  | { type: 'RESET_LOCATION_ITEMS' };
 
 export interface LocationItemsState {
   fileDataItems: FileData[] | undefined;
@@ -33,7 +26,6 @@ export type LocationItemStateContext = [
 ];
 
 export interface LocationItemsProviderProps {
-  locationItems?: LocationItemsState;
   children?: React.ReactNode;
 }
 
@@ -42,7 +34,7 @@ const locatonItemsReducer = (
   event: LocationItemsAction
 ): LocationItemsState => {
   switch (event.type) {
-    case 'SET_FILE_DATA': {
+    case 'SET_LOCATION_ITEMS': {
       const { items } = event;
       if (!items?.length) return prevState;
 
@@ -62,7 +54,7 @@ const locatonItemsReducer = (
         fileDataItems: [...prevState.fileDataItems, ...nextFileDataItems],
       };
     }
-    case 'REMOVE_FILE_DATA': {
+    case 'REMOVE_LOCATION_ITEM': {
       const { id } = event;
 
       if (!prevState.fileDataItems) return prevState;
@@ -77,7 +69,7 @@ const locatonItemsReducer = (
 
       return { fileDataItems };
     }
-    case 'RESET': {
+    case 'RESET_LOCATION_ITEMS': {
       return DEFAULT_STATE;
     }
   }
@@ -92,9 +84,8 @@ export const { LocationItemsContext, useLocationItems } =
 
 export function LocationItemsProvider({
   children,
-  locationItems = DEFAULT_STATE,
 }: LocationItemsProviderProps): React.JSX.Element {
-  const value = React.useReducer(locatonItemsReducer, locationItems);
+  const value = React.useReducer(locatonItemsReducer, DEFAULT_STATE);
 
   return (
     <LocationItemsContext.Provider value={value}>

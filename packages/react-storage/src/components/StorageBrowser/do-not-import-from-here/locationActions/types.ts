@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { Permission, PrefixTaskAction, LocationItem } from '../types';
+import { Permission } from '../../storage-internal';
+import { PrefixTaskAction, LocationItem } from '../types';
 
 /**
  * open native OS file picker with associated selection type on action select
@@ -33,7 +34,7 @@ export interface LocationActions<T = Permission> {
 
 export type LocationActionsAction<T = string> =
   | { type: 'CLEAR' }
-  | { type: 'SET_ACTION'; actionType: T; files?: File[] }
+  | { type: 'SET_ACTION'; actionType: T }
   | { type: 'TOGGLE_SELECTED_ITEM'; item: LocationItem }
   | { type: 'TOGGLE_SELECTED_ITEMS'; items?: LocationItem[] };
 
@@ -42,7 +43,6 @@ export interface LocationActionsState<T = string> {
   selected: {
     type: T | undefined;
     items: LocationItem[] | undefined;
-    files?: File[];
   };
 }
 
@@ -53,5 +53,6 @@ export type LocationActionsStateContext = [
 
 export interface LocationActionsProviderProps {
   actions?: LocationActions;
+  actionType?: string;
   children?: React.ReactNode;
 }

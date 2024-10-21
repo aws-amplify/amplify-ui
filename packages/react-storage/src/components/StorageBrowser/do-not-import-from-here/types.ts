@@ -1,35 +1,20 @@
-import { UploadDataInput } from '../storage-internal';
 import { LocationCredentialsProvider } from '../storage-internal';
 
-export interface FolderItem {
+interface FolderItem {
   key: string;
+  id: string;
   type: 'FOLDER';
 }
 
-export interface FileItem {
+interface FileItem {
   key: string;
-  data?: File;
+  id: string;
   lastModified: Date;
   size: number;
   type: 'FILE';
 }
 
 export type LocationItem = FileItem | FolderItem;
-
-export type Permission = 'READ' | 'READWRITE' | 'WRITE';
-export type LocationType = 'OBJECT' | 'PREFIX' | 'BUCKET';
-
-export interface LocationAccess<T = Permission> {
-  type: LocationType;
-  permission: T;
-  scope: string;
-}
-
-export interface LocationData<T = Permission>
-  extends Pick<LocationAccess<T>, 'permission' | 'type'> {
-  bucket: string;
-  prefix: string;
-}
 
 export interface LocationConfig {
   accountId?: string;
@@ -50,20 +35,6 @@ export interface TaskResult<T = TaskStatus> {
   message: string | undefined;
   status: T;
 }
-
-interface CancelableTaskResult extends TaskResult<TaskStatus | 'CANCELED'> {
-  cancel: (() => void) | undefined;
-}
-
-interface UploadItemOptions
-  extends Pick<NonNullable<UploadDataInput['options']>, 'preventOverwrite'> {}
-
-interface UploadActionInput extends TaskActionInput<UploadItemOptions> {}
-
-interface UploadActionOutput extends TaskActionOutput<CancelableTaskResult> {}
-
-export interface UploadAction
-  extends TaskAction<UploadActionInput, UploadActionOutput> {}
 
 export interface TaskActionInput<T = never> {
   prefix: string;

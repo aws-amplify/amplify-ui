@@ -8,8 +8,8 @@ import {
 } from '@testing-library/react';
 
 import * as ControlsModule from '../../../context/control';
-import createProvider from '../../../createProvider';
-import { LocationActionsState } from '../../../context/locationActions';
+import createProvider from '../../../do-not-import-from-here/createTempActionsProvider';
+import { LocationActionsState } from '../../../do-not-import-from-here/locationActions';
 
 import { UploadControls, ActionIcon, ICON_CLASS } from '../UploadControls';
 import userEvent from '@testing-library/user-event';

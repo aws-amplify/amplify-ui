@@ -1,5 +1,5 @@
 import React from 'react';
-import { IconElement } from '../elements/IconElement';
+import { IconElement } from '../../context/elements/IconElement';
 
 import { LocationAction } from './types';
 

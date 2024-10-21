@@ -8,7 +8,6 @@ import {
   ListLocationsActionInput,
   ListLocationsActionOutput,
 } from './listLocationsAction';
-import { Permission } from '../types';
 
 export type LocationsDataState = ActionState<
   ListLocationsActionOutput,
@@ -23,12 +22,12 @@ const LocationsDataContext = React.createContext<
   LocationsDataState | undefined
 >(undefined);
 
-export function LocationsDataProvider<T = Permission>({
+export function LocationsDataProvider({
   children,
   listLocationsAction,
 }: {
   children?: React.ReactNode;
-  listLocationsAction: ListLocationsAction<T>;
+  listLocationsAction: ListLocationsAction;
 }): React.JSX.Element {
   const value = useDataState(listLocationsAction, INITIAL_VALUE);
 

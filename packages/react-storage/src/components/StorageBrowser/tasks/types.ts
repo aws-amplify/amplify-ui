@@ -14,6 +14,7 @@ export interface ProcessTasksOptions {
 
 export interface Task<T = any> {
   cancel: undefined | (() => void);
+  id: string;
   item: T;
   key: string;
   message: string | undefined;
@@ -22,7 +23,7 @@ export interface Task<T = any> {
 }
 
 export type HandleProcessTasks<T, K> = (
-  ...input: Omit<TaskHandlerInput<T, K>, 'data'>[]
+  ...input: Omit<TaskHandlerInput<T, K>, 'data' | 'key'>[]
 ) => void;
 
 export type ProcessTasksState<T = any, K = any> = [

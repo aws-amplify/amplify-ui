@@ -2,9 +2,6 @@ import React from 'react';
 
 import { AsyncDataAction, DataAction } from '@aws-amplify/ui-react-core';
 
-import { Permission } from '../types';
-import { useGetLocationConfig } from '../config';
-
 import {
   ActionState,
   InitialValue,
@@ -15,6 +12,7 @@ import { createFolderAction } from './createFolderAction';
 import { listLocationItemsAction } from './listLocationItemsAction';
 import { ListLocationsAction } from './listLocationsAction';
 import { LocationsDataProvider } from './locationsData';
+import { useGetActionInput } from '../../providers/configuration';
 
 export type ActionsWithConfig = {
   [K in keyof DefaultActions]: WithLocationConfig<DefaultActions[K]>;
@@ -55,23 +53,26 @@ export const useAction = <T extends keyof ActionsWithConfig>(
   type: T
 ): UseActionState<ActionsWithConfig[T]> => {
   const [state, handle] = useActionState({ type });
-  const config = useGetLocationConfig();
+
+  const getConfig = useGetActionInput();
 
   const handleAction = React.useCallback(
-    (input: Parameters<UseActionState<ActionsWithConfig[T]>[1]>) =>
-      handle({ ...input, config }),
-    [config, handle]
+    (input: Parameters<UseActionState<ActionsWithConfig[T]>[1]>) => {
+      const { credentials: credentialsProvider, ...config } = getConfig();
+      return handle({ ...input, config: { ...config, credentialsProvider } });
+    },
+    [getConfig, handle]
   );
 
   return [state, handleAction] as UseActionState<ActionsWithConfig[T]>;
 };
 
-export function ActionProvider<T = Permission>({
+export function ActionProvider({
   children,
   listLocationsAction,
 }: {
   children?: React.ReactNode;
-  listLocationsAction: ListLocationsAction<T>;
+  listLocationsAction: ListLocationsAction;
 }): React.JSX.Element {
   return (
     <LocationsDataProvider listLocationsAction={listLocationsAction}>

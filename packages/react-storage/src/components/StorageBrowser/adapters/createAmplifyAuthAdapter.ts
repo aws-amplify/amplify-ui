@@ -3,7 +3,7 @@ import { Hub } from 'aws-amplify/utils';
 import { AuthSession, fetchAuthSession } from 'aws-amplify/auth';
 import { isFunction } from '@aws-amplify/ui';
 
-import { LocationAccess } from '../context/types';
+import { LocationAccess } from '../actions/handlers';
 import { LocationCredentialsProvider } from '../storage-internal';
 import { StorageBrowserAuthAdapter } from './types';
 

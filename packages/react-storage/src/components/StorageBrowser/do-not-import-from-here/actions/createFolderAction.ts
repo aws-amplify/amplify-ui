@@ -30,7 +30,7 @@ export const createFolderAction = async (
   }
 
   const {
-    accountId,
+    accountId: expectedBucketOwner,
     bucket: bucketName,
     credentialsProvider: locationCredentialsProvider,
     region,
@@ -44,7 +44,7 @@ export const createFolderAction = async (
       data: '',
       options: {
         bucket: { bucketName, region },
-        expectedBucketOwner: accountId,
+        expectedBucketOwner,
         locationCredentialsProvider,
       },
     }).result;

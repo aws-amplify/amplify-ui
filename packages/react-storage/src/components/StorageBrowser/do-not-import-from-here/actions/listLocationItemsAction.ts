@@ -20,45 +20,38 @@ export interface ListLocationItemsActionOutput
 
 type ListOutputItem = ListOutput['items'][number];
 
-const parseResultItems = (
+const parseItems = (
   items: ListOutputItem[],
-  path: string
+  excludedPath: string
 ): LocationItem[] =>
   items
-    .filter((item): item is ListOutputItem => {
-      // filter out default prefix item
-      return item.path !== path;
-    })
-    .map(({ path: _path, lastModified, size }) => {
-      const key = _path.slice(path.length);
+    .filter(({ path }) => path !== excludedPath)
+    .map(({ path: key, lastModified, size }) => {
+      const id = crypto.randomUUID();
       // Mark zero byte files as Folders
       if (size === 0 && key.endsWith('/')) {
-        return { key, type: 'FOLDER' };
+        return { key, id, type: 'FOLDER' };
       }
 
       return {
         key,
+        id,
         lastModified: lastModified!,
         size: size!,
         type: 'FILE',
       };
     });
 
-const parseResultExcludedPaths = (
-  paths: string[] | undefined,
-  path: string
-): LocationItem[] =>
-  paths?.map((key) => ({ key: key.slice(path.length), type: 'FOLDER' })) ?? [];
+const parseExcludedPaths = (paths: string[] | undefined): LocationItem[] =>
+  paths?.map((key) => ({ key, id: crypto.randomUUID(), type: 'FOLDER' })) ?? [];
 
 export const parseResult = (
   output: ListOutput,
   path: string
-): LocationItem[] => {
-  return [
-    ...parseResultExcludedPaths(output.excludedSubpaths, path),
-    ...parseResultItems(output.items, path),
-  ];
-};
+): LocationItem[] => [
+  ...parseExcludedPaths(output.excludedSubpaths),
+  ...parseItems(output.items, path),
+];
 
 export async function listLocationItemsAction(
   prevState: ListLocationItemsActionOutput,

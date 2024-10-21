@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 
-import * as ActionsModule from '../context/actions';
+import * as ActionsModule from '../do-not-import-from-here/actions';
 import * as ControlsModule from '../context/control';
 import { ViewsProvider } from '../views/context';
 import { StorageBrowserDefault } from '../StorageBrowserDefault';

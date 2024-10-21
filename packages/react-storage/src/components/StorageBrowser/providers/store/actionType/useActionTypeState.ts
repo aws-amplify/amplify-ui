@@ -11,7 +11,7 @@ const handleAction = (event: ActionTypeAction): string | undefined => {
     case 'SET_ACTION_TYPE': {
       return event.actionType;
     }
-    case 'RESET': {
+    case 'RESET_ACTION_TYPE': {
       return undefined;
     }
   }

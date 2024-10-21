@@ -1,5 +1,3 @@
-export { useActionType } from './actionType';
-export { useHistory } from './history';
-export { useFiles } from './files';
-export { useLocationItems } from './locationItems';
+export { FileItem, FileItems } from './files';
 export { StoreProvider, StoreProviderProps } from './StoreProvider';
+export { useStore } from './useStore';

@@ -1,8 +1,8 @@
 import React from 'react';
 import { render, waitFor, screen, fireEvent } from '@testing-library/react';
 
-import createProvider from '../../../createProvider';
-import * as ActionsModule from '../../../context/actions';
+import createProvider from '../../../do-not-import-from-here/createTempActionsProvider';
+import * as ActionsModule from '../../../do-not-import-from-here/actions';
 import * as ControlsModule from '../../../context/control';
 
 import {

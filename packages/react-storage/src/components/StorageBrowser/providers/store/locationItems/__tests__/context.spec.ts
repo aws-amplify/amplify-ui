@@ -31,7 +31,7 @@ describe('useLocationItems', () => {
     const fileDataItems: FileData[] = [fileDataItemOne];
 
     act(() => {
-      handler({ type: 'SET_FILE_DATA', items: fileDataItems });
+      handler({ type: 'SET_LOCATION_ITEMS', items: fileDataItems });
     });
 
     const [nextState] = result.current;
@@ -42,7 +42,7 @@ describe('useLocationItems', () => {
     const additionalFileDataItems = [...fileDataItems, fileDataItemTwo];
 
     act(() => {
-      handler({ type: 'SET_FILE_DATA', items: additionalFileDataItems });
+      handler({ type: 'SET_LOCATION_ITEMS', items: additionalFileDataItems });
     });
 
     const [updatedState] = result.current;
@@ -52,7 +52,7 @@ describe('useLocationItems', () => {
 
     const targetId = fileDataItemOne.id;
     act(() => {
-      handler({ type: 'REMOVE_FILE_DATA', id: targetId });
+      handler({ type: 'REMOVE_LOCATION_ITEM', id: targetId });
     });
 
     const [removedState] = result.current;

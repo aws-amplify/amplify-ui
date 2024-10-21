@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 
 import * as ControlsModule from '../../../context/control';
-import createProvider from '../../../createProvider';
+import createProvider from '../../../do-not-import-from-here/createTempActionsProvider';
 
 import { LocationActionView } from '../LocationActionView';
 

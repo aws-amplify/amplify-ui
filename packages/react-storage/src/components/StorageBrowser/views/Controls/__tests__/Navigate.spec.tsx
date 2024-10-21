@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import * as ControlsModule from '../../../context/control';
-import * as ActionsModule from '../../../context/actions';
+import * as ActionsModule from '../../../do-not-import-from-here/actions';
 
 import { NavigateControl } from '../Navigate';
 
