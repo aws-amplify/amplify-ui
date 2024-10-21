@@ -57,6 +57,20 @@ describe('LocationsViewTableControl', () => {
     expect(folderTh).toHaveAttribute('aria-sort', 'descending');
   });
 
+  it('updates sort state when other headers are clicked', () => {
+    const { getByText } = render(<DataTableControl range={TEST_RANGE} />);
+
+    const folderTh = screen.getByRole('columnheader', { name: 'Folder' });
+
+    expect(folderTh).toHaveAttribute('aria-sort', 'ascending');
+
+    const bucketTh = screen.getByRole('columnheader', { name: 'Bucket' });
+
+    fireEvent.click(getByText('Bucket'));
+
+    expect(bucketTh).toHaveAttribute('aria-sort', 'descending');
+  });
+
   it('triggers location click handler when a row is clicked', () => {
     const mockHandleUpdateState = jest.fn();
     useControlModuleSpy.mockReturnValue([{}, mockHandleUpdateState]);

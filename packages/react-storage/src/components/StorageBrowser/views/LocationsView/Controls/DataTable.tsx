@@ -27,7 +27,6 @@ const getCompareFn = (selection: string) => {
   switch (selection) {
     case 'bucket':
     case 'folder':
-    case 'type':
     case 'permission':
       return compareStrings;
   }
