@@ -3,7 +3,6 @@
  */
 export const displayText = {
   actionDestination: 'Destination',
-  rootBucketPrefix: 'root',
   statusDisplayCompleted: 'Completed',
   statusDisplayFailed: 'Failed',
   statusDisplayCanceled: 'Canceled',

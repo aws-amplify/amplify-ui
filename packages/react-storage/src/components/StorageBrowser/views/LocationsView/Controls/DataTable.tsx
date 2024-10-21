@@ -15,7 +15,6 @@ import { ButtonElement, IconElement } from '../../../context/elements';
 import { parseLocationAccess } from '../../../context/navigate/utils';
 
 import { compareStrings } from '../../utils';
-import { displayText } from '../../../displayText/en';
 
 export type SortDirection = 'ascending' | 'descending' | 'none';
 
@@ -68,8 +67,8 @@ const getColumnItem = ({
 };
 
 const displayColumns: Record<string, string>[] = [
-  { bucket: 'bucket' },
   { prefix: 'folder' },
+  { bucket: 'bucket' },
   { type: 'type' },
   { permission: 'permission' },
 ];
@@ -78,16 +77,22 @@ const getLocationsData = ({
   data,
   onLocationClick,
   onTableHeaderClick,
+  hideType,
   sortState,
 }: {
   data: LocationAccess[];
   onLocationClick: (location: LocationAccess) => void;
   onTableHeaderClick: (location: string) => void;
+  hideType: boolean;
   sortState: SortState;
 }) => {
   const { selection, direction } = sortState;
 
-  const columns = displayColumns.flatMap((column) =>
+  const filteredDisplayColumns: Record<string, string>[] = hideType
+    ? displayColumns.filter((column) => !column.type)
+    : displayColumns;
+
+  const columns = filteredDisplayColumns.flatMap((column) =>
     Object.entries(column).map((entry) =>
       getColumnItem({ entry, selection, direction, onTableHeaderClick })
     )
@@ -107,8 +112,7 @@ const getLocationsData = ({
 
   const rows = data.map((location, index) => {
     const parsedLocation = parseLocationAccess(location);
-    return [
-      { key: `td-bucket-${index}`, children: parsedLocation.bucket },
+    const row = [
       {
         key: `td-name-${index}`,
         children: (
@@ -119,13 +123,18 @@ const getLocationsData = ({
           >
             {parsedLocation.prefix
               ? parsedLocation.prefix
-              : displayText.rootBucketPrefix}
+              : `${parsedLocation.bucket}/`}
           </ButtonElement>
         ),
       },
+      { key: `td-bucket-${index}`, children: parsedLocation.bucket },
       { key: `td-type-${index}`, children: location.type },
-      { key: `td-permission-${index}`, children: location.permission },
+      { key: `td-bucket-${index}`, children: parsedLocation.bucket },
     ];
+    if (hideType) {
+      row.splice(2, 1);
+    }
+    return row;
   });
 
   return { columns, rows };
@@ -133,15 +142,17 @@ const getLocationsData = ({
 
 export function DataTableControl({
   range,
+  hideType = false,
 }: {
   range: [start: number, end: number];
+  hideType?: boolean;
 }): React.JSX.Element | null {
   const [{ data, hasError }] = useLocationsData();
 
   const [, handleUpdateState] = useControl('NAVIGATE');
 
   const [sortState, setSortState] = React.useState<SortState>({
-    selection: 'bucket',
+    selection: 'folder',
     direction: 'ascending',
   });
 
@@ -152,6 +163,7 @@ export function DataTableControl({
       getLocationsData({
         data: data.result.slice(start, end),
         sortState,
+        hideType,
         onLocationClick: (location) => {
           handleUpdateState({
             type: 'ACCESS_LOCATION',
@@ -166,7 +178,7 @@ export function DataTableControl({
           }));
         },
       }),
-    [data.result, handleUpdateState, sortState, start, end]
+    [data.result, start, end, sortState, hideType, handleUpdateState]
   );
 
   return hasError ? null : <DataTable data={locationsData} />;
