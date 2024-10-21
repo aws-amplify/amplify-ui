@@ -1,26 +1,26 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { resolveComposable } from '../resolveComposable';
+import { useResolvedComposable } from '../hooks/useResolvedComposable';
 import { useStatusDisplay } from '../hooks/useStatusDisplay';
 import { StatusDisplayControl } from '../StatusDisplayControl';
 
 jest.mock('../hooks/useStatusDisplay');
-jest.mock('../resolveComposable');
+jest.mock('../hooks/useResolvedComposable');
 
 describe('StatusDisplayControl', () => {
   // assert mocks
   const mockUseStatusDisplay = useStatusDisplay as jest.Mock;
-  const mockResolveComposable = resolveComposable as jest.Mock;
+  const mockUseResolvedComposable = useResolvedComposable as jest.Mock;
 
   beforeAll(() => {
-    mockResolveComposable.mockImplementation(
+    mockUseResolvedComposable.mockImplementation(
       (component: React.JSX.Element) => component
     );
   });
 
   afterEach(() => {
     mockUseStatusDisplay.mockReset();
-    mockResolveComposable.mockClear();
+    mockUseResolvedComposable.mockClear();
   });
 
   it('renders', () => {
