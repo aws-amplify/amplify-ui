@@ -38,25 +38,24 @@ describe('LocationsViewTableControl', () => {
   it('renders the table with data', () => {
     const { getByText } = render(<DataTableControl range={TEST_RANGE} />);
 
-    expect(getByText('Bucket')).toBeInTheDocument();
     expect(getByText('Folder')).toBeInTheDocument();
+    expect(getByText('Bucket')).toBeInTheDocument();
     expect(getByText('Type')).toBeInTheDocument();
     expect(getByText('Permission')).toBeInTheDocument();
-    expect(getByText('Location A')).toBeInTheDocument();
-    expect(getByText('Location B')).toBeInTheDocument();
+    expect(getByText('Location A/')).toBeInTheDocument();
     expect(getByText('Folder B/')).toBeInTheDocument();
   });
 
   it('renders the correct icon based on sort state', () => {
     const { getByText } = render(<DataTableControl range={TEST_RANGE} />);
 
-    const bucketTh = screen.getByRole('columnheader', { name: 'Bucket' });
+    const folderTh = screen.getByRole('columnheader', { name: 'Folder' });
 
-    expect(bucketTh).toHaveAttribute('aria-sort', 'ascending');
+    expect(folderTh).toHaveAttribute('aria-sort', 'ascending');
 
-    fireEvent.click(getByText('Bucket'));
+    fireEvent.click(getByText('Folder'));
 
-    expect(bucketTh).toHaveAttribute('aria-sort', 'descending');
+    expect(folderTh).toHaveAttribute('aria-sort', 'descending');
   });
 
   it('triggers location click handler when a row is clicked', () => {

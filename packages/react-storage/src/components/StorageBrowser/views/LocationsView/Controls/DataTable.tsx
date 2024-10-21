@@ -129,7 +129,7 @@ const getLocationsData = ({
       },
       { key: `td-bucket-${index}`, children: parsedLocation.bucket },
       { key: `td-type-${index}`, children: location.type },
-      { key: `td-bucket-${index}`, children: parsedLocation.bucket },
+      { key: `td-permission-${index}`, children: location.permission },
     ];
     if (hideType) {
       row.splice(2, 1);
@@ -152,7 +152,7 @@ export function DataTableControl({
   const [, handleUpdateState] = useControl('NAVIGATE');
 
   const [sortState, setSortState] = React.useState<SortState>({
-    selection: 'folder',
+    selection: 'prefix',
     direction: 'ascending',
   });
 
