@@ -67,11 +67,11 @@ function Chat() {
         suggestedPrompts={[
           {
             inputText: 'hello',
-            component: <>hello</>,
+            component: 'hello',
           },
           {
             inputText: 'how are you?',
-            component: <>how are you?</>,
+            component: 'how are you?',
           },
         ]}
         variant="bubble"
