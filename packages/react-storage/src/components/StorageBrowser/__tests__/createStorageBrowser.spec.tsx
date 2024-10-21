@@ -37,11 +37,13 @@ const INITIAL_ACTION_STATE = [
 
 const useControlSpy = jest.spyOn(ControlsModule, 'useControl');
 
+const accountId = '012345678901';
 const getLocationCredentials = jest.fn();
 const listLocations = jest.fn();
 const region = 'region';
 
 const config = {
+  accountId,
   getLocationCredentials,
   listLocations,
   region,

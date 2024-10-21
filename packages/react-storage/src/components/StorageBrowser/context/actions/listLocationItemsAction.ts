@@ -1,10 +1,9 @@
 import {
+  StorageSubpathStrategy,
   list,
-  ListPaginateWithPathInput,
-  ListPaginateWithPathOutput,
-} from 'aws-amplify/storage';
-
-import { StorageSubpathStrategy } from '../../storage-internal';
+  ListPaginateInput,
+  ListOutput,
+} from '../../storage-internal';
 
 import {
   ListActionInput,
@@ -19,7 +18,7 @@ export interface ListLocationItemsActionInput
 export interface ListLocationItemsActionOutput
   extends ListActionOutput<LocationItem> {}
 
-type ListOutputItem = ListPaginateWithPathOutput['items'][number];
+type ListOutputItem = ListOutput['items'][number];
 
 const parseResultItems = (
   items: ListOutputItem[],
@@ -52,7 +51,7 @@ const parseResultExcludedPaths = (
   paths?.map((key) => ({ key: key.slice(path.length), type: 'FOLDER' })) ?? [];
 
 export const parseResult = (
-  output: ListPaginateWithPathOutput,
+  output: ListOutput,
   path: string
 ): LocationItem[] => {
   return [
@@ -73,6 +72,7 @@ export async function listLocationItemsAction(
   }
 
   const {
+    accountId,
     bucket: bucketName,
     credentialsProvider,
     region,
@@ -93,10 +93,11 @@ export async function listLocationItemsAction(
   const resolvedPageSize =
     pageSize && (!hasPrevResults || refresh) ? pageSize + 1 : pageSize;
 
-  const listInput: ListPaginateWithPathInput = {
+  const listInput: ListPaginateInput = {
     path,
     options: {
       bucket,
+      expectedBucketOwner: accountId,
       locationCredentialsProvider: credentialsProvider,
       // ignore provided `nextToken` on `refresh`
       nextToken: refresh ? undefined : nextToken,

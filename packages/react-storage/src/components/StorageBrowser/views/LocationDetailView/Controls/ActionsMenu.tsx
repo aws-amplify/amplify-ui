@@ -32,7 +32,7 @@ const getActionsMenuData = ({
           }
           const children = getKeyedFragments(icon, displayName);
           const disabled =
-            typeof disable === 'function' ? disable(items) : disable ?? false;
+            typeof disable === 'function' ? disable(items) : (disable ?? false);
           const onClick = () => onSelect(key);
 
           return [
