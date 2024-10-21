@@ -15,6 +15,7 @@ export {
   ListLocationsOutput,
   CopyInput,
   RemoveInput,
+  GetUrlInput,
   list,
   uploadData,
   getUrl,
