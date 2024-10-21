@@ -24,7 +24,12 @@ const items: { key: string; item: File }[] = [
 ];
 
 const action = jest.fn(
-  ({ data }: TaskHandlerInput<File, { extraOption?: boolean }>) => {
+  ({
+    data,
+  }: TaskHandlerInput<
+    File | { destinationPrefix: string },
+    { extraOption?: boolean }
+  >) => {
     const { key } = data;
     if (key === '0') {
       return {
@@ -299,6 +304,84 @@ describe('useProcessTasks', () => {
 
     const nextTasks = result.current[0];
     expect(nextTasks.length).toBe(3);
+  });
+
+  it('can update the items of an existing task', () => {
+    const copyItems: { key: string; item: { destinationPrefix: string } }[] = [
+      { key: '0', item: { destinationPrefix: 'destination0/' } },
+      { key: '1', item: { destinationPrefix: 'destination1/' } },
+      { key: '2', item: { destinationPrefix: 'destination2/' } },
+    ];
+
+    const { rerender, result } = renderHook(
+      (
+        _items: {
+          key: string;
+          item: { destinationPrefix: string };
+        }[] = copyItems
+      ) => useProcessTasks(action, _items)
+    );
+    act(() => {
+      const initTasks = result.current[0];
+      expect(initTasks.length).toBe(3);
+    });
+
+    const nextItems = [...copyItems];
+    nextItems[0].item = { destinationPrefix: 'destination3/' };
+
+    act(() => {
+      rerender(nextItems);
+    });
+
+    const nextTasks = result.current[0];
+    expect(nextTasks.length).toBe(3);
+    expect(nextTasks[0].item).toStrictEqual(nextItems[0].item);
+  });
+
+  it('only updates existing task if still queued', () => {
+    const copyItems: { key: string; item: { destinationPrefix: string } }[] = [
+      { key: '0', item: { destinationPrefix: 'destination0/' } },
+      { key: '1', item: { destinationPrefix: 'destination1/' } },
+      { key: '2', item: { destinationPrefix: 'destination2/' } },
+    ];
+
+    const { rerender, result } = renderHook(
+      (
+        _items: {
+          key: string;
+          item: { destinationPrefix: string };
+        }[] = copyItems
+      ) => useProcessTasks(action, _items, { concurrency: 1 })
+    );
+
+    const processTasks = result.current[1];
+
+    expect(result.current[0][0].status).toBe('QUEUED');
+    expect(result.current[0][1].status).toBe('QUEUED');
+    expect(result.current[0][2].status).toBe('QUEUED');
+
+    act(() => {
+      processTasks({ config, prefix });
+    });
+
+    expect(result.current[0][0].status).toBe('PENDING');
+    expect(result.current[0][1].status).toBe('QUEUED');
+    expect(result.current[0][2].status).toBe('QUEUED');
+
+    const nextItems = [...copyItems];
+    nextItems[0].item = { destinationPrefix: 'wontchange/' };
+    nextItems[1].item = { destinationPrefix: 'willchange/' };
+    nextItems[2].item = { destinationPrefix: 'willchange/' };
+
+    act(() => {
+      rerender(nextItems);
+    });
+
+    const nextTasks = result.current[0];
+    expect(nextTasks.length).toBe(3);
+    expect(nextTasks[0].item).not.toEqual(nextItems[0].item);
+    expect(nextTasks[1].item).toEqual(nextItems[1].item);
+    expect(nextTasks[2].item).toEqual(nextItems[2].item);
   });
 
   it('returns the existing tasks when new items are empty', () => {
