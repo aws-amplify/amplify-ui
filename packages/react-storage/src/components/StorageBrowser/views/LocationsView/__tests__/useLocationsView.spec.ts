@@ -61,7 +61,7 @@ describe('useLocationsView', () => {
     const [state] = result.current;
     expect(state.isLoading).toBe(false);
     expect(state.hasError).toBe(false);
-    expect(state.data.items).toEqual(mockData);
+    expect(state.data.pageItems.length).toEqual(PAGE_SIZE);
   });
 
   it('should handle pagination actions', () => {
@@ -168,8 +168,6 @@ describe('useLocationsView', () => {
     mockUseLocationsData(mockDataState);
     const { result } = renderHook(() => useLocationsView());
     const [state] = result.current;
-    expect(state.data.getProcessedItems()).toEqual(
-      mockData.slice(0, PAGE_SIZE)
-    );
+    expect(state.data.pageItems).toEqual(mockData.slice(0, PAGE_SIZE));
   });
 });

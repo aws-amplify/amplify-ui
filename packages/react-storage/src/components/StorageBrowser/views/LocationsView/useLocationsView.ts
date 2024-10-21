@@ -7,16 +7,13 @@ import { usePaginate } from '../hooks/usePaginate';
 
 interface LocationsViewState {
   // all locations in memory
-  items: LocationAccess[];
+  pageItems: LocationAccess[];
 
   // current page
   page: number;
 
   // more items available to display
-  hasMoreData: boolean;
-
-  // windowed subset of locations
-  getProcessedItems: () => LocationAccess[];
+  hasNextPage: boolean;
 }
 
 export type LocationsViewActionType =
@@ -109,11 +106,8 @@ export function useLocationsView(): ActionState<
     message,
     data: {
       page: currentPage,
-      hasMoreData: hasNextToken,
-      items: result,
-      getProcessedItems() {
-        return processedItems;
-      },
+      hasNextPage: hasNextToken,
+      pageItems: processedItems,
     },
   };
   return [hooksState, handleAction];
