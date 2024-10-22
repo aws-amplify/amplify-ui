@@ -16,6 +16,19 @@ export interface DownloadHandlerOutput extends TaskHandlerOutput {}
 
 export interface DownloadHandler extends TaskHandler<DownloadHandlerInput> {}
 
+function downloadFromUrl(fileName: string, url: string) {
+  const a = document.createElement('a');
+
+  a.href = url;
+  a.download = fileName;
+
+  document.body.appendChild(a);
+
+  a.click();
+
+  document.body.removeChild(a);
+}
+
 export const downloadHandler: DownloadHandler = ({
   config,
   data: { key },
@@ -24,15 +37,19 @@ export const downloadHandler: DownloadHandler = ({
 }): DownloadHandlerOutput => {
   const { credentials } = config;
   const bucket = constructBucket(config);
+  const fileKey = `${prefix}${key}`;
 
   const result = getUrl({
-    path: `${prefix}${key}`,
+    path: fileKey,
     options: {
       bucket,
       locationCredentialsProvider: credentials,
       validateObjectExistence: true,
       contentDisposition: 'attachment',
     },
+  }).then((result) => {
+    downloadFromUrl(fileKey, result.url.toString());
+    return result;
   });
 
   return {
