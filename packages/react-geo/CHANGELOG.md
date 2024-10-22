@@ -1,5 +1,14 @@
 # @aws-amplify/ui-react-geo
 
+## 2.0.30
+
+### Patch Changes
+
+- [#5917](https://github.com/aws-amplify/amplify-ui/pull/5917) [`3655af2be`](https://github.com/aws-amplify/amplify-ui/commit/3655af2be54733d364e71d3c7f86f32d7bbcf811) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - chore(ai): adding UA string for AIConversation
+
+- Updated dependencies [[`3655af2be`](https://github.com/aws-amplify/amplify-ui/commit/3655af2be54733d364e71d3c7f86f32d7bbcf811)]:
+  - @aws-amplify/ui-react-core@3.0.29
+
 ## 2.0.29
 
 ### Patch Changes
