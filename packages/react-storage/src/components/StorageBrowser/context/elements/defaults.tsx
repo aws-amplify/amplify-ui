@@ -110,7 +110,7 @@ function Label(props: LabelElementProps): React.JSX.Element {
 
 function Input(props: InputElementProps): React.JSX.Element {
   const { type } = props;
-  if (type === 'checkbox' || type === 'radio') {
+  if (type === 'checkbox') {
     return <input {...props} />;
   }
   return <_Input {...props} />;

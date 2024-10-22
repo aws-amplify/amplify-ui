@@ -53,7 +53,6 @@ export const useProcessTasks = <T, K>(
         return task;
       });
 
-      // this only contains new tasks
       const nextTasks: Task<T>[] = items.reduce((tasks, item) => {
         const remove = () => {
           if (inflight.current.has(item.key)) return;

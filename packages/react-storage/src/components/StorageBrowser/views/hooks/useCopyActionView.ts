@@ -1,9 +1,11 @@
 import { useMemo, useState } from 'react';
+
+import { isFunction } from '@aws-amplify/ui';
+
 import { useControl } from '../../context/control';
 import { copyHandler } from '../../actions/handlers';
 import { Task, useProcessTasks } from '../../tasks';
 import { useGetLocationConfig } from '../../context/config';
-import { isFunction } from '@aws-amplify/ui';
 
 interface UseActionView {
   destination: string;
@@ -47,6 +49,7 @@ export const useCopyActionView = (): UseCopyActionView => {
           ...item,
           key: item.key,
           item: { destinationPrefix: destination },
+          cancel: () => {},
         }))
       : [];
   }, [destination, selected]);
@@ -72,7 +75,10 @@ export const useCopyActionView = (): UseCopyActionView => {
   };
 
   const onCancel = () => {
-    tasks.forEach((task) => isFunction(task.cancel) && task.cancel());
+    tasks.forEach((task) => {
+      // @TODO Fixme, cancel doesn't currently cancel the task
+      if (isFunction(task.cancel)) task.cancel();
+    });
   };
 
   const onClose = () => {
