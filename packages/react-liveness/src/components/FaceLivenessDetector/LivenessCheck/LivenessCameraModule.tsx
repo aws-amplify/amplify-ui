@@ -163,17 +163,18 @@ export const LivenessCameraModule = (
 
   React.useEffect(() => {
     const videoElement = videoRef.current;
-
-    if (
-      canvasRef?.current &&
-      videoElement &&
-      // Check videoWidth is set to ensure oval is drawn correctly
-      videoElement.videoWidth > 0 &&
-      videoStream &&
-      isStartView
-    ) {
-      drawStaticOval(canvasRef.current, videoElement, videoStream);
-    }
+    setTimeout(() => {
+      if (
+        canvasRef?.current &&
+        videoElement &&
+        // Check videoWidth is set to ensure oval is drawn correctly
+        videoElement.videoWidth > 0 &&
+        videoStream &&
+        isStartView
+      ) {
+        drawStaticOval(canvasRef.current, videoElement, videoStream);
+      }
+    }, 500);
   }, [canvasRef, videoRef, videoStream, colorMode, isStartView]);
 
   React.useEffect(() => {
