@@ -30,6 +30,11 @@ const DESTINATION_PICKER_COLUMNS: Column<DestinationPickerColumns>[] = [
   { key: 'name', header: 'Folder name' },
 ];
 
+// @TODO for DestinationPicker
+// 1. Implement sorting when new table is ready
+// 2. Make the ListObjects call exhaustive up to 10k results (similar to search) to fix pagination
+// 3. Fix styling so that it only takes up 50% of parent container
+
 export const DestinationPicker = ({
   destinationPrefix,
   setDestinationPrefix,
@@ -45,8 +50,6 @@ export const DestinationPicker = ({
   const folderItems = result.filter((item) => item.type === 'FOLDER');
   const resultCount = folderItems.length;
   const hasNextToken = !!nextToken;
-
-  // TODO: move to hook:
 
   const hasValidPath = isString(destinationPrefix);
   const onPaginateNext = () => {
@@ -84,14 +87,13 @@ export const DestinationPicker = ({
 
   const renderHeaderItem = React.useCallback(
     (column: Column<DestinationPickerColumns>) => {
-      // Defining this function inside the `UploadControls` to get access
-      // to the current sort state
       const { header, key } = column;
 
       return (
         <Table.TableHeader
           key={header}
           variant={key}
+          // @TODO: implement sorting when new Table component is ready
           // aria-sort={selection === key ? direction : 'none'}
         >
           {column.header}
@@ -157,7 +159,6 @@ export const DestinationPicker = ({
     return <LoadingControl />;
   }
 
-  // move this back to CopyControl
   return (
     <div className="storage-browser__table">
       <PaginateControl

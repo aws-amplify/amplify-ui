@@ -39,6 +39,11 @@ const SELECTED_FILES_COLUMNS: Column<SelectedFilesColumns>[] = [
   { key: 'action', header: '' },
 ];
 
+// @TODO for CopyFilesControls
+// 1. Implement default sort when new table is ready
+// 2. Fix styling so that list only takes up 50% of parent container
+// 3. Fix useProcessTasks so that canceling a non-queued item actually works
+
 export const CopyFilesControls = (): React.JSX.Element => {
   const {
     path,
