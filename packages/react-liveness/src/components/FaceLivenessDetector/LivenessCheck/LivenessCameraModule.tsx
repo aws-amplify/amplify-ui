@@ -310,6 +310,7 @@ export const LivenessCameraModule = (
   const shouldShowCenteredLoader = isInitCamera || isInitWebsocket;
 
   // We don't show full screen camera on the pre check screen (isStartView/isWaitingForCamera)
+  // test comment
   const shouldShowFullScreenCamera =
     isMobileScreen && !isStartView && !shouldShowCenteredLoader;
 
