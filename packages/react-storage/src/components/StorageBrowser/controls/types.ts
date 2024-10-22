@@ -20,5 +20,10 @@ export interface ControlsContext {
   actionsConfig: {
     type: 'SINGLE_ACTION' | 'BATCH_ACTION';
     isCancelable: boolean;
+    actionStart?: {
+      onClick?: () => void;
+      label?: string;
+      disabled?: boolean;
+    };
   };
 }
