@@ -3,7 +3,7 @@ import React from 'react';
 import { createContextUtilities } from '@aws-amplify/ui-react-core';
 import { noop } from '@aws-amplify/ui';
 
-import { LocationData as _LocationData } from '../../actions';
+import { LocationData as _LocationData } from '../../../actions';
 
 // temp: LocationData will be extended to include id during integration
 interface LocationData extends _LocationData {

@@ -2,7 +2,7 @@ import React from 'react';
 import { isComponent } from '@aws-amplify/ui-react-core/elements';
 
 import { ActionConfigsProvider } from '../../actions';
-import { CredentialsProvider } from '../credentials';
+import { CredentialsProvider } from './credentials';
 
 import { ConfigurationProvider } from './context';
 import { CreateConfigurationProviderInput } from './types';

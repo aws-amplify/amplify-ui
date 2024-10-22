@@ -1,2 +1,6 @@
-export { ActionConfigsProvider, useActionConfigs } from './context';
+export {
+  ActionConfigsProvider,
+  ActionConfigsProviderProps,
+  useActionConfigs,
+} from './context';
 export * from './types';

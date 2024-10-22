@@ -6,7 +6,7 @@ import {
   CreateLocationCredentialsStoreInput,
   LocationCredentialsProvider,
   Permission,
-} from '../../storage-internal';
+} from '../../../storage-internal';
 
 export type RegisterAuthListener = (onStateChange: () => void) => void;
 

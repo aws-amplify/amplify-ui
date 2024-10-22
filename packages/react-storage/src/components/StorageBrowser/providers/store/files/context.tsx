@@ -7,7 +7,7 @@ import {
   useFileSelect,
 } from '@aws-amplify/ui-react/internal';
 
-import { SelectionType } from '../../actions/configs';
+import { SelectionType } from '../../../actions/configs';
 
 type FilesActionType =
   | { type: 'ADD_FILE_ITEMS'; files?: File[] }

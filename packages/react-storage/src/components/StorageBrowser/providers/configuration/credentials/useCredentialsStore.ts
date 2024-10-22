@@ -3,7 +3,7 @@ import React from 'react';
 import {
   createLocationCredentialsStore,
   GetLocationCredentials,
-} from '../../storage-internal';
+} from '../../../storage-internal';
 
 import { isFunction } from '@aws-amplify/ui';
 

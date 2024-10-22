@@ -2,7 +2,7 @@ import React from 'react';
 
 import { ActionInputConfig, ActionConfigsProviderProps } from '../../actions';
 
-import { CredentialsProviderProps } from '../credentials';
+import { CredentialsProviderProps } from './credentials';
 
 export type GetActionInput = () => ActionInputConfig;
 

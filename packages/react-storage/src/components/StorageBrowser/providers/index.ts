@@ -1,3 +1,3 @@
 export { createConfigurationProvider } from './configuration';
-export { StoreProviderProps, StoreProvider } from './createStoreProvider';
-export { CredentialsProviderProps } from './credentials';
+export { StoreProviderProps, StoreProvider } from './store/StoreProvider';
+export { CredentialsProviderProps } from './configuration/credentials';

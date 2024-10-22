@@ -2,8 +2,8 @@ import React from 'react';
 
 import { createContextUtilities } from '@aws-amplify/ui-react-core';
 
-import { GetCredentials, useCredentials } from '../credentials';
-import { useHistory } from '../history';
+import { GetCredentials, useCredentials } from './credentials';
+import { useHistory } from '../store/history';
 import { ConfigurationProviderProps, GetActionInput } from './types';
 
 const ERROR_MESSAGE =

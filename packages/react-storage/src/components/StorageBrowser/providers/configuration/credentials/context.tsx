@@ -2,7 +2,7 @@ import React from 'react';
 
 import { createContextUtilities } from '@aws-amplify/ui-react-core';
 
-import { LocationData } from '../../actions';
+import { LocationData } from '../../../actions';
 import {
   CredentialsProviderProps,
   CredentialsStore,
