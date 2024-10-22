@@ -1,7 +1,8 @@
+import React from 'react';
+
 import { LocationAccess } from '../../context/types';
 import { useLocationsData } from '../../context/actions';
 import { useControl } from '../../context/control';
-import React from 'react';
 import { usePaginate } from '../hooks/usePaginate';
 
 interface UseLocationsView {
@@ -17,15 +18,27 @@ interface UseLocationsView {
   onPaginatePrevious: () => void;
 }
 
+interface InitialValues {
+  pageSize?: number;
+}
+
 export type LocationsViewActionType =
   | { type: 'REFRESH' }
   | { type: 'RESET' }
   | { type: 'PAGINATE_NEXT' }
   | { type: 'PAGINATE_PREVIOUS' }
   | { type: 'PAGINATE'; page: number }
-  // set location to be provided to LocationDetailView
   | { type: 'SELECT_LOCATION'; location: LocationAccess }
-  | { type: 'SEARCH'; query: string; includeSubfolders?: boolean };
+  | { type: 'SEARCH'; query: string };
+
+export interface UseLocationsViewOptions {
+  /**
+   * initial state values
+   */
+  initialValues?: InitialValues;
+  // type Dispatch<A> = (value: A) => void;
+  onDispatch?: React.Dispatch<LocationsViewActionType>;
+}
 
 const DEFAULT_PAGE_SIZE = 100;
 export const DEFAULT_LIST_OPTIONS = {
@@ -33,27 +46,35 @@ export const DEFAULT_LIST_OPTIONS = {
   pageSize: DEFAULT_PAGE_SIZE,
 };
 
-export function useLocationsView(): UseLocationsView {
+export function useLocationsView(
+  options?: UseLocationsViewOptions
+): UseLocationsView {
   const [state, handleList] = useLocationsData();
   const [, handleUpdateState] = useControl('NAVIGATE');
-
   const { data, message, hasError, isLoading } = state;
   const { result, nextToken } = data;
   const resultCount = result.length;
   const hasNextToken = !!nextToken;
-  const pageSize = DEFAULT_PAGE_SIZE;
+  const initialValues = options?.initialValues;
+
+  const listOptions = React.useMemo(() => {
+    return {
+      ...DEFAULT_LIST_OPTIONS,
+      ...initialValues,
+    };
+  }, [initialValues]);
 
   // initial load
   React.useEffect(() => {
     handleList({
-      options: { ...DEFAULT_LIST_OPTIONS, refresh: true },
+      options: { ...listOptions, refresh: true },
     });
-  }, [handleList]);
+  }, [handleList, listOptions]);
 
   // set up pagination
   const onPaginateNext = () =>
     handleList({
-      options: { ...DEFAULT_LIST_OPTIONS, nextToken },
+      options: { ...listOptions, nextToken },
     });
 
   const {
@@ -62,7 +83,7 @@ export function useLocationsView(): UseLocationsView {
     handlePaginatePrevious,
     handleReset,
     range,
-  } = usePaginate({ onPaginateNext, pageSize });
+  } = usePaginate({ onPaginateNext, pageSize: listOptions.pageSize });
 
   const processedItems = React.useMemo(() => {
     const [start, end] = range;
@@ -85,7 +106,7 @@ export function useLocationsView(): UseLocationsView {
     onRefresh: () => {
       handleReset();
       handleList({
-        options: { ...DEFAULT_LIST_OPTIONS, refresh: true },
+        options: { ...listOptions, refresh: true },
       });
     },
     onPaginateNext: () => {

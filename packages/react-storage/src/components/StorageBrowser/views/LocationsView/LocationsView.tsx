@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { CLASS_BASE } from '../constants';
 import { Controls } from '../Controls';
 import { useLocationsData } from '../../context/actions';

@@ -5,8 +5,7 @@ import userEvent from '@testing-library/user-event';
 import createProvider from '../../../createProvider';
 import * as ActionsModule from '../../../context/actions';
 import * as ControlsModule from '../../../context/control';
-import { LocationsView } from '..';
-import { DEFAULT_ERROR_MESSAGE } from '../LocationsView';
+import { DEFAULT_ERROR_MESSAGE, LocationsView } from '../LocationsView';
 import { DEFAULT_LIST_OPTIONS } from '../useLocationsView';
 import { LocationAccess } from '../../../context/types';
 
@@ -57,7 +56,7 @@ const loadingState: ActionsModule.LocationsDataState = [
   handleListLocations,
 ];
 
-const EXPECTED_PAGE_SIZE = 100;
+const EXPECTED_PAGE_SIZE = DEFAULT_LIST_OPTIONS.pageSize;
 const result: LocationAccess = {
   permission: 'READWRITE',
   scope: 'test-bucket',
