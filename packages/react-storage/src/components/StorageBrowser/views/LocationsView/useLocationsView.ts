@@ -32,11 +32,7 @@ export type LocationsViewActionType =
   | { type: 'SEARCH'; query: string };
 
 export interface UseLocationsViewOptions {
-  /**
-   * initial state values
-   */
   initialValues?: InitialValues;
-  // type Dispatch<A> = (value: A) => void;
   onDispatch?: React.Dispatch<LocationsViewActionType>;
 }
 
