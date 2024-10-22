@@ -8,6 +8,7 @@ export async function downloadAction(
 ): Promise<DownloadActionOutput> {
   const { config, key: path } = input ?? {};
   const {
+    accountId,
     bucket: bucketName,
     credentialsProvider,
     region,
@@ -20,6 +21,7 @@ export async function downloadAction(
       path,
       options: {
         bucket,
+        expectedBucketOwner: accountId,
         locationCredentialsProvider: credentialsProvider,
         validateObjectExistence: true,
         contentDisposition: 'attachment',

@@ -33,6 +33,7 @@ const VIEW_VARIANTS: [string, string[]][] = [
 ];
 
 const config = {
+  accountId: '012345678901',
   getLocationCredentials: jest.fn(),
   listLocations: jest.fn(),
   region: 'region',

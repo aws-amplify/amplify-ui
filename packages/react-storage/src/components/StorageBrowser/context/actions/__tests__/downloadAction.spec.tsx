@@ -3,6 +3,7 @@ import { downloadAction } from '../downloadAction';
 
 const getUrlSpy = jest.spyOn(StorageModule, 'getUrl');
 const config = {
+  accountId: '012345678901',
   bucket: 'bucket',
   credentialsProvider: jest.fn(),
   region: 'region',
