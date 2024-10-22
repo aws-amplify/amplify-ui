@@ -1,4 +1,4 @@
-import { uploadData } from 'aws-amplify/storage';
+import { uploadData } from '../../storage-internal';
 
 import { TaskAction, TaskActionInput, TaskActionOutput } from '../types';
 
@@ -30,6 +30,7 @@ export const createFolderAction = async (
   }
 
   const {
+    accountId,
     bucket: bucketName,
     credentialsProvider: locationCredentialsProvider,
     region,
@@ -41,7 +42,11 @@ export const createFolderAction = async (
     await uploadData({
       path: prefix,
       data: '',
-      options: { bucket: { bucketName, region }, locationCredentialsProvider },
+      options: {
+        bucket: { bucketName, region },
+        expectedBucketOwner: accountId,
+        locationCredentialsProvider,
+      },
     }).result;
     result = { key: prefix, status: 'COMPLETE', message: undefined };
   } catch (e) {

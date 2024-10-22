@@ -1,4 +1,4 @@
-import { UploadDataWithPathInput } from 'aws-amplify/storage';
+import { UploadDataInput } from '../storage-internal';
 import { LocationCredentialsProvider } from '../storage-internal';
 
 export interface FolderItem {
@@ -32,6 +32,7 @@ export interface LocationData<T = Permission>
 }
 
 export interface LocationConfig {
+  accountId?: string;
   bucket: string;
   credentialsProvider: LocationCredentialsProvider;
   region: string;
@@ -55,10 +56,7 @@ interface CancelableTaskResult extends TaskResult<TaskStatus | 'CANCELED'> {
 }
 
 interface UploadItemOptions
-  extends Pick<
-    NonNullable<UploadDataWithPathInput['options']>,
-    'preventOverwrite'
-  > {}
+  extends Pick<NonNullable<UploadDataInput['options']>, 'preventOverwrite'> {}
 
 interface UploadActionInput extends TaskActionInput<UploadItemOptions> {}
 

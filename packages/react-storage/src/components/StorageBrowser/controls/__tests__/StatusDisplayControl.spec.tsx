@@ -1,75 +1,53 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { getTaskCounts } from '../getTaskCounts';
+import { useResolvedComposable } from '../hooks/useResolvedComposable';
+import { useStatusDisplay } from '../hooks/useStatusDisplay';
 import { StatusDisplayControl } from '../StatusDisplayControl';
 
-jest.mock('../getTaskCounts');
+jest.mock('../hooks/useStatusDisplay');
+jest.mock('../hooks/useResolvedComposable');
 
 describe('StatusDisplayControl', () => {
   // assert mocks
-  const mockGetTaskCounts = getTaskCounts as jest.Mock;
+  const mockUseStatusDisplay = useStatusDisplay as jest.Mock;
+  const mockUseResolvedComposable = useResolvedComposable as jest.Mock;
 
-  beforeEach(() => {
-    mockGetTaskCounts.mockReturnValue({
-      COMPLETE: 4,
-      FAILED: 3,
-      CANCELED: 2,
-      QUEUED: 1,
-      TOTAL: 10,
-    });
+  beforeAll(() => {
+    mockUseResolvedComposable.mockImplementation(
+      (component: React.JSX.Element) => component
+    );
   });
 
   afterEach(() => {
-    mockGetTaskCounts.mockReset();
+    mockUseStatusDisplay.mockReset();
+    mockUseResolvedComposable.mockClear();
   });
 
   it('renders', () => {
-    // FIXME: Temporarily get via props. Refactor later to get via view hook
-    render(<StatusDisplayControl actionType="BATCH" isCancelable tasks={[]} />);
-
-    const [completed, failed, canceled, queued] =
-      screen.getAllByRole('definition');
-
-    expect(completed).toHaveTextContent('4/10');
-    expect(failed).toHaveTextContent('3/10');
-    expect(canceled).toHaveTextContent('2/10');
-    expect(queued).toHaveTextContent('1/10');
-  });
-
-  it('renders without canceled tasks', () => {
-    mockGetTaskCounts.mockReturnValue({
-      COMPLETE: 4,
-      FAILED: 3,
-      CANCELED: 0,
-      QUEUED: 1,
-      TOTAL: 8,
+    mockUseStatusDisplay.mockReturnValue({
+      props: {
+        statuses: [
+          { name: 'foo', count: 1 },
+          { name: 'bar', count: 2 },
+          { name: 'qux', count: 3 },
+        ],
+        total: 6,
+      },
     });
 
-    // FIXME: Temporarily get via props. Refactor later to get via view hook
-    render(<StatusDisplayControl actionType="BATCH" tasks={[]} />);
+    render(<StatusDisplayControl />);
 
-    const definitions = screen.getAllByRole('definition');
-    const [completed, failed, queued] = definitions;
+    const [foo, bar, qux] = screen.getAllByRole('definition');
 
-    expect(definitions.length).toBe(3);
-    expect(completed).toHaveTextContent('4/8');
-    expect(failed).toHaveTextContent('3/8');
-    expect(queued).toHaveTextContent('1/8');
+    expect(foo).toHaveTextContent('1/6');
+    expect(bar).toHaveTextContent('2/6');
+    expect(qux).toHaveTextContent('3/6');
   });
 
-  it('returns null if the actionType is SINGLE', () => {
-    mockGetTaskCounts.mockReturnValue({
-      COMPLETE: 4,
-      FAILED: 3,
-      CANCELED: 0,
-      QUEUED: 1,
-      TOTAL: 8,
-    });
+  it('returns null without props', () => {
+    mockUseStatusDisplay.mockReturnValue({});
 
-    // FIXME: Temporarily get via props. Refactor later to get via view hook
-    render(
-      <StatusDisplayControl actionType="SINGLE" isCancelable tasks={[]} />
-    );
+    render(<StatusDisplayControl />);
 
     expect(screen.queryByRole('list')).not.toBeInTheDocument();
     expect(screen.queryByRole('term')).not.toBeInTheDocument();

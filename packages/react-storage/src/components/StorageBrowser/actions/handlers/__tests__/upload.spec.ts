@@ -1,3 +1,4 @@
+import * as InternalStorageModule from '../../../storage-internal';
 import * as StorageModule from 'aws-amplify/storage';
 
 import {
@@ -8,12 +9,12 @@ import {
 } from '../upload';
 
 const isCancelErrorSpy = jest.spyOn(StorageModule, 'isCancelError');
-const uploadDataSpy = jest.spyOn(StorageModule, 'uploadData');
+const uploadDataSpy = jest.spyOn(InternalStorageModule, 'uploadData');
 
 const credentials = jest.fn();
 
 const config: UploadHandlerInput['config'] = {
-  accountId: 'accountId',
+  accountId: '012345678901',
   bucket: 'bucket',
   credentials,
   region: 'region',
@@ -49,7 +50,7 @@ describe('uploadHandler', () => {
       cancel,
       pause,
       resume,
-      result: Promise.resolve({ key: payload.name }),
+      result: Promise.resolve({ path: payload.name }),
       state: 'SUCCESS',
     });
 
@@ -68,9 +69,10 @@ describe('uploadHandler', () => {
   it('calls upload with the expected values', () => {
     uploadHandler({ ...baseInput, options: { preventOverwrite: true } });
 
-    const expected: StorageModule.UploadDataWithPathInput = {
+    const expected: InternalStorageModule.UploadDataInput = {
       data: payload,
       options: {
+        expectedBucketOwner: config.accountId,
         bucket: {
           bucketName: config.bucket,
           region: config.region,
@@ -94,7 +96,7 @@ describe('uploadHandler', () => {
         cancel,
         pause,
         resume,
-        result: Promise.resolve({ key: payload.name }),
+        result: Promise.resolve({ path: payload.name }),
         state: 'SUCCESS',
       };
     });
@@ -120,7 +122,7 @@ describe('uploadHandler', () => {
         cancel,
         pause,
         resume,
-        result: Promise.resolve({ key: payload.name }),
+        result: Promise.resolve({ path: payload.name }),
         state: 'SUCCESS',
       };
     });
@@ -147,7 +149,7 @@ describe('uploadHandler', () => {
       cancel,
       pause,
       resume,
-      result: Promise.resolve({ key: payload.name }),
+      result: Promise.resolve({ path: payload.name }),
       state: 'SUCCESS',
     });
 
@@ -169,7 +171,7 @@ describe('uploadHandler', () => {
       cancel,
       pause,
       resume,
-      result: Promise.resolve({ key: payload.name }),
+      result: Promise.resolve({ path: payload.name }),
       state: 'SUCCESS',
     });
 

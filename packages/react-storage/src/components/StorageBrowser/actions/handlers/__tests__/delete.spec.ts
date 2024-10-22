@@ -1,4 +1,4 @@
-import * as StorageModule from 'aws-amplify/storage';
+import * as StorageModule from '../../../storage-internal';
 
 import { deleteHandler, DeleteHandlerInput } from '../delete';
 
@@ -7,7 +7,7 @@ const removeSpy = jest.spyOn(StorageModule, 'remove');
 const baseInput: DeleteHandlerInput = {
   prefix: 'prefix/',
   config: {
-    accountId: '',
+    accountId: '012345678901',
     bucket: 'bucket',
     credentials: jest.fn(),
     region: 'region',
@@ -19,9 +19,10 @@ describe('deleteHandler', () => {
   it('calls `remove` and returns the expected `key`', () => {
     const { key } = deleteHandler(baseInput);
 
-    const expected: StorageModule.RemoveWithPathInput = {
+    const expected: StorageModule.RemoveInput = {
       path: `${baseInput.prefix}${baseInput.data.key}`,
       options: {
+        expectedBucketOwner: baseInput.config.accountId,
         bucket: {
           bucketName: baseInput.config.bucket,
           region: baseInput.config.region,
