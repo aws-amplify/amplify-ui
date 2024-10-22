@@ -62,15 +62,40 @@ const ContentContainer: typeof View = React.forwardRef(
   }
 );
 
-export const MessageControl: MessageControl = ({ message }) => {
+const ToolContent = ({
+  toolUse,
+}: {
+  toolUse: NonNullable<ConversationMessage['content'][number]['toolUse']>;
+}) => {
   const responseComponents = React.useContext(ResponseComponentsContext);
+
+  // For now tool use is limited to custom response components
+  const { name, input } = toolUse;
+
+  if (
+    !responseComponents ||
+    !name ||
+    !name.startsWith(RESPONSE_COMPONENT_PREFIX)
+  ) {
+    return;
+  } else {
+    const response = responseComponents[name];
+    const CustomComponent = response.component;
+    return <CustomComponent {...(input as object)} />;
+  }
+};
+
+export const MessageControl: MessageControl = ({ message }) => {
   const messageRenderer = React.useContext(MessageRendererContext);
+
   return (
     <ContentContainer>
       {message.content.map((content, index) => {
         if (content.text) {
           return messageRenderer?.text ? (
-            messageRenderer.text({ text: content.text })
+            <React.Fragment key={index}>
+              {messageRenderer.text({ text: content.text })}
+            </React.Fragment>
           ) : (
             <TextContent data-testid={'text-content'} key={index}>
               {content.text}
@@ -78,7 +103,9 @@ export const MessageControl: MessageControl = ({ message }) => {
           );
         } else if (content.image) {
           return messageRenderer?.image ? (
-            messageRenderer?.image({ image: content.image })
+            <React.Fragment key={index}>
+              {messageRenderer?.image({ image: content.image })}
+            </React.Fragment>
           ) : (
             <MediaContent
               data-testid={'image-content'}
@@ -90,19 +117,7 @@ export const MessageControl: MessageControl = ({ message }) => {
             />
           );
         } else if (content.toolUse) {
-          // For now tool use is limited to custom response components
-          const { name, input } = content.toolUse;
-          if (
-            !responseComponents ||
-            !name ||
-            !name.startsWith(RESPONSE_COMPONENT_PREFIX)
-          ) {
-            return;
-          } else {
-            const response = responseComponents[name];
-            const CustomComponent = response.component;
-            return <CustomComponent {...(input as object)} key={index} />;
-          }
+          return <ToolContent toolUse={content.toolUse} key={index} />;
         }
       })}
     </ContentContainer>
