@@ -12,17 +12,19 @@ describe('useActionConfigs', () => {
     const configs: ActionConfigs = {
       ...defaultActionConfigs,
       SomeCoolAction: {
+        componentName: 'SomeCoolView',
         handler: someCoolHandler,
         isCancelable: false,
-        title: 'Do Cool Action',
-        type: 'BATCH_ACTION',
+        displayName: 'Do Cool Action',
       },
     };
 
     const { result } = renderHook(useActionConfigs, {
-      wrapper: (props) => <ActionConfigsProvider {...props} {...configs} />,
+      wrapper: (props) => (
+        <ActionConfigsProvider {...props} actions={configs} />
+      ),
     });
 
-    expect(result.current).toStrictEqual(configs);
+    expect(result.current.actions).toStrictEqual(configs);
   });
 });
