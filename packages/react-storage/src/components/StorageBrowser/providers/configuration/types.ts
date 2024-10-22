@@ -6,7 +6,7 @@ import { CredentialsProviderProps } from './credentials';
 
 export type GetActionInput = () => ActionInputConfig;
 
-export interface ConfigurationProviderProps {
+export interface GetActionInputProviderProps {
   accountId?: string;
   children?: React.ReactNode;
   region: string;
@@ -14,13 +14,17 @@ export interface ConfigurationProviderProps {
 
 export interface CreateConfigurationProviderInput<
   T extends React.ComponentType<any>,
-> extends ConfigurationProviderProps,
-    ActionConfigsProviderProps,
-    ConfigurationProviderProps,
+> extends ActionConfigsProviderProps,
+    GetActionInputProviderProps,
     CredentialsProviderProps {
+  ChildComponent?: T;
   displayName: string;
-  options?: {
-    ChildProvider?: T;
-  };
   region: string;
+}
+
+export interface ConfigurationProviderComponent<
+  T extends React.ComponentType<any>,
+> {
+  (props: React.ComponentProps<T>): React.JSX.Element;
+  displayName: string;
 }

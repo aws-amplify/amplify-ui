@@ -2,9 +2,9 @@ import React from 'react';
 
 import { createContextUtilities } from '@aws-amplify/ui-react-core';
 
-import { GetCredentials, useCredentials } from './credentials';
-import { useHistory } from '../store/history';
-import { ConfigurationProviderProps, GetActionInput } from './types';
+import { GetActionInputProviderProps, GetActionInput } from './types';
+import { LocationData as _LocationData } from '../../actions';
+import { useGetActionInputCallback } from './useGetActionInputCallback';
 
 const ERROR_MESSAGE =
   '`useGetActionInput` must be called from within a `ConfigurationProvider`.';
@@ -15,43 +15,13 @@ export const { useGetActionInput, GetActionInputContext } =
     errorMessage: ERROR_MESSAGE,
   });
 
-export function useGetActionInputCallback({
-  accountId,
-  getCredentials,
-  region,
-}: {
-  accountId?: string;
-  getCredentials: GetCredentials;
-  region: string;
-}): GetActionInput {
-  const [{ current }] = useHistory();
-
-  return React.useCallback(() => {
-    if (!current || !getCredentials) {
-      // @todo: split in to multiple validations
-      throw new Error('Unable to resolve credentials.');
-    }
-
-    const { bucket, permission, prefix } = current;
-
-    return {
-      accountId,
-      bucket,
-      credentials: getCredentials({ bucket, permission, prefix }),
-      region,
-    };
-  }, [accountId, current, getCredentials, region]);
-}
-
-export function ConfigurationProvider({
+export function GetActionInputProvider({
   accountId,
   children,
   region,
-}: ConfigurationProviderProps): React.JSX.Element {
-  const { getCredentials } = useCredentials();
+}: GetActionInputProviderProps): React.JSX.Element {
   const value = useGetActionInputCallback({
     accountId,
-    getCredentials,
     region,
   });
 

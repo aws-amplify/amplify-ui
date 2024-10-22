@@ -4,8 +4,11 @@ import { isComponent } from '@aws-amplify/ui-react-core/elements';
 import { ActionConfigsProvider } from '../../actions';
 import { CredentialsProvider } from './credentials';
 
-import { ConfigurationProvider } from './context';
-import { CreateConfigurationProviderInput } from './types';
+import { GetActionInputProvider } from './context';
+import {
+  CreateConfigurationProviderInput,
+  ConfigurationProviderComponent,
+} from './types';
 
 const Passthrough = ({ children }: { children?: React.ReactNode }) => (
   <>{children}</>
@@ -13,18 +16,18 @@ const Passthrough = ({ children }: { children?: React.ReactNode }) => (
 
 export function createConfigurationProvider<T extends React.ComponentType<any>>(
   input: CreateConfigurationProviderInput<T>
-): (props: React.ComponentProps<T>) => React.JSX.Element {
-  const { accountId, actions, displayName, options, region, ...rest } = input;
-  const { ChildProvider } = options ?? {};
+): ConfigurationProviderComponent<T> {
+  const { accountId, actions, ChildComponent, displayName, region, ...rest } =
+    input;
 
-  const Child = isComponent(ChildProvider) ? ChildProvider : Passthrough;
+  const Child = isComponent(ChildComponent) ? ChildComponent : Passthrough;
 
-  const Provider = (props: React.ComponentProps<T>) => (
+  const Provider: ConfigurationProviderComponent<T> = (props) => (
     <ActionConfigsProvider {...actions}>
       <CredentialsProvider {...rest}>
-        <ConfigurationProvider accountId={accountId} region={region}>
+        <GetActionInputProvider accountId={accountId} region={region}>
           <Child {...props} />
-        </ConfigurationProvider>
+        </GetActionInputProvider>
       </CredentialsProvider>
     </ActionConfigsProvider>
   );
