@@ -16,14 +16,15 @@ describe('useActionConfigs', () => {
         handler: someCoolHandler,
         isCancelable: false,
         displayName: 'Do Cool Action',
-        type: 'BATCH_ACTION',
       },
     };
 
     const { result } = renderHook(useActionConfigs, {
-      wrapper: (props) => <ActionConfigsProvider {...props} {...configs} />,
+      wrapper: (props) => (
+        <ActionConfigsProvider {...props} actions={configs} />
+      ),
     });
 
-    expect(result.current).toStrictEqual(configs);
+    expect(result.current.actions).toStrictEqual(configs);
   });
 });

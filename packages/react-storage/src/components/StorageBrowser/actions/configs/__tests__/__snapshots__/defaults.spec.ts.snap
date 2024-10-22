@@ -13,19 +13,16 @@ exports[`defaultActionConfigs matches expected shape 1`] = `
     "displayName": "Create Folder",
     "handler": null,
     "isCancelable": false,
-    "type": "SINGLE_ACTION",
   },
   "ListLocationItems": {
     "componentName": "LocationDetailView",
     "displayName": [Function],
     "handler": null,
-    "type": "LIST_LOCATION_ITEMS",
   },
   "ListLocations": {
     "componentName": "LocationsView",
     "displayName": "Home",
     "handler": null,
-    "type": "LIST_LOCATIONS",
   },
   "Upload": {
     "actionsListItemConfig": [
@@ -47,8 +44,8 @@ exports[`defaultActionConfigs matches expected shape 1`] = `
     "componentName": "UploadView",
     "displayName": "Upload",
     "handler": [Function],
+    "includeProgress": true,
     "isCancelable": true,
-    "type": "BATCH_ACTION",
   },
 }
 `;

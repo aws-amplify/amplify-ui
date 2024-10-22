@@ -16,7 +16,7 @@ interface CreateStorageBrowserInput<T extends ActionConfigs> {
 
 interface CreateStorageBrowserOutput<T extends ActionConfigs> {
   StorageBrowser: {
-    (props: {}): React.JSX.Element;
+    (props: Record<string, unknown>): React.JSX.Element;
     displayName: string;
     Provider: (props: { children?: React.ReactNode }) => React.JSX.Element;
   } & DerivedViews<T>; // & the action derived views components
@@ -49,7 +49,7 @@ type CustomActionViews<T> = {
     : never]: TaskActionViewComponent;
 };
 
-type ViewComponent<T, K = {}> = {
+export type ViewComponent<T, K = {}> = {
   (props: K): React.JSX.Element;
   displayName: string;
   Provider: (props: { children?: React.ReactNode }) => React.JSX.Element;
@@ -63,13 +63,24 @@ export type TaskActionViewComponent<T = {}> = ViewComponent<
 >;
 
 interface DefaultActionViews {
-  ListLocationItems: ViewComponent<ListLocationItemsActionViewSubComponents>;
-  ListLocations: ViewComponent<ListLocationsActionViewSubComponents>;
+  ListLocationItems: {
+    componentName: 'LocationDetailView';
+    subComponents: ViewComponent<ListLocationItemsActionViewSubComponents>;
+  };
+  ListLocations: {
+    componentName: 'LocationsView';
+    subComponents: ViewComponent<ListLocationsActionViewSubComponents>;
+  };
+  Upload: {
+    componentName: 'UploadView';
+    // TODO: pass in the generic parameter
+    subComponents: TaskActionViewComponent;
+  };
   // temp: needs full subcomp defintions
-  Upload: TaskActionViewComponent<{ Bonus: () => React.JSX.Element }>;
-
-  // temp: needs full subcomp defintions
-  CreateFolder: TaskActionViewComponent;
+  CreateFolder: {
+    componentName: 'CreateFolderView';
+    subComponents: TaskActionViewComponent;
+  };
 }
 
 /**
@@ -80,9 +91,9 @@ interface DefaultActionViews {
  */
 type DerivedViews<T> = CustomActionViews<T> & {
   readonly [K in keyof T as K extends keyof DefaultActionViews
-    ? K
+    ? DefaultActionViews[K]['componentName']
     : never]: K extends keyof DefaultActionViews
-    ? DefaultActionViews[K]
+    ? DefaultActionViews[K]['subComponents']
     : never;
 } & {
   readonly LocationActionView: LocationActionViewComponent<
@@ -95,7 +106,7 @@ interface DefaultViewSubComponentProps {
   className?: string;
 }
 
-interface TaskActionViewSubComponents {
+export interface TaskActionViewSubComponents {
   Title: (props: DefaultViewSubComponentProps) => React.JSX.Element;
   Trigger: (props: DefaultViewSubComponentProps) => React.JSX.Element;
   Cancel: (props: DefaultViewSubComponentProps) => React.JSX.Element;
@@ -105,7 +116,7 @@ interface TaskActionViewSubComponents {
   Exit: (props: DefaultViewSubComponentProps) => React.JSX.Element;
 }
 
-interface ListLocationsActionViewSubComponents {
+export interface ListLocationsActionViewSubComponents {
   Title: (props: DefaultViewSubComponentProps) => React.JSX.Element;
   Table: (props: DefaultViewSubComponentProps) => React.JSX.Element;
   Search: (props: DefaultViewSubComponentProps) => React.JSX.Element;
@@ -114,7 +125,7 @@ interface ListLocationsActionViewSubComponents {
   Message: (props: DefaultViewSubComponentProps) => React.JSX.Element;
 }
 
-interface ListLocationItemsActionViewSubComponents
+export interface ListLocationItemsActionViewSubComponents
   extends ListLocationsActionViewSubComponents {
   ActionList: (props: DefaultViewSubComponentProps) => React.JSX.Element;
   ActionsMenu: (props: DefaultViewSubComponentProps) => React.JSX.Element;

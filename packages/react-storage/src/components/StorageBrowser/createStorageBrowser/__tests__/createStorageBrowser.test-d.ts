@@ -1,6 +1,11 @@
 import { createStorageBrowser } from '..';
 import { DefaultActionConfigs } from '../../actions/configs';
-import { DerivedSubComponents } from '../types';
+import {
+  ListLocationItemsActionViewSubComponents,
+  ListLocationsActionViewSubComponents,
+  TaskActionViewComponent,
+  ViewComponent,
+} from '../types';
 
 type Expect<T extends true> = T;
 type Equal<X, Y> = (<T>() => T extends X ? 1 : 2) extends <T>() => T extends Y
@@ -17,25 +22,19 @@ describe('createStorageBrowser() type generation', () => {
 
     type _ = Expect<
       typeof StorageBrowser extends {
-        (props: {
-          type:
-            | 'LocationDetailView'
-            | 'LocationsView'
-            | 'CreateFolderView'
-            | 'UploadView';
-        }): React.JSX.Element;
+        (props: Record<string, unknown>): React.JSX.Element;
         displayName: string;
         Provider: (props: { children?: React.ReactNode }) => React.JSX.Element;
-        readonly LocationDetailView: DerivedSubComponents<
-          'LIST_LOCATION_ITEMS',
-          object
+        readonly LocationDetailView: ViewComponent<
+          ListLocationItemsActionViewSubComponents,
+          {}
         >;
-        readonly LocationsView: DerivedSubComponents<'LIST_LOCATIONS', object>;
-        readonly CreateFolderView: DerivedSubComponents<
-          'SINGLE_ACTION',
-          object
+        readonly LocationsView: ViewComponent<
+          ListLocationsActionViewSubComponents,
+          {}
         >;
-        readonly UploadView: DerivedSubComponents<'BATCH_ACTION', object>;
+        readonly CreateFolderView: TaskActionViewComponent<{}>;
+        readonly UploadView: TaskActionViewComponent<{}>;
       }
         ? true
         : false
@@ -53,43 +52,35 @@ describe('createStorageBrowser() type generation', () => {
           handler: () => {},
           isCancelable: false,
           displayName: 'Share',
-          type: 'SINGLE_ACTION',
+          includeProgress: false,
         },
         CropAll: {
-          componentName: 'CropAllImages',
+          componentName: 'CropAllImagesView',
           handler: () => {},
-          isCancelable: true,
-          displayName: 'CropAllImages',
-          type: 'BATCH_ACTION',
+          isCancelable: false,
+          displayName: 'Crop All',
+          includeProgress: false,
         },
       },
     });
 
     type _ = Expect<
       typeof StorageBrowser extends {
-        (props: {
-          type:
-            | 'LocationDetailView'
-            | 'LocationsView'
-            | 'CreateFolderView'
-            | 'UploadView'
-            | 'MyShareView'
-            | 'CropAllImages';
-        }): React.JSX.Element;
+        (props: Record<string, unknown>): React.JSX.Element;
         displayName: string;
         Provider: (props: { children?: React.ReactNode }) => React.JSX.Element;
-        readonly MyShareView: DerivedSubComponents<'SINGLE_ACTION', object>;
-        readonly CropAllImages: DerivedSubComponents<'BATCH_ACTION', object>;
-        readonly LocationDetailView: DerivedSubComponents<
-          'LIST_LOCATION_ITEMS',
-          object
+        readonly MyShareView: TaskActionViewComponent<{}>;
+        readonly CropAllImagesView: TaskActionViewComponent<{}>;
+        readonly LocationDetailView: ViewComponent<
+          ListLocationItemsActionViewSubComponents,
+          {}
         >;
-        readonly LocationsView: DerivedSubComponents<'LIST_LOCATIONS', object>;
-        readonly CreateFolderView: DerivedSubComponents<
-          'SINGLE_ACTION',
-          object
+        readonly LocationsView: ViewComponent<
+          ListLocationsActionViewSubComponents,
+          {}
         >;
-        readonly UploadView: DerivedSubComponents<'BATCH_ACTION', object>;
+        readonly CreateFolderView: TaskActionViewComponent<{}>;
+        readonly UploadView: TaskActionViewComponent<{}>;
       }
         ? true
         : false
@@ -109,41 +100,39 @@ describe('createStorageBrowser() type generation', () => {
           },
           isCancelable: false,
           displayName: 'Create Folder',
-          type: 'SINGLE_ACTION',
         },
         Share: {
           componentName: 'MyShareView',
           handler: () => {},
           isCancelable: false,
           displayName: 'Share',
-          type: 'SINGLE_ACTION',
+        },
+        someOtherAction: {
+          componentName: 'SomeOtherView',
+          handler: () => {},
+          isCancelable: false,
+          displayName: 'Some Other Action',
         },
       },
     });
 
     type _ = Expect<
       typeof StorageBrowser extends {
-        (props: {
-          type:
-            | 'LocationDetailView'
-            | 'LocationsView'
-            | 'CreateFolderView'
-            | 'UploadView'
-            | 'MyShareView';
-        }): React.JSX.Element;
+        (props: Record<string, unknown>): React.JSX.Element;
         displayName: string;
         Provider: (props: { children?: React.ReactNode }) => React.JSX.Element;
-        readonly MyShareView: DerivedSubComponents<'SINGLE_ACTION', object>;
-        readonly LocationDetailView: DerivedSubComponents<
-          'LIST_LOCATION_ITEMS',
-          object
+        readonly MyShareView: TaskActionViewComponent<{}>;
+        readonly SomeOtherView: TaskActionViewComponent<{}>;
+        readonly CreateFolderView: TaskActionViewComponent<{}>;
+        readonly LocationDetailView: ViewComponent<
+          ListLocationItemsActionViewSubComponents,
+          {}
         >;
-        readonly LocationsView: DerivedSubComponents<'LIST_LOCATIONS', object>;
-        readonly CreateFolderView: DerivedSubComponents<
-          'SINGLE_ACTION',
-          object
+        readonly LocationsView: ViewComponent<
+          ListLocationsActionViewSubComponents,
+          {}
         >;
-        readonly UploadView: DerivedSubComponents<'BATCH_ACTION', object>;
+        readonly UploadView: TaskActionViewComponent<{}>;
       }
         ? true
         : false
@@ -162,11 +151,7 @@ describe('createStorageBrowser() type generation', () => {
           handler: () => {
             throw new Error('Not implemented for testing');
           },
-          // @ts-expect-error doesn't allow different isCancelable
-          isCancelable: true,
           displayName: 'Create Folder',
-          // @ts-expect-error doesn't allow different type
-          type: 'LIST_LOCATIONS',
         },
         Upload: {
           // @ts-expect-error doesn't allow different componentName
@@ -174,11 +159,7 @@ describe('createStorageBrowser() type generation', () => {
           handler: () => {
             throw new Error('Not implemented for testing');
           },
-          // @ts-expect-error doesn't allow different isCancelable
-          isCancelable: false,
           displayName: 'Upload',
-          // @ts-expect-error doesn't allow different type
-          type: 'LIST_LOCATIONS',
         },
         ListLocationItems: {
           // @ts-expect-error doesn't allow different componentName
@@ -188,8 +169,6 @@ describe('createStorageBrowser() type generation', () => {
           },
           // @ts-expect-error doesn't allow different displayName
           displayName: 'LocationItems',
-          // @ts-expect-error doesn't allow different type
-          type: 'LIST_LOCATIONS',
         },
         ListLocations: {
           // @ts-expect-error doesn't allow different componentName
@@ -198,8 +177,6 @@ describe('createStorageBrowser() type generation', () => {
             throw new Error('Not implemented for testing');
           },
           displayName: 'Locations',
-          // @ts-expect-error doesn't allow different type
-          type: 'LIST_LOCATION_ITEMS',
         },
       },
     });
@@ -212,6 +189,7 @@ describe('createStorageBrowser() type generation', () => {
       config: {} as any,
       actions: {
         nonCapitalizedKey: {
+          // @ts-expect-error cannot specify non-defined property
           randomValues: 'random',
         },
       },
@@ -219,25 +197,19 @@ describe('createStorageBrowser() type generation', () => {
 
     type _ = Expect<
       typeof StorageBrowser extends {
-        (props: {
-          type:
-            | 'LocationDetailView'
-            | 'LocationsView'
-            | 'CreateFolderView'
-            | 'UploadView';
-        }): React.JSX.Element;
+        (props: Record<string, unknown>): React.JSX.Element;
         displayName: string;
         Provider: (props: { children?: React.ReactNode }) => React.JSX.Element;
-        readonly LocationDetailView: DerivedSubComponents<
-          'LIST_LOCATION_ITEMS',
-          object
+        readonly LocationDetailView: ViewComponent<
+          ListLocationItemsActionViewSubComponents,
+          {}
         >;
-        readonly LocationsView: DerivedSubComponents<'LIST_LOCATIONS', object>;
-        readonly CreateFolderView: DerivedSubComponents<
-          'SINGLE_ACTION',
-          object
+        readonly LocationsView: ViewComponent<
+          ListLocationsActionViewSubComponents,
+          {}
         >;
-        readonly UploadView: DerivedSubComponents<'BATCH_ACTION', object>;
+        readonly CreateFolderView: TaskActionViewComponent<{}>;
+        readonly UploadView: TaskActionViewComponent<{}>;
       }
         ? true
         : false
@@ -255,7 +227,7 @@ describe('createStorageBrowser() type generation', () => {
           handler: () => {},
           isCancelable: false,
           displayName: 'Share',
-          type: 'SINGLE_ACTION',
+          includeProgress: false,
         },
       },
     });
