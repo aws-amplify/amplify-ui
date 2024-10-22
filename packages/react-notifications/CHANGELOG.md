@@ -1,5 +1,17 @@
 # @aws-amplify/ui-react-notifications
 
+## 2.0.34
+
+### Patch Changes
+
+- [#5917](https://github.com/aws-amplify/amplify-ui/pull/5917) [`3655af2be`](https://github.com/aws-amplify/amplify-ui/commit/3655af2be54733d364e71d3c7f86f32d7bbcf811) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - chore(ai): adding UA string for AIConversation
+
+- Updated dependencies [[`6fea94b89`](https://github.com/aws-amplify/amplify-ui/commit/6fea94b890d9d497a3f13e189ea0b52e8dcdadb8), [`3655af2be`](https://github.com/aws-amplify/amplify-ui/commit/3655af2be54733d364e71d3c7f86f32d7bbcf811)]:
+  - @aws-amplify/ui-react@6.5.5
+  - @aws-amplify/ui-react-core-notifications@2.0.29
+  - @aws-amplify/ui-react-core@3.0.29
+  - @aws-amplify/ui@6.6.5
+
 ## 2.0.33
 
 ### Patch Changes
