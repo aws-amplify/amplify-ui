@@ -4,7 +4,7 @@ import { renderHook } from '@testing-library/react';
 import { CredentialsProvider, useCredentials } from '../context';
 
 describe('useCredentials', () => {
-  it.skip('provides the expected values in the happy path', () => {
+  it('provides the expected values in the happy path', () => {
     const getLocationCredentials = jest.fn();
     const registerAuthListener = jest.fn();
 
@@ -19,6 +19,7 @@ describe('useCredentials', () => {
       ),
     });
 
-    expect(result.current).toStrictEqual(expect.any(Function));
+    expect(typeof result.current.destroy).toBe('function');
+    expect(typeof result.current.getCredentials).toBe('function');
   });
 });
