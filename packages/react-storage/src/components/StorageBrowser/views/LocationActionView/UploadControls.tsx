@@ -35,10 +35,11 @@ import {
   STATUS_DISPLAY_VALUES,
 } from './constants';
 import { FileItems } from '../../providers/store/files';
+import { ActionStartControl } from '../../controls/ActionStartControl';
 
 const { Icon } = StorageBrowserElements;
 
-const { Cancel, Exit, Overwrite, Primary, Table } = Controls;
+const { Cancel, Exit, Overwrite, Table } = Controls;
 
 interface LocationActionViewColumns {
   cancel: (() => void) | undefined;
@@ -323,14 +324,20 @@ export const UploadControls = ({
       taskCounts.TOTAL;
 
   const disableCancel = !taskCounts.TOTAL || !hasStarted || hasCompleted;
-  const disablePrimary = !taskCounts.TOTAL || hasStarted || hasCompleted;
   const disableOverwrite = hasStarted || hasCompleted;
   const disableSelectFiles = hasStarted || hasCompleted;
 
   // FIXME: Eventually comes from useView hook
   const contextValue: ControlsContext = {
     data: { taskCounts },
-    actionsConfig: { type: 'BATCH_ACTION', isCancelable: true },
+    actionsConfig: {
+      type: 'BATCH_ACTION',
+      isCancelable: true,
+      actionStart: {
+        onClick: handleUpload,
+        label: 'Start',
+      },
+    },
   };
 
   return (
@@ -347,20 +354,7 @@ export const UploadControls = ({
         }}
       />
       <Title />
-      <Primary
-        disabled={disablePrimary}
-        onClick={() => {
-          if (hasInvalidPrefix) return;
-
-          handleProcess({
-            config: getInput(),
-            prefix,
-            options: { preventOverwrite },
-          });
-        }}
-      >
-        Start
-      </Primary>
+      <ActionStartControl className={`${CLASS_BASE}__primary`} />
       <ButtonElement
         variant="cancel"
         disabled={disableCancel}

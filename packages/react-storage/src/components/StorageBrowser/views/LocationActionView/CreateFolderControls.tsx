@@ -9,8 +9,13 @@ import { useStore } from '../../providers/store';
 import { Controls } from '../Controls';
 
 import { Title } from './Controls/Title';
+import { ActionStartControl } from '../../controls/ActionStartControl';
+import { ControlsContext } from '../../controls/types';
+import { ActionStartProps } from '../../composables/ActionStart';
+import { ControlsContextProvider } from '../../controls/context';
+import { CLASS_BASE } from '../constants';
 
-const { Exit, Message, Primary } = Controls;
+const { Exit, Message } = Controls;
 
 export const isValidFolderName = (name: string | undefined): boolean =>
   !!name?.length && !name.includes('/');
@@ -88,31 +93,41 @@ export const CreateFolderControls = ({
     handleCreateAction({ prefix: '', options: { reset: true } });
   };
 
-  const primaryProps =
+  const primaryProps: ActionStartProps =
     result?.status === 'COMPLETE'
       ? {
           onClick: () => {
             handleClose();
           },
-          children: 'Folder created',
+          label: 'Folder created',
         }
       : {
           onClick: () => {
             handleCreateFolder();
           },
-          children: 'Create Folder',
+          label: 'Create Folder',
           disabled: !folderName || !!fieldValidationError,
         };
-
+  // FIXME: Eventually comes from useView hook
+  const contextValue: ControlsContext = {
+    data: {},
+    actionsConfig: {
+      type: 'SINGLE_ACTION',
+      isCancelable: true,
+      actionStart: {
+        ...primaryProps,
+      },
+    },
+  };
   return (
-    <>
+    <ControlsContextProvider {...contextValue}>
       <Exit
         onClick={() => {
           handleClose();
         }}
       />
       <Title />
-      <Primary {...primaryProps} />
+      <ActionStartControl className={`${CLASS_BASE}__primary`} />
       <Field
         label="Enter folder name:"
         disabled={isLoading || !!result?.status}
@@ -132,6 +147,6 @@ export const CreateFolderControls = ({
       {result?.status === 'COMPLETE' || result?.status === 'FAILED' ? (
         <CreateFolderMessage />
       ) : null}
-    </>
+    </ControlsContextProvider>
   );
 };
