@@ -2,12 +2,7 @@ import React from 'react';
 
 import { createContextUtilities } from '@aws-amplify/ui-react-core';
 
-import { LocationData } from '../../../actions';
-import {
-  CredentialsProviderProps,
-  CredentialsStore,
-  GetCredentials,
-} from './types';
+import { CredentialsProviderProps, CredentialsStore } from './types';
 import { useCredentialsStore } from './useCredentialsStore';
 
 const ERROR_MESSAGE =
@@ -31,14 +26,4 @@ export function CredentialsProvider({
       {children}
     </CredentialsContext.Provider>
   );
-}
-
-// may be don't need this
-export function useGetCredentials(
-  _locationData?: LocationData
-): GetCredentials {
-  const { getCredentials } = useCredentials();
-  if (!getCredentials) throw new Error('No getCredentials');
-
-  return getCredentials;
 }

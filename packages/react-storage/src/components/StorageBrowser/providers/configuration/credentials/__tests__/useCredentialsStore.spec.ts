@@ -21,24 +21,25 @@ const getLocationCredentials = jest.fn();
 const onDestroy = jest.fn();
 
 describe('useCredentialsStore', () => {
-  beforeEach(() => {
+  afterEach(() => {
     createLocationCredentialsStoreSpy.mockClear();
     getLocationCredentials.mockClear();
     onDestroy.mockClear();
   });
 
-  it.skip('returns `getCredentials` in the happy path', () => {
+  it('returns the expected values of `CredentialsStore` in the happy path', () => {
     const { registerAuthListener } = new Subscription();
 
     const { result } = renderHook(() =>
       useCredentialsStore({ getLocationCredentials, registerAuthListener })
     );
 
-    const { current: getCredentials } = result;
+    const { destroy, getCredentials } = result.current;
     expect(typeof getCredentials).toBe('function');
+    expect(typeof destroy).toBe('function');
   });
 
-  it('`getCredentials` function maintains a stable reference between renders', () => {
+  it('`CredentialsStore` function maintains a stable reference between renders', () => {
     const { registerAuthListener } = new Subscription();
     const { rerender, result } = renderHook(() =>
       useCredentialsStore({ getLocationCredentials, registerAuthListener })
@@ -104,5 +105,31 @@ describe('useCredentialsStore', () => {
 
     expect(mockGetProvider).toHaveBeenCalledTimes(1);
     expect(mockGetProvider).toHaveBeenCalledWith({ permission, scope });
+  });
+
+  it('does not initialize a new `CredentialsStore ` when provided a valid `initialValue`', () => {
+    const { registerAuthListener } = new Subscription();
+
+    const { result: initialResult } = renderHook(() =>
+      useCredentialsStore({ getLocationCredentials, registerAuthListener })
+    );
+
+    expect(createLocationCredentialsStoreSpy).toHaveBeenCalledTimes(1);
+
+    const initialValue = initialResult.current;
+
+    const { result: nextResult } = renderHook(() =>
+      useCredentialsStore({
+        getLocationCredentials,
+        registerAuthListener,
+        initialValue,
+      })
+    );
+
+    expect(createLocationCredentialsStoreSpy).toHaveBeenCalledTimes(1);
+
+    const nextValue = nextResult.current;
+
+    expect(nextValue).toBe(initialValue);
   });
 });

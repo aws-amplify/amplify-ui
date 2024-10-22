@@ -10,7 +10,6 @@ import { isFunction } from '@aws-amplify/ui';
 import {
   CreateCredentialsStoreInput,
   CredentialsStore,
-  CredentialsContextType,
   RegisterAuthListener,
 } from './types';
 
@@ -26,7 +25,7 @@ const createCredentialsStore = ({
 };
 
 const isCredentialsStore = (
-  value?: CredentialsStore | CredentialsContextType
+  value?: CredentialsStore
 ): value is CredentialsStore => isFunction(value?.getCredentials);
 
 export function useCredentialsStore({
@@ -36,7 +35,7 @@ export function useCredentialsStore({
   registerAuthListener,
 }: {
   getLocationCredentials: GetLocationCredentials;
-  initialValue?: CredentialsStore | CredentialsContextType;
+  initialValue?: CredentialsStore;
   onDestroy?: () => void;
   registerAuthListener: RegisterAuthListener;
 }): CredentialsStore {

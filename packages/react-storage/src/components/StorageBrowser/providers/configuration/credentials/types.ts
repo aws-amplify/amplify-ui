@@ -21,11 +21,6 @@ export interface CredentialsStore
   getCredentials: GetCredentials;
 }
 
-export interface CredentialsContextType {
-  destroy: CredentialsStore['destroy'] | undefined;
-  getCredentials: CredentialsStore['getCredentials'] | undefined;
-}
-
 export interface CreateCredentialsStoreInput
   extends CreateLocationCredentialsStoreInput {}
 
