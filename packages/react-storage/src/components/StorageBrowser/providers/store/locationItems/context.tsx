@@ -83,12 +83,6 @@ const locatonItemsReducer = (
   }
 };
 
-function useLocationItemsState(
-  initialState: LocationItemsState = DEFAULT_STATE
-): LocationItemStateContext {
-  return React.useReducer(locatonItemsReducer, initialState);
-}
-
 const defaultValue: LocationItemStateContext = [DEFAULT_STATE, noop];
 export const { LocationItemsContext, useLocationItems } =
   createContextUtilities({
@@ -98,9 +92,9 @@ export const { LocationItemsContext, useLocationItems } =
 
 export function LocationItemsProvider({
   children,
-  locationItems,
+  locationItems = DEFAULT_STATE,
 }: LocationItemsProviderProps): React.JSX.Element {
-  const value = useLocationItemsState(locationItems);
+  const value = React.useReducer(locatonItemsReducer, locationItems);
 
   return (
     <LocationItemsContext.Provider value={value}>

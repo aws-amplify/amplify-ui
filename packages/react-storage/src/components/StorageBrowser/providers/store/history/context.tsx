@@ -1,13 +1,37 @@
 import React from 'react';
 
 import { createContextUtilities } from '@aws-amplify/ui-react-core';
-import { noop } from '@aws-amplify/ui';
+import { isObject, isString, noop } from '@aws-amplify/ui';
 
 import { LocationData as _LocationData } from '../../../actions';
+
+export const ERROR_MESSAGE =
+  'Invalid `location` value provided as initial value to `HistoryProvider.';
 
 // temp: LocationData will be extended to include id during integration
 interface LocationData extends _LocationData {
   id: string;
+}
+
+export const LocationDataKey = [
+  'bucket',
+  'id',
+  'permission',
+  'prefix',
+  'type',
+] as const;
+
+// temp: move util to live with listLocations handler during integration
+function assertIsLocationData(
+  value: LocationData | undefined,
+  message?: string
+): asserts value is LocationData {
+  if (
+    !isObject(value) ||
+    LocationDataKey.some((key) => !isString(value[key]))
+  ) {
+    throw new Error(message ?? 'Invalid value provided as `location`.');
+  }
 }
 
 export const DEFAULT_STATE: HistoryState = {
@@ -74,8 +98,9 @@ export function HistoryProvider({
   children,
   location: current,
 }: HistoryProviderProps): React.JSX.Element {
-  // @todo: add full location validation
-  if (current && !current?.id) throw new Error('invalid location');
+  if (current) {
+    assertIsLocationData(current, ERROR_MESSAGE);
+  }
 
   const value = React.useReducer(
     handleAction,

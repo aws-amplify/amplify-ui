@@ -1,3 +1,3 @@
-export { ConfigurationProvider, useGetActionInput } from './context';
+export { useGetActionInput } from './context';
 export { createConfigurationProvider } from './createConfigurationProvider';
-export { ConfigurationProviderProps, GetActionInput } from './types';
+export { GetActionInput } from './types';

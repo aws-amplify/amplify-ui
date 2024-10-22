@@ -48,10 +48,7 @@ export function useGetActionInputCallback({
   const [{ current }] = useHistory();
 
   return React.useCallback(() => {
-    assertIsLocationData(
-      current,
-      'Unable to resolve credentials due to invalid `location`.'
-    );
+    assertIsLocationData(current, ERROR_MESSAGE);
 
     const { bucket, permission, prefix } = current;
 
