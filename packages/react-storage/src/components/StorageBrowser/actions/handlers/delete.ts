@@ -34,12 +34,17 @@ export const deleteHandler: DeleteHandler = ({
     options: {
       bucket,
       locationCredentialsProvider: credentials,
-      expectedBucketOwner: accountId,
+      expectedBucketOwner: accountId ? accountId : undefined,
     },
   });
 
   return {
     key,
-    result: resolveHandlerResult({ key, isCancelable: false, options, result }),
+    result: resolveHandlerResult({
+      key,
+      isCancelable: false,
+      options,
+      result,
+    }),
   };
 };
