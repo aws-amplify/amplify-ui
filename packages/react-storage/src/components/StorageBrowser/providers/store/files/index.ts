@@ -1,1 +1,2 @@
-export { FilesProvider, FilesProviderProps, useFiles } from './context';
+export { FilesProvider, useFiles } from './context';
+export * from './types';
