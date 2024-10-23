@@ -3,6 +3,7 @@ import { DropZoneProps } from './DropZone';
 import { StatusDisplayProps } from './StatusDisplay';
 import { DataRefreshProps } from './DataRefresh';
 import { ActionStartProps } from './ActionStart';
+import { ActionCancelProps } from './ActionCancel';
 
 export interface Composables {
   DataRefresh: React.ComponentType<DataRefreshProps>;
@@ -10,6 +11,7 @@ export interface Composables {
   DropZone: React.ComponentType<DropZoneProps>;
   StatusDisplay: React.ComponentType<StatusDisplayProps>;
   ActionStart: React.ComponentType<ActionStartProps>;
+  ActionCancel: React.ComponentType<ActionCancelProps>;
 }
 
 export interface ComposablesContext {

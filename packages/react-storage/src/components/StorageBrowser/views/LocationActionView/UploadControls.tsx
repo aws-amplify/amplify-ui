@@ -36,10 +36,11 @@ import {
 } from './constants';
 import { FileItems } from '../../providers/store/files';
 import { ActionStartControl } from '../../controls/ActionStartControl';
+import { ActionCancelControl } from '../../controls/ActionCancelControl';
 
 const { Icon } = StorageBrowserElements;
 
-const { Cancel, Exit, Overwrite, Table } = Controls;
+const { Exit, Overwrite, Table } = Controls;
 
 interface LocationActionViewColumns {
   cancel: (() => void) | undefined;
@@ -153,11 +154,23 @@ const renderRowItem: RenderRowItem<LocationActionViewColumns> = (
         );
       case 'cancel':
         if (row.cancel) {
+          // FIXME: Eventually comes from useView hook
+          const contextValue: ControlsContext = {
+            data: {},
+            actionsConfig: {
+              type: 'SINGLE_ACTION',
+              isCancelable: true,
+              actionCancel: {
+                onClick: row.cancel,
+                ariaLabel: `Cancel upload for ${row.key}`,
+              },
+            },
+          };
+
           return (
-            <Cancel
-              onClick={row.cancel}
-              ariaLabel={`Cancel upload for ${row.key}`}
-            />
+            <ControlsContextProvider {...contextValue}>
+              <ActionCancelControl className={`${CLASS_BASE}__cancel`} />
+            </ControlsContextProvider>
           );
         }
 
@@ -323,7 +336,6 @@ export const UploadControls = ({
     taskCounts.CANCELED + taskCounts.COMPLETE + taskCounts.FAILED ===
       taskCounts.TOTAL;
 
-  const disableCancel = !taskCounts.TOTAL || !hasStarted || hasCompleted;
   const disablePrimary = !taskCounts.TOTAL || hasStarted || hasCompleted;
   const disableOverwrite = hasStarted || hasCompleted;
   const disableSelectFiles = hasStarted || hasCompleted;
@@ -365,18 +377,7 @@ export const UploadControls = ({
       />
       <Title />
       <ActionStartControl className={`${CLASS_BASE}__upload-action-start`} />
-      <ButtonElement
-        variant="cancel"
-        disabled={disableCancel}
-        className={`${CLASS_BASE}__cancel`}
-        onClick={() => {
-          tasks.forEach((task) => {
-            task.cancel?.();
-          });
-        }}
-      >
-        Cancel
-      </ButtonElement>
+      <ActionCancelControl className={`${CLASS_BASE}__cancel`} />
       <ButtonElement
         disabled={disableSelectFiles}
         className={`${CLASS_BASE}__add-folder`}
