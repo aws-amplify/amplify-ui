@@ -3,7 +3,7 @@
 ---
 
 <p align="center">
-  <img src="docs/public/svg/favicon.svg" style="width:12vw" alt="Amplify UI logo" />
+  <img src="docs/public/svg/favicon.svg" style="width:12vw" alt="Amplify UI Logo" />
   <h1 align="center">Amplify UI</h1>
 </p>
 
