@@ -15,6 +15,7 @@ export type TaskCounts = typeof INITIAL_STATUS_COUNTS;
 
 export interface ControlsContext {
   data: {
+    title?: string;
     taskCounts?: TaskCounts;
   };
   actionsConfig: {
