@@ -42,6 +42,7 @@ import {
   StreamRecorder,
   estimateIllumination,
   isCameraDeviceVirtual,
+  isFaceMovementAndLightChallenge,
   ColorSequenceDisplay,
   drawStaticOval,
   createSessionStartEvent,
@@ -49,7 +50,7 @@ import {
   createSessionEndEvent,
   getTrackDimensions,
 } from '../utils';
-
+import { isMobileScreen } from '../../utils/device';
 import {
   isConnectionTimeoutError,
   isDisconnectionEvent,
@@ -527,12 +528,14 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           event.data?.livenessStreamProvider as StreamRecorder,
       }),
       setDOMAndCameraDetails: assign({
-        videoAssociatedParams: (context, event) => ({
-          ...context.videoAssociatedParams,
-          videoEl: event.data?.videoEl as VideoAssociatedParams['videoEl'],
-          canvasEl: event.data?.canvasEl as VideoAssociatedParams['canvasEl'],
-          isMobile: event.data?.isMobile as VideoAssociatedParams['isMobile'],
-        }),
+        videoAssociatedParams: (context, event) => {
+          return {
+            ...context.videoAssociatedParams,
+            videoEl: event.data?.videoEl as VideoAssociatedParams['videoEl'],
+            canvasEl: event.data?.canvasEl as VideoAssociatedParams['canvasEl'],
+            isMobile: event.data?.isMobile as VideoAssociatedParams['isMobile'],
+          };
+        },
         freshnessColorAssociatedParams: (context, event) => ({
           ...context.freshnessColorAssociatedParams,
           freshnessColorEl: event.data
@@ -927,17 +930,18 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
     },
     services: {
       async checkVirtualCameraAndGetStream(context) {
-        const { isMobile, videoConstraints } = context.videoAssociatedParams!;
-
+        const { parsedSessionInformation, videoAssociatedParams } = context;
+        const isMobile = isMobileScreen();
+        // We want to default to the user-facing camera on mobile devices when face movement + light challenge is used
+        const shouldDefaultUserFacing =
+          isMobile && isFaceMovementAndLightChallenge(parsedSessionInformation);
         // Get initial stream to enumerate devices with non-empty labels
         const existingDeviceId = getLastSelectedCameraId();
         const initialStream = await navigator.mediaDevices.getUserMedia({
           video: {
-            ...videoConstraints,
-            ...(isMobile ? { facingMode: { exact: 'user' } } : {}),
-            ...(existingDeviceId && !isMobile
-              ? { deviceId: existingDeviceId }
-              : {}),
+            ...videoAssociatedParams!.videoConstraints,
+            ...(shouldDefaultUserFacing ? { facingMode: 'user' } : {}),
+            ...(existingDeviceId ? { deviceId: existingDeviceId } : {}),
           },
           audio: false,
         });
@@ -977,7 +981,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         if (!isInitialStreamFromRealDevice) {
           realVideoDeviceStream = await navigator.mediaDevices.getUserMedia({
             video: {
-              ...videoConstraints,
+              ...videoAssociatedParams!.videoConstraints,
               ...(isMobile ? { facingMode: { exact: 'user' } } : {}),
               deviceId: { exact: deviceId },
             },
