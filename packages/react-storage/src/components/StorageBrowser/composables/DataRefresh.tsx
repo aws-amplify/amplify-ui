@@ -4,10 +4,8 @@ import { ButtonElement } from '../context/elements/definitions';
 import { IconElement } from '../context/elements/IconElement';
 import { CLASS_BASE } from '../views/constants';
 
-export interface DataRefreshProps {
-  onClick?: () => void;
-  disabled?: boolean;
-}
+  onRefresh?: () => void;
+  isDisabled?: boolean;
 
 export const DataRefresh = ({
   onClick,
