@@ -16,31 +16,31 @@ import {
   LoadingContextProvider,
   ResponseComponentsProvider,
   SendMessageContextProvider,
-  MessageRendererProvider,
+  WelcomeMessageProvider,
 } from './context';
 import { AttachmentProvider } from './context/AttachmentContext';
 
-interface AIConversationProviderProps
+export interface AIConversationProviderProps
   extends AIConversationInput,
     AIConversationProps {
   children?: React.ReactNode;
 }
 
 export const AIConversationProvider = ({
-  elements,
   actions,
-  suggestedPrompts,
-  responseComponents,
-  variant,
+  allowAttachments,
+  avatars,
+  children,
   controls,
   displayText,
-  allowAttachments,
-  messages,
+  elements,
   handleSendMessage,
-  avatars,
   isLoading,
-  children,
-  messageRenderer,
+  messages,
+  responseComponents,
+  suggestedPrompts,
+  variant,
+  welcomeMessage,
 }: AIConversationProviderProps): React.JSX.Element => {
   const _displayText = {
     ...defaultAIConversationDisplayTextEn,
@@ -50,7 +50,7 @@ export const AIConversationProvider = ({
     <ElementsProvider elements={elements}>
       <ControlsProvider controls={controls}>
         <SuggestedPromptProvider suggestedPrompts={suggestedPrompts}>
-          <MessageRendererProvider {...messageRenderer}>
+          <WelcomeMessageProvider welcomeMessage={welcomeMessage}>
             <ResponseComponentsProvider responseComponents={responseComponents}>
               <AttachmentProvider allowAttachments={allowAttachments}>
                 <ConversationDisplayTextProvider {..._displayText}>
@@ -74,7 +74,7 @@ export const AIConversationProvider = ({
                 </ConversationDisplayTextProvider>
               </AttachmentProvider>
             </ResponseComponentsProvider>
-          </MessageRendererProvider>
+          </WelcomeMessageProvider>
         </SuggestedPromptProvider>
       </ControlsProvider>
     </ElementsProvider>

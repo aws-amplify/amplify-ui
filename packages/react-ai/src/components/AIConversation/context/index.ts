@@ -40,5 +40,8 @@ export {
   useMessageRenderer,
 } from './MessageRenderContext';
 export { AttachmentProvider, AttachmentContext } from './AttachmentContext';
-
+export {
+  WelcomeMessageContext,
+  WelcomeMessageProvider,
+} from './WelcomeMessageContext';
 export * from './elements';
