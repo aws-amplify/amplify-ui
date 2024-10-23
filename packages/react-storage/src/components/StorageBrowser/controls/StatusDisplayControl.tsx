@@ -20,11 +20,9 @@ export const StatusDisplayControl = ({
     return null;
   }
 
-  const { statuses, total } = props;
-
   return (
     <ViewElement className={className}>
-      <ResolvedStatusDisplay statuses={statuses} total={total} />
+      <ResolvedStatusDisplay {...props} />
     </ViewElement>
   );
 };

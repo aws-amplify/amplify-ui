@@ -1,14 +1,15 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import { CheckboxControl, INPUT_CLASSNAME, LABEL_CLASSNAME } from '../Checkbox';
+import { CLASS_BASE } from '../../views/constants';
+import { Checkbox } from '../Checkbox';
 
 const myLabelText = 'My Checkbox';
 const handleSelect = jest.fn();
 
-describe('CheckboxControl', () => {
-  it('renders the CheckboxControl', () => {
+describe('Checkbox', () => {
+  it('renders the Checkbox', () => {
     render(
-      <CheckboxControl
+      <Checkbox
         id="checkbox-id"
         checked={false}
         labelText={myLabelText}
@@ -19,14 +20,14 @@ describe('CheckboxControl', () => {
     const label = screen.getByText(myLabelText);
     expect(input).toBeInTheDocument();
     expect(input).not.toHaveAttribute('checked');
-    expect(input).toHaveClass(INPUT_CLASSNAME);
-    expect(label).toHaveClass(LABEL_CLASSNAME);
+    expect(input).toHaveClass(`${CLASS_BASE}__checkbox-input`);
+    expect(label).toHaveClass(`${CLASS_BASE}__checkbox-label`);
     expect(label).toBeInTheDocument();
   });
 
-  it('renders the CheckboxControl checked', () => {
+  it('renders the Checkbox checked', () => {
     render(
-      <CheckboxControl
+      <Checkbox
         id="checkbox-id"
         checked
         labelText={myLabelText}
@@ -39,7 +40,7 @@ describe('CheckboxControl', () => {
 
   it('accepts onSelect prop', () => {
     render(
-      <CheckboxControl
+      <Checkbox
         id="checkbox-id"
         checked
         labelText={myLabelText}
