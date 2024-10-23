@@ -114,8 +114,14 @@ describe('elementsDefault', () => {
   });
 
   it('should render table components', async () => {
-    const { Table, TableHead, TableHeader, TableBody, TableData, TableRow } =
-      elementsDefault;
+    const {
+      Table,
+      TableHead,
+      TableHeader,
+      TableBody,
+      TableDataCell,
+      TableRow,
+    } = elementsDefault;
     render(
       <Table testId="Table">
         <TableHead testId="TableHead">
@@ -125,7 +131,7 @@ describe('elementsDefault', () => {
         </TableHead>
         <TableBody testId="TableBody">
           <TableRow>
-            <TableData testId="TableData">Body</TableData>
+            <TableDataCell testId="TableDataCell">Body</TableDataCell>
           </TableRow>
         </TableBody>
       </Table>

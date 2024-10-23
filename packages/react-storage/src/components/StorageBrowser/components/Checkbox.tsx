@@ -1,17 +1,9 @@
 import React from 'react';
 
 import { CLASS_BASE } from '../views/constants';
-import {
-  ViewElement,
-  LabelElement,
-  InputElement,
-} from '../context/elements/definitions';
+import { ViewElement, LabelElement, InputElement } from '../context/elements';
 
-const BLOCK_NAME = `${CLASS_BASE}__checkbox`;
-export const INPUT_CLASSNAME = `${BLOCK_NAME}-input`;
-export const LABEL_CLASSNAME = `${BLOCK_NAME}-label`;
-
-interface CheckboxControlProps {
+interface CheckboxProps {
   checked?: boolean;
   disabled?: boolean;
   id?: string;
@@ -20,18 +12,18 @@ interface CheckboxControlProps {
   onSelect?: () => void;
 }
 
-export const CheckboxControl = ({
-  disabled,
+export const Checkbox = ({
   checked,
-  onSelect,
-  labelText,
-  labelHidden = false,
+  disabled,
   id,
-}: CheckboxControlProps): React.JSX.Element => (
-  <ViewElement className={BLOCK_NAME}>
+  labelHidden = false,
+  labelText,
+  onSelect,
+}: CheckboxProps): React.JSX.Element => (
+  <ViewElement className={`${CLASS_BASE}__checkbox`}>
     <InputElement
       checked={checked}
-      className={INPUT_CLASSNAME}
+      className={`${CLASS_BASE}__checkbox-input`}
       disabled={disabled}
       id={id}
       onChange={onSelect}
@@ -39,7 +31,7 @@ export const CheckboxControl = ({
     />
     <LabelElement
       className={[
-        LABEL_CLASSNAME,
+        `${CLASS_BASE}__checkbox-label`,
         labelHidden ? `${CLASS_BASE}-visually-hidden` : undefined,
       ].join(' ')}
       htmlFor={id}

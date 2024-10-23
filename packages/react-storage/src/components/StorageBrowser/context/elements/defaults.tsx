@@ -23,7 +23,7 @@ import {
   NavElementProps,
   SpanElementProps,
   TableBodyElementProps,
-  TableDataElementProps,
+  TableDataCellElementProps,
   TableElementProps,
   TableHeadElementProps,
   TableHeaderElementProps,
@@ -158,7 +158,7 @@ function TableHead(props: TableHeadElementProps): React.JSX.Element {
   return <_TableHead {...props} />;
 }
 
-function TableData(props: TableDataElementProps): React.JSX.Element {
+function TableDataCell(props: TableDataCellElementProps): React.JSX.Element {
   return <_TableCell padding="xxxs" {...props} />;
 }
 
@@ -229,7 +229,7 @@ export const elementsDefault = {
   Span,
   Table,
   TableBody,
-  TableData,
+  TableDataCell,
   TableHead,
   TableHeader,
   TableRow,
