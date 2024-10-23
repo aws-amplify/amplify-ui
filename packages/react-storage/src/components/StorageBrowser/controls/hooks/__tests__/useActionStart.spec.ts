@@ -33,46 +33,11 @@ describe('useActionStart', () => {
     mockUseControlsContext.mockReset();
   });
 
-  it('returns object with disabled as false based on taskCounts when actionsConfig.actionStartIsDisabled is undefined', () => {
+  it('returns object as it is received from ControlsContext', () => {
     mockUseControlsContext.mockReturnValue(controlsContext);
 
     expect(useActionStart()).toStrictEqual({
-      props: {
-        disabled: false,
-        onClick: controlsContext.actionsConfig.actionStart?.onClick,
-        label: controlsContext.actionsConfig.actionStart?.label,
-      },
-    });
-  });
-
-  it('returns object with disabled as true based on taskCounts when actionsConfig.actionStartIsDisabled is undefined', () => {
-    controlsContext.data.taskCounts!.QUEUED = 0;
-    controlsContext.data.taskCounts!.COMPLETE = 5;
-    controlsContext.data.taskCounts!.TOTAL = 10;
-
-    mockUseControlsContext.mockReturnValue(controlsContext);
-
-    expect(useActionStart()).toStrictEqual({
-      props: {
-        disabled: true,
-        onClick: controlsContext.actionsConfig.actionStart?.onClick,
-        label: controlsContext.actionsConfig.actionStart?.label,
-      },
-    });
-  });
-
-  it('returns object with disabled as undefined when taskCounts & actionsConfig.actionStartIsDisabled are both undefined', () => {
-    mockUseControlsContext.mockReturnValue({
-      data: {},
-      actionsConfig: controlsContext.actionsConfig,
-    });
-
-    expect(useActionStart()).toStrictEqual({
-      props: {
-        disabled: undefined,
-        onClick: controlsContext.actionsConfig.actionStart?.onClick,
-        label: controlsContext.actionsConfig.actionStart?.label,
-      },
+      props: controlsContext.actionsConfig.actionStart,
     });
   });
 });

@@ -23,7 +23,7 @@ export interface ControlsContext {
     actionStart?: {
       onClick?: () => void;
       label?: string;
-      disabled?: boolean;
+      isDisabled?: boolean;
     };
   };
 }

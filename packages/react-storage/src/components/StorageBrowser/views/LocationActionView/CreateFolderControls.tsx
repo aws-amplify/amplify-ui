@@ -82,21 +82,18 @@ export const CreateFolderControls = (): React.JSX.Element => {
     handleCreateAction({ prefix: '', options: { reset: true } });
   };
 
-  const primaryProps: ActionStartProps =
+  const actionStartProps: ActionStartProps =
     result?.status === 'COMPLETE'
       ? {
-          onClick: () => {
-            handleClose();
-          },
+          onClick: handleClose,
           label: 'Folder created',
         }
       : {
-          onClick: () => {
-            handleCreateFolder();
-          },
+          onClick: handleCreateFolder,
           label: 'Create Folder',
-          disabled: !folderName || !!fieldValidationError,
+          isDisabled: !folderName || !!fieldValidationError,
         };
+
   // FIXME: Eventually comes from useView hook
   const contextValue: ControlsContext = {
     data: {},
@@ -104,7 +101,7 @@ export const CreateFolderControls = (): React.JSX.Element => {
       type: 'SINGLE_ACTION',
       isCancelable: true,
       actionStart: {
-        ...primaryProps,
+        ...actionStartProps,
       },
     },
   };
