@@ -207,8 +207,8 @@ export function drawLivenessOvalInCanvas({
     // fill the canvas with a transparent rectangle
     ctx.fillStyle = isStartScreen
       ? getComputedStyle(canvas).getPropertyValue(
-        '--amplify-colors-background-primary'
-      )
+          '--amplify-colors-background-primary'
+        )
       : '#fff';
     ctx.fillRect(0, 0, canvasWidth, canvasHeight);
 
@@ -275,7 +275,6 @@ export function drawStaticOval(
     ratioMultiplier: 0.3,
   });
   ovalDetails.flippedCenterX = width! - ovalDetails.centerX;
-  console.log("drawStaticOval ", videoMediaStream.id, " ", videoEl.videoWidth)
   // Compute scaleFactor which is how much our video element is scaled
   // vs the intrinsic video resolution
   // const scaleFactor =
@@ -591,10 +590,10 @@ export function getColorsSequencesFromSessionInformation(
           typeof downscrollDuration !== 'undefined' &&
           typeof flatDisplayDuration !== 'undefined'
           ? {
-            color,
-            downscrollDuration,
-            flatDisplayDuration,
-          }
+              color,
+              downscrollDuration,
+              flatDisplayDuration,
+            }
           : undefined;
       }
     );
