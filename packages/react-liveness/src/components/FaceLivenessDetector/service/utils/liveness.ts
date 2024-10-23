@@ -207,8 +207,8 @@ export function drawLivenessOvalInCanvas({
     // fill the canvas with a transparent rectangle
     ctx.fillStyle = isStartScreen
       ? getComputedStyle(canvas).getPropertyValue(
-          '--amplify-colors-background-primary'
-        )
+        '--amplify-colors-background-primary'
+      )
       : '#fff';
     ctx.fillRect(0, 0, canvasWidth, canvasHeight);
 
@@ -275,12 +275,13 @@ export function drawStaticOval(
     ratioMultiplier: 0.3,
   });
   ovalDetails.flippedCenterX = width! - ovalDetails.centerX;
-
+  console.log("drawStaticOval ", videoMediaStream.id, " ", videoEl.videoWidth)
   // Compute scaleFactor which is how much our video element is scaled
   // vs the intrinsic video resolution
-  const scaleFactor =
-    videoScaledWidth /
-    (videoEl.videoWidth > 0 ? videoEl.videoWidth : videoEl.width);
+  // const scaleFactor =
+  //   videoScaledWidth /
+  //   (videoEl.videoWidth > 0 ? videoEl.videoWidth : videoEl.width);
+  const scaleFactor = videoScaledWidth / videoEl.videoWidth;
   // Draw oval in canvas using ovalDetails and scaleFactor
   drawLivenessOvalInCanvas({
     canvas: canvasEl,
@@ -377,9 +378,11 @@ export function estimateIllumination(
   videoEl: HTMLVideoElement
 ): IlluminationState | undefined {
   const canvasEl = document.createElement('canvas');
-  canvasEl.width = videoEl.videoWidth > 0 ? videoEl.videoWidth : videoEl.width;
-  canvasEl.height =
-    videoEl.videoHeight > 0 ? videoEl.videoHeight : videoEl.height;
+  // canvasEl.width = videoEl.videoWidth > 0 ? videoEl.videoWidth : videoEl.width;
+  // canvasEl.height =
+  //   videoEl.videoHeight > 0 ? videoEl.videoHeight : videoEl.height;
+  canvasEl.width = videoEl.videoWidth;
+  canvasEl.height = videoEl.videoHeight;
 
   const ctx = canvasEl.getContext('2d');
   if (ctx) {
@@ -588,10 +591,10 @@ export function getColorsSequencesFromSessionInformation(
           typeof downscrollDuration !== 'undefined' &&
           typeof flatDisplayDuration !== 'undefined'
           ? {
-              color,
-              downscrollDuration,
-              flatDisplayDuration,
-            }
+            color,
+            downscrollDuration,
+            flatDisplayDuration,
+          }
           : undefined;
       }
     );

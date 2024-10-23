@@ -192,7 +192,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       DISCONNECT_EVENT: { internal: true, actions: 'updateShouldDisconnect' },
       SET_DOM_AND_CAMERA_DETAILS: { actions: 'setDOMAndCameraDetails' },
       UPDATE_DEVICE_AND_STREAM: {
-        actions: 'updateDeviceAndStream',
+        actions: ['updateDeviceAndStream', 'drawStaticOval'],
         target: 'start',
       },
       SERVER_ERROR: {
@@ -541,17 +541,10 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       }),
       updateDeviceAndStream: assign({
         videoAssociatedParams: (context, event) => {
-          const { canvasEl, videoEl } = context.videoAssociatedParams!;
           setLastSelectedCameraId(event.data?.newDeviceId as string);
           context.livenessStreamProvider?.setNewVideoStream(
             event.data?.newStream as MediaStream
           );
-          drawStaticOval(
-            canvasEl!,
-            videoEl!,
-            event.data?.newStream as MediaStream
-          );
-
           return {
             ...context.videoAssociatedParams,
             selectedDeviceId: event.data
@@ -564,7 +557,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       drawStaticOval: (context) => {
         const { canvasEl, videoEl, videoMediaStream } =
           context.videoAssociatedParams!;
-
+        console.log("State machine triggering ", videoMediaStream!.id)
         drawStaticOval(canvasEl!, videoEl!, videoMediaStream!);
       },
       updateRecordingStartTimestamp: assign({
@@ -610,7 +603,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           return { ...context.videoAssociatedParams };
         },
       }),
-      stopRecording: () => {},
+      stopRecording: () => { },
       updateFaceMatchBeforeStartDetails: assign({
         faceMatchStateBeforeStart: (_, event) =>
           event.data!.faceMatchState as FaceMatchState,

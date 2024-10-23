@@ -119,7 +119,7 @@ export const LivenessCameraModule = (
   const errorState = useLivenessSelector(selectErrorState);
 
   const colorMode = useColorMode();
-
+  console.log('camera module render ', videoStream?.id);
   const { videoRef, videoWidth, videoHeight } = useMediaStreamInVideo(
     videoStream!
   );
@@ -163,6 +163,56 @@ export const LivenessCameraModule = (
 
   React.useEffect(() => {
     const videoElement = videoRef.current;
+    console.log('zeroeth useEffect');
+    console.log({
+      'canvasRef.current': canvasRef?.current,
+      videoElement,
+      // Check videoWidth is set to ensure oval is drawn correctly
+      'videoElement?.videoWidth': videoElement?.videoWidth,
+      'videoElement?.videoHeight': videoElement?.videoHeight,
+      videoStream,
+      isStartView,
+    });
+    const handleLoadedMetadata = () => {
+      if (
+        canvasRef?.current &&
+        videoElement &&
+        // Check videoWidth is set to ensure oval is drawn correctly
+        videoElement.videoWidth > 0 &&
+        videoElement.videoHeight > 0 &&
+        videoStream &&
+        isStartView
+      ) {
+        console.log('zeroeth useEffect triggering');
+        drawStaticOval(canvasRef.current, videoElement, videoStream);
+      }
+    };
+    if (videoElement) {
+      videoElement.addEventListener('loadedmetadata', handleLoadedMetadata);
+    }
+
+    return () => {
+      if (videoElement) {
+        videoElement.removeEventListener(
+          'loadedmetadata',
+          handleLoadedMetadata
+        );
+      }
+    };
+  }, [canvasRef, videoRef, videoStream, colorMode, isStartView]);
+
+  React.useEffect(() => {
+    const videoElement = videoRef.current;
+    console.log('first useEffect');
+    console.log({
+      'canvasRef.current': canvasRef?.current,
+      videoElement,
+      // Check videoWidth is set to ensure oval is drawn correctly
+      'videoElement?.videoWidth': videoElement?.videoWidth,
+      'videoElement?.videoHeight': videoElement?.videoHeight,
+      videoStream,
+      isStartView,
+    });
     if (
       canvasRef?.current &&
       videoElement &&
@@ -172,6 +222,7 @@ export const LivenessCameraModule = (
       videoStream &&
       isStartView
     ) {
+      console.log('first useEffect triggering');
       drawStaticOval(canvasRef.current, videoElement, videoStream);
     }
   }, [canvasRef, videoRef, videoStream, colorMode, isStartView]);
@@ -189,6 +240,7 @@ export const LivenessCameraModule = (
         videoStream &&
         isStartView
       ) {
+        console.log('second useEffect triggering');
         drawStaticOval(canvasRef.current, videoElement, videoStream);
       }
     };
@@ -266,6 +318,7 @@ export const LivenessCameraModule = (
     (e: React.ChangeEvent<HTMLSelectElement>) => {
       const newDeviceId = e.target.value;
       const changeCamera = async () => {
+        console.log('Change camera');
         const newStream = await navigator.mediaDevices.getUserMedia({
           video: {
             ...videoConstraints,
