@@ -40,6 +40,7 @@ describe('DataRefreshControl', () => {
     const icon = button.querySelector('svg');
 
     expect(button).toBeInTheDocument();
+    expect(button).not.toHaveAttribute('disabled');
     expect(icon).toBeInTheDocument();
     expect(icon).toHaveAttribute('aria-hidden', 'true');
   });
@@ -61,7 +62,8 @@ describe('DataRefreshControl', () => {
     const icon = button.querySelector('svg');
 
     expect(button).toBeInTheDocument();
+    expect(button).toHaveAttribute('disabled');
     expect(icon).toBeInTheDocument();
-    expect(icon).toHaveAttribute('aria-hidden', 'false');
+    expect(icon).toHaveAttribute('aria-hidden', 'true');
   });
 });
