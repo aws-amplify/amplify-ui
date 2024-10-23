@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { resolveComposable } from '../resolveComposable';
+import { useResolvedComposable } from '../hooks/useResolvedComposable';
 import { useTitle } from '../hooks/useTitle';
 import { TitleControl } from '../TitleControl';
 import { CLASS_BASE } from '../../views/constants';
@@ -13,7 +13,7 @@ jest.mock('../resolveComposable');
 describe('TitleControl', () => {
   // assert mocks
   const mockUseTitle = useTitle as jest.Mock;
-  const mockResolveComposable = resolveComposable as jest.Mock;
+  const mockResolveComposable = useResolvedComposable as jest.Mock;
 
   beforeAll(() => {
     mockResolveComposable.mockImplementation(
