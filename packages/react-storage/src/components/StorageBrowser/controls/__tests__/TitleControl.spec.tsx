@@ -8,7 +8,7 @@ import { CLASS_BASE } from '../../views/constants';
 const BLOCK_NAME = `${CLASS_BASE}__title`;
 
 jest.mock('../hooks/useTitle');
-jest.mock('../resolveComposable');
+jest.mock('../hooks/useResolvedComposable');
 
 describe('TitleControl', () => {
   // assert mocks
