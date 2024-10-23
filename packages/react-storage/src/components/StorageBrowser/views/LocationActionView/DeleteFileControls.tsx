@@ -2,11 +2,7 @@ import React from 'react';
 
 import { humanFileSize } from '@aws-amplify/ui';
 
-import {
-  ButtonElement,
-  IconVariant,
-  StorageBrowserElements,
-} from '../../context/elements';
+import { ButtonElement } from '../../context/elements';
 
 import { Controls } from '../Controls';
 import { Column, RenderRowItem, TableDataText } from '../Controls/Table';
@@ -18,6 +14,8 @@ import { UseDeleteActionView } from '../hooks/useDeleteActionView';
 import { StatusDisplayControl } from '../../controls/StatusDisplayControl';
 import { displayText } from '../../displayText/en';
 import { STATUS_DISPLAY_VALUES } from './constants';
+import { ActionIcon } from './shared/ActionIcon';
+import { ControlsContextProvider } from '../../controls/context';
 
 interface DeleteFilesColumns {
   key: string;
@@ -27,12 +25,6 @@ interface DeleteFilesColumns {
   status: TaskStatus;
   action: undefined | (() => void);
 }
-
-interface ActionIconProps {
-  status?: TaskStatus;
-}
-
-const { Icon } = StorageBrowserElements;
 
 const { Cancel, Exit, Primary, Table } = Controls;
 
@@ -49,42 +41,19 @@ const LOCATION_ACTION_VIEW_COLUMNS: Column<DeleteFilesColumns>[] = [
   // { key: 'cancel', header: 'Cancel' },
 ];
 
-export const ICON_CLASS = `${CLASS_BASE}__action-status`;
-
-export const ActionIcon = ({ status }: ActionIconProps): React.JSX.Element => {
-  let variant: IconVariant = 'action-initial';
-
-  switch (status) {
-    case 'QUEUED':
-      variant = 'action-queued';
-      break;
-    case 'PENDING':
-      variant = 'action-progress';
-      break;
-    case 'COMPLETE':
-      variant = 'action-success';
-      break;
-    case 'FAILED':
-      variant = 'action-error';
-      break;
-    case 'CANCELED':
-      variant = 'action-canceled';
-      break;
-  }
-
-  return (
-    <Icon
-      variant={variant}
-      className={`${ICON_CLASS} ${ICON_CLASS}--${variant}${
-        variant === 'action-progress' ? ' storage-browser__loading__icon' : ''
-      }`}
-    />
-  );
-};
-
 export const DeleteFileControls = (): JSX.Element => {
-  const { path, tasks, onClose, onCancel, onStart, isProcessing } =
-    UseDeleteActionView();
+  const {
+    controlsContextValue,
+    disableCancel,
+    disableClose,
+    disablePrimary,
+    path,
+    tasks,
+    onClose,
+    onCancel,
+    onStart,
+    isProcessing,
+  } = UseDeleteActionView();
 
   const renderHeaderItem = React.useCallback(
     (column: Column<DeleteFilesColumns>) => {
@@ -186,21 +155,20 @@ export const DeleteFileControls = (): JSX.Element => {
   });
 
   return (
-    <>
-      <Exit onClick={onClose} />
+    <ControlsContextProvider {...controlsContextValue}>
+      <Exit onClick={onClose} disabled={disableClose} />
       <Title />
       <Primary
-        disabled={false}
+        disabled={disablePrimary}
         onClick={() => {
           onStart();
-          // handleDelete();
         }}
       >
         Start
       </Primary>
       <ButtonElement
         variant="cancel"
-        // disabled={disableCancel}
+        disabled={disableCancel}
         className={`${CLASS_BASE}__cancel`}
         onClick={() => {
           onCancel();
@@ -209,7 +177,7 @@ export const DeleteFileControls = (): JSX.Element => {
         Cancel
       </ButtonElement>
       <StatusDisplayControl
-        className={`${CLASS_BASE}__upload-status-display`}
+        className={`${CLASS_BASE}__action-status-display`}
       />
       <HeadingControl level={3}>{actionSelectedText}</HeadingControl>
       <Table
@@ -218,6 +186,6 @@ export const DeleteFileControls = (): JSX.Element => {
         renderHeaderItem={renderHeaderItem}
         renderRowItem={renderRowItem}
       />
-    </>
+    </ControlsContextProvider>
   );
 };

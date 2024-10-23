@@ -7,11 +7,38 @@ import { deleteHandler } from '../../actions/handlers';
 import { Task, useProcessTasks } from '../../tasks';
 import { useGetLocationConfig } from '../../context/config';
 import { UseActionView } from './types';
+import { ControlsContext } from '../../controls/types';
+import { getTaskCounts } from '../../controls/getTaskCounts';
 
 interface UseDeleteActionView extends UseActionView {
   path: string;
   tasks: Task[];
+  controlsContextValue: ControlsContext;
+  disableCancel: boolean;
+  disablePrimary: boolean;
+  disableClose: boolean;
 }
+
+const useActionViewTaskStatuses = (tasks: Task[]) => {
+  const taskCounts = getTaskCounts(tasks);
+
+  const hasStarted = taskCounts.QUEUED < taskCounts.TOTAL;
+  const hasCompleted =
+    !!taskCounts.TOTAL &&
+    taskCounts.CANCELED + taskCounts.COMPLETE + taskCounts.FAILED ===
+      taskCounts.TOTAL;
+
+  const disableCancel = !hasStarted || taskCounts.QUEUED < 1;
+  const disableClose = hasStarted && !hasCompleted;
+  const disablePrimary = taskCounts.QUEUED < taskCounts.TOTAL;
+
+  return {
+    taskCounts,
+    disableCancel,
+    disableClose,
+    disablePrimary,
+  };
+};
 
 export const UseDeleteActionView = (): UseDeleteActionView => {
   const [isProcessing, setIsProcessing] = useState(false);
@@ -42,6 +69,14 @@ export const UseDeleteActionView = (): UseDeleteActionView => {
     processTasksInputItems
   );
 
+  const { disableCancel, disableClose, disablePrimary, taskCounts } =
+    useActionViewTaskStatuses(tasks);
+
+  const contextValue: ControlsContext = {
+    data: { taskCounts },
+    actionsConfig: { type: 'BATCH_ACTION', isCancelable: true },
+  };
+
   const onStart = () => {
     processTasks({
       prefix: path ?? '',
@@ -67,6 +102,10 @@ export const UseDeleteActionView = (): UseDeleteActionView => {
   };
 
   return {
+    controlsContextValue: contextValue,
+    disableCancel,
+    disableClose,
+    disablePrimary,
     path: path ?? '',
     tasks,
     isProcessing,
