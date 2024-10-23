@@ -1,8 +1,10 @@
 import { DataTable } from './DataTable';
+import { DropZone } from './DropZone';
 import { StatusDisplay } from './StatusDisplay';
 
 const composables = {
   DataTable,
+  DropZone,
   StatusDisplay,
 };
 
