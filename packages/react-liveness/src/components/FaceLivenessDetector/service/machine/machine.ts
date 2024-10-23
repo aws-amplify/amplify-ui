@@ -192,7 +192,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       DISCONNECT_EVENT: { internal: true, actions: 'updateShouldDisconnect' },
       SET_DOM_AND_CAMERA_DETAILS: { actions: 'setDOMAndCameraDetails' },
       UPDATE_DEVICE_AND_STREAM: {
-        actions: ['updateDeviceAndStream'],
+        actions: 'updateDeviceAndStream',
         target: 'start',
       },
       SERVER_ERROR: {
@@ -557,6 +557,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       drawStaticOval: (context) => {
         const { canvasEl, videoEl, videoMediaStream } =
           context.videoAssociatedParams!;
+
         drawStaticOval(canvasEl!, videoEl!, videoMediaStream!);
       },
       updateRecordingStartTimestamp: assign({
@@ -926,13 +927,13 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
     },
     services: {
       async checkVirtualCameraAndGetStream(context) {
-        const { videoConstraints, isMobile } = context.videoAssociatedParams!;
+        const { videoConstraints } = context.videoAssociatedParams!;
+
         // Get initial stream to enumerate devices with non-empty labels
         const existingDeviceId = getLastSelectedCameraId();
         const initialStream = await navigator.mediaDevices.getUserMedia({
           video: {
             ...videoConstraints,
-            ...(isMobile ? { facingMode: 'user' } : {}),
             ...(existingDeviceId ? { deviceId: existingDeviceId } : {}),
           },
           audio: false,
@@ -974,7 +975,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           realVideoDeviceStream = await navigator.mediaDevices.getUserMedia({
             video: {
               ...videoConstraints,
-              ...(isMobile ? { facingMode: 'user' } : {}),
               deviceId: { exact: deviceId },
             },
             audio: false,

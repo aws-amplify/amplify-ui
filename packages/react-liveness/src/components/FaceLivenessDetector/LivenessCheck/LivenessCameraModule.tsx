@@ -119,6 +119,7 @@ export const LivenessCameraModule = (
   const errorState = useLivenessSelector(selectErrorState);
 
   const colorMode = useColorMode();
+
   const { videoRef, videoWidth, videoHeight } = useMediaStreamInVideo(
     videoStream!
   );
@@ -162,15 +163,14 @@ export const LivenessCameraModule = (
     (!isMobileScreen || isFaceMovementChallenge);
 
   React.useEffect(() => {
-    const videoElement = videoRef.current;
     if (
       canvasRef?.current &&
-      videoElement &&
+      videoRef?.current &&
       videoStream &&
       isStartView &&
       isMetadataLoaded
     ) {
-      drawStaticOval(canvasRef.current, videoElement, videoStream);
+      drawStaticOval(canvasRef.current, videoRef.current, videoStream);
     }
   }, [
     canvasRef,
@@ -183,16 +183,15 @@ export const LivenessCameraModule = (
 
   React.useEffect(() => {
     const updateColorModeHandler = (e: MediaQueryListEvent) => {
-      const videoElement = videoRef.current;
       if (
         e.matches &&
         canvasRef?.current &&
-        videoElement &&
+        videoRef?.current &&
         videoStream &&
         isStartView &&
         isMetadataLoaded
       ) {
-        drawStaticOval(canvasRef.current, videoElement, videoStream);
+        drawStaticOval(canvasRef.current, videoRef.current, videoStream);
       }
     };
 
@@ -281,6 +280,7 @@ export const LivenessCameraModule = (
           },
           audio: false,
         });
+        // Only update the stream and draw oval once metadata is loaded
         if (isMetadataLoaded) {
           send({
             type: 'UPDATE_DEVICE_AND_STREAM',
@@ -320,7 +320,6 @@ export const LivenessCameraModule = (
   const shouldShowCenteredLoader = isInitCamera || isInitWebsocket;
 
   // We don't show full screen camera on the pre check screen (isStartView/isWaitingForCamera)
-  // test comment
   const shouldShowFullScreenCamera =
     isMobileScreen && !isStartView && !shouldShowCenteredLoader;
 

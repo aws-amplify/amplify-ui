@@ -216,7 +216,8 @@ export function drawLivenessOvalInCanvas({
     // We need to calculate horizontal and vertical translation to reposition
     // our canvas drawing so the oval is still placed relative to the dimensions
     // of the video element.
-    const baseDims = { width: videoEl.width, height: videoEl.height };
+    const baseDims = { width: videoEl.videoWidth, height: videoEl.videoHeight };
+
     const translate = {
       x: (canvasWidth - baseDims.width * scaleFactor) / 2,
       y: (canvasHeight - baseDims.height * scaleFactor) / 2,
@@ -261,6 +262,7 @@ export function drawStaticOval(
   videoMediaStream: MediaStream
 ): void {
   const { width, height } = videoMediaStream.getTracks()[0].getSettings();
+
   // Get width/height of video element so we can compute scaleFactor
   // and set canvas width/height.
   const { width: videoScaledWidth, height: videoScaledHeight } =
@@ -275,12 +277,11 @@ export function drawStaticOval(
     ratioMultiplier: 0.3,
   });
   ovalDetails.flippedCenterX = width! - ovalDetails.centerX;
+
   // Compute scaleFactor which is how much our video element is scaled
   // vs the intrinsic video resolution
-  // const scaleFactor =
-  //   videoScaledWidth /
-  //   (videoEl.videoWidth > 0 ? videoEl.videoWidth : videoEl.width);
   const scaleFactor = videoScaledWidth / videoEl.videoWidth;
+
   // Draw oval in canvas using ovalDetails and scaleFactor
   drawLivenessOvalInCanvas({
     canvas: canvasEl,
@@ -377,9 +378,6 @@ export function estimateIllumination(
   videoEl: HTMLVideoElement
 ): IlluminationState | undefined {
   const canvasEl = document.createElement('canvas');
-  // canvasEl.width = videoEl.videoWidth > 0 ? videoEl.videoWidth : videoEl.width;
-  // canvasEl.height =
-  //   videoEl.videoHeight > 0 ? videoEl.videoHeight : videoEl.height;
   canvasEl.width = videoEl.videoWidth;
   canvasEl.height = videoEl.videoHeight;
 
