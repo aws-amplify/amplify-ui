@@ -37,7 +37,6 @@ export const usePaginate = ({
         const highestPageVisited = Math.round(resultCount / pageSize);
         const shouldPaginate =
           highestPageVisited === currentPage && hasNextToken;
-
         if (shouldPaginate && typeof onPaginateNext === 'function') {
           onPaginateNext();
         }

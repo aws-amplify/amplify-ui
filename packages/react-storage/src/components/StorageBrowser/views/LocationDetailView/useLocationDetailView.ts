@@ -71,20 +71,17 @@ export function useLocationDetailView(
   const resultCount = result.length;
   const hasNextToken = !!nextToken;
   const hasValidPath = isString(path);
-
   const onPaginateNext = () => {
     if (!hasValidPath) return;
 
     handleLocationActionsState({ type: 'CLEAR' });
     handleList({
       prefix: path,
-      options: { ...DEFAULT_LIST_OPTIONS, nextToken },
+      options: { ...listOptions, nextToken },
     });
   };
 
   const onPaginatePrevious = () => {
-    if (!hasValidPath) return;
-
     handleLocationActionsState({ type: 'CLEAR' });
   };
 
@@ -102,10 +99,11 @@ export function useLocationDetailView(
 
   const onRefresh = () => {
     if (!hasValidPath) return;
+
     handleReset();
     handleList({
       prefix: path,
-      options: { ...DEFAULT_LIST_OPTIONS, refresh: true },
+      options: { ...listOptions, refresh: true },
     });
     handleLocationActionsState({ type: 'CLEAR' });
   };
@@ -114,12 +112,11 @@ export function useLocationDetailView(
     if (!hasValidPath) return;
 
     handleReset();
-
     handleList({
       prefix: path,
-      options: { ...DEFAULT_LIST_OPTIONS, refresh: true },
+      options: { ...listOptions, refresh: true },
     });
-  }, [path, handleList, handleReset, hasValidPath]);
+  }, [path, handleList, handleReset, hasValidPath, listOptions]);
 
   const processedItems = React.useMemo(() => {
     const [start, end] = range;
@@ -133,8 +130,12 @@ export function useLocationDetailView(
     hasError,
     message,
     isLoading,
-    onPaginatePrevious: handlePaginatePrevious,
+    onPaginatePrevious: () => {
+      if (!hasValidPath) return;
+      handlePaginatePrevious();
+    },
     onPaginateNext: () => {
+      if (!hasValidPath) return;
       handlePaginateNext({ resultCount, hasNextToken });
     },
     onRefresh,

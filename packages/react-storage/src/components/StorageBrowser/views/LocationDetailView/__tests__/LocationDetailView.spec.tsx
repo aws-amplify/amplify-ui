@@ -11,7 +11,6 @@ import userEvent from '@testing-library/user-event';
 import createProvider from '../../../createProvider';
 import * as ActionsModule from '../../../context/actions';
 import * as ControlsModule from '../../../context/control';
-import * as PaginateModule from '../../hooks/usePaginate';
 
 import { LocationDetailView } from '../LocationDetailView';
 import { DEFAULT_LIST_OPTIONS, DEFAULT_ERROR_MESSAGE } from '../Controls';
@@ -34,10 +33,13 @@ const prefix = 'b_prefix/';
 const getFolderPrefix = (index: number) => `a_prefix_${index}`;
 const testFolder = { type: 'FOLDER', key: 'a_prefix_test/' };
 
+const EXPECTED_PAGE_SIZE = DEFAULT_LIST_OPTIONS.pageSize;
 const generateMockItems = (
-  size: number
+  size: number,
+  page: number
 ): ListLocationItemsHandlerOutput['items'] => {
   return Array.apply(0, new Array(size)).map((_, index) => {
+    index = index + size * (page - 1);
     const type = index % 2 == 0 ? 'FILE' : 'FOLDER';
     return type === 'FOLDER'
       ? {
@@ -53,7 +55,7 @@ const generateMockItems = (
   });
 };
 
-const testResult = [testFolder, ...generateMockItems(200)];
+const testResult = [testFolder, ...generateMockItems(EXPECTED_PAGE_SIZE, 1)];
 
 const mockListItemsAction = ({
   hasError = false,
@@ -279,73 +281,55 @@ describe('LocationDetailView', () => {
     });
   });
 
-  it('can paginate forwards and clear selection state', async () => {
+  it('can paginate forward/back and clear selection state', async () => {
     const user = userEvent.setup();
-    const handlePaginateNext = jest.fn();
-    const handlePaginatePrevious = jest.fn();
-    jest
-      .spyOn<typeof PaginateModule, 'usePaginate'>(
-        PaginateModule,
-        'usePaginate'
-      )
-      .mockReturnValue({
-        currentPage: 1,
-        handlePaginateNext,
-        handlePaginatePrevious,
-        handleReset: jest.fn(),
-      });
-    mockListItemsAction({ result: testResult });
-
+    mockUseControl({ prefix: prefix });
+    mockListItemsAction({ result: testResult, nextToken: 'some-token' });
     render(
       <Provider>
         <LocationDetailView />
       </Provider>
     );
-    const nextButton = screen.getByLabelText('Go to next page');
 
+    // table renders
+    const table = screen.getByRole('table');
+    expect(table).toBeInTheDocument();
+
+    // first page
+    expect(screen.queryByText('a_prefix_test/')).toBeInTheDocument();
+    expect(screen.queryByText('b_prefix/key100')).not.toBeInTheDocument();
+
+    const nextPageResult = [
+      ...testResult,
+      ...generateMockItems(EXPECTED_PAGE_SIZE, 2),
+    ];
+    mockListItemsAction({ result: nextPageResult, nextToken: undefined });
+
+    // go to the next page
+    const nextButton = screen.getByLabelText('Go to next page');
     await act(async () => {
       await user.click(nextButton);
     });
 
-    expect(handlePaginateNext).toHaveBeenCalled();
-    expect(handlePaginatePrevious).not.toHaveBeenCalled();
+    // second page
+    expect(screen.queryByText('a_prefix_test/')).not.toBeInTheDocument();
+    expect(screen.queryByText('b_prefix/key100')).toBeInTheDocument();
+
     expect(handleLocationActionsState).toHaveBeenCalledWith({
       type: 'CLEAR',
     });
-  });
 
-  it('can paginate to previous and clear selection state', async () => {
-    const user = userEvent.setup();
-
-    const handlePaginateNext = jest.fn();
-    const handlePaginatePrevious = jest.fn();
-    jest
-      .spyOn<typeof PaginateModule, 'usePaginate'>(
-        PaginateModule,
-        'usePaginate'
-      )
-      .mockReturnValue({
-        currentPage: 2,
-        handlePaginateNext,
-        handlePaginatePrevious,
-        handleReset: jest.fn(),
-      });
-    mockListItemsAction({ result: testResult });
-
-    render(
-      <Provider>
-        <LocationDetailView />
-      </Provider>
-    );
+    handleLocationActionsState.mockClear();
 
     const prevButton = screen.getByLabelText('Go to previous page');
-
     await act(async () => {
       await user.click(prevButton);
     });
 
-    expect(handlePaginateNext).not.toHaveBeenCalled();
-    expect(handlePaginatePrevious).toHaveBeenCalled();
+    // first page
+    expect(screen.queryByText('a_prefix_test/')).toBeInTheDocument();
+    expect(screen.queryByText('b_prefix/key100')).not.toBeInTheDocument();
+
     expect(handleLocationActionsState).toHaveBeenCalledWith({
       type: 'CLEAR',
     });
