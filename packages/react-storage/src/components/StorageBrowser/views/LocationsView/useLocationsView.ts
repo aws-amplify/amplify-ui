@@ -23,7 +23,7 @@ interface InitialValues {
 }
 
 export type LocationsViewActionType =
-  | { type: 'REFRESH' }
+  | { type: 'REFRESH_DATA' }
   | { type: 'RESET' }
   | { type: 'PAGINATE_NEXT' }
   | { type: 'PAGINATE_PREVIOUS' }

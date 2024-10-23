@@ -267,7 +267,7 @@ describe('LocationsListView', () => {
     expect(handleListLocations).toHaveBeenCalledTimes(1);
   });
 
-  it('refreshes table and clears selection state when refresh button is clicked', async () => {
+  it('refreshes table when refresh button is clicked', async () => {
     useLocationsDataSpy.mockReturnValue(resolvedState);
 
     render(

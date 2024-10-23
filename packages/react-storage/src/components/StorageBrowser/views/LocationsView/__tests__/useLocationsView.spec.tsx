@@ -94,24 +94,29 @@ describe('useLocationsView', () => {
       wrapper: getWrapper(),
     });
 
+    // check first page
     expect(result.current.page).toEqual(1);
     expect(result.current.pageItems).toEqual(
       mockData.slice(0, EXPECTED_PAGE_SIZE)
     );
 
+    // go next
     act(() => {
       result.current.onPaginateNext();
     });
 
+    // check next page
     expect(result.current.page).toEqual(2);
     expect(result.current.pageItems).toEqual(
       mockData.slice(EXPECTED_PAGE_SIZE)
     );
 
+    // go back
     act(() => {
       result.current.onPaginatePrevious();
     });
 
+    // check first page
     expect(result.current.page).toEqual(1);
     expect(result.current.pageItems).toEqual(
       mockData.slice(0, EXPECTED_PAGE_SIZE)
@@ -131,6 +136,7 @@ describe('useLocationsView', () => {
       wrapper: getWrapper(),
     });
 
+    // go to second page to verify reset behavior
     act(() => {
       result.current.onPaginateNext();
     });
@@ -139,7 +145,11 @@ describe('useLocationsView', () => {
     act(() => {
       result.current.onRefresh();
     });
+
+    // refresh goes to first page
     expect(result.current.page).toEqual(1);
+
+    // new data fetched
     expect(handleList).toHaveBeenCalledWith({
       options: { ...DEFAULT_LIST_OPTIONS, refresh: true },
     });
@@ -157,7 +167,7 @@ describe('useLocationsView', () => {
       type: 'BUCKET',
       scope: 'Location A',
       permission: 'READ',
-    }; // Example location object
+    };
 
     act(() => {
       const state = result.current;
@@ -168,21 +178,5 @@ describe('useLocationsView', () => {
       type: 'ACCESS_LOCATION',
       location,
     });
-  });
-
-  it('should return paginated items based on current page and page size', () => {
-    const mockDataState = {
-      data: { result: mockData, nextToken: undefined },
-      message: '',
-      hasError: false,
-      isLoading: false,
-    };
-    mockUseLocationsData(mockDataState);
-    const initialState = { initialValues: { pageSize: EXPECTED_PAGE_SIZE } };
-    const { result } = renderHook(() => useLocationsView(initialState), {
-      wrapper: getWrapper(),
-    });
-    const state = result.current;
-    expect(state.pageItems).toEqual(mockData.slice(0, EXPECTED_PAGE_SIZE));
   });
 });
