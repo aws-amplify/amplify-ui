@@ -12,6 +12,7 @@ import { useLocationsData } from '../../../context/actions';
 import { useControl } from '../../../context/control';
 import { LocationAccess } from '../../../context/types';
 import { ButtonElement, IconElement } from '../../../context/elements';
+import { parseLocationAccess } from '../../../context/navigate/utils';
 
 import { compareStrings } from '../../utils';
 
@@ -24,8 +25,8 @@ export type SortState = {
 
 const getCompareFn = (selection: string) => {
   switch (selection) {
-    case 'scope':
-    case 'type':
+    case 'bucket':
+    case 'folder':
     case 'permission':
       return compareStrings;
   }
@@ -65,8 +66,8 @@ const getColumnItem = ({
 };
 
 const displayColumns: Record<string, string>[] = [
-  { scope: 'name' },
-  { type: 'type' },
+  { prefix: 'folder' },
+  { bucket: 'bucket' },
   { permission: 'permission' },
 ];
 
@@ -101,22 +102,28 @@ const getLocationsData = ({
     }
   }
 
-  const rows = data.map((location, index) => [
-    {
-      key: `td-name-${index}`,
-      children: (
-        <ButtonElement
-          className={TABLE_DATA_BUTTON_CLASS}
-          onClick={() => onLocationClick(location)}
-          variant="table-data"
-        >
-          {location.scope}
-        </ButtonElement>
-      ),
-    },
-    { key: `td-type-${index}`, children: location.type },
-    { key: `td-permission-${index}`, children: location.permission },
-  ]);
+  const rows = data.map((location, index) => {
+    const parsedLocation = parseLocationAccess(location);
+    const row = [
+      {
+        key: `td-name-${index}`,
+        children: (
+          <ButtonElement
+            className={TABLE_DATA_BUTTON_CLASS}
+            onClick={() => onLocationClick(location)}
+            variant="table-data"
+          >
+            {parsedLocation.prefix
+              ? parsedLocation.prefix
+              : `${parsedLocation.bucket}/`}
+          </ButtonElement>
+        ),
+      },
+      { key: `td-bucket-${index}`, children: parsedLocation.bucket },
+      { key: `td-permission-${index}`, children: location.permission },
+    ];
+    return row;
+  });
 
   return { columns, rows };
 };
@@ -131,7 +138,7 @@ export function DataTableControl({
   const [, handleUpdateState] = useControl('NAVIGATE');
 
   const [sortState, setSortState] = React.useState<SortState>({
-    selection: 'scope',
+    selection: 'prefix',
     direction: 'ascending',
   });
 
@@ -156,7 +163,7 @@ export function DataTableControl({
           }));
         },
       }),
-    [data.result, handleUpdateState, sortState, start, end]
+    [data.result, start, end, sortState, handleUpdateState]
   );
 
   return hasError ? null : <DataTable data={locationsData} />;
