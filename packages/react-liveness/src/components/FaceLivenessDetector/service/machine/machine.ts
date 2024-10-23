@@ -927,13 +927,14 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
     },
     services: {
       async checkVirtualCameraAndGetStream(context) {
-        const { videoConstraints } = context.videoAssociatedParams!;
+        const { isMobile, videoConstraints } = context.videoAssociatedParams!;
 
         // Get initial stream to enumerate devices with non-empty labels
         const existingDeviceId = getLastSelectedCameraId();
         const initialStream = await navigator.mediaDevices.getUserMedia({
           video: {
             ...videoConstraints,
+            ...(isMobile ? { facingMode: { exact: 'user' } } : {}),
             ...(existingDeviceId ? { deviceId: existingDeviceId } : {}),
           },
           audio: false,
@@ -975,6 +976,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           realVideoDeviceStream = await navigator.mediaDevices.getUserMedia({
             video: {
               ...videoConstraints,
+              ...(isMobile ? { facingMode: { exact: 'user' } } : {}),
               deviceId: { exact: deviceId },
             },
             audio: false,
