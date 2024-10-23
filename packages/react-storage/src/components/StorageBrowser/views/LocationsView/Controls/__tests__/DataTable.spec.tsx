@@ -17,8 +17,8 @@ const useLocationsDataSpy = jest.spyOn(
 );
 
 const mockData: LocationAccess<UseLocationsDataModule.Permission>[] = [
-  { scope: 'Location A', type: 'BUCKET', permission: 'READ' },
-  { scope: 'Location B', type: 'PREFIX', permission: 'WRITE' },
+  { scope: 's3://Location A/*', type: 'BUCKET', permission: 'READ' },
+  { scope: 's3://Location B/Folder B/*', type: 'PREFIX', permission: 'WRITE' },
 ];
 
 describe('LocationsViewTableControl', () => {
@@ -38,23 +38,37 @@ describe('LocationsViewTableControl', () => {
   it('renders the table with data', () => {
     const { getByText } = render(<DataTableControl range={TEST_RANGE} />);
 
-    expect(getByText('Name')).toBeInTheDocument();
-    expect(getByText('Type')).toBeInTheDocument();
+    expect(getByText('Folder')).toBeInTheDocument();
+    expect(getByText('Bucket')).toBeInTheDocument();
     expect(getByText('Permission')).toBeInTheDocument();
-    expect(getByText('Location A')).toBeInTheDocument();
-    expect(getByText('Location B')).toBeInTheDocument();
+    expect(getByText('Location A/')).toBeInTheDocument();
+    expect(getByText('Folder B/')).toBeInTheDocument();
   });
 
   it('renders the correct icon based on sort state', () => {
     const { getByText } = render(<DataTableControl range={TEST_RANGE} />);
 
-    const nameTh = screen.getByRole('columnheader', { name: 'Name' });
+    const folderTh = screen.getByRole('columnheader', { name: 'Folder' });
 
-    expect(nameTh).toHaveAttribute('aria-sort', 'ascending');
+    expect(folderTh).toHaveAttribute('aria-sort', 'ascending');
 
-    fireEvent.click(getByText('Name'));
+    fireEvent.click(getByText('Folder'));
 
-    expect(nameTh).toHaveAttribute('aria-sort', 'descending');
+    expect(folderTh).toHaveAttribute('aria-sort', 'descending');
+  });
+
+  it('updates sort state when other headers are clicked', () => {
+    const { getByText } = render(<DataTableControl range={TEST_RANGE} />);
+
+    const folderTh = screen.getByRole('columnheader', { name: 'Folder' });
+
+    expect(folderTh).toHaveAttribute('aria-sort', 'ascending');
+
+    const bucketTh = screen.getByRole('columnheader', { name: 'Bucket' });
+
+    fireEvent.click(getByText('Bucket'));
+
+    expect(bucketTh).toHaveAttribute('aria-sort', 'descending');
   });
 
   it('triggers location click handler when a row is clicked', () => {
@@ -63,12 +77,12 @@ describe('LocationsViewTableControl', () => {
 
     render(<DataTableControl range={TEST_RANGE} />);
 
-    const firstRowButton = screen.getByRole('button', { name: 'Location A' });
+    const firstRowButton = screen.getByRole('button', { name: 'Folder B/' });
     fireEvent.click(firstRowButton);
 
     expect(mockHandleUpdateState).toHaveBeenCalledWith({
       type: 'ACCESS_LOCATION',
-      location: mockData[0],
+      location: mockData[1],
     });
   });
 });
