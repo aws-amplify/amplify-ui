@@ -4,6 +4,7 @@ import { ControlProps } from './types';
 import { useResolvedComposable } from './hooks/useResolvedComposable';
 import { ActionStart } from '../composables/ActionStart';
 import { useActionStart } from './hooks/useActionStart';
+import { ViewElement } from '../context/elements';
 
 export const ActionStartControl = ({
   className,
@@ -13,14 +14,10 @@ export const ActionStartControl = ({
   if (!props) {
     return null;
   }
-  const { onClick, disabled, label } = props;
 
   return (
-    <ResolvedActionStart
-      onClick={onClick}
-      disabled={disabled}
-      label={label}
-      className={className}
-    />
+    <ViewElement className={className}>
+      <ResolvedActionStart {...props} />
+    </ViewElement>
   );
 };

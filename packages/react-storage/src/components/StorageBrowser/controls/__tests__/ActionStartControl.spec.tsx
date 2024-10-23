@@ -24,7 +24,7 @@ describe('ActionStartControl', () => {
   it('renders', () => {
     mockUseActionStart.mockReturnValue({
       props: {
-        disabled: false,
+        isDisabled: false,
         onClick: jest.fn(),
         label: 'Start',
       },

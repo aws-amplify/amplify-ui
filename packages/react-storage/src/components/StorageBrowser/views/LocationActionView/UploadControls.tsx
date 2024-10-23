@@ -324,6 +324,7 @@ export const UploadControls = ({
       taskCounts.TOTAL;
 
   const disableCancel = !taskCounts.TOTAL || !hasStarted || hasCompleted;
+  const disablePrimary = !taskCounts.TOTAL || hasStarted || hasCompleted;
   const disableOverwrite = hasStarted || hasCompleted;
   const disableSelectFiles = hasStarted || hasCompleted;
 
@@ -336,6 +337,7 @@ export const UploadControls = ({
       actionStart: {
         onClick: handleUpload,
         label: 'Start',
+        isDisabled: disablePrimary,
       },
     },
   };

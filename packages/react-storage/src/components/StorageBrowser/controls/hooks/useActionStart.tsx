@@ -6,23 +6,12 @@ export type UseActionStart = () => {
 };
 
 export const useActionStart: UseActionStart = () => {
-  const { data, actionsConfig } = useControlsContext();
-  const { taskCounts } = data;
-  let disabled = actionsConfig.actionStart?.disabled;
-  if (disabled === undefined && taskCounts) {
-    const hasStarted = !!taskCounts.PENDING;
-    const hasCompleted =
-      !!taskCounts.TOTAL &&
-      taskCounts.CANCELED + taskCounts.COMPLETE + taskCounts.FAILED ===
-        taskCounts.TOTAL;
-
-    disabled = !taskCounts.TOTAL || hasStarted || hasCompleted;
-  }
+  const {
+    actionsConfig: { actionStart = {} },
+  } = useControlsContext();
   return {
     props: {
-      disabled,
-      onClick: actionsConfig.actionStart?.onClick,
-      label: actionsConfig.actionStart?.label,
+      ...actionStart,
     },
   };
 };
