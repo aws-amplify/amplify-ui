@@ -60,7 +60,9 @@ describe('LocationsViewTableControl', () => {
   });
 
   it('updates sort state when other headers are clicked', () => {
-    const { getByText } = render(<DataTableControl items={mockData} handleLocationClick={jest.fn()} />);
+    const { getByText } = render(
+      <DataTableControl items={mockData} handleLocationClick={jest.fn()} />
+    );
 
     const folderTh = screen.getByRole('columnheader', { name: 'Folder' });
 
@@ -85,6 +87,6 @@ describe('LocationsViewTableControl', () => {
     const firstRowButton = screen.getByRole('button', { name: 'Folder B/' });
     fireEvent.click(firstRowButton);
 
-    expect(mockHandleLocationClick).toHaveBeenCalledWith(mockData[0]);
+    expect(mockHandleLocationClick).toHaveBeenCalledWith(mockData[1]);
   });
 });

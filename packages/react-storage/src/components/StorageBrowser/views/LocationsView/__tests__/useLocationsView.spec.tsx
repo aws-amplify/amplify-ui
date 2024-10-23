@@ -61,12 +61,10 @@ describe('useLocationsView', () => {
       isLoading: false,
     };
     const handleList = mockUseLocationsData(mockDataState);
-
-    const { result } = renderHook(
-      () =>
-        useLocationsView({ initialValues: { pageSize: EXPECTED_PAGE_SIZE } }),
-      { wrapper: getWrapper() }
-    );
+    const initialState = { initialValues: { pageSize: EXPECTED_PAGE_SIZE } };
+    const { result } = renderHook(() => useLocationsView(initialState), {
+      wrapper: getWrapper(),
+    });
 
     expect(handleList).toHaveBeenCalledWith({
       options: {
@@ -91,20 +89,33 @@ describe('useLocationsView', () => {
     };
     mockUseLocationsData(mockDataState);
 
-    const { result } = renderHook(() => useLocationsView(), {
+    const initialState = { initialValues: { pageSize: EXPECTED_PAGE_SIZE } };
+    const { result } = renderHook(() => useLocationsView(initialState), {
       wrapper: getWrapper(),
     });
+
+    expect(result.current.page).toEqual(1);
+    expect(result.current.pageItems).toEqual(
+      mockData.slice(0, EXPECTED_PAGE_SIZE)
+    );
+
     act(() => {
       result.current.onPaginateNext();
     });
 
     expect(result.current.page).toEqual(2);
+    expect(result.current.pageItems).toEqual(
+      mockData.slice(EXPECTED_PAGE_SIZE)
+    );
 
     act(() => {
       result.current.onPaginatePrevious();
     });
 
     expect(result.current.page).toEqual(1);
+    expect(result.current.pageItems).toEqual(
+      mockData.slice(0, EXPECTED_PAGE_SIZE)
+    );
   });
 
   it('should handle refreshing location data', () => {
@@ -167,11 +178,10 @@ describe('useLocationsView', () => {
       isLoading: false,
     };
     mockUseLocationsData(mockDataState);
-    const { result } = renderHook(
-      () =>
-        useLocationsView({ initialValues: { pageSize: EXPECTED_PAGE_SIZE } }),
-      { wrapper: getWrapper() }
-    );
+    const initialState = { initialValues: { pageSize: EXPECTED_PAGE_SIZE } };
+    const { result } = renderHook(() => useLocationsView(initialState), {
+      wrapper: getWrapper(),
+    });
     const state = result.current;
     expect(state.pageItems).toEqual(mockData.slice(0, EXPECTED_PAGE_SIZE));
   });
