@@ -935,7 +935,9 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           video: {
             ...videoConstraints,
             ...(isMobile ? { facingMode: { exact: 'user' } } : {}),
-            ...(existingDeviceId ? { deviceId: existingDeviceId } : {}),
+            ...(existingDeviceId && !isMobile
+              ? { deviceId: existingDeviceId }
+              : {}),
           },
           audio: false,
         });
