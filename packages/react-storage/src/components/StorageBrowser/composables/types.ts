@@ -1,6 +1,8 @@
+import { DataTable } from './DataTable';
 import { StatusDisplay } from './StatusDisplay';
 
 const composables = {
+  DataTable,
   StatusDisplay,
 };
 
