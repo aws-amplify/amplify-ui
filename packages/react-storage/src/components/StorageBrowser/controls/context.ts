@@ -2,7 +2,9 @@ import { createContextUtilities } from '@aws-amplify/ui-react-core';
 import { ControlsContext } from './types';
 
 const defaultValue = {
-  data: {},
+  data: {
+    title: 'StorageBrowser',
+  },
   actionsConfig: {},
 } as ControlsContext;
 
