@@ -6,6 +6,7 @@ import { resolveClassName } from '../utils';
 
 import { CreateFolderControls } from './CreateFolderControls';
 import { UploadControls } from './UploadControls';
+import { CopyFilesControls } from './CopyFilesControls';
 
 export interface LocationActionViewProps {
   className?: (defaultClassName: string) => string;
@@ -22,6 +23,8 @@ export const LocationActionView = ({
     >
       {selected.type === 'CREATE_FOLDER' ? (
         <CreateFolderControls />
+      ) : selected.type === 'COPY_FILES' ? (
+        <CopyFilesControls />
       ) : (
         <UploadControls />
       )}

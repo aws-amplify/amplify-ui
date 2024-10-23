@@ -15,6 +15,7 @@ export type IconVariant =
   | 'action-initial'
   | 'cancel'
   | 'create-folder'
+  | 'copy-file'
   | 'dismiss'
   | 'download'
   | 'error'
@@ -61,6 +62,9 @@ export const DEFAULT_ICON_PATHS: Record<IconVariant, string> = {
   // "Create New Folder"
   'create-folder':
     'M560-320h80v-80h80v-80h-80v-80h-80v80h-80v80h80v80ZM160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h240l80 80h320q33 0 56.5 23.5T880-640v400q0 33-23.5 56.5T800-160H160Zm0-80h640v-400H447l-80-80H160v480Zm0 0v-480 480Z',
+  // "copy-file"
+  'copy-file':
+    'M760-200H320q-33 0-56.5-23.5T240-280v-560q0-33 23.5-56.5T320-920h280l240 240v400q0 33-23.5 56.5T760-200ZM560-640v-200H320v560h440v-360H560ZM160-40q-33 0-56.5-23.5T80-120v-560h80v560h440v80H160Zm160-800v200-200 560-560Z',
   // "Close"
   dismiss:
     'm256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z',

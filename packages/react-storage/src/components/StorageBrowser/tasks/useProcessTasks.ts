@@ -37,6 +37,22 @@ export const useProcessTasks = <T, K>(
     if (!items?.length) return;
 
     setTasks((prevTasks) => {
+      const updatedTasks: Task<T>[] = prevTasks.map((task) => {
+        // Don't update non-queued tasks
+        if (task.status !== 'QUEUED') return task;
+
+        const itemToUpdate = items.find(({ key }) => key === task.key);
+        if (!itemToUpdate) return task;
+
+        if (
+          typeof itemToUpdate.item === 'object' &&
+          !Object.is(task.item, itemToUpdate.item)
+        ) {
+          return { ...task, item: { ...itemToUpdate.item } };
+        }
+        return task;
+      });
+
       const nextTasks: Task<T>[] = items.reduce((tasks, item) => {
         const remove = () => {
           if (inflight.current.has(item.key)) return;
@@ -50,7 +66,7 @@ export const useProcessTasks = <T, K>(
           : [...tasks, { ...item, ...QUEUED_TASK_BASE, remove }];
       }, [] as Task<T>[]);
 
-      return [...prevTasks, ...nextTasks];
+      return [...updatedTasks, ...nextTasks];
     });
   }, [items]);
 
