@@ -36,6 +36,27 @@ const mockUseLivenessActor = getMockedFunction(useLivenessActor);
 const mockUseLivenessSelector = getMockedFunction(useLivenessSelector);
 const mockUseMediaStreamInVideo = getMockedFunction(useMediaStreamInVideo);
 
+const mockEnumerateDevices = jest.fn().mockResolvedValue([
+  {
+    deviceId: '123',
+    kind: 'videoinput',
+    label: 'Front Camera',
+    groupId: '',
+  },
+  {
+    deviceId: '456',
+    kind: 'videoinput',
+    label: 'Back Camera',
+    groupId: '',
+  },
+  {
+    deviceId: '789',
+    kind: 'audioinput',
+    label: 'Microphone',
+    groupId: '',
+  },
+]);
+
 describe('LivenessCameraModule', () => {
   const mockActorState: any = {
     matches: jest.fn(),
@@ -87,6 +108,12 @@ describe('LivenessCameraModule', () => {
       videoRef: { current: document.createElement('video') },
       videoHeight: 100,
       videoWidth: 100,
+    });
+    Object.defineProperty(navigator, 'mediaDevices', {
+      writable: true,
+      value: {
+        enumerateDevices: mockEnumerateDevices,
+      },
     });
   });
 
