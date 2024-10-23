@@ -1,4 +1,3 @@
-export { CancelControl } from './Cancel';
 export { DownloadControl } from './Download';
 export { EmptyMessageControl } from './EmptyMessage';
 export { ExitControl } from './Exit';
