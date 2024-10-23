@@ -20,5 +20,9 @@ export interface ControlsContext {
   actionsConfig: {
     type: 'SINGLE_ACTION' | 'BATCH_ACTION';
     isCancelable: boolean;
+    dataRefresh?: {
+      onClick?: () => void;
+      disabled?: boolean;
+    };
   };
 }

@@ -53,7 +53,7 @@ describe('elementsDefault', () => {
       expect(screen.getByRole('heading', { name: 'Home' })).toBeInTheDocument();
     });
 
-    const refresh = screen.getByRole('button', { name: 'Refresh table' });
+    const refresh = screen.getByRole('button', { name: 'Refresh data' });
 
     expect(refresh.classList).toContain('amplify-button');
   });
