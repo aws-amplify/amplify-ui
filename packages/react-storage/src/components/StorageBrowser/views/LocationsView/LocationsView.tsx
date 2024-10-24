@@ -3,21 +3,15 @@ import React from 'react';
 import { CLASS_BASE } from '../constants';
 import { Controls } from '../Controls';
 import { useLocationsData } from '../../context/actions';
-
-import { usePaginate } from '../hooks/usePaginate';
-import { listViewHelpers, resolveClassName } from '../utils';
-
+import { resolveClassName } from '../utils';
 import { DataTableControl } from './Controls/DataTable';
+import { LocationAccess } from '../../context/types';
+import { useLocationsView } from './useLocationsView';
 
 export interface LocationsViewProps {
   className?: (defaultClassName: string) => string;
 }
 
-const DEFAULT_PAGE_SIZE = 100;
-export const DEFAULT_LIST_OPTIONS = {
-  exclude: 'WRITE' as const,
-  pageSize: DEFAULT_PAGE_SIZE,
-};
 export const DEFAULT_ERROR_MESSAGE = 'There was an error loading locations.';
 
 const {
@@ -64,40 +58,15 @@ const LocationsEmptyMessage = () => {
 export function LocationsView({
   className,
 }: LocationsViewProps): React.JSX.Element {
-  const [{ data, isLoading, hasError }, handleList] = useLocationsData();
+  const locationsView = useLocationsView();
+  const { pageItems, hasError, hasNextPage, page, isLoading } = locationsView;
 
-  const { result, nextToken } = data;
-  const resultCount = result.length;
-  const hasNextToken = !!nextToken;
+  const handleLocationClick = (location: LocationAccess) => {
+    locationsView.onNavigate(location);
+  };
 
-  // initial load
-  React.useEffect(() => {
-    handleList({
-      options: { ...DEFAULT_LIST_OPTIONS, refresh: true },
-    });
-  }, [handleList]);
-
-  const onPaginateNext = () =>
-    handleList({
-      options: { ...DEFAULT_LIST_OPTIONS, nextToken },
-    });
-
-  const {
-    currentPage,
-    handlePaginateNext,
-    handlePaginatePrevious,
-    handleReset,
-  } = usePaginate({ onPaginateNext, pageSize: DEFAULT_PAGE_SIZE });
-
-  const { disableNext, disablePrevious, disableRefresh, range } =
-    listViewHelpers({
-      currentPage,
-      hasNextToken,
-      isLoading,
-      pageSize: DEFAULT_PAGE_SIZE,
-      resultCount,
-      hasError,
-    });
+  const disableNext = !hasNextPage || isLoading || hasError;
+  const disablePrevious = page <= 1 || isLoading || hasError;
 
   return (
     <div
@@ -106,26 +75,30 @@ export function LocationsView({
     >
       <Title>Home</Title>
       <RefreshControl
-        disableRefresh={disableRefresh}
+        disableRefresh={isLoading}
         handleRefresh={() => {
-          handleReset();
-          handleList({
-            options: { ...DEFAULT_LIST_OPTIONS, refresh: true },
-          });
+          locationsView.onRefresh();
         }}
       />
       <Paginate
-        currentPage={currentPage}
+        currentPage={page}
         disableNext={disableNext}
         disablePrevious={disablePrevious}
         handleNext={() => {
-          handlePaginateNext({ resultCount, hasNextToken });
+          locationsView.onPaginateNext();
         }}
-        handlePrevious={handlePaginatePrevious}
+        handlePrevious={() => {
+          locationsView.onPaginatePrevious();
+        }}
       />
       <LocationsMessage />
       <Loading />
-      <DataTableControl range={range} />
+      {hasError ? null : (
+        <DataTableControl
+          items={pageItems}
+          handleLocationClick={handleLocationClick}
+        />
+      )}
       <LocationsEmptyMessage />
     </div>
   );

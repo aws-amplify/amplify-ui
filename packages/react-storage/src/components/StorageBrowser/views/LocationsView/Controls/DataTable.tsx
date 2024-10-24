@@ -8,8 +8,6 @@ import {
   TABLE_HEADER_BUTTON_CLASS_NAME,
   TABLE_HEADER_CLASS_NAME,
 } from '../../../components/DataTable';
-import { useLocationsData } from '../../../context/actions';
-import { useControl } from '../../../context/control';
 import { LocationAccess } from '../../../context/types';
 import { ButtonElement, IconElement } from '../../../context/elements';
 import { parseLocationAccess } from '../../../context/navigate/utils';
@@ -128,33 +126,26 @@ const getLocationsData = ({
   return { columns, rows };
 };
 
+interface DataTableControlProps {
+  items: LocationAccess[];
+  handleLocationClick: (location: LocationAccess) => void;
+}
+
 export function DataTableControl({
-  range,
-}: {
-  range: [start: number, end: number];
-}): React.JSX.Element | null {
-  const [{ data, hasError }] = useLocationsData();
-
-  const [, handleUpdateState] = useControl('NAVIGATE');
-
+  items,
+  handleLocationClick,
+}: DataTableControlProps): React.JSX.Element | null {
   const [sortState, setSortState] = React.useState<SortState>({
     selection: 'prefix',
     direction: 'ascending',
   });
 
-  const [start, end] = range;
-
   const locationsData = React.useMemo(
     () =>
       getLocationsData({
-        data: data.result.slice(start, end),
+        data: items,
         sortState,
-        onLocationClick: (location) => {
-          handleUpdateState({
-            type: 'ACCESS_LOCATION',
-            location,
-          });
-        },
+        onLocationClick: handleLocationClick,
         onTableHeaderClick: (location: string) => {
           setSortState((prevState) => ({
             selection: location,
@@ -163,8 +154,8 @@ export function DataTableControl({
           }));
         },
       }),
-    [data.result, start, end, sortState, handleUpdateState]
+    [items, handleLocationClick, sortState]
   );
 
-  return hasError ? null : <DataTable data={locationsData} />;
+  return <DataTable data={locationsData} />;
 }
