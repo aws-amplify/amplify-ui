@@ -541,13 +541,10 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       }),
       updateDeviceAndStream: assign({
         videoAssociatedParams: (context, event) => {
-          const { canvasEl, videoEl, videoMediaStream } =
-            context.videoAssociatedParams!;
           setLastSelectedCameraId(event.data?.newDeviceId as string);
           context.livenessStreamProvider?.setNewVideoStream(
             event.data?.newStream as MediaStream
           );
-          drawStaticOval(canvasEl!, videoEl!, videoMediaStream!);
 
           return {
             ...context.videoAssociatedParams,
