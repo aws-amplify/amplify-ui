@@ -1,8 +1,6 @@
-import { useControlsContext } from '../../../controls/context';
+import * as controlsContextModule from '../../../controls/context';
 import { ControlsContext } from '../../types';
 import { useActionStart } from '../useActionStart';
-
-jest.mock('../../../controls/context');
 
 describe('useActionStart', () => {
   const controlsContext: ControlsContext = {
@@ -15,22 +13,37 @@ describe('useActionStart', () => {
     },
     onActionStart: jest.fn(),
   };
-  // assert mocks
-  const mockUseControlsContext = useControlsContext as jest.Mock;
+
+  // Create a spy on the useControlsContext function
+  const useControlsContextSpy = jest.spyOn(
+    controlsContextModule,
+    'useControlsContext'
+  );
 
   afterEach(() => {
-    mockUseControlsContext.mockReset();
+    useControlsContextSpy.mockClear();
+  });
+
+  afterAll(() => {
+    useControlsContextSpy.mockRestore();
   });
 
   it('returns object as it is received from ControlsContext', () => {
-    mockUseControlsContext.mockReturnValue(controlsContext);
+    useControlsContextSpy.mockReturnValue(controlsContext);
 
     expect(useActionStart()).toStrictEqual({
-      props: {
-        label: controlsContext.data.actionStartLabel,
-        onStart: expect.any(Function),
-        isDisabled: controlsContext.data.isActionStartDisabled,
-      },
+      label: controlsContext.data.actionStartLabel,
+      onStart: expect.any(Function),
+      isDisabled: controlsContext.data.isActionStartDisabled,
     });
+  });
+
+  it('calls onActionStart from ControlsContext when onStart is called', () => {
+    useControlsContextSpy.mockReturnValue(controlsContext);
+
+    const { onStart } = useActionStart();
+    onStart!();
+
+    expect(controlsContext.onActionStart).toHaveBeenCalledTimes(1);
   });
 });

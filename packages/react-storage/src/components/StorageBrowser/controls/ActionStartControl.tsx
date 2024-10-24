@@ -9,11 +9,8 @@ import { ViewElement } from '../context/elements';
 export const ActionStartControl = ({
   className,
 }: ControlProps): React.JSX.Element | null => {
-  const { props } = useActionStart();
+  const props = useActionStart();
   const ResolvedActionStart = useResolvedComposable(ActionStart, 'ActionStart');
-  if (!props) {
-    return null;
-  }
 
   return (
     <ViewElement className={className}>
