@@ -43,6 +43,7 @@ export enum LivenessClassNames {
   Toast = 'amplify-liveness-toast',
   ToastContainer = 'amplify-liveness-toast__container',
   ToastMessage = 'amplify-liveness-toast__message',
+  UserFacingVideo = 'amplify-liveness-video-user-facing',
   Video = 'amplify-liveness-video',
   VideoAnchor = 'amplify-liveness-video-anchor',
 }

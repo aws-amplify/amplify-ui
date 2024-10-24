@@ -21,6 +21,7 @@ import {
 
 import { Hint, Overlay, selectErrorState, MatchIndicator } from '../shared';
 import { LivenessClassNames } from '../types/classNames';
+import { isDeviceUserFacing } from '../utils/device';
 import {
   FaceLivenessErrorModal,
   renderErrorModal,
@@ -128,6 +129,7 @@ export const LivenessCameraModule = (
   const freshnessColorRef = useRef<HTMLCanvasElement | null>(null);
 
   const [isCameraReady, setIsCameraReady] = useState<boolean>(false);
+  const [isCameraUserFacing, setIsCameraUserFacing] = useState<boolean>(true);
   const isInitCamera = state.matches('initCamera');
   const isInitWebsocket = state.matches('initWebsocket');
   const isCheckingCamera = state.matches({ initCamera: 'cameraCheck' });
@@ -160,6 +162,14 @@ export const LivenessCameraModule = (
     isStartView &&
     hasMultipleDevices &&
     (!isMobileScreen || isFaceMovementChallenge);
+
+  React.useEffect(() => {
+    async function checkCameraFacing() {
+      const isUserFacing = await isDeviceUserFacing(selectedDeviceId);
+      setIsCameraUserFacing(isUserFacing);
+    }
+    checkCameraFacing();
+  }, [selectedDeviceId]);
 
   React.useEffect(() => {
     if (canvasRef?.current && videoRef?.current && videoStream && isStartView) {
@@ -405,7 +415,10 @@ export const LivenessCameraModule = (
             height={mediaHeight}
             onCanPlay={handleMediaPlay}
             data-testid="video"
-            className={LivenessClassNames.Video}
+            className={classNames(
+              LivenessClassNames.Video,
+              isCameraUserFacing && LivenessClassNames.UserFacingVideo
+            )}
             aria-label={cameraDisplayText.a11yVideoLabelText}
           />
           <Flex
