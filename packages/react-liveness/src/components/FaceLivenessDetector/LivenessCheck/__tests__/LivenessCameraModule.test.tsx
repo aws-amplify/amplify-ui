@@ -166,7 +166,6 @@ describe('LivenessCameraModule', () => {
     isStart = true;
     mockStateMatchesAndSelectors();
 
-    // Mock implementation for useLivenessSelector
     mockUseLivenessSelector.mockReturnValue('123').mockReturnValue(mockDevices);
 
     renderWithLivenessProvider(
