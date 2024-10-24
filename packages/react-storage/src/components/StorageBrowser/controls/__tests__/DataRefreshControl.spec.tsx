@@ -1,34 +1,21 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
-import { useResolvedComposable } from '../hooks/useResolvedComposable';
-import { useDataRefresh } from '../hooks/useDataRefresh';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { DataRefreshControl } from '../DataRefreshControl';
 
-jest.mock('../hooks/useDataRefresh');
-jest.mock('../hooks/useResolvedComposable');
+import * as useDataRefreshModule from '../hooks/useDataRefresh';
 
 describe('DataRefreshControl', () => {
-  // assert mocks
-  const mockUseDataRefresh = useDataRefresh as jest.Mock;
-  const mockUseResolvedComposable = useResolvedComposable as jest.Mock;
-
-  beforeAll(() => {
-    mockUseResolvedComposable.mockImplementation(
-      (component: React.JSX.Element) => component
-    );
-  });
+  const useDataRefreshSpy = jest.spyOn(useDataRefreshModule, 'useDataRefresh');
 
   afterEach(() => {
-    mockUseDataRefresh.mockReset();
-    mockUseResolvedComposable.mockClear();
+    useDataRefreshSpy.mockReset();
   });
 
   it('renders with button enabled', () => {
-    mockUseDataRefresh.mockReturnValue({
-      props: {
-        disabled: false,
-        onClick: jest.fn(),
-      },
+    const onRefreshMock = jest.fn();
+    useDataRefreshSpy.mockReturnValue({
+      isDisabled: false,
+      onRefresh: onRefreshMock,
     });
 
     render(<DataRefreshControl />);
@@ -43,10 +30,13 @@ describe('DataRefreshControl', () => {
     expect(button).not.toHaveAttribute('disabled');
     expect(icon).toBeInTheDocument();
     expect(icon).toHaveAttribute('aria-hidden', 'true');
+
+    fireEvent.click(button);
+    expect(onRefreshMock).toHaveBeenCalled();
   });
 
   it('renders with button disabled', () => {
-    mockUseDataRefresh.mockReturnValue({
+    useDataRefreshSpy.mockReturnValue({
       isDisabled: true,
       onRefresh: jest.fn(),
     });
