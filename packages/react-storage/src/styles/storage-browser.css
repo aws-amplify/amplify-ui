@@ -134,12 +134,6 @@
   grid-column: 4 / 5;
 }
 
-.storage-browser__table {
-  grid-column: 1 / -1;
-  table-layout: fixed;
-  width: 100%;
-}
-
 .storage-browser__table__dropzone {
   outline: 2px solid var(--storage-browser-dropzone-active-color);
 }
@@ -301,4 +295,179 @@
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border-width: 0;
+}
+
+/* Base component styles */
+/** DescriptionList **/
+.storage-browser__description-list {
+  margin: 0;
+  display: flex;
+  gap: var(--storage-browser-gap-large);
+}
+
+.storage-browser__description {
+  display: flex;
+  gap: var(--storage-browser-gap-small);
+}
+
+.storage-browser__description-details {
+  margin: 0;
+}
+
+/** DropZone **/
+.storage-browser__drop-zone--active {
+  outline: 2px solid var(--storage-browser-dropzone-active-color);
+}
+
+/** LoadingIndicator **/
+.storage-browser__loading-indicator {
+  display: flex;
+  gap: var(--storage-browser-gap-small);
+  padding: var(--storage-browser-gap-large);
+  justify-self: center;
+}
+
+.storage-browser__loading-indicator-icon {
+  animation: var(--storage-browser-loading-animation);
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/** Table **/
+.storage-browser__table {
+  grid-column: 1 / -1;
+  table-layout: fixed;
+  width: 100%;
+}
+
+.storage-browser__table-sort-header {
+  padding: var(--storage-browser-gap-small);
+}
+
+.storage-browser__table-button-data-cell,
+.storage-browser__table-date-data-cell,
+.storage-browser__table-number-data-cell,
+.storage-browser__table-text-data-cell {
+  display: flex;
+  width: 100%;
+  gap: var(--storage-browser-gap-small);
+  padding: var(--storage-browser-gap-small);
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.storage-browser__table-text-data-cell-icon--action-queued {
+  color: var(--storage-browser-status-initial);
+}
+
+.storage-browser__table-text-data-cell-icon--action-success {
+  color: var(--storage-browser-status-success);
+}
+
+.storage-browser__table-text-data-cell-icon--action-progress {
+  color: var(--storage-browser-status-progress);
+}
+
+.storage-browser__table-text-data-cell-icon--action-canceled,
+.storage-browser__table-text-data-cell-icon--action-error {
+  color: var(--storage-browser-status-error);
+}
+
+/* Locations view control wrapper styles */
+.storage-browser__locations-view-data-table {
+  display: grid;
+  grid-column: 1 / -1;
+  width: 100%;
+}
+
+.storage-browser__locations-view-data-table th:nth-of-type(2),
+.storage-browser__locations-view-data-table th:nth-of-type(3) {
+  width: 8rem;
+}
+
+/* Locations view control wrapper styles */
+.storage-browser__location-detail-view-drop-zone,
+.storage-browser__location-detail-view-data-table {
+  display: grid;
+  grid-column: 1 / -1;
+  width: 100%;
+}
+
+.storage-browser__location-detail-view-data-table th:nth-of-type(1) {
+  width: 2rem;
+}
+
+.storage-browser__location-detail-view-data-table th:nth-of-type(3),
+.storage-browser__location-detail-view-data-table th:nth-of-type(5) {
+  width: 8rem;
+}
+
+.storage-browser__location-detail-view-data-table th:nth-of-type(4) {
+  width: 12rem;
+}
+
+.storage-browser__location-detail-view-data-table th:nth-of-type(5) {
+  text-align: end;
+}
+
+.storage-browser__location-detail-view-data-table th:nth-of-type(6) {
+  width: 4rem;
+}
+
+.storage-browser__location-detail-view-data-table td:nth-of-type(5) div {
+  justify-content: end;
+}
+
+.storage-browser__location-detail-view-data-table td:nth-of-type(6) button {
+  justify-content: center;
+}
+
+/* Upload action view control wrapper styles */
+.storage-browser__upload-action-view-data-table {
+  display: grid;
+  grid-column: 1 / -1;
+  width: 100%;
+}
+
+.storage-browser__upload-action-view-data-table th:nth-of-type(3),
+.storage-browser__upload-action-view-data-table th:nth-of-type(4),
+.storage-browser__upload-action-view-data-table th:nth-of-type(5),
+.storage-browser__upload-action-view-data-table th:nth-of-type(6) {
+  width: 8rem;
+}
+
+.storage-browser__upload-action-view-data-table th:nth-of-type(4) {
+  text-align: end;
+}
+
+.storage-browser__upload-action-view-data-table th:nth-of-type(7) {
+  width: 4rem;
+}
+
+.storage-browser__upload-action-view-data-table td:nth-of-type(4) div {
+  justify-content: end;
+}
+
+.storage-browser__upload-action-view-data-table td:nth-of-type(7) button {
+  justify-content: center;
+}
+
+/* Upload view control wrapper styles */
+.storage-browser__upload-status-display {
+  grid-column: 1 / -1;
+  justify-content: flex-end;
+  margin: 0;
+  display: flex;
+  gap: var(--storage-browser-gap-large);
 }

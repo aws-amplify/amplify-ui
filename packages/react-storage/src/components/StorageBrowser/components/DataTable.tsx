@@ -2,7 +2,7 @@ import React from 'react';
 
 import {
   TableBodyElement,
-  TableDataElement,
+  TableDataCellElement,
   TableElement,
   TableHeadElement,
   TableHeaderElement,
@@ -22,7 +22,7 @@ export interface ColumnHeaderItemProps
   extends React.ComponentProps<typeof TableHeaderElement> {}
 
 export interface RowDataItemProps
-  extends React.ComponentProps<typeof TableDataElement> {}
+  extends React.ComponentProps<typeof TableDataCellElement> {}
 
 export interface Data<T, K = {}> {
   columns?: K[];
@@ -46,7 +46,7 @@ export function RowDataItem({
   className = TABLE_DATA_CLASS_NAME,
   ...props
 }: RowDataItemProps): React.JSX.Element {
-  return <TableDataElement {...props} className={className} />;
+  return <TableDataCellElement {...props} className={className} />;
 }
 
 export function DataTable<

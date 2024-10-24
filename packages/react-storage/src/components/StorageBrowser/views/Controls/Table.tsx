@@ -6,7 +6,7 @@ import { useAction } from '../../context/actions';
 import {
   SpanElementProps,
   StorageBrowserElements,
-  TableDataElementProps,
+  TableDataCellElementProps,
   TableHeaderElementProps,
 } from '../../context/elements';
 import { useControl } from '../../context/control';
@@ -17,7 +17,7 @@ import { compareDates, compareNumbers, compareStrings } from '../utils';
 
 import { DownloadControl } from './Download';
 import { useDropZone } from '@aws-amplify/ui-react-core';
-import { CheckboxControl } from '../../components/Checkbox';
+import { Checkbox } from '../../components/Checkbox';
 
 export type SortDirection = 'ascending' | 'descending' | 'none';
 
@@ -46,7 +46,11 @@ const TABLE_HEADER_CLASS = `${BLOCK_NAME}__header`;
 const SELECT_FILE_TEXT = 'Select file';
 const SELECT_ALL_FILES_TEXT = 'Select all files';
 
-function TableData({ className, variant, ...props }: TableDataElementProps) {
+function TableData({
+  className,
+  variant,
+  ...props
+}: TableDataCellElementProps) {
   return (
     <BaseTableData
       {...props}
@@ -272,7 +276,7 @@ export const LocationDetailViewTable = ({
           // @ts-ignore
           column.key === 'select' ? (
             hasSelectableFiles && (
-              <CheckboxControl
+              <Checkbox
                 checked={areAllFilesSelected}
                 id="select-all"
                 labelHidden
@@ -340,7 +344,7 @@ export const LocationDetailViewTable = ({
                 const isSelected =
                   selected.items?.some((item) => item.key === row.key) ?? false;
                 return (
-                  <CheckboxControl
+                  <Checkbox
                     checked={isSelected}
                     id={`${index}-${row.key}`}
                     labelHidden
