@@ -386,6 +386,7 @@ describe('LivenessCameraModule', () => {
   it('should not render photosensitivity warning when challenge is FaceMovementChallenge and isNotRecording is true', async () => {
     isNotRecording = true;
     mockStateMatchesAndSelectors();
+    mockUseLivenessSelector.mockReset();
     mockUseLivenessSelector.mockReturnValue('FaceMovementChallenge');
 
     renderWithLivenessProvider(
