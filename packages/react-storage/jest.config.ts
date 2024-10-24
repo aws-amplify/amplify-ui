@@ -5,7 +5,7 @@ const config: Config = {
   collectCoverageFrom: [
     '<rootDir>/src/**/*.(ts|tsx)',
     // do not collect from index, testUtils or version files
-    '!<rootDir>/**/(index|testUtils|version).(ts|tsx)',
+    '!<rootDir>/**/(index|version).(ts|tsx)',
     // do not collect from top level styles directory
     '!<rootDir>/src/styles/*.ts',
   ],
