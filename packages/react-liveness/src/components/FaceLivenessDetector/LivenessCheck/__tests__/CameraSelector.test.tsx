@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { CameraSelector } from '../CameraSelector';
 import React from 'react';
 
@@ -19,17 +19,22 @@ const mockMediaDevices: MediaDeviceInfo[] = [
   },
 ];
 
+const onChange = jest.fn();
 describe('CameraSelector', () => {
+  beforeEach(() => {
+    onChange.mockClear();
+  });
+
   it('should render', () => {
     const result = render(
-      <CameraSelector onSelect={() => {}} devices={mockMediaDevices} />
+      <CameraSelector onSelect={onChange} devices={mockMediaDevices} />
     );
 
     expect(result.container).toBeDefined();
   });
 
   it('renders CameraSelector when there are multiple devices and allows changing camera', async () => {
-    render(<CameraSelector onSelect={() => {}} devices={mockMediaDevices} />);
+    render(<CameraSelector onSelect={onChange} devices={mockMediaDevices} />);
 
     const selectElement = screen.getByRole('combobox') as HTMLSelectElement;
     expect(selectElement).toBeInTheDocument();
@@ -39,5 +44,10 @@ describe('CameraSelector', () => {
     expect(options).toHaveLength(2);
     expect(options[0].textContent).toBe('Camera 1');
     expect(options[1].textContent).toBe('Camera 2');
+
+    // Simulate selecting the back camera
+    fireEvent.change(selectElement, { target: { value: '2' } });
+    expect(onChange).toHaveBeenCalledTimes(1);
+    expect(selectElement.value).toBe('2');
   });
 });
