@@ -7,24 +7,13 @@ jest.mock('../../../controls/context');
 describe('useActionStart', () => {
   const controlsContext: ControlsContext = {
     data: {
-      taskCounts: {
-        CANCELED: 2,
-        COMPLETE: 4,
-        FAILED: 3,
-        INITIAL: 0,
-        PENDING: 0,
-        QUEUED: 1,
-        TOTAL: 10,
-      },
+      actionStartLabel: 'Start',
     },
     actionsConfig: {
       isCancelable: true,
       type: 'BATCH_ACTION',
-      actionStart: {
-        label: 'Start',
-        onClick: jest.fn(),
-      },
     },
+    onActionStart: jest.fn(),
   };
   // assert mocks
   const mockUseControlsContext = useControlsContext as jest.Mock;
@@ -37,7 +26,11 @@ describe('useActionStart', () => {
     mockUseControlsContext.mockReturnValue(controlsContext);
 
     expect(useActionStart()).toStrictEqual({
-      props: controlsContext.actionsConfig.actionStart,
+      props: {
+        label: controlsContext.data.actionStartLabel,
+        onStart: expect.any(Function),
+        isDisabled: controlsContext.data.isActionStartDisabled,
+      },
     });
   });
 });

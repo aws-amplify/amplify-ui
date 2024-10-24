@@ -11,7 +11,6 @@ import { Controls } from '../Controls';
 import { Title } from './Controls/Title';
 import { ActionStartControl } from '../../controls/ActionStartControl';
 import { ControlsContext } from '../../controls/types';
-import { ActionStartProps } from '../../composables/ActionStart';
 import { ControlsContextProvider } from '../../controls/context';
 import { CLASS_BASE } from '../constants';
 
@@ -93,29 +92,23 @@ export const CreateFolderControls = ({
     handleCreateAction({ prefix: '', options: { reset: true } });
   };
 
-  const actionStartProps: ActionStartProps =
-    result?.status === 'COMPLETE'
-      ? {
-          onClick: handleClose,
-          label: 'Folder created',
-        }
-      : {
-          onClick: handleCreateFolder,
-          label: 'Create Folder',
-          isDisabled: !folderName || !!fieldValidationError,
-        };
+  const hasCompletedStatus = result?.status === 'COMPLETE';
 
   // FIXME: Eventually comes from useView hook
   const contextValue: ControlsContext = {
-    data: {},
+    data: {
+      actionStartLabel: hasCompletedStatus ? 'Folder created' : 'Create Folder',
+      isActionStartDisabled: !hasCompletedStatus
+        ? !folderName || !!fieldValidationError
+        : undefined,
+    },
     actionsConfig: {
       type: 'SINGLE_ACTION',
       isCancelable: true,
-      actionStart: {
-        ...actionStartProps,
-      },
     },
+    onActionStart: hasCompletedStatus ? handleClose : handleCreateFolder,
   };
+
   return (
     <ControlsContextProvider {...contextValue}>
       <Exit
@@ -124,7 +117,9 @@ export const CreateFolderControls = ({
         }}
       />
       <Title />
-      <ActionStartControl className={`${CLASS_BASE}__primary`} />
+      <ActionStartControl
+        className={`${CLASS_BASE}__create-folder-action-start`}
+      />
       <Field
         label="Enter folder name:"
         disabled={isLoading || !!result?.status}

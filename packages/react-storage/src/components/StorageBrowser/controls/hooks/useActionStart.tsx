@@ -7,11 +7,14 @@ export type UseActionStart = () => {
 
 export const useActionStart: UseActionStart = () => {
   const {
-    actionsConfig: { actionStart = {} },
+    data: { actionStartLabel, isActionStartDisabled },
+    onActionStart,
   } = useControlsContext();
   return {
     props: {
-      ...actionStart,
+      label: actionStartLabel,
+      isDisabled: isActionStartDisabled,
+      onStart: onActionStart,
     },
   };
 };
