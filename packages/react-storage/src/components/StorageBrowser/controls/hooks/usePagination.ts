@@ -12,11 +12,11 @@ export const usePagination: UsePagination = () => {
   }
 
   const {
-    handlePaginateNext,
-    handlePaginatePrevious,
+    currentPage,
     disableNext,
     disablePrevious,
-    currentPage,
+    handlePaginateNext,
+    handlePaginatePrevious,
   } = data.pagination;
 
   return {
