@@ -96,29 +96,6 @@
   margin: 0 0 0 var(--storage-browser-gap);
 }
 
-.storage-browser__upload-status-display {
-  grid-column: 1 / -1;
-  justify-content: flex-end;
-  margin: 0;
-  display: flex;
-  gap: var(--storage-browser-gap-large);
-}
-
-.storage-browser__description-list {
-  margin: 0;
-  display: flex;
-  gap: var(--storage-browser-gap-large);
-}
-
-.storage-browser__description {
-  display: flex;
-  gap: var(--storage-browser-gap-small);
-}
-
-.storage-browser__description-details {
-  margin: 0;
-}
-
 .storage-browser__locations-view-data-refresh,
 .storage-browser__locations-detail-view-data-refresh {
   grid-column: 5 / -1;
