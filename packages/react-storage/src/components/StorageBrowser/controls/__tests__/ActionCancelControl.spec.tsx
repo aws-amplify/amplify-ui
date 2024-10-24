@@ -1,33 +1,27 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { ActionCancelControl } from '../ActionCancelControl';
-import { useActionCancel } from '../hooks/useActionCancel';
-import { useResolvedComposable } from '../hooks/useResolvedComposable';
+import * as useActionCancelModule from '../hooks/useActionCancel';
 
-jest.mock('../hooks/useActionCancel');
-jest.mock('../hooks/useResolvedComposable');
 describe('ActionCancelControl', () => {
-  // assert mocks
-  const mockUseActionCancel = useActionCancel as jest.Mock;
-  const mockUseResolvedComposable = useResolvedComposable as jest.Mock;
+  const useActionCancelSpy = jest.spyOn(
+    useActionCancelModule,
+    'useActionCancel'
+  );
 
-  beforeAll(() => {
-    mockUseResolvedComposable.mockImplementation(
-      (component: React.JSX.Element) => component
-    );
-  });
   afterEach(() => {
-    mockUseActionCancel.mockReset();
-    mockUseResolvedComposable.mockClear();
+    useActionCancelSpy.mockClear();
+  });
+
+  afterAll(() => {
+    useActionCancelSpy.mockRestore();
   });
 
   it('renders', () => {
-    mockUseActionCancel.mockReturnValue({
-      props: {
-        disabled: false,
-        onClick: jest.fn(),
-        text: 'Cancel',
-      },
+    useActionCancelSpy.mockReturnValue({
+      isDisabled: false,
+      onCancel: jest.fn(),
+      text: 'Cancel',
     });
     render(<ActionCancelControl />);
 
@@ -41,12 +35,10 @@ describe('ActionCancelControl', () => {
   it('renders an icon when text is not available', () => {
     const ariaLabel = 'Cancel file upload';
 
-    mockUseActionCancel.mockReturnValue({
-      props: {
-        disabled: undefined,
-        onClick: jest.fn(),
-        ariaLabel,
-      },
+    useActionCancelSpy.mockReturnValue({
+      isDisabled: undefined,
+      onCancel: jest.fn(),
+      ariaLabel,
     });
     render(<ActionCancelControl />);
 
@@ -59,13 +51,5 @@ describe('ActionCancelControl', () => {
     expect(button).toBeInTheDocument();
     expect(icon).toBeInTheDocument();
     expect(icon).toHaveAttribute('aria-hidden', 'true');
-  });
-
-  it('returns null without props', () => {
-    mockUseActionCancel.mockReturnValue({});
-
-    render(<ActionCancelControl />);
-
-    expect(screen.queryByRole('button')).not.toBeInTheDocument();
   });
 });

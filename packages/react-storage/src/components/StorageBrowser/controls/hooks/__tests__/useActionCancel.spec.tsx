@@ -1,78 +1,49 @@
-import { useControlsContext } from '../../../controls/context';
+import * as controlsContextModule from '../../../controls/context';
 import { ControlsContext } from '../../types';
 import { useActionCancel } from '../useActionCancel';
-
-jest.mock('../../../controls/context');
 
 describe('useActionCancel', () => {
   const controlsContext: ControlsContext = {
     data: {
-      taskCounts: {
-        CANCELED: 2,
-        COMPLETE: 4,
-        FAILED: 3,
-        INITIAL: 0,
-        PENDING: 0,
-        QUEUED: 1,
-        TOTAL: 10,
-      },
+      actionCancelText: 'Cancel',
+      actionCancelAriaLabel: 'Aria Label',
+      isActionCancelDisabled: false,
     },
     actionsConfig: {
       isCancelable: true,
       type: 'BATCH_ACTION',
-      actionCancel: {
-        text: 'Cancel',
-        onClick: jest.fn(),
-      },
     },
+    onActionCancel: jest.fn(),
   };
-  // assert mocks
-  const mockUseControlsContext = useControlsContext as jest.Mock;
+  const useControlsContextSpy = jest.spyOn(
+    controlsContextModule,
+    'useControlsContext'
+  );
 
   afterEach(() => {
-    mockUseControlsContext.mockReset();
+    useControlsContextSpy.mockClear();
   });
 
-  it('returns object with disabled as false based on taskCounts when actionsConfig.actionCancel.disabled is undefined', () => {
-    mockUseControlsContext.mockReturnValue(controlsContext);
-
-    expect(useActionCancel()).toStrictEqual({
-      props: {
-        disabled: false,
-        onClick: controlsContext.actionsConfig.actionCancel?.onClick,
-        text: controlsContext.actionsConfig.actionCancel?.text,
-      },
-    });
+  afterAll(() => {
+    useControlsContextSpy.mockRestore();
   });
-
-  it('returns object with disabled as true based on taskCounts when actionsConfig.actionCancel.disabled is undefined', () => {
-    controlsContext.data.taskCounts!.QUEUED = 0;
-    controlsContext.data.taskCounts!.COMPLETE = 5;
-    controlsContext.data.taskCounts!.TOTAL = 10;
-
-    mockUseControlsContext.mockReturnValue(controlsContext);
+  it('returns object as it is received from ControlsContext', () => {
+    useControlsContextSpy.mockReturnValue(controlsContext);
 
     expect(useActionCancel()).toStrictEqual({
-      props: {
-        disabled: true,
-        onClick: controlsContext.actionsConfig.actionCancel?.onClick,
-        text: controlsContext.actionsConfig.actionCancel?.text,
-      },
+      text: controlsContext.data.actionCancelText,
+      ariaLabel: controlsContext.data.actionCancelAriaLabel,
+      onCancel: controlsContext.onActionCancel,
+      isDisabled: controlsContext.data.isActionCancelDisabled,
     });
   });
 
-  it('returns object with disabled as undefined when taskCounts & actionsConfig.actionCancel.disabled are both undefined', () => {
-    mockUseControlsContext.mockReturnValue({
-      data: {},
-      actionsConfig: controlsContext.actionsConfig,
-    });
+  it('calls onActionCancel from ControlsContext when onCancel is called', () => {
+    useControlsContextSpy.mockReturnValue(controlsContext);
 
-    expect(useActionCancel()).toStrictEqual({
-      props: {
-        disabled: undefined,
-        onClick: controlsContext.actionsConfig.actionCancel?.onClick,
-        text: controlsContext.actionsConfig.actionCancel?.text,
-      },
-    });
+    const { onCancel } = useActionCancel();
+    onCancel!();
+
+    expect(controlsContext.onActionCancel).toHaveBeenCalledTimes(1);
   });
 });
