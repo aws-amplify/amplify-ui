@@ -11,7 +11,6 @@ import { PrimaryControl } from './Primary';
 import { RefreshControl } from './Refresh';
 import { SearchControl } from './Search';
 import { TableControl } from './Table';
-import { TitleControl } from './Title';
 
 export interface Controls {
   Cancel: typeof CancelControl;
@@ -27,7 +26,6 @@ export interface Controls {
   Refresh: typeof RefreshControl;
   Search: typeof SearchControl;
   Table: typeof TableControl;
-  Title: typeof TitleControl;
 }
 
 export const Controls: Controls = {
@@ -44,5 +42,4 @@ export const Controls: Controls = {
   Refresh: RefreshControl,
   Search: SearchControl,
   Table: TableControl,
-  Title: TitleControl,
 };

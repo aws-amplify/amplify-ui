@@ -2,6 +2,7 @@ import React from 'react';
 
 import { CLASS_BASE } from '../constants';
 import { Controls } from '../Controls';
+import { Title } from '../../composables/Title';
 import { useLocationsData } from '../../context/actions';
 
 import { usePaginate } from '../hooks/usePaginate';
@@ -26,7 +27,6 @@ const {
   Message,
   Paginate,
   Refresh,
-  Title,
 } = Controls;
 
 const RefreshControl = ({
@@ -104,7 +104,7 @@ export function LocationsView({
       className={resolveClassName(CLASS_BASE, className)}
       data-testid="LOCATIONS_VIEW"
     >
-      <Title>Home</Title>
+      <Title title="Home" />
       <RefreshControl
         disableRefresh={disableRefresh}
         handleRefresh={() => {
