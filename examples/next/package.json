@@ -28,7 +28,6 @@
   },
   "devDependencies": {
     "@types/node": "^15.12.4",
-    "@types/react": "^18.2.22",
     "eslint": "^8.44.0",
     "eslint-config-next": "^13.5.5",
     "rimraf": "^3.0.2"
