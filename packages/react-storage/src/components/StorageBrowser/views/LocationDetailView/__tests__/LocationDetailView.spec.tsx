@@ -216,7 +216,7 @@ describe('LocationDetailView', () => {
       </Provider>
     );
 
-    const refreshButton = screen.getByLabelText('Refresh table');
+    const refreshButton = screen.getByLabelText('Refresh data');
 
     await act(async () => {
       await user.click(refreshButton);

@@ -34,6 +34,7 @@ export interface ControlsContext {
   data: {
     taskCounts?: TaskCounts;
     tableData?: TableData;
+    isDataRefreshDisabled?: boolean;
   };
   actionsConfig: {
     type:
@@ -43,4 +44,5 @@ export interface ControlsContext {
       | 'LIST_LOCATION_ITEMS';
     isCancelable?: boolean;
   };
+  onDataRefresh?: () => void;
 }

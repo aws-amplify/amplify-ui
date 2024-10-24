@@ -4,12 +4,16 @@ import { isString } from '@aws-amplify/ui';
 import { LocationData, useAction } from '../../context/actions';
 import { useControl } from '../../context/control';
 import { parseLocationAccess } from '../../context/navigate/utils';
+import { CLASS_BASE } from '../constants';
 
 import { Controls, LocationDetailViewTable } from '../Controls';
 import { usePaginate } from '../hooks/usePaginate';
 import { isFile, listViewHelpers } from '../utils';
 
 import { ActionsMenuControl } from './Controls/ActionsMenu';
+import { ControlsContextProvider } from '../../controls/context';
+import { ControlsContext } from '../../controls/types';
+import { DataRefreshControl } from '../../controls/DataRefreshControl';
 
 export const DEFAULT_ERROR_MESSAGE = 'There was an error loading items.';
 const DEFAULT_PAGE_SIZE = 100;
@@ -26,7 +30,6 @@ const {
   Message,
   Navigate,
   Paginate,
-  Refresh,
   Title: TitleControl,
 } = Controls;
 
@@ -40,16 +43,6 @@ export const Title = (): React.JSX.Element => {
   const prefix = history?.slice(-1)[0]?.prefix;
 
   return <TitleControl>{prefix ? prefix : bucket}</TitleControl>;
-};
-
-const RefreshControl = ({
-  disableRefresh,
-  handleRefresh,
-}: {
-  disableRefresh?: boolean;
-  handleRefresh?: () => void;
-}) => {
-  return <Refresh disabled={disableRefresh} onClick={handleRefresh} />;
 };
 
 function Loading({ show }: { show?: boolean }) {
@@ -160,21 +153,32 @@ export const LocationDetailViewControls = (): React.JSX.Element => {
     hasError,
   });
 
+  // FIXME: Eventually comes from useView hook
+  const contextValue: ControlsContext = {
+    data: {
+      isDataRefreshDisabled: disableRefresh,
+    },
+    actionsConfig: {
+      type: 'SINGLE_ACTION',
+      isCancelable: true,
+    },
+    onDataRefresh: () => {
+      if (!hasValidPath) return;
+      handleReset();
+      handleList({
+        prefix: path,
+        options: DEFAULT_REFRESH_OPTIONS,
+      });
+      handleLocationActionsState({ type: 'CLEAR' });
+    },
+  };
+
   return (
-    <>
+    <ControlsContextProvider {...contextValue}>
       <Navigate />
       <Title />
-      <RefreshControl
-        disableRefresh={disableRefresh}
-        handleRefresh={() => {
-          if (!hasValidPath) return;
-          handleReset();
-          handleList({
-            prefix: path,
-            options: DEFAULT_REFRESH_OPTIONS,
-          });
-          handleLocationActionsState({ type: 'CLEAR' });
-        }}
+      <DataRefreshControl
+        className={`${CLASS_BASE}__locations-detail-view-data-refresh`}
       />
       <ActionsMenuControl disabled={disableActionsMenu} />
       <Paginate
@@ -193,6 +197,6 @@ export const LocationDetailViewControls = (): React.JSX.Element => {
         range={range}
       />
       <LocationDetailEmptyMessage />
-    </>
+    </ControlsContextProvider>
   );
 };
