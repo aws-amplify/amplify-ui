@@ -33,6 +33,7 @@ interface TableData {
 
 export interface ControlsContext {
   data: {
+    title?: string;
     taskCounts?: TaskCounts;
     tableData?: TableData;
   };
