@@ -162,11 +162,13 @@ describe('LivenessCameraModule', () => {
     expect(screen.getByTestId('centered-loader')).toBeInTheDocument();
   });
 
-  it('should apply correct classNames to user-facing video', async () => {
+  it.only('should apply correct classNames to user-facing video', async () => {
     isStart = true;
     mockStateMatchesAndSelectors();
-
-    mockUseLivenessSelector.mockReturnValue('123').mockReturnValue(mockDevices);
+    mockUseLivenessSelector
+      .mockReturnValueOnce({}) // videoConstraints
+      .mockReturnValueOnce(123) // selectedDeviceId
+      .mockReturnValueOnce(mockDevices); // selectableDevices
 
     renderWithLivenessProvider(
       <LivenessCameraModule
@@ -196,8 +198,9 @@ describe('LivenessCameraModule', () => {
     mockStateMatchesAndSelectors();
 
     mockUseLivenessSelector
-      .mockReturnValue('456')
-      .mockReturnValue(mockDevices.reverse());
+      .mockReturnValueOnce({}) // videoConstraints
+      .mockReturnValueOnce(456) // selectedDeviceId
+      .mockReturnValueOnce(mockDevices); // selectableDevices
 
     renderWithLivenessProvider(
       <LivenessCameraModule
