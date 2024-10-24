@@ -155,22 +155,21 @@ export const LocationDetailViewControls = (): React.JSX.Element => {
 
   // FIXME: Eventually comes from useView hook
   const contextValue: ControlsContext = {
-    data: {},
+    data: {
+      isDataRefreshDisabled: disableRefresh,
+    },
     actionsConfig: {
       type: 'SINGLE_ACTION',
-      isCancelable: true, // Question(ashwinkumar6): is refresh Cancelable ?
-      dataRefresh: {
-        disabled: disableRefresh,
-        onClick: () => {
-          if (!hasValidPath) return;
-          handleReset();
-          handleList({
-            prefix: path,
-            options: DEFAULT_REFRESH_OPTIONS,
-          });
-          handleLocationActionsState({ type: 'CLEAR' });
-        },
-      },
+      isCancelable: true,
+    },
+    onDataRefresh: () => {
+      if (!hasValidPath) return;
+      handleReset();
+      handleList({
+        prefix: path,
+        options: DEFAULT_REFRESH_OPTIONS,
+      });
+      handleLocationActionsState({ type: 'CLEAR' });
     },
   };
 

@@ -47,10 +47,8 @@ describe('DataRefreshControl', () => {
 
   it('renders with button disabled', () => {
     mockUseDataRefresh.mockReturnValue({
-      props: {
-        disabled: true,
-        onClick: jest.fn(),
-      },
+      isDisabled: true,
+      onRefresh: jest.fn(),
     });
 
     render(<DataRefreshControl />);

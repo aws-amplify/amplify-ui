@@ -16,13 +16,11 @@ export type TaskCounts = typeof INITIAL_STATUS_COUNTS;
 export interface ControlsContext {
   data: {
     taskCounts?: TaskCounts;
+    isDataRefreshDisabled?: boolean;
   };
   actionsConfig: {
     type: 'SINGLE_ACTION' | 'BATCH_ACTION';
     isCancelable: boolean;
-    dataRefresh?: {
-      onClick?: () => void;
-      disabled?: boolean;
-    };
   };
+  onDataRefresh?: () => void;
 }

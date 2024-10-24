@@ -93,19 +93,18 @@ export function LocationsView({
 
   // FIXME: Eventually comes from useView hook
   const contextValue: ControlsContext = {
-    data: {},
+    data: {
+      isDataRefreshDisabled: disableRefresh,
+    },
     actionsConfig: {
       type: 'SINGLE_ACTION',
-      isCancelable: true, // Question(ashwinkumar6): is refresh Cancelable ?
-      dataRefresh: {
-        disabled: disableRefresh,
-        onClick: () => {
-          handleReset();
-          handleList({
-            options: { ...DEFAULT_LIST_OPTIONS, refresh: true },
-          });
-        },
-      },
+      isCancelable: true,
+    },
+    onDataRefresh: () => {
+      handleReset();
+      handleList({
+        options: { ...DEFAULT_LIST_OPTIONS, refresh: true },
+      });
     },
   };
 
