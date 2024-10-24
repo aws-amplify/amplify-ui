@@ -1,8 +1,5 @@
 import { useControlsContext } from '../../../controls/context';
 import { useTitle } from '../useTitle';
-import { CLASS_BASE } from '../../../views/constants';
-
-const BLOCK_NAME = `${CLASS_BASE}__title`;
 
 jest.mock('../../../controls/context');
 
