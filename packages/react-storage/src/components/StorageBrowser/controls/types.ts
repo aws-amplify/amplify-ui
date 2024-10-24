@@ -38,6 +38,9 @@ export interface ControlsContext {
     isDataRefreshDisabled?: boolean;
     actionStartLabel?: string;
     isActionStartDisabled?: boolean;
+    actionCancelAriaLabel?: string;
+    actionCancelText?: string;
+    isActionCancelDisabled?: boolean;
   };
   actionsConfig?: {
     type:
@@ -50,4 +53,5 @@ export interface ControlsContext {
   onDropComplete?: DropZoneProps['onDropComplete'];
   onRefresh?: () => void;
   onActionStart?: () => void;
+  onActionCancel?: () => void;
 }

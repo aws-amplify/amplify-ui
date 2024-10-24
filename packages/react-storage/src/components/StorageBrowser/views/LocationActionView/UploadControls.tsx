@@ -156,20 +156,21 @@ const renderRowItem: RenderRowItem<LocationActionViewColumns> = (
         if (row.cancel) {
           // FIXME: Eventually comes from useView hook
           const contextValue: ControlsContext = {
-            data: {},
+            data: {
+              actionCancelAriaLabel: `Cancel upload for ${row.key}`,
+            },
             actionsConfig: {
               type: 'SINGLE_ACTION',
               isCancelable: true,
-              actionCancel: {
-                onClick: row.cancel,
-                ariaLabel: `Cancel upload for ${row.key}`,
-              },
             },
+            onActionCancel: row.cancel,
           };
 
           return (
             <ControlsContextProvider {...contextValue}>
-              <ActionCancelControl className={`${CLASS_BASE}__cancel`} />
+              <ActionCancelControl
+                className={`${CLASS_BASE}__row-action-cancel`}
+              />
             </ControlsContextProvider>
           );
         }
@@ -336,6 +337,7 @@ export const UploadControls = ({
     taskCounts.CANCELED + taskCounts.COMPLETE + taskCounts.FAILED ===
       taskCounts.TOTAL;
 
+  const disableCancel = !taskCounts.TOTAL || hasStarted || hasCompleted;
   const disablePrimary = !taskCounts.TOTAL || hasStarted || hasCompleted;
   const disableOverwrite = hasStarted || hasCompleted;
   const disableSelectFiles = hasStarted || hasCompleted;
@@ -346,6 +348,8 @@ export const UploadControls = ({
       taskCounts,
       isActionStartDisabled: disablePrimary,
       actionStartLabel: 'Start',
+      actionCancelText: 'Cancel',
+      isActionCancelDisabled: disableCancel,
     },
     actionsConfig: {
       type: 'BATCH_ACTION',
@@ -360,6 +364,7 @@ export const UploadControls = ({
         options: { preventOverwrite },
       });
     },
+    onActionCancel: handleCancel,
   };
 
   return (
@@ -377,7 +382,7 @@ export const UploadControls = ({
       />
       <Title />
       <ActionStartControl className={`${CLASS_BASE}__upload-action-start`} />
-      <ActionCancelControl className={`${CLASS_BASE}__cancel`} />
+      <ActionCancelControl className={`${CLASS_BASE}__upload-action-cancel`} />
       <ButtonElement
         disabled={disableSelectFiles}
         className={`${CLASS_BASE}__add-folder`}

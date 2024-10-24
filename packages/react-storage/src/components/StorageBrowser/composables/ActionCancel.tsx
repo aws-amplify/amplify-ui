@@ -3,27 +3,30 @@ import { ButtonElement, IconElement } from '../context/elements';
 import { CLASS_BASE } from '../views/constants';
 
 export interface ActionCancelProps {
-  onClick?: () => void;
+  onCancel?: () => void;
   ariaLabel?: string;
-  className?: string;
-  disabled?: boolean;
+  isDisabled?: boolean;
   text?: string;
 }
 
 export const ActionCancel = ({
-  onClick,
+  onCancel,
   ariaLabel,
-  className,
-  disabled,
+  isDisabled,
   text,
 }: ActionCancelProps): React.JSX.Element => (
   <ButtonElement
     variant="cancel"
-    className={className}
-    onClick={onClick}
+    className={`${CLASS_BASE}__action-cancel`}
+    onClick={onCancel}
     aria-label={ariaLabel}
-    disabled={disabled}
+    disabled={isDisabled}
   >
-    {text ?? <IconElement className={`${className}__icon`} variant="cancel" />}
+    {text ?? (
+      <IconElement
+        className={`${CLASS_BASE}__action-cancel-icon`}
+        variant="cancel"
+      />
+    )}
   </ButtonElement>
 );
