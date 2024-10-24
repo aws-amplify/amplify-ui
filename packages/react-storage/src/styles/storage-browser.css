@@ -337,7 +337,21 @@
   align-items: center;
   justify-content: flex-start;
 }
+.storage-browser__table-button-data-cell span,
+.storage-browser__table-date-data-cell span,
+.storage-browser__table-number-data-cell span,
+.storage-browser__table-text-data-cell span {
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
 
+.storage-browser__table-button-data-cell--icon-only {
+  width: initial;
+}
+
+.storage-browser__table-text-data-cell-icon {
+  flex-shrink: 0;
+}
 .storage-browser__table-text-data-cell-icon--action-queued {
   color: var(--storage-browser-status-initial);
 }
