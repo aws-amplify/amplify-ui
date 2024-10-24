@@ -301,16 +301,16 @@ export const UploadControls = (): JSX.Element => {
 
   // FIXME: Eventually comes from useView hook
   const contextValue: ControlsContext = {
-    data: { taskCounts },
+    data: {
+      taskCounts,
+      isActionStartDisabled: disablePrimary,
+      actionStartLabel: 'Start',
+    },
     actionsConfig: {
       type: 'BATCH_ACTION',
       isCancelable: true,
-      actionStart: {
-        onClick: handleUpload,
-        label: 'Start',
-        isDisabled: disablePrimary,
-      },
     },
+    onActionStart: handleUpload,
   };
 
   return (
@@ -338,7 +338,7 @@ export const UploadControls = (): JSX.Element => {
       />
       <Exit onClick={() => handleUpdateState({ type: 'CLEAR' })} />
       <Title />
-      <ActionStartControl className={`${CLASS_BASE}__primary`} />
+      <ActionStartControl className={`${CLASS_BASE}__upload-action-start`} />
       <ButtonElement
         variant="cancel"
         disabled={disableCancel}

@@ -3,20 +3,20 @@ import { ButtonElement } from '../context/elements';
 import { CLASS_BASE } from '../views/constants';
 
 export interface ActionStartProps {
-  onClick?: () => void;
+  onStart?: () => void;
   isDisabled?: boolean;
   label?: string;
 }
 
 export const ActionStart = ({
-  onClick,
+  onStart,
   isDisabled,
   label,
 }: ActionStartProps): React.JSX.Element => (
   <ButtonElement
     variant="primary"
     className={`${CLASS_BASE}__action-start`}
-    onClick={onClick}
+    onClick={onStart}
     disabled={isDisabled}
   >
     {label}

@@ -10,14 +10,14 @@ const FLEX_DIRECTIONS: Record<LabelPosition, ViewStyle['flexDirection']> = {
 
 /**
  * The `flexDirection` value returned from `getFlexDirectionFromLabelPosition`
- * assumes a `Label` component follows the `ActionStart` component it labels inside
+ * assumes a `Label` component follows the `Primary` component it labels inside
  * the `Container` that the `flexDirection` is applied to.
  *
  * Example Usage:
  * ```jsx
  *   const flexDirection = getFlexDirectionFromLabelPosition(labelPosition);
  *   <Container style={{ flexDirection }}>
- *     <ActionStart />
+ *     <Primary />
  *     <Label />
  *   </Container>
  * ```
