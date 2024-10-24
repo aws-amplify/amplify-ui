@@ -2,15 +2,9 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { PaginateControl } from '../Paginate';
 
-import { ControlProvider } from '../../../context/control';
-
 describe('PaginationControl', () => {
   it('renders the PaginationControl', async () => {
-    render(
-      <ControlProvider actions={{}}>
-        <PaginateControl />
-      </ControlProvider>
-    );
+    render(<PaginateControl />);
 
     const nav = screen.getByRole('navigation', {
       name: 'Pagination',

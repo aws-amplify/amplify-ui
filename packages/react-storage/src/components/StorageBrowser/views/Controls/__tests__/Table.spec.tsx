@@ -8,24 +8,28 @@ import { Column, TableControl } from '../Table';
 const locationItems: LocationItem[] = [
   {
     key: 'test-key-1',
+    id: 'id-1',
     lastModified: new Date(),
     size: 1000,
     type: 'FILE',
   },
   {
     key: 'test-key-2',
+    id: 'id-2',
     lastModified: new Date(),
     size: 1000,
     type: 'FILE',
   },
   {
     key: 'test-key-3',
+    id: 'id-3',
     lastModified: new Date(),
     size: 1000,
     type: 'FILE',
   },
   {
     key: 'test-folder-key-1',
+    id: 'id-4',
     type: 'FOLDER',
   },
 ];

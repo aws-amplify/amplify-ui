@@ -1,6 +1,7 @@
 import { act, renderHook } from '@testing-library/react';
 
-import { FileData, useLocationItems, LocationItemsProvider } from '../context';
+import { FileData } from '../../../../actions/handlers';
+import { useLocationItems, LocationItemsProvider } from '../context';
 
 const fileDataItemOne: FileData = {
   id: 'id-one',

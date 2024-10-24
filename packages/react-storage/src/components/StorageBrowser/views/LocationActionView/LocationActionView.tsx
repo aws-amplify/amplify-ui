@@ -13,6 +13,11 @@ export interface LocationActionViewProps {
   onClose?: () => void;
 }
 
+const ACTION_VIEW_TYPES = ['CREATE_FOLDER', 'UPLOAD_FILES', 'UPLOAD_FOLDER'];
+
+const isActionViewType = (value?: string) =>
+  ACTION_VIEW_TYPES.some((type) => type === value);
+
 export const LocationActionView = ({
   actionType: _actionType,
   className,
@@ -20,7 +25,7 @@ export const LocationActionView = ({
 }: LocationActionViewProps): React.JSX.Element | null => {
   const [{ actionType = _actionType }] = useStore();
 
-  if (!actionType) return null;
+  if (!isActionViewType(actionType)) return null;
 
   return (
     <div

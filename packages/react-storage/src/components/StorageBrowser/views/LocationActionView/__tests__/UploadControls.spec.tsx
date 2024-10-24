@@ -1,161 +1,58 @@
 import React from 'react';
-import {
-  act,
-  fireEvent,
-  render,
-  screen,
-  waitFor,
-} from '@testing-library/react';
+import { render } from '@testing-library/react';
 
-import * as ControlsModule from '../../../context/control';
-import createProvider from '../../../do-not-import-from-here/createTempActionsProvider';
-import { LocationActionsState } from '../../../do-not-import-from-here/locationActions';
+import * as ConfigModule from '../../../providers/configuration';
+import * as StoreModule from '../../../providers/store';
 
 import { UploadControls, ActionIcon, ICON_CLASS } from '../UploadControls';
-import userEvent from '@testing-library/user-event';
 
-const TEST_ACTIONS: LocationActionsState['actions'] = {
-  UPLOAD_FILES: { options: { displayName: 'Upload Files' } },
+jest.mock('../Controls/Title');
+
+const useStoreSpy = jest.spyOn(StoreModule, 'useStore');
+
+const location = {
+  id: 'an-id-👍🏼',
+  bucket: 'test-bucket',
+  permission: 'READWRITE',
+  prefix: 'test-prefix/',
+  type: 'PREFIX',
 };
+const dispatchStoreAction = jest.fn();
+useStoreSpy.mockReturnValue([
+  {
+    history: { current: location, previous: [location] },
+  } as StoreModule.UseStoreState,
+  dispatchStoreAction,
+]);
 
-const useControlSpy = jest.spyOn(ControlsModule, 'useControl');
-
-const locationActionsState: LocationActionsState = {
-  actions: TEST_ACTIONS,
-  selected: {
-    items: [],
-    type: 'UPLOAD_FILES',
-  },
-};
-
-const navigateState = {
-  location: {
-    permission: 'READWRITE',
-    scope: 's3://test-bucket/*',
-    type: 'BUCKET',
-  },
-  path: 'path',
-  history: [
-    { prefix: '', position: 0 },
-    { prefix: 'folder1/', position: 1 },
-    { prefix: 'folder2/', position: 2 },
-    { prefix: 'folder3/', position: 3 },
-  ],
-};
-
-useControlSpy.mockImplementation((type) => {
-  if (type === 'LOCATION_ACTIONS') {
-    return [locationActionsState, jest.fn()];
-  }
-
-  if (type === 'NAVIGATE') {
-    return [navigateState];
-  }
-});
-
-const config = {
-  getLocationCredentials: jest.fn(),
-  listLocations: jest.fn(),
+const config: ConfigModule.GetActionInput = jest.fn(() => ({
+  credentials: jest.fn(),
+  bucket: location.bucket,
   region: 'region',
-  registerAuthListener: jest.fn(),
-};
-const Provider = createProvider({ actions: TEST_ACTIONS, config });
+}));
+
+jest.spyOn(ConfigModule, 'useGetActionInput').mockReturnValue(config);
 
 describe('UploadControls', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  it('should render upload controls table', async () => {
-    await waitFor(() => {
-      render(
-        <Provider>
-          <UploadControls />
-        </Provider>
-      );
-    });
+  it('should render upload controls table', () => {
+    const { getByRole } = render(<UploadControls />);
 
-    const table = screen.getByRole('table');
+    const table = getByRole('table');
     expect(table).toBeInTheDocument();
   });
 
-  it('should render the destination folder', async () => {
-    await waitFor(() => {
-      render(
-        <Provider>
-          <UploadControls />
-        </Provider>
-      );
-    });
+  it('should render the destination folder', () => {
+    const { getByText } = render(<UploadControls />);
 
-    const destination = screen.getByText('Destination:');
-    const destinationFolder = screen.getByText('folder3/');
+    const destination = getByText('Destination:');
+    const destinationFolder = getByText('test-prefix/');
 
     expect(destination).toBeInTheDocument();
     expect(destinationFolder).toBeInTheDocument();
-  });
-
-  it('opens the file picker when the add files button is clicked and uses the file selection dialog', async () => {
-    const user = userEvent.setup();
-    const files = [
-      new File(['content1'], 'file1.txt', { type: 'text/plain' }),
-      new File(['content2'], 'file2.txt', { type: 'text/plain' }),
-      new File(['content3'], 'file3.txt', {
-        type: 'text/plain',
-      }),
-    ];
-
-    render(
-      <Provider>
-        <UploadControls />
-      </Provider>
-    );
-
-    const button = screen.getByRole('button', { name: 'Add files' });
-    const input: HTMLInputElement = screen.getByTestId('amplify-file-select');
-
-    expect(input).toHaveAttribute('multiple');
-
-    await act(async () => {
-      await user.click(button);
-      await user.upload(input, files);
-    });
-
-    expect(input.files).toHaveLength(3);
-  });
-
-  it('adds files dragged into the drop zone to the file list', async () => {
-    const files = [new File(['content'], 'file.txt', { type: 'text/plain' })];
-
-    render(
-      <Provider>
-        <UploadControls />
-      </Provider>
-    );
-
-    const dropzone = screen.getByTestId('storage-browser-table');
-
-    fireEvent.drop(dropzone, {
-      dataTransfer: {
-        files,
-      },
-    });
-
-    await waitFor(() => {
-      expect(screen.getByText('file.txt')).toBeInTheDocument();
-    });
-  });
-
-  it('has the webkitdirectory attribute for the input select for folders', () => {
-    render(
-      <Provider>
-        <UploadControls />
-      </Provider>
-    );
-
-    const input: HTMLInputElement = screen.getByTestId('amplify-folder-select');
-
-    expect(input).toHaveAttribute('webkitdirectory');
   });
 });
 

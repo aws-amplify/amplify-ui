@@ -4,6 +4,16 @@ import {
   parseResult,
 } from '../listLocationItemsAction';
 
+let uuid = 0;
+Object.defineProperty(globalThis, 'crypto', {
+  value: {
+    randomUUID: () => {
+      uuid++;
+      return uuid.toString();
+    },
+  },
+});
+
 const listSpy = jest.spyOn(StorageModule, 'list');
 const config = {
   bucket: 'bucket',
@@ -151,13 +161,13 @@ describe('parseResult', () => {
     const result = parseResult(output, prefix);
     expect(result).toHaveLength(3); // excludes prefix
     const subFolderWithObject = result[0];
-    expect(subFolderWithObject.key).toBe('Cloudberry/');
+    expect(subFolderWithObject.key).toBe(`${prefix}Cloudberry/`);
     expect(subFolderWithObject.type).toBe('FOLDER');
     const zeroByteSubFolder = result[1];
-    expect(zeroByteSubFolder.key).toBe('Banana/');
+    expect(zeroByteSubFolder.key).toBe(`${prefix}Banana/`);
     expect(zeroByteSubFolder.type).toBe('FOLDER');
     const file = result[2];
-    expect(file.key).toBe('Orange.jpg');
+    expect(file.key).toBe(`${prefix}Orange.jpg`);
     expect(file.type).toBe('FILE');
   });
 

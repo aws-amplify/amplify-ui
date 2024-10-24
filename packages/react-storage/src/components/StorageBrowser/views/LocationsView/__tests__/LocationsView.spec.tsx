@@ -1,34 +1,10 @@
 import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
-import createProvider from '../../../do-not-import-from-here/createTempActionsProvider';
 import * as ActionsModule from '../../../do-not-import-from-here/actions';
-import * as ControlsModule from '../../../context/control';
 
-import { LocationsView } from '..';
+import { LocationsView } from '../LocationsView';
 import { DEFAULT_LIST_OPTIONS, DEFAULT_ERROR_MESSAGE } from '../LocationsView';
-
-const INITIAL_NAVIGATE_STATE = [
-  { location: undefined, history: [], path: '' },
-  jest.fn(),
-];
-const INITIAL_ACTION_STATE = [
-  { selected: { type: undefined, items: undefined }, actions: {} },
-  jest.fn(),
-];
-
-const useControlSpy = jest.spyOn(ControlsModule, 'useControl');
-
-const listLocations = jest.fn(() =>
-  Promise.resolve({ locations: [], nextToken: undefined })
-);
-const config = {
-  getLocationCredentials: jest.fn(),
-  listLocations,
-  region: 'region',
-  registerAuthListener: jest.fn(),
-};
-const Provider = createProvider({ actions: {}, config });
 
 const useLocationsDataSpy = jest.spyOn(ActionsModule, 'useLocationsData');
 
@@ -54,16 +30,17 @@ const loadingState: ActionsModule.LocationsDataState = [
   handleListLocations,
 ];
 
+const location = {
+  bucket: 'tester',
+  prefix: '🏃‍♀️‍➡️/',
+  permission: 'READWRITE' as const,
+  id: 'identity',
+  type: 'BUCKET' as const,
+};
 const resolvedState: ActionsModule.LocationsDataState = [
   {
     data: {
-      result: [
-        {
-          permission: 'READWRITE',
-          scope: 's3://test-bucket/*',
-          type: 'BUCKET',
-        },
-      ],
+      result: [location],
       nextToken: undefined,
     },
     hasError: false,
@@ -75,28 +52,8 @@ const resolvedState: ActionsModule.LocationsDataState = [
 
 describe('LocationsListView', () => {
   beforeEach(() => {
-    useControlSpy.mockImplementation(
-      (type) =>
-        ({
-          LOCATION_ACTIONS: INITIAL_ACTION_STATE,
-          NAVIGATE: INITIAL_NAVIGATE_STATE,
-        })[type]
-    );
-
     handleListLocations.mockClear();
     useLocationsDataSpy.mockClear();
-  });
-
-  it('renders a `LocationsListView`', async () => {
-    await waitFor(() => {
-      expect(
-        render(
-          <Provider>
-            <LocationsView />
-          </Provider>
-        ).container
-      ).toBeDefined();
-    });
   });
 
   it('renders a returned error message for `LocationsListView`', () => {
@@ -104,16 +61,7 @@ describe('LocationsListView', () => {
 
     useLocationsDataSpy.mockReturnValue([
       {
-        data: {
-          result: [
-            {
-              permission: 'READWRITE',
-              scope: 's3://test-bucket/*',
-              type: 'BUCKET',
-            },
-          ],
-          nextToken: 'some-token',
-        },
+        data: { result: [location], nextToken: 'some-token' },
         hasError: true,
         isLoading: false,
         message: errorMessage,
@@ -121,11 +69,7 @@ describe('LocationsListView', () => {
       handleListLocations,
     ]);
 
-    render(
-      <Provider>
-        <LocationsView />
-      </Provider>
-    );
+    render(<LocationsView />);
 
     const message = screen.getByRole('alert');
     const messageText = screen.getByText(errorMessage);
@@ -146,10 +90,7 @@ describe('LocationsListView', () => {
   it('renders a fallback error message for `LocationsListView`', () => {
     useLocationsDataSpy.mockReturnValue([
       {
-        data: {
-          result: [],
-          nextToken: undefined,
-        },
+        data: { result: [], nextToken: undefined },
         hasError: true,
         isLoading: false,
         message: undefined,
@@ -157,11 +98,7 @@ describe('LocationsListView', () => {
       handleListLocations,
     ]);
 
-    render(
-      <Provider>
-        <LocationsView />
-      </Provider>
-    );
+    render(<LocationsView />);
 
     const messageText = screen.getByText(DEFAULT_ERROR_MESSAGE);
     expect(messageText).toBeInTheDocument();
@@ -170,16 +107,7 @@ describe('LocationsListView', () => {
   it('renders a Locations View table', () => {
     useLocationsDataSpy.mockReturnValue([
       {
-        data: {
-          result: [
-            {
-              permission: 'READWRITE',
-              scope: 's3://test-bucket/*',
-              type: 'BUCKET',
-            },
-          ],
-          nextToken: undefined,
-        },
+        data: { result: [location], nextToken: undefined },
         hasError: false,
         isLoading: false,
         message: undefined,
@@ -187,11 +115,7 @@ describe('LocationsListView', () => {
       handleListLocations,
     ]);
 
-    render(
-      <Provider>
-        <LocationsView />
-      </Provider>
-    );
+    render(<LocationsView />);
 
     const table = screen.getByRole('table');
 
@@ -208,11 +132,7 @@ describe('LocationsListView', () => {
       .mockReturnValueOnce(loadingState)
       .mockReturnValue(resolvedState);
 
-    const { rerender } = render(
-      <Provider>
-        <LocationsView />
-      </Provider>
-    );
+    const { rerender } = render(<LocationsView />);
 
     expect(handleListLocations).toHaveBeenCalledTimes(1);
     expect(handleListLocations).toHaveBeenCalledWith({
@@ -222,19 +142,11 @@ describe('LocationsListView', () => {
       },
     });
 
-    rerender(
-      <Provider>
-        <LocationsView />
-      </Provider>
-    );
+    rerender(<LocationsView />);
 
     expect(handleListLocations).toHaveBeenCalledTimes(1);
 
-    rerender(
-      <Provider>
-        <LocationsView />
-      </Provider>
-    );
+    rerender(<LocationsView />);
 
     expect(handleListLocations).toHaveBeenCalledTimes(1);
   });
@@ -245,29 +157,17 @@ describe('LocationsListView', () => {
     useLocationsDataSpy.mockReturnValue(initialState);
 
     // initial
-    const { rerender } = render(
-      <Provider>
-        <LocationsView />
-      </Provider>
-    );
+    const { rerender } = render(<LocationsView />);
 
     useLocationsDataSpy.mockReturnValue(loadingState);
 
     // loading
-    rerender(
-      <Provider>
-        <LocationsView />
-      </Provider>
-    );
+    rerender(<LocationsView />);
 
     useLocationsDataSpy.mockReturnValueOnce(resolvedState);
 
     // resolved
-    rerender(
-      <Provider>
-        <LocationsView />
-      </Provider>
-    );
+    rerender(<LocationsView />);
 
     expect(handleListLocations).toHaveBeenCalledTimes(1);
     expect(handleListLocations).toHaveBeenCalledWith({
@@ -281,11 +181,7 @@ describe('LocationsListView', () => {
     ]);
 
     // reference change
-    rerender(
-      <Provider>
-        <LocationsView />
-      </Provider>
-    );
+    rerender(<LocationsView />);
 
     expect(handleListLocations).toHaveBeenCalledTimes(1);
     expect(updatedHandleListLocations).toHaveBeenCalledTimes(1);

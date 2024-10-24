@@ -1,7 +1,14 @@
 import { ListLocations } from '../../../storage-internal';
-import { LocationAccess } from '../../types';
+import { LocationAccess } from '../../../actions/handlers';
 
 import { createListLocationsAction } from '../listLocationsAction';
+import { parseLocationAccess } from '../../../actions/handlers/utils';
+
+Object.defineProperty(globalThis, 'crypto', {
+  value: {
+    randomUUID: () => 'identifier!',
+  },
+});
 
 const fakeLocation: LocationAccess = {
   scope: 's3://some-bucket/*',
@@ -151,7 +158,7 @@ describe('createListLocationsAction', () => {
     expect(output.nextToken).toBeUndefined();
   });
 
-  it(`should filter out locations with write permission and 'OBJECT' type. Return desired pages`, async () => {
+  it(`should filter out locations with write permission and 'OBJECT' type`, async () => {
     const fakeReadLocations = [
       getFakeLocation('READ', 'BUCKET'),
       getFakeLocation('READ', 'OBJECT'),
@@ -193,12 +200,14 @@ describe('createListLocationsAction', () => {
       nextToken: 'next',
     });
 
-    expect(output.result).toStrictEqual([
-      getFakeLocation('READ', 'BUCKET'),
-      getFakeLocation('READ', 'PREFIX'),
-      getFakeLocation('READWRITE', 'BUCKET'),
-      getFakeLocation('READWRITE', 'PREFIX'),
-    ]);
+    expect(output.result).toStrictEqual(
+      [
+        getFakeLocation('READ', 'BUCKET'),
+        getFakeLocation('READ', 'PREFIX'),
+        getFakeLocation('READWRITE', 'BUCKET'),
+        getFakeLocation('READWRITE', 'PREFIX'),
+      ].map(parseLocationAccess)
+    );
     expect(output.nextToken).toBeUndefined();
   });
 

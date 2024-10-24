@@ -14,7 +14,9 @@ describe('default actions', () => {
 
     expect(typeof disable).toBe('function');
     expect(disable([])).toBe(false);
-    expect(disable([{ type: 'FOLDER', key: 'something' }])).toBe(true);
+    expect(disable([{ type: 'FOLDER', key: 'something', id: 'an-id' }])).toBe(
+      true
+    );
 
     const hide = OPTIONS_DEFAULT?.hide as Exclude<
       LocationActionOptions['hide'],

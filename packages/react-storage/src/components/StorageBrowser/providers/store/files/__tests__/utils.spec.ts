@@ -115,7 +115,7 @@ describe('files context utils', () => {
     it('resets `fileItems` as expected', () => {
       const previous = [fileItemOne, fileItemTwo];
 
-      const output = filesReducer(previous, { type: 'RESET' });
+      const output = filesReducer(previous, { type: 'RESET_FILE_ITEMS' });
 
       expect(output).toHaveLength(0);
     });

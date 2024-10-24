@@ -118,9 +118,16 @@ export const LocationDetailViewControls = ({
   React.useEffect(() => {
     if (hasInvalidPrefix) return;
 
-    handlePaginateReset();
     handleList({ prefix, options: DEFAULT_REFRESH_OPTIONS });
-  }, [handleList, handlePaginateReset, hasInvalidPrefix, prefix]);
+
+    handlePaginateReset();
+  }, [
+    dispatchStoreAction,
+    handleList,
+    handlePaginateReset,
+    hasInvalidPrefix,
+    prefix,
+  ]);
 
   const {
     disableActionsMenu,
@@ -142,6 +149,7 @@ export const LocationDetailViewControls = ({
     if (hasInvalidPrefix) return;
     handlePaginateReset();
     handleList({ prefix, options: DEFAULT_REFRESH_OPTIONS });
+    dispatchStoreAction({ type: 'RESET_LOCATION_ITEMS' });
   };
 
   return (
