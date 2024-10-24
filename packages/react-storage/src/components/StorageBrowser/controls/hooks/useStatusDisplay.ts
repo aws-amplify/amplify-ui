@@ -2,17 +2,13 @@ import { StatusDisplayProps } from '../../composables/StatusDisplay';
 import { useControlsContext } from '../../controls/context';
 import { displayText } from '../../displayText/en';
 
-export type UseStatusDisplay = () => {
-  props?: StatusDisplayProps;
-};
-
-export const useStatusDisplay: UseStatusDisplay = () => {
+export const useStatusDisplay = (): StatusDisplayProps | null => {
   const { data, actionsConfig } = useControlsContext();
   const { taskCounts } = data;
   const { isCancelable, type } = actionsConfig;
 
   if (!taskCounts?.TOTAL || type !== 'BATCH_ACTION') {
-    return {};
+    return null;
   }
 
   const statuses = [
@@ -29,9 +25,7 @@ export const useStatusDisplay: UseStatusDisplay = () => {
   }
 
   return {
-    props: {
-      statuses,
-      total: taskCounts.TOTAL,
-    },
+    statuses,
+    total: taskCounts.TOTAL,
   };
 };
