@@ -36,10 +36,11 @@ import { getTaskCounts } from '../../controls/getTaskCounts';
 import { StatusDisplayControl } from '../../controls/StatusDisplayControl';
 import { ControlsContextProvider } from '../../controls/context';
 import { ControlsContext } from '../../controls/types';
+import { ActionCancelControl } from '../../controls/ActionCancelControl';
 
 const { Icon } = StorageBrowserElements;
 
-const { Cancel, Exit, Overwrite, Primary, Table } = Controls;
+const { Exit, Overwrite, Primary, Table } = Controls;
 
 interface LocationActionViewColumns extends CancelableTask {
   type: string;
@@ -141,11 +142,24 @@ const renderRowItem: RenderRowItem<LocationActionViewColumns> = (
         );
       case 'cancel':
         if (row.cancel) {
+          // FIXME: Eventually comes from useView hook
+          const contextValue: ControlsContext = {
+            data: {
+              actionCancelAriaLabel: `Cancel upload for ${row.key}`,
+            },
+            actionsConfig: {
+              type: 'SINGLE_ACTION',
+              isCancelable: true,
+            },
+            onActionCancel: row.cancel,
+          };
+
           return (
-            <Cancel
-              onClick={row.cancel}
-              ariaLabel={`Cancel upload for ${row.key}`}
-            />
+            <ControlsContextProvider {...contextValue}>
+              <ActionCancelControl
+                className={`${CLASS_BASE}__row-action-cancel`}
+              />
+            </ControlsContextProvider>
           );
         }
 
@@ -293,15 +307,23 @@ export const UploadControls = (): JSX.Element => {
     taskCounts.CANCELED + taskCounts.COMPLETE + taskCounts.FAILED ===
       taskCounts.TOTAL;
 
-  const disableCancel = !taskCounts.TOTAL || !hasStarted || hasCompleted;
+  const disableCancel = !taskCounts.TOTAL || hasStarted || hasCompleted;
   const disablePrimary = !taskCounts.TOTAL || hasStarted || hasCompleted;
   const disableOverwrite = hasStarted || hasCompleted;
   const disableSelectFiles = hasStarted || hasCompleted;
 
   // FIXME: Eventually comes from useView hook
   const contextValue: ControlsContext = {
-    data: { taskCounts },
-    actionsConfig: { type: 'BATCH_ACTION', isCancelable: true },
+    data: {
+      taskCounts,
+      actionCancelText: 'Cancel',
+      isActionCancelDisabled: disableCancel,
+    },
+    actionsConfig: {
+      type: 'BATCH_ACTION',
+      isCancelable: true,
+    },
+    onActionCancel: handleCancel,
   };
 
   return (
@@ -337,16 +359,7 @@ export const UploadControls = (): JSX.Element => {
       >
         Start
       </Primary>
-      <ButtonElement
-        variant="cancel"
-        disabled={disableCancel}
-        className={`${CLASS_BASE}__cancel`}
-        onClick={() => {
-          handleCancel();
-        }}
-      >
-        Cancel
-      </ButtonElement>
+      <ActionCancelControl className={`${CLASS_BASE}__upload-action-cancel`} />
       <ButtonElement
         disabled={disableSelectFiles}
         className={`${CLASS_BASE}__add-folder`}

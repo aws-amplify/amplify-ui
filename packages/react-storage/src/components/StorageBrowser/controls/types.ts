@@ -34,6 +34,9 @@ export interface ControlsContext {
   data: {
     taskCounts?: TaskCounts;
     tableData?: TableData;
+    actionCancelAriaLabel?: string;
+    actionCancelText?: string;
+    isActionCancelDisabled?: boolean;
   };
   actionsConfig: {
     type:
@@ -43,4 +46,5 @@ export interface ControlsContext {
       | 'LIST_LOCATION_ITEMS';
     isCancelable?: boolean;
   };
+  onActionCancel?: () => void;
 }
