@@ -36,10 +36,11 @@ import { getTaskCounts } from '../../controls/getTaskCounts';
 import { StatusDisplayControl } from '../../controls/StatusDisplayControl';
 import { ControlsContextProvider } from '../../controls/context';
 import { ControlsContext } from '../../controls/types';
+import { ActionStartControl } from '../../controls/ActionStartControl';
 
 const { Icon } = StorageBrowserElements;
 
-const { Cancel, Exit, Overwrite, Primary, Table } = Controls;
+const { Cancel, Exit, Overwrite, Table } = Controls;
 
 interface LocationActionViewColumns extends CancelableTask {
   type: string;
@@ -300,8 +301,16 @@ export const UploadControls = (): JSX.Element => {
 
   // FIXME: Eventually comes from useView hook
   const contextValue: ControlsContext = {
-    data: { taskCounts },
-    actionsConfig: { type: 'BATCH_ACTION', isCancelable: true },
+    data: {
+      taskCounts,
+      isActionStartDisabled: disablePrimary,
+      actionStartLabel: 'Start',
+    },
+    actionsConfig: {
+      type: 'BATCH_ACTION',
+      isCancelable: true,
+    },
+    onActionStart: handleUpload,
   };
 
   return (
@@ -329,14 +338,7 @@ export const UploadControls = (): JSX.Element => {
       />
       <Exit onClick={() => handleUpdateState({ type: 'CLEAR' })} />
       <Title />
-      <Primary
-        disabled={disablePrimary}
-        onClick={() => {
-          handleUpload();
-        }}
-      >
-        Start
-      </Primary>
+      <ActionStartControl className={`${CLASS_BASE}__upload-action-start`} />
       <ButtonElement
         variant="cancel"
         disabled={disableCancel}
