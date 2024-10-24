@@ -30,8 +30,7 @@ describe('useTitle', () => {
 
     expect(useTitle()).toStrictEqual({
       props: {
-        children: 'ShinyNewTitle',
-        titleClassName: BLOCK_NAME,
+        title: 'ShinyNewTitle',
       },
     });
   });
@@ -41,8 +40,7 @@ describe('useTitle', () => {
 
     expect(useTitle()).toStrictEqual({
       props: {
-        children: '',
-        titleClassName: BLOCK_NAME,
+        title: undefined,
       },
     });
   });

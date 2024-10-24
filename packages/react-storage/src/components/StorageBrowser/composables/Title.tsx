@@ -1,15 +1,14 @@
 import React from 'react';
 
-import { HeadingElement } from '../context/elements/definitions';
+import { HeadingElement } from '../context/elements';
+import { CLASS_BASE } from '../views/constants';
+
+const BLOCK_NAME = `${CLASS_BASE}__title`;
 
 export interface TitleProps {
-  children?: React.ReactNode;
-  titleClassName?: string;
+  title?: string;
 }
 
-export const Title = ({
-  children,
-  titleClassName,
-}: TitleProps): React.JSX.Element => (
-  <HeadingElement className={titleClassName}>{children}</HeadingElement>
+export const Title = ({ title }: TitleProps): React.JSX.Element => (
+  <HeadingElement className={BLOCK_NAME}>{title}</HeadingElement>
 );

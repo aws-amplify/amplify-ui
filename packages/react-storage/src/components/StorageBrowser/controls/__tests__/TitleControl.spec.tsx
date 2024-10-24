@@ -29,8 +29,7 @@ describe('TitleControl', () => {
   it('renders', () => {
     mockUseTitle.mockReturnValue({
       props: {
-        children: 'Amplify',
-        titleClassName: BLOCK_NAME,
+        title: 'Amplify',
       },
     });
 
