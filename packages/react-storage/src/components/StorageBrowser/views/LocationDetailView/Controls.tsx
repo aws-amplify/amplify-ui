@@ -6,10 +6,14 @@ import { useControl } from '../../context/control';
 import { parseLocationAccess } from '../../context/navigate/utils';
 
 import { Controls, LocationDetailViewTable } from '../Controls';
-import { usePaginate } from '../hooks/usePaginate';
+import { usePaginatedData } from '../hooks/usePaginatedData';
 import { isFile, listViewHelpers } from '../utils';
 
 import { ActionsMenuControl } from './Controls/ActionsMenu';
+import { PaginationControl } from '../../controls/PaginationControl';
+import { CLASS_BASE } from '../constants';
+import { ControlsContextProvider } from '../../controls/context';
+import { ControlsContext } from '../../controls/types';
 
 export const DEFAULT_ERROR_MESSAGE = 'There was an error loading items.';
 const DEFAULT_PAGE_SIZE = 100;
@@ -25,7 +29,6 @@ const {
   Loading: LoadingControl,
   Message,
   Navigate,
-  Paginate,
   Refresh,
   Title: TitleControl,
 } = Controls;
@@ -127,7 +130,7 @@ export const LocationDetailViewControls = (): React.JSX.Element => {
     handlePaginateNext,
     handlePaginatePrevious,
     handleReset,
-  } = usePaginate({
+  } = usePaginatedData({
     onPaginateNext,
     onPaginatePrevious,
     pageSize: DEFAULT_PAGE_SIZE,
@@ -160,8 +163,23 @@ export const LocationDetailViewControls = (): React.JSX.Element => {
     hasError,
   });
 
+  const contextValue: ControlsContext = {
+    data: {
+      pagination: {
+        currentPage,
+        disableNext,
+        disablePrevious,
+        handlePaginateNext: () =>
+          handlePaginateNext({ resultCount, hasNextToken }),
+        handlePaginatePrevious: () =>
+          handlePaginatePrevious({ resultCount, hasNextToken }),
+      },
+    },
+    actionsConfig: { type: 'LIST_LOCATIONS', isCancelable: false },
+  };
+
   return (
-    <>
+    <ControlsContextProvider {...contextValue}>
       <Navigate />
       <Title />
       <RefreshControl
@@ -177,15 +195,7 @@ export const LocationDetailViewControls = (): React.JSX.Element => {
         }}
       />
       <ActionsMenuControl disabled={disableActionsMenu} />
-      <Paginate
-        currentPage={currentPage}
-        disableNext={disableNext}
-        disablePrevious={disablePrevious}
-        handleNext={() => {
-          handlePaginateNext({ resultCount, hasNextToken });
-        }}
-        handlePrevious={handlePaginatePrevious}
-      />
+      <PaginationControl className={`${CLASS_BASE}__pagination`} />
       <LocationDetailMessage />
       <Loading show={renderLoading} />
       <LocationDetailViewTable
@@ -193,6 +203,6 @@ export const LocationDetailViewControls = (): React.JSX.Element => {
         range={range}
       />
       <LocationDetailEmptyMessage />
-    </>
+    </ControlsContextProvider>
   );
 };

@@ -6,7 +6,6 @@ import { LoadingControl } from './Loading';
 import { MessageControl } from './Message';
 import { NavigateControl } from './Navigate';
 import { OverwriteControl } from './Overwrite';
-import { PaginateControl } from './Paginate';
 import { PrimaryControl } from './Primary';
 import { RefreshControl } from './Refresh';
 import { SearchControl } from './Search';
@@ -21,7 +20,6 @@ export interface Controls {
   Loading: typeof LoadingControl;
   Message: typeof MessageControl;
   Overwrite: typeof OverwriteControl;
-  Paginate: typeof PaginateControl;
   Primary: typeof PrimaryControl;
   Navigate: typeof NavigateControl;
   Refresh: typeof RefreshControl;
@@ -38,7 +36,6 @@ export const Controls: Controls = {
   Loading: LoadingControl,
   Message: MessageControl,
   Overwrite: OverwriteControl,
-  Paginate: PaginateControl,
   Primary: PrimaryControl,
   Navigate: NavigateControl,
   Refresh: RefreshControl,

@@ -1,6 +1,6 @@
 import React from 'react';
 
-interface UsePaginate {
+interface UsePaginatedData {
   currentPage: number;
   handlePaginateNext: (input: {
     resultCount: number;
@@ -10,7 +10,7 @@ interface UsePaginate {
   handleReset: () => void;
 }
 
-export const usePaginate = ({
+export const usePaginatedData = ({
   onPaginateNext,
   onPaginatePrevious,
   pageSize,
@@ -18,7 +18,7 @@ export const usePaginate = ({
   onPaginateNext?: () => void;
   onPaginatePrevious?: () => void;
   pageSize: number;
-}): UsePaginate => {
+}): UsePaginatedData => {
   const [currentPage, setCurrentPage] = React.useState(1);
 
   const handleReset = React.useRef(() => {
