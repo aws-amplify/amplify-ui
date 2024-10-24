@@ -1,33 +1,25 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { ActionStartControl } from '../ActionStartControl';
-import { useActionStart } from '../hooks/useActionStart';
-import { useResolvedComposable } from '../hooks/useResolvedComposable';
+import * as useActionStartModule from '../hooks/useActionStart';
 
-jest.mock('../hooks/useActionStart');
-jest.mock('../hooks/useResolvedComposable');
 describe('ActionStartControl', () => {
-  // assert mocks
-  const mockUseActionStart = useActionStart as jest.Mock;
-  const mockUseResolvedComposable = useResolvedComposable as jest.Mock;
+  // Create spies
+  const useActionStartSpy = jest.spyOn(useActionStartModule, 'useActionStart');
 
-  beforeAll(() => {
-    mockUseResolvedComposable.mockImplementation(
-      (component: React.JSX.Element) => component
-    );
-  });
   afterEach(() => {
-    mockUseActionStart.mockReset();
-    mockUseResolvedComposable.mockClear();
+    useActionStartSpy.mockClear();
+  });
+
+  afterAll(() => {
+    useActionStartSpy.mockRestore();
   });
 
   it('renders', () => {
-    mockUseActionStart.mockReturnValue({
-      props: {
-        isDisabled: false,
-        onStart: jest.fn(),
-        label: 'Start',
-      },
+    useActionStartSpy.mockReturnValue({
+      isDisabled: false,
+      onStart: jest.fn(),
+      label: 'Start',
     });
     render(<ActionStartControl />);
 
@@ -38,11 +30,36 @@ describe('ActionStartControl', () => {
     expect(button).toBeInTheDocument();
   });
 
-  it('returns null without props', () => {
-    mockUseActionStart.mockReturnValue({});
-
+  it('renders with custom label', () => {
+    useActionStartSpy.mockReturnValue({
+      isDisabled: false,
+      onStart: jest.fn(),
+      label: 'Custom Label',
+    });
     render(<ActionStartControl />);
 
-    expect(screen.queryByRole('button')).not.toBeInTheDocument();
+    const button = screen.getByRole('button', {
+      name: 'Custom Label',
+    });
+
+    expect(button).toBeInTheDocument();
+  });
+
+  it('calls onStart when button is clicked', () => {
+    const mockOnStart = jest.fn();
+    useActionStartSpy.mockReturnValue({
+      isDisabled: false,
+      onStart: mockOnStart,
+      label: 'Start',
+    });
+    render(<ActionStartControl />);
+
+    const button = screen.getByRole('button', {
+      name: 'Start',
+    });
+
+    button.click();
+
+    expect(mockOnStart).toHaveBeenCalled();
   });
 });
