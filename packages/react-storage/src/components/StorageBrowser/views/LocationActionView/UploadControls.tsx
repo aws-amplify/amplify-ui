@@ -15,6 +15,7 @@ import { useControl } from '../../context/control';
 import { compareNumbers, compareStrings } from '../utils';
 import { TaskStatus } from '../../context/types';
 import { IconVariant } from '../../context/elements/IconElement';
+import { Title } from '../../composables/Title';
 
 import { getPercentValue } from '../utils';
 import { CLASS_BASE } from '../constants';
@@ -26,7 +27,6 @@ import {
   SortState,
 } from '../Controls/Table';
 
-import { Title } from './Controls/Title';
 import {
   DEFAULT_OVERWRITE_PROTECTION,
   STATUS_DISPLAY_VALUES,

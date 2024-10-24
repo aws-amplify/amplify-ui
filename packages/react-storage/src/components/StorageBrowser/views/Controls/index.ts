@@ -10,6 +10,5 @@ export { PaginateControl } from './Paginate';
 export { PrimaryControl } from './Primary';
 export { RefreshControl } from './Refresh';
 export { SearchControl } from './Search';
-export { TitleControl } from './Title';
 export { TableControl, LocationDetailViewTable } from './Table';
 export { Controls } from './Controls';
