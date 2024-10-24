@@ -14,7 +14,6 @@ describe('useActionStart', () => {
     onActionStart: jest.fn(),
   };
 
-  // Create a spy on the useControlsContext function
   const useControlsContextSpy = jest.spyOn(
     controlsContextModule,
     'useControlsContext'
