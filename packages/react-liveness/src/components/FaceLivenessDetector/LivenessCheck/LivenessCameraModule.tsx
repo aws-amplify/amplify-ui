@@ -128,6 +128,7 @@ export const LivenessCameraModule = (
   const freshnessColorRef = useRef<HTMLCanvasElement | null>(null);
 
   const [isCameraReady, setIsCameraReady] = useState<boolean>(false);
+  const [isMetadataLoaded, setIsMetadataLoaded] = useState<boolean>(false);
   const isInitCamera = state.matches('initCamera');
   const isInitWebsocket = state.matches('initWebsocket');
   const isCheckingCamera = state.matches({ initCamera: 'cameraCheck' });
@@ -162,10 +163,23 @@ export const LivenessCameraModule = (
     (!isMobileScreen || isFaceMovementChallenge);
 
   React.useEffect(() => {
-    if (canvasRef?.current && videoRef?.current && videoStream && isStartView) {
+    if (
+      canvasRef?.current &&
+      videoRef?.current &&
+      videoStream &&
+      isStartView &&
+      isMetadataLoaded
+    ) {
       drawStaticOval(canvasRef.current, videoRef.current, videoStream);
     }
-  }, [canvasRef, videoRef, videoStream, colorMode, isStartView]);
+  }, [
+    canvasRef,
+    videoRef,
+    videoStream,
+    colorMode,
+    isStartView,
+    isMetadataLoaded,
+  ]);
 
   React.useEffect(() => {
     const updateColorModeHandler = (e: MediaQueryListEvent) => {
@@ -174,7 +188,8 @@ export const LivenessCameraModule = (
         canvasRef?.current &&
         videoRef?.current &&
         videoStream &&
-        isStartView
+        isStartView &&
+        isMetadataLoaded
       ) {
         drawStaticOval(canvasRef.current, videoRef.current, videoStream);
       }
@@ -194,10 +209,10 @@ export const LivenessCameraModule = (
       darkModePreference.removeEventListener('change', updateColorModeHandler);
       lightModePreference.addEventListener('change', updateColorModeHandler);
     };
-  }, [canvasRef, videoRef, videoStream, isStartView]);
+  }, [canvasRef, videoRef, videoStream, isStartView, isMetadataLoaded]);
 
   React.useLayoutEffect(() => {
-    if (isCameraReady) {
+    if (isCameraReady && isMetadataLoaded) {
       send({
         type: 'SET_DOM_AND_CAMERA_DETAILS',
         data: {
@@ -209,14 +224,14 @@ export const LivenessCameraModule = (
       });
     }
 
-    if (videoRef.current) {
+    if (videoRef.current && isMetadataLoaded) {
       setMediaWidth(videoRef.current.videoWidth);
       setMediaHeight(videoRef.current.videoHeight);
       setAspectRatio(
         videoRef.current.videoWidth / videoRef.current.videoHeight
       );
     }
-  }, [send, videoRef, isCameraReady, isMobileScreen]);
+  }, [send, videoRef, isCameraReady, isMobileScreen, isMetadataLoaded]);
 
   React.useEffect(() => {
     if (isDetectFaceBeforeStart) {
@@ -243,6 +258,10 @@ export const LivenessCameraModule = (
     setIsCameraReady(true);
   };
 
+  const handleLoadedMetadata = () => {
+    setIsMetadataLoaded(true);
+  };
+
   const beginLivenessCheck = React.useCallback(() => {
     send({
       type: 'BEGIN',
@@ -253,6 +272,7 @@ export const LivenessCameraModule = (
     (e: React.ChangeEvent<HTMLSelectElement>) => {
       const newDeviceId = e.target.value;
       const changeCamera = async () => {
+        setIsMetadataLoaded(false);
         const newStream = await navigator.mediaDevices.getUserMedia({
           video: {
             ...videoConstraints,
@@ -260,14 +280,17 @@ export const LivenessCameraModule = (
           },
           audio: false,
         });
-        send({
-          type: 'UPDATE_DEVICE_AND_STREAM',
-          data: { newDeviceId, newStream },
-        });
+        // Only update the stream and draw oval once metadata is loaded
+        if (isMetadataLoaded) {
+          send({
+            type: 'UPDATE_DEVICE_AND_STREAM',
+            data: { newDeviceId, newStream },
+          });
+        }
       };
       changeCamera();
     },
-    [videoConstraints, send]
+    [isMetadataLoaded, videoConstraints, send]
   );
 
   if (isCheckingCamera) {
@@ -404,6 +427,7 @@ export const LivenessCameraModule = (
             width={mediaWidth}
             height={mediaHeight}
             onCanPlay={handleMediaPlay}
+            onLoadedMetadata={handleLoadedMetadata}
             data-testid="video"
             className={LivenessClassNames.Video}
             aria-label={cameraDisplayText.a11yVideoLabelText}
