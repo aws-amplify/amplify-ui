@@ -10,6 +10,7 @@ export {
   CreateManagedAuthConfigAdapterInput,
   GetLocationCredentials,
   getUrl,
+  GetUrlInput,
   list,
   ListLocations,
   ListLocationsOutput,
