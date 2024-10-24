@@ -129,7 +129,7 @@ export const LivenessCameraModule = (
   const freshnessColorRef = useRef<HTMLCanvasElement | null>(null);
 
   const [isCameraReady, setIsCameraReady] = useState<boolean>(false);
-  const [isCameraUserFacing, setIsCameraUserFacing] = useState<boolean>(false);
+  const [isCameraUserFacing, setIsCameraUserFacing] = useState<boolean>(true);
   const isInitCamera = state.matches('initCamera');
   const isInitWebsocket = state.matches('initWebsocket');
   const isCheckingCamera = state.matches({ initCamera: 'cameraCheck' });
