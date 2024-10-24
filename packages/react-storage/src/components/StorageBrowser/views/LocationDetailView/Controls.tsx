@@ -1,15 +1,13 @@
 import React from 'react';
-import { isString } from '@aws-amplify/ui';
 
 import { LocationData, useAction } from '../../context/actions';
 import { useControl } from '../../context/control';
 import { parseLocationAccess } from '../../context/navigate/utils';
 
 import { Controls, LocationDetailViewTable } from '../Controls';
-import { usePaginate } from '../hooks/usePaginate';
-import { isFile, listViewHelpers } from '../utils';
 
 import { ActionsMenuControl } from './Controls/ActionsMenu';
+import { useLocationDetailView } from './useLocationDetailView';
 
 export const DEFAULT_ERROR_MESSAGE = 'There was an error loading items.';
 const DEFAULT_PAGE_SIZE = 100;
@@ -17,8 +15,6 @@ export const DEFAULT_LIST_OPTIONS = {
   pageSize: DEFAULT_PAGE_SIZE,
   delimiter: '/',
 };
-
-const DEFAULT_REFRESH_OPTIONS = { ...DEFAULT_LIST_OPTIONS, refresh: true };
 
 const {
   EmptyMessage,
@@ -75,122 +71,50 @@ const LocationDetailEmptyMessage = () => {
 };
 
 export const LocationDetailViewControls = (): React.JSX.Element => {
-  const [state] = useControl('NAVIGATE');
-  const { path } = state;
-
-  const [{ data, isLoading, hasError }, handleList] = useAction(
-    'LIST_LOCATION_ITEMS'
-  );
-  const [, handleLocationActionsState] = useControl('LOCATION_ACTIONS');
-
-  const [, handleUpdateState] = useControl('LOCATION_ACTIONS');
+  const locationDetailView = useLocationDetailView();
+  const { pageItems, isLoading, hasError, hasNextPage, page } =
+    locationDetailView;
 
   const handleDroppedFiles = (files: File[]) => {
-    if (isFile(files[0])) {
-      handleUpdateState({
-        type: 'SET_ACTION',
-        actionType: 'UPLOAD_FILES',
-        files,
-      });
-    } else {
-      handleUpdateState({
-        type: 'SET_ACTION',
-        actionType: 'UPLOAD_FOLDER',
-        files,
-      });
-    }
+    locationDetailView.onAddFiles(files);
   };
 
-  const { result, nextToken } = data;
-  const resultCount = result.length;
-  const hasNextToken = !!nextToken;
-  const hasValidPath = isString(path);
-
-  const onPaginateNext = () => {
-    if (!hasValidPath) return;
-
-    handleLocationActionsState({ type: 'CLEAR' });
-    handleList({
-      prefix: path,
-      options: { ...DEFAULT_LIST_OPTIONS, nextToken },
-    });
+  const handleLocationItemClick = (key: string) => {
+    locationDetailView.onAccessItem(key);
   };
 
-  const onPaginatePrevious = () => {
-    if (!hasValidPath) return;
-
-    handleLocationActionsState({ type: 'CLEAR' });
-  };
-
-  const {
-    currentPage,
-    handlePaginateNext,
-    handlePaginatePrevious,
-    handleReset,
-  } = usePaginate({
-    onPaginateNext,
-    onPaginatePrevious,
-    pageSize: DEFAULT_PAGE_SIZE,
-  });
-
-  React.useEffect(() => {
-    if (!hasValidPath) return;
-
-    handleReset();
-
-    handleList({
-      prefix: path,
-      options: DEFAULT_REFRESH_OPTIONS,
-    });
-  }, [path, handleList, handleReset, hasValidPath]);
-
-  const {
-    disableActionsMenu,
-    disableNext,
-    disablePrevious,
-    disableRefresh,
-    range,
-    renderLoading,
-  } = listViewHelpers({
-    currentPage,
-    hasNextToken,
-    isLoading,
-    pageSize: DEFAULT_PAGE_SIZE,
-    resultCount,
-    hasError,
-  });
+  const disableNext = !hasNextPage || isLoading || hasError;
+  const disablePrevious = page <= 1 || isLoading || hasError;
+  const renderLoading = page === 1 && pageItems.length === 0 && isLoading;
 
   return (
     <>
       <Navigate />
       <Title />
       <RefreshControl
-        disableRefresh={disableRefresh}
+        disableRefresh={isLoading}
         handleRefresh={() => {
-          if (!hasValidPath) return;
-          handleReset();
-          handleList({
-            prefix: path,
-            options: DEFAULT_REFRESH_OPTIONS,
-          });
-          handleLocationActionsState({ type: 'CLEAR' });
+          locationDetailView.onRefresh();
         }}
       />
-      <ActionsMenuControl disabled={disableActionsMenu} />
+      <ActionsMenuControl disabled={isLoading} />
       <Paginate
-        currentPage={currentPage}
+        currentPage={page}
         disableNext={disableNext}
         disablePrevious={disablePrevious}
         handleNext={() => {
-          handlePaginateNext({ resultCount, hasNextToken });
+          locationDetailView.onPaginateNext();
         }}
-        handlePrevious={handlePaginatePrevious}
+        handlePrevious={() => {
+          locationDetailView.onPaginatePrevious();
+        }}
       />
       <LocationDetailMessage />
       <Loading show={renderLoading} />
       <LocationDetailViewTable
+        items={pageItems}
         handleDroppedFiles={handleDroppedFiles}
-        range={range}
+        handleLocationItemClick={handleLocationItemClick}
       />
       <LocationDetailEmptyMessage />
     </>

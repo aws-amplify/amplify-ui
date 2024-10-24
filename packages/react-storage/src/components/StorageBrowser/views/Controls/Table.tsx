@@ -187,22 +187,21 @@ const LocationDetailViewColumnSortMap = {
 const LocationDetailViewColumnEmptyHeaderMap = ['download'];
 
 export const LocationDetailViewTable = ({
+  items,
   handleDroppedFiles,
-  range,
+  handleLocationItemClick,
 }: {
+  items: LocationItem[];
   handleDroppedFiles: (files: File[]) => void;
-  range: [start: number, end: number];
+  handleLocationItemClick: (prefix: string) => void;
 }): JSX.Element | null => {
-  const [start, end] = range;
-
-  const [{ history, path }, handleUpdateState] = useControl('NAVIGATE');
+  const [{ path }] = useControl('NAVIGATE');
   const [{ selected }, handleLocationActionsState] =
     useControl('LOCATION_ACTIONS');
 
-  const [{ data, hasError }] = useAction('LIST_LOCATION_ITEMS');
+  const [{ hasError }] = useAction('LIST_LOCATION_ITEMS');
 
-  const currentPosition = history.length;
-  const hasItems = !!data.result?.length;
+  const hasItems = !!items.length;
   const showTable = hasItems && !hasError;
 
   const [compareFn, setCompareFn] = React.useState(() => compareStrings);
@@ -213,16 +212,13 @@ export const LocationDetailViewTable = ({
 
   const { direction, selection } = sortState;
 
-  // Use range prop values to get the current page of data
-  const pagedData = data.result.slice(start, end);
-
   const tableData =
     direction === 'ascending'
-      ? pagedData.sort((a, b) => compareFn(a[selection], b[selection]))
-      : pagedData.sort((a, b) => compareFn(b[selection], a[selection]));
+      ? items.sort((a, b) => compareFn(a[selection], b[selection]))
+      : items.sort((a, b) => compareFn(b[selection], a[selection]));
 
   // Logic for Select All Files functionality
-  const allFiles = pagedData.filter((item) => item.type === 'FILE');
+  const allFiles = items.filter((item) => item.type === 'FILE');
   const areAllFilesSelected = selected.items?.length === allFiles.length;
   const hasSelectableFiles = !!allFiles.length;
 
@@ -390,15 +386,7 @@ export const LocationDetailViewTable = ({
                   <Button
                     className={`${BLOCK_NAME}__data__button`}
                     variant="table-data"
-                    onClick={() => {
-                      handleUpdateState({
-                        type: 'NAVIGATE',
-                        entry: {
-                          position: currentPosition + 1,
-                          prefix: row.key,
-                        },
-                      });
-                    }}
+                    onClick={() => handleLocationItemClick(row.key)}
                     key={`${index}-${row.key}`}
                   >
                     <Icon className={ICON_CLASS} variant="folder" /> {row.key}
@@ -427,13 +415,7 @@ export const LocationDetailViewTable = ({
         </TableRow>
       );
     },
-    [
-      handleUpdateState,
-      currentPosition,
-      path,
-      selected,
-      handleLocationActionsState,
-    ]
+    [path, selected, handleLocationActionsState, handleLocationItemClick]
   );
 
   return showTable ? (

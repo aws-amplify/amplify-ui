@@ -8,6 +8,7 @@ interface UsePaginate {
   }) => void;
   handlePaginatePrevious: (input?: {}) => void;
   handleReset: () => void;
+  range: [start: number, end: number];
 }
 
 export const usePaginate = ({
@@ -25,15 +26,17 @@ export const usePaginate = ({
     setCurrentPage(1);
   }).current;
 
-  return React.useMemo(
-    () => ({
+  return React.useMemo(() => {
+    const isInitialPage = currentPage === 1;
+    const start = isInitialPage ? 0 : (currentPage - 1) * pageSize;
+    const end = isInitialPage ? pageSize : currentPage * pageSize;
+    return {
       currentPage,
       handlePaginateNext: (input) => {
         const { hasNextToken, resultCount } = input;
         const highestPageVisited = Math.round(resultCount / pageSize);
         const shouldPaginate =
           highestPageVisited === currentPage && hasNextToken;
-
         if (shouldPaginate && typeof onPaginateNext === 'function') {
           onPaginateNext();
         }
@@ -45,7 +48,7 @@ export const usePaginate = ({
         setCurrentPage((prev) => prev - 1);
       },
       handleReset,
-    }),
-    [currentPage, handleReset, onPaginateNext, onPaginatePrevious, pageSize]
-  );
+      range: [start, end],
+    };
+  }, [currentPage, handleReset, onPaginateNext, onPaginatePrevious, pageSize]);
 };
