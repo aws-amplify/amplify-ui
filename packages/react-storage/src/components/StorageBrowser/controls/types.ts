@@ -31,10 +31,19 @@ interface TableData {
   isLoading?: boolean;
 }
 
+interface PaginationData {
+  currentPage: number;
+  disableNext: boolean;
+  disablePrevious: boolean;
+  handlePaginateNext: () => void;
+  handlePaginatePrevious: () => void;
+}
+
 export interface ControlsContext {
   data: {
     taskCounts?: TaskCounts;
     tableData?: TableData;
+    pagination?: PaginationData;
   };
   actionsConfig: {
     type:

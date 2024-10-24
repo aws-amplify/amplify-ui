@@ -4,10 +4,13 @@ import { CLASS_BASE } from '../constants';
 import { Controls } from '../Controls';
 import { useLocationsData } from '../../context/actions';
 
-import { usePaginate } from '../hooks/usePaginate';
+import { usePaginatedData } from '../hooks/usePaginatedData';
 import { listViewHelpers, resolveClassName } from '../utils';
 
 import { DataTableControl } from './Controls/DataTable';
+import { ControlsContextProvider } from '../../controls/context';
+import { ControlsContext } from '../../controls/types';
+import { PaginationControl } from '../../controls/PaginationControl';
 
 export interface LocationsViewProps {
   className?: (defaultClassName: string) => string;
@@ -24,7 +27,6 @@ const {
   EmptyMessage,
   Loading: LoadingElement,
   Message,
-  Paginate,
   Refresh,
   Title,
 } = Controls;
@@ -87,7 +89,7 @@ export function LocationsView({
     handlePaginateNext,
     handlePaginatePrevious,
     handleReset,
-  } = usePaginate({ onPaginateNext, pageSize: DEFAULT_PAGE_SIZE });
+  } = usePaginatedData({ onPaginateNext, pageSize: DEFAULT_PAGE_SIZE });
 
   const { disableNext, disablePrevious, disableRefresh, range } =
     listViewHelpers({
@@ -99,34 +101,43 @@ export function LocationsView({
       hasError,
     });
 
+  const contextValue: ControlsContext = {
+    data: {
+      pagination: {
+        currentPage,
+        disableNext,
+        disablePrevious,
+        handlePaginateNext: () =>
+          handlePaginateNext({ resultCount, hasNextToken }),
+        handlePaginatePrevious: () =>
+          handlePaginatePrevious({ resultCount, hasNextToken }),
+      },
+    },
+    actionsConfig: { type: 'LIST_LOCATIONS', isCancelable: false },
+  };
+
   return (
-    <div
-      className={resolveClassName(CLASS_BASE, className)}
-      data-testid="LOCATIONS_VIEW"
-    >
-      <Title>Home</Title>
-      <RefreshControl
-        disableRefresh={disableRefresh}
-        handleRefresh={() => {
-          handleReset();
-          handleList({
-            options: { ...DEFAULT_LIST_OPTIONS, refresh: true },
-          });
-        }}
-      />
-      <Paginate
-        currentPage={currentPage}
-        disableNext={disableNext}
-        disablePrevious={disablePrevious}
-        handleNext={() => {
-          handlePaginateNext({ resultCount, hasNextToken });
-        }}
-        handlePrevious={handlePaginatePrevious}
-      />
-      <LocationsMessage />
-      <Loading />
-      <DataTableControl range={range} />
-      <LocationsEmptyMessage />
-    </div>
+    <ControlsContextProvider {...contextValue}>
+      <div
+        className={resolveClassName(CLASS_BASE, className)}
+        data-testid="LOCATIONS_VIEW"
+      >
+        <Title>Home</Title>
+        <RefreshControl
+          disableRefresh={disableRefresh}
+          handleRefresh={() => {
+            handleReset();
+            handleList({
+              options: { ...DEFAULT_LIST_OPTIONS, refresh: true },
+            });
+          }}
+        />
+        <PaginationControl className={`${CLASS_BASE}__pagination`} />
+        <LocationsMessage />
+        <Loading />
+        <DataTableControl range={range} />
+        <LocationsEmptyMessage />
+      </div>
+    </ControlsContextProvider>
   );
 }

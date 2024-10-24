@@ -11,7 +11,7 @@ import userEvent from '@testing-library/user-event';
 import createProvider from '../../../createProvider';
 import * as ActionsModule from '../../../context/actions';
 import * as ControlsModule from '../../../context/control';
-import * as PaginateModule from '../../hooks/usePaginate';
+import * as PaginateModule from '../../hooks/usePaginatedData';
 
 import { LocationDetailView } from '../LocationDetailView';
 import { DEFAULT_LIST_OPTIONS, DEFAULT_ERROR_MESSAGE } from '../Controls';
@@ -284,9 +284,9 @@ describe('LocationDetailView', () => {
     const handlePaginateNext = jest.fn();
     const handlePaginatePrevious = jest.fn();
     jest
-      .spyOn<typeof PaginateModule, 'usePaginate'>(
+      .spyOn<typeof PaginateModule, 'usePaginatedData'>(
         PaginateModule,
-        'usePaginate'
+        'usePaginatedData'
       )
       .mockReturnValue({
         currentPage: 1,
@@ -320,9 +320,9 @@ describe('LocationDetailView', () => {
     const handlePaginateNext = jest.fn();
     const handlePaginatePrevious = jest.fn();
     jest
-      .spyOn<typeof PaginateModule, 'usePaginate'>(
+      .spyOn<typeof PaginateModule, 'usePaginatedData'>(
         PaginateModule,
-        'usePaginate'
+        'usePaginatedData'
       )
       .mockReturnValue({
         currentPage: 2,

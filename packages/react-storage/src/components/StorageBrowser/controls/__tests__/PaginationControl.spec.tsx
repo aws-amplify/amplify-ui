@@ -1,20 +1,31 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { PaginateControl } from '../Paginate';
-
-import { ControlProvider } from '../../../context/control';
+import { PaginationControl } from '../PaginationControl';
+import { ControlsContextProvider } from '../context';
+import { ControlsContext } from '../types';
 
 describe('PaginationControl', () => {
   it('renders the PaginationControl', async () => {
+    const contextValue: ControlsContext = {
+      data: {
+        pagination: {
+          currentPage: 1,
+          disableNext: false,
+          disablePrevious: false,
+          handlePaginateNext: jest.fn(),
+          handlePaginatePrevious: jest.fn(),
+        },
+      },
+      actionsConfig: { type: 'LIST_LOCATIONS', isCancelable: false },
+    };
+
     render(
-      <ControlProvider actions={{}}>
-        <PaginateControl />
-      </ControlProvider>
+      <ControlsContextProvider {...contextValue}>
+        <PaginationControl />
+      </ControlsContextProvider>
     );
 
-    const nav = screen.getByRole('navigation', {
-      name: 'Pagination',
-    });
+    const nav = screen.getByLabelText('Pagination');
     const list = screen.getByRole('list');
     const listItems = await screen.findAllByRole('listitem');
     const nextButton = screen.getByRole('button', { name: 'Go to next page' });
