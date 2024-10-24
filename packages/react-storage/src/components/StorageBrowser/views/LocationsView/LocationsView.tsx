@@ -116,7 +116,7 @@ export function LocationsView({
       >
         <Title>Home</Title>
         <DataRefreshControl
-          className={`${CLASS_BASE}__locations-view__data-refresh`}
+          className={`${CLASS_BASE}__locations-view-data-refresh`}
         />
         <Paginate
           currentPage={currentPage}

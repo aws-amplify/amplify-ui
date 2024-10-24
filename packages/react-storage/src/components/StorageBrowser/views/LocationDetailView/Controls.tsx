@@ -178,7 +178,7 @@ export const LocationDetailViewControls = (): React.JSX.Element => {
       <Navigate />
       <Title />
       <DataRefreshControl
-        className={`${CLASS_BASE}__locations-detail-view__data-refresh`}
+        className={`${CLASS_BASE}__locations-detail-view-data-refresh`}
       />
       <ActionsMenuControl disabled={disableActionsMenu} />
       <Paginate

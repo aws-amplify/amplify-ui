@@ -8,7 +8,7 @@ import { useDataRefresh } from './hooks/useDataRefresh';
 
 export const DataRefreshControl = ({
   className,
-}: ControlProps): React.JSX.Element | null => {
+}: ControlProps): React.JSX.Element => {
   const props = useDataRefresh();
   const ResolvedDataRefresh = useResolvedComposable(DataRefresh, 'DataRefresh');
 

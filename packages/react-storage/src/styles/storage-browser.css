@@ -119,16 +119,16 @@
   margin: 0;
 }
 
-.storage-browser__locations-view__data-refresh,
-.storage-browser__locations-detail-view__data-refresh {
+.storage-browser__locations-view-data-refresh,
+.storage-browser__locations-detail-view-data-refresh {
   grid-column: 5 / -1;
   justify-self: flex-end;
 }
 
-.storage-browser__locations-view__data-refresh:has(
+.storage-browser__locations-view-data-refresh:has(
     ~ .storage-browser__actions-menu
   ),
-.storage-browser__locations-detail-view__data-refresh:has(
+.storage-browser__locations-detail-view-data-refresh:has(
     ~ .storage-browser__actions-menu
   ) {
   grid-column: 4 / 5;
