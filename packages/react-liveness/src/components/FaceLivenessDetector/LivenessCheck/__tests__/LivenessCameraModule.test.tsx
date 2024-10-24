@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { fireEvent, screen, waitFor } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import { when, resetAllWhenMocks } from 'jest-when';
 import { LivenessClassNames } from '../../types/classNames';
 
