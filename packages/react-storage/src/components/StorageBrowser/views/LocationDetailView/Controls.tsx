@@ -4,6 +4,7 @@ import { isString } from '@aws-amplify/ui';
 import { LocationData, useAction } from '../../context/actions';
 import { useControl } from '../../context/control';
 import { parseLocationAccess } from '../../context/navigate/utils';
+import { Title } from '../../composables/Title';
 
 import { Controls, LocationDetailViewTable } from '../Controls';
 import { usePaginate } from '../hooks/usePaginate';
@@ -27,10 +28,9 @@ const {
   Navigate,
   Paginate,
   Refresh,
-  Title: TitleControl,
 } = Controls;
 
-export const Title = (): React.JSX.Element => {
+export const TitleElement = (): React.JSX.Element => {
   const [{ history, location }] = useControl('NAVIGATE');
 
   const { bucket } = location
@@ -39,7 +39,7 @@ export const Title = (): React.JSX.Element => {
 
   const prefix = history?.slice(-1)[0]?.prefix;
 
-  return <TitleControl>{prefix ? prefix : bucket}</TitleControl>;
+  return <Title title={prefix ? prefix : bucket} />;
 };
 
 const RefreshControl = ({
@@ -163,7 +163,7 @@ export const LocationDetailViewControls = (): React.JSX.Element => {
   return (
     <>
       <Navigate />
-      <Title />
+      <TitleElement />
       <RefreshControl
         disableRefresh={disableRefresh}
         handleRefresh={() => {

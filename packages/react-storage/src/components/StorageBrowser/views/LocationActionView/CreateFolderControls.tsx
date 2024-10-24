@@ -7,7 +7,7 @@ import { SpanElement } from '../../context/elements';
 
 import { Controls } from '../Controls';
 
-import { Title } from './Controls/Title';
+import { Title } from '../../composables/Title';
 
 const { Exit, Message, Primary } = Controls;
 
@@ -77,6 +77,17 @@ export const CreateFolderControls = (): React.JSX.Element => {
     handleCreateAction({ prefix: '', options: { reset: true } });
   };
 
+  const TitleElement = (): React.JSX.Element | null => {
+    const [{ actions, selected }] = useControl('LOCATION_ACTIONS');
+    const { type } = selected;
+
+    if (!type || !actions?.[type]?.options?.displayName) {
+      return null;
+    }
+
+    return <Title title={actions?.[type]?.options?.displayName} />;
+  };
+
   const primaryProps =
     result?.status === 'COMPLETE'
       ? {
@@ -100,7 +111,7 @@ export const CreateFolderControls = (): React.JSX.Element => {
           handleClose();
         }}
       />
-      <Title />
+      <TitleElement />
       <Primary {...primaryProps} />
       <Field
         label="Enter folder name:"
