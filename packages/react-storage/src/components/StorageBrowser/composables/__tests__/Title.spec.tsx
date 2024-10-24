@@ -8,7 +8,7 @@ describe('Title', () => {
     const desiredTitle = [{ name: 'StorageBrowser', version: '0.1' }];
     const BLOCK_NAME = `${CLASS_BASE}__title`;
 
-    render(<Title titleClassName={BLOCK_NAME}>{desiredTitle[0].name}</Title>);
+    render(<Title title={desiredTitle[0].name} />);
 
     const [renderedTitle] = screen.getAllByRole('heading');
 

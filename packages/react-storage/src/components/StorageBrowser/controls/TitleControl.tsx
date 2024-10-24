@@ -16,13 +16,9 @@ export const TitleControl = ({
     return null;
   }
 
-  const { children, titleClassName } = props;
-
   return (
-    <ViewElement className={className ? className : titleClassName}>
-      <ResolvedTitle titleClassName={className ? className : titleClassName}>
-        {children}
-      </ResolvedTitle>
+    <ViewElement className={className}>
+      <ResolvedTitle {...props} />
     </ViewElement>
   );
 };
