@@ -4,7 +4,6 @@ import { ActionStartControl } from '../ActionStartControl';
 import * as useActionStartModule from '../hooks/useActionStart';
 
 describe('ActionStartControl', () => {
-  // Create spies
   const useActionStartSpy = jest.spyOn(useActionStartModule, 'useActionStart');
 
   afterEach(() => {
