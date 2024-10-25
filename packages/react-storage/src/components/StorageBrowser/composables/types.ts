@@ -1,15 +1,11 @@
-import { DataTable } from './DataTable';
-import { DropZone } from './DropZone';
-import { StatusDisplay } from './StatusDisplay';
-
-const composables = {
-  DataTable,
-  DropZone,
-  StatusDisplay,
-};
-
-export type ComposableTypes = typeof composables;
+import { DataTableProps } from './DataTable';
+import { StatusDisplayProps } from './StatusDisplay';
 
 export interface Composables {
-  composables?: ComposableTypes;
+  DataTable: React.ComponentType<DataTableProps>;
+  StatusDisplay: React.ComponentType<StatusDisplayProps>;
+}
+
+export interface ComposablesContext {
+  composables?: Composables;
 }

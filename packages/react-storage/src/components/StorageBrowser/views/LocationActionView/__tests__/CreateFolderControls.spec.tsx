@@ -1,9 +1,10 @@
 import React from 'react';
 import { render, waitFor, screen, fireEvent } from '@testing-library/react';
 
-import createProvider from '../../../createProvider';
-import * as ActionsModule from '../../../context/actions';
-import * as ControlsModule from '../../../context/control';
+import * as ActionsModule from '../../../do-not-import-from-here/actions';
+import * as StoreModule from '../../../providers/store';
+
+jest.mock('../Controls/Title');
 
 import {
   isValidFolderName,
@@ -14,65 +15,42 @@ import {
   RESULT_FAILED_MESSAGE,
 } from '../CreateFolderControls';
 
-const TEST_ACTIONS = {
-  CREATE_FOLDER: { options: { displayName: 'Create Folder' } },
+const handleAction = jest.fn();
+const useActionSpy = jest.spyOn(ActionsModule, 'useAction').mockReturnValue([
+  {
+    isLoading: false,
+    data: { result: undefined },
+    message: undefined,
+    hasError: false,
+  },
+  handleAction,
+]);
+
+const location = {
+  id: 'an-id-👍🏼',
+  bucket: 'test-bucket',
+  permission: 'READWRITE',
+  prefix: 'test-prefix/',
+  type: 'PREFIX',
 };
+const storeMock: StoreModule.UseStoreState = {
+  history: {
+    current: location,
+    previous: [location],
+  },
+} as StoreModule.UseStoreState;
+const dispatchStoreAction = jest.fn();
 
-const useActionSpy = jest.spyOn(ActionsModule, 'useAction');
-const useControlSpy = jest.spyOn(ControlsModule, 'useControl');
-
-useControlSpy.mockImplementation(
-  (type) =>
-    ({
-      LOCATION_ACTIONS: [
-        {
-          actions: TEST_ACTIONS,
-          selected: { type: 'CREATE_FOLDER', items: undefined },
-        },
-        jest.fn(),
-      ],
-      NAVIGATE: [
-        {
-          location: {
-            scope: 's3://test-bucket/test-prefix/*',
-            permission: 'READ',
-            type: 'PREFIX',
-          },
-          history: [{ prefix: 'test-prefix/', position: 0 }],
-          path: 'test-prefix/',
-        },
-        jest.fn(),
-      ],
-    })[type]
-);
-
-const config = {
-  getLocationCredentials: jest.fn(),
-  listLocations: jest.fn(),
-  region: 'region',
-  registerAuthListener: jest.fn(),
-};
-const Provider = createProvider({ actions: TEST_ACTIONS, config });
+jest
+  .spyOn(StoreModule, 'useStore')
+  .mockReturnValue([storeMock, dispatchStoreAction]);
 
 describe('CreateFolderControls', () => {
-  it('handles folder creation in the happy path', async () => {
-    const handleAction = jest.fn();
-    useActionSpy.mockReturnValue([
-      {
-        isLoading: false,
-        data: { result: undefined },
-        message: undefined,
-        hasError: false,
-      },
-      handleAction,
-    ]);
+  afterEach(jest.clearAllMocks);
 
+  it('handles folder creation in the happy path', async () => {
     await waitFor(() => {
-      render(
-        <Provider>
-          <CreateFolderControls />
-        </Provider>
-      );
+      render(<CreateFolderControls />);
     });
 
     const input = screen.getByLabelText('Enter folder name:');
@@ -93,11 +71,7 @@ describe('CreateFolderControls', () => {
 
   it('shows a field error when invalid folder name is entered', async () => {
     await waitFor(() => {
-      render(
-        <Provider>
-          <CreateFolderControls />
-        </Provider>
-      );
+      render(<CreateFolderControls />);
     });
 
     const input = screen.getByLabelText('Enter folder name:');
@@ -110,11 +84,7 @@ describe('CreateFolderControls', () => {
 
   it('clears a field error as expected', async () => {
     await waitFor(() => {
-      render(
-        <Provider>
-          <CreateFolderControls />
-        </Provider>
-      );
+      render(<CreateFolderControls />);
     });
 
     const input = screen.getByLabelText('Enter folder name:');
@@ -144,11 +114,7 @@ describe('CreateFolderControls', () => {
     ]);
 
     await waitFor(() => {
-      render(
-        <Provider>
-          <CreateFolderControls />
-        </Provider>
-      );
+      render(<CreateFolderControls />);
     });
 
     const button = screen.getByRole('button', { name: 'Back' });
@@ -176,11 +142,7 @@ describe('CreateFolderControls', () => {
     ]);
 
     await waitFor(() => {
-      render(
-        <Provider>
-          <CreateFolderControls />
-        </Provider>
-      );
+      render(<CreateFolderControls />);
     });
 
     const successMessage = screen.getByText(RESULT_COMPLETE_MESSAGE);
@@ -200,11 +162,7 @@ describe('CreateFolderControls', () => {
     ]);
 
     await waitFor(() => {
-      render(
-        <Provider>
-          <CreateFolderControls />
-        </Provider>
-      );
+      render(<CreateFolderControls />);
     });
 
     const successMessage = screen.getByText(RESULT_FAILED_MESSAGE);
@@ -228,11 +186,7 @@ describe('CreateFolderControls', () => {
     ]);
 
     await waitFor(() => {
-      render(
-        <Provider>
-          <CreateFolderMessage />
-        </Provider>
-      );
+      render(<CreateFolderMessage />);
     });
 
     const successMessage = screen.getByText(errorMessage);
@@ -255,11 +209,7 @@ describe('CreateFolderControls', () => {
     ]);
 
     await waitFor(() => {
-      render(
-        <Provider>
-          <CreateFolderMessage />
-        </Provider>
-      );
+      render(<CreateFolderMessage />);
     });
 
     const message = screen.queryByRole('alert');

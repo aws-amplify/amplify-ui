@@ -36,11 +36,12 @@ export const UNDEFINED_CALLBACKS = {
 export const uploadHandler: UploadHandler = ({
   config: _config,
   data: _data,
+  key,
   options: _options,
   prefix,
 }) => {
   const { accountId, credentials, ...config } = _config;
-  const { key, payload: data } = _data;
+  const { payload: data } = _data;
   const { onProgress, preventOverwrite, ...options } = _options ?? {};
 
   const bucket = constructBucket(config);

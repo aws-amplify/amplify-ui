@@ -19,7 +19,7 @@ export {
   ListLocationsHandlerOptions,
   ListLocationsHandlerOutput,
   LocationData,
-  LocationItem,
+  LocationItemData,
   LocationItemType,
   LocationType,
   uploadHandler,
