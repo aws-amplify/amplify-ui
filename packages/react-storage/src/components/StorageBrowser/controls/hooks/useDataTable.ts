@@ -14,10 +14,6 @@ import { compareDateData } from '../compareFunctions/compareDateData';
 import { compareNumberData } from '../compareFunctions/compareNumberData';
 import { compareTextData } from '../compareFunctions/compareTextData';
 
-export type UseDataTable = () => {
-  props?: DataTableProps;
-};
-
 interface SortState {
   index: number;
   direction: SortDirection;
@@ -37,7 +33,7 @@ const GROUP_ORDER: DataTableDataCell['type'][] = [
 
 const UNSORTABLE_GROUPS: DataTableDataCell['type'][] = ['checkbox'];
 
-export const useDataTable: UseDataTable = () => {
+export const useDataTable = (): DataTableProps | null => {
   const { data } = useControlsContext();
   const { tableData } = data;
 
@@ -157,14 +153,12 @@ export const useDataTable: UseDataTable = () => {
   }, [sortState, tableData]);
 
   if (!tableData) {
-    return {};
+    return null;
   }
 
   return {
-    props: {
-      ...tableData,
-      headers: mappedHeaders ?? [],
-      rows: sortedRows ?? [],
-    },
+    ...tableData,
+    headers: mappedHeaders ?? [],
+    rows: sortedRows ?? [],
   };
 };
