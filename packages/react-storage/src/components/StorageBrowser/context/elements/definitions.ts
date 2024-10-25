@@ -165,7 +165,7 @@ export const HeadingElement = defineBaseElement({
   displayName: 'Title',
 });
 
-export interface Heading3Element3Props
+export interface HeadingElement3Props
   extends React.ComponentProps<typeof HeadingElement3> {}
 export const HeadingElement3 = defineBaseElement({
   type: 'h3',

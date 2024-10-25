@@ -137,16 +137,6 @@ export const getDeleteActionViewTableData = ({
                 text: '',
               },
             };
-
-            {
-              /*
-          // case 'progress':
-          //   return (
-          //     <TableDataText>{`${getPercentValue(item.progress)}%`}</TableDataText>
-          //   );
-  
-            return null; */
-            }
         }
       }),
     };
@@ -217,7 +207,7 @@ export const UseDeleteActionView = (): UseDeleteActionView => {
 
   const onCancel = () => {
     tasks.forEach((task) => {
-      // @TODO Fixme, cancel doesn't currently cancel the tasks
+      // @TODO Fixme, calling cancel on task doesn't work
       if (isFunction(task.cancel)) task.cancel();
     });
   };
