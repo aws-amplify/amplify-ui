@@ -14,7 +14,9 @@ import {
 } from './LocationsView';
 
 export interface Views {
-  LocationActionView?: (props: LocationActionViewProps) => React.JSX.Element;
+  LocationActionView?: (
+    props: LocationActionViewProps
+  ) => React.JSX.Element | null;
   LocationDetailView?: (props: LocationDetailViewProps) => React.JSX.Element;
   LocationsView?: (props: LocationsViewProps) => React.JSX.Element;
 }

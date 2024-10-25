@@ -12,7 +12,7 @@ import {
   ProcessTasksState,
   Task,
 } from './types';
-import { hasExistingTask, isCancelableOutput, updateTasks } from './utils';
+import { isCancelableOutput, updateTasks } from './utils';
 
 const QUEUED_TASK_BASE = {
   cancel: undefined,
@@ -24,7 +24,7 @@ export const useProcessTasks = <T, K>(
   handler: (
     input: TaskHandlerInput<T, K>
   ) => TaskHandlerOutput | CancelableTaskHandlerOutput,
-  items: { key: string; item: T }[] | undefined,
+  items: { key: string; id: string; item: T }[] | undefined,
   options?: ProcessTasksOptions
 ): ProcessTasksState<T, K> => {
   const { concurrency } = options ?? {};
@@ -36,40 +36,49 @@ export const useProcessTasks = <T, K>(
   React.useEffect(() => {
     if (!items?.length) return;
 
+    const createRemove = (targetId: string) =>
+      function remove() {
+        if (inflight.current.has(targetId)) return;
+
+        setTasks((prevTasks) => prevTasks.filter(({ id }) => id !== targetId));
+      };
+
     setTasks((prevTasks) => {
-      const nextTasks: Task<T>[] = items.reduce((tasks, item) => {
-        const remove = () => {
-          if (inflight.current.has(item.key)) return;
+      const nextTasks: Task<T>[] = items.reduce(
+        (tasks: Task<T>[], item) =>
+          prevTasks.some(({ id }) => id === item.id)
+            ? tasks
+            : [
+                ...tasks,
+                { ...item, ...QUEUED_TASK_BASE, remove: createRemove(item.id) },
+              ],
+        []
+      );
 
-          setTasks((prevTasks) =>
-            prevTasks.filter(({ key }) => key !== item.key)
-          );
-        };
-        return hasExistingTask(prevTasks, item)
-          ? tasks
-          : [...tasks, { ...item, ...QUEUED_TASK_BASE, remove }];
-      }, [] as Task<T>[]);
+      if (!nextTasks.length) return prevTasks;
 
-      return [...prevTasks, ...nextTasks];
+      return prevTasks.concat(nextTasks);
     });
   }, [items]);
 
   const _processTasks: HandleProcessTasks<T, K> = React.useCallback(
     (input) => {
       setTasks((prevTasks) => {
-        const nextTask = prevTasks.find(
-          ({ key: _key, status }) => status === 'QUEUED'
-        );
+        const nextTask = prevTasks.find(({ status }) => status === 'QUEUED');
 
-        if (!nextTask || inflight.current.has(nextTask.key)) {
+        if (!nextTask || inflight.current.has(nextTask.id)) {
           return prevTasks;
         }
 
-        const { item, key } = nextTask;
+        const { id, item: payload, key } = nextTask;
 
-        inflight.current.set(key, item);
+        inflight.current.set(id, payload);
 
-        const output = handler({ ...input, data: { key, payload: item } });
+        const output = handler({
+          ...input,
+          key,
+          data: { id, payload },
+        });
 
         const isCancelable = isCancelableOutput(output);
 
@@ -77,9 +86,7 @@ export const useProcessTasks = <T, K>(
           ? undefined
           : () => {
               output.cancel?.();
-              setTasks((prev) =>
-                updateTasks(prev, { key, status: 'CANCELED' })
-              );
+              setTasks((prev) => updateTasks(prev, { id, status: 'CANCELED' }));
             };
 
         const { result } = output;
@@ -87,25 +94,25 @@ export const useProcessTasks = <T, K>(
         result
           .then((status) => {
             setTasks((prev) =>
-              updateTasks(prev, { key, cancel: undefined, status })
+              updateTasks(prev, { id, cancel: undefined, status })
             );
           })
           .catch(({ message }: Error) => {
             setTasks((prev) =>
               updateTasks(prev, {
-                key,
                 cancel: undefined,
+                id,
                 message,
                 status: 'FAILED',
               })
             );
           })
           .finally(() => {
-            inflight.current.delete(key);
+            inflight.current.delete(id);
             _processTasks(input);
           });
 
-        return updateTasks(prevTasks, { key, cancel, status: 'PENDING' });
+        return updateTasks(prevTasks, { cancel, id, status: 'PENDING' });
       });
     },
     [handler]

@@ -1,4 +1,4 @@
-import { ComposableTypes } from '../composables/types';
+import { Composables } from '../composables/types';
 import { DataTableSortHeader, DataTableProps } from '../composables/DataTable';
 import { INITIAL_STATUS_COUNTS } from '../views/LocationActionView/constants';
 
@@ -7,10 +7,10 @@ export interface ControlProps {
 }
 
 export interface Controls {
-  props: React.ComponentProps<ComposableTypes[keyof ComposableTypes]>;
+  props: React.ComponentProps<Composables[keyof Composables]>;
 }
 
-export type ControlKey = keyof ComposableTypes;
+export type ControlKey = keyof Composables;
 
 export type TaskCounts = typeof INITIAL_STATUS_COUNTS;
 
@@ -28,7 +28,6 @@ interface TableData {
     | TruncatedSortHeader
   )[];
   rows: DataTableProps['rows'];
-  isLoading?: boolean;
 }
 
 export interface ControlsContext {

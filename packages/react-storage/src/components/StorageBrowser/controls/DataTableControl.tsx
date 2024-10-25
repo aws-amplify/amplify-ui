@@ -9,7 +9,7 @@ import { ControlProps } from './types';
 export const DataTableControl = ({
   className,
 }: ControlProps): React.JSX.Element | null => {
-  const { props } = useDataTable();
+  const props = useDataTable();
 
   const ResolvedDataTable = useResolvedComposable(DataTable, 'DataTable');
 

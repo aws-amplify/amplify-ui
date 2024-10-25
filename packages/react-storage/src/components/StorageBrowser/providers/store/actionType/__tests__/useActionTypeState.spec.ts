@@ -21,7 +21,7 @@ describe('useActionTypeState', () => {
     expect(nextState).toBe(actionType);
 
     act(() => {
-      handler({ type: 'RESET' });
+      handler({ type: 'RESET_ACTION_TYPE' });
     });
 
     const [finalState] = result.current;

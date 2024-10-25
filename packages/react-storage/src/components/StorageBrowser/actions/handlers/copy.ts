@@ -19,9 +19,10 @@ export interface CopyHandlerOutput extends TaskHandlerOutput {}
 export interface CopyHandler
   extends TaskHandler<CopyHandlerInput, CopyHandlerOutput> {}
 
-export const copyHandler: CopyHandler = ({ config, options, prefix, data }) => {
+export const copyHandler: CopyHandler = (input) => {
+  const { config, key, options, prefix, data } = input;
   const { accountId, credentials } = config;
-  const { payload, key } = data;
+  const { payload } = data;
   const { destinationPrefix } = payload;
 
   const sourceKey = `${prefix}${key}`;

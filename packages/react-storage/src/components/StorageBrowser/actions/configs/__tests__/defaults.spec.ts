@@ -8,6 +8,7 @@ import {
 
 const file = {
   key: 'key',
+  id: 'id',
   lastModified: new Date(),
   size: 100,
   type: 'FILE' as const,
