@@ -31,11 +31,13 @@
   justify-self: flex-end;
 }
 
+.storage-browser__ol-buttons__list,
 .storage-browser__paginate__list {
   gap: var(--storage-browser-gap-small);
 }
 
 .storage-browser__navigate__list,
+.storage-browser__ol-buttons__list,
 .storage-browser__paginate__list {
   list-style: none;
   margin: 0;
@@ -52,6 +54,7 @@
   gap: var(--storage-browser-gap-small);
 }
 
+.storage-browser__ol-buttons__item,
 .storage-browser__paginate__item {
   display: flex;
 }

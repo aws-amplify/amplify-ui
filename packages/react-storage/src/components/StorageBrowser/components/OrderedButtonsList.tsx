@@ -8,7 +8,7 @@ import {
 } from '../context/elements';
 
 import { CLASS_BASE } from '../views/constants';
-const BLOCK_NAME = `${CLASS_BASE}__paginate`;
+const BLOCK_NAME = `${CLASS_BASE}__ol-buttons`;
 
 interface OrderedButtonsListProps {
   items: ButtonElementProps[];
