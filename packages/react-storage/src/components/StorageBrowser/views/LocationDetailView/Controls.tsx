@@ -151,10 +151,6 @@ export const LocationDetailViewControls = ({
       isDataRefreshDisabled: disableRefresh,
     },
     onDataRefresh: handleRefresh,
-    actionsConfig: {
-      type: 'SINGLE_ACTION',
-      isCancelable: true,
-    },
   };
 
   return (

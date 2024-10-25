@@ -99,10 +99,6 @@ export function LocationsView({
     data: {
       isDataRefreshDisabled: disableRefresh,
     },
-    actionsConfig: {
-      type: 'SINGLE_ACTION',
-      isCancelable: true,
-    },
     onDataRefresh: () => {
       handleReset();
       handleList({

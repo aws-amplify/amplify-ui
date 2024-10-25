@@ -36,7 +36,7 @@ export interface ControlsContext {
     tableData?: TableData;
     isDataRefreshDisabled?: boolean;
   };
-  actionsConfig: {
+  actionsConfig?: {
     type:
       | 'SINGLE_ACTION'
       | 'BATCH_ACTION'
