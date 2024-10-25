@@ -4,7 +4,7 @@ import { CLASS_BASE } from '../constants';
 import { Controls } from '../Controls';
 import { useLocationsData } from '../../context/actions';
 
-import { usePaginatedData } from '../hooks/usePaginatedData';
+import { usePaginate } from '../hooks/usePaginate';
 import { listViewHelpers, resolveClassName } from '../utils';
 
 import { DataTableControl } from './Controls/DataTable';
@@ -89,7 +89,7 @@ export function LocationsView({
     handlePaginateNext,
     handlePaginatePrevious,
     handleReset,
-  } = usePaginatedData({ onPaginateNext, pageSize: DEFAULT_PAGE_SIZE });
+  } = usePaginate({ onPaginateNext, pageSize: DEFAULT_PAGE_SIZE });
 
   const { disableNext, disablePrevious, disableRefresh, range } =
     listViewHelpers({

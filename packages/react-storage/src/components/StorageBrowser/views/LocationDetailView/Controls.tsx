@@ -6,7 +6,7 @@ import { useControl } from '../../context/control';
 import { parseLocationAccess } from '../../context/navigate/utils';
 
 import { Controls, LocationDetailViewTable } from '../Controls';
-import { usePaginatedData } from '../hooks/usePaginatedData';
+import { usePaginate } from '../hooks/usePaginate';
 import { isFile, listViewHelpers } from '../utils';
 
 import { ActionsMenuControl } from './Controls/ActionsMenu';
@@ -130,7 +130,7 @@ export const LocationDetailViewControls = (): React.JSX.Element => {
     handlePaginateNext,
     handlePaginatePrevious,
     handleReset,
-  } = usePaginatedData({
+  } = usePaginate({
     onPaginateNext,
     onPaginatePrevious,
     pageSize: DEFAULT_PAGE_SIZE,

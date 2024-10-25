@@ -1,10 +1,10 @@
 import { act, renderHook } from '@testing-library/react-hooks';
 
-import { usePaginatedData } from '../usePaginatedData';
+import { usePaginate } from '../usePaginate';
 
 describe('usePaginate', () => {
   it('returns the expected values on initial call', () => {
-    const { result } = renderHook(() => usePaginatedData({ pageSize: 100 }));
+    const { result } = renderHook(() => usePaginate({ pageSize: 100 }));
 
     expect(result.current.currentPage).toBe(1);
     expect(typeof result.current.handlePaginateNext).toBe('function');
@@ -13,7 +13,7 @@ describe('usePaginate', () => {
   });
 
   it('returns the expected value of `currentPage` on paginate next', () => {
-    const { result } = renderHook(() => usePaginatedData({ pageSize: 100 }));
+    const { result } = renderHook(() => usePaginate({ pageSize: 100 }));
 
     act(() => {
       result.current.handlePaginateNext({
@@ -26,7 +26,7 @@ describe('usePaginate', () => {
   });
 
   it('returns the expected value of `currentPage` on paginate previous', () => {
-    const { result } = renderHook(() => usePaginatedData({ pageSize: 100 }));
+    const { result } = renderHook(() => usePaginate({ pageSize: 100 }));
 
     act(() => {
       result.current.handlePaginateNext({
@@ -45,7 +45,7 @@ describe('usePaginate', () => {
   });
 
   it('returns the expected value of `currentPage` on reset', () => {
-    const { result } = renderHook(() => usePaginatedData({ pageSize: 100 }));
+    const { result } = renderHook(() => usePaginate({ pageSize: 100 }));
 
     act(() => {
       result.current.handlePaginateNext({
@@ -68,7 +68,7 @@ describe('usePaginate', () => {
     const onPaginatePrevious = jest.fn();
 
     const { result } = renderHook(() =>
-      usePaginatedData({ onPaginateNext, onPaginatePrevious, pageSize: 100 })
+      usePaginate({ onPaginateNext, onPaginatePrevious, pageSize: 100 })
     );
 
     act(() => {

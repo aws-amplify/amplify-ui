@@ -11,7 +11,7 @@ import userEvent from '@testing-library/user-event';
 import createProvider from '../../../createProvider';
 import * as ActionsModule from '../../../context/actions';
 import * as ControlsModule from '../../../context/control';
-import * as PaginateModule from '../../hooks/usePaginatedData';
+import * as PaginateModule from '../../hooks/usePaginate';
 
 import { LocationDetailView } from '../LocationDetailView';
 import { DEFAULT_LIST_OPTIONS, DEFAULT_ERROR_MESSAGE } from '../Controls';
