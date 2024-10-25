@@ -44,6 +44,13 @@ describe('ButtonDataCell', () => {
     expect(buttonDataCell).toHaveAttribute('aria-label', 'label');
   });
 
+  it('renders disabled button', () => {
+    render(<ButtonDataCell content={{ label: 'cancel', disabled: true }} />);
+
+    const buttonDataCell = screen.getByRole('button');
+    expect(buttonDataCell).toBeDisabled();
+  });
+
   it('can be clicked', () => {
     const mockOnClick = jest.fn();
     render(
