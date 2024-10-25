@@ -2,11 +2,11 @@ import { isFunction } from '@aws-amplify/ui';
 
 import { CancelableTaskHandlerOutput, TaskHandlerOutput } from '../actions';
 
-export const updateTasks = <T extends { key: string }>(
+export const updateTasks = <T extends { id: string }>(
   tasks: T[],
-  task: Partial<T>
+  task: Partial<T> & { id: string }
 ): T[] => {
-  const index = tasks.findIndex(({ key }) => key === task.key);
+  const index = tasks.findIndex(({ id }) => id === task.id);
 
   if (index === -1) return tasks;
 
@@ -23,8 +23,3 @@ export const isCancelableOutput = (
   output: TaskHandlerOutput | CancelableTaskHandlerOutput
 ): output is CancelableTaskHandlerOutput =>
   isFunction((output as CancelableTaskHandlerOutput).cancel);
-
-export const hasExistingTask = (
-  tasks: { key: string }[],
-  item: { key: string }
-): boolean => tasks.some(({ key }) => key === item.key);

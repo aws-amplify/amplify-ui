@@ -32,7 +32,7 @@ describe('StoreProvider', () => {
 
     expect(history[0]).toStrictEqual({
       current: undefined,
-      history: undefined,
+      previous: undefined,
     });
     expect(typeof history[1]).toBe('function');
 

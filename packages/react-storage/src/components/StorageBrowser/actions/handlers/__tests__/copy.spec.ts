@@ -12,7 +12,8 @@ const baseInput: CopyHandlerInput = {
     credentials: jest.fn(),
     region: 'region',
   },
-  data: { key: 'key', payload: { destinationPrefix: 'destination/' } },
+  key: 'key',
+  data: { id: 'identity', payload: { destinationPrefix: 'destination/' } },
 };
 
 describe('copyHandler', () => {
@@ -33,7 +34,7 @@ describe('copyHandler', () => {
       source: {
         expectedBucketOwner: `${baseInput.config.accountId}`,
         bucket,
-        path: `${baseInput.prefix}${baseInput.data.key}`,
+        path: `${baseInput.prefix}${baseInput.key}`,
       },
       options: {
         locationCredentialsProvider: baseInput.config.credentials,
@@ -41,6 +42,6 @@ describe('copyHandler', () => {
     };
 
     expect(copySpy).toHaveBeenCalledWith(expected);
-    expect(key).toBe(baseInput.data.key);
+    expect(key).toBe(baseInput.key);
   });
 });

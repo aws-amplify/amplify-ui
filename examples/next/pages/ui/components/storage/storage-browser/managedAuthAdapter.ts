@@ -6,21 +6,48 @@ import {
 type CredentialsProvider = CreateManagedAuthAdapterInput['credentialsProvider'];
 type Credentials = Awaited<ReturnType<CredentialsProvider>>;
 
-class Auth {
+export class Auth {
+  #persistCredentials: boolean;
   #credentials: Credentials | undefined;
   #onAuthStatusChange: () => void | undefined;
 
+  constructor(options?: { persistCredentials?: boolean }) {
+    const { persistCredentials = false } = options ?? {};
+    this.#persistCredentials = persistCredentials;
+  }
+
+  #clearCredentials() {
+    this.#onAuthStatusChange?.();
+    this.#onAuthStatusChange = undefined;
+    localStorage.removeItem('creds');
+    this.#credentials = undefined;
+  }
+
   #getCredentials(): Credentials {
+    if (this.#persistCredentials) {
+      return JSON.parse(localStorage.getItem('creds'));
+    }
+
     return this.#credentials;
   }
 
   #setCredentials(credentials: Credentials) {
+    if (this.#persistCredentials) {
+      localStorage.setItem('creds', JSON.stringify(credentials));
+    }
     this.#credentials = credentials;
   }
 
-  async #fetchCredentials(): Promise<Credentials> {
+  async #fetchCredentials(options?: {
+    forceRefresh?: boolean;
+  }): Promise<Credentials> {
+    const { forceRefresh = false } = options ?? {};
+
+    if (forceRefresh) {
+      this.#clearCredentials();
+    }
     const credentials = this.#getCredentials();
-    if (credentials) {
+    if (!forceRefresh && credentials) {
       return credentials;
     }
 
@@ -53,7 +80,7 @@ class Auth {
   }
 
   get credentialsProvider(): CredentialsProvider {
-    return async () => await this.#fetchCredentials();
+    return (options) => this.#fetchCredentials(options);
   }
 
   registerAuthListener = (onAuthStatusChange: () => void) => {
@@ -61,12 +88,13 @@ class Auth {
   };
 
   async signIn(input?: {
+    forceRefresh?: boolean;
     onSignIn?: () => void;
     onError?: (e: Error) => void;
   }): Promise<void> {
-    const { onError, onSignIn } = input ?? {};
+    const { forceRefresh, onError, onSignIn } = input ?? {};
     try {
-      await this.#fetchCredentials();
+      await this.#fetchCredentials({ forceRefresh });
       onSignIn?.();
     } catch (e) {
       onError?.(e);
@@ -74,9 +102,8 @@ class Auth {
   }
 
   signOut(input?: { onSignOut?: () => void }) {
-    this.#credentials = undefined;
-    this.#onAuthStatusChange?.();
-    input?.onSignOut();
+    this.#clearCredentials();
+    input?.onSignOut?.();
   }
 }
 

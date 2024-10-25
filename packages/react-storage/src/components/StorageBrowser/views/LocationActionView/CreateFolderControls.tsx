@@ -1,9 +1,10 @@
 import React from 'react';
+import { isFunction, isUndefined } from '@aws-amplify/ui';
 
 import { Field } from '../../components/Field';
-import { useAction } from '../../context/actions';
-import { useControl } from '../../context/control';
+import { useAction } from '../../do-not-import-from-here/actions';
 import { SpanElement } from '../../context/elements';
+import { useStore } from '../../providers/store';
 
 import { Controls } from '../Controls';
 
@@ -40,10 +41,17 @@ export const CreateFolderMessage = (): React.JSX.Element | null => {
   }
 };
 
-export const CreateFolderControls = (): React.JSX.Element => {
-  const [, handleUpdateState] = useControl('LOCATION_ACTIONS');
+export const CreateFolderControls = ({
+  onClose,
+}: {
+  onClose?: () => void;
+}): React.JSX.Element => {
+  const [{ history }, dipatchStoreAction] = useStore();
+  const { current } = history;
 
-  const [{ path }] = useControl('NAVIGATE');
+  const { prefix } = current ?? {};
+  const hasInvalidPrefix = isUndefined(prefix);
+
   const [{ isLoading, data }, handleCreateAction] = useAction('CREATE_FOLDER');
   const { result } = data;
 
@@ -67,13 +75,16 @@ export const CreateFolderControls = (): React.JSX.Element => {
   };
 
   const handleCreateFolder = () => {
-    const prefix = `${path}${folderName}/`;
-    handleCreateAction({ prefix });
+    if (hasInvalidPrefix) return;
+    const folderPrefix = `${prefix}${folderName}/`;
+    handleCreateAction({ prefix: folderPrefix });
   };
 
   const handleClose = () => {
-    handleUpdateState({ type: 'CLEAR' });
+    if (isFunction(onClose)) onClose();
+    dipatchStoreAction({ type: 'RESET_ACTION_TYPE' });
     // reset hook state on exit, use empty string for prefix to keep TS happy
+    // @todo: this needs to be addressed
     handleCreateAction({ prefix: '', options: { reset: true } });
   };
 

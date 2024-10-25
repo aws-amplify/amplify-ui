@@ -9,7 +9,7 @@ import { Button, Flex } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react-storage/storage-browser-styles.css';
 import '@aws-amplify/ui-react-storage/styles.css';
 
-const { StorageBrowser, useControl } = createStorageBrowser({
+const { StorageBrowser } = createStorageBrowser({
   config: managedAuthAdapter,
 });
 
@@ -22,7 +22,7 @@ function LocationActionView() {
 }
 
 function MyStorageBrowser() {
-  const [{ selected }] = useControl('LOCATION_ACTIONS');
+  const [type, setActionType] = React.useState<string | undefined>(undefined);
 
   return (
     <Flex>
@@ -30,9 +30,13 @@ function MyStorageBrowser() {
         <StorageBrowser.LocationsView />
       </Flex>
       <Flex minWidth={'50vw'} direction={'column'}>
-        <StorageBrowser.LocationDetailView />
+        <StorageBrowser.LocationDetailView
+          onActionSelect={(actionType) => {
+            setActionType(actionType);
+          }}
+        />
       </Flex>
-      {selected.type ? <LocationActionView /> : null}
+      {type ? <LocationActionView /> : null}
     </Flex>
   );
 }

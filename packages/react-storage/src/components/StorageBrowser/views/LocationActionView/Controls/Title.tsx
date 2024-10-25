@@ -1,15 +1,14 @@
 import React from 'react';
 
-import { useControl } from '../../../context/control';
 import { TitleControl } from '../../Controls/Title';
+import { useStore } from '../../../providers/store';
+import { useTempActions } from '../../../do-not-import-from-here/createTempActionsProvider';
 
 export const Title = (): React.JSX.Element | null => {
-  const [{ actions, selected }] = useControl('LOCATION_ACTIONS');
-  const { type } = selected;
+  const [{ actionType }] = useStore();
+  const actions = useTempActions();
+  const action = actionType ? actions[actionType] : undefined;
+  const title = action?.options?.displayName ?? '-';
 
-  if (!type || !actions?.[type]?.options?.displayName) {
-    return null;
-  }
-
-  return <TitleControl>{actions[type].options?.displayName}</TitleControl>;
+  return <TitleControl>{title}</TitleControl>;
 };

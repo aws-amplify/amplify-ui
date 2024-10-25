@@ -11,7 +11,7 @@ describe('useHistory', () => {
 
     const [state, handler] = result.current;
 
-    expect(state).toStrictEqual({ current: undefined, history: undefined });
+    expect(state).toStrictEqual({ current: undefined, previous: undefined });
     expect(handler).toStrictEqual(expect.any(Function));
   });
 
@@ -32,7 +32,7 @@ describe('useHistory', () => {
 
     const state = result.current[0];
 
-    expect(state).toStrictEqual({ current: location, history: [location] });
+    expect(state).toStrictEqual({ current: location, previous: [location] });
   });
 
   it('updates `history` with a new `location` as expected', () => {
@@ -54,7 +54,7 @@ describe('useHistory', () => {
 
     expect(initialState).toStrictEqual({
       current: location,
-      history: [location],
+      previous: [location],
     });
 
     const nextLocation = {
@@ -73,7 +73,7 @@ describe('useHistory', () => {
 
     expect(nextState).toStrictEqual({
       current: nextLocation,
-      history: [location, nextLocation],
+      previous: [location, nextLocation],
     });
   });
 

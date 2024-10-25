@@ -32,10 +32,10 @@ export const resolveFiles = (
   return [...prevItems, ...nextItems];
 };
 
-export const filesReducer: React.Reducer<FileItems, FilesActionType> = (
-  prevItems,
-  input
-) => {
+export const filesReducer: React.Reducer<
+  FileItems,
+  Exclude<FilesActionType, { type: 'SELECT_FILES' }>
+> = (prevItems, input) => {
   switch (input.type) {
     case 'ADD_FILE_ITEMS': {
       return resolveFiles(prevItems, input.files);
@@ -43,7 +43,7 @@ export const filesReducer: React.Reducer<FileItems, FilesActionType> = (
     case 'REMOVE_FILE_ITEM': {
       return prevItems.filter(({ id }) => id !== input.id);
     }
-    case 'RESET': {
+    case 'RESET_FILE_ITEMS': {
       return [];
     }
   }
