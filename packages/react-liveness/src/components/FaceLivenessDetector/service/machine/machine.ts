@@ -43,7 +43,6 @@ import {
   estimateIllumination,
   isCameraDeviceVirtual,
   ColorSequenceDisplay,
-  drawStaticOval,
   createSessionStartEvent,
   createColorDisplayEvent,
   createSessionEndEvent,
@@ -262,7 +261,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         },
       },
       start: {
-        entry: ['drawStaticOval', 'initializeFaceDetector'],
+        entry: ['initializeFaceDetector'],
         always: [
           {
             target: 'detectFaceBeforeStart',
@@ -555,12 +554,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           };
         },
       }),
-      drawStaticOval: (context) => {
-        const { canvasEl, videoEl, videoMediaStream } =
-          context.videoAssociatedParams!;
-
-        drawStaticOval(canvasEl!, videoEl!, videoMediaStream!);
-      },
       updateRecordingStartTimestamp: assign({
         videoAssociatedParams: (context) => {
           const {
