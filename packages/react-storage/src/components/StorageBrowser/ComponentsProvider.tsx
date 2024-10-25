@@ -3,7 +3,7 @@ import React from 'react';
 import { ElementsProvider } from '@aws-amplify/ui-react-core/elements';
 
 import { ComposablesProvider } from './composables/context';
-import { ComposableTypes as Composables } from './composables/types';
+import { Composables } from './composables/types';
 import { StorageBrowserElements } from './context/elements';
 
 export interface ComponentsProviderProps {
