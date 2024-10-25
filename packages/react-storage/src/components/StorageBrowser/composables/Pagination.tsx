@@ -16,7 +16,7 @@ export interface PaginationProps {
   handlePaginatePrevious: () => void;
 }
 
-const BLOCK_NAME = `${CLASS_BASE}__pagination`;
+const BLOCK_NAME = `${CLASS_BASE}__paginate`;
 
 export const Pagination = ({
   currentPage,

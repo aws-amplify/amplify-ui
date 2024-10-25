@@ -26,17 +26,17 @@
   grid-column: 1 / -1;
 }
 
-.storage-browser__pagination {
+.storage-browser__paginate {
   grid-column: 1 / -1;
   justify-self: flex-end;
 }
 
-.storage-browser__pagination__list {
+.storage-browser__paginate__list {
   gap: var(--storage-browser-gap-small);
 }
 
 .storage-browser__navigate__list,
-.storage-browser__pagination__list {
+.storage-browser__paginate__list {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -52,11 +52,11 @@
   gap: var(--storage-browser-gap-small);
 }
 
-.storage-browser__pagination__item {
+.storage-browser__paginate__item {
   display: flex;
 }
 
-.storage-browser__pagination__icon,
+.storage-browser__paginate__icon,
 .storage-browser__refresh__icon,
 .storage-browser__message__icon,
 .storage-browser__message__dismiss__icon,
