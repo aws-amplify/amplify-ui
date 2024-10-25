@@ -1,29 +1,38 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { PaginationControl } from '../PaginationControl';
-import { ControlsContextProvider } from '../context';
-import { ControlsContext } from '../types';
+import { usePagination } from '../hooks/usePagination';
+import { useResolvedComposable } from '../hooks/useResolvedComposable';
+
+jest.mock('../hooks/usePagination');
+jest.mock('../hooks/useResolvedComposable');
 
 describe('PaginationControl', () => {
-  it('renders the PaginationControl', async () => {
-    const contextValue: ControlsContext = {
-      data: {
-        pagination: {
-          currentPage: 1,
-          disableNext: false,
-          disablePrevious: false,
-          handlePaginateNext: jest.fn(),
-          handlePaginatePrevious: jest.fn(),
-        },
-      },
-      actionsConfig: { type: 'LIST_LOCATIONS', isCancelable: false },
-    };
+  // assert mocks
+  const mockUsePagination = usePagination as jest.Mock;
+  const mockUseResolvedComposable = useResolvedComposable as jest.Mock;
 
-    render(
-      <ControlsContextProvider {...contextValue}>
-        <PaginationControl />
-      </ControlsContextProvider>
+  beforeAll(() => {
+    mockUseResolvedComposable.mockImplementation(
+      (component: React.JSX.Element) => component
     );
+  });
+
+  afterEach(() => {
+    mockUsePagination.mockReset();
+    mockUseResolvedComposable.mockReset();
+  });
+
+  it('renders the PaginationControl', async () => {
+    mockUsePagination.mockReturnValue({
+      currentPage: 1,
+      disableNext: false,
+      disablePrevious: false,
+      handlePaginateNext: jest.fn(),
+      handlePaginatePrevious: jest.fn(),
+    });
+
+    render(<PaginationControl />);
 
     const nav = screen.getByLabelText('Pagination');
     const list = screen.getByRole('list');
