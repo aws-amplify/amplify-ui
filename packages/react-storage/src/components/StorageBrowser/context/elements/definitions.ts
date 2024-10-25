@@ -7,6 +7,7 @@ export interface StorageBrowserElements {
   DescriptionTerm: typeof DescriptionTermElement;
   DescriptionDetails: typeof DescriptionDetailsElement;
   Heading: typeof HeadingElement;
+  Heading3: typeof HeadingElement3;
   Icon: typeof IconElement;
   Input: typeof InputElement;
   Label: typeof LabelElement;
@@ -164,6 +165,13 @@ export const HeadingElement = defineBaseElement({
   displayName: 'Title',
 });
 
+export interface Heading3Element3Props
+  extends React.ComponentProps<typeof HeadingElement3> {}
+export const HeadingElement3 = defineBaseElement({
+  type: 'h3',
+  displayName: 'Heading',
+});
+
 export interface ProgressBarElementProps
   extends React.ComponentProps<typeof ProgressBarElement> {}
 export const ProgressBarElement = defineBaseElement({
@@ -204,7 +212,7 @@ export const ViewElement = defineBaseElement<'div', 'id' | 'role'>({
 
 export interface SpanElementProps
   extends React.ComponentProps<typeof SpanElement> {}
-export const SpanElement = defineBaseElement<'span', 'id'>({
+export const SpanElement = defineBaseElement<'span', 'id' | 'title'>({
   type: 'span',
   displayName: 'Span',
 });
@@ -215,6 +223,7 @@ export const StorageBrowserElements: StorageBrowserElements = {
   DescriptionTerm: DescriptionTermElement,
   DescriptionDetails: DescriptionDetailsElement,
   Heading: HeadingElement,
+  Heading3: HeadingElement3,
   Icon: IconElement,
   Input: InputElement,
   Label: LabelElement,

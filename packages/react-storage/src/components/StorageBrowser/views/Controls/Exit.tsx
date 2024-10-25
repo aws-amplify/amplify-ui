@@ -8,12 +8,19 @@ import { CLASS_BASE } from '../constants';
 const BLOCK_NAME = `${CLASS_BASE}__exit`;
 interface ExitControlProps {
   onClick?: () => void;
+  disabled?: boolean;
 }
 
 export const ExitControl = ({
   onClick,
+  disabled = false,
 }: ExitControlProps): React.JSX.Element => (
-  <ButtonElement className={BLOCK_NAME} variant="exit" onClick={onClick}>
+  <ButtonElement
+    className={BLOCK_NAME}
+    variant="exit"
+    onClick={onClick}
+    disabled={disabled}
+  >
     <IconElement className={`${BLOCK_NAME}__icon`} variant="exit" /> Back
   </ButtonElement>
 );

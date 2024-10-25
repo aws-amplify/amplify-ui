@@ -3,6 +3,7 @@ import React from 'react';
 import {
   IconElement,
   IconVariant,
+  SpanElement,
   ViewElement,
 } from '../../../context/elements';
 import { CLASS_BASE } from '../../../views/constants';
@@ -22,11 +23,11 @@ export const TextDataCell = ({
     <ViewElement className={`${CLASS_BASE}__table-text-data-cell`}>
       {icon && (
         <IconElement
-          className={`${CLASS_BASE}__table-text-data-cell-icon--${icon}`}
+          className={`${CLASS_BASE}__table-text-data-cell-icon ${CLASS_BASE}__table-text-data-cell-icon--${icon}`}
           variant={icon}
         />
       )}
-      {text}
+      <SpanElement title={text}>{text}</SpanElement>
     </ViewElement>
   );
 };

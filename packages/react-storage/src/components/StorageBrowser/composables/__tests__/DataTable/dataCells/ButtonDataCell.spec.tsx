@@ -32,6 +32,18 @@ describe('ButtonDataCell', () => {
     expect(svg).toBeInTheDocument();
   });
 
+  it('renders button with aria-label', () => {
+    const { container } = render(
+      <ButtonDataCell content={{ icon: 'cancel', ariaLabel: 'label' }} />
+    );
+
+    const buttonDataCell = screen.getByRole('button');
+    const svg = container.querySelector('svg');
+    expect(svg?.parentElement).toHaveTextContent('');
+    expect(svg).toBeInTheDocument();
+    expect(buttonDataCell).toHaveAttribute('aria-label', 'label');
+  });
+
   it('can be clicked', () => {
     const mockOnClick = jest.fn();
     render(
