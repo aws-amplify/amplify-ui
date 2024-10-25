@@ -6,7 +6,16 @@ import {
 } from '../actions/configs';
 import { createUseAction } from '../actions/createUseAction';
 import { StorageBrowserElements } from '../context/elements';
-import { Config } from '../createProvider';
+import { RegisterAuthListener } from '../providers';
+import { GetLocationCredentials, ListLocations } from '../storage-internal';
+
+interface Config {
+  accountId?: string;
+  getLocationCredentials: GetLocationCredentials;
+  listLocations: ListLocations;
+  registerAuthListener: RegisterAuthListener;
+  region: string;
+}
 
 interface CreateStorageBrowserInput<T extends ActionConfigs> {
   config: Config;
