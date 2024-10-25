@@ -1,7 +1,7 @@
 import { IconVariant } from '../../../context/elements';
 import { TaskStatus } from '../../../tasks';
 import { getTaskCounts } from '../../../controls/getTaskCounts';
-import { Task } from '../../../tasks';
+import { TaskCounts } from '../../../controls/types';
 
 export interface GetActionViewTaskStatuses {
   hasStarted: boolean;
@@ -27,10 +27,8 @@ export const getActionIconVariant = (status: TaskStatus): IconVariant => {
 };
 
 export const getActionViewTaskStatuses = (
-  tasks: Task[]
+  taskCounts: TaskCounts
 ): GetActionViewTaskStatuses => {
-  const taskCounts = getTaskCounts(tasks);
-
   const hasStarted = taskCounts.QUEUED < taskCounts.TOTAL;
   const hasCompleted =
     !!taskCounts.TOTAL &&

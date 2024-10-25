@@ -1,0 +1,424 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`getDeleteActionViewTableData should handle tasks with prefix keys 1`] = `
+[
+  {
+    "content": [
+      {
+        "content": {
+          "icon": "action-queued",
+          "text": "file1.txt",
+        },
+        "key": "key-folder/subfolder/file1.txt",
+        "type": "text",
+      },
+      {
+        "content": {
+          "text": "",
+        },
+        "key": "folder-folder/subfolder/file1.txt",
+        "type": "text",
+      },
+      {
+        "content": {
+          "text": "txt",
+        },
+        "key": "type-folder/subfolder/file1.txt",
+        "type": "text",
+      },
+      {
+        "content": {
+          "text": "1.0 kB",
+        },
+        "key": "size-folder/subfolder/file1.txt",
+        "type": "text",
+      },
+      {
+        "content": {
+          "text": "Queued",
+        },
+        "key": "status-folder/subfolder/file1.txt",
+        "type": "text",
+      },
+      {
+        "content": {
+          "ariaLabel": "Cancel item: folder/subfolder/file1.txt",
+          "disabled": false,
+          "icon": "cancel",
+          "onClick": [Function],
+        },
+        "key": "action-folder/subfolder/file1.txt",
+        "type": "button",
+      },
+    ],
+    "key": "folder/subfolder/file1.txt",
+  },
+  {
+    "content": [
+      {
+        "content": {
+          "icon": "action-success",
+          "text": "file2.jpg",
+        },
+        "key": "key-/root/file2.jpg",
+        "type": "text",
+      },
+      {
+        "content": {
+          "text": "",
+        },
+        "key": "folder-/root/file2.jpg",
+        "type": "text",
+      },
+      {
+        "content": {
+          "text": "jpg",
+        },
+        "key": "type-/root/file2.jpg",
+        "type": "text",
+      },
+      {
+        "content": {
+          "text": "1.0 kB",
+        },
+        "key": "size-/root/file2.jpg",
+        "type": "text",
+      },
+      {
+        "content": {
+          "text": "Completed",
+        },
+        "key": "status-/root/file2.jpg",
+        "type": "text",
+      },
+      {
+        "content": {
+          "ariaLabel": "Cancel item: /root/file2.jpg",
+          "disabled": true,
+          "icon": "cancel",
+          "onClick": [Function],
+        },
+        "key": "action-/root/file2.jpg",
+        "type": "button",
+      },
+    ],
+    "key": "/root/file2.jpg",
+  },
+]
+`;
+
+exports[`getDeleteActionViewTableData should have remove handler on queued files 1`] = `
+[
+  {
+    "content": [
+      {
+        "content": {
+          "icon": "action-queued",
+          "text": "file1.txt",
+        },
+        "key": "key-folder/subfolder/file1.txt",
+        "type": "text",
+      },
+      {
+        "content": {
+          "text": "folder/subfolder/",
+        },
+        "key": "folder-folder/subfolder/file1.txt",
+        "type": "text",
+      },
+      {
+        "content": {
+          "text": "txt",
+        },
+        "key": "type-folder/subfolder/file1.txt",
+        "type": "text",
+      },
+      {
+        "content": {
+          "text": "1.0 kB",
+        },
+        "key": "size-folder/subfolder/file1.txt",
+        "type": "text",
+      },
+      {
+        "content": {
+          "text": "Queued",
+        },
+        "key": "status-folder/subfolder/file1.txt",
+        "type": "text",
+      },
+      {
+        "content": {
+          "ariaLabel": "Cancel item: folder/subfolder/file1.txt",
+          "disabled": false,
+          "icon": "cancel",
+          "onClick": [Function],
+        },
+        "key": "action-folder/subfolder/file1.txt",
+        "type": "button",
+      },
+    ],
+    "key": "folder/subfolder/file1.txt",
+  },
+]
+`;
+
+exports[`getDeleteActionViewTableData should return correct table data for all task statuses: tabledata 1`] = `
+[
+  {
+    "content": [
+      {
+        "content": {
+          "icon": "action-queued",
+          "text": "file1.txt",
+        },
+        "key": "key-file1.txt",
+        "type": "text",
+      },
+      {
+        "content": {
+          "text": "",
+        },
+        "key": "folder-file1.txt",
+        "type": "text",
+      },
+      {
+        "content": {
+          "text": "txt",
+        },
+        "key": "type-file1.txt",
+        "type": "text",
+      },
+      {
+        "content": {
+          "text": "1.0 kB",
+        },
+        "key": "size-file1.txt",
+        "type": "text",
+      },
+      {
+        "content": {
+          "text": "Queued",
+        },
+        "key": "status-file1.txt",
+        "type": "text",
+      },
+      {
+        "content": {
+          "ariaLabel": "Cancel item: file1.txt",
+          "disabled": false,
+          "icon": "cancel",
+          "onClick": [Function],
+        },
+        "key": "action-file1.txt",
+        "type": "button",
+      },
+    ],
+    "key": "file1.txt",
+  },
+  {
+    "content": [
+      {
+        "content": {
+          "icon": "action-progress",
+          "text": "file2.jpg",
+        },
+        "key": "key-file2.jpg",
+        "type": "text",
+      },
+      {
+        "content": {
+          "text": "",
+        },
+        "key": "folder-file2.jpg",
+        "type": "text",
+      },
+      {
+        "content": {
+          "text": "jpg",
+        },
+        "key": "type-file2.jpg",
+        "type": "text",
+      },
+      {
+        "content": {
+          "text": "1.0 kB",
+        },
+        "key": "size-file2.jpg",
+        "type": "text",
+      },
+      {
+        "content": {
+          "text": "In Progress",
+        },
+        "key": "status-file2.jpg",
+        "type": "text",
+      },
+      {
+        "content": {
+          "ariaLabel": "Cancel item: file2.jpg",
+          "disabled": true,
+          "icon": "cancel",
+          "onClick": [Function],
+        },
+        "key": "action-file2.jpg",
+        "type": "button",
+      },
+    ],
+    "key": "file2.jpg",
+  },
+  {
+    "content": [
+      {
+        "content": {
+          "icon": "action-success",
+          "text": "file3.pdf",
+        },
+        "key": "key-file3.pdf",
+        "type": "text",
+      },
+      {
+        "content": {
+          "text": "",
+        },
+        "key": "folder-file3.pdf",
+        "type": "text",
+      },
+      {
+        "content": {
+          "text": "pdf",
+        },
+        "key": "type-file3.pdf",
+        "type": "text",
+      },
+      {
+        "content": {
+          "text": "1.0 kB",
+        },
+        "key": "size-file3.pdf",
+        "type": "text",
+      },
+      {
+        "content": {
+          "text": "Completed",
+        },
+        "key": "status-file3.pdf",
+        "type": "text",
+      },
+      {
+        "content": {
+          "ariaLabel": "Cancel item: file3.pdf",
+          "disabled": true,
+          "icon": "cancel",
+          "onClick": [Function],
+        },
+        "key": "action-file3.pdf",
+        "type": "button",
+      },
+    ],
+    "key": "file3.pdf",
+  },
+  {
+    "content": [
+      {
+        "content": {
+          "icon": "action-error",
+          "text": "file4.doc",
+        },
+        "key": "key-file4.doc",
+        "type": "text",
+      },
+      {
+        "content": {
+          "text": "",
+        },
+        "key": "folder-file4.doc",
+        "type": "text",
+      },
+      {
+        "content": {
+          "text": "doc",
+        },
+        "key": "type-file4.doc",
+        "type": "text",
+      },
+      {
+        "content": {
+          "text": "1.0 kB",
+        },
+        "key": "size-file4.doc",
+        "type": "text",
+      },
+      {
+        "content": {
+          "text": "Failed",
+        },
+        "key": "status-file4.doc",
+        "type": "text",
+      },
+      {
+        "content": {
+          "ariaLabel": "Cancel item: file4.doc",
+          "disabled": true,
+          "icon": "cancel",
+          "onClick": [Function],
+        },
+        "key": "action-file4.doc",
+        "type": "button",
+      },
+    ],
+    "key": "file4.doc",
+  },
+  {
+    "content": [
+      {
+        "content": {
+          "icon": "action-canceled",
+          "text": "file5",
+        },
+        "key": "key-file5",
+        "type": "text",
+      },
+      {
+        "content": {
+          "text": "",
+        },
+        "key": "folder-file5",
+        "type": "text",
+      },
+      {
+        "content": {
+          "text": "",
+        },
+        "key": "type-file5",
+        "type": "text",
+      },
+      {
+        "content": {
+          "text": "1.0 kB",
+        },
+        "key": "size-file5",
+        "type": "text",
+      },
+      {
+        "content": {
+          "text": "Canceled",
+        },
+        "key": "status-file5",
+        "type": "text",
+      },
+      {
+        "content": {
+          "ariaLabel": "Cancel item: file5",
+          "disabled": true,
+          "icon": "cancel",
+          "onClick": [Function],
+        },
+        "key": "action-file5",
+        "type": "button",
+      },
+    ],
+    "key": "file5",
+  },
+]
+`;

@@ -1,12 +1,9 @@
-import { getTaskCounts } from '../../../../controls/getTaskCounts';
 import {
   getActionIconVariant,
   getActionViewTaskStatuses,
   getFileTypeDisplayValue,
   getFilenameWithoutPrefix,
 } from '../utils';
-
-jest.mock('../../../../controls/getTaskCounts');
 
 describe('Utils', () => {
   describe('getActionIconVariant', () => {
@@ -20,20 +17,17 @@ describe('Utils', () => {
   });
 
   describe('getActionViewTaskStatuses', () => {
-    beforeEach(() => {
-      (getTaskCounts as jest.Mock).mockReset();
-    });
-
     it('should return correct statuses when no tasks have started', () => {
       const counts = {
+        INITIAL: 0,
         QUEUED: 5,
         PENDING: 0,
         FAILED: 0,
         COMPLETE: 0,
+        CANCELED: 0,
         TOTAL: 5,
       };
-      (getTaskCounts as jest.Mock).mockReturnValue(counts);
-      const result = getActionViewTaskStatuses([]);
+      const result = getActionViewTaskStatuses(counts);
       expect(result).toEqual({
         hasStarted: false,
         taskCounts: counts,
@@ -45,14 +39,15 @@ describe('Utils', () => {
 
     it('should return correct statuses when some tasks have started', () => {
       const counts = {
+        INITIAL: 0,
         QUEUED: 3,
         PENDING: 2,
         FAILED: 0,
         COMPLETE: 0,
+        CANCELED: 0,
         TOTAL: 5,
       };
-      (getTaskCounts as jest.Mock).mockReturnValue(counts);
-      const result = getActionViewTaskStatuses([]);
+      const result = getActionViewTaskStatuses(counts);
       expect(result).toEqual({
         hasStarted: true,
         taskCounts: counts,
@@ -64,14 +59,15 @@ describe('Utils', () => {
 
     it('should return correct statuses when all tasks have completed', () => {
       const counts = {
+        INITIAL: 0,
         QUEUED: 0,
+        PENDING: 0,
         FAILED: 1,
-        CANCELED: 1,
         COMPLETE: 3,
+        CANCELED: 1,
         TOTAL: 5,
       };
-      (getTaskCounts as jest.Mock).mockReturnValue(counts);
-      const result = getActionViewTaskStatuses([]);
+      const result = getActionViewTaskStatuses(counts);
       expect(result).toEqual({
         hasStarted: true,
         taskCounts: counts,

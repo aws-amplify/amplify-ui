@@ -8,7 +8,7 @@ import { DataTableProps } from '../../../composables/DataTable';
 import { deleteHandler } from '../../../actions/handlers';
 import { Task, useProcessTasks } from '../../../tasks';
 import { UseActionView } from './types';
-import { ControlsContext } from '../../../controls/types';
+import { ControlsContext, TaskCounts } from '../../../controls/types';
 import { WithKey } from '../../../components/types';
 import { DataTableRow } from '../../../composables/DataTable/DataTable';
 import { STATUS_DISPLAY_VALUES } from '../../LocationActionView/constants';
@@ -19,6 +19,7 @@ import {
   getFilenameWithoutPrefix,
   getFileTypeDisplayValue,
 } from './utils';
+import { getTaskCounts } from '../../../controls/getTaskCounts';
 
 interface UseDeleteActionView extends UseActionView {}
 
@@ -34,12 +35,14 @@ const LOCATION_ACTION_VIEW_HEADERS: DataTableProps['headers'] = [
 
 export const getDeleteActionViewTableData = ({
   tasks,
+  taskCounts,
   path,
 }: {
   tasks: Task[];
+  taskCounts: TaskCounts;
   path: string;
 }): DataTableProps => {
-  const { taskCounts, hasStarted } = getActionViewTaskStatuses(tasks);
+  const { hasStarted } = getActionViewTaskStatuses(taskCounts);
 
   const rows: DataTableProps['rows'] = tasks.map((item) => {
     const row: WithKey<DataTableRow> = {
@@ -105,6 +108,7 @@ export const getDeleteActionViewTableData = ({
                       icon: 'cancel',
                       ariaLabel: `Cancel item: ${item.key}`,
                       onClick: () => item.cancel?.(),
+                      disabled: item.status !== 'QUEUED',
                     },
                   }
                 : {
@@ -184,9 +188,15 @@ export const UseDeleteActionView = (): UseDeleteActionView => {
     processTasksInputItems
   );
 
-  const { disableCancel, disableClose, disablePrimary, taskCounts } =
-    getActionViewTaskStatuses(tasks);
-  const tableData = getDeleteActionViewTableData({ tasks, path: path ?? '' });
+  const taskCounts = getTaskCounts(tasks);
+  const { disableCancel, disableClose, disablePrimary } =
+    getActionViewTaskStatuses(taskCounts);
+
+  const tableData = getDeleteActionViewTableData({
+    tasks,
+    taskCounts,
+    path: path ?? '',
+  });
 
   const contextValue: ControlsContext = {
     data: { taskCounts, tableData },
