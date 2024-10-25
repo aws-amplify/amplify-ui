@@ -109,7 +109,7 @@ export const LivenessCameraModule = (
 
   const isFaceMovementChallenge =
     useLivenessSelector(selectChallengeType) === FACE_MOVEMENT_CHALLENGE.type;
-
+  // test comment
   const videoStream = useLivenessSelector(selectVideoStream);
   const videoConstraints = useLivenessSelector(selectVideoConstraints);
   const selectedDeviceId = useLivenessSelector(selectSelectedDeviceId);
