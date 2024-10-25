@@ -1,15 +1,12 @@
-import { DataTable } from './DataTable';
-import { StatusDisplay } from './StatusDisplay';
-import { DataRefresh } from './DataRefresh';
-
-const composables = {
-  DataTable,
-  StatusDisplay,
-  DataRefresh,
-};
-
-export type ComposableTypes = typeof composables;
-
+import { DataTableProps } from './DataTable';
+import { StatusDisplayProps } from './StatusDisplay';
+import { DataRefreshProps } from './DataRefresh';
 export interface Composables {
-  composables?: ComposableTypes;
+  DataTable: React.ComponentType<DataTableProps>;
+  StatusDisplay: React.ComponentType<StatusDisplayProps>;
+  DataRefresh: React.ComponentType<DataRefreshProps>;
+}
+
+export interface ComposablesContext {
+  composables?: Composables;
 }

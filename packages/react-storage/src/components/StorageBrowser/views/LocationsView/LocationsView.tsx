@@ -2,18 +2,20 @@ import React from 'react';
 
 import { CLASS_BASE } from '../constants';
 import { Controls } from '../Controls';
-import { useLocationsData } from '../../context/actions';
+import { useLocationsData } from '../../do-not-import-from-here/actions';
 
 import { usePaginate } from '../hooks/usePaginate';
 import { listViewHelpers, resolveClassName } from '../utils';
 
 import { DataTableControl } from './Controls/DataTable';
+import { LocationData } from '../../actions';
 import { ControlsContextProvider } from '../../controls/context';
 import { ControlsContext } from '../../controls/types';
 import { DataRefreshControl } from '../../controls/DataRefreshControl';
 
 export interface LocationsViewProps {
   className?: (defaultClassName: string) => string;
+  onNavigate?: (destination: LocationData) => void;
 }
 
 const DEFAULT_PAGE_SIZE = 100;
@@ -55,6 +57,7 @@ const LocationsEmptyMessage = () => {
 
 export function LocationsView({
   className,
+  onNavigate,
 }: LocationsViewProps): React.JSX.Element {
   const [{ data, isLoading, hasError }, handleList] = useLocationsData();
 
@@ -129,7 +132,7 @@ export function LocationsView({
         />
         <LocationsMessage />
         <Loading />
-        <DataTableControl range={range} />
+        <DataTableControl onNavigate={onNavigate} range={range} />
         <LocationsEmptyMessage />
       </div>
     </ControlsContextProvider>
