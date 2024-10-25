@@ -25,14 +25,12 @@ describe('StatusDisplayControl', () => {
 
   it('renders', () => {
     mockUseStatusDisplay.mockReturnValue({
-      props: {
-        statuses: [
-          { name: 'foo', count: 1 },
-          { name: 'bar', count: 2 },
-          { name: 'qux', count: 3 },
-        ],
-        total: 6,
-      },
+      statuses: [
+        { name: 'foo', count: 1 },
+        { name: 'bar', count: 2 },
+        { name: 'qux', count: 3 },
+      ],
+      total: 6,
     });
 
     render(<StatusDisplayControl />);

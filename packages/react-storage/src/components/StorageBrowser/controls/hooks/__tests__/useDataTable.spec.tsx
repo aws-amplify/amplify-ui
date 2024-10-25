@@ -73,7 +73,7 @@ describe('useDataTable', () => {
 
     const { result } = renderHook(() => useDataTable());
 
-    expect(result.current.props).toStrictEqual({
+    expect(result.current).toStrictEqual({
       headers: [
         { key: 'header-1', ...checkboxHeader },
         {
@@ -108,7 +108,7 @@ describe('useDataTable', () => {
 
     const { result } = renderHook(() => useDataTable());
 
-    expect(result.current).toStrictEqual({});
+    expect(result.current).toBeNull();
   });
 
   it('handles data with no sortable columns', () => {
@@ -128,7 +128,7 @@ describe('useDataTable', () => {
 
     const { result } = renderHook(() => useDataTable());
 
-    expect(result.current.props).toStrictEqual({
+    expect(result.current).toStrictEqual({
       headers: [expect.objectContaining({ key: 'header-1' })],
       rows: [expect.objectContaining({ key: 'row-1' })],
     });
@@ -159,7 +159,7 @@ describe('useDataTable', () => {
 
     const { result } = renderHook(() => useDataTable());
 
-    expect(result.current.props).toStrictEqual(
+    expect(result.current).toStrictEqual(
       expect.objectContaining({
         headers: [
           expect.objectContaining({ key: 'header-1' }),
@@ -214,7 +214,7 @@ describe('useDataTable', () => {
     mockCompareNumberData.mockReturnValue(1);
 
     const { result } = renderHook(() => useDataTable());
-    expect(result.current.props).toStrictEqual(
+    expect(result.current).toStrictEqual(
       expect.objectContaining({
         rows: [
           expect.objectContaining({ key: 'row-1' }),
@@ -224,11 +224,11 @@ describe('useDataTable', () => {
     );
 
     act(() => {
-      const [, sortDateData] = result.current.props!.headers;
+      const [, sortDateData] = result.current!.headers;
       (sortDateData as DataTableSortHeader).content.onSort!();
     });
 
-    expect(result.current.props).toStrictEqual(
+    expect(result.current).toStrictEqual(
       expect.objectContaining({
         rows: [
           expect.objectContaining({ key: 'row-2' }),
@@ -238,11 +238,11 @@ describe('useDataTable', () => {
     );
 
     act(() => {
-      const [, , sortNumberData] = result.current.props!.headers;
+      const [, , sortNumberData] = result.current!.headers;
       (sortNumberData as DataTableSortHeader).content.onSort!();
     });
 
-    expect(result.current.props).toStrictEqual(
+    expect(result.current).toStrictEqual(
       expect.objectContaining({
         rows: [
           expect.objectContaining({ key: 'row-1' }),
@@ -278,7 +278,7 @@ describe('useDataTable', () => {
     mockCompareButtonData.mockReturnValue(-1);
 
     const { result } = renderHook(() => useDataTable());
-    expect(result.current.props).toStrictEqual(
+    expect(result.current).toStrictEqual(
       expect.objectContaining({
         rows: [
           expect.objectContaining({ key: 'row-2' }),
@@ -313,7 +313,7 @@ describe('useDataTable', () => {
     mockCompareDateData.mockReturnValue(-1);
 
     const { result } = renderHook(() => useDataTable());
-    expect(result.current.props).toStrictEqual(
+    expect(result.current).toStrictEqual(
       expect.objectContaining({
         rows: [
           expect.objectContaining({ key: 'row-2' }),
@@ -348,7 +348,7 @@ describe('useDataTable', () => {
     mockCompareNumberData.mockReturnValue(-1);
 
     const { result } = renderHook(() => useDataTable());
-    expect(result.current.props).toStrictEqual(
+    expect(result.current).toStrictEqual(
       expect.objectContaining({
         rows: [
           expect.objectContaining({ key: 'row-2' }),
@@ -383,7 +383,7 @@ describe('useDataTable', () => {
     mockCompareTextData.mockReturnValue(-1);
 
     const { result } = renderHook(() => useDataTable());
-    expect(result.current.props).toStrictEqual(
+    expect(result.current).toStrictEqual(
       expect.objectContaining({
         rows: [
           expect.objectContaining({ key: 'row-2' }),
@@ -417,7 +417,7 @@ describe('useDataTable', () => {
     });
 
     const { result } = renderHook(() => useDataTable());
-    expect(result.current.props).toStrictEqual(
+    expect(result.current).toStrictEqual(
       expect.objectContaining({
         rows: [
           expect.objectContaining({ key: 'row-1' }),
@@ -491,7 +491,7 @@ describe('useDataTable', () => {
     mockCompareTextData.mockReturnValue(-1);
 
     const { result } = renderHook(() => useDataTable());
-    expect(result.current.props).toStrictEqual(
+    expect(result.current).toStrictEqual(
       expect.objectContaining({
         rows: [
           expect.objectContaining({ key: 'checkbox-row-1' }),
@@ -514,11 +514,11 @@ describe('useDataTable', () => {
     mockCompareTextData.mockReturnValue(1);
 
     act(() => {
-      const [sortData] = result.current.props!.headers;
+      const [sortData] = result.current!.headers;
       (sortData as DataTableSortHeader).content.onSort!();
     });
 
-    expect(result.current.props).toStrictEqual(
+    expect(result.current).toStrictEqual(
       expect.objectContaining({
         rows: [
           expect.objectContaining({ key: 'text-row-1' }),

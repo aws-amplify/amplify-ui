@@ -31,22 +31,20 @@ describe('useStatusDisplay', () => {
     mockUseControlsContext.mockReturnValue({ data, actionsConfig });
 
     expect(useStatusDisplay()).toStrictEqual({
-      props: {
-        statuses: [
-          expect.objectContaining({ count: 4 }),
-          expect.objectContaining({ count: 3 }),
-          expect.objectContaining({ count: 2 }),
-          expect.objectContaining({ count: 1 }),
-        ],
-        total: 10,
-      },
+      statuses: [
+        expect.objectContaining({ count: 4 }),
+        expect.objectContaining({ count: 3 }),
+        expect.objectContaining({ count: 2 }),
+        expect.objectContaining({ count: 1 }),
+      ],
+      total: 10,
     });
   });
 
   it('returns empty object if taskCounts is undefined', () => {
     mockUseControlsContext.mockReturnValue({ data: {}, actionsConfig });
 
-    expect(useStatusDisplay()).toStrictEqual({});
+    expect(useStatusDisplay()).toBeNull();
   });
 
   it('returns empty object if taksCount total is 0', () => {
@@ -65,7 +63,7 @@ describe('useStatusDisplay', () => {
       actionsConfig,
     });
 
-    expect(useStatusDisplay()).toStrictEqual({});
+    expect(useStatusDisplay()).toBeNull();
   });
 
   it('returns empty object if not a batch action', () => {
@@ -77,7 +75,7 @@ describe('useStatusDisplay', () => {
       },
     });
 
-    expect(useStatusDisplay()).toStrictEqual({});
+    expect(useStatusDisplay()).toBeNull();
   });
 
   it('omits canceled status if action is not cancelable', () => {
@@ -100,14 +98,12 @@ describe('useStatusDisplay', () => {
     });
 
     expect(useStatusDisplay()).toStrictEqual({
-      props: {
-        statuses: [
-          expect.objectContaining({ count: 4 }),
-          expect.objectContaining({ count: 3 }),
-          expect.objectContaining({ count: 1 }),
-        ],
-        total: 8,
-      },
+      statuses: [
+        expect.objectContaining({ count: 4 }),
+        expect.objectContaining({ count: 3 }),
+        expect.objectContaining({ count: 1 }),
+      ],
+      total: 8,
     });
   });
 });

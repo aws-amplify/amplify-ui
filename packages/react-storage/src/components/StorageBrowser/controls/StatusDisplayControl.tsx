@@ -9,7 +9,7 @@ import { useStatusDisplay } from './hooks/useStatusDisplay';
 export const StatusDisplayControl = ({
   className,
 }: ControlProps): React.JSX.Element | null => {
-  const { props } = useStatusDisplay();
+  const props = useStatusDisplay();
 
   const ResolvedStatusDisplay = useResolvedComposable(
     StatusDisplay,

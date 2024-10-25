@@ -1,11 +1,11 @@
 import React from 'react';
 
 import { useComposables } from '../../composables/context';
-import { ComposableTypes } from '../../composables/types';
+import { Composables } from '../../composables/types';
 
 export function useResolvedComposable<
   T extends React.ComponentType<any>,
-  K extends keyof ComposableTypes,
+  K extends keyof Composables,
 >(
   DefaultComposable: T,
   name: K
