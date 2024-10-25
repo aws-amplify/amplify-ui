@@ -291,16 +291,14 @@ export const LivenessCameraModule = (
           audio: false,
         });
         // Only update the stream and draw oval once metadata is loaded
-        if (isMetadataLoaded) {
-          send({
-            type: 'UPDATE_DEVICE_AND_STREAM',
-            data: { newDeviceId, newStream },
-          });
-        }
+        send({
+          type: 'UPDATE_DEVICE_AND_STREAM',
+          data: { newDeviceId, newStream },
+        });
       };
       changeCamera();
     },
-    [isMetadataLoaded, videoConstraints, send]
+    [videoConstraints, send]
   );
 
   if (isCheckingCamera) {

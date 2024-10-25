@@ -263,7 +263,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         },
       },
       start: {
-        entry: ['drawStaticOval', 'initializeFaceDetector'],
+        entry: ['initializeFaceDetector'],
         always: [
           {
             target: 'detectFaceBeforeStart',
