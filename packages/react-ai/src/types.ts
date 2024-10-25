@@ -78,3 +78,34 @@ export interface GraphQLFormattedError {
     [key: string]: unknown;
   };
 }
+
+type JSONType =
+  | 'string'
+  | 'number'
+  | 'integer'
+  | 'boolean'
+  | 'object'
+  | 'array'
+  | 'null'
+  | 'any';
+
+interface ResponseComponentProp {
+  type: JSONType;
+  enum?: string[];
+  description?: string;
+  required?: boolean;
+}
+
+interface ResponseComponentPropMap {
+  [key: string]: ResponseComponentProp;
+}
+
+export interface ResponseComponent {
+  component: React.ComponentType<any>;
+  description?: string;
+  props: ResponseComponentPropMap;
+}
+
+export interface ResponseComponents {
+  [key: string]: ResponseComponent;
+}

@@ -7,9 +7,9 @@ import '@aws-amplify/ui-react/styles.css';
 import '@aws-amplify/ui-react-ai/ai-conversation-styles.css';
 import { GlobalStyle } from '@aws-amplify/ui-react/server';
 
-import outputs from '../amplify_outputs';
+import outputs from './amplify_outputs';
 import type { Schema } from '@environments/ai/gen2/amplify/data/resource';
-import { Authenticator, Button, Card, Flex } from '@aws-amplify/ui-react';
+import { Authenticator, Button, Card } from '@aws-amplify/ui-react';
 import { useRouter } from 'next/router';
 
 const client = generateClient<Schema>({ authMode: 'userPool' });
@@ -17,64 +17,69 @@ const { useAIConversation } = createAIHooks(client);
 
 Amplify.configure(outputs);
 
-// const responseComponents = {
-//   WeatherCard: {
-//     description: 'Used to display the weather in a city',
-//     component: ({ city }) => {
-//       return (
-//         <Card variation="outlined">
-//           <h3>Weather Card {city}</h3>
-//         </Card>
-//       );
-//     },
-//     props: {
-//       city: {
-//         type: 'string',
-//         description: 'The city to get the weather for',
-//       },
-//     },
-//   },
-// } as const;
+const AIContext = React.createContext<any>(undefined);
+
+const responseComponents = {
+  WeatherCard: {
+    description: 'Used to display the weather in a city',
+    component: ({ city }) => {
+      const aiContext = React.useContext(AIContext);
+      aiContext.setAIContext({
+        temperature: 72,
+        city,
+        weather: 'sunny',
+      });
+      return (
+        <Card variation="outlined">
+          <h3>Weather Card {city}</h3>
+        </Card>
+      );
+    },
+    props: {
+      city: {
+        type: 'string',
+        description: 'The city to get the weather for',
+      },
+    },
+  },
+} as const;
 
 function Chat({ id }: { id?: string }) {
+  const aiContext = React.useContext(AIContext);
   const [
     {
       data: { messages },
       isLoading,
     },
     sendMessage,
-  ] = useAIConversation('pirateChat', {
+  ] = useAIConversation('chat', {
     id,
   });
+
+  console.log(aiContext);
 
   return (
     <AIConversation
       messages={messages}
       isLoading={isLoading}
-      handleSendMessage={sendMessage}
+      handleSendMessage={(message) => {
+        sendMessage({
+          ...message,
+          aiContext: aiContext.aiContext,
+        });
+      }}
       messageRenderer={{
         text: (message) => <ReactMarkdown>{message}</ReactMarkdown>,
       }}
+      responseComponents={responseComponents}
     />
   );
 }
 
-// function Chat() {
-//   return null;
-// }
-
 export default function Example() {
   const router = useRouter();
   const [shown, setShown] = React.useState(true);
-  const [
-    {
-      data: { messages },
-      isLoading,
-    },
-    sendMessage,
-  ] = useAIConversation('pirateChat', {
-    id: `${router.query.id}`,
-  });
+  const [aiContext, setAIContext] = React.useState<any>(undefined);
 
   return (
     <Authenticator>
@@ -85,30 +90,13 @@ export default function Example() {
       >
         Toggle
       </Button>
-      {shown ? (
-        <Flex direction="row">
+      <AIContext.Provider value={{ aiContext, setAIContext }}>
+        {shown ? (
           <Card variation="outlined" height="400px" margin="large">
-            <AIConversation
-              messages={messages}
-              isLoading={isLoading}
-              handleSendMessage={sendMessage}
-              messageRenderer={{
-                text: (message) => <ReactMarkdown>{message}</ReactMarkdown>,
-              }}
-            />
+            <Chat id={`${router.query.id}`} />
           </Card>
-          <Card variation="outlined" height="400px" margin="large">
-            <AIConversation
-              messages={messages}
-              isLoading={isLoading}
-              handleSendMessage={sendMessage}
-              messageRenderer={{
-                text: (message) => <ReactMarkdown>{message}</ReactMarkdown>,
-              }}
-            />
-          </Card>
-        </Flex>
-      ) : null}
+        ) : null}
+      </AIContext.Provider>
       <GlobalStyle
         styles={{
           code: {
