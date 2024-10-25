@@ -21,9 +21,11 @@ export type ConversationMessage = NonNullable<
 
 export type ConversationMessageContent = ConversationMessage['content'][number];
 
-export type TextContent = NonNullable<ConversationMessageContent['text']>;
+export type TextContentBlock = NonNullable<ConversationMessageContent['text']>;
 
-export type ImageContent = NonNullable<ConversationMessageContent['image']>;
+export type ImageContentBlock = NonNullable<
+  ConversationMessageContent['image']
+>;
 
 export type ToolUseContent = NonNullable<ConversationMessageContent['toolUse']>;
 
@@ -75,4 +77,35 @@ export interface GraphQLFormattedError {
   readonly errorInfo: null | {
     [key: string]: unknown;
   };
+}
+
+type JSONType =
+  | 'string'
+  | 'number'
+  | 'integer'
+  | 'boolean'
+  | 'object'
+  | 'array'
+  | 'null'
+  | 'any';
+
+interface ResponseComponentProp {
+  type: JSONType;
+  enum?: string[];
+  description?: string;
+  required?: boolean;
+}
+
+interface ResponseComponentPropMap {
+  [key: string]: ResponseComponentProp;
+}
+
+export interface ResponseComponent {
+  component: React.ComponentType<any>;
+  description?: string;
+  props: ResponseComponentPropMap;
+}
+
+export interface ResponseComponents {
+  [key: string]: ResponseComponent;
 }

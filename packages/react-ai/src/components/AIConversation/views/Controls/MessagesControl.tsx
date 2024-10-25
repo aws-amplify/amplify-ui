@@ -62,8 +62,30 @@ const ContentContainer: typeof View = React.forwardRef(
   }
 );
 
-export const MessageControl: MessageControl = ({ message }) => {
+const ToolContent = ({
+  toolUse,
+}: {
+  toolUse: NonNullable<ConversationMessage['content'][number]['toolUse']>;
+}) => {
   const responseComponents = React.useContext(ResponseComponentsContext);
+
+  // For now tool use is limited to custom response components
+  const { name, input } = toolUse;
+
+  if (
+    !responseComponents ||
+    !name ||
+    !name.startsWith(RESPONSE_COMPONENT_PREFIX)
+  ) {
+    return;
+  } else {
+    const response = responseComponents[name];
+    const CustomComponent = response.component;
+    return <CustomComponent {...(input as object)} />;
+  }
+};
+
+export const MessageControl: MessageControl = ({ message }) => {
   const messageRenderer = React.useContext(MessageRendererContext);
 
   return (
@@ -72,7 +94,7 @@ export const MessageControl: MessageControl = ({ message }) => {
         if (content.text) {
           return messageRenderer?.text ? (
             <React.Fragment key={index}>
-              {messageRenderer?.text(content.text)}
+              {messageRenderer.text({ text: content.text })}
             </React.Fragment>
           ) : (
             <TextContent data-testid={'text-content'} key={index}>
@@ -80,7 +102,11 @@ export const MessageControl: MessageControl = ({ message }) => {
             </TextContent>
           );
         } else if (content.image) {
-          return (
+          return messageRenderer?.image ? (
+            <React.Fragment key={index}>
+              {messageRenderer?.image({ image: content.image })}
+            </React.Fragment>
+          ) : (
             <MediaContent
               data-testid={'image-content'}
               key={index}
@@ -88,22 +114,10 @@ export const MessageControl: MessageControl = ({ message }) => {
                 content.image?.source.bytes,
                 content.image?.format
               )}
-            ></MediaContent>
+            />
           );
         } else if (content.toolUse) {
-          // For now tool use is limited to custom response components
-          const { name, input } = content.toolUse;
-          if (
-            !responseComponents ||
-            !name ||
-            !name.startsWith(RESPONSE_COMPONENT_PREFIX)
-          ) {
-            return;
-          } else {
-            const response = responseComponents[name];
-            const CustomComponent = response.component;
-            return <CustomComponent {...(input as object)} key={index} />;
-          }
+          return <ToolContent toolUse={content.toolUse} key={index} />;
         }
       })}
     </ContentContainer>
@@ -171,7 +185,7 @@ const Layout: typeof View = React.forwardRef(function Layout(props, ref) {
   );
 });
 
-export const MessagesControl: MessagesControl = ({ renderMessage }) => {
+export const MessagesControl: MessagesControl = () => {
   const messages = React.useContext(MessagesContext);
   const controls = React.useContext(ControlsContext);
   const { getMessageTimestampText } = useConversationDisplayText();
@@ -233,9 +247,7 @@ export const MessagesControl: MessagesControl = ({ renderMessage }) => {
   return (
     <Layout>
       {messagesWithRenderableContent?.map((message, index) => {
-        return renderMessage ? (
-          renderMessage(message)
-        ) : (
+        return (
           <RoleContext.Provider value={message.role} key={`message-${index}`}>
             <MessageContainer
               data-testid={`message`}
@@ -276,9 +288,7 @@ MessagesControl.Message = MessageControl;
 MessagesControl.Separator = Separator;
 
 export interface MessagesControl {
-  (props: {
-    renderMessage?: (message: ConversationMessage) => React.ReactNode;
-  }): JSX.Element;
+  (): JSX.Element;
   ActionsBar: ActionsBarControl;
   Avatar: AvatarControl;
   Container: AIConversationElements['View'];
