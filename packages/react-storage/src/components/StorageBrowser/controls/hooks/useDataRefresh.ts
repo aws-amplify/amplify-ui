@@ -4,8 +4,8 @@ import { useControlsContext } from '../../controls/context';
 export const useDataRefresh = (): DataRefreshProps => {
   const {
     data: { isDataRefreshDisabled },
-    onDataRefresh,
+    onRefresh,
   } = useControlsContext();
 
-  return { isDisabled: isDataRefreshDisabled, onRefresh: onDataRefresh };
+  return { isDisabled: isDataRefreshDisabled, onRefresh };
 };

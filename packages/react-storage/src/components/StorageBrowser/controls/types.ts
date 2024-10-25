@@ -44,5 +44,5 @@ export interface ControlsContext {
       | 'LIST_LOCATION_ITEMS';
     isCancelable?: boolean;
   };
-  onDataRefresh?: () => void;
+  onRefresh?: () => void;
 }

@@ -150,7 +150,7 @@ export const LocationDetailViewControls = ({
     data: {
       isDataRefreshDisabled: disableRefresh,
     },
-    onDataRefresh: handleRefresh,
+    onRefresh: handleRefresh,
   };
 
   return (

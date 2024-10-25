@@ -99,7 +99,7 @@ export function LocationsView({
     data: {
       isDataRefreshDisabled: disableRefresh,
     },
-    onDataRefresh: () => {
+    onRefresh: () => {
       handleReset();
       handleList({
         options: { ...DEFAULT_LIST_OPTIONS, refresh: true },
