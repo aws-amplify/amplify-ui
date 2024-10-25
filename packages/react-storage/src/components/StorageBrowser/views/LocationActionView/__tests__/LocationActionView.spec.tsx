@@ -1,140 +1,84 @@
 import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render } from '@testing-library/react';
 
-import * as ControlsModule from '../../../context/control';
-import createProvider from '../../../createProvider';
+import * as StoreModule from '../../../providers/store';
 
 import { LocationActionView } from '../LocationActionView';
 
-const TEST_ACTIONS = {
-  CREATE_FOLDER: { options: { displayName: 'Create Folder' } },
-  DELETE_FILE: { options: { displayName: 'Delete file' } },
-};
+jest.mock('../CreateFolderControls', () => ({
+  CreateFolderControls: () => <div data-testid="CREATE_FOLDER_CONTROLS" />,
+}));
 
-const useControlSpy = jest.spyOn(ControlsModule, 'useControl');
+jest.mock('../UploadControls', () => ({
+  UploadControls: () => <div data-testid="UPLOAD_CONTROLS" />,
+}));
 
-const config = {
-  getLocationCredentials: jest.fn(),
-  listLocations: jest.fn(),
-  region: 'region',
-  registerAuthListener: jest.fn(),
-};
-const Provider = createProvider({ actions: TEST_ACTIONS, config });
+jest.mock('../DeleteFileControls', () => ({
+  DeleteFileControls: () => <div data-testid="DELETE_FILE_CONTROLS" />,
+}));
+
+const useStoreSpy = jest.spyOn(StoreModule, 'useStore');
 
 describe('LocationActionView', () => {
-  it('defaults to UploadControls', async () => {
-    useControlSpy.mockImplementation(
-      (type) =>
-        ({
-          LOCATION_ACTIONS: [
-            {
-              actions: TEST_ACTIONS,
-              selected: { type: undefined, items: undefined },
-            },
-            jest.fn(),
-          ],
-          NAVIGATE: [
-            {
-              location: {
-                scope: 's3://test-bucket/test-prefix/*',
-                permission: 'READ',
-                type: 'PREFIX',
-              },
-              history: [{ prefix: 'test-prefix/', position: 0 }],
-              path: 'test-prefix/',
-            },
-            jest.fn(),
-          ],
-        })[type]
-    );
+  it('returns `null` when no `actionType` is provided', () => {
+    const mockStore = { actionType: undefined } as StoreModule.UseStoreState;
+    useStoreSpy.mockReturnValueOnce([mockStore, jest.fn()]);
 
-    await waitFor(() => {
-      render(
-        <Provider>
-          <LocationActionView />
-        </Provider>
-      );
-    });
+    const { container } = render(<LocationActionView />);
 
-    expect(screen.getByTestId('LOCATION_ACTION_VIEW')).toBeInTheDocument();
-    expect(screen.queryByText('Add files')).toBeInTheDocument();
+    expect(container).toBeEmptyDOMElement();
   });
 
-  it('renders DeleteFileControls', async () => {
-    useControlSpy.mockImplementation(
-      (type) =>
-        ({
-          LOCATION_ACTIONS: [
-            {
-              actions: {
-                DELETE_FILE: { options: { displayName: 'Delete File' } },
-              },
-              selected: { type: 'DELETE_FILE', items: undefined },
-            },
-            jest.fn(),
-          ],
-          NAVIGATE: [
-            {
-              location: {
-                scope: 's3://test-bucket/test-prefix/*',
-                permission: 'READ',
-                type: 'PREFIX',
-              },
-              history: [{ prefix: 'test-prefix/', position: 0 }],
-              path: 'test-prefix/',
-            },
-            jest.fn(),
-          ],
-        })[type]
-    );
+  it('returns `null` when `actionType` does not have a matching action view', () => {
+    const mockStore = { actionType: 'nope' } as StoreModule.UseStoreState;
+    useStoreSpy.mockReturnValueOnce([mockStore, jest.fn()]);
 
-    await waitFor(() => {
-      render(
-        <Provider>
-          <LocationActionView />
-        </Provider>
-      );
-    });
+    const { container } = render(<LocationActionView />);
 
-    expect(screen.queryByText('Selected files')).toBeInTheDocument();
+    expect(container).toBeEmptyDOMElement();
   });
 
-  it('renders CreateFolderControls', async () => {
-    useControlSpy.mockImplementation(
-      (type) =>
-        ({
-          LOCATION_ACTIONS: [
-            {
-              actions: {
-                CREATE_FOLDER: { options: { displayName: 'Create folder' } },
-              },
-              selected: { type: 'CREATE_FOLDER', items: undefined },
-            },
-            jest.fn(),
-          ],
-          NAVIGATE: [
-            {
-              location: {
-                scope: 's3://test-bucket/test-prefix/*',
-                permission: 'READ',
-                type: 'PREFIX',
-              },
-              history: [{ prefix: 'test-prefix/', position: 0 }],
-              path: 'test-prefix/',
-            },
-            jest.fn(),
-          ],
-        })[type]
-    );
+  it('returns `CreateFolderControls` when `actionType` is "CREATE_FOLDER"', () => {
+    const mockStore = {
+      actionType: 'CREATE_FOLDER',
+    } as StoreModule.UseStoreState;
+    useStoreSpy.mockReturnValueOnce([mockStore, jest.fn()]);
 
-    await waitFor(() => {
-      render(
-        <Provider>
-          <LocationActionView />
-        </Provider>
-      );
-    });
+    const { getByTestId } = render(<LocationActionView />);
 
-    expect(screen.queryByLabelText('Enter folder name:')).toBeInTheDocument();
+    expect(getByTestId('CREATE_FOLDER_CONTROLS')).toBeInTheDocument();
+  });
+
+  it('returns `DeleteFileControls` when `actionType` is "DELETE_FILES"', () => {
+    const mockStore = {
+      actionType: 'DELETE_FILES',
+    } as StoreModule.UseStoreState;
+    useStoreSpy.mockReturnValueOnce([mockStore, jest.fn()]);
+
+    const { getByTestId } = render(<LocationActionView />);
+
+    expect(getByTestId('DELETE_FILE_CONTROLS')).toBeInTheDocument();
+  });
+
+  it('returns `UploadControls` when `actionType` is "UPLOAD_FILES"', () => {
+    const mockStore = {
+      actionType: 'UPLOAD_FILES',
+    } as StoreModule.UseStoreState;
+    useStoreSpy.mockReturnValueOnce([mockStore, jest.fn()]);
+
+    const { getByTestId } = render(<LocationActionView />);
+
+    expect(getByTestId('UPLOAD_CONTROLS')).toBeInTheDocument();
+  });
+
+  it('returns `UploadControls` when `actionType` is "UPLOAD_FOLDER"', () => {
+    const mockStore = {
+      actionType: 'UPLOAD_FOLDER',
+    } as StoreModule.UseStoreState;
+    useStoreSpy.mockReturnValueOnce([mockStore, jest.fn()]);
+
+    const { getByTestId } = render(<LocationActionView />);
+
+    expect(getByTestId('UPLOAD_CONTROLS')).toBeInTheDocument();
   });
 });

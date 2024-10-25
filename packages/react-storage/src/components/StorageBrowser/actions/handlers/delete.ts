@@ -22,7 +22,7 @@ export interface DeleteHandler
 
 export const deleteHandler: DeleteHandler = ({
   config,
-  data: { key },
+  key,
   prefix,
   options,
 }): DeleteHandlerOutput => {

@@ -1,122 +1,66 @@
 import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render } from '@testing-library/react';
 
-import * as ActionsModule from '../context/actions';
-import * as ControlsModule from '../context/control';
-import { ViewsProvider } from '../views/context';
+import * as StoreModule from '../providers/store';
+import * as ViewsModule from '../views/context';
 import { StorageBrowserDefault } from '../StorageBrowserDefault';
 
-jest.spyOn(ActionsModule, 'useLocationsData').mockReturnValue([
-  {
-    isLoading: false,
-    data: { result: [], nextToken: undefined },
-    hasError: false,
-    message: undefined,
-  },
-  jest.fn(),
-]);
+jest.spyOn(ViewsModule, 'useViews').mockReturnValue({
+  LocationsView: () => <div data-testid="LOCATIONS_VIEW" />,
+  LocationDetailView: () => <div data-testid="LOCATION_DETAIL_VIEW" />,
+  LocationActionView: () => <div data-testid="LOCATION_ACTION_VIEW" />,
+});
 
-jest.spyOn(ActionsModule, 'useAction').mockReturnValue([
-  {
-    data: { result: [], nextToken: undefined },
-    hasError: false,
-    isLoading: false,
-    message: undefined,
-  },
-  jest.fn(),
-]);
+const useStoreSpy = jest.spyOn(StoreModule, 'useStore');
 
-const INITIAL_NAVIGATE_STATE = [
-  { location: undefined, history: [], path: undefined },
-  jest.fn(),
-];
-const INITIAL_LOCATION_ACTIONS_STATE = [
-  { selected: { type: undefined, items: undefined }, actions: {} },
-  jest.fn(),
-];
-
-const useControlSpy = jest.spyOn(ControlsModule, 'useControl');
-
-const WrappedStorageBrowser = () => (
-  <ViewsProvider>
-    <StorageBrowserDefault />
-  </ViewsProvider>
-);
+const location = {
+  id: 'an-id-👍🏼',
+  bucket: 'test-bucket',
+  permission: 'READWRITE',
+  prefix: 'test-prefix/',
+  type: 'PREFIX',
+};
 
 describe('StorageBrowserDefault', () => {
-  beforeEach(() => {
-    useControlSpy.mockClear();
+  afterEach(jest.clearAllMocks);
+
+  it('renders the `LocationsView` by default', () => {
+    useStoreSpy.mockReturnValueOnce([
+      {
+        actionType: undefined,
+        history: { current: undefined, previous: undefined },
+      } as StoreModule.UseStoreState,
+      jest.fn(),
+    ]);
+    const { getByTestId } = render(<StorageBrowserDefault />);
+
+    expect(getByTestId('LOCATIONS_VIEW')).toBeInTheDocument();
   });
 
-  it('renders the `LocationsView` by default', async () => {
-    useControlSpy.mockImplementation(
-      (type) =>
-        ({
-          LOCATION_ACTIONS: INITIAL_LOCATION_ACTIONS_STATE,
-          NAVIGATE: INITIAL_NAVIGATE_STATE,
-        })[type]
-    );
+  it('renders the `LocationDetailView` when a location is selected', () => {
+    useStoreSpy.mockReturnValueOnce([
+      {
+        actionType: undefined,
+        history: { current: location, previous: [location] },
+      } as StoreModule.UseStoreState,
+      jest.fn(),
+    ]);
 
-    await waitFor(() => {
-      render(<WrappedStorageBrowser />);
-    });
+    const { getByTestId } = render(<StorageBrowserDefault />);
 
-    expect(screen.getByTestId('LOCATIONS_VIEW')).toBeInTheDocument();
+    expect(getByTestId('LOCATION_DETAIL_VIEW')).toBeInTheDocument();
   });
 
-  it('renders the `LocationDetailView` when a location is selected', async () => {
-    useControlSpy.mockImplementation(
-      (type) =>
-        ({
-          LOCATION_ACTIONS: INITIAL_LOCATION_ACTIONS_STATE,
-          NAVIGATE: [
-            {
-              location: {
-                scope: 's3://test-bucket/*',
-                permission: 'READWRITE',
-                type: 'BUCKET',
-              },
-              history: [{ prefix: '', position: 0 }],
-            },
-          ],
-        })[type]
-    );
+  it('renders the `LocationActionView` when an action is selected', () => {
+    useStoreSpy.mockReturnValueOnce([
+      {
+        actionType: 'super-coll-action-type',
+        history: { current: location, previous: [location] },
+      } as StoreModule.UseStoreState,
+      jest.fn(),
+    ]);
+    const { getByTestId } = render(<StorageBrowserDefault />);
 
-    await waitFor(() => {
-      render(<WrappedStorageBrowser />);
-    });
-
-    expect(screen.getByTestId('LOCATION_DETAIL_VIEW')).toBeInTheDocument();
-  });
-
-  it('renders the `LocationActionView` when an action is selected', async () => {
-    useControlSpy.mockImplementation(
-      (type) =>
-        ({
-          LOCATION_ACTIONS: [
-            {
-              actions: { CREATE_FOLDER: {} },
-              selected: { type: 'CREATE_FOLDER', items: undefined },
-            },
-            jest.fn(),
-          ],
-          NAVIGATE: [
-            {
-              location: {
-                scope: 's3://test-bucket/*',
-                permission: 'READWRITE',
-                type: 'BUCKET',
-              },
-              history: [{ prefix: '', position: 0 }],
-            },
-          ],
-        })[type]
-    );
-
-    render(<WrappedStorageBrowser />);
-
-    await waitFor(() => {
-      expect(screen.getByTestId('LOCATION_ACTION_VIEW')).toBeInTheDocument();
-    });
+    expect(getByTestId('LOCATION_ACTION_VIEW')).toBeInTheDocument();
   });
 });
