@@ -10,20 +10,20 @@ import {
 import { CLASS_BASE } from '../views/constants';
 const BLOCK_NAME = `${CLASS_BASE}__paginate`;
 
-type OrderedButtonsListProps = {
-  buttonList: ButtonElementProps[];
-};
+interface OrderedButtonsListProps {
+  items: ButtonElementProps[];
+}
 
 export function OrderedButtonsList({
-  buttonList,
+  items,
 }: OrderedButtonsListProps): React.JSX.Element | null {
-  if (!buttonList?.length) {
+  if (!items?.length) {
     return null;
   }
 
   return (
     <OrderedListElement className={`${BLOCK_NAME}__list`}>
-      {buttonList.map((buttonProps, index) => (
+      {items.map((buttonProps, index) => (
         <ListItemElement
           className={`${BLOCK_NAME}__item`}
           key={buttonProps?.key ?? index}

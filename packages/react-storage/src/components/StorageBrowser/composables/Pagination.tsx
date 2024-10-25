@@ -25,7 +25,7 @@ export const Pagination = ({
   disableNext,
   disablePrevious,
 }: PaginationProps): React.JSX.Element | null => {
-  const buttonList: ButtonElementProps[] = [
+  const items: ButtonElementProps[] = [
     {
       'aria-label': 'Go to previous page',
       children: (
@@ -64,7 +64,7 @@ export const Pagination = ({
 
   return (
     <NavElement aria-label={'Pagination'} className={BLOCK_NAME}>
-      <OrderedButtonsList buttonList={buttonList} />
+      <OrderedButtonsList items={items} />
     </NavElement>
   );
 };
