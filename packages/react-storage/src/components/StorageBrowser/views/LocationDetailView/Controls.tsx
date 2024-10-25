@@ -1,19 +1,16 @@
 import React from 'react';
-import { isString } from '@aws-amplify/ui';
 
-import { LocationData, useAction } from '../../context/actions';
-import { useControl } from '../../context/control';
-import { parseLocationAccess } from '../../context/navigate/utils';
+import { isFunction, isUndefined } from '@aws-amplify/ui';
+
+import { useAction } from '../../do-not-import-from-here/actions';
+import { useStore } from '../../providers/store';
 
 import { Controls, LocationDetailViewTable } from '../Controls';
 import { usePaginate } from '../hooks/usePaginate';
-import { isFile, listViewHelpers } from '../utils';
+import { listViewHelpers } from '../utils';
 
 import { ActionsMenuControl } from './Controls/ActionsMenu';
-import { PaginationControl } from '../../controls/PaginationControl';
-import { CLASS_BASE } from '../constants';
-import { ControlsContextProvider } from '../../controls/context';
-import { ControlsContext } from '../../controls/types';
+import { LocationDetailViewProps } from './types';
 
 export const DEFAULT_ERROR_MESSAGE = 'There was an error loading items.';
 const DEFAULT_PAGE_SIZE = 100;
@@ -29,18 +26,15 @@ const {
   Loading: LoadingControl,
   Message,
   Navigate,
+  Paginate,
   Refresh,
   Title: TitleControl,
 } = Controls;
 
 export const Title = (): React.JSX.Element => {
-  const [{ history, location }] = useControl('NAVIGATE');
-
-  const { bucket } = location
-    ? parseLocationAccess(location)
-    : ({} as LocationData);
-
-  const prefix = history?.slice(-1)[0]?.prefix;
+  const [{ history }] = useStore();
+  const { current } = history;
+  const { bucket, prefix } = current ?? {};
 
   return <TitleControl>{prefix ? prefix : bucket}</TitleControl>;
 };
@@ -77,75 +71,63 @@ const LocationDetailEmptyMessage = () => {
   ) : null;
 };
 
-export const LocationDetailViewControls = (): React.JSX.Element => {
-  const [state] = useControl('NAVIGATE');
-  const { path } = state;
-
+export const LocationDetailViewControls = ({
+  onActionSelect,
+  onNavigate,
+  onExit,
+}: Omit<
+  LocationDetailViewProps,
+  'children' | 'className'
+>): React.JSX.Element => {
   const [{ data, isLoading, hasError }, handleList] = useAction(
     'LIST_LOCATION_ITEMS'
   );
-  const [, handleLocationActionsState] = useControl('LOCATION_ACTIONS');
 
-  const [, handleUpdateState] = useControl('LOCATION_ACTIONS');
+  const [{ history }, dispatchStoreAction] = useStore();
+  const { current } = history;
+  const { prefix } = current ?? {};
+  const hasInvalidPrefix = isUndefined(prefix);
 
   const handleDroppedFiles = (files: File[]) => {
-    if (isFile(files[0])) {
-      handleUpdateState({
-        type: 'SET_ACTION',
-        actionType: 'UPLOAD_FILES',
-        files,
-      });
-    } else {
-      handleUpdateState({
-        type: 'SET_ACTION',
-        actionType: 'UPLOAD_FOLDER',
-        files,
-      });
-    }
+    dispatchStoreAction({ type: 'ADD_FILE_ITEMS', files });
+    dispatchStoreAction({
+      type: 'SET_ACTION_TYPE',
+      actionType: 'UPLOAD_FILES',
+    });
+
+    if (isFunction(onActionSelect)) onActionSelect('UPLOAD_FILES');
   };
 
   const { result, nextToken } = data;
   const resultCount = result.length;
   const hasNextToken = !!nextToken;
-  const hasValidPath = isString(path);
 
   const onPaginateNext = () => {
-    if (!hasValidPath) return;
+    if (hasInvalidPrefix || !nextToken) return;
 
-    handleLocationActionsState({ type: 'CLEAR' });
-    handleList({
-      prefix: path,
-      options: { ...DEFAULT_LIST_OPTIONS, nextToken },
-    });
-  };
-
-  const onPaginatePrevious = () => {
-    if (!hasValidPath) return;
-
-    handleLocationActionsState({ type: 'CLEAR' });
+    handleList({ prefix, options: { ...DEFAULT_LIST_OPTIONS, nextToken } });
   };
 
   const {
     currentPage,
     handlePaginateNext,
     handlePaginatePrevious,
-    handleReset,
-  } = usePaginate({
-    onPaginateNext,
-    onPaginatePrevious,
-    pageSize: DEFAULT_PAGE_SIZE,
-  });
+    handleReset: handlePaginateReset,
+  } = usePaginate({ pageSize: DEFAULT_PAGE_SIZE, onPaginateNext });
 
   React.useEffect(() => {
-    if (!hasValidPath) return;
+    if (hasInvalidPrefix) return;
 
-    handleReset();
+    handleList({ prefix, options: DEFAULT_REFRESH_OPTIONS });
 
-    handleList({
-      prefix: path,
-      options: DEFAULT_REFRESH_OPTIONS,
-    });
-  }, [path, handleList, handleReset, hasValidPath]);
+    handlePaginateReset();
+  }, [
+    dispatchStoreAction,
+    handleList,
+    handlePaginateReset,
+    hasInvalidPrefix,
+    prefix,
+  ]);
 
   const {
     disableActionsMenu,
@@ -163,46 +145,42 @@ export const LocationDetailViewControls = (): React.JSX.Element => {
     hasError,
   });
 
-  const contextValue: ControlsContext = {
-    data: {
-      pagination: {
-        currentPage,
-        disableNext,
-        disablePrevious,
-        handlePaginateNext: () =>
-          handlePaginateNext({ resultCount, hasNextToken }),
-        handlePaginatePrevious: () =>
-          handlePaginatePrevious({ resultCount, hasNextToken }),
-      },
-    },
-    actionsConfig: { type: 'LIST_LOCATIONS', isCancelable: false },
+  const handleRefresh = () => {
+    if (hasInvalidPrefix) return;
+    handlePaginateReset();
+    handleList({ prefix, options: DEFAULT_REFRESH_OPTIONS });
+    dispatchStoreAction({ type: 'RESET_LOCATION_ITEMS' });
   };
 
   return (
-    <ControlsContextProvider {...contextValue}>
-      <Navigate />
+    <>
+      <Navigate onExit={onExit} />
       <Title />
       <RefreshControl
         disableRefresh={disableRefresh}
-        handleRefresh={() => {
-          if (!hasValidPath) return;
-          handleReset();
-          handleList({
-            prefix: path,
-            options: DEFAULT_REFRESH_OPTIONS,
-          });
-          handleLocationActionsState({ type: 'CLEAR' });
-        }}
+        handleRefresh={handleRefresh}
       />
-      <ActionsMenuControl disabled={disableActionsMenu} />
-      <PaginationControl className={`${CLASS_BASE}__pagination`} />
+      <ActionsMenuControl
+        onActionSelect={onActionSelect}
+        disabled={disableActionsMenu}
+      />
+      <Paginate
+        currentPage={currentPage}
+        disableNext={disableNext}
+        disablePrevious={disablePrevious}
+        handleNext={() => {
+          handlePaginateNext({ resultCount, hasNextToken });
+        }}
+        handlePrevious={handlePaginatePrevious}
+      />
       <LocationDetailMessage />
       <Loading show={renderLoading} />
       <LocationDetailViewTable
+        onNavigate={onNavigate}
         handleDroppedFiles={handleDroppedFiles}
         range={range}
       />
       <LocationDetailEmptyMessage />
-    </ControlsContextProvider>
+    </>
   );
 };

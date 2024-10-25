@@ -28,7 +28,6 @@ interface TableData {
     | TruncatedSortHeader
   )[];
   rows: DataTableProps['rows'];
-  isLoading?: boolean;
 }
 
 interface PaginationData {

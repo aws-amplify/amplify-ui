@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { useViews } from './views';
-import { useControl } from './context/control';
+import { useStore } from './providers/store';
 
 /**
  * Handles default `StorageBrowser` behavior:
@@ -12,16 +12,14 @@ import { useControl } from './context/control';
 export function StorageBrowserDefault(): React.JSX.Element {
   const { LocationActionView, LocationDetailView, LocationsView } = useViews();
 
-  const [{ location }] = useControl('NAVIGATE');
-  const [{ selected }] = useControl('LOCATION_ACTIONS');
+  const [{ actionType, history }] = useStore();
+  const { current } = history;
 
-  const { type } = selected;
-
-  if (type) {
+  if (actionType) {
     return <LocationActionView />;
   }
 
-  if (location) {
+  if (current) {
     return <LocationDetailView />;
   }
 

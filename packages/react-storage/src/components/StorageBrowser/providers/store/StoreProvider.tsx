@@ -14,16 +14,13 @@ export interface StoreProviderProps
     HistoryProviderProps,
     LocationItemsProviderProps {}
 
-export function StoreProvider({
-  actionType,
-  children,
-  location,
-  locationItems,
-}: StoreProviderProps): React.JSX.Element {
+export function StoreProvider(props: StoreProviderProps): React.JSX.Element {
+  const { actionType, children, location } = props;
+
   return (
     <FilesProvider>
       <HistoryProvider location={location}>
-        <LocationItemsProvider locationItems={locationItems}>
+        <LocationItemsProvider>
           <ActionTypeProvider actionType={actionType}>
             {children}
           </ActionTypeProvider>

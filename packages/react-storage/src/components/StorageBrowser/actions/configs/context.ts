@@ -7,5 +7,9 @@ export interface ActionConfigsProviderProps {
 
 const defaultValue: ActionConfigs = {};
 
+export interface ActionConfigsProviderProps {
+  actions?: ActionConfigs;
+  children?: React.ReactNode;
+}
 export const { useActionConfigs, ActionConfigsProvider } =
   createContextUtilities({ contextName: 'ActionConfigs', defaultValue });
