@@ -23,7 +23,7 @@ export function createConfigurationProvider<T extends React.ComponentType<any>>(
   const Child = isComponent(ChildComponent) ? ChildComponent : Passthrough;
 
   const Provider: ConfigurationProviderComponent<T> = (props) => (
-    <ActionConfigsProvider {...actions}>
+    <ActionConfigsProvider actions={actions}>
       <CredentialsProvider {...rest}>
         <GetActionInputProvider accountId={accountId} region={region}>
           <Child {...props} />
