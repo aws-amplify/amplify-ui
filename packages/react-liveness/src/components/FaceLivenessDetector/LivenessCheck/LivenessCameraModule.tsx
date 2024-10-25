@@ -222,7 +222,7 @@ export const LivenessCameraModule = (
   }, [canvasRef, videoRef, videoStream, isStartView, isMetadataLoaded]);
 
   React.useLayoutEffect(() => {
-    if (isCameraReady && isMetadataLoaded) {
+    if (isCameraReady) {
       send({
         type: 'SET_DOM_AND_CAMERA_DETAILS',
         data: {
@@ -234,14 +234,14 @@ export const LivenessCameraModule = (
       });
     }
 
-    if (videoRef.current && isMetadataLoaded) {
+    if (videoRef.current) {
       setMediaWidth(videoRef.current.videoWidth);
       setMediaHeight(videoRef.current.videoHeight);
       setAspectRatio(
         videoRef.current.videoWidth / videoRef.current.videoHeight
       );
     }
-  }, [send, videoRef, isCameraReady, isMobileScreen, isMetadataLoaded]);
+  }, [send, videoRef, isCameraReady, isMobileScreen]);
 
   React.useEffect(() => {
     if (isDetectFaceBeforeStart) {
