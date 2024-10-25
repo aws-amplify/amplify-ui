@@ -34,7 +34,7 @@ describe('PaginationControl', () => {
 
     render(<PaginationControl />);
 
-    const nav = screen.getByLabelText('Pagination');
+    const nav = screen.getByRole('navigation');
     const list = screen.getByRole('list');
     const listItems = await screen.findAllByRole('listitem');
     const nextButton = screen.getByRole('button', { name: 'Go to next page' });
