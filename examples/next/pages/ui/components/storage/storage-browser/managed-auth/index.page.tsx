@@ -9,7 +9,20 @@ import { Button, Flex } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react-storage/storage-browser-styles.css';
 import '@aws-amplify/ui-react-storage/styles.css';
 
-const { StorageBrowser } = createStorageBrowser({ config: managedAuthAdapter });
+const { StorageBrowser } = createStorageBrowser({
+  config: managedAuthAdapter,
+  actions: {
+    Share: {
+      options: {
+        displayName: 'Share',
+        hide(permission) {
+          return permission === 'WRITE';
+        },
+      },
+    },
+    MyCustom: {},
+  },
+});
 
 function Example() {
   const [authenticated, setAuthenticated] = React.useState(false);
