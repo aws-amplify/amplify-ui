@@ -62,7 +62,7 @@ jobs:
 
   publish:
     uses: ./.github/workflows/reusable-tagged-publish.yml
-    # needs: e2e
+    needs: unit
     with:
       dist-tag: ai-streaming
     secrets:
