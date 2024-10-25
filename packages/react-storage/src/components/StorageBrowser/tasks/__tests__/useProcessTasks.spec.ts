@@ -17,15 +17,14 @@ const config: ActionInputConfig = {
 
 const prefix = 'prefix';
 
-const items: { key: string; item: File }[] = [
-  { key: '0', item: new File([], '0') },
-  { key: '1', item: new File([], '1') },
-  { key: '2', item: new File([], '2') },
+const items: { key: string; id: string; item: File }[] = [
+  { key: '0', id: '0', item: new File([], '0') },
+  { key: '1', id: '1', item: new File([], '1') },
+  { key: '2', id: '2', item: new File([], '2') },
 ];
 
 const action = jest.fn(
-  ({ data }: TaskHandlerInput<File, { extraOption?: boolean }>) => {
-    const { key } = data;
+  ({ key }: TaskHandlerInput<File, { extraOption?: boolean }>) => {
     if (key === '0') {
       return {
         key: '0',
@@ -115,12 +114,14 @@ describe('useProcessTasks', () => {
     expect(action).toHaveBeenCalledTimes(2);
     expect(action).toHaveBeenCalledWith({
       config,
-      data: { key: items[0].key, payload: items[0].item },
+      key: items[0].key,
+      data: { id: items[0].id, payload: items[0].item },
       prefix,
     });
     expect(action).toHaveBeenCalledWith({
       config,
-      data: { key: items[1].key, payload: items[1].item },
+      key: items[1].key,
+      data: { id: items[1].id, payload: items[1].item },
       prefix,
     });
 
@@ -224,7 +225,8 @@ describe('useProcessTasks', () => {
     expect(action).toHaveBeenCalledTimes(1);
     expect(action).toHaveBeenCalledWith({
       config,
-      data: { key: items[0].key, payload: items[0].item },
+      key: items[0].key,
+      data: { id: items[0].id, payload: items[0].item },
       options: { extraOption: true },
       prefix,
     });
@@ -284,7 +286,7 @@ describe('useProcessTasks', () => {
 
   it('excludes adding an item with an existing task', () => {
     const { rerender, result } = renderHook(
-      (_items: { key: string; item: File }[] = items) =>
+      (_items: { key: string; id: string; item: File }[] = items) =>
         useProcessTasks(action, _items)
     );
 
@@ -303,14 +305,14 @@ describe('useProcessTasks', () => {
 
   it('returns the existing tasks when new items are empty', () => {
     const { rerender, result } = renderHook(
-      (_items: { key: string; item: File }[] = items) =>
+      (_items: { key: string; id: string; item: File }[] = items) =>
         useProcessTasks(action, _items)
     );
 
     const initTasks = result.current[0];
     expect(initTasks.length).toBe(3);
 
-    const nextItems: { key: string; item: File }[] = [];
+    const nextItems: { key: string; id: string; item: File }[] = [];
 
     act(() => {
       rerender(nextItems);

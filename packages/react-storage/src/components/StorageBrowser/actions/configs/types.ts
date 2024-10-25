@@ -4,7 +4,7 @@ import { IconVariant } from '../../context/elements';
 import {
   ListLocationsHandler,
   ListLocationItemsHandler,
-  LocationItem,
+  LocationItemData,
   LocationItemType,
   UploadHandler,
   CreateFolderHandler,
@@ -46,7 +46,7 @@ export interface ActionListItemConfig {
    * conditionally disable item selection based on currently selected values
    * @default false
    */
-  disable?: (selectedValues: LocationItem[] | undefined) => boolean;
+  disable?: (selectedValues: LocationItemData[] | undefined) => boolean;
 
   /**
    * open native OS file picker with associated selection type on item select

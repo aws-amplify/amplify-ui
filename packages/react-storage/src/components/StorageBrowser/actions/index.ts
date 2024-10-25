@@ -1,4 +1,11 @@
 export {
+  ActionConfigs,
+  ActionConfigsProvider,
+  ActionConfigsProviderProps,
+  useActionConfigs,
+} from './configs';
+
+export {
   createFolderHandler,
   CreateFolderHandler,
   listLocationItemsHandler,
@@ -12,7 +19,7 @@ export {
   ListLocationsHandlerOptions,
   ListLocationsHandlerOutput,
   LocationData,
-  LocationItem,
+  LocationItemData,
   LocationItemType,
   LocationType,
   uploadHandler,

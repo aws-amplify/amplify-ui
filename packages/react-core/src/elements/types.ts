@@ -30,10 +30,13 @@ export type BaseElementWithRef<
 >;
 
 type ListElementSubType = 'Ordered' | 'Unordered';
-type ListElementDisplayName = 'List' | `${ListElementSubType}List`;
+type ListElementDisplayName = `${ListElementSubType}List`;
 
-type TableElementSubType = 'Body' | 'Data' | 'Row' | 'Head' | 'Header';
+type TableElementSubType = 'Body' | 'DataCell' | 'Row' | 'Head' | 'Header';
 type TableElementDisplayName = 'Table' | `Table${TableElementSubType}`;
+
+type DescriptionElementSubType = 'Details' | 'List' | 'Term';
+type DescriptionElementDisplayName = `Description${DescriptionElementSubType}`;
 
 /**
  * @internal @unstable
@@ -42,9 +45,6 @@ type TableElementDisplayName = 'Table' | `Table${TableElementSubType}`;
  */
 export type ElementDisplayName =
   | 'Button'
-  | 'DescriptionDetails'
-  | 'DescriptionList'
-  | 'DescriptionTerm'
   | 'Heading' // h1, h2, etc
   | 'Icon'
   | 'Image'
@@ -58,6 +58,7 @@ export type ElementDisplayName =
   | 'TextArea'
   | 'Title'
   | 'View'
+  | DescriptionElementDisplayName
   | ListElementDisplayName
   | TableElementDisplayName;
 

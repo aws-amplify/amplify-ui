@@ -8,12 +8,13 @@ import {
   TABLE_HEADER_BUTTON_CLASS_NAME,
   TABLE_HEADER_CLASS_NAME,
 } from '../../../components/DataTable';
-import { useLocationsData } from '../../../context/actions';
-import { useControl } from '../../../context/control';
-import { LocationAccess } from '../../../context/types';
+import { useLocationsData } from '../../../do-not-import-from-here/actions';
+
 import { ButtonElement, IconElement } from '../../../context/elements';
+import { useStore } from '../../../providers/store';
 
 import { compareStrings } from '../../utils';
+import { LocationData } from '../../../actions';
 
 export type SortDirection = 'ascending' | 'descending' | 'none';
 
@@ -24,8 +25,8 @@ export type SortState = {
 
 const getCompareFn = (selection: string) => {
   switch (selection) {
-    case 'scope':
-    case 'type':
+    case 'bucket':
+    case 'folder':
     case 'permission':
       return compareStrings;
   }
@@ -65,8 +66,8 @@ const getColumnItem = ({
 };
 
 const displayColumns: Record<string, string>[] = [
-  { scope: 'name' },
-  { type: 'type' },
+  { prefix: 'folder' },
+  { bucket: 'bucket' },
   { permission: 'permission' },
 ];
 
@@ -76,8 +77,8 @@ const getLocationsData = ({
   onTableHeaderClick,
   sortState,
 }: {
-  data: LocationAccess[];
-  onLocationClick: (location: LocationAccess) => void;
+  data: LocationData[];
+  onLocationClick: (location: LocationData) => void;
   onTableHeaderClick: (location: string) => void;
   sortState: SortState;
 }) => {
@@ -92,7 +93,7 @@ const getLocationsData = ({
   const compareFn = getCompareFn(selection);
 
   if (compareFn) {
-    const castSelection = selection as keyof LocationAccess;
+    const castSelection = selection as keyof LocationData;
 
     if (direction === 'ascending') {
       data.sort((a, b) => compareFn(a[castSelection], b[castSelection]));
@@ -110,11 +111,11 @@ const getLocationsData = ({
           onClick={() => onLocationClick(location)}
           variant="table-data"
         >
-          {location.scope}
+          {location.prefix.length ? location.prefix : location.bucket}
         </ButtonElement>
       ),
     },
-    { key: `td-type-${index}`, children: location.type },
+    { key: `td-bucket-${index}`, children: location.bucket },
     { key: `td-permission-${index}`, children: location.permission },
   ]);
 
@@ -122,16 +123,17 @@ const getLocationsData = ({
 };
 
 export function DataTableControl({
+  onNavigate,
   range,
 }: {
+  onNavigate?: (destination: LocationData) => void;
   range: [start: number, end: number];
 }): React.JSX.Element | null {
   const [{ data, hasError }] = useLocationsData();
-
-  const [, handleUpdateState] = useControl('NAVIGATE');
+  const dispatchStoreAction = useStore()[1];
 
   const [sortState, setSortState] = React.useState<SortState>({
-    selection: 'scope',
+    selection: 'prefix',
     direction: 'ascending',
   });
 
@@ -142,21 +144,19 @@ export function DataTableControl({
       getLocationsData({
         data: data.result.slice(start, end),
         sortState,
-        onLocationClick: (location) => {
-          handleUpdateState({
-            type: 'ACCESS_LOCATION',
-            location,
-          });
+        onLocationClick: (destination) => {
+          onNavigate?.(destination);
+          dispatchStoreAction({ type: 'NAVIGATE', destination });
         },
-        onTableHeaderClick: (location: string) => {
+        onTableHeaderClick: (selection: string) => {
           setSortState((prevState) => ({
-            selection: location,
+            selection,
             direction:
               prevState.direction === 'ascending' ? 'descending' : 'ascending',
           }));
         },
       }),
-    [data.result, handleUpdateState, sortState, start, end]
+    [data.result, dispatchStoreAction, onNavigate, sortState, start, end]
   );
 
   return hasError ? null : <DataTable data={locationsData} />;
