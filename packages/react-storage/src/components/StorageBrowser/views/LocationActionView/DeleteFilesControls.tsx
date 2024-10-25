@@ -30,13 +30,13 @@ export const DeleteFilesControls = (props: {
     tasks,
   } = useDeleteView(props);
 
-  const [{ history }] = useStore();
-  const { current } = history;
-  const path = current?.prefix;
+  const [{ location }] = useStore();
+  const { current, path = '' } = location;
+  const { prefix = '' } = current ?? {};
   const tableData = getDeleteActionViewTableData({
     tasks,
     taskCounts,
-    path: path ?? '',
+    path: `${prefix}${path}`,
   });
 
   const contextValue: ControlsContext = {

@@ -1,17 +1,19 @@
 import React from 'react';
 import { act, render, renderHook } from '@testing-library/react';
 
-import { ERROR_MESSAGE, HistoryProvider, useHistory } from '../context';
+import { ERROR_MESSAGE, LocationProvider, useLocation } from '../context';
 
-describe('useHistory', () => {
+describe('useLocation', () => {
   it('provides the expected values in the happy path', () => {
-    const { result } = renderHook(useHistory, {
-      wrapper: ({ children }) => <HistoryProvider>{children}</HistoryProvider>,
+    const { result } = renderHook(useLocation, {
+      wrapper: ({ children }) => (
+        <LocationProvider>{children}</LocationProvider>
+      ),
     });
 
     const [state, handler] = result.current;
 
-    expect(state).toStrictEqual({ current: undefined, previous: undefined });
+    expect(state).toStrictEqual({ current: undefined, path: undefined });
     expect(handler).toStrictEqual(expect.any(Function));
   });
 
@@ -23,19 +25,22 @@ describe('useHistory', () => {
       prefix: 'prefix',
       type: 'OBJECT' as const,
     };
+    const path = 'path';
 
-    const { result } = renderHook(useHistory, {
+    const { result } = renderHook(useLocation, {
       wrapper: ({ children }) => (
-        <HistoryProvider location={location}>{children}</HistoryProvider>
+        <LocationProvider location={location} path={path}>
+          {children}
+        </LocationProvider>
       ),
     });
 
     const state = result.current[0];
 
-    expect(state).toStrictEqual({ current: location, previous: [location] });
+    expect(state).toStrictEqual({ current: location, path });
   });
 
-  it('updates `history` with a new `location` as expected', () => {
+  it('updates `Location` with a new `location` as expected', () => {
     const location = {
       bucket: 'bucket',
       id: 'id',
@@ -44,18 +49,15 @@ describe('useHistory', () => {
       type: 'OBJECT' as const,
     };
 
-    const { result } = renderHook(useHistory, {
+    const { result } = renderHook(useLocation, {
       wrapper: ({ children }) => (
-        <HistoryProvider location={location}>{children}</HistoryProvider>
+        <LocationProvider location={location}>{children}</LocationProvider>
       ),
     });
 
     const [initialState, handler] = result.current;
 
-    expect(initialState).toStrictEqual({
-      current: location,
-      previous: [location],
-    });
+    expect(initialState).toStrictEqual({ current: location, path: undefined });
 
     const nextLocation = {
       bucket: 'next-bucket',
@@ -66,23 +68,20 @@ describe('useHistory', () => {
     };
 
     act(() => {
-      handler({ type: 'NAVIGATE', destination: nextLocation });
+      handler({ type: 'NAVIGATE', location: nextLocation });
     });
 
     const [nextState] = result.current;
 
-    expect(nextState).toStrictEqual({
-      current: nextLocation,
-      previous: [location, nextLocation],
-    });
+    expect(nextState).toStrictEqual({ current: nextLocation, path: undefined });
   });
 
-  it('`HistoryProvider` throws when provided `location` is invalid', () => {
+  it('`LocationProvider` throws when provided `location` is invalid', () => {
     // Mock implementation for console.error to prevent logging during tests
     jest.spyOn(console, 'error').mockImplementation(() => null);
 
     // @ts-expect-error force invalid location
-    expect(() => render(<HistoryProvider location={{}} />)).toThrow(
+    expect(() => render(<LocationProvider location={{}} />)).toThrow(
       ERROR_MESSAGE
     );
   });

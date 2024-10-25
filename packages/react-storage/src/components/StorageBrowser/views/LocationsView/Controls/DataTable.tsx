@@ -75,7 +75,7 @@ const getLocationsData = ({
   sortState,
 }: {
   data: LocationData[];
-  onLocationClick: (location: LocationData) => void;
+  onLocationClick: (location?: LocationData) => void;
   onTableHeaderClick: (location: string) => void;
   sortState: SortState;
 }) => {
@@ -105,7 +105,9 @@ const getLocationsData = ({
       children: (
         <ButtonElement
           className={TABLE_DATA_BUTTON_CLASS}
-          onClick={() => onLocationClick(location)}
+          onClick={() => {
+            onLocationClick(location);
+          }}
           variant="table-data"
         >
           {location.prefix.length ? location.prefix : location.bucket}
@@ -121,7 +123,7 @@ const getLocationsData = ({
 
 interface DataTableControlProps {
   items: LocationData[];
-  onNavigate: (location: LocationData) => void;
+  onNavigate: (location?: LocationData) => void;
 }
 
 export function DataTableControl({

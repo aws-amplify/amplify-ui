@@ -2,7 +2,7 @@ import { renderHook } from '@testing-library/react';
 
 import { useActionType } from '../actionType';
 import { useFiles } from '../files';
-import { useHistory } from '../history';
+import { useLocation } from '../location';
 import { useLocationItems } from '../locationItems';
 
 import { StoreProvider } from '../StoreProvider';
@@ -10,10 +10,10 @@ import { StoreProvider } from '../StoreProvider';
 function useStoreValues() {
   const actionType = useActionType();
   const files = useFiles();
-  const history = useHistory();
+  const location = useLocation();
   const locationItems = useLocationItems();
 
-  return { actionType, files, history, locationItems };
+  return { actionType, files, location, locationItems };
 }
 
 describe('StoreProvider', () => {
@@ -22,7 +22,7 @@ describe('StoreProvider', () => {
       wrapper: StoreProvider,
     });
 
-    const { actionType, files, history, locationItems } = result.current;
+    const { actionType, files, location, locationItems } = result.current;
 
     expect(actionType[0]).toBeUndefined();
     expect(typeof actionType[1]).toBe('function');
@@ -30,11 +30,8 @@ describe('StoreProvider', () => {
     expect(files[0]).toStrictEqual([]);
     expect(typeof files[1]).toBe('function');
 
-    expect(history[0]).toStrictEqual({
-      current: undefined,
-      previous: undefined,
-    });
-    expect(typeof history[1]).toBe('function');
+    expect(location[0]).toStrictEqual({ current: undefined, path: undefined });
+    expect(typeof location[1]).toBe('function');
 
     expect(locationItems[0]).toStrictEqual({ fileDataItems: undefined });
     expect(typeof locationItems[1]).toBe('function');

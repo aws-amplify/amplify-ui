@@ -318,6 +318,22 @@
   }
 }
 
+/** Breadcrumb Navigation **/
+.storage-browser__breadcrumb-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--storage-browser-gap-small);
+}
+
+.storage-browser__breadcrumb-list-item {
+  display: flex;
+  align-items: center;
+  gap: var(--storage-browser-gap-small);
+}
+
 /** Table **/
 .storage-browser__table {
   grid-column: 1 / -1;
@@ -376,52 +392,56 @@
 }
 
 /* Locations view control wrapper styles */
-.storage-browser__locations-view-data-table {
+.storage-browser__locations-data-table {
   display: grid;
   grid-column: 1 / -1;
   width: 100%;
 }
 
-.storage-browser__locations-view-data-table th:nth-of-type(2),
-.storage-browser__locations-view-data-table th:nth-of-type(3) {
+.storage-browser__locations-data-table th:nth-of-type(2),
+.storage-browser__locations-data-table th:nth-of-type(3) {
   width: 8rem;
 }
 
-/* Locations view control wrapper styles */
-.storage-browser__location-detail-view-drop-zone,
-.storage-browser__location-detail-view-data-table {
+/* Location detail view control wrapper styles */
+.storage-browser__location-detail-drop-zone,
+.storage-browser__location-detail-data-table {
   display: grid;
   grid-column: 1 / -1;
   width: 100%;
 }
 
-.storage-browser__location-detail-view-data-table th:nth-of-type(1) {
+.storage-browser__location-detail-data-table th:nth-of-type(1) {
   width: 2rem;
 }
 
-.storage-browser__location-detail-view-data-table th:nth-of-type(3),
-.storage-browser__location-detail-view-data-table th:nth-of-type(5) {
+.storage-browser__location-detail-data-table th:nth-of-type(3),
+.storage-browser__location-detail-data-table th:nth-of-type(5) {
   width: 8rem;
 }
 
-.storage-browser__location-detail-view-data-table th:nth-of-type(4) {
+.storage-browser__location-detail-data-table th:nth-of-type(4) {
   width: 12rem;
 }
 
-.storage-browser__location-detail-view-data-table th:nth-of-type(5) {
+.storage-browser__location-detail-data-table th:nth-of-type(5) {
   text-align: end;
 }
 
-.storage-browser__location-detail-view-data-table th:nth-of-type(6) {
+.storage-browser__location-detail-data-table th:nth-of-type(6) {
   width: 4rem;
 }
 
-.storage-browser__location-detail-view-data-table td:nth-of-type(5) div {
+.storage-browser__location-detail-data-table td:nth-of-type(5) div {
   justify-content: end;
 }
 
-.storage-browser__location-detail-view-data-table td:nth-of-type(6) button {
+.storage-browser__location-detail-data-table td:nth-of-type(6) button {
   justify-content: center;
+}
+
+.storage-browser__location-detail-navigation {
+  grid-column: 1 / -1;
 }
 
 /* Upload action view control wrapper styles */

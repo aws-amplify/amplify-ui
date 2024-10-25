@@ -12,8 +12,8 @@ import { useStore } from './providers/store';
 export function StorageBrowserDefault(): React.JSX.Element {
   const { LocationActionView, LocationDetailView, LocationsView } = useViews();
 
-  const [{ actionType, history }] = useStore();
-  const { current } = history;
+  const [{ actionType, location }] = useStore();
+  const { current } = location;
 
   if (actionType) {
     return <LocationActionView />;

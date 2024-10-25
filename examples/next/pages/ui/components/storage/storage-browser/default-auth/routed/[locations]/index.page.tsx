@@ -23,16 +23,14 @@ function Locations() {
         Sign Out
       </Button>
       <StorageBrowser.Provider>
-        <StorageBrowser.Provider>
-          <StorageBrowser.LocationsView
-            onNavigate={(destination) => {
-              router.push({
-                pathname: `${router.pathname}/location-detail`,
-                query: { ...destination },
-              });
-            }}
-          />
-        </StorageBrowser.Provider>
+        <StorageBrowser.LocationsView
+          onNavigate={(location) => {
+            router.push({
+              pathname: `${router.pathname}/location-detail`,
+              query: { ...location },
+            });
+          }}
+        />
       </StorageBrowser.Provider>
     </Flex>
   );

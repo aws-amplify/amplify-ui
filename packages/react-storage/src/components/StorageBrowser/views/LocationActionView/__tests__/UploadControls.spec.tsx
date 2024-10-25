@@ -22,9 +22,7 @@ const location = {
 };
 const dispatchStoreAction = jest.fn();
 useStoreSpy.mockReturnValue([
-  {
-    history: { current: location, previous: [location] },
-  } as StoreModule.UseStoreState,
+  { location: { current: location } } as StoreModule.UseStoreState,
   dispatchStoreAction,
 ]);
 
@@ -77,7 +75,7 @@ describe('UploadControls', () => {
 
     useStoreSpy.mockReturnValue([
       {
-        history: { current: rootLocation, previous: [rootLocation] },
+        location: { current: rootLocation },
         files: [fileItem],
       } as StoreModule.UseStoreState,
       dispatchStoreAction,
@@ -123,7 +121,7 @@ describe('UploadControls', () => {
   it('calls `useProcessTasks` with the expected values when provided a nested `prefix`', async () => {
     useStoreSpy.mockReturnValue([
       {
-        history: { current: location, previous: [location] },
+        location: { current: location },
         files: [fileItem],
       } as StoreModule.UseStoreState,
       dispatchStoreAction,

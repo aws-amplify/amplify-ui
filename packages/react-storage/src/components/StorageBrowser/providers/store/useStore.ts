@@ -2,7 +2,7 @@ import React from 'react';
 
 import { ActionTypeAction, useActionType } from './actionType';
 import { FileItems, FilesActionType, useFiles } from './files';
-import { HistoryActionType, HistoryState, useHistory } from './history';
+import { LocationActionType, LocationState, useLocation } from './location';
 import {
   LocationItemsAction,
   LocationItemsState,
@@ -12,7 +12,7 @@ import {
 export interface UseStoreState {
   actionType: string | undefined;
   files: FileItems | undefined;
-  history: HistoryState;
+  location: LocationState;
   locationItems: LocationItemsState;
 }
 
@@ -20,14 +20,14 @@ export type HandleStoreAction = (
   action:
     | ActionTypeAction
     | FilesActionType
-    | HistoryActionType
+    | LocationActionType
     | LocationItemsAction
 ) => void;
 
 export function useStore(): [UseStoreState, HandleStoreAction] {
   const [actionType, dispatchActionType] = useActionType();
   const [files, dispatchFilesAction] = useFiles();
-  const [history, dispatchHistoryAction] = useHistory();
+  const [location, dispatchLocationAction] = useLocation();
   const [locationItems, dispatchLocationItemsAction] = useLocationItems();
 
   const dispatchHandler: HandleStoreAction = React.useCallback(
@@ -40,9 +40,8 @@ export function useStore(): [UseStoreState, HandleStoreAction] {
           dispatchFilesAction(action);
           break;
         }
-        case 'NAVIGATE':
-        case 'RESET_HISTORY': {
-          dispatchHistoryAction(action);
+        case 'NAVIGATE': {
+          dispatchLocationAction(action);
           break;
         }
         case 'SET_LOCATION_ITEMS':
@@ -61,10 +60,10 @@ export function useStore(): [UseStoreState, HandleStoreAction] {
     [
       dispatchActionType,
       dispatchFilesAction,
-      dispatchHistoryAction,
+      dispatchLocationAction,
       dispatchLocationItemsAction,
     ]
   );
 
-  return [{ actionType, files, history, locationItems }, dispatchHandler];
+  return [{ actionType, files, location, locationItems }, dispatchHandler];
 }

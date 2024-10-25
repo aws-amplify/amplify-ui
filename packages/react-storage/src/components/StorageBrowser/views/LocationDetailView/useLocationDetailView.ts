@@ -5,6 +5,7 @@ import { usePaginate } from '../hooks/usePaginate';
 import { useStore } from '../../providers/store';
 import { useAction } from '../../do-not-import-from-here/actions';
 import { LocationData, LocationItemData } from '../../actions';
+import { LocationState } from '../../providers/store/location';
 
 interface UseLocationDetailView {
   hasNextPage: boolean;
@@ -12,10 +13,11 @@ interface UseLocationDetailView {
   isLoading: boolean;
   isPaginateNextDisabled: boolean;
   isPaginatePreviousDisabled: boolean;
+  location: LocationState;
   message: string | undefined;
   pageItems: LocationItemData[];
   page: number;
-  onAccessItem: (location: LocationData) => void;
+  onAccessItem: (location?: LocationData, path?: string) => void;
   onRefresh: () => void;
   onPaginateNext: () => void;
   onPaginatePrevious: () => void;
@@ -29,7 +31,7 @@ export type LocationDetailViewActionType =
   | { type: 'PAGINATE_PREVIOUS' }
   | { type: 'PAGINATE'; page: number }
   | { type: 'ACCESS_ITEM'; key: string }
-  | { type: 'NAVIGATE'; location: LocationData }
+  | { type: 'NAVIGATE'; location: LocationData; path: string }
   | { type: 'ADD_FILES'; files: File[] }
   | { type: 'SEARCH'; query: string; includeSubfolders?: boolean };
 
@@ -43,7 +45,7 @@ export interface UseLocationDetailViewOptions {
   onDispatch?: React.Dispatch<LocationDetailViewActionType>;
   onActionSelect?: (type: string) => void;
   onExit?: () => void;
-  onNavigate?: (destination: LocationData) => void;
+  onNavigate?: (location?: LocationData, path?: string) => void;
 }
 
 const DEFAULT_PAGE_SIZE = 100;
@@ -64,8 +66,8 @@ export function useLocationDetailView(
 
   const listOptions = listOptionsRef.current;
 
-  const [{ history }, dispatchStoreAction] = useStore();
-  const { current } = history;
+  const [{ location }, dispatchStoreAction] = useStore();
+  const { current, path = '' } = location;
   const { prefix } = current ?? {};
   const hasInvalidPrefix = isUndefined(prefix);
 
@@ -80,7 +82,10 @@ export function useLocationDetailView(
   const onPaginateNext = () => {
     if (hasInvalidPrefix || !nextToken) return;
     dispatchStoreAction({ type: 'RESET_LOCATION_ITEMS' });
-    handleList({ prefix, options: { ...listOptions, nextToken } });
+    handleList({
+      prefix: `${prefix}${path}`,
+      options: { ...listOptions, nextToken },
+    });
   };
 
   const onPaginatePrevious = () => {
@@ -102,15 +107,21 @@ export function useLocationDetailView(
   const onRefresh = () => {
     if (hasInvalidPrefix) return;
     handleReset();
-    handleList({ prefix, options: { ...listOptions, refresh: true } });
+    handleList({
+      prefix: `${prefix}${path}`,
+      options: { ...listOptions, refresh: true },
+    });
     dispatchStoreAction({ type: 'RESET_LOCATION_ITEMS' });
   };
 
   React.useEffect(() => {
     if (hasInvalidPrefix) return;
-    handleList({ prefix, options: { ...listOptions, refresh: true } });
+    handleList({
+      prefix: `${prefix}${path}`,
+      options: { ...listOptions, refresh: true },
+    });
     handleReset();
-  }, [handleList, handleReset, listOptions, hasInvalidPrefix, prefix]);
+  }, [handleList, handleReset, listOptions, hasInvalidPrefix, prefix, path]);
 
   const pageItems = React.useMemo(() => {
     const [start, end] = range;
@@ -123,6 +134,7 @@ export function useLocationDetailView(
     hasNextPage: hasNextToken,
     isPaginateNextDisabled: !hasNextToken || isLoading || hasError,
     isPaginatePreviousDisabled: currentPage <= 1 || isLoading || hasError,
+    location,
     hasError,
     message,
     isLoading,
@@ -131,9 +143,9 @@ export function useLocationDetailView(
       handlePaginateNext({ resultCount, hasNextToken });
     },
     onRefresh,
-    onAccessItem: (destination: LocationData) => {
-      onNavigate?.(destination);
-      dispatchStoreAction({ type: 'NAVIGATE', destination });
+    onAccessItem: (location?: LocationData, path?: string) => {
+      onNavigate?.(location, path);
+      dispatchStoreAction({ type: 'NAVIGATE', location, path });
       dispatchStoreAction({ type: 'RESET_LOCATION_ITEMS' });
     },
     onAddFiles: (files: File[]) => {
