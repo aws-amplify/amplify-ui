@@ -9,7 +9,7 @@ import { usePagination } from './hooks/usePagination';
 export const PaginationControl = ({
   className,
 }: ControlProps): React.JSX.Element | null => {
-  const { props } = usePagination();
+  const props = usePagination();
 
   const ResolvedPagination = useResolvedComposable(Pagination, 'Pagination');
 
@@ -17,23 +17,9 @@ export const PaginationControl = ({
     return null;
   }
 
-  const {
-    currentPage,
-    disableNext,
-    disablePrevious,
-    handlePaginateNext,
-    handlePaginatePrevious,
-  } = props;
-
   return (
     <ViewElement className={className}>
-      <ResolvedPagination
-        currentPage={currentPage}
-        handlePaginateNext={handlePaginateNext}
-        handlePaginatePrevious={handlePaginatePrevious}
-        disableNext={disableNext}
-        disablePrevious={disablePrevious}
-      />
+      <ResolvedPagination {...props} />
     </ViewElement>
   );
 };
