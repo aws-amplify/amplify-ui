@@ -73,11 +73,6 @@ export function createUseAIConversation<
 
     React.useEffect(() => {
       async function initialize() {
-        setDataState({
-          ...LOADING_STATE,
-          data: { messages: [], conversation: undefined },
-        });
-
         // no client route would mean that the user
         // is not using TypeScript and entered the
         // route name wrong, or there is a mismatch
@@ -96,6 +91,15 @@ export function createUseAIConversation<
             ],
           });
           return;
+        }
+
+        // Only show component loading state if we are
+        // actually loading messages
+        if (id) {
+          setDataState({
+            ...LOADING_STATE,
+            data: { messages: [], conversation: undefined },
+          });
         }
 
         const { data: conversation, errors } = id

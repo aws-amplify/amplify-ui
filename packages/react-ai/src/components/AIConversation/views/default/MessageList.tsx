@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Avatar, Loader, Text, View } from '@aws-amplify/ui-react';
+import { Avatar, Placeholder, Text, View } from '@aws-amplify/ui-react';
 import { MessageControl } from '../Controls/MessagesControl';
 import {
   AvatarsContext,
@@ -16,6 +16,28 @@ import {
   classNames,
 } from '@aws-amplify/ui';
 import { LoadingContext } from '../../context/LoadingContext';
+
+const PlaceholderMessage = ({ role }: { role: string }) => {
+  const variant = React.useContext(MessageVariantContext);
+  return (
+    <View
+      className={classNames(
+        ComponentClassName.AIConversationMessage,
+        classNameModifier(ComponentClassName.AIConversationMessage, variant),
+        classNameModifier(ComponentClassName.AIConversationMessage, role)
+      )}
+    >
+      <View className={ComponentClassName.AIConversationMessageAvatar}>
+        <Avatar> </Avatar>
+      </View>
+      <View className={ComponentClassName.AIConversationMessageBody}>
+        <Placeholder width="25%" />
+        <Placeholder width="50%" />
+        <Placeholder width="25%" />
+      </View>
+    </View>
+  );
+};
 
 const MessageMeta = ({ message }: { message: ConversationMessage }) => {
   // need to pass this in as props in order for it to be overridable
@@ -35,35 +57,6 @@ const MessageMeta = ({ message }: { message: ConversationMessage }) => {
     </View>
   );
 };
-
-// const LoadingMessage = () => {
-//   const avatars = React.useContext(AvatarsContext);
-//   const variant = React.useContext(MessageVariantContext);
-//   const avatar = avatars?.ai;
-
-//   return (
-//     <View
-//       className={classNames(
-//         ComponentClassName.AIConversationMessage,
-//         classNameModifier(ComponentClassName.AIConversationMessage, variant),
-//         classNameModifier(ComponentClassName.AIConversationMessage, 'assistant')
-//       )}
-//     >
-//       <View className={ComponentClassName.AIConversationMessageAvatar}>
-//         <Avatar isLoading>{avatar?.avatar}</Avatar>
-//       </View>
-//       <View className={ComponentClassName.AIConversationMessageBody}>
-//         <View className={ComponentClassName.AIConversationMessageSender}>
-//           <Text
-//             className={ComponentClassName.AIConversationMessageSenderUsername}
-//           >
-//             {avatar?.username}
-//           </Text>
-//         </View>
-//       </View>
-//     </View>
-//   );
-// };
 
 const Message = ({ message }: { message: ConversationMessage }) => {
   const avatars = React.useContext(AvatarsContext);
@@ -114,7 +107,12 @@ export const MessageList: ControlsContextProps['MessageList'] = ({
   return (
     <View className={ComponentClassName.AIConversationMessageList}>
       {/* TODO: make this a skeleton loader */}
-      {isLoading ? <Loader /> : null}
+      {isLoading ? (
+        <>
+          <PlaceholderMessage role="user" />
+          <PlaceholderMessage role="assistant" />
+        </>
+      ) : null}
       {messagesWithRenderableContent.map((message, i) => (
         <Message key={`message-${i}`} message={message} />
       ))}
