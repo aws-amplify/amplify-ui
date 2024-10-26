@@ -38,6 +38,7 @@ function Provider({
   displayText,
   allowAttachments,
   messageRenderer,
+  fallbackResponseComponent,
   children,
 }: AIConversationProviderProps): JSX.Element {
   useSetUserAgent({
@@ -82,6 +83,7 @@ function Provider({
     displayText,
     allowAttachments,
     messageRenderer,
+    fallbackResponseComponent,
   };
 
   return (
