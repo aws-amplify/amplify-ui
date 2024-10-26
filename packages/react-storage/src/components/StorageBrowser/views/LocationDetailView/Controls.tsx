@@ -12,6 +12,11 @@ import { listViewHelpers } from '../utils';
 import { ActionsMenuControl } from './Controls/ActionsMenu';
 import { LocationDetailViewProps } from './types';
 
+import { ControlsContextProvider } from '../../controls/context';
+import { ControlsContext } from '../../controls/types';
+import { DataRefreshControl } from '../../controls/DataRefreshControl';
+import { CLASS_BASE } from '../constants';
+
 export const DEFAULT_ERROR_MESSAGE = 'There was an error loading items.';
 const DEFAULT_PAGE_SIZE = 100;
 export const DEFAULT_LIST_OPTIONS = {
@@ -27,7 +32,6 @@ const {
   Message,
   Navigate,
   Paginate,
-  Refresh,
   Title: TitleControl,
 } = Controls;
 
@@ -37,16 +41,6 @@ export const Title = (): React.JSX.Element => {
   const { bucket, prefix } = current ?? {};
 
   return <TitleControl>{prefix ? prefix : bucket}</TitleControl>;
-};
-
-const RefreshControl = ({
-  disableRefresh,
-  handleRefresh,
-}: {
-  disableRefresh?: boolean;
-  handleRefresh?: () => void;
-}) => {
-  return <Refresh disabled={disableRefresh} onClick={handleRefresh} />;
 };
 
 function Loading({ show }: { show?: boolean }) {
@@ -152,13 +146,19 @@ export const LocationDetailViewControls = ({
     dispatchStoreAction({ type: 'RESET_LOCATION_ITEMS' });
   };
 
+  const contextValue: ControlsContext = {
+    data: {
+      isDataRefreshDisabled: disableRefresh,
+    },
+    onRefresh: handleRefresh,
+  };
+
   return (
-    <>
+    <ControlsContextProvider {...contextValue}>
       <Navigate onExit={onExit} />
       <Title />
-      <RefreshControl
-        disableRefresh={disableRefresh}
-        handleRefresh={handleRefresh}
+      <DataRefreshControl
+        className={`${CLASS_BASE}__locations-detail-view-data-refresh`}
       />
       <ActionsMenuControl
         onActionSelect={onActionSelect}
@@ -181,6 +181,6 @@ export const LocationDetailViewControls = ({
         range={range}
       />
       <LocationDetailEmptyMessage />
-    </>
+    </ControlsContextProvider>
   );
 };

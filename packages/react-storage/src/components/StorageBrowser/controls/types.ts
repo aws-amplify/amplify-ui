@@ -34,8 +34,9 @@ export interface ControlsContext {
   data: {
     taskCounts?: TaskCounts;
     tableData?: TableData;
+    isDataRefreshDisabled?: boolean;
   };
-  actionsConfig: {
+  actionsConfig?: {
     type:
       | 'SINGLE_ACTION'
       | 'BATCH_ACTION'
@@ -43,4 +44,5 @@ export interface ControlsContext {
       | 'LIST_LOCATION_ITEMS';
     isCancelable?: boolean;
   };
+  onRefresh?: () => void;
 }

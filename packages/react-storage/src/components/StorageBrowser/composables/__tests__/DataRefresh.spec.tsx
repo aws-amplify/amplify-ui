@@ -1,13 +1,13 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { RefreshControl } from '../Refresh';
+import { DataRefresh } from '../DataRefresh';
 
-describe('RefreshControl', () => {
-  it('renders the RefreshControl', () => {
-    render(<RefreshControl />);
+describe('DataRefresh', () => {
+  it('renders', () => {
+    render(<DataRefresh />);
 
     const button = screen.getByRole('button', {
-      name: 'Refresh table',
+      name: 'Refresh data',
     });
 
     const icon = button.querySelector('svg');
