@@ -2,6 +2,7 @@ import { setCustomUserAgent } from '@aws-amplify/core/internals/utils';
 
 import {
   ACCOUNT_SETTINGS_INPUT_BASE,
+  AI_INPUT_BASE,
   AUTHENTICATOR_INPUT_BASE,
   FILE_UPLOADER_BASE_INPUT,
   IN_APP_MESSAGING_INPUT_BASE,
@@ -15,6 +16,7 @@ import { noop } from '../utils';
 export type PackageName =
   | 'angular'
   | 'react'
+  | 'react-ai'
   | 'react-auth'
   | 'react-geo'
   | 'react-liveness'
@@ -25,6 +27,7 @@ export type PackageName =
   | 'vue';
 
 export type ComponentName =
+  | 'AIConversation'
   | 'Authenticator'
   | 'ChangePassword'
   | 'DeleteUser'
@@ -63,6 +66,13 @@ export const setUserAgent = ({
   const packageData: [string, string] = [`ui-${packageName}`, version];
 
   switch (componentName) {
+    case 'AIConversation': {
+      setCustomUserAgent({
+        ...AI_INPUT_BASE,
+        additionalDetails: [[componentName], packageData],
+      });
+      break;
+    }
     case 'Authenticator': {
       setCustomUserAgent({
         ...AUTHENTICATOR_INPUT_BASE,
