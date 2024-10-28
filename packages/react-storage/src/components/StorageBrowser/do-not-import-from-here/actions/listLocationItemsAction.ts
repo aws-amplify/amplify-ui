@@ -12,13 +12,22 @@ import {
   LocationItem,
 } from '../types';
 
+const MAX_PAGE_SIZE = 1000;
+
+interface ListLocationItemsActionOptions extends ListActionOptions {
+  prefetch?: ListPrefetchOptions;
+}
 export interface ListLocationItemsActionInput
-  extends ListActionInput<ListActionOptions> {}
+  extends ListActionInput<ListLocationItemsActionOptions> {}
 
 export interface ListLocationItemsActionOutput
   extends ListActionOutput<LocationItem> {}
 
 type ListOutputItem = ListOutput['items'][number];
+
+export interface ListPrefetchOptions {
+  count: number;
+}
 
 const parseItems = (
   items: ListOutputItem[],
@@ -53,12 +62,37 @@ export const parseResult = (
   ...parseItems(output.items, path),
 ];
 
+async function listWithPrefetch(
+  path: string,
+  listInputOptions: ListPaginateInput['options'],
+  prefetch: ListPrefetchOptions
+) {
+  const result: LocationItem[] = [];
+  let nextNextToken = listInputOptions?.nextToken;
+
+  do {
+    const output = await list({
+      path,
+      options: {
+        ...listInputOptions,
+        nextToken: nextNextToken,
+      },
+    });
+    const parsedOutput = parseResult(output, path);
+    result.push(...parsedOutput);
+    nextNextToken = output.nextToken;
+  } while (nextNextToken && result.length < prefetch.count);
+
+  return { result, nextToken: nextNextToken };
+}
+
 export async function listLocationItemsAction(
   prevState: ListLocationItemsActionOutput,
   input: ListLocationItemsActionInput
 ): Promise<ListLocationItemsActionOutput> {
   const { config, options, prefix: path } = input ?? {};
-  const { delimiter, nextToken, pageSize, refresh, reset } = options ?? {};
+  const { delimiter, nextToken, pageSize, refresh, reset, prefetch } =
+    options ?? {};
 
   if (reset) {
     return { result: [], nextToken: undefined };
@@ -98,6 +132,17 @@ export async function listLocationItemsAction(
       subpathStrategy,
     },
   };
+
+  if (prefetch) {
+    return await listWithPrefetch(
+      path,
+      {
+        ...listInput.options,
+        pageSize: MAX_PAGE_SIZE,
+      },
+      prefetch
+    );
+  }
 
   const output = await list(listInput);
 

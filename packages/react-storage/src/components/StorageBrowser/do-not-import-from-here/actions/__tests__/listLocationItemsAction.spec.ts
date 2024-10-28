@@ -180,3 +180,111 @@ describe('parseResult', () => {
     expect(result).toHaveLength(0);
   });
 });
+
+describe('list with prefetch', () => {
+  beforeEach(() => {
+    listSpy.mockClear();
+  });
+
+  it('should always fetch once', async () => {
+    const prefetch = { count: 0 };
+    const listInputOptions = {
+      prefix: 'a_prefix',
+      config,
+      nextToken: null,
+      options: { prefetch },
+    };
+
+    listSpy.mockResolvedValueOnce({
+      items: generateMockItems(20),
+      excludedSubpaths: generateMockSubpaths(10),
+      nextToken: undefined,
+    });
+
+    const { result, nextToken } = await listLocationItemsAction(
+      initialValue,
+      listInputOptions
+    );
+
+    expect(listSpy).toHaveBeenCalledTimes(1);
+    expect(listSpy).toHaveBeenCalledWith({
+      path: listInputOptions.prefix,
+      options: {
+        bucket: {
+          bucketName: listInputOptions.config.bucket,
+          region: listInputOptions.config.region,
+        },
+        locationCredentialsProvider:
+          listInputOptions.config.credentialsProvider,
+        nextToken: undefined,
+        pageSize: 1000,
+        subpathStrategy: { delimiter: undefined, strategy: 'include' },
+      },
+    });
+    expect(result.length).toBe(30);
+    expect(nextToken).toBe(undefined);
+  });
+
+  it('should stop fetching more results when prefetch limit is reached', async () => {
+    const prefetch = { count: 50 };
+    const listInputOptions = {
+      prefix: 'a_prefix',
+      config,
+      nextToken: null,
+      options: { prefetch },
+    };
+
+    listSpy
+      .mockResolvedValueOnce({
+        items: generateMockItems(20),
+        excludedSubpaths: generateMockSubpaths(10),
+        nextToken: 'first',
+      })
+      .mockResolvedValueOnce({
+        items: generateMockItems(20),
+        excludedSubpaths: generateMockSubpaths(10),
+        nextToken: 'second',
+      });
+
+    const { result, nextToken } = await listLocationItemsAction(
+      initialValue,
+      listInputOptions
+    );
+
+    expect(listSpy).toHaveBeenCalledTimes(2);
+    expect(result.length).toBe(60);
+
+    // still has more results but prefetch limit reached
+    expect(nextToken).toBe('second');
+  });
+
+  it('should keep paginating if prefetch limit not reached', async () => {
+    const prefetch = { count: 100 };
+    const listInputOptions = {
+      prefix: 'a_prefix',
+      config,
+      nextToken: null,
+      options: { prefetch },
+    };
+    listSpy
+      .mockResolvedValueOnce({
+        items: generateMockItems(20),
+        excludedSubpaths: generateMockSubpaths(10),
+        nextToken: 'first',
+      })
+      .mockResolvedValueOnce({
+        items: generateMockItems(20),
+        excludedSubpaths: generateMockSubpaths(10),
+        nextToken: undefined,
+      });
+
+    const { result, nextToken } = await listLocationItemsAction(
+      initialValue,
+      listInputOptions
+    );
+
+    expect(listSpy).toHaveBeenCalledTimes(2);
+    expect(result.length).toBe(60);
+    expect(nextToken).toBe(undefined);
+  });
+});
