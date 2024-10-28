@@ -27,7 +27,12 @@ export const TextDataCell = ({
           variant={icon}
         />
       )}
-      <SpanElement title={text}>{text}</SpanElement>
+      <SpanElement
+        className={`${CLASS_BASE}__table-text-data-cell-text`}
+        title={text}
+      >
+        {text}
+      </SpanElement>
     </ViewElement>
   );
 };
