@@ -1,13 +1,12 @@
 import React from 'react';
 import { CLASS_BASE } from '../views/constants';
 import {
-  ButtonElement,
-  IconElement,
   ListItemElement,
   NavElement,
   OrderedListElement,
   SpanElement,
 } from '../context/elements';
+import { PaginateArrow } from '../components/PaginateArrow';
 
 export interface PaginationProps {
   currentPage: number;
@@ -28,41 +27,23 @@ export const Pagination = ({
     <NavElement aria-label={'Pagination'} className={BLOCK_NAME}>
       <OrderedListElement className={`${BLOCK_NAME}__list`}>
         <ListItemElement className={`${BLOCK_NAME}__item`}>
-          <ButtonElement
-            aria-label="Go to previous page"
-            className={`${BLOCK_NAME}__button-previous`}
+          <PaginateArrow
             disabled={currentPage <= 1}
             onClick={() => handlePaginate(currentPage - 1)}
-          >
-            <IconElement
-              className={`${BLOCK_NAME}__icon`}
-              variant="paginate-previous"
-            />
-          </ButtonElement>
+            type="previous"
+          />
         </ListItemElement>
         <ListItemElement className={`${BLOCK_NAME}__item`}>
-          <ButtonElement
-            aria-current="page"
-            aria-label={`${currentPage}`}
-            className={`${BLOCK_NAME}__button-current`}
-          >
-            <SpanElement className={`${BLOCK_NAME}__text`}>
-              {currentPage}
-            </SpanElement>
-          </ButtonElement>
+          <SpanElement aria-current="page" className={`${BLOCK_NAME}__text`}>
+            {currentPage}
+          </SpanElement>
         </ListItemElement>
         <ListItemElement className={`${BLOCK_NAME}__item`}>
-          <ButtonElement
-            aria-label="Go to next page"
-            className={`${BLOCK_NAME}__button-next`}
+          <PaginateArrow
             disabled={currentPage >= highestPageVisited && !hasMorePages}
             onClick={() => handlePaginate(currentPage + 1)}
-          >
-            <IconElement
-              className={`${BLOCK_NAME}__icon`}
-              variant="paginate-next"
-            />
-          </ButtonElement>
+            type="next"
+          />
         </ListItemElement>
       </OrderedListElement>
     </NavElement>
