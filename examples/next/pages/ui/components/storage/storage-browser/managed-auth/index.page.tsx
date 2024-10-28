@@ -8,20 +8,7 @@ import { SignIn, SignOutButton } from './routed/components';
 import '@aws-amplify/ui-react-storage/storage-browser-styles.css';
 import '@aws-amplify/ui-react-storage/styles.css';
 
-const { StorageBrowser } = createStorageBrowser({
-  config: managedAuthAdapter,
-  actions: {
-    Share: {
-      options: {
-        displayName: 'Share',
-        hide(permission) {
-          return permission === 'WRITE';
-        },
-      },
-    },
-    MyCustom: {},
-  },
-});
+const { StorageBrowser } = createStorageBrowser({ config: managedAuthAdapter });
 
 function Example() {
   const [showSignIn, setShowSignIn] = React.useState(false);
