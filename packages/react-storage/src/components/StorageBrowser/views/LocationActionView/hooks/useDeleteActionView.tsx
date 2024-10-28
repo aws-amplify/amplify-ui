@@ -29,7 +29,6 @@ const LOCATION_ACTION_VIEW_HEADERS: DataTableProps['headers'] = [
   { key: 'size', type: 'text', content: { text: 'Size' } },
   { key: 'status', type: 'sort', content: { label: 'Status' } },
   { key: 'action', type: 'text', content: { text: '' } },
-  // { key: 'progress', header: 'Progress' },
 ];
 
 export const getDeleteActionViewTableData = ({
