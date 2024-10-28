@@ -8,7 +8,6 @@ import { NavigateControl } from './Navigate';
 import { OverwriteControl } from './Overwrite';
 import { PaginateControl } from './Paginate';
 import { PrimaryControl } from './Primary';
-import { RefreshControl } from './Refresh';
 import { SearchControl } from './Search';
 import { TableControl } from './Table';
 import { TitleControl } from './Title';
@@ -24,7 +23,6 @@ export interface Controls {
   Paginate: typeof PaginateControl;
   Primary: typeof PrimaryControl;
   Navigate: typeof NavigateControl;
-  Refresh: typeof RefreshControl;
   Search: typeof SearchControl;
   Table: typeof TableControl;
   Title: typeof TitleControl;
@@ -41,7 +39,6 @@ export const Controls: Controls = {
   Paginate: PaginateControl,
   Primary: PrimaryControl,
   Navigate: NavigateControl,
-  Refresh: RefreshControl,
   Search: SearchControl,
   Table: TableControl,
   Title: TitleControl,
