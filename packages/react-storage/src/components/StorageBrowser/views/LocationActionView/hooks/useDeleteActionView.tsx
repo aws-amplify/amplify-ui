@@ -206,11 +206,11 @@ export const useDeleteActionView = ({
   };
 
   const onClose = () => {
-    if (isFunction(_onClose)) _onClose();
     // clear files state
     dispatchStoreAction({ type: 'RESET_FILE_ITEMS' });
     // clear selected action
     dispatchStoreAction({ type: 'RESET_ACTION_TYPE' });
+    if (isFunction(_onClose)) _onClose();
   };
 
   return {

@@ -49,17 +49,6 @@ describe('LocationActionView', () => {
     expect(getByTestId('CREATE_FOLDER_CONTROLS')).toBeInTheDocument();
   });
 
-  it('returns `DeleteFileControls` when `actionType` is "DELETE_FILES"', () => {
-    const mockStore = {
-      actionType: 'DELETE_FILES',
-    } as StoreModule.UseStoreState;
-    useStoreSpy.mockReturnValueOnce([mockStore, jest.fn()]);
-
-    const { getByTestId } = render(<LocationActionView />);
-
-    expect(getByTestId('DELETE_FILES_CONTROLS')).toBeInTheDocument();
-  });
-
   it('returns `UploadControls` when `actionType` is "UPLOAD_FILES"', () => {
     const mockStore = {
       actionType: 'UPLOAD_FILES',

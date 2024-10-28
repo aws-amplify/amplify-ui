@@ -6,7 +6,7 @@ const removeSpy = jest.spyOn(StorageModule, 'remove');
 
 const baseInput: DeleteHandlerInput = {
   prefix: 'prefix/',
-  key: 'key',
+  key: 'prefix/key',
   config: {
     accountId: '012345678901',
     bucket: 'bucket',
@@ -21,7 +21,7 @@ describe('deleteHandler', () => {
     const { key } = deleteHandler(baseInput);
 
     const expected: StorageModule.RemoveInput = {
-      path: `${baseInput.prefix}${baseInput.key}`,
+      path: baseInput.key,
       options: {
         expectedBucketOwner: baseInput.config.accountId,
         bucket: {

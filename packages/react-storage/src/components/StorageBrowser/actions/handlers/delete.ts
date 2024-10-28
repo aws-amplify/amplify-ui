@@ -22,14 +22,12 @@ export interface DeleteHandler
 export const deleteHandler: DeleteHandler = ({
   config,
   key,
-  prefix,
   options,
 }): DeleteHandlerOutput => {
   const { accountId, credentials } = config;
   const bucket = constructBucket(config);
-
   const result = remove({
-    path: `${prefix}${key}`,
+    path: key,
     options: {
       bucket,
       locationCredentialsProvider: credentials,
