@@ -6,7 +6,7 @@ import {
   OrderedListElement,
   SpanElement,
 } from '../context/elements';
-import { PaginateArrow } from '../components/PaginateArrow';
+import { PaginateButton } from '../components/PaginateButton';
 
 export interface PaginationProps {
   currentPage: number;
@@ -27,7 +27,7 @@ export const Pagination = ({
     <NavElement aria-label={'Pagination'} className={BLOCK_NAME}>
       <OrderedListElement className={`${BLOCK_NAME}__list`}>
         <ListItemElement className={`${BLOCK_NAME}__item`}>
-          <PaginateArrow
+          <PaginateButton
             disabled={currentPage <= 1}
             onClick={() => handlePaginate(currentPage - 1)}
             type="previous"
@@ -39,7 +39,7 @@ export const Pagination = ({
           </SpanElement>
         </ListItemElement>
         <ListItemElement className={`${BLOCK_NAME}__item`}>
-          <PaginateArrow
+          <PaginateButton
             disabled={currentPage >= highestPageVisited && !hasMorePages}
             onClick={() => handlePaginate(currentPage + 1)}
             type="next"

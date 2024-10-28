@@ -9,16 +9,16 @@ import {
 
 const BLOCK_NAME = `${CLASS_BASE}__paginate`;
 
-interface PaginateArrowProps extends InputElementProps {
+interface PaginateButtonProps extends InputElementProps {
   disabled: boolean;
   onClick: () => void;
   type: 'previous' | 'next';
 }
-export function PaginateArrow({
+export function PaginateButton({
   disabled,
   onClick,
   type,
-}: PaginateArrowProps): React.JSX.Element {
+}: PaginateButtonProps): React.JSX.Element {
   return (
     <ButtonElement
       aria-label={`Go to ${type} page`}
