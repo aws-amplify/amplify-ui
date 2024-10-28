@@ -7,5 +7,4 @@ export const displayText = {
   statusDisplayFailed: 'Failed',
   statusDisplayCanceled: 'Canceled',
   statusDisplayQueued: 'Not started',
-  actionSelectedText: 'Selected files',
 };
