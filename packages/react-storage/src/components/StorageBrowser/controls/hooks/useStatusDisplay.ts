@@ -5,7 +5,7 @@ import { displayText } from '../../displayText/en';
 export const useStatusDisplay = (): StatusDisplayProps | null => {
   const { data, actionsConfig } = useControlsContext();
   const { taskCounts } = data;
-  const { isCancelable, type } = actionsConfig;
+  const { isCancelable, type } = actionsConfig ?? {};
 
   if (!taskCounts?.TOTAL || type !== 'BATCH_ACTION') {
     return null;
