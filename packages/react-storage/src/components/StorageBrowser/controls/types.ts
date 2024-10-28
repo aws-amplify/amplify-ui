@@ -22,7 +22,7 @@ interface TruncatedSortHeader
   content: Omit<DataTableSortHeader['content'], 'onSort' | 'sortDirection'>;
 }
 
-interface TableData {
+export interface TableData {
   headers: (
     | Exclude<DataTableProps['headers'][number], DataTableSortHeader>
     | TruncatedSortHeader

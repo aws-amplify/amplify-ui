@@ -58,15 +58,25 @@ describe('useDeleteActionView', () => {
         onCancel: expect.any(Function),
         onClose: expect.any(Function),
         onStart: expect.any(Function),
+        // /        tableCounts: expect.any(Object),
       })
     );
 
-    expect(result.current.controlsContextValue).toEqual(
+    expect(result.current.tableData).toEqual(
       expect.objectContaining({
-        data: expect.any(Object),
-        actionsConfig: { type: 'BATCH_ACTION', isCancelable: true },
+        rows: expect.any(Object),
+        headers: expect.any(Object),
       })
     );
+    expect(result.current.taskCounts).toEqual({
+      CANCELED: 0,
+      COMPLETE: 0,
+      FAILED: 0,
+      INITIAL: 0,
+      PENDING: 0,
+      QUEUED: 3,
+      TOTAL: 3,
+    });
   });
 
   it('should call processTasks when onStart is called', () => {
@@ -167,19 +177,20 @@ describe('useDeleteActionView', () => {
     );
   });
 
-  it('should provide table data in controlsContextValue', () => {
+  it('should provide table data and task counts in controlsContextValue', () => {
     const { result } = renderHook(() => useDeleteActionView({}));
 
-    expect(result.current.controlsContextValue.data).toEqual({
-      taskCounts: expect.any(Object),
-      tableData: expect.any(Object),
+    expect(result.current.tableData?.headers).toEqual(expect.any(Array));
+    expect(result.current.tableData?.rows).toEqual(expect.any(Array));
+    expect(result.current?.taskCounts).toEqual({
+      CANCELED: 0,
+      COMPLETE: 0,
+      FAILED: 0,
+      INITIAL: 0,
+      PENDING: 0,
+      QUEUED: 3,
+      TOTAL: 3,
     });
-    expect(
-      result.current.controlsContextValue.data?.tableData?.headers
-    ).toEqual(expect.any(Array));
-    expect(result.current.controlsContextValue.data?.tableData?.rows).toEqual(
-      expect.any(Array)
-    );
   });
 });
 

@@ -1,7 +1,7 @@
 import { humanFileSize, isFunction } from '@aws-amplify/ui';
 
 import { deleteHandler } from '../../../actions/handlers';
-import { ControlsContext, TaskCounts } from '../../../controls/types';
+import { TaskCounts } from '../../../controls/types';
 import {
   DataTableProps,
   DataTableRow,
@@ -184,11 +184,6 @@ export const useDeleteActionView = ({
     path: path ?? '',
   });
 
-  const contextValue: ControlsContext = {
-    data: { taskCounts, tableData },
-    actionsConfig: { type: 'BATCH_ACTION', isCancelable: true },
-  };
-
   const onStart = () => {
     if (!current?.prefix) return;
     handleProcess({
@@ -213,12 +208,13 @@ export const useDeleteActionView = ({
   };
 
   return {
-    controlsContextValue: contextValue,
     disableCancel,
     disableClose,
     disablePrimary,
     onCancel,
     onClose,
     onStart,
+    taskCounts,
+    tableData,
   };
 };
