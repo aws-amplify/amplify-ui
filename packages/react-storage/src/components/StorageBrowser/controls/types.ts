@@ -31,11 +31,10 @@ interface TableData {
 }
 
 interface PaginationData {
-  currentPage: number;
-  disableNext: boolean;
-  disablePrevious: boolean;
-  handlePaginateNext: () => void;
-  handlePaginatePrevious: () => void;
+  hasMorePages: boolean;
+  pageSize: number;
+  resultCount: number;
+  onPaginate?: () => void;
 }
 
 export interface ControlsContext {
