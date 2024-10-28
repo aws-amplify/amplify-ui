@@ -1,4 +1,5 @@
 import { WebTokens } from '../tokens';
+import { AIConversationTheme } from './aiConverstion';
 import { AccordionTheme } from './accordion';
 import { AlertTheme } from './alert';
 import { AutoCompleteTheme } from './autocomplete';
@@ -51,6 +52,7 @@ export type { ComponentTheme, BaseComponentTheme, BaseTheme };
 export type ComponentsTheme<TokensType extends WebTokens = WebTokens> =
   | BaseComponentTheme<BaseTheme, string, TokensType>
   | BaseComponentTheme<AccordionTheme, 'accordion', TokensType>
+  | BaseComponentTheme<AIConversationTheme, 'ai-conversation', TokensType>
   | BaseComponentTheme<AlertTheme, 'alert', TokensType>
   | BaseComponentTheme<AutoCompleteTheme, 'autocomplete', TokensType>
   | BaseComponentTheme<AvatarTheme, 'avatar', TokensType>
@@ -100,6 +102,7 @@ export type ComponentsTheme<TokensType extends WebTokens = WebTokens> =
 // if the name extends from a known name, like 'alert' this should return the specific shape
 export type AllComponentThemes = {
   accordion: AccordionTheme;
+  'ai-conversation': AIConversationTheme;
   alert: AlertTheme;
   autocomplete: AutoCompleteTheme;
   avatar: AvatarTheme;
