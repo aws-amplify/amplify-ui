@@ -51,7 +51,7 @@ export const DeleteFilesControls = ({
       <StatusDisplayControl
         className={`${CLASS_BASE}__action-status-display`}
       />
-      <DataTableControl className="storage-browser__table" />
+      <DataTableControl className={`${CLASS_BASE}__table`} />
     </ControlsContextProvider>
   );
 };
