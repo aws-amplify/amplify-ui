@@ -207,7 +207,7 @@ export const useDeleteActionView = ({
 
   const onClose = () => {
     // clear files state
-    dispatchStoreAction({ type: 'RESET_FILE_ITEMS' });
+    dispatchStoreAction({ type: 'RESET_LOCATION_ITEMS' });
     // clear selected action
     dispatchStoreAction({ type: 'RESET_ACTION_TYPE' });
     if (isFunction(_onClose)) _onClose();

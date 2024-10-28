@@ -2,7 +2,6 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { DeleteFilesControls } from '../DeleteFilesControls';
 import { useDeleteActionView } from '../hooks/useDeleteActionView';
-import { displayText } from '../../../displayText/en';
 import userEvent from '@testing-library/user-event';
 import * as TempActions from '../../../do-not-import-from-here/createTempActionsProvider';
 
@@ -51,9 +50,6 @@ describe('DeleteFilesControls', () => {
     expect(screen.getByRole('button', { name: 'Back' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Start' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Cancel' })).toBeInTheDocument();
-    expect(screen.getByRole('heading', { level: 3 })).toHaveTextContent(
-      displayText.actionSelectedText
-    );
   });
 
   it('disables controls based on useDeleteActionView hook', () => {

@@ -98,8 +98,12 @@ export const LocationDetailViewControls = ({
 
   const onPaginateNext = () => {
     if (hasInvalidPrefix || !nextToken) return;
-
+    dispatchStoreAction({ type: 'RESET_LOCATION_ITEMS' });
     handleList({ prefix, options: { ...DEFAULT_LIST_OPTIONS, nextToken } });
+  };
+
+  const onPaginatePrevious = () => {
+    dispatchStoreAction({ type: 'RESET_LOCATION_ITEMS' });
   };
 
   const {
@@ -107,7 +111,11 @@ export const LocationDetailViewControls = ({
     handlePaginateNext,
     handlePaginatePrevious,
     handleReset: handlePaginateReset,
-  } = usePaginate({ pageSize: DEFAULT_PAGE_SIZE, onPaginateNext });
+  } = usePaginate({
+    pageSize: DEFAULT_PAGE_SIZE,
+    onPaginateNext,
+    onPaginatePrevious,
+  });
 
   React.useEffect(() => {
     if (hasInvalidPrefix) return;

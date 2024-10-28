@@ -118,7 +118,7 @@ describe('useDeleteActionView', () => {
 
     expect(mockOnClose).toHaveBeenCalled();
     expect(mockDispatchStoreAction).toHaveBeenCalledWith({
-      type: 'RESET_FILE_ITEMS',
+      type: 'RESET_LOCATION_ITEMS',
     });
     expect(mockDispatchStoreAction).toHaveBeenCalledWith({
       type: 'RESET_ACTION_TYPE',
