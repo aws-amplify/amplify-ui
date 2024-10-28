@@ -1,6 +1,5 @@
 export { CancelControl } from './Cancel';
 export { DownloadControl } from './Download';
-export { HeadingControl } from './Heading';
 export { EmptyMessageControl } from './EmptyMessage';
 export { ExitControl } from './Exit';
 export { LoadingControl } from './Loading';

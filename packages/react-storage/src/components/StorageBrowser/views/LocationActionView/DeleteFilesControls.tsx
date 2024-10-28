@@ -5,15 +5,11 @@ import { ButtonElement } from '../../context/elements';
 import { DataTableControl } from '../../controls/DataTableControl';
 import { ControlsContextProvider } from '../../controls/context';
 import { CLASS_BASE } from '../constants';
-import { HeadingControl } from '../Controls/Heading';
 import { Title } from './Controls/Title';
 import { useDeleteActionView } from './hooks/useDeleteActionView';
 import { StatusDisplayControl } from '../../controls/StatusDisplayControl';
-import { displayText } from '../../displayText/en';
 
 const { Exit, Primary } = Controls;
-
-const { actionSelectedText } = displayText;
 
 export const DeleteFilesControls = ({
   onClose: _onClose,
@@ -55,7 +51,6 @@ export const DeleteFilesControls = ({
       <StatusDisplayControl
         className={`${CLASS_BASE}__action-status-display`}
       />
-      <HeadingControl level={3}>{actionSelectedText}</HeadingControl>
       <DataTableControl className="storage-browser__table" />
     </ControlsContextProvider>
   );
