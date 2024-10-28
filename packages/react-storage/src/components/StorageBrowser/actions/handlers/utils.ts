@@ -62,27 +62,27 @@ export const parseLocationAccess = (location: LocationAccess): LocationData => {
   const id = crypto.randomUUID();
 
   // remove default path
-  const sanitizedScope = scope.slice(5);
+  const slicedScope = scope.slice(5);
   let bucket, prefix;
 
   switch (type) {
     case 'BUCKET': {
       // { scope: 's3://bucket/*', type: 'BUCKET', },
-      bucket = sanitizedScope.slice(0, -2);
+      bucket = slicedScope.slice(0, -2);
       prefix = '';
       break;
     }
     case 'PREFIX': {
       // { scope: 's3://bucket/path/*', type: 'PREFIX', },
-      bucket = sanitizedScope.slice(0, sanitizedScope.indexOf('/'));
-      prefix = `${sanitizedScope.slice(bucket.length + 1, -1)}`;
+      bucket = slicedScope.slice(0, slicedScope.indexOf('/'));
+      prefix = `${slicedScope.slice(bucket.length + 1, -1)}`;
 
       break;
     }
     case 'OBJECT': {
       // { scope: 's3://bucket/path/to/object', type: 'OBJECT', },
-      bucket = sanitizedScope.slice(0, sanitizedScope.indexOf('/'));
-      prefix = sanitizedScope.slice(bucket.length + 1);
+      bucket = slicedScope.slice(0, slicedScope.indexOf('/'));
+      prefix = slicedScope.slice(bucket.length + 1);
       break;
     }
     default: {

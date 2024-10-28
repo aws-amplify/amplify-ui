@@ -20,10 +20,10 @@ Feature: Storage Browser navigate breadcrumbs
     Then I type my password
     Then I click the "Sign in" button
     When I click the button containing "public"
-    Then I see the "public/Blueberry/" button
-    When I click the "public/Blueberry/" button
-    Then I see "public/Blueberry/Blackberry/"
-    When I click the "public/Blueberry/Blackberry/" button
+    Then I see the "Blueberry/" button
+    When I click the "Blueberry/" button
+    Then I see "Blackberry/"
+    When I click the "Blackberry/" button
     Then I see "public/Blueberry/"
     When I click the "public/Blueberry" button
     Then I see "public/Blueberry/"
@@ -34,11 +34,10 @@ Feature: Storage Browser navigate breadcrumbs
     Then I type my password
     Then I click the "Sign in" button
     When I click the button containing "public"
-    Then I see the "public/Blueberry/" button
-    When I click the "public/Blueberry/" button
-    Then I see the "public/Blueberry/Acai/" button
-    When I click the "public/Blueberry/Acai/" button
-    Then I see "public/Blueberry/Acai/"
+    Then I see the "Blueberry/" button
+    When I click the "Blueberry/" button
+    Then I see the "Acai/" button
+    When I click the "Acai/" button
     Then I see the "public/Blueberry" button
     When I click the "public/Blueberry" button
-    Then I see "public/Blueberry/"
+    Then I see "Blueberry/"
