@@ -166,9 +166,8 @@ export const useDeleteActionView = ({
   const getInput = useGetActionInput();
 
   const [tasks, handleProcess] = useProcessTasks(
+    // @ts-expect-error
     deleteHandler,
-    // @ts-ignore
-    // FIXME: TS doesn't like that items is required in Tasks but not in FileItem
     selected,
     {
       concurrency: 1,

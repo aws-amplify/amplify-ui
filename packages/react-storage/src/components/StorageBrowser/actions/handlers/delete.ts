@@ -12,7 +12,9 @@ import { constructBucket, resolveHandlerResult } from './utils';
 interface DeleteHandlerOptions extends TaskHandlerOptions {}
 
 export interface DeleteHandlerInput
-  extends TaskHandlerInput<undefined, DeleteHandlerOptions> {}
+  extends Omit<TaskHandlerInput<never, DeleteHandlerOptions>, 'data'> {
+  data: { key: string };
+}
 
 export interface DeleteHandlerOutput extends TaskHandlerOutput {}
 
@@ -23,6 +25,7 @@ export const deleteHandler: DeleteHandler = ({
   config,
   key,
   options,
+  prefix: _prefix,
 }): DeleteHandlerOutput => {
   const { accountId, credentials } = config;
   const bucket = constructBucket(config);

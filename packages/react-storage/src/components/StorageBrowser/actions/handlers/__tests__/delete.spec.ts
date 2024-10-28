@@ -13,6 +13,8 @@ const baseInput: DeleteHandlerInput = {
     credentials: jest.fn(),
     region: 'region',
   },
+  // @ts-expect-error
+  // FIXME: The type for payload is never
   data: { id: 'id', payload: undefined },
 };
 
