@@ -1,12 +1,9 @@
 import { renderHook, act } from '@testing-library/react-hooks';
-import {
-  useDeleteActionView,
-  getDeleteActionViewTableData,
-} from '../useDeleteActionView';
+import { useDeleteActionView } from '../useDeleteActionView';
+import { getDeleteActionViewTableData } from '../../utils';
 import { useStore } from '../../../../providers/store';
 import { useGetActionInput } from '../../../../providers/configuration';
 import { useProcessTasks } from '../../../../tasks';
-import {} from '../useDeleteActionView';
 import { TaskStatus } from '../../../../tasks';
 
 // Mock the imported hooks and functions
@@ -62,12 +59,7 @@ describe('useDeleteActionView', () => {
       })
     );
 
-    expect(result.current.tableData).toEqual(
-      expect.objectContaining({
-        rows: expect.any(Object),
-        headers: expect.any(Object),
-      })
-    );
+    expect(result.current.tasks).toEqual([]);
     expect(result.current.taskCounts).toEqual({
       CANCELED: 0,
       COMPLETE: 0,
@@ -177,12 +169,11 @@ describe('useDeleteActionView', () => {
     );
   });
 
-  it('should provide table data and task counts in controlsContextValue', () => {
+  it('should provide tasks data and task counts', () => {
     const { result } = renderHook(() => useDeleteActionView({}));
 
-    expect(result.current.tableData?.headers).toEqual(expect.any(Array));
-    expect(result.current.tableData?.rows).toEqual(expect.any(Array));
-    expect(result.current?.taskCounts).toEqual({
+    expect(result.current.tasks).toEqual(expect.any(Array));
+    expect(result.current.taskCounts).toEqual({
       CANCELED: 0,
       COMPLETE: 0,
       FAILED: 0,

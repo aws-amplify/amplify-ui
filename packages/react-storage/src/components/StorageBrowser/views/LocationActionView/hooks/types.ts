@@ -1,4 +1,5 @@
-import { TableData, TaskCounts } from '../../../controls/types';
+import { TaskCounts } from '../../../controls/types';
+import { Task } from '../../../tasks';
 
 export interface UseActionView {
   disableCancel: boolean;
@@ -8,5 +9,5 @@ export interface UseActionView {
   onClose: () => void;
   onStart: () => void;
   taskCounts: TaskCounts;
-  tableData: TableData;
+  tasks: Task[];
 }

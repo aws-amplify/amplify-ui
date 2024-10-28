@@ -9,6 +9,8 @@ import { Title } from './Controls/Title';
 import { useDeleteActionView } from './hooks/useDeleteActionView';
 import { StatusDisplayControl } from '../../controls/StatusDisplayControl';
 import { ControlsContext } from '../../controls/types';
+import { useStore } from '../../providers/store';
+import { getDeleteActionViewTableData } from './utils';
 
 const { Exit, Primary } = Controls;
 
@@ -25,8 +27,17 @@ export const DeleteFilesControls = ({
     onCancel,
     onStart,
     taskCounts,
-    tableData,
+    tasks,
   } = useDeleteActionView({ onClose: _onClose });
+
+  const [{ history }] = useStore();
+  const { current } = history;
+  const path = current?.prefix;
+  const tableData = getDeleteActionViewTableData({
+    tasks,
+    taskCounts,
+    path: path ?? '',
+  });
 
   const contextValue: ControlsContext = {
     data: { taskCounts, tableData },

@@ -1,6 +1,6 @@
 import {
   getActionIconVariant,
-  getActionViewTaskStatuses,
+  getActionViewDisabledButtons,
   getFileTypeDisplayValue,
   getFilenameWithoutPrefix,
 } from '../utils';
@@ -16,7 +16,7 @@ describe('Utils', () => {
     });
   });
 
-  describe('getActionViewTaskStatuses', () => {
+  describe('getActionViewDisabledButtons', () => {
     it('should return correct statuses when no tasks have started', () => {
       const counts = {
         INITIAL: 0,
@@ -27,10 +27,8 @@ describe('Utils', () => {
         CANCELED: 0,
         TOTAL: 5,
       };
-      const result = getActionViewTaskStatuses(counts);
+      const result = getActionViewDisabledButtons(counts);
       expect(result).toEqual({
-        hasStarted: false,
-        taskCounts: counts,
         disableCancel: true,
         disableClose: false,
         disablePrimary: false,
@@ -47,10 +45,8 @@ describe('Utils', () => {
         CANCELED: 0,
         TOTAL: 5,
       };
-      const result = getActionViewTaskStatuses(counts);
+      const result = getActionViewDisabledButtons(counts);
       expect(result).toEqual({
-        hasStarted: true,
-        taskCounts: counts,
         disableCancel: false,
         disableClose: true,
         disablePrimary: true,
@@ -67,10 +63,8 @@ describe('Utils', () => {
         CANCELED: 1,
         TOTAL: 5,
       };
-      const result = getActionViewTaskStatuses(counts);
+      const result = getActionViewDisabledButtons(counts);
       expect(result).toEqual({
-        hasStarted: true,
-        taskCounts: counts,
         disableCancel: true,
         disableClose: false,
         disablePrimary: true,
