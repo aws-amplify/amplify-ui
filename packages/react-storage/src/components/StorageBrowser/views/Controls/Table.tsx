@@ -199,10 +199,10 @@ export const LocationDetailViewTable = ({
   const [{ selected }, handleLocationActionsState] =
     useControl('LOCATION_ACTIONS');
 
-  const [{ hasError }] = useAction('LIST_LOCATION_ITEMS');
+  const [{ hasError, isLoading }] = useAction('LIST_LOCATION_ITEMS');
 
   const hasItems = !!items.length;
-  const showTable = hasItems && !hasError;
+  const showTable = hasItems && !hasError && !isLoading;
 
   const [compareFn, setCompareFn] = React.useState(() => compareStrings);
   const [sortState, setSortState] = React.useState<SortState<LocationItem>>({

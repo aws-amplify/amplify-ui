@@ -9,6 +9,7 @@ import {
   ListActionInput,
   ListActionOptions,
   ListActionOutput,
+  ListPrefetchOptions,
   LocationItem,
 } from '../types';
 
@@ -60,12 +61,38 @@ export const parseResult = (
   ];
 };
 
+const MAX_PAGE_SIZE = 1000;
+
+async function listWithPrefetch(
+  path: string,
+  listInputOptions: ListPaginateInput['options'],
+  prefetch: ListPrefetchOptions
+) {
+  const result: LocationItem[] = [];
+  let nextNextToken = listInputOptions?.nextToken;
+  do {
+    const output = await list({
+      path,
+      options: {
+        ...listInputOptions,
+        nextToken: nextNextToken,
+      },
+    });
+    const parsedOutput = parseResult(output, path);
+    result.push(...parsedOutput);
+    nextNextToken = output.nextToken;
+  } while (nextNextToken && result.length < prefetch.maxResults);
+
+  return { result, nextToken: nextNextToken };
+}
+
 export async function listLocationItemsAction(
   prevState: ListLocationItemsActionOutput,
   input: ListLocationItemsActionInput
 ): Promise<ListLocationItemsActionOutput> {
   const { config, options, prefix: path } = input ?? {};
-  const { delimiter, nextToken, pageSize, refresh, reset } = options ?? {};
+  const { delimiter, nextToken, pageSize, refresh, reset, prefetch } =
+    options ?? {};
 
   if (reset) {
     return { result: [], nextToken: undefined };
@@ -106,12 +133,23 @@ export async function listLocationItemsAction(
     },
   };
 
-  const output = await list(listInput);
+  if (prefetch) {
+    return await listWithPrefetch(
+      path,
+      {
+        ...listInput.options,
+        pageSize: MAX_PAGE_SIZE,
+      },
+      prefetch
+    );
+  } else {
+    const output = await list(listInput);
 
-  const result = [
-    ...(refresh ? [] : prevState.result),
-    ...parseResult(output, path),
-  ];
+    const result = [
+      ...(refresh ? [] : prevState.result),
+      ...parseResult(output, path),
+    ];
 
-  return { result, nextToken: output.nextToken };
+    return { result, nextToken: output.nextToken };
+  }
 }

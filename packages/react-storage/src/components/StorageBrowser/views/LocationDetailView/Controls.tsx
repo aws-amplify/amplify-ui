@@ -4,7 +4,7 @@ import { LocationData, useAction } from '../../context/actions';
 import { useControl } from '../../context/control';
 import { parseLocationAccess } from '../../context/navigate/utils';
 
-import { Controls, LocationDetailViewTable } from '../Controls';
+import { Controls, LocationDetailViewTable, SearchControl } from '../Controls';
 
 import { ActionsMenuControl } from './Controls/ActionsMenu';
 import { useLocationDetailView } from './useLocationDetailView';
@@ -72,7 +72,7 @@ const LocationDetailEmptyMessage = () => {
 
 export const LocationDetailViewControls = (): React.JSX.Element => {
   const locationDetailView = useLocationDetailView();
-  const { pageItems, isLoading, hasError, hasNextPage, page } =
+  const { pageItems, isLoading, hasError, hasNextPage, page, onSearch } =
     locationDetailView;
 
   const handleDroppedFiles = (files: File[]) => {
@@ -85,7 +85,6 @@ export const LocationDetailViewControls = (): React.JSX.Element => {
 
   const disableNext = !hasNextPage || isLoading || hasError;
   const disablePrevious = page <= 1 || isLoading || hasError;
-  const renderLoading = page === 1 && pageItems.length === 0 && isLoading;
 
   return (
     <>
@@ -110,7 +109,12 @@ export const LocationDetailViewControls = (): React.JSX.Element => {
         }}
       />
       <LocationDetailMessage />
-      <Loading show={renderLoading} />
+      <Loading show={isLoading} />
+      <SearchControl
+        handleSearch={(term: string, includeSubfolders: boolean) => {
+          onSearch(term, includeSubfolders);
+        }}
+      />
       <LocationDetailViewTable
         items={pageItems}
         handleDroppedFiles={handleDroppedFiles}

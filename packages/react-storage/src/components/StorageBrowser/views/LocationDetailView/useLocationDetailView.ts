@@ -6,6 +6,7 @@ import { useAction } from '../../context/actions';
 import { isString } from '@aws-amplify/ui';
 import { usePaginate } from '../hooks/usePaginate';
 import { isFile } from '../utils';
+import { InitialSearchValues, useSearch } from '../hooks/useSearch';
 
 interface UseLocationDetailView {
   hasNextPage: boolean;
@@ -19,6 +20,7 @@ interface UseLocationDetailView {
   onPaginateNext: () => void;
   onPaginatePrevious: () => void;
   onAddFiles: (files: File[]) => void;
+  onSearch: (term: string, includeSubfolders?: boolean) => void;
 }
 
 export type LocationDetailViewActionType =
@@ -46,6 +48,11 @@ const DEFAULT_PAGE_SIZE = 100;
 export const DEFAULT_LIST_OPTIONS = {
   delimiter: '/',
   pageSize: DEFAULT_PAGE_SIZE,
+};
+
+const INITIAL_SEARCH_VALUES: InitialSearchValues<LocationItem> = {
+  searchKey: 'key',
+  searchTerm: '',
 };
 
 export function useLocationDetailView(
@@ -97,6 +104,24 @@ export function useLocationDetailView(
     pageSize: listOptions.pageSize,
   });
 
+  const { filteredItems, handleSearch } = useSearch<LocationItem>({
+    items: result,
+    initialValues: INITIAL_SEARCH_VALUES,
+    onSearch: (term: string, includeSubfolders?: boolean) => {
+      if (!hasValidPath) return;
+      if (includeSubfolders) {
+        handleList({
+          prefix: path,
+          options: {
+            ...listOptions,
+            delimiter: undefined,
+            prefetch: { maxResults: 100000 },
+          },
+        });
+      }
+    },
+  });
+
   const onRefresh = () => {
     if (!hasValidPath) return;
 
@@ -120,8 +145,8 @@ export function useLocationDetailView(
 
   const processedItems = React.useMemo(() => {
     const [start, end] = range;
-    return result.slice(start, end);
-  }, [range, result]);
+    return filteredItems.slice(start, end);
+  }, [range, filteredItems]);
 
   return {
     page: currentPage,
@@ -164,5 +189,6 @@ export function useLocationDetailView(
         });
       }
     },
+    onSearch: handleSearch,
   };
 }

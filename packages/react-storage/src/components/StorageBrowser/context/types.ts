@@ -84,6 +84,10 @@ export type TaskAction<T = TaskActionInput, K = TaskActionOutput> = (
   input: T
 ) => Promise<K>;
 
+export interface ListPrefetchOptions {
+  maxResults: number;
+}
+
 export interface ListActionOptions<T = never> {
   delimiter?: string;
   exclude?: T | T[];
@@ -91,6 +95,7 @@ export interface ListActionOptions<T = never> {
   pageSize?: number;
   refresh?: boolean;
   reset?: boolean;
+  prefetch?: ListPrefetchOptions;
 }
 
 export interface ListActionInput<K = never> {
