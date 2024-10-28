@@ -383,7 +383,7 @@ export const LocationDetailViewTable = ({
                 return (
                   <TableDataText>
                     <Icon className={ICON_CLASS} variant="file" />
-                    {row.key}
+                    {row.key.slice(current?.prefix.length)}
                   </TableDataText>
                 );
               }
@@ -409,9 +409,10 @@ export const LocationDetailViewTable = ({
                       if (isFunction(onNavigate)) onNavigate(destination);
                       dispatchStoreAction({ type: 'NAVIGATE', destination });
                     }}
-                    key={`${index}-${row.key}`}
+                    key={row.id}
                   >
-                    <Icon className={ICON_CLASS} variant="folder" /> {row.key}
+                    <Icon className={ICON_CLASS} variant="folder" />
+                    {row.key.slice(current?.prefix.length)}
                   </Button>
                 );
               }
