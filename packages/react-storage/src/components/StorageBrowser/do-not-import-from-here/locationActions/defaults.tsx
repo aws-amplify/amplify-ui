@@ -12,7 +12,7 @@ const DELETE_FILES: LocationAction = {
   options: {
     ...OPTIONS_DEFAULT,
     disable: (selectedItems) => selectedItems.length < 1,
-    displayName: 'Delete File',
+    displayName: 'Delete Files',
     icon: <IconElement variant="delete-file" />,
   },
 };
