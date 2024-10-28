@@ -1,4 +1,4 @@
-import { RegisterAuthListener } from '../context/useGetCredentialsProvider';
+import { RegisterAuthListener } from '../providers';
 import { GetLocationCredentials } from '../credentials/types';
 import { CredentialsProvider, ListLocations } from '../storage-internal';
 

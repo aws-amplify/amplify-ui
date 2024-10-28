@@ -5,7 +5,7 @@ const config: Config = {
   collectCoverageFrom: [
     '<rootDir>/src/**/*.(ts|tsx)',
     // do not collect from index, testUtils or version files
-    '!<rootDir>/**/(index|testUtils|version).(ts|tsx)',
+    '!<rootDir>/**/(index|version).(ts|tsx)',
     // do not collect from top level styles directory
     '!<rootDir>/src/styles/*.ts',
   ],
@@ -16,10 +16,10 @@ const config: Config = {
       // functions: 90,
       // lines: 95,
       // statements: 95,
-      branches: 81,
-      functions: 83,
-      lines: 91,
-      statements: 90,
+      branches: 80,
+      functions: 86,
+      lines: 92,
+      statements: 91,
     },
   },
   moduleNameMapper: { '^uuid$': '<rootDir>/../../node_modules/uuid' },

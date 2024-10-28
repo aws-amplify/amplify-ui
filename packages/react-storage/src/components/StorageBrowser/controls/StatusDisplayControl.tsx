@@ -9,7 +9,7 @@ import { useStatusDisplay } from './hooks/useStatusDisplay';
 export const StatusDisplayControl = ({
   className,
 }: ControlProps): React.JSX.Element | null => {
-  const { props } = useStatusDisplay();
+  const props = useStatusDisplay();
 
   const ResolvedStatusDisplay = useResolvedComposable(
     StatusDisplay,
@@ -20,11 +20,9 @@ export const StatusDisplayControl = ({
     return null;
   }
 
-  const { statuses, total } = props;
-
   return (
     <ViewElement className={className}>
-      <ResolvedStatusDisplay statuses={statuses} total={total} />
+      <ResolvedStatusDisplay {...props} />
     </ViewElement>
   );
 };

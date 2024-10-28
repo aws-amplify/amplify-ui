@@ -2,9 +2,8 @@ import React from 'react';
 
 import { createStorageBrowser } from '@aws-amplify/ui-react-storage/browser';
 
-import { auth, managedAuthAdapter } from '../managedAuthAdapter';
-
-import { Button, Flex } from '@aws-amplify/ui-react';
+import { managedAuthAdapter } from '../managedAuthAdapter';
+import { SignIn, SignOutButton } from './routed/components';
 
 import '@aws-amplify/ui-react-storage/storage-browser-styles.css';
 import '@aws-amplify/ui-react-storage/styles.css';
@@ -25,43 +24,13 @@ const { StorageBrowser } = createStorageBrowser({
 });
 
 function Example() {
-  const [authenticated, setAuthenticated] = React.useState(false);
-  const [isLoading, setIsLoading] = React.useState(false);
-  const [errorMessage, setErrorMessage] = React.useState<string | undefined>();
+  const [showSignIn, setShowSignIn] = React.useState(false);
 
-  return !authenticated ? (
-    <Flex>
-      <Button
-        onClick={() => {
-          setIsLoading(true);
-          auth.signIn({
-            onSignIn: () => {
-              setAuthenticated(true);
-              setIsLoading(false);
-            },
-            onError: (e: Error) => {
-              setErrorMessage(e.message);
-              setIsLoading(false);
-            },
-          });
-        }}
-      >
-        Sign In
-      </Button>
-      {isLoading ? <span>Authenticating...</span> : null}
-      {errorMessage ? <span>{errorMessage}</span> : null}
-    </Flex>
+  return !showSignIn ? (
+    <SignIn onSignIn={() => setShowSignIn(true)} />
   ) : (
     <>
-      <Button
-        size="small"
-        marginBlockEnd="xl"
-        onClick={() => {
-          auth.signOut({ onSignOut: () => setAuthenticated(false) });
-        }}
-      >
-        Sign Out
-      </Button>
+      <SignOutButton onSignOut={() => setShowSignIn(false)} />
       <StorageBrowser />
     </>
   );
