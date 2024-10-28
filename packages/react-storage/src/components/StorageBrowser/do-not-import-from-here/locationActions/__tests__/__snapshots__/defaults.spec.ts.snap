@@ -12,7 +12,7 @@ exports[`default actions contains the expected properties 1`] = `
       />,
     },
   },
-  "DELETE_FILE": {
+  "DELETE_FILES": {
     "options": {
       "disable": [Function],
       "displayName": "Delete File",

@@ -13,7 +13,7 @@ const baseInput: DeleteHandlerInput = {
     credentials: jest.fn(),
     region: 'region',
   },
-  data: { key: 'key' },
+  data: { id: 'id', payload: undefined },
 };
 
 describe('deleteHandler', () => {
@@ -34,6 +34,6 @@ describe('deleteHandler', () => {
 
     expect(removeSpy).toHaveBeenCalledWith(expected);
 
-    expect(key).toBe(baseInput.data.key);
+    expect(key).toBe(baseInput.key);
   });
 });

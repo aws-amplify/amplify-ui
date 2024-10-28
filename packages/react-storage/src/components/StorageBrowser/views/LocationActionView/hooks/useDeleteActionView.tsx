@@ -1,25 +1,24 @@
-import { useMemo } from 'react';
-
 import { humanFileSize, isFunction } from '@aws-amplify/ui';
 
-import { useGetLocationConfig } from '../../../context/config';
-import { useControl } from '../../../context/control';
-import { DataTableProps } from '../../../composables/DataTable';
 import { deleteHandler } from '../../../actions/handlers';
+import { ControlsContext, TaskCounts } from '../../../controls/types';
+import {
+  DataTableProps,
+  DataTableRow,
+} from '../../../composables/DataTable/DataTable';
+import { WithKey } from '../../../components/types';
+import { getTaskCounts } from '../../../controls/getTaskCounts';
+import { STATUS_DISPLAY_VALUES } from '../../LocationActionView/constants';
+import { useStore } from '../../../providers/store';
+import { useGetActionInput } from '../../../providers/configuration';
 import { Task, useProcessTasks } from '../../../tasks';
 import { UseActionView } from './types';
-import { ControlsContext, TaskCounts } from '../../../controls/types';
-import { WithKey } from '../../../components/types';
-import { DataTableRow } from '../../../composables/DataTable/DataTable';
-import { STATUS_DISPLAY_VALUES } from '../../LocationActionView/constants';
-import { LocationItem } from '../../../context/types';
 import {
   getActionIconVariant,
   getActionViewTaskStatuses,
   getFilenameWithoutPrefix,
   getFileTypeDisplayValue,
 } from './utils';
-import { getTaskCounts } from '../../../controls/getTaskCounts';
 
 interface UseDeleteActionView extends UseActionView {}
 
@@ -150,32 +149,30 @@ export const getDeleteActionViewTableData = ({
   return tableData;
 };
 
-export const UseDeleteActionView = (): UseDeleteActionView => {
-  const getConfig = useGetLocationConfig();
-  const { bucket, credentialsProvider, region, accountId } = getConfig();
-
-  const [{ path }] = useControl('NAVIGATE');
-  const [, handleUpdateState] = useControl('LOCATION_ACTIONS');
+export const useDeleteActionView = ({
+  onClose: _onClose,
+}: {
+  onClose?: () => void;
+}): UseDeleteActionView => {
   const [
     {
-      selected: { items: selected = [] },
+      history,
+      locationItems: { fileDataItems: selected },
     },
-  ] = useControl('LOCATION_ACTIONS');
+    dispatchStoreAction,
+  ] = useStore();
+  const { current } = history;
+  const path = current?.prefix;
+  const getInput = useGetActionInput();
 
-  const processTasksInputItems: (LocationItem & { item: unknown })[] =
-    useMemo(() => {
-      return selected
-        ? selected.map((item) => ({
-            ...item,
-            key: item.key,
-            item: undefined,
-          }))
-        : [];
-    }, [selected]);
-
-  const [tasks, processTasks] = useProcessTasks(
+  const [tasks, handleProcess] = useProcessTasks(
     deleteHandler,
-    processTasksInputItems
+    // @ts-ignore
+    // FIXME: TS doesn't like that items is required in Tasks but not in FileItem
+    selected,
+    {
+      concurrency: 1,
+    }
   );
 
   const taskCounts = getTaskCounts(tasks);
@@ -194,26 +191,26 @@ export const UseDeleteActionView = (): UseDeleteActionView => {
   };
 
   const onStart = () => {
-    processTasks({
-      prefix: path ?? '',
-      config: {
-        accountId,
-        bucket,
-        credentials: credentialsProvider,
-        region,
-      },
+    if (!current?.prefix) return;
+    handleProcess({
+      config: getInput(),
+      prefix: current.prefix,
     });
   };
 
   const onCancel = () => {
     tasks.forEach((task) => {
-      // @TODO Fixme, calling cancel on task doesn't work
+      // @TODO Fixme, calling cancel on task doesn't currently work
       if (isFunction(task.cancel)) task.cancel();
     });
   };
 
   const onClose = () => {
-    handleUpdateState({ type: 'CLEAR' });
+    if (isFunction(_onClose)) _onClose();
+    // clear files state
+    dispatchStoreAction({ type: 'RESET_FILE_ITEMS' });
+    // clear selected action
+    dispatchStoreAction({ type: 'RESET_ACTION_TYPE' });
   };
 
   return {

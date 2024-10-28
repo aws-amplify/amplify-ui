@@ -12,9 +12,8 @@ import { constructBucket, resolveHandlerResult } from './utils';
 interface DeleteHandlerOptions extends TaskHandlerOptions {}
 
 export interface DeleteHandlerInput
-  extends Omit<TaskHandlerInput<never, DeleteHandlerOptions>, 'data'> {
-  data: { key: string };
-}
+  extends TaskHandlerInput<undefined, DeleteHandlerOptions> {}
+
 export interface DeleteHandlerOutput extends TaskHandlerOutput {}
 
 export interface DeleteHandler
@@ -34,7 +33,7 @@ export const deleteHandler: DeleteHandler = ({
     options: {
       bucket,
       locationCredentialsProvider: credentials,
-      expectedBucketOwner: accountId ? accountId : undefined,
+      expectedBucketOwner: accountId,
     },
   });
 

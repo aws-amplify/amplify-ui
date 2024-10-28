@@ -7,7 +7,7 @@ import { ControlsContextProvider } from '../../controls/context';
 import { CLASS_BASE } from '../constants';
 import { HeadingControl } from '../Controls/Heading';
 import { Title } from './Controls/Title';
-import { UseDeleteActionView } from './hooks/useDeleteActionView';
+import { useDeleteActionView } from './hooks/useDeleteActionView';
 import { StatusDisplayControl } from '../../controls/StatusDisplayControl';
 import { displayText } from '../../displayText/en';
 
@@ -15,7 +15,11 @@ const { Exit, Primary } = Controls;
 
 const { actionSelectedText } = displayText;
 
-export const DeleteFileControls = (): React.JSX.Element => {
+export const DeleteFilesControls = ({
+  onClose: _onClose,
+}: {
+  onClose?: () => void;
+}): React.JSX.Element => {
   const {
     controlsContextValue,
     disableCancel,
@@ -24,7 +28,7 @@ export const DeleteFileControls = (): React.JSX.Element => {
     onClose,
     onCancel,
     onStart,
-  } = UseDeleteActionView();
+  } = useDeleteActionView({ onClose: _onClose });
 
   return (
     <ControlsContextProvider {...controlsContextValue}>

@@ -8,7 +8,7 @@ export const OPTIONS_DEFAULT: LocationAction['options'] = {
   hide: (permission) => permission === 'READ',
 };
 
-const DELETE_FILE: LocationAction = {
+const DELETE_FILES: LocationAction = {
   options: {
     ...OPTIONS_DEFAULT,
     disable: (selectedItems) => selectedItems.length < 1,
@@ -45,7 +45,7 @@ const UPLOAD_FILES: LocationAction = {
 
 export const locationActionsDefault = {
   CREATE_FOLDER,
-  DELETE_FILE,
+  DELETE_FILES,
   UPLOAD_FILES,
   UPLOAD_FOLDER,
 };

@@ -13,8 +13,8 @@ jest.mock('../UploadControls', () => ({
   UploadControls: () => <div data-testid="UPLOAD_CONTROLS" />,
 }));
 
-jest.mock('../DeleteFileControls', () => ({
-  DeleteFileControls: () => <div data-testid="DELETE_FILE_CONTROLS" />,
+jest.mock('../DeleteFilesControls', () => ({
+  DeleteFileControls: () => <div data-testid="DELETE_FILES_CONTROLS" />,
 }));
 
 const useStoreSpy = jest.spyOn(StoreModule, 'useStore');
@@ -57,7 +57,7 @@ describe('LocationActionView', () => {
 
     const { getByTestId } = render(<LocationActionView />);
 
-    expect(getByTestId('DELETE_FILE_CONTROLS')).toBeInTheDocument();
+    expect(getByTestId('DELETE_FILES_CONTROLS')).toBeInTheDocument();
   });
 
   it('returns `UploadControls` when `actionType` is "UPLOAD_FILES"', () => {
