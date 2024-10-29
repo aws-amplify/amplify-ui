@@ -1,7 +1,9 @@
 import { act, renderHook } from '@testing-library/react';
-import * as StorageBrowserModule from '../../../../storage-internal';
 
 import { useCredentialsStore } from '../useCredentialsStore';
+import { createLocationCredentialsStore } from '../../../../credentials/store';
+
+jest.mock('../../../../credentials/store');
 
 class Subscription {
   // intialize as noop
@@ -12,16 +14,24 @@ class Subscription {
   };
 }
 
-const createLocationCredentialsStoreSpy = jest.spyOn(
-  StorageBrowserModule,
-  'createLocationCredentialsStore'
+const createLocationCredentialsStoreSpy = jest.mocked(
+  createLocationCredentialsStore
 );
 
 const getLocationCredentials = jest.fn();
 const onDestroy = jest.fn();
 
 describe('useCredentialsStore', () => {
+  const mockGetProvider = jest.fn();
+  beforeEach(() => {
+    createLocationCredentialsStoreSpy.mockReturnValue({
+      destroy: jest.fn(),
+      getProvider: mockGetProvider,
+    });
+  });
+
   afterEach(() => {
+    mockGetProvider.mockClear();
     createLocationCredentialsStoreSpy.mockClear();
     getLocationCredentials.mockClear();
     onDestroy.mockClear();
@@ -79,12 +89,6 @@ describe('useCredentialsStore', () => {
   });
 
   it('`locationCredentialsStore.getProvider` receives the expected values', () => {
-    const mockGetProvider = jest.fn();
-    createLocationCredentialsStoreSpy.mockReturnValueOnce({
-      destroy: jest.fn(),
-      getProvider: mockGetProvider,
-    });
-
     const { registerAuthListener } = new Subscription();
 
     const { result } = renderHook(() =>

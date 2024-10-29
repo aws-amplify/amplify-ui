@@ -6,8 +6,9 @@ import {
 } from '../actions/configs';
 import { createUseAction } from '../actions/createUseAction';
 import { StorageBrowserElements } from '../context/elements';
+import { GetLocationCredentials } from '../credentials/types';
 import { RegisterAuthListener } from '../providers';
-import { GetLocationCredentials, ListLocations } from '../storage-internal';
+import { ListLocations } from '../storage-internal';
 
 interface Config {
   accountId?: string;
