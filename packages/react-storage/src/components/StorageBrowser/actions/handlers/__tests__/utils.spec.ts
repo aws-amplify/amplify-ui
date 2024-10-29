@@ -24,6 +24,20 @@ describe('resolveHandlerResult', () => {
     expect(await output).toBe('COMPLETE');
   });
 
+  it('returns "OVERWRITE_PREVENTED" on `PreconditionFailed` error', async () => {
+    const mockError = new Error();
+    mockError.name = 'PreconditionFailed';
+    const mockResult = Promise.reject(mockError);
+
+    const result = await resolveHandlerResult({
+      result: mockResult,
+      isCancelable: false,
+      key,
+    });
+
+    expect(result).toBe('OVERWRITE_PREVENTED');
+  });
+
   it('calls `onComplete` as expected', async () => {
     const result = Promise.resolve();
 
@@ -39,7 +53,7 @@ describe('resolveHandlerResult', () => {
   });
 
   it('behaves as expected on error', async () => {
-    const result = Promise.reject();
+    const result = Promise.reject(new Error());
     const output = resolveHandlerResult({ result, isCancelable: false, key });
 
     expect(await output).toBe('FAILED');
@@ -63,7 +77,7 @@ describe('resolveHandlerResult', () => {
   it('behaves as expected on cancelation', async () => {
     isCancelErrorSpy.mockReturnValueOnce(true);
 
-    const result = Promise.reject();
+    const result = Promise.reject(new Error());
     const output = resolveHandlerResult({ result, isCancelable: true, key });
 
     expect(await output).toBe('CANCELED');
@@ -72,7 +86,7 @@ describe('resolveHandlerResult', () => {
   it('calls `onCancel` as expected', async () => {
     isCancelErrorSpy.mockReturnValueOnce(true);
 
-    const result = Promise.reject();
+    const result = Promise.reject(new Error());
 
     await resolveHandlerResult({
       result,

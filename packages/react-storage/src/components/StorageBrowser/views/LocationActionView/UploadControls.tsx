@@ -80,6 +80,7 @@ export const ActionIcon = ({ status }: ActionIconProps): React.JSX.Element => {
     case 'COMPLETE':
       variant = 'action-success';
       break;
+    case 'OVERWRITE_PREVENTED':
     case 'FAILED':
       variant = 'action-error';
       break;

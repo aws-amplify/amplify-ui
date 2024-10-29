@@ -26,13 +26,17 @@ export interface TaskHandlerInput<T = never, K = undefined>
   key: string;
 }
 
-export interface TaskHandlerOutput<T = 'COMPLETE' | 'FAILED'> {
+export interface TaskHandlerOutput<
+  T = 'COMPLETE' | 'FAILED' | 'OVERWRITE_PREVENTED',
+> {
   key: string;
   result: Promise<T>;
 }
 
 export interface CancelableTaskHandlerOutput
-  extends TaskHandlerOutput<'COMPLETE' | 'FAILED' | 'CANCELED'> {
+  extends TaskHandlerOutput<
+    'COMPLETE' | 'FAILED' | 'CANCELED' | 'OVERWRITE_PREVENTED'
+  > {
   cancel?: () => void;
   pause?: () => void;
   resume?: () => void;

@@ -3,6 +3,7 @@ import { TaskHandlerInput } from '../actions';
 export type TaskStatus =
   | 'CANCELED'
   | 'FAILED'
+  | 'OVERWRITE_PREVENTED'
   | 'COMPLETE'
   | 'QUEUED'
   | 'PENDING';

@@ -41,6 +41,11 @@ export const resolveHandlerResult = <T extends boolean>({
       }
 
       if (isFunction(onError)) onError(key, error.message);
+
+      if (error.name === 'PreconditionFailed') {
+        return 'OVERWRITE_PREVENTED' as const;
+      }
+
       return 'FAILED' as const;
     });
 };
