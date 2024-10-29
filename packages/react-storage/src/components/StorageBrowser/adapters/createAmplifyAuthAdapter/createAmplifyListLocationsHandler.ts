@@ -12,18 +12,14 @@ import { getPaginatedLocations } from './getPaginatedLocations';
 import { mapAmplifyPermissions } from './mapAmplifyPermissions';
 
 export const createAmplifyListLocationsHandler = (): ListLocations => {
-  const cachedResult: Record<
-    string,
-    { locations: ListLocationsOutput['locations'] }
-  > = {};
+  let cachedLocations: ListLocationsOutput['locations'] = [];
 
   return async function listLocations(input = {}) {
     const { pageSize, nextToken } = input;
-    const cacheKey = 'listPathsCache';
 
-    if (cachedResult && cachedResult[cacheKey]) {
+    if (cachedLocations) {
       return getPaginatedLocations({
-        locations: cachedResult[cacheKey].locations,
+        locations: cachedLocations,
         pageSize,
         nextToken,
       });
@@ -42,10 +38,10 @@ export const createAmplifyListLocationsHandler = (): ListLocations => {
       }
     );
 
-    cachedResult[cacheKey] = { locations: sanitizedLocations };
+    cachedLocations = sanitizedLocations;
 
     return getPaginatedLocations({
-      locations: cachedResult[cacheKey].locations,
+      locations: cachedLocations,
       pageSize,
       nextToken,
     });
