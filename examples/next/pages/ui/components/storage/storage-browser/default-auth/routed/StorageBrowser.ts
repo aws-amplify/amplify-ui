@@ -9,18 +9,13 @@ import '@aws-amplify/ui-react-storage/styles.css';
 import '@aws-amplify/ui-react-storage/storage-browser-styles.css';
 
 import config from './aws-exports';
+import { routedAuth } from '../../managed-auth/routed/StorageBrowser';
 
 Amplify.configure(config);
 
-const defaultPrefixes = [
-  'public/',
-  // intentionally added to test a prefix that should return 403 forbidden
-  'forbidden/',
-  (identityId: string) => `protected/${identityId}/`,
-  (identityId: string) => `private/${identityId}/`,
-];
-
 export const { StorageBrowser } = createStorageBrowser({
   elements: elementsDefault,
-  config: createAmplifyAuthAdapter({ options: { defaultPrefixes } }),
+  config: createAmplifyAuthAdapter({
+    registerAuthListener: routedAuth.registerAuthListener,
+  }),
 });

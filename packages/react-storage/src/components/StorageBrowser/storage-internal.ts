@@ -5,6 +5,7 @@ export {
   CopyInput,
   CredentialsLocation,
   CredentialsProvider,
+  createAmplifyAuthConfigAdapter,
   ListLocations,
   ListLocationsOutput,
   ListOutput,
@@ -25,4 +26,7 @@ export {
   remove,
   uploadData,
   validationErrorMap,
+  listPaths,
+  ListPathsOutput,
+  StorageAccess,
 } from '@aws-amplify/storage/internals';
