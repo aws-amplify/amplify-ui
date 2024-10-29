@@ -1,5 +1,42 @@
 # @aws-amplify/ui
 
+## 6.6.5
+
+### Patch Changes
+
+- [#5917](https://github.com/aws-amplify/amplify-ui/pull/5917) [`3655af2be`](https://github.com/aws-amplify/amplify-ui/commit/3655af2be54733d364e71d3c7f86f32d7bbcf811) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - chore(ai): adding UA string for AIConversation
+
+## 6.6.4
+
+### Patch Changes
+
+- [#5827](https://github.com/aws-amplify/amplify-ui/pull/5827) [`ac7cb271a`](https://github.com/aws-amplify/amplify-ui/commit/ac7cb271aff895e643fb5dc927030df9245b7c5b) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - chore(ai): add theming for AIConversation
+
+  ```ts
+  const theme = createTheme({
+    tokens: {
+      components: {
+        aiConversation: {},
+      },
+    },
+  });
+  ```
+
+  ```ts
+  const aiConversationTheme = defineComponentTheme({
+    name: 'ai-conversation',
+    theme(tokens) {
+      return {
+        _element: {
+          message: {
+            color: tokens.colors.font.tertiary,
+          },
+        },
+      };
+    },
+  });
+  ```
+
 ## 6.6.3
 
 ### Patch Changes
