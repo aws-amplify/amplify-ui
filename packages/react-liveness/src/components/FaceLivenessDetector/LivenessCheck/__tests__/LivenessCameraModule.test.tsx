@@ -595,4 +595,33 @@ describe('LivenessCameraModule', () => {
       `${LivenessClassNames.CameraModule}--mobile`
     );
   });
+
+  it('should trigger drawStaticOval once video metadata is loaded', async () => {
+    isStart = true;
+    mockStateMatchesAndSelectors();
+    mockUseLivenessSelector.mockReturnValue(25);
+
+    renderWithLivenessProvider(
+      <LivenessCameraModule
+        isMobileScreen={false}
+        isRecordingStopped={false}
+        hintDisplayText={hintDisplayText}
+        streamDisplayText={streamDisplayText}
+        errorDisplayText={errorDisplayText}
+        cameraDisplayText={cameraDisplayText}
+        instructionDisplayText={instructionDisplayText}
+      />
+    );
+
+    const videoEl = screen.getByTestId('video');
+    await waitFor(() => {
+      videoEl.dispatchEvent(new Event('canplay'));
+    });
+    expect(drawStaticOvalSpy).toHaveBeenCalledTimes(0);
+
+    await waitFor(() => {
+      videoEl.dispatchEvent(new Event('loadedmetadata'));
+    });
+    expect(drawStaticOvalSpy).toHaveBeenCalledTimes(1);
+  });
 });
