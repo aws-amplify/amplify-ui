@@ -2,33 +2,40 @@ import React from 'react';
 import { IconElement } from '../../context/elements/IconElement';
 
 import { LocationAction } from './types';
+import { displayText } from '../../displayText/en';
+const {
+  createFolderTitle,
+  deleteFilesTitle,
+  uploadFilesTitle,
+  uploadFolderTitle,
+} = displayText;
 
 export const OPTIONS_DEFAULT: LocationAction['options'] = {
   disable: (items) => !!items.length,
   hide: (permission) => permission === 'READ',
 };
 
+const CREATE_FOLDER: LocationAction = {
+  options: {
+    ...OPTIONS_DEFAULT,
+    displayName: createFolderTitle,
+    icon: <IconElement variant="create-folder" />,
+  },
+};
+
 const DELETE_FILES: LocationAction = {
   options: {
     ...OPTIONS_DEFAULT,
     disable: (selectedItems) => selectedItems.length < 1,
-    displayName: 'Delete Files',
+    displayName: deleteFilesTitle,
     icon: <IconElement variant="delete-file" />,
-  },
-};
-
-const CREATE_FOLDER: LocationAction = {
-  options: {
-    ...OPTIONS_DEFAULT,
-    displayName: 'Create Folder',
-    icon: <IconElement variant="create-folder" />,
   },
 };
 
 const UPLOAD_FOLDER: LocationAction = {
   options: {
     ...OPTIONS_DEFAULT,
-    displayName: 'Upload Folder',
+    displayName: uploadFolderTitle,
     icon: <IconElement variant="upload-folder" />,
     selectionData: 'folder',
   },
@@ -37,7 +44,7 @@ const UPLOAD_FOLDER: LocationAction = {
 const UPLOAD_FILES: LocationAction = {
   options: {
     ...OPTIONS_DEFAULT,
-    displayName: 'Upload Files',
+    displayName: uploadFilesTitle,
     icon: <IconElement variant="upload-file" />,
     selectionData: 'file',
   },
