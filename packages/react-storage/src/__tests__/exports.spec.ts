@@ -1,5 +1,5 @@
-import * as exported from '../src';
-import * as browser from '../browser';
+import * as exported from '../';
+import * as browser from '../../browser';
 
 describe('@aws-amplify/ui-react-storage', () => {
   describe('exports', () => {
