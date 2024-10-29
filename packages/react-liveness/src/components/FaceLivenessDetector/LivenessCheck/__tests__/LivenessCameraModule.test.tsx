@@ -22,6 +22,8 @@ import {
   selectVideoConstraints,
   selectVideoStream,
 } from '../LivenessCameraModule';
+
+import * as ServiceModule from '../../service';
 import { FaceMatchState } from '../../service';
 import { getDisplayText } from '../../utils/getDisplayText';
 import { selectIsRecordingStopped } from '../LivenessCheck';
@@ -31,6 +33,8 @@ jest.mock('../../hooks/useLivenessSelector');
 jest.mock('../../shared/CancelButton');
 jest.mock('../../shared/Hint');
 jest.mock('../../service');
+
+const drawStaticOvalSpy = jest.spyOn(ServiceModule, 'drawStaticOval');
 
 const mockUseLivenessActor = getMockedFunction(useLivenessActor);
 const mockUseLivenessSelector = getMockedFunction(useLivenessSelector);
@@ -88,6 +92,7 @@ describe('LivenessCameraModule', () => {
       videoHeight: 100,
       videoWidth: 100,
     });
+    drawStaticOvalSpy.mockClear();
   });
 
   afterEach(() => {
@@ -163,7 +168,9 @@ describe('LivenessCameraModule', () => {
       screen.getByRole('button', { name: cancelLivenessCheckText })
     ).toBeInTheDocument();
 
-    videoEl.dispatchEvent(new Event('canplay'));
+    await waitFor(() => {
+      videoEl.dispatchEvent(new Event('canplay'));
+    });
 
     expect(screen.queryByTestId('centered-loader')).not.toBeInTheDocument();
     expect(screen.getByLabelText('Countdown timer')).toBeInTheDocument();
@@ -183,7 +190,7 @@ describe('LivenessCameraModule', () => {
     });
   });
 
-  it('should render recording icon when isRecording true', () => {
+  it('should render recording icon when isRecording true', async () => {
     isRecording = true;
     mockStateMatchesAndSelectors();
 
@@ -199,7 +206,9 @@ describe('LivenessCameraModule', () => {
       />
     );
     const videoEl = screen.getByTestId('video');
-    videoEl.dispatchEvent(new Event('canplay'));
+    await waitFor(() => {
+      videoEl.dispatchEvent(new Event('canplay'));
+    });
 
     expect(screen.getByTestId('rec-icon')).toBeInTheDocument();
     expect(screen.getByText(recordingIndicatorText)).toBeInTheDocument();
@@ -227,7 +236,9 @@ describe('LivenessCameraModule', () => {
       />
     );
     const videoEl = screen.getByTestId('video');
-    videoEl.dispatchEvent(new Event('canplay'));
+    await waitFor(() => {
+      videoEl.dispatchEvent(new Event('canplay'));
+    });
 
     const cameraModule = await screen.findByTestId(testId);
     const matchIndicator = cameraModule.getElementsByClassName(
@@ -258,7 +269,9 @@ describe('LivenessCameraModule', () => {
       />
     );
     const videoEl = screen.getByTestId('video');
-    videoEl.dispatchEvent(new Event('canplay'));
+    await waitFor(() => {
+      videoEl.dispatchEvent(new Event('canplay'));
+    });
 
     const cameraModule = await screen.findByTestId(testId);
     const matchIndicator = cameraModule.getElementsByClassName(
@@ -289,7 +302,9 @@ describe('LivenessCameraModule', () => {
       />
     );
     const videoEl = screen.getByTestId('video');
-    videoEl.dispatchEvent(new Event('canplay'));
+    await waitFor(() => {
+      videoEl.dispatchEvent(new Event('canplay'));
+    });
 
     const cameraModule = await screen.findByTestId(testId);
     const matchIndicator = cameraModule.getElementsByClassName(
@@ -320,7 +335,9 @@ describe('LivenessCameraModule', () => {
       />
     );
     const videoEl = screen.getByTestId('video');
-    videoEl.dispatchEvent(new Event('canplay'));
+    await waitFor(() => {
+      videoEl.dispatchEvent(new Event('canplay'));
+    });
 
     const cameraModule = await screen.findByTestId(testId);
     const matchIndicator = cameraModule.getElementsByClassName(
@@ -351,8 +368,9 @@ describe('LivenessCameraModule', () => {
       />
     );
     const videoEl = screen.getByTestId('video');
-    videoEl.dispatchEvent(new Event('canplay'));
-
+    await waitFor(() => {
+      videoEl.dispatchEvent(new Event('canplay'));
+    });
     const cameraModule = await screen.findByTestId(testId);
     const matchIndicator = cameraModule.getElementsByClassName(
       LivenessClassNames.MatchIndicator
@@ -481,7 +499,7 @@ describe('LivenessCameraModule', () => {
     expect(screen.getByTestId('centered-loader')).toBeInTheDocument();
   });
 
-  it('should render hair check screen when isStart = true', () => {
+  it('should render hair check screen when isStart = true', async () => {
     isStart = true;
     mockStateMatchesAndSelectors();
     mockUseLivenessSelector
@@ -500,7 +518,9 @@ describe('LivenessCameraModule', () => {
       />
     );
     const videoEl = screen.getByTestId('video');
-    videoEl.dispatchEvent(new Event('canplay'));
+    await waitFor(() => {
+      videoEl.dispatchEvent(new Event('canplay'));
+    });
 
     expect(screen.getByTestId('popover-icon')).toBeInTheDocument();
     expect(
@@ -508,7 +528,7 @@ describe('LivenessCameraModule', () => {
     ).toBeInTheDocument();
   });
 
-  it('should render hair check screen when isStart = true, should not render camera selector if only one camera', () => {
+  it('should render hair check screen when isStart = true, should not render camera selector if only one camera', async () => {
     isStart = true;
     mockStateMatchesAndSelectors();
     mockUseLivenessSelector.mockReturnValue(25).mockReturnValue(['device-id']);
@@ -525,7 +545,9 @@ describe('LivenessCameraModule', () => {
       />
     );
     const videoEl = screen.getByTestId('video');
-    videoEl.dispatchEvent(new Event('canplay'));
+    await waitFor(() => {
+      videoEl.dispatchEvent(new Event('canplay'));
+    });
 
     expect(screen.getByTestId('popover-icon')).toBeInTheDocument();
     expect(
