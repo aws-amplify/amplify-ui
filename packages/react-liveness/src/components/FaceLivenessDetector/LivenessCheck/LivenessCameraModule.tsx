@@ -109,7 +109,7 @@ export const LivenessCameraModule = (
 
   const isFaceMovementChallenge =
     useLivenessSelector(selectChallengeType) === FACE_MOVEMENT_CHALLENGE.type;
-  // test comment
+
   const videoStream = useLivenessSelector(selectVideoStream);
   const videoConstraints = useLivenessSelector(selectVideoConstraints);
   const selectedDeviceId = useLivenessSelector(selectSelectedDeviceId);
@@ -173,35 +173,20 @@ export const LivenessCameraModule = (
   }, [selectedDeviceId]);
 
   React.useEffect(() => {
-    if (
+    const shouldDrawOval =
       canvasRef?.current &&
       videoRef?.current &&
       videoStream &&
       isStartView &&
-      isMetadataLoaded
-    ) {
-      drawStaticOval(canvasRef.current, videoRef.current, videoStream);
-    }
-  }, [
-    canvasRef,
-    videoRef,
-    videoStream,
-    colorMode,
-    isStartView,
-    isMetadataLoaded,
-  ]);
+      isMetadataLoaded;
 
-  React.useEffect(() => {
+    if (shouldDrawOval) {
+      drawStaticOval(canvasRef.current, videoRef.current!, videoStream);
+    }
+
     const updateColorModeHandler = (e: MediaQueryListEvent) => {
-      if (
-        e.matches &&
-        canvasRef?.current &&
-        videoRef?.current &&
-        videoStream &&
-        isStartView &&
-        isMetadataLoaded
-      ) {
-        drawStaticOval(canvasRef.current, videoRef.current, videoStream);
+      if (e.matches && shouldDrawOval) {
+        drawStaticOval(canvasRef.current, videoRef.current!, videoStream);
       }
     };
 
@@ -219,7 +204,14 @@ export const LivenessCameraModule = (
       darkModePreference.removeEventListener('change', updateColorModeHandler);
       lightModePreference.addEventListener('change', updateColorModeHandler);
     };
-  }, [canvasRef, videoRef, videoStream, isStartView, isMetadataLoaded]);
+  }, [
+    canvasRef,
+    videoRef,
+    videoStream,
+    colorMode,
+    isStartView,
+    isMetadataLoaded,
+  ]);
 
   React.useLayoutEffect(() => {
     if (isCameraReady) {
@@ -290,7 +282,6 @@ export const LivenessCameraModule = (
           },
           audio: false,
         });
-        // Only update the stream and draw oval once metadata is loaded
         send({
           type: 'UPDATE_DEVICE_AND_STREAM',
           data: { newDeviceId, newStream },
