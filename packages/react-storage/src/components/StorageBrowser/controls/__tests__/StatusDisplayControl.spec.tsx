@@ -1,38 +1,36 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { resolveComposable } from '../resolveComposable';
+import { useResolvedComposable } from '../hooks/useResolvedComposable';
 import { useStatusDisplay } from '../hooks/useStatusDisplay';
 import { StatusDisplayControl } from '../StatusDisplayControl';
 
 jest.mock('../hooks/useStatusDisplay');
-jest.mock('../resolveComposable');
+jest.mock('../hooks/useResolvedComposable');
 
 describe('StatusDisplayControl', () => {
   // assert mocks
   const mockUseStatusDisplay = useStatusDisplay as jest.Mock;
-  const mockResolveComposable = resolveComposable as jest.Mock;
+  const mockUseResolvedComposable = useResolvedComposable as jest.Mock;
 
   beforeAll(() => {
-    mockResolveComposable.mockImplementation(
+    mockUseResolvedComposable.mockImplementation(
       (component: React.JSX.Element) => component
     );
   });
 
   afterEach(() => {
     mockUseStatusDisplay.mockReset();
-    mockResolveComposable.mockClear();
+    mockUseResolvedComposable.mockClear();
   });
 
   it('renders', () => {
     mockUseStatusDisplay.mockReturnValue({
-      props: {
-        statuses: [
-          { name: 'foo', count: 1 },
-          { name: 'bar', count: 2 },
-          { name: 'qux', count: 3 },
-        ],
-        total: 6,
-      },
+      statuses: [
+        { name: 'foo', count: 1 },
+        { name: 'bar', count: 2 },
+        { name: 'qux', count: 3 },
+      ],
+      total: 6,
     });
 
     render(<StatusDisplayControl />);

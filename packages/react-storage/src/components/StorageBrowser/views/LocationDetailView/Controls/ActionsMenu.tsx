@@ -2,10 +2,13 @@ import React from 'react';
 
 import { isEmptyObject } from '@aws-amplify/ui';
 
+import { LocationItemData } from '../../../actions';
+import { LocationActions } from '../../../do-not-import-from-here/locationActions';
+import { useTempActions } from '../../../do-not-import-from-here/createTempActionsProvider';
+import { useStore } from '../../../providers/store';
+import { Permission } from '../../../storage-internal';
+
 import { ActionsMenu, ActionItemProps } from '../../../components/ActionsMenu';
-import { useControl } from '../../../context/control';
-import { LocationActions } from '../../../context/locationActions';
-import { LocationItem, Permission } from '../../../context/types';
 
 const getKeyedFragments = (...nodes: React.ReactNode[]): React.ReactNode[] =>
   nodes.map((child, key) => <React.Fragment key={key}>{child}</React.Fragment>);
@@ -17,7 +20,7 @@ const getActionsMenuData = ({
   permission,
 }: {
   actions: LocationActions;
-  items: LocationItem[] | undefined;
+  items: LocationItemData[] | undefined;
   onSelect: (type: string) => void;
   permission: Permission | undefined;
 }): ActionItemProps[] =>
@@ -45,26 +48,31 @@ const getActionsMenuData = ({
 
 export function ActionsMenuControl({
   disabled = false,
+  onActionSelect,
 }: {
   disabled?: boolean;
+  onActionSelect?: (type: string) => void;
 }): React.JSX.Element {
-  const [{ actions, selected }, handleUpdate] = useControl('LOCATION_ACTIONS');
-  const [{ location }] = useControl('NAVIGATE');
+  // leave in place until actions API is integrated
+  const actions = useTempActions();
 
+  const [{ history, locationItems }, dispatchStoreAction] = useStore();
+  const { fileDataItems } = locationItems;
+  const { current: location } = history;
   const { permission } = location ?? {};
-  const { items } = selected;
 
   const data = React.useMemo(
     () =>
       getActionsMenuData({
         actions,
-        items,
+        items: fileDataItems,
         onSelect: (actionType) => {
-          handleUpdate({ type: 'SET_ACTION', actionType });
+          onActionSelect?.(actionType);
+          dispatchStoreAction({ type: 'SET_ACTION_TYPE', actionType });
         },
         permission,
       }),
-    [actions, handleUpdate, items, permission]
+    [actions, dispatchStoreAction, fileDataItems, onActionSelect, permission]
   );
 
   return <ActionsMenu data={data} disabled={disabled} />;

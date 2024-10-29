@@ -1,9 +1,9 @@
 import { LocationCredentialsProvider } from '../storage-internal';
 
-import { ActionState } from '../context/actions/createActionStateContext';
+import { ActionState } from '../do-not-import-from-here/actions/createActionStateContext';
 
 export interface ActionInputConfig {
-  accountId: string;
+  accountId?: string;
   bucket: string;
   credentials: LocationCredentialsProvider;
   region: string;
@@ -22,7 +22,8 @@ export interface TaskHandlerOptions {
 
 export interface TaskHandlerInput<T = never, K = undefined>
   extends ActionInput<K> {
-  data: { key: string; payload: T };
+  data: { id: string; payload: T };
+  key: string;
 }
 
 export interface TaskHandlerOutput<T = 'COMPLETE' | 'FAILED'> {

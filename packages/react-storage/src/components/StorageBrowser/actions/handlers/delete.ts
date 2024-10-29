@@ -1,4 +1,4 @@
-import { remove } from 'aws-amplify/storage';
+import { remove } from '../../storage-internal';
 
 import {
   TaskHandler,
@@ -15,6 +15,7 @@ export interface DeleteHandlerInput
   extends Omit<TaskHandlerInput<never, DeleteHandlerOptions>, 'data'> {
   data: { key: string };
 }
+
 export interface DeleteHandlerOutput extends TaskHandlerOutput {}
 
 export interface DeleteHandler
@@ -22,20 +23,27 @@ export interface DeleteHandler
 
 export const deleteHandler: DeleteHandler = ({
   config,
-  data: { key },
-  prefix,
+  key,
   options,
 }): DeleteHandlerOutput => {
-  const { credentials } = config;
+  const { accountId, credentials } = config;
   const bucket = constructBucket(config);
-
   const result = remove({
-    path: `${prefix}${key}`,
-    options: { bucket, locationCredentialsProvider: credentials },
+    path: key,
+    options: {
+      bucket,
+      locationCredentialsProvider: credentials,
+      expectedBucketOwner: accountId,
+    },
   });
 
   return {
     key,
-    result: resolveHandlerResult({ key, isCancelable: false, options, result }),
+    result: resolveHandlerResult({
+      key,
+      isCancelable: false,
+      options,
+      result,
+    }),
   };
 };

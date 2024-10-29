@@ -1,4 +1,4 @@
-import { uploadData, UploadDataWithPathInput } from 'aws-amplify/storage';
+import { uploadData, UploadDataInput } from '../../storage-internal';
 import { isFunction } from '@aws-amplify/ui';
 
 import {
@@ -36,20 +36,22 @@ export const UNDEFINED_CALLBACKS = {
 export const uploadHandler: UploadHandler = ({
   config: _config,
   data: _data,
+  key,
   options: _options,
   prefix,
 }) => {
-  const { credentials, ...config } = _config;
-  const { key, payload: data } = _data;
+  const { accountId, credentials, ...config } = _config;
+  const { payload: data } = _data;
   const { onProgress, preventOverwrite, ...options } = _options ?? {};
 
   const bucket = constructBucket(config);
 
-  const input: UploadDataWithPathInput = {
+  const input: UploadDataInput = {
     path: `${prefix}${key}`,
     data,
     options: {
       bucket,
+      expectedBucketOwner: accountId,
       locationCredentialsProvider: credentials,
       onProgress: ({ totalBytes, transferredBytes }) => {
         if (isFunction(onProgress))

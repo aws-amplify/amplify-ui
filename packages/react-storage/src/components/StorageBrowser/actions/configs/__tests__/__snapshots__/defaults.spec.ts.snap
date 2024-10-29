@@ -21,20 +21,20 @@ exports[`defaultActionConfigs matches expected shape 1`] = `
       "icon": "create-folder",
       "label": "Create Folder",
     },
+    "componentName": "CreateFolderView",
+    "displayName": "Create Folder",
     "handler": null,
     "isCancelable": false,
-    "title": "Create Folder",
-    "type": "SINGLE_ACTION",
   },
   "ListLocationItems": {
+    "componentName": "LocationDetailView",
+    "displayName": [Function],
     "handler": null,
-    "title": [Function],
-    "type": "LIST_LOCATION_ITEMS",
   },
   "ListLocations": {
+    "componentName": "LocationsView",
+    "displayName": "Home",
     "handler": null,
-    "title": "Home",
-    "type": "LIST_LOCATIONS",
   },
   "Upload": {
     "actionsListItemConfig": [
@@ -53,10 +53,11 @@ exports[`defaultActionConfigs matches expected shape 1`] = `
         "label": "Upload FOLDER",
       },
     ],
+    "componentName": "UploadView",
+    "displayName": "Upload",
     "handler": [Function],
+    "includeProgress": true,
     "isCancelable": true,
-    "title": "Upload",
-    "type": "BATCH_ACTION",
   },
 }
 `;

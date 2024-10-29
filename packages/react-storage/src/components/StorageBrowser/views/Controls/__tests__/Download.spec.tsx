@@ -1,19 +1,16 @@
 import React from 'react';
 import { act, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import * as StorageModule from 'aws-amplify/storage';
+import * as StorageModule from '../../../storage-internal';
 
-import createProvider from '../../../createProvider';
-import * as ConfigModule from '../../../context/config';
+import { createTempActionsProvider } from '../../../do-not-import-from-here/createTempActionsProvider';
+import * as ConfigModule from '../../../providers/configuration';
 
 import { DownloadControl } from '../Download';
 
 const getUrlSpy = jest.spyOn(StorageModule, 'getUrl');
 
-const useGetLocationConfigSpy = jest.spyOn(
-  ConfigModule,
-  'useGetLocationConfig'
-);
+const useGetLocationConfigSpy = jest.spyOn(ConfigModule, 'useGetActionInput');
 
 const listLocations = jest.fn(() =>
   Promise.resolve({ locations: [], nextToken: undefined })
@@ -26,13 +23,13 @@ const config = {
   registerAuthListener: jest.fn(),
 };
 
-const Provider = createProvider({ actions: {}, config });
+const Provider = createTempActionsProvider({ actions: {}, config });
 
 describe('DownloadControl', () => {
   beforeEach(() => {
     useGetLocationConfigSpy.mockReturnValue(() => ({
       bucket: 'myBucket',
-      credentialsProvider: jest.fn(),
+      credentials: jest.fn(),
       region: 'region',
     }));
   });

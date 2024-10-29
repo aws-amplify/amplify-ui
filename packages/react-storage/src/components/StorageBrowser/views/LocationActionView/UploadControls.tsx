@@ -1,22 +1,26 @@
 import React from 'react';
 
-import { humanFileSize } from '@aws-amplify/ui';
+import { humanFileSize, isFunction, isUndefined } from '@aws-amplify/ui';
 
+import { uploadHandler } from '../../actions';
 import { displayText } from '../../displayText/en';
 import { TABLE_HEADER_BUTTON_CLASS_NAME } from '../../components/DataTable';
 import { DescriptionList } from '../../components/DescriptionList';
-
 import {
   ButtonElement,
   StorageBrowserElements,
   ViewElement,
 } from '../../context/elements';
-import { useControl } from '../../context/control';
-import { compareNumbers, compareStrings } from '../utils';
-import { TaskStatus } from '../../context/types';
 import { IconVariant } from '../../context/elements/IconElement';
+import { getTaskCounts } from '../../controls/getTaskCounts';
+import { StatusDisplayControl } from '../../controls/StatusDisplayControl';
+import { ControlsContextProvider } from '../../controls/context';
+import { ControlsContext } from '../../controls/types';
+import { useGetActionInput } from '../../providers/configuration';
+import { useStore } from '../../providers/store';
+import { TaskStatus, useProcessTasks } from '../../tasks';
 
-import { getPercentValue } from '../utils';
+import { compareNumbers, compareStrings, getPercentValue } from '../utils';
 import { CLASS_BASE } from '../constants';
 import { Controls } from '../Controls';
 import {
@@ -25,29 +29,30 @@ import {
   RenderRowItem,
   SortState,
 } from '../Controls/Table';
-
 import { Title } from './Controls/Title';
 import {
   DEFAULT_OVERWRITE_PROTECTION,
   STATUS_DISPLAY_VALUES,
 } from './constants';
-import { CancelableTask, useHandleUpload } from './useHandleUpload';
-import { getTaskCounts } from '../../controls/getTaskCounts';
-import { StatusDisplayControl } from '../../controls/StatusDisplayControl';
-import { ControlsContextProvider } from '../../controls/context';
-import { ControlsContext } from '../../controls/types';
+import { FileItems } from '../../providers/store/files';
 
 const { Icon } = StorageBrowserElements;
 
 const { Cancel, Exit, Overwrite, Primary, Table } = Controls;
 
-interface LocationActionViewColumns extends CancelableTask {
-  type: string;
+interface LocationActionViewColumns {
+  cancel: (() => void) | undefined;
   folder: string;
+  key: string;
+  progress: number;
+  remove: () => void;
+  size: number;
+  status: TaskStatus;
+  type: string;
 }
 
 interface ActionIconProps {
-  status?: TaskStatus | 'CANCELED';
+  status?: TaskStatus;
 }
 
 const LOCATION_ACTION_VIEW_COLUMNS: Column<LocationActionViewColumns>[] = [
@@ -66,7 +71,6 @@ export const ActionIcon = ({ status }: ActionIconProps): React.JSX.Element => {
   let variant: IconVariant = 'action-initial';
 
   switch (status) {
-    case 'INITIAL':
     case 'QUEUED':
       variant = 'action-queued';
       break;
@@ -118,6 +122,13 @@ const renderRowItem: RenderRowItem<LocationActionViewColumns> = (
 
         return (
           <TableDataText>
+            <button
+              onClick={() => {
+                row.remove();
+              }}
+            >
+              Remove
+            </button>
             <ActionIcon status={row.status} />
             {row.key.slice(folder, row.key.length)}
           </TableDataText>
@@ -171,38 +182,51 @@ const renderRowItem: RenderRowItem<LocationActionViewColumns> = (
   );
 };
 
-export const UploadControls = (): JSX.Element => {
-  const [{ history, path }] = useControl('NAVIGATE');
+const getFileSelectionType = (
+  actionType?: string,
+  files?: FileItems
+): 'FILE' | 'FOLDER' | undefined => {
+  if (files?.length ?? !actionType) return undefined;
+
+  return actionType === 'UPLOAD_FILES' ? 'FILE' : 'FOLDER';
+};
+
+export const UploadControls = ({
+  onClose,
+}: {
+  onClose?: () => void;
+}): JSX.Element => {
+  const getInput = useGetActionInput();
 
   const [preventOverwrite, setPreventOverwrite] = React.useState(
     DEFAULT_OVERWRITE_PROTECTION
   );
-  const [{ selected }, handleUpdateState] = useControl('LOCATION_ACTIONS');
 
-  const [tasks, handleUpload, handleFileSelect, handleCancel] = useHandleUpload(
-    { prefix: path, preventOverwrite }
+  const [{ actionType, files, history }, dispatchStoreAction] = useStore();
+  const { prefix } = history?.current ?? {};
+  const hasInvalidPrefix = isUndefined(prefix);
+
+  // launch native file picker on intiial render if no files are currently in state
+  const selectionTypeRef = React.useRef<'FILE' | 'FOLDER' | undefined>(
+    getFileSelectionType(actionType, files)
   );
 
-  const handleFileInput = React.useRef<HTMLInputElement>(null);
-  const handleFolderInput = React.useRef<HTMLInputElement>(null);
-
-  // Noticed that in Safari, the file picker was not registering the on change event
-  // unless I made sure that the useEffect for clicking the file input was only clicked once
-  const initialRun = React.useRef(false);
-
   React.useEffect(() => {
-    if (!initialRun.current) {
-      if (selected.files) {
-        handleFileSelect(selected.files);
-      } else if (selected.type === 'UPLOAD_FILES') {
-        handleFileInput.current?.click();
-      } else if (selected.type === 'UPLOAD_FOLDER') {
-        handleFolderInput.current?.click();
-      }
-
-      initialRun.current = true;
+    const selectionType = selectionTypeRef.current;
+    if (!selectionType) {
+      return;
     }
-  }, [handleFileSelect, selected.files, selected.type]);
+
+    dispatchStoreAction({ type: 'SELECT_FILES', selectionType });
+
+    return () => {
+      selectionTypeRef.current = undefined;
+    };
+  }, [dispatchStoreAction]);
+
+  const [tasks, handleProcess] = useProcessTasks(uploadHandler, files, {
+    concurrency: 4,
+  });
 
   const [compareFn, setCompareFn] = React.useState<(a: any, b: any) => number>(
     () => compareStrings
@@ -214,15 +238,20 @@ export const UploadControls = (): JSX.Element => {
   const { direction, selection } = sortState;
 
   const tableData = tasks
-    .map(({ data, ...task }) => {
-      const { webkitRelativePath, type = '-' } = data;
+    .map(({ key, id, item, remove: _remove, ...task }) => {
+      const { size, webkitRelativePath, type = '-' } = item;
 
       const folder =
         webkitRelativePath?.length > 0
           ? webkitRelativePath.slice(0, webkitRelativePath.lastIndexOf('/') + 1)
           : '/';
 
-      return { ...task, data, type, folder };
+      const remove = () => {
+        dispatchStoreAction({ type: 'REMOVE_FILE_ITEM', id });
+        _remove();
+      };
+
+      return { ...task, folder, key, progress: 0, remove, size, type };
     })
     .sort((a, b) =>
       direction === 'ascending'
@@ -306,33 +335,28 @@ export const UploadControls = (): JSX.Element => {
 
   return (
     <ControlsContextProvider {...contextValue}>
-      <input
-        data-testid="amplify-file-select"
-        type="file"
-        style={{ display: 'none' }}
-        multiple
-        onChange={({ target }) => {
-          handleFileSelect([...(target.files ?? [])]);
+      <Exit
+        onClick={() => {
+          if (isFunction(onClose)) onClose?.();
+          // clear tasks state
+          tasks.forEach(({ remove }) => remove());
+          // clear files state
+          dispatchStoreAction({ type: 'RESET_FILE_ITEMS' });
+          // clear selected action
+          dispatchStoreAction({ type: 'RESET_ACTION_TYPE' });
         }}
-        ref={handleFileInput}
       />
-      <input
-        data-testid="amplify-folder-select"
-        type="file"
-        style={{ display: 'none' }}
-        onChange={({ target }) => {
-          handleFileSelect([...(target.files ?? [])]);
-        }}
-        // @ts-expect-error webkitdirectory is not typed
-        webkitdirectory=""
-        ref={handleFolderInput}
-      />
-      <Exit onClick={() => handleUpdateState({ type: 'CLEAR' })} />
       <Title />
       <Primary
         disabled={disablePrimary}
         onClick={() => {
-          handleUpload();
+          if (hasInvalidPrefix) return;
+
+          handleProcess({
+            config: getInput(),
+            prefix,
+            options: { preventOverwrite },
+          });
         }}
       >
         Start
@@ -342,7 +366,9 @@ export const UploadControls = (): JSX.Element => {
         disabled={disableCancel}
         className={`${CLASS_BASE}__cancel`}
         onClick={() => {
-          handleCancel();
+          tasks.forEach((task) => {
+            task.cancel?.();
+          });
         }}
       >
         Cancel
@@ -352,7 +378,10 @@ export const UploadControls = (): JSX.Element => {
         className={`${CLASS_BASE}__add-folder`}
         variant="add-folder"
         onClick={() => {
-          handleFolderInput?.current?.click();
+          dispatchStoreAction({
+            type: 'SELECT_FILES',
+            selectionType: 'FOLDER',
+          });
         }}
       >
         Add folder
@@ -362,7 +391,7 @@ export const UploadControls = (): JSX.Element => {
         className={`${CLASS_BASE}__add-files`}
         variant="add-files"
         onClick={() => {
-          handleFileInput?.current?.click();
+          dispatchStoreAction({ type: 'SELECT_FILES', selectionType: 'FILE' });
         }}
       >
         Add files
@@ -372,7 +401,7 @@ export const UploadControls = (): JSX.Element => {
           descriptions={[
             {
               term: `${displayText.actionDestination}:`,
-              details: history[history.length - 1].prefix,
+              details: prefix?.length ? prefix : '/',
             },
           ]}
         />
@@ -390,7 +419,9 @@ export const UploadControls = (): JSX.Element => {
       <Table
         data={tableData}
         columns={LOCATION_ACTION_VIEW_COLUMNS}
-        handleDroppedFiles={handleFileSelect}
+        handleDroppedFiles={(files) => {
+          dispatchStoreAction({ type: 'ADD_FILE_ITEMS', files });
+        }}
         renderHeaderItem={renderHeaderItem}
         renderRowItem={renderRowItem}
       />

@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`default actions contains the expected properties 1`] = `
+{
+  "COPY_FILES": {
+    "options": {
+      "disable": [Function],
+      "displayName": "Copy files",
+      "hide": [Function],
+      "icon": <Icon
+        variant="copy-file"
+      />,
+    },
+  },
+  "CREATE_FOLDER": {
+    "options": {
+      "disable": [Function],
+      "displayName": "Create folder",
+      "hide": [Function],
+      "icon": <Icon
+        variant="create-folder"
+      />,
+    },
+  },
+  "DELETE_FILES": {
+    "options": {
+      "disable": [Function],
+      "displayName": "Delete files",
+      "hide": [Function],
+      "icon": <Icon
+        variant="delete-file"
+      />,
+    },
+  },
+  "UPLOAD_FILES": {
+    "options": {
+      "disable": [Function],
+      "displayName": "Upload files",
+      "hide": [Function],
+      "icon": <Icon
+        variant="upload-file"
+      />,
+      "selectionData": "file",
+    },
+  },
+  "UPLOAD_FOLDER": {
+    "options": {
+      "disable": [Function],
+      "displayName": "Upload folder",
+      "hide": [Function],
+      "icon": <Icon
+        variant="upload-folder"
+      />,
+      "selectionData": "folder",
+    },
+  },
+}
+`;

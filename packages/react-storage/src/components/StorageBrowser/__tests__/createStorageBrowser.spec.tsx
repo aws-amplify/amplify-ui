@@ -1,8 +1,7 @@
 import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 
-import * as ActionsModule from '../context/actions';
-import * as ControlsModule from '../context/control';
+import * as ActionsModule from '../do-not-import-from-here/actions';
 
 import { createStorageBrowser } from '../createStorageBrowser';
 
@@ -35,13 +34,13 @@ const INITIAL_ACTION_STATE = [
   jest.fn(),
 ];
 
-const useControlSpy = jest.spyOn(ControlsModule, 'useControl');
-
+const accountId = '012345678901';
 const getLocationCredentials = jest.fn();
 const listLocations = jest.fn();
 const region = 'region';
 
 const config = {
+  accountId,
   getLocationCredentials,
   listLocations,
   region,
@@ -51,10 +50,6 @@ const config = {
 const input = { config };
 
 describe('createStorageBrowser', () => {
-  beforeEach(() => {
-    useControlSpy.mockClear();
-  });
-
   it('throws when registerAuthListener is not a function', () => {
     const input = {
       config: { getLocationCredentials, listLocations, region },
@@ -67,13 +62,6 @@ describe('createStorageBrowser', () => {
   });
 
   it('renders the `LocationsView` by default', async () => {
-    useControlSpy.mockImplementation(
-      (type) =>
-        ({
-          LOCATION_ACTIONS: INITIAL_ACTION_STATE,
-          NAVIGATE: INITIAL_NAVIGATE_STATE,
-        })[type]
-    );
     const { StorageBrowser } = createStorageBrowser(input);
 
     await waitFor(() => {

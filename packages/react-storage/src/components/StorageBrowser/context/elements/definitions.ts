@@ -18,7 +18,7 @@ export interface StorageBrowserElements {
   Span: typeof SpanElement;
   Table: typeof TableElement;
   TableBody: typeof TableBodyElement;
-  TableData: typeof TableDataElement;
+  TableData: typeof TableDataCellElement;
   TableHead: typeof TableHeadElement;
   TableHeader: typeof TableHeaderElement;
   TableRow: typeof TableRowElement;
@@ -123,11 +123,11 @@ export const TableElement = defineBaseElement({
   displayName: 'Table',
 });
 
-export interface TableDataElementProps
-  extends React.ComponentProps<typeof TableDataElement> {}
-export const TableDataElement = defineBaseElement({
+export interface TableDataCellElementProps
+  extends React.ComponentProps<typeof TableDataCellElement> {}
+export const TableDataCellElement = defineBaseElement({
   type: 'td',
-  displayName: 'TableData',
+  displayName: 'TableDataCell',
 });
 
 export interface TableRowElementProps
@@ -139,7 +139,7 @@ export const TableRowElement = defineBaseElement({
 
 export interface TableHeaderElementProps
   extends React.ComponentProps<typeof TableHeaderElement> {}
-export const TableHeaderElement = defineBaseElement({
+export const TableHeaderElement = defineBaseElement<'th', 'role'>({
   type: 'th',
   displayName: 'TableHeader',
 });
@@ -212,7 +212,7 @@ export const ViewElement = defineBaseElement<'div', 'id' | 'role'>({
 
 export interface SpanElementProps
   extends React.ComponentProps<typeof SpanElement> {}
-export const SpanElement = defineBaseElement<'span', 'id'>({
+export const SpanElement = defineBaseElement<'span', 'id' | 'title'>({
   type: 'span',
   displayName: 'Span',
 });
@@ -234,7 +234,7 @@ export const StorageBrowserElements: StorageBrowserElements = {
   Span: SpanElement,
   Table: TableElement,
   TableBody: TableBodyElement,
-  TableData: TableDataElement,
+  TableData: TableDataCellElement,
   TableHead: TableHeadElement,
   TableHeader: TableHeaderElement,
   TableRow: TableRowElement,

@@ -33,6 +33,7 @@ const VIEW_VARIANTS: [string, string[]][] = [
 ];
 
 const config = {
+  accountId: '012345678901',
   getLocationCredentials: jest.fn(),
   listLocations: jest.fn(),
   region: 'region',
@@ -52,7 +53,7 @@ describe('elementsDefault', () => {
       expect(screen.getByRole('heading', { name: 'Home' })).toBeInTheDocument();
     });
 
-    const refresh = screen.getByRole('button', { name: 'Refresh table' });
+    const refresh = screen.getByRole('button', { name: 'Refresh data' });
 
     expect(refresh.classList).toContain('amplify-button');
   });
@@ -113,8 +114,14 @@ describe('elementsDefault', () => {
   });
 
   it('should render table components', async () => {
-    const { Table, TableHead, TableHeader, TableBody, TableData, TableRow } =
-      elementsDefault;
+    const {
+      Table,
+      TableHead,
+      TableHeader,
+      TableBody,
+      TableDataCell,
+      TableRow,
+    } = elementsDefault;
     render(
       <Table testId="Table">
         <TableHead testId="TableHead">
@@ -124,7 +131,7 @@ describe('elementsDefault', () => {
         </TableHead>
         <TableBody testId="TableBody">
           <TableRow>
-            <TableData testId="TableData">Body</TableData>
+            <TableDataCell testId="TableDataCell">Body</TableDataCell>
           </TableRow>
         </TableBody>
       </Table>

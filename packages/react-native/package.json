@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui-react-native",
-  "version": "2.2.14",
+  "version": "2.2.16",
   "main": "lib/index.js",
   "module": "dist/index.js",
   "react-native": "src/index.ts",
@@ -30,12 +30,12 @@
     "react-native-safe-area-context": "^4.7.3"
   },
   "dependencies": {
-    "@aws-amplify/ui": "6.6.3",
-    "@aws-amplify/ui-react-core": "3.0.27",
-    "@aws-amplify/ui-react-core-notifications": "2.0.27"
+    "@aws-amplify/ui": "6.6.5",
+    "@aws-amplify/ui-react-core": "3.0.29",
+    "@aws-amplify/ui-react-core-notifications": "2.0.29"
   },
   "peerDependencies": {
-    "aws-amplify": "storage-browser",
+    "aws-amplify": "storage-browser-integrity",
     "react": "*",
     "react-native": "^0.70 || ^0.71 || ^0.72 || ^0.73 || ^0.74 || ^0.75",
     "react-native-safe-area-context": "^4.2.5"
