@@ -5,14 +5,15 @@ import {
   uploadHandler,
 } from '../handlers';
 import {
+  DefaultActionConfigs,
   ListLocationItemsActionConfig,
   ListLocationsActionConfig,
   CreateFolderActionConfig,
   UploadActionConfig,
-  ActionConfigs,
 } from './types';
 
 export const createFolderActionConfig: CreateFolderActionConfig = {
+  componentName: 'CreateFolderView',
   actionsListItemConfig: {
     disable: (selected) => !!selected,
     hide: (permission) => permission === 'READ',
@@ -21,13 +22,13 @@ export const createFolderActionConfig: CreateFolderActionConfig = {
   },
   handler: createFolderHandler,
   isCancelable: false,
-  title: 'Create Folder',
-  type: 'SINGLE_ACTION',
+  displayName: 'Create Folder',
 };
 
 export const listLocationItemsActionConfig: ListLocationItemsActionConfig = {
+  componentName: 'LocationDetailView',
   handler: listLocationItemsHandler,
-  title: (bucket, prefix) => {
+  displayName: (bucket, prefix) => {
     if (bucket && prefix) {
       const prefixes = prefix.split('/');
       return `${bucket}: ${
@@ -36,16 +37,16 @@ export const listLocationItemsActionConfig: ListLocationItemsActionConfig = {
     }
     return !bucket ? '-' : bucket;
   },
-  type: 'LIST_LOCATION_ITEMS',
 };
 
 export const listLocationsActionConfig: ListLocationsActionConfig = {
+  componentName: 'LocationsView',
   handler: listLocationsHandler,
-  title: 'Home',
-  type: 'LIST_LOCATIONS',
+  displayName: 'Home',
 };
 
 export const uploadActionConfig: UploadActionConfig = {
+  componentName: 'UploadView',
   actionsListItemConfig: [
     {
       disable: (selectedValues) => !!selectedValues,
@@ -63,12 +64,12 @@ export const uploadActionConfig: UploadActionConfig = {
     },
   ],
   isCancelable: true,
+  includeProgress: true,
   handler: uploadHandler,
-  title: 'Upload',
-  type: 'BATCH_ACTION',
+  displayName: 'Upload',
 };
 
-export const defaultActionConfigs: ActionConfigs = {
+export const defaultActionConfigs: DefaultActionConfigs = {
   CreateFolder: createFolderActionConfig,
   ListLocationItems: listLocationItemsActionConfig,
   ListLocations: listLocationsActionConfig,

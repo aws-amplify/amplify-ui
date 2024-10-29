@@ -34,7 +34,7 @@ export const listViewHelpers = ({
 
   return {
     disableActionsMenu: isLoading,
-    disableRefresh: isLoading || hasEmptyResults,
+    disableRefresh: isLoading,
     disableNext:
       (!hasNextToken && isLastPage) || isLoading || hasEmptyResults || hasError,
     disablePrevious:

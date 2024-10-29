@@ -9,5 +9,6 @@ export const createManagedAuthAdapter = ({
   ...input
 }: CreateManagedAuthAdapterInput): StorageBrowserAuthAdapter => ({
   ...createManagedAuthConfigAdapter(input),
+  accountId: input.accountId,
   registerAuthListener,
 });

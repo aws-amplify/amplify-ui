@@ -1,6 +1,6 @@
 import React from 'react';
+import { isFunction } from '@aws-amplify/ui';
 
-import { useControl } from '../../context/control';
 import {
   ButtonElement,
   ButtonElementProps,
@@ -11,11 +11,11 @@ import {
   SpanElement,
   StorageBrowserElements,
 } from '../../context/elements';
-import { parseLocationAccess } from '../../context/navigate/utils';
 
 import { CLASS_BASE } from '../constants';
 
-import { LocationData, useAction } from '../../context/actions';
+import { useAction } from '../../do-not-import-from-here/actions';
+import { useStore } from '../../providers/store';
 
 interface NavigateItemProps extends ButtonElementProps {
   isCurrent?: boolean;
@@ -85,47 +85,53 @@ function NavigateContainer({
   );
 }
 
-export function NavigateControl(): React.JSX.Element {
-  const [{ history, location }, handleUpdateState] = useControl('NAVIGATE');
-  const [{ isLoading }, handleUpdateList] = useAction('LIST_LOCATION_ITEMS');
-  const [, handleLocationActionsState] = useControl('LOCATION_ACTIONS');
+export function NavigateControl({
+  onExit,
+}: {
+  onExit?: () => void;
+}): React.JSX.Element {
+  const [{ history }, dispatchStoreAction] = useStore();
+  const { current, previous } = history;
 
-  const { bucket } = location
-    ? parseLocationAccess(location)
-    : ({} as LocationData);
+  const [{ isLoading }, handleList] = useAction('LIST_LOCATION_ITEMS');
 
   return (
     <NavigateContainer>
       <NavigateItem
         onClick={() => {
-          handleUpdateState({ type: 'EXIT' });
-          handleUpdateList({ prefix: '', options: { reset: true } });
-          handleLocationActionsState({ type: 'CLEAR' });
+          if (isFunction(onExit)) onExit();
+          dispatchStoreAction({ type: 'RESET_HISTORY' });
+
+          handleList({
+            // @todo: prefix should not be required to refresh
+            prefix: current?.prefix ?? '',
+            options: { reset: true },
+          });
+          dispatchStoreAction({ type: 'RESET_ACTION_TYPE' });
         }}
       >
         {HOME_NAVIGATE_ITEM}
       </NavigateItem>
-      {history?.map((entry, index) => {
-        const { position, prefix: _prefix } = entry;
+      {previous?.map((destination, index) => {
+        const { bucket, id, prefix: _prefix } = destination;
         // remove trailing `/` from `prefix`
-        const prefix = _prefix.endsWith('/') ? _prefix.slice(0, -1) : _prefix;
+        const prefix = _prefix?.endsWith('/') ? _prefix.slice(0, -1) : _prefix;
 
         // if `position` is the first index:
         // - concatenate `bucket` and `prefix`
         // - if `prefix` is truthy, insert `/` between `bucket` and `prefix`
         const displayValue =
-          position === 0
-            ? `${bucket}${prefix ? `/${prefix}` : prefix}`
-            : prefix;
+          index === 0 ? `${bucket}${prefix ? `/${prefix}` : prefix}` : prefix;
 
-        const isCurrent = index === history.length - 1;
+        const isCurrent = index === previous.length - 1;
         return (
           <NavigateItem
             disabled={isLoading}
-            key={`${prefix}/${position}`}
+            key={id}
             onClick={() => {
-              handleUpdateState({ type: 'NAVIGATE', entry });
-              handleLocationActionsState({ type: 'CLEAR' });
+              dispatchStoreAction({ type: 'RESET_ACTION_TYPE' });
+              dispatchStoreAction({ type: 'RESET_LOCATION_ITEMS' });
+              dispatchStoreAction({ type: 'NAVIGATE', destination });
             }}
             isCurrent={isCurrent}
           >

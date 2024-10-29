@@ -1,20 +1,19 @@
 import React from 'react';
 
-import { LocationData, LocationItem } from '../../context/types';
-import { useControl } from '../../context/control';
-import { useAction } from '../../context/actions';
-import { isString } from '@aws-amplify/ui';
+import { isFunction, isUndefined } from '@aws-amplify/ui';
 import { usePaginate } from '../hooks/usePaginate';
-import { isFile } from '../utils';
+import { useStore } from '../../providers/store';
+import { useAction } from '../../do-not-import-from-here/actions';
+import { LocationData, LocationItemData } from '../../actions';
 
 interface UseLocationDetailView {
   hasNextPage: boolean;
   hasError: boolean;
   isLoading: boolean;
   message: string | undefined;
-  pageItems: LocationItem[];
+  pageItems: LocationItemData[];
   page: number;
-  onAccessItem: (key: string) => void;
+  onAccessItem: (location: LocationData) => void;
   onRefresh: () => void;
   onPaginateNext: () => void;
   onPaginatePrevious: () => void;
@@ -40,6 +39,9 @@ interface InitialValues {
 export interface UseLocationDetailViewOptions {
   initialValues?: InitialValues;
   onDispatch?: React.Dispatch<LocationDetailViewActionType>;
+  onActionSelect?: (type: string) => void;
+  onExit?: () => void;
+  onNavigate?: (destination: LocationData) => void;
 }
 
 const DEFAULT_PAGE_SIZE = 100;
@@ -48,10 +50,14 @@ export const DEFAULT_LIST_OPTIONS = {
   pageSize: DEFAULT_PAGE_SIZE,
 };
 
+const DEFAULT_REFRESH_OPTIONS = { ...DEFAULT_LIST_OPTIONS, refresh: true };
+
 export function useLocationDetailView(
   options?: UseLocationDetailViewOptions
 ): UseLocationDetailView {
   const initialValues = options?.initialValues;
+  const onActionSelect = options?.onActionSelect;
+  const onNavigate = options?.onNavigate;
   const listOptions = React.useMemo(() => {
     return {
       ...DEFAULT_LIST_OPTIONS,
@@ -59,30 +65,22 @@ export function useLocationDetailView(
     };
   }, [initialValues]);
 
-  const [state, handleUpdateState] = useControl('NAVIGATE');
-  const { path, history } = state;
+  const [{ history }, dispatchStoreAction] = useStore();
+  const { current } = history;
+  const { prefix } = current ?? {};
+  const hasInvalidPrefix = isUndefined(prefix);
 
   const [{ data, isLoading, hasError, message }, handleList] = useAction(
     'LIST_LOCATION_ITEMS'
   );
-  const [, handleLocationActionsState] = useControl('LOCATION_ACTIONS');
 
   const { result, nextToken } = data;
   const resultCount = result.length;
   const hasNextToken = !!nextToken;
-  const hasValidPath = isString(path);
   const onPaginateNext = () => {
-    if (!hasValidPath) return;
+    if (hasInvalidPrefix || !nextToken) return;
 
-    handleLocationActionsState({ type: 'CLEAR' });
-    handleList({
-      prefix: path,
-      options: { ...listOptions, nextToken },
-    });
-  };
-
-  const onPaginatePrevious = () => {
-    handleLocationActionsState({ type: 'CLEAR' });
+    handleList({ prefix, options: { ...DEFAULT_LIST_OPTIONS, nextToken } });
   };
 
   const {
@@ -93,30 +91,27 @@ export function useLocationDetailView(
     range,
   } = usePaginate({
     onPaginateNext,
-    onPaginatePrevious,
     pageSize: listOptions.pageSize,
   });
 
   const onRefresh = () => {
-    if (!hasValidPath) return;
-
+    if (hasInvalidPrefix) return;
     handleReset();
-    handleList({
-      prefix: path,
-      options: { ...listOptions, refresh: true },
-    });
-    handleLocationActionsState({ type: 'CLEAR' });
+    handleList({ prefix, options: DEFAULT_REFRESH_OPTIONS });
+    dispatchStoreAction({ type: 'RESET_LOCATION_ITEMS' });
   };
 
   React.useEffect(() => {
-    if (!hasValidPath) return;
-
+    if (hasInvalidPrefix) return;
+    handleList({ prefix, options: DEFAULT_REFRESH_OPTIONS });
     handleReset();
-    handleList({
-      prefix: path,
-      options: { ...listOptions, refresh: true },
-    });
-  }, [path, handleList, handleReset, hasValidPath, listOptions]);
+  }, [
+    dispatchStoreAction,
+    handleList,
+    handleReset,
+    hasInvalidPrefix,
+    prefix,
+  ]);
 
   const processedItems = React.useMemo(() => {
     const [start, end] = range;
@@ -130,39 +125,23 @@ export function useLocationDetailView(
     hasError,
     message,
     isLoading,
-    onPaginatePrevious: () => {
-      if (!hasValidPath) return;
-      handlePaginatePrevious();
-    },
+    onPaginatePrevious: handlePaginatePrevious,
     onPaginateNext: () => {
-      if (!hasValidPath) return;
       handlePaginateNext({ resultCount, hasNextToken });
     },
     onRefresh,
-    onAccessItem: (key: string) => {
-      const currentPosition = history.length;
-      handleUpdateState({
-        type: 'NAVIGATE',
-        entry: {
-          position: currentPosition + 1,
-          prefix: key,
-        },
-      });
+    onAccessItem: (destination: LocationData) => {
+      if (isFunction(onNavigate)) onNavigate(destination);
+      dispatchStoreAction({ type: 'NAVIGATE', destination });
     },
     onAddFiles: (files: File[]) => {
-      if (isFile(files[0])) {
-        handleLocationActionsState({
-          type: 'SET_ACTION',
-          actionType: 'UPLOAD_FILES',
-          files,
-        });
-      } else {
-        handleLocationActionsState({
-          type: 'SET_ACTION',
-          actionType: 'UPLOAD_FOLDER',
-          files,
-        });
-      }
+      dispatchStoreAction({ type: 'ADD_FILE_ITEMS', files });
+      dispatchStoreAction({
+        type: 'SET_ACTION_TYPE',
+        actionType: 'UPLOAD_FILES',
+      });
+
+      if (isFunction(onActionSelect)) onActionSelect('UPLOAD_FILES');
     },
   };
 }

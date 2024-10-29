@@ -2,22 +2,24 @@ import React from 'react';
 import { humanFileSize } from '@aws-amplify/ui';
 
 import { TABLE_HEADER_BUTTON_CLASS_NAME } from '../../components/DataTable';
-import { useAction } from '../../context/actions';
+import { useAction } from '../../do-not-import-from-here/actions';
 import {
   SpanElementProps,
   StorageBrowserElements,
   TableDataCellElementProps,
   TableHeaderElementProps,
 } from '../../context/elements';
-import { useControl } from '../../context/control';
-import { FileItem, FolderItem, LocationItem } from '../../context/types';
 
+import { FolderData, LocationItemData } from '../../actions/handlers';
 import { CLASS_BASE } from '../constants';
 import { compareDates, compareNumbers, compareStrings } from '../utils';
 
 import { DownloadControl } from './Download';
 import { useDropZone } from '@aws-amplify/ui-react-core';
 import { Checkbox } from '../../components/Checkbox';
+
+import { useStore } from '../../providers/store';
+import { FileData, LocationData } from '../../actions/handlers';
 
 export type SortDirection = 'ascending' | 'descending' | 'none';
 
@@ -91,7 +93,7 @@ export function TableDataText({
   return <Span {...props} className={className} />;
 }
 
-const LOCATION_DETAIL_VIEW_COLUMNS: Column<LocationItem>[] = [
+const LOCATION_DETAIL_VIEW_COLUMNS: Column<LocationItemData>[] = [
   {
     // @TODO: Fix me after refactor
     // @ts-ignore
@@ -107,15 +109,15 @@ const LOCATION_DETAIL_VIEW_COLUMNS: Column<LocationItem>[] = [
     header: 'Type',
   },
   {
-    key: 'lastModified' as keyof LocationItem,
+    key: 'lastModified' as keyof LocationItemData,
     header: 'Last Modified',
   },
   {
-    key: 'size' as keyof LocationItem,
+    key: 'size' as keyof LocationItemData,
     header: 'Size',
   },
   {
-    key: 'download' as keyof LocationItem,
+    key: 'download' as keyof LocationItemData,
     header: 'Download',
   },
 ];
@@ -177,7 +179,7 @@ TableControl.TableRow = TableRow;
 TableControl.TableData = TableData;
 TableControl.TableHeader = TableHeader;
 
-const LocationDetailViewColumnSortMap = {
+const sortFns = {
   key: compareStrings,
   type: compareStrings,
   lastModified: compareDates,
@@ -189,15 +191,15 @@ const LocationDetailViewColumnEmptyHeaderMap = ['download'];
 export const LocationDetailViewTable = ({
   items,
   handleDroppedFiles,
-  handleLocationItemClick,
+  handleLocationItemClick
 }: {
-  items: LocationItem[];
+  items: LocationItemData[];
   handleDroppedFiles: (files: File[]) => void;
-  handleLocationItemClick: (prefix: string) => void;
+  handleLocationItemClick: (location: LocationData) => void;
 }): JSX.Element | null => {
-  const [{ path }] = useControl('NAVIGATE');
-  const [{ selected }, handleLocationActionsState] =
-    useControl('LOCATION_ACTIONS');
+  const [{ history, locationItems }, dispatchStoreAction] = useStore();
+  const { current } = history;
+  const { fileDataItems } = locationItems;
 
   const [{ hasError }] = useAction('LIST_LOCATION_ITEMS');
 
@@ -205,10 +207,12 @@ export const LocationDetailViewTable = ({
   const showTable = hasItems && !hasError;
 
   const [compareFn, setCompareFn] = React.useState(() => compareStrings);
-  const [sortState, setSortState] = React.useState<SortState<LocationItem>>({
-    selection: 'key',
-    direction: 'ascending',
-  });
+  const [sortState, setSortState] = React.useState<SortState<LocationItemData>>(
+    {
+      selection: 'key',
+      direction: 'ascending',
+    }
+  );
 
   const { direction, selection } = sortState;
 
@@ -218,12 +222,14 @@ export const LocationDetailViewTable = ({
       : items.sort((a, b) => compareFn(b[selection], a[selection]));
 
   // Logic for Select All Files functionality
-  const allFiles = items.filter((item) => item.type === 'FILE');
-  const areAllFilesSelected = selected.items?.length === allFiles.length;
+  const allFiles = items.filter(
+    (item): item is FileData => item.type === 'FILE'
+  );
+  const areAllFilesSelected = fileDataItems?.length === allFiles.length;
   const hasSelectableFiles = !!allFiles.length;
 
   const renderHeaderItem = React.useCallback(
-    (column: Column<LocationItem>) => {
+    (column: Column<LocationItemData>) => {
       // Defining this function inside the `LocationDetailViewTable` to get access
       // to the current sort state
 
@@ -234,18 +240,21 @@ export const LocationDetailViewTable = ({
           key={header}
           variant={key}
           aria-label={
-            key == ('download' as keyof LocationItem)
+            key == ('download' as keyof LocationItemData)
               ? column.header
               : undefined
           }
           aria-sort={selection === key ? direction : 'none'}
         >
-          {LocationDetailViewColumnSortMap[column.key] ? (
+          {/* @ts-expect-error */}
+          {sortFns[column.key] ? (
             <Button
               variant="sort"
               className={TABLE_HEADER_BUTTON_CLASS_NAME}
               onClick={() => {
-                setCompareFn(() => LocationDetailViewColumnSortMap[column.key]);
+                // @ts-expect-error
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+                setCompareFn(() => sortFns[column.key]);
                 setSortState((prevState) => ({
                   selection: column.key,
                   direction:
@@ -278,10 +287,11 @@ export const LocationDetailViewTable = ({
                 labelHidden
                 labelText={SELECT_ALL_FILES_TEXT}
                 onSelect={() => {
-                  handleLocationActionsState({
-                    type: 'TOGGLE_SELECTED_ITEMS',
-                    items: areAllFilesSelected ? undefined : allFiles,
-                  });
+                  dispatchStoreAction(
+                    areAllFilesSelected
+                      ? { type: 'RESET_LOCATION_ITEMS' }
+                      : { type: 'SET_LOCATION_ITEMS', items: allFiles }
+                  );
                 }}
               />
             )
@@ -295,7 +305,7 @@ export const LocationDetailViewTable = ({
     },
     [
       direction,
-      handleLocationActionsState,
+      dispatchStoreAction,
       hasSelectableFiles,
       areAllFilesSelected,
       allFiles,
@@ -304,11 +314,11 @@ export const LocationDetailViewTable = ({
   );
 
   // @TODO: This should be it's own component instead of using `useCallback`
-  const renderRowItem: RenderRowItem<LocationItem> = React.useCallback(
+  const renderRowItem: RenderRowItem<LocationItemData> = React.useCallback(
     (row, index) => {
       const renderTableData = (
-        row: LocationItem,
-        column: Column<LocationItem>
+        row: LocationItemData,
+        column: Column<LocationItemData>
       ) => {
         const { type } = row;
 
@@ -316,7 +326,7 @@ export const LocationDetailViewTable = ({
           case 'FILE': {
             // Casting column as Column<FileItem> to assert that we're only working with FileItems
             // since the type is 'FILE'
-            const { key } = column as Column<FileItem>;
+            const { key } = column as Column<FileData>;
 
             switch (key) {
               case 'size': {
@@ -333,23 +343,24 @@ export const LocationDetailViewTable = ({
                   </TableDataText>
                 );
               }
-              case 'download' as keyof LocationItem: {
-                return <DownloadControl fileKey={`${path}${row.key}`} />;
+              case 'download' as keyof LocationItemData: {
+                return <DownloadControl fileKey={row.key} />;
               }
-              case 'select' as keyof LocationItem: {
+              case 'select' as keyof LocationItemData: {
                 const isSelected =
-                  selected.items?.some((item) => item.key === row.key) ?? false;
+                  fileDataItems?.some(({ id }) => id === row.id) ?? false;
                 return (
                   <Checkbox
                     checked={isSelected}
-                    id={`${index}-${row.key}`}
+                    id={row.id}
                     labelHidden
                     labelText={`${SELECT_FILE_TEXT} ${row.key}`}
                     onSelect={() => {
-                      handleLocationActionsState({
-                        type: 'TOGGLE_SELECTED_ITEM',
-                        item: row,
-                      });
+                      dispatchStoreAction(
+                        isSelected
+                          ? { type: 'REMOVE_LOCATION_ITEM', id: row.id }
+                          : { type: 'SET_LOCATION_ITEMS', items: [row] }
+                      );
                     }}
                   />
                 );
@@ -367,7 +378,7 @@ export const LocationDetailViewTable = ({
                 return (
                   <TableDataText>
                     <Icon className={ICON_CLASS} variant="file" />
-                    {row.key}
+                    {row.key.slice(current?.prefix.length)}
                   </TableDataText>
                 );
               }
@@ -378,7 +389,7 @@ export const LocationDetailViewTable = ({
           case 'FOLDER': {
             // Casting column as Column<FolderItem> to assert that we're only working with FileItems
             // since the type is 'FOLDER'
-            const { key } = column as Column<FolderItem>;
+            const { key } = column as Column<FolderData>;
 
             switch (key) {
               case 'key': {
@@ -386,10 +397,15 @@ export const LocationDetailViewTable = ({
                   <Button
                     className={`${BLOCK_NAME}__data__button`}
                     variant="table-data"
-                    onClick={() => handleLocationItemClick(row.key)}
-                    key={`${index}-${row.key}`}
+                    onClick={() => {
+                      const { id, key: prefix } = row;
+                      const destination = { ...current!, id, prefix };
+                      handleLocationItemClick(destination);
+                    }}
+                    key={row.id}
                   >
-                    <Icon className={ICON_CLASS} variant="folder" /> {row.key}
+                    <Icon className={ICON_CLASS} variant="folder" />
+                    {row.key.slice(current?.prefix.length)}
                   </Button>
                 );
               }
@@ -415,7 +431,7 @@ export const LocationDetailViewTable = ({
         </TableRow>
       );
     },
-    [path, selected, handleLocationActionsState, handleLocationItemClick]
+    [current, fileDataItems, dispatchStoreAction, handleLocationItemClick]
   );
 
   return showTable ? (

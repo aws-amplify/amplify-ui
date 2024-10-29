@@ -1,13 +1,16 @@
 import React from 'react';
 
-import { LocationData, useAction } from '../../context/actions';
-import { useControl } from '../../context/control';
-import { parseLocationAccess } from '../../context/navigate/utils';
-
+import { useAction } from '../../do-not-import-from-here/actions';
+import { useStore } from '../../providers/store';
 import { Controls, LocationDetailViewTable } from '../Controls';
 
 import { ActionsMenuControl } from './Controls/ActionsMenu';
 import { useLocationDetailView } from './useLocationDetailView';
+import { LocationDetailViewProps } from './types';
+import { ControlsContextProvider } from '../../controls/context';
+import { ControlsContext } from '../../controls/types';
+import { DataRefreshControl } from '../../controls/DataRefreshControl';
+import { CLASS_BASE } from '../constants';
 
 export const DEFAULT_ERROR_MESSAGE = 'There was an error loading items.';
 const DEFAULT_PAGE_SIZE = 100;
@@ -22,30 +25,15 @@ const {
   Message,
   Navigate,
   Paginate,
-  Refresh,
   Title: TitleControl,
 } = Controls;
 
 export const Title = (): React.JSX.Element => {
-  const [{ history, location }] = useControl('NAVIGATE');
-
-  const { bucket } = location
-    ? parseLocationAccess(location)
-    : ({} as LocationData);
-
-  const prefix = history?.slice(-1)[0]?.prefix;
+  const [{ history }] = useStore();
+  const { current } = history;
+  const { bucket, prefix } = current ?? {};
 
   return <TitleControl>{prefix ? prefix : bucket}</TitleControl>;
-};
-
-const RefreshControl = ({
-  disableRefresh,
-  handleRefresh,
-}: {
-  disableRefresh?: boolean;
-  handleRefresh?: () => void;
-}) => {
-  return <Refresh disabled={disableRefresh} onClick={handleRefresh} />;
 };
 
 function Loading({ show }: { show?: boolean }) {
@@ -70,34 +58,42 @@ const LocationDetailEmptyMessage = () => {
   ) : null;
 };
 
-export const LocationDetailViewControls = (): React.JSX.Element => {
-  const locationDetailView = useLocationDetailView();
+export const LocationDetailViewControls = (
+  {
+    onActionSelect,
+    onNavigate,
+    onExit,
+  }: Omit<
+    LocationDetailViewProps,
+    'children' | 'className'
+  >
+): React.JSX.Element => {
+  const locationDetailView = useLocationDetailView({ onNavigate });
   const { pageItems, isLoading, hasError, hasNextPage, page } =
     locationDetailView;
-
-  const handleDroppedFiles = (files: File[]) => {
-    locationDetailView.onAddFiles(files);
-  };
-
-  const handleLocationItemClick = (key: string) => {
-    locationDetailView.onAccessItem(key);
-  };
 
   const disableNext = !hasNextPage || isLoading || hasError;
   const disablePrevious = page <= 1 || isLoading || hasError;
   const renderLoading = page === 1 && pageItems.length === 0 && isLoading;
 
+  const contextValue: ControlsContext = {
+    data: {
+      isDataRefreshDisabled: isLoading,
+    },
+    onRefresh: locationDetailView.onRefresh,
+  };
+
   return (
-    <>
-      <Navigate />
+    <ControlsContextProvider {...contextValue}>
+      <Navigate onExit={onExit} />
       <Title />
-      <RefreshControl
-        disableRefresh={isLoading}
-        handleRefresh={() => {
-          locationDetailView.onRefresh();
-        }}
+      <DataRefreshControl
+        className={`${CLASS_BASE}__locations-detail-view-data-refresh`}
       />
-      <ActionsMenuControl disabled={isLoading} />
+      <ActionsMenuControl
+        onActionSelect={onActionSelect}
+        disabled={isLoading}
+      />
       <Paginate
         currentPage={page}
         disableNext={disableNext}
@@ -113,10 +109,10 @@ export const LocationDetailViewControls = (): React.JSX.Element => {
       <Loading show={renderLoading} />
       <LocationDetailViewTable
         items={pageItems}
-        handleDroppedFiles={handleDroppedFiles}
-        handleLocationItemClick={handleLocationItemClick}
+        handleDroppedFiles={locationDetailView.onAddFiles}
+        handleLocationItemClick={locationDetailView.onAccessItem}
       />
       <LocationDetailEmptyMessage />
-    </>
+    </ControlsContextProvider>
   );
 };
