@@ -6,6 +6,8 @@ import { LocationData } from '../../actions';
 import { useStore } from '../../providers/store';
 
 interface UseLocationsView {
+  disableNext: boolean;
+  disablePrevious: boolean;
   hasNextPage: boolean;
   hasError: boolean;
   isLoading: boolean;
@@ -28,12 +30,13 @@ export type LocationsViewActionType =
   | { type: 'PAGINATE_NEXT' }
   | { type: 'PAGINATE_PREVIOUS' }
   | { type: 'PAGINATE'; page: number }
-  | { type: 'SELECT_LOCATION'; location: LocationData }
+  | { type: 'NAVIGATE'; location: LocationData }
   | { type: 'SEARCH'; query: string };
 
 export interface UseLocationsViewOptions {
   initialValues?: InitialValues;
   onDispatch?: React.Dispatch<LocationsViewActionType>;
+  onNavigate?: (location: LocationData) => void;
 }
 
 const DEFAULT_PAGE_SIZE = 100;
@@ -51,14 +54,14 @@ export function useLocationsView(
   const { result, nextToken } = data;
   const resultCount = result.length;
   const hasNextToken = !!nextToken;
-  const initialValues = options?.initialValues;
 
-  const listOptions = React.useMemo(() => {
-    return {
-      ...DEFAULT_LIST_OPTIONS,
-      ...initialValues,
-    };
-  }, [initialValues]);
+  const onNavigate = options?.onNavigate;
+  const initialValues = options?.initialValues ?? {};
+
+  const [listOptions] = React.useState({
+    ...DEFAULT_LIST_OPTIONS,
+    ...initialValues,
+  });
 
   // initial load
   React.useEffect(() => {
@@ -90,10 +93,15 @@ export function useLocationsView(
     isLoading,
     hasError,
     message,
+    disableNext: !hasNextToken || isLoading || hasError,
+    disablePrevious: currentPage <= 1 || isLoading || hasError,
     page: currentPage,
     hasNextPage: hasNextToken,
     pageItems: processedItems,
     onNavigate: (destination: LocationData) => {
+      if (typeof onNavigate === 'function') {
+        onNavigate(destination);
+      }
       dispatchStoreAction({ type: 'NAVIGATE', destination });
     },
     onRefresh: () => {

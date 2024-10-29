@@ -52,26 +52,16 @@ export function LocationsView({
   className,
   onNavigate,
 }: LocationsViewProps): React.JSX.Element {
-  const locationsView = useLocationsView();
-  const { pageItems, hasError, hasNextPage, page, isLoading } = locationsView;
-
-  const handleLocationClick = (location: LocationData) => {
-    // TODO: where
-    onNavigate?.(location);
-    locationsView.onNavigate(location);
-  };
-
-  const disableNext = !hasNextPage || isLoading || hasError;
-  const disablePrevious = page <= 1 || isLoading || hasError;
+  const locationsView = useLocationsView({ onNavigate });
+  const { pageItems, hasError, disableNext, disablePrevious, page, isLoading } =
+    locationsView;
 
   // FIXME: Eventually comes from useView hook
   const contextValue: ControlsContext = {
     data: {
       isDataRefreshDisabled: isLoading,
     },
-    onRefresh: () => {
-      locationsView.onRefresh();
-    },
+    onRefresh: locationsView.onRefresh,
   };
 
   return (
@@ -88,18 +78,14 @@ export function LocationsView({
           currentPage={page}
           disableNext={disableNext}
           disablePrevious={disablePrevious}
-          handleNext={() => {
-            locationsView.onPaginateNext();
-          }}
-          handlePrevious={() => {
-            locationsView.onPaginatePrevious();
-          }}
+          handleNext={locationsView.onPaginateNext}
+          handlePrevious={locationsView.onPaginatePrevious}
         />
         <LocationsMessage />
         <Loading />
         {hasError ? null : (
           <DataTableControl
-            handleLocationClick={handleLocationClick}
+            handleLocationClick={locationsView.onNavigate}
             items={pageItems}
           />
         )}
