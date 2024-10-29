@@ -20,6 +20,7 @@ describe('TextDataCell', () => {
     const svg = container.querySelector('svg');
 
     expect(textDataCell).toBeInTheDocument();
+    expect(textDataCell).toHaveAttribute('title', 'data-cell-text');
     expect(svg).toBeInTheDocument();
   });
 
