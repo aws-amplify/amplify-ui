@@ -1,4 +1,4 @@
-import { renderHook, act } from '@testing-library/react-hooks';
+import { renderHook, act } from '@testing-library/react';
 import { useSearch, InitialSearchValues } from '../useSearch';
 
 const items = [
@@ -51,7 +51,7 @@ describe('useSearch Hook', () => {
     );
 
     act(() => {
-      result.current.handleSearch('File 2');
+      result.current.onSearch('File 2');
       jest.advanceTimersByTime(100);
     });
 
@@ -75,8 +75,8 @@ describe('useSearch Hook', () => {
     );
 
     act(() => {
-      result.current.handleSearch('File');
-      result.current.handleSearch('File 1');
+      result.current.onSearch('File');
+      result.current.onSearch('File 1');
       jest.advanceTimersByTime(100);
     });
 
@@ -96,14 +96,14 @@ describe('useSearch Hook', () => {
 
     // No matches
     act(() => {
-      result.current.handleSearch('Nonexistent');
+      result.current.onSearch('Nonexistent');
       jest.advanceTimersByTime(100);
     });
     expect(result.current.filteredItems).toEqual([]);
 
     // Empty search term
     act(() => {
-      result.current.handleSearch('');
+      result.current.onSearch('');
       jest.advanceTimersByTime(100);
     });
 

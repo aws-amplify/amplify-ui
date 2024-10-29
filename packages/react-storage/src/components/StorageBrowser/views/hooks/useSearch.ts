@@ -14,10 +14,10 @@ interface UseSearchProps<T> {
   onSearch: (term: string, includeSubfolders?: boolean) => void;
 }
 
-interface UseSearch<T> {
+interface UseSearchResult<T> {
   filteredItems: T[];
   searchTerm: string;
-  handleSearch: (term: string, includeSubfolders?: boolean) => void;
+  onSearch: (term: string, includeSubfolders?: boolean) => void;
 }
 
 /**
@@ -30,7 +30,7 @@ export function useSearch<T>({
   items,
   initialValues: initialValuesProp,
   onSearch,
-}: UseSearchProps<T>): UseSearch<T> {
+}: UseSearchProps<T>): UseSearchResult<T> {
   const [initialValues] = React.useState(initialValuesProp);
   const {
     searchTerm: initialSearchTerm = '',
@@ -72,6 +72,6 @@ export function useSearch<T>({
   return {
     searchTerm,
     filteredItems,
-    handleSearch: debouncedHandler,
+    onSearch: debouncedHandler,
   };
 }
