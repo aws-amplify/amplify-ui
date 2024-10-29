@@ -50,8 +50,6 @@ export const DEFAULT_LIST_OPTIONS = {
   pageSize: DEFAULT_PAGE_SIZE,
 };
 
-const DEFAULT_REFRESH_OPTIONS = { ...DEFAULT_LIST_OPTIONS, refresh: true };
-
 export function useLocationDetailView(
   options?: UseLocationDetailViewOptions
 ): UseLocationDetailView {
@@ -80,7 +78,7 @@ export function useLocationDetailView(
   const onPaginateNext = () => {
     if (hasInvalidPrefix || !nextToken) return;
 
-    handleList({ prefix, options: { ...DEFAULT_LIST_OPTIONS, nextToken } });
+    handleList({ prefix, options: { ...listOptions, nextToken } });
   };
 
   const {
@@ -97,18 +95,19 @@ export function useLocationDetailView(
   const onRefresh = () => {
     if (hasInvalidPrefix) return;
     handleReset();
-    handleList({ prefix, options: DEFAULT_REFRESH_OPTIONS });
+    handleList({ prefix, options: { ...listOptions, refresh: true } });
     dispatchStoreAction({ type: 'RESET_LOCATION_ITEMS' });
   };
 
   React.useEffect(() => {
     if (hasInvalidPrefix) return;
-    handleList({ prefix, options: DEFAULT_REFRESH_OPTIONS });
+    handleList({ prefix, options: { ...listOptions, refresh: true } });
     handleReset();
   }, [
     dispatchStoreAction,
     handleList,
     handleReset,
+    listOptions,
     hasInvalidPrefix,
     prefix,
   ]);

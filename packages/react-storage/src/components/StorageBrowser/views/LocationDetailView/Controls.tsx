@@ -58,16 +58,14 @@ const LocationDetailEmptyMessage = () => {
   ) : null;
 };
 
-export const LocationDetailViewControls = (
-  {
-    onActionSelect,
-    onNavigate,
-    onExit,
-  }: Omit<
-    LocationDetailViewProps,
-    'children' | 'className'
-  >
-): React.JSX.Element => {
+export const LocationDetailViewControls = ({
+  onActionSelect,
+  onNavigate,
+  onExit,
+}: Omit<
+  LocationDetailViewProps,
+  'children' | 'className'
+>): React.JSX.Element => {
   const locationDetailView = useLocationDetailView({ onNavigate });
   const { pageItems, isLoading, hasError, hasNextPage, page } =
     locationDetailView;
@@ -98,12 +96,8 @@ export const LocationDetailViewControls = (
         currentPage={page}
         disableNext={disableNext}
         disablePrevious={disablePrevious}
-        handleNext={() => {
-          locationDetailView.onPaginateNext();
-        }}
-        handlePrevious={() => {
-          locationDetailView.onPaginatePrevious();
-        }}
+        handleNext={locationDetailView.onPaginateNext}
+        handlePrevious={locationDetailView.onPaginatePrevious}
       />
       <LocationDetailMessage />
       <Loading show={renderLoading} />
