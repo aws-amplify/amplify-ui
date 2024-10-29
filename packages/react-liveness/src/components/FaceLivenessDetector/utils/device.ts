@@ -18,10 +18,10 @@ export function isMobileScreen(): boolean {
 export async function isDeviceUserFacing(
   deviceId: string | undefined
 ): Promise<boolean> {
-  const devices = await navigator.mediaDevices.enumerateDevices();
+  const devices = await navigator.mediaDevices?.enumerateDevices();
 
   // Find the video input device with the matching deviceId
-  const videoDevice = devices.find(
+  const videoDevice = devices?.find(
     (device) => device.deviceId === deviceId && device.kind === 'videoinput'
   );
 
