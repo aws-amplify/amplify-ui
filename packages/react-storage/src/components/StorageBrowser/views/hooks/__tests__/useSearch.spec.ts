@@ -7,8 +7,6 @@ const items = [
   { name: 'File 3', type: 'document' },
 ];
 
-jest.useFakeTimers();
-
 describe('useSearch Hook', () => {
   it('should initialize with provided search term and return all items initially', () => {
     const initialValues: InitialSearchValues<(typeof items)[0]> = {
@@ -43,7 +41,6 @@ describe('useSearch Hook', () => {
     const initialValues: InitialSearchValues<(typeof items)[0]> = {
       searchTerm: '',
       searchKey: 'name',
-      debounceDelay: 50,
     };
     const onSearch = jest.fn();
     const { result } = renderHook(() =>
@@ -52,7 +49,6 @@ describe('useSearch Hook', () => {
 
     act(() => {
       result.current.onSearch('File 2');
-      jest.advanceTimersByTime(100);
     });
 
     // searchTerm should update to 'File 2'
@@ -63,32 +59,10 @@ describe('useSearch Hook', () => {
     ]);
   });
 
-  it('should debounce the onSearch callback', () => {
-    const initialValues: InitialSearchValues<(typeof items)[0]> = {
-      searchTerm: '',
-      searchKey: 'name',
-      debounceDelay: 50,
-    };
-    const onSearch = jest.fn();
-    const { result } = renderHook(() =>
-      useSearch({ initialValues, items, onSearch })
-    );
-
-    act(() => {
-      result.current.onSearch('File');
-      result.current.onSearch('File 1');
-      jest.advanceTimersByTime(100);
-    });
-
-    expect(onSearch).toHaveBeenCalledTimes(1); // Debounced call should only trigger once
-    expect(onSearch).toHaveBeenCalledWith('File 1', undefined);
-  });
-
   it('should handle empty and non-matching search terms', () => {
     const initialValues: InitialSearchValues<(typeof items)[0]> = {
       searchTerm: '',
       searchKey: 'name',
-      debounceDelay: 50,
     };
     const { result } = renderHook(() =>
       useSearch({ initialValues, items, onSearch: jest.fn() })
@@ -97,14 +71,12 @@ describe('useSearch Hook', () => {
     // No matches
     act(() => {
       result.current.onSearch('Nonexistent');
-      jest.advanceTimersByTime(100);
     });
     expect(result.current.filteredItems).toEqual([]);
 
     // Empty search term
     act(() => {
       result.current.onSearch('');
-      jest.advanceTimersByTime(100);
     });
 
     // All items should be returned

@@ -1,17 +1,14 @@
 import React from 'react';
-import debounce from 'lodash/debounce';
 
-const DEFAULT_DELAY = 300;
 export interface InitialSearchValues<T> {
   searchKey: keyof T;
   searchTerm?: string;
-  debounceDelay?: number;
 }
 
 interface UseSearchProps<T> {
   initialValues: InitialSearchValues<T>;
   items: T[];
-  onSearch: (term: string, includeSubfolders?: boolean) => void;
+  onSearch?: (term: string, includeSubfolders?: boolean) => void;
 }
 
 interface UseSearchResult<T> {
@@ -24,7 +21,7 @@ interface UseSearchResult<T> {
  * Custom hook to search a list of items based on a search key and search term.
  * @template T - The type of items in the search list.
  * @param {UseSearchProps<T>} props
- * @returns {UseSearch<T>} - The search results, current term, and handler.
+ * @returns {UseSearchResult<T>} - The search results, current term, and handler.
  */
 export function useSearch<T>({
   items,
@@ -32,11 +29,8 @@ export function useSearch<T>({
   onSearch,
 }: UseSearchProps<T>): UseSearchResult<T> {
   const initialValues = React.useRef(initialValuesProp);
-  const {
-    searchTerm: initialSearchTerm = '',
-    searchKey,
-    debounceDelay = DEFAULT_DELAY,
-  } = initialValues.current;
+  const { searchTerm: initialSearchTerm = '', searchKey } =
+    initialValues.current;
 
   const [searchTerm, setSearchTerm] = React.useState(initialSearchTerm);
 
@@ -51,27 +45,19 @@ export function useSearch<T>({
     [items, searchKey, searchTerm]
   );
 
-  const debouncedHandler = React.useMemo(
-    () =>
-      debounce((term: string, includeSubfolders?: boolean) => {
-        setSearchTerm(term);
-        if (typeof onSearch === 'function') {
-          onSearch(term, includeSubfolders);
-        }
-      }, debounceDelay),
-    [onSearch, debounceDelay]
+  const handleSearch = React.useCallback(
+    (term: string, includeSubfolders?: boolean) => {
+      setSearchTerm(term);
+      if (typeof onSearch === 'function') {
+        onSearch(term, includeSubfolders);
+      }
+    },
+    [setSearchTerm, onSearch]
   );
-
-  // clean up handler on unmount
-  React.useEffect(() => {
-    return () => {
-      debouncedHandler.cancel();
-    };
-  }, [debouncedHandler]);
 
   return {
     searchTerm,
     filteredItems,
-    onSearch: debouncedHandler,
+    onSearch: handleSearch,
   };
 }
