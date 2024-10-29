@@ -9,35 +9,35 @@ exports[`getDeleteActionViewTableData should handle tasks with prefix keys 1`] =
           "icon": "action-queued",
           "text": "file1.txt",
         },
-        "key": "key-folder/subfolder/file1.txt",
+        "key": "key-1",
         "type": "text",
       },
       {
         "content": {
           "text": "",
         },
-        "key": "folder-folder/subfolder/file1.txt",
+        "key": "folder-1",
         "type": "text",
       },
       {
         "content": {
           "text": "txt",
         },
-        "key": "type-folder/subfolder/file1.txt",
+        "key": "type-1",
         "type": "text",
       },
       {
         "content": {
           "text": "1.0 kB",
         },
-        "key": "size-folder/subfolder/file1.txt",
+        "key": "size-1",
         "type": "text",
       },
       {
         "content": {
           "text": "Queued",
         },
-        "key": "status-folder/subfolder/file1.txt",
+        "key": "status-1",
         "type": "text",
       },
       {
@@ -47,11 +47,11 @@ exports[`getDeleteActionViewTableData should handle tasks with prefix keys 1`] =
           "icon": "cancel",
           "onClick": [Function],
         },
-        "key": "action-folder/subfolder/file1.txt",
+        "key": "action-1",
         "type": "button",
       },
     ],
-    "key": "folder/subfolder/file1.txt",
+    "key": "1",
   },
   {
     "content": [
@@ -60,35 +60,35 @@ exports[`getDeleteActionViewTableData should handle tasks with prefix keys 1`] =
           "icon": "action-success",
           "text": "file2.jpg",
         },
-        "key": "key-/root/file2.jpg",
+        "key": "key-2",
         "type": "text",
       },
       {
         "content": {
           "text": "",
         },
-        "key": "folder-/root/file2.jpg",
+        "key": "folder-2",
         "type": "text",
       },
       {
         "content": {
           "text": "jpg",
         },
-        "key": "type-/root/file2.jpg",
+        "key": "type-2",
         "type": "text",
       },
       {
         "content": {
           "text": "1.0 kB",
         },
-        "key": "size-/root/file2.jpg",
+        "key": "size-2",
         "type": "text",
       },
       {
         "content": {
           "text": "Completed",
         },
-        "key": "status-/root/file2.jpg",
+        "key": "status-2",
         "type": "text",
       },
       {
@@ -98,11 +98,11 @@ exports[`getDeleteActionViewTableData should handle tasks with prefix keys 1`] =
           "icon": "cancel",
           "onClick": [Function],
         },
-        "key": "action-/root/file2.jpg",
+        "key": "action-2",
         "type": "button",
       },
     ],
-    "key": "/root/file2.jpg",
+    "key": "2",
   },
 ]
 `;
@@ -116,35 +116,35 @@ exports[`getDeleteActionViewTableData should have remove handler on queued files
           "icon": "action-queued",
           "text": "file1.txt",
         },
-        "key": "key-folder/subfolder/file1.txt",
+        "key": "key-1",
         "type": "text",
       },
       {
         "content": {
           "text": "folder/subfolder/",
         },
-        "key": "folder-folder/subfolder/file1.txt",
+        "key": "folder-1",
         "type": "text",
       },
       {
         "content": {
           "text": "txt",
         },
-        "key": "type-folder/subfolder/file1.txt",
+        "key": "type-1",
         "type": "text",
       },
       {
         "content": {
           "text": "1.0 kB",
         },
-        "key": "size-folder/subfolder/file1.txt",
+        "key": "size-1",
         "type": "text",
       },
       {
         "content": {
           "text": "Queued",
         },
-        "key": "status-folder/subfolder/file1.txt",
+        "key": "status-1",
         "type": "text",
       },
       {
@@ -154,11 +154,11 @@ exports[`getDeleteActionViewTableData should have remove handler on queued files
           "icon": "cancel",
           "onClick": [Function],
         },
-        "key": "action-folder/subfolder/file1.txt",
+        "key": "action-1",
         "type": "button",
       },
     ],
-    "key": "folder/subfolder/file1.txt",
+    "key": "1",
   },
 ]
 `;
@@ -172,35 +172,35 @@ exports[`getDeleteActionViewTableData should return correct table data for all t
           "icon": "action-queued",
           "text": "file1.txt",
         },
-        "key": "key-file1.txt",
+        "key": "key-1",
         "type": "text",
       },
       {
         "content": {
           "text": "",
         },
-        "key": "folder-file1.txt",
+        "key": "folder-1",
         "type": "text",
       },
       {
         "content": {
           "text": "txt",
         },
-        "key": "type-file1.txt",
+        "key": "type-1",
         "type": "text",
       },
       {
         "content": {
           "text": "1.0 kB",
         },
-        "key": "size-file1.txt",
+        "key": "size-1",
         "type": "text",
       },
       {
         "content": {
           "text": "Queued",
         },
-        "key": "status-file1.txt",
+        "key": "status-1",
         "type": "text",
       },
       {
@@ -210,11 +210,11 @@ exports[`getDeleteActionViewTableData should return correct table data for all t
           "icon": "cancel",
           "onClick": [Function],
         },
-        "key": "action-file1.txt",
+        "key": "action-1",
         "type": "button",
       },
     ],
-    "key": "file1.txt",
+    "key": "1",
   },
   {
     "content": [
@@ -223,35 +223,35 @@ exports[`getDeleteActionViewTableData should return correct table data for all t
           "icon": "action-progress",
           "text": "file2.jpg",
         },
-        "key": "key-file2.jpg",
+        "key": "key-2",
         "type": "text",
       },
       {
         "content": {
           "text": "",
         },
-        "key": "folder-file2.jpg",
+        "key": "folder-2",
         "type": "text",
       },
       {
         "content": {
           "text": "jpg",
         },
-        "key": "type-file2.jpg",
+        "key": "type-2",
         "type": "text",
       },
       {
         "content": {
           "text": "1.0 kB",
         },
-        "key": "size-file2.jpg",
+        "key": "size-2",
         "type": "text",
       },
       {
         "content": {
           "text": "In Progress",
         },
-        "key": "status-file2.jpg",
+        "key": "status-2",
         "type": "text",
       },
       {
@@ -261,11 +261,11 @@ exports[`getDeleteActionViewTableData should return correct table data for all t
           "icon": "cancel",
           "onClick": [Function],
         },
-        "key": "action-file2.jpg",
+        "key": "action-2",
         "type": "button",
       },
     ],
-    "key": "file2.jpg",
+    "key": "2",
   },
   {
     "content": [
@@ -274,35 +274,35 @@ exports[`getDeleteActionViewTableData should return correct table data for all t
           "icon": "action-success",
           "text": "file3.pdf",
         },
-        "key": "key-file3.pdf",
+        "key": "key-3",
         "type": "text",
       },
       {
         "content": {
           "text": "",
         },
-        "key": "folder-file3.pdf",
+        "key": "folder-3",
         "type": "text",
       },
       {
         "content": {
           "text": "pdf",
         },
-        "key": "type-file3.pdf",
+        "key": "type-3",
         "type": "text",
       },
       {
         "content": {
           "text": "1.0 kB",
         },
-        "key": "size-file3.pdf",
+        "key": "size-3",
         "type": "text",
       },
       {
         "content": {
           "text": "Completed",
         },
-        "key": "status-file3.pdf",
+        "key": "status-3",
         "type": "text",
       },
       {
@@ -312,11 +312,11 @@ exports[`getDeleteActionViewTableData should return correct table data for all t
           "icon": "cancel",
           "onClick": [Function],
         },
-        "key": "action-file3.pdf",
+        "key": "action-3",
         "type": "button",
       },
     ],
-    "key": "file3.pdf",
+    "key": "3",
   },
   {
     "content": [
@@ -325,35 +325,35 @@ exports[`getDeleteActionViewTableData should return correct table data for all t
           "icon": "action-error",
           "text": "file4.doc",
         },
-        "key": "key-file4.doc",
+        "key": "key-4",
         "type": "text",
       },
       {
         "content": {
           "text": "",
         },
-        "key": "folder-file4.doc",
+        "key": "folder-4",
         "type": "text",
       },
       {
         "content": {
           "text": "doc",
         },
-        "key": "type-file4.doc",
+        "key": "type-4",
         "type": "text",
       },
       {
         "content": {
           "text": "1.0 kB",
         },
-        "key": "size-file4.doc",
+        "key": "size-4",
         "type": "text",
       },
       {
         "content": {
           "text": "Failed",
         },
-        "key": "status-file4.doc",
+        "key": "status-4",
         "type": "text",
       },
       {
@@ -363,11 +363,11 @@ exports[`getDeleteActionViewTableData should return correct table data for all t
           "icon": "cancel",
           "onClick": [Function],
         },
-        "key": "action-file4.doc",
+        "key": "action-4",
         "type": "button",
       },
     ],
-    "key": "file4.doc",
+    "key": "4",
   },
   {
     "content": [
@@ -376,35 +376,35 @@ exports[`getDeleteActionViewTableData should return correct table data for all t
           "icon": "action-canceled",
           "text": "file5",
         },
-        "key": "key-file5",
+        "key": "key-5",
         "type": "text",
       },
       {
         "content": {
           "text": "",
         },
-        "key": "folder-file5",
+        "key": "folder-5",
         "type": "text",
       },
       {
         "content": {
           "text": "",
         },
-        "key": "type-file5",
+        "key": "type-5",
         "type": "text",
       },
       {
         "content": {
           "text": "1.0 kB",
         },
-        "key": "size-file5",
+        "key": "size-5",
         "type": "text",
       },
       {
         "content": {
           "text": "Canceled",
         },
-        "key": "status-file5",
+        "key": "status-5",
         "type": "text",
       },
       {
@@ -414,11 +414,11 @@ exports[`getDeleteActionViewTableData should return correct table data for all t
           "icon": "cancel",
           "onClick": [Function],
         },
-        "key": "action-file5",
+        "key": "action-5",
         "type": "button",
       },
     ],
-    "key": "file5",
+    "key": "5",
   },
 ]
 `;

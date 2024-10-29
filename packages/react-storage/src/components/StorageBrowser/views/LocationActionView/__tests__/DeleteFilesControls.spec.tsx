@@ -1,29 +1,11 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
-import { DeleteFilesControls } from '../DeleteFilesControls';
-import * as ActionViewHooks from '../hooks';
+import { render } from '@testing-library/react';
+import * as ActionViewHooks from '../hooks/useDeleteActionView';
+import * as Config from '../../../providers/configuration';
+
 import userEvent from '@testing-library/user-event';
 import * as TempActions from '../../../do-not-import-from-here/createTempActionsProvider';
-
-// Mock the useDeleteActionView hook
-jest.spyOn(ActionViewHooks, 'useDeleteActionView').mockReturnValue({
-  disableCancel: false,
-  disableClose: false,
-  disablePrimary: false,
-  onClose: jest.fn(),
-  onCancel: jest.fn(),
-  onStart: jest.fn(),
-  taskCounts: {
-    CANCELED: 0,
-    COMPLETE: 0,
-    FAILED: 0,
-    INITIAL: 0,
-    PENDING: 0,
-    QUEUED: 3,
-    TOTAL: 3,
-  },
-  tasks: [],
-});
+import { DeleteFilesControls } from '../DeleteFilesControls';
 
 const TEST_ACTIONS = {
   DELETE_FILES: {
@@ -34,63 +16,127 @@ const TEST_ACTIONS = {
 jest.spyOn(TempActions, 'useTempActions').mockReturnValue(TEST_ACTIONS);
 
 describe('DeleteFilesControls', () => {
-  const mockuseDeleteActionView = {
-    disableCancel: false,
-    disableClose: false,
-    disablePrimary: false,
-    onClose: jest.fn(),
-    onCancel: jest.fn(),
-    onStart: jest.fn(),
-  };
+  const onCloseMock = jest.fn();
+  const onCanceleMock = jest.fn();
+  const onStartMock = jest.fn();
 
   beforeEach(() => {
-    // useDeleteActionViewSpy.mockReturnValue(mockuseDeleteActionView);
+    jest.clearAllMocks();
+    jest
+      .spyOn(ActionViewHooks, 'useDeleteActionView')
+      .mockImplementation(() => {
+        return {
+          onClose: onCloseMock,
+          onCancel: onCanceleMock,
+          onStart: onStartMock,
+          taskCounts: {
+            CANCELED: 0,
+            COMPLETE: 0,
+            FAILED: 0,
+            INITIAL: 0,
+            PENDING: 0,
+            QUEUED: 3,
+            TOTAL: 3,
+          },
+          tasks: [
+            {
+              key: 'test-item',
+              status: 'QUEUED',
+              id: 'id',
+              item: {},
+              cancel: jest.fn(),
+              remove: jest.fn(),
+              message: 'test-message',
+            },
+            {
+              key: 'test-item2',
+              status: 'QUEUED',
+              id: 'id2',
+              item: {},
+              cancel: jest.fn(),
+              remove: jest.fn(),
+              message: 'test-message',
+            },
+            {
+              key: 'test-item3',
+              status: 'QUEUED',
+              id: 'id3',
+              item: {},
+              cancel: jest.fn(),
+              remove: jest.fn(),
+              message: 'test-message',
+            },
+          ],
+          disableCancel: false,
+          disableClose: false,
+          disablePrimary: false,
+        };
+      });
+
+    jest.spyOn(Config, 'useGetActionInput').mockReturnValue(() => ({
+      accountId: '123456789012',
+      bucket: 'XXXXXXXXXXX',
+      credentials: jest.fn(),
+      region: 'us-west-2',
+    }));
   });
 
   it('renders all controls', () => {
-    render(<DeleteFilesControls />);
+    const { getByRole } = render(<DeleteFilesControls />);
 
-    expect(screen.getByRole('button', { name: 'Back' })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Start' })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Cancel' })).toBeInTheDocument();
+    expect(getByRole('button', { name: 'Back' })).toBeInTheDocument();
+    expect(getByRole('button', { name: 'Start' })).toBeInTheDocument();
+    expect(getByRole('button', { name: 'Cancel' })).toBeInTheDocument();
   });
 
-  // it('disables controls based on useDeleteActionView hook', () => {
-  //   (useDeleteActionView as jest.Mock).mockReturnValue({
-  //     ...mockuseDeleteActionView,
-  //     disableCancel: true,
-  //     disableClose: true,
-  //     disablePrimary: true,
-  //   });
+  it('disables controls based on useDeleteActionView hook', () => {
+    jest.spyOn(ActionViewHooks, 'useDeleteActionView').mockReturnValue({
+      onClose: jest.fn(),
+      onCancel: jest.fn(),
+      onStart: jest.fn(),
+      taskCounts: {
+        CANCELED: 0,
+        COMPLETE: 0,
+        FAILED: 0,
+        INITIAL: 0,
+        PENDING: 0,
+        QUEUED: 3,
+        TOTAL: 3,
+      },
+      tasks: [],
+      disableCancel: true,
+      disableClose: true,
+      disablePrimary: true,
+    });
 
-  //   render(<DeleteFilesControls />);
+    const { getByRole } = render(<DeleteFilesControls />);
 
-  //   expect(screen.getByRole('button', { name: 'Back' })).toBeDisabled();
-  //   expect(screen.getByRole('button', { name: 'Start' })).toBeDisabled();
-  //   expect(screen.getByRole('button', { name: 'Cancel' })).toBeDisabled();
-  // });
+    expect(getByRole('button', { name: 'Back' })).toBeDisabled();
+    expect(getByRole('button', { name: 'Start' })).toBeDisabled();
+    expect(getByRole('button', { name: 'Cancel' })).toBeDisabled();
+  });
 
   it('calls onClose when Exit button is clicked', async () => {
-    render(<DeleteFilesControls />);
+    const { getByRole } = render(<DeleteFilesControls />);
 
-    await userEvent.click(screen.getByRole('button', { name: 'Back' }));
+    await userEvent.click(getByRole('button', { name: 'Back' }));
 
-    expect(mockuseDeleteActionView.onClose).toHaveBeenCalledTimes(1);
+    expect(onCloseMock).toHaveBeenCalledTimes(1);
   });
 
   it('calls onStart when Start button is clicked', async () => {
-    render(<DeleteFilesControls />);
+    const { getByRole } = render(<DeleteFilesControls />);
 
-    await userEvent.click(screen.getByRole('button', { name: 'Start' }));
+    await userEvent.click(getByRole('button', { name: 'Start' }));
 
-    expect(mockuseDeleteActionView.onStart).toHaveBeenCalledTimes(1);
+    expect(onStartMock).toHaveBeenCalledTimes(1);
   });
 
   it('calls onCancel when Cancel button is clicked', async () => {
-    render(<DeleteFilesControls />);
+    const { getByRole } = render(<DeleteFilesControls />);
 
-    await userEvent.click(screen.getByRole('button', { name: 'Cancel' }));
+    await userEvent.click(getByRole('button', { name: 'Cancel' }));
 
-    expect(mockuseDeleteActionView.onCancel).toHaveBeenCalledTimes(1);
+    expect(onCanceleMock).toHaveBeenCalledTimes(1);
   });
 });

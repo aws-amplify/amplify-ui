@@ -1,46 +1,94 @@
-import { renderHook, act } from '@testing-library/react-hooks';
+import { renderHook, act } from '@testing-library/react';
 import { useDeleteActionView } from '../useDeleteActionView';
 import { getDeleteActionViewTableData } from '../../utils';
-import { useStore } from '../../../../providers/store';
-import { useGetActionInput } from '../../../../providers/configuration';
-import { useProcessTasks } from '../../../../tasks';
+import * as Store from '../../../../providers/store';
+import * as Config from '../../../../providers/configuration';
+import * as Tasks from '../../../../tasks';
 import { TaskStatus } from '../../../../tasks';
 
-// Mock the imported hooks and functions
-jest.mock('../../../../providers/store');
-jest.mock('../../../../providers/configuration');
-jest.mock('../../../../tasks');
+const mockProcessTasks = jest.fn();
+const mockDispatchStoreAction = jest.fn();
 
 describe('useDeleteActionView', () => {
-  const mockDispatchStoreAction = jest.fn();
-  const mockHandleProcess = jest.fn();
-
   beforeEach(() => {
     jest.clearAllMocks();
 
-    (useStore as jest.Mock).mockReturnValue([
+    jest.spyOn(Store, 'useStore').mockReturnValue([
       {
-        history: { current: { prefix: 'test-prefix/' } },
-        locationItems: { fileDataItems: [{ key: 'test-file.txt' }] },
+        actionType: 'DELETE',
+        files: [],
+        history: {
+          current: {
+            prefix: 'test-prefix/',
+            bucket: 'bucket',
+            id: 'id',
+            permission: 'READ',
+            type: 'PREFIX',
+          },
+          previous: [
+            {
+              prefix: 'test-prefix/',
+              bucket: 'bucket',
+              id: 'id',
+              permission: 'READ',
+              type: 'PREFIX',
+            },
+          ],
+        },
+        locationItems: {
+          fileDataItems: [
+            {
+              key: 'test-file.txt',
+              lastModified: new Date(),
+              id: 'id',
+              size: 10,
+              type: 'FILE',
+            },
+          ],
+        },
       },
       mockDispatchStoreAction,
     ]);
 
-    (useGetActionInput as jest.Mock).mockReturnValue(() => ({
+    jest.spyOn(Config, 'useGetActionInput').mockReturnValue(() => ({
       accountId: '123456789012',
       bucket: 'XXXXXXXXXXX',
-      credentials: 'test-credentials',
+      credentials: jest.fn(),
       region: 'us-west-2',
     }));
 
     // Mock the useProcessTasks hook
-    (useProcessTasks as jest.Mock).mockReturnValue([
+    jest.spyOn(Tasks, 'useProcessTasks').mockReturnValue([
       [
-        { key: 'test-item', status: 'QUEUED' },
-        { key: 'test-item2', status: 'QUEUED' },
-        { key: 'test-item3', status: 'QUEUED' },
+        {
+          key: 'test-item',
+          status: 'QUEUED',
+          id: 'id',
+          item: {},
+          cancel: jest.fn(),
+          remove: jest.fn(),
+          message: 'test-message',
+        },
+        {
+          key: 'test-item2',
+          status: 'QUEUED',
+          id: 'id2',
+          item: {},
+          cancel: jest.fn(),
+          remove: jest.fn(),
+          message: 'test-message',
+        },
+        {
+          key: 'test-item3',
+          status: 'QUEUED',
+          id: 'id3',
+          item: {},
+          cancel: jest.fn(),
+          remove: jest.fn(),
+          message: 'test-message',
+        },
       ],
-      jest.fn(),
+      mockProcessTasks,
     ]);
   });
 
@@ -55,11 +103,10 @@ describe('useDeleteActionView', () => {
         onCancel: expect.any(Function),
         onClose: expect.any(Function),
         onStart: expect.any(Function),
-        // /        tableCounts: expect.any(Object),
+        tasks: expect.any(Array),
       })
     );
 
-    expect(result.current.tasks).toEqual([]);
     expect(result.current.taskCounts).toEqual({
       CANCELED: 0,
       COMPLETE: 0,
@@ -72,9 +119,6 @@ describe('useDeleteActionView', () => {
   });
 
   it('should call processTasks when onStart is called', () => {
-    const mockProcessTasks = jest.fn();
-    (useProcessTasks as jest.Mock).mockReturnValue([[], mockProcessTasks]);
-
     const { result } = renderHook(() => useDeleteActionView({}));
 
     act(() => {
@@ -86,7 +130,7 @@ describe('useDeleteActionView', () => {
       config: {
         accountId: '123456789012',
         bucket: 'XXXXXXXXXXX',
-        credentials: 'test-credentials',
+        credentials: expect.any(Function),
         region: 'us-west-2',
       },
     });
@@ -94,9 +138,19 @@ describe('useDeleteActionView', () => {
 
   it('should call cancel on tasks when onCancel is called', () => {
     const mockCancel = jest.fn();
-    (useProcessTasks as jest.Mock).mockReturnValue([
-      [{ key: 'test-item', status: 'PENDING', cancel: mockCancel }],
-      jest.fn(),
+    jest.spyOn(Tasks, 'useProcessTasks').mockReturnValue([
+      [
+        {
+          key: 'test-item',
+          status: 'QUEUED',
+          id: 'id',
+          item: {},
+          cancel: mockCancel(),
+          remove: jest.fn(),
+          message: 'test-message',
+        },
+      ],
+      mockProcessTasks,
     ]);
 
     const { result } = renderHook(() => useDeleteActionView({}));
@@ -128,11 +182,35 @@ describe('useDeleteActionView', () => {
   });
 
   it('should disable close and primary when some tasks in progress', () => {
-    (useProcessTasks as jest.Mock).mockReturnValue([
+    jest.spyOn(Tasks, 'useProcessTasks').mockReturnValue([
       [
-        { key: 'item1', status: 'QUEUED' },
-        { key: 'item1', status: 'COMPLETE' },
-        { key: 'item2', status: 'PENDING' },
+        {
+          key: 'item1',
+          status: 'QUEUED',
+          id: 'id',
+          item: {},
+          cancel: jest.fn(),
+          remove: jest.fn(),
+          message: 'test-message',
+        },
+        {
+          key: 'item1',
+          status: 'COMPLETE',
+          id: 'id',
+          item: {},
+          cancel: jest.fn(),
+          remove: jest.fn(),
+          message: 'test-message',
+        },
+        {
+          key: 'item2',
+          status: 'PENDING',
+          id: 'id',
+          item: {},
+          cancel: jest.fn(),
+          remove: jest.fn(),
+          message: 'test-message',
+        },
       ],
       jest.fn(),
     ]);
@@ -149,13 +227,37 @@ describe('useDeleteActionView', () => {
   });
 
   it('should disable cancel, close and primary when all tasks in progress or complete', () => {
-    (useProcessTasks as jest.Mock).mockReturnValue([
+    jest.spyOn(Tasks, 'useProcessTasks').mockReturnValue([
       [
-        { key: 'item1', status: 'PENDING' },
-        { key: 'item2', status: 'PENDING' },
-        { key: 'item1', status: 'COMPLETE' },
+        {
+          key: 'item1',
+          status: 'PENDING',
+          id: 'id',
+          item: {},
+          cancel: jest.fn(),
+          remove: jest.fn(),
+          message: 'test-message',
+        },
+        {
+          key: 'item1',
+          status: 'PENDING',
+          id: 'id',
+          item: {},
+          cancel: jest.fn(),
+          remove: jest.fn(),
+          message: 'test-message',
+        },
+        {
+          key: 'item2',
+          status: 'COMPLETE',
+          id: 'id',
+          item: {},
+          cancel: jest.fn(),
+          remove: jest.fn(),
+          message: 'test-message',
+        },
       ],
-      mockHandleProcess,
+      jest.fn(),
     ]);
 
     const { result } = renderHook(() => useDeleteActionView({}));
@@ -164,6 +266,51 @@ describe('useDeleteActionView', () => {
       expect.objectContaining({
         disableCancel: true,
         disableClose: true,
+        disablePrimary: true,
+      })
+    );
+  });
+
+  it('should disable cancel, primary, but allow close when all tasks in progress or complete', () => {
+    jest.spyOn(Tasks, 'useProcessTasks').mockReturnValue([
+      [
+        {
+          key: 'item1',
+          status: 'COMPLETE',
+          id: 'id',
+          item: {},
+          cancel: jest.fn(),
+          remove: jest.fn(),
+          message: 'test-message',
+        },
+        {
+          key: 'item1',
+          status: 'COMPLETE',
+          id: 'id',
+          item: {},
+          cancel: jest.fn(),
+          remove: jest.fn(),
+          message: 'test-message',
+        },
+        {
+          key: 'item2',
+          status: 'COMPLETE',
+          id: 'id',
+          item: {},
+          cancel: jest.fn(),
+          remove: jest.fn(),
+          message: 'test-message',
+        },
+      ],
+      jest.fn(),
+    ]);
+
+    const { result } = renderHook(() => useDeleteActionView({}));
+
+    expect(result.current).toEqual(
+      expect.objectContaining({
+        disableCancel: true,
+        disableClose: false,
         disablePrimary: true,
       })
     );
@@ -332,7 +479,7 @@ describe('getDeleteActionViewTableData', () => {
       path: 'folder/subfolder/',
     });
     const actionCell = result.rows[0].content.filter(
-      (cell) => cell.key === 'action-folder/subfolder/file1.txt'
+      (cell) => cell.key === 'action-1'
     )[0];
     expect(actionCell.content).toHaveProperty('onClick');
     expect(actionCell.content).toHaveProperty(

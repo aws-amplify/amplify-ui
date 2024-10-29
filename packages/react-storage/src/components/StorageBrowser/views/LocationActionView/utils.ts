@@ -80,9 +80,9 @@ export const getDeleteActionViewTableData = ({
 }): DataTableProps => {
   const rows: DataTableProps['rows'] = tasks.map((item) => {
     const row: WithKey<DataTableRow> = {
-      key: item.key,
+      key: item.id,
       content: DELETE_ACTION_VIEW_HEADERS.map(({ key: columnKey }) => {
-        const key = `${columnKey}-${item.key}`;
+        const key = `${columnKey}-${item.id}`;
         switch (columnKey) {
           case 'key': {
             return {
