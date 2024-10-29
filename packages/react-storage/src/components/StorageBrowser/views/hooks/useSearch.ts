@@ -31,12 +31,12 @@ export function useSearch<T>({
   initialValues: initialValuesProp,
   onSearch,
 }: UseSearchProps<T>): UseSearchResult<T> {
-  const [initialValues] = React.useState(initialValuesProp);
+  const initialValues = React.useRef(initialValuesProp);
   const {
     searchTerm: initialSearchTerm = '',
     searchKey,
     debounceDelay = DEFAULT_DELAY,
-  } = initialValues;
+  } = initialValues.current;
 
   const [searchTerm, setSearchTerm] = React.useState(initialSearchTerm);
 
