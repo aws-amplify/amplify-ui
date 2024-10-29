@@ -10,12 +10,28 @@ import {
   ListLocationsOutput,
   listPaths,
   ListPathsOutput,
-  StorageAccess,
 } from '../../storage-internal';
+import { getPaginatedLocations } from './getPaginatedLocations';
 import { mapAmplifyPermissions } from './mapAmplifyPermissions';
 
 export const createAmplifyListLocationsHandler = (): ListLocations => {
-  return async function listLocations(_input = {}) {
+  const cachedResult: Record<
+    string,
+    { locations: ListLocationsOutput['locations'] }
+  > = {};
+
+  return async function listLocations(input = {}) {
+    const { pageSize, nextToken } = input;
+    const cacheKey = 'listPathsCache';
+
+    if (cachedResult && cachedResult[cacheKey]) {
+      return getPaginatedLocations({
+        locations: cachedResult[cacheKey].locations,
+        pageSize,
+        nextToken,
+      });
+    }
+
     const { locations }: { locations: ListPathsOutput['locations'] } =
       await listPaths();
 
@@ -30,11 +46,12 @@ export const createAmplifyListLocationsHandler = (): ListLocations => {
       }
     );
 
-    const result: ListLocationsOutput = {
-      locations: sanitizedLocations,
-      nextToken: undefined,
-    };
+    cachedResult[cacheKey] = { locations: sanitizedLocations };
 
-    return result;
+    return getPaginatedLocations({
+      locations: cachedResult[cacheKey].locations,
+      pageSize,
+      nextToken,
+    });
   };
 };
