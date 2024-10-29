@@ -16,7 +16,7 @@ import {
   StoreProvider,
   StoreProviderProps,
 } from './providers';
-import { GetLocationCredentials, ListLocations } from './storage-internal';
+import { ListLocations } from './storage-internal';
 import { StorageBrowserDefault } from './StorageBrowserDefault';
 import {
   Views,
@@ -25,6 +25,7 @@ import {
   LocationsView,
   ViewsProvider,
 } from './views';
+import { GetLocationCredentials } from './credentials/types';
 
 export interface Config {
   accountId?: string;
