@@ -5,7 +5,7 @@ exports[`default actions contains the expected properties 1`] = `
   "CREATE_FOLDER": {
     "options": {
       "disable": [Function],
-      "displayName": "Create Folder",
+      "displayName": "Create folder",
       "hide": [Function],
       "icon": <Icon
         variant="create-folder"
@@ -15,7 +15,7 @@ exports[`default actions contains the expected properties 1`] = `
   "DELETE_FILES": {
     "options": {
       "disable": [Function],
-      "displayName": "Delete Files",
+      "displayName": "Delete files",
       "hide": [Function],
       "icon": <Icon
         variant="delete-file"
@@ -25,7 +25,7 @@ exports[`default actions contains the expected properties 1`] = `
   "UPLOAD_FILES": {
     "options": {
       "disable": [Function],
-      "displayName": "Upload Files",
+      "displayName": "Upload files",
       "hide": [Function],
       "icon": <Icon
         variant="upload-file"
@@ -36,7 +36,7 @@ exports[`default actions contains the expected properties 1`] = `
   "UPLOAD_FOLDER": {
     "options": {
       "disable": [Function],
-      "displayName": "Upload Folder",
+      "displayName": "Upload folder",
       "hide": [Function],
       "icon": <Icon
         variant="upload-folder"

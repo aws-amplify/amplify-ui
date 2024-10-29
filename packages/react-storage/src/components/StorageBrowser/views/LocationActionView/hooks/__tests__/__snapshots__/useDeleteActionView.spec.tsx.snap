@@ -43,8 +43,8 @@ exports[`getDeleteActionViewTableData should handle tasks with prefix keys 1`] =
       {
         "content": {
           "ariaLabel": "Cancel item: folder/subfolder/file1.txt",
-          "disabled": false,
           "icon": "cancel",
+          "isDisabled": false,
           "onClick": [Function],
         },
         "key": "action-1",
@@ -94,8 +94,8 @@ exports[`getDeleteActionViewTableData should handle tasks with prefix keys 1`] =
       {
         "content": {
           "ariaLabel": "Cancel item: /root/file2.jpg",
-          "disabled": true,
           "icon": "cancel",
+          "isDisabled": true,
           "onClick": [Function],
         },
         "key": "action-2",
@@ -150,8 +150,8 @@ exports[`getDeleteActionViewTableData should have remove handler on queued files
       {
         "content": {
           "ariaLabel": "Cancel item: folder/subfolder/file1.txt",
-          "disabled": false,
           "icon": "cancel",
+          "isDisabled": false,
           "onClick": [Function],
         },
         "key": "action-1",
@@ -206,8 +206,8 @@ exports[`getDeleteActionViewTableData should return correct table data for all t
       {
         "content": {
           "ariaLabel": "Cancel item: file1.txt",
-          "disabled": false,
           "icon": "cancel",
+          "isDisabled": false,
           "onClick": [Function],
         },
         "key": "action-1",
@@ -257,8 +257,8 @@ exports[`getDeleteActionViewTableData should return correct table data for all t
       {
         "content": {
           "ariaLabel": "Cancel item: file2.jpg",
-          "disabled": true,
           "icon": "cancel",
+          "isDisabled": true,
           "onClick": [Function],
         },
         "key": "action-2",
@@ -308,8 +308,8 @@ exports[`getDeleteActionViewTableData should return correct table data for all t
       {
         "content": {
           "ariaLabel": "Cancel item: file3.pdf",
-          "disabled": true,
           "icon": "cancel",
+          "isDisabled": true,
           "onClick": [Function],
         },
         "key": "action-3",
@@ -359,8 +359,8 @@ exports[`getDeleteActionViewTableData should return correct table data for all t
       {
         "content": {
           "ariaLabel": "Cancel item: file4.doc",
-          "disabled": true,
           "icon": "cancel",
+          "isDisabled": true,
           "onClick": [Function],
         },
         "key": "action-4",
@@ -410,8 +410,8 @@ exports[`getDeleteActionViewTableData should return correct table data for all t
       {
         "content": {
           "ariaLabel": "Cancel item: file5",
-          "disabled": true,
           "icon": "cancel",
+          "isDisabled": true,
           "onClick": [Function],
         },
         "key": "action-5",
