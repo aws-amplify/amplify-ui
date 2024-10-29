@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { humanFileSize, isFunction } from '@aws-amplify/ui';
+import { humanFileSize, isFunction, isUndefined } from '@aws-amplify/ui';
 
 import { uploadHandler } from '../../actions';
 import { displayText } from '../../displayText/en';
@@ -203,7 +203,8 @@ export const UploadControls = ({
   );
 
   const [{ actionType, files, history }, dispatchStoreAction] = useStore();
-  const { current } = history;
+  const { prefix } = history?.current ?? {};
+  const hasInvalidPrefix = isUndefined(prefix);
 
   // launch native file picker on intiial render if no files are currently in state
   const selectionTypeRef = React.useRef<'FILE' | 'FOLDER' | undefined>(
@@ -349,10 +350,11 @@ export const UploadControls = ({
       <Primary
         disabled={disablePrimary}
         onClick={() => {
-          if (!current?.prefix) return;
+          if (hasInvalidPrefix) return;
+
           handleProcess({
             config: getInput(),
-            prefix: current.prefix,
+            prefix,
             options: { preventOverwrite },
           });
         }}
@@ -399,7 +401,7 @@ export const UploadControls = ({
           descriptions={[
             {
               term: `${displayText.actionDestination}:`,
-              details: current?.prefix,
+              details: prefix?.length ? prefix : '/',
             },
           ]}
         />
