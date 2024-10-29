@@ -6,14 +6,16 @@ const removeSpy = jest.spyOn(StorageModule, 'remove');
 
 const baseInput: DeleteHandlerInput = {
   prefix: 'prefix/',
-  key: 'key',
+  key: 'prefix/key',
   config: {
     accountId: '012345678901',
     bucket: 'bucket',
     credentials: jest.fn(),
     region: 'region',
   },
-  data: { key: 'key' },
+  // @ts-expect-error
+  // FIXME: The type for payload is never
+  data: { id: 'id', payload: undefined },
 };
 
 describe('deleteHandler', () => {
@@ -21,7 +23,7 @@ describe('deleteHandler', () => {
     const { key } = deleteHandler(baseInput);
 
     const expected: StorageModule.RemoveInput = {
-      path: `${baseInput.prefix}${baseInput.key}`,
+      path: baseInput.key,
       options: {
         expectedBucketOwner: baseInput.config.accountId,
         bucket: {
@@ -34,6 +36,6 @@ describe('deleteHandler', () => {
 
     expect(removeSpy).toHaveBeenCalledWith(expected);
 
-    expect(key).toBe(baseInput.data.key);
+    expect(key).toBe(baseInput.key);
   });
 });

@@ -108,6 +108,7 @@ export function NavigateControl({
             options: { reset: true },
           });
           dispatchStoreAction({ type: 'RESET_ACTION_TYPE' });
+          dispatchStoreAction({ type: 'RESET_LOCATION_ITEMS' });
         }}
       >
         {HOME_NAVIGATE_ITEM}

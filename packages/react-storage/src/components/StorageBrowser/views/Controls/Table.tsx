@@ -408,6 +408,7 @@ export const LocationDetailViewTable = ({
 
                       if (isFunction(onNavigate)) onNavigate(destination);
                       dispatchStoreAction({ type: 'NAVIGATE', destination });
+                      dispatchStoreAction({ type: 'RESET_LOCATION_ITEMS' });
                     }}
                     key={row.id}
                   >
