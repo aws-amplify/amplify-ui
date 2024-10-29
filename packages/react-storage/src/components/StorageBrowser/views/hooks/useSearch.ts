@@ -3,8 +3,8 @@ import debounce from 'lodash/debounce';
 
 const DEFAULT_DELAY = 300;
 export interface InitialSearchValues<T> {
-  searchTerm?: string;
   searchKey: keyof T;
+  searchTerm?: string;
   debounceDelay?: number;
 }
 
@@ -28,9 +28,10 @@ interface UseSearch<T> {
  */
 export function useSearch<T>({
   items,
-  initialValues,
+  initialValues: initialSearchValues,
   onSearch,
 }: UseSearchProps<T>): UseSearch<T> {
+  const [initialValues] = React.useState(initialSearchValues);
   const {
     searchTerm: initialSearchTerm = '',
     searchKey,
