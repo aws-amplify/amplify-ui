@@ -51,14 +51,14 @@ export function useSearch<T>({
     [items, searchKey, searchTerm]
   );
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const debouncedHandler = React.useCallback(
-    debounce((term: string, includeSubfolders?: boolean) => {
-      setSearchTerm(term);
-      if (typeof onSearch === 'function') {
-        onSearch(term, includeSubfolders);
-      }
-    }, debounceDelay),
+  const debouncedHandler = React.useMemo(
+    () =>
+      debounce((term: string, includeSubfolders?: boolean) => {
+        setSearchTerm(term);
+        if (typeof onSearch === 'function') {
+          onSearch(term, includeSubfolders);
+        }
+      }, debounceDelay),
     [onSearch, debounceDelay]
   );
 
