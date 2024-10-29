@@ -101,35 +101,4 @@ describe('DataTable', () => {
     expect(row2DataCell2).toHaveTextContent('row-2-number');
     expect(row2DataCell3).toHaveTextContent('row-2-text');
   });
-
-  it('displays a loading indicator when loading', () => {
-    const { container } = render(
-      <DataTable headers={[]} rows={[]} isLoading />
-    );
-
-    const table = screen.queryByRole('table');
-    const svg = container.querySelector('svg');
-
-    expect(table).toBeInTheDocument();
-    expect(svg).toBeInTheDocument();
-  });
-
-  it('displays a an empty message if there is no row data', () => {
-    const { container } = render(
-      <DataTable
-        headers={[{ key: 'header', type: 'text', content: {} }]}
-        rows={[]}
-      />
-    );
-
-    const table = screen.queryByRole('table');
-    const tableHeaders = screen.getAllByRole('columnheader');
-    const svg = container.querySelector('svg');
-    const emptyMessage = screen.getByText('No data available');
-
-    expect(table).toBeInTheDocument();
-    expect(tableHeaders).toHaveLength(1);
-    expect(emptyMessage).toBeInTheDocument();
-    expect(svg).not.toBeInTheDocument();
-  });
 });

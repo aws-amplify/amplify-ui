@@ -1,45 +1,58 @@
-import React from 'react';
 import { renderHook, act } from '@testing-library/react';
-
 import { DataState } from '@aws-amplify/ui-react-core';
 
 import { useLocationsView, DEFAULT_LIST_OPTIONS } from '../useLocationsView';
-import { LocationAccess } from '../../../context/types';
-import * as ActionsModule from '../../../context/actions';
-import * as ControlsModule from '../../../context/control';
-import { ListLocationsActionOutput } from '../../../context/actions/listLocationsAction';
-import createProvider from '../../../createProvider';
+import { LocationData } from '../../../actions';
+import * as ActionsModule from '../../../do-not-import-from-here/actions';
+import * as StoreModule from '../../../providers/store';
+import { ListLocationsActionOutput } from '../../../do-not-import-from-here/actions/listLocationsAction';
+
+const dispatchStoreAction = jest.fn();
+jest
+  .spyOn(StoreModule, 'useStore')
+  .mockReturnValue([{} as StoreModule.UseStoreState, dispatchStoreAction]);
 
 const useLocationsDataSpy = jest.spyOn(ActionsModule, 'useLocationsData');
-const useControlSpy = jest.spyOn(ControlsModule, 'useControl');
 
-const config = {
-  getLocationCredentials: jest.fn(),
-  listLocations: jest.fn(() =>
-    Promise.resolve({ locations: [], nextToken: undefined })
-  ),
-  region: 'region',
-  registerAuthListener: jest.fn(),
-};
-const Provider = createProvider({ actions: {}, config });
-const mockData: LocationAccess[] = [
-  { scope: 'Location A', type: 'BUCKET', permission: 'READ' },
-  { scope: 'Location B', type: 'PREFIX', permission: 'WRITE' },
-  { scope: 'Location C', type: 'BUCKET', permission: 'READ' },
-  { scope: 'Location D', type: 'PREFIX', permission: 'WRITE' },
-  { scope: 'Location E', type: 'BUCKET', permission: 'READ' },
+const mockData: LocationData[] = [
+  {
+    bucket: 'test-bucket',
+    prefix: `item-a/`,
+    permission: 'READWRITE',
+    id: '1',
+    type: 'PREFIX',
+  },
+  {
+    bucket: 'test-bucket',
+    prefix: `item-b/`,
+    permission: 'READ',
+    id: '2',
+    type: 'PREFIX',
+  },
+  {
+    bucket: 'test-bucket',
+    prefix: `item-c/`,
+    permission: 'READWRITE',
+    id: '3',
+    type: 'OBJECT',
+  },
+  {
+    bucket: 'test-bucket',
+    prefix: `item-d/`,
+    permission: 'READWRITE',
+    id: '4',
+    type: 'PREFIX',
+  },
+  {
+    bucket: 'test-bucket',
+    prefix: `item-e/`,
+    permission: 'READWRITE',
+    id: '5',
+    type: 'BUCKET',
+  },
 ];
 
 const EXPECTED_PAGE_SIZE = 3;
-
-function getWrapper(): React.FC {
-  const Wrapper = ({ children }: React.PropsWithChildren<any>) => (
-    <Provider> {children} </Provider>
-  );
-  Wrapper.displayName = 'TestProvider';
-  return Wrapper;
-}
-
 function mockUseLocationsData(
   returnValue: DataState<ListLocationsActionOutput>
 ) {
@@ -62,9 +75,7 @@ describe('useLocationsView', () => {
     };
     const handleList = mockUseLocationsData(mockDataState);
     const initialState = { initialValues: { pageSize: EXPECTED_PAGE_SIZE } };
-    const { result } = renderHook(() => useLocationsView(initialState), {
-      wrapper: getWrapper(),
-    });
+    const { result } = renderHook(() => useLocationsView(initialState));
 
     expect(handleList).toHaveBeenCalledWith({
       options: {
@@ -90,9 +101,7 @@ describe('useLocationsView', () => {
     mockUseLocationsData(mockDataState);
 
     const initialState = { initialValues: { pageSize: EXPECTED_PAGE_SIZE } };
-    const { result } = renderHook(() => useLocationsView(initialState), {
-      wrapper: getWrapper(),
-    });
+    const { result } = renderHook(() => useLocationsView(initialState));
 
     // check first page
     expect(result.current.page).toEqual(1);
@@ -132,9 +141,7 @@ describe('useLocationsView', () => {
     };
     const handleList = mockUseLocationsData(mockDataState);
 
-    const { result } = renderHook(() => useLocationsView(), {
-      wrapper: getWrapper(),
-    });
+    const { result } = renderHook(() => useLocationsView());
 
     // go to second page to verify reset behavior
     act(() => {
@@ -156,27 +163,16 @@ describe('useLocationsView', () => {
   });
 
   it('should handle selecting a location', () => {
-    const handleUpdateState = jest.fn();
-    useControlSpy.mockReturnValue([{}, handleUpdateState]);
-
-    const { result } = renderHook(() => useLocationsView(), {
-      wrapper: getWrapper(),
-    });
-
-    const location: LocationAccess = {
-      type: 'BUCKET',
-      scope: 'Location A',
-      permission: 'READ',
-    };
-
+    const { result } = renderHook(() => useLocationsView());
+    const expectedLocation = mockData[2];
     act(() => {
       const state = result.current;
-      state.onNavigate(location);
+      state.onNavigate(expectedLocation);
     });
 
-    expect(handleUpdateState).toHaveBeenCalledWith({
-      type: 'ACCESS_LOCATION',
-      location,
+    expect(dispatchStoreAction).toHaveBeenCalledWith({
+      type: 'NAVIGATE',
+      destination: expectedLocation,
     });
   });
 });

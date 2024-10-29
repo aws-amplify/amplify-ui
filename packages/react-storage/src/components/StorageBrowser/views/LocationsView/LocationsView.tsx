@@ -2,14 +2,18 @@ import React from 'react';
 
 import { CLASS_BASE } from '../constants';
 import { Controls } from '../Controls';
-import { useLocationsData } from '../../context/actions';
+import { useLocationsData } from '../../do-not-import-from-here/actions';
 import { resolveClassName } from '../utils';
 import { DataTableControl } from './Controls/DataTable';
-import { LocationAccess } from '../../context/types';
+import { LocationData } from '../../actions';
 import { useLocationsView } from './useLocationsView';
+import { ControlsContextProvider } from '../../controls/context';
+import { ControlsContext } from '../../controls/types';
+import { DataRefreshControl } from '../../controls/DataRefreshControl';
 
 export interface LocationsViewProps {
   className?: (defaultClassName: string) => string;
+  onNavigate?: (destination: LocationData) => void;
 }
 
 export const DEFAULT_ERROR_MESSAGE = 'There was an error loading locations.';
@@ -19,19 +23,8 @@ const {
   Loading: LoadingElement,
   Message,
   Paginate,
-  Refresh,
   Title,
 } = Controls;
-
-const RefreshControl = ({
-  disableRefresh,
-  handleRefresh,
-}: {
-  disableRefresh?: boolean;
-  handleRefresh?: () => void;
-}) => {
-  return <Refresh disabled={disableRefresh} onClick={handleRefresh} />;
-};
 
 const Loading = () => {
   const [{ isLoading }] = useLocationsData();
@@ -57,49 +50,61 @@ const LocationsEmptyMessage = () => {
 
 export function LocationsView({
   className,
+  onNavigate,
 }: LocationsViewProps): React.JSX.Element {
   const locationsView = useLocationsView();
   const { pageItems, hasError, hasNextPage, page, isLoading } = locationsView;
 
-  const handleLocationClick = (location: LocationAccess) => {
+  const handleLocationClick = (location: LocationData) => {
+    // TODO: where
+    onNavigate?.(location);
     locationsView.onNavigate(location);
   };
 
   const disableNext = !hasNextPage || isLoading || hasError;
   const disablePrevious = page <= 1 || isLoading || hasError;
 
+  // FIXME: Eventually comes from useView hook
+  const contextValue: ControlsContext = {
+    data: {
+      isDataRefreshDisabled: isLoading,
+    },
+    onRefresh: () => {
+      locationsView.onRefresh();
+    },
+  };
+
   return (
-    <div
-      className={resolveClassName(CLASS_BASE, className)}
-      data-testid="LOCATIONS_VIEW"
-    >
-      <Title>Home</Title>
-      <RefreshControl
-        disableRefresh={isLoading}
-        handleRefresh={() => {
-          locationsView.onRefresh();
-        }}
-      />
-      <Paginate
-        currentPage={page}
-        disableNext={disableNext}
-        disablePrevious={disablePrevious}
-        handleNext={() => {
-          locationsView.onPaginateNext();
-        }}
-        handlePrevious={() => {
-          locationsView.onPaginatePrevious();
-        }}
-      />
-      <LocationsMessage />
-      <Loading />
-      {hasError ? null : (
-        <DataTableControl
-          items={pageItems}
-          handleLocationClick={handleLocationClick}
+    <ControlsContextProvider {...contextValue}>
+      <div
+        className={resolveClassName(CLASS_BASE, className)}
+        data-testid="LOCATIONS_VIEW"
+      >
+        <Title>Home</Title>
+        <DataRefreshControl
+          className={`${CLASS_BASE}__locations-view-data-refresh`}
         />
-      )}
-      <LocationsEmptyMessage />
-    </div>
+        <Paginate
+          currentPage={page}
+          disableNext={disableNext}
+          disablePrevious={disablePrevious}
+          handleNext={() => {
+            locationsView.onPaginateNext();
+          }}
+          handlePrevious={() => {
+            locationsView.onPaginatePrevious();
+          }}
+        />
+        <LocationsMessage />
+        <Loading />
+        {hasError ? null : (
+          <DataTableControl
+            handleLocationClick={handleLocationClick}
+            items={pageItems}
+          />
+        )}
+        <LocationsEmptyMessage />
+      </div>
+    </ControlsContextProvider>
   );
 }

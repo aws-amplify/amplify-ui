@@ -8,11 +8,10 @@ import {
   TABLE_HEADER_BUTTON_CLASS_NAME,
   TABLE_HEADER_CLASS_NAME,
 } from '../../../components/DataTable';
-import { LocationAccess } from '../../../context/types';
-import { ButtonElement, IconElement } from '../../../context/elements';
-import { parseLocationAccess } from '../../../context/navigate/utils';
 
+import { ButtonElement, IconElement } from '../../../context/elements';
 import { compareStrings } from '../../utils';
+import { LocationData } from '../../../actions';
 
 export type SortDirection = 'ascending' | 'descending' | 'none';
 
@@ -75,8 +74,8 @@ const getLocationsData = ({
   onTableHeaderClick,
   sortState,
 }: {
-  data: LocationAccess[];
-  onLocationClick: (location: LocationAccess) => void;
+  data: LocationData[];
+  onLocationClick: (location: LocationData) => void;
   onTableHeaderClick: (location: string) => void;
   sortState: SortState;
 }) => {
@@ -91,7 +90,7 @@ const getLocationsData = ({
   const compareFn = getCompareFn(selection);
 
   if (compareFn) {
-    const castSelection = selection as keyof LocationAccess;
+    const castSelection = selection as keyof LocationData;
 
     if (direction === 'ascending') {
       data.sort((a, b) => compareFn(a[castSelection], b[castSelection]));
@@ -100,35 +99,29 @@ const getLocationsData = ({
     }
   }
 
-  const rows = data.map((location, index) => {
-    const parsedLocation = parseLocationAccess(location);
-    const row = [
-      {
-        key: `td-name-${index}`,
-        children: (
-          <ButtonElement
-            className={TABLE_DATA_BUTTON_CLASS}
-            onClick={() => onLocationClick(location)}
-            variant="table-data"
-          >
-            {parsedLocation.prefix
-              ? parsedLocation.prefix
-              : `${parsedLocation.bucket}/`}
-          </ButtonElement>
-        ),
-      },
-      { key: `td-bucket-${index}`, children: parsedLocation.bucket },
-      { key: `td-permission-${index}`, children: location.permission },
-    ];
-    return row;
-  });
+  const rows = data.map((location, index) => [
+    {
+      key: `td-name-${index}`,
+      children: (
+        <ButtonElement
+          className={TABLE_DATA_BUTTON_CLASS}
+          onClick={() => onLocationClick(location)}
+          variant="table-data"
+        >
+          {location.prefix.length ? location.prefix : location.bucket}
+        </ButtonElement>
+      ),
+    },
+    { key: `td-bucket-${index}`, children: location.bucket },
+    { key: `td-permission-${index}`, children: location.permission },
+  ]);
 
   return { columns, rows };
 };
 
 interface DataTableControlProps {
-  items: LocationAccess[];
-  handleLocationClick: (location: LocationAccess) => void;
+  items: LocationData[];
+  handleLocationClick: (location: LocationData) => void;
 }
 
 export function DataTableControl({
@@ -146,9 +139,9 @@ export function DataTableControl({
         data: items,
         sortState,
         onLocationClick: handleLocationClick,
-        onTableHeaderClick: (location: string) => {
+        onTableHeaderClick: (selection: string) => {
           setSortState((prevState) => ({
-            selection: location,
+            selection,
             direction:
               prevState.direction === 'ascending' ? 'descending' : 'ascending',
           }));

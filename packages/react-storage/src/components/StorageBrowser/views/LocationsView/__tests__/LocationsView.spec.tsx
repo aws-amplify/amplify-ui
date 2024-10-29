@@ -1,48 +1,31 @@
 import React from 'react';
-import { act, render, screen, waitFor } from '@testing-library/react';
+import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import createProvider from '../../../createProvider';
-import * as ActionsModule from '../../../context/actions';
-import * as ControlsModule from '../../../context/control';
+import * as StoreModule from '../../../providers/store';
 import { DEFAULT_ERROR_MESSAGE, LocationsView } from '../LocationsView';
+import * as ActionsModule from '../../../do-not-import-from-here/actions';
 import { DEFAULT_LIST_OPTIONS } from '../useLocationsView';
-import { LocationAccess } from '../../../context/types';
+import { LocationData } from '../../../actions';
 
-const navigateSpy = jest.fn();
-const INITIAL_NAVIGATE_STATE = [
-  { location: undefined, history: [], path: '' },
-  navigateSpy,
-];
-const INITIAL_ACTION_STATE = [
-  { selected: { type: undefined, items: undefined }, actions: {} },
-  jest.fn(),
-];
-
-const useControlSpy = jest.spyOn(ControlsModule, 'useControl');
-
-const listLocations = jest.fn(() =>
-  Promise.resolve({ locations: [], nextToken: undefined })
-);
-const config = {
-  getLocationCredentials: jest.fn(),
-  listLocations,
-  region: 'region',
-  registerAuthListener: jest.fn(),
-};
-const Provider = createProvider({ actions: {}, config });
+const dispatchStoreAction = jest.fn();
+jest
+  .spyOn(StoreModule, 'useStore')
+  .mockReturnValue([{} as StoreModule.UseStoreState, dispatchStoreAction]);
 
 const useLocationsDataSpy = jest.spyOn(ActionsModule, 'useLocationsData');
 
-const generateMockItems = (size: number, page: number): LocationAccess[] => {
+const generateMockItems = (size: number, page: number): LocationData[] => {
   return Array(size)
     .fill(null)
     .map((_, index) => {
       index = index + size * (page - 1);
       const type = page % 2 == 0 ? 'BUCKET' : 'PREFIX';
       return {
+        bucket: 'test-bucket',
+        prefix: `item-${index}/`,
         permission: 'READWRITE',
-        scope: `s3://test-item-${index}/*`,
+        id: 'identity',
         type,
       };
     });
@@ -70,7 +53,7 @@ const loadingState: ActionsModule.LocationsDataState = [
 ];
 
 const EXPECTED_PAGE_SIZE = DEFAULT_LIST_OPTIONS.pageSize;
-const results: LocationAccess[] = generateMockItems(EXPECTED_PAGE_SIZE, 1);
+const results: LocationData[] = generateMockItems(EXPECTED_PAGE_SIZE, 1);
 
 const resolvedState: ActionsModule.LocationsDataState = [
   {
@@ -101,30 +84,8 @@ const nextPageState: ActionsModule.LocationsDataState = [
 ];
 
 describe('LocationsListView', () => {
-  beforeAll(() => {
-    useControlSpy.mockImplementation(
-      (type) =>
-        ({
-          LOCATION_ACTIONS: INITIAL_ACTION_STATE,
-          NAVIGATE: INITIAL_NAVIGATE_STATE,
-        })[type]
-    );
-  });
-
   afterEach(() => {
     jest.clearAllMocks();
-  });
-
-  it('renders a `LocationsListView`', async () => {
-    await waitFor(() => {
-      expect(
-        render(
-          <Provider>
-            <LocationsView />
-          </Provider>
-        ).container
-      ).toBeDefined();
-    });
   });
 
   it('renders a returned error message for `LocationsListView`', () => {
@@ -132,16 +93,7 @@ describe('LocationsListView', () => {
 
     useLocationsDataSpy.mockReturnValue([
       {
-        data: {
-          result: [
-            {
-              permission: 'READWRITE',
-              scope: 's3://test-bucket/*',
-              type: 'BUCKET',
-            },
-          ],
-          nextToken: 'some-token',
-        },
+        data: { result: results, nextToken: 'some-token' },
         hasError: true,
         isLoading: false,
         message: errorMessage,
@@ -149,11 +101,7 @@ describe('LocationsListView', () => {
       handleListLocations,
     ]);
 
-    render(
-      <Provider>
-        <LocationsView />
-      </Provider>
-    );
+    render(<LocationsView />);
 
     const message = screen.getByRole('alert');
     const messageText = screen.getByText(errorMessage);
@@ -174,10 +122,7 @@ describe('LocationsListView', () => {
   it('renders a fallback error message for `LocationsListView`', () => {
     useLocationsDataSpy.mockReturnValue([
       {
-        data: {
-          result: [],
-          nextToken: undefined,
-        },
+        data: { result: results, nextToken: undefined },
         hasError: true,
         isLoading: false,
         message: undefined,
@@ -185,41 +130,16 @@ describe('LocationsListView', () => {
       handleListLocations,
     ]);
 
-    render(
-      <Provider>
-        <LocationsView />
-      </Provider>
-    );
+    render(<LocationsView />);
 
     const messageText = screen.getByText(DEFAULT_ERROR_MESSAGE);
     expect(messageText).toBeInTheDocument();
   });
 
   it('renders a Locations View table', () => {
-    useLocationsDataSpy.mockReturnValue([
-      {
-        data: {
-          result: [
-            {
-              permission: 'READWRITE',
-              scope: 's3://test-bucket/*',
-              type: 'BUCKET',
-            },
-          ],
-          nextToken: undefined,
-        },
-        hasError: false,
-        isLoading: false,
-        message: undefined,
-      },
-      handleListLocations,
-    ]);
+    useLocationsDataSpy.mockReturnValue(resolvedState);
 
-    render(
-      <Provider>
-        <LocationsView />
-      </Provider>
-    );
+    render(<LocationsView />);
 
     const table = screen.getByRole('table');
 
@@ -236,11 +156,7 @@ describe('LocationsListView', () => {
       .mockReturnValueOnce(loadingState)
       .mockReturnValue(resolvedState);
 
-    const { rerender } = render(
-      <Provider>
-        <LocationsView />
-      </Provider>
-    );
+    const { rerender } = render(<LocationsView />);
 
     expect(handleListLocations).toHaveBeenCalledTimes(1);
     expect(handleListLocations).toHaveBeenCalledWith({
@@ -250,19 +166,11 @@ describe('LocationsListView', () => {
       },
     });
 
-    rerender(
-      <Provider>
-        <LocationsView />
-      </Provider>
-    );
+    rerender(<LocationsView />);
 
     expect(handleListLocations).toHaveBeenCalledTimes(1);
 
-    rerender(
-      <Provider>
-        <LocationsView />
-      </Provider>
-    );
+    rerender(<LocationsView />);
 
     expect(handleListLocations).toHaveBeenCalledTimes(1);
   });
@@ -270,13 +178,9 @@ describe('LocationsListView', () => {
   it('refreshes table when refresh button is clicked', async () => {
     useLocationsDataSpy.mockReturnValue(resolvedState);
 
-    render(
-      <Provider>
-        <LocationsView />
-      </Provider>
-    );
+    render(<LocationsView />);
 
-    const refreshButton = screen.getByLabelText('Refresh table');
+    const refreshButton = screen.getByLabelText('Refresh data');
     expect(refreshButton).toBeEnabled();
 
     await act(async () => {
@@ -294,29 +198,17 @@ describe('LocationsListView', () => {
     useLocationsDataSpy.mockReturnValue(initialState);
 
     // initial
-    const { rerender } = render(
-      <Provider>
-        <LocationsView />
-      </Provider>
-    );
+    const { rerender } = render(<LocationsView />);
 
     useLocationsDataSpy.mockReturnValue(loadingState);
 
     // loading
-    rerender(
-      <Provider>
-        <LocationsView />
-      </Provider>
-    );
+    rerender(<LocationsView />);
 
     useLocationsDataSpy.mockReturnValueOnce(resolvedState);
 
     // resolved
-    rerender(
-      <Provider>
-        <LocationsView />
-      </Provider>
-    );
+    rerender(<LocationsView />);
 
     expect(handleListLocations).toHaveBeenCalledTimes(1);
     expect(handleListLocations).toHaveBeenCalledWith({
@@ -334,11 +226,7 @@ describe('LocationsListView', () => {
     ]);
 
     // reference change
-    rerender(
-      <Provider>
-        <LocationsView />
-      </Provider>
-    );
+    rerender(<LocationsView />);
 
     expect(handleListLocations).toHaveBeenCalledTimes(1);
     expect(updatedHandleListLocations).toHaveBeenCalledTimes(1);
@@ -353,11 +241,7 @@ describe('LocationsListView', () => {
 
   it('can paginate forward and back', async () => {
     useLocationsDataSpy.mockReturnValue(resolvedState);
-    render(
-      <Provider>
-        <LocationsView />
-      </Provider>
-    );
+    render(<LocationsView />);
 
     // table renders
     const table = screen.getByRole('table');
@@ -369,8 +253,8 @@ describe('LocationsListView', () => {
 
     // first page data matches input
     expect(screen.queryByLabelText('Page 1')).toBeInTheDocument();
-    expect(screen.queryByText('test-item-0')).toBeInTheDocument();
-    expect(screen.queryByText('test-item-101')).not.toBeInTheDocument();
+    expect(screen.queryByText('item-0/')).toBeInTheDocument();
+    expect(screen.queryByText('item-101/')).not.toBeInTheDocument();
 
     useLocationsDataSpy.mockReturnValue(nextPageState);
 
@@ -381,8 +265,8 @@ describe('LocationsListView', () => {
 
     // second page data matches input
     expect(screen.queryByLabelText('Page 2')).toBeInTheDocument();
-    expect(screen.queryByText('test-item-0')).not.toBeInTheDocument();
-    expect(screen.queryByText('test-item-101')).toBeInTheDocument();
+    expect(screen.queryByText('item-0/')).not.toBeInTheDocument();
+    expect(screen.queryByText('item-101/')).toBeInTheDocument();
 
     // pagination enabled
     const previousPage = await screen.findByLabelText('Go to previous page');
@@ -395,28 +279,26 @@ describe('LocationsListView', () => {
 
     // first page data matches input
     expect(screen.queryByLabelText('Page 1')).toBeInTheDocument();
-    expect(screen.queryByText('test-item-0')).toBeInTheDocument();
-    expect(screen.queryByText('test-item-101')).not.toBeInTheDocument();
+    expect(screen.queryByText('item-0/')).toBeInTheDocument();
+    expect(screen.queryByText('item-101/')).not.toBeInTheDocument();
   });
 
   it('should navigate to detail page when folder is clicked', async () => {
     useLocationsDataSpy.mockReturnValue(resolvedState);
-    render(
-      <Provider>
-        <LocationsView />
-      </Provider>
-    );
+    render(<LocationsView />);
 
-    const scopeButton = await screen.findByText('test-item-0/');
+    const scopeButton = await screen.findByText('item-0/');
     await userEvent.click(scopeButton);
 
-    expect(navigateSpy).toHaveBeenCalledWith({
-      location: {
-        permission: 'READWRITE',
-        scope: 's3://test-item-0/*',
+    expect(dispatchStoreAction).toHaveBeenCalledWith({
+      type: 'NAVIGATE',
+      destination: {
+        bucket: 'test-bucket',
+        id: 'identity',
+        prefix: 'item-0/',
         type: 'PREFIX',
+        permission: 'READWRITE',
       },
-      type: 'ACCESS_LOCATION',
     });
   });
 });

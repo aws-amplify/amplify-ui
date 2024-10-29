@@ -1,18 +1,18 @@
 import React from 'react';
 
-import { LocationAccess } from '../../context/types';
-import { useLocationsData } from '../../context/actions';
-import { useControl } from '../../context/control';
+import { useLocationsData } from '../../do-not-import-from-here/actions';
 import { usePaginate } from '../hooks/usePaginate';
+import { LocationData } from '../../actions';
+import { useStore } from '../../providers/store';
 
 interface UseLocationsView {
   hasNextPage: boolean;
   hasError: boolean;
   isLoading: boolean;
   message: string | undefined;
-  pageItems: LocationAccess[];
+  pageItems: LocationData[];
   page: number;
-  onNavigate: (location: LocationAccess) => void;
+  onNavigate: (location: LocationData) => void;
   onRefresh: () => void;
   onPaginateNext: () => void;
   onPaginatePrevious: () => void;
@@ -28,7 +28,7 @@ export type LocationsViewActionType =
   | { type: 'PAGINATE_NEXT' }
   | { type: 'PAGINATE_PREVIOUS' }
   | { type: 'PAGINATE'; page: number }
-  | { type: 'SELECT_LOCATION'; location: LocationAccess }
+  | { type: 'SELECT_LOCATION'; location: LocationData }
   | { type: 'SEARCH'; query: string };
 
 export interface UseLocationsViewOptions {
@@ -46,7 +46,7 @@ export function useLocationsView(
   options?: UseLocationsViewOptions
 ): UseLocationsView {
   const [state, handleList] = useLocationsData();
-  const [, handleUpdateState] = useControl('NAVIGATE');
+  const [, dispatchStoreAction] = useStore();
   const { data, message, hasError, isLoading } = state;
   const { result, nextToken } = data;
   const resultCount = result.length;
@@ -93,11 +93,8 @@ export function useLocationsView(
     page: currentPage,
     hasNextPage: hasNextToken,
     pageItems: processedItems,
-    onNavigate: (location: LocationAccess) => {
-      handleUpdateState({
-        type: 'ACCESS_LOCATION',
-        location: location,
-      });
+    onNavigate: (destination: LocationData) => {
+      dispatchStoreAction({ type: 'NAVIGATE', destination });
     },
     onRefresh: () => {
       handleReset();

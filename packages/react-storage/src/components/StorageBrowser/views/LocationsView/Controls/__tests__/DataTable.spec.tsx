@@ -1,27 +1,41 @@
 import React from 'react';
 
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 
-import * as UseLocationsDataModule from '../../../../context/actions';
-import * as UseControlModule from '../../../../context/control';
-import { LocationAccess } from '../../../../context/types';
+import * as UseLocationsDataModule from '../../../../do-not-import-from-here/actions';
+import * as StoreModule from '../../../../providers/store';
 
 import { DataTableControl } from '../DataTable';
 
-const useControlModuleSpy = jest.spyOn(UseControlModule, 'useControl');
+const dispatchStoreAction = jest.fn();
+jest
+  .spyOn(StoreModule, 'useStore')
+  .mockReturnValue([{} as StoreModule.UseStoreState, dispatchStoreAction]);
+
 const useLocationsDataSpy = jest.spyOn(
   UseLocationsDataModule,
   'useLocationsData'
 );
 
-const mockData: LocationAccess<UseLocationsDataModule.Permission>[] = [
-  { scope: 's3://Location A/*', type: 'BUCKET', permission: 'READ' },
-  { scope: 's3://Location B/Folder B/*', type: 'PREFIX', permission: 'WRITE' },
+const mockData = [
+  {
+    bucket: 'Location A',
+    id: 'A',
+    prefix: '',
+    type: 'BUCKET' as const,
+    permission: 'READ' as const,
+  },
+  {
+    bucket: 'Location B',
+    id: 'B',
+    prefix: 'Folder B/',
+    type: 'PREFIX' as const,
+    permission: 'WRITE' as const,
+  },
 ];
 
 describe('LocationsViewTableControl', () => {
   beforeEach(() => {
-    useControlModuleSpy.mockReturnValue([{}, jest.fn()]);
     useLocationsDataSpy.mockReturnValue([
       {
         data: { result: mockData, nextToken: undefined },
@@ -33,24 +47,29 @@ describe('LocationsViewTableControl', () => {
     ]);
   });
 
+  afterEach(jest.clearAllMocks);
+
   it('renders the table with data', () => {
-    const { getByText } = render(
+    const { getAllByText, getByText } = render(
       <DataTableControl items={mockData} handleLocationClick={jest.fn()} />
     );
 
     expect(getByText('Folder')).toBeInTheDocument();
     expect(getByText('Bucket')).toBeInTheDocument();
     expect(getByText('Permission')).toBeInTheDocument();
-    expect(getByText('Location A/')).toBeInTheDocument();
     expect(getByText('Folder B/')).toBeInTheDocument();
+
+    // when prefix is an empty string the bucket value is used in both
+    // the "Bucket" and "Folder" columns
+    expect(getAllByText('Location A')).toHaveLength(2);
   });
 
   it('renders the correct icon based on sort state', () => {
-    const { getByText } = render(
+    const { getByRole, getByText } = render(
       <DataTableControl items={mockData} handleLocationClick={jest.fn()} />
     );
 
-    const folderTh = screen.getByRole('columnheader', { name: 'Folder' });
+    const folderTh = getByRole('columnheader', { name: 'Folder' });
 
     expect(folderTh).toHaveAttribute('aria-sort', 'ascending');
 
@@ -60,15 +79,15 @@ describe('LocationsViewTableControl', () => {
   });
 
   it('updates sort state when other headers are clicked', () => {
-    const { getByText } = render(
+    const { getByRole, getByText } = render(
       <DataTableControl items={mockData} handleLocationClick={jest.fn()} />
     );
 
-    const folderTh = screen.getByRole('columnheader', { name: 'Folder' });
+    const folderTh = getByRole('columnheader', { name: 'Folder' });
 
     expect(folderTh).toHaveAttribute('aria-sort', 'ascending');
 
-    const bucketTh = screen.getByRole('columnheader', { name: 'Bucket' });
+    const bucketTh = getByRole('columnheader', { name: 'Bucket' });
 
     fireEvent.click(getByText('Bucket'));
 
@@ -76,17 +95,23 @@ describe('LocationsViewTableControl', () => {
   });
 
   it('triggers location click handler when a row is clicked', () => {
-    const mockHandleLocationClick = jest.fn();
-    render(
+    const mockLocationClickHandler = jest.fn();
+    const { getByRole } = render(
       <DataTableControl
         items={mockData}
-        handleLocationClick={mockHandleLocationClick}
+        handleLocationClick={mockLocationClickHandler}
       />
     );
 
-    const firstRowButton = screen.getByRole('button', { name: 'Folder B/' });
+    const firstRowButton = getByRole('button', { name: 'Folder B/' });
     fireEvent.click(firstRowButton);
 
-    expect(mockHandleLocationClick).toHaveBeenCalledWith(mockData[1]);
+    expect(mockLocationClickHandler).toHaveBeenCalledWith({
+      bucket: 'Location B',
+      id: 'B',
+      prefix: 'Folder B/',
+      type: 'PREFIX',
+      permission: 'WRITE',
+    });
   });
 });
