@@ -163,35 +163,20 @@ export const LivenessCameraModule = (
     (!isMobileScreen || isFaceMovementChallenge);
 
   React.useEffect(() => {
-    if (
+    const shouldDrawOval =
       canvasRef?.current &&
       videoRef?.current &&
       videoStream &&
       isStartView &&
-      isMetadataLoaded
-    ) {
-      drawStaticOval(canvasRef.current, videoRef.current, videoStream);
-    }
-  }, [
-    canvasRef,
-    videoRef,
-    videoStream,
-    colorMode,
-    isStartView,
-    isMetadataLoaded,
-  ]);
+      isMetadataLoaded;
 
-  React.useEffect(() => {
+    if (shouldDrawOval) {
+      drawStaticOval(canvasRef.current, videoRef.current!, videoStream);
+    }
+
     const updateColorModeHandler = (e: MediaQueryListEvent) => {
-      if (
-        e.matches &&
-        canvasRef?.current &&
-        videoRef?.current &&
-        videoStream &&
-        isStartView &&
-        isMetadataLoaded
-      ) {
-        drawStaticOval(canvasRef.current, videoRef.current, videoStream);
+      if (e.matches && shouldDrawOval) {
+        drawStaticOval(canvasRef.current, videoRef.current!, videoStream);
       }
     };
 
@@ -209,7 +194,14 @@ export const LivenessCameraModule = (
       darkModePreference.removeEventListener('change', updateColorModeHandler);
       lightModePreference.addEventListener('change', updateColorModeHandler);
     };
-  }, [canvasRef, videoRef, videoStream, isStartView, isMetadataLoaded]);
+  }, [
+    canvasRef,
+    videoRef,
+    videoStream,
+    colorMode,
+    isStartView,
+    isMetadataLoaded,
+  ]);
 
   React.useLayoutEffect(() => {
     if (isCameraReady) {
