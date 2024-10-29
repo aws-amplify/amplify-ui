@@ -25,7 +25,6 @@ export const deleteHandler: DeleteHandler = ({
   config,
   key,
   options,
-  prefix: _prefix,
 }): DeleteHandlerOutput => {
   const { accountId, credentials } = config;
   const bucket = constructBucket(config);

@@ -142,7 +142,7 @@ export const getDeleteActionViewTableData = ({
                       icon: 'cancel',
                       ariaLabel: `Cancel item: ${item.key}`,
                       onClick: () => item.cancel?.(),
-                      disabled: item.status !== 'QUEUED',
+                      isDisabled: item.status !== 'QUEUED',
                     },
                   }
                 : {

@@ -48,7 +48,7 @@ describe('ButtonDataCell', () => {
 
   it('renders disabled button', () => {
     const { getByRole } = render(
-      <ButtonDataCell content={{ label: 'cancel', disabled: true }} />
+      <ButtonDataCell content={{ label: 'cancel', isDisabled: true }} />
     );
 
     const buttonDataCell = getByRole('button');

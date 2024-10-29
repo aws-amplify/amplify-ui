@@ -14,14 +14,14 @@ export interface ButtonDataCellProps {
     label?: string;
     onClick?: () => void;
     ariaLabel?: string;
-    disabled?: boolean;
+    isDisabled?: boolean;
   };
 }
 
 export const ButtonDataCell = ({
   content,
 }: ButtonDataCellProps): React.JSX.Element => {
-  const { ariaLabel, disabled, icon, label, onClick } = content;
+  const { ariaLabel, isDisabled, icon, label, onClick } = content;
 
   // Special handling for icon-only cancel buttons
   let buttonVariant: ButtonElementVariant = 'table-data';
@@ -38,7 +38,7 @@ export const ButtonDataCell = ({
           ? `${CLASS_BASE}__table-button-data-cell--icon-only`
           : '',
       ].join(' ')}
-      disabled={disabled}
+      disabled={isDisabled}
       onClick={onClick}
       aria-label={ariaLabel}
       variant={buttonVariant}
