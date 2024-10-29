@@ -28,10 +28,10 @@ interface UseSearch<T> {
  */
 export function useSearch<T>({
   items,
-  initialValues: initialSearchValues,
+  initialValues: initialValuesProp,
   onSearch,
 }: UseSearchProps<T>): UseSearch<T> {
-  const [initialValues] = React.useState(initialSearchValues);
+  const [initialValues] = React.useState(initialValuesProp);
   const {
     searchTerm: initialSearchTerm = '',
     searchKey,
