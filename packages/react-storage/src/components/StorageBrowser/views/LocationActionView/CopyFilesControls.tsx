@@ -2,23 +2,26 @@ import React from 'react';
 
 import { ButtonElement, ViewElement } from '../../context/elements';
 
-import { CancelControl, Controls, NavigateItem } from '../Controls';
+import { Controls, NavigateItem } from '../Controls';
 
 import { Title } from './Controls/Title';
 import { displayText } from '../../displayText/en';
 import { CLASS_BASE } from '../constants';
 import { DestinationPicker } from './DestinationPicker';
 
-import { useCopyActionView } from '../hooks/useCopyActionView';
+import { useCopyActionView } from './hooks/useCopyActionView';
 import { HeadingControl } from '../Controls/Heading';
-import { Column, RenderRowItem, TableDataText } from '../Controls/Table';
-import { STATUS_DISPLAY_VALUES } from './constants';
-import { humanFileSize } from '@aws-amplify/ui';
+import { Column } from '../Controls/Table';
+import { DataTableControl } from '../../controls/DataTableControl';
+import { ControlsContextProvider } from '../../controls/context';
+import { getDeleteActionViewTableData } from './utils';
+import { useStore } from '../../providers/store';
+import { ControlsContext } from '../../controls/types';
 
 const RESULT_COMPLETE_MESSAGE = 'File copied';
 const RESULT_FAILED_MESSAGE = 'There was an issue copying the files.';
 
-const { Exit, Primary, Table } = Controls;
+const { Exit, Primary } = Controls;
 const { actionSetDestination, actionSelectedText } = displayText;
 
 interface SelectedFilesColumns {
@@ -44,24 +47,36 @@ const SELECTED_FILES_COLUMNS: Column<SelectedFilesColumns>[] = [
 // 2. Fix styling so that list only takes up 50% of parent container
 // 3. Fix useProcessTasks so that canceling a non-queued item actually works
 
-export const CopyFilesControls = (): React.JSX.Element => {
+export const CopyFilesControls = ({
+  onClose: _onClose,
+}: {
+  onClose?: () => void;
+}): React.JSX.Element => {
   const {
-    path,
-    tasks,
+    destinationList,
+    onSetDestinationList,
+    disableCancel,
+    disableClose,
+    disablePrimary,
     onClose,
     onCancel,
     onStart,
-    destinationList,
-    isProcessing,
-    onSetDestinationList,
-  } = useCopyActionView();
+    taskCounts,
+    tasks,
+  } = useCopyActionView({ onClose: _onClose });
 
-  const primaryProps = {
-    onClick: () => {
-      onStart();
-    },
-    children: 'Copy',
-    disabled: isProcessing,
+  const [{ history }] = useStore();
+  const { current } = history;
+  const path = current?.prefix;
+  const tableData = getDeleteActionViewTableData({
+    tasks,
+    taskCounts,
+    path: path ?? '',
+  });
+
+  const contextValue: ControlsContext = {
+    data: { taskCounts, tableData },
+    actionsConfig: { type: 'BATCH_ACTION', isCancelable: true },
   };
 
   const handleNavigatePath = (index: number) => {
@@ -69,108 +84,108 @@ export const CopyFilesControls = (): React.JSX.Element => {
     onSetDestinationList(newPath);
   };
 
-  const selectedItemsData = tasks.map((item) => {
-    return {
-      ...item,
-      folder: path,
-      type: item.key.slice(item.key.lastIndexOf('.') + 1) || '-',
-      action: isProcessing ? item.cancel : item.remove,
-      // @ts-ignore
-      // FIXME: task type doesn't have size property, but the object does have it
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      size: item.size,
-    };
-  });
+  // const selectedItemsData = tasks.map((item) => {
+  //   return {
+  //     ...item,
+  //     folder: path,
+  //     type: item.key.slice(item.key.lastIndexOf('.') + 1) || '-',
+  //     action: isProcessing ? item.cancel : item.remove,
+  //     // @ts-ignore
+  //     // FIXME: task type doesn't have size property, but the object does have it
+  //     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  //     size: item.size,
+  //   };
+  // });
 
-  const renderHeaderItem = React.useCallback(
-    (column: Column<SelectedFilesColumns>) => {
-      const { header, key } = column;
-      return (
-        <Table.TableHeader key={header} variant={key}>
-          {column.header}
-        </Table.TableHeader>
-      );
-    },
-    []
-  );
+  // const renderHeaderItem = React.useCallback(
+  //   (column: Column<SelectedFilesColumns>) => {
+  //     const { header, key } = column;
+  //     return (
+  //       <Table.TableHeader key={header} variant={key}>
+  //         {column.header}
+  //       </Table.TableHeader>
+  //     );
+  //   },
+  //   []
+  // );
 
-  const renderRowItem: RenderRowItem<SelectedFilesColumns> = (row, index) => {
-    const renderTableData = (
-      columnKey: keyof SelectedFilesColumns,
-      row: SelectedFilesColumns
-    ) => {
-      switch (columnKey) {
-        case 'key': {
-          return <TableDataText>{row.key}</TableDataText>;
-        }
-        case 'folder': {
-          return <TableDataText>{row.folder}</TableDataText>;
-        }
-        case 'type': {
-          const indexOfDot = row.key.lastIndexOf('.');
+  // const renderRowItem: RenderRowItem<SelectedFilesColumns> = (row, index) => {
+  //   const renderTableData = (
+  //     columnKey: keyof SelectedFilesColumns,
+  //     row: SelectedFilesColumns
+  //   ) => {
+  //     switch (columnKey) {
+  //       case 'key': {
+  //         return <TableDataText>{row.key}</TableDataText>;
+  //       }
+  //       case 'folder': {
+  //         return <TableDataText>{row.folder}</TableDataText>;
+  //       }
+  //       case 'type': {
+  //         const indexOfDot = row.key.lastIndexOf('.');
 
-          return indexOfDot > -1 ? (
-            <TableDataText>{row.key.slice(indexOfDot + 1)}</TableDataText>
-          ) : (
-            '-'
-          );
-        }
-        case 'size':
-          return (
-            <TableDataText>
-              {humanFileSize(parseInt(row.size), true)}
-            </TableDataText>
-          );
-        case 'status':
-          return (
-            <TableDataText>
-              {STATUS_DISPLAY_VALUES[row.status as keyof {}]}
-            </TableDataText>
-          );
-        // case 'progress':
-        //   return (
-        //     <TableDataText>{`${getPercentValue(row.progress)}%`}</TableDataText>
-        //   );
-        case 'action':
-          if (row.action && tasks.length > 1) {
-            return isProcessing ? (
-              <CancelControl
-                onClick={() => row.action?.()}
-                ariaLabel={`Cancel copy item: ${row.key}`}
-              />
-            ) : (
-              <CancelControl
-                onClick={() => row.action?.()}
-                ariaLabel={`Remove copy item: ${row.key}`}
-              />
-            );
-          }
+  //         return indexOfDot > -1 ? (
+  //           <TableDataText>{row.key.slice(indexOfDot + 1)}</TableDataText>
+  //         ) : (
+  //           '-'
+  //         );
+  //       }
+  //       case 'size':
+  //         return (
+  //           <TableDataText>
+  //             {humanFileSize(parseInt(row.size), true)}
+  //           </TableDataText>
+  //         );
+  //       case 'status':
+  //         return (
+  //           <TableDataText>
+  //             {STATUS_DISPLAY_VALUES[row.status as keyof {}]}
+  //           </TableDataText>
+  //         );
+  //       // case 'progress':
+  //       //   return (
+  //       //     <TableDataText>{`${getPercentValue(row.progress)}%`}</TableDataText>
+  //       //   );
+  //       case 'action':
+  //         if (row.action && tasks.length > 1) {
+  //           return isProcessing ? (
+  //             <CancelControl
+  //               onClick={() => row.action?.()}
+  //               ariaLabel={`Cancel copy item: ${row.key}`}
+  //             />
+  //           ) : (
+  //             <CancelControl
+  //               onClick={() => row.action?.()}
+  //               ariaLabel={`Remove copy item: ${row.key}`}
+  //             />
+  //           );
+  //         }
 
-          return null;
-        default:
-          return null;
-      }
-    };
+  //         return null;
+  //       default:
+  //         return null;
+  //     }
+  //   };
 
-    return (
-      <Table.TableRow key={index}>
-        {SELECTED_FILES_COLUMNS.map((column) => {
-          return (
-            <Table.TableData
-              key={`${index}-${column.header}`}
-              variant={column.key}
-            >
-              {renderTableData(column.key, row)}
-            </Table.TableData>
-          );
-        })}
-      </Table.TableRow>
-    );
-  };
+  //   return (
+  //     <Table.TableRow key={index}>
+  //       {SELECTED_FILES_COLUMNS.map((column) => {
+  //         return (
+  //           <Table.TableData
+  //             key={`${index}-${column.header}`}
+  //             variant={column.key}
+  //           >
+  //             {renderTableData(column.key, row)}
+  //           </Table.TableData>
+  //         );
+  //       })}
+  //     </Table.TableRow>
+  //   );
+  // };
 
   return (
-    <>
-      <Exit onClick={onClose} />
+    <ControlsContextProvider {...contextValue}>
+      <Exit disabled={disableClose} onClick={onClose} />
       <Title />
       <ViewElement className={`${CLASS_BASE}__copy-destination`}>
         <div className="storage-browser__table" style={{ display: 'flex' }}>
@@ -192,31 +207,33 @@ export const CopyFilesControls = (): React.JSX.Element => {
           )}
         </div>
       </ViewElement>
-      {!isProcessing && (
-        <DestinationPicker
-          destinationPrefix={destinationList}
-          setDestinationPrefix={onSetDestinationList}
-        />
-      )}
+      {/* {!isProcessing && ( */}
+      <DestinationPicker
+        destinationPrefix={destinationList}
+        setDestinationPrefix={onSetDestinationList}
+      />
+      {/* )} */}
 
       <div className="storage-browser__table">
         <HeadingControl level={3}>{actionSelectedText}</HeadingControl>
-        <Table
-          data={selectedItemsData}
-          columns={SELECTED_FILES_COLUMNS}
-          renderHeaderItem={renderHeaderItem}
-          renderRowItem={renderRowItem}
-        />
+        <DataTableControl className={`${CLASS_BASE}__table`} />
       </div>
-      <Primary {...primaryProps} />
+      <Primary
+        disabled={disablePrimary}
+        onClick={() => {
+          onStart();
+        }}
+      >
+        Start
+      </Primary>
       <ButtonElement
         variant="cancel"
-        // disabled={disableCancel}
+        disabled={disableCancel}
         className={`${CLASS_BASE}__cancel`}
         onClick={() => onCancel()}
       >
         Cancel
       </ButtonElement>
-    </>
+    </ControlsContextProvider>
   );
 };

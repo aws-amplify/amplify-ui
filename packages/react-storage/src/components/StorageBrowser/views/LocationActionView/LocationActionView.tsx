@@ -16,6 +16,7 @@ export interface LocationActionViewProps {
 }
 
 const ACTION_VIEW_TYPES = [
+  'COPY_FILES',
   'CREATE_FOLDER',
   'DELETE_FILES',
   'UPLOAD_FILES',
