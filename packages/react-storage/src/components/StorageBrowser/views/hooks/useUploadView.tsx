@@ -8,20 +8,20 @@ import { getTaskCounts } from '../../controls/getTaskCounts';
 import { isFunction, isUndefined } from '@aws-amplify/ui';
 
 interface UseUploadView {
+  tasks: Task<File>[];
   isStartDisabled: boolean;
   // TODO: add from main
   // isDropzoneDisabled: boolean;
   isCancelDisabled: boolean;
   isOverwriteDisabled: boolean;
   isSelectFilesDisabled: boolean;
+  overwriteSelection: boolean;
   onDropFiles: (files?: File[]) => void;
   onExit: () => void;
   onProcessStart: () => void;
   onProcessCancel: () => void;
   onSelectFiles: (type?: 'FILE' | 'FOLDER') => void;
-  overwriteSelection: boolean;
   onToggleOverwrite: () => void;
-  tasks: Task<File>[];
 }
 
 export const useUploadView = ({
