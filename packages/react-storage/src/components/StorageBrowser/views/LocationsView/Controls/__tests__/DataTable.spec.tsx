@@ -7,8 +7,6 @@ import * as StoreModule from '../../../../providers/store';
 
 import { DataTableControl } from '../DataTable';
 
-const TEST_RANGE: [number, number] = [0, 100];
-
 const dispatchStoreAction = jest.fn();
 jest
   .spyOn(StoreModule, 'useStore')
@@ -53,7 +51,7 @@ describe('LocationsViewTableControl', () => {
 
   it('renders the table with data', () => {
     const { getAllByText, getByText } = render(
-      <DataTableControl range={TEST_RANGE} />
+      <DataTableControl items={mockData} onNavigate={jest.fn()} />
     );
 
     expect(getByText('Folder')).toBeInTheDocument();
@@ -68,7 +66,7 @@ describe('LocationsViewTableControl', () => {
 
   it('renders the correct icon based on sort state', () => {
     const { getByRole, getByText } = render(
-      <DataTableControl range={TEST_RANGE} />
+      <DataTableControl items={mockData} onNavigate={jest.fn()} />
     );
 
     const folderTh = getByRole('columnheader', { name: 'Folder' });
@@ -82,7 +80,7 @@ describe('LocationsViewTableControl', () => {
 
   it('updates sort state when other headers are clicked', () => {
     const { getByRole, getByText } = render(
-      <DataTableControl range={TEST_RANGE} />
+      <DataTableControl items={mockData} onNavigate={jest.fn()} />
     );
 
     const folderTh = getByRole('columnheader', { name: 'Folder' });
@@ -97,14 +95,23 @@ describe('LocationsViewTableControl', () => {
   });
 
   it('triggers location click handler when a row is clicked', () => {
-    const { getByRole } = render(<DataTableControl range={TEST_RANGE} />);
+    const mockLocationClickHandler = jest.fn();
+    const { getByRole } = render(
+      <DataTableControl
+        items={mockData}
+        onNavigate={mockLocationClickHandler}
+      />
+    );
 
     const firstRowButton = getByRole('button', { name: 'Folder B/' });
     fireEvent.click(firstRowButton);
 
-    expect(dispatchStoreAction).toHaveBeenCalledWith({
-      type: 'NAVIGATE',
-      destination: mockData[1],
+    expect(mockLocationClickHandler).toHaveBeenCalledWith({
+      bucket: 'Location B',
+      id: 'B',
+      prefix: 'Folder B/',
+      type: 'PREFIX',
+      permission: 'WRITE',
     });
   });
 });
