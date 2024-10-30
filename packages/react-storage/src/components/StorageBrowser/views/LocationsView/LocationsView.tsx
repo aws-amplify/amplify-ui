@@ -53,8 +53,14 @@ export function LocationsView({
   onNavigate,
 }: LocationsViewProps): React.JSX.Element {
   const locationsView = useLocationsView({ onNavigate });
-  const { pageItems, hasError, disableNext, disablePrevious, page, isLoading } =
-    locationsView;
+  const {
+    pageItems,
+    hasError,
+    isPaginatePreviousDisabled,
+    isPaginateNextDisabled,
+    page,
+    isLoading,
+  } = locationsView;
 
   // FIXME: Eventually comes from useView hook
   const contextValue: ControlsContext = {
@@ -76,8 +82,8 @@ export function LocationsView({
         />
         <Paginate
           currentPage={page}
-          disableNext={disableNext}
-          disablePrevious={disablePrevious}
+          disableNext={isPaginateNextDisabled}
+          disablePrevious={isPaginatePreviousDisabled}
           handleNext={locationsView.onPaginateNext}
           handlePrevious={locationsView.onPaginatePrevious}
         />

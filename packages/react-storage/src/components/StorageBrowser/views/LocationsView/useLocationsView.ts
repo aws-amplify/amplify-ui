@@ -6,11 +6,11 @@ import { LocationData } from '../../actions';
 import { useStore } from '../../providers/store';
 
 interface UseLocationsView {
-  disableNext: boolean;
-  disablePrevious: boolean;
   hasNextPage: boolean;
   hasError: boolean;
   isLoading: boolean;
+  isPaginateNextDisabled: boolean;
+  isPaginatePreviousDisabled: boolean;
   message: string | undefined;
   pageItems: LocationData[];
   page: number;
@@ -93,8 +93,8 @@ export function useLocationsView(
     isLoading,
     hasError,
     message,
-    disableNext: !hasNextToken || isLoading || hasError,
-    disablePrevious: currentPage <= 1 || isLoading || hasError,
+    isPaginateNextDisabled: !hasNextToken || isLoading || hasError,
+    isPaginatePreviousDisabled: currentPage <= 1 || isLoading || hasError,
     page: currentPage,
     hasNextPage: hasNextToken,
     pageItems: processedItems,
