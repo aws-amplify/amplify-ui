@@ -67,12 +67,13 @@ export const LocationDetailViewControls = ({
   'children' | 'className'
 >): React.JSX.Element => {
   const locationDetailView = useLocationDetailView({ onNavigate });
-  const { pageItems, isLoading, hasError, hasNextPage, page } =
-    locationDetailView;
-
-  const disableNext = !hasNextPage || isLoading || hasError;
-  const disablePrevious = page <= 1 || isLoading || hasError;
-  const renderLoading = page === 1 && pageItems.length === 0 && isLoading;
+  const {
+    pageItems,
+    isLoading,
+    page,
+    isPaginatePreviousDisabled,
+    isPaginateNextDisabled,
+  } = locationDetailView;
 
   const contextValue: ControlsContext = {
     data: {
@@ -94,13 +95,13 @@ export const LocationDetailViewControls = ({
       />
       <Paginate
         currentPage={page}
-        disableNext={disableNext}
-        disablePrevious={disablePrevious}
+        disableNext={isPaginateNextDisabled}
+        disablePrevious={isPaginatePreviousDisabled}
         handleNext={locationDetailView.onPaginateNext}
         handlePrevious={locationDetailView.onPaginatePrevious}
       />
       <LocationDetailMessage />
-      <Loading show={renderLoading} />
+      <Loading show={isLoading} />
       <LocationDetailViewTable
         items={pageItems}
         handleDroppedFiles={locationDetailView.onAddFiles}

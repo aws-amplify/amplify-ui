@@ -10,6 +10,8 @@ interface UseLocationDetailView {
   hasNextPage: boolean;
   hasError: boolean;
   isLoading: boolean;
+  isPaginateNextDisabled: boolean;
+  isPaginatePreviousDisabled: boolean;
   message: string | undefined;
   pageItems: LocationItemData[];
   page: number;
@@ -126,6 +128,8 @@ export function useLocationDetailView(
     page: currentPage,
     pageItems: processedItems,
     hasNextPage: hasNextToken,
+    isPaginateNextDisabled: !hasNextToken || isLoading || hasError,
+    isPaginatePreviousDisabled: currentPage <= 1 || isLoading || hasError,
     hasError,
     message,
     isLoading,
