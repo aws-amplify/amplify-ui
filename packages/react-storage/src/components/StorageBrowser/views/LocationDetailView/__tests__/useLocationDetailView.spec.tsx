@@ -1,20 +1,20 @@
 import { renderHook, act } from '@testing-library/react';
 
-import { DataState } from '@aws-amplify/ui-react-core';
-
 import {
   useLocationDetailView,
   DEFAULT_LIST_OPTIONS,
 } from '../useLocationDetailView';
 import { LocationData, LocationItemData } from '../../../actions';
-import { ListLocationItemsActionOutput } from '../../../do-not-import-from-here/actions/listLocationItemsAction';
 import * as ActionsModule from '../../../do-not-import-from-here/actions';
 import * as StoreModule from '../../../providers/store';
 import { HistoryState } from '../../../providers/store/history';
 
+const useActionSpy = jest.spyOn(ActionsModule, 'useAction');
+const useStoreSpy = jest.spyOn(StoreModule, 'useStore');
+
 // fake date for mock data below
 jest.useFakeTimers({ now: Date.UTC(2024, 0, 1) });
-const mockData: LocationItemData[] = [
+const testData: LocationItemData[] = [
   { id: '1', key: 'Location A', type: 'FOLDER' },
   {
     id: '2',
@@ -48,17 +48,7 @@ const mockData: LocationItemData[] = [
 
 const EXPECTED_PAGE_SIZE = 3;
 
-function mockListItemsAction(
-  returnValue: DataState<ListLocationItemsActionOutput>
-) {
-  const handleList = jest.fn();
-  jest
-    .spyOn(ActionsModule, 'useAction')
-    .mockReturnValue([returnValue, handleList]);
-  return handleList;
-}
-
-const mockHistory: HistoryState = {
+const testHistory: HistoryState = {
   current: {
     bucket: 'test-bucket',
     prefix: `item-b/`,
@@ -77,21 +67,14 @@ const mockHistory: HistoryState = {
   ],
 };
 
-function mockUseStore(returnValue?: Partial<StoreModule.UseStoreState>) {
-  const dispatchStoreAction = jest.fn();
-  jest.spyOn(StoreModule, 'useStore').mockReturnValue([
-    {
-      history: returnValue?.history ?? mockHistory,
-      files: [],
-      locationItems: {
-        fileDataItems: undefined,
-      },
-      actionType: undefined,
-    },
-    dispatchStoreAction,
-  ]);
-  return dispatchStoreAction;
-}
+const testStoreState = {
+  history: testHistory,
+  files: [],
+  locationItems: {
+    fileDataItems: undefined,
+  },
+  actionType: undefined,
+};
 
 describe('useLocationsView', () => {
   afterEach(() => {
@@ -99,20 +82,23 @@ describe('useLocationsView', () => {
   });
 
   it('should fetch and set location data on mount', () => {
-    mockUseStore();
+    const handleStoreActionMock = jest.fn();
+    useStoreSpy.mockReturnValue([testStoreState, handleStoreActionMock]);
     const mockDataState = {
-      data: { result: mockData, nextToken: undefined },
+      data: { result: testData, nextToken: undefined },
       message: '',
       hasError: false,
       isLoading: false,
     };
-    const handleList = mockListItemsAction(mockDataState);
+
+    const handleListMock = jest.fn();
+    useActionSpy.mockReturnValue([mockDataState, handleListMock]);
 
     const initialState = { initialValues: { pageSize: EXPECTED_PAGE_SIZE } };
     const { result } = renderHook(() => useLocationDetailView(initialState));
 
     // fetches data
-    expect(handleList).toHaveBeenCalledWith({
+    expect(handleListMock).toHaveBeenCalledWith({
       options: {
         ...DEFAULT_LIST_OPTIONS,
         refresh: true,
@@ -128,15 +114,22 @@ describe('useLocationsView', () => {
   });
 
   it('should not fetch on mount for invalid prefix', () => {
-    mockUseStore({ history: { current: undefined, previous: undefined } });
+    const mockHistory = { current: undefined, previous: undefined };
+    const handleStoreActionMock = jest.fn();
+
+    useStoreSpy.mockReturnValue([
+      { ...testStoreState, history: mockHistory },
+      handleStoreActionMock,
+    ]);
 
     const mockDataState = {
-      data: { result: mockData, nextToken: undefined },
+      data: { result: testData, nextToken: undefined },
       message: '',
       hasError: false,
       isLoading: false,
     };
-    const handleList = mockListItemsAction(mockDataState);
+    const handleListMock = jest.fn();
+    useActionSpy.mockReturnValue([mockDataState, handleListMock]);
 
     renderHook(() =>
       useLocationDetailView({
@@ -144,17 +137,22 @@ describe('useLocationsView', () => {
       })
     );
 
-    expect(handleList).not.toHaveBeenCalled();
+    expect(handleListMock).not.toHaveBeenCalled();
   });
 
   it('should handle pagination actions', () => {
+    const handleStoreActionMock = jest.fn();
+    useStoreSpy.mockReturnValue([testStoreState, handleStoreActionMock]);
+
     const mockDataState = {
-      data: { result: mockData, nextToken: 'token123' },
+      data: { result: testData, nextToken: 'token123' },
       message: '',
       hasError: false,
       isLoading: false,
     };
-    mockListItemsAction(mockDataState);
+
+    useActionSpy.mockReturnValue([mockDataState, jest.fn()]);
+
     const initialValues = { initialValues: { pageSize: EXPECTED_PAGE_SIZE } };
     const { result } = renderHook(() => useLocationDetailView(initialValues));
     // go next
@@ -164,7 +162,7 @@ describe('useLocationsView', () => {
 
     // check if data is correct
     expect(result.current.page).toEqual(2);
-    expect(result.current.pageItems).toEqual(mockData.slice(3));
+    expect(result.current.pageItems).toEqual(testData.slice(3));
 
     // go previous
     act(() => {
@@ -173,18 +171,21 @@ describe('useLocationsView', () => {
 
     // check data
     expect(result.current.page).toEqual(1);
-    expect(result.current.pageItems).toEqual(mockData.slice(0, 3));
+    expect(result.current.pageItems).toEqual(testData.slice(0, 3));
   });
 
   it('should handle refreshing location data', () => {
-    mockUseStore();
+    const handleStoreActionMock = jest.fn();
+    useStoreSpy.mockReturnValue([testStoreState, handleStoreActionMock]);
+
     const mockDataState = {
       data: { result: [], nextToken: undefined },
       message: '',
       hasError: false,
       isLoading: false,
     };
-    const handleList = mockListItemsAction(mockDataState);
+    const handleListMock = jest.fn();
+    useActionSpy.mockReturnValue([mockDataState, handleListMock]);
 
     const { result } = renderHook(() => useLocationDetailView());
 
@@ -202,14 +203,19 @@ describe('useLocationsView', () => {
     expect(result.current.page).toEqual(1);
 
     // data refreshed
-    expect(handleList).toHaveBeenCalledWith({
+    expect(handleListMock).toHaveBeenCalledWith({
       options: { ...DEFAULT_LIST_OPTIONS, refresh: true },
       prefix: 'item-b/',
     });
   });
 
   it('should not refresh location data for invalid paths', () => {
-    mockUseStore({ history: { current: undefined, previous: undefined } });
+    const mockHistory = { current: undefined, previous: undefined };
+    const handleStoreActionMock = jest.fn();
+    useStoreSpy.mockReturnValue([
+      { ...testStoreState, history: mockHistory },
+      handleStoreActionMock,
+    ]);
 
     const mockDataState = {
       data: { result: [], nextToken: undefined },
@@ -217,7 +223,9 @@ describe('useLocationsView', () => {
       hasError: false,
       isLoading: false,
     };
-    const handleList = mockListItemsAction(mockDataState);
+
+    const handleListMock = jest.fn();
+    useActionSpy.mockReturnValue([mockDataState, handleListMock]);
 
     const { result } = renderHook(() => useLocationDetailView());
 
@@ -225,11 +233,16 @@ describe('useLocationsView', () => {
       result.current.onRefresh();
     });
     expect(result.current.page).toEqual(1);
-    expect(handleList).not.toHaveBeenCalled();
+    expect(handleListMock).not.toHaveBeenCalled();
   });
 
   it('should handle selecting a location', () => {
-    const dispatch = mockUseStore({} as StoreModule.UseStoreState);
+    const mockHistory = { current: undefined, previous: undefined };
+    const handleStoreActionMock = jest.fn();
+    useStoreSpy.mockReturnValue([
+      { ...testStoreState, history: mockHistory },
+      handleStoreActionMock,
+    ]);
 
     const { result } = renderHook(() => useLocationDetailView());
 
@@ -246,16 +259,21 @@ describe('useLocationsView', () => {
       state.onAccessItem(expectedLocation);
     });
 
-    expect(dispatch).toHaveBeenCalledWith({
+    expect(handleStoreActionMock).toHaveBeenCalledWith({
       type: 'NAVIGATE',
       destination: expectedLocation,
     });
   });
 
   it('should handle adding files', () => {
-    const dispatchMock = mockUseStore();
-    const { result } = renderHook(() => useLocationDetailView());
+    const handleStoreActionMock = jest.fn();
+    const mockHistory = { current: undefined, previous: undefined };
+    useStoreSpy.mockReturnValue([
+      { ...testStoreState, history: mockHistory },
+      handleStoreActionMock,
+    ]);
 
+    const { result } = renderHook(() => useLocationDetailView());
     // uploads files
     const mockFiles = Array(3)
       .fill(null)
@@ -267,7 +285,7 @@ describe('useLocationsView', () => {
       const state = result.current;
       state.onAddFiles(mockFiles);
     });
-    expect(dispatchMock).toHaveBeenCalledWith({
+    expect(handleStoreActionMock).toHaveBeenCalledWith({
       type: 'ADD_FILE_ITEMS',
       files: mockFiles,
     });
