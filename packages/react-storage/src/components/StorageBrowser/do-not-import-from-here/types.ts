@@ -55,6 +55,11 @@ export type TaskAction<T = TaskActionInput, K = TaskActionOutput> = (
   input: T
 ) => Promise<K>;
 
+export interface SearchOptions {
+  query: string;
+  includeSubfolders?: boolean;
+}
+
 export interface ListActionOptions<T = never> {
   delimiter?: string;
   exclude?: T | T[];
@@ -62,6 +67,7 @@ export interface ListActionOptions<T = never> {
   pageSize?: number;
   refresh?: boolean;
   reset?: boolean;
+  searching?: SearchOptions;
 }
 
 export interface ListActionInput<K = never> {

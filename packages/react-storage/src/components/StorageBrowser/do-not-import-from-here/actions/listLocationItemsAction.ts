@@ -10,6 +10,7 @@ import {
   ListActionOptions,
   ListActionOutput,
   LocationItem,
+  SearchOptions,
 } from '../types';
 
 export interface ListLocationItemsActionInput
@@ -53,12 +54,68 @@ export const parseResult = (
   ...parseItems(output.items, path),
 ];
 
+interface ListWithSearchInput {
+  listInputOptions: ListActionOptions;
+  searchOptions: SearchOptions;
+  prevState: ListLocationItemsActionOutput;
+  path: string;
+}
+
+function filter<K>(state: K[], query: string, searchKey: keyof K) {
+  return state.filter((item) => {
+    const test = item[searchKey];
+    if (typeof test === 'string') {
+      return test.includes(query);
+    }
+  });
+}
+
+const MAX_ITEMS = 10000;
+
+async function listWithSearch({
+  listInputOptions,
+  searchOptions,
+  prevState,
+  path,
+}: ListWithSearchInput): Promise<ListLocationItemsActionOutput> {
+  const { query, includeSubfolders } = searchOptions;
+
+  if (!includeSubfolders) {
+    // TODO: we lose state for the current page after filtering
+    const result = filter<LocationItem>(prevState.result, query, 'key');
+    return { result, nextToken: undefined };
+  } else {
+    const result: LocationItem[] = [];
+    let nextNextToken = listInputOptions?.nextToken;
+
+    do {
+      const output = await list({
+        path,
+        options: {
+          ...listInputOptions,
+          subpathStrategy: {
+            strategy: 'include',
+          },
+          nextToken: nextNextToken,
+        },
+      });
+      const parsedOutput = parseResult(output, path);
+      result.push(...parsedOutput);
+      nextNextToken = output.nextToken;
+    } while (nextNextToken && result.length < MAX_ITEMS);
+
+    const filteredResult = filter<LocationItem>(result, query, 'key');
+    return { result: filteredResult, nextToken: undefined };
+  }
+}
+
 export async function listLocationItemsAction(
   prevState: ListLocationItemsActionOutput,
   input: ListLocationItemsActionInput
 ): Promise<ListLocationItemsActionOutput> {
   const { config, options, prefix: path } = input ?? {};
-  const { delimiter, nextToken, pageSize, refresh, reset } = options ?? {};
+  const { delimiter, nextToken, pageSize, refresh, reset, searching } =
+    options ?? {};
 
   if (reset) {
     return { result: [], nextToken: undefined };
@@ -98,6 +155,15 @@ export async function listLocationItemsAction(
       subpathStrategy,
     },
   };
+
+  if (searching) {
+    return await listWithSearch({
+      listInputOptions: { ...listInput, pageSize: 1000 },
+      searchOptions: searching,
+      prevState,
+      path,
+    });
+  }
 
   const output = await list(listInput);
 
