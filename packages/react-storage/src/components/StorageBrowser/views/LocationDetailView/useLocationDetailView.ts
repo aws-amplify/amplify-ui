@@ -56,12 +56,13 @@ export function useLocationDetailView(
   options?: UseLocationDetailViewOptions
 ): UseLocationDetailView {
   const { initialValues, onActionSelect, onNavigate } = options ?? {};
-  const listOptions = React.useMemo(() => {
-    return {
-      ...DEFAULT_LIST_OPTIONS,
-      ...initialValues,
-    };
-  }, [initialValues]);
+
+  const listOptionsRef = React.useRef({
+    ...DEFAULT_LIST_OPTIONS,
+    ...initialValues,
+  });
+
+  const listOptions = listOptionsRef.current;
 
   const [{ history }, dispatchStoreAction] = useStore();
   const { current } = history;
@@ -109,14 +110,7 @@ export function useLocationDetailView(
     if (hasInvalidPrefix) return;
     handleList({ prefix, options: { ...listOptions, refresh: true } });
     handleReset();
-  }, [
-    dispatchStoreAction,
-    handleList,
-    handleReset,
-    listOptions,
-    hasInvalidPrefix,
-    prefix,
-  ]);
+  }, [handleList, handleReset, listOptions, hasInvalidPrefix, prefix]);
 
   const pageItems = React.useMemo(() => {
     const [start, end] = range;
