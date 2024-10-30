@@ -1,8 +1,7 @@
 import React from 'react';
 
-import { humanFileSize, isFunction, isUndefined } from '@aws-amplify/ui';
+import { humanFileSize } from '@aws-amplify/ui';
 
-import { uploadHandler } from '../../actions';
 import { displayText } from '../../displayText/en';
 import { TABLE_HEADER_BUTTON_CLASS_NAME } from '../../components/DataTable';
 import { DescriptionList } from '../../components/DescriptionList';
@@ -16,9 +15,8 @@ import { getTaskCounts } from '../../controls/getTaskCounts';
 import { StatusDisplayControl } from '../../controls/StatusDisplayControl';
 import { ControlsContextProvider } from '../../controls/context';
 import { ControlsContext } from '../../controls/types';
-import { useGetActionInput } from '../../providers/configuration';
 import { useStore } from '../../providers/store';
-import { TaskStatus, useProcessTasks } from '../../tasks';
+import { TaskStatus } from '../../tasks';
 
 import { compareNumbers, compareStrings, getPercentValue } from '../utils';
 import { CLASS_BASE } from '../constants';
@@ -30,12 +28,10 @@ import {
   SortState,
 } from '../Controls/Table';
 import { Title } from './Controls/Title';
-import {
-  DEFAULT_OVERWRITE_PROTECTION,
-  STATUS_DISPLAY_VALUES,
-} from './constants';
+import { STATUS_DISPLAY_VALUES } from './constants';
 import { FileItems } from '../../providers/store/files';
 import { ActionStartControl } from '../../controls/ActionStartControl';
+import { useUploadView } from '../hooks/useUploadView';
 
 const { Icon } = StorageBrowserElements;
 
@@ -197,15 +193,8 @@ export const UploadControls = ({
 }: {
   onClose?: () => void;
 }): JSX.Element => {
-  const getInput = useGetActionInput();
-
-  const [preventOverwrite, setPreventOverwrite] = React.useState(
-    DEFAULT_OVERWRITE_PROTECTION
-  );
-
   const [{ actionType, files, history }, dispatchStoreAction] = useStore();
   const { prefix } = history?.current ?? {};
-  const hasInvalidPrefix = isUndefined(prefix);
 
   // launch native file picker on intiial render if no files are currently in state
   const selectionTypeRef = React.useRef<'FILE' | 'FOLDER' | undefined>(
@@ -225,9 +214,20 @@ export const UploadControls = ({
     };
   }, [dispatchStoreAction]);
 
-  const [tasks, handleProcess] = useProcessTasks(uploadHandler, files, {
-    concurrency: 4,
-  });
+  const {
+    tasks,
+    isStartDisabled: disablePrimary,
+    isCancelDisabled: disableCancel,
+    isOverwriteDisabled: disableOverwrite,
+    isSelectFilesDisabled: disableSelectFiles,
+    onProcessStart,
+    onProcessCancel,
+    onSelectFiles,
+    onExit,
+    overwriteSelection,
+    onToggleOverwrite,
+    onDropFiles,
+  } = useUploadView({ onClose });
 
   const [compareFn, setCompareFn] = React.useState<(a: any, b: any) => number>(
     () => compareStrings
@@ -317,17 +317,6 @@ export const UploadControls = ({
 
   const taskCounts = getTaskCounts(tasks);
 
-  const hasStarted = !!taskCounts.PENDING;
-  const hasCompleted =
-    !!taskCounts.TOTAL &&
-    taskCounts.CANCELED + taskCounts.COMPLETE + taskCounts.FAILED ===
-      taskCounts.TOTAL;
-
-  const disableCancel = !taskCounts.TOTAL || !hasStarted || hasCompleted;
-  const disablePrimary = !taskCounts.TOTAL || hasStarted || hasCompleted;
-  const disableOverwrite = hasStarted || hasCompleted;
-  const disableSelectFiles = hasStarted || hasCompleted;
-
   // FIXME: Eventually comes from useView hook
   const contextValue: ControlsContext = {
     data: {
@@ -352,28 +341,14 @@ export const UploadControls = ({
 
   return (
     <ControlsContextProvider {...contextValue}>
-      <Exit
-        onClick={() => {
-          if (isFunction(onClose)) onClose?.();
-          // clear tasks state
-          tasks.forEach(({ remove }) => remove());
-          // clear files state
-          dispatchStoreAction({ type: 'RESET_FILE_ITEMS' });
-          // clear selected action
-          dispatchStoreAction({ type: 'RESET_ACTION_TYPE' });
-        }}
-      />
+      <Exit onClick={onExit} />
       <Title />
       <ActionStartControl className={`${CLASS_BASE}__upload-action-start`} />
       <ButtonElement
         variant="cancel"
         disabled={disableCancel}
         className={`${CLASS_BASE}__cancel`}
-        onClick={() => {
-          tasks.forEach((task) => {
-            task.cancel?.();
-          });
-        }}
+        onClick={onProcessCancel}
       >
         Cancel
       </ButtonElement>
@@ -381,12 +356,7 @@ export const UploadControls = ({
         disabled={disableSelectFiles}
         className={`${CLASS_BASE}__add-folder`}
         variant="add-folder"
-        onClick={() => {
-          dispatchStoreAction({
-            type: 'SELECT_FILES',
-            selectionType: 'FOLDER',
-          });
-        }}
+        onClick={() => onSelectFiles('FOLDER')}
       >
         Add folder
       </ButtonElement>
@@ -394,9 +364,7 @@ export const UploadControls = ({
         disabled={disableSelectFiles}
         className={`${CLASS_BASE}__add-files`}
         variant="add-files"
-        onClick={() => {
-          dispatchStoreAction({ type: 'SELECT_FILES', selectionType: 'FILE' });
-        }}
+        onClick={() => onSelectFiles('FILE')}
       >
         Add files
       </ButtonElement>
@@ -411,11 +379,9 @@ export const UploadControls = ({
         />
       </ViewElement>
       <Overwrite
-        defaultChecked={!preventOverwrite}
+        defaultChecked={!overwriteSelection}
         disabled={disableOverwrite}
-        handleChange={() => {
-          setPreventOverwrite((overwrite) => !overwrite);
-        }}
+        handleChange={onToggleOverwrite}
       />
       <StatusDisplayControl
         className={`${CLASS_BASE}__upload-status-display`}
@@ -423,9 +389,7 @@ export const UploadControls = ({
       <Table
         data={tableData}
         columns={LOCATION_ACTION_VIEW_COLUMNS}
-        handleDroppedFiles={(files) => {
-          dispatchStoreAction({ type: 'ADD_FILE_ITEMS', files });
-        }}
+        handleDroppedFiles={(files) => onDropFiles(files)}
         renderHeaderItem={renderHeaderItem}
         renderRowItem={renderRowItem}
       />
