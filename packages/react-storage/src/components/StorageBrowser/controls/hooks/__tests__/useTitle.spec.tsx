@@ -26,9 +26,7 @@ describe('useTitle', () => {
     mockUseControlsContext.mockReturnValue({ data, actionsConfig });
 
     expect(useTitle()).toStrictEqual({
-      props: {
-        title: 'ShinyNewTitle',
-      },
+      title: 'ShinyNewTitle',
     });
   });
 
@@ -36,9 +34,7 @@ describe('useTitle', () => {
     mockUseControlsContext.mockReturnValue({ data: emptyData, actionsConfig });
 
     expect(useTitle()).toStrictEqual({
-      props: {
-        title: undefined,
-      },
+      title: undefined,
     });
   });
 });
