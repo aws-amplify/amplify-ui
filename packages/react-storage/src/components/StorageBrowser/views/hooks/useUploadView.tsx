@@ -10,8 +10,6 @@ import { isFunction, isUndefined } from '@aws-amplify/ui';
 interface UseUploadView {
   tasks: Task<File>[];
   isStartDisabled: boolean;
-  // TODO: add from main
-  // isDropzoneDisabled: boolean;
   isCancelDisabled: boolean;
   isOverwriteDisabled: boolean;
   isSelectFilesDisabled: boolean;
@@ -32,6 +30,7 @@ export const useUploadView = ({
   const getInput = useGetActionInput();
   const [{ files, history }, dispatchStoreAction] = useStore();
   const { prefix } = history?.current ?? {};
+
   const hasInvalidPrefix = isUndefined(prefix);
   const [overwriteSelection, setOverwriteSelection] = React.useState(
     DEFAULT_OVERWRITE_PROTECTION
@@ -49,10 +48,10 @@ export const useUploadView = ({
     taskCounts.CANCELED + taskCounts.COMPLETE + taskCounts.FAILED ===
       taskCounts.TOTAL;
 
-  const disableCancel = !taskCounts.TOTAL || !hasStarted || hasCompleted;
-  const disablePrimary = !taskCounts.TOTAL || hasStarted || hasCompleted;
-  const disableOverwrite = hasStarted || hasCompleted;
-  const disableSelectFiles = hasStarted || hasCompleted;
+  const isCancelDisabled = !taskCounts.TOTAL || !hasStarted || hasCompleted;
+  const isStartDisabled = !taskCounts.TOTAL || hasStarted || hasCompleted;
+  const isOverwriteDisabled = hasStarted || hasCompleted;
+  const isSelectFilesDisabled = hasStarted || hasCompleted;
 
   const onDropFiles = React.useCallback(
     (files?: File[]) => {
@@ -99,17 +98,17 @@ export const useUploadView = ({
   }, []);
 
   return {
-    isStartDisabled: disablePrimary,
-    isCancelDisabled: disableCancel,
-    isOverwriteDisabled: disableOverwrite,
-    isSelectFilesDisabled: disableSelectFiles,
+    tasks,
+    isStartDisabled,
+    isCancelDisabled,
+    isOverwriteDisabled,
+    isSelectFilesDisabled,
+    overwriteSelection,
+    onToggleOverwrite,
     onDropFiles,
     onExit,
     onProcessStart,
     onProcessCancel,
     onSelectFiles,
-    overwriteSelection,
-    onToggleOverwrite,
-    tasks,
   };
 };

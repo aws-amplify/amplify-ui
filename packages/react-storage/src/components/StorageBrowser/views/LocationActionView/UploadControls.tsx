@@ -220,12 +220,12 @@ export const UploadControls = ({
     isCancelDisabled: disableCancel,
     isOverwriteDisabled: disableOverwrite,
     isSelectFilesDisabled: disableSelectFiles,
+    overwriteSelection,
+    onToggleOverwrite,
     onProcessStart,
     onProcessCancel,
     onSelectFiles,
     onExit,
-    overwriteSelection,
-    onToggleOverwrite,
     onDropFiles,
   } = useUploadView({ onClose });
 
