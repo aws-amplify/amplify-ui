@@ -91,7 +91,7 @@ export function LocationsView({
         <Loading />
         {hasError ? null : (
           <DataTableControl
-            handleLocationClick={locationsView.onNavigate}
+            onNavigate={locationsView.onNavigate}
             items={pageItems}
           />
         )}

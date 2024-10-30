@@ -121,12 +121,12 @@ const getLocationsData = ({
 
 interface DataTableControlProps {
   items: LocationData[];
-  handleLocationClick: (location: LocationData) => void;
+  onNavigate: (location: LocationData) => void;
 }
 
 export function DataTableControl({
   items,
-  handleLocationClick,
+  onNavigate,
 }: DataTableControlProps): React.JSX.Element | null {
   const [sortState, setSortState] = React.useState<SortState>({
     selection: 'prefix',
@@ -138,7 +138,7 @@ export function DataTableControl({
       getLocationsData({
         data: items,
         sortState,
-        onLocationClick: handleLocationClick,
+        onLocationClick: onNavigate,
         onTableHeaderClick: (selection: string) => {
           setSortState((prevState) => ({
             selection,
@@ -147,7 +147,7 @@ export function DataTableControl({
           }));
         },
       }),
-    [items, handleLocationClick, sortState]
+    [items, onNavigate, sortState]
   );
 
   return <DataTable data={locationsData} />;

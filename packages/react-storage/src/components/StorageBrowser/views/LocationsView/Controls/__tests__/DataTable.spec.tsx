@@ -51,7 +51,7 @@ describe('LocationsViewTableControl', () => {
 
   it('renders the table with data', () => {
     const { getAllByText, getByText } = render(
-      <DataTableControl items={mockData} handleLocationClick={jest.fn()} />
+      <DataTableControl items={mockData} onNavigate={jest.fn()} />
     );
 
     expect(getByText('Folder')).toBeInTheDocument();
@@ -66,7 +66,7 @@ describe('LocationsViewTableControl', () => {
 
   it('renders the correct icon based on sort state', () => {
     const { getByRole, getByText } = render(
-      <DataTableControl items={mockData} handleLocationClick={jest.fn()} />
+      <DataTableControl items={mockData} onNavigate={jest.fn()} />
     );
 
     const folderTh = getByRole('columnheader', { name: 'Folder' });
@@ -80,7 +80,7 @@ describe('LocationsViewTableControl', () => {
 
   it('updates sort state when other headers are clicked', () => {
     const { getByRole, getByText } = render(
-      <DataTableControl items={mockData} handleLocationClick={jest.fn()} />
+      <DataTableControl items={mockData} onNavigate={jest.fn()} />
     );
 
     const folderTh = getByRole('columnheader', { name: 'Folder' });
@@ -99,7 +99,7 @@ describe('LocationsViewTableControl', () => {
     const { getByRole } = render(
       <DataTableControl
         items={mockData}
-        handleLocationClick={mockLocationClickHandler}
+        onNavigate={mockLocationClickHandler}
       />
     );
 
