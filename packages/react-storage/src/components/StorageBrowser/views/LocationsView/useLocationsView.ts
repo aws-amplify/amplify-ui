@@ -84,7 +84,7 @@ export function useLocationsView(
     range,
   } = usePaginate({ onPaginateNext, pageSize: listOptions.pageSize });
 
-  const processedItems = React.useMemo(() => {
+  const pageItems = React.useMemo(() => {
     const [start, end] = range;
     return result.slice(start, end);
   }, [range, result]);
@@ -97,7 +97,7 @@ export function useLocationsView(
     isPaginatePreviousDisabled: currentPage <= 1 || isLoading || hasError,
     page: currentPage,
     hasNextPage: hasNextToken,
-    pageItems: processedItems,
+    pageItems,
     onNavigate: (destination: LocationData) => {
       onNavigate?.(destination);
       dispatchStoreAction({ type: 'NAVIGATE', destination });

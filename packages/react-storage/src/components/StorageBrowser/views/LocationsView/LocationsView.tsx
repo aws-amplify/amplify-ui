@@ -70,7 +70,7 @@ export function LocationsView({
     data: {
       isDataRefreshDisabled: isLoading,
     },
-    onRefresh: onRefresh,
+    onRefresh,
   };
 
   return (
