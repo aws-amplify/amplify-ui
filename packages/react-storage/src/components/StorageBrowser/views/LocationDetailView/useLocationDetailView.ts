@@ -77,8 +77,12 @@ export function useLocationDetailView(
   const hasNextToken = !!nextToken;
   const onPaginateNext = () => {
     if (hasInvalidPrefix || !nextToken) return;
-
+    dispatchStoreAction({ type: 'RESET_LOCATION_ITEMS' });
     handleList({ prefix, options: { ...listOptions, nextToken } });
+  };
+
+  const onPaginatePrevious = () => {
+    dispatchStoreAction({ type: 'RESET_LOCATION_ITEMS' });
   };
 
   const {
@@ -89,6 +93,7 @@ export function useLocationDetailView(
     range,
   } = usePaginate({
     onPaginateNext,
+    onPaginatePrevious,
     pageSize: listOptions.pageSize,
   });
 
@@ -132,6 +137,7 @@ export function useLocationDetailView(
     onAccessItem: (destination: LocationData) => {
       if (isFunction(onNavigate)) onNavigate(destination);
       dispatchStoreAction({ type: 'NAVIGATE', destination });
+      dispatchStoreAction({ type: 'RESET_LOCATION_ITEMS' });
     },
     onAddFiles: (files: File[]) => {
       dispatchStoreAction({ type: 'ADD_FILE_ITEMS', files });
