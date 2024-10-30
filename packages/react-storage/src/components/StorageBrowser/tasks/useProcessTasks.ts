@@ -57,7 +57,7 @@ export const useProcessTasks = <T, K>(
 
       if (!nextTasks.length) return prevTasks;
 
-      return [...prevTasks, ...nextTasks];
+      return prevTasks.concat(nextTasks);
     });
   }, [items]);
 

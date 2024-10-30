@@ -1,6 +1,5 @@
-import { INITIAL_STATUS_COUNTS } from '../views/LocationActionView/constants';
-
 import { Task } from '../tasks';
+import { INITIAL_STATUS_COUNTS } from '../views/LocationActionView/constants';
 import { TaskCounts } from './types';
 
 export const getTaskCounts = <T>(tasks: Task<T>[] = []): TaskCounts =>

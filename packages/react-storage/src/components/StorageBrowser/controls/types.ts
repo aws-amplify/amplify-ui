@@ -35,8 +35,9 @@ export interface ControlsContext {
   data: {
     taskCounts?: TaskCounts;
     tableData?: TableData;
+    isDataRefreshDisabled?: boolean;
   };
-  actionsConfig: {
+  actionsConfig?: {
     type:
       | 'SINGLE_ACTION'
       | 'BATCH_ACTION'
@@ -45,4 +46,5 @@ export interface ControlsContext {
     isCancelable?: boolean;
   };
   onDropComplete?: DropZoneProps['onDropComplete'];
+  onRefresh?: () => void;
 }

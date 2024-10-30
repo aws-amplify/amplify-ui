@@ -4,30 +4,41 @@ export type ConversationRoute = V6Client<any>['conversations'][string];
 export type Conversation = NonNullable<
   Awaited<ReturnType<ConversationRoute['create']>>['data']
 >;
+
 export type ConversationMessage = NonNullable<
   Awaited<ReturnType<Conversation['sendMessage']>>['data']
 >;
 
 export type ConversationMessageContent = ConversationMessage['content'][number];
 
-export type TextContent = NonNullable<ConversationMessageContent['text']>;
+export type TextContentBlock = NonNullable<ConversationMessageContent['text']>;
 
-export type ImageContent = NonNullable<ConversationMessageContent['image']>;
+export type ImageContentBlock = NonNullable<
+  ConversationMessageContent['image']
+>;
 
-export type InputContent = Parameters<
-  Conversation['sendMessage']
->[0]['content'][number];
+// Note: the conversation sendMessage function is an overload
+// that accepts a string OR an object
+export type InputContent = Exclude<
+  Parameters<Conversation['sendMessage']>[0],
+  string
+>['content'][number];
 
-export type SendMessageContent = Parameters<
-  Conversation['sendMessage']
->[0]['content'];
+export type SendMessageContent = Exclude<
+  Parameters<Conversation['sendMessage']>[0],
+  string
+>['content'];
 
-export type SendMessageContext = Parameters<
-  Conversation['sendMessage']
->[0]['aiContext'];
+export type SendMessageContext = Exclude<
+  Parameters<Conversation['sendMessage']>[0],
+  string
+>['aiContext'];
 
 export type ToolConfiguration = NonNullable<
-  Parameters<Conversation['sendMessage']>[0]['toolConfiguration']
+  Exclude<
+    Parameters<Conversation['sendMessage']>[0],
+    string
+  >['toolConfiguration']
 >;
 
 export interface SendMesageParameters {
