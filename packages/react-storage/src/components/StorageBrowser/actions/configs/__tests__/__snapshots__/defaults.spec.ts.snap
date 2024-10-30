@@ -2,6 +2,18 @@
 
 exports[`defaultActionConfigs matches expected shape 1`] = `
 {
+  "Copy": {
+    "actionsListItemConfig": {
+      "disable": [Function],
+      "hide": [Function],
+      "icon": "copy-file",
+      "label": "Copy files",
+    },
+    "handler": [Function],
+    "isCancelable": false,
+    "title": "Create Folder",
+    "type": "SINGLE_ACTION",
+  },
   "CreateFolder": {
     "actionsListItemConfig": {
       "disable": [Function],
