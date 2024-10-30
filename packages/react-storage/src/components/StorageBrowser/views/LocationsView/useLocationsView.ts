@@ -99,9 +99,7 @@ export function useLocationsView(
     hasNextPage: hasNextToken,
     pageItems: processedItems,
     onNavigate: (destination: LocationData) => {
-      if (typeof onNavigate === 'function') {
-        onNavigate(destination);
-      }
+      onNavigate?.(destination);
       dispatchStoreAction({ type: 'NAVIGATE', destination });
     },
     onRefresh: () => {

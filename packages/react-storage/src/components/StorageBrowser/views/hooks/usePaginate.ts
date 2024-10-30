@@ -27,9 +27,9 @@ export const usePaginate = ({
   }).current;
 
   return React.useMemo(() => {
-    const isInitialPage = currentPage === 1;
-    const start = isInitialPage ? 0 : (currentPage - 1) * pageSize;
-    const end = isInitialPage ? pageSize : currentPage * pageSize;
+    const isFirstPage = currentPage === 1;
+    const start = isFirstPage ? 0 : (currentPage - 1) * pageSize;
+    const end = isFirstPage ? pageSize : currentPage * pageSize;
     return {
       currentPage,
       handlePaginateNext: (input) => {
