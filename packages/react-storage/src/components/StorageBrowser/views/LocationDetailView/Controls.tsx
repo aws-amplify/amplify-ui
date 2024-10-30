@@ -60,26 +60,30 @@ const LocationDetailEmptyMessage = () => {
 
 export const LocationDetailViewControls = ({
   onActionSelect,
-  onNavigate,
+  onNavigate: onNavigateProp,
   onExit,
 }: Omit<
   LocationDetailViewProps,
   'children' | 'className'
 >): React.JSX.Element => {
-  const locationDetailView = useLocationDetailView({ onNavigate });
   const {
     pageItems,
     isLoading,
     page,
     isPaginatePreviousDisabled,
     isPaginateNextDisabled,
-  } = locationDetailView;
+    onRefresh,
+    onPaginateNext,
+    onPaginatePrevious,
+    onAddFiles,
+    onAccessItem,
+  } = useLocationDetailView({ onNavigate: onNavigateProp });
 
   const contextValue: ControlsContext = {
     data: {
       isDataRefreshDisabled: isLoading,
     },
-    onRefresh: locationDetailView.onRefresh,
+    onRefresh,
   };
 
   return (
@@ -97,15 +101,15 @@ export const LocationDetailViewControls = ({
         currentPage={page}
         disableNext={isPaginateNextDisabled}
         disablePrevious={isPaginatePreviousDisabled}
-        handleNext={locationDetailView.onPaginateNext}
-        handlePrevious={locationDetailView.onPaginatePrevious}
+        handleNext={onPaginateNext}
+        handlePrevious={onPaginatePrevious}
       />
       <LocationDetailMessage />
       <Loading show={isLoading} />
       <LocationDetailViewTable
         items={pageItems}
-        handleDroppedFiles={locationDetailView.onAddFiles}
-        handleLocationItemClick={locationDetailView.onAccessItem}
+        handleDroppedFiles={onAddFiles}
+        handleLocationItemClick={onAccessItem}
       />
       <LocationDetailEmptyMessage />
     </ControlsContextProvider>

@@ -55,9 +55,7 @@ export const DEFAULT_LIST_OPTIONS = {
 export function useLocationDetailView(
   options?: UseLocationDetailViewOptions
 ): UseLocationDetailView {
-  const initialValues = options?.initialValues;
-  const onActionSelect = options?.onActionSelect;
-  const onNavigate = options?.onNavigate;
+  const { initialValues, onActionSelect, onNavigate } = options ?? {};
   const listOptions = React.useMemo(() => {
     return {
       ...DEFAULT_LIST_OPTIONS,
@@ -74,6 +72,7 @@ export function useLocationDetailView(
     'LIST_LOCATION_ITEMS'
   );
 
+  // set up pagination
   const { result, nextToken } = data;
   const resultCount = result.length;
   const hasNextToken = !!nextToken;
@@ -119,14 +118,14 @@ export function useLocationDetailView(
     prefix,
   ]);
 
-  const processedItems = React.useMemo(() => {
+  const pageItems = React.useMemo(() => {
     const [start, end] = range;
     return result.slice(start, end);
   }, [range, result]);
 
   return {
     page: currentPage,
-    pageItems: processedItems,
+    pageItems,
     hasNextPage: hasNextToken,
     isPaginateNextDisabled: !hasNextToken || isLoading || hasError,
     isPaginatePreviousDisabled: currentPage <= 1 || isLoading || hasError,
@@ -139,7 +138,7 @@ export function useLocationDetailView(
     },
     onRefresh,
     onAccessItem: (destination: LocationData) => {
-      if (isFunction(onNavigate)) onNavigate(destination);
+      onNavigate?.(destination);
       dispatchStoreAction({ type: 'NAVIGATE', destination });
       dispatchStoreAction({ type: 'RESET_LOCATION_ITEMS' });
     },
