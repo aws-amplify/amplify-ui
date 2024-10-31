@@ -16,11 +16,13 @@ const DEFAULT_PAGE_SIZE = 1000;
 
 export interface FolderData {
   key: string;
+  id: string;
   type: 'FOLDER';
 }
 
 export interface FileData {
   key: string;
+  id: string;
   data?: File;
   lastModified: Date;
   size: number;
@@ -31,10 +33,10 @@ type ListOutputItem = ListPaginateWithPathOutput['items'][number];
 
 export type LocationItemData = FileData | FolderData;
 
-export type LocationItemDataType = LocationItemData['type'];
+export type LocationItemType = LocationItemData['type'];
 
 export interface ListLocationItemsHandlerOptions
-  extends ListHandlerOptions<LocationItemDataType> {
+  extends ListHandlerOptions<LocationItemType> {
   delimiter?: string;
   query?: string;
 }
@@ -61,7 +63,7 @@ const parseResultItems = (
 
     // Mark zero byte files as Folders
     if (size === 0 && key.endsWith('/')) {
-      return { key, type: 'FOLDER' };
+      return { key, id, type: 'FOLDER' };
     }
 
     return {
@@ -124,11 +126,11 @@ export const listLocationItemsHandler: ListLocationItemsHandler = async (
   let nextNextToken = nextToken;
 
   do {
-    // console.log('locationsResult', result);
+    console.log('locationsResult', result);
     const listInput: ListPaginateWithPathInput = {
       path: prefix,
-      nextToken: nextNextToken,
       options: {
+        nextToken: nextNextToken,
         ..._options,
         bucket,
         locationCredentialsProvider: credentials,
@@ -145,9 +147,11 @@ export const listLocationItemsHandler: ListLocationItemsHandler = async (
         parseResult(output, prefix).filter(({ key }) => key !== prefix)
       : parseResult(output, prefix);
 
-    result = items.filter((item) => item.type !== excludedType);
+    result = result.concat(
+      excludedType ? items.filter((item) => item.type !== excludedType) : items
+    );
   } while (nextNextToken && result.length < pageSize);
-  // console.log('locationsResult after', result);
+  console.log('locationsResult after', result);
 
   return { items: result, nextToken: nextNextToken };
 };

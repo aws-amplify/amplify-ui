@@ -1,5 +1,4 @@
-import React, { useEffect, useRef } from 'react';
-import { useAction } from '../../do-not-import-from-here/actions';
+import React, { useEffect, useRef, useState } from 'react';
 import { isString } from '@aws-amplify/ui';
 import { LoadingControl } from '../Controls/Loading';
 import { usePaginate } from '../hooks/usePaginate';
@@ -8,13 +7,15 @@ import { Controls } from '../Controls';
 import { TableDataText, Column, RenderRowItem } from '../Controls/Table';
 import { StorageBrowserElements } from '../../context/elements';
 import { displayText } from '../../displayText/en';
-
+import { listLocationItemsHandler, ListLocationItemsHandlerInput, ListLocationItemsHandlerOutput } from '../../actions/handlers/listLocationItems'
+import { getInput } from '../../../FileUploader/utils';
+import { useGetActionInput } from '../../providers/configuration';
 const { actionCurrentFolderSelected } = displayText;
 const { Button } = StorageBrowserElements;
 const { Table } = Controls;
 
 const DEFAULT_ERROR_MESSAGE = 'There was an error loading items.';
-const DEFAULT_PAGE_SIZE = 10000;
+const DEFAULT_PAGE_SIZE = 10;
 export const DEFAULT_LIST_OPTIONS = {
   pageSize: DEFAULT_PAGE_SIZE,
   delimiter: '/',
@@ -35,6 +36,26 @@ const DESTINATION_PICKER_COLUMNS: Column<DestinationPickerColumns>[] = [
 // 2. Make the ListObjects call exhaustive up to 10k results (similar to search) to fix pagination
 // 3. Fix styling so that it only takes up 50% of parent container
 
+const useLocationItems = () => {
+  const [data, setData] = useState<ListLocationItemsHandlerOutput>({ items: [], nextToken: undefined });
+
+  const handleList = async (input: ListLocationItemsHandlerInput) => {
+    console.log('input', input)
+    const output = await listLocationItemsHandler({
+      config: input.config,
+      prefix: input.prefix,
+      options: input.options,
+    })
+    console.log('input', output)
+    setData(output)
+  }
+
+  return [
+    data,
+    handleList,
+  ] as const;
+}
+
 export const DestinationPicker = ({
   destinationPrefix,
   setDestinationPrefix,
@@ -43,12 +64,14 @@ export const DestinationPicker = ({
   setDestinationPrefix: (destination: string[]) => void;
 }): React.JSX.Element => {
   const previousPathref = useRef('');
+  // const [{ data, isLoading }, handleList] = useAction('LIST_LOCATION_ITEMS');
 
-  const [{ data, isLoading }, handleList] = useAction('LIST_LOCATION_ITEMS');
-  const { result, nextToken } = data;
+  const [data, handleList] = useLocationItems()
+  const getInput = useGetActionInput();
 
-  const folderItems = result.filter((item) => item.type === 'FOLDER');
-  const resultCount = folderItems.length;
+  const { items, nextToken } = data;
+  const isLoading = items.length == 0;
+  const resultCount = items.length;
   const hasNextToken = !!nextToken;
 
   const hasValidPath = isString(destinationPrefix);
@@ -56,7 +79,8 @@ export const DestinationPicker = ({
     if (!hasValidPath) return;
 
     handleList({
-      prefix: destinationPrefix,
+      config: getInput(),
+      prefix: destinationPrefix.join('/'),
       options: { ...DEFAULT_LIST_OPTIONS, nextToken },
     });
   };
@@ -70,15 +94,16 @@ export const DestinationPicker = ({
   const disablePrevious = currentPage === 1;
 
   useEffect(() => {
-    const newPath = destinationPrefix.join('');
+    const newPath = destinationPrefix.join('/');
     if (previousPathref.current !== newPath) {
       handleList({
+        config: getInput(),
         prefix: newPath,
         options: { ...DEFAULT_REFRESH_OPTIONS, nextToken },
       });
     }
     previousPathref.current = newPath;
-  }, [handleList, nextToken, destinationPrefix]);
+  }, [getInput, handleList, nextToken, destinationPrefix]);
 
   const handleNavigateFolder = (key: string) => {
     const newPath = [...destinationPrefix, key];
@@ -151,7 +176,7 @@ export const DestinationPicker = ({
     );
   };
 
-  const selectedItemsData = folderItems.map((item) => {
+  const selectedItemsData = items.map((item) => {
     return { name: item.key, path: destinationPrefix };
   });
 
