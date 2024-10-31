@@ -143,9 +143,32 @@ describe('useLocationsView', () => {
   it('should handle pagination actions', () => {
     const handleStoreActionMock = jest.fn();
     useStoreSpy.mockReturnValue([testStoreState, handleStoreActionMock]);
+    const mockHandleList = jest.fn();
+
+    // set up empty page
+    useActionSpy.mockReturnValue([
+      {
+        data: {
+          result: [],
+          nextToken: undefined,
+        },
+        message: '',
+        hasError: false,
+        isLoading: false,
+      },
+      mockHandleList,
+    ]);
+
+    const initialValues = { initialValues: { pageSize: EXPECTED_PAGE_SIZE } };
+    const { result, rerender } = renderHook(() =>
+      useLocationDetailView(initialValues)
+    );
+
+    expect(result.current.isPaginateNextDisabled).toBe(true);
+    expect(result.current.isPaginatePreviousDisabled).toBe(true);
+    expect(result.current.pageItems).toEqual([]);
 
     // set up first page mock
-    const mockHandleList = jest.fn();
     const mockDataState = {
       data: {
         result: testData.slice(0, EXPECTED_PAGE_SIZE),
@@ -158,8 +181,7 @@ describe('useLocationsView', () => {
 
     useActionSpy.mockReturnValue([mockDataState, mockHandleList]);
 
-    const initialValues = { initialValues: { pageSize: EXPECTED_PAGE_SIZE } };
-    const { result } = renderHook(() => useLocationDetailView(initialValues));
+    rerender(initialValues);
 
     // set up second page mock
     useActionSpy.mockReturnValue([

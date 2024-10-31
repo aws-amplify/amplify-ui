@@ -92,6 +92,26 @@ describe('useLocationsView', () => {
   });
 
   it('should handle pagination actions', () => {
+    // empty state
+    mockUseLocationsData({
+      data: {
+        result: [],
+        nextToken: undefined,
+      },
+      message: '',
+      hasError: false,
+      isLoading: false,
+    });
+
+    const initialState = { initialValues: { pageSize: EXPECTED_PAGE_SIZE } };
+    const { result, rerender } = renderHook(() =>
+      useLocationsView(initialState)
+    );
+
+    expect(result.current.isPaginateNextDisabled).toBe(true);
+    expect(result.current.isPaginatePreviousDisabled).toBe(true);
+    expect(result.current.pageItems).toEqual([]);
+
     // mock first page data
     const mockDataState = {
       data: {
@@ -104,9 +124,7 @@ describe('useLocationsView', () => {
     };
     mockUseLocationsData(mockDataState);
 
-    const initialState = { initialValues: { pageSize: EXPECTED_PAGE_SIZE } };
-    const { result } = renderHook(() => useLocationsView(initialState));
-
+    rerender(initialState);
     // check first page
     expect(result.current.page).toEqual(1);
     expect(result.current.isPaginateNextDisabled).toBe(false);
