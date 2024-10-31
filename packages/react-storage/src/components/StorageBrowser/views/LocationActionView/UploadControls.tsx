@@ -337,7 +337,7 @@ export const UploadControls = ({
     taskCounts.CANCELED + taskCounts.COMPLETE + taskCounts.FAILED ===
       taskCounts.TOTAL;
 
-  const disableCancel = !taskCounts.TOTAL || hasStarted || hasCompleted;
+  const disableCancel = !taskCounts.TOTAL || !hasStarted || hasCompleted;
   const disablePrimary = !taskCounts.TOTAL || hasStarted || hasCompleted;
   const disableOverwrite = hasStarted || hasCompleted;
   const disableSelectFiles = hasStarted || hasCompleted;
