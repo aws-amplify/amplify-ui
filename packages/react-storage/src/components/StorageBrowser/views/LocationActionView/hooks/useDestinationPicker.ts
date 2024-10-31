@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { isString } from '@aws-amplify/ui';
 import { usePaginate } from '../../hooks/usePaginate';
 import {
@@ -7,12 +7,13 @@ import {
   ListLocationItemsHandlerOutput,
 } from '../../../actions/handlers/listLocationItems';
 import { useGetActionInput } from '../../../providers/configuration';
+import { getDestinationListFullPrefix } from '../utils/getDestinationPickerDataTable';
 // const {
 //   useDataState,
 // } from '@aws-amplify/ui-react-core';
 
 const DEFAULT_ERROR_MESSAGE = 'There was an error loading items.';
-const DEFAULT_PAGE_SIZE = 10;
+const DEFAULT_PAGE_SIZE = 1000;
 export const DEFAULT_LIST_OPTIONS = {
   pageSize: DEFAULT_PAGE_SIZE,
   delimiter: '/',
@@ -44,9 +45,9 @@ const useLocationItems = () => {
 };
 
 export const useDestinationPicker = ({
-  destinationPrefix,
+  destinationList,
 }: {
-  destinationPrefix: string[];
+  destinationList: string[];
 }): {
   items: ListLocationItemsHandlerOutput['items'];
   hasNextToken: boolean;
@@ -66,13 +67,13 @@ export const useDestinationPicker = ({
   const resultCount = items.length;
   const hasNextToken = !!nextToken;
 
-  const hasValidPath = isString(destinationPrefix.join());
+  const hasValidPath = isString(destinationList.join());
   const onPaginateNext = () => {
     if (!hasValidPath) return;
 
     handleList({
       config: getInput(),
-      prefix: `${destinationPrefix.join('/')}/`,
+      prefix: getDestinationListFullPrefix(destinationList),
       options: { ...DEFAULT_LIST_OPTIONS, nextToken },
     });
   };
@@ -85,7 +86,7 @@ export const useDestinationPicker = ({
   console.log('currentPage', currentPage, 'range', range);
 
   useEffect(() => {
-    const newPath = `${destinationPrefix.join('/')}/`;
+    const newPath = getDestinationListFullPrefix(destinationList);
     if (previousPathref.current !== newPath) {
       handleList({
         config: getInput(),
@@ -94,7 +95,7 @@ export const useDestinationPicker = ({
       });
     }
     previousPathref.current = newPath;
-  }, [getInput, handleList, nextToken, destinationPrefix]);
+  }, [getInput, handleList, nextToken, destinationList]);
 
   return {
     items,

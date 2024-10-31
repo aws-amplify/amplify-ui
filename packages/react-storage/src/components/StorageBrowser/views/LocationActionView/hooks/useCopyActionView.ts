@@ -9,6 +9,7 @@ import { useGetActionInput } from '../../../providers/configuration';
 import { useStore } from '../../../providers/store';
 import { getActionViewDisabledButtons } from '../utils';
 import { getTaskCounts } from '../../../controls/getTaskCounts';
+import { getDestinationListFullPrefix } from '../utils/getDestinationPickerDataTable';
 
 interface UseCopyActionView extends UseActionView {
   tasks: Task<{
@@ -65,10 +66,9 @@ export const useCopyActionView = ({
 
   const onStart = () => {
     if (!destinationList || !current?.prefix) return;
-    console.log('destinationList', `${destinationList.join('/')}/`);
     handleProcess({
       config: getInput(),
-      prefix: `${destinationList.join('/')}/`,
+      prefix: getDestinationListFullPrefix(destinationList),
     });
   };
 

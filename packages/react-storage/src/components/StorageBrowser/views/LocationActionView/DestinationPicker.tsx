@@ -1,14 +1,15 @@
 import React from 'react';
-import { LoadingControl } from '../Controls/Loading';
 import { PaginateControl } from '../../views/Controls/Paginate';
-import { Controls } from '../Controls';
-import { TableDataText, Column, RenderRowItem } from '../Controls/Table';
-import { IconElement, StorageBrowserElements } from '../../context/elements';
+import { MessageControl, NavigateItem } from '../Controls';
+import { ViewElement } from '../../context/elements';
 import { displayText } from '../../displayText/en';
 import { useDestinationPicker } from './hooks/useDestinationPicker';
-const { actionCurrentFolderSelected } = displayText;
-const { Button } = StorageBrowserElements;
-const { Table } = Controls;
+import { CLASS_BASE } from '../constants';
+import { DataTableControl } from '../../controls/DataTableControl';
+import { ControlsContextProvider } from '../../controls/context';
+import { getDestinationPickerTableData } from './utils/getDestinationPickerDataTable';
+import { ControlsContext } from '../../controls/types';
+const { actionDestination } = displayText;
 
 const DEFAULT_ERROR_MESSAGE = 'There was an error loading items.';
 const DEFAULT_PAGE_SIZE = 10;
@@ -17,13 +18,7 @@ export const DEFAULT_LIST_OPTIONS = {
   delimiter: '/',
 };
 
-interface DestinationPickerColumns {
-  name: string;
-}
 
-const DESTINATION_PICKER_COLUMNS: Column<DestinationPickerColumns>[] = [
-  { key: 'name', header: 'Folder name' },
-];
 
 // @TODO for DestinationPicker
 // 1. Implement sorting when new table is ready
@@ -37,13 +32,12 @@ const DESTINATION_PICKER_COLUMNS: Column<DestinationPickerColumns>[] = [
 
 
 export const DestinationPicker = ({
-  destinationPrefix,
-  setDestinationPrefix,
+  destinationList,
+  onSetDestinationList,
 }: {
-  destinationPrefix: string[];
-  setDestinationPrefix: (destination: string[]) => void;
+    destinationList: string[];
+    onSetDestinationList: (destination: string[]) => void;
   }): React.JSX.Element => {
-  // const [{ data, isLoading }, handleList] = useAction('LIST_LOCATION_ITEMS');
   const {
     items,
     hasNextToken,
@@ -52,84 +46,17 @@ export const DestinationPicker = ({
     handleNext,
     handlePrevious,
     range
-  } = useDestinationPicker({ destinationPrefix })
+  } = useDestinationPicker({ destinationList })
 
   const handleNavigateFolder = (key: string) => {
-    const newPath = [...destinationPrefix, key.replace('/', '')];
-    console.log('newPath', newPath)
-    setDestinationPrefix(newPath);
+    const newPath = [...destinationList, key.replace('/', '')];
+    onSetDestinationList(newPath);
   };
 
-
-
-  const renderHeaderItem = React.useCallback(
-    (column: Column<DestinationPickerColumns>) => {
-      const { header, key } = column;
-
-      return (
-        <Table.TableHeader
-          key={header}
-          variant={key}
-          // @TODO: implement sorting when new Table component is ready
-          // aria-sort={selection === key ? direction : 'none'}
-        >
-          {column.header}
-        </Table.TableHeader>
-      );
-    },
-    []
-  );
-
-  const renderRowItem: RenderRowItem<DestinationPickerColumns> = (
-    row,
-    index
-  ) => {
-    const renderTableData = (
-      columnKey: keyof DestinationPickerColumns,
-      row: DestinationPickerColumns
-    ) => {
-      switch (columnKey) {
-        case 'name': {
-          return (
-            <TableDataText>
-              <li key={row.name} style={{ display: 'flex' }}>
-                <Button
-                  variant="table-data"
-                  onClick={() => handleNavigateFolder(row.name)}
-                >
-                  <IconElement variant='folder' />
-                  {row.name}
-                </Button>
-              </li>
-            </TableDataText>
-          );
-        }
-        default:
-          return null;
-      }
-    };
-
-    return (
-      <Table.TableRow key={index}>
-        {row.name ? (
-          DESTINATION_PICKER_COLUMNS.map((column) => {
-            return (
-              <Table.TableData
-                key={`${index}-${column.header}`}
-                variant={column.key}
-              >
-                {renderTableData(column.key, row)}
-              </Table.TableData>
-            );
-          })
-        ) : (
-          <>{actionCurrentFolderSelected}</>
-        )}
-      </Table.TableRow>
-    );
+  const handleNavigatePath = (index: number) => {
+    const newPath = destinationList.slice(0, index + 1);
+    onSetDestinationList(newPath);
   };
-
-
 
   const pageItems = React.useMemo(() => {
     const [start, end] = range;
@@ -138,30 +65,63 @@ export const DestinationPicker = ({
 
   const disableNext = !hasNextToken && currentPage * DEFAULT_PAGE_SIZE > items.length;
   const disablePrevious = currentPage === 1;
-  const selectedItemsData = pageItems.map((item) => {
-    return { name: item.key, path: destinationPrefix };
-  });
 
-  if (isLoading) {
-    return <LoadingControl />;
-  }
+  // if (isLoading) {
+  //   return <LoadingControl />;
+  // }
+
+  const tableData = getDestinationPickerTableData({ items: pageItems, handleNavigateFolder })
+
+  const contextValue: ControlsContext = {
+    data: {
+      tableData,
+    },
+  };
 
   return (
-    <div className="storage-browser__table">
-      <PaginateControl
-        currentPage={currentPage}
-        disableNext={disableNext}
-        disablePrevious={disablePrevious}
-        handleNext={handleNext}
-        handlePrevious={handlePrevious}
-      />
+    <ControlsContextProvider {...contextValue}>
+      <ViewElement className={`${CLASS_BASE}__copy-destination-picker`}>
+        <MessageControl>
+          {DEFAULT_ERROR_MESSAGE}
+        </MessageControl>
+        <ViewElement className={`${CLASS_BASE}__action-destination`} style={{ display: 'flex' }}>
+          {actionDestination}
+          {destinationList.length ? (
+            <>
+              {destinationList.map((item, index) => (
+                <NavigateItem
+                  isCurrent={index === destinationList.length - 1}
+                  key={`${item}-${index}`}
+                  onClick={() => handleNavigatePath(index)}
+                >
+                  {item?.replace('/', '')}
+                </NavigateItem>
+              ))}
+            </>
+          ) : (
+            '-'
+          )}
+        </ViewElement>
 
-      <Table
-        data={selectedItemsData}
-        columns={DESTINATION_PICKER_COLUMNS}
-        renderHeaderItem={renderHeaderItem}
-        renderRowItem={renderRowItem}
-      />
-    </div>
+        <ViewElement className="storage-browser__table">
+          <PaginateControl
+            currentPage={currentPage}
+            disableNext={disableNext}
+            disablePrevious={disablePrevious}
+            handleNext={handleNext}
+            handlePrevious={handlePrevious}
+          />
+          <DataTableControl className={`${CLASS_BASE}__table`} />
+
+          {/* <Table
+          data={selectedItemsData}
+          columns={DESTINATION_PICKER_COLUMNS}
+          renderHeaderItem={renderHeaderItem}
+          renderRowItem={renderRowItem}
+        /> */}
+        </ViewElement>
+      </ViewElement>
+    </ControlsContextProvider>
+
   );
 };
