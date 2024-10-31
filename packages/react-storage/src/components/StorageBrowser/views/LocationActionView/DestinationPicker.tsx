@@ -7,9 +7,9 @@ import { useDestinationPicker } from './hooks/useDestinationPicker';
 import { CLASS_BASE } from '../constants';
 import { DataTableControl } from '../../controls/DataTableControl';
 import { ControlsContextProvider } from '../../controls/context';
-import { getDestinationPickerTableData } from './utils/getDestinationPickerDataTable';
+import { getDestinationListFullPrefix, getDestinationPickerTableData } from './utils/getDestinationPickerDataTable';
 import { ControlsContext } from '../../controls/types';
-const { actionDestination } = displayText;
+const { actionSetDestination, actionCurrentFolderSelected } = displayText;
 
 const DEFAULT_ERROR_MESSAGE = 'There was an error loading items.';
 const DEFAULT_PAGE_SIZE = 10;
@@ -18,26 +18,23 @@ export const DEFAULT_LIST_OPTIONS = {
   delimiter: '/',
 };
 
-
-
 // @TODO for DestinationPicker
-// 1. Implement sorting when new table is ready
-// 2. Make the ListObjects call exhaustive up to 10k results (similar to search) to fix pagination
-// 3. Fix styling so that it only takes up 50% of parent container
-// 4. Hide destination picker on start
-// 5. Disable the destination breadcrumbs on start
-// 6. Show empty message when empty table (use new table?)
-// 7. add icon element
-
-
+// DONE Implement sorting when new table is ready
+// DONE - Make the ListObjects call exhaustive up to 10k results (similar to search) to fix pagination
+// DONE Hide destination picker on start
+// DONE Disable the destination breadcrumbs on start
+// DONE Show empty message when empty table (use new table?)
+// DONE add icon element
+// 1. Fix styling so that it only takes up 50% of parent container
+// 2. swap out custom hook for useData hook / error handling
 
 export const DestinationPicker = ({
   destinationList,
   onSetDestinationList,
 }: {
-    destinationList: string[];
-    onSetDestinationList: (destination: string[]) => void;
-  }): React.JSX.Element => {
+  destinationList: string[];
+  onSetDestinationList: (destination: string[]) => void;
+}): React.JSX.Element => {
   const {
     items,
     hasNextToken,
@@ -45,8 +42,8 @@ export const DestinationPicker = ({
     isLoading,
     handleNext,
     handlePrevious,
-    range
-  } = useDestinationPicker({ destinationList })
+    range,
+  } = useDestinationPicker({ destinationList });
 
   const handleNavigateFolder = (key: string) => {
     const newPath = [...destinationList, key.replace('/', '')];
@@ -63,14 +60,18 @@ export const DestinationPicker = ({
     return items.slice(start, end);
   }, [range, items]);
 
-  const disableNext = !hasNextToken && currentPage * DEFAULT_PAGE_SIZE > items.length;
+  const disableNext =
+    !hasNextToken && currentPage * DEFAULT_PAGE_SIZE > items.length;
   const disablePrevious = currentPage === 1;
 
   // if (isLoading) {
   //   return <LoadingControl />;
   // }
 
-  const tableData = getDestinationPickerTableData({ items: pageItems, handleNavigateFolder })
+  const tableData = getDestinationPickerTableData({
+    items: pageItems,
+    handleNavigateFolder,
+  });
 
   const contextValue: ControlsContext = {
     data: {
@@ -78,14 +79,19 @@ export const DestinationPicker = ({
     },
   };
 
+  const noSubfolders = !items.length;
+  const messageVariant = noSubfolders ? 'info' : 'error';
+  const message = noSubfolders ? `${actionCurrentFolderSelected} ${getDestinationListFullPrefix(destinationList)}` : DEFAULT_ERROR_MESSAGE
+  const showMessage = noSubfolders; //|| hasError;
+
   return (
     <ControlsContextProvider {...contextValue}>
       <ViewElement className={`${CLASS_BASE}__copy-destination-picker`}>
-        <MessageControl>
-          {DEFAULT_ERROR_MESSAGE}
-        </MessageControl>
-        <ViewElement className={`${CLASS_BASE}__action-destination`} style={{ display: 'flex' }}>
-          {actionDestination}
+        <ViewElement
+          className={`${CLASS_BASE}__action-destination`}
+          style={{ display: 'flex' }}
+        >
+          {actionSetDestination}
           {destinationList.length ? (
             <>
               {destinationList.map((item, index) => (
@@ -102,7 +108,6 @@ export const DestinationPicker = ({
             '-'
           )}
         </ViewElement>
-
         <ViewElement className="storage-browser__table">
           <PaginateControl
             currentPage={currentPage}
@@ -112,16 +117,13 @@ export const DestinationPicker = ({
             handlePrevious={handlePrevious}
           />
           <DataTableControl className={`${CLASS_BASE}__table`} />
-
-          {/* <Table
-          data={selectedItemsData}
-          columns={DESTINATION_PICKER_COLUMNS}
-          renderHeaderItem={renderHeaderItem}
-          renderRowItem={renderRowItem}
-        /> */}
+          {showMessage && (
+            <MessageControl variant={messageVariant}>
+              {message}
+            </MessageControl>
+          )}
         </ViewElement>
       </ViewElement>
     </ControlsContextProvider>
-
   );
 };

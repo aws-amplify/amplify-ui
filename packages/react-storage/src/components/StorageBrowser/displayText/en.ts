@@ -3,7 +3,7 @@
  */
 export const displayText = {
   actionCurrentFolderSelected:
-    'There are no more nested folders, current folder selected.',
+    'There are no more nested folders, current folder selected:',
   actionDestination: 'Destination',
   actionSetDestination: 'Set destination',
   actionSelectedText: 'Selected files',

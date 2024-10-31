@@ -8,7 +8,10 @@ const DESTINATION_PICKER_COLUMNS: DataTableProps['headers'] = [
 
 export const getDestinationListFullPrefix = (
   destinationList: string[]
-): string => `${destinationList.join('/')}/`;
+): string => {
+  const destination = destinationList.join('/');
+  return destination.endsWith('/') ? destination : `${destination}/`;
+};
 
 export const getDestinationPickerTableData = ({
   items,
