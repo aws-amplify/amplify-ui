@@ -2,17 +2,27 @@
   display: flex;
   flex-direction: column;
   height: 100%;
+  flex: 1;
 
   &__suggestion {
   }
 
   &__message {
-    --content-bg: transparent;
+    // internal CSS vars to handle combination of variation and sender (user, ai)
+    --internal-content-bg: ;
+    --internal-flex-direction: ;
+    --internal-content-padding: ;
+    --internal-body-align-items: ;
 
     display: flex;
-    flex-direction: var(--flex-direction);
-    gap: var(--amplify-space-small);
-    padding: var(--amplify-space-small);
+    flex-direction: var(--internal-flex-direction);
+    gap: var(--amplify-components-ai-conversation-message-gap);
+    padding-inline: var(
+      --amplify-components-ai-conversation-message-padding-inline
+    );
+    padding-block: var(
+      --amplify-components-ai-conversation-message-padding-block
+    );
 
     &__list {
       display: flex;
@@ -25,32 +35,47 @@
 
     &__sender {
       display: flex;
-      flex-direction: var(--flex-direction);
+      flex-direction: var(--internal-flex-direction);
       align-items: center;
-      height: var(--amplify-components-avatar-height);
-      gap: var(--amplify-space-small);
+      min-height: var(--amplify-components-avatar-height);
+      gap: var(--amplify-components-ai-conversation-message-sender-gap);
 
       &__username {
-        font-weight: bold;
+        color: var(
+          --amplify-components-ai-conversation-message-sender-username-color
+        );
+        font-size: var(
+          --amplify-components-ai-conversation-message-sender-username-font-size
+        );
+        font-weight: var(
+          --amplify-components-ai-conversation-message-sender-username-font-weight
+        );
       }
 
       &__timestamp {
-        color: var(--amplify-colors-font-tertiary);
-        font-size: var(--amplify-font-sizes-small);
+        color: var(
+          --amplify-components-ai-conversation-message-sender-timestamp-color
+        );
+        font-size: var(
+          --amplify-components-ai-conversation-message-sender-timestamp-font-size
+        );
+        font-weight: var(
+          --amplify-components-ai-conversation-message-sender-timestamp-font-weight
+        );
       }
     }
 
     &__body {
       display: flex;
       flex-direction: column;
-      align-items: var(--body-align-items);
-      gap: var(--amplify-space-xs);
+      align-items: var(--internal-body-align-items);
+      gap: var(--amplify-components-ai-conversation-message-body-gap);
     }
 
     &__content {
-      background-color: var(--content-bg);
+      background-color: var(--internal-content-bg);
       border-radius: var(--amplify-radii-medium);
-      padding: var(--content-padding);
+      padding: var(--internal-content-padding);
     }
 
     &__actions {
@@ -59,23 +84,28 @@
     }
 
     &--bubble {
-      --content-bg: var(--bg-color);
-      --content-padding: var(--amplify-space-xxs) var(--amplify-space-xs);
-      --flex-direction: row-reverse;
-      --body-align-items: flex-end;
+      --internal-content-bg: var(--internal-bg-color);
+      --internal-content-padding: var(--amplify-space-xxs)
+        var(--amplify-space-xs);
+      --internal-flex-direction: row-reverse;
+      --internal-body-align-items: flex-end;
     }
 
     &--filled {
     }
 
     &--user {
-      --bg-color: var(--amplify-colors-background-secondary);
+      --internal-bg-color: var(
+        --amplify-components-ai-conversation-message-user-background-color
+      );
     }
 
     &--assistant {
-      --bg-color: var(--amplify-colors-primary-10);
-      --flex-direction: row;
-      --body-align-items: flex-start;
+      --internal-bg-color: var(
+        --amplify-components-ai-conversation-message-assistant-background-color
+      );
+      --internal-flex-direction: row;
+      --internal-body-align-items: flex-start;
     }
   }
 
@@ -83,12 +113,13 @@
     display: flex;
     flex-direction: row;
     align-items: flex-start;
-    gap: var(--amplify-space-small);
+    gap: var(--amplify-components-ai-conversation-form-gap);
+    padding: var(--amplify-components-ai-conversation-form-padding);
 
     &__dropzone {
       text-align: initial;
       border: none;
-      padding: var(--amplify-space-xs);
+      padding: 0;
     }
 
     &__attach {
@@ -102,39 +133,66 @@
   &__attachment {
     display: flex;
     flex-direction: row;
-    padding-block: var(--amplify-space-xxxs);
-    padding-inline: var(--amplify-space-xs);
-    border-width: var(--amplify-border-widths-small);
-    border-style: solid;
-    border-color: var(--amplify-colors-border-secondary);
-    border-radius: var(--amplify-radii-small);
     align-items: center;
-    gap: var(--amplify-space-xs);
-    font-size: var(--amplify-font-sizes-small);
+    padding-block: var(
+      --amplify-components-ai-conversation-attachment-padding-block
+    );
+    padding-inline: var(
+      --amplify-components-ai-conversation-attachment-padding-inline
+    );
+    border-width: var(
+      --amplify-components-ai-conversation-attachment-border-width
+    );
+    border-style: solid;
+    border-color: var(
+      --amplify-components-ai-conversation-attachment-border-color
+    );
+    border-radius: var(
+      --amplify-components-ai-conversation-attachment-border-radius
+    );
+    gap: var(--amplify-components-ai-conversation-attachment-gap);
+    font-size: var(--amplify-components-ai-conversation-attachment-font-size);
 
     &__list {
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
-      gap: var(--amplify-space-small);
-      padding-block-start: var(--amplify-space-small);
+      gap: var(--amplify-components-ai-conversation-attachment-list-gap);
+      padding-block-start: var(
+        --amplify-components-ai-conversation-attachment-padding-block-start
+      );
     }
 
     &__image {
-      width: 1rem;
-      height: 1rem;
+      width: var(--amplify-components-ai-conversation-attachment-image-width);
+      height: var(--amplify-components-ai-conversation-attachment-image-height);
       object-fit: cover;
     }
 
     &__name {
+      color: var(--amplify-components-ai-conversation-attachment-name-color);
+      font-size: var(
+        --amplify-components-ai-conversation-attachment-name-font-size
+      );
+      font-weight: var(
+        --amplify-components-ai-conversation-attachment-name-font-weight
+      );
     }
 
     &__size {
-      color: var(--amplify-colors-font-tertiary);
+      color: var(--amplify-components-ai-conversation-attachment-size-color);
+      font-size: var(
+        --amplify-components-ai-conversation-attachment-size-font-size
+      );
+      font-weight: var(
+        --amplify-components-ai-conversation-attachment-size-font-weight
+      );
     }
 
     &__remove {
-      padding: var(--amplify-space-xxs);
+      padding: var(
+        --amplify-components-ai-conversation-attachment-remove-padding
+      );
     }
   }
 

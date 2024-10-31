@@ -1,17 +1,12 @@
 import React from 'react';
 
-import { isFunction, isUndefined } from '@aws-amplify/ui';
-
 import { useAction } from '../../do-not-import-from-here/actions';
 import { useStore } from '../../providers/store';
-
 import { Controls, LocationDetailViewTable } from '../Controls';
-import { usePaginate } from '../hooks/usePaginate';
-import { listViewHelpers } from '../utils';
 
 import { ActionsMenuControl } from './Controls/ActionsMenu';
+import { useLocationDetailView } from './useLocationDetailView';
 import { LocationDetailViewProps } from './types';
-
 import { ControlsContextProvider } from '../../controls/context';
 import { ControlsContext } from '../../controls/types';
 import { DataRefreshControl } from '../../controls/DataRefreshControl';
@@ -23,8 +18,6 @@ export const DEFAULT_LIST_OPTIONS = {
   pageSize: DEFAULT_PAGE_SIZE,
   delimiter: '/',
 };
-
-const DEFAULT_REFRESH_OPTIONS = { ...DEFAULT_LIST_OPTIONS, refresh: true };
 
 const {
   EmptyMessage,
@@ -67,90 +60,30 @@ const LocationDetailEmptyMessage = () => {
 
 export const LocationDetailViewControls = ({
   onActionSelect,
-  onNavigate,
+  onNavigate: onNavigateProp,
   onExit,
 }: Omit<
   LocationDetailViewProps,
   'children' | 'className'
 >): React.JSX.Element => {
-  const [{ data, isLoading, hasError }, handleList] = useAction(
-    'LIST_LOCATION_ITEMS'
-  );
-
-  const [{ history }, dispatchStoreAction] = useStore();
-  const { current } = history;
-  const { prefix } = current ?? {};
-  const hasInvalidPrefix = isUndefined(prefix);
-
-  const handleDroppedFiles = (files: File[]) => {
-    dispatchStoreAction({ type: 'ADD_FILE_ITEMS', files });
-    dispatchStoreAction({
-      type: 'SET_ACTION_TYPE',
-      actionType: 'UPLOAD_FILES',
-    });
-
-    if (isFunction(onActionSelect)) onActionSelect('UPLOAD_FILES');
-  };
-
-  const { result, nextToken } = data;
-  const resultCount = result.length;
-  const hasNextToken = !!nextToken;
-
-  const onPaginateNext = () => {
-    if (hasInvalidPrefix || !nextToken) return;
-
-    handleList({ prefix, options: { ...DEFAULT_LIST_OPTIONS, nextToken } });
-  };
-
   const {
-    currentPage,
-    handlePaginateNext,
-    handlePaginatePrevious,
-    handleReset: handlePaginateReset,
-  } = usePaginate({ pageSize: DEFAULT_PAGE_SIZE, onPaginateNext });
-
-  React.useEffect(() => {
-    if (hasInvalidPrefix) return;
-
-    handleList({ prefix, options: DEFAULT_REFRESH_OPTIONS });
-
-    handlePaginateReset();
-  }, [
-    dispatchStoreAction,
-    handleList,
-    handlePaginateReset,
-    hasInvalidPrefix,
-    prefix,
-  ]);
-
-  const {
-    disableActionsMenu,
-    disableNext,
-    disablePrevious,
-    disableRefresh,
-    range,
-    renderLoading,
-  } = listViewHelpers({
-    currentPage,
-    hasNextToken,
+    pageItems,
     isLoading,
-    pageSize: DEFAULT_PAGE_SIZE,
-    resultCount,
-    hasError,
-  });
-
-  const handleRefresh = () => {
-    if (hasInvalidPrefix) return;
-    handlePaginateReset();
-    handleList({ prefix, options: DEFAULT_REFRESH_OPTIONS });
-    dispatchStoreAction({ type: 'RESET_LOCATION_ITEMS' });
-  };
+    page,
+    isPaginatePreviousDisabled,
+    isPaginateNextDisabled,
+    onRefresh,
+    onPaginateNext,
+    onPaginatePrevious,
+    onAddFiles,
+    onAccessItem,
+  } = useLocationDetailView({ onNavigate: onNavigateProp });
 
   const contextValue: ControlsContext = {
     data: {
-      isDataRefreshDisabled: disableRefresh,
+      isDataRefreshDisabled: isLoading,
     },
-    onRefresh: handleRefresh,
+    onRefresh,
   };
 
   return (
@@ -162,23 +95,21 @@ export const LocationDetailViewControls = ({
       />
       <ActionsMenuControl
         onActionSelect={onActionSelect}
-        disabled={disableActionsMenu}
+        disabled={isLoading}
       />
       <Paginate
-        currentPage={currentPage}
-        disableNext={disableNext}
-        disablePrevious={disablePrevious}
-        handleNext={() => {
-          handlePaginateNext({ resultCount, hasNextToken });
-        }}
-        handlePrevious={handlePaginatePrevious}
+        currentPage={page}
+        disableNext={isPaginateNextDisabled}
+        disablePrevious={isPaginatePreviousDisabled}
+        handleNext={onPaginateNext}
+        handlePrevious={onPaginatePrevious}
       />
       <LocationDetailMessage />
-      <Loading show={renderLoading} />
+      <Loading show={isLoading} />
       <LocationDetailViewTable
-        onNavigate={onNavigate}
-        handleDroppedFiles={handleDroppedFiles}
-        range={range}
+        items={pageItems}
+        handleDroppedFiles={onAddFiles}
+        handleLocationItemClick={onAccessItem}
       />
       <LocationDetailEmptyMessage />
     </ControlsContextProvider>

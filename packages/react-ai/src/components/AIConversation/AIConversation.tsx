@@ -1,25 +1,31 @@
 import * as React from 'react';
-import { Flex, ScrollView, Text, TextProps } from '@aws-amplify/ui-react';
+import { Flex, ScrollView, Text } from '@aws-amplify/ui-react';
 import {
   IconAssistant,
   IconUser,
   useIcons,
 } from '@aws-amplify/ui-react/internal';
-import { AIConversationInput, AIConversationProps, Avatars } from './types';
+import {
+  AIConversation as AIConversationType,
+  AIConversationInput,
+  AIConversationProps,
+  Avatars,
+} from './types';
 import { MessagesControl } from './views/Controls/MessagesControl';
-import { FieldControl } from './views';
+import { FormControl } from './views/Controls/FormControl';
 import { MessageList } from './views/default/MessageList';
 import { Form } from './views/default/Form';
 import { PromptList } from './views/default/PromptList';
-import { AutoHidablePromptControl } from './views/Controls';
 import { ComponentClassName } from '@aws-amplify/ui';
-import { AIConversationProvider } from './AIConversationProvider';
+import {
+  AIConversationProvider,
+  AIConversationProviderProps,
+} from './AIConversationProvider';
+import { useSetUserAgent } from '@aws-amplify/ui-react-core';
+import { VERSION } from '../../version';
+import { DefaultMessageControl } from './views/Controls/DefaultMessageControl';
 
-interface AIConversationBaseProps
-  extends AIConversationProps,
-    AIConversationInput {}
-
-function AIConversationBase({
+function Provider({
   actions,
   avatars,
   controls,
@@ -31,7 +37,15 @@ function AIConversationBase({
   isLoading,
   displayText,
   allowAttachments,
-}: AIConversationBaseProps): JSX.Element {
+  messageRenderer,
+  children,
+}: AIConversationProviderProps): JSX.Element {
+  useSetUserAgent({
+    componentName: 'AIConversation',
+    packageName: 'react-ai',
+    version: VERSION,
+  });
+
   const icons = useIcons('aiConversation');
   const defaultAvatars: Avatars = {
     ai: {
@@ -53,11 +67,7 @@ function AIConversationBase({
     },
     isLoading,
     elements: {
-      Text: React.forwardRef<HTMLParagraphElement, TextProps>(
-        function _Text(props, ref) {
-          return <Text {...props} ref={ref} />;
-        }
-      ),
+      Text,
     },
     actions,
     suggestedPrompts,
@@ -71,26 +81,41 @@ function AIConversationBase({
     },
     displayText,
     allowAttachments,
+    messageRenderer,
   };
 
   return (
     <AIConversationProvider {...providerProps}>
+      {children}
+    </AIConversationProvider>
+  );
+}
+
+interface AIConversationBaseProps
+  extends AIConversationProps,
+    AIConversationInput {}
+
+function AIConversationBase(props: AIConversationBaseProps): JSX.Element {
+  return (
+    <Provider {...props}>
       <Flex className={ComponentClassName.AIConversation}>
         <ScrollView autoScroll="smooth" flex="1">
-          <AutoHidablePromptControl />
+          <DefaultMessageControl />
           <MessagesControl />
         </ScrollView>
-        <FieldControl />
+        <FormControl />
       </Flex>
-    </AIConversationProvider>
+    </Provider>
   );
 }
 
 /**
  * @experimental
  */
-export const AIConversation = Object.assign(AIConversationBase, {
-  MessageList,
-  PromptList,
-  Form,
-});
+export const AIConversation: AIConversationType<AIConversationBaseProps> =
+  Object.assign(AIConversationBase, {
+    Provider,
+    DefaultMessage: DefaultMessageControl,
+    Messages: MessagesControl,
+    Form: FormControl,
+  });

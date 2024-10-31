@@ -46,25 +46,14 @@ export default function Example() {
 
   return (
     <Authenticator>
-      {({ user, signOut }) => {
-        return (
-          <>
-            <h1>Hello {user.username}</h1>
-            <AIConversation
-              avatars={AVATARS}
-              messages={messages}
-              handleSendMessage={sendMessage}
-            />
-            <AIConversation.Controls.Messages.Message.Container
-              className={'whateveriwant'}
-            />
-          </>
-        );
-      }}
+      <AIConversation.Provider
+        avatars={AVATARS}
+        messages={messages}
+        handleSendMessage={sendMessage}
+      >
+        <AIConversation.Messages />
+        <AIConversation.Form />
+      </AIConversation.Provider>
     </Authenticator>
   );
 }
-
-// export default function Example() {
-//   return <div>hello world</div>;
-// }

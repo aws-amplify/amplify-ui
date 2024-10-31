@@ -1,0 +1,1 @@
+export { useDeleteActionView } from './useDeleteActionView';

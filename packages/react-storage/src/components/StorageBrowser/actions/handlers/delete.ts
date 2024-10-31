@@ -15,6 +15,7 @@ export interface DeleteHandlerInput
   extends Omit<TaskHandlerInput<never, DeleteHandlerOptions>, 'data'> {
   data: { key: string };
 }
+
 export interface DeleteHandlerOutput extends TaskHandlerOutput {}
 
 export interface DeleteHandler
@@ -23,14 +24,12 @@ export interface DeleteHandler
 export const deleteHandler: DeleteHandler = ({
   config,
   key,
-  prefix,
   options,
 }): DeleteHandlerOutput => {
   const { accountId, credentials } = config;
   const bucket = constructBucket(config);
-
   const result = remove({
-    path: `${prefix}${key}`,
+    path: key,
     options: {
       bucket,
       locationCredentialsProvider: credentials,
@@ -40,6 +39,11 @@ export const deleteHandler: DeleteHandler = ({
 
   return {
     key,
-    result: resolveHandlerResult({ key, isCancelable: false, options, result }),
+    result: resolveHandlerResult({
+      key,
+      isCancelable: false,
+      options,
+      result,
+    }),
   };
 };

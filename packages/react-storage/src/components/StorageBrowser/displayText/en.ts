@@ -7,4 +7,8 @@ export const displayText = {
   statusDisplayFailed: 'Failed',
   statusDisplayCanceled: 'Canceled',
   statusDisplayQueued: 'Not started',
+  createFolderTitle: 'Create folder',
+  uploadFolderTitle: 'Upload folder',
+  uploadFilesTitle: 'Upload files',
+  deleteFilesTitle: 'Delete files',
 };

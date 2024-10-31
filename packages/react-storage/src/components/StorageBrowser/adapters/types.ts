@@ -1,15 +1,17 @@
 import { RegisterAuthListener } from '../providers';
-import {
-  AuthConfigAdapter,
-  CreateManagedAuthConfigAdapterInput,
-} from '../storage-internal';
+import { GetLocationCredentials } from '../credentials/types';
+import { CredentialsProvider, ListLocations } from '../storage-internal';
 
-export interface StorageBrowserAuthAdapter extends AuthConfigAdapter {
-  accountId?: string;
+export interface CreateManagedAuthAdapterInput {
+  accountId: string;
+  region: string;
+  credentialsProvider: CredentialsProvider;
   registerAuthListener: RegisterAuthListener;
 }
 
-export interface CreateManagedAuthAdapterInput
-  extends CreateManagedAuthConfigAdapterInput {
+export interface StorageBrowserAuthAdapter {
+  listLocations: ListLocations;
+  getLocationCredentials: GetLocationCredentials;
+  region: string;
   registerAuthListener: RegisterAuthListener;
 }
