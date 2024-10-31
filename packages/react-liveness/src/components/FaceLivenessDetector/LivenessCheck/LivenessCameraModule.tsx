@@ -129,6 +129,7 @@ export const LivenessCameraModule = (
   const freshnessColorRef = useRef<HTMLCanvasElement | null>(null);
 
   const [isCameraReady, setIsCameraReady] = useState<boolean>(false);
+  const [isMetadataLoaded, setIsMetadataLoaded] = useState<boolean>(false);
   const [isCameraUserFacing, setIsCameraUserFacing] = useState<boolean>(true);
   const isInitCamera = state.matches('initCamera');
   const isInitWebsocket = state.matches('initWebsocket');
@@ -172,21 +173,20 @@ export const LivenessCameraModule = (
   }, [selectedDeviceId]);
 
   React.useEffect(() => {
-    if (canvasRef?.current && videoRef?.current && videoStream && isStartView) {
-      drawStaticOval(canvasRef.current, videoRef.current, videoStream);
-    }
-  }, [canvasRef, videoRef, videoStream, colorMode, isStartView]);
+    const shouldDrawOval =
+      canvasRef?.current &&
+      videoRef?.current &&
+      videoStream &&
+      isStartView &&
+      isMetadataLoaded;
 
-  React.useEffect(() => {
+    if (shouldDrawOval) {
+      drawStaticOval(canvasRef.current, videoRef.current!, videoStream);
+    }
+
     const updateColorModeHandler = (e: MediaQueryListEvent) => {
-      if (
-        e.matches &&
-        canvasRef?.current &&
-        videoRef?.current &&
-        videoStream &&
-        isStartView
-      ) {
-        drawStaticOval(canvasRef.current, videoRef.current, videoStream);
+      if (e.matches && shouldDrawOval) {
+        drawStaticOval(canvasRef.current, videoRef.current!, videoStream);
       }
     };
 
@@ -204,7 +204,7 @@ export const LivenessCameraModule = (
       darkModePreference.removeEventListener('change', updateColorModeHandler);
       lightModePreference.addEventListener('change', updateColorModeHandler);
     };
-  }, [canvasRef, videoRef, videoStream, isStartView]);
+  }, [videoRef, videoStream, colorMode, isStartView, isMetadataLoaded]);
 
   React.useLayoutEffect(() => {
     if (isCameraReady) {
@@ -253,6 +253,10 @@ export const LivenessCameraModule = (
     setIsCameraReady(true);
   };
 
+  const handleLoadedMetadata = () => {
+    setIsMetadataLoaded(true);
+  };
+
   const beginLivenessCheck = React.useCallback(() => {
     send({
       type: 'BEGIN',
@@ -263,6 +267,7 @@ export const LivenessCameraModule = (
     (e: React.ChangeEvent<HTMLSelectElement>) => {
       const newDeviceId = e.target.value;
       const changeCamera = async () => {
+        setIsMetadataLoaded(false);
         const newStream = await navigator.mediaDevices.getUserMedia({
           video: {
             ...videoConstraints,
@@ -414,6 +419,7 @@ export const LivenessCameraModule = (
             width={mediaWidth}
             height={mediaHeight}
             onCanPlay={handleMediaPlay}
+            onLoadedMetadata={handleLoadedMetadata}
             data-testid="video"
             className={classNames(
               LivenessClassNames.Video,
