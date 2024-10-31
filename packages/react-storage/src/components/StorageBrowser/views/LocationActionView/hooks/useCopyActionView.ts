@@ -65,9 +65,10 @@ export const useCopyActionView = ({
 
   const onStart = () => {
     if (!destinationList || !current?.prefix) return;
+    console.log('destinationList', `${destinationList.join('/')}/`);
     handleProcess({
       config: getInput(),
-      prefix: destinationList.join('/'),
+      prefix: `${destinationList.join('/')}/`,
     });
   };
 

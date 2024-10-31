@@ -126,13 +126,14 @@ export const listLocationItemsHandler: ListLocationItemsHandler = async (
   let nextNextToken = nextToken;
 
   do {
-    console.log('locationsResult', result);
     const listInput: ListPaginateWithPathInput = {
       path: prefix,
       options: {
         nextToken: nextNextToken,
         ..._options,
         bucket,
+        // @ts-ignore
+        // For some reason list types doesn't show locationCredentialsProvider, despite being present
         locationCredentialsProvider: credentials,
         pageSize,
         subpathStrategy,
