@@ -25,6 +25,7 @@ import {
 
 import * as ServiceModule from '../../service';
 import { FaceMatchState } from '../../service';
+import * as Device from '../../utils/device';
 import { getDisplayText } from '../../utils/getDisplayText';
 import { selectIsRecordingStopped } from '../LivenessCheck';
 
@@ -39,6 +40,22 @@ const drawStaticOvalSpy = jest.spyOn(ServiceModule, 'drawStaticOval');
 const mockUseLivenessActor = getMockedFunction(useLivenessActor);
 const mockUseLivenessSelector = getMockedFunction(useLivenessSelector);
 const mockUseMediaStreamInVideo = getMockedFunction(useMediaStreamInVideo);
+
+const mockDevices = [
+  {
+    deviceId: '123',
+    kind: 'videoinput',
+    label: 'Front Camera',
+    groupId: '',
+  },
+  {
+    deviceId: '456',
+    kind: 'videoinput',
+    label: 'Back Camera',
+    groupId: '',
+  },
+];
+const mockEnumerateDevices = jest.fn().mockResolvedValue(mockDevices);
 
 describe('LivenessCameraModule', () => {
   const mockActorState: any = {
@@ -93,6 +110,10 @@ describe('LivenessCameraModule', () => {
       videoWidth: 100,
     });
     drawStaticOvalSpy.mockClear();
+    (global.navigator.mediaDevices as any) = {
+      getUserMedia: jest.fn(),
+      enumerateDevices: mockEnumerateDevices,
+    };
   });
 
   afterEach(() => {
@@ -106,60 +127,140 @@ describe('LivenessCameraModule', () => {
     resetAllWhenMocks();
   });
 
-  it('should render centered loader when isInitCamera true', () => {
+  it('should render centered loader when isInitCamera true', async () => {
     isInitCamera = true;
     mockStateMatchesAndSelectors();
 
-    renderWithLivenessProvider(
-      <LivenessCameraModule
-        isMobileScreen={false}
-        isRecordingStopped={false}
-        hintDisplayText={hintDisplayText}
-        streamDisplayText={streamDisplayText}
-        errorDisplayText={errorDisplayText}
-        cameraDisplayText={cameraDisplayText}
-        instructionDisplayText={instructionDisplayText}
-      />
-    );
+    await waitFor(() => {
+      renderWithLivenessProvider(
+        <LivenessCameraModule
+          isMobileScreen={false}
+          isRecordingStopped={false}
+          hintDisplayText={hintDisplayText}
+          streamDisplayText={streamDisplayText}
+          errorDisplayText={errorDisplayText}
+          cameraDisplayText={cameraDisplayText}
+          instructionDisplayText={instructionDisplayText}
+        />
+      );
+    });
 
     expect(screen.getByTestId('centered-loader')).toBeInTheDocument();
   });
 
-  it('should render centered loader when isInitWebsocket true', () => {
+  it('should render centered loader when isInitWebsocket true', async () => {
     isInitWebsocket = true;
     mockStateMatchesAndSelectors();
 
-    renderWithLivenessProvider(
-      <LivenessCameraModule
-        isMobileScreen={false}
-        isRecordingStopped={false}
-        hintDisplayText={hintDisplayText}
-        streamDisplayText={streamDisplayText}
-        errorDisplayText={errorDisplayText}
-        cameraDisplayText={cameraDisplayText}
-        instructionDisplayText={instructionDisplayText}
-      />
-    );
+    await waitFor(() => {
+      renderWithLivenessProvider(
+        <LivenessCameraModule
+          isMobileScreen={false}
+          isRecordingStopped={false}
+          hintDisplayText={hintDisplayText}
+          streamDisplayText={streamDisplayText}
+          errorDisplayText={errorDisplayText}
+          cameraDisplayText={cameraDisplayText}
+          instructionDisplayText={instructionDisplayText}
+        />
+      );
+    });
 
     expect(screen.getByTestId('centered-loader')).toBeInTheDocument();
+  });
+
+  it('should apply correct classNames to user-facing video', async () => {
+    isStart = true;
+    mockStateMatchesAndSelectors();
+    mockUseLivenessSelector.mockImplementation((selector) => {
+      if (selector === selectSelectableDevices) {
+        return mockDevices;
+      }
+      if (selector === selectSelectedDeviceId) {
+        return 123;
+      }
+      return undefined;
+    });
+    await waitFor(() => {
+      renderWithLivenessProvider(
+        <LivenessCameraModule
+          isMobileScreen={false}
+          isRecordingStopped={false}
+          hintDisplayText={hintDisplayText}
+          streamDisplayText={streamDisplayText}
+          errorDisplayText={errorDisplayText}
+          cameraDisplayText={cameraDisplayText}
+          instructionDisplayText={instructionDisplayText}
+        />
+      );
+    });
+
+    const cameraSelector = screen.getByRole('combobox') as HTMLSelectElement;
+    const videoEl = screen.getByTestId('video');
+
+    await waitFor(() => {
+      expect(cameraSelector).toBeInTheDocument();
+      expect(cameraSelector.value).toBe('123');
+      expect(videoEl).toHaveClass(LivenessClassNames.Video);
+      expect(videoEl).toHaveClass(LivenessClassNames.UserFacingVideo);
+    });
+  });
+
+  it('should apply correct classNames to video', async () => {
+    isStart = true;
+    jest.spyOn(Device, 'isDeviceUserFacing').mockResolvedValue(false);
+    mockStateMatchesAndSelectors();
+    mockUseLivenessSelector.mockImplementation((selector) => {
+      if (selector === selectSelectableDevices) {
+        return mockDevices;
+      }
+      if (selector === selectSelectedDeviceId) {
+        return 456;
+      }
+      return undefined;
+    });
+
+    await waitFor(() => {
+      renderWithLivenessProvider(
+        <LivenessCameraModule
+          isMobileScreen={false}
+          isRecordingStopped={false}
+          hintDisplayText={hintDisplayText}
+          streamDisplayText={streamDisplayText}
+          errorDisplayText={errorDisplayText}
+          cameraDisplayText={cameraDisplayText}
+          instructionDisplayText={instructionDisplayText}
+        />
+      );
+    });
+
+    const cameraSelector = screen.getByRole('combobox') as HTMLSelectElement;
+    const videoEl = screen.getByTestId('video');
+
+    await waitFor(() => {
+      expect(cameraSelector).toBeInTheDocument();
+      expect(cameraSelector.value).toBe('456');
+      expect(videoEl).toHaveClass(LivenessClassNames.Video);
+      expect(videoEl).not.toHaveClass(LivenessClassNames.UserFacingVideo);
+    });
   });
 
   it.skip('should render video and timer when isNotRecording true', async () => {
     isNotRecording = true;
     mockStateMatchesAndSelectors();
-
-    renderWithLivenessProvider(
-      <LivenessCameraModule
-        isMobileScreen={true}
-        isRecordingStopped={false}
-        hintDisplayText={hintDisplayText}
-        streamDisplayText={streamDisplayText}
-        errorDisplayText={errorDisplayText}
-        cameraDisplayText={cameraDisplayText}
-        instructionDisplayText={instructionDisplayText}
-      />
-    );
-
+    await waitFor(() => {
+      renderWithLivenessProvider(
+        <LivenessCameraModule
+          isMobileScreen={true}
+          isRecordingStopped={false}
+          hintDisplayText={hintDisplayText}
+          streamDisplayText={streamDisplayText}
+          errorDisplayText={errorDisplayText}
+          cameraDisplayText={cameraDisplayText}
+          instructionDisplayText={instructionDisplayText}
+        />
+      );
+    });
     const videoEl = screen.getByTestId('video');
 
     expect(screen.getByTestId('centered-loader')).toBeInTheDocument();
@@ -193,18 +294,19 @@ describe('LivenessCameraModule', () => {
   it('should render recording icon when isRecording true', async () => {
     isRecording = true;
     mockStateMatchesAndSelectors();
-
-    renderWithLivenessProvider(
-      <LivenessCameraModule
-        isMobileScreen={false}
-        isRecordingStopped={false}
-        hintDisplayText={hintDisplayText}
-        streamDisplayText={streamDisplayText}
-        errorDisplayText={errorDisplayText}
-        cameraDisplayText={cameraDisplayText}
-        instructionDisplayText={instructionDisplayText}
-      />
-    );
+    await waitFor(() => {
+      renderWithLivenessProvider(
+        <LivenessCameraModule
+          isMobileScreen={false}
+          isRecordingStopped={false}
+          hintDisplayText={hintDisplayText}
+          streamDisplayText={streamDisplayText}
+          errorDisplayText={errorDisplayText}
+          cameraDisplayText={cameraDisplayText}
+          instructionDisplayText={instructionDisplayText}
+        />
+      );
+    });
     const videoEl = screen.getByTestId('video');
     await waitFor(() => {
       videoEl.dispatchEvent(new Event('canplay'));
@@ -222,19 +324,20 @@ describe('LivenessCameraModule', () => {
       .mockReturnValue(FaceMatchState.TOO_FAR);
 
     const testId = 'cameraModule';
-
-    renderWithLivenessProvider(
-      <LivenessCameraModule
-        isMobileScreen={false}
-        isRecordingStopped={false}
-        hintDisplayText={hintDisplayText}
-        streamDisplayText={streamDisplayText}
-        errorDisplayText={errorDisplayText}
-        cameraDisplayText={cameraDisplayText}
-        instructionDisplayText={instructionDisplayText}
-        testId={testId}
-      />
-    );
+    await waitFor(() => {
+      renderWithLivenessProvider(
+        <LivenessCameraModule
+          isMobileScreen={false}
+          isRecordingStopped={false}
+          hintDisplayText={hintDisplayText}
+          streamDisplayText={streamDisplayText}
+          errorDisplayText={errorDisplayText}
+          cameraDisplayText={cameraDisplayText}
+          instructionDisplayText={instructionDisplayText}
+          testId={testId}
+        />
+      );
+    });
     const videoEl = screen.getByTestId('video');
     await waitFor(() => {
       videoEl.dispatchEvent(new Event('canplay'));
@@ -255,19 +358,20 @@ describe('LivenessCameraModule', () => {
       .mockReturnValue(FaceMatchState.CANT_IDENTIFY);
 
     const testId = 'cameraModule';
-
-    renderWithLivenessProvider(
-      <LivenessCameraModule
-        isMobileScreen={false}
-        isRecordingStopped={false}
-        hintDisplayText={hintDisplayText}
-        streamDisplayText={streamDisplayText}
-        errorDisplayText={errorDisplayText}
-        cameraDisplayText={cameraDisplayText}
-        instructionDisplayText={instructionDisplayText}
-        testId={testId}
-      />
-    );
+    await waitFor(() => {
+      renderWithLivenessProvider(
+        <LivenessCameraModule
+          isMobileScreen={false}
+          isRecordingStopped={false}
+          hintDisplayText={hintDisplayText}
+          streamDisplayText={streamDisplayText}
+          errorDisplayText={errorDisplayText}
+          cameraDisplayText={cameraDisplayText}
+          instructionDisplayText={instructionDisplayText}
+          testId={testId}
+        />
+      );
+    });
     const videoEl = screen.getByTestId('video');
     await waitFor(() => {
       videoEl.dispatchEvent(new Event('canplay'));
@@ -288,19 +392,20 @@ describe('LivenessCameraModule', () => {
       .mockReturnValue(FaceMatchState.FACE_IDENTIFIED);
 
     const testId = 'cameraModule';
-
-    renderWithLivenessProvider(
-      <LivenessCameraModule
-        isMobileScreen={false}
-        isRecordingStopped={false}
-        hintDisplayText={hintDisplayText}
-        streamDisplayText={streamDisplayText}
-        errorDisplayText={errorDisplayText}
-        cameraDisplayText={cameraDisplayText}
-        instructionDisplayText={instructionDisplayText}
-        testId={testId}
-      />
-    );
+    await waitFor(() => {
+      renderWithLivenessProvider(
+        <LivenessCameraModule
+          isMobileScreen={false}
+          isRecordingStopped={false}
+          hintDisplayText={hintDisplayText}
+          streamDisplayText={streamDisplayText}
+          errorDisplayText={errorDisplayText}
+          cameraDisplayText={cameraDisplayText}
+          instructionDisplayText={instructionDisplayText}
+          testId={testId}
+        />
+      );
+    });
     const videoEl = screen.getByTestId('video');
     await waitFor(() => {
       videoEl.dispatchEvent(new Event('canplay'));
@@ -321,19 +426,20 @@ describe('LivenessCameraModule', () => {
       .mockReturnValue(FaceMatchState.MATCHED);
 
     const testId = 'cameraModule';
-
-    renderWithLivenessProvider(
-      <LivenessCameraModule
-        isMobileScreen={false}
-        isRecordingStopped={false}
-        hintDisplayText={hintDisplayText}
-        streamDisplayText={streamDisplayText}
-        errorDisplayText={errorDisplayText}
-        cameraDisplayText={cameraDisplayText}
-        instructionDisplayText={instructionDisplayText}
-        testId={testId}
-      />
-    );
+    await waitFor(() => {
+      renderWithLivenessProvider(
+        <LivenessCameraModule
+          isMobileScreen={false}
+          isRecordingStopped={false}
+          hintDisplayText={hintDisplayText}
+          streamDisplayText={streamDisplayText}
+          errorDisplayText={errorDisplayText}
+          cameraDisplayText={cameraDisplayText}
+          instructionDisplayText={instructionDisplayText}
+          testId={testId}
+        />
+      );
+    });
     const videoEl = screen.getByTestId('video');
     await waitFor(() => {
       videoEl.dispatchEvent(new Event('canplay'));
@@ -354,19 +460,20 @@ describe('LivenessCameraModule', () => {
       .mockReturnValue(FaceMatchState.TOO_MANY);
 
     const testId = 'cameraModule';
-
-    renderWithLivenessProvider(
-      <LivenessCameraModule
-        isMobileScreen={false}
-        isRecordingStopped={false}
-        hintDisplayText={hintDisplayText}
-        streamDisplayText={streamDisplayText}
-        errorDisplayText={errorDisplayText}
-        cameraDisplayText={cameraDisplayText}
-        instructionDisplayText={instructionDisplayText}
-        testId={testId}
-      />
-    );
+    await waitFor(() => {
+      renderWithLivenessProvider(
+        <LivenessCameraModule
+          isMobileScreen={false}
+          isRecordingStopped={false}
+          hintDisplayText={hintDisplayText}
+          streamDisplayText={streamDisplayText}
+          errorDisplayText={errorDisplayText}
+          cameraDisplayText={cameraDisplayText}
+          instructionDisplayText={instructionDisplayText}
+          testId={testId}
+        />
+      );
+    });
     const videoEl = screen.getByTestId('video');
     await waitFor(() => {
       videoEl.dispatchEvent(new Event('canplay'));
@@ -382,18 +489,19 @@ describe('LivenessCameraModule', () => {
     isNotRecording = true;
     mockStateMatchesAndSelectors();
     mockUseLivenessSelector.mockReturnValue('FaceMovementAndLightChallenge');
-
-    renderWithLivenessProvider(
-      <LivenessCameraModule
-        isMobileScreen={false}
-        isRecordingStopped={false}
-        hintDisplayText={hintDisplayText}
-        streamDisplayText={streamDisplayText}
-        errorDisplayText={errorDisplayText}
-        cameraDisplayText={cameraDisplayText}
-        instructionDisplayText={instructionDisplayText}
-      />
-    );
+    await waitFor(() => {
+      renderWithLivenessProvider(
+        <LivenessCameraModule
+          isMobileScreen={false}
+          isRecordingStopped={false}
+          hintDisplayText={hintDisplayText}
+          streamDisplayText={streamDisplayText}
+          errorDisplayText={errorDisplayText}
+          cameraDisplayText={cameraDisplayText}
+          instructionDisplayText={instructionDisplayText}
+        />
+      );
+    });
 
     const photosensitivityWarning = screen.queryByText(
       instructionDisplayText.photosensitivityWarningHeadingText
@@ -406,18 +514,19 @@ describe('LivenessCameraModule', () => {
     mockStateMatchesAndSelectors();
     mockUseLivenessSelector.mockReset();
     mockUseLivenessSelector.mockReturnValue('FaceMovementChallenge');
-
-    renderWithLivenessProvider(
-      <LivenessCameraModule
-        isMobileScreen={false}
-        isRecordingStopped={false}
-        hintDisplayText={hintDisplayText}
-        streamDisplayText={streamDisplayText}
-        errorDisplayText={errorDisplayText}
-        cameraDisplayText={cameraDisplayText}
-        instructionDisplayText={instructionDisplayText}
-      />
-    );
+    await waitFor(() => {
+      renderWithLivenessProvider(
+        <LivenessCameraModule
+          isMobileScreen={false}
+          isRecordingStopped={false}
+          hintDisplayText={hintDisplayText}
+          streamDisplayText={streamDisplayText}
+          errorDisplayText={errorDisplayText}
+          cameraDisplayText={cameraDisplayText}
+          instructionDisplayText={instructionDisplayText}
+        />
+      );
+    });
 
     const photosensitivityWarning = screen.queryByText(
       instructionDisplayText.photosensitivityWarningHeadingText
@@ -479,23 +588,23 @@ describe('LivenessCameraModule', () => {
     expect(actualFaceMatchState).toEqual(undefined);
   });
 
-  it('should render with custom components', () => {
+  it('should render with custom components', async () => {
     isCheckingCamera = true;
     mockStateMatchesAndSelectors();
-
-    renderWithLivenessProvider(
-      <LivenessCameraModule
-        isMobileScreen={false}
-        isRecordingStopped={false}
-        hintDisplayText={hintDisplayText}
-        streamDisplayText={streamDisplayText}
-        errorDisplayText={errorDisplayText}
-        cameraDisplayText={cameraDisplayText}
-        instructionDisplayText={instructionDisplayText}
-        components={{ ErrorView: undefined }}
-      />
-    );
-
+    await waitFor(() => {
+      renderWithLivenessProvider(
+        <LivenessCameraModule
+          isMobileScreen={false}
+          isRecordingStopped={false}
+          hintDisplayText={hintDisplayText}
+          streamDisplayText={streamDisplayText}
+          errorDisplayText={errorDisplayText}
+          cameraDisplayText={cameraDisplayText}
+          instructionDisplayText={instructionDisplayText}
+          components={{ ErrorView: undefined }}
+        />
+      );
+    });
     expect(screen.getByTestId('centered-loader')).toBeInTheDocument();
   });
 
@@ -532,18 +641,19 @@ describe('LivenessCameraModule', () => {
     isStart = true;
     mockStateMatchesAndSelectors();
     mockUseLivenessSelector.mockReturnValue(25).mockReturnValue(['device-id']);
-
-    renderWithLivenessProvider(
-      <LivenessCameraModule
-        isMobileScreen={false}
-        isRecordingStopped={false}
-        hintDisplayText={hintDisplayText}
-        streamDisplayText={streamDisplayText}
-        errorDisplayText={errorDisplayText}
-        cameraDisplayText={cameraDisplayText}
-        instructionDisplayText={instructionDisplayText}
-      />
-    );
+    await waitFor(() => {
+      renderWithLivenessProvider(
+        <LivenessCameraModule
+          isMobileScreen={false}
+          isRecordingStopped={false}
+          hintDisplayText={hintDisplayText}
+          streamDisplayText={streamDisplayText}
+          errorDisplayText={errorDisplayText}
+          cameraDisplayText={cameraDisplayText}
+          instructionDisplayText={instructionDisplayText}
+        />
+      );
+    });
     const videoEl = screen.getByTestId('video');
     await waitFor(() => {
       videoEl.dispatchEvent(new Event('canplay'));
@@ -575,19 +685,20 @@ describe('LivenessCameraModule', () => {
     mockStateMatchesAndSelectors();
 
     const testId = 'cameraModule';
-
-    renderWithLivenessProvider(
-      <LivenessCameraModule
-        isMobileScreen={true}
-        isRecordingStopped={false}
-        hintDisplayText={hintDisplayText}
-        streamDisplayText={streamDisplayText}
-        errorDisplayText={errorDisplayText}
-        cameraDisplayText={cameraDisplayText}
-        instructionDisplayText={instructionDisplayText}
-        testId={testId}
-      />
-    );
+    await waitFor(() => {
+      renderWithLivenessProvider(
+        <LivenessCameraModule
+          isMobileScreen={true}
+          isRecordingStopped={false}
+          hintDisplayText={hintDisplayText}
+          streamDisplayText={streamDisplayText}
+          errorDisplayText={errorDisplayText}
+          cameraDisplayText={cameraDisplayText}
+          instructionDisplayText={instructionDisplayText}
+          testId={testId}
+        />
+      );
+    });
 
     const cameraModule = await screen.findByTestId(testId);
 
@@ -600,18 +711,19 @@ describe('LivenessCameraModule', () => {
     isStart = true;
     mockStateMatchesAndSelectors();
     mockUseLivenessSelector.mockReturnValue(25);
-
-    renderWithLivenessProvider(
-      <LivenessCameraModule
-        isMobileScreen={false}
-        isRecordingStopped={false}
-        hintDisplayText={hintDisplayText}
-        streamDisplayText={streamDisplayText}
-        errorDisplayText={errorDisplayText}
-        cameraDisplayText={cameraDisplayText}
-        instructionDisplayText={instructionDisplayText}
-      />
-    );
+    await waitFor(() => {
+      renderWithLivenessProvider(
+        <LivenessCameraModule
+          isMobileScreen={false}
+          isRecordingStopped={false}
+          hintDisplayText={hintDisplayText}
+          streamDisplayText={streamDisplayText}
+          errorDisplayText={errorDisplayText}
+          cameraDisplayText={cameraDisplayText}
+          instructionDisplayText={instructionDisplayText}
+        />
+      );
+    });
 
     const videoEl = screen.getByTestId('video');
     await waitFor(() => {

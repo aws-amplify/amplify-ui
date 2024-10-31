@@ -1,4 +1,5 @@
 import {
+  isDeviceUserFacing,
   isIOS,
   isMobileScreen,
   isPortrait,
@@ -38,7 +39,7 @@ describe('device', () => {
   afterAll(() => {
     Object.defineProperty(window, 'navigator', {
       configurable: true,
-      value: originalUserAgent,
+      value: { userAgent: originalUserAgent },
     });
   });
 
@@ -95,5 +96,52 @@ describe('orientation', () => {
     mockMatchMedia('(orientation: landscape)', true);
     expect(getLandscapeMediaQuery().matches).toBe(true);
     expect(getLandscapeMediaQuery().media).toBe('(orientation: landscape)');
+  });
+});
+
+describe('isDeviceUserFacing', () => {
+  beforeEach(() => {
+    (global.navigator.mediaDevices as any) = {
+      enumerateDevices: jest.fn(),
+    };
+  });
+
+  it('returns true when the device is user-facing (label does not contain "back")', async () => {
+    const mockDevices = [
+      { deviceId: '123', kind: 'videoinput', label: 'Front Camera' },
+    ];
+
+    (navigator.mediaDevices.enumerateDevices as jest.Mock).mockResolvedValue(
+      mockDevices
+    );
+
+    const result = await isDeviceUserFacing('123');
+    expect(result).toBe(true);
+  });
+
+  it('returns false when the device is not user-facing (label contains "back")', async () => {
+    const mockDevices = [
+      { deviceId: '456', kind: 'videoinput', label: 'Back Camera' },
+    ];
+
+    (navigator.mediaDevices.enumerateDevices as jest.Mock).mockResolvedValue(
+      mockDevices
+    );
+
+    const result = await isDeviceUserFacing('456');
+    expect(result).toBe(false);
+  });
+
+  it('returns true by default', async () => {
+    const mockDevices = [
+      { deviceId: '789', kind: 'audioinput', label: 'Microphone' },
+    ];
+
+    (navigator.mediaDevices.enumerateDevices as jest.Mock).mockResolvedValue(
+      mockDevices
+    );
+
+    const result = await isDeviceUserFacing('789');
+    expect(result).toBe(true);
   });
 });
