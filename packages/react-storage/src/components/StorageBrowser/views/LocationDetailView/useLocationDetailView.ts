@@ -7,17 +7,17 @@ import { useAction } from '../../do-not-import-from-here/actions';
 import { LocationData, LocationItemData } from '../../actions';
 
 interface UseLocationDetailView {
-  hasError: boolean;
   hasNextPage: boolean;
+  hasError: boolean;
   highestPageVisited: number;
   isLoading: boolean;
   message: string | undefined;
-  page: number;
   pageItems: LocationItemData[];
+  page: number;
   onAccessItem: (location: LocationData) => void;
-  onAddFiles: (files: File[]) => void;
   onRefresh: () => void;
   onPaginate: (page: number) => void;
+  onAddFiles: (files: File[]) => void;
 }
 
 export type LocationDetailViewActionType =
@@ -73,7 +73,6 @@ export function useLocationDetailView(
   const { result, nextToken } = data;
   const resultCount = result.length;
   const hasNextToken = !!nextToken;
-
   const onPaginate = () => {
     if (hasInvalidPrefix || !nextToken) return;
     dispatchStoreAction({ type: 'RESET_LOCATION_ITEMS' });
@@ -112,13 +111,13 @@ export function useLocationDetailView(
   }, [range, result]);
 
   return {
-    hasError,
-    hasNextPage: hasNextToken,
-    highestPageVisited,
-    isLoading,
-    message,
     page: currentPage,
     pageItems,
+    hasNextPage: hasNextToken,
+    hasError,
+    message,
+    highestPageVisited,
+    isLoading,
     onPaginate: (newPage: number) => handlePaginate(newPage),
     onRefresh,
     onAccessItem: (destination: LocationData) => {

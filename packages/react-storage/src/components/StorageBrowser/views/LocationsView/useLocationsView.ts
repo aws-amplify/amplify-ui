@@ -6,13 +6,13 @@ import { LocationData } from '../../actions';
 import { useStore } from '../../providers/store';
 
 interface UseLocationsView {
-  hasError: boolean;
   hasNextPage: boolean;
+  hasError: boolean;
   highestPageVisited: number;
   isLoading: boolean;
   message: string | undefined;
-  page: number;
   pageItems: LocationData[];
+  page: number;
   onNavigate: (location: LocationData) => void;
   onRefresh: () => void;
   onPaginate: (page: number) => void;
@@ -35,7 +35,7 @@ export interface UseLocationsViewOptions {
   onNavigate?: (location: LocationData) => void;
 }
 
-const DEFAULT_PAGE_SIZE = 1;
+const DEFAULT_PAGE_SIZE = 100;
 export const DEFAULT_LIST_OPTIONS = {
   exclude: 'WRITE' as const,
   pageSize: DEFAULT_PAGE_SIZE,
@@ -67,10 +67,12 @@ export function useLocationsView(
   }, [handleList, listOptions]);
 
   // set up pagination
-  const onPaginate = () => null;
-  // handleList({
-  //   options: { ...listOptions, nextToken },
-  // });
+  const onPaginate = () => {
+    if (!nextToken) return;
+    handleList({
+      options: { ...listOptions, nextToken },
+    });
+  };
 
   const {
     currentPage,
@@ -91,13 +93,13 @@ export function useLocationsView(
   }, [range, result]);
 
   return {
-    hasError,
-    hasNextPage: hasNextToken,
-    highestPageVisited,
     isLoading,
+    hasError,
     message,
     page: currentPage,
+    hasNextPage: hasNextToken,
     pageItems,
+    highestPageVisited,
     onNavigate: (destination: LocationData) => {
       onNavigate?.(destination);
       dispatchStoreAction({ type: 'NAVIGATE', destination });
