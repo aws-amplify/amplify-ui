@@ -8,10 +8,10 @@ import { DeleteFilesControls } from './DeleteFilesControls';
 import { UploadControls } from './UploadControls';
 import { useStore } from '../../providers/store';
 
-export interface LocationActionViewProps {
-  actionType?: string;
+export interface LocationActionViewProps<T = string> {
   className?: (defaultClassName: string) => string;
-  onClose?: () => void;
+  onExit?: () => void;
+  type?: T;
 }
 
 const ACTION_VIEW_TYPES = [
@@ -25,11 +25,11 @@ const isActionViewType = (value?: string) =>
   ACTION_VIEW_TYPES.some((type) => type === value);
 
 export const LocationActionView = ({
-  actionType: _actionType,
   className,
-  onClose,
+  onExit,
+  type,
 }: LocationActionViewProps): React.JSX.Element | null => {
-  const [{ actionType = _actionType }] = useStore();
+  const [{ actionType = type }] = useStore();
 
   if (!isActionViewType(actionType)) return null;
 
@@ -39,11 +39,11 @@ export const LocationActionView = ({
       data-testid="LOCATION_ACTION_VIEW"
     >
       {actionType === 'CREATE_FOLDER' ? (
-        <CreateFolderControls onClose={onClose} />
+        <CreateFolderControls onExit={onExit} />
       ) : actionType === 'DELETE_FILES' ? (
-        <DeleteFilesControls onClose={onClose} />
+        <DeleteFilesControls onExit={onExit} />
       ) : (
-        <UploadControls onClose={onClose} />
+        <UploadControls onExit={onExit} />
       )}
     </div>
   );
