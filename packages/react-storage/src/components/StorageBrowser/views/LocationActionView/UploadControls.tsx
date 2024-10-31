@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { humanFileSize, isFunction } from '@aws-amplify/ui';
+import { humanFileSize, isFunction, isUndefined } from '@aws-amplify/ui';
 
-import { uploadHandler } from '../../actions';
+import { LocationData, uploadHandler } from '../../actions';
 import { displayText } from '../../displayText/en';
 import { TABLE_HEADER_BUTTON_CLASS_NAME } from '../../components/DataTable';
 import { DescriptionList } from '../../components/DescriptionList';
@@ -35,10 +35,11 @@ import {
   STATUS_DISPLAY_VALUES,
 } from './constants';
 import { FileItems } from '../../providers/store/files';
+import { ActionStartControl } from '../../controls/ActionStartControl';
 
 const { Icon } = StorageBrowserElements;
 
-const { Cancel, Exit, Overwrite, Primary, Table } = Controls;
+const { Cancel, Exit, Overwrite, Table } = Controls;
 
 interface LocationActionViewColumns {
   cancel: (() => void) | undefined;
@@ -192,9 +193,9 @@ const getFileSelectionType = (
 };
 
 export const UploadControls = ({
-  onClose,
+  onExit,
 }: {
-  onClose?: () => void;
+  onExit?: (location: LocationData) => void;
 }): JSX.Element => {
   const getInput = useGetActionInput();
 
@@ -204,6 +205,8 @@ export const UploadControls = ({
 
   const [{ actionType, files, history }, dispatchStoreAction] = useStore();
   const { current } = history;
+  const { prefix } = current ?? {};
+  const hasInvalidPrefix = isUndefined(prefix);
 
   // launch native file picker on intiial render if no files are currently in state
   const selectionTypeRef = React.useRef<'FILE' | 'FOLDER' | undefined>(
@@ -328,15 +331,31 @@ export const UploadControls = ({
 
   // FIXME: Eventually comes from useView hook
   const contextValue: ControlsContext = {
-    data: { taskCounts },
-    actionsConfig: { type: 'BATCH_ACTION', isCancelable: true },
+    data: {
+      taskCounts,
+      isActionStartDisabled: disablePrimary,
+      actionStartLabel: 'Start',
+    },
+    actionsConfig: {
+      type: 'BATCH_ACTION',
+      isCancelable: true,
+    },
+    onActionStart: () => {
+      if (hasInvalidPrefix) return;
+
+      handleProcess({
+        config: getInput(),
+        prefix,
+        options: { preventOverwrite },
+      });
+    },
   };
 
   return (
     <ControlsContextProvider {...contextValue}>
       <Exit
         onClick={() => {
-          if (isFunction(onClose)) onClose?.();
+          if (isFunction(onExit)) onExit?.(current!);
           // clear tasks state
           tasks.forEach(({ remove }) => remove());
           // clear files state
@@ -346,19 +365,7 @@ export const UploadControls = ({
         }}
       />
       <Title />
-      <Primary
-        disabled={disablePrimary}
-        onClick={() => {
-          if (!current?.prefix) return;
-          handleProcess({
-            config: getInput(),
-            prefix: current.prefix,
-            options: { preventOverwrite },
-          });
-        }}
-      >
-        Start
-      </Primary>
+      <ActionStartControl className={`${CLASS_BASE}__upload-action-start`} />
       <ButtonElement
         variant="cancel"
         disabled={disableCancel}
@@ -399,7 +406,7 @@ export const UploadControls = ({
           descriptions={[
             {
               term: `${displayText.actionDestination}:`,
-              details: current?.prefix,
+              details: prefix?.length ? prefix : '/',
             },
           ]}
         />

@@ -93,12 +93,13 @@ describe('NavigateControl', () => {
     await user.click(screen.getByText('Home'));
 
     const { calls } = dispatchStoreAction.mock;
-    expect(calls).toHaveLength(2);
+    expect(calls).toHaveLength(3);
 
-    const [[one], [two]] = calls;
+    const [[one], [two], [three]] = calls;
 
     expect(one).toStrictEqual({ type: 'RESET_HISTORY' });
     expect(two).toStrictEqual({ type: 'RESET_ACTION_TYPE' });
+    expect(three).toStrictEqual({ type: 'RESET_LOCATION_ITEMS' });
 
     expect(handleList).toHaveBeenCalledTimes(1);
     expect(handleList).toHaveBeenCalledWith({

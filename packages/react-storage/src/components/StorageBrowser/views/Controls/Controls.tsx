@@ -7,7 +7,6 @@ import { MessageControl } from './Message';
 import { NavigateControl } from './Navigate';
 import { OverwriteControl } from './Overwrite';
 import { PaginateControl } from './Paginate';
-import { PrimaryControl } from './Primary';
 import { SearchControl } from './Search';
 import { TableControl } from './Table';
 import { TitleControl } from './Title';
@@ -21,7 +20,6 @@ export interface Controls {
   Message: typeof MessageControl;
   Overwrite: typeof OverwriteControl;
   Paginate: typeof PaginateControl;
-  Primary: typeof PrimaryControl;
   Navigate: typeof NavigateControl;
   Search: typeof SearchControl;
   Table: typeof TableControl;
@@ -37,7 +35,6 @@ export const Controls: Controls = {
   Message: MessageControl,
   Overwrite: OverwriteControl,
   Paginate: PaginateControl,
-  Primary: PrimaryControl,
   Navigate: NavigateControl,
   Search: SearchControl,
   Table: TableControl,

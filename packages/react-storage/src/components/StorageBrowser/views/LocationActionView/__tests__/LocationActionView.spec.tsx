@@ -8,8 +8,13 @@ import { LocationActionView } from '../LocationActionView';
 jest.mock('../CreateFolderControls', () => ({
   CreateFolderControls: () => <div data-testid="CREATE_FOLDER_CONTROLS" />,
 }));
+
 jest.mock('../UploadControls', () => ({
   UploadControls: () => <div data-testid="UPLOAD_CONTROLS" />,
+}));
+
+jest.mock('../DeleteFilesControls', () => ({
+  DeleteFileControls: () => <div data-testid="DELETE_FILES_CONTROLS" />,
 }));
 
 const useStoreSpy = jest.spyOn(StoreModule, 'useStore');

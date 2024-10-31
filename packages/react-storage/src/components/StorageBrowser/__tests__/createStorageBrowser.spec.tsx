@@ -57,7 +57,7 @@ describe('createStorageBrowser', () => {
 
     // @ts-expect-error intentionally omit registerAuthListener
     expect(() => createStorageBrowser(input)).toThrow(
-      'StorageManager: `registerAuthListener` must be a function.'
+      'StorageBrowser: `registerAuthListener` must be a function.'
     );
   });
 

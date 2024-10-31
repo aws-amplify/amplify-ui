@@ -3,14 +3,43 @@ import {
   listLocationsHandler,
   createFolderHandler,
   uploadHandler,
+  copyHandler,
+  deleteHandler,
 } from '../handlers';
+
 import {
-  DefaultActionConfigs,
+  CopyActionConfig,
+  CreateFolderActionConfig,
+  DeleteActionConfig,
   ListLocationItemsActionConfig,
   ListLocationsActionConfig,
-  CreateFolderActionConfig,
   UploadActionConfig,
 } from './types';
+
+export const copyActionConfig: CopyActionConfig = {
+  componentName: 'CopyView',
+  actionsListItemConfig: {
+    disable: (selected) => !selected,
+    hide: (permission) => permission === 'READ',
+    // missing copy icon
+    icon: 'download',
+    label: 'Copy Files',
+  },
+  displayName: 'Copy',
+  handler: copyHandler,
+};
+
+export const deleteActionConfig: DeleteActionConfig = {
+  componentName: 'DeleteView',
+  actionsListItemConfig: {
+    disable: (selected) => !selected,
+    hide: (permission) => permission === 'READ',
+    icon: 'delete',
+    label: 'Delete Files',
+  },
+  displayName: 'Delete',
+  handler: deleteHandler,
+};
 
 export const createFolderActionConfig: CreateFolderActionConfig = {
   componentName: 'CreateFolderView',
@@ -69,9 +98,11 @@ export const uploadActionConfig: UploadActionConfig = {
   displayName: 'Upload',
 };
 
-export const defaultActionConfigs: DefaultActionConfigs = {
-  CreateFolder: createFolderActionConfig,
-  ListLocationItems: listLocationItemsActionConfig,
-  ListLocations: listLocationsActionConfig,
-  Upload: uploadActionConfig,
+export const defaultActionConfigs = {
+  // copy: copyActionConfig,
+  createFolder: createFolderActionConfig,
+  delete: deleteActionConfig,
+  listLocationItems: listLocationItemsActionConfig,
+  listLocations: listLocationsActionConfig,
+  upload: uploadActionConfig,
 };

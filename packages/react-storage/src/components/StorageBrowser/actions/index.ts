@@ -2,7 +2,10 @@ export {
   ActionConfigs,
   ActionConfigsProvider,
   ActionConfigsProviderProps,
-  useActionConfigs,
+  defaultActionConfigs,
+  DefaultActionConfigs,
+  TaskActionConfig,
+  useActionConfig,
 } from './configs';
 
 export {
