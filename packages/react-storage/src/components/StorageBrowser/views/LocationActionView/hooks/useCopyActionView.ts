@@ -52,9 +52,12 @@ export const useCopyActionView = ({
       concurrency: 1,
     }
   );
-  const [destinationList, onSetDestinationList] = useState(
-    ...[current ? current.prefix.split('/') : []]
-  );
+  const prefixWithoutSlashes = current
+    ? current.prefix.split('/').slice(0, -1)
+    : [];
+  const [destinationList, onSetDestinationList] =
+    useState(prefixWithoutSlashes);
+  console.log('destinationList', destinationList);
 
   const taskCounts = getTaskCounts(tasks);
   const { disableCancel, disableClose, disablePrimary } =

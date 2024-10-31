@@ -8,7 +8,6 @@ import { TableDataText, Column, RenderRowItem } from '../Controls/Table';
 import { StorageBrowserElements } from '../../context/elements';
 import { displayText } from '../../displayText/en';
 import { listLocationItemsHandler, ListLocationItemsHandlerInput, ListLocationItemsHandlerOutput } from '../../actions/handlers/listLocationItems'
-import { getInput } from '../../../FileUploader/utils';
 import { useGetActionInput } from '../../providers/configuration';
 const { actionCurrentFolderSelected } = displayText;
 const { Button } = StorageBrowserElements;
@@ -38,16 +37,18 @@ const DESTINATION_PICKER_COLUMNS: Column<DestinationPickerColumns>[] = [
 
 const useLocationItems = () => {
   const [data, setData] = useState<ListLocationItemsHandlerOutput>({ items: [], nextToken: undefined });
-
+  const prevPref = useRef<string>('');
   const handleList = async (input: ListLocationItemsHandlerInput) => {
     console.log('input', input)
-    const output = await listLocationItemsHandler({
+    const { items, nextToken } = await listLocationItemsHandler({
       config: input.config,
       prefix: input.prefix,
       options: input.options,
     })
-    console.log('input', output)
-    setData(output)
+    console.log('input', items, 'nextToken', nextToken)
+    const newItems = prevPref.current !== input.prefix ? items : data.items.concat(items);
+    const newData = { items: newItems, nextToken };
+    setData(newData)
   }
 
   return [
@@ -74,27 +75,27 @@ export const DestinationPicker = ({
   const resultCount = items.length;
   const hasNextToken = !!nextToken;
 
-  const hasValidPath = isString(destinationPrefix);
+  const hasValidPath = isString(destinationPrefix.join());
   const onPaginateNext = () => {
     if (!hasValidPath) return;
 
     handleList({
       config: getInput(),
-      prefix: destinationPrefix.join('/'),
+      prefix: `${destinationPrefix.join('/')}/`,
       options: { ...DEFAULT_LIST_OPTIONS, nextToken },
     });
   };
 
-  const { currentPage, handlePaginateNext, handlePaginatePrevious } =
+  const { currentPage, handlePaginateNext, handlePaginatePrevious, range } =
     usePaginate({
       onPaginateNext,
-      pageSize: DEFAULT_PAGE_SIZE,
+      pageSize: 10,
     });
-  const disableNext = !hasNextToken;
-  const disablePrevious = currentPage === 1;
+  console.log('currentPage', currentPage, 'range', range)
+
 
   useEffect(() => {
-    const newPath = destinationPrefix.join('/');
+    const newPath = `${destinationPrefix.join('/')}/`;
     if (previousPathref.current !== newPath) {
       handleList({
         config: getInput(),
@@ -106,7 +107,8 @@ export const DestinationPicker = ({
   }, [getInput, handleList, nextToken, destinationPrefix]);
 
   const handleNavigateFolder = (key: string) => {
-    const newPath = [...destinationPrefix, key];
+    const newPath = [...destinationPrefix, key.replace('/', '')];
+    console.log('newPath', newPath)
     setDestinationPrefix(newPath);
   };
 
@@ -176,7 +178,14 @@ export const DestinationPicker = ({
     );
   };
 
-  const selectedItemsData = items.map((item) => {
+  const pageItems = React.useMemo(() => {
+    const [start, end] = range;
+    return items.slice(start, end);
+  }, [range, items]);
+
+  const disableNext = !hasNextToken && currentPage * DEFAULT_PAGE_SIZE > items.length;
+  const disablePrevious = currentPage === 1;
+  const selectedItemsData = pageItems.map((item) => {
     return { name: item.key, path: destinationPrefix };
   });
 

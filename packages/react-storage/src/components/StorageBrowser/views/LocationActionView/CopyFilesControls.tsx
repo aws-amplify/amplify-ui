@@ -16,11 +16,12 @@ import { ControlsContextProvider } from '../../controls/context';
 import { getDeleteActionViewTableData } from './utils';
 import { useStore } from '../../providers/store';
 import { ControlsContext } from '../../controls/types';
+import { ActionStartControl } from '../../controls/ActionStartControl';
 
 const RESULT_COMPLETE_MESSAGE = 'File copied';
 const RESULT_FAILED_MESSAGE = 'There was an issue copying the files.';
 
-const { Exit, Primary } = Controls;
+const { Exit } = Controls;
 const { actionSetDestination, actionSelectedText } = displayText;
 
 interface SelectedFilesColumns {
@@ -45,6 +46,9 @@ const SELECTED_FILES_COLUMNS: Column<SelectedFilesColumns>[] = [
 // 1. Implement default sort when new table is ready
 // 2. Fix styling so that list only takes up 50% of parent container
 // 3. Fix useProcessTasks so that canceling a non-queued item actually works
+
+
+
 
 export const CopyFilesControls = ({
   onClose: _onClose,
@@ -74,8 +78,9 @@ export const CopyFilesControls = ({
   });
 
   const contextValue: ControlsContext = {
-    data: { taskCounts, tableData },
+    data: { taskCounts, tableData, actionStartLabel: 'Start', isActionStartDisabled: disablePrimary },
     actionsConfig: { type: 'BATCH_ACTION', isCancelable: true },
+    onActionStart: onStart
   };
 
   const handleNavigatePath = (index: number) => {
@@ -217,14 +222,7 @@ export const CopyFilesControls = ({
         <h3>{actionSelectedText}</h3>
         <DataTableControl className={`${CLASS_BASE}__table`} />
       </div>
-      <Primary
-        disabled={disablePrimary}
-        onClick={() => {
-          onStart();
-        }}
-      >
-        Start
-      </Primary>
+      <ActionStartControl className={`${CLASS_BASE}__upload-action-start`} />
       <ButtonElement
         variant="cancel"
         disabled={disableCancel}
