@@ -328,15 +328,7 @@ export const UploadControls = ({
       type: 'BATCH_ACTION',
       isCancelable: true,
     },
-    onActionStart: () => {
-      if (hasInvalidPrefix) return;
-
-      handleProcess({
-        config: getInput(),
-        prefix,
-        options: { preventOverwrite },
-      });
-    },
+    onActionStart: onProcessStart,
   };
 
   return (
