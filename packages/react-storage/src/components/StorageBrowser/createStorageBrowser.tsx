@@ -29,6 +29,7 @@ import { GetLocationCredentials } from './credentials/types';
 
 export interface Config {
   accountId?: string;
+  customEndpoint?: string;
   getLocationCredentials: GetLocationCredentials;
   listLocations: ListLocations;
   registerAuthListener: RegisterAuthListener;
@@ -70,10 +71,15 @@ export function createStorageBrowser(input: CreateStorageBrowserInput): {
 } {
   validateRegisterAuthListener(input.config.registerAuthListener);
 
-  const { accountId, registerAuthListener, getLocationCredentials, region } =
-    input.config;
+  const {
+    accountId,
+    customEndpoint,
+    registerAuthListener,
+    getLocationCredentials,
+    region,
+  } = input.config;
 
-  // will be replaced, contains the v0 actons API approach
+  // will be replaced, contains the v0 actions API approach
   const TempActionsProvider = createTempActionsProvider({
     ...input,
     actions: locationActionsDefault,
@@ -81,6 +87,7 @@ export function createStorageBrowser(input: CreateStorageBrowserInput): {
 
   const ConfigurationProvider = createConfigurationProvider({
     accountId,
+    customEndpoint,
     displayName: 'ConfigurationProvider',
     getLocationCredentials,
     region,

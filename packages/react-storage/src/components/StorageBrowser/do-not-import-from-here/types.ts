@@ -20,6 +20,7 @@ export interface LocationConfig {
   accountId?: string;
   bucket: string;
   credentialsProvider: LocationCredentialsProvider;
+  customEndpoint?: string;
   region: string;
 }
 
