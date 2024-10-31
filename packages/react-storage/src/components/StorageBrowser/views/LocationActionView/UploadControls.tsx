@@ -2,7 +2,7 @@ import React from 'react';
 
 import { humanFileSize, isFunction, isUndefined } from '@aws-amplify/ui';
 
-import { uploadHandler } from '../../actions';
+import { LocationData, uploadHandler } from '../../actions';
 import { displayText } from '../../displayText/en';
 import { TABLE_HEADER_BUTTON_CLASS_NAME } from '../../components/DataTable';
 import { DescriptionList } from '../../components/DescriptionList';
@@ -193,9 +193,9 @@ const getFileSelectionType = (
 };
 
 export const UploadControls = ({
-  onClose,
+  onExit,
 }: {
-  onClose?: () => void;
+  onExit?: (location: LocationData) => void;
 }): JSX.Element => {
   const getInput = useGetActionInput();
 
@@ -204,7 +204,8 @@ export const UploadControls = ({
   );
 
   const [{ actionType, files, history }, dispatchStoreAction] = useStore();
-  const { prefix } = history?.current ?? {};
+  const { current } = history;
+  const { prefix } = current ?? {};
   const hasInvalidPrefix = isUndefined(prefix);
 
   // launch native file picker on intiial render if no files are currently in state
@@ -354,7 +355,7 @@ export const UploadControls = ({
     <ControlsContextProvider {...contextValue}>
       <Exit
         onClick={() => {
-          if (isFunction(onClose)) onClose?.();
+          if (isFunction(onExit)) onExit?.(current!);
           // clear tasks state
           tasks.forEach(({ remove }) => remove());
           // clear files state

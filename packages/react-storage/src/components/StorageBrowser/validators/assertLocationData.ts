@@ -9,7 +9,7 @@ export const LocationDataKey = [
   'type',
 ] as const;
 
-export function assertIsLocationData(
+export function assertLocationData(
   value: LocationData | undefined,
   message?: string
 ): asserts value is LocationData {

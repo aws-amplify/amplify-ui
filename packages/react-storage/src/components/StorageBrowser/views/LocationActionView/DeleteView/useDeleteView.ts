@@ -1,20 +1,19 @@
+import { DeleteViewState } from './types';
+
 import { isFunction } from '@aws-amplify/ui';
 
-import { deleteHandler } from '../../../actions/handlers';
+import { LocationData, deleteHandler } from '../../../actions/handlers';
 import { getTaskCounts } from '../../../controls/getTaskCounts';
 import { useStore } from '../../../providers/store';
 import { useGetActionInput } from '../../../providers/configuration';
 import { useProcessTasks } from '../../../tasks';
-import { UseActionView } from './types';
 import { getActionViewDisabledButtons } from '../utils';
 
-interface UseDeleteActionView extends UseActionView {}
-
-export const useDeleteActionView = ({
-  onClose: _onClose,
+export const useDeleteView = ({
+  onExit: _onExit,
 }: {
-  onClose?: () => void;
-}): UseDeleteActionView => {
+  onExit?: (location: LocationData) => void;
+}): DeleteViewState => {
   const [
     {
       history,
@@ -27,8 +26,8 @@ export const useDeleteActionView = ({
   const getInput = useGetActionInput();
 
   const [tasks, handleProcess] = useProcessTasks(
-    // @ts-expect-error
     deleteHandler,
+    // @ts-expect-error
     selected,
     {
       concurrency: 1,
@@ -39,7 +38,7 @@ export const useDeleteActionView = ({
   const { disableCancel, disableClose, disablePrimary } =
     getActionViewDisabledButtons(taskCounts);
 
-  const onStart = () => {
+  const onActionStart = () => {
     if (!current?.prefix) return;
     handleProcess({
       config: getInput(),
@@ -47,28 +46,28 @@ export const useDeleteActionView = ({
     });
   };
 
-  const onCancel = () => {
+  const onActionCancel = () => {
     tasks.forEach((task) => {
       // @TODO Fixme, calling cancel on task doesn't currently work
       if (isFunction(task.cancel)) task.cancel();
     });
   };
 
-  const onClose = () => {
+  const onExit = () => {
     // clear files state
     dispatchStoreAction({ type: 'RESET_LOCATION_ITEMS' });
     // clear selected action
     dispatchStoreAction({ type: 'RESET_ACTION_TYPE' });
-    if (isFunction(_onClose)) _onClose();
+    if (isFunction(_onExit)) _onExit(current!);
   };
 
   return {
     disableCancel,
     disableClose,
     disablePrimary,
-    onCancel,
-    onClose,
-    onStart,
+    onActionCancel,
+    onExit,
+    onActionStart,
     taskCounts,
     tasks,
   };

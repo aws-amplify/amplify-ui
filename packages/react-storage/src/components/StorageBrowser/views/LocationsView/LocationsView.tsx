@@ -5,16 +5,12 @@ import { Controls } from '../Controls';
 import { useLocationsData } from '../../do-not-import-from-here/actions';
 import { resolveClassName } from '../utils';
 import { DataTableControl } from './Controls/DataTable';
-import { LocationData } from '../../actions';
 import { useLocationsView } from './useLocationsView';
 import { ControlsContextProvider } from '../../controls/context';
 import { ControlsContext } from '../../controls/types';
 import { DataRefreshControl } from '../../controls/DataRefreshControl';
 
-export interface LocationsViewProps {
-  className?: (defaultClassName: string) => string;
-  onNavigate?: (destination: LocationData) => void;
-}
+import { LocationsViewProps } from './types';
 
 export const DEFAULT_ERROR_MESSAGE = 'There was an error loading locations.';
 
@@ -50,7 +46,7 @@ const LocationsEmptyMessage = () => {
 
 export function LocationsView({
   className,
-  onNavigate: onNavigateProp,
+  ...props
 }: LocationsViewProps): React.JSX.Element {
   const {
     hasError,
@@ -62,7 +58,7 @@ export function LocationsView({
     onRefresh,
     onPaginate,
     onNavigate,
-  } = useLocationsView({ onNavigate: onNavigateProp });
+  } = useLocationsView(props);
 
   // FIXME: Eventually comes from useView hook
   const contextValue: ControlsContext = {

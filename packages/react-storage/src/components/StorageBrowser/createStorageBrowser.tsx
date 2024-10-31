@@ -18,6 +18,7 @@ import {
 } from './providers';
 import { ListLocations } from './storage-internal';
 import { StorageBrowserDefault } from './StorageBrowserDefault';
+import { assertRegisterAuthListener } from './validators';
 import {
   Views,
   LocationActionView,
@@ -26,6 +27,8 @@ import {
   ViewsProvider,
 } from './views';
 import { GetLocationCredentials } from './credentials/types';
+import { defaultActionConfigs } from './actions';
+import { createUseView } from './views/createUseView';
 
 export interface Config {
   accountId?: string;
@@ -35,27 +38,19 @@ export interface Config {
   region: string;
 }
 
-const validateRegisterAuthListener = (registerAuthListener: any) => {
-  if (typeof registerAuthListener !== 'function') {
-    throw new Error(
-      'StorageManager: `registerAuthListener` must be a function.'
-    );
-  }
-};
-
 export interface CreateStorageBrowserInput {
   actions?: LocationActions;
   config: Config;
   elements?: Partial<StorageBrowserElements>;
 }
 
-export interface StorageBrowserProps {
-  views?: Partial<Views>;
+export interface StorageBrowserProps<T = string> {
+  views?: Partial<Views<T>>;
 }
 
-export interface StorageBrowserComponent<T = {}> extends Views {
+export interface StorageBrowserComponent<T = string, K = {}> extends Views<T> {
   (
-    props: StorageBrowserProps & Exclude<T, keyof StorageBrowserProps>
+    props: StorageBrowserProps & Exclude<K, keyof StorageBrowserProps>
   ): React.JSX.Element;
   displayName: string;
   Provider: (props: StoreProviderProps) => React.JSX.Element;
@@ -65,10 +60,21 @@ export interface ResolvedStorageBrowserElements<
   T extends Partial<StorageBrowserElements>,
 > extends MergeBaseElements<StorageBrowserElements, T> {}
 
+export type ActionViewName<T = string> = Exclude<
+  T,
+  'listLocationItems' | 'listLocations'
+>;
+
 export function createStorageBrowser(input: CreateStorageBrowserInput): {
-  StorageBrowser: StorageBrowserComponent;
+  StorageBrowser: StorageBrowserComponent<
+    keyof Omit<
+      typeof defaultActionConfigs,
+      'listLocationItems' | 'listLocations'
+    >
+  >;
+  useView: ReturnType<typeof createUseView<typeof defaultActionConfigs>>;
 } {
-  validateRegisterAuthListener(input.config.registerAuthListener);
+  assertRegisterAuthListener(input.config.registerAuthListener);
 
   const { accountId, registerAuthListener, getLocationCredentials, region } =
     input.config;
@@ -81,6 +87,7 @@ export function createStorageBrowser(input: CreateStorageBrowserInput): {
 
   const ConfigurationProvider = createConfigurationProvider({
     accountId,
+    actions: defaultActionConfigs,
     displayName: 'ConfigurationProvider',
     getLocationCredentials,
     region,
@@ -123,5 +130,7 @@ export function createStorageBrowser(input: CreateStorageBrowserInput): {
 
   StorageBrowser.displayName = 'StorageBrowser';
 
-  return { StorageBrowser };
+  const useView = createUseView(defaultActionConfigs);
+
+  return { StorageBrowser, useView };
 }
