@@ -92,8 +92,12 @@ describe('useLocationsView', () => {
   });
 
   it('should handle pagination actions', () => {
+    // mock first page data
     const mockDataState = {
-      data: { result: mockData, nextToken: 'token123' },
+      data: {
+        result: mockData.slice(0, EXPECTED_PAGE_SIZE),
+        nextToken: 'token123',
+      },
       message: '',
       hasError: false,
       isLoading: false,
@@ -105,9 +109,19 @@ describe('useLocationsView', () => {
 
     // check first page
     expect(result.current.page).toEqual(1);
+    expect(result.current.isPaginateNextDisabled).toBe(false);
+    expect(result.current.isPaginatePreviousDisabled).toBe(true);
     expect(result.current.pageItems).toEqual(
       mockData.slice(0, EXPECTED_PAGE_SIZE)
     );
+
+    // mock next page
+    mockUseLocationsData({
+      data: { result: mockData, nextToken: undefined },
+      message: '',
+      hasError: false,
+      isLoading: false,
+    });
 
     // go next
     act(() => {
@@ -116,6 +130,8 @@ describe('useLocationsView', () => {
 
     // check next page
     expect(result.current.page).toEqual(2);
+    expect(result.current.isPaginateNextDisabled).toBe(true);
+    expect(result.current.isPaginatePreviousDisabled).toBe(false);
     expect(result.current.pageItems).toEqual(
       mockData.slice(EXPECTED_PAGE_SIZE)
     );
@@ -127,6 +143,8 @@ describe('useLocationsView', () => {
 
     // check first page
     expect(result.current.page).toEqual(1);
+    expect(result.current.isPaginateNextDisabled).toBe(false);
+    expect(result.current.isPaginatePreviousDisabled).toBe(true);
     expect(result.current.pageItems).toEqual(
       mockData.slice(0, EXPECTED_PAGE_SIZE)
     );

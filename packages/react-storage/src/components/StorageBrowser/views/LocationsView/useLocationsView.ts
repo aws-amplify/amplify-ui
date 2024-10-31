@@ -4,6 +4,7 @@ import { useLocationsData } from '../../do-not-import-from-here/actions';
 import { usePaginate } from '../hooks/usePaginate';
 import { LocationData } from '../../actions';
 import { useStore } from '../../providers/store';
+import { isLastPage } from '../utils';
 
 interface UseLocationsView {
   hasNextPage: boolean;
@@ -58,10 +59,12 @@ export function useLocationsView(
   const onNavigate = options?.onNavigate;
   const initialValues = options?.initialValues ?? {};
 
-  const [listOptions] = React.useState({
+  const listOptionsRef = React.useRef({
     ...DEFAULT_LIST_OPTIONS,
     ...initialValues,
   });
+  const listOptions = listOptionsRef.current;
+  const { pageSize } = listOptions;
 
   // initial load
   React.useEffect(() => {
@@ -82,19 +85,25 @@ export function useLocationsView(
     handlePaginatePrevious,
     handleReset,
     range,
-  } = usePaginate({ onPaginateNext, pageSize: listOptions.pageSize });
+  } = usePaginate({ onPaginateNext, pageSize });
 
   const pageItems = React.useMemo(() => {
     const [start, end] = range;
     return result.slice(start, end);
   }, [range, result]);
 
+  const isFinalPage =
+    !hasNextToken && isLastPage(currentPage, resultCount, pageSize);
+  const hasNoResults = pageItems.length === 0;
+
   return {
     isLoading,
     hasError,
     message,
-    isPaginateNextDisabled: !hasNextToken || isLoading || hasError,
-    isPaginatePreviousDisabled: currentPage <= 1 || isLoading || hasError,
+    isPaginateNextDisabled:
+      isFinalPage || isLoading || hasError || hasNoResults,
+    isPaginatePreviousDisabled:
+      currentPage <= 1 || isLoading || hasError || hasNoResults,
     page: currentPage,
     hasNextPage: hasNextToken,
     pageItems,
