@@ -93,7 +93,7 @@ describe('LocationsListView', () => {
 
     useLocationsDataSpy.mockReturnValue([
       {
-        data: { result: results, nextToken: 'some-token' },
+        data: { result: results, nextToken: undefined },
         hasError: true,
         isLoading: false,
         message: errorMessage,

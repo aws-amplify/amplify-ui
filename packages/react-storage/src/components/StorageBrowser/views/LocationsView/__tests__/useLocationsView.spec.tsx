@@ -111,7 +111,7 @@ describe('useLocationsView', () => {
 
     // go next
     act(() => {
-      result.current.onPaginateNext();
+      result.current.onPaginate(2);
     });
 
     // check next page
@@ -122,7 +122,7 @@ describe('useLocationsView', () => {
 
     // go back
     act(() => {
-      result.current.onPaginatePrevious();
+      result.current.onPaginate(1);
     });
 
     // check first page
@@ -134,7 +134,7 @@ describe('useLocationsView', () => {
 
   it('should handle refreshing location data', () => {
     const mockDataState = {
-      data: { result: [], nextToken: undefined },
+      data: { result: [], nextToken: 'token123' },
       message: '',
       hasError: false,
       isLoading: false,
@@ -145,7 +145,7 @@ describe('useLocationsView', () => {
 
     // go to second page to verify reset behavior
     act(() => {
-      result.current.onPaginateNext();
+      result.current.onPaginate(2);
     });
     expect(result.current.page).toEqual(2);
 

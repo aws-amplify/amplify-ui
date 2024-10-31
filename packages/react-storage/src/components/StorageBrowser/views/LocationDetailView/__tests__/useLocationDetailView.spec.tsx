@@ -157,7 +157,7 @@ describe('useLocationsView', () => {
     const { result } = renderHook(() => useLocationDetailView(initialValues));
     // go next
     act(() => {
-      result.current.onPaginateNext();
+      result.current.onPaginate(2);
     });
 
     // check if data is correct
@@ -166,7 +166,7 @@ describe('useLocationsView', () => {
 
     // go previous
     act(() => {
-      result.current.onPaginatePrevious();
+      result.current.onPaginate(1);
     });
 
     // check data
@@ -179,7 +179,7 @@ describe('useLocationsView', () => {
     useStoreSpy.mockReturnValue([testStoreState, handleStoreActionMock]);
 
     const mockDataState = {
-      data: { result: [], nextToken: undefined },
+      data: { result: [], nextToken: 'token123' },
       message: '',
       hasError: false,
       isLoading: false,
@@ -191,7 +191,7 @@ describe('useLocationsView', () => {
 
     // move to next page to check behavior
     act(() => {
-      result.current.onPaginateNext();
+      result.current.onPaginate(2);
     });
     expect(result.current.page).toEqual(2);
 
