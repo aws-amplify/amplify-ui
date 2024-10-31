@@ -53,15 +53,14 @@ export function LocationsView({
   onNavigate: onNavigateProp,
 }: LocationsViewProps): React.JSX.Element {
   const {
-    pageItems,
     hasError,
-    isPaginatePreviousDisabled,
-    isPaginateNextDisabled,
+    hasNextPage,
+    highestPageVisited,
     page,
     isLoading,
+    pageItems,
     onRefresh,
-    onPaginateNext,
-    onPaginatePrevious,
+    onPaginate,
     onNavigate,
   } = useLocationsView({ onNavigate: onNavigateProp });
 
@@ -85,10 +84,9 @@ export function LocationsView({
         />
         <Paginate
           currentPage={page}
-          disableNext={isPaginateNextDisabled}
-          disablePrevious={isPaginatePreviousDisabled}
-          handleNext={onPaginateNext}
-          handlePrevious={onPaginatePrevious}
+          highestPageVisited={highestPageVisited}
+          hasMorePages={hasNextPage}
+          onPaginate={onPaginate}
         />
         <LocationsMessage />
         <Loading />

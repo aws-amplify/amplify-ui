@@ -70,11 +70,10 @@ export const LocationDetailViewControls = ({
     pageItems,
     isLoading,
     page,
-    isPaginatePreviousDisabled,
-    isPaginateNextDisabled,
+    hasNextPage,
+    highestPageVisited,
+    onPaginate,
     onRefresh,
-    onPaginateNext,
-    onPaginatePrevious,
     onAddFiles,
     onAccessItem,
   } = useLocationDetailView({ onNavigate: onNavigateProp });
@@ -99,10 +98,9 @@ export const LocationDetailViewControls = ({
       />
       <Paginate
         currentPage={page}
-        disableNext={isPaginateNextDisabled}
-        disablePrevious={isPaginatePreviousDisabled}
-        handleNext={onPaginateNext}
-        handlePrevious={onPaginatePrevious}
+        highestPageVisited={highestPageVisited}
+        hasMorePages={hasNextPage}
+        onPaginate={onPaginate}
       />
       <LocationDetailMessage />
       <Loading show={isLoading} />

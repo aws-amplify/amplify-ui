@@ -7,26 +7,22 @@ import { useAction } from '../../do-not-import-from-here/actions';
 import { LocationData, LocationItemData } from '../../actions';
 
 interface UseLocationDetailView {
-  hasNextPage: boolean;
   hasError: boolean;
+  hasNextPage: boolean;
+  highestPageVisited: number;
   isLoading: boolean;
-  isPaginateNextDisabled: boolean;
-  isPaginatePreviousDisabled: boolean;
   message: string | undefined;
-  pageItems: LocationItemData[];
   page: number;
+  pageItems: LocationItemData[];
   onAccessItem: (location: LocationData) => void;
-  onRefresh: () => void;
-  onPaginateNext: () => void;
-  onPaginatePrevious: () => void;
   onAddFiles: (files: File[]) => void;
+  onRefresh: () => void;
+  onPaginate: (page: number) => void;
 }
 
 export type LocationDetailViewActionType =
   | { type: 'REFRESH_DATA' } // refresh data only
   | { type: 'RESET' } // reset view to initial state
-  | { type: 'PAGINATE_NEXT' }
-  | { type: 'PAGINATE_PREVIOUS' }
   | { type: 'PAGINATE'; page: number }
   | { type: 'ACCESS_ITEM'; key: string }
   | { type: 'NAVIGATE'; location: LocationData }
@@ -77,26 +73,24 @@ export function useLocationDetailView(
   const { result, nextToken } = data;
   const resultCount = result.length;
   const hasNextToken = !!nextToken;
-  const onPaginateNext = () => {
+
+  const onPaginate = () => {
     if (hasInvalidPrefix || !nextToken) return;
     dispatchStoreAction({ type: 'RESET_LOCATION_ITEMS' });
     handleList({ prefix, options: { ...listOptions, nextToken } });
   };
 
-  const onPaginatePrevious = () => {
-    dispatchStoreAction({ type: 'RESET_LOCATION_ITEMS' });
-  };
-
   const {
     currentPage,
-    handlePaginateNext,
-    handlePaginatePrevious,
+    handlePaginate,
     handleReset,
+    highestPageVisited,
     range,
   } = usePaginate({
-    onPaginateNext,
-    onPaginatePrevious,
+    onPaginate,
     pageSize: listOptions.pageSize,
+    resultCount,
+    hasNextToken,
   });
 
   const onRefresh = () => {
@@ -118,18 +112,14 @@ export function useLocationDetailView(
   }, [range, result]);
 
   return {
+    hasError,
+    hasNextPage: hasNextToken,
+    highestPageVisited,
+    isLoading,
+    message,
     page: currentPage,
     pageItems,
-    hasNextPage: hasNextToken,
-    isPaginateNextDisabled: !hasNextToken || isLoading || hasError,
-    isPaginatePreviousDisabled: currentPage <= 1 || isLoading || hasError,
-    hasError,
-    message,
-    isLoading,
-    onPaginatePrevious: handlePaginatePrevious,
-    onPaginateNext: () => {
-      handlePaginateNext({ resultCount, hasNextToken });
-    },
+    onPaginate: (newPage: number) => handlePaginate(newPage),
     onRefresh,
     onAccessItem: (destination: LocationData) => {
       onNavigate?.(destination);

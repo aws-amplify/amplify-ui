@@ -6,18 +6,16 @@ import { LocationData } from '../../actions';
 import { useStore } from '../../providers/store';
 
 interface UseLocationsView {
-  hasNextPage: boolean;
   hasError: boolean;
+  hasNextPage: boolean;
+  highestPageVisited: number;
   isLoading: boolean;
-  isPaginateNextDisabled: boolean;
-  isPaginatePreviousDisabled: boolean;
   message: string | undefined;
-  pageItems: LocationData[];
   page: number;
+  pageItems: LocationData[];
   onNavigate: (location: LocationData) => void;
   onRefresh: () => void;
-  onPaginateNext: () => void;
-  onPaginatePrevious: () => void;
+  onPaginate: (page: number) => void;
 }
 
 interface InitialValues {
@@ -27,8 +25,6 @@ interface InitialValues {
 export type LocationsViewActionType =
   | { type: 'REFRESH_DATA' }
   | { type: 'RESET' }
-  | { type: 'PAGINATE_NEXT' }
-  | { type: 'PAGINATE_PREVIOUS' }
   | { type: 'PAGINATE'; page: number }
   | { type: 'NAVIGATE'; location: LocationData }
   | { type: 'SEARCH'; query: string };
@@ -39,7 +35,7 @@ export interface UseLocationsViewOptions {
   onNavigate?: (location: LocationData) => void;
 }
 
-const DEFAULT_PAGE_SIZE = 100;
+const DEFAULT_PAGE_SIZE = 1;
 export const DEFAULT_LIST_OPTIONS = {
   exclude: 'WRITE' as const,
   pageSize: DEFAULT_PAGE_SIZE,
@@ -71,18 +67,23 @@ export function useLocationsView(
   }, [handleList, listOptions]);
 
   // set up pagination
-  const onPaginateNext = () =>
-    handleList({
-      options: { ...listOptions, nextToken },
-    });
+  const onPaginate = () => null;
+  // handleList({
+  //   options: { ...listOptions, nextToken },
+  // });
 
   const {
     currentPage,
-    handlePaginateNext,
-    handlePaginatePrevious,
+    handlePaginate,
     handleReset,
+    highestPageVisited,
     range,
-  } = usePaginate({ onPaginateNext, pageSize: listOptions.pageSize });
+  } = usePaginate({
+    onPaginate,
+    pageSize: listOptions.pageSize,
+    resultCount,
+    hasNextToken,
+  });
 
   const pageItems = React.useMemo(() => {
     const [start, end] = range;
@@ -90,13 +91,12 @@ export function useLocationsView(
   }, [range, result]);
 
   return {
-    isLoading,
     hasError,
-    message,
-    isPaginateNextDisabled: !hasNextToken || isLoading || hasError,
-    isPaginatePreviousDisabled: currentPage <= 1 || isLoading || hasError,
-    page: currentPage,
     hasNextPage: hasNextToken,
+    highestPageVisited,
+    isLoading,
+    message,
+    page: currentPage,
     pageItems,
     onNavigate: (destination: LocationData) => {
       onNavigate?.(destination);
@@ -108,9 +108,8 @@ export function useLocationsView(
         options: { ...listOptions, refresh: true },
       });
     },
-    onPaginateNext: () => {
-      handlePaginateNext({ resultCount, hasNextToken });
+    onPaginate: (newPage: number) => {
+      handlePaginate(newPage);
     },
-    onPaginatePrevious: handlePaginatePrevious,
   };
 }

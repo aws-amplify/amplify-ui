@@ -2,23 +2,22 @@ import React from 'react';
 
 interface UsePaginate {
   currentPage: number;
-  handlePaginateNext: (input: {
-    resultCount: number;
-    hasNextToken: boolean;
-  }) => void;
-  handlePaginatePrevious: (input?: {}) => void;
+  highestPageVisited: number;
+  handlePaginate: (page: number) => void;
   handleReset: () => void;
   range: [start: number, end: number];
 }
 
 export const usePaginate = ({
-  onPaginateNext,
-  onPaginatePrevious,
+  hasNextToken,
+  onPaginate,
   pageSize,
+  resultCount,
 }: {
-  onPaginateNext?: () => void;
-  onPaginatePrevious?: () => void;
+  hasNextToken: boolean;
+  onPaginate?: () => void;
   pageSize: number;
+  resultCount: number;
 }): UsePaginate => {
   const [currentPage, setCurrentPage] = React.useState(1);
 
@@ -26,30 +25,36 @@ export const usePaginate = ({
     setCurrentPage(1);
   }).current;
 
-  return React.useMemo(() => {
+  return React.useMemo((): UsePaginate => {
+    const highestPageVisited = Math.ceil(resultCount / pageSize);
     const isFirstPage = currentPage === 1;
     const start = isFirstPage ? 0 : (currentPage - 1) * pageSize;
     const end = isFirstPage ? pageSize : currentPage * pageSize;
+
     return {
       currentPage,
-      handlePaginateNext: (input) => {
-        const { hasNextToken, resultCount } = input;
-        const highestPageVisited = Math.round(resultCount / pageSize);
+      handlePaginate: (page) => {
         const shouldPaginate =
-          highestPageVisited === currentPage && hasNextToken;
-
-        if (shouldPaginate && typeof onPaginateNext === 'function') {
-          onPaginateNext();
+          page >= 1 && (page <= highestPageVisited || hasNextToken);
+        if (shouldPaginate) {
+          if (typeof onPaginate === 'function') onPaginate();
+          setCurrentPage(page);
+        } else {
+          // eslint-disable-next-line no-console
+          console.warn('Page is out of bounds');
+          setCurrentPage(1);
         }
-        setCurrentPage((prev) => prev + 1);
-      },
-      handlePaginatePrevious: () => {
-        if (typeof onPaginatePrevious === 'function') onPaginatePrevious();
-
-        setCurrentPage((prev) => prev - 1);
       },
       handleReset,
+      highestPageVisited,
       range: [start, end],
     };
-  }, [currentPage, handleReset, onPaginateNext, onPaginatePrevious, pageSize]);
+  }, [
+    currentPage,
+    handleReset,
+    hasNextToken,
+    onPaginate,
+    pageSize,
+    resultCount,
+  ]);
 };

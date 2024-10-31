@@ -1,89 +1,72 @@
+import { usePaginate } from '../usePaginate';
 import { act, renderHook } from '@testing-library/react-hooks';
 
-import { usePaginate } from '../usePaginate';
+jest.mock('../../../controls/context');
 
 describe('usePaginate', () => {
+  const data = {
+    onPaginate: jest.fn(),
+    resultCount: 100,
+    pageSize: 10,
+    hasNextToken: false,
+  };
+
+  const warn = jest.spyOn(console, 'warn');
+
   it('returns the expected values on initial call', () => {
-    const { result } = renderHook(() => usePaginate({ pageSize: 100 }));
+    const { result } = renderHook(() => usePaginate({ ...data }));
 
-    expect(result.current.currentPage).toBe(1);
-    expect(typeof result.current.handlePaginateNext).toBe('function');
-    expect(typeof result.current.handlePaginatePrevious).toBe('function');
-    expect(typeof result.current.handleReset).toBe('function');
+    expect(result?.current?.currentPage).toBe(1);
+    expect(typeof result?.current?.handlePaginate).toBe('function');
+    expect(typeof result?.current?.handleReset).toBe('function');
+    expect(typeof result?.current?.highestPageVisited).toBe('number');
+    expect(typeof result?.current?.range[0]).toBe('number');
+    expect(typeof result?.current?.range[1]).toBe('number');
   });
 
-  it('returns the expected value of `currentPage` on paginate next', () => {
-    const { result } = renderHook(() => usePaginate({ pageSize: 100 }));
+  it('returns the expected value of `highestPageVisited` on paginate when not on the last page', () => {
+    const { result } = renderHook(() => usePaginate({ ...data }));
+
+    const expectedHighestPage = Math.ceil(data.resultCount / data.pageSize);
 
     act(() => {
-      result.current.handlePaginateNext({
-        hasNextToken: true,
-        resultCount: 100,
-      });
+      result?.current?.handlePaginate(expectedHighestPage);
     });
 
-    expect(result.current.currentPage).toBe(2);
+    expect(result?.current?.highestPageVisited).toBe(10);
   });
 
-  it('returns the expected value of `currentPage` on paginate previous', () => {
-    const { result } = renderHook(() => usePaginate({ pageSize: 100 }));
-
-    act(() => {
-      result.current.handlePaginateNext({
-        hasNextToken: true,
-        resultCount: 100,
-      });
-    });
-
-    expect(result.current.currentPage).toBe(2);
-
-    act(() => {
-      result.current.handlePaginatePrevious();
-    });
-
-    expect(result.current.currentPage).toBe(1);
-  });
-
-  it('returns the expected value of `currentPage` on reset', () => {
-    const { result } = renderHook(() => usePaginate({ pageSize: 100 }));
-
-    act(() => {
-      result.current.handlePaginateNext({
-        hasNextToken: true,
-        resultCount: 100,
-      });
-    });
-
-    expect(result.current.currentPage).toBe(2);
-
-    act(() => {
-      result.current.handleReset();
-    });
-
-    expect(result.current.currentPage).toBe(1);
-  });
-
-  it('calls `onPaginateNext` and `onPaginatePrevious` as expected', () => {
-    const onPaginateNext = jest.fn();
-    const onPaginatePrevious = jest.fn();
-
+  it('paginates beyond the page count without warning when a "next token" is present', () => {
     const { result } = renderHook(() =>
-      usePaginate({ onPaginateNext, onPaginatePrevious, pageSize: 100 })
+      usePaginate({ ...data, hasNextToken: true })
     );
 
     act(() => {
-      result.current.handlePaginateNext({
-        hasNextToken: true,
-        resultCount: 100,
-      });
+      result?.current?.handlePaginate(11);
     });
 
-    expect(onPaginateNext).toHaveBeenCalledTimes(1);
+    expect(warn).not.toHaveBeenCalled();
+  });
+
+  it('returns the expected value of `currentPage` on paginate', () => {
+    const { result } = renderHook(() => usePaginate({ ...data }));
+
+    expect(result?.current?.currentPage).toBe(1);
 
     act(() => {
-      result.current.handlePaginatePrevious();
+      result?.current?.handlePaginate(2);
     });
 
-    expect(onPaginatePrevious).toHaveBeenCalledTimes(1);
+    expect(result?.current?.currentPage).toBe(2);
+  });
+
+  it('calls `onPaginate` as expected', () => {
+    const { result } = renderHook(() => usePaginate({ ...data }));
+
+    act(() => {
+      result?.current?.handlePaginate(2);
+    });
+
+    expect(data.onPaginate).toHaveBeenCalled();
   });
 });
