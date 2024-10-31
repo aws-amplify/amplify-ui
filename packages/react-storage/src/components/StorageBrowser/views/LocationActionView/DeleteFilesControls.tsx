@@ -23,10 +23,10 @@ export const DeleteFilesControls = ({
   const {
     disableCancel,
     disableClose,
-    disablePrimary,
+    disableStart,
     onClose,
-    onCancel,
-    onStart,
+    onActionCancel,
+    onActionStart,
     taskCounts,
     tasks,
   } = useDeleteActionView({ onClose: _onClose });
@@ -44,11 +44,11 @@ export const DeleteFilesControls = ({
     data: {
       taskCounts,
       tableData,
-      isActionStartDisabled: disablePrimary,
+      isActionStartDisabled: disableStart,
       actionStartLabel: 'Start',
     },
     actionsConfig: { type: 'BATCH_ACTION', isCancelable: true },
-    onActionStart: onStart,
+    onActionStart,
   };
 
   return (
@@ -61,7 +61,7 @@ export const DeleteFilesControls = ({
         disabled={disableCancel}
         className={`${CLASS_BASE}__cancel`}
         onClick={() => {
-          onCancel();
+          onActionCancel();
         }}
       >
         Cancel

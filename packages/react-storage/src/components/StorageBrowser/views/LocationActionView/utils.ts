@@ -31,31 +31,37 @@ export const getActionIconVariant = (status: TaskStatus): IconVariant => {
   }
 };
 
-export const getTasksHaveStarted = (taskCounts: TaskCounts): boolean =>
+const getTasksHaveStarted = (taskCounts: TaskCounts): boolean =>
   taskCounts.QUEUED < taskCounts.TOTAL;
 
+export const getAllTasksStatus = (
+  taskCounts: TaskCounts
+): { hasStarted: boolean; hasCompleted: boolean } => ({
+  hasStarted: getTasksHaveStarted(taskCounts),
+  hasCompleted:
+    !!taskCounts.TOTAL &&
+    taskCounts.CANCELED + taskCounts.COMPLETE + taskCounts.FAILED ===
+      taskCounts.TOTAL,
+});
 export const getActionViewDisabledButtons = (
   taskCounts: TaskCounts
 ): {
   disableCancel: boolean;
   disableClose: boolean;
-  disablePrimary: boolean;
+  disableStart: boolean;
 } => {
-  const hasStarted = getTasksHaveStarted(taskCounts);
-  const hasCompleted =
-    !!taskCounts.TOTAL &&
-    taskCounts.CANCELED + taskCounts.COMPLETE + taskCounts.FAILED ===
-      taskCounts.TOTAL;
+  const { hasStarted, hasCompleted } = getAllTasksStatus(taskCounts);
 
-  const disableCancel = !hasStarted || taskCounts.QUEUED < 1;
+  const disableCancel =
+    !hasStarted || taskCounts.QUEUED + taskCounts.PENDING < 1;
   const disableClose = hasStarted && !hasCompleted;
-  const disablePrimary =
+  const disableStart =
     taskCounts.QUEUED < 1 || taskCounts.QUEUED < taskCounts.TOTAL;
 
   return {
     disableCancel,
     disableClose,
-    disablePrimary,
+    disableStart,
   };
 };
 

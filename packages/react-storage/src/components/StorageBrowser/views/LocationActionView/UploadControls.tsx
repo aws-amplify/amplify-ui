@@ -11,7 +11,6 @@ import {
   ViewElement,
 } from '../../context/elements';
 import { IconVariant } from '../../context/elements/IconElement';
-import { getTaskCounts } from '../../controls/getTaskCounts';
 import { StatusDisplayControl } from '../../controls/StatusDisplayControl';
 import { ControlsContextProvider } from '../../controls/context';
 import { ControlsContext } from '../../controls/types';
@@ -31,7 +30,7 @@ import { Title } from './Controls/Title';
 import { STATUS_DISPLAY_VALUES } from './constants';
 import { FileItems } from '../../providers/store/files';
 import { ActionStartControl } from '../../controls/ActionStartControl';
-import { useUploadView } from '../hooks/useUploadView';
+import { useUploadView } from './hooks/useUploadView';
 
 const { Icon } = StorageBrowserElements;
 
@@ -189,7 +188,7 @@ const getFileSelectionType = (
 };
 
 export const UploadControls = ({
-  onClose,
+  onClose: _onClose,
 }: {
   onClose?: () => void;
 }): JSX.Element => {
@@ -216,18 +215,19 @@ export const UploadControls = ({
 
   const {
     tasks,
-    isStartDisabled: disablePrimary,
-    isCancelDisabled: disableCancel,
+    taskCounts,
+    disableStart,
+    disableCancel,
     isOverwriteDisabled: disableOverwrite,
     isSelectFilesDisabled: disableSelectFiles,
     preventOverwrite,
     onToggleOverwrite,
-    onProcessStart,
-    onProcessCancel,
+    onActionStart,
+    onActionCancel,
     onSelectFiles,
-    onExit,
+    onClose,
     onDropFiles,
-  } = useUploadView({ onClose });
+  } = useUploadView({ onClose: _onClose });
 
   const [compareFn, setCompareFn] = React.useState<(a: any, b: any) => number>(
     () => compareStrings
@@ -315,32 +315,30 @@ export const UploadControls = ({
     [direction, selection]
   );
 
-  const taskCounts = getTaskCounts(tasks);
-
   // FIXME: Eventually comes from useView hook
   const contextValue: ControlsContext = {
     data: {
       taskCounts,
-      isActionStartDisabled: disablePrimary,
+      isActionStartDisabled: disableStart,
       actionStartLabel: 'Start',
     },
     actionsConfig: {
       type: 'BATCH_ACTION',
       isCancelable: true,
     },
-    onActionStart: onProcessStart,
+    onActionStart,
   };
 
   return (
     <ControlsContextProvider {...contextValue}>
-      <Exit onClick={onExit} />
+      <Exit onClick={onClose} />
       <Title />
       <ActionStartControl className={`${CLASS_BASE}__upload-action-start`} />
       <ButtonElement
         variant="cancel"
         disabled={disableCancel}
         className={`${CLASS_BASE}__cancel`}
-        onClick={onProcessCancel}
+        onClick={onActionCancel}
       >
         Cancel
       </ButtonElement>

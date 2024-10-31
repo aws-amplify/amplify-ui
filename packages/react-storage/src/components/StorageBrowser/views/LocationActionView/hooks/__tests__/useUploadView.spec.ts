@@ -1,8 +1,8 @@
 import { renderHook, act } from '@testing-library/react-hooks';
 import { useUploadView } from '../useUploadView';
-import * as ConfigModule from '../../../providers/configuration';
-import * as StoreModule from '../../../providers/store';
-import * as TasksModule from '../../../tasks';
+import * as ConfigModule from '../../../../providers/configuration';
+import * as StoreModule from '../../../../providers/store';
+import * as TasksModule from '../../../../tasks';
 
 const useStoreSpy = jest.spyOn(StoreModule, 'useStore');
 const useProcessTasksSpy = jest.spyOn(TasksModule, 'useProcessTasks');
@@ -73,13 +73,13 @@ describe('useUploadView', () => {
     const { result } = renderHook(() => useUploadView({}));
 
     expect(result.current.tasks).toBe(tasks);
-    expect(result.current.isStartDisabled).toBe(true);
+    expect(result.current.disableStart).toBe(true);
     expect(result.current.isOverwriteDisabled).toBe(true);
     expect(result.current.isSelectFilesDisabled).toBe(true);
-    expect(result.current.isCancelDisabled).toBe(true);
+    expect(result.current.disableCancel).toBe(true);
   });
 
-  it('should return isStartDisabled as true and isCancelDisabled as false when there are only pending tasks', () => {
+  it('should return disableStart as true and disableCancel as false when there are only pending tasks', () => {
     const tasks: TasksModule.Task<File>[] = [
       {
         ...fileItem,
@@ -94,11 +94,11 @@ describe('useUploadView', () => {
     const { result } = renderHook(() => useUploadView({}));
 
     expect(result.current.tasks).toBe(tasks);
-    expect(result.current.isCancelDisabled).toBe(false);
-    expect(result.current.isStartDisabled).toBe(true);
+    expect(result.current.disableCancel).toBe(false);
+    expect(result.current.disableStart).toBe(true);
   });
 
-  it('should return only isCancelDisabled as true when there are are only queued tasks', () => {
+  it('should return only disableCancel as true when there are are only queued tasks', () => {
     const tasks: TasksModule.Task<File>[] = [
       {
         ...fileItem,
@@ -113,8 +113,8 @@ describe('useUploadView', () => {
     const { result } = renderHook(() => useUploadView({}));
 
     expect(result.current.tasks).toBe(tasks);
-    expect(result.current.isCancelDisabled).toBe(true);
-    expect(result.current.isStartDisabled).toBe(false);
+    expect(result.current.disableCancel).toBe(true);
+    expect(result.current.disableStart).toBe(false);
     expect(result.current.isOverwriteDisabled).toBe(false);
     expect(result.current.isSelectFilesDisabled).toBe(false);
   });
@@ -169,7 +169,7 @@ describe('useUploadView', () => {
       useProcessTasksSpy.mockReturnValue([tasks, handleProcessTasks]);
       const { result } = renderHook(() => useUploadView({}));
       act(() => {
-        result.current.onProcessStart();
+        result.current.onActionStart();
       });
       expect(handleProcessTasks).toHaveBeenCalledTimes(1);
       expect(handleProcessTasks).toHaveBeenCalledWith({
@@ -182,7 +182,7 @@ describe('useUploadView', () => {
         prefix: '',
       });
     });
-    it('should call cancel on each task when onProcessCancel is invoked', () => {
+    it('should call cancel on each task when onCancel is invoked', () => {
       const tasks: TasksModule.Task<File>[] = [
         {
           ...fileItem,
@@ -202,13 +202,13 @@ describe('useUploadView', () => {
       useProcessTasksSpy.mockReturnValue([tasks, handleProcessTasks]);
       const { result } = renderHook(() => useUploadView({}));
       act(() => {
-        result.current.onProcessCancel();
+        result.current.onActionCancel();
       });
       expect(tasks[0].cancel).toHaveBeenCalledTimes(1);
       expect(tasks[1].cancel).toHaveBeenCalledTimes(1);
     });
 
-    it('should call remove on each task, call onClose and dispatch actions when onExit is invoked', () => {
+    it('should call remove on each task, call onClose and dispatch actions when onClose is invoked', () => {
       const tasks: TasksModule.Task<File>[] = [
         {
           ...fileItem,
@@ -229,12 +229,11 @@ describe('useUploadView', () => {
       const onClose = jest.fn();
       const { result } = renderHook(() => useUploadView({ onClose }));
       act(() => {
-        result.current.onExit();
+        result.current.onClose();
       });
       expect(tasks[0].remove).toHaveBeenCalledTimes(1);
       expect(tasks[1].remove).toHaveBeenCalledTimes(1);
       expect(onClose).toHaveBeenCalledTimes(1);
-      // Expect dispatchStoreAction to be called with different types each call
       expect(dispatchStoreAction.mock.calls).toEqual([
         [{ type: 'RESET_FILE_ITEMS' }],
         [{ type: 'RESET_ACTION_TYPE' }],

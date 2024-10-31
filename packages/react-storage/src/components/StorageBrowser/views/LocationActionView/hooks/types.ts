@@ -4,10 +4,10 @@ import { Task } from '../../../tasks';
 export interface UseActionView {
   disableCancel: boolean;
   disableClose: boolean;
-  disablePrimary: boolean;
-  onCancel: () => void;
+  disableStart: boolean;
+  onActionCancel: () => void;
   onClose: () => void;
-  onStart: () => void;
+  onActionStart: () => void;
   taskCounts: TaskCounts;
-  tasks: Task[];
+  tasks: Task<File>[];
 }

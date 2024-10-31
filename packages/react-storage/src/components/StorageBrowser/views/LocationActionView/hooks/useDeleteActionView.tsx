@@ -36,10 +36,10 @@ export const useDeleteActionView = ({
   );
 
   const taskCounts = getTaskCounts(tasks);
-  const { disableCancel, disableClose, disablePrimary } =
+  const { disableCancel, disableClose, disableStart } =
     getActionViewDisabledButtons(taskCounts);
 
-  const onStart = () => {
+  const onActionStart = () => {
     if (!current?.prefix) return;
     handleProcess({
       config: getInput(),
@@ -47,7 +47,7 @@ export const useDeleteActionView = ({
     });
   };
 
-  const onCancel = () => {
+  const onActionCancel = () => {
     tasks.forEach((task) => {
       // @TODO Fixme, calling cancel on task doesn't currently work
       if (isFunction(task.cancel)) task.cancel();
@@ -65,10 +65,10 @@ export const useDeleteActionView = ({
   return {
     disableCancel,
     disableClose,
-    disablePrimary,
-    onCancel,
+    disableStart,
+    onActionCancel,
     onClose,
-    onStart,
+    onActionStart,
     taskCounts,
     tasks,
   };
