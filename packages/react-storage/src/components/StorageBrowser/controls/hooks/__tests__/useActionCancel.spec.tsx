@@ -24,9 +24,6 @@ describe('useActionCancel', () => {
     useControlsContextSpy.mockClear();
   });
 
-  afterAll(() => {
-    useControlsContextSpy.mockRestore();
-  });
   it('returns object as it is received from ControlsContext', () => {
     useControlsContextSpy.mockReturnValue(controlsContext);
 
