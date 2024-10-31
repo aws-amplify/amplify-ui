@@ -1,5 +1,5 @@
 import React from 'react';
-import { humanFileSize, isFunction } from '@aws-amplify/ui';
+import { humanFileSize } from '@aws-amplify/ui';
 
 import { TABLE_HEADER_BUTTON_CLASS_NAME } from '../../components/DataTable';
 import { useAction } from '../../do-not-import-from-here/actions';
@@ -189,23 +189,21 @@ const sortFns = {
 const LocationDetailViewColumnEmptyHeaderMap = ['download'];
 
 export const LocationDetailViewTable = ({
+  items,
   handleDroppedFiles,
-  onNavigate,
-  range,
+  handleLocationItemClick
 }: {
+  items: LocationItemData[];
   handleDroppedFiles: (files: File[]) => void;
-  onNavigate?: (location: LocationData) => void;
-  range: [start: number, end: number];
+  handleLocationItemClick: (location: LocationData) => void;
 }): JSX.Element | null => {
-  const [start, end] = range;
-
   const [{ history, locationItems }, dispatchStoreAction] = useStore();
   const { current } = history;
   const { fileDataItems } = locationItems;
 
-  const [{ data, hasError }] = useAction('LIST_LOCATION_ITEMS');
+  const [{ hasError }] = useAction('LIST_LOCATION_ITEMS');
 
-  const hasItems = !!data.result?.length;
+  const hasItems = !!items.length;
   const showTable = hasItems && !hasError;
 
   const [compareFn, setCompareFn] = React.useState(() => compareStrings);
@@ -218,16 +216,13 @@ export const LocationDetailViewTable = ({
 
   const { direction, selection } = sortState;
 
-  // Use range prop values to get the current page of data
-  const pagedData = data.result.slice(start, end);
-
   const tableData =
     direction === 'ascending'
-      ? pagedData.sort((a, b) => compareFn(a[selection], b[selection]))
-      : pagedData.sort((a, b) => compareFn(b[selection], a[selection]));
+      ? items.sort((a, b) => compareFn(a[selection], b[selection]))
+      : items.sort((a, b) => compareFn(b[selection], a[selection]));
 
   // Logic for Select All Files functionality
-  const allFiles = pagedData.filter(
+  const allFiles = items.filter(
     (item): item is FileData => item.type === 'FILE'
   );
   const areAllFilesSelected = fileDataItems?.length === allFiles.length;
@@ -405,10 +400,7 @@ export const LocationDetailViewTable = ({
                     onClick={() => {
                       const { id, key: prefix } = row;
                       const destination = { ...current!, id, prefix };
-
-                      if (isFunction(onNavigate)) onNavigate(destination);
-                      dispatchStoreAction({ type: 'NAVIGATE', destination });
-                      dispatchStoreAction({ type: 'RESET_LOCATION_ITEMS' });
+                      handleLocationItemClick(destination);
                     }}
                     key={row.id}
                   >
@@ -439,7 +431,7 @@ export const LocationDetailViewTable = ({
         </TableRow>
       );
     },
-    [current, fileDataItems, dispatchStoreAction, onNavigate]
+    [current, fileDataItems, dispatchStoreAction, handleLocationItemClick]
   );
 
   return showTable ? (

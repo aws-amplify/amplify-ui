@@ -1,5 +1,6 @@
 import { Composables } from '../composables/types';
 import { DataTableSortHeader, DataTableProps } from '../composables/DataTable';
+import { DropZoneProps } from '../composables/DropZone';
 import { INITIAL_STATUS_COUNTS } from '../views/LocationActionView/constants';
 
 export interface ControlProps {
@@ -36,6 +37,8 @@ export interface ControlsContext {
     taskCounts?: TaskCounts;
     tableData?: TableData;
     isDataRefreshDisabled?: boolean;
+    actionStartLabel?: string;
+    isActionStartDisabled?: boolean;
   };
   actionsConfig?: {
     type:
@@ -45,5 +48,7 @@ export interface ControlsContext {
       | 'LIST_LOCATION_ITEMS';
     isCancelable?: boolean;
   };
+  onDropComplete?: DropZoneProps['onDropComplete'];
   onRefresh?: () => void;
+  onActionStart?: () => void;
 }
