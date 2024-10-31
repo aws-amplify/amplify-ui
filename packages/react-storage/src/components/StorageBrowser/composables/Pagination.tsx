@@ -9,18 +9,18 @@ import {
 import { PaginateButton } from '../components/PaginateButton';
 
 export interface PaginationProps {
-  currentPage: number;
+  page: number;
   hasMorePages: boolean;
-  handlePaginate: (page: number) => void;
+  onPaginate: (page: number) => void;
   highestPageVisited: number;
 }
 
 const BLOCK_NAME = `${CLASS_BASE}__paginate`;
 
 export const Pagination = ({
-  currentPage,
+  page,
   hasMorePages,
-  handlePaginate,
+  onPaginate,
   highestPageVisited,
 }: PaginationProps): React.JSX.Element | null => {
   return (
@@ -28,20 +28,20 @@ export const Pagination = ({
       <OrderedListElement className={`${BLOCK_NAME}__list`}>
         <ListItemElement className={`${BLOCK_NAME}__item`}>
           <PaginateButton
-            disabled={currentPage <= 1}
-            onClick={() => handlePaginate(currentPage - 1)}
+            disabled={page <= 1}
+            onClick={() => onPaginate(page - 1)}
             type="previous"
           />
         </ListItemElement>
         <ListItemElement className={`${BLOCK_NAME}__item`}>
-          <SpanElement aria-current="page" className={`${BLOCK_NAME}__text`}>
-            {currentPage}
+          <SpanElement aria-current="page" className={`${BLOCK_NAME}__current`}>
+            {page}
           </SpanElement>
         </ListItemElement>
         <ListItemElement className={`${BLOCK_NAME}__item`}>
           <PaginateButton
-            disabled={currentPage >= highestPageVisited && !hasMorePages}
-            onClick={() => handlePaginate(currentPage + 1)}
+            disabled={page >= highestPageVisited && !hasMorePages}
+            onClick={() => onPaginate(page + 1)}
             type="next"
           />
         </ListItemElement>

@@ -10,6 +10,7 @@ import { useLocationsView } from './useLocationsView';
 import { ControlsContextProvider } from '../../controls/context';
 import { ControlsContext } from '../../controls/types';
 import { DataRefreshControl } from '../../controls/DataRefreshControl';
+import { PaginationControl } from '../../controls/PaginationControl';
 
 export interface LocationsViewProps {
   className?: (defaultClassName: string) => string;
@@ -18,13 +19,7 @@ export interface LocationsViewProps {
 
 export const DEFAULT_ERROR_MESSAGE = 'There was an error loading locations.';
 
-const {
-  EmptyMessage,
-  Loading: LoadingElement,
-  Message,
-  Paginate,
-  Title,
-} = Controls;
+const { EmptyMessage, Loading: LoadingElement, Message, Title } = Controls;
 
 const Loading = () => {
   const [{ isLoading }] = useLocationsData();
@@ -53,15 +48,14 @@ export function LocationsView({
   onNavigate: onNavigateProp,
 }: LocationsViewProps): React.JSX.Element {
   const {
-    pageItems,
     hasError,
-    isPaginatePreviousDisabled,
-    isPaginateNextDisabled,
+    hasNextPage,
+    highestPageVisited,
     page,
     isLoading,
+    pageItems,
     onRefresh,
-    onPaginateNext,
-    onPaginatePrevious,
+    onPaginate,
     onNavigate,
   } = useLocationsView({ onNavigate: onNavigateProp });
 
@@ -69,6 +63,12 @@ export function LocationsView({
   const contextValue: ControlsContext = {
     data: {
       isDataRefreshDisabled: isLoading,
+      paginationData: {
+        hasMorePages: hasNextPage,
+        onPaginate,
+        page,
+        highestPageVisited,
+      },
     },
     onRefresh,
   };
@@ -83,13 +83,7 @@ export function LocationsView({
         <DataRefreshControl
           className={`${CLASS_BASE}__locations-view-data-refresh`}
         />
-        <Paginate
-          currentPage={page}
-          disableNext={isPaginateNextDisabled}
-          disablePrevious={isPaginatePreviousDisabled}
-          handleNext={onPaginateNext}
-          handlePrevious={onPaginatePrevious}
-        />
+        <PaginationControl className={`${CLASS_BASE}__paginate`} />
         <LocationsMessage />
         <Loading />
         {hasError ? null : (

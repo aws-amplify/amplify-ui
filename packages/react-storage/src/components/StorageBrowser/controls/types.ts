@@ -33,9 +33,9 @@ interface TableData {
 
 interface PaginationData {
   hasMorePages: boolean;
-  pageSize: number;
-  resultCount: number;
-  onPaginate?: () => void;
+  highestPageVisited: number;
+  onPaginate: (page: number) => void;
+  page: number;
 }
 
 export interface ControlsContext {
@@ -43,7 +43,7 @@ export interface ControlsContext {
     taskCounts?: TaskCounts;
     tableData?: TableData;
     isDataRefreshDisabled?: boolean;
-    pagination?: PaginationData;
+    paginationData?: PaginationData;
     actionStartLabel?: string;
     isActionStartDisabled?: boolean;
   };

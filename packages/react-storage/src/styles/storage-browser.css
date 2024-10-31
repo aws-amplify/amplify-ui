@@ -54,6 +54,7 @@
 
 .storage-browser__paginate__item {
   display: flex;
+  align-items: center;
 }
 
 .storage-browser__paginate__icon,

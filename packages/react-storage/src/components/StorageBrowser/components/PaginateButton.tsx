@@ -25,6 +25,7 @@ export function PaginateButton({
       className={`${BLOCK_NAME}__button-${type}`}
       disabled={disabled}
       onClick={onClick}
+      variant={`paginate-${type}`}
     >
       <IconElement
         className={`${BLOCK_NAME}__icon`}

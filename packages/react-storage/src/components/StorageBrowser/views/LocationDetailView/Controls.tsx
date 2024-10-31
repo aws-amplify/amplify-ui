@@ -11,6 +11,7 @@ import { ControlsContextProvider } from '../../controls/context';
 import { ControlsContext } from '../../controls/types';
 import { DataRefreshControl } from '../../controls/DataRefreshControl';
 import { CLASS_BASE } from '../constants';
+import { PaginationControl } from '../../controls/PaginationControl';
 
 export const DEFAULT_ERROR_MESSAGE = 'There was an error loading items.';
 const DEFAULT_PAGE_SIZE = 100;
@@ -24,7 +25,6 @@ const {
   Loading: LoadingControl,
   Message,
   Navigate,
-  Paginate,
   Title: TitleControl,
 } = Controls;
 
@@ -69,12 +69,11 @@ export const LocationDetailViewControls = ({
   const {
     pageItems,
     isLoading,
+    hasNextPage,
+    highestPageVisited,
     page,
-    isPaginatePreviousDisabled,
-    isPaginateNextDisabled,
     onRefresh,
-    onPaginateNext,
-    onPaginatePrevious,
+    onPaginate,
     onAddFiles,
     onAccessItem,
   } = useLocationDetailView({ onNavigate: onNavigateProp });
@@ -82,6 +81,12 @@ export const LocationDetailViewControls = ({
   const contextValue: ControlsContext = {
     data: {
       isDataRefreshDisabled: isLoading,
+      paginationData: {
+        hasMorePages: hasNextPage,
+        onPaginate,
+        page,
+        highestPageVisited,
+      },
     },
     onRefresh,
   };
@@ -97,13 +102,7 @@ export const LocationDetailViewControls = ({
         onActionSelect={onActionSelect}
         disabled={isLoading}
       />
-      <Paginate
-        currentPage={page}
-        disableNext={isPaginateNextDisabled}
-        disablePrevious={isPaginatePreviousDisabled}
-        handleNext={onPaginateNext}
-        handlePrevious={onPaginatePrevious}
-      />
+      <PaginationControl className={`${CLASS_BASE}__paginate`} />
       <LocationDetailMessage />
       <Loading show={isLoading} />
       <LocationDetailViewTable

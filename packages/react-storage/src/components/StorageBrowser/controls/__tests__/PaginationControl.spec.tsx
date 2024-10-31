@@ -28,8 +28,7 @@ describe('PaginationControl', () => {
       currentPage: 1,
       disableNext: false,
       disablePrevious: false,
-      handlePaginateNext: jest.fn(),
-      handlePaginatePrevious: jest.fn(),
+      handlePaginate: jest.fn(),
     });
 
     render(<PaginationControl />);
