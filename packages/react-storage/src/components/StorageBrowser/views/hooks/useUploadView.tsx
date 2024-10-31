@@ -6,6 +6,10 @@ import { DEFAULT_OVERWRITE_PROTECTION } from '../LocationActionView/constants';
 import { uploadHandler } from '../../actions';
 import { getTaskCounts } from '../../controls/getTaskCounts';
 import { isFunction, isUndefined } from '@aws-amplify/ui';
+import {
+  getActionViewDisabledButtons,
+  getTasksHaveStarted,
+} from '../LocationActionView/utils';
 
 interface UseUploadView {
   tasks: Task<File>[];
@@ -13,7 +17,7 @@ interface UseUploadView {
   isCancelDisabled: boolean;
   isOverwriteDisabled: boolean;
   isSelectFilesDisabled: boolean;
-  overwriteSelection: boolean;
+  preventOverwrite: boolean;
   onDropFiles: (files?: File[]) => void;
   onExit: () => void;
   onProcessStart: () => void;
@@ -32,7 +36,7 @@ export const useUploadView = ({
   const { prefix } = history?.current ?? {};
 
   const hasInvalidPrefix = isUndefined(prefix);
-  const [overwriteSelection, setOverwriteSelection] = React.useState(
+  const [preventOverwrite, setPreventOverwrite] = React.useState(
     DEFAULT_OVERWRITE_PROTECTION
   );
 
@@ -41,15 +45,15 @@ export const useUploadView = ({
   });
 
   const taskCounts = React.useMemo(() => getTaskCounts(tasks), [tasks]);
+  const { disableCancel: isCancelDisabled, disablePrimary: isStartDisabled } =
+    getActionViewDisabledButtons(taskCounts);
 
-  const hasStarted = !!taskCounts.PENDING;
+  const hasStarted = getTasksHaveStarted(taskCounts);
   const hasCompleted =
     !!taskCounts.TOTAL &&
     taskCounts.CANCELED + taskCounts.COMPLETE + taskCounts.FAILED ===
       taskCounts.TOTAL;
 
-  const isCancelDisabled = !taskCounts.TOTAL || !hasStarted || hasCompleted;
-  const isStartDisabled = !taskCounts.TOTAL || hasStarted || hasCompleted;
   const isOverwriteDisabled = hasStarted || hasCompleted;
   const isSelectFilesDisabled = hasStarted || hasCompleted;
 
@@ -75,9 +79,9 @@ export const useUploadView = ({
     handleProcess({
       config: getInput(),
       prefix,
-      options: { preventOverwrite: overwriteSelection },
+      options: { preventOverwrite },
     });
-  }, [handleProcess, prefix, overwriteSelection, getInput, hasInvalidPrefix]);
+  }, [handleProcess, prefix, preventOverwrite, getInput, hasInvalidPrefix]);
 
   const onProcessCancel = React.useCallback(() => {
     tasks.forEach((task) => task.cancel?.());
@@ -94,7 +98,7 @@ export const useUploadView = ({
   }, [tasks, dispatchStoreAction, onClose]);
 
   const onToggleOverwrite = React.useCallback(() => {
-    setOverwriteSelection((overwrite) => !overwrite);
+    setPreventOverwrite((overwrite) => !overwrite);
   }, []);
 
   return {
@@ -103,7 +107,7 @@ export const useUploadView = ({
     isCancelDisabled,
     isOverwriteDisabled,
     isSelectFilesDisabled,
-    overwriteSelection,
+    preventOverwrite,
     onToggleOverwrite,
     onDropFiles,
     onExit,

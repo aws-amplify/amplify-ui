@@ -220,7 +220,7 @@ export const UploadControls = ({
     isCancelDisabled: disableCancel,
     isOverwriteDisabled: disableOverwrite,
     isSelectFilesDisabled: disableSelectFiles,
-    overwriteSelection,
+    preventOverwrite,
     onToggleOverwrite,
     onProcessStart,
     onProcessCancel,
@@ -379,7 +379,7 @@ export const UploadControls = ({
         />
       </ViewElement>
       <Overwrite
-        defaultChecked={!overwriteSelection}
+        defaultChecked={!preventOverwrite}
         disabled={disableOverwrite}
         handleChange={onToggleOverwrite}
       />

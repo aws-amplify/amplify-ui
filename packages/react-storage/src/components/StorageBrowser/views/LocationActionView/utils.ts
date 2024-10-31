@@ -31,7 +31,7 @@ export const getActionIconVariant = (status: TaskStatus): IconVariant => {
   }
 };
 
-const getTasksHaveStarted = (taskCounts: TaskCounts) =>
+export const getTasksHaveStarted = (taskCounts: TaskCounts): boolean =>
   taskCounts.QUEUED < taskCounts.TOTAL;
 
 export const getActionViewDisabledButtons = (
