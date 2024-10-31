@@ -11,12 +11,14 @@ interface CreateLocationCredentialsHandlerInput {
   accountId: string;
   credentialsProvider: CredentialsProvider;
   region: string;
+  customEndpoint?: string;
 }
 
 export const createLocationCredentialsHandler = (
   handlerInput: CreateLocationCredentialsHandlerInput
 ): GetLocationCredentials => {
-  const { accountId, region, credentialsProvider } = handlerInput;
+  const { accountId, region, credentialsProvider, customEndpoint } =
+    handlerInput;
 
   /**
    * Retrieves credentials for the specified scope & permission.
@@ -34,6 +36,7 @@ export const createLocationCredentialsHandler = (
       permission,
       region,
       scope,
+      customEndpoint,
     });
   };
 };

@@ -11,6 +11,7 @@ interface CreateListLocationsHandlerInput {
   accountId: string;
   credentialsProvider: CredentialsProvider;
   region: string;
+  customEndpoint?: string;
 }
 
 export const createListLocationsHandler = (

@@ -21,7 +21,7 @@ export interface CopyHandler
 
 export const copyHandler: CopyHandler = (input) => {
   const { config, key, options, prefix, data } = input;
-  const { accountId, credentials } = config;
+  const { accountId, credentials, customEndpoint } = config;
   const { payload } = data;
   const { destinationPrefix } = payload;
 
@@ -36,7 +36,10 @@ export const copyHandler: CopyHandler = (input) => {
       bucket,
       expectedBucketOwner: accountId,
     },
-    options: { locationCredentialsProvider: credentials },
+    options: {
+      locationCredentialsProvider: credentials,
+      customEndpoint,
+    },
   });
 
   return {
