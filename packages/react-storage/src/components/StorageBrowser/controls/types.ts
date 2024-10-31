@@ -35,6 +35,8 @@ export interface ControlsContext {
     taskCounts?: TaskCounts;
     tableData?: TableData;
     isDataRefreshDisabled?: boolean;
+    actionStartLabel?: string;
+    isActionStartDisabled?: boolean;
   };
   actionsConfig?: {
     type:
@@ -45,4 +47,5 @@ export interface ControlsContext {
     isCancelable?: boolean;
   };
   onRefresh?: () => void;
+  onActionStart?: () => void;
 }

@@ -35,10 +35,11 @@ import {
   STATUS_DISPLAY_VALUES,
 } from './constants';
 import { FileItems } from '../../providers/store/files';
+import { ActionStartControl } from '../../controls/ActionStartControl';
 
 const { Icon } = StorageBrowserElements;
 
-const { Cancel, Exit, Overwrite, Primary, Table } = Controls;
+const { Cancel, Exit, Overwrite, Table } = Controls;
 
 interface LocationActionViewColumns {
   cancel: (() => void) | undefined;
@@ -329,8 +330,24 @@ export const UploadControls = ({
 
   // FIXME: Eventually comes from useView hook
   const contextValue: ControlsContext = {
-    data: { taskCounts },
-    actionsConfig: { type: 'BATCH_ACTION', isCancelable: true },
+    data: {
+      taskCounts,
+      isActionStartDisabled: disablePrimary,
+      actionStartLabel: 'Start',
+    },
+    actionsConfig: {
+      type: 'BATCH_ACTION',
+      isCancelable: true,
+    },
+    onActionStart: () => {
+      if (hasInvalidPrefix) return;
+
+      handleProcess({
+        config: getInput(),
+        prefix,
+        options: { preventOverwrite },
+      });
+    },
   };
 
   return (
@@ -347,20 +364,7 @@ export const UploadControls = ({
         }}
       />
       <Title />
-      <Primary
-        disabled={disablePrimary}
-        onClick={() => {
-          if (hasInvalidPrefix) return;
-
-          handleProcess({
-            config: getInput(),
-            prefix,
-            options: { preventOverwrite },
-          });
-        }}
-      >
-        Start
-      </Primary>
+      <ActionStartControl className={`${CLASS_BASE}__upload-action-start`} />
       <ButtonElement
         variant="cancel"
         disabled={disableCancel}

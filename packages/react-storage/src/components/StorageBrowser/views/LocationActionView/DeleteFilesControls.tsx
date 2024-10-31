@@ -11,8 +11,9 @@ import { StatusDisplayControl } from '../../controls/StatusDisplayControl';
 import { ControlsContext } from '../../controls/types';
 import { useStore } from '../../providers/store';
 import { getDeleteActionViewTableData } from './utils';
+import { ActionStartControl } from '../../controls/ActionStartControl';
 
-const { Exit, Primary } = Controls;
+const { Exit } = Controls;
 
 export const DeleteFilesControls = ({
   onClose: _onClose,
@@ -40,22 +41,21 @@ export const DeleteFilesControls = ({
   });
 
   const contextValue: ControlsContext = {
-    data: { taskCounts, tableData },
+    data: {
+      taskCounts,
+      tableData,
+      isActionStartDisabled: disablePrimary,
+      actionStartLabel: 'Start',
+    },
     actionsConfig: { type: 'BATCH_ACTION', isCancelable: true },
+    onActionStart: onStart,
   };
 
   return (
     <ControlsContextProvider {...contextValue}>
       <Exit onClick={onClose} disabled={disableClose} />
       <Title />
-      <Primary
-        disabled={disablePrimary}
-        onClick={() => {
-          onStart();
-        }}
-      >
-        Start
-      </Primary>
+      <ActionStartControl />
       <ButtonElement
         variant="cancel"
         disabled={disableCancel}
