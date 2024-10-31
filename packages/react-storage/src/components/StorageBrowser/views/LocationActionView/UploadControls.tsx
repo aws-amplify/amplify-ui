@@ -364,7 +364,11 @@ export const UploadControls = ({
         options: { preventOverwrite },
       });
     },
-    onActionCancel: handleCancel,
+    onActionCancel: () => {
+      tasks.forEach((task) => {
+        task.cancel?.();
+      });
+    },
   };
 
   return (
