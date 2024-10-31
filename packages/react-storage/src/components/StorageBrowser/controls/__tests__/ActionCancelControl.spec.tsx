@@ -13,10 +13,6 @@ describe('ActionCancelControl', () => {
     useActionCancelSpy.mockClear();
   });
 
-  afterAll(() => {
-    useActionCancelSpy.mockRestore();
-  });
-
   it('renders', () => {
     useActionCancelSpy.mockReturnValue({
       isDisabled: false,

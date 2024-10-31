@@ -10,10 +10,6 @@ describe('ActionStartControl', () => {
     useActionStartSpy.mockClear();
   });
 
-  afterAll(() => {
-    useActionStartSpy.mockRestore();
-  });
-
   it('renders', () => {
     useActionStartSpy.mockReturnValue({
       isDisabled: false,
