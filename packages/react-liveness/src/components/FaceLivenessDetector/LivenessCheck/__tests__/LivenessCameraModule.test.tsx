@@ -23,6 +23,7 @@ import {
   selectVideoStream,
 } from '../LivenessCameraModule';
 import { FaceMatchState } from '../../service';
+import * as Device from '../../utils/device';
 import { getDisplayText } from '../../utils/getDisplayText';
 import { selectIsRecordingStopped } from '../LivenessCheck';
 
@@ -35,6 +36,22 @@ jest.mock('../../service');
 const mockUseLivenessActor = getMockedFunction(useLivenessActor);
 const mockUseLivenessSelector = getMockedFunction(useLivenessSelector);
 const mockUseMediaStreamInVideo = getMockedFunction(useMediaStreamInVideo);
+
+const mockDevices = [
+  {
+    deviceId: '123',
+    kind: 'videoinput',
+    label: 'Front Camera',
+    groupId: '',
+  },
+  {
+    deviceId: '456',
+    kind: 'videoinput',
+    label: 'Back Camera',
+    groupId: '',
+  },
+];
+const mockEnumerateDevices = jest.fn().mockResolvedValue(mockDevices);
 
 describe('LivenessCameraModule', () => {
   const mockActorState: any = {
@@ -88,6 +105,10 @@ describe('LivenessCameraModule', () => {
       videoHeight: 100,
       videoWidth: 100,
     });
+    (global.navigator.mediaDevices as any) = {
+      getUserMedia: jest.fn(),
+      enumerateDevices: mockEnumerateDevices,
+    };
   });
 
   afterEach(() => {
@@ -137,6 +158,82 @@ describe('LivenessCameraModule', () => {
     );
 
     expect(screen.getByTestId('centered-loader')).toBeInTheDocument();
+  });
+
+  it('should apply correct classNames to user-facing video', async () => {
+    isStart = true;
+    mockStateMatchesAndSelectors();
+    mockUseLivenessSelector.mockImplementation((selector) => {
+      if (selector === selectSelectableDevices) {
+        return mockDevices;
+      }
+      if (selector === selectSelectedDeviceId) {
+        return 123;
+      }
+      return undefined;
+    });
+    await waitFor(() => {
+      renderWithLivenessProvider(
+        <LivenessCameraModule
+          isMobileScreen={false}
+          isRecordingStopped={false}
+          hintDisplayText={hintDisplayText}
+          streamDisplayText={streamDisplayText}
+          errorDisplayText={errorDisplayText}
+          cameraDisplayText={cameraDisplayText}
+          instructionDisplayText={instructionDisplayText}
+        />
+      );
+    });
+
+    const cameraSelector = screen.getByRole('combobox') as HTMLSelectElement;
+    const videoEl = screen.getByTestId('video');
+
+    await waitFor(() => {
+      expect(cameraSelector).toBeInTheDocument();
+      expect(cameraSelector.value).toBe('123');
+      expect(videoEl).toHaveClass(LivenessClassNames.Video);
+      expect(videoEl).toHaveClass(LivenessClassNames.UserFacingVideo);
+    });
+  });
+
+  it('should apply correct classNames to video', async () => {
+    isStart = true;
+    jest.spyOn(Device, 'isDeviceUserFacing').mockResolvedValue(false);
+    mockStateMatchesAndSelectors();
+    mockUseLivenessSelector.mockImplementation((selector) => {
+      if (selector === selectSelectableDevices) {
+        return mockDevices;
+      }
+      if (selector === selectSelectedDeviceId) {
+        return 456;
+      }
+      return undefined;
+    });
+
+    await waitFor(() => {
+      renderWithLivenessProvider(
+        <LivenessCameraModule
+          isMobileScreen={false}
+          isRecordingStopped={false}
+          hintDisplayText={hintDisplayText}
+          streamDisplayText={streamDisplayText}
+          errorDisplayText={errorDisplayText}
+          cameraDisplayText={cameraDisplayText}
+          instructionDisplayText={instructionDisplayText}
+        />
+      );
+    });
+
+    const cameraSelector = screen.getByRole('combobox') as HTMLSelectElement;
+    const videoEl = screen.getByTestId('video');
+
+    await waitFor(() => {
+      expect(cameraSelector).toBeInTheDocument();
+      expect(cameraSelector.value).toBe('456');
+      expect(videoEl).toHaveClass(LivenessClassNames.Video);
+      expect(videoEl).not.toHaveClass(LivenessClassNames.UserFacingVideo);
+    });
   });
 
   it.skip('should render video and timer when isNotRecording true', async () => {
