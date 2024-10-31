@@ -204,14 +204,7 @@ export const LivenessCameraModule = (
       darkModePreference.removeEventListener('change', updateColorModeHandler);
       lightModePreference.addEventListener('change', updateColorModeHandler);
     };
-  }, [
-    canvasRef,
-    videoRef,
-    videoStream,
-    colorMode,
-    isStartView,
-    isMetadataLoaded,
-  ]);
+  }, [videoRef, videoStream, colorMode, isStartView, isMetadataLoaded]);
 
   React.useLayoutEffect(() => {
     if (isCameraReady) {
