@@ -12,9 +12,7 @@ import { constructBucket, resolveHandlerResult } from './utils';
 interface DeleteHandlerOptions extends TaskHandlerOptions {}
 
 export interface DeleteHandlerInput
-  extends Omit<TaskHandlerInput<never, DeleteHandlerOptions>, 'data'> {
-  data: { key: string };
-}
+  extends TaskHandlerInput<string, DeleteHandlerOptions> {}
 
 export interface DeleteHandlerOutput extends TaskHandlerOutput {}
 

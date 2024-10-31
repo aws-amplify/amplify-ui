@@ -1,15 +1,16 @@
 import { renderHook, act } from '@testing-library/react';
-import { useDeleteActionView } from '../useDeleteActionView';
+import { useDeleteView } from '../useDeleteView';
 import { getDeleteActionViewTableData } from '../../utils';
 import * as Store from '../../../../providers/store';
 import * as Config from '../../../../providers/configuration';
 import * as Tasks from '../../../../tasks';
 import { TaskStatus } from '../../../../tasks';
+import { LocationData } from '../../../../actions';
 
 const mockProcessTasks = jest.fn();
 const mockDispatchStoreAction = jest.fn();
 
-describe('useDeleteActionView', () => {
+describe('useDeleteView', () => {
   beforeEach(() => {
     jest.clearAllMocks();
 
@@ -93,16 +94,16 @@ describe('useDeleteActionView', () => {
   });
 
   it('should return the correct initial state', () => {
-    const { result } = renderHook(() => useDeleteActionView({}));
+    const { result } = renderHook(() => useDeleteView({}));
 
     expect(result.current).toEqual(
       expect.objectContaining({
         disableCancel: true,
         disableClose: false,
         disablePrimary: false,
-        onCancel: expect.any(Function),
-        onClose: expect.any(Function),
-        onStart: expect.any(Function),
+        onActionCancel: expect.any(Function),
+        onExit: expect.any(Function),
+        onActionStart: expect.any(Function),
         tasks: expect.any(Array),
       })
     );
@@ -118,11 +119,11 @@ describe('useDeleteActionView', () => {
     });
   });
 
-  it('should call processTasks when onStart is called', () => {
-    const { result } = renderHook(() => useDeleteActionView({}));
+  it('should call processTasks when onActionStart is called', () => {
+    const { result } = renderHook(() => useDeleteView({}));
 
     act(() => {
-      result.current.onStart();
+      result.current.onActionStart();
     });
 
     expect(mockProcessTasks).toHaveBeenCalledWith({
@@ -136,7 +137,7 @@ describe('useDeleteActionView', () => {
     });
   });
 
-  it('should call cancel on tasks when onCancel is called', () => {
+  it('should call cancel on tasks when onActionCancel is called', () => {
     const mockCancel = jest.fn();
     jest.spyOn(Tasks, 'useProcessTasks').mockReturnValue([
       [
@@ -153,26 +154,24 @@ describe('useDeleteActionView', () => {
       mockProcessTasks,
     ]);
 
-    const { result } = renderHook(() => useDeleteActionView({}));
+    const { result } = renderHook(() => useDeleteView({}));
 
     act(() => {
-      result.current.onCancel();
+      result.current.onActionCancel();
     });
 
     expect(mockCancel).toHaveBeenCalled();
   });
 
-  it('should reset state when onClose is called', () => {
-    const mockOnClose = jest.fn();
-    const { result } = renderHook(() =>
-      useDeleteActionView({ onClose: mockOnClose })
-    );
+  it('should reset state when onExit is called', () => {
+    const mockOnExit = jest.fn();
+    const { result } = renderHook(() => useDeleteView({ onExit: mockOnExit }));
 
     act(() => {
-      result.current.onClose();
+      result.current.onExit({} as LocationData);
     });
 
-    expect(mockOnClose).toHaveBeenCalled();
+    expect(mockOnExit).toHaveBeenCalled();
     expect(mockDispatchStoreAction).toHaveBeenCalledWith({
       type: 'RESET_LOCATION_ITEMS',
     });
@@ -215,7 +214,7 @@ describe('useDeleteActionView', () => {
       jest.fn(),
     ]);
 
-    const { result } = renderHook(() => useDeleteActionView({}));
+    const { result } = renderHook(() => useDeleteView({}));
 
     expect(result.current).toEqual(
       expect.objectContaining({
@@ -260,7 +259,7 @@ describe('useDeleteActionView', () => {
       jest.fn(),
     ]);
 
-    const { result } = renderHook(() => useDeleteActionView({}));
+    const { result } = renderHook(() => useDeleteView({}));
 
     expect(result.current).toEqual(
       expect.objectContaining({
@@ -305,7 +304,7 @@ describe('useDeleteActionView', () => {
       jest.fn(),
     ]);
 
-    const { result } = renderHook(() => useDeleteActionView({}));
+    const { result } = renderHook(() => useDeleteView({}));
 
     expect(result.current).toEqual(
       expect.objectContaining({
@@ -317,7 +316,7 @@ describe('useDeleteActionView', () => {
   });
 
   it('should provide tasks data and task counts', () => {
-    const { result } = renderHook(() => useDeleteActionView({}));
+    const { result } = renderHook(() => useDeleteView({}));
 
     expect(result.current.tasks).toEqual(expect.any(Array));
     expect(result.current.taskCounts).toEqual({
