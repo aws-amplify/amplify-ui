@@ -40,7 +40,8 @@ export function useStore(): [UseStoreState, HandleStoreAction] {
           dispatchFilesAction(action);
           break;
         }
-        case 'NAVIGATE': {
+        case 'NAVIGATE':
+        case 'RESET_LOCATION': {
           dispatchLocationAction(action);
           break;
         }

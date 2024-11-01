@@ -78,7 +78,8 @@ export const LocationDetailViewControls = ({
     onPaginatePrevious,
     onAddFiles,
     onAccessItem,
-  } = useLocationDetailView({ onNavigate: onNavigateProp });
+    onNavigateHome,
+  } = useLocationDetailView({ onNavigate: onNavigateProp, onExit });
 
   // FIXME:
   const contextValue: ControlsContext = {
@@ -87,7 +88,7 @@ export const LocationDetailViewControls = ({
       location,
     },
     onAccessItem,
-    onNavigateHome: onExit,
+    onNavigateHome,
     onRefresh,
   };
 

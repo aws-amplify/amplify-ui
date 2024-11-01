@@ -22,6 +22,7 @@ interface UseLocationDetailView {
   onPaginateNext: () => void;
   onPaginatePrevious: () => void;
   onAddFiles: (files: File[]) => void;
+  onNavigateHome: () => void;
 }
 
 export type LocationDetailViewActionType =
@@ -57,7 +58,7 @@ export const DEFAULT_LIST_OPTIONS = {
 export function useLocationDetailView(
   options?: UseLocationDetailViewOptions
 ): UseLocationDetailView {
-  const { initialValues, onActionSelect, onNavigate } = options ?? {};
+  const { initialValues, onActionSelect, onExit, onNavigate } = options ?? {};
 
   const listOptionsRef = React.useRef({
     ...DEFAULT_LIST_OPTIONS,
@@ -156,6 +157,18 @@ export function useLocationDetailView(
       });
 
       if (isFunction(onActionSelect)) onActionSelect('UPLOAD_FILES');
+    },
+    onNavigateHome: () => {
+      onExit?.();
+      dispatchStoreAction({ type: 'RESET_LOCATION' });
+
+      handleList({
+        // @todo: prefix should not be required to refresh
+        prefix: current?.prefix ?? '',
+        options: { reset: true },
+      });
+      dispatchStoreAction({ type: 'RESET_ACTION_TYPE' });
+      dispatchStoreAction({ type: 'RESET_LOCATION_ITEMS' });
     },
   };
 }

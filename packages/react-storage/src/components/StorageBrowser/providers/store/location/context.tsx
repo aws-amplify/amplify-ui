@@ -14,11 +14,13 @@ export const DEFAULT_STATE: LocationState = {
   path: undefined,
 };
 
-export type LocationActionType = {
-  type: 'NAVIGATE';
-  location?: LocationData;
-  path?: string;
-};
+export type LocationActionType =
+  | {
+      type: 'NAVIGATE';
+      location?: LocationData;
+      path?: string;
+    }
+  | { type: 'RESET_LOCATION' };
 
 /**
  * Stores current `location` and nested `path` values set on
@@ -75,6 +77,9 @@ function handleAction(
       }
 
       return { current: location, path };
+    }
+    case 'RESET_LOCATION': {
+      return DEFAULT_STATE;
     }
   }
 }
