@@ -1,1 +1,2 @@
-export { assertIsLocationData } from './assertIsLocationData';
+export { assertLocationData } from './assertLocationData';
+export { assertRegisterAuthListener } from './assertRegisterAuthListener';

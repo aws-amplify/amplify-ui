@@ -3,7 +3,7 @@ import React from 'react';
 import { createContextUtilities } from '@aws-amplify/ui-react-core';
 import { noop } from '@aws-amplify/ui';
 
-import { assertIsLocationData } from '../../../validators';
+import { assertLocationData } from '../../../validators';
 import { LocationData } from '../../../actions';
 
 export const ERROR_MESSAGE =
@@ -74,7 +74,7 @@ export function HistoryProvider({
   location: current,
 }: HistoryProviderProps): React.JSX.Element {
   if (current) {
-    assertIsLocationData(current, ERROR_MESSAGE);
+    assertLocationData(current, ERROR_MESSAGE);
   }
 
   const value = React.useReducer(

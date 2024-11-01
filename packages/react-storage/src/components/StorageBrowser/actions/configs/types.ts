@@ -8,6 +8,8 @@ import {
   LocationItemType,
   UploadHandler,
   CreateFolderHandler,
+  DeleteHandler,
+  CopyHandler,
 } from '../handlers';
 import { TaskHandler } from '../types';
 
@@ -74,7 +76,7 @@ export interface ActionListItemConfig {
  * defines an action to be included in the actions list of the `LocationDetailView` with
  * a dedicated subcomponent of the `LocationActionView`
  */
-export interface TaskActionConfig<T extends TaskHandler>
+export interface TaskActionConfig<T extends TaskHandler = TaskHandler>
   extends ActionConfigTemplate<T> {
   /**
    * configure action list item behavior. provide multiple configs
@@ -106,6 +108,14 @@ export interface UploadActionConfig extends TaskActionConfig<UploadHandler> {
   componentName: 'UploadView';
 }
 
+export interface DeleteActionConfig extends TaskActionConfig<DeleteHandler> {
+  componentName: 'DeleteView';
+}
+
+export interface CopyActionConfig extends TaskActionConfig<CopyHandler> {
+  componentName: 'CopyView';
+}
+
 export interface CreateFolderActionConfig
   extends TaskActionConfig<CreateFolderHandler> {
   componentName: 'CreateFolderView';
@@ -131,6 +141,8 @@ export interface DefaultActionConfigs {
   ListLocations: ListLocationsActionConfig;
   CreateFolder: CreateFolderActionConfig;
   Upload: UploadActionConfig;
+  Delete: DeleteActionConfig;
+  Copy: CopyActionConfig;
 }
 
 export type DefaultActionKey = keyof DefaultActionConfigs;
@@ -141,14 +153,8 @@ export type ActionConfigs<ActionsKeys extends ActionName = ActionName> = Record<
   | ListLocationsActionConfig
   | CreateFolderActionConfig
   | UploadActionConfig
-  | TaskActionConfig<TaskHandler>
+  | TaskActionConfig
 >;
-
-export type _ActionConfigs<T extends ActionName = ActionName> = {
-  [K in T]: K extends DefaultActionKey
-    ? DefaultActionConfigs[K]
-    : TaskActionConfig<TaskHandler>;
-};
 
 export type ResolveActionHandler<T> = T extends
   | TaskActionConfig<infer K>

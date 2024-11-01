@@ -3,27 +3,19 @@ import { useMemo, useState } from 'react';
 import { isFunction } from '@aws-amplify/ui';
 
 import { copyHandler } from '../../../actions/handlers';
-import { Task, useProcessTasks } from '../../../tasks';
-import { UseActionView } from './types';
+import { useProcessTasks } from '../../../tasks';
 import { useGetActionInput } from '../../../providers/configuration';
 import { useStore } from '../../../providers/store';
 import { getActionViewDisabledButtons } from '../utils';
 import { getTaskCounts } from '../../../controls/getTaskCounts';
 import { getDestinationListFullPrefix } from '../utils/getDestinationPickerDataTable';
-
-interface UseCopyActionView extends UseActionView {
-  tasks: Task<{
-    destinationPrefix: string;
-  }>[];
-  destinationList: string[];
-  onSetDestinationList: (destination: string[]) => void;
-}
+import { CopyViewState } from './types';
 
 export const useCopyActionView = ({
-  onClose: _onClose,
+  onExit: _onExit,
 }: {
-  onClose?: () => void;
-}): UseCopyActionView => {
+  onExit?: () => void;
+}): CopyViewState => {
   const [
     {
       history,
@@ -63,7 +55,7 @@ export const useCopyActionView = ({
   const { disableCancel, disableClose, disablePrimary } =
     getActionViewDisabledButtons(taskCounts);
 
-  const onStart = () => {
+  const onActionStart = () => {
     if (!destinationList || !current?.prefix) return;
     handleProcess({
       config: getInput(),
@@ -71,19 +63,19 @@ export const useCopyActionView = ({
     });
   };
 
-  const onCancel = () => {
+  const onActionCancel = () => {
     tasks.forEach((task) => {
       // @TODO Fixme, calling cancel on task doesn't currently work
       if (isFunction(task.cancel)) task.cancel();
     });
   };
 
-  const onClose = () => {
+  const onExit = () => {
     // clear files state
     dispatchStoreAction({ type: 'RESET_LOCATION_ITEMS' });
     // clear selected action
     dispatchStoreAction({ type: 'RESET_ACTION_TYPE' });
-    if (isFunction(_onClose)) _onClose();
+    if (isFunction(_onExit)) _onExit();
   };
 
   return {
@@ -91,10 +83,10 @@ export const useCopyActionView = ({
     disableCancel,
     disableClose,
     disablePrimary,
-    onCancel,
-    onClose,
+    onActionCancel,
+    onExit,
     onSetDestinationList,
-    onStart,
+    onActionStart,
     taskCounts,
     tasks,
   };

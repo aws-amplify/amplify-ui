@@ -40,7 +40,7 @@ export default function Page() {
         {typeof query.actionType === 'string' ? (
           <dialog open={!!query.actionType}>
             <StorageBrowser.LocationActionView
-              onClose={() => {
+              onExit={() => {
                 replace({ query: { ...query, actionType: undefined } });
               }}
             />

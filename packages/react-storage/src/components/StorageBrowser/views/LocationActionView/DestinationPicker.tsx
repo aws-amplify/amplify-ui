@@ -1,13 +1,16 @@
 import React from 'react';
 import { PaginateControl } from '../../views/Controls/Paginate';
-import { MessageControl, NavigateItem } from '../Controls';
+import { LoadingControl, MessageControl, NavigateItem } from '../Controls';
 import { ViewElement } from '../../context/elements';
 import { displayText } from '../../displayText/en';
-import { useDestinationPicker } from './hooks/useDestinationPicker';
+import { useDestinationPicker } from './CopyView/useDestinationPicker';
 import { CLASS_BASE } from '../constants';
 import { DataTableControl } from '../../controls/DataTableControl';
 import { ControlsContextProvider } from '../../controls/context';
-import { getDestinationListFullPrefix, getDestinationPickerTableData } from './utils/getDestinationPickerDataTable';
+import {
+  getDestinationListFullPrefix,
+  getDestinationPickerTableData,
+} from './utils/getDestinationPickerDataTable';
 import { ControlsContext } from '../../controls/types';
 const { actionSetDestination, actionCurrentFolderSelected } = displayText;
 
@@ -64,10 +67,6 @@ export const DestinationPicker = ({
     !hasNextToken && currentPage * DEFAULT_PAGE_SIZE > items.length;
   const disablePrevious = currentPage === 1;
 
-  // if (isLoading) {
-  //   return <LoadingControl />;
-  // }
-
   const tableData = getDestinationPickerTableData({
     items: pageItems,
     handleNavigateFolder,
@@ -81,7 +80,11 @@ export const DestinationPicker = ({
 
   const noSubfolders = !items.length;
   const messageVariant = noSubfolders ? 'info' : 'error';
-  const message = noSubfolders ? `${actionCurrentFolderSelected} ${getDestinationListFullPrefix(destinationList)}` : DEFAULT_ERROR_MESSAGE
+  const message = noSubfolders
+    ? `${actionCurrentFolderSelected} ${getDestinationListFullPrefix(
+        destinationList
+      )}`
+    : DEFAULT_ERROR_MESSAGE;
   const showMessage = noSubfolders; //|| hasError;
 
   return (
@@ -118,10 +121,9 @@ export const DestinationPicker = ({
           />
           <DataTableControl className={`${CLASS_BASE}__table`} />
           {showMessage && (
-            <MessageControl variant={messageVariant}>
-              {message}
-            </MessageControl>
+            <MessageControl variant={messageVariant}>{message}</MessageControl>
           )}
+          {isLoading && <LoadingControl />}
         </ViewElement>
       </ViewElement>
     </ControlsContextProvider>

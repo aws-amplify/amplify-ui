@@ -1,13 +1,13 @@
 import React from 'react';
 
-import { assertIsLocationData } from '../../validators';
+import { assertLocationData } from '../../validators';
 import { useStore } from '../store';
 
 import { useCredentials } from './credentials';
 import { GetActionInput } from './types';
 
 export const ERROR_MESSAGE =
-  'Unable to resolve credentials due to invalid `location`.';
+  'Unable to resolve credentials due to invalid value of `locationData`.';
 
 export function useGetActionInputCallback({
   accountId,
@@ -21,7 +21,7 @@ export function useGetActionInputCallback({
   const { current } = history;
 
   return React.useCallback(() => {
-    assertIsLocationData(current, ERROR_MESSAGE);
+    assertLocationData(current, ERROR_MESSAGE);
 
     const { bucket, permission, prefix } = current;
 

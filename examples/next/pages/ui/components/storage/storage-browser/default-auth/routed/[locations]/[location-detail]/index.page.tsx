@@ -44,7 +44,7 @@ export default function Page() {
         {typeof router.query.actionType === 'string' ? (
           <dialog open={!!router.query.actionType}>
             <StorageBrowser.LocationActionView
-              onClose={() => {
+              onExit={() => {
                 router.replace({
                   query: { ...router.query, actionType: undefined },
                 });
