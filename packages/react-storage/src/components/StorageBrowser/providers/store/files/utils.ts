@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { isString, isUndefined } from '@aws-amplify/ui';
+import { isEmpty, isString, isUndefined } from '@aws-amplify/ui';
 import { HandleFileSelect } from '@aws-amplify/ui-react/internal';
 
 import { SelectionType } from '../../../actions/configs';
@@ -21,7 +21,16 @@ export const resolveFiles = (
           name === file.name && webkitRelativePath === file.webkitRelativePath
       )
         ? items
-        : [...items, { key: file.name, id: crypto.randomUUID(), item: file }],
+        : [
+            ...items,
+            {
+              key: isEmpty(file.webkitRelativePath)
+                ? file.name
+                : file.webkitRelativePath,
+              id: crypto.randomUUID(),
+              item: file,
+            },
+          ],
     []
   );
 

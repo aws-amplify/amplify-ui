@@ -85,6 +85,17 @@ describe('files context utils', () => {
 
       expect(output).toHaveLength(3);
     });
+
+    it('returns the webKitRelativePath as key when available', () => {
+      const incoming = [
+        { ...fileThree, webkitRelativePath: 'test/file/file-three' },
+      ];
+      const previous = [fileItemOne, fileItemTwo];
+      const output = resolveFiles(previous, incoming);
+
+      expect(output).toHaveLength(3);
+      expect(output[2].key).toBe('test/file/file-three');
+    });
   });
 
   describe('filesReducer', () => {
