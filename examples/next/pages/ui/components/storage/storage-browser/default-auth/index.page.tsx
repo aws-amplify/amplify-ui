@@ -2,7 +2,7 @@ import React from 'react';
 import { Amplify } from 'aws-amplify';
 import { signOut } from 'aws-amplify/auth';
 
-import { Button, withAuthenticator } from '@aws-amplify/ui-react';
+import { Button, Card, withAuthenticator } from '@aws-amplify/ui-react';
 import { StorageBrowser } from '@aws-amplify/ui-react-storage';
 import '@aws-amplify/ui-react-storage/styles.css';
 import '@aws-amplify/ui-react-storage/storage-browser-styles.css';
@@ -31,7 +31,14 @@ function Example() {
       >
         Sign Out
       </Button>
-      <StorageBrowser defaultPrefixes={defaultPrefixes} />
+      <Card
+        height="900px"
+        width="800px"
+        overflow="hidden"
+        style={{ position: 'relative' }}
+      >
+        <StorageBrowser defaultPrefixes={defaultPrefixes} />
+      </Card>
     </>
   );
 }

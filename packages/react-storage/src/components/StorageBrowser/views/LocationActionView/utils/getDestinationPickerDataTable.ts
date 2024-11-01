@@ -20,7 +20,6 @@ export const getDestinationPickerTableData = ({
   items: { key: string; id: string }[];
   handleNavigateFolder: (key: string) => void;
 }): DataTableProps => {
-  console.log('items table', items);
   const rows: DataTableProps['rows'] = items.map((item) => {
     const row: WithKey<DataTableRow> = {
       key: item.id,
