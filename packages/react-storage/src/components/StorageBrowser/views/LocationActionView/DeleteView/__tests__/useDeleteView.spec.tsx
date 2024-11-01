@@ -218,12 +218,12 @@ describe('useDeleteView', () => {
     );
   });
 
-  it('should disable cancel, close and start when all tasks in progress or complete', () => {
+  it('should disable cancel and start when all tasks complete', () => {
     jest.spyOn(Tasks, 'useProcessTasks').mockReturnValue([
       [
         {
           key: 'item1',
-          status: 'PENDING',
+          status: 'COMPLETE',
           id: 'id',
           item: {},
           cancel: jest.fn(),
@@ -232,7 +232,7 @@ describe('useDeleteView', () => {
         },
         {
           key: 'item1',
-          status: 'PENDING',
+          status: 'COMPLETE',
           id: 'id',
           item: {},
           cancel: jest.fn(),
@@ -257,7 +257,7 @@ describe('useDeleteView', () => {
     expect(result.current).toEqual(
       expect.objectContaining({
         disableCancel: true,
-        disableClose: true,
+        disableClose: false,
         disableStart: true,
       })
     );
