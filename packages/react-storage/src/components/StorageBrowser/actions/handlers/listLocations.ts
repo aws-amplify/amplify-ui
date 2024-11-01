@@ -1,4 +1,8 @@
-import { Permission, listCallerAccessGrants } from '../../storage-internal';
+import {
+  ListLocationsOutput,
+  Permission,
+  listCallerAccessGrants,
+} from '../../storage-internal';
 
 import {
   ListHandlerOptions,
@@ -42,21 +46,35 @@ export const listLocationsHandler: ListLocationsHandler = async (input) => {
   const { accountId, credentials, region } = config;
   const { exclude, nextToken, pageSize = DEFAULT_PAGE_SIZE } = options ?? {};
 
-  const output = await listCallerAccessGrants({
-    accountId,
-    credentialsProvider: credentials,
-    nextToken,
-    pageSize,
-    region,
-  });
+  const fetchLocations = async (
+    accumulatedItems: LocationData[],
+    locationsNextToken: ListLocationsOutput['nextToken']
+  ): Promise<{
+    items: LocationData[];
+    nextToken: ListLocationsOutput['nextToken'];
+  }> => {
+    const remainingPageSize = pageSize - accumulatedItems.length;
 
-  const items = parseLocations(output.locations).filter(
-    ({ permission, type }) => shouldExclude(permission, type, exclude)
-  );
+    const output = await listCallerAccessGrants({
+      accountId,
+      credentialsProvider: credentials,
+      nextToken: locationsNextToken,
+      pageSize: remainingPageSize,
+      region,
+    });
 
-  while (items.length < pageSize && output.nextToken) {
-    // add recursive logic for handling items count less than expected pageSize here
-  }
+    const parsedOutput = parseLocations(output.locations).filter(
+      ({ permission, type }) => shouldExclude(permission, type, exclude)
+    );
 
-  return { items, nextToken: output.nextToken };
+    const items = [...accumulatedItems, ...parsedOutput];
+
+    if (output.nextToken && items.length < pageSize) {
+      return fetchLocations(items, output.nextToken);
+    }
+
+    return { items: items, nextToken: output.nextToken };
+  };
+
+  return fetchLocations([], nextToken);
 };
