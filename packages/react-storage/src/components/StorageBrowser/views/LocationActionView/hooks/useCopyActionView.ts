@@ -58,7 +58,6 @@ export const useCopyActionView = ({
     : [];
   const [destinationList, onSetDestinationList] =
     useState(prefixWithoutSlashes);
-  console.log('destinationList', destinationList);
 
   const taskCounts = getTaskCounts(tasks);
   const { disableCancel, disableClose, disablePrimary } =

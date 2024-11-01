@@ -1,13 +1,16 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { isString } from '@aws-amplify/ui';
 import { usePaginate } from '../../hooks/usePaginate';
 import {
   listLocationItemsHandler,
   ListLocationItemsHandlerInput,
   ListLocationItemsHandlerOutput,
+  LocationItemData,
 } from '../../../actions/handlers/listLocationItems';
 import { useGetActionInput } from '../../../providers/configuration';
 import { getDestinationListFullPrefix } from '../utils/getDestinationPickerDataTable';
+
+import { useDataState } from '@aws-amplify/ui-react-core';
 
 const DEFAULT_ERROR_MESSAGE = 'There was an error loading folders.';
 const DEFAULT_PAGE_SIZE = 1000;
@@ -18,55 +21,12 @@ export const DEFAULT_LIST_OPTIONS = {
 
 const DEFAULT_REFRESH_OPTIONS = { ...DEFAULT_LIST_OPTIONS, refresh: true };
 
-const useLocationItems = () => {
-  const [data, setData] = useState<
-    ListLocationItemsHandlerOutput & {
-      hasError: boolean;
-      message?: string;
-      isLoading: boolean;
-    }
-  >({
-    items: [],
-    nextToken: undefined,
-    hasError: false,
-    isLoading: false,
-    message: '',
-  });
-  const prevPref = useRef<string>('');
-  const handleList = async (input: ListLocationItemsHandlerInput) => {
-    console.log('input', input);
-    setData((prev) => ({ ...prev, isLoading: true }));
-    try {
-      const { items, nextToken } = await listLocationItemsHandler({
-        config: input.config,
-        prefix: input.prefix,
-        options: input.options,
-      });
-      const newItems =
-        prevPref.current !== input.prefix ? items : data.items.concat(items);
-      const newData = {
-        items: newItems,
-        nextToken,
-        isLoading: false,
-        hasError: false,
-      };
-      setData(newData);
-    } catch (error) {
-      setData({
-        items: [],
-        nextToken: undefined,
-        hasError: true,
-        isLoading: false,
-        message: DEFAULT_ERROR_MESSAGE,
-      });
-    }
+interface LocationActionInput extends ListLocationItemsHandlerInput {}
 
-    console.log('data', data);
-    return [data, handleList];
-  };
-
-  return [data, handleList] as const;
-};
+interface LocationActionOutput {
+  items: LocationItemData[];
+  nextToken: string | undefined;
+}
 
 export const useDestinationPicker = ({
   destinationList,
@@ -77,26 +37,60 @@ export const useDestinationPicker = ({
   hasNextToken: boolean;
   currentPage: number;
   isLoading: boolean;
+  hasError: boolean;
+  message: string | undefined;
   handleNext: () => void;
   handlePrevious: () => void;
   range: [number, number];
 } => {
   const previousPathref = useRef('');
-  const [data, handleList] = useLocationItems();
+  const prefix = getDestinationListFullPrefix(destinationList);
+
+  const locationItemsAction = useCallback(
+    async (
+      previous: LocationActionOutput,
+      input: LocationActionInput
+    ): Promise<LocationActionOutput> => {
+      const { items, nextToken } = await listLocationItemsHandler({
+        config: input.config,
+        prefix: input.prefix,
+        options: input.options,
+      });
+      const newItems =
+        previousPathref.current !== input.prefix
+          ? items
+          : previous.items.concat(items);
+
+      previousPathref.current = prefix;
+      return {
+        items: newItems,
+        nextToken,
+      };
+    },
+    [previousPathref, prefix]
+  );
+
+  const [{ data, hasError, isLoading, message }, handleList] = useDataState(
+    locationItemsAction,
+    {
+      items: [],
+      nextToken: undefined,
+    }
+  );
 
   const getInput = useGetActionInput();
 
-  const { items, nextToken, isLoading, hasError, message } = data;
+  const { items, nextToken } = data;
+
   const resultCount = items.length;
   const hasNextToken = !!nextToken;
 
-  const hasValidPath = isString(destinationList.join());
+  const hasValidPrefix = isString(prefix);
   const onPaginateNext = () => {
-    if (!hasValidPath) return;
-
+    if (!hasValidPrefix) return;
     handleList({
       config: getInput(),
-      prefix: getDestinationListFullPrefix(destinationList),
+      prefix: prefix,
       options: { ...DEFAULT_LIST_OPTIONS, nextToken },
     });
   };
@@ -106,25 +100,24 @@ export const useDestinationPicker = ({
       onPaginateNext,
       pageSize: 10,
     });
-  console.log('currentPage', currentPage, 'range', range);
 
   useEffect(() => {
-    const newPath = getDestinationListFullPrefix(destinationList);
-    if (previousPathref.current !== newPath) {
+    if (previousPathref.current !== prefix) {
       handleList({
         config: getInput(),
-        prefix: newPath,
+        prefix: prefix,
         options: { ...DEFAULT_REFRESH_OPTIONS, nextToken },
       });
     }
-    previousPathref.current = newPath;
-  }, [getInput, handleList, nextToken, destinationList]);
+  }, [getInput, handleList, nextToken, prefix]);
 
   return {
     items,
     hasNextToken,
     currentPage,
     isLoading,
+    hasError,
+    message,
     handleNext: () => {
       handlePaginateNext({ resultCount, hasNextToken });
     },

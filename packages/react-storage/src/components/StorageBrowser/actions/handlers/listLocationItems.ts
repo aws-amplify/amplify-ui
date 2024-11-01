@@ -152,7 +152,6 @@ export const listLocationItemsHandler: ListLocationItemsHandler = async (
       excludedType ? items.filter((item) => item.type !== excludedType) : items
     );
   } while (nextNextToken && result.length < pageSize);
-  console.log('locationsResult after', result);
 
   return { items: result, nextToken: nextNextToken };
 };
