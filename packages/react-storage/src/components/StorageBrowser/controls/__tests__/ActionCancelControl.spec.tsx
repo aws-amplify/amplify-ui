@@ -9,7 +9,7 @@ describe('ActionCancelControl', () => {
     'useActionCancel'
   );
 
-  afterEach(() => {
+  beforeEach(() => {
     useActionCancelSpy.mockClear();
   });
 

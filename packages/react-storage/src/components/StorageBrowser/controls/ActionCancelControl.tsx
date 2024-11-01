@@ -8,7 +8,7 @@ import { ViewElement } from '../context/elements';
 
 export const ActionCancelControl = ({
   className,
-}: ControlProps): React.JSX.Element | null => {
+}: ControlProps): React.JSX.Element => {
   const props = useActionCancel();
   const ResolvedActionCancel = useResolvedComposable(
     ActionCancel,

@@ -159,10 +159,6 @@ const renderRowItem: RenderRowItem<LocationActionViewColumns> = (
             data: {
               actionCancelAriaLabel: `Cancel upload for ${row.key}`,
             },
-            actionsConfig: {
-              type: 'SINGLE_ACTION',
-              isCancelable: true,
-            },
             onActionCancel: row.cancel,
           };
 
