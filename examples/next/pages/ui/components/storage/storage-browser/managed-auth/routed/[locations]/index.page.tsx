@@ -46,10 +46,10 @@ function Locations() {
       <StorageBrowser.Provider>
         <TemporaryLogs />
         <StorageBrowser.LocationsView
-          onNavigate={(destination) => {
+          onNavigate={(location) => {
             router.push({
               pathname: `${router.pathname}/location-detail`,
-              query: { ...destination },
+              query: { ...location },
             });
           }}
         />

@@ -56,10 +56,10 @@ export function ActionsMenuControl({
   // leave in place until actions API is integrated
   const actions = useTempActions();
 
-  const [{ history, locationItems }, dispatchStoreAction] = useStore();
+  const [{ location, locationItems }, dispatchStoreAction] = useStore();
   const { fileDataItems } = locationItems;
-  const { current: location } = history;
-  const { permission } = location ?? {};
+  const { current } = location;
+  const { permission } = current ?? {};
 
   const data = React.useMemo(
     () =>
