@@ -42,8 +42,14 @@ const getButtonVariantProps = (
     case 'paginate-next':
       ariaLabel = 'Go to next page';
       className = `${BLOCK_NAME}__button-next`;
-      disabled = currentPage >= highestPageVisited && !hasMorePages;
-      onClick = () => onPaginate(currentPage + 1);
+      disabled =
+        !!currentPage &&
+        !!highestPageVisited &&
+        currentPage >= highestPageVisited &&
+        !hasMorePages;
+      onClick = () => {
+        if (currentPage && onPaginate) onPaginate(currentPage + 1);
+      };
       children = (
         <IconElement variant={variant} className={`${BLOCK_NAME}__icon`} />
       );
@@ -51,8 +57,10 @@ const getButtonVariantProps = (
     case 'paginate-previous':
       ariaLabel = 'Go to previous page';
       className = `${BLOCK_NAME}__button-next`;
-      disabled = currentPage <= 1;
-      onClick = () => onPaginate(currentPage - 1);
+      disabled = !!currentPage && currentPage <= 1;
+      onClick = () => {
+        if (currentPage && onPaginate) onPaginate(currentPage - 1);
+      };
       children = (
         <IconElement variant={variant} className={`${BLOCK_NAME}__icon`} />
       );
@@ -75,13 +83,13 @@ const getButtonVariantProps = (
 // `getButtonVariantProps` instead of a React component
 export interface PaginateControlProps {
   // eslint-disable-next-line react/no-unused-prop-types
-  currentPage: number;
+  currentPage?: number;
   // eslint-disable-next-line react/no-unused-prop-types
-  onPaginate: (page: number) => void;
+  onPaginate?: (page: number) => void;
   // eslint-disable-next-line react/no-unused-prop-types
-  highestPageVisited: number;
+  highestPageVisited?: number;
   // eslint-disable-next-line react/no-unused-prop-types
-  hasMorePages: boolean;
+  hasMorePages?: boolean;
 }
 
 export const PaginateControl = (

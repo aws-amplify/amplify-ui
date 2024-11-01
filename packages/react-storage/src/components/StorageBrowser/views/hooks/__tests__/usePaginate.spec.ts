@@ -5,7 +5,7 @@ jest.mock('../../../controls/context');
 
 describe('usePaginate', () => {
   const data = {
-    onPaginate: jest.fn(),
+    paginateCallback: jest.fn(),
     resultCount: 100,
     pageSize: 10,
     hasNextToken: false,
@@ -17,7 +17,7 @@ describe('usePaginate', () => {
     const { result } = renderHook(() => usePaginate({ ...data }));
 
     expect(result?.current?.currentPage).toBe(1);
-    expect(typeof result?.current?.handlePaginate).toBe('function');
+    expect(typeof result?.current?.onPaginate).toBe('function');
     expect(typeof result?.current?.handleReset).toBe('function');
     expect(typeof result?.current?.highestPageVisited).toBe('number');
     expect(typeof result?.current?.range[0]).toBe('number');
@@ -30,7 +30,7 @@ describe('usePaginate', () => {
     const expectedHighestPage = Math.ceil(data.resultCount / data.pageSize);
 
     act(() => {
-      result?.current?.handlePaginate(expectedHighestPage);
+      result?.current?.onPaginate(expectedHighestPage);
     });
 
     expect(result?.current?.highestPageVisited).toBe(10);
@@ -42,7 +42,7 @@ describe('usePaginate', () => {
     );
 
     act(() => {
-      result?.current?.handlePaginate(11);
+      result?.current?.onPaginate(11);
     });
 
     expect(warn).not.toHaveBeenCalled();
@@ -54,7 +54,7 @@ describe('usePaginate', () => {
     expect(result?.current?.currentPage).toBe(1);
 
     act(() => {
-      result?.current?.handlePaginate(2);
+      result?.current?.onPaginate(2);
     });
 
     expect(result?.current?.currentPage).toBe(2);
@@ -64,9 +64,9 @@ describe('usePaginate', () => {
     const { result } = renderHook(() => usePaginate({ ...data }));
 
     act(() => {
-      result?.current?.handlePaginate(2);
+      result?.current?.onPaginate(2);
     });
 
-    expect(data.onPaginate).toHaveBeenCalled();
+    expect(data.paginateCallback).toHaveBeenCalled();
   });
 });

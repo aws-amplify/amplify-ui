@@ -67,25 +67,20 @@ export function useLocationsView(
   }, [handleList, listOptions]);
 
   // set up pagination
-  const onPaginate = () => {
+  const paginateCallback = () => {
     if (!nextToken) return;
     handleList({
       options: { ...listOptions, nextToken },
     });
   };
 
-  const {
-    currentPage,
-    handlePaginate,
-    handleReset,
-    highestPageVisited,
-    range,
-  } = usePaginate({
-    onPaginate,
-    pageSize: listOptions.pageSize,
-    resultCount,
-    hasNextToken,
-  });
+  const { currentPage, onPaginate, handleReset, highestPageVisited, range } =
+    usePaginate({
+      paginateCallback,
+      pageSize: listOptions.pageSize,
+      resultCount,
+      hasNextToken,
+    });
 
   const pageItems = React.useMemo(() => {
     const [start, end] = range;
@@ -110,8 +105,6 @@ export function useLocationsView(
         options: { ...listOptions, refresh: true },
       });
     },
-    onPaginate: (newPage: number) => {
-      handlePaginate(newPage);
-    },
+    onPaginate,
   };
 }

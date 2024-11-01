@@ -3,19 +3,19 @@ import React from 'react';
 interface UsePaginate {
   currentPage: number;
   highestPageVisited: number;
-  handlePaginate: (page: number) => void;
+  onPaginate: (page: number) => void;
   handleReset: () => void;
   range: [start: number, end: number];
 }
 
 export const usePaginate = ({
   hasNextToken,
-  onPaginate,
+  paginateCallback,
   pageSize,
   resultCount,
 }: {
   hasNextToken: boolean;
-  onPaginate?: () => void;
+  paginateCallback?: () => void;
   pageSize: number;
   resultCount: number;
 }): UsePaginate => {
@@ -33,11 +33,11 @@ export const usePaginate = ({
 
     return {
       currentPage,
-      handlePaginate: (page) => {
+      onPaginate: (page) => {
         const shouldPaginate =
           page >= 1 && (page <= highestPageVisited || hasNextToken);
         if (shouldPaginate) {
-          if (typeof onPaginate === 'function') onPaginate();
+          if (typeof paginateCallback === 'function') paginateCallback();
           setCurrentPage(page);
         } else {
           // eslint-disable-next-line no-console
@@ -53,7 +53,7 @@ export const usePaginate = ({
     currentPage,
     handleReset,
     hasNextToken,
-    onPaginate,
+    paginateCallback,
     pageSize,
     resultCount,
   ]);

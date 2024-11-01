@@ -73,24 +73,19 @@ export function useLocationDetailView(
   const { result, nextToken } = data;
   const resultCount = result.length;
   const hasNextToken = !!nextToken;
-  const onPaginate = () => {
+  const paginateCallback = () => {
     if (hasInvalidPrefix || !nextToken) return;
     dispatchStoreAction({ type: 'RESET_LOCATION_ITEMS' });
     handleList({ prefix, options: { ...listOptions, nextToken } });
   };
 
-  const {
-    currentPage,
-    handlePaginate,
-    handleReset,
-    highestPageVisited,
-    range,
-  } = usePaginate({
-    onPaginate,
-    pageSize: listOptions.pageSize,
-    resultCount,
-    hasNextToken,
-  });
+  const { currentPage, onPaginate, handleReset, highestPageVisited, range } =
+    usePaginate({
+      paginateCallback,
+      pageSize: listOptions.pageSize,
+      resultCount,
+      hasNextToken,
+    });
 
   const onRefresh = () => {
     if (hasInvalidPrefix) return;
@@ -118,7 +113,7 @@ export function useLocationDetailView(
     message,
     highestPageVisited,
     isLoading,
-    onPaginate: (newPage: number) => handlePaginate(newPage),
+    onPaginate,
     onRefresh,
     onAccessItem: (destination: LocationData) => {
       onNavigate?.(destination);
