@@ -34,10 +34,7 @@ const location = {
   type: 'PREFIX',
 };
 const storeMock: StoreModule.UseStoreState = {
-  history: {
-    current: location,
-    previous: [location],
-  },
+  location: { current: location, key: 'test-prefix/' },
 } as StoreModule.UseStoreState;
 const dispatchStoreAction = jest.fn();
 

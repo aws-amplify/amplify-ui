@@ -319,6 +319,22 @@
   }
 }
 
+/** Breadcrumb Navigation **/
+.storage-browser__breadcrumb-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--storage-browser-gap-small);
+}
+
+.storage-browser__breadcrumb-list-item {
+  display: flex;
+  align-items: center;
+  gap: var(--storage-browser-gap-small);
+}
+
 /** Table **/
 .storage-browser__table {
   grid-column: 1 / -1;
@@ -423,6 +439,10 @@
 
 .storage-browser__location-detail-view-data-table td:nth-of-type(6) button {
   justify-content: center;
+}
+
+.storage-browser__location-detail-view-navigation {
+  grid-column: 1 / -1;
 }
 
 /* Upload action view control wrapper styles */

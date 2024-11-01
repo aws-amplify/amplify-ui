@@ -26,8 +26,8 @@ const location = {
 const dispatchStoreAction = jest.fn();
 jest.spyOn(StoreModule, 'useStore').mockReturnValue([
   {
+    location: { current: location },
     locationItems: { fileDataItems: undefined },
-    history: { current: location, previous: [location] },
   } as StoreModule.UseStoreState,
   dispatchStoreAction,
 ]);
