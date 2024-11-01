@@ -100,7 +100,16 @@ describe('createEnhancedListHandler', () => {
 
   it('should stop collecting results when SEARCH_LIMIT is reached', async () => {
     const mockItems = new Array(SEARCH_LIMIT).fill({ name: 'item' });
-    mockAction.mockResolvedValue({ items: mockItems, nextToken: null });
+    mockAction
+      .mockResolvedValueOnce({
+        items: mockItems.slice(0, SEARCH_LIMIT / 2),
+        nextToken: 'token',
+      })
+      .mockResolvedValueOnce({
+        items: mockItems.slice(SEARCH_LIMIT / 2),
+        nextToken: 'token2',
+      })
+      .mockResolvedValueOnce({ items: mockItems, nextToken: 'token3' });
 
     const handler = createEnhancedListHandler<
       ListHandlerOptions,
@@ -119,8 +128,11 @@ describe('createEnhancedListHandler', () => {
       options,
     });
 
+    expect(mockAction).toHaveBeenCalledTimes(2);
     expect(result.items.length).toBe(SEARCH_LIMIT);
     expect(result.nextToken).toBeUndefined();
+
+    mockAction.mockReset();
   });
 
   it('should ignore provided nextToken on refresh', async () => {
@@ -131,12 +143,18 @@ describe('createEnhancedListHandler', () => {
 
     const handler = createEnhancedListHandler(mockAction);
     const prevState = { items: [{ id: 0 }], nextToken: 'abc' };
-    const options = { refresh: true };
+    const options = { refresh: true, nextToken: 'token' };
 
     const result = await handler(prevState, {
       config,
       prefix: 'a_prefix',
       options,
+    });
+
+    expect(mockAction).toHaveBeenCalledWith({
+      config,
+      prefix: 'a_prefix',
+      options: { nextToken: undefined },
     });
 
     expect(result.items).toEqual([{ id: 1 }, { id: 2 }]);
