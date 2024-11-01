@@ -1,8 +1,6 @@
-import { LocationData } from '../../actions';
+import { ListViewProps } from '../types';
 
-export interface LocationDetailViewProps {
-  className?: (defaultClassName: string) => string;
+export interface LocationDetailViewProps extends ListViewProps {
   onActionSelect?: (type: string) => void;
   onExit?: () => void;
-  onNavigate?: (destination: LocationData) => void;
 }
