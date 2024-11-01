@@ -1,6 +1,6 @@
 import React from 'react';
 import { PaginateControl } from '../../views/Controls/Paginate';
-import { LoadingControl, MessageControl, NavigateItem } from '../Controls';
+import { LoadingControl, MessageControl } from '../Controls';
 import { ViewElement } from '../../context/elements';
 import { displayText } from '../../displayText/en';
 import { useDestinationPicker } from './CopyView/useDestinationPicker';
@@ -12,6 +12,7 @@ import {
   getDestinationPickerTableData,
 } from './utils/getDestinationPickerDataTable';
 import { ControlsContext } from '../../controls/types';
+import { Breadcrumb } from '../../components/BreadcrumbNavigation';
 const { actionSetDestination, actionCurrentFolderSelected } = displayText;
 
 const DEFAULT_ERROR_MESSAGE = 'There was an error loading items.';
@@ -98,13 +99,12 @@ export const DestinationPicker = ({
           {destinationList.length ? (
             <>
               {destinationList.map((item, index) => (
-                <NavigateItem
+                <Breadcrumb
                   isCurrent={index === destinationList.length - 1}
                   key={`${item}-${index}`}
-                  onClick={() => handleNavigatePath(index)}
-                >
-                  {item?.replace('/', '')}
-                </NavigateItem>
+                  onNavigate={() => handleNavigatePath(index)}
+                  name={item.replace('/', '')}
+                />
               ))}
             </>
           ) : (

@@ -69,8 +69,8 @@ export const CopyFilesControls = ({
     tasks,
   } = useCopyView({ onExit: _onExit });
 
-  const [{ history }] = useStore();
-  const { current } = history;
+  const [{ location }] = useStore();
+  const { current } = location;
   const path = current?.prefix;
   const tableData = getDeleteActionViewTableData({
     tasks,

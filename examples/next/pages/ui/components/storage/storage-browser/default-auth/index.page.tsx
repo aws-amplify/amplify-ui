@@ -31,14 +31,7 @@ function Example() {
       >
         Sign Out
       </Button>
-      <Card
-        height="900px"
-        width="800px"
-        overflow="hidden"
-        style={{ position: 'relative' }}
-      >
-        <StorageBrowser defaultPrefixes={defaultPrefixes} />
-      </Card>
+      <StorageBrowser defaultPrefixes={defaultPrefixes} />
     </>
   );
 }

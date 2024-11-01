@@ -18,12 +18,12 @@ export const useCopyView = ({
 }): CopyViewState => {
   const [
     {
-      history,
+      location,
       locationItems: { fileDataItems: selected },
     },
     dispatchStoreAction,
   ] = useStore();
-  const { current } = history;
+  const { current } = location;
 
   const getInput = useGetActionInput();
 
