@@ -213,8 +213,8 @@ export const UploadControls = ({
     DEFAULT_OVERWRITE_PROTECTION
   );
 
-  const [{ actionType, files, history }, dispatchStoreAction] = useStore();
-  const { current } = history;
+  const [{ actionType, files, location }, dispatchStoreAction] = useStore();
+  const { current, key: locationKey } = location;
   const { prefix } = current ?? {};
   const hasInvalidPrefix = isUndefined(prefix);
 
@@ -357,7 +357,7 @@ export const UploadControls = ({
 
       handleProcess({
         config: getInput(),
-        prefix,
+        prefix: locationKey,
         options: { preventOverwrite },
       });
     },
@@ -412,7 +412,7 @@ export const UploadControls = ({
           descriptions={[
             {
               term: `${displayText.actionDestination}:`,
-              details: prefix?.length ? prefix : '/',
+              details: prefix?.length ? locationKey : '/',
             },
           ]}
         />
