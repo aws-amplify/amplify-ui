@@ -4,6 +4,12 @@ import {
   ListHandlerOptions,
   ListHandlerOutput,
 } from '../types';
+import {
+  list,
+  ListPaginateInput,
+  StorageSubpathStrategy,
+} from '../../storage-internal';
+import { parseResult } from '../../do-not-import-from-here/actions/listLocationItemsAction';
 
 export interface FolderData {
   key: string;
@@ -42,4 +48,32 @@ export interface ListLocationItemsHandler
   > {}
 
 export const listLocationItemsHandler: ListLocationItemsHandler =
-  null as unknown as ListLocationItemsHandler;
+  async function listLocationItemsAction(
+    input: ListLocationItemsHandlerInput
+  ): Promise<ListLocationItemsHandlerOutput> {
+    const { config, options, prefix: path } = input ?? {};
+    const { delimiter, nextToken, pageSize } = options ?? {};
+
+    const { accountId, bucket: bucketName, region } = config ?? {};
+
+    const bucket = { bucketName, region };
+    const subpathStrategy: StorageSubpathStrategy = {
+      delimiter,
+      strategy: delimiter ? 'exclude' : 'include',
+    };
+
+    const listInput: ListPaginateInput = {
+      path,
+      options: {
+        bucket,
+        expectedBucketOwner: accountId,
+        nextToken,
+        pageSize,
+        subpathStrategy,
+      },
+    };
+
+    const output = await list(listInput);
+
+    return { items: parseResult(output, path), nextToken: output.nextToken };
+  };

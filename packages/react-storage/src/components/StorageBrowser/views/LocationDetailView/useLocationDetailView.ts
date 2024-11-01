@@ -1,10 +1,19 @@
 import React from 'react';
 
 import { isFunction, isUndefined } from '@aws-amplify/ui';
+import { useDataState } from '@aws-amplify/ui-react-core';
+
 import { usePaginate } from '../hooks/usePaginate';
 import { useStore } from '../../providers/store';
-import { useAction } from '../../do-not-import-from-here/actions';
-import { LocationData, LocationItemData } from '../../actions';
+import {
+  listLocationItemsHandler,
+  ListLocationItemsHandlerOptions,
+  LocationData,
+  LocationItemData,
+  LocationItemType,
+} from '../../actions';
+import { createEnhancedListHandler } from '../../actions/createEnhancedHandler';
+import { useGetActionInput } from '../../providers/configuration';
 
 interface UseLocationDetailView {
   hasNextPage: boolean;
@@ -20,6 +29,7 @@ interface UseLocationDetailView {
   onPaginateNext: () => void;
   onPaginatePrevious: () => void;
   onAddFiles: (files: File[]) => void;
+  onSearch: (query: string, includeSubfolders: boolean) => void;
 }
 
 export type LocationDetailViewActionType =
@@ -52,6 +62,11 @@ export const DEFAULT_LIST_OPTIONS = {
   pageSize: DEFAULT_PAGE_SIZE,
 };
 
+const listLocationItemsAction = createEnhancedListHandler<
+  ListLocationItemsHandlerOptions,
+  LocationItemData,
+  LocationItemType
+>(listLocationItemsHandler);
 export function useLocationDetailView(
   options?: UseLocationDetailViewOptions
 ): UseLocationDetailView {
@@ -69,18 +84,21 @@ export function useLocationDetailView(
   const { prefix } = current ?? {};
   const hasInvalidPrefix = isUndefined(prefix);
 
-  const [{ data, isLoading, hasError, message }, handleList] = useAction(
-    'LIST_LOCATION_ITEMS'
+  const config = useGetActionInput()();
+
+  const [{ data, isLoading, hasError, message }, handleList] = useDataState(
+    listLocationItemsAction,
+    { items: [], nextToken: undefined }
   );
 
   // set up pagination
-  const { result, nextToken } = data;
-  const resultCount = result.length;
+  const { items, nextToken } = data;
+  const resultCount = items.length;
   const hasNextToken = !!nextToken;
   const onPaginateNext = () => {
     if (hasInvalidPrefix || !nextToken) return;
     dispatchStoreAction({ type: 'RESET_LOCATION_ITEMS' });
-    handleList({ prefix, options: { ...listOptions, nextToken } });
+    handleList({ config, prefix, options: { ...listOptions, nextToken } });
   };
 
   const onPaginatePrevious = () => {
@@ -102,20 +120,30 @@ export function useLocationDetailView(
   const onRefresh = () => {
     if (hasInvalidPrefix) return;
     handleReset();
-    handleList({ prefix, options: { ...listOptions, refresh: true } });
+    handleList({ config, prefix, options: { ...listOptions, refresh: true } });
     dispatchStoreAction({ type: 'RESET_LOCATION_ITEMS' });
+  };
+
+  const onSearch = (query: string, includeSubfolders: boolean) => {
+    if (hasInvalidPrefix) return;
+    const searchOptions = {
+      ...listOptions,
+      delimiter: includeSubfolders ? undefined : listOptions.delimiter,
+      search: { query, filterKey: 'key' as const },
+    };
+    handleList({ config, prefix, options: searchOptions });
   };
 
   React.useEffect(() => {
     if (hasInvalidPrefix) return;
-    handleList({ prefix, options: { ...listOptions, refresh: true } });
+    handleList({ config, prefix, options: { ...listOptions, refresh: true } });
     handleReset();
-  }, [handleList, handleReset, listOptions, hasInvalidPrefix, prefix]);
+  }, [handleList, handleReset, config, listOptions, hasInvalidPrefix, prefix]);
 
   const pageItems = React.useMemo(() => {
     const [start, end] = range;
-    return result.slice(start, end);
-  }, [range, result]);
+    return items.slice(start, end);
+  }, [range, items]);
 
   return {
     page: currentPage,
@@ -145,5 +173,6 @@ export function useLocationDetailView(
 
       if (isFunction(onActionSelect)) onActionSelect('UPLOAD_FILES');
     },
+    onSearch,
   };
 }
