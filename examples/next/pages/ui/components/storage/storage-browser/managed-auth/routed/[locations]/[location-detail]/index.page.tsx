@@ -13,6 +13,8 @@ export default function Page() {
 
   if (!query.bucket) return null;
 
+  const { path, ...location } = query;
+
   return (
     <Flex>
       <SignOutButton
@@ -24,14 +26,18 @@ export default function Page() {
         actionType={
           typeof query.actionType === 'string' ? query.actionType : undefined
         }
-        location={query as any}
+        location={location as any}
+        path={path as string}
       >
         <StorageBrowser.LocationDetailView
           onActionSelect={(actionType) => {
             replace({ query: { ...query, actionType } });
           }}
-          onNavigate={(destination) => {
-            replace({ query: { ...destination } });
+          onNavigate={(location, path = '') => {
+            if (!location) {
+              return;
+            }
+            replace({ query: { ...location, path } });
           }}
           onExit={() => {
             back();
