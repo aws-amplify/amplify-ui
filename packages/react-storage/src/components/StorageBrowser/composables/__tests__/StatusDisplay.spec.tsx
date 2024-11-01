@@ -23,21 +23,10 @@ describe('StatusDisplay', () => {
   });
 
   it('returns null if there are no statuses to display', () => {
-    const statuses = [
-      { name: 'completed', count: 4 },
-      { name: 'failed', count: 3 },
-      { name: 'canceled', count: 2 },
-      { name: 'queued', count: 1 },
-    ];
+    render(<StatusDisplay statuses={[]} total={10} />);
 
-    render(<StatusDisplay statuses={statuses} total={10} />);
+    const list = screen.queryByRole('list');
 
-    const [completed, failed, canceled, queued] =
-      screen.getAllByRole('definition');
-
-    expect(completed).toHaveTextContent('4/10');
-    expect(failed).toHaveTextContent('3/10');
-    expect(canceled).toHaveTextContent('2/10');
-    expect(queued).toHaveTextContent('1/10');
+    expect(list).not.toBeInTheDocument();
   });
 });

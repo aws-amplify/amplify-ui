@@ -51,8 +51,8 @@ export const CreateFolderControls = ({
 }: {
   onExit?: (location: LocationData) => void;
 }): React.JSX.Element => {
-  const [{ history }, dipatchStoreAction] = useStore();
-  const { current } = history;
+  const [{ location }, dipatchStoreAction] = useStore();
+  const { current, key } = location;
 
   const { prefix } = current ?? {};
   const hasInvalidPrefix = isUndefined(prefix);
@@ -81,7 +81,7 @@ export const CreateFolderControls = ({
 
   const handleCreateFolder = () => {
     if (hasInvalidPrefix) return;
-    const folderPrefix = `${prefix}${folderName}/`;
+    const folderPrefix = `${key}${folderName}/`;
     handleCreateAction({ prefix: folderPrefix });
   };
 

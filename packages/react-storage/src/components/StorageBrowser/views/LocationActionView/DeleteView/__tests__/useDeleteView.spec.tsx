@@ -18,7 +18,7 @@ describe('useDeleteView', () => {
       {
         actionType: 'DELETE',
         files: [],
-        history: {
+        location: {
           current: {
             prefix: 'test-prefix/',
             bucket: 'bucket',
@@ -26,15 +26,8 @@ describe('useDeleteView', () => {
             permission: 'READ',
             type: 'PREFIX',
           },
-          previous: [
-            {
-              prefix: 'test-prefix/',
-              bucket: 'bucket',
-              id: 'id',
-              permission: 'READ',
-              type: 'PREFIX',
-            },
-          ],
+          path: '',
+          key: 'test-prefix/',
         },
         locationItems: {
           fileDataItems: [
