@@ -28,7 +28,7 @@ describe('useActionCancel', () => {
     useControlsContextSpy.mockReturnValue(controlsContext);
 
     expect(useActionCancel()).toStrictEqual({
-      text: controlsContext.data.actionCancelLabel,
+      label: controlsContext.data.actionCancelLabel,
       ariaLabel: controlsContext.data.actionCancelAriaLabel,
       onCancel: controlsContext.onActionCancel,
       isDisabled: controlsContext.data.isActionCancelDisabled,
