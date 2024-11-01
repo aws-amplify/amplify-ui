@@ -116,8 +116,8 @@ export function NavigateControl({
       {previous?.map((destination, index) => {
         const { bucket, id, prefix: _prefix } = destination;
 
-        // remove trailing `/` from `prefix` and use only the last segment since we only want current location
-        const prefix = _prefix?.replace(/\/$/, '').split('/').pop() ?? '';
+        // remove trailing `/` from `prefix`
+        const prefix = _prefix?.endsWith('/') ? _prefix.slice(0, -1) : _prefix;
 
         // if `position` is the first index:
         // - concatenate `bucket` and `prefix`

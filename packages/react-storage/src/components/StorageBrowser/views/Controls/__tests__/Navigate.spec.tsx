@@ -169,40 +169,4 @@ describe('NavigateControl', () => {
     expect(lastItem).toHaveAttribute('aria-current', 'page');
     expect(lastSeparator).toBeNull();
   });
-  it('renders the nested folder path as expected', () => {
-    useStoreSpy.mockReturnValue([
-      {
-        ...state,
-        history: {
-          current: initialLocation,
-          previous: [
-            {
-              bucket: 'test-bucket',
-              prefix: 'folder1/',
-              id: '1',
-              permission: 'READWRITE' as const,
-              type: 'PREFIX' as const,
-            },
-            {
-              bucket: 'test-bucket',
-              prefix: 'folder1/folder2/',
-              id: '2',
-              permission: 'READWRITE' as const,
-              type: 'PREFIX' as const,
-            },
-          ],
-        },
-      },
-      dispatchStoreAction,
-    ]);
-    render(<NavigateControl />);
-
-    const nav = screen.getByRole('navigation', { name: 'Breadcrumbs' });
-    expect(nav).toBeInTheDocument();
-
-    const list = screen.getByRole('list');
-    expect(list).toBeInTheDocument();
-    expect(screen.getByText('test-bucket/folder1')).toBeInTheDocument();
-    expect(screen.getByText('folder2')).toBeInTheDocument();
-  });
 });
