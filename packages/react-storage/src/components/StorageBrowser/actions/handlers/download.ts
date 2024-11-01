@@ -9,9 +9,8 @@ import { constructBucket, resolveHandlerResult } from './utils';
 
 interface DownloadHandlerOptions extends TaskHandlerOptions {}
 export interface DownloadHandlerInput
-  extends Omit<TaskHandlerInput<never, DownloadHandlerOptions>, 'data'> {
-  data: { key: string };
-}
+  extends TaskHandlerInput<string, DownloadHandlerOptions> {}
+
 export interface DownloadHandlerOutput extends TaskHandlerOutput {}
 
 export interface DownloadHandler
@@ -32,24 +31,23 @@ function downloadFromUrl(fileName: string, url: string) {
 
 export const downloadHandler: DownloadHandler = ({
   config,
-  data: { key },
-  prefix,
+  key,
   options,
 }): DownloadHandlerOutput => {
-  const { credentials } = config;
+  const { accountId, credentials } = config;
   const bucket = constructBucket(config);
-  const fileKey = `${prefix}${key}`;
 
   const result = getUrl({
-    path: fileKey,
+    path: key,
     options: {
       bucket,
       locationCredentialsProvider: credentials,
       validateObjectExistence: true,
       contentDisposition: 'attachment',
+      expectedBucketOwner: accountId,
     },
   }).then((result) => {
-    downloadFromUrl(fileKey, result.url.toString());
+    downloadFromUrl(key, result.url.toString());
     return result;
   });
 

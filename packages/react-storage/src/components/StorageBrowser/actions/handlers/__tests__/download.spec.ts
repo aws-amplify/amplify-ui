@@ -12,7 +12,10 @@ const baseInput: DownloadHandlerInput = {
     credentials: jest.fn(),
     region: 'region',
   },
-  data: { key: 'key' },
+  key: 'key',
+  // @ts-expect-error
+  // FIXME: The type for payload is never
+  data: { id: 'id', payload: undefined },
 };
 
 describe('downloadHandler', () => {
@@ -20,7 +23,7 @@ describe('downloadHandler', () => {
     const { key } = downloadHandler(baseInput);
 
     const expected: StorageModule.GetUrlInput = {
-      path: `${baseInput.prefix}${baseInput.data.key}`,
+      path: baseInput.key,
       options: {
         bucket: {
           bucketName: baseInput.config.bucket,
@@ -29,11 +32,12 @@ describe('downloadHandler', () => {
         locationCredentialsProvider: baseInput.config.credentials,
         validateObjectExistence: true,
         contentDisposition: 'attachment',
+        expectedBucketOwner: baseInput.config.accountId,
       },
     };
 
     expect(downloadSpy).toHaveBeenCalledWith(expected);
 
-    expect(key).toBe(baseInput.data.key);
+    expect(key).toBe(baseInput.key);
   });
 });
