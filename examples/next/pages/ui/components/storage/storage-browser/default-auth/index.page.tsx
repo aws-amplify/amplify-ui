@@ -11,14 +11,6 @@ import config from './aws-exports';
 
 Amplify.configure(config);
 
-const defaultPrefixes = [
-  'public/',
-  // intentionally added to test a prefix that should return 403 forbidden
-  'forbidden/',
-  (identityId: string) => `protected/${identityId}/`,
-  (identityId: string) => `private/${identityId}/`,
-];
-
 function Example() {
   return (
     <>
@@ -31,7 +23,7 @@ function Example() {
       >
         Sign Out
       </Button>
-      <StorageBrowser defaultPrefixes={defaultPrefixes} />
+      <StorageBrowser />
     </>
   );
 }
