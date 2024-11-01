@@ -95,7 +95,7 @@ export const LocationDetailViewControls = ({
   return (
     <ControlsContextProvider {...contextValue}>
       <NavigationControl
-        className={`${CLASS_BASE}__location-detail-navigation`}
+        className={`${CLASS_BASE}__location-detail-view-navigation`}
       />
       <Title />
       <DataRefreshControl
