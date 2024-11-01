@@ -7,7 +7,7 @@ import { CLASS_BASE } from '../views/constants';
 
 export interface DropZoneProps {
   children: React.ReactNode;
-  onDropComplete?: (input: { acceptedFiles: File[] }) => void;
+  onDropComplete?: (files: File[]) => void;
 }
 
 export const DropZone = ({
@@ -15,7 +15,9 @@ export const DropZone = ({
   onDropComplete,
 }: DropZoneProps): React.JSX.Element => {
   const { dragState, ...dropHandlers } = useDropZone({
-    onDropComplete: onDropComplete,
+    onDropComplete: ({ acceptedFiles }) => {
+      onDropComplete?.(acceptedFiles);
+    },
   });
   return (
     <ViewElement

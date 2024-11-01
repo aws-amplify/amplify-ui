@@ -12,20 +12,20 @@ describe('useDropZone', () => {
   });
 
   it('returns useDropZone data', () => {
-    const acceptedFiles = [new File([], '')];
-    const mockOnDropComplete = jest.fn();
+    const files = [new File([], '')];
+    const mockOnDropFiles = jest.fn();
     mockUseControlsContext.mockReturnValue({
-      onDropComplete: mockOnDropComplete,
+      onDropFiles: mockOnDropFiles,
     });
 
     const result = useDropZone();
-    result.props!.onDropComplete!({ acceptedFiles });
+    result.props!.onDropComplete!(files);
 
     expect(result).toStrictEqual({
       props: {
         onDropComplete: expect.any(Function),
       },
     });
-    expect(mockOnDropComplete).toHaveBeenCalledWith({ acceptedFiles });
+    expect(mockOnDropFiles).toHaveBeenCalledWith(files);
   });
 });

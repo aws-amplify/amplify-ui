@@ -341,8 +341,14 @@
   width: 100%;
 }
 
+.storage-browser__table-header {
+  text-align: start;
+}
+
 .storage-browser__table-sort-header {
   padding: var(--storage-browser-gap-small);
+  display: inline-flex;
+  align-items: center;
 }
 
 .storage-browser__table-button-data-cell,
@@ -398,7 +404,6 @@
   width: 100%;
 }
 
-.storage-browser__locations-view-data-table th:nth-of-type(2),
 .storage-browser__locations-view-data-table th:nth-of-type(3) {
   width: 8rem;
 }

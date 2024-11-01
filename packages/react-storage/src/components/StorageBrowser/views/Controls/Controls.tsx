@@ -1,4 +1,3 @@
-import { DownloadControl } from './Download';
 import { EmptyMessageControl } from './EmptyMessage';
 import { ExitControl } from './Exit';
 import { LoadingControl } from './Loading';
@@ -10,7 +9,6 @@ import { TableControl } from './Table';
 import { TitleControl } from './Title';
 
 export interface Controls {
-  Download: typeof DownloadControl;
   EmptyMessage: typeof EmptyMessageControl;
   Exit: typeof ExitControl;
   Loading: typeof LoadingControl;
@@ -23,7 +21,6 @@ export interface Controls {
 }
 
 export const Controls: Controls = {
-  Download: DownloadControl,
   EmptyMessage: EmptyMessageControl,
   Exit: ExitControl,
   Loading: LoadingControl,

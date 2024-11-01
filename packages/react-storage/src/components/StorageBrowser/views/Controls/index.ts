@@ -1,4 +1,3 @@
-export { DownloadControl } from './Download';
 export { EmptyMessageControl } from './EmptyMessage';
 export { ExitControl } from './Exit';
 export { LoadingControl } from './Loading';
@@ -7,5 +6,5 @@ export { OverwriteControl } from './Overwrite';
 export { PaginateControl } from './Paginate';
 export { SearchControl } from './Search';
 export { TitleControl } from './Title';
-export { TableControl, LocationDetailViewTable } from './Table';
+export { TableControl } from './Table';
 export { Controls } from './Controls';

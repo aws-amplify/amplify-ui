@@ -4,13 +4,13 @@ import { CLASS_BASE } from '../constants';
 import { Controls } from '../Controls';
 import { useLocationsData } from '../../do-not-import-from-here/actions';
 import { resolveClassName } from '../utils';
-import { DataTableControl } from './Controls/DataTable';
 import { useLocationsView } from './useLocationsView';
 import { ControlsContextProvider } from '../../controls/context';
-import { ControlsContext } from '../../controls/types';
 import { DataRefreshControl } from '../../controls/DataRefreshControl';
+import { DataTableControl } from '../../controls/DataTableControl';
 
 import { LocationsViewProps } from './types';
+import { getLocationsViewTableData } from './getLocationsViewTableData';
 
 export const DEFAULT_ERROR_MESSAGE = 'There was an error loading locations.';
 
@@ -61,19 +61,17 @@ export function LocationsView({
     onNavigate,
   } = useLocationsView(props);
 
-  // FIXME: Eventually comes from useView hook
-  const contextValue: ControlsContext = {
-    data: {
-      isDataRefreshDisabled: isLoading,
-    },
-    onRefresh,
-  };
-
   return (
-    <ControlsContextProvider {...contextValue}>
-      <div
-        className={resolveClassName(CLASS_BASE, className)}
-        data-testid="LOCATIONS_VIEW"
+    <div
+      className={resolveClassName(CLASS_BASE, className)}
+      data-testid="LOCATIONS_VIEW"
+    >
+      <ControlsContextProvider
+        data={{
+          isDataRefreshDisabled: isLoading,
+          tableData: getLocationsViewTableData({ pageItems, onNavigate }),
+        }}
+        onRefresh={onRefresh}
       >
         <Title>Home</Title>
         <DataRefreshControl
@@ -89,10 +87,12 @@ export function LocationsView({
         <LocationsMessage />
         <Loading />
         {hasError ? null : (
-          <DataTableControl onNavigate={onNavigate} items={pageItems} />
+          <DataTableControl
+            className={`${CLASS_BASE}__locations-view-data-table`}
+          />
         )}
         <LocationsEmptyMessage />
-      </div>
-    </ControlsContextProvider>
+      </ControlsContextProvider>
+    </div>
   );
 }

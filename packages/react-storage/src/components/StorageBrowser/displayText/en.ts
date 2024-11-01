@@ -3,6 +3,8 @@
  */
 export const displayText = {
   actionDestination: 'Destination',
+  locationDetailSelectFile: 'Select file',
+  locationDetailSelectAllFiles: 'Select all files',
   statusDisplayCompleted: 'Completed',
   statusDisplayFailed: 'Failed',
   statusDisplayCanceled: 'Canceled',

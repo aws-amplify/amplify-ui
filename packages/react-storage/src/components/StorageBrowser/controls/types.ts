@@ -1,6 +1,5 @@
 import { Composables } from '../composables/types';
 import { DataTableSortHeader, DataTableProps } from '../composables/DataTable';
-import { DropZoneProps } from '../composables/DropZone';
 import { INITIAL_STATUS_COUNTS } from '../views/LocationActionView/constants';
 import { LocationData } from '../actions';
 
@@ -32,11 +31,6 @@ interface TableData {
   rows: DataTableProps['rows'];
 }
 
-interface Location {
-  current?: LocationData;
-  path?: string;
-}
-
 export interface ControlsContext {
   data: {
     actionStartLabel?: string;
@@ -44,7 +38,8 @@ export interface ControlsContext {
     actionCancelLabel?: string;
     isActionCancelDisabled?: boolean;
     isDataRefreshDisabled?: boolean;
-    location?: Location;
+    currentLocation?: LocationData;
+    currentPath?: string;
     tableData?: TableData;
     taskCounts?: TaskCounts;
   };
@@ -56,9 +51,9 @@ export interface ControlsContext {
       | 'LIST_LOCATION_ITEMS';
     isCancelable?: boolean;
   };
-  onActionStart?: () => void;
   onActionCancel?: () => void;
-  onDropComplete?: DropZoneProps['onDropComplete'];
+  onActionStart?: () => void;
+  onDropFiles?: (files: File[]) => void;
   onNavigate?: (location: LocationData, path?: string) => void;
   onNavigateHome?: () => void;
   onRefresh?: () => void;

@@ -157,7 +157,6 @@ export const useDataTable = (): DataTableProps | null => {
   }
 
   return {
-    ...tableData,
     headers: mappedHeaders ?? [],
     rows: sortedRows ?? [],
   };

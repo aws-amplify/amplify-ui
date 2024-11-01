@@ -5,4 +5,4 @@ export interface DataListProps<T> {
   renderItem?: (item: T, index: number) => React.JSX.Element;
 }
 
-export type WithKey<T> = { key: string } & T;
+export type WithKey<T, K = string> = { key: K } & T;
