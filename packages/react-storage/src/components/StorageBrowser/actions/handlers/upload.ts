@@ -1,5 +1,5 @@
 import { uploadData, UploadDataInput } from '../../storage-internal';
-import { isFunction } from '@aws-amplify/ui';
+import { isEmpty, isFunction } from '@aws-amplify/ui';
 
 import {
   CancelableTaskHandlerOutput,
@@ -46,8 +46,11 @@ export const uploadHandler: UploadHandler = ({
 
   const bucket = constructBucket(config);
 
+  const resolvedKey = isEmpty(data.webkitRelativePath)
+    ? key
+    : data.webkitRelativePath;
   const input: UploadDataInput = {
-    path: `${prefix}${key}`,
+    path: `${prefix}${resolvedKey}`,
     data,
     options: {
       bucket,
