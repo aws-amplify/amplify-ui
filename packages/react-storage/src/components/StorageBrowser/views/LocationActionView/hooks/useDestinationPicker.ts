@@ -8,11 +8,8 @@ import {
 } from '../../../actions/handlers/listLocationItems';
 import { useGetActionInput } from '../../../providers/configuration';
 import { getDestinationListFullPrefix } from '../utils/getDestinationPickerDataTable';
-// const {
-//   useDataState,
-// } from '@aws-amplify/ui-react-core';
 
-const DEFAULT_ERROR_MESSAGE = 'There was an error loading items.';
+const DEFAULT_ERROR_MESSAGE = 'There was an error loading folders.';
 const DEFAULT_PAGE_SIZE = 1000;
 export const DEFAULT_LIST_OPTIONS = {
   pageSize: DEFAULT_PAGE_SIZE,
@@ -22,23 +19,50 @@ export const DEFAULT_LIST_OPTIONS = {
 const DEFAULT_REFRESH_OPTIONS = { ...DEFAULT_LIST_OPTIONS, refresh: true };
 
 const useLocationItems = () => {
-  const [data, setData] = useState<ListLocationItemsHandlerOutput>({
+  const [data, setData] = useState<
+    ListLocationItemsHandlerOutput & {
+      hasError: boolean;
+      message?: string;
+      isLoading: boolean;
+    }
+  >({
     items: [],
     nextToken: undefined,
+    hasError: false,
+    isLoading: false,
+    message: '',
   });
   const prevPref = useRef<string>('');
   const handleList = async (input: ListLocationItemsHandlerInput) => {
     console.log('input', input);
-    const { items, nextToken } = await listLocationItemsHandler({
-      config: input.config,
-      prefix: input.prefix,
-      options: input.options,
-    });
-    console.log('input', items, 'nextToken', nextToken);
-    const newItems =
-      prevPref.current !== input.prefix ? items : data.items.concat(items);
-    const newData = { items: newItems, nextToken };
-    setData(newData);
+    setData((prev) => ({ ...prev, isLoading: true }));
+    try {
+      const { items, nextToken } = await listLocationItemsHandler({
+        config: input.config,
+        prefix: input.prefix,
+        options: input.options,
+      });
+      const newItems =
+        prevPref.current !== input.prefix ? items : data.items.concat(items);
+      const newData = {
+        items: newItems,
+        nextToken,
+        isLoading: false,
+        hasError: false,
+      };
+      setData(newData);
+    } catch (error) {
+      setData({
+        items: [],
+        nextToken: undefined,
+        hasError: true,
+        isLoading: false,
+        message: DEFAULT_ERROR_MESSAGE,
+      });
+    }
+
+    console.log('data', data);
+    return [data, handleList];
   };
 
   return [data, handleList] as const;
@@ -62,8 +86,7 @@ export const useDestinationPicker = ({
 
   const getInput = useGetActionInput();
 
-  const { items, nextToken } = data;
-  const isLoading = items.length == 0;
+  const { items, nextToken, isLoading, hasError, message } = data;
   const resultCount = items.length;
   const hasNextToken = !!nextToken;
 
