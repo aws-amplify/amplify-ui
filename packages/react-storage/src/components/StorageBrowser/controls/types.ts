@@ -38,6 +38,7 @@ export interface ControlsContext {
     isDataRefreshDisabled?: boolean;
     actionStartLabel?: string;
     isActionStartDisabled?: boolean;
+    onSearch?: (term: string, includeSubfolders: boolean) => void;
   };
   actionsConfig?: {
     type:

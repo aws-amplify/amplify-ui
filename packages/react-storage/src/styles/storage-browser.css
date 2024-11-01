@@ -463,3 +463,40 @@
   display: flex;
   gap: var(--storage-browser-gap-large);
 }
+
+.storage-browser__search .storage-browser__search__field-clear-button {
+  position: absolute;
+  display: flex;
+  right: 2px;
+  top: 2px;
+}
+
+.storage-browser__search .storage-browser__search__field {
+  position: relative;
+  display: flex;
+  height: 42px;
+}
+
+.storage-browser__search .storage-browser__search__field__icon {
+  position: absolute;
+  left: 6px;
+  top: 0.6rem;
+}
+
+.storage-browser__search .storage-browser__search__field__input {
+  border-radius: 0.25rem 0 0 0.25rem;
+  padding-inline-start: 2rem !important;
+  padding-inline-end: 2rem !important;
+  min-width: 20rem;
+}
+
+.storage-browser__search {
+  display: flex;
+  align-items: center;
+  min-width: 35rem;
+}
+
+.storage-browser__search .storage-browser__search__submit-button {
+  border-radius: 0 0.25rem 0.25rem 0;
+  min-height: 42px;
+}
