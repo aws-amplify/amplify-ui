@@ -3,7 +3,7 @@ import { NavigationProps } from '../../composables/Navigation';
 import { useControlsContext } from '../../controls/context';
 
 export const useNavigation = (): NavigationProps | null => {
-  const { data, onAccessItem, onNavigateHome } = useControlsContext();
+  const { data, onNavigate, onNavigateHome } = useControlsContext();
   const { location } = data;
 
   const { current, path = '' } = location ?? {};
@@ -55,11 +55,11 @@ export const useNavigation = (): NavigationProps | null => {
             name,
             ...(isCurrent && { isCurrent }),
             onNavigate: () => {
-              onAccessItem?.(destination, destinationPath);
+              onNavigate?.(destination, destinationPath);
             },
           };
         })
       ),
     };
-  }, [current, path, onAccessItem, onNavigateHome]);
+  }, [current, path, onNavigate, onNavigateHome]);
 };

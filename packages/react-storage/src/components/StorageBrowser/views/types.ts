@@ -5,7 +5,7 @@ export interface ActionViewProps {
 }
 
 export interface ListViewState<T = any> {
-  onNavigate: (location?: LocationData, path?: string) => void;
+  onNavigate: (location: LocationData, path?: string) => void;
   onPaginate: (page: number) => void;
   page: number;
   pageItems: T[];

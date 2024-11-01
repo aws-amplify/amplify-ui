@@ -30,10 +30,10 @@ const {
 
 export const Title = (): React.JSX.Element => {
   const [{ location }] = useStore();
-  const { current, path = '' } = location;
+  const { current, key } = location;
   const { bucket, prefix } = current ?? {};
 
-  return <TitleControl>{prefix ? `${prefix}${path}` : bucket}</TitleControl>;
+  return <TitleControl>{prefix ? key : bucket}</TitleControl>;
 };
 
 function Loading({ show }: { show?: boolean }) {
@@ -77,7 +77,7 @@ export const LocationDetailViewControls = ({
     onPaginateNext,
     onPaginatePrevious,
     onAddFiles,
-    onAccessItem,
+    onNavigate,
     onNavigateHome,
   } = useLocationDetailView({ onNavigate: onNavigateProp, onExit });
 
@@ -87,7 +87,7 @@ export const LocationDetailViewControls = ({
       isDataRefreshDisabled: isLoading,
       location,
     },
-    onAccessItem,
+    onNavigate,
     onNavigateHome,
     onRefresh,
   };
@@ -117,7 +117,7 @@ export const LocationDetailViewControls = ({
       <LocationDetailViewTable
         items={pageItems}
         handleDroppedFiles={onAddFiles}
-        handleLocationItemClick={onAccessItem}
+        handleLocationItemClick={onNavigate}
       />
       <LocationDetailEmptyMessage />
     </ControlsContextProvider>

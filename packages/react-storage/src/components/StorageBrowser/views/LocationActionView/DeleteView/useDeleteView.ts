@@ -21,8 +21,7 @@ export const useDeleteView = ({
     },
     dispatchStoreAction,
   ] = useStore();
-  const { current, path = '' } = location;
-  const { prefix } = current ?? {};
+  const { current, key } = location;
 
   const getInput = useGetActionInput();
 
@@ -40,10 +39,10 @@ export const useDeleteView = ({
     getActionViewDisabledButtons(taskCounts);
 
   const onActionStart = () => {
-    if (prefix == null) return;
+    if (!current) return;
     handleProcess({
       config: getInput(),
-      prefix: `${prefix}${path}`,
+      prefix: key,
     });
   };
 

@@ -75,7 +75,7 @@ const getLocationsData = ({
   sortState,
 }: {
   data: LocationData[];
-  onLocationClick: (location?: LocationData) => void;
+  onLocationClick: (location: LocationData) => void;
   onTableHeaderClick: (location: string) => void;
   sortState: SortState;
 }) => {
@@ -123,7 +123,7 @@ const getLocationsData = ({
 
 interface DataTableControlProps {
   items: LocationData[];
-  onNavigate: (location?: LocationData) => void;
+  onNavigate: (location: LocationData) => void;
 }
 
 export function DataTableControl({

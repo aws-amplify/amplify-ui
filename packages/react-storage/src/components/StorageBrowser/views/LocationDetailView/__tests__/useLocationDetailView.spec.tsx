@@ -51,12 +51,13 @@ const EXPECTED_PAGE_SIZE = 3;
 const testLocation: LocationState = {
   current: {
     bucket: 'test-bucket',
-    prefix: `item-b/`,
+    prefix: 'item-b/',
     permission: 'READ',
     id: '2',
     type: 'PREFIX',
   },
   path: '',
+  key: 'item-b/',
 };
 
 const testStoreState = {
@@ -69,6 +70,8 @@ const testStoreState = {
 };
 
 describe('useLocationsView', () => {
+  const mockLocation = { current: undefined, path: '', key: '' };
+
   afterEach(() => {
     jest.clearAllMocks();
   });
@@ -106,7 +109,6 @@ describe('useLocationsView', () => {
   });
 
   it('should not fetch on mount for invalid prefix', () => {
-    const mockLocation = { current: undefined, path: undefined };
     const handleStoreActionMock = jest.fn();
 
     useStoreSpy.mockReturnValue([
@@ -202,7 +204,6 @@ describe('useLocationsView', () => {
   });
 
   it('should not refresh location data for invalid paths', () => {
-    const mockLocation = { current: undefined, path: undefined };
     const handleStoreActionMock = jest.fn();
     useStoreSpy.mockReturnValue([
       { ...testStoreState, location: mockLocation },
@@ -229,7 +230,6 @@ describe('useLocationsView', () => {
   });
 
   it('should handle selecting a location', () => {
-    const mockLocation = { current: undefined, path: undefined };
     const handleStoreActionMock = jest.fn();
     useStoreSpy.mockReturnValue([
       { ...testStoreState, location: mockLocation },
@@ -250,7 +250,7 @@ describe('useLocationsView', () => {
 
     act(() => {
       const state = result.current;
-      state.onAccessItem(expectedLocation, expectedPath);
+      state.onNavigate(expectedLocation, expectedPath);
     });
 
     expect(handleStoreActionMock).toHaveBeenCalledWith({
@@ -262,7 +262,6 @@ describe('useLocationsView', () => {
 
   it('should handle adding files', () => {
     const handleStoreActionMock = jest.fn();
-    const mockLocation = { current: undefined, path: undefined };
     useStoreSpy.mockReturnValue([
       { ...testStoreState, location: mockLocation },
       handleStoreActionMock,

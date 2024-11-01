@@ -54,9 +54,9 @@ export interface ControlsContext {
       | 'LIST_LOCATION_ITEMS';
     isCancelable?: boolean;
   };
-  onAccessItem?: (location?: LocationData, path?: string) => void;
   onActionStart?: () => void;
   onDropComplete?: DropZoneProps['onDropComplete'];
+  onNavigate?: (location: LocationData, path?: string) => void;
   onNavigateHome?: () => void;
   onRefresh?: () => void;
 }

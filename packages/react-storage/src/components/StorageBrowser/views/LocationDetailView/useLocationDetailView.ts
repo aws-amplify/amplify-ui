@@ -17,7 +17,7 @@ interface UseLocationDetailView {
   message: string | undefined;
   pageItems: LocationItemData[];
   page: number;
-  onAccessItem: (location?: LocationData, path?: string) => void;
+  onNavigate: (location: LocationData, path?: string) => void;
   onRefresh: () => void;
   onPaginateNext: () => void;
   onPaginatePrevious: () => void;
@@ -46,7 +46,7 @@ export interface UseLocationDetailViewOptions {
   onDispatch?: React.Dispatch<LocationDetailViewActionType>;
   onActionSelect?: (type: string) => void;
   onExit?: () => void;
-  onNavigate?: (location?: LocationData, path?: string) => void;
+  onNavigate?: (location: LocationData, path?: string) => void;
 }
 
 const DEFAULT_PAGE_SIZE = 100;
@@ -68,7 +68,7 @@ export function useLocationDetailView(
   const listOptions = listOptionsRef.current;
 
   const [{ location }, dispatchStoreAction] = useStore();
-  const { current, path = '' } = location;
+  const { current, key } = location;
   const { prefix } = current ?? {};
   const hasInvalidPrefix = isUndefined(prefix);
 
@@ -84,7 +84,7 @@ export function useLocationDetailView(
     if (hasInvalidPrefix || !nextToken) return;
     dispatchStoreAction({ type: 'RESET_LOCATION_ITEMS' });
     handleList({
-      prefix: `${prefix}${path}`,
+      prefix: key,
       options: { ...listOptions, nextToken },
     });
   };
@@ -109,7 +109,7 @@ export function useLocationDetailView(
     if (hasInvalidPrefix) return;
     handleReset();
     handleList({
-      prefix: `${prefix}${path}`,
+      prefix: key,
       options: { ...listOptions, refresh: true },
     });
     dispatchStoreAction({ type: 'RESET_LOCATION_ITEMS' });
@@ -118,11 +118,11 @@ export function useLocationDetailView(
   React.useEffect(() => {
     if (hasInvalidPrefix) return;
     handleList({
-      prefix: `${prefix}${path}`,
+      prefix: key,
       options: { ...listOptions, refresh: true },
     });
     handleReset();
-  }, [handleList, handleReset, listOptions, hasInvalidPrefix, prefix, path]);
+  }, [handleList, handleReset, listOptions, hasInvalidPrefix, prefix, key]);
 
   const pageItems = React.useMemo(() => {
     const [start, end] = range;
@@ -144,7 +144,7 @@ export function useLocationDetailView(
       handlePaginateNext({ resultCount, hasNextToken });
     },
     onRefresh,
-    onAccessItem: (location?: LocationData, path?: string) => {
+    onNavigate: (location: LocationData, path?: string) => {
       onNavigate?.(location, path);
       dispatchStoreAction({ type: 'NAVIGATE', location, path });
       dispatchStoreAction({ type: 'RESET_LOCATION_ITEMS' });

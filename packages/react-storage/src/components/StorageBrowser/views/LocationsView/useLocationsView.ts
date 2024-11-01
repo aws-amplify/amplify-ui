@@ -14,7 +14,7 @@ interface UseLocationsView {
   message: string | undefined;
   pageItems: LocationData[];
   page: number;
-  onNavigate: (location?: LocationData) => void;
+  onNavigate: (location: LocationData) => void;
   onRefresh: () => void;
   onPaginateNext: () => void;
   onPaginatePrevious: () => void;
@@ -36,7 +36,7 @@ export type LocationsViewActionType =
 export interface UseLocationsViewOptions {
   initialValues?: InitialValues;
   onDispatch?: React.Dispatch<LocationsViewActionType>;
-  onNavigate?: (location?: LocationData) => void;
+  onNavigate?: (location: LocationData) => void;
 }
 
 const DEFAULT_PAGE_SIZE = 100;
@@ -98,7 +98,7 @@ export function useLocationsView(
     page: currentPage,
     hasNextPage: hasNextToken,
     pageItems,
-    onNavigate: (location?: LocationData) => {
+    onNavigate: (location: LocationData) => {
       onNavigate?.(location);
       dispatchStoreAction({ type: 'NAVIGATE', location });
     },

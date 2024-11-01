@@ -18,12 +18,12 @@ export function useGetActionInputCallback({
 }): GetActionInput {
   const { getCredentials } = useCredentials();
   const [{ location }] = useStore();
-  const { current, path } = location;
+  const { current, key } = location;
 
   return React.useCallback(() => {
     assertLocationData(current, ERROR_MESSAGE);
 
-    const { bucket, permission, prefix } = current;
+    const { bucket, permission } = current;
 
     return {
       accountId,
@@ -31,9 +31,9 @@ export function useGetActionInputCallback({
       credentials: getCredentials({
         bucket,
         permission,
-        prefix: `${prefix}${path}`,
+        prefix: key,
       }),
       region,
     };
-  }, [accountId, current, getCredentials, path, region]);
+  }, [accountId, current, getCredentials, key, region]);
 }

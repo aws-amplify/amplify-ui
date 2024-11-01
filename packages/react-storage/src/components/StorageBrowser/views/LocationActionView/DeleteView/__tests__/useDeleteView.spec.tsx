@@ -27,6 +27,7 @@ describe('useDeleteView', () => {
             type: 'PREFIX',
           },
           path: '',
+          key: 'test-prefix/',
         },
         locationItems: {
           fileDataItems: [

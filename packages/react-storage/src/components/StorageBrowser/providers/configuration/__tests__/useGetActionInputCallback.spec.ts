@@ -20,6 +20,7 @@ const bucket = 'my-bucket';
 const permission = 'READ' as const;
 const prefix = 'my-prefix/';
 const region = 'my-region';
+const key = `${prefix}my-path/`;
 
 const location = {
   bucket,
@@ -28,8 +29,6 @@ const location = {
   prefix,
   type: 'PREFIX' as const,
 };
-
-const path = 'my-path/';
 
 describe('useGetActionInputCallback', () => {
   afterEach(jest.clearAllMocks);
@@ -42,7 +41,7 @@ describe('useGetActionInputCallback', () => {
 
     useStoreSpy.mockReturnValueOnce([
       // @ts-expect-error mocking out the entire store is unnecessary
-      { location: { current: location, path } },
+      { location: { current: location, key } },
       jest.fn(),
     ]);
 
@@ -65,7 +64,7 @@ describe('useGetActionInputCallback', () => {
     expect(getCredentials).toHaveBeenCalledWith({
       bucket,
       permission,
-      prefix: `${prefix}${path}`,
+      prefix: key,
     });
   });
 

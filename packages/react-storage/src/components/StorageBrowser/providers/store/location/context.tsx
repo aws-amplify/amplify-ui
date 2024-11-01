@@ -11,13 +11,14 @@ export const ERROR_MESSAGE =
 
 export const DEFAULT_STATE: LocationState = {
   current: undefined,
-  path: undefined,
+  path: '',
+  key: '',
 };
 
 export type LocationActionType =
   | {
       type: 'NAVIGATE';
-      location?: LocationData;
+      location: LocationData;
       path?: string;
     }
   | { type: 'RESET_LOCATION' };
@@ -50,7 +51,12 @@ export interface LocationState {
   /**
    * current `location` subpath within a `location`
    */
-  path: string | undefined;
+  path: string;
+
+  /**
+   * fully qualified string consisting of `location` prefix and path
+   */
+  key: string;
 }
 
 export type LocationStateContext = [
@@ -70,13 +76,17 @@ function handleAction(
 ): LocationState {
   switch (action.type) {
     case 'NAVIGATE': {
-      const { location, path } = action;
+      const { location, path = '' } = action;
 
-      if (state.current?.id === location?.id && state.path === path) {
+      if (state.current?.id === location.id && state.path === path) {
         return state;
       }
 
-      return { current: location, path };
+      return {
+        current: location,
+        path,
+        key: `${location.prefix ?? ''}${path}`,
+      };
     }
     case 'RESET_LOCATION': {
       return DEFAULT_STATE;
@@ -93,7 +103,7 @@ export const { LocationContext, useLocation } = createContextUtilities({
 export function LocationProvider({
   children,
   location,
-  path,
+  path = '',
 }: LocationProviderProps): React.JSX.Element {
   if (location) {
     assertLocationData(location, ERROR_MESSAGE);
@@ -101,7 +111,13 @@ export function LocationProvider({
 
   const value = React.useReducer(
     handleAction,
-    location ? { current: location, path } : DEFAULT_STATE
+    location
+      ? {
+          current: location,
+          path,
+          key: `${location.prefix ?? ''}${path}`,
+        }
+      : DEFAULT_STATE
   );
 
   return (

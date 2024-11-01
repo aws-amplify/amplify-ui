@@ -96,7 +96,9 @@ describe('LocationDetailView', () => {
 
   it('shows a Loading element when first loaded', () => {
     useStoreSpy.mockReturnValueOnce([
-      { location: { current: location } } as StoreModule.UseStoreState,
+      {
+        location: { current: location, path: '', key: location.prefix },
+      } as StoreModule.UseStoreState,
       dispatchStoreAction,
     ]);
     mockListItemsAction({ isLoading: true, result: [] });
@@ -140,7 +142,9 @@ describe('LocationDetailView', () => {
 
   it('loads initial location items for a BUCKET location as expected', () => {
     useStoreSpy.mockReturnValueOnce([
-      { location: { current: location } } as StoreModule.UseStoreState,
+      {
+        location: { current: location, path: '', key: location.prefix },
+      } as StoreModule.UseStoreState,
       dispatchStoreAction,
     ]);
     render(<LocationDetailView />);
@@ -155,7 +159,7 @@ describe('LocationDetailView', () => {
   it('refreshes table and clears selection state when refresh button is clicked', async () => {
     useStoreSpy.mockReturnValue([
       {
-        location: { current: location },
+        location: { current: location, path: '', key: location.prefix },
         locationItems: { fileDataItems: undefined },
       } as StoreModule.UseStoreState,
       dispatchStoreAction,

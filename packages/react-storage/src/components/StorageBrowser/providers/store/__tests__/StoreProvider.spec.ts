@@ -30,7 +30,11 @@ describe('StoreProvider', () => {
     expect(files[0]).toStrictEqual([]);
     expect(typeof files[1]).toBe('function');
 
-    expect(location[0]).toStrictEqual({ current: undefined, path: undefined });
+    expect(location[0]).toStrictEqual({
+      current: undefined,
+      path: '',
+      key: '',
+    });
     expect(typeof location[1]).toBe('function');
 
     expect(locationItems[0]).toStrictEqual({ fileDataItems: undefined });

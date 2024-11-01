@@ -13,7 +13,7 @@ describe('useLocation', () => {
 
     const [state, handler] = result.current;
 
-    expect(state).toStrictEqual({ current: undefined, path: undefined });
+    expect(state).toStrictEqual({ current: undefined, path: '', key: '' });
     expect(handler).toStrictEqual(expect.any(Function));
   });
 
@@ -22,7 +22,7 @@ describe('useLocation', () => {
       bucket: 'bucket',
       id: 'id',
       permission: 'READWRITE' as const,
-      prefix: 'prefix',
+      prefix: 'prefix/',
       type: 'OBJECT' as const,
     };
     const path = 'path';
@@ -37,7 +37,11 @@ describe('useLocation', () => {
 
     const state = result.current[0];
 
-    expect(state).toStrictEqual({ current: location, path });
+    expect(state).toStrictEqual({
+      current: location,
+      path,
+      key: `${location.prefix}${path}`,
+    });
   });
 
   it('updates `Location` with a new `location` as expected', () => {
@@ -45,7 +49,7 @@ describe('useLocation', () => {
       bucket: 'bucket',
       id: 'id',
       permission: 'READWRITE' as const,
-      prefix: 'prefix',
+      prefix: 'prefix/',
       type: 'OBJECT' as const,
     };
 
@@ -57,13 +61,17 @@ describe('useLocation', () => {
 
     const [initialState, handler] = result.current;
 
-    expect(initialState).toStrictEqual({ current: location, path: undefined });
+    expect(initialState).toStrictEqual({
+      current: location,
+      path: '',
+      key: location.prefix,
+    });
 
     const nextLocation = {
       bucket: 'next-bucket',
       id: 'next-id',
       permission: 'READWRITE' as const,
-      prefix: 'next-prefix',
+      prefix: 'next-prefix/',
       type: 'OBJECT' as const,
     };
 
@@ -73,7 +81,11 @@ describe('useLocation', () => {
 
     const [nextState] = result.current;
 
-    expect(nextState).toStrictEqual({ current: nextLocation, path: undefined });
+    expect(nextState).toStrictEqual({
+      current: nextLocation,
+      path: '',
+      key: nextLocation.prefix,
+    });
   });
 
   it('`LocationProvider` throws when provided `location` is invalid', () => {

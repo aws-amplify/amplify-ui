@@ -23,7 +23,7 @@ describe('useNavigation', () => {
   // assert mocks
   const mockUseControlsContext = jest.mocked(useControlsContext);
   // create mocks
-  const mockOnAccessItem = jest.fn();
+  const mockonNavigate = jest.fn();
   const mockOnNavigateHome = jest.fn();
   const mockRandomUUID = jest.fn();
 
@@ -37,13 +37,13 @@ describe('useNavigation', () => {
     mockUseControlsContext.mockReturnValue({
       data,
       onNavigateHome: mockOnNavigateHome,
-      onAccessItem: mockOnAccessItem,
+      onNavigate: mockonNavigate,
     });
   });
 
   afterEach(() => {
     mockUseControlsContext.mockReset();
-    mockOnAccessItem.mockClear();
+    mockonNavigate.mockClear();
     mockOnNavigateHome.mockClear();
   });
 
@@ -76,13 +76,13 @@ describe('useNavigation', () => {
     expect(mockOnNavigateHome).toHaveBeenCalled();
   });
 
-  it('calls onAccessItem', () => {
+  it('calls onNavigate', () => {
     const { result } = renderHook(() => useNavigation());
     const [, navigationItem] = result.current?.items ?? [];
 
     navigationItem?.onNavigate?.();
 
-    expect(mockOnAccessItem).toHaveBeenCalled();
+    expect(mockonNavigate).toHaveBeenCalled();
   });
 
   describe('PREFIX type location', () => {
@@ -140,7 +140,7 @@ describe('useNavigation', () => {
             path: `${foo}/${bar}/${qux}/`,
           },
         },
-        onAccessItem: mockOnAccessItem,
+        onNavigate: mockonNavigate,
       });
 
       const { result } = renderHook(() => useNavigation());
@@ -152,17 +152,17 @@ describe('useNavigation', () => {
       fooItem?.onNavigate?.();
       barItem?.onNavigate?.();
 
-      expect(mockOnAccessItem).toHaveBeenNthCalledWith(
+      expect(mockonNavigate).toHaveBeenNthCalledWith(
         1,
         { ...data.location.current, id: 1 },
         ''
       );
-      expect(mockOnAccessItem).toHaveBeenNthCalledWith(
+      expect(mockonNavigate).toHaveBeenNthCalledWith(
         2,
         { ...data.location.current, id: 2 },
         `${foo}/`
       );
-      expect(mockOnAccessItem).toHaveBeenNthCalledWith(
+      expect(mockonNavigate).toHaveBeenNthCalledWith(
         3,
         { ...data.location.current, id: 3 },
         `${foo}/${bar}/`
@@ -232,7 +232,7 @@ describe('useNavigation', () => {
             path: `${foo}/${bar}/${qux}/`,
           },
         },
-        onAccessItem: mockOnAccessItem,
+        onNavigate: mockonNavigate,
       });
 
       const { result } = renderHook(() => useNavigation());
@@ -246,22 +246,22 @@ describe('useNavigation', () => {
       fooItem?.onNavigate?.();
       barItem?.onNavigate?.();
 
-      expect(mockOnAccessItem).toHaveBeenNthCalledWith(
+      expect(mockonNavigate).toHaveBeenNthCalledWith(
         1,
         { ...data.location.current, type: 'BUCKET', id: 1 },
         ''
       );
-      expect(mockOnAccessItem).toHaveBeenNthCalledWith(
+      expect(mockonNavigate).toHaveBeenNthCalledWith(
         2,
         { ...data.location.current, type: 'BUCKET', id: 2 },
         `${prefix}/`
       );
-      expect(mockOnAccessItem).toHaveBeenNthCalledWith(
+      expect(mockonNavigate).toHaveBeenNthCalledWith(
         3,
         { ...data.location.current, type: 'BUCKET', id: 3 },
         `${prefix}/${foo}/`
       );
-      expect(mockOnAccessItem).toHaveBeenNthCalledWith(
+      expect(mockonNavigate).toHaveBeenNthCalledWith(
         4,
         { ...data.location.current, type: 'BUCKET', id: 4 },
         `${prefix}/${foo}/${bar}/`
