@@ -11,7 +11,7 @@ describe('ActionCancel', () => {
   });
 
   it('renders a button with the expected className, text and aria label', () => {
-    render(<ActionCancel text="Cancel" ariaLabel="Aria Label" />);
+    render(<ActionCancel label="Cancel" ariaLabel="Aria Label" />);
     const button = screen.getByRole('button');
     expect(button).toHaveClass(`${CLASS_BASE}__action-cancel`);
     expect(button).toHaveTextContent('Cancel');

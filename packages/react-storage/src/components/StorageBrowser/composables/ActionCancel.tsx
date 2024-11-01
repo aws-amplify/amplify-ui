@@ -7,14 +7,14 @@ export interface ActionCancelProps {
   onCancel?: () => void;
   ariaLabel?: string;
   isDisabled?: boolean;
-  text?: string;
+  label?: string;
 }
 
 export const ActionCancel = ({
   onCancel,
   ariaLabel,
   isDisabled,
-  text,
+  label,
 }: ActionCancelProps): React.JSX.Element => (
   <ButtonElement
     variant="cancel"
@@ -23,7 +23,7 @@ export const ActionCancel = ({
     aria-label={ariaLabel}
     disabled={isDisabled}
   >
-    {text ?? (
+    {label ?? (
       <IconElement
         className={`${CLASS_BASE}__action-cancel-icon`}
         variant="cancel"

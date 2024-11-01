@@ -5,7 +5,7 @@ import { useActionCancel } from '../useActionCancel';
 describe('useActionCancel', () => {
   const controlsContext: ControlsContext = {
     data: {
-      actionCancelText: 'Cancel',
+      actionCancelLabel: 'Cancel',
       actionCancelAriaLabel: 'Aria Label',
       isActionCancelDisabled: false,
     },
@@ -28,7 +28,7 @@ describe('useActionCancel', () => {
     useControlsContextSpy.mockReturnValue(controlsContext);
 
     expect(useActionCancel()).toStrictEqual({
-      text: controlsContext.data.actionCancelText,
+      text: controlsContext.data.actionCancelLabel,
       ariaLabel: controlsContext.data.actionCancelAriaLabel,
       onCancel: controlsContext.onActionCancel,
       isDisabled: controlsContext.data.isActionCancelDisabled,

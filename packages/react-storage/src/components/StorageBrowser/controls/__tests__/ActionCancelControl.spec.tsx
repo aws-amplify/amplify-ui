@@ -17,7 +17,7 @@ describe('ActionCancelControl', () => {
     useActionCancelSpy.mockReturnValue({
       isDisabled: false,
       onCancel: jest.fn(),
-      text: 'Cancel',
+      label: 'Cancel',
     });
     render(<ActionCancelControl />);
 

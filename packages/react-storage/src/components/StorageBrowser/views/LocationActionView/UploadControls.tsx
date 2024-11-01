@@ -345,7 +345,7 @@ export const UploadControls = ({
       taskCounts,
       isActionStartDisabled: disablePrimary,
       actionStartLabel: 'Start',
-      actionCancelText: 'Cancel',
+      actionCancelLabel: 'Cancel',
       isActionCancelDisabled: disableCancel,
     },
     actionsConfig: {

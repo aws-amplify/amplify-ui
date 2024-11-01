@@ -3,13 +3,13 @@ import { useControlsContext } from '../../controls/context';
 
 export const useActionCancel = (): ActionCancelProps => {
   const {
-    data: { actionCancelAriaLabel, actionCancelText, isActionCancelDisabled },
+    data: { actionCancelAriaLabel, actionCancelLabel, isActionCancelDisabled },
     onActionCancel,
   } = useControlsContext();
   return {
     onCancel: onActionCancel,
     ariaLabel: actionCancelAriaLabel,
     isDisabled: isActionCancelDisabled,
-    text: actionCancelText,
+    label: actionCancelLabel,
   };
 };

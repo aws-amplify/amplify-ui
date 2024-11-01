@@ -42,7 +42,7 @@ export interface ControlsContext {
     actionStartLabel?: string;
     isActionStartDisabled?: boolean;
     actionCancelAriaLabel?: string;
-    actionCancelText?: string;
+    actionCancelLabel?: string;
     isActionCancelDisabled?: boolean;
     isDataRefreshDisabled?: boolean;
     location?: Location;
