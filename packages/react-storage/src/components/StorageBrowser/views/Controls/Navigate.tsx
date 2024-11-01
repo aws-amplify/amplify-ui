@@ -115,8 +115,9 @@ export function NavigateControl({
       </NavigateItem>
       {previous?.map((destination, index) => {
         const { bucket, id, prefix: _prefix } = destination;
+
         // remove trailing `/` from `prefix`
-        const prefix = _prefix?.endsWith('/') ? _prefix.slice(0, -1) : _prefix;
+        const prefix = _prefix?.replace(/\/$/, '').split('/').pop() ?? '';
 
         // if `position` is the first index:
         // - concatenate `bucket` and `prefix`
