@@ -3,7 +3,6 @@ import React from 'react';
 import { createContextUtilities } from '@aws-amplify/ui-react-core';
 
 import { GetActionInputProviderProps, GetActionInput } from './types';
-import { LocationData as _LocationData } from '../../actions';
 import { useGetActionInputCallback } from './useGetActionInputCallback';
 
 const ERROR_MESSAGE =

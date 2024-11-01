@@ -8,6 +8,7 @@ import {
 
 const file = {
   key: 'key',
+  id: 'id',
   lastModified: new Date(),
   size: 100,
   type: 'FILE' as const,
@@ -41,12 +42,14 @@ describe('defaultActionConfigs', () => {
 
   describe('listLocationItemsActionConfig', () => {
     it('returns the expected value of title', () => {
-      const { title } = listLocationItemsActionConfig;
+      const { displayName } = listLocationItemsActionConfig;
 
-      expect(title(undefined, undefined)).toBe('-');
-      expect(title('bucket', undefined)).toBe('bucket');
-      expect(title('bucket', 'prefix/')).toBe('bucket: prefix/');
-      expect(title('bucket', 'prefix/nested/')).toBe('bucket: ../nested/');
+      expect(displayName(undefined, undefined)).toBe('-');
+      expect(displayName('bucket', undefined)).toBe('bucket');
+      expect(displayName('bucket', 'prefix/')).toBe('bucket: prefix/');
+      expect(displayName('bucket', 'prefix/nested/')).toBe(
+        'bucket: ../nested/'
+      );
     });
   });
 

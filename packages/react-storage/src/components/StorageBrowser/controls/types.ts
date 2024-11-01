@@ -1,5 +1,6 @@
-import { ComposableTypes } from '../composables/types';
+import { Composables } from '../composables/types';
 import { DataTableSortHeader, DataTableProps } from '../composables/DataTable';
+import { DropZoneProps } from '../composables/DropZone';
 import { INITIAL_STATUS_COUNTS } from '../views/LocationActionView/constants';
 
 export interface ControlProps {
@@ -7,10 +8,10 @@ export interface ControlProps {
 }
 
 export interface Controls {
-  props: React.ComponentProps<ComposableTypes[keyof ComposableTypes]>;
+  props: React.ComponentProps<Composables[keyof Composables]>;
 }
 
-export type ControlKey = keyof ComposableTypes;
+export type ControlKey = keyof Composables;
 
 export type TaskCounts = typeof INITIAL_STATUS_COUNTS;
 
@@ -28,15 +29,17 @@ interface TableData {
     | TruncatedSortHeader
   )[];
   rows: DataTableProps['rows'];
-  isLoading?: boolean;
 }
 
 export interface ControlsContext {
   data: {
     taskCounts?: TaskCounts;
     tableData?: TableData;
+    isDataRefreshDisabled?: boolean;
+    actionStartLabel?: string;
+    isActionStartDisabled?: boolean;
   };
-  actionsConfig: {
+  actionsConfig?: {
     type:
       | 'SINGLE_ACTION'
       | 'BATCH_ACTION'
@@ -44,4 +47,7 @@ export interface ControlsContext {
       | 'LIST_LOCATION_ITEMS';
     isCancelable?: boolean;
   };
+  onDropComplete?: DropZoneProps['onDropComplete'];
+  onRefresh?: () => void;
+  onActionStart?: () => void;
 }

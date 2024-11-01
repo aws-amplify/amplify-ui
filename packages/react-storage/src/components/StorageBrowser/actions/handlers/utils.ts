@@ -1,6 +1,8 @@
 import { isCancelError } from 'aws-amplify/storage';
 import { isFunction } from '@aws-amplify/ui';
 
+import { LocationAccess, LocationData } from './types';
+
 import {
   TaskHandlerOutput,
   CancelableTaskHandlerOutput,
@@ -50,3 +52,43 @@ export const constructBucket = ({
   bucketName: string;
   region: string;
 } => ({ bucketName, region });
+
+export const parseLocationAccess = (location: LocationAccess): LocationData => {
+  const { permission, scope, type } = location;
+  if (!scope.startsWith('s3://')) {
+    throw new Error(`Invalid scope: ${scope}`);
+  }
+
+  const id = crypto.randomUUID();
+
+  // remove default path
+  const slicedScope = scope.slice(5);
+  let bucket, prefix;
+
+  switch (type) {
+    case 'BUCKET': {
+      // { scope: 's3://bucket/*', type: 'BUCKET', },
+      bucket = slicedScope.slice(0, -2);
+      prefix = '';
+      break;
+    }
+    case 'PREFIX': {
+      // { scope: 's3://bucket/path/*', type: 'PREFIX', },
+      bucket = slicedScope.slice(0, slicedScope.indexOf('/'));
+      prefix = `${slicedScope.slice(bucket.length + 1, -1)}`;
+
+      break;
+    }
+    case 'OBJECT': {
+      // { scope: 's3://bucket/path/to/object', type: 'OBJECT', },
+      bucket = slicedScope.slice(0, slicedScope.indexOf('/'));
+      prefix = slicedScope.slice(bucket.length + 1);
+      break;
+    }
+    default: {
+      throw new Error(`Invalid location type: ${type}`);
+    }
+  }
+
+  return { bucket, id, permission, prefix, type };
+};

@@ -1,56 +1,31 @@
 import React from 'react';
 
 import { createContextUtilities } from '@aws-amplify/ui-react-core';
-import { isObject, isString, noop } from '@aws-amplify/ui';
+import { noop } from '@aws-amplify/ui';
 
-import { LocationData as _LocationData } from '../../../actions';
+import { assertLocationData } from '../../../validators';
+import { LocationData } from '../../../actions';
 
 export const ERROR_MESSAGE =
   'Invalid `location` value provided as initial value to `HistoryProvider.';
 
-// temp: LocationData will be extended to include id during integration
-interface LocationData extends _LocationData {
-  id: string;
-}
-
-export const LocationDataKey = [
-  'bucket',
-  'id',
-  'permission',
-  'prefix',
-  'type',
-] as const;
-
-// temp: move util to live with listLocations handler during integration
-function assertIsLocationData(
-  value: LocationData | undefined,
-  message?: string
-): asserts value is LocationData {
-  if (
-    !isObject(value) ||
-    LocationDataKey.some((key) => !isString(value[key]))
-  ) {
-    throw new Error(message ?? 'Invalid value provided as `location`.');
-  }
-}
-
 export const DEFAULT_STATE: HistoryState = {
   current: undefined,
-  history: undefined,
+  previous: undefined,
 };
 
-export type HistoryAction =
+export type HistoryActionType =
   | { type: 'NAVIGATE'; destination: LocationData }
-  | { type: 'RESET' };
+  | { type: 'RESET_HISTORY' };
 
 export interface HistoryState {
   current: LocationData | undefined;
-  history: LocationData[] | undefined;
+  previous: LocationData[] | undefined;
 }
 
 export type HistoryStateContext = [
   HistoryState,
-  (action: HistoryAction) => void,
+  (action: HistoryActionType) => void,
 ];
 
 export interface HistoryProviderProps {
@@ -60,7 +35,7 @@ export interface HistoryProviderProps {
 
 function handleAction(
   state: HistoryState,
-  action: HistoryAction
+  action: HistoryActionType
 ): HistoryState {
   switch (action.type) {
     case 'NAVIGATE': {
@@ -68,21 +43,21 @@ function handleAction(
 
       if (state.current?.id === destination.id) return state;
 
-      if (!state.history?.length) {
-        return { current: destination, history: [destination] };
+      if (!state.previous?.length) {
+        return { current: destination, previous: [destination] };
       }
 
-      const itemIndex = state.history.findIndex(
+      const itemIndex = state.previous.findIndex(
         ({ id }) => id === destination.id
       );
-      const history =
+      const previous =
         itemIndex === -1
-          ? [...state.history, destination]
-          : state.history.slice(0, itemIndex + 1);
+          ? [...state.previous, destination]
+          : state.previous.slice(0, itemIndex + 1);
 
-      return { current: destination, history };
+      return { current: destination, previous };
     }
-    case 'RESET': {
+    case 'RESET_HISTORY': {
       return DEFAULT_STATE;
     }
   }
@@ -99,12 +74,12 @@ export function HistoryProvider({
   location: current,
 }: HistoryProviderProps): React.JSX.Element {
   if (current) {
-    assertIsLocationData(current, ERROR_MESSAGE);
+    assertLocationData(current, ERROR_MESSAGE);
   }
 
   const value = React.useReducer(
     handleAction,
-    current ? { current, history: [current] } : DEFAULT_STATE
+    current ? { current, previous: [current] } : DEFAULT_STATE
   );
 
   return (

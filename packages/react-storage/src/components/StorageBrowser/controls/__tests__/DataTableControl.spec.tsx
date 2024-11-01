@@ -25,49 +25,47 @@ describe('DataTableControl', () => {
 
   it('renders', () => {
     mockUseDataTable.mockReturnValue({
-      props: {
-        headers: [
-          {
-            key: 'header-1',
-            type: 'checkbox',
-            content: { onSelect: jest.fn() },
-          },
-          { key: 'header-2', type: 'sort', content: {} },
-          { key: 'header-3', type: 'text', content: {} },
-          { key: 'header-4', type: 'text', content: {} },
-          { key: 'header-5', type: 'text', content: {} },
-        ],
-        rows: [
-          {
-            key: 'row-1',
-            content: [
-              {
-                key: 'row-1 data-cell-1',
-                type: 'checkbox',
-                content: { onSelect: jest.fn() },
-              },
-              { key: 'row-1 data-cell-2', type: 'button', content: {} },
-              { key: 'row-1 data-cell-3', type: 'date', content: {} },
-              { key: 'row-1 data-cell-4', type: 'number', content: {} },
-              { key: 'row-1 data-cell-5', type: 'text', content: {} },
-            ],
-          },
-          {
-            key: 'row-2',
-            content: [
-              {
-                key: 'row-2 data-cell-1',
-                type: 'checkbox',
-                content: { onSelect: jest.fn() },
-              },
-              { key: 'row-2 data-cell-2', type: 'button', content: {} },
-              { key: 'row-2 data-cell-3', type: 'date', content: {} },
-              { key: 'row-2 data-cell-4', type: 'number', content: {} },
-              { key: 'row-2 data-cell-5', type: 'text', content: {} },
-            ],
-          },
-        ],
-      },
+      headers: [
+        {
+          key: 'header-1',
+          type: 'checkbox',
+          content: { onSelect: jest.fn() },
+        },
+        { key: 'header-2', type: 'sort', content: {} },
+        { key: 'header-3', type: 'text', content: {} },
+        { key: 'header-4', type: 'text', content: {} },
+        { key: 'header-5', type: 'text', content: {} },
+      ],
+      rows: [
+        {
+          key: 'row-1',
+          content: [
+            {
+              key: 'row-1 data-cell-1',
+              type: 'checkbox',
+              content: { onSelect: jest.fn() },
+            },
+            { key: 'row-1 data-cell-2', type: 'button', content: {} },
+            { key: 'row-1 data-cell-3', type: 'date', content: {} },
+            { key: 'row-1 data-cell-4', type: 'number', content: {} },
+            { key: 'row-1 data-cell-5', type: 'text', content: {} },
+          ],
+        },
+        {
+          key: 'row-2',
+          content: [
+            {
+              key: 'row-2 data-cell-1',
+              type: 'checkbox',
+              content: { onSelect: jest.fn() },
+            },
+            { key: 'row-2 data-cell-2', type: 'button', content: {} },
+            { key: 'row-2 data-cell-3', type: 'date', content: {} },
+            { key: 'row-2 data-cell-4', type: 'number', content: {} },
+            { key: 'row-2 data-cell-5', type: 'text', content: {} },
+          ],
+        },
+      ],
     });
 
     render(<DataTableControl />);

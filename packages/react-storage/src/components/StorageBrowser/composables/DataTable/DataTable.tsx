@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { EmptyMessage } from '../../components/EmptyMessage';
-import { LoadingIndicator } from '../../components/LoadingIndicator';
 import { Table } from '../../components/Table';
 import { SortHeader } from './headers/SortHeader';
 import { TextHeader } from './headers/TextHeader';
@@ -21,13 +19,11 @@ export interface DataTableRow {
 export interface DataTableProps {
   headers: WithKey<DataTableHeader>[];
   rows: WithKey<DataTableRow>[];
-  isLoading?: boolean;
 }
 
 export const DataTable = ({
   headers,
   rows,
-  isLoading,
 }: DataTableProps): React.JSX.Element => {
   const mappedHeaders = headers.map(({ key, content, type }) => {
     switch (type) {
@@ -92,14 +88,5 @@ export const DataTable = ({
     }),
   }));
 
-  return (
-    <>
-      <Table headers={mappedHeaders} rows={mappedRows} />
-      {isLoading ? (
-        <LoadingIndicator />
-      ) : mappedRows.length ? null : (
-        <EmptyMessage>No data available</EmptyMessage>
-      )}
-    </>
-  );
+  return <Table headers={mappedHeaders} rows={mappedRows} />;
 };

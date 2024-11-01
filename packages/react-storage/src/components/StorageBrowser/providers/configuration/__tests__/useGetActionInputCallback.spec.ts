@@ -7,7 +7,7 @@ import {
   useGetActionInputCallback,
 } from '../useGetActionInputCallback';
 
-const useHistorySpy = jest.spyOn(StoreModule, 'useHistory');
+const useStoreSpy = jest.spyOn(StoreModule, 'useStore');
 const useCredentialsSpy = jest.spyOn(CredentialsModule, 'useCredentials');
 
 const credentials = jest.fn();
@@ -38,8 +38,9 @@ describe('useGetActionInputCallback', () => {
       getCredentials,
     });
 
-    useHistorySpy.mockReturnValueOnce([
-      { current: location, history: [location] },
+    useStoreSpy.mockReturnValueOnce([
+      // @ts-expect-error mocking out the entire store is unnecessary
+      { history: { current: location, previous: [location] } },
       jest.fn(),
     ]);
 

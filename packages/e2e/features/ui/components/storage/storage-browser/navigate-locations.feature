@@ -24,9 +24,9 @@ Feature: Storage Browser navigate breadcrumbs
     When I click the "Blueberry/" button
     Then I see "Blackberry/"
     When I click the "Blackberry/" button
-    Then I see "Blueberry/"
-    When I click the "Blueberry" button
-    Then I see "Blueberry/"
+    Then I see "public/Blueberry/"
+    When I click the "public/Blueberry" button
+    Then I see "public/Blueberry/"
 
   @react
   Scenario: Navigate to parent folder from nested child folder
@@ -38,7 +38,6 @@ Feature: Storage Browser navigate breadcrumbs
     When I click the "Blueberry/" button
     Then I see the "Acai/" button
     When I click the "Acai/" button
-    Then I see "Acai/"
-    Then I see the "Blueberry" button
-    When I click the "Blueberry" button
+    Then I see the "public/Blueberry" button
+    When I click the "public/Blueberry" button
     Then I see "Blueberry/"

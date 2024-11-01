@@ -7,8 +7,6 @@ export { MessageControl } from './Message';
 export { NavigateControl, NavigateItem } from './Navigate';
 export { OverwriteControl } from './Overwrite';
 export { PaginateControl } from './Paginate';
-export { PrimaryControl } from './Primary';
-export { RefreshControl } from './Refresh';
 export { SearchControl } from './Search';
 export { TitleControl } from './Title';
 export { TableControl, LocationDetailViewTable } from './Table';

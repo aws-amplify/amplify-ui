@@ -1,15 +1,21 @@
 import React from 'react';
+import { isFunction, isUndefined } from '@aws-amplify/ui';
 
+import { LocationData } from '../../actions';
 import { Field } from '../../components/Field';
-import { useAction } from '../../context/actions';
-import { useControl } from '../../context/control';
+import { useAction } from '../../do-not-import-from-here/actions';
 import { SpanElement } from '../../context/elements';
+import { useStore } from '../../providers/store';
 
 import { Controls } from '../Controls';
 
 import { Title } from './Controls/Title';
+import { ActionStartControl } from '../../controls/ActionStartControl';
+import { ControlsContext } from '../../controls/types';
+import { ControlsContextProvider } from '../../controls/context';
+import { CLASS_BASE } from '../constants';
 
-const { Exit, Message, Primary } = Controls;
+const { Exit, Message } = Controls;
 
 export const isValidFolderName = (name: string | undefined): boolean =>
   !!name?.length && !name.includes('/');
@@ -40,10 +46,17 @@ export const CreateFolderMessage = (): React.JSX.Element | null => {
   }
 };
 
-export const CreateFolderControls = (): React.JSX.Element => {
-  const [, handleUpdateState] = useControl('LOCATION_ACTIONS');
+export const CreateFolderControls = ({
+  onExit,
+}: {
+  onExit?: (location: LocationData) => void;
+}): React.JSX.Element => {
+  const [{ history }, dipatchStoreAction] = useStore();
+  const { current } = history;
 
-  const [{ path }] = useControl('NAVIGATE');
+  const { prefix } = current ?? {};
+  const hasInvalidPrefix = isUndefined(prefix);
+
   const [{ isLoading, data }, handleCreateAction] = useAction('CREATE_FOLDER');
   const { result } = data;
 
@@ -67,41 +80,47 @@ export const CreateFolderControls = (): React.JSX.Element => {
   };
 
   const handleCreateFolder = () => {
-    const prefix = `${path}${folderName}/`;
-    handleCreateAction({ prefix });
+    if (hasInvalidPrefix) return;
+    const folderPrefix = `${prefix}${folderName}/`;
+    handleCreateAction({ prefix: folderPrefix });
   };
 
   const handleClose = () => {
-    handleUpdateState({ type: 'CLEAR' });
+    if (isFunction(onExit)) onExit(current!);
+    dipatchStoreAction({ type: 'RESET_ACTION_TYPE' });
     // reset hook state on exit, use empty string for prefix to keep TS happy
+    // @todo: this needs to be addressed
     handleCreateAction({ prefix: '', options: { reset: true } });
   };
 
-  const primaryProps =
-    result?.status === 'COMPLETE'
-      ? {
-          onClick: () => {
-            handleClose();
-          },
-          children: 'Folder created',
-        }
-      : {
-          onClick: () => {
-            handleCreateFolder();
-          },
-          children: 'Create Folder',
-          disabled: !folderName || !!fieldValidationError,
-        };
+  const hasCompletedStatus = result?.status === 'COMPLETE';
+
+  // FIXME: Eventually comes from useView hook
+  const contextValue: ControlsContext = {
+    data: {
+      actionStartLabel: hasCompletedStatus ? 'Folder created' : 'Create Folder',
+      isActionStartDisabled: !hasCompletedStatus
+        ? !folderName || !!fieldValidationError
+        : undefined,
+    },
+    actionsConfig: {
+      type: 'SINGLE_ACTION',
+      isCancelable: true,
+    },
+    onActionStart: hasCompletedStatus ? handleClose : handleCreateFolder,
+  };
 
   return (
-    <>
+    <ControlsContextProvider {...contextValue}>
       <Exit
         onClick={() => {
           handleClose();
         }}
       />
       <Title />
-      <Primary {...primaryProps} />
+      <ActionStartControl
+        className={`${CLASS_BASE}__create-folder-action-start`}
+      />
       <Field
         label="Enter folder name:"
         disabled={isLoading || !!result?.status}
@@ -121,6 +140,6 @@ export const CreateFolderControls = (): React.JSX.Element => {
       {result?.status === 'COMPLETE' || result?.status === 'FAILED' ? (
         <CreateFolderMessage />
       ) : null}
-    </>
+    </ControlsContextProvider>
   );
 };

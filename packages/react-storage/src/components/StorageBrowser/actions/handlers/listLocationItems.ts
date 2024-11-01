@@ -5,25 +5,23 @@ import {
   ListHandlerOutput,
 } from '../types';
 
-/**
- * handler types
- */
-export interface FolderItem {
+export interface FolderData {
   key: string;
+  id: string;
   type: 'FOLDER';
 }
 
-export interface FileItem {
+export interface FileData {
   key: string;
-  data?: File;
   lastModified: Date;
+  id: string;
   size: number;
   type: 'FILE';
 }
 
-export type LocationItem = FileItem | FolderItem;
+export type LocationItemData = FileData | FolderData;
 
-export type LocationItemType = LocationItem['type'];
+export type LocationItemType = LocationItemData['type'];
 
 export interface ListLocationItemsHandlerOptions
   extends ListHandlerOptions<LocationItemType> {
@@ -35,7 +33,7 @@ export interface ListLocationItemsHandlerInput
   extends ListHandlerInput<ListLocationItemsHandlerOptions> {}
 
 export interface ListLocationItemsHandlerOutput
-  extends ListHandlerOutput<LocationItem> {}
+  extends ListHandlerOutput<LocationItemData> {}
 
 export interface ListLocationItemsHandler
   extends ListHandler<

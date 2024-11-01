@@ -1,161 +1,168 @@
 import React from 'react';
-import {
-  act,
-  fireEvent,
-  render,
-  screen,
-  waitFor,
-} from '@testing-library/react';
+import { render } from '@testing-library/react';
+import userEvent, { UserEvent } from '@testing-library/user-event';
 
-import * as ControlsModule from '../../../context/control';
-import createProvider from '../../../createProvider';
-import { LocationActionsState } from '../../../context/locationActions';
+import * as ConfigModule from '../../../providers/configuration';
+import * as StoreModule from '../../../providers/store';
+import * as TasksModule from '../../../tasks';
 
 import { UploadControls, ActionIcon, ICON_CLASS } from '../UploadControls';
-import userEvent from '@testing-library/user-event';
 
-const TEST_ACTIONS: LocationActionsState['actions'] = {
-  UPLOAD_FILES: { options: { displayName: 'Upload Files' } },
+jest.mock('../Controls/Title');
+
+const useStoreSpy = jest.spyOn(StoreModule, 'useStore');
+const useProcessTasksSpy = jest.spyOn(TasksModule, 'useProcessTasks');
+
+const location = {
+  id: 'an-id-👍🏼',
+  bucket: 'test-bucket',
+  permission: 'READWRITE',
+  prefix: 'test-prefix/',
+  type: 'PREFIX',
 };
+const dispatchStoreAction = jest.fn();
+useStoreSpy.mockReturnValue([
+  {
+    history: { current: location, previous: [location] },
+  } as StoreModule.UseStoreState,
+  dispatchStoreAction,
+]);
 
-const useControlSpy = jest.spyOn(ControlsModule, 'useControl');
-
-const locationActionsState: LocationActionsState = {
-  actions: TEST_ACTIONS,
-  selected: {
-    items: [],
-    type: 'UPLOAD_FILES',
-  },
-};
-
-const navigateState = {
-  location: {
-    permission: 'READWRITE',
-    scope: 's3://test-bucket/*',
-    type: 'BUCKET',
-  },
-  path: 'path',
-  history: [
-    { prefix: '', position: 0 },
-    { prefix: 'folder1/', position: 1 },
-    { prefix: 'folder2/', position: 2 },
-    { prefix: 'folder3/', position: 3 },
-  ],
-};
-
-useControlSpy.mockImplementation((type) => {
-  if (type === 'LOCATION_ACTIONS') {
-    return [locationActionsState, jest.fn()];
-  }
-
-  if (type === 'NAVIGATE') {
-    return [navigateState];
-  }
-});
-
-const config = {
-  getLocationCredentials: jest.fn(),
-  listLocations: jest.fn(),
+const credentials = jest.fn();
+const config: ConfigModule.GetActionInput = jest.fn(() => ({
+  credentials,
+  bucket: location.bucket,
   region: 'region',
-  registerAuthListener: jest.fn(),
-};
-const Provider = createProvider({ actions: TEST_ACTIONS, config });
+}));
+
+const testFile = new File([], 'test-ooo');
+const fileItem = { id: 'some-uuid', item: testFile, key: testFile.name };
+
+jest.spyOn(ConfigModule, 'useGetActionInput').mockReturnValue(config);
 
 describe('UploadControls', () => {
+  let user: UserEvent;
   beforeEach(() => {
-    jest.clearAllMocks();
+    user = userEvent.setup();
   });
 
-  it('should render upload controls table', async () => {
-    await waitFor(() => {
-      render(
-        <Provider>
-          <UploadControls />
-        </Provider>
-      );
-    });
+  afterEach(jest.clearAllMocks);
 
-    const table = screen.getByRole('table');
+  it('should render upload controls table', () => {
+    const { getByRole } = render(<UploadControls />);
+
+    const table = getByRole('table');
     expect(table).toBeInTheDocument();
   });
 
-  it('should render the destination folder', async () => {
-    await waitFor(() => {
-      render(
-        <Provider>
-          <UploadControls />
-        </Provider>
-      );
-    });
+  it('should render the destination folder', () => {
+    const { getByText } = render(<UploadControls />);
 
-    const destination = screen.getByText('Destination:');
-    const destinationFolder = screen.getByText('folder3/');
+    const destination = getByText('Destination:');
+    const destinationFolder = getByText('test-prefix/');
 
     expect(destination).toBeInTheDocument();
     expect(destinationFolder).toBeInTheDocument();
   });
 
-  it('opens the file picker when the add files button is clicked and uses the file selection dialog', async () => {
-    const user = userEvent.setup();
-    const files = [
-      new File(['content1'], 'file1.txt', { type: 'text/plain' }),
-      new File(['content2'], 'file2.txt', { type: 'text/plain' }),
-      new File(['content3'], 'file3.txt', {
-        type: 'text/plain',
-      }),
-    ];
+  it('calls `useProcessTasks` with the expected values when provided a root `prefix`', async () => {
+    const rootLocation = {
+      id: 'an-id-👍🏼',
+      bucket: 'test-bucket',
+      permission: 'READWRITE',
+      // a root `prefix` is an empty string
+      prefix: '',
+      type: 'BUCKET',
+    };
 
-    render(
-      <Provider>
-        <UploadControls />
-      </Provider>
-    );
+    useStoreSpy.mockReturnValue([
+      {
+        history: { current: rootLocation, previous: [rootLocation] },
+        files: [fileItem],
+      } as StoreModule.UseStoreState,
+      dispatchStoreAction,
+    ]);
 
-    const button = screen.getByRole('button', { name: 'Add files' });
-    const input: HTMLInputElement = screen.getByTestId('amplify-file-select');
+    const handleProcessTasks = jest.fn();
+    useProcessTasksSpy.mockReturnValue([
+      [
+        {
+          ...fileItem,
+          cancel: undefined,
+          message: undefined,
+          remove: jest.fn(),
+          status: 'QUEUED',
+        },
+      ],
+      handleProcessTasks,
+    ]);
 
-    expect(input).toHaveAttribute('multiple');
+    const { getByText, getAllByRole } = render(<UploadControls />);
 
-    await act(async () => {
-      await user.click(button);
-      await user.upload(input, files);
-    });
+    // render a '/' as the destination folder when prefix is an empty string
+    const definitonEls = getAllByRole('definition');
+    expect(definitonEls[0]).toHaveTextContent('/');
 
-    expect(input.files).toHaveLength(3);
-  });
+    const startButton = getByText('Start');
+    expect(startButton).toBeInTheDocument();
 
-  it('adds files dragged into the drop zone to the file list', async () => {
-    const files = [new File(['content'], 'file.txt', { type: 'text/plain' })];
+    await user.click(startButton);
 
-    render(
-      <Provider>
-        <UploadControls />
-      </Provider>
-    );
-
-    const dropzone = screen.getByTestId('storage-browser-table');
-
-    fireEvent.drop(dropzone, {
-      dataTransfer: {
-        files,
+    expect(handleProcessTasks).toHaveBeenCalledTimes(1);
+    expect(handleProcessTasks).toHaveBeenCalledWith({
+      config: {
+        bucket: rootLocation.bucket,
+        credentials,
+        region: 'region',
       },
-    });
-
-    await waitFor(() => {
-      expect(screen.getByText('file.txt')).toBeInTheDocument();
+      options: { preventOverwrite: true },
+      prefix: '',
     });
   });
 
-  it('has the webkitdirectory attribute for the input select for folders', () => {
-    render(
-      <Provider>
-        <UploadControls />
-      </Provider>
-    );
+  it('calls `useProcessTasks` with the expected values when provided a nested `prefix`', async () => {
+    useStoreSpy.mockReturnValue([
+      {
+        history: { current: location, previous: [location] },
+        files: [fileItem],
+      } as StoreModule.UseStoreState,
+      dispatchStoreAction,
+    ]);
 
-    const input: HTMLInputElement = screen.getByTestId('amplify-folder-select');
+    const handleProcessTasks = jest.fn();
+    useProcessTasksSpy.mockReturnValue([
+      [
+        {
+          ...fileItem,
+          cancel: undefined,
+          message: undefined,
+          remove: jest.fn(),
+          status: 'QUEUED',
+        },
+      ],
+      handleProcessTasks,
+    ]);
 
-    expect(input).toHaveAttribute('webkitdirectory');
+    const { getByText, getAllByRole } = render(<UploadControls />);
+
+    const definitonEls = getAllByRole('definition');
+    expect(definitonEls[0]).toHaveTextContent(location.prefix);
+
+    const startButton = getByText('Start');
+    expect(startButton).toBeInTheDocument();
+
+    await user.click(startButton);
+
+    expect(handleProcessTasks).toHaveBeenCalledTimes(1);
+    expect(handleProcessTasks).toHaveBeenCalledWith({
+      config: {
+        bucket: location.bucket,
+        credentials,
+        region: 'region',
+      },
+      options: { preventOverwrite: true },
+      prefix: location.prefix,
+    });
   });
 });
 

@@ -14,7 +14,8 @@ export interface DownloadHandlerInput
 }
 export interface DownloadHandlerOutput extends TaskHandlerOutput {}
 
-export interface DownloadHandler extends TaskHandler<DownloadHandlerInput> {}
+export interface DownloadHandler
+  extends TaskHandler<DownloadHandlerInput, DownloadHandlerOutput> {}
 
 function downloadFromUrl(fileName: string, url: string) {
   const a = document.createElement('a');
