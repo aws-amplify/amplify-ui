@@ -39,6 +39,7 @@ export type LocationActionType =
  *     type: 'PREFIX',
  *   },
  *   path: 'a-path/a-nested-path/',
+ *   key: 'my/prefix/a-path/a-nested-path/',
  * }
  *
  */
