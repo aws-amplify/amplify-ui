@@ -1,10 +1,10 @@
+import { ListPaginateWithPathOutput } from 'aws-amplify/storage';
+
 import {
   list,
-  ListPaginateWithPathInput,
-  ListPaginateWithPathOutput,
-} from 'aws-amplify/storage';
-
-import { StorageSubpathStrategy } from '../../storage-internal';
+  StorageSubpathStrategy,
+  ListPaginateInput,
+} from '../../storage-internal';
 import {
   ListHandler,
   ListHandlerInput,
@@ -126,14 +126,12 @@ export const listLocationItemsHandler: ListLocationItemsHandler = async (
   let nextNextToken = nextToken;
 
   do {
-    const listInput: ListPaginateWithPathInput = {
+    const listInput: ListPaginateInput = {
       path: prefix,
       options: {
         nextToken: nextNextToken,
         ..._options,
         bucket,
-        // @ts-ignore
-        // For some reason list types doesn't show locationCredentialsProvider, despite being present
         locationCredentialsProvider: credentials,
         pageSize,
         subpathStrategy,

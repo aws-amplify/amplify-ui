@@ -9,7 +9,7 @@ import { displayText } from '../../displayText/en';
 import { CLASS_BASE } from '../constants';
 import { DestinationPicker } from './DestinationPicker';
 
-import { useCopyActionView } from './CopyView/useCopyActionView';
+import { useCopyView } from './CopyView/useCopyView';
 import { Column } from '../Controls/Table';
 import { DataTableControl } from '../../controls/DataTableControl';
 import { ControlsContextProvider } from '../../controls/context';
@@ -67,7 +67,7 @@ export const CopyFilesControls = ({
     onActionStart,
     taskCounts,
     tasks,
-  } = useCopyActionView({ onExit: _onExit });
+  } = useCopyView({ onExit: _onExit });
 
   const [{ history }] = useStore();
   const { current } = history;

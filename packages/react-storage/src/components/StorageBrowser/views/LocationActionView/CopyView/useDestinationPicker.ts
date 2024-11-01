@@ -43,7 +43,7 @@ export const useDestinationPicker = ({
   handlePrevious: () => void;
   range: [number, number];
 } => {
-  const previousPathref = useRef('');
+  const previousPathref = useRef<string | null>(null);
   const prefix = getDestinationListFullPrefix(destinationList);
 
   const locationItemsAction = useCallback(
