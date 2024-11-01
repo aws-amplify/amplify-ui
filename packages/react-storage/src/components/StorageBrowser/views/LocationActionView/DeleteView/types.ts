@@ -7,7 +7,7 @@ import {
 export interface DeleteViewState extends ActionViewState<string> {
   disableCancel: boolean;
   disableClose: boolean;
-  disablePrimary: boolean;
+  disableStart: boolean;
 }
 
 export interface DeleteViewProps

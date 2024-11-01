@@ -35,7 +35,7 @@ export const useDeleteView = ({
   );
 
   const taskCounts = getTaskCounts(tasks);
-  const { disableCancel, disableClose, disablePrimary } =
+  const { disableCancel, disableClose, disableStart } =
     getActionViewDisabledButtons(taskCounts);
 
   const onActionStart = () => {
@@ -64,7 +64,7 @@ export const useDeleteView = ({
   return {
     disableCancel,
     disableClose,
-    disablePrimary,
+    disableStart,
     onActionCancel,
     onExit,
     onActionStart,

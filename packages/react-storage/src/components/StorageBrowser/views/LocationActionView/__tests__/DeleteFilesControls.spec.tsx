@@ -68,7 +68,7 @@ describe('DeleteFilesControls', () => {
         ],
         disableCancel: false,
         disableClose: false,
-        disablePrimary: false,
+        disableStart: false,
       };
     });
 
@@ -105,7 +105,7 @@ describe('DeleteFilesControls', () => {
       tasks: [],
       disableCancel: true,
       disableClose: true,
-      disablePrimary: true,
+      disableStart: true,
     });
 
     const { getByRole } = render(<DeleteFilesControls />);

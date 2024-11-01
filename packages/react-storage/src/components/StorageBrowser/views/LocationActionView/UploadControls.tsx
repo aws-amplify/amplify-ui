@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { humanFileSize, isFunction, isUndefined } from '@aws-amplify/ui';
+import { humanFileSize } from '@aws-amplify/ui';
 
-import { LocationData, uploadHandler } from '../../actions';
+import { LocationData } from '../../actions';
 import { displayText } from '../../displayText/en';
 import { TABLE_HEADER_BUTTON_CLASS_NAME } from '../../components/DataTable';
 import { DescriptionList } from '../../components/DescriptionList';
@@ -12,13 +12,11 @@ import {
   ViewElement,
 } from '../../context/elements';
 import { IconVariant } from '../../context/elements/IconElement';
-import { getTaskCounts } from '../../controls/getTaskCounts';
 import { StatusDisplayControl } from '../../controls/StatusDisplayControl';
 import { ControlsContextProvider } from '../../controls/context';
 import { ControlsContext } from '../../controls/types';
-import { useGetActionInput } from '../../providers/configuration';
 import { useStore } from '../../providers/store';
-import { TaskStatus, useProcessTasks } from '../../tasks';
+import { TaskStatus } from '../../tasks';
 
 import { compareNumbers, compareStrings, getPercentValue } from '../utils';
 import { CLASS_BASE } from '../constants';
@@ -30,12 +28,10 @@ import {
   SortState,
 } from '../Controls/Table';
 import { Title } from './Controls/Title';
-import {
-  DEFAULT_OVERWRITE_PROTECTION,
-  STATUS_DISPLAY_VALUES,
-} from './constants';
+import { STATUS_DISPLAY_VALUES } from './constants';
 import { FileItems } from '../../providers/store/files';
 import { ActionStartControl } from '../../controls/ActionStartControl';
+import { useUploadView } from './UploadView';
 
 const { Icon } = StorageBrowserElements;
 
@@ -193,20 +189,13 @@ const getFileSelectionType = (
 };
 
 export const UploadControls = ({
-  onExit,
+  onExit: _onExit,
 }: {
   onExit?: (location: LocationData) => void;
 }): JSX.Element => {
-  const getInput = useGetActionInput();
-
-  const [preventOverwrite, setPreventOverwrite] = React.useState(
-    DEFAULT_OVERWRITE_PROTECTION
-  );
-
   const [{ actionType, files, location }, dispatchStoreAction] = useStore();
   const { current, key: locationKey } = location;
   const { prefix } = current ?? {};
-  const hasInvalidPrefix = isUndefined(prefix);
 
   // launch native file picker on intiial render if no files are currently in state
   const selectionTypeRef = React.useRef<'FILE' | 'FOLDER' | undefined>(
@@ -226,9 +215,21 @@ export const UploadControls = ({
     };
   }, [dispatchStoreAction]);
 
-  const [tasks, handleProcess] = useProcessTasks(uploadHandler, files, {
-    concurrency: 4,
-  });
+  const {
+    tasks,
+    taskCounts,
+    disableStart,
+    disableCancel,
+    isOverwriteDisabled: disableOverwrite,
+    isSelectFilesDisabled: disableSelectFiles,
+    preventOverwrite,
+    onToggleOverwrite,
+    onActionStart,
+    onActionCancel,
+    onSelectFiles,
+    onExit,
+    onDropFiles,
+  } = useUploadView({ onExit: _onExit });
 
   const [compareFn, setCompareFn] = React.useState<(a: any, b: any) => number>(
     () => compareStrings
@@ -316,52 +317,25 @@ export const UploadControls = ({
     [direction, selection]
   );
 
-  const taskCounts = getTaskCounts(tasks);
-
-  const hasStarted = !!taskCounts.PENDING;
-  const hasCompleted =
-    !!taskCounts.TOTAL &&
-    taskCounts.CANCELED + taskCounts.COMPLETE + taskCounts.FAILED ===
-      taskCounts.TOTAL;
-
-  const disableCancel = !taskCounts.TOTAL || !hasStarted || hasCompleted;
-  const disablePrimary = !taskCounts.TOTAL || hasStarted || hasCompleted;
-  const disableOverwrite = hasStarted || hasCompleted;
-  const disableSelectFiles = hasStarted || hasCompleted;
-
   // FIXME: Eventually comes from useView hook
   const contextValue: ControlsContext = {
     data: {
       taskCounts,
-      isActionStartDisabled: disablePrimary,
+      isActionStartDisabled: disableStart,
       actionStartLabel: 'Start',
     },
     actionsConfig: {
       type: 'BATCH_ACTION',
       isCancelable: true,
     },
-    onActionStart: () => {
-      if (hasInvalidPrefix) return;
-
-      handleProcess({
-        config: getInput(),
-        prefix: locationKey,
-        options: { preventOverwrite },
-      });
-    },
+    onActionStart,
   };
 
   return (
     <ControlsContextProvider {...contextValue}>
       <Exit
         onClick={() => {
-          if (isFunction(onExit)) onExit?.(current!);
-          // clear tasks state
-          tasks.forEach(({ remove }) => remove());
-          // clear files state
-          dispatchStoreAction({ type: 'RESET_FILE_ITEMS' });
-          // clear selected action
-          dispatchStoreAction({ type: 'RESET_ACTION_TYPE' });
+          onExit(current!);
         }}
       />
       <Title />
@@ -370,11 +344,7 @@ export const UploadControls = ({
         variant="cancel"
         disabled={disableCancel}
         className={`${CLASS_BASE}__cancel`}
-        onClick={() => {
-          tasks.forEach((task) => {
-            task.cancel?.();
-          });
-        }}
+        onClick={onActionCancel}
       >
         Cancel
       </ButtonElement>
@@ -382,12 +352,7 @@ export const UploadControls = ({
         disabled={disableSelectFiles}
         className={`${CLASS_BASE}__add-folder`}
         variant="add-folder"
-        onClick={() => {
-          dispatchStoreAction({
-            type: 'SELECT_FILES',
-            selectionType: 'FOLDER',
-          });
-        }}
+        onClick={() => onSelectFiles('FOLDER')}
       >
         Add folder
       </ButtonElement>
@@ -395,9 +360,7 @@ export const UploadControls = ({
         disabled={disableSelectFiles}
         className={`${CLASS_BASE}__add-files`}
         variant="add-files"
-        onClick={() => {
-          dispatchStoreAction({ type: 'SELECT_FILES', selectionType: 'FILE' });
-        }}
+        onClick={() => onSelectFiles('FILE')}
       >
         Add files
       </ButtonElement>
@@ -414,9 +377,7 @@ export const UploadControls = ({
       <Overwrite
         defaultChecked={!preventOverwrite}
         disabled={disableOverwrite}
-        handleChange={() => {
-          setPreventOverwrite((overwrite) => !overwrite);
-        }}
+        handleChange={onToggleOverwrite}
       />
       <StatusDisplayControl
         className={`${CLASS_BASE}__upload-status-display`}
@@ -424,9 +385,7 @@ export const UploadControls = ({
       <Table
         data={tableData}
         columns={LOCATION_ACTION_VIEW_COLUMNS}
-        handleDroppedFiles={(files) => {
-          dispatchStoreAction({ type: 'ADD_FILE_ITEMS', files });
-        }}
+        handleDroppedFiles={(files) => onDropFiles(files)}
         renderHeaderItem={renderHeaderItem}
         renderRowItem={renderRowItem}
       />

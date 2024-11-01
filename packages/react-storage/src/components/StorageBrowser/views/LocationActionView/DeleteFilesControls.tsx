@@ -22,7 +22,7 @@ export const DeleteFilesControls = (props: {
   const {
     disableCancel,
     disableClose,
-    disablePrimary,
+    disableStart,
     onExit,
     onActionCancel,
     onActionStart,
@@ -42,7 +42,7 @@ export const DeleteFilesControls = (props: {
     data: {
       taskCounts,
       tableData,
-      isActionStartDisabled: disablePrimary,
+      isActionStartDisabled: disableStart,
       actionStartLabel: 'Start',
     },
     actionsConfig: { type: 'BATCH_ACTION', isCancelable: true },

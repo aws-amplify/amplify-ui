@@ -93,7 +93,7 @@ describe('useDeleteView', () => {
       expect.objectContaining({
         disableCancel: true,
         disableClose: false,
-        disablePrimary: false,
+        disableStart: false,
         onActionCancel: expect.any(Function),
         onExit: expect.any(Function),
         onActionStart: expect.any(Function),
@@ -173,7 +173,7 @@ describe('useDeleteView', () => {
     });
   });
 
-  it('should disable close and primary when some tasks in progress', () => {
+  it('should disable close and start when some tasks in progress', () => {
     jest.spyOn(Tasks, 'useProcessTasks').mockReturnValue([
       [
         {
@@ -213,12 +213,12 @@ describe('useDeleteView', () => {
       expect.objectContaining({
         disableCancel: false,
         disableClose: true,
-        disablePrimary: true,
+        disableStart: true,
       })
     );
   });
 
-  it('should disable cancel, close and primary when all tasks in progress or complete', () => {
+  it('should disable cancel, close and start when all tasks in progress or complete', () => {
     jest.spyOn(Tasks, 'useProcessTasks').mockReturnValue([
       [
         {
@@ -258,12 +258,12 @@ describe('useDeleteView', () => {
       expect.objectContaining({
         disableCancel: true,
         disableClose: true,
-        disablePrimary: true,
+        disableStart: true,
       })
     );
   });
 
-  it('should disable cancel, primary, but allow close when all tasks in progress or complete', () => {
+  it('should disable cancel, start, but allow close when all tasks in progress or complete', () => {
     jest.spyOn(Tasks, 'useProcessTasks').mockReturnValue([
       [
         {
@@ -303,7 +303,7 @@ describe('useDeleteView', () => {
       expect.objectContaining({
         disableCancel: true,
         disableClose: false,
-        disablePrimary: true,
+        disableStart: true,
       })
     );
   });

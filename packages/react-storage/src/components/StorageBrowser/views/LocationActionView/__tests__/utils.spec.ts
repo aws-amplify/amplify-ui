@@ -31,7 +31,7 @@ describe('Utils', () => {
       expect(result).toEqual({
         disableCancel: true,
         disableClose: false,
-        disablePrimary: false,
+        disableStart: false,
       });
     });
 
@@ -49,7 +49,7 @@ describe('Utils', () => {
       expect(result).toEqual({
         disableCancel: false,
         disableClose: true,
-        disablePrimary: true,
+        disableStart: true,
       });
     });
 
@@ -67,7 +67,7 @@ describe('Utils', () => {
       expect(result).toEqual({
         disableCancel: true,
         disableClose: false,
-        disablePrimary: true,
+        disableStart: true,
       });
     });
   });
