@@ -17,7 +17,7 @@ export const createAmplifyListLocationsHandler = (): ListLocations => {
   return async function listLocations(input = {}) {
     const { pageSize, nextToken } = input;
 
-    if (cachedLocations) {
+    if (cachedLocations.length > 0) {
       return getPaginatedLocations({
         locations: cachedLocations,
         pageSize,
