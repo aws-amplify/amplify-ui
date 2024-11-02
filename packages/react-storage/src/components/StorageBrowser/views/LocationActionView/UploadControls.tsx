@@ -11,7 +11,7 @@ import {
   StorageBrowserElements,
   ViewElement,
 } from '../../context/elements';
-import { IconVariant } from '../../context/elements/IconElement';
+import { IconElement, IconVariant } from '../../context/elements/IconElement';
 import { getTaskCounts } from '../../controls/getTaskCounts';
 import { StatusDisplayControl } from '../../controls/StatusDisplayControl';
 import { ControlsContextProvider } from '../../controls/context';
@@ -154,20 +154,14 @@ const renderRowItem: RenderRowItem<LocationActionViewColumns> = (
         );
       case 'cancel':
         if (row.cancel) {
-          // FIXME: Eventually comes from useView hook
-          const contextValue: ControlsContext = {
-            data: {
-              actionCancelAriaLabel: `Cancel upload for ${row.key}`,
-            },
-            onActionCancel: row.cancel,
-          };
-
           return (
-            <ControlsContextProvider {...contextValue}>
-              <ActionCancelControl
-                className={`${CLASS_BASE}__row-action-cancel`}
-              />
-            </ControlsContextProvider>
+            <ButtonElement
+              variant="cancel"
+              onClick={row.cancel}
+              aria-label={`Cancel upload for ${row.key}`}
+            >
+              <IconElement variant="cancel" />
+            </ButtonElement>
           );
         }
 

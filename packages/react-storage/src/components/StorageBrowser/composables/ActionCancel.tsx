@@ -5,14 +5,12 @@ import { CLASS_BASE } from '../views/constants';
 
 export interface ActionCancelProps {
   onCancel?: () => void;
-  ariaLabel?: string;
   isDisabled?: boolean;
   label?: string;
 }
 
 export const ActionCancel = ({
   onCancel,
-  ariaLabel,
   isDisabled,
   label,
 }: ActionCancelProps): React.JSX.Element => (
@@ -20,7 +18,6 @@ export const ActionCancel = ({
     variant="cancel"
     className={`${CLASS_BASE}__action-cancel`}
     onClick={onCancel}
-    aria-label={ariaLabel}
     disabled={isDisabled}
   >
     {label ?? (

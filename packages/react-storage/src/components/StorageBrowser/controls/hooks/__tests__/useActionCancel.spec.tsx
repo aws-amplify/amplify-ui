@@ -6,7 +6,6 @@ describe('useActionCancel', () => {
   const controlsContext: ControlsContext = {
     data: {
       actionCancelLabel: 'Cancel',
-      actionCancelAriaLabel: 'Aria Label',
       isActionCancelDisabled: false,
     },
     actionsConfig: {
@@ -29,7 +28,6 @@ describe('useActionCancel', () => {
 
     expect(useActionCancel()).toStrictEqual({
       label: controlsContext.data.actionCancelLabel,
-      ariaLabel: controlsContext.data.actionCancelAriaLabel,
       onCancel: controlsContext.onActionCancel,
       isDisabled: controlsContext.data.isActionCancelDisabled,
     });

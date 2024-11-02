@@ -41,7 +41,6 @@ export interface ControlsContext {
   data: {
     actionStartLabel?: string;
     isActionStartDisabled?: boolean;
-    actionCancelAriaLabel?: string;
     actionCancelLabel?: string;
     isActionCancelDisabled?: boolean;
     isDataRefreshDisabled?: boolean;
