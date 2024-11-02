@@ -13,9 +13,14 @@ import {
 } from './utils/getDestinationPickerDataTable';
 import { ControlsContext } from '../../controls/types';
 import { Breadcrumb } from '../../components/BreadcrumbNavigation';
-const { actionSetDestination, actionCurrentFolderSelected } = displayText;
+import { DescriptionList } from '../../components/DescriptionList';
+const {
+  actionSetDestination,
+  actionDestinationPickerCurrentFolderSelected,
+  actionDestinationPickerNoMoreFolders,
+  actionDestinationPickerDefaultError,
+} = displayText;
 
-const DEFAULT_ERROR_MESSAGE = 'There was an error loading items.';
 const DEFAULT_PAGE_SIZE = 10;
 export const DEFAULT_LIST_OPTIONS = {
   pageSize: DEFAULT_PAGE_SIZE,
@@ -44,6 +49,7 @@ export const DestinationPicker = ({
     hasNextToken,
     currentPage,
     isLoading,
+    hasError,
     handleNext,
     handlePrevious,
     range,
@@ -82,35 +88,42 @@ export const DestinationPicker = ({
   const noSubfolders = !items.length;
   const messageVariant = noSubfolders ? 'info' : 'error';
   const message = noSubfolders
-    ? `${actionCurrentFolderSelected} ${getDestinationListFullPrefix(
+    ? `${actionDestinationPickerCurrentFolderSelected} ${getDestinationListFullPrefix(
         destinationList
-      )}`
-    : DEFAULT_ERROR_MESSAGE;
-  const showMessage = noSubfolders; //|| hasError;
+      )}. ${actionDestinationPickerNoMoreFolders}`
+    : actionDestinationPickerDefaultError;
+  const showMessage = !isLoading && (noSubfolders || hasError);
 
   return (
     <ControlsContextProvider {...contextValue}>
       <ViewElement className={`${CLASS_BASE}__copy-destination-picker`}>
+        <ViewElement className={`${CLASS_BASE}__action-destination`}>
+          <DescriptionList
+            descriptions={[
+              {
+                term: `${actionSetDestination}:`,
+                details: destinationList.length ? (
+                  <>
+                    {destinationList.map((item, index) => (
+                      <Breadcrumb
+                        isCurrent={index === destinationList.length - 1}
+                        key={`${item}-${index}`}
+                        onNavigate={() => handleNavigatePath(index)}
+                        name={item.replace('/', '')}
+                      />
+                    ))}
+                  </>
+                ) : (
+                  '-'
+                ),
+              },
+            ]}
+          />
+        </ViewElement>
         <ViewElement
           className={`${CLASS_BASE}__action-destination`}
           style={{ display: 'flex' }}
-        >
-          {actionSetDestination}
-          {destinationList.length ? (
-            <>
-              {destinationList.map((item, index) => (
-                <Breadcrumb
-                  isCurrent={index === destinationList.length - 1}
-                  key={`${item}-${index}`}
-                  onNavigate={() => handleNavigatePath(index)}
-                  name={item.replace('/', '')}
-                />
-              ))}
-            </>
-          ) : (
-            '-'
-          )}
-        </ViewElement>
+        ></ViewElement>
         <ViewElement className="storage-browser__table">
           <PaginateControl
             currentPage={currentPage}

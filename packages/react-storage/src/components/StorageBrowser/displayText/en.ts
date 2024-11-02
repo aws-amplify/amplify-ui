@@ -2,8 +2,9 @@
  * Temporarily just export strings until displayText strategy is finalized
  */
 export const displayText = {
-  actionCurrentFolderSelected:
-    'There are no more nested folders, current folder selected:',
+  actionDestinationPickerCurrentFolderSelected: 'Current folder selected:',
+  actionDestinationPickerNoMoreFolders: 'There are no folders under this path.',
+  actionDestinationPickerDefaultError: 'There was an error loading folders.',
   actionDestination: 'Destination',
   actionSetDestination: 'Set destination',
   actionSelectedText: 'Selected files',
@@ -15,4 +16,5 @@ export const displayText = {
   uploadFolderTitle: 'Upload folder',
   uploadFilesTitle: 'Upload files',
   deleteFilesTitle: 'Delete files',
+  exitButtonText: 'Exit',
 };

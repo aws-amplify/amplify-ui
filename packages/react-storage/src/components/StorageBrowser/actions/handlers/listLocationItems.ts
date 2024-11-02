@@ -22,9 +22,8 @@ export interface FolderData {
 
 export interface FileData {
   key: string;
-  id: string;
-  data?: File;
   lastModified: Date;
+  id: string;
   size: number;
   type: 'FILE';
 }

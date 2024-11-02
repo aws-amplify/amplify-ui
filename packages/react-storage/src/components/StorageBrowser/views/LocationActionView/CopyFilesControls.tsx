@@ -26,7 +26,7 @@ const RESULT_COMPLETE_MESSAGE = 'File copied';
 const RESULT_FAILED_MESSAGE = 'There was an issue copying the files.';
 
 const { Exit } = Controls;
-const { actionSelectedText } = displayText;
+const { actionSetDestination } = displayText;
 
 interface SelectedFilesColumns {
   key: string;
@@ -99,39 +99,42 @@ export const CopyFilesControls = ({
         disabled={disableClose}
       />
       <Title />
-      {hasStarted ? (
-        <ViewElement className={`${CLASS_BASE}__action-destination`}>
-          <DescriptionList
-            descriptions={[
-              {
-                term: `${displayText.actionDestination}:`,
-                details: getDestinationListFullPrefix(destinationList),
-              },
-            ]}
+      <ViewElement className={`${CLASS_BASE}__action-header`}>
+        {hasStarted ? (
+          <ViewElement className={`${CLASS_BASE}__action-destination`}>
+            <DescriptionList
+              descriptions={[
+                {
+                  term: `${actionSetDestination}:`,
+                  details: getDestinationListFullPrefix(destinationList),
+                },
+              ]}
+            />
+          </ViewElement>
+        ) : (
+          <DestinationPicker
+            destinationList={destinationList}
+            onSetDestinationList={onSetDestinationList}
           />
-        </ViewElement>
-      ) : (
-        <DestinationPicker
-          destinationList={destinationList}
-          onSetDestinationList={onSetDestinationList}
-        />
-      )}
-      <StatusDisplayControl
-        className={`${CLASS_BASE}__action-status-display`}
-      />
-      <ViewElement className="storage-browser__table">
-        <h3>{actionSelectedText}</h3>
-        <DataTableControl className={`${CLASS_BASE}__table`} />
+        )}
+        {hasStarted && (
+          <StatusDisplayControl
+            className={`${CLASS_BASE}__action-status-display`}
+          />
+        )}
       </ViewElement>
-      <ActionStartControl className={`${CLASS_BASE}__upload-action-start`} />
-      <ButtonElement
-        variant="cancel"
-        disabled={disableCancel}
-        className={`${CLASS_BASE}__cancel`}
-        onClick={() => onActionCancel()}
-      >
-        Cancel
-      </ButtonElement>
+      <DataTableControl className={`${CLASS_BASE}__table`} />
+      <ViewElement className={`${CLASS_BASE}__action-footer`}>
+        <ActionStartControl className={`${CLASS_BASE}__upload-action-start`} />
+        <ButtonElement
+          variant="cancel"
+          disabled={disableCancel}
+          className={`${CLASS_BASE}__cancel`}
+          onClick={() => onActionCancel()}
+        >
+          Cancel
+        </ButtonElement>
+      </ViewElement>
     </ControlsContextProvider>
   );
 };

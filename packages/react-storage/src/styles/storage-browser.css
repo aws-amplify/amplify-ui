@@ -18,7 +18,7 @@
 
 .storage-browser__title {
   margin: 0;
-  grid-column: 1 / 3;
+  grid-column: 1 / -1;
   margin-inline-start: var(--storage-browser-gap);
 }
 
@@ -254,6 +254,18 @@
   }
 }
 
+/* Action Views */
+
+.storage-browser__action-header {
+  grid-column: 1 / -1;
+}
+
+.storage-browser__action-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--storage-browser-gap-medium);
+  grid-column: 1 / -1;
+}
 /* Error boundary */
 .storage-browser__error {
   background-color: var(--storage-browser-error-background);
@@ -285,11 +297,13 @@
 
 .storage-browser__description {
   display: flex;
+  align-items: center;
   gap: var(--storage-browser-gap-small);
 }
 
 .storage-browser__description-details {
   margin: 0;
+  display: flex;
 }
 
 /** DropZone **/

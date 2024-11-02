@@ -12,7 +12,6 @@ import { getDestinationListFullPrefix } from '../utils/getDestinationPickerDataT
 
 import { useDataState } from '@aws-amplify/ui-react-core';
 
-const DEFAULT_ERROR_MESSAGE = 'There was an error loading folders.';
 const DEFAULT_PAGE_SIZE = 1000;
 export const DEFAULT_LIST_OPTIONS = {
   pageSize: DEFAULT_PAGE_SIZE,
