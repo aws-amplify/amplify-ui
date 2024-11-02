@@ -1,18 +1,23 @@
-import { LocationData } from '../../actions';
+import {
+  LocationData,
+  TaskData,
+  TaskHandler,
+  TaskHandlerInput,
+} from '../../actions';
 import {
   ComponentName,
   DefaultActionKey,
   TaskActionConfig,
 } from '../../actions/configs';
 import { TaskCounts } from '../../controls/types';
-import { Task } from '../../tasks';
+import { Tasks } from '../../tasks';
 
-export interface ActionViewState<T = any> {
+export interface ActionViewState<T extends TaskData = TaskData> {
   onExit: (location: LocationData) => void;
   onActionStart: () => void;
   onActionCancel: () => void;
   taskCounts: TaskCounts;
-  tasks: Task<T>[];
+  tasks: Tasks<T>;
 }
 
 export interface ActionViewProps {
@@ -20,17 +25,20 @@ export interface ActionViewProps {
   className?: string;
 }
 
-export interface LocationActionViewProps<T = string, K = any>
-  extends Partial<ActionViewState<K>>,
+export interface LocationActionViewProps<
+  T = string,
+  K extends TaskData = TaskData,
+> extends Partial<ActionViewState<K>>,
     ActionViewProps {
   type?: T;
 }
 
-export type LocationActionViewComponent<T = string, K = any> = (
-  props: LocationActionViewProps<T, K>
-) => React.JSX.Element | null;
+export type LocationActionViewComponent<
+  T = string,
+  K extends TaskData = TaskData,
+> = (props: LocationActionViewProps<T, K>) => React.JSX.Element | null;
 
-export interface ActionViewComponent<T = any, K = {}> {
+export interface ActionViewComponent<T extends TaskData = TaskData, K = {}> {
   (
     props: ActionViewProps & Partial<ActionViewState<T>> & K
   ): React.JSX.Element | null;
@@ -51,6 +59,8 @@ export type DerivedActionViews<T> = {
     : T[K] extends { componentName: ComponentName }
     ? T[K]['componentName']
     : never]: ActionViewComponent<
-    Partial<ActionViewState<T[K] extends TaskActionConfig<infer U> ? U : never>>
+    T[K] extends TaskActionConfig<TaskHandler<TaskHandlerInput<infer X>>>
+      ? X
+      : never
   >;
 };
