@@ -10,11 +10,6 @@ import { ConversationMessage } from '../../../../../types';
 import { ComponentClassName } from '@aws-amplify/ui';
 import { View } from '@aws-amplify/ui-react';
 
-// Mock the MessageControl component
-// jest.mock('../../Controls/MessagesControl', () => ({
-//   MessageControl: () => <div data-testid="message-control" />,
-// }));
-
 describe('MessageList', () => {
   const mockMessages: ConversationMessage[] = [
     {
