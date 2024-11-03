@@ -81,6 +81,7 @@
     &__actions {
       display: flex;
       flex-direction: row;
+      gap: var(--amplify-components-ai-conversation-message-actions-gap);
     }
 
     &--bubble {

@@ -75,9 +75,8 @@ export interface Avatars {
 }
 
 export interface CustomAction {
-  displayName: string;
   handler: (message: ConversationMessage) => void;
-  icon: React.ReactNode;
+  component?: React.ReactNode;
 }
 
 export interface SuggestedPrompt {
