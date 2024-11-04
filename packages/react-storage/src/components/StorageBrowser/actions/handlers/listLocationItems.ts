@@ -1,9 +1,8 @@
-import { ListPaginateWithPathOutput } from 'aws-amplify/storage';
-
 import {
   list,
   StorageSubpathStrategy,
   ListPaginateInput,
+  ListOutput,
 } from '../../storage-internal';
 import {
   ListHandler,
@@ -28,7 +27,7 @@ export interface FileData {
   type: 'FILE';
 }
 
-type ListOutputItem = ListPaginateWithPathOutput['items'][number];
+type ListOutputItem = ListOutput['items'][number];
 
 export type LocationItemData = FileData | FolderData;
 
@@ -85,7 +84,7 @@ const parseResultExcludedPaths = (
   })) ?? [];
 
 export const parseResult = (
-  { excludedSubpaths, items }: ListPaginateWithPathOutput,
+  { excludedSubpaths, items }: ListOutput,
   prefix: string
 ): LocationItemData[] => [
   ...parseResultExcludedPaths(excludedSubpaths, prefix),

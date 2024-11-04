@@ -5,7 +5,6 @@ import {
   listLocationItemsHandler,
   ListLocationItemsHandlerInput,
   ListLocationItemsHandlerOutput,
-  LocationItemData,
 } from '../../../actions/handlers/listLocationItems';
 import { useGetActionInput } from '../../../providers/configuration';
 import { getDestinationListFullPrefix } from '../utils/getDestinationPickerDataTable';
@@ -19,13 +18,6 @@ export const DEFAULT_LIST_OPTIONS = {
 };
 
 const DEFAULT_REFRESH_OPTIONS = { ...DEFAULT_LIST_OPTIONS, refresh: true };
-
-interface LocationActionInput extends ListLocationItemsHandlerInput {}
-
-interface LocationActionOutput {
-  items: LocationItemData[];
-  nextToken: string | undefined;
-}
 
 export const useDestinationPicker = ({
   destinationList,
@@ -47,14 +39,10 @@ export const useDestinationPicker = ({
 
   const locationItemsAction = useCallback(
     async (
-      previous: LocationActionOutput,
-      input: LocationActionInput
-    ): Promise<LocationActionOutput> => {
-      const { items, nextToken } = await listLocationItemsHandler({
-        config: input.config,
-        prefix: input.prefix,
-        options: input.options,
-      });
+      previous: ListLocationItemsHandlerOutput,
+      input: ListLocationItemsHandlerInput
+    ): Promise<ListLocationItemsHandlerOutput> => {
+      const { items, nextToken } = await listLocationItemsHandler(input);
       const newItems =
         previousPathref.current !== input.prefix
           ? items

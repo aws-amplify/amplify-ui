@@ -100,7 +100,6 @@ export const DestinationPicker = ({
 
   return (
     <ControlsContextProvider {...contextValue}>
-      {/* <ViewElement className={`${CLASS_BASE}__copy-destination-picker`}> */}
       <ViewElement className={`${CLASS_BASE}__action-destination`}>
         <DescriptionList
           descriptions={[
@@ -131,10 +130,6 @@ export const DestinationPicker = ({
           handlePrevious={handlePrevious}
         />
       </ViewElement>
-      {/* <ViewElement
-          className={`${CLASS_BASE}__action-destination`}
-          style={{ display: 'flex' }}
-        ></ViewElement> */}
       <ViewElement className="storage-browser__table-wrapper">
         <DataTableControl className={`${CLASS_BASE}__table`} />
         {noSubfolders && <EmptyMessageControl>{message}</EmptyMessageControl>}
@@ -143,7 +138,6 @@ export const DestinationPicker = ({
         )}
         {isLoading && <LoadingControl />}
       </ViewElement>
-      {/* </ViewElement> */}
     </ControlsContextProvider>
   );
 };
