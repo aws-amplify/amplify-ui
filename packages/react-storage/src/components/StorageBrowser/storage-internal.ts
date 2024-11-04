@@ -5,6 +5,7 @@ export {
   CopyInput,
   CredentialsLocation,
   CredentialsProvider,
+  GetUrlInput,
   ListLocations,
   ListLocationsOutput,
   ListOutput,
