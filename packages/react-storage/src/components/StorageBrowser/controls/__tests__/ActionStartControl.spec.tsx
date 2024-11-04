@@ -6,12 +6,8 @@ import * as useActionStartModule from '../hooks/useActionStart';
 describe('ActionStartControl', () => {
   const useActionStartSpy = jest.spyOn(useActionStartModule, 'useActionStart');
 
-  afterEach(() => {
+  beforeEach(() => {
     useActionStartSpy.mockClear();
-  });
-
-  afterAll(() => {
-    useActionStartSpy.mockRestore();
   });
 
   it('renders', () => {
