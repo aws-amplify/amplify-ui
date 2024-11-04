@@ -1,4 +1,4 @@
-export function assertListCallerAccessGrantInput(
+export function assertAccountId(
   value: string | undefined
 ): asserts value is string {
   if (!value) {
