@@ -13,6 +13,7 @@ export {
   LocationCredentialsProvider,
   Permission,
   RemoveInput,
+  GetUrlInput,
   StorageSubpathStrategy,
   StorageValidationErrorCode,
   UploadDataInput,
