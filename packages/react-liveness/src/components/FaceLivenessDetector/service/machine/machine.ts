@@ -934,11 +934,11 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         const { videoConstraints } = context.videoAssociatedParams!;
 
         // Get initial stream to enumerate devices with non-empty labels
-        const existingDeviceId = getLastSelectedCameraId();
+        // const existingDeviceId = getLastSelectedCameraId();
         const initialStream = await navigator.mediaDevices.getUserMedia({
           video: {
             ...videoConstraints,
-            ...(existingDeviceId ? { deviceId: existingDeviceId } : {}),
+            // ...(existingDeviceId ? { deviceId: existingDeviceId } : {}),
           },
           audio: false,
         });
