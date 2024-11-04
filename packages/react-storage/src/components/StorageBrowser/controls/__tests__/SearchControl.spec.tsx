@@ -1,15 +1,15 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { SearchControl } from '../SearchControl';
-import { useSearch } from '../hooks/useSearch';
 import { useResolvedComposable } from '../hooks/useResolvedComposable';
+import { useControlsContext } from '../context';
 
-jest.mock('../hooks/useSearch');
+jest.mock('../context');
 jest.mock('../hooks/useResolvedComposable');
 
 describe('SearchControl', () => {
   // assert mocks
-  const mockUseSearch = useSearch as jest.Mock;
+  const mockUseControlsContext = useControlsContext as jest.Mock;
   const mockUseResolvedComposable = useResolvedComposable as jest.Mock;
 
   beforeAll(() => {
@@ -19,15 +19,15 @@ describe('SearchControl', () => {
   });
 
   afterEach(() => {
-    mockUseSearch.mockReset();
+    mockUseControlsContext.mockReset();
     mockUseResolvedComposable.mockReset();
   });
 
   it('renders the SearchControl', () => {
-    mockUseSearch.mockReturnValue({
-      handleSearch: jest.fn(),
-      filteredItems: [],
-      searchTerm: '',
+    mockUseControlsContext.mockReturnValue({
+      data: {
+        onSearch: jest.fn(),
+      },
     });
 
     render(<SearchControl />);

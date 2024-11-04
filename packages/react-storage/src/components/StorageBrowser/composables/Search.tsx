@@ -24,8 +24,6 @@ export const Search = ({ onSearch }: SearchProps): React.JSX.Element => {
   const [term, setTerm] = React.useState('');
   const [subfoldersIncluded, setSubfoldersIncluded] = React.useState(false);
 
-  const ref = React.useRef<HTMLInputElement>(null);
-
   // FIXME: focus not returning to input field after clear
 
   return (
@@ -42,16 +40,12 @@ export const Search = ({ onSearch }: SearchProps): React.JSX.Element => {
         onChange={(e) => setTerm(e.target.value)}
         placeholder={displayText.searchPlaceholder}
         value={term}
-        ref={ref}
       >
         {term ? (
           <ButtonElement
             aria-label={displayText.searchClearLabel}
             className={`${BLOCK_NAME}__field-clear-button`}
-            onClick={() => {
-              ref?.current?.focus();
-              setTerm('');
-            }}
+            onClick={() => setTerm('')}
             variant="refresh"
           >
             <IconElement variant="dismiss" />

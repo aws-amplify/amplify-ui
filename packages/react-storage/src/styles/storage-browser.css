@@ -485,8 +485,8 @@
 
 .storage-browser__search .storage-browser__search__field__input {
   border-radius: 0.25rem 0 0 0.25rem;
-  padding-inline-start: 2rem !important;
-  padding-inline-end: 2rem !important;
+  padding-inline-start: 2rem;
+  padding-inline-end: 2rem;
   min-width: 20rem;
 }
 

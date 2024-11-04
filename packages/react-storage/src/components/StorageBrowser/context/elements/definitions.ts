@@ -184,7 +184,6 @@ export const InputElement = defineBaseElement<
   | 'defaultChecked'
   | 'placeholder'
   | 'value'
-  | 'ref'
 >({
   type: 'input',
   displayName: 'Input',
