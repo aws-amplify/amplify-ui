@@ -25,7 +25,7 @@ const baseInput: ListLocationItemsHandlerInput = {
   config: {
     accountId: '012345678901',
     bucket: 'bucket',
-    credentials: jest.fn().mockImplementation(() => ({ credentials: {} })),
+    credentials: jest.fn(),
     region: 'region',
   },
 };
