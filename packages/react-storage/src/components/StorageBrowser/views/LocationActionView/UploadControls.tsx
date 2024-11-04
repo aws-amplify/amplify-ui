@@ -11,7 +11,7 @@ import {
   StorageBrowserElements,
   ViewElement,
 } from '../../context/elements';
-import { IconVariant } from '../../context/elements/IconElement';
+import { IconElement, IconVariant } from '../../context/elements/IconElement';
 import { getTaskCounts } from '../../controls/getTaskCounts';
 import { StatusDisplayControl } from '../../controls/StatusDisplayControl';
 import { ControlsContextProvider } from '../../controls/context';
@@ -36,10 +36,11 @@ import {
 } from './constants';
 import { FileItems } from '../../providers/store/files';
 import { ActionStartControl } from '../../controls/ActionStartControl';
+import { ActionCancelControl } from '../../controls/ActionCancelControl';
 
 const { Icon } = StorageBrowserElements;
 
-const { Cancel, Exit, Overwrite, Table } = Controls;
+const { Exit, Overwrite, Table } = Controls;
 
 interface LocationActionViewColumns {
   cancel: (() => void) | undefined;
@@ -153,11 +154,16 @@ const renderRowItem: RenderRowItem<LocationActionViewColumns> = (
         );
       case 'cancel':
         if (row.cancel) {
+          const BLOCK_NAME = `${CLASS_BASE}__cancel`;
           return (
-            <Cancel
+            <ButtonElement
+              className={`${BLOCK_NAME}`}
+              variant="cancel"
               onClick={row.cancel}
-              ariaLabel={`Cancel upload for ${row.key}`}
-            />
+              aria-label={`Cancel upload for ${row.key}`}
+            >
+              <IconElement className={`${BLOCK_NAME}__icon`} variant="cancel" />
+            </ButtonElement>
           );
         }
 
@@ -335,6 +341,8 @@ export const UploadControls = ({
       taskCounts,
       isActionStartDisabled: disablePrimary,
       actionStartLabel: 'Start',
+      actionCancelLabel: 'Cancel',
+      isActionCancelDisabled: disableCancel,
     },
     actionsConfig: {
       type: 'BATCH_ACTION',
@@ -347,6 +355,11 @@ export const UploadControls = ({
         config: getInput(),
         prefix: locationKey,
         options: { preventOverwrite },
+      });
+    },
+    onActionCancel: () => {
+      tasks.forEach((task) => {
+        task.cancel?.();
       });
     },
   };
@@ -366,18 +379,7 @@ export const UploadControls = ({
       />
       <Title />
       <ActionStartControl className={`${CLASS_BASE}__upload-action-start`} />
-      <ButtonElement
-        variant="cancel"
-        disabled={disableCancel}
-        className={`${CLASS_BASE}__cancel`}
-        onClick={() => {
-          tasks.forEach((task) => {
-            task.cancel?.();
-          });
-        }}
-      >
-        Cancel
-      </ButtonElement>
+      <ActionCancelControl className={`${CLASS_BASE}__upload-action-cancel`} />
       <ButtonElement
         disabled={disableSelectFiles}
         className={`${CLASS_BASE}__add-folder`}
