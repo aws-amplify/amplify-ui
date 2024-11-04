@@ -7,7 +7,13 @@ import {
   ActionInputConfig,
 } from '../types';
 
-import { TaskHandlerCallbacks, LocationAccess, LocationData } from './types';
+import {
+  TaskHandlerCallbacks,
+  LocationAccess,
+  LocationData,
+  LocationType,
+} from './types';
+import { Permission } from '../../storage-internal';
 
 export const resolveHandlerResult = <T extends boolean>({
   result,
@@ -87,5 +93,32 @@ export const parseLocationAccess = (location: LocationAccess): LocationData => {
   return { bucket, id, permission, prefix, type };
 };
 
-export const parseLocations = (locations: LocationAccess[]): LocationData[] =>
-  locations.map(parseLocationAccess);
+export type ExcludeType = Permission | LocationType;
+
+const shouldExclude = (
+  permission: Permission,
+  type: LocationType,
+  exclude?: ExcludeType | ExcludeType[]
+) =>
+  exclude
+    ? typeof exclude === 'string'
+      ? exclude === permission || exclude === type
+      : exclude.includes(permission) || exclude.includes(type)
+    : false;
+
+export const parseLocations = (
+  locations: LocationAccess[],
+  exclude?: ExcludeType | ExcludeType[]
+): LocationData[] =>
+  locations.reduce(
+    (filteredLocations: LocationData[], location: LocationAccess) => {
+      const parsedLocation = parseLocationAccess(location);
+      if (
+        shouldExclude(parsedLocation.permission, parsedLocation.type, exclude)
+      ) {
+        filteredLocations.push(parsedLocation);
+      }
+      return filteredLocations;
+    },
+    []
+  );

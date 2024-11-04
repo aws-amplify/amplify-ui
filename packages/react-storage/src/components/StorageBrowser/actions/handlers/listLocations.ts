@@ -1,6 +1,5 @@
 import {
   ListLocationsOutput,
-  Permission,
   listCallerAccessGrants,
 } from '../../storage-internal';
 import { assertAccountId } from '../../validators';
@@ -12,12 +11,10 @@ import {
   ListHandler,
 } from '../types';
 
-import { LocationData, LocationType } from './types';
-import { parseLocations } from './utils';
+import { LocationData } from './types';
+import { parseLocations, ExcludeType } from './utils';
 
 const DEFAULT_PAGE_SIZE = 1000;
-
-type ExcludeType = Permission | LocationType;
 
 export interface ListLocationsHandlerOptions
   extends ListHandlerOptions<ExcludeType | ExcludeType[]> {}
@@ -30,17 +27,6 @@ export interface ListLocationsHandlerOutput
 
 export interface ListLocationsHandler
   extends ListHandler<ListLocationsHandlerInput, ListLocationsHandlerOutput> {}
-
-const shouldExclude = (
-  permission: Permission,
-  type: LocationType,
-  exclude?: ExcludeType | ExcludeType[]
-) =>
-  !exclude
-    ? false
-    : typeof exclude === 'string'
-    ? exclude === permission || exclude === type
-    : exclude.includes(permission) || exclude.includes(type);
 
 export const listLocationsHandler: ListLocationsHandler = async (input) => {
   const { config, options } = input;
@@ -66,9 +52,7 @@ export const listLocationsHandler: ListLocationsHandler = async (input) => {
       region,
     });
 
-    const parsedOutput = parseLocations(output.locations).filter(
-      ({ permission, type }) => shouldExclude(permission, type, exclude)
-    );
+    const parsedOutput = parseLocations(output.locations, exclude);
 
     const items = [...accumulatedItems, ...parsedOutput];
 

@@ -71,7 +71,7 @@
       "name": "createStorageBrowser",
       "path": "dist/esm/browser.mjs",
       "import": "{ createStorageBrowser }",
-      "limit": "18.39 kB",
+      "limit": "18.48 kB",
       "ignore": [
         "@aws-amplify/storage"
       ]

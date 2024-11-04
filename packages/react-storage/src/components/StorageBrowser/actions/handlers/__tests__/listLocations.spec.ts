@@ -3,12 +3,14 @@ import {
   ListLocationsOutput,
   LocationCredentialsProvider,
 } from '../../../storage-internal';
+
+import { LocationAccess } from '../types';
+import { parseLocations } from '../utils';
+
 import {
   listLocationsHandler,
   ListLocationsHandlerInput,
 } from '../listLocations';
-import { LocationAccess } from '../types';
-import { parseLocations } from '../utils';
 
 jest.mock('../../../storage-internal');
 
@@ -17,40 +19,31 @@ const mockListCallerAccessGrants = jest.mocked(listCallerAccessGrants);
 const generateMockLocations = (size: number, mockLocations: LocationAccess) =>
   Array<LocationAccess>(size).fill(mockLocations);
 
+const accountId = 'account-id';
+const credentials: LocationCredentialsProvider = jest.fn();
+const region = 'region';
+const bucket = 'bucket';
+const DEFAULT_PAGE_SIZE = 5;
+
+const input: ListLocationsHandlerInput = {
+  config: { accountId, credentials, region, bucket },
+  options: {
+    pageSize: DEFAULT_PAGE_SIZE,
+    nextToken: undefined,
+    exclude: 'READ',
+  },
+  prefix: 'prefix',
+};
+
 describe('listLocationsHandler', () => {
-  const accountId = 'account-id';
-  const credentials: LocationCredentialsProvider = () =>
-    Promise.resolve({
-      credentials: {
-        accessKeyId: 'access-key',
-        secretAccessKey: 'secret-key',
-        sessionToken: 'session-token',
-        expiration: new Date(),
-      },
-    });
-  const region = 'region';
-  const bucket = 'bucket';
-  const DEFAULT_PAGE_SIZE = 5;
-
-  const input: ListLocationsHandlerInput = {
-    config: { accountId, credentials, region, bucket },
-    options: {
-      pageSize: DEFAULT_PAGE_SIZE,
-      nextToken: undefined,
-      exclude: 'READ',
-    },
-    prefix: 'prefix',
-  };
-
-  const id = 'intentionally-static-test-id';
   beforeAll(() => {
     Object.defineProperty(globalThis, 'crypto', {
-      value: { randomUUID: () => id },
+      value: { randomUUID: () => 'intentionally-static-test-id' },
     });
   });
 
   beforeEach(() => {
-    jest.clearAllMocks();
+    jest.resetAllMocks();
   });
 
   it('should fetch a single page of results successfully', async () => {
@@ -65,7 +58,9 @@ describe('listLocationsHandler', () => {
 
     const result = await listLocationsHandler(input);
 
-    expect(result.items).toEqual(parseLocations(mockOutput.locations));
+    expect(result.items).toEqual(
+      parseLocations(mockOutput.locations, input.options?.exclude)
+    );
     expect(result.nextToken).toBeUndefined();
     expect(mockListCallerAccessGrants).toHaveBeenCalledTimes(1);
   });
@@ -99,9 +94,9 @@ describe('listLocationsHandler', () => {
     const result = await listLocationsHandler(input);
 
     expect(result.items).toEqual([
-      ...parseLocations(mockOutputPage1.locations),
-      ...parseLocations(mockOutputPage2.locations),
-      ...parseLocations(mockOutputPage3.locations),
+      ...parseLocations(mockOutputPage1.locations, input.options?.exclude),
+      ...parseLocations(mockOutputPage2.locations, input.options?.exclude),
+      ...parseLocations(mockOutputPage3.locations, input.options?.exclude),
     ]);
     expect(result.nextToken).toBeUndefined();
     expect(mockListCallerAccessGrants).toHaveBeenCalledTimes(3);

@@ -39,13 +39,6 @@ export interface LocationData {
   type: LocationType;
 }
 
-export interface LocationData {
-  bucket: string;
-  permission: Permission;
-  prefix: string;
-  type: LocationType;
-}
-
 export interface TaskHandlerCallbacks
   extends Pick<TaskHandlerOptions, 'onComplete' | 'onError'> {
   onCancel?: (key: string) => void;
