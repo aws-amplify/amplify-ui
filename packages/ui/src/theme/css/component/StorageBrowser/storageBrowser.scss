@@ -1,0 +1,43 @@
+.amplify-storage-browser {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  height: 100%;
+  position: relative;
+  padding: var(--amplify-space-small);
+
+  &__table {
+    width: 100%;
+    position: relative;
+
+    &__wrapper {
+      overflow: auto;
+      position: relative;
+      border-width: var(--amplify-border-widths-small);
+      border-style: solid;
+      border-color: var(--amplify-colors-border-tertiary);
+      width: 100%;
+    }
+
+    &__head {
+      position: sticky;
+      top: 0;
+      background: var(--amplify-colors-background-primary);
+      box-shadow: var(--amplify-shadows-small);
+    }
+
+    &__header {
+      &__button {
+      }
+    }
+
+    &__body {
+    }
+
+    &__row {
+    }
+
+    &__data {
+    }
+  }
+}

@@ -76,16 +76,21 @@ export function LocationsView({
         data-testid="LOCATIONS_VIEW"
       >
         <Title>Home</Title>
-        <DataRefreshControl
-          className={`${CLASS_BASE}__locations-view-data-refresh`}
-        />
-        <Paginate
-          currentPage={page}
-          disableNext={isPaginateNextDisabled}
-          disablePrevious={isPaginatePreviousDisabled}
-          handleNext={onPaginateNext}
-          handlePrevious={onPaginatePrevious}
-        />
+        <div className={`${CLASS_BASE}__view-controls`}>
+          <div />
+          <div className={`${CLASS_BASE}__view-controls-end`}>
+            <DataRefreshControl
+              className={`${CLASS_BASE}__locations-view-data-refresh`}
+            />
+            <Paginate
+              currentPage={page}
+              disableNext={isPaginateNextDisabled}
+              disablePrevious={isPaginatePreviousDisabled}
+              handleNext={onPaginateNext}
+              handlePrevious={onPaginatePrevious}
+            />
+          </div>
+        </div>
         <LocationsMessage />
         <Loading />
         {hasError ? null : (

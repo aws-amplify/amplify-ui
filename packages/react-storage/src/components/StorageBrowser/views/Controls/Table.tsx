@@ -154,24 +154,28 @@ export function TableControl<U>({
   });
 
   return (
-    <Table
-      {...dropHandlers}
-      aria-label={ariaLabel}
-      data-testid="storage-browser-table"
-      className={`${BLOCK_NAME} ${
-        dragState !== 'inactive' ? `${BLOCK_NAME}__dropzone` : ''
-      }`}
-    >
-      <TableHead className={`${BLOCK_NAME}__head`}>
-        <TableRow className={`${BLOCK_NAME}__row`}>
-          {columns.map((column) => renderHeaderItem(column))}
-        </TableRow>
-      </TableHead>
+    <div className="foobar">
+      <Table
+        {...dropHandlers}
+        aria-label={ariaLabel}
+        data-testid="storage-browser-table"
+        className={`${BLOCK_NAME} ${
+          dragState !== 'inactive' ? `${BLOCK_NAME}__dropzone` : ''
+        }`}
+      >
+        <TableHead className={`${BLOCK_NAME}__head`}>
+          <TableRow className={`${BLOCK_NAME}__row`}>
+            {columns.map((column) => renderHeaderItem(column))}
+          </TableRow>
+        </TableHead>
 
-      <TableBody className={`${BLOCK_NAME}__body`}>
-        {data?.map((row: U, rowIndex: number) => renderRowItem(row, rowIndex))}
-      </TableBody>
-    </Table>
+        <TableBody className={`${BLOCK_NAME}__body`}>
+          {data?.map((row: U, rowIndex: number) =>
+            renderRowItem(row, rowIndex)
+          )}
+        </TableBody>
+      </Table>
+    </div>
   );
 }
 
@@ -191,7 +195,7 @@ const LocationDetailViewColumnEmptyHeaderMap = ['download'];
 export const LocationDetailViewTable = ({
   items,
   handleDroppedFiles,
-  handleLocationItemClick
+  handleLocationItemClick,
 }: {
   items: LocationItemData[];
   handleDroppedFiles: (files: File[]) => void;

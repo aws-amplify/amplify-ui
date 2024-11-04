@@ -90,20 +90,25 @@ export const LocationDetailViewControls = ({
     <ControlsContextProvider {...contextValue}>
       <Navigate onExit={onExit} />
       <Title />
-      <DataRefreshControl
-        className={`${CLASS_BASE}__locations-detail-view-data-refresh`}
-      />
-      <ActionsMenuControl
-        onActionSelect={onActionSelect}
-        disabled={isLoading}
-      />
-      <Paginate
-        currentPage={page}
-        disableNext={isPaginateNextDisabled}
-        disablePrevious={isPaginatePreviousDisabled}
-        handleNext={onPaginateNext}
-        handlePrevious={onPaginatePrevious}
-      />
+      <div className={`${CLASS_BASE}__view-controls`}>
+        <div />
+        <div className={`${CLASS_BASE}__view-controls-end`}>
+          <Paginate
+            currentPage={page}
+            disableNext={isPaginateNextDisabled}
+            disablePrevious={isPaginatePreviousDisabled}
+            handleNext={onPaginateNext}
+            handlePrevious={onPaginatePrevious}
+          />
+          <DataRefreshControl
+            className={`${CLASS_BASE}__locations-detail-view-data-refresh`}
+          />
+          <ActionsMenuControl
+            onActionSelect={onActionSelect}
+            disabled={isLoading}
+          />
+        </div>
+      </div>
       <LocationDetailMessage />
       <Loading show={isLoading} />
       <LocationDetailViewTable
