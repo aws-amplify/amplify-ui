@@ -45,7 +45,6 @@ export interface ControlsContext {
     location?: Location;
     tableData?: TableData;
     taskCounts?: TaskCounts;
-    onSearch?: (term: string, includeSubfolders: boolean) => void;
   };
   actionsConfig?: {
     type:
@@ -60,4 +59,5 @@ export interface ControlsContext {
   onNavigate?: (location: LocationData, path?: string) => void;
   onNavigateHome?: () => void;
   onRefresh?: () => void;
+  onSearch?: (term: string, includeSubfolders: boolean) => void;
 }

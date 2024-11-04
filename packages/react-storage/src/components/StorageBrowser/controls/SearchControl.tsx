@@ -9,17 +9,17 @@ import { useControlsContext } from './context';
 export const SearchControl = ({
   className,
 }: ControlProps): React.JSX.Element | null => {
-  const { data } = useControlsContext();
+  const { onSearch } = useControlsContext();
 
   const ResolvedSearch = useResolvedComposable(Search, 'Search');
 
-  if (!data?.onSearch) {
+  if (!onSearch) {
     return null;
   }
 
   return (
     <ViewElement className={className}>
-      <ResolvedSearch onSearch={data.onSearch} />
+      <ResolvedSearch onSearch={onSearch} />
     </ViewElement>
   );
 };

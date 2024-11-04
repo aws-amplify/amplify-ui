@@ -25,9 +25,7 @@ describe('SearchControl', () => {
 
   it('renders the SearchControl', () => {
     mockUseControlsContext.mockReturnValue({
-      data: {
-        onSearch: jest.fn(),
-      },
+      onSearch: jest.fn(),
     });
 
     render(<SearchControl />);
