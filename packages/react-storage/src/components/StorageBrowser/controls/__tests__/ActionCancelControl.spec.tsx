@@ -28,24 +28,18 @@ describe('ActionCancelControl', () => {
     expect(button).toBeInTheDocument();
   });
 
-  it('renders an icon when text is not available', () => {
-    const ariaLabel = 'Cancel file upload';
-
+  it('disables button', () => {
     useActionCancelSpy.mockReturnValue({
-      isDisabled: undefined,
+      isDisabled: true,
       onCancel: jest.fn(),
-      ariaLabel,
+      label: 'Cancel',
     });
     render(<ActionCancelControl />);
 
     const button = screen.getByRole('button', {
-      name: ariaLabel,
+      name: 'Cancel',
     });
 
-    const icon = button.querySelector('svg');
-
-    expect(button).toBeInTheDocument();
-    expect(icon).toBeInTheDocument();
-    expect(icon).toHaveAttribute('aria-hidden', 'true');
+    expect(button).toBeDisabled();
   });
 });
