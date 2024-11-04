@@ -135,9 +135,7 @@ export const listLocationItemsHandler: ListLocationItemsHandler = async (
 
     const items = parseResult(output, prefix);
 
-    result = result.concat(
-      excludedType ? items.filter((item) => item.type !== excludedType) : items
-    );
+result.push(...(excludedType ? items.filter((item) => item.type !== excludedType) : items));
   } while (nextNextToken && result.length < pageSize);
 
   return { items: result, nextToken: nextNextToken };
