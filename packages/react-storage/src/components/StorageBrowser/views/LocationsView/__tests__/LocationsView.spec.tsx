@@ -292,7 +292,7 @@ describe('LocationsListView', () => {
 
     expect(dispatchStoreAction).toHaveBeenCalledWith({
       type: 'NAVIGATE',
-      destination: {
+      location: {
         bucket: 'test-bucket',
         id: 'identity',
         prefix: 'item-0/',

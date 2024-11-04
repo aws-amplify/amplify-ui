@@ -172,7 +172,7 @@ describe('useLocationsView', () => {
 
     expect(dispatchStoreAction).toHaveBeenCalledWith({
       type: 'NAVIGATE',
-      destination: expectedLocation,
+      location: expectedLocation,
     });
   });
 });

@@ -16,12 +16,12 @@ export const useDeleteView = ({
 }): DeleteViewState => {
   const [
     {
-      history,
+      location,
       locationItems: { fileDataItems: selected },
     },
     dispatchStoreAction,
   ] = useStore();
-  const { current } = history;
+  const { current, key } = location;
 
   const getInput = useGetActionInput();
 
@@ -39,10 +39,10 @@ export const useDeleteView = ({
     getActionViewDisabledButtons(taskCounts);
 
   const onActionStart = () => {
-    if (!current?.prefix) return;
+    if (!current) return;
     handleProcess({
       config: getInput(),
-      prefix: current.prefix,
+      prefix: key,
     });
   };
 

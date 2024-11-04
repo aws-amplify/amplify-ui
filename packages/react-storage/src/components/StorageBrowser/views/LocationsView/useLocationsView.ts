@@ -95,9 +95,9 @@ export function useLocationsView(
     hasNextPage: hasNextToken,
     pageItems,
     highestPageVisited,
-    onNavigate: (destination: LocationData) => {
-      onNavigate?.(destination);
-      dispatchStoreAction({ type: 'NAVIGATE', destination });
+    onNavigate: (location: LocationData) => {
+      onNavigate?.(location);
+      dispatchStoreAction({ type: 'NAVIGATE', location });
     },
     onRefresh: () => {
       handleReset();

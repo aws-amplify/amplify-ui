@@ -5,19 +5,22 @@ import { usePaginate } from '../hooks/usePaginate';
 import { useStore } from '../../providers/store';
 import { useAction } from '../../do-not-import-from-here/actions';
 import { LocationData, LocationItemData } from '../../actions';
+import { LocationState } from '../../providers/store/location';
 
 interface UseLocationDetailView {
   hasNextPage: boolean;
   hasError: boolean;
   highestPageVisited: number;
   isLoading: boolean;
+  location: LocationState;
   message: string | undefined;
   pageItems: LocationItemData[];
   page: number;
-  onAccessItem: (location: LocationData) => void;
+  onNavigate: (location: LocationData, path?: string) => void;
   onRefresh: () => void;
   onPaginate: (page: number) => void;
   onAddFiles: (files: File[]) => void;
+  onNavigateHome: () => void;
 }
 
 export type LocationDetailViewActionType =
@@ -25,7 +28,7 @@ export type LocationDetailViewActionType =
   | { type: 'RESET' } // reset view to initial state
   | { type: 'PAGINATE'; page: number }
   | { type: 'ACCESS_ITEM'; key: string }
-  | { type: 'NAVIGATE'; location: LocationData }
+  | { type: 'NAVIGATE'; location: LocationData; path: string }
   | { type: 'ADD_FILES'; files: File[] }
   | { type: 'SEARCH'; query: string; includeSubfolders?: boolean };
 
@@ -39,7 +42,7 @@ export interface UseLocationDetailViewOptions {
   onDispatch?: React.Dispatch<LocationDetailViewActionType>;
   onActionSelect?: (type: string) => void;
   onExit?: () => void;
-  onNavigate?: (destination: LocationData) => void;
+  onNavigate?: (location: LocationData, path?: string) => void;
 }
 
 const DEFAULT_PAGE_SIZE = 100;
@@ -51,7 +54,7 @@ export const DEFAULT_LIST_OPTIONS = {
 export function useLocationDetailView(
   options?: UseLocationDetailViewOptions
 ): UseLocationDetailView {
-  const { initialValues, onActionSelect, onNavigate } = options ?? {};
+  const { initialValues, onActionSelect, onExit, onNavigate } = options ?? {};
 
   const listOptionsRef = React.useRef({
     ...DEFAULT_LIST_OPTIONS,
@@ -60,8 +63,8 @@ export function useLocationDetailView(
 
   const listOptions = listOptionsRef.current;
 
-  const [{ history }, dispatchStoreAction] = useStore();
-  const { current } = history;
+  const [{ location }, dispatchStoreAction] = useStore();
+  const { current, key } = location;
   const { prefix } = current ?? {};
   const hasInvalidPrefix = isUndefined(prefix);
 
@@ -76,7 +79,10 @@ export function useLocationDetailView(
   const paginateCallback = () => {
     if (hasInvalidPrefix || !nextToken) return;
     dispatchStoreAction({ type: 'RESET_LOCATION_ITEMS' });
-    handleList({ prefix, options: { ...listOptions, nextToken } });
+    handleList({
+      prefix: key,
+      options: { ...listOptions, nextToken },
+    });
   };
 
   const { currentPage, onPaginate, handleReset, highestPageVisited, range } =
@@ -90,15 +96,21 @@ export function useLocationDetailView(
   const onRefresh = () => {
     if (hasInvalidPrefix) return;
     handleReset();
-    handleList({ prefix, options: { ...listOptions, refresh: true } });
+    handleList({
+      prefix: key,
+      options: { ...listOptions, refresh: true },
+    });
     dispatchStoreAction({ type: 'RESET_LOCATION_ITEMS' });
   };
 
   React.useEffect(() => {
     if (hasInvalidPrefix) return;
-    handleList({ prefix, options: { ...listOptions, refresh: true } });
+    handleList({
+      prefix: key,
+      options: { ...listOptions, refresh: true },
+    });
     handleReset();
-  }, [handleList, handleReset, listOptions, hasInvalidPrefix, prefix]);
+  }, [handleList, handleReset, listOptions, hasInvalidPrefix, prefix, key]);
 
   const pageItems = React.useMemo(() => {
     const [start, end] = range;
@@ -109,15 +121,16 @@ export function useLocationDetailView(
     page: currentPage,
     pageItems,
     hasNextPage: hasNextToken,
+    location,
     hasError,
     message,
     highestPageVisited,
     isLoading,
     onPaginate,
     onRefresh,
-    onAccessItem: (destination: LocationData) => {
-      onNavigate?.(destination);
-      dispatchStoreAction({ type: 'NAVIGATE', destination });
+    onNavigate: (location: LocationData, path?: string) => {
+      onNavigate?.(location, path);
+      dispatchStoreAction({ type: 'NAVIGATE', location, path });
       dispatchStoreAction({ type: 'RESET_LOCATION_ITEMS' });
     },
     onAddFiles: (files: File[]) => {
@@ -128,6 +141,18 @@ export function useLocationDetailView(
       });
 
       if (isFunction(onActionSelect)) onActionSelect('UPLOAD_FILES');
+    },
+    onNavigateHome: () => {
+      onExit?.();
+      dispatchStoreAction({ type: 'RESET_LOCATION' });
+
+      handleList({
+        // @todo: prefix should not be required to refresh
+        prefix: current?.prefix ?? '',
+        options: { reset: true },
+      });
+      dispatchStoreAction({ type: 'RESET_ACTION_TYPE' });
+      dispatchStoreAction({ type: 'RESET_LOCATION_ITEMS' });
     },
   };
 }
