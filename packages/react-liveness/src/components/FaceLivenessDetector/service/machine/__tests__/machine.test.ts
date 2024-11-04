@@ -889,7 +889,6 @@ describe('Liveness Machine', () => {
         );
         const clientInfo = (mockStreamRecorder.dispatchStreamEvent as jest.Mock)
           .mock.calls[0][0];
-        console.log(clientInfo);
 
         const videoEl = service.state.context.videoAssociatedParams?.videoEl!;
         Object.defineProperty(videoEl, 'videoHeight', { value: 100 });

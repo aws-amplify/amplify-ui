@@ -43,7 +43,6 @@ import {
   estimateIllumination,
   isCameraDeviceVirtual,
   ColorSequenceDisplay,
-  drawStaticOval,
   createSessionStartEvent,
   createColorDisplayEvent,
   createSessionEndEvent,
@@ -129,10 +128,6 @@ const responseStreamActor = async (callback: StreamActorCallback) => {
     }
   }
 };
-
-function getLastSelectedCameraId(): string | null {
-  return localStorage.getItem(CAMERA_ID_KEY);
-}
 
 function setLastSelectedCameraId(deviceId: string) {
   localStorage.setItem(CAMERA_ID_KEY, deviceId);
@@ -262,7 +257,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         },
       },
       start: {
-        entry: ['drawStaticOval', 'initializeFaceDetector'],
+        entry: ['initializeFaceDetector'],
         always: [
           {
             target: 'detectFaceBeforeStart',
@@ -541,13 +536,10 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       }),
       updateDeviceAndStream: assign({
         videoAssociatedParams: (context, event) => {
-          const { canvasEl, videoEl, videoMediaStream } =
-            context.videoAssociatedParams!;
           setLastSelectedCameraId(event.data?.newDeviceId as string);
           context.livenessStreamProvider?.setNewVideoStream(
             event.data?.newStream as MediaStream
           );
-          drawStaticOval(canvasEl!, videoEl!, videoMediaStream!);
 
           return {
             ...context.videoAssociatedParams,
@@ -558,12 +550,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           };
         },
       }),
-      drawStaticOval: (context) => {
-        const { canvasEl, videoEl, videoMediaStream } =
-          context.videoAssociatedParams!;
-
-        drawStaticOval(canvasEl!, videoEl!, videoMediaStream!);
-      },
       updateRecordingStartTimestamp: assign({
         videoAssociatedParams: (context) => {
           const {
@@ -933,12 +919,9 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       async checkVirtualCameraAndGetStream(context) {
         const { videoConstraints } = context.videoAssociatedParams!;
 
-        // Get initial stream to enumerate devices with non-empty labels
-        // const existingDeviceId = getLastSelectedCameraId();
         const initialStream = await navigator.mediaDevices.getUserMedia({
           video: {
             ...videoConstraints,
-            // ...(existingDeviceId ? { deviceId: existingDeviceId } : {}),
           },
           audio: false,
         });
