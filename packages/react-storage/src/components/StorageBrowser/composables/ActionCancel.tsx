@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ButtonElement, IconElement } from '../context/elements';
+import { ButtonElement } from '../context/elements';
 import { CLASS_BASE } from '../views/constants';
 
 export interface ActionCancelProps {
@@ -20,11 +20,6 @@ export const ActionCancel = ({
     onClick={onCancel}
     disabled={isDisabled}
   >
-    {label ?? (
-      <IconElement
-        className={`${CLASS_BASE}__action-cancel-icon`}
-        variant="cancel"
-      />
-    )}
+    {label}
   </ButtonElement>
 );

@@ -154,13 +154,15 @@ const renderRowItem: RenderRowItem<LocationActionViewColumns> = (
         );
       case 'cancel':
         if (row.cancel) {
+          const BLOCK_NAME = `${CLASS_BASE}__cancel`;
           return (
             <ButtonElement
+              className={`${BLOCK_NAME}`}
               variant="cancel"
               onClick={row.cancel}
               aria-label={`Cancel upload for ${row.key}`}
             >
-              <IconElement variant="cancel" />
+              <IconElement className={`${BLOCK_NAME}__icon`} variant="cancel" />
             </ButtonElement>
           );
         }
