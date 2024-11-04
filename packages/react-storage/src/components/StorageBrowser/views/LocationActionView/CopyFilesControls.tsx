@@ -2,7 +2,7 @@ import React from 'react';
 
 import { ButtonElement, ViewElement } from '../../context/elements';
 
-import { Controls } from '../Controls';
+import { Controls, MessageControl } from '../Controls';
 
 import { Title } from './Controls/Title';
 import { displayText } from '../../displayText/en';
@@ -13,7 +13,7 @@ import { useCopyView } from './CopyView/useCopyView';
 import { Column } from '../Controls/Table';
 import { DataTableControl } from '../../controls/DataTableControl';
 import { ControlsContextProvider } from '../../controls/context';
-import { getDeleteActionViewTableData } from './utils';
+import { getActionViewTableData } from './utils';
 import { useStore } from '../../providers/store';
 import { ControlsContext } from '../../controls/types';
 import { ActionStartControl } from '../../controls/ActionStartControl';
@@ -46,11 +46,6 @@ const SELECTED_FILES_COLUMNS: Column<SelectedFilesColumns>[] = [
   { key: 'action', header: '' },
 ];
 
-// @TODO for CopyFilesControls
-// 1. Implement default sort when new table is ready
-// 2. Fix styling so that list only takes up 50% of parent container
-// 3. Fix useProcessTasks so that canceling a non-queued item actually works
-
 export const CopyFilesControls = ({
   onExit: _onExit,
 }: {
@@ -72,7 +67,7 @@ export const CopyFilesControls = ({
   const [{ location }] = useStore();
   const { current } = location;
   const path = current?.prefix;
-  const tableData = getDeleteActionViewTableData({
+  const tableData = getActionViewTableData({
     tasks,
     taskCounts,
     path: path ?? '',
@@ -125,6 +120,11 @@ export const CopyFilesControls = ({
       </ViewElement>
       <DataTableControl className={`${CLASS_BASE}__table`} />
       <ViewElement className={`${CLASS_BASE}__action-footer`}>
+        {!hasStarted && (
+          <MessageControl variant="info">
+            Copy action may overwrite existing files at selected destination.
+          </MessageControl>
+        )}
         <ActionStartControl className={`${CLASS_BASE}__upload-action-start`} />
         <ButtonElement
           variant="cancel"

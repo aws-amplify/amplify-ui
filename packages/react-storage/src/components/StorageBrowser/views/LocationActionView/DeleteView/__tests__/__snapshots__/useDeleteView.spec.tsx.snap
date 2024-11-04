@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`getDeleteActionViewTableData should handle tasks with prefix keys 1`] = `
+exports[`getActionViewTableData should handle tasks with prefix keys 1`] = `
 [
   {
     "content": [
@@ -107,7 +107,7 @@ exports[`getDeleteActionViewTableData should handle tasks with prefix keys 1`] =
 ]
 `;
 
-exports[`getDeleteActionViewTableData should have remove handler on queued files 1`] = `
+exports[`getActionViewTableData should have remove handler on queued files 1`] = `
 [
   {
     "content": [
@@ -163,7 +163,7 @@ exports[`getDeleteActionViewTableData should have remove handler on queued files
 ]
 `;
 
-exports[`getDeleteActionViewTableData should return correct table data for all task statuses: tabledata 1`] = `
+exports[`getActionViewTableData should return correct table data for all task statuses: tabledata 1`] = `
 [
   {
     "content": [

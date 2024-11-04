@@ -10,7 +10,7 @@ import { useDeleteView } from './DeleteView/useDeleteView';
 import { StatusDisplayControl } from '../../controls/StatusDisplayControl';
 import { ControlsContext } from '../../controls/types';
 import { useStore } from '../../providers/store';
-import { getDeleteActionViewTableData } from './utils';
+import { getActionViewTableData } from './utils';
 import { ActionStartControl } from '../../controls/ActionStartControl';
 import { LocationData } from '../../actions';
 
@@ -32,7 +32,7 @@ export const DeleteFilesControls = (props: {
 
   const [{ location }] = useStore();
   const { current, key } = location;
-  const tableData = getDeleteActionViewTableData({
+  const tableData = getActionViewTableData({
     tasks,
     taskCounts,
     path: key,

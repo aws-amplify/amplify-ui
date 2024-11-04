@@ -1,6 +1,6 @@
 import { renderHook, act } from '@testing-library/react';
 import { useDeleteView } from '../useDeleteView';
-import { getDeleteActionViewTableData } from '../../utils';
+import { getActionViewTableData } from '../../utils';
 import * as Store from '../../../../providers/store';
 import * as Config from '../../../../providers/configuration';
 import * as Tasks from '../../../../tasks';
@@ -324,7 +324,7 @@ describe('useDeleteView', () => {
   });
 });
 
-describe('getDeleteActionViewTableData', () => {
+describe('getActionViewTableData', () => {
   const mockRemove = jest.fn();
   const taskCounts = {
     INITIAL: 0,
@@ -389,7 +389,7 @@ describe('getDeleteActionViewTableData', () => {
   ];
 
   it('should return correct table data for all task statuses', () => {
-    const result = getDeleteActionViewTableData({
+    const result = getActionViewTableData({
       tasks,
       taskCounts,
       path: '',
@@ -431,7 +431,7 @@ describe('getDeleteActionViewTableData', () => {
       },
     ];
 
-    const result = getDeleteActionViewTableData({
+    const result = getActionViewTableData({
       tasks: tasksWithPaths,
       taskCounts,
       path: '',
@@ -465,7 +465,7 @@ describe('getDeleteActionViewTableData', () => {
       },
     ];
 
-    const result = getDeleteActionViewTableData({
+    const result = getActionViewTableData({
       tasks: tasksWithPaths,
       taskCounts,
       path: 'folder/subfolder/',

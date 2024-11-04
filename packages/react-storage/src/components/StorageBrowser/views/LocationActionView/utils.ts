@@ -31,7 +31,6 @@ export const getActionIconVariant = (status: TaskStatus): IconVariant => {
   }
 };
 
-
 export const getTasksHaveStarted = (taskCounts: TaskCounts): boolean =>
   taskCounts.QUEUED < taskCounts.TOTAL;
 
@@ -70,7 +69,7 @@ export const getFilenameWithoutPrefix = (path: string): string => {
   return path.slice(folder, path.length);
 };
 
-export const getDeleteActionViewTableData = ({
+export const getActionViewTableData = ({
   tasks,
   taskCounts,
   path,
@@ -184,5 +183,3 @@ export const getDeleteActionViewTableData = ({
   };
   return tableData;
 };
-
-
