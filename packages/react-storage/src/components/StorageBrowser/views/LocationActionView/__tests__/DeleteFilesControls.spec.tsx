@@ -83,7 +83,7 @@ describe('DeleteFilesControls', () => {
   it('renders all controls', () => {
     const { getByRole } = render(<DeleteFilesControls />);
 
-    expect(getByRole('button', { name: 'Back' })).toBeInTheDocument();
+    expect(getByRole('button', { name: 'Exit' })).toBeInTheDocument();
     expect(getByRole('button', { name: 'Start' })).toBeInTheDocument();
     expect(getByRole('button', { name: 'Cancel' })).toBeInTheDocument();
   });
@@ -110,7 +110,7 @@ describe('DeleteFilesControls', () => {
 
     const { getByRole } = render(<DeleteFilesControls />);
 
-    expect(getByRole('button', { name: 'Back' })).toBeDisabled();
+    expect(getByRole('button', { name: 'Exit' })).toBeDisabled();
     expect(getByRole('button', { name: 'Start' })).toBeDisabled();
     expect(getByRole('button', { name: 'Cancel' })).toBeDisabled();
   });
@@ -118,7 +118,7 @@ describe('DeleteFilesControls', () => {
   it('calls onExit when Exit button is clicked', async () => {
     const { getByRole } = render(<DeleteFilesControls />);
 
-    await userEvent.click(getByRole('button', { name: 'Back' }));
+    await userEvent.click(getByRole('button', { name: 'Exit' }));
 
     expect(onExitMock).toHaveBeenCalledTimes(1);
   });
