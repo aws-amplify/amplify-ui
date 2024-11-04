@@ -59,4 +59,5 @@ export interface ControlsContext {
   onNavigate?: (location: LocationData, path?: string) => void;
   onNavigateHome?: () => void;
   onRefresh?: () => void;
+  onSearch?: (term: string, includeSubfolders: boolean) => void;
 }

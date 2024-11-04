@@ -4,6 +4,7 @@ import { DataTableProps } from './DataTable';
 import { DropZoneProps } from './DropZone';
 import { NavigationProps } from './Navigation';
 import { StatusDisplayProps } from './StatusDisplay';
+import { SearchProps } from './Search';
 
 export interface Composables {
   ActionStart: React.ComponentType<ActionStartProps>;
@@ -12,6 +13,7 @@ export interface Composables {
   DropZone: React.ComponentType<DropZoneProps>;
   Navigation: React.ComponentType<NavigationProps>;
   StatusDisplay: React.ComponentType<StatusDisplayProps>;
+  Search: React.ComponentType<SearchProps>;
 }
 
 export interface ComposablesContext {
