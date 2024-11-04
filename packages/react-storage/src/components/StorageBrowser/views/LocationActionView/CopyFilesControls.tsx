@@ -2,7 +2,7 @@ import React from 'react';
 
 import { ButtonElement, ViewElement } from '../../context/elements';
 
-import { Controls, MessageControl } from '../Controls';
+import { Controls } from '../Controls';
 
 import { Title } from './Controls/Title';
 import { displayText } from '../../displayText/en';
@@ -71,39 +71,42 @@ export const CopyFilesControls = ({
         }}
         disabled={disableClose}
       />
+
       <Title />
-      <ViewElement className={`${CLASS_BASE}__action-header`}>
-        {hasStarted ? (
-          <ViewElement className={`${CLASS_BASE}__action-destination`}>
-            <DescriptionList
-              descriptions={[
-                {
-                  term: `${actionSetDestination}:`,
-                  details: getDestinationListFullPrefix(destinationList),
-                },
-              ]}
-            />
-          </ViewElement>
-        ) : (
-          <DestinationPicker
-            destinationList={destinationList}
-            onSetDestinationList={onSetDestinationList}
+
+      <ViewElement className={`${CLASS_BASE}__table-wrapper`}>
+        <DataTableControl className={`${CLASS_BASE}__table`} />
+      </ViewElement>
+
+      {hasStarted ? (
+        <ViewElement className={`${CLASS_BASE}__action-destination`}>
+          <DescriptionList
+            descriptions={[
+              {
+                term: `${actionSetDestination}:`,
+                details: getDestinationListFullPrefix(destinationList),
+              },
+            ]}
           />
-        )}
-        {hasStarted && (
+        </ViewElement>
+      ) : (
+        <DestinationPicker
+          destinationList={destinationList}
+          onSetDestinationList={onSetDestinationList}
+        />
+      )}
+
+      <ViewElement className={`${CLASS_BASE}__action-footer`}>
+        {hasStarted ? (
           <StatusDisplayControl
             className={`${CLASS_BASE}__action-status-display`}
           />
-        )}
-      </ViewElement>
-      <DataTableControl className={`${CLASS_BASE}__table`} />
-      <ViewElement className={`${CLASS_BASE}__action-footer`}>
-        {!hasStarted && (
-          <MessageControl variant="info">
+        ) : (
+          <ViewElement className={`${CLASS_BASE}__action-status-display`}>
             Copy action may overwrite existing files at selected destination.
-          </MessageControl>
+          </ViewElement>
         )}
-        <ActionStartControl className={`${CLASS_BASE}__upload-action-start`} />
+
         <ButtonElement
           variant="cancel"
           disabled={disableCancel}
@@ -112,6 +115,7 @@ export const CopyFilesControls = ({
         >
           Cancel
         </ButtonElement>
+        <ActionStartControl className={`${CLASS_BASE}__upload-action-start`} />
       </ViewElement>
     </ControlsContextProvider>
   );

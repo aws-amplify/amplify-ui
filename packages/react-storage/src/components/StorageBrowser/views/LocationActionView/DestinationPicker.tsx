@@ -1,7 +1,11 @@
 import React from 'react';
 import { PaginateControl } from '../../views/Controls/Paginate';
-import { LoadingControl, MessageControl } from '../Controls';
-import { NavElement, ViewElement } from '../../context/elements';
+import {
+  EmptyMessageControl,
+  LoadingControl,
+  MessageControl,
+} from '../Controls';
+import { ViewElement } from '../../context/elements';
 import { displayText } from '../../displayText/en';
 import { useDestinationPicker } from './CopyView/useDestinationPicker';
 import { CLASS_BASE } from '../constants';
@@ -96,48 +100,43 @@ export const DestinationPicker = ({
 
   return (
     <ControlsContextProvider {...contextValue}>
-      <ViewElement className={`${CLASS_BASE}__copy-destination-picker`}>
-        <NavElement className={`${CLASS_BASE}__action-destination`}>
-          <DescriptionList
-            descriptions={[
-              {
-                term: `${actionSetDestination}:`,
-                details: destinationList.length ? (
-                  <>
-                    {destinationList.map((item, index) => (
-                      <Breadcrumb
-                        isCurrent={index === destinationList.length - 1}
-                        key={`${item}-${index}`}
-                        onNavigate={() => handleNavigatePath(index)}
-                        name={item.replace('/', '')}
-                      />
-                    ))}
-                  </>
-                ) : (
-                  '-'
-                ),
-              },
-            ]}
-          />
-        </NavElement>
-        <ViewElement
-          className={`${CLASS_BASE}__action-destination`}
-          style={{ display: 'flex' }}
-        ></ViewElement>
-        <ViewElement className="storage-browser__table">
-          <PaginateControl
-            currentPage={currentPage}
-            disableNext={disableNext}
-            disablePrevious={disablePrevious}
-            handleNext={handleNext}
-            handlePrevious={handlePrevious}
-          />
-          <DataTableControl className={`${CLASS_BASE}__table`} />
-          {showMessage && (
-            <MessageControl variant={messageVariant}>{message}</MessageControl>
-          )}
-          {isLoading && <LoadingControl />}
-        </ViewElement>
+      <ViewElement className={`${CLASS_BASE}__action-destination`}>
+        <DescriptionList
+          descriptions={[
+            {
+              term: `${actionSetDestination}:`,
+              details: destinationList.length ? (
+                <>
+                  {destinationList.map((item, index) => (
+                    <Breadcrumb
+                      isCurrent={index === destinationList.length - 1}
+                      key={`${item}-${index}`}
+                      onNavigate={() => handleNavigatePath(index)}
+                      name={item.replace('/', '')}
+                    />
+                  ))}
+                </>
+              ) : (
+                '-'
+              ),
+            },
+          ]}
+        />
+        <PaginateControl
+          currentPage={currentPage}
+          disableNext={disableNext}
+          disablePrevious={disablePrevious}
+          handleNext={handleNext}
+          handlePrevious={handlePrevious}
+        />
+      </ViewElement>
+      <ViewElement className="storage-browser__table-wrapper">
+        <DataTableControl className={`${CLASS_BASE}__table`} />
+        {noSubfolders && <EmptyMessageControl>{message}</EmptyMessageControl>}
+        {showMessage && !noSubfolders && (
+          <MessageControl variant={messageVariant}>{message}</MessageControl>
+        )}
+        {isLoading && <LoadingControl />}
       </ViewElement>
     </ControlsContextProvider>
   );

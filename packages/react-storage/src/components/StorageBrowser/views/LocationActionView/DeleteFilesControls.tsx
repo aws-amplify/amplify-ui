@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Controls } from '../Controls';
-import { ButtonElement } from '../../context/elements';
+import { ButtonElement, ViewElement } from '../../context/elements';
 import { DataTableControl } from '../../controls/DataTableControl';
 import { ControlsContextProvider } from '../../controls/context';
 import { CLASS_BASE } from '../constants';
@@ -58,21 +58,26 @@ export const DeleteFilesControls = (props: {
         disabled={disableClose}
       />
       <Title />
-      <ActionStartControl />
-      <ButtonElement
-        variant="cancel"
-        disabled={disableCancel}
-        className={`${CLASS_BASE}__cancel`}
-        onClick={() => {
-          onActionCancel();
-        }}
-      >
-        Cancel
-      </ButtonElement>
-      <StatusDisplayControl
-        className={`${CLASS_BASE}__action-status-display`}
-      />
-      <DataTableControl className={`${CLASS_BASE}__table`} />
+      <ViewElement className={`${CLASS_BASE}__table-wrapper`}>
+        <DataTableControl className={`${CLASS_BASE}__table`} />
+      </ViewElement>
+      <ViewElement className={`${CLASS_BASE}__action-footer`}>
+        <StatusDisplayControl
+          className={`${CLASS_BASE}__action-status-display`}
+        />
+
+        <ButtonElement
+          variant="cancel"
+          disabled={disableCancel}
+          className={`${CLASS_BASE}__cancel`}
+          onClick={() => {
+            onActionCancel();
+          }}
+        >
+          Cancel
+        </ButtonElement>
+        <ActionStartControl />
+      </ViewElement>
     </ControlsContextProvider>
   );
 };
