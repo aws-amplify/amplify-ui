@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 
 import { isFunction } from '@aws-amplify/ui';
 
@@ -19,7 +19,7 @@ export const useCopyView = ({
   const [
     {
       location,
-      locationItems: { fileDataItems: selected },
+      locationItems: { fileDataItems },
     },
     dispatchStoreAction,
   ] = useStore();
@@ -27,20 +27,12 @@ export const useCopyView = ({
 
   const getInput = useGetActionInput();
 
-  const processTasksInputItems = useMemo(() => {
-    return selected
-      ? selected.map((item) => ({
-          ...item,
-          key: item.key,
-          item: { destinationPrefix: '' },
-          cancel: () => {},
-        }))
-      : [];
-  }, [selected]);
-
   const [tasks, handleProcess] = useProcessTasks(
     copyHandler,
-    processTasksInputItems,
+    // @ts-ignore
+    // temporarily ignore error that items is missing
+    // until PR that refactors useProcessTasks is merged
+    fileDataItems,
     {
       concurrency: 1,
     }

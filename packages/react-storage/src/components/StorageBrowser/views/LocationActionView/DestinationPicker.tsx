@@ -1,7 +1,7 @@
 import React from 'react';
 import { PaginateControl } from '../../views/Controls/Paginate';
 import { LoadingControl, MessageControl } from '../Controls';
-import { ViewElement } from '../../context/elements';
+import { NavElement, ViewElement } from '../../context/elements';
 import { displayText } from '../../displayText/en';
 import { useDestinationPicker } from './CopyView/useDestinationPicker';
 import { CLASS_BASE } from '../constants';
@@ -97,7 +97,7 @@ export const DestinationPicker = ({
   return (
     <ControlsContextProvider {...contextValue}>
       <ViewElement className={`${CLASS_BASE}__copy-destination-picker`}>
-        <ViewElement className={`${CLASS_BASE}__action-destination`}>
+        <NavElement className={`${CLASS_BASE}__action-destination`}>
           <DescriptionList
             descriptions={[
               {
@@ -119,7 +119,7 @@ export const DestinationPicker = ({
               },
             ]}
           />
-        </ViewElement>
+        </NavElement>
         <ViewElement
           className={`${CLASS_BASE}__action-destination`}
           style={{ display: 'flex' }}

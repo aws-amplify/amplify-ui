@@ -10,7 +10,6 @@ import { CLASS_BASE } from '../constants';
 import { DestinationPicker } from './DestinationPicker';
 
 import { useCopyView } from './CopyView/useCopyView';
-import { Column } from '../Controls/Table';
 import { DataTableControl } from '../../controls/DataTableControl';
 import { ControlsContextProvider } from '../../controls/context';
 import { getActionViewTableData } from './utils';
@@ -22,29 +21,8 @@ import { DescriptionList } from '../../components/DescriptionList';
 import { StatusDisplayControl } from '../../controls/StatusDisplayControl';
 import { getDestinationListFullPrefix } from './utils/getDestinationPickerDataTable';
 
-const RESULT_COMPLETE_MESSAGE = 'File copied';
-const RESULT_FAILED_MESSAGE = 'There was an issue copying the files.';
-
 const { Exit } = Controls;
 const { actionSetDestination } = displayText;
-
-interface SelectedFilesColumns {
-  key: string;
-  folder: string;
-  type: string;
-  size: string;
-  status: string;
-  action: undefined | (() => void);
-}
-
-const SELECTED_FILES_COLUMNS: Column<SelectedFilesColumns>[] = [
-  { key: 'key', header: 'Name' },
-  { key: 'folder', header: 'Folder' },
-  { key: 'type', header: 'Type' },
-  { key: 'size', header: 'Size' },
-  { key: 'status', header: 'Status' },
-  { key: 'action', header: '' },
-];
 
 export const CopyFilesControls = ({
   onExit: _onExit,
