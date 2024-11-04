@@ -3,7 +3,7 @@ export function assertListCallerAccessGrantInput(
 ): asserts value is string {
   if (!value) {
     throw new Error(
-      'Storage Browser: Must provide accountId provided for `listCallerAccessGrants`.'
+      'Storage Browser: Must provide accountId to `listCallerAccessGrants`.'
     );
   }
 }

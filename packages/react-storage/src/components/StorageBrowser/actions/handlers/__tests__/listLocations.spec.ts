@@ -19,15 +19,15 @@ const generateMockLocations = (size: number, mockLocations: LocationAccess) =>
 
 describe('listLocationsHandler', () => {
   const accountId = 'account-id';
-  // eslint-disable-next-line @typescript-eslint/require-await
-  const credentials: LocationCredentialsProvider = async () => ({
-    credentials: {
-      accessKeyId: 'access-key',
-      secretAccessKey: 'secret-key',
-      sessionToken: 'session-token',
-      expiration: new Date(),
-    },
-  });
+  const credentials: LocationCredentialsProvider = () =>
+    Promise.resolve({
+      credentials: {
+        accessKeyId: 'access-key',
+        secretAccessKey: 'secret-key',
+        sessionToken: 'session-token',
+        expiration: new Date(),
+      },
+    });
   const region = 'region';
   const bucket = 'bucket';
   const DEFAULT_PAGE_SIZE = 5;
@@ -111,7 +111,7 @@ describe('listLocationsHandler', () => {
   it('should throw when accountId is not present to fetch Locations', async () => {
     input.config.accountId = undefined;
     await expect(listLocationsHandler(input)).rejects.toThrow(
-      'Storage Browser: Must provide accountId provided for `listCallerAccessGrants`.'
+      'Storage Browser: Must provide accountId to `listCallerAccessGrants`.'
     );
   });
 });

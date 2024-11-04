@@ -56,9 +56,7 @@ export const listLocationsHandler: ListLocationsHandler = async (input) => {
   }> => {
     const remainingPageSize = pageSize - accumulatedItems.length;
 
-    if (!accountId) {
-      assertListCallerAccessGrantInput(accountId);
-    }
+    assertListCallerAccessGrantInput(accountId);
 
     const output = await listCallerAccessGrants({
       accountId,
