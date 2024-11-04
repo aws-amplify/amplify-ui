@@ -114,7 +114,7 @@ export const listLocationItemsHandler: ListLocationItemsHandler = async (
   const hasOffset = !nextToken;
   const pageSize = hasOffset ? _pageSize + 1 : _pageSize;
 
-  let result: LocationItemData[] = [];
+  const result: LocationItemData[] = [];
   let nextNextToken = nextToken;
 
   do {
@@ -135,7 +135,11 @@ export const listLocationItemsHandler: ListLocationItemsHandler = async (
 
     const items = parseResult(output, prefix);
 
-result.push(...(excludedType ? items.filter((item) => item.type !== excludedType) : items));
+    result.push(
+      ...(excludedType
+        ? items.filter((item) => item.type !== excludedType)
+        : items)
+    );
   } while (nextNextToken && result.length < pageSize);
 
   return { items: result, nextToken: nextNextToken };
