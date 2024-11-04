@@ -365,62 +365,51 @@ export const UploadControls = ({
         }}
       />
       <Title />
-      <ActionStartControl className={`${CLASS_BASE}__upload-action-start`} />
-      <ButtonElement
-        variant="cancel"
-        disabled={disableCancel}
-        className={`${CLASS_BASE}__cancel`}
-        onClick={() => {
-          tasks.forEach((task) => {
-            task.cancel?.();
-          });
-        }}
-      >
-        Cancel
-      </ButtonElement>
-      <ButtonElement
-        disabled={disableSelectFiles}
-        className={`${CLASS_BASE}__add-folder`}
-        variant="add-folder"
-        onClick={() => {
-          dispatchStoreAction({
-            type: 'SELECT_FILES',
-            selectionType: 'FOLDER',
-          });
-        }}
-      >
-        Add folder
-      </ButtonElement>
-      <ButtonElement
-        disabled={disableSelectFiles}
-        className={`${CLASS_BASE}__add-files`}
-        variant="add-files"
-        onClick={() => {
-          dispatchStoreAction({ type: 'SELECT_FILES', selectionType: 'FILE' });
-        }}
-      >
-        Add files
-      </ButtonElement>
-      <ViewElement className={`${CLASS_BASE}__upload-destination`}>
-        <DescriptionList
-          descriptions={[
-            {
-              term: `${displayText.actionDestination}:`,
-              details: prefix?.length ? locationKey : '/',
-            },
-          ]}
-        />
+      <ViewElement className={`${CLASS_BASE}__action-header`}>
+        <ViewElement className={`${CLASS_BASE}__upload-destination`}>
+          <DescriptionList
+            descriptions={[
+              {
+                term: `${displayText.actionDestination}:`,
+                details: prefix?.length ? locationKey : '/',
+              },
+            ]}
+          />
+          <Overwrite
+            defaultChecked={!preventOverwrite}
+            disabled={disableOverwrite}
+            handleChange={() => {
+              setPreventOverwrite((overwrite) => !overwrite);
+            }}
+          />
+        </ViewElement>
+        <ButtonElement
+          disabled={disableSelectFiles}
+          className={`${CLASS_BASE}__add-folder`}
+          variant="add-folder"
+          onClick={() => {
+            dispatchStoreAction({
+              type: 'SELECT_FILES',
+              selectionType: 'FOLDER',
+            });
+          }}
+        >
+          Add folder
+        </ButtonElement>
+        <ButtonElement
+          disabled={disableSelectFiles}
+          className={`${CLASS_BASE}__add-files`}
+          variant="add-files"
+          onClick={() => {
+            dispatchStoreAction({
+              type: 'SELECT_FILES',
+              selectionType: 'FILE',
+            });
+          }}
+        >
+          Add files
+        </ButtonElement>
       </ViewElement>
-      <Overwrite
-        defaultChecked={!preventOverwrite}
-        disabled={disableOverwrite}
-        handleChange={() => {
-          setPreventOverwrite((overwrite) => !overwrite);
-        }}
-      />
-      <StatusDisplayControl
-        className={`${CLASS_BASE}__upload-status-display`}
-      />
       <Table
         data={tableData}
         columns={LOCATION_ACTION_VIEW_COLUMNS}
@@ -430,6 +419,24 @@ export const UploadControls = ({
         renderHeaderItem={renderHeaderItem}
         renderRowItem={renderRowItem}
       />
+      <ViewElement className={`${CLASS_BASE}__action-footer`}>
+        <StatusDisplayControl
+          className={`${CLASS_BASE}__upload-status-display`}
+        />
+        <ButtonElement
+          variant="cancel"
+          disabled={disableCancel}
+          className={`${CLASS_BASE}__cancel`}
+          onClick={() => {
+            tasks.forEach((task) => {
+              task.cancel?.();
+            });
+          }}
+        >
+          Cancel
+        </ButtonElement>
+        <ActionStartControl className={`${CLASS_BASE}__upload-action-start`} />
+      </ViewElement>
     </ControlsContextProvider>
   );
 };
