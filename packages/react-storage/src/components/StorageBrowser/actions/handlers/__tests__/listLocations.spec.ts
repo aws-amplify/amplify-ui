@@ -42,6 +42,13 @@ describe('listLocationsHandler', () => {
     prefix: 'prefix',
   };
 
+  const id = 'intentionally-static-test-id';
+  beforeAll(() => {
+    Object.defineProperty(globalThis, 'crypto', {
+      value: { randomUUID: () => id },
+    });
+  });
+
   beforeEach(() => {
     jest.clearAllMocks();
   });
@@ -99,5 +106,12 @@ describe('listLocationsHandler', () => {
     expect(result.nextToken).toBeUndefined();
     expect(mockListCallerAccessGrants).toHaveBeenCalledTimes(3);
     expect(result.items.length).toEqual(DEFAULT_PAGE_SIZE);
+  });
+
+  it('should throw when accountId is not present to fetch Locations', async () => {
+    input.config.accountId = undefined;
+    await expect(listLocationsHandler(input)).rejects.toThrow(
+      'Storage Browser: Must provide accountId provided for `listCallerAccessGrants`.'
+    );
   });
 });

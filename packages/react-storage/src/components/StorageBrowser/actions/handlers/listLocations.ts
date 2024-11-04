@@ -3,6 +3,7 @@ import {
   Permission,
   listCallerAccessGrants,
 } from '../../storage-internal';
+import { assertListCallerAccessGrantInput } from '../../validators';
 
 import {
   ListHandlerOptions,
@@ -54,6 +55,10 @@ export const listLocationsHandler: ListLocationsHandler = async (input) => {
     nextToken: ListLocationsOutput['nextToken'];
   }> => {
     const remainingPageSize = pageSize - accumulatedItems.length;
+
+    if (!accountId) {
+      assertListCallerAccessGrantInput(accountId);
+    }
 
     const output = await listCallerAccessGrants({
       accountId,
