@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { fireEvent, screen, waitFor } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import { when, resetAllWhenMocks } from 'jest-when';
 import { LivenessClassNames } from '../../types/classNames';
 
@@ -35,22 +35,6 @@ jest.mock('../../service');
 const mockUseLivenessActor = getMockedFunction(useLivenessActor);
 const mockUseLivenessSelector = getMockedFunction(useLivenessSelector);
 const mockUseMediaStreamInVideo = getMockedFunction(useMediaStreamInVideo);
-
-const mockDevices = [
-  {
-    deviceId: '123',
-    kind: 'videoinput',
-    label: 'Front Camera',
-    groupId: '',
-  },
-  {
-    deviceId: '456',
-    kind: 'videoinput',
-    label: 'Back Camera',
-    groupId: '',
-  },
-];
-const mockEnumerateDevices = jest.fn().mockResolvedValue(mockDevices);
 
 describe('LivenessCameraModule', () => {
   const mockActorState: any = {
@@ -104,13 +88,6 @@ describe('LivenessCameraModule', () => {
       videoHeight: 100,
       videoWidth: 100,
     });
-    Object.defineProperty(navigator, 'mediaDevices', {
-      writable: true,
-      value: {
-        getUserMedia: jest.fn(),
-        enumerateDevices: mockEnumerateDevices,
-      },
-    });
   });
 
   afterEach(() => {
@@ -160,86 +137,6 @@ describe('LivenessCameraModule', () => {
     );
 
     expect(screen.getByTestId('centered-loader')).toBeInTheDocument();
-  });
-
-  it('should apply correct classNames to user-facing video', async () => {
-    isStart = true;
-    mockStateMatchesAndSelectors();
-
-    // Mock implementation for useLivenessSelector
-    mockUseLivenessSelector.mockReturnValue('123').mockReturnValue(mockDevices);
-
-    renderWithLivenessProvider(
-      <LivenessCameraModule
-        isMobileScreen={false}
-        isRecordingStopped={false}
-        hintDisplayText={hintDisplayText}
-        streamDisplayText={streamDisplayText}
-        errorDisplayText={errorDisplayText}
-        cameraDisplayText={cameraDisplayText}
-        instructionDisplayText={instructionDisplayText}
-      />
-    );
-
-    const cameraSelector = screen.getByRole('combobox') as HTMLSelectElement;
-    const videoEl = screen.getByTestId('video');
-
-    await waitFor(() => {
-      expect(cameraSelector).toBeInTheDocument();
-      expect(cameraSelector.value).toBe('123');
-      expect(videoEl).toHaveClass(LivenessClassNames.Video);
-      expect(videoEl).toHaveClass(LivenessClassNames.UserFacingVideo);
-    });
-
-    // Change the mock to return '456' for selectSelectedDeviceId when changing the camera
-    mockUseLivenessSelector.mockImplementation((selector) => {
-      if (selector === selectSelectableDevices) {
-        return mockDevices; // Keep returning the mock devices
-      }
-      if (selector === selectSelectedDeviceId) {
-        return '456'; // Return the new device ID
-      }
-      return undefined; // Default case
-    });
-
-    fireEvent.change(cameraSelector, { target: { value: '456' } });
-
-    await waitFor(() => {
-      expect(cameraSelector.value).toBe('456');
-      expect(videoEl).toHaveClass(LivenessClassNames.Video);
-      expect(videoEl).not.toHaveClass(LivenessClassNames.UserFacingVideo);
-    });
-  });
-
-  it('should apply correct classNames to video', async () => {
-    isStart = true;
-    mockStateMatchesAndSelectors();
-
-    mockUseLivenessSelector
-      .mockReturnValue('456')
-      .mockReturnValue(mockDevices.reverse());
-
-    renderWithLivenessProvider(
-      <LivenessCameraModule
-        isMobileScreen={false}
-        isRecordingStopped={false}
-        hintDisplayText={hintDisplayText}
-        streamDisplayText={streamDisplayText}
-        errorDisplayText={errorDisplayText}
-        cameraDisplayText={cameraDisplayText}
-        instructionDisplayText={instructionDisplayText}
-      />
-    );
-
-    const cameraSelector = screen.getByRole('combobox') as HTMLSelectElement;
-    const videoEl = screen.getByTestId('video');
-
-    await waitFor(() => {
-      expect(cameraSelector).toBeInTheDocument();
-      expect(cameraSelector.value).toBe('456');
-      expect(videoEl).toHaveClass(LivenessClassNames.Video);
-      expect(videoEl).not.toHaveClass(LivenessClassNames.UserFacingVideo);
-    });
   });
 
   it.skip('should render video and timer when isNotRecording true', async () => {

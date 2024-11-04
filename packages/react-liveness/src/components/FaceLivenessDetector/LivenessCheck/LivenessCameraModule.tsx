@@ -21,7 +21,6 @@ import {
 
 import { Hint, Overlay, selectErrorState, MatchIndicator } from '../shared';
 import { LivenessClassNames } from '../types/classNames';
-import { isDeviceUserFacing } from '../utils/device';
 import {
   FaceLivenessErrorModal,
   renderErrorModal,
@@ -129,8 +128,6 @@ export const LivenessCameraModule = (
   const freshnessColorRef = useRef<HTMLCanvasElement | null>(null);
 
   const [isCameraReady, setIsCameraReady] = useState<boolean>(false);
-  const [isMetadataLoaded, setIsMetadataLoaded] = useState<boolean>(false);
-  const [isCameraUserFacing, setIsCameraUserFacing] = useState<boolean>(false);
   const isInitCamera = state.matches('initCamera');
   const isInitWebsocket = state.matches('initWebsocket');
   const isCheckingCamera = state.matches({ initCamera: 'cameraCheck' });
@@ -165,28 +162,21 @@ export const LivenessCameraModule = (
     (!isMobileScreen || isFaceMovementChallenge);
 
   React.useEffect(() => {
-    async function checkCameraFacing() {
-      const isUserFacing = await isDeviceUserFacing(selectedDeviceId);
-      setIsCameraUserFacing(isUserFacing);
+    if (canvasRef?.current && videoRef?.current && videoStream && isStartView) {
+      drawStaticOval(canvasRef.current, videoRef.current, videoStream);
     }
-    checkCameraFacing();
-  }, [selectedDeviceId]);
+  }, [canvasRef, videoRef, videoStream, colorMode, isStartView]);
 
   React.useEffect(() => {
-    const shouldDrawOval =
-      canvasRef?.current &&
-      videoRef?.current &&
-      videoStream &&
-      isStartView &&
-      isMetadataLoaded;
-
-    if (shouldDrawOval) {
-      drawStaticOval(canvasRef.current, videoRef.current!, videoStream);
-    }
-
     const updateColorModeHandler = (e: MediaQueryListEvent) => {
-      if (e.matches && shouldDrawOval) {
-        drawStaticOval(canvasRef.current, videoRef.current!, videoStream);
+      if (
+        e.matches &&
+        canvasRef?.current &&
+        videoRef?.current &&
+        videoStream &&
+        isStartView
+      ) {
+        drawStaticOval(canvasRef.current, videoRef.current, videoStream);
       }
     };
 
@@ -204,7 +194,7 @@ export const LivenessCameraModule = (
       darkModePreference.removeEventListener('change', updateColorModeHandler);
       lightModePreference.addEventListener('change', updateColorModeHandler);
     };
-  }, [videoRef, videoStream, colorMode, isStartView, isMetadataLoaded]);
+  }, [canvasRef, videoRef, videoStream, isStartView]);
 
   React.useLayoutEffect(() => {
     if (isCameraReady) {
@@ -253,10 +243,6 @@ export const LivenessCameraModule = (
     setIsCameraReady(true);
   };
 
-  const handleLoadedMetadata = () => {
-    setIsMetadataLoaded(true);
-  };
-
   const beginLivenessCheck = React.useCallback(() => {
     send({
       type: 'BEGIN',
@@ -267,7 +253,6 @@ export const LivenessCameraModule = (
     (e: React.ChangeEvent<HTMLSelectElement>) => {
       const newDeviceId = e.target.value;
       const changeCamera = async () => {
-        setIsMetadataLoaded(false);
         const newStream = await navigator.mediaDevices.getUserMedia({
           video: {
             ...videoConstraints,
@@ -419,12 +404,8 @@ export const LivenessCameraModule = (
             width={mediaWidth}
             height={mediaHeight}
             onCanPlay={handleMediaPlay}
-            onLoadedMetadata={handleLoadedMetadata}
             data-testid="video"
-            className={classNames(
-              LivenessClassNames.Video,
-              isCameraUserFacing && LivenessClassNames.UserFacingVideo
-            )}
+            className={LivenessClassNames.Video}
             aria-label={cameraDisplayText.a11yVideoLabelText}
           />
           <Flex

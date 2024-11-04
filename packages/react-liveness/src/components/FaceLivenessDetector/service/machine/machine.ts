@@ -42,7 +42,6 @@ import {
   StreamRecorder,
   estimateIllumination,
   isCameraDeviceVirtual,
-  isFaceMovementAndLightChallenge,
   ColorSequenceDisplay,
   drawStaticOval,
   createSessionStartEvent,
@@ -50,7 +49,7 @@ import {
   createSessionEndEvent,
   getTrackDimensions,
 } from '../utils';
-import { isMobileScreen } from '../../utils/device';
+
 import {
   isConnectionTimeoutError,
   isDisconnectionEvent,
@@ -263,7 +262,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         },
       },
       start: {
-        entry: ['initializeFaceDetector'],
+        entry: ['drawStaticOval', 'initializeFaceDetector'],
         always: [
           {
             target: 'detectFaceBeforeStart',
@@ -528,14 +527,12 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           event.data?.livenessStreamProvider as StreamRecorder,
       }),
       setDOMAndCameraDetails: assign({
-        videoAssociatedParams: (context, event) => {
-          return {
-            ...context.videoAssociatedParams,
-            videoEl: event.data?.videoEl as VideoAssociatedParams['videoEl'],
-            canvasEl: event.data?.canvasEl as VideoAssociatedParams['canvasEl'],
-            isMobile: event.data?.isMobile as VideoAssociatedParams['isMobile'],
-          };
-        },
+        videoAssociatedParams: (context, event) => ({
+          ...context.videoAssociatedParams,
+          videoEl: event.data?.videoEl as VideoAssociatedParams['videoEl'],
+          canvasEl: event.data?.canvasEl as VideoAssociatedParams['canvasEl'],
+          isMobile: event.data?.isMobile as VideoAssociatedParams['isMobile'],
+        }),
         freshnessColorAssociatedParams: (context, event) => ({
           ...context.freshnessColorAssociatedParams,
           freshnessColorEl: event.data
@@ -544,10 +541,14 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       }),
       updateDeviceAndStream: assign({
         videoAssociatedParams: (context, event) => {
+          const { canvasEl, videoEl, videoMediaStream } =
+            context.videoAssociatedParams!;
           setLastSelectedCameraId(event.data?.newDeviceId as string);
           context.livenessStreamProvider?.setNewVideoStream(
             event.data?.newStream as MediaStream
           );
+          drawStaticOval(canvasEl!, videoEl!, videoMediaStream!);
+
           return {
             ...context.videoAssociatedParams,
             selectedDeviceId: event.data
@@ -930,20 +931,14 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
     },
     services: {
       async checkVirtualCameraAndGetStream(context) {
-        const { parsedSessionInformation, videoAssociatedParams } = context;
-        const isMobile = isMobileScreen();
-        // We want to default to the user-facing camera on mobile devices when face movement + light challenge is used
-        const shouldDefaultUserFacing =
-          isMobile && isFaceMovementAndLightChallenge(parsedSessionInformation);
+        const { videoConstraints } = context.videoAssociatedParams!;
+
         // Get initial stream to enumerate devices with non-empty labels
         const existingDeviceId = getLastSelectedCameraId();
         const initialStream = await navigator.mediaDevices.getUserMedia({
           video: {
-            ...videoAssociatedParams!.videoConstraints,
-            ...(shouldDefaultUserFacing ? { facingMode: 'user' } : {}),
-            ...(existingDeviceId && !shouldDefaultUserFacing
-              ? { deviceId: existingDeviceId }
-              : {}),
+            ...videoConstraints,
+            ...(existingDeviceId ? { deviceId: existingDeviceId } : {}),
           },
           audio: false,
         });
@@ -983,8 +978,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         if (!isInitialStreamFromRealDevice) {
           realVideoDeviceStream = await navigator.mediaDevices.getUserMedia({
             video: {
-              ...videoAssociatedParams!.videoConstraints,
-              ...(isMobile ? { facingMode: { exact: 'user' } } : {}),
+              ...videoConstraints,
               deviceId: { exact: deviceId },
             },
             audio: false,

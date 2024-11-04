@@ -15,25 +15,6 @@ export function isMobileScreen(): boolean {
   return isMobileDevice;
 }
 
-export async function isDeviceUserFacing(
-  deviceId: string | undefined
-): Promise<boolean> {
-  const devices = await navigator.mediaDevices.enumerateDevices();
-
-  // Find the video input device with the matching deviceId
-  const videoDevice = devices.find(
-    (device) => device.deviceId === deviceId && device.kind === 'videoinput'
-  );
-
-  if (videoDevice) {
-    // Check if the device label contains the word "back"
-    return !videoDevice.label.toLowerCase().includes('back');
-  }
-
-  // If the device is not found or not a video input device, return false
-  return true;
-}
-
 export function isIOS(): boolean {
   const isIOS = isNewerIpad() || navigator.userAgent.indexOf('like Mac') != -1;
   return isIOS;
