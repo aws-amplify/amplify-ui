@@ -51,44 +51,38 @@ export interface ListLocationItemsHandler
     ListLocationItemsHandlerOutput
   > {}
 
-const parseResultItems = (
+const parseItems = (
   items: ListOutputItem[],
-  prefix: string
+  excludedPath: string
 ): LocationItemData[] =>
-  items.map(({ path, lastModified, size }) => {
-    const key = path.slice(prefix.length);
-    const id = crypto.randomUUID();
+  items
+    // remove root `key` from results
+    .filter(({ path }) => path !== excludedPath)
+    .map(({ path: key, lastModified, size }) => {
+      const id = crypto.randomUUID();
+      // Mark zero byte files as Folders
+      if (size === 0 && key.endsWith('/')) {
+        return { key, id, type: 'FOLDER' };
+      }
 
-    // Mark zero byte files as Folders
-    if (size === 0 && key.endsWith('/')) {
-      return { key, id, type: 'FOLDER' };
-    }
+      return {
+        key,
+        id,
+        lastModified: lastModified!,
+        size: size!,
+        type: 'FILE',
+      };
+    });
 
-    return {
-      key,
-      id,
-      lastModified: lastModified!,
-      size: size!,
-      type: 'FILE',
-    };
-  });
-
-const parseResultExcludedPaths = (
-  paths: string[] | undefined,
-  path: string
-): LocationItemData[] =>
-  paths?.map((key) => ({
-    key: key.slice(path.length),
-    id: crypto.randomUUID(),
-    type: 'FOLDER',
-  })) ?? [];
+const parseExcludedPaths = (paths: string[] | undefined): LocationItemData[] =>
+  paths?.map((key) => ({ key, id: crypto.randomUUID(), type: 'FOLDER' })) ?? [];
 
 export const parseResult = (
   { excludedSubpaths, items }: ListOutput,
   prefix: string
 ): LocationItemData[] => [
-  ...parseResultExcludedPaths(excludedSubpaths, prefix),
-  ...parseResultItems(items, prefix),
+  ...parseExcludedPaths(excludedSubpaths),
+  ...parseItems(items, prefix),
 ];
 
 export const listLocationItemsHandler: ListLocationItemsHandler = async (
@@ -120,7 +114,7 @@ export const listLocationItemsHandler: ListLocationItemsHandler = async (
   const hasOffset = !nextToken;
   const pageSize = hasOffset ? _pageSize + 1 : _pageSize;
 
-  let result: LocationItemData[] = [];
+  const result: LocationItemData[] = [];
   let nextNextToken = nextToken;
 
   do {
@@ -139,13 +133,12 @@ export const listLocationItemsHandler: ListLocationItemsHandler = async (
     const output = await list(listInput);
     nextNextToken = output.nextToken;
 
-    const items = hasOffset
-      ? // first page request, remove root `key` from results
-        parseResult(output, prefix).filter(({ key }) => key !== prefix)
-      : parseResult(output, prefix);
+    const items = parseResult(output, prefix);
 
-    result = result.concat(
-      excludedType ? items.filter((item) => item.type !== excludedType) : items
+    result.push(
+      ...(excludedType
+        ? items.filter((item) => item.type !== excludedType)
+        : items)
     );
   } while (nextNextToken && result.length < pageSize);
 
