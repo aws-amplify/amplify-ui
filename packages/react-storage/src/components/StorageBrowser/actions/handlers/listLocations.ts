@@ -4,9 +4,10 @@ import { ListHandlerOptions, ListHandlerOutput, ListHandler } from '../types';
 import { LocationData, LocationType } from './types';
 
 type ExcludeType = Permission | LocationType;
+export type ExclusionsType = ExcludeType | ExcludeType[];
 
 export interface ListLocationsHandlerOptions
-  extends ListHandlerOptions<ExcludeType | ExcludeType[]> {}
+  extends ListHandlerOptions<ExclusionsType> {}
 
 export interface ListLocationsHandlerInput {
   options?: ListLocationsHandlerOptions;

@@ -1,9 +1,7 @@
 import React from 'react';
 
-import { useAction } from '../../do-not-import-from-here/actions';
 import { useStore } from '../../providers/store';
 import { Controls, LocationDetailViewTable } from '../Controls';
-
 import { ActionsMenuControl } from './Controls/ActionsMenu';
 import { useLocationDetailView } from './useLocationDetailView';
 import { LocationDetailViewProps } from './types';
@@ -40,22 +38,20 @@ function Loading({ show }: { show?: boolean }) {
   return show ? <LoadingControl /> : null;
 }
 
-export const LocationDetailMessage = (): React.JSX.Element | null => {
-  const [{ hasError, message }] = useAction('LIST_LOCATION_ITEMS');
-
-  return hasError ? (
+export const LocationDetailMessage = ({
+  show,
+  message,
+}: {
+  show?: boolean;
+  message?: string;
+}): React.JSX.Element | null => {
+  return show ? (
     <Message variant="error">{message ?? DEFAULT_ERROR_MESSAGE}</Message>
   ) : null;
 };
 
-const LocationDetailEmptyMessage = () => {
-  const [{ data, hasError, isLoading }] = useAction('LIST_LOCATION_ITEMS');
-  const shouldShowEmptyMessage =
-    data.result.length === 0 && !isLoading && !hasError;
-
-  return shouldShowEmptyMessage ? (
-    <EmptyMessage>No items to show.</EmptyMessage>
-  ) : null;
+const LocationDetailEmptyMessage = ({ show }: { show?: boolean }) => {
+  return show ? <EmptyMessage>No items to show.</EmptyMessage> : null;
 };
 
 export const LocationDetailViewControls = ({
@@ -79,9 +75,13 @@ export const LocationDetailViewControls = ({
     onAddFiles,
     onNavigate,
     onNavigateHome,
+    hasError,
+    message,
   } = useLocationDetailView({ onNavigate: onNavigateProp, onExit });
 
   // FIXME:
+  const shouldShowEmptyMessage =
+    pageItems.length === 0 && !isLoading && !hasError;
   const contextValue: ControlsContext = {
     data: {
       isDataRefreshDisabled: isLoading,
@@ -112,14 +112,15 @@ export const LocationDetailViewControls = ({
         handleNext={onPaginateNext}
         handlePrevious={onPaginatePrevious}
       />
-      <LocationDetailMessage />
+      <LocationDetailMessage show={hasError} message={message} />
       <Loading show={isLoading} />
       <LocationDetailViewTable
+        show={pageItems.length > 0 && !hasError}
         items={pageItems}
         handleDroppedFiles={onAddFiles}
         handleLocationItemClick={onNavigate}
       />
-      <LocationDetailEmptyMessage />
+      <LocationDetailEmptyMessage show={shouldShowEmptyMessage} />
     </ControlsContextProvider>
   );
 };

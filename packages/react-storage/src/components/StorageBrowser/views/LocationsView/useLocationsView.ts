@@ -1,9 +1,17 @@
 import React from 'react';
 
-import { useLocationsData } from '../../do-not-import-from-here/actions';
+import { useDataState } from '@aws-amplify/ui-react-core';
+
 import { usePaginate } from '../hooks/usePaginate';
-import { LocationData } from '../../actions';
+import {
+  listLocationsHandler,
+  ListLocationsHandlerOptions,
+  LocationData,
+} from '../../actions';
 import { useStore } from '../../providers/store';
+import { createEnhancedListHandler } from '../../actions/createEnhancedListHandler';
+import { ExclusionsType } from '../../actions/handlers';
+import { useGetActionInput } from '../../providers/configuration';
 
 interface UseLocationsView {
   hasNextPage: boolean;
@@ -18,6 +26,7 @@ interface UseLocationsView {
   onRefresh: () => void;
   onPaginateNext: () => void;
   onPaginatePrevious: () => void;
+  onSearch: (query: string) => void;
 }
 
 interface InitialValues {
@@ -45,15 +54,29 @@ export const DEFAULT_LIST_OPTIONS = {
   pageSize: DEFAULT_PAGE_SIZE,
 };
 
+const listLocationsAction = createEnhancedListHandler<
+  ListLocationsHandlerOptions,
+  LocationData,
+  ExclusionsType
+>(listLocationsHandler);
+
 export function useLocationsView(
   options?: UseLocationsViewOptions
 ): UseLocationsView {
-  const [state, handleList] = useLocationsData();
-  const [, dispatchStoreAction] = useStore();
+  const [state, handleList] = useDataState(listLocationsAction, {
+    items: [],
+    nextToken: undefined,
+  });
+
+  const [{ location }, dispatchStoreAction] = useStore();
+  const { current } = location;
+  const { prefix = '' } = current ?? {};
   const { data, message, hasError, isLoading } = state;
-  const { result, nextToken } = data;
-  const resultCount = result.length;
+  const { items, nextToken } = data;
+  const resultCount = items.length;
   const hasNextToken = !!nextToken;
+
+  const config = useGetActionInput()();
 
   const onNavigate = options?.onNavigate;
   const initialValues = options?.initialValues ?? {};
@@ -66,13 +89,17 @@ export function useLocationsView(
   // initial load
   React.useEffect(() => {
     handleList({
+      config,
+      prefix,
       options: { ...listOptions, refresh: true },
     });
-  }, [handleList, listOptions]);
+  }, [config, prefix, handleList, listOptions]);
 
   // set up pagination
   const onPaginateNext = () =>
     handleList({
+      config,
+      prefix,
       options: { ...listOptions, nextToken },
     });
 
@@ -86,8 +113,8 @@ export function useLocationsView(
 
   const pageItems = React.useMemo(() => {
     const [start, end] = range;
-    return result.slice(start, end);
-  }, [range, result]);
+    return items.slice(start, end);
+  }, [range, items]);
 
   return {
     isLoading,
@@ -105,6 +132,8 @@ export function useLocationsView(
     onRefresh: () => {
       handleReset();
       handleList({
+        config,
+        prefix,
         options: { ...listOptions, refresh: true },
       });
     },
@@ -112,5 +141,12 @@ export function useLocationsView(
       handlePaginateNext({ resultCount, hasNextToken });
     },
     onPaginatePrevious: handlePaginatePrevious,
+    onSearch: (query) => {
+      const searchOptions = {
+        ...listOptions,
+        search: { query, filterKey: 'prefix' as const },
+      };
+      handleList({ config, prefix, options: searchOptions });
+    },
   };
 }

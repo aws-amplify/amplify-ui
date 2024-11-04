@@ -11,16 +11,17 @@ interface SearchOptions<K> {
   filterKey: keyof K;
 }
 
-export interface EnhancedListHandlerOptions<K> extends ListHandlerOptions {
+export interface EnhancedListHandlerOptions<K, I>
+  extends ListHandlerOptions<I> {
   refresh?: boolean;
   reset?: boolean;
   search?: SearchOptions<K>;
 }
 
-interface EnhancedListHandler<T, K>
+interface EnhancedListHandler<T, K, I>
   extends AsyncDataAction<
     ListHandlerOutput<K>,
-    ListHandlerInput<EnhancedListHandlerOptions<K> & T>
+    ListHandlerInput<EnhancedListHandlerOptions<K, I> & T>
   > {}
 
 export const SEARCH_LIMIT = 10000;
@@ -32,7 +33,7 @@ export const createEnhancedListHandler = <
   I = never,
 >(
   action: ListHandler<ListHandlerInput<T>, ListHandlerOutput<K>>
-): EnhancedListHandler<T, K> => {
+): EnhancedListHandler<T, K, I> => {
   return async function listActionHandler(prevState, { options, ...input }) {
     const {
       nextToken: _nextToken,
