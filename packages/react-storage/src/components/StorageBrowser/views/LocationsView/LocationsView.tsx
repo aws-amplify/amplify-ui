@@ -9,7 +9,6 @@ import { useLocationsView } from './useLocationsView';
 import { ControlsContextProvider } from '../../controls/context';
 import { ControlsContext } from '../../controls/types';
 import { DataRefreshControl } from '../../controls/DataRefreshControl';
-import { SearchControl } from '../../controls/SearchControl';
 
 import { LocationsViewProps } from './types';
 
@@ -68,7 +67,6 @@ export function LocationsView({
       isDataRefreshDisabled: isLoading,
     },
     onRefresh,
-    onSearch: () => null,
   };
 
   return (
@@ -81,7 +79,6 @@ export function LocationsView({
         <DataRefreshControl
           className={`${CLASS_BASE}__locations-view-data-refresh`}
         />
-        <SearchControl className="search-control" />
         <Paginate
           currentPage={page}
           disableNext={isPaginateNextDisabled}
