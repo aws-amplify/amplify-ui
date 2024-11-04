@@ -191,14 +191,15 @@ const LocationDetailViewColumnEmptyHeaderMap = ['download'];
 export const LocationDetailViewTable = ({
   items,
   handleDroppedFiles,
-  handleLocationItemClick
+  handleLocationItemClick,
 }: {
   items: LocationItemData[];
   handleDroppedFiles: (files: File[]) => void;
-  handleLocationItemClick: (location: LocationData) => void;
+  handleLocationItemClick: (location: LocationData, path?: string) => void;
 }): JSX.Element | null => {
-  const [{ history, locationItems }, dispatchStoreAction] = useStore();
-  const { current } = history;
+  const [{ location, locationItems }, dispatchStoreAction] = useStore();
+  const { current, key: locationKey } = location;
+  const { prefix } = current ?? {};
   const { fileDataItems } = locationItems;
 
   const [{ hasError }] = useAction('LIST_LOCATION_ITEMS');
@@ -378,7 +379,7 @@ export const LocationDetailViewTable = ({
                 return (
                   <TableDataText>
                     <Icon className={ICON_CLASS} variant="file" />
-                    {row.key.slice(current?.prefix.length)}
+                    {row.key.slice(locationKey.length)}
                   </TableDataText>
                 );
               }
@@ -398,14 +399,17 @@ export const LocationDetailViewTable = ({
                     className={`${BLOCK_NAME}__data__button`}
                     variant="table-data"
                     onClick={() => {
-                      const { id, key: prefix } = row;
-                      const destination = { ...current!, id, prefix };
-                      handleLocationItemClick(destination);
+                      if (!current) {
+                        return;
+                      }
+                      const { id, key } = row;
+                      const itemPath = key.slice(prefix?.length);
+                      handleLocationItemClick({ ...current, id }, itemPath);
                     }}
                     key={row.id}
                   >
                     <Icon className={ICON_CLASS} variant="folder" />
-                    {row.key.slice(current?.prefix.length)}
+                    {row.key.slice(locationKey.length)}
                   </Button>
                 );
               }
@@ -431,7 +435,14 @@ export const LocationDetailViewTable = ({
         </TableRow>
       );
     },
-    [current, fileDataItems, dispatchStoreAction, handleLocationItemClick]
+    [
+      current,
+      fileDataItems,
+      locationKey,
+      prefix,
+      dispatchStoreAction,
+      handleLocationItemClick,
+    ]
   );
 
   return showTable ? (

@@ -16,6 +16,9 @@ jest
   .mockImplementation(({ children }: { children?: React.ReactNode }) => (
     <>{children}</>
   ));
+jest.mock('../../../controls/NavigationControl', () => ({
+  NavigationControl: () => 'NavigationControl',
+}));
 
 const handleList = jest.fn();
 
@@ -94,7 +97,7 @@ describe('LocationDetailView', () => {
   it('shows a Loading element when first loaded', () => {
     useStoreSpy.mockReturnValueOnce([
       {
-        history: { current: location, previous: [location] },
+        location: { current: location, path: '', key: location.prefix },
       } as StoreModule.UseStoreState,
       dispatchStoreAction,
     ]);
@@ -140,7 +143,7 @@ describe('LocationDetailView', () => {
   it('loads initial location items for a BUCKET location as expected', () => {
     useStoreSpy.mockReturnValueOnce([
       {
-        history: { current: location, previous: [location] },
+        location: { current: location, path: '', key: location.prefix },
       } as StoreModule.UseStoreState,
       dispatchStoreAction,
     ]);
@@ -156,7 +159,7 @@ describe('LocationDetailView', () => {
   it('refreshes table and clears selection state when refresh button is clicked', async () => {
     useStoreSpy.mockReturnValue([
       {
-        history: { current: location, previous: [location] },
+        location: { current: location, path: '', key: location.prefix },
         locationItems: { fileDataItems: undefined },
       } as StoreModule.UseStoreState,
       dispatchStoreAction,

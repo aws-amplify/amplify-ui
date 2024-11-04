@@ -105,7 +105,9 @@ const getLocationsData = ({
       children: (
         <ButtonElement
           className={TABLE_DATA_BUTTON_CLASS}
-          onClick={() => onLocationClick(location)}
+          onClick={() => {
+            onLocationClick(location);
+          }}
           variant="table-data"
         >
           {location.prefix.length ? location.prefix : location.bucket}

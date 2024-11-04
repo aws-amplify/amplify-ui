@@ -1,6 +1,7 @@
 import React from 'react';
 import { isFunction, isUndefined } from '@aws-amplify/ui';
 
+import { LocationData } from '../../actions';
 import { Field } from '../../components/Field';
 import { useAction } from '../../do-not-import-from-here/actions';
 import { SpanElement } from '../../context/elements';
@@ -46,12 +47,12 @@ export const CreateFolderMessage = (): React.JSX.Element | null => {
 };
 
 export const CreateFolderControls = ({
-  onClose,
+  onExit,
 }: {
-  onClose?: () => void;
+  onExit?: (location: LocationData) => void;
 }): React.JSX.Element => {
-  const [{ history }, dipatchStoreAction] = useStore();
-  const { current } = history;
+  const [{ location }, dipatchStoreAction] = useStore();
+  const { current, key } = location;
 
   const { prefix } = current ?? {};
   const hasInvalidPrefix = isUndefined(prefix);
@@ -80,12 +81,12 @@ export const CreateFolderControls = ({
 
   const handleCreateFolder = () => {
     if (hasInvalidPrefix) return;
-    const folderPrefix = `${prefix}${folderName}/`;
+    const folderPrefix = `${key}${folderName}/`;
     handleCreateAction({ prefix: folderPrefix });
   };
 
   const handleClose = () => {
-    if (isFunction(onClose)) onClose();
+    if (isFunction(onExit)) onExit(current!);
     dipatchStoreAction({ type: 'RESET_ACTION_TYPE' });
     // reset hook state on exit, use empty string for prefix to keep TS happy
     // @todo: this needs to be addressed

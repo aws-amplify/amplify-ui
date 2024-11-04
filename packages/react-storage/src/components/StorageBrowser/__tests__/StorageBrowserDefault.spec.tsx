@@ -28,7 +28,7 @@ describe('StorageBrowserDefault', () => {
     useStoreSpy.mockReturnValueOnce([
       {
         actionType: undefined,
-        history: { current: undefined, previous: undefined },
+        location: { current: undefined },
       } as StoreModule.UseStoreState,
       jest.fn(),
     ]);
@@ -41,7 +41,7 @@ describe('StorageBrowserDefault', () => {
     useStoreSpy.mockReturnValueOnce([
       {
         actionType: undefined,
-        history: { current: location, previous: [location] },
+        location: { current: location },
       } as StoreModule.UseStoreState,
       jest.fn(),
     ]);
@@ -55,7 +55,7 @@ describe('StorageBrowserDefault', () => {
     useStoreSpy.mockReturnValueOnce([
       {
         actionType: 'super-coll-action-type',
-        history: { current: location, previous: [location] },
+        location: { current: location },
       } as StoreModule.UseStoreState,
       jest.fn(),
     ]);

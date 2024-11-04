@@ -13,4 +13,4 @@ const config = createManagedAuthAdapter({
   registerAuthListener: routedAuth.registerAuthListener,
 });
 
-export const { StorageBrowser } = createStorageBrowser({ config });
+export const { StorageBrowser, useView } = createStorageBrowser({ config });

@@ -8,20 +8,14 @@ import { LocationDetailViewProps } from './types';
 
 export function LocationDetailView({
   className,
-  onActionSelect,
-  onNavigate,
-  onExit,
+  ...props
 }: LocationDetailViewProps): React.JSX.Element {
   return (
     <div
       className={resolveClassName(CLASS_BASE, className)}
       data-testid="LOCATION_DETAIL_VIEW"
     >
-      <LocationDetailViewControls
-        onActionSelect={onActionSelect}
-        onNavigate={onNavigate}
-        onExit={onExit}
-      />
+      <LocationDetailViewControls {...props} />
     </div>
   );
 }
