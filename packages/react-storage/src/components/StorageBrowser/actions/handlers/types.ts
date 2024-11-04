@@ -1,5 +1,5 @@
-import { AsyncDataAction } from '@aws-amplify/ui-react-core';
 import { ListLocations, Permission } from '../../storage-internal';
+import { TaskHandlerOptions } from '../types';
 
 export type LocationAccess = Awaited<
   ReturnType<ListLocations>
@@ -39,13 +39,6 @@ export interface LocationData {
   type: LocationType;
 }
 
-import {
-  ListHandlerInput,
-  ListHandlerOptions,
-  ListHandlerOutput,
-  TaskHandlerOptions,
-} from '../types';
-
 export interface LocationData {
   bucket: string;
   permission: Permission;
@@ -57,16 +50,3 @@ export interface TaskHandlerCallbacks
   extends Pick<TaskHandlerOptions, 'onComplete' | 'onError'> {
   onCancel?: (key: string) => void;
 }
-
-export interface ListActionHandlerOptions {
-  refresh?: boolean;
-  reset?: boolean;
-}
-
-export type ListActionHandler<
-  T extends ListHandlerOptions,
-  K,
-> = AsyncDataAction<
-  ListHandlerOutput<K>,
-  ListHandlerInput<T & ListActionHandlerOptions>
->;
