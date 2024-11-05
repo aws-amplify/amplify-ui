@@ -24,6 +24,7 @@ describe('Utils', () => {
         PENDING: 0,
         FAILED: 0,
         COMPLETE: 0,
+        OVERWRITE_PREVENTED: 0,
         CANCELED: 0,
         TOTAL: 5,
       };
@@ -43,6 +44,7 @@ describe('Utils', () => {
         FAILED: 0,
         COMPLETE: 0,
         CANCELED: 0,
+        OVERWRITE_PREVENTED: 0,
         TOTAL: 5,
       };
       const result = getActionViewDisabledButtons(counts);
@@ -61,6 +63,7 @@ describe('Utils', () => {
         FAILED: 1,
         COMPLETE: 3,
         CANCELED: 1,
+        OVERWRITE_PREVENTED: 0,
         TOTAL: 5,
       };
       const result = getActionViewDisabledButtons(counts);

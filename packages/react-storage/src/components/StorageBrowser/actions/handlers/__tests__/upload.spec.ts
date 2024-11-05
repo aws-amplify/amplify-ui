@@ -20,19 +20,14 @@ const config: UploadHandlerInput['config'] = {
   region: 'region',
 };
 
-const payload = new File([], 'test-o');
-const prefix = 'prefix';
+const file = new File([], 'test-o');
 
-const onCancel = jest.fn();
-const onComplete = jest.fn();
-const onError = jest.fn();
 const onProgress = jest.fn();
 
 const baseInput: UploadHandlerInput = {
   config,
-  key: payload.name,
-  data: { id: 'an-id', payload },
-  prefix,
+  data: { key: file.name, id: 'an-id', file },
+  destinationPrefix: 'prefix/',
 };
 
 const cancel = jest.fn();
@@ -51,27 +46,20 @@ describe('uploadHandler', () => {
       cancel,
       pause,
       resume,
-      result: Promise.resolve({ path: payload.name }),
+      result: Promise.resolve({ path: file.name }),
       state: 'SUCCESS',
     });
 
-    const { key, result } = uploadHandler({
-      ...baseInput,
-      options: { onComplete },
-    });
+    const { result } = uploadHandler(baseInput);
 
-    expect(await result).toBe('COMPLETE');
-
-    expect(key).toBe(baseInput.key);
-    expect(onComplete).toHaveBeenCalledTimes(1);
-    expect(onComplete).toHaveBeenCalledWith(baseInput.key);
+    expect(await result).toStrictEqual({ status: 'COMPLETE' });
   });
 
   it('calls upload with the expected values', () => {
     uploadHandler({ ...baseInput, options: { preventOverwrite: true } });
 
     const expected: InternalStorageModule.UploadDataInput = {
-      data: payload,
+      data: file,
       options: {
         expectedBucketOwner: config.accountId,
         bucket: {
@@ -82,7 +70,7 @@ describe('uploadHandler', () => {
         onProgress: expect.any(Function),
         preventOverwrite: true,
       },
-      path: `${prefix}${payload.name}`,
+      path: `${baseInput.destinationPrefix}${baseInput.data.key}`,
     };
 
     expect(uploadDataSpy).toHaveBeenCalledWith(expected);
@@ -97,21 +85,20 @@ describe('uploadHandler', () => {
         cancel,
         pause,
         resume,
-        result: Promise.resolve({ path: payload.name }),
+        result: Promise.resolve({ path: file.name }),
         state: 'SUCCESS',
       };
     });
 
-    const { key, result } = uploadHandler({
+    const { result } = uploadHandler({
       ...baseInput,
       options: { onProgress },
     });
 
-    expect(await result).toBe('COMPLETE');
+    expect(await result).toStrictEqual({ status: 'COMPLETE' });
 
-    expect(key).toBe(baseInput.key);
     expect(onProgress).toHaveBeenCalledTimes(1);
-    expect(onProgress).toHaveBeenCalledWith(baseInput.key, 1);
+    expect(onProgress).toHaveBeenCalledWith(baseInput.data, 1);
   });
 
   it('calls provided onProgress callback as expected when `totalBytes` is `undefined`', async () => {
@@ -123,21 +110,20 @@ describe('uploadHandler', () => {
         cancel,
         pause,
         resume,
-        result: Promise.resolve({ path: payload.name }),
+        result: Promise.resolve({ path: file.name }),
         state: 'SUCCESS',
       };
     });
 
-    const { key, result } = uploadHandler({
+    const { result } = uploadHandler({
       ...baseInput,
       options: { onProgress },
     });
 
-    expect(await result).toBe('COMPLETE');
+    expect(await result).toStrictEqual({ status: 'COMPLETE' });
 
-    expect(key).toBe(baseInput.key);
     expect(onProgress).toHaveBeenCalledTimes(1);
-    expect(onProgress).toHaveBeenCalledWith(baseInput.key, undefined);
+    expect(onProgress).toHaveBeenCalledWith(baseInput.data, undefined);
   });
 
   it('returns the expected callback values for a file size greater than 5 mb', async () => {
@@ -150,19 +136,17 @@ describe('uploadHandler', () => {
       cancel,
       pause,
       resume,
-      result: Promise.resolve({ path: payload.name }),
+      result: Promise.resolve({ path: file.name }),
       state: 'SUCCESS',
     });
 
-    const { key, result, ...callbacks } = uploadHandler({
+    const { result, ...callbacks } = uploadHandler({
       ...baseInput,
-      key: bigFile.name,
-      data: { id: 'hi!', payload: bigFile },
+      data: { key: bigFile.name, id: 'hi!', file: bigFile },
     });
 
-    expect(await result).toBe('COMPLETE');
+    expect(await result).toStrictEqual({ status: 'COMPLETE' });
 
-    expect(key).toBe(bigFile.name);
     expect(callbacks).toStrictEqual({ cancel, pause, resume });
   });
 
@@ -173,19 +157,17 @@ describe('uploadHandler', () => {
       cancel,
       pause,
       resume,
-      result: Promise.resolve({ path: payload.name }),
+      result: Promise.resolve({ path: file.name }),
       state: 'SUCCESS',
     });
 
-    const { key, result, ...callbacks } = uploadHandler({
+    const { result, ...callbacks } = uploadHandler({
       ...baseInput,
-      key: smallFile.name,
-      data: { id: 'ohh', payload: smallFile },
+      data: { key: smallFile.name, id: 'ohh', file: smallFile },
     });
 
-    expect(await result).toBe('COMPLETE');
+    expect(await result).toStrictEqual({ status: 'COMPLETE' });
 
-    expect(key).toBe(smallFile.name);
     expect(callbacks).toStrictEqual(UNDEFINED_CALLBACKS);
   });
 
@@ -198,12 +180,12 @@ describe('uploadHandler', () => {
       state: 'ERROR',
     });
 
-    const { result } = uploadHandler({ ...baseInput, options: { onError } });
+    const { result } = uploadHandler(baseInput);
 
-    expect(await result).toBe('FAILED');
-
-    expect(onError).toHaveBeenCalledTimes(1);
-    expect(onError).toHaveBeenCalledWith(baseInput.key, error.message);
+    expect(await result).toStrictEqual({
+      message: error.message,
+      status: 'FAILED',
+    });
   });
 
   it('handles a cancel failure as expected', async () => {
@@ -218,11 +200,11 @@ describe('uploadHandler', () => {
       state: 'ERROR',
     });
 
-    const { result } = uploadHandler({ ...baseInput, options: { onCancel } });
+    const { result } = uploadHandler(baseInput);
 
-    expect(await result).toBe('CANCELED');
-
-    expect(onCancel).toHaveBeenCalledTimes(1);
-    expect(onCancel).toHaveBeenCalledWith(baseInput.key);
+    expect(await result).toStrictEqual({
+      message: 'Failed!',
+      status: 'CANCELED',
+    });
   });
 });

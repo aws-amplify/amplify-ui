@@ -36,7 +36,7 @@ const config: ConfigModule.GetActionInput = jest.fn(() => ({
 }));
 
 const testFile = new File([], 'test-ooo');
-const fileItem = { id: 'some-uuid', item: testFile, key: testFile.name };
+const fileItem = { id: 'some-uuid', file: testFile, key: testFile.name };
 
 jest.spyOn(ConfigModule, 'useGetActionInput').mockReturnValue(config);
 
@@ -85,15 +85,19 @@ describe('UploadControls', () => {
 
     const handleProcessTasks = jest.fn();
     useProcessTasksSpy.mockReturnValue([
-      [
-        {
-          ...fileItem,
-          cancel: undefined,
-          message: undefined,
-          remove: jest.fn(),
-          status: 'QUEUED',
-        },
-      ],
+      {
+        isProcessing: false,
+        tasks: [
+          {
+            data: fileItem,
+            cancel: jest.fn(),
+            message: undefined,
+            remove: jest.fn(),
+            progress: 0,
+            status: 'QUEUED',
+          },
+        ],
+      },
       handleProcessTasks,
     ]);
 
@@ -116,7 +120,7 @@ describe('UploadControls', () => {
         region: 'region',
       },
       options: { preventOverwrite: true },
-      prefix: '',
+      destinationPrefix: rootLocation.prefix,
     });
   });
 
@@ -131,15 +135,19 @@ describe('UploadControls', () => {
 
     const handleProcessTasks = jest.fn();
     useProcessTasksSpy.mockReturnValue([
-      [
-        {
-          ...fileItem,
-          cancel: undefined,
-          message: undefined,
-          remove: jest.fn(),
-          status: 'QUEUED',
-        },
-      ],
+      {
+        isProcessing: false,
+        tasks: [
+          {
+            data: fileItem,
+            cancel: jest.fn(),
+            message: undefined,
+            remove: jest.fn(),
+            progress: 0,
+            status: 'QUEUED',
+          },
+        ],
+      },
       handleProcessTasks,
     ]);
 
@@ -161,7 +169,7 @@ describe('UploadControls', () => {
         region: 'region',
       },
       options: { preventOverwrite: true },
-      prefix: location.prefix,
+      destinationPrefix: location.prefix,
     });
   });
 });
