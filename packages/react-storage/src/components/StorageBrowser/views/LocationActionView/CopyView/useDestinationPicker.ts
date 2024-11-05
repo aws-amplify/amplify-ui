@@ -76,7 +76,7 @@ export const useDestinationPicker = ({
   const hasNextToken = !!nextToken;
 
   const hasValidPrefix = isString(prefix);
-  const onPaginateNext = () => {
+  const paginateCallback = () => {
     if (!hasValidPrefix) return;
     handleList({
       config: getInput(),
@@ -85,11 +85,12 @@ export const useDestinationPicker = ({
     });
   };
 
-  const { currentPage, handlePaginateNext, handlePaginatePrevious, range } =
-    usePaginate({
-      onPaginateNext,
-      pageSize: 10,
-    });
+  const { currentPage, onPaginate, range } = usePaginate({
+    paginateCallback,
+    pageSize: 10,
+    resultCount,
+    hasNextToken,
+  });
 
   useEffect(() => {
     if (previousPathref.current !== prefix) {
@@ -114,10 +115,10 @@ export const useDestinationPicker = ({
     hasError,
     message,
     handleNext: () => {
-      handlePaginateNext({ resultCount, hasNextToken });
+      onPaginate(currentPage + 1);
     },
     handlePrevious: () => {
-      handlePaginatePrevious();
+      onPaginate(currentPage - 1);
     },
     range,
   };
