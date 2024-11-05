@@ -96,7 +96,7 @@ export const DestinationPicker = ({
 
   return (
     <ControlsContextProvider {...contextValue}>
-      <ViewElement className={`${CLASS_BASE}__action-destination`}>
+      <ViewElement>
         <DescriptionList
           descriptions={[
             {
@@ -119,6 +119,8 @@ export const DestinationPicker = ({
             },
           ]}
         />
+      </ViewElement>
+      <ViewElement className={`${CLASS_BASE}__action-destination`}>
         <SearchControl />
         <PaginateControl
           currentPage={currentPage}
