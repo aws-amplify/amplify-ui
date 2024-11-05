@@ -184,6 +184,7 @@ export const InputElement = defineBaseElement<
   | 'defaultChecked'
   | 'placeholder'
   | 'value'
+  | 'onKeyUp'
 >({
   type: 'input',
   displayName: 'Input',
