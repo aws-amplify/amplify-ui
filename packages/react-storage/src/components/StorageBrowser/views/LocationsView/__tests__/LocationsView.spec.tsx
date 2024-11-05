@@ -2,46 +2,18 @@ import React from 'react';
 import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import * as AmplifyReactCore from '@aws-amplify/ui-react-core';
-
 import * as StoreModule from '../../../providers/store';
 import { DEFAULT_ERROR_MESSAGE, LocationsView } from '../LocationsView';
-import * as ConfigModule from '../../../providers/configuration';
+import * as ActionsModule from '../../../do-not-import-from-here/actions';
 import { DEFAULT_LIST_OPTIONS } from '../useLocationsView';
-import { ActionInputConfig, LocationData } from '../../../actions';
+import { LocationData } from '../../../actions';
 
 const dispatchStoreAction = jest.fn();
-const testStoreState = {
-  location: {
-    current: {
-      bucket: 'test-bucket',
-      prefix: '',
-      permission: 'READ' as const,
-      id: '2',
-      type: 'PREFIX' as const,
-    },
-    path: '',
-    key: '',
-  },
-  files: [],
-  locationItems: {
-    fileDataItems: undefined,
-  },
-  actionType: undefined,
-};
 jest
   .spyOn(StoreModule, 'useStore')
-  .mockReturnValue([testStoreState, dispatchStoreAction]);
+  .mockReturnValue([{} as StoreModule.UseStoreState, dispatchStoreAction]);
 
-const useDataSpy = jest.spyOn(AmplifyReactCore, 'useDataState');
-const useGetActionSpy = jest.spyOn(ConfigModule, 'useGetActionInput');
-
-const config: ActionInputConfig = {
-  bucket: 'bucky',
-  credentials: jest.fn(),
-  region: 'us-weast-1',
-};
-useGetActionSpy.mockReturnValue(() => config);
+const useLocationsDataSpy = jest.spyOn(ActionsModule, 'useLocationsData');
 
 const generateMockItems = (size: number, page: number): LocationData[] => {
   return Array(size)
@@ -59,44 +31,57 @@ const generateMockItems = (size: number, page: number): LocationData[] => {
     });
 };
 
-const initialState = {
-  data: { items: [], nextToken: undefined },
-  hasError: false,
-  isLoading: false,
-  message: undefined,
-};
+const handleListLocations = jest.fn();
+const initialState: ActionsModule.LocationsDataState = [
+  {
+    data: { result: [], nextToken: undefined },
+    hasError: false,
+    isLoading: false,
+    message: undefined,
+  },
+  handleListLocations,
+];
 
-const loadingState = {
-  data: { items: [], nextToken: undefined },
-  hasError: false,
-  isLoading: true,
-  message: undefined,
-};
+const loadingState: ActionsModule.LocationsDataState = [
+  {
+    data: { result: [], nextToken: undefined },
+    hasError: false,
+    isLoading: true,
+    message: undefined,
+  },
+  handleListLocations,
+];
 
 const EXPECTED_PAGE_SIZE = DEFAULT_LIST_OPTIONS.pageSize;
 const results: LocationData[] = generateMockItems(EXPECTED_PAGE_SIZE, 1);
 
-const resolvedState = {
-  data: {
-    items: results,
-    nextToken: 'some-token',
+const resolvedState: ActionsModule.LocationsDataState = [
+  {
+    data: {
+      result: results,
+      nextToken: 'some-token',
+    },
+    hasError: false,
+    isLoading: false,
+    message: undefined,
   },
-  hasError: false,
-  isLoading: false,
-  message: undefined,
-};
+  handleListLocations,
+];
 
 const nextPageResults = generateMockItems(EXPECTED_PAGE_SIZE, 2);
 
-const nextPageState = {
-  data: {
-    items: [...results, ...nextPageResults],
-    nextToken: undefined,
+const nextPageState: ActionsModule.LocationsDataState = [
+  {
+    data: {
+      result: [...results, ...nextPageResults],
+      nextToken: undefined,
+    },
+    hasError: false,
+    isLoading: false,
+    message: undefined,
   },
-  hasError: false,
-  isLoading: false,
-  message: undefined,
-};
+  handleListLocations,
+];
 
 describe('LocationsListView', () => {
   afterEach(() => {
@@ -105,10 +90,10 @@ describe('LocationsListView', () => {
 
   it('renders a returned error message for `LocationsListView`', () => {
     const errorMessage = 'Something went wrong.';
-    const handleListLocations = jest.fn();
-    useDataSpy.mockReturnValue([
+
+    useLocationsDataSpy.mockReturnValue([
       {
-        data: { items: results, nextToken: 'some-token' },
+        data: { result: results, nextToken: 'some-token' },
         hasError: true,
         isLoading: false,
         message: errorMessage,
@@ -135,10 +120,9 @@ describe('LocationsListView', () => {
   });
 
   it('renders a fallback error message for `LocationsListView`', () => {
-    const handleListLocations = jest.fn();
-    useDataSpy.mockReturnValue([
+    useLocationsDataSpy.mockReturnValue([
       {
-        data: { items: results, nextToken: undefined },
+        data: { result: results, nextToken: undefined },
         hasError: true,
         isLoading: false,
         message: undefined,
@@ -153,7 +137,7 @@ describe('LocationsListView', () => {
   });
 
   it('renders a Locations View table', () => {
-    useDataSpy.mockReturnValue([resolvedState, jest.fn()]);
+    useLocationsDataSpy.mockReturnValue(resolvedState);
 
     render(<LocationsView />);
 
@@ -167,19 +151,15 @@ describe('LocationsListView', () => {
   it.todo('handles empty locations result data as expected');
 
   it('behaves as expected on initial render', () => {
-    const handleListLocations = jest.fn();
-
-    useDataSpy
-      .mockReturnValueOnce([initialState, handleListLocations])
-      .mockReturnValueOnce([loadingState, handleListLocations])
-      .mockReturnValue([resolvedState, handleListLocations]);
+    useLocationsDataSpy
+      .mockReturnValueOnce(initialState)
+      .mockReturnValueOnce(loadingState)
+      .mockReturnValue(resolvedState);
 
     const { rerender } = render(<LocationsView />);
 
     expect(handleListLocations).toHaveBeenCalledTimes(1);
     expect(handleListLocations).toHaveBeenCalledWith({
-      config,
-      prefix: '',
       options: {
         ...DEFAULT_LIST_OPTIONS,
         refresh: true,
@@ -196,8 +176,7 @@ describe('LocationsListView', () => {
   });
 
   it('refreshes table when refresh button is clicked', async () => {
-    const handleListLocations = jest.fn();
-    useDataSpy.mockReturnValue([resolvedState, handleListLocations]);
+    useLocationsDataSpy.mockReturnValue(resolvedState);
 
     render(<LocationsView />);
 
@@ -209,35 +188,30 @@ describe('LocationsListView', () => {
     });
 
     expect(handleListLocations).toHaveBeenCalledWith({
-      config,
-      prefix: '',
       options: { ...DEFAULT_LIST_OPTIONS, refresh: true },
     });
   });
 
   it('refreshes locations on handleListLocations reference change', () => {
-    const handleListLocations = jest.fn();
     const updatedHandleListLocations = jest.fn();
 
-    useDataSpy.mockReturnValue([initialState, handleListLocations]);
+    useLocationsDataSpy.mockReturnValue(initialState);
 
     // initial
     const { rerender } = render(<LocationsView />);
 
-    useDataSpy.mockReturnValue([loadingState, handleListLocations]);
+    useLocationsDataSpy.mockReturnValue(loadingState);
 
     // loading
     rerender(<LocationsView />);
 
-    useDataSpy.mockReturnValueOnce([resolvedState, handleListLocations]);
+    useLocationsDataSpy.mockReturnValueOnce(resolvedState);
 
     // resolved
     rerender(<LocationsView />);
 
     expect(handleListLocations).toHaveBeenCalledTimes(1);
     expect(handleListLocations).toHaveBeenCalledWith({
-      config,
-      prefix: '',
       options: {
         exclude: 'WRITE',
         pageSize: EXPECTED_PAGE_SIZE,
@@ -246,8 +220,8 @@ describe('LocationsListView', () => {
     });
     expect(updatedHandleListLocations).not.toHaveBeenCalled();
 
-    useDataSpy.mockReturnValue([
-      { ...resolvedState },
+    useLocationsDataSpy.mockReturnValue([
+      { ...resolvedState[0] },
       updatedHandleListLocations,
     ]);
 
@@ -257,8 +231,6 @@ describe('LocationsListView', () => {
     expect(handleListLocations).toHaveBeenCalledTimes(1);
     expect(updatedHandleListLocations).toHaveBeenCalledTimes(1);
     expect(updatedHandleListLocations).toHaveBeenCalledWith({
-      config,
-      prefix: '',
       options: {
         exclude: 'WRITE',
         pageSize: EXPECTED_PAGE_SIZE,
@@ -268,9 +240,7 @@ describe('LocationsListView', () => {
   });
 
   it('can paginate forward and back', async () => {
-    const handleListLocations = jest.fn();
-
-    useDataSpy.mockReturnValue([resolvedState, handleListLocations]);
+    useLocationsDataSpy.mockReturnValue(resolvedState);
     render(<LocationsView />);
 
     // table renders
@@ -286,7 +256,7 @@ describe('LocationsListView', () => {
     expect(screen.queryByText('item-0/')).toBeInTheDocument();
     expect(screen.queryByText('item-101/')).not.toBeInTheDocument();
 
-    useDataSpy.mockReturnValue([nextPageState, handleListLocations]);
+    useLocationsDataSpy.mockReturnValue(nextPageState);
 
     // go forward
     await act(async () => {
@@ -314,7 +284,7 @@ describe('LocationsListView', () => {
   });
 
   it('should navigate to detail page when folder is clicked', async () => {
-    useDataSpy.mockReturnValue([resolvedState, jest.fn()]);
+    useLocationsDataSpy.mockReturnValue(resolvedState);
     render(<LocationsView />);
 
     const scopeButton = await screen.findByText('item-0/');

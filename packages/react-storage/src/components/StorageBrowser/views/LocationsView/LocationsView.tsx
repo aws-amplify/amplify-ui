@@ -68,8 +68,8 @@ export function LocationsView({
     data: {
       isDataRefreshDisabled: isLoading,
     },
-    onRefresh,
     onSearch,
+    onRefresh,
   };
 
   return (

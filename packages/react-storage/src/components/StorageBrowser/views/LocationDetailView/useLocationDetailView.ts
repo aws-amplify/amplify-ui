@@ -89,7 +89,7 @@ export function useLocationDetailView(
   const { prefix } = current ?? {};
   const hasInvalidPrefix = isUndefined(prefix);
 
-  const config = useGetActionInput()();
+  const getConfig = useGetActionInput();
 
   const [{ data, isLoading, hasError, message }, handleList] = useDataState(
     listLocationItemsAction,
@@ -104,7 +104,7 @@ export function useLocationDetailView(
     if (hasInvalidPrefix || !nextToken) return;
     dispatchStoreAction({ type: 'RESET_LOCATION_ITEMS' });
     handleList({
-      config,
+      config: getConfig(),
       prefix: key,
       options: { ...listOptions, nextToken },
     });
@@ -130,7 +130,7 @@ export function useLocationDetailView(
     if (hasInvalidPrefix) return;
     handleReset();
     handleList({
-      config,
+      config: getConfig(),
       prefix: key,
       options: { ...listOptions, refresh: true },
     });
@@ -140,7 +140,7 @@ export function useLocationDetailView(
   React.useEffect(() => {
     if (hasInvalidPrefix) return;
     handleList({
-      config,
+      config: getConfig(),
       prefix: key,
       options: { ...listOptions, refresh: true },
     });
@@ -150,7 +150,7 @@ export function useLocationDetailView(
     handleReset,
     listOptions,
     hasInvalidPrefix,
-    config,
+    getConfig,
     prefix,
     key,
   ]);
@@ -195,7 +195,7 @@ export function useLocationDetailView(
       dispatchStoreAction({ type: 'RESET_LOCATION' });
 
       handleList({
-        config,
+        config: getConfig(),
         // @todo: prefix should not be required to refresh
         prefix: current?.prefix ?? '',
         options: { reset: true },
@@ -210,7 +210,7 @@ export function useLocationDetailView(
         delimiter: includeSubfolders ? undefined : listOptions.delimiter,
         search: { query, filterKey: 'key' as const },
       };
-      handleList({ config, prefix, options: searchOptions });
+      handleList({ config: getConfig(), prefix, options: searchOptions });
     },
   };
 }
