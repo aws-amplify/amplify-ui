@@ -10,6 +10,7 @@ import { DataRefreshControl } from '../../controls/DataRefreshControl';
 import { ControlsContextProvider } from '../../controls/context';
 import { ControlsContext } from '../../controls/types';
 import { CLASS_BASE } from '../constants';
+import { SearchControl } from '../../controls/SearchControl';
 
 export const DEFAULT_ERROR_MESSAGE = 'There was an error loading items.';
 const DEFAULT_PAGE_SIZE = 100;
@@ -69,14 +70,15 @@ export const LocationDetailViewControls = ({
     isPaginatePreviousDisabled,
     isPaginateNextDisabled,
     location,
+    hasError,
+    message,
     onRefresh,
     onPaginateNext,
     onPaginatePrevious,
     onAddFiles,
     onNavigate,
     onNavigateHome,
-    hasError,
-    message,
+    onSearch,
   } = useLocationDetailView({ onNavigate: onNavigateProp, onExit });
 
   // FIXME:
@@ -90,6 +92,7 @@ export const LocationDetailViewControls = ({
     onNavigate,
     onNavigateHome,
     onRefresh,
+    onSearch,
   };
 
   return (
@@ -105,6 +108,7 @@ export const LocationDetailViewControls = ({
         onActionSelect={onActionSelect}
         disabled={isLoading}
       />
+      <SearchControl />
       <Paginate
         currentPage={page}
         disableNext={isPaginateNextDisabled}

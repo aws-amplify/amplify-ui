@@ -8,6 +8,7 @@ import { useLocationsView } from './useLocationsView';
 import { ControlsContextProvider } from '../../controls/context';
 import { ControlsContext } from '../../controls/types';
 import { DataRefreshControl } from '../../controls/DataRefreshControl';
+import { SearchControl } from '../../controls/SearchControl';
 
 import { LocationsViewProps } from './types';
 
@@ -48,6 +49,7 @@ export function LocationsView({
   const {
     pageItems,
     hasError,
+    message,
     isPaginatePreviousDisabled,
     isPaginateNextDisabled,
     page,
@@ -56,7 +58,7 @@ export function LocationsView({
     onPaginateNext,
     onPaginatePrevious,
     onNavigate,
-    message,
+    onSearch,
   } = useLocationsView(props);
 
   // FIXME: Eventually comes from useView hook
@@ -67,6 +69,7 @@ export function LocationsView({
       isDataRefreshDisabled: isLoading,
     },
     onRefresh,
+    onSearch,
   };
 
   return (
@@ -79,6 +82,7 @@ export function LocationsView({
         <DataRefreshControl
           className={`${CLASS_BASE}__locations-view-data-refresh`}
         />
+        <SearchControl />
         <Paginate
           currentPage={page}
           disableNext={isPaginateNextDisabled}

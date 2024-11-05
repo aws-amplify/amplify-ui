@@ -18,9 +18,13 @@ const TOGGLE_BLOCK = 'toggle';
 
 export interface SearchProps {
   onSearch: (term: string, includeSubfolders: boolean) => void;
+  showIncludeSubfolders?: boolean;
 }
 
-export const Search = ({ onSearch }: SearchProps): React.JSX.Element => {
+export const Search = ({
+  onSearch,
+  showIncludeSubfolders,
+}: SearchProps): React.JSX.Element => {
   const [term, setTerm] = React.useState('');
   const [subfoldersIncluded, setSubfoldersIncluded] = React.useState(false);
 
@@ -58,17 +62,19 @@ export const Search = ({ onSearch }: SearchProps): React.JSX.Element => {
       >
         Submit
       </ButtonElement>
-      <SpanElement className={`${BLOCK_NAME}-${TOGGLE_BLOCK}__container`}>
-        <InputElement
-          checked={subfoldersIncluded}
-          className={`${BLOCK_NAME}-${TOGGLE_BLOCK}__checkbox`}
-          onChange={() => setSubfoldersIncluded(!subfoldersIncluded)}
-          type="checkbox"
-        />
-        <LabelElement className={`${BLOCK_NAME}-${TOGGLE_BLOCK}__label`}>
-          Include subfolders
-        </LabelElement>
-      </SpanElement>
+      {showIncludeSubfolders ? (
+        <SpanElement className={`${BLOCK_NAME}-${TOGGLE_BLOCK}__container`}>
+          <InputElement
+            checked={subfoldersIncluded}
+            className={`${BLOCK_NAME}-${TOGGLE_BLOCK}__checkbox`}
+            onChange={() => setSubfoldersIncluded(!subfoldersIncluded)}
+            type="checkbox"
+          />
+          <LabelElement className={`${BLOCK_NAME}-${TOGGLE_BLOCK}__label`}>
+            Include subfolders
+          </LabelElement>
+        </SpanElement>
+      ) : null}
     </ViewElement>
   );
 };

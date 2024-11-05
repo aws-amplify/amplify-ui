@@ -44,6 +44,7 @@ export interface ControlsContext {
     actionCancelLabel?: string;
     isActionCancelDisabled?: boolean;
     isDataRefreshDisabled?: boolean;
+    showIncludeSubfolders?: boolean;
     location?: Location;
     tableData?: TableData;
     taskCounts?: TaskCounts;

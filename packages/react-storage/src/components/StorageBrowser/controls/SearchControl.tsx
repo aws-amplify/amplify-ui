@@ -9,8 +9,8 @@ import { useControlsContext } from './context';
 export const SearchControl = ({
   className,
 }: ControlProps): React.JSX.Element | null => {
-  const { onSearch } = useControlsContext();
-
+  const { onSearch, data } = useControlsContext();
+  const { showIncludeSubfolders } = data;
   const ResolvedSearch = useResolvedComposable(Search, 'Search');
 
   if (!onSearch) {
@@ -19,7 +19,10 @@ export const SearchControl = ({
 
   return (
     <ViewElement className={className}>
-      <ResolvedSearch onSearch={onSearch} />
+      <ResolvedSearch
+        onSearch={onSearch}
+        showIncludeSubfolders={showIncludeSubfolders}
+      />
     </ViewElement>
   );
 };

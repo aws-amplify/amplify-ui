@@ -8,7 +8,7 @@ const searchTerm = 'search term';
 
 describe('Search', () => {
   it('renders the Search composable', () => {
-    render(<Search onSearch={jest.fn()} />);
+    render(<Search onSearch={jest.fn()} showIncludeSubfolders />);
 
     const field = screen.getByPlaceholderText('Search current folder');
     const checkbox = screen.getByRole('checkbox');
@@ -22,7 +22,7 @@ describe('Search', () => {
   it('uses a checkbox to determine if subfolders should be included in search', () => {
     const onSearch = jest.fn();
 
-    render(<Search onSearch={onSearch} />);
+    render(<Search onSearch={onSearch} showIncludeSubfolders />);
 
     const submitButton = screen.getByRole('button', { name: 'Submit' });
     act(() => {

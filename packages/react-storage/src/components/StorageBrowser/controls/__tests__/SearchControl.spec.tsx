@@ -25,6 +25,7 @@ describe('SearchControl', () => {
 
   it('renders the SearchControl', () => {
     mockUseControlsContext.mockReturnValue({
+      data: { showIncludeSubfolders: true },
       onSearch: jest.fn(),
     });
 
