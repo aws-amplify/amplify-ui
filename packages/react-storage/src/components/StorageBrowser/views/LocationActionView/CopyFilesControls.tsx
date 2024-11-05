@@ -45,12 +45,11 @@ export const CopyFilesControls = ({
   } = useCopyView({ onExit: _onExit });
 
   const [{ location }] = useStore();
-  const { current } = location;
-  const path = current?.prefix;
+  const { current, key } = location;
   const tableData = getActionViewTableData<CopyHandlerData>({
     tasks,
     taskCounts,
-    path: path ?? '',
+    path: key,
   });
 
   const contextValue: ControlsContext = {
