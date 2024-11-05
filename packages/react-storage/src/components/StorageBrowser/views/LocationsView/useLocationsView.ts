@@ -54,10 +54,11 @@ export function useLocationsView(
   const onNavigate = options?.onNavigate;
   const initialValues = options?.initialValues ?? {};
 
-  const [listOptions] = React.useState({
+  const listOptionsRef = React.useRef({
     ...DEFAULT_LIST_OPTIONS,
     ...initialValues,
   });
+  const listOptions = listOptionsRef.current;
 
   // initial load
   React.useEffect(() => {

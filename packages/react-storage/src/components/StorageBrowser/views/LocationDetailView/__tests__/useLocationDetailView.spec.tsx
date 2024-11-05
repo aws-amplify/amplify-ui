@@ -137,18 +137,57 @@ describe('useLocationsView', () => {
   it('should handle pagination actions', () => {
     const handleStoreActionMock = jest.fn();
     useStoreSpy.mockReturnValue([testStoreState, handleStoreActionMock]);
+    const mockHandleList = jest.fn();
 
+    // set up empty page
+    useActionSpy.mockReturnValue([
+      {
+        data: {
+          result: [],
+          nextToken: undefined,
+        },
+        message: '',
+        hasError: false,
+        isLoading: false,
+      },
+      mockHandleList,
+    ]);
+
+    const initialValues = { initialValues: { pageSize: EXPECTED_PAGE_SIZE } };
+    const { result, rerender } = renderHook(() =>
+      useLocationDetailView(initialValues)
+    );
+
+    expect(result.current.isPaginateNextDisabled).toBe(true);
+    expect(result.current.isPaginatePreviousDisabled).toBe(true);
+    expect(result.current.pageItems).toEqual([]);
+
+    // set up first page mock
     const mockDataState = {
-      data: { result: testData, nextToken: 'token123' },
+      data: {
+        result: testData.slice(0, EXPECTED_PAGE_SIZE),
+        nextToken: 'token123',
+      },
       message: '',
       hasError: false,
       isLoading: false,
     };
 
-    useActionSpy.mockReturnValue([mockDataState, jest.fn()]);
+    useActionSpy.mockReturnValue([mockDataState, mockHandleList]);
 
-    const initialValues = { initialValues: { pageSize: EXPECTED_PAGE_SIZE } };
-    const { result } = renderHook(() => useLocationDetailView(initialValues));
+    rerender(initialValues);
+
+    // set up second page mock
+    useActionSpy.mockReturnValue([
+      {
+        data: { result: testData, nextToken: undefined },
+        message: '',
+        hasError: false,
+        isLoading: false,
+      },
+      mockHandleList,
+    ]);
+
     // go next
     act(() => {
       result.current.onPaginate(2);
@@ -156,6 +195,8 @@ describe('useLocationsView', () => {
 
     // check if data is correct
     expect(result.current.page).toEqual(2);
+    expect(result.current.isPaginateNextDisabled).toBe(true);
+    expect(result.current.isPaginatePreviousDisabled).toBe(false);
     expect(result.current.pageItems).toEqual(testData.slice(3));
 
     // go previous
@@ -165,6 +206,8 @@ describe('useLocationsView', () => {
 
     // check data
     expect(result.current.page).toEqual(1);
+    expect(result.current.isPaginateNextDisabled).toBe(false);
+    expect(result.current.isPaginatePreviousDisabled).toBe(true);
     expect(result.current.pageItems).toEqual(testData.slice(0, 3));
   });
 

@@ -8,8 +8,8 @@ import { LocationData, LocationItemData } from '../../actions';
 import { LocationState } from '../../providers/store/location';
 
 interface UseLocationDetailView {
-  hasNextPage: boolean;
   hasError: boolean;
+  hasNextPage: boolean;
   highestPageVisited: number;
   isLoading: boolean;
   location: LocationState;
