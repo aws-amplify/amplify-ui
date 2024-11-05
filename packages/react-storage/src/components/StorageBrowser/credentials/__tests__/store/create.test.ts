@@ -1,6 +1,3 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: Apache-2.0
-
 import { createLocationCredentialsStore } from '../../store/create';
 import { createStore, getValue, removeStore } from '../../store/registry';
 import { LocationCredentialsStore } from '../../types';

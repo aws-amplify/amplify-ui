@@ -25,15 +25,6 @@ jest.spyOn(ActionsModule, 'useAction').mockReturnValue([
   jest.fn(),
 ]);
 
-const INITIAL_NAVIGATE_STATE = [
-  { location: undefined, history: [], path: undefined },
-  jest.fn(),
-];
-const INITIAL_ACTION_STATE = [
-  { selected: { type: undefined, items: undefined }, actions: {} },
-  jest.fn(),
-];
-
 const accountId = '012345678901';
 const getLocationCredentials = jest.fn();
 const listLocations = jest.fn();
@@ -57,7 +48,7 @@ describe('createStorageBrowser', () => {
 
     // @ts-expect-error intentionally omit registerAuthListener
     expect(() => createStorageBrowser(input)).toThrow(
-      'StorageManager: `registerAuthListener` must be a function.'
+      'StorageBrowser: `registerAuthListener` must be a function.'
     );
   });
 

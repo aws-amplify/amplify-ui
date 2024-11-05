@@ -1,49 +1,49 @@
 import { copy } from '../../storage-internal';
 import {
   TaskHandler,
-  TaskHandlerOptions,
   TaskHandlerInput,
+  TaskData,
+  TaskHandlerOptions,
   TaskHandlerOutput,
 } from '../types';
+import { FileData } from './listLocationItems';
 
-import { constructBucket, resolveHandlerResult } from './utils';
+import { constructBucket } from './utils';
 
-interface CopyPayload {
-  destinationPrefix: string;
-}
+export interface CopyHandlerData extends TaskData, FileData {}
 
 export interface CopyHandlerInput
-  extends TaskHandlerInput<CopyPayload, TaskHandlerOptions> {}
+  extends TaskHandlerInput<CopyHandlerData, TaskHandlerOptions> {
+  destinationPrefix: string;
+}
 export interface CopyHandlerOutput extends TaskHandlerOutput {}
 
 export interface CopyHandler
   extends TaskHandler<CopyHandlerInput, CopyHandlerOutput> {}
 
 export const copyHandler: CopyHandler = (input) => {
-  const { config, key, options, prefix, data } = input;
-  const { accountId, credentials, customEndpoint } = config;
-  const { payload } = data;
-  const { destinationPrefix } = payload;
+  const { config, destinationPrefix: path, data } = input;
+  const {
+    accountId: expectedBucketOwner,
+    credentials,
+    customEndpoint,
+  } = config;
+  const { key: sourcePath } = data;
 
-  const sourceKey = `${prefix}${key}`;
-  const destinationPath = `${destinationPrefix}${key}`;
   const bucket = constructBucket(config);
 
+  const source = { bucket, expectedBucketOwner, path: sourcePath };
+  const destination = { bucket, expectedBucketOwner, path };
+
   const result = copy({
-    source: { path: sourceKey, bucket, expectedBucketOwner: accountId },
-    destination: {
-      path: destinationPath,
-      bucket,
-      expectedBucketOwner: accountId,
-    },
-    options: {
-      locationCredentialsProvider: credentials,
-      customEndpoint,
-    },
+    source,
+    destination,
+    options: { locationCredentialsProvider: credentials, customEndpoint },
   });
 
   return {
-    key,
-    result: resolveHandlerResult({ result, key, isCancelable: false, options }),
+    result: result
+      .then(() => ({ status: 'COMPLETE' as const }))
+      .catch(({ message }: Error) => ({ message, status: 'FAILED' as const })),
   };
 };

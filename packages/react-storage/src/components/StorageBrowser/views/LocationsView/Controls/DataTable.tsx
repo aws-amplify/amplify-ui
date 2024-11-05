@@ -8,11 +8,8 @@ import {
   TABLE_HEADER_BUTTON_CLASS_NAME,
   TABLE_HEADER_CLASS_NAME,
 } from '../../../components/DataTable';
-import { useLocationsData } from '../../../do-not-import-from-here/actions';
 
 import { ButtonElement, IconElement } from '../../../context/elements';
-import { useStore } from '../../../providers/store';
-
 import { compareStrings } from '../../utils';
 import { LocationData } from '../../../actions';
 
@@ -108,7 +105,9 @@ const getLocationsData = ({
       children: (
         <ButtonElement
           className={TABLE_DATA_BUTTON_CLASS}
-          onClick={() => onLocationClick(location)}
+          onClick={() => {
+            onLocationClick(location);
+          }}
           variant="table-data"
         >
           {location.prefix.length ? location.prefix : location.bucket}
@@ -122,32 +121,26 @@ const getLocationsData = ({
   return { columns, rows };
 };
 
-export function DataTableControl({
-  onNavigate,
-  range,
-}: {
-  onNavigate?: (destination: LocationData) => void;
-  range: [start: number, end: number];
-}): React.JSX.Element | null {
-  const [{ data, hasError }] = useLocationsData();
-  const dispatchStoreAction = useStore()[1];
+interface DataTableControlProps {
+  items: LocationData[];
+  onNavigate: (location: LocationData) => void;
+}
 
+export function DataTableControl({
+  items,
+  onNavigate,
+}: DataTableControlProps): React.JSX.Element | null {
   const [sortState, setSortState] = React.useState<SortState>({
     selection: 'prefix',
     direction: 'ascending',
   });
 
-  const [start, end] = range;
-
   const locationsData = React.useMemo(
     () =>
       getLocationsData({
-        data: data.result.slice(start, end),
+        data: items,
         sortState,
-        onLocationClick: (destination) => {
-          onNavigate?.(destination);
-          dispatchStoreAction({ type: 'NAVIGATE', destination });
-        },
+        onLocationClick: onNavigate,
         onTableHeaderClick: (selection: string) => {
           setSortState((prevState) => ({
             selection,
@@ -156,8 +149,8 @@ export function DataTableControl({
           }));
         },
       }),
-    [data.result, dispatchStoreAction, onNavigate, sortState, start, end]
+    [items, onNavigate, sortState]
   );
 
-  return hasError ? null : <DataTable data={locationsData} />;
+  return <DataTable data={locationsData} />;
 }

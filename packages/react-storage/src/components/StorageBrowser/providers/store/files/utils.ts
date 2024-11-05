@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { isString, isUndefined } from '@aws-amplify/ui';
+import { isEmpty, isString, isUndefined } from '@aws-amplify/ui';
 import { HandleFileSelect } from '@aws-amplify/ui-react/internal';
 
 import { SelectionType } from '../../../actions/configs';
@@ -14,22 +14,27 @@ export const resolveFiles = (
   if (!files?.length) return prevItems;
 
   // construct `nextItems` and filter out existing `file` entries
-  const nextItems = files.reduce(
-    (items: FileItems, file) =>
-      prevItems.some(
-        ({ item: { name, webkitRelativePath } }) =>
-          name === file.name && webkitRelativePath === file.webkitRelativePath
-      )
-        ? items
-        : [...items, { key: file.name, id: crypto.randomUUID(), item: file }],
-    []
-  );
+  const nextItems = files.reduce((items: FileItems, file) => {
+    const { name, webkitRelativePath } = file;
+
+    return prevItems.some(
+      ({ file: existing }) =>
+        existing.name === name &&
+        existing.webkitRelativePath === webkitRelativePath
+    )
+      ? items
+      : items.concat({
+          key: isEmpty(webkitRelativePath) ? name : webkitRelativePath,
+          id: crypto.randomUUID(),
+          file,
+        });
+  }, []);
 
   if (!nextItems.length) return prevItems;
 
   if (!prevItems.length) return nextItems;
 
-  return [...prevItems, ...nextItems];
+  return prevItems.concat(nextItems);
 };
 
 export const filesReducer: React.Reducer<

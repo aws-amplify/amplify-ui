@@ -23,7 +23,7 @@ const location = {
 const dispatchStoreAction = jest.fn();
 useStoreSpy.mockReturnValue([
   {
-    history: { current: location, previous: [location] },
+    location: { current: location, path: '', key: location.prefix },
   } as StoreModule.UseStoreState,
   dispatchStoreAction,
 ]);
@@ -36,7 +36,7 @@ const config: ConfigModule.GetActionInput = jest.fn(() => ({
 }));
 
 const testFile = new File([], 'test-ooo');
-const fileItem = { id: 'some-uuid', item: testFile, key: testFile.name };
+const fileItem = { id: 'some-uuid', file: testFile, key: testFile.name };
 
 jest.spyOn(ConfigModule, 'useGetActionInput').mockReturnValue(config);
 
@@ -77,7 +77,7 @@ describe('UploadControls', () => {
 
     useStoreSpy.mockReturnValue([
       {
-        history: { current: rootLocation, previous: [rootLocation] },
+        location: { current: rootLocation, path: '', key: rootLocation.prefix },
         files: [fileItem],
       } as StoreModule.UseStoreState,
       dispatchStoreAction,
@@ -85,15 +85,19 @@ describe('UploadControls', () => {
 
     const handleProcessTasks = jest.fn();
     useProcessTasksSpy.mockReturnValue([
-      [
-        {
-          ...fileItem,
-          cancel: undefined,
-          message: undefined,
-          remove: jest.fn(),
-          status: 'QUEUED',
-        },
-      ],
+      {
+        isProcessing: false,
+        tasks: [
+          {
+            data: fileItem,
+            cancel: jest.fn(),
+            message: undefined,
+            remove: jest.fn(),
+            progress: 0,
+            status: 'QUEUED',
+          },
+        ],
+      },
       handleProcessTasks,
     ]);
 
@@ -116,14 +120,14 @@ describe('UploadControls', () => {
         region: 'region',
       },
       options: { preventOverwrite: true },
-      prefix: '',
+      destinationPrefix: rootLocation.prefix,
     });
   });
 
   it('calls `useProcessTasks` with the expected values when provided a nested `prefix`', async () => {
     useStoreSpy.mockReturnValue([
       {
-        history: { current: location, previous: [location] },
+        location: { current: location, path: '', key: location.prefix },
         files: [fileItem],
       } as StoreModule.UseStoreState,
       dispatchStoreAction,
@@ -131,15 +135,19 @@ describe('UploadControls', () => {
 
     const handleProcessTasks = jest.fn();
     useProcessTasksSpy.mockReturnValue([
-      [
-        {
-          ...fileItem,
-          cancel: undefined,
-          message: undefined,
-          remove: jest.fn(),
-          status: 'QUEUED',
-        },
-      ],
+      {
+        isProcessing: false,
+        tasks: [
+          {
+            data: fileItem,
+            cancel: jest.fn(),
+            message: undefined,
+            remove: jest.fn(),
+            progress: 0,
+            status: 'QUEUED',
+          },
+        ],
+      },
       handleProcessTasks,
     ]);
 
@@ -161,7 +169,7 @@ describe('UploadControls', () => {
         region: 'region',
       },
       options: { preventOverwrite: true },
-      prefix: location.prefix,
+      destinationPrefix: location.prefix,
     });
   });
 });

@@ -1,24 +1,32 @@
-import { uploadData, UploadDataInput } from '../../storage-internal';
+import { isCancelError } from 'aws-amplify/storage';
 import { isFunction } from '@aws-amplify/ui';
 
+import { uploadData, UploadDataInput } from '../../storage-internal';
+
 import {
-  CancelableTaskHandlerOutput,
+  TaskData,
   TaskHandler,
   TaskHandlerInput,
+  TaskHandlerOutput,
   TaskHandlerOptions,
 } from '../types';
 
-import { constructBucket, resolveHandlerResult } from './utils';
+import { constructBucket } from './utils';
 
 export interface UploadHandlerOptions extends TaskHandlerOptions {
-  onCancel?: (key: string) => void;
-  onProgress?: (key: string, progress: number | undefined) => void;
   preventOverwrite?: boolean;
 }
 
+export interface UploadHandlerData extends TaskData {
+  file: File;
+}
+
 export interface UploadHandlerInput
-  extends TaskHandlerInput<File, UploadHandlerOptions> {}
-export interface UploadHandlerOutput extends CancelableTaskHandlerOutput {}
+  extends TaskHandlerInput<UploadHandlerData, UploadHandlerOptions> {
+  destinationPrefix: string;
+}
+
+export interface UploadHandlerOutput extends TaskHandlerOutput {}
 
 export interface UploadHandler
   extends TaskHandler<UploadHandlerInput, UploadHandlerOutput> {}
@@ -34,29 +42,26 @@ export const UNDEFINED_CALLBACKS = {
 };
 
 export const uploadHandler: UploadHandler = ({
-  config: _config,
-  data: _data,
-  key,
-  options: _options,
-  prefix,
+  config,
+  data,
+  destinationPrefix,
+  options,
 }) => {
-  const { accountId, customEndpoint, credentials, ...config } = _config;
-  const { payload: data } = _data;
-  const { onProgress, preventOverwrite, ...options } = _options ?? {};
-
-  const bucket = constructBucket(config);
+  const { accountId, credentials, customEndpoint } = config;
+  const { key, file } = data;
+  const { onProgress, preventOverwrite } = options ?? {};
 
   const input: UploadDataInput = {
-    path: `${prefix}${key}`,
-    data,
+    path: `${destinationPrefix}${key}`,
+    data: file,
     options: {
-      bucket,
+      bucket: constructBucket(config),
       expectedBucketOwner: accountId,
       locationCredentialsProvider: credentials,
       onProgress: ({ totalBytes, transferredBytes }) => {
         if (isFunction(onProgress))
           onProgress(
-            key,
+            data,
             totalBytes ? transferredBytes / totalBytes : undefined
           );
       },
@@ -68,10 +73,17 @@ export const uploadHandler: UploadHandler = ({
   const { cancel, pause, resume, result } = uploadData(input);
 
   return {
-    ...(data.size > MULTIPART_UPLOAD_THRESHOLD_BYTES
+    ...(file.size > MULTIPART_UPLOAD_THRESHOLD_BYTES
       ? { cancel, pause, resume }
       : UNDEFINED_CALLBACKS),
-    key,
-    result: resolveHandlerResult({ result, key, isCancelable: true, options }),
+    result: result
+      .then(() => ({ status: 'COMPLETE' as const }))
+      .catch((error: Error) => {
+        const { message } = error;
+        return {
+          message,
+          status: isCancelError(error) ? 'CANCELED' : 'FAILED',
+        };
+      }),
   };
 };

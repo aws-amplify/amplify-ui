@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import * as ActionViewHooks from '../hooks/useDeleteActionView';
+import * as UseDeleteViewModule from '../DeleteView/useDeleteView';
 import * as Config from '../../../providers/configuration';
 
 import userEvent from '@testing-library/user-event';
@@ -14,64 +14,79 @@ const TEST_ACTIONS = {
 };
 
 jest.spyOn(TempActions, 'useTempActions').mockReturnValue(TEST_ACTIONS);
+const useDeleteViewSpy = jest.spyOn(UseDeleteViewModule, 'useDeleteView');
 
 describe('DeleteFilesControls', () => {
-  const onCloseMock = jest.fn();
-  const onCanceleMock = jest.fn();
-  const onStartMock = jest.fn();
+  const onExitMock = jest.fn();
+  const onActionCancelMock = jest.fn();
+  const onActionStartMock = jest.fn();
 
   beforeEach(() => {
     jest.clearAllMocks();
-    jest
-      .spyOn(ActionViewHooks, 'useDeleteActionView')
-      .mockImplementation(() => {
-        return {
-          onClose: onCloseMock,
-          onCancel: onCanceleMock,
-          onStart: onStartMock,
-          taskCounts: {
-            CANCELED: 0,
-            COMPLETE: 0,
-            FAILED: 0,
-            INITIAL: 0,
-            PENDING: 0,
-            QUEUED: 3,
-            TOTAL: 3,
-          },
-          tasks: [
-            {
-              key: 'test-item',
-              status: 'QUEUED',
+    useDeleteViewSpy.mockImplementation(() => {
+      return {
+        onExit: onExitMock,
+        onActionCancel: onActionCancelMock,
+        onActionStart: onActionStartMock,
+        taskCounts: {
+          CANCELED: 0,
+          COMPLETE: 0,
+          FAILED: 0,
+          INITIAL: 0,
+          OVERWRITE_PREVENTED: 0,
+          PENDING: 0,
+          QUEUED: 3,
+          TOTAL: 3,
+        },
+        tasks: [
+          {
+            status: 'QUEUED',
+            data: {
               id: 'id',
-              item: {},
-              cancel: jest.fn(),
-              remove: jest.fn(),
-              message: 'test-message',
+              key: 'test-item',
+              lastModified: new Date(),
+              size: 1000,
+              type: 'FILE',
             },
-            {
-              key: 'test-item2',
-              status: 'QUEUED',
+            cancel: jest.fn(),
+            progress: undefined,
+            remove: jest.fn(),
+            message: 'test-message',
+          },
+          {
+            status: 'QUEUED',
+            data: {
               id: 'id2',
-              item: {},
-              cancel: jest.fn(),
-              remove: jest.fn(),
-              message: 'test-message',
+              key: 'test-item2',
+              lastModified: new Date(),
+              size: 1000,
+              type: 'FILE',
             },
-            {
-              key: 'test-item3',
-              status: 'QUEUED',
+            cancel: jest.fn(),
+            progress: undefined,
+            remove: jest.fn(),
+            message: 'test-message',
+          },
+          {
+            status: 'QUEUED',
+            data: {
               id: 'id3',
-              item: {},
-              cancel: jest.fn(),
-              remove: jest.fn(),
-              message: 'test-message',
+              key: 'test-item3',
+              lastModified: new Date(),
+              size: 1000,
+              type: 'FILE',
             },
-          ],
-          disableCancel: false,
-          disableClose: false,
-          disablePrimary: false,
-        };
-      });
+            cancel: jest.fn(),
+            progress: undefined,
+            remove: jest.fn(),
+            message: 'test-message',
+          },
+        ],
+        disableCancel: false,
+        disableClose: false,
+        disablePrimary: false,
+      };
+    });
 
     jest.spyOn(Config, 'useGetActionInput').mockReturnValue(() => ({
       accountId: '123456789012',
@@ -89,16 +104,17 @@ describe('DeleteFilesControls', () => {
     expect(getByRole('button', { name: 'Cancel' })).toBeInTheDocument();
   });
 
-  it('disables controls based on useDeleteActionView hook', () => {
-    jest.spyOn(ActionViewHooks, 'useDeleteActionView').mockReturnValue({
-      onClose: jest.fn(),
-      onCancel: jest.fn(),
-      onStart: jest.fn(),
+  it('disables controls based on useDeleteView hook', () => {
+    useDeleteViewSpy.mockReturnValue({
+      onExit: jest.fn(),
+      onActionCancel: jest.fn(),
+      onActionStart: jest.fn(),
       taskCounts: {
         CANCELED: 0,
         COMPLETE: 0,
         FAILED: 0,
         INITIAL: 0,
+        OVERWRITE_PREVENTED: 0,
         PENDING: 0,
         QUEUED: 3,
         TOTAL: 3,
@@ -116,27 +132,27 @@ describe('DeleteFilesControls', () => {
     expect(getByRole('button', { name: 'Cancel' })).toBeDisabled();
   });
 
-  it('calls onClose when Exit button is clicked', async () => {
+  it('calls onExit when Exit button is clicked', async () => {
     const { getByRole } = render(<DeleteFilesControls />);
 
     await userEvent.click(getByRole('button', { name: 'Back' }));
 
-    expect(onCloseMock).toHaveBeenCalledTimes(1);
+    expect(onExitMock).toHaveBeenCalledTimes(1);
   });
 
-  it('calls onStart when Start button is clicked', async () => {
+  it('calls onActionStart when Start button is clicked', async () => {
     const { getByRole } = render(<DeleteFilesControls />);
 
     await userEvent.click(getByRole('button', { name: 'Start' }));
 
-    expect(onStartMock).toHaveBeenCalledTimes(1);
+    expect(onActionStartMock).toHaveBeenCalledTimes(1);
   });
 
-  it('calls onCancel when Cancel button is clicked', async () => {
+  it('calls onActionCancel when Cancel button is clicked', async () => {
     const { getByRole } = render(<DeleteFilesControls />);
 
     await userEvent.click(getByRole('button', { name: 'Cancel' }));
 
-    expect(onCanceleMock).toHaveBeenCalledTimes(1);
+    expect(onActionCancelMock).toHaveBeenCalledTimes(1);
   });
 });
