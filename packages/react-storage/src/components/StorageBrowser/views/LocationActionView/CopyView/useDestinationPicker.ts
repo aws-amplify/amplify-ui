@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import { isString } from '@aws-amplify/ui';
 import { usePaginate } from '../../hooks/usePaginate';
 import {
   listLocationItemsHandler,
@@ -58,12 +57,10 @@ export const useDestinationPicker = ({
   const resultCount = items.length;
   const hasNextToken = !!nextToken;
 
-  const hasValidPrefix = isString(prefix);
   const onPaginateNext = () => {
-    if (!hasValidPrefix) return;
     handleList({
       config: getInput(),
-      prefix: prefix,
+      prefix,
       options: { ...DEFAULT_LIST_OPTIONS, nextToken, exclude: 'FILE' },
     });
   };
@@ -77,7 +74,7 @@ export const useDestinationPicker = ({
   useEffect(() => {
     handleList({
       config: getInput(),
-      prefix: prefix,
+      prefix,
       options: { ...DEFAULT_REFRESH_OPTIONS, nextToken, exclude: 'FILE' },
     });
   }, [getInput, handleList, nextToken, prefix]);
@@ -101,13 +98,11 @@ export const useDestinationPicker = ({
       handlePaginatePrevious();
     },
     onSearch: (query: string) => {
-      if (!hasValidPrefix) return;
       handleList({
         config: getInput(),
-        prefix: prefix,
+        prefix,
         options: {
           ...DEFAULT_LIST_OPTIONS,
-          nextToken,
           exclude: 'FILE',
           search: { query, filterKey: 'key' },
         },
