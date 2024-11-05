@@ -96,30 +96,28 @@ export const DestinationPicker = ({
 
   return (
     <ControlsContextProvider {...contextValue}>
-      <ViewElement>
-        <DescriptionList
-          descriptions={[
-            {
-              term: `${actionSetDestination}:`,
-              details: destinationList.length ? (
-                <>
-                  {destinationList.map((key, index) => (
-                    <Breadcrumb
-                      isCurrent={index === destinationList.length - 1}
-                      key={`${key}-${index}`}
-                      onNavigate={() => handleNavigatePath(index)}
-                      // If bucket level access, show bucket name as root breadcrumb
-                      name={key === '' ? bucket : key.replace('/', '')}
-                    />
-                  ))}
-                </>
-              ) : (
-                '-'
-              ),
-            },
-          ]}
-        />
-      </ViewElement>
+      <DescriptionList
+        descriptions={[
+          {
+            term: `${actionSetDestination}:`,
+            details: destinationList.length ? (
+              <>
+                {destinationList.map((key, index) => (
+                  <Breadcrumb
+                    isCurrent={index === destinationList.length - 1}
+                    key={`${key}-${index}`}
+                    onNavigate={() => handleNavigatePath(index)}
+                    // If bucket level access, show bucket name as root breadcrumb
+                    name={key === '' ? bucket : key.replace('/', '')}
+                  />
+                ))}
+              </>
+            ) : (
+              '-'
+            ),
+          },
+        ]}
+      />
       <ViewElement className={`${CLASS_BASE}__action-destination`}>
         <SearchControl />
         <PaginateControl
