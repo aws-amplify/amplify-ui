@@ -3,35 +3,27 @@ import { renderHook, act } from '@testing-library/react';
 import * as Store from '../../../../providers/store';
 import * as Config from '../../../../providers/configuration';
 import * as Tasks from '../../../../tasks';
-import { LocationData } from '../../../../actions';
+import { useCopyView } from '../useCopyView';
 
-import { useDeleteView } from '../useDeleteView';
+import { LocationData } from '../../../../actions';
 
 const mockProcessTasks = jest.fn();
 const mockDispatchStoreAction = jest.fn();
 
-const credentials = jest.fn();
-jest.spyOn(Config, 'useGetActionInput').mockReturnValue(() => ({
-  accountId: '123456789012',
-  bucket: 'XXXXXXXXXXX',
-  credentials,
-  region: 'us-west-2',
-}));
-
-describe('useDeleteView', () => {
+describe('useCopyView', () => {
   beforeEach(() => {
     jest.clearAllMocks();
 
     jest.spyOn(Store, 'useStore').mockReturnValue([
       {
-        actionType: 'DELETE',
+        actionType: 'COPY',
         files: [],
         location: {
           current: {
             prefix: 'test-prefix/',
             bucket: 'bucket',
             id: 'id',
-            permission: 'READ',
+            permission: 'READWRITE',
             type: 'PREFIX',
           },
           path: '',
@@ -51,6 +43,13 @@ describe('useDeleteView', () => {
       },
       mockDispatchStoreAction,
     ]);
+
+    jest.spyOn(Config, 'useGetActionInput').mockReturnValue(() => ({
+      accountId: '123456789012',
+      bucket: 'XXXXXXXXXXX',
+      credentials: jest.fn(),
+      region: 'us-west-2',
+    }));
 
     // Mock the useProcessTasks hook
     jest.spyOn(Tasks, 'useProcessTasks').mockReturnValue([
@@ -88,7 +87,7 @@ describe('useDeleteView', () => {
   });
 
   it('should return the correct initial state', () => {
-    const { result } = renderHook(() => useDeleteView({}));
+    const { result } = renderHook(() => useCopyView({}));
 
     expect(result.current).toEqual(
       expect.objectContaining({
@@ -115,17 +114,18 @@ describe('useDeleteView', () => {
   });
 
   it('should call processTasks when onActionStart is called', () => {
-    const { result } = renderHook(() => useDeleteView({}));
+    const { result } = renderHook(() => useCopyView({}));
 
     act(() => {
       result.current.onActionStart();
     });
 
     expect(mockProcessTasks).toHaveBeenCalledWith({
+      destinationPrefix: 'test-prefix/',
       config: {
         accountId: '123456789012',
         bucket: 'XXXXXXXXXXX',
-        credentials,
+        credentials: expect.any(Function),
         region: 'us-west-2',
       },
     });
@@ -150,7 +150,7 @@ describe('useDeleteView', () => {
       mockProcessTasks,
     ]);
 
-    const { result } = renderHook(() => useDeleteView({}));
+    const { result } = renderHook(() => useCopyView({}));
 
     act(() => {
       result.current.onActionCancel();
@@ -161,7 +161,7 @@ describe('useDeleteView', () => {
 
   it('should reset state when onExit is called', () => {
     const mockOnExit = jest.fn();
-    const { result } = renderHook(() => useDeleteView({ onExit: mockOnExit }));
+    const { result } = renderHook(() => useCopyView({ onExit: mockOnExit }));
 
     act(() => {
       result.current.onExit({} as LocationData);
@@ -210,7 +210,7 @@ describe('useDeleteView', () => {
       jest.fn(),
     ]);
 
-    const { result } = renderHook(() => useDeleteView({}));
+    const { result } = renderHook(() => useCopyView({}));
 
     expect(result.current).toEqual(
       expect.objectContaining({
@@ -255,7 +255,7 @@ describe('useDeleteView', () => {
       jest.fn(),
     ]);
 
-    const { result } = renderHook(() => useDeleteView({}));
+    const { result } = renderHook(() => useCopyView({}));
 
     expect(result.current).toEqual(
       expect.objectContaining({
@@ -300,7 +300,7 @@ describe('useDeleteView', () => {
       jest.fn(),
     ]);
 
-    const { result } = renderHook(() => useDeleteView({}));
+    const { result } = renderHook(() => useCopyView({}));
 
     expect(result.current).toEqual(
       expect.objectContaining({
@@ -312,7 +312,7 @@ describe('useDeleteView', () => {
   });
 
   it('should provide tasks data and task counts', () => {
-    const { result } = renderHook(() => useDeleteView({}));
+    const { result } = renderHook(() => useCopyView({}));
 
     expect(result.current.tasks).toEqual(expect.any(Array));
     expect(result.current.taskCounts).toEqual({

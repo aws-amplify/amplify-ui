@@ -51,7 +51,10 @@ export const Search = ({
           <ButtonElement
             aria-label={displayText.searchClearLabel}
             className={`${BLOCK_NAME}__field-clear-button`}
-            onClick={() => setTerm('')}
+            onClick={() => {
+              setTerm('');
+              onSearch('', subfoldersIncluded);
+            }}
             variant="refresh"
           >
             <IconElement variant="dismiss" />

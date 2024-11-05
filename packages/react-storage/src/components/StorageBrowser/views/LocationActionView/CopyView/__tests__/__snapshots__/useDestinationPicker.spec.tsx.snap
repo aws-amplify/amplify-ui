@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`useDestinationPicker should return the correct initial state 1`] = `
+{
+  "bucket": "bucket",
+  "currentPage": 1,
+  "handleNext": [Function],
+  "handlePrevious": [Function],
+  "hasError": false,
+  "hasNextToken": false,
+  "isLoading": true,
+  "items": [],
+  "message": undefined,
+  "range": [
+    0,
+    10,
+  ],
+}
+`;

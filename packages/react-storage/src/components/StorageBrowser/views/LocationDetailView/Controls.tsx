@@ -11,6 +11,7 @@ import { ControlsContextProvider } from '../../controls/context';
 import { ControlsContext } from '../../controls/types';
 import { CLASS_BASE } from '../constants';
 import { SearchControl } from '../../controls/SearchControl';
+import { ViewElement } from '../../context/elements';
 
 export const DEFAULT_ERROR_MESSAGE = 'There was an error loading items.';
 const DEFAULT_PAGE_SIZE = 100;
@@ -72,7 +73,6 @@ export const LocationDetailViewControls = ({
     showIncludeSubfolders,
     location,
     hasError,
-    message,
     searchPlaceholder,
     onRefresh,
     onPaginateNext,
@@ -105,22 +105,26 @@ export const LocationDetailViewControls = ({
         className={`${CLASS_BASE}__location-detail-view-navigation`}
       />
       <Title />
-      <DataRefreshControl
-        className={`${CLASS_BASE}__locations-detail-view-data-refresh`}
-      />
-      <ActionsMenuControl
-        onActionSelect={onActionSelect}
-        disabled={isLoading}
-      />
-      <SearchControl />
-      <Paginate
-        currentPage={page}
-        disableNext={isPaginateNextDisabled}
-        disablePrevious={isPaginatePreviousDisabled}
-        handleNext={onPaginateNext}
-        handlePrevious={onPaginatePrevious}
-      />
-      <LocationDetailMessage show={hasError} message={message} />
+      <ViewElement className={`${CLASS_BASE}__location-detail-view-controls`}>
+        <SearchControl
+          className={`${CLASS_BASE}__location-detail-view-search`}
+        />
+        <Paginate
+          currentPage={page}
+          disableNext={isPaginateNextDisabled}
+          disablePrevious={isPaginatePreviousDisabled}
+          handleNext={onPaginateNext}
+          handlePrevious={onPaginatePrevious}
+        />
+        <DataRefreshControl
+          className={`${CLASS_BASE}__locations-detail-view-data-refresh`}
+        />
+        <ActionsMenuControl
+          onActionSelect={onActionSelect}
+          disabled={isLoading}
+        />
+      </ViewElement>
+      <LocationDetailMessage />
       <Loading show={isLoading} />
       <LocationDetailViewTable
         show={pageItems.length > 0 && !hasError}

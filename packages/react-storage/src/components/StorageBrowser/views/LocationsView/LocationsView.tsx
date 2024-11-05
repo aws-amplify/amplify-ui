@@ -11,6 +11,7 @@ import { DataRefreshControl } from '../../controls/DataRefreshControl';
 import { SearchControl } from '../../controls/SearchControl';
 
 import { LocationsViewProps } from './types';
+import { ViewElement } from '../../context/elements';
 
 export const DEFAULT_ERROR_MESSAGE = 'There was an error loading locations.';
 
@@ -81,17 +82,19 @@ export function LocationsView({
         data-testid="LOCATIONS_VIEW"
       >
         <Title>Home</Title>
-        <DataRefreshControl
-          className={`${CLASS_BASE}__locations-view-data-refresh`}
-        />
-        <SearchControl />
-        <Paginate
-          currentPage={page}
-          disableNext={isPaginateNextDisabled}
-          disablePrevious={isPaginatePreviousDisabled}
-          handleNext={onPaginateNext}
-          handlePrevious={onPaginatePrevious}
-        />
+        <ViewElement className={`${CLASS_BASE}__location-detail-view-controls`}>
+          <SearchControl className={`${CLASS_BASE}__locations-view-search`} />
+          <Paginate
+            currentPage={page}
+            disableNext={isPaginateNextDisabled}
+            disablePrevious={isPaginatePreviousDisabled}
+            handleNext={onPaginateNext}
+            handlePrevious={onPaginatePrevious}
+          />
+          <DataRefreshControl
+            className={`${CLASS_BASE}__locations-view-data-refresh`}
+          />
+        </ViewElement>
         <LocationsMessage show={hasError} message={message} />
         <Loading show={isLoading} />
         {hasError ? null : (
