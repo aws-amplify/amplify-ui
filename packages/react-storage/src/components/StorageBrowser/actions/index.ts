@@ -23,7 +23,6 @@ export {
   ListLocationsHandlerOutput,
   LocationData,
   LocationItemData,
-  LocationItemType,
   LocationType,
   uploadHandler,
   UploadHandler,

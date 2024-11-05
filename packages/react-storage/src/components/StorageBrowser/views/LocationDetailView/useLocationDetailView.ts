@@ -10,11 +10,11 @@ import {
   ListLocationItemsHandlerOptions,
   LocationData,
   LocationItemData,
-  LocationItemType,
 } from '../../actions';
 import { LocationState } from '../../providers/store/location';
 import { createEnhancedListHandler } from '../../actions/createEnhancedListHandler';
 import { useGetActionInput } from '../../providers/configuration';
+import { LocationItemType } from '../../actions/handlers';
 
 interface UseLocationDetailView {
   hasNextPage: boolean;
