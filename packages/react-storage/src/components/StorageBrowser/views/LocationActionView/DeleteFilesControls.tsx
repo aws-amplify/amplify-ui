@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { Controls } from '../Controls';
-import { ButtonElement } from '../../context/elements';
 import { DataTableControl } from '../../controls/DataTableControl';
 import { ControlsContextProvider } from '../../controls/context';
 import { CLASS_BASE } from '../constants';
@@ -13,6 +12,7 @@ import { useStore } from '../../providers/store';
 import { getDeleteActionViewTableData } from './utils';
 import { ActionStartControl } from '../../controls/ActionStartControl';
 import { LocationData } from '../../actions';
+import { ActionCancelControl } from '../../controls/ActionCancelControl';
 
 const { Exit } = Controls;
 
@@ -44,9 +44,12 @@ export const DeleteFilesControls = (props: {
       tableData,
       isActionStartDisabled: disablePrimary,
       actionStartLabel: 'Start',
+      actionCancelLabel: 'Cancel',
+      isActionCancelDisabled: disableCancel,
     },
     actionsConfig: { type: 'BATCH_ACTION', isCancelable: true },
     onActionStart,
+    onActionCancel,
   };
 
   return (
@@ -58,17 +61,12 @@ export const DeleteFilesControls = (props: {
         disabled={disableClose}
       />
       <Title />
-      <ActionStartControl />
-      <ButtonElement
-        variant="cancel"
-        disabled={disableCancel}
-        className={`${CLASS_BASE}__cancel`}
-        onClick={() => {
-          onActionCancel();
-        }}
-      >
-        Cancel
-      </ButtonElement>
+      <ActionStartControl
+        className={`${CLASS_BASE}__delete-files-action-start`}
+      />
+      <ActionCancelControl
+        className={`${CLASS_BASE}__delete-files-action-cancel`}
+      />
       <StatusDisplayControl
         className={`${CLASS_BASE}__action-status-display`}
       />
