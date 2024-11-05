@@ -2,23 +2,22 @@ import React from 'react';
 import { act, render } from '@testing-library/react';
 import userEvent, { UserEvent } from '@testing-library/user-event';
 
-import * as ActionsModule from '../../../do-not-import-from-here/actions';
-import * as StoreModule from '../../../providers/store';
+import * as AmplifyReactCore from '@aws-amplify/ui-react-core';
 
+import * as StoreModule from '../../../providers/store';
+import * as ConfigModule from '../../../providers/configuration';
 import { LocationDetailView } from '../LocationDetailView';
 import {
   DEFAULT_LIST_OPTIONS,
   DEFAULT_ERROR_MESSAGE,
 } from '../LocationDetailView';
-import { ListLocationItemsHandlerOutput } from '../../../actions';
+import {
+  ActionInputConfig,
+  ListLocationItemsHandlerOutput,
+} from '../../../actions';
 
 jest.mock('../Controls/ActionsMenu');
 jest.mock('../../../providers/configuration');
-jest
-  .spyOn(ActionsModule, 'ActionProvider')
-  .mockImplementation(({ children }: { children?: React.ReactNode }) => (
-    <>{children}</>
-  ));
 jest.mock('../../../controls/NavigationControl', () => ({
   NavigationControl: () => 'NavigationControl',
 }));
@@ -64,9 +63,9 @@ const mockListItemsAction = ({
   result: any[];
   nextToken?: string;
 }) => {
-  jest.spyOn(ActionsModule, 'useAction').mockReturnValue([
+  jest.spyOn(AmplifyReactCore, 'useDataState').mockReturnValue([
     {
-      data: { result, nextToken },
+      data: { items: result, nextToken },
       hasError,
       isLoading,
       message,
@@ -85,6 +84,13 @@ const location = {
   prefix: 'test-prefix/',
   type: 'PREFIX',
 };
+const useGetActionSpy = jest.spyOn(ConfigModule, 'useGetActionInput');
+const config: ActionInputConfig = {
+  bucket: 'bucky',
+  credentials: jest.fn(),
+  region: 'us-weast-1',
+};
+useGetActionSpy.mockReturnValue(() => config);
 
 describe('LocationDetailView', () => {
   let user: UserEvent;
@@ -152,13 +158,11 @@ describe('LocationDetailView', () => {
       } as StoreModule.UseStoreState,
       dispatchStoreAction,
     ]);
-
-    mockListItemsAction({ result: testResult });
-
     render(<LocationDetailView />);
 
     expect(handleList).toHaveBeenCalledTimes(1);
     expect(handleList).toHaveBeenCalledWith({
+      config,
       prefix: location.prefix,
       options: { ...DEFAULT_LIST_OPTIONS, refresh: true },
     });
@@ -184,6 +188,7 @@ describe('LocationDetailView', () => {
     });
 
     expect(handleList).toHaveBeenCalledWith({
+      config,
       prefix: location.prefix,
       options: { ...DEFAULT_LIST_OPTIONS, refresh: true },
     });

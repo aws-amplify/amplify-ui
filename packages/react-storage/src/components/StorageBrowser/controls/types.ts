@@ -40,6 +40,8 @@ export interface ControlsContext {
     isDataRefreshDisabled?: boolean;
     currentLocation?: LocationData;
     currentPath?: string;
+    showIncludeSubfolders?: boolean;
+    searchPlaceholder?: string;
     tableData?: TableData;
     taskCounts?: TaskCounts;
   };

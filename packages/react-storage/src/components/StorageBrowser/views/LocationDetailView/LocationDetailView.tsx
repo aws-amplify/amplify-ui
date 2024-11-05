@@ -1,7 +1,6 @@
 import React from 'react';
 import { resolveClassName } from '../utils';
 import { CLASS_BASE } from '../constants';
-import { useAction } from '../../do-not-import-from-here/actions';
 import { useStore } from '../../providers/store';
 import { Controls } from '../Controls';
 import { NavigationControl } from '../../controls/NavigationControl';
@@ -14,6 +13,7 @@ import { LocationDetailViewProps } from './types';
 import { getLocationDetailViewTableData } from './getLocationDetailViewTableData';
 import { DropZoneControl } from '../../controls/DropZoneControl';
 import { ViewElement } from '../../context/elements';
+import { SearchControl } from '../../controls/SearchControl';
 
 export const DEFAULT_ERROR_MESSAGE = 'There was an error loading items.';
 const DEFAULT_PAGE_SIZE = 100;
@@ -42,22 +42,20 @@ function Loading({ show }: { show?: boolean }) {
   return show ? <LoadingControl /> : null;
 }
 
-export const LocationDetailMessage = (): React.JSX.Element | null => {
-  const [{ hasError, message }] = useAction('LIST_LOCATION_ITEMS');
-
-  return hasError ? (
+export const LocationDetailMessage = ({
+  show,
+  message,
+}: {
+  show?: boolean;
+  message?: string;
+}): React.JSX.Element | null => {
+  return show ? (
     <Message variant="error">{message ?? DEFAULT_ERROR_MESSAGE}</Message>
   ) : null;
 };
 
-const LocationDetailEmptyMessage = () => {
-  const [{ data, hasError, isLoading }] = useAction('LIST_LOCATION_ITEMS');
-  const shouldShowEmptyMessage =
-    data.result.length === 0 && !isLoading && !hasError;
-
-  return shouldShowEmptyMessage ? (
-    <EmptyMessage>No items to show.</EmptyMessage>
-  ) : null;
+const LocationDetailEmptyMessage = ({ show }: { show?: boolean }) => {
+  return show ? <EmptyMessage>No items to show.</EmptyMessage> : null;
 };
 
 export function LocationDetailView({
@@ -78,6 +76,8 @@ export function LocationDetailView({
     fileDataItems,
     hasFiles,
     hasError,
+    message,
+    shouldShowEmptyMessage,
     onDropFiles,
     onRefresh,
     onPaginateNext,
@@ -122,6 +122,9 @@ export function LocationDetailView({
         />
         <Title />
         <ViewElement className={`${CLASS_BASE}__location-detail-view-controls`}>
+          <SearchControl
+            className={`${CLASS_BASE}__location-detail-view-search`}
+          />
           <Paginate
             currentPage={page}
             disableNext={isPaginateNextDisabled}
@@ -137,7 +140,7 @@ export function LocationDetailView({
             disabled={isLoading}
           />
         </ViewElement>
-        <LocationDetailMessage />
+        <LocationDetailMessage show={hasError} message={message} />
         <Loading show={isLoading} />
         {hasError ? null : (
           <ViewElement className={`${CLASS_BASE}__table-wrapper`}>
@@ -150,7 +153,7 @@ export function LocationDetailView({
             </DropZoneControl>
           </ViewElement>
         )}
-        <LocationDetailEmptyMessage />
+        <LocationDetailEmptyMessage show={shouldShowEmptyMessage} />
       </ControlsContextProvider>
     </div>
   );

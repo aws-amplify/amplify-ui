@@ -1,12 +1,20 @@
 import React from 'react';
 
 import { isFunction, isUndefined } from '@aws-amplify/ui';
+import { useDataState } from '@aws-amplify/ui-react-core';
+
 import { usePaginate } from '../hooks/usePaginate';
 import { useStore } from '../../providers/store';
-import { useAction } from '../../do-not-import-from-here/actions';
-import { LocationData, LocationItemData } from '../../actions';
+import {
+  LocationData,
+  LocationItemData,
+  listLocationItemsHandler,
+} from '../../actions';
 import { FileData } from '../../actions/handlers';
 import { isLastPage } from '../utils';
+import { createEnhancedListHandler } from '../../actions/createEnhancedListHandler';
+import { useGetActionInput } from '../../providers/configuration';
+import { displayText } from '../../displayText/en';
 
 interface UseLocationDetailView {
   hasError: boolean;
@@ -18,7 +26,10 @@ interface UseLocationDetailView {
   areAllFilesSelected: boolean;
   fileDataItems: FileData[] | undefined;
   hasFiles: boolean;
+  showIncludeSubfolders: boolean;
   message: string | undefined;
+  shouldShowEmptyMessage: boolean;
+  searchPlaceholder: string;
   pageItems: LocationItemData[];
   page: number;
   onDropFiles: (files: File[]) => void;
@@ -28,6 +39,7 @@ interface UseLocationDetailView {
   onPaginateNext: () => void;
   onPaginatePrevious: () => void;
   onDownload: (fileItem: FileData) => void;
+  onSearch: (query: string, includeSubfolders?: boolean) => void;
   onSelect: (isSelected: boolean, fileItem: FileData) => void;
   onSelectAll: () => void;
 }
@@ -62,6 +74,10 @@ export const DEFAULT_LIST_OPTIONS = {
   pageSize: DEFAULT_PAGE_SIZE,
 };
 
+const listLocationItemsAction = createEnhancedListHandler(
+  listLocationItemsHandler
+);
+
 export function useLocationDetailView(
   options?: UseLocationDetailViewOptions
 ): UseLocationDetailView {
@@ -81,18 +97,22 @@ export function useLocationDetailView(
   const hasInvalidPrefix = isUndefined(prefix);
   const { pageSize } = listOptions;
 
-  const [{ data, isLoading, hasError, message }, handleList] = useAction(
-    'LIST_LOCATION_ITEMS'
+  const getConfig = useGetActionInput();
+
+  const [{ data, isLoading, hasError, message }, handleList] = useDataState(
+    listLocationItemsAction,
+    { items: [], nextToken: undefined }
   );
 
   // set up pagination
-  const { result, nextToken } = data;
-  const resultCount = result.length;
+  const { items, nextToken } = data;
+  const resultCount = items.length;
   const hasNextToken = !!nextToken;
   const onPaginateNext = () => {
     if (hasInvalidPrefix || !nextToken) return;
     dispatchStoreAction({ type: 'RESET_LOCATION_ITEMS' });
     handleList({
+      config: getConfig(),
       prefix: key,
       options: { ...listOptions, nextToken },
     });
@@ -118,6 +138,7 @@ export function useLocationDetailView(
     if (hasInvalidPrefix) return;
     handleReset();
     handleList({
+      config: getConfig(),
       prefix: key,
       options: { ...listOptions, refresh: true },
     });
@@ -127,16 +148,25 @@ export function useLocationDetailView(
   React.useEffect(() => {
     if (hasInvalidPrefix) return;
     handleList({
+      config: getConfig(),
       prefix: key,
       options: { ...listOptions, refresh: true },
     });
     handleReset();
-  }, [handleList, handleReset, listOptions, hasInvalidPrefix, prefix, key]);
+  }, [
+    handleList,
+    handleReset,
+    listOptions,
+    hasInvalidPrefix,
+    getConfig,
+    prefix,
+    key,
+  ]);
 
   const pageItems = React.useMemo(() => {
     const [start, end] = range;
-    return result.slice(start, end);
-  }, [range, result]);
+    return items.slice(start, end);
+  }, [range, items]);
 
   // Logic for Select All Files functionality
   const fileItems = React.useMemo(
@@ -147,6 +177,8 @@ export function useLocationDetailView(
   const isFinalPage =
     !hasNextToken && isLastPage(currentPage, resultCount, pageSize);
   const hasNoResults = pageItems.length === 0;
+  const shouldShowEmptyMessage =
+    pageItems.length === 0 && !isLoading && !hasError;
 
   return {
     page: currentPage,
@@ -158,10 +190,14 @@ export function useLocationDetailView(
     hasFiles: fileItems.length > 0,
     isPaginateNextDisabled:
       isFinalPage || isLoading || hasError || hasNoResults,
-    isPaginatePreviousDisabled: currentPage <= 1 || isLoading || hasNoResults,
+    isPaginatePreviousDisabled:
+      currentPage <= 1 || isLoading || hasError || hasNoResults,
     hasError,
     message,
+    shouldShowEmptyMessage,
     isLoading,
+    showIncludeSubfolders: true,
+    searchPlaceholder: displayText.searchDetailPlaceholder,
     onPaginatePrevious: handlePaginatePrevious,
     onPaginateNext: () => {
       handlePaginateNext({ resultCount, hasNextToken });
@@ -193,6 +229,7 @@ export function useLocationDetailView(
       dispatchStoreAction({ type: 'RESET_LOCATION' });
 
       handleList({
+        config: getConfig(),
         // @todo: prefix should not be required to refresh
         prefix: currentLocation?.prefix ?? '',
         options: { reset: true },
@@ -213,6 +250,17 @@ export function useLocationDetailView(
           ? { type: 'RESET_LOCATION_ITEMS' }
           : { type: 'SET_LOCATION_ITEMS', items: fileItems }
       );
+    },
+    onSearch: (query, includeSubfolders) => {
+      if (hasInvalidPrefix) return;
+      const searchOptions = {
+        ...listOptions,
+        delimiter: includeSubfolders ? undefined : listOptions.delimiter,
+        search: { query, filterKey: 'key' as const },
+      };
+      handleReset();
+      handleList({ config: getConfig(), prefix, options: searchOptions });
+      dispatchStoreAction({ type: 'RESET_LOCATION_ITEMS' });
     },
   };
 }

@@ -529,6 +529,11 @@
   min-width: 35rem;
 }
 
+.storage-browser__locations-view-search,
+.storage-browser__location-detail-view-search {
+  flex: 1;
+}
+
 .storage-browser__search__field-clear-button {
   position: absolute;
   display: flex;
@@ -541,7 +546,6 @@
   position: relative;
   display: flex;
   height: 3rem;
-  flex: 1;
 }
 
 .storage-browser__search .storage-browser__search__field__icon {
@@ -565,4 +569,8 @@
 
 .storage-browser__search__submit-button:not(:focus) {
   border-inline-start-color: transparent;
+}
+
+.storage-browser__search-toggle__container {
+  margin-left: var(--storage-browser-gap);
 }

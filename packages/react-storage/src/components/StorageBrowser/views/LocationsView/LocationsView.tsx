@@ -2,14 +2,14 @@ import React from 'react';
 
 import { CLASS_BASE } from '../constants';
 import { Controls } from '../Controls';
-import { useLocationsData } from '../../do-not-import-from-here/actions';
 import { resolveClassName } from '../utils';
 import { useLocationsView } from './useLocationsView';
 import { ControlsContextProvider } from '../../controls/context';
 import { DataRefreshControl } from '../../controls/DataRefreshControl';
 import { DataTableControl } from '../../controls/DataTableControl';
-import { ViewElement } from '../../context/elements';
+import { SearchControl } from '../../controls/SearchControl';
 import { LocationsViewProps } from './types';
+import { ViewElement } from '../../context/elements';
 import { getLocationsViewTableData } from './getLocationsViewTableData';
 
 export const DEFAULT_ERROR_MESSAGE = 'There was an error loading locations.';
@@ -22,26 +22,24 @@ const {
   Title,
 } = Controls;
 
-const Loading = () => {
-  const [{ isLoading }] = useLocationsData();
-  return isLoading ? <LoadingElement /> : null;
+const Loading = ({ show }: { show: boolean }) => {
+  return show ? <LoadingElement /> : null;
 };
 
-const LocationsMessage = (): React.JSX.Element | null => {
-  const [{ hasError, message }] = useLocationsData();
-  return hasError ? (
+const LocationsMessage = ({
+  show,
+  message,
+}: {
+  show: boolean;
+  message?: string;
+}): React.JSX.Element | null => {
+  return show ? (
     <Message variant="error">{message ?? DEFAULT_ERROR_MESSAGE}</Message>
   ) : null;
 };
 
-const LocationsEmptyMessage = () => {
-  const [{ data, isLoading, hasError }] = useLocationsData();
-  const shouldShowEmptyMessage =
-    data.result.length === 0 && !isLoading && !hasError;
-
-  return shouldShowEmptyMessage ? (
-    <EmptyMessage>No locations to show.</EmptyMessage>
-  ) : null;
+const LocationsEmptyMessage = ({ show }: { show: boolean }) => {
+  return show ? <EmptyMessage>No locations to show.</EmptyMessage> : null;
 };
 
 export function LocationsView({
@@ -51,30 +49,38 @@ export function LocationsView({
   const {
     pageItems,
     hasError,
+    message,
     isPaginatePreviousDisabled,
     isPaginateNextDisabled,
     page,
     isLoading,
+    searchPlaceholder,
+    shouldShowEmptyMessage,
     onRefresh,
     onPaginateNext,
     onPaginatePrevious,
     onNavigate,
+    onSearch,
   } = useLocationsView(props);
 
   return (
-    <div
-      className={resolveClassName(CLASS_BASE, className)}
-      data-testid="LOCATIONS_VIEW"
+    <ControlsContextProvider
+      data={{
+        isDataRefreshDisabled: isLoading,
+        tableData: getLocationsViewTableData({ pageItems, onNavigate }),
+        searchPlaceholder,
+      }}
+      onSearch={onSearch}
+      onRefresh={onRefresh}
     >
-      <ControlsContextProvider
-        data={{
-          isDataRefreshDisabled: isLoading,
-          tableData: getLocationsViewTableData({ pageItems, onNavigate }),
-        }}
-        onRefresh={onRefresh}
+      {' '}
+      <div
+        className={resolveClassName(CLASS_BASE, className)}
+        data-testid="LOCATIONS_VIEW"
       >
         <Title>Home</Title>
         <ViewElement className={`${CLASS_BASE}__location-detail-view-controls`}>
+          <SearchControl className={`${CLASS_BASE}__locations-view-search`} />
           <Paginate
             currentPage={page}
             disableNext={isPaginateNextDisabled}
@@ -86,8 +92,8 @@ export function LocationsView({
             className={`${CLASS_BASE}__locations-view-data-refresh`}
           />
         </ViewElement>
-        <LocationsMessage />
-        <Loading />
+        <LocationsMessage show={hasError} message={message} />
+        <Loading show={isLoading} />
         {hasError ? null : (
           <ViewElement className={`${CLASS_BASE}__table-wrapper`}>
             <DataTableControl
@@ -95,8 +101,8 @@ export function LocationsView({
             />
           </ViewElement>
         )}
-        <LocationsEmptyMessage />
-      </ControlsContextProvider>
-    </div>
+        <LocationsEmptyMessage show={shouldShowEmptyMessage} />
+      </div>
+    </ControlsContextProvider>
   );
 }
