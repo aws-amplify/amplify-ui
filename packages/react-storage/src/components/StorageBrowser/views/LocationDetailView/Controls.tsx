@@ -12,6 +12,7 @@ import { DataRefreshControl } from '../../controls/DataRefreshControl';
 import { ControlsContextProvider } from '../../controls/context';
 import { ControlsContext } from '../../controls/types';
 import { CLASS_BASE } from '../constants';
+import { ViewElement } from '../../context/elements';
 
 export const DEFAULT_ERROR_MESSAGE = 'There was an error loading items.';
 const DEFAULT_PAGE_SIZE = 100;
@@ -97,19 +98,21 @@ export const LocationDetailViewControls = ({
         className={`${CLASS_BASE}__location-detail-view-navigation`}
       />
       <Title />
-      <DataRefreshControl
-        className={`${CLASS_BASE}__locations-detail-view-data-refresh`}
-      />
-      <ActionsMenuControl
-        onActionSelect={onActionSelect}
-        disabled={isLoading}
-      />
-      <Paginate
-        currentPage={page}
-        highestPageVisited={highestPageVisited}
-        hasMorePages={hasNextPage}
-        onPaginate={onPaginate}
-      />
+      <ViewElement className={`${CLASS_BASE}__location-detail-view-controls`}>
+        <Paginate
+          currentPage={page}
+          highestPageVisited={highestPageVisited}
+          hasMorePages={hasNextPage}
+          onPaginate={onPaginate}
+        />
+        <DataRefreshControl
+          className={`${CLASS_BASE}__locations-detail-view-data-refresh`}
+        />
+        <ActionsMenuControl
+          onActionSelect={onActionSelect}
+          disabled={isLoading}
+        />
+      </ViewElement>
       <LocationDetailMessage />
       <Loading show={isLoading} />
       <LocationDetailViewTable

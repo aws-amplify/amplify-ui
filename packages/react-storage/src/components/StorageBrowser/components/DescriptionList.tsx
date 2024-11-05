@@ -11,7 +11,7 @@ import { CLASS_BASE } from '../views/constants';
 
 export interface DescriptionItemProps {
   term?: string;
-  details?: string;
+  details?: string | JSX.Element;
 }
 
 interface DescriptionProps {

@@ -2,6 +2,16 @@
 
 exports[`default actions contains the expected properties 1`] = `
 {
+  "COPY_FILES": {
+    "options": {
+      "disable": [Function],
+      "displayName": "Copy files",
+      "hide": [Function],
+      "icon": <Icon
+        variant="copy-file"
+      />,
+    },
+  },
   "CREATE_FOLDER": {
     "options": {
       "disable": [Function],
