@@ -31,16 +31,6 @@ export const DEFAULT_LIST_OPTIONS = {
   delimiter: '/',
 };
 
-// @TODO for DestinationPicker
-// DONE Implement sorting when new table is ready
-// DONE - Make the ListObjects call exhaustive up to 10k results (similar to search) to fix pagination
-// DONE Hide destination picker on start
-// DONE Disable the destination breadcrumbs on start
-// DONE Show empty message when empty table (use new table?)
-// DONE add icon element
-// 1. Fix styling so that it only takes up 50% of parent container
-// 2. swap out custom hook for useData hook / error handling
-
 export const DestinationPicker = ({
   destinationList,
   onSetDestinationList,

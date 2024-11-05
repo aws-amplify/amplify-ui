@@ -24,12 +24,6 @@ export const copyHandler: CopyHandler = (input) => {
   const { config, key, options, prefix } = input;
   const { accountId, credentials } = config;
 
-  // @TODO: pull the destinationPrefix from payload
-  // const { payload } = data;
-  // const { destinationPrefix } = payload;
-  // const sourceKey = `${prefix}${key}`;
-  // const destinationPath = `${destinationPrefix}${key}`;
-
   const sourceKey = key;
   const destinationPath = `${prefix}${getFilenameWithoutPrefix(key)}`;
   const bucket = constructBucket(config);
