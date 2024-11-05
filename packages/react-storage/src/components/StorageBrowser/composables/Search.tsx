@@ -45,6 +45,11 @@ export const Search = ({
         variant="search"
         onChange={(e) => setTerm(e.target.value)}
         placeholder={searchPlaceholder}
+        onKeyUp={(event) => {
+          if (event.key === 'Enter') {
+            onSearch(term, subfoldersIncluded);
+          }
+        }}
         value={term}
       >
         {term ? (
