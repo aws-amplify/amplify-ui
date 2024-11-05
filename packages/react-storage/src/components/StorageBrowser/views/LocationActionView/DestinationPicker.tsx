@@ -18,6 +18,7 @@ import {
 import { ControlsContext } from '../../controls/types';
 import { Breadcrumb } from '../../components/BreadcrumbNavigation';
 import { DescriptionList } from '../../components/DescriptionList';
+import { SearchControl } from '../../controls/SearchControl';
 const {
   actionSetDestination,
   actionDestinationPickerCurrentFolderSelected,
@@ -47,6 +48,7 @@ export const DestinationPicker = ({
     hasError,
     handleNext,
     handlePrevious,
+    onSearch,
     range,
   } = useDestinationPicker({ destinationList });
 
@@ -77,7 +79,10 @@ export const DestinationPicker = ({
   const contextValue: ControlsContext = {
     data: {
       tableData,
+      showIncludeSubfolders: false,
+      searchPlaceholder: displayText.filterCopyPlaceholder,
     },
+    onSearch,
   };
 
   const noSubfolders = !items.length;
@@ -114,6 +119,7 @@ export const DestinationPicker = ({
             },
           ]}
         />
+        <SearchControl />
         <PaginateControl
           currentPage={currentPage}
           disableNext={disableNext}
