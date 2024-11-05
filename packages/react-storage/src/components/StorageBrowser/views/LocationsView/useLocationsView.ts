@@ -4,6 +4,7 @@ import { useLocationsData } from '../../do-not-import-from-here/actions';
 import { usePaginate } from '../hooks/usePaginate';
 import { LocationData } from '../../actions';
 import { useStore } from '../../providers/store';
+import { displayText } from '../../displayText/en';
 
 interface UseLocationsView {
   hasNextPage: boolean;
@@ -11,11 +12,13 @@ interface UseLocationsView {
   highestPageVisited: number;
   isLoading: boolean;
   message: string | undefined;
+  searchPlaceholder: string;
   pageItems: LocationData[];
   page: number;
   onNavigate: (location: LocationData) => void;
   onRefresh: () => void;
   onPaginate: (page: number) => void;
+  onSearch: (query: string) => void;
 }
 
 interface InitialValues {
@@ -46,6 +49,7 @@ export function useLocationsView(
 ): UseLocationsView {
   const [state, handleList] = useLocationsData();
   const [, dispatchStoreAction] = useStore();
+  const [term, setTerm] = React.useState('');
   const { data, message, hasError, isLoading } = state;
   const { result, nextToken } = data;
   const resultCount = result.length;
@@ -88,14 +92,21 @@ export function useLocationsView(
     return result.slice(start, end);
   }, [range, result]);
 
+  const filteredItems = React.useMemo(() => {
+    return pageItems.filter(
+      ({ prefix, bucket }) => prefix.includes(term) || bucket.includes(term)
+    );
+  }, [pageItems, term]);
+
   return {
     isLoading,
     hasError,
     message,
     page: currentPage,
     hasNextPage: hasNextToken,
-    pageItems,
     highestPageVisited,
+    pageItems: filteredItems,
+    searchPlaceholder: displayText.filterLocationsPlaceholder,
     onNavigate: (location: LocationData) => {
       onNavigate?.(location);
       dispatchStoreAction({ type: 'NAVIGATE', location });
@@ -107,5 +118,8 @@ export function useLocationsView(
       });
     },
     onPaginate,
+    onSearch: (query: string) => {
+      setTerm(query);
+    },
   };
 }

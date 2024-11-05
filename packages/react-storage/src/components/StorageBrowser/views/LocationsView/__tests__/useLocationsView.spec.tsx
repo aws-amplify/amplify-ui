@@ -203,4 +203,29 @@ describe('useLocationsView', () => {
       location: expectedLocation,
     });
   });
+
+  it('should handle search', () => {
+    const mockDataState = {
+      data: { result: mockData, nextToken: undefined },
+      message: '',
+      hasError: false,
+      isLoading: false,
+    };
+    mockUseLocationsData(mockDataState);
+    const { result } = renderHook(() => useLocationsView());
+    act(() => {
+      const state = result.current;
+      state.onSearch('item-b');
+    });
+
+    expect(result.current.pageItems).toEqual([
+      {
+        bucket: 'test-bucket',
+        prefix: `item-b/`,
+        permission: 'READ',
+        id: '2',
+        type: 'PREFIX',
+      },
+    ]);
+  });
 });

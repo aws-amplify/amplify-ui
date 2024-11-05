@@ -1,19 +1,29 @@
 import React from 'react';
 
 import { isFunction, isUndefined } from '@aws-amplify/ui';
+import { useDataState } from '@aws-amplify/ui-react-core';
+
 import { usePaginate } from '../hooks/usePaginate';
 import { useStore } from '../../providers/store';
-import { useAction } from '../../do-not-import-from-here/actions';
-import { LocationData, LocationItemData } from '../../actions';
+import {
+  listLocationItemsHandler,
+  LocationData,
+  LocationItemData,
+} from '../../actions';
 import { LocationState } from '../../providers/store/location';
+import { createEnhancedListHandler } from '../../actions/createEnhancedListHandler';
+import { useGetActionInput } from '../../providers/configuration';
+import { displayText } from '../../displayText/en';
 
 interface UseLocationDetailView {
   hasError: boolean;
   hasNextPage: boolean;
   highestPageVisited: number;
   isLoading: boolean;
+  showIncludeSubfolders: boolean;
   location: LocationState;
   message: string | undefined;
+  searchPlaceholder: string;
   pageItems: LocationItemData[];
   page: number;
   onNavigate: (location: LocationData, path?: string) => void;
@@ -21,6 +31,7 @@ interface UseLocationDetailView {
   onPaginate: (page: number) => void;
   onAddFiles: (files: File[]) => void;
   onNavigateHome: () => void;
+  onSearch: (query: string, includeSubfolders?: boolean) => void;
 }
 
 export type LocationDetailViewActionType =
@@ -51,6 +62,10 @@ export const DEFAULT_LIST_OPTIONS = {
   pageSize: DEFAULT_PAGE_SIZE,
 };
 
+const listLocationItemsAction = createEnhancedListHandler(
+  listLocationItemsHandler
+);
+
 export function useLocationDetailView(
   options?: UseLocationDetailViewOptions
 ): UseLocationDetailView {
@@ -68,18 +83,22 @@ export function useLocationDetailView(
   const { prefix } = current ?? {};
   const hasInvalidPrefix = isUndefined(prefix);
 
-  const [{ data, isLoading, hasError, message }, handleList] = useAction(
-    'LIST_LOCATION_ITEMS'
+  const getConfig = useGetActionInput();
+
+  const [{ data, isLoading, hasError, message }, handleList] = useDataState(
+    listLocationItemsAction,
+    { items: [], nextToken: undefined }
   );
 
   // set up pagination
-  const { result, nextToken } = data;
-  const resultCount = result.length;
+  const { items, nextToken } = data;
+  const resultCount = items.length;
   const hasNextToken = !!nextToken;
   const paginateCallback = () => {
     if (hasInvalidPrefix || !nextToken) return;
     dispatchStoreAction({ type: 'RESET_LOCATION_ITEMS' });
     handleList({
+      config: getConfig(),
       prefix: key,
       options: { ...listOptions, nextToken },
     });
@@ -97,6 +116,7 @@ export function useLocationDetailView(
     if (hasInvalidPrefix) return;
     handleReset();
     handleList({
+      config: getConfig(),
       prefix: key,
       options: { ...listOptions, refresh: true },
     });
@@ -106,16 +126,25 @@ export function useLocationDetailView(
   React.useEffect(() => {
     if (hasInvalidPrefix) return;
     handleList({
+      config: getConfig(),
       prefix: key,
       options: { ...listOptions, refresh: true },
     });
     handleReset();
-  }, [handleList, handleReset, listOptions, hasInvalidPrefix, prefix, key]);
+  }, [
+    handleList,
+    handleReset,
+    listOptions,
+    hasInvalidPrefix,
+    getConfig,
+    prefix,
+    key,
+  ]);
 
   const pageItems = React.useMemo(() => {
     const [start, end] = range;
-    return result.slice(start, end);
-  }, [range, result]);
+    return items.slice(start, end);
+  }, [range, items]);
 
   return {
     page: currentPage,
@@ -127,6 +156,8 @@ export function useLocationDetailView(
     highestPageVisited,
     isLoading,
     onPaginate,
+    showIncludeSubfolders: true,
+    searchPlaceholder: displayText.searchDetailPlaceholder,
     onRefresh,
     onNavigate: (location: LocationData, path?: string) => {
       onNavigate?.(location, path);
@@ -147,11 +178,23 @@ export function useLocationDetailView(
       dispatchStoreAction({ type: 'RESET_LOCATION' });
 
       handleList({
+        config: getConfig(),
         // @todo: prefix should not be required to refresh
         prefix: current?.prefix ?? '',
         options: { reset: true },
       });
       dispatchStoreAction({ type: 'RESET_ACTION_TYPE' });
+      dispatchStoreAction({ type: 'RESET_LOCATION_ITEMS' });
+    },
+    onSearch: (query, includeSubfolders) => {
+      if (hasInvalidPrefix) return;
+      const searchOptions = {
+        ...listOptions,
+        delimiter: includeSubfolders ? undefined : listOptions.delimiter,
+        search: { query, filterKey: 'key' as const },
+      };
+      handleReset();
+      handleList({ config: getConfig(), prefix, options: searchOptions });
       dispatchStoreAction({ type: 'RESET_LOCATION_ITEMS' });
     },
   };
