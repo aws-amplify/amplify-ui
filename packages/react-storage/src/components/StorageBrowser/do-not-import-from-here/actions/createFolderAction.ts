@@ -4,13 +4,13 @@ import { TaskAction, TaskActionInput, TaskActionOutput } from '../types';
 
 export interface CreateFolderActionInput
   extends Omit<
-    TaskActionInput<{ reset?: boolean; preventOverwite?: boolean }>,
+    TaskActionInput<{ reset?: boolean; preventOverwrite?: boolean }>,
     'data'
   > {}
 
 export interface CreateFolderActionInputV2
   extends Omit<
-    TaskActionInput<{ reset?: boolean; preventOverwite?: boolean }>,
+    TaskActionInput<{ reset?: boolean; preventOverwrite?: boolean }>,
     'data'
   > {}
 

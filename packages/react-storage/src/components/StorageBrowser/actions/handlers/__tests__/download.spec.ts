@@ -5,25 +5,27 @@ import { downloadHandler, DownloadHandlerInput } from '../download';
 const downloadSpy = jest.spyOn(StorageModule, 'getUrl');
 
 const baseInput: DownloadHandlerInput = {
-  prefix: 'prefix/',
   config: {
     accountId: 'accountId',
     bucket: 'bucket',
     credentials: jest.fn(),
     region: 'region',
   },
-  key: 'key',
-  // @ts-expect-error
-  // FIXME: The type for payload is never
-  data: { id: 'id', payload: undefined },
+  data: {
+    id: 'id',
+    key: 'key',
+    lastModified: new Date(),
+    size: 1000022,
+    type: 'FILE',
+  },
 };
 
 describe('downloadHandler', () => {
-  it('calls `getUrl` and returns the expected `key`', () => {
-    const { key } = downloadHandler(baseInput);
+  it('calls `getUrl` with the expected values', () => {
+    downloadHandler(baseInput);
 
     const expected: StorageModule.GetUrlInput = {
-      path: baseInput.key,
+      path: baseInput.data.key,
       options: {
         bucket: {
           bucketName: baseInput.config.bucket,
@@ -37,7 +39,5 @@ describe('downloadHandler', () => {
     };
 
     expect(downloadSpy).toHaveBeenCalledWith(expected);
-
-    expect(key).toBe(baseInput.key);
   });
 });

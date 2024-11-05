@@ -10,6 +10,7 @@ export {
   ListLocationsOutput,
   ListOutput,
   ListPaginateInput,
+  LocationAccess,
   LocationCredentials,
   LocationCredentialsProvider,
   Permission,

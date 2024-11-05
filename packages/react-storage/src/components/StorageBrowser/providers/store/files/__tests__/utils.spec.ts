@@ -17,13 +17,13 @@ const fileThree = new File([], 'file-three');
 
 const fileItemOne: FileItem = {
   id: 'item-one',
-  item: fileOne,
+  file: fileOne,
   key: fileOne.name,
 };
 
 const fileItemTwo: FileItem = {
   id: 'item-two',
-  item: fileTwo,
+  file: fileTwo,
   key: fileTwo.name,
 };
 
@@ -61,7 +61,7 @@ describe('files context utils', () => {
 
       const newItem = output[2];
 
-      expect(newItem.item).toBe(fileThree);
+      expect(newItem.file).toBe(fileThree);
       expect(newItem.key).toBe(fileThree.name);
       expect(typeof newItem.id).toBe('string');
     });
@@ -74,8 +74,8 @@ describe('files context utils', () => {
       expect(output).toHaveLength(2);
       const [itemOne, itemTwo] = output;
 
-      expect(itemOne.item).toBe(fileOne);
-      expect(itemTwo.item).toBe(fileTwo);
+      expect(itemOne.file).toBe(fileOne);
+      expect(itemTwo.file).toBe(fileTwo);
     });
 
     it('combines and returns previous and next `items`', () => {
