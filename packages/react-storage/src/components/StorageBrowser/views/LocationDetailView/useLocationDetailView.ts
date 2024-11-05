@@ -5,10 +5,10 @@ import { usePaginate } from '../hooks/usePaginate';
 import { useStore } from '../../providers/store';
 import { useAction } from '../../do-not-import-from-here/actions';
 import { LocationData, LocationItemData } from '../../actions';
+import { isLastPage } from '../utils';
 import { LocationState } from '../../providers/store/location';
 
 interface UseLocationDetailView {
-  hasNextPage: boolean;
   hasError: boolean;
   isLoading: boolean;
   isPaginateNextDisabled: boolean;
@@ -71,6 +71,7 @@ export function useLocationDetailView(
   const { current, key } = location;
   const { prefix } = current ?? {};
   const hasInvalidPrefix = isUndefined(prefix);
+  const { pageSize } = listOptions;
 
   const [{ data, isLoading, hasError, message }, handleList] = useAction(
     'LIST_LOCATION_ITEMS'
@@ -102,7 +103,7 @@ export function useLocationDetailView(
   } = usePaginate({
     onPaginateNext,
     onPaginatePrevious,
-    pageSize: listOptions.pageSize,
+    pageSize,
   });
 
   const onRefresh = () => {
@@ -129,12 +130,16 @@ export function useLocationDetailView(
     return result.slice(start, end);
   }, [range, result]);
 
+  const isFinalPage =
+    !hasNextToken && isLastPage(currentPage, resultCount, pageSize);
+  const hasNoResults = pageItems.length === 0;
+
   return {
     page: currentPage,
     pageItems,
-    hasNextPage: hasNextToken,
-    isPaginateNextDisabled: !hasNextToken || isLoading || hasError,
-    isPaginatePreviousDisabled: currentPage <= 1 || isLoading || hasError,
+    isPaginateNextDisabled:
+      isFinalPage || isLoading || hasError || hasNoResults,
+    isPaginatePreviousDisabled: currentPage <= 1 || isLoading || hasNoResults,
     location,
     hasError,
     message,
