@@ -24,20 +24,19 @@ export const createManagedAuthAdapter = ({
   const listLocations = createListLocationsHandler({
     credentialsProvider,
     accountId,
-    customEndpoint: customEndpoint?.control,
+    customEndpoint,
     region,
   });
 
   const getLocationCredentials = createLocationCredentialsHandler({
     credentialsProvider,
     accountId,
-    customEndpoint: customEndpoint?.control,
+    customEndpoint,
     region,
   });
 
   return {
     accountId,
-    customEndpoint: customEndpoint?.data,
     listLocations,
     getLocationCredentials,
     region,
