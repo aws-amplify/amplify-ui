@@ -2,7 +2,6 @@ import React from 'react';
 import { humanFileSize } from '@aws-amplify/ui';
 
 import { TABLE_HEADER_BUTTON_CLASS_NAME } from '../../components/DataTable';
-import { useAction } from '../../do-not-import-from-here/actions';
 import {
   SpanElementProps,
   StorageBrowserElements,
@@ -197,7 +196,9 @@ export const LocationDetailViewTable = ({
   items,
   handleDroppedFiles,
   handleLocationItemClick,
+  show,
 }: {
+  show: boolean;
   items: LocationItemData[];
   handleDroppedFiles: (files: File[]) => void;
   handleLocationItemClick: (location: LocationData, path?: string) => void;
@@ -206,11 +207,6 @@ export const LocationDetailViewTable = ({
   const { current, key: locationKey } = location;
   const { prefix } = current ?? {};
   const { fileDataItems } = locationItems;
-
-  const [{ hasError }] = useAction('LIST_LOCATION_ITEMS');
-
-  const hasItems = !!items.length;
-  const showTable = hasItems && !hasError;
 
   const [compareFn, setCompareFn] = React.useState(() => compareStrings);
   const [sortState, setSortState] = React.useState<SortState<LocationItemData>>(
@@ -450,7 +446,7 @@ export const LocationDetailViewTable = ({
     ]
   );
 
-  return showTable ? (
+  return show ? (
     <TableControl
       columns={LOCATION_DETAIL_VIEW_COLUMNS}
       data={tableData}
