@@ -9,6 +9,7 @@ const baseInput: DeleteHandlerInput = {
     accountId: '012345678901',
     bucket: 'bucket',
     credentials: jest.fn(),
+    customEndpoint: 'mock-endpoint',
     region: 'region',
   },
   data: {
@@ -32,6 +33,7 @@ describe('deleteHandler', () => {
           bucketName: baseInput.config.bucket,
           region: baseInput.config.region,
         },
+        customEndpoint: baseInput.config.customEndpoint,
         locationCredentialsProvider: baseInput.config.credentials,
       },
     };

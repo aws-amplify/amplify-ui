@@ -30,7 +30,7 @@ export interface ListLocationsHandler
 
 export const listLocationsHandler: ListLocationsHandler = async (input) => {
   const { config, options } = input;
-  const { accountId, credentials, region } = config;
+  const { accountId, credentials, customEndpoint, region } = config;
   const { exclude, nextToken, pageSize = DEFAULT_PAGE_SIZE } = options ?? {};
 
   const fetchLocations = async (
@@ -47,6 +47,7 @@ export const listLocationsHandler: ListLocationsHandler = async (input) => {
     const output = await listCallerAccessGrants({
       accountId,
       credentialsProvider: credentials,
+      customEndpoint,
       nextToken: locationsNextToken,
       pageSize: remainingPageSize,
       region,

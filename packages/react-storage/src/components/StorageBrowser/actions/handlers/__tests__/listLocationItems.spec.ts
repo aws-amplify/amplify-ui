@@ -25,6 +25,7 @@ const baseInput: ListLocationItemsHandlerInput = {
   config: {
     accountId: '012345678901',
     bucket: 'bucket',
+    customEndpoint: 'mock-endpoint',
     credentials: jest.fn(),
     region: 'region',
   },
@@ -65,6 +66,7 @@ describe('listLocationItemsHandler', () => {
           bucketName: input.config.bucket,
           region: input.config.region,
         },
+        customEndpoint: input.config.customEndpoint,
         locationCredentialsProvider: input.config.credentials,
         nextToken: undefined,
         pageSize: input.options.pageSize + 1,

@@ -89,7 +89,7 @@ export const listLocationItemsHandler: ListLocationItemsHandler = async (
   input
 ) => {
   const { config, prefix, options } = input;
-  const { bucket: _bucket, credentials, region } = config;
+  const { bucket: _bucket, credentials, customEndpoint, region } = config;
 
   const {
     delimiter,
@@ -124,6 +124,7 @@ export const listLocationItemsHandler: ListLocationItemsHandler = async (
         nextToken: nextNextToken,
         ..._options,
         bucket,
+        customEndpoint,
         locationCredentialsProvider: credentials,
         pageSize,
         subpathStrategy,
