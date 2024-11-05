@@ -1,27 +1,25 @@
 import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 
-import * as AmplifyReactCore from '@aws-amplify/ui-react-core';
-
-import { createStorageBrowser } from '../createStorageBrowser';
 import * as ActionsModule from '../do-not-import-from-here/actions';
 
-const useDataSpy = jest.spyOn(AmplifyReactCore, 'useDataState');
-useDataSpy.mockReturnValue([
-  {
-    isLoading: false,
-    data: { items: [], nextToken: undefined },
-    hasError: false,
-    message: undefined,
-  },
-  jest.fn(),
-]);
+import { createStorageBrowser } from '../createStorageBrowser';
 
 jest.spyOn(ActionsModule, 'useLocationsData').mockReturnValue([
   {
     isLoading: false,
     data: { result: [], nextToken: undefined },
     hasError: false,
+    message: undefined,
+  },
+  jest.fn(),
+]);
+
+jest.spyOn(ActionsModule, 'useAction').mockReturnValue([
+  {
+    data: { result: [], nextToken: undefined },
+    hasError: false,
+    isLoading: false,
     message: undefined,
   },
   jest.fn(),
