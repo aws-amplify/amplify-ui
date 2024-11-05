@@ -12,7 +12,7 @@
   --storage-browser-error-text: hsl(0, 100%, 20%);
   display: grid;
   gap: var(--storage-browser-gap);
-  grid-template-columns: 1fr 1fr 1fr max-content max-content;
+  grid-template-columns: 1fr 1fr 1fr 1fr max-content max-content;
   grid-auto-rows: min-content;
 }
 
@@ -27,7 +27,8 @@
 }
 
 .storage-browser__paginate {
-  grid-column: 1 / -1;
+  grid-column: 4/-1;
+  align-content: center;
   justify-self: flex-end;
 }
 
@@ -528,4 +529,9 @@
 
 .storage-browser__search__submit-button:not(:focus) {
   border-inline-start-color: transparent;
+}
+
+.storage-browser__locations-view-search,
+.storage-browser__location-detail-view-search {
+  grid-column: 1 / 3;
 }

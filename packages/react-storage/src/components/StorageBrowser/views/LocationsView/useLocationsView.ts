@@ -4,6 +4,7 @@ import { useLocationsData } from '../../do-not-import-from-here/actions';
 import { usePaginate } from '../hooks/usePaginate';
 import { LocationData } from '../../actions';
 import { useStore } from '../../providers/store';
+import { displayText } from '../../displayText/en';
 
 interface UseLocationsView {
   hasNextPage: boolean;
@@ -12,6 +13,7 @@ interface UseLocationsView {
   isPaginateNextDisabled: boolean;
   isPaginatePreviousDisabled: boolean;
   message: string | undefined;
+  searchPlaceholder: string;
   pageItems: LocationData[];
   page: number;
   onNavigate: (location: LocationData) => void;
@@ -92,7 +94,9 @@ export function useLocationsView(
   }, [range, result]);
 
   const filteredItems = React.useMemo(() => {
-    return pageItems.filter(({ prefix }) => prefix.includes(term));
+    return pageItems.filter(
+      ({ prefix, bucket }) => prefix.includes(term) || bucket.includes(term)
+    );
   }, [pageItems, term]);
 
   return {
@@ -104,6 +108,7 @@ export function useLocationsView(
     page: currentPage,
     hasNextPage: hasNextToken,
     pageItems: filteredItems,
+    searchPlaceholder: displayText.filterLocationsPlaceholder,
     onNavigate: (location: LocationData) => {
       onNavigate?.(location);
       dispatchStoreAction({ type: 'NAVIGATE', location });

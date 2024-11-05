@@ -11,6 +11,7 @@ export const displayText = {
   uploadFolderTitle: 'Upload folder',
   uploadFilesTitle: 'Upload files',
   deleteFilesTitle: 'Delete files',
-  searchPlaceholder: 'Search current folder',
+  searchCurrentPlaceholder: 'Search current folder',
   searchClearLabel: 'Clear search',
+  filterLocationsPlaceholder: 'Filter folders and files',
 };

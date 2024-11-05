@@ -92,13 +92,12 @@ export const listLocationItemsHandler: ListLocationItemsHandler = async (
   const { bucket: _bucket, credentials, region } = config;
 
   const {
+    exclude: excludedType,
     delimiter,
     nextToken,
     pageSize: _pageSize = DEFAULT_PAGE_SIZE,
     ..._options
   } = options ?? {};
-
-  const excludedType = 'FILE';
 
   const bucket = { bucketName: _bucket, region };
   const subpathStrategy: StorageSubpathStrategy = {

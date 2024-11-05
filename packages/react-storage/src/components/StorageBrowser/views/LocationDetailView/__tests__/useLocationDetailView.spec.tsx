@@ -300,4 +300,33 @@ describe('useLocationDetailView', () => {
       files: mockFiles,
     });
   });
+  it('should handle search', () => {
+    const handleStoreActionMock = jest.fn();
+    useStoreSpy.mockReturnValue([testStoreState, handleStoreActionMock]);
+    const mockDataState = {
+      data: { items: [], nextToken: undefined },
+      message: '',
+      hasError: false,
+      isLoading: false,
+    };
+    const handleListMock = jest.fn();
+    useActionSpy.mockReturnValue([mockDataState, handleListMock]);
+
+    const { result } = renderHook(() => useLocationDetailView());
+    act(() => {
+      const state = result.current;
+      state.onSearch('moo', true);
+    });
+
+    //
+    expect(handleListMock).toHaveBeenCalledWith({
+      config,
+      options: {
+        ...DEFAULT_LIST_OPTIONS,
+        delimiter: undefined,
+        search: { filterKey: 'key', query: 'moo' },
+      },
+      prefix: 'item-b/',
+    });
+  });
 });

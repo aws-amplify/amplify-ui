@@ -25,13 +25,13 @@ describe('SearchControl', () => {
 
   it('renders the SearchControl', () => {
     mockUseControlsContext.mockReturnValue({
-      data: { showIncludeSubfolders: true },
+      data: { showIncludeSubfolders: true, searchPlaceholder: 'Placeholder' },
       onSearch: jest.fn(),
     });
 
     render(<SearchControl />);
 
-    const field = screen.getByPlaceholderText('Search current folder');
+    const field = screen.getByPlaceholderText('Placeholder');
     const checkbox = screen.getByRole('checkbox');
     const button = screen.getByRole('button', { name: 'Submit' });
 

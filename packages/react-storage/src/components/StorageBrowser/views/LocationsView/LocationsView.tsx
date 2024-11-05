@@ -54,6 +54,7 @@ export function LocationsView({
     isPaginateNextDisabled,
     page,
     isLoading,
+    searchPlaceholder,
     onRefresh,
     onPaginateNext,
     onPaginatePrevious,
@@ -67,6 +68,7 @@ export function LocationsView({
   const contextValue: ControlsContext = {
     data: {
       isDataRefreshDisabled: isLoading,
+      searchPlaceholder,
     },
     onSearch,
     onRefresh,

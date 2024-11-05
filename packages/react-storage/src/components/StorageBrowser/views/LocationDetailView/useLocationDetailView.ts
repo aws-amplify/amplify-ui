@@ -15,6 +15,18 @@ import { LocationState } from '../../providers/store/location';
 import { createEnhancedListHandler } from '../../actions/createEnhancedListHandler';
 import { useGetActionInput } from '../../providers/configuration';
 import { LocationItemType } from '../../actions/handlers';
+import { displayText } from '../../displayText/en';
+
+export function isLastPage(
+  currentPage: number,
+  totalItems: number,
+  pageSize: number
+): boolean {
+  // Use Math.ceil so we can round up. For example, if you have
+  // 4 results, and your page size is 3, the last page (Math.ceil(4/3)) will be 2.
+  // If you have 3 results and your page size is 4, the last page will be 1
+  return Math.ceil(totalItems / pageSize) === currentPage;
+}
 
 interface UseLocationDetailView {
   hasNextPage: boolean;
@@ -25,6 +37,7 @@ interface UseLocationDetailView {
   showIncludeSubfolders: boolean;
   location: LocationState;
   message: string | undefined;
+  searchPlaceholder: string;
   pageItems: LocationItemData[];
   page: number;
   onNavigate: (location: LocationData, path?: string) => void;
@@ -171,6 +184,7 @@ export function useLocationDetailView(
     message,
     isLoading,
     showIncludeSubfolders: true,
+    searchPlaceholder: displayText.searchCurrentPlaceholder,
     onPaginatePrevious: handlePaginatePrevious,
     onPaginateNext: () => {
       handlePaginateNext({ resultCount, hasNextToken });
@@ -210,6 +224,7 @@ export function useLocationDetailView(
         delimiter: includeSubfolders ? undefined : listOptions.delimiter,
         search: { query, filterKey: 'key' as const },
       };
+      handleReset();
       handleList({ config: getConfig(), prefix, options: searchOptions });
     },
   };

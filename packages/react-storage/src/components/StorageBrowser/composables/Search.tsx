@@ -18,12 +18,14 @@ const TOGGLE_BLOCK = 'toggle';
 
 export interface SearchProps {
   onSearch: (term: string, includeSubfolders: boolean) => void;
+  searchPlaceholder?: string;
   showIncludeSubfolders?: boolean;
 }
 
 export const Search = ({
   onSearch,
   showIncludeSubfolders,
+  searchPlaceholder,
 }: SearchProps): React.JSX.Element => {
   const [term, setTerm] = React.useState('');
   const [subfoldersIncluded, setSubfoldersIncluded] = React.useState(false);
@@ -42,7 +44,7 @@ export const Search = ({
         className={`${BLOCK_NAME}__field`}
         variant="search"
         onChange={(e) => setTerm(e.target.value)}
-        placeholder={displayText.searchPlaceholder}
+        placeholder={searchPlaceholder}
         value={term}
       >
         {term ? (

@@ -8,9 +8,15 @@ const searchTerm = 'search term';
 
 describe('Search', () => {
   it('renders the Search composable', () => {
-    render(<Search onSearch={jest.fn()} showIncludeSubfolders />);
+    render(
+      <Search
+        onSearch={jest.fn()}
+        showIncludeSubfolders
+        searchPlaceholder={'Placeholder'}
+      />
+    );
 
-    const field = screen.getByPlaceholderText('Search current folder');
+    const field = screen.getByPlaceholderText('Placeholder');
     const checkbox = screen.getByRole('checkbox');
     const button = screen.getByRole('button', { name: 'Submit' });
 
@@ -48,9 +54,9 @@ describe('Search', () => {
   it('searches for the term typed into the field', async () => {
     const onSearch = jest.fn();
 
-    render(<Search onSearch={onSearch} />);
+    render(<Search onSearch={onSearch} searchPlaceholder={'Placeholder'} />);
 
-    const inputField = screen.getByPlaceholderText('Search current folder');
+    const inputField = screen.getByPlaceholderText('Placeholder');
     await act(async () => {
       await userEvent.type(inputField, searchTerm);
     });

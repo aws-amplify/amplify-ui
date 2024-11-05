@@ -10,7 +10,7 @@ export const SearchControl = ({
   className,
 }: ControlProps): React.JSX.Element | null => {
   const { onSearch, data } = useControlsContext();
-  const { showIncludeSubfolders } = data;
+  const { showIncludeSubfolders, searchPlaceholder } = data;
   const ResolvedSearch = useResolvedComposable(Search, 'Search');
 
   if (!onSearch) {
@@ -21,6 +21,7 @@ export const SearchControl = ({
     <ViewElement className={className}>
       <ResolvedSearch
         onSearch={onSearch}
+        searchPlaceholder={searchPlaceholder}
         showIncludeSubfolders={showIncludeSubfolders}
       />
     </ViewElement>
