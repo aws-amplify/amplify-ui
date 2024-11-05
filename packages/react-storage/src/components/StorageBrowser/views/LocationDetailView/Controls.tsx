@@ -1,9 +1,7 @@
 import React from 'react';
 
-import { useAction } from '../../do-not-import-from-here/actions';
 import { useStore } from '../../providers/store';
 import { Controls, LocationDetailViewTable } from '../Controls';
-
 import { ActionsMenuControl } from './Controls/ActionsMenu';
 import { useLocationDetailView } from './useLocationDetailView';
 import { LocationDetailViewProps } from './types';
@@ -12,6 +10,8 @@ import { DataRefreshControl } from '../../controls/DataRefreshControl';
 import { ControlsContextProvider } from '../../controls/context';
 import { ControlsContext } from '../../controls/types';
 import { CLASS_BASE } from '../constants';
+import { SearchControl } from '../../controls/SearchControl';
+import { ViewElement } from '../../context/elements';
 
 export const DEFAULT_ERROR_MESSAGE = 'There was an error loading items.';
 const DEFAULT_PAGE_SIZE = 100;
@@ -40,22 +40,20 @@ function Loading({ show }: { show?: boolean }) {
   return show ? <LoadingControl /> : null;
 }
 
-export const LocationDetailMessage = (): React.JSX.Element | null => {
-  const [{ hasError, message }] = useAction('LIST_LOCATION_ITEMS');
-
-  return hasError ? (
+export const LocationDetailMessage = ({
+  show,
+  message,
+}: {
+  show?: boolean;
+  message?: string;
+}): React.JSX.Element | null => {
+  return show ? (
     <Message variant="error">{message ?? DEFAULT_ERROR_MESSAGE}</Message>
   ) : null;
 };
 
-const LocationDetailEmptyMessage = () => {
-  const [{ data, hasError, isLoading }] = useAction('LIST_LOCATION_ITEMS');
-  const shouldShowEmptyMessage =
-    data.result.length === 0 && !isLoading && !hasError;
-
-  return shouldShowEmptyMessage ? (
-    <EmptyMessage>No items to show.</EmptyMessage>
-  ) : null;
+const LocationDetailEmptyMessage = ({ show }: { show?: boolean }) => {
+  return show ? <EmptyMessage>No items to show.</EmptyMessage> : null;
 };
 
 export const LocationDetailViewControls = ({
@@ -72,24 +70,34 @@ export const LocationDetailViewControls = ({
     page,
     isPaginatePreviousDisabled,
     isPaginateNextDisabled,
+    showIncludeSubfolders,
     location,
+    hasError,
+    message,
+    searchPlaceholder,
     onRefresh,
     onPaginateNext,
     onPaginatePrevious,
     onAddFiles,
     onNavigate,
     onNavigateHome,
+    onSearch,
   } = useLocationDetailView({ onNavigate: onNavigateProp, onExit });
 
   // FIXME:
+  const shouldShowEmptyMessage =
+    pageItems.length === 0 && !isLoading && !hasError;
   const contextValue: ControlsContext = {
     data: {
       isDataRefreshDisabled: isLoading,
+      showIncludeSubfolders,
       location,
+      searchPlaceholder,
     },
     onNavigate,
     onNavigateHome,
     onRefresh,
+    onSearch,
   };
 
   return (
@@ -98,28 +106,34 @@ export const LocationDetailViewControls = ({
         className={`${CLASS_BASE}__location-detail-view-navigation`}
       />
       <Title />
-      <DataRefreshControl
-        className={`${CLASS_BASE}__locations-detail-view-data-refresh`}
-      />
-      <ActionsMenuControl
-        onActionSelect={onActionSelect}
-        disabled={isLoading}
-      />
-      <Paginate
-        currentPage={page}
-        disableNext={isPaginateNextDisabled}
-        disablePrevious={isPaginatePreviousDisabled}
-        handleNext={onPaginateNext}
-        handlePrevious={onPaginatePrevious}
-      />
-      <LocationDetailMessage />
+      <ViewElement className={`${CLASS_BASE}__location-detail-view-controls`}>
+        <SearchControl
+          className={`${CLASS_BASE}__location-detail-view-search`}
+        />
+        <Paginate
+          currentPage={page}
+          disableNext={isPaginateNextDisabled}
+          disablePrevious={isPaginatePreviousDisabled}
+          handleNext={onPaginateNext}
+          handlePrevious={onPaginatePrevious}
+        />
+        <DataRefreshControl
+          className={`${CLASS_BASE}__locations-detail-view-data-refresh`}
+        />
+        <ActionsMenuControl
+          onActionSelect={onActionSelect}
+          disabled={isLoading}
+        />
+      </ViewElement>
+      <LocationDetailMessage show={hasError} message={message} />
       <Loading show={isLoading} />
       <LocationDetailViewTable
+        show={pageItems.length > 0 && !hasError}
         items={pageItems}
         handleDroppedFiles={onAddFiles}
         handleLocationItemClick={onNavigate}
       />
-      <LocationDetailEmptyMessage />
+      <LocationDetailEmptyMessage show={shouldShowEmptyMessage} />
     </ControlsContextProvider>
   );
 };

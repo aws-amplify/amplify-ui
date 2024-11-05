@@ -1,6 +1,5 @@
 import { humanFileSize } from '@aws-amplify/ui';
 
-import { DeleteHandlerData } from '../../actions/handlers';
 import { DataTableProps } from '../../composables/DataTable';
 import { DataTableRow } from '../../composables/DataTable/DataTable';
 import { IconVariant } from '../../context/elements';
@@ -9,6 +8,7 @@ import { TaskCounts } from '../../controls/types';
 import { Task, TaskStatus } from '../../tasks';
 
 import { STATUS_DISPLAY_VALUES } from './constants';
+import { ActionData } from '../../actions/types';
 
 const DELETE_ACTION_VIEW_HEADERS: DataTableProps['headers'] = [
   { key: 'key', type: 'sort', content: { label: 'Name' } },
@@ -35,7 +35,7 @@ export const getActionIconVariant = (status: TaskStatus): IconVariant => {
   }
 };
 
-const getTasksHaveStarted = (taskCounts: TaskCounts) =>
+export const getTasksHaveStarted = (taskCounts: TaskCounts): boolean =>
   taskCounts.QUEUED < taskCounts.TOTAL;
 
 export const getActionViewDisabledButtons = (
@@ -73,12 +73,12 @@ export const getFilenameWithoutPrefix = (path: string): string => {
   return path.slice(folder, path.length);
 };
 
-export const getDeleteActionViewTableData = ({
+export const getActionViewTableData = <T extends ActionData>({
   tasks,
   taskCounts,
   path,
 }: {
-  tasks: Task<DeleteHandlerData>[];
+  tasks: Task<T>[];
   taskCounts: TaskCounts;
   path: string;
 }): DataTableProps => {
