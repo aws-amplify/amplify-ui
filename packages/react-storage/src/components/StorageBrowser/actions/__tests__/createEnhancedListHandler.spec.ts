@@ -2,7 +2,12 @@ import {
   createEnhancedListHandler,
   SEARCH_LIMIT,
 } from '../createEnhancedListHandler';
-import { ActionInputConfig, ListHandlerOptions } from '../types';
+import {
+  ActionInputConfig,
+  ListHandler,
+  ListHandlerInput,
+  ListHandlerOutput,
+} from '../types';
 
 const mockAction = jest.fn();
 
@@ -11,6 +16,12 @@ const config: ActionInputConfig = {
   credentials: jest.fn(),
   region: 'us-weast-1',
 };
+type Output = ListHandlerOutput<{
+  name: string;
+  id: number;
+}>;
+
+type Handler = ListHandler<ListHandlerInput, Output>;
 
 describe('createEnhancedListHandler', () => {
   beforeEach(() => {
@@ -42,12 +53,7 @@ describe('createEnhancedListHandler', () => {
         nextToken: null,
       });
 
-    const handler = createEnhancedListHandler<
-      ListHandlerOptions,
-      {
-        name: string;
-      }
-    >(mockAction);
+    const handler = createEnhancedListHandler(mockAction as Handler);
     const prevState = { items: [], nextToken: undefined };
     const options = {
       search: { query: 'a', filterKey: 'name' as const },
@@ -76,13 +82,7 @@ describe('createEnhancedListHandler', () => {
       nextToken: null,
     });
 
-    const handler = createEnhancedListHandler<
-      ListHandlerOptions,
-      {
-        name: string;
-        id: number;
-      }
-    >(mockAction);
+    const handler = createEnhancedListHandler(mockAction as Handler);
     const prevState = { items: [], nextToken: undefined };
     const options = {
       search: { query: 'z', filterKey: 'id' as const },
@@ -111,12 +111,7 @@ describe('createEnhancedListHandler', () => {
       })
       .mockResolvedValueOnce({ items: mockItems, nextToken: 'token3' });
 
-    const handler = createEnhancedListHandler<
-      ListHandlerOptions,
-      {
-        name: string;
-      }
-    >(mockAction);
+    const handler = createEnhancedListHandler(mockAction as Handler);
     const prevState = { items: [], nextToken: undefined };
     const options = {
       search: { query: 'item', filterKey: 'name' as const },

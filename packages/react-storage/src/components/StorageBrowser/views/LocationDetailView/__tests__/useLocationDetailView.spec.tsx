@@ -318,7 +318,6 @@ describe('useLocationDetailView', () => {
       state.onSearch('moo', true);
     });
 
-    //
     expect(handleListMock).toHaveBeenCalledWith({
       config,
       options: {

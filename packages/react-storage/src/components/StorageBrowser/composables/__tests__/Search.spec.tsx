@@ -54,7 +54,7 @@ describe('Search', () => {
   it('searches for the term typed into the field', async () => {
     const onSearch = jest.fn();
 
-    render(<Search onSearch={onSearch} searchPlaceholder={'Placeholder'} />);
+    render(<Search onSearch={onSearch} searchPlaceholder="Placeholder" />);
 
     const inputField = screen.getByPlaceholderText('Placeholder');
     await act(async () => {

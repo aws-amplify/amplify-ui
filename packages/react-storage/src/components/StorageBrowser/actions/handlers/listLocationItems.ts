@@ -92,7 +92,7 @@ export const listLocationItemsHandler: ListLocationItemsHandler = async (
   const { bucket: _bucket, credentials, region } = config;
 
   const {
-    exclude: excludedType,
+    exclude,
     delimiter,
     nextToken,
     pageSize: _pageSize = DEFAULT_PAGE_SIZE,
@@ -135,9 +135,7 @@ export const listLocationItemsHandler: ListLocationItemsHandler = async (
     const items = parseResult(output, prefix);
 
     result.push(
-      ...(excludedType
-        ? items.filter((item) => item.type !== excludedType)
-        : items)
+      ...(exclude ? items.filter((item) => item.type !== exclude) : items)
     );
   } while (nextNextToken && result.length < pageSize);
 

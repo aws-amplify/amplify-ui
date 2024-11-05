@@ -7,14 +7,12 @@ import { usePaginate } from '../hooks/usePaginate';
 import { useStore } from '../../providers/store';
 import {
   listLocationItemsHandler,
-  ListLocationItemsHandlerOptions,
   LocationData,
   LocationItemData,
 } from '../../actions';
 import { LocationState } from '../../providers/store/location';
 import { createEnhancedListHandler } from '../../actions/createEnhancedListHandler';
 import { useGetActionInput } from '../../providers/configuration';
-import { LocationItemType } from '../../actions/handlers';
 import { displayText } from '../../displayText/en';
 
 interface UseLocationDetailView {
@@ -68,11 +66,9 @@ export const DEFAULT_LIST_OPTIONS = {
   pageSize: DEFAULT_PAGE_SIZE,
 };
 
-const listLocationItemsAction = createEnhancedListHandler<
-  ListLocationItemsHandlerOptions,
-  LocationItemData,
-  LocationItemType
->(listLocationItemsHandler);
+const listLocationItemsAction = createEnhancedListHandler(
+  listLocationItemsHandler
+);
 
 export function useLocationDetailView(
   options?: UseLocationDetailViewOptions
@@ -215,6 +211,7 @@ export function useLocationDetailView(
       };
       handleReset();
       handleList({ config: getConfig(), prefix, options: searchOptions });
+      dispatchStoreAction({ type: 'RESET_LOCATION_ITEMS' });
     },
   };
 }

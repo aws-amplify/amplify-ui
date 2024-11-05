@@ -15,10 +15,9 @@ import { LocationData } from './types';
 import { parseLocations, ExcludeType } from './utils';
 
 const DEFAULT_PAGE_SIZE = 1000;
-export type ExclusionsType = ExcludeType | ExcludeType[];
 
 export interface ListLocationsHandlerOptions
-  extends ListHandlerOptions<ExclusionsType> {}
+  extends ListHandlerOptions<ExcludeType | ExcludeType[]> {}
 
 export interface ListLocationsHandlerInput
   extends ListHandlerInput<ListLocationsHandlerOptions> {}
