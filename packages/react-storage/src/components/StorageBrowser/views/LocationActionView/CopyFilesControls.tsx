@@ -60,6 +60,7 @@ export const CopyFilesControls = ({
       actionStartLabel: 'Start',
       isActionStartDisabled: disablePrimary,
       isActionCancelDisabled: disableCancel,
+      actionCancelLabel: 'Cancel',
     },
     actionsConfig: { type: 'BATCH_ACTION', isCancelable: true },
     onActionStart,
