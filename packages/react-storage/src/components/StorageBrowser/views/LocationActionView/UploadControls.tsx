@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { humanFileSize, isFunction, isUndefined } from '@aws-amplify/ui';
+import { humanFileSize, isFunction } from '@aws-amplify/ui';
 
 import { LocationData, uploadHandler } from '../../actions';
 import { displayText } from '../../displayText/en';
@@ -64,7 +64,7 @@ const LOCATION_ACTION_VIEW_COLUMNS: Column<LocationActionViewColumns>[] = [
   { key: 'size', header: 'Size' },
   { key: 'status', header: 'Status' },
   { key: 'progress', header: 'Progress' },
-  { key: 'cancel', header: 'Cancel' },
+  { key: 'cancel', header: '' },
 ];
 
 export const ICON_CLASS = `${CLASS_BASE}__action-status`;
@@ -124,13 +124,6 @@ const renderRowItem: RenderRowItem<LocationActionViewColumns> = (
 
         return (
           <TableDataText>
-            <button
-              onClick={() => {
-                row.remove();
-              }}
-            >
-              Remove
-            </button>
             <ActionIcon status={row.status} />
             {row.key.slice(folder, row.key.length)}
           </TableDataText>
@@ -210,9 +203,7 @@ export const UploadControls = ({
   );
 
   const [{ actionType, files, location }, dispatchStoreAction] = useStore();
-  const { current, key: locationKey } = location;
-  const { prefix } = current ?? {};
-  const hasInvalidPrefix = isUndefined(prefix);
+  const { current, key: destinationPrefix } = location;
 
   // launch native file picker on intiial render if no files are currently in state
   const selectionTypeRef = React.useRef<'FILE' | 'FOLDER' | undefined>(
@@ -232,9 +223,11 @@ export const UploadControls = ({
     };
   }, [dispatchStoreAction]);
 
-  const [tasks, handleProcess] = useProcessTasks(uploadHandler, files, {
-    concurrency: 4,
-  });
+  const [{ tasks, isProcessing }, handleProcess] = useProcessTasks(
+    uploadHandler,
+    files,
+    { concurrency: 4 }
+  );
 
   const [compareFn, setCompareFn] = React.useState<(a: any, b: any) => number>(
     () => compareStrings
@@ -246,9 +239,9 @@ export const UploadControls = ({
   const { direction, selection } = sortState;
 
   const tableData = tasks
-    .map(({ key, id, item, remove: _remove, ...task }) => {
-      const { size, webkitRelativePath, type = '-' } = item;
-
+    .map(({ data, ...task }) => {
+      const { key, id, file } = data as { key: string; id: string; file: File };
+      const { size, webkitRelativePath, type = '-' } = file;
       const folder =
         webkitRelativePath?.length > 0
           ? webkitRelativePath.slice(0, webkitRelativePath.lastIndexOf('/') + 1)
@@ -256,10 +249,12 @@ export const UploadControls = ({
 
       const remove = () => {
         dispatchStoreAction({ type: 'REMOVE_FILE_ITEM', id });
-        _remove();
+        task.remove?.();
       };
+      const cancel = isProcessing ? task.cancel : remove;
+      const progress = task.progress ?? 0;
 
-      return { ...task, folder, key, progress: 0, remove, size, type };
+      return { ...task, cancel, folder, key, progress, size, type };
     })
     .sort((a, b) =>
       direction === 'ascending'
@@ -349,11 +344,9 @@ export const UploadControls = ({
       isCancelable: true,
     },
     onActionStart: () => {
-      if (hasInvalidPrefix) return;
-
       handleProcess({
         config: getInput(),
-        prefix: locationKey,
+        destinationPrefix,
         options: { preventOverwrite },
       });
     },
@@ -370,7 +363,7 @@ export const UploadControls = ({
         onClick={() => {
           if (isFunction(onExit)) onExit?.(current!);
           // clear tasks state
-          tasks.forEach(({ remove }) => remove());
+          tasks.forEach(({ remove }) => remove?.());
           // clear files state
           dispatchStoreAction({ type: 'RESET_FILE_ITEMS' });
           // clear selected action
@@ -384,7 +377,7 @@ export const UploadControls = ({
             descriptions={[
               {
                 term: `${displayText.actionDestination}:`,
-                details: prefix?.length ? locationKey : '/',
+                details: destinationPrefix.length ? destinationPrefix : '/',
               },
             ]}
           />
@@ -436,7 +429,12 @@ export const UploadControls = ({
         <StatusDisplayControl
           className={`${CLASS_BASE}__upload-status-display`}
         />
-        <ActionCancelControl className={`${CLASS_BASE}__cancel`} />
+        <ActionCancelControl
+          className={[
+            `${CLASS_BASE}__cancel`,
+            `${CLASS_BASE}__upload-action-start`,
+          ].join(' ')}
+        />
         <ActionStartControl className={`${CLASS_BASE}__upload-action-start`} />
       </ViewElement>
     </ControlsContextProvider>

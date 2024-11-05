@@ -1,2 +1,2 @@
 export { useProcessTasks } from './useProcessTasks';
-export { Task, TaskStatus } from './types';
+export { Task, Tasks, TaskStatus } from './types';

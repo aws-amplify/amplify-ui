@@ -1,12 +1,9 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: Apache-2.0
-
-import { LocationAccess } from '../../actions/handlers';
 import {
   ListLocations,
   ListLocationsOutput,
   listPaths,
   ListPathsOutput,
+  LocationAccess,
 } from '../../storage-internal';
 import { getPaginatedLocations } from './getPaginatedLocations';
 import { mapAmplifyPermissions } from './mapAmplifyPermissions';

@@ -1,4 +1,4 @@
-import { SelectionType } from '../../../actions/configs';
+import { SelectionType, TaskData } from '../../../actions';
 
 export type FilesActionType =
   | { type: 'ADD_FILE_ITEMS'; files?: File[] }
@@ -8,10 +8,8 @@ export type FilesActionType =
 
 export type HandleFilesAction = (input: FilesActionType) => void;
 
-export interface FileItem {
-  id: string;
-  key: string;
-  item: File;
+export interface FileItem extends TaskData {
+  file: File;
 }
 
 export type FileItems = FileItem[];

@@ -5,20 +5,25 @@ import { copyHandler, CopyHandlerInput } from '../copy';
 const copySpy = jest.spyOn(StorageModule, 'copy');
 
 const baseInput: CopyHandlerInput = {
-  prefix: 'prefix/',
+  destinationPrefix: 'destination/',
   config: {
     accountId: '012345678901',
     bucket: 'bucket',
     credentials: jest.fn(),
     region: 'region',
   },
-  key: 'key',
-  data: { id: 'identity', payload: { destinationPrefix: 'destination/' } },
+  data: {
+    id: 'identity',
+    key: 'some-key',
+    lastModified: new Date(),
+    size: 100000000,
+    type: 'FILE',
+  },
 };
 
 describe('copyHandler', () => {
-  it('calls `copy` and returns the expected `key`', () => {
-    const { key } = copyHandler(baseInput);
+  it('calls `copy` wth the expected values', () => {
+    copyHandler(baseInput);
 
     const bucket = {
       bucketName: `${baseInput.config.bucket}`,
@@ -29,12 +34,12 @@ describe('copyHandler', () => {
       destination: {
         expectedBucketOwner: baseInput.config.accountId,
         bucket,
-        path: 'prefix/key',
+        path: baseInput.destinationPrefix,
       },
       source: {
         expectedBucketOwner: `${baseInput.config.accountId}`,
         bucket,
-        path: `${baseInput.key}`,
+        path: baseInput.data.key,
       },
       options: {
         locationCredentialsProvider: baseInput.config.credentials,
@@ -42,6 +47,5 @@ describe('copyHandler', () => {
     };
 
     expect(copySpy).toHaveBeenCalledWith(expected);
-    expect(key).toBe(baseInput.key);
   });
 });

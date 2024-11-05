@@ -1,3 +1,4 @@
+import { CopyHandlerData } from '../../../actions';
 import {
   ActionViewComponent,
   ActionViewProps,
@@ -19,4 +20,5 @@ export interface CopyViewProps
   extends ActionViewProps,
     Partial<CopyViewState> {}
 
-export interface CopyViewComponent extends ActionViewComponent<CopyViewProps> {}
+export interface CopyViewComponent
+  extends ActionViewComponent<CopyHandlerData, CopyViewProps> {}

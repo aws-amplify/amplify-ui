@@ -5,14 +5,18 @@ import {
   TaskHandlerOptions,
   TaskHandlerInput,
   TaskHandlerOutput,
+  TaskData,
 } from '../types';
+import { FileData } from './listLocationItems';
 
-import { constructBucket, resolveHandlerResult } from './utils';
+import { constructBucket } from './utils';
 
-interface DeleteHandlerOptions extends TaskHandlerOptions {}
+export interface DeleteHandlerOptions extends TaskHandlerOptions {}
+
+export interface DeleteHandlerData extends TaskData, FileData {}
 
 export interface DeleteHandlerInput
-  extends TaskHandlerInput<string, DeleteHandlerOptions> {}
+  extends TaskHandlerInput<DeleteHandlerData, DeleteHandlerOptions> {}
 
 export interface DeleteHandlerOutput extends TaskHandlerOutput {}
 
@@ -21,27 +25,22 @@ export interface DeleteHandler
 
 export const deleteHandler: DeleteHandler = ({
   config,
-  key,
-  options,
+  data: { key },
 }): DeleteHandlerOutput => {
   const { accountId, credentials } = config;
-  const bucket = constructBucket(config);
+
   const result = remove({
     path: key,
     options: {
-      bucket,
+      bucket: constructBucket(config),
       locationCredentialsProvider: credentials,
       expectedBucketOwner: accountId,
     },
   });
 
   return {
-    key,
-    result: resolveHandlerResult({
-      key,
-      isCancelable: false,
-      options,
-      result,
-    }),
+    result: result
+      .then(() => ({ status: 'COMPLETE' as const }))
+      .catch(({ message }: Error) => ({ message, status: 'FAILED' as const })),
   };
 };

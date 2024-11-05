@@ -1,15 +1,19 @@
 import { getUrl } from '../../storage-internal';
 import {
+  TaskData,
   TaskHandler,
   TaskHandlerInput,
   TaskHandlerOptions,
   TaskHandlerOutput,
 } from '../types';
-import { constructBucket, resolveHandlerResult } from './utils';
+import { FileData } from './listLocationItems';
+import { constructBucket } from './utils';
 
-interface DownloadHandlerOptions extends TaskHandlerOptions {}
+export interface DownloadHandlerData extends TaskData, FileData {}
+export interface DownloadHandlerOptions extends TaskHandlerOptions {}
+
 export interface DownloadHandlerInput
-  extends TaskHandlerInput<string, DownloadHandlerOptions> {}
+  extends TaskHandlerInput<DownloadHandlerData, DownloadHandlerOptions> {}
 
 export interface DownloadHandlerOutput extends TaskHandlerOutput {}
 
@@ -31,28 +35,29 @@ function downloadFromUrl(fileName: string, url: string) {
 
 export const downloadHandler: DownloadHandler = ({
   config,
-  key,
-  options,
+  data: { key },
 }): DownloadHandlerOutput => {
   const { accountId, credentials } = config;
-  const bucket = constructBucket(config);
 
   const result = getUrl({
     path: key,
     options: {
-      bucket,
+      bucket: constructBucket(config),
       locationCredentialsProvider: credentials,
       validateObjectExistence: true,
       contentDisposition: 'attachment',
       expectedBucketOwner: accountId,
     },
   }).then((result) => {
-    downloadFromUrl(key, result.url.toString());
     return result;
   });
 
   return {
-    key,
-    result: resolveHandlerResult({ result, isCancelable: false, key, options }),
+    result: result
+      .then(({ url }) => {
+        downloadFromUrl(key, url.toString());
+        return { status: 'COMPLETE' as const };
+      })
+      .catch(({ message }: Error) => ({ message, status: 'FAILED' as const })),
   };
 };
