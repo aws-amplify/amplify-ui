@@ -69,6 +69,7 @@ export const LocationDetailViewControls = ({
     page,
     isPaginatePreviousDisabled,
     isPaginateNextDisabled,
+    showIncludeSubfolders,
     location,
     hasError,
     message,
@@ -87,6 +88,7 @@ export const LocationDetailViewControls = ({
   const contextValue: ControlsContext = {
     data: {
       isDataRefreshDisabled: isLoading,
+      showIncludeSubfolders,
       location,
     },
     onNavigate,

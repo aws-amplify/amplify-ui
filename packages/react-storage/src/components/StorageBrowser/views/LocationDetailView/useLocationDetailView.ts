@@ -22,6 +22,7 @@ interface UseLocationDetailView {
   isLoading: boolean;
   isPaginateNextDisabled: boolean;
   isPaginatePreviousDisabled: boolean;
+  showIncludeSubfolders: boolean;
   location: LocationState;
   message: string | undefined;
   pageItems: LocationItemData[];
@@ -169,6 +170,7 @@ export function useLocationDetailView(
     hasError,
     message,
     isLoading,
+    showIncludeSubfolders: true,
     onPaginatePrevious: handlePaginatePrevious,
     onPaginateNext: () => {
       handlePaginateNext({ resultCount, hasNextToken });
