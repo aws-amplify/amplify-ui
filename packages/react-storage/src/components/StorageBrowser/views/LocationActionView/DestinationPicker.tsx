@@ -49,6 +49,7 @@ export const DestinationPicker = ({
   onSetDestinationList: (destination: string[]) => void;
 }): React.JSX.Element => {
   const {
+    bucket,
     items,
     hasNextToken,
     currentPage,
@@ -107,12 +108,13 @@ export const DestinationPicker = ({
               term: `${actionSetDestination}:`,
               details: destinationList.length ? (
                 <>
-                  {destinationList.map((item, index) => (
+                  {destinationList.map((key, index) => (
                     <Breadcrumb
                       isCurrent={index === destinationList.length - 1}
-                      key={`${item}-${index}`}
+                      key={`${key}-${index}`}
                       onNavigate={() => handleNavigatePath(index)}
-                      name={item.replace('/', '')}
+                      // If bucket level access, show bucket name as root breadcrumb
+                      name={key === '' ? bucket : key.replace('/', '')}
                     />
                   ))}
                 </>

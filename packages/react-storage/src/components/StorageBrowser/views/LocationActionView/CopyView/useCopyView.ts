@@ -23,7 +23,7 @@ export const useCopyView = ({
     },
     dispatchStoreAction,
   ] = useStore();
-  const { current } = location;
+  const { key, current } = location;
 
   const getInput = useGetActionInput();
 
@@ -38,13 +38,20 @@ export const useCopyView = ({
     }
   );
 
-  // need to handle non-supported non slack ending prefixes
-  // in handler
-  const prefixListWithoutSlashes = current?.prefix.includes('/')
-    ? current.prefix.split('/').slice(0, -1)
-    : [];
+  const destinationListWithoutSlashes =
+    // handle root bucket access grant
+    key === ''
+      ? ['']
+      : // handle subfolder inside root access grant
+      key && current?.prefix == ''
+      ? ['', ...key.split('/').slice(0, -1)]
+      : // regular access that starts at prefix (not root bucket)
+      key.includes('/')
+      ? key.split('/').slice(0, -1)
+      : [];
+
   const [destinationList, onSetDestinationList] = useState(
-    prefixListWithoutSlashes
+    destinationListWithoutSlashes
   );
 
   const taskCounts = getTaskCounts(tasks);
@@ -61,7 +68,6 @@ export const useCopyView = ({
 
   const onActionCancel = () => {
     tasks.forEach((task) => {
-      // @TODO Fixme, calling cancel on task doesn't currently work
       if (isFunction(task.cancel)) task.cancel();
     });
   };

@@ -10,6 +10,7 @@ import { useGetActionInput } from '../../../providers/configuration';
 import { getDestinationListFullPrefix } from '../utils/getDestinationPickerDataTable';
 
 import { useDataState } from '@aws-amplify/ui-react-core';
+import { useStore } from '../../../providers/store';
 
 const DEFAULT_PAGE_SIZE = 1000;
 export const DEFAULT_LIST_OPTIONS = {
@@ -24,6 +25,7 @@ export const useDestinationPicker = ({
 }: {
   destinationList: string[];
 }): {
+  bucket: string | undefined;
   items: ListLocationItemsHandlerOutput['items'];
   hasNextToken: boolean;
   currentPage: number;
@@ -35,6 +37,7 @@ export const useDestinationPicker = ({
   range: [number, number];
 } => {
   const previousPathref = useRef<string | null>(null);
+
   const prefix = getDestinationListFullPrefix(destinationList);
 
   const locationItemsAction = useCallback(
@@ -98,8 +101,13 @@ export const useDestinationPicker = ({
     }
   }, [getInput, handleList, nextToken, prefix]);
 
+  const [{ location }] = useStore();
+
+  const { current } = location;
+  const { bucket } = current ?? {};
   return {
     items,
+    bucket,
     hasNextToken,
     currentPage,
     isLoading,

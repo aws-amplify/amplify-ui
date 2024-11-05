@@ -9,9 +9,20 @@ const DESTINATION_PICKER_COLUMNS: DataTableProps['headers'] = [
 export const getDestinationListFullPrefix = (
   destinationList: string[]
 ): string => {
-  if (destinationList.length < 1) return '';
-  const destination = destinationList.join('/');
+  if (
+    destinationList.length < 1 ||
+    (destinationList.length === 1 && destinationList[0] === '')
+  )
+    return '';
+  // filter out root bucket ""
+  const destination = destinationList.filter((item) => item !== '').join('/');
   return destination.endsWith('/') ? destination : `${destination}/`;
+};
+
+const getFolderNameFromKey = (key: string): string => {
+  if (key === '') return 'root';
+  const lastFolder = key.split('/').at(-2);
+  return lastFolder ? lastFolder : '';
 };
 
 export const getDestinationPickerTableData = ({
@@ -29,10 +40,10 @@ export const getDestinationPickerTableData = ({
           key: item.id,
           type: 'button',
           content: {
-            label: item.key,
+            label: getFolderNameFromKey(item.key),
             icon: 'folder',
             onClick: () => {
-              handleNavigateFolder(item.key);
+              handleNavigateFolder(getFolderNameFromKey(item.key));
             },
           },
         },
