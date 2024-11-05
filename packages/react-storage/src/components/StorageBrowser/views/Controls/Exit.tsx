@@ -4,6 +4,7 @@ import { ButtonElement } from '../../context/elements/definitions';
 import { IconElement } from '../../context/elements/IconElement';
 
 import { CLASS_BASE } from '../constants';
+import { displayText } from '../../displayText/en';
 
 const BLOCK_NAME = `${CLASS_BASE}__exit`;
 interface ExitControlProps {
@@ -21,6 +22,7 @@ export const ExitControl = ({
     onClick={onClick}
     disabled={disabled}
   >
-    <IconElement className={`${BLOCK_NAME}__icon`} variant="exit" /> Back
+    <IconElement className={`${BLOCK_NAME}__icon`} variant="exit" />{' '}
+    {displayText.exitButtonText}
   </ButtonElement>
 );
