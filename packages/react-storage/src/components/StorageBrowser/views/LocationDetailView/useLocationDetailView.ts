@@ -6,9 +6,9 @@ import { useStore } from '../../providers/store';
 import { useAction } from '../../do-not-import-from-here/actions';
 import { LocationData, LocationItemData } from '../../actions';
 import { FileData } from '../../actions/handlers';
+import { isLastPage } from '../utils';
 
 interface UseLocationDetailView {
-  hasNextPage: boolean;
   hasError: boolean;
   isLoading: boolean;
   isPaginateNextDisabled: boolean;
@@ -79,6 +79,7 @@ export function useLocationDetailView(
   const { prefix } = currentLocation ?? {};
   const { fileDataItems } = locationItems;
   const hasInvalidPrefix = isUndefined(prefix);
+  const { pageSize } = listOptions;
 
   const [{ data, isLoading, hasError, message }, handleList] = useAction(
     'LIST_LOCATION_ITEMS'
@@ -110,7 +111,7 @@ export function useLocationDetailView(
   } = usePaginate({
     onPaginateNext,
     onPaginatePrevious,
-    pageSize: listOptions.pageSize,
+    pageSize,
   });
 
   const onRefresh = () => {
@@ -142,20 +143,22 @@ export function useLocationDetailView(
     () => pageItems.filter((item): item is FileData => item.type === 'FILE'),
     [pageItems]
   );
-
   const areAllFilesSelected = fileDataItems?.length === fileItems.length;
+  const isFinalPage =
+    !hasNextToken && isLastPage(currentPage, resultCount, pageSize);
+  const hasNoResults = pageItems.length === 0;
 
   return {
     page: currentPage,
     pageItems,
-    hasNextPage: hasNextToken,
-    isPaginateNextDisabled: !hasNextToken || isLoading || hasError,
-    isPaginatePreviousDisabled: currentPage <= 1 || isLoading || hasError,
     currentLocation,
     currentPath,
     areAllFilesSelected,
     fileDataItems,
     hasFiles: fileItems.length > 0,
+    isPaginateNextDisabled:
+      isFinalPage || isLoading || hasError || hasNoResults,
+    isPaginatePreviousDisabled: currentPage <= 1 || isLoading || hasNoResults,
     hasError,
     message,
     isLoading,

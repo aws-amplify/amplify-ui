@@ -114,7 +114,7 @@ describe('CreateFolderControls', () => {
       render(<CreateFolderControls />);
     });
 
-    const button = screen.getByRole('button', { name: 'Back' });
+    const button = screen.getByRole('button', { name: 'Exit' });
 
     fireEvent.click(button);
 

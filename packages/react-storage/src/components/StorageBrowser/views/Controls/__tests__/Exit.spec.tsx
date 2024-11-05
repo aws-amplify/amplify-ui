@@ -7,7 +7,7 @@ describe('ExitControl', () => {
     render(<ExitControl />);
 
     const button = screen.getByRole('button', {
-      name: 'Back',
+      name: 'Exit',
     });
 
     expect(button).toBeInTheDocument();

@@ -5,6 +5,7 @@ import {
   StorageBrowserElements,
   TableDataCellElementProps,
   TableHeaderElementProps,
+  ViewElement,
 } from '../../context/elements';
 
 import { CLASS_BASE } from '../constants';
@@ -108,24 +109,28 @@ export function TableControl<U>({
   });
 
   return (
-    <Table
-      {...dropHandlers}
-      aria-label={ariaLabel}
-      data-testid="storage-browser-table"
-      className={`${BLOCK_NAME} ${
-        dragState !== 'inactive' ? `${BLOCK_NAME}__dropzone` : ''
-      }`}
-    >
-      <TableHead className={`${BLOCK_NAME}__head`}>
-        <TableRow className={`${BLOCK_NAME}__row`}>
-          {columns.map((column) => renderHeaderItem(column))}
-        </TableRow>
-      </TableHead>
+    <ViewElement className={'storage-browser__table-wrapper'}>
+      <Table
+        {...dropHandlers}
+        aria-label={ariaLabel}
+        data-testid="storage-browser-table"
+        className={`${BLOCK_NAME} ${
+          dragState !== 'inactive' ? `${BLOCK_NAME}__dropzone` : ''
+        }`}
+      >
+        <TableHead className={`${BLOCK_NAME}__head`}>
+          <TableRow className={`${BLOCK_NAME}__row`}>
+            {columns.map((column) => renderHeaderItem(column))}
+          </TableRow>
+        </TableHead>
 
-      <TableBody className={`${BLOCK_NAME}__body`}>
-        {data?.map((row: U, rowIndex: number) => renderRowItem(row, rowIndex))}
-      </TableBody>
-    </Table>
+        <TableBody className={`${BLOCK_NAME}__body`}>
+          {data?.map((row: U, rowIndex: number) =>
+            renderRowItem(row, rowIndex)
+          )}
+        </TableBody>
+      </Table>
+    </ViewElement>
   );
 }
 

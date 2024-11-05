@@ -8,7 +8,7 @@ import { useLocationsView } from './useLocationsView';
 import { ControlsContextProvider } from '../../controls/context';
 import { DataRefreshControl } from '../../controls/DataRefreshControl';
 import { DataTableControl } from '../../controls/DataTableControl';
-
+import { ViewElement } from '../../context/elements';
 import { LocationsViewProps } from './types';
 import { getLocationsViewTableData } from './getLocationsViewTableData';
 
@@ -74,22 +74,26 @@ export function LocationsView({
         onRefresh={onRefresh}
       >
         <Title>Home</Title>
-        <DataRefreshControl
-          className={`${CLASS_BASE}__locations-view-data-refresh`}
-        />
-        <Paginate
-          currentPage={page}
-          disableNext={isPaginateNextDisabled}
-          disablePrevious={isPaginatePreviousDisabled}
-          handleNext={onPaginateNext}
-          handlePrevious={onPaginatePrevious}
-        />
+        <ViewElement className={`${CLASS_BASE}__location-detail-view-controls`}>
+          <Paginate
+            currentPage={page}
+            disableNext={isPaginateNextDisabled}
+            disablePrevious={isPaginatePreviousDisabled}
+            handleNext={onPaginateNext}
+            handlePrevious={onPaginatePrevious}
+          />
+          <DataRefreshControl
+            className={`${CLASS_BASE}__locations-view-data-refresh`}
+          />
+        </ViewElement>
         <LocationsMessage />
         <Loading />
         {hasError ? null : (
-          <DataTableControl
-            className={`${CLASS_BASE}__locations-view-data-table`}
-          />
+          <ViewElement className={`${CLASS_BASE}__table-wrapper`}>
+            <DataTableControl
+              className={`${CLASS_BASE}__locations-view-data-table`}
+            />
+          </ViewElement>
         )}
         <LocationsEmptyMessage />
       </ControlsContextProvider>
