@@ -1,5 +1,4 @@
-import { ListLocations } from '../../../storage-internal';
-import { LocationAccess } from '../../../actions/handlers';
+import { ListLocations, LocationAccess } from '../../../storage-internal';
 
 import { createListLocationsAction } from '../listLocationsAction';
 import { parseLocationAccess } from '../../../actions/handlers/utils';

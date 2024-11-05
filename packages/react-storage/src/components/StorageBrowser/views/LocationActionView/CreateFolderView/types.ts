@@ -1,10 +1,12 @@
+import { CopyHandlerData } from '../../../actions';
 import {
   ActionViewComponent,
   ActionViewState,
   ActionViewProps,
 } from '../types';
 
-export interface CreateFolderViewState extends ActionViewState<string> {
+export interface CreateFolderViewState
+  extends ActionViewState<CopyHandlerData> {
   onDestinationChange: (destination: string) => void;
 }
 
@@ -13,4 +15,4 @@ export interface CreateFolderViewProps
     Partial<CreateFolderViewState> {}
 
 export interface CreateFolderViewComponent
-  extends ActionViewComponent<CreateFolderViewProps> {}
+  extends ActionViewComponent<CopyHandlerData, CreateFolderViewProps> {}

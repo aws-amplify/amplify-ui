@@ -5,25 +5,27 @@ import { deleteHandler, DeleteHandlerInput } from '../delete';
 const removeSpy = jest.spyOn(StorageModule, 'remove');
 
 const baseInput: DeleteHandlerInput = {
-  prefix: 'prefix/',
-  key: 'prefix/key',
   config: {
     accountId: '012345678901',
     bucket: 'bucket',
     credentials: jest.fn(),
     region: 'region',
   },
-  // @ts-expect-error
-  // FIXME: The type for payload is never
-  data: { id: 'id', payload: undefined },
+  data: {
+    id: 'id',
+    key: 'prefix/key',
+    lastModified: new Date(),
+    size: 829292,
+    type: 'FILE',
+  },
 };
 
 describe('deleteHandler', () => {
   it('calls `remove` and returns the expected `key`', () => {
-    const { key } = deleteHandler(baseInput);
+    deleteHandler(baseInput);
 
     const expected: StorageModule.RemoveInput = {
-      path: baseInput.key,
+      path: baseInput.data.key,
       options: {
         expectedBucketOwner: baseInput.config.accountId,
         bucket: {
@@ -35,7 +37,5 @@ describe('deleteHandler', () => {
     };
 
     expect(removeSpy).toHaveBeenCalledWith(expected);
-
-    expect(key).toBe(baseInput.key);
   });
 });

@@ -2,9 +2,9 @@ import {
   listCallerAccessGrants,
   ListLocationsOutput,
   LocationCredentialsProvider,
+  LocationAccess,
 } from '../../../storage-internal';
 
-import { LocationAccess } from '../types';
 import { parseLocations } from '../utils';
 
 import {

@@ -6,6 +6,7 @@ export const INITIAL_STATUS_COUNTS = {
   FAILED: 0,
   INITIAL: 0,
   PENDING: 0,
+  OVERWRITE_PREVENTED: 0,
   QUEUED: 0,
   TOTAL: 0,
 };
@@ -15,6 +16,7 @@ export const STATUS_DISPLAY_VALUES = {
   COMPLETE: 'Completed',
   FAILED: 'Failed',
   INITIAL: 'Not Started',
+  OVERWRITE_PREVENTED: 'Overwrite Prevented',
   PENDING: 'In Progress',
   QUEUED: 'Queued',
 };
