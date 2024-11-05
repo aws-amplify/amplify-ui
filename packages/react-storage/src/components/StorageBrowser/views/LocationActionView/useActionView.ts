@@ -11,6 +11,7 @@ export function useActionView(): ActionViewState {
       COMPLETE: 0,
       FAILED: 0,
       INITIAL: 0,
+      OVERWRITE_PREVENTED: 0,
       PENDING: 0,
       QUEUED: 0,
       TOTAL: 0,

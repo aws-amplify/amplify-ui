@@ -4,7 +4,7 @@ import { Hub } from 'aws-amplify/utils';
 import {
   createAmplifyAuthAdapter,
   MISSING_BUCKET_OR_REGION_ERROR,
-} from '../adapters/createAmplifyAuthAdapter';
+} from '../../../adapters/createAmplifyAuthAdapter/createAmplifyAuthAdapter';
 
 describe('createAmplifyAuthAdapter', () => {
   beforeEach(() => {

@@ -28,12 +28,12 @@ exports[`defaultActionConfigs matches expected shape 1`] = `
   "listLocationItems": {
     "componentName": "LocationDetailView",
     "displayName": [Function],
-    "handler": null,
+    "handler": [Function],
   },
   "listLocations": {
     "componentName": "LocationsView",
     "displayName": "Home",
-    "handler": null,
+    "handler": [Function],
   },
   "upload": {
     "actionsListItemConfig": [

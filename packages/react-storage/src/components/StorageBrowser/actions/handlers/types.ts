@@ -1,8 +1,4 @@
-import { ListLocations, Permission } from '../../storage-internal';
-
-export type LocationAccess = Awaited<
-  ReturnType<ListLocations>
->['locations'][number];
+import { Permission } from '../../storage-internal';
 
 export type LocationType = 'OBJECT' | 'PREFIX' | 'BUCKET';
 
