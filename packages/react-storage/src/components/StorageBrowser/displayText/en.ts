@@ -17,4 +17,6 @@ export const displayText = {
   uploadFilesTitle: 'Upload files',
   deleteFilesTitle: 'Delete files',
   exitButtonText: 'Exit',
+  searchPlaceholder: 'Search current folder',
+  searchClearLabel: 'Clear search',
 };

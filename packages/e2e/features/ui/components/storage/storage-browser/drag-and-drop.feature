@@ -8,7 +8,7 @@ Feature: Drag and drop files within Storage Browser
       When I type my "email" with status "CONFIRMED"
       Then I type my password
       Then I click the "Sign in" button
-      When I click the button containing "public"
+      When I click the first button containing "public"
       When I drag and drop a file into the storage browser with file name "test.txt"
       Then I see "Upload Files"
       Then I see "test.txt"
@@ -18,7 +18,7 @@ Feature: Drag and drop files within Storage Browser
       When I type my "email" with status "CONFIRMED"
       Then I type my password
       Then I click the "Sign in" button
-      When I click the button containing "public"
+      When I click the first button containing "public"
       When I drag and drop a folder into the storage browser with name "test"
       Then I see "Upload Folder"
       Then I see "test"
@@ -28,7 +28,7 @@ Feature: Drag and drop files within Storage Browser
     When I type my "email" with status "CONFIRMED"
     Then I type my password
     Then I click the "Sign in" button
-    When I click the button containing "public"
+    When I click the first button containing "public"
     Then I see the "Actions" button
     When I click the "Actions" button
     Then I see the "Upload Files" menuitem

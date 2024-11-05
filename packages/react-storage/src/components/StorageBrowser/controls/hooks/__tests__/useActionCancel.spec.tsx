@@ -1,19 +1,19 @@
 import * as controlsContextModule from '../../../controls/context';
 import { ControlsContext } from '../../types';
-import { useActionStart } from '../useActionStart';
+import { useActionCancel } from '../useActionCancel';
 
-describe('useActionStart', () => {
+describe('useActionCancel', () => {
   const controlsContext: ControlsContext = {
     data: {
-      actionStartLabel: 'Start',
+      actionCancelLabel: 'Cancel',
+      isActionCancelDisabled: false,
     },
     actionsConfig: {
       isCancelable: true,
       type: 'BATCH_ACTION',
     },
-    onActionStart: jest.fn(),
+    onActionCancel: jest.fn(),
   };
-
   const useControlsContextSpy = jest.spyOn(
     controlsContextModule,
     'useControlsContext'
@@ -26,19 +26,19 @@ describe('useActionStart', () => {
   it('returns object as it is received from ControlsContext', () => {
     useControlsContextSpy.mockReturnValue(controlsContext);
 
-    expect(useActionStart()).toStrictEqual({
-      label: controlsContext.data.actionStartLabel,
-      onStart: expect.any(Function),
-      isDisabled: controlsContext.data.isActionStartDisabled,
+    expect(useActionCancel()).toStrictEqual({
+      label: controlsContext.data.actionCancelLabel,
+      onCancel: controlsContext.onActionCancel,
+      isDisabled: controlsContext.data.isActionCancelDisabled,
     });
   });
 
-  it('calls onActionStart from ControlsContext when onStart is called', () => {
+  it('calls onActionCancel from ControlsContext when onCancel is called', () => {
     useControlsContextSpy.mockReturnValue(controlsContext);
 
-    const { onStart } = useActionStart();
-    onStart!();
+    const { onCancel } = useActionCancel();
+    onCancel!();
 
-    expect(controlsContext.onActionStart).toHaveBeenCalledTimes(1);
+    expect(controlsContext.onActionCancel).toHaveBeenCalledTimes(1);
   });
 });

@@ -1,4 +1,5 @@
 import { ListLocations, Permission } from '../../storage-internal';
+import { TaskHandlerOptions } from '../types';
 
 export type LocationAccess = Awaited<
   ReturnType<ListLocations>
@@ -36,4 +37,9 @@ export interface LocationData {
    * @type "OBJECT" | "PREFIX" | "BUCKET"
    */
   type: LocationType;
+}
+
+export interface TaskHandlerCallbacks
+  extends Pick<TaskHandlerOptions, 'onComplete' | 'onError'> {
+  onCancel?: (key: string) => void;
 }

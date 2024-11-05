@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Controls } from '../Controls';
-import { ButtonElement, ViewElement } from '../../context/elements';
+import { ViewElement } from '../../context/elements';
 import { DataTableControl } from '../../controls/DataTableControl';
 import { ControlsContextProvider } from '../../controls/context';
 import { CLASS_BASE } from '../constants';
@@ -12,6 +12,7 @@ import { ControlsContext } from '../../controls/types';
 import { useStore } from '../../providers/store';
 import { getActionViewTableData } from './utils';
 import { ActionStartControl } from '../../controls/ActionStartControl';
+import { ActionCancelControl } from '../../controls/ActionCancelControl';
 import { LocationData } from '../../actions';
 
 const { Exit } = Controls;
@@ -44,9 +45,12 @@ export const DeleteFilesControls = (props: {
       tableData,
       isActionStartDisabled: disablePrimary,
       actionStartLabel: 'Start',
+      actionCancelLabel: 'Cancel',
+      isActionCancelDisabled: disableCancel,
     },
     actionsConfig: { type: 'BATCH_ACTION', isCancelable: true },
     onActionStart,
+    onActionCancel,
   };
 
   return (
@@ -66,16 +70,7 @@ export const DeleteFilesControls = (props: {
           className={`${CLASS_BASE}__action-status-display`}
         />
 
-        <ButtonElement
-          variant="cancel"
-          disabled={disableCancel}
-          className={`${CLASS_BASE}__cancel`}
-          onClick={() => {
-            onActionCancel();
-          }}
-        >
-          Cancel
-        </ButtonElement>
+        <ActionCancelControl className={`${CLASS_BASE}__cancel`} />
         <ActionStartControl />
       </ViewElement>
     </ControlsContextProvider>

@@ -3,21 +3,21 @@ import React from 'react';
 import { ButtonElement } from '../context/elements';
 import { CLASS_BASE } from '../views/constants';
 
-export interface ActionStartProps {
-  onStart?: () => void;
+export interface ActionCancelProps {
+  onCancel?: () => void;
   isDisabled?: boolean;
   label?: string;
 }
 
-export const ActionStart = ({
-  onStart,
+export const ActionCancel = ({
+  onCancel,
   isDisabled,
   label,
-}: ActionStartProps): React.JSX.Element => (
+}: ActionCancelProps): React.JSX.Element => (
   <ButtonElement
-    variant="primary"
-    className={`${CLASS_BASE}__action-start`}
-    onClick={onStart}
+    variant="cancel"
+    className={`${CLASS_BASE}__action-cancel`}
+    onClick={onCancel}
     disabled={isDisabled}
   >
     {label}
