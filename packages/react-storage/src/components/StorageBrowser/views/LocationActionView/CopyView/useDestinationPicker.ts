@@ -15,6 +15,7 @@ const DEFAULT_PAGE_SIZE = 1000;
 export const DEFAULT_LIST_OPTIONS = {
   pageSize: DEFAULT_PAGE_SIZE,
   delimiter: '/',
+  exclude: 'FILE' as const,
 };
 
 const DEFAULT_REFRESH_OPTIONS = { ...DEFAULT_LIST_OPTIONS, refresh: true };
@@ -61,7 +62,7 @@ export const useDestinationPicker = ({
     handleList({
       config: getInput(),
       prefix,
-      options: { ...DEFAULT_LIST_OPTIONS, nextToken, exclude: 'FILE' },
+      options: { ...DEFAULT_LIST_OPTIONS, nextToken },
     });
   };
 
@@ -75,7 +76,7 @@ export const useDestinationPicker = ({
     handleList({
       config: getInput(),
       prefix,
-      options: { ...DEFAULT_REFRESH_OPTIONS, nextToken, exclude: 'FILE' },
+      options: { ...DEFAULT_REFRESH_OPTIONS, nextToken },
     });
   }, [getInput, handleList, nextToken, prefix]);
 
@@ -103,7 +104,6 @@ export const useDestinationPicker = ({
         prefix,
         options: {
           ...DEFAULT_LIST_OPTIONS,
-          exclude: 'FILE',
           search: { query, filterKey: 'key' },
         },
       });
