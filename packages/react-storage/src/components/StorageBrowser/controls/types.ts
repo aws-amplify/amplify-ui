@@ -44,6 +44,7 @@ export interface ControlsContext {
     searchPlaceholder?: string;
     tableData?: TableData;
     taskCounts?: TaskCounts;
+    title?: string;
   };
   actionsConfig?: {
     type:
