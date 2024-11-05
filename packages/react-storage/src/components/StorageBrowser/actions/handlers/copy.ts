@@ -1,4 +1,5 @@
 import { copy } from '../../storage-internal';
+import { getFilenameWithoutPrefix } from '../../views/LocationActionView/utils';
 import {
   TaskHandler,
   TaskHandlerInput,
@@ -32,8 +33,9 @@ export const copyHandler: CopyHandler = (input) => {
 
   const bucket = constructBucket(config);
 
+  const destinationPath = `${path}${getFilenameWithoutPrefix(sourcePath)}`;
   const source = { bucket, expectedBucketOwner, path: sourcePath };
-  const destination = { bucket, expectedBucketOwner, path };
+  const destination = { bucket, expectedBucketOwner, path: destinationPath };
 
   const result = copy({
     source,

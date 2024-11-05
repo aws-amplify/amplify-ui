@@ -1,6 +1,7 @@
 import { LocationCredentialsProvider } from '../storage-internal';
 
 import { ActionState } from '../do-not-import-from-here/actions/createActionStateContext';
+import { FileData } from './handlers';
 
 export interface ActionInputConfig {
   accountId?: string;
@@ -20,6 +21,8 @@ export interface TaskData {
   key: string;
   id: string;
 }
+
+export interface ActionData extends TaskData, FileData {}
 
 export interface TaskHandlerOptions {
   onProgress?: (

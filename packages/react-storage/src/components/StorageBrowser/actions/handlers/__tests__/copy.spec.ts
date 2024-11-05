@@ -35,7 +35,7 @@ describe('copyHandler', () => {
       destination: {
         expectedBucketOwner: baseInput.config.accountId,
         bucket,
-        path: baseInput.destinationPrefix,
+        path: `${baseInput.destinationPrefix}${baseInput.data.key}`,
       },
       source: {
         expectedBucketOwner: `${baseInput.config.accountId}`,

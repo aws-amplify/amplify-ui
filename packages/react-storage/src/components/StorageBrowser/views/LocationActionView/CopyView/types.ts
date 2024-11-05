@@ -6,7 +6,11 @@ import {
 } from '../types';
 
 export interface CopyViewState extends ActionViewState<CopyHandlerData> {
-  onOverwriteChange: (enabled: boolean) => void;
+  destinationList: string[];
+  onSetDestinationList: (destination: string[]) => void;
+  disableCancel: boolean;
+  disableClose: boolean;
+  disablePrimary: boolean;
 }
 
 export interface CopyViewProps

@@ -7,6 +7,7 @@ import {
   TableHeadElement,
   TableHeaderElement,
   TableRowElement,
+  ViewElement,
 } from '../context/elements';
 
 import { CLASS_BASE } from '../views/constants';
@@ -60,22 +61,24 @@ export function DataTable<
   const { columns, rows } = data ?? {};
 
   return (
-    <TableElement aria-label="Table" className={TABLE_CLASS_NAME}>
-      <TableHeadElement className={`${TABLE_CLASS_NAME}__head`}>
-        <TableRowElement className={TABLE_ROW_CLASS_NAME}>
-          {columns?.map(renderColumnHeaderItem)}
-        </TableRowElement>
-      </TableHeadElement>
-      <TableBodyElement className={`${TABLE_CLASS_NAME}__body`}>
-        {rows?.map((row, index) => (
-          <TableRowElement
-            key={`row-${index}`}
-            className={TABLE_ROW_CLASS_NAME}
-          >
-            {row.map(renderRowDataItem)}
+    <ViewElement className="storage-browser__table-wrapper">
+      <TableElement aria-label="Table" className={TABLE_CLASS_NAME}>
+        <TableHeadElement className={`${TABLE_CLASS_NAME}__head`}>
+          <TableRowElement className={TABLE_ROW_CLASS_NAME}>
+            {columns?.map(renderColumnHeaderItem)}
           </TableRowElement>
-        ))}
-      </TableBodyElement>
-    </TableElement>
+        </TableHeadElement>
+        <TableBodyElement className={`${TABLE_CLASS_NAME}__body`}>
+          {rows?.map((row, index) => (
+            <TableRowElement
+              key={`row-${index}`}
+              className={TABLE_ROW_CLASS_NAME}
+            >
+              {row.map(renderRowDataItem)}
+            </TableRowElement>
+          ))}
+        </TableBodyElement>
+      </TableElement>
+    </ViewElement>
   );
 }
