@@ -81,7 +81,7 @@ export const useDestinationPicker = ({
     handleList({
       config: getInput(),
       prefix: prefix,
-      options: { ...DEFAULT_LIST_OPTIONS, nextToken },
+      options: { ...DEFAULT_LIST_OPTIONS, nextToken, exclude: 'FILE' },
     });
   };
 
@@ -96,7 +96,7 @@ export const useDestinationPicker = ({
       handleList({
         config: getInput(),
         prefix: prefix,
-        options: { ...DEFAULT_REFRESH_OPTIONS, nextToken },
+        options: { ...DEFAULT_REFRESH_OPTIONS, nextToken, exclude: 'FILE' },
       });
     }
   }, [getInput, handleList, nextToken, prefix]);
