@@ -111,8 +111,11 @@ export const getDeleteActionViewTableData = ({
           case 'size':
             return {
               key,
-              type: 'text',
-              content: { text: humanFileSize(item.data.size, true) },
+              type: 'number',
+              content: {
+                value: item.data.size,
+                displayValue: humanFileSize(item.data.size, true),
+              },
             };
           case 'status':
             return {
