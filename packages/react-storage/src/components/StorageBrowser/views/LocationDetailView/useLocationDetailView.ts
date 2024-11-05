@@ -169,7 +169,7 @@ export function useLocationDetailView(
     message,
     isLoading,
     showIncludeSubfolders: true,
-    searchPlaceholder: displayText.searchCurrentPlaceholder,
+    searchPlaceholder: displayText.searchDetailPlaceholder,
     onPaginatePrevious: handlePaginatePrevious,
     onPaginateNext: () => {
       handlePaginateNext({ resultCount, hasNextToken });

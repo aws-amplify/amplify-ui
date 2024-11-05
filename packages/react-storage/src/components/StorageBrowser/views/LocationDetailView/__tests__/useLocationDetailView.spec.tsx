@@ -327,5 +327,8 @@ describe('useLocationDetailView', () => {
       },
       prefix: 'item-b/',
     });
+    expect(handleStoreActionMock).toHaveBeenCalledWith({
+      type: 'RESET_LOCATION_ITEMS',
+    });
   });
 });

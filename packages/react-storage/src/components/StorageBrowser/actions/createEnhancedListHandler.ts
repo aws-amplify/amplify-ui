@@ -1,4 +1,5 @@
 import { AsyncDataAction } from '@aws-amplify/ui-react-core';
+
 import {
   ListHandler,
   ListHandlerOptions,
@@ -6,22 +7,22 @@ import {
   ListHandlerOutput,
 } from './types';
 
-interface SearchOptions<K> {
+interface SearchOptions<T> {
   query: string;
-  filterKey: keyof K;
+  filterKey: keyof T;
 }
 
-export interface EnhancedListHandlerOptions<K, I>
-  extends ListHandlerOptions<I> {
+export interface EnhancedListHandlerOptions<T, K>
+  extends ListHandlerOptions<K> {
   refresh?: boolean;
   reset?: boolean;
-  search?: SearchOptions<K>;
+  search?: SearchOptions<T>;
 }
 
-interface EnhancedListHandler<K, I>
+interface EnhancedListHandler<T, K>
   extends AsyncDataAction<
-    ListHandlerOutput<K>,
-    ListHandlerInput<EnhancedListHandlerOptions<K, I>>
+    ListHandlerOutput<T>,
+    ListHandlerInput<EnhancedListHandlerOptions<T, K>>
   > {}
 
 type ListItem<Action> = Action extends ListHandler<
@@ -61,7 +62,7 @@ export const createEnhancedListHandler = <Action extends ListHandler>(
       const { query, filterKey } = search;
 
       const result = [];
-      let nextNextToken = _nextToken;
+      let nextNextToken = undefined;
       do {
         const output = (await action({
           ...input,
