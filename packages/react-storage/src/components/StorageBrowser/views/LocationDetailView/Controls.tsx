@@ -73,6 +73,7 @@ export const LocationDetailViewControls = ({
     showIncludeSubfolders,
     location,
     hasError,
+    message,
     searchPlaceholder,
     onRefresh,
     onPaginateNext,
@@ -124,7 +125,7 @@ export const LocationDetailViewControls = ({
           disabled={isLoading}
         />
       </ViewElement>
-      <LocationDetailMessage />
+      <LocationDetailMessage show={hasError} message={message} />
       <Loading show={isLoading} />
       <LocationDetailViewTable
         show={pageItems.length > 0 && !hasError}
