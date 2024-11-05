@@ -24,55 +24,69 @@ describe('CopyFilesControls', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-    useCopyViewSpy.mockImplementation(() => {
-      return {
-        destinationList: [],
-        onSetDestinationList,
-        onExit: onExitMock,
-        onActionCancel: onActionCancelMock,
-        onActionStart: onActionStartMock,
-        taskCounts: {
-          CANCELED: 0,
-          COMPLETE: 0,
-          FAILED: 0,
-          INITIAL: 0,
-          PENDING: 0,
-          QUEUED: 3,
-          TOTAL: 3,
-        },
-        tasks: [
-          {
-            key: 'test-item',
-            status: 'QUEUED',
+    useCopyViewSpy.mockReturnValue({
+      destinationList: [],
+      onSetDestinationList,
+      onExit: onExitMock,
+      onActionCancel: onActionCancelMock,
+      onActionStart: onActionStartMock,
+      taskCounts: {
+        CANCELED: 0,
+        COMPLETE: 0,
+        FAILED: 0,
+        INITIAL: 0,
+        OVERWRITE_PREVENTED: 0,
+        PENDING: 0,
+        QUEUED: 3,
+        TOTAL: 3,
+      },
+      tasks: [
+        {
+          status: 'QUEUED',
+          data: {
             id: 'id',
-            item: { destinationPrefix: '' },
-            cancel: jest.fn(),
-            remove: jest.fn(),
-            message: 'test-message',
+            key: 'test-item',
+            lastModified: new Date(),
+            size: 1000,
+            type: 'FILE',
           },
-          {
-            key: 'test-item2',
-            status: 'QUEUED',
+          cancel: jest.fn(),
+          progress: undefined,
+          remove: jest.fn(),
+          message: 'test-message',
+        },
+        {
+          status: 'QUEUED',
+          data: {
             id: 'id2',
-            item: { destinationPrefix: '' },
-            cancel: jest.fn(),
-            remove: jest.fn(),
-            message: 'test-message',
+            key: 'test-item2',
+            lastModified: new Date(),
+            size: 1000,
+            type: 'FILE',
           },
-          {
-            key: 'test-item3',
-            status: 'QUEUED',
+          cancel: jest.fn(),
+          progress: undefined,
+          remove: jest.fn(),
+          message: 'test-message',
+        },
+        {
+          status: 'QUEUED',
+          data: {
             id: 'id3',
-            item: { destinationPrefix: '' },
-            cancel: jest.fn(),
-            remove: jest.fn(),
-            message: 'test-message',
+            key: 'test-item3',
+            lastModified: new Date(),
+            size: 1000,
+            type: 'FILE',
           },
-        ],
-        disableCancel: false,
-        disableClose: false,
-        disablePrimary: false,
-      };
+          cancel: jest.fn(),
+          progress: undefined,
+          remove: jest.fn(),
+          message: 'test-message',
+        },
+      ],
+      disableCancel: false,
+      disableClose: false,
+      disablePrimary: false,
     });
 
     jest.spyOn(Config, 'useGetActionInput').mockReturnValue(() => ({
@@ -103,6 +117,7 @@ describe('CopyFilesControls', () => {
         COMPLETE: 0,
         FAILED: 0,
         INITIAL: 0,
+        OVERWRITE_PREVENTED: 0,
         PENDING: 0,
         QUEUED: 3,
         TOTAL: 3,

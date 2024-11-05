@@ -28,10 +28,11 @@ exports[`getActionViewTableData should handle tasks with prefix keys 1`] = `
       },
       {
         "content": {
-          "text": "1.0 kB",
+          "displayName": "1.0 kB",
+          "value": 1000,
         },
         "key": "size-1",
-        "type": "text",
+        "type": "number",
       },
       {
         "content": {
@@ -79,10 +80,11 @@ exports[`getActionViewTableData should handle tasks with prefix keys 1`] = `
       },
       {
         "content": {
-          "text": "1.0 kB",
+          "displayName": "1.0 kB",
+          "value": 1000,
         },
         "key": "size-2",
-        "type": "text",
+        "type": "number",
       },
       {
         "content": {
@@ -135,10 +137,11 @@ exports[`getActionViewTableData should have remove handler on queued files 1`] =
       },
       {
         "content": {
-          "text": "1.0 kB",
+          "displayName": "1.0 kB",
+          "value": 1000,
         },
         "key": "size-1",
-        "type": "text",
+        "type": "number",
       },
       {
         "content": {
@@ -191,10 +194,11 @@ exports[`getActionViewTableData should return correct table data for all task st
       },
       {
         "content": {
-          "text": "1.0 kB",
+          "displayName": "1.0 kB",
+          "value": 1000,
         },
         "key": "size-1",
-        "type": "text",
+        "type": "number",
       },
       {
         "content": {
@@ -242,10 +246,11 @@ exports[`getActionViewTableData should return correct table data for all task st
       },
       {
         "content": {
-          "text": "1.0 kB",
+          "displayName": "1.0 kB",
+          "value": 1000,
         },
         "key": "size-2",
-        "type": "text",
+        "type": "number",
       },
       {
         "content": {
@@ -293,10 +298,11 @@ exports[`getActionViewTableData should return correct table data for all task st
       },
       {
         "content": {
-          "text": "1.0 kB",
+          "displayName": "1.0 kB",
+          "value": 1000,
         },
         "key": "size-3",
-        "type": "text",
+        "type": "number",
       },
       {
         "content": {
@@ -344,10 +350,11 @@ exports[`getActionViewTableData should return correct table data for all task st
       },
       {
         "content": {
-          "text": "1.0 kB",
+          "displayName": "1.0 kB",
+          "value": 1000,
         },
         "key": "size-4",
-        "type": "text",
+        "type": "number",
       },
       {
         "content": {
@@ -395,10 +402,11 @@ exports[`getActionViewTableData should return correct table data for all task st
       },
       {
         "content": {
-          "text": "1.0 kB",
+          "displayName": "1.0 kB",
+          "value": 1000,
         },
         "key": "size-5",
-        "type": "text",
+        "type": "number",
       },
       {
         "content": {
