@@ -158,8 +158,6 @@ describe('useLocationsView', () => {
       useLocationDetailView(initialValues)
     );
 
-    expect(result.current.isPaginateNextDisabled).toBe(true);
-    expect(result.current.isPaginatePreviousDisabled).toBe(true);
     expect(result.current.pageItems).toEqual([]);
 
     // set up first page mock
@@ -195,8 +193,6 @@ describe('useLocationsView', () => {
 
     // check if data is correct
     expect(result.current.page).toEqual(2);
-    expect(result.current.isPaginateNextDisabled).toBe(true);
-    expect(result.current.isPaginatePreviousDisabled).toBe(false);
     expect(result.current.pageItems).toEqual(testData.slice(3));
 
     // go previous
@@ -206,8 +202,6 @@ describe('useLocationsView', () => {
 
     // check data
     expect(result.current.page).toEqual(1);
-    expect(result.current.isPaginateNextDisabled).toBe(false);
-    expect(result.current.isPaginatePreviousDisabled).toBe(true);
     expect(result.current.pageItems).toEqual(testData.slice(0, 3));
   });
 

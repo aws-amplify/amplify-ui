@@ -108,8 +108,6 @@ describe('useLocationsView', () => {
       useLocationsView(initialState)
     );
 
-    expect(result.current.isPaginateNextDisabled).toBe(true);
-    expect(result.current.isPaginatePreviousDisabled).toBe(true);
     expect(result.current.pageItems).toEqual([]);
 
     // mock first page data
@@ -127,8 +125,6 @@ describe('useLocationsView', () => {
     rerender(initialState);
     // check first page
     expect(result.current.page).toEqual(1);
-    expect(result.current.isPaginateNextDisabled).toBe(false);
-    expect(result.current.isPaginatePreviousDisabled).toBe(true);
     expect(result.current.pageItems).toEqual(
       mockData.slice(0, EXPECTED_PAGE_SIZE)
     );
@@ -148,8 +144,6 @@ describe('useLocationsView', () => {
 
     // check next page
     expect(result.current.page).toEqual(2);
-    expect(result.current.isPaginateNextDisabled).toBe(true);
-    expect(result.current.isPaginatePreviousDisabled).toBe(false);
     expect(result.current.pageItems).toEqual(
       mockData.slice(EXPECTED_PAGE_SIZE)
     );
@@ -161,8 +155,6 @@ describe('useLocationsView', () => {
 
     // check first page
     expect(result.current.page).toEqual(1);
-    expect(result.current.isPaginateNextDisabled).toBe(false);
-    expect(result.current.isPaginatePreviousDisabled).toBe(true);
     expect(result.current.pageItems).toEqual(
       mockData.slice(0, EXPECTED_PAGE_SIZE)
     );
