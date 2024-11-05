@@ -1,4 +1,5 @@
-import { LocationAccess, LocationData } from '../types';
+import { LocationAccess } from '../../../storage-internal';
+import { LocationData } from '../types';
 
 import { parseLocationAccess } from '../utils';
 
