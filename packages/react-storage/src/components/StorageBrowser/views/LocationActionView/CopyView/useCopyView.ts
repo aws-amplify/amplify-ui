@@ -27,7 +27,7 @@ export const useCopyView = ({
 
   const getInput = useGetActionInput();
 
-  const [tasks, handleProcess] = useProcessTasks(
+  const [{ tasks }, handleProcess] = useProcessTasks(
     copyHandler,
     // @ts-ignore
     // temporarily ignore error that items is missing
@@ -62,7 +62,7 @@ export const useCopyView = ({
     if (!destinationList) return;
     handleProcess({
       config: getInput(),
-      prefix: getDestinationListFullPrefix(destinationList),
+      destinationPrefix: getDestinationListFullPrefix(destinationList),
     });
   };
 

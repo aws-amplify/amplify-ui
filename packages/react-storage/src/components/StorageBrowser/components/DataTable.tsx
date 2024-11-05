@@ -61,7 +61,7 @@ export function DataTable<
   const { columns, rows } = data ?? {};
 
   return (
-    <ViewElement className={'storage-browser__table-wrapper'}>
+    <ViewElement className="storage-browser__table-wrapper">
       <TableElement aria-label="Table" className={TABLE_CLASS_NAME}>
         <TableHeadElement className={`${TABLE_CLASS_NAME}__head`}>
           <TableRowElement className={TABLE_ROW_CLASS_NAME}>

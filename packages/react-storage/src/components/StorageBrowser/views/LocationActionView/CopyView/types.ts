@@ -5,10 +5,7 @@ import {
   ActionViewState,
 } from '../types';
 
-export interface CopyViewState
-  extends ActionViewState<{
-    destinationPrefix: string;
-  }> {
+export interface CopyViewState extends ActionViewState<CopyHandlerData> {
   destinationList: string[];
   onSetDestinationList: (destination: string[]) => void;
   disableCancel: boolean;

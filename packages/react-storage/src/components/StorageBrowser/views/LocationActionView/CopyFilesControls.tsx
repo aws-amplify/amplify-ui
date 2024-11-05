@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ButtonElement, ViewElement } from '../../context/elements';
+import { ViewElement } from '../../context/elements';
 
 import { Controls } from '../Controls';
 
@@ -20,6 +20,8 @@ import { getTasksHaveStarted } from './utils';
 import { DescriptionList } from '../../components/DescriptionList';
 import { StatusDisplayControl } from '../../controls/StatusDisplayControl';
 import { getDestinationListFullPrefix } from './utils/getDestinationPickerDataTable';
+import { ActionCancelControl } from '../../controls/ActionCancelControl';
+import { CopyHandlerData } from '../../actions';
 
 const { Exit } = Controls;
 const { actionSetDestination } = displayText;
@@ -45,7 +47,7 @@ export const CopyFilesControls = ({
   const [{ location }] = useStore();
   const { current } = location;
   const path = current?.prefix;
-  const tableData = getActionViewTableData({
+  const tableData = getActionViewTableData<CopyHandlerData>({
     tasks,
     taskCounts,
     path: path ?? '',
@@ -57,9 +59,11 @@ export const CopyFilesControls = ({
       tableData,
       actionStartLabel: 'Start',
       isActionStartDisabled: disablePrimary,
+      isActionCancelDisabled: disableCancel,
     },
     actionsConfig: { type: 'BATCH_ACTION', isCancelable: true },
     onActionStart,
+    onActionCancel,
   };
   const hasStarted = getTasksHaveStarted(taskCounts);
 
@@ -106,15 +110,7 @@ export const CopyFilesControls = ({
             Copy action may overwrite existing files at selected destination.
           </ViewElement>
         )}
-
-        <ButtonElement
-          variant="cancel"
-          disabled={disableCancel}
-          className={`${CLASS_BASE}__cancel`}
-          onClick={() => onActionCancel()}
-        >
-          Cancel
-        </ButtonElement>
+        <ActionCancelControl className={`${CLASS_BASE}__cancel`} />
         <ActionStartControl className={`${CLASS_BASE}__upload-action-start`} />
       </ViewElement>
     </ControlsContextProvider>

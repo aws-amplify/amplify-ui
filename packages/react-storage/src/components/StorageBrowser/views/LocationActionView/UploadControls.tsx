@@ -429,12 +429,7 @@ export const UploadControls = ({
         <StatusDisplayControl
           className={`${CLASS_BASE}__upload-status-display`}
         />
-        <ActionCancelControl
-          className={[
-            `${CLASS_BASE}__cancel`,
-            `${CLASS_BASE}__upload-action-start`,
-          ].join(' ')}
-        />
+        <ActionCancelControl className={`${CLASS_BASE}__cancel`} />
         <ActionStartControl className={`${CLASS_BASE}__upload-action-start`} />
       </ViewElement>
     </ControlsContextProvider>
