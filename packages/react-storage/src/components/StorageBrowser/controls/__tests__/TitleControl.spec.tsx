@@ -18,7 +18,7 @@ describe('TitleControl', () => {
       title: 'Amplify',
     });
 
-    render(<TitleControl content="Amplify" />);
+    render(<TitleControl />);
 
     const [renderedTitle] = screen.getAllByRole('heading');
 
