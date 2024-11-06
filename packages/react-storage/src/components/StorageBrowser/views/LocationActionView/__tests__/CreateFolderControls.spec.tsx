@@ -13,6 +13,8 @@ import {
   RESULT_FAILED_MESSAGE,
 } from '../CreateFolderControls';
 
+jest.mock('../utils');
+
 const handleAction = jest.fn();
 const useActionSpy = jest.spyOn(ActionsModule, 'useAction').mockReturnValue([
   {

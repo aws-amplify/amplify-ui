@@ -10,7 +10,7 @@ import { DestinationPicker } from './DestinationPicker';
 
 import { useCopyView } from './CopyView/useCopyView';
 import { ControlsContextProvider } from '../../controls/context';
-import { getActionViewTableData } from './utils';
+import { getActionViewTableData, GetTitle } from './utils';
 import { useStore } from '../../providers/store';
 import { ControlsContext } from '../../controls/types';
 import { getTasksHaveStarted } from './utils';
@@ -53,6 +53,7 @@ export const CopyFilesControls = ({
     path: key,
   });
 
+  const title = GetTitle();
   const contextValue: ControlsContext = {
     data: {
       taskCounts,
@@ -61,6 +62,7 @@ export const CopyFilesControls = ({
       isActionStartDisabled: disablePrimary,
       isActionCancelDisabled: disableCancel,
       actionCancelLabel: 'Cancel',
+      title,
     },
     actionsConfig: { type: 'BATCH_ACTION', isCancelable: true },
     onActionStart,
@@ -77,7 +79,7 @@ export const CopyFilesControls = ({
         disabled={disableClose}
       />
 
-      <TitleControl className={`${CLASS_BASE}__title`} />
+      <TitleControl className={`${CLASS_BASE}__copy-action-view-title`} />
 
       <ViewElement className={`${CLASS_BASE}__table-wrapper`}>
         <DataTableControl className={`${CLASS_BASE}__table`} />

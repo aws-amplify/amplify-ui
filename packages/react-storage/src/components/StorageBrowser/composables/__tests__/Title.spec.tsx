@@ -5,10 +5,10 @@ import { CLASS_BASE } from '../../views/constants';
 
 describe('Title', () => {
   it('renders and has the given classname', () => {
-    const desiredTitle = [{ name: 'StorageBrowser', version: '0.1' }];
+    const expectedTitle = 'StorageBrowser';
     const BLOCK_NAME = `${CLASS_BASE}__title`;
 
-    render(<Title title={desiredTitle[0].name} />);
+    render(<Title title={expectedTitle} />);
 
     const [renderedTitle] = screen.getAllByRole('heading');
 

@@ -10,6 +10,9 @@ import { Task, TaskStatus } from '../../tasks';
 import { STATUS_DISPLAY_VALUES } from './constants';
 import { ActionData } from '../../actions/types';
 
+import { useStore } from '../../providers/store';
+import { useTempActions } from '../../do-not-import-from-here/createTempActionsProvider';
+
 const DELETE_ACTION_VIEW_HEADERS: DataTableProps['headers'] = [
   { key: 'key', type: 'sort', content: { label: 'Name' } },
   { key: 'folder', type: 'text', content: { text: 'Folder' } },
@@ -158,4 +161,12 @@ export const getActionViewTableData = <T extends ActionData>({
   });
 
   return { headers: DELETE_ACTION_VIEW_HEADERS, rows };
+};
+
+export const GetTitle = (): string | undefined => {
+  const [{ actionType }] = useStore();
+  const actions = useTempActions();
+  const action = actionType ? actions[actionType] : undefined;
+
+  return action?.options?.displayName;
 };

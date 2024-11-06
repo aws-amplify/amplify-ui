@@ -8,22 +8,14 @@ describe('useTitle', () => {
     title: 'ShinyNewTitle',
   };
 
-  const emptyData = {};
-
-  const actionsConfig = {
-    isCancelable: true,
-    type: 'BATCH_ACTION',
-  };
-
-  // assert mocks
-  const mockUseControlsContext = useControlsContext as jest.Mock;
+  const mockUseControlsContext = jest.mocked(useControlsContext);
 
   afterEach(() => {
     mockUseControlsContext.mockReset();
   });
 
   it('returns Title data', () => {
-    mockUseControlsContext.mockReturnValue({ data, actionsConfig });
+    mockUseControlsContext.mockReturnValue({ data });
 
     expect(useTitle()).toStrictEqual({
       title: 'ShinyNewTitle',
@@ -31,7 +23,7 @@ describe('useTitle', () => {
   });
 
   it('returns empty string for children if title is missing from data', () => {
-    mockUseControlsContext.mockReturnValue({ data: emptyData, actionsConfig });
+    mockUseControlsContext.mockReturnValue({ data: {} });
 
     expect(useTitle()).toStrictEqual({
       title: undefined,

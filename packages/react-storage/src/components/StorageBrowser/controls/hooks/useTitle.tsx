@@ -5,6 +5,6 @@ export const useTitle = (): TitleProps => {
   const { data } = useControlsContext();
 
   return {
-    title: data ? data.title : undefined,
+    title: data?.title,
   };
 };

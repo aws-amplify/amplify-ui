@@ -9,6 +9,7 @@ import { useStore } from '../../providers/store';
 
 import { Controls } from '../Controls';
 
+import { GetTitle } from './utils';
 import { ActionStartControl } from '../../controls/ActionStartControl';
 import { ControlsContext } from '../../controls/types';
 import { ControlsContextProvider } from '../../controls/context';
@@ -96,6 +97,7 @@ export const CreateFolderControls = ({
 
   const hasCompletedStatus = result?.status === 'COMPLETE';
 
+  const title = GetTitle();
   // FIXME: Eventually comes from useView hook
   const contextValue: ControlsContext = {
     data: {
@@ -103,6 +105,7 @@ export const CreateFolderControls = ({
       isActionStartDisabled: !hasCompletedStatus
         ? !folderName || !!fieldValidationError
         : undefined,
+      title,
     },
     actionsConfig: {
       type: 'SINGLE_ACTION',
@@ -118,7 +121,9 @@ export const CreateFolderControls = ({
           handleClose();
         }}
       />
-      <TitleControl className={`${CLASS_BASE}__create-folder-action-title`} />
+      <TitleControl
+        className={`${CLASS_BASE}__create-folder-action-view-title`}
+      />
       <ActionStartControl
         className={`${CLASS_BASE}__create-folder-action-start`}
       />

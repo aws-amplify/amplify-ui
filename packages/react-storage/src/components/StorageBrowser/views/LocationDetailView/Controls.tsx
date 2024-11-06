@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { useStore } from '../../providers/store';
 import { Controls, LocationDetailViewTable } from '../Controls';
 import { ActionsMenuControl } from './Controls/ActionsMenu';
 import { useLocationDetailView } from './useLocationDetailView';
@@ -22,14 +21,6 @@ export const DEFAULT_LIST_OPTIONS = {
 };
 
 const { EmptyMessage, Loading: LoadingControl, Message, Paginate } = Controls;
-
-export const TitleElement = (): React.JSX.Element => {
-  const [{ location }] = useStore();
-  const { current, key } = location;
-  const { bucket, prefix } = current ?? {};
-
-  return <TitleControl className={prefix ? key : bucket} />;
-};
 
 function Loading({ show }: { show?: boolean }) {
   return show ? <LoadingControl /> : null;
@@ -79,6 +70,10 @@ export const LocationDetailViewControls = ({
     onSearch,
   } = useLocationDetailView({ onNavigate: onNavigateProp, onExit });
 
+  const { current, key } = location;
+  const { bucket, prefix } = current ?? {};
+  const title = prefix ? key : bucket;
+
   // FIXME:
   const shouldShowEmptyMessage =
     pageItems.length === 0 && !isLoading && !hasError;
@@ -88,6 +83,7 @@ export const LocationDetailViewControls = ({
       showIncludeSubfolders,
       location,
       searchPlaceholder,
+      title,
     },
     onNavigate,
     onNavigateHome,
@@ -100,7 +96,7 @@ export const LocationDetailViewControls = ({
       <NavigationControl
         className={`${CLASS_BASE}__location-detail-view-navigation`}
       />
-      <TitleElement />
+      <TitleControl className={`${CLASS_BASE}__location-detail-view-title`} />
       <ViewElement className={`${CLASS_BASE}__location-detail-view-controls`}>
         <SearchControl
           className={`${CLASS_BASE}__location-detail-view-search`}
