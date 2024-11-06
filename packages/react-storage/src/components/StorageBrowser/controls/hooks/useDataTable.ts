@@ -33,7 +33,7 @@ const GROUP_ORDER: DataTableDataCell['type'][] = [
 
 const UNSORTABLE_GROUPS: DataTableDataCell['type'][] = ['checkbox'];
 
-export const useDataTable = (): DataTableProps | null => {
+export const useDataTable = (): DataTableProps => {
   const { data } = useControlsContext();
   const { tableData } = data;
 
@@ -151,10 +151,6 @@ export const useDataTable = (): DataTableProps | null => {
       })
       .flat();
   }, [sortState, tableData]);
-
-  if (!tableData) {
-    return null;
-  }
 
   return {
     headers: mappedHeaders ?? [],
