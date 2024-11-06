@@ -370,7 +370,7 @@ export const UploadControls = ({
           dispatchStoreAction({ type: 'RESET_ACTION_TYPE' });
         }}
       />
-      <TitleControl />
+      <TitleControl className={`${CLASS_BASE}__title`} />
       <ViewElement className={`${CLASS_BASE}__action-header`}>
         <ViewElement className={`${CLASS_BASE}__upload-destination`}>
           <DescriptionList

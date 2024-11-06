@@ -61,7 +61,7 @@ export const DeleteFilesControls = (props: {
         }}
         disabled={disableClose}
       />
-      <TitleControl />
+      <TitleControl className={`${CLASS_BASE}__title`} />
       <ViewElement className={`${CLASS_BASE}__table-wrapper`}>
         <DataTableControl className={`${CLASS_BASE}__table`} />
       </ViewElement>

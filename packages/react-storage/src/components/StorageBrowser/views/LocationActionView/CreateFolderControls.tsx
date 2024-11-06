@@ -118,7 +118,7 @@ export const CreateFolderControls = ({
           handleClose();
         }}
       />
-      <TitleControl />
+      <TitleControl className={`${CLASS_BASE}__create-folder-action-title`} />
       <ActionStartControl
         className={`${CLASS_BASE}__create-folder-action-start`}
       />
