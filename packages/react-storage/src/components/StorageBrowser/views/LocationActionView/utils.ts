@@ -114,7 +114,7 @@ export const getActionViewTableData = <T extends ActionData>({
               type: 'number',
               content: {
                 value: item.data.size,
-                displayName: humanFileSize(item.data.size, true),
+                displayValue: humanFileSize(item.data.size, true),
               },
             };
           case 'status':

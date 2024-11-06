@@ -28,7 +28,7 @@ exports[`getActionViewTableData should handle tasks with prefix keys 1`] = `
       },
       {
         "content": {
-          "displayName": "1.0 kB",
+          "displayValue": "1.0 kB",
           "value": 1000,
         },
         "key": "size-1",
@@ -80,7 +80,7 @@ exports[`getActionViewTableData should handle tasks with prefix keys 1`] = `
       },
       {
         "content": {
-          "displayName": "1.0 kB",
+          "displayValue": "1.0 kB",
           "value": 1000,
         },
         "key": "size-2",
@@ -137,7 +137,7 @@ exports[`getActionViewTableData should have remove handler on queued files 1`] =
       },
       {
         "content": {
-          "displayName": "1.0 kB",
+          "displayValue": "1.0 kB",
           "value": 1000,
         },
         "key": "size-1",
@@ -194,7 +194,7 @@ exports[`getActionViewTableData should return correct table data for all task st
       },
       {
         "content": {
-          "displayName": "1.0 kB",
+          "displayValue": "1.0 kB",
           "value": 1000,
         },
         "key": "size-1",
@@ -246,7 +246,7 @@ exports[`getActionViewTableData should return correct table data for all task st
       },
       {
         "content": {
-          "displayName": "1.0 kB",
+          "displayValue": "1.0 kB",
           "value": 1000,
         },
         "key": "size-2",
@@ -298,7 +298,7 @@ exports[`getActionViewTableData should return correct table data for all task st
       },
       {
         "content": {
-          "displayName": "1.0 kB",
+          "displayValue": "1.0 kB",
           "value": 1000,
         },
         "key": "size-3",
@@ -350,7 +350,7 @@ exports[`getActionViewTableData should return correct table data for all task st
       },
       {
         "content": {
-          "displayName": "1.0 kB",
+          "displayValue": "1.0 kB",
           "value": 1000,
         },
         "key": "size-4",
@@ -402,7 +402,7 @@ exports[`getActionViewTableData should return correct table data for all task st
       },
       {
         "content": {
-          "displayName": "1.0 kB",
+          "displayValue": "1.0 kB",
           "value": 1000,
         },
         "key": "size-5",
