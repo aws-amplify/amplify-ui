@@ -8,7 +8,7 @@ import { useTitle } from './hooks/useTitle';
 
 export const TitleControl = ({
   className,
-}: ControlProps & { content?: string }): React.JSX.Element => {
+}: ControlProps): React.JSX.Element => {
   const props = useTitle();
   const ResolvedTitle = useResolvedComposable(Title, 'Title');
 
