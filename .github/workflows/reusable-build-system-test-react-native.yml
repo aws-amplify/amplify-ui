@@ -49,7 +49,7 @@ jobs:
           - framework: react-native
             framework-version: { formatted: 070, value: "0.70" }
             build-tool: expo
-            build-tool-version: 47.0.0
+            build-tool-version: 47
             platform: android
             pkg-manager: npm
             node-version: 20
@@ -57,7 +57,7 @@ jobs:
           - framework: react-native
             framework-version: { formatted: 071, value: "0.71" }
             build-tool: expo
-            build-tool-version: 48.0.0
+            build-tool-version: 48
             platform: android
             pkg-manager: npm
             node-version: 20
@@ -65,7 +65,7 @@ jobs:
           - framework: react-native
             framework-version: { formatted: 072, value: "0.72" }
             build-tool: expo
-            build-tool-version: 49.0.0
+            build-tool-version: 49
             platform: android
             pkg-manager: npm
             node-version: 20
@@ -73,7 +73,7 @@ jobs:
           - framework: react-native
             framework-version: { formatted: 073, value: "0.73" }
             build-tool: expo
-            build-tool-version: 50.0.0
+            build-tool-version: 50
             platform: android
             pkg-manager: npm
             node-version: 20
@@ -83,7 +83,7 @@ jobs:
               - { formatted: 074, value: "0.74" }
               - { formatted: 075, value: "0.75" }
             build-tool: expo
-            build-tool-version: 51.0.0
+            build-tool-version: 51
             platform: android
             pkg-manager: npm
             node-version: 20
