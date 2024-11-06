@@ -17,7 +17,7 @@ const BLOCK_NAME = `${CLASS_BASE}__search`;
 const TOGGLE_BLOCK = 'toggle';
 
 export interface SearchProps {
-  onSearch: (term: string, includeSubfolders: boolean) => void;
+  onSearch?: (term: string, includeSubfolders: boolean) => void;
   searchPlaceholder?: string;
   showIncludeSubfolders?: boolean;
 }
@@ -47,7 +47,7 @@ export const Search = ({
         placeholder={searchPlaceholder}
         onKeyUp={(event) => {
           if (event.key === 'Enter') {
-            onSearch(term, subfoldersIncluded);
+            onSearch?.(term, subfoldersIncluded);
           }
         }}
         value={term}
@@ -58,7 +58,7 @@ export const Search = ({
             className={`${BLOCK_NAME}__field-clear-button`}
             onClick={() => {
               setTerm('');
-              onSearch('', subfoldersIncluded);
+              onSearch?.('', subfoldersIncluded);
             }}
             variant="refresh"
           >
@@ -68,7 +68,7 @@ export const Search = ({
       </Field>
       <ButtonElement
         className={`${BLOCK_NAME}__submit-button`}
-        onClick={() => onSearch(term, subfoldersIncluded)}
+        onClick={() => onSearch?.(term, subfoldersIncluded)}
       >
         Submit
       </ButtonElement>

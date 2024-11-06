@@ -48,7 +48,6 @@ export const DeleteFilesControls = (props: {
       actionCancelLabel: 'Cancel',
       isActionCancelDisabled: disableCancel,
     },
-    actionsConfig: { type: 'BATCH_ACTION', isCancelable: true },
     onActionStart,
     onActionCancel,
   };

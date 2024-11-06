@@ -45,14 +45,6 @@ export interface ControlsContext {
     tableData?: TableData;
     taskCounts?: TaskCounts;
   };
-  actionsConfig?: {
-    type:
-      | 'SINGLE_ACTION'
-      | 'BATCH_ACTION'
-      | 'LIST_LOCATIONS'
-      | 'LIST_LOCATION_ITEMS';
-    isCancelable?: boolean;
-  };
   onActionCancel?: () => void;
   onActionStart?: () => void;
   onDropFiles?: (files: File[]) => void;

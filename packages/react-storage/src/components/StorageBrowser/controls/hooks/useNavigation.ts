@@ -2,13 +2,13 @@ import React from 'react';
 import { NavigationProps } from '../../composables/Navigation';
 import { useControlsContext } from '../../controls/context';
 
-export const useNavigation = (): NavigationProps | null => {
+export const useNavigation = (): NavigationProps => {
   const { data, onNavigate, onNavigateHome } = useControlsContext();
   const { currentLocation, currentPath = '' } = data;
 
   return React.useMemo(() => {
     if (!currentLocation) {
-      return null;
+      return { items: [] };
     }
 
     const { bucket, permission, prefix = '', type } = currentLocation;

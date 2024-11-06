@@ -339,10 +339,6 @@ export const UploadControls = ({
       actionCancelLabel: 'Cancel',
       isActionCancelDisabled: disableCancel,
     },
-    actionsConfig: {
-      type: 'BATCH_ACTION',
-      isCancelable: true,
-    },
     onActionStart: () => {
       handleProcess({
         config: getInput(),

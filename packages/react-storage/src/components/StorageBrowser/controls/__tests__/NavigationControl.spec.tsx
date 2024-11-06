@@ -41,12 +41,4 @@ describe('NavigationControl', () => {
     expect(item1).toHaveTextContent('Item 1');
     expect(item2).toHaveTextContent('Item 2');
   });
-
-  it('returns null without props', () => {
-    mockUseNavigation.mockReturnValue(null);
-
-    render(<NavigationControl />);
-
-    expect(screen.queryByRole('navigation')).not.toBeInTheDocument();
-  });
 });

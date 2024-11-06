@@ -2,30 +2,20 @@ import { StatusDisplayProps } from '../../composables/StatusDisplay';
 import { useControlsContext } from '../../controls/context';
 import { displayText } from '../../displayText/en';
 
-export const useStatusDisplay = (): StatusDisplayProps | null => {
-  const { data, actionsConfig } = useControlsContext();
+export const useStatusDisplay = (): StatusDisplayProps => {
+  const { data } = useControlsContext();
   const { taskCounts } = data;
-  const { isCancelable, type } = actionsConfig ?? {};
 
-  if (!taskCounts?.TOTAL || type !== 'BATCH_ACTION') {
-    return null;
+  if (!taskCounts?.TOTAL) {
+    return { statuses: [], total: 0 };
   }
 
   const statuses = [
     { name: displayText.statusDisplayCompleted, count: taskCounts.COMPLETE },
     { name: displayText.statusDisplayFailed, count: taskCounts.FAILED },
+    { name: displayText.statusDisplayCanceled, count: taskCounts.CANCELED },
     { name: displayText.statusDisplayQueued, count: taskCounts.QUEUED },
   ];
 
-  if (isCancelable) {
-    statuses.splice(2, 0, {
-      name: displayText.statusDisplayCanceled,
-      count: taskCounts.CANCELED,
-    });
-  }
-
-  return {
-    statuses,
-    total: taskCounts.TOTAL,
-  };
+  return { statuses, total: taskCounts.TOTAL };
 };
