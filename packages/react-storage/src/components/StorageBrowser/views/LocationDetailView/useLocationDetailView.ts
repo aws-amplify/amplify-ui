@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { isFunction, isUndefined } from '@aws-amplify/ui';
+import { isUndefined } from '@aws-amplify/ui';
 import { useDataState } from '@aws-amplify/ui-react-core';
 
 import { usePaginate } from '../hooks/usePaginate';
@@ -10,6 +10,7 @@ import {
   LocationData,
   LocationItemData,
 } from '../../actions';
+import { isFile } from '../utils';
 import { LocationState } from '../../providers/store/location';
 import { createEnhancedListHandler } from '../../actions/createEnhancedListHandler';
 import { useGetActionInput } from '../../providers/configuration';
@@ -166,12 +167,14 @@ export function useLocationDetailView(
     },
     onAddFiles: (files: File[]) => {
       dispatchStoreAction({ type: 'ADD_FILE_ITEMS', files });
+      const actionType = files.some((file) => isFile(file))
+        ? 'UPLOAD_FILES'
+        : 'UPLOAD_FOLDER';
       dispatchStoreAction({
         type: 'SET_ACTION_TYPE',
-        actionType: 'UPLOAD_FILES',
+        actionType,
       });
-
-      if (isFunction(onActionSelect)) onActionSelect('UPLOAD_FILES');
+      onActionSelect?.(actionType);
     },
     onNavigateHome: () => {
       onExit?.();
