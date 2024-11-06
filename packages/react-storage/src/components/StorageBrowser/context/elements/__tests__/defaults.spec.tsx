@@ -50,11 +50,7 @@ describe('elementsDefault', () => {
     render(<StorageBrowser />);
 
     await waitFor(() => {
-      //expect(screen.getByRole('heading', { name: 'Home' })).toBeInTheDocument();
-
-      expect(screen.getByRole('heading', { name: 'Home' })).toHaveTextContent(
-        'Home'
-      );
+      expect(screen.getByRole('heading', { name: 'Home' })).toBeInTheDocument();
     });
 
     const refresh = screen.getByRole('button', { name: 'Refresh data' });
