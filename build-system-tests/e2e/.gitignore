@@ -2,6 +2,7 @@
 cypress/fixtures/example.json
 cypress/screenshots
 cypress/videos
+detox/screenshots
 
 # generated file
 .detoxrc.json
