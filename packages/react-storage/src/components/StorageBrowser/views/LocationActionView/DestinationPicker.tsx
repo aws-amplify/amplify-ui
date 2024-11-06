@@ -41,12 +41,12 @@ export const DestinationPicker = ({
   const {
     bucket,
     items,
+    highestPageVisited,
     hasNextToken,
     currentPage,
     isLoading,
     hasError,
-    handleNext,
-    handlePrevious,
+    onPaginate,
     range,
   } = useDestinationPicker({ destinationList });
 
@@ -64,10 +64,6 @@ export const DestinationPicker = ({
     const [start, end] = range;
     return items.slice(start, end);
   }, [range, items]);
-
-  const disableNext =
-    !hasNextToken && currentPage * DEFAULT_PAGE_SIZE > items.length;
-  const disablePrevious = currentPage === 1;
 
   const tableData = getDestinationPickerTableData({
     items: pageItems,
@@ -116,10 +112,9 @@ export const DestinationPicker = ({
         />
         <PaginateControl
           currentPage={currentPage}
-          disableNext={disableNext}
-          disablePrevious={disablePrevious}
-          handleNext={handleNext}
-          handlePrevious={handlePrevious}
+          hasMorePages={hasNextToken}
+          onPaginate={onPaginate}
+          highestPageVisited={highestPageVisited}
         />
       </ViewElement>
       <ViewElement className="storage-browser__table-wrapper">

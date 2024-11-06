@@ -92,7 +92,7 @@ export function useLocationDetailView(
 
   // set up pagination
   const { items, nextToken } = data;
-  const resultCount = items.length;
+  const resultCount = items?.length ?? 0;
   const hasNextToken = !!nextToken;
   const paginateCallback = () => {
     if (hasInvalidPrefix || !nextToken) return;
@@ -143,7 +143,7 @@ export function useLocationDetailView(
 
   const pageItems = React.useMemo(() => {
     const [start, end] = range;
-    return items.slice(start, end);
+    return Array.isArray(items) ? items.slice(start, end) : [];
   }, [range, items]);
 
   return {

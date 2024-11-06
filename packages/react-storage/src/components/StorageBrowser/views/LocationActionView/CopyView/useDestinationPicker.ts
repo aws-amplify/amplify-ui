@@ -30,10 +30,10 @@ export const useDestinationPicker = ({
   hasNextToken: boolean;
   currentPage: number;
   isLoading: boolean;
+  highestPageVisited: number;
   hasError: boolean;
   message: string | undefined;
-  handleNext: () => void;
-  handlePrevious: () => void;
+  onPaginate: (page: number) => void;
   range: [number, number];
 } => {
   const previousPathref = useRef<string | null>(null);
@@ -85,7 +85,7 @@ export const useDestinationPicker = ({
     });
   };
 
-  const { currentPage, onPaginate, range } = usePaginate({
+  const { currentPage, onPaginate, range, highestPageVisited } = usePaginate({
     paginateCallback,
     pageSize: 10,
     resultCount,
@@ -112,14 +112,10 @@ export const useDestinationPicker = ({
     hasNextToken,
     currentPage,
     isLoading,
+    highestPageVisited,
     hasError,
     message,
-    handleNext: () => {
-      onPaginate(currentPage + 1);
-    },
-    handlePrevious: () => {
-      onPaginate(currentPage - 1);
-    },
+    onPaginate,
     range,
   };
 };
