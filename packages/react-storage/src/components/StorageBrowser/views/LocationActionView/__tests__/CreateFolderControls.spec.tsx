@@ -4,8 +4,6 @@ import { render, waitFor, screen, fireEvent } from '@testing-library/react';
 import * as ActionsModule from '../../../do-not-import-from-here/actions';
 import * as StoreModule from '../../../providers/store';
 
-jest.mock('../Controls/Title');
-
 import {
   isValidFolderName,
   CreateFolderControls,
