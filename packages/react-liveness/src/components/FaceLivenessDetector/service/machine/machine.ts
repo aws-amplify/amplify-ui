@@ -129,10 +129,6 @@ const responseStreamActor = async (callback: StreamActorCallback) => {
   }
 };
 
-function getLastSelectedCameraId(): string | null {
-  return localStorage.getItem(CAMERA_ID_KEY);
-}
-
 function setLastSelectedCameraId(deviceId: string) {
   localStorage.setItem(CAMERA_ID_KEY, deviceId);
 }
@@ -924,11 +920,9 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         const { videoConstraints } = context.videoAssociatedParams!;
 
         // Get initial stream to enumerate devices with non-empty labels
-        const existingDeviceId = getLastSelectedCameraId();
         const initialStream = await navigator.mediaDevices.getUserMedia({
           video: {
             ...videoConstraints,
-            ...(existingDeviceId ? { deviceId: existingDeviceId } : {}),
           },
           audio: false,
         });
