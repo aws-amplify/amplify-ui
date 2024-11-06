@@ -13,8 +13,6 @@
     "checkReactNativeLogs": "node --require esbuild-register ./scripts/checkReactNativeLog.ts",
     "pull": "./environments/pull-environments.sh",
     "test:web": "yarn --cwd e2e test:web",
-    "test:react-native:build": "yarn --cwd e2e detox:build:android:debug",
-    "test:react-native": "yarn --cwd e2e detox:e2e:android:debug",
     "setup:react": "./scripts/setup-mega-app.sh",
     "setup:react:next": "./scripts/setup-mega-app.sh --build-tool next",
     "setup:react:vite": "./scripts/setup-mega-app.sh --build-tool vite",
