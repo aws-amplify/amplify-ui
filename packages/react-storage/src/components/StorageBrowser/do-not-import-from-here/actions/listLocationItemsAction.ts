@@ -69,6 +69,7 @@ export async function listLocationItemsAction(
     bucket: bucketName,
     credentialsProvider,
     region,
+    customEndpoint,
   } = (typeof config === 'function' ? config() : config) ?? {};
 
   const bucket = { bucketName, region };
@@ -96,6 +97,7 @@ export async function listLocationItemsAction(
       nextToken: refresh ? undefined : nextToken,
       pageSize: resolvedPageSize,
       subpathStrategy,
+      customEndpoint,
     },
   };
 

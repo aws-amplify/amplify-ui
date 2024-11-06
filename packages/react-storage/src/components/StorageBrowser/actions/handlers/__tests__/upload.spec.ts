@@ -17,6 +17,7 @@ const config: UploadHandlerInput['config'] = {
   accountId: '012345678901',
   bucket: 'bucket',
   credentials,
+  customEndpoint: 'mock-endpoint',
   region: 'region',
 };
 
@@ -66,6 +67,7 @@ describe('uploadHandler', () => {
           bucketName: config.bucket,
           region: config.region,
         },
+        customEndpoint: config.customEndpoint,
         locationCredentialsProvider: credentials,
         onProgress: expect.any(Function),
         preventOverwrite: true,

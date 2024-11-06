@@ -323,30 +323,6 @@ describe('useLocationDetailView', () => {
     });
   });
 
-  it('should handle adding files', () => {
-    useStoreSpy.mockReturnValue([
-      { ...testStoreState, location: mockLocation },
-      mockDispatchStoreAction,
-    ]);
-
-    const { result } = renderHook(() => useLocationDetailView());
-    // uploads files
-    const mockFiles = Array(3)
-      .fill(null)
-      .map(
-        (_, i) =>
-          new File(['blob-part'], `blob-${i}.pdf`, { type: 'application/pdf' })
-      );
-    act(() => {
-      const state = result.current;
-      state.onDropFiles(mockFiles);
-    });
-    expect(mockDispatchStoreAction).toHaveBeenCalledWith({
-      type: 'ADD_FILE_ITEMS',
-      files: mockFiles,
-    });
-  });
-
   it('should navigate home', () => {
     const mockOnExit = jest.fn();
 
@@ -448,6 +424,84 @@ describe('useLocationDetailView', () => {
       items: testData.slice(1),
     });
   });
+
+  it('should handle adding files', () => {
+    useStoreSpy.mockReturnValue([
+      { ...testStoreState, location: mockLocation },
+      mockDispatchStoreAction,
+    ]);
+
+    const { result } = renderHook(() => useLocationDetailView());
+    // uploads files
+    const mockFiles = Array(3)
+      .fill(null)
+      .map(
+        (_, i) =>
+          new File(['blob-part'], `blob-${i}.pdf`, { type: 'application/pdf' })
+      );
+    act(() => {
+      const state = result.current;
+      state.onDropFiles(mockFiles);
+    });
+    expect(mockDispatchStoreAction).toHaveBeenCalledWith({
+      type: 'ADD_FILE_ITEMS',
+      files: mockFiles,
+    });
+    expect(mockDispatchStoreAction).toHaveBeenCalledWith({
+      type: 'SET_ACTION_TYPE',
+      actionType: 'UPLOAD_FILES',
+    });
+  });
+
+  it('should handle adding folders', () => {
+    useStoreSpy.mockReturnValue([
+      { ...testStoreState, location: mockLocation },
+      mockDispatchStoreAction,
+    ]);
+
+    const { result } = renderHook(() => useLocationDetailView());
+    // uploads folder
+    const mockFolder = new File([''], 'Folder', { type: '' });
+    act(() => {
+      const state = result.current;
+      state.onDropFiles([mockFolder]);
+    });
+    expect(mockDispatchStoreAction).toHaveBeenCalledWith({
+      type: 'ADD_FILE_ITEMS',
+      files: [mockFolder],
+    });
+    expect(mockDispatchStoreAction).toHaveBeenCalledWith({
+      type: 'SET_ACTION_TYPE',
+      actionType: 'UPLOAD_FOLDER',
+    });
+  });
+
+  it('should handle as files if adding files and folders', () => {
+    useStoreSpy.mockReturnValue([
+      { ...testStoreState, location: mockLocation },
+      mockDispatchStoreAction,
+    ]);
+
+    const { result } = renderHook(() => useLocationDetailView());
+
+    const mockFile = new File(['blob-part'], `blob.pdf`, {
+      type: 'application/pdf',
+    });
+    const mockFolder = new File([''], 'Folder', { type: '' });
+    act(() => {
+      const state = result.current;
+      state.onDropFiles([mockFile, mockFolder]);
+    });
+    expect(mockDispatchStoreAction).toHaveBeenCalledWith({
+      type: 'ADD_FILE_ITEMS',
+      files: [mockFile, mockFolder],
+    });
+    expect(mockDispatchStoreAction).toHaveBeenCalledWith({
+      type: 'SET_ACTION_TYPE',
+      actionType: 'UPLOAD_FILES',
+    });
+  });
+
   it('should handle search', () => {
     const handleStoreActionMock = jest.fn();
     useStoreSpy.mockReturnValue([testStoreState, handleStoreActionMock]);

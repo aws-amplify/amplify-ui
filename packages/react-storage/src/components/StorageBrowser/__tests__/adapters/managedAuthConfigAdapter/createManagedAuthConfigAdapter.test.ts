@@ -18,6 +18,7 @@ describe('createManagedAuthConfigAdapter', () => {
   const region = 'us-foo-2';
   const accountId = 'XXXXXXXXXXXX';
   const credentialsProvider = jest.fn();
+  const customEndpoint = 'mock-endpoint';
   const mockCreatedListLocationsHandler = jest.fn();
   const mockCreatedLocationCredentialsHandler = jest.fn();
   const mockRegisterAuthListener = jest.fn();
@@ -35,7 +36,7 @@ describe('createManagedAuthConfigAdapter', () => {
     jest.clearAllMocks();
   });
 
-  it('should pass region to the adapter', () => {
+  it('should pass region and accountId to the adapter', () => {
     expect(
       createManagedAuthAdapter({
         region,
@@ -45,6 +46,7 @@ describe('createManagedAuthConfigAdapter', () => {
       })
     ).toMatchObject({
       region,
+      accountId,
     });
   });
 
@@ -54,6 +56,7 @@ describe('createManagedAuthConfigAdapter', () => {
         region,
         accountId,
         credentialsProvider,
+        customEndpoint,
         registerAuthListener: mockRegisterAuthListener,
       })
     ).toMatchObject({
@@ -63,6 +66,7 @@ describe('createManagedAuthConfigAdapter', () => {
       region,
       accountId,
       credentialsProvider,
+      customEndpoint,
     });
   });
 
@@ -72,6 +76,7 @@ describe('createManagedAuthConfigAdapter', () => {
         region,
         accountId,
         credentialsProvider,
+        customEndpoint,
         registerAuthListener: mockRegisterAuthListener,
       })
     ).toMatchObject({
@@ -81,6 +86,7 @@ describe('createManagedAuthConfigAdapter', () => {
       region,
       accountId,
       credentialsProvider,
+      customEndpoint,
     });
   });
 });

@@ -16,7 +16,7 @@ Feature: Drag and drop files within Storage Browser
   """
   Comment out for now until behavior is confirmed
   @react
-  Scenario: Drag and drop file into Location Detail view
+  Scenario: Drag and drop folder into Location Detail view
       When I type my "email" with status "CONFIRMED"
       Then I type my password
       Then I click the "Sign in" button

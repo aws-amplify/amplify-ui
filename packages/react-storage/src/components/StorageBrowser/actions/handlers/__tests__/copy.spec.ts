@@ -10,6 +10,7 @@ const baseInput: CopyHandlerInput = {
     accountId: '012345678901',
     bucket: 'bucket',
     credentials: jest.fn(),
+    customEndpoint: 'mock-endpoint',
     region: 'region',
   },
   data: {
@@ -43,6 +44,7 @@ describe('copyHandler', () => {
       },
       options: {
         locationCredentialsProvider: baseInput.config.credentials,
+        customEndpoint: baseInput.config.customEndpoint,
       },
     };
 

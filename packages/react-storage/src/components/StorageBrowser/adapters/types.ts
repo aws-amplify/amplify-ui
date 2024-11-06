@@ -7,9 +7,11 @@ export interface CreateManagedAuthAdapterInput {
   region: string;
   credentialsProvider: CredentialsProvider;
   registerAuthListener: RegisterAuthListener;
+  customEndpoint?: string;
 }
 
 export interface StorageBrowserAuthAdapter {
+  accountId?: string;
   listLocations: ListLocations;
   getLocationCredentials: GetLocationCredentials;
   region: string;

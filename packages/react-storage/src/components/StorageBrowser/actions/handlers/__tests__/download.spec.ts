@@ -9,6 +9,7 @@ const baseInput: DownloadHandlerInput = {
     accountId: 'accountId',
     bucket: 'bucket',
     credentials: jest.fn(),
+    customEndpoint: 'mock-endpoint',
     region: 'region',
   },
   data: {
@@ -31,6 +32,7 @@ describe('downloadHandler', () => {
           bucketName: baseInput.config.bucket,
           region: baseInput.config.region,
         },
+        customEndpoint: baseInput.config.customEndpoint,
         locationCredentialsProvider: baseInput.config.credentials,
         validateObjectExistence: true,
         contentDisposition: 'attachment',

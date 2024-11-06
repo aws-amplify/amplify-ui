@@ -11,6 +11,7 @@ exports[`useDestinationPicker should return the correct initial state 1`] = `
   "isLoading": true,
   "items": [],
   "message": undefined,
+  "onSearch": [Function],
   "range": [
     0,
     10,

@@ -11,9 +11,11 @@ export const ERROR_MESSAGE =
 
 export function useGetActionInputCallback({
   accountId,
+  customEndpoint,
   region,
 }: {
   accountId?: string;
+  customEndpoint?: string;
   region: string;
 }): GetActionInput {
   const { getCredentials } = useCredentials();
@@ -34,6 +36,7 @@ export function useGetActionInputCallback({
         prefix: key,
       }),
       region,
+      customEndpoint,
     };
-  }, [accountId, current, getCredentials, key, region]);
+  }, [accountId, current, customEndpoint, getCredentials, key, region]);
 }
