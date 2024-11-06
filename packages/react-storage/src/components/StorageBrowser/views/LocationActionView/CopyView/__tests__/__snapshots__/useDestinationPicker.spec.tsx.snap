@@ -11,6 +11,7 @@ exports[`useDestinationPicker should return the correct initial state 1`] = `
   "items": [],
   "message": undefined,
   "onPaginate": [Function],
+  "onSearch": [Function],
   "range": [
     0,
     10,

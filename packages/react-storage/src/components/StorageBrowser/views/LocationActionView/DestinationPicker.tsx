@@ -18,6 +18,7 @@ import {
 import { ControlsContext } from '../../controls/types';
 import { Breadcrumb } from '../../components/BreadcrumbNavigation';
 import { DescriptionList } from '../../components/DescriptionList';
+import { SearchControl } from '../../controls/SearchControl';
 const {
   actionSetDestination,
   actionDestinationPickerCurrentFolderSelected,
@@ -47,6 +48,7 @@ export const DestinationPicker = ({
     isLoading,
     hasError,
     onPaginate,
+    onSearch,
     range,
   } = useDestinationPicker({ destinationList });
 
@@ -73,7 +75,10 @@ export const DestinationPicker = ({
   const contextValue: ControlsContext = {
     data: {
       tableData,
+      showIncludeSubfolders: false,
+      searchPlaceholder: displayText.filterCopyPlaceholder,
     },
+    onSearch,
   };
 
   const noSubfolders = !items.length;
@@ -87,29 +92,30 @@ export const DestinationPicker = ({
 
   return (
     <ControlsContextProvider {...contextValue}>
+      <DescriptionList
+        descriptions={[
+          {
+            term: `${actionSetDestination}:`,
+            details: destinationList.length ? (
+              <>
+                {destinationList.map((key, index) => (
+                  <Breadcrumb
+                    isCurrent={index === destinationList.length - 1}
+                    key={`${key}-${index}`}
+                    onNavigate={() => handleNavigatePath(index)}
+                    // If bucket level access, show bucket name as root breadcrumb
+                    name={key === '' ? bucket : key.replace('/', '')}
+                  />
+                ))}
+              </>
+            ) : (
+              '-'
+            ),
+          },
+        ]}
+      />
       <ViewElement className={`${CLASS_BASE}__action-destination`}>
-        <DescriptionList
-          descriptions={[
-            {
-              term: `${actionSetDestination}:`,
-              details: destinationList.length ? (
-                <>
-                  {destinationList.map((key, index) => (
-                    <Breadcrumb
-                      isCurrent={index === destinationList.length - 1}
-                      key={`${key}-${index}`}
-                      onNavigate={() => handleNavigatePath(index)}
-                      // If bucket level access, show bucket name as root breadcrumb
-                      name={key === '' ? bucket : key.replace('/', '')}
-                    />
-                  ))}
-                </>
-              ) : (
-                '-'
-              ),
-            },
-          ]}
-        />
+        <SearchControl />
         <PaginateControl
           currentPage={currentPage}
           hasMorePages={hasNextToken}
