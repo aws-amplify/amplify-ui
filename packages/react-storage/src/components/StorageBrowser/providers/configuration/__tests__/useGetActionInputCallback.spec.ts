@@ -17,6 +17,7 @@ const getCredentials: CredentialsModule.GetCredentials = jest.fn(
 
 const accountId = 'my-account-id';
 const bucket = 'my-bucket';
+const customEndpoint = 'mock-endpoint';
 const permission = 'READ' as const;
 const prefix = 'my-prefix/';
 const region = 'my-region';
@@ -46,7 +47,7 @@ describe('useGetActionInputCallback', () => {
     ]);
 
     const { result } = renderHook(() =>
-      useGetActionInputCallback({ accountId, region })
+      useGetActionInputCallback({ accountId, customEndpoint, region })
     );
 
     const getActionInput = result.current;
@@ -55,6 +56,7 @@ describe('useGetActionInputCallback', () => {
 
     expect(actionInput).toStrictEqual({
       accountId,
+      customEndpoint,
       bucket,
       credentials,
       region,

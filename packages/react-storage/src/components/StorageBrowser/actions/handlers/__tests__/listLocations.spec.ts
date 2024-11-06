@@ -23,10 +23,11 @@ const accountId = 'account-id';
 const credentials: LocationCredentialsProvider = jest.fn();
 const region = 'region';
 const bucket = 'bucket';
+const customEndpoint = 'mock-endpoint';
 const DEFAULT_PAGE_SIZE = 5;
 
 const input: ListLocationsHandlerInput = {
-  config: { accountId, credentials, region, bucket },
+  config: { accountId, credentials, customEndpoint, region, bucket },
   options: {
     pageSize: DEFAULT_PAGE_SIZE,
     nextToken: undefined,
@@ -63,6 +64,14 @@ describe('listLocationsHandler', () => {
     );
     expect(result.nextToken).toBeUndefined();
     expect(mockListCallerAccessGrants).toHaveBeenCalledTimes(1);
+    expect(mockListCallerAccessGrants).toHaveBeenCalledWith({
+      accountId: input.config.accountId,
+      credentialsProvider: input.config.credentials,
+      customEndpoint: input.config.customEndpoint,
+      nextToken: input.options?.nextToken,
+      pageSize: input.options?.pageSize,
+      region: input.config.region,
+    });
   });
 
   it('should fetch multiple pages of results successfully', async () => {

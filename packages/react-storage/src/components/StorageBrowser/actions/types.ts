@@ -7,6 +7,7 @@ export interface ActionInputConfig {
   accountId?: string;
   bucket: string;
   credentials: LocationCredentialsProvider;
+  customEndpoint?: string;
   region: string;
 }
 

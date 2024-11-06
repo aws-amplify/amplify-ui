@@ -37,12 +37,13 @@ export const downloadHandler: DownloadHandler = ({
   config,
   data: { key },
 }): DownloadHandlerOutput => {
-  const { accountId, credentials } = config;
+  const { accountId, credentials, customEndpoint } = config;
 
   const result = getUrl({
     path: key,
     options: {
       bucket: constructBucket(config),
+      customEndpoint,
       locationCredentialsProvider: credentials,
       validateObjectExistence: true,
       contentDisposition: 'attachment',
