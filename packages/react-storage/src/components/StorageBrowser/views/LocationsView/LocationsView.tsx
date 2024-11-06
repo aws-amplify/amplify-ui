@@ -73,7 +73,6 @@ export function LocationsView({
       onSearch={onSearch}
       onRefresh={onRefresh}
     >
-      {' '}
       <div
         className={resolveClassName(CLASS_BASE, className)}
         data-testid="LOCATIONS_VIEW"
