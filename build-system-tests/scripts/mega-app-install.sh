@@ -109,6 +109,10 @@ else
         echo "npm install $DEPENDENCIES"
         npm install $DEPENDENCIES
         if [[ "$BUILD_TOOL" == "expo" ]]; then
+            if [[ "$FRAMEWORK_VERSION" == "0.75" ]]; then 
+                # Expo SDK version 51.0.0 supports RN 0.74 and 0.75 but installs 0.74 by default https://expo.dev/changelog/2024/08-14-react-native-0.75#2-install-updated-packages
+                echo "npx expo install react-native@~0.75.0"
+                npx expo install react-native@~0.75.0 
             echo "npx expo install --fix"
             npx expo install --fix # fix the dependencies that are incompatible with the installed expo versio
         fi
