@@ -62,6 +62,22 @@ export function LocationsView({
     onSearch,
   } = useLocationsView(props);
 
+<<<<<<< HEAD
+=======
+  // FIXME: Eventually comes from useView hook
+  const shouldShowEmptyMessage =
+    pageItems.length === 0 && !isLoading && !hasError;
+  const contextValue: ControlsContext = {
+    data: {
+      isDataRefreshDisabled: isLoading,
+      searchPlaceholder,
+      title: 'Home',
+    },
+    onSearch,
+    onRefresh,
+  };
+
+>>>>>>> 2d1d74794 (Fix Errors)
   return (
     <ControlsContextProvider
       data={{
@@ -76,10 +92,7 @@ export function LocationsView({
         className={resolveClassName(CLASS_BASE, className)}
         data-testid="LOCATIONS_VIEW"
       >
-        <TitleControl
-          className={`${CLASS_BASE}__location-detail-view-title`}
-          content="Home"
-        />
+        <TitleControl className={`${CLASS_BASE}__location-detail-view-title`} />
         <ViewElement className={`${CLASS_BASE}__location-detail-view-controls`}>
           <SearchControl className={`${CLASS_BASE}__locations-view-search`} />
           <Paginate

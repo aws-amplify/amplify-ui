@@ -7,7 +7,6 @@ import * as useTitleModule from '../hooks/useTitle';
 const BLOCK_NAME = `${CLASS_BASE}__title`;
 
 describe('TitleControl', () => {
-  // assert mocks
   const useTitleSpy = jest.spyOn(useTitleModule, 'useTitle');
 
   afterEach(() => {
