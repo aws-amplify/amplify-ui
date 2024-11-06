@@ -43,6 +43,7 @@ export const AIConversationProvider = ({
   suggestedPrompts,
   variant,
   welcomeMessage,
+  messageRenderer,
 }: AIConversationProviderProps): React.JSX.Element => {
   const _displayText = {
     ...defaultAIConversationDisplayTextEn,
