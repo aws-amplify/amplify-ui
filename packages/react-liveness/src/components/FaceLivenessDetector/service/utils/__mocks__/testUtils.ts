@@ -77,10 +77,8 @@ export const mockBlazeFace: any = {
   detectFaces: jest.fn(),
 };
 
-export const mockVideoConstraints: MediaTrackConstraints = {
-  deviceId: 'some-device-id',
-  ...STATIC_VIDEO_CONSTRAINTS,
-};
+export const mockVideoConstraints: MediaTrackConstraints =
+  STATIC_VIDEO_CONSTRAINTS;
 
 export const mockCameraDevice: MediaDeviceInfo = {
   deviceId: 'some-device-id',
