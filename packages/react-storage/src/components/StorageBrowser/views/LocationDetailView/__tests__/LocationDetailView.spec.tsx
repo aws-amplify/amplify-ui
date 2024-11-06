@@ -21,6 +21,9 @@ jest.mock('../../../providers/configuration');
 jest.mock('../../../controls/NavigationControl', () => ({
   NavigationControl: () => 'NavigationControl',
 }));
+jest.mock('../../../controls/DataTableControl', () => ({
+  DataTableControl: () => <div data-testid="data-table-control" />,
+}));
 
 const handleList = jest.fn();
 
@@ -158,8 +161,17 @@ describe('LocationDetailView', () => {
       } as StoreModule.UseStoreState,
       dispatchStoreAction,
     ]);
-    render(<LocationDetailView />);
 
+    mockListItemsAction({
+      isLoading: false,
+      hasError: false,
+      result: [{ key: 'test1', type: 'FOLDER' }],
+      nextToken: 'some-token',
+    });
+
+    const { getByTestId } = render(<LocationDetailView />);
+
+    expect(getByTestId('data-table-control')).toBeInTheDocument();
     expect(handleList).toHaveBeenCalledTimes(1);
     expect(handleList).toHaveBeenCalledWith({
       config,
