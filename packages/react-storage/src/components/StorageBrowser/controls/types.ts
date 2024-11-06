@@ -1,8 +1,8 @@
 import { Composables } from '../composables/types';
 import { DataTableSortHeader, DataTableProps } from '../composables/DataTable';
 import { DropZoneProps } from '../composables/DropZone';
-import { INITIAL_STATUS_COUNTS } from '../views/LocationActionView/constants';
 import { LocationData } from '../actions';
+import { StatusCounts } from '../tasks';
 
 export interface ControlProps {
   className?: string;
@@ -13,8 +13,6 @@ export interface Controls {
 }
 
 export type ControlKey = keyof Composables;
-
-export type TaskCounts = typeof INITIAL_STATUS_COUNTS;
 
 interface TruncatedSortHeader
   extends Omit<
@@ -40,15 +38,19 @@ interface Location {
 export interface ControlsContext {
   data: {
     actionStartLabel?: string;
-    isActionStartDisabled?: boolean;
     actionCancelLabel?: string;
     isActionCancelDisabled?: boolean;
+    isActionStartDisabled?: boolean;
+    isAddFilesDisabled?: boolean;
+    isAddFolderDisabled?: boolean;
     isDataRefreshDisabled?: boolean;
+    isExitDisabled?: boolean;
+    isOverwriteCheckboxDisabled?: boolean;
     showIncludeSubfolders?: boolean;
     searchPlaceholder?: string;
     location?: Location;
     tableData?: TableData;
-    taskCounts?: TaskCounts;
+    statusCounts?: StatusCounts;
   };
   actionsConfig?: {
     type:

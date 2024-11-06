@@ -3,7 +3,6 @@ import { Tasks } from '../../../tasks';
 
 import {
   getActionIconVariant,
-  getActionViewDisabledButtons,
   getFileTypeDisplayValue,
   getFilenameWithoutPrefix,
   getActionViewTableData,
@@ -16,105 +15,6 @@ describe('getActionIconVariant', () => {
     expect(getActionIconVariant('COMPLETE')).toBe('action-success');
     expect(getActionIconVariant('FAILED')).toBe('action-error');
     expect(getActionIconVariant('CANCELED')).toBe('action-canceled');
-  });
-});
-
-describe('getActionViewDisabledButtons', () => {
-  it('should return correct statuses when no tasks have started', () => {
-    const counts = {
-      INITIAL: 0,
-      QUEUED: 5,
-      PENDING: 0,
-      FAILED: 0,
-      COMPLETE: 0,
-      OVERWRITE_PREVENTED: 0,
-      CANCELED: 0,
-      TOTAL: 5,
-    };
-    const result = getActionViewDisabledButtons(counts);
-    expect(result).toEqual({
-      disableCancel: true,
-      disableClose: false,
-      disablePrimary: false,
-    });
-  });
-
-  describe('getActionViewDisabledButtons', () => {
-    it('should return correct statuses when no tasks have started', () => {
-      const counts = {
-        INITIAL: 0,
-        QUEUED: 5,
-        PENDING: 0,
-        FAILED: 0,
-        OVERWRITE_PREVENTED: 0,
-        COMPLETE: 0,
-        CANCELED: 0,
-        TOTAL: 5,
-      };
-      const result = getActionViewDisabledButtons(counts);
-      expect(result).toEqual({
-        disableCancel: true,
-        disableClose: false,
-        disableStart: false,
-      });
-    });
-
-    it('should return correct statuses when some tasks have started', () => {
-      const counts = {
-        INITIAL: 0,
-        QUEUED: 3,
-        PENDING: 2,
-        OVERWRITE_PREVENTED: 0,
-        FAILED: 0,
-        COMPLETE: 0,
-        CANCELED: 0,
-        TOTAL: 5,
-      };
-      const result = getActionViewDisabledButtons(counts);
-      expect(result).toEqual({
-        disableCancel: false,
-        disableClose: true,
-        disableStart: true,
-      });
-    });
-
-    it('should return correct statuses when all tasks have completed', () => {
-      const counts = {
-        INITIAL: 0,
-        QUEUED: 0,
-        PENDING: 0,
-        FAILED: 1,
-        OVERWRITE_PREVENTED: 0,
-        COMPLETE: 3,
-        CANCELED: 1,
-        TOTAL: 5,
-      };
-      const result = getActionViewDisabledButtons(counts);
-      expect(result).toEqual({
-        disableCancel: true,
-        disableClose: false,
-        disableStart: true,
-      });
-    });
-  });
-
-  it('should return correct statuses when all tasks have completed', () => {
-    const counts = {
-      INITIAL: 0,
-      QUEUED: 0,
-      PENDING: 0,
-      FAILED: 1,
-      COMPLETE: 3,
-      CANCELED: 1,
-      OVERWRITE_PREVENTED: 0,
-      TOTAL: 5,
-    };
-    const result = getActionViewDisabledButtons(counts);
-    expect(result).toEqual({
-      disableCancel: true,
-      disableClose: false,
-      disablePrimary: true,
-    });
   });
 });
 
@@ -143,16 +43,7 @@ describe('getFilenameWithoutPrefix', () => {
 
 describe('getActionViewTableData', () => {
   const mockRemove = jest.fn();
-  const taskCounts = {
-    INITIAL: 0,
-    QUEUED: 1,
-    PENDING: 1,
-    FAILED: 1,
-    COMPLETE: 1,
-    CANCELED: 1,
-    OVERWRITE_PREVENTED: 0,
-    TOTAL: 5,
-  };
+
   const tasks: Tasks<FileData> = [
     {
       data: {
@@ -229,25 +120,15 @@ describe('getActionViewTableData', () => {
   it('should return correct table data for all task statuses', () => {
     const result = getActionViewTableData({
       tasks,
-      taskCounts,
       path: '',
+      isProcessing: true,
     });
 
     expect(result.rows).toMatchSnapshot('tabledata');
   });
 
   it('should handle tasks with prefix keys', () => {
-    const taskCounts = {
-      INITIAL: 0,
-      QUEUED: 1,
-      PENDING: 0,
-      FAILED: 0,
-      COMPLETE: 1,
-      CANCELED: 0,
-      OVERWRITE_PREVENTED: 0,
-      TOTAL: 2,
-    };
-    const tasksWithPaths: Tasks<FileData> = [
+    const tasks: Tasks<FileData> = [
       {
         data: {
           id: '1',
@@ -279,28 +160,18 @@ describe('getActionViewTableData', () => {
     ];
 
     const result = getActionViewTableData({
-      tasks: tasksWithPaths,
-      taskCounts,
+      tasks,
       path: '',
+      isProcessing: true,
     });
 
     expect(result.rows).toMatchSnapshot();
   });
 
   it('should have remove handler on queued files', () => {
-    const taskCounts = {
-      INITIAL: 0,
-      QUEUED: 1,
-      PENDING: 0,
-      FAILED: 0,
-      COMPLETE: 1,
-      CANCELED: 0,
-      OVERWRITE_PREVENTED: 0,
-      TOTAL: 2,
-    };
     const mockRemove = jest.fn();
     const mockCancel = jest.fn();
-    const tasksWithPaths: Tasks<FileData> = [
+    const tasks: Tasks<FileData> = [
       {
         data: {
           id: '1',
@@ -318,17 +189,19 @@ describe('getActionViewTableData', () => {
     ];
 
     const result = getActionViewTableData({
-      tasks: tasksWithPaths,
-      taskCounts,
+      tasks,
       path: 'folder/subfolder/',
+      isProcessing: false,
     });
-    const actionCell = result.rows[0].content.filter(
-      (cell) => cell.key === 'action-1'
-    )[0];
+
+    // last cell
+    const actionCell =
+      result.rows[0].content[result.rows[0].content.length - 1];
+
     expect(actionCell.content).toHaveProperty('onClick');
     expect(actionCell.content).toHaveProperty(
       'ariaLabel',
-      'Cancel item: folder/subfolder/file1.txt'
+      'Remove item: folder/subfolder/file1.txt'
     );
     expect(result.rows).toMatchSnapshot();
   });

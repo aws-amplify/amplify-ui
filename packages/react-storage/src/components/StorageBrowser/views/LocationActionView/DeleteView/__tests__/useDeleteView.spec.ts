@@ -4,25 +4,33 @@ import * as Store from '../../../../providers/store';
 import * as Config from '../../../../providers/configuration';
 import * as Tasks from '../../../../tasks';
 
-import { useCopyView } from '../useCopyView';
+import { useDeleteView } from '../useDeleteView';
 
 const mockProcessTasks = jest.fn();
 const mockDispatchStoreAction = jest.fn();
 
-describe('useCopyView', () => {
+const credentials = jest.fn();
+jest.spyOn(Config, 'useGetActionInput').mockReturnValue(() => ({
+  accountId: '123456789012',
+  bucket: 'XXXXXXXXXXX',
+  credentials,
+  region: 'us-west-2',
+}));
+
+describe('useDeleteView', () => {
   beforeEach(() => {
     jest.clearAllMocks();
 
     jest.spyOn(Store, 'useStore').mockReturnValue([
       {
-        actionType: 'COPY',
+        actionType: 'DELETE',
         files: [],
         location: {
           current: {
             prefix: 'test-prefix/',
             bucket: 'bucket',
             id: 'id',
-            permission: 'READWRITE',
+            permission: 'READ',
             type: 'PREFIX',
           },
           path: '',
@@ -42,13 +50,6 @@ describe('useCopyView', () => {
       },
       mockDispatchStoreAction,
     ]);
-
-    jest.spyOn(Config, 'useGetActionInput').mockReturnValue(() => ({
-      accountId: '123456789012',
-      bucket: 'XXXXXXXXXXX',
-      credentials: jest.fn(),
-      region: 'us-west-2',
-    }));
 
     // Mock the useProcessTasks hook
     jest.spyOn(Tasks, 'useProcessTasks').mockReturnValue([
@@ -88,13 +89,10 @@ describe('useCopyView', () => {
   });
 
   it('should return the correct initial state', () => {
-    const { result } = renderHook(() => useCopyView());
+    const { result } = renderHook(() => useDeleteView());
 
     expect(result.current).toEqual(
       expect.objectContaining({
-        destinationList: ['test-prefix'],
-        isProcessing: false,
-        isProcessingComplete: false,
         onActionCancel: expect.any(Function),
         onExit: expect.any(Function),
         onActionStart: expect.any(Function),
@@ -114,19 +112,17 @@ describe('useCopyView', () => {
   });
 
   it('should call processTasks when onActionStart is called', () => {
-    const { result } = renderHook(() => useCopyView());
+    const { result } = renderHook(() => useDeleteView());
 
     act(() => {
       result.current.onActionStart();
     });
 
-    expect(mockProcessTasks).toHaveBeenCalledTimes(1);
     expect(mockProcessTasks).toHaveBeenCalledWith({
-      destinationPrefix: 'test-prefix/',
       config: {
         accountId: '123456789012',
         bucket: 'XXXXXXXXXXX',
-        credentials: expect.any(Function),
+        credentials,
         region: 'us-west-2',
       },
     });
@@ -153,7 +149,7 @@ describe('useCopyView', () => {
       mockProcessTasks,
     ]);
 
-    const { result } = renderHook(() => useCopyView());
+    const { result } = renderHook(() => useDeleteView());
 
     act(() => {
       result.current.onActionCancel();
@@ -164,7 +160,7 @@ describe('useCopyView', () => {
 
   it('should reset state when onExit is called', () => {
     const mockOnExit = jest.fn();
-    const { result } = renderHook(() => useCopyView({ onExit: mockOnExit }));
+    const { result } = renderHook(() => useDeleteView({ onExit: mockOnExit }));
 
     act(() => {
       result.current.onExit();

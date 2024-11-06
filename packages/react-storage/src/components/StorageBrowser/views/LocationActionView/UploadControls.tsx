@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { humanFileSize, isFunction } from '@aws-amplify/ui';
+import { humanFileSize } from '@aws-amplify/ui';
 
 import { LocationData } from '../../actions';
 import { displayText } from '../../displayText/en';
@@ -12,7 +12,6 @@ import {
   ViewElement,
 } from '../../context/elements';
 import { IconElement, IconVariant } from '../../context/elements/IconElement';
-// import { getActionViewDisabledButtons, getAllTasksStatus } from '../utils';
 
 import { StatusDisplayControl } from '../../controls/StatusDisplayControl';
 import { ControlsContextProvider } from '../../controls/context';
@@ -189,13 +188,11 @@ const getFileSelectionType = (
   return actionType === 'UPLOAD_FILES' ? 'FILE' : 'FOLDER';
 };
 
-export const UploadControls = ({
-  onExit: _onExit,
-}: {
+export const UploadControls = (props: {
   onExit?: (location: LocationData) => void;
 }): JSX.Element => {
   const [{ actionType, files, location }, dispatchStoreAction] = useStore();
-  const { current, key: destinationPrefix } = location;
+  const { key: destinationPrefix } = location;
 
   // launch native file picker on intiial render if no files are currently in state
   const selectionTypeRef = React.useRef<'FILE' | 'FOLDER' | undefined>(
@@ -217,9 +214,7 @@ export const UploadControls = ({
 
   const {
     tasks,
-    taskCounts,
-    disableStart,
-    disableCancel,
+    statusCounts,
     isProcessing,
     isProcessingComplete,
     isOverwriteEnabled,
@@ -229,7 +224,7 @@ export const UploadControls = ({
     onSelectFiles,
     onExit,
     onDropFiles,
-  } = useUploadView({ onExit: _onExit });
+  } = useUploadView(props);
 
   const [compareFn, setCompareFn] = React.useState<(a: any, b: any) => number>(
     () => compareStrings
@@ -240,7 +235,6 @@ export const UploadControls = ({
 
   const { direction, selection } = sortState;
 
-  // const { hasStarted, hasCompleted } = getAllTasksStatus(taskCounts);
   const tableData = tasks
     .map(({ data, ...task }) => {
       const { key, id, file } = data as { key: string; id: string; file: File };
@@ -320,14 +314,25 @@ export const UploadControls = ({
     [direction, selection]
   );
 
-  // FIXME: Eventually comes from useView hook
+  const isActionStartDisabled =
+    isProcessing || isProcessingComplete || statusCounts.TOTAL === 0;
+  const isActionCancelDisabled = !isProcessing || isProcessingComplete;
+  const isAddFilesDisabled = isProcessing || isProcessingComplete;
+  const isAddFolderDisabled = isProcessing || isProcessingComplete;
+  const isExitDisabled = isProcessing;
+  const isOverwriteCheckboxDisabled = isProcessing || isProcessingComplete;
+
   const contextValue: ControlsContext = {
     data: {
-      taskCounts,
-      isActionStartDisabled: disableStart,
-      actionStartLabel: 'Start',
       actionCancelLabel: 'Cancel',
-      isActionCancelDisabled: disableCancel,
+      actionStartLabel: 'Upload',
+      isActionCancelDisabled,
+      isActionStartDisabled,
+      isAddFilesDisabled,
+      isAddFolderDisabled,
+      isExitDisabled,
+      isOverwriteCheckboxDisabled,
+      statusCounts,
     },
     actionsConfig: {
       type: 'BATCH_ACTION',
@@ -340,14 +345,9 @@ export const UploadControls = ({
   return (
     <ControlsContextProvider {...contextValue}>
       <Exit
+        disabled={isExitDisabled}
         onClick={() => {
-          if (isFunction(onExit)) onExit?.(current!);
-          // clear tasks state
-          tasks.forEach(({ remove }) => remove?.());
-          // clear files state
-          dispatchStoreAction({ type: 'RESET_FILE_ITEMS' });
-          // clear selected action
-          dispatchStoreAction({ type: 'RESET_ACTION_TYPE' });
+          onExit();
         }}
       />
       <Title />
@@ -363,12 +363,12 @@ export const UploadControls = ({
           />
           <Overwrite
             defaultChecked={isOverwriteEnabled}
-            disabled={isProcessing || isProcessingComplete}
+            disabled={isOverwriteCheckboxDisabled}
             handleChange={onToggleOverwrite}
           />
         </ViewElement>
         <ButtonElement
-          disabled={isProcessing || isProcessingComplete}
+          disabled={isAddFolderDisabled}
           className={`${CLASS_BASE}__add-folder`}
           variant="add-folder"
           onClick={() => {
@@ -378,7 +378,7 @@ export const UploadControls = ({
           Add folder
         </ButtonElement>
         <ButtonElement
-          disabled={isProcessing || isProcessingComplete}
+          disabled={isAddFilesDisabled}
           className={`${CLASS_BASE}__add-files`}
           variant="add-files"
           onClick={() => {

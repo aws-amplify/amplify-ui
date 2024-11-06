@@ -7,12 +7,17 @@ import {
   TaskHandler,
 } from '../actions';
 
-import { HandleProcessTasks, ProcessTasksOptions, Task, Tasks } from './types';
-
-type UseProcessTasksState<T extends TaskData, K, D> = [
-  { isProcessing: boolean; isProcessingComplete: boolean; tasks: Tasks<T> },
-  HandleProcessTasks<T, K, D>,
-];
+import {
+  HandleProcessTasks,
+  ProcessTasksOptions,
+  Task,
+  UseProcessTasksState,
+} from './types';
+import {
+  getStatusCounts,
+  isProcessingTasks,
+  hasCompletedProcessingTasks,
+} from './utils';
 
 export type UseProcessTasks = <
   T extends TaskData,
@@ -139,11 +144,9 @@ export const useProcessTasks: UseProcessTasks = <
   );
 
   const tasks = [...tasksRef.current.values()];
-  const isProcessing =
-    tasks.length > 1 && tasks.some(({ status }) => status === 'PENDING');
-  const isProcessingComplete = tasks.some(
-    ({ status }) => status !== 'QUEUED' && status !== 'PENDING'
-  );
+  const statusCounts = getStatusCounts(tasks);
+  const isProcessing = isProcessingTasks(statusCounts);
+  const isProcessingComplete = hasCompletedProcessingTasks(statusCounts);
 
   const handleProcessTasks: HandleProcessTasks<T, K, D> = (input) => {
     if (isProcessing) {
@@ -162,5 +165,8 @@ export const useProcessTasks: UseProcessTasks = <
     }
   };
 
-  return [{ isProcessing, isProcessingComplete, tasks }, handleProcessTasks];
+  return [
+    { isProcessing, isProcessingComplete, statusCounts, tasks },
+    handleProcessTasks,
+  ];
 };

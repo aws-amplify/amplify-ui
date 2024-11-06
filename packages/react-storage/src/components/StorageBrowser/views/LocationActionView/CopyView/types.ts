@@ -7,10 +7,7 @@ import {
 
 export interface CopyViewState extends ActionViewState<CopyHandlerData> {
   destinationList: string[];
-  onSetDestinationList: (destination: string[]) => void;
-  disableCancel: boolean;
-  disableClose: boolean;
-  disableStart: boolean;
+  onDestinationChange: (destination: string[]) => void;
 }
 
 export interface CopyViewProps

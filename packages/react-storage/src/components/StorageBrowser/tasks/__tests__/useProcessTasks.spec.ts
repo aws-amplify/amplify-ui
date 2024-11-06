@@ -324,6 +324,33 @@ describe('useProcessTasks', () => {
     expect(nextTasks.length).toBe(3);
   });
 
+  it('returns the expected values for `isProcessing` and `isProcessingComplete`', async () => {
+    const { result } = renderHook(() => useProcessTasks(action, items));
+
+    const [initState, handleProcess] = result.current;
+
+    expect(initState.isProcessing).toBe(false);
+    expect(initState.isProcessingComplete).toBe(false);
+
+    act(() => {
+      handleProcess({ config, prefix });
+    });
+
+    const [processingState] = result.current;
+
+    expect(processingState.isProcessing).toBe(true);
+    expect(processingState.isProcessingComplete).toBe(false);
+
+    await waitFor(() => {
+      expect(action).toHaveBeenCalledTimes(3);
+    });
+
+    const [completedState] = result.current;
+
+    expect(completedState.isProcessing).toBe(false);
+    expect(completedState.isProcessingComplete).toBe(true);
+  });
+
   it.todo('handles progress updates as expected');
   it.todo('ignores calls to handle processing when isProcessing is true');
   it.todo('handles data provided through input as expected');

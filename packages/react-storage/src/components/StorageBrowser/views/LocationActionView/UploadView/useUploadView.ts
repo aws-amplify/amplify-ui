@@ -1,20 +1,20 @@
 import React from 'react';
 import { isFunction } from '@aws-amplify/ui';
 
+import { LocationData, uploadHandler } from '../../../actions';
+
 import { useGetActionInput } from '../../../providers/configuration';
 import { useStore } from '../../../providers/store';
 import { useProcessTasks } from '../../../tasks';
+
 import { DEFAULT_OVERWRITE_ENABLED } from '../constants';
-import { LocationData, uploadHandler } from '../../../actions';
-import { getTaskCounts } from '../../../controls/getTaskCounts';
-import { getActionViewDisabledButtons } from '../utils';
 import { UploadViewState } from './types';
 
-export const useUploadView = ({
-  onExit: _onExit,
-}: {
+export const useUploadView = (params: {
   onExit?: (location: LocationData) => void;
 }): UploadViewState => {
+  const { onExit: _onExit } = params ?? {};
+
   const getInput = useGetActionInput();
   const [{ files, location }, dispatchStoreAction] = useStore();
   const { current, key: destinationPrefix } = location;
@@ -23,14 +23,12 @@ export const useUploadView = ({
     DEFAULT_OVERWRITE_ENABLED
   );
 
-  const [{ isProcessing, isProcessingComplete, tasks }, handleProcess] =
-    useProcessTasks(uploadHandler, files, {
-      concurrency: 4,
-    });
+  const [processState, handleProcess] = useProcessTasks(uploadHandler, files, {
+    concurrency: 4,
+  });
 
-  const taskCounts = React.useMemo(() => getTaskCounts(tasks), [tasks]);
-  const { disableCancel, disableStart, disableClose } =
-    getActionViewDisabledButtons(taskCounts);
+  const { isProcessing, isProcessingComplete, statusCounts, tasks } =
+    processState;
 
   const onDropFiles = React.useCallback(
     (files?: File[]) => {
@@ -75,9 +73,7 @@ export const useUploadView = ({
   }, []);
 
   return {
-    disableCancel,
-    disableClose,
-    disableStart,
+    destinationPrefix,
     isOverwriteEnabled,
     isProcessing,
     isProcessingComplete,
@@ -87,7 +83,7 @@ export const useUploadView = ({
     onExit,
     onSelectFiles,
     onToggleOverwrite,
-    taskCounts,
+    statusCounts,
     tasks,
   };
 };

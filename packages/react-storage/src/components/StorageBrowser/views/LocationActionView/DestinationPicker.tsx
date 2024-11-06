@@ -33,10 +33,10 @@ export const DEFAULT_LIST_OPTIONS = {
 
 export const DestinationPicker = ({
   destinationList,
-  onSetDestinationList,
+  onDestinationChange,
 }: {
   destinationList: string[];
-  onSetDestinationList: (destination: string[]) => void;
+  onDestinationChange: (destination: string[]) => void;
 }): React.JSX.Element => {
   const {
     bucket,
@@ -52,12 +52,12 @@ export const DestinationPicker = ({
 
   const handleNavigateFolder = (key: string) => {
     const newPath = [...destinationList, key.replace('/', '')];
-    onSetDestinationList(newPath);
+    onDestinationChange(newPath);
   };
 
   const handleNavigatePath = (index: number) => {
     const newPath = destinationList.slice(0, index + 1);
-    onSetDestinationList(newPath);
+    onDestinationChange(newPath);
   };
 
   const pageItems = React.useMemo(() => {
@@ -75,9 +75,7 @@ export const DestinationPicker = ({
   });
 
   const contextValue: ControlsContext = {
-    data: {
-      tableData,
-    },
+    data: { tableData },
   };
 
   const noSubfolders = !items.length;

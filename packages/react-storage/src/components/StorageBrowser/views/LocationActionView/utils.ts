@@ -1,10 +1,9 @@
-import { humanFileSize } from '@aws-amplify/ui';
+import { humanFileSize, isUndefined } from '@aws-amplify/ui';
 
 import { DataTableProps } from '../../composables/DataTable';
 import { DataTableRow } from '../../composables/DataTable/DataTable';
 import { IconVariant } from '../../context/elements';
 import { WithKey } from '../../components/types';
-import { TaskCounts } from '../../controls/types';
 import { Task, TaskStatus } from '../../tasks';
 
 import { STATUS_DISPLAY_VALUES } from './constants';
@@ -35,39 +34,6 @@ export const getActionIconVariant = (status: TaskStatus): IconVariant => {
   }
 };
 
-export const getTasksHaveStarted = (taskCounts: TaskCounts): boolean =>
-  taskCounts.QUEUED < taskCounts.TOTAL;
-export const getAllTasksStatus = (
-  taskCounts: TaskCounts
-): { hasStarted: boolean; hasCompleted: boolean } => ({
-  hasStarted: getTasksHaveStarted(taskCounts),
-  hasCompleted:
-    !!taskCounts.TOTAL &&
-    taskCounts.CANCELED + taskCounts.COMPLETE + taskCounts.FAILED ===
-      taskCounts.TOTAL,
-});
-export const getActionViewDisabledButtons = (
-  taskCounts: TaskCounts
-): {
-  disableCancel: boolean;
-  disableClose: boolean;
-  disableStart: boolean;
-} => {
-  const { hasStarted, hasCompleted } = getAllTasksStatus(taskCounts);
-
-  const disableCancel =
-    !hasStarted || taskCounts.QUEUED + taskCounts.PENDING < 1;
-  const disableClose = hasStarted && !hasCompleted;
-  const disableStart =
-    taskCounts.QUEUED < 1 || taskCounts.QUEUED < taskCounts.TOTAL;
-
-  return {
-    disableCancel,
-    disableClose,
-    disableStart,
-  };
-};
-
 export const getFileTypeDisplayValue = (fileName: string): string =>
   fileName.lastIndexOf('.') !== -1
     ? fileName.slice(fileName.lastIndexOf('.') + 1)
@@ -77,15 +43,17 @@ export const getFilenameWithoutPrefix = (path: string): string => {
   const folder = path.lastIndexOf('/') + 1;
   return path.slice(folder, path.length);
 };
-
+// type GetDataTableButtonDataCell<T extends TaskData> = (task: Task<T>) =>DataTableButtonDataCell
 export const getActionViewTableData = <T extends ActionData>({
   tasks,
-  taskCounts,
+
   path,
+  isProcessing,
 }: {
   tasks: Task<T>[];
-  taskCounts: TaskCounts;
+
   path: string;
+  isProcessing: boolean;
 }): DataTableProps => {
   const rows: DataTableProps['rows'] = tasks.map((item) => {
     const row: WithKey<DataTableRow> = {
@@ -129,31 +97,29 @@ export const getActionViewTableData = <T extends ActionData>({
               content: { text: STATUS_DISPLAY_VALUES[item.status] },
             };
           case 'action':
-            // don't allow removing a single task
-            if (taskCounts.TOTAL > 1) {
-              return getTasksHaveStarted(taskCounts)
-                ? {
-                    key,
-                    type: 'button',
-                    content: {
-                      icon: 'cancel',
-                      ariaLabel: `Cancel item: ${item.data.key}`,
-                      onClick: () => item.cancel?.(),
-                      isDisabled: item.status !== 'QUEUED',
-                    },
-                  }
-                : {
-                    key,
-                    type: 'button',
-                    content: {
-                      icon: 'cancel',
-                      ariaLabel: `Remove item: ${item.data.key}`,
-                      onClick: () => item.remove(),
-                    },
-                  };
-            } else {
-              return { key, type: 'text', content: { text: '' } };
-            }
+            return isProcessing
+              ? {
+                  key,
+                  type: 'button',
+                  content: {
+                    icon: 'cancel',
+                    ariaLabel: `Cancel item: ${item.data.key}`,
+                    onClick: item.cancel,
+                    isDisabled:
+                      isUndefined(item.cancel) ||
+                      (item.status !== 'PENDING' && item.status !== 'QUEUED'),
+                  },
+                }
+              : {
+                  key,
+                  type: 'button',
+                  content: {
+                    icon: 'cancel',
+                    ariaLabel: `Remove item: ${item.data.key}`,
+                    onClick: item.remove,
+                  },
+                };
+
           default:
             return { key, type: 'text', content: { text: '' } };
         }
