@@ -29,7 +29,6 @@ import {
   RenderRowItem,
   SortState,
 } from '../Controls/Table';
-import { Title } from './Controls/Title';
 import {
   DEFAULT_OVERWRITE_PROTECTION,
   STATUS_DISPLAY_VALUES,
@@ -37,6 +36,7 @@ import {
 import { FileItems } from '../../providers/store/files';
 import { ActionStartControl } from '../../controls/ActionStartControl';
 import { ActionCancelControl } from '../../controls/ActionCancelControl';
+import { TitleControl } from '../../controls/TitleControl';
 
 const { Icon } = StorageBrowserElements;
 
@@ -370,7 +370,7 @@ export const UploadControls = ({
           dispatchStoreAction({ type: 'RESET_ACTION_TYPE' });
         }}
       />
-      <Title />
+      <TitleControl />
       <ViewElement className={`${CLASS_BASE}__action-header`}>
         <ViewElement className={`${CLASS_BASE}__upload-destination`}>
           <DescriptionList

@@ -14,10 +14,6 @@ describe('TitleControl', () => {
     useTitleSpy.mockReset();
   });
 
-  afterEach(() => {
-    useTitleSpy.mockReset();
-  });
-
   it('renders', () => {
     useTitleSpy.mockReturnValue({
       title: 'Amplify',

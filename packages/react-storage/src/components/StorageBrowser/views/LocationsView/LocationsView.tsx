@@ -8,19 +8,18 @@ import { ControlsContextProvider } from '../../controls/context';
 import { DataRefreshControl } from '../../controls/DataRefreshControl';
 import { DataTableControl } from '../../controls/DataTableControl';
 import { SearchControl } from '../../controls/SearchControl';
+<<<<<<< HEAD
+=======
+import { TitleControl } from '../../controls/TitleControl';
+
+>>>>>>> 67a2fd751 (Update integ and test)
 import { LocationsViewProps } from './types';
 import { ViewElement } from '../../context/elements';
 import { getLocationsViewTableData } from './getLocationsViewTableData';
 
 export const DEFAULT_ERROR_MESSAGE = 'There was an error loading locations.';
 
-const {
-  EmptyMessage,
-  Loading: LoadingElement,
-  Message,
-  Paginate,
-  Title,
-} = Controls;
+const { EmptyMessage, Loading: LoadingElement, Message, Paginate } = Controls;
 
 const Loading = ({ show }: { show: boolean }) => {
   return show ? <LoadingElement /> : null;
@@ -77,7 +76,7 @@ export function LocationsView({
         className={resolveClassName(CLASS_BASE, className)}
         data-testid="LOCATIONS_VIEW"
       >
-        <Title>Home</Title>
+        <TitleControl className="Home" />
         <ViewElement className={`${CLASS_BASE}__location-detail-view-controls`}>
           <SearchControl className={`${CLASS_BASE}__locations-view-search`} />
           <Paginate

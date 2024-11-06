@@ -4,24 +4,25 @@ import { ViewElement } from '../../context/elements';
 
 import { Controls } from '../Controls';
 
-import { Title } from './Controls/Title';
 import { displayText } from '../../displayText/en';
 import { CLASS_BASE } from '../constants';
 import { DestinationPicker } from './DestinationPicker';
 
 import { useCopyView } from './CopyView/useCopyView';
-import { DataTableControl } from '../../controls/DataTableControl';
 import { ControlsContextProvider } from '../../controls/context';
 import { getActionViewTableData } from './utils';
 import { useStore } from '../../providers/store';
 import { ControlsContext } from '../../controls/types';
-import { ActionStartControl } from '../../controls/ActionStartControl';
 import { getTasksHaveStarted } from './utils';
 import { DescriptionList } from '../../components/DescriptionList';
-import { StatusDisplayControl } from '../../controls/StatusDisplayControl';
 import { getDestinationListFullPrefix } from './utils/getDestinationPickerDataTable';
-import { ActionCancelControl } from '../../controls/ActionCancelControl';
 import { CopyHandlerData } from '../../actions';
+
+import { ActionCancelControl } from '../../controls/ActionCancelControl';
+import { ActionStartControl } from '../../controls/ActionStartControl';
+import { DataTableControl } from '../../controls/DataTableControl';
+import { StatusDisplayControl } from '../../controls/StatusDisplayControl';
+import { TitleControl } from '../../controls/TitleControl';
 
 const { Exit } = Controls;
 const { actionSetDestination } = displayText;
@@ -76,7 +77,7 @@ export const CopyFilesControls = ({
         disabled={disableClose}
       />
 
-      <Title />
+      <TitleControl />
 
       <ViewElement className={`${CLASS_BASE}__table-wrapper`}>
         <DataTableControl className={`${CLASS_BASE}__table`} />

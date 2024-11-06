@@ -5,7 +5,6 @@ import { ViewElement } from '../../context/elements';
 import { DataTableControl } from '../../controls/DataTableControl';
 import { ControlsContextProvider } from '../../controls/context';
 import { CLASS_BASE } from '../constants';
-import { Title } from './Controls/Title';
 import { useDeleteView } from './DeleteView/useDeleteView';
 import { StatusDisplayControl } from '../../controls/StatusDisplayControl';
 import { ControlsContext } from '../../controls/types';
@@ -14,6 +13,7 @@ import { getActionViewTableData } from './utils';
 import { ActionStartControl } from '../../controls/ActionStartControl';
 import { ActionCancelControl } from '../../controls/ActionCancelControl';
 import { LocationData } from '../../actions';
+import { TitleControl } from '../../controls/TitleControl';
 
 const { Exit } = Controls;
 
@@ -61,7 +61,7 @@ export const DeleteFilesControls = (props: {
         }}
         disabled={disableClose}
       />
-      <Title />
+      <TitleControl />
       <ViewElement className={`${CLASS_BASE}__table-wrapper`}>
         <DataTableControl className={`${CLASS_BASE}__table`} />
       </ViewElement>

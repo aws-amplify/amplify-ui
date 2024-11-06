@@ -9,10 +9,11 @@ import { useStore } from '../../providers/store';
 
 import { Controls } from '../Controls';
 
-import { Title } from './Controls/Title';
 import { ActionStartControl } from '../../controls/ActionStartControl';
 import { ControlsContext } from '../../controls/types';
 import { ControlsContextProvider } from '../../controls/context';
+import { TitleControl } from '../../controls/TitleControl';
+
 import { CLASS_BASE } from '../constants';
 
 const { Exit, Message } = Controls;
@@ -117,7 +118,7 @@ export const CreateFolderControls = ({
           handleClose();
         }}
       />
-      <Title />
+      <TitleControl />
       <ActionStartControl
         className={`${CLASS_BASE}__create-folder-action-start`}
       />
