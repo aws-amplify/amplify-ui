@@ -6,12 +6,12 @@ import { useDataState } from '@aws-amplify/ui-react-core';
 import { usePaginate } from '../hooks/usePaginate';
 import { useStore } from '../../providers/store';
 import {
-  listLocationItemsHandler,
   LocationData,
   LocationItemData,
+  listLocationItemsHandler,
 } from '../../actions';
+import { FileData } from '../../actions/handlers';
 import { isFile, isLastPage } from '../utils';
-import { LocationState } from '../../providers/store/location';
 import { createEnhancedListHandler } from '../../actions/createEnhancedListHandler';
 import { useGetActionInput } from '../../providers/configuration';
 import { displayText } from '../../displayText/en';
@@ -21,19 +21,27 @@ interface UseLocationDetailView {
   isLoading: boolean;
   isPaginateNextDisabled: boolean;
   isPaginatePreviousDisabled: boolean;
+  currentLocation: LocationData | undefined;
+  currentPath: string;
+  areAllFilesSelected: boolean;
+  fileDataItems: FileData[] | undefined;
+  hasFiles: boolean;
   showIncludeSubfolders: boolean;
-  location: LocationState;
   message: string | undefined;
+  shouldShowEmptyMessage: boolean;
   searchPlaceholder: string;
   pageItems: LocationItemData[];
   page: number;
-  onNavigate: (location: LocationData, path?: string) => void;
+  onDropFiles: (files: File[]) => void;
   onRefresh: () => void;
+  onNavigate: (location: LocationData, path?: string) => void;
+  onNavigateHome: () => void;
   onPaginateNext: () => void;
   onPaginatePrevious: () => void;
-  onAddFiles: (files: File[]) => void;
-  onNavigateHome: () => void;
+  onDownload: (fileItem: FileData) => void;
   onSearch: (query: string, includeSubfolders?: boolean) => void;
+  onSelect: (isSelected: boolean, fileItem: FileData) => void;
+  onSelectAll: () => void;
 }
 
 export type LocationDetailViewActionType =
@@ -82,9 +90,10 @@ export function useLocationDetailView(
 
   const listOptions = listOptionsRef.current;
 
-  const [{ location }, dispatchStoreAction] = useStore();
-  const { current, key } = location;
-  const { prefix } = current ?? {};
+  const [{ location, locationItems }, dispatchStoreAction] = useStore();
+  const { current: currentLocation, key, path: currentPath } = location;
+  const { prefix } = currentLocation ?? {};
+  const { fileDataItems } = locationItems;
   const hasInvalidPrefix = isUndefined(prefix);
   const { pageSize } = listOptions;
 
@@ -159,20 +168,33 @@ export function useLocationDetailView(
     return items.slice(start, end);
   }, [range, items]);
 
+  // Logic for Select All Files functionality
+  const fileItems = React.useMemo(
+    () => pageItems.filter((item): item is FileData => item.type === 'FILE'),
+    [pageItems]
+  );
+  const areAllFilesSelected = fileDataItems?.length === fileItems.length;
   const isFinalPage =
     !hasNextToken && isLastPage(currentPage, resultCount, pageSize);
   const hasNoResults = pageItems.length === 0;
+  const shouldShowEmptyMessage =
+    pageItems.length === 0 && !isLoading && !hasError;
 
   return {
     page: currentPage,
     pageItems,
+    currentLocation,
+    currentPath,
+    areAllFilesSelected,
+    fileDataItems,
+    hasFiles: fileItems.length > 0,
     isPaginateNextDisabled:
       isFinalPage || isLoading || hasError || hasNoResults,
     isPaginatePreviousDisabled:
       currentPage <= 1 || isLoading || hasError || hasNoResults,
-    location,
     hasError,
     message,
+    shouldShowEmptyMessage,
     isLoading,
     showIncludeSubfolders: true,
     searchPlaceholder: displayText.searchDetailPlaceholder,
@@ -186,7 +208,7 @@ export function useLocationDetailView(
       dispatchStoreAction({ type: 'NAVIGATE', location, path });
       dispatchStoreAction({ type: 'RESET_LOCATION_ITEMS' });
     },
-    onAddFiles: (files: File[]) => {
+    onDropFiles: (files: File[]) => {
       dispatchStoreAction({ type: 'ADD_FILE_ITEMS', files });
       const actionType = files.some((file) => isFile(file))
         ? 'UPLOAD_FILES'
@@ -197,6 +219,13 @@ export function useLocationDetailView(
       });
       onActionSelect?.(actionType);
     },
+    onDownload: (fileItem: FileData) => {
+      // FIXME: Integrate with download handler/process tasks hook when available.
+      // eslint-disable-next-line no-console
+      console.error(
+        `Trying to download ${fileItem.key} but download not yet integrated`
+      );
+    },
     onNavigateHome: () => {
       onExit?.();
       dispatchStoreAction({ type: 'RESET_LOCATION' });
@@ -204,11 +233,25 @@ export function useLocationDetailView(
       handleList({
         config: getConfig(),
         // @todo: prefix should not be required to refresh
-        prefix: current?.prefix ?? '',
+        prefix: currentLocation?.prefix ?? '',
         options: { reset: true },
       });
       dispatchStoreAction({ type: 'RESET_ACTION_TYPE' });
       dispatchStoreAction({ type: 'RESET_LOCATION_ITEMS' });
+    },
+    onSelect: (isSelected: boolean, fileItem: FileData) => {
+      dispatchStoreAction(
+        isSelected
+          ? { type: 'REMOVE_LOCATION_ITEM', id: fileItem.id }
+          : { type: 'SET_LOCATION_ITEMS', items: [fileItem] }
+      );
+    },
+    onSelectAll: () => {
+      dispatchStoreAction(
+        areAllFilesSelected
+          ? { type: 'RESET_LOCATION_ITEMS' }
+          : { type: 'SET_LOCATION_ITEMS', items: fileItems }
+      );
     },
     onSearch: (query, includeSubfolders) => {
       if (hasInvalidPrefix) return;

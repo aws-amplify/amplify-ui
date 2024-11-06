@@ -103,12 +103,12 @@ describe('useDataTable', () => {
     });
   });
 
-  it('returns empty object if tableData is undefined', () => {
+  it('returns empty headers and rows if tableData is undefined', () => {
     mockUseControlsContext.mockReturnValue({ data: {} });
 
     const { result } = renderHook(() => useDataTable());
 
-    expect(result.current).toBeNull();
+    expect(result.current).toStrictEqual({ headers: [], rows: [] });
   });
 
   it('handles data with no sortable columns', () => {
@@ -224,7 +224,7 @@ describe('useDataTable', () => {
     );
 
     act(() => {
-      const [, sortDateData] = result.current!.headers;
+      const [, sortDateData] = result.current.headers;
       (sortDateData as DataTableSortHeader).content.onSort!();
     });
 
@@ -238,7 +238,7 @@ describe('useDataTable', () => {
     );
 
     act(() => {
-      const [, , sortNumberData] = result.current!.headers;
+      const [, , sortNumberData] = result.current.headers;
       (sortNumberData as DataTableSortHeader).content.onSort!();
     });
 
@@ -514,7 +514,7 @@ describe('useDataTable', () => {
     mockCompareTextData.mockReturnValue(1);
 
     act(() => {
-      const [sortData] = result.current!.headers;
+      const [sortData] = result.current.headers;
       (sortData as DataTableSortHeader).content.onSort!();
     });
 

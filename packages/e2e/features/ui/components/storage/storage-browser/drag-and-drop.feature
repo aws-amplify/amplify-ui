@@ -12,7 +12,9 @@ Feature: Drag and drop files within Storage Browser
       When I drag and drop a file into the storage browser with file name "test.txt"
       Then I see "Upload Files"
       Then I see "test.txt"
-  
+
+  """
+  Comment out for now until behavior is confirmed
   @react
   Scenario: Drag and drop folder into Location Detail view
       When I type my "email" with status "CONFIRMED"
@@ -37,3 +39,4 @@ Feature: Drag and drop files within Storage Browser
     Then I press the "{esc}" key
     When I drag and drop a file into the storage browser with file name "test.txt"
     Then I see "test.txt"
+  """

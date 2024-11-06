@@ -9,16 +9,14 @@ describe('useNavigation', () => {
   const prefix = 'prefix';
   const path = 'path';
   const data = {
-    location: {
-      current: {
-        bucket,
-        id: 'id',
-        permission: 'READWRITE',
-        prefix: `${prefix}/`,
-        type: 'PREFIX',
-      } as const,
-      path: `${path}/`,
-    },
+    currentLocation: {
+      bucket,
+      id: 'id',
+      permission: 'READWRITE',
+      prefix: `${prefix}/`,
+      type: 'PREFIX',
+    } as const,
+    currentPath: `${path}/`,
   };
   // assert mocks
   const mockUseControlsContext = jest.mocked(useControlsContext);
@@ -89,10 +87,8 @@ describe('useNavigation', () => {
     it('creates an item for the prefix and each subpath', () => {
       mockUseControlsContext.mockReturnValue({
         data: {
-          location: {
-            current: data.location.current,
-            path: 'a/b/c/',
-          },
+          currentLocation: data.currentLocation,
+          currentPath: 'a/b/c/',
         },
       });
 
@@ -106,13 +102,11 @@ describe('useNavigation', () => {
       const prefixWithSlashes = 'prefix/with/slashes';
       mockUseControlsContext.mockReturnValue({
         data: {
-          location: {
-            ...data.location,
-            current: {
-              ...data.location.current,
-              prefix: prefixWithSlashes,
-            },
+          currentLocation: {
+            ...data.currentLocation,
+            prefix: prefixWithSlashes,
           },
+          currentPath: data.currentPath,
         },
       });
 
@@ -135,10 +129,8 @@ describe('useNavigation', () => {
         .mockReturnValueOnce(3);
       mockUseControlsContext.mockReturnValue({
         data: {
-          location: {
-            current: data.location.current,
-            path: `${foo}/${bar}/${qux}/`,
-          },
+          currentLocation: data.currentLocation,
+          currentPath: `${foo}/${bar}/${qux}/`,
         },
         onNavigate: mockonNavigate,
       });
@@ -154,17 +146,17 @@ describe('useNavigation', () => {
 
       expect(mockonNavigate).toHaveBeenNthCalledWith(
         1,
-        { ...data.location.current, id: 1 },
+        { ...data.currentLocation, id: 1 },
         ''
       );
       expect(mockonNavigate).toHaveBeenNthCalledWith(
         2,
-        { ...data.location.current, id: 2 },
+        { ...data.currentLocation, id: 2 },
         `${foo}/`
       );
       expect(mockonNavigate).toHaveBeenNthCalledWith(
         3,
-        { ...data.location.current, id: 3 },
+        { ...data.currentLocation, id: 3 },
         `${foo}/${bar}/`
       );
     });
@@ -174,13 +166,8 @@ describe('useNavigation', () => {
     it('creates an item for the bucket, prefix and each subpath', () => {
       mockUseControlsContext.mockReturnValue({
         data: {
-          location: {
-            current: {
-              ...data.location.current,
-              type: 'BUCKET',
-            },
-            path: 'a/b/c/',
-          },
+          currentLocation: { ...data.currentLocation, type: 'BUCKET' },
+          currentPath: 'a/b/c/',
         },
       });
 
@@ -194,14 +181,12 @@ describe('useNavigation', () => {
       const prefixWithSlashes = 'prefix/with/slashes';
       mockUseControlsContext.mockReturnValue({
         data: {
-          location: {
-            ...data.location,
-            current: {
-              ...data.location.current,
-              prefix: prefixWithSlashes,
-              type: 'BUCKET',
-            },
+          currentLocation: {
+            ...data.currentLocation,
+            prefix: prefixWithSlashes,
+            type: 'BUCKET',
           },
+          currentPath: data.currentPath,
         },
       });
 
@@ -224,13 +209,11 @@ describe('useNavigation', () => {
         .mockReturnValueOnce(4);
       mockUseControlsContext.mockReturnValue({
         data: {
-          location: {
-            current: {
-              ...data.location.current,
-              type: 'BUCKET',
-            },
-            path: `${foo}/${bar}/${qux}/`,
+          currentLocation: {
+            ...data.currentLocation,
+            type: 'BUCKET',
           },
+          currentPath: `${foo}/${bar}/${qux}/`,
         },
         onNavigate: mockonNavigate,
       });
@@ -248,22 +231,22 @@ describe('useNavigation', () => {
 
       expect(mockonNavigate).toHaveBeenNthCalledWith(
         1,
-        { ...data.location.current, type: 'BUCKET', id: 1 },
+        { ...data.currentLocation, type: 'BUCKET', id: 1 },
         ''
       );
       expect(mockonNavigate).toHaveBeenNthCalledWith(
         2,
-        { ...data.location.current, type: 'BUCKET', id: 2 },
+        { ...data.currentLocation, type: 'BUCKET', id: 2 },
         `${prefix}/`
       );
       expect(mockonNavigate).toHaveBeenNthCalledWith(
         3,
-        { ...data.location.current, type: 'BUCKET', id: 3 },
+        { ...data.currentLocation, type: 'BUCKET', id: 3 },
         `${prefix}/${foo}/`
       );
       expect(mockonNavigate).toHaveBeenNthCalledWith(
         4,
-        { ...data.location.current, type: 'BUCKET', id: 4 },
+        { ...data.currentLocation, type: 'BUCKET', id: 4 },
         `${prefix}/${foo}/${bar}/`
       );
     });
