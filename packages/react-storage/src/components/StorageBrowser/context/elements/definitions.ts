@@ -1,4 +1,7 @@
-import { defineBaseElement } from '@aws-amplify/ui-react-core/elements';
+import {
+  defineBaseElement,
+  defineBaseElementWithRef,
+} from '@aws-amplify/ui-react-core/elements';
 import { IconElement } from './IconElement';
 
 export interface StorageBrowserElements {
@@ -172,7 +175,7 @@ export const ProgressBarElement = defineBaseElement({
 });
 
 export type InputElementProps = React.ComponentProps<typeof InputElement>;
-export const InputElement = defineBaseElement<
+export const InputElement = defineBaseElementWithRef<
   'input',
   | 'disabled'
   | 'type'

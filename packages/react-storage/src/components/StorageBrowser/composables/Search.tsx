@@ -32,6 +32,8 @@ export const Search = ({
 
   // FIXME: focus not returning to input field after clear
 
+  const ref = React.useRef<React.Ref<HTMLInputElement>>(null);
+
   return (
     <ViewElement className={BLOCK_NAME}>
       <Field
@@ -46,12 +48,14 @@ export const Search = ({
         onChange={(e) => setTerm(e.target.value)}
         placeholder={searchPlaceholder}
         value={term}
+        ref={ref}
       >
         {term ? (
           <ButtonElement
             aria-label={displayText.searchClearLabel}
             className={`${BLOCK_NAME}__field-clear-button`}
             onClick={() => {
+              ref?.current?.focus();
               setTerm('');
               onSearch('', subfoldersIncluded);
             }}
