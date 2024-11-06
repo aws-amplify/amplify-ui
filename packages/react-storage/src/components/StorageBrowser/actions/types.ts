@@ -1,6 +1,7 @@
 import { LocationCredentialsProvider } from '../storage-internal';
 
 import { ActionState } from '../do-not-import-from-here/actions/createActionStateContext';
+import { FileData } from './handlers';
 
 export interface ActionInputConfig {
   accountId?: string;
@@ -15,27 +16,35 @@ interface ActionInput<T = any> {
   options?: T;
 }
 
+export interface TaskData {
+  key: string;
+  id: string;
+}
+
+export interface ActionData extends TaskData, FileData {}
+
 export interface TaskHandlerOptions {
-  onError?: (key: string, message: string) => string;
-  onComplete?: (key: string) => string;
+  onProgress?: (
+    data: { key: string; id: string },
+    progress: number | undefined
+  ) => void;
 }
 
-export interface TaskHandlerInput<T = never, K = undefined>
-  extends ActionInput<K> {
-  data: { id: string; payload: T };
-  key: string;
+export interface TaskHandlerInput<
+  T extends TaskData = TaskData,
+  K extends TaskHandlerOptions = TaskHandlerOptions,
+> {
+  config: ActionInputConfig;
+  data: T;
+  options?: K;
 }
 
-export interface TaskHandlerOutput<T = 'COMPLETE' | 'FAILED'> {
-  key: string;
-  result: Promise<T>;
-}
-
-export interface CancelableTaskHandlerOutput
-  extends TaskHandlerOutput<'COMPLETE' | 'FAILED' | 'CANCELED'> {
+export interface TaskHandlerOutput {
   cancel?: () => void;
-  pause?: () => void;
-  resume?: () => void;
+  result: Promise<{
+    message?: string;
+    status: 'CANCELED' | 'COMPLETE' | 'FAILED' | 'OVERWRITE_PREVENTED';
+  }>;
 }
 
 export type TaskHandler<T = any, K = any> = (input: T) => K;

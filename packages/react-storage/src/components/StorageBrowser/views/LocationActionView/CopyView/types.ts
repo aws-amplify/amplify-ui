@@ -1,15 +1,21 @@
+import { CopyHandlerData } from '../../../actions';
 import {
   ActionViewComponent,
   ActionViewProps,
   ActionViewState,
 } from '../types';
 
-export interface CopyViewState extends ActionViewState<any> {
-  onOverwriteChange: (enabled: boolean) => void;
+export interface CopyViewState extends ActionViewState<CopyHandlerData> {
+  destinationList: string[];
+  onSetDestinationList: (destination: string[]) => void;
+  disableCancel: boolean;
+  disableClose: boolean;
+  disableStart: boolean;
 }
 
 export interface CopyViewProps
   extends ActionViewProps,
     Partial<CopyViewState> {}
 
-export interface CopyViewComponent extends ActionViewComponent<CopyViewProps> {}
+export interface CopyViewComponent
+  extends ActionViewComponent<CopyHandlerData, CopyViewProps> {}

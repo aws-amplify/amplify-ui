@@ -1,20 +1,17 @@
 import React from 'react';
 import { createStorageBrowser } from '../createStorageBrowser';
 import {
-  CancelableTaskHandlerOutput,
   ListLocationItemsHandlerOutput,
   TaskHandler,
   TaskHandlerInput,
+  TaskHandlerOutput,
   UploadHandler,
   createFolderHandler,
   listLocationItemsHandler,
 } from '../../actions';
 
-type MyCancelableHandler = TaskHandler<
-  TaskHandlerInput<'lolz'>,
-  CancelableTaskHandlerOutput
->;
-const myCancelableHandler = null as unknown as MyCancelableHandler;
+type MyHandler = TaskHandler<TaskHandlerInput, TaskHandlerOutput>;
+const myHandler = null as unknown as MyHandler;
 
 describe('createStorageBrowser() created React components type generation', () => {
   const { StorageBrowser } = createStorageBrowser({
@@ -22,7 +19,7 @@ describe('createStorageBrowser() created React components type generation', () =
       MyAction: {
         displayName: 'Custom Name',
         isCancelable: true,
-        handler: myCancelableHandler,
+        handler: myHandler,
         componentName: 'MyComponentView',
       },
       SingleTaskAction: {

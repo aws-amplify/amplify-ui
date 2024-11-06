@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { humanFileSize } from '@aws-amplify/ui';
+import { humanFileSize, isFunction } from '@aws-amplify/ui';
 
 import { LocationData } from '../../actions';
 import { displayText } from '../../displayText/en';
@@ -11,7 +11,9 @@ import {
   StorageBrowserElements,
   ViewElement,
 } from '../../context/elements';
-import { IconVariant } from '../../context/elements/IconElement';
+import { IconElement, IconVariant } from '../../context/elements/IconElement';
+// import { getActionViewDisabledButtons, getAllTasksStatus } from '../utils';
+
 import { StatusDisplayControl } from '../../controls/StatusDisplayControl';
 import { ControlsContextProvider } from '../../controls/context';
 import { ControlsContext } from '../../controls/types';
@@ -32,10 +34,11 @@ import { STATUS_DISPLAY_VALUES } from './constants';
 import { FileItems } from '../../providers/store/files';
 import { ActionStartControl } from '../../controls/ActionStartControl';
 import { useUploadView } from './UploadView';
+import { ActionCancelControl } from '../../controls/ActionCancelControl';
 
 const { Icon } = StorageBrowserElements;
 
-const { Cancel, Exit, Overwrite, Table } = Controls;
+const { Exit, Overwrite, Table } = Controls;
 
 interface LocationActionViewColumns {
   cancel: (() => void) | undefined;
@@ -59,7 +62,7 @@ const LOCATION_ACTION_VIEW_COLUMNS: Column<LocationActionViewColumns>[] = [
   { key: 'size', header: 'Size' },
   { key: 'status', header: 'Status' },
   { key: 'progress', header: 'Progress' },
-  { key: 'cancel', header: 'Cancel' },
+  { key: 'cancel', header: '' },
 ];
 
 export const ICON_CLASS = `${CLASS_BASE}__action-status`;
@@ -119,13 +122,6 @@ const renderRowItem: RenderRowItem<LocationActionViewColumns> = (
 
         return (
           <TableDataText>
-            <button
-              onClick={() => {
-                row.remove();
-              }}
-            >
-              Remove
-            </button>
             <ActionIcon status={row.status} />
             {row.key.slice(folder, row.key.length)}
           </TableDataText>
@@ -149,11 +145,16 @@ const renderRowItem: RenderRowItem<LocationActionViewColumns> = (
         );
       case 'cancel':
         if (row.cancel) {
+          const BLOCK_NAME = `${CLASS_BASE}__cancel`;
           return (
-            <Cancel
+            <ButtonElement
+              className={`${BLOCK_NAME}`}
+              variant="cancel"
               onClick={row.cancel}
-              ariaLabel={`Cancel upload for ${row.key}`}
-            />
+              aria-label={`Cancel upload for ${row.key}`}
+            >
+              <IconElement className={`${BLOCK_NAME}__icon`} variant="cancel" />
+            </ButtonElement>
           );
         }
 
@@ -194,8 +195,7 @@ export const UploadControls = ({
   onExit?: (location: LocationData) => void;
 }): JSX.Element => {
   const [{ actionType, files, location }, dispatchStoreAction] = useStore();
-  const { current, key: locationKey } = location;
-  const { prefix } = current ?? {};
+  const { current, key: destinationPrefix } = location;
 
   // launch native file picker on intiial render if no files are currently in state
   const selectionTypeRef = React.useRef<'FILE' | 'FOLDER' | undefined>(
@@ -220,9 +220,9 @@ export const UploadControls = ({
     taskCounts,
     disableStart,
     disableCancel,
-    isOverwriteDisabled: disableOverwrite,
-    isSelectFilesDisabled: disableSelectFiles,
-    preventOverwrite,
+    isProcessing,
+    isProcessingComplete,
+    isOverwriteEnabled,
     onToggleOverwrite,
     onActionStart,
     onActionCancel,
@@ -240,10 +240,11 @@ export const UploadControls = ({
 
   const { direction, selection } = sortState;
 
+  // const { hasStarted, hasCompleted } = getAllTasksStatus(taskCounts);
   const tableData = tasks
-    .map(({ key, id, item, remove: _remove, ...task }) => {
-      const { size, webkitRelativePath, type = '-' } = item;
-
+    .map(({ data, ...task }) => {
+      const { key, id, file } = data as { key: string; id: string; file: File };
+      const { size, webkitRelativePath, type = '-' } = file;
       const folder =
         webkitRelativePath?.length > 0
           ? webkitRelativePath.slice(0, webkitRelativePath.lastIndexOf('/') + 1)
@@ -251,10 +252,12 @@ export const UploadControls = ({
 
       const remove = () => {
         dispatchStoreAction({ type: 'REMOVE_FILE_ITEM', id });
-        _remove();
+        task.remove?.();
       };
+      const cancel = isProcessing ? task.cancel : remove;
+      const progress = task.progress ?? 0;
 
-      return { ...task, folder, key, progress: 0, remove, size, type };
+      return { ...task, cancel, folder, key, progress, size, type };
     })
     .sort((a, b) =>
       direction === 'ascending'
@@ -323,65 +326,68 @@ export const UploadControls = ({
       taskCounts,
       isActionStartDisabled: disableStart,
       actionStartLabel: 'Start',
+      actionCancelLabel: 'Cancel',
+      isActionCancelDisabled: disableCancel,
     },
     actionsConfig: {
       type: 'BATCH_ACTION',
       isCancelable: true,
     },
     onActionStart,
+    onActionCancel,
   };
 
   return (
     <ControlsContextProvider {...contextValue}>
       <Exit
         onClick={() => {
-          onExit(current!);
+          if (isFunction(onExit)) onExit?.(current!);
+          // clear tasks state
+          tasks.forEach(({ remove }) => remove?.());
+          // clear files state
+          dispatchStoreAction({ type: 'RESET_FILE_ITEMS' });
+          // clear selected action
+          dispatchStoreAction({ type: 'RESET_ACTION_TYPE' });
         }}
       />
       <Title />
-      <ActionStartControl className={`${CLASS_BASE}__upload-action-start`} />
-      <ButtonElement
-        variant="cancel"
-        disabled={disableCancel}
-        className={`${CLASS_BASE}__cancel`}
-        onClick={onActionCancel}
-      >
-        Cancel
-      </ButtonElement>
-      <ButtonElement
-        disabled={disableSelectFiles}
-        className={`${CLASS_BASE}__add-folder`}
-        variant="add-folder"
-        onClick={() => onSelectFiles('FOLDER')}
-      >
-        Add folder
-      </ButtonElement>
-      <ButtonElement
-        disabled={disableSelectFiles}
-        className={`${CLASS_BASE}__add-files`}
-        variant="add-files"
-        onClick={() => onSelectFiles('FILE')}
-      >
-        Add files
-      </ButtonElement>
-      <ViewElement className={`${CLASS_BASE}__upload-destination`}>
-        <DescriptionList
-          descriptions={[
-            {
-              term: `${displayText.actionDestination}:`,
-              details: prefix?.length ? locationKey : '/',
-            },
-          ]}
-        />
+      <ViewElement className={`${CLASS_BASE}__action-header`}>
+        <ViewElement className={`${CLASS_BASE}__upload-destination`}>
+          <DescriptionList
+            descriptions={[
+              {
+                term: `${displayText.actionDestination}:`,
+                details: destinationPrefix.length ? destinationPrefix : '/',
+              },
+            ]}
+          />
+          <Overwrite
+            defaultChecked={isOverwriteEnabled}
+            disabled={isProcessing || isProcessingComplete}
+            handleChange={onToggleOverwrite}
+          />
+        </ViewElement>
+        <ButtonElement
+          disabled={isProcessing || isProcessingComplete}
+          className={`${CLASS_BASE}__add-folder`}
+          variant="add-folder"
+          onClick={() => {
+            onSelectFiles('FOLDER');
+          }}
+        >
+          Add folder
+        </ButtonElement>
+        <ButtonElement
+          disabled={isProcessing || isProcessingComplete}
+          className={`${CLASS_BASE}__add-files`}
+          variant="add-files"
+          onClick={() => {
+            onSelectFiles('FILE');
+          }}
+        >
+          Add files
+        </ButtonElement>
       </ViewElement>
-      <Overwrite
-        defaultChecked={!preventOverwrite}
-        disabled={disableOverwrite}
-        handleChange={onToggleOverwrite}
-      />
-      <StatusDisplayControl
-        className={`${CLASS_BASE}__upload-status-display`}
-      />
       <Table
         data={tableData}
         columns={LOCATION_ACTION_VIEW_COLUMNS}
@@ -389,6 +395,13 @@ export const UploadControls = ({
         renderHeaderItem={renderHeaderItem}
         renderRowItem={renderRowItem}
       />
+      <ViewElement className={`${CLASS_BASE}__action-footer`}>
+        <StatusDisplayControl
+          className={`${CLASS_BASE}__upload-status-display`}
+        />
+        <ActionCancelControl className={`${CLASS_BASE}__cancel`} />
+        <ActionStartControl className={`${CLASS_BASE}__upload-action-start`} />
+      </ViewElement>
     </ControlsContextProvider>
   );
 };

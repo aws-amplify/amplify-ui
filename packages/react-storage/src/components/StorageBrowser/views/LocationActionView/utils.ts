@@ -1,11 +1,14 @@
-import { IconVariant } from '../../context/elements';
-import { Task, TaskStatus } from '../../tasks';
-import { TaskCounts } from '../../controls/types';
-import { DataTableProps } from '../../composables/DataTable';
-import { WithKey } from '../../components/types';
-import { DataTableRow } from '../../composables/DataTable/DataTable';
 import { humanFileSize } from '@aws-amplify/ui';
+
+import { DataTableProps } from '../../composables/DataTable';
+import { DataTableRow } from '../../composables/DataTable/DataTable';
+import { IconVariant } from '../../context/elements';
+import { WithKey } from '../../components/types';
+import { TaskCounts } from '../../controls/types';
+import { Task, TaskStatus } from '../../tasks';
+
 import { STATUS_DISPLAY_VALUES } from './constants';
+import { ActionData } from '../../actions/types';
 
 const DELETE_ACTION_VIEW_HEADERS: DataTableProps['headers'] = [
   { key: 'key', type: 'sort', content: { label: 'Name' } },
@@ -23,6 +26,7 @@ export const getActionIconVariant = (status: TaskStatus): IconVariant => {
     case 'PENDING':
       return 'action-progress';
     case 'COMPLETE':
+    case 'OVERWRITE_PREVENTED':
       return 'action-success';
     case 'FAILED':
       return 'action-error';
@@ -31,7 +35,7 @@ export const getActionIconVariant = (status: TaskStatus): IconVariant => {
   }
 };
 
-const getTasksHaveStarted = (taskCounts: TaskCounts) =>
+export const getTasksHaveStarted = (taskCounts: TaskCounts): boolean =>
   taskCounts.QUEUED < taskCounts.TOTAL;
 export const getAllTasksStatus = (
   taskCounts: TaskCounts
@@ -74,20 +78,20 @@ export const getFilenameWithoutPrefix = (path: string): string => {
   return path.slice(folder, path.length);
 };
 
-export const getDeleteActionViewTableData = ({
+export const getActionViewTableData = <T extends ActionData>({
   tasks,
   taskCounts,
   path,
 }: {
-  tasks: Task[];
+  tasks: Task<T>[];
   taskCounts: TaskCounts;
   path: string;
 }): DataTableProps => {
   const rows: DataTableProps['rows'] = tasks.map((item) => {
     const row: WithKey<DataTableRow> = {
-      key: item.id,
+      key: item.data.id,
       content: DELETE_ACTION_VIEW_HEADERS.map(({ key: columnKey }) => {
-        const key = `${columnKey}-${item.id}`;
+        const key = `${columnKey}-${item.data.id}`;
         switch (columnKey) {
           case 'key': {
             return {
@@ -95,46 +99,34 @@ export const getDeleteActionViewTableData = ({
               type: 'text',
               content: {
                 icon: getActionIconVariant(item.status),
-                text: getFilenameWithoutPrefix(item.key),
+                text: getFilenameWithoutPrefix(item.data.key),
               },
             };
           }
           case 'folder': {
-            return {
-              key,
-              type: 'text',
-              content: {
-                text: path,
-              },
-            };
+            return { key, type: 'text', content: { text: path } };
           }
           case 'type': {
             return {
               key,
               type: 'text',
-              content: {
-                text: getFileTypeDisplayValue(item.key),
-              },
+              content: { text: getFileTypeDisplayValue(item.data.key) },
             };
           }
           case 'size':
             return {
               key,
-              type: 'text',
+              type: 'number',
               content: {
-                text: humanFileSize(
-                  parseInt((item as Task & { size: string }).size),
-                  true
-                ),
+                value: item.data.size,
+                displayName: humanFileSize(item.data.size, true),
               },
             };
           case 'status':
             return {
               key,
               type: 'text',
-              content: {
-                text: STATUS_DISPLAY_VALUES[item.status],
-              },
+              content: { text: STATUS_DISPLAY_VALUES[item.status] },
             };
           case 'action':
             // don't allow removing a single task
@@ -145,7 +137,7 @@ export const getDeleteActionViewTableData = ({
                     type: 'button',
                     content: {
                       icon: 'cancel',
-                      ariaLabel: `Cancel item: ${item.key}`,
+                      ariaLabel: `Cancel item: ${item.data.key}`,
                       onClick: () => item.cancel?.(),
                       isDisabled: item.status !== 'QUEUED',
                     },
@@ -155,36 +147,20 @@ export const getDeleteActionViewTableData = ({
                     type: 'button',
                     content: {
                       icon: 'cancel',
-                      ariaLabel: `Remove item: ${item.key}`,
+                      ariaLabel: `Remove item: ${item.data.key}`,
                       onClick: () => item.remove(),
                     },
                   };
             } else {
-              return {
-                key,
-                type: 'text',
-                content: {
-                  text: '',
-                },
-              };
+              return { key, type: 'text', content: { text: '' } };
             }
           default:
-            return {
-              key,
-              type: 'text',
-              content: {
-                text: '',
-              },
-            };
+            return { key, type: 'text', content: { text: '' } };
         }
       }),
     };
     return row;
   });
 
-  const tableData: DataTableProps = {
-    headers: DELETE_ACTION_VIEW_HEADERS,
-    rows,
-  };
-  return tableData;
+  return { headers: DELETE_ACTION_VIEW_HEADERS, rows };
 };

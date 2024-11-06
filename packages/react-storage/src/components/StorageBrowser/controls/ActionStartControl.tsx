@@ -8,7 +8,7 @@ import { ViewElement } from '../context/elements';
 
 export const ActionStartControl = ({
   className,
-}: ControlProps): React.JSX.Element | null => {
+}: ControlProps): React.JSX.Element => {
   const props = useActionStart();
   const ResolvedActionStart = useResolvedComposable(ActionStart, 'ActionStart');
 

@@ -29,7 +29,11 @@ const Separator = () => {
   );
 };
 
-const Breadcrumb = ({ isCurrent, name, onNavigate }: BreadcrumbProps) => {
+export const Breadcrumb = ({
+  isCurrent,
+  name,
+  onNavigate,
+}: BreadcrumbProps): React.JSX.Element => {
   const isNavigable = isFunction(onNavigate);
   return (
     <ListItemElement

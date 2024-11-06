@@ -6,6 +6,7 @@ import { resolveClassName } from '../utils';
 import { CreateFolderControls } from './CreateFolderControls';
 import { DeleteFilesControls } from './DeleteFilesControls';
 import { UploadControls } from './UploadControls';
+import { CopyFilesControls } from './CopyFilesControls';
 import { useStore } from '../../providers/store';
 
 export interface LocationActionViewProps<T = string> {
@@ -15,6 +16,7 @@ export interface LocationActionViewProps<T = string> {
 }
 
 const ACTION_VIEW_TYPES = [
+  'COPY_FILES',
   'CREATE_FOLDER',
   'DELETE_FILES',
   'UPLOAD_FILES',
@@ -42,6 +44,8 @@ export const LocationActionView = ({
         <CreateFolderControls onExit={onExit} />
       ) : actionType === 'DELETE_FILES' ? (
         <DeleteFilesControls onExit={onExit} />
+      ) : actionType === 'COPY_FILES' ? (
+        <CopyFilesControls onExit={onExit} />
       ) : (
         <UploadControls onExit={onExit} />
       )}

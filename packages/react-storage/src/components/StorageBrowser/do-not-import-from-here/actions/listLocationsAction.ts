@@ -69,8 +69,13 @@ export const createListLocationsAction = (
       locationsResult = [
         ...locationsResult,
         ...output.locations.filter(
-          ({ permission, type }) =>
-            !(type === 'OBJECT' || shouldExclude(permission, exclude))
+          ({ permission, type, scope }) =>
+            !(
+              type === 'OBJECT' ||
+              shouldExclude(permission, exclude) ||
+              // filter out scopes that don't end with /, e.g. /prefix*
+              !scope.endsWith('/*')
+            )
         ),
       ];
     } while (nextNextToken && locationsResult.length < pageSize);

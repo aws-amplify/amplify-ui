@@ -17,21 +17,17 @@ export const useDeleteView = ({
   const [
     {
       location,
-      locationItems: { fileDataItems: selected },
+      locationItems: { fileDataItems },
     },
     dispatchStoreAction,
   ] = useStore();
-  const { current, key } = location;
+  const { current } = location;
 
   const getInput = useGetActionInput();
 
-  const [tasks, handleProcess] = useProcessTasks(
+  const [{ tasks }, handleProcess] = useProcessTasks(
     deleteHandler,
-    // @ts-expect-error
-    selected,
-    {
-      concurrency: 1,
-    }
+    fileDataItems
   );
 
   const taskCounts = getTaskCounts(tasks);
@@ -40,10 +36,7 @@ export const useDeleteView = ({
 
   const onActionStart = () => {
     if (!current) return;
-    handleProcess({
-      config: getInput(),
-      prefix: key,
-    });
+    handleProcess({ config: getInput() });
   };
 
   const onActionCancel = () => {

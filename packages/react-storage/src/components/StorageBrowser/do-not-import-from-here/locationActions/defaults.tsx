@@ -15,6 +15,15 @@ export const OPTIONS_DEFAULT: LocationAction['options'] = {
   hide: (permission) => permission === 'READ',
 };
 
+const COPY_FILES: LocationAction = {
+  options: {
+    ...OPTIONS_DEFAULT,
+    disable: (selectedItems) => selectedItems.length < 1,
+    displayName: 'Copy files',
+    icon: <IconElement variant="copy-file" />,
+  },
+};
+
 const CREATE_FOLDER: LocationAction = {
   options: {
     ...OPTIONS_DEFAULT,
@@ -51,6 +60,7 @@ const UPLOAD_FILES: LocationAction = {
 };
 
 export const locationActionsDefault = {
+  COPY_FILES,
   CREATE_FOLDER,
   DELETE_FILES,
   UPLOAD_FILES,

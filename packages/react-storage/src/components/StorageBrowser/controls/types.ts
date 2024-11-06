@@ -41,7 +41,11 @@ export interface ControlsContext {
   data: {
     actionStartLabel?: string;
     isActionStartDisabled?: boolean;
+    actionCancelLabel?: string;
+    isActionCancelDisabled?: boolean;
     isDataRefreshDisabled?: boolean;
+    showIncludeSubfolders?: boolean;
+    searchPlaceholder?: string;
     location?: Location;
     tableData?: TableData;
     taskCounts?: TaskCounts;
@@ -55,8 +59,10 @@ export interface ControlsContext {
     isCancelable?: boolean;
   };
   onActionStart?: () => void;
+  onActionCancel?: () => void;
   onDropComplete?: DropZoneProps['onDropComplete'];
   onNavigate?: (location: LocationData, path?: string) => void;
   onNavigateHome?: () => void;
   onRefresh?: () => void;
+  onSearch?: (term: string, includeSubfolders: boolean) => void;
 }

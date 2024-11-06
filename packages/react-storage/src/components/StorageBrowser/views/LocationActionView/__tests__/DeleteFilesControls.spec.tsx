@@ -33,35 +33,51 @@ describe('DeleteFilesControls', () => {
           COMPLETE: 0,
           FAILED: 0,
           INITIAL: 0,
+          OVERWRITE_PREVENTED: 0,
           PENDING: 0,
           QUEUED: 3,
           TOTAL: 3,
         },
         tasks: [
           {
-            key: 'test-item',
             status: 'QUEUED',
-            id: 'id',
-            item: '',
+            data: {
+              id: 'id',
+              key: 'test-item',
+              lastModified: new Date(),
+              size: 1000,
+              type: 'FILE',
+            },
             cancel: jest.fn(),
+            progress: undefined,
             remove: jest.fn(),
             message: 'test-message',
           },
           {
-            key: 'test-item2',
             status: 'QUEUED',
-            id: 'id2',
-            item: '',
+            data: {
+              id: 'id2',
+              key: 'test-item2',
+              lastModified: new Date(),
+              size: 1000,
+              type: 'FILE',
+            },
             cancel: jest.fn(),
+            progress: undefined,
             remove: jest.fn(),
             message: 'test-message',
           },
           {
-            key: 'test-item3',
             status: 'QUEUED',
-            id: 'id3',
-            item: '',
+            data: {
+              id: 'id3',
+              key: 'test-item3',
+              lastModified: new Date(),
+              size: 1000,
+              type: 'FILE',
+            },
             cancel: jest.fn(),
+            progress: undefined,
             remove: jest.fn(),
             message: 'test-message',
           },
@@ -83,7 +99,7 @@ describe('DeleteFilesControls', () => {
   it('renders all controls', () => {
     const { getByRole } = render(<DeleteFilesControls />);
 
-    expect(getByRole('button', { name: 'Back' })).toBeInTheDocument();
+    expect(getByRole('button', { name: 'Exit' })).toBeInTheDocument();
     expect(getByRole('button', { name: 'Start' })).toBeInTheDocument();
     expect(getByRole('button', { name: 'Cancel' })).toBeInTheDocument();
   });
@@ -98,6 +114,7 @@ describe('DeleteFilesControls', () => {
         COMPLETE: 0,
         FAILED: 0,
         INITIAL: 0,
+        OVERWRITE_PREVENTED: 0,
         PENDING: 0,
         QUEUED: 3,
         TOTAL: 3,
@@ -110,7 +127,7 @@ describe('DeleteFilesControls', () => {
 
     const { getByRole } = render(<DeleteFilesControls />);
 
-    expect(getByRole('button', { name: 'Back' })).toBeDisabled();
+    expect(getByRole('button', { name: 'Exit' })).toBeDisabled();
     expect(getByRole('button', { name: 'Start' })).toBeDisabled();
     expect(getByRole('button', { name: 'Cancel' })).toBeDisabled();
   });
@@ -118,7 +135,7 @@ describe('DeleteFilesControls', () => {
   it('calls onExit when Exit button is clicked', async () => {
     const { getByRole } = render(<DeleteFilesControls />);
 
-    await userEvent.click(getByRole('button', { name: 'Back' }));
+    await userEvent.click(getByRole('button', { name: 'Exit' }));
 
     expect(onExitMock).toHaveBeenCalledTimes(1);
   });

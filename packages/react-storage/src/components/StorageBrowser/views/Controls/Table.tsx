@@ -2,12 +2,12 @@ import React from 'react';
 import { humanFileSize } from '@aws-amplify/ui';
 
 import { TABLE_HEADER_BUTTON_CLASS_NAME } from '../../components/DataTable';
-import { useAction } from '../../do-not-import-from-here/actions';
 import {
   SpanElementProps,
   StorageBrowserElements,
   TableDataCellElementProps,
   TableHeaderElementProps,
+  ViewElement,
 } from '../../context/elements';
 
 import { FolderData, LocationItemData } from '../../actions/handlers';
@@ -154,24 +154,28 @@ export function TableControl<U>({
   });
 
   return (
-    <Table
-      {...dropHandlers}
-      aria-label={ariaLabel}
-      data-testid="storage-browser-table"
-      className={`${BLOCK_NAME} ${
-        dragState !== 'inactive' ? `${BLOCK_NAME}__dropzone` : ''
-      }`}
-    >
-      <TableHead className={`${BLOCK_NAME}__head`}>
-        <TableRow className={`${BLOCK_NAME}__row`}>
-          {columns.map((column) => renderHeaderItem(column))}
-        </TableRow>
-      </TableHead>
+    <ViewElement className={'storage-browser__table-wrapper'}>
+      <Table
+        {...dropHandlers}
+        aria-label={ariaLabel}
+        data-testid="storage-browser-table"
+        className={`${BLOCK_NAME} ${
+          dragState !== 'inactive' ? `${BLOCK_NAME}__dropzone` : ''
+        }`}
+      >
+        <TableHead className={`${BLOCK_NAME}__head`}>
+          <TableRow className={`${BLOCK_NAME}__row`}>
+            {columns.map((column) => renderHeaderItem(column))}
+          </TableRow>
+        </TableHead>
 
-      <TableBody className={`${BLOCK_NAME}__body`}>
-        {data?.map((row: U, rowIndex: number) => renderRowItem(row, rowIndex))}
-      </TableBody>
-    </Table>
+        <TableBody className={`${BLOCK_NAME}__body`}>
+          {data?.map((row: U, rowIndex: number) =>
+            renderRowItem(row, rowIndex)
+          )}
+        </TableBody>
+      </Table>
+    </ViewElement>
   );
 }
 
@@ -192,7 +196,9 @@ export const LocationDetailViewTable = ({
   items,
   handleDroppedFiles,
   handleLocationItemClick,
+  show,
 }: {
+  show: boolean;
   items: LocationItemData[];
   handleDroppedFiles: (files: File[]) => void;
   handleLocationItemClick: (location: LocationData, path?: string) => void;
@@ -201,11 +207,6 @@ export const LocationDetailViewTable = ({
   const { current, key: locationKey } = location;
   const { prefix } = current ?? {};
   const { fileDataItems } = locationItems;
-
-  const [{ hasError }] = useAction('LIST_LOCATION_ITEMS');
-
-  const hasItems = !!items.length;
-  const showTable = hasItems && !hasError;
 
   const [compareFn, setCompareFn] = React.useState(() => compareStrings);
   const [sortState, setSortState] = React.useState<SortState<LocationItemData>>(
@@ -445,7 +446,7 @@ export const LocationDetailViewTable = ({
     ]
   );
 
-  return showTable ? (
+  return show ? (
     <TableControl
       columns={LOCATION_DETAIL_VIEW_COLUMNS}
       data={tableData}

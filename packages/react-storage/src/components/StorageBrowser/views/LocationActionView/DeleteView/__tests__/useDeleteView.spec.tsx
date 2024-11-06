@@ -1,14 +1,22 @@
 import { renderHook, act } from '@testing-library/react';
-import { useDeleteView } from '../useDeleteView';
-import { getDeleteActionViewTableData } from '../../utils';
+
 import * as Store from '../../../../providers/store';
 import * as Config from '../../../../providers/configuration';
 import * as Tasks from '../../../../tasks';
-import { TaskStatus } from '../../../../tasks';
 import { LocationData } from '../../../../actions';
+
+import { useDeleteView } from '../useDeleteView';
 
 const mockProcessTasks = jest.fn();
 const mockDispatchStoreAction = jest.fn();
+
+const credentials = jest.fn();
+jest.spyOn(Config, 'useGetActionInput').mockReturnValue(() => ({
+  accountId: '123456789012',
+  bucket: 'XXXXXXXXXXX',
+  credentials,
+  region: 'us-west-2',
+}));
 
 describe('useDeleteView', () => {
   beforeEach(() => {
@@ -44,44 +52,38 @@ describe('useDeleteView', () => {
       mockDispatchStoreAction,
     ]);
 
-    jest.spyOn(Config, 'useGetActionInput').mockReturnValue(() => ({
-      accountId: '123456789012',
-      bucket: 'XXXXXXXXXXX',
-      credentials: jest.fn(),
-      region: 'us-west-2',
-    }));
-
     // Mock the useProcessTasks hook
     jest.spyOn(Tasks, 'useProcessTasks').mockReturnValue([
-      [
-        {
-          key: 'test-item',
-          status: 'QUEUED',
-          id: 'id',
-          item: {},
-          cancel: jest.fn(),
-          remove: jest.fn(),
-          message: 'test-message',
-        },
-        {
-          key: 'test-item2',
-          status: 'QUEUED',
-          id: 'id2',
-          item: {},
-          cancel: jest.fn(),
-          remove: jest.fn(),
-          message: 'test-message',
-        },
-        {
-          key: 'test-item3',
-          status: 'QUEUED',
-          id: 'id3',
-          item: {},
-          cancel: jest.fn(),
-          remove: jest.fn(),
-          message: 'test-message',
-        },
-      ],
+      {
+        isProcessing: false,
+        isProcessingComplete: false,
+        tasks: [
+          {
+            status: 'QUEUED',
+            data: { key: 'test-item', id: 'id' },
+            cancel: jest.fn(),
+            remove: jest.fn(),
+            message: 'test-message',
+            progress: undefined,
+          },
+          {
+            status: 'QUEUED',
+            data: { key: 'test-item2', id: 'id2' },
+            cancel: jest.fn(),
+            remove: jest.fn(),
+            message: 'test-message',
+            progress: undefined,
+          },
+          {
+            status: 'QUEUED',
+            data: { key: 'test-item3', id: 'id3' },
+            cancel: jest.fn(),
+            remove: jest.fn(),
+            message: 'test-message',
+            progress: undefined,
+          },
+        ],
+      },
       mockProcessTasks,
     ]);
   });
@@ -106,6 +108,7 @@ describe('useDeleteView', () => {
       COMPLETE: 0,
       FAILED: 0,
       INITIAL: 0,
+      OVERWRITE_PREVENTED: 0,
       PENDING: 0,
       QUEUED: 3,
       TOTAL: 3,
@@ -120,11 +123,10 @@ describe('useDeleteView', () => {
     });
 
     expect(mockProcessTasks).toHaveBeenCalledWith({
-      prefix: 'test-prefix/',
       config: {
         accountId: '123456789012',
         bucket: 'XXXXXXXXXXX',
-        credentials: expect.any(Function),
+        credentials,
         region: 'us-west-2',
       },
     });
@@ -133,17 +135,20 @@ describe('useDeleteView', () => {
   it('should call cancel on tasks when onActionCancel is called', () => {
     const mockCancel = jest.fn();
     jest.spyOn(Tasks, 'useProcessTasks').mockReturnValue([
-      [
-        {
-          key: 'test-item',
-          status: 'QUEUED',
-          id: 'id',
-          item: {},
-          cancel: mockCancel(),
-          remove: jest.fn(),
-          message: 'test-message',
-        },
-      ],
+      {
+        isProcessing: false,
+        isProcessingComplete: false,
+        tasks: [
+          {
+            data: { key: 'test-item', id: 'id' },
+            status: 'QUEUED',
+            cancel: mockCancel(),
+            remove: jest.fn(),
+            message: 'test-message',
+            progress: undefined,
+          },
+        ],
+      },
       mockProcessTasks,
     ]);
 
@@ -175,35 +180,36 @@ describe('useDeleteView', () => {
 
   it('should disable close and start when some tasks in progress', () => {
     jest.spyOn(Tasks, 'useProcessTasks').mockReturnValue([
-      [
-        {
-          key: 'item1',
-          status: 'QUEUED',
-          id: 'id',
-          item: {},
-          cancel: jest.fn(),
-          remove: jest.fn(),
-          message: 'test-message',
-        },
-        {
-          key: 'item1',
-          status: 'COMPLETE',
-          id: 'id',
-          item: {},
-          cancel: jest.fn(),
-          remove: jest.fn(),
-          message: 'test-message',
-        },
-        {
-          key: 'item2',
-          status: 'PENDING',
-          id: 'id',
-          item: {},
-          cancel: jest.fn(),
-          remove: jest.fn(),
-          message: 'test-message',
-        },
-      ],
+      {
+        isProcessing: true,
+        isProcessingComplete: false,
+        tasks: [
+          {
+            data: { key: 'item1', id: 'id1' },
+            progress: undefined,
+            status: 'QUEUED',
+            cancel: jest.fn(),
+            remove: jest.fn(),
+            message: 'test-message',
+          },
+          {
+            data: { key: 'item2', id: 'id2' },
+            progress: undefined,
+            status: 'COMPLETE',
+            cancel: jest.fn(),
+            remove: jest.fn(),
+            message: 'test-message',
+          },
+          {
+            data: { key: 'item3', id: 'id3' },
+            progress: undefined,
+            status: 'PENDING',
+            cancel: jest.fn(),
+            remove: jest.fn(),
+            message: 'test-message',
+          },
+        ],
+      },
       jest.fn(),
     ]);
 
@@ -218,37 +224,38 @@ describe('useDeleteView', () => {
     );
   });
 
-  it('should disable cancel and start when all tasks complete', () => {
+  it('should disable cancel, close and primary when all tasks in progress or complete', () => {
     jest.spyOn(Tasks, 'useProcessTasks').mockReturnValue([
-      [
-        {
-          key: 'item1',
-          status: 'COMPLETE',
-          id: 'id',
-          item: {},
-          cancel: jest.fn(),
-          remove: jest.fn(),
-          message: 'test-message',
-        },
-        {
-          key: 'item1',
-          status: 'COMPLETE',
-          id: 'id',
-          item: {},
-          cancel: jest.fn(),
-          remove: jest.fn(),
-          message: 'test-message',
-        },
-        {
-          key: 'item2',
-          status: 'COMPLETE',
-          id: 'id',
-          item: {},
-          cancel: jest.fn(),
-          remove: jest.fn(),
-          message: 'test-message',
-        },
-      ],
+      {
+        isProcessing: true,
+        isProcessingComplete: false,
+        tasks: [
+          {
+            data: { id: 'id1', key: 'item1' },
+            progress: undefined,
+            status: 'PENDING',
+            cancel: jest.fn(),
+            remove: jest.fn(),
+            message: 'test-message',
+          },
+          {
+            data: { id: 'id2', key: 'item2' },
+            progress: undefined,
+            status: 'PENDING',
+            cancel: jest.fn(),
+            remove: jest.fn(),
+            message: 'test-message',
+          },
+          {
+            data: { id: 'id3', key: 'item3' },
+            progress: undefined,
+            status: 'COMPLETE',
+            cancel: jest.fn(),
+            remove: jest.fn(),
+            message: 'test-message',
+          },
+        ],
+      },
       jest.fn(),
     ]);
 
@@ -257,43 +264,44 @@ describe('useDeleteView', () => {
     expect(result.current).toEqual(
       expect.objectContaining({
         disableCancel: true,
-        disableClose: false,
-        disableStart: true,
+        disableClose: true,
+        disablePrimary: true,
       })
     );
   });
 
-  it('should disable cancel, start, but allow close when all tasks in progress or complete', () => {
+  it('should disable cancel, primary, but allow close when all tasks in progress or complete', () => {
     jest.spyOn(Tasks, 'useProcessTasks').mockReturnValue([
-      [
-        {
-          key: 'item1',
-          status: 'COMPLETE',
-          id: 'id',
-          item: {},
-          cancel: jest.fn(),
-          remove: jest.fn(),
-          message: 'test-message',
-        },
-        {
-          key: 'item1',
-          status: 'COMPLETE',
-          id: 'id',
-          item: {},
-          cancel: jest.fn(),
-          remove: jest.fn(),
-          message: 'test-message',
-        },
-        {
-          key: 'item2',
-          status: 'COMPLETE',
-          id: 'id',
-          item: {},
-          cancel: jest.fn(),
-          remove: jest.fn(),
-          message: 'test-message',
-        },
-      ],
+      {
+        isProcessing: false,
+        isProcessingComplete: false,
+        tasks: [
+          {
+            data: { id: 'id1', key: 'item1' },
+            progress: undefined,
+            status: 'COMPLETE',
+            cancel: jest.fn(),
+            remove: jest.fn(),
+            message: 'test-message',
+          },
+          {
+            data: { id: 'id2', key: 'item2' },
+            progress: undefined,
+            status: 'COMPLETE',
+            cancel: jest.fn(),
+            remove: jest.fn(),
+            message: 'test-message',
+          },
+          {
+            data: { id: 'id3', key: 'item3' },
+            progress: undefined,
+            status: 'COMPLETE',
+            cancel: jest.fn(),
+            remove: jest.fn(),
+            message: 'test-message',
+          },
+        ],
+      },
       jest.fn(),
     ]);
 
@@ -317,167 +325,10 @@ describe('useDeleteView', () => {
       COMPLETE: 0,
       FAILED: 0,
       INITIAL: 0,
+      OVERWRITE_PREVENTED: 0,
       PENDING: 0,
       QUEUED: 3,
       TOTAL: 3,
     });
-  });
-});
-
-describe('getDeleteActionViewTableData', () => {
-  const mockRemove = jest.fn();
-  const taskCounts = {
-    INITIAL: 0,
-    QUEUED: 1,
-    PENDING: 1,
-    FAILED: 1,
-    COMPLETE: 1,
-    CANCELED: 1,
-    TOTAL: 5,
-  };
-  const tasks = [
-    {
-      id: '1',
-      key: 'file1.txt',
-      status: 'QUEUED' as TaskStatus,
-      remove: mockRemove,
-      cancel: jest.fn(),
-      item: {},
-      message: '',
-      size: 1000,
-    },
-    {
-      id: '2',
-      key: 'file2.jpg',
-      status: 'PENDING' as TaskStatus,
-      remove: mockRemove,
-      cancel: jest.fn(),
-      item: {},
-      message: '',
-      size: 1000,
-    },
-    {
-      id: '3',
-      key: 'file3.pdf',
-      status: 'COMPLETE' as TaskStatus,
-      remove: mockRemove,
-      cancel: jest.fn(),
-      item: {},
-      message: '',
-      size: 1000,
-    },
-    {
-      id: '4',
-      key: 'file4.doc',
-      status: 'FAILED' as TaskStatus,
-      remove: mockRemove,
-      cancel: jest.fn(),
-      item: {},
-      message: '',
-      size: 1000,
-    },
-    {
-      id: '5',
-      key: 'file5',
-      status: 'CANCELED' as TaskStatus,
-      remove: mockRemove,
-      cancel: jest.fn(),
-      item: {},
-      message: '',
-      size: 1000,
-    },
-  ];
-
-  it('should return correct table data for all task statuses', () => {
-    const result = getDeleteActionViewTableData({
-      tasks,
-      taskCounts,
-      path: '',
-    });
-
-    expect(result.rows).toMatchSnapshot('tabledata');
-  });
-
-  it('should handle tasks with prefix keys', () => {
-    const taskCounts = {
-      INITIAL: 0,
-      QUEUED: 1,
-      PENDING: 0,
-      FAILED: 0,
-      COMPLETE: 1,
-      CANCELED: 0,
-      TOTAL: 2,
-    };
-    const tasksWithPaths = [
-      {
-        id: '1',
-        key: 'folder/subfolder/file1.txt',
-        status: 'QUEUED' as TaskStatus,
-        remove: mockRemove,
-        cancel: jest.fn(),
-        item: {},
-        message: '',
-        size: 1000,
-      },
-      {
-        id: '2',
-        key: '/root/file2.jpg',
-        status: 'COMPLETE' as TaskStatus,
-        remove: mockRemove,
-        cancel: jest.fn(),
-        item: {},
-        message: '',
-        size: 1000,
-      },
-    ];
-
-    const result = getDeleteActionViewTableData({
-      tasks: tasksWithPaths,
-      taskCounts,
-      path: '',
-    });
-
-    expect(result.rows).toMatchSnapshot();
-  });
-
-  it('should have remove handler on queued files', () => {
-    const taskCounts = {
-      INITIAL: 0,
-      QUEUED: 1,
-      PENDING: 0,
-      FAILED: 0,
-      COMPLETE: 1,
-      CANCELED: 0,
-      TOTAL: 2,
-    };
-    const mockRemove = jest.fn();
-    const mockCancel = jest.fn();
-    const tasksWithPaths = [
-      {
-        id: '1',
-        key: 'folder/subfolder/file1.txt',
-        status: 'QUEUED' as TaskStatus,
-        remove: mockRemove,
-        cancel: mockCancel,
-        item: {},
-        message: '',
-        size: 1000,
-      },
-    ];
-
-    const result = getDeleteActionViewTableData({
-      tasks: tasksWithPaths,
-      taskCounts,
-      path: 'folder/subfolder/',
-    });
-    const actionCell = result.rows[0].content.filter(
-      (cell) => cell.key === 'action-1'
-    )[0];
-    expect(actionCell.content).toHaveProperty('onClick');
-    expect(actionCell.content).toHaveProperty(
-      'ariaLabel',
-      'Cancel item: folder/subfolder/file1.txt'
-    );
-    expect(result.rows).toMatchSnapshot();
   });
 });

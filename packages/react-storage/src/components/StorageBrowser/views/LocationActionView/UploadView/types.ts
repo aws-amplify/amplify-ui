@@ -1,16 +1,15 @@
+import { UploadHandlerData } from '../../../actions';
+import { FileItem } from '../../../providers';
 import {
   ActionViewComponent,
   ActionViewProps,
   ActionViewState,
 } from '../types';
 
-export interface UploadViewState extends ActionViewState<File> {
-  disableCancel: boolean;
-  disableClose: boolean;
-  disableStart: boolean;
-  isOverwriteDisabled: boolean;
-  isSelectFilesDisabled: boolean;
-  preventOverwrite: boolean;
+export interface UploadViewState extends ActionViewState<FileItem> {
+  isProcessing: boolean;
+  isProcessingComplete: boolean;
+  isOverwriteEnabled: boolean;
   onDropFiles: (files?: File[]) => void;
   onSelectFiles: (type?: 'FILE' | 'FOLDER') => void;
   onToggleOverwrite: () => void;
@@ -21,4 +20,4 @@ export interface UploadViewProps
     Partial<UploadViewState> {}
 
 export interface UploadViewComponent
-  extends ActionViewComponent<UploadViewProps> {}
+  extends ActionViewComponent<UploadHandlerData, UploadViewProps> {}
