@@ -10,6 +10,7 @@ export interface GetActionInputProviderProps {
   accountId?: string;
   children?: React.ReactNode;
   region: string;
+  customEndpoint?: string;
 }
 
 export interface CreateConfigurationProviderInput<

@@ -47,7 +47,7 @@ export const uploadHandler: UploadHandler = ({
   destinationPrefix,
   options,
 }) => {
-  const { accountId, credentials } = config;
+  const { accountId, credentials, customEndpoint } = config;
   const { key, file } = data;
   const { onProgress, preventOverwrite } = options ?? {};
 
@@ -66,6 +66,7 @@ export const uploadHandler: UploadHandler = ({
           );
       },
       preventOverwrite,
+      customEndpoint,
     },
   };
 

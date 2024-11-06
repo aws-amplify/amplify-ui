@@ -12,6 +12,7 @@ export async function downloadAction(
     bucket: bucketName,
     credentialsProvider,
     region,
+    customEndpoint,
   } = (typeof config === 'function' ? config() : config) ?? {};
 
   const bucket = bucketName && region ? { bucketName, region } : undefined;
@@ -25,6 +26,7 @@ export async function downloadAction(
         locationCredentialsProvider: credentialsProvider,
         validateObjectExistence: true,
         contentDisposition: 'attachment',
+        customEndpoint,
       },
     });
 

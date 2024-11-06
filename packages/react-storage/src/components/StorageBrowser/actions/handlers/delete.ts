@@ -27,7 +27,7 @@ export const deleteHandler: DeleteHandler = ({
   config,
   data: { key },
 }): DeleteHandlerOutput => {
-  const { accountId, credentials } = config;
+  const { accountId, credentials, customEndpoint } = config;
 
   const result = remove({
     path: key,
@@ -35,6 +35,7 @@ export const deleteHandler: DeleteHandler = ({
       bucket: constructBucket(config),
       locationCredentialsProvider: credentials,
       expectedBucketOwner: accountId,
+      customEndpoint,
     },
   });
 
