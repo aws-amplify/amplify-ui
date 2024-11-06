@@ -6,7 +6,13 @@ import '@aws-amplify/ui-react-ai/ai-conversation-styles.css';
 
 import outputs from './amplify_outputs.js';
 import type { Schema } from '@environments/ai/gen2/amplify/data/resource';
-import { Authenticator } from '@aws-amplify/ui-react';
+import {
+  Button,
+  Flex,
+  Loader,
+  TextField,
+  withAuthenticator,
+} from '@aws-amplify/ui-react';
 import React from 'react';
 
 const client = generateClient<Schema>();
@@ -14,28 +20,30 @@ const { useAIGeneration } = createAIHooks(client);
 
 Amplify.configure(outputs);
 
-export default function Example() {
-  const [{ data }, handler] = useAIGeneration('generateRecipe');
+function Example() {
+  const [{ data, isLoading, hasError, messages }, handler] =
+    useAIGeneration('generateRecipe');
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const description = formData.get('description') as string;
+    handler({ description });
+  };
   return (
-    <Authenticator>
-      {({ user }) => {
-        return (
-          <>
-            <h1>Hello {user.username}</h1>
-            <div>{JSON.stringify(data)}</div>
-            <button
-              onClick={() => {
-                handler({
-                  description:
-                    'I want a recipe for a gluten-free chocolate cake.',
-                });
-              }}
-            >
-              generate
-            </button>
-          </>
-        );
-      }}
-    </Authenticator>
+    <Flex direction="column" gap="medium">
+      <Flex direction="row" as="form" onSubmit={handleSubmit}>
+        <TextField label="description" name="description" />
+        <Button type="submit">generate</Button>
+      </Flex>
+      {isLoading ? <Loader /> : null}
+      {hasError ? (
+        <div>
+          {messages?.map(({ message }, i) => <div key={i}>{message}</div>)}
+        </div>
+      ) : null}
+      {data ? <div>{JSON.stringify(data)}</div> : null}
+    </Flex>
   );
 }
+
+export default withAuthenticator(Example);
