@@ -1,7 +1,6 @@
 import { MdCopyAll } from 'react-icons/md';
 import { AIConversation } from '@aws-amplify/ui-react-ai';
 import '@aws-amplify/ui-react/styles.css';
-import '@aws-amplify/ui-react-ai/ai-conversation-styles.css';
 
 import { Authenticator, Card } from '@aws-amplify/ui-react';
 import { INITIAL_MESSAGES } from '../../constants';
