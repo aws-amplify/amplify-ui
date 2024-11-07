@@ -15,7 +15,8 @@ const baseInput: CopyHandlerInput = {
   },
   data: {
     id: 'identity',
-    key: 'some-key',
+    key: 'some-prefixfix/some-key.hehe',
+    fileKey: 'some-key.hehe',
     lastModified: new Date(),
     size: 100000000,
     type: 'FILE',
@@ -35,7 +36,7 @@ describe('copyHandler', () => {
       destination: {
         expectedBucketOwner: baseInput.config.accountId,
         bucket,
-        path: `${baseInput.destinationPrefix}${baseInput.data.key}`,
+        path: `${baseInput.destinationPrefix}${baseInput.data.fileKey}`,
       },
       source: {
         expectedBucketOwner: `${baseInput.config.accountId}`,

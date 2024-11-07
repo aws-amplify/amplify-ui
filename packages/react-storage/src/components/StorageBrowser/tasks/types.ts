@@ -8,6 +8,8 @@ export type TaskStatus =
   | 'QUEUED'
   | 'PENDING';
 
+export type StatusCounts = Record<TaskStatus | 'TOTAL', number>;
+
 export interface ProcessTasksOptions<
   T extends TaskData,
   U extends number | never,
@@ -34,3 +36,13 @@ export type HandleProcessTasks<T extends TaskData, K, U> = (
     ? Omit<TaskHandlerInput<T> & K, 'data'>
     : TaskHandlerInput<T> & K
 ) => void;
+
+export type UseProcessTasksState<T extends TaskData, K, D> = [
+  {
+    isProcessing: boolean;
+    isProcessingComplete: boolean;
+    statusCounts: StatusCounts;
+    tasks: Tasks<T>;
+  },
+  HandleProcessTasks<T, K, D>,
+];

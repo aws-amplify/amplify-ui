@@ -16,10 +16,6 @@ export const StatusDisplayControl = ({
     'StatusDisplay'
   );
 
-  if (!props) {
-    return null;
-  }
-
   return (
     <ViewElement className={className}>
       <ResolvedStatusDisplay {...props} />

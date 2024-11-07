@@ -1,15 +1,4 @@
-export const DEFAULT_OVERWRITE_PROTECTION = true;
-
-export const INITIAL_STATUS_COUNTS = {
-  CANCELED: 0,
-  COMPLETE: 0,
-  FAILED: 0,
-  INITIAL: 0,
-  PENDING: 0,
-  OVERWRITE_PREVENTED: 0,
-  QUEUED: 0,
-  TOTAL: 0,
-};
+import { DataTableProps } from '../../composables/DataTable';
 
 export const STATUS_DISPLAY_VALUES = {
   CANCELED: 'Canceled',
@@ -20,3 +9,12 @@ export const STATUS_DISPLAY_VALUES = {
   PENDING: 'In Progress',
   QUEUED: 'Queued',
 };
+
+export const DEFAULT_ACTION_VIEW_HEADERS: DataTableProps['headers'] = [
+  { key: 'key', type: 'sort', content: { label: 'Name' } },
+  { key: 'folder', type: 'text', content: { text: 'Folder' } },
+  { key: 'type', type: 'text', content: { text: 'Type' } },
+  { key: 'size', type: 'text', content: { text: 'Size' } },
+  { key: 'status', type: 'sort', content: { label: 'Status' } },
+  { key: 'action', type: 'text', content: { text: '' } },
+];

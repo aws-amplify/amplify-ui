@@ -10,8 +10,8 @@ import {
   CreateFolderHandler,
   DeleteHandler,
   CopyHandler,
+  TaskHandler,
 } from '../handlers';
-import { TaskHandler } from '../types';
 
 type StringWithoutSpaces<T extends string> = Exclude<
   T,

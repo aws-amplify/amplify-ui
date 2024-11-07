@@ -1,6 +1,12 @@
 import { LocationAccess, Permission } from '../../storage-internal';
-import { ActionInputConfig } from '../types';
-import { LocationData, LocationType } from './types';
+import {
+  ActionInputConfig,
+  FileData,
+  FileDataItem,
+  FileItem,
+  LocationData,
+  LocationType,
+} from './types';
 
 export const constructBucket = ({
   bucket: bucketName,
@@ -33,7 +39,6 @@ export const parseLocationAccess = (location: LocationAccess): LocationData => {
       // { scope: 's3://bucket/path/*', type: 'PREFIX', },
       bucket = slicedScope.slice(0, slicedScope.indexOf('/'));
       prefix = `${slicedScope.slice(bucket.length + 1, -1)}`;
-
       break;
     }
     case 'OBJECT': {
@@ -79,3 +84,17 @@ export const parseLocations = (
     },
     []
   );
+
+export const getFileKey = (key: string): string =>
+  key.slice(key.lastIndexOf('/') + 1, key.length);
+
+export const createFileDataItem = (data: FileData): FileDataItem => ({
+  ...data,
+  fileKey: getFileKey(data.key),
+});
+
+export const isFileItem = (value: unknown): value is FileItem =>
+  !!(value as FileItem).file;
+
+export const isFileDataItem = (item: unknown): item is FileDataItem =>
+  !!(item as FileDataItem).fileKey;

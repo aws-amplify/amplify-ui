@@ -3,7 +3,7 @@ import React from 'react';
 import { createContextUtilities } from '@aws-amplify/ui-react-core';
 import { noop } from '@aws-amplify/ui';
 
-import { FileData } from '../../../actions/handlers';
+import { createFileDataItem, FileData, FileDataItem } from '../../../actions';
 
 export const DEFAULT_STATE: LocationItemsState = {
   fileDataItems: undefined,
@@ -15,7 +15,7 @@ export type LocationItemsAction =
   | { type: 'RESET_LOCATION_ITEMS' };
 
 export interface LocationItemsState {
-  fileDataItems: FileData[] | undefined;
+  fileDataItems: FileDataItem[] | undefined;
 }
 
 export type HandleLocationItemsAction = (event: LocationItemsAction) => void;
@@ -38,20 +38,22 @@ const locatonItemsReducer = (
       const { items } = event;
       if (!items?.length) return prevState;
 
-      if (!prevState.fileDataItems?.length) return { fileDataItems: items };
+      if (!prevState.fileDataItems?.length) {
+        return { fileDataItems: items.map(createFileDataItem) };
+      }
 
-      const nextFileDataItems = items?.reduce(
-        (fileDataItems: FileData[], item) =>
-          prevState.fileDataItems?.some(({ id }) => id === item.id)
+      const nextFileDataItems: FileDataItem[] = items?.reduce(
+        (fileDataItems: FileDataItem[], data) =>
+          prevState.fileDataItems?.some(({ id }) => id === data.id)
             ? fileDataItems
-            : [...fileDataItems, item],
+            : fileDataItems.concat(createFileDataItem(data)),
         []
       );
 
       if (!nextFileDataItems?.length) return prevState;
 
       return {
-        fileDataItems: [...prevState.fileDataItems, ...nextFileDataItems],
+        fileDataItems: prevState.fileDataItems.concat(nextFileDataItems),
       };
     }
     case 'REMOVE_LOCATION_ITEM': {
@@ -77,10 +79,7 @@ const locatonItemsReducer = (
 
 const defaultValue: LocationItemStateContext = [DEFAULT_STATE, noop];
 export const { LocationItemsContext, useLocationItems } =
-  createContextUtilities({
-    contextName: 'LocationItems',
-    defaultValue,
-  });
+  createContextUtilities({ contextName: 'LocationItems', defaultValue });
 
 export function LocationItemsProvider({
   children,
