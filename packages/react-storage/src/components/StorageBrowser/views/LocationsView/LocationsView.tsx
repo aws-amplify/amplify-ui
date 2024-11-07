@@ -8,11 +8,8 @@ import { ControlsContextProvider } from '../../controls/context';
 import { DataRefreshControl } from '../../controls/DataRefreshControl';
 import { DataTableControl } from '../../controls/DataTableControl';
 import { SearchControl } from '../../controls/SearchControl';
-<<<<<<< HEAD
-=======
 import { TitleControl } from '../../controls/TitleControl';
 
->>>>>>> 67a2fd751 (Update integ and test)
 import { LocationsViewProps } from './types';
 import { ViewElement } from '../../context/elements';
 import { getLocationsViewTableData } from './getLocationsViewTableData';
@@ -62,28 +59,13 @@ export function LocationsView({
     onSearch,
   } = useLocationsView(props);
 
-<<<<<<< HEAD
-=======
-  // FIXME: Eventually comes from useView hook
-  const shouldShowEmptyMessage =
-    pageItems.length === 0 && !isLoading && !hasError;
-  const contextValue: ControlsContext = {
-    data: {
-      isDataRefreshDisabled: isLoading,
-      searchPlaceholder,
-      title: 'Home',
-    },
-    onSearch,
-    onRefresh,
-  };
-
->>>>>>> 2d1d74794 (Fix Errors)
   return (
     <ControlsContextProvider
       data={{
         isDataRefreshDisabled: isLoading,
         tableData: getLocationsViewTableData({ pageItems, onNavigate }),
         searchPlaceholder,
+        title: 'Home',
       }}
       onSearch={onSearch}
       onRefresh={onRefresh}

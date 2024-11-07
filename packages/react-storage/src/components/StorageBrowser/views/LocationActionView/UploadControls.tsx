@@ -21,6 +21,7 @@ import { useStore } from '../../providers/store';
 import { TaskStatus, useProcessTasks } from '../../tasks';
 
 import { compareNumbers, compareStrings, getPercentValue } from '../utils';
+import { GetTitle } from './utils';
 import { CLASS_BASE } from '../constants';
 import { Controls } from '../Controls';
 import {
@@ -330,6 +331,8 @@ export const UploadControls = ({
   const disableOverwrite = hasStarted || hasCompleted;
   const disableSelectFiles = hasStarted || hasCompleted;
 
+  const title = GetTitle();
+
   // FIXME: Eventually comes from useView hook
   const contextValue: ControlsContext = {
     data: {
@@ -338,6 +341,7 @@ export const UploadControls = ({
       actionStartLabel: 'Start',
       actionCancelLabel: 'Cancel',
       isActionCancelDisabled: disableCancel,
+      title,
     },
     actionsConfig: {
       type: 'BATCH_ACTION',

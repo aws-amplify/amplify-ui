@@ -1,19 +1,21 @@
 import React from 'react';
 import { resolveClassName } from '../utils';
 import { CLASS_BASE } from '../constants';
-import { useStore } from '../../providers/store';
 import { Controls } from '../Controls';
-import { NavigationControl } from '../../controls/NavigationControl';
-import { DataTableControl } from '../../controls/DataTableControl';
-import { DataRefreshControl } from '../../controls/DataRefreshControl';
 import { ControlsContextProvider } from '../../controls/context';
-import { ActionsMenuControl } from './Controls/ActionsMenu';
 import { useLocationDetailView } from './useLocationDetailView';
 import { LocationDetailViewProps } from './types';
 import { getLocationDetailViewTableData } from './getLocationDetailViewTableData';
-import { DropZoneControl } from '../../controls/DropZoneControl';
 import { ViewElement } from '../../context/elements';
+
+import { ActionsMenuControl } from './Controls/ActionsMenu';
+
+import { DropZoneControl } from '../../controls/DropZoneControl';
+import { DataTableControl } from '../../controls/DataTableControl';
+import { DataRefreshControl } from '../../controls/DataRefreshControl';
+import { NavigationControl } from '../../controls/NavigationControl';
 import { SearchControl } from '../../controls/SearchControl';
+import { TitleControl } from '../../controls/TitleControl';
 
 export const DEFAULT_ERROR_MESSAGE = 'There was an error loading items.';
 const DEFAULT_PAGE_SIZE = 100;
@@ -22,21 +24,7 @@ export const DEFAULT_LIST_OPTIONS = {
   delimiter: '/',
 };
 
-const {
-  EmptyMessage,
-  Loading: LoadingControl,
-  Message,
-  Paginate,
-  Title: TitleControl,
-} = Controls;
-
-export const Title = (): React.JSX.Element => {
-  const [{ location }] = useStore();
-  const { current, key } = location;
-  const { bucket, prefix } = current ?? {};
-
-  return <TitleControl>{prefix ? key : bucket}</TitleControl>;
-};
+const { EmptyMessage, Loading: LoadingControl, Message, Paginate } = Controls;
 
 function Loading({ show }: { show?: boolean }) {
   return show ? <LoadingControl /> : null;
@@ -89,6 +77,8 @@ export function LocationDetailView({
     onSelectAll,
   } = useLocationDetailView({ onNavigate: onNavigateProp, onExit });
 
+  const title = currentLocation?.prefix;
+
   return (
     <div
       className={resolveClassName(CLASS_BASE, className)}
@@ -111,6 +101,7 @@ export function LocationDetailView({
             onSelect,
             onSelectAll,
           }),
+          title,
         }}
         onDropFiles={onDropFiles}
         onNavigate={onNavigate}
@@ -120,7 +111,7 @@ export function LocationDetailView({
         <NavigationControl
           className={`${CLASS_BASE}__location-detail-view-navigation`}
         />
-        <Title />
+        <TitleControl className={`${CLASS_BASE}__location-detail-view-title`} />
         <ViewElement className={`${CLASS_BASE}__location-detail-view-controls`}>
           <SearchControl
             className={`${CLASS_BASE}__location-detail-view-search`}

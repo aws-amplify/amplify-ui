@@ -8,6 +8,8 @@ import * as TasksModule from '../../../tasks';
 
 import { UploadControls, ActionIcon, ICON_CLASS } from '../UploadControls';
 
+jest.mock('../utils');
+
 const useStoreSpy = jest.spyOn(StoreModule, 'useStore');
 const useProcessTasksSpy = jest.spyOn(TasksModule, 'useProcessTasks');
 
