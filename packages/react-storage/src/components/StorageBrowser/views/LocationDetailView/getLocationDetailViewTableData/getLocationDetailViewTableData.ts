@@ -1,31 +1,12 @@
-import { WithKey } from '../../../components/types';
 import { DataTableProps } from '../../../composables/DataTable';
 import { LocationData } from '../../../actions';
-import { LocationItemData } from '../../../../../../dist/types/components/StorageBrowser/actions';
+import { LocationItemData } from '../../../actions/handlers';
 import { getFileRowContent } from './getFileRowContent';
 import { getFolderRowContent } from './getFolderRowContent';
 import { displayText } from '../../../displayText/en';
 import { FileData } from '../../../actions/handlers';
 
-type HeaderKeys =
-  | 'checkbox'
-  | 'name'
-  | 'type'
-  | 'last-modified'
-  | 'size'
-  | 'download';
-
-export const LOCATION_DETAIL_VIEW_HEADERS: WithKey<
-  DataTableProps['headers'][number],
-  HeaderKeys
->[] = [
-  { key: 'checkbox', type: 'text', content: { text: '' } },
-  { key: 'name', type: 'sort', content: { label: 'Name' } },
-  { key: 'type', type: 'sort', content: { label: 'Type' } },
-  { key: 'last-modified', type: 'sort', content: { label: 'Last Modified' } },
-  { key: 'size', type: 'sort', content: { label: 'Size' } },
-  { key: 'download', type: 'text', content: { text: '' } },
-];
+import { LOCATION_DETAIL_VIEW_HEADERS } from './constants';
 
 export const getLocationDetailViewTableData = ({
   areAllFilesSelected,
