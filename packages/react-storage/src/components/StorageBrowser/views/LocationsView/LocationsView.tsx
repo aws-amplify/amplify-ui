@@ -3,15 +3,14 @@ import React from 'react';
 import { CLASS_BASE } from '../constants';
 import { Controls } from '../Controls';
 import { resolveClassName } from '../utils';
-import { DataTableControl } from './Controls/DataTable';
 import { useLocationsView } from './useLocationsView';
 import { ControlsContextProvider } from '../../controls/context';
-import { ControlsContext } from '../../controls/types';
 import { DataRefreshControl } from '../../controls/DataRefreshControl';
+import { DataTableControl } from '../../controls/DataTableControl';
 import { SearchControl } from '../../controls/SearchControl';
-
 import { LocationsViewProps } from './types';
 import { ViewElement } from '../../context/elements';
+import { getLocationsViewTableData } from './getLocationsViewTableData';
 
 export const DEFAULT_ERROR_MESSAGE = 'There was an error loading locations.';
 
@@ -56,26 +55,23 @@ export function LocationsView({
     pageItems,
     message,
     searchPlaceholder,
+    shouldShowEmptyMessage,
     onRefresh,
     onPaginate,
     onNavigate,
     onSearch,
   } = useLocationsView(props);
 
-  // FIXME: Eventually comes from useView hook
-  const shouldShowEmptyMessage =
-    pageItems.length === 0 && !isLoading && !hasError;
-  const contextValue: ControlsContext = {
-    data: {
-      isDataRefreshDisabled: isLoading,
-      searchPlaceholder,
-    },
-    onSearch,
-    onRefresh,
-  };
-
   return (
-    <ControlsContextProvider {...contextValue}>
+    <ControlsContextProvider
+      data={{
+        isDataRefreshDisabled: isLoading,
+        tableData: getLocationsViewTableData({ pageItems, onNavigate }),
+        searchPlaceholder,
+      }}
+      onSearch={onSearch}
+      onRefresh={onRefresh}
+    >
       <div
         className={resolveClassName(CLASS_BASE, className)}
         data-testid="LOCATIONS_VIEW"
@@ -96,7 +92,11 @@ export function LocationsView({
         <LocationsMessage show={hasError} message={message} />
         <Loading show={isLoading} />
         {hasError ? null : (
-          <DataTableControl onNavigate={onNavigate} items={pageItems} />
+          <ViewElement className={`${CLASS_BASE}__table-wrapper`}>
+            <DataTableControl
+              className={`${CLASS_BASE}__locations-view-data-table`}
+            />
+          </ViewElement>
         )}
         <LocationsEmptyMessage show={shouldShowEmptyMessage} />
       </div>

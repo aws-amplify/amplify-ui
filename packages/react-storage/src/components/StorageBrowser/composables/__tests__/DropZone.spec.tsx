@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { useDropZone } from '@aws-amplify/ui-react-core';
-import { DropZone, DropZoneProps } from '../DropZone';
+import { DropZone } from '../DropZone';
 
 jest.mock('@aws-amplify/ui-react-core');
 
@@ -30,15 +30,15 @@ describe('DropZone', () => {
   });
 
   it('calls onDropComplete', () => {
-    const acceptedFiles = [new File([], '')];
+    const files = [new File([], '')];
     const mockOnDropComplete = jest.fn();
     mockUseDropZone.mockImplementation(
       ({
         onDropComplete,
       }: {
-        onDropComplete: DropZoneProps['onDropComplete'];
+        onDropComplete: ({ acceptedFiles }: { acceptedFiles: File[] }) => void;
       }) => {
-        onDropComplete!({ acceptedFiles });
+        onDropComplete({ acceptedFiles: files });
         return { dragState: 'inactive' };
       }
     );
@@ -49,7 +49,7 @@ describe('DropZone', () => {
       </DropZone>
     );
 
-    expect(mockOnDropComplete).toHaveBeenCalledWith({ acceptedFiles });
+    expect(mockOnDropComplete).toHaveBeenCalledWith(files);
   });
 
   it('appends an active modifier', () => {

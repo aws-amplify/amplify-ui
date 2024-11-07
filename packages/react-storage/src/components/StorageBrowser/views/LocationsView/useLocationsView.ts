@@ -13,6 +13,7 @@ interface UseLocationsView {
   isLoading: boolean;
   message: string | undefined;
   searchPlaceholder: string;
+  shouldShowEmptyMessage: boolean;
   pageItems: LocationData[];
   page: number;
   onNavigate: (location: LocationData) => void;
@@ -98,6 +99,9 @@ export function useLocationsView(
     );
   }, [pageItems, term]);
 
+  const shouldShowEmptyMessage =
+    pageItems.length === 0 && !isLoading && !hasError;
+
   return {
     isLoading,
     hasError,
@@ -107,6 +111,7 @@ export function useLocationsView(
     highestPageVisited,
     pageItems: filteredItems,
     searchPlaceholder: displayText.filterLocationsPlaceholder,
+    shouldShowEmptyMessage,
     onNavigate: (location: LocationData) => {
       onNavigate?.(location);
       dispatchStoreAction({ type: 'NAVIGATE', location });

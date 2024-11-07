@@ -25,7 +25,7 @@ const generateMockItems = (size: number, page: number): LocationData[] => {
         bucket: 'test-bucket',
         prefix: `item-${index}/`,
         permission: 'READWRITE',
-        id: 'identity',
+        id: `identity-${index}`,
         type,
       };
     });
@@ -294,7 +294,7 @@ describe('LocationsListView', () => {
       type: 'NAVIGATE',
       location: {
         bucket: 'test-bucket',
-        id: 'identity',
+        id: 'identity-0',
         prefix: 'item-0/',
         type: 'PREFIX',
         permission: 'READWRITE',
