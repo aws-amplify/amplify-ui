@@ -1,7 +1,7 @@
 import { LocationAccess } from '../../../storage-internal';
 import { LocationData } from '../types';
 
-import { parseLocationAccess } from '../utils';
+import { getFileKey, parseLocationAccess } from '../utils';
 
 describe('parseLocationAccess', () => {
   const bucket = 'test-bucket';
@@ -91,5 +91,16 @@ describe('parseLocationAccess', () => {
     };
 
     expect(parseLocationAccess(location)).toStrictEqual(expected);
+  });
+});
+
+describe('getFileKey', () => {
+  it('should return the filename without the path', () => {
+    expect(getFileKey('/path/to/file.txt')).toBe('file.txt');
+    expect(getFileKey('document.pdf')).toBe('document.pdf');
+  });
+
+  it('should handle paths with multiple slashes', () => {
+    expect(getFileKey('/path//to///file.txt')).toBe('file.txt');
   });
 });

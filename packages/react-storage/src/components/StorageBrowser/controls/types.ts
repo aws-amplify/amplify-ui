@@ -1,7 +1,8 @@
 import { Composables } from '../composables/types';
 import { DataTableSortHeader, DataTableProps } from '../composables/DataTable';
-import { INITIAL_STATUS_COUNTS } from '../views/LocationActionView/constants';
+import { DropZoneProps } from '../composables/DropZone';
 import { LocationData } from '../actions';
+import { StatusCounts } from '../tasks';
 
 export interface ControlProps {
   className?: string;
@@ -12,8 +13,6 @@ export interface Controls {
 }
 
 export type ControlKey = keyof Composables;
-
-export type TaskCounts = typeof INITIAL_STATUS_COUNTS;
 
 interface TruncatedSortHeader
   extends Omit<
@@ -34,10 +33,14 @@ interface TableData {
 export interface ControlsContext {
   data: {
     actionStartLabel?: string;
-    isActionStartDisabled?: boolean;
     actionCancelLabel?: string;
     isActionCancelDisabled?: boolean;
+    isActionStartDisabled?: boolean;
+    isAddFilesDisabled?: boolean;
+    isAddFolderDisabled?: boolean;
     isDataRefreshDisabled?: boolean;
+    isExitDisabled?: boolean;
+    isOverwriteCheckboxDisabled?: boolean;
     currentLocation?: LocationData;
     currentPath?: string;
     showIncludeSubfolders?: boolean;
@@ -53,9 +56,11 @@ export interface ControlsContext {
       | 'LIST_LOCATIONS'
       | 'LIST_LOCATION_ITEMS';
     isCancelable?: boolean;
+    statusCounts?: StatusCounts;
   };
   onActionCancel?: () => void;
   onActionStart?: () => void;
+  onDropComplete?: DropZoneProps['onDropComplete'];
   onDropFiles?: (files: File[]) => void;
   onNavigate?: (location: LocationData, path?: string) => void;
   onNavigateHome?: () => void;

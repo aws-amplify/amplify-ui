@@ -15,7 +15,7 @@ export interface NavigationProps {
 export const Navigation = ({
   items,
 }: NavigationProps): React.JSX.Element | null => {
-  if (!items?.length) {
+  if (!items.length) {
     return null;
   }
 

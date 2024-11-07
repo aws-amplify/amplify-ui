@@ -9,7 +9,7 @@ import {
   ListHandlerInput,
   ListHandlerOutput,
   ListHandler,
-} from '../types';
+} from './types';
 
 import { LocationData } from './types';
 import { parseLocations, ExcludeType } from './utils';

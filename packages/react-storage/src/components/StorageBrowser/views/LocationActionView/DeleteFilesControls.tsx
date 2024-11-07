@@ -17,51 +17,43 @@ import { TitleControl } from '../../controls/TitleControl';
 
 const { Exit } = Controls;
 
-export const DeleteFilesControls = (props: {
+export const DeleteFilesControls = (props?: {
   onExit?: (location: LocationData) => void;
 }): React.JSX.Element => {
   const {
-    disableCancel,
-    disableClose,
-    disablePrimary,
-    onExit,
+    isProcessing,
+    isProcessingComplete,
     onActionCancel,
     onActionStart,
-    taskCounts,
+    onExit,
+    statusCounts,
     tasks,
   } = useDeleteView(props);
 
   const [{ location }] = useStore();
-  const { current, key } = location;
+  const { key } = location;
   const tableData = getActionViewTableData({
     tasks,
-    taskCounts,
-    path: key,
+    folder: key,
+    isProcessing,
   });
   const title = GetTitle();
   const contextValue: ControlsContext = {
     data: {
-      taskCounts,
+      statusCounts,
       tableData,
-      isActionStartDisabled: disablePrimary,
+      isActionStartDisabled: isProcessing || isProcessingComplete,
       actionStartLabel: 'Start',
       actionCancelLabel: 'Cancel',
-      isActionCancelDisabled: disableCancel,
-      title,
+      isActionCancelDisabled: !isProcessing || isProcessingComplete,
     },
-    actionsConfig: { type: 'BATCH_ACTION', isCancelable: true },
     onActionStart,
     onActionCancel,
   };
 
   return (
     <ControlsContextProvider {...contextValue}>
-      <Exit
-        onClick={() => {
-          onExit(current!);
-        }}
-        disabled={disableClose}
-      />
+      <Exit onClick={onExit} disabled={isProcessing} />
       <TitleControl className={`${CLASS_BASE}__delete-action-view-title`} />
       <ViewElement className={`${CLASS_BASE}__table-wrapper`}>
         <DataTableControl className={`${CLASS_BASE}__table`} />
@@ -70,7 +62,6 @@ export const DeleteFilesControls = (props: {
         <StatusDisplayControl
           className={`${CLASS_BASE}__action-status-display`}
         />
-
         <ActionCancelControl className={`${CLASS_BASE}__cancel`} />
         <ActionStartControl />
       </ViewElement>
