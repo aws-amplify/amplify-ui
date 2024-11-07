@@ -13,10 +13,6 @@ export const DataTableControl = ({
 
   const ResolvedDataTable = useResolvedComposable(DataTable, 'DataTable');
 
-  if (!props) {
-    return null;
-  }
-
   return (
     <ViewElement className={className}>
       <ResolvedDataTable {...props} />

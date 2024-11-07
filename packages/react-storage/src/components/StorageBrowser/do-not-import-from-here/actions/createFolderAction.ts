@@ -34,6 +34,7 @@ export const createFolderAction = async (
     bucket: bucketName,
     credentialsProvider: locationCredentialsProvider,
     region,
+    customEndpoint,
   } = typeof config === 'object' ? config : config();
 
   let result: CreateFolderActionOutput['result'] | undefined;
@@ -46,6 +47,7 @@ export const createFolderAction = async (
         bucket: { bucketName, region },
         expectedBucketOwner,
         locationCredentialsProvider,
+        customEndpoint,
       },
     }).result;
     result = { key: prefix, status: 'COMPLETE', message: undefined };

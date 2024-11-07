@@ -32,6 +32,7 @@ import { createUseView } from './views/createUseView';
 
 export interface Config {
   accountId?: string;
+  customEndpoint?: string;
   getLocationCredentials: GetLocationCredentials;
   listLocations: ListLocations;
   registerAuthListener: RegisterAuthListener;
@@ -76,10 +77,15 @@ export function createStorageBrowser(input: CreateStorageBrowserInput): {
 } {
   assertRegisterAuthListener(input.config.registerAuthListener);
 
-  const { accountId, registerAuthListener, getLocationCredentials, region } =
-    input.config;
+  const {
+    accountId,
+    customEndpoint,
+    registerAuthListener,
+    getLocationCredentials,
+    region,
+  } = input.config;
 
-  // will be replaced, contains the v0 actons API approach
+  // will be replaced, contains the v0 actions API approach
   const TempActionsProvider = createTempActionsProvider({
     ...input,
     actions: locationActionsDefault,
@@ -88,6 +94,7 @@ export function createStorageBrowser(input: CreateStorageBrowserInput): {
   const ConfigurationProvider = createConfigurationProvider({
     accountId,
     actions: defaultActionConfigs,
+    customEndpoint,
     displayName: 'ConfigurationProvider',
     getLocationCredentials,
     region,

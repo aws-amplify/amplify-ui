@@ -17,15 +17,26 @@ const Passthrough = ({ children }: { children?: React.ReactNode }) => (
 export function createConfigurationProvider<T extends React.ComponentType<any>>(
   input: CreateConfigurationProviderInput<T>
 ): ConfigurationProviderComponent<T> {
-  const { accountId, actions, ChildComponent, displayName, region, ...rest } =
-    input;
+  const {
+    accountId,
+    actions,
+    ChildComponent,
+    displayName,
+    region,
+    customEndpoint,
+    ...rest
+  } = input;
 
   const Child = isComponent(ChildComponent) ? ChildComponent : Passthrough;
 
   const Provider: ConfigurationProviderComponent<T> = (props) => (
     <ActionConfigsProvider actions={actions}>
       <CredentialsProvider {...rest}>
-        <GetActionInputProvider accountId={accountId} region={region}>
+        <GetActionInputProvider
+          accountId={accountId}
+          region={region}
+          customEndpoint={customEndpoint}
+        >
           <Child {...props} />
         </GetActionInputProvider>
       </CredentialsProvider>

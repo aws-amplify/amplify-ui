@@ -12,11 +12,11 @@ export type UseDropZone = () => {
  * with its corresponding DropZone control.
  */
 export const useDropZone: UseDropZone = () => {
-  const { onDropComplete } = useControlsContext();
+  const { onDropFiles } = useControlsContext();
 
   return {
     props: {
-      onDropComplete,
+      onDropComplete: onDropFiles,
     },
   };
 };

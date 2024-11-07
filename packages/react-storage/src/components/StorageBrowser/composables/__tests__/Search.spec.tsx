@@ -80,4 +80,20 @@ describe('Search', () => {
     });
     expect(onSearch).toHaveBeenCalledWith('', false);
   });
+
+  it('calls onSearch when Enter key is pressed', async () => {
+    const user = userEvent.setup();
+    const onSearch = jest.fn();
+
+    const { getByRole } = render(<Search onSearch={onSearch} />);
+
+    const input = getByRole('textbox');
+    input.focus();
+    await act(async () => {
+      await user.keyboard('boo');
+      await user.keyboard('{Enter}');
+    });
+
+    expect(onSearch).toHaveBeenCalledWith('boo', false);
+  });
 });

@@ -30,11 +30,6 @@ interface TableData {
   rows: DataTableProps['rows'];
 }
 
-interface Location {
-  current?: LocationData;
-  path?: string;
-}
-
 export interface ControlsContext {
   data: {
     actionStartLabel?: string;
@@ -46,9 +41,10 @@ export interface ControlsContext {
     isDataRefreshDisabled?: boolean;
     isExitDisabled?: boolean;
     isOverwriteCheckboxDisabled?: boolean;
+    currentLocation?: LocationData;
+    currentPath?: string;
     showIncludeSubfolders?: boolean;
     searchPlaceholder?: string;
-    location?: Location;
     tableData?: TableData;
     statusCounts?: StatusCounts;
   };
@@ -60,9 +56,10 @@ export interface ControlsContext {
       | 'LIST_LOCATION_ITEMS';
     isCancelable?: boolean;
   };
-  onActionStart?: () => void;
   onActionCancel?: () => void;
+  onActionStart?: () => void;
   onDropComplete?: DropZoneProps['onDropComplete'];
+  onDropFiles?: (files: File[]) => void;
   onNavigate?: (location: LocationData, path?: string) => void;
   onNavigateHome?: () => void;
   onRefresh?: () => void;

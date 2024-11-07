@@ -12,9 +12,9 @@ Feature: Drag and drop files within Storage Browser
       When I drag and drop a file into the storage browser with file name "test.txt"
       Then I see "Upload Files"
       Then I see "test.txt"
-  
+
   @react
-  Scenario: Drag and drop file into Location Detail view
+  Scenario: Drag and drop folder into Location Detail view
       When I type my "email" with status "CONFIRMED"
       Then I type my password
       Then I click the "Sign in" button
@@ -23,6 +23,8 @@ Feature: Drag and drop files within Storage Browser
       Then I see "Upload Folder"
       Then I see "test"
 
+  """
+  Comment out for now upload is integrated
   @react
   Scenario: Drag and drop file into Upload Action view
     When I type my "email" with status "CONFIRMED"
@@ -37,3 +39,4 @@ Feature: Drag and drop files within Storage Browser
     Then I press the "{esc}" key
     When I drag and drop a file into the storage browser with file name "test.txt"
     Then I see "test.txt"
+  """

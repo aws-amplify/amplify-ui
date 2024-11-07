@@ -15,6 +15,7 @@ interface UseLocationsView {
   isPaginatePreviousDisabled: boolean;
   message: string | undefined;
   searchPlaceholder: string;
+  shouldShowEmptyMessage: boolean;
   pageItems: LocationData[];
   page: number;
   onNavigate: (location: LocationData) => void;
@@ -106,6 +107,9 @@ export function useLocationsView(
     !hasNextToken && isLastPage(currentPage, resultCount, pageSize);
   const hasNoResults = pageItems.length === 0;
 
+  const shouldShowEmptyMessage =
+    pageItems.length === 0 && !isLoading && !hasError;
+
   return {
     isLoading,
     hasError,
@@ -118,6 +122,7 @@ export function useLocationsView(
     hasNextPage: hasNextToken,
     pageItems: filteredItems,
     searchPlaceholder: displayText.filterLocationsPlaceholder,
+    shouldShowEmptyMessage,
     onNavigate: (location: LocationData) => {
       onNavigate?.(location);
       dispatchStoreAction({ type: 'NAVIGATE', location });

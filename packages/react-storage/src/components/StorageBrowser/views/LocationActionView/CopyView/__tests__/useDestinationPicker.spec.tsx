@@ -1,11 +1,22 @@
-import { renderHook, waitFor } from '@testing-library/react';
+import { act, renderHook, waitFor } from '@testing-library/react';
+
+import * as AmplifyReactCore from '@aws-amplify/ui-react-core';
 
 import * as Store from '../../../../providers/store';
 import * as Config from '../../../../providers/configuration';
-import * as ListLocationItems from '../../../../actions/handlers/listLocationItems';
-import { useDestinationPicker } from '../useDestinationPicker';
+import {
+  DEFAULT_LIST_OPTIONS,
+  useDestinationPicker,
+} from '../useDestinationPicker';
 
 const mockDispatchStoreAction = jest.fn();
+const mockHandleList = jest.fn();
+const config = {
+  accountId: '123456789012',
+  bucket: 'bucket',
+  credentials: jest.fn(),
+  region: 'us-west-2',
+};
 
 describe('useDestinationPicker', () => {
   beforeEach(() => {
@@ -41,19 +52,20 @@ describe('useDestinationPicker', () => {
       mockDispatchStoreAction,
     ]);
 
-    jest.spyOn(ListLocationItems, 'listLocationItemsHandler').mockReturnValue(
-      Promise.resolve({
-        items: [],
-        nextToken: 'token',
-      })
-    );
+    jest.spyOn(AmplifyReactCore, 'useDataState').mockReturnValue([
+      {
+        data: {
+          items: [],
+          nextToken: undefined,
+        },
+        hasError: false,
+        isLoading: true,
+        message: undefined,
+      },
+      mockHandleList,
+    ]);
 
-    jest.spyOn(Config, 'useGetActionInput').mockReturnValue(() => ({
-      accountId: '123456789012',
-      bucket: 'bucket',
-      credentials: jest.fn(),
-      region: 'us-west-2',
-    }));
+    jest.spyOn(Config, 'useGetActionInput').mockReturnValue(() => config);
   });
 
   it('should return the correct initial state', async () => {
@@ -65,6 +77,29 @@ describe('useDestinationPicker', () => {
 
     await waitFor(() => {
       expect(result.current).toMatchSnapshot();
+    });
+  });
+
+  it('should handle search', () => {
+    const { result } = renderHook(() =>
+      useDestinationPicker({
+        destinationList: ['prefix1'],
+      })
+    );
+
+    act(() => {
+      const state = result.current;
+      state.onSearch('moo');
+    });
+
+    expect(mockHandleList).toHaveBeenCalledWith({
+      config,
+      options: {
+        ...DEFAULT_LIST_OPTIONS,
+        exclude: 'FILE',
+        search: { filterKey: 'key', query: 'moo' },
+      },
+      prefix: 'prefix1/',
     });
   });
 });
