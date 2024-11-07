@@ -6,7 +6,7 @@ import { IconElement } from '../../context/elements/IconElement';
 import { CLASS_BASE } from '../constants';
 import { displayText } from '../../displayText/en';
 
-const BLOCK_NAME = `${CLASS_BASE}__exit`;
+const BLOCK_NAME = `amplify-${CLASS_BASE}__navigation`;
 interface ExitControlProps {
   onClick?: () => void;
   disabled?: boolean;

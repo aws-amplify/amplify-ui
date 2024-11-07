@@ -12,7 +12,7 @@ export function LocationDetailView({
 }: LocationDetailViewProps): React.JSX.Element {
   return (
     <div
-      className={resolveClassName(CLASS_BASE, className)}
+      className={resolveClassName(`amplify-${CLASS_BASE}`, className)}
       data-testid="LOCATION_DETAIL_VIEW"
     >
       <LocationDetailViewControls {...props} />

@@ -4,7 +4,7 @@ import { isFunction, isUndefined } from '@aws-amplify/ui';
 import { LocationData } from '../../actions';
 import { Field } from '../../components/Field';
 import { useAction } from '../../do-not-import-from-here/actions';
-import { SpanElement } from '../../context/elements';
+import { SpanElement, ViewElement } from '../../context/elements';
 import { useStore } from '../../providers/store';
 
 import { Controls } from '../Controls';
@@ -112,15 +112,15 @@ export const CreateFolderControls = ({
 
   return (
     <ControlsContextProvider {...contextValue}>
-      <Exit
-        onClick={() => {
-          handleClose();
-        }}
-      />
+      <ViewElement className={`amplify-${CLASS_BASE}__navigation`}>
+        <Exit
+          onClick={() => {
+            handleClose();
+          }}
+        />
+      </ViewElement>
       <Title />
-      <ActionStartControl
-        className={`${CLASS_BASE}__create-folder-action-start`}
-      />
+
       <Field
         label="Enter folder name:"
         disabled={isLoading || !!result?.status}
@@ -137,9 +137,19 @@ export const CreateFolderControls = ({
           </SpanElement>
         ) : null}
       </Field>
-      {result?.status === 'COMPLETE' || result?.status === 'FAILED' ? (
-        <CreateFolderMessage />
-      ) : null}
+
+      <ViewElement className={`amplify-${CLASS_BASE}__action__footer`}>
+        <ViewElement className={`amplify-${CLASS_BASE}__action__message`}>
+          {result?.status === 'COMPLETE' || result?.status === 'FAILED' ? (
+            <CreateFolderMessage />
+          ) : null}
+        </ViewElement>
+        <ViewElement className={`amplify-${CLASS_BASE}__action__buttons`}>
+          <ActionStartControl
+            className={`amplify-${CLASS_BASE}__action__start`}
+          />
+        </ViewElement>
+      </ViewElement>
     </ControlsContextProvider>
   );
 };

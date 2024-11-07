@@ -16,11 +16,8 @@ import {
   getDestinationPickerTableData,
 } from './utils/getDestinationPickerDataTable';
 import { ControlsContext } from '../../controls/types';
-import { Breadcrumb } from '../../components/BreadcrumbNavigation';
-import { DescriptionList } from '../../components/DescriptionList';
 import { SearchControl } from '../../controls/SearchControl';
 const {
-  actionSetDestination,
   actionDestinationPickerCurrentFolderSelected,
   actionDestinationPickerNoMoreFolders,
   actionDestinationPickerDefaultError,
@@ -40,7 +37,6 @@ export const DestinationPicker = ({
   onSetDestinationList: (destination: string[]) => void;
 }): React.JSX.Element => {
   const {
-    bucket,
     items,
     hasNextToken,
     currentPage,
@@ -54,11 +50,6 @@ export const DestinationPicker = ({
 
   const handleNavigateFolder = (key: string) => {
     const newPath = [...destinationList, key.replace('/', '')];
-    onSetDestinationList(newPath);
-  };
-
-  const handleNavigatePath = (index: number) => {
-    const newPath = destinationList.slice(0, index + 1);
     onSetDestinationList(newPath);
   };
 
@@ -96,29 +87,7 @@ export const DestinationPicker = ({
 
   return (
     <ControlsContextProvider {...contextValue}>
-      <DescriptionList
-        descriptions={[
-          {
-            term: `${actionSetDestination}:`,
-            details: destinationList.length ? (
-              <>
-                {destinationList.map((key, index) => (
-                  <Breadcrumb
-                    isCurrent={index === destinationList.length - 1}
-                    key={`${key}-${index}`}
-                    onNavigate={() => handleNavigatePath(index)}
-                    // If bucket level access, show bucket name as root breadcrumb
-                    name={key === '' ? bucket : key.replace('/', '')}
-                  />
-                ))}
-              </>
-            ) : (
-              '-'
-            ),
-          },
-        ]}
-      />
-      <ViewElement className={`${CLASS_BASE}__action-destination`}>
+      <ViewElement className={`amplify-${CLASS_BASE}__action__options`}>
         <SearchControl />
         <PaginateControl
           currentPage={currentPage}
@@ -128,8 +97,8 @@ export const DestinationPicker = ({
           handlePrevious={handlePrevious}
         />
       </ViewElement>
-      <ViewElement className="storage-browser__table-wrapper">
-        <DataTableControl className={`${CLASS_BASE}__table`} />
+      <ViewElement className={`amplify-${CLASS_BASE}__table__wrapper`}>
+        <DataTableControl />
         {noSubfolders && <EmptyMessageControl>{message}</EmptyMessageControl>}
         {showMessage && !noSubfolders && (
           <MessageControl variant={messageVariant}>{message}</MessageControl>

@@ -102,28 +102,28 @@ export const LocationDetailViewControls = ({
 
   return (
     <ControlsContextProvider {...contextValue}>
-      <NavigationControl
-        className={`${CLASS_BASE}__location-detail-view-navigation`}
-      />
+      <NavigationControl className={`amplify-${CLASS_BASE}__navigation`} />
       <Title />
-      <ViewElement className={`${CLASS_BASE}__location-detail-view-controls`}>
-        <SearchControl
-          className={`${CLASS_BASE}__location-detail-view-search`}
-        />
-        <Paginate
-          currentPage={page}
-          disableNext={isPaginateNextDisabled}
-          disablePrevious={isPaginatePreviousDisabled}
-          handleNext={onPaginateNext}
-          handlePrevious={onPaginatePrevious}
-        />
+      <ViewElement className={`amplify-${CLASS_BASE}__controls`}>
+        <SearchControl className={`amplify-${CLASS_BASE}__controls__search`} />
+        <ViewElement className={`amplify-${CLASS_BASE}__controls__pagination`}>
+          <Paginate
+            currentPage={page}
+            disableNext={isPaginateNextDisabled}
+            disablePrevious={isPaginatePreviousDisabled}
+            handleNext={onPaginateNext}
+            handlePrevious={onPaginatePrevious}
+          />
+        </ViewElement>
         <DataRefreshControl
-          className={`${CLASS_BASE}__locations-detail-view-data-refresh`}
+          className={`amplify-${CLASS_BASE}__controls__refresh`}
         />
-        <ActionsMenuControl
-          onActionSelect={onActionSelect}
-          disabled={isLoading}
-        />
+        <ViewElement className={`amplify-${CLASS_BASE}__controls__menu`}>
+          <ActionsMenuControl
+            onActionSelect={onActionSelect}
+            disabled={isLoading}
+          />
+        </ViewElement>
       </ViewElement>
       <LocationDetailMessage show={hasError} message={message} />
       <Loading show={isLoading} />

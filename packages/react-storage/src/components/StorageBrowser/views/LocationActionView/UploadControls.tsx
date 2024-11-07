@@ -67,7 +67,7 @@ const LOCATION_ACTION_VIEW_COLUMNS: Column<LocationActionViewColumns>[] = [
   { key: 'cancel', header: '' },
 ];
 
-export const ICON_CLASS = `${CLASS_BASE}__action-status`;
+export const ICON_CLASS = `amplify-${CLASS_BASE}__table__data__icon ${CLASS_BASE}__action-status`;
 
 export const ActionIcon = ({ status }: ActionIconProps): React.JSX.Element => {
   let variant: IconVariant = 'action-initial';
@@ -371,51 +371,47 @@ export const UploadControls = ({
         }}
       />
       <Title />
-      <ViewElement className={`${CLASS_BASE}__action-header`}>
-        <ViewElement className={`${CLASS_BASE}__upload-destination`}>
-          <DescriptionList
-            descriptions={[
-              {
-                term: `${displayText.actionDestination}:`,
-                details: destinationPrefix.length ? destinationPrefix : '/',
-              },
-            ]}
-          />
-          <Overwrite
-            defaultChecked={!preventOverwrite}
-            disabled={disableOverwrite}
-            handleChange={() => {
-              setPreventOverwrite((overwrite) => !overwrite);
+
+      <ViewElement className={`amplify-${CLASS_BASE}__action__options`}>
+        <Overwrite
+          defaultChecked={!preventOverwrite}
+          disabled={disableOverwrite}
+          handleChange={() => {
+            setPreventOverwrite((overwrite) => !overwrite);
+          }}
+        />
+
+        <ViewElement className="amplify-flex">
+          <ButtonElement
+            disabled={disableSelectFiles}
+            className={`${CLASS_BASE}__add-folder`}
+            variant="add-folder"
+            onClick={() => {
+              dispatchStoreAction({
+                type: 'SELECT_FILES',
+                selectionType: 'FOLDER',
+              });
             }}
-          />
+          >
+            Add folder
+          </ButtonElement>
+          <ButtonElement
+            disabled={disableSelectFiles}
+            className={`${CLASS_BASE}__add-files`}
+            variant="add-files"
+            onClick={() => {
+              dispatchStoreAction({
+                type: 'SELECT_FILES',
+                selectionType: 'FILE',
+              });
+            }}
+          >
+            Add files
+          </ButtonElement>
         </ViewElement>
-        <ButtonElement
-          disabled={disableSelectFiles}
-          className={`${CLASS_BASE}__add-folder`}
-          variant="add-folder"
-          onClick={() => {
-            dispatchStoreAction({
-              type: 'SELECT_FILES',
-              selectionType: 'FOLDER',
-            });
-          }}
-        >
-          Add folder
-        </ButtonElement>
-        <ButtonElement
-          disabled={disableSelectFiles}
-          className={`${CLASS_BASE}__add-files`}
-          variant="add-files"
-          onClick={() => {
-            dispatchStoreAction({
-              type: 'SELECT_FILES',
-              selectionType: 'FILE',
-            });
-          }}
-        >
-          Add files
-        </ButtonElement>
       </ViewElement>
+
+      {/* <ViewElement className={`amplify-${CLASS_BASE}__action__items`}> */}
       <Table
         data={tableData}
         columns={LOCATION_ACTION_VIEW_COLUMNS}
@@ -425,12 +421,33 @@ export const UploadControls = ({
         renderHeaderItem={renderHeaderItem}
         renderRowItem={renderRowItem}
       />
-      <ViewElement className={`${CLASS_BASE}__action-footer`}>
+      {/* </ViewElement> */}
+
+      <ViewElement className={`amplify-${CLASS_BASE}__action__summary`}>
+        <ViewElement className={`amplify-${CLASS_BASE}__action__destination`}>
+          <DescriptionList
+            descriptions={[
+              {
+                term: `${displayText.actionDestination}:`,
+                details: destinationPrefix.length ? destinationPrefix : '/',
+              },
+            ]}
+          />
+        </ViewElement>
         <StatusDisplayControl
-          className={`${CLASS_BASE}__upload-status-display`}
+          className={`amplify-${CLASS_BASE}__action__status`}
         />
-        <ActionCancelControl className={`${CLASS_BASE}__cancel`} />
-        <ActionStartControl className={`${CLASS_BASE}__upload-action-start`} />
+      </ViewElement>
+      <ViewElement className={`amplify-${CLASS_BASE}__action__footer`}>
+        <ViewElement
+          className={`amplify-${CLASS_BASE}__action__message`}
+        ></ViewElement>
+        <ViewElement className={`amplify-${CLASS_BASE}__action__buttons`}>
+          <ActionCancelControl className={`${CLASS_BASE}__cancel`} />
+          <ActionStartControl
+            className={`${CLASS_BASE}__upload-action-start`}
+          />
+        </ViewElement>
       </ViewElement>
     </ControlsContextProvider>
   );

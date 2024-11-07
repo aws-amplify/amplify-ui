@@ -28,7 +28,7 @@ interface TableProps {
 
 export const Table = ({ headers, rows }: TableProps): React.JSX.Element => {
   return (
-    <TableElement className={`${CLASS_BASE}__table`}>
+    <TableElement className={`amplify-${CLASS_BASE}__table`}>
       <TableHeadElement className={`${CLASS_BASE}__table-head`}>
         {headers.length ? (
           <TableRowElement className={`${CLASS_BASE}__table-row`}>

@@ -19,12 +19,12 @@ import { ActionStartControl } from '../../controls/ActionStartControl';
 import { getTasksHaveStarted } from './utils';
 import { DescriptionList } from '../../components/DescriptionList';
 import { StatusDisplayControl } from '../../controls/StatusDisplayControl';
-import { getDestinationListFullPrefix } from './utils/getDestinationPickerDataTable';
 import { ActionCancelControl } from '../../controls/ActionCancelControl';
 import { CopyHandlerData } from '../../actions';
+import { Breadcrumb } from '../../components/BreadcrumbNavigation';
 
 const { Exit } = Controls;
-const { actionSetDestination } = displayText;
+const { actionDestination } = displayText;
 
 export const CopyFilesControls = ({
   onExit: _onExit,
@@ -67,6 +67,11 @@ export const CopyFilesControls = ({
   };
   const hasStarted = getTasksHaveStarted(taskCounts);
 
+  const handleNavigatePath = (index: number) => {
+    const newPath = destinationList.slice(0, index + 1);
+    onSetDestinationList(newPath);
+  };
+
   return (
     <ControlsContextProvider {...contextValue}>
       <Exit
@@ -78,40 +83,70 @@ export const CopyFilesControls = ({
 
       <Title />
 
-      <ViewElement className={`${CLASS_BASE}__table-wrapper`}>
-        <DataTableControl className={`${CLASS_BASE}__table`} />
+      <ViewElement className={`amplify-${CLASS_BASE}__table__wrapper`}>
+        <DataTableControl className={`amplify-${CLASS_BASE}__table`} />
       </ViewElement>
 
-      {hasStarted ? (
-        <ViewElement className={`${CLASS_BASE}__action-destination`}>
-          <DescriptionList
-            descriptions={[
-              {
-                term: `${actionSetDestination}:`,
-                details: getDestinationListFullPrefix(destinationList),
-              },
-            ]}
-          />
-        </ViewElement>
-      ) : (
+      {hasStarted ? null : (
         <DestinationPicker
           destinationList={destinationList}
           onSetDestinationList={onSetDestinationList}
         />
       )}
 
-      <ViewElement className={`${CLASS_BASE}__action-footer`}>
-        {hasStarted ? (
-          <StatusDisplayControl
-            className={`${CLASS_BASE}__action-status-display`}
+      <ViewElement className={`amplify-${CLASS_BASE}__action__summary`}>
+        <ViewElement className={`amplify-${CLASS_BASE}__action-destination`}>
+          <DescriptionList
+            descriptions={[
+              {
+                term: `${actionDestination}:`,
+                details: destinationList.length ? (
+                  <>
+                    {destinationList.map((key, index) => (
+                      <Breadcrumb
+                        isCurrent={index === destinationList.length - 1}
+                        key={`${key}-${index}`}
+                        // if the copy has started, make the breadcrumbs not navigable any more
+                        onNavigate={
+                          hasStarted
+                            ? undefined
+                            : () => handleNavigatePath(index)
+                        }
+                        // If bucket level access, show bucket name as root breadcrumb
+                        name={
+                          key === ''
+                            ? location.current?.bucket
+                            : key.replace('/', '')
+                        }
+                      />
+                    ))}
+                  </>
+                ) : (
+                  '-'
+                ),
+              },
+            ]}
           />
-        ) : (
-          <ViewElement className={`${CLASS_BASE}__action-status-display`}>
+        </ViewElement>
+        <StatusDisplayControl
+          className={`amplify-${CLASS_BASE}__action__status`}
+        />
+      </ViewElement>
+
+      <ViewElement className={`amplify-${CLASS_BASE}__action__footer`}>
+        <ViewElement className={`amplify-${CLASS_BASE}__action__message`}>
+          <ViewElement className={``}>
             Copy action may overwrite existing files at selected destination.
           </ViewElement>
-        )}
-        <ActionCancelControl className={`${CLASS_BASE}__cancel`} />
-        <ActionStartControl className={`${CLASS_BASE}__upload-action-start`} />
+        </ViewElement>
+        <ViewElement className={`amplify-${CLASS_BASE}__action__buttons`}>
+          <ActionCancelControl
+            className={`amplify-${CLASS_BASE}__action__cancel`}
+          />
+          <ActionStartControl
+            className={`amplify-${CLASS_BASE}__action__start`}
+          />
+        </ViewElement>
       </ViewElement>
     </ControlsContextProvider>
   );

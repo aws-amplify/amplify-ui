@@ -78,21 +78,27 @@ export function LocationsView({
   return (
     <ControlsContextProvider {...contextValue}>
       <div
-        className={resolveClassName(CLASS_BASE, className)}
+        className={resolveClassName(`amplify-${CLASS_BASE}`, className)}
         data-testid="LOCATIONS_VIEW"
       >
         <Title>Home</Title>
-        <ViewElement className={`${CLASS_BASE}__location-detail-view-controls`}>
-          <SearchControl className={`${CLASS_BASE}__locations-view-search`} />
-          <Paginate
-            currentPage={page}
-            disableNext={isPaginateNextDisabled}
-            disablePrevious={isPaginatePreviousDisabled}
-            handleNext={onPaginateNext}
-            handlePrevious={onPaginatePrevious}
+        <ViewElement className={`amplify-${CLASS_BASE}__controls`}>
+          <SearchControl
+            className={`amplify-${CLASS_BASE}__controls__search`}
           />
+          <ViewElement
+            className={`amplify-${CLASS_BASE}__controls__pagination`}
+          >
+            <Paginate
+              currentPage={page}
+              disableNext={isPaginateNextDisabled}
+              disablePrevious={isPaginatePreviousDisabled}
+              handleNext={onPaginateNext}
+              handlePrevious={onPaginatePrevious}
+            />
+          </ViewElement>
           <DataRefreshControl
-            className={`${CLASS_BASE}__locations-view-data-refresh`}
+            className={`amplify-${CLASS_BASE}__controls__refresh`}
           />
         </ViewElement>
         <LocationsMessage show={hasError} message={message} />

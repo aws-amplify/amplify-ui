@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { HeadingElement } from '../../context/elements/definitions';
+import { ViewElement } from '../../context/elements/definitions';
 import { CLASS_BASE } from '../constants';
 
-const BLOCK_NAME = `${CLASS_BASE}__title`;
+const BLOCK_NAME = `amplify-${CLASS_BASE}__title`;
 
 interface TitleControlProps {
   children?: React.ReactNode;
@@ -12,5 +12,5 @@ interface TitleControlProps {
 export const TitleControl = ({
   children,
 }: TitleControlProps): React.JSX.Element => (
-  <HeadingElement className={BLOCK_NAME}>{children}</HeadingElement>
+  <ViewElement className={BLOCK_NAME}>{children}</ViewElement>
 );

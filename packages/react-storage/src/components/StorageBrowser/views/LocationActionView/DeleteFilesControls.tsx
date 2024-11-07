@@ -55,23 +55,35 @@ export const DeleteFilesControls = (props: {
 
   return (
     <ControlsContextProvider {...contextValue}>
-      <Exit
-        onClick={() => {
-          onExit(current!);
-        }}
-        disabled={disableClose}
-      />
-      <Title />
-      <ViewElement className={`${CLASS_BASE}__table-wrapper`}>
-        <DataTableControl className={`${CLASS_BASE}__table`} />
-      </ViewElement>
-      <ViewElement className={`${CLASS_BASE}__action-footer`}>
-        <StatusDisplayControl
-          className={`${CLASS_BASE}__action-status-display`}
+      <ViewElement className={`amplify-${CLASS_BASE}__navigation`}>
+        <Exit
+          onClick={() => {
+            onExit(current!);
+          }}
+          disabled={disableClose}
         />
-
-        <ActionCancelControl className={`${CLASS_BASE}__cancel`} />
-        <ActionStartControl />
+      </ViewElement>
+      <Title />
+      <ViewElement className={`amplify-${CLASS_BASE}__table__wrapper`}>
+        <DataTableControl className={`amplify-${CLASS_BASE}__table`} />
+      </ViewElement>
+      <ViewElement className={`amplify-${CLASS_BASE}__action__summary`}>
+        <StatusDisplayControl
+          className={`amplify-${CLASS_BASE}__action__status`}
+        />
+      </ViewElement>
+      <ViewElement className={`amplify-${CLASS_BASE}__action__footer`}>
+        <ViewElement
+          className={`amplify-${CLASS_BASE}__action__message`}
+        ></ViewElement>
+        <ViewElement className={`amplify-${CLASS_BASE}__action__buttons`}>
+          <ActionCancelControl
+            className={`amplify-${CLASS_BASE}__action__cancel`}
+          />
+          <ActionStartControl
+            className={`amplify-${CLASS_BASE}__action__start`}
+          />
+        </ViewElement>
       </ViewElement>
     </ControlsContextProvider>
   );

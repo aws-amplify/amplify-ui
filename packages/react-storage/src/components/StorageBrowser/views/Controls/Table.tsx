@@ -40,7 +40,7 @@ const {
   Span,
 } = StorageBrowserElements;
 
-const BLOCK_NAME = `${CLASS_BASE}__table`;
+const BLOCK_NAME = `amplify-${CLASS_BASE}__table`;
 const ICON_CLASS = `${BLOCK_NAME}__data__icon`;
 const TABLE_DATA_CLASS = `${BLOCK_NAME}__data`;
 const TABLE_HEADER_CLASS = `${BLOCK_NAME}__header`;
@@ -154,7 +154,7 @@ export function TableControl<U>({
   });
 
   return (
-    <ViewElement className={'storage-browser__table-wrapper'}>
+    <ViewElement className={'amplify-storage-browser__table__wrapper'}>
       <Table
         {...dropHandlers}
         aria-label={ariaLabel}

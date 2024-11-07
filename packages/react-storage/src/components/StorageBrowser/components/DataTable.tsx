@@ -12,7 +12,7 @@ import {
 
 import { CLASS_BASE } from '../views/constants';
 
-export const TABLE_CLASS_NAME = `${CLASS_BASE}__table`;
+export const TABLE_CLASS_NAME = `amplify-${CLASS_BASE}__table`;
 export const TABLE_HEADER_CLASS_NAME = `${TABLE_CLASS_NAME}__header`;
 export const TABLE_HEADER_BUTTON_CLASS_NAME = `${TABLE_CLASS_NAME}__header__button`;
 export const TABLE_ROW_CLASS_NAME = `${TABLE_CLASS_NAME}__row`;
@@ -61,7 +61,7 @@ export function DataTable<
   const { columns, rows } = data ?? {};
 
   return (
-    <ViewElement className="storage-browser__table-wrapper">
+    <ViewElement className="amplify-storage-browser__table__wrapper">
       <TableElement aria-label="Table" className={TABLE_CLASS_NAME}>
         <TableHeadElement className={`${TABLE_CLASS_NAME}__head`}>
           <TableRowElement className={TABLE_ROW_CLASS_NAME}>

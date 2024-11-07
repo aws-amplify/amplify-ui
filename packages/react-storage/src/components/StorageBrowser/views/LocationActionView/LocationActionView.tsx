@@ -37,7 +37,7 @@ export const LocationActionView = ({
 
   return (
     <div
-      className={resolveClassName(CLASS_BASE, className)}
+      className={resolveClassName(`amplify-${CLASS_BASE}`, className)}
       data-testid="LOCATION_ACTION_VIEW"
     >
       {actionType === 'CREATE_FOLDER' ? (
