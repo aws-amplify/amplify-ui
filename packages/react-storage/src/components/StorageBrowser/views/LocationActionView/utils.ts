@@ -110,7 +110,7 @@ export const getActionViewTableData = <T extends FileItem | FileData>({
               item.data.key
             }`;
 
-            const buttonCell: DataTableButtonDataCell = {
+            const buttonCell: WithKey<DataTableButtonDataCell> = {
               key,
               type: 'button',
               content: { isDisabled, onClick, ariaLabel, icon: 'cancel' },

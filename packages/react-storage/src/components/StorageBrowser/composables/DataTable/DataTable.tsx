@@ -13,11 +13,11 @@ import { WithKey } from '../../components/types';
 import { CheckboxHeader } from './headers/CheckboxHeader';
 
 export interface DataTableRow {
-  content: DataTableDataCell[];
+  content: WithKey<DataTableDataCell>[];
 }
 
 export interface DataTableProps {
-  headers: DataTableHeader[];
+  headers: WithKey<DataTableHeader>[];
   rows: WithKey<DataTableRow>[];
 }
 
