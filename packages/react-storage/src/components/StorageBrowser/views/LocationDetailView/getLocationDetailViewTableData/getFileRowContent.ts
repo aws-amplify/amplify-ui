@@ -19,7 +19,6 @@ export const getFileRowContent = ({
 }: {
   currentLocation?: LocationData;
   currentPath: string;
-
   isSelected: boolean;
   lastModified: Date;
   rowId: string;
