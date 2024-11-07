@@ -4,7 +4,7 @@ import {
   TaskHandlerInput,
   TaskHandlerOutput,
   TaskHandlerOptions,
-} from '../types';
+} from './types';
 
 export interface CreateFolderHandlerData extends TaskData {}
 export interface CreateFolderHandlerOptions extends TaskHandlerOptions {

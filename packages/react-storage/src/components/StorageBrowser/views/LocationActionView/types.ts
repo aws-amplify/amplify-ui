@@ -1,22 +1,18 @@
-import {
-  LocationData,
-  TaskData,
-  TaskHandler,
-  TaskHandlerInput,
-} from '../../actions';
+import { TaskData, TaskHandler, TaskHandlerInput } from '../../actions';
 import {
   ComponentName,
   DefaultActionKey,
   TaskActionConfig,
 } from '../../actions/configs';
-import { TaskCounts } from '../../controls/types';
-import { Tasks } from '../../tasks';
+import { StatusCounts, Tasks } from '../../tasks';
 
 export interface ActionViewState<T extends TaskData = TaskData> {
-  onExit: (location: LocationData) => void;
+  isProcessing: boolean;
+  isProcessingComplete: boolean;
   onActionStart: () => void;
   onActionCancel: () => void;
-  taskCounts: TaskCounts;
+  onExit: () => void;
+  statusCounts: StatusCounts;
   tasks: Tasks<T>;
 }
 

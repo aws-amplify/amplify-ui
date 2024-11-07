@@ -1,2 +1,3 @@
+export { INITIAL_STATUS_COUNTS } from './constants';
 export { useProcessTasks } from './useProcessTasks';
-export { Task, Tasks, TaskStatus } from './types';
+export { StatusCounts, Task, Tasks, TaskStatus } from './types';

@@ -5,15 +5,14 @@ import {
   TaskHandlerOptions,
   TaskHandlerInput,
   TaskHandlerOutput,
-  TaskData,
-} from '../types';
-import { FileData } from './listLocationItems';
+  FileDataItem,
+} from './types';
 
 import { constructBucket } from './utils';
 
 export interface DeleteHandlerOptions extends TaskHandlerOptions {}
 
-export interface DeleteHandlerData extends TaskData, FileData {}
+export interface DeleteHandlerData extends FileDataItem {}
 
 export interface DeleteHandlerInput
   extends TaskHandlerInput<DeleteHandlerData, DeleteHandlerOptions> {}

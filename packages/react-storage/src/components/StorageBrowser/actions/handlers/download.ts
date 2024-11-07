@@ -1,15 +1,15 @@
 import { getUrl } from '../../storage-internal';
 import {
-  TaskData,
+  FileDataItem,
   TaskHandler,
   TaskHandlerInput,
   TaskHandlerOptions,
   TaskHandlerOutput,
-} from '../types';
-import { FileData } from './listLocationItems';
+} from './types';
+
 import { constructBucket } from './utils';
 
-export interface DownloadHandlerData extends TaskData, FileData {}
+export interface DownloadHandlerData extends FileDataItem {}
 export interface DownloadHandlerOptions extends TaskHandlerOptions {}
 
 export interface DownloadHandlerInput
