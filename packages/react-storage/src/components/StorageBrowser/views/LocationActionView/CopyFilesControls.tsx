@@ -40,11 +40,11 @@ export const CopyFilesControls = (props: {
   } = useCopyView(props);
 
   const [{ location }] = useStore();
-  const { current } = location;
-  const path = current?.prefix;
+  const { key } = location;
+
   const tableData = getActionViewTableData({
     tasks,
-    path: path ?? '',
+    folder: key,
     isProcessing,
   });
 

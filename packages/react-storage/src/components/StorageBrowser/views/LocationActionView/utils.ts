@@ -44,11 +44,11 @@ export const getFileTypeDisplayValue = (fileName: string): string =>
 
 export const getActionViewTableData = <T extends FileItem | FileDataItem>({
   tasks,
-  path,
+  folder,
   isProcessing,
 }: {
   tasks: Task<T>[];
-  path: string;
+  folder: string;
   isProcessing: boolean;
 }): DataTableProps => {
   const rows: DataTableProps['rows'] = tasks.map((item) => {
@@ -73,7 +73,7 @@ export const getActionViewTableData = <T extends FileItem | FileDataItem>({
             };
           }
           case 'folder': {
-            return { key, type: 'text', content: { text: path } };
+            return { key, type: 'text', content: { text: folder } };
           }
           case 'type': {
             return {

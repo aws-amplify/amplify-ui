@@ -113,7 +113,7 @@ describe('getActionViewTableData', () => {
   it('should return correct table data for all task statuses', () => {
     const result = getActionViewTableData({
       tasks,
-      path: '',
+      folder: '',
       isProcessing: true,
     });
 
@@ -156,7 +156,7 @@ describe('getActionViewTableData', () => {
 
     const result = getActionViewTableData({
       tasks,
-      path: '',
+      folder: '',
       isProcessing: true,
     });
 
@@ -186,7 +186,7 @@ describe('getActionViewTableData', () => {
 
     const result = getActionViewTableData({
       tasks,
-      path: 'folder/subfolder/',
+      folder: 'folder/subfolder/',
       isProcessing: false,
     });
 

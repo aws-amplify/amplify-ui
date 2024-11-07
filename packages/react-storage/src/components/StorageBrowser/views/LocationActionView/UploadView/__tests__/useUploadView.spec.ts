@@ -118,16 +118,6 @@ describe('useUploadView', () => {
   });
 
   it('should call handleProcessTasks with the expected values', () => {
-    // const tasks: TasksModule.Task<StoreModule.FileItem>[] = [
-    //   {
-    //     ...fileItem,
-    //     cancel: undefined,
-    //     message: undefined,
-    //     remove: jest.fn(),
-    //     status: 'QUEUED',
-    //   },
-    // ];
-    // useProcessTasksSpy.mockReturnValue([tasks, handleProcessTasks]);
     const { result } = renderHook(() => useUploadView());
     act(() => {
       result.current.onActionStart();
