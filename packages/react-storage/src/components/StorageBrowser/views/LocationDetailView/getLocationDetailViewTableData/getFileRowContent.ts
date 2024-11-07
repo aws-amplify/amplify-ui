@@ -9,7 +9,6 @@ import { LOCATION_DETAIL_VIEW_HEADERS } from './constants';
 export const getFileRowContent = ({
   currentLocation,
   currentPath,
-
   isSelected,
   lastModified,
   rowId,
