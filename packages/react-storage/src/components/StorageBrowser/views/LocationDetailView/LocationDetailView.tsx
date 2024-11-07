@@ -66,6 +66,8 @@ export function LocationDetailView({
     hasError,
     message,
     shouldShowEmptyMessage,
+    searchPlaceholder,
+    showIncludeSubfolders,
     onDropFiles,
     onRefresh,
     onPaginateNext,
@@ -75,6 +77,7 @@ export function LocationDetailView({
     onNavigateHome,
     onSelect,
     onSelectAll,
+    onSearch,
   } = useLocationDetailView({ onNavigate: onNavigateProp, onExit });
 
   const title = currentLocation?.prefix;
@@ -89,6 +92,8 @@ export function LocationDetailView({
           isDataRefreshDisabled: isLoading,
           currentLocation,
           currentPath,
+          searchPlaceholder,
+          showIncludeSubfolders,
           tableData: getLocationDetailViewTableData({
             areAllFilesSelected,
             currentLocation,
@@ -107,6 +112,7 @@ export function LocationDetailView({
         onNavigate={onNavigate}
         onNavigateHome={onNavigateHome}
         onRefresh={onRefresh}
+        onSearch={onSearch}
       >
         <NavigationControl
           className={`${CLASS_BASE}__location-detail-view-navigation`}

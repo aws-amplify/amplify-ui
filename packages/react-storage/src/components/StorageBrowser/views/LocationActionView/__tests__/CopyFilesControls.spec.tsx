@@ -1,10 +1,12 @@
 import React from 'react';
 import { render } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
+import * as AmplifyReactCore from '@aws-amplify/ui-react-core';
+
+import * as TempActions from '../../../do-not-import-from-here/createTempActionsProvider';
 import * as UseCopyViewModule from '../CopyView/useCopyView';
 import * as Config from '../../../providers/configuration';
-
-import userEvent from '@testing-library/user-event';
-import * as TempActions from '../../../do-not-import-from-here/createTempActionsProvider';
 import { CopyFilesControls } from '../CopyFilesControls';
 
 const TEST_ACTIONS = {
@@ -15,12 +17,28 @@ const TEST_ACTIONS = {
 
 jest.spyOn(TempActions, 'useTempActions').mockReturnValue(TEST_ACTIONS);
 const useCopyViewSpy = jest.spyOn(UseCopyViewModule, 'useCopyView');
+const useDataSpy = jest.spyOn(AmplifyReactCore, 'useDataState');
 
 describe('CopyFilesControls', () => {
   const onExitMock = jest.fn();
   const onActionCancelMock = jest.fn();
   const onActionStartMock = jest.fn();
   const onSetDestinationList = jest.fn();
+
+  beforeAll(() => {
+    useDataSpy.mockReturnValue([
+      {
+        data: {
+          items: [{ id: '1', key: 'Location A', type: 'FOLDER' }],
+          nextToken: undefined,
+        },
+        message: '',
+        hasError: false,
+        isLoading: false,
+      },
+      jest.fn(),
+    ]);
+  });
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -98,8 +116,9 @@ describe('CopyFilesControls', () => {
   });
 
   it('renders all controls', () => {
-    const { getByRole } = render(<CopyFilesControls />);
+    const { getByRole, getByPlaceholderText } = render(<CopyFilesControls />);
 
+    expect(getByPlaceholderText('Search for folders')).toBeInTheDocument();
     expect(getByRole('button', { name: 'Exit' })).toBeInTheDocument();
     expect(getByRole('button', { name: 'Start' })).toBeInTheDocument();
     expect(getByRole('button', { name: 'Cancel' })).toBeInTheDocument();
