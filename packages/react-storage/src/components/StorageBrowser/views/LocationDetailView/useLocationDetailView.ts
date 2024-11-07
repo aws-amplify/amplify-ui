@@ -6,11 +6,11 @@ import { useDataState } from '@aws-amplify/ui-react-core';
 import { usePaginate } from '../hooks/usePaginate';
 import { useStore } from '../../providers/store';
 import {
+  FileData,
   LocationData,
   LocationItemData,
   listLocationItemsHandler,
 } from '../../actions';
-import { FileData } from '../../actions/handlers';
 import { isFile } from '../utils';
 import { createEnhancedListHandler } from '../../actions/createEnhancedListHandler';
 import { useGetActionInput } from '../../providers/configuration';
@@ -240,8 +240,9 @@ export function useLocationDetailView(
         delimiter: includeSubfolders ? undefined : listOptions.delimiter,
         search: { query, filterKey: 'key' as const },
       };
+
       handleReset();
-      handleList({ config: getConfig(), prefix, options: searchOptions });
+      handleList({ config: getConfig(), prefix: key, options: searchOptions });
       dispatchStoreAction({ type: 'RESET_LOCATION_ITEMS' });
     },
   };
