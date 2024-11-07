@@ -301,4 +301,26 @@ describe('LocationsListView', () => {
       },
     });
   });
+
+  it('allows searching for items', async () => {
+    const user = userEvent.setup();
+    const { getByPlaceholderText, getByText, queryByText } = render(
+      <LocationsView />
+    );
+
+    const input = getByPlaceholderText('Filter folders and files');
+
+    expect(input).toBeInTheDocument();
+    expect(queryByText('item-0/')).toBeInTheDocument();
+    expect(queryByText('item-1/')).toBeInTheDocument();
+
+    input.focus();
+    await act(async () => {
+      await user.keyboard('item-0');
+      await user.click(getByText('Submit'));
+    });
+
+    expect(queryByText('item-0/')).toBeInTheDocument();
+    expect(queryByText('item-1/')).not.toBeInTheDocument();
+  });
 });
