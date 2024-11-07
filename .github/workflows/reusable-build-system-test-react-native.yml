@@ -38,6 +38,7 @@ jobs:
             platform: ios
           - build-tool: expo
             platform: android
+            build-tool-version: latest
             framework-version:
                 - { formatted: 075, value: 0.75}
                 - { formatted: 074, value: 0.74 }
