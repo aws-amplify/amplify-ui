@@ -42,7 +42,8 @@ const useDeleteViewSpy = jest
         status: 'QUEUED',
         data: {
           id: 'id',
-          key: 'test-item',
+          key: 'some-prefix/test-item',
+          fileKey: 'test-item',
           lastModified: new Date(),
           size: 1000,
           type: 'FILE',
@@ -56,7 +57,8 @@ const useDeleteViewSpy = jest
         status: 'QUEUED',
         data: {
           id: 'id2',
-          key: 'test-item2',
+          key: 'some-prefix/test-item2',
+          fileKey: 'test-item2',
           lastModified: new Date(),
           size: 1000,
           type: 'FILE',
@@ -70,7 +72,8 @@ const useDeleteViewSpy = jest
         status: 'QUEUED',
         data: {
           id: 'id3',
-          key: 'test-item3',
+          key: 'some-prefix/test-item3',
+          fileKey: 'test-item3',
           lastModified: new Date(),
           size: 1000,
           type: 'FILE',
@@ -128,7 +131,8 @@ describe('DeleteFilesControls', () => {
           cancel: jest.fn(),
           data: {
             id: 'test-id',
-            key: 'key',
+            key: 'some-prefix/key',
+            fileKey: 'key',
             lastModified: new Date(),
             size: 1000,
             type: 'FILE',
@@ -169,7 +173,8 @@ describe('DeleteFilesControls', () => {
           cancel: jest.fn(),
           data: {
             id: 'test-id',
-            key: 'key',
+            key: 'some-prefix/key',
+            fileKey: 'key',
             lastModified: new Date(),
             size: 1000,
             type: 'FILE',
@@ -210,7 +215,8 @@ describe('DeleteFilesControls', () => {
           cancel: jest.fn(),
           data: {
             id: 'test-id',
-            key: 'key',
+            key: 'some-prefix/key',
+            fileKey: 'key',
             lastModified: new Date(),
             size: 1000,
             type: 'FILE',
@@ -275,7 +281,8 @@ describe('DeleteFilesControls', () => {
           cancel: jest.fn(),
           data: {
             id: 'test-id',
-            key: 'key',
+            key: 'some-prefix/key',
+            fileKey: 'key',
             lastModified: new Date(),
             size: 1000,
             type: 'FILE',

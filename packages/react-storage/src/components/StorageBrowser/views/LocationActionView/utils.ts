@@ -9,19 +9,17 @@ import { IconVariant } from '../../context/elements';
 import { WithKey } from '../../components/types';
 import { Task, TaskStatus } from '../../tasks';
 
-import { STATUS_DISPLAY_VALUES } from './constants';
+import {
+  DEFAULT_ACTION_VIEW_HEADERS,
+  STATUS_DISPLAY_VALUES,
+} from './constants';
 
-import { FileItem, isFileItem } from '../../providers';
-import { FileData } from '../../actions/handlers';
-
-const DELETE_ACTION_VIEW_HEADERS: DataTableProps['headers'] = [
-  { key: 'key', type: 'sort', content: { label: 'Name' } },
-  { key: 'folder', type: 'text', content: { text: 'Folder' } },
-  { key: 'type', type: 'text', content: { text: 'Type' } },
-  { key: 'size', type: 'text', content: { text: 'Size' } },
-  { key: 'status', type: 'sort', content: { label: 'Status' } },
-  { key: 'action', type: 'text', content: { text: '' } },
-];
+import {
+  FileDataItem,
+  FileItem,
+  isFileItem,
+  isFileDataItem,
+} from '../../actions';
 
 export const getActionIconVariant = (status: TaskStatus): IconVariant => {
   switch (status) {
@@ -44,12 +42,7 @@ export const getFileTypeDisplayValue = (fileName: string): string =>
     ? fileName.slice(fileName.lastIndexOf('.') + 1)
     : '';
 
-export const getFilenameWithoutPrefix = (path: string): string => {
-  const folder = path.lastIndexOf('/') + 1;
-  return path.slice(folder, path.length);
-};
-
-export const getActionViewTableData = <T extends FileItem | FileData>({
+export const getActionViewTableData = <T extends FileItem | FileDataItem>({
   tasks,
   path,
   isProcessing,
@@ -61,8 +54,13 @@ export const getActionViewTableData = <T extends FileItem | FileData>({
   const rows: DataTableProps['rows'] = tasks.map((item) => {
     const row: WithKey<DataTableRow> = {
       key: item.data.id,
-      content: DELETE_ACTION_VIEW_HEADERS.map(({ key: columnKey }) => {
+      content: DEFAULT_ACTION_VIEW_HEADERS.map(({ key: columnKey }) => {
         const key = `${columnKey}-${item.data.id}`;
+
+        const displayKey = isFileDataItem(item.data)
+          ? item.data.fileKey
+          : item.data.key;
+
         switch (columnKey) {
           case 'key': {
             return {
@@ -70,7 +68,7 @@ export const getActionViewTableData = <T extends FileItem | FileData>({
               type: 'text',
               content: {
                 icon: getActionIconVariant(item.status),
-                text: getFilenameWithoutPrefix(item.data.key),
+                text: displayKey,
               },
             };
           }
@@ -81,7 +79,7 @@ export const getActionViewTableData = <T extends FileItem | FileData>({
             return {
               key,
               type: 'text',
-              content: { text: getFileTypeDisplayValue(item.data.key) },
+              content: { text: getFileTypeDisplayValue(displayKey) },
             };
           }
           case 'size': {
@@ -106,9 +104,9 @@ export const getActionViewTableData = <T extends FileItem | FileData>({
               (isProcessing && isUndefined(item.cancel)) ||
               (item.status !== 'PENDING' && item.status !== 'QUEUED');
             const onClick = isProcessing ? item.cancel : item.remove;
-            const ariaLabel = `${isProcessing ? 'Cancel' : 'Remove'} item: ${
-              item.data.key
-            }`;
+            const ariaLabel = `${
+              isProcessing ? 'Cancel' : 'Remove'
+            } item: ${displayKey}`;
 
             const buttonCell: WithKey<DataTableButtonDataCell> = {
               key,
@@ -127,5 +125,5 @@ export const getActionViewTableData = <T extends FileItem | FileData>({
     return row;
   });
 
-  return { headers: DELETE_ACTION_VIEW_HEADERS, rows };
+  return { headers: DEFAULT_ACTION_VIEW_HEADERS, rows };
 };

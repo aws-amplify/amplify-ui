@@ -1,10 +1,9 @@
-import { FileData } from '../../../actions/handlers';
+import { FileDataItem } from '../../../actions/handlers';
 import { Tasks } from '../../../tasks';
 
 import {
   getActionIconVariant,
   getFileTypeDisplayValue,
-  getFilenameWithoutPrefix,
   getActionViewTableData,
 } from '../utils';
 
@@ -30,25 +29,15 @@ describe('getFileTypeDisplayValue', () => {
   });
 });
 
-describe('getFilenameWithoutPrefix', () => {
-  it('should return the filename without the path', () => {
-    expect(getFilenameWithoutPrefix('/path/to/file.txt')).toBe('file.txt');
-    expect(getFilenameWithoutPrefix('document.pdf')).toBe('document.pdf');
-  });
-
-  it('should handle paths with multiple slashes', () => {
-    expect(getFilenameWithoutPrefix('/path//to///file.txt')).toBe('file.txt');
-  });
-});
-
 describe('getActionViewTableData', () => {
   const mockRemove = jest.fn();
 
-  const tasks: Tasks<FileData> = [
+  const tasks: Tasks<FileDataItem> = [
     {
       data: {
         id: '1',
-        key: 'file1.txt',
+        key: 'some-prefix/file1.txt',
+        fileKey: 'file1.txt',
         lastModified: new Date(),
         size: 1000,
         type: 'FILE',
@@ -62,7 +51,8 @@ describe('getActionViewTableData', () => {
     {
       data: {
         id: '2',
-        key: 'file2.jpg',
+        key: 'some-prefix/file2.jpg',
+        fileKey: 'file2.jpg',
         lastModified: new Date(),
         size: 1000,
         type: 'FILE',
@@ -76,7 +66,8 @@ describe('getActionViewTableData', () => {
     {
       data: {
         id: '3',
-        key: 'file3.pdf',
+        key: 'some-prefix/file3.pdf',
+        fileKey: 'file3.pdf',
         lastModified: new Date(),
         size: 1000,
         type: 'FILE',
@@ -90,7 +81,8 @@ describe('getActionViewTableData', () => {
     {
       data: {
         id: '4',
-        key: 'file4.doc',
+        key: 'some-prefix/file4.doc',
+        fileKey: 'file4.doc',
         lastModified: new Date(),
         size: 1000,
         type: 'FILE',
@@ -104,7 +96,8 @@ describe('getActionViewTableData', () => {
     {
       data: {
         id: '5',
-        key: 'file5',
+        key: 'some-prefix/file5',
+        fileKey: 'file5',
         lastModified: new Date(),
         size: 1000,
         type: 'FILE',
@@ -128,11 +121,12 @@ describe('getActionViewTableData', () => {
   });
 
   it('should handle tasks with prefix keys', () => {
-    const tasks: Tasks<FileData> = [
+    const tasks: Tasks<FileDataItem> = [
       {
         data: {
           id: '1',
           key: 'folder/subfolder/file1.txt',
+          fileKey: 'file1.txt',
           lastModified: new Date(),
           size: 1000,
           type: 'FILE',
@@ -147,6 +141,7 @@ describe('getActionViewTableData', () => {
         data: {
           id: '2',
           key: '/root/file2.jpg',
+          fileKey: 'file2.jpg',
           lastModified: new Date(),
           size: 1000,
           type: 'FILE',
@@ -171,10 +166,11 @@ describe('getActionViewTableData', () => {
   it('should have remove handler on queued files', () => {
     const mockRemove = jest.fn();
     const mockCancel = jest.fn();
-    const tasks: Tasks<FileData> = [
+    const tasks: Tasks<FileDataItem> = [
       {
         data: {
           id: '1',
+          fileKey: 'file1.txt',
           key: 'folder/subfolder/file1.txt',
           lastModified: new Date(),
           size: 1000,
@@ -201,7 +197,7 @@ describe('getActionViewTableData', () => {
     expect(actionCell.content).toHaveProperty('onClick');
     expect(actionCell.content).toHaveProperty(
       'ariaLabel',
-      'Remove item: folder/subfolder/file1.txt'
+      'Remove item: file1.txt'
     );
     expect(result.rows).toMatchSnapshot();
   });

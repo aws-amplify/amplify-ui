@@ -5,7 +5,7 @@ import {
   ListHandlerOptions,
   ListHandlerInput,
   ListHandlerOutput,
-} from './types';
+} from './handlers';
 
 interface SearchOptions<T> {
   query: string;

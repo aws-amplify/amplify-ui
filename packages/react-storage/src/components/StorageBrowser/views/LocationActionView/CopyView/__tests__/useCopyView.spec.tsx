@@ -31,7 +31,8 @@ describe('useCopyView', () => {
         locationItems: {
           fileDataItems: [
             {
-              key: 'test-file.txt',
+              key: 'pre-pre/test-file.txt',
+              fileKey: 'test-file.txt',
               lastModified: new Date(),
               id: 'id',
               size: 10,

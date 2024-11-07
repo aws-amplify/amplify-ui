@@ -43,7 +43,7 @@ exports[`getActionViewTableData should handle tasks with prefix keys 1`] = `
       },
       {
         "content": {
-          "ariaLabel": "Cancel item: folder/subfolder/file1.txt",
+          "ariaLabel": "Cancel item: file1.txt",
           "icon": "cancel",
           "isDisabled": false,
           "onClick": [MockFunction],
@@ -95,7 +95,7 @@ exports[`getActionViewTableData should handle tasks with prefix keys 1`] = `
       },
       {
         "content": {
-          "ariaLabel": "Cancel item: /root/file2.jpg",
+          "ariaLabel": "Cancel item: file2.jpg",
           "icon": "cancel",
           "isDisabled": true,
           "onClick": [MockFunction],
@@ -152,7 +152,7 @@ exports[`getActionViewTableData should have remove handler on queued files 1`] =
       },
       {
         "content": {
-          "ariaLabel": "Remove item: folder/subfolder/file1.txt",
+          "ariaLabel": "Remove item: file1.txt",
           "icon": "cancel",
           "isDisabled": false,
           "onClick": [MockFunction],

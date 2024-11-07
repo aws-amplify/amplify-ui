@@ -39,7 +39,8 @@ describe('useDeleteView', () => {
         locationItems: {
           fileDataItems: [
             {
-              key: 'test-file.txt',
+              key: 'pretend-prefix/test-file.txt',
+              fileKey: 'test-file.txt',
               lastModified: new Date(),
               id: 'id',
               size: 10,

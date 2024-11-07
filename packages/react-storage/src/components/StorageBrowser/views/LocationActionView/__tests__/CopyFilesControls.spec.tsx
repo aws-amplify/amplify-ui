@@ -2,6 +2,8 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+import * as ReactCoreModule from '@aws-amplify/ui-react-core';
+
 import * as TempActions from '../../../do-not-import-from-here/createTempActionsProvider';
 
 import * as Config from '../../../providers/configuration';
@@ -11,6 +13,19 @@ import { CopyFilesControls } from '../CopyFilesControls';
 
 const TEST_ACTIONS = { COPY_FILES: { options: { displayName: 'Copy files' } } };
 jest.spyOn(TempActions, 'useTempActions').mockReturnValue(TEST_ACTIONS);
+
+jest.spyOn(ReactCoreModule, 'useDataState').mockReturnValue([
+  {
+    data: {
+      items: [{ id: '1', key: 'Location A', type: 'FOLDER' }],
+      nextToken: undefined,
+    },
+    message: '',
+    hasError: false,
+    isLoading: false,
+  },
+  jest.fn(),
+]);
 
 jest.spyOn(Config, 'useGetActionInput').mockReturnValue(() => ({
   accountId: '123456789012',
@@ -23,7 +38,8 @@ const taskOne = {
   status: 'QUEUED' as const,
   data: {
     id: 'id',
-    key: 'test-item',
+    key: 'itsa-prefix/test-item',
+    fileKey: 'test-item',
     lastModified: new Date(),
     size: 1000,
     type: 'FILE' as const,
@@ -81,6 +97,14 @@ const postProcessingViewState: UseCopyViewModule.CopyViewState = {
 const useCopyViewSpy = jest.spyOn(UseCopyViewModule, 'useCopyView');
 describe('CopyFilesControls', () => {
   beforeEach(jest.clearAllMocks);
+
+  it('renders search input as expected', () => {
+    useCopyViewSpy.mockReturnValue(initialViewState);
+
+    const { getByPlaceholderText } = render(<CopyFilesControls />);
+
+    expect(getByPlaceholderText('Search for folders')).toBeInTheDocument();
+  });
 
   it('has the expected enabled and disabled flags when a destination has not been set', () => {
     useCopyViewSpy.mockReturnValue(initialViewState);

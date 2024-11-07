@@ -9,27 +9,12 @@ import {
   ListHandlerInput,
   ListHandlerOptions,
   ListHandlerOutput,
-} from '../types';
+  LocationItemData,
+} from './types';
 
 const DEFAULT_PAGE_SIZE = 1000;
 
-export interface FolderData {
-  key: string;
-  id: string;
-  type: 'FOLDER';
-}
-
-export interface FileData {
-  key: string;
-  lastModified: Date;
-  id: string;
-  size: number;
-  type: 'FILE';
-}
-
 type ListOutputItem = ListOutput['items'][number];
-
-export type LocationItemData = FileData | FolderData;
 
 export type LocationItemType = LocationItemData['type'];
 

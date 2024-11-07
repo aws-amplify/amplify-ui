@@ -6,11 +6,11 @@ import { useDataState } from '@aws-amplify/ui-react-core';
 import { usePaginate } from '../hooks/usePaginate';
 import { useStore } from '../../providers/store';
 import {
+  FileData,
   LocationData,
   LocationItemData,
   listLocationItemsHandler,
 } from '../../actions';
-import { FileData } from '../../actions/handlers';
 import { isFile, isLastPage } from '../utils';
 import { createEnhancedListHandler } from '../../actions/createEnhancedListHandler';
 import { useGetActionInput } from '../../providers/configuration';

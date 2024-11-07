@@ -6,7 +6,6 @@ export {
 export {
   FileItem,
   FileItems,
-  isFileItem,
   StoreProviderProps,
   StoreProvider,
 } from './store';
