@@ -57,12 +57,12 @@ describe('useNavigation', () => {
     });
   });
 
-  it('returns null if current location is undefined', () => {
+  it('returns empty items if current location is undefined', () => {
     mockUseControlsContext.mockReturnValue({ data: {} });
 
     const { result } = renderHook(() => useNavigation());
 
-    expect(result.current).toBeNull();
+    expect(result.current).toStrictEqual({ items: [] });
   });
 
   it('calls onNavigateHome', () => {

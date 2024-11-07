@@ -13,10 +13,6 @@ export const NavigationControl = ({
 
   const ResolvedNavigation = useResolvedComposable(Navigation, 'Navigation');
 
-  if (!props) {
-    return null;
-  }
-
   return (
     <ViewElement className={className}>
       <ResolvedNavigation {...props} />

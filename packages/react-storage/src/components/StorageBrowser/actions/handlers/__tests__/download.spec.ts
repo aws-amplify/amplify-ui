@@ -14,7 +14,8 @@ const baseInput: DownloadHandlerInput = {
   },
   data: {
     id: 'id',
-    key: 'key',
+    key: 'prefix/file-name',
+    fileKey: 'file-name',
     lastModified: new Date(),
     size: 1000022,
     type: 'FILE',

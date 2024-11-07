@@ -5,11 +5,7 @@ import {
   ActionViewState,
 } from '../types';
 
-export interface DeleteViewState extends ActionViewState<DeleteHandlerData> {
-  disableCancel: boolean;
-  disableClose: boolean;
-  disablePrimary: boolean;
-}
+export interface DeleteViewState extends ActionViewState<DeleteHandlerData> {}
 
 export interface DeleteViewProps
   extends ActionViewProps,
