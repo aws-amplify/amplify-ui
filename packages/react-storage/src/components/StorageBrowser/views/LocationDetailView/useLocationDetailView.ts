@@ -260,8 +260,9 @@ export function useLocationDetailView(
         delimiter: includeSubfolders ? undefined : listOptions.delimiter,
         search: { query, filterKey: 'key' as const },
       };
+
       handleReset();
-      handleList({ config: getConfig(), prefix, options: searchOptions });
+      handleList({ config: getConfig(), prefix: key, options: searchOptions });
       dispatchStoreAction({ type: 'RESET_LOCATION_ITEMS' });
     },
   };
