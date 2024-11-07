@@ -69,7 +69,6 @@ import { getLivenessUserAgent } from '../../utils/platform';
 const CAMERA_ID_KEY = 'AmplifyLivenessCameraId';
 const DEFAULT_FACE_FIT_TIMEOUT = 7000;
 
-let userCamera: MediaDeviceInfo;
 let cameraCheckTimeStamp: number;
 let recordingStartTimestampActual: number;
 let recordingEndTimestamp: number;
@@ -970,10 +969,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           ? initialStreamDeviceId
           : realVideoDevices[0].deviceId;
 
-        userCamera = devices.filter(
-          (device) => device.deviceId === deviceId
-        )[0];
-
         let realVideoDeviceStream = initialStream;
         if (!isInitialStreamFromRealDevice) {
           realVideoDeviceStream = await navigator.mediaDevices.getUserMedia({
@@ -1320,7 +1315,12 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       // eslint-disable-next-line @typescript-eslint/require-await
       async getLiveness(context) {
         const { onAnalysisComplete } = context.componentProps!;
-        const { videoConstraints, videoEl } = context.videoAssociatedParams!;
+        const {
+          videoConstraints,
+          videoEl,
+          selectableDevices,
+          selectedDeviceId,
+        } = context.videoAssociatedParams!;
         const { initialFace, ovalDetails } = context.ovalAssociatedParams!;
         const { startFace, endFace } = context.faceMatchAssociatedParams!;
 
@@ -1337,6 +1337,10 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
               ?.ColorDisplayed;
           })
           .filter(Boolean);
+
+        const userCamera = selectableDevices?.find(
+          (device) => device.deviceId === selectedDeviceId
+        );
 
         // eslint-disable-next-line  @typescript-eslint/no-unsafe-call
         const deviceMetadata: { [key: string]: any } = {
