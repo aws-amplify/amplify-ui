@@ -48,14 +48,6 @@ export interface ControlsContext {
     tableData?: TableData;
     statusCounts?: StatusCounts;
   };
-  actionsConfig?: {
-    type:
-      | 'SINGLE_ACTION'
-      | 'BATCH_ACTION'
-      | 'LIST_LOCATIONS'
-      | 'LIST_LOCATION_ITEMS';
-    isCancelable?: boolean;
-  };
   onActionCancel?: () => void;
   onActionStart?: () => void;
   onDropComplete?: DropZoneProps['onDropComplete'];

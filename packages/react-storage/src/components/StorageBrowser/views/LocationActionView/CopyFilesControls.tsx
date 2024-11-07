@@ -62,7 +62,6 @@ export const CopyFilesControls = (props: {
       isActionCancelDisabled,
       actionCancelLabel: 'Cancel',
     },
-    actionsConfig: { type: 'BATCH_ACTION', isCancelable: true },
     onActionStart,
     onActionCancel,
   };
