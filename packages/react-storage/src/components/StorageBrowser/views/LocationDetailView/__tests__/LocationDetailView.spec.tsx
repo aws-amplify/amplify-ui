@@ -153,6 +153,42 @@ describe('LocationDetailView', () => {
     expect(messageText).toBeInTheDocument();
   });
 
+  it('allows searching for items', async () => {
+    useStoreSpy.mockReturnValueOnce([
+      {
+        location: { current: location, path: '', key: location.prefix },
+        locationItems: { fileDataItems: undefined },
+      } as StoreModule.UseStoreState,
+      dispatchStoreAction,
+    ]);
+    mockListItemsAction({ result: testResult });
+
+    const { getByPlaceholderText, getByText } = render(<LocationDetailView />);
+
+    const input = getByPlaceholderText('Search current folder');
+    const subfolderOption = getByText('Include subfolders');
+
+    expect(input).toBeInTheDocument();
+    expect(subfolderOption).toBeInTheDocument();
+
+    input.focus();
+    await act(async () => {
+      await user.keyboard('boo');
+      await user.click(getByText('Submit'));
+    });
+
+    expect(handleList).toHaveBeenCalledWith(
+      expect.objectContaining({
+        options: expect.objectContaining({
+          search: {
+            filterKey: 'key',
+            query: 'boo',
+          },
+        }),
+      })
+    );
+  });
+
   it('loads initial location items for a BUCKET location as expected', () => {
     useStoreSpy.mockReturnValueOnce([
       {

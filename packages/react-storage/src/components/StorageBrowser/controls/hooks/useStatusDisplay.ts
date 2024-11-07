@@ -4,18 +4,18 @@ import { displayText } from '../../displayText/en';
 
 export const useStatusDisplay = (): StatusDisplayProps => {
   const { data } = useControlsContext();
-  const { taskCounts } = data;
+  const { statusCounts } = data;
 
-  if (!taskCounts?.TOTAL) {
+  if (!statusCounts?.TOTAL) {
     return { statuses: [], total: 0 };
   }
 
   const statuses = [
-    { name: displayText.statusDisplayCompleted, count: taskCounts.COMPLETE },
-    { name: displayText.statusDisplayFailed, count: taskCounts.FAILED },
-    { name: displayText.statusDisplayCanceled, count: taskCounts.CANCELED },
-    { name: displayText.statusDisplayQueued, count: taskCounts.QUEUED },
+    { name: displayText.statusDisplayCompleted, count: statusCounts.COMPLETE },
+    { name: displayText.statusDisplayFailed, count: statusCounts.FAILED },
+    { name: displayText.statusDisplayCanceled, count: statusCounts.CANCELED },
+    { name: displayText.statusDisplayQueued, count: statusCounts.QUEUED },
   ];
 
-  return { statuses, total: taskCounts.TOTAL };
+  return { statuses, total: statusCounts.TOTAL };
 };

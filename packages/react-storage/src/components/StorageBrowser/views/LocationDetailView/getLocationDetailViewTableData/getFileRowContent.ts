@@ -1,8 +1,10 @@
+import { humanFileSize } from '@aws-amplify/ui';
+
 import { DataTableProps } from '../../../composables/DataTable';
 import { LocationData } from '../../../actions';
-import { LOCATION_DETAIL_VIEW_HEADERS } from './getLocationDetailViewTableData';
-import { humanFileSize } from '@aws-amplify/ui';
 import { displayText } from '../../../displayText/en';
+
+import { LOCATION_DETAIL_VIEW_HEADERS } from './constants';
 
 export const getFileRowContent = ({
   currentLocation,

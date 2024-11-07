@@ -74,13 +74,13 @@ export const Search = ({
       </ButtonElement>
       {showIncludeSubfolders ? (
         <SpanElement className={`${BLOCK_NAME}-${TOGGLE_BLOCK}__container`}>
-          <InputElement
-            checked={subfoldersIncluded}
-            className={`${BLOCK_NAME}-${TOGGLE_BLOCK}__checkbox`}
-            onChange={() => setSubfoldersIncluded(!subfoldersIncluded)}
-            type="checkbox"
-          />
           <LabelElement className={`${BLOCK_NAME}-${TOGGLE_BLOCK}__label`}>
+            <InputElement
+              checked={subfoldersIncluded}
+              className={`${BLOCK_NAME}-${TOGGLE_BLOCK}__checkbox`}
+              onChange={() => setSubfoldersIncluded(!subfoldersIncluded)}
+              type="checkbox"
+            />
             Include subfolders
           </LabelElement>
         </SpanElement>

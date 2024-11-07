@@ -13,8 +13,6 @@ Feature: Drag and drop files within Storage Browser
       Then I see "Upload Files"
       Then I see "test.txt"
 
-  """
-  Comment out for now until behavior is confirmed
   @react
   Scenario: Drag and drop folder into Location Detail view
       When I type my "email" with status "CONFIRMED"
@@ -25,6 +23,8 @@ Feature: Drag and drop files within Storage Browser
       Then I see "Upload Folder"
       Then I see "test"
 
+  """
+  Comment out for now upload is integrated
   @react
   Scenario: Drag and drop file into Upload Action view
     When I type my "email" with status "CONFIRMED"

@@ -40,7 +40,8 @@ describe('useDestinationPicker', () => {
         locationItems: {
           fileDataItems: [
             {
-              key: 'test-file.txt',
+              key: 'prefixer/test-file.txt',
+              fileKey: 'test-file.txt',
               lastModified: new Date(),
               id: 'id',
               size: 10,

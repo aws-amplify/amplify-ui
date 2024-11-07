@@ -14,7 +14,8 @@ const baseInput: DeleteHandlerInput = {
   },
   data: {
     id: 'id',
-    key: 'prefix/key',
+    key: 'prefix/key.png',
+    fileKey: 'key.png',
     lastModified: new Date(),
     size: 829292,
     type: 'FILE',

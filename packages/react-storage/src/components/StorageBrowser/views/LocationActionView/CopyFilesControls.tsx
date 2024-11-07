@@ -9,79 +9,71 @@ import { displayText } from '../../displayText/en';
 import { CLASS_BASE } from '../constants';
 import { DestinationPicker } from './DestinationPicker';
 
-import { useCopyView } from './CopyView/useCopyView';
+import { useCopyView } from './CopyView';
 import { DataTableControl } from '../../controls/DataTableControl';
 import { ControlsContextProvider } from '../../controls/context';
 import { getActionViewTableData } from './utils';
 import { useStore } from '../../providers/store';
 import { ControlsContext } from '../../controls/types';
 import { ActionStartControl } from '../../controls/ActionStartControl';
-import { getTasksHaveStarted } from './utils';
 import { DescriptionList } from '../../components/DescriptionList';
 import { StatusDisplayControl } from '../../controls/StatusDisplayControl';
 import { getDestinationListFullPrefix } from './utils/getDestinationPickerDataTable';
 import { ActionCancelControl } from '../../controls/ActionCancelControl';
-import { CopyHandlerData } from '../../actions';
 
 const { Exit } = Controls;
 const { actionSetDestination } = displayText;
 
-export const CopyFilesControls = ({
-  onExit: _onExit,
-}: {
+export const CopyFilesControls = (props: {
   onExit?: () => void;
 }): React.JSX.Element => {
   const {
     destinationList,
-    onSetDestinationList,
-    disableCancel,
-    disableClose,
-    disablePrimary,
+    onDestinationChange,
+    isProcessing,
+    isProcessingComplete,
     onExit,
     onActionCancel,
     onActionStart,
-    taskCounts,
+    statusCounts,
     tasks,
-  } = useCopyView({ onExit: _onExit });
+  } = useCopyView(props);
 
   const [{ location }] = useStore();
-  const { current, key } = location;
-  const tableData = getActionViewTableData<CopyHandlerData>({
+  const { key } = location;
+
+  const tableData = getActionViewTableData({
     tasks,
-    taskCounts,
-    path: key,
+    folder: key,
+    isProcessing,
   });
+
+  const isActionStartDisabled =
+    isProcessing || isProcessingComplete || destinationList.length === 0;
+
+  const isActionCancelDisabled = !isProcessing || isProcessingComplete;
 
   const contextValue: ControlsContext = {
     data: {
-      taskCounts,
+      statusCounts,
       tableData,
-      actionStartLabel: 'Start',
-      isActionStartDisabled: disablePrimary,
-      isActionCancelDisabled: disableCancel,
+      actionStartLabel: 'Copy',
+      isActionStartDisabled,
+      isActionCancelDisabled,
       actionCancelLabel: 'Cancel',
     },
     onActionStart,
     onActionCancel,
   };
-  const hasStarted = getTasksHaveStarted(taskCounts);
 
   return (
     <ControlsContextProvider {...contextValue}>
-      <Exit
-        onClick={() => {
-          onExit(current!);
-        }}
-        disabled={disableClose}
-      />
-
+      <Exit onClick={onExit} disabled={isProcessing} />
       <Title />
-
       <ViewElement className={`${CLASS_BASE}__table-wrapper`}>
         <DataTableControl className={`${CLASS_BASE}__table`} />
       </ViewElement>
-
-      {hasStarted ? (
+      {isProcessing || isProcessingComplete ? (
         <ViewElement className={`${CLASS_BASE}__action-destination`}>
           <DescriptionList
             descriptions={[
@@ -95,12 +87,12 @@ export const CopyFilesControls = ({
       ) : (
         <DestinationPicker
           destinationList={destinationList}
-          onSetDestinationList={onSetDestinationList}
+          onDestinationChange={onDestinationChange}
         />
       )}
 
       <ViewElement className={`${CLASS_BASE}__action-footer`}>
-        {hasStarted ? (
+        {isProcessing || isProcessingComplete ? (
           <StatusDisplayControl
             className={`${CLASS_BASE}__action-status-display`}
           />

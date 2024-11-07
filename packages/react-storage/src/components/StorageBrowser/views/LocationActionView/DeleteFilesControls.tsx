@@ -17,36 +17,35 @@ import { LocationData } from '../../actions';
 
 const { Exit } = Controls;
 
-export const DeleteFilesControls = (props: {
+export const DeleteFilesControls = (props?: {
   onExit?: (location: LocationData) => void;
 }): React.JSX.Element => {
   const {
-    disableCancel,
-    disableClose,
-    disablePrimary,
-    onExit,
+    isProcessing,
+    isProcessingComplete,
     onActionCancel,
     onActionStart,
-    taskCounts,
+    onExit,
+    statusCounts,
     tasks,
   } = useDeleteView(props);
 
   const [{ location }] = useStore();
-  const { current, key } = location;
+  const { key } = location;
   const tableData = getActionViewTableData({
     tasks,
-    taskCounts,
-    path: key,
+    folder: key,
+    isProcessing,
   });
 
   const contextValue: ControlsContext = {
     data: {
-      taskCounts,
+      statusCounts,
       tableData,
-      isActionStartDisabled: disablePrimary,
+      isActionStartDisabled: isProcessing || isProcessingComplete,
       actionStartLabel: 'Start',
       actionCancelLabel: 'Cancel',
-      isActionCancelDisabled: disableCancel,
+      isActionCancelDisabled: !isProcessing || isProcessingComplete,
     },
     onActionStart,
     onActionCancel,
@@ -54,12 +53,7 @@ export const DeleteFilesControls = (props: {
 
   return (
     <ControlsContextProvider {...contextValue}>
-      <Exit
-        onClick={() => {
-          onExit(current!);
-        }}
-        disabled={disableClose}
-      />
+      <Exit onClick={onExit} disabled={isProcessing} />
       <Title />
       <ViewElement className={`${CLASS_BASE}__table-wrapper`}>
         <DataTableControl className={`${CLASS_BASE}__table`} />
@@ -68,7 +62,6 @@ export const DeleteFilesControls = (props: {
         <StatusDisplayControl
           className={`${CLASS_BASE}__action-status-display`}
         />
-
         <ActionCancelControl className={`${CLASS_BASE}__cancel`} />
         <ActionStartControl />
       </ViewElement>

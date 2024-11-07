@@ -5,11 +5,10 @@ jest.mock('../../../controls/context');
 
 describe('useStatusDisplay', () => {
   const data = {
-    taskCounts: {
+    statusCounts: {
       CANCELED: 2,
       COMPLETE: 4,
       FAILED: 3,
-      INITIAL: 0,
       PENDING: 0,
       QUEUED: 1,
       TOTAL: 10,
@@ -37,20 +36,19 @@ describe('useStatusDisplay', () => {
     });
   });
 
-  it('returns default values if taskCounts is undefined', () => {
+  it('returns default values if statusCounts is undefined', () => {
     mockUseControlsContext.mockReturnValue({ data: {} });
 
     expect(useStatusDisplay()).toStrictEqual({ statuses: [], total: 0 });
   });
 
-  it('returns default values if taksCount total is 0', () => {
+  it('returns default values if statusCounts total is 0', () => {
     mockUseControlsContext.mockReturnValue({
       data: {
-        taskCounts: {
+        statusCounts: {
           CANCELED: 0,
           COMPLETE: 0,
           FAILED: 0,
-          INITIAL: 0,
           PENDING: 0,
           QUEUED: 0,
           TOTAL: 0,

@@ -1,22 +1,32 @@
 import { act, renderHook } from '@testing-library/react';
 
-import { FileData } from '../../../../actions/handlers';
+import { FileData, FileDataItem } from '../../../../actions/handlers';
 import { useLocationItems, LocationItemsProvider } from '../context';
 
-const fileDataItemOne: FileData = {
+const fileDataOne: FileData = {
   id: 'id-one',
-  key: 'key-one',
+  key: 'some-prefix/key-one',
   lastModified: new Date(),
   size: 100,
   type: 'FILE',
 };
 
-const fileDataItemTwo: FileData = {
+const fileDataItemOne: FileDataItem = {
+  ...fileDataOne,
+  fileKey: 'key-one',
+};
+
+const fileDataTwo: FileData = {
   id: 'id-two',
-  key: 'key-two',
+  key: 'some-prefix/key-two',
   lastModified: new Date(),
   size: 200,
   type: 'FILE',
+};
+
+const fileDataItemTwo: FileDataItem = {
+  ...fileDataTwo,
+  fileKey: 'key-two',
 };
 
 describe('useLocationItems', () => {
@@ -29,29 +39,33 @@ describe('useLocationItems', () => {
 
     expect(initState.fileDataItems).toBeUndefined();
 
-    const fileDataItems: FileData[] = [fileDataItemOne];
+    const items: FileData[] = [fileDataOne];
 
     act(() => {
-      handler({ type: 'SET_LOCATION_ITEMS', items: fileDataItems });
+      handler({ type: 'SET_LOCATION_ITEMS', items });
     });
 
     const [nextState] = result.current;
 
-    // has same reference
-    expect(nextState.fileDataItems).toBe(fileDataItems);
+    expect(nextState.fileDataItems).toStrictEqual([fileDataItemOne]);
 
-    const additionalFileDataItems = [...fileDataItems, fileDataItemTwo];
+    const additionalItems = [...items, fileDataTwo];
 
     act(() => {
-      handler({ type: 'SET_LOCATION_ITEMS', items: additionalFileDataItems });
+      handler({ type: 'SET_LOCATION_ITEMS', items: additionalItems });
     });
 
     const [updatedState] = result.current;
 
     // ignores pre-existing file data item
     expect(updatedState.fileDataItems).toHaveLength(2);
+    expect(updatedState.fileDataItems).toStrictEqual([
+      fileDataItemOne,
+      fileDataItemTwo,
+    ]);
 
-    const targetId = fileDataItemOne.id;
+    const targetId = fileDataOne.id;
+
     act(() => {
       handler({ type: 'REMOVE_LOCATION_ITEM', id: targetId });
     });
@@ -61,6 +75,35 @@ describe('useLocationItems', () => {
     expect(removedState.fileDataItems).toHaveLength(1);
 
     // remaining item
-    expect(removedState.fileDataItems?.[0].id).toBe(fileDataItemTwo.id);
+    expect(removedState.fileDataItems?.[0].id).toBe(fileDataTwo.id);
+  });
+
+  it('returns prevState on remove when filtered items have the same length as previous items', () => {
+    const { result } = renderHook(() => useLocationItems(), {
+      wrapper: LocationItemsProvider,
+    });
+
+    const handler = result.current[1];
+
+    act(() => {
+      handler({
+        type: 'SET_LOCATION_ITEMS',
+        items: [fileDataOne, fileDataItemTwo],
+      });
+    });
+
+    const [nextState] = result.current;
+
+    expect(nextState.fileDataItems).toHaveLength(2);
+
+    act(() => {
+      handler({ type: 'REMOVE_LOCATION_ITEM', id: '🥵' });
+    });
+
+    const [resultState] = result.current;
+
+    expect(resultState.fileDataItems).toHaveLength(2);
+    // has same reference
+    expect(resultState).toBe(resultState);
   });
 });
