@@ -96,9 +96,15 @@ jobs:
             node-version: 20
             logfile: test.log
           - framework: react-native
-            framework-version:
-              - { formatted: 074, value: '0.74' }
-              - { formatted: 075, value: '0.75' }
+            framework-version: { formatted: 074, value: '0.74' }
+            build-tool: expo
+            build-tool-version: 51
+            platform: android
+            pkg-manager: npm
+            node-version: 20
+            logfile: test.log
+          - framework: react-native
+            framework-version: { formatted: 075, value: '0.75' }
             build-tool: expo
             build-tool-version: 51
             platform: android
