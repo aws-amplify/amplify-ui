@@ -18,6 +18,7 @@ import {
   SendMessageContextProvider,
   WelcomeMessageProvider,
   FallbackComponentProvider,
+  MessageRendererProvider,
 } from './context';
 import { AttachmentProvider } from './context/AttachmentContext';
 
@@ -43,6 +44,7 @@ export const AIConversationProvider = ({
   variant,
   welcomeMessage,
   fallbackResponseComponent,
+  messageRenderer,
 }: AIConversationProviderProps): React.JSX.Element => {
   const _displayText = {
     ...defaultAIConversationDisplayTextEn,
@@ -56,6 +58,7 @@ export const AIConversationProvider = ({
             <FallbackComponentProvider
               fallbackComponent={fallbackResponseComponent}
             >
+            <MessageRendererProvider {...messageRenderer}>
               <ResponseComponentsProvider
                 responseComponents={responseComponents}
               >
@@ -82,6 +85,7 @@ export const AIConversationProvider = ({
                 </AttachmentProvider>
               </ResponseComponentsProvider>
             </FallbackComponentProvider>
+            </MessageRendererProvider>
           </WelcomeMessageProvider>
         </SuggestedPromptProvider>
       </ControlsProvider>
