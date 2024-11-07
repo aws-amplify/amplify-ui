@@ -3,36 +3,29 @@ import { DeleteViewState } from './types';
 import { isFunction } from '@aws-amplify/ui';
 
 import { LocationData, deleteHandler } from '../../../actions/handlers';
-import { getTaskCounts } from '../../../controls/getTaskCounts';
 import { useStore } from '../../../providers/store';
 import { useGetActionInput } from '../../../providers/configuration';
 import { useProcessTasks } from '../../../tasks';
-import { getActionViewDisabledButtons } from '../utils';
 
-export const useDeleteView = ({
-  onExit: _onExit,
-}: {
+export const useDeleteView = (params?: {
   onExit?: (location: LocationData) => void;
 }): DeleteViewState => {
-  const [
-    {
-      location,
-      locationItems: { fileDataItems },
-    },
-    dispatchStoreAction,
-  ] = useStore();
+  const { onExit: _onExit } = params ?? {};
+
+  const [{ location, locationItems }, dispatchStoreAction] = useStore();
+  const { fileDataItems } = locationItems;
   const { current } = location;
 
   const getInput = useGetActionInput();
 
-  const [{ tasks }, handleProcess] = useProcessTasks(
+  const [processState, handleProcess] = useProcessTasks(
     deleteHandler,
-    fileDataItems
+    fileDataItems,
+    { concurrency: 4 }
   );
 
-  const taskCounts = getTaskCounts(tasks);
-  const { disableCancel, disableClose, disablePrimary } =
-    getActionViewDisabledButtons(taskCounts);
+  const { isProcessing, isProcessingComplete, statusCounts, tasks } =
+    processState;
 
   const onActionStart = () => {
     if (!current) return;
@@ -47,6 +40,8 @@ export const useDeleteView = ({
   };
 
   const onExit = () => {
+    // clear tasks state
+    tasks.forEach(({ remove }) => remove());
     // clear files state
     dispatchStoreAction({ type: 'RESET_LOCATION_ITEMS' });
     // clear selected action
@@ -55,13 +50,12 @@ export const useDeleteView = ({
   };
 
   return {
-    disableCancel,
-    disableClose,
-    disablePrimary,
+    isProcessing,
+    isProcessingComplete,
     onActionCancel,
     onExit,
     onActionStart,
-    taskCounts,
+    statusCounts,
     tasks,
   };
 };

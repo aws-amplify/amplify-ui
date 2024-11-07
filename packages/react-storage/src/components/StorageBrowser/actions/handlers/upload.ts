@@ -9,7 +9,7 @@ import {
   TaskHandlerInput,
   TaskHandlerOutput,
   TaskHandlerOptions,
-} from '../types';
+} from './types';
 
 import { constructBucket } from './utils';
 

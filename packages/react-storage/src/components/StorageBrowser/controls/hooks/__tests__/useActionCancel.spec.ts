@@ -8,10 +8,6 @@ describe('useActionCancel', () => {
       actionCancelLabel: 'Cancel',
       isActionCancelDisabled: false,
     },
-    actionsConfig: {
-      isCancelable: true,
-      type: 'BATCH_ACTION',
-    },
     onActionCancel: jest.fn(),
   };
   const useControlsContextSpy = jest.spyOn(

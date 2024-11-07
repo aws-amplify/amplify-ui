@@ -103,10 +103,6 @@ export const CreateFolderControls = ({
         ? !folderName || !!fieldValidationError
         : undefined,
     },
-    actionsConfig: {
-      type: 'SINGLE_ACTION',
-      isCancelable: true,
-    },
     onActionStart: hasCompletedStatus ? handleClose : handleCreateFolder,
   };
 

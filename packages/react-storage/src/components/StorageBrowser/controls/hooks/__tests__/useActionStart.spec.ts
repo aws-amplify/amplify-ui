@@ -7,10 +7,6 @@ describe('useActionStart', () => {
     data: {
       actionStartLabel: 'Start',
     },
-    actionsConfig: {
-      isCancelable: true,
-      type: 'BATCH_ACTION',
-    },
     onActionStart: jest.fn(),
   };
 

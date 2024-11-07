@@ -7,7 +7,17 @@ import {
   TaskHandler,
 } from '../actions';
 
-import { HandleProcessTasks, ProcessTasksOptions, Task, Tasks } from './types';
+import {
+  HandleProcessTasks,
+  ProcessTasksOptions,
+  Task,
+  UseProcessTasksState,
+} from './types';
+import {
+  getStatusCounts,
+  isProcessingTasks,
+  hasCompletedProcessingTasks,
+} from './utils';
 
 export type UseProcessTasks = <
   T extends TaskData,
@@ -17,7 +27,7 @@ export type UseProcessTasks = <
   handler: TaskHandler<TaskHandlerInput<T> & K, TaskHandlerOutput>,
   items?: D,
   options?: ProcessTasksOptions<T, D extends T[] ? number : never>
-) => [{ isProcessing: boolean; tasks: Tasks<T> }, HandleProcessTasks<T, K, D>];
+) => UseProcessTasksState<T, K, D>;
 
 const QUEUED_TASK_BASE = {
   cancel: undefined,
@@ -30,7 +40,7 @@ const isTaskHandlerInput = (
   input: TaskHandlerInput | Omit<TaskHandlerInput, 'data'>
 ): input is TaskHandlerInput => !!(input as TaskHandlerInput).data;
 
-export const useProcessTasks = <
+export const useProcessTasks: UseProcessTasks = <
   T extends TaskData,
   // input params not included in `TaskHandlerInput`
   K,
@@ -40,10 +50,7 @@ export const useProcessTasks = <
   handler: TaskHandler<TaskHandlerInput<T> & K, TaskHandlerOutput>,
   items?: D,
   options?: ProcessTasksOptions<T, D extends T[] ? number : never>
-): [
-  { tasks: Tasks<T>; isProcessing: boolean },
-  HandleProcessTasks<T, K, D>,
-] => {
+): UseProcessTasksState<T, K, D> => {
   const flush = React.useReducer(() => ({}), {})[1];
   const { concurrency } = options ?? {};
 
@@ -137,7 +144,9 @@ export const useProcessTasks = <
   );
 
   const tasks = [...tasksRef.current.values()];
-  const isProcessing = tasks.some(({ status }) => status === 'PENDING');
+  const statusCounts = getStatusCounts(tasks);
+  const isProcessing = isProcessingTasks(statusCounts);
+  const isProcessingComplete = hasCompletedProcessingTasks(statusCounts);
 
   const handleProcessTasks: HandleProcessTasks<T, K, D> = (input) => {
     if (isProcessing) {
@@ -156,5 +165,8 @@ export const useProcessTasks = <
     }
   };
 
-  return [{ isProcessing, tasks }, handleProcessTasks];
+  return [
+    { isProcessing, isProcessingComplete, statusCounts, tasks },
+    handleProcessTasks,
+  ];
 };

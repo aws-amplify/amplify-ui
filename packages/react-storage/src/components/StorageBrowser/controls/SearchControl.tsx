@@ -13,10 +13,6 @@ export const SearchControl = ({
   const { showIncludeSubfolders, searchPlaceholder } = data;
   const ResolvedSearch = useResolvedComposable(Search, 'Search');
 
-  if (!onSearch) {
-    return null;
-  }
-
   return (
     <ViewElement className={className}>
       <ResolvedSearch
