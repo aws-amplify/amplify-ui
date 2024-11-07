@@ -110,7 +110,7 @@ export function LocationDetailView({
             currentPath,
             fileDataItems,
             hasFiles,
-            pageItems,
+            pageItems: isLoading ? [] : pageItems,
             onDownload,
             onNavigate,
             onSelect,
@@ -147,7 +147,6 @@ export function LocationDetailView({
           />
         </ViewElement>
         <LocationDetailMessage show={hasError} message={message} />
-        <Loading show={isLoading} />
         {hasError ? null : (
           <ViewElement className={`${CLASS_BASE}__table-wrapper`}>
             <DropZoneControl
@@ -156,6 +155,7 @@ export function LocationDetailView({
               <DataTableControl
                 className={`${CLASS_BASE}__location-detail-view-data-table`}
               />
+              <Loading show={isLoading} />
             </DropZoneControl>
           </ViewElement>
         )}
