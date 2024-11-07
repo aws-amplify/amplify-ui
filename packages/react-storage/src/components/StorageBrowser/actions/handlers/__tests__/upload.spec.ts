@@ -71,6 +71,7 @@ describe('uploadHandler', () => {
         locationCredentialsProvider: credentials,
         onProgress: expect.any(Function),
         preventOverwrite: true,
+        checksumAlgorithm: 'crc-32',
       },
       path: `${baseInput.destinationPrefix}${baseInput.data.key}`,
     };
