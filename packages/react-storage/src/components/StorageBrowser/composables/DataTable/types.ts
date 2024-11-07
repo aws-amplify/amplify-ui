@@ -6,16 +6,17 @@ import { CheckboxDataCellProps } from './dataCells/CheckboxDataCell';
 import { DateDataCellProps } from './dataCells/DateDataCell';
 import { NumberDataCellProps } from './dataCells/NumberDataCell';
 import { TextDataCellProps } from './dataCells/TextDataCell';
+import { WithKey } from '../../components/types';
 
-export interface DataTableCheckboxHeader extends CheckboxHeaderProps {
+export interface DataTableCheckboxHeader extends WithKey<CheckboxHeaderProps> {
   type: 'checkbox';
 }
 
-export interface DataTableSortHeader extends SortHeaderProps {
+export interface DataTableSortHeader extends WithKey<SortHeaderProps> {
   type: 'sort';
 }
 
-export interface DataTableTextHeader extends TextHeaderProps {
+export interface DataTableTextHeader extends WithKey<TextHeaderProps> {
   type: 'text';
 }
 
@@ -24,23 +25,24 @@ export type DataTableHeader =
   | DataTableSortHeader
   | DataTableTextHeader;
 
-export interface DataTableButtonDataCell extends ButtonDataCellProps {
+export interface DataTableButtonDataCell extends WithKey<ButtonDataCellProps> {
   type: 'button';
 }
 
-export interface DataTableCheckboxDataCell extends CheckboxDataCellProps {
+export interface DataTableCheckboxDataCell
+  extends WithKey<CheckboxDataCellProps> {
   type: 'checkbox';
 }
 
-export interface DataTableDateDataCell extends DateDataCellProps {
+export interface DataTableDateDataCell extends WithKey<DateDataCellProps> {
   type: 'date';
 }
 
-export interface DataTableNumberDataCell extends NumberDataCellProps {
+export interface DataTableNumberDataCell extends WithKey<NumberDataCellProps> {
   type: 'number';
 }
 
-export interface DataTableTextDataCell extends TextDataCellProps {
+export interface DataTableTextDataCell extends WithKey<TextDataCellProps> {
   type: 'text';
 }
 

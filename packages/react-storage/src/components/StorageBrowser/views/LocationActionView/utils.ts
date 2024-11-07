@@ -1,13 +1,18 @@
 import { humanFileSize, isUndefined } from '@aws-amplify/ui';
 
-import { DataTableProps } from '../../composables/DataTable';
+import {
+  DataTableButtonDataCell,
+  DataTableProps,
+} from '../../composables/DataTable';
 import { DataTableRow } from '../../composables/DataTable/DataTable';
 import { IconVariant } from '../../context/elements';
 import { WithKey } from '../../components/types';
 import { Task, TaskStatus } from '../../tasks';
 
 import { STATUS_DISPLAY_VALUES } from './constants';
-import { ActionData } from '../../actions/types';
+
+import { FileItem, isFileItem } from '../../providers';
+import { FileData } from '../../actions/handlers';
 
 const DELETE_ACTION_VIEW_HEADERS: DataTableProps['headers'] = [
   { key: 'key', type: 'sort', content: { label: 'Name' } },
@@ -43,15 +48,13 @@ export const getFilenameWithoutPrefix = (path: string): string => {
   const folder = path.lastIndexOf('/') + 1;
   return path.slice(folder, path.length);
 };
-// type GetDataTableButtonDataCell<T extends TaskData> = (task: Task<T>) =>DataTableButtonDataCell
-export const getActionViewTableData = <T extends ActionData>({
-  tasks,
 
+export const getActionViewTableData = <T extends FileItem | FileData>({
+  tasks,
   path,
   isProcessing,
 }: {
   tasks: Task<T>[];
-
   path: string;
   isProcessing: boolean;
 }): DataTableProps => {
@@ -81,44 +84,40 @@ export const getActionViewTableData = <T extends ActionData>({
               content: { text: getFileTypeDisplayValue(item.data.key) },
             };
           }
-          case 'size':
+          case 'size': {
+            const value = isFileItem(item.data)
+              ? item.data.file.size
+              : item.data.size;
             return {
               key,
               type: 'number',
-              content: {
-                value: item.data.size,
-                displayValue: humanFileSize(item.data.size, true),
-              },
+              content: { value, displayValue: humanFileSize(value, true) },
             };
-          case 'status':
+          }
+          case 'status': {
             return {
               key,
               type: 'text',
               content: { text: STATUS_DISPLAY_VALUES[item.status] },
             };
-          case 'action':
-            return isProcessing
-              ? {
-                  key,
-                  type: 'button',
-                  content: {
-                    icon: 'cancel',
-                    ariaLabel: `Cancel item: ${item.data.key}`,
-                    onClick: item.cancel,
-                    isDisabled:
-                      isUndefined(item.cancel) ||
-                      (item.status !== 'PENDING' && item.status !== 'QUEUED'),
-                  },
-                }
-              : {
-                  key,
-                  type: 'button',
-                  content: {
-                    icon: 'cancel',
-                    ariaLabel: `Remove item: ${item.data.key}`,
-                    onClick: item.remove,
-                  },
-                };
+          }
+          case 'action': {
+            const isDisabled =
+              (isProcessing && isUndefined(item.cancel)) ||
+              (item.status !== 'PENDING' && item.status !== 'QUEUED');
+            const onClick = isProcessing ? item.cancel : item.remove;
+            const ariaLabel = `${isProcessing ? 'Cancel' : 'Remove'} item: ${
+              item.data.key
+            }`;
+
+            const buttonCell: DataTableButtonDataCell = {
+              key,
+              type: 'button',
+              content: { isDisabled, onClick, ariaLabel, icon: 'cancel' },
+            };
+
+            return buttonCell;
+          }
 
           default:
             return { key, type: 'text', content: { text: '' } };

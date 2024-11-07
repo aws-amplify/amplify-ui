@@ -1,7 +1,10 @@
+import { DataState } from '@aws-amplify/ui-react-core';
 import { LocationCredentialsProvider } from '../storage-internal';
 
-import { ActionState } from '../do-not-import-from-here/actions/createActionStateContext';
-import { FileData } from './handlers';
+export type ActionState<T = any, K = any> = [
+  state: DataState<T>,
+  handleAction: (...input: K[]) => void,
+];
 
 export interface ActionInputConfig {
   accountId?: string;
@@ -21,8 +24,6 @@ export interface TaskData {
   key: string;
   id: string;
 }
-
-export interface ActionData extends TaskData, FileData {}
 
 export interface TaskHandlerOptions {
   onProgress?: (

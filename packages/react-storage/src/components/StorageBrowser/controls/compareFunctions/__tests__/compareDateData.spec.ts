@@ -2,7 +2,7 @@ import { SortDirection } from '../../../composables/DataTable';
 import { compareDateData } from '../compareDateData';
 
 describe('compareDateData', () => {
-  const emptyContent = { type: 'date' as const, content: {} };
+  const emptyContent = { type: 'date' as const, key: '', content: {} };
   const a = { ...emptyContent, content: { date: new Date(1600387200000) } };
   const b = { ...emptyContent, content: { date: new Date(1702339200000) } };
   const getComparisonResults = (direction: SortDirection) => [

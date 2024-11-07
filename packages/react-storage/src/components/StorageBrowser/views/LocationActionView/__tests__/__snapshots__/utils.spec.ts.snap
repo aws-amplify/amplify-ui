@@ -154,6 +154,7 @@ exports[`getActionViewTableData should have remove handler on queued files 1`] =
         "content": {
           "ariaLabel": "Remove item: folder/subfolder/file1.txt",
           "icon": "cancel",
+          "isDisabled": false,
           "onClick": [MockFunction],
         },
         "key": "action-1",

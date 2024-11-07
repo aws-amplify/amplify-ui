@@ -2,7 +2,7 @@ import { SortDirection } from '../../../composables/DataTable';
 import { compareTextData } from '../compareTextData';
 
 describe('compareTextData', () => {
-  const emptyContent = { type: 'text' as const, content: {} };
+  const emptyContent = { type: 'text' as const, key: '', content: {} };
   const a = { ...emptyContent, content: { text: 'a' } };
   const b = { ...emptyContent, content: { text: 'b' } };
   const getComparisonResults = (direction: SortDirection) => [
