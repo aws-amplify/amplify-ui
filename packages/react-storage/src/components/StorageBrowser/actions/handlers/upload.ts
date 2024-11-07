@@ -13,8 +13,6 @@ import {
 
 import { constructBucket } from './utils';
 
-const CHECKSUM_ALGORITHM_CRC32 = 'crc-32' as const;
-
 export interface UploadHandlerOptions extends TaskHandlerOptions {
   preventOverwrite?: boolean;
 }
@@ -69,7 +67,7 @@ export const uploadHandler: UploadHandler = ({
       },
       preventOverwrite,
       customEndpoint,
-      checksumAlgorithm: CHECKSUM_ALGORITHM_CRC32,
+      checksumAlgorithm: 'crc-32',
     },
   };
 
