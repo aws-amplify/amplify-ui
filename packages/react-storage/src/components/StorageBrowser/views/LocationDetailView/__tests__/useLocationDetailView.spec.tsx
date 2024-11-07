@@ -87,7 +87,7 @@ const testLocation: LocationState = {
     type: 'PREFIX',
   },
   path: '',
-  key: 'item-b/',
+  key: 'item-b-key/',
 };
 
 const testStoreState = {
@@ -138,7 +138,7 @@ describe('useLocationDetailView', () => {
         refresh: true,
         pageSize: EXPECTED_PAGE_SIZE,
       },
-      prefix: 'item-b/',
+      prefix: 'item-b-key/',
     });
 
     const state = result.current;
@@ -275,7 +275,7 @@ describe('useLocationDetailView', () => {
     expect(handleListMock).toHaveBeenCalledWith({
       config,
       options: { ...DEFAULT_LIST_OPTIONS, refresh: true },
-      prefix: 'item-b/',
+      prefix: 'item-b-key/',
     });
   });
 
@@ -551,7 +551,7 @@ describe('useLocationDetailView', () => {
         delimiter: undefined,
         search: { filterKey: 'key', query: 'moo' },
       },
-      prefix: 'item-b/',
+      prefix: 'item-b-key/',
     });
     expect(handleStoreActionMock).toHaveBeenCalledWith({
       type: 'RESET_LOCATION_ITEMS',
