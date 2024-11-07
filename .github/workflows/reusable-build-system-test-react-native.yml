@@ -19,7 +19,7 @@ jobs:
         framework-version:
           [
             { formatted: latest, value: latest },
-            { formatted: 075, value: 0.75},
+            { formatted: 075, value: 0.75 },
             { formatted: 074, value: 0.74 },
             { formatted: 073, value: 0.73 },
             { formatted: 072, value: 0.72 },
@@ -38,17 +38,25 @@ jobs:
             platform: ios
           - build-tool: expo
             platform: android
-            build-tool-version: latest
-            framework-version:
-                - { formatted: 075, value: 0.75}
-                - { formatted: 074, value: 0.74 }
-                - { formatted: 073, value: 0.73 }
-                - { formatted: 072, value: 0.72 }
-                - { formatted: 071, value: 0.71 }
-                - { formatted: 070, value: 0.70 }
-        include: 
+            framework-version: { formatted: '075', value: '0.75' }
+          - build-tool: expo
+            platform: android
+            framework-version: { formatted: '074', value: '0.74' }
+          - build-tool: expo
+            platform: android
+            framework-version: { formatted: '073', value: '0.73' }
+          - build-tool: expo
+            platform: android
+            framework-version: { formatted: '072', value: '0.72' }
+          - build-tool: expo
+            platform: android
+            framework-version: { formatted: '071', value: '0.71' }
+          - build-tool: expo
+            platform: android
+            framework-version: { formatted: '070', value: '0.70' }
+        include:
           - framework: react-native
-            framework-version: { formatted: 070, value: "0.70" }
+            framework-version: { formatted: 070, value: '0.70' }
             build-tool: expo
             build-tool-version: 47
             platform: android
@@ -56,7 +64,7 @@ jobs:
             node-version: 20
             logfile: test.log
           - framework: react-native
-            framework-version: { formatted: 071, value: "0.71" }
+            framework-version: { formatted: 071, value: '0.71' }
             build-tool: expo
             build-tool-version: 48
             platform: android
@@ -64,7 +72,7 @@ jobs:
             node-version: 20
             logfile: test.log
           - framework: react-native
-            framework-version: { formatted: 072, value: "0.72" }
+            framework-version: { formatted: 072, value: '0.72' }
             build-tool: expo
             build-tool-version: 49
             platform: android
@@ -72,7 +80,7 @@ jobs:
             node-version: 20
             logfile: test.log
           - framework: react-native
-            framework-version: { formatted: 073, value: "0.73" }
+            framework-version: { formatted: 073, value: '0.73' }
             build-tool: expo
             build-tool-version: 50
             platform: android
@@ -80,9 +88,9 @@ jobs:
             node-version: 20
             logfile: test.log
           - framework: react-native
-            framework-version: 
-              - { formatted: 074, value: "0.74" }
-              - { formatted: 075, value: "0.75" }
+            framework-version:
+              - { formatted: 074, value: '0.74' }
+              - { formatted: 075, value: '0.75' }
             build-tool: expo
             build-tool-version: 51
             platform: android
