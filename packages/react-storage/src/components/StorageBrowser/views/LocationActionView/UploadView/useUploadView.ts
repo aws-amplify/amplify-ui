@@ -7,10 +7,10 @@ import { useGetActionInput } from '../../../providers/configuration';
 import { useStore } from '../../../providers/store';
 import { useProcessTasks } from '../../../tasks';
 
-import { DEFAULT_OVERWRITE_ENABLED } from '../constants';
+import { DEFAULT_OVERWRITE_ENABLED } from './constants';
 import { UploadViewState } from './types';
 
-export const useUploadView = (params: {
+export const useUploadView = (params?: {
   onExit?: (location: LocationData) => void;
 }): UploadViewState => {
   const { onExit: _onExit } = params ?? {};
@@ -50,7 +50,7 @@ export const useUploadView = (params: {
     handleProcess({
       config: getInput(),
       destinationPrefix,
-      options: { preventOverwrite: isOverwriteEnabled },
+      options: { preventOverwrite: !isOverwriteEnabled },
     });
   }, [destinationPrefix, getInput, handleProcess, isOverwriteEnabled]);
 
