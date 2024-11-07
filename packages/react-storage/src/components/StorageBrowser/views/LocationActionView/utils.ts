@@ -127,11 +127,3 @@ export const getActionViewTableData = <T extends FileItem | FileDataItem>({
 
   return { headers: DEFAULT_ACTION_VIEW_HEADERS, rows };
 };
-
-export const GetTitle = (): string | undefined => {
-  const [{ actionType }] = useStore();
-  const actions = useTempActions();
-  const action = actionType ? actions[actionType] : undefined;
-
-  return action?.options?.displayName;
-};

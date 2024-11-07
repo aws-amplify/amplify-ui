@@ -10,13 +10,11 @@ import { DestinationPicker } from './DestinationPicker';
 
 import { useCopyView } from './CopyView';
 import { ControlsContextProvider } from '../../controls/context';
-import { getActionViewTableData, GetTitle } from './utils';
+import { getActionViewTableData } from './utils';
 import { useStore } from '../../providers/store';
 import { ControlsContext } from '../../controls/types';
-import { getTasksHaveStarted } from './utils';
 import { DescriptionList } from '../../components/DescriptionList';
 import { getDestinationListFullPrefix } from './utils/getDestinationPickerDataTable';
-import { CopyHandlerData } from '../../actions';
 
 import { ActionStartControl } from '../../controls/ActionStartControl';
 import { ActionCancelControl } from '../../controls/ActionCancelControl';

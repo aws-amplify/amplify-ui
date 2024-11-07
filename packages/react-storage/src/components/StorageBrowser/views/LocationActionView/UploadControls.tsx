@@ -20,7 +20,6 @@ import { useStore } from '../../providers/store';
 import { TaskStatus } from '../../tasks';
 
 import { compareNumbers, compareStrings, getPercentValue } from '../utils';
-import { GetTitle } from './utils';
 import { CLASS_BASE } from '../constants';
 import { Controls } from '../Controls';
 import {
