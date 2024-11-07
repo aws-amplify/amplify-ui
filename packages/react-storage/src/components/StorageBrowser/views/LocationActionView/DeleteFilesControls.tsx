@@ -34,7 +34,7 @@ export const DeleteFilesControls = (props?: {
   const { key } = location;
   const tableData = getActionViewTableData({
     tasks,
-    path: key,
+    folder: key,
     isProcessing,
   });
 
