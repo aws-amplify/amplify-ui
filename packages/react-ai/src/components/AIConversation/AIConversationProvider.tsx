@@ -58,34 +58,34 @@ export const AIConversationProvider = ({
             <FallbackComponentProvider
               fallbackComponent={fallbackResponseComponent}
             >
-            <MessageRendererProvider {...messageRenderer}>
-              <ResponseComponentsProvider
-                responseComponents={responseComponents}
-              >
-                <AttachmentProvider allowAttachments={allowAttachments}>
-                  <ConversationDisplayTextProvider {..._displayText}>
-                    <ConversationInputContextProvider>
-                      <SendMessageContextProvider
-                        handleSendMessage={handleSendMessage}
-                      >
-                        <AvatarsProvider avatars={avatars}>
-                          <ActionsProvider actions={actions}>
-                            <MessageVariantProvider variant={variant}>
-                              <MessagesProvider messages={messages}>
-                                <LoadingContextProvider isLoading={isLoading}>
-                                  {children}
-                                </LoadingContextProvider>
-                              </MessagesProvider>
-                            </MessageVariantProvider>
-                          </ActionsProvider>
-                        </AvatarsProvider>
-                      </SendMessageContextProvider>
-                    </ConversationInputContextProvider>
-                  </ConversationDisplayTextProvider>
-                </AttachmentProvider>
-              </ResponseComponentsProvider>
+              <MessageRendererProvider {...messageRenderer}>
+                <ResponseComponentsProvider
+                  responseComponents={responseComponents}
+                >
+                  <AttachmentProvider allowAttachments={allowAttachments}>
+                    <ConversationDisplayTextProvider {..._displayText}>
+                      <ConversationInputContextProvider>
+                        <SendMessageContextProvider
+                          handleSendMessage={handleSendMessage}
+                        >
+                          <AvatarsProvider avatars={avatars}>
+                            <ActionsProvider actions={actions}>
+                              <MessageVariantProvider variant={variant}>
+                                <MessagesProvider messages={messages}>
+                                  <LoadingContextProvider isLoading={isLoading}>
+                                    {children}
+                                  </LoadingContextProvider>
+                                </MessagesProvider>
+                              </MessageVariantProvider>
+                            </ActionsProvider>
+                          </AvatarsProvider>
+                        </SendMessageContextProvider>
+                      </ConversationInputContextProvider>
+                    </ConversationDisplayTextProvider>
+                  </AttachmentProvider>
+                </ResponseComponentsProvider>
+              </MessageRendererProvider>
             </FallbackComponentProvider>
-            </MessageRendererProvider>
           </WelcomeMessageProvider>
         </SuggestedPromptProvider>
       </ControlsProvider>
