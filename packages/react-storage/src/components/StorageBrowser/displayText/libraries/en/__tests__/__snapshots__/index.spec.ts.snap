@@ -30,7 +30,7 @@ exports[`DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT DEFAULT_STORAGE_BROWSER_DISPLAY_TE
   "actionCancelLabel": "Cancel",
   "actionDestinationLabel": "Destination",
   "actionExitLabel": "Exit",
-  "actionStartLabel": "Copy",
+  "actionStartLabel": "Create folder",
   "getActionCompleteMessage": [Function],
   "getActionFailedMessage": [Function],
   "getValidationMessage": [Function],
@@ -45,7 +45,7 @@ exports[`DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT DEFAULT_STORAGE_BROWSER_DISPLAY_TE
   "tableColumnSizeHeader": "Size",
   "tableColumnStatusHeader": "Status",
   "tableColumnTypeHeader": "Type",
-  "title": "Copy",
+  "title": "Create folder",
 }
 `;
 
@@ -152,7 +152,7 @@ exports[`DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT should match snapshot 1`] = `
     "actionCancelLabel": "Cancel",
     "actionDestinationLabel": "Destination",
     "actionExitLabel": "Exit",
-    "actionStartLabel": "Copy",
+    "actionStartLabel": "Create folder",
     "getActionCompleteMessage": [Function],
     "getActionFailedMessage": [Function],
     "getValidationMessage": [Function],
@@ -167,7 +167,7 @@ exports[`DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT should match snapshot 1`] = `
     "tableColumnSizeHeader": "Size",
     "tableColumnStatusHeader": "Status",
     "tableColumnTypeHeader": "Type",
-    "title": "Copy",
+    "title": "Create folder",
   },
   "DeleteView": {
     "actionCancelLabel": "Cancel",
