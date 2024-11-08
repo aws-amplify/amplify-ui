@@ -1,5 +1,76 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT.CopyView should match snapshot 1`] = `
+{
+  "actionCancelLabel": "Cancel",
+  "actionDestinationLabel": "Destination",
+  "actionExitLabel": "Exit",
+  "actionStartLabel": "Copy",
+  "getActionCompleteMessage": [Function],
+  "getFolderSelectedMessage": [Function],
+  "overwriteWarningMessage": "Copy action might overwrite existing files at selected destination.",
+  "searchPlaceholder": "Search for folders",
+  "statusDisplayCanceledLabel": "Canceled",
+  "statusDisplayCompletedLabel": "Completed",
+  "statusDisplayFailedLabel": "Failed",
+  "statusDisplayQueuedLabel": "Not Started",
+  "statusDisplayTotalLabel": "Total",
+  "tableColumnCancelHeader": "",
+  "tableColumnFolderHeader": "Folder",
+  "tableColumnNameHeader": "Name",
+  "tableColumnSizeHeader": "Size",
+  "tableColumnStatusHeader": "Status",
+  "tableColumnTypeHeader": "Type",
+  "title": "Copy",
+}
+`;
+
+exports[`DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT.CreateFolderView should match snapshot 1`] = `
+{
+  "actionCancelLabel": "Cancel",
+  "actionDestinationLabel": "Destination",
+  "actionExitLabel": "Exit",
+  "actionStartLabel": "Copy",
+  "getActionCompleteMessage": [Function],
+  "getActionFailedMessage": [Function],
+  "getValidationMessage": [Function],
+  "statusDisplayCanceledLabel": "Canceled",
+  "statusDisplayCompletedLabel": "Completed",
+  "statusDisplayFailedLabel": "Failed",
+  "statusDisplayQueuedLabel": "Not Started",
+  "statusDisplayTotalLabel": "Total",
+  "tableColumnCancelHeader": "",
+  "tableColumnFolderHeader": "Folder",
+  "tableColumnNameHeader": "Name",
+  "tableColumnSizeHeader": "Size",
+  "tableColumnStatusHeader": "Status",
+  "tableColumnTypeHeader": "Type",
+  "title": "Copy",
+}
+`;
+
+exports[`DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT.DeleteView should match snapshot 1`] = `
+{
+  "actionCancelLabel": "Cancel",
+  "actionDestinationLabel": "Destination",
+  "actionExitLabel": "Exit",
+  "actionStartLabel": "Delete",
+  "getActionCompleteMessage": [Function],
+  "statusDisplayCanceledLabel": "Canceled",
+  "statusDisplayCompletedLabel": "Completed",
+  "statusDisplayFailedLabel": "Failed",
+  "statusDisplayQueuedLabel": "Not Started",
+  "statusDisplayTotalLabel": "Total",
+  "tableColumnCancelHeader": "",
+  "tableColumnFolderHeader": "Folder",
+  "tableColumnNameHeader": "Name",
+  "tableColumnSizeHeader": "Size",
+  "tableColumnStatusHeader": "Status",
+  "tableColumnTypeHeader": "Type",
+  "title": "Delete",
+}
+`;
+
 exports[`DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT.LocationDetailView should have expected keys 1`] = `
 {
   "getListResultsMessage": [Function],
@@ -60,9 +131,9 @@ exports[`DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT should match snapshot 1`] = `
     "actionDestinationLabel": "Destination",
     "actionExitLabel": "Exit",
     "actionStartLabel": "Copy",
-    "folderSelectedMessage": [Function],
     "getActionCompleteMessage": [Function],
-    "overwriteInfoMessage": "Copy action might overwrite existing files at selected destination.",
+    "getFolderSelectedMessage": [Function],
+    "overwriteWarningMessage": "Copy action might overwrite existing files at selected destination.",
     "searchPlaceholder": "Search for folders",
     "statusDisplayCanceledLabel": "Canceled",
     "statusDisplayCompletedLabel": "Completed",

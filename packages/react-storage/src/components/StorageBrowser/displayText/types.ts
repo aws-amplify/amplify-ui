@@ -64,8 +64,8 @@ export interface DefaultCreateFolderViewDisplayText
 
 export interface DefaultCopyViewDisplayText
   extends DefaultActionViewDisplayText {
-  folderSelectedMessage: (path: string) => string;
-  overwriteInfoMessage: string;
+  getFolderSelectedMessage: (path: string) => string;
+  overwriteWarningMessage: string;
   searchPlaceholder: string;
 }
 
