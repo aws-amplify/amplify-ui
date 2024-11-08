@@ -34,6 +34,7 @@ import { SelectTheme } from './select';
 import { SelectFieldTheme } from './selectField';
 import { SliderFieldTheme } from './sliderField';
 import { StepperFieldTheme } from './stepperField';
+import { StorageBrowserTheme } from './storageBrowser';
 import { StorageManagerTheme } from './storageManager';
 import { SwitchFieldTheme, SwitchTheme } from './switchField';
 import { TableTheme } from './table';
@@ -86,6 +87,7 @@ export type ComponentsTheme<TokensType extends WebTokens = WebTokens> =
   | BaseComponentTheme<SelectFieldTheme, 'selectfield', TokensType>
   | BaseComponentTheme<SliderFieldTheme, 'sliderfield', TokensType>
   | BaseComponentTheme<StepperFieldTheme, 'stepperfield', TokensType>
+  | BaseComponentTheme<StorageBrowserTheme, 'storagebrowser', TokensType>
   | BaseComponentTheme<StorageManagerTheme, 'storagemanager', TokensType>
   | BaseComponentTheme<SwitchTheme, 'switch', TokensType>
   | BaseComponentTheme<SwitchFieldTheme, 'switchfield', TokensType>
@@ -136,6 +138,7 @@ export type AllComponentThemes = {
   selectfield: SelectFieldTheme;
   sliderfield: SliderFieldTheme;
   stepperfield: StepperFieldTheme;
+  storagebrowser: StorageBrowserTheme;
   storagemanager: StorageManagerTheme;
   switch: SwitchTheme;
   switchfield: SwitchFieldTheme;
