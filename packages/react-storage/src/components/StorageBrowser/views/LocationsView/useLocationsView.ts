@@ -16,7 +16,7 @@ interface UseLocationsView {
   shouldShowEmptyMessage: boolean;
   pageItems: LocationData[];
   page: number;
-  title: string;
+  title: string | undefined;
   onNavigate: (location: LocationData) => void;
   onRefresh: () => void;
   onPaginate: (page: number) => void;
