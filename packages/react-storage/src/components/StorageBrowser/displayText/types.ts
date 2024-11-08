@@ -52,16 +52,9 @@ export interface DefaultLocationDetailViewDisplayText
   tableColumnTypeHeader: string;
 }
 
-export interface DefaultUploadViewDisplayText
-  extends DefaultActionViewDisplayText {
-  addFilesLabel: string;
-  addFolderLabel: string;
-  statusDisplayOverridePreventedLabel: string;
-  overwriteExistingLabel: string;
-}
-
-export interface DefaultDeleteViewDisplayText
-  extends DefaultActionViewDisplayText {}
+/**
+ * Action view display text values
+ */
 
 export interface DefaultCreateFolderViewDisplayText
   extends DefaultActionViewDisplayText {
@@ -76,24 +69,35 @@ export interface DefaultCopyViewDisplayText
   searchPlaceholder: string;
 }
 
+export interface DefaultDeleteViewDisplayText
+  extends DefaultActionViewDisplayText {}
+
+export interface DefaultUploadViewDisplayText
+  extends DefaultActionViewDisplayText {
+  addFilesLabel: string;
+  addFolderLabel: string;
+  statusDisplayOverridePreventedLabel: string;
+  overwriteExistingLabel: string;
+}
+
 export interface DefaultStorageBrowserDisplayText {
+  CopyView: DefaultCopyViewDisplayText;
+  CreateFolderView: DefaultCreateFolderViewDisplayText;
+  DeleteView: DefaultDeleteViewDisplayText;
   LocationsView: DefaultLocationsViewDisplayText;
   LocationDetailView: DefaultLocationDetailViewDisplayText;
   UploadView: DefaultUploadViewDisplayText;
-  DeleteView: DefaultDeleteViewDisplayText;
-  CopyView: DefaultCopyViewDisplayText;
-  CreateFolderView: DefaultCreateFolderViewDisplayText;
 }
 
+interface CreateFolderViewDisplayText
+  extends Partial<DefaultCreateFolderViewDisplayText> {}
+interface CopyViewDisplayText extends Partial<DefaultCopyViewDisplayText> {}
+interface DeleteViewDisplayText extends Partial<DefaultDeleteViewDisplayText> {}
 interface LocationsViewDisplayText
   extends Partial<DefaultLocationsViewDisplayText> {}
 interface LocationDetailViewDisplayText
   extends Partial<DefaultLocationDetailViewDisplayText> {}
 interface UploadViewDisplayText extends Partial<DefaultUploadViewDisplayText> {}
-interface DeleteViewDisplayText extends Partial<DefaultDeleteViewDisplayText> {}
-interface CreateFolderViewDisplayText
-  extends Partial<DefaultCreateFolderViewDisplayText> {}
-interface CopyViewDisplayText extends Partial<DefaultCopyViewDisplayText> {}
 
 export interface StorageBrowserDisplayText {
   LocationsView?: LocationsViewDisplayText;
