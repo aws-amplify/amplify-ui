@@ -35,6 +35,7 @@ export interface DefaultListViewDisplayText<T = any> {
 
 export interface DefaultLocationsViewDisplayText
   extends DefaultListViewDisplayText<LocationData> {
+  title: string;
   tableColumnFolderHeader: string;
   tableColumnBucketHeader: string;
   tableColumnPermissionsHeader: string;

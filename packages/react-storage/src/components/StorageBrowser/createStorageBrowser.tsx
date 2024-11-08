@@ -16,6 +16,7 @@ import {
   StoreProvider,
   StoreProviderProps,
 } from './providers';
+
 import { ListLocations } from './storage-internal';
 import { StorageBrowserDefault } from './StorageBrowserDefault';
 import { assertRegisterAuthListener } from './validators';
@@ -29,6 +30,7 @@ import {
 import { GetLocationCredentials } from './credentials/types';
 import { defaultActionConfigs } from './actions';
 import { createUseView } from './views/createUseView';
+import { DisplayTextProvider } from './displayText';
 
 export interface Config {
   accountId?: string;
@@ -110,9 +112,11 @@ export function createStorageBrowser(input: CreateStorageBrowserInput): {
       <StoreProvider {...props}>
         <ConfigurationProvider>
           <TempActionsProvider>
-            <ComponentsProvider elements={input.elements}>
-              {children}
-            </ComponentsProvider>
+            <DisplayTextProvider>
+              <ComponentsProvider elements={input.elements}>
+                {children}
+              </ComponentsProvider>
+            </DisplayTextProvider>
           </TempActionsProvider>
         </ConfigurationProvider>
       </StoreProvider>

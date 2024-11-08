@@ -12,6 +12,8 @@ import { SearchControl } from '../../controls/SearchControl';
 import { LocationsViewProps } from './types';
 import { ViewElement } from '../../context/elements';
 import { getLocationsViewTableData } from './getLocationsViewTableData';
+import { useDisplayText } from '../../displayText';
+import { LocationViewHeaders } from './getLocationsViewTableData/types';
 
 export const DEFAULT_ERROR_MESSAGE = 'There was an error loading locations.';
 
@@ -33,6 +35,34 @@ const LocationsMessage = ({
   ) : null;
 };
 
+const getHeaders = ({
+  tableColumnBucketHeader,
+  tableColumnFolderHeader,
+  tableColumnPermissionsHeader,
+}: {
+  tableColumnBucketHeader: string;
+  tableColumnFolderHeader: string;
+  tableColumnPermissionsHeader: string;
+}): LocationViewHeaders => {
+  return [
+    {
+      key: 'folder',
+      type: 'sort',
+      content: { label: tableColumnFolderHeader },
+    },
+    {
+      key: 'bucket',
+      type: 'sort',
+      content: { label: tableColumnBucketHeader },
+    },
+    {
+      key: 'permission',
+      type: 'sort',
+      content: { label: tableColumnPermissionsHeader },
+    },
+  ];
+};
+
 const LocationsEmptyMessage = ({ show }: { show: boolean }) => {
   return show ? <EmptyMessage>No locations to show.</EmptyMessage> : null;
 };
@@ -49,7 +79,6 @@ export function LocationsView({
     isLoading,
     pageItems,
     message,
-    searchPlaceholder,
     shouldShowEmptyMessage,
     onRefresh,
     onPaginate,
@@ -57,18 +86,38 @@ export function LocationsView({
     onSearch,
   } = useLocationsView(props);
 
+  const {
+    LocationsView: {
+      title,
+      tableColumnBucketHeader,
+      tableColumnFolderHeader,
+      tableColumnPermissionsHeader,
+      searchPlaceholder,
+    },
+  } = useDisplayText();
+
+  const headers = getHeaders({
+    tableColumnBucketHeader,
+    tableColumnFolderHeader,
+    tableColumnPermissionsHeader,
+  });
+
   return (
     <ControlsContextProvider
       data={{
         isDataRefreshDisabled: isLoading,
-        tableData: getLocationsViewTableData({ pageItems, onNavigate }),
-        searchPlaceholder,
+        tableData: getLocationsViewTableData({
+          headers,
+          pageItems,
+          onNavigate,
+        }),
         paginationData: {
           page,
           hasNextPage,
           highestPageVisited,
           onPaginate,
         },
+        searchPlaceholder: searchPlaceholder,
       }}
       onSearch={onSearch}
       onRefresh={onRefresh}
@@ -77,7 +126,7 @@ export function LocationsView({
         className={resolveClassName(CLASS_BASE, className)}
         data-testid="LOCATIONS_VIEW"
       >
-        <Title>Home</Title>
+        <Title>{title}</Title>
         <ViewElement className={`${CLASS_BASE}__location-detail-view-controls`}>
           <SearchControl className={`${CLASS_BASE}__locations-view-search`} />
           <PaginationControl className={`${CLASS_BASE}__paginate`} />
