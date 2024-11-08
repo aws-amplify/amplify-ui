@@ -1,4 +1,4 @@
-import { TaskCounts } from '../controls/types';
+import { StatusCounts } from '../tasks';
 import { LocationData, LocationItemData } from '../actions';
 
 /**
@@ -9,7 +9,7 @@ export interface DefaultActionViewDisplayText {
   actionDestinationLabel: string;
   actionExitLabel: string;
   actionStartLabel: string;
-  getActionCompleteMessage: (counts: TaskCounts) => string;
+  getActionCompleteMessage: (counts: StatusCounts) => string;
   statusDisplayCanceledLabel: string;
   statusDisplayCompletedLabel: string;
   statusDisplayFailedLabel: string;
