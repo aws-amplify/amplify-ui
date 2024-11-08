@@ -42,7 +42,11 @@ describe('PromptList', () => {
     fireEvent.click(getByText('Prompt 1'));
     expect(mockSetInput).toHaveBeenCalledWith(expect.any(Function));
 
-    // Simulate the function call
+    // In the PromptList component we are using an updater function
+    // to update the input state with setInput. In this test we are
+    // mocking setInput, so here we are grabbing what the mock was called with
+    // (a function) and calling that function to ensure
+    // this component would update the input state properly
     const setInputCall = mockSetInput.mock.calls[0][0] as Function;
     const result = setInputCall({ text: 'previous text' });
     expect(result).toEqual({ text: 'Prompt 1' });
