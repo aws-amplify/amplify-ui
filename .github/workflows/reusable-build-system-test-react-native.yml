@@ -55,14 +55,6 @@ jobs:
         include:
           - framework: react-native
             framework-version: { formatted: 070, value: '0.70' }
-            build-tool: cli
-            build-tool-version: 9
-            platform: android
-            pkg-manager: npm
-            node-version: 20
-            logfile: test.log
-          - framework: react-native
-            framework-version: { formatted: 070, value: '0.70' }
             build-tool: expo
             build-tool-version: 47
             platform: android
