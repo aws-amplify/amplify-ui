@@ -73,7 +73,7 @@ export const DestinationPicker = ({
       paginationData: {
         page: currentPage,
         highestPageVisited,
-        hasMorePages: hasNextToken,
+        hasNextPage: hasNextToken,
         onPaginate,
       },
       showIncludeSubfolders: false,

@@ -65,7 +65,7 @@ export function LocationsView({
         searchPlaceholder,
         paginationData: {
           page,
-          hasMorePages: hasNextPage,
+          hasNextPage,
           highestPageVisited,
           onPaginate,
         },

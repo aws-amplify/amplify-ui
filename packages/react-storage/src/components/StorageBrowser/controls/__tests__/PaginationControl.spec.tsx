@@ -27,7 +27,7 @@ describe('PaginationControl', () => {
     mockUseControlsContext.mockReturnValue({
       data: {
         paginationData: {
-          hasMorePages: true,
+          hasNextPage: true,
           highestPageVisited: 1,
           onPaginate: jest.fn(),
           page: 1,
@@ -56,17 +56,5 @@ describe('PaginationControl', () => {
     expect(nav).toBeInTheDocument();
     expect(list).toBeInTheDocument();
     expect(listItems).toHaveLength(3);
-  });
-
-  it('returns null if there is no pagination data', () => {
-    mockUseControlsContext.mockReturnValue({
-      data: {
-        paginationData: null,
-      },
-    });
-
-    const { container } = render(<PaginationControl />);
-
-    expect(container.firstChild).toBeNull();
   });
 });

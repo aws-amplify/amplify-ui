@@ -7,7 +7,7 @@ describe('Pagination', () => {
     render(
       <Pagination
         page={1}
-        hasMorePages
+        hasNextPage
         onPaginate={jest.fn()}
         highestPageVisited={10}
       />
@@ -42,7 +42,7 @@ describe('Pagination', () => {
     render(
       <Pagination
         page={10}
-        hasMorePages={false}
+        hasNextPage={false}
         onPaginate={jest.fn()}
         highestPageVisited={10}
       />
@@ -56,7 +56,7 @@ describe('Pagination', () => {
     render(
       <Pagination
         page={1}
-        hasMorePages
+        hasNextPage
         onPaginate={jest.fn()}
         highestPageVisited={10}
       />
@@ -73,7 +73,7 @@ describe('Pagination', () => {
     render(
       <Pagination
         page={1}
-        hasMorePages
+        hasNextPage
         onPaginate={onPaginate}
         highestPageVisited={10}
       />
@@ -89,7 +89,7 @@ describe('Pagination', () => {
     render(
       <Pagination
         page={2}
-        hasMorePages
+        hasNextPage
         onPaginate={onPaginate}
         highestPageVisited={10}
       />

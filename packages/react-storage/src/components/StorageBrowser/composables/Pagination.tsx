@@ -10,7 +10,7 @@ import { PaginateButton } from '../components/PaginateButton';
 
 export interface PaginationProps {
   page?: number;
-  hasMorePages?: boolean;
+  hasNextPage?: boolean;
   onPaginate?: (page: number) => void;
   highestPageVisited?: number;
 }
@@ -19,7 +19,7 @@ const BLOCK_NAME = `${CLASS_BASE}__paginate`;
 
 export const Pagination = ({
   page,
-  hasMorePages,
+  hasNextPage,
   onPaginate,
   highestPageVisited,
 }: PaginationProps): React.JSX.Element | null => {
@@ -50,7 +50,7 @@ export const Pagination = ({
           <PaginateButton
             disabled={
               !highestPageVisited ||
-              (page >= highestPageVisited && !hasMorePages)
+              (page >= highestPageVisited && !hasNextPage)
             }
             onClick={() => {
               if (onPaginate) onPaginate(page + 1);

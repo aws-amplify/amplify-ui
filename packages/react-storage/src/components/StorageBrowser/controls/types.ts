@@ -31,7 +31,7 @@ interface TableData {
 }
 
 interface PaginationData {
-  hasMorePages: boolean;
+  hasNextPage: boolean;
   highestPageVisited: number;
   onPaginate: (page: number) => void;
   page: number;

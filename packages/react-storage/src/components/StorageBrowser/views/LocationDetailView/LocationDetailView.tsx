@@ -105,7 +105,7 @@ export function LocationDetailView({
           showIncludeSubfolders,
           paginationData: {
             page,
-            hasMorePages: hasNextPage,
+            hasNextPage,
             highestPageVisited,
             onPaginate,
           },
