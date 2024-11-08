@@ -13,10 +13,6 @@ export const PaginationControl = ({
 
   const ResolvedPagination = useResolvedComposable(Pagination, 'Pagination');
 
-  if (!data?.paginationData) {
-    return null;
-  }
-
   return (
     <ViewElement className={className}>
       <ResolvedPagination {...data.paginationData} />
