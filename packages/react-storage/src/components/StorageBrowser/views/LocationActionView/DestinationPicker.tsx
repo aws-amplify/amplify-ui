@@ -42,14 +42,14 @@ export const DestinationPicker = ({
   const {
     bucket,
     items,
+    highestPageVisited,
     hasNextToken,
     currentPage,
     isLoading,
     hasError,
-    handleNext,
-    handlePrevious,
+    onPaginate,
     onSearch,
-    range,
+    pageItems,
   } = useDestinationPicker({ destinationList });
 
   const handleNavigateFolder = (key: string) => {
@@ -61,15 +61,6 @@ export const DestinationPicker = ({
     const newPath = destinationList.slice(0, index + 1);
     onDestinationChange(newPath);
   };
-
-  const pageItems = React.useMemo(() => {
-    const [start, end] = range;
-    return items.slice(start, end);
-  }, [range, items]);
-
-  const disableNext =
-    !hasNextToken && currentPage * DEFAULT_PAGE_SIZE > items.length;
-  const disablePrevious = currentPage === 1;
 
   const tableData = getDestinationPickerTableData({
     items: pageItems,
@@ -122,10 +113,9 @@ export const DestinationPicker = ({
         <SearchControl />
         <PaginateControl
           currentPage={currentPage}
-          disableNext={disableNext}
-          disablePrevious={disablePrevious}
-          handleNext={handleNext}
-          handlePrevious={handlePrevious}
+          hasMorePages={hasNextToken}
+          onPaginate={onPaginate}
+          highestPageVisited={highestPageVisited}
         />
       </ViewElement>
       <ViewElement className="storage-browser__table-wrapper">
