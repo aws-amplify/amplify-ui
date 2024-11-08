@@ -47,18 +47,17 @@ export function LocationsView({
   ...props
 }: LocationsViewProps): React.JSX.Element {
   const {
-    pageItems,
     hasError,
-    message,
-    isPaginatePreviousDisabled,
-    isPaginateNextDisabled,
+    hasNextPage,
+    highestPageVisited,
     page,
     isLoading,
+    pageItems,
+    message,
     searchPlaceholder,
     shouldShowEmptyMessage,
     onRefresh,
-    onPaginateNext,
-    onPaginatePrevious,
+    onPaginate,
     onNavigate,
     onSearch,
   } = useLocationsView(props);
@@ -82,10 +81,9 @@ export function LocationsView({
           <SearchControl className={`${CLASS_BASE}__locations-view-search`} />
           <Paginate
             currentPage={page}
-            disableNext={isPaginateNextDisabled}
-            disablePrevious={isPaginatePreviousDisabled}
-            handleNext={onPaginateNext}
-            handlePrevious={onPaginatePrevious}
+            highestPageVisited={highestPageVisited}
+            hasMorePages={hasNextPage}
+            onPaginate={onPaginate}
           />
           <DataRefreshControl
             className={`${CLASS_BASE}__locations-view-data-refresh`}

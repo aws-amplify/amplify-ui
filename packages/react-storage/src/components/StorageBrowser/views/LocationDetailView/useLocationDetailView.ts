@@ -11,16 +11,16 @@ import {
   LocationItemData,
   listLocationItemsHandler,
 } from '../../actions';
-import { isFile, isLastPage } from '../utils';
+import { isFile } from '../utils';
 import { createEnhancedListHandler } from '../../actions/createEnhancedListHandler';
 import { useGetActionInput } from '../../providers/configuration';
 import { displayText } from '../../displayText/en';
 
 interface UseLocationDetailView {
   hasError: boolean;
+  hasNextPage: boolean;
+  highestPageVisited: number;
   isLoading: boolean;
-  isPaginateNextDisabled: boolean;
-  isPaginatePreviousDisabled: boolean;
   currentLocation: LocationData | undefined;
   currentPath: string;
   areAllFilesSelected: boolean;
@@ -36,8 +36,7 @@ interface UseLocationDetailView {
   onRefresh: () => void;
   onNavigate: (location: LocationData, path?: string) => void;
   onNavigateHome: () => void;
-  onPaginateNext: () => void;
-  onPaginatePrevious: () => void;
+  onPaginate: (page: number) => void;
   onDownload: (fileItem: FileData) => void;
   onSearch: (query: string, includeSubfolders?: boolean) => void;
   onSelect: (isSelected: boolean, fileItem: FileData) => void;
@@ -47,8 +46,6 @@ interface UseLocationDetailView {
 export type LocationDetailViewActionType =
   | { type: 'REFRESH_DATA' } // refresh data only
   | { type: 'RESET' } // reset view to initial state
-  | { type: 'PAGINATE_NEXT' }
-  | { type: 'PAGINATE_PREVIOUS' }
   | { type: 'PAGINATE'; page: number }
   | { type: 'ACCESS_ITEM'; key: string }
   | { type: 'NAVIGATE'; location: LocationData; path: string }
@@ -95,7 +92,6 @@ export function useLocationDetailView(
   const { prefix } = currentLocation ?? {};
   const { fileDataItems } = locationItems;
   const hasInvalidPrefix = isUndefined(prefix);
-  const { pageSize } = listOptions;
 
   const getConfig = useGetActionInput();
 
@@ -106,9 +102,8 @@ export function useLocationDetailView(
 
   // set up pagination
   const { items, nextToken } = data;
-  const resultCount = items.length;
   const hasNextToken = !!nextToken;
-  const onPaginateNext = () => {
+  const paginateCallback = () => {
     if (hasInvalidPrefix || !nextToken) return;
     dispatchStoreAction({ type: 'RESET_LOCATION_ITEMS' });
     handleList({
@@ -118,20 +113,17 @@ export function useLocationDetailView(
     });
   };
 
-  const onPaginatePrevious = () => {
-    dispatchStoreAction({ type: 'RESET_LOCATION_ITEMS' });
-  };
-
   const {
     currentPage,
-    handlePaginateNext,
-    handlePaginatePrevious,
+    onPaginate,
     handleReset,
-    range,
+    highestPageVisited,
+    pageItems,
   } = usePaginate({
-    onPaginateNext,
-    onPaginatePrevious,
-    pageSize,
+    items,
+    paginateCallback,
+    pageSize: listOptions.pageSize,
+    hasNextToken,
   });
 
   const onRefresh = () => {
@@ -163,20 +155,12 @@ export function useLocationDetailView(
     key,
   ]);
 
-  const pageItems = React.useMemo(() => {
-    const [start, end] = range;
-    return items.slice(start, end);
-  }, [range, items]);
-
   // Logic for Select All Files functionality
   const fileItems = React.useMemo(
     () => pageItems.filter((item): item is FileData => item.type === 'FILE'),
     [pageItems]
   );
   const areAllFilesSelected = fileDataItems?.length === fileItems.length;
-  const isFinalPage =
-    !hasNextToken && isLastPage(currentPage, resultCount, pageSize);
-  const hasNoResults = pageItems.length === 0;
   const shouldShowEmptyMessage =
     pageItems.length === 0 && !isLoading && !hasError;
 
@@ -188,20 +172,15 @@ export function useLocationDetailView(
     areAllFilesSelected,
     fileDataItems,
     hasFiles: fileItems.length > 0,
-    isPaginateNextDisabled:
-      isFinalPage || isLoading || hasError || hasNoResults,
-    isPaginatePreviousDisabled:
-      currentPage <= 1 || isLoading || hasError || hasNoResults,
     hasError,
+    hasNextPage: hasNextToken,
+    highestPageVisited,
     message,
     shouldShowEmptyMessage,
     isLoading,
+    onPaginate,
     showIncludeSubfolders: true,
     searchPlaceholder: displayText.searchDetailPlaceholder,
-    onPaginatePrevious: handlePaginatePrevious,
-    onPaginateNext: () => {
-      handlePaginateNext({ resultCount, hasNextToken });
-    },
     onRefresh,
     onNavigate: (location: LocationData, path?: string) => {
       onNavigate?.(location, path);

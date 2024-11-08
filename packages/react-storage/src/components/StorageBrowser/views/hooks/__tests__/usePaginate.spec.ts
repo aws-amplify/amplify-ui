@@ -1,89 +1,69 @@
+import { usePaginate } from '../usePaginate';
 import { act, renderHook } from '@testing-library/react-hooks';
 
-import { usePaginate } from '../usePaginate';
+jest.mock('../../../controls/context');
 
 describe('usePaginate', () => {
+  const data: Parameters<typeof usePaginate>[0] = {
+    paginateCallback: jest.fn(),
+    pageSize: 1,
+    hasNextToken: false,
+    items: [
+      {
+        key: 'key1',
+        id: 'id1',
+        type: 'FOLDER',
+      },
+      {
+        key: 'key2',
+        id: 'id2',
+        type: 'FOLDER',
+      },
+    ],
+  };
+
   it('returns the expected values on initial call', () => {
-    const { result } = renderHook(() => usePaginate({ pageSize: 100 }));
+    const { result } = renderHook(() => usePaginate({ ...data }));
 
-    expect(result.current.currentPage).toBe(1);
-    expect(typeof result.current.handlePaginateNext).toBe('function');
-    expect(typeof result.current.handlePaginatePrevious).toBe('function');
-    expect(typeof result.current.handleReset).toBe('function');
+    const { current } = result ?? {};
+
+    expect(current?.currentPage).toBe(1);
+    expect(typeof current?.onPaginate).toBe('function');
+    expect(typeof current?.handleReset).toBe('function');
+    expect(typeof current?.highestPageVisited).toBe('number');
   });
 
-  it('returns the expected value of `currentPage` on paginate next', () => {
-    const { result } = renderHook(() => usePaginate({ pageSize: 100 }));
+  it('returns the expected value of `highestPageVisited` on paginate when not on the last page', () => {
+    const { result } = renderHook(() => usePaginate({ ...data }));
+
+    const expectedHighestPage = Math.ceil(data.items.length / data.pageSize);
 
     act(() => {
-      result.current.handlePaginateNext({
-        hasNextToken: true,
-        resultCount: 100,
-      });
+      result?.current?.onPaginate(expectedHighestPage);
     });
 
-    expect(result.current.currentPage).toBe(2);
+    expect(result?.current?.highestPageVisited).toBe(2);
   });
 
-  it('returns the expected value of `currentPage` on paginate previous', () => {
-    const { result } = renderHook(() => usePaginate({ pageSize: 100 }));
+  it('returns the expected value of `currentPage` on paginate', () => {
+    const { result } = renderHook(() => usePaginate({ ...data }));
+
+    expect(result?.current?.currentPage).toBe(1);
 
     act(() => {
-      result.current.handlePaginateNext({
-        hasNextToken: true,
-        resultCount: 100,
-      });
+      result?.current?.onPaginate(2);
     });
 
-    expect(result.current.currentPage).toBe(2);
-
-    act(() => {
-      result.current.handlePaginatePrevious();
-    });
-
-    expect(result.current.currentPage).toBe(1);
+    expect(result?.current?.currentPage).toBe(2);
   });
 
-  it('returns the expected value of `currentPage` on reset', () => {
-    const { result } = renderHook(() => usePaginate({ pageSize: 100 }));
+  it('calls `onPaginate` as expected', () => {
+    const { result } = renderHook(() => usePaginate({ ...data }));
 
     act(() => {
-      result.current.handlePaginateNext({
-        hasNextToken: true,
-        resultCount: 100,
-      });
+      result?.current?.onPaginate(2);
     });
 
-    expect(result.current.currentPage).toBe(2);
-
-    act(() => {
-      result.current.handleReset();
-    });
-
-    expect(result.current.currentPage).toBe(1);
-  });
-
-  it('calls `onPaginateNext` and `onPaginatePrevious` as expected', () => {
-    const onPaginateNext = jest.fn();
-    const onPaginatePrevious = jest.fn();
-
-    const { result } = renderHook(() =>
-      usePaginate({ onPaginateNext, onPaginatePrevious, pageSize: 100 })
-    );
-
-    act(() => {
-      result.current.handlePaginateNext({
-        hasNextToken: true,
-        resultCount: 100,
-      });
-    });
-
-    expect(onPaginateNext).toHaveBeenCalledTimes(1);
-
-    act(() => {
-      result.current.handlePaginatePrevious();
-    });
-
-    expect(onPaginatePrevious).toHaveBeenCalledTimes(1);
+    expect(data.paginateCallback).toHaveBeenCalled();
   });
 });

@@ -4,17 +4,14 @@ exports[`useDestinationPicker should return the correct initial state 1`] = `
 {
   "bucket": "bucket",
   "currentPage": 1,
-  "handleNext": [Function],
-  "handlePrevious": [Function],
   "hasError": false,
   "hasNextToken": false,
+  "highestPageVisited": 0,
   "isLoading": true,
   "items": [],
   "message": undefined,
+  "onPaginate": [Function],
   "onSearch": [Function],
-  "range": [
-    0,
-    10,
-  ],
+  "pageItems": [],
 }
 `;

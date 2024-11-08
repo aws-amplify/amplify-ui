@@ -5,14 +5,12 @@ import { usePaginate } from '../hooks/usePaginate';
 import { LocationData } from '../../actions';
 import { useStore } from '../../providers/store';
 import { displayText } from '../../displayText/en';
-import { isLastPage } from '../utils';
 
 interface UseLocationsView {
   hasNextPage: boolean;
   hasError: boolean;
+  highestPageVisited: number;
   isLoading: boolean;
-  isPaginateNextDisabled: boolean;
-  isPaginatePreviousDisabled: boolean;
   message: string | undefined;
   searchPlaceholder: string;
   shouldShowEmptyMessage: boolean;
@@ -20,8 +18,7 @@ interface UseLocationsView {
   page: number;
   onNavigate: (location: LocationData) => void;
   onRefresh: () => void;
-  onPaginateNext: () => void;
-  onPaginatePrevious: () => void;
+  onPaginate: (page: number) => void;
   onSearch: (query: string) => void;
 }
 
@@ -32,8 +29,6 @@ interface InitialValues {
 export type LocationsViewActionType =
   | { type: 'REFRESH_DATA' }
   | { type: 'RESET' }
-  | { type: 'PAGINATE_NEXT' }
-  | { type: 'PAGINATE_PREVIOUS' }
   | { type: 'PAGINATE'; page: number }
   | { type: 'NAVIGATE'; location: LocationData }
   | { type: 'SEARCH'; query: string };
@@ -58,7 +53,6 @@ export function useLocationsView(
   const [term, setTerm] = React.useState('');
   const { data, message, hasError, isLoading } = state;
   const { result, nextToken } = data;
-  const resultCount = result.length;
   const hasNextToken = !!nextToken;
 
   const onNavigate = options?.onNavigate;
@@ -69,7 +63,6 @@ export function useLocationsView(
     ...initialValues,
   });
   const listOptions = listOptionsRef.current;
-  const { pageSize } = listOptions;
 
   // initial load
   React.useEffect(() => {
@@ -79,33 +72,31 @@ export function useLocationsView(
   }, [handleList, listOptions]);
 
   // set up pagination
-  const onPaginateNext = () =>
+  const paginateCallback = () => {
+    if (!nextToken) return;
     handleList({
       options: { ...listOptions, nextToken },
     });
+  };
 
   const {
     currentPage,
-    handlePaginateNext,
-    handlePaginatePrevious,
+    onPaginate,
     handleReset,
-    range,
-  } = usePaginate({ onPaginateNext, pageSize });
-
-  const pageItems = React.useMemo(() => {
-    const [start, end] = range;
-    return result.slice(start, end);
-  }, [range, result]);
+    highestPageVisited,
+    pageItems,
+  } = usePaginate({
+    items: result,
+    paginateCallback,
+    pageSize: listOptions.pageSize,
+    hasNextToken,
+  });
 
   const filteredItems = React.useMemo(() => {
     return pageItems.filter(
       ({ prefix, bucket }) => prefix.includes(term) || bucket.includes(term)
     );
   }, [pageItems, term]);
-
-  const isFinalPage =
-    !hasNextToken && isLastPage(currentPage, resultCount, pageSize);
-  const hasNoResults = pageItems.length === 0;
 
   const shouldShowEmptyMessage =
     pageItems.length === 0 && !isLoading && !hasError;
@@ -114,12 +105,9 @@ export function useLocationsView(
     isLoading,
     hasError,
     message,
-    isPaginateNextDisabled:
-      isFinalPage || isLoading || hasError || hasNoResults,
-    isPaginatePreviousDisabled:
-      currentPage <= 1 || isLoading || hasError || hasNoResults,
     page: currentPage,
     hasNextPage: hasNextToken,
+    highestPageVisited,
     pageItems: filteredItems,
     searchPlaceholder: displayText.filterLocationsPlaceholder,
     shouldShowEmptyMessage,
@@ -133,10 +121,7 @@ export function useLocationsView(
         options: { ...listOptions, refresh: true },
       });
     },
-    onPaginateNext: () => {
-      handlePaginateNext({ resultCount, hasNextToken });
-    },
-    onPaginatePrevious: handlePaginatePrevious,
+    onPaginate,
     onSearch: (query: string) => {
       setTerm(query);
     },
