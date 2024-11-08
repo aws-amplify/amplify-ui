@@ -165,11 +165,6 @@ export function useLocationDetailView(
     pageItems.length === 0 && !isLoading && !hasError;
 
   return {
-    hasError,
-    hasNextPage: hasNextToken,
-    highestPageVisited,
-    isLoading,
-    message,
     page: currentPage,
     pageItems,
     currentLocation,
@@ -177,7 +172,12 @@ export function useLocationDetailView(
     areAllFilesSelected,
     fileDataItems,
     hasFiles: fileItems.length > 0,
+    hasError,
+    hasNextPage: hasNextToken,
+    highestPageVisited,
+    message,
     shouldShowEmptyMessage,
+    isLoading,
     onPaginate,
     showIncludeSubfolders: true,
     searchPlaceholder: displayText.searchDetailPlaceholder,

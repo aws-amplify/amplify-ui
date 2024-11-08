@@ -1,4 +1,5 @@
 import React from 'react';
+import { PaginationControl } from '../../controls/PaginationControl';
 import {
   EmptyMessageControl,
   LoadingControl,
@@ -18,7 +19,6 @@ import { ControlsContext } from '../../controls/types';
 import { Breadcrumb } from '../../components/BreadcrumbNavigation';
 import { DescriptionList } from '../../components/DescriptionList';
 import { SearchControl } from '../../controls/SearchControl';
-import { PaginationControl } from '../../controls/PaginationControl';
 const {
   actionSetDestination,
   actionDestinationPickerCurrentFolderSelected,

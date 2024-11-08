@@ -7,15 +7,15 @@ import { useStore } from '../../providers/store';
 import { displayText } from '../../displayText/en';
 
 interface UseLocationsView {
-  hasError: boolean;
   hasNextPage: boolean;
+  hasError: boolean;
   highestPageVisited: number;
   isLoading: boolean;
   message: string | undefined;
   searchPlaceholder: string;
   shouldShowEmptyMessage: boolean;
-  page: number;
   pageItems: LocationData[];
+  page: number;
   onNavigate: (location: LocationData) => void;
   onRefresh: () => void;
   onPaginate: (page: number) => void;
@@ -102,8 +102,8 @@ export function useLocationsView(
     pageItems.length === 0 && !isLoading && !hasError;
 
   return {
-    hasError,
     isLoading,
+    hasError,
     message,
     page: currentPage,
     hasNextPage: hasNextToken,
