@@ -60,13 +60,29 @@ export interface DefaultUploadViewDisplayText
   overwriteExistingLabel: string;
 }
 
+export interface DefaultDeleteViewDisplayText
+  extends DefaultActionViewDisplayText {}
+
+export interface DefaultCreateFolderViewDisplayText
+  extends DefaultActionViewDisplayText {
+  getValidationMessage: (error: Error) => string;
+  getActionFailedMessage: (error: Error) => string;
+}
+
+export interface DefaultCopyViewDisplayText
+  extends DefaultActionViewDisplayText {
+  folderSelectedMessage: (path: string) => string;
+  overwriteInfoMessage: string;
+  searchPlaceholder: string;
+}
+
 export interface DefaultStorageBrowserDisplayText {
   LocationsView: DefaultLocationsViewDisplayText;
   LocationDetailView: DefaultLocationDetailViewDisplayText;
   UploadView: DefaultUploadViewDisplayText;
-  // CopyView
-  // DeleteView
-  // CreateFolderView
+  DeleteView: DefaultDeleteViewDisplayText;
+  CopyView: DefaultCopyViewDisplayText;
+  CreateFolderView: DefaultCreateFolderViewDisplayText;
 }
 
 interface LocationsViewDisplayText
@@ -74,12 +90,16 @@ interface LocationsViewDisplayText
 interface LocationDetailViewDisplayText
   extends Partial<DefaultLocationDetailViewDisplayText> {}
 interface UploadViewDisplayText extends Partial<DefaultUploadViewDisplayText> {}
+interface DeleteViewDisplayText extends Partial<DefaultDeleteViewDisplayText> {}
+interface CreateFolderViewDisplayText
+  extends Partial<DefaultCreateFolderViewDisplayText> {}
+interface CopyViewDisplayText extends Partial<DefaultCopyViewDisplayText> {}
 
 export interface StorageBrowserDisplayText {
   LocationsView?: LocationsViewDisplayText;
   LocationDetailView?: LocationDetailViewDisplayText;
   UploadView?: UploadViewDisplayText;
-  // CopyView
-  // DeleteView
-  // CreateFolderView
+  DeleteView?: DeleteViewDisplayText;
+  CopyView?: CopyViewDisplayText;
+  CreateFolderView?: CreateFolderViewDisplayText;
 }
