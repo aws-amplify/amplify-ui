@@ -23,6 +23,7 @@ exports[`DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT DEFAULT_STORAGE_BROWSER_DISPLAY_TE
   "tableColumnBucketHeader": "Bucket",
   "tableColumnFolderHeader": "Folder",
   "tableColumnPermissionsHeader": "Permissions",
+  "title": "Home",
 }
 `;
 
@@ -73,6 +74,7 @@ exports[`DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT should match snapshot 1`] = `
     "tableColumnBucketHeader": "Bucket",
     "tableColumnFolderHeader": "Folder",
     "tableColumnPermissionsHeader": "Permissions",
+    "title": "Home",
   },
   "UploadView": {
     "actionCancelLabel": "Cancel",

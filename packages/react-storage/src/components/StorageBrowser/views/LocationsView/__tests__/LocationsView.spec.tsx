@@ -7,6 +7,8 @@ import { DEFAULT_ERROR_MESSAGE, LocationsView } from '../LocationsView';
 import * as ActionsModule from '../../../do-not-import-from-here/actions';
 import { DEFAULT_LIST_OPTIONS } from '../useLocationsView';
 import { LocationData } from '../../../actions';
+import * as DisplayTextModule from '../../../displayText';
+import { DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT } from '../../../displayText/libraries';
 
 const dispatchStoreAction = jest.fn();
 jest
@@ -14,6 +16,9 @@ jest
   .mockReturnValue([{} as StoreModule.UseStoreState, dispatchStoreAction]);
 
 const useLocationsDataSpy = jest.spyOn(ActionsModule, 'useLocationsData');
+const useDisplayTextSpy = jest
+  .spyOn(DisplayTextModule, 'useDisplayText')
+  .mockReturnValue(DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT);
 
 const generateMockItems = (size: number, page: number): LocationData[] => {
   return Array(size)
@@ -86,6 +91,23 @@ const nextPageState: ActionsModule.LocationsDataState = [
 describe('LocationsListView', () => {
   afterEach(() => {
     jest.clearAllMocks();
+  });
+
+  it('renders and calls appropriate hooks', () => {
+    useLocationsDataSpy.mockReturnValue([
+      {
+        data: { result: results, nextToken: undefined },
+        hasError: true,
+        isLoading: false,
+        message: undefined,
+      },
+      handleListLocations,
+    ]);
+
+    render(<LocationsView />);
+
+    expect(useLocationsDataSpy).toHaveBeenCalled();
+    expect(useDisplayTextSpy).toHaveBeenCalled();
   });
 
   it('renders a returned error message for `LocationsListView`', () => {
@@ -308,7 +330,7 @@ describe('LocationsListView', () => {
       <LocationsView />
     );
 
-    const input = getByPlaceholderText('Filter folders and files');
+    const input = getByPlaceholderText('Filter files and folders');
 
     expect(input).toBeInTheDocument();
     expect(queryByText('item-0/')).toBeInTheDocument();
