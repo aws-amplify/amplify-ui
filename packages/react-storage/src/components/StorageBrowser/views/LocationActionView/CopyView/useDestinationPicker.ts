@@ -56,7 +56,6 @@ export const useDestinationPicker = ({
 
   const { items, nextToken } = data;
 
-  const resultCount = items.length;
   const hasNextToken = !!nextToken;
 
   const paginateCallback = () => {
@@ -72,7 +71,6 @@ export const useDestinationPicker = ({
       items,
       paginateCallback,
       pageSize: 10,
-      resultCount,
       hasNextToken,
     });
 

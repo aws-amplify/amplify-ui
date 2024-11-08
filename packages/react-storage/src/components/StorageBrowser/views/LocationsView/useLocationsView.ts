@@ -53,7 +53,6 @@ export function useLocationsView(
   const [term, setTerm] = React.useState('');
   const { data, message, hasError, isLoading } = state;
   const { result, nextToken } = data;
-  const resultCount = result.length;
   const hasNextToken = !!nextToken;
 
   const onNavigate = options?.onNavigate;
@@ -90,7 +89,6 @@ export function useLocationsView(
     items: result,
     paginateCallback,
     pageSize: listOptions.pageSize,
-    resultCount,
     hasNextToken,
   });
 

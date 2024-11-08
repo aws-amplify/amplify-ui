@@ -102,7 +102,6 @@ export function useLocationDetailView(
 
   // set up pagination
   const { items, nextToken } = data;
-  const resultCount = items?.length ?? 0;
   const hasNextToken = !!nextToken;
   const paginateCallback = () => {
     if (hasInvalidPrefix || !nextToken) return;
@@ -124,7 +123,6 @@ export function useLocationDetailView(
     items,
     paginateCallback,
     pageSize: listOptions.pageSize,
-    resultCount,
     hasNextToken,
   });
 

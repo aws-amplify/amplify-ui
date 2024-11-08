@@ -4,15 +4,23 @@ import { act, renderHook } from '@testing-library/react-hooks';
 jest.mock('../../../controls/context');
 
 describe('usePaginate', () => {
-  const data = {
+  const data: Parameters<typeof usePaginate>[0] = {
     paginateCallback: jest.fn(),
-    resultCount: 100,
-    pageSize: 10,
+    pageSize: 1,
     hasNextToken: false,
-    items: [],
+    items: [
+      {
+        key: 'key1',
+        id: 'id1',
+        type: 'FOLDER',
+      },
+      {
+        key: 'key2',
+        id: 'id2',
+        type: 'FOLDER',
+      },
+    ],
   };
-
-  const warn = jest.spyOn(console, 'warn');
 
   it('returns the expected values on initial call', () => {
     const { result } = renderHook(() => usePaginate({ ...data }));
@@ -28,25 +36,13 @@ describe('usePaginate', () => {
   it('returns the expected value of `highestPageVisited` on paginate when not on the last page', () => {
     const { result } = renderHook(() => usePaginate({ ...data }));
 
-    const expectedHighestPage = Math.ceil(data.resultCount / data.pageSize);
+    const expectedHighestPage = Math.ceil(data.items.length / data.pageSize);
 
     act(() => {
       result?.current?.onPaginate(expectedHighestPage);
     });
 
-    expect(result?.current?.highestPageVisited).toBe(10);
-  });
-
-  it('paginates beyond the page count without warning when a "next token" is present', () => {
-    const { result } = renderHook(() =>
-      usePaginate({ ...data, hasNextToken: true })
-    );
-
-    act(() => {
-      result?.current?.onPaginate(11);
-    });
-
-    expect(warn).not.toHaveBeenCalled();
+    expect(result?.current?.highestPageVisited).toBe(2);
   });
 
   it('returns the expected value of `currentPage` on paginate', () => {

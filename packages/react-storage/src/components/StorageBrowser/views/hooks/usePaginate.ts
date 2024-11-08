@@ -17,7 +17,6 @@ interface UsePaginateProps<T extends ListItemType> {
   items: T[];
   paginateCallback?: () => void;
   pageSize: number;
-  resultCount: number;
 }
 
 export const usePaginate = <T extends ListItemType>({
@@ -25,7 +24,6 @@ export const usePaginate = <T extends ListItemType>({
   items,
   paginateCallback,
   pageSize,
-  resultCount,
 }: UsePaginateProps<T>): UsePaginate<T> => {
   const [currentPage, setCurrentPage] = React.useState(1);
 
@@ -34,6 +32,7 @@ export const usePaginate = <T extends ListItemType>({
   }).current;
 
   return React.useMemo((): UsePaginate<T> => {
+    const resultCount = Array.isArray(items) ? items.length : 0;
     const highestPageVisited = Math.ceil(resultCount / pageSize);
     const isFirstPage = currentPage === 1;
     const start = isFirstPage ? 0 : (currentPage - 1) * pageSize;
@@ -48,10 +47,6 @@ export const usePaginate = <T extends ListItemType>({
         if (shouldPaginate) {
           if (isFunction(paginateCallback)) paginateCallback();
           setCurrentPage(page);
-        } else {
-          // eslint-disable-next-line no-console
-          console.warn('Page is out of bounds');
-          setCurrentPage(1);
         }
       },
       handleReset,
@@ -65,6 +60,5 @@ export const usePaginate = <T extends ListItemType>({
     items,
     paginateCallback,
     pageSize,
-    resultCount,
   ]);
 };
