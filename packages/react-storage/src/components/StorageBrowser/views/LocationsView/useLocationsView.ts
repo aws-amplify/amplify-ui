@@ -109,7 +109,6 @@ export function useLocationsView(
     highestPageVisited,
     pageItems: filteredItems,
     shouldShowEmptyMessage,
-    title: 'Home',
     onNavigate: (location: LocationData) => {
       onNavigate?.(location);
       dispatchStoreAction({ type: 'NAVIGATE', location });

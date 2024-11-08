@@ -5,16 +5,15 @@ import { Controls } from '../Controls';
 import { resolveClassName } from '../utils';
 import { useLocationsView } from './useLocationsView';
 import { ControlsContextProvider } from '../../controls/context';
-import { DataRefreshControl } from '../../controls/DataRefreshControl';
-import { DataTableControl } from '../../controls/DataTableControl';
-import { SearchControl } from '../../controls/SearchControl';
-import { TitleControl } from '../../controls/TitleControl';
-
 import { LocationsViewProps } from './types';
 import { ViewElement } from '../../context/elements';
 import { getLocationsViewTableData } from './getLocationsViewTableData';
 import { useDisplayText } from '../../displayText';
 import { LocationViewHeaders } from './getLocationsViewTableData/types';
+import { DataRefreshControl } from '../../controls/DataRefreshControl';
+import { DataTableControl } from '../../controls/DataTableControl';
+import { SearchControl } from '../../controls/SearchControl';
+import { TitleControl } from '../../controls/TitleControl';
 
 export const DEFAULT_ERROR_MESSAGE = 'There was an error loading locations.';
 
@@ -81,7 +80,6 @@ export function LocationsView({
     pageItems,
     message,
     shouldShowEmptyMessage,
-    title,
     onRefresh,
     onPaginate,
     onNavigate,
@@ -108,11 +106,11 @@ export function LocationsView({
     <ControlsContextProvider
       data={{
         isDataRefreshDisabled: isLoading,
-        title,
         tableData: getLocationsViewTableData({
           headers,
           pageItems,
           onNavigate,
+          title,
         }),
         searchPlaceholder: searchPlaceholder,
       }}
