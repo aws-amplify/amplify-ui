@@ -4,7 +4,6 @@ import { useLocationsData } from '../../do-not-import-from-here/actions';
 import { usePaginate } from '../hooks/usePaginate';
 import { LocationData } from '../../actions';
 import { useStore } from '../../providers/store';
-import { displayText } from '../../displayText/en';
 
 interface UseLocationsView {
   hasNextPage: boolean;
@@ -12,7 +11,6 @@ interface UseLocationsView {
   highestPageVisited: number;
   isLoading: boolean;
   message: string | undefined;
-  searchPlaceholder: string;
   shouldShowEmptyMessage: boolean;
   pageItems: LocationData[];
   page: number;
@@ -109,7 +107,6 @@ export function useLocationsView(
     hasNextPage: hasNextToken,
     highestPageVisited,
     pageItems: filteredItems,
-    searchPlaceholder: displayText.filterLocationsPlaceholder,
     shouldShowEmptyMessage,
     onNavigate: (location: LocationData) => {
       onNavigate?.(location);
