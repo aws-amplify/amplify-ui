@@ -110,9 +110,9 @@ export function LocationsView({
           headers,
           pageItems,
           onNavigate,
-          title,
         }),
         searchPlaceholder: searchPlaceholder,
+        title,
       }}
       onSearch={onSearch}
       onRefresh={onRefresh}
