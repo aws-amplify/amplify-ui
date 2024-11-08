@@ -1,7 +1,6 @@
 import { defineConfig } from 'rollup';
 import typescript from '@rollup/plugin-typescript';
 import externals from 'rollup-plugin-node-externals';
-import styles from 'rollup-plugin-styles';
 
 // common config settings
 const input = ['src/index.ts'];
@@ -48,16 +47,6 @@ const config = defineConfig([
         tsconfig,
       }),
     ],
-  },
-  // CSS config
-  {
-    input: 'src/ai-conversation-styles.ts',
-    output: {
-      dir: 'dist',
-      format: 'cjs',
-      assetFileNames: '[name][extname]',
-    },
-    plugins: [styles({ mode: ['extract'] })],
   },
 ]);
 
