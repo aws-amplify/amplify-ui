@@ -16,7 +16,6 @@ import { ControlsContext } from '../../controls/types';
 import { DescriptionList } from '../../components/DescriptionList';
 import { getDestinationListFullPrefix } from './utils/getDestinationPickerDataTable';
 
-import { ActionStartControl } from '../../controls/ActionStartControl';
 import { ActionCancelControl } from '../../controls/ActionCancelControl';
 import { ActionStartControl } from '../../controls/ActionStartControl';
 import { DataTableControl } from '../../controls/DataTableControl';
