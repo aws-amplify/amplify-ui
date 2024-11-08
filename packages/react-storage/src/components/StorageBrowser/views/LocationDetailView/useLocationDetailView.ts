@@ -110,7 +110,7 @@ export function useLocationDetailView(
     return splitPath[splitPath.length - 2];
   };
 
-  const title = key ? getFolderNameFromPath(key) : currentLocation.bucket;
+  const title = key ? getFolderNameFromPath(key) : currentLocation?.bucket;
 
   // set up pagination
   const { items, nextToken } = data;

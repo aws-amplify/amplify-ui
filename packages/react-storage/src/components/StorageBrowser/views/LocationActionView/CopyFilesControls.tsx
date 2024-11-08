@@ -54,7 +54,7 @@ export const CopyFilesControls = (props: {
     isProcessing || isProcessingComplete || destinationList.length === 0;
 
   const isActionCancelDisabled = !isProcessing || isProcessingComplete;
-  const title = key ? getFolderNameFromPath(key) : current.bucket;
+  const title = key ? getFolderNameFromPath(key) : current?.bucket;
   const contextValue: ControlsContext = {
     data: {
       statusCounts,

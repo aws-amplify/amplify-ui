@@ -78,7 +78,7 @@ export function useLocationsView(
     return splitPath[splitPath.length - 2];
   };
 
-  const title = key ? getFolderNameFromPath(key) : current.bucket;
+  const title = key ? getFolderNameFromPath(key) : current?.bucket;
 
   // initial load
   React.useEffect(() => {

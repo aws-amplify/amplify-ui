@@ -238,7 +238,7 @@ export const UploadControls = (props: {
 
   const title = destinationPrefix
     ? getFolderNameFromPath(destinationPrefix)
-    : current.bucket;
+    : current?.bucket;
 
   const tableData = tasks
     .map(({ data, ...task }) => {

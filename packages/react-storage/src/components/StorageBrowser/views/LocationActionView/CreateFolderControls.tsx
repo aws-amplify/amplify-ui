@@ -97,7 +97,7 @@ export const CreateFolderControls = ({
 
   const hasCompletedStatus = result?.status === 'COMPLETE';
 
-  const title = key ? getFolderNameFromPath(key) : current.bucket;
+  const title = key ? getFolderNameFromPath(key) : current?.bucket;
 
   // FIXME: Eventually comes from useView hook
   const contextValue: ControlsContext = {

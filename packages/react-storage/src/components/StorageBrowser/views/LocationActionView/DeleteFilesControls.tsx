@@ -34,7 +34,7 @@ export const DeleteFilesControls = (props?: {
   const [{ location }] = useStore();
   const { current, key } = location;
 
-  const title = key ? getFolderNameFromPath(key) : current.bucket;
+  const title = key ? getFolderNameFromPath(key) : current?.bucket;
 
   const tableData = getActionViewTableData({
     tasks,
