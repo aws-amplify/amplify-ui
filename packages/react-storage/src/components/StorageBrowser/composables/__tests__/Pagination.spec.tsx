@@ -6,9 +6,9 @@ describe('Pagination', () => {
   it('renders the Pagination composable', async () => {
     render(
       <Pagination
-        currentPage={1}
+        page={1}
         hasMorePages
-        handlePaginate={jest.fn()}
+        onPaginate={jest.fn()}
         highestPageVisited={10}
       />
     );
@@ -24,13 +24,13 @@ describe('Pagination', () => {
     });
     const nextIcon = nextButton.querySelector('svg');
     const prevIcon = nextButton.querySelector('svg');
-    const currentPage = screen.getByText('1');
+    const page = screen.getByText('1');
 
     expect(nextButton).toBeInTheDocument();
     expect(prevButton).toBeInTheDocument();
     expect(nextIcon).toBeInTheDocument();
     expect(prevIcon).toBeInTheDocument();
-    expect(currentPage).toBeInTheDocument();
+    expect(page).toBeInTheDocument();
     expect(nextIcon).toHaveAttribute('aria-hidden', 'true');
     expect(prevIcon).toHaveAttribute('aria-hidden', 'true');
     expect(nav).toBeInTheDocument();
@@ -41,9 +41,9 @@ describe('Pagination', () => {
   it('disables next button when on last page', () => {
     render(
       <Pagination
-        currentPage={10}
+        page={10}
         hasMorePages={false}
-        handlePaginate={jest.fn()}
+        onPaginate={jest.fn()}
         highestPageVisited={10}
       />
     );
@@ -55,9 +55,9 @@ describe('Pagination', () => {
   it('disables prev button when on first page', () => {
     render(
       <Pagination
-        currentPage={1}
+        page={1}
         hasMorePages
-        handlePaginate={jest.fn()}
+        onPaginate={jest.fn()}
         highestPageVisited={10}
       />
     );
@@ -68,29 +68,29 @@ describe('Pagination', () => {
     expect(prevButton).toBeDisabled();
   });
 
-  it('calls handlePaginate when next button is clicked', () => {
-    const handlePaginate = jest.fn();
+  it('calls onPaginate when next button is clicked', () => {
+    const onPaginate = jest.fn();
     render(
       <Pagination
-        currentPage={1}
+        page={1}
         hasMorePages
-        handlePaginate={handlePaginate}
+        onPaginate={onPaginate}
         highestPageVisited={10}
       />
     );
 
     const nextButton = screen.getByRole('button', { name: 'Go to next page' });
     nextButton.click();
-    expect(handlePaginate).toHaveBeenCalledWith(2);
+    expect(onPaginate).toHaveBeenCalledWith(2);
   });
 
-  it('calls handlePaginate when previous button is clicked', () => {
-    const handlePaginate = jest.fn();
+  it('calls onPaginate when previous button is clicked', () => {
+    const onPaginate = jest.fn();
     render(
       <Pagination
-        currentPage={2}
+        page={2}
         hasMorePages
-        handlePaginate={handlePaginate}
+        onPaginate={onPaginate}
         highestPageVisited={10}
       />
     );
@@ -99,6 +99,6 @@ describe('Pagination', () => {
       name: 'Go to previous page',
     });
     nextButton.click();
-    expect(handlePaginate).toHaveBeenCalledWith(1);
+    expect(onPaginate).toHaveBeenCalledWith(1);
   });
 });

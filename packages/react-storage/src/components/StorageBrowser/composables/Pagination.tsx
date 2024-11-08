@@ -34,7 +34,11 @@ export const Pagination = ({
           />
         </ListItemElement>
         <ListItemElement className={`${BLOCK_NAME}__item`}>
-          <SpanElement aria-current="page" className={`${BLOCK_NAME}__current`}>
+          <SpanElement
+            aria-label={`Page ${page}`}
+            aria-current="page"
+            className={`${BLOCK_NAME}__current`}
+          >
             {page}
           </SpanElement>
         </ListItemElement>

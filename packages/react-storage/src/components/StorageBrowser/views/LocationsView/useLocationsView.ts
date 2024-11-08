@@ -39,7 +39,7 @@ export interface UseLocationsViewOptions {
   onNavigate?: (location: LocationData) => void;
 }
 
-const DEFAULT_PAGE_SIZE = 1;
+const DEFAULT_PAGE_SIZE = 100;
 export const DEFAULT_LIST_OPTIONS = {
   exclude: 'WRITE' as const,
   pageSize: DEFAULT_PAGE_SIZE,

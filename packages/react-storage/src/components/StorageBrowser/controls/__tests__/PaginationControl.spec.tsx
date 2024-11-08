@@ -1,15 +1,15 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { PaginationControl } from '../PaginationControl';
-import { usePagination } from '../hooks/usePagination';
+import { usePaginate } from '../../views/hooks/usePaginate';
 import { useResolvedComposable } from '../hooks/useResolvedComposable';
 
-jest.mock('../hooks/usePagination');
+jest.mock('../../views/hooks/usePaginate');
 jest.mock('../hooks/useResolvedComposable');
 
 describe('PaginationControl', () => {
   // assert mocks
-  const mockUsePagination = usePagination as jest.Mock;
+  const mockUsePaginate = usePaginate as jest.Mock;
   const mockUseResolvedComposable = useResolvedComposable as jest.Mock;
 
   beforeAll(() => {
@@ -19,12 +19,12 @@ describe('PaginationControl', () => {
   });
 
   afterEach(() => {
-    mockUsePagination.mockReset();
+    mockUsePaginate.mockReset();
     mockUseResolvedComposable.mockReset();
   });
 
   it('renders the PaginationControl', async () => {
-    mockUsePagination.mockReturnValue({
+    mockUsePaginate.mockReturnValue({
       currentPage: 1,
       disableNext: false,
       disablePrevious: false,
