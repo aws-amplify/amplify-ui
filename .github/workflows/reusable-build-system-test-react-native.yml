@@ -35,9 +35,6 @@ jobs:
         platform: [android]
         logfile: [test.log]
         exclude:
-          - build-tool: cli
-            platform: android
-            framework-version: { formatted: '070', value: '0.70' }
           - build-tool: expo
             platform: ios
           - build-tool: expo
@@ -55,9 +52,6 @@ jobs:
           - build-tool: expo
             platform: android
             framework-version: { formatted: '071', value: '0.71' }
-          - build-tool: expo
-            platform: android
-            framework-version: { formatted: '070', value: '0.70' }
         include:
           - framework: react-native
             framework-version: { formatted: 070, value: '0.70' }
