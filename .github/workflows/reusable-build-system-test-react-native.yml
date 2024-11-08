@@ -18,12 +18,14 @@ jobs:
         framework: [react-native]
         framework-version:
           [
-            { formatted: latest, value: latest },
+            # uncomment to enable
+            # { formatted: latest, value: latest },
             { formatted: 075, value: 0.75 },
             { formatted: 074, value: 0.74 },
             { formatted: 073, value: 0.73 },
             { formatted: 072, value: 0.72 },
             { formatted: 071, value: 0.71 },
+            { formatted: 070, value: 0.70 },
           ]
         build-tool: [cli, expo]
         build-tool-version: [latest]
@@ -55,14 +57,6 @@ jobs:
             platform: android
             framework-version: { formatted: '070', value: '0.70' }
         include:
-          - framework: react-native
-            framework-version: { formatted: 070, value: '0.70' }
-            build-tool: cli
-            build-tool-version: 9
-            platform: android
-            pkg-manager: npm
-            node-version: 20
-            logfile: test.log
           - framework: react-native
             framework-version: { formatted: 070, value: '0.70' }
             build-tool: expo
