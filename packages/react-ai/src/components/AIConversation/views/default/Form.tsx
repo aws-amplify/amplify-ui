@@ -60,6 +60,7 @@ export const Form: NonNullable<ControlsContextProps['Form']> = ({
   const attachIcon = icons?.attach ?? <IconAttach />;
   const hiddenInput = React.useRef<HTMLInputElement>(null);
   const isLoading = React.useContext(LoadingContext);
+  const [composing, setComposing] = React.useState(false);
   const isInputEmpty = !input?.text?.length && !input?.files?.length;
 
   return (
@@ -112,9 +113,11 @@ export const Form: NonNullable<ControlsContextProps['Form']> = ({
           rows={1}
           value={input?.text ?? ''}
           testId="text-input"
+          onCompositionStart={() => setComposing(true)}
+          onCompositionEnd={() => setComposing(false)}
           onKeyDown={(e) => {
             // Submit on enter key if shift is not pressed also
-            const shouldSubmit = !e.shiftKey && e.key === 'Enter';
+            const shouldSubmit = !e.shiftKey && e.key === 'Enter' && !composing;
             if (shouldSubmit && isHTMLFormElement(e.target)) {
               (e.target.form as HTMLFormElement).requestSubmit();
               e.preventDefault();
