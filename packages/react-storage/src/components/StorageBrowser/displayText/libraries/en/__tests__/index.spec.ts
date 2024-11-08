@@ -1,9 +1,5 @@
 import { StatusCounts } from '../../../../tasks';
 import { DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT } from '../default';
-import { DEFAULT_LOCATION_DETAIL_VIEW_DISPLAY_TEXT } from '../locationDetailView';
-import { DEFAULT_LOCATIONS_VIEW_DISPLAY_TEXT } from '../locationsView';
-import { DEFAULT_ACTION_VIEW_DISPLAY_TEXT } from '../shared';
-import { DEFAULT_UPLOAD_VIEW_DISPLAY_TEXT } from '../uploadView';
 
 describe('DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT', () => {
   it('should match snapshot', () => {
