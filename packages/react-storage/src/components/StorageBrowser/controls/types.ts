@@ -2,6 +2,7 @@ import { Composables } from '../composables/types';
 import { DataTableSortHeader, DataTableProps } from '../composables/DataTable';
 import { DropZoneProps } from '../composables/DropZone';
 import { LocationData } from '../actions';
+import { StatusCounts } from '../tasks';
 
 export interface ControlProps {
   className?: string;
@@ -45,7 +46,7 @@ export interface ControlsContext {
     showIncludeSubfolders?: boolean;
     searchPlaceholder?: string;
     tableData?: TableData;
-    taskCounts?: TaskCounts;
+    statusCounts?: StatusCounts;
     title?: string;
   };
   onActionCancel?: () => void;
