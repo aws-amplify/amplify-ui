@@ -14,6 +14,7 @@ import { getLocationDetailViewTableData } from './getLocationDetailViewTableData
 import { DropZoneControl } from '../../controls/DropZoneControl';
 import { ViewElement } from '../../context/elements';
 import { SearchControl } from '../../controls/SearchControl';
+import { PaginationControl } from '../../controls/PaginationControl';
 
 export const DEFAULT_ERROR_MESSAGE = 'There was an error loading items.';
 const DEFAULT_PAGE_SIZE = 100;
@@ -26,7 +27,6 @@ const {
   EmptyMessage,
   Loading: LoadingControl,
   Message,
-  Paginate,
   Title: TitleControl,
 } = Controls;
 
@@ -103,6 +103,12 @@ export function LocationDetailView({
           currentPath,
           searchPlaceholder,
           showIncludeSubfolders,
+          paginationData: {
+            page: page,
+            hasMorePages: hasNextPage,
+            highestPageVisited,
+            onPaginate,
+          },
           tableData: getLocationDetailViewTableData({
             areAllFilesSelected,
             currentLocation,
@@ -130,12 +136,7 @@ export function LocationDetailView({
           <SearchControl
             className={`${CLASS_BASE}__location-detail-view-search`}
           />
-          <Paginate
-            currentPage={page}
-            onPaginate={onPaginate}
-            hasMorePages={hasNextPage}
-            highestPageVisited={highestPageVisited}
-          />
+          <PaginationControl className={`${CLASS_BASE}__paginate`} />
           <DataRefreshControl
             className={`${CLASS_BASE}__locations-detail-view-data-refresh`}
           />

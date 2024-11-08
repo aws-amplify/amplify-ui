@@ -1,5 +1,4 @@
 import React from 'react';
-import { PaginateControl } from '../../views/Controls/Paginate';
 import {
   EmptyMessageControl,
   LoadingControl,
@@ -19,6 +18,7 @@ import { ControlsContext } from '../../controls/types';
 import { Breadcrumb } from '../../components/BreadcrumbNavigation';
 import { DescriptionList } from '../../components/DescriptionList';
 import { SearchControl } from '../../controls/SearchControl';
+import { PaginationControl } from '../../controls/PaginationControl';
 const {
   actionSetDestination,
   actionDestinationPickerCurrentFolderSelected,
@@ -70,6 +70,12 @@ export const DestinationPicker = ({
   const contextValue: ControlsContext = {
     data: {
       tableData,
+      paginationData: {
+        page: currentPage,
+        highestPageVisited,
+        hasMorePages: hasNextToken,
+        onPaginate,
+      },
       showIncludeSubfolders: false,
       searchPlaceholder: displayText.filterCopyPlaceholder,
     },
@@ -111,12 +117,7 @@ export const DestinationPicker = ({
       />
       <ViewElement className={`${CLASS_BASE}__action-destination`}>
         <SearchControl />
-        <PaginateControl
-          currentPage={currentPage}
-          hasMorePages={hasNextToken}
-          onPaginate={onPaginate}
-          highestPageVisited={highestPageVisited}
-        />
+        <PaginationControl className={`${CLASS_BASE}__paginate`} />
       </ViewElement>
       <ViewElement className="storage-browser__table-wrapper">
         <DataTableControl className={`${CLASS_BASE}__table`} />
