@@ -50,7 +50,9 @@ describe('elementsDefault', () => {
     render(<StorageBrowser />);
 
     await waitFor(() => {
-      expect(screen.getByRole('heading', { name: 'Home' })).toBeInTheDocument();
+      expect(
+        screen.getByRole('heading', { name: 'storage-browser__title' })
+      ).toBeInTheDocument();
     });
 
     const refresh = screen.getByRole('button', { name: 'Refresh data' });
