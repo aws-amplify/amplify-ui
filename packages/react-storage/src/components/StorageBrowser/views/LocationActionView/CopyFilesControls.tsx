@@ -70,7 +70,7 @@ export const CopyFilesControls = (props: {
   return (
     <ControlsContextProvider {...contextValue}>
       <Exit onClick={onExit} disabled={isProcessing} />
-      <TitleControl className={`${CLASS_BASE}__copy-action-view-title`} />
+      <TitleControl />
       <ViewElement className={`${CLASS_BASE}__table-wrapper`}>
         <DataTableControl className={`${CLASS_BASE}__table`} />
       </ViewElement>

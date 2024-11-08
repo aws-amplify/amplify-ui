@@ -2,7 +2,6 @@ import { Composables } from '../composables/types';
 import { DataTableSortHeader, DataTableProps } from '../composables/DataTable';
 import { DropZoneProps } from '../composables/DropZone';
 import { LocationData } from '../actions';
-import { StatusCounts } from '../tasks';
 
 export interface ControlProps {
   className?: string;
@@ -48,15 +47,6 @@ export interface ControlsContext {
     tableData?: TableData;
     taskCounts?: TaskCounts;
     title?: string;
-  };
-  actionsConfig?: {
-    type:
-      | 'SINGLE_ACTION'
-      | 'BATCH_ACTION'
-      | 'LIST_LOCATIONS'
-      | 'LIST_LOCATION_ITEMS';
-    isCancelable?: boolean;
-    statusCounts?: StatusCounts;
   };
   onActionCancel?: () => void;
   onActionStart?: () => void;

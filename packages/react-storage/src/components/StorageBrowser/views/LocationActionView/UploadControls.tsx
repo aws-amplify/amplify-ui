@@ -346,7 +346,7 @@ export const UploadControls = (props: {
           onExit();
         }}
       />
-      <TitleControl className={`${CLASS_BASE}__upload-action-view-title`} />
+      <TitleControl />
       <ViewElement className={`${CLASS_BASE}__action-header`}>
         <ViewElement className={`${CLASS_BASE}__upload-destination`}>
           <DescriptionList

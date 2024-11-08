@@ -7,7 +7,7 @@ import { CLASS_BASE } from '../constants';
 import { useDeleteView } from './DeleteView/useDeleteView';
 import { ControlsContext } from '../../controls/types';
 import { useStore } from '../../providers/store';
-import { getActionViewTableData, GetTitle } from './utils';
+import { getActionViewTableData } from './utils';
 import { LocationData } from '../../actions';
 import { ActionStartControl } from '../../controls/ActionStartControl';
 import { ActionCancelControl } from '../../controls/ActionCancelControl';
@@ -37,7 +37,6 @@ export const DeleteFilesControls = (props?: {
     folder: key,
     isProcessing,
   });
-  const title = GetTitle();
   const contextValue: ControlsContext = {
     data: {
       statusCounts,
@@ -54,7 +53,7 @@ export const DeleteFilesControls = (props?: {
   return (
     <ControlsContextProvider {...contextValue}>
       <Exit onClick={onExit} disabled={isProcessing} />
-      <TitleControl className={`${CLASS_BASE}__delete-action-view-title`} />
+      <TitleControl />
       <ViewElement className={`${CLASS_BASE}__table-wrapper`}>
         <DataTableControl className={`${CLASS_BASE}__table`} />
       </ViewElement>
