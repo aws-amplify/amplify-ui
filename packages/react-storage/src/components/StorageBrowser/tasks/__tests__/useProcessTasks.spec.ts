@@ -2,9 +2,11 @@ import { act, renderHook, waitFor } from '@testing-library/react';
 
 import {
   ActionInputConfig,
-  CancelableTaskHandlerOutput,
   TaskHandlerInput,
+  TaskHandlerOptions,
+  TaskHandlerOutput,
 } from '../../actions';
+import { FileItem } from '../../providers';
 
 import { useProcessTasks } from '../../tasks/useProcessTasks';
 
@@ -17,35 +19,37 @@ const config: ActionInputConfig = {
 
 const prefix = 'prefix';
 
-const items: { key: string; id: string; item: File }[] = [
-  { key: '0', id: '0', item: new File([], '0') },
-  { key: '1', id: '1', item: new File([], '1') },
-  { key: '2', id: '2', item: new File([], '2') },
+const items: FileItem[] = [
+  { key: '0', id: '0', file: new File([], '0') },
+  { key: '1', id: '1', file: new File([], '1') },
+  { key: '2', id: '2', file: new File([], '2') },
 ];
 
 const action = jest.fn(
-  ({ key }: TaskHandlerInput<File, { extraOption?: boolean }>) => {
+  ({
+    data: { key },
+  }: TaskHandlerInput<
+    FileItem,
+    TaskHandlerOptions & { extraOption?: boolean }
+  > & { prefix: string }): TaskHandlerOutput => {
     if (key === '0') {
       return {
-        key: '0',
         cancel: undefined,
-        result: Promise.resolve('COMPLETE' as const),
+        result: Promise.resolve({ status: 'COMPLETE' as const }),
       };
     }
 
     if (key === '1') {
       return {
-        key: '1',
         cancel: undefined,
-        result: Promise.reject('FAILED' as const),
+        result: Promise.reject({ status: 'FAILED' as const }),
       };
     }
 
     if (key === '2') {
       return {
-        key: '2',
         cancel: undefined,
-        result: Promise.resolve('COMPLETE' as const),
+        result: Promise.resolve({ status: 'COMPLETE' as const }),
       };
     }
     throw new Error();
@@ -56,27 +60,27 @@ const sleep = <T>(
   ms: number,
   resolvedValue: T,
   shouldReject = false
-): Promise<T> =>
+): Promise<{ status: T }> =>
   new Promise((resolve, reject) =>
-    setTimeout(() => (shouldReject ? reject : resolve)(resolvedValue), ms)
+    setTimeout(
+      () => (shouldReject ? reject : resolve)({ status: resolvedValue }),
+      ms
+    )
   );
 
 const createTimedAction =
   ({
     cancel,
-    key,
     ms = 1000,
     resolvedStatus = 'COMPLETE',
     shouldReject,
   }: {
     cancel?: () => void;
-    key: string;
     ms?: number;
-    resolvedStatus?: 'COMPLETE' | 'FAILED' | 'CANCELED';
+    resolvedStatus?: 'COMPLETE' | 'FAILED' | 'CANCELED' | 'OVERWRITE_PREVENTED';
     shouldReject?: boolean;
-  }): (() => CancelableTaskHandlerOutput) =>
+  }): ((input: TaskHandlerInput & { prefix: string }) => TaskHandlerOutput) =>
   () => ({
-    key,
     cancel,
     pause: undefined,
     resume: undefined,
@@ -103,9 +107,9 @@ describe('useProcessTasks', () => {
 
     const processTasks = result.current[1];
 
-    expect(result.current[0][0].status).toBe('QUEUED');
-    expect(result.current[0][1].status).toBe('QUEUED');
-    expect(result.current[0][2].status).toBe('QUEUED');
+    expect(result.current[0].tasks[0].status).toBe('QUEUED');
+    expect(result.current[0].tasks[1].status).toBe('QUEUED');
+    expect(result.current[0].tasks[2].status).toBe('QUEUED');
 
     act(() => {
       processTasks({ config, prefix });
@@ -114,34 +118,36 @@ describe('useProcessTasks', () => {
     expect(action).toHaveBeenCalledTimes(2);
     expect(action).toHaveBeenCalledWith({
       config,
-      key: items[0].key,
-      data: { id: items[0].id, payload: items[0].item },
+      data: { key: items[0].key, id: items[0].id, file: items[0].file },
+      options: { onProgress: expect.any(Function) },
       prefix,
     });
     expect(action).toHaveBeenCalledWith({
       config,
-      key: items[1].key,
-      data: { id: items[1].id, payload: items[1].item },
+      data: { key: items[1].key, id: items[1].id, file: items[1].file },
+      options: { onProgress: expect.any(Function) },
       prefix,
     });
 
-    expect(result.current[0][0].status).toBe('PENDING');
-    expect(result.current[0][1].status).toBe('PENDING');
-    expect(result.current[0][2].status).toBe('QUEUED');
+    expect(result.current[0].tasks[0].status).toBe('PENDING');
+    expect(result.current[0].tasks[1].status).toBe('PENDING');
+    expect(result.current[0].tasks[2].status).toBe('QUEUED');
 
     await waitFor(() => {
       expect(action).toHaveBeenCalledTimes(3);
     });
 
-    expect(result.current[0][0].status).toBe('COMPLETE');
-    expect(result.current[0][1].status).toBe('FAILED');
-    expect(result.current[0][2].status).toBe('COMPLETE');
+    expect(result.current[0].tasks[0].status).toBe('COMPLETE');
+    expect(result.current[0].tasks[1].status).toBe('FAILED');
+    expect(result.current[0].tasks[2].status).toBe('COMPLETE');
   });
 
-  it('cancels a task as expected', () => {
+  it('cancels an inflight task as expected', async () => {
     const cancel = jest.fn();
-    const { key } = items[0];
-    const cancelableAction = createTimedAction({ cancel, key });
+    const cancelableAction = createTimedAction({
+      cancel,
+      resolvedStatus: 'CANCELED',
+    });
 
     const { result } = renderHook(() =>
       useProcessTasks(cancelableAction, items)
@@ -149,34 +155,53 @@ describe('useProcessTasks', () => {
 
     const processTasks = result.current[1];
 
-    expect(result.current[0][0].key).toBe(key);
-    expect(result.current[0][0].cancel).toBeUndefined();
-    expect(result.current[0][0].status).toBe('QUEUED');
+    expect(result.current[0].tasks[0].cancel).toBeDefined();
+    expect(result.current[0].tasks[0].status).toBe('QUEUED');
 
     act(() => {
       processTasks({ config, prefix });
     });
 
-    expect(result.current[0][0].key).toBe(key);
-    expect(result.current[0][0].cancel).toBeDefined();
-    expect(result.current[0][0].status).toBe('PENDING');
+    expect(result.current[0].tasks[0].cancel).toBeDefined();
+    expect(result.current[0].tasks[0].status).toBe('PENDING');
 
     act(() => {
-      result.current[0][0].cancel?.();
+      result.current[0].tasks[0].cancel?.();
     });
 
+    jest.advanceTimersToNextTimer();
+
     expect(cancel).toHaveBeenCalledTimes(1);
-    expect(result.current[0][0].status).toBe('CANCELED');
+
+    await waitFor(() => {
+      expect(result.current[0].tasks[0].status).toBe('CANCELED');
+    });
+  });
+
+  it('cancels a QUEUED task as expected', () => {
+    const cancelableAction = createTimedAction({});
+
+    const { result } = renderHook(() =>
+      useProcessTasks(cancelableAction, items)
+    );
+
+    expect(result.current[0].tasks[0].cancel).toBeDefined();
+    expect(result.current[0].tasks[0].status).toBe('QUEUED');
+
+    act(() => {
+      result.current[0].tasks[0].cancel();
+    });
+
+    expect(result.current[0].tasks[0].status).toBe('CANCELED');
   });
 
   it.each(['COMPLETE' as const, 'FAILED' as const])(
     'does not cancel a %s task',
     async (resolvedStatus) => {
       const cancel = jest.fn();
-      const { key } = items[0];
+
       const cancelableAction = createTimedAction({
         cancel,
-        key,
         resolvedStatus,
         shouldReject: resolvedStatus === 'FAILED',
       });
@@ -187,25 +212,25 @@ describe('useProcessTasks', () => {
 
       const processTasks = result.current[1];
 
-      expect(result.current[0][0].status).toBe('QUEUED');
+      expect(result.current[0].tasks[0].status).toBe('QUEUED');
 
       act(() => {
         processTasks({ config, prefix });
       });
 
-      expect(result.current[0][0].status).toBe('PENDING');
+      expect(result.current[0].tasks[0].status).toBe('PENDING');
 
       jest.advanceTimersToNextTimer();
 
       await waitFor(() => {
-        expect(result.current[0][0].status).toBe(resolvedStatus);
+        expect(result.current[0].tasks[0].status).toBe(resolvedStatus);
       });
 
       act(() => {
-        result.current[0][0].cancel?.();
+        result.current[0].tasks[0].cancel?.();
       });
 
-      expect(result.current[0][0].status).toBe(resolvedStatus);
+      expect(result.current[0].tasks[0].status).toBe(resolvedStatus);
     }
   );
 
@@ -214,9 +239,9 @@ describe('useProcessTasks', () => {
 
     const processTasks = result.current[1];
 
-    expect(result.current[0][0].status).toBe('QUEUED');
-    expect(result.current[0][1].status).toBe('QUEUED');
-    expect(result.current[0][2].status).toBe('QUEUED');
+    expect(result.current[0].tasks[0].status).toBe('QUEUED');
+    expect(result.current[0].tasks[1].status).toBe('QUEUED');
+    expect(result.current[0].tasks[2].status).toBe('QUEUED');
 
     act(() => {
       processTasks({ config, prefix, options: { extraOption: true } });
@@ -225,53 +250,50 @@ describe('useProcessTasks', () => {
     expect(action).toHaveBeenCalledTimes(1);
     expect(action).toHaveBeenCalledWith({
       config,
-      key: items[0].key,
-      data: { id: items[0].id, payload: items[0].item },
-      options: { extraOption: true },
+      data: { key: items[0].key, id: items[0].id, file: items[0].file },
+      options: { extraOption: true, onProgress: expect.any(Function) },
       prefix,
     });
 
-    expect(result.current[0][0].status).toBe('PENDING');
-    expect(result.current[0][1].status).toBe('QUEUED');
-    expect(result.current[0][2].status).toBe('QUEUED');
+    expect(result.current[0].tasks[0].status).toBe('PENDING');
+    expect(result.current[0].tasks[1].status).toBe('QUEUED');
+    expect(result.current[0].tasks[2].status).toBe('QUEUED');
 
     await waitFor(() => {
       expect(action).toHaveBeenCalledTimes(3);
     });
 
-    expect(result.current[0][0].status).toBe('COMPLETE');
-    expect(result.current[0][1].status).toBe('FAILED');
-    expect(result.current[0][2].status).toBe('COMPLETE');
+    expect(result.current[0].tasks[0].status).toBe('COMPLETE');
+    expect(result.current[0].tasks[1].status).toBe('FAILED');
+    expect(result.current[0].tasks[2].status).toBe('COMPLETE');
   });
 
   it('removes a task as expected', () => {
     const { result } = renderHook(() => useProcessTasks(action, items));
 
-    const initTasks = result.current[0];
+    const initTasks = result.current[0].tasks;
     const [task] = initTasks;
 
     expect(initTasks.length).toBe(3);
-    expect(task.key).toBe(items[0].key);
 
     act(() => {
       task.remove();
     });
 
-    const nextTasks = result.current[0];
+    const nextTasks = result.current[0].tasks;
     expect(nextTasks.length).toBe(2);
   });
 
   it('does not remove an inflight task', async () => {
     const { result } = renderHook(() => useProcessTasks(action, items));
 
-    const [initTasks, handleProcess] = result.current;
-    const [task] = initTasks;
+    const [initState, handleProcess] = result.current;
+    const [task] = initState.tasks;
 
-    expect(initTasks.length).toBe(3);
-    expect(task.key).toBe(items[0].key);
+    expect(initState.tasks.length).toBe(3);
 
     act(() => {
-      handleProcess();
+      handleProcess({ config, prefix });
     });
 
     act(() => {
@@ -279,18 +301,17 @@ describe('useProcessTasks', () => {
     });
 
     await waitFor(() => {
-      const nextTasks = result.current[0];
+      const nextTasks = result.current[0].tasks;
       expect(nextTasks.length).toBe(3);
     });
   });
 
   it('excludes adding an item with an existing task', () => {
-    const { rerender, result } = renderHook(
-      (_items: { key: string; id: string; item: File }[] = items) =>
-        useProcessTasks(action, _items)
+    const { rerender, result } = renderHook((_items: FileItem[] = items) =>
+      useProcessTasks(action, _items)
     );
 
-    const initTasks = result.current[0];
+    const initTasks = result.current[0].tasks;
     expect(initTasks.length).toBe(3);
 
     const nextItems = [...items];
@@ -299,28 +320,38 @@ describe('useProcessTasks', () => {
       rerender(nextItems);
     });
 
-    const nextTasks = result.current[0];
+    const nextTasks = result.current[0].tasks;
     expect(nextTasks.length).toBe(3);
   });
 
-  it('returns the existing tasks when new items are empty', () => {
-    const { rerender, result } = renderHook(
-      (_items: { key: string; id: string; item: File }[] = items) =>
-        useProcessTasks(action, _items)
-    );
+  it('returns the expected values for `isProcessing` and `isProcessingComplete`', async () => {
+    const { result } = renderHook(() => useProcessTasks(action, items));
 
-    const initTasks = result.current[0];
-    expect(initTasks.length).toBe(3);
+    const [initState, handleProcess] = result.current;
 
-    const nextItems: { key: string; id: string; item: File }[] = [];
+    expect(initState.isProcessing).toBe(false);
+    expect(initState.isProcessingComplete).toBe(false);
 
     act(() => {
-      rerender(nextItems);
+      handleProcess({ config, prefix });
     });
 
-    const nextTasks = result.current[0];
-    expect(nextTasks.length).toBe(3);
+    const [processingState] = result.current;
 
-    expect(nextTasks).toBe(initTasks);
+    expect(processingState.isProcessing).toBe(true);
+    expect(processingState.isProcessingComplete).toBe(false);
+
+    await waitFor(() => {
+      expect(action).toHaveBeenCalledTimes(3);
+    });
+
+    const [completedState] = result.current;
+
+    expect(completedState.isProcessing).toBe(false);
+    expect(completedState.isProcessingComplete).toBe(true);
   });
+
+  it.todo('handles progress updates as expected');
+  it.todo('ignores calls to handle processing when isProcessing is true');
+  it.todo('handles data provided through input as expected');
 });

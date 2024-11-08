@@ -4,7 +4,14 @@ import { PaginateControl } from '../Paginate';
 
 describe('PaginationControl', () => {
   it('renders the PaginationControl', async () => {
-    render(<PaginateControl />);
+    render(
+      <PaginateControl
+        currentPage={1}
+        onPaginate={jest.fn()}
+        highestPageVisited={10}
+        hasMorePages={false}
+      />
+    );
 
     const nav = screen.getByRole('navigation', {
       name: 'Pagination',

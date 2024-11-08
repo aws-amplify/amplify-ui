@@ -182,6 +182,9 @@ export const InputElement = defineBaseElement<
   | 'onFocus'
   | 'checked'
   | 'defaultChecked'
+  | 'placeholder'
+  | 'value'
+  | 'onKeyUp'
 >({
   type: 'input',
   displayName: 'Input',

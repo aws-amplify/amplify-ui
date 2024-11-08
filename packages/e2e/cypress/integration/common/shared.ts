@@ -274,10 +274,26 @@ When('I click the button containing {string}', (name: string) => {
   }).click();
 });
 
+When('I click the first button containing {string}', (name: string) => {
+  cy.findAllByRole('button', {
+    name: new RegExp(`${escapeRegExp(name)}`, 'i'),
+  })
+    .first()
+    .click();
+});
+
 Then('I see the button containing {string}', (name: string) => {
   cy.findByRole('button', {
     name: new RegExp(`${escapeRegExp(name)}`, 'i'),
   }).should('exist');
+});
+
+Then('I see the first button containing {string}', (name: string) => {
+  cy.findAllByRole('button', {
+    name: new RegExp(`${escapeRegExp(name)}`, 'i'),
+  })
+    .first()
+    .should('exist');
 });
 
 Then('I see the {string} button', (name: string) => {

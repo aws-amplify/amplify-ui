@@ -1,50 +1,64 @@
 import React from 'react';
+import { LocationData, LocationItemData } from '../../actions';
+import { isFunction } from '@aws-amplify/ui';
 
-interface UsePaginate {
+type ListItemType = LocationItemData | LocationData;
+
+interface UsePaginate<T extends ListItemType> {
   currentPage: number;
   highestPageVisited: number;
-  handlePaginate: (page: number) => void;
+  onPaginate: (page: number) => void;
   handleReset: () => void;
-  range: [start: number, end: number];
+  pageItems: T[];
 }
 
-export const usePaginate = ({
-  onPaginate,
-  pageSize,
-  resultCount,
-}: {
-  onPaginate?: () => void;
+interface UsePaginateProps<T extends ListItemType> {
+  hasNextToken: boolean;
+  items: T[];
+  paginateCallback?: () => void;
   pageSize: number;
-  resultCount: number;
-}): UsePaginate => {
+}
+
+export const usePaginate = <T extends ListItemType>({
+  hasNextToken,
+  items,
+  paginateCallback,
+  pageSize,
+}: UsePaginateProps<T>): UsePaginate<T> => {
   const [currentPage, setCurrentPage] = React.useState(1);
 
   const handleReset = React.useRef(() => {
     setCurrentPage(1);
   }).current;
 
-  return React.useMemo((): UsePaginate => {
+  return React.useMemo((): UsePaginate<T> => {
+    const resultCount = Array.isArray(items) ? items.length : 0;
     const highestPageVisited = Math.ceil(resultCount / pageSize);
     const isFirstPage = currentPage === 1;
     const start = isFirstPage ? 0 : (currentPage - 1) * pageSize;
     const end = isFirstPage ? pageSize : currentPage * pageSize;
+    const pageItems = Array.isArray(items) ? items.slice(start, end) : [];
 
     return {
       currentPage,
-      handlePaginate: (page) => {
-        const shouldPaginate = page >= 1 && page <= highestPageVisited;
+      onPaginate: (page) => {
+        const shouldPaginate =
+          page >= 1 && (page <= highestPageVisited || hasNextToken);
         if (shouldPaginate) {
-          if (typeof onPaginate === 'function') onPaginate();
+          if (isFunction(paginateCallback)) paginateCallback();
           setCurrentPage(page);
-        } else {
-          // eslint-disable-next-line no-console
-          console.warn('Page is out of bounds');
-          setCurrentPage(1);
         }
       },
       handleReset,
       highestPageVisited,
-      range: [start, end],
+      pageItems,
     };
-  }, [currentPage, handleReset, onPaginate, pageSize, resultCount]);
+  }, [
+    currentPage,
+    handleReset,
+    hasNextToken,
+    items,
+    paginateCallback,
+    pageSize,
+  ]);
 };

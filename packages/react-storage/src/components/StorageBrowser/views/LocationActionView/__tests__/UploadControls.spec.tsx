@@ -1,17 +1,88 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import userEvent, { UserEvent } from '@testing-library/user-event';
 
 import * as ConfigModule from '../../../providers/configuration';
 import * as StoreModule from '../../../providers/store';
-import * as TasksModule from '../../../tasks';
+import { INITIAL_STATUS_COUNTS } from '../../../tasks';
 
-import { UploadControls, ActionIcon, ICON_CLASS } from '../UploadControls';
+import * as UseUploadViewModule from '../UploadView';
+import { UploadControls } from '../UploadControls';
 
 jest.mock('../Controls/Title');
 
+const mockControlsContextProvider = jest.fn(
+  (_: any) => 'ControlsContextProvider'
+);
+jest.mock('../../../controls/context', () => ({
+  ControlsContextProvider: (ctx: any) => mockControlsContextProvider(ctx),
+  useControlsContext: () => ({ actionConfig: {}, data: {} }),
+}));
+
 const useStoreSpy = jest.spyOn(StoreModule, 'useStore');
-const useProcessTasksSpy = jest.spyOn(TasksModule, 'useProcessTasks');
+
+const onActionCancel = jest.fn();
+const onActionStart = jest.fn();
+const onExit = jest.fn();
+const onDropFiles = jest.fn();
+const onSelectFiles = jest.fn();
+const onToggleOverwrite = jest.fn();
+
+const callbacks = {
+  onActionCancel,
+  onActionStart,
+  onExit,
+  onDropFiles,
+  onSelectFiles,
+  onToggleOverwrite,
+};
+
+const statusCounts = { ...INITIAL_STATUS_COUNTS };
+
+const testFile = new File([], 'test-ooo');
+const data = { id: 'some-uuid', file: testFile, key: testFile.name };
+
+const taskOne = {
+  data,
+  cancel: jest.fn(),
+  message: undefined,
+  remove: jest.fn(),
+  progress: 0,
+  status: 'QUEUED' as const,
+};
+
+const initialViewState: UseUploadViewModule.UploadViewState = {
+  ...callbacks,
+  destinationPrefix: 'my-folder/',
+  isOverwriteEnabled: false,
+  isProcessingComplete: false,
+  isProcessing: false,
+  tasks: [],
+  statusCounts,
+};
+
+const preprocessingViewState: UseUploadViewModule.UploadViewState = {
+  ...initialViewState,
+  tasks: [taskOne],
+  statusCounts: { ...statusCounts, QUEUED: 1, TOTAL: 1 },
+};
+
+const processingViewState: UseUploadViewModule.UploadViewState = {
+  ...initialViewState,
+  isProcessing: true,
+  tasks: [{ ...taskOne, status: 'PENDING' }],
+  statusCounts: { ...statusCounts, PENDING: 1, TOTAL: 1 },
+};
+
+const postProcessingViewState: UseUploadViewModule.UploadViewState = {
+  ...initialViewState,
+  isProcessingComplete: true,
+  tasks: [{ ...taskOne, status: 'COMPLETE' }],
+  statusCounts: { ...statusCounts, COMPLETE: 1, TOTAL: 1 },
+};
+
+const useUploadViewSpy = jest
+  .spyOn(UseUploadViewModule, 'useUploadView')
+  .mockReturnValue(initialViewState);
 
 const location = {
   id: 'an-id-👍🏼',
@@ -20,10 +91,11 @@ const location = {
   prefix: 'test-prefix/',
   type: 'PREFIX',
 };
+
 const dispatchStoreAction = jest.fn();
 useStoreSpy.mockReturnValue([
   {
-    history: { current: location, previous: [location] },
+    location: { current: location, path: '', key: location.prefix },
   } as StoreModule.UseStoreState,
   dispatchStoreAction,
 ]);
@@ -35,155 +107,82 @@ const config: ConfigModule.GetActionInput = jest.fn(() => ({
   region: 'region',
 }));
 
-const testFile = new File([], 'test-ooo');
-const fileItem = { id: 'some-uuid', item: testFile, key: testFile.name };
-
 jest.spyOn(ConfigModule, 'useGetActionInput').mockReturnValue(config);
 
 describe('UploadControls', () => {
-  let user: UserEvent;
-  beforeEach(() => {
-    user = userEvent.setup();
-  });
-
   afterEach(jest.clearAllMocks);
 
-  it('should render upload controls table', () => {
-    const { getByRole } = render(<UploadControls />);
+  it('provides the expected boolean flags to `ControlsContextProvider` prior to processing when tasks is empty', () => {
+    render(<UploadControls />);
 
-    const table = getByRole('table');
-    expect(table).toBeInTheDocument();
-  });
-
-  it('should render the destination folder', () => {
-    const { getByText } = render(<UploadControls />);
-
-    const destination = getByText('Destination:');
-    const destinationFolder = getByText('test-prefix/');
-
-    expect(destination).toBeInTheDocument();
-    expect(destinationFolder).toBeInTheDocument();
-  });
-
-  it('calls `useProcessTasks` with the expected values when provided a root `prefix`', async () => {
-    const rootLocation = {
-      id: 'an-id-👍🏼',
-      bucket: 'test-bucket',
-      permission: 'READWRITE',
-      // a root `prefix` is an empty string
-      prefix: '',
-      type: 'BUCKET',
-    };
-
-    useStoreSpy.mockReturnValue([
-      {
-        history: { current: rootLocation, previous: [rootLocation] },
-        files: [fileItem],
-      } as StoreModule.UseStoreState,
-      dispatchStoreAction,
-    ]);
-
-    const handleProcessTasks = jest.fn();
-    useProcessTasksSpy.mockReturnValue([
-      [
-        {
-          ...fileItem,
-          cancel: undefined,
-          message: undefined,
-          remove: jest.fn(),
-          status: 'QUEUED',
-        },
-      ],
-      handleProcessTasks,
-    ]);
-
-    const { getByText, getAllByRole } = render(<UploadControls />);
-
-    // render a '/' as the destination folder when prefix is an empty string
-    const definitonEls = getAllByRole('definition');
-    expect(definitonEls[0]).toHaveTextContent('/');
-
-    const startButton = getByText('Start');
-    expect(startButton).toBeInTheDocument();
-
-    await user.click(startButton);
-
-    expect(handleProcessTasks).toHaveBeenCalledTimes(1);
-    expect(handleProcessTasks).toHaveBeenCalledWith({
-      config: {
-        bucket: rootLocation.bucket,
-        credentials,
-        region: 'region',
+    const { calls } = mockControlsContextProvider.mock;
+    expect(calls).toHaveLength(1);
+    expect(calls[0][0]).toMatchObject({
+      data: {
+        isActionStartDisabled: true,
+        isActionCancelDisabled: true,
+        isAddFilesDisabled: false,
+        isAddFolderDisabled: false,
+        isExitDisabled: false,
+        isOverwriteCheckboxDisabled: false,
       },
-      options: { preventOverwrite: true },
-      prefix: '',
     });
   });
 
-  it('calls `useProcessTasks` with the expected values when provided a nested `prefix`', async () => {
-    useStoreSpy.mockReturnValue([
-      {
-        history: { current: location, previous: [location] },
-        files: [fileItem],
-      } as StoreModule.UseStoreState,
-      dispatchStoreAction,
-    ]);
+  it('provides the expected boolean flags to `ControlsContextProvider` prior to processing', () => {
+    useUploadViewSpy.mockReturnValue(preprocessingViewState);
 
-    const handleProcessTasks = jest.fn();
-    useProcessTasksSpy.mockReturnValue([
-      [
-        {
-          ...fileItem,
-          cancel: undefined,
-          message: undefined,
-          remove: jest.fn(),
-          status: 'QUEUED',
-        },
-      ],
-      handleProcessTasks,
-    ]);
+    render(<UploadControls />);
 
-    const { getByText, getAllByRole } = render(<UploadControls />);
-
-    const definitonEls = getAllByRole('definition');
-    expect(definitonEls[0]).toHaveTextContent(location.prefix);
-
-    const startButton = getByText('Start');
-    expect(startButton).toBeInTheDocument();
-
-    await user.click(startButton);
-
-    expect(handleProcessTasks).toHaveBeenCalledTimes(1);
-    expect(handleProcessTasks).toHaveBeenCalledWith({
-      config: {
-        bucket: location.bucket,
-        credentials,
-        region: 'region',
+    const { calls } = mockControlsContextProvider.mock;
+    expect(calls).toHaveLength(1);
+    expect(calls[0][0]).toMatchObject({
+      data: {
+        isActionStartDisabled: false,
+        isActionCancelDisabled: true,
+        isAddFilesDisabled: false,
+        isAddFolderDisabled: false,
+        isExitDisabled: false,
+        isOverwriteCheckboxDisabled: false,
       },
-      options: { preventOverwrite: true },
-      prefix: location.prefix,
     });
   });
-});
 
-describe('ActionIcon', () => {
-  it('should show all icon statuses', () => {
-    const { container } = render(
-      <>
-        <ActionIcon />
-        <ActionIcon status="CANCELED" />
-        <ActionIcon status="COMPLETE" />
-        <ActionIcon status="QUEUED" />
-        <ActionIcon status="FAILED" />
-        <ActionIcon status="PENDING" />
-      </>
-    );
-    const svg = container.querySelectorAll('svg');
-    expect(svg[0]?.classList).toContain(`${ICON_CLASS}--action-initial`);
-    expect(svg[1]?.classList).toContain(`${ICON_CLASS}--action-canceled`);
-    expect(svg[2]?.classList).toContain(`${ICON_CLASS}--action-success`);
-    expect(svg[3]?.classList).toContain(`${ICON_CLASS}--action-queued`);
-    expect(svg[4]?.classList).toContain(`${ICON_CLASS}--action-error`);
-    expect(svg[5]?.classList).toContain(`${ICON_CLASS}--action-progress`);
+  it('provides the expected boolean flags to `ControlsContextProvider` while processing', () => {
+    useUploadViewSpy.mockReturnValue(processingViewState);
+
+    render(<UploadControls />);
+
+    const { calls } = mockControlsContextProvider.mock;
+    expect(calls).toHaveLength(1);
+    expect(calls[0][0]).toMatchObject({
+      data: {
+        isActionStartDisabled: true,
+        isActionCancelDisabled: false,
+        isAddFilesDisabled: true,
+        isAddFolderDisabled: true,
+        isExitDisabled: true,
+        isOverwriteCheckboxDisabled: true,
+      },
+    });
+  });
+
+  it('provides the expected boolean flags to `ControlsContextProvider` post processing', () => {
+    useUploadViewSpy.mockReturnValue(postProcessingViewState);
+
+    render(<UploadControls />);
+
+    const { calls } = mockControlsContextProvider.mock;
+    expect(calls).toHaveLength(1);
+    expect(calls[0][0]).toMatchObject({
+      data: {
+        isActionStartDisabled: true,
+        isActionCancelDisabled: true,
+        isAddFilesDisabled: true,
+        isAddFolderDisabled: true,
+        isExitDisabled: false,
+        isOverwriteCheckboxDisabled: true,
+      },
+    });
   });
 });

@@ -1,97 +1,204 @@
+import { FileDataItem } from '../../../actions/handlers';
+import { Tasks } from '../../../tasks';
+
 import {
   getActionIconVariant,
-  getActionViewDisabledButtons,
   getFileTypeDisplayValue,
-  getFilenameWithoutPrefix,
+  getActionViewTableData,
 } from '../utils';
 
-describe('Utils', () => {
-  describe('getActionIconVariant', () => {
-    it('should return correct icon variant for each status', () => {
-      expect(getActionIconVariant('QUEUED')).toBe('action-queued');
-      expect(getActionIconVariant('PENDING')).toBe('action-progress');
-      expect(getActionIconVariant('COMPLETE')).toBe('action-success');
-      expect(getActionIconVariant('FAILED')).toBe('action-error');
-      expect(getActionIconVariant('CANCELED')).toBe('action-canceled');
-    });
+describe('getActionIconVariant', () => {
+  it('should return correct icon variant for each status', () => {
+    expect(getActionIconVariant('QUEUED')).toBe('action-queued');
+    expect(getActionIconVariant('PENDING')).toBe('action-progress');
+    expect(getActionIconVariant('COMPLETE')).toBe('action-success');
+    expect(getActionIconVariant('FAILED')).toBe('action-error');
+    expect(getActionIconVariant('CANCELED')).toBe('action-canceled');
+  });
+});
+
+describe('getFileTypeDisplayValue', () => {
+  it('should return the file extension', () => {
+    expect(getFileTypeDisplayValue('document.pdf')).toBe('pdf');
+    expect(getFileTypeDisplayValue('image.jpg')).toBe('jpg');
+    expect(getFileTypeDisplayValue('script.ts')).toBe('ts');
   });
 
-  describe('getActionViewDisabledButtons', () => {
-    it('should return correct statuses when no tasks have started', () => {
-      const counts = {
-        INITIAL: 0,
-        QUEUED: 5,
-        PENDING: 0,
-        FAILED: 0,
-        COMPLETE: 0,
-        CANCELED: 0,
-        TOTAL: 5,
-      };
-      const result = getActionViewDisabledButtons(counts);
-      expect(result).toEqual({
-        disableCancel: true,
-        disableClose: false,
-        disablePrimary: false,
-      });
+  it('should return an empty string for files without extension', () => {
+    expect(getFileTypeDisplayValue('README')).toBe('');
+  });
+});
+
+describe('getActionViewTableData', () => {
+  const mockRemove = jest.fn();
+
+  const tasks: Tasks<FileDataItem> = [
+    {
+      data: {
+        id: '1',
+        key: 'some-prefix/file1.txt',
+        fileKey: 'file1.txt',
+        lastModified: new Date(),
+        size: 1000,
+        type: 'FILE',
+      },
+      status: 'QUEUED',
+      remove: mockRemove,
+      cancel: jest.fn(),
+      message: '',
+      progress: undefined,
+    },
+    {
+      data: {
+        id: '2',
+        key: 'some-prefix/file2.jpg',
+        fileKey: 'file2.jpg',
+        lastModified: new Date(),
+        size: 1000,
+        type: 'FILE',
+      },
+      status: 'PENDING',
+      remove: mockRemove,
+      cancel: jest.fn(),
+      message: '',
+      progress: undefined,
+    },
+    {
+      data: {
+        id: '3',
+        key: 'some-prefix/file3.pdf',
+        fileKey: 'file3.pdf',
+        lastModified: new Date(),
+        size: 1000,
+        type: 'FILE',
+      },
+      status: 'COMPLETE',
+      remove: mockRemove,
+      cancel: jest.fn(),
+      message: '',
+      progress: undefined,
+    },
+    {
+      data: {
+        id: '4',
+        key: 'some-prefix/file4.doc',
+        fileKey: 'file4.doc',
+        lastModified: new Date(),
+        size: 1000,
+        type: 'FILE',
+      },
+      status: 'FAILED',
+      remove: mockRemove,
+      cancel: jest.fn(),
+      message: '',
+      progress: undefined,
+    },
+    {
+      data: {
+        id: '5',
+        key: 'some-prefix/file5',
+        fileKey: 'file5',
+        lastModified: new Date(),
+        size: 1000,
+        type: 'FILE',
+      },
+      status: 'CANCELED',
+      remove: mockRemove,
+      cancel: jest.fn(),
+      message: '',
+      progress: undefined,
+    },
+  ];
+
+  it('should return correct table data for all task statuses', () => {
+    const result = getActionViewTableData({
+      tasks,
+      folder: '',
+      isProcessing: true,
     });
 
-    it('should return correct statuses when some tasks have started', () => {
-      const counts = {
-        INITIAL: 0,
-        QUEUED: 3,
-        PENDING: 2,
-        FAILED: 0,
-        COMPLETE: 0,
-        CANCELED: 0,
-        TOTAL: 5,
-      };
-      const result = getActionViewDisabledButtons(counts);
-      expect(result).toEqual({
-        disableCancel: false,
-        disableClose: true,
-        disablePrimary: true,
-      });
-    });
-
-    it('should return correct statuses when all tasks have completed', () => {
-      const counts = {
-        INITIAL: 0,
-        QUEUED: 0,
-        PENDING: 0,
-        FAILED: 1,
-        COMPLETE: 3,
-        CANCELED: 1,
-        TOTAL: 5,
-      };
-      const result = getActionViewDisabledButtons(counts);
-      expect(result).toEqual({
-        disableCancel: true,
-        disableClose: false,
-        disablePrimary: true,
-      });
-    });
+    expect(result.rows).toMatchSnapshot('tabledata');
   });
 
-  describe('getFileTypeDisplayValue', () => {
-    it('should return the file extension', () => {
-      expect(getFileTypeDisplayValue('document.pdf')).toBe('pdf');
-      expect(getFileTypeDisplayValue('image.jpg')).toBe('jpg');
-      expect(getFileTypeDisplayValue('script.ts')).toBe('ts');
+  it('should handle tasks with prefix keys', () => {
+    const tasks: Tasks<FileDataItem> = [
+      {
+        data: {
+          id: '1',
+          key: 'folder/subfolder/file1.txt',
+          fileKey: 'file1.txt',
+          lastModified: new Date(),
+          size: 1000,
+          type: 'FILE',
+        },
+        status: 'QUEUED',
+        remove: mockRemove,
+        cancel: jest.fn(),
+        progress: undefined,
+        message: '',
+      },
+      {
+        data: {
+          id: '2',
+          key: '/root/file2.jpg',
+          fileKey: 'file2.jpg',
+          lastModified: new Date(),
+          size: 1000,
+          type: 'FILE',
+        },
+        status: 'COMPLETE',
+        remove: mockRemove,
+        cancel: jest.fn(),
+        message: '',
+        progress: undefined,
+      },
+    ];
+
+    const result = getActionViewTableData({
+      tasks,
+      folder: '',
+      isProcessing: true,
     });
 
-    it('should return an empty string for files without extension', () => {
-      expect(getFileTypeDisplayValue('README')).toBe('');
-    });
+    expect(result.rows).toMatchSnapshot();
   });
 
-  describe('getFilenameWithoutPrefix', () => {
-    it('should return the filename without the path', () => {
-      expect(getFilenameWithoutPrefix('/path/to/file.txt')).toBe('file.txt');
-      expect(getFilenameWithoutPrefix('document.pdf')).toBe('document.pdf');
+  it('should have remove handler on queued files', () => {
+    const mockRemove = jest.fn();
+    const mockCancel = jest.fn();
+    const tasks: Tasks<FileDataItem> = [
+      {
+        data: {
+          id: '1',
+          fileKey: 'file1.txt',
+          key: 'folder/subfolder/file1.txt',
+          lastModified: new Date(),
+          size: 1000,
+          type: 'FILE',
+        },
+        status: 'QUEUED',
+        remove: mockRemove,
+        cancel: mockCancel,
+        progress: undefined,
+        message: '',
+      },
+    ];
+
+    const result = getActionViewTableData({
+      tasks,
+      folder: 'folder/subfolder/',
+      isProcessing: false,
     });
 
-    it('should handle paths with multiple slashes', () => {
-      expect(getFilenameWithoutPrefix('/path//to///file.txt')).toBe('file.txt');
-    });
+    // last cell
+    const actionCell =
+      result.rows[0].content[result.rows[0].content.length - 1];
+
+    expect(actionCell.content).toHaveProperty('onClick');
+    expect(actionCell.content).toHaveProperty(
+      'ariaLabel',
+      'Remove item: file1.txt'
+    );
+    expect(result.rows).toMatchSnapshot();
   });
 });

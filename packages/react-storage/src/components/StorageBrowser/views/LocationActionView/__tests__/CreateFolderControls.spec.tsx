@@ -34,10 +34,7 @@ const location = {
   type: 'PREFIX',
 };
 const storeMock: StoreModule.UseStoreState = {
-  history: {
-    current: location,
-    previous: [location],
-  },
+  location: { current: location, key: 'test-prefix/' },
 } as StoreModule.UseStoreState;
 const dispatchStoreAction = jest.fn();
 
@@ -117,7 +114,7 @@ describe('CreateFolderControls', () => {
       render(<CreateFolderControls />);
     });
 
-    const button = screen.getByRole('button', { name: 'Back' });
+    const button = screen.getByRole('button', { name: 'Exit' });
 
     fireEvent.click(button);
 

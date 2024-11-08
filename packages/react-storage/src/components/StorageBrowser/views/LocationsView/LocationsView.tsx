@@ -2,50 +2,44 @@ import React from 'react';
 
 import { CLASS_BASE } from '../constants';
 import { Controls } from '../Controls';
-import { useLocationsData } from '../../do-not-import-from-here/actions';
 import { resolveClassName } from '../utils';
-import { DataTableControl } from './Controls/DataTable';
-import { LocationData } from '../../actions';
 import { useLocationsView } from './useLocationsView';
 import { ControlsContextProvider } from '../../controls/context';
-import { ControlsContext } from '../../controls/types';
 import { DataRefreshControl } from '../../controls/DataRefreshControl';
 import { PaginationControl } from '../../controls/PaginationControl';
-
-export interface LocationsViewProps {
-  className?: (defaultClassName: string) => string;
-  onNavigate?: (destination: LocationData) => void;
-}
+import { DataTableControl } from '../../controls/DataTableControl';
+import { SearchControl } from '../../controls/SearchControl';
+import { LocationsViewProps } from './types';
+import { ViewElement } from '../../context/elements';
+import { getLocationsViewTableData } from './getLocationsViewTableData';
 
 export const DEFAULT_ERROR_MESSAGE = 'There was an error loading locations.';
 
 const { EmptyMessage, Loading: LoadingElement, Message, Title } = Controls;
 
-const Loading = () => {
-  const [{ isLoading }] = useLocationsData();
-  return isLoading ? <LoadingElement /> : null;
+const Loading = ({ show }: { show: boolean }) => {
+  return show ? <LoadingElement /> : null;
 };
 
-const LocationsMessage = (): React.JSX.Element | null => {
-  const [{ hasError, message }] = useLocationsData();
-  return hasError ? (
+const LocationsMessage = ({
+  show,
+  message,
+}: {
+  show: boolean;
+  message?: string;
+}): React.JSX.Element | null => {
+  return show ? (
     <Message variant="error">{message ?? DEFAULT_ERROR_MESSAGE}</Message>
   ) : null;
 };
 
-const LocationsEmptyMessage = () => {
-  const [{ data, isLoading, hasError }] = useLocationsData();
-  const shouldShowEmptyMessage =
-    data.result.length === 0 && !isLoading && !hasError;
-
-  return shouldShowEmptyMessage ? (
-    <EmptyMessage>No locations to show.</EmptyMessage>
-  ) : null;
+const LocationsEmptyMessage = ({ show }: { show: boolean }) => {
+  return show ? <EmptyMessage>No locations to show.</EmptyMessage> : null;
 };
 
 export function LocationsView({
   className,
-  onNavigate: onNavigateProp,
+  ...props
 }: LocationsViewProps): React.JSX.Element {
   const {
     hasError,
@@ -54,42 +48,53 @@ export function LocationsView({
     page,
     isLoading,
     pageItems,
+    message,
+    searchPlaceholder,
+    shouldShowEmptyMessage,
     onRefresh,
     onPaginate,
     onNavigate,
-  } = useLocationsView({ onNavigate: onNavigateProp });
-
-  // FIXME: Eventually comes from useView hook
-  const contextValue: ControlsContext = {
-    data: {
-      isDataRefreshDisabled: isLoading,
-      paginationData: {
-        hasMorePages: hasNextPage,
-        onPaginate,
-        page,
-        highestPageVisited,
-      },
-    },
-    onRefresh,
-  };
+    onSearch,
+  } = useLocationsView(props);
 
   return (
-    <ControlsContextProvider {...contextValue}>
+    <ControlsContextProvider
+      data={{
+        isDataRefreshDisabled: isLoading,
+        tableData: getLocationsViewTableData({ pageItems, onNavigate }),
+        searchPlaceholder,
+        paginationData: {
+          page,
+          hasMorePages: hasNextPage,
+          highestPageVisited,
+          onPaginate,
+        },
+      }}
+      onSearch={onSearch}
+      onRefresh={onRefresh}
+    >
       <div
         className={resolveClassName(CLASS_BASE, className)}
         data-testid="LOCATIONS_VIEW"
       >
         <Title>Home</Title>
-        <DataRefreshControl
-          className={`${CLASS_BASE}__locations-view-data-refresh`}
-        />
-        <PaginationControl className={`${CLASS_BASE}__paginate`} />
-        <LocationsMessage />
-        <Loading />
+        <ViewElement className={`${CLASS_BASE}__location-detail-view-controls`}>
+          <SearchControl className={`${CLASS_BASE}__locations-view-search`} />
+          <PaginationControl className={`${CLASS_BASE}__paginate`} />
+          <DataRefreshControl
+            className={`${CLASS_BASE}__locations-view-data-refresh`}
+          />
+        </ViewElement>
+        <LocationsMessage show={hasError} message={message} />
+        <Loading show={isLoading} />
         {hasError ? null : (
-          <DataTableControl onNavigate={onNavigate} items={pageItems} />
+          <ViewElement className={`${CLASS_BASE}__table-wrapper`}>
+            <DataTableControl
+              className={`${CLASS_BASE}__locations-view-data-table`}
+            />
+          </ViewElement>
         )}
-        <LocationsEmptyMessage />
+        <LocationsEmptyMessage show={shouldShowEmptyMessage} />
       </div>
     </ControlsContextProvider>
   );

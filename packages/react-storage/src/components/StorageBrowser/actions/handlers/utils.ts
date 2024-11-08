@@ -1,49 +1,12 @@
-import { isCancelError } from 'aws-amplify/storage';
-import { isFunction } from '@aws-amplify/ui';
-
-import { LocationAccess, LocationData } from './types';
-
+import { LocationAccess, Permission } from '../../storage-internal';
 import {
-  TaskHandlerOutput,
-  CancelableTaskHandlerOutput,
-  TaskHandlerOptions,
   ActionInputConfig,
-} from '../types';
-
-interface TaskHandlerCallbacks
-  extends Pick<TaskHandlerOptions, 'onComplete' | 'onError'> {
-  onCancel?: (key: string) => void;
-}
-
-export const resolveHandlerResult = <T extends boolean>({
-  result,
-  key,
-  isCancelable,
-  options,
-}: {
-  result: Promise<any>;
-  key: string;
-  isCancelable: T;
-  options?: TaskHandlerCallbacks;
-}): (T extends false
-  ? TaskHandlerOutput
-  : CancelableTaskHandlerOutput)['result'] => {
-  const { onCancel, onComplete, onError } = options ?? {};
-  return result
-    .then(() => {
-      if (isFunction(onComplete)) onComplete(key);
-      return 'COMPLETE' as const;
-    })
-    .catch((error: Error) => {
-      if (isCancelable && isCancelError(error)) {
-        if (isFunction(onCancel)) onCancel(key);
-        return 'CANCELED' as const;
-      }
-
-      if (isFunction(onError)) onError(key, error.message);
-      return 'FAILED' as const;
-    });
-};
+  FileData,
+  FileDataItem,
+  FileItem,
+  LocationData,
+  LocationType,
+} from './types';
 
 export const constructBucket = ({
   bucket: bucketName,
@@ -76,7 +39,6 @@ export const parseLocationAccess = (location: LocationAccess): LocationData => {
       // { scope: 's3://bucket/path/*', type: 'PREFIX', },
       bucket = slicedScope.slice(0, slicedScope.indexOf('/'));
       prefix = `${slicedScope.slice(bucket.length + 1, -1)}`;
-
       break;
     }
     case 'OBJECT': {
@@ -92,3 +54,47 @@ export const parseLocationAccess = (location: LocationAccess): LocationData => {
 
   return { bucket, id, permission, prefix, type };
 };
+
+export type ExcludeType = Permission | LocationType;
+
+const shouldExclude = (
+  permission: Permission,
+  type: LocationType,
+  exclude?: ExcludeType | ExcludeType[]
+) =>
+  exclude
+    ? typeof exclude === 'string'
+      ? exclude === permission || exclude === type
+      : exclude.includes(permission) || exclude.includes(type)
+    : false;
+
+export const parseLocations = (
+  locations: LocationAccess[],
+  exclude?: ExcludeType | ExcludeType[]
+): LocationData[] =>
+  locations.reduce(
+    (filteredLocations: LocationData[], location: LocationAccess) => {
+      const parsedLocation = parseLocationAccess(location);
+      if (
+        shouldExclude(parsedLocation.permission, parsedLocation.type, exclude)
+      ) {
+        filteredLocations.push(parsedLocation);
+      }
+      return filteredLocations;
+    },
+    []
+  );
+
+export const getFileKey = (key: string): string =>
+  key.slice(key.lastIndexOf('/') + 1, key.length);
+
+export const createFileDataItem = (data: FileData): FileDataItem => ({
+  ...data,
+  fileKey: getFileKey(data.key),
+});
+
+export const isFileItem = (value: unknown): value is FileItem =>
+  !!(value as FileItem).file;
+
+export const isFileDataItem = (item: unknown): item is FileDataItem =>
+  !!(item as FileDataItem).fileKey;

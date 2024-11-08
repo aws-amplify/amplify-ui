@@ -1,75 +1,70 @@
 import React from 'react';
 
 import { Controls } from '../Controls';
-import { ButtonElement } from '../../context/elements';
+import { ViewElement } from '../../context/elements';
 import { DataTableControl } from '../../controls/DataTableControl';
 import { ControlsContextProvider } from '../../controls/context';
 import { CLASS_BASE } from '../constants';
 import { Title } from './Controls/Title';
-import { useDeleteActionView } from './hooks/useDeleteActionView';
+import { useDeleteView } from './DeleteView/useDeleteView';
 import { StatusDisplayControl } from '../../controls/StatusDisplayControl';
 import { ControlsContext } from '../../controls/types';
 import { useStore } from '../../providers/store';
-import { getDeleteActionViewTableData } from './utils';
+import { getActionViewTableData } from './utils';
 import { ActionStartControl } from '../../controls/ActionStartControl';
+import { ActionCancelControl } from '../../controls/ActionCancelControl';
+import { LocationData } from '../../actions';
 
 const { Exit } = Controls;
 
-export const DeleteFilesControls = ({
-  onClose: _onClose,
-}: {
-  onClose?: () => void;
+export const DeleteFilesControls = (props?: {
+  onExit?: (location: LocationData) => void;
 }): React.JSX.Element => {
   const {
-    disableCancel,
-    disableClose,
-    disablePrimary,
-    onClose,
-    onCancel,
-    onStart,
-    taskCounts,
+    isProcessing,
+    isProcessingComplete,
+    onActionCancel,
+    onActionStart,
+    onExit,
+    statusCounts,
     tasks,
-  } = useDeleteActionView({ onClose: _onClose });
+  } = useDeleteView(props);
 
-  const [{ history }] = useStore();
-  const { current } = history;
-  const path = current?.prefix;
-  const tableData = getDeleteActionViewTableData({
+  const [{ location }] = useStore();
+  const { key } = location;
+  const tableData = getActionViewTableData({
     tasks,
-    taskCounts,
-    path: path ?? '',
+    folder: key,
+    isProcessing,
   });
 
   const contextValue: ControlsContext = {
     data: {
-      taskCounts,
+      statusCounts,
       tableData,
-      isActionStartDisabled: disablePrimary,
+      isActionStartDisabled: isProcessing || isProcessingComplete,
       actionStartLabel: 'Start',
+      actionCancelLabel: 'Cancel',
+      isActionCancelDisabled: !isProcessing || isProcessingComplete,
     },
-    actionsConfig: { type: 'BATCH_ACTION', isCancelable: true },
-    onActionStart: onStart,
+    onActionStart,
+    onActionCancel,
   };
 
   return (
     <ControlsContextProvider {...contextValue}>
-      <Exit onClick={onClose} disabled={disableClose} />
+      <Exit onClick={onExit} disabled={isProcessing} />
       <Title />
-      <ActionStartControl />
-      <ButtonElement
-        variant="cancel"
-        disabled={disableCancel}
-        className={`${CLASS_BASE}__cancel`}
-        onClick={() => {
-          onCancel();
-        }}
-      >
-        Cancel
-      </ButtonElement>
-      <StatusDisplayControl
-        className={`${CLASS_BASE}__action-status-display`}
-      />
-      <DataTableControl className={`${CLASS_BASE}__table`} />
+      <ViewElement className={`${CLASS_BASE}__table-wrapper`}>
+        <DataTableControl className={`${CLASS_BASE}__table`} />
+      </ViewElement>
+      <ViewElement className={`${CLASS_BASE}__action-footer`}>
+        <StatusDisplayControl
+          className={`${CLASS_BASE}__action-status-display`}
+        />
+        <ActionCancelControl className={`${CLASS_BASE}__cancel`} />
+        <ActionStartControl />
+      </ViewElement>
     </ControlsContextProvider>
   );
 };

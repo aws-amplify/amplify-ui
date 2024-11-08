@@ -5,20 +5,27 @@ import { copyHandler, CopyHandlerInput } from '../copy';
 const copySpy = jest.spyOn(StorageModule, 'copy');
 
 const baseInput: CopyHandlerInput = {
-  prefix: 'prefix/',
+  destinationPrefix: 'destination/',
   config: {
     accountId: '012345678901',
     bucket: 'bucket',
     credentials: jest.fn(),
+    customEndpoint: 'mock-endpoint',
     region: 'region',
   },
-  key: 'key',
-  data: { id: 'identity', payload: { destinationPrefix: 'destination/' } },
+  data: {
+    id: 'identity',
+    key: 'some-prefixfix/some-key.hehe',
+    fileKey: 'some-key.hehe',
+    lastModified: new Date(),
+    size: 100000000,
+    type: 'FILE',
+  },
 };
 
 describe('copyHandler', () => {
-  it('calls `copy` and returns the expected `key`', () => {
-    const { key } = copyHandler(baseInput);
+  it('calls `copy` wth the expected values', () => {
+    copyHandler(baseInput);
 
     const bucket = {
       bucketName: `${baseInput.config.bucket}`,
@@ -29,19 +36,19 @@ describe('copyHandler', () => {
       destination: {
         expectedBucketOwner: baseInput.config.accountId,
         bucket,
-        path: 'destination/key',
+        path: `${baseInput.destinationPrefix}${baseInput.data.fileKey}`,
       },
       source: {
         expectedBucketOwner: `${baseInput.config.accountId}`,
         bucket,
-        path: `${baseInput.prefix}${baseInput.key}`,
+        path: baseInput.data.key,
       },
       options: {
         locationCredentialsProvider: baseInput.config.credentials,
+        customEndpoint: baseInput.config.customEndpoint,
       },
     };
 
     expect(copySpy).toHaveBeenCalledWith(expected);
-    expect(key).toBe(baseInput.key);
   });
 });

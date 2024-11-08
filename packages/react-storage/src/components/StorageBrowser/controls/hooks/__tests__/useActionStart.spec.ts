@@ -7,10 +7,6 @@ describe('useActionStart', () => {
     data: {
       actionStartLabel: 'Start',
     },
-    actionsConfig: {
-      isCancelable: true,
-      type: 'BATCH_ACTION',
-    },
     onActionStart: jest.fn(),
   };
 
@@ -21,10 +17,6 @@ describe('useActionStart', () => {
 
   afterEach(() => {
     useControlsContextSpy.mockClear();
-  });
-
-  afterAll(() => {
-    useControlsContextSpy.mockRestore();
   });
 
   it('returns object as it is received from ControlsContext', () => {

@@ -25,7 +25,7 @@ const generateMockItems = (size: number, page: number): LocationData[] => {
         bucket: 'test-bucket',
         prefix: `item-${index}/`,
         permission: 'READWRITE',
-        id: 'identity',
+        id: `identity-${index}`,
         type,
       };
     });
@@ -93,7 +93,7 @@ describe('LocationsListView', () => {
 
     useLocationsDataSpy.mockReturnValue([
       {
-        data: { result: results, nextToken: 'some-token' },
+        data: { result: results, nextToken: undefined },
         hasError: true,
         isLoading: false,
         message: errorMessage,
@@ -292,13 +292,35 @@ describe('LocationsListView', () => {
 
     expect(dispatchStoreAction).toHaveBeenCalledWith({
       type: 'NAVIGATE',
-      destination: {
+      location: {
         bucket: 'test-bucket',
-        id: 'identity',
+        id: 'identity-0',
         prefix: 'item-0/',
         type: 'PREFIX',
         permission: 'READWRITE',
       },
     });
+  });
+
+  it('allows searching for items', async () => {
+    const user = userEvent.setup();
+    const { getByPlaceholderText, getByText, queryByText } = render(
+      <LocationsView />
+    );
+
+    const input = getByPlaceholderText('Filter folders and files');
+
+    expect(input).toBeInTheDocument();
+    expect(queryByText('item-0/')).toBeInTheDocument();
+    expect(queryByText('item-1/')).toBeInTheDocument();
+
+    input.focus();
+    await act(async () => {
+      await user.keyboard('item-0');
+      await user.click(getByText('Submit'));
+    });
+
+    expect(queryByText('item-0/')).toBeInTheDocument();
+    expect(queryByText('item-1/')).not.toBeInTheDocument();
   });
 });

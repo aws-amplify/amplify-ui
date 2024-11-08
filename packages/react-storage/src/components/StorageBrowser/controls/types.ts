@@ -1,7 +1,8 @@
 import { Composables } from '../composables/types';
 import { DataTableSortHeader, DataTableProps } from '../composables/DataTable';
 import { DropZoneProps } from '../composables/DropZone';
-import { INITIAL_STATUS_COUNTS } from '../views/LocationActionView/constants';
+import { LocationData } from '../actions';
+import { StatusCounts } from '../tasks';
 
 export interface ControlProps {
   className?: string;
@@ -12,8 +13,6 @@ export interface Controls {
 }
 
 export type ControlKey = keyof Composables;
-
-export type TaskCounts = typeof INITIAL_STATUS_COUNTS;
 
 interface TruncatedSortHeader
   extends Omit<
@@ -40,22 +39,29 @@ interface PaginationData {
 
 export interface ControlsContext {
   data: {
-    taskCounts?: TaskCounts;
-    tableData?: TableData;
-    isDataRefreshDisabled?: boolean;
     paginationData?: PaginationData;
     actionStartLabel?: string;
+    actionCancelLabel?: string;
+    isActionCancelDisabled?: boolean;
     isActionStartDisabled?: boolean;
+    isAddFilesDisabled?: boolean;
+    isAddFolderDisabled?: boolean;
+    isDataRefreshDisabled?: boolean;
+    isExitDisabled?: boolean;
+    isOverwriteCheckboxDisabled?: boolean;
+    currentLocation?: LocationData;
+    currentPath?: string;
+    showIncludeSubfolders?: boolean;
+    searchPlaceholder?: string;
+    tableData?: TableData;
+    statusCounts?: StatusCounts;
   };
-  actionsConfig?: {
-    type:
-      | 'SINGLE_ACTION'
-      | 'BATCH_ACTION'
-      | 'LIST_LOCATIONS'
-      | 'LIST_LOCATION_ITEMS';
-    isCancelable?: boolean;
-  };
-  onDropComplete?: DropZoneProps['onDropComplete'];
-  onRefresh?: () => void;
+  onActionCancel?: () => void;
   onActionStart?: () => void;
+  onDropComplete?: DropZoneProps['onDropComplete'];
+  onDropFiles?: (files: File[]) => void;
+  onNavigate?: (location: LocationData, path?: string) => void;
+  onNavigateHome?: () => void;
+  onRefresh?: () => void;
+  onSearch?: (term: string, includeSubfolders: boolean) => void;
 }

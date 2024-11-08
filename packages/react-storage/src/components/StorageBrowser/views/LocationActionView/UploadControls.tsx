@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { humanFileSize, isFunction, isUndefined } from '@aws-amplify/ui';
+import { humanFileSize } from '@aws-amplify/ui';
 
-import { uploadHandler } from '../../actions';
+import { LocationData } from '../../actions';
 import { displayText } from '../../displayText/en';
 import { TABLE_HEADER_BUTTON_CLASS_NAME } from '../../components/DataTable';
 import { DescriptionList } from '../../components/DescriptionList';
@@ -11,14 +11,13 @@ import {
   StorageBrowserElements,
   ViewElement,
 } from '../../context/elements';
-import { IconVariant } from '../../context/elements/IconElement';
-import { getTaskCounts } from '../../controls/getTaskCounts';
+import { IconElement, IconVariant } from '../../context/elements/IconElement';
+
 import { StatusDisplayControl } from '../../controls/StatusDisplayControl';
 import { ControlsContextProvider } from '../../controls/context';
 import { ControlsContext } from '../../controls/types';
-import { useGetActionInput } from '../../providers/configuration';
 import { useStore } from '../../providers/store';
-import { TaskStatus, useProcessTasks } from '../../tasks';
+import { TaskStatus } from '../../tasks';
 
 import { compareNumbers, compareStrings, getPercentValue } from '../utils';
 import { CLASS_BASE } from '../constants';
@@ -30,16 +29,15 @@ import {
   SortState,
 } from '../Controls/Table';
 import { Title } from './Controls/Title';
-import {
-  DEFAULT_OVERWRITE_PROTECTION,
-  STATUS_DISPLAY_VALUES,
-} from './constants';
+import { STATUS_DISPLAY_VALUES } from './constants';
 import { FileItems } from '../../providers/store/files';
 import { ActionStartControl } from '../../controls/ActionStartControl';
+import { useUploadView } from './UploadView';
+import { ActionCancelControl } from '../../controls/ActionCancelControl';
 
 const { Icon } = StorageBrowserElements;
 
-const { Cancel, Exit, Overwrite, Table } = Controls;
+const { Exit, Overwrite, Table } = Controls;
 
 interface LocationActionViewColumns {
   cancel: (() => void) | undefined;
@@ -63,7 +61,7 @@ const LOCATION_ACTION_VIEW_COLUMNS: Column<LocationActionViewColumns>[] = [
   { key: 'size', header: 'Size' },
   { key: 'status', header: 'Status' },
   { key: 'progress', header: 'Progress' },
-  { key: 'cancel', header: 'Cancel' },
+  { key: 'cancel', header: '' },
 ];
 
 export const ICON_CLASS = `${CLASS_BASE}__action-status`;
@@ -123,13 +121,6 @@ const renderRowItem: RenderRowItem<LocationActionViewColumns> = (
 
         return (
           <TableDataText>
-            <button
-              onClick={() => {
-                row.remove();
-              }}
-            >
-              Remove
-            </button>
             <ActionIcon status={row.status} />
             {row.key.slice(folder, row.key.length)}
           </TableDataText>
@@ -153,11 +144,16 @@ const renderRowItem: RenderRowItem<LocationActionViewColumns> = (
         );
       case 'cancel':
         if (row.cancel) {
+          const BLOCK_NAME = `${CLASS_BASE}__cancel`;
           return (
-            <Cancel
+            <ButtonElement
+              className={`${BLOCK_NAME}`}
+              variant="cancel"
               onClick={row.cancel}
-              ariaLabel={`Cancel upload for ${row.key}`}
-            />
+              aria-label={`Cancel upload for ${row.key}`}
+            >
+              <IconElement className={`${BLOCK_NAME}__icon`} variant="cancel" />
+            </ButtonElement>
           );
         }
 
@@ -192,20 +188,11 @@ const getFileSelectionType = (
   return actionType === 'UPLOAD_FILES' ? 'FILE' : 'FOLDER';
 };
 
-export const UploadControls = ({
-  onClose,
-}: {
-  onClose?: () => void;
+export const UploadControls = (props: {
+  onExit?: (location: LocationData) => void;
 }): JSX.Element => {
-  const getInput = useGetActionInput();
-
-  const [preventOverwrite, setPreventOverwrite] = React.useState(
-    DEFAULT_OVERWRITE_PROTECTION
-  );
-
-  const [{ actionType, files, history }, dispatchStoreAction] = useStore();
-  const { prefix } = history?.current ?? {};
-  const hasInvalidPrefix = isUndefined(prefix);
+  const [{ actionType, files, location }, dispatchStoreAction] = useStore();
+  const { key: destinationPrefix } = location;
 
   // launch native file picker on intiial render if no files are currently in state
   const selectionTypeRef = React.useRef<'FILE' | 'FOLDER' | undefined>(
@@ -225,9 +212,19 @@ export const UploadControls = ({
     };
   }, [dispatchStoreAction]);
 
-  const [tasks, handleProcess] = useProcessTasks(uploadHandler, files, {
-    concurrency: 4,
-  });
+  const {
+    tasks,
+    statusCounts,
+    isProcessing,
+    isProcessingComplete,
+    isOverwriteEnabled,
+    onToggleOverwrite,
+    onActionStart,
+    onActionCancel,
+    onSelectFiles,
+    onExit,
+    onDropFiles,
+  } = useUploadView(props);
 
   const [compareFn, setCompareFn] = React.useState<(a: any, b: any) => number>(
     () => compareStrings
@@ -239,9 +236,9 @@ export const UploadControls = ({
   const { direction, selection } = sortState;
 
   const tableData = tasks
-    .map(({ key, id, item, remove: _remove, ...task }) => {
-      const { size, webkitRelativePath, type = '-' } = item;
-
+    .map(({ data, ...task }) => {
+      const { key, id, file } = data as { key: string; id: string; file: File };
+      const { size, webkitRelativePath, type = '-' } = file;
       const folder =
         webkitRelativePath?.length > 0
           ? webkitRelativePath.slice(0, webkitRelativePath.lastIndexOf('/') + 1)
@@ -249,10 +246,12 @@ export const UploadControls = ({
 
       const remove = () => {
         dispatchStoreAction({ type: 'REMOVE_FILE_ITEM', id });
-        _remove();
+        task.remove?.();
       };
+      const cancel = isProcessing ? task.cancel : remove;
+      const progress = task.progress ?? 0;
 
-      return { ...task, folder, key, progress: 0, remove, size, type };
+      return { ...task, cancel, folder, key, progress, size, type };
     })
     .sort((a, b) =>
       direction === 'ascending'
@@ -315,120 +314,90 @@ export const UploadControls = ({
     [direction, selection]
   );
 
-  const taskCounts = getTaskCounts(tasks);
+  const isActionStartDisabled =
+    isProcessing || isProcessingComplete || statusCounts.TOTAL === 0;
+  const isActionCancelDisabled = !isProcessing || isProcessingComplete;
+  const isAddFilesDisabled = isProcessing || isProcessingComplete;
+  const isAddFolderDisabled = isProcessing || isProcessingComplete;
+  const isExitDisabled = isProcessing;
+  const isOverwriteCheckboxDisabled = isProcessing || isProcessingComplete;
 
-  const hasStarted = !!taskCounts.PENDING;
-  const hasCompleted =
-    !!taskCounts.TOTAL &&
-    taskCounts.CANCELED + taskCounts.COMPLETE + taskCounts.FAILED ===
-      taskCounts.TOTAL;
-
-  const disableCancel = !taskCounts.TOTAL || !hasStarted || hasCompleted;
-  const disablePrimary = !taskCounts.TOTAL || hasStarted || hasCompleted;
-  const disableOverwrite = hasStarted || hasCompleted;
-  const disableSelectFiles = hasStarted || hasCompleted;
-
-  // FIXME: Eventually comes from useView hook
   const contextValue: ControlsContext = {
     data: {
-      taskCounts,
-      isActionStartDisabled: disablePrimary,
-      actionStartLabel: 'Start',
+      actionCancelLabel: 'Cancel',
+      actionStartLabel: 'Upload',
+      isActionCancelDisabled,
+      isActionStartDisabled,
+      isAddFilesDisabled,
+      isAddFolderDisabled,
+      isExitDisabled,
+      isOverwriteCheckboxDisabled,
+      statusCounts,
     },
-    actionsConfig: {
-      type: 'BATCH_ACTION',
-      isCancelable: true,
-    },
-    onActionStart: () => {
-      if (hasInvalidPrefix) return;
-
-      handleProcess({
-        config: getInput(),
-        prefix,
-        options: { preventOverwrite },
-      });
-    },
+    onActionStart,
+    onActionCancel,
   };
 
   return (
     <ControlsContextProvider {...contextValue}>
       <Exit
+        disabled={isExitDisabled}
         onClick={() => {
-          if (isFunction(onClose)) onClose?.();
-          // clear tasks state
-          tasks.forEach(({ remove }) => remove());
-          // clear files state
-          dispatchStoreAction({ type: 'RESET_FILE_ITEMS' });
-          // clear selected action
-          dispatchStoreAction({ type: 'RESET_ACTION_TYPE' });
+          onExit();
         }}
       />
       <Title />
-      <ActionStartControl className={`${CLASS_BASE}__upload-action-start`} />
-      <ButtonElement
-        variant="cancel"
-        disabled={disableCancel}
-        className={`${CLASS_BASE}__cancel`}
-        onClick={() => {
-          tasks.forEach((task) => {
-            task.cancel?.();
-          });
-        }}
-      >
-        Cancel
-      </ButtonElement>
-      <ButtonElement
-        disabled={disableSelectFiles}
-        className={`${CLASS_BASE}__add-folder`}
-        variant="add-folder"
-        onClick={() => {
-          dispatchStoreAction({
-            type: 'SELECT_FILES',
-            selectionType: 'FOLDER',
-          });
-        }}
-      >
-        Add folder
-      </ButtonElement>
-      <ButtonElement
-        disabled={disableSelectFiles}
-        className={`${CLASS_BASE}__add-files`}
-        variant="add-files"
-        onClick={() => {
-          dispatchStoreAction({ type: 'SELECT_FILES', selectionType: 'FILE' });
-        }}
-      >
-        Add files
-      </ButtonElement>
-      <ViewElement className={`${CLASS_BASE}__upload-destination`}>
-        <DescriptionList
-          descriptions={[
-            {
-              term: `${displayText.actionDestination}:`,
-              details: prefix?.length ? prefix : '/',
-            },
-          ]}
-        />
+      <ViewElement className={`${CLASS_BASE}__action-header`}>
+        <ViewElement className={`${CLASS_BASE}__upload-destination`}>
+          <DescriptionList
+            descriptions={[
+              {
+                term: `${displayText.actionDestination}:`,
+                details: destinationPrefix.length ? destinationPrefix : '/',
+              },
+            ]}
+          />
+          <Overwrite
+            defaultChecked={isOverwriteEnabled}
+            disabled={isOverwriteCheckboxDisabled}
+            handleChange={onToggleOverwrite}
+          />
+        </ViewElement>
+        <ButtonElement
+          disabled={isAddFolderDisabled}
+          className={`${CLASS_BASE}__add-folder`}
+          variant="add-folder"
+          onClick={() => {
+            onSelectFiles('FOLDER');
+          }}
+        >
+          Add folder
+        </ButtonElement>
+        <ButtonElement
+          disabled={isAddFilesDisabled}
+          className={`${CLASS_BASE}__add-files`}
+          variant="add-files"
+          onClick={() => {
+            onSelectFiles('FILE');
+          }}
+        >
+          Add files
+        </ButtonElement>
       </ViewElement>
-      <Overwrite
-        defaultChecked={!preventOverwrite}
-        disabled={disableOverwrite}
-        handleChange={() => {
-          setPreventOverwrite((overwrite) => !overwrite);
-        }}
-      />
-      <StatusDisplayControl
-        className={`${CLASS_BASE}__upload-status-display`}
-      />
       <Table
         data={tableData}
         columns={LOCATION_ACTION_VIEW_COLUMNS}
-        handleDroppedFiles={(files) => {
-          dispatchStoreAction({ type: 'ADD_FILE_ITEMS', files });
-        }}
+        handleDroppedFiles={(files) => onDropFiles(files)}
         renderHeaderItem={renderHeaderItem}
         renderRowItem={renderRowItem}
       />
+      <ViewElement className={`${CLASS_BASE}__action-footer`}>
+        <StatusDisplayControl
+          className={`${CLASS_BASE}__upload-status-display`}
+        />
+        <ActionCancelControl className={`${CLASS_BASE}__cancel`} />
+        <ActionStartControl className={`${CLASS_BASE}__upload-action-start`} />
+      </ViewElement>
     </ControlsContextProvider>
   );
 };

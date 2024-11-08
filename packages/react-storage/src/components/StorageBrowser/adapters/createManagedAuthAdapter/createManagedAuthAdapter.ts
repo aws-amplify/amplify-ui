@@ -1,5 +1,3 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: Apache-2.0
 import { createListLocationsHandler } from './createListLocationsHandler';
 import { createLocationCredentialsHandler } from './createLocationCredentialsHandler';
 import {
@@ -15,24 +13,28 @@ import {
  * @returns - An object containing the handlers to call S3 Access Grant APIs and region
  */
 export const createManagedAuthAdapter = ({
-  credentialsProvider,
-  region,
   accountId,
+  credentialsProvider,
+  customEndpoint,
+  region,
   registerAuthListener,
 }: CreateManagedAuthAdapterInput): StorageBrowserAuthAdapter => {
   const listLocations = createListLocationsHandler({
     credentialsProvider,
     accountId,
+    customEndpoint,
     region,
   });
 
   const getLocationCredentials = createLocationCredentialsHandler({
     credentialsProvider,
     accountId,
+    customEndpoint,
     region,
   });
 
   return {
+    accountId,
     listLocations,
     getLocationCredentials,
     region,
