@@ -10,7 +10,7 @@ export const DropZoneControl = ({
   className,
   children,
 }: ControlProps & { children: React.ReactNode }): React.JSX.Element | null => {
-  const { props } = useDropZone();
+  const props = useDropZone();
 
   const ResolvedDropZone = useResolvedComposable(DropZone, 'DropZone');
 

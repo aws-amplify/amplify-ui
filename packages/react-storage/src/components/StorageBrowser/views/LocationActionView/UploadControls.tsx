@@ -334,10 +334,6 @@ export const UploadControls = (props: {
       isOverwriteCheckboxDisabled,
       statusCounts,
     },
-    actionsConfig: {
-      type: 'BATCH_ACTION',
-      isCancelable: true,
-    },
     onActionStart,
     onActionCancel,
   };
