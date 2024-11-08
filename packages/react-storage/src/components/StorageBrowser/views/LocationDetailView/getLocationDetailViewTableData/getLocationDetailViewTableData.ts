@@ -7,11 +7,11 @@ import { displayText } from '../../../displayText/en';
 import { FileData } from '../../../actions/handlers';
 
 import { LOCATION_DETAIL_VIEW_HEADERS } from './constants';
+import { LocationState } from '../../../providers/store/location';
 
 export const getLocationDetailViewTableData = ({
   areAllFilesSelected,
-  currentLocation,
-  currentPath,
+  location,
   fileDataItems,
   hasFiles,
   pageItems,
@@ -21,8 +21,7 @@ export const getLocationDetailViewTableData = ({
   onSelectAll,
 }: {
   areAllFilesSelected: boolean;
-  currentLocation?: LocationData;
-  currentPath: string;
+  location: LocationState;
   fileDataItems?: FileData[];
   hasFiles: boolean;
   pageItems: LocationItemData[];
@@ -61,8 +60,7 @@ export const getLocationDetailViewTableData = ({
         return {
           key: id,
           content: getFileRowContent({
-            currentLocation,
-            currentPath,
+            location,
             isSelected,
             lastModified,
             rowId: id,
@@ -74,15 +72,14 @@ export const getLocationDetailViewTableData = ({
         };
       }
       case 'FOLDER': {
-        const itemSubPath = key.slice(
-          `${currentLocation?.prefix ?? ''}${currentPath}`.length
-        );
-        const itemLocationPath = key.slice(currentLocation?.prefix.length);
+        const { current, path } = location;
+        const itemSubPath = key.slice(`${current?.prefix ?? ''}${path}`.length);
+        const itemLocationPath = key.slice(current?.prefix.length);
         const onFolderNavigate = () => {
-          if (!currentLocation) {
+          if (!current) {
             return;
           }
-          onNavigate({ ...currentLocation, id }, itemLocationPath);
+          onNavigate({ ...current, id }, itemLocationPath);
         };
         return {
           key: id,

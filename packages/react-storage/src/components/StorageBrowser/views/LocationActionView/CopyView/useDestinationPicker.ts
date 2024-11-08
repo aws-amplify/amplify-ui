@@ -6,7 +6,7 @@ import {
   LocationItemData,
 } from '../../../actions';
 import { useGetActionInput } from '../../../providers/configuration';
-import { getDestinationListFullPrefix } from '../utils/getDestinationPickerDataTable';
+import { getDestinationListFullPrefix } from './getDestinationListFullPrefix';
 
 import { useDataState } from '@aws-amplify/ui-react-core';
 import { useStore } from '../../../providers/store';

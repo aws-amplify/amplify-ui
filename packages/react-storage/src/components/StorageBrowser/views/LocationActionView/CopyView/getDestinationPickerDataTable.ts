@@ -6,19 +6,6 @@ const DESTINATION_PICKER_COLUMNS: DataTableProps['headers'] = [
   { key: 'key', type: 'sort', content: { label: 'Folder name' } },
 ];
 
-export const getDestinationListFullPrefix = (
-  destinationList: string[]
-): string => {
-  if (
-    destinationList.length < 1 ||
-    (destinationList.length === 1 && destinationList[0] === '')
-  )
-    return '';
-  // filter out root bucket ""
-  const destination = destinationList.filter((item) => item !== '').join('/');
-  return destination.endsWith('/') ? destination : `${destination}/`;
-};
-
 const getFolderNameFromKey = (key: string): string => {
   if (key === '') return 'root';
   const lastFolder = key.split('/').at(-2);

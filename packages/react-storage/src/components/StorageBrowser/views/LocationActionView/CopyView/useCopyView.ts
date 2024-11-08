@@ -1,13 +1,13 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 import { isFunction } from '@aws-amplify/ui';
 
-import { LocationData, copyHandler } from '../../../actions/handlers';
-import { useProcessTasks } from '../../../tasks';
+import { copyHandler } from '../../../actions/handlers';
+import { Task, useProcessTasks } from '../../../tasks';
 import { useGetActionInput } from '../../../providers/configuration';
 import { useStore } from '../../../providers/store';
-import { getDestinationListFullPrefix } from '../utils/getDestinationPickerDataTable';
-import { CopyViewState } from './types';
+import { getDestinationListFullPrefix } from './getDestinationListFullPrefix';
+import { CopyViewState, UseCopyViewOptions } from './types';
 
 const getInitialDestinationList = (key: string, prefix?: string) =>
   // handle root bucket access grant
@@ -21,10 +21,8 @@ const getInitialDestinationList = (key: string, prefix?: string) =>
     ? key.split('/').slice(0, -1)
     : [];
 
-export const useCopyView = (params?: {
-  onExit?: (location: LocationData) => void;
-}): CopyViewState => {
-  const { onExit: _onExit } = params ?? {};
+export const useCopyView = (options?: UseCopyViewOptions): CopyViewState => {
+  const { onExit: _onExit } = options ?? {};
   const [
     {
       location,
@@ -67,18 +65,27 @@ export const useCopyView = (params?: {
     dispatchStoreAction({ type: 'RESET_LOCATION_ITEMS' });
     // clear selected action
     dispatchStoreAction({ type: 'RESET_ACTION_TYPE' });
-    if (isFunction(_onExit)) _onExit(current!);
+    if (isFunction(_onExit)) _onExit(current);
   };
+
+  const onTaskCancel = useCallback(
+    (task: Task) => {
+      isProcessing ? task.cancel() : task.remove();
+    },
+    [isProcessing]
+  );
 
   return {
     destinationList,
     isProcessing,
     isProcessingComplete,
-    onActionCancel,
-    onExit,
-    onDestinationChange,
-    onActionStart,
+    location,
     statusCounts,
     tasks,
+    onActionCancel,
+    onActionStart,
+    onDestinationChange,
+    onExit,
+    onTaskCancel,
   };
 };

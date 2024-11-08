@@ -1,4 +1,4 @@
-import { DeleteHandlerData } from '../../../actions';
+import { DeleteHandlerData, LocationData } from '../../../actions';
 import {
   ActionViewComponent,
   ActionViewProps,
@@ -13,3 +13,7 @@ export interface DeleteViewProps
 
 export interface DeleteViewComponent
   extends ActionViewComponent<DeleteHandlerData, DeleteViewProps> {}
+
+export interface UseDeleteViewOptions {
+  onExit?: (location?: LocationData) => void;
+}

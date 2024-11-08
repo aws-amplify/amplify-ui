@@ -1,8 +1,8 @@
 import { Composables } from '../composables/types';
 import { DataTableSortHeader, DataTableProps } from '../composables/DataTable';
-import { DropZoneProps } from '../composables/DropZone';
 import { LocationData } from '../actions';
 import { StatusCounts } from '../tasks';
+import { LocationState } from '../providers/store/location';
 
 export interface ControlProps {
   className?: string;
@@ -41,8 +41,7 @@ export interface ControlsContext {
     isDataRefreshDisabled?: boolean;
     isExitDisabled?: boolean;
     isOverwriteCheckboxDisabled?: boolean;
-    currentLocation?: LocationData;
-    currentPath?: string;
+    location?: LocationState;
     showIncludeSubfolders?: boolean;
     searchPlaceholder?: string;
     tableData?: TableData;
@@ -50,7 +49,6 @@ export interface ControlsContext {
   };
   onActionCancel?: () => void;
   onActionStart?: () => void;
-  onDropComplete?: DropZoneProps['onDropComplete'];
   onDropFiles?: (files: File[]) => void;
   onNavigate?: (location: LocationData, path?: string) => void;
   onNavigateHome?: () => void;

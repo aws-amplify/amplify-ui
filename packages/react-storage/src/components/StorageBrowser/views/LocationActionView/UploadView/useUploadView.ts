@@ -1,37 +1,36 @@
 import React from 'react';
-import { isFunction } from '@aws-amplify/ui';
 
-import { LocationData, uploadHandler } from '../../../actions';
+import { uploadHandler } from '../../../actions';
 
 import { useGetActionInput } from '../../../providers/configuration';
 import { useStore } from '../../../providers/store';
-import { useProcessTasks } from '../../../tasks';
+import { Task, useProcessTasks } from '../../../tasks';
 
+import { DEFAULT_ACTION_CONCURRENCY } from '../constants';
+import { UploadViewState, UseUploadViewOptions } from './types';
 import { DEFAULT_OVERWRITE_ENABLED } from './constants';
-import { UploadViewState } from './types';
 
-export const useUploadView = (params?: {
-  onExit?: (location: LocationData) => void;
-}): UploadViewState => {
-  const { onExit: _onExit } = params ?? {};
-
+export const useUploadView = (
+  options?: UseUploadViewOptions
+): UploadViewState => {
+  const { onExit: _onExit } = options ?? {};
   const getInput = useGetActionInput();
   const [{ files, location }, dispatchStoreAction] = useStore();
-  const { current, key: destinationPrefix } = location;
+  const { current, key } = location;
 
   const [isOverwriteEnabled, setOverwriteEnabled] = React.useState(
     DEFAULT_OVERWRITE_ENABLED
   );
 
-  const [processState, handleProcess] = useProcessTasks(uploadHandler, files, {
-    concurrency: 4,
+  const [
+    { isProcessing, isProcessingComplete, statusCounts, tasks },
+    handleProcess,
+  ] = useProcessTasks(uploadHandler, files, {
+    concurrency: DEFAULT_ACTION_CONCURRENCY,
   });
 
-  const { isProcessing, isProcessingComplete, statusCounts, tasks } =
-    processState;
-
   const onDropFiles = React.useCallback(
-    (files?: File[]) => {
+    (files: File[]) => {
       if (files) {
         dispatchStoreAction({ type: 'ADD_FILE_ITEMS', files });
       }
@@ -40,7 +39,7 @@ export const useUploadView = (params?: {
   );
 
   const onSelectFiles = React.useCallback(
-    (type?: 'FILE' | 'FOLDER') => {
+    (type: 'FILE' | 'FOLDER') => {
       dispatchStoreAction({ type: 'SELECT_FILES', selectionType: type });
     },
     [dispatchStoreAction]
@@ -49,41 +48,54 @@ export const useUploadView = (params?: {
   const onActionStart = React.useCallback(() => {
     handleProcess({
       config: getInput(),
-      destinationPrefix,
+      destinationPrefix: key,
       options: { preventOverwrite: !isOverwriteEnabled },
     });
-  }, [destinationPrefix, getInput, handleProcess, isOverwriteEnabled]);
+  }, [isOverwriteEnabled, key, getInput, handleProcess]);
 
   const onActionCancel = React.useCallback(() => {
     tasks.forEach((task) => task.cancel?.());
   }, [tasks]);
 
   const onExit = React.useCallback(() => {
-    if (isFunction(_onExit)) _onExit?.(current!);
     // clear tasks state
     tasks.forEach(({ remove }) => remove());
     // clear files state
     dispatchStoreAction({ type: 'RESET_FILE_ITEMS' });
     // clear selected action
     dispatchStoreAction({ type: 'RESET_ACTION_TYPE' });
+    _onExit?.(current);
   }, [tasks, dispatchStoreAction, _onExit, current]);
 
   const onToggleOverwrite = React.useCallback(() => {
     setOverwriteEnabled((prev) => !prev);
   }, []);
 
+  const onTaskCancel = React.useCallback(
+    (task: Task) => {
+      if (isProcessing) {
+        task.cancel();
+      } else {
+        dispatchStoreAction({ type: 'REMOVE_FILE_ITEM', id: task.data.id });
+        task.remove();
+      }
+    },
+    [isProcessing, dispatchStoreAction]
+  );
+
   return {
-    destinationPrefix,
     isOverwriteEnabled,
     isProcessing,
     isProcessingComplete,
+    location,
+    statusCounts,
+    tasks,
     onActionCancel,
     onActionStart,
     onDropFiles,
     onExit,
     onSelectFiles,
+    onTaskCancel,
     onToggleOverwrite,
-    statusCounts,
-    tasks,
   };
 };

@@ -1,16 +1,16 @@
-import { DeleteViewState } from './types';
-
+import { useCallback } from 'react';
 import { isFunction } from '@aws-amplify/ui';
 
-import { LocationData, deleteHandler } from '../../../actions/handlers';
+import { DeleteViewState, UseDeleteViewOptions } from './types';
+import { deleteHandler } from '../../../actions/handlers';
 import { useStore } from '../../../providers/store';
 import { useGetActionInput } from '../../../providers/configuration';
-import { useProcessTasks } from '../../../tasks';
+import { Task, useProcessTasks } from '../../../tasks';
 
-export const useDeleteView = (params?: {
-  onExit?: (location: LocationData) => void;
-}): DeleteViewState => {
-  const { onExit: _onExit } = params ?? {};
+export const useDeleteView = (
+  options?: UseDeleteViewOptions
+): DeleteViewState => {
+  const { onExit: _onExit } = options ?? {};
 
   const [{ location, locationItems }, dispatchStoreAction] = useStore();
   const { fileDataItems } = locationItems;
@@ -46,16 +46,25 @@ export const useDeleteView = (params?: {
     dispatchStoreAction({ type: 'RESET_LOCATION_ITEMS' });
     // clear selected action
     dispatchStoreAction({ type: 'RESET_ACTION_TYPE' });
-    if (isFunction(_onExit)) _onExit(current!);
+    if (isFunction(_onExit)) _onExit(current);
   };
+
+  const onTaskCancel = useCallback(
+    (task: Task) => {
+      isProcessing ? task.cancel() : task.remove();
+    },
+    [isProcessing]
+  );
 
   return {
     isProcessing,
     isProcessingComplete,
-    onActionCancel,
-    onExit,
-    onActionStart,
+    location,
     statusCounts,
     tasks,
+    onActionCancel,
+    onActionStart,
+    onExit,
+    onTaskCancel,
   };
 };
