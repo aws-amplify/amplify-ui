@@ -14,17 +14,13 @@ describe('DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT', () => {
     });
 
     it('returns string values from callbacks', () => {
-      const {
-        getActionCompleteMessage,
-        getValidationMessage,
-        getActionFailedMessage,
-      } = DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT.CreateFolderView;
+      const { getActionCompleteMessage, getValidationMessage } =
+        DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT.CreateFolderView;
 
       expect(typeof getActionCompleteMessage({} as StatusCounts)).toBe(
         'string'
       );
-      expect(typeof getValidationMessage({} as Error)).toBe('string');
-      expect(typeof getActionFailedMessage({} as Error)).toBe('string');
+      expect(typeof getValidationMessage('foldername')).toBe('string');
     });
   });
 

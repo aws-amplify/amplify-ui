@@ -58,8 +58,7 @@ export interface DefaultLocationDetailViewDisplayText
 
 export interface DefaultCreateFolderViewDisplayText
   extends DefaultActionViewDisplayText {
-  getValidationMessage: (error: Error) => string;
-  getActionFailedMessage: (error: Error) => string;
+  getValidationMessage: (folderName: string) => string;
 }
 
 export interface DefaultCopyViewDisplayText
