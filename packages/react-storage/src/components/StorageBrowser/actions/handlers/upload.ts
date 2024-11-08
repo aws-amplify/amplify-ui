@@ -67,6 +67,7 @@ export const uploadHandler: UploadHandler = ({
       },
       preventOverwrite,
       customEndpoint,
+      checksumAlgorithm: 'crc-32',
     },
   };
 
