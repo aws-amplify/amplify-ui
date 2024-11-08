@@ -57,6 +57,14 @@ describe('usePaginate', () => {
     expect(result?.current?.currentPage).toBe(2);
   });
 
+  it('returns the expected value of pageItems', () => {
+    const { result } = renderHook(() => usePaginate({ ...data }));
+
+    const expectedPageItems = data.items.slice(0, data.pageSize);
+
+    expect(result?.current?.pageItems).toEqual(expectedPageItems);
+  });
+
   it('calls `onPaginate` as expected', () => {
     const { result } = renderHook(() => usePaginate({ ...data }));
 

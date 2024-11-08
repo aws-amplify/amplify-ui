@@ -57,4 +57,16 @@ describe('PaginationControl', () => {
     expect(list).toBeInTheDocument();
     expect(listItems).toHaveLength(3);
   });
+
+  it('returns null if there is no pagination data', () => {
+    mockUseControlsContext.mockReturnValue({
+      data: {
+        paginationData: null,
+      },
+    });
+
+    const { container } = render(<PaginationControl />);
+
+    expect(container.firstChild).toBeNull();
+  });
 });
