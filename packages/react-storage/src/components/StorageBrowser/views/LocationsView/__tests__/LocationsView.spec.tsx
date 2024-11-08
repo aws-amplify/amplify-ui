@@ -330,7 +330,7 @@ describe('LocationsListView', () => {
       <LocationsView />
     );
 
-    const input = getByPlaceholderText('Filter files and folders');
+    const input = getByPlaceholderText('Filter folders and files');
 
     expect(input).toBeInTheDocument();
     expect(queryByText('item-0/')).toBeInTheDocument();

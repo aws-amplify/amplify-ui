@@ -18,7 +18,7 @@ exports[`DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT DEFAULT_STORAGE_BROWSER_DISPLAY_TE
 exports[`DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT.LocationsView should match snapshot 1`] = `
 {
   "getListResultsMessage": [Function],
-  "searchPlaceholder": "Filter files and folders",
+  "searchPlaceholder": "Filter folders and files",
   "searchSubmitLabel": "Search",
   "tableColumnBucketHeader": "Bucket",
   "tableColumnFolderHeader": "Folder",
@@ -69,7 +69,7 @@ exports[`DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT should match snapshot 1`] = `
   },
   "LocationsView": {
     "getListResultsMessage": [Function],
-    "searchPlaceholder": "Filter files and folders",
+    "searchPlaceholder": "Filter folders and files",
     "searchSubmitLabel": "Search",
     "tableColumnBucketHeader": "Bucket",
     "tableColumnFolderHeader": "Folder",

@@ -5,7 +5,7 @@ export const DEFAULT_LOCATIONS_VIEW_DISPLAY_TEXT: DefaultLocationsViewDisplayTex
   {
     ...DEFAULT_LIST_VIEW_DISPLAY_TEXT,
     title: 'Home',
-    searchPlaceholder: 'Filter files and folders',
+    searchPlaceholder: 'Filter folders and files',
     getListResultsMessage: () => 'lol',
     tableColumnBucketHeader: 'Bucket',
     tableColumnFolderHeader: 'Folder',

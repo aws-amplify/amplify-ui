@@ -40,6 +40,34 @@ const LocationsMessage = ({
   ) : null;
 };
 
+const getHeaders = ({
+  tableColumnBucketHeader,
+  tableColumnFolderHeader,
+  tableColumnPermissionsHeader,
+}: {
+  tableColumnBucketHeader: string;
+  tableColumnFolderHeader: string;
+  tableColumnPermissionsHeader: string;
+}): LocationViewHeaders => {
+  return [
+    {
+      key: 'folder',
+      type: 'sort',
+      content: { label: tableColumnFolderHeader },
+    },
+    {
+      key: 'bucket',
+      type: 'sort',
+      content: { label: tableColumnBucketHeader },
+    },
+    {
+      key: 'permission',
+      type: 'sort',
+      content: { label: tableColumnPermissionsHeader },
+    },
+  ];
+};
+
 const LocationsEmptyMessage = ({ show }: { show: boolean }) => {
   return show ? <EmptyMessage>No locations to show.</EmptyMessage> : null;
 };
@@ -73,23 +101,11 @@ export function LocationsView({
     },
   } = useDisplayText();
 
-  const headers: LocationViewHeaders = [
-    {
-      key: 'folder',
-      type: 'sort',
-      content: { label: tableColumnFolderHeader },
-    },
-    {
-      key: 'bucket',
-      type: 'sort',
-      content: { label: tableColumnBucketHeader },
-    },
-    {
-      key: 'permission',
-      type: 'sort',
-      content: { label: tableColumnPermissionsHeader },
-    },
-  ];
+  const headers = getHeaders({
+    tableColumnBucketHeader,
+    tableColumnFolderHeader,
+    tableColumnPermissionsHeader,
+  });
 
   return (
     <ControlsContextProvider
