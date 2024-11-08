@@ -359,17 +359,19 @@ export const UploadControls = ({
 
   return (
     <ControlsContextProvider {...contextValue}>
-      <Exit
-        onClick={() => {
-          if (isFunction(onExit)) onExit?.(current!);
-          // clear tasks state
-          tasks.forEach(({ remove }) => remove?.());
-          // clear files state
-          dispatchStoreAction({ type: 'RESET_FILE_ITEMS' });
-          // clear selected action
-          dispatchStoreAction({ type: 'RESET_ACTION_TYPE' });
-        }}
-      />
+      <ViewElement className={`amplify-${CLASS_BASE}__navigation`}>
+        <Exit
+          onClick={() => {
+            if (isFunction(onExit)) onExit?.(current!);
+            // clear tasks state
+            tasks.forEach(({ remove }) => remove?.());
+            // clear files state
+            dispatchStoreAction({ type: 'RESET_FILE_ITEMS' });
+            // clear selected action
+            dispatchStoreAction({ type: 'RESET_ACTION_TYPE' });
+          }}
+        />
+      </ViewElement>
       <Title />
 
       <ViewElement className={`amplify-${CLASS_BASE}__action__options`}>
@@ -381,7 +383,7 @@ export const UploadControls = ({
           }}
         />
 
-        <ViewElement className="amplify-flex">
+        <ViewElement className={`amplify-${CLASS_BASE}__action__buttons`}>
           <ButtonElement
             disabled={disableSelectFiles}
             className={`${CLASS_BASE}__add-folder`}
@@ -411,7 +413,6 @@ export const UploadControls = ({
         </ViewElement>
       </ViewElement>
 
-      {/* <ViewElement className={`amplify-${CLASS_BASE}__action__items`}> */}
       <Table
         data={tableData}
         columns={LOCATION_ACTION_VIEW_COLUMNS}
@@ -421,7 +422,6 @@ export const UploadControls = ({
         renderHeaderItem={renderHeaderItem}
         renderRowItem={renderRowItem}
       />
-      {/* </ViewElement> */}
 
       <ViewElement className={`amplify-${CLASS_BASE}__action__summary`}>
         <ViewElement className={`amplify-${CLASS_BASE}__action__destination`}>
