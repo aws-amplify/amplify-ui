@@ -50,8 +50,7 @@ export function useLocationsView(
   options?: UseLocationsViewOptions
 ): UseLocationsView {
   const [state, handleList] = useLocationsData();
-  const [{ location }, dispatchStoreAction] = useStore();
-  const { current, key } = location;
+  const [, dispatchStoreAction] = useStore();
   const [term, setTerm] = React.useState('');
   const { data, message, hasError, isLoading } = state;
   const { result, nextToken } = data;
@@ -65,13 +64,6 @@ export function useLocationsView(
     ...initialValues,
   });
   const listOptions = listOptionsRef.current;
-
-  const getFolderNameFromPath = (path: string): string => {
-    const splitPath = path.split('/');
-    return splitPath[splitPath.length - 2];
-  };
-
-  const title = key ? getFolderNameFromPath(key) : current?.bucket;
 
   // initial load
   React.useEffect(() => {
@@ -120,7 +112,7 @@ export function useLocationsView(
     pageItems: filteredItems,
     searchPlaceholder: displayText.filterLocationsPlaceholder,
     shouldShowEmptyMessage,
-    title,
+    title: 'Home',
     onNavigate: (location: LocationData) => {
       onNavigate?.(location);
       dispatchStoreAction({ type: 'NAVIGATE', location });
