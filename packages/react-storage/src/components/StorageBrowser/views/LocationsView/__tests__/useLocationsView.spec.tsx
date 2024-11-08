@@ -108,8 +108,6 @@ describe('useLocationsView', () => {
       useLocationsView(initialState)
     );
 
-    expect(result.current.isPaginateNextDisabled).toBe(true);
-    expect(result.current.isPaginatePreviousDisabled).toBe(true);
     expect(result.current.pageItems).toEqual([]);
 
     // mock first page data
@@ -127,8 +125,6 @@ describe('useLocationsView', () => {
     rerender(initialState);
     // check first page
     expect(result.current.page).toEqual(1);
-    expect(result.current.isPaginateNextDisabled).toBe(false);
-    expect(result.current.isPaginatePreviousDisabled).toBe(true);
     expect(result.current.pageItems).toEqual(
       mockData.slice(0, EXPECTED_PAGE_SIZE)
     );
@@ -143,26 +139,22 @@ describe('useLocationsView', () => {
 
     // go next
     act(() => {
-      result.current.onPaginateNext();
+      result.current.onPaginate(2);
     });
 
     // check next page
     expect(result.current.page).toEqual(2);
-    expect(result.current.isPaginateNextDisabled).toBe(true);
-    expect(result.current.isPaginatePreviousDisabled).toBe(false);
     expect(result.current.pageItems).toEqual(
       mockData.slice(EXPECTED_PAGE_SIZE)
     );
 
     // go back
     act(() => {
-      result.current.onPaginatePrevious();
+      result.current.onPaginate(1);
     });
 
     // check first page
     expect(result.current.page).toEqual(1);
-    expect(result.current.isPaginateNextDisabled).toBe(false);
-    expect(result.current.isPaginatePreviousDisabled).toBe(true);
     expect(result.current.pageItems).toEqual(
       mockData.slice(0, EXPECTED_PAGE_SIZE)
     );
@@ -170,7 +162,7 @@ describe('useLocationsView', () => {
 
   it('should handle refreshing location data', () => {
     const mockDataState = {
-      data: { result: [], nextToken: undefined },
+      data: { result: [], nextToken: 'token123' },
       message: '',
       hasError: false,
       isLoading: false,
@@ -181,7 +173,7 @@ describe('useLocationsView', () => {
 
     // go to second page to verify reset behavior
     act(() => {
-      result.current.onPaginateNext();
+      result.current.onPaginate(2);
     });
     expect(result.current.page).toEqual(2);
 

@@ -3,6 +3,7 @@ import { usePaginate } from '../../hooks/usePaginate';
 import {
   listLocationItemsHandler,
   ListLocationItemsHandlerOutput,
+  LocationItemData,
 } from '../../../actions';
 import { useGetActionInput } from '../../../providers/configuration';
 import { getDestinationListFullPrefix } from '../utils/getDestinationPickerDataTable';
@@ -34,12 +35,12 @@ export const useDestinationPicker = ({
   hasNextToken: boolean;
   currentPage: number;
   isLoading: boolean;
+  highestPageVisited: number;
   hasError: boolean;
   message: string | undefined;
-  handleNext: () => void;
-  handlePrevious: () => void;
+  pageItems: LocationItemData[];
+  onPaginate: (page: number) => void;
   onSearch: (query: string) => void;
-  range: [number, number];
 } => {
   const prefix = getDestinationListFullPrefix(destinationList);
 
@@ -55,10 +56,9 @@ export const useDestinationPicker = ({
 
   const { items, nextToken } = data;
 
-  const resultCount = items.length;
   const hasNextToken = !!nextToken;
 
-  const onPaginateNext = () => {
+  const paginateCallback = () => {
     handleList({
       config: getInput(),
       prefix,
@@ -66,10 +66,12 @@ export const useDestinationPicker = ({
     });
   };
 
-  const { currentPage, handlePaginateNext, handlePaginatePrevious, range } =
+  const { currentPage, onPaginate, highestPageVisited, pageItems } =
     usePaginate({
-      onPaginateNext,
+      items,
+      paginateCallback,
       pageSize: 10,
+      hasNextToken,
     });
 
   useEffect(() => {
@@ -90,14 +92,11 @@ export const useDestinationPicker = ({
     hasNextToken,
     currentPage,
     isLoading,
+    highestPageVisited,
     hasError,
     message,
-    handleNext: () => {
-      handlePaginateNext({ resultCount, hasNextToken });
-    },
-    handlePrevious: () => {
-      handlePaginatePrevious();
-    },
+    pageItems,
+    onPaginate,
     onSearch: (query: string) => {
       handleList({
         config: getInput(),
@@ -108,6 +107,5 @@ export const useDestinationPicker = ({
         },
       });
     },
-    range,
   };
 };

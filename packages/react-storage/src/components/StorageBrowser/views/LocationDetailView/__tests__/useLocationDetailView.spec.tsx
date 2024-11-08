@@ -191,8 +191,6 @@ describe('useLocationDetailView', () => {
       useLocationDetailView(initialValues)
     );
 
-    expect(result.current.isPaginateNextDisabled).toBe(true);
-    expect(result.current.isPaginatePreviousDisabled).toBe(true);
     expect(result.current.pageItems).toEqual([]);
 
     // set up first page mock
@@ -223,24 +221,20 @@ describe('useLocationDetailView', () => {
 
     // go next
     act(() => {
-      result.current.onPaginateNext();
+      result.current.onPaginate(2);
     });
 
     // check if data is correct
     expect(result.current.page).toEqual(2);
-    expect(result.current.isPaginateNextDisabled).toBe(true);
-    expect(result.current.isPaginatePreviousDisabled).toBe(false);
     expect(result.current.pageItems).toEqual(testData.slice(3));
 
     // go previous
     act(() => {
-      result.current.onPaginatePrevious();
+      result.current.onPaginate(1);
     });
 
     // check data
     expect(result.current.page).toEqual(1);
-    expect(result.current.isPaginateNextDisabled).toBe(false);
-    expect(result.current.isPaginatePreviousDisabled).toBe(true);
     expect(result.current.pageItems).toEqual(testData.slice(0, 3));
   });
 
@@ -248,7 +242,7 @@ describe('useLocationDetailView', () => {
     useStoreSpy.mockReturnValue([testStoreState, mockDispatchStoreAction]);
 
     const mockDataState = {
-      data: { items: [], nextToken: undefined },
+      data: { result: [], nextToken: 'token123' },
       message: '',
       hasError: false,
       isLoading: false,
@@ -260,7 +254,7 @@ describe('useLocationDetailView', () => {
 
     // move to next page to check behavior
     act(() => {
-      result.current.onPaginateNext();
+      result.current.onPaginate(2);
     });
     expect(result.current.page).toEqual(2);
 

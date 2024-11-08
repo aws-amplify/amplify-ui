@@ -55,9 +55,9 @@ export function LocationDetailView({
   const {
     page,
     pageItems,
+    hasNextPage,
+    highestPageVisited,
     isLoading,
-    isPaginatePreviousDisabled,
-    isPaginateNextDisabled,
     currentLocation,
     currentPath,
     areAllFilesSelected,
@@ -71,8 +71,7 @@ export function LocationDetailView({
     title,
     onDropFiles,
     onRefresh,
-    onPaginateNext,
-    onPaginatePrevious,
+    onPaginate,
     onDownload,
     onNavigate,
     onNavigateHome,
@@ -123,10 +122,9 @@ export function LocationDetailView({
           />
           <Paginate
             currentPage={page}
-            disableNext={isPaginateNextDisabled}
-            disablePrevious={isPaginatePreviousDisabled}
-            handleNext={onPaginateNext}
-            handlePrevious={onPaginatePrevious}
+            onPaginate={onPaginate}
+            hasMorePages={hasNextPage}
+            highestPageVisited={highestPageVisited}
           />
           <DataRefreshControl
             className={`${CLASS_BASE}__locations-detail-view-data-refresh`}
