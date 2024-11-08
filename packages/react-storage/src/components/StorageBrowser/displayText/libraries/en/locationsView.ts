@@ -4,7 +4,8 @@ import { DefaultLocationsViewDisplayText } from '../../types';
 export const DEFAULT_LOCATIONS_VIEW_DISPLAY_TEXT: DefaultLocationsViewDisplayText =
   {
     ...DEFAULT_LIST_VIEW_DISPLAY_TEXT,
-    searchPlaceholder: 'Filter files and folders',
+    title: 'Home',
+    searchPlaceholder: 'Filter folders and files',
     getListResultsMessage: () => 'lol',
     tableColumnBucketHeader: 'Bucket',
     tableColumnFolderHeader: 'Folder',

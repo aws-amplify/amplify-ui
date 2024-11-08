@@ -1,4 +1,5 @@
 import { getLocationsViewTableData } from '../getLocationsViewTableData';
+import { LocationViewHeaders } from '../getLocationsViewTableData/types';
 
 describe('getLocationsViewTableData', () => {
   const location1 = {
@@ -9,6 +10,24 @@ describe('getLocationsViewTableData', () => {
     type: 'PREFIX',
   } as const;
   const location2 = { ...location1, id: 'id-2', prefix: 'prefix-2/' };
+
+  const headers: LocationViewHeaders = [
+    {
+      key: 'folder',
+      type: 'sort',
+      content: { label: 'Folder' },
+    },
+    {
+      key: 'bucket',
+      type: 'sort',
+      content: { label: 'Bucket' },
+    },
+    {
+      key: 'permission',
+      type: 'sort',
+      content: { label: 'Permission' },
+    },
+  ];
 
   // create mocks
   const mockOnNavigate = jest.fn();
@@ -22,6 +41,7 @@ describe('getLocationsViewTableData', () => {
       getLocationsViewTableData({
         pageItems: [location1],
         onNavigate: mockOnNavigate,
+        headers,
       })
     ).toStrictEqual({
       headers: [
@@ -55,6 +75,7 @@ describe('getLocationsViewTableData', () => {
       getLocationsViewTableData({
         pageItems: [{ ...location1, prefix: '' }],
         onNavigate: mockOnNavigate,
+        headers,
       })
     ).toStrictEqual(
       expect.objectContaining({
@@ -76,6 +97,7 @@ describe('getLocationsViewTableData', () => {
     const tableData = getLocationsViewTableData({
       pageItems: [location1, location2],
       onNavigate: mockOnNavigate,
+      headers,
     });
     const [row1FirstContent] = tableData.rows[0].content;
     const [row2FirstContent] = tableData.rows[1].content;

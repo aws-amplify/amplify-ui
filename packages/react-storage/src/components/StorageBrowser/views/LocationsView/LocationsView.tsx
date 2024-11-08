@@ -13,6 +13,8 @@ import { TitleControl } from '../../controls/TitleControl';
 import { LocationsViewProps } from './types';
 import { ViewElement } from '../../context/elements';
 import { getLocationsViewTableData } from './getLocationsViewTableData';
+import { useDisplayText } from '../../displayText';
+import { LocationViewHeaders } from './getLocationsViewTableData/types';
 
 export const DEFAULT_ERROR_MESSAGE = 'There was an error loading locations.';
 
@@ -34,6 +36,34 @@ const LocationsMessage = ({
   ) : null;
 };
 
+const getHeaders = ({
+  tableColumnBucketHeader,
+  tableColumnFolderHeader,
+  tableColumnPermissionsHeader,
+}: {
+  tableColumnBucketHeader: string;
+  tableColumnFolderHeader: string;
+  tableColumnPermissionsHeader: string;
+}): LocationViewHeaders => {
+  return [
+    {
+      key: 'folder',
+      type: 'sort',
+      content: { label: tableColumnFolderHeader },
+    },
+    {
+      key: 'bucket',
+      type: 'sort',
+      content: { label: tableColumnBucketHeader },
+    },
+    {
+      key: 'permission',
+      type: 'sort',
+      content: { label: tableColumnPermissionsHeader },
+    },
+  ];
+};
+
 const LocationsEmptyMessage = ({ show }: { show: boolean }) => {
   return show ? <EmptyMessage>No locations to show.</EmptyMessage> : null;
 };
@@ -50,7 +80,6 @@ export function LocationsView({
     isLoading,
     pageItems,
     message,
-    searchPlaceholder,
     shouldShowEmptyMessage,
     title,
     onRefresh,
@@ -59,13 +88,33 @@ export function LocationsView({
     onSearch,
   } = useLocationsView(props);
 
+  const {
+    LocationsView: {
+      title,
+      tableColumnBucketHeader,
+      tableColumnFolderHeader,
+      tableColumnPermissionsHeader,
+      searchPlaceholder,
+    },
+  } = useDisplayText();
+
+  const headers = getHeaders({
+    tableColumnBucketHeader,
+    tableColumnFolderHeader,
+    tableColumnPermissionsHeader,
+  });
+
   return (
     <ControlsContextProvider
       data={{
         isDataRefreshDisabled: isLoading,
-        tableData: getLocationsViewTableData({ pageItems, onNavigate }),
-        searchPlaceholder,
         title,
+        tableData: getLocationsViewTableData({
+          headers,
+          pageItems,
+          onNavigate,
+        }),
+        searchPlaceholder: searchPlaceholder,
       }}
       onSearch={onSearch}
       onRefresh={onRefresh}
