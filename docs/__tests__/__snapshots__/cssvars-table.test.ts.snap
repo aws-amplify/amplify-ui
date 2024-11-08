@@ -687,6 +687,10 @@ exports[`CSS Variables Table 1`] = `
         "value": "var(--amplify-space-small)"
     },
     {
+        "variable": "--amplify-components-ai-conversation-message-actions-gap",
+        "value": "var(--amplify-space-xs)"
+    },
+    {
         "variable": "--amplify-components-ai-conversation-message-assistant-background-color",
         "value": "var(--amplify-colors-primary-10)"
     },
