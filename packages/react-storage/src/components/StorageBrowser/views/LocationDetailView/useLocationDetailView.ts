@@ -32,6 +32,7 @@ interface UseLocationDetailView {
   searchPlaceholder: string;
   pageItems: LocationItemData[];
   page: number;
+  title: string | undefined;
   onDropFiles: (files: File[]) => void;
   onRefresh: () => void;
   onNavigate: (location: LocationData, path?: string) => void;
@@ -103,6 +104,13 @@ export function useLocationDetailView(
     listLocationItemsAction,
     { items: [], nextToken: undefined }
   );
+
+  const getFolderNameFromPath = (path: string): string => {
+    const splitPath = path.split('/');
+    return splitPath[splitPath.length - 2];
+  };
+
+  const title = key ? getFolderNameFromPath(key) : currentLocation.bucket;
 
   // set up pagination
   const { items, nextToken } = data;
@@ -179,7 +187,6 @@ export function useLocationDetailView(
   const hasNoResults = pageItems.length === 0;
   const shouldShowEmptyMessage =
     pageItems.length === 0 && !isLoading && !hasError;
-
   return {
     page: currentPage,
     pageItems,
@@ -198,6 +205,7 @@ export function useLocationDetailView(
     isLoading,
     showIncludeSubfolders: true,
     searchPlaceholder: displayText.searchDetailPlaceholder,
+    title,
     onPaginatePrevious: handlePaginatePrevious,
     onPaginateNext: () => {
       handlePaginateNext({ resultCount, hasNextToken });

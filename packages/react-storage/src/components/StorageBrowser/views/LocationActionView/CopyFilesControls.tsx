@@ -15,6 +15,7 @@ import { useStore } from '../../providers/store';
 import { ControlsContext } from '../../controls/types';
 import { DescriptionList } from '../../components/DescriptionList';
 import { getDestinationListFullPrefix } from './utils/getDestinationPickerDataTable';
+import { getFolderNameFromPath } from './utils/getFolderNameFromPath';
 
 import { ActionCancelControl } from '../../controls/ActionCancelControl';
 import { ActionStartControl } from '../../controls/ActionStartControl';
@@ -30,18 +31,18 @@ export const CopyFilesControls = (props: {
 }): React.JSX.Element => {
   const {
     destinationList,
-    onDestinationChange,
     isProcessing,
     isProcessingComplete,
-    onExit,
     onActionCancel,
     onActionStart,
+    onDestinationChange,
+    onExit,
     statusCounts,
     tasks,
   } = useCopyView(props);
 
   const [{ location }] = useStore();
-  const { key } = location;
+  const { current, key } = location;
 
   const tableData = getActionViewTableData({
     tasks,
@@ -53,6 +54,7 @@ export const CopyFilesControls = (props: {
     isProcessing || isProcessingComplete || destinationList.length === 0;
 
   const isActionCancelDisabled = !isProcessing || isProcessingComplete;
+  const title = key ? getFolderNameFromPath(key) : current.bucket;
   const contextValue: ControlsContext = {
     data: {
       statusCounts,
@@ -61,6 +63,7 @@ export const CopyFilesControls = (props: {
       isActionStartDisabled,
       isActionCancelDisabled,
       actionCancelLabel: 'Cancel',
+      title,
     },
     onActionStart,
     onActionCancel,

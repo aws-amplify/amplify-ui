@@ -53,8 +53,8 @@ export const useDeleteView = (params?: {
     isProcessing,
     isProcessingComplete,
     onActionCancel,
-    onExit,
     onActionStart,
+    onExit,
     statusCounts,
     tasks,
   };

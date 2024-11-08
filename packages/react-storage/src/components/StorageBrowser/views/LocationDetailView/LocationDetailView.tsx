@@ -68,6 +68,7 @@ export function LocationDetailView({
     shouldShowEmptyMessage,
     searchPlaceholder,
     showIncludeSubfolders,
+    title,
     onDropFiles,
     onRefresh,
     onPaginateNext,
@@ -79,8 +80,6 @@ export function LocationDetailView({
     onSelectAll,
     onSearch,
   } = useLocationDetailView({ onNavigate: onNavigateProp, onExit });
-
-  const title = currentLocation?.prefix;
 
   return (
     <div

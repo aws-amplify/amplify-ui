@@ -30,6 +30,7 @@ import {
 } from '../Controls/Table';
 import { STATUS_DISPLAY_VALUES } from './constants';
 import { FileItems } from '../../providers/store/files';
+import { getFolderNameFromPath } from './utils/getFolderNameFromPath';
 import { ActionStartControl } from '../../controls/ActionStartControl';
 import { useUploadView } from './UploadView';
 import { ActionCancelControl } from '../../controls/ActionCancelControl';
@@ -192,7 +193,7 @@ export const UploadControls = (props: {
   onExit?: (location: LocationData) => void;
 }): JSX.Element => {
   const [{ actionType, files, location }, dispatchStoreAction] = useStore();
-  const { key: destinationPrefix } = location;
+  const { current, key: destinationPrefix } = location;
 
   // launch native file picker on intiial render if no files are currently in state
   const selectionTypeRef = React.useRef<'FILE' | 'FOLDER' | undefined>(
@@ -234,6 +235,10 @@ export const UploadControls = (props: {
   >(() => ({ selection: 'key', direction: 'ascending' }));
 
   const { direction, selection } = sortState;
+
+  const title = destinationPrefix
+    ? getFolderNameFromPath(destinationPrefix)
+    : current.bucket;
 
   const tableData = tasks
     .map(({ data, ...task }) => {
@@ -333,6 +338,7 @@ export const UploadControls = (props: {
       isExitDisabled,
       isOverwriteCheckboxDisabled,
       statusCounts,
+      title,
     },
     onActionStart,
     onActionCancel,

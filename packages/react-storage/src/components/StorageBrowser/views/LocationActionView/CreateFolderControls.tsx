@@ -12,6 +12,7 @@ import { Controls } from '../Controls';
 import { ActionStartControl } from '../../controls/ActionStartControl';
 import { ControlsContext } from '../../controls/types';
 import { ControlsContextProvider } from '../../controls/context';
+import { getFolderNameFromPath } from './utils/getFolderNameFromPath';
 import { TitleControl } from '../../controls/TitleControl';
 
 import { CLASS_BASE } from '../constants';
@@ -96,6 +97,8 @@ export const CreateFolderControls = ({
 
   const hasCompletedStatus = result?.status === 'COMPLETE';
 
+  const title = key ? getFolderNameFromPath(key) : current.bucket;
+
   // FIXME: Eventually comes from useView hook
   const contextValue: ControlsContext = {
     data: {
@@ -103,6 +106,7 @@ export const CreateFolderControls = ({
       isActionStartDisabled: !hasCompletedStatus
         ? !folderName || !!fieldValidationError
         : undefined,
+      title,
     },
     onActionStart: hasCompletedStatus ? handleClose : handleCreateFolder,
   };

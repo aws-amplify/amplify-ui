@@ -18,6 +18,7 @@ interface UseLocationsView {
   shouldShowEmptyMessage: boolean;
   pageItems: LocationData[];
   page: number;
+  title: string;
   onNavigate: (location: LocationData) => void;
   onRefresh: () => void;
   onPaginateNext: () => void;
@@ -54,7 +55,8 @@ export function useLocationsView(
   options?: UseLocationsViewOptions
 ): UseLocationsView {
   const [state, handleList] = useLocationsData();
-  const [, dispatchStoreAction] = useStore();
+  const [{ location }, dispatchStoreAction] = useStore();
+  const { current, key } = location;
   const [term, setTerm] = React.useState('');
   const { data, message, hasError, isLoading } = state;
   const { result, nextToken } = data;
@@ -70,6 +72,13 @@ export function useLocationsView(
   });
   const listOptions = listOptionsRef.current;
   const { pageSize } = listOptions;
+
+  const getFolderNameFromPath = (path: string): string => {
+    const splitPath = path.split('/');
+    return splitPath[splitPath.length - 2];
+  };
+
+  const title = key ? getFolderNameFromPath(key) : current.bucket;
 
   // initial load
   React.useEffect(() => {
@@ -123,6 +132,7 @@ export function useLocationsView(
     pageItems: filteredItems,
     searchPlaceholder: displayText.filterLocationsPlaceholder,
     shouldShowEmptyMessage,
+    title,
     onNavigate: (location: LocationData) => {
       onNavigate?.(location);
       dispatchStoreAction({ type: 'NAVIGATE', location });

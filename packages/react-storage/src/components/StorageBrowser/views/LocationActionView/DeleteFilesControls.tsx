@@ -9,6 +9,7 @@ import { ControlsContext } from '../../controls/types';
 import { useStore } from '../../providers/store';
 import { getActionViewTableData } from './utils';
 import { LocationData } from '../../actions';
+import { getFolderNameFromPath } from './utils/getFolderNameFromPath';
 import { ActionStartControl } from '../../controls/ActionStartControl';
 import { ActionCancelControl } from '../../controls/ActionCancelControl';
 import { DataTableControl } from '../../controls/DataTableControl';
@@ -31,7 +32,10 @@ export const DeleteFilesControls = (props?: {
   } = useDeleteView(props);
 
   const [{ location }] = useStore();
-  const { key } = location;
+  const { current, key } = location;
+
+  const title = key ? getFolderNameFromPath(key) : current.bucket;
+
   const tableData = getActionViewTableData({
     tasks,
     folder: key,
@@ -45,6 +49,7 @@ export const DeleteFilesControls = (props?: {
       actionStartLabel: 'Start',
       actionCancelLabel: 'Cancel',
       isActionCancelDisabled: !isProcessing || isProcessingComplete,
+      title,
     },
     onActionStart,
     onActionCancel,

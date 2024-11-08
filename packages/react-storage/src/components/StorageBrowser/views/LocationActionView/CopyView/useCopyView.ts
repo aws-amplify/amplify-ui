@@ -75,9 +75,9 @@ export const useCopyView = (params?: {
     isProcessing,
     isProcessingComplete,
     onActionCancel,
-    onExit,
-    onDestinationChange,
     onActionStart,
+    onDestinationChange,
+    onExit,
     statusCounts,
     tasks,
   };

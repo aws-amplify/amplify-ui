@@ -6,7 +6,6 @@ import { LocationData, uploadHandler } from '../../../actions';
 import { useGetActionInput } from '../../../providers/configuration';
 import { useStore } from '../../../providers/store';
 import { useProcessTasks } from '../../../tasks';
-
 import { DEFAULT_OVERWRITE_ENABLED } from './constants';
 import { UploadViewState } from './types';
 

@@ -52,6 +52,7 @@ export function LocationsView({
     isLoading,
     searchPlaceholder,
     shouldShowEmptyMessage,
+    title,
     onRefresh,
     onPaginateNext,
     onPaginatePrevious,
@@ -65,7 +66,7 @@ export function LocationsView({
         isDataRefreshDisabled: isLoading,
         tableData: getLocationsViewTableData({ pageItems, onNavigate }),
         searchPlaceholder,
-        title: 'Home',
+        title,
       }}
       onSearch={onSearch}
       onRefresh={onRefresh}
