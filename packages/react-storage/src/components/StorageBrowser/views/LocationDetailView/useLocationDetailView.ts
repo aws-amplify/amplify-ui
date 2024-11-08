@@ -114,13 +114,19 @@ export function useLocationDetailView(
     });
   };
 
-  const { currentPage, onPaginate, handleReset, highestPageVisited, range } =
-    usePaginate({
-      paginateCallback,
-      pageSize: listOptions.pageSize,
-      resultCount,
-      hasNextToken,
-    });
+  const {
+    currentPage,
+    onPaginate,
+    handleReset,
+    highestPageVisited,
+    pageItems,
+  } = usePaginate({
+    items,
+    paginateCallback,
+    pageSize: listOptions.pageSize,
+    resultCount,
+    hasNextToken,
+  });
 
   const onRefresh = () => {
     if (hasInvalidPrefix) return;
@@ -150,11 +156,6 @@ export function useLocationDetailView(
     prefix,
     key,
   ]);
-
-  const pageItems = React.useMemo(() => {
-    const [start, end] = range;
-    return Array.isArray(items) ? items.slice(start, end) : [];
-  }, [range, items]);
 
   // Logic for Select All Files functionality
   const fileItems = React.useMemo(

@@ -3,6 +3,7 @@ import { usePaginate } from '../../hooks/usePaginate';
 import {
   listLocationItemsHandler,
   ListLocationItemsHandlerOutput,
+  LocationItemData,
 } from '../../../actions';
 import { useGetActionInput } from '../../../providers/configuration';
 import { getDestinationListFullPrefix } from '../utils/getDestinationPickerDataTable';
@@ -10,7 +11,6 @@ import { getDestinationListFullPrefix } from '../utils/getDestinationPickerDataT
 import { useDataState } from '@aws-amplify/ui-react-core';
 import { useStore } from '../../../providers/store';
 import { createEnhancedListHandler } from '../../../actions/createEnhancedListHandler';
-import { isString } from '@aws-amplify/ui';
 
 const DEFAULT_PAGE_SIZE = 1000;
 export const DEFAULT_LIST_OPTIONS = {
@@ -38,9 +38,9 @@ export const useDestinationPicker = ({
   highestPageVisited: number;
   hasError: boolean;
   message: string | undefined;
+  pageItems: LocationItemData[];
   onPaginate: (page: number) => void;
   onSearch: (query: string) => void;
-  range: [number, number];
 } => {
   const prefix = getDestinationListFullPrefix(destinationList);
 
@@ -59,9 +59,7 @@ export const useDestinationPicker = ({
   const resultCount = items.length;
   const hasNextToken = !!nextToken;
 
-  const hasValidPrefix = isString(prefix);
   const paginateCallback = () => {
-    if (!hasValidPrefix) return;
     handleList({
       config: getInput(),
       prefix,
@@ -69,12 +67,14 @@ export const useDestinationPicker = ({
     });
   };
 
-  const { currentPage, onPaginate, range, highestPageVisited } = usePaginate({
-    paginateCallback,
-    pageSize: 10,
-    resultCount,
-    hasNextToken,
-  });
+  const { currentPage, onPaginate, highestPageVisited, pageItems } =
+    usePaginate({
+      items,
+      paginateCallback,
+      pageSize: 10,
+      resultCount,
+      hasNextToken,
+    });
 
   useEffect(() => {
     handleList({
@@ -97,6 +97,7 @@ export const useDestinationPicker = ({
     highestPageVisited,
     hasError,
     message,
+    pageItems,
     onPaginate,
     onSearch: (query: string) => {
       handleList({
@@ -108,6 +109,5 @@ export const useDestinationPicker = ({
         },
       });
     },
-    range,
   };
 };

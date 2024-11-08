@@ -49,7 +49,7 @@ export const DestinationPicker = ({
     hasError,
     onPaginate,
     onSearch,
-    range,
+    pageItems,
   } = useDestinationPicker({ destinationList });
 
   const handleNavigateFolder = (key: string) => {
@@ -61,11 +61,6 @@ export const DestinationPicker = ({
     const newPath = destinationList.slice(0, index + 1);
     onDestinationChange(newPath);
   };
-
-  const pageItems = React.useMemo(() => {
-    const [start, end] = range;
-    return items.slice(start, end);
-  }, [range, items]);
 
   const tableData = getDestinationPickerTableData({
     items: pageItems,

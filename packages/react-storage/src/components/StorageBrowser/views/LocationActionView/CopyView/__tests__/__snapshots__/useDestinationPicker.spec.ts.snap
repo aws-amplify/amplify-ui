@@ -12,9 +12,6 @@ exports[`useDestinationPicker should return the correct initial state 1`] = `
   "message": undefined,
   "onPaginate": [Function],
   "onSearch": [Function],
-  "range": [
-    0,
-    10,
-  ],
+  "pageItems": [],
 }
 `;

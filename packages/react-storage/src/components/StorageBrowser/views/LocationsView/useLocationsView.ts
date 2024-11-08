@@ -80,18 +80,19 @@ export function useLocationsView(
     });
   };
 
-  const { currentPage, onPaginate, handleReset, highestPageVisited, range } =
-    usePaginate({
-      paginateCallback,
-      pageSize: listOptions.pageSize,
-      resultCount,
-      hasNextToken,
-    });
-
-  const pageItems = React.useMemo(() => {
-    const [start, end] = range;
-    return result.slice(start, end);
-  }, [range, result]);
+  const {
+    currentPage,
+    onPaginate,
+    handleReset,
+    highestPageVisited,
+    pageItems,
+  } = usePaginate({
+    items: result,
+    paginateCallback,
+    pageSize: listOptions.pageSize,
+    resultCount,
+    hasNextToken,
+  });
 
   const filteredItems = React.useMemo(() => {
     return pageItems.filter(

@@ -9,6 +9,7 @@ describe('usePaginate', () => {
     resultCount: 100,
     pageSize: 10,
     hasNextToken: false,
+    items: [],
   };
 
   const warn = jest.spyOn(console, 'warn');
@@ -16,12 +17,12 @@ describe('usePaginate', () => {
   it('returns the expected values on initial call', () => {
     const { result } = renderHook(() => usePaginate({ ...data }));
 
-    expect(result?.current?.currentPage).toBe(1);
-    expect(typeof result?.current?.onPaginate).toBe('function');
-    expect(typeof result?.current?.handleReset).toBe('function');
-    expect(typeof result?.current?.highestPageVisited).toBe('number');
-    expect(typeof result?.current?.range[0]).toBe('number');
-    expect(typeof result?.current?.range[1]).toBe('number');
+    const { current } = result ?? {};
+
+    expect(current?.currentPage).toBe(1);
+    expect(typeof current?.onPaginate).toBe('function');
+    expect(typeof current?.handleReset).toBe('function');
+    expect(typeof current?.highestPageVisited).toBe('number');
   });
 
   it('returns the expected value of `highestPageVisited` on paginate when not on the last page', () => {
