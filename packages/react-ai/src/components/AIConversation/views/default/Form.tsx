@@ -49,7 +49,7 @@ const FormWrapper = ({
   }
 };
 
-export const Form: NonNullable<ControlsContextProps['Form']> = ({
+export const Form: Required<ControlsContextProps>['Form'] = ({
   setInput,
   input,
   handleSubmit,
