@@ -81,6 +81,8 @@ type TextAreaElementProps =
   | 'onChange'
   | 'placeholder'
   | 'autoFocus'
+  | 'onCompositionStart'
+  | 'onCompositionEnd'
   | 'onKeyDown';
 
 export const TextAreaElement = defineBaseElement<
