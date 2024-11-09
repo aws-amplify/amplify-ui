@@ -35,11 +35,11 @@ const action = jest.fn(
   > & { prefix: string }): TaskHandlerOutput => {
     const { key } = data;
     // initial progress
-    if (options?.onProgress) options.onProgress(data, 0.5);
+    options?.onProgress(data, 0.5);
 
     if (key === '0' || key === '2') {
       // success progress
-      if (options?.onProgress) options.onProgress(data, 1);
+      options?.onProgress(data, 1);
       return {
         cancel: undefined,
         result: Promise.resolve({ status: 'COMPLETE' as const }),

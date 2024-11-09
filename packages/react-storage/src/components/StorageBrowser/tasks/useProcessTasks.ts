@@ -88,7 +88,7 @@ export const useProcessTasks: UseProcessTasks = <
 
       function remove() {
         const task = getTask();
-        if (!task || task?.status === 'PENDING') return;
+        if (!task || task.status === 'PENDING') return;
         if (task && isFunction(onTaskRemove)) onTaskRemove(task);
 
         updateTask(data.id);
