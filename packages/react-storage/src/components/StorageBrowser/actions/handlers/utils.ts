@@ -1,3 +1,5 @@
+import { TransferProgressEvent } from 'aws-amplify/storage';
+
 import { LocationAccess, Permission } from '../../storage-internal';
 import {
   ActionInputConfig,
@@ -98,3 +100,9 @@ export const isFileItem = (value: unknown): value is FileItem =>
 
 export const isFileDataItem = (item: unknown): item is FileDataItem =>
   !!(item as FileDataItem).fileKey;
+
+export const getProgress = ({
+  totalBytes,
+  transferredBytes,
+}: TransferProgressEvent): number | undefined =>
+  totalBytes ? transferredBytes / totalBytes : undefined;
