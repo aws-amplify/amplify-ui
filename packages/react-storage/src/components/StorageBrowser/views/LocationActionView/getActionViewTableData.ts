@@ -89,11 +89,14 @@ export const getActionViewTableData = ({
               ? data.file.size
               : isFileDataItem(data)
               ? data.size
-              : 0;
+              : undefined;
             return {
               key,
               type: 'number',
-              content: { value, displayValue: humanFileSize(value, true) },
+              content: {
+                value,
+                displayValue: value ? humanFileSize(value, true) : '-',
+              },
             };
           }
           case 'status': {

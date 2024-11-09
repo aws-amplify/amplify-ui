@@ -19,11 +19,12 @@ describe('getFileRowContent', () => {
     size: 1,
     type: 'FILE',
   } as const;
+  const itemLocationKey = `${location.current.prefix}${location.path}`;
 
   it('should return file row content as expected', () => {
     expect(
       getFileRowContent({
-        location,
+        itemLocationKey,
         isSelected: false,
         lastModified: fileItem.lastModified,
         rowId: 'row-id',

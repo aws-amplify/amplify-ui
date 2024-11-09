@@ -49,6 +49,7 @@ export const getLocationDetailViewTableData = ({
     switch (type) {
       case 'FILE': {
         const { lastModified, size } = locationItem;
+        const { current, path } = location;
         const isSelected =
           fileDataItems?.some((item) => item.id === id) ?? false;
         const onFileDownload = () => {
@@ -60,8 +61,8 @@ export const getLocationDetailViewTableData = ({
         return {
           key: id,
           content: getFileRowContent({
-            location,
             isSelected,
+            itemLocationKey: `${current?.prefix ?? ''}${path}`,
             lastModified,
             rowId: id,
             rowKey: key,

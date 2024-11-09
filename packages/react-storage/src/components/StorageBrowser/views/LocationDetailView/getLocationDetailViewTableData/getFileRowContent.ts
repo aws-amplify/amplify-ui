@@ -4,11 +4,10 @@ import { DataTableProps } from '../../../composables/DataTable';
 import { displayText } from '../../../displayText/en';
 
 import { LOCATION_DETAIL_VIEW_HEADERS } from './constants';
-import { LocationState } from '../../../providers/store/location';
 
 export const getFileRowContent = ({
-  location,
   isSelected,
+  itemLocationKey,
   lastModified,
   rowId,
   rowKey,
@@ -16,8 +15,8 @@ export const getFileRowContent = ({
   onDownload,
   onSelect,
 }: {
-  location: LocationState;
   isSelected: boolean;
+  itemLocationKey: string;
   lastModified: Date;
   rowId: string;
   rowKey: string;
@@ -40,8 +39,6 @@ export const getFileRowContent = ({
         };
       }
       case 'name': {
-        const { current, path } = location;
-        const itemLocationKey = `${current?.prefix ?? ''}${path}`;
         return {
           key,
           type: 'text',
@@ -69,7 +66,7 @@ export const getFileRowContent = ({
           type: 'number',
           content: {
             value: size,
-            displayValue: humanFileSize(size ?? 0, true),
+            displayValue: humanFileSize(size, true),
           },
         };
       }

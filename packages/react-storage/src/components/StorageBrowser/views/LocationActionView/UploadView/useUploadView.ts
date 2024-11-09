@@ -39,7 +39,7 @@ export const useUploadView = (
   );
 
   const onSelectFiles = React.useCallback(
-    (type: 'FILE' | 'FOLDER') => {
+    (type?: 'FILE' | 'FOLDER') => {
       dispatchStoreAction({ type: 'SELECT_FILES', selectionType: type });
     },
     [dispatchStoreAction]
