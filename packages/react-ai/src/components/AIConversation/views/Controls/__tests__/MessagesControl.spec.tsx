@@ -352,7 +352,7 @@ describe('MessageControl', () => {
         <MessageControl message={AIResponseComponentMessage} />
       </FallbackComponentProvider>
     );
-    const message = await screen.findByTestId('fallback');
+    const fallbackComponent = await screen.findByTestId('fallback');
     expect(message).toBeInTheDocument();
   });
 
