@@ -1,6 +1,5 @@
-import { act, renderHook } from '@testing-library/react-hooks';
+import { renderHook } from '@testing-library/react-hooks';
 import { useAutoresizeTextArea } from '../useAutoresizeTextarea';
-import { text } from '@aws-amplify/ui/dist/types/theme/tokens/components/text';
 
 describe('useAutoresizeTextArea', () => {
   let textAreaRef: HTMLTextAreaElement;
