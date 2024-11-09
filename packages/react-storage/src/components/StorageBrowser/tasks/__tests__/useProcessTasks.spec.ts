@@ -39,7 +39,7 @@ const action = jest.fn(
 
     if (key === '0' || key === '2') {
       // success progress
-      options?.onProgress(data, 1);
+      options?.onProgress?.(data, 1);
       return {
         cancel: undefined,
         result: Promise.resolve({ status: 'COMPLETE' as const }),
