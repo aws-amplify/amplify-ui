@@ -35,7 +35,7 @@ const action = jest.fn(
   > & { prefix: string }): TaskHandlerOutput => {
     const { key } = data;
     // initial progress
-    options?.onProgress(data, 0.5);
+    options?.onProgress?.(data, 0.5);
 
     if (key === '0' || key === '2') {
       // success progress
