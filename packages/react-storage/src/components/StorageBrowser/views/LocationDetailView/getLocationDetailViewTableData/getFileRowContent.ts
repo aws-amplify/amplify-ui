@@ -1,15 +1,13 @@
 import { humanFileSize } from '@aws-amplify/ui';
 
 import { DataTableProps } from '../../../composables/DataTable';
-import { LocationData } from '../../../actions';
 import { displayText } from '../../../displayText/en';
 
 import { LOCATION_DETAIL_VIEW_HEADERS } from './constants';
 
 export const getFileRowContent = ({
-  currentLocation,
-  currentPath,
   isSelected,
+  itemLocationKey,
   lastModified,
   rowId,
   rowKey,
@@ -17,9 +15,8 @@ export const getFileRowContent = ({
   onDownload,
   onSelect,
 }: {
-  currentLocation?: LocationData;
-  currentPath: string;
   isSelected: boolean;
+  itemLocationKey: string;
   lastModified: Date;
   rowId: string;
   rowKey: string;
@@ -42,9 +39,6 @@ export const getFileRowContent = ({
         };
       }
       case 'name': {
-        const itemLocationKey = `${
-          currentLocation?.prefix ?? ''
-        }${currentPath}`;
         return {
           key,
           type: 'text',
@@ -72,7 +66,7 @@ export const getFileRowContent = ({
           type: 'number',
           content: {
             value: size,
-            displayValue: humanFileSize(size ?? 0, true),
+            displayValue: humanFileSize(size, true),
           },
         };
       }

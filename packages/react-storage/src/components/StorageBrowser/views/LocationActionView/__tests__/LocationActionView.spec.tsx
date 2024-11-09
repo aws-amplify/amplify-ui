@@ -5,16 +5,17 @@ import * as StoreModule from '../../../providers/store';
 
 import { LocationActionView } from '../LocationActionView';
 
-jest.mock('../CreateFolderControls', () => ({
-  CreateFolderControls: () => <div data-testid="CREATE_FOLDER_CONTROLS" />,
+jest.mock('../CreateFolderView', () => ({
+  CreateFolderView: () => <div data-testid="create-folder-view" />,
 }));
-
-jest.mock('../UploadControls', () => ({
-  UploadControls: () => <div data-testid="UPLOAD_CONTROLS" />,
+jest.mock('../CopyView', () => ({
+  CopyView: () => <div data-testid="copy-view" />,
 }));
-
-jest.mock('../DeleteFilesControls', () => ({
-  DeleteFileControls: () => <div data-testid="DELETE_FILES_CONTROLS" />,
+jest.mock('../DeleteView', () => ({
+  DeleteView: () => <div data-testid="delete-view" />,
+}));
+jest.mock('../UploadView', () => ({
+  UploadView: () => <div data-testid="upload-view" />,
 }));
 
 const useStoreSpy = jest.spyOn(StoreModule, 'useStore');
@@ -38,36 +39,41 @@ describe('LocationActionView', () => {
     expect(container).toBeEmptyDOMElement();
   });
 
-  it('returns `CreateFolderControls` when `actionType` is "CREATE_FOLDER"', () => {
-    const mockStore = {
+  it.each([
+    {
+      view: 'CreateFolderView',
       actionType: 'CREATE_FOLDER',
-    } as StoreModule.UseStoreState;
-    useStoreSpy.mockReturnValueOnce([mockStore, jest.fn()]);
-
-    const { getByTestId } = render(<LocationActionView />);
-
-    expect(getByTestId('CREATE_FOLDER_CONTROLS')).toBeInTheDocument();
-  });
-
-  it('returns `UploadControls` when `actionType` is "UPLOAD_FILES"', () => {
-    const mockStore = {
+      testId: 'create-folder-view',
+    },
+    {
+      view: 'CopyView',
+      actionType: 'COPY_FILES',
+      testId: 'copy-view',
+    },
+    {
+      view: 'DeleteView',
+      actionType: 'DELETE_FILES',
+      testId: 'delete-view',
+    },
+    {
+      view: 'UploadView',
       actionType: 'UPLOAD_FILES',
-    } as StoreModule.UseStoreState;
-    useStoreSpy.mockReturnValueOnce([mockStore, jest.fn()]);
-
-    const { getByTestId } = render(<LocationActionView />);
-
-    expect(getByTestId('UPLOAD_CONTROLS')).toBeInTheDocument();
-  });
-
-  it('returns `UploadControls` when `actionType` is "UPLOAD_FOLDER"', () => {
-    const mockStore = {
+      testId: 'upload-view',
+    },
+    {
+      view: 'UploadView',
       actionType: 'UPLOAD_FOLDER',
-    } as StoreModule.UseStoreState;
-    useStoreSpy.mockReturnValueOnce([mockStore, jest.fn()]);
+      testId: 'upload-view',
+    },
+  ])(
+    'returns `$view` when `actionType` is "$actionType"',
+    ({ actionType, testId }) => {
+      const mockStore = { actionType } as StoreModule.UseStoreState;
+      useStoreSpy.mockReturnValueOnce([mockStore, jest.fn()]);
 
-    const { getByTestId } = render(<LocationActionView />);
+      const { getByTestId } = render(<LocationActionView />);
 
-    expect(getByTestId('UPLOAD_CONTROLS')).toBeInTheDocument();
-  });
+      expect(getByTestId(testId)).toBeInTheDocument();
+    }
+  );
 });

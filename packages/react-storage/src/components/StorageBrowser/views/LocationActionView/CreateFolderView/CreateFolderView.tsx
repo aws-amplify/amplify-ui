@@ -1,19 +1,19 @@
 import React from 'react';
-import { isFunction, isUndefined } from '@aws-amplify/ui';
+import { isUndefined } from '@aws-amplify/ui';
 
-import { LocationData } from '../../actions';
-import { Field } from '../../components/Field';
-import { useAction } from '../../do-not-import-from-here/actions';
-import { SpanElement } from '../../context/elements';
-import { useStore } from '../../providers/store';
+import { Field } from '../../../components/Field';
+import { useAction } from '../../../do-not-import-from-here/actions';
+import { SpanElement } from '../../../context/elements';
+import { useStore } from '../../../providers/store';
 
-import { Controls } from '../Controls';
+import { Controls } from '../../Controls';
 
-import { Title } from './Controls/Title';
-import { ActionStartControl } from '../../controls/ActionStartControl';
-import { ControlsContext } from '../../controls/types';
-import { ControlsContextProvider } from '../../controls/context';
-import { CLASS_BASE } from '../constants';
+import { Title } from '../Controls/Title';
+import { ActionStartControl } from '../../../controls/ActionStartControl';
+import { ControlsContextProvider } from '../../../controls/context';
+import { CLASS_BASE } from '../../constants';
+import { resolveClassName } from '../../utils';
+import { CreateFolderViewProps } from './types';
 
 const { Exit, Message } = Controls;
 
@@ -46,11 +46,10 @@ export const CreateFolderMessage = (): React.JSX.Element | null => {
   }
 };
 
-export const CreateFolderControls = ({
-  onExit,
-}: {
-  onExit?: (location: LocationData) => void;
-}): React.JSX.Element => {
+export const CreateFolderView = ({
+  className,
+  onExit: onExitProps,
+}: CreateFolderViewProps): React.JSX.Element => {
   const [{ location }, dipatchStoreAction] = useStore();
   const { current, key } = location;
 
@@ -86,7 +85,7 @@ export const CreateFolderControls = ({
   };
 
   const handleClose = () => {
-    if (isFunction(onExit)) onExit(current!);
+    onExitProps?.(current);
     dipatchStoreAction({ type: 'RESET_ACTION_TYPE' });
     // reset hook state on exit, use empty string for prefix to keep TS happy
     // @todo: this needs to be addressed
@@ -95,47 +94,48 @@ export const CreateFolderControls = ({
 
   const hasCompletedStatus = result?.status === 'COMPLETE';
 
-  // FIXME: Eventually comes from useView hook
-  const contextValue: ControlsContext = {
-    data: {
-      actionStartLabel: hasCompletedStatus ? 'Folder created' : 'Create Folder',
-      isActionStartDisabled: !hasCompletedStatus
-        ? !folderName || !!fieldValidationError
-        : undefined,
-    },
-    onActionStart: hasCompletedStatus ? handleClose : handleCreateFolder,
-  };
-
   return (
-    <ControlsContextProvider {...contextValue}>
-      <Exit
-        onClick={() => {
-          handleClose();
+    <div className={resolveClassName(CLASS_BASE, className)}>
+      <ControlsContextProvider
+        data={{
+          actionStartLabel: hasCompletedStatus
+            ? 'Folder created'
+            : 'Create Folder',
+          isActionStartDisabled: !hasCompletedStatus
+            ? !folderName || !!fieldValidationError
+            : undefined,
         }}
-      />
-      <Title />
-      <ActionStartControl
-        className={`${CLASS_BASE}__create-folder-action-start`}
-      />
-      <Field
-        label="Enter folder name:"
-        disabled={isLoading || !!result?.status}
-        aria-invalid={fieldValidationError ? 'true' : undefined}
-        aria-describedby="fieldError"
-        type="text"
-        id="folder-name-input"
-        onBlur={handleBlur}
-        onChange={handleChange}
+        onActionStart={hasCompletedStatus ? handleClose : handleCreateFolder}
       >
-        {fieldValidationError ? (
-          <SpanElement id={'fieldError'} variant="field-error">
-            {fieldValidationError}
-          </SpanElement>
+        <Exit
+          onClick={() => {
+            handleClose();
+          }}
+        />
+        <Title />
+        <ActionStartControl
+          className={`${CLASS_BASE}__create-folder-action-start`}
+        />
+        <Field
+          label="Enter folder name:"
+          disabled={isLoading || !!result?.status}
+          aria-invalid={fieldValidationError ? 'true' : undefined}
+          aria-describedby="fieldError"
+          type="text"
+          id="folder-name-input"
+          onBlur={handleBlur}
+          onChange={handleChange}
+        >
+          {fieldValidationError ? (
+            <SpanElement id={'fieldError'} variant="field-error">
+              {fieldValidationError}
+            </SpanElement>
+          ) : null}
+        </Field>
+        {result?.status === 'COMPLETE' || result?.status === 'FAILED' ? (
+          <CreateFolderMessage />
         ) : null}
-      </Field>
-      {result?.status === 'COMPLETE' || result?.status === 'FAILED' ? (
-        <CreateFolderMessage />
-      ) : null}
-    </ControlsContextProvider>
+      </ControlsContextProvider>
+    </div>
   );
 };

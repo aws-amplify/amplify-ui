@@ -2,11 +2,11 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import userEvent, { UserEvent } from '@testing-library/user-event';
 
-import * as UseDeleteViewModule from '../DeleteView/useDeleteView';
-import * as Config from '../../../providers/configuration';
+import * as UseDeleteViewModule from '../useDeleteView';
+import * as Config from '../../../../providers/configuration';
 
-import * as TempActions from '../../../do-not-import-from-here/createTempActionsProvider';
-import { DeleteFilesControls } from '../DeleteFilesControls';
+import * as TempActions from '../../../../do-not-import-from-here/createTempActionsProvider';
+import { DeleteView } from '../DeleteView';
 
 const TEST_ACTIONS = {
   DELETE_FILES: {
@@ -14,20 +14,27 @@ const TEST_ACTIONS = {
   },
 };
 
+const location = {
+  bucket: 'bucket',
+  id: 'id',
+  permission: 'READWRITE',
+  prefix: `prefix/`,
+  type: 'PREFIX',
+} as const;
+
 jest.spyOn(TempActions, 'useTempActions').mockReturnValue(TEST_ACTIONS);
 
-const onExit = jest.fn();
 const onActionCancel = jest.fn();
 const onActionStart = jest.fn();
+const onExit = jest.fn();
+const onTaskCancel = jest.fn();
 
 const useDeleteViewSpy = jest
   .spyOn(UseDeleteViewModule, 'useDeleteView')
   .mockReturnValue({
     isProcessing: false,
     isProcessingComplete: false,
-    onExit,
-    onActionCancel,
-    onActionStart,
+    location: { current: location, path: '', key: '' },
     statusCounts: {
       CANCELED: 0,
       COMPLETE: 0,
@@ -84,9 +91,13 @@ const useDeleteViewSpy = jest
         message: 'test-message',
       },
     ],
+    onActionCancel,
+    onActionStart,
+    onExit,
+    onTaskCancel,
   });
 
-describe('DeleteFilesControls', () => {
+describe('DeleteView', () => {
   let user: UserEvent;
 
   beforeEach(() => {
@@ -103,7 +114,7 @@ describe('DeleteFilesControls', () => {
   });
 
   it('renders all controls', () => {
-    const { getByRole } = render(<DeleteFilesControls />);
+    const { getByRole } = render(<DeleteView />);
 
     expect(getByRole('button', { name: 'Exit' })).toBeInTheDocument();
     expect(getByRole('button', { name: 'Start' })).toBeInTheDocument();
@@ -114,9 +125,7 @@ describe('DeleteFilesControls', () => {
     useDeleteViewSpy.mockReturnValueOnce({
       isProcessing: false,
       isProcessingComplete: false,
-      onExit,
-      onActionCancel,
-      onActionStart,
+      location: { current: location, path: '', key: '' },
       statusCounts: {
         CANCELED: 0,
         COMPLETE: 0,
@@ -143,9 +152,13 @@ describe('DeleteFilesControls', () => {
           status: 'QUEUED',
         },
       ],
+      onActionCancel,
+      onActionStart,
+      onExit,
+      onTaskCancel,
     });
 
-    const { getByRole } = render(<DeleteFilesControls />);
+    const { getByRole } = render(<DeleteView />);
 
     expect(getByRole('button', { name: 'Exit' })).not.toBeDisabled();
     expect(getByRole('button', { name: 'Start' })).not.toBeDisabled();
@@ -156,9 +169,7 @@ describe('DeleteFilesControls', () => {
     useDeleteViewSpy.mockReturnValueOnce({
       isProcessing: true,
       isProcessingComplete: false,
-      onExit,
-      onActionCancel,
-      onActionStart,
+      location: { current: location, path: '', key: '' },
       statusCounts: {
         CANCELED: 0,
         COMPLETE: 0,
@@ -185,9 +196,13 @@ describe('DeleteFilesControls', () => {
           status: 'PENDING',
         },
       ],
+      onActionCancel,
+      onActionStart,
+      onExit,
+      onTaskCancel,
     });
 
-    const { getByRole } = render(<DeleteFilesControls />);
+    const { getByRole } = render(<DeleteView />);
 
     expect(getByRole('button', { name: 'Exit' })).toBeDisabled();
     expect(getByRole('button', { name: 'Start' })).toBeDisabled();
@@ -198,9 +213,7 @@ describe('DeleteFilesControls', () => {
     useDeleteViewSpy.mockReturnValueOnce({
       isProcessing: false,
       isProcessingComplete: true,
-      onExit,
-      onActionCancel,
-      onActionStart,
+      location: { current: location, path: '', key: '' },
       statusCounts: {
         CANCELED: 0,
         COMPLETE: 1,
@@ -227,9 +240,13 @@ describe('DeleteFilesControls', () => {
           status: 'COMPLETE',
         },
       ],
+      onActionCancel,
+      onActionStart,
+      onExit,
+      onTaskCancel,
     });
 
-    const { getByRole } = render(<DeleteFilesControls />);
+    const { getByRole } = render(<DeleteView />);
 
     expect(getByRole('button', { name: 'Exit' })).not.toBeDisabled();
     expect(getByRole('button', { name: 'Start' })).toBeDisabled();
@@ -237,7 +254,7 @@ describe('DeleteFilesControls', () => {
   });
 
   it('calls onExit when Exit button is clicked', async () => {
-    const { getByRole } = render(<DeleteFilesControls />);
+    const { getByRole } = render(<DeleteView />);
 
     const button = getByRole('button', { name: 'Exit' });
 
@@ -249,7 +266,7 @@ describe('DeleteFilesControls', () => {
   });
 
   it('calls onActionStart when Start button is clicked', async () => {
-    const { getByRole } = render(<DeleteFilesControls />);
+    const { getByRole } = render(<DeleteView />);
 
     const button = getByRole('button', { name: 'Start' });
 
@@ -264,9 +281,7 @@ describe('DeleteFilesControls', () => {
     useDeleteViewSpy.mockReturnValueOnce({
       isProcessing: true,
       isProcessingComplete: false,
-      onExit,
-      onActionCancel,
-      onActionStart,
+      location: { current: location, path: '', key: '' },
       statusCounts: {
         CANCELED: 0,
         COMPLETE: 0,
@@ -293,9 +308,13 @@ describe('DeleteFilesControls', () => {
           status: 'PENDING',
         },
       ],
+      onActionCancel,
+      onActionStart,
+      onExit,
+      onTaskCancel,
     });
 
-    const { getByRole } = render(<DeleteFilesControls />);
+    const { getByRole } = render(<DeleteView />);
 
     const button = getByRole('button', { name: 'Cancel' });
 

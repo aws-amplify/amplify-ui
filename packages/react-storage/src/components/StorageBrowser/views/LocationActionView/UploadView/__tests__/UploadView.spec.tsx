@@ -1,19 +1,20 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 
-import * as ConfigModule from '../../../providers/configuration';
-import * as StoreModule from '../../../providers/store';
-import { INITIAL_STATUS_COUNTS } from '../../../tasks';
+import * as ConfigModule from '../../../../providers/configuration';
+import * as StoreModule from '../../../../providers/store';
+import { INITIAL_STATUS_COUNTS } from '../../../../tasks';
 
-import * as UseUploadViewModule from '../UploadView';
-import { UploadControls } from '../UploadControls';
+import * as UseUploadViewModule from '../useUploadView';
+import { UploadViewState } from '../types';
+import { UploadView } from '../UploadView';
 
-jest.mock('../Controls/Title');
+jest.mock('../../Controls/Title');
 
 const mockControlsContextProvider = jest.fn(
   (_: any) => 'ControlsContextProvider'
 );
-jest.mock('../../../controls/context', () => ({
+jest.mock('../../../../controls/context', () => ({
   ControlsContextProvider: (ctx: any) => mockControlsContextProvider(ctx),
   useControlsContext: () => ({ actionConfig: {}, data: {} }),
 }));
@@ -25,14 +26,16 @@ const onActionStart = jest.fn();
 const onExit = jest.fn();
 const onDropFiles = jest.fn();
 const onSelectFiles = jest.fn();
+const onTaskCancel = jest.fn();
 const onToggleOverwrite = jest.fn();
 
 const callbacks = {
   onActionCancel,
   onActionStart,
-  onExit,
   onDropFiles,
+  onExit,
   onSelectFiles,
+  onTaskCancel,
   onToggleOverwrite,
 };
 
@@ -50,9 +53,17 @@ const taskOne = {
   status: 'QUEUED' as const,
 };
 
-const initialViewState: UseUploadViewModule.UploadViewState = {
+const location = {
+  id: 'an-id-👍🏼',
+  bucket: 'test-bucket',
+  permission: 'READWRITE',
+  prefix: 'test-prefix/',
+  type: 'PREFIX',
+} as const;
+
+const initialViewState: UploadViewState = {
   ...callbacks,
-  destinationPrefix: 'my-folder/',
+  location: { current: location, path: '', key: '' },
   isOverwriteEnabled: false,
   isProcessingComplete: false,
   isProcessing: false,
@@ -60,20 +71,20 @@ const initialViewState: UseUploadViewModule.UploadViewState = {
   statusCounts,
 };
 
-const preprocessingViewState: UseUploadViewModule.UploadViewState = {
+const preprocessingViewState: UploadViewState = {
   ...initialViewState,
   tasks: [taskOne],
   statusCounts: { ...statusCounts, QUEUED: 1, TOTAL: 1 },
 };
 
-const processingViewState: UseUploadViewModule.UploadViewState = {
+const processingViewState: UploadViewState = {
   ...initialViewState,
   isProcessing: true,
   tasks: [{ ...taskOne, status: 'PENDING' }],
   statusCounts: { ...statusCounts, PENDING: 1, TOTAL: 1 },
 };
 
-const postProcessingViewState: UseUploadViewModule.UploadViewState = {
+const postProcessingViewState: UploadViewState = {
   ...initialViewState,
   isProcessingComplete: true,
   tasks: [{ ...taskOne, status: 'COMPLETE' }],
@@ -83,14 +94,6 @@ const postProcessingViewState: UseUploadViewModule.UploadViewState = {
 const useUploadViewSpy = jest
   .spyOn(UseUploadViewModule, 'useUploadView')
   .mockReturnValue(initialViewState);
-
-const location = {
-  id: 'an-id-👍🏼',
-  bucket: 'test-bucket',
-  permission: 'READWRITE',
-  prefix: 'test-prefix/',
-  type: 'PREFIX',
-};
 
 const dispatchStoreAction = jest.fn();
 useStoreSpy.mockReturnValue([
@@ -109,11 +112,11 @@ const config: ConfigModule.GetActionInput = jest.fn(() => ({
 
 jest.spyOn(ConfigModule, 'useGetActionInput').mockReturnValue(config);
 
-describe('UploadControls', () => {
+describe('UploadView', () => {
   afterEach(jest.clearAllMocks);
 
   it('provides the expected boolean flags to `ControlsContextProvider` prior to processing when tasks is empty', () => {
-    render(<UploadControls />);
+    render(<UploadView />);
 
     const { calls } = mockControlsContextProvider.mock;
     expect(calls).toHaveLength(1);
@@ -132,7 +135,7 @@ describe('UploadControls', () => {
   it('provides the expected boolean flags to `ControlsContextProvider` prior to processing', () => {
     useUploadViewSpy.mockReturnValue(preprocessingViewState);
 
-    render(<UploadControls />);
+    render(<UploadView />);
 
     const { calls } = mockControlsContextProvider.mock;
     expect(calls).toHaveLength(1);
@@ -151,7 +154,7 @@ describe('UploadControls', () => {
   it('provides the expected boolean flags to `ControlsContextProvider` while processing', () => {
     useUploadViewSpy.mockReturnValue(processingViewState);
 
-    render(<UploadControls />);
+    render(<UploadView />);
 
     const { calls } = mockControlsContextProvider.mock;
     expect(calls).toHaveLength(1);
@@ -170,7 +173,7 @@ describe('UploadControls', () => {
   it('provides the expected boolean flags to `ControlsContextProvider` post processing', () => {
     useUploadViewSpy.mockReturnValue(postProcessingViewState);
 
-    render(<UploadControls />);
+    render(<UploadView />);
 
     const { calls } = mockControlsContextProvider.mock;
     expect(calls).toHaveLength(1);
