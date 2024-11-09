@@ -353,7 +353,7 @@ describe('MessageControl', () => {
       </FallbackComponentProvider>
     );
     const fallbackComponent = await screen.findByTestId('fallback');
-    expect(message).toBeInTheDocument();
+    expect(fallbackComponent).toBeInTheDocument();
   });
 
   it('renders text when sent with a tooluse content', () => {
