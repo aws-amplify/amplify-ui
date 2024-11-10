@@ -1,8 +1,8 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
-import { Search } from '../Search';
-import { act } from 'react-test-renderer';
+import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+
+import { Search } from '../Search';
 
 const searchTerm = 'search term';
 

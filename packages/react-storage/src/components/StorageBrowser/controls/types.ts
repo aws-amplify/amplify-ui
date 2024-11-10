@@ -32,26 +32,35 @@ interface TableData {
 
 export interface ControlsContext {
   data: {
-    actionStartLabel?: string;
     actionCancelLabel?: string;
+    actionStartLabel?: string;
+    currentLocation?: LocationData;
+    currentPath?: string;
+    folderNameId?: string;
+    folderNameLabel?: string;
+    folderNamePlaceholder?: string;
+    folderNameValidationMessage?: React.ReactNode;
     isActionCancelDisabled?: boolean;
     isActionStartDisabled?: boolean;
     isAddFilesDisabled?: boolean;
     isAddFolderDisabled?: boolean;
     isDataRefreshDisabled?: boolean;
     isExitDisabled?: boolean;
+    isFolderNameDisabled?: boolean;
     isOverwriteCheckboxDisabled?: boolean;
     location?: LocationState;
-    showIncludeSubfolders?: boolean;
     searchPlaceholder?: string;
-    tableData?: TableData;
+    showIncludeSubfolders?: boolean;
     statusCounts?: StatusCounts;
+    tableData?: TableData;
   };
   onActionCancel?: () => void;
   onActionStart?: () => void;
   onDropFiles?: (files: File[]) => void;
+  onFolderNameChange?: (value: string) => void;
   onNavigate?: (location: LocationData, path?: string) => void;
   onNavigateHome?: () => void;
   onRefresh?: () => void;
   onSearch?: (term: string, includeSubfolders: boolean) => void;
+  onValidateFolderName?: (value: string) => void;
 }
