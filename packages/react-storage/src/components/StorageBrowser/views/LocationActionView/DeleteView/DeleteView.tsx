@@ -40,7 +40,7 @@ export const DeleteView = ({
   });
 
   return (
-    <div className={resolveClassName(CLASS_BASE, className)}>
+    <div className={resolveClassName(`amplify-${CLASS_BASE}`, className)}>
       <ControlsContextProvider
         data={{
           actionCancelLabel: 'Cancel',
@@ -53,19 +53,34 @@ export const DeleteView = ({
         onActionStart={onActionStart}
         onActionCancel={onActionCancel}
       >
-        <Exit onClick={onExit} disabled={isProcessing} />
+        <ViewElement className={`amplify-${CLASS_BASE}__navigation`}>
+          <Exit onClick={onExit} disabled={isProcessing} />
+        </ViewElement>
         <Title />
-        <ViewElement className={`${CLASS_BASE}__table-wrapper`}>
+
+        <ViewElement className={`amplify-${CLASS_BASE}__table__wrapper`}>
           <DataTableControl
             className={`${CLASS_BASE}__delete-view-data-table`}
           />
         </ViewElement>
-        <ViewElement className={`${CLASS_BASE}__action-footer`}>
+
+        <ViewElement className={`amplify-${CLASS_BASE}__action__summary`}>
           <StatusDisplayControl
-            className={`${CLASS_BASE}__action-status-display`}
+            className={`amplify-${CLASS_BASE}__action__status`}
           />
-          <ActionCancelControl className={`${CLASS_BASE}__cancel`} />
-          <ActionStartControl />
+        </ViewElement>
+        <ViewElement className={`amplify-${CLASS_BASE}__action__footer`}>
+          <ViewElement className={`amplify-${CLASS_BASE}__action__message`}>
+            {/* TODO: confirmation message goes here */}
+          </ViewElement>
+          <ViewElement className={`amplify-${CLASS_BASE}__action__buttons`}>
+            <ActionCancelControl
+              className={`amplify-${CLASS_BASE}__action__cancel`}
+            />
+            <ActionStartControl
+              className={`amplify-${CLASS_BASE}__action__start`}
+            />
+          </ViewElement>
         </ViewElement>
       </ControlsContextProvider>
     </div>

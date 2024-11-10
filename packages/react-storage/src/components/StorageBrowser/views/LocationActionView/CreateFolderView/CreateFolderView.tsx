@@ -95,7 +95,7 @@ export const CreateFolderView = ({
   const hasCompletedStatus = result?.status === 'COMPLETE';
 
   return (
-    <div className={resolveClassName(CLASS_BASE, className)}>
+    <div className={resolveClassName(`amplify-${CLASS_BASE}`, className)}>
       <ControlsContextProvider
         data={{
           actionStartLabel: hasCompletedStatus

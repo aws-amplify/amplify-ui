@@ -122,7 +122,7 @@ export function LocationsView({
       onRefresh={onRefresh}
     >
       <div
-        className={resolveClassName(CLASS_BASE, className)}
+        className={resolveClassName(`amplify-${CLASS_BASE}`, className)}
         data-testid="LOCATIONS_VIEW"
       >
         <Title>{title}</Title>

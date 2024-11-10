@@ -55,7 +55,7 @@ export const CopyView = ({
   const isActionCancelDisabled = !isProcessing || isProcessingComplete;
 
   return (
-    <div className={resolveClassName(CLASS_BASE, className)}>
+    <div className={resolveClassName(`amplify-${CLASS_BASE}`, className)}>
       <ControlsContextProvider
         data={{
           actionCancelLabel: 'Cancel',
