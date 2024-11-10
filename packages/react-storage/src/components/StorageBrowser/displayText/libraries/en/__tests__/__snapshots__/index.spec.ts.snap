@@ -3,12 +3,14 @@
 exports[`DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT.CopyView should match snapshot 1`] = `
 {
   "actionCancelLabel": "Cancel",
-  "actionDestinationLabel": "Destination",
+  "actionDestinationLabel": "Copy destination:",
   "actionExitLabel": "Exit",
   "actionStartLabel": "Copy",
   "getActionCompleteMessage": [Function],
+  "getFolderListResultsMessage": [Function],
   "getFolderSelectedMessage": [Function],
-  "overwriteWarningMessage": "Copy action might overwrite existing files at selected destination.",
+  "loadingIndicatorLabel": "Loading",
+  "overwriteWarningMessage": "Copied files will overwrite existing files at selected destination.",
   "searchPlaceholder": "Search for folders",
   "statusDisplayCanceledLabel": "Canceled",
   "statusDisplayCompletedLabel": "Completed",
@@ -73,6 +75,7 @@ exports[`DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT DEFAULT_STORAGE_BROWSER_DISPLAY_TE
 exports[`DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT.LocationDetailView should have expected keys 1`] = `
 {
   "getListResultsMessage": [Function],
+  "loadingIndicatorLabel": "Loading",
   "searchExhaustedMessage": "Showing results for up to the first 10,000 items",
   "searchIncludeSubfoldersLabel": "Include subfolders",
   "searchPlaceholder": "Search current folder",
@@ -88,6 +91,7 @@ exports[`DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT DEFAULT_STORAGE_BROWSER_DISPLAY_TE
 exports[`DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT.LocationsView should match snapshot 1`] = `
 {
   "getListResultsMessage": [Function],
+  "loadingIndicatorLabel": "Loading",
   "searchPlaceholder": "Filter folders and files",
   "searchSubmitLabel": "Search",
   "tableColumnBucketHeader": "Bucket",
@@ -127,12 +131,14 @@ exports[`DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT should match snapshot 1`] = `
 {
   "CopyView": {
     "actionCancelLabel": "Cancel",
-    "actionDestinationLabel": "Destination",
+    "actionDestinationLabel": "Copy destination:",
     "actionExitLabel": "Exit",
     "actionStartLabel": "Copy",
     "getActionCompleteMessage": [Function],
+    "getFolderListResultsMessage": [Function],
     "getFolderSelectedMessage": [Function],
-    "overwriteWarningMessage": "Copy action might overwrite existing files at selected destination.",
+    "loadingIndicatorLabel": "Loading",
+    "overwriteWarningMessage": "Copied files will overwrite existing files at selected destination.",
     "searchPlaceholder": "Search for folders",
     "statusDisplayCanceledLabel": "Canceled",
     "statusDisplayCompletedLabel": "Completed",
@@ -188,6 +194,7 @@ exports[`DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT should match snapshot 1`] = `
   },
   "LocationDetailView": {
     "getListResultsMessage": [Function],
+    "loadingIndicatorLabel": "Loading",
     "searchExhaustedMessage": "Showing results for up to the first 10,000 items",
     "searchIncludeSubfoldersLabel": "Include subfolders",
     "searchPlaceholder": "Search current folder",
@@ -200,6 +207,7 @@ exports[`DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT should match snapshot 1`] = `
   },
   "LocationsView": {
     "getListResultsMessage": [Function],
+    "loadingIndicatorLabel": "Loading",
     "searchPlaceholder": "Filter folders and files",
     "searchSubmitLabel": "Search",
     "tableColumnBucketHeader": "Bucket",

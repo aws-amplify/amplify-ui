@@ -10,7 +10,10 @@ export const DEFAULT_CREATE_FOLDER_VIEW_DISPLAY_TEXT: DefaultCreateFolderViewDis
       // @TODO: maybe add logic to check which character caused the failure
       return `Folder name cannot contain "/", ".", or ".."`;
     },
-    getActionCompleteMessage: (_counts) => {
+    getActionCompleteMessage: ({ FAILED }) => {
+      if (FAILED > 0) {
+        return 'There was an issue creating the folder.';
+      }
       return 'Folder created.';
     },
   };

@@ -28,9 +28,10 @@ export interface DefaultActionViewDisplayText {
  * Common list view display text values
  */
 export interface DefaultListViewDisplayText<T = any> {
+  getListResultsMessage: (data: T, error?: Error) => string;
+  loadingIndicatorLabel: string;
   searchPlaceholder: string;
   searchSubmitLabel: string;
-  getListResultsMessage: (data: T, error?: Error) => string;
 }
 
 export interface DefaultLocationsViewDisplayText
@@ -63,7 +64,13 @@ export interface DefaultCreateFolderViewDisplayText
 
 export interface DefaultCopyViewDisplayText
   extends DefaultActionViewDisplayText {
+  getFolderListResultsMessage: (data: {
+    items: LocationItemData[];
+    query?: string;
+    errorMessage?: string;
+  }) => string | undefined;
   getFolderSelectedMessage: (path: string) => string;
+  loadingIndicatorLabel: 'Loading';
   overwriteWarningMessage: string;
   searchPlaceholder: string;
 }
