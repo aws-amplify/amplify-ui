@@ -12,6 +12,8 @@ export const FolderNameFieldControl = ({
 }: ControlProps & { children: React.ReactNode }): React.JSX.Element | null => {
   const props = useFolderNameField();
 
+  // remove when FolderNameField is integrated with CreateFolderView
+  // @ts-expect-error
   const Resolved = useResolvedComposable(FolderNameField, 'FolderNameField');
 
   return (
