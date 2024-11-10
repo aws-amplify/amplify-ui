@@ -3,7 +3,7 @@ import { ActionStartProps } from './ActionStart';
 import { DataRefreshProps } from './DataRefresh';
 import { DataTableProps } from './DataTable';
 import { DropZoneProps } from './DropZone';
-import { FolderNameProps } from './FolderName';
+import { FolderNameFieldProps } from './FolderNameField';
 import { NavigationProps } from './Navigation';
 import { StatusDisplayProps } from './StatusDisplay';
 import { SearchProps } from './Search';
@@ -14,7 +14,7 @@ export interface Composables {
   DataRefresh: React.ComponentType<DataRefreshProps>;
   DataTable: React.ComponentType<DataTableProps>;
   DropZone: React.ComponentType<DropZoneProps>;
-  FolderName: React.ComponentType<FolderNameProps>;
+  FolderNameField: React.ComponentType<FolderNameFieldProps>;
   Navigation: React.ComponentType<NavigationProps>;
   Search: React.ComponentType<SearchProps>;
   StatusDisplay: React.ComponentType<StatusDisplayProps>;

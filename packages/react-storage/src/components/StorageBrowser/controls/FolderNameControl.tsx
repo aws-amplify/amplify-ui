@@ -1,22 +1,22 @@
 import React from 'react';
 
-import { FolderName } from '../composables/FolderName';
+import { FolderNameField } from '../composables/FolderNameField';
 import { ViewElement } from '../context/elements';
-import { useFolderName } from './hooks/useFolderName';
+import { useFolderNameField } from './hooks/useFolderNameField';
 import { useResolvedComposable } from './hooks/useResolvedComposable';
 import { ControlProps } from './types';
 
-export const FolderNameControl = ({
+export const FolderNameFieldControl = ({
   className,
   children,
 }: ControlProps & { children: React.ReactNode }): React.JSX.Element | null => {
-  const props = useFolderName();
+  const props = useFolderNameField();
 
-  const ResolvedFolderName = useResolvedComposable(FolderName, 'FolderName');
+  const Resolved = useResolvedComposable(FolderNameField, 'FolderNameField');
 
   return (
     <ViewElement className={className}>
-      <ResolvedFolderName {...props}>{children}</ResolvedFolderName>
+      <Resolved {...props}>{children}</Resolved>
     </ViewElement>
   );
 };
