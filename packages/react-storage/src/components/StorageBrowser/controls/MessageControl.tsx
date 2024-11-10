@@ -1,17 +1,17 @@
 import React from 'react';
 
-import { FolderNameField } from '../composables/FolderNameField';
+import { Message } from '../composables/Message';
 import { ViewElement } from '../context/elements';
-import { useFolderNameField } from './hooks/useFolderNameField';
+import { useMessage } from './hooks/useMessage';
 import { useResolvedComposable } from './hooks/useResolvedComposable';
 import { ControlProps } from './types';
 
-export const FolderNameFieldControl = ({
+export const MessageControl = ({
   className,
 }: ControlProps): React.JSX.Element | null => {
-  const props = useFolderNameField();
+  const props = useMessage();
 
-  const Resolved = useResolvedComposable(FolderNameField, 'FolderNameField');
+  const Resolved = useResolvedComposable(Message, 'Message');
 
   return (
     <ViewElement className={className}>
