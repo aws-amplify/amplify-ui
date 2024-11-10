@@ -13,11 +13,10 @@ import { CreateFolderViewState } from './types';
 export const useCreateFolderView = ({
   onExit,
 }: {
-  validateFolderName?: (folderName: string) => boolean;
   onExit?: (location: LocationData) => void;
 }): CreateFolderViewState => {
   const [folderName, setFolderName] = React.useState('');
-  const id = React.useRef(crypto.randomUUID()).current;
+  const folderNameId = React.useRef(crypto.randomUUID()).current;
 
   const getConfig = useGetActionInput();
   const [
@@ -25,20 +24,19 @@ export const useCreateFolderView = ({
     handleCreateFolder,
   ] = useProcessTasks(createFolderHandler);
 
-  const task = tasks?.find(({ data }) => data.id === id);
-
   const [{ location }, dipatchStoreAction] = useStore();
   const { current, key: destinationPrefix } = location;
 
   return {
     folderName,
+    folderNameId,
     isProcessing,
     isProcessingComplete,
     location,
     onActionStart: () => {
       handleCreateFolder({
         config: getConfig(),
-        data: { id, key: `${folderName}/` },
+        data: { id: folderNameId, key: `${folderName}/` },
         destinationPrefix,
         options: { preventOverwrite: true },
       });
@@ -54,6 +52,6 @@ export const useCreateFolderView = ({
     // needs to be removed
     onTaskCancel: () => null,
     statusCounts,
-    task,
+    tasks,
   };
 };
