@@ -11,7 +11,7 @@ import { Controls } from '../../Controls';
 import { Title } from '../Controls/Title';
 import { ActionStartControl } from '../../../controls/ActionStartControl';
 import { ControlsContextProvider } from '../../../controls/context';
-import { CLASS_BASE } from '../../constants';
+import { AMPLIFY_CLASS_BASE, CLASS_BASE } from '../../constants';
 import { resolveClassName } from '../../utils';
 import { CreateFolderViewProps } from './types';
 
@@ -95,7 +95,7 @@ export const CreateFolderView = ({
   const hasCompletedStatus = result?.status === 'COMPLETE';
 
   return (
-    <div className={resolveClassName(`amplify-${CLASS_BASE}`, className)}>
+    <div className={resolveClassName(`${AMPLIFY_CLASS_BASE}`, className)}>
       <ControlsContextProvider
         data={{
           actionStartLabel: hasCompletedStatus

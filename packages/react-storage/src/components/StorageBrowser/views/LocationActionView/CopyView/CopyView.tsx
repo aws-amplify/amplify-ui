@@ -6,7 +6,7 @@ import { Controls } from '../../Controls';
 
 import { Title } from '../Controls/Title';
 import { displayText } from '../../../displayText/en';
-import { CLASS_BASE } from '../../constants';
+import { AMPLIFY_CLASS_BASE, CLASS_BASE } from '../../constants';
 import { DestinationPicker } from './DestinationPicker';
 
 import { DataTableControl } from '../../../controls/DataTableControl';
@@ -55,7 +55,7 @@ export const CopyView = ({
   const isActionCancelDisabled = !isProcessing || isProcessingComplete;
 
   return (
-    <div className={resolveClassName(`amplify-${CLASS_BASE}`, className)}>
+    <div className={resolveClassName(`${AMPLIFY_CLASS_BASE}`, className)}>
       <ControlsContextProvider
         data={{
           actionCancelLabel: 'Cancel',

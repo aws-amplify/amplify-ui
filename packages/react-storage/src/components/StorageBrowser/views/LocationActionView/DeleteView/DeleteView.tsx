@@ -57,7 +57,6 @@ export const DeleteView = ({
           <Exit onClick={onExit} disabled={isProcessing} />
         </ViewElement>
         <Title />
-
         <ViewElement className={`${AMPLIFY_CLASS_BASE}__table__wrapper`}>
           <DataTableControl
             className={`${CLASS_BASE}__delete-view-data-table`}
