@@ -1,15 +1,33 @@
 import React from 'react';
 
-import { createStorageBrowser } from '@aws-amplify/ui-react-storage/browser';
+import {
+  CreateStorageBrowserInput,
+  createStorageBrowser,
+} from '@aws-amplify/ui-react-storage/browser';
 
 import { auth, managedAuthAdapter } from '../managedAuthAdapter';
 
-import { Button, Flex } from '@aws-amplify/ui-react';
+import { Button, Flex, Breadcrumbs } from '@aws-amplify/ui-react';
 
 import '@aws-amplify/ui-react-storage/storage-browser-styles.css';
 import '@aws-amplify/ui-react-storage/styles.css';
 
+const components: CreateStorageBrowserInput['components'] = {
+  Navigation: ({ items }) => (
+    <Breadcrumbs.Container>
+      {items.map(({ isCurrent, name, onNavigate }) => (
+        <Breadcrumbs.Item key={name}>
+          <Breadcrumbs.Link isCurrent={isCurrent} onClick={onNavigate}>
+            {name}
+          </Breadcrumbs.Link>
+        </Breadcrumbs.Item>
+      ))}
+    </Breadcrumbs.Container>
+  ),
+};
+
 const { StorageBrowser } = createStorageBrowser({
+  components,
   config: managedAuthAdapter,
 });
 
