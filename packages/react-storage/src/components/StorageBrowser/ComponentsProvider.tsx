@@ -5,7 +5,12 @@ import { ElementsProvider } from '@aws-amplify/ui-react-core/elements';
 import { ComposablesProvider, Composables } from './composables';
 import { StorageBrowserElements } from './context/elements';
 
-export interface Components extends Partial<Composables> {}
+export interface Components
+  // omitted values have not yet been integrated with views
+  extends Omit<
+    Partial<Composables>,
+    'LoadingIndicator' | 'Message' | 'FolderNameField'
+  > {}
 
 export interface ComponentsProviderProps {
   children?: React.ReactNode;

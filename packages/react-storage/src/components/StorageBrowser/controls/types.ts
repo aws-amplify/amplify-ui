@@ -1,8 +1,9 @@
-import { Composables } from '../composables/types';
-import { DataTableSortHeader, DataTableProps } from '../composables/DataTable';
 import { LocationData } from '../actions';
-import { StatusCounts } from '../tasks';
+import { DataTableSortHeader, DataTableProps } from '../composables/DataTable';
+import { MessageType } from '../composables/Message';
+import { Composables } from '../composables/types';
 import { LocationState } from '../providers/store/location';
+import { StatusCounts } from '../tasks';
 
 export interface ControlProps {
   className?: string;
@@ -34,8 +35,6 @@ export interface ControlsContext {
   data: {
     actionCancelLabel?: string;
     actionStartLabel?: string;
-    currentLocation?: LocationData;
-    currentPath?: string;
     folderNameId?: string;
     folderNameLabel?: string;
     folderNamePlaceholder?: string;
@@ -46,9 +45,13 @@ export interface ControlsContext {
     isAddFolderDisabled?: boolean;
     isDataRefreshDisabled?: boolean;
     isExitDisabled?: boolean;
+    isLoading?: boolean;
     isFolderNameDisabled?: boolean;
     isOverwriteCheckboxDisabled?: boolean;
+    loadingIndicatorLabel?: string;
     location?: LocationState;
+    messageContent?: React.ReactNode;
+    messageType?: MessageType;
     searchPlaceholder?: string;
     showIncludeSubfolders?: boolean;
     statusCounts?: StatusCounts;
@@ -56,8 +59,10 @@ export interface ControlsContext {
   };
   onActionCancel?: () => void;
   onActionStart?: () => void;
+  onActionReset?: () => void;
   onDropFiles?: (files: File[]) => void;
   onFolderNameChange?: (value: string) => void;
+  onMessageDismiss?: () => void;
   onNavigate?: (location: LocationData, path?: string) => void;
   onNavigateHome?: () => void;
   onRefresh?: () => void;

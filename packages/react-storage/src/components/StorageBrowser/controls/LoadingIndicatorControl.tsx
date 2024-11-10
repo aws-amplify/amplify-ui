@@ -1,17 +1,17 @@
 import React from 'react';
 
-import { FolderNameField } from '../composables/FolderNameField';
+import { LoadingIndicator } from '../composables/LoadingIndicator';
 import { ViewElement } from '../context/elements';
-import { useFolderNameField } from './hooks/useFolderNameField';
+import { useLoadingIndicator } from './hooks/useLoadingIndicator';
 import { useResolvedComposable } from './hooks/useResolvedComposable';
 import { ControlProps } from './types';
 
-export const FolderNameFieldControl = ({
+export const LoadingIndicatorControl = ({
   className,
 }: ControlProps): React.JSX.Element | null => {
-  const props = useFolderNameField();
+  const props = useLoadingIndicator();
 
-  const Resolved = useResolvedComposable(FolderNameField, 'FolderNameField');
+  const Resolved = useResolvedComposable(LoadingIndicator, 'LoadingIndicator');
 
   return (
     <ViewElement className={className}>
