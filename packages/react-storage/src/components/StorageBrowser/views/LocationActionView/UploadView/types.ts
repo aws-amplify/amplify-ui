@@ -1,4 +1,4 @@
-import { UploadHandlerData } from '../../../actions';
+import { LocationData, UploadHandlerData } from '../../../actions';
 import { FileItem } from '../../../providers';
 import {
   ActionViewComponent,
@@ -7,10 +7,9 @@ import {
 } from '../types';
 
 export interface UploadViewState extends ActionViewState<FileItem> {
-  destinationPrefix: string;
   isOverwriteEnabled: boolean;
-  onDropFiles: (files?: File[]) => void;
-  onSelectFiles: (type?: 'FILE' | 'FOLDER') => void;
+  onDropFiles: (files: File[]) => void;
+  onSelectFiles: (type: 'FILE' | 'FOLDER') => void;
   onToggleOverwrite: () => void;
 }
 
@@ -20,3 +19,7 @@ export interface UploadViewProps
 
 export interface UploadViewComponent
   extends ActionViewComponent<UploadHandlerData, UploadViewProps> {}
+
+export interface UseUploadViewOptions {
+  onExit?: (location?: LocationData) => void;
+}

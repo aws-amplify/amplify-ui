@@ -15,17 +15,17 @@ import {
 
 const ERROR_MESSAGE = '`useViews` must be called from within a `ViewsProvider`';
 
-export interface Views<T = string> {
-  LocationActionView?: (
+export interface DefaultViews<T = string> {
+  LocationActionView: (
     props: LocationActionViewProps<T>
   ) => React.JSX.Element | null;
-  LocationDetailView?: (props: LocationDetailViewProps) => React.JSX.Element;
-  LocationsView?: (props: LocationsViewProps) => React.JSX.Element;
+  LocationDetailView: (props: LocationDetailViewProps) => React.JSX.Element;
+  LocationsView: (props: LocationsViewProps) => React.JSX.Element;
 }
 
-const ViewsContext = React.createContext<Required<Views> | undefined>(
-  undefined
-);
+export interface Views<T = string> extends Partial<DefaultViews<T>> {}
+
+const ViewsContext = React.createContext<DefaultViews | undefined>(undefined);
 
 export function ViewsProvider({
   children,
@@ -51,7 +51,7 @@ export function ViewsProvider({
   );
 }
 
-export function useViews(): Required<Views> {
+export function useViews(): DefaultViews {
   const context = React.useContext(ViewsContext);
   if (!context) {
     throw new Error(ERROR_MESSAGE);

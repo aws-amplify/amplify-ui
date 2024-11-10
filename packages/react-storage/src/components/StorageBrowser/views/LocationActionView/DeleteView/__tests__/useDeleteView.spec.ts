@@ -164,7 +164,7 @@ describe('useDeleteView', () => {
     const { result } = renderHook(() => useDeleteView({ onExit: mockOnExit }));
 
     act(() => {
-      result.current.onExit();
+      result.current.onExit?.();
     });
 
     expect(mockOnExit).toHaveBeenCalled();

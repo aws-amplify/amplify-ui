@@ -1,4 +1,4 @@
-import { CopyHandlerData } from '../../../actions';
+import { CopyHandlerData, LocationData } from '../../../actions';
 import {
   ActionViewComponent,
   ActionViewProps,
@@ -16,3 +16,7 @@ export interface CopyViewProps
 
 export interface CopyViewComponent
   extends ActionViewComponent<CopyHandlerData, CopyViewProps> {}
+
+export interface UseCopyViewOptions {
+  onExit?: (location?: LocationData) => void;
+}

@@ -1,24 +1,22 @@
 import React from 'react';
-import { PaginateControl } from '../../views/Controls/Paginate';
+import { PaginateControl } from '../../../views/Controls/Paginate';
 import {
   EmptyMessageControl,
   LoadingControl,
   MessageControl,
-} from '../Controls';
-import { ViewElement } from '../../context/elements';
-import { displayText } from '../../displayText/en';
-import { useDestinationPicker } from './CopyView/useDestinationPicker';
-import { CLASS_BASE } from '../constants';
-import { DataTableControl } from '../../controls/DataTableControl';
-import { ControlsContextProvider } from '../../controls/context';
-import {
-  getDestinationListFullPrefix,
-  getDestinationPickerTableData,
-} from './utils/getDestinationPickerDataTable';
-import { ControlsContext } from '../../controls/types';
-import { Breadcrumb } from '../../components/BreadcrumbNavigation';
-import { DescriptionList } from '../../components/DescriptionList';
-import { SearchControl } from '../../controls/SearchControl';
+} from '../../Controls';
+import { ViewElement } from '../../../context/elements';
+import { displayText } from '../../../displayText/en';
+import { useDestinationPicker } from '../CopyView/useDestinationPicker';
+import { CLASS_BASE } from '../../constants';
+import { DataTableControl } from '../../../controls/DataTableControl';
+import { ControlsContextProvider } from '../../../controls/context';
+import { getDestinationListFullPrefix } from './getDestinationListFullPrefix';
+import { getDestinationPickerTableData } from './getDestinationPickerDataTable';
+import { ControlsContext } from '../../../controls/types';
+import { Breadcrumb } from '../../../components/BreadcrumbNavigation';
+import { DescriptionList } from '../../../components/DescriptionList';
+import { SearchControl } from '../../../controls/SearchControl';
 const {
   actionSetDestination,
   actionDestinationPickerCurrentFolderSelected,
@@ -119,7 +117,9 @@ export const DestinationPicker = ({
         />
       </ViewElement>
       <ViewElement className="storage-browser__table-wrapper">
-        <DataTableControl className={`${CLASS_BASE}__table`} />
+        <DataTableControl
+          className={`${CLASS_BASE}__destination-picker-data-table`}
+        />
         {noSubfolders && <EmptyMessageControl>{message}</EmptyMessageControl>}
         {showMessage && !noSubfolders && (
           <MessageControl variant={messageVariant}>{message}</MessageControl>

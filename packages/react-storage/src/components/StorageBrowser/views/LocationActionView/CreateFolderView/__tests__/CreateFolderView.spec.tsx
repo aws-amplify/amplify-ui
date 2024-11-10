@@ -1,19 +1,19 @@
 import React from 'react';
 import { render, waitFor, screen, fireEvent } from '@testing-library/react';
 
-import * as ActionsModule from '../../../do-not-import-from-here/actions';
-import * as StoreModule from '../../../providers/store';
+import * as ActionsModule from '../../../../do-not-import-from-here/actions';
+import * as StoreModule from '../../../../providers/store';
 
-jest.mock('../Controls/Title');
+jest.mock('../../Controls/Title');
 
 import {
   isValidFolderName,
-  CreateFolderControls,
+  CreateFolderView,
   FIELD_VALIDATION_MESSAGE,
   CreateFolderMessage,
   RESULT_COMPLETE_MESSAGE,
   RESULT_FAILED_MESSAGE,
-} from '../CreateFolderControls';
+} from '../CreateFolderView';
 
 const handleAction = jest.fn();
 const useActionSpy = jest.spyOn(ActionsModule, 'useAction').mockReturnValue([
@@ -42,12 +42,12 @@ jest
   .spyOn(StoreModule, 'useStore')
   .mockReturnValue([storeMock, dispatchStoreAction]);
 
-describe('CreateFolderControls', () => {
+describe('CreateFolderView', () => {
   afterEach(jest.clearAllMocks);
 
   it('handles folder creation in the happy path', async () => {
     await waitFor(() => {
-      render(<CreateFolderControls />);
+      render(<CreateFolderView />);
     });
 
     const input = screen.getByLabelText('Enter folder name:');
@@ -68,7 +68,7 @@ describe('CreateFolderControls', () => {
 
   it('shows a field error when invalid folder name is entered', async () => {
     await waitFor(() => {
-      render(<CreateFolderControls />);
+      render(<CreateFolderView />);
     });
 
     const input = screen.getByLabelText('Enter folder name:');
@@ -81,7 +81,7 @@ describe('CreateFolderControls', () => {
 
   it('clears a field error as expected', async () => {
     await waitFor(() => {
-      render(<CreateFolderControls />);
+      render(<CreateFolderView />);
     });
 
     const input = screen.getByLabelText('Enter folder name:');
@@ -111,7 +111,7 @@ describe('CreateFolderControls', () => {
     ]);
 
     await waitFor(() => {
-      render(<CreateFolderControls />);
+      render(<CreateFolderView />);
     });
 
     const button = screen.getByRole('button', { name: 'Exit' });
@@ -139,7 +139,7 @@ describe('CreateFolderControls', () => {
     ]);
 
     await waitFor(() => {
-      render(<CreateFolderControls />);
+      render(<CreateFolderView />);
     });
 
     const successMessage = screen.getByText(RESULT_COMPLETE_MESSAGE);
@@ -159,7 +159,7 @@ describe('CreateFolderControls', () => {
     ]);
 
     await waitFor(() => {
-      render(<CreateFolderControls />);
+      render(<CreateFolderView />);
     });
 
     const successMessage = screen.getByText(RESULT_FAILED_MESSAGE);

@@ -168,7 +168,7 @@ describe('useCopyView', () => {
     const { result } = renderHook(() => useCopyView({ onExit: mockOnExit }));
 
     act(() => {
-      result.current.onExit();
+      result.current.onExit?.();
     });
 
     expect(mockOnExit).toHaveBeenCalled();

@@ -4,19 +4,18 @@ import { useControlsContext } from '../../controls/context';
 
 export const useNavigation = (): NavigationProps => {
   const { data, onNavigate, onNavigateHome } = useControlsContext();
-  const { currentLocation, currentPath = '' } = data;
+  const { location } = data;
 
   return React.useMemo(() => {
-    if (!currentLocation) {
+    if (!location?.current) {
       return { items: [] };
     }
 
-    const { bucket, permission, prefix = '', type } = currentLocation;
+    const { current, path } = location;
+    const { bucket, permission, prefix = '', type } = current;
 
     const trimmedPrefix = prefix.endsWith('/') ? prefix.slice(0, -1) : prefix;
-    const trimmedPath = currentPath.endsWith('/')
-      ? currentPath.slice(0, -1)
-      : currentPath;
+    const trimmedPath = path.endsWith('/') ? path.slice(0, -1) : path;
 
     const prefixParts =
       type === 'BUCKET'
@@ -61,5 +60,5 @@ export const useNavigation = (): NavigationProps => {
         })
       ),
     };
-  }, [currentLocation, currentPath, onNavigate, onNavigateHome]);
+  }, [location, onNavigate, onNavigateHome]);
 };
