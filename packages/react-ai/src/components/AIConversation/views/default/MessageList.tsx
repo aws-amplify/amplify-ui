@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { Avatar, Placeholder, Text, View } from '@aws-amplify/ui-react';
+import { Avatar, Placeholder, Text, View, Button } from '@aws-amplify/ui-react';
 import { MessageControl } from '../Controls/MessagesControl';
 import {
+  ActionsContext,
   AvatarsContext,
   MessageVariantContext,
   RESPONSE_COMPONENT_PREFIX,
@@ -58,6 +59,29 @@ const MessageMeta = ({ message }: { message: ConversationMessage }) => {
   );
 };
 
+const MessageActions = ({ message }: { message: ConversationMessage }) => {
+  const actions = React.useContext(ActionsContext);
+  if (!actions) return null;
+
+  return (
+    <View className={ComponentClassName.AIConversationMessageActions}>
+      {actions.map((action, i) => {
+        return (
+          <Button
+            key={i}
+            size="small"
+            onClick={() => {
+              action.handler(message);
+            }}
+          >
+            {action.component}
+          </Button>
+        );
+      })}
+    </View>
+  );
+};
+
 const Message = ({ message }: { message: ConversationMessage }) => {
   const avatars = React.useContext(AvatarsContext);
   const variant = React.useContext(MessageVariantContext);
@@ -84,13 +108,16 @@ const Message = ({ message }: { message: ConversationMessage }) => {
           <View className={ComponentClassName.AIConversationMessageContent}>
             <MessageControl message={message} />
           </View>
+          {message.role === 'assistant' ? (
+            <MessageActions message={message} />
+          ) : null}
         </View>
       </View>
     </RoleContext.Provider>
   );
 };
 
-export const MessageList: ControlsContextProps['MessageList'] = ({
+export const MessageList: Required<ControlsContextProps>['MessageList'] = ({
   messages,
 }) => {
   const isLoading = React.useContext(LoadingContext);
@@ -106,7 +133,6 @@ export const MessageList: ControlsContextProps['MessageList'] = ({
 
   return (
     <View className={ComponentClassName.AIConversationMessageList}>
-      {/* TODO: make this a skeleton loader */}
       {isLoading ? (
         <>
           <PlaceholderMessage role="user" />
