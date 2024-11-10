@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { HeadingElement } from '../../context/elements/definitions';
-import { CLASS_BASE } from '../constants';
+import { AMPLIFY_CLASS_BASE } from '../constants';
 
-const BLOCK_NAME = `amplify-${CLASS_BASE}__title`;
+const BLOCK_NAME = `${AMPLIFY_CLASS_BASE}__title`;
 
 interface TitleControlProps {
   children?: React.ReactNode;

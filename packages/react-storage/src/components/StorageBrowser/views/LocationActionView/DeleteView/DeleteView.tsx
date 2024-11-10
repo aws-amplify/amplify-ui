@@ -4,7 +4,7 @@ import { Controls } from '../../Controls';
 import { ViewElement } from '../../../context/elements';
 import { DataTableControl } from '../../../controls/DataTableControl';
 import { ControlsContextProvider } from '../../../controls/context';
-import { CLASS_BASE } from '../../constants';
+import { CLASS_BASE, AMPLIFY_CLASS_BASE } from '../../constants';
 import { Title } from '../Controls/Title';
 import { StatusDisplayControl } from '../../../controls/StatusDisplayControl';
 import { getActionViewTableData } from '../getActionViewTableData';
@@ -40,7 +40,7 @@ export const DeleteView = ({
   });
 
   return (
-    <div className={resolveClassName(`amplify-${CLASS_BASE}`, className)}>
+    <div className={resolveClassName(AMPLIFY_CLASS_BASE, className)}>
       <ControlsContextProvider
         data={{
           actionCancelLabel: 'Cancel',
@@ -53,32 +53,32 @@ export const DeleteView = ({
         onActionStart={onActionStart}
         onActionCancel={onActionCancel}
       >
-        <ViewElement className={`amplify-${CLASS_BASE}__navigation`}>
+        <ViewElement className={`${AMPLIFY_CLASS_BASE}__navigation`}>
           <Exit onClick={onExit} disabled={isProcessing} />
         </ViewElement>
         <Title />
 
-        <ViewElement className={`amplify-${CLASS_BASE}__table__wrapper`}>
+        <ViewElement className={`${AMPLIFY_CLASS_BASE}__table__wrapper`}>
           <DataTableControl
             className={`${CLASS_BASE}__delete-view-data-table`}
           />
         </ViewElement>
 
-        <ViewElement className={`amplify-${CLASS_BASE}__action__summary`}>
+        <ViewElement className={`${AMPLIFY_CLASS_BASE}__action__summary`}>
           <StatusDisplayControl
-            className={`amplify-${CLASS_BASE}__action__status`}
+            className={`${AMPLIFY_CLASS_BASE}__action__status`}
           />
         </ViewElement>
-        <ViewElement className={`amplify-${CLASS_BASE}__action__footer`}>
-          <ViewElement className={`amplify-${CLASS_BASE}__action__message`}>
+        <ViewElement className={`${AMPLIFY_CLASS_BASE}__action__footer`}>
+          <ViewElement className={`${AMPLIFY_CLASS_BASE}__action__message`}>
             {/* TODO: confirmation message goes here */}
           </ViewElement>
-          <ViewElement className={`amplify-${CLASS_BASE}__action__buttons`}>
+          <ViewElement className={`${AMPLIFY_CLASS_BASE}__action__buttons`}>
             <ActionCancelControl
-              className={`amplify-${CLASS_BASE}__action__cancel`}
+              className={`${AMPLIFY_CLASS_BASE}__action__cancel`}
             />
             <ActionStartControl
-              className={`amplify-${CLASS_BASE}__action__start`}
+              className={`${AMPLIFY_CLASS_BASE}__action__start`}
             />
           </ViewElement>
         </ViewElement>
