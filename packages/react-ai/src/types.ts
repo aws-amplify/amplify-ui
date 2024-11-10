@@ -6,7 +6,7 @@ export type Conversation = NonNullable<
 >;
 
 export type ConversationStreamEvent = Parameters<
-  Parameters<Conversation['onStreamEvent']>[0]
+  Parameters<Conversation['onStreamEvent']>[0]['next']
 >[0];
 
 export type ConversationMessage = NonNullable<
