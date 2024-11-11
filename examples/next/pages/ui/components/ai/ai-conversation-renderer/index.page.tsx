@@ -1,16 +1,11 @@
 import { Amplify } from 'aws-amplify';
-import { createAIHooks, AIConversation } from '@aws-amplify/ui-react-ai';
-import { generateClient } from 'aws-amplify/api';
+import { AIConversation } from '@aws-amplify/ui-react-ai';
 import '@aws-amplify/ui-react/styles.css';
 
 import outputs from './amplify_outputs';
-import type { Schema } from '@environments/ai/gen2/amplify/data/resource';
 import { Authenticator, Card, Text } from '@aws-amplify/ui-react';
 import Image from 'next/image';
 import { INITIAL_MESSAGES } from '../constants';
-
-const client = generateClient<Schema>({ authMode: 'userPool' });
-const { useAIConversation } = createAIHooks(client);
 
 Amplify.configure(outputs);
 
