@@ -28,5 +28,6 @@ export const DEFAULT_LIST_VIEW_DISPLAY_TEXT: Omit<
   DefaultListViewDisplayText,
   'getListResultsMessage' | 'searchPlaceholder'
 > = {
+  loadingIndicatorLabel: 'Loading',
   searchSubmitLabel: 'Search',
 };

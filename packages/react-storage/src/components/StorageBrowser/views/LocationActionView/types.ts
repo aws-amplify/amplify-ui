@@ -3,13 +3,13 @@ import {
   TaskData,
   TaskHandler,
   TaskHandlerInput,
-} from '../../actions';
-import {
   ComponentName,
   DefaultActionKey,
   TaskActionConfig,
-} from '../../actions/configs';
+} from '../../actions';
+
 import { LocationState } from '../../providers/store/location';
+
 import { StatusCounts, Task, Tasks } from '../../tasks';
 import { DataTableProps } from '../../composables/DataTable';
 import { WithKey } from '../../components/types';
