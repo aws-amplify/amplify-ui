@@ -53,7 +53,6 @@ function SyncedChats() {
     {
       data: { messages },
       isLoading,
-      hasError,
     },
     handleSendMessage,
   ] = useAIConversation('pirateChat', { onInitialize, onMessage });

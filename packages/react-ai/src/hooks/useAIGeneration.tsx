@@ -46,7 +46,7 @@ export function createUseAIGeneration<
     routeName: Key
   ): [
     state: DataClientState<Schema[Key]['returnType']>,
-    handleAction: (input: Schema[Key]['args']) => void,
+    handleAction: (input: Schema[Key]['args']) => Promise<void>,
   ] => {
     const [dataState, setDataState] = React.useState<
       DataClientState<Schema[Key]['returnType']>

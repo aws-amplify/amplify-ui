@@ -1,12 +1,5 @@
 import { DataState } from '@aws-amplify/ui-react-core';
-
-interface GraphQLFormattedError {
-  readonly message: string;
-  readonly errorType: string;
-  readonly errorInfo?: null | {
-    [key: string]: unknown;
-  };
-}
+import { GraphQLFormattedError } from '../types';
 
 export type DataClientState<T> = Omit<DataState<T>, 'message'> & {
   messages?: GraphQLFormattedError[];

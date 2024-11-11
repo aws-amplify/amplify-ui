@@ -74,7 +74,7 @@ export type getSchema<T> = T extends AIClient<infer Schema> ? Schema : never;
 export interface GraphQLFormattedError {
   readonly message: string;
   readonly errorType: string;
-  readonly errorInfo: null | {
+  readonly errorInfo?: null | {
     [key: string]: unknown;
   };
 }

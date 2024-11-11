@@ -1,15 +1,21 @@
 import { act, renderHook } from '@testing-library/react-hooks';
 import { createAIHooks } from '../createAIHooks';
+import { ConversationStreamEvent } from '../../types';
+
+let _next: any;
 
 const listMessageMock = jest.fn().mockResolvedValue({ data: [] });
 const sendMessageMock = jest.fn().mockResolvedValue({ data: {} });
 const onMessageMock = jest.fn().mockReturnValue({ unsubscribe: jest.fn() });
 const onStreamEventMock = jest
   .fn()
-  .mockImplementation(() => {
-    return { unsubscribe: jest.fn() };
-  })
-  .mockReturnValue({ unsubscribe: jest.fn() });
+  .mockImplementation(
+    ({ next }: { next: (message: ConversationStreamEvent) => void }) => {
+      _next = next;
+      return { unsubscribe: jest.fn() };
+    }
+  );
+// .mockReturnValue({ unsubscribe: jest.fn() });
 const generateRecipeMock = jest.fn();
 const id = 'foobar';
 
@@ -89,39 +95,46 @@ describe('useAIConverstion', () => {
     expect(sendMessageMock).toHaveBeenCalled();
   });
 
-  // it('hook can receive new messages from the conversation subscription', async () => {
-  //   const client = new mockClient();
-  //   const { useAIConversation } = createAIHooks(client);
+  it('can call onInitialize', () => {
+    const client = new mockClient();
+    const { useAIConversation } = createAIHooks(client);
 
-  //   expect(useAIConversation).toBeDefined();
+    expect(useAIConversation).toBeDefined();
 
-  //   const { result, waitForNextUpdate } = renderHook(() =>
-  //     useAIConversation('pirateChat')
-  //   );
+    const { waitForNextUpdate } = renderHook(() =>
+      useAIConversation('pirateChat', {
+        onInitialize: (conversation) => {
+          expect(conversation).toBeDefined();
+        },
+      })
+    );
 
-  //   await waitForNextUpdate();
+    waitForNextUpdate();
+  });
 
-  //   const [_data, sendMessage] = result.current;
+  it('should fire onMessage', async () => {
+    const client = new mockClient();
+    const { useAIConversation } = createAIHooks(client);
+    const onMessage = jest.fn();
+    const { result, waitForNextUpdate } = renderHook(() =>
+      useAIConversation('pirateChat', { onMessage })
+    );
 
-  //   act(() => {
-  //     sendMessage({ content: [{ text: 'foobar' }] });
-  //   });
+    await waitForNextUpdate();
 
-  //   expect(result.current[0].data.messages).toHaveLength(2);
+    const [_data] = result.current;
 
-  //   // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-  //   const onStreamHandler: Parameters<Conversation['onStreamEvent']>[0] =
-  //     onStreamEventMock.mock.calls[0][0];
-  //   act(() => {
-  //     // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-  //     onStreamHandler({
-  //       contentBlockIndex: 0,
-  //       contentBlockDeltaIndex: 1,
-  //       conversationId: '1',
-  //       associatedUserMessageId: '2',
-  //       id: '3',
-  //     });
-  //   });
-  //   expect(result.current[0].data.messages).toHaveLength(3);
-  // });
+    act(() => {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+      _next({
+        stopReason: 'end_turn',
+        conversationId: 'XXX',
+        id: '123',
+        contentBlockIndex: 0,
+        associatedUserMessageId: 'XXX',
+      });
+    });
+
+    expect(onMessage).toHaveBeenCalled();
+  });
 });
