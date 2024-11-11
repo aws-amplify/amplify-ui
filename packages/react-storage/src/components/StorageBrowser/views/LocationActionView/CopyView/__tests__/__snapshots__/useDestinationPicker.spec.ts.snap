@@ -12,14 +12,14 @@ exports[`useDestinationPicker should return the correct initial state 1`] = `
     {
       "id": "id",
       "key": "prefix1/",
-      "lastModified": "2024-11-11T20:36:56.436Z",
+      "lastModified": 2024-11-11T23:03:43.230Z,
       "size": 10,
       "type": "FOLDER",
     },
     {
       "id": "id",
       "key": "prefix2/",
-      "lastModified": "2024-11-11T20:36:56.436Z",
+      "lastModified": 2024-11-11T23:03:43.230Z,
       "size": 10,
       "type": "FOLDER",
     },
@@ -31,14 +31,14 @@ exports[`useDestinationPicker should return the correct initial state 1`] = `
     {
       "id": "id",
       "key": "prefix1/",
-      "lastModified": "2024-11-11T20:36:56.436Z",
+      "lastModified": 2024-11-11T23:03:43.230Z,
       "size": 10,
       "type": "FOLDER",
     },
     {
       "id": "id",
       "key": "prefix2/",
-      "lastModified": "2024-11-11T20:36:56.436Z",
+      "lastModified": 2024-11-11T23:03:43.230Z,
       "size": 10,
       "type": "FOLDER",
     },

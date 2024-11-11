@@ -18,17 +18,20 @@ const config = {
   region: 'us-west-2',
 };
 
+jest.useFakeTimers();
+jest.setSystemTime(1731366223230);
+
 const mockItems = [
   {
     key: 'prefix1/',
-    lastModified: '2024-11-11T20:36:56.436Z',
+    lastModified: new Date(),
     id: 'id',
     size: 10,
     type: 'FOLDER',
   },
   {
     key: 'prefix2/',
-    lastModified: '2024-11-11T20:36:56.436Z',
+    lastModified: new Date(),
     id: 'id',
     size: 10,
     type: 'FOLDER',
@@ -59,7 +62,7 @@ describe('useDestinationPicker', () => {
             {
               key: 'prefixer/test-file.txt',
               fileKey: 'test-file.txt',
-              lastModified: '2024-11-11T20:36:56.436Z' as unknown as Date,
+              lastModified: new Date(),
               id: 'id',
               size: 10,
               type: 'FILE',
