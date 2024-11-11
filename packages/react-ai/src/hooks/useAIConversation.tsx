@@ -293,7 +293,7 @@ export function createUseAIConversation<
         contentBlocksRef.current = undefined;
         subscription.unsubscribe();
       };
-    }, [conversation, onInitialize, onMessage]);
+    }, [conversation, onInitialize, onMessage, setDataState]);
 
     const handleSendMessage = React.useCallback(
       (input: SendMesageParameters) => {
