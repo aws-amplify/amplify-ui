@@ -24,8 +24,13 @@ export function CreateFolderView({
   className,
   ...props
 }: CreateFolderViewProps): React.JSX.Element {
-  const { getActionCompleteMessage, getValidationMessage } =
-    useDisplayText()['CreateFolderView'];
+  const {
+    getActionCompleteMessage,
+    getValidationMessage,
+    actionStartLabel,
+    folderNameLabel,
+    folderNamePlaceholder,
+  } = useDisplayText()['CreateFolderView'];
 
   const {
     folderName,
@@ -48,23 +53,24 @@ export function CreateFolderView({
 
   const contextValue: ControlsContext = {
     data: {
-      folderNameLabel: 'Enter folder name:',
-      folderNamePlaceholder: 'Folder name',
       folderNameId,
+      folderNameLabel,
+      folderNamePlaceholder,
       folderNameValidationMessage: validationMessage,
-      actionStartLabel: 'Create Folder',
+      actionStartLabel,
       isActionStartDisabled:
         !folderName.length ||
         !!validationMessage ||
         isProcessing ||
-        isProcessingComplete,
+        isProcessingComplete ||
+        statusCounts.FAILED > 0,
       messageContent,
     },
     onActionStart,
     onFolderNameChange,
     onValidateFolderName: (value) => {
       setValidationMessage(() =>
-        isValidFolderName(value) ? getValidationMessage(value) : undefined
+        isValidFolderName(value) ? undefined : getValidationMessage(value)
       );
     },
   };

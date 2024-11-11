@@ -58,7 +58,13 @@ export interface DefaultLocationDetailViewDisplayText
  */
 
 export interface DefaultCreateFolderViewDisplayText
-  extends DefaultActionViewDisplayText {
+  // `CreateFolderView` does not include that table or status display components
+  extends Omit<
+    DefaultActionViewDisplayText,
+    `${'tableColumn' | 'statusDisplay'}${string}`
+  > {
+  folderNameLabel: string;
+  folderNamePlaceholder: string;
   getValidationMessage: (folderName: string) => string;
 }
 

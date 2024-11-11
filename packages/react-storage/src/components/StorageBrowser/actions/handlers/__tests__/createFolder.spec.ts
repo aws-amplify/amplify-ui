@@ -131,4 +131,23 @@ describe('createFolderHandler', () => {
       status: 'FAILED',
     });
   });
+
+  it('returns "OVERWRITE_PREVENTED" on `PreconditionFailed` error', async () => {
+    const overwritePreventedError = new Error();
+    overwritePreventedError.name = 'PreconditionFailed';
+
+    uploadDataSpy.mockReturnValueOnce({
+      cancel: jest.fn(),
+      pause: jest.fn(),
+      resume: jest.fn(),
+      result: Promise.reject(overwritePreventedError),
+      state: 'ERROR',
+    });
+
+    const { result } = createFolderHandler(baseInput);
+
+    expect(await result).toStrictEqual({
+      status: 'OVERWRITE_PREVENTED',
+    });
+  });
 });
