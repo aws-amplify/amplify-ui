@@ -22,7 +22,7 @@ describe('useTitle', () => {
     });
   });
 
-  it('returns undefined if title is missing from data', () => {
+  it('returns an undefined value for title when missing from data', () => {
     mockUseControlsContext.mockReturnValue({ data: {} });
 
     expect(useTitle()).toStrictEqual({
