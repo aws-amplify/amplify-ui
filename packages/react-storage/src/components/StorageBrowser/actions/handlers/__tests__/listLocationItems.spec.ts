@@ -111,4 +111,20 @@ describe('parseResult', () => {
     const result = parseResult(output, prefix);
     expect(result).toHaveLength(0);
   });
+
+  describe('filterDotItems', () => {
+    it('should filter out items starting with "/" or "." or "..', () => {
+      const output = {
+        items: [
+          { path: `/`, lastModified: new Date(), size: 0 },
+          { path: `.`, lastModified: new Date(), size: 0 },
+          { path: `..`, lastModified: new Date(), size: 0 },
+          { path: `${prefix}visible`, lastModified: new Date(), size: 0 },
+        ],
+      };
+      const result = parseResult(output, prefix);
+      expect(result).toHaveLength(1);
+      expect(result[0].key).toBe(`${prefix}visible`);
+    });
+  });
 });
