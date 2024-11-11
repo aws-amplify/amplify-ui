@@ -114,25 +114,28 @@ export const CreateFolderControls = ({
         }}
       />
       <Title />
-      <ActionStartControl
-        className={`${CLASS_BASE}__create-folder-action-start`}
-      />
-      <Field
-        label="Enter folder name:"
-        disabled={isLoading || !!result?.status}
-        aria-invalid={fieldValidationError ? 'true' : undefined}
-        aria-describedby="fieldError"
-        type="text"
-        id="folder-name-input"
-        onBlur={handleBlur}
-        onChange={handleChange}
-      >
-        {fieldValidationError ? (
-          <SpanElement id={'fieldError'} variant="field-error">
-            {fieldValidationError}
-          </SpanElement>
-        ) : null}
-      </Field>
+      <div className={`${CLASS_BASE}__create-folder-action-container`}>
+        <Field
+          className={`${CLASS_BASE}__field ${CLASS_BASE}__create-folder-action-field`}
+          label="Enter folder name:"
+          disabled={isLoading || !!result?.status}
+          aria-invalid={fieldValidationError ? 'true' : undefined}
+          aria-describedby="fieldError"
+          type="text"
+          id="folder-name-input"
+          onBlur={handleBlur}
+          onChange={handleChange}
+        >
+          {fieldValidationError ? (
+            <SpanElement id={'fieldError'} variant="field-error">
+              {fieldValidationError}
+            </SpanElement>
+          ) : null}
+        </Field>
+        <ActionStartControl
+          className={`${CLASS_BASE}__create-folder-action-start`}
+        />
+      </div>
       {result?.status === 'COMPLETE' || result?.status === 'FAILED' ? (
         <CreateFolderMessage />
       ) : null}

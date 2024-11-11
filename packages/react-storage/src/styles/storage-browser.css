@@ -575,3 +575,17 @@
 .storage-browser__search-toggle__container {
   margin-left: var(--storage-browser-gap);
 }
+
+.storage-browser__create-folder-action-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.storage-browser__create-folder-action-field {
+  flex-grow: 0.1;
+}
+
+.storage-browser__create-folder-action-start {
+  align-self: flex-end;
+  margin-left: 10px;
+}
