@@ -397,23 +397,11 @@
 }
 
 /* Locations view control wrapper styles */
-.storage-browser__locations-view-data-table {
-  display: grid;
-  grid-column: 1 / -1;
-  width: 100%;
-}
-
 .storage-browser__locations-view-data-table th:nth-of-type(3) {
   width: 8rem;
 }
 
 /* Locations view control wrapper styles */
-.storage-browser__location-detail-view-drop-zone,
-.storage-browser__location-detail-view-data-table {
-  display: grid;
-  grid-column: 1 / -1;
-  width: 100%;
-}
 
 .storage-browser__location-detail-view-data-table th:nth-of-type(1) {
   width: 2rem;
@@ -445,32 +433,23 @@
 }
 
 /* Upload action view control wrapper styles */
-.storage-browser__upload-action-view-data-table {
-  display: grid;
-  width: 100%;
-}
-
-.storage-browser__upload-action-view-data-table th:nth-of-type(3),
-.storage-browser__upload-action-view-data-table th:nth-of-type(4),
-.storage-browser__upload-action-view-data-table th:nth-of-type(5),
-.storage-browser__upload-action-view-data-table th:nth-of-type(6) {
+.storage-browser__upload-view-data-table th:nth-of-type(3),
+.storage-browser__upload-view-data-table th:nth-of-type(4),
+.storage-browser__upload-view-data-table th:nth-of-type(5),
+.storage-browser__upload-view-data-table th:nth-of-type(6) {
   width: 8rem;
 }
 
-.storage-browser__upload-action-view-data-table th:nth-of-type(4) {
+.storage-browser__upload-view-data-table th:nth-of-type(4) {
   text-align: end;
 }
 
-.storage-browser__upload-action-view-data-table th:nth-of-type(7) {
+.storage-browser__upload-view-data-table th:nth-of-type(7) {
   width: 4rem;
 }
 
-.storage-browser__upload-action-view-data-table td:nth-of-type(4) div {
+.storage-browser__upload-view-data-table td:nth-of-type(4) div {
   justify-content: end;
-}
-
-.storage-browser__upload-action-view-data-table td:nth-of-type(7) button {
-  justify-content: center;
 }
 
 /* Upload view control wrapper styles */
@@ -575,4 +554,17 @@
 
 .storage-browser__search-toggle__container {
   margin-left: var(--storage-browser-gap);
+}
+
+/* Shared view styles */
+.storage-browser__locations-view-data-table,
+.storage-browser__location-detail-view-drop-zone,
+.storage-browser__location-detail-view-data-table,
+.storage-browser__copy-view-data-table,
+.storage-browser__delete-view-data-table,
+.storage-browser__upload-view-data-table,
+.storage-browser__destination-picker-data-table {
+  display: grid;
+  grid-column: 1 / -1;
+  width: 100%;
 }

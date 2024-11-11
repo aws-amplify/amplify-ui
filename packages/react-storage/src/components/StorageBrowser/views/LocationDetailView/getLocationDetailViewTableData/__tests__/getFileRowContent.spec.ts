@@ -1,14 +1,17 @@
 import { getFileRowContent } from '../getFileRowContent';
 
 describe('getFileRowContent', () => {
-  const currentLocation = {
-    bucket: 'bucket',
-    id: 'id',
-    permission: 'READ',
-    prefix: 'prefix/',
-    type: 'PREFIX',
+  const location = {
+    current: {
+      bucket: 'bucket',
+      id: 'id',
+      permission: 'READ',
+      prefix: 'prefix/',
+      type: 'PREFIX',
+    },
+    path: 'path/',
+    key: 'prefix/path/',
   } as const;
-  const currentPath = 'path/';
   const fileItem = {
     key: 'file-key.ext',
     lastModified: new Date(1),
@@ -16,16 +19,16 @@ describe('getFileRowContent', () => {
     size: 1,
     type: 'FILE',
   } as const;
+  const itemLocationKey = `${location.current.prefix}${location.path}`;
 
   it('should return file row content as expected', () => {
     expect(
       getFileRowContent({
-        currentLocation,
-        currentPath,
+        itemLocationKey,
         isSelected: false,
         lastModified: fileItem.lastModified,
         rowId: 'row-id',
-        rowKey: `${currentLocation.prefix}${currentPath}${fileItem.key}`,
+        rowKey: `${location.current.prefix}${location.path}${fileItem.key}`,
         size: fileItem.size,
         onDownload: jest.fn(),
         onSelect: jest.fn(),

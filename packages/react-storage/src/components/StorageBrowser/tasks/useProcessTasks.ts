@@ -18,6 +18,7 @@ import {
   isProcessingTasks,
   hasCompletedProcessingTasks,
 } from './utils';
+import { isFunction } from '@aws-amplify/ui';
 
 export type UseProcessTasks = <
   T extends TaskData,
@@ -51,8 +52,15 @@ export const useProcessTasks: UseProcessTasks = <
   items?: D,
   options?: ProcessTasksOptions<T, D extends T[] ? number : never>
 ): UseProcessTasksState<T, K, D> => {
+  const { concurrency, ...callbacks } = options ?? {};
+
+  const callbacksRef = React.useRef(callbacks);
+
+  if (callbacks) {
+    callbacksRef.current = callbacks;
+  }
+
   const flush = React.useReducer(() => ({}), {})[1];
-  const { concurrency } = options ?? {};
 
   const tasksRef = React.useRef<Map<string, Task<T>>>(new Map());
 
@@ -75,13 +83,22 @@ export const useProcessTasks: UseProcessTasks = <
 
   const createTask = React.useCallback(
     (data: T) => {
+      const getTask = () => tasksRef.current.get(data.id);
+      const { onTaskCancel, onTaskRemove } = callbacksRef.current;
+
       function remove() {
-        if (tasksRef.current.get(data.id)?.status === 'PENDING') return;
+        const task = getTask();
+        if (!task || task.status === 'PENDING') return;
+        if (task && isFunction(onTaskRemove)) onTaskRemove(task);
+
         updateTask(data.id);
       }
 
       function cancel() {
-        if (tasksRef.current.get(data.id)?.status !== 'QUEUED') return;
+        const task = getTask();
+        if (!task || task?.status !== 'QUEUED') return;
+        if (task && isFunction(onTaskCancel)) onTaskCancel(task);
+
         updateTask(data.id, { cancel: undefined, status: 'CANCELED' });
       }
 
@@ -103,45 +120,81 @@ export const useProcessTasks: UseProcessTasks = <
     flush();
   }, [createTask, flush, items]);
 
-  const processNextTask: HandleProcessTasks<T, K, D> = React.useCallback(
-    (_input) => {
-      const hasInputData = isTaskHandlerInput(_input);
-      if (hasInputData) {
-        createTask(_input.data);
-        flush();
+  const processNextTask: HandleProcessTasks<T, K, D> = (_input) => {
+    const hasInputData = isTaskHandlerInput(_input);
+    if (hasInputData) {
+      createTask(_input.data);
+      flush();
+    }
+
+    const { data } = hasInputData
+      ? _input
+      : [...tasksRef.current.values()].find(
+          ({ status }) => status === 'QUEUED'
+        ) ?? {};
+
+    if (!data) return;
+
+    const {
+      onTaskCancel,
+      onTaskComplete,
+      onTaskError,
+      onTaskProgress,
+      onTaskSuccess,
+    } = callbacksRef.current;
+
+    const getTask = () => tasksRef.current.get(data.id);
+
+    const onProgress = ({ id }: T, progress?: number) => {
+      const task = getTask();
+
+      if (task && isFunction(onTaskProgress)) {
+        onTaskProgress(task, progress);
       }
 
-      const { data } = hasInputData
-        ? _input
-        : [...tasksRef.current.values()].find(
-            ({ status }) => status === 'QUEUED'
-          ) ?? {};
+      updateTask(id, { progress });
+    };
 
-      if (!data) return;
+    const { options } = _input;
+    const input = { ..._input, data, options: { ...options, onProgress } };
 
-      const { options } = _input;
+    const { cancel: _cancel, result } = handler(
+      input as TaskHandlerInput<T> & K
+    );
 
-      const onProgress = ({ id }: T, progress?: number) =>
-        updateTask(id, { progress });
+    const cancel = () => {
+      if (!_cancel) return;
 
-      const input = { ..._input, data, options: { ...options, onProgress } };
-      const { cancel, result } = handler(input as TaskHandlerInput<T> & K);
+      const task = getTask();
+      if (task && isFunction(onTaskCancel)) onTaskCancel(task);
+      _cancel();
+    };
 
-      result
-        .then((output) => {
-          updateTask(data.id, output);
-        })
-        .catch(({ message }: Error) => {
-          updateTask(data.id, { message, status: 'FAILED' });
-        })
-        .finally(() => {
-          processNextTask(_input);
-        });
+    result
+      .then((output) => {
+        const task = getTask();
+        if (task && isFunction(onTaskSuccess)) onTaskSuccess(task);
 
-      updateTask(data.id, { cancel: () => cancel?.(), status: 'PENDING' });
-    },
-    [createTask, flush, handler, updateTask]
-  );
+        updateTask(data.id, output);
+      })
+      .catch((e: Error) => {
+        const task = getTask();
+        if (task && isFunction(onTaskError)) onTaskError(task, e);
+
+        updateTask(data.id, { message: e.message, status: 'FAILED' });
+      })
+      .finally(() => {
+        const task = getTask();
+        if (task && isFunction(onTaskComplete)) onTaskComplete(task);
+
+        // ignore process next task for single operation inputs
+        if (hasInputData) return;
+
+        processNextTask(_input);
+      });
+
+    updateTask(data.id, { cancel, status: 'PENDING' });
+  };
 
   const tasks = [...tasksRef.current.values()];
   const statusCounts = getStatusCounts(tasks);

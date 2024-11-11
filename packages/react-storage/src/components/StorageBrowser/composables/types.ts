@@ -3,6 +3,9 @@ import { ActionStartProps } from './ActionStart';
 import { DataRefreshProps } from './DataRefresh';
 import { DataTableProps } from './DataTable';
 import { DropZoneProps } from './DropZone';
+import { LoadingIndicatorProps } from './LoadingIndicator';
+import { MessageProps } from './Message';
+import { FolderNameFieldProps } from './FolderNameField';
 import { NavigationProps } from './Navigation';
 import { StatusDisplayProps } from './StatusDisplay';
 import { PaginationProps } from './Pagination';
@@ -14,10 +17,13 @@ export interface Composables {
   DataRefresh: React.ComponentType<DataRefreshProps>;
   DataTable: React.ComponentType<DataTableProps>;
   DropZone: React.ComponentType<DropZoneProps>;
+  FolderNameField: React.ComponentType<FolderNameFieldProps>;
+  LoadingIndicator: React.ComponentType<LoadingIndicatorProps>;
+  Message: React.ComponentType<MessageProps>;
   Navigation: React.ComponentType<NavigationProps>;
-  StatusDisplay: React.ComponentType<StatusDisplayProps>;
   Pagination: React.ComponentType<PaginationProps>;
   Search: React.ComponentType<SearchProps>;
+  StatusDisplay: React.ComponentType<StatusDisplayProps>;
 }
 
 export interface ComposablesContext {

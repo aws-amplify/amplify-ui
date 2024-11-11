@@ -1,19 +1,29 @@
-import { TaskData, TaskHandler, TaskHandlerInput } from '../../actions';
+import {
+  LocationData,
+  TaskData,
+  TaskHandler,
+  TaskHandlerInput,
+} from '../../actions';
 import {
   ComponentName,
   DefaultActionKey,
   TaskActionConfig,
 } from '../../actions/configs';
-import { StatusCounts, Tasks } from '../../tasks';
+import { LocationState } from '../../providers/store/location';
+import { StatusCounts, Task, Tasks } from '../../tasks';
+import { DataTableProps } from '../../composables/DataTable';
+import { WithKey } from '../../components/types';
 
 export interface ActionViewState<T extends TaskData = TaskData> {
   isProcessing: boolean;
   isProcessingComplete: boolean;
-  onActionStart: () => void;
-  onActionCancel: () => void;
-  onExit: () => void;
+  location: LocationState;
   statusCounts: StatusCounts;
   tasks: Tasks<T>;
+  onActionStart: () => void;
+  onActionCancel: () => void;
+  onExit?: (location?: LocationData) => void;
+  onTaskCancel: (task: Task) => void;
 }
 
 export interface ActionViewProps {
@@ -60,3 +70,17 @@ export type DerivedActionViews<T> = {
       : never
   >;
 };
+
+export type HeaderKeys =
+  | 'name'
+  | 'folder'
+  | 'type'
+  | 'size'
+  | 'status'
+  | 'progress'
+  | 'cancel';
+
+export type ActionViewHeaders = WithKey<
+  DataTableProps['headers'][number],
+  HeaderKeys
+>[];

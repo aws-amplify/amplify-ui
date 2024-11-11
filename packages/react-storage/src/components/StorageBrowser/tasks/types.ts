@@ -11,13 +11,16 @@ export type TaskStatus =
 export type StatusCounts = Record<TaskStatus | 'TOTAL', number>;
 
 export interface ProcessTasksOptions<
-  T extends TaskData,
-  U extends number | never,
+  T extends TaskData = TaskData,
+  U extends number | never = never,
 > {
   concurrency?: U;
+  onTaskCancel?: (data: Task<T>) => void;
+  onTaskComplete?: (data: Task<T>) => void;
   onTaskError?: (data: Task<T>, error: Error | undefined) => void;
   onTaskProgress?: (data: Task<T>, progress: number | undefined) => void;
   onTaskSuccess?: (data: Task<T>) => void;
+  onTaskRemove?: (data: Task<T>) => void;
 }
 
 export interface Task<T extends TaskData = TaskData> {

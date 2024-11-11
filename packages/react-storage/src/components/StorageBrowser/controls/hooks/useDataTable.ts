@@ -9,10 +9,10 @@ import {
   DataTableNumberDataCell,
 } from '../../composables/DataTable';
 import { useControlsContext } from '../context';
-import { compareButtonData } from '../compareFunctions/compareButtonData';
-import { compareDateData } from '../compareFunctions/compareDateData';
-import { compareNumberData } from '../compareFunctions/compareNumberData';
-import { compareTextData } from '../compareFunctions/compareTextData';
+import { compareButtonData } from './compareFunctions/compareButtonData';
+import { compareDateData } from './compareFunctions/compareDateData';
+import { compareNumberData } from './compareFunctions/compareNumberData';
+import { compareTextData } from './compareFunctions/compareTextData';
 
 interface SortState {
   index: number;
