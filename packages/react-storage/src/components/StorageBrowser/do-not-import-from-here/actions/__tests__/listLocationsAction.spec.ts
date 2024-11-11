@@ -1,7 +1,7 @@
 import { ListLocations, LocationAccess } from '../../../storage-internal';
 
 import { createListLocationsAction } from '../listLocationsAction';
-import { parseLocationAccess } from '../../../actions/handlers/utils';
+import { parseAccessGrantLocation } from '../../../actions/handlers/utils';
 
 Object.defineProperty(globalThis, 'crypto', {
   value: {
@@ -229,7 +229,7 @@ describe('createListLocationsAction', () => {
         getFakeLocation('READWRITE', 'BUCKET'),
         getFakeLocation('READWRITE', 'OBJECT'),
         getFakeLocation('READWRITE', 'PREFIX'),
-      ].map(parseLocationAccess)
+      ].map(parseAccessGrantLocation)
     );
     expect(output.nextToken).toBeUndefined();
   });

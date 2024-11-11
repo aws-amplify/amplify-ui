@@ -8,13 +8,14 @@ import {
   CreateLocationCredentialsStoreInput,
   GetLocationCredentials,
   LocationCredentialsStore,
+  LocationPermissions
 } from '../../../credentials/types';
 
 export type RegisterAuthListener = (onStateChange: () => void) => void;
 
 export type GetCredentials = (input: {
   scope: string;
-  permission: Permission;
+  permissions: LocationPermissions;
 }) => LocationCredentialsProvider;
 
 export interface CredentialsStore

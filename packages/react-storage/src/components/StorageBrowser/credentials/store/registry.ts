@@ -1,10 +1,9 @@
 import {
   AWSTemporaryCredentials,
-  CredentialsLocation,
   StorageValidationErrorCode,
   assertValidationError,
 } from '../../storage-internal';
-import { GetLocationCredentials } from '../types';
+import { GetLocationCredentials, CredentialsLocation } from '../types';
 
 import {
   LruLocationCredentialsStore,
@@ -40,16 +39,6 @@ export const createStore = (
   return storeSymbol;
 };
 
-const getLookUpLocations = (location: CredentialsLocation) => {
-  const { scope, permission } = location;
-  const locations = [{ scope, permission }];
-  if (permission === 'READ' || permission === 'WRITE') {
-    locations.push({ scope, permission: 'READWRITE' });
-  }
-
-  return locations;
-};
-
 const getCredentialsStore = (storeSymbol: StoreRegistrySymbol) => {
   assertValidationError(
     storeRegistry.has(storeSymbol),
@@ -70,13 +59,10 @@ export const getValue = async (input: {
   const { storeSymbol: storeReference, location, forceRefresh } = input;
   const store = getCredentialsStore(storeReference);
   if (!forceRefresh) {
-    const lookupLocations = getLookUpLocations(location);
-    for (const lookupLocation of lookupLocations) {
-      const credentials = getCacheValue(store, lookupLocation);
+    const credentials = getCacheValue(store, location);
       if (credentials !== null) {
         return { credentials };
       }
-    }
   }
 
   return fetchNewValue(store, location);

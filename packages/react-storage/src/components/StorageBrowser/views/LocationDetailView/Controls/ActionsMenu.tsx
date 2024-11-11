@@ -6,9 +6,10 @@ import { LocationItemData } from '../../../actions';
 import { LocationActions } from '../../../do-not-import-from-here/locationActions';
 import { useTempActions } from '../../../do-not-import-from-here/createTempActionsProvider';
 import { useStore } from '../../../providers/store';
-import { Permission } from '../../../storage-internal';
 
 import { ActionsMenu, ActionItemProps } from '../../../components/ActionsMenu';
+import { LocationPermissions } from '../../../credentials/types';
+import { toAccessGrantPermission } from '../../../adapters/permissionParsers';
 
 const getKeyedFragments = (...nodes: React.ReactNode[]): React.ReactNode[] =>
   nodes.map((child, key) => <React.Fragment key={key}>{child}</React.Fragment>);
@@ -17,20 +18,25 @@ const getActionsMenuData = ({
   actions,
   items = [],
   onSelect,
-  permission,
+  permissions,
 }: {
   actions: LocationActions;
   items: LocationItemData[] | undefined;
   onSelect: (type: string) => void;
-  permission: Permission | undefined;
+  permissions: LocationPermissions | undefined;
 }): ActionItemProps[] =>
-  !permission || isEmptyObject(actions)
+  !permissions || isEmptyObject(actions)
     ? []
     : Object.entries(actions).reduce(
         (output: ActionItemProps[], [key, { options }]) => {
           const { icon, hide, disable, displayName } = options ?? {};
 
-          if (typeof hide === 'function' ? hide(permission) : hide) {
+          if (
+            typeof hide === 'function'
+              ? // FIXME: temporarily map the granular permissions type legacy type
+                hide(toAccessGrantPermission(permissions))
+              : hide
+          ) {
             return output;
           }
           const children = getKeyedFragments(icon, displayName);
@@ -59,7 +65,7 @@ export function ActionsMenuControl({
   const [{ location, locationItems }, dispatchStoreAction] = useStore();
   const { fileDataItems } = locationItems;
   const { current } = location;
-  const { permission } = current ?? {};
+  const { permissions } = current ?? {};
 
   const data = React.useMemo(
     () =>
@@ -70,9 +76,9 @@ export function ActionsMenuControl({
           onActionSelect?.(actionType);
           dispatchStoreAction({ type: 'SET_ACTION_TYPE', actionType });
         },
-        permission,
+        permissions,
       }),
-    [actions, dispatchStoreAction, fileDataItems, onActionSelect, permission]
+    [actions, dispatchStoreAction, fileDataItems, onActionSelect, permissions]
   );
 
   return <ActionsMenu data={data} disabled={disabled} />;

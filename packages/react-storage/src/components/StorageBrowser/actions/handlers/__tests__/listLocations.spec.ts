@@ -5,7 +5,7 @@ import {
   LocationAccess,
 } from '../../../storage-internal';
 
-import { parseLocations } from '../utils';
+import { parseAccessGrantLocations } from '../utils';
 
 import {
   listLocationsHandler,
@@ -60,7 +60,7 @@ describe('listLocationsHandler', () => {
     const result = await listLocationsHandler(input);
 
     expect(result.items).toEqual(
-      parseLocations(mockOutput.locations, input.options?.exclude)
+      parseAccessGrantLocations(mockOutput.locations, input.options?.exclude)
     );
     expect(result.nextToken).toBeUndefined();
     expect(mockListCallerAccessGrants).toHaveBeenCalledTimes(1);
@@ -103,9 +103,18 @@ describe('listLocationsHandler', () => {
     const result = await listLocationsHandler(input);
 
     expect(result.items).toEqual([
-      ...parseLocations(mockOutputPage1.locations, input.options?.exclude),
-      ...parseLocations(mockOutputPage2.locations, input.options?.exclude),
-      ...parseLocations(mockOutputPage3.locations, input.options?.exclude),
+      ...parseAccessGrantLocations(
+        mockOutputPage1.locations,
+        input.options?.exclude
+      ),
+      ...parseAccessGrantLocations(
+        mockOutputPage2.locations,
+        input.options?.exclude
+      ),
+      ...parseAccessGrantLocations(
+        mockOutputPage3.locations,
+        input.options?.exclude
+      ),
     ]);
     expect(result.nextToken).toBeUndefined();
     expect(mockListCallerAccessGrants).toHaveBeenCalledTimes(3);

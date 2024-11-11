@@ -1,6 +1,7 @@
 import { TransferProgressEvent } from 'aws-amplify/storage';
+import { LocationAccess as AccessGrantLocation } from '../../storage-internal';
 
-import { LocationAccess, Permission } from '../../storage-internal';
+import { LocationPermissions } from '../../credentials/types';
 import {
   ActionInputConfig,
   FileData,
@@ -18,7 +19,34 @@ export const constructBucket = ({
   region: string;
 } => ({ bucketName, region });
 
-export const parseLocationAccess = (location: LocationAccess): LocationData => {
+export const parseAccessGrantLocationScope = (
+  scope: string,
+  type: LocationType
+): { bucket: string; prefix: string } => {
+  const slicedScope = scope.slice(5);
+  if (type === 'BUCKET') {
+    // { scope: 's3://bucket/*', type: 'BUCKET', },
+    const bucket = slicedScope.slice(0, -2);
+    const prefix = '';
+    return { bucket, prefix };
+  } else if (type === 'PREFIX') {
+    // { scope: 's3://bucket/path/*', type: 'PREFIX', },
+    const bucket = slicedScope.slice(0, slicedScope.indexOf('/'));
+    const prefix = `${slicedScope.slice(bucket.length + 1, -1)}`;
+    return { bucket, prefix };
+  } else if (type === 'OBJECT') {
+    // { scope: 's3://bucket/path/to/object', type: 'OBJECT', },
+    const bucket = slicedScope.slice(0, slicedScope.indexOf('/'));
+    const prefix = slicedScope.slice(bucket.length + 1);
+    return { bucket, prefix };
+  } else {
+    throw new Error(`Invalid location type: ${type}`);
+  }
+};
+
+export const parseAccessGrantLocation = (
+  location: AccessGrantLocation
+): LocationData => {
   const { permission, scope, type } = location;
   if (!scope.startsWith('s3://')) {
     throw new Error(`Invalid scope: ${scope}`);
@@ -54,28 +82,68 @@ export const parseLocationAccess = (location: LocationAccess): LocationData => {
     }
   }
 
-  return { bucket, id, permission, prefix, type };
+  let permissions: LocationPermissions;
+  switch (permission) {
+    case 'READ':
+      permissions = ['get', 'list'];
+      break;
+    case 'READWRITE':
+      permissions = ['delete', 'get', 'list', 'write'];
+      break;
+    case 'WRITE':
+      permissions = ['delete', 'write'];
+      break;
+    default:
+      throw new Error(`Invalid location permission: ${permission}`);
+  }
+
+  return { bucket, id, permissions: permissions, prefix, type };
 };
 
-export type ExcludeType = Permission | LocationType;
+export interface ExcludeType {
+  exactPermissions?: LocationPermissions;
+  type?: LocationType | LocationType[];
+}
+
+const isSamePermissions = (
+  permissionsToExclude: LocationPermissions,
+  locationPermissions: LocationPermissions
+) => {
+  if (permissionsToExclude.length !== locationPermissions.length) {
+    return false;
+  }
+  const sortedLocationPermissions = locationPermissions.sort();
+  return permissionsToExclude
+    .sort()
+    .every(
+      (permission, index) => permission === sortedLocationPermissions[index]
+    );
+};
+
+const isSameType = (
+  typeToExclude: LocationType | LocationType[],
+  locationType: LocationType
+) =>
+  typeof typeToExclude === 'string'
+    ? typeToExclude === locationType
+    : typeToExclude.includes(locationType);
 
 export const shouldExcludeLocation = (
-  { permission, type }: LocationData,
-  exclude?: ExcludeType | ExcludeType[]
+  { permissions, type }: LocationData,
+  exclude?: ExcludeType
 ): boolean =>
-  !exclude
-    ? false
-    : typeof exclude === 'string'
-    ? exclude === permission || exclude === type
-    : exclude.includes(permission) || exclude.includes(type);
+  Boolean(
+    exclude?.exactPermissions &&
+      isSamePermissions(exclude.exactPermissions, permissions)
+  ) || Boolean(exclude?.type && isSameType(exclude.type, type));
 
-export const parseLocations = (
-  locations: LocationAccess[],
-  exclude?: ExcludeType | ExcludeType[]
+export const parseAccessGrantLocations = (
+  locations: AccessGrantLocation[],
+  exclude?: ExcludeType
 ): LocationData[] =>
   locations.reduce(
-    (filteredLocations: LocationData[], location: LocationAccess) => {
-      const parsedLocation = parseLocationAccess(location);
+    (filteredLocations: LocationData[], location: AccessGrantLocation) => {
+      const parsedLocation = parseAccessGrantLocation(location);
       if (shouldExcludeLocation(parsedLocation, exclude)) {
         filteredLocations.push(parsedLocation);
       }

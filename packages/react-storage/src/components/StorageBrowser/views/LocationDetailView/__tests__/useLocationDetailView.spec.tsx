@@ -85,7 +85,7 @@ const testLocation: LocationState = {
   current: {
     bucket: 'test-bucket',
     prefix: 'item-b/',
-    permission: 'READ',
+    permissions: 'READ',
     id: '2',
     type: 'PREFIX',
   },
@@ -331,7 +331,7 @@ describe('useLocationDetailView', () => {
     const expectedLocation: LocationData = {
       bucket: 'test-bucket',
       prefix: `item-b/`,
-      permission: 'READ',
+      permissions: 'READ',
       id: '2',
       type: 'PREFIX',
     };

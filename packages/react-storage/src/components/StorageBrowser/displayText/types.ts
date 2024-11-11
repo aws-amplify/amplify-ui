@@ -1,7 +1,7 @@
 import { StatusCounts } from '../tasks';
-import { FolderData, LocationData, LocationItemData } from '../actions';
-import { Permission } from '../storage-internal';
+import { FolderData, LocationData, LocationItemData} from '../actions';
 import { LocationState } from '../providers/store/location';
+import { LocationPermissions } from '../credentials/types';
 
 /**
  * Common display text values available on each action view (e.g. upload, copy, etc)
@@ -38,7 +38,7 @@ export interface DefaultListViewDisplayText<T = any> {
 
 export interface DefaultLocationsViewDisplayText
   extends DefaultListViewDisplayText<LocationData> {
-  getPermissionName: (permission: Permission) => string;
+  getPermissionName: (permissions: LocationPermissions) => string;
   title: string;
   tableColumnFolderHeader: string;
   tableColumnBucketHeader: string;

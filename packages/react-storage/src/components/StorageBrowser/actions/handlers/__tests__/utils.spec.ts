@@ -1,10 +1,10 @@
-import { LocationAccess } from '../../../storage-internal';
+import { LocationAccess as AccessGrantLocation } from '../../../storage-internal';
 import { LocationData } from '../types';
 
 import {
   shouldExcludeLocation,
   getFileKey,
-  parseLocationAccess,
+  parseAccessGrantLocation,
 } from '../utils';
 
 describe('parseLocationAccess', () => {
@@ -20,32 +20,32 @@ describe('parseLocationAccess', () => {
   });
 
   it('throws if provided an invalid location scope', () => {
-    const invalidLocation: LocationAccess = {
+    const invalidLocation: AccessGrantLocation = {
       scope: 'nope',
       permission: 'READ',
       type: 'BUCKET',
     };
 
-    expect(() => parseLocationAccess(invalidLocation)).toThrow(
+    expect(() => parseAccessGrantLocation(invalidLocation)).toThrow(
       'Invalid scope: nope'
     );
   });
 
   it('throws if provided an invalid location type', () => {
-    const invalidLocation: LocationAccess = {
+    const invalidLocation: AccessGrantLocation = {
       scope: 's3://yes',
       permission: 'READ',
       // @ts-expect-error intentional coercing to allow unhappy path test
       type: 'NOT_BUCKET',
     };
 
-    expect(() => parseLocationAccess(invalidLocation)).toThrow(
+    expect(() => parseAccessGrantLocation(invalidLocation)).toThrow(
       'Invalid location type: NOT_BUCKET'
     );
   });
 
   it('parses a BUCKET location as expected', () => {
-    const location: LocationAccess = {
+    const location: AccessGrantLocation = {
       permission: 'WRITE',
       scope: `s3://${bucket}/*`,
       type: 'BUCKET',
@@ -54,15 +54,15 @@ describe('parseLocationAccess', () => {
       bucket,
       id,
       prefix: '',
-      permission: 'WRITE',
+      permissions: ['delete', 'write'],
       type: 'BUCKET',
     };
 
-    expect(parseLocationAccess(location)).toStrictEqual(expected);
+    expect(parseAccessGrantLocation(location)).toStrictEqual(expected);
   });
 
   it('parses a PREFIX location as expected', () => {
-    const location: LocationAccess = {
+    const location: AccessGrantLocation = {
       permission: 'WRITE',
       scope: `s3://${bucket}/${folderPrefix}*`,
       type: 'PREFIX',
@@ -72,15 +72,15 @@ describe('parseLocationAccess', () => {
       bucket,
       id,
       prefix: folderPrefix,
-      permission: 'WRITE',
+      permissions: ['delete', 'write'],
       type: 'PREFIX',
     };
 
-    expect(parseLocationAccess(location)).toStrictEqual(expected);
+    expect(parseAccessGrantLocation(location)).toStrictEqual(expected);
   });
 
   it('parses an OBJECT location as expected', () => {
-    const location: LocationAccess = {
+    const location: AccessGrantLocation = {
       permission: 'WRITE',
       scope: `s3://${bucket}/${folderPrefix}${filePath}`,
       type: 'OBJECT',
@@ -90,11 +90,11 @@ describe('parseLocationAccess', () => {
       bucket,
       id,
       prefix: `${folderPrefix}${filePath}`,
-      permission: 'WRITE',
+      permissions: ['delete', 'write'],
       type: 'OBJECT',
     };
 
-    expect(parseLocationAccess(location)).toStrictEqual(expected);
+    expect(parseAccessGrantLocation(location)).toStrictEqual(expected);
   });
 });
 
@@ -110,22 +110,24 @@ describe('getFileKey', () => {
 });
 
 describe('shouldExcludeLocation', () => {
-  const location = {
+  const location: LocationData = {
     bucket: 'bucket',
     id: 'id',
-    permission: 'READ',
+    permissions: ['list', 'get'],
     prefix: 'prefix/',
     type: 'PREFIX',
-  } as const;
+  };
 
   it('returns true when the provided location permissions match excluded permissions', () => {
-    const output = shouldExcludeLocation(location, 'READ');
+    const output = shouldExcludeLocation(location, {
+      exactPermissions: ['list', 'get'],
+    });
 
     expect(output).toBe(true);
   });
 
   it('returns true when the provided location type match excluded type', () => {
-    const output = shouldExcludeLocation(location, 'PREFIX');
+    const output = shouldExcludeLocation(location, { type: 'PREFIX' });
 
     expect(output).toBe(true);
   });

@@ -1,7 +1,6 @@
+import { LocationPermissions } from '../../credentials/types';
 import {
   AWSTemporaryCredentials,
-  CredentialsLocation,
-  Permission,
   StorageValidationErrorCode,
   assertValidationError,
 } from '../../storage-internal';
@@ -12,6 +11,11 @@ import {
   CREDENTIALS_STORE_DEFAULT_SIZE,
 } from './constants';
 
+interface CredentialsLocation {
+  scope: string;
+  permissions: LocationPermissions;
+}
+
 interface StoreValue extends CredentialsLocation {
   credentials?: AWSTemporaryCredentials;
   inflightCredentials?: Promise<{ credentials: AWSTemporaryCredentials }>;
@@ -19,10 +23,16 @@ interface StoreValue extends CredentialsLocation {
 
 type S3Uri = string;
 
-type CacheKey = `${S3Uri}_${Permission}`;
+type SerializedPermissions = string;
+
+type CacheKey = `${S3Uri}_${SerializedPermissions}`;
+
+const serializedPermissions = (
+  permissions: LocationPermissions
+): SerializedPermissions => permissions.sort().join('_');
 
 const createCacheKey = (location: CredentialsLocation): CacheKey =>
-  `${location.scope}_${location.permission}`;
+  `${location.scope}_${serializedPermissions(location.permissions)}`;
 
 /**
  * LRU implementation for Location Credentials Store
@@ -71,7 +81,7 @@ const dispatchRefresh = (
     try {
       const { credentials } = await refreshHandler({
         scope: value.scope,
-        permission: value.permission,
+        permissions: value.permissions,
       });
       value.credentials = credentials;
 
@@ -144,7 +154,7 @@ export const fetchNewValue = async (
   if (!storeValues.has(key)) {
     const newStoreValue: StoreValue = {
       scope: location.scope,
-      permission: location.permission,
+      permissions: location.permissions,
     };
     setCacheRecord(store, key, newStoreValue);
   }

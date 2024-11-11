@@ -1,5 +1,5 @@
-import { Permission } from '../../storage-internal';
 import { IconVariant } from '../../context/elements';
+import { LocationPermissions } from '../../credentials/types';
 
 import {
   ListLocationsHandler,
@@ -59,7 +59,7 @@ export interface ActionListItemConfig {
    * conditionally render list item based on location permission
    * @default false
    */
-  hide?: (permission: Permission) => boolean;
+  hide?: (permissions: LocationPermissions) => boolean;
 
   /**
    * list item icon
