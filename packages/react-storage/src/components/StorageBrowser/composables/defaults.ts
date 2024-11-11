@@ -7,6 +7,7 @@ import { FolderNameField } from './FolderNameField';
 import { LoadingIndicator } from './LoadingIndicator';
 import { Message } from './Message';
 import { Navigation } from './Navigation';
+import { Pagination } from './Pagination';
 import { StatusDisplay } from './StatusDisplay';
 import { Search } from './Search';
 
@@ -22,6 +23,7 @@ export const DEFAULT_COMPOSABLES: Composables = {
   LoadingIndicator,
   Message,
   Navigation,
+  Pagination,
   StatusDisplay,
   Search,
 };
