@@ -26,7 +26,7 @@ interface TableProps {
   rows: WithKey<TableRow>[];
 }
 
-export function Table({ headers, rows }: TableProps): React.JSX.Element {
+export const Table = ({ headers, rows }: TableProps): React.JSX.Element => {
   return (
     <TableElement className={`${CLASS_BASE}__table`}>
       <TableHeadElement className={`${CLASS_BASE}__table-head`}>
@@ -69,4 +69,4 @@ export function Table({ headers, rows }: TableProps): React.JSX.Element {
       </TableBodyElement>
     </TableElement>
   );
-}
+};

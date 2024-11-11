@@ -24,19 +24,13 @@ const createAmplifyAuthAdapterSpy = jest.spyOn(
   'createAmplifyAuthAdapter'
 );
 
-const defaultPrefixes = [
-  'public/',
-  (identityId: string) => `protected/${identityId}/`,
-  (identityId: string) => `private/${identityId}/`,
-];
-
 describe('StorageBrowser', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
   it('calls `createStorageBrowser`', async () => {
     await waitFor(() => {
-      render(<StorageBrowser defaultPrefixes={defaultPrefixes} />);
+      render(<StorageBrowser />);
     });
 
     expect(createStorageBrowserSpy).toHaveBeenCalledTimes(1);
@@ -46,8 +40,5 @@ describe('StorageBrowser', () => {
     });
 
     expect(createAmplifyAuthAdapterSpy).toHaveBeenCalledTimes(1);
-    expect(createAmplifyAuthAdapterSpy).toHaveBeenCalledWith({
-      options: { defaultPrefixes },
-    });
   });
 });

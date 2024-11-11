@@ -1,16 +1,24 @@
-import { TaskHandler, TaskHandlerInput, TaskHandlerOutput } from '../types';
+import {
+  TaskData,
+  TaskHandler,
+  TaskHandlerInput,
+  TaskHandlerOutput,
+  TaskHandlerOptions,
+} from './types';
 
-interface CreateFolderHandlerData {
-  target: string;
+export interface CreateFolderHandlerData extends TaskData {}
+export interface CreateFolderHandlerOptions extends TaskHandlerOptions {
+  preventOverwrite?: boolean;
 }
-interface CreateFolderHandlerOptions {
-  preventOverwite?: boolean;
-}
+
 export interface CreateFolderHandlerInput
   extends TaskHandlerInput<
     CreateFolderHandlerData,
     CreateFolderHandlerOptions
-  > {}
+  > {
+  destinationPrefix: string;
+}
+
 export interface CreateFolderHandlerOutput extends TaskHandlerOutput {}
 
 export interface CreateFolderHandler

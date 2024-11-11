@@ -17,13 +17,13 @@ const fileThree = new File([], 'file-three');
 
 const fileItemOne: FileItem = {
   id: 'item-one',
-  item: fileOne,
+  file: fileOne,
   key: fileOne.name,
 };
 
 const fileItemTwo: FileItem = {
   id: 'item-two',
-  item: fileTwo,
+  file: fileTwo,
   key: fileTwo.name,
 };
 
@@ -59,31 +59,53 @@ describe('files context utils', () => {
       expect(output).not.toBe(previous);
       expect(output).toHaveLength(3);
 
-      const newItem = output[2];
+      const newItem = output[1];
 
-      expect(newItem.item).toBe(fileThree);
+      expect(newItem.file).toBe(fileThree);
       expect(newItem.key).toBe(fileThree.name);
       expect(typeof newItem.id).toBe('string');
     });
 
-    it('returns the next `items` when previous `items` are `undefined`', () => {
-      const incoming = [fileOne, fileTwo];
+    it('returns the sorted next `items` when previous `items` are `undefined`', () => {
+      const incoming = [fileTwo, fileOne];
       const previous: FileItems = [];
       const output = resolveFiles(previous, incoming);
 
       expect(output).toHaveLength(2);
       const [itemOne, itemTwo] = output;
 
-      expect(itemOne.item).toBe(fileOne);
-      expect(itemTwo.item).toBe(fileTwo);
+      expect(itemOne.file).toBe(fileOne);
+      expect(itemTwo.file).toBe(fileTwo);
     });
 
-    it('combines and returns previous and next `items`', () => {
+    it('merges, sorts and returns previous and next `items`', () => {
       const incoming = [fileThree];
       const previous = [fileItemOne, fileItemTwo];
       const output = resolveFiles(previous, incoming);
 
       expect(output).toHaveLength(3);
+
+      const [itemOne, itemTwo, itemThree] = output;
+
+      // fileItemOne.key === 'item-one'
+      expect(itemOne.key).toBe(fileItemOne.key);
+
+      // fileThree.name === 'item-three'
+      expect(itemTwo.key).toBe(fileThree.name);
+
+      // fileItemTwo.key === 'item-two'
+      expect(itemThree.key).toBe(fileItemTwo.key);
+    });
+
+    it('returns the webKitRelativePath as key when available', () => {
+      const incoming = [
+        { ...fileThree, webkitRelativePath: 'test/file/file-three' },
+      ];
+      const previous = [fileItemOne, fileItemTwo];
+      const output = resolveFiles(previous, incoming);
+
+      expect(output).toHaveLength(3);
+      expect(output[2].key).toBe('test/file/file-three');
     });
   });
 
@@ -110,6 +132,19 @@ describe('files context utils', () => {
 
       expect(output).toHaveLength(1);
       expect(output[0]).toBe(fileItemTwo);
+    });
+
+    it('returns the previous items on remove when previous and next items are the same length', () => {
+      const previous = [fileItemOne, fileItemTwo];
+      const targetId = 'not a real id lol';
+
+      const output = filesReducer(previous, {
+        type: 'REMOVE_FILE_ITEM',
+        id: targetId,
+      });
+
+      expect(output).toHaveLength(2);
+      expect(output).toBe(previous);
     });
 
     it('resets `fileItems` as expected', () => {

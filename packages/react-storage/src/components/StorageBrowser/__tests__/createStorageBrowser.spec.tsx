@@ -2,8 +2,14 @@ import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 
 import * as ActionsModule from '../do-not-import-from-here/actions';
+import * as ProvidersModule from '../providers';
 
 import { createStorageBrowser } from '../createStorageBrowser';
+
+const createConfigurationProviderSpy = jest.spyOn(
+  ProvidersModule,
+  'createConfigurationProvider'
+);
 
 jest.spyOn(ActionsModule, 'useLocationsData').mockReturnValue([
   {
@@ -25,22 +31,15 @@ jest.spyOn(ActionsModule, 'useAction').mockReturnValue([
   jest.fn(),
 ]);
 
-const INITIAL_NAVIGATE_STATE = [
-  { location: undefined, history: [], path: undefined },
-  jest.fn(),
-];
-const INITIAL_ACTION_STATE = [
-  { selected: { type: undefined, items: undefined }, actions: {} },
-  jest.fn(),
-];
-
 const accountId = '012345678901';
+const customEndpoint = 'mock-endpoint';
 const getLocationCredentials = jest.fn();
 const listLocations = jest.fn();
 const region = 'region';
 
 const config = {
   accountId,
+  customEndpoint,
   getLocationCredentials,
   listLocations,
   region,
@@ -57,7 +56,7 @@ describe('createStorageBrowser', () => {
 
     // @ts-expect-error intentionally omit registerAuthListener
     expect(() => createStorageBrowser(input)).toThrow(
-      'StorageManager: `registerAuthListener` must be a function.'
+      'StorageBrowser: `registerAuthListener` must be a function.'
     );
   });
 
@@ -69,5 +68,21 @@ describe('createStorageBrowser', () => {
     });
 
     expect(screen.getByTestId('LOCATIONS_VIEW')).toBeInTheDocument();
+
+    expect(createConfigurationProviderSpy).toHaveBeenCalledWith({
+      accountId: config.accountId,
+      displayName: 'ConfigurationProvider',
+      customEndpoint: config.customEndpoint,
+      getLocationCredentials: config.getLocationCredentials,
+      region: config.region,
+      registerAuthListener: config.registerAuthListener,
+      actions: {
+        createFolder: expect.any(Object),
+        delete: expect.any(Object),
+        listLocationItems: expect.any(Object),
+        listLocations: expect.any(Object),
+        upload: expect.any(Object),
+      },
+    });
   });
 });

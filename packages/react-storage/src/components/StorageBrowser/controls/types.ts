@@ -1,6 +1,9 @@
-import { Composables } from '../composables/types';
+import { LocationData } from '../actions';
 import { DataTableSortHeader, DataTableProps } from '../composables/DataTable';
-import { INITIAL_STATUS_COUNTS } from '../views/LocationActionView/constants';
+import { MessageType } from '../composables/Message';
+import { Composables } from '../composables/types';
+import { LocationState } from '../providers/store/location';
+import { StatusCounts } from '../tasks';
 
 export interface ControlProps {
   className?: string;
@@ -11,8 +14,6 @@ export interface Controls {
 }
 
 export type ControlKey = keyof Composables;
-
-export type TaskCounts = typeof INITIAL_STATUS_COUNTS;
 
 interface TruncatedSortHeader
   extends Omit<
@@ -32,17 +33,39 @@ interface TableData {
 
 export interface ControlsContext {
   data: {
-    taskCounts?: TaskCounts;
-    tableData?: TableData;
+    actionCancelLabel?: string;
+    actionStartLabel?: string;
+    folderNameId?: string;
+    folderNameLabel?: string;
+    folderNamePlaceholder?: string;
+    folderNameValidationMessage?: React.ReactNode;
+    isActionCancelDisabled?: boolean;
+    isActionStartDisabled?: boolean;
+    isAddFilesDisabled?: boolean;
+    isAddFolderDisabled?: boolean;
     isDataRefreshDisabled?: boolean;
+    isExitDisabled?: boolean;
+    isLoading?: boolean;
+    isFolderNameDisabled?: boolean;
+    isOverwriteCheckboxDisabled?: boolean;
+    loadingIndicatorLabel?: string;
+    location?: LocationState;
+    messageContent?: React.ReactNode;
+    messageType?: MessageType;
+    searchPlaceholder?: string;
+    showIncludeSubfolders?: boolean;
+    statusCounts?: StatusCounts;
+    tableData?: TableData;
   };
-  actionsConfig?: {
-    type:
-      | 'SINGLE_ACTION'
-      | 'BATCH_ACTION'
-      | 'LIST_LOCATIONS'
-      | 'LIST_LOCATION_ITEMS';
-    isCancelable?: boolean;
-  };
+  onActionCancel?: () => void;
+  onActionStart?: () => void;
+  onActionReset?: () => void;
+  onDropFiles?: (files: File[]) => void;
+  onFolderNameChange?: (value: string) => void;
+  onMessageDismiss?: () => void;
+  onNavigate?: (location: LocationData, path?: string) => void;
+  onNavigateHome?: () => void;
   onRefresh?: () => void;
+  onSearch?: (term: string, includeSubfolders: boolean) => void;
+  onValidateFolderName?: (value: string) => void;
 }

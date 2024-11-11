@@ -1,42 +1,46 @@
 import React from 'react';
 
-import { CLASS_BASE } from '../constants';
-import { resolveClassName } from '../utils';
-
-import { CreateFolderControls } from './CreateFolderControls';
-import { UploadControls } from './UploadControls';
+import { CreateFolderView } from './CreateFolderView';
+import { CopyView } from './CopyView';
+import { DeleteView } from './DeleteView';
+import { UploadView } from './UploadView';
 import { useStore } from '../../providers/store';
 
-export interface LocationActionViewProps {
-  actionType?: string;
-  className?: (defaultClassName: string) => string;
-  onClose?: () => void;
+export interface LocationActionViewProps<T = string> {
+  onExit?: () => void;
+  type?: T;
 }
 
-const ACTION_VIEW_TYPES = ['CREATE_FOLDER', 'UPLOAD_FILES', 'UPLOAD_FOLDER'];
+const ACTION_VIEW_TYPES = [
+  'COPY_FILES',
+  'CREATE_FOLDER',
+  'DELETE_FILES',
+  'UPLOAD_FILES',
+  'UPLOAD_FOLDER',
+];
 
 const isActionViewType = (value?: string) =>
   ACTION_VIEW_TYPES.some((type) => type === value);
 
 export const LocationActionView = ({
-  actionType: _actionType,
-  className,
-  onClose,
+  onExit,
+  type,
 }: LocationActionViewProps): React.JSX.Element | null => {
-  const [{ actionType = _actionType }] = useStore();
+  const [{ actionType = type }] = useStore();
 
   if (!isActionViewType(actionType)) return null;
 
   return (
-    <div
-      className={resolveClassName(CLASS_BASE, className)}
-      data-testid="LOCATION_ACTION_VIEW"
-    >
+    <>
       {actionType === 'CREATE_FOLDER' ? (
-        <CreateFolderControls onClose={onClose} />
+        <CreateFolderView onExit={onExit} />
+      ) : actionType === 'DELETE_FILES' ? (
+        <DeleteView onExit={onExit} />
+      ) : actionType === 'COPY_FILES' ? (
+        <CopyView onExit={onExit} />
       ) : (
-        <UploadControls onClose={onClose} />
+        <UploadView onExit={onExit} />
       )}
-    </div>
+    </>
   );
 };

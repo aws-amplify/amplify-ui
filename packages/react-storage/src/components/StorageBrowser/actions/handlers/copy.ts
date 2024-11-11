@@ -1,46 +1,49 @@
 import { copy } from '../../storage-internal';
 import {
+  FileDataItem,
   TaskHandler,
-  TaskHandlerOptions,
   TaskHandlerInput,
+  TaskHandlerOptions,
   TaskHandlerOutput,
-} from '../types';
+} from './types';
 
-import { constructBucket, resolveHandlerResult } from './utils';
+import { constructBucket } from './utils';
 
-interface CopyPayload {
-  destinationPrefix: string;
-}
+export interface CopyHandlerData extends FileDataItem {}
 
 export interface CopyHandlerInput
-  extends TaskHandlerInput<CopyPayload, TaskHandlerOptions> {}
+  extends TaskHandlerInput<CopyHandlerData, TaskHandlerOptions> {
+  destinationPrefix: string;
+}
 export interface CopyHandlerOutput extends TaskHandlerOutput {}
 
 export interface CopyHandler
   extends TaskHandler<CopyHandlerInput, CopyHandlerOutput> {}
 
 export const copyHandler: CopyHandler = (input) => {
-  const { config, key, options, prefix, data } = input;
-  const { accountId, credentials } = config;
-  const { payload } = data;
-  const { destinationPrefix } = payload;
+  const { config, destinationPrefix: path, data } = input;
+  const {
+    accountId: expectedBucketOwner,
+    credentials,
+    customEndpoint,
+  } = config;
+  const { key: sourcePath, fileKey } = data;
 
-  const sourceKey = `${prefix}${key}`;
-  const destinationPath = `${destinationPrefix}${key}`;
   const bucket = constructBucket(config);
 
+  const destinationPath = `${path}${fileKey}`;
+  const source = { bucket, expectedBucketOwner, path: sourcePath };
+  const destination = { bucket, expectedBucketOwner, path: destinationPath };
+
   const result = copy({
-    source: { path: sourceKey, bucket, expectedBucketOwner: accountId },
-    destination: {
-      path: destinationPath,
-      bucket,
-      expectedBucketOwner: accountId,
-    },
-    options: { locationCredentialsProvider: credentials },
+    source,
+    destination,
+    options: { locationCredentialsProvider: credentials, customEndpoint },
   });
 
   return {
-    key,
-    result: resolveHandlerResult({ result, key, isCancelable: false, options }),
+    result: result
+      .then(() => ({ status: 'COMPLETE' as const }))
+      .catch(({ message }: Error) => ({ message, status: 'FAILED' as const })),
   };
 };

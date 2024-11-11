@@ -5,16 +5,18 @@ import {
   TaskHandlerOptions,
   TaskHandlerInput,
   TaskHandlerOutput,
-} from '../types';
+  FileDataItem,
+} from './types';
 
-import { constructBucket, resolveHandlerResult } from './utils';
+import { constructBucket } from './utils';
 
-interface DeleteHandlerOptions extends TaskHandlerOptions {}
+export interface DeleteHandlerOptions extends TaskHandlerOptions {}
+
+export interface DeleteHandlerData extends FileDataItem {}
 
 export interface DeleteHandlerInput
-  extends Omit<TaskHandlerInput<never, DeleteHandlerOptions>, 'data'> {
-  data: { key: string };
-}
+  extends TaskHandlerInput<DeleteHandlerData, DeleteHandlerOptions> {}
+
 export interface DeleteHandlerOutput extends TaskHandlerOutput {}
 
 export interface DeleteHandler
@@ -22,24 +24,23 @@ export interface DeleteHandler
 
 export const deleteHandler: DeleteHandler = ({
   config,
-  key,
-  prefix,
-  options,
+  data: { key },
 }): DeleteHandlerOutput => {
-  const { accountId, credentials } = config;
-  const bucket = constructBucket(config);
+  const { accountId, credentials, customEndpoint } = config;
 
   const result = remove({
-    path: `${prefix}${key}`,
+    path: key,
     options: {
-      bucket,
+      bucket: constructBucket(config),
       locationCredentialsProvider: credentials,
       expectedBucketOwner: accountId,
+      customEndpoint,
     },
   });
 
   return {
-    key,
-    result: resolveHandlerResult({ key, isCancelable: false, options, result }),
+    result: result
+      .then(() => ({ status: 'COMPLETE' as const }))
+      .catch(({ message }: Error) => ({ message, status: 'FAILED' as const })),
   };
 };

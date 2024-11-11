@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`useDestinationPicker should return the correct initial state 1`] = `
+{
+  "bucket": "bucket",
+  "currentPage": 1,
+  "hasError": false,
+  "hasNextToken": false,
+  "highestPageVisited": 0,
+  "isLoading": true,
+  "items": [],
+  "message": undefined,
+  "onPaginate": [Function],
+  "onSearch": [Function],
+  "pageItems": [],
+}
+`;

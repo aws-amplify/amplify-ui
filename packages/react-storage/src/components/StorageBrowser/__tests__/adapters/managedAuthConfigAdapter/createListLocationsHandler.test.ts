@@ -1,6 +1,3 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: Apache-2.0
-
 import { createListLocationsHandler } from '../../../adapters/createManagedAuthAdapter/createListLocationsHandler';
 import { listCallerAccessGrants } from '../../../storage-internal';
 
@@ -15,10 +12,12 @@ describe('createListLocationsHandler', () => {
     const mockAccountId = '1234567890';
     const mockRegion = 'us-foo-1';
     const mockCredentialsProvider = jest.fn();
+    const mockCustomEndpoint = 'mock-endpoint';
     const mockNextToken = '123';
     const mockPageSize = 123;
     const handler = createListLocationsHandler({
       accountId: mockAccountId,
+      customEndpoint: mockCustomEndpoint,
       region: mockRegion,
       credentialsProvider: mockCredentialsProvider,
     });
@@ -27,6 +26,7 @@ describe('createListLocationsHandler', () => {
       accountId: mockAccountId,
       region: mockRegion,
       credentialsProvider: mockCredentialsProvider,
+      customEndpoint: mockCustomEndpoint,
       nextToken: mockNextToken,
       pageSize: mockPageSize,
     });

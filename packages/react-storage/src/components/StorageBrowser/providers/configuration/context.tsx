@@ -17,10 +17,12 @@ export const { useGetActionInput, GetActionInputContext } =
 export function GetActionInputProvider({
   accountId,
   children,
+  customEndpoint,
   region,
 }: GetActionInputProviderProps): React.JSX.Element {
   const value = useGetActionInputCallback({
     accountId,
+    customEndpoint,
     region,
   });
 

@@ -13,6 +13,8 @@ export default function Page() {
 
   if (!router.query.bucket) return null;
 
+  const { path, ...location } = router.query;
+
   return (
     <Flex>
       <Button
@@ -31,11 +33,18 @@ export default function Page() {
             ? router.query.actionType
             : undefined
         }
-        location={router.query as any}
+        location={location as any}
+        path={path as string}
       >
         <StorageBrowser.LocationDetailView
           onActionSelect={(actionType) => {
             router.replace({ query: { ...router.query, actionType } });
+          }}
+          onNavigate={(location, path = '') => {
+            if (!location) {
+              return;
+            }
+            router.replace({ query: { ...location, path } });
           }}
           onExit={() => {
             router.back();
@@ -44,7 +53,7 @@ export default function Page() {
         {typeof router.query.actionType === 'string' ? (
           <dialog open={!!router.query.actionType}>
             <StorageBrowser.LocationActionView
-              onClose={() => {
+              onExit={() => {
                 router.replace({
                   query: { ...router.query, actionType: undefined },
                 });

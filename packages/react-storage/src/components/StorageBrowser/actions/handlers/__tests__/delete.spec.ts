@@ -5,35 +5,40 @@ import { deleteHandler, DeleteHandlerInput } from '../delete';
 const removeSpy = jest.spyOn(StorageModule, 'remove');
 
 const baseInput: DeleteHandlerInput = {
-  prefix: 'prefix/',
-  key: 'key',
   config: {
     accountId: '012345678901',
     bucket: 'bucket',
     credentials: jest.fn(),
+    customEndpoint: 'mock-endpoint',
     region: 'region',
   },
-  data: { key: 'key' },
+  data: {
+    id: 'id',
+    key: 'prefix/key.png',
+    fileKey: 'key.png',
+    lastModified: new Date(),
+    size: 829292,
+    type: 'FILE',
+  },
 };
 
 describe('deleteHandler', () => {
   it('calls `remove` and returns the expected `key`', () => {
-    const { key } = deleteHandler(baseInput);
+    deleteHandler(baseInput);
 
     const expected: StorageModule.RemoveInput = {
-      path: `${baseInput.prefix}${baseInput.key}`,
+      path: baseInput.data.key,
       options: {
         expectedBucketOwner: baseInput.config.accountId,
         bucket: {
           bucketName: baseInput.config.bucket,
           region: baseInput.config.region,
         },
+        customEndpoint: baseInput.config.customEndpoint,
         locationCredentialsProvider: baseInput.config.credentials,
       },
     };
 
     expect(removeSpy).toHaveBeenCalledWith(expected);
-
-    expect(key).toBe(baseInput.data.key);
   });
 });

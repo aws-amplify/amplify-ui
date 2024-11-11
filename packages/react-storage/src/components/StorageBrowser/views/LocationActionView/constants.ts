@@ -1,15 +1,4 @@
-export const DEFAULT_OVERWRITE_PROTECTION = true;
-
-export const INITIAL_STATUS_COUNTS = {
-  CANCELED: 0,
-  COMPLETE: 0,
-  FAILED: 0,
-  OVERWRITE_PREVENTED: 0,
-  INITIAL: 0,
-  PENDING: 0,
-  QUEUED: 0,
-  TOTAL: 0,
-};
+import { ActionViewHeaders } from './types';
 
 export const STATUS_DISPLAY_VALUES = {
   CANCELED: 'Canceled',
@@ -20,3 +9,20 @@ export const STATUS_DISPLAY_VALUES = {
   PENDING: 'In Progress',
   QUEUED: 'Queued',
 };
+
+export const PROGRESS_HEADER = {
+  key: 'progress',
+  type: 'sort',
+  content: { label: 'Progress' },
+} as const;
+
+export const DEFAULT_ACTION_VIEW_HEADERS: ActionViewHeaders = [
+  { key: 'name', type: 'sort', content: { label: 'Name' } },
+  { key: 'folder', type: 'sort', content: { label: 'Folder' } },
+  { key: 'type', type: 'sort', content: { label: 'Type' } },
+  { key: 'size', type: 'sort', content: { label: 'Size' } },
+  { key: 'status', type: 'sort', content: { label: 'Status' } },
+  { key: 'cancel', type: 'text', content: {} },
+];
+
+export const DEFAULT_ACTION_CONCURRENCY = 4;

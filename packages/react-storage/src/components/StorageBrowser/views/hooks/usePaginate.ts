@@ -1,51 +1,64 @@
 import React from 'react';
+import { LocationData, LocationItemData } from '../../actions';
+import { isFunction } from '@aws-amplify/ui';
 
-interface UsePaginate {
+type ListItemType = LocationItemData | LocationData;
+
+interface UsePaginate<T extends ListItemType> {
   currentPage: number;
-  handlePaginateNext: (input: {
-    resultCount: number;
-    hasNextToken: boolean;
-  }) => void;
-  handlePaginatePrevious: (input?: {}) => void;
+  highestPageVisited: number;
+  onPaginate: (page: number) => void;
   handleReset: () => void;
+  pageItems: T[];
 }
 
-export const usePaginate = ({
-  onPaginateNext,
-  onPaginatePrevious,
-  pageSize,
-}: {
-  onPaginateNext?: () => void;
-  onPaginatePrevious?: () => void;
+interface UsePaginateProps<T extends ListItemType> {
+  hasNextToken: boolean;
+  items: T[];
+  paginateCallback?: () => void;
   pageSize: number;
-}): UsePaginate => {
+}
+
+export const usePaginate = <T extends ListItemType>({
+  hasNextToken,
+  items,
+  paginateCallback,
+  pageSize,
+}: UsePaginateProps<T>): UsePaginate<T> => {
   const [currentPage, setCurrentPage] = React.useState(1);
 
   const handleReset = React.useRef(() => {
     setCurrentPage(1);
   }).current;
 
-  return React.useMemo(
-    () => ({
+  return React.useMemo((): UsePaginate<T> => {
+    const resultCount = Array.isArray(items) ? items.length : 0;
+    const highestPageVisited = Math.ceil(resultCount / pageSize);
+    const isFirstPage = currentPage === 1;
+    const start = isFirstPage ? 0 : (currentPage - 1) * pageSize;
+    const end = isFirstPage ? pageSize : currentPage * pageSize;
+    const pageItems = Array.isArray(items) ? items.slice(start, end) : [];
+
+    return {
       currentPage,
-      handlePaginateNext: (input) => {
-        const { hasNextToken, resultCount } = input;
-        const highestPageVisited = Math.round(resultCount / pageSize);
+      onPaginate: (page) => {
         const shouldPaginate =
-          highestPageVisited === currentPage && hasNextToken;
-
-        if (shouldPaginate && typeof onPaginateNext === 'function') {
-          onPaginateNext();
+          page >= 1 && (page <= highestPageVisited || hasNextToken);
+        if (shouldPaginate) {
+          if (isFunction(paginateCallback)) paginateCallback();
+          setCurrentPage(page);
         }
-        setCurrentPage((prev) => prev + 1);
-      },
-      handlePaginatePrevious: () => {
-        if (typeof onPaginatePrevious === 'function') onPaginatePrevious();
-
-        setCurrentPage((prev) => prev - 1);
       },
       handleReset,
-    }),
-    [currentPage, handleReset, onPaginateNext, onPaginatePrevious, pageSize]
-  );
+      highestPageVisited,
+      pageItems,
+    };
+  }, [
+    currentPage,
+    handleReset,
+    hasNextToken,
+    items,
+    paginateCallback,
+    pageSize,
+  ]);
 };

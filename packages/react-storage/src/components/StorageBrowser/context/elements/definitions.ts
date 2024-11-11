@@ -182,6 +182,9 @@ export const InputElement = defineBaseElement<
   | 'onFocus'
   | 'checked'
   | 'defaultChecked'
+  | 'placeholder'
+  | 'value'
+  | 'onKeyUp'
 >({
   type: 'input',
   displayName: 'Input',
@@ -204,7 +207,7 @@ export const ViewElement = defineBaseElement<'div', 'id' | 'role'>({
 
 export interface SpanElementProps
   extends React.ComponentProps<typeof SpanElement> {}
-export const SpanElement = defineBaseElement<'span', 'id'>({
+export const SpanElement = defineBaseElement<'span', 'id' | 'title'>({
   type: 'span',
   displayName: 'Span',
 });

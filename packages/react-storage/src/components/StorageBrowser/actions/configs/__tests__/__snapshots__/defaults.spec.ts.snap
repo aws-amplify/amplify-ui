@@ -2,7 +2,7 @@
 
 exports[`defaultActionConfigs matches expected shape 1`] = `
 {
-  "CreateFolder": {
+  "createFolder": {
     "actionsListItemConfig": {
       "disable": [Function],
       "hide": [Function],
@@ -14,17 +14,28 @@ exports[`defaultActionConfigs matches expected shape 1`] = `
     "handler": null,
     "isCancelable": false,
   },
-  "ListLocationItems": {
+  "delete": {
+    "actionsListItemConfig": {
+      "disable": [Function],
+      "hide": [Function],
+      "icon": "delete",
+      "label": "Delete Files",
+    },
+    "componentName": "DeleteView",
+    "displayName": "Delete",
+    "handler": [Function],
+  },
+  "listLocationItems": {
     "componentName": "LocationDetailView",
     "displayName": [Function],
-    "handler": null,
+    "handler": [Function],
   },
-  "ListLocations": {
+  "listLocations": {
     "componentName": "LocationsView",
     "displayName": "Home",
-    "handler": null,
+    "handler": [Function],
   },
-  "Upload": {
+  "upload": {
     "actionsListItemConfig": [
       {
         "disable": [Function],

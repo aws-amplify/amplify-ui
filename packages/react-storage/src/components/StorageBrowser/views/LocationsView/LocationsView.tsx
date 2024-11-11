@@ -2,27 +2,18 @@ import React from 'react';
 
 import { CLASS_BASE } from '../constants';
 import { Controls } from '../Controls';
-import { useLocationsData } from '../../do-not-import-from-here/actions';
-
-import { usePaginate } from '../hooks/usePaginate';
-import { listViewHelpers, resolveClassName } from '../utils';
-
-import { DataTableControl } from './Controls/DataTable';
-import { LocationData } from '../../actions';
+import { resolveClassName } from '../utils';
+import { useLocationsView } from './useLocationsView';
 import { ControlsContextProvider } from '../../controls/context';
-import { ControlsContext } from '../../controls/types';
 import { DataRefreshControl } from '../../controls/DataRefreshControl';
+import { DataTableControl } from '../../controls/DataTableControl';
+import { SearchControl } from '../../controls/SearchControl';
+import { LocationsViewProps } from './types';
+import { ViewElement } from '../../context/elements';
+import { getLocationsViewTableData } from './getLocationsViewTableData';
+import { useDisplayText } from '../../displayText';
+import { LocationViewHeaders } from './getLocationsViewTableData/types';
 
-export interface LocationsViewProps {
-  className?: (defaultClassName: string) => string;
-  onNavigate?: (destination: LocationData) => void;
-}
-
-const DEFAULT_PAGE_SIZE = 100;
-export const DEFAULT_LIST_OPTIONS = {
-  exclude: 'WRITE' as const,
-  pageSize: DEFAULT_PAGE_SIZE,
-};
 export const DEFAULT_ERROR_MESSAGE = 'There was an error loading locations.';
 
 const {
@@ -33,103 +24,130 @@ const {
   Title,
 } = Controls;
 
-const Loading = () => {
-  const [{ isLoading }] = useLocationsData();
-  return isLoading ? <LoadingElement /> : null;
+const Loading = ({ show }: { show: boolean }) => {
+  return show ? <LoadingElement /> : null;
 };
 
-const LocationsMessage = (): React.JSX.Element | null => {
-  const [{ hasError, message }] = useLocationsData();
-  return hasError ? (
+const LocationsMessage = ({
+  show,
+  message,
+}: {
+  show: boolean;
+  message?: string;
+}): React.JSX.Element | null => {
+  return show ? (
     <Message variant="error">{message ?? DEFAULT_ERROR_MESSAGE}</Message>
   ) : null;
 };
 
-const LocationsEmptyMessage = () => {
-  const [{ data, isLoading, hasError }] = useLocationsData();
-  const shouldShowEmptyMessage =
-    data.result.length === 0 && !isLoading && !hasError;
+const getHeaders = ({
+  tableColumnBucketHeader,
+  tableColumnFolderHeader,
+  tableColumnPermissionsHeader,
+}: {
+  tableColumnBucketHeader: string;
+  tableColumnFolderHeader: string;
+  tableColumnPermissionsHeader: string;
+}): LocationViewHeaders => {
+  return [
+    {
+      key: 'folder',
+      type: 'sort',
+      content: { label: tableColumnFolderHeader },
+    },
+    {
+      key: 'bucket',
+      type: 'sort',
+      content: { label: tableColumnBucketHeader },
+    },
+    {
+      key: 'permission',
+      type: 'sort',
+      content: { label: tableColumnPermissionsHeader },
+    },
+  ];
+};
 
-  return shouldShowEmptyMessage ? (
-    <EmptyMessage>No locations to show.</EmptyMessage>
-  ) : null;
+const LocationsEmptyMessage = ({ show }: { show: boolean }) => {
+  return show ? <EmptyMessage>No locations to show.</EmptyMessage> : null;
 };
 
 export function LocationsView({
   className,
-  onNavigate,
+  ...props
 }: LocationsViewProps): React.JSX.Element {
-  const [{ data, isLoading, hasError }, handleList] = useLocationsData();
-
-  const { result, nextToken } = data;
-  const resultCount = result.length;
-  const hasNextToken = !!nextToken;
-
-  // initial load
-  React.useEffect(() => {
-    handleList({
-      options: { ...DEFAULT_LIST_OPTIONS, refresh: true },
-    });
-  }, [handleList]);
-
-  const onPaginateNext = () =>
-    handleList({
-      options: { ...DEFAULT_LIST_OPTIONS, nextToken },
-    });
+  const {
+    hasError,
+    hasNextPage,
+    highestPageVisited,
+    page,
+    isLoading,
+    pageItems,
+    message,
+    shouldShowEmptyMessage,
+    onRefresh,
+    onPaginate,
+    onNavigate,
+    onSearch,
+  } = useLocationsView(props);
 
   const {
-    currentPage,
-    handlePaginateNext,
-    handlePaginatePrevious,
-    handleReset,
-  } = usePaginate({ onPaginateNext, pageSize: DEFAULT_PAGE_SIZE });
-
-  const { disableNext, disablePrevious, disableRefresh, range } =
-    listViewHelpers({
-      currentPage,
-      hasNextToken,
-      isLoading,
-      pageSize: DEFAULT_PAGE_SIZE,
-      resultCount,
-      hasError,
-    });
-
-  // FIXME: Eventually comes from useView hook
-  const contextValue: ControlsContext = {
-    data: {
-      isDataRefreshDisabled: disableRefresh,
+    LocationsView: {
+      title,
+      tableColumnBucketHeader,
+      tableColumnFolderHeader,
+      tableColumnPermissionsHeader,
+      searchPlaceholder,
     },
-    onRefresh: () => {
-      handleReset();
-      handleList({
-        options: { ...DEFAULT_LIST_OPTIONS, refresh: true },
-      });
-    },
-  };
+  } = useDisplayText();
+
+  const headers = getHeaders({
+    tableColumnBucketHeader,
+    tableColumnFolderHeader,
+    tableColumnPermissionsHeader,
+  });
 
   return (
-    <ControlsContextProvider {...contextValue}>
+    <ControlsContextProvider
+      data={{
+        isDataRefreshDisabled: isLoading,
+        tableData: getLocationsViewTableData({
+          headers,
+          pageItems,
+          onNavigate,
+        }),
+        searchPlaceholder: searchPlaceholder,
+      }}
+      onSearch={onSearch}
+      onRefresh={onRefresh}
+    >
       <div
         className={resolveClassName(CLASS_BASE, className)}
         data-testid="LOCATIONS_VIEW"
       >
-        <Title>Home</Title>
-        <DataRefreshControl
-          className={`${CLASS_BASE}__locations-view-data-refresh`}
-        />
-        <Paginate
-          currentPage={currentPage}
-          disableNext={disableNext}
-          disablePrevious={disablePrevious}
-          handleNext={() => {
-            handlePaginateNext({ resultCount, hasNextToken });
-          }}
-          handlePrevious={handlePaginatePrevious}
-        />
-        <LocationsMessage />
-        <Loading />
-        <DataTableControl onNavigate={onNavigate} range={range} />
-        <LocationsEmptyMessage />
+        <Title>{title}</Title>
+        <ViewElement className={`${CLASS_BASE}__location-detail-view-controls`}>
+          <SearchControl className={`${CLASS_BASE}__locations-view-search`} />
+          <Paginate
+            currentPage={page}
+            highestPageVisited={highestPageVisited}
+            hasMorePages={hasNextPage}
+            onPaginate={onPaginate}
+          />
+          <DataRefreshControl
+            className={`${CLASS_BASE}__locations-view-data-refresh`}
+          />
+        </ViewElement>
+        <LocationsMessage show={hasError} message={message} />
+        <Loading show={isLoading} />
+        {hasError ? null : (
+          <ViewElement className={`${CLASS_BASE}__table-wrapper`}>
+            <DataTableControl
+              className={`${CLASS_BASE}__locations-view-data-table`}
+            />
+          </ViewElement>
+        )}
+        <LocationsEmptyMessage show={shouldShowEmptyMessage} />
       </div>
     </ControlsContextProvider>
   );

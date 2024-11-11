@@ -17,9 +17,11 @@ const getCredentials: CredentialsModule.GetCredentials = jest.fn(
 
 const accountId = 'my-account-id';
 const bucket = 'my-bucket';
+const customEndpoint = 'mock-endpoint';
 const permission = 'READ' as const;
-const prefix = 'my-prefix';
+const prefix = 'my-prefix/';
 const region = 'my-region';
+const key = `${prefix}my-path/`;
 
 const location = {
   bucket,
@@ -40,12 +42,12 @@ describe('useGetActionInputCallback', () => {
 
     useStoreSpy.mockReturnValueOnce([
       // @ts-expect-error mocking out the entire store is unnecessary
-      { history: { current: location, previous: [location] } },
+      { location: { current: location, key } },
       jest.fn(),
     ]);
 
     const { result } = renderHook(() =>
-      useGetActionInputCallback({ accountId, region })
+      useGetActionInputCallback({ accountId, customEndpoint, region })
     );
 
     const getActionInput = result.current;
@@ -54,13 +56,18 @@ describe('useGetActionInputCallback', () => {
 
     expect(actionInput).toStrictEqual({
       accountId,
+      customEndpoint,
       bucket,
       credentials,
       region,
     });
 
     expect(getCredentials).toHaveBeenCalledTimes(1);
-    expect(getCredentials).toHaveBeenCalledWith({ bucket, permission, prefix });
+    expect(getCredentials).toHaveBeenCalledWith({
+      bucket,
+      permission,
+      prefix: key,
+    });
   });
 
   it('throws on call to `getActionInput` when current `location` is invalid', () => {
