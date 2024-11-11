@@ -63,14 +63,12 @@ const onActionCancel = jest.fn();
 const onActionStart = jest.fn();
 const onDestinationChange = jest.fn();
 const onExit = jest.fn();
-const onTaskCancel = jest.fn();
 
 const callbacks = {
   onActionCancel,
   onActionStart,
   onDestinationChange,
   onExit,
-  onTaskCancel,
 };
 
 const statusCounts = { ...INITIAL_STATUS_COUNTS, QUEUED: 1, TOTAL: 1 };

@@ -57,8 +57,8 @@ export const UploadView = ({
     onActionCancel,
     onDropFiles,
     onExit,
+    onTaskRemove,
     onSelectFiles,
-    onTaskCancel,
     onToggleOverwrite,
   } = useUploadView({ onExit: onExitProps });
 
@@ -87,7 +87,7 @@ export const UploadView = ({
             tasks,
             isProcessing,
             shouldDisplayProgress: true,
-            onTaskCancel,
+            onTaskRemove,
           }),
         }}
         onActionStart={onActionStart}

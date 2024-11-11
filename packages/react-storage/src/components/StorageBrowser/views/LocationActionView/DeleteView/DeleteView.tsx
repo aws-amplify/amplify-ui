@@ -29,14 +29,14 @@ export const DeleteView = ({
     onActionCancel,
     onActionStart,
     onExit,
-    onTaskCancel,
+    onTaskRemove,
   } = useDeleteView({ onExit: onExitProps });
 
   const tableData = getActionViewTableData({
     tasks,
     locationKey: location.key,
     isProcessing,
-    onTaskCancel,
+    onTaskRemove,
   });
 
   return (

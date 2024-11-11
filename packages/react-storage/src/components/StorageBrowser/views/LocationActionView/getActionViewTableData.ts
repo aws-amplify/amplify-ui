@@ -9,23 +9,23 @@ import {
   STATUS_DISPLAY_VALUES,
 } from './constants';
 
-import { isFileItem, isFileDataItem } from '../../actions';
+import { isFileItem, isFileDataItem, TaskData } from '../../actions';
 import { getActionIcon } from './getActionIcon';
 import { getFileTypeDisplayValue } from './getFileTypeDisplayValue';
 import { getPercentValue } from '../utils';
 
-export const getActionViewTableData = ({
+export const getActionViewTableData = <T extends TaskData = TaskData>({
   tasks,
   locationKey,
   isProcessing,
   shouldDisplayProgress = false,
-  onTaskCancel,
+  onTaskRemove,
 }: {
-  tasks: Task[];
+  tasks: Task<T>[];
   locationKey?: string;
   isProcessing: boolean;
   shouldDisplayProgress?: boolean;
-  onTaskCancel: (task: Task) => void;
+  onTaskRemove?: (task: Task<T>) => void;
 }): DataTableProps => {
   const headers = [...DEFAULT_ACTION_VIEW_HEADERS];
   if (shouldDisplayProgress) {
@@ -130,7 +130,7 @@ export const getActionViewTableData = ({
               content: {
                 isDisabled,
                 onClick: () => {
-                  onTaskCancel(task);
+                  isProcessing ? task.cancel() : onTaskRemove?.(task);
                 },
                 ariaLabel,
                 icon: 'cancel',

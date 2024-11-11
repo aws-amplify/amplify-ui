@@ -12,6 +12,6 @@ export function useActionView(): ActionViewState {
     onExit: () => null,
     onActionStart: () => null,
     onActionCancel: () => null,
-    onTaskCancel: () => null,
+    onTaskRemove: () => null,
   };
 }

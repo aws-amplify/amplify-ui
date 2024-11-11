@@ -39,14 +39,14 @@ export const CopyView = ({
     onActionStart,
     onDestinationChange,
     onExit,
-    onTaskCancel,
+    onTaskRemove,
   } = useCopyView({ onExit: onExitProps });
 
   const tableData = getActionViewTableData({
     tasks,
     locationKey: location.key,
     isProcessing,
-    onTaskCancel,
+    onTaskRemove,
   });
 
   const isActionStartDisabled =

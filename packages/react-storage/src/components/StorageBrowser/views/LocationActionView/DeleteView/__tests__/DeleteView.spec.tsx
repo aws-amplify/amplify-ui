@@ -27,7 +27,6 @@ jest.spyOn(TempActions, 'useTempActions').mockReturnValue(TEST_ACTIONS);
 const onActionCancel = jest.fn();
 const onActionStart = jest.fn();
 const onExit = jest.fn();
-const onTaskCancel = jest.fn();
 
 const useDeleteViewSpy = jest
   .spyOn(UseDeleteViewModule, 'useDeleteView')
@@ -57,7 +56,6 @@ const useDeleteViewSpy = jest
         },
         cancel: jest.fn(),
         progress: undefined,
-        remove: jest.fn(),
         message: 'test-message',
       },
       {
@@ -72,7 +70,6 @@ const useDeleteViewSpy = jest
         },
         cancel: jest.fn(),
         progress: undefined,
-        remove: jest.fn(),
         message: 'test-message',
       },
       {
@@ -87,14 +84,12 @@ const useDeleteViewSpy = jest
         },
         cancel: jest.fn(),
         progress: undefined,
-        remove: jest.fn(),
         message: 'test-message',
       },
     ],
     onActionCancel,
     onActionStart,
     onExit,
-    onTaskCancel,
   });
 
 describe('DeleteView', () => {
@@ -148,14 +143,12 @@ describe('DeleteView', () => {
           },
           message: undefined,
           progress: undefined,
-          remove: jest.fn(),
           status: 'QUEUED',
         },
       ],
       onActionCancel,
       onActionStart,
       onExit,
-      onTaskCancel,
     });
 
     const { getByRole } = render(<DeleteView />);
@@ -192,14 +185,12 @@ describe('DeleteView', () => {
           },
           message: undefined,
           progress: undefined,
-          remove: jest.fn(),
           status: 'PENDING',
         },
       ],
       onActionCancel,
       onActionStart,
       onExit,
-      onTaskCancel,
     });
 
     const { getByRole } = render(<DeleteView />);
@@ -236,14 +227,12 @@ describe('DeleteView', () => {
           },
           message: undefined,
           progress: undefined,
-          remove: jest.fn(),
           status: 'COMPLETE',
         },
       ],
       onActionCancel,
       onActionStart,
       onExit,
-      onTaskCancel,
     });
 
     const { getByRole } = render(<DeleteView />);
@@ -304,14 +293,12 @@ describe('DeleteView', () => {
           },
           message: undefined,
           progress: undefined,
-          remove: jest.fn(),
           status: 'PENDING',
         },
       ],
       onActionCancel,
       onActionStart,
       onExit,
-      onTaskCancel,
     });
 
     const { getByRole } = render(<DeleteView />);

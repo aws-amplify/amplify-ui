@@ -6,13 +6,12 @@ import * as Tasks from '../../../../tasks';
 
 import { useCopyView } from '../useCopyView';
 
-const mockProcessTasks = jest.fn();
-const mockDispatchStoreAction = jest.fn();
-
 describe('useCopyView', () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
+  const mockProcessTasks = jest.fn();
+  const mockDispatchStoreAction = jest.fn();
+  const mockCancel = jest.fn();
 
+  beforeEach(() => {
     jest.spyOn(Store, 'useStore').mockReturnValue([
       {
         actionType: 'COPY',
@@ -62,7 +61,6 @@ describe('useCopyView', () => {
             status: 'QUEUED',
             data: { key: 'test-item', id: 'id' },
             cancel: jest.fn(),
-            remove: jest.fn(),
             message: 'test-message',
             progress: undefined,
           },
@@ -70,7 +68,6 @@ describe('useCopyView', () => {
             status: 'QUEUED',
             data: { key: 'test-item2', id: 'id2' },
             cancel: jest.fn(),
-            remove: jest.fn(),
             message: 'test-message',
             progress: undefined,
           },
@@ -78,7 +75,6 @@ describe('useCopyView', () => {
             status: 'QUEUED',
             data: { key: 'test-item3', id: 'id3' },
             cancel: jest.fn(),
-            remove: jest.fn(),
             message: 'test-message',
             progress: undefined,
           },
@@ -86,6 +82,12 @@ describe('useCopyView', () => {
       },
       mockProcessTasks,
     ]);
+  });
+
+  afterEach(() => {
+    mockProcessTasks.mockClear();
+    mockDispatchStoreAction.mockClear();
+    mockCancel.mockClear();
   });
 
   it('should return the correct initial state', () => {
@@ -134,7 +136,6 @@ describe('useCopyView', () => {
   });
 
   it('should call cancel on tasks when onActionCancel is called', () => {
-    const mockCancel = jest.fn();
     jest.spyOn(Tasks, 'useProcessTasks').mockReturnValue([
       {
         isProcessing: false,
@@ -145,7 +146,6 @@ describe('useCopyView', () => {
             data: { key: 'test-item', id: 'id' },
             status: 'QUEUED',
             cancel: mockCancel(),
-            remove: jest.fn(),
             message: 'test-message',
             progress: undefined,
           },
