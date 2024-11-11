@@ -81,6 +81,9 @@ export const uploadHandler: UploadHandler = ({
       .then(() => ({ status: 'COMPLETE' as const }))
       .catch((error: Error) => {
         const { message } = error;
+        if (error.name === 'PreconditionFailed') {
+          return { message, status: 'OVERWRITE_PREVENTED' as const };
+        }
         return {
           message,
           status: isCancelError(error) ? 'CANCELED' : 'FAILED',
