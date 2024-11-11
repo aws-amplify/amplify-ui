@@ -42,7 +42,7 @@ function Chat() {
       isLoading,
     },
     sendMessage,
-  ] = useAIConversation('chat');
+  ] = useAIConversation('pirateChat');
 
   console.log(messages);
 

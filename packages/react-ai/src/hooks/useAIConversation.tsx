@@ -60,6 +60,10 @@ export function createUseAIConversation<
     // We need to keep track of the stream events as the come in
     // for an assistant message, but don't need to keep them in state
     const contentBlocksRef = React.useRef<ConversationStreamEvent[][]>();
+    // Using this hook without an existing conversation id means
+    // it will create a new conversation when it is executed
+    // we don't want to create 2 conversations
+    const initRef = React.useRef(false);
 
     const [dataState, setDataState] = React.useState<
       DataClientState<AIConversationState>
@@ -72,12 +76,11 @@ export function createUseAIConversation<
     const { id, onInitialize, onMessage } = input;
 
     React.useEffect(() => {
+      // We don't want to run the effect multiple times
+      // because that could create multiple conversation records
+      if (initRef.current) return;
+      initRef.current = true;
       async function initialize() {
-        setDataState({
-          ...LOADING_STATE,
-          data: { messages: [], conversation: undefined },
-        });
-
         // no client route would mean that the user
         // is not using TypeScript and entered the
         // route name wrong, or there is a mismatch
@@ -96,6 +99,15 @@ export function createUseAIConversation<
             ],
           });
           return;
+        }
+
+        // Only show component loading state if we are
+        // actually loading messages
+        if (id) {
+          setDataState({
+            ...LOADING_STATE,
+            data: { messages: [], conversation: undefined },
+          });
         }
 
         const { data: conversation, errors } = id
@@ -137,74 +149,113 @@ export function createUseAIConversation<
       };
     }, [clientRoute, id, setDataState]);
 
+    // Run a separate effect that is triggered by the conversation state
+    // so that we know we have a conversation object to set up the subscription
+    // and also unsubscribe on cleanup
     React.useEffect(() => {
       if (!conversation) return;
 
-      const subscription = conversation.onStreamEvent((event) => {
-        const {
-          // messages have a content block array,
-          // this is the index of the content block that was updated
-          contentBlockIndex,
-          // this is the index of the content chunk, ensure these are in order!
-          contentBlockDeltaIndex,
-          // this is sent after the last content chunk, verify this matches the
-          // previous contentBlockDeltaIndex
-          contentBlockDoneAtIndex,
-          // this is the text of the content block
-          text,
-          // this is a toolUse block, will always come in a single event
-          // toolUse,
-          // this is the final event of the conversation turn
-          stopReason,
-          conversationId,
-          // associatedUserMessageId,
-          id,
-        } = event;
-
-        // return early for content blocks being done
-        // or conversation turn being over
-        if (contentBlockDoneAtIndex) {
-          return;
-        }
-
-        // stop reason will signify end of conversation turn
-        if (stopReason) {
-          // remove loading state from streamed message
-          setDataState((prev) => {
-            return {
-              ...prev,
-              data: {
-                ...prev.data,
-                messages: prev.data.messages.map((message) => ({
-                  ...message,
-                  isLoading: false,
-                })),
-              },
-            };
-          });
-          onMessage?.({
-            id,
+      const subscription = conversation.onStreamEvent({
+        next: (event) => {
+          const {
+            // messages have a content block array,
+            // this is the index of the content block that was updated
+            contentBlockIndex,
+            // this is the index of the content chunk, ensure these are in order!
+            contentBlockDeltaIndex,
+            // this is sent after the last content chunk, verify this matches the
+            // previous contentBlockDeltaIndex
+            contentBlockDoneAtIndex,
+            // this is the text of the content block
+            text,
+            // this is a toolUse block, will always come in a single event
+            // toolUse,
+            // this is the final event of the conversation turn
+            stopReason,
             conversationId,
-            content: contentFromEvents(contentBlocksRef.current),
-            createdAt: new Date().toISOString(),
-            role: 'assistant',
-            isLoading: true,
-          });
-          // clear out the stream cache
-          contentBlocksRef.current = undefined;
-          return;
-        }
+            // associatedUserMessageId,
+            id,
+          } = event;
 
-        // no ref means its the first event for the message stream
-        if (!contentBlocksRef.current) {
-          contentBlocksRef.current = [[event]];
+          // return early for content blocks being done
+          // or conversation turn being over
+          if (contentBlockDoneAtIndex) {
+            return;
+          }
+
+          // stop reason will signify end of conversation turn
+          if (stopReason) {
+            // remove loading state from streamed message
+            setDataState((prev) => {
+              return {
+                ...prev,
+                data: {
+                  ...prev.data,
+                  messages: prev.data.messages.map((message) => ({
+                    ...message,
+                    isLoading: false,
+                  })),
+                },
+              };
+            });
+            onMessage?.({
+              id,
+              conversationId,
+              content: contentFromEvents(contentBlocksRef.current),
+              createdAt: new Date().toISOString(),
+              role: 'assistant',
+              isLoading: true,
+            });
+            // clear out the stream cache
+            contentBlocksRef.current = undefined;
+            return;
+          }
+
+          // no ref means its the first event for the message stream
+          if (!contentBlocksRef.current) {
+            contentBlocksRef.current = [[event]];
+
+            setDataState((prev) => {
+              const message: ConversationMessage = {
+                id,
+                conversationId,
+                // TODO: use better logic here
+                content: [{ text: text ?? '' }],
+                createdAt: new Date().toISOString(),
+                role: 'assistant',
+                isLoading: true,
+              };
+              return {
+                ...prev,
+                data: {
+                  ...prev.data,
+                  messages: [...prev.data.messages.slice(0, -1), message],
+                },
+              };
+            });
+            return;
+          }
+
+          // place the incoming event in the right content block
+          // and order. message content is an array so a single message
+          // can have multiple content blocks, and each content block
+          // can have multiple events/chunks
+          const currentBlock = contentBlocksRef.current[contentBlockIndex];
+          if (!currentBlock) {
+            contentBlocksRef.current[contentBlockIndex] = [event];
+          } else {
+            contentBlocksRef.current[contentBlockIndex] = [
+              ...currentBlock.slice(0, contentBlockDeltaIndex),
+              event,
+              ...currentBlock.slice(contentBlockDeltaIndex),
+            ];
+          }
 
           setDataState((prev) => {
             const message: ConversationMessage = {
               id,
               conversationId,
-              // TODO: use better logic here
-              content: [{ text: text ?? '' }],
+              content: contentFromEvents(contentBlocksRef.current),
               createdAt: new Date().toISOString(),
               role: 'assistant',
               isLoading: true,
@@ -213,47 +264,25 @@ export function createUseAIConversation<
               ...prev,
               data: {
                 ...prev.data,
+                // TODO: we are assuming we only update the last
+                // message, but maybe we should match it by message ID?
                 messages: [...prev.data.messages.slice(0, -1), message],
               },
             };
           });
-          return;
-        }
-
-        // place the incoming event in the right content block
-        // and order. message content is an array so a single message
-        // can have multiple content blocks, and each content block
-        // can have multiple events/chunks
-        const currentBlock = contentBlocksRef.current[contentBlockIndex];
-        if (!currentBlock) {
-          contentBlocksRef.current[contentBlockIndex] = [event];
-        } else {
-          contentBlocksRef.current[contentBlockIndex] = [
-            ...currentBlock.slice(0, contentBlockDeltaIndex),
-            event,
-            ...currentBlock.slice(contentBlockDeltaIndex),
-          ];
-        }
-
-        setDataState((prev) => {
-          const message: ConversationMessage = {
-            id,
-            conversationId,
-            content: contentFromEvents(contentBlocksRef.current),
-            createdAt: new Date().toISOString(),
-            role: 'assistant',
-            isLoading: true,
-          };
-          return {
-            ...prev,
-            data: {
-              ...prev.data,
-              // TODO: we are assuming we only update the last
-              // message, but maybe we should match it by message ID?
-              messages: [...prev.data.messages.slice(0, -1), message],
-            },
-          };
-        });
+        },
+        error: (error) => {
+          error.errors.map((e) => {
+            return e.message;
+          });
+          setDataState((prev) => {
+            return {
+              ...prev,
+              ...ERROR_STATE,
+              messages: error.errors,
+            };
+          });
+        },
       });
 
       if (isFunction(onInitialize)) {

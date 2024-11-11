@@ -52,7 +52,7 @@ function Chat({ id }: { id?: string }) {
       isLoading,
     },
     sendMessage,
-  ] = useAIConversation('chat', {
+  ] = useAIConversation('pirateChat', {
     id,
   });
 

@@ -3,7 +3,7 @@ import { DataState } from '@aws-amplify/ui-react-core';
 interface GraphQLFormattedError {
   readonly message: string;
   readonly errorType: string;
-  readonly errorInfo: null | {
+  readonly errorInfo?: null | {
     [key: string]: unknown;
   };
 }

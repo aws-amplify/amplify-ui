@@ -4,7 +4,6 @@ import { createAIHooks, AIConversation } from '@aws-amplify/ui-react-ai';
 import { generateClient } from 'aws-amplify/api';
 import '@aws-amplify/ui-react/styles.css';
 import '@aws-amplify/ui-react-ai/ai-conversation-styles.css';
-import { GlobalStyle } from '@aws-amplify/ui-react/server';
 
 import outputs from './amplify_outputs';
 import type { Schema } from '@environments/ai/gen2/amplify/data/resource';
@@ -45,20 +44,22 @@ export default function Example() {
   const router = useRouter();
   const [shown, setShown] = React.useState(true);
 
-  return (
-    <Authenticator>
-      <Button
-        onClick={() => {
-          setShown(!shown);
-        }}
-      >
-        Toggle
-      </Button>
-      {shown ? (
-        <Card variation="outlined" height="400px" margin="large">
-          <Chat id={`${router.query.id}`} />
-        </Card>
-      ) : null}
-    </Authenticator>
-  );
+  if (router.query.id) {
+    return (
+      <Authenticator>
+        <Button
+          onClick={() => {
+            setShown(!shown);
+          }}
+        >
+          Toggle
+        </Button>
+        {shown ? (
+          <Card variation="outlined" height="400px" margin="large">
+            <Chat id={`${router.query.id}`} />
+          </Card>
+        ) : null}
+      </Authenticator>
+    );
+  }
 }
