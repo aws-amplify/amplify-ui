@@ -11,7 +11,7 @@ import {
   TaskHandlerOptions,
 } from './types';
 
-import { constructBucket } from './utils';
+import { constructBucket, getProgress } from './utils';
 
 export interface UploadHandlerOptions extends TaskHandlerOptions {
   preventOverwrite?: boolean;
@@ -58,12 +58,8 @@ export const uploadHandler: UploadHandler = ({
       bucket: constructBucket(config),
       expectedBucketOwner: accountId,
       locationCredentialsProvider: credentials,
-      onProgress: ({ totalBytes, transferredBytes }) => {
-        if (isFunction(onProgress))
-          onProgress(
-            data,
-            totalBytes ? transferredBytes / totalBytes : undefined
-          );
+      onProgress: (event) => {
+        if (isFunction(onProgress)) onProgress(data, getProgress(event));
       },
       preventOverwrite,
       customEndpoint,
@@ -81,6 +77,9 @@ export const uploadHandler: UploadHandler = ({
       .then(() => ({ status: 'COMPLETE' as const }))
       .catch((error: Error) => {
         const { message } = error;
+        if (error.name === 'PreconditionFailed') {
+          return { message, status: 'OVERWRITE_PREVENTED' as const };
+        }
         return {
           message,
           status: isCancelError(error) ? 'CANCELED' : 'FAILED',
