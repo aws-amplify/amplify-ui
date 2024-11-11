@@ -22,13 +22,14 @@ export interface ActionViewState<T extends TaskData = TaskData> {
   tasks: Tasks<T>;
   onActionStart: () => void;
   onActionCancel: () => void;
-  onExit?: (location?: LocationData) => void;
+  onActionExit: () => void;
   onTaskCancel: (task: Task) => void;
 }
 
 export interface ActionViewProps {
   children?: React.ReactNode;
   className?: string;
+  onExit?: (location?: LocationData) => void;
 }
 
 export interface LocationActionViewProps<

@@ -10,9 +10,7 @@ export interface CopyViewState extends ActionViewState<CopyHandlerData> {
   onDestinationChange: (destination: string[]) => void;
 }
 
-export interface CopyViewProps
-  extends ActionViewProps,
-    Partial<CopyViewState> {}
+export interface CopyViewProps extends ActionViewProps {}
 
 export interface CopyViewComponent
   extends ActionViewComponent<CopyHandlerData, CopyViewProps> {}

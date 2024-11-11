@@ -1,4 +1,5 @@
 import { ActionCancelProps } from './ActionCancel';
+import { ActionExitProps } from './ActionExit';
 import { ActionStartProps } from './ActionStart';
 import { DataRefreshProps } from './DataRefresh';
 import { DataTableProps } from './DataTable';
@@ -11,8 +12,9 @@ import { StatusDisplayProps } from './StatusDisplay';
 import { SearchProps } from './Search';
 
 export interface Composables {
-  ActionStart: React.ComponentType<ActionStartProps>;
   ActionCancel: React.ComponentType<ActionCancelProps>;
+  ActionExit: React.ComponentType<ActionExitProps>;
+  ActionStart: React.ComponentType<ActionStartProps>;
   DataRefresh: React.ComponentType<DataRefreshProps>;
   DataTable: React.ComponentType<DataTableProps>;
   DropZone: React.ComponentType<DropZoneProps>;
