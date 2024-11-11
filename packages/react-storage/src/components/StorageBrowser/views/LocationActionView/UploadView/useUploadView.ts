@@ -18,7 +18,7 @@ export const useUploadView = (
   const [{ files, location }, dispatchStoreAction] = useStore();
   const { current, key } = location;
 
-  const [isOverwriteEnabled, setOverwriteEnabled] = React.useState(
+  const [isOverwritingEnabled, setObjectOverwriteEnabled] = React.useState(
     DEFAULT_OVERWRITE_ENABLED
   );
 
@@ -49,9 +49,9 @@ export const useUploadView = (
     handleProcess({
       config: getInput(),
       destinationPrefix: key,
-      options: { preventOverwrite: !isOverwriteEnabled },
+      options: { preventOverwrite: !isOverwritingEnabled },
     });
-  }, [isOverwriteEnabled, key, getInput, handleProcess]);
+  }, [isOverwritingEnabled, key, getInput, handleProcess]);
 
   const onActionCancel = React.useCallback(() => {
     tasks.forEach((task) => task.cancel?.());
@@ -68,7 +68,7 @@ export const useUploadView = (
   }, [tasks, dispatchStoreAction, _onExit, current]);
 
   const onToggleOverwrite = React.useCallback(() => {
-    setOverwriteEnabled((prev) => !prev);
+    setObjectOverwriteEnabled((prev) => !prev);
   }, []);
 
   const onTaskCancel = React.useCallback(
@@ -84,9 +84,9 @@ export const useUploadView = (
   );
 
   return {
-    isOverwriteEnabled,
     isProcessing,
     isProcessingComplete,
+    isOverwritingEnabled,
     location,
     statusCounts,
     tasks,

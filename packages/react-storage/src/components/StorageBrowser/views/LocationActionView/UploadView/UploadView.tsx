@@ -12,6 +12,8 @@ import { ActionStartControl } from '../../../controls/ActionStartControl';
 import { ActionCancelControl } from '../../../controls/ActionCancelControl';
 import { DataTableControl } from '../../../controls/DataTableControl';
 import { DropZoneControl } from '../../../controls/DropZoneControl';
+import { OverwriteToggleControl } from '../../../controls/OverwriteToggleControl';
+import { useDisplayText } from '../../../displayText';
 import { getFileSelectionType } from './getFileSelectionType';
 import { useStore } from '../../../providers/store';
 import { resolveClassName } from '../../utils';
@@ -19,7 +21,7 @@ import { getActionViewTableData } from '../getActionViewTableData';
 import { useUploadView } from './useUploadView';
 import { UploadViewProps } from './types';
 
-const { Exit, Overwrite } = Controls;
+const { Exit } = Controls;
 
 export const ICON_CLASS = `${CLASS_BASE}__action-status`;
 
@@ -32,6 +34,7 @@ export const UploadView = ({
   const selectionTypeRef = React.useRef<'FILE' | 'FOLDER' | undefined>(
     getFileSelectionType(actionType, files)
   );
+  const { overwriteToggleLabel } = useDisplayText()['UploadView'];
 
   React.useEffect(() => {
     const selectionType = selectionTypeRef.current;
@@ -47,9 +50,9 @@ export const UploadView = ({
   }, [dispatchStoreAction]);
 
   const {
+    isOverwritingEnabled,
     isProcessing,
     isProcessingComplete,
-    isOverwriteEnabled,
     location,
     tasks,
     statusCounts,
@@ -68,7 +71,6 @@ export const UploadView = ({
   const isAddFilesDisabled = isProcessing || isProcessingComplete;
   const isAddFolderDisabled = isProcessing || isProcessingComplete;
   const isExitDisabled = isProcessing;
-  const isOverwriteCheckboxDisabled = isProcessing || isProcessingComplete;
 
   return (
     <div className={resolveClassName(CLASS_BASE, className)}>
@@ -81,7 +83,9 @@ export const UploadView = ({
           isAddFilesDisabled,
           isAddFolderDisabled,
           isExitDisabled,
-          isOverwriteCheckboxDisabled,
+          isOverwritingEnabled,
+          isOverwriteToggleDisabled: isProcessing || isProcessingComplete,
+          overwriteToggleLabel,
           statusCounts,
           tableData: getActionViewTableData({
             tasks,
@@ -93,6 +97,7 @@ export const UploadView = ({
         onActionStart={onActionStart}
         onActionCancel={onActionCancel}
         onDropFiles={onDropFiles}
+        onToggleOverwrite={onToggleOverwrite}
       >
         <Exit disabled={isExitDisabled} onClick={onExit} />
         <Title />
@@ -106,10 +111,8 @@ export const UploadView = ({
                 },
               ]}
             />
-            <Overwrite
-              defaultChecked={isOverwriteEnabled}
-              disabled={isOverwriteCheckboxDisabled}
-              handleChange={onToggleOverwrite}
+            <OverwriteToggleControl
+              className={`${CLASS_BASE}__upload-overwrite-toggle`}
             />
           </ViewElement>
           <ButtonElement

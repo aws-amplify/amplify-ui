@@ -1,6 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 
+import { useDisplayText } from '../../../../displayText';
 import * as ConfigModule from '../../../../providers/configuration';
 import * as StoreModule from '../../../../providers/store';
 import { INITIAL_STATUS_COUNTS } from '../../../../tasks';
@@ -9,6 +10,7 @@ import * as UseUploadViewModule from '../useUploadView';
 import { UploadViewState } from '../types';
 import { UploadView } from '../UploadView';
 
+jest.mock('../../../../displayText');
 jest.mock('../../Controls/Title');
 
 const mockControlsContextProvider = jest.fn(
@@ -64,7 +66,7 @@ const location = {
 const initialViewState: UploadViewState = {
   ...callbacks,
   location: { current: location, path: '', key: '' },
-  isOverwriteEnabled: false,
+  isOverwritingEnabled: false,
   isProcessingComplete: false,
   isProcessing: false,
   tasks: [],
@@ -113,6 +115,14 @@ const config: ConfigModule.GetActionInput = jest.fn(() => ({
 jest.spyOn(ConfigModule, 'useGetActionInput').mockReturnValue(config);
 
 describe('UploadView', () => {
+  const mockUseDisplayText = jest.mocked(useDisplayText);
+
+  beforeAll(() => {
+    mockUseDisplayText.mockReturnValue({ UploadView: {} } as ReturnType<
+      typeof useDisplayText
+    >);
+  });
+
   afterEach(jest.clearAllMocks);
 
   it('provides the expected boolean flags to `ControlsContextProvider` prior to processing when tasks is empty', () => {
@@ -127,7 +137,7 @@ describe('UploadView', () => {
         isAddFilesDisabled: false,
         isAddFolderDisabled: false,
         isExitDisabled: false,
-        isOverwriteCheckboxDisabled: false,
+        isOverwriteToggleDisabled: false,
       },
     });
   });
@@ -146,7 +156,7 @@ describe('UploadView', () => {
         isAddFilesDisabled: false,
         isAddFolderDisabled: false,
         isExitDisabled: false,
-        isOverwriteCheckboxDisabled: false,
+        isOverwriteToggleDisabled: false,
       },
     });
   });
@@ -165,7 +175,7 @@ describe('UploadView', () => {
         isAddFilesDisabled: true,
         isAddFolderDisabled: true,
         isExitDisabled: true,
-        isOverwriteCheckboxDisabled: true,
+        isOverwriteToggleDisabled: true,
       },
     });
   });
@@ -184,7 +194,7 @@ describe('UploadView', () => {
         isAddFilesDisabled: true,
         isAddFolderDisabled: true,
         isExitDisabled: false,
-        isOverwriteCheckboxDisabled: true,
+        isOverwriteToggleDisabled: true,
       },
     });
   });

@@ -7,6 +7,7 @@ import { LoadingIndicatorProps } from './LoadingIndicator';
 import { MessageProps } from './Message';
 import { FolderNameFieldProps } from './FolderNameField';
 import { NavigationProps } from './Navigation';
+import { OverwriteToggleProps } from './OverwriteToggle';
 import { StatusDisplayProps } from './StatusDisplay';
 import { SearchProps } from './Search';
 
@@ -20,6 +21,7 @@ export interface Composables {
   LoadingIndicator: React.ComponentType<LoadingIndicatorProps>;
   Message: React.ComponentType<MessageProps>;
   Navigation: React.ComponentType<NavigationProps>;
+  OverwriteToggle: React.ComponentType<OverwriteToggleProps>;
   Search: React.ComponentType<SearchProps>;
   StatusDisplay: React.ComponentType<StatusDisplayProps>;
 }

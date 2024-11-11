@@ -43,13 +43,15 @@ export interface ControlsContext {
     isActionStartDisabled?: boolean;
     isAddFilesDisabled?: boolean;
     isAddFolderDisabled?: boolean;
+    isOverwritingEnabled?: boolean;
     isDataRefreshDisabled?: boolean;
     isExitDisabled?: boolean;
     isLoading?: boolean;
     isFolderNameDisabled?: boolean;
-    isOverwriteCheckboxDisabled?: boolean;
+    isOverwriteToggleDisabled?: boolean;
     loadingIndicatorLabel?: string;
     location?: LocationState;
+    overwriteToggleLabel?: string;
     messageContent?: React.ReactNode;
     messageType?: MessageType;
     searchPlaceholder?: string;
@@ -67,5 +69,6 @@ export interface ControlsContext {
   onNavigateHome?: () => void;
   onRefresh?: () => void;
   onSearch?: (term: string, includeSubfolders: boolean) => void;
+  onToggleOverwrite?: () => void;
   onValidateFolderName?: (value: string) => void;
 }
