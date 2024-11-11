@@ -6,7 +6,7 @@ import {
   OrderedListElement,
   SpanElement,
 } from '../context/elements';
-import { PaginateButton } from '../components/PaginateButton';
+import { PaginationButton } from '../components/PaginationButton';
 
 export interface PaginationProps {
   page?: number;
@@ -15,7 +15,7 @@ export interface PaginationProps {
   highestPageVisited?: number;
 }
 
-const BLOCK_NAME = `${CLASS_BASE}__paginate`;
+const BLOCK_NAME = `${CLASS_BASE}__pagination`;
 
 export const Pagination = ({
   page,
@@ -27,9 +27,9 @@ export const Pagination = ({
 
   return (
     <NavElement aria-label={'Pagination'} className={BLOCK_NAME}>
-      <OrderedListElement className={`${BLOCK_NAME}__list`}>
-        <ListItemElement className={`${BLOCK_NAME}__item`}>
-          <PaginateButton
+      <OrderedListElement className={`${BLOCK_NAME}-list`}>
+        <ListItemElement className={`${BLOCK_NAME}-list-item`}>
+          <PaginationButton
             disabled={page <= 1}
             onClick={() => {
               if (onPaginate) onPaginate(page - 1);
@@ -37,17 +37,17 @@ export const Pagination = ({
             type="previous"
           />
         </ListItemElement>
-        <ListItemElement className={`${BLOCK_NAME}__item`}>
+        <ListItemElement className={`${BLOCK_NAME}-list-item`}>
           <SpanElement
             aria-label={`Page ${page}`}
             aria-current="page"
-            className={`${BLOCK_NAME}__current`}
+            className={`${BLOCK_NAME}-current`}
           >
             {page}
           </SpanElement>
         </ListItemElement>
-        <ListItemElement className={`${BLOCK_NAME}__item`}>
-          <PaginateButton
+        <ListItemElement className={`${BLOCK_NAME}-list-item`}>
+          <PaginationButton
             disabled={
               !highestPageVisited ||
               (page >= highestPageVisited && !hasNextPage)

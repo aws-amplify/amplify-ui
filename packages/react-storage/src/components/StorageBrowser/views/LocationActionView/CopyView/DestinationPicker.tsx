@@ -115,7 +115,9 @@ export const DestinationPicker = ({
       />
       <ViewElement className={`${CLASS_BASE}__action-destination`}>
         <SearchControl />
-        <PaginationControl className={`${CLASS_BASE}__paginate`} />
+        <PaginationControl
+          className={`${CLASS_BASE}__destination-picker-pagination`}
+        />
       </ViewElement>
       <ViewElement className="storage-browser__table-wrapper">
         <DataTableControl

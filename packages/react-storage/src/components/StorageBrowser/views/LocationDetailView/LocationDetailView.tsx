@@ -133,7 +133,9 @@ export function LocationDetailView({
           <SearchControl
             className={`${CLASS_BASE}__location-detail-view-search`}
           />
-          <PaginationControl className={`${CLASS_BASE}__paginate`} />
+          <PaginationControl
+            className={`${CLASS_BASE}__location-detail-view-pagination`}
+          />
           <DataRefreshControl
             className={`${CLASS_BASE}__locations-detail-view-data-refresh`}
           />

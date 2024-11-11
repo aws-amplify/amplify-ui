@@ -1,10 +1,12 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { PaginateButton } from '../PaginateButton';
+import { PaginationButton } from '../PaginationButton';
 
-describe('PaginateButton', () => {
+describe('PaginationButton', () => {
   it('renders "next" button', () => {
-    render(<PaginateButton disabled={false} onClick={jest.fn()} type="next" />);
+    render(
+      <PaginationButton disabled={false} onClick={jest.fn()} type="next" />
+    );
 
     const nextButton = screen.getByRole('button', { name: 'Go to next page' });
     const nextIcon = nextButton.querySelector('svg');
@@ -15,7 +17,7 @@ describe('PaginateButton', () => {
 
   it('renders "previous" button', () => {
     render(
-      <PaginateButton disabled={false} onClick={jest.fn()} type="previous" />
+      <PaginationButton disabled={false} onClick={jest.fn()} type="previous" />
     );
 
     const previousButton = screen.getByRole('button', {

@@ -129,7 +129,9 @@ export function LocationsView({
         <Title>{title}</Title>
         <ViewElement className={`${CLASS_BASE}__location-detail-view-controls`}>
           <SearchControl className={`${CLASS_BASE}__locations-view-search`} />
-          <PaginationControl className={`${CLASS_BASE}__paginate`} />
+          <PaginationControl
+            className={`${CLASS_BASE}__locations-view-pagination`}
+          />
           <DataRefreshControl
             className={`${CLASS_BASE}__locations-view-data-refresh`}
           />
