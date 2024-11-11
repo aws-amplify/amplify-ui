@@ -1,16 +1,12 @@
 import React from 'react';
 
-import { CLASS_BASE } from '../constants';
-import { resolveClassName } from '../utils';
-
-import { CreateFolderControls } from './CreateFolderControls';
-import { DeleteFilesControls } from './DeleteFilesControls';
-import { UploadControls } from './UploadControls';
-import { CopyFilesControls } from './CopyFilesControls';
+import { CreateFolderView } from './CreateFolderView';
+import { CopyView } from './CopyView';
+import { DeleteView } from './DeleteView';
+import { UploadView } from './UploadView';
 import { useStore } from '../../providers/store';
 
 export interface LocationActionViewProps<T = string> {
-  className?: (defaultClassName: string) => string;
   onExit?: () => void;
   type?: T;
 }
@@ -27,7 +23,6 @@ const isActionViewType = (value?: string) =>
   ACTION_VIEW_TYPES.some((type) => type === value);
 
 export const LocationActionView = ({
-  className,
   onExit,
   type,
 }: LocationActionViewProps): React.JSX.Element | null => {
@@ -36,19 +31,16 @@ export const LocationActionView = ({
   if (!isActionViewType(actionType)) return null;
 
   return (
-    <div
-      className={resolveClassName(CLASS_BASE, className)}
-      data-testid="LOCATION_ACTION_VIEW"
-    >
+    <>
       {actionType === 'CREATE_FOLDER' ? (
-        <CreateFolderControls onExit={onExit} />
+        <CreateFolderView onExit={onExit} />
       ) : actionType === 'DELETE_FILES' ? (
-        <DeleteFilesControls onExit={onExit} />
+        <DeleteView onExit={onExit} />
       ) : actionType === 'COPY_FILES' ? (
-        <CopyFilesControls onExit={onExit} />
+        <CopyView onExit={onExit} />
       ) : (
-        <UploadControls onExit={onExit} />
+        <UploadView onExit={onExit} />
       )}
-    </div>
+    </>
   );
 };

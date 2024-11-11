@@ -29,9 +29,9 @@ describe('DropZone', () => {
     expect(child.parentElement).toHaveClass('storage-browser__drop-zone');
   });
 
-  it('calls onDropComplete', () => {
+  it('calls onDropFiles', () => {
     const files = [new File([], '')];
-    const mockOnDropComplete = jest.fn();
+    const mockOnDropFiles = jest.fn();
     mockUseDropZone.mockImplementation(
       ({
         onDropComplete,
@@ -44,12 +44,12 @@ describe('DropZone', () => {
     );
 
     render(
-      <DropZone onDropComplete={mockOnDropComplete}>
+      <DropZone onDropFiles={mockOnDropFiles}>
         <table />
       </DropZone>
     );
 
-    expect(mockOnDropComplete).toHaveBeenCalledWith(files);
+    expect(mockOnDropFiles).toHaveBeenCalledWith(files);
   });
 
   it('appends an active modifier', () => {

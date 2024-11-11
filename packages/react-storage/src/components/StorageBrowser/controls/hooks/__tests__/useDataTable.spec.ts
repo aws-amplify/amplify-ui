@@ -1,17 +1,17 @@
 import { act, renderHook } from '@testing-library/react';
 import { useControlsContext } from '../../../controls/context';
 import { useDataTable } from '../useDataTable';
-import { compareButtonData } from '../../compareFunctions/compareButtonData';
-import { compareDateData } from '../../compareFunctions/compareDateData';
-import { compareNumberData } from '../../compareFunctions/compareNumberData';
-import { compareTextData } from '../../compareFunctions/compareTextData';
+import { compareButtonData } from '../compareFunctions/compareButtonData';
+import { compareDateData } from '../compareFunctions/compareDateData';
+import { compareNumberData } from '../compareFunctions/compareNumberData';
+import { compareTextData } from '../compareFunctions/compareTextData';
 import { DataTableSortHeader } from '../../../composables/DataTable';
 
 jest.mock('../../../controls/context');
-jest.mock('../../compareFunctions/compareButtonData');
-jest.mock('../../compareFunctions/compareDateData');
-jest.mock('../../compareFunctions/compareNumberData');
-jest.mock('../../compareFunctions/compareTextData');
+jest.mock('../compareFunctions/compareButtonData');
+jest.mock('../compareFunctions/compareDateData');
+jest.mock('../compareFunctions/compareNumberData');
+jest.mock('../compareFunctions/compareTextData');
 
 describe('useDataTable', () => {
   const checkboxHeader = { type: 'checkbox', content: {} };

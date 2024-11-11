@@ -19,10 +19,10 @@ describe('useDropZone', () => {
     });
 
     const result = useDropZone();
-    result.onDropComplete?.(files);
+    result.onDropFiles?.(files);
 
     expect(result).toStrictEqual({
-      onDropComplete: expect.any(Function),
+      onDropFiles: expect.any(Function),
     });
     expect(mockOnDropFiles).toHaveBeenCalledWith(files);
   });
