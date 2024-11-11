@@ -46,7 +46,6 @@ export function CreateFolderView({
     ? getActionCompleteMessage(statusCounts)
     : undefined;
 
-  // FIXME: Eventually comes from useView hook
   const contextValue: ControlsContext = {
     data: {
       folderNameLabel: 'Enter folder name:',
