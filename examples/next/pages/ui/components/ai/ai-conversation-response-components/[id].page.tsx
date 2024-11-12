@@ -69,7 +69,7 @@ function Chat({ id }: { id?: string }) {
         });
       }}
       messageRenderer={{
-        text: (message) => <ReactMarkdown>{message}</ReactMarkdown>,
+        text: ({ text }) => <ReactMarkdown>{text}</ReactMarkdown>,
       }}
       responseComponents={responseComponents}
     />
