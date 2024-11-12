@@ -8,9 +8,11 @@ import { useControlsContext } from './context';
 
 export const SearchControl = ({
   className,
-}: ControlProps): React.JSX.Element | null => {
-  const { onSearch, data } = useControlsContext();
-  const { showIncludeSubfolders, searchPlaceholder } = data;
+  children,
+}: ControlProps & { children?: React.ReactNode }): React.JSX.Element | null => {
+  const { data, onSearch, onSearchQueryChange, onSearchClear } =
+    useControlsContext();
+  const { searchPlaceholder, searchQuery } = data;
   const ResolvedSearch = useResolvedComposable(Search, 'Search');
 
   return (
@@ -18,8 +20,12 @@ export const SearchControl = ({
       <ResolvedSearch
         onSearch={onSearch}
         searchPlaceholder={searchPlaceholder}
-        showIncludeSubfolders={showIncludeSubfolders}
-      />
+        searchQuery={searchQuery}
+        onSearchQueryChange={onSearchQueryChange}
+        onSearchClear={onSearchClear}
+      >
+        {children ?? null}
+      </ResolvedSearch>
     </ViewElement>
   );
 };

@@ -567,10 +567,64 @@ describe('useLocationDetailView', () => {
 
     const { result } = renderHook(() => useLocationDetailView());
     act(() => {
-      const state = result.current;
-      state.onSearch('moo', true);
+      result.current.onSearchQueryChange('moo');
     });
 
+    act(() => {
+      result.current.onSearch();
+    });
+
+    // search complete
+    expect(handleListMock).toHaveBeenCalledWith({
+      config,
+      options: {
+        ...DEFAULT_LIST_OPTIONS,
+        delimiter: '/',
+        search: { filterKey: 'key', query: 'moo' },
+      },
+      prefix: 'item-b-key/',
+    });
+    expect(handleStoreActionMock).toHaveBeenCalledWith({
+      type: 'RESET_LOCATION_ITEMS',
+    });
+
+    // clears search
+    act(() => {
+      result.current.onSearchClear();
+    });
+
+    expect(handleListMock).toHaveBeenCalledWith(
+      expect.objectContaining({
+        options: expect.objectContaining({
+          refresh: true,
+        }),
+      })
+    );
+  });
+
+  it('should handle search with subfolders', () => {
+    const handleStoreActionMock = jest.fn();
+    useStoreSpy.mockReturnValue([testStoreState, handleStoreActionMock]);
+    const mockDataState = {
+      data: { items: [], nextToken: undefined },
+      message: '',
+      hasError: false,
+      isLoading: false,
+    };
+    const handleListMock = jest.fn();
+    useDataStateSpy.mockReturnValue([mockDataState, handleListMock]);
+
+    const { result } = renderHook(() => useLocationDetailView());
+    act(() => {
+      result.current.onSearchQueryChange('moo');
+      result.current.onIncludeSubfoldersChange(true);
+    });
+
+    act(() => {
+      result.current.onSearch();
+    });
+
+    // search complete
     expect(handleListMock).toHaveBeenCalledWith({
       config,
       options: {
@@ -583,5 +637,18 @@ describe('useLocationDetailView', () => {
     expect(handleStoreActionMock).toHaveBeenCalledWith({
       type: 'RESET_LOCATION_ITEMS',
     });
+
+    // clears search
+    act(() => {
+      result.current.onSearchClear();
+    });
+
+    expect(handleListMock).toHaveBeenCalledWith(
+      expect.objectContaining({
+        options: expect.objectContaining({
+          refresh: true,
+        }),
+      })
+    );
   });
 });
