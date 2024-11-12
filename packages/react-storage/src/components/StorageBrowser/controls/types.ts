@@ -56,7 +56,7 @@ export interface ControlsContext {
     showIncludeSubfolders?: boolean;
     statusCounts?: StatusCounts;
     tableData?: TableData;
-    title?: string;    
+    title?: string;
   };
   onActionCancel?: () => void;
   onActionStart?: () => void;
