@@ -34,6 +34,7 @@ export interface AIConversationInput {
   suggestedPrompts?: SuggestedPrompt[];
   actions?: CustomAction[];
   responseComponents?: ResponseComponents;
+  FallbackResponseComponent?: React.ComponentType<any>;
   variant?: MessageVariant;
   controls?: ControlsContextProps;
   allowAttachments?: boolean;
