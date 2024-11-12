@@ -11,6 +11,7 @@ import { getDestinationListFullPrefix } from './getDestinationListFullPrefix';
 import { useDataState } from '@aws-amplify/ui-react-core';
 import { useStore } from '../../../providers/store';
 import { createEnhancedListHandler } from '../../../actions/createEnhancedListHandler';
+import { useSearch } from '../../hooks/useSearch';
 
 const DEFAULT_PAGE_SIZE = 1000;
 export const DEFAULT_LIST_OPTIONS = {
@@ -40,7 +41,11 @@ export const useDestinationPicker = ({
   message: string | undefined;
   pageItems: LocationItemData[];
   onPaginate: (page: number) => void;
-  onSearch: (query: string) => void;
+  searchQuery: string;
+  onSearch: () => void;
+  onSearchQueryChange: (value: string) => void;
+  onSearchClear: () => void;
+  resetSearch: () => void;
 } => {
   const prefix = getDestinationListFullPrefix(destinationList);
 
@@ -66,13 +71,38 @@ export const useDestinationPicker = ({
     });
   };
 
-  const { currentPage, onPaginate, highestPageVisited, pageItems } =
-    usePaginate({
-      items,
-      paginateCallback,
-      pageSize: 10,
-      hasNextToken,
+  const {
+    currentPage,
+    onPaginate,
+    highestPageVisited,
+    pageItems,
+    handleReset,
+  } = usePaginate({
+    items,
+    paginateCallback,
+    pageSize: 10,
+    hasNextToken,
+  });
+
+  const onSearch = (query: string) => {
+    handleReset();
+    handleList({
+      config: getInput(),
+      prefix,
+      options: {
+        ...DEFAULT_LIST_OPTIONS,
+        search: { query, filterKey: 'key' },
+      },
     });
+  };
+
+  const {
+    onSearchSubmit,
+    onSearchQueryChange,
+    searchQuery,
+    onSearchClear,
+    reset: resetSearch,
+  } = useSearch({ onSearch });
 
   useEffect(() => {
     handleList({
@@ -96,15 +126,18 @@ export const useDestinationPicker = ({
     hasError,
     message,
     pageItems,
+    searchQuery,
     onPaginate,
-    onSearch: (query: string) => {
+    onSearch: onSearchSubmit,
+    onSearchQueryChange,
+    resetSearch,
+    onSearchClear: () => {
+      handleReset();
+      onSearchClear();
       handleList({
         config: getInput(),
         prefix,
-        options: {
-          ...DEFAULT_LIST_OPTIONS,
-          search: { query, filterKey: 'key' },
-        },
+        options: { ...DEFAULT_REFRESH_OPTIONS },
       });
     },
   };

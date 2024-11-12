@@ -82,6 +82,7 @@ export function LocationsView({
     highestPageVisited,
     page,
     isLoading,
+    searchQuery,
     pageItems,
     message,
     shouldShowEmptyMessage,
@@ -89,6 +90,8 @@ export function LocationsView({
     onPaginate,
     onNavigate,
     onSearch,
+    onSearchQueryChange,
+    onSearchClear,
   } = useLocationsView(props);
 
   const {
@@ -117,9 +120,12 @@ export function LocationsView({
           onNavigate,
         }),
         searchPlaceholder: searchPlaceholder,
+        searchQuery,
       }}
       onSearch={onSearch}
       onRefresh={onRefresh}
+      onSearchQueryChange={onSearchQueryChange}
+      onSearchClear={onSearchClear}
     >
       <div
         className={resolveClassName(CLASS_BASE, className)}

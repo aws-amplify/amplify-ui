@@ -534,10 +534,15 @@ describe('useLocationDetailView', () => {
 
     const { result } = renderHook(() => useLocationDetailView());
     act(() => {
-      const state = result.current;
-      state.onSearch('moo', true);
+      result.current.onSearchQueryChange('moo');
+      result.current.onIncludedSubfoldersChange(true);
     });
 
+    act(() => {
+      result.current.onSearch();
+    });
+
+    // search complete
     expect(handleListMock).toHaveBeenCalledWith({
       config,
       options: {
@@ -550,5 +555,18 @@ describe('useLocationDetailView', () => {
     expect(handleStoreActionMock).toHaveBeenCalledWith({
       type: 'RESET_LOCATION_ITEMS',
     });
+
+    // clears search
+    act(() => {
+      result.current.onSearchClear();
+    });
+
+    expect(handleListMock).toHaveBeenCalledWith(
+      expect.objectContaining({
+        options: expect.objectContaining({
+          refresh: true,
+        }),
+      })
+    );
   });
 });

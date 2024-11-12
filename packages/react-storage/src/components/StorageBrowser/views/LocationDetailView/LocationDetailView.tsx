@@ -12,7 +12,12 @@ import { useLocationDetailView } from './useLocationDetailView';
 import { LocationDetailViewProps } from './types';
 import { getLocationDetailViewTableData } from './getLocationDetailViewTableData';
 import { DropZoneControl } from '../../controls/DropZoneControl';
-import { ViewElement } from '../../context/elements';
+import {
+  InputElement,
+  LabelElement,
+  SpanElement,
+  ViewElement,
+} from '../../context/elements';
 import { SearchControl } from '../../controls/SearchControl';
 
 export const DEFAULT_ERROR_MESSAGE = 'There was an error loading items.';
@@ -78,7 +83,8 @@ export function LocationDetailView({
     message,
     shouldShowEmptyMessage,
     searchPlaceholder,
-    showIncludeSubfolders,
+    searchQuery,
+    includeSubfolders,
     onDropFiles,
     onRefresh,
     onPaginate,
@@ -88,6 +94,9 @@ export function LocationDetailView({
     onSelect,
     onSelectAll,
     onSearch,
+    onSearchQueryChange,
+    onIncludedSubfoldersChange,
+    onSearchClear,
   } = useLocationDetailView({ onNavigate: onNavigateProp, onExit });
 
   return (
@@ -100,7 +109,7 @@ export function LocationDetailView({
           isDataRefreshDisabled: isLoading,
           location,
           searchPlaceholder,
-          showIncludeSubfolders,
+          searchQuery,
           tableData: getLocationDetailViewTableData({
             areAllFilesSelected,
             location,
@@ -118,6 +127,8 @@ export function LocationDetailView({
         onNavigateHome={onNavigateHome}
         onRefresh={onRefresh}
         onSearch={onSearch}
+        onSearchQueryChange={onSearchQueryChange}
+        onSearchClear={onSearchClear}
       >
         <NavigationControl
           className={`${CLASS_BASE}__location-detail-view-navigation`}
@@ -126,7 +137,21 @@ export function LocationDetailView({
         <ViewElement className={`${CLASS_BASE}__location-detail-view-controls`}>
           <SearchControl
             className={`${CLASS_BASE}__location-detail-view-search`}
-          />
+          >
+            <SpanElement className={`${CLASS_BASE}__search-toggle__container`}>
+              <LabelElement className={`${CLASS_BASE}__search-toggle__label`}>
+                <InputElement
+                  checked={includeSubfolders}
+                  className={`${CLASS_BASE}__search-toggle__checkbox`}
+                  onChange={() =>
+                    onIncludedSubfoldersChange?.(!includeSubfolders)
+                  }
+                  type="checkbox"
+                />
+                Include subfolders
+              </LabelElement>
+            </SpanElement>
+          </SearchControl>
           <Paginate
             currentPage={page}
             onPaginate={onPaginate}

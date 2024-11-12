@@ -53,7 +53,7 @@ export interface ControlsContext {
     messageContent?: React.ReactNode;
     messageType?: MessageType;
     searchPlaceholder?: string;
-    showIncludeSubfolders?: boolean;
+    searchQuery?: string;
     statusCounts?: StatusCounts;
     tableData?: TableData;
   };
@@ -66,6 +66,8 @@ export interface ControlsContext {
   onNavigate?: (location: LocationData, path?: string) => void;
   onNavigateHome?: () => void;
   onRefresh?: () => void;
-  onSearch?: (term: string, includeSubfolders: boolean) => void;
+  onSearch?: () => void;
+  onSearchClear?: () => void;
+  onSearchQueryChange?: (value: string) => void;
   onValidateFolderName?: (value: string) => void;
 }
