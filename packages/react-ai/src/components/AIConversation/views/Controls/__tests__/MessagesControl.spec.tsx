@@ -347,7 +347,7 @@ describe('MessageControl', () => {
   it('renders fallback response component if no response component is found', async () => {
     render(
       <FallbackComponentProvider
-        fallbackComponent={() => <View testId="fallback" />}
+        FallbackComponent={() => <View testId="fallback" />}
       >
         <MessageControl message={AIResponseComponentMessage} />
       </FallbackComponentProvider>
