@@ -14,7 +14,7 @@ interface DragEvents {
   onDragEnter: (event: React.DragEvent<HTMLDivElement>) => void;
   onDragLeave: (event: React.DragEvent<HTMLDivElement>) => void;
   onDragOver: (event: React.DragEvent<HTMLDivElement>) => void;
-  onDrop: (event: React.DragEvent<HTMLDivElement>) => void;
+  onDrop: (event: React.DragEvent<HTMLDivElement>) => Promise<void>;
 }
 
 export interface BaseDropZoneContainerProps extends BaseViewProps, DragEvents {}
