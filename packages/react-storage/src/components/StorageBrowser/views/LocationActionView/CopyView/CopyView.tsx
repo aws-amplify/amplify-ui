@@ -2,32 +2,35 @@ import React from 'react';
 
 import { ViewElement } from '../../../context/elements';
 
-import { Controls } from '../../Controls';
-
 import { Title } from '../Controls/Title';
 import { displayText } from '../../../displayText/en';
 import { CLASS_BASE } from '../../constants';
-import { DestinationPicker } from './DestinationPicker';
 
 import { DataTableControl } from '../../../controls/DataTableControl';
+import { ActionExitControl } from '../../../controls/ActionExitControl';
 import { ControlsContextProvider } from '../../../controls/context';
 import { getActionViewTableData } from '../getActionViewTableData';
 import { ActionStartControl } from '../../../controls/ActionStartControl';
 import { DescriptionList } from '../../../components/DescriptionList';
 import { StatusDisplayControl } from '../../../controls/StatusDisplayControl';
-import { getDestinationListFullPrefix } from './getDestinationListFullPrefix';
 import { ActionCancelControl } from '../../../controls/ActionCancelControl';
 import { resolveClassName } from '../../utils';
+import { useDisplayText } from '../../../displayText';
+
+import { DestinationPicker } from './DestinationPicker';
 import { useCopyView } from './useCopyView';
 import { CopyViewProps } from './types';
+import { getDestinationListFullPrefix } from './utils';
 
-const { Exit } = Controls;
 const { actionSetDestination } = displayText;
 
-export const CopyView = ({
+export function CopyView({
   className,
-  onExit: onExitProps,
-}: CopyViewProps): React.JSX.Element => {
+  ...props
+}: CopyViewProps): React.JSX.Element {
+  const { actionCancelLabel, actionExitLabel, actionStartLabel } =
+    useDisplayText()['CopyView'];
+
   const {
     destinationList,
     isProcessing,
@@ -38,9 +41,9 @@ export const CopyView = ({
     onActionCancel,
     onActionStart,
     onDestinationChange,
-    onExit,
+    onActionExit,
     onTaskCancel,
-  } = useCopyView({ onExit: onExitProps });
+  } = useCopyView(props);
 
   const tableData = getActionViewTableData({
     tasks,
@@ -58,17 +61,20 @@ export const CopyView = ({
     <div className={resolveClassName(CLASS_BASE, className)}>
       <ControlsContextProvider
         data={{
-          actionCancelLabel: 'Cancel',
-          actionStartLabel: 'Copy',
+          actionCancelLabel,
+          actionExitLabel,
+          actionStartLabel,
           isActionCancelDisabled,
+          isActionExitDisabled: isProcessing,
           isActionStartDisabled,
           statusCounts,
           tableData,
         }}
         onActionStart={onActionStart}
+        onActionExit={onActionExit}
         onActionCancel={onActionCancel}
       >
-        <Exit onClick={onExit} disabled={isProcessing} />
+        <ActionExitControl />
         <Title />
         <ViewElement className={`${CLASS_BASE}__table-wrapper`}>
           <DataTableControl className={`${CLASS_BASE}__copy-view-data-table`} />
@@ -109,4 +115,4 @@ export const CopyView = ({
       </ControlsContextProvider>
     </div>
   );
-};
+}

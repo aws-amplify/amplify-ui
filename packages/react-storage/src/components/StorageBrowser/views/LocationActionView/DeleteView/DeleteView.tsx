@@ -1,25 +1,29 @@
 import React from 'react';
 
-import { Controls } from '../../Controls';
+import { Title } from '../Controls/Title';
+
 import { ViewElement } from '../../../context/elements';
 import { DataTableControl } from '../../../controls/DataTableControl';
 import { ControlsContextProvider } from '../../../controls/context';
-import { CLASS_BASE } from '../../constants';
-import { Title } from '../Controls/Title';
 import { StatusDisplayControl } from '../../../controls/StatusDisplayControl';
-import { getActionViewTableData } from '../getActionViewTableData';
 import { ActionStartControl } from '../../../controls/ActionStartControl';
+import { ActionExitControl } from '../../../controls/ActionExitControl';
 import { ActionCancelControl } from '../../../controls/ActionCancelControl';
+import { CLASS_BASE } from '../../constants';
 import { resolveClassName } from '../../utils';
+
+import { getActionViewTableData } from '../getActionViewTableData';
 import { useDeleteView } from './useDeleteView';
 import { DeleteViewProps } from './types';
+import { useDisplayText } from '../../../displayText';
 
-const { Exit } = Controls;
-
-export const DeleteView = ({
+export function DeleteView({
   className,
-  onExit: onExitProps,
-}: DeleteViewProps): React.JSX.Element => {
+  ...props
+}: DeleteViewProps): React.JSX.Element {
+  const { actionCancelLabel, actionExitLabel, actionStartLabel } =
+    useDisplayText()['DeleteView'];
+
   const {
     isProcessing,
     isProcessingComplete,
@@ -28,9 +32,9 @@ export const DeleteView = ({
     tasks,
     onActionCancel,
     onActionStart,
-    onExit,
+    onActionExit,
     onTaskCancel,
-  } = useDeleteView({ onExit: onExitProps });
+  } = useDeleteView(props);
 
   const tableData = getActionViewTableData({
     tasks,
@@ -43,17 +47,20 @@ export const DeleteView = ({
     <div className={resolveClassName(CLASS_BASE, className)}>
       <ControlsContextProvider
         data={{
-          actionCancelLabel: 'Cancel',
-          actionStartLabel: 'Start',
+          actionCancelLabel,
+          actionExitLabel,
+          actionStartLabel,
           isActionCancelDisabled: !isProcessing || isProcessingComplete,
+          isActionExitDisabled: isProcessing,
           isActionStartDisabled: isProcessing || isProcessingComplete,
           statusCounts,
           tableData,
         }}
         onActionStart={onActionStart}
+        onActionExit={onActionExit}
         onActionCancel={onActionCancel}
       >
-        <Exit onClick={onExit} disabled={isProcessing} />
+        <ActionExitControl />
         <Title />
         <ViewElement className={`${CLASS_BASE}__table-wrapper`}>
           <DataTableControl
@@ -70,4 +77,4 @@ export const DeleteView = ({
       </ControlsContextProvider>
     </div>
   );
-};
+}

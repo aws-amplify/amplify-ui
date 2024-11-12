@@ -1,4 +1,6 @@
 import { useEffect } from 'react';
+import { useDataState } from '@aws-amplify/ui-react-core';
+
 import { usePaginate } from '../../hooks/usePaginate';
 import {
   listLocationItemsHandler,
@@ -6,13 +8,12 @@ import {
   LocationItemData,
 } from '../../../actions';
 import { useGetActionInput } from '../../../providers/configuration';
-import { getDestinationListFullPrefix } from './getDestinationListFullPrefix';
 
-import { useDataState } from '@aws-amplify/ui-react-core';
 import { useStore } from '../../../providers/store';
 import { createEnhancedListHandler } from '../../../actions/createEnhancedListHandler';
+import { getDestinationListFullPrefix } from './utils';
 
-const DEFAULT_PAGE_SIZE = 1000;
+const DEFAULT_PAGE_SIZE = 100;
 export const DEFAULT_LIST_OPTIONS = {
   pageSize: DEFAULT_PAGE_SIZE,
   delimiter: '/',
@@ -70,7 +71,7 @@ export const useDestinationPicker = ({
     usePaginate({
       items,
       paginateCallback,
-      pageSize: 10,
+      pageSize: DEFAULT_PAGE_SIZE,
       hasNextToken,
     });
 
@@ -78,9 +79,9 @@ export const useDestinationPicker = ({
     handleList({
       config: getInput(),
       prefix,
-      options: { ...DEFAULT_REFRESH_OPTIONS, nextToken },
+      options: { ...DEFAULT_REFRESH_OPTIONS },
     });
-  }, [getInput, handleList, nextToken, prefix]);
+  }, [getInput, handleList, prefix]);
 
   const [{ location }] = useStore();
 

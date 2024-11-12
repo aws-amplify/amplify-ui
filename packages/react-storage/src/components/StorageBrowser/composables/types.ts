@@ -1,4 +1,5 @@
 import { ActionCancelProps } from './ActionCancel';
+import { ActionExitProps } from './ActionExit';
 import { ActionStartProps } from './ActionStart';
 import { DataRefreshProps } from './DataRefresh';
 import { DataTableProps } from './DataTable';
@@ -10,10 +11,12 @@ import { NavigationProps } from './Navigation';
 import { OverwriteToggleProps } from './OverwriteToggle';
 import { StatusDisplayProps } from './StatusDisplay';
 import { SearchProps } from './Search';
+import { TitleProps } from './Title';
 
 export interface Composables {
-  ActionStart: React.ComponentType<ActionStartProps>;
   ActionCancel: React.ComponentType<ActionCancelProps>;
+  ActionExit: React.ComponentType<ActionExitProps>;
+  ActionStart: React.ComponentType<ActionStartProps>;
   DataRefresh: React.ComponentType<DataRefreshProps>;
   DataTable: React.ComponentType<DataTableProps>;
   DropZone: React.ComponentType<DropZoneProps>;
@@ -24,6 +27,7 @@ export interface Composables {
   OverwriteToggle: React.ComponentType<OverwriteToggleProps>;
   Search: React.ComponentType<SearchProps>;
   StatusDisplay: React.ComponentType<StatusDisplayProps>;
+  Title: React.ComponentType<TitleProps>;
 }
 
 export interface ComposablesContext {

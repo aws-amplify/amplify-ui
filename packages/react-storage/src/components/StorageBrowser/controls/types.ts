@@ -34,6 +34,7 @@ interface TableData {
 export interface ControlsContext {
   data: {
     actionCancelLabel?: string;
+    actionExitLabel?: string;
     actionStartLabel?: string;
     folderNameId?: string;
     folderNameLabel?: string;
@@ -45,7 +46,7 @@ export interface ControlsContext {
     isAddFolderDisabled?: boolean;
     isOverwritingEnabled?: boolean;
     isDataRefreshDisabled?: boolean;
-    isExitDisabled?: boolean;
+    isActionExitDisabled?: boolean;
     isLoading?: boolean;
     isFolderNameDisabled?: boolean;
     isOverwriteToggleDisabled?: boolean;
@@ -58,10 +59,11 @@ export interface ControlsContext {
     showIncludeSubfolders?: boolean;
     statusCounts?: StatusCounts;
     tableData?: TableData;
+    title?: string;
   };
   onActionCancel?: () => void;
+  onActionExit?: () => void;
   onActionStart?: () => void;
-  onActionReset?: () => void;
   onDropFiles?: (files: File[]) => void;
   onFolderNameChange?: (value: string) => void;
   onMessageDismiss?: () => void;

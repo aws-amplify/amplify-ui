@@ -39,7 +39,7 @@ export const useDeleteView = (
     });
   };
 
-  const onExit = () => {
+  const onActionExit = () => {
     // clear tasks state
     tasks.forEach(({ remove }) => remove());
     // clear files state
@@ -63,8 +63,8 @@ export const useDeleteView = (
     statusCounts,
     tasks,
     onActionCancel,
+    onActionExit,
     onActionStart,
-    onExit,
     onTaskCancel,
   };
 };

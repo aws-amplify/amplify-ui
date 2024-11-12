@@ -1,15 +1,15 @@
 import {
+  ComponentName,
+  DefaultActionKey,
   LocationData,
+  TaskActionConfig,
   TaskData,
   TaskHandler,
   TaskHandlerInput,
 } from '../../actions';
-import {
-  ComponentName,
-  DefaultActionKey,
-  TaskActionConfig,
-} from '../../actions/configs';
+
 import { LocationState } from '../../providers/store/location';
+
 import { StatusCounts, Task, Tasks } from '../../tasks';
 import { DataTableProps } from '../../composables/DataTable';
 import { WithKey } from '../../components/types';
@@ -22,13 +22,14 @@ export interface ActionViewState<T extends TaskData = TaskData> {
   tasks: Tasks<T>;
   onActionStart: () => void;
   onActionCancel: () => void;
-  onExit?: (location?: LocationData) => void;
+  onActionExit: () => void;
   onTaskCancel: (task: Task) => void;
 }
 
 export interface ActionViewProps {
   children?: React.ReactNode;
   className?: string;
+  onExit?: (location?: LocationData) => void;
 }
 
 export interface LocationActionViewProps<

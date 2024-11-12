@@ -1,234 +1,197 @@
 import React from 'react';
-import { render, waitFor, screen, fireEvent } from '@testing-library/react';
+import { act, render } from '@testing-library/react';
 
-import * as ActionsModule from '../../../../do-not-import-from-here/actions';
-import * as StoreModule from '../../../../providers/store';
+import * as UseCreateFolderViewModule from '../useCreateFolderView';
+import { CreateFolderViewState } from '../types';
+
+import { ControlsContext } from '../../../../controls/types';
+import { CreateFolderView } from '../CreateFolderView';
 
 jest.mock('../../Controls/Title');
 
-import {
-  isValidFolderName,
-  CreateFolderView,
-  FIELD_VALIDATION_MESSAGE,
-  CreateFolderMessage,
-  RESULT_COMPLETE_MESSAGE,
-  RESULT_FAILED_MESSAGE,
-} from '../CreateFolderView';
+const getActionCompleteMessage = jest.fn();
+const getValidationMessage = jest.fn();
+jest.mock('../../../../displayText', () => ({
+  useDisplayText: () => ({
+    CreateFolderView: { getActionCompleteMessage, getValidationMessage },
+  }),
+}));
 
-const handleAction = jest.fn();
-const useActionSpy = jest.spyOn(ActionsModule, 'useAction').mockReturnValue([
-  {
-    isLoading: false,
-    data: { result: undefined },
-    message: undefined,
-    hasError: false,
-  },
-  handleAction,
-]);
+const mockControlsContextProvider = jest.fn(
+  (_: any) => 'ControlsContextProvider'
+);
 
-const location = {
+jest.mock('../../../../controls/context', () => ({
+  ControlsContextProvider: (ctx: any) => mockControlsContextProvider(ctx),
+  useControlsContext: () => ({ actionConfig: {}, data: {} }),
+}));
+
+const mockIsValidFolderName = jest.fn((_: string) => true);
+jest.mock('../utils', () => ({
+  isValidFolderName: (value: string) => mockIsValidFolderName(value),
+}));
+
+const current = {
   id: 'an-id-👍🏼',
   bucket: 'test-bucket',
-  permission: 'READWRITE',
+  permission: 'READWRITE' as const,
   prefix: 'test-prefix/',
-  type: 'PREFIX',
+  type: 'PREFIX' as const,
 };
-const storeMock: StoreModule.UseStoreState = {
-  location: { current: location, key: 'test-prefix/' },
-} as StoreModule.UseStoreState;
-const dispatchStoreAction = jest.fn();
 
-jest
-  .spyOn(StoreModule, 'useStore')
-  .mockReturnValue([storeMock, dispatchStoreAction]);
+const onActionStart = jest.fn();
+const onActionExit = jest.fn();
+const onFolderNameChange = jest.fn();
+
+const folderNameId = 'some-id';
+
+const defaultViewState: CreateFolderViewState = {
+  folderName: '',
+  folderNameId: folderNameId,
+  isProcessing: false,
+  isProcessingComplete: false,
+  location: { current, key: 'test-prefix/', path: '' },
+  onActionExit,
+  onActionStart,
+  onFolderNameChange,
+  onTaskCancel: jest.fn(),
+  statusCounts: {
+    CANCELED: 0,
+    COMPLETE: 0,
+    FAILED: 0,
+    OVERWRITE_PREVENTED: 0,
+    PENDING: 0,
+    QUEUED: 3,
+    TOTAL: 0,
+  },
+  tasks: [],
+};
+
+const preprocessingViewState: CreateFolderViewState = {
+  ...defaultViewState,
+  folderName: 'cool-folder-name',
+};
+
+const processingViewState: CreateFolderViewState = {
+  ...preprocessingViewState,
+  isProcessing: true,
+  statusCounts: {
+    ...preprocessingViewState.statusCounts,
+    PENDING: 1,
+    TOTAL: 1,
+  },
+};
+
+const postProcessingViewState: CreateFolderViewState = {
+  ...processingViewState,
+  folderName: 'cool-folder-name',
+  isProcessing: false,
+  isProcessingComplete: true,
+  statusCounts: {
+    ...processingViewState.statusCounts,
+    PENDING: 0,
+    COMPLETE: 1,
+  },
+};
+
+const useCreateFolderViewSpy = jest
+  .spyOn(UseCreateFolderViewModule, 'useCreateFolderView')
+  .mockReturnValue(defaultViewState);
 
 describe('CreateFolderView', () => {
   afterEach(jest.clearAllMocks);
 
-  it('handles folder creation in the happy path', async () => {
-    await waitFor(() => {
-      render(<CreateFolderView />);
-    });
+  it('provides the expected values to `ControlsContextProvider` on initial render', () => {
+    render(<CreateFolderView />);
 
-    const input = screen.getByLabelText('Enter folder name:');
-    fireEvent.change(input, { target: { value: 'test-folder-name' } });
-
-    const button = screen.getByRole('button', { name: 'Create Folder' });
-
-    fireEvent.click(button);
-
-    const fieldError = screen.queryByText(FIELD_VALIDATION_MESSAGE);
-
-    expect(fieldError).toBe(null);
-    expect(handleAction).toHaveBeenCalledTimes(1);
-    expect(handleAction).toHaveBeenCalledWith({
-      prefix: 'test-prefix/test-folder-name/',
-    });
-  });
-
-  it('shows a field error when invalid folder name is entered', async () => {
-    await waitFor(() => {
-      render(<CreateFolderView />);
-    });
-
-    const input = screen.getByLabelText('Enter folder name:');
-    fireEvent.change(input, { target: { value: 'invalid/folder-name' } });
-    fireEvent.blur(input);
-
-    const fieldError = screen.getByText(FIELD_VALIDATION_MESSAGE);
-    expect(fieldError).toBeInTheDocument();
-  });
-
-  it('clears a field error as expected', async () => {
-    await waitFor(() => {
-      render(<CreateFolderView />);
-    });
-
-    const input = screen.getByLabelText('Enter folder name:');
-    fireEvent.change(input, { target: { value: 'invalid/folder-name' } });
-    fireEvent.blur(input);
-
-    const initialFieldError = screen.queryByText(FIELD_VALIDATION_MESSAGE);
-    expect(initialFieldError).toBeInTheDocument();
-
-    fireEvent.change(input, { target: { value: 'valid-folder-name' } });
-    fireEvent.blur(input);
-
-    const fieldError = screen.queryByText(FIELD_VALIDATION_MESSAGE);
-    expect(fieldError).not.toBeInTheDocument();
-  });
-
-  it('cleans up on exit', async () => {
-    const handleAction = jest.fn();
-    useActionSpy.mockReturnValue([
-      {
-        isLoading: false,
-        data: { result: undefined },
-        message: undefined,
-        hasError: false,
+    const { calls } = mockControlsContextProvider.mock;
+    expect(calls).toHaveLength(1);
+    expect(calls[0][0]).toMatchObject({
+      data: {
+        isActionStartDisabled: true,
+        folderNameId,
+        messageContent: undefined,
       },
-      handleAction,
-    ]);
-
-    await waitFor(() => {
-      render(<CreateFolderView />);
-    });
-
-    const button = screen.getByRole('button', { name: 'Exit' });
-
-    fireEvent.click(button);
-
-    expect(handleAction).toHaveBeenCalledTimes(1);
-    expect(handleAction).toHaveBeenCalledWith({
-      options: { reset: true },
-      prefix: '',
+      onValidateFolderName: expect.any(Function),
     });
   });
-  it('shows a success message when result is SUCCESS', async () => {
-    const handleAction = jest.fn();
-    useActionSpy.mockReturnValue([
-      {
-        isLoading: false,
-        data: {
-          result: { key: 'test', status: 'COMPLETE', message: undefined },
-        },
-        message: undefined,
-        hasError: false,
+
+  it('provides the expected values to `ControlsContextProvider` prior to processing', () => {
+    useCreateFolderViewSpy.mockReturnValue(preprocessingViewState);
+    render(<CreateFolderView />);
+
+    const { calls } = mockControlsContextProvider.mock;
+    expect(calls).toHaveLength(1);
+    expect(calls[0][0]).toMatchObject({
+      data: {
+        isActionStartDisabled: false,
+        folderNameId,
+        messageContent: undefined,
       },
-      handleAction,
-    ]);
-
-    await waitFor(() => {
-      render(<CreateFolderView />);
+      onValidateFolderName: expect.any(Function),
     });
-
-    const successMessage = screen.getByText(RESULT_COMPLETE_MESSAGE);
-
-    expect(successMessage).toBeInTheDocument();
   });
-  it('shows a default error message when result is ERROR', async () => {
-    const handleAction = jest.fn();
-    useActionSpy.mockReturnValue([
-      {
-        isLoading: false,
-        data: { result: { key: 'test', status: 'FAILED', message: undefined } },
-        message: undefined,
-        hasError: false,
+
+  it('provides the expected values to `ControlsContextProvider` while processing', () => {
+    useCreateFolderViewSpy.mockReturnValue(processingViewState);
+    render(<CreateFolderView />);
+
+    const { calls } = mockControlsContextProvider.mock;
+    expect(calls).toHaveLength(1);
+    expect(calls[0][0]).toMatchObject({
+      data: {
+        isActionStartDisabled: true,
+        folderNameId,
+        messageContent: undefined,
       },
-      handleAction,
-    ]);
-
-    await waitFor(() => {
-      render(<CreateFolderView />);
+      onValidateFolderName: expect.any(Function),
     });
-
-    const successMessage = screen.getByText(RESULT_FAILED_MESSAGE);
-
-    expect(successMessage).toBeInTheDocument();
   });
 
-  it('shows a returned error message when result is ERROR', async () => {
-    const errorMessage = 'Network error';
-    const handleAction = jest.fn();
-    useActionSpy.mockReturnValue([
-      {
-        isLoading: false,
-        data: {
-          result: { key: 'test', status: 'FAILED', message: errorMessage },
-        },
-        message: undefined,
-        hasError: false,
+  it('provides the expected values to `ControlsContextProvider` post processing', () => {
+    getActionCompleteMessage.mockReturnValue('Success!');
+    useCreateFolderViewSpy.mockReturnValue(postProcessingViewState);
+    render(<CreateFolderView />);
+
+    const { calls } = mockControlsContextProvider.mock;
+    expect(calls).toHaveLength(1);
+    expect(calls[0][0]).toMatchObject({
+      data: {
+        isActionStartDisabled: true,
+        folderNameId,
+        messageContent: 'Success!',
       },
-      handleAction,
-    ]);
+      onValidateFolderName: expect.any(Function),
+    });
+  });
 
-    await waitFor(() => {
-      render(<CreateFolderMessage />);
+  it('runs validation on call to onValidateFolderName', () => {
+    useCreateFolderViewSpy.mockReturnValue(defaultViewState);
+
+    mockIsValidFolderName.mockReturnValueOnce(false);
+
+    render(<CreateFolderView />);
+
+    const { calls } = mockControlsContextProvider.mock;
+
+    const { onValidateFolderName } = calls[0][0] as ControlsContext;
+
+    expect(mockIsValidFolderName).not.toHaveBeenCalled();
+
+    act(() => {
+      onValidateFolderName?.('');
     });
 
-    const successMessage = screen.getByText(errorMessage);
+    expect(mockIsValidFolderName).toHaveBeenCalledTimes(1);
+    // get validation error message
+    expect(getValidationMessage).toHaveBeenCalledTimes(1);
 
-    expect(successMessage).toBeInTheDocument();
-  });
-
-  it('does not show a Message if no result', async () => {
-    const handleAction = jest.fn();
-    useActionSpy.mockReturnValue([
-      {
-        isLoading: false,
-        data: {
-          result: undefined,
-        },
-        message: undefined,
-        hasError: false,
-      },
-      handleAction,
-    ]);
-
-    await waitFor(() => {
-      render(<CreateFolderMessage />);
+    act(() => {
+      onValidateFolderName?.('valid!');
     });
 
-    const message = screen.queryByRole('alert');
-
-    expect(message).not.toBeInTheDocument();
-  });
-});
-
-describe('isValidFolderName', () => {
-  it('returns false when value is undefined', () => {
-    expect(isValidFolderName(undefined)).toBe(false);
-  });
-
-  it('returns false when value is an empty string', () => {
-    expect(isValidFolderName('')).toBe(false);
-  });
-
-  it('returns false if value contains a slash', () => {
-    expect(isValidFolderName('Fruit/Kiwi')).toBe(false);
-  });
-
-  it('returns true for isValidFolderName when name is valid', () => {
-    expect(isValidFolderName('Kiwi')).toBe(true);
+    expect(mockIsValidFolderName).toHaveBeenCalledTimes(2);
+    // do not get validation error message
+    expect(getValidationMessage).toHaveBeenCalledTimes(1);
   });
 });

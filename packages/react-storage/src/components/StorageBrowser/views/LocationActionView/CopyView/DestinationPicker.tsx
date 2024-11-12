@@ -11,24 +11,22 @@ import { useDestinationPicker } from '../CopyView/useDestinationPicker';
 import { CLASS_BASE } from '../../constants';
 import { DataTableControl } from '../../../controls/DataTableControl';
 import { ControlsContextProvider } from '../../../controls/context';
-import { getDestinationListFullPrefix } from './getDestinationListFullPrefix';
-import { getDestinationPickerTableData } from './getDestinationPickerDataTable';
 import { ControlsContext } from '../../../controls/types';
 import { Breadcrumb } from '../../../components/BreadcrumbNavigation';
 import { DescriptionList } from '../../../components/DescriptionList';
 import { SearchControl } from '../../../controls/SearchControl';
+
+import {
+  getDestinationListFullPrefix,
+  getDestinationPickerTableData,
+} from './utils';
+
 const {
   actionSetDestination,
   actionDestinationPickerCurrentFolderSelected,
   actionDestinationPickerNoMoreFolders,
   actionDestinationPickerDefaultError,
 } = displayText;
-
-const DEFAULT_PAGE_SIZE = 10;
-export const DEFAULT_LIST_OPTIONS = {
-  pageSize: DEFAULT_PAGE_SIZE,
-  delimiter: '/',
-};
 
 export const DestinationPicker = ({
   destinationList,
