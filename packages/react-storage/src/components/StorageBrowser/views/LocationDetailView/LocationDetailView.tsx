@@ -142,7 +142,7 @@ export function LocationDetailView({
             >
               <InputElement
                 checked={includeSubfolders}
-                className={`${CLASS_BASE}__search-toggle__checkbox`}
+                className={`${CLASS_BASE}__search-subfolder-toggle__checkbox`}
                 onChange={() => onIncludeSubfoldersChange?.(!includeSubfolders)}
                 type="checkbox"
               />

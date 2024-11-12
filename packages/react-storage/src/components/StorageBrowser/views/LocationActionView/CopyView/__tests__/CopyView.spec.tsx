@@ -1,6 +1,5 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 
 import * as ReactCoreModule from '@aws-amplify/ui-react-core';
 
@@ -8,9 +7,10 @@ import * as TempActions from '../../../../do-not-import-from-here/createTempActi
 
 import * as Config from '../../../../providers/configuration';
 import { INITIAL_STATUS_COUNTS } from '../../../../tasks';
+
 import * as UseCopyViewModule from '../useCopyView';
-import { CopyView } from '../CopyView';
 import { CopyViewState } from '../types';
+import { CopyView } from '../CopyView';
 
 const TEST_ACTIONS = { COPY_FILES: { options: { displayName: 'Copy files' } } };
 jest.spyOn(TempActions, 'useTempActions').mockReturnValue(TEST_ACTIONS);
@@ -35,21 +35,33 @@ jest.spyOn(Config, 'useGetActionInput').mockReturnValue(() => ({
   region: 'us-west-2',
 }));
 
+jest.mock('../../../../displayText', () => ({
+  useDisplayText: () => ({ CopyView: {} }),
+}));
+
+const mockControlsContextProvider = jest.fn(
+  (_: any) => 'ControlsContextProvider'
+);
+jest.mock('../../../../controls/context', () => ({
+  ControlsContextProvider: (ctx: any) => mockControlsContextProvider(ctx),
+  useControlsContext: () => ({ actionConfig: {}, data: {} }),
+}));
+
 const taskOne = {
-  status: 'QUEUED' as const,
+  status: 'QUEUED',
   data: {
     id: 'id',
     key: 'itsa-prefix/test-item',
     fileKey: 'test-item',
     lastModified: new Date(),
     size: 1000,
-    type: 'FILE' as const,
+    type: 'FILE',
   },
   cancel: jest.fn(),
   progress: undefined,
   remove: jest.fn(),
-  message: 'test-message',
-};
+  message: undefined,
+} as const;
 
 const location = {
   bucket: 'bucket',
@@ -60,130 +72,135 @@ const location = {
 } as const;
 
 const onActionCancel = jest.fn();
+const onActionExit = jest.fn();
 const onActionStart = jest.fn();
+
 const onDestinationChange = jest.fn();
-const onExit = jest.fn();
 const onTaskCancel = jest.fn();
 
-const callbacks = {
+const actionCallbacks = {
   onActionCancel,
   onActionStart,
-  onDestinationChange,
-  onExit,
-  onTaskCancel,
+  onActionExit,
 };
 
-const statusCounts = { ...INITIAL_STATUS_COUNTS, QUEUED: 1, TOTAL: 1 };
-
-const initialViewState: CopyViewState = {
-  ...callbacks,
+const defaultViewState: CopyViewState = {
+  ...actionCallbacks,
+  onTaskCancel,
   destinationList: [],
   isProcessingComplete: false,
   isProcessing: false,
-  location: { current: location, path: '', key: '' },
-  statusCounts,
+  location: { current: location, path: '', key: `itsa-prefix/` },
+  onDestinationChange,
+  statusCounts: { ...INITIAL_STATUS_COUNTS, QUEUED: 1, TOTAL: 1 },
   tasks: [taskOne],
 };
 
-const preprocessingViewState: CopyViewState = {
-  ...initialViewState,
-  destinationList: ['some-prefix'],
-};
+const useCopyViewSpy = jest
+  .spyOn(UseCopyViewModule, 'useCopyView')
+  .mockReturnValue(defaultViewState);
 
-const processingViewState: CopyViewState = {
-  ...initialViewState,
-  destinationList: ['some-prefix'],
-  isProcessing: true,
-  tasks: [{ ...taskOne, status: 'PENDING' }],
-  statusCounts: { ...statusCounts, PENDING: 1, QUEUED: 0 },
-};
-
-const postProcessingViewState: CopyViewState = {
-  ...initialViewState,
-  destinationList: ['some-prefix'],
-  isProcessingComplete: true,
-  tasks: [{ ...taskOne, status: 'COMPLETE' }],
-  statusCounts: { ...statusCounts, COMPLETE: 1, QUEUED: 0 },
-};
-
-const useCopyViewSpy = jest.spyOn(UseCopyViewModule, 'useCopyView');
 describe('CopyView', () => {
-  beforeEach(jest.clearAllMocks);
+  afterEach(jest.clearAllMocks);
 
-  it('renders search input as expected', () => {
-    useCopyViewSpy.mockReturnValue(initialViewState);
+  it('provides the expected values to `ControlsContextProvider` on initial render', () => {
+    useCopyViewSpy.mockReturnValue(defaultViewState);
 
-    const { getByPlaceholderText } = render(<CopyView />);
+    render(<CopyView />);
 
-    expect(getByPlaceholderText('Search for folders')).toBeInTheDocument();
+    const { calls } = mockControlsContextProvider.mock;
+    expect(calls).toHaveLength(1);
+    expect(calls[0][0]).toMatchObject({
+      data: {
+        isActionCancelDisabled: true,
+        isActionStartDisabled: true,
+        isActionExitDisabled: false,
+        statusCounts: defaultViewState.statusCounts,
+      },
+      ...actionCallbacks,
+    });
   });
 
-  it('has the expected enabled and disabled flags when a destination has not been set', () => {
-    useCopyViewSpy.mockReturnValue(initialViewState);
+  it('provides the expected values to `ControlsContextProvider` on destination change', () => {
+    const preprocessingViewState: CopyViewState = {
+      ...defaultViewState,
+      destinationList: ['some-prefix'],
+    };
 
-    const { getByRole } = render(<CopyView />);
+    useCopyViewSpy.mockReturnValueOnce(preprocessingViewState);
 
-    expect(getByRole('button', { name: 'Exit' })).not.toBeDisabled();
-    expect(getByRole('button', { name: 'Copy' })).toBeDisabled();
-    expect(getByRole('button', { name: 'Cancel' })).toBeDisabled();
+    render(<CopyView />);
+
+    const { calls } = mockControlsContextProvider.mock;
+    expect(calls).toHaveLength(1);
+    expect(calls[0][0]).toMatchObject({
+      data: {
+        isActionCancelDisabled: true,
+        isActionStartDisabled: false,
+        isActionExitDisabled: false,
+        statusCounts: defaultViewState.statusCounts,
+      },
+      ...actionCallbacks,
+    });
   });
 
-  it('has the expected enabled and disabled flags when a destination has been set', () => {
-    useCopyViewSpy.mockReturnValue(preprocessingViewState);
+  it('provides the expected values to `ControlsContextProvider` while processing', () => {
+    const processingViewState: CopyViewState = {
+      ...defaultViewState,
+      destinationList: ['some-prefix'],
+      isProcessing: true,
+      tasks: [{ ...taskOne, status: 'PENDING' }],
+      statusCounts: { ...defaultViewState.statusCounts, PENDING: 1, QUEUED: 0 },
+    };
 
-    const { getByRole } = render(<CopyView />);
-
-    expect(getByRole('button', { name: 'Exit' })).not.toBeDisabled();
-    expect(getByRole('button', { name: 'Copy' })).not.toBeDisabled();
-    expect(getByRole('button', { name: 'Cancel' })).toBeDisabled();
-  });
-
-  it('has the expected enabled and disabled flags when copying files', () => {
     useCopyViewSpy.mockReturnValue(processingViewState);
 
-    const { getByRole } = render(<CopyView />);
+    render(<CopyView />);
 
-    expect(getByRole('button', { name: 'Exit' })).toBeDisabled();
-    expect(getByRole('button', { name: 'Copy' })).toBeDisabled();
-    expect(getByRole('button', { name: 'Cancel' })).not.toBeDisabled();
+    const { calls } = mockControlsContextProvider.mock;
+    expect(calls).toHaveLength(1);
+    expect(calls[0][0]).toMatchObject({
+      data: {
+        isActionCancelDisabled: false,
+        isActionStartDisabled: true,
+        isActionExitDisabled: true,
+        statusCounts: processingViewState.statusCounts,
+      },
+      ...actionCallbacks,
+    });
   });
 
-  it('has the expected enabled and disabled flags when copying files is complete', () => {
+  it('provides the expected values to `ControlsContextProvider` post processing in the happy path', () => {
+    const postProcessingViewState: CopyViewState = {
+      ...defaultViewState,
+      destinationList: ['some-prefix'],
+      isProcessingComplete: true,
+      tasks: [{ ...taskOne, status: 'COMPLETE' }],
+      statusCounts: {
+        ...defaultViewState.statusCounts,
+        COMPLETE: 1,
+        QUEUED: 0,
+      },
+    };
+
     useCopyViewSpy.mockReturnValue(postProcessingViewState);
 
-    const { getByRole } = render(<CopyView />);
+    render(<CopyView />);
 
-    expect(getByRole('button', { name: 'Exit' })).not.toBeDisabled();
-    expect(getByRole('button', { name: 'Copy' })).toBeDisabled();
-    expect(getByRole('button', { name: 'Cancel' })).toBeDisabled();
+    const { calls } = mockControlsContextProvider.mock;
+    expect(calls).toHaveLength(1);
+    expect(calls[0][0]).toMatchObject({
+      data: {
+        isActionCancelDisabled: true,
+        isActionStartDisabled: true,
+        isActionExitDisabled: false,
+        statusCounts: postProcessingViewState.statusCounts,
+      },
+      ...actionCallbacks,
+    });
   });
 
-  it('calls onExit when Exit button is clicked', async () => {
-    useCopyViewSpy.mockReturnValue(initialViewState);
-
-    const { getByRole } = render(<CopyView />);
-
-    await userEvent.click(getByRole('button', { name: 'Exit' }));
-
-    expect(onExit).toHaveBeenCalledTimes(1);
-  });
-
-  it('calls onActionStart when Start button is clicked', async () => {
-    useCopyViewSpy.mockReturnValue(preprocessingViewState);
-    const { getByRole } = render(<CopyView />);
-
-    await userEvent.click(getByRole('button', { name: 'Copy' }));
-
-    expect(onActionStart).toHaveBeenCalledTimes(1);
-  });
-
-  it('calls onActionCancel when Cancel button is clicked', async () => {
-    useCopyViewSpy.mockReturnValue(processingViewState);
-
-    const { getByRole } = render(<CopyView />);
-
-    await userEvent.click(getByRole('button', { name: 'Cancel' }));
-
-    expect(onActionCancel).toHaveBeenCalledTimes(1);
-  });
+  it.todo(
+    'provides the expected values to `ControlsContextProvider` post processing with failures'
+  );
 });

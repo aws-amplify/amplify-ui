@@ -147,11 +147,10 @@ export function useLocationDetailView(
   const {
     searchQuery,
     includeSubfolders,
-    reset: resetSearch,
     onIncludeSubfoldersChange,
     onSearchQueryChange,
     onSearchSubmit,
-    onSearchClear,
+    resetSearch,
   } = useSearch({ onSearch });
 
   const onRefresh = () => {
@@ -264,7 +263,7 @@ export function useLocationDetailView(
     },
     onSearch: onSearchSubmit,
     onSearchClear: () => {
-      onSearchClear();
+      resetSearch();
       if (hasInvalidPrefix) return;
       handleList({
         config: getConfig(),

@@ -133,6 +133,7 @@ const DEFAULT_ICON_ATTRIBUTES = {
   viewBox: '0 -960 960 960',
   fill: 'none',
   xmlns: 'http://www.w3.org/2000/svg',
+  role: 'img',
 };
 
 export const BaseIconElement = defineBaseElementWithRef<

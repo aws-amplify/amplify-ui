@@ -85,13 +85,8 @@ export function useLocationsView(
     setTerm(query);
   };
 
-  const {
-    searchQuery,
-    onSearchQueryChange,
-    onSearchSubmit,
-    reset: resetSearch,
-    onSearchClear,
-  } = useSearch({ onSearch });
+  const { searchQuery, onSearchQueryChange, onSearchSubmit, resetSearch } =
+    useSearch({ onSearch });
 
   const {
     currentPage,
@@ -142,7 +137,7 @@ export function useLocationsView(
     onSearchQueryChange,
     onSearchClear: () => {
       setTerm('');
-      onSearchClear();
+      resetSearch();
     },
   };
 }

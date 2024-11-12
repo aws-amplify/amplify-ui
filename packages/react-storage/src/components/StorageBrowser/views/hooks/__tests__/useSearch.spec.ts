@@ -10,8 +10,7 @@ describe('useSearch', () => {
 
     expect(current?.searchQuery).toBe('');
     expect(typeof current?.onSearchSubmit).toBe('function');
-    expect(typeof current?.onSearchClear).toBe('function');
+    expect(typeof current?.resetSearch).toBe('function');
     expect(typeof current?.onSearchQueryChange).toBe('function');
-    expect(typeof current?.reset).toBe('function');
   });
 });

@@ -176,6 +176,7 @@ describe('LocationDetailView', () => {
     input.focus();
     await act(async () => {
       await user.keyboard('boo');
+      await user.click(subfolderOption);
       await user.click(getByText('Submit'));
     });
 

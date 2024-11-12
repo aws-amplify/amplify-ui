@@ -3,11 +3,10 @@ import React from 'react';
 interface UseSearchResult {
   searchQuery: string;
   includeSubfolders: boolean;
-  reset: () => void;
   onSearchQueryChange: (query: string) => void;
   onIncludeSubfoldersChange: (includeSubfolders: boolean) => void;
   onSearchSubmit: () => void;
-  onSearchClear: () => void;
+  resetSearch: () => void;
 }
 
 interface UseSearchProps {
@@ -19,7 +18,7 @@ export function useSearch(props: UseSearchProps): UseSearchResult {
   const [searchQuery, setQuery] = React.useState('');
   const [includeSubfolders, setIncludeSubfolders] = React.useState(false);
 
-  const reset = () => {
+  const resetSearch = () => {
     setQuery('');
     setIncludeSubfolders(false);
   };
@@ -36,7 +35,6 @@ export function useSearch(props: UseSearchProps): UseSearchResult {
     onSearchSubmit: () => {
       onSearch?.(searchQuery, includeSubfolders);
     },
-    onSearchClear: reset,
-    reset,
+    resetSearch,
   };
 }

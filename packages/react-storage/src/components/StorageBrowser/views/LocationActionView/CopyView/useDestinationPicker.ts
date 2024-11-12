@@ -1,4 +1,6 @@
 import { useEffect } from 'react';
+import { useDataState } from '@aws-amplify/ui-react-core';
+
 import { usePaginate } from '../../hooks/usePaginate';
 import {
   listLocationItemsHandler,
@@ -6,12 +8,11 @@ import {
   LocationItemData,
 } from '../../../actions';
 import { useGetActionInput } from '../../../providers/configuration';
-import { getDestinationListFullPrefix } from './getDestinationListFullPrefix';
 
-import { useDataState } from '@aws-amplify/ui-react-core';
 import { useStore } from '../../../providers/store';
 import { createEnhancedListHandler } from '../../../actions/createEnhancedListHandler';
 import { useSearch } from '../../hooks/useSearch';
+import { getDestinationListFullPrefix } from './utils';
 
 const DEFAULT_PAGE_SIZE = 100;
 export const DEFAULT_LIST_OPTIONS = {
@@ -96,13 +97,8 @@ export const useDestinationPicker = ({
     });
   };
 
-  const {
-    onSearchSubmit,
-    onSearchQueryChange,
-    searchQuery,
-    onSearchClear,
-    reset: resetSearch,
-  } = useSearch({ onSearch });
+  const { onSearchSubmit, onSearchQueryChange, searchQuery, resetSearch } =
+    useSearch({ onSearch });
 
   useEffect(() => {
     handleList({
@@ -133,7 +129,7 @@ export const useDestinationPicker = ({
     resetSearch,
     onSearchClear: () => {
       handleReset();
-      onSearchClear();
+      resetSearch();
       handleList({
         config: getInput(),
         prefix,
