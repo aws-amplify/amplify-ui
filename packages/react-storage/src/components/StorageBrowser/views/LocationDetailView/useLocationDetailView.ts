@@ -16,6 +16,8 @@ import { createEnhancedListHandler } from '../../actions/createEnhancedListHandl
 import { useGetActionInput } from '../../providers/configuration';
 import { displayText } from '../../displayText/en';
 import { LocationState } from '../../providers/store/location';
+import { useProcessTasks } from '../../tasks';
+import { downloadHandler, FileDataItem } from '../../actions/handlers';
 
 interface UseLocationDetailView {
   hasError: boolean;
@@ -24,7 +26,7 @@ interface UseLocationDetailView {
   isLoading: boolean;
   location: LocationState;
   areAllFilesSelected: boolean;
-  fileDataItems: FileData[] | undefined;
+  fileDataItems: FileDataItem[] | undefined;
   hasFiles: boolean;
   showIncludeSubfolders: boolean;
   message: string | undefined;
@@ -37,7 +39,7 @@ interface UseLocationDetailView {
   onNavigate: (location: LocationData, path?: string) => void;
   onNavigateHome: () => void;
   onPaginate: (page: number) => void;
-  onDownload: (fileItem: FileData) => void;
+  onDownload: (fileItem: FileDataItem) => void;
   onSearch: (query: string, includeSubfolders?: boolean) => void;
   onSelect: (isSelected: boolean, fileItem: FileData) => void;
   onSelectAll: () => void;
@@ -78,6 +80,7 @@ const listLocationItemsAction = createEnhancedListHandler(
 export function useLocationDetailView(
   options?: UseLocationDetailViewOptions
 ): UseLocationDetailView {
+  const getConfig = useGetActionInput();
   const { initialValues, onActionSelect, onExit, onNavigate } = options ?? {};
 
   const listOptionsRef = React.useRef({
@@ -93,11 +96,14 @@ export function useLocationDetailView(
   const { fileDataItems } = locationItems;
   const hasInvalidPrefix = isUndefined(prefix);
 
-  const getConfig = useGetActionInput();
+  const [_, handleDownload] = useProcessTasks(downloadHandler);
 
   const [{ data, isLoading, hasError, message }, handleList] = useDataState(
     listLocationItemsAction,
-    { items: [], nextToken: undefined }
+    {
+      items: [],
+      nextToken: undefined,
+    }
   );
 
   // set up pagination
@@ -197,12 +203,8 @@ export function useLocationDetailView(
       });
       onActionSelect?.(actionType);
     },
-    onDownload: (fileItem: FileData) => {
-      // FIXME: Integrate with download handler/process tasks hook when available.
-      // eslint-disable-next-line no-console
-      console.error(
-        `Trying to download ${fileItem.key} but download not yet integrated`
-      );
+    onDownload: (data: FileDataItem) => {
+      handleDownload({ config: getConfig(), data });
     },
     onNavigateHome: () => {
       onExit?.();
