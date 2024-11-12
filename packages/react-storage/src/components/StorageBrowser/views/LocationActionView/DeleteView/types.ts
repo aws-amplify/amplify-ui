@@ -7,9 +7,7 @@ import {
 
 export interface DeleteViewState extends ActionViewState<DeleteHandlerData> {}
 
-export interface DeleteViewProps
-  extends ActionViewProps,
-    Partial<DeleteViewState> {}
+export interface DeleteViewProps extends ActionViewProps {}
 
 export interface DeleteViewComponent
   extends ActionViewComponent<DeleteHandlerData, DeleteViewProps> {}

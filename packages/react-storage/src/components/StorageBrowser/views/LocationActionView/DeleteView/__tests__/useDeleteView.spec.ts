@@ -95,7 +95,7 @@ describe('useDeleteView', () => {
     expect(result.current).toEqual(
       expect.objectContaining({
         onActionCancel: expect.any(Function),
-        onExit: expect.any(Function),
+        onActionExit: expect.any(Function),
         onActionStart: expect.any(Function),
         tasks: expect.any(Array),
       })
@@ -159,12 +159,12 @@ describe('useDeleteView', () => {
     expect(mockCancel).toHaveBeenCalled();
   });
 
-  it('should reset state when onExit is called', () => {
+  it('should reset state when onActionExit is called', () => {
     const mockOnExit = jest.fn();
     const { result } = renderHook(() => useDeleteView({ onExit: mockOnExit }));
 
     act(() => {
-      result.current.onExit?.();
+      result.current.onActionExit();
     });
 
     expect(mockOnExit).toHaveBeenCalled();

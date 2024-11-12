@@ -1,4 +1,4 @@
-import { mapAmplifyPermissions } from '../../../adapters/createAmplifyAuthAdapter/mapAmplifyPermissions';
+import { mapAmplifyPermissions } from '../mapAmplifyPermissions';
 import { Permission, StorageAccess } from '../../../storage-internal';
 
 describe('mapAmplifyPermissions', () => {

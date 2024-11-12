@@ -1,4 +1,4 @@
-import { getPaginatedLocations } from '../../../adapters/createAmplifyAuthAdapter/getPaginatedLocations';
+import { getPaginatedLocations } from '../getPaginatedLocations';
 import { ListLocationsOutput } from '../../../storage-internal';
 
 describe('getPaginatedLocations', () => {
