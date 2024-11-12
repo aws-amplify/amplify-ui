@@ -5,7 +5,7 @@ import { Permission } from '../../../storage-internal';
 const PERMISSION_DISPLAY_TEXT: Record<Permission, string> = {
   READ: 'Read',
   WRITE: 'Write',
-  READWRITE: 'Read Write',
+  READWRITE: 'Read/Write',
 };
 
 export const DEFAULT_LOCATIONS_VIEW_DISPLAY_TEXT: DefaultLocationsViewDisplayText =
