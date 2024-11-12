@@ -74,6 +74,35 @@ describe('listLocationItemsHandler', () => {
       },
     });
   });
+  it('provides `pageSize` number of items after removing items that match / or . or ..', async () => {
+    listSpy
+      .mockResolvedValueOnce({
+        items: [
+          { path: `/`, lastModified: new Date(), size: 0 },
+          { path: `.`, lastModified: new Date(), size: 0 },
+          { path: `..`, lastModified: new Date(), size: 0 },
+          { path: `${prefix}-1`, lastModified: new Date(), size: 0 },
+        ],
+        nextToken: '1',
+      })
+      .mockResolvedValueOnce({
+        items: [
+          { path: `${prefix}-2`, lastModified: new Date(), size: 0 },
+          { path: `${prefix}-3`, lastModified: new Date(), size: 0 },
+        ],
+        nextToken: undefined,
+      });
+
+    const input = {
+      ...baseInput,
+      options: { pageSize: 3 },
+      prefix: 'a_prefix',
+    };
+
+    const listItems = await listLocationItemsHandler(input);
+    expect(listItems.items).toHaveLength(input.options.pageSize);
+    expect(listSpy).toHaveBeenCalledTimes(2);
+  });
 });
 
 describe('parseResult', () => {
