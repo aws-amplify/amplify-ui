@@ -1,35 +1,32 @@
 import React from 'react';
 
-import { Controls } from '../../Controls';
 import { Title } from '../Controls/Title';
 
 import { ActionStartControl } from '../../../controls/ActionStartControl';
+import { ActionExitControl } from '../../../controls/ActionExitControl';
 import { FolderNameFieldControl } from '../../../controls/FolderNameFieldControl';
 import { ControlsContextProvider } from '../../../controls/context';
 import { MessageControl } from '../../../controls/MessageControl';
-import { ControlsContext } from '../../../controls/types';
+
 import { useDisplayText } from '../../../displayText';
 import { CLASS_BASE } from '../../constants';
 import { resolveClassName } from '../../utils';
 
 import { CreateFolderViewProps } from './types';
 import { useCreateFolderView } from './useCreateFolderView';
-
-const { Exit } = Controls;
-
-export const isValidFolderName = (name: string | undefined): boolean =>
-  !!name?.length && !name.includes('/') && !name.includes('.');
+import { isValidFolderName } from './utils';
 
 export function CreateFolderView({
   className,
   ...props
 }: CreateFolderViewProps): React.JSX.Element {
   const {
-    getActionCompleteMessage,
-    getValidationMessage,
+    actionExitLabel,
     actionStartLabel,
     folderNameLabel,
     folderNamePlaceholder,
+    getActionCompleteMessage,
+    getValidationMessage,
   } = useDisplayText()['CreateFolderView'];
 
   const {
@@ -38,7 +35,7 @@ export function CreateFolderView({
     isProcessing,
     isProcessingComplete,
     onActionStart,
-    onExit,
+    onActionExit,
     onFolderNameChange,
     statusCounts,
   } = useCreateFolderView(props);
@@ -51,34 +48,38 @@ export function CreateFolderView({
     ? getActionCompleteMessage(statusCounts)
     : undefined;
 
-  const contextValue: ControlsContext = {
-    data: {
-      folderNameId,
-      folderNameLabel,
-      folderNamePlaceholder,
-      folderNameValidationMessage: validationMessage,
-      actionStartLabel,
-      isActionStartDisabled:
-        !folderName.length ||
-        !!validationMessage ||
-        isProcessing ||
-        isProcessingComplete ||
-        statusCounts.FAILED > 0,
-      messageContent,
-    },
-    onActionStart,
-    onFolderNameChange,
-    onValidateFolderName: (value) => {
-      setValidationMessage(() =>
-        isValidFolderName(value) ? undefined : getValidationMessage(value)
-      );
-    },
+  const onValidateFolderName = (value: string) => {
+    setValidationMessage(() =>
+      isValidFolderName(value) ? undefined : getValidationMessage(value)
+    );
   };
+
+  const isActionStartDisabled =
+    !folderName.length ||
+    !!validationMessage ||
+    isProcessing ||
+    isProcessingComplete;
 
   return (
     <div className={resolveClassName(CLASS_BASE, className)}>
-      <ControlsContextProvider {...contextValue}>
-        <Exit onClick={onExit} />
+      <ControlsContextProvider
+        data={{
+          actionExitLabel,
+          folderNameId,
+          folderNameLabel,
+          folderNamePlaceholder,
+          folderNameValidationMessage: validationMessage,
+          actionStartLabel,
+          isActionStartDisabled,
+          isActionExitDisabled: isProcessing,
+          messageContent,
+        }}
+        onActionExit={onActionExit}
+        onActionStart={onActionStart}
+        onFolderNameChange={onFolderNameChange}
+        onValidateFolderName={onValidateFolderName}
+      >
+        <ActionExitControl />
         <Title />
         <FolderNameFieldControl />
         <ActionStartControl

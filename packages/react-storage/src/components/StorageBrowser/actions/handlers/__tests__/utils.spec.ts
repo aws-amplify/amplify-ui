@@ -1,7 +1,11 @@
 import { LocationAccess } from '../../../storage-internal';
 import { LocationData } from '../types';
 
-import { getFileKey, parseLocationAccess } from '../utils';
+import {
+  shouldExcludeLocation,
+  getFileKey,
+  parseLocationAccess,
+} from '../utils';
 
 describe('parseLocationAccess', () => {
   const bucket = 'test-bucket';
@@ -102,5 +106,33 @@ describe('getFileKey', () => {
 
   it('should handle paths with multiple slashes', () => {
     expect(getFileKey('/path//to///file.txt')).toBe('file.txt');
+  });
+});
+
+describe('shouldExcludeLocation', () => {
+  const location = {
+    bucket: 'bucket',
+    id: 'id',
+    permission: 'READ',
+    prefix: 'prefix/',
+    type: 'PREFIX',
+  } as const;
+
+  it('returns true when the provided location permissions match excluded permissions', () => {
+    const output = shouldExcludeLocation(location, 'READ');
+
+    expect(output).toBe(true);
+  });
+
+  it('returns true when the provided location type match excluded type', () => {
+    const output = shouldExcludeLocation(location, 'PREFIX');
+
+    expect(output).toBe(true);
+  });
+
+  it('returns false when provided a location without an exclude value', () => {
+    const output = shouldExcludeLocation(location);
+
+    expect(output).toBe(false);
   });
 });
