@@ -9,7 +9,7 @@ import {
 
 import { constructBucket } from './utils';
 
-export interface DownloadHandlerData extends FileDataItem {}
+export interface DownloadHandlerData extends Omit<FileDataItem, 'fileKey'> {}
 export interface DownloadHandlerOptions extends TaskHandlerOptions {}
 
 export interface DownloadHandlerInput
