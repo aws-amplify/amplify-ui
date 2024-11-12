@@ -76,7 +76,6 @@
     "**/@size-limit/webpack/webpack": "^5.76.0",
     "**/serve/serve-handler/minimatch": "3.0.5",
     "**/serve/serve-handler/path-to-regexp": "3.3.0",
-    "@aws-amplify/data-schema": "0.0.0-ai-streaming-20241108213402",
     "@adobe/css-tools": "^4.3.2",
     "@babel/traverse": "7.23.2",
     "@cypress/request": "^3.0.0",
@@ -110,7 +109,7 @@
     "ws": "^8.17.1"
   },
   "devDependencies": {
-    "@aws-amplify/backend": "^1.2.1",
+    "@aws-amplify/backend": "^1.7.0",
     "@aws-amplify/eslint-config-amplify-ui": "0.0.0",
     "@aws-amplify/typescript-config": "0.0.0",
     "@changesets/changelog-github": "0.4.1",
