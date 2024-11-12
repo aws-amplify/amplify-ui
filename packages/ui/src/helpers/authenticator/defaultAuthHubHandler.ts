@@ -1,3 +1,4 @@
+import { AmplifyErrorCode } from '@aws-amplify/core/internals/utils';
 import { Hub } from 'aws-amplify/utils';
 
 import { isFunction } from '../../utils';
@@ -13,7 +14,7 @@ export const defaultAuthHubHandler: AuthMachineHubHandler = (
   service,
   options
 ) => {
-  const { event } = payload;
+  const { data, event } = payload;
   const { send } = service;
   const { onSignIn, onSignOut } = options ?? {};
 
@@ -28,12 +29,17 @@ export const defaultAuthHubHandler: AuthMachineHubHandler = (
       send('SIGN_IN_WITH_REDIRECT');
       break;
     }
-    case 'signedOut':
-    case 'tokenRefresh_failure': {
-      if (event === 'signedOut' && isFunction(onSignOut)) {
+    case 'signedOut': {
+      if (isFunction(onSignOut)) {
         onSignOut();
       }
       send('SIGN_OUT');
+      break;
+    }
+    case 'tokenRefresh_failure': {
+      if (data?.error?.name !== AmplifyErrorCode.NetworkError) {
+        send('SIGN_OUT');
+      }
       break;
     }
     default: {
