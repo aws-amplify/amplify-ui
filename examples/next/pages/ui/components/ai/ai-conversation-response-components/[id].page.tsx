@@ -4,7 +4,6 @@ import { createAIHooks, AIConversation } from '@aws-amplify/ui-react-ai';
 import { generateClient } from 'aws-amplify/api';
 import ReactMarkdown from 'react-markdown';
 import '@aws-amplify/ui-react/styles.css';
-import '@aws-amplify/ui-react-ai/ai-conversation-styles.css';
 import { GlobalStyle } from '@aws-amplify/ui-react/server';
 
 import outputs from './amplify_outputs';
