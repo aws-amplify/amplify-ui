@@ -10,6 +10,7 @@ import { FolderNameFieldProps } from './FolderNameField';
 import { NavigationProps } from './Navigation';
 import { StatusDisplayProps } from './StatusDisplay';
 import { SearchProps } from './Search';
+import { TitleProps } from './Title';
 
 export interface Composables {
   ActionCancel: React.ComponentType<ActionCancelProps>;
@@ -24,6 +25,7 @@ export interface Composables {
   Navigation: React.ComponentType<NavigationProps>;
   Search: React.ComponentType<SearchProps>;
   StatusDisplay: React.ComponentType<StatusDisplayProps>;
+  Title: React.ComponentType<TitleProps>;
 }
 
 export interface ComposablesContext {

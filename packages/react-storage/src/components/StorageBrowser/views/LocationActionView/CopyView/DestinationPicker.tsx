@@ -28,12 +28,6 @@ const {
   actionDestinationPickerDefaultError,
 } = displayText;
 
-const DEFAULT_PAGE_SIZE = 10;
-export const DEFAULT_LIST_OPTIONS = {
-  pageSize: DEFAULT_PAGE_SIZE,
-  delimiter: '/',
-};
-
 export const DestinationPicker = ({
   destinationList,
   onDestinationChange,
