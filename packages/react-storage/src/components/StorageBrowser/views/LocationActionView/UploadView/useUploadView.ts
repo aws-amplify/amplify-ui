@@ -57,7 +57,7 @@ export const useUploadView = (
     tasks.forEach((task) => task.cancel?.());
   }, [tasks]);
 
-  const onExit = React.useCallback(() => {
+  const onActionExit = React.useCallback(() => {
     // clear files state
     dispatchStoreAction({ type: 'RESET_FILE_ITEMS' });
     // clear selected action
@@ -84,9 +84,9 @@ export const useUploadView = (
     statusCounts,
     tasks,
     onActionCancel,
+    onActionExit,
     onActionStart,
     onDropFiles,
-    onExit,
     onTaskRemove,
     onSelectFiles,
     onToggleOverwrite,

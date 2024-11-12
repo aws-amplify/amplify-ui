@@ -1,8 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 
-import * as ConfigModule from '../../../../providers/configuration';
-import * as StoreModule from '../../../../providers/store';
 import { INITIAL_STATUS_COUNTS } from '../../../../tasks';
 
 import * as UseUploadViewModule from '../useUploadView';
@@ -10,6 +8,10 @@ import { UploadViewState } from '../types';
 import { UploadView } from '../UploadView';
 
 jest.mock('../../Controls/Title');
+
+jest.mock('../../../../displayText', () => ({
+  useDisplayText: () => ({ UploadView: {} }),
+}));
 
 const mockControlsContextProvider = jest.fn(
   (_: any) => 'ControlsContextProvider'
@@ -19,11 +21,9 @@ jest.mock('../../../../controls/context', () => ({
   useControlsContext: () => ({ actionConfig: {}, data: {} }),
 }));
 
-const useStoreSpy = jest.spyOn(StoreModule, 'useStore');
-
 const onActionCancel = jest.fn();
 const onActionStart = jest.fn();
-const onExit = jest.fn();
+const onActionExit = jest.fn();
 const onDropFiles = jest.fn();
 const onSelectFiles = jest.fn();
 const onToggleOverwrite = jest.fn();
@@ -32,7 +32,7 @@ const callbacks = {
   onActionCancel,
   onActionStart,
   onDropFiles,
-  onExit,
+  onActionExit,
   onSelectFiles,
   onToggleOverwrite,
 };
@@ -93,23 +93,6 @@ const useUploadViewSpy = jest
   .spyOn(UseUploadViewModule, 'useUploadView')
   .mockReturnValue(initialViewState);
 
-const dispatchStoreAction = jest.fn();
-useStoreSpy.mockReturnValue([
-  {
-    location: { current: location, path: '', key: location.prefix },
-  } as StoreModule.UseStoreState,
-  dispatchStoreAction,
-]);
-
-const credentials = jest.fn();
-const config: ConfigModule.GetActionInput = jest.fn(() => ({
-  credentials,
-  bucket: location.bucket,
-  region: 'region',
-}));
-
-jest.spyOn(ConfigModule, 'useGetActionInput').mockReturnValue(config);
-
 describe('UploadView', () => {
   afterEach(jest.clearAllMocks);
 
@@ -124,7 +107,7 @@ describe('UploadView', () => {
         isActionCancelDisabled: true,
         isAddFilesDisabled: false,
         isAddFolderDisabled: false,
-        isExitDisabled: false,
+        isActionExitDisabled: false,
         isOverwriteCheckboxDisabled: false,
       },
     });
@@ -143,7 +126,7 @@ describe('UploadView', () => {
         isActionCancelDisabled: true,
         isAddFilesDisabled: false,
         isAddFolderDisabled: false,
-        isExitDisabled: false,
+        isActionExitDisabled: false,
         isOverwriteCheckboxDisabled: false,
       },
     });
@@ -162,7 +145,7 @@ describe('UploadView', () => {
         isActionCancelDisabled: false,
         isAddFilesDisabled: true,
         isAddFolderDisabled: true,
-        isExitDisabled: true,
+        isActionExitDisabled: true,
         isOverwriteCheckboxDisabled: true,
       },
     });
@@ -181,7 +164,7 @@ describe('UploadView', () => {
         isActionCancelDisabled: true,
         isAddFilesDisabled: true,
         isAddFolderDisabled: true,
-        isExitDisabled: false,
+        isActionExitDisabled: false,
         isOverwriteCheckboxDisabled: true,
       },
     });

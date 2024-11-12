@@ -39,7 +39,7 @@ export const useDeleteView = (
     });
   };
 
-  const onExit = () => {
+  const onActionExit = () => {
     // clear files state
     dispatchStoreAction({ type: 'RESET_LOCATION_ITEMS' });
     // clear selected action
@@ -61,8 +61,8 @@ export const useDeleteView = (
     statusCounts,
     tasks,
     onActionCancel,
+    onActionExit,
     onActionStart,
-    onExit,
     onTaskRemove,
   };
 };

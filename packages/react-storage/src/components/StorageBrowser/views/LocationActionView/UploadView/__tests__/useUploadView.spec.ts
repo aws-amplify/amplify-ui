@@ -187,7 +187,7 @@ describe('useUploadView', () => {
     const { result } = renderHook(() => useUploadView({ onExit }));
 
     act(() => {
-      result.current.onExit?.();
+      result.current.onActionExit();
     });
 
     expect(onExit).toHaveBeenCalledTimes(1);

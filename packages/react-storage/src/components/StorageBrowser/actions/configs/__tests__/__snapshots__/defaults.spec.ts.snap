@@ -11,7 +11,7 @@ exports[`defaultActionConfigs matches expected shape 1`] = `
     },
     "componentName": "CreateFolderView",
     "displayName": "Create Folder",
-    "handler": null,
+    "handler": [Function],
     "isCancelable": false,
   },
   "delete": {

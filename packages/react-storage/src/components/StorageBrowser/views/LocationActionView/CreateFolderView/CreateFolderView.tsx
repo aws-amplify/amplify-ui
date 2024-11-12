@@ -1,141 +1,92 @@
 import React from 'react';
-import { isUndefined } from '@aws-amplify/ui';
-
-import { Field } from '../../../components/Field';
-import { useAction } from '../../../do-not-import-from-here/actions';
-import { SpanElement } from '../../../context/elements';
-import { useStore } from '../../../providers/store';
-
-import { Controls } from '../../Controls';
 
 import { Title } from '../Controls/Title';
+
 import { ActionStartControl } from '../../../controls/ActionStartControl';
+import { ActionExitControl } from '../../../controls/ActionExitControl';
+import { FolderNameFieldControl } from '../../../controls/FolderNameFieldControl';
 import { ControlsContextProvider } from '../../../controls/context';
+import { MessageControl } from '../../../controls/MessageControl';
+
+import { useDisplayText } from '../../../displayText';
 import { CLASS_BASE } from '../../constants';
 import { resolveClassName } from '../../utils';
+
 import { CreateFolderViewProps } from './types';
+import { useCreateFolderView } from './useCreateFolderView';
+import { isValidFolderName } from './utils';
 
-const { Exit, Message } = Controls;
-
-export const isValidFolderName = (name: string | undefined): boolean =>
-  !!name?.length && !name.includes('/');
-
-export const FIELD_VALIDATION_MESSAGE =
-  'Folder name must be at least one character and cannot contain a "/".';
-export const RESULT_COMPLETE_MESSAGE = 'Folder created.';
-export const RESULT_FAILED_MESSAGE = 'There was an issue creating the folder.';
-
-export const CreateFolderMessage = (): React.JSX.Element | null => {
-  const [
-    {
-      data: { result },
-    },
-  ] = useAction('CREATE_FOLDER');
-
-  switch (result?.status) {
-    case 'COMPLETE':
-      return <Message variant="success">{RESULT_COMPLETE_MESSAGE}</Message>;
-    case 'FAILED':
-      return (
-        <Message variant="error">
-          {result.message ? result.message : RESULT_FAILED_MESSAGE}
-        </Message>
-      );
-    default:
-      return null;
-  }
-};
-
-export const CreateFolderView = ({
+export function CreateFolderView({
   className,
-  onExit: onExitProps,
-}: CreateFolderViewProps): React.JSX.Element => {
-  const [{ location }, dipatchStoreAction] = useStore();
-  const { current, key } = location;
+  ...props
+}: CreateFolderViewProps): React.JSX.Element {
+  const {
+    actionExitLabel,
+    actionStartLabel,
+    folderNameLabel,
+    folderNamePlaceholder,
+    getActionCompleteMessage,
+    getValidationMessage,
+  } = useDisplayText()['CreateFolderView'];
 
-  const { prefix } = current ?? {};
-  const hasInvalidPrefix = isUndefined(prefix);
+  const {
+    folderName,
+    folderNameId,
+    isProcessing,
+    isProcessingComplete,
+    onActionStart,
+    onActionExit,
+    onFolderNameChange,
+    statusCounts,
+  } = useCreateFolderView(props);
 
-  const [{ isLoading, data }, handleCreateAction] = useAction('CREATE_FOLDER');
-  const { result } = data;
-
-  const [folderName, setFolderName] = React.useState('');
-  const [fieldValidationError, setFieldValidationError] = React.useState<
+  const [validationMessage, setValidationMessage] = React.useState<
     string | undefined
   >();
 
-  const handleBlur = () => {
-    if (!isValidFolderName(folderName)) {
-      setFieldValidationError(FIELD_VALIDATION_MESSAGE);
-    }
+  const messageContent = isProcessingComplete
+    ? getActionCompleteMessage(statusCounts)
+    : undefined;
+
+  const onValidateFolderName = (value: string) => {
+    setValidationMessage(() =>
+      isValidFolderName(value) ? undefined : getValidationMessage(value)
+    );
   };
 
-  const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    // validate on change if validation error is present
-    if (fieldValidationError && isValidFolderName(target.value)) {
-      setFieldValidationError(undefined);
-    }
-    setFolderName(target.value);
-  };
-
-  const handleCreateFolder = () => {
-    if (hasInvalidPrefix) return;
-    const folderPrefix = `${key}${folderName}/`;
-    handleCreateAction({ prefix: folderPrefix });
-  };
-
-  const handleClose = () => {
-    onExitProps?.(current);
-    dipatchStoreAction({ type: 'RESET_ACTION_TYPE' });
-    // reset hook state on exit, use empty string for prefix to keep TS happy
-    // @todo: this needs to be addressed
-    handleCreateAction({ prefix: '', options: { reset: true } });
-  };
-
-  const hasCompletedStatus = result?.status === 'COMPLETE';
+  const isActionStartDisabled =
+    !folderName.length ||
+    !!validationMessage ||
+    isProcessing ||
+    isProcessingComplete;
 
   return (
     <div className={resolveClassName(CLASS_BASE, className)}>
       <ControlsContextProvider
         data={{
-          actionStartLabel: hasCompletedStatus
-            ? 'Folder created'
-            : 'Create Folder',
-          isActionStartDisabled: !hasCompletedStatus
-            ? !folderName || !!fieldValidationError
-            : undefined,
+          actionExitLabel,
+          folderNameId,
+          folderNameLabel,
+          folderNamePlaceholder,
+          folderNameValidationMessage: validationMessage,
+          actionStartLabel,
+          isActionStartDisabled,
+          isActionExitDisabled: isProcessing,
+          messageContent,
         }}
-        onActionStart={hasCompletedStatus ? handleClose : handleCreateFolder}
+        onActionExit={onActionExit}
+        onActionStart={onActionStart}
+        onFolderNameChange={onFolderNameChange}
+        onValidateFolderName={onValidateFolderName}
       >
-        <Exit
-          onClick={() => {
-            handleClose();
-          }}
-        />
+        <ActionExitControl />
         <Title />
+        <FolderNameFieldControl />
         <ActionStartControl
           className={`${CLASS_BASE}__create-folder-action-start`}
         />
-        <Field
-          label="Enter folder name:"
-          disabled={isLoading || !!result?.status}
-          aria-invalid={fieldValidationError ? 'true' : undefined}
-          aria-describedby="fieldError"
-          type="text"
-          id="folder-name-input"
-          onBlur={handleBlur}
-          onChange={handleChange}
-        >
-          {fieldValidationError ? (
-            <SpanElement id={'fieldError'} variant="field-error">
-              {fieldValidationError}
-            </SpanElement>
-          ) : null}
-        </Field>
-        {result?.status === 'COMPLETE' || result?.status === 'FAILED' ? (
-          <CreateFolderMessage />
-        ) : null}
+        <MessageControl />
       </ControlsContextProvider>
     </div>
   );
-};
+}
