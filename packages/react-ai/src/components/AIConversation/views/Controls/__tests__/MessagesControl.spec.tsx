@@ -13,7 +13,11 @@ import { MessagesControl, MessageControl } from '../MessagesControl';
 import { convertBufferToBase64 } from '../../../utils';
 import { ConversationMessage } from '../../../../../types';
 import { ResponseComponentsProvider } from '../../../context/ResponseComponentsContext';
-import { MessageRendererProvider } from '../../../context';
+import {
+  FallbackComponentProvider,
+  MessageRendererProvider,
+} from '../../../context';
+import { View } from '@aws-amplify/ui-react';
 
 const AITextMessage: ConversationMessage = {
   conversationId: 'foobar',
@@ -338,6 +342,18 @@ describe('MessageControl', () => {
     );
     const message = screen.getByText('argh matey! ahoy matey');
     expect(message).toBeInTheDocument();
+  });
+
+  it('renders fallback response component if no response component is found', async () => {
+    render(
+      <FallbackComponentProvider
+        FallbackComponent={() => <View testId="fallback" />}
+      >
+        <MessageControl message={AIResponseComponentMessage} />
+      </FallbackComponentProvider>
+    );
+    const fallbackComponent = await screen.findByTestId('fallback');
+    expect(fallbackComponent).toBeInTheDocument();
   });
 
   it('renders text when sent with a tooluse content', () => {

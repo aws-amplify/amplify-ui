@@ -17,6 +17,7 @@ import {
   ResponseComponentsProvider,
   SendMessageContextProvider,
   WelcomeMessageProvider,
+  FallbackComponentProvider,
   MessageRendererProvider,
 } from './context';
 import { AttachmentProvider } from './context/AttachmentContext';
@@ -43,6 +44,7 @@ export const AIConversationProvider = ({
   suggestedPrompts,
   variant,
   welcomeMessage,
+  FallbackResponseComponent,
 }: AIConversationProviderProps): React.JSX.Element => {
   const _displayText = {
     ...defaultAIConversationDisplayTextEn,
@@ -53,33 +55,37 @@ export const AIConversationProvider = ({
       <ControlsProvider controls={controls}>
         <SuggestedPromptProvider suggestedPrompts={suggestedPrompts}>
           <WelcomeMessageProvider welcomeMessage={welcomeMessage}>
-            <MessageRendererProvider {...messageRenderer}>
-              <ResponseComponentsProvider
-                responseComponents={responseComponents}
-              >
-                <AttachmentProvider allowAttachments={allowAttachments}>
-                  <ConversationDisplayTextProvider {..._displayText}>
-                    <ConversationInputContextProvider>
-                      <SendMessageContextProvider
-                        handleSendMessage={handleSendMessage}
-                      >
-                        <AvatarsProvider avatars={avatars}>
-                          <ActionsProvider actions={actions}>
-                            <MessageVariantProvider variant={variant}>
-                              <MessagesProvider messages={messages}>
-                                <LoadingContextProvider isLoading={isLoading}>
-                                  {children}
-                                </LoadingContextProvider>
-                              </MessagesProvider>
-                            </MessageVariantProvider>
-                          </ActionsProvider>
-                        </AvatarsProvider>
-                      </SendMessageContextProvider>
-                    </ConversationInputContextProvider>
-                  </ConversationDisplayTextProvider>
-                </AttachmentProvider>
-              </ResponseComponentsProvider>
-            </MessageRendererProvider>
+            <FallbackComponentProvider
+              FallbackComponent={FallbackResponseComponent}
+            >
+              <MessageRendererProvider {...messageRenderer}>
+                <ResponseComponentsProvider
+                  responseComponents={responseComponents}
+                >
+                  <AttachmentProvider allowAttachments={allowAttachments}>
+                    <ConversationDisplayTextProvider {..._displayText}>
+                      <ConversationInputContextProvider>
+                        <SendMessageContextProvider
+                          handleSendMessage={handleSendMessage}
+                        >
+                          <AvatarsProvider avatars={avatars}>
+                            <ActionsProvider actions={actions}>
+                              <MessageVariantProvider variant={variant}>
+                                <MessagesProvider messages={messages}>
+                                  <LoadingContextProvider isLoading={isLoading}>
+                                    {children}
+                                  </LoadingContextProvider>
+                                </MessagesProvider>
+                              </MessageVariantProvider>
+                            </ActionsProvider>
+                          </AvatarsProvider>
+                        </SendMessageContextProvider>
+                      </ConversationInputContextProvider>
+                    </ConversationDisplayTextProvider>
+                  </AttachmentProvider>
+                </ResponseComponentsProvider>
+              </MessageRendererProvider>
+            </FallbackComponentProvider>
           </WelcomeMessageProvider>
         </SuggestedPromptProvider>
       </ControlsProvider>
