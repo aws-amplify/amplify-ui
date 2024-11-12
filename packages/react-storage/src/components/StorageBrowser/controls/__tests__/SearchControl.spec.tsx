@@ -31,8 +31,7 @@ describe('SearchControl', () => {
 
     render(
       <SearchControl>
-        {' '}
-        <input type="checkbox" />{' '}
+        <input type="checkbox" />
       </SearchControl>
     );
 

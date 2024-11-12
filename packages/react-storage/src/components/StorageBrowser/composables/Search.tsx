@@ -13,7 +13,7 @@ export interface SearchProps {
   onSearch?: () => void;
   onSearchClear?: () => void;
   searchQuery?: string;
-  onQueryChange?: (query: string) => void;
+  onSearchQueryChange?: (query: string) => void;
   searchPlaceholder?: string;
   children?: React.ReactNode;
 }
@@ -23,7 +23,7 @@ export const Search = ({
   onSearchClear,
   searchPlaceholder,
   searchQuery = '',
-  onQueryChange,
+  onSearchQueryChange,
   children,
 }: SearchProps): React.JSX.Element => {
   // FIXME: focus not returning to input field after clear
@@ -40,7 +40,7 @@ export const Search = ({
         className={`${BLOCK_NAME}__field`}
         variant="search"
         onChange={(e) => {
-          onQueryChange?.(e.target.value);
+          onSearchQueryChange?.(e.target.value);
         }}
         placeholder={searchPlaceholder}
         onKeyUp={(event) => {

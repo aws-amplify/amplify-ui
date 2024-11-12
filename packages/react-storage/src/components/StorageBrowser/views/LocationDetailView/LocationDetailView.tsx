@@ -15,7 +15,6 @@ import { DropZoneControl } from '../../controls/DropZoneControl';
 import {
   InputElement,
   LabelElement,
-  SpanElement,
   ViewElement,
 } from '../../context/elements';
 import { SearchControl } from '../../controls/SearchControl';
@@ -138,19 +137,19 @@ export function LocationDetailView({
           <SearchControl
             className={`${CLASS_BASE}__location-detail-view-search`}
           >
-            <SpanElement className={`${CLASS_BASE}__search-toggle__container`}>
-              <LabelElement className={`${CLASS_BASE}__search-toggle__label`}>
-                <InputElement
-                  checked={includeSubfolders}
-                  className={`${CLASS_BASE}__search-toggle__checkbox`}
-                  onChange={() =>
-                    onIncludedSubfoldersChange?.(!includeSubfolders)
-                  }
-                  type="checkbox"
-                />
-                Include subfolders
-              </LabelElement>
-            </SpanElement>
+            <LabelElement
+              className={`${CLASS_BASE}__search-subfolder-toggle__label`}
+            >
+              <InputElement
+                checked={includeSubfolders}
+                className={`${CLASS_BASE}__search-toggle__checkbox`}
+                onChange={() =>
+                  onIncludedSubfoldersChange?.(!includeSubfolders)
+                }
+                type="checkbox"
+              />
+              Include subfolders
+            </LabelElement>
           </SearchControl>
           <Paginate
             currentPage={page}

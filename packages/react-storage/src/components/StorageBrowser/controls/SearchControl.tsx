@@ -21,7 +21,7 @@ export const SearchControl = ({
         onSearch={onSearch}
         searchPlaceholder={searchPlaceholder}
         searchQuery={searchQuery}
-        onQueryChange={onSearchQueryChange}
+        onSearchQueryChange={onSearchQueryChange}
         onSearchClear={onSearchClear}
       >
         {children ?? null}
