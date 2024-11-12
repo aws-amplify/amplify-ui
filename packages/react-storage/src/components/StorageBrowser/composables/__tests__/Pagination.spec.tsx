@@ -38,6 +38,19 @@ describe('Pagination', () => {
     expect(listItems).toHaveLength(3);
   });
 
+  it('returns null if page is not provided', () => {
+    const { container } = render(
+      <Pagination
+        page={undefined}
+        hasNextPage
+        onPaginate={jest.fn()}
+        highestPageVisited={10}
+      />
+    );
+
+    expect(container).toBeEmptyDOMElement();
+  });
+
   it('disables next button when on last page', () => {
     render(
       <Pagination
@@ -66,6 +79,20 @@ describe('Pagination', () => {
       name: 'Go to previous page',
     });
     expect(prevButton).toBeDisabled();
+  });
+
+  it('disables next button if highestPageVisited is not provided', () => {
+    render(
+      <Pagination
+        page={1}
+        hasNextPage
+        onPaginate={jest.fn()}
+        highestPageVisited={undefined}
+      />
+    );
+
+    const nextButton = screen.getByRole('button', { name: 'Go to next page' });
+    expect(nextButton).toBeDisabled();
   });
 
   it('calls onPaginate when next button is clicked', () => {
