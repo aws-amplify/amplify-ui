@@ -17,7 +17,7 @@ import { useGetActionInput } from '../../providers/configuration';
 import { displayText } from '../../displayText/en';
 import { LocationState } from '../../providers/store/location';
 import { useProcessTasks } from '../../tasks';
-import { downloadHandler } from '../../actions/handlers';
+import { downloadHandler, FileDataItem } from '../../actions/handlers';
 
 interface UseLocationDetailView {
   hasError: boolean;
@@ -26,7 +26,7 @@ interface UseLocationDetailView {
   isLoading: boolean;
   location: LocationState;
   areAllFilesSelected: boolean;
-  fileDataItems: FileData[] | undefined;
+  fileDataItems: FileDataItem[] | undefined;
   hasFiles: boolean;
   showIncludeSubfolders: boolean;
   message: string | undefined;
@@ -39,7 +39,7 @@ interface UseLocationDetailView {
   onNavigate: (location: LocationData, path?: string) => void;
   onNavigateHome: () => void;
   onPaginate: (page: number) => void;
-  onDownload: (fileItem: FileData) => void;
+  onDownload: (fileItem: FileDataItem) => void;
   onSearch: (query: string, includeSubfolders?: boolean) => void;
   onSelect: (isSelected: boolean, fileItem: FileData) => void;
   onSelectAll: () => void;
@@ -203,7 +203,7 @@ export function useLocationDetailView(
       });
       onActionSelect?.(actionType);
     },
-    onDownload: (data: FileData) => {
+    onDownload: (data: FileDataItem) => {
       handleDownload({ config: getConfig(), data });
     },
     onNavigateHome: () => {

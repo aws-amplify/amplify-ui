@@ -31,17 +31,19 @@ const folderDataOne: FolderData = {
   type: 'FOLDER',
 };
 
-const fileDataOne: FileData = {
+const fileDataOne: FileDataItem = {
   id: '2',
   key: 'some-prefix/cool.jpg',
+  fileKey: 'some-prefix/cool.jpg',
   type: 'FILE',
   lastModified: new Date(),
   size: 25600,
 };
 
-const fileDataTwo: FileData = {
+const fileDataTwo: FileDataItem = {
   id: '3',
   key: 'some-prefix/maybe-cool.png',
+  fileKey: 'some-prefix/maybe-cool.png',
   type: 'FILE',
   lastModified: new Date(),
   size: 25600,
