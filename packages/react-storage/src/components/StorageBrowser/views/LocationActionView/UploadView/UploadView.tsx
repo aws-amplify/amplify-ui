@@ -71,7 +71,7 @@ export const UploadView = ({
   const isOverwriteCheckboxDisabled = isProcessing || isProcessingComplete;
 
   return (
-    <div className={resolveClassName(`amplify-${CLASS_BASE}`, className)}>
+    <div className={resolveClassName(AMPLIFY_CLASS_BASE, className)}>
       <ControlsContextProvider
         data={{
           actionCancelLabel: 'Cancel',

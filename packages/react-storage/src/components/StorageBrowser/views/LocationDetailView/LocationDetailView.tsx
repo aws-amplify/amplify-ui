@@ -1,6 +1,6 @@
 import React from 'react';
 import { resolveClassName } from '../utils';
-import { CLASS_BASE } from '../constants';
+import { AMPLIFY_CLASS_BASE, CLASS_BASE } from '../constants';
 import { useStore } from '../../providers/store';
 import { Controls } from '../Controls';
 import { NavigationControl } from '../../controls/NavigationControl';
@@ -92,7 +92,7 @@ export function LocationDetailView({
 
   return (
     <div
-      className={resolveClassName(`amplify-${CLASS_BASE}`, className)}
+      className={resolveClassName(AMPLIFY_CLASS_BASE, className)}
       data-testid="LOCATION_DETAIL_VIEW"
     >
       <ControlsContextProvider

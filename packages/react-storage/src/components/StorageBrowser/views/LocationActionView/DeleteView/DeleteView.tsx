@@ -4,7 +4,7 @@ import { Controls } from '../../Controls';
 import { ViewElement } from '../../../context/elements';
 import { DataTableControl } from '../../../controls/DataTableControl';
 import { ControlsContextProvider } from '../../../controls/context';
-import { CLASS_BASE, AMPLIFY_CLASS_BASE } from '../../constants';
+import { AMPLIFY_CLASS_BASE } from '../../constants';
 import { Title } from '../Controls/Title';
 import { StatusDisplayControl } from '../../../controls/StatusDisplayControl';
 import { getActionViewTableData } from '../getActionViewTableData';

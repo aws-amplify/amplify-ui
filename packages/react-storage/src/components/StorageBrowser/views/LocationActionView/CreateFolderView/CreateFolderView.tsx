@@ -6,7 +6,7 @@ import { Title } from '../Controls/Title';
 import { ActionStartControl } from '../../../controls/ActionStartControl';
 import { FolderNameFieldControl } from '../../../controls/FolderNameFieldControl';
 import { ControlsContextProvider } from '../../../controls/context';
-import { AMPLIFY_CLASS_BASE, CLASS_BASE } from '../../constants';
+import { AMPLIFY_CLASS_BASE } from '../../constants';
 import { MessageControl } from '../../../controls/MessageControl';
 import { ControlsContext } from '../../../controls/types';
 import { useDisplayText } from '../../../displayText';

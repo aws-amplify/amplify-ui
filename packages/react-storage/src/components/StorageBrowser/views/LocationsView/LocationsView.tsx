@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { CLASS_BASE } from '../constants';
+import { AMPLIFY_CLASS_BASE, CLASS_BASE } from '../constants';
 import { Controls } from '../Controls';
 import { resolveClassName } from '../utils';
 import { useLocationsView } from './useLocationsView';
@@ -124,7 +124,7 @@ export function LocationsView({
       onRefresh={onRefresh}
     >
       <div
-        className={resolveClassName(`amplify-${CLASS_BASE}`, className)}
+        className={resolveClassName(AMPLIFY_CLASS_BASE, className)}
         data-testid="LOCATIONS_VIEW"
       >
         <Title>{title}</Title>
