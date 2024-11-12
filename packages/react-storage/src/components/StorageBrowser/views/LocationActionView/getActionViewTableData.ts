@@ -70,7 +70,7 @@ export const getActionViewTableData = ({
                         0,
                         webkitRelativePath.lastIndexOf('/') + 1
                       )
-                    : '/',
+                    : '-',
                 },
               };
             }

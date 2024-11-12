@@ -6,11 +6,14 @@ export const DEFAULT_CREATE_FOLDER_VIEW_DISPLAY_TEXT: DefaultCreateFolderViewDis
     ...DEFAULT_ACTION_VIEW_DISPLAY_TEXT,
     title: 'Create folder',
     actionStartLabel: 'Create folder',
-    getValidationMessage: (_folderName) => {
-      // @TODO: maybe add logic to check which character caused the failure
-      return `Folder name cannot contain "/", ".", or ".."`;
-    },
-    getActionCompleteMessage: (_counts) => {
-      return 'Folder created.';
-    },
+    folderNameLabel: 'Enter folder name:',
+    folderNamePlaceholder: 'Folder name',
+    getValidationMessage: () =>
+      'Folder name cannot contain a "/" or "." character',
+    getActionCompleteMessage: ({ OVERWRITE_PREVENTED, FAILED }) =>
+      OVERWRITE_PREVENTED > 0
+        ? 'A folder already exists with the provided name'
+        : FAILED > 0
+        ? 'There was an issue creating the folder.'
+        : 'Folder created.',
   };

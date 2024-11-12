@@ -1,5 +1,8 @@
 import { getLocationsViewTableData } from '../getLocationsViewTableData';
 import { LocationViewHeaders } from '../getLocationsViewTableData/types';
+import { DEFAULT_LOCATIONS_VIEW_DISPLAY_TEXT } from '../../../displayText/libraries/en/locationsView';
+
+const { getPermissionName } = DEFAULT_LOCATIONS_VIEW_DISPLAY_TEXT;
 
 describe('getLocationsViewTableData', () => {
   const location1 = {
@@ -42,6 +45,7 @@ describe('getLocationsViewTableData', () => {
         pageItems: [location1],
         onNavigate: mockOnNavigate,
         headers,
+        getPermissionName,
       })
     ).toStrictEqual({
       headers: [
@@ -62,7 +66,7 @@ describe('getLocationsViewTableData', () => {
             }),
             expect.objectContaining({
               type: 'text',
-              content: expect.objectContaining({ text: location1.permission }),
+              content: expect.objectContaining({ text: 'Read' }),
             }),
           ],
         }),
@@ -76,6 +80,7 @@ describe('getLocationsViewTableData', () => {
         pageItems: [{ ...location1, prefix: '' }],
         onNavigate: mockOnNavigate,
         headers,
+        getPermissionName,
       })
     ).toStrictEqual(
       expect.objectContaining({
@@ -98,6 +103,7 @@ describe('getLocationsViewTableData', () => {
       pageItems: [location1, location2],
       onNavigate: mockOnNavigate,
       headers,
+      getPermissionName,
     });
     const [row1FirstContent] = tableData.rows[0].content;
     const [row2FirstContent] = tableData.rows[1].content;
