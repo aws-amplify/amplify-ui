@@ -6,7 +6,7 @@ feat(ai): add fallback response component
 
 ```tsx
 <AIConversation
-  fallBackResponseComponent={(props) => <>{JSON.stringify(props)}</>}
+  FallBackResponseComponent={(props) => <>{JSON.stringify(props)}</>}
   //...
 />
 ```

@@ -43,7 +43,7 @@ export const AIConversationProvider = ({
   suggestedPrompts,
   variant,
   welcomeMessage,
-  fallbackResponseComponent,
+  FallbackResponseComponent,
   messageRenderer,
 }: AIConversationProviderProps): React.JSX.Element => {
   const _displayText = {
@@ -56,7 +56,7 @@ export const AIConversationProvider = ({
         <SuggestedPromptProvider suggestedPrompts={suggestedPrompts}>
           <WelcomeMessageProvider welcomeMessage={welcomeMessage}>
             <FallbackComponentProvider
-              fallbackComponent={fallbackResponseComponent}
+              FallbackComponent={FallbackResponseComponent}
             >
               <MessageRendererProvider {...messageRenderer}>
                 <ResponseComponentsProvider

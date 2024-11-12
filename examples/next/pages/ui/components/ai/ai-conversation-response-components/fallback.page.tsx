@@ -43,7 +43,7 @@ export default function Example() {
     <AIConversation
       messages={messages}
       handleSendMessage={() => {}}
-      fallbackResponseComponent={(props) => {
+      FallbackResponseComponent={(props) => {
         return <div>{JSON.stringify(props)}</div>;
       }}
     />

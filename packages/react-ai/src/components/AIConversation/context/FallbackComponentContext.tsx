@@ -2,18 +2,18 @@ import React from 'react';
 import { AIConversationInput } from '../types';
 
 export const FallbackComponentContext = React.createContext<
-  AIConversationInput['fallbackResponseComponent'] | undefined
+  AIConversationInput['FallbackResponseComponent'] | undefined
 >(undefined);
 
 export const FallbackComponentProvider = ({
   children,
-  fallbackComponent,
+  FallbackComponent,
 }: {
   children?: React.ReactNode;
-  fallbackComponent?: AIConversationInput['fallbackResponseComponent'];
+  FallbackComponent?: AIConversationInput['FallbackResponseComponent'];
 }): JSX.Element => {
   return (
-    <FallbackComponentContext.Provider value={fallbackComponent}>
+    <FallbackComponentContext.Provider value={FallbackComponent}>
       {children}
     </FallbackComponentContext.Provider>
   );
