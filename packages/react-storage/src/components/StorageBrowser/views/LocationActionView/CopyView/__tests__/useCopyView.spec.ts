@@ -97,7 +97,7 @@ describe('useCopyView', () => {
         isProcessing: false,
         isProcessingComplete: false,
         onActionCancel: expect.any(Function),
-        onExit: expect.any(Function),
+        onActionExit: expect.any(Function),
         onActionStart: expect.any(Function),
         tasks: expect.any(Array),
       })
@@ -163,12 +163,12 @@ describe('useCopyView', () => {
     expect(mockCancel).toHaveBeenCalled();
   });
 
-  it('should reset state when onExit is called', () => {
+  it('should reset state when onActionExit is called', () => {
     const mockOnExit = jest.fn();
     const { result } = renderHook(() => useCopyView({ onExit: mockOnExit }));
 
     act(() => {
-      result.current.onExit?.();
+      result.current.onActionExit();
     });
 
     expect(mockOnExit).toHaveBeenCalled();

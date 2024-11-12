@@ -1,17 +1,17 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: Apache-2.0
-
 import { Amplify } from 'aws-amplify';
-
 import { AuthSession, fetchAuthSession } from 'aws-amplify/auth';
+import { Hub } from 'aws-amplify/utils';
+
 import { AWSTemporaryCredentials } from '../../storage-internal';
 import { StorageBrowserAuthAdapter } from '../types';
 import { createAmplifyListLocationsHandler } from './createAmplifyListLocationsHandler';
-import { Hub } from 'aws-amplify/utils';
 import { RegisterAuthListener } from '../../providers';
 
 export const MISSING_BUCKET_OR_REGION_ERROR =
   'Amplify Storage configuration not found. Did you run `Amplify.configure` from your project root?';
+export const MISSING_IDENTITY_ID_ERROR = '`identityId` not found.';
+export const MISSING_TEMPORARY_CREDENTIALS_ERROR =
+  'Temporary Auth `credentials` not found.';
 
 interface AWSCredentials extends NonNullable<AuthSession['credentials']> {}
 
@@ -33,10 +33,10 @@ export const createAmplifyAuthAdapter = (): StorageBrowserAuthAdapter => {
   }> => {
     const { credentials, identityId } = await fetchAuthSession();
     if (!isTemporaryCredentials(credentials)) {
-      throw new Error('Temporary Auth credentials not found.');
+      throw new Error(MISSING_TEMPORARY_CREDENTIALS_ERROR);
     }
     if (!identityId) {
-      throw new Error('Identity ID not found.');
+      throw new Error(MISSING_IDENTITY_ID_ERROR);
     }
     return { credentials, identityId };
   };

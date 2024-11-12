@@ -6,8 +6,9 @@ import { copyHandler } from '../../../actions/handlers';
 import { Task, useProcessTasks } from '../../../tasks';
 import { useGetActionInput } from '../../../providers/configuration';
 import { useStore } from '../../../providers/store';
-import { getDestinationListFullPrefix } from './getDestinationListFullPrefix';
+
 import { CopyViewState, UseCopyViewOptions } from './types';
+import { getDestinationListFullPrefix } from './utils';
 
 const getInitialDestinationList = (key: string, prefix?: string) =>
   // handle root bucket access grant
@@ -22,7 +23,7 @@ const getInitialDestinationList = (key: string, prefix?: string) =>
     : [];
 
 export const useCopyView = (options?: UseCopyViewOptions): CopyViewState => {
-  const { onExit: _onExit } = options ?? {};
+  const { onExit } = options ?? {};
   const [
     {
       location,
@@ -60,12 +61,12 @@ export const useCopyView = (options?: UseCopyViewOptions): CopyViewState => {
     });
   };
 
-  const onExit = () => {
+  const onActionExit = () => {
     // clear files state
     dispatchStoreAction({ type: 'RESET_LOCATION_ITEMS' });
     // clear selected action
     dispatchStoreAction({ type: 'RESET_ACTION_TYPE' });
-    if (isFunction(_onExit)) _onExit(current);
+    if (isFunction(onExit)) onExit(current);
   };
 
   const onTaskCancel = useCallback(
@@ -85,7 +86,7 @@ export const useCopyView = (options?: UseCopyViewOptions): CopyViewState => {
     onActionCancel,
     onActionStart,
     onDestinationChange,
-    onExit,
+    onActionExit,
     onTaskCancel,
   };
 };
