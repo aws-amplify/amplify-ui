@@ -13,6 +13,7 @@ import {
 
 import * as StoreModule from '../../../providers/store';
 import * as ConfigModule from '../../../providers/configuration';
+import * as TasksModule from '../../../tasks';
 import { LocationState } from '../../../providers/store/location';
 
 import {
@@ -30,17 +31,19 @@ const folderDataOne: FolderData = {
   type: 'FOLDER',
 };
 
-const fileDataOne: FileData = {
+const fileDataOne: FileDataItem = {
   id: '2',
   key: 'some-prefix/cool.jpg',
+  fileKey: 'some-prefix/cool.jpg',
   type: 'FILE',
   lastModified: new Date(),
   size: 25600,
 };
 
-const fileDataTwo: FileData = {
+const fileDataTwo: FileDataItem = {
   id: '3',
   key: 'some-prefix/maybe-cool.png',
+  fileKey: 'some-prefix/maybe-cool.png',
   type: 'FILE',
   lastModified: new Date(),
   size: 25600,
@@ -105,6 +108,26 @@ const config: ActionInputConfig = {
   region: 'us-weast-1',
 };
 useGetActionSpy.mockReturnValue(() => config);
+
+const taskOne: TasksModule.Task<FileData> = {
+  data: fileItem,
+  cancel: jest.fn(),
+  message: undefined,
+  progress: undefined,
+  remove: jest.fn(),
+  status: 'QUEUED',
+};
+
+const handleDownload = jest.fn();
+jest.spyOn(TasksModule, 'useProcessTasks').mockReturnValue([
+  {
+    isProcessing: false,
+    isProcessingComplete: false,
+    statusCounts: TasksModule.INITIAL_STATUS_COUNTS,
+    tasks: [taskOne],
+  },
+  handleDownload,
+]);
 
 describe('useLocationDetailView', () => {
   const mockLocation = { current: undefined, path: '', key: '' };
@@ -326,6 +349,16 @@ describe('useLocationDetailView', () => {
       location: expectedLocation,
       path: expectedPath,
     });
+  });
+
+  it('should handle downloading a file', () => {
+    const { result } = renderHook(() =>
+      useLocationDetailView({ onExit: jest.fn() })
+    );
+
+    result.current.onDownload(fileDataOne);
+    expect(handleDownload).toHaveBeenCalledTimes(1);
+    expect(handleDownload).toHaveBeenCalledWith({ config, data: fileDataOne });
   });
 
   it('should navigate home', () => {
