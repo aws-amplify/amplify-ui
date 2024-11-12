@@ -10,6 +10,7 @@ import { NavigationProps } from './Navigation';
 import { StatusDisplayProps } from './StatusDisplay';
 import { PaginationProps } from './Pagination';
 import { SearchProps } from './Search';
+import { TitleProps } from './Title';
 
 export interface Composables {
   ActionStart: React.ComponentType<ActionStartProps>;
@@ -24,6 +25,7 @@ export interface Composables {
   Pagination: React.ComponentType<PaginationProps>;
   Search: React.ComponentType<SearchProps>;
   StatusDisplay: React.ComponentType<StatusDisplayProps>;
+  Title: React.ComponentType<TitleProps>;
 }
 
 export interface ComposablesContext {

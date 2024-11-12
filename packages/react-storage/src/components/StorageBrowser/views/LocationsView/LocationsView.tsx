@@ -93,6 +93,7 @@ export function LocationsView({
       tableColumnFolderHeader,
       tableColumnPermissionsHeader,
       searchPlaceholder,
+      getPermissionName,
     },
   } = useDisplayText();
 
@@ -107,6 +108,7 @@ export function LocationsView({
       data={{
         isDataRefreshDisabled: isLoading,
         tableData: getLocationsViewTableData({
+          getPermissionName,
           headers,
           pageItems,
           onNavigate,

@@ -10,6 +10,7 @@ import { Navigation } from './Navigation';
 import { Pagination } from './Pagination';
 import { StatusDisplay } from './StatusDisplay';
 import { Search } from './Search';
+import { Title } from './Title';
 
 import { Composables } from './types';
 
@@ -26,4 +27,5 @@ export const DEFAULT_COMPOSABLES: Composables = {
   Pagination,
   StatusDisplay,
   Search,
+  Title,
 };
