@@ -1,6 +1,8 @@
 import { ActionCancel } from './ActionCancel';
 import { ActionExit } from './ActionExit';
 import { ActionStart } from './ActionStart';
+import { AddFiles } from './AddFiles';
+import { AddFolder } from './AddFolder';
 import { DataRefresh } from './DataRefresh';
 import { DataTable } from './DataTable';
 import { DropZone } from './DropZone';
@@ -18,6 +20,8 @@ export const DEFAULT_COMPOSABLES: Composables = {
   ActionCancel,
   ActionExit,
   ActionStart,
+  AddFiles,
+  AddFolder,
   DataRefresh,
   DataTable,
   DropZone,

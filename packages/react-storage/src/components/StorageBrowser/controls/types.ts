@@ -36,6 +36,8 @@ export interface ControlsContext {
     actionCancelLabel?: string;
     actionExitLabel?: string;
     actionStartLabel?: string;
+    addFilesLabel?: string;
+    addFolderLabel?: string;
     folderNameId?: string;
     folderNameLabel?: string;
     folderNamePlaceholder?: string;
@@ -62,6 +64,8 @@ export interface ControlsContext {
   onActionCancel?: () => void;
   onActionExit?: () => void;
   onActionStart?: () => void;
+  onAddFiles?: () => void;
+  onAddFolder?: () => void;
   onDropFiles?: (files: File[]) => void;
   onFolderNameChange?: (value: string) => void;
   onMessageDismiss?: () => void;

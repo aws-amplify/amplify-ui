@@ -2,7 +2,7 @@ import React from 'react';
 
 import { displayText } from '../../../displayText/en';
 import { DescriptionList } from '../../../components/DescriptionList';
-import { ButtonElement, ViewElement } from '../../../context/elements';
+import { ViewElement } from '../../../context/elements';
 import { StatusDisplayControl } from '../../../controls/StatusDisplayControl';
 import { ControlsContextProvider } from '../../../controls/context';
 import { CLASS_BASE } from '../../constants';
@@ -11,6 +11,8 @@ import { Title } from '../Controls/Title';
 import { ActionCancelControl } from '../../../controls/ActionCancelControl';
 import { ActionExitControl } from '../../../controls/ActionExitControl';
 import { ActionStartControl } from '../../../controls/ActionStartControl';
+import { AddFilesControl } from '../../../controls/AddFilesControl';
+import { AddFolderControl } from '../../../controls/AddFolderControl';
 import { DataTableControl } from '../../../controls/DataTableControl';
 import { DropZoneControl } from '../../../controls/DropZoneControl';
 import { resolveClassName } from '../../utils';
@@ -28,8 +30,13 @@ export function UploadView({
   className,
   ...props
 }: UploadViewProps): React.JSX.Element {
-  const { actionCancelLabel, actionExitLabel, actionStartLabel } =
-    useDisplayText()['UploadView'];
+  const {
+    actionCancelLabel,
+    actionExitLabel,
+    actionStartLabel,
+    addFilesLabel,
+    addFolderLabel,
+  } = useDisplayText()['UploadView'];
 
   const {
     isProcessing,
@@ -62,6 +69,8 @@ export function UploadView({
           actionCancelLabel,
           actionExitLabel,
           actionStartLabel,
+          addFilesLabel,
+          addFolderLabel,
           isActionCancelDisabled,
           isActionExitDisabled,
           isActionStartDisabled,
@@ -79,6 +88,12 @@ export function UploadView({
         onActionCancel={onActionCancel}
         onActionExit={onActionExit}
         onActionStart={onActionStart}
+        onAddFiles={() => {
+          onSelectFiles('FILE');
+        }}
+        onAddFolder={() => {
+          onSelectFiles('FOLDER');
+        }}
         onDropFiles={onDropFiles}
       >
         <ActionExitControl />
@@ -99,26 +114,10 @@ export function UploadView({
               handleChange={onToggleOverwrite}
             />
           </ViewElement>
-          <ButtonElement
-            disabled={isAddFolderDisabled}
-            className={`${CLASS_BASE}__add-folder`}
-            variant="add-folder"
-            onClick={() => {
-              onSelectFiles('FOLDER');
-            }}
-          >
-            Add folder
-          </ButtonElement>
-          <ButtonElement
-            disabled={isAddFilesDisabled}
-            className={`${CLASS_BASE}__add-files`}
-            variant="add-files"
-            onClick={() => {
-              onSelectFiles('FILE');
-            }}
-          >
-            Add files
-          </ButtonElement>
+          <AddFolderControl
+            className={`${CLASS_BASE}__upload-view-add-folder`}
+          />
+          <AddFilesControl className={`${CLASS_BASE}__upload-view-add-files`} />
         </ViewElement>
         <ViewElement className={`${CLASS_BASE}__table-wrapper`}>
           <DropZoneControl className={`${CLASS_BASE}__upload-view-drop-zone`}>
