@@ -18,6 +18,26 @@ const config = {
   region: 'us-west-2',
 };
 
+jest.useFakeTimers();
+jest.setSystemTime(1731366223230);
+
+const mockItems = [
+  {
+    key: 'prefix1/',
+    lastModified: new Date(),
+    id: 'id',
+    size: 10,
+    type: 'FOLDER',
+  },
+  {
+    key: 'prefix2/',
+    lastModified: new Date(),
+    id: 'id',
+    size: 10,
+    type: 'FOLDER',
+  },
+];
+
 describe('useDestinationPicker', () => {
   beforeEach(() => {
     jest.clearAllMocks();
@@ -53,23 +73,23 @@ describe('useDestinationPicker', () => {
       mockDispatchStoreAction,
     ]);
 
-    jest.spyOn(AmplifyReactCore, 'useDataState').mockReturnValue([
+    jest.spyOn(Config, 'useGetActionInput').mockReturnValue(() => config);
+  });
+
+  it('should return the correct initial state', async () => {
+    jest.spyOn(AmplifyReactCore, 'useDataState').mockReturnValueOnce([
       {
         data: {
-          items: [],
-          nextToken: undefined,
+          items: mockItems,
+          nextToken: 'token',
         },
         hasError: false,
-        isLoading: true,
+        isLoading: false,
         message: undefined,
       },
       mockHandleList,
     ]);
 
-    jest.spyOn(Config, 'useGetActionInput').mockReturnValue(() => config);
-  });
-
-  it('should return the correct initial state', async () => {
     const { result } = renderHook(() =>
       useDestinationPicker({
         destinationList: ['prefix1'],
@@ -81,7 +101,54 @@ describe('useDestinationPicker', () => {
     });
   });
 
+  it('should call handleList once per destinationList change', async () => {
+    jest.spyOn(AmplifyReactCore, 'useDataState').mockReturnValue([
+      {
+        data: {
+          items: mockItems,
+          nextToken: 'token',
+        },
+        hasError: false,
+        isLoading: false,
+        message: undefined,
+      },
+      mockHandleList,
+    ]);
+
+    const { rerender } = renderHook(
+      (
+        props: { destinationList: string[] } = {
+          destinationList: ['prefix1'],
+        }
+      ) => useDestinationPicker(props)
+    );
+    await waitFor(() => {
+      rerender({
+        destinationList: ['prefix1', 'subfolder1'],
+      });
+      rerender({
+        destinationList: ['prefix1'],
+      });
+      rerender({
+        destinationList: ['prefix1'],
+      });
+      expect(mockHandleList).toHaveBeenCalledTimes(3);
+    });
+  });
+
   it('should handle search', () => {
+    jest.spyOn(AmplifyReactCore, 'useDataState').mockReturnValueOnce([
+      {
+        data: {
+          items: mockItems,
+          nextToken: 'token',
+        },
+        hasError: false,
+        isLoading: false,
+        message: undefined,
+      },
+      mockHandleList,
+    ]);
     const { result } = renderHook(() =>
       useDestinationPicker({
         destinationList: ['prefix1'],

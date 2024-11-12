@@ -56,6 +56,7 @@ export interface ControlsContext {
     searchQuery?: string;
     statusCounts?: StatusCounts;
     tableData?: TableData;
+    title?: string;
   };
   onActionCancel?: () => void;
   onActionStart?: () => void;

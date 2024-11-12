@@ -13,7 +13,7 @@ import { useStore } from '../../../providers/store';
 import { createEnhancedListHandler } from '../../../actions/createEnhancedListHandler';
 import { useSearch } from '../../hooks/useSearch';
 
-const DEFAULT_PAGE_SIZE = 1000;
+const DEFAULT_PAGE_SIZE = 100;
 export const DEFAULT_LIST_OPTIONS = {
   pageSize: DEFAULT_PAGE_SIZE,
   delimiter: '/',
@@ -80,7 +80,7 @@ export const useDestinationPicker = ({
   } = usePaginate({
     items,
     paginateCallback,
-    pageSize: 10,
+    pageSize: DEFAULT_PAGE_SIZE,
     hasNextToken,
   });
 
@@ -108,9 +108,9 @@ export const useDestinationPicker = ({
     handleList({
       config: getInput(),
       prefix,
-      options: { ...DEFAULT_REFRESH_OPTIONS, nextToken },
+      options: { ...DEFAULT_REFRESH_OPTIONS },
     });
-  }, [getInput, handleList, nextToken, prefix]);
+  }, [getInput, handleList, prefix]);
 
   const [{ location }] = useStore();
 
