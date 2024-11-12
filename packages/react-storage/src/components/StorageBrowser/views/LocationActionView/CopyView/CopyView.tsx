@@ -5,7 +5,6 @@ import { ViewElement } from '../../../context/elements';
 import { Title } from '../Controls/Title';
 import { displayText } from '../../../displayText/en';
 import { AMPLIFY_CLASS_BASE, CLASS_BASE } from '../../constants';
-import { DestinationPicker } from './DestinationPicker';
 
 import { DataTableControl } from '../../../controls/DataTableControl';
 import { ActionExitControl } from '../../../controls/ActionExitControl';
