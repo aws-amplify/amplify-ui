@@ -7,10 +7,12 @@ import {
   InputElementProps,
 } from '../context/elements';
 
+type ButtonTypes = 'previous' | 'next';
+
 interface PaginationButtonProps extends InputElementProps {
   disabled: boolean;
   onClick: () => void;
-  type: 'previous' | 'next';
+  type: ButtonTypes;
 }
 
 const BLOCK_NAME = `${CLASS_BASE}__pagination-button`;
@@ -20,7 +22,7 @@ export function PaginationButton({
   onClick,
   type,
 }: PaginationButtonProps): React.JSX.Element {
-  const buttonType: 'paginate-previous' | 'paginate-next' = `paginate-${type}`;
+  const buttonType: `paginate-${ButtonTypes}` = `paginate-${type}`;
 
   return (
     <ButtonElement
