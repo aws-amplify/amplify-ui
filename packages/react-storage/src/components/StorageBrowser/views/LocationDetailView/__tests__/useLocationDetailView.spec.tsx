@@ -535,7 +535,7 @@ describe('useLocationDetailView', () => {
     const { result } = renderHook(() => useLocationDetailView());
     act(() => {
       result.current.onSearchQueryChange('moo');
-      result.current.onIncludedSubfoldersChange(true);
+      result.current.onIncludeSubfoldersChange(true);
     });
 
     act(() => {

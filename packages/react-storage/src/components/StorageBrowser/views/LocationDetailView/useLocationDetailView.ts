@@ -45,7 +45,7 @@ interface UseLocationDetailView {
   onSearch: () => void;
   onSearchClear: () => void;
   onSearchQueryChange: (value: string) => void;
-  onIncludedSubfoldersChange: (value: boolean) => void;
+  onIncludeSubfoldersChange: (value: boolean) => void;
 }
 
 export type LocationDetailViewActionType =
@@ -148,7 +148,7 @@ export function useLocationDetailView(
     searchQuery,
     includeSubfolders,
     reset: resetSearch,
-    onChangeIncludeSubfolders,
+    onIncludeSubfoldersChange,
     onSearchQueryChange,
     onSearchSubmit,
     onSearchClear,
@@ -274,6 +274,6 @@ export function useLocationDetailView(
       handleReset();
     },
     onSearchQueryChange,
-    onIncludedSubfoldersChange: onChangeIncludeSubfolders,
+    onIncludeSubfoldersChange,
   };
 }

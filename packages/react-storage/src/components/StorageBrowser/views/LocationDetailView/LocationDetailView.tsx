@@ -94,7 +94,7 @@ export function LocationDetailView({
     onSelectAll,
     onSearch,
     onSearchQueryChange,
-    onIncludedSubfoldersChange,
+    onIncludeSubfoldersChange,
     onSearchClear,
   } = useLocationDetailView({ onNavigate: onNavigateProp, onExit });
 
@@ -143,9 +143,7 @@ export function LocationDetailView({
               <InputElement
                 checked={includeSubfolders}
                 className={`${CLASS_BASE}__search-toggle__checkbox`}
-                onChange={() =>
-                  onIncludedSubfoldersChange?.(!includeSubfolders)
-                }
+                onChange={() => onIncludeSubfoldersChange?.(!includeSubfolders)}
                 type="checkbox"
               />
               Include subfolders

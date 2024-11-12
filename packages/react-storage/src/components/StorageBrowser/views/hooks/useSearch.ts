@@ -5,7 +5,7 @@ interface UseSearchResult {
   includeSubfolders: boolean;
   reset: () => void;
   onSearchQueryChange: (query: string) => void;
-  onChangeIncludeSubfolders: (includeSubfolders: boolean) => void;
+  onIncludeSubfoldersChange: (includeSubfolders: boolean) => void;
   onSearchSubmit: () => void;
   onSearchClear: () => void;
 }
@@ -30,7 +30,7 @@ export function useSearch(props: UseSearchProps): UseSearchResult {
     onSearchQueryChange: (value) => {
       setQuery(value);
     },
-    onChangeIncludeSubfolders: (value) => {
+    onIncludeSubfoldersChange: (value) => {
       setIncludeSubfolders(value);
     },
     onSearchSubmit: () => {
