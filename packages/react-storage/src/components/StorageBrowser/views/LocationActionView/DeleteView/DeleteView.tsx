@@ -56,29 +56,21 @@ export const DeleteView = ({
         <ViewElement className={`${AMPLIFY_CLASS_BASE}__navigation`}>
           <Exit onClick={onExit} disabled={isProcessing} />
         </ViewElement>
-        <Title />
-        <ViewElement className={`${AMPLIFY_CLASS_BASE}__table__wrapper`}>
-          <DataTableControl
-            className={`${CLASS_BASE}__delete-view-data-table`}
-          />
-        </ViewElement>
 
-        <ViewElement className={`${AMPLIFY_CLASS_BASE}__action__summary`}>
-          <StatusDisplayControl
-            className={`${AMPLIFY_CLASS_BASE}__action__status`}
-          />
+        <Title />
+
+        <DataTableControl />
+
+        <ViewElement className={`${AMPLIFY_CLASS_BASE}__summary`}>
+          <StatusDisplayControl />
         </ViewElement>
-        <ViewElement className={`${AMPLIFY_CLASS_BASE}__action__footer`}>
-          <ViewElement className={`${AMPLIFY_CLASS_BASE}__action__message`}>
+        <ViewElement className={`${AMPLIFY_CLASS_BASE}__footer`}>
+          <ViewElement className={`${AMPLIFY_CLASS_BASE}__message`}>
             {/* TODO: confirmation message goes here */}
           </ViewElement>
-          <ViewElement className={`${AMPLIFY_CLASS_BASE}__action__buttons`}>
-            <ActionCancelControl
-              className={`${AMPLIFY_CLASS_BASE}__action__cancel`}
-            />
-            <ActionStartControl
-              className={`${AMPLIFY_CLASS_BASE}__action__start`}
-            />
+          <ViewElement className={`${AMPLIFY_CLASS_BASE}__buttons`}>
+            <ActionCancelControl />
+            <ActionStartControl />
           </ViewElement>
         </ViewElement>
       </ControlsContextProvider>

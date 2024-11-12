@@ -144,15 +144,9 @@ export function LocationDetailView({
         <LocationDetailMessage show={hasError} message={message} />
         <Loading show={isLoading} />
         {hasError ? null : (
-          <ViewElement className={`${CLASS_BASE}__table-wrapper`}>
-            <DropZoneControl
-              className={`${CLASS_BASE}__location-detail-view-drop-zone`}
-            >
-              <DataTableControl
-                className={`${CLASS_BASE}__location-detail-view-data-table`}
-              />
-            </DropZoneControl>
-          </ViewElement>
+          <DropZoneControl>
+            <DataTableControl />
+          </DropZoneControl>
         )}
         <LocationDetailEmptyMessage show={shouldShowEmptyMessage} />
       </ControlsContextProvider>

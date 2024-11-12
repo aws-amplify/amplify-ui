@@ -5,7 +5,7 @@ import { DescriptionList } from '../../../components/DescriptionList';
 import { ButtonElement, ViewElement } from '../../../context/elements';
 import { StatusDisplayControl } from '../../../controls/StatusDisplayControl';
 import { ControlsContextProvider } from '../../../controls/context';
-import { CLASS_BASE } from '../../constants';
+import { AMPLIFY_CLASS_BASE, CLASS_BASE } from '../../constants';
 import { Controls } from '../../Controls';
 import { Title } from '../Controls/Title';
 import { ActionStartControl } from '../../../controls/ActionStartControl';
@@ -133,21 +133,15 @@ export const UploadView = ({
             Add files
           </ButtonElement>
         </ViewElement>
-        <ViewElement className={`${CLASS_BASE}__table-wrapper`}>
-          <DropZoneControl className={`${CLASS_BASE}__upload-view-drop-zone`}>
-            <DataTableControl
-              className={`${CLASS_BASE}__upload-view-data-table`}
-            />
-          </DropZoneControl>
-        </ViewElement>
-        <ViewElement className={`${CLASS_BASE}__action-footer`}>
-          <StatusDisplayControl
-            className={`${CLASS_BASE}__upload-status-display`}
-          />
-          <ActionCancelControl className={`${CLASS_BASE}__cancel`} />
-          <ActionStartControl
-            className={`${CLASS_BASE}__upload-action-start`}
-          />
+        <DropZoneControl>
+          <DataTableControl />
+        </DropZoneControl>
+        <ViewElement className={`${AMPLIFY_CLASS_BASE}__footer`}>
+          <StatusDisplayControl />
+          <ViewElement className={`${AMPLIFY_CLASS_BASE}__buttons`}>
+            <ActionCancelControl />
+            <ActionStartControl />
+          </ViewElement>
         </ViewElement>
       </ControlsContextProvider>
     </div>

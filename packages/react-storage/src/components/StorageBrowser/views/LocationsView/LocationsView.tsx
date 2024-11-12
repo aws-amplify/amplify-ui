@@ -142,13 +142,7 @@ export function LocationsView({
         </ViewElement>
         <LocationsMessage show={hasError} message={message} />
         <Loading show={isLoading} />
-        {hasError ? null : (
-          <ViewElement className={`${CLASS_BASE}__table-wrapper`}>
-            <DataTableControl
-              className={`${CLASS_BASE}__locations-view-data-table`}
-            />
-          </ViewElement>
-        )}
+        {hasError ? null : <DataTableControl />}
         <LocationsEmptyMessage show={shouldShowEmptyMessage} />
       </div>
     </ControlsContextProvider>

@@ -81,9 +81,7 @@ export function CreateFolderView({
         <Exit onClick={onExit} />
         <Title />
         <FolderNameFieldControl />
-        <ActionStartControl
-          className={`${CLASS_BASE}__create-folder-action-start`}
-        />
+        <ActionStartControl />
         <MessageControl />
       </ControlsContextProvider>
     </div>

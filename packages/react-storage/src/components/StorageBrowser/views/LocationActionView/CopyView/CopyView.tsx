@@ -70,9 +70,7 @@ export const CopyView = ({
       >
         <Exit onClick={onExit} disabled={isProcessing} />
         <Title />
-        <ViewElement className={`${CLASS_BASE}__table-wrapper`}>
-          <DataTableControl className={`${CLASS_BASE}__copy-view-data-table`} />
-        </ViewElement>
+        <DataTableControl />
         {isProcessing || isProcessingComplete ? (
           <ViewElement className={`${CLASS_BASE}__action-destination`}>
             <DescriptionList
@@ -91,20 +89,18 @@ export const CopyView = ({
           />
         )}
 
-        <ViewElement className={`${CLASS_BASE}__action-footer`}>
+        <ViewElement className={`${AMPLIFY_CLASS_BASE}__footer`}>
           {isProcessing || isProcessingComplete ? (
-            <StatusDisplayControl
-              className={`${CLASS_BASE}__action-status-display`}
-            />
+            <StatusDisplayControl />
           ) : (
             <ViewElement className={`${CLASS_BASE}__action-status-display`}>
               Copy action may overwrite existing files at selected destination.
             </ViewElement>
           )}
-          <ActionCancelControl className={`${CLASS_BASE}__cancel`} />
-          <ActionStartControl
-            className={`${CLASS_BASE}__upload-action-start`}
-          />
+          <ViewElement className={`${AMPLIFY_CLASS_BASE}__buttons`}>
+            <ActionCancelControl />
+            <ActionStartControl />
+          </ViewElement>
         </ViewElement>
       </ControlsContextProvider>
     </div>
