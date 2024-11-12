@@ -5,7 +5,6 @@ import { ViewElement } from '../../../context/elements';
 import { Title } from '../Controls/Title';
 import { displayText } from '../../../displayText/en';
 import { CLASS_BASE } from '../../constants';
-import { DestinationPicker } from './DestinationPicker';
 
 import { DataTableControl } from '../../../controls/DataTableControl';
 import { ActionExitControl } from '../../../controls/ActionExitControl';
@@ -14,12 +13,14 @@ import { getActionViewTableData } from '../getActionViewTableData';
 import { ActionStartControl } from '../../../controls/ActionStartControl';
 import { DescriptionList } from '../../../components/DescriptionList';
 import { StatusDisplayControl } from '../../../controls/StatusDisplayControl';
-import { getDestinationListFullPrefix } from './getDestinationListFullPrefix';
 import { ActionCancelControl } from '../../../controls/ActionCancelControl';
 import { resolveClassName } from '../../utils';
+import { useDisplayText } from '../../../displayText';
+
+import { DestinationPicker } from './DestinationPicker';
 import { useCopyView } from './useCopyView';
 import { CopyViewProps } from './types';
-import { useDisplayText } from '../../../displayText';
+import { getDestinationListFullPrefix } from './utils';
 
 const { actionSetDestination } = displayText;
 

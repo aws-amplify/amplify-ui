@@ -6,8 +6,9 @@ import { copyHandler } from '../../../actions/handlers';
 import { Task, useProcessTasks } from '../../../tasks';
 import { useGetActionInput } from '../../../providers/configuration';
 import { useStore } from '../../../providers/store';
-import { getDestinationListFullPrefix } from './getDestinationListFullPrefix';
+
 import { CopyViewState, UseCopyViewOptions } from './types';
+import { getDestinationListFullPrefix } from './utils';
 
 const getInitialDestinationList = (key: string, prefix?: string) =>
   // handle root bucket access grant

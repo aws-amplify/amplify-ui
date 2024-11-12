@@ -1,8 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 
-import * as ConfigModule from '../../../../providers/configuration';
-import * as StoreModule from '../../../../providers/store';
 import { INITIAL_STATUS_COUNTS } from '../../../../tasks';
 
 import * as UseUploadViewModule from '../useUploadView';
@@ -22,8 +20,6 @@ jest.mock('../../../../controls/context', () => ({
   ControlsContextProvider: (ctx: any) => mockControlsContextProvider(ctx),
   useControlsContext: () => ({ actionConfig: {}, data: {} }),
 }));
-
-const useStoreSpy = jest.spyOn(StoreModule, 'useStore');
 
 const onActionCancel = jest.fn();
 const onActionStart = jest.fn();
@@ -98,23 +94,6 @@ const postProcessingViewState: UploadViewState = {
 const useUploadViewSpy = jest
   .spyOn(UseUploadViewModule, 'useUploadView')
   .mockReturnValue(initialViewState);
-
-const dispatchStoreAction = jest.fn();
-useStoreSpy.mockReturnValue([
-  {
-    location: { current: location, path: '', key: location.prefix },
-  } as StoreModule.UseStoreState,
-  dispatchStoreAction,
-]);
-
-const credentials = jest.fn();
-const config: ConfigModule.GetActionInput = jest.fn(() => ({
-  credentials,
-  bucket: location.bucket,
-  region: 'region',
-}));
-
-jest.spyOn(ConfigModule, 'useGetActionInput').mockReturnValue(config);
 
 describe('UploadView', () => {
   afterEach(jest.clearAllMocks);

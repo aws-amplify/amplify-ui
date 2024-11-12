@@ -1,11 +1,11 @@
 import {
+  ComponentName,
+  DefaultActionKey,
   LocationData,
+  TaskActionConfig,
   TaskData,
   TaskHandler,
   TaskHandlerInput,
-  ComponentName,
-  DefaultActionKey,
-  TaskActionConfig,
 } from '../../actions';
 
 import { LocationState } from '../../providers/store/location';

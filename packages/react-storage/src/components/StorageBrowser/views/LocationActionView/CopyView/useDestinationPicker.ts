@@ -1,4 +1,6 @@
 import { useEffect } from 'react';
+import { useDataState } from '@aws-amplify/ui-react-core';
+
 import { usePaginate } from '../../hooks/usePaginate';
 import {
   listLocationItemsHandler,
@@ -6,11 +8,10 @@ import {
   LocationItemData,
 } from '../../../actions';
 import { useGetActionInput } from '../../../providers/configuration';
-import { getDestinationListFullPrefix } from './getDestinationListFullPrefix';
 
-import { useDataState } from '@aws-amplify/ui-react-core';
 import { useStore } from '../../../providers/store';
 import { createEnhancedListHandler } from '../../../actions/createEnhancedListHandler';
+import { getDestinationListFullPrefix } from './utils';
 
 const DEFAULT_PAGE_SIZE = 1000;
 export const DEFAULT_LIST_OPTIONS = {

@@ -13,13 +13,12 @@ import { ActionExitControl } from '../../../controls/ActionExitControl';
 import { ActionStartControl } from '../../../controls/ActionStartControl';
 import { DataTableControl } from '../../../controls/DataTableControl';
 import { DropZoneControl } from '../../../controls/DropZoneControl';
-import { getFileSelectionType } from './getFileSelectionType';
-import { useStore } from '../../../providers/store';
 import { resolveClassName } from '../../utils';
 import { getActionViewTableData } from '../getActionViewTableData';
+import { useDisplayText } from '../../../displayText';
+
 import { useUploadView } from './useUploadView';
 import { UploadViewProps } from './types';
-import { useDisplayText } from '../../../displayText';
 
 const { Overwrite } = Controls;
 
@@ -31,24 +30,6 @@ export function UploadView({
 }: UploadViewProps): React.JSX.Element {
   const { actionCancelLabel, actionExitLabel, actionStartLabel } =
     useDisplayText()['UploadView'];
-  const [{ actionType, files }, dispatchStoreAction] = useStore();
-  // launch native file picker on intiial render if no files are currently in state
-  const selectionTypeRef = React.useRef<'FILE' | 'FOLDER' | undefined>(
-    getFileSelectionType(actionType, files)
-  );
-
-  React.useEffect(() => {
-    const selectionType = selectionTypeRef.current;
-    if (!selectionType) {
-      return;
-    }
-
-    dispatchStoreAction({ type: 'SELECT_FILES', selectionType });
-
-    return () => {
-      selectionTypeRef.current = undefined;
-    };
-  }, [dispatchStoreAction]);
 
   const {
     isProcessing,

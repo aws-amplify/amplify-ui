@@ -1,5 +1,5 @@
-import { createAmplifyListLocationsHandler } from '../../../adapters/createAmplifyAuthAdapter/createAmplifyListLocationsHandler';
-import { getPaginatedLocations } from '../../../adapters/createAmplifyAuthAdapter/getPaginatedLocations';
+import { createAmplifyListLocationsHandler } from '../createAmplifyListLocationsHandler';
+import { getPaginatedLocations } from '../getPaginatedLocations';
 import {
   ListLocations,
   ListLocationsOutput,

@@ -133,7 +133,8 @@ describe('createFolderHandler', () => {
   });
 
   it('returns "OVERWRITE_PREVENTED" on `PreconditionFailed` error', async () => {
-    const overwritePreventedError = new Error();
+    const message = 'No overwrite!';
+    const overwritePreventedError = new Error(message);
     overwritePreventedError.name = 'PreconditionFailed';
 
     uploadDataSpy.mockReturnValueOnce({
@@ -147,6 +148,7 @@ describe('createFolderHandler', () => {
     const { result } = createFolderHandler(baseInput);
 
     expect(await result).toStrictEqual({
+      message,
       status: 'OVERWRITE_PREVENTED',
     });
   });

@@ -14,9 +14,7 @@ import { resolveClassName } from '../../utils';
 
 import { CreateFolderViewProps } from './types';
 import { useCreateFolderView } from './useCreateFolderView';
-
-export const isValidFolderName = (name: string | undefined): boolean =>
-  !!name?.length && !name.includes('/') && !name.includes('.');
+import { isValidFolderName } from './utils';
 
 export function CreateFolderView({
   className,
