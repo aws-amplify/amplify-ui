@@ -5,9 +5,11 @@ import {
   LocationActions,
   locationActionsDefault,
 } from './do-not-import-from-here/locationActions';
-import { StorageBrowserElements } from './context/elements';
-import { ComponentsProvider } from './ComponentsProvider';
 import { createTempActionsProvider } from './do-not-import-from-here/createTempActionsProvider';
+
+import { DEFAULT_COMPOSABLES } from './composables';
+import { StorageBrowserElements } from './context/elements';
+import { Components, ComponentsProvider } from './ComponentsProvider';
 import { ErrorBoundary } from './ErrorBoundary';
 
 import {
@@ -44,11 +46,12 @@ export interface Config {
 export interface CreateStorageBrowserInput {
   actions?: LocationActions;
   config: Config;
+  components?: Components;
   elements?: Partial<StorageBrowserElements>;
 }
 
 export interface StorageBrowserProps<T = string> {
-  views?: Partial<Views<T>>;
+  views?: Views<T>;
 }
 
 export interface StorageBrowserComponent<T = string, K = {}> extends Views<T> {
@@ -103,6 +106,8 @@ export function createStorageBrowser(input: CreateStorageBrowserInput): {
     registerAuthListener,
   });
 
+  const composables = { ...DEFAULT_COMPOSABLES, ...input.components };
+
   /**
    * Provides state, configuration and action values that are shared between
    * the primary View components
@@ -113,7 +118,10 @@ export function createStorageBrowser(input: CreateStorageBrowserInput): {
         <ConfigurationProvider>
           <TempActionsProvider>
             <DisplayTextProvider>
-              <ComponentsProvider elements={input.elements}>
+              <ComponentsProvider
+                composables={composables}
+                elements={input.elements}
+              >
                 {children}
               </ComponentsProvider>
             </DisplayTextProvider>

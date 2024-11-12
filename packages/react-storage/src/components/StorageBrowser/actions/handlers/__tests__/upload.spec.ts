@@ -210,4 +210,27 @@ describe('uploadHandler', () => {
       status: 'CANCELED',
     });
   });
+
+  it('handles an overwrite failure as expected', async () => {
+    const preconditionError = new Error('Failed!');
+    preconditionError.name = 'PreconditionFailed';
+
+    uploadDataSpy.mockReturnValueOnce({
+      cancel,
+      pause,
+      resume,
+      result: Promise.reject(preconditionError),
+      state: 'ERROR',
+    });
+
+    const { result } = uploadHandler({
+      ...baseInput,
+      options: { preventOverwrite: true },
+    });
+
+    expect(await result).toStrictEqual({
+      message: 'Failed!',
+      status: 'OVERWRITE_PREVENTED',
+    });
+  });
 });

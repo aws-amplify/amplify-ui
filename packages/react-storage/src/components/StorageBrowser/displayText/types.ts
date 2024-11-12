@@ -29,9 +29,10 @@ export interface DefaultActionViewDisplayText {
  * Common list view display text values
  */
 export interface DefaultListViewDisplayText<T = any> {
+  getListResultsMessage: (data: T, error?: Error) => string;
+  loadingIndicatorLabel: string;
   searchPlaceholder: string;
   searchSubmitLabel: string;
-  getListResultsMessage: (data: T, error?: Error) => string;
 }
 
 export interface DefaultLocationsViewDisplayText
@@ -54,6 +55,37 @@ export interface DefaultLocationDetailViewDisplayText
   tableColumnTypeHeader: string;
 }
 
+/**
+ * Action view display text values
+ */
+
+export interface DefaultCreateFolderViewDisplayText
+  // `CreateFolderView` does not include that table or status display components
+  extends Omit<
+    DefaultActionViewDisplayText,
+    `${'tableColumn' | 'statusDisplay'}${string}`
+  > {
+  folderNameLabel: string;
+  folderNamePlaceholder: string;
+  getValidationMessage: (folderName: string) => string;
+}
+
+export interface DefaultCopyViewDisplayText
+  extends DefaultActionViewDisplayText {
+  getFolderListResultsMessage: (data: {
+    items: LocationItemData[];
+    query?: string;
+    errorMessage?: string;
+  }) => string | undefined;
+  getFolderSelectedMessage: (path: string) => string;
+  loadingIndicatorLabel: 'Loading';
+  overwriteWarningMessage: string;
+  searchPlaceholder: string;
+}
+
+export interface DefaultDeleteViewDisplayText
+  extends DefaultActionViewDisplayText {}
+
 export interface DefaultUploadViewDisplayText
   extends DefaultActionViewDisplayText {
   addFilesLabel: string;
@@ -63,14 +95,18 @@ export interface DefaultUploadViewDisplayText
 }
 
 export interface DefaultStorageBrowserDisplayText {
+  CopyView: DefaultCopyViewDisplayText;
+  CreateFolderView: DefaultCreateFolderViewDisplayText;
+  DeleteView: DefaultDeleteViewDisplayText;
   LocationsView: DefaultLocationsViewDisplayText;
   LocationDetailView: DefaultLocationDetailViewDisplayText;
   UploadView: DefaultUploadViewDisplayText;
-  // CopyView
-  // DeleteView
-  // CreateFolderView
 }
 
+interface CreateFolderViewDisplayText
+  extends Partial<DefaultCreateFolderViewDisplayText> {}
+interface CopyViewDisplayText extends Partial<DefaultCopyViewDisplayText> {}
+interface DeleteViewDisplayText extends Partial<DefaultDeleteViewDisplayText> {}
 interface LocationsViewDisplayText
   extends Partial<DefaultLocationsViewDisplayText> {}
 interface LocationDetailViewDisplayText
@@ -81,7 +117,7 @@ export interface StorageBrowserDisplayText {
   LocationsView?: LocationsViewDisplayText;
   LocationDetailView?: LocationDetailViewDisplayText;
   UploadView?: UploadViewDisplayText;
-  // CopyView
-  // DeleteView
-  // CreateFolderView
+  DeleteView?: DeleteViewDisplayText;
+  CopyView?: CopyViewDisplayText;
+  CreateFolderView?: CreateFolderViewDisplayText;
 }

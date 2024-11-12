@@ -6,14 +6,17 @@ jest.mock('../getFileRowContent');
 jest.mock('../getFolderRowContent');
 
 describe('getLocationDetailViewTableData', () => {
-  const currentLocation = {
-    bucket: 'bucket',
-    id: 'id',
-    permission: 'READ',
-    prefix: 'prefix/',
-    type: 'PREFIX',
+  const location = {
+    current: {
+      bucket: 'bucket',
+      id: 'id',
+      permission: 'READ',
+      prefix: 'prefix/',
+      type: 'PREFIX',
+    },
+    path: 'path/',
+    key: 'prefix/path/',
   } as const;
-  const currentPath = 'path/';
   const fileItem = {
     key: 'file-key.ext',
     lastModified: new Date(1),
@@ -22,7 +25,7 @@ describe('getLocationDetailViewTableData', () => {
     type: 'FILE',
   } as const;
   const folderItem = {
-    key: `${currentLocation.prefix}${currentPath}folder/`,
+    key: `${location.current.prefix}${location.path}folder/`,
     id: 'folder-id',
     type: 'FOLDER',
   } as const;
@@ -87,8 +90,7 @@ describe('getLocationDetailViewTableData', () => {
     expect(
       getLocationDetailViewTableData({
         areAllFilesSelected: false,
-        currentLocation,
-        currentPath,
+        location,
         hasFiles: true,
         pageItems: [folderItem, folderItem, fileItem, fileItem, fileItem],
         onDownload: mockOnDownload,
@@ -119,8 +121,7 @@ describe('getLocationDetailViewTableData', () => {
   it('should select all files', () => {
     const tableData = getLocationDetailViewTableData({
       areAllFilesSelected: false,
-      currentLocation,
-      currentPath,
+      location,
       hasFiles: true,
       pageItems: [folderItem, fileItem],
       onDownload: mockOnDownload,
@@ -139,8 +140,7 @@ describe('getLocationDetailViewTableData', () => {
   it('should select a file', () => {
     const tableData = getLocationDetailViewTableData({
       areAllFilesSelected: false,
-      currentLocation,
-      currentPath,
+      location,
       hasFiles: true,
       pageItems: [fileItem],
       onDownload: mockOnDownload,
@@ -159,8 +159,7 @@ describe('getLocationDetailViewTableData', () => {
   it('should download a file', () => {
     const tableData = getLocationDetailViewTableData({
       areAllFilesSelected: false,
-      currentLocation,
-      currentPath,
+      location,
       hasFiles: true,
       pageItems: [fileItem],
       onDownload: mockOnDownload,
@@ -179,8 +178,7 @@ describe('getLocationDetailViewTableData', () => {
   it('should navigate to a folder', () => {
     const tableData = getLocationDetailViewTableData({
       areAllFilesSelected: false,
-      currentLocation,
-      currentPath,
+      location,
       hasFiles: true,
       pageItems: [folderItem],
       onDownload: mockOnDownload,
@@ -194,8 +192,8 @@ describe('getLocationDetailViewTableData', () => {
       button.content.onClick?.();
     }
     expect(mockOnNavigate).toHaveBeenCalledWith(
-      { ...currentLocation, id: folderItem.id },
-      `${currentPath}folder/`
+      { ...location.current, id: folderItem.id },
+      `${location.path}folder/`
     );
   });
 });

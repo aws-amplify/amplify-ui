@@ -1,7 +1,8 @@
-import { Composables } from '../composables/types';
-import { DataTableSortHeader, DataTableProps } from '../composables/DataTable';
-import { DropZoneProps } from '../composables/DropZone';
 import { LocationData } from '../actions';
+import { DataTableSortHeader, DataTableProps } from '../composables/DataTable';
+import { MessageType } from '../composables/Message';
+import { Composables } from '../composables/types';
+import { LocationState } from '../providers/store/location';
 import { StatusCounts } from '../tasks';
 
 export interface ControlProps {
@@ -32,28 +33,40 @@ interface TableData {
 
 export interface ControlsContext {
   data: {
-    actionStartLabel?: string;
     actionCancelLabel?: string;
+    actionStartLabel?: string;
+    folderNameId?: string;
+    folderNameLabel?: string;
+    folderNamePlaceholder?: string;
+    folderNameValidationMessage?: React.ReactNode;
     isActionCancelDisabled?: boolean;
     isActionStartDisabled?: boolean;
     isAddFilesDisabled?: boolean;
     isAddFolderDisabled?: boolean;
     isDataRefreshDisabled?: boolean;
     isExitDisabled?: boolean;
+    isLoading?: boolean;
+    isFolderNameDisabled?: boolean;
     isOverwriteCheckboxDisabled?: boolean;
-    currentLocation?: LocationData;
-    currentPath?: string;
-    showIncludeSubfolders?: boolean;
+    loadingIndicatorLabel?: string;
+    location?: LocationState;
+    messageContent?: React.ReactNode;
+    messageType?: MessageType;
     searchPlaceholder?: string;
-    tableData?: TableData;
+    showIncludeSubfolders?: boolean;
     statusCounts?: StatusCounts;
+    tableData?: TableData;
+    title?: string;
   };
   onActionCancel?: () => void;
   onActionStart?: () => void;
-  onDropComplete?: DropZoneProps['onDropComplete'];
+  onActionReset?: () => void;
   onDropFiles?: (files: File[]) => void;
+  onFolderNameChange?: (value: string) => void;
+  onMessageDismiss?: () => void;
   onNavigate?: (location: LocationData, path?: string) => void;
   onNavigateHome?: () => void;
   onRefresh?: () => void;
   onSearch?: (term: string, includeSubfolders: boolean) => void;
+  onValidateFolderName?: (value: string) => void;
 }
