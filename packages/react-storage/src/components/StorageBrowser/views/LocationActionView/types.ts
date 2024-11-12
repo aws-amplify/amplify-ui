@@ -1,9 +1,4 @@
-import {
-  LocationData,
-  TaskData,
-  TaskHandler,
-  TaskHandlerInput,
-} from '../../actions';
+import { TaskData, TaskHandler, TaskHandlerInput } from '../../actions';
 import {
   ComponentName,
   DefaultActionKey,
@@ -22,7 +17,7 @@ export interface ActionViewState<T extends TaskData = TaskData> {
   tasks: Tasks<T>;
   onActionStart: () => void;
   onActionCancel: () => void;
-  onExit?: (location?: LocationData) => void;
+  onExit: () => void;
   onTaskCancel: (task: Task) => void;
 }
 

@@ -1,4 +1,5 @@
-import { CopyHandlerData } from '../../../actions';
+import { CopyHandlerData, CreateFolderHandlerData } from '../../../actions';
+
 import {
   ActionViewComponent,
   ActionViewState,
@@ -6,8 +7,10 @@ import {
 } from '../types';
 
 export interface CreateFolderViewState
-  extends ActionViewState<CopyHandlerData> {
-  onDestinationChange: (destination: string) => void;
+  extends Omit<ActionViewState<CreateFolderHandlerData>, 'onActionCancel'> {
+  folderName: string;
+  folderNameId: string;
+  onFolderNameChange: (folderName: string) => void;
 }
 
 export interface CreateFolderViewProps
