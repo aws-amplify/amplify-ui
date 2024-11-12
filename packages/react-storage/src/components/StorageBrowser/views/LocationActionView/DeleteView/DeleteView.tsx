@@ -5,12 +5,11 @@ import { Title } from '../Controls/Title';
 import { ViewElement } from '../../../context/elements';
 import { DataTableControl } from '../../../controls/DataTableControl';
 import { ControlsContextProvider } from '../../../controls/context';
-import { Title } from '../Controls/Title';
 import { StatusDisplayControl } from '../../../controls/StatusDisplayControl';
 import { ActionStartControl } from '../../../controls/ActionStartControl';
 import { ActionExitControl } from '../../../controls/ActionExitControl';
 import { ActionCancelControl } from '../../../controls/ActionCancelControl';
-import { AMPLIFY_CLASS_BASE, CLASS_BASE } from '../../constants';
+import { AMPLIFY_CLASS_BASE } from '../../constants';
 import { resolveClassName } from '../../utils';
 
 import { getActionViewTableData } from '../getActionViewTableData';
