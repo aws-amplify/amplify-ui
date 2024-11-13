@@ -1,13 +1,7 @@
 import React from 'react';
 
-import { displayText } from '../../../displayText/en';
 import { DescriptionList } from '../../../components/DescriptionList';
 import { ViewElement } from '../../../context/elements';
-import { StatusDisplayControl } from '../../../controls/StatusDisplayControl';
-import { ControlsContextProvider } from '../../../controls/context';
-import { CLASS_BASE } from '../../constants';
-import { Controls } from '../../Controls';
-import { Title } from '../Controls/Title';
 import { ActionCancelControl } from '../../../controls/ActionCancelControl';
 import { ActionExitControl } from '../../../controls/ActionExitControl';
 import { ActionStartControl } from '../../../controls/ActionStartControl';
@@ -15,10 +9,14 @@ import { AddFilesControl } from '../../../controls/AddFilesControl';
 import { AddFolderControl } from '../../../controls/AddFolderControl';
 import { DataTableControl } from '../../../controls/DataTableControl';
 import { DropZoneControl } from '../../../controls/DropZoneControl';
+import { StatusDisplayControl } from '../../../controls/StatusDisplayControl';
+import { TitleControl } from '../../../controls/TitleControl';
+import { ControlsContextProvider } from '../../../controls/context';
+import { useDisplayText } from '../../../displayText';
+import { Controls } from '../../Controls';
+import { CLASS_BASE } from '../../constants';
 import { resolveClassName } from '../../utils';
 import { getActionViewTableData } from '../getActionViewTableData';
-import { useDisplayText } from '../../../displayText';
-
 import { useUploadView } from './useUploadView';
 import { UploadViewProps } from './types';
 
@@ -31,12 +29,16 @@ export function UploadView({
   ...props
 }: UploadViewProps): React.JSX.Element {
   const {
-    actionCancelLabel,
-    actionExitLabel,
-    actionStartLabel,
-    addFilesLabel,
-    addFolderLabel,
-  } = useDisplayText()['UploadView'];
+    UploadView: {
+      actionCancelLabel,
+      actionDestinationLabel,
+      actionExitLabel,
+      actionStartLabel,
+      addFilesLabel,
+      addFolderLabel,
+      title,
+    },
+  } = useDisplayText();
 
   const {
     isProcessing,
@@ -84,6 +86,7 @@ export function UploadView({
             shouldDisplayProgress: true,
             onTaskCancel,
           }),
+          title,
         }}
         onActionCancel={onActionCancel}
         onActionExit={onActionExit}
@@ -97,13 +100,13 @@ export function UploadView({
         onDropFiles={onDropFiles}
       >
         <ActionExitControl />
-        <Title />
+        <TitleControl className={`${CLASS_BASE}__upload-view-title`} />
         <ViewElement className={`${CLASS_BASE}__action-header`}>
           <ViewElement className={`${CLASS_BASE}__upload-destination`}>
             <DescriptionList
               descriptions={[
                 {
-                  term: `${displayText.actionDestination}:`,
+                  term: `${actionDestinationLabel}:`,
                   details: location.key || '/',
                 },
               ]}

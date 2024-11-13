@@ -4,6 +4,7 @@ import { useLocationsData } from '../../do-not-import-from-here/actions';
 import { usePaginate } from '../hooks/usePaginate';
 import { LocationData } from '../../actions';
 import { useStore } from '../../providers/store';
+import { useSearch } from '../hooks/useSearch';
 
 interface UseLocationsView {
   hasNextPage: boolean;
@@ -14,10 +15,13 @@ interface UseLocationsView {
   shouldShowEmptyMessage: boolean;
   pageItems: LocationData[];
   page: number;
+  searchQuery: string;
   onNavigate: (location: LocationData) => void;
   onRefresh: () => void;
   onPaginate: (page: number) => void;
-  onSearch: (query: string) => void;
+  onSearch: () => void;
+  onSearchQueryChange: (value: string) => void;
+  onSearchClear: () => void;
 }
 
 interface InitialValues {
@@ -77,6 +81,13 @@ export function useLocationsView(
     });
   };
 
+  const onSearch = (query: string) => {
+    setTerm(query);
+  };
+
+  const { searchQuery, onSearchQueryChange, onSearchSubmit, resetSearch } =
+    useSearch({ onSearch });
+
   const {
     currentPage,
     onPaginate,
@@ -108,19 +119,25 @@ export function useLocationsView(
     highestPageVisited,
     pageItems: filteredItems,
     shouldShowEmptyMessage,
+    searchQuery,
     onNavigate: (location: LocationData) => {
       onNavigate?.(location);
       dispatchStoreAction({ type: 'NAVIGATE', location });
     },
     onRefresh: () => {
+      resetSearch();
+      setTerm('');
       handleReset();
       handleList({
         options: { ...listOptions, refresh: true },
       });
     },
     onPaginate,
-    onSearch: (query: string) => {
-      setTerm(query);
+    onSearch: onSearchSubmit,
+    onSearchQueryChange,
+    onSearchClear: () => {
+      setTerm('');
+      resetSearch();
     },
   };
 }
