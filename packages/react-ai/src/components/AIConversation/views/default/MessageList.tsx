@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Avatar, Button, Text, View } from '@aws-amplify/ui-react';
+import { Avatar, Placeholder, Text, View, Button } from '@aws-amplify/ui-react';
 import { MessageControl } from '../Controls/MessagesControl';
 import {
   ActionsContext,
@@ -18,6 +18,28 @@ import {
 } from '@aws-amplify/ui';
 import { LoadingContext } from '../../context/LoadingContext';
 
+const PlaceholderMessage = ({ role }: { role: string }) => {
+  const variant = React.useContext(MessageVariantContext);
+  return (
+    <View
+      className={classNames(
+        ComponentClassName.AIConversationMessage,
+        classNameModifier(ComponentClassName.AIConversationMessage, variant),
+        classNameModifier(ComponentClassName.AIConversationMessage, role)
+      )}
+    >
+      <View className={ComponentClassName.AIConversationMessageAvatar}>
+        <Avatar> </Avatar>
+      </View>
+      <View className={ComponentClassName.AIConversationMessageBody}>
+        <Placeholder width="25%" />
+        <Placeholder width="50%" />
+        <Placeholder width="25%" />
+      </View>
+    </View>
+  );
+};
+
 const MessageMeta = ({ message }: { message: ConversationMessage }) => {
   // need to pass this in as props in order for it to be overridable
   const avatars = React.useContext(AvatarsContext);
@@ -33,35 +55,6 @@ const MessageMeta = ({ message }: { message: ConversationMessage }) => {
       <Text className={ComponentClassName.AIConversationMessageSenderTimestamp}>
         {getMessageTimestampText(new Date(message.createdAt))}
       </Text>
-    </View>
-  );
-};
-
-const LoadingMessage = () => {
-  const avatars = React.useContext(AvatarsContext);
-  const variant = React.useContext(MessageVariantContext);
-  const avatar = avatars?.ai;
-
-  return (
-    <View
-      className={classNames(
-        ComponentClassName.AIConversationMessage,
-        classNameModifier(ComponentClassName.AIConversationMessage, variant),
-        classNameModifier(ComponentClassName.AIConversationMessage, 'assistant')
-      )}
-    >
-      <View className={ComponentClassName.AIConversationMessageAvatar}>
-        <Avatar isLoading>{avatar?.avatar}</Avatar>
-      </View>
-      <View className={ComponentClassName.AIConversationMessageBody}>
-        <View className={ComponentClassName.AIConversationMessageSender}>
-          <Text
-            className={ComponentClassName.AIConversationMessageSenderUsername}
-          >
-            {avatar?.username}
-          </Text>
-        </View>
-      </View>
     </View>
   );
 };
@@ -92,6 +85,7 @@ const MessageActions = ({ message }: { message: ConversationMessage }) => {
 const Message = ({ message }: { message: ConversationMessage }) => {
   const avatars = React.useContext(AvatarsContext);
   const variant = React.useContext(MessageVariantContext);
+  const { isLoading } = message;
 
   const avatar = message.role === 'assistant' ? avatars?.ai : avatars?.user;
   return (
@@ -107,7 +101,7 @@ const Message = ({ message }: { message: ConversationMessage }) => {
         )}
       >
         <View className={ComponentClassName.AIConversationMessageAvatar}>
-          <Avatar>{avatar?.avatar}</Avatar>
+          <Avatar isLoading={isLoading}>{avatar?.avatar}</Avatar>
         </View>
         <View className={ComponentClassName.AIConversationMessageBody}>
           <MessageMeta message={message} />
@@ -139,10 +133,15 @@ export const MessageList: Required<ControlsContextProps>['MessageList'] = ({
 
   return (
     <View className={ComponentClassName.AIConversationMessageList}>
+      {isLoading ? (
+        <>
+          <PlaceholderMessage role="user" />
+          <PlaceholderMessage role="assistant" />
+        </>
+      ) : null}
       {messagesWithRenderableContent.map((message, i) => (
         <Message key={`message-${i}`} message={message} />
       ))}
-      {isLoading ? <LoadingMessage /> : null}
     </View>
   );
 };

@@ -41,11 +41,11 @@ function AIConversationBase({
   const defaultAvatars: Avatars = {
     ai: {
       username: 'Assistant',
-      avatar: icons?.assistant ?? <IconAssistant />,
+      avatar: icons?.assistant ?? <IconAssistant testId="icon-assistant" />,
     },
     user: {
       username: 'User',
-      avatar: icons?.user ?? <IconUser />,
+      avatar: icons?.user ?? <IconUser testId="icon-user" />,
     },
   };
 
@@ -68,7 +68,10 @@ function AIConversationBase({
 
   return (
     <AIConversationProvider {...providerProps}>
-      <Flex className={ComponentClassName.AIConversation}>
+      <Flex
+        className={ComponentClassName.AIConversation}
+        testId="ai-conversation"
+      >
         <ScrollView autoScroll="smooth" flex="1">
           <DefaultMessageControl />
           <MessagesControl />
