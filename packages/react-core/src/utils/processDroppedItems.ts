@@ -27,7 +27,7 @@ const readAllDirectoryEntries = async (
 };
 
 // Helper function to process files and folder contents
-export async function processDroppedEntries(
+export async function processDroppedItems(
   dataTransferItems: DataTransferItem[]
 ): Promise<File[]> {
   const files: File[] = [];
@@ -48,10 +48,14 @@ export async function processDroppedEntries(
 
   // Process all items
   await Promise.all(
-    Array.from(dataTransferItems)
-      .filter((dataTransferItem) => dataTransferItem.kind === 'file')
-      .map((dataTransferItem) => dataTransferItem.webkitGetAsEntry())
-      .filter((entry): entry is FileSystemEntry => entry !== null)
+    dataTransferItems
+      .reduce<FileSystemEntry[]>(
+        (acc, item) =>
+          item.kind === 'file' && item.webkitGetAsEntry()
+            ? [...acc, item.webkitGetAsEntry()!]
+            : acc,
+        []
+      )
       .map(processFileSystemEntry)
   );
 

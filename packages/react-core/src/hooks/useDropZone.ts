@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { isFunction } from '@aws-amplify/ui';
 import { filterAllowedFiles } from '../utils/filterAllowedFiles';
-import { processDroppedEntries } from '../utils/processDroppedEntries';
+import { processDroppedItems } from '../utils/processDroppedItems';
 
 interface DragEvents {
   onDragStart: (event: React.DragEvent<HTMLDivElement>) => void;
@@ -86,16 +86,17 @@ export default function useDropZone({
     event.preventDefault();
     event.stopPropagation();
     setDragState('inactive');
-    const files = Array.from(event.dataTransfer.files);
+
+    const { files, items } = event.dataTransfer;
 
     if (isFunction(_onDrop)) {
       _onDrop(event);
     }
 
     // If no DataTransfer items interface, handle as simple files
-    if (!event.dataTransfer.items) {
+    if (!items) {
       const { acceptedFiles, rejectedFiles } = filterAllowedFiles<File>(
-        files,
+        Array.from(files),
         acceptedFileTypes
       );
       if (isFunction(onDropComplete)) {
@@ -105,17 +106,15 @@ export default function useDropZone({
     }
 
     // Process items using util
-    processDroppedEntries(Array.from(event.dataTransfer.items)).then(
-      (files) => {
-        const { acceptedFiles, rejectedFiles } = filterAllowedFiles<File>(
-          files,
-          acceptedFileTypes
-        );
-        if (isFunction(onDropComplete)) {
-          onDropComplete({ acceptedFiles, rejectedFiles });
-        }
+    processDroppedItems(Array.from(items)).then((files) => {
+      const { acceptedFiles, rejectedFiles } = filterAllowedFiles<File>(
+        files,
+        acceptedFileTypes
+      );
+      if (isFunction(onDropComplete)) {
+        onDropComplete({ acceptedFiles, rejectedFiles });
       }
-    );
+    });
   };
 
   return {

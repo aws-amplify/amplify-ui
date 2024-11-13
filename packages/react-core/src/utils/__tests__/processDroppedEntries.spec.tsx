@@ -1,6 +1,6 @@
-import { processDroppedEntries } from '../processDroppedEntries';
+import { processDroppedItems } from '../processDroppedItems';
 
-describe('processDroppedEntries', () => {
+describe('processDroppedItems', () => {
   const mockFileData = new Blob(['test content'], { type: 'text/plain' });
   const mockFile = new File([mockFileData], 'test.txt', { type: 'text/plain' });
 
@@ -61,7 +61,7 @@ describe('processDroppedEntries', () => {
     const fileEntry = createMockFileEntry(mockFile);
     const items = [createMockDataTransferItem(fileEntry)];
 
-    const result = await processDroppedEntries(items);
+    const result = await processDroppedItems(items);
 
     expect(result).toHaveLength(1);
     expect(result[0].name).toBe('test.txt');
@@ -76,7 +76,7 @@ describe('processDroppedEntries', () => {
       createMockDataTransferItem(createMockFileEntry(file2)),
     ];
 
-    const result = await processDroppedEntries(items);
+    const result = await processDroppedItems(items);
 
     expect(result).toHaveLength(2);
     expect(result[0].name).toBe('test1.txt');
@@ -91,7 +91,7 @@ describe('processDroppedEntries', () => {
     const dirEntry = createMockDirectoryEntry(filesInDir);
     const items = [createMockDataTransferItem(dirEntry)];
 
-    const result = await processDroppedEntries(items);
+    const result = await processDroppedItems(items);
 
     expect(result).toHaveLength(2);
     expect(result[0].name).toBe('dir-file1.txt');
@@ -111,7 +111,7 @@ describe('processDroppedEntries', () => {
       createMockDataTransferItem(createMockDirectoryEntry(filesInDir)),
     ];
 
-    const result = await processDroppedEntries(items);
+    const result = await processDroppedItems(items);
 
     expect(result).toHaveLength(3);
     expect(result.map((f) => f.name)).toContain('single.txt');
@@ -120,7 +120,7 @@ describe('processDroppedEntries', () => {
   });
 
   it('should handle empty items array', async () => {
-    const result = await processDroppedEntries([]);
+    const result = await processDroppedItems([]);
 
     expect(result).toHaveLength(0);
   });
@@ -134,7 +134,7 @@ describe('processDroppedEntries', () => {
       },
     ] as DataTransferItem[];
 
-    const result = await processDroppedEntries(items);
+    const result = await processDroppedItems(items);
 
     expect(result).toHaveLength(0);
   });
