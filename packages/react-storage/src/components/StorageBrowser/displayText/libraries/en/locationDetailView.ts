@@ -1,5 +1,6 @@
 import { DEFAULT_LIST_VIEW_DISPLAY_TEXT } from './shared';
 import { DefaultLocationDetailViewDisplayText } from '../../types';
+import { isEmpty } from '@aws-amplify/ui';
 
 export const DEFAULT_LOCATION_DETAIL_VIEW_DISPLAY_TEXT: DefaultLocationDetailViewDisplayText =
   {
@@ -14,7 +15,7 @@ export const DEFAULT_LOCATION_DETAIL_VIEW_DISPLAY_TEXT: DefaultLocationDetailVie
     tableColumnTypeHeader: 'Type',
     title: (location) => {
       const { current, key } = location;
-      const { bucket = '', prefix } = current ?? {};
-      return prefix ? key : bucket;
+      const { bucket = '' } = current ?? {};
+      return isEmpty(key) ? bucket : key;
     },
   };
