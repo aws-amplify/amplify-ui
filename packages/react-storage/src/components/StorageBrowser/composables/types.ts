@@ -9,6 +9,7 @@ import { MessageProps } from './Message';
 import { FolderNameFieldProps } from './FolderNameField';
 import { NavigationProps } from './Navigation';
 import { StatusDisplayProps } from './StatusDisplay';
+import { PaginationProps } from './Pagination';
 import { SearchProps } from './Search';
 import { TitleProps } from './Title';
 
@@ -23,6 +24,7 @@ export interface Composables {
   LoadingIndicator: React.ComponentType<LoadingIndicatorProps>;
   Message: React.ComponentType<MessageProps>;
   Navigation: React.ComponentType<NavigationProps>;
+  Pagination: React.ComponentType<PaginationProps>;
   Search: React.ComponentType<SearchProps>;
   StatusDisplay: React.ComponentType<StatusDisplayProps>;
   Title: React.ComponentType<TitleProps>;

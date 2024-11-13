@@ -31,6 +31,13 @@ interface TableData {
   rows: DataTableProps['rows'];
 }
 
+interface PaginationData {
+  hasNextPage: boolean;
+  highestPageVisited: number;
+  onPaginate: (page: number) => void;
+  page: number;
+}
+
 export interface ControlsContext {
   data: {
     actionCancelLabel?: string;
@@ -53,6 +60,7 @@ export interface ControlsContext {
     location?: LocationState;
     messageContent?: React.ReactNode;
     messageType?: MessageType;
+    paginationData?: PaginationData;
     searchPlaceholder?: string;
     searchQuery?: string;
     statusCounts?: StatusCounts;
