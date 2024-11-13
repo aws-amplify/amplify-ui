@@ -17,6 +17,36 @@ describe('processDroppedEntries', () => {
     getParent: jest.fn(),
   });
 
+  const createMockDirectoryEntry = (
+    files: File[]
+  ): FileSystemDirectoryEntry => {
+    const entries = files.map((file) => createMockFileEntry(file));
+    let firstCall = true;
+    return {
+      getDirectory: jest.fn(),
+      getFile: jest.fn(),
+      isFile: false,
+      isDirectory: true,
+      name: 'test-directory',
+      fullPath: '/test-directory',
+      filesystem: {
+        name: 'temporary',
+        root: {} as FileSystemDirectoryEntry,
+      },
+      createReader: () => ({
+        readEntries: (resolve) => {
+          if (firstCall) {
+            firstCall = false;
+            resolve(entries);
+          } else {
+            resolve([]);
+          }
+        },
+      }),
+      getParent: jest.fn(),
+    };
+  };
+
   const createMockDataTransferItem = (
     entry: FileSystemEntry
   ): DataTransferItem => ({
@@ -53,9 +83,41 @@ describe('processDroppedEntries', () => {
     expect(result[1].name).toBe('test2.txt');
   });
 
-  it.todo('should process files in a directory');
+  it('should process files in a directory', async () => {
+    const filesInDir = [
+      new File([mockFileData], 'dir-file1.txt', { type: 'text/plain' }),
+      new File([mockFileData], 'dir-file2.txt', { type: 'text/plain' }),
+    ];
+    const dirEntry = createMockDirectoryEntry(filesInDir);
+    const items = [createMockDataTransferItem(dirEntry)];
 
-  it.todo('should process mixed files and directories');
+    const result = await processDroppedEntries(items);
+
+    expect(result).toHaveLength(2);
+    expect(result[0].name).toBe('dir-file1.txt');
+    expect(result[1].name).toBe('dir-file2.txt');
+  });
+
+  it('should process mixed files and directories', async () => {
+    const singleFile = new File([mockFileData], 'single.txt', {
+      type: 'text/plain',
+    });
+    const filesInDir = [
+      new File([mockFileData], 'dir-file1.txt', { type: 'text/plain' }),
+      new File([mockFileData], 'dir-file2.txt', { type: 'text/plain' }),
+    ];
+    const items = [
+      createMockDataTransferItem(createMockFileEntry(singleFile)),
+      createMockDataTransferItem(createMockDirectoryEntry(filesInDir)),
+    ];
+
+    const result = await processDroppedEntries(items);
+
+    expect(result).toHaveLength(3);
+    expect(result.map((f) => f.name)).toContain('single.txt');
+    expect(result.map((f) => f.name)).toContain('dir-file1.txt');
+    expect(result.map((f) => f.name)).toContain('dir-file2.txt');
+  });
 
   it('should handle empty items array', async () => {
     const result = await processDroppedEntries([]);
