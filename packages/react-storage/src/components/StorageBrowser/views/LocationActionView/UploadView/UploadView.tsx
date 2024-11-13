@@ -12,15 +12,14 @@ import { TitleControl } from '../../../controls/TitleControl';
 import { ControlsContextProvider } from '../../../controls/context';
 import { useDisplayText } from '../../../displayText';
 import { Controls } from '../../Controls';
-import { AMPLIFY_CLASS_BASE, CLASS_BASE } from '../../constants';
+import { AMPLIFY_CLASS_BASE } from '../../constants';
 import { resolveClassName } from '../../utils';
 import { getActionViewTableData } from '../getActionViewTableData';
 import { useUploadView } from './useUploadView';
 import { UploadViewProps } from './types';
+import { Breadcrumb } from '../../../components/BreadcrumbNavigation';
 
 const { Overwrite } = Controls;
-
-export const ICON_CLASS = `${CLASS_BASE}__action-status`;
 
 export function UploadView({
   className,
@@ -59,6 +58,7 @@ export function UploadView({
   const isAddFolderDisabled = isProcessing || isProcessingComplete;
   const isActionExitDisabled = isProcessing;
   const isOverwriteCheckboxDisabled = isProcessing || isProcessingComplete;
+  const destinationList = (location.key || '/').split('/');
 
   return (
     <div className={resolveClassName(AMPLIFY_CLASS_BASE, className)}>
@@ -89,48 +89,63 @@ export function UploadView({
       >
         <ActionExitControl />
         <TitleControl />
-        <ViewElement className={`${CLASS_BASE}__action-header`}>
-          <ViewElement className={`${CLASS_BASE}__upload-destination`}>
-            <DescriptionList
-              descriptions={[
-                {
-                  term: `${actionDestinationLabel}:`,
-                  details: location.key || '/',
-                },
-              ]}
-            />
-            <Overwrite
-              defaultChecked={isOverwriteEnabled}
-              disabled={isOverwriteCheckboxDisabled}
-              handleChange={onToggleOverwrite}
-            />
+        <ViewElement className={`${AMPLIFY_CLASS_BASE}__controls`}>
+          <Overwrite
+            defaultChecked={isOverwriteEnabled}
+            disabled={isOverwriteCheckboxDisabled}
+            handleChange={onToggleOverwrite}
+          />
+
+          <ViewElement className={`${AMPLIFY_CLASS_BASE}__buttons`}>
+            <ButtonElement
+              disabled={isAddFolderDisabled}
+              className={`${AMPLIFY_CLASS_BASE}__add-folder`}
+              variant="add-folder"
+              onClick={() => {
+                onSelectFiles('FOLDER');
+              }}
+            >
+              Add folder
+            </ButtonElement>
+            <ButtonElement
+              disabled={isAddFilesDisabled}
+              className={`${AMPLIFY_CLASS_BASE}__add-files`}
+              variant="add-files"
+              onClick={() => {
+                onSelectFiles('FILE');
+              }}
+            >
+              Add files
+            </ButtonElement>
           </ViewElement>
-          <ButtonElement
-            disabled={isAddFolderDisabled}
-            className={`${CLASS_BASE}__add-folder`}
-            variant="add-folder"
-            onClick={() => {
-              onSelectFiles('FOLDER');
-            }}
-          >
-            Add folder
-          </ButtonElement>
-          <ButtonElement
-            disabled={isAddFilesDisabled}
-            className={`${CLASS_BASE}__add-files`}
-            variant="add-files"
-            onClick={() => {
-              onSelectFiles('FILE');
-            }}
-          >
-            Add files
-          </ButtonElement>
         </ViewElement>
         <DropZoneControl>
           <DataTableControl />
         </DropZoneControl>
-        <ViewElement className={`${AMPLIFY_CLASS_BASE}__footer`}>
+        <ViewElement className={`${AMPLIFY_CLASS_BASE}__summary`}>
+          <DescriptionList
+            className={`${AMPLIFY_CLASS_BASE}__destination`}
+            descriptions={[
+              {
+                term: `${actionDestinationLabel}:`,
+                details: (
+                  <>
+                    {destinationList.map((key, index) => (
+                      <Breadcrumb
+                        isCurrent={index === destinationList.length - 1}
+                        key={`${key}-${index}`}
+                        name={key}
+                      />
+                    ))}
+                  </>
+                ),
+              },
+            ]}
+          />
           <StatusDisplayControl />
+        </ViewElement>
+        <ViewElement className={`${AMPLIFY_CLASS_BASE}__footer`}>
+          {/* Message goes here */}
           <ViewElement className={`${AMPLIFY_CLASS_BASE}__buttons`}>
             <ActionCancelControl />
             <ActionStartControl />
