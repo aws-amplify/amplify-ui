@@ -1,6 +1,8 @@
 import { ActionCancelProps } from './ActionCancel';
 import { ActionExitProps } from './ActionExit';
 import { ActionStartProps } from './ActionStart';
+import { AddFilesProps } from './AddFiles';
+import { AddFolderProps } from './AddFolder';
 import { DataRefreshProps } from './DataRefresh';
 import { DataTableProps } from './DataTable';
 import { DropZoneProps } from './DropZone';
@@ -17,6 +19,8 @@ export interface Composables {
   ActionCancel: React.ComponentType<ActionCancelProps>;
   ActionExit: React.ComponentType<ActionExitProps>;
   ActionStart: React.ComponentType<ActionStartProps>;
+  AddFiles: React.ComponentType<AddFilesProps>;
+  AddFolder: React.ComponentType<AddFolderProps>;
   DataRefresh: React.ComponentType<DataRefreshProps>;
   DataTable: React.ComponentType<DataTableProps>;
   DropZone: React.ComponentType<DropZoneProps>;
