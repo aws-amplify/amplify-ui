@@ -12,7 +12,7 @@ export interface FolderNameFieldProps {
   placeholder?: string;
   onChange?: (value: string) => void;
   onValidate?: (value: string) => void;
-  validationMessage?: string;
+  validationMessage?: React.ReactNode;
 }
 
 export function FolderNameField({

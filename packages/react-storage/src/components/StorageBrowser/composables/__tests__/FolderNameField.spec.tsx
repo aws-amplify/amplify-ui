@@ -10,6 +10,7 @@ const onChange = jest.fn();
 const onValidate = jest.fn();
 
 const message = 'Invalid!';
+const validationMessage = <span id={id}>{message}</span>;
 
 describe('FolderNameField', () => {
   let user: UserEvent;
@@ -54,7 +55,7 @@ describe('FolderNameField', () => {
         onChange={onChange}
         onValidate={onValidate}
         placeholder={placeholder}
-        validationMessage={message}
+        validationMessage={validationMessage}
       />
     );
 
