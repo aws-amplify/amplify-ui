@@ -186,4 +186,28 @@ describe('useDestinationPicker', () => {
       })
     );
   });
+
+  it('should handle paginate', () => {
+    const { result } = renderHook(() =>
+      useDestinationPicker({
+        destinationList: ['prefix1'],
+      })
+    );
+
+    act(() => {
+      const state = result.current;
+      state.onPaginate(2);
+    });
+
+    expect(mockHandleList).toHaveBeenCalledWith({
+      config,
+      options: {
+        ...DEFAULT_LIST_OPTIONS,
+        exclude: 'FILE',
+        nextToken: undefined,
+        refresh: true,
+      },
+      prefix: 'prefix1/',
+    });
+  });
 });
