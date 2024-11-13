@@ -7,7 +7,9 @@ import {
 import { DataTableControl } from '../../controls/DataTableControl';
 import { DataRefreshControl } from '../../controls/DataRefreshControl';
 import { DropZoneControl } from '../../controls/DropZoneControl';
+import { LoadingIndicatorControl } from '../../controls/LoadingIndicatorControl';
 import { NavigationControl } from '../../controls/NavigationControl';
+import { PaginationControl } from '../../controls/PaginationControl';
 import { SearchControl } from '../../controls/SearchControl';
 import { TitleControl } from '../../controls/TitleControl';
 import { ControlsContextProvider } from '../../controls/context';
@@ -19,7 +21,6 @@ import { ActionsMenuControl } from './Controls/ActionsMenu';
 import { getLocationDetailViewTableData } from './getLocationDetailViewTableData';
 import { useLocationDetailView } from './useLocationDetailView';
 import { LocationDetailViewProps } from './types';
-import { PaginationControl } from '../../controls/PaginationControl';
 
 export const DEFAULT_ERROR_MESSAGE = 'There was an error loading items.';
 const DEFAULT_PAGE_SIZE = 100;
@@ -28,11 +29,7 @@ export const DEFAULT_LIST_OPTIONS = {
   delimiter: '/',
 };
 
-const { EmptyMessage, Loading: LoadingControl, Message } = Controls;
-
-function Loading({ show }: { show?: boolean }) {
-  return show ? <LoadingControl /> : null;
-}
+const { EmptyMessage, Message } = Controls;
 
 export const LocationDetailMessage = ({
   show,
@@ -57,7 +54,7 @@ export function LocationDetailView({
   onNavigate: onNavigateProp,
 }: LocationDetailViewProps): React.JSX.Element {
   const {
-    LocationDetailView: { title },
+    LocationDetailView: { loadingIndicatorLabel, title },
   } = useDisplayText();
 
   const {
@@ -98,6 +95,8 @@ export function LocationDetailView({
       <ControlsContextProvider
         data={{
           isDataRefreshDisabled: isLoading,
+          isLoading,
+          loadingIndicatorLabel,
           location,
           searchPlaceholder,
           paginationData: {
@@ -160,7 +159,9 @@ export function LocationDetailView({
           />
         </ViewElement>
         <LocationDetailMessage show={hasError} message={message} />
-        <Loading show={isLoading} />
+        <LoadingIndicatorControl
+          className={`${CLASS_BASE}__locations-detail-view-loading-indicator`}
+        />
         {hasError ? null : (
           <DropZoneControl>
             <DataTableControl />
