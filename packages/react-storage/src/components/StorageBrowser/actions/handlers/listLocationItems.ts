@@ -62,13 +62,28 @@ const parseItems = (
 const parseExcludedPaths = (paths: string[] | undefined): LocationItemData[] =>
   paths?.map((key) => ({ key, id: crypto.randomUUID(), type: 'FOLDER' })) ?? [];
 
+export const filterDotItems = (
+  items: LocationItemData[],
+  prefix: string
+): LocationItemData[] =>
+  items.filter(
+    // matches strings that are exactly either a single forward slash ("/") or one to two dots ("." or ".."), nothing else.
+    (item) =>
+      !(
+        item.key.startsWith(prefix)
+          ? item.key.substring(prefix.length)
+          : item.key
+      ).match(/^(\/|\.{1,2})$/)
+  );
+
 export const parseResult = (
   { excludedSubpaths, items }: ListOutput,
   prefix: string
-): LocationItemData[] => [
-  ...parseExcludedPaths(excludedSubpaths),
-  ...parseItems(items, prefix),
-];
+): LocationItemData[] =>
+  filterDotItems(
+    [...parseExcludedPaths(excludedSubpaths), ...parseItems(items, prefix)],
+    prefix
+  );
 
 export const listLocationItemsHandler: ListLocationItemsHandler = async (
   input

@@ -13,6 +13,7 @@ import {
 
 import * as StoreModule from '../../../providers/store';
 import * as ConfigModule from '../../../providers/configuration';
+import * as TasksModule from '../../../tasks';
 import { LocationState } from '../../../providers/store/location';
 
 import {
@@ -30,17 +31,19 @@ const folderDataOne: FolderData = {
   type: 'FOLDER',
 };
 
-const fileDataOne: FileData = {
+const fileDataOne: FileDataItem = {
   id: '2',
   key: 'some-prefix/cool.jpg',
+  fileKey: 'some-prefix/cool.jpg',
   type: 'FILE',
   lastModified: new Date(),
   size: 25600,
 };
 
-const fileDataTwo: FileData = {
+const fileDataTwo: FileDataItem = {
   id: '3',
   key: 'some-prefix/maybe-cool.png',
+  fileKey: 'some-prefix/maybe-cool.png',
   type: 'FILE',
   lastModified: new Date(),
   size: 25600,
@@ -105,6 +108,26 @@ const config: ActionInputConfig = {
   region: 'us-weast-1',
 };
 useGetActionSpy.mockReturnValue(() => config);
+
+const taskOne: TasksModule.Task<FileData> = {
+  data: fileItem,
+  cancel: jest.fn(),
+  message: undefined,
+  progress: undefined,
+  remove: jest.fn(),
+  status: 'QUEUED',
+};
+
+const handleDownload = jest.fn();
+jest.spyOn(TasksModule, 'useProcessTasks').mockReturnValue([
+  {
+    isProcessing: false,
+    isProcessingComplete: false,
+    statusCounts: TasksModule.INITIAL_STATUS_COUNTS,
+    tasks: [taskOne],
+  },
+  handleDownload,
+]);
 
 describe('useLocationDetailView', () => {
   const mockLocation = { current: undefined, path: '', key: '' };
@@ -328,6 +351,16 @@ describe('useLocationDetailView', () => {
     });
   });
 
+  it('should handle downloading a file', () => {
+    const { result } = renderHook(() =>
+      useLocationDetailView({ onExit: jest.fn() })
+    );
+
+    result.current.onDownload(fileDataOne);
+    expect(handleDownload).toHaveBeenCalledTimes(1);
+    expect(handleDownload).toHaveBeenCalledWith({ config, data: fileDataOne });
+  });
+
   it('should navigate home', () => {
     const mockOnExit = jest.fn();
 
@@ -534,10 +567,64 @@ describe('useLocationDetailView', () => {
 
     const { result } = renderHook(() => useLocationDetailView());
     act(() => {
-      const state = result.current;
-      state.onSearch('moo', true);
+      result.current.onSearchQueryChange('moo');
     });
 
+    act(() => {
+      result.current.onSearch();
+    });
+
+    // search complete
+    expect(handleListMock).toHaveBeenCalledWith({
+      config,
+      options: {
+        ...DEFAULT_LIST_OPTIONS,
+        delimiter: '/',
+        search: { filterKey: 'key', query: 'moo' },
+      },
+      prefix: 'item-b-key/',
+    });
+    expect(handleStoreActionMock).toHaveBeenCalledWith({
+      type: 'RESET_LOCATION_ITEMS',
+    });
+
+    // clears search
+    act(() => {
+      result.current.onSearchClear();
+    });
+
+    expect(handleListMock).toHaveBeenCalledWith(
+      expect.objectContaining({
+        options: expect.objectContaining({
+          refresh: true,
+        }),
+      })
+    );
+  });
+
+  it('should handle search with subfolders', () => {
+    const handleStoreActionMock = jest.fn();
+    useStoreSpy.mockReturnValue([testStoreState, handleStoreActionMock]);
+    const mockDataState = {
+      data: { items: [], nextToken: undefined },
+      message: '',
+      hasError: false,
+      isLoading: false,
+    };
+    const handleListMock = jest.fn();
+    useDataStateSpy.mockReturnValue([mockDataState, handleListMock]);
+
+    const { result } = renderHook(() => useLocationDetailView());
+    act(() => {
+      result.current.onSearchQueryChange('moo');
+      result.current.onIncludeSubfoldersChange(true);
+    });
+
+    act(() => {
+      result.current.onSearch();
+    });
+
+    // search complete
     expect(handleListMock).toHaveBeenCalledWith({
       config,
       options: {
@@ -550,5 +637,18 @@ describe('useLocationDetailView', () => {
     expect(handleStoreActionMock).toHaveBeenCalledWith({
       type: 'RESET_LOCATION_ITEMS',
     });
+
+    // clears search
+    act(() => {
+      result.current.onSearchClear();
+    });
+
+    expect(handleListMock).toHaveBeenCalledWith(
+      expect.objectContaining({
+        options: expect.objectContaining({
+          refresh: true,
+        }),
+      })
+    );
   });
 });

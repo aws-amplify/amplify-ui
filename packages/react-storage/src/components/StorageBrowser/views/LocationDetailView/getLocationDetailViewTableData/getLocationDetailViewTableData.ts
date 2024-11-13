@@ -1,6 +1,10 @@
 import { DataTableProps } from '../../../composables/DataTable';
 import { LocationData } from '../../../actions';
-import { LocationItemData } from '../../../actions/handlers';
+import {
+  createFileDataItem,
+  FileDataItem,
+  LocationItemData,
+} from '../../../actions/handlers';
 import { getFileRowContent } from './getFileRowContent';
 import { getFolderRowContent } from './getFolderRowContent';
 import { displayText } from '../../../displayText/en';
@@ -25,7 +29,7 @@ export const getLocationDetailViewTableData = ({
   fileDataItems?: FileData[];
   hasFiles: boolean;
   pageItems: LocationItemData[];
-  onDownload: (fileItem: FileData) => void;
+  onDownload: (fileItem: FileDataItem) => void;
   onNavigate: (location: LocationData, path?: string) => void;
   onSelect: (isSelected: boolean, fileItem: FileData) => void;
   onSelectAll: () => void;
@@ -53,7 +57,7 @@ export const getLocationDetailViewTableData = ({
         const isSelected =
           fileDataItems?.some((item) => item.id === id) ?? false;
         const onFileDownload = () => {
-          onDownload(locationItem);
+          onDownload(createFileDataItem(locationItem));
         };
         const onFileSelect = () => {
           onSelect(isSelected, locationItem);

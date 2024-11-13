@@ -551,7 +551,7 @@
   border-inline-start-color: transparent;
 }
 
-.storage-browser__search-toggle__container {
+.storage-browser__search-subfolder-toggle__label {
   margin-left: var(--storage-browser-gap);
 }
 

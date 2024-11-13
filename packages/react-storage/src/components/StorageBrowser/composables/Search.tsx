@@ -1,14 +1,7 @@
 import React from 'react';
 
 import { Field } from '../components/Field';
-import {
-  ButtonElement,
-  IconElement,
-  InputElement,
-  LabelElement,
-  SpanElement,
-  ViewElement,
-} from '../context/elements';
+import { ButtonElement, IconElement, ViewElement } from '../context/elements';
 import { CLASS_BASE } from '../views/constants';
 import { displayText } from '../displayText/en';
 
@@ -17,19 +10,22 @@ const BLOCK_NAME = `${CLASS_BASE}__search`;
 const TOGGLE_BLOCK = 'toggle';
 
 export interface SearchProps {
-  onSearch?: (term: string, includeSubfolders: boolean) => void;
+  onSearch?: () => void;
+  onSearchClear?: () => void;
+  searchQuery?: string;
+  onSearchQueryChange?: (query: string) => void;
   searchPlaceholder?: string;
-  showIncludeSubfolders?: boolean;
+  children?: React.ReactNode;
 }
 
 export const Search = ({
   onSearch,
-  showIncludeSubfolders,
+  onSearchClear,
   searchPlaceholder,
+  searchQuery = '',
+  onSearchQueryChange,
+  children,
 }: SearchProps): React.JSX.Element => {
-  const [term, setTerm] = React.useState('');
-  const [subfoldersIncluded, setSubfoldersIncluded] = React.useState(false);
-
   // FIXME: focus not returning to input field after clear
 
   return (
@@ -43,22 +39,23 @@ export const Search = ({
         }
         className={`${BLOCK_NAME}__field`}
         variant="search"
-        onChange={(e) => setTerm(e.target.value)}
+        onChange={(e) => {
+          onSearchQueryChange?.(e.target.value);
+        }}
         placeholder={searchPlaceholder}
         onKeyUp={(event) => {
           if (event.key === 'Enter') {
-            onSearch?.(term, subfoldersIncluded);
+            onSearch?.();
           }
         }}
-        value={term}
+        value={searchQuery}
       >
-        {term ? (
+        {searchQuery ? (
           <ButtonElement
             aria-label={displayText.searchClearLabel}
             className={`${BLOCK_NAME}__field-clear-button`}
             onClick={() => {
-              setTerm('');
-              onSearch?.('', subfoldersIncluded);
+              onSearchClear?.();
             }}
             variant="refresh"
           >
@@ -68,23 +65,11 @@ export const Search = ({
       </Field>
       <ButtonElement
         className={`${BLOCK_NAME}__submit-button`}
-        onClick={() => onSearch?.(term, subfoldersIncluded)}
+        onClick={() => onSearch?.()}
       >
         Submit
       </ButtonElement>
-      {showIncludeSubfolders ? (
-        <SpanElement className={`${BLOCK_NAME}-${TOGGLE_BLOCK}__container`}>
-          <LabelElement className={`${BLOCK_NAME}-${TOGGLE_BLOCK}__label`}>
-            <InputElement
-              checked={subfoldersIncluded}
-              className={`${BLOCK_NAME}-${TOGGLE_BLOCK}__checkbox`}
-              onChange={() => setSubfoldersIncluded(!subfoldersIncluded)}
-              type="checkbox"
-            />
-            Include subfolders
-          </LabelElement>
-        </SpanElement>
-      ) : null}
+      {children ?? null}
     </ViewElement>
   );
 };

@@ -213,11 +213,16 @@ describe('useLocationsView', () => {
     };
     mockUseLocationsData(mockDataState);
     const { result } = renderHook(() => useLocationsView());
+
     act(() => {
-      const state = result.current;
-      state.onSearch('item-b');
+      result.current.onSearchQueryChange('item-b');
     });
 
+    act(() => {
+      result.current.onSearch();
+    });
+
+    // search complete
     expect(result.current.pageItems).toEqual([
       {
         bucket: 'test-bucket',
@@ -227,5 +232,12 @@ describe('useLocationsView', () => {
         type: 'PREFIX',
       },
     ]);
+
+    // clear search
+    act(() => {
+      result.current.onSearchClear();
+    });
+
+    expect(result.current.pageItems).toEqual(mockData);
   });
 });
