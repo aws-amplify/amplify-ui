@@ -3,7 +3,7 @@ import * as StoreModule from '../../store';
 import * as CredentialsModule from '../credentials';
 
 import {
-  ERROR_MESSAGE,
+  getErrorMessage,
   useGetActionInputCallback,
 } from '../useGetActionInputCallback';
 
@@ -64,9 +64,90 @@ describe('useGetActionInputCallback', () => {
 
     expect(getCredentials).toHaveBeenCalledTimes(1);
     expect(getCredentials).toHaveBeenCalledWith({
-      bucket,
       permission,
-      prefix: key,
+      scope: 's3://my-bucket/my-prefix/my-path/*',
+    });
+  });
+
+  it('callback will use passed location param over current location', () => {
+    useCredentialsSpy.mockReturnValueOnce({
+      destroy: jest.fn(),
+      getCredentials,
+    });
+
+    useStoreSpy.mockReturnValueOnce([
+      // @ts-expect-error mocking out the entire store is unnecessary
+      { location: { current: undefined, key } },
+      jest.fn(),
+    ]);
+
+    const { result } = renderHook(() =>
+      useGetActionInputCallback({ accountId, customEndpoint, region })
+    );
+
+    const getActionInput = result.current;
+
+    const prefixActionInput = getActionInput({
+      bucket: 'myBucket',
+      id: 'id',
+      permission: 'READ',
+      prefix: 'myPrefix/',
+      type: 'PREFIX',
+    });
+
+    expect(prefixActionInput).toStrictEqual({
+      accountId,
+      customEndpoint,
+      bucket: 'myBucket',
+      credentials,
+      region,
+    });
+
+    expect(getCredentials).toHaveBeenCalledTimes(1);
+    expect(getCredentials).toHaveBeenCalledWith({
+      permission: 'READ',
+      scope: 's3://myBucket/myPrefix/*',
+    });
+  });
+
+  it('callback will generate correct scope for OBJECT grant types', () => {
+    useCredentialsSpy.mockReturnValueOnce({
+      destroy: jest.fn(),
+      getCredentials,
+    });
+
+    useStoreSpy.mockReturnValueOnce([
+      // @ts-expect-error mocking out the entire store is unnecessary
+      { location: { current: undefined, key } },
+      jest.fn(),
+    ]);
+
+    const { result } = renderHook(() =>
+      useGetActionInputCallback({ accountId, customEndpoint, region })
+    );
+
+    const getActionInput = result.current;
+
+    const objectActionInput = getActionInput({
+      bucket: 'myBucket',
+      id: 'id',
+      permission: 'READ',
+      prefix: 'myPrefix/my.jpg',
+      type: 'OBJECT',
+    });
+
+    expect(objectActionInput).toStrictEqual({
+      accountId,
+      customEndpoint,
+      bucket: 'myBucket',
+      credentials,
+      region,
+    });
+
+    expect(getCredentials).toHaveBeenCalledTimes(1);
+    expect(getCredentials).toHaveBeenCalledWith({
+      permission: 'READ',
+      scope: 's3://myBucket/myPrefix/my.jpg',
     });
   });
 
@@ -82,8 +163,25 @@ describe('useGetActionInputCallback', () => {
 
     const getActionInput = result.current;
 
-    expect(() => getActionInput()).toThrow(ERROR_MESSAGE);
+    expect(() => getActionInput()).toThrow(getErrorMessage('locationData'));
 
+    expect(getCredentials).not.toHaveBeenCalled();
+  });
+
+  it('throws on call to `getActionInput` when `location` param is invalid', () => {
+    useCredentialsSpy.mockReturnValueOnce({
+      destroy: jest.fn(),
+      getCredentials,
+    });
+
+    const { result } = renderHook(() =>
+      useGetActionInputCallback({ accountId, region })
+    );
+
+    const getActionInput = result.current;
+
+    // @ts-expect-error test invalid location
+    expect(() => getActionInput({})).toThrow(getErrorMessage('locationData'));
     expect(getCredentials).not.toHaveBeenCalled();
   });
 });

@@ -37,15 +37,19 @@ const LocationsMessage = ({
 };
 
 const getHeaders = ({
+  hasObjectLocations,
   tableColumnBucketHeader,
   tableColumnFolderHeader,
   tableColumnPermissionsHeader,
+  tableColumnActionsHeader,
 }: {
+  hasObjectLocations: boolean;
   tableColumnBucketHeader: string;
   tableColumnFolderHeader: string;
   tableColumnPermissionsHeader: string;
+  tableColumnActionsHeader: string;
 }): LocationViewHeaders => {
-  return [
+  const headers: LocationViewHeaders = [
     {
       key: 'folder',
       type: 'sort',
@@ -62,6 +66,16 @@ const getHeaders = ({
       content: { label: tableColumnPermissionsHeader },
     },
   ];
+
+  if (hasObjectLocations) {
+    headers.push({
+      key: 'action',
+      type: 'sort',
+      content: { label: tableColumnActionsHeader },
+    });
+  }
+
+  return headers;
 };
 
 const LocationsEmptyMessage = ({ show }: { show: boolean }) => {
@@ -78,7 +92,9 @@ export function LocationsView({
       tableColumnBucketHeader,
       tableColumnFolderHeader,
       tableColumnPermissionsHeader,
+      tableColumnActionsHeader,
       searchPlaceholder,
+      getDownloadLabel,
       getPermissionName,
     },
   } = useDisplayText();
@@ -93,6 +109,7 @@ export function LocationsView({
     pageItems,
     message,
     shouldShowEmptyMessage,
+    onDownload,
     onRefresh,
     onPaginate,
     onNavigate,
@@ -102,9 +119,11 @@ export function LocationsView({
   } = useLocationsView(props);
 
   const headers = getHeaders({
+    hasObjectLocations: pageItems.some(({ type }) => type === 'OBJECT'),
     tableColumnBucketHeader,
     tableColumnFolderHeader,
     tableColumnPermissionsHeader,
+    tableColumnActionsHeader,
   });
 
   return (
@@ -115,7 +134,9 @@ export function LocationsView({
           getPermissionName,
           headers,
           pageItems,
+          onDownload,
           onNavigate,
+          getDownloadLabel,
         }),
         paginationData: {
           page,

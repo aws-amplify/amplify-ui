@@ -20,3 +20,12 @@ export function assertLocationData(
     throw new Error(message ?? 'Invalid value provided as `location`.');
   }
 }
+
+export function assertPrefix(
+  value: string | undefined,
+  message?: string
+): asserts value is string {
+  if (!isString(value)) {
+    throw new Error(message ?? 'Invalid value provided as `prefix`.');
+  }
+}
