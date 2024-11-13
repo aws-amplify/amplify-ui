@@ -82,16 +82,6 @@ export default function useDropZone({
     setDragState(rejectedFiles.length > 0 ? 'reject' : 'accept');
   };
 
-  const handleDropComplete = (files: File[], acceptedFileTypes: string[]) => {
-    const { acceptedFiles, rejectedFiles } = filterAllowedFiles<File>(
-      files,
-      acceptedFileTypes
-    );
-    if (isFunction(onDropComplete)) {
-      onDropComplete({ acceptedFiles, rejectedFiles });
-    }
-  };
-
   const onDrop = (event: React.DragEvent<HTMLDivElement>): void => {
     event.preventDefault();
     event.stopPropagation();
@@ -104,13 +94,27 @@ export default function useDropZone({
 
     // If no DataTransfer items interface, handle as simple files
     if (!event.dataTransfer.items) {
-      handleDropComplete(files, acceptedFileTypes);
+      const { acceptedFiles, rejectedFiles } = filterAllowedFiles<File>(
+        files,
+        acceptedFileTypes
+      );
+      if (isFunction(onDropComplete)) {
+        onDropComplete({ acceptedFiles, rejectedFiles });
+      }
       return;
     }
 
     // Process items using util
-    processDroppedEntries(Array.from(event.dataTransfer.items)).then((files) =>
-      handleDropComplete(files, acceptedFileTypes)
+    processDroppedEntries(Array.from(event.dataTransfer.items)).then(
+      (files) => {
+        const { acceptedFiles, rejectedFiles } = filterAllowedFiles<File>(
+          files,
+          acceptedFileTypes
+        );
+        if (isFunction(onDropComplete)) {
+          onDropComplete({ acceptedFiles, rejectedFiles });
+        }
+      }
     );
   };
 
