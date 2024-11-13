@@ -129,7 +129,7 @@ export function LocationsView({
         className={resolveClassName(AMPLIFY_CLASS_BASE, className)}
         data-testid="LOCATIONS_VIEW"
       >
-        <TitleControl className={`${CLASS_BASE}__locations-view-title`} />
+        <TitleControl />
         <ViewElement className={`${CLASS_BASE}__location-detail-view-controls`}>
           <SearchControl className={`${CLASS_BASE}__locations-view-search`} />
           <Paginate
