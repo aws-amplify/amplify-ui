@@ -77,7 +77,7 @@ export function CopyView({
         onActionExit={onActionExit}
       >
         <ActionExitControl />
-        <TitleControl className={`${CLASS_BASE}__copy-view-title`} />
+        <TitleControl />
         <DataTableControl />
         {isProcessing || isProcessingComplete ? (
           <ViewElement className={`${CLASS_BASE}__action-destination`}>

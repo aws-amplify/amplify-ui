@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { ActionExit } from '../ActionExit';
-import { CLASS_BASE } from '../../views/constants';
+import { AMPLIFY_CLASS_BASE } from '../../views/constants';
 
 const label = 'Leave?';
 
@@ -19,7 +19,7 @@ describe('ActionExit', () => {
 
     const button = screen.getByRole('button');
 
-    expect(button).toHaveClass(`${CLASS_BASE}__exit`);
+    expect(button).toHaveClass(`${AMPLIFY_CLASS_BASE}__exit`);
     expect(button).toHaveTextContent(label);
   });
 
@@ -29,7 +29,7 @@ describe('ActionExit', () => {
     const icon = screen.getByRole('img', { hidden: true });
 
     expect(icon).toBeInTheDocument();
-    expect(icon).toHaveClass(`${CLASS_BASE}__exit__icon`);
+    expect(icon).toHaveClass(`${AMPLIFY_CLASS_BASE}__exit-icon`);
   });
 
   it('renders a button with the expected disabled state', () => {

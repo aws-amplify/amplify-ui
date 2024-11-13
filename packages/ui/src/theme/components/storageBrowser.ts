@@ -7,6 +7,7 @@ export type StorageBrowserTheme<Required extends boolean = false> =
     Elements<
       {
         error?: ComponentStyles;
+        exit?: ComponentStyles;
         navigation?: ComponentStyles;
         title?: ComponentStyles;
         controls?: ComponentStyles;
