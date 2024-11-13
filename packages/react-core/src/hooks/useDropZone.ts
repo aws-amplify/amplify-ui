@@ -103,9 +103,11 @@ export default function useDropZone({
       }
     };
 
-    !items
-      ? completeDrop(Array.from(files))
-      : processDroppedItems(Array.from(items)).then(completeDrop);
+    if (!items) {
+      completeDrop(Array.from(files));
+    } else {
+      processDroppedItems(Array.from(items)).then(completeDrop);
+    }
   };
 
   return {
