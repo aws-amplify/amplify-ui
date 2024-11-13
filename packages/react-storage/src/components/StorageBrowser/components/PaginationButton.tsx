@@ -9,26 +9,28 @@ import {
 
 type ButtonType = 'previous' | 'next';
 
-interface PaginationButtonProps extends InputElementProps {
-  disabled: boolean;
-  onClick: () => void;
-  type: ButtonType;
+export interface PaginationButtonProps extends InputElementProps {
+  isDisabled?: boolean;
+  onClick?: () => void;
+  type?: ButtonType;
 }
 
 const BLOCK_NAME = `${CLASS_BASE}__pagination-button`;
 
 export function PaginationButton({
-  disabled,
+  isDisabled,
   onClick,
   type,
-}: PaginationButtonProps): React.JSX.Element {
+}: PaginationButtonProps): React.JSX.Element | null {
+  if (!type) return null;
+
   const buttonType: `paginate-${ButtonType}` = `paginate-${type}`;
 
   return (
     <ButtonElement
       aria-label={`Go to ${type} page`}
       className={`${BLOCK_NAME}--${buttonType}`}
-      disabled={disabled}
+      disabled={isDisabled}
       onClick={onClick}
       variant={buttonType}
     >
