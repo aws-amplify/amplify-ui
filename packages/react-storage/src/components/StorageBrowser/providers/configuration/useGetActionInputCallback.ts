@@ -31,7 +31,7 @@ export function useGetActionInputCallback({
       // when `location` has been provided as a param, resolve `_prefix` to `location.prefix`.
       // in the default scenario where `current` is the target `location` use the fully qualified `key`
       // that includes the default `prefix` and any additional prefixes from navigation
-      const _prefix = location?.prefix ?? key;
+      const _prefix = location ? location.prefix : key;
       assertLocationData(_location, getErrorMessage('locationData'));
       assertPrefix(_prefix, getErrorMessage('prefix'));
 
