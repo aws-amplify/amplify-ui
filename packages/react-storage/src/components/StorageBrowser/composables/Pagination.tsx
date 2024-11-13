@@ -30,7 +30,7 @@ export const Pagination = ({
       <OrderedListElement className={`${BLOCK_NAME}-list`}>
         <ListItemElement className={`${BLOCK_NAME}-list-item`}>
           <PaginationButton
-            disabled={page <= 1}
+            isDisabled={page <= 1}
             onClick={() => {
               if (onPaginate) onPaginate(page - 1);
             }}
@@ -48,7 +48,7 @@ export const Pagination = ({
         </ListItemElement>
         <ListItemElement className={`${BLOCK_NAME}-list-item`}>
           <PaginationButton
-            disabled={
+            isDisabled={
               !highestPageVisited ||
               (page >= highestPageVisited && !hasNextPage)
             }
