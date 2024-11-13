@@ -45,11 +45,11 @@ describe('createEnhancedListHandler', () => {
   it('should collect and filter results when search is provided', async () => {
     mockAction
       .mockResolvedValueOnce({
-        items: [{ name: 'apple' }, { name: 'banana' }],
+        items: [{ name: 'a_prefix/apple' }, { name: 'a_prefix/banana' }],
         nextToken: 'next',
       })
       .mockResolvedValueOnce({
-        items: [{ name: 'cherry' }, { name: 'date' }],
+        items: [{ name: 'a_prefix/cherry' }, { name: 'a_prefix/date' }],
         nextToken: null,
       });
 
@@ -66,9 +66,40 @@ describe('createEnhancedListHandler', () => {
     });
 
     expect(result.items).toEqual([
-      { name: 'apple' },
-      { name: 'banana' },
-      { name: 'date' },
+      { name: 'a_prefix/apple' },
+      { name: 'a_prefix/banana' },
+      { name: 'a_prefix/date' },
+    ]);
+    expect(result.nextToken).toBeUndefined();
+  });
+
+  it('should filter results under prefix when prefix is provided', async () => {
+    mockAction
+      .mockResolvedValueOnce({
+        items: [{ name: 'fruit/apple' }, { name: 'fruit/banana' }],
+        nextToken: 'next',
+      })
+      .mockResolvedValueOnce({
+        items: [{ name: 'fruit/cherry' }, { name: 'fruit/date' }],
+        nextToken: null,
+      });
+
+    const handler = createEnhancedListHandler(mockAction as Handler);
+    const prevState = { items: [], nextToken: undefined };
+    const options = {
+      search: { query: 'a', filterKey: 'name' as const },
+    };
+
+    const result = await handler(prevState, {
+      config,
+      prefix: 'fruit',
+      options,
+    });
+
+    expect(result.items).toEqual([
+      { name: 'fruit/apple' },
+      { name: 'fruit/banana' },
+      { name: 'fruit/date' },
     ]);
     expect(result.nextToken).toBeUndefined();
   });
@@ -76,8 +107,8 @@ describe('createEnhancedListHandler', () => {
   it('should not fail when non-string values are indexed for search', async () => {
     mockAction.mockResolvedValueOnce({
       items: [
-        { name: 'apple', id: 1 },
-        { name: 'banana', id: 2 },
+        { name: 'a_prefix/apple', id: 1 },
+        { name: 'a_prefix/banana', id: 2 },
       ],
       nextToken: null,
     });
@@ -99,7 +130,7 @@ describe('createEnhancedListHandler', () => {
   });
 
   it('should stop collecting results when SEARCH_LIMIT is reached', async () => {
-    const mockItems = new Array(SEARCH_LIMIT).fill({ name: 'item' });
+    const mockItems = new Array(SEARCH_LIMIT).fill({ name: 'a_prefix/item' });
     mockAction
       .mockResolvedValueOnce({
         items: mockItems.slice(0, SEARCH_LIMIT / 2),
