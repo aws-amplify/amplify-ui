@@ -6,12 +6,12 @@ import { View } from '../../View';
 
 describe('DropZone', () => {
   it('should match snapshot', () => {
-    const { container } = render(<DropZone onDrop={async () => {}} />);
+    const { container } = render(<DropZone onDrop={() => {}} />);
     expect(container).toMatchSnapshot();
   });
 
   it('should have the right class', () => {
-    const { container } = render(<DropZone onDrop={async () => {}} />);
+    const { container } = render(<DropZone onDrop={() => {}} />);
     expect(container.firstChild).toHaveClass(ComponentClassName.DropZone);
   });
 
