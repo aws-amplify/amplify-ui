@@ -1,5 +1,6 @@
-import { LocationItemData } from '../../../../actions';
+import { FolderData } from '../../../../actions';
 import { StatusCounts } from '../../../../tasks';
+
 import { DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT } from '../default';
 
 describe('DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT', () => {
@@ -51,22 +52,22 @@ describe('DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT', () => {
       );
       expect(typeof getFolderSelectedMessage('')).toBe('string');
 
-      expect(getFolderListResultsMessage({ items: [] })).toBe(
-        'No subfolders found within folder.'
+      expect(getFolderListResultsMessage({ folders: [] })).toBe(
+        'No subfolders found within selected folder.'
       );
 
       const query = 'query';
-      expect(getFolderListResultsMessage({ items: [], query })).toBe(
+      expect(getFolderListResultsMessage({ folders: [], query })).toBe(
         `No folders found matching "${query}"`
       );
 
-      const errorMessage = 'oh nooooo';
+      const defaultMessage = 'oh nooooo';
       expect(
         getFolderListResultsMessage({
-          items: [{} as LocationItemData],
-          errorMessage,
+          folders: [{} as FolderData],
+          defaultMessage,
         })
-      ).toBe(errorMessage);
+      ).toBe(defaultMessage);
     });
 
     it('returns correct string for getFolderSelectedMessage', () => {
