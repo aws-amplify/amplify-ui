@@ -19,6 +19,7 @@ describe('getLocationDetailViewTableData', () => {
   } as const;
   const fileItem = {
     key: 'file-key.ext',
+    fileKey: 'file-key.ext',
     lastModified: new Date(1),
     id: 'file-id',
     size: 1,

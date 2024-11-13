@@ -7,8 +7,6 @@ import * as UseUploadViewModule from '../useUploadView';
 import { UploadViewState } from '../types';
 import { UploadView } from '../UploadView';
 
-jest.mock('../../Controls/Title');
-
 jest.mock('../../../../displayText', () => ({
   useDisplayText: () => ({ UploadView: {} }),
 }));
@@ -26,7 +24,6 @@ const onActionStart = jest.fn();
 const onActionExit = jest.fn();
 const onDropFiles = jest.fn();
 const onSelectFiles = jest.fn();
-const onTaskCancel = jest.fn();
 const onToggleOverwrite = jest.fn();
 
 const callbacks = {
@@ -35,7 +32,6 @@ const callbacks = {
   onDropFiles,
   onActionExit,
   onSelectFiles,
-  onTaskCancel,
   onToggleOverwrite,
 };
 

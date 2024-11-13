@@ -6,6 +6,7 @@ export const DEFAULT_COPY_VIEW_DISPLAY_TEXT: DefaultCopyViewDisplayText = {
   title: 'Copy',
   actionStartLabel: 'Copy',
   actionDestinationLabel: 'Copy destination:',
+  actionSetDestination: 'Set destination',
   getFolderListResultsMessage: ({ items, query, errorMessage }) => {
     if (!items.length) {
       return query

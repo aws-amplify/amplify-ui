@@ -16,6 +16,9 @@ import { createEnhancedListHandler } from '../../actions/createEnhancedListHandl
 import { useGetActionInput } from '../../providers/configuration';
 import { displayText } from '../../displayText/en';
 import { LocationState } from '../../providers/store/location';
+import { useSearch } from '../hooks/useSearch';
+import { useProcessTasks } from '../../tasks';
+import { downloadHandler, FileDataItem } from '../../actions/handlers';
 
 interface UseLocationDetailView {
   hasError: boolean;
@@ -24,12 +27,13 @@ interface UseLocationDetailView {
   isLoading: boolean;
   location: LocationState;
   areAllFilesSelected: boolean;
-  fileDataItems: FileData[] | undefined;
+  fileDataItems: FileDataItem[] | undefined;
   hasFiles: boolean;
-  showIncludeSubfolders: boolean;
   message: string | undefined;
   shouldShowEmptyMessage: boolean;
   searchPlaceholder: string;
+  searchQuery: string;
+  includeSubfolders: boolean;
   pageItems: LocationItemData[];
   page: number;
   onDropFiles: (files: File[]) => void;
@@ -37,10 +41,13 @@ interface UseLocationDetailView {
   onNavigate: (location: LocationData, path?: string) => void;
   onNavigateHome: () => void;
   onPaginate: (page: number) => void;
-  onDownload: (fileItem: FileData) => void;
-  onSearch: (query: string, includeSubfolders?: boolean) => void;
+  onDownload: (fileItem: FileDataItem) => void;
   onSelect: (isSelected: boolean, fileItem: FileData) => void;
   onSelectAll: () => void;
+  onSearch: () => void;
+  onSearchClear: () => void;
+  onSearchQueryChange: (value: string) => void;
+  onIncludeSubfoldersChange: (value: boolean) => void;
 }
 
 export type LocationDetailViewActionType =
@@ -78,6 +85,7 @@ const listLocationItemsAction = createEnhancedListHandler(
 export function useLocationDetailView(
   options?: UseLocationDetailViewOptions
 ): UseLocationDetailView {
+  const getConfig = useGetActionInput();
   const { initialValues, onActionSelect, onExit, onNavigate } = options ?? {};
 
   const listOptionsRef = React.useRef({
@@ -93,11 +101,14 @@ export function useLocationDetailView(
   const { fileDataItems } = locationItems;
   const hasInvalidPrefix = isUndefined(prefix);
 
-  const getConfig = useGetActionInput();
+  const [_, handleDownload] = useProcessTasks(downloadHandler);
 
   const [{ data, isLoading, hasError, message }, handleList] = useDataState(
     listLocationItemsAction,
-    { items: [], nextToken: undefined }
+    {
+      items: [],
+      nextToken: undefined,
+    }
   );
 
   // set up pagination
@@ -126,9 +137,32 @@ export function useLocationDetailView(
     hasNextToken,
   });
 
+  const onSearch = (query: string, includeSubfolders?: boolean) => {
+    if (hasInvalidPrefix) return;
+    const searchOptions = {
+      ...listOptions,
+      delimiter: includeSubfolders ? undefined : listOptions.delimiter,
+      search: { query, filterKey: 'key' as const },
+    };
+
+    handleReset();
+    handleList({ config: getConfig(), prefix: key, options: searchOptions });
+    dispatchStoreAction({ type: 'RESET_LOCATION_ITEMS' });
+  };
+
+  const {
+    searchQuery,
+    includeSubfolders,
+    onIncludeSubfoldersChange,
+    onSearchQueryChange,
+    onSearchSubmit,
+    resetSearch,
+  } = useSearch({ onSearch });
+
   const onRefresh = () => {
     if (hasInvalidPrefix) return;
     handleReset();
+    resetSearch();
     handleList({
       config: getConfig(),
       prefix: key,
@@ -178,11 +212,13 @@ export function useLocationDetailView(
     shouldShowEmptyMessage,
     isLoading,
     onPaginate,
-    showIncludeSubfolders: true,
     searchPlaceholder: displayText.searchDetailPlaceholder,
+    searchQuery,
+    includeSubfolders,
     onRefresh,
     onNavigate: (location: LocationData, path?: string) => {
       onNavigate?.(location, path);
+      resetSearch();
       dispatchStoreAction({ type: 'NAVIGATE', location, path });
       dispatchStoreAction({ type: 'RESET_LOCATION_ITEMS' });
     },
@@ -197,12 +233,8 @@ export function useLocationDetailView(
       });
       onActionSelect?.(actionType);
     },
-    onDownload: (fileItem: FileData) => {
-      // FIXME: Integrate with download handler/process tasks hook when available.
-      // eslint-disable-next-line no-console
-      console.error(
-        `Trying to download ${fileItem.key} but download not yet integrated`
-      );
+    onDownload: (data: FileDataItem) => {
+      handleDownload({ config: getConfig(), data });
     },
     onNavigateHome: () => {
       onExit?.();
@@ -231,17 +263,18 @@ export function useLocationDetailView(
           : { type: 'SET_LOCATION_ITEMS', items: fileItems }
       );
     },
-    onSearch: (query, includeSubfolders) => {
+    onSearch: onSearchSubmit,
+    onSearchClear: () => {
+      resetSearch();
       if (hasInvalidPrefix) return;
-      const searchOptions = {
-        ...listOptions,
-        delimiter: includeSubfolders ? undefined : listOptions.delimiter,
-        search: { query, filterKey: 'key' as const },
-      };
-
+      handleList({
+        config: getConfig(),
+        prefix: key,
+        options: { ...listOptions, refresh: true },
+      });
       handleReset();
-      handleList({ config: getConfig(), prefix: key, options: searchOptions });
-      dispatchStoreAction({ type: 'RESET_LOCATION_ITEMS' });
     },
+    onSearchQueryChange,
+    onIncludeSubfoldersChange,
   };
 }

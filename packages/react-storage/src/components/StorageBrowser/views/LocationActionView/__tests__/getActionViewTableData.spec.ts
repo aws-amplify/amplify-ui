@@ -4,92 +4,83 @@ import { Tasks } from '../../../tasks';
 import { getActionViewTableData } from '../getActionViewTableData';
 
 describe('getActionViewTableData', () => {
-  const mockRemove = jest.fn();
-  const mockOnTaskCancel = jest.fn();
-
-  const tasks: Tasks<FileDataItem> = [
-    {
-      data: {
-        id: '1',
-        key: 'some-prefix/file1.txt',
-        fileKey: 'file1.txt',
-        lastModified: new Date(),
-        size: 1000,
-        type: 'FILE',
-      },
-      status: 'QUEUED',
-      remove: mockRemove,
-      cancel: jest.fn(),
-      message: '',
-      progress: undefined,
-    },
-    {
-      data: {
-        id: '2',
-        key: 'some-prefix/file2.jpg',
-        fileKey: 'file2.jpg',
-        lastModified: new Date(),
-        size: 1000,
-        type: 'FILE',
-      },
-      status: 'PENDING',
-      remove: mockRemove,
-      cancel: jest.fn(),
-      message: '',
-      progress: undefined,
-    },
-    {
-      data: {
-        id: '3',
-        key: 'some-prefix/file3.pdf',
-        fileKey: 'file3.pdf',
-        lastModified: new Date(),
-        size: 1000,
-        type: 'FILE',
-      },
-      status: 'COMPLETE',
-      remove: mockRemove,
-      cancel: jest.fn(),
-      message: '',
-      progress: undefined,
-    },
-    {
-      data: {
-        id: '4',
-        key: 'some-prefix/file4.doc',
-        fileKey: 'file4.doc',
-        lastModified: new Date(),
-        size: 1000,
-        type: 'FILE',
-      },
-      status: 'FAILED',
-      remove: mockRemove,
-      cancel: jest.fn(),
-      message: '',
-      progress: undefined,
-    },
-    {
-      data: {
-        id: '5',
-        key: 'some-prefix/file5',
-        fileKey: 'file5',
-        lastModified: new Date(),
-        size: 1000,
-        type: 'FILE',
-      },
-      status: 'CANCELED',
-      remove: mockRemove,
-      cancel: jest.fn(),
-      message: '',
-      progress: undefined,
-    },
-  ];
-
   it('should return correct table data for all task statuses', () => {
+    const tasks: Tasks<FileDataItem> = [
+      {
+        data: {
+          id: '1',
+          key: 'some-prefix/file1.txt',
+          fileKey: 'file1.txt',
+          lastModified: new Date(),
+          size: 1000,
+          type: 'FILE',
+        },
+        status: 'QUEUED',
+        cancel: jest.fn(),
+        message: '',
+        progress: undefined,
+      },
+      {
+        data: {
+          id: '2',
+          key: 'some-prefix/file2.jpg',
+          fileKey: 'file2.jpg',
+          lastModified: new Date(),
+          size: 1000,
+          type: 'FILE',
+        },
+        status: 'PENDING',
+        cancel: jest.fn(),
+        message: '',
+        progress: undefined,
+      },
+      {
+        data: {
+          id: '3',
+          key: 'some-prefix/file3.pdf',
+          fileKey: 'file3.pdf',
+          lastModified: new Date(),
+          size: 1000,
+          type: 'FILE',
+        },
+        status: 'COMPLETE',
+        cancel: jest.fn(),
+        message: '',
+        progress: undefined,
+      },
+      {
+        data: {
+          id: '4',
+          key: 'some-prefix/file4.doc',
+          fileKey: 'file4.doc',
+          lastModified: new Date(),
+          size: 1000,
+          type: 'FILE',
+        },
+        status: 'FAILED',
+        cancel: jest.fn(),
+        message: '',
+        progress: undefined,
+      },
+      {
+        data: {
+          id: '5',
+          key: 'some-prefix/file5',
+          fileKey: 'file5',
+          lastModified: new Date(),
+          size: 1000,
+          type: 'FILE',
+        },
+        status: 'CANCELED',
+        cancel: jest.fn(),
+        message: '',
+        progress: undefined,
+      },
+    ];
     const result = getActionViewTableData({
       tasks,
       isProcessing: true,
-      onTaskCancel: mockOnTaskCancel,
+      onTaskRemove: jest.fn(),
     });
 
     expect(result.rows).toMatchSnapshot('tabledata');
@@ -107,7 +98,7 @@ describe('getActionViewTableData', () => {
           type: 'FILE',
         },
         status: 'QUEUED',
-        remove: mockRemove,
+
         cancel: jest.fn(),
         progress: undefined,
         message: '',
@@ -122,7 +113,7 @@ describe('getActionViewTableData', () => {
           type: 'FILE',
         },
         status: 'COMPLETE',
-        remove: mockRemove,
+
         cancel: jest.fn(),
         message: '',
         progress: undefined,
@@ -132,15 +123,13 @@ describe('getActionViewTableData', () => {
     const result = getActionViewTableData({
       tasks,
       isProcessing: true,
-      onTaskCancel: mockOnTaskCancel,
+      onTaskRemove: jest.fn(),
     });
 
     expect(result.rows).toMatchSnapshot();
   });
 
   it('should have remove handler on queued files', () => {
-    const mockRemove = jest.fn();
-    const mockCancel = jest.fn();
     const tasks: Tasks<FileDataItem> = [
       {
         data: {
@@ -152,8 +141,8 @@ describe('getActionViewTableData', () => {
           type: 'FILE',
         },
         status: 'QUEUED',
-        remove: mockRemove,
-        cancel: mockCancel,
+
+        cancel: jest.fn(),
         progress: undefined,
         message: '',
       },
@@ -163,7 +152,7 @@ describe('getActionViewTableData', () => {
       tasks,
       locationKey: 'folder/subfolder/',
       isProcessing: false,
-      onTaskCancel: mockOnTaskCancel,
+      onTaskRemove: jest.fn(),
     });
 
     // last cell

@@ -326,9 +326,8 @@ describe('LocationsListView', () => {
 
   it('allows searching for items', async () => {
     const user = userEvent.setup();
-    const { getByPlaceholderText, getByText, queryByText } = render(
-      <LocationsView />
-    );
+    const { getByPlaceholderText, getByText, queryByText, getByLabelText } =
+      render(<LocationsView />);
 
     const input = getByPlaceholderText('Filter folders and files');
 
@@ -342,7 +341,17 @@ describe('LocationsListView', () => {
       await user.click(getByText('Submit'));
     });
 
+    // search complete
     expect(queryByText('item-0/')).toBeInTheDocument();
     expect(queryByText('item-1/')).not.toBeInTheDocument();
+
+    // refresh
+    await act(async () => {
+      await user.click(getByLabelText('Refresh data'));
+    });
+
+    // clears search
+    expect(queryByText('item-0/')).toBeInTheDocument();
+    expect(queryByText('item-1/')).toBeInTheDocument();
   });
 });

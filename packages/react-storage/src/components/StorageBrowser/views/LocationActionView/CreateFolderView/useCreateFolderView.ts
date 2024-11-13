@@ -42,14 +42,11 @@ export const useCreateFolderView = (params?: {
     },
     onActionExit: () => {
       if (isFunction(onExit)) onExit(current!);
-      tasks?.forEach((task) => task.remove());
       dipatchStoreAction({ type: 'RESET_ACTION_TYPE' });
     },
     onFolderNameChange: (value) => {
       setFolderName(value);
     },
-    // needs to be removed
-    onTaskCancel: () => null,
     statusCounts,
     tasks,
   };

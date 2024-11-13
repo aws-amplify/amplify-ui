@@ -185,7 +185,6 @@ describe('useProcessTasks', () => {
       data: items[0],
       message: undefined,
       progress: undefined,
-      remove: expect.any(Function),
       status: 'PENDING',
     });
 
@@ -297,50 +296,41 @@ describe('useProcessTasks', () => {
   });
 
   it('removes a task as expected', () => {
-    const { result } = renderHook(() =>
-      useProcessTasks(action, items, { onTaskRemove })
+    const { result, rerender } = renderHook(
+      (dataItems) => useProcessTasks(action, dataItems, { onTaskRemove }),
+      { initialProps: items }
     );
 
-    const initTasks = result.current[0].tasks;
-    const [task] = initTasks;
+    const [initState] = result.current;
+    expect(initState.tasks.length).toBe(3);
 
-    expect(initTasks.length).toBe(3);
+    const nextItems = [items[0], items[2]];
 
-    act(() => {
-      task.remove();
-    });
+    rerender(nextItems);
 
-    const nextTasks = result.current[0].tasks;
-
-    expect(nextTasks.length).toBe(2);
-
+    const [nextState] = result.current;
+    expect(nextState.tasks.length).toBe(2);
     expect(onTaskRemove).toHaveBeenCalledTimes(1);
   });
 
   it('does not remove an inflight task', async () => {
-    const { result } = renderHook(() =>
-      useProcessTasks(action, items, { onTaskRemove })
+    const { result, rerender } = renderHook(
+      (dataItems) => useProcessTasks(action, dataItems, { onTaskRemove }),
+      { initialProps: items }
     );
 
     const [initState, handleProcess] = result.current;
-    const [task] = initState.tasks;
-
     expect(initState.tasks.length).toBe(3);
 
     act(() => {
       handleProcess({ config, prefix });
     });
 
-    act(() => {
-      task.remove();
-    });
+    const nextItems = [items[1], items[2]];
+    rerender(nextItems);
+    await waitFor(() => {});
 
     expect(onTaskRemove).not.toHaveBeenCalled();
-
-    await waitFor(() => {
-      const nextTasks = result.current[0].tasks;
-      expect(nextTasks.length).toBe(3);
-    });
   });
 
   it('excludes adding an item with an existing task', () => {

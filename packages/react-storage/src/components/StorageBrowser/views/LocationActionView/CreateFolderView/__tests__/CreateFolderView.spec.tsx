@@ -7,8 +7,6 @@ import { CreateFolderViewState } from '../types';
 import { ControlsContext } from '../../../../controls/types';
 import { CreateFolderView } from '../CreateFolderView';
 
-jest.mock('../../Controls/Title');
-
 const getActionCompleteMessage = jest.fn();
 const getValidationMessage = jest.fn();
 jest.mock('../../../../displayText', () => ({
@@ -54,7 +52,6 @@ const defaultViewState: CreateFolderViewState = {
   onActionExit,
   onActionStart,
   onFolderNameChange,
-  onTaskCancel: jest.fn(),
   statusCounts: {
     CANCELED: 0,
     COMPLETE: 0,

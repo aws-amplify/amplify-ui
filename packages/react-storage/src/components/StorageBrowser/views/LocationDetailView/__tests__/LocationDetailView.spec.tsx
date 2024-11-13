@@ -15,8 +15,13 @@ import {
   ActionInputConfig,
   ListLocationItemsHandlerOutput,
 } from '../../../actions';
+import { useProcessTasks } from '../../../tasks/useProcessTasks';
+import { INITIAL_STATUS_COUNTS } from '../../../tasks';
 
 jest.mock('../Controls/ActionsMenu');
+jest.mock('../../../displayText', () => ({
+  useDisplayText: () => ({ LocationDetailView: { title: jest.fn() } }),
+}));
 jest.mock('../../../providers/configuration');
 jest.mock('../../../controls/NavigationControl', () => ({
   NavigationControl: () => 'NavigationControl',
@@ -24,6 +29,7 @@ jest.mock('../../../controls/NavigationControl', () => ({
 jest.mock('../../../controls/DataTableControl', () => ({
   DataTableControl: () => <div data-testid="data-table-control" />,
 }));
+jest.mock('../../../tasks/useProcessTasks');
 
 const handleList = jest.fn();
 
@@ -97,6 +103,21 @@ useGetActionSpy.mockReturnValue(() => config);
 
 describe('LocationDetailView', () => {
   let user: UserEvent;
+
+  const mockUseProcessTasks = jest.mocked(useProcessTasks);
+
+  beforeAll(() => {
+    mockUseProcessTasks.mockReturnValue([
+      {
+        isProcessing: false,
+        isProcessingComplete: false,
+        statusCounts: INITIAL_STATUS_COUNTS,
+        tasks: [],
+      },
+      jest.fn(),
+    ]);
+  });
+
   beforeEach(() => {
     user = userEvent.setup();
   });
@@ -154,7 +175,7 @@ describe('LocationDetailView', () => {
   });
 
   it('allows searching for items', async () => {
-    useStoreSpy.mockReturnValueOnce([
+    useStoreSpy.mockReturnValue([
       {
         location: { current: location, path: '', key: location.prefix },
         locationItems: { fileDataItems: undefined },
@@ -163,7 +184,9 @@ describe('LocationDetailView', () => {
     ]);
     mockListItemsAction({ result: testResult });
 
-    const { getByPlaceholderText, getByText } = render(<LocationDetailView />);
+    const { getByPlaceholderText, getByText, getByLabelText } = render(
+      <LocationDetailView />
+    );
 
     const input = getByPlaceholderText('Search current folder');
     const subfolderOption = getByText('Include subfolders');
@@ -174,9 +197,13 @@ describe('LocationDetailView', () => {
     input.focus();
     await act(async () => {
       await user.keyboard('boo');
+      await user.click(subfolderOption);
       await user.click(getByText('Submit'));
     });
 
+    expect(input).toHaveValue('boo');
+
+    // search initiated
     expect(handleList).toHaveBeenCalledWith(
       expect.objectContaining({
         options: expect.objectContaining({
@@ -187,6 +214,14 @@ describe('LocationDetailView', () => {
         }),
       })
     );
+
+    // refresh
+    await act(async () => {
+      await user.click(getByLabelText('Refresh data'));
+    });
+
+    // clears search
+    expect(input).toHaveValue('');
   });
 
   it('loads initial location items for a BUCKET location as expected', () => {
