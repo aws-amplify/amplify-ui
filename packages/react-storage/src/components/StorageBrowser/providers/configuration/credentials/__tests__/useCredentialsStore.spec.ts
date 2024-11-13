@@ -100,12 +100,37 @@ describe('useCredentialsStore', () => {
     const bucket = 'my-bucket';
     const permission = 'READWRITE';
     const prefix = 'my-prefix/nested-prefix/';
+    const type = 'PREFIX';
 
     act(() => {
-      store.getCredentials({ bucket, permission, prefix });
+      store.getCredentials({ bucket, permission, prefix, type });
     });
 
     const scope = `s3://${bucket}/${prefix}*`;
+
+    expect(mockGetProvider).toHaveBeenCalledTimes(1);
+    expect(mockGetProvider).toHaveBeenCalledWith({ permission, scope });
+  });
+
+  it('`locationCredentialsStore.getProvider` correctly handles object grant scopes', () => {
+    const { registerAuthListener } = new Subscription();
+
+    const { result } = renderHook(() =>
+      useCredentialsStore({ getLocationCredentials, registerAuthListener })
+    );
+
+    const { current: store } = result;
+
+    const bucket = 'my-bucket';
+    const permission = 'READWRITE';
+    const prefix = 'my-prefix/my.pdf';
+    const type = 'OBJECT';
+
+    act(() => {
+      store.getCredentials({ bucket, permission, prefix, type });
+    });
+
+    const scope = `s3://${bucket}/${prefix}`;
 
     expect(mockGetProvider).toHaveBeenCalledTimes(1);
     expect(mockGetProvider).toHaveBeenCalledWith({ permission, scope });

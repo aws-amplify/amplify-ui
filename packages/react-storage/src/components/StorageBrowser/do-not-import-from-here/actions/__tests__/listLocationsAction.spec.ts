@@ -19,6 +19,22 @@ const getFakeLocation = (
   permission: LocationAccess['permission'] = 'READWRITE',
   type: LocationAccess['type'] = 'BUCKET'
 ) => {
+  if (type === 'PREFIX') {
+    return {
+      ...fakeLocation,
+      scope: 's3://some-bucket/prefix1/*',
+      permission,
+      type,
+    };
+  } else if (type === 'OBJECT') {
+    return {
+      ...fakeLocation,
+      scope: 's3://some-bucket/my.pdf',
+      permission,
+      type,
+    };
+  }
+
   return { ...fakeLocation, permission, type };
 };
 
@@ -157,7 +173,12 @@ describe('createListLocationsAction', () => {
     expect(output.nextToken).toBeUndefined();
   });
 
-  it(`should filter out locations with write permission and 'OBJECT' type`, async () => {
+  it(`should filter out WRITE permission, invalid prefixes (prefix*) and 'OBJECT' type with WRITE access`, async () => {
+    const invalidPrefixLocation: LocationAccess = {
+      permission: 'READWRITE',
+      scope: 's3://some-bucket/invalid-prefix*',
+      type: 'PREFIX',
+    };
     const fakeReadLocations = [
       getFakeLocation('READ', 'BUCKET'),
       getFakeLocation('READ', 'OBJECT'),
@@ -169,6 +190,7 @@ describe('createListLocationsAction', () => {
       getFakeLocation('WRITE', 'PREFIX'),
     ];
     const fakeReadWriteLocations = [
+      invalidPrefixLocation,
       getFakeLocation('READWRITE', 'BUCKET'),
       getFakeLocation('READWRITE', 'OBJECT'),
       getFakeLocation('READWRITE', 'PREFIX'),
@@ -186,24 +208,26 @@ describe('createListLocationsAction', () => {
     const listLocationsAction = createListLocationsAction(mockListLocations);
     const output = await listLocationsAction(
       { nextToken: undefined, result: [] },
-      { options: { pageSize: 4, exclude: 'WRITE' } }
+      { options: { pageSize: 10, exclude: 'WRITE' } }
     );
 
     expect(mockListLocations).toHaveBeenCalledTimes(2);
     expect(mockListLocations).toHaveBeenCalledWith({
-      pageSize: 4,
+      pageSize: 10,
       nextToken: undefined,
     });
     expect(mockListLocations).toHaveBeenCalledWith({
-      pageSize: 2,
+      pageSize: 7,
       nextToken: 'next',
     });
 
     expect(output.result).toStrictEqual(
       [
         getFakeLocation('READ', 'BUCKET'),
+        getFakeLocation('READ', 'OBJECT'),
         getFakeLocation('READ', 'PREFIX'),
         getFakeLocation('READWRITE', 'BUCKET'),
+        getFakeLocation('READWRITE', 'OBJECT'),
         getFakeLocation('READWRITE', 'PREFIX'),
       ].map(parseLocationAccess)
     );

@@ -2,10 +2,18 @@ import { renderHook, act } from '@testing-library/react';
 import { DataState } from '@aws-amplify/ui-react-core';
 
 import { useLocationsView, DEFAULT_LIST_OPTIONS } from '../useLocationsView';
-import { LocationData } from '../../../actions';
+import {
+  ActionInputConfig,
+  FileDataItem,
+  LocationData,
+} from '../../../actions';
 import * as ActionsModule from '../../../do-not-import-from-here/actions';
 import * as StoreModule from '../../../providers/store';
+import * as TasksModule from '../../../tasks';
+import * as ConfigModule from '../../../providers/configuration';
+
 import { ListLocationsActionOutput } from '../../../do-not-import-from-here/actions/listLocationsAction';
+import { createFileDataItemFromLocation } from '../../../actions/handlers';
 
 const dispatchStoreAction = jest.fn();
 jest
@@ -13,6 +21,7 @@ jest
   .mockReturnValue([{} as StoreModule.UseStoreState, dispatchStoreAction]);
 
 const useLocationsDataSpy = jest.spyOn(ActionsModule, 'useLocationsData');
+const useGetActionSpy = jest.spyOn(ConfigModule, 'useGetActionInput');
 
 const mockData: LocationData[] = [
   {
@@ -60,6 +69,39 @@ function mockUseLocationsData(
   useLocationsDataSpy.mockReturnValue([returnValue, handleList]);
   return handleList;
 }
+
+const taskOne: TasksModule.Task<FileDataItem> = {
+  data: {
+    fileKey: 'key',
+    id: 'id',
+    key: 'key',
+    lastModified: new Date(1),
+    size: 0,
+    type: 'FILE',
+  },
+  cancel: jest.fn(),
+  message: undefined,
+  progress: undefined,
+  status: 'QUEUED',
+};
+
+const handleDownload = jest.fn();
+jest.spyOn(TasksModule, 'useProcessTasks').mockReturnValue([
+  {
+    isProcessing: false,
+    isProcessingComplete: false,
+    statusCounts: TasksModule.INITIAL_STATUS_COUNTS,
+    tasks: [taskOne],
+  },
+  handleDownload,
+]);
+
+const config: ActionInputConfig = {
+  bucket: 'bucky',
+  credentials: jest.fn(),
+  region: 'us-weast-1',
+};
+useGetActionSpy.mockReturnValue(() => config);
 
 describe('useLocationsView', () => {
   afterEach(() => {
@@ -201,6 +243,24 @@ describe('useLocationsView', () => {
     expect(dispatchStoreAction).toHaveBeenCalledWith({
       type: 'NAVIGATE',
       location: expectedLocation,
+    });
+  });
+
+  it('should handle downloading a file', () => {
+    const { result } = renderHook(() => useLocationsView());
+    const location: LocationData = {
+      bucket: 'bucket',
+      id: 'id',
+      permission: 'READ',
+      prefix: 'prefix',
+      type: 'OBJECT',
+    };
+
+    result.current.onDownload(location);
+    expect(handleDownload).toHaveBeenCalledTimes(1);
+    expect(handleDownload).toHaveBeenCalledWith({
+      config,
+      data: createFileDataItemFromLocation(location),
     });
   });
 

@@ -3,7 +3,7 @@ import * as StoreModule from '../../store';
 import * as CredentialsModule from '../credentials';
 
 import {
-  ERROR_MESSAGE,
+  getErrorMessage,
   useGetActionInputCallback,
 } from '../useGetActionInputCallback';
 
@@ -22,6 +22,7 @@ const permission = 'READ' as const;
 const prefix = 'my-prefix/';
 const region = 'my-region';
 const key = `${prefix}my-path/`;
+const type = 'PREFIX';
 
 const location = {
   bucket,
@@ -67,6 +68,50 @@ describe('useGetActionInputCallback', () => {
       bucket,
       permission,
       prefix: key,
+      type,
+    });
+  });
+
+  it('callback will use passed location if current is undefined', () => {
+    useCredentialsSpy.mockReturnValueOnce({
+      destroy: jest.fn(),
+      getCredentials,
+    });
+
+    useStoreSpy.mockReturnValueOnce([
+      // @ts-expect-error mocking out the entire store is unnecessary
+      { location: { current: undefined, key } },
+      jest.fn(),
+    ]);
+
+    const { result } = renderHook(() =>
+      useGetActionInputCallback({ accountId, customEndpoint, region })
+    );
+
+    const getActionInput = result.current;
+
+    const actionInput = getActionInput({
+      bucket: 'myBucket',
+      id: 'id',
+      permission: 'READ',
+      prefix: 'myPrefix/',
+      type: 'PREFIX',
+    });
+
+    expect(actionInput).toStrictEqual({
+      accountId,
+      customEndpoint,
+      bucket: 'myBucket',
+      credentials,
+      region,
+    });
+
+    expect(getCredentials).toHaveBeenCalledTimes(1);
+    expect(getCredentials).toHaveBeenCalledWith({
+      bucket: 'myBucket',
+      permission: 'READ',
+      prefix: 'myPrefix/',
+      type: 'PREFIX',
     });
   });
 
@@ -82,7 +127,7 @@ describe('useGetActionInputCallback', () => {
 
     const getActionInput = result.current;
 
-    expect(() => getActionInput()).toThrow(ERROR_MESSAGE);
+    expect(() => getActionInput()).toThrow(getErrorMessage('locationData'));
 
     expect(getCredentials).not.toHaveBeenCalled();
   });

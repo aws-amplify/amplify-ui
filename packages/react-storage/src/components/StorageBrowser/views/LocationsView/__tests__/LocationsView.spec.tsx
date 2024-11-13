@@ -2,12 +2,14 @@ import React from 'react';
 import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import * as StoreModule from '../../../providers/store';
-import { DEFAULT_ERROR_MESSAGE, LocationsView } from '../LocationsView';
 import * as ActionsModule from '../../../do-not-import-from-here/actions';
-import { DEFAULT_LIST_OPTIONS } from '../useLocationsView';
-import { LocationData } from '../../../actions';
+import * as ConfigModule from '../../../providers/configuration';
 import * as DisplayTextModule from '../../../displayText';
+import * as StoreModule from '../../../providers/store';
+
+import { DEFAULT_ERROR_MESSAGE, LocationsView } from '../LocationsView';
+import { DEFAULT_LIST_OPTIONS } from '../useLocationsView';
+import { ActionInputConfig, LocationData } from '../../../actions';
 import { DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT } from '../../../displayText/libraries';
 
 const dispatchStoreAction = jest.fn();
@@ -15,6 +17,7 @@ jest
   .spyOn(StoreModule, 'useStore')
   .mockReturnValue([{} as StoreModule.UseStoreState, dispatchStoreAction]);
 
+const useGetActionSpy = jest.spyOn(ConfigModule, 'useGetActionInput');
 const useLocationsDataSpy = jest.spyOn(ActionsModule, 'useLocationsData');
 const useDisplayTextSpy = jest
   .spyOn(DisplayTextModule, 'useDisplayText')
@@ -87,6 +90,13 @@ const nextPageState: ActionsModule.LocationsDataState = [
   },
   handleListLocations,
 ];
+
+const config: ActionInputConfig = {
+  bucket: 'bucky',
+  credentials: jest.fn(),
+  region: 'us-weast-1',
+};
+useGetActionSpy.mockReturnValue(() => config);
 
 describe('LocationsListView', () => {
   afterEach(() => {

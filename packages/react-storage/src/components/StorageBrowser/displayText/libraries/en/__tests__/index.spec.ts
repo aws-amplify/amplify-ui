@@ -154,7 +154,7 @@ describe('DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT', () => {
     });
 
     it('returns string values from callbacks', () => {
-      const { getListResultsMessage } =
+      const { getListResultsMessage, getDownloadLabel, getPermissionName } =
         DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT.LocationsView;
 
       expect(
@@ -166,6 +166,13 @@ describe('DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT', () => {
           type: 'PREFIX',
         })
       ).toBe('string');
+      expect(typeof getPermissionName('READ')).toBe('string');
+      expect(typeof getPermissionName('WRITE')).toBe('string');
+      expect(typeof getPermissionName('READWRITE')).toBe('string');
+      // @ts-expect-error
+      // testing unknown permission type
+      expect(typeof getPermissionName('CUSTOM')).toBe('string');
+      expect(typeof getDownloadLabel('my.jpg')).toBe('string');
     });
   });
 });
