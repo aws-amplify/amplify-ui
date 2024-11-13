@@ -49,9 +49,9 @@ export async function processDroppedItems(
   await Promise.all(
     dataTransferItems
       .reduce<FileSystemEntry[]>(
-        (acc, item) =>
-          item.kind === 'file' && item.webkitGetAsEntry()
-            ? [...acc, item.webkitGetAsEntry()!]
+        (acc, { kind, webkitGetAsEntry }) =>
+          kind === 'file' && webkitGetAsEntry()
+            ? [...acc, webkitGetAsEntry()!]
             : acc,
         []
       )
