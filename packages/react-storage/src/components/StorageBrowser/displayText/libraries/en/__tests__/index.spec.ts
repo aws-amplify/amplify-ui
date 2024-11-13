@@ -144,6 +144,38 @@ describe('DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT', () => {
         })
       ).toBe('string');
     });
+
+    it('returns correct string for title', () => {
+      const { title } = DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT.LocationDetailView;
+
+      expect(
+        title({
+          current: {
+            bucket: 'test-bucket',
+            permission: 'READ',
+            id: '123',
+            prefix: '',
+            type: 'PREFIX',
+          },
+          path: '',
+          key: 'path/to/somewhere',
+        })
+      ).toBe(`path/to/somewhere`);
+
+      expect(
+        title({
+          current: {
+            bucket: 'test-bucket',
+            permission: 'READ',
+            id: '123',
+            prefix: '',
+            type: 'PREFIX',
+          },
+          path: '',
+          key: '',
+        })
+      ).toBe(`test-bucket`);
+    });
   });
 
   describe('DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT.LocationsView', () => {

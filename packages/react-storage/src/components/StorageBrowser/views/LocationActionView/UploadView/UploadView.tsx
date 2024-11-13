@@ -88,7 +88,7 @@ export function UploadView({
         onDropFiles={onDropFiles}
       >
         <ActionExitControl />
-        <TitleControl className={`${CLASS_BASE}__upload-view-title`} />
+        <TitleControl />
         <ViewElement className={`${CLASS_BASE}__action-header`}>
           <ViewElement className={`${CLASS_BASE}__upload-destination`}>
             <DescriptionList

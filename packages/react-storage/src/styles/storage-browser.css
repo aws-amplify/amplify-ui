@@ -12,11 +12,6 @@
   --storage-browser-error-text: hsl(0, 100%, 20%);
 }
 
-.storage-browser__title {
-  margin: 0;
-  margin-inline-start: var(--storage-browser-gap);
-}
-
 .storage-browser__pagination {
   justify-self: flex-end;
 }
@@ -172,10 +167,6 @@
 .storage-browser__primary {
   grid-column: 3 / -2;
   justify-self: flex-end;
-}
-
-.storage-browser__exit {
-  justify-self: flex-start;
 }
 
 .storage-browser__add-folder {
@@ -489,10 +480,6 @@
   justify-content: flex-end;
   align-items: center;
   width: 100%;
-}
-
-.storage-browser__exit {
-  align-self: flex-start;
 }
 
 /* Search view styles */
