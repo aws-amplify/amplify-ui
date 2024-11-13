@@ -21,7 +21,7 @@ jobs:
         # build-tool: [cli, expo]
         build-tool: [expo]
         # Temporarily pin to previous version
-        build-tool-version: [51]
+        build-tool-version: [latest]
         pkg-manager: [npm]
         language: [ts]
         node-version: [18]
