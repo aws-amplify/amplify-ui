@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { ButtonElement, IconElement } from '../context/elements';
-import { CLASS_BASE } from '../views/constants';
+import { AMPLIFY_CLASS_BASE } from '../views/constants';
 
-const BLOCK_NAME = `${CLASS_BASE}__exit`;
+const BLOCK_NAME = `${AMPLIFY_CLASS_BASE}__exit`;
 
 export interface ActionExitProps {
   onExit?: () => void;
@@ -22,6 +22,6 @@ export const ActionExit = ({
     onClick={onExit}
     disabled={isDisabled}
   >
-    <IconElement className={`${BLOCK_NAME}__icon`} variant="exit" /> {label}
+    <IconElement className={`${BLOCK_NAME}-icon`} variant="exit" /> {label}
   </ButtonElement>
 );

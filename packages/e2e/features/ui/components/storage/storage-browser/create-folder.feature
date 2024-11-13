@@ -13,10 +13,10 @@ Feature: Create folder with Storage Browser
     When I click the "Actions" button
     Then I see the "Create Folder" menuitem
     When I click the "Create Folder" menuitem
-    Then I see "Enter folder name:"
+    Then I see "Folder name"
     Then I see the "Create Folder" button
     Then the "Create Folder" button is disabled 
-    When I type a new "Enter folder name:" with value "Blackberry"
+    When I type a new "Folder name" with value "Blackberry"
     Then I see the "Create Folder" button
     When I click the "Create Folder" button
     Then I see "A folder already exists with the provided name"
@@ -31,9 +31,9 @@ Feature: Create folder with Storage Browser
     When I click the "Actions" button
     Then I see the "Create Folder" menuitem
     When I click the "Create Folder" menuitem
-    Then I see "Enter folder name:"
+    Then I see "Folder name"
     Then I see the "Create Folder" button
     Then the "Create Folder" button is disabled 
-    When I type a new "Enter folder name:" with value "Blackberry/"
-    When I lose focus on "Enter folder name:" input
+    When I type a new "Folder name" with value "Blackberry/"
+    When I lose focus on "Folder name" input
     Then I see "Folder name cannot contain a \"/\" or \".\" character"
