@@ -40,17 +40,17 @@ export function CopyView({
     statusCounts,
     tasks,
     onActionCancel,
+    onActionExit,
     onActionStart,
     onDestinationChange,
-    onActionExit,
-    onTaskCancel,
+    onTaskRemove,
   } = useCopyView(props);
 
   const tableData = getActionViewTableData({
     tasks,
     locationKey: location.key,
     isProcessing,
-    onTaskCancel,
+    onTaskRemove,
   });
 
   const isActionStartDisabled =
@@ -73,8 +73,8 @@ export function CopyView({
           title,
         }}
         onActionStart={onActionStart}
-        onActionExit={onActionExit}
         onActionCancel={onActionCancel}
+        onActionExit={onActionExit}
       >
         <ActionExitControl />
         <TitleControl className={`${CLASS_BASE}__copy-view-title`} />

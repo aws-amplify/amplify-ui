@@ -47,8 +47,8 @@ export function UploadView({
     onActionCancel,
     onDropFiles,
     onActionExit,
+    onTaskRemove,
     onSelectFiles,
-    onTaskCancel,
     onToggleOverwrite,
   } = useUploadView(props);
 
@@ -78,7 +78,7 @@ export function UploadView({
             tasks,
             isProcessing,
             shouldDisplayProgress: true,
-            onTaskCancel,
+            onTaskRemove,
           }),
           title,
         }}

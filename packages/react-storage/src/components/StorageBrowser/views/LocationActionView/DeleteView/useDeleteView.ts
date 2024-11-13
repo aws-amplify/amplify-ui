@@ -1,4 +1,3 @@
-import { useCallback } from 'react';
 import { isFunction } from '@aws-amplify/ui';
 
 import { DeleteViewState, UseDeleteViewOptions } from './types';
@@ -6,6 +5,7 @@ import { deleteHandler } from '../../../actions/handlers';
 import { useStore } from '../../../providers/store';
 import { useGetActionInput } from '../../../providers/configuration';
 import { Task, useProcessTasks } from '../../../tasks';
+import React from 'react';
 
 export const useDeleteView = (
   options?: UseDeleteViewOptions
@@ -40,8 +40,6 @@ export const useDeleteView = (
   };
 
   const onActionExit = () => {
-    // clear tasks state
-    tasks.forEach(({ remove }) => remove());
     // clear files state
     dispatchStoreAction({ type: 'RESET_LOCATION_ITEMS' });
     // clear selected action
@@ -49,11 +47,11 @@ export const useDeleteView = (
     if (isFunction(_onExit)) _onExit(current);
   };
 
-  const onTaskCancel = useCallback(
-    (task: Task) => {
-      isProcessing ? task.cancel() : task.remove();
+  const onTaskRemove = React.useCallback(
+    ({ data }: Task) => {
+      dispatchStoreAction({ type: 'REMOVE_LOCATION_ITEM', id: data.id });
     },
-    [isProcessing]
+    [dispatchStoreAction]
   );
 
   return {
@@ -65,6 +63,6 @@ export const useDeleteView = (
     onActionCancel,
     onActionExit,
     onActionStart,
-    onTaskCancel,
+    onTaskRemove,
   };
 };

@@ -43,7 +43,6 @@ const location = {
   type: 'PREFIX',
 } as const;
 
-const onTaskCancel = jest.fn();
 const onActionCancel = jest.fn();
 const onActionExit = jest.fn();
 const onActionStart = jest.fn();
@@ -98,7 +97,6 @@ const taskThree = {
 
 const defaultViewState: DeleteViewState = {
   ...actionCallbacks,
-  onTaskCancel,
   location: {
     current: location,
     path: 'some-prefix/',

@@ -58,29 +58,22 @@ export const useUploadView = (
   }, [tasks]);
 
   const onActionExit = React.useCallback(() => {
-    // clear tasks state
-    tasks.forEach(({ remove }) => remove());
     // clear files state
     dispatchStoreAction({ type: 'RESET_FILE_ITEMS' });
     // clear selected action
     dispatchStoreAction({ type: 'RESET_ACTION_TYPE' });
     _onExit?.(current);
-  }, [tasks, dispatchStoreAction, _onExit, current]);
+  }, [dispatchStoreAction, _onExit, current]);
 
   const onToggleOverwrite = React.useCallback(() => {
     setOverwriteEnabled((prev) => !prev);
   }, []);
 
-  const onTaskCancel = React.useCallback(
-    (task: Task) => {
-      if (isProcessing) {
-        task.cancel();
-      } else {
-        dispatchStoreAction({ type: 'REMOVE_FILE_ITEM', id: task.data.id });
-        task.remove();
-      }
+  const onTaskRemove = React.useCallback(
+    ({ data }: Task) => {
+      dispatchStoreAction({ type: 'REMOVE_FILE_ITEM', id: data.id });
     },
-    [isProcessing, dispatchStoreAction]
+    [dispatchStoreAction]
   );
 
   return {
@@ -94,8 +87,8 @@ export const useUploadView = (
     onActionExit,
     onActionStart,
     onDropFiles,
+    onTaskRemove,
     onSelectFiles,
-    onTaskCancel,
     onToggleOverwrite,
   };
 };

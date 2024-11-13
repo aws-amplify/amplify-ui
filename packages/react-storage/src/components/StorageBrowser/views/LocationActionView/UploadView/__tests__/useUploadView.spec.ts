@@ -51,7 +51,6 @@ const taskOne: TasksModule.Task<StoreModule.FileItem> = {
   cancel: jest.fn(),
   message: undefined,
   progress: undefined,
-  remove: jest.fn(),
   status: 'QUEUED',
 };
 
@@ -60,7 +59,6 @@ const taskTwo: TasksModule.Task<StoreModule.FileItem> = {
   cancel: jest.fn(),
   message: undefined,
   progress: undefined,
-  remove: jest.fn(),
   status: 'QUEUED',
 };
 
@@ -191,9 +189,6 @@ describe('useUploadView', () => {
     act(() => {
       result.current.onActionExit();
     });
-
-    expect(tasks[0].remove).toHaveBeenCalledTimes(1);
-    expect(tasks[1].remove).toHaveBeenCalledTimes(1);
 
     expect(onExit).toHaveBeenCalledTimes(1);
     expect(onExit).toHaveBeenCalledWith(rootLocation);

@@ -24,7 +24,6 @@ const onActionStart = jest.fn();
 const onActionExit = jest.fn();
 const onDropFiles = jest.fn();
 const onSelectFiles = jest.fn();
-const onTaskCancel = jest.fn();
 const onToggleOverwrite = jest.fn();
 
 const callbacks = {
@@ -33,7 +32,6 @@ const callbacks = {
   onDropFiles,
   onActionExit,
   onSelectFiles,
-  onTaskCancel,
   onToggleOverwrite,
 };
 
