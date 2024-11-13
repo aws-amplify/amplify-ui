@@ -101,7 +101,6 @@ export default function useDropZone({
       if (isFunction(onDropComplete)) {
         onDropComplete({ acceptedFiles, rejectedFiles });
       }
-      return;
     };
 
     !items
