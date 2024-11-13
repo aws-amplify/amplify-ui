@@ -15,6 +15,9 @@ import * as ConfigModule from '../../../providers/configuration';
 import { ListLocationsActionOutput } from '../../../do-not-import-from-here/actions/listLocationsAction';
 import { createFileDataItemFromLocation } from '../../../actions/handlers';
 
+jest.useFakeTimers();
+jest.setSystemTime(1);
+
 const dispatchStoreAction = jest.fn();
 jest
   .spyOn(StoreModule, 'useStore')
