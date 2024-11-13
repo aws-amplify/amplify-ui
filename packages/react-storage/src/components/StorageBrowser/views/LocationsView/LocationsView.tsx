@@ -2,6 +2,7 @@ import React from 'react';
 
 import { ViewElement } from '../../context/elements';
 import { DataRefreshControl } from '../../controls/DataRefreshControl';
+import { PaginationControl } from '../../controls/PaginationControl';
 import { DataTableControl } from '../../controls/DataTableControl';
 import { SearchControl } from '../../controls/SearchControl';
 import { TitleControl } from '../../controls/TitleControl';
@@ -17,7 +18,7 @@ import { LocationsViewProps } from './types';
 
 export const DEFAULT_ERROR_MESSAGE = 'There was an error loading locations.';
 
-const { EmptyMessage, Loading: LoadingElement, Message, Paginate } = Controls;
+const { EmptyMessage, Loading: LoadingElement, Message } = Controls;
 
 const Loading = ({ show }: { show: boolean }) => {
   return show ? <LoadingElement /> : null;
@@ -116,6 +117,12 @@ export function LocationsView({
           pageItems,
           onNavigate,
         }),
+        paginationData: {
+          page,
+          hasNextPage,
+          highestPageVisited,
+          onPaginate,
+        },
         title,
         searchPlaceholder: searchPlaceholder,
         searchQuery,
@@ -132,11 +139,8 @@ export function LocationsView({
         <TitleControl />
         <ViewElement className={`${CLASS_BASE}__location-detail-view-controls`}>
           <SearchControl className={`${CLASS_BASE}__locations-view-search`} />
-          <Paginate
-            currentPage={page}
-            highestPageVisited={highestPageVisited}
-            hasMorePages={hasNextPage}
-            onPaginate={onPaginate}
+          <PaginationControl
+            className={`${CLASS_BASE}__locations-view-pagination`}
           />
           <DataRefreshControl
             className={`${CLASS_BASE}__locations-view-data-refresh`}

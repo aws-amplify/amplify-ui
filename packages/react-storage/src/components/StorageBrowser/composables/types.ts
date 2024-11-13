@@ -1,6 +1,8 @@
 import { ActionCancelProps } from './ActionCancel';
 import { ActionExitProps } from './ActionExit';
 import { ActionStartProps } from './ActionStart';
+import { AddFilesProps } from './AddFiles';
+import { AddFolderProps } from './AddFolder';
 import { DataRefreshProps } from './DataRefresh';
 import { DataTableProps } from './DataTable';
 import { DropZoneProps } from './DropZone';
@@ -9,6 +11,7 @@ import { MessageProps } from './Message';
 import { FolderNameFieldProps } from './FolderNameField';
 import { NavigationProps } from './Navigation';
 import { StatusDisplayProps } from './StatusDisplay';
+import { PaginationProps } from './Pagination';
 import { SearchProps } from './Search';
 import { TitleProps } from './Title';
 
@@ -16,6 +19,8 @@ export interface Composables {
   ActionCancel: React.ComponentType<ActionCancelProps>;
   ActionExit: React.ComponentType<ActionExitProps>;
   ActionStart: React.ComponentType<ActionStartProps>;
+  AddFiles: React.ComponentType<AddFilesProps>;
+  AddFolder: React.ComponentType<AddFolderProps>;
   DataRefresh: React.ComponentType<DataRefreshProps>;
   DataTable: React.ComponentType<DataTableProps>;
   DropZone: React.ComponentType<DropZoneProps>;
@@ -23,6 +28,7 @@ export interface Composables {
   LoadingIndicator: React.ComponentType<LoadingIndicatorProps>;
   Message: React.ComponentType<MessageProps>;
   Navigation: React.ComponentType<NavigationProps>;
+  Pagination: React.ComponentType<PaginationProps>;
   Search: React.ComponentType<SearchProps>;
   StatusDisplay: React.ComponentType<StatusDisplayProps>;
   Title: React.ComponentType<TitleProps>;
