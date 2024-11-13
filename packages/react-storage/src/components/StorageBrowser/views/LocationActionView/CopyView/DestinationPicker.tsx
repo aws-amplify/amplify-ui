@@ -46,16 +46,22 @@ export const DestinationPicker = ({
     onPaginate,
     onSearch,
     pageItems,
+    searchQuery,
+    onSearchQueryChange,
+    onSearchClear,
+    resetSearch,
   } = useDestinationPicker({ destinationList });
 
   const handleNavigateFolder = (key: string) => {
     const newPath = [...destinationList, key.replace('/', '')];
     onDestinationChange(newPath);
+    resetSearch();
   };
 
   const handleNavigatePath = (index: number) => {
     const newPath = destinationList.slice(0, index + 1);
     onDestinationChange(newPath);
+    resetSearch();
   };
 
   const tableData = getDestinationPickerTableData({
@@ -66,10 +72,12 @@ export const DestinationPicker = ({
   const contextValue: ControlsContext = {
     data: {
       tableData,
-      showIncludeSubfolders: false,
       searchPlaceholder: displayText.filterCopyPlaceholder,
+      searchQuery,
     },
     onSearch,
+    onSearchQueryChange,
+    onSearchClear,
   };
 
   const noSubfolders = !items.length;

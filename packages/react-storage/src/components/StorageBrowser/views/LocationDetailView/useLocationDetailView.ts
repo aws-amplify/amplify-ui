@@ -16,6 +16,7 @@ import { createEnhancedListHandler } from '../../actions/createEnhancedListHandl
 import { useGetActionInput } from '../../providers/configuration';
 import { displayText } from '../../displayText/en';
 import { LocationState } from '../../providers/store/location';
+import { useSearch } from '../hooks/useSearch';
 import { useProcessTasks } from '../../tasks';
 import { downloadHandler, FileDataItem } from '../../actions/handlers';
 
@@ -28,10 +29,11 @@ interface UseLocationDetailView {
   areAllFilesSelected: boolean;
   fileDataItems: FileDataItem[] | undefined;
   hasFiles: boolean;
-  showIncludeSubfolders: boolean;
   message: string | undefined;
   shouldShowEmptyMessage: boolean;
   searchPlaceholder: string;
+  searchQuery: string;
+  includeSubfolders: boolean;
   pageItems: LocationItemData[];
   page: number;
   onDropFiles: (files: File[]) => void;
@@ -40,9 +42,12 @@ interface UseLocationDetailView {
   onNavigateHome: () => void;
   onPaginate: (page: number) => void;
   onDownload: (fileItem: FileDataItem) => void;
-  onSearch: (query: string, includeSubfolders?: boolean) => void;
   onSelect: (isSelected: boolean, fileItem: FileData) => void;
   onSelectAll: () => void;
+  onSearch: () => void;
+  onSearchClear: () => void;
+  onSearchQueryChange: (value: string) => void;
+  onIncludeSubfoldersChange: (value: boolean) => void;
 }
 
 export type LocationDetailViewActionType =
@@ -132,9 +137,32 @@ export function useLocationDetailView(
     hasNextToken,
   });
 
+  const onSearch = (query: string, includeSubfolders?: boolean) => {
+    if (hasInvalidPrefix) return;
+    const searchOptions = {
+      ...listOptions,
+      delimiter: includeSubfolders ? undefined : listOptions.delimiter,
+      search: { query, filterKey: 'key' as const },
+    };
+
+    handleReset();
+    handleList({ config: getConfig(), prefix: key, options: searchOptions });
+    dispatchStoreAction({ type: 'RESET_LOCATION_ITEMS' });
+  };
+
+  const {
+    searchQuery,
+    includeSubfolders,
+    onIncludeSubfoldersChange,
+    onSearchQueryChange,
+    onSearchSubmit,
+    resetSearch,
+  } = useSearch({ onSearch });
+
   const onRefresh = () => {
     if (hasInvalidPrefix) return;
     handleReset();
+    resetSearch();
     handleList({
       config: getConfig(),
       prefix: key,
@@ -184,11 +212,13 @@ export function useLocationDetailView(
     shouldShowEmptyMessage,
     isLoading,
     onPaginate,
-    showIncludeSubfolders: true,
     searchPlaceholder: displayText.searchDetailPlaceholder,
+    searchQuery,
+    includeSubfolders,
     onRefresh,
     onNavigate: (location: LocationData, path?: string) => {
       onNavigate?.(location, path);
+      resetSearch();
       dispatchStoreAction({ type: 'NAVIGATE', location, path });
       dispatchStoreAction({ type: 'RESET_LOCATION_ITEMS' });
     },
@@ -233,17 +263,18 @@ export function useLocationDetailView(
           : { type: 'SET_LOCATION_ITEMS', items: fileItems }
       );
     },
-    onSearch: (query, includeSubfolders) => {
+    onSearch: onSearchSubmit,
+    onSearchClear: () => {
+      resetSearch();
       if (hasInvalidPrefix) return;
-      const searchOptions = {
-        ...listOptions,
-        delimiter: includeSubfolders ? undefined : listOptions.delimiter,
-        search: { query, filterKey: 'key' as const },
-      };
-
+      handleList({
+        config: getConfig(),
+        prefix: key,
+        options: { ...listOptions, refresh: true },
+      });
       handleReset();
-      handleList({ config: getConfig(), prefix: key, options: searchOptions });
-      dispatchStoreAction({ type: 'RESET_LOCATION_ITEMS' });
     },
+    onSearchQueryChange,
+    onIncludeSubfoldersChange,
   };
 }
