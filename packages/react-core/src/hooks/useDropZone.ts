@@ -82,11 +82,11 @@ export default function useDropZone({
     setDragState(rejectedFiles.length > 0 ? 'reject' : 'accept');
   };
 
-  const onDrop = (event: React.DragEvent<HTMLDivElement>): void => {
+  const onDrop = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
     event.stopPropagation();
     setDragState('inactive');
-    const files: File[] = Array.from(event.dataTransfer.files);
+    const files = Array.from(event.dataTransfer.files);
 
     if (isFunction(_onDrop)) {
       _onDrop(event);
