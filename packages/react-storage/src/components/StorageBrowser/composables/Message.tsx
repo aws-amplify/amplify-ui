@@ -7,9 +7,9 @@ import {
   ViewElement,
 } from '../context/elements';
 
-import { CLASS_BASE } from '../views/constants';
+import { AMPLIFY_CLASS_BASE } from '../views/constants';
 
-const BLOCK_NAME = `${CLASS_BASE}__message`;
+const BLOCK_NAME = `${AMPLIFY_CLASS_BASE}__message`;
 
 export type MessageType = MessageVariant;
 

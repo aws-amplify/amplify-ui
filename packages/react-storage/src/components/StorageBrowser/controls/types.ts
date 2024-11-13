@@ -39,7 +39,7 @@ export interface ControlsContext {
     folderNameId?: string;
     folderNameLabel?: string;
     folderNamePlaceholder?: string;
-    folderNameValidationMessage?: React.ReactNode;
+    folderNameValidationMessage?: string;
     isActionCancelDisabled?: boolean;
     isActionStartDisabled?: boolean;
     isAddFilesDisabled?: boolean;

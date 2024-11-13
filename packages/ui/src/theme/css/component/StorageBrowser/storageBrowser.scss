@@ -15,7 +15,8 @@
     padding: var(--amplify-space-medium);
   }
 
-  &__navigation {
+  &__navigation,
+  &__exit {
     align-self: flex-start;
   }
 
@@ -33,6 +34,10 @@
     justify-content: space-between;
     width: 100%;
     gap: var(--amplify-space-medium);
+  }
+
+  &__footer {
+    justify-content: flex-end;
   }
 
   &__search {

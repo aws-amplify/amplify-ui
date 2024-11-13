@@ -124,7 +124,7 @@ export function LocationDetailView({
         <NavigationControl
           className={`${CLASS_BASE}__location-detail-view-navigation`}
         />
-        <TitleControl className={`${CLASS_BASE}__location-detail-view-title`} />
+        <TitleControl />
         <ViewElement className={`${CLASS_BASE}__location-detail-view-controls`}>
           <SearchControl
             className={`${CLASS_BASE}__location-detail-view-search`}
