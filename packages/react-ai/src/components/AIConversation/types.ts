@@ -12,9 +12,10 @@ import { DisplayTextTemplate } from '@aws-amplify/ui';
 import { AIConversationDisplayText } from './displayText';
 import {
   ConversationMessage,
-  ImageContentBlock,
   SendMessage,
+  ResponseComponents,
   TextContentBlock,
+  ImageContentBlock,
 } from '../../types';
 import { ControlsContextProps } from './context/ControlsContext';
 import { AIConversationProviderProps } from './AIConversationProvider';
@@ -34,6 +35,7 @@ export interface AIConversationInput {
   suggestedPrompts?: SuggestedPrompt[];
   actions?: CustomAction[];
   responseComponents?: ResponseComponents;
+  FallbackResponseComponent?: React.ComponentType<any>;
   variant?: MessageVariant;
   controls?: ControlsContextProps;
   allowAttachments?: boolean;
@@ -75,43 +77,11 @@ export interface Avatars {
 }
 
 export interface CustomAction {
-  displayName: string;
   handler: (message: ConversationMessage) => void;
-  icon: React.ReactNode;
+  component?: React.ReactNode;
 }
 
 export interface SuggestedPrompt {
   component?: React.ReactNode;
   inputText: string;
-}
-
-type JSONType =
-  | 'string'
-  | 'number'
-  | 'integer'
-  | 'boolean'
-  | 'object'
-  | 'array'
-  | 'null'
-  | 'any';
-
-interface ResponseComponentProp {
-  type: JSONType;
-  enum?: string[];
-  description?: string;
-  required?: boolean;
-}
-
-interface ResponseComponentPropMap {
-  [key: string]: ResponseComponentProp;
-}
-
-export interface ResponseComponent {
-  component: React.ComponentType<any>;
-  description?: string;
-  props: ResponseComponentPropMap;
-}
-
-export interface ResponseComponents {
-  [key: string]: ResponseComponent;
 }

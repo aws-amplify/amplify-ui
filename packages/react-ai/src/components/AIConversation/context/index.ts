@@ -44,4 +44,8 @@ export {
   WelcomeMessageContext,
   WelcomeMessageProvider,
 } from './WelcomeMessageContext';
+export {
+  FallbackComponentContext,
+  FallbackComponentProvider,
+} from './FallbackComponentContext';
 export * from './elements';
