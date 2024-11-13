@@ -3,12 +3,14 @@ import { useDropZone } from '@aws-amplify/ui-react-core';
 
 import { ViewElement } from '../context/elements';
 
-import { CLASS_BASE } from '../views/constants';
+import { AMPLIFY_CLASS_BASE } from '../views/constants';
 
 export interface DropZoneProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   onDropFiles?: (files: File[]) => void;
 }
+
+const BASE_CLASS = `${AMPLIFY_CLASS_BASE}__drop-zone`;
 
 export const DropZone = ({
   children,
@@ -21,7 +23,7 @@ export const DropZone = ({
   });
   return (
     <ViewElement
-      className={`${CLASS_BASE}__drop-zone${
+      className={`${BASE_CLASS} ${BASE_CLASS}${
         dragState !== 'inactive' ? '--active' : ''
       }`}
       {...dropHandlers}

@@ -7,9 +7,10 @@ import {
   TableHeadElement,
   TableHeaderElement,
   TableRowElement,
+  ViewElement,
 } from '../context/elements';
 
-import { CLASS_BASE } from '../views/constants';
+import { AMPLIFY_CLASS_BASE } from '../views/constants';
 import { WithKey } from './types';
 
 interface TableItem {
@@ -28,45 +29,50 @@ interface TableProps {
 
 export const Table = ({ headers, rows }: TableProps): React.JSX.Element => {
   return (
-    <TableElement className={`${CLASS_BASE}__table`}>
-      <TableHeadElement className={`${CLASS_BASE}__table-head`}>
-        {headers.length ? (
-          <TableRowElement className={`${CLASS_BASE}__table-row`}>
-            {headers.map(({ key, content }) => (
-              <TableHeaderElement
-                key={key}
-                className={`${CLASS_BASE}__table-header`}
-              >
-                {content}
-              </TableHeaderElement>
-            ))}
-          </TableRowElement>
-        ) : null}
-      </TableHeadElement>
-      <TableBodyElement className={`${CLASS_BASE}__table-body`}>
-        {rows?.map(({ key, content }) => (
-          <TableRowElement key={key} className={`${CLASS_BASE}__table-row`}>
-            {content.map(({ key, content, type }) => {
-              return type === 'header' ? (
+    <ViewElement className={`${AMPLIFY_CLASS_BASE}__data-table`}>
+      <TableElement className={`${AMPLIFY_CLASS_BASE}__table`}>
+        <TableHeadElement className={`${AMPLIFY_CLASS_BASE}__table-head`}>
+          {headers.length ? (
+            <TableRowElement className={`${AMPLIFY_CLASS_BASE}__table-row`}>
+              {headers.map(({ key, content }) => (
                 <TableHeaderElement
                   key={key}
-                  className={`${CLASS_BASE}__table-header`}
-                  role="rowheader"
+                  className={`${AMPLIFY_CLASS_BASE}__table-header`}
                 >
                   {content}
                 </TableHeaderElement>
-              ) : (
-                <TableDataCellElement
-                  key={key}
-                  className={`${CLASS_BASE}__table-data-cell`}
-                >
-                  {content}
-                </TableDataCellElement>
-              );
-            })}
-          </TableRowElement>
-        ))}
-      </TableBodyElement>
-    </TableElement>
+              ))}
+            </TableRowElement>
+          ) : null}
+        </TableHeadElement>
+        <TableBodyElement className={`${AMPLIFY_CLASS_BASE}__table-body`}>
+          {rows?.map(({ key, content }) => (
+            <TableRowElement
+              key={key}
+              className={`${AMPLIFY_CLASS_BASE}__table-row`}
+            >
+              {content.map(({ key, content, type }) => {
+                return type === 'header' ? (
+                  <TableHeaderElement
+                    key={key}
+                    className={`${AMPLIFY_CLASS_BASE}__table-header`}
+                    role="rowheader"
+                  >
+                    {content}
+                  </TableHeaderElement>
+                ) : (
+                  <TableDataCellElement
+                    key={key}
+                    className={`${AMPLIFY_CLASS_BASE}__table-data-cell`}
+                  >
+                    {content}
+                  </TableDataCellElement>
+                );
+              })}
+            </TableRowElement>
+          ))}
+        </TableBodyElement>
+      </TableElement>
+    </ViewElement>
   );
 };

@@ -7,11 +7,11 @@ import { MessageControl } from '../../../controls/MessageControl';
 import { TitleControl } from '../../../controls/TitleControl';
 import { ControlsContextProvider } from '../../../controls/context';
 import { useDisplayText } from '../../../displayText';
-import { CLASS_BASE } from '../../constants';
 import { resolveClassName } from '../../utils';
 import { CreateFolderViewProps } from './types';
 import { useCreateFolderView } from './useCreateFolderView';
 import { isValidFolderName } from './utils';
+import { AMPLIFY_CLASS_BASE, CLASS_BASE } from '../../constants';
 
 export function CreateFolderView({
   className,
@@ -61,7 +61,7 @@ export function CreateFolderView({
     isProcessingComplete;
 
   return (
-    <div className={resolveClassName(CLASS_BASE, className)}>
+    <div className={resolveClassName(AMPLIFY_CLASS_BASE, className)}>
       <ControlsContextProvider
         data={{
           actionExitLabel,
@@ -83,9 +83,7 @@ export function CreateFolderView({
         <ActionExitControl />
         <TitleControl className={`${CLASS_BASE}__create-folder-view-title`} />
         <FolderNameFieldControl />
-        <ActionStartControl
-          className={`${CLASS_BASE}__create-folder-action-start`}
-        />
+        <ActionStartControl />
         <MessageControl />
       </ControlsContextProvider>
     </div>

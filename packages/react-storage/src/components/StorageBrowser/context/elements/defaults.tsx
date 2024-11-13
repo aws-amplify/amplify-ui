@@ -159,7 +159,7 @@ function TableHead(props: TableHeadElementProps): React.JSX.Element {
 }
 
 function TableDataCell(props: TableDataCellElementProps): React.JSX.Element {
-  return <_TableCell padding="xxxs" {...props} />;
+  return <_TableCell {...props} />;
 }
 
 function TableRow(props: TableRowElementProps): React.JSX.Element {
@@ -167,7 +167,7 @@ function TableRow(props: TableRowElementProps): React.JSX.Element {
 }
 
 function TableHeader(props: TableHeaderElementProps): React.JSX.Element {
-  return <_TableCell padding="xxxs" as="th" {...props} />;
+  return <_TableCell as="th" {...props} />;
 }
 
 function Text(props: TextElementProps): React.JSX.Element {

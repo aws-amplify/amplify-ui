@@ -9,7 +9,7 @@ import { StatusDisplayControl } from '../../../controls/StatusDisplayControl';
 import { TitleControl } from '../../../controls/TitleControl';
 import { ControlsContextProvider } from '../../../controls/context';
 import { useDisplayText } from '../../../displayText';
-import { CLASS_BASE } from '../../constants';
+import { AMPLIFY_CLASS_BASE } from '../../constants';
 import { resolveClassName } from '../../utils';
 import { getActionViewTableData } from '../getActionViewTableData';
 import { useDeleteView } from './useDeleteView';
@@ -43,7 +43,7 @@ export function DeleteView({
   });
 
   return (
-    <div className={resolveClassName(CLASS_BASE, className)}>
+    <div className={resolveClassName(AMPLIFY_CLASS_BASE, className)}>
       <ControlsContextProvider
         data={{
           actionCancelLabel,
@@ -61,18 +61,21 @@ export function DeleteView({
         onActionCancel={onActionCancel}
       >
         <ActionExitControl />
-        <TitleControl className={`${CLASS_BASE}__delete-view-title`} />
-        <ViewElement className={`${CLASS_BASE}__table-wrapper`}>
-          <DataTableControl
-            className={`${CLASS_BASE}__delete-view-data-table`}
-          />
+        <TitleControl />
+
+        <DataTableControl />
+
+        <ViewElement className={`${AMPLIFY_CLASS_BASE}__summary`}>
+          <StatusDisplayControl />
         </ViewElement>
-        <ViewElement className={`${CLASS_BASE}__action-footer`}>
-          <StatusDisplayControl
-            className={`${CLASS_BASE}__action-status-display`}
-          />
-          <ActionCancelControl className={`${CLASS_BASE}__cancel`} />
-          <ActionStartControl />
+        <ViewElement className={`${AMPLIFY_CLASS_BASE}__footer`}>
+          <ViewElement className={`${AMPLIFY_CLASS_BASE}__message`}>
+            {/* TODO: confirmation message goes here */}
+          </ViewElement>
+          <ViewElement className={`${AMPLIFY_CLASS_BASE}__buttons`}>
+            <ActionCancelControl />
+            <ActionStartControl />
+          </ViewElement>
         </ViewElement>
       </ControlsContextProvider>
     </div>

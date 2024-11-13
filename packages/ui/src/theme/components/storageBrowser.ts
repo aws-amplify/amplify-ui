@@ -10,29 +10,25 @@ export type StorageBrowserTheme<Required extends boolean = false> =
         navigation?: ComponentStyles;
         title?: ComponentStyles;
         controls?: ComponentStyles;
-        controls__pagination?: ComponentStyles;
-        controls__search?: ComponentStyles;
-        controls__refresh?: ComponentStyles;
-        controls__menu?: ComponentStyles;
+        pagination?: ComponentStyles;
+        search?: ComponentStyles;
+        refresh?: ComponentStyles;
+        menu?: ComponentStyles;
+        summary?: ComponentStyles;
+        footer?: ComponentStyles;
+        status?: ComponentStyles;
+        message?: ComponentStyles;
+        buttons?: ComponentStyles;
 
-        action?: ComponentStyles;
-        action__options?: ComponentStyles;
-        action__summary?: ComponentStyles;
-        action__footer?: ComponentStyles;
-        action__status?: ComponentStyles;
-        action__message?: ComponentStyles;
-        action__buttons?: ComponentStyles;
+        'drop-zone'?: ComponentStyles;
 
-        table?: ComponentStyles;
-        table__wrapper?: ComponentStyles;
-
-        table__head?: ComponentStyles;
-        table__header?: Modifiers<TableCellVariations, Required> &
+        'data-table'?: ComponentStyles;
+        'table-head'?: ComponentStyles;
+        'table-header'?: Modifiers<TableCellVariations, Required> &
           ComponentStyles;
-        table__header__button?: ComponentStyles;
-        table__body?: ComponentStyles;
-        table__row?: ComponentStyles;
-        table__data?: Modifiers<TableCellVariations, Required> &
+        'table-body'?: ComponentStyles;
+        'table-row'?: ComponentStyles;
+        'table-data-cell'?: Modifiers<TableCellVariations, Required> &
           ComponentStyles;
       },
       Required

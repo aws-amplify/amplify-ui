@@ -9,7 +9,7 @@ import { DataTableControl } from '../../../controls/DataTableControl';
 import { StatusDisplayControl } from '../../../controls/StatusDisplayControl';
 import { ControlsContextProvider } from '../../../controls/context';
 import { useDisplayText } from '../../../displayText';
-import { CLASS_BASE } from '../../constants';
+import { AMPLIFY_CLASS_BASE, CLASS_BASE } from '../../constants';
 import { getActionViewTableData } from '../getActionViewTableData';
 import { resolveClassName } from '../../utils';
 import { DestinationPicker } from './DestinationPicker';
@@ -59,7 +59,7 @@ export function CopyView({
   const isActionCancelDisabled = !isProcessing || isProcessingComplete;
 
   return (
-    <div className={resolveClassName(CLASS_BASE, className)}>
+    <div className={resolveClassName(`${AMPLIFY_CLASS_BASE}`, className)}>
       <ControlsContextProvider
         data={{
           actionCancelLabel,
@@ -78,9 +78,7 @@ export function CopyView({
       >
         <ActionExitControl />
         <TitleControl className={`${CLASS_BASE}__copy-view-title`} />
-        <ViewElement className={`${CLASS_BASE}__table-wrapper`}>
-          <DataTableControl className={`${CLASS_BASE}__copy-view-data-table`} />
-        </ViewElement>
+        <DataTableControl />
         {isProcessing || isProcessingComplete ? (
           <ViewElement className={`${CLASS_BASE}__action-destination`}>
             <DescriptionList
@@ -99,20 +97,18 @@ export function CopyView({
           />
         )}
 
-        <ViewElement className={`${CLASS_BASE}__action-footer`}>
+        <ViewElement className={`${AMPLIFY_CLASS_BASE}__footer`}>
           {isProcessing || isProcessingComplete ? (
-            <StatusDisplayControl
-              className={`${CLASS_BASE}__action-status-display`}
-            />
+            <StatusDisplayControl />
           ) : (
             <ViewElement className={`${CLASS_BASE}__action-status-display`}>
               Copy action may overwrite existing files at selected destination.
             </ViewElement>
           )}
-          <ActionCancelControl className={`${CLASS_BASE}__cancel`} />
-          <ActionStartControl
-            className={`${CLASS_BASE}__upload-action-start`}
-          />
+          <ViewElement className={`${AMPLIFY_CLASS_BASE}__buttons`}>
+            <ActionCancelControl />
+            <ActionStartControl />
+          </ViewElement>
         </ViewElement>
       </ControlsContextProvider>
     </div>
