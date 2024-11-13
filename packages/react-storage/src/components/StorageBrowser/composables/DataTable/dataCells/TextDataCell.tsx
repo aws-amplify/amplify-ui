@@ -6,7 +6,7 @@ import {
   SpanElement,
   ViewElement,
 } from '../../../context/elements';
-import { CLASS_BASE } from '../../../views/constants';
+import { STORAGE_BROWSER_BLOCK_TO_BE_UPDATED } from '../../../constants';
 
 export interface TextDataCellProps {
   content: {
@@ -20,15 +20,17 @@ export const TextDataCell = ({
 }: TextDataCellProps): React.JSX.Element => {
   const { icon, text } = content;
   return (
-    <ViewElement className={`${CLASS_BASE}__table-text-data-cell`}>
+    <ViewElement
+      className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__table-text-data-cell`}
+    >
       {icon && (
         <IconElement
-          className={`${CLASS_BASE}__table-text-data-cell-icon ${CLASS_BASE}__table-text-data-cell-icon--${icon}`}
+          className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__table-text-data-cell-icon ${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__table-text-data-cell-icon--${icon}`}
           variant={icon}
         />
       )}
       <SpanElement
-        className={`${CLASS_BASE}__table-text-data-cell-text`}
+        className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__table-text-data-cell-text`}
         title={text}
       >
         {text}

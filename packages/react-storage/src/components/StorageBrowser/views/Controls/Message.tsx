@@ -4,9 +4,7 @@ import { ButtonElement, ViewElement } from '../../context/elements/definitions';
 import { IconElement } from '../../context/elements/IconElement';
 
 import { MessageVariant } from '../../context/elements';
-import { CLASS_BASE } from '../constants';
-
-const BLOCK_NAME = `${CLASS_BASE}__message`;
+import { STORAGE_BROWSER_BLOCK_TO_BE_UPDATED } from '../../constants';
 interface MessageControlProps {
   variant?: MessageVariant;
   children?: React.ReactNode;
@@ -35,18 +33,26 @@ export const MessageControl = ({
   }
 
   return dismissed ? null : (
-    <ViewElement className={BLOCK_NAME} role="alert" variant={variant}>
+    <ViewElement
+      className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__message`}
+      role="alert"
+      variant={variant}
+    >
       <IconElement variant={variant} aria-label={ariaLabel} />
-      <ViewElement className={`${BLOCK_NAME}__content`}>{children}</ViewElement>
+      <ViewElement
+        className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__message-content`}
+      >
+        {children}
+      </ViewElement>
       <ButtonElement
         onClick={() => setDismissed(true)}
-        className={`${BLOCK_NAME}__dismiss`}
+        className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__message-dismiss`}
         variant="message-dismiss"
         aria-label="Dismiss message"
       >
         <IconElement
           variant="dismiss"
-          className={`${BLOCK_NAME}__dismiss__icon`}
+          className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__message-dismiss-icon`}
         />
       </ButtonElement>
     </ViewElement>

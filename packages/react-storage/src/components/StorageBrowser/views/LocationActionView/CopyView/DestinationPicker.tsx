@@ -8,7 +8,7 @@ import {
 import { ViewElement } from '../../../context/elements';
 import { displayText } from '../../../displayText/en';
 import { useDestinationPicker } from '../CopyView/useDestinationPicker';
-import { CLASS_BASE } from '../../constants';
+import { STORAGE_BROWSER_BLOCK_TO_BE_UPDATED } from '../../../constants';
 import { DataTableControl } from '../../../controls/DataTableControl';
 import { ControlsContextProvider } from '../../../controls/context';
 import { ControlsContext } from '../../../controls/types';
@@ -119,10 +119,12 @@ export const DestinationPicker = ({
           },
         ]}
       />
-      <ViewElement className={`${CLASS_BASE}__action-destination`}>
+      <ViewElement
+        className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__action-destination`}
+      >
         <SearchControl />
         <PaginationControl
-          className={`${CLASS_BASE}__destination-picker-pagination`}
+          className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__destination-picker-pagination`}
         />
       </ViewElement>
 

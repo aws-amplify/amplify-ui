@@ -9,7 +9,10 @@ import { DataTableControl } from '../../../controls/DataTableControl';
 import { StatusDisplayControl } from '../../../controls/StatusDisplayControl';
 import { ControlsContextProvider } from '../../../controls/context';
 import { useDisplayText } from '../../../displayText';
-import { AMPLIFY_CLASS_BASE, CLASS_BASE } from '../../constants';
+import {
+  STORAGE_BROWSER_BLOCK,
+  STORAGE_BROWSER_BLOCK_TO_BE_UPDATED,
+} from '../../../constants';
 import { getActionViewTableData } from '../getActionViewTableData';
 import { resolveClassName } from '../../utils';
 import { DestinationPicker } from './DestinationPicker';
@@ -59,7 +62,7 @@ export function CopyView({
   const isActionCancelDisabled = !isProcessing || isProcessingComplete;
 
   return (
-    <div className={resolveClassName(`${AMPLIFY_CLASS_BASE}`, className)}>
+    <div className={resolveClassName(`${STORAGE_BROWSER_BLOCK}`, className)}>
       <ControlsContextProvider
         data={{
           actionCancelLabel,
@@ -80,7 +83,9 @@ export function CopyView({
         <TitleControl />
         <DataTableControl />
         {isProcessing || isProcessingComplete ? (
-          <ViewElement className={`${CLASS_BASE}__action-destination`}>
+          <ViewElement
+            className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__action-destination`}
+          >
             <DescriptionList
               descriptions={[
                 {
@@ -97,15 +102,17 @@ export function CopyView({
           />
         )}
 
-        <ViewElement className={`${AMPLIFY_CLASS_BASE}__footer`}>
+        <ViewElement className={`${STORAGE_BROWSER_BLOCK}__footer`}>
           {isProcessing || isProcessingComplete ? (
             <StatusDisplayControl />
           ) : (
-            <ViewElement className={`${CLASS_BASE}__action-status-display`}>
+            <ViewElement
+              className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__action-status-display`}
+            >
               Copy action may overwrite existing files at selected destination.
             </ViewElement>
           )}
-          <ViewElement className={`${AMPLIFY_CLASS_BASE}__buttons`}>
+          <ViewElement className={`${STORAGE_BROWSER_BLOCK}__buttons`}>
             <ActionCancelControl />
             <ActionStartControl />
           </ViewElement>

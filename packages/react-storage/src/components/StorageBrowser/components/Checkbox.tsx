@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { CLASS_BASE } from '../views/constants';
+import { STORAGE_BROWSER_BLOCK_TO_BE_UPDATED } from '../constants';
 import { ViewElement, LabelElement, InputElement } from '../context/elements';
 
 interface CheckboxProps {
@@ -20,10 +20,10 @@ export const Checkbox = ({
   labelText,
   onSelect,
 }: CheckboxProps): React.JSX.Element => (
-  <ViewElement className={`${CLASS_BASE}__checkbox`}>
+  <ViewElement className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__checkbox`}>
     <InputElement
       checked={checked}
-      className={`${CLASS_BASE}__checkbox-input`}
+      className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__checkbox-input`}
       disabled={disabled}
       id={id}
       onChange={onSelect}
@@ -31,8 +31,10 @@ export const Checkbox = ({
     />
     <LabelElement
       className={[
-        `${CLASS_BASE}__checkbox-label`,
-        labelHidden ? `${CLASS_BASE}-visually-hidden` : undefined,
+        `${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__checkbox-label`,
+        labelHidden
+          ? `${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}-visually-hidden`
+          : undefined,
       ].join(' ')}
       htmlFor={id}
     >

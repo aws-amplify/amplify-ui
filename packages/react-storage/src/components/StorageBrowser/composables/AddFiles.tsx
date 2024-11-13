@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { ButtonElement } from '../context/elements';
-import { CLASS_BASE } from '../views/constants';
+import { STORAGE_BROWSER_BLOCK_TO_BE_UPDATED } from '../constants';
 
 export interface AddFilesProps {
   onAddFiles?: () => void;
@@ -15,7 +15,7 @@ export const AddFiles = ({
   label,
 }: AddFilesProps): React.JSX.Element => (
   <ButtonElement
-    className={`${CLASS_BASE}__add-files`}
+    className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__add-files`}
     disabled={isDisabled}
     onClick={onAddFiles}
     variant="add-files"

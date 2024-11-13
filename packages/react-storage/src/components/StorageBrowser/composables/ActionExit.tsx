@@ -1,9 +1,7 @@
 import React from 'react';
 
 import { ButtonElement, IconElement } from '../context/elements';
-import { AMPLIFY_CLASS_BASE } from '../views/constants';
-
-const BLOCK_NAME = `${AMPLIFY_CLASS_BASE}__exit`;
+import { STORAGE_BROWSER_BLOCK } from '../constants';
 
 export interface ActionExitProps {
   onExit?: () => void;
@@ -17,11 +15,15 @@ export const ActionExit = ({
   label,
 }: ActionExitProps): React.JSX.Element => (
   <ButtonElement
-    className={BLOCK_NAME}
+    className={`${STORAGE_BROWSER_BLOCK}__action-exit`}
     variant="exit"
     onClick={onExit}
     disabled={isDisabled}
   >
-    <IconElement className={`${BLOCK_NAME}-icon`} variant="exit" /> {label}
+    <IconElement
+      className={`${STORAGE_BROWSER_BLOCK}__action-exit-icon`}
+      variant="exit"
+    />{' '}
+    {label}
   </ButtonElement>
 );
