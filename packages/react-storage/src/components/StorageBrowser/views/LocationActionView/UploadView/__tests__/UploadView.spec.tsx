@@ -7,8 +7,6 @@ import * as UseUploadViewModule from '../useUploadView';
 import { UploadViewState } from '../types';
 import { UploadView } from '../UploadView';
 
-jest.mock('../../Controls/Title');
-
 jest.mock('../../../../displayText', () => ({
   useDisplayText: () => ({ UploadView: {} }),
 }));

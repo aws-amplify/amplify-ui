@@ -1,28 +1,23 @@
 import React from 'react';
 
-import { CLASS_BASE } from '../constants';
-import { Controls } from '../Controls';
-import { resolveClassName } from '../utils';
-import { useLocationsView } from './useLocationsView';
-import { ControlsContextProvider } from '../../controls/context';
+import { ViewElement } from '../../context/elements';
 import { DataRefreshControl } from '../../controls/DataRefreshControl';
 import { DataTableControl } from '../../controls/DataTableControl';
 import { SearchControl } from '../../controls/SearchControl';
-import { LocationsViewProps } from './types';
-import { ViewElement } from '../../context/elements';
-import { getLocationsViewTableData } from './getLocationsViewTableData';
+import { TitleControl } from '../../controls/TitleControl';
+import { ControlsContextProvider } from '../../controls/context';
 import { useDisplayText } from '../../displayText';
+import { Controls } from '../Controls';
+import { CLASS_BASE } from '../constants';
+import { resolveClassName } from '../utils';
+import { getLocationsViewTableData } from './getLocationsViewTableData';
 import { LocationViewHeaders } from './getLocationsViewTableData/types';
+import { useLocationsView } from './useLocationsView';
+import { LocationsViewProps } from './types';
 
 export const DEFAULT_ERROR_MESSAGE = 'There was an error loading locations.';
 
-const {
-  EmptyMessage,
-  Loading: LoadingElement,
-  Message,
-  Paginate,
-  Title,
-} = Controls;
+const { EmptyMessage, Loading: LoadingElement, Message, Paginate } = Controls;
 
 const Loading = ({ show }: { show: boolean }) => {
   return show ? <LoadingElement /> : null;
@@ -77,6 +72,17 @@ export function LocationsView({
   ...props
 }: LocationsViewProps): React.JSX.Element {
   const {
+    LocationsView: {
+      title,
+      tableColumnBucketHeader,
+      tableColumnFolderHeader,
+      tableColumnPermissionsHeader,
+      searchPlaceholder,
+      getPermissionName,
+    },
+  } = useDisplayText();
+
+  const {
     hasError,
     hasNextPage,
     highestPageVisited,
@@ -94,17 +100,6 @@ export function LocationsView({
     onSearchClear,
   } = useLocationsView(props);
 
-  const {
-    LocationsView: {
-      title,
-      tableColumnBucketHeader,
-      tableColumnFolderHeader,
-      tableColumnPermissionsHeader,
-      searchPlaceholder,
-      getPermissionName,
-    },
-  } = useDisplayText();
-
   const headers = getHeaders({
     tableColumnBucketHeader,
     tableColumnFolderHeader,
@@ -121,6 +116,7 @@ export function LocationsView({
           pageItems,
           onNavigate,
         }),
+        title,
         searchPlaceholder: searchPlaceholder,
         searchQuery,
       }}
@@ -133,7 +129,7 @@ export function LocationsView({
         className={resolveClassName(CLASS_BASE, className)}
         data-testid="LOCATIONS_VIEW"
       >
-        <Title>{title}</Title>
+        <TitleControl className={`${CLASS_BASE}__locations-view-title`} />
         <ViewElement className={`${CLASS_BASE}__location-detail-view-controls`}>
           <SearchControl className={`${CLASS_BASE}__locations-view-search`} />
           <Paginate
