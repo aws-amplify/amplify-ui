@@ -3,12 +3,10 @@ import { render, screen } from '@testing-library/react';
 import { useResolvedComposable } from '../hooks/useResolvedComposable';
 import { useDropZone } from '../hooks/useDropZone';
 import { DropZoneControl } from '../DropZoneControl';
+import { AMPLIFY_CLASS_BASE } from '../../views/constants';
 
 jest.mock('../hooks/useDropZone');
 jest.mock('../hooks/useResolvedComposable');
-jest.mock('../../composables/DropZone', () => ({
-  DropZone: () => <div data-testid="default-drop-zone" />,
-}));
 
 describe('DropZoneControl', () => {
   // assert mocks
@@ -30,13 +28,13 @@ describe('DropZoneControl', () => {
     mockUseDropZone.mockReturnValue({});
 
     render(
-      <DropZoneControl className="my-class-name">
+      <DropZoneControl>
         <table />
       </DropZoneControl>
     );
 
-    const defaultDropZone = screen.getByTestId('default-drop-zone');
+    const child = screen.getByRole('table');
 
-    expect(defaultDropZone.parentElement).toHaveClass('my-class-name');
+    expect(child.parentElement).toHaveClass(`${AMPLIFY_CLASS_BASE}__drop-zone`);
   });
 });

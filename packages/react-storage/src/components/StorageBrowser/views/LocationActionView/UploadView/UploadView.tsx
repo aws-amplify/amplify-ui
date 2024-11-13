@@ -12,7 +12,7 @@ import { StatusDisplayControl } from '../../../controls/StatusDisplayControl';
 import { TitleControl } from '../../../controls/TitleControl';
 import { ControlsContextProvider } from '../../../controls/context';
 import { useDisplayText } from '../../../displayText';
-import { CLASS_BASE } from '../../constants';
+import { AMPLIFY_CLASS_BASE, CLASS_BASE } from '../../constants';
 import { resolveClassName } from '../../utils';
 import { getActionViewTableData } from '../getActionViewTableData';
 import { useUploadView } from './useUploadView';
@@ -46,8 +46,8 @@ export function UploadView({
     onActionCancel,
     onDropFiles,
     onActionExit,
+    onTaskRemove,
     onSelectFiles,
-    onTaskCancel,
     onToggleOverwrite,
   } = useUploadView(props);
 
@@ -59,7 +59,7 @@ export function UploadView({
   const isActionExitDisabled = isProcessing;
 
   return (
-    <div className={resolveClassName(CLASS_BASE, className)}>
+    <div className={resolveClassName(AMPLIFY_CLASS_BASE, className)}>
       <ControlsContextProvider
         data={{
           actionCancelLabel,
@@ -78,7 +78,7 @@ export function UploadView({
             tasks,
             isProcessing,
             shouldDisplayProgress: true,
-            onTaskCancel,
+            onTaskRemove,
           }),
           title,
         }}
@@ -125,21 +125,15 @@ export function UploadView({
             Add files
           </ButtonElement>
         </ViewElement>
-        <ViewElement className={`${CLASS_BASE}__table-wrapper`}>
-          <DropZoneControl className={`${CLASS_BASE}__upload-view-drop-zone`}>
-            <DataTableControl
-              className={`${CLASS_BASE}__upload-view-data-table`}
-            />
-          </DropZoneControl>
-        </ViewElement>
-        <ViewElement className={`${CLASS_BASE}__action-footer`}>
-          <StatusDisplayControl
-            className={`${CLASS_BASE}__upload-status-display`}
-          />
-          <ActionCancelControl className={`${CLASS_BASE}__cancel`} />
-          <ActionStartControl
-            className={`${CLASS_BASE}__upload-action-start`}
-          />
+        <DropZoneControl>
+          <DataTableControl />
+        </DropZoneControl>
+        <ViewElement className={`${AMPLIFY_CLASS_BASE}__footer`}>
+          <StatusDisplayControl />
+          <ViewElement className={`${AMPLIFY_CLASS_BASE}__buttons`}>
+            <ActionCancelControl />
+            <ActionStartControl />
+          </ViewElement>
         </ViewElement>
       </ControlsContextProvider>
     </div>

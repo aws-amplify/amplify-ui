@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { ButtonElement } from '../context/elements';
-import { CLASS_BASE } from '../views/constants';
+import { AMPLIFY_CLASS_BASE } from '../views/constants';
 
 export interface ActionCancelProps {
   onCancel?: () => void;
@@ -16,7 +16,7 @@ export const ActionCancel = ({
 }: ActionCancelProps): React.JSX.Element => (
   <ButtonElement
     variant="cancel"
-    className={`${CLASS_BASE}__action-cancel`}
+    className={`${AMPLIFY_CLASS_BASE}__cancel`}
     onClick={onCancel}
     disabled={isDisabled}
   >

@@ -52,7 +52,6 @@ const defaultViewState: CreateFolderViewState = {
   onActionExit,
   onActionStart,
   onFolderNameChange,
-  onTaskCancel: jest.fn(),
   statusCounts: {
     CANCELED: 0,
     COMPLETE: 0,

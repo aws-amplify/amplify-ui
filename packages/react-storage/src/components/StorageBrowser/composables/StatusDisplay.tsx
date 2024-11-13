@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { DescriptionList } from '../components/DescriptionList';
+import { AMPLIFY_CLASS_BASE } from '../views/constants';
 
 interface Status {
   name: string;
@@ -25,5 +26,10 @@ export const StatusDisplay = ({
     details: `${count}/${total}`,
   }));
 
-  return <DescriptionList descriptions={descriptions} />;
+  return (
+    <DescriptionList
+      className={`${AMPLIFY_CLASS_BASE}__status`}
+      descriptions={descriptions}
+    />
+  );
 };

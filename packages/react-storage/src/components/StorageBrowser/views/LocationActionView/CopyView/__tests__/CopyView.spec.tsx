@@ -74,9 +74,7 @@ const location = {
 const onActionCancel = jest.fn();
 const onActionExit = jest.fn();
 const onActionStart = jest.fn();
-
 const onDestinationChange = jest.fn();
-const onTaskCancel = jest.fn();
 
 const actionCallbacks = {
   onActionCancel,
@@ -86,7 +84,6 @@ const actionCallbacks = {
 
 const defaultViewState: CopyViewState = {
   ...actionCallbacks,
-  onTaskCancel,
   destinationList: [],
   isProcessingComplete: false,
   isProcessing: false,

@@ -8,7 +8,7 @@ import { TitleControl } from '../../controls/TitleControl';
 import { ControlsContextProvider } from '../../controls/context';
 import { useDisplayText } from '../../displayText';
 import { Controls } from '../Controls';
-import { CLASS_BASE } from '../constants';
+import { AMPLIFY_CLASS_BASE, CLASS_BASE } from '../constants';
 import { resolveClassName } from '../utils';
 import { getLocationsViewTableData } from './getLocationsViewTableData';
 import { LocationViewHeaders } from './getLocationsViewTableData/types';
@@ -126,7 +126,7 @@ export function LocationsView({
       onSearchClear={onSearchClear}
     >
       <div
-        className={resolveClassName(CLASS_BASE, className)}
+        className={resolveClassName(AMPLIFY_CLASS_BASE, className)}
         data-testid="LOCATIONS_VIEW"
       >
         <TitleControl className={`${CLASS_BASE}__locations-view-title`} />
@@ -144,13 +144,7 @@ export function LocationsView({
         </ViewElement>
         <LocationsMessage show={hasError} message={message} />
         <Loading show={isLoading} />
-        {hasError ? null : (
-          <ViewElement className={`${CLASS_BASE}__table-wrapper`}>
-            <DataTableControl
-              className={`${CLASS_BASE}__locations-view-data-table`}
-            />
-          </ViewElement>
-        )}
+        {hasError ? null : <DataTableControl />}
         <LocationsEmptyMessage show={shouldShowEmptyMessage} />
       </div>
     </ControlsContextProvider>

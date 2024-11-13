@@ -15,6 +15,8 @@ import {
   ActionInputConfig,
   ListLocationItemsHandlerOutput,
 } from '../../../actions';
+import { useProcessTasks } from '../../../tasks/useProcessTasks';
+import { INITIAL_STATUS_COUNTS } from '../../../tasks';
 
 jest.mock('../Controls/ActionsMenu');
 jest.mock('../../../displayText', () => ({
@@ -27,6 +29,7 @@ jest.mock('../../../controls/NavigationControl', () => ({
 jest.mock('../../../controls/DataTableControl', () => ({
   DataTableControl: () => <div data-testid="data-table-control" />,
 }));
+jest.mock('../../../tasks/useProcessTasks');
 
 const handleList = jest.fn();
 
@@ -100,6 +103,21 @@ useGetActionSpy.mockReturnValue(() => config);
 
 describe('LocationDetailView', () => {
   let user: UserEvent;
+
+  const mockUseProcessTasks = jest.mocked(useProcessTasks);
+
+  beforeAll(() => {
+    mockUseProcessTasks.mockReturnValue([
+      {
+        isProcessing: false,
+        isProcessingComplete: false,
+        statusCounts: INITIAL_STATUS_COUNTS,
+        tasks: [],
+      },
+      jest.fn(),
+    ]);
+  });
+
   beforeEach(() => {
     user = userEvent.setup();
   });

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { ButtonElement } from '../context/elements';
-import { CLASS_BASE } from '../views/constants';
+import { AMPLIFY_CLASS_BASE } from '../views/constants';
 
 export interface ActionStartProps {
   onStart?: () => void;
@@ -16,7 +16,7 @@ export const ActionStart = ({
 }: ActionStartProps): React.JSX.Element => (
   <ButtonElement
     variant="primary"
-    className={`${CLASS_BASE}__action-start`}
+    className={`${AMPLIFY_CLASS_BASE}__start`}
     onClick={onStart}
     disabled={isDisabled}
   >

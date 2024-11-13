@@ -13,7 +13,7 @@ import { TitleControl } from '../../controls/TitleControl';
 import { ControlsContextProvider } from '../../controls/context';
 import { useDisplayText } from '../../displayText';
 import { Controls } from '../Controls';
-import { CLASS_BASE } from '../constants';
+import { AMPLIFY_CLASS_BASE, CLASS_BASE } from '../constants';
 import { resolveClassName } from '../utils';
 import { ActionsMenuControl } from './Controls/ActionsMenu';
 import { getLocationDetailViewTableData } from './getLocationDetailViewTableData';
@@ -91,7 +91,7 @@ export function LocationDetailView({
 
   return (
     <div
-      className={resolveClassName(CLASS_BASE, className)}
+      className={resolveClassName(AMPLIFY_CLASS_BASE, className)}
       data-testid="LOCATION_DETAIL_VIEW"
     >
       <ControlsContextProvider
@@ -158,15 +158,9 @@ export function LocationDetailView({
         <LocationDetailMessage show={hasError} message={message} />
         <Loading show={isLoading} />
         {hasError ? null : (
-          <ViewElement className={`${CLASS_BASE}__table-wrapper`}>
-            <DropZoneControl
-              className={`${CLASS_BASE}__location-detail-view-drop-zone`}
-            >
-              <DataTableControl
-                className={`${CLASS_BASE}__location-detail-view-data-table`}
-              />
-            </DropZoneControl>
-          </ViewElement>
+          <DropZoneControl>
+            <DataTableControl />
+          </DropZoneControl>
         )}
         <LocationDetailEmptyMessage show={shouldShowEmptyMessage} />
       </ControlsContextProvider>

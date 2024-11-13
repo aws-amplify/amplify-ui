@@ -26,7 +26,9 @@ describe('DropZone', () => {
 
     const child = screen.getByRole('table');
 
-    expect(child.parentElement).toHaveClass('storage-browser__drop-zone');
+    expect(child.parentElement).toHaveClass(
+      'amplify-storage-browser__drop-zone'
+    );
   });
 
   it('calls onDropFiles', () => {
@@ -64,7 +66,7 @@ describe('DropZone', () => {
     const child = screen.getByRole('table');
 
     expect(child.parentElement).toHaveClass(
-      'storage-browser__drop-zone--active'
+      'amplify-storage-browser__drop-zone--active'
     );
   });
 });
