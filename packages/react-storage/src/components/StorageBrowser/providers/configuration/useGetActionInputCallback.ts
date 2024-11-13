@@ -6,7 +6,7 @@ import { useStore } from '../store';
 import { useCredentials } from './credentials';
 import { GetActionInput } from './types';
 import { LocationData } from '../../actions';
-import { assertPrefix, assertScope } from '../../validators/assertLocationData';
+import { assertPrefix } from '../../validators/assertLocationData';
 
 export const getErrorMessage = (propertyName: string): string =>
   `Unable to resolve credentials due to invalid value of '${propertyName}'`;
@@ -38,7 +38,6 @@ export function useGetActionInputCallback({
       const { bucket, permission, type } = _location;
       // BUCKET/PREFIX grants end with `*`, but object grants do not.
       const scope = `s3://${bucket}/${_prefix}${type === 'OBJECT' ? '' : '*'}`;
-      assertScope(scope, getErrorMessage('scope'));
 
       return {
         accountId,

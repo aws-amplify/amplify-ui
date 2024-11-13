@@ -29,12 +29,3 @@ export function assertPrefix(
     throw new Error(message ?? 'Invalid value provided as `prefix`.');
   }
 }
-
-export function assertScope(
-  value: string | undefined,
-  message?: string
-): asserts value is string {
-  if (!isString(value) || !value.startsWith('s3://')) {
-    throw new Error(message ?? 'Invalid value provided as `scope`.');
-  }
-}
