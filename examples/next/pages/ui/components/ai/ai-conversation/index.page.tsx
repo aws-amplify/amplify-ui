@@ -1,24 +1,25 @@
+import * as React from 'react';
 import { Amplify } from 'aws-amplify';
 import { createAIHooks, AIConversation } from '@aws-amplify/ui-react-ai';
 import { generateClient } from 'aws-amplify/api';
 import '@aws-amplify/ui-react/styles.css';
-import '@aws-amplify/ui-react-ai/ai-conversation-styles.css';
 
 import outputs from './amplify_outputs';
 import type { Schema } from '@environments/ai/gen2/amplify/data/resource';
-import { Authenticator, Card } from '@aws-amplify/ui-react';
+import {
+  Authenticator,
+  Button,
+  Card,
+  Flex,
+  Heading,
+  View,
+} from '@aws-amplify/ui-react';
+import { useRouter } from 'next/router';
 
 const client = generateClient<Schema>({ authMode: 'userPool' });
 const { useAIConversation } = createAIHooks(client);
 
 Amplify.configure(outputs);
-
-const formatDate = (date: Date): string =>
-  `Argh the time be round ${date.toLocaleTimeString('en-US', {
-    hour: 'numeric',
-    minute: 'numeric',
-    hour12: true,
-  })}`;
 
 function Chat() {
   const [
@@ -27,38 +28,81 @@ function Chat() {
       isLoading,
     },
     sendMessage,
-  ] = useAIConversation('pirateChat');
+  ] = useAIConversation('pirateChat', { onMessage, onInitialize });
 
   return (
-    <Card variation="outlined" width="50%" height="300px" margin="0 auto">
-      <AIConversation
-        displayText={{ getMessageTimestampText: formatDate }}
-        messages={messages}
-        handleSendMessage={sendMessage}
-        isLoading={isLoading}
-        allowAttachments
-        suggestedPrompts={[
-          {
-            inputText: 'hello',
-            component: 'hello',
-          },
-          {
-            inputText: 'how are you?',
-            component: 'how are you?',
-          },
-        ]}
-        variant="bubble"
-      />
-    </Card>
+    <AIConversation
+      messages={messages}
+      isLoading={isLoading}
+      handleSendMessage={sendMessage}
+    />
+  );
+}
+
+const onInitialize = (conversation) => {
+  console.log(conversation);
+};
+
+const onMessage = (conversation) => {
+  console.log('on message');
+  console.log(conversation);
+};
+
+function SyncedChats() {
+  const [
+    {
+      data: { messages },
+      isLoading,
+    },
+    handleSendMessage,
+  ] = useAIConversation('pirateChat', { onInitialize, onMessage });
+
+  const props = {
+    isLoading,
+    handleSendMessage,
+    messages,
+  };
+
+  return (
+    <Flex direction="row">
+      <Card flex="1" variation="outlined" height="400px" margin="large">
+        <AIConversation {...props} />
+      </Card>
+      <Card flex="1" variation="outlined" height="400px" margin="large">
+        <AIConversation {...props} />
+      </Card>
+    </Flex>
   );
 }
 
 export default function Example() {
+  const router = useRouter();
+  const handleCreateChat = async () => {
+    const { data } = await client.conversations.pirateChat.create();
+    if (data.id) {
+      router.push(`/ui/components/ai/ai-conversation/${data.id}`);
+    }
+  };
   return (
     <Authenticator>
-      {({ user, signOut }) => {
-        return <Chat />;
-      }}
+      <Flex direction="column">
+        <View>
+          <Heading level={2}>Separate chats</Heading>
+          <Flex direction="row">
+            <Card flex="1" variation="outlined" height="400px" margin="large">
+              <Chat />
+            </Card>
+            <Card flex="1" variation="outlined" height="400px" margin="large">
+              <Chat />
+            </Card>
+          </Flex>
+        </View>
+        <View>
+          <Heading level={2}>Synced chats</Heading>
+          <SyncedChats />
+        </View>
+      </Flex>
+      <Button onClick={handleCreateChat}>Create chat</Button>
     </Authenticator>
   );
 }

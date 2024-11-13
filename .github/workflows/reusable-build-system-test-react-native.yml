@@ -20,7 +20,8 @@ jobs:
         # uncomment to re-enable
         # build-tool: [cli, expo]
         build-tool: [expo]
-        build-tool-version: [latest]
+        # Temporarily pin to previous version
+        build-tool-version: [51]
         pkg-manager: [npm]
         language: [ts]
         node-version: [18]
