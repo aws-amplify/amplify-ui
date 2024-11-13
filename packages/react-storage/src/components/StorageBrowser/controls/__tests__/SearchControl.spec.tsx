@@ -23,13 +23,17 @@ describe('SearchControl', () => {
     mockUseResolvedComposable.mockReset();
   });
 
-  it('renders the SearchControl', () => {
+  it('renders the SearchControl with children', () => {
     mockUseControlsContext.mockReturnValue({
-      data: { showIncludeSubfolders: true, searchPlaceholder: 'Placeholder' },
+      data: { searchPlaceholder: 'Placeholder' },
       onSearch: jest.fn(),
     });
 
-    render(<SearchControl />);
+    render(
+      <SearchControl>
+        <input type="checkbox" />
+      </SearchControl>
+    );
 
     const field = screen.getByPlaceholderText('Placeholder');
     const checkbox = screen.getByRole('checkbox');

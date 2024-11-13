@@ -1,25 +1,28 @@
 import React from 'react';
 
-import { Controls } from '../../Controls';
 import { ViewElement } from '../../../context/elements';
-import { DataTableControl } from '../../../controls/DataTableControl';
-import { ControlsContextProvider } from '../../../controls/context';
-import { CLASS_BASE } from '../../constants';
-import { Title } from '../Controls/Title';
-import { StatusDisplayControl } from '../../../controls/StatusDisplayControl';
-import { getActionViewTableData } from '../getActionViewTableData';
-import { ActionStartControl } from '../../../controls/ActionStartControl';
 import { ActionCancelControl } from '../../../controls/ActionCancelControl';
+import { ActionExitControl } from '../../../controls/ActionExitControl';
+import { ActionStartControl } from '../../../controls/ActionStartControl';
+import { DataTableControl } from '../../../controls/DataTableControl';
+import { StatusDisplayControl } from '../../../controls/StatusDisplayControl';
+import { TitleControl } from '../../../controls/TitleControl';
+import { ControlsContextProvider } from '../../../controls/context';
+import { useDisplayText } from '../../../displayText';
+import { AMPLIFY_CLASS_BASE } from '../../constants';
 import { resolveClassName } from '../../utils';
+import { getActionViewTableData } from '../getActionViewTableData';
 import { useDeleteView } from './useDeleteView';
 import { DeleteViewProps } from './types';
 
-const { Exit } = Controls;
-
-export const DeleteView = ({
+export function DeleteView({
   className,
-  onExit: onExitProps,
-}: DeleteViewProps): React.JSX.Element => {
+  ...props
+}: DeleteViewProps): React.JSX.Element {
+  const {
+    DeleteView: { actionCancelLabel, actionExitLabel, actionStartLabel, title },
+  } = useDisplayText();
+
   const {
     isProcessing,
     isProcessingComplete,
@@ -28,46 +31,53 @@ export const DeleteView = ({
     tasks,
     onActionCancel,
     onActionStart,
-    onExit,
-    onTaskCancel,
-  } = useDeleteView({ onExit: onExitProps });
+    onActionExit,
+    onTaskRemove,
+  } = useDeleteView(props);
 
   const tableData = getActionViewTableData({
     tasks,
     locationKey: location.key,
     isProcessing,
-    onTaskCancel,
+    onTaskRemove,
   });
 
   return (
-    <div className={resolveClassName(CLASS_BASE, className)}>
+    <div className={resolveClassName(AMPLIFY_CLASS_BASE, className)}>
       <ControlsContextProvider
         data={{
-          actionCancelLabel: 'Cancel',
-          actionStartLabel: 'Start',
+          actionCancelLabel,
+          actionExitLabel,
+          actionStartLabel,
           isActionCancelDisabled: !isProcessing || isProcessingComplete,
+          isActionExitDisabled: isProcessing,
           isActionStartDisabled: isProcessing || isProcessingComplete,
           statusCounts,
           tableData,
+          title,
         }}
         onActionStart={onActionStart}
+        onActionExit={onActionExit}
         onActionCancel={onActionCancel}
       >
-        <Exit onClick={onExit} disabled={isProcessing} />
-        <Title />
-        <ViewElement className={`${CLASS_BASE}__table-wrapper`}>
-          <DataTableControl
-            className={`${CLASS_BASE}__delete-view-data-table`}
-          />
+        <ActionExitControl />
+        <TitleControl />
+
+        <DataTableControl />
+
+        <ViewElement className={`${AMPLIFY_CLASS_BASE}__summary`}>
+          <StatusDisplayControl />
         </ViewElement>
-        <ViewElement className={`${CLASS_BASE}__action-footer`}>
-          <StatusDisplayControl
-            className={`${CLASS_BASE}__action-status-display`}
-          />
-          <ActionCancelControl className={`${CLASS_BASE}__cancel`} />
-          <ActionStartControl />
+        <ViewElement className={`${AMPLIFY_CLASS_BASE}__footer`}>
+          <ViewElement className={`${AMPLIFY_CLASS_BASE}__message`}>
+            {/* TODO: confirmation message goes here */}
+          </ViewElement>
+          <ViewElement className={`${AMPLIFY_CLASS_BASE}__buttons`}>
+            <ActionCancelControl />
+            <ActionStartControl />
+          </ViewElement>
         </ViewElement>
       </ControlsContextProvider>
     </div>
   );
-};
+}

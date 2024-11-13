@@ -59,16 +59,15 @@ export const parseLocationAccess = (location: LocationAccess): LocationData => {
 
 export type ExcludeType = Permission | LocationType;
 
-const shouldExclude = (
-  permission: Permission,
-  type: LocationType,
+export const shouldExcludeLocation = (
+  { permission, type }: LocationData,
   exclude?: ExcludeType | ExcludeType[]
-) =>
-  exclude
-    ? typeof exclude === 'string'
-      ? exclude === permission || exclude === type
-      : exclude.includes(permission) || exclude.includes(type)
-    : false;
+): boolean =>
+  !exclude
+    ? false
+    : typeof exclude === 'string'
+    ? exclude === permission || exclude === type
+    : exclude.includes(permission) || exclude.includes(type);
 
 export const parseLocations = (
   locations: LocationAccess[],
@@ -77,9 +76,7 @@ export const parseLocations = (
   locations.reduce(
     (filteredLocations: LocationData[], location: LocationAccess) => {
       const parsedLocation = parseLocationAccess(location);
-      if (
-        shouldExclude(parsedLocation.permission, parsedLocation.type, exclude)
-      ) {
+      if (shouldExcludeLocation(parsedLocation, exclude)) {
         filteredLocations.push(parsedLocation);
       }
       return filteredLocations;

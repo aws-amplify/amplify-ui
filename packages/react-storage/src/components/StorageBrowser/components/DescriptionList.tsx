@@ -16,6 +16,7 @@ export interface DescriptionItemProps {
 
 interface DescriptionProps {
   descriptions: DescriptionItemProps[];
+  className?: string;
 }
 
 const Description = ({ term, details }: DescriptionItemProps) => {
@@ -39,10 +40,11 @@ const Description = ({ term, details }: DescriptionItemProps) => {
 
 export const DescriptionList = ({
   descriptions,
+  className = '',
 }: DescriptionProps): React.JSX.Element => {
   return (
     <DescriptionListElement
-      className={`${CLASS_BASE}__description-list`}
+      className={`${CLASS_BASE}__description-list ${className}`}
       role="list"
     >
       {descriptions.map(({ term, details }, index) => (

@@ -1,4 +1,6 @@
 import { useEffect } from 'react';
+import { useDataState } from '@aws-amplify/ui-react-core';
+
 import { usePaginate } from '../../hooks/usePaginate';
 import {
   listLocationItemsHandler,
@@ -6,11 +8,11 @@ import {
   LocationItemData,
 } from '../../../actions';
 import { useGetActionInput } from '../../../providers/configuration';
-import { getDestinationListFullPrefix } from './getDestinationListFullPrefix';
 
-import { useDataState } from '@aws-amplify/ui-react-core';
 import { useStore } from '../../../providers/store';
 import { createEnhancedListHandler } from '../../../actions/createEnhancedListHandler';
+import { useSearch } from '../../hooks/useSearch';
+import { getDestinationListFullPrefix } from './utils';
 
 const DEFAULT_PAGE_SIZE = 100;
 export const DEFAULT_LIST_OPTIONS = {
@@ -40,7 +42,11 @@ export const useDestinationPicker = ({
   message: string | undefined;
   pageItems: LocationItemData[];
   onPaginate: (page: number) => void;
-  onSearch: (query: string) => void;
+  searchQuery: string;
+  onSearch: () => void;
+  onSearchQueryChange: (value: string) => void;
+  onSearchClear: () => void;
+  resetSearch: () => void;
 } => {
   const prefix = getDestinationListFullPrefix(destinationList);
 
@@ -66,13 +72,33 @@ export const useDestinationPicker = ({
     });
   };
 
-  const { currentPage, onPaginate, highestPageVisited, pageItems } =
-    usePaginate({
-      items,
-      paginateCallback,
-      pageSize: DEFAULT_PAGE_SIZE,
-      hasNextToken,
+  const {
+    currentPage,
+    onPaginate,
+    highestPageVisited,
+    pageItems,
+    handleReset,
+  } = usePaginate({
+    items,
+    paginateCallback,
+    pageSize: DEFAULT_PAGE_SIZE,
+    hasNextToken,
+  });
+
+  const onSearch = (query: string) => {
+    handleReset();
+    handleList({
+      config: getInput(),
+      prefix,
+      options: {
+        ...DEFAULT_LIST_OPTIONS,
+        search: { query, filterKey: 'key' },
+      },
     });
+  };
+
+  const { onSearchSubmit, onSearchQueryChange, searchQuery, resetSearch } =
+    useSearch({ onSearch });
 
   useEffect(() => {
     handleList({
@@ -96,15 +122,18 @@ export const useDestinationPicker = ({
     hasError,
     message,
     pageItems,
+    searchQuery,
     onPaginate,
-    onSearch: (query: string) => {
+    onSearch: onSearchSubmit,
+    onSearchQueryChange,
+    resetSearch,
+    onSearchClear: () => {
+      handleReset();
+      resetSearch();
       handleList({
         config: getInput(),
         prefix,
-        options: {
-          ...DEFAULT_LIST_OPTIONS,
-          search: { query, filterKey: 'key' },
-        },
+        options: { ...DEFAULT_REFRESH_OPTIONS },
       });
     },
   };

@@ -1,33 +1,37 @@
 import React from 'react';
 
-import { ViewElement } from '../../../context/elements';
-
-import { Controls } from '../../Controls';
-
-import { Title } from '../Controls/Title';
-import { displayText } from '../../../displayText/en';
-import { CLASS_BASE } from '../../constants';
-import { DestinationPicker } from './DestinationPicker';
-
-import { DataTableControl } from '../../../controls/DataTableControl';
-import { ControlsContextProvider } from '../../../controls/context';
-import { getActionViewTableData } from '../getActionViewTableData';
-import { ActionStartControl } from '../../../controls/ActionStartControl';
 import { DescriptionList } from '../../../components/DescriptionList';
-import { StatusDisplayControl } from '../../../controls/StatusDisplayControl';
-import { getDestinationListFullPrefix } from './getDestinationListFullPrefix';
+import { ViewElement } from '../../../context/elements';
 import { ActionCancelControl } from '../../../controls/ActionCancelControl';
+import { ActionExitControl } from '../../../controls/ActionExitControl';
+import { ActionStartControl } from '../../../controls/ActionStartControl';
+import { DataTableControl } from '../../../controls/DataTableControl';
+import { StatusDisplayControl } from '../../../controls/StatusDisplayControl';
+import { ControlsContextProvider } from '../../../controls/context';
+import { useDisplayText } from '../../../displayText';
+import { AMPLIFY_CLASS_BASE, CLASS_BASE } from '../../constants';
+import { getActionViewTableData } from '../getActionViewTableData';
 import { resolveClassName } from '../../utils';
-import { useCopyView } from './useCopyView';
+import { DestinationPicker } from './DestinationPicker';
 import { CopyViewProps } from './types';
+import { useCopyView } from './useCopyView';
+import { getDestinationListFullPrefix } from './utils';
+import { TitleControl } from '../../../controls/TitleControl';
 
-const { Exit } = Controls;
-const { actionSetDestination } = displayText;
-
-export const CopyView = ({
+export function CopyView({
   className,
-  onExit: onExitProps,
-}: CopyViewProps): React.JSX.Element => {
+  ...props
+}: CopyViewProps): React.JSX.Element {
+  const {
+    CopyView: {
+      actionCancelLabel,
+      actionExitLabel,
+      actionSetDestination,
+      actionStartLabel,
+      title,
+    },
+  } = useDisplayText();
+
   const {
     destinationList,
     isProcessing,
@@ -36,17 +40,17 @@ export const CopyView = ({
     statusCounts,
     tasks,
     onActionCancel,
+    onActionExit,
     onActionStart,
     onDestinationChange,
-    onExit,
-    onTaskCancel,
-  } = useCopyView({ onExit: onExitProps });
+    onTaskRemove,
+  } = useCopyView(props);
 
   const tableData = getActionViewTableData({
     tasks,
     locationKey: location.key,
     isProcessing,
-    onTaskCancel,
+    onTaskRemove,
   });
 
   const isActionStartDisabled =
@@ -55,24 +59,26 @@ export const CopyView = ({
   const isActionCancelDisabled = !isProcessing || isProcessingComplete;
 
   return (
-    <div className={resolveClassName(CLASS_BASE, className)}>
+    <div className={resolveClassName(`${AMPLIFY_CLASS_BASE}`, className)}>
       <ControlsContextProvider
         data={{
-          actionCancelLabel: 'Cancel',
-          actionStartLabel: 'Copy',
+          actionCancelLabel,
+          actionExitLabel,
+          actionStartLabel,
           isActionCancelDisabled,
+          isActionExitDisabled: isProcessing,
           isActionStartDisabled,
           statusCounts,
           tableData,
+          title,
         }}
         onActionStart={onActionStart}
         onActionCancel={onActionCancel}
+        onActionExit={onActionExit}
       >
-        <Exit onClick={onExit} disabled={isProcessing} />
-        <Title />
-        <ViewElement className={`${CLASS_BASE}__table-wrapper`}>
-          <DataTableControl className={`${CLASS_BASE}__copy-view-data-table`} />
-        </ViewElement>
+        <ActionExitControl />
+        <TitleControl className={`${CLASS_BASE}__copy-view-title`} />
+        <DataTableControl />
         {isProcessing || isProcessingComplete ? (
           <ViewElement className={`${CLASS_BASE}__action-destination`}>
             <DescriptionList
@@ -91,22 +97,20 @@ export const CopyView = ({
           />
         )}
 
-        <ViewElement className={`${CLASS_BASE}__action-footer`}>
+        <ViewElement className={`${AMPLIFY_CLASS_BASE}__footer`}>
           {isProcessing || isProcessingComplete ? (
-            <StatusDisplayControl
-              className={`${CLASS_BASE}__action-status-display`}
-            />
+            <StatusDisplayControl />
           ) : (
             <ViewElement className={`${CLASS_BASE}__action-status-display`}>
               Copy action may overwrite existing files at selected destination.
             </ViewElement>
           )}
-          <ActionCancelControl className={`${CLASS_BASE}__cancel`} />
-          <ActionStartControl
-            className={`${CLASS_BASE}__upload-action-start`}
-          />
+          <ViewElement className={`${AMPLIFY_CLASS_BASE}__buttons`}>
+            <ActionCancelControl />
+            <ActionStartControl />
+          </ViewElement>
         </ViewElement>
       </ControlsContextProvider>
     </div>
   );
-};
+}

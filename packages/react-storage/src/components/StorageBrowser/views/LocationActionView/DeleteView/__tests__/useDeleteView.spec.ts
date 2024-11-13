@@ -63,7 +63,6 @@ describe('useDeleteView', () => {
             status: 'QUEUED',
             data: { key: 'test-item', id: 'id' },
             cancel: jest.fn(),
-            remove: jest.fn(),
             message: 'test-message',
             progress: undefined,
           },
@@ -71,7 +70,6 @@ describe('useDeleteView', () => {
             status: 'QUEUED',
             data: { key: 'test-item2', id: 'id2' },
             cancel: jest.fn(),
-            remove: jest.fn(),
             message: 'test-message',
             progress: undefined,
           },
@@ -79,7 +77,6 @@ describe('useDeleteView', () => {
             status: 'QUEUED',
             data: { key: 'test-item3', id: 'id3' },
             cancel: jest.fn(),
-            remove: jest.fn(),
             message: 'test-message',
             progress: undefined,
           },
@@ -95,7 +92,7 @@ describe('useDeleteView', () => {
     expect(result.current).toEqual(
       expect.objectContaining({
         onActionCancel: expect.any(Function),
-        onExit: expect.any(Function),
+        onActionExit: expect.any(Function),
         onActionStart: expect.any(Function),
         tasks: expect.any(Array),
       })
@@ -141,7 +138,6 @@ describe('useDeleteView', () => {
             data: { key: 'test-item', id: 'id' },
             status: 'QUEUED',
             cancel: mockCancel(),
-            remove: jest.fn(),
             message: 'test-message',
             progress: undefined,
           },
@@ -159,12 +155,12 @@ describe('useDeleteView', () => {
     expect(mockCancel).toHaveBeenCalled();
   });
 
-  it('should reset state when onExit is called', () => {
+  it('should reset state when onActionExit is called', () => {
     const mockOnExit = jest.fn();
     const { result } = renderHook(() => useDeleteView({ onExit: mockOnExit }));
 
     act(() => {
-      result.current.onExit?.();
+      result.current.onActionExit();
     });
 
     expect(mockOnExit).toHaveBeenCalled();

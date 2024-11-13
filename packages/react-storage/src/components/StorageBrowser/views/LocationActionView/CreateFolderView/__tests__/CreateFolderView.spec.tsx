@@ -1,12 +1,11 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { act, render } from '@testing-library/react';
 
 import * as UseCreateFolderViewModule from '../useCreateFolderView';
 import { CreateFolderViewState } from '../types';
 
-import { CreateFolderView, isValidFolderName } from '../CreateFolderView';
-
-jest.mock('../../Controls/Title');
+import { ControlsContext } from '../../../../controls/types';
+import { CreateFolderView } from '../CreateFolderView';
 
 const getActionCompleteMessage = jest.fn();
 const getValidationMessage = jest.fn();
@@ -25,6 +24,11 @@ jest.mock('../../../../controls/context', () => ({
   useControlsContext: () => ({ actionConfig: {}, data: {} }),
 }));
 
+const mockIsValidFolderName = jest.fn((_: string) => true);
+jest.mock('../utils', () => ({
+  isValidFolderName: (value: string) => mockIsValidFolderName(value),
+}));
+
 const current = {
   id: 'an-id-👍🏼',
   bucket: 'test-bucket',
@@ -34,21 +38,20 @@ const current = {
 };
 
 const onActionStart = jest.fn();
-const onExit = jest.fn();
+const onActionExit = jest.fn();
 const onFolderNameChange = jest.fn();
 
 const folderNameId = 'some-id';
 
-const initialViewState: CreateFolderViewState = {
+const defaultViewState: CreateFolderViewState = {
   folderName: '',
   folderNameId: folderNameId,
   isProcessing: false,
   isProcessingComplete: false,
   location: { current, key: 'test-prefix/', path: '' },
-  onExit,
+  onActionExit,
   onActionStart,
   onFolderNameChange,
-  onTaskCancel: jest.fn(),
   statusCounts: {
     CANCELED: 0,
     COMPLETE: 0,
@@ -62,7 +65,7 @@ const initialViewState: CreateFolderViewState = {
 };
 
 const preprocessingViewState: CreateFolderViewState = {
-  ...initialViewState,
+  ...defaultViewState,
   folderName: 'cool-folder-name',
 };
 
@@ -90,7 +93,7 @@ const postProcessingViewState: CreateFolderViewState = {
 
 const useCreateFolderViewSpy = jest
   .spyOn(UseCreateFolderViewModule, 'useCreateFolderView')
-  .mockReturnValue(initialViewState);
+  .mockReturnValue(defaultViewState);
 
 describe('CreateFolderView', () => {
   afterEach(jest.clearAllMocks);
@@ -158,26 +161,34 @@ describe('CreateFolderView', () => {
       onValidateFolderName: expect.any(Function),
     });
   });
-});
 
-describe('isValidFolderName', () => {
-  it('returns false when value is undefined', () => {
-    expect(isValidFolderName(undefined)).toBe(false);
-  });
+  it('runs validation on call to onValidateFolderName', () => {
+    useCreateFolderViewSpy.mockReturnValue(defaultViewState);
 
-  it('returns false when value is an empty string', () => {
-    expect(isValidFolderName('')).toBe(false);
-  });
+    mockIsValidFolderName.mockReturnValueOnce(false);
 
-  it('returns false if value contains a slash', () => {
-    expect(isValidFolderName('Fruit/Kiwi')).toBe(false);
-  });
+    render(<CreateFolderView />);
 
-  it('returns false if value contains a period', () => {
-    expect(isValidFolderName('Fruit/Kiwi.')).toBe(false);
-  });
+    const { calls } = mockControlsContextProvider.mock;
 
-  it('returns true when value is valid', () => {
-    expect(isValidFolderName('Kiwi')).toBe(true);
+    const { onValidateFolderName } = calls[0][0] as ControlsContext;
+
+    expect(mockIsValidFolderName).not.toHaveBeenCalled();
+
+    act(() => {
+      onValidateFolderName?.('');
+    });
+
+    expect(mockIsValidFolderName).toHaveBeenCalledTimes(1);
+    // get validation error message
+    expect(getValidationMessage).toHaveBeenCalledTimes(1);
+
+    act(() => {
+      onValidateFolderName?.('valid!');
+    });
+
+    expect(mockIsValidFolderName).toHaveBeenCalledTimes(2);
+    // do not get validation error message
+    expect(getValidationMessage).toHaveBeenCalledTimes(1);
   });
 });

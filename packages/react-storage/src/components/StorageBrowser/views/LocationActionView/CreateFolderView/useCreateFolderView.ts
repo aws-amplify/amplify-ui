@@ -10,11 +10,10 @@ import { createFolderHandler } from '../../../actions';
 import { useGetActionInput } from '../../../providers/configuration';
 import { CreateFolderViewState } from './types';
 
-export const useCreateFolderView = ({
-  onExit,
-}: {
+export const useCreateFolderView = (params?: {
   onExit?: (location: LocationData) => void;
 }): CreateFolderViewState => {
+  const { onExit } = params ?? {};
   const [folderName, setFolderName] = React.useState('');
   const folderNameId = React.useRef(crypto.randomUUID()).current;
 
@@ -41,16 +40,13 @@ export const useCreateFolderView = ({
         options: { preventOverwrite: true },
       });
     },
-    onExit: () => {
+    onActionExit: () => {
       if (isFunction(onExit)) onExit(current!);
-      tasks?.forEach((task) => task.remove());
       dipatchStoreAction({ type: 'RESET_ACTION_TYPE' });
     },
     onFolderNameChange: (value) => {
       setFolderName(value);
     },
-    // needs to be removed
-    onTaskCancel: () => null,
     statusCounts,
     tasks,
   };

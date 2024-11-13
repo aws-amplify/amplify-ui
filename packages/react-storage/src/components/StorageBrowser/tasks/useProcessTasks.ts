@@ -60,17 +60,19 @@ export const useProcessTasks: UseProcessTasks = <
     callbacksRef.current = callbacks;
   }
 
-  const flush = React.useReducer(() => ({}), {})[1];
-
   const tasksRef = React.useRef<Map<string, Task<T>>>(new Map());
+
+  const flush = React.useReducer(() => ({}), {})[1];
 
   const updateTask = React.useCallback(
     (id: string, next?: Partial<Task<T>>) => {
+      const { onTaskRemove } = callbacksRef.current;
       const task = tasksRef.current.get(id);
 
       if (!task) return;
 
       if (!next) {
+        onTaskRemove?.(task);
         tasksRef.current.delete(id);
       } else {
         tasksRef.current.set(id, { ...task, ...next });
@@ -84,15 +86,7 @@ export const useProcessTasks: UseProcessTasks = <
   const createTask = React.useCallback(
     (data: T) => {
       const getTask = () => tasksRef.current.get(data.id);
-      const { onTaskCancel, onTaskRemove } = callbacksRef.current;
-
-      function remove() {
-        const task = getTask();
-        if (!task || task.status === 'PENDING') return;
-        if (task && isFunction(onTaskRemove)) onTaskRemove(task);
-
-        updateTask(data.id);
-      }
+      const { onTaskCancel } = callbacksRef.current;
 
       function cancel() {
         const task = getTask();
@@ -102,23 +96,37 @@ export const useProcessTasks: UseProcessTasks = <
         updateTask(data.id, { cancel: undefined, status: 'CANCELED' });
       }
 
-      const task = { ...QUEUED_TASK_BASE, cancel, data, remove };
+      const task = { ...QUEUED_TASK_BASE, cancel, data };
       tasksRef.current.set(data.id, task);
     },
     [updateTask]
   );
 
   React.useEffect(() => {
-    if (!items?.length) return;
+    // Sync tasks with items by first creating a lookup of current tasks
+    const taskLookup: Record<string, boolean> = {};
+    tasksRef.current.forEach(({ data }) => {
+      taskLookup[data.id] = true;
+    });
 
-    items.forEach((data) => {
-      if (tasksRef.current.has(data.id)) return;
+    items?.forEach((item) => {
+      if (!taskLookup[item.id]) {
+        // If an item doesn't yet have a task created for it, create one
+        createTask(item);
+      }
+      // Remove the item from the lookup to mark it as "synced"
+      delete taskLookup[item.id];
+    });
 
-      createTask(data);
+    // Remaining tasks are items which have been removed from state but not yet from tasks, so they should be removed
+    Object.keys(taskLookup).forEach((taskId) => {
+      // This should not happen, but if the task is pending then it cannot be removed
+      if (tasksRef.current.get(taskId)?.status === 'PENDING') return;
+      updateTask(taskId);
     });
 
     flush();
-  }, [createTask, flush, items]);
+  }, [createTask, flush, updateTask, items]);
 
   const processNextTask: HandleProcessTasks<T, K, D> = (_input) => {
     const hasInputData = isTaskHandlerInput(_input);

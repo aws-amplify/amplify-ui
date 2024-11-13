@@ -156,8 +156,11 @@ describe('useDestinationPicker', () => {
     );
 
     act(() => {
-      const state = result.current;
-      state.onSearch('moo');
+      result.current.onSearchQueryChange('moo');
+    });
+
+    act(() => {
+      result.current.onSearch();
     });
 
     expect(mockHandleList).toHaveBeenCalledWith({
@@ -169,6 +172,19 @@ describe('useDestinationPicker', () => {
       },
       prefix: 'prefix1/',
     });
+
+    // clearing search refreshes the list
+    act(() => {
+      result.current.onSearchClear();
+    });
+
+    expect(mockHandleList).toHaveBeenCalledWith(
+      expect.objectContaining({
+        options: expect.objectContaining({
+          refresh: true,
+        }),
+      })
+    );
   });
 
   it('should handle paginate', () => {

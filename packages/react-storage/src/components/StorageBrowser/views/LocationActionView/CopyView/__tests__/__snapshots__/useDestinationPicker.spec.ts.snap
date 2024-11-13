@@ -27,6 +27,8 @@ exports[`useDestinationPicker should return the correct initial state 1`] = `
   "message": undefined,
   "onPaginate": [Function],
   "onSearch": [Function],
+  "onSearchClear": [Function],
+  "onSearchQueryChange": [Function],
   "pageItems": [
     {
       "id": "id",
@@ -43,5 +45,7 @@ exports[`useDestinationPicker should return the correct initial state 1`] = `
       "type": "FOLDER",
     },
   ],
+  "resetSearch": [Function],
+  "searchQuery": "",
 }
 `;

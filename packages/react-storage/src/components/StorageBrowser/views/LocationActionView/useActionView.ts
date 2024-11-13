@@ -9,9 +9,9 @@ export function useActionView(): ActionViewState {
     location: DEFAULT_STATE,
     statusCounts: INITIAL_STATUS_COUNTS,
     tasks: [],
-    onExit: () => null,
+    onActionExit: () => null,
     onActionStart: () => null,
     onActionCancel: () => null,
-    onTaskCancel: () => null,
+    onTaskRemove: () => null,
   };
 }

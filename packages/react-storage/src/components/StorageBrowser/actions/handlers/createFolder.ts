@@ -56,7 +56,7 @@ export const createFolderHandler: CreateFolderHandler = (input) => {
       .then(() => ({ status: 'COMPLETE' as const }))
       .catch(({ message, name }: Error) => {
         if (name === 'PreconditionFailed') {
-          return { status: 'OVERWRITE_PREVENTED' } as const;
+          return { message, status: 'OVERWRITE_PREVENTED' } as const;
         }
         return { message, status: 'FAILED' as const };
       }),

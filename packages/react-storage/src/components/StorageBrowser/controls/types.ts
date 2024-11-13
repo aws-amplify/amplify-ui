@@ -41,6 +41,7 @@ interface PaginationData {
 export interface ControlsContext {
   data: {
     actionCancelLabel?: string;
+    actionExitLabel?: string;
     actionStartLabel?: string;
     folderNameId?: string;
     folderNameLabel?: string;
@@ -51,7 +52,7 @@ export interface ControlsContext {
     isAddFilesDisabled?: boolean;
     isAddFolderDisabled?: boolean;
     isDataRefreshDisabled?: boolean;
-    isExitDisabled?: boolean;
+    isActionExitDisabled?: boolean;
     isLoading?: boolean;
     isFolderNameDisabled?: boolean;
     isOverwriteCheckboxDisabled?: boolean;
@@ -61,20 +62,22 @@ export interface ControlsContext {
     messageType?: MessageType;
     paginationData?: PaginationData;
     searchPlaceholder?: string;
-    showIncludeSubfolders?: boolean;
+    searchQuery?: string;
     statusCounts?: StatusCounts;
     tableData?: TableData;
     title?: string;
   };
   onActionCancel?: () => void;
+  onActionExit?: () => void;
   onActionStart?: () => void;
-  onActionReset?: () => void;
   onDropFiles?: (files: File[]) => void;
   onFolderNameChange?: (value: string) => void;
   onMessageDismiss?: () => void;
   onNavigate?: (location: LocationData, path?: string) => void;
   onNavigateHome?: () => void;
   onRefresh?: () => void;
-  onSearch?: (term: string, includeSubfolders: boolean) => void;
+  onSearch?: () => void;
+  onSearchClear?: () => void;
+  onSearchQueryChange?: (value: string) => void;
   onValidateFolderName?: (value: string) => void;
 }

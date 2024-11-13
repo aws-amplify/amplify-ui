@@ -11,12 +11,16 @@ import { useDestinationPicker } from '../CopyView/useDestinationPicker';
 import { CLASS_BASE } from '../../constants';
 import { DataTableControl } from '../../../controls/DataTableControl';
 import { ControlsContextProvider } from '../../../controls/context';
-import { getDestinationListFullPrefix } from './getDestinationListFullPrefix';
-import { getDestinationPickerTableData } from './getDestinationPickerDataTable';
 import { ControlsContext } from '../../../controls/types';
 import { Breadcrumb } from '../../../components/BreadcrumbNavigation';
 import { DescriptionList } from '../../../components/DescriptionList';
 import { SearchControl } from '../../../controls/SearchControl';
+
+import {
+  getDestinationListFullPrefix,
+  getDestinationPickerTableData,
+} from './utils';
+
 const {
   actionSetDestination,
   actionDestinationPickerCurrentFolderSelected,
@@ -42,16 +46,22 @@ export const DestinationPicker = ({
     onPaginate,
     onSearch,
     pageItems,
+    searchQuery,
+    onSearchQueryChange,
+    onSearchClear,
+    resetSearch,
   } = useDestinationPicker({ destinationList });
 
   const handleNavigateFolder = (key: string) => {
     const newPath = [...destinationList, key.replace('/', '')];
     onDestinationChange(newPath);
+    resetSearch();
   };
 
   const handleNavigatePath = (index: number) => {
     const newPath = destinationList.slice(0, index + 1);
     onDestinationChange(newPath);
+    resetSearch();
   };
 
   const tableData = getDestinationPickerTableData({
@@ -68,10 +78,12 @@ export const DestinationPicker = ({
         hasNextPage: hasNextToken,
         onPaginate,
       },
-      showIncludeSubfolders: false,
       searchPlaceholder: displayText.filterCopyPlaceholder,
+      searchQuery,
     },
     onSearch,
+    onSearchQueryChange,
+    onSearchClear,
   };
 
   const noSubfolders = !items.length;
@@ -113,16 +125,13 @@ export const DestinationPicker = ({
           className={`${CLASS_BASE}__destination-picker-pagination`}
         />
       </ViewElement>
-      <ViewElement className="storage-browser__table-wrapper">
-        <DataTableControl
-          className={`${CLASS_BASE}__destination-picker-data-table`}
-        />
-        {noSubfolders && <EmptyMessageControl>{message}</EmptyMessageControl>}
-        {showMessage && !noSubfolders && (
-          <MessageControl variant={messageVariant}>{message}</MessageControl>
-        )}
-        {isLoading && <LoadingControl />}
-      </ViewElement>
+
+      <DataTableControl />
+      {noSubfolders && <EmptyMessageControl>{message}</EmptyMessageControl>}
+      {showMessage && !noSubfolders && (
+        <MessageControl variant={messageVariant}>{message}</MessageControl>
+      )}
+      {isLoading && <LoadingControl />}
     </ControlsContextProvider>
   );
 };
