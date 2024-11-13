@@ -32,7 +32,6 @@ export async function processDroppedItems(
 ): Promise<File[]> {
   const files: File[] = [];
 
-  // Process each entry recursively
   const processFileSystemEntry = async (
     entry: FileSystemEntry
   ): Promise<void> => {
@@ -46,7 +45,7 @@ export async function processDroppedItems(
     }
   };
 
-  // Process all items
+  // Filter out and process files from the data transfer items
   await Promise.all(
     dataTransferItems
       .reduce<FileSystemEntry[]>(

@@ -93,20 +93,7 @@ export default function useDropZone({
       _onDrop(event);
     }
 
-    // If no DataTransfer items interface, handle as simple files
-    if (!items) {
-      const { acceptedFiles, rejectedFiles } = filterAllowedFiles<File>(
-        Array.from(files),
-        acceptedFileTypes
-      );
-      if (isFunction(onDropComplete)) {
-        onDropComplete({ acceptedFiles, rejectedFiles });
-      }
-      return;
-    }
-
-    // Process items using util
-    processDroppedItems(Array.from(items)).then((files) => {
+    const completeDrop = (files: File[]) => {
       const { acceptedFiles, rejectedFiles } = filterAllowedFiles<File>(
         files,
         acceptedFileTypes
@@ -114,7 +101,12 @@ export default function useDropZone({
       if (isFunction(onDropComplete)) {
         onDropComplete({ acceptedFiles, rejectedFiles });
       }
-    });
+      return;
+    };
+
+    !items
+      ? completeDrop(Array.from(files))
+      : processDroppedItems(Array.from(items)).then(completeDrop);
   };
 
   return {
