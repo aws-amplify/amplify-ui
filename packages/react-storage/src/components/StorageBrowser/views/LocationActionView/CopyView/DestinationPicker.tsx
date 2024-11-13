@@ -122,16 +122,13 @@ export const DestinationPicker = ({
           highestPageVisited={highestPageVisited}
         />
       </ViewElement>
-      <ViewElement className="storage-browser__table-wrapper">
-        <DataTableControl
-          className={`${CLASS_BASE}__destination-picker-data-table`}
-        />
-        {noSubfolders && <EmptyMessageControl>{message}</EmptyMessageControl>}
-        {showMessage && !noSubfolders && (
-          <MessageControl variant={messageVariant}>{message}</MessageControl>
-        )}
-        {isLoading && <LoadingControl />}
-      </ViewElement>
+
+      <DataTableControl />
+      {noSubfolders && <EmptyMessageControl>{message}</EmptyMessageControl>}
+      {showMessage && !noSubfolders && (
+        <MessageControl variant={messageVariant}>{message}</MessageControl>
+      )}
+      {isLoading && <LoadingControl />}
     </ControlsContextProvider>
   );
 };

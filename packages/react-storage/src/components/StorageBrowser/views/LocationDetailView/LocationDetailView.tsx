@@ -1,23 +1,24 @@
 import React from 'react';
-import { resolveClassName } from '../utils';
-import { CLASS_BASE } from '../constants';
-import { useStore } from '../../providers/store';
-import { Controls } from '../Controls';
-import { NavigationControl } from '../../controls/NavigationControl';
-import { DataTableControl } from '../../controls/DataTableControl';
-import { DataRefreshControl } from '../../controls/DataRefreshControl';
-import { ControlsContextProvider } from '../../controls/context';
-import { ActionsMenuControl } from './Controls/ActionsMenu';
-import { useLocationDetailView } from './useLocationDetailView';
-import { LocationDetailViewProps } from './types';
-import { getLocationDetailViewTableData } from './getLocationDetailViewTableData';
-import { DropZoneControl } from '../../controls/DropZoneControl';
 import {
   InputElement,
   LabelElement,
   ViewElement,
 } from '../../context/elements';
+import { DataTableControl } from '../../controls/DataTableControl';
+import { DataRefreshControl } from '../../controls/DataRefreshControl';
+import { DropZoneControl } from '../../controls/DropZoneControl';
+import { NavigationControl } from '../../controls/NavigationControl';
 import { SearchControl } from '../../controls/SearchControl';
+import { TitleControl } from '../../controls/TitleControl';
+import { ControlsContextProvider } from '../../controls/context';
+import { useDisplayText } from '../../displayText';
+import { Controls } from '../Controls';
+import { AMPLIFY_CLASS_BASE, CLASS_BASE } from '../constants';
+import { resolveClassName } from '../utils';
+import { ActionsMenuControl } from './Controls/ActionsMenu';
+import { getLocationDetailViewTableData } from './getLocationDetailViewTableData';
+import { useLocationDetailView } from './useLocationDetailView';
+import { LocationDetailViewProps } from './types';
 
 export const DEFAULT_ERROR_MESSAGE = 'There was an error loading items.';
 const DEFAULT_PAGE_SIZE = 100;
@@ -26,21 +27,7 @@ export const DEFAULT_LIST_OPTIONS = {
   delimiter: '/',
 };
 
-const {
-  EmptyMessage,
-  Loading: LoadingControl,
-  Message,
-  Paginate,
-  Title: TitleControl,
-} = Controls;
-
-export const Title = (): React.JSX.Element => {
-  const [{ location }] = useStore();
-  const { current, key } = location;
-  const { bucket, prefix } = current ?? {};
-
-  return <TitleControl>{prefix ? key : bucket}</TitleControl>;
-};
+const { EmptyMessage, Loading: LoadingControl, Message, Paginate } = Controls;
 
 function Loading({ show }: { show?: boolean }) {
   return show ? <LoadingControl /> : null;
@@ -68,6 +55,10 @@ export function LocationDetailView({
   onExit,
   onNavigate: onNavigateProp,
 }: LocationDetailViewProps): React.JSX.Element {
+  const {
+    LocationDetailView: { title },
+  } = useDisplayText();
+
   const {
     page,
     pageItems,
@@ -100,7 +91,7 @@ export function LocationDetailView({
 
   return (
     <div
-      className={resolveClassName(CLASS_BASE, className)}
+      className={resolveClassName(AMPLIFY_CLASS_BASE, className)}
       data-testid="LOCATION_DETAIL_VIEW"
     >
       <ControlsContextProvider
@@ -120,6 +111,7 @@ export function LocationDetailView({
             onSelect,
             onSelectAll,
           }),
+          title: title(location),
         }}
         onDropFiles={onDropFiles}
         onNavigate={onNavigate}
@@ -132,7 +124,7 @@ export function LocationDetailView({
         <NavigationControl
           className={`${CLASS_BASE}__location-detail-view-navigation`}
         />
-        <Title />
+        <TitleControl className={`${CLASS_BASE}__location-detail-view-title`} />
         <ViewElement className={`${CLASS_BASE}__location-detail-view-controls`}>
           <SearchControl
             className={`${CLASS_BASE}__location-detail-view-search`}
@@ -166,15 +158,9 @@ export function LocationDetailView({
         <LocationDetailMessage show={hasError} message={message} />
         <Loading show={isLoading} />
         {hasError ? null : (
-          <ViewElement className={`${CLASS_BASE}__table-wrapper`}>
-            <DropZoneControl
-              className={`${CLASS_BASE}__location-detail-view-drop-zone`}
-            >
-              <DataTableControl
-                className={`${CLASS_BASE}__location-detail-view-data-table`}
-              />
-            </DropZoneControl>
-          </ViewElement>
+          <DropZoneControl>
+            <DataTableControl />
+          </DropZoneControl>
         )}
         <LocationDetailEmptyMessage show={shouldShowEmptyMessage} />
       </ControlsContextProvider>

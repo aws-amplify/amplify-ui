@@ -23,7 +23,7 @@ export interface ActionViewState<T extends TaskData = TaskData> {
   onActionStart: () => void;
   onActionCancel: () => void;
   onActionExit: () => void;
-  onTaskCancel: (task: Task) => void;
+  onTaskRemove?: (task: Task<T>) => void;
 }
 
 export interface ActionViewProps {

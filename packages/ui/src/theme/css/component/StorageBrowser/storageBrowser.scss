@@ -6,6 +6,7 @@
   position: relative;
   padding: var(--amplify-space-small);
   gap: var(--amplify-space-small);
+  overflow: hidden;
 
   /* Error boundary */
   &__error {
@@ -23,131 +24,120 @@
     font-size: var(--amplify-font-sizes-large);
   }
 
-  &__controls {
+  &__controls,
+  &__summary,
+  &__footer {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
     width: 100%;
+    gap: var(--amplify-space-medium);
+  }
 
-    &__search {
-      flex: 1;
-    }
+  &__search {
+    flex: 1;
+  }
 
-    &__pagination {
-    }
+  &__pagination {
+  }
 
-    &__refresh {
-    }
+  &__refresh {
+  }
 
-    &__menu {
-    }
+  &__menu {
+  }
+
+  &__drop-zone {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    display: block;
+  }
+
+  &__data-table {
+    overflow: auto;
+    position: relative;
+    border-width: var(--amplify-border-widths-small);
+    border-style: solid;
+    border-color: var(--amplify-colors-border-secondary);
+    width: 100%;
+    height: 100%;
+    display: block;
   }
 
   &__table {
     width: 100%;
     position: relative;
 
-    &__wrapper {
-      overflow: auto;
-      position: relative;
-      border-width: var(--amplify-border-widths-small);
-      border-style: solid;
-      border-color: var(--amplify-colors-border-secondary);
-      width: 100%;
-    }
-
-    &__head {
+    // <thead>
+    &-head {
       position: sticky;
       top: 0;
       background: var(--amplify-colors-background-primary);
       box-shadow: var(--amplify-shadows-small);
     }
 
-    &__header {
+    // <tbody>
+    &-body {
+    }
+
+    // <tr>
+    &-row {
+    }
+
+    // <th>
+    &-header {
       border: none;
+      padding: var(--amplify-space-xxxs);
     }
 
-    &__body {
-    }
+    // <td>
+    &-data-cell {
+      padding: var(--amplify-space-xxxs);
 
-    &__row {
-    }
-
-    &__header--select,
-    &__data--select,
-    // TODO: genericize
-    &__header--download,
-    &__data--download,
-    &__data--cancel {
-      text-align: center;
-    }
-
-    &__data {
       &:first-child,
       &:last-child {
         border-inline-start-width: 0;
         border-inline-end-width: 0;
       }
 
-      &__icon {
+      &-icon {
         vertical-align: middle;
         margin-inline-end: var(--amplify-space-xs);
       }
     }
 
-    &__data__text,
-    &__data__button,
-    &__header__text,
-    &__header__button {
-      padding-block: var(--amplify-space-xxs);
-      padding-inline: var(--amplify-space-xs);
-      text-overflow: ellipsis;
-      overflow: hidden;
-      white-space: nowrap;
-      text-align: start;
-      display: inline-flex;
-      align-items: center;
-    }
-
-    &__data--size,
-    &__header--size {
-      text-align: end;
-    }
-
-    &__header--select,
-    &__data--select {
+    &-header--select,
+    &-data--select,
+    // TODO: genericize
+    &-header--download,
+    &-data--download,
+    &-data--cancel {
       text-align: center;
+    }
+
+    &-data--size,
+    &-header--size {
+      text-align: end;
     }
   }
 
-  &__action {
-    &__options,
-    &__summary,
-    &__footer {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
-      width: 100%;
-      gap: var(--amplify-space-medium);
-    }
+  &__status {
+    justify-content: flex-end;
+    display: flex;
+    gap: var(--amplify-space-small);
+    flex: 1;
+  }
 
-    &__status {
-      justify-content: flex-end;
-      display: flex;
-      gap: var(--amplify-space-small);
-      flex: 1;
-    }
+  &__message {
+    flex: 1;
+  }
 
-    &__message {
-      flex: 1;
-    }
-
-    &__buttons {
-      justify-content: flex-end;
-      display: flex;
-      gap: var(--amplify-space-small);
-    }
+  &__buttons {
+    justify-content: flex-end;
+    display: flex;
+    gap: var(--amplify-space-small);
   }
 }

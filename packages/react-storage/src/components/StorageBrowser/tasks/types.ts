@@ -24,12 +24,11 @@ export interface ProcessTasksOptions<
 }
 
 export interface Task<T extends TaskData = TaskData> {
-  cancel: () => void;
   data: T;
   message: string | undefined;
   progress: number | undefined;
-  remove: () => void;
   status: TaskStatus;
+  cancel: () => void;
 }
 
 export type Tasks<T extends TaskData> = Task<T>[];

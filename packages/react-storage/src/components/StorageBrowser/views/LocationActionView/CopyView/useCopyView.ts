@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 
 import { isFunction } from '@aws-amplify/ui';
 
@@ -69,11 +69,11 @@ export const useCopyView = (options?: UseCopyViewOptions): CopyViewState => {
     if (isFunction(onExit)) onExit(current);
   };
 
-  const onTaskCancel = useCallback(
-    (task: Task) => {
-      isProcessing ? task.cancel() : task.remove();
+  const onTaskRemove = React.useCallback(
+    ({ data }: Task) => {
+      dispatchStoreAction({ type: 'REMOVE_LOCATION_ITEM', id: data.id });
     },
-    [isProcessing]
+    [dispatchStoreAction]
   );
 
   return {
@@ -87,6 +87,6 @@ export const useCopyView = (options?: UseCopyViewOptions): CopyViewState => {
     onActionStart,
     onDestinationChange,
     onActionExit,
-    onTaskCancel,
+    onTaskRemove,
   };
 };

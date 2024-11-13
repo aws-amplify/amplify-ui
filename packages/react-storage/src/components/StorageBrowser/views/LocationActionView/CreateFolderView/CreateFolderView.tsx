@@ -1,33 +1,33 @@
 import React from 'react';
 
-import { Title } from '../Controls/Title';
-
 import { ActionStartControl } from '../../../controls/ActionStartControl';
 import { ActionExitControl } from '../../../controls/ActionExitControl';
 import { FolderNameFieldControl } from '../../../controls/FolderNameFieldControl';
-import { ControlsContextProvider } from '../../../controls/context';
 import { MessageControl } from '../../../controls/MessageControl';
-
+import { TitleControl } from '../../../controls/TitleControl';
+import { ControlsContextProvider } from '../../../controls/context';
 import { useDisplayText } from '../../../displayText';
-import { CLASS_BASE } from '../../constants';
 import { resolveClassName } from '../../utils';
-
 import { CreateFolderViewProps } from './types';
 import { useCreateFolderView } from './useCreateFolderView';
 import { isValidFolderName } from './utils';
+import { AMPLIFY_CLASS_BASE, CLASS_BASE } from '../../constants';
 
 export function CreateFolderView({
   className,
   ...props
 }: CreateFolderViewProps): React.JSX.Element {
   const {
-    actionExitLabel,
-    actionStartLabel,
-    folderNameLabel,
-    folderNamePlaceholder,
-    getActionCompleteMessage,
-    getValidationMessage,
-  } = useDisplayText()['CreateFolderView'];
+    CreateFolderView: {
+      actionExitLabel,
+      actionStartLabel,
+      folderNameLabel,
+      folderNamePlaceholder,
+      getActionCompleteMessage,
+      getValidationMessage,
+      title,
+    },
+  } = useDisplayText();
 
   const {
     folderName,
@@ -61,7 +61,7 @@ export function CreateFolderView({
     isProcessingComplete;
 
   return (
-    <div className={resolveClassName(CLASS_BASE, className)}>
+    <div className={resolveClassName(AMPLIFY_CLASS_BASE, className)}>
       <ControlsContextProvider
         data={{
           actionExitLabel,
@@ -73,6 +73,7 @@ export function CreateFolderView({
           isActionStartDisabled,
           isActionExitDisabled: isProcessing,
           messageContent,
+          title,
         }}
         onActionExit={onActionExit}
         onActionStart={onActionStart}
@@ -80,11 +81,9 @@ export function CreateFolderView({
         onValidateFolderName={onValidateFolderName}
       >
         <ActionExitControl />
-        <Title />
+        <TitleControl className={`${CLASS_BASE}__create-folder-view-title`} />
         <FolderNameFieldControl />
-        <ActionStartControl
-          className={`${CLASS_BASE}__create-folder-action-start`}
-        />
+        <ActionStartControl />
         <MessageControl />
       </ControlsContextProvider>
     </div>
