@@ -1,14 +1,11 @@
 import React from 'react';
 
-import {
-  LocationCredentialsProvider,
-  Permission,
-} from '../../../storage-internal';
+import { LocationPermissions } from '../../../actions';
+import { LocationCredentialsProvider } from '../../../storage-internal';
 import {
   CreateLocationCredentialsStoreInput,
   GetLocationCredentials,
   LocationCredentialsStore,
-  LocationPermissions
 } from '../../../credentials/types';
 
 export type RegisterAuthListener = (onStateChange: () => void) => void;

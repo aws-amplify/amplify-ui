@@ -1,6 +1,6 @@
 import { DEFAULT_LIST_VIEW_DISPLAY_TEXT } from './shared';
+import { LocationPermissions } from '../../../actions';
 import { DefaultLocationsViewDisplayText } from '../../types';
-import { LocationPermissions } from '../../../credentials/types';
 
 export const DEFAULT_LOCATIONS_VIEW_DISPLAY_TEXT: DefaultLocationsViewDisplayText =
   {

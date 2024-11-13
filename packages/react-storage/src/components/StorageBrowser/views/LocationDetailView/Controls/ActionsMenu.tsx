@@ -2,13 +2,12 @@ import React from 'react';
 
 import { isEmptyObject } from '@aws-amplify/ui';
 
-import { LocationItemData } from '../../../actions';
+import { LocationItemData, LocationPermissions } from '../../../actions';
 import { LocationActions } from '../../../do-not-import-from-here/locationActions';
 import { useTempActions } from '../../../do-not-import-from-here/createTempActionsProvider';
 import { useStore } from '../../../providers/store';
 
 import { ActionsMenu, ActionItemProps } from '../../../components/ActionsMenu';
-import { LocationPermissions } from '../../../credentials/types';
 import { toAccessGrantPermission } from '../../../adapters/permissionParsers';
 
 const getKeyedFragments = (...nodes: React.ReactNode[]): React.ReactNode[] =>

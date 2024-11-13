@@ -1,7 +1,8 @@
 import { LocationCredentialsProvider } from '../../storage-internal';
-import { LocationPermissions } from '../../credentials/types';
 
 export type LocationType = 'OBJECT' | 'PREFIX' | 'BUCKET';
+
+export type LocationPermissions = ('delete' | 'get' | 'list' | 'write')[];
 
 /**
  * `location` metadata

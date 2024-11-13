@@ -1,6 +1,5 @@
 import { DataTableProps } from '../../../composables/DataTable';
-import { LocationData } from '../../../actions';
-import { LocationPermissions } from '../../../credentials/types';
+import { LocationData, LocationPermissions } from '../../../actions';
 import { LocationViewHeaders } from './types';
 
 export const getLocationsViewTableData = ({

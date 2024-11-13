@@ -1,13 +1,13 @@
 import { TransferProgressEvent } from 'aws-amplify/storage';
 import { LocationAccess as AccessGrantLocation } from '../../storage-internal';
 
-import { LocationPermissions } from '../../credentials/types';
 import {
   ActionInputConfig,
   FileData,
   FileDataItem,
   FileItem,
   LocationData,
+  LocationPermissions,
   LocationType,
 } from './types';
 

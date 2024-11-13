@@ -1,5 +1,5 @@
 import { IconVariant } from '../../context/elements';
-import { LocationPermissions } from '../../credentials/types';
+import { LocationPermissions } from '../../actions';
 
 import {
   ListLocationsHandler,

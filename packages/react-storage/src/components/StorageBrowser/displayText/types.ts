@@ -1,7 +1,6 @@
 import { StatusCounts } from '../tasks';
-import { FolderData, LocationData, LocationItemData} from '../actions';
+import { FolderData, LocationData, LocationItemData, LocationPermissions } from '../actions';
 import { LocationState } from '../providers/store/location';
-import { LocationPermissions } from '../credentials/types';
 
 /**
  * Common display text values available on each action view (e.g. upload, copy, etc)

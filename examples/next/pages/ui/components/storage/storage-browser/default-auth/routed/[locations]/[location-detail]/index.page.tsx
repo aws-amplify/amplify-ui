@@ -17,6 +17,10 @@ export default function Page() {
 
   const { path, ...location } = query;
 
+  if (typeof location.permissions === 'string') {
+    location.permissions = [location.permissions];
+  }
+
   return (
     <Flex>
       <Button

@@ -1,8 +1,7 @@
 import { isObject, isString } from '@aws-amplify/ui';
 import isArray from 'lodash/isArray.js';
 
-import { LocationData } from '../actions';
-import { LocationPermissions } from '../credentials/types';
+import { LocationData, LocationPermissions } from '../actions';
 
 function assertLocationPermissions(
   value: unknown,

@@ -1,3 +1,4 @@
+import { LocationPermissions } from '../actions';
 import {
   LocationCredentialsProvider,
   LocationCredentials,
@@ -7,8 +8,6 @@ export interface CredentialsLocation {
   scope: string;
   permissions: LocationPermissions;
 }
-
-export type LocationPermissions = ('list' | 'get' | 'write' | 'delete')[];
 
 export interface CreateLocationCredentialsStoreInput {
   handler: GetLocationCredentials;

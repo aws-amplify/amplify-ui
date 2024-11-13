@@ -1,4 +1,4 @@
-import { LocationPermissions } from '../../credentials/types';
+import { LocationPermissions } from '../../actions';
 import {
   AWSTemporaryCredentials,
   StorageValidationErrorCode,

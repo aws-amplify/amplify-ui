@@ -1,4 +1,4 @@
-import { LocationPermissions } from '../credentials/types';
+import { LocationPermissions } from '../actions/handlers/types';
 import { Permission, StorageAccess } from '../storage-internal';
 
 export const parseAccessGrantPermission = (
