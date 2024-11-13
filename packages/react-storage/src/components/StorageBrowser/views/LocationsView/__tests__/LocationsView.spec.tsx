@@ -94,7 +94,7 @@ const nextPageState: ActionsModule.LocationsDataState = [
 const config: ActionInputConfig = {
   bucket: 'bucky',
   credentials: jest.fn(),
-  region: 'us-weast-1',
+  region: 'us-west-1',
 };
 useGetActionSpy.mockReturnValue(() => config);
 

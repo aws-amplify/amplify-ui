@@ -173,7 +173,7 @@ describe('createListLocationsAction', () => {
     expect(output.nextToken).toBeUndefined();
   });
 
-  it(`should filter out WRITE permission, invalid prefixes (prefix*) and 'OBJECT' type with WRITE access`, async () => {
+  it(`should filter out all WRITE permission grants and invalid prefix grants (prefix*)`, async () => {
     const invalidPrefixLocation: LocationAccess = {
       permission: 'READWRITE',
       scope: 's3://some-bucket/invalid-prefix*',
