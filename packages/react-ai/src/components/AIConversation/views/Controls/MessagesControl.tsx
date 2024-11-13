@@ -2,6 +2,7 @@ import React from 'react';
 import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
 
 import {
+  FallbackComponentContext,
   MessageRendererContext,
   MessagesContext,
   MessageVariantContext,
@@ -67,21 +68,25 @@ const ToolContent = ({
 }: {
   toolUse: NonNullable<ConversationMessage['content'][number]['toolUse']>;
 }) => {
-  const responseComponents = React.useContext(ResponseComponentsContext);
+  const responseComponents = React.useContext(ResponseComponentsContext) ?? {};
+  const FallbackComponent = React.useContext(FallbackComponentContext);
 
   // For now tool use is limited to custom response components
   const { name, input } = toolUse;
 
-  if (
-    !responseComponents ||
-    !name ||
-    !name.startsWith(RESPONSE_COMPONENT_PREFIX)
-  ) {
+  if (!name || !name.startsWith(RESPONSE_COMPONENT_PREFIX)) {
     return;
   } else {
     const response = responseComponents[name];
-    const CustomComponent = response.component;
-    return <CustomComponent {...(input as object)} />;
+    if (response) {
+      const CustomComponent = response.component;
+      return <CustomComponent {...(input as object)} />;
+    }
+    // fallback if there is a UI component message but we don't have
+    // a React component that matches
+    if (FallbackComponent) {
+      return <FallbackComponent {...(input as object)} />;
+    }
   }
 };
 

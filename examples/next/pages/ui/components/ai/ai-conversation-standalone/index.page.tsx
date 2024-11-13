@@ -3,7 +3,6 @@ import React from 'react';
 import { createAIConversation } from '@aws-amplify/ui-react-ai';
 import { ACTIONS, AVATARS, INITIAL_MESSAGES, PROMPTS } from '../constants';
 import '@aws-amplify/ui-react/styles.css';
-import '@aws-amplify/ui-react-ai/ai-conversation-styles.css';
 
 const { AIConversation } = createAIConversation({
   suggestedPrompts: PROMPTS,
