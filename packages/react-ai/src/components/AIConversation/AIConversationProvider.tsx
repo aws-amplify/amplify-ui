@@ -39,12 +39,12 @@ export const AIConversationProvider = ({
   handleSendMessage,
   isLoading,
   messages,
+  messageRenderer,
   responseComponents,
   suggestedPrompts,
   variant,
   welcomeMessage,
   FallbackResponseComponent,
-  messageRenderer,
 }: AIConversationProviderProps): React.JSX.Element => {
   const _displayText = {
     ...defaultAIConversationDisplayTextEn,
