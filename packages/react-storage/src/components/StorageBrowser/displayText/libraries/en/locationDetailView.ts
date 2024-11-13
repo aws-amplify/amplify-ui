@@ -12,5 +12,9 @@ export const DEFAULT_LOCATION_DETAIL_VIEW_DISPLAY_TEXT: DefaultLocationDetailVie
     tableColumnNameHeader: 'Name',
     tableColumnSizeHeader: 'Size',
     tableColumnTypeHeader: 'Type',
-    title: (_locations) => 'use _location to derive display value',
+    title: (location) => {
+      const { current, key } = location;
+      const { bucket = '', prefix } = current ?? {};
+      return prefix ? key : bucket;
+    },
   };
