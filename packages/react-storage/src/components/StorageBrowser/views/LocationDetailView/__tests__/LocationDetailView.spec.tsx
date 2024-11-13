@@ -17,6 +17,9 @@ import {
 } from '../../../actions';
 
 jest.mock('../Controls/ActionsMenu');
+jest.mock('../../../displayText', () => ({
+  useDisplayText: () => ({ LocationDetailView: { title: jest.fn() } }),
+}));
 jest.mock('../../../providers/configuration');
 jest.mock('../../../controls/NavigationControl', () => ({
   NavigationControl: () => 'NavigationControl',

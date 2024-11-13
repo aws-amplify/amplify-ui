@@ -4,7 +4,6 @@ import { LoadingControl } from './Loading';
 import { MessageControl } from './Message';
 import { OverwriteControl } from './Overwrite';
 import { PaginateControl } from './Paginate';
-import { TitleControl } from './Title';
 
 export interface Controls {
   EmptyMessage: typeof EmptyMessageControl;
@@ -13,7 +12,6 @@ export interface Controls {
   Message: typeof MessageControl;
   Overwrite: typeof OverwriteControl;
   Paginate: typeof PaginateControl;
-  Title: typeof TitleControl;
 }
 
 export const Controls: Controls = {
@@ -23,5 +21,4 @@ export const Controls: Controls = {
   Message: MessageControl,
   Overwrite: OverwriteControl,
   Paginate: PaginateControl,
-  Title: TitleControl,
 };

@@ -1,6 +1,7 @@
 import { StatusCounts } from '../tasks';
 import { LocationData, LocationItemData } from '../actions';
 import { Permission } from '../storage-internal';
+import { LocationState } from '../providers/store/location';
 
 /**
  * Common display text values available on each action view (e.g. upload, copy, etc)
@@ -46,7 +47,7 @@ export interface DefaultLocationsViewDisplayText
 
 export interface DefaultLocationDetailViewDisplayText
   extends DefaultListViewDisplayText<LocationItemData> {
-  title: string | ((location: LocationData) => string);
+  title: (location: LocationState) => string;
   searchExhaustedMessage: string;
   searchIncludeSubfoldersLabel: string;
   tableColumnLastModifiedHeader: string;
@@ -72,6 +73,7 @@ export interface DefaultCreateFolderViewDisplayText
 
 export interface DefaultCopyViewDisplayText
   extends DefaultActionViewDisplayText {
+  actionSetDestination: string;
   getFolderListResultsMessage: (data: {
     items: LocationItemData[];
     query?: string;
