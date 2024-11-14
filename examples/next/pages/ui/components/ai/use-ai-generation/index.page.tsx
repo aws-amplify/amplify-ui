@@ -24,7 +24,7 @@ Amplify.configure(outputs);
 
 function Example() {
   const [description, setDescription] = React.useState('');
-  const [{ data, isLoading, hasError }, generateRecipe] =
+  const [{ data, isLoading }, generateRecipe] =
     useAIGeneration('generateRecipe');
 
   const handleClick = async () => {
