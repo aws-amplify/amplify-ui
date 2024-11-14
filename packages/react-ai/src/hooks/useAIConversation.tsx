@@ -130,9 +130,8 @@ export function createUseAIConversation<
         }
       }
 
-      // no client route would mean that the user
-      // is not using TypeScript and entered the
-      // route name wrong, or there is a mismatch
+      // this is a runtime guard to make catch an error if
+      // the route name wrong, or there is a mismatch
       // between the gen2 schema definition and
       // whats in amplify_outputs
       if (!clientRoute) {
