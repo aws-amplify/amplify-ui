@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { ViewElement } from '../../../context/elements';
-import { CLASS_BASE } from '../../../views/constants';
+import { STORAGE_BROWSER_BLOCK_TO_BE_UPDATED } from '../../../constants';
 
 export interface DateDataCellProps {
   content: {
@@ -14,7 +14,9 @@ export const DateDataCell = ({
 }: DateDataCellProps): React.JSX.Element => {
   const { date } = content;
   return (
-    <ViewElement className={`${CLASS_BASE}__table-date-data-cell`}>
+    <ViewElement
+      className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__table-date-data-cell`}
+    >
       {date?.toLocaleString()}
     </ViewElement>
   );

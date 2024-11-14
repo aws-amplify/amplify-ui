@@ -8,7 +8,7 @@ import {
   SpanElement,
 } from '../context/elements';
 
-import { CLASS_BASE } from '../views/constants';
+import { STORAGE_BROWSER_BLOCK_TO_BE_UPDATED } from '../constants';
 import { isFunction } from '@aws-amplify/ui';
 
 export interface BreadcrumbProps {
@@ -23,7 +23,10 @@ interface BreadcrumbNavigationProps {
 
 const Separator = () => {
   return (
-    <SpanElement aria-hidden className={`${CLASS_BASE}__breadcrumb-separator`}>
+    <SpanElement
+      aria-hidden
+      className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__breadcrumb-separator`}
+    >
       /
     </SpanElement>
   );
@@ -38,12 +41,12 @@ export const Breadcrumb = ({
   return (
     <ListItemElement
       aria-current={isCurrent ? 'page' : undefined}
-      className={`${CLASS_BASE}__breadcrumb-list-item`}
+      className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__breadcrumb-list-item`}
     >
       <>
         {!isCurrent && isNavigable ? (
           <ButtonElement
-            className={`${CLASS_BASE}__breadcrumb-button`}
+            className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__breadcrumb-button`}
             onClick={onNavigate}
             variant="navigate"
           >
@@ -51,7 +54,7 @@ export const Breadcrumb = ({
           </ButtonElement>
         ) : (
           <SpanElement
-            className={`${CLASS_BASE}__breadcrumb-text`}
+            className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__breadcrumb-text`}
             variant="navigate-text"
           >
             {name}
@@ -69,9 +72,11 @@ export const BreadcrumbNavigation = ({
   return (
     <NavElement
       aria-label={'Breadcrumb'}
-      className={`${CLASS_BASE}__breadcrumb`}
+      className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__breadcrumb`}
     >
-      <OrderedListElement className={`${CLASS_BASE}__breadcrumb-list`}>
+      <OrderedListElement
+        className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__breadcrumb-list`}
+      >
         {breadcrumbs.map(({ isCurrent, name, onNavigate }, index) => {
           return (
             <Breadcrumb

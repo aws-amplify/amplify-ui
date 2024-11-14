@@ -80,7 +80,7 @@ export const createEnhancedListHandler = <Action extends ListHandler>(
         items: result.filter((item) => {
           const test = item[filterKey];
           if (typeof test === 'string') {
-            const [, suffix] = test.split(input.prefix);
+            const suffix = test.slice(input.prefix.length);
             return suffix.includes(query);
           }
           return false;

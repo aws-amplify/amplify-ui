@@ -42,7 +42,7 @@ describe('createEnhancedListHandler', () => {
     expect(result).toEqual({ items: [], nextToken: undefined });
   });
 
-  it('should collect and filter results when search is provided', async () => {
+  it('should collect and filter results when search and prefix is provided', async () => {
     mockAction
       .mockResolvedValueOnce({
         items: [{ name: 'a_prefix/apple' }, { name: 'a_prefix/banana' }],
@@ -70,6 +70,60 @@ describe('createEnhancedListHandler', () => {
       { name: 'a_prefix/banana' },
       { name: 'a_prefix/date' },
     ]);
+    expect(result.nextToken).toBeUndefined();
+  });
+
+  it('should collect and filter results when search and empty prefix is provided', async () => {
+    mockAction
+      .mockResolvedValueOnce({
+        items: [{ name: 'foo/bar/apple' }, { name: 'banana' }],
+        nextToken: 'next',
+      })
+      .mockResolvedValueOnce({
+        items: [{ name: 'foo/bar/cherry' }, { name: 'date' }],
+        nextToken: null,
+      });
+
+    const handler = createEnhancedListHandler(mockAction as Handler);
+    const prevState = { items: [], nextToken: undefined };
+    const options = {
+      search: { query: 'a', filterKey: 'name' as const },
+    };
+
+    const result = await handler(prevState, {
+      config,
+      prefix: '',
+      options,
+    });
+
+    expect(result.items).toEqual([
+      { name: 'foo/bar/apple' },
+      { name: 'banana' },
+      { name: 'foo/bar/cherry' },
+      { name: 'date' },
+    ]);
+    expect(result.nextToken).toBeUndefined();
+  });
+
+  it('should collect and filter results when search and duplicate prefix is provided', async () => {
+    mockAction.mockResolvedValueOnce({
+      items: [{ name: 'foo/bar/cherry' }, { name: 'foo/date/foo' }],
+      nextToken: null,
+    });
+
+    const handler = createEnhancedListHandler(mockAction as Handler);
+    const prevState = { items: [], nextToken: undefined };
+    const options = {
+      search: { query: 'foo', filterKey: 'name' as const },
+    };
+
+    const result = await handler(prevState, {
+      config,
+      prefix: 'foo/',
+      options,
+    });
+
+    expect(result.items).toEqual([{ name: 'foo/date/foo' }]);
     expect(result.nextToken).toBeUndefined();
   });
 

@@ -12,40 +12,6 @@ const getFolderNameFromKey = (key: string): string => {
   return lastFolder ? lastFolder : '';
 };
 
-export const getDestinationPickerTableData = ({
-  items,
-  handleNavigateFolder,
-}: {
-  items: { key: string; id: string }[];
-  handleNavigateFolder: (key: string) => void;
-}): DataTableProps => {
-  const rows: DataTableProps['rows'] = items.map((item) => {
-    const row: WithKey<DataTableRow> = {
-      key: item.id,
-      content: [
-        {
-          key: item.id,
-          type: 'button',
-          content: {
-            label: getFolderNameFromKey(item.key),
-            icon: 'folder',
-            onClick: () => {
-              handleNavigateFolder(getFolderNameFromKey(item.key));
-            },
-          },
-        },
-      ],
-    };
-    return row;
-  });
-
-  const tableData: DataTableProps = {
-    headers: DESTINATION_PICKER_COLUMNS,
-    rows,
-  };
-  return tableData;
-};
-
 export const getDestinationListFullPrefix = (
   destinationList: string[]
 ): string => {
@@ -58,4 +24,41 @@ export const getDestinationListFullPrefix = (
   // filter out root bucket ""
   const destination = destinationList.filter((item) => item !== '').join('/');
   return destination.endsWith('/') ? destination : `${destination}/`;
+};
+
+export const getDestinationPickerTableData = ({
+  folders,
+  onSelect,
+}: {
+  folders?: { key: string; id: string }[];
+  onSelect?: (name: string) => void;
+}): DataTableProps => {
+  const rows: DataTableProps['rows'] = !folders
+    ? []
+    : folders.map((item) => {
+        const name = getFolderNameFromKey(item.key);
+        const row: WithKey<DataTableRow> = {
+          key: item.id,
+          content: [
+            {
+              key: item.id,
+              type: 'button',
+              content: {
+                label: name,
+                icon: 'folder',
+                onClick: () => {
+                  onSelect?.(name);
+                },
+              },
+            },
+          ],
+        };
+        return row;
+      });
+
+  const tableData: DataTableProps = {
+    headers: DESTINATION_PICKER_COLUMNS,
+    rows,
+  };
+  return tableData;
 };

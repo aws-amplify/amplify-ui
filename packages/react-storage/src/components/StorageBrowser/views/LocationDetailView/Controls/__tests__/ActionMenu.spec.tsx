@@ -4,7 +4,7 @@ import { render, fireEvent } from '@testing-library/react';
 import * as TempActions from '../../../../do-not-import-from-here/createTempActionsProvider';
 
 import * as StoreModule from '../../../../providers/store';
-import { CLASS_BASE } from '../../../constants';
+import { STORAGE_BROWSER_BLOCK_TO_BE_UPDATED } from '../../../../constants';
 
 import { ActionsMenuControl } from '../ActionsMenu';
 
@@ -51,7 +51,9 @@ describe('ActionsMenuControl', () => {
 
     fireEvent.click(toggle);
 
-    expect(menu.classList).toContain(`${CLASS_BASE}__actions-menu__menu--open`);
+    expect(menu.classList).toContain(
+      `${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__actions-menu-list--open`
+    );
   });
 
   it('closes the menu on action select', () => {
@@ -60,7 +62,9 @@ describe('ActionsMenuControl', () => {
     const menu = getByRole('menu', { name: 'Actions' });
 
     fireEvent.click(toggle);
-    expect(menu.classList).toContain(`${CLASS_BASE}__actions-menu__menu--open`);
+    expect(menu.classList).toContain(
+      `${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__actions-menu-list--open`
+    );
 
     const menuItem = getByText(TEST_ACTIONS.wild_crazy_guy.options.displayName);
     expect(menuItem).toBeInTheDocument();
@@ -68,7 +72,7 @@ describe('ActionsMenuControl', () => {
     fireEvent.click(menuItem);
 
     expect(menu.classList).not.toContain(
-      `${CLASS_BASE}__actions-menu__menu--open`
+      `${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__actions-menu-list--open`
     );
   });
 });
