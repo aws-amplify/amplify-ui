@@ -19,6 +19,7 @@ export interface AIConversationTokens<OutputType extends OutputVariantKey> {
         OutputType
       >;
     };
+    actions?: DesignTokenProperties<'gap', OutputType>;
     body?: DesignTokenProperties<'gap', OutputType>;
     user?: DesignTokenProperties<'backgroundColor', OutputType>;
     assistant?: DesignTokenProperties<'backgroundColor', OutputType>;
@@ -75,6 +76,7 @@ export const aiConversation: Required<AIConversationTokens<'default'>> = {
       },
     },
     body: { gap: { value: '{space.xs.value}' } },
+    actions: { gap: { value: '{space.xs.value}' } },
   },
 
   form: {
