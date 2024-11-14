@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { isFunction } from '@aws-amplify/ui';
 import { filterAllowedFiles } from '../utils/filterAllowedFiles';
+import { processDroppedItems } from '../utils/processDroppedItems';
 
 interface DragEvents {
   onDragStart: (event: React.DragEvent<HTMLDivElement>) => void;
@@ -85,17 +86,27 @@ export default function useDropZone({
     event.preventDefault();
     event.stopPropagation();
     setDragState('inactive');
-    const files = Array.from(event.dataTransfer.files);
-    const { acceptedFiles, rejectedFiles } = filterAllowedFiles<File>(
-      files,
-      acceptedFileTypes
-    );
+
+    const { files, items } = event.dataTransfer;
 
     if (isFunction(_onDrop)) {
       _onDrop(event);
     }
-    if (isFunction(onDropComplete)) {
-      onDropComplete({ acceptedFiles, rejectedFiles });
+
+    const completeDrop = (files: File[]) => {
+      const { acceptedFiles, rejectedFiles } = filterAllowedFiles<File>(
+        files,
+        acceptedFileTypes
+      );
+      if (isFunction(onDropComplete)) {
+        onDropComplete({ acceptedFiles, rejectedFiles });
+      }
+    };
+
+    if (!items) {
+      completeDrop(Array.from(files));
+    } else {
+      processDroppedItems(Array.from(items)).then(completeDrop);
     }
   };
 
