@@ -19,7 +19,7 @@ describe('ActionsMenu', () => {
 
     // initial
     expect(getByTestId('ACTIONS_MENU_LIST').className).toBe(
-      'storage-browser__actions-menu__menu'
+      'storage-browser__actions-menu-list'
     );
 
     const toggle = getByTestId('ACTIONS_MENU_TOGGLE');
@@ -30,7 +30,7 @@ describe('ActionsMenu', () => {
 
     // open
     expect(getByTestId('ACTIONS_MENU_LIST').className).toBe(
-      'storage-browser__actions-menu__menu storage-browser__actions-menu__menu--open'
+      'storage-browser__actions-menu-list storage-browser__actions-menu-list--open'
     );
 
     await waitFor(async () => {
@@ -39,7 +39,7 @@ describe('ActionsMenu', () => {
 
     // closed
     expect(getByTestId('ACTIONS_MENU_LIST').className).toBe(
-      'storage-browser__actions-menu__menu'
+      'storage-browser__actions-menu-list'
     );
   });
 

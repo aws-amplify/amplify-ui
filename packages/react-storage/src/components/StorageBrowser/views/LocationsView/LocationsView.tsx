@@ -10,7 +10,10 @@ import { TitleControl } from '../../controls/TitleControl';
 import { ControlsContextProvider } from '../../controls/context';
 import { useDisplayText } from '../../displayText';
 import { Controls } from '../Controls';
-import { AMPLIFY_CLASS_BASE, CLASS_BASE } from '../constants';
+import {
+  STORAGE_BROWSER_BLOCK,
+  STORAGE_BROWSER_BLOCK_TO_BE_UPDATED,
+} from '../../constants';
 import { resolveClassName } from '../utils';
 import { getLocationsViewTableData } from './getLocationsViewTableData';
 import { LocationViewHeaders } from './getLocationsViewTableData/types';
@@ -153,23 +156,27 @@ export function LocationsView({
       onSearchClear={onSearchClear}
     >
       <div
-        className={resolveClassName(AMPLIFY_CLASS_BASE, className)}
+        className={resolveClassName(STORAGE_BROWSER_BLOCK, className)}
         data-testid="LOCATIONS_VIEW"
       >
         <TitleControl />
-        <ViewElement className={`${CLASS_BASE}__location-detail-view-controls`}>
-          <SearchControl className={`${CLASS_BASE}__locations-view-search`} />
+        <ViewElement
+          className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__location-detail-view-controls`}
+        >
+          <ViewElement
+            className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__search`}
+          >
+            <SearchControl />
+          </ViewElement>
           <PaginationControl
-            className={`${CLASS_BASE}__locations-view-pagination`}
+            className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__locations-view-pagination`}
           />
           <DataRefreshControl
-            className={`${CLASS_BASE}__locations-view-data-refresh`}
+            className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__locations-view-data-refresh`}
           />
         </ViewElement>
         <LocationsMessage show={hasError} message={message} />
-        <LoadingIndicatorControl
-          className={`${CLASS_BASE}__locations-view-loading-indicator`}
-        />
+        <LoadingIndicatorControl />
         {hasError ? null : <DataTableControl />}
         <LocationsEmptyMessage show={shouldShowEmptyMessage} />
       </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { CLASS_BASE } from '../views/constants';
+import { STORAGE_BROWSER_BLOCK_TO_BE_UPDATED } from '../constants';
 import {
   ButtonElement,
   IconElement,
@@ -15,8 +15,6 @@ export interface PaginationButtonProps extends InputElementProps {
   type?: ButtonType;
 }
 
-const BLOCK_NAME = `${CLASS_BASE}__pagination-button`;
-
 export function PaginationButton({
   isDisabled,
   onClick,
@@ -29,12 +27,15 @@ export function PaginationButton({
   return (
     <ButtonElement
       aria-label={`Go to ${type} page`}
-      className={`${BLOCK_NAME}--${buttonType}`}
+      className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__pagination-button--${buttonType}`}
       disabled={isDisabled}
       onClick={onClick}
       variant={buttonType}
     >
-      <IconElement className={`${BLOCK_NAME}-icon`} variant={buttonType} />
+      <IconElement
+        className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__pagination-button-icon`}
+        variant={buttonType}
+      />
     </ButtonElement>
   );
 }

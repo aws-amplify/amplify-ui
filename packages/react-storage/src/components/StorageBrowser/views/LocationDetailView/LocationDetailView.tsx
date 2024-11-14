@@ -15,7 +15,10 @@ import { TitleControl } from '../../controls/TitleControl';
 import { ControlsContextProvider } from '../../controls/context';
 import { useDisplayText } from '../../displayText';
 import { Controls } from '../Controls';
-import { AMPLIFY_CLASS_BASE, CLASS_BASE } from '../constants';
+import {
+  STORAGE_BROWSER_BLOCK,
+  STORAGE_BROWSER_BLOCK_TO_BE_UPDATED,
+} from '../../constants';
 import { resolveClassName } from '../utils';
 import { ActionsMenuControl } from './Controls/ActionsMenu';
 import { getLocationDetailViewTableData } from './getLocationDetailViewTableData';
@@ -89,7 +92,7 @@ export function LocationDetailView({
 
   return (
     <div
-      className={resolveClassName(AMPLIFY_CLASS_BASE, className)}
+      className={resolveClassName(STORAGE_BROWSER_BLOCK, className)}
       data-testid="LOCATION_DETAIL_VIEW"
     >
       <ControlsContextProvider
@@ -128,30 +131,33 @@ export function LocationDetailView({
         onSearchClear={onSearchClear}
       >
         <NavigationControl
-          className={`${CLASS_BASE}__location-detail-view-navigation`}
+          className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__location-detail-view-navigation`}
         />
         <TitleControl />
-        <ViewElement className={`${CLASS_BASE}__location-detail-view-controls`}>
-          <SearchControl
-            className={`${CLASS_BASE}__location-detail-view-search`}
+        <ViewElement
+          className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__location-detail-view-controls`}
+        >
+          <ViewElement
+            className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__search`}
           >
+            <SearchControl />
             <LabelElement
-              className={`${CLASS_BASE}__search-subfolder-toggle__label`}
+              className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__search-subfolder-toggle__label`}
             >
               <InputElement
                 checked={includeSubfolders}
-                className={`${CLASS_BASE}__search-subfolder-toggle__checkbox`}
+                className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__search-subfolder-toggle__checkbox`}
                 onChange={() => onIncludeSubfoldersChange?.(!includeSubfolders)}
                 type="checkbox"
               />
               Include subfolders
             </LabelElement>
-          </SearchControl>
+          </ViewElement>
           <PaginationControl
-            className={`${CLASS_BASE}__location-detail-view-pagination`}
+            className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__location-detail-view-pagination`}
           />
           <DataRefreshControl
-            className={`${CLASS_BASE}__locations-detail-view-data-refresh`}
+            className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__locations-detail-view-data-refresh`}
           />
           <ActionsMenuControl
             onActionSelect={onActionSelect}
@@ -159,9 +165,7 @@ export function LocationDetailView({
           />
         </ViewElement>
         <LocationDetailMessage show={hasError} message={message} />
-        <LoadingIndicatorControl
-          className={`${CLASS_BASE}__locations-detail-view-loading-indicator`}
-        />
+        <LoadingIndicatorControl />
         {hasError ? null : (
           <DropZoneControl>
             <DataTableControl />

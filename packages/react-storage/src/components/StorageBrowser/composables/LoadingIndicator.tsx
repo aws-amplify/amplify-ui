@@ -2,7 +2,7 @@ import React from 'react';
 
 import { IconElement, SpanElement, ViewElement } from '../context/elements';
 
-import { CLASS_BASE } from '../views/constants';
+import { STORAGE_BROWSER_BLOCK_TO_BE_UPDATED } from '../constants';
 
 export interface LoadingIndicatorProps {
   label?: string;
@@ -13,13 +13,15 @@ export function LoadingIndicator({
   isLoading,
 }: LoadingIndicatorProps): React.JSX.Element | null {
   return !isLoading ? null : (
-    <ViewElement className={`${CLASS_BASE}__loading-indicator`}>
+    <ViewElement
+      className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__loading-indicator`}
+    >
       <IconElement
-        className={`${CLASS_BASE}__loading-indicator-icon`}
+        className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__loading-indicator-icon`}
         variant="loading"
       />
       <SpanElement
-        className={`${CLASS_BASE}__loading-indicator-text`}
+        className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__loading-indicator-label`}
         aria-live="polite"
       >
         {label}
