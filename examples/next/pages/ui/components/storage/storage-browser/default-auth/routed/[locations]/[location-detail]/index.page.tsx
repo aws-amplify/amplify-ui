@@ -1,3 +1,4 @@
+import React from 'react';
 import { useRouter } from 'next/router';
 
 import { signOut } from 'aws-amplify/auth';
@@ -9,6 +10,7 @@ import '@aws-amplify/ui-react-storage/storage-browser-styles.css';
 import '@aws-amplify/ui-react-storage/styles.css';
 
 export default function Page() {
+  const [key, setKey] = React.useState(() => crypto.randomUUID());
   const router = useRouter();
 
   if (!router.query.bucket) return null;
@@ -33,6 +35,7 @@ export default function Page() {
             ? router.query.actionType
             : undefined
         }
+        key={key}
         location={location as any}
         path={path as string}
       >
@@ -54,6 +57,7 @@ export default function Page() {
           <dialog open={!!router.query.actionType}>
             <StorageBrowser.LocationActionView
               onExit={() => {
+                setKey(() => crypto.randomUUID());
                 router.replace({
                   query: { ...router.query, actionType: undefined },
                 });

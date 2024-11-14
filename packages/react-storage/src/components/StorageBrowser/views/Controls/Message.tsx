@@ -7,7 +7,7 @@ import { MessageVariant } from '../../context/elements';
 import { CLASS_BASE } from '../constants';
 
 const BLOCK_NAME = `${CLASS_BASE}__message`;
-interface MessageControlProps {
+export interface MessageControlProps {
   variant?: MessageVariant;
   children?: React.ReactNode;
 }
