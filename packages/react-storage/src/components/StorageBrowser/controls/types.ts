@@ -59,6 +59,7 @@ export interface ControlsContext {
     isLoading?: boolean;
     isFolderNameDisabled?: boolean;
     isOverwriteToggleDisabled?: boolean;
+    isSearchingSubfolders?: boolean;
     loadingIndicatorLabel?: string;
     location?: LocationState;
     overwriteToggleLabel?: string;
@@ -67,6 +68,7 @@ export interface ControlsContext {
     paginationData?: PaginationData;
     searchPlaceholder?: string;
     searchQuery?: string;
+    searchSubfoldersToggleLabel?: string;
     statusCounts?: StatusCounts;
     tableData?: TableData;
     title?: string;
@@ -86,5 +88,6 @@ export interface ControlsContext {
   onSearchClear?: () => void;
   onSearchQueryChange?: (value: string) => void;
   onToggleOverwrite?: () => void;
+  onToggleSearchSubfolders?: () => void;
   onValidateFolderName?: (value: string) => void;
 }
