@@ -7,7 +7,7 @@ import { StorageBrowserElements } from './context/elements';
 
 export interface Components
   // omitted values have not yet been integrated with views
-  extends Omit<Partial<Composables>, 'LoadingIndicator' | 'Message'> {}
+  extends Omit<Partial<Composables>, 'Message'> {}
 
 export interface ComponentsProviderProps {
   children?: React.ReactNode;
