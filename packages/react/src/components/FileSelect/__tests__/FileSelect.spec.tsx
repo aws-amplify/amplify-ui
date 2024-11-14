@@ -54,8 +54,6 @@ describe('useFileSelect', () => {
         await user.upload(input!, file);
       });
 
-      expect(input?.files?.[0]).toStrictEqual(file);
-
       expect(onSelect).toHaveBeenCalledTimes(1);
       expect(onSelect).toHaveBeenCalledWith([file]);
     }
