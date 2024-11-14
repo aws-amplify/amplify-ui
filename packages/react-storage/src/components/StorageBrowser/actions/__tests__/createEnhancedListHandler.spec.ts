@@ -76,11 +76,11 @@ describe('createEnhancedListHandler', () => {
   it('should collect and filter results when search and empty prefix is provided', async () => {
     mockAction
       .mockResolvedValueOnce({
-        items: [{ name: 'a_prefix/apple' }, { name: 'a_prefix/banana' }],
+        items: [{ name: 'foo/bar/apple' }, { name: 'banana' }],
         nextToken: 'next',
       })
       .mockResolvedValueOnce({
-        items: [{ name: 'a_prefix/cherry' }, { name: 'a_prefix/date' }],
+        items: [{ name: 'foo/bar/cherry' }, { name: 'date' }],
         nextToken: null,
       });
 
@@ -97,10 +97,10 @@ describe('createEnhancedListHandler', () => {
     });
 
     expect(result.items).toEqual([
-      { name: 'a_prefix/apple' },
-      { name: 'a_prefix/banana' },
-      { name: 'a_prefix/cherry' },
-      { name: 'a_prefix/date' },
+      { name: 'foo/bar/apple' },
+      { name: 'banana' },
+      { name: 'foo/bar/cherry' },
+      { name: 'date' },
     ]);
     expect(result.nextToken).toBeUndefined();
   });
