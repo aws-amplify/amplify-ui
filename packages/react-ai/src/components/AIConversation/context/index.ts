@@ -1,3 +1,4 @@
+export { AIContextContext, AIContextProvider } from './AIContextContext';
 export { ActionsContext, ActionsProvider } from './ActionsContext';
 export { AvatarsContext, AvatarsProvider } from './AvatarsContext';
 export {

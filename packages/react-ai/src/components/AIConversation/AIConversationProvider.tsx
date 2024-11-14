@@ -19,6 +19,7 @@ import {
   WelcomeMessageProvider,
   FallbackComponentProvider,
   MessageRendererProvider,
+  AIContextProvider,
 } from './context';
 import { AttachmentProvider } from './context/AttachmentContext';
 
@@ -29,6 +30,7 @@ export interface AIConversationProviderProps
 }
 
 export const AIConversationProvider = ({
+  aiContext,
   actions,
   allowAttachments,
   avatars,
@@ -72,9 +74,16 @@ export const AIConversationProvider = ({
                             <ActionsProvider actions={actions}>
                               <MessageVariantProvider variant={variant}>
                                 <MessagesProvider messages={messages}>
-                                  <LoadingContextProvider isLoading={isLoading}>
-                                    {children}
-                                  </LoadingContextProvider>
+                                  {/* aiContext should be as close as possible to the bottom */}
+                                  {/* because the intent is users should update the context */}
+                                  {/* without it affecting the already rendered messages */}
+                                  <AIContextProvider aiContext={aiContext}>
+                                    <LoadingContextProvider
+                                      isLoading={isLoading}
+                                    >
+                                      {children}
+                                    </LoadingContextProvider>
+                                  </AIContextProvider>
                                 </MessagesProvider>
                               </MessageVariantProvider>
                             </ActionsProvider>
