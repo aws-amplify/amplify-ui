@@ -164,9 +164,11 @@ export function LocationsView({
         <ViewElement
           className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__location-detail-view-controls`}
         >
-          <SearchControl
-            className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__locations-view-search`}
-          />
+          <ViewElement
+            className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__search`}
+          >
+            <SearchControl />
+          </ViewElement>
           <PaginationControl
             className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__locations-view-pagination`}
           />

@@ -138,9 +138,10 @@ export function LocationDetailView({
         <ViewElement
           className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__location-detail-view-controls`}
         >
-          <SearchControl
-            className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__location-detail-view-search`}
+          <ViewElement
+            className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__search`}
           >
+            <SearchControl />
             <LabelElement
               className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__search-subfolder-toggle__label`}
             >
@@ -152,7 +153,7 @@ export function LocationDetailView({
               />
               Include subfolders
             </LabelElement>
-          </SearchControl>
+          </ViewElement>
           <PaginationControl
             className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__location-detail-view-pagination`}
           />

@@ -1,32 +1,36 @@
 import React from 'react';
 
 import { Field } from '../components/Field';
-import { ButtonElement, IconElement, ViewElement } from '../context/elements';
+import { ButtonElement, IconElement } from '../context/elements';
 import { STORAGE_BROWSER_BLOCK_TO_BE_UPDATED } from '../constants';
 import { displayText } from '../displayText/en';
 
-export interface SearchProps {
+export interface SearchFieldProps {
+  id?: string;
+  label?: string;
+  query?: string;
+  placeholder?: string;
   onSearch?: () => void;
-  onSearchClear?: () => void;
-  searchQuery?: string;
-  onSearchQueryChange?: (query: string) => void;
-  searchPlaceholder?: string;
-  children?: React.ReactNode;
+  onClear?: () => void;
+  onQueryChange?: (query: string) => void;
 }
 
-export const Search = ({
+export const SearchField = ({
+  id,
+  label,
   onSearch,
-  onSearchClear,
-  searchPlaceholder,
-  searchQuery = '',
-  onSearchQueryChange,
-  children,
-}: SearchProps): React.JSX.Element => {
+  onClear,
+  placeholder,
+  query = '',
+  onQueryChange,
+}: SearchFieldProps): React.JSX.Element => {
   // FIXME: focus not returning to input field after clear
 
   return (
-    <ViewElement className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__search`}>
+    <>
       <Field
+        id={id}
+        label={label}
         icon={
           <IconElement
             className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__search-field-icon`}
@@ -36,23 +40,21 @@ export const Search = ({
         className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__search-field`}
         variant="search"
         onChange={(e) => {
-          onSearchQueryChange?.(e.target.value);
+          onQueryChange?.(e.target.value);
         }}
-        placeholder={searchPlaceholder}
+        placeholder={placeholder}
         onKeyUp={(event) => {
           if (event.key === 'Enter') {
             onSearch?.();
           }
         }}
-        value={searchQuery}
+        value={query}
       >
-        {searchQuery ? (
+        {query ? (
           <ButtonElement
             aria-label={displayText.searchClearLabel}
             className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__search-field-clear`}
-            onClick={() => {
-              onSearchClear?.();
-            }}
+            onClick={onClear}
             variant="refresh"
           >
             <IconElement variant="dismiss" />
@@ -61,11 +63,10 @@ export const Search = ({
       </Field>
       <ButtonElement
         className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__search-submit`}
-        onClick={() => onSearch?.()}
+        onClick={onSearch}
       >
         Submit
       </ButtonElement>
-      {children ?? null}
-    </ViewElement>
+    </>
   );
 };

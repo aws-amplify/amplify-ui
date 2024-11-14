@@ -12,7 +12,7 @@ import { FolderNameFieldProps } from './FolderNameField';
 import { NavigationProps } from './Navigation';
 import { StatusDisplayProps } from './StatusDisplay';
 import { PaginationProps } from './Pagination';
-import { SearchProps } from './Search';
+import { SearchFieldProps } from './SearchField';
 import { TitleProps } from './Title';
 
 export interface Composables {
@@ -29,7 +29,7 @@ export interface Composables {
   Message: React.ComponentType<MessageProps>;
   Navigation: React.ComponentType<NavigationProps>;
   Pagination: React.ComponentType<PaginationProps>;
-  Search: React.ComponentType<SearchProps>;
+  SearchField: React.ComponentType<SearchFieldProps>;
   StatusDisplay: React.ComponentType<StatusDisplayProps>;
   Title: React.ComponentType<TitleProps>;
 }
