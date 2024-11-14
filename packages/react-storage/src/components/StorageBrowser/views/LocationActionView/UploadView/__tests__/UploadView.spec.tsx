@@ -60,7 +60,7 @@ const location = {
 const initialViewState: UploadViewState = {
   ...callbacks,
   location: { current: location, path: '', key: '' },
-  isOverwriteEnabled: false,
+  isOverwritingEnabled: false,
   isProcessingComplete: false,
   isProcessing: false,
   tasks: [],
@@ -102,11 +102,11 @@ describe('UploadView', () => {
     expect(calls[0][0]).toMatchObject({
       data: {
         isActionStartDisabled: true,
+        isActionExitDisabled: false,
         isActionCancelDisabled: true,
         isAddFilesDisabled: false,
         isAddFolderDisabled: false,
-        isActionExitDisabled: false,
-        isOverwriteCheckboxDisabled: false,
+        isOverwriteToggleDisabled: false,
       },
     });
   });
@@ -121,11 +121,11 @@ describe('UploadView', () => {
     expect(calls[0][0]).toMatchObject({
       data: {
         isActionStartDisabled: false,
+        isActionExitDisabled: false,
         isActionCancelDisabled: true,
         isAddFilesDisabled: false,
         isAddFolderDisabled: false,
-        isActionExitDisabled: false,
-        isOverwriteCheckboxDisabled: false,
+        isOverwriteToggleDisabled: false,
       },
     });
   });
@@ -140,11 +140,11 @@ describe('UploadView', () => {
     expect(calls[0][0]).toMatchObject({
       data: {
         isActionStartDisabled: true,
+        isActionExitDisabled: true,
         isActionCancelDisabled: false,
         isAddFilesDisabled: true,
         isAddFolderDisabled: true,
-        isActionExitDisabled: true,
-        isOverwriteCheckboxDisabled: true,
+        isOverwriteToggleDisabled: true,
       },
     });
   });
@@ -159,11 +159,11 @@ describe('UploadView', () => {
     expect(calls[0][0]).toMatchObject({
       data: {
         isActionStartDisabled: true,
+        isActionExitDisabled: false,
         isActionCancelDisabled: true,
         isAddFilesDisabled: true,
         isAddFolderDisabled: true,
-        isActionExitDisabled: false,
-        isOverwriteCheckboxDisabled: true,
+        isOverwriteToggleDisabled: true,
       },
     });
   });
