@@ -22,6 +22,7 @@ import { resolveClassName } from '../../utils';
 import { getActionViewTableData } from '../getActionViewTableData';
 import { useUploadView } from './useUploadView';
 import { UploadViewProps } from './types';
+import { Breadcrumb } from '../../../components/BreadcrumbNavigation';
 
 const { Overwrite } = Controls;
 
@@ -64,6 +65,7 @@ export function UploadView({
   const isAddFolderDisabled = isProcessing || isProcessingComplete;
   const isActionExitDisabled = isProcessing;
   const isOverwriteCheckboxDisabled = isProcessing || isProcessingComplete;
+  const destinationList = (location.key || '/').split('/');
 
   return (
     <div className={resolveClassName(STORAGE_BROWSER_BLOCK, className)}>
@@ -102,38 +104,45 @@ export function UploadView({
       >
         <ActionExitControl />
         <TitleControl />
-        <ViewElement
-          className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__action-header`}
-        >
-          <ViewElement
-            className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__upload-destination`}
-          >
-            <DescriptionList
-              descriptions={[
-                {
-                  term: `${actionDestinationLabel}:`,
-                  details: location.key || '/',
-                },
-              ]}
-            />
-            <Overwrite
-              defaultChecked={isOverwriteEnabled}
-              disabled={isOverwriteCheckboxDisabled}
-              handleChange={onToggleOverwrite}
-            />
+        <ViewElement className={`${STORAGE_BROWSER_BLOCK}__controls`}>
+          <Overwrite
+            defaultChecked={isOverwriteEnabled}
+            disabled={isOverwriteCheckboxDisabled}
+            handleChange={onToggleOverwrite}
+          />
+
+          <ViewElement className={`${STORAGE_BROWSER_BLOCK}__buttons`}>
+            <AddFolderControl />
+            <AddFilesControl />
           </ViewElement>
-          <AddFolderControl
-            className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__upload-view-add-folder`}
-          />
-          <AddFilesControl
-            className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__upload-view-add-files`}
-          />
         </ViewElement>
         <DropZoneControl>
           <DataTableControl />
         </DropZoneControl>
-        <ViewElement className={`${STORAGE_BROWSER_BLOCK}__footer`}>
+        <ViewElement className={`${STORAGE_BROWSER_BLOCK}__summary`}>
+          <DescriptionList
+            className={`${STORAGE_BROWSER_BLOCK}__destination`}
+            descriptions={[
+              {
+                term: `${actionDestinationLabel}:`,
+                details: (
+                  <>
+                    {destinationList.map((key, index) => (
+                      <Breadcrumb
+                        isCurrent={index === destinationList.length - 1}
+                        key={`${key}-${index}`}
+                        name={key}
+                      />
+                    ))}
+                  </>
+                ),
+              },
+            ]}
+          />
           <StatusDisplayControl />
+        </ViewElement>
+        <ViewElement className={`${STORAGE_BROWSER_BLOCK}__footer`}>
+          {/* Message goes here */}
           <ViewElement className={`${STORAGE_BROWSER_BLOCK}__buttons`}>
             <ActionCancelControl />
             <ActionStartControl />
