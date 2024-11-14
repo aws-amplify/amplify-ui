@@ -10,6 +10,10 @@ export interface CopyViewState extends ActionViewState<CopyHandlerData> {
   onDestinationChange: (destination: string[]) => void;
 }
 
+export interface CopyViewProviderProps extends CopyViewState {
+  children?: React.ReactNode;
+}
+
 export interface CopyViewProps extends ActionViewProps {}
 
 export interface CopyViewComponent

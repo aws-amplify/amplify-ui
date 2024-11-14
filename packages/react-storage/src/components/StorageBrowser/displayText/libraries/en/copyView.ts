@@ -6,14 +6,14 @@ export const DEFAULT_COPY_VIEW_DISPLAY_TEXT: DefaultCopyViewDisplayText = {
   title: 'Copy',
   actionStartLabel: 'Copy',
   actionDestinationLabel: 'Copy destination:',
-  actionSetDestination: 'Set destination',
-  getFolderListResultsMessage: ({ items, query, errorMessage }) => {
-    if (!items.length) {
+  getFolderListResultsMessage: ({ folders, query, defaultMessage }) => {
+    if (!folders?.length) {
       return query
         ? `No folders found matching "${query}"`
-        : 'No subfolders found within folder.';
+        : 'No subfolders found within selected folder.';
     }
-    return errorMessage;
+
+    return defaultMessage;
   },
   loadingIndicatorLabel: 'Loading',
   overwriteWarningMessage:

@@ -100,12 +100,11 @@ describe('useCredentialsStore', () => {
     const bucket = 'my-bucket';
     const permission = 'READWRITE';
     const prefix = 'my-prefix/nested-prefix/';
+    const scope = `s3://${bucket}/${prefix}*`;
 
     act(() => {
-      store.getCredentials({ bucket, permission, prefix });
+      store.getCredentials({ scope, permission });
     });
-
-    const scope = `s3://${bucket}/${prefix}*`;
 
     expect(mockGetProvider).toHaveBeenCalledTimes(1);
     expect(mockGetProvider).toHaveBeenCalledWith({ permission, scope });

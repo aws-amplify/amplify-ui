@@ -5,7 +5,8 @@ import { IconElement } from '../../context/elements/IconElement';
 
 import { MessageVariant } from '../../context/elements';
 import { STORAGE_BROWSER_BLOCK_TO_BE_UPDATED } from '../../constants';
-interface MessageControlProps {
+
+export interface MessageControlProps {
   variant?: MessageVariant;
   children?: React.ReactNode;
 }
