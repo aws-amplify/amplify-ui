@@ -25,9 +25,16 @@ interface TableRow {
 interface TableProps {
   headers: WithKey<TableItem>[];
   rows: WithKey<TableRow>[];
+  isLoading?: boolean;
+  renderPlaceholder: () => React.JSX.Element;
 }
 
-export const Table = ({ headers, rows }: TableProps): React.JSX.Element => {
+export const Table = ({
+  headers,
+  rows,
+  isLoading,
+  renderPlaceholder,
+}: TableProps): React.JSX.Element => {
   return (
     <ViewElement className={`${AMPLIFY_CLASS_BASE}__data-table`}>
       <TableElement className={`${AMPLIFY_CLASS_BASE}__table`}>
@@ -46,31 +53,33 @@ export const Table = ({ headers, rows }: TableProps): React.JSX.Element => {
           ) : null}
         </TableHeadElement>
         <TableBodyElement className={`${AMPLIFY_CLASS_BASE}__table-body`}>
-          {rows?.map(({ key, content }) => (
-            <TableRowElement
-              key={key}
-              className={`${AMPLIFY_CLASS_BASE}__table-row`}
-            >
-              {content.map(({ key, content, type }) => {
-                return type === 'header' ? (
-                  <TableHeaderElement
-                    key={key}
-                    className={`${AMPLIFY_CLASS_BASE}__table-header`}
-                    role="rowheader"
-                  >
-                    {content}
-                  </TableHeaderElement>
-                ) : (
-                  <TableDataCellElement
-                    key={key}
-                    className={`${AMPLIFY_CLASS_BASE}__table-data-cell`}
-                  >
-                    {content}
-                  </TableDataCellElement>
-                );
-              })}
-            </TableRowElement>
-          ))}
+          {isLoading
+            ? renderPlaceholder()
+            : rows?.map(({ key, content }) => (
+                <TableRowElement
+                  key={key}
+                  className={`${AMPLIFY_CLASS_BASE}__table-row`}
+                >
+                  {content.map(({ key, content, type }) => {
+                    return type === 'header' ? (
+                      <TableHeaderElement
+                        key={key}
+                        className={`${AMPLIFY_CLASS_BASE}__table-header`}
+                        role="rowheader"
+                      >
+                        {content}
+                      </TableHeaderElement>
+                    ) : (
+                      <TableDataCellElement
+                        key={key}
+                        className={`${AMPLIFY_CLASS_BASE}__table-data-cell`}
+                      >
+                        {content}
+                      </TableDataCellElement>
+                    );
+                  })}
+                </TableRowElement>
+              ))}
         </TableBodyElement>
       </TableElement>
     </ViewElement>

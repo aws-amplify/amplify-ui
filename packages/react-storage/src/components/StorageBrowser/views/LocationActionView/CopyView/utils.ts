@@ -13,9 +13,11 @@ const getFolderNameFromKey = (key: string): string => {
 };
 
 export const getDestinationPickerTableData = ({
+  isLoading,
   items,
   handleNavigateFolder,
 }: {
+  isLoading: boolean;
   items: { key: string; id: string }[];
   handleNavigateFolder: (key: string) => void;
 }): DataTableProps => {
@@ -41,6 +43,7 @@ export const getDestinationPickerTableData = ({
 
   const tableData: DataTableProps = {
     headers: DESTINATION_PICKER_COLUMNS,
+    isLoading,
     rows,
   };
   return tableData;

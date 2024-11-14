@@ -18,11 +18,7 @@ import { LocationsViewProps } from './types';
 
 export const DEFAULT_ERROR_MESSAGE = 'There was an error loading locations.';
 
-const { EmptyMessage, Loading: LoadingElement, Message } = Controls;
-
-const Loading = ({ show }: { show: boolean }) => {
-  return show ? <LoadingElement /> : null;
-};
+const { EmptyMessage, Message } = Controls;
 
 const LocationsMessage = ({
   show,
@@ -114,6 +110,7 @@ export function LocationsView({
         tableData: getLocationsViewTableData({
           getPermissionName,
           headers,
+          isLoading,
           pageItems,
           onNavigate,
         }),
@@ -147,7 +144,6 @@ export function LocationsView({
           />
         </ViewElement>
         <LocationsMessage show={hasError} message={message} />
-        <Loading show={isLoading} />
         {hasError ? null : <DataTableControl />}
         <LocationsEmptyMessage show={shouldShowEmptyMessage} />
       </div>

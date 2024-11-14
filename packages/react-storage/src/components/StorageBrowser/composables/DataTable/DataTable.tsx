@@ -11,17 +11,20 @@ import { TextDataCell } from './dataCells/TextDataCell';
 import { DataTableDataCell, DataTableHeader } from './types';
 import { WithKey } from '../../components/types';
 import { CheckboxHeader } from './headers/CheckboxHeader';
+import { LoadingControl } from '../../views/Controls';
 
 export interface DataTableRow {
   content: WithKey<DataTableDataCell>[];
 }
 
 export interface DataTableProps {
+  isLoading: boolean;
   headers: WithKey<DataTableHeader>[];
   rows: WithKey<DataTableRow>[];
 }
 
 export const DataTable = ({
+  isLoading,
   headers,
   rows,
 }: DataTableProps): React.JSX.Element => {
@@ -88,5 +91,12 @@ export const DataTable = ({
     }),
   }));
 
-  return <Table headers={mappedHeaders} rows={mappedRows} />;
+  return (
+    <Table
+      headers={mappedHeaders}
+      rows={mappedRows}
+      isLoading={isLoading}
+      renderPlaceholder={LoadingControl}
+    />
+  );
 };

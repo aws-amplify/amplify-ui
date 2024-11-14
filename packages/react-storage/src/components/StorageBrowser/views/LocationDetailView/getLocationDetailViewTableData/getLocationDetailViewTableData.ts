@@ -18,6 +18,7 @@ export const getLocationDetailViewTableData = ({
   location,
   fileDataItems,
   hasFiles,
+  isLoading,
   pageItems,
   onDownload,
   onNavigate,
@@ -28,6 +29,7 @@ export const getLocationDetailViewTableData = ({
   location: LocationState;
   fileDataItems?: FileData[];
   hasFiles: boolean;
+  isLoading: boolean;
   pageItems: LocationItemData[];
   onDownload: (fileItem: FileDataItem) => void;
   onNavigate: (location: LocationData, path?: string) => void;
@@ -98,5 +100,5 @@ export const getLocationDetailViewTableData = ({
     }
   });
 
-  return { headers, rows };
+  return { headers, isLoading, rows };
 };

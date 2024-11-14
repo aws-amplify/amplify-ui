@@ -7,11 +7,13 @@ export const getLocationsViewTableData = ({
   pageItems,
   onNavigate,
   headers,
+  isLoading,
   getPermissionName,
 }: {
   pageItems: LocationData[];
   onNavigate: (location: LocationData) => void;
   headers: LocationViewHeaders;
+  isLoading: boolean;
   getPermissionName: (permission: Permission) => string;
 }): DataTableProps => {
   const rows: DataTableProps['rows'] = pageItems.map((location) => {
@@ -48,5 +50,5 @@ export const getLocationsViewTableData = ({
     };
   });
 
-  return { headers, rows };
+  return { headers, isLoading, rows };
 };

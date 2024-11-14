@@ -28,11 +28,7 @@ export const DEFAULT_LIST_OPTIONS = {
   delimiter: '/',
 };
 
-const { EmptyMessage, Loading: LoadingControl, Message } = Controls;
-
-function Loading({ show }: { show?: boolean }) {
-  return show ? <LoadingControl /> : null;
-}
+const { EmptyMessage, Message } = Controls;
 
 export const LocationDetailMessage = ({
   show,
@@ -112,6 +108,7 @@ export function LocationDetailView({
             location,
             fileDataItems,
             hasFiles,
+            isLoading,
             pageItems,
             onDownload,
             onNavigate,
@@ -160,7 +157,6 @@ export function LocationDetailView({
           />
         </ViewElement>
         <LocationDetailMessage show={hasError} message={message} />
-        <Loading show={isLoading} />
         {hasError ? null : (
           <DropZoneControl>
             <DataTableControl />

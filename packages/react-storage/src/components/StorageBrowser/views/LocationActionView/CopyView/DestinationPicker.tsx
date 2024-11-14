@@ -1,10 +1,6 @@
 import React from 'react';
 import { PaginationControl } from '../../../controls/PaginationControl';
-import {
-  EmptyMessageControl,
-  LoadingControl,
-  MessageControl,
-} from '../../Controls';
+import { EmptyMessageControl, MessageControl } from '../../Controls';
 import { ViewElement } from '../../../context/elements';
 import { displayText } from '../../../displayText/en';
 import { useDestinationPicker } from '../CopyView/useDestinationPicker';
@@ -65,6 +61,7 @@ export const DestinationPicker = ({
   };
 
   const tableData = getDestinationPickerTableData({
+    isLoading,
     items: pageItems,
     handleNavigateFolder,
   });
@@ -131,7 +128,6 @@ export const DestinationPicker = ({
       {showMessage && !noSubfolders && (
         <MessageControl variant={messageVariant}>{message}</MessageControl>
       )}
-      {isLoading && <LoadingControl />}
     </ControlsContextProvider>
   );
 };
