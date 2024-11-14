@@ -51,7 +51,7 @@ export interface DefaultLocationDetailViewDisplayText
   extends DefaultListViewDisplayText<LocationItemData> {
   title: (location: LocationState) => string;
   searchExhaustedMessage: string;
-  searchIncludeSubfoldersLabel: string;
+  searchSubfoldersToggleLabel: string;
   tableColumnLastModifiedHeader: string;
   tableColumnNameHeader: string;
   tableColumnSizeHeader: string;

@@ -117,7 +117,7 @@ describe('DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT', () => {
       ).toMatchObject({
         getListResultsMessage: expect.any(Function),
         searchExhaustedMessage: expect.any(String),
-        searchIncludeSubfoldersLabel: expect.any(String),
+        searchSubfoldersToggleLabel: expect.any(String),
         searchPlaceholder: expect.any(String),
         tableColumnLastModifiedHeader: expect.any(String),
         tableColumnNameHeader: expect.any(String),
