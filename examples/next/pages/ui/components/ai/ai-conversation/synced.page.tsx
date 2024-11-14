@@ -1,13 +1,19 @@
 import * as React from 'react';
 import { Amplify } from 'aws-amplify';
-import { signOut } from 'aws-amplify/auth';
 import { createAIHooks, AIConversation } from '@aws-amplify/ui-react-ai';
 import { generateClient } from 'aws-amplify/api';
 import '@aws-amplify/ui-react/styles.css';
 
 import outputs from './amplify_outputs';
 import type { Schema } from '@environments/ai/gen2/amplify/data/resource';
-import { Authenticator, Button, Card, Flex } from '@aws-amplify/ui-react';
+import {
+  Authenticator,
+  Button,
+  Card,
+  Flex,
+  Heading,
+  View,
+} from '@aws-amplify/ui-react';
 import { useRouter } from 'next/router';
 
 const client = generateClient<Schema>({ authMode: 'userPool' });
@@ -42,6 +48,33 @@ const onMessage = (conversation) => {
   console.log(conversation);
 };
 
+function SyncedChats() {
+  const [
+    {
+      data: { messages },
+      isLoading,
+    },
+    handleSendMessage,
+  ] = useAIConversation('pirateChat', { onInitialize, onMessage });
+
+  const props = {
+    isLoading,
+    handleSendMessage,
+    messages,
+  };
+
+  return (
+    <Flex direction="row">
+      <Card flex="1" variation="outlined" height="400px" margin="large">
+        <AIConversation {...props} />
+      </Card>
+      <Card flex="1" variation="outlined" height="400px" margin="large">
+        <AIConversation {...props} />
+      </Card>
+    </Flex>
+  );
+}
+
 export default function Example() {
   const router = useRouter();
   const handleCreateChat = async () => {
@@ -53,16 +86,21 @@ export default function Example() {
   return (
     <Authenticator>
       <Flex direction="column">
-        <Button
-          onClick={() => {
-            signOut();
-          }}
-        >
-          Sign out
-        </Button>
-        <Card flex="1" variation="outlined" height="400px" margin="large">
-          <Chat />
-        </Card>
+        <View>
+          <Heading level={2}>Separate chats</Heading>
+          <Flex direction="row">
+            <Card flex="1" variation="outlined" height="400px" margin="large">
+              <Chat />
+            </Card>
+            <Card flex="1" variation="outlined" height="400px" margin="large">
+              <Chat />
+            </Card>
+          </Flex>
+        </View>
+        <View>
+          <Heading level={2}>Synced chats</Heading>
+          <SyncedChats />
+        </View>
       </Flex>
       <Button onClick={handleCreateChat}>Create chat</Button>
     </Authenticator>

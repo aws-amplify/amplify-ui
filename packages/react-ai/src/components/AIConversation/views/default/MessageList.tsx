@@ -29,7 +29,7 @@ const PlaceholderMessage = ({ role }: { role: string }) => {
       )}
     >
       <View className={ComponentClassName.AIConversationMessageAvatar}>
-        <Avatar> </Avatar>
+        <Avatar />
       </View>
       <View className={ComponentClassName.AIConversationMessageBody}>
         <Placeholder width="25%" />
