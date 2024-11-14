@@ -3,7 +3,7 @@ import React from 'react';
 import { capitalize } from '@aws-amplify/ui';
 
 import { ButtonElement, IconElement } from '../../../context/elements';
-import { CLASS_BASE } from '../../../views/constants';
+import { STORAGE_BROWSER_BLOCK_TO_BE_UPDATED } from '../../../constants';
 
 import { SortDirection } from '../types';
 
@@ -20,7 +20,7 @@ export const SortHeader = ({ content }: SortHeaderProps): React.JSX.Element => {
   return (
     <ButtonElement
       variant="sort"
-      className={`${CLASS_BASE}__table-sort-header`}
+      className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__table-sort-header`}
       onClick={onSort}
     >
       {label && capitalize(label)}

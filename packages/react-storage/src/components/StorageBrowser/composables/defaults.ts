@@ -12,8 +12,8 @@ import { Message } from './Message';
 import { Navigation } from './Navigation';
 import { Pagination } from './Pagination';
 import { StatusDisplay } from './StatusDisplay';
-import { Search } from './Search';
 import { Title } from './Title';
+import { SearchField } from './SearchField';
 
 import { Composables } from './types';
 
@@ -32,6 +32,6 @@ export const DEFAULT_COMPOSABLES: Composables = {
   Navigation,
   Pagination,
   StatusDisplay,
-  Search,
+  SearchField,
   Title,
 };

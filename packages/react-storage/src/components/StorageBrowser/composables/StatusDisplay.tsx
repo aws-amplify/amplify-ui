@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { DescriptionList } from '../components/DescriptionList';
-import { AMPLIFY_CLASS_BASE } from '../views/constants';
+import { STORAGE_BROWSER_BLOCK } from '../constants';
 
 interface Status {
   name: string;
@@ -28,7 +28,7 @@ export const StatusDisplay = ({
 
   return (
     <DescriptionList
-      className={`${AMPLIFY_CLASS_BASE}__status`}
+      className={`${STORAGE_BROWSER_BLOCK}__status-display`}
       descriptions={descriptions}
     />
   );

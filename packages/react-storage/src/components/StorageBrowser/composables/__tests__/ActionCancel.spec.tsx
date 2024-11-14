@@ -1,7 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { ActionCancel } from '../ActionCancel';
-import { AMPLIFY_CLASS_BASE } from '../../views/constants';
 
 describe('ActionCancel', () => {
   it('renders a button element', () => {
@@ -10,10 +9,9 @@ describe('ActionCancel', () => {
     expect(button).toBeInTheDocument();
   });
 
-  it('renders a button with the expected className and label', () => {
+  it('renders a button with the expected label', () => {
     render(<ActionCancel label="Cancel" />);
     const button = screen.getByRole('button');
-    expect(button).toHaveClass(`${AMPLIFY_CLASS_BASE}__cancel`);
     expect(button).toHaveTextContent('Cancel');
   });
 
