@@ -131,7 +131,7 @@ export const PasswordFieldPropControls: PasswordFieldPropControlsInterface = ({
         name="errorMessage"
         id="errorMessage"
         placeholder="set errorMessage"
-        value={errorMessage}
+        value={errorMessage as string}
         onChange={(event) => {
           setErrorMessage(
             event.target.value as PasswordFieldProps['errorMessage']

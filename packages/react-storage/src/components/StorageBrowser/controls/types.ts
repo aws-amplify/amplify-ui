@@ -31,11 +31,20 @@ interface TableData {
   rows: DataTableProps['rows'];
 }
 
+interface PaginationData {
+  hasNextPage: boolean;
+  highestPageVisited: number;
+  onPaginate: (page: number) => void;
+  page: number;
+}
+
 export interface ControlsContext {
   data: {
     actionCancelLabel?: string;
     actionExitLabel?: string;
     actionStartLabel?: string;
+    addFilesLabel?: string;
+    addFolderLabel?: string;
     folderNameId?: string;
     folderNameLabel?: string;
     folderNamePlaceholder?: string;
@@ -55,6 +64,7 @@ export interface ControlsContext {
     overwriteToggleLabel?: string;
     messageContent?: React.ReactNode;
     messageType?: MessageType;
+    paginationData?: PaginationData;
     searchPlaceholder?: string;
     searchQuery?: string;
     statusCounts?: StatusCounts;
@@ -64,6 +74,8 @@ export interface ControlsContext {
   onActionCancel?: () => void;
   onActionExit?: () => void;
   onActionStart?: () => void;
+  onAddFiles?: () => void;
+  onAddFolder?: () => void;
   onDropFiles?: (files: File[]) => void;
   onFolderNameChange?: (value: string) => void;
   onMessageDismiss?: () => void;

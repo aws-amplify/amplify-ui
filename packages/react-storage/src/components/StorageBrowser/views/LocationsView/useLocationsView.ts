@@ -2,9 +2,12 @@ import React from 'react';
 
 import { useLocationsData } from '../../do-not-import-from-here/actions';
 import { usePaginate } from '../hooks/usePaginate';
-import { LocationData } from '../../actions';
+import { downloadHandler, LocationData } from '../../actions';
 import { useStore } from '../../providers/store';
 import { useSearch } from '../hooks/useSearch';
+import { useGetActionInput } from '../../providers/configuration';
+import { useProcessTasks } from '../../tasks';
+import { createFileDataItemFromLocation } from '../../actions/handlers';
 
 interface UseLocationsView {
   hasNextPage: boolean;
@@ -16,6 +19,7 @@ interface UseLocationsView {
   pageItems: LocationData[];
   page: number;
   searchQuery: string;
+  onDownload: (item: LocationData) => void;
   onNavigate: (location: LocationData) => void;
   onRefresh: () => void;
   onPaginate: (page: number) => void;
@@ -50,7 +54,9 @@ export const DEFAULT_LIST_OPTIONS = {
 export function useLocationsView(
   options?: UseLocationsViewOptions
 ): UseLocationsView {
+  const getConfig = useGetActionInput();
   const [state, handleList] = useLocationsData();
+  const [_, handleDownload] = useProcessTasks(downloadHandler);
   const [, dispatchStoreAction] = useStore();
   const [term, setTerm] = React.useState('');
   const { data, message, hasError, isLoading } = state;
@@ -120,6 +126,12 @@ export function useLocationsView(
     pageItems: filteredItems,
     shouldShowEmptyMessage,
     searchQuery,
+    onDownload: (location: LocationData) => {
+      handleDownload({
+        config: getConfig(location),
+        data: createFileDataItemFromLocation(location),
+      });
+    },
     onNavigate: (location: LocationData) => {
       onNavigate?.(location);
       dispatchStoreAction({ type: 'NAVIGATE', location });

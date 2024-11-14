@@ -1,5 +1,5 @@
 import React from 'react';
-import { PaginateControl } from '../../../views/Controls/Paginate';
+import { PaginationControl } from '../../../controls/PaginationControl';
 import {
   EmptyMessageControl,
   LoadingControl,
@@ -72,6 +72,12 @@ export const DestinationPicker = ({
   const contextValue: ControlsContext = {
     data: {
       tableData,
+      paginationData: {
+        page: currentPage,
+        highestPageVisited,
+        hasNextPage: hasNextToken,
+        onPaginate,
+      },
       searchPlaceholder: displayText.filterCopyPlaceholder,
       searchQuery,
     },
@@ -115,11 +121,8 @@ export const DestinationPicker = ({
       />
       <ViewElement className={`${CLASS_BASE}__action-destination`}>
         <SearchControl />
-        <PaginateControl
-          currentPage={currentPage}
-          hasMorePages={hasNextToken}
-          onPaginate={onPaginate}
-          highestPageVisited={highestPageVisited}
+        <PaginationControl
+          className={`${CLASS_BASE}__destination-picker-pagination`}
         />
       </ViewElement>
 

@@ -1,12 +1,12 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { Title } from '../Title';
-import { CLASS_BASE } from '../../views/constants';
+import { AMPLIFY_CLASS_BASE } from '../../views/constants';
 
 describe('Title', () => {
   it('renders and has the given classname', () => {
     const expectedTitle = 'StorageBrowser';
-    const BLOCK_NAME = `${CLASS_BASE}__title`;
+    const BLOCK_NAME = `${AMPLIFY_CLASS_BASE}__title`;
 
     render(<Title title={expectedTitle} />);
 

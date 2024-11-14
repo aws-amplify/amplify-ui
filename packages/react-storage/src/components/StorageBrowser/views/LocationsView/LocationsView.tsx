@@ -2,6 +2,7 @@ import React from 'react';
 
 import { ViewElement } from '../../context/elements';
 import { DataRefreshControl } from '../../controls/DataRefreshControl';
+import { PaginationControl } from '../../controls/PaginationControl';
 import { DataTableControl } from '../../controls/DataTableControl';
 import { SearchControl } from '../../controls/SearchControl';
 import { TitleControl } from '../../controls/TitleControl';
@@ -17,7 +18,7 @@ import { LocationsViewProps } from './types';
 
 export const DEFAULT_ERROR_MESSAGE = 'There was an error loading locations.';
 
-const { EmptyMessage, Loading: LoadingElement, Message, Paginate } = Controls;
+const { EmptyMessage, Loading: LoadingElement, Message } = Controls;
 
 const Loading = ({ show }: { show: boolean }) => {
   return show ? <LoadingElement /> : null;
@@ -36,15 +37,19 @@ const LocationsMessage = ({
 };
 
 const getHeaders = ({
+  hasObjectLocations,
   tableColumnBucketHeader,
   tableColumnFolderHeader,
   tableColumnPermissionsHeader,
+  tableColumnActionsHeader,
 }: {
+  hasObjectLocations: boolean;
   tableColumnBucketHeader: string;
   tableColumnFolderHeader: string;
   tableColumnPermissionsHeader: string;
+  tableColumnActionsHeader: string;
 }): LocationViewHeaders => {
-  return [
+  const headers: LocationViewHeaders = [
     {
       key: 'folder',
       type: 'sort',
@@ -61,6 +66,16 @@ const getHeaders = ({
       content: { label: tableColumnPermissionsHeader },
     },
   ];
+
+  if (hasObjectLocations) {
+    headers.push({
+      key: 'action',
+      type: 'sort',
+      content: { label: tableColumnActionsHeader },
+    });
+  }
+
+  return headers;
 };
 
 const LocationsEmptyMessage = ({ show }: { show: boolean }) => {
@@ -77,7 +92,9 @@ export function LocationsView({
       tableColumnBucketHeader,
       tableColumnFolderHeader,
       tableColumnPermissionsHeader,
+      tableColumnActionsHeader,
       searchPlaceholder,
+      getDownloadLabel,
       getPermissionName,
     },
   } = useDisplayText();
@@ -92,6 +109,7 @@ export function LocationsView({
     pageItems,
     message,
     shouldShowEmptyMessage,
+    onDownload,
     onRefresh,
     onPaginate,
     onNavigate,
@@ -101,9 +119,11 @@ export function LocationsView({
   } = useLocationsView(props);
 
   const headers = getHeaders({
+    hasObjectLocations: pageItems.some(({ type }) => type === 'OBJECT'),
     tableColumnBucketHeader,
     tableColumnFolderHeader,
     tableColumnPermissionsHeader,
+    tableColumnActionsHeader,
   });
 
   return (
@@ -114,8 +134,16 @@ export function LocationsView({
           getPermissionName,
           headers,
           pageItems,
+          onDownload,
           onNavigate,
+          getDownloadLabel,
         }),
+        paginationData: {
+          page,
+          hasNextPage,
+          highestPageVisited,
+          onPaginate,
+        },
         title,
         searchPlaceholder: searchPlaceholder,
         searchQuery,
@@ -129,14 +157,11 @@ export function LocationsView({
         className={resolveClassName(AMPLIFY_CLASS_BASE, className)}
         data-testid="LOCATIONS_VIEW"
       >
-        <TitleControl className={`${CLASS_BASE}__locations-view-title`} />
+        <TitleControl />
         <ViewElement className={`${CLASS_BASE}__location-detail-view-controls`}>
           <SearchControl className={`${CLASS_BASE}__locations-view-search`} />
-          <Paginate
-            currentPage={page}
-            highestPageVisited={highestPageVisited}
-            hasMorePages={hasNextPage}
-            onPaginate={onPaginate}
+          <PaginationControl
+            className={`${CLASS_BASE}__locations-view-pagination`}
           />
           <DataRefreshControl
             className={`${CLASS_BASE}__locations-view-data-refresh`}

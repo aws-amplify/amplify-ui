@@ -1,10 +1,10 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { TitleControl } from '../TitleControl';
-import { CLASS_BASE } from '../../views/constants';
+import { AMPLIFY_CLASS_BASE } from '../../views/constants';
 import * as useTitleModule from '../hooks/useTitle';
 
-const BLOCK_NAME = `${CLASS_BASE}__title`;
+const BLOCK_NAME = `${AMPLIFY_CLASS_BASE}__title`;
 
 describe('TitleControl', () => {
   const useTitleSpy = jest.spyOn(useTitleModule, 'useTitle');

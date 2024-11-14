@@ -19,6 +19,7 @@ import { ActionsMenuControl } from './Controls/ActionsMenu';
 import { getLocationDetailViewTableData } from './getLocationDetailViewTableData';
 import { useLocationDetailView } from './useLocationDetailView';
 import { LocationDetailViewProps } from './types';
+import { PaginationControl } from '../../controls/PaginationControl';
 
 export const DEFAULT_ERROR_MESSAGE = 'There was an error loading items.';
 const DEFAULT_PAGE_SIZE = 100;
@@ -27,7 +28,7 @@ export const DEFAULT_LIST_OPTIONS = {
   delimiter: '/',
 };
 
-const { EmptyMessage, Loading: LoadingControl, Message, Paginate } = Controls;
+const { EmptyMessage, Loading: LoadingControl, Message } = Controls;
 
 function Loading({ show }: { show?: boolean }) {
   return show ? <LoadingControl /> : null;
@@ -99,6 +100,12 @@ export function LocationDetailView({
           isDataRefreshDisabled: isLoading,
           location,
           searchPlaceholder,
+          paginationData: {
+            page,
+            hasNextPage,
+            highestPageVisited,
+            onPaginate,
+          },
           searchQuery,
           tableData: getLocationDetailViewTableData({
             areAllFilesSelected,
@@ -124,7 +131,7 @@ export function LocationDetailView({
         <NavigationControl
           className={`${CLASS_BASE}__location-detail-view-navigation`}
         />
-        <TitleControl className={`${CLASS_BASE}__location-detail-view-title`} />
+        <TitleControl />
         <ViewElement className={`${CLASS_BASE}__location-detail-view-controls`}>
           <SearchControl
             className={`${CLASS_BASE}__location-detail-view-search`}
@@ -141,11 +148,8 @@ export function LocationDetailView({
               Include subfolders
             </LabelElement>
           </SearchControl>
-          <Paginate
-            currentPage={page}
-            onPaginate={onPaginate}
-            hasMorePages={hasNextPage}
-            highestPageVisited={highestPageVisited}
+          <PaginationControl
+            className={`${CLASS_BASE}__location-detail-view-pagination`}
           />
           <DataRefreshControl
             className={`${CLASS_BASE}__locations-detail-view-data-refresh`}

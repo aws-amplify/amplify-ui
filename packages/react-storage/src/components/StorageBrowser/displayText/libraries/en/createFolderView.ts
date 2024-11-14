@@ -6,8 +6,8 @@ export const DEFAULT_CREATE_FOLDER_VIEW_DISPLAY_TEXT: DefaultCreateFolderViewDis
     ...DEFAULT_ACTION_VIEW_DISPLAY_TEXT,
     title: 'Create folder',
     actionStartLabel: 'Create folder',
-    folderNameLabel: 'Enter folder name:',
-    folderNamePlaceholder: 'Folder name',
+    folderNameLabel: 'Folder name',
+    folderNamePlaceholder: 'Folder name cannot contain "/" or "."',
     getValidationMessage: () =>
       'Folder name cannot contain a "/" or "." character',
     getActionCompleteMessage: ({ OVERWRITE_PREVENTED, FAILED }) =>

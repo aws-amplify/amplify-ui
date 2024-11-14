@@ -14,7 +14,7 @@ const mockAction = jest.fn();
 const config: ActionInputConfig = {
   bucket: 'bucky',
   credentials: jest.fn(),
-  region: 'us-weast-1',
+  region: 'us-west-1',
 };
 type Output = ListHandlerOutput<{
   name: string;
@@ -45,11 +45,11 @@ describe('createEnhancedListHandler', () => {
   it('should collect and filter results when search is provided', async () => {
     mockAction
       .mockResolvedValueOnce({
-        items: [{ name: 'apple' }, { name: 'banana' }],
+        items: [{ name: 'a_prefix/apple' }, { name: 'a_prefix/banana' }],
         nextToken: 'next',
       })
       .mockResolvedValueOnce({
-        items: [{ name: 'cherry' }, { name: 'date' }],
+        items: [{ name: 'a_prefix/cherry' }, { name: 'a_prefix/date' }],
         nextToken: null,
       });
 
@@ -66,9 +66,9 @@ describe('createEnhancedListHandler', () => {
     });
 
     expect(result.items).toEqual([
-      { name: 'apple' },
-      { name: 'banana' },
-      { name: 'date' },
+      { name: 'a_prefix/apple' },
+      { name: 'a_prefix/banana' },
+      { name: 'a_prefix/date' },
     ]);
     expect(result.nextToken).toBeUndefined();
   });
@@ -76,8 +76,8 @@ describe('createEnhancedListHandler', () => {
   it('should not fail when non-string values are indexed for search', async () => {
     mockAction.mockResolvedValueOnce({
       items: [
-        { name: 'apple', id: 1 },
-        { name: 'banana', id: 2 },
+        { name: 'a_prefix/apple', id: 1 },
+        { name: 'a_prefix/banana', id: 2 },
       ],
       nextToken: null,
     });
@@ -99,7 +99,7 @@ describe('createEnhancedListHandler', () => {
   });
 
   it('should stop collecting results when SEARCH_LIMIT is reached', async () => {
-    const mockItems = new Array(SEARCH_LIMIT).fill({ name: 'item' });
+    const mockItems = new Array(SEARCH_LIMIT).fill({ name: 'a_prefix/item' });
     mockAction
       .mockResolvedValueOnce({
         items: mockItems.slice(0, SEARCH_LIMIT / 2),

@@ -11,7 +11,8 @@ import { resolveClassName } from '../../utils';
 import { CreateFolderViewProps } from './types';
 import { useCreateFolderView } from './useCreateFolderView';
 import { isValidFolderName } from './utils';
-import { AMPLIFY_CLASS_BASE, CLASS_BASE } from '../../constants';
+import { AMPLIFY_CLASS_BASE } from '../../constants';
+import { ViewElement } from '../../../context/elements';
 
 export function CreateFolderView({
   className,
@@ -81,10 +82,14 @@ export function CreateFolderView({
         onValidateFolderName={onValidateFolderName}
       >
         <ActionExitControl />
-        <TitleControl className={`${CLASS_BASE}__create-folder-view-title`} />
+        <TitleControl />
         <FolderNameFieldControl />
-        <ActionStartControl />
-        <MessageControl />
+        <ViewElement className={`${AMPLIFY_CLASS_BASE}__footer`}>
+          <MessageControl />
+          <ViewElement className={`${AMPLIFY_CLASS_BASE}__buttons`}>
+            <ActionStartControl />
+          </ViewElement>
+        </ViewElement>
       </ControlsContextProvider>
     </div>
   );
