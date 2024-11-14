@@ -5,6 +5,7 @@ import * as UseCreateFolderViewModule from '../useCreateFolderView';
 import { CreateFolderViewState } from '../types';
 
 import { ControlsContext } from '../../../../controls/types';
+import { LocationData } from '../../../../actions';
 import { CreateFolderView } from '../CreateFolderView';
 
 const getActionCompleteMessage = jest.fn();
@@ -29,10 +30,10 @@ jest.mock('../utils', () => ({
   isValidFolderName: (value: string) => mockIsValidFolderName(value),
 }));
 
-const current = {
+const current: LocationData = {
   id: 'an-id-👍🏼',
   bucket: 'test-bucket',
-  permission: 'READWRITE' as const,
+  permissions: ['write'],
   prefix: 'test-prefix/',
   type: 'PREFIX' as const,
 };

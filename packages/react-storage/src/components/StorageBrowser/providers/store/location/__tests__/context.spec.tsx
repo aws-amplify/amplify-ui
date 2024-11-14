@@ -2,6 +2,7 @@ import React from 'react';
 import { act, render, renderHook } from '@testing-library/react';
 
 import { ERROR_MESSAGE, LocationProvider, useLocation } from '../context';
+import { LocationData } from '../../../../actions';
 
 describe('useLocation', () => {
   it('provides the expected values in the happy path', () => {
@@ -21,10 +22,10 @@ describe('useLocation', () => {
     const location = {
       bucket: 'bucket',
       id: 'id',
-      permission: 'READWRITE' as const,
+      permissions: ['delete', 'get', 'list', 'write'],
       prefix: 'prefix/',
       type: 'OBJECT' as const,
-    };
+    } as LocationData;
     const path = 'path';
 
     const { result } = renderHook(useLocation, {
@@ -48,10 +49,10 @@ describe('useLocation', () => {
     const location = {
       bucket: 'bucket',
       id: 'id',
-      permission: 'READWRITE' as const,
+      permissions: ['delete', 'get', 'list', 'write'],
       prefix: 'prefix/',
       type: 'OBJECT' as const,
-    };
+    } as LocationData;
 
     const { result } = renderHook(useLocation, {
       wrapper: ({ children }) => (
@@ -70,10 +71,10 @@ describe('useLocation', () => {
     const nextLocation = {
       bucket: 'next-bucket',
       id: 'next-id',
-      permission: 'READWRITE' as const,
+      permissions: ['delete', 'get', 'list', 'write'],
       prefix: 'next-prefix/',
       type: 'OBJECT' as const,
-    };
+    } as LocationData;
 
     act(() => {
       handler({ type: 'NAVIGATE', location: nextLocation });

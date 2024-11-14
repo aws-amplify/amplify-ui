@@ -14,6 +14,7 @@ import {
 import {
   ActionInputConfig,
   ListLocationItemsHandlerOutput,
+  LocationData,
 } from '../../../actions';
 import { useProcessTasks } from '../../../tasks/useProcessTasks';
 import { INITIAL_STATUS_COUNTS } from '../../../tasks';
@@ -96,10 +97,10 @@ const mockListItemsAction = ({
 const dispatchStoreAction = jest.fn();
 const useStoreSpy = jest.spyOn(StoreModule, 'useStore');
 
-const location = {
+const location: LocationData = {
   id: 'an-id-👍🏼',
   bucket: 'test-bucket',
-  permission: 'READWRITE',
+  permissions: ['delete', 'get', 'list', 'write'],
   prefix: 'test-prefix/',
   type: 'PREFIX',
 };

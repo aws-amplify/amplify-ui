@@ -1,5 +1,6 @@
 import { renderHook, act } from '@testing-library/react';
 
+import { LocationData } from '../../../../actions';
 import * as Store from '../../../../providers/store';
 import * as Config from '../../../../providers/configuration';
 import * as Tasks from '../../../../tasks';
@@ -21,9 +22,9 @@ describe('useCopyView', () => {
             prefix: 'test-prefix/',
             bucket: 'bucket',
             id: 'id',
-            permission: 'READWRITE',
+            permissions: ['delete', 'get', 'list', 'write'],
             type: 'PREFIX',
-          },
+          } as LocationData,
           path: '',
           key: 'test-prefix/',
         },

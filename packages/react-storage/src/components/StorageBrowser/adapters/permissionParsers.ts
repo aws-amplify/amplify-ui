@@ -61,5 +61,5 @@ export const parseAmplifyAuthPermission = (
     throw new Error('Improper Permission: Please provide correct permission.');
   }
 
-  return result;
+  return result.sort();
 };

@@ -1,15 +1,16 @@
 import { renderHook, act } from '@testing-library/react-hooks';
 import { useUploadView } from '../useUploadView';
+import { LocationData } from '../../../../actions';
 import * as ConfigModule from '../../../../providers/configuration';
 import * as StoreModule from '../../../../providers/store';
 import * as TasksModule from '../../../../tasks';
 
 const useStoreSpy = jest.spyOn(StoreModule, 'useStore');
 
-const rootLocation = {
+const rootLocation: LocationData = {
   id: 'an-id-👍🏼',
   bucket: 'test-bucket',
-  permission: 'READWRITE',
+  permissions: ['write'],
   // a root `prefix` is an empty string
   prefix: '',
   type: 'BUCKET',

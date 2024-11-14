@@ -2,6 +2,7 @@ import { act, renderHook, waitFor } from '@testing-library/react';
 
 import * as AmplifyReactCore from '@aws-amplify/ui-react-core';
 
+import { LocationData } from '../../../../actions';
 import * as Store from '../../../../providers/store';
 import * as Config from '../../../../providers/configuration';
 import { DEFAULT_LIST_OPTIONS, useFolders } from '../useFolders';
@@ -48,9 +49,9 @@ describe('useFolders', () => {
             prefix: 'test-prefix/',
             bucket: 'bucket',
             id: 'id',
-            permissions: 'READWRITE',
+            permissions: ['get', 'list'],
             type: 'PREFIX',
-          },
+          } as LocationData,
           path: '',
           key: 'test-prefix/',
         },

@@ -5,7 +5,7 @@ import { LocationData, LocationPermissions } from '../actions';
 
 function assertLocationPermissions(
   value: unknown,
-  message?: string
+  message: string
 ): asserts value is LocationPermissions {
   if (
     !isArray(value) ||
@@ -15,7 +15,7 @@ function assertLocationPermissions(
         !['list', 'get', 'write', 'delete'].includes(inputPermissionEntry)
     )
   ) {
-    throw new Error(message ?? 'Invalid value provided as `permissions`.');
+    throw new Error(message);
   }
 }
 

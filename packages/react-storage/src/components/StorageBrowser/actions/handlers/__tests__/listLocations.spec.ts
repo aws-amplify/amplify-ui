@@ -31,12 +31,13 @@ const input: ListLocationsHandlerInput = {
   options: {
     pageSize: DEFAULT_PAGE_SIZE,
     nextToken: undefined,
-    exclude: 'READ',
+    exclude: { exactPermissions: ['get', 'list'] },
   },
   prefix: 'prefix',
 };
 
 describe('listLocationsHandler', () => {
+  // TODO(@AllanZhengYP): add unit test for more permissions permutations
   beforeAll(() => {
     Object.defineProperty(globalThis, 'crypto', {
       value: { randomUUID: () => 'intentionally-static-test-id' },

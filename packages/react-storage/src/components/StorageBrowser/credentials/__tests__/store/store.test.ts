@@ -1,9 +1,10 @@
 import { fetchNewValue, getCacheValue, initStore } from '../../store/store';
 import {
-  CredentialsLocation,
   StorageValidationErrorCode,
   validationErrorMap,
 } from '../../../storage-internal';
+import { LocationPermissions } from '../../../actions';
+import { CredentialsLocation } from '../../types';
 
 const mockCredentials = {
   accessKeyId: 'accessKeyId',
@@ -44,14 +45,14 @@ describe('getCacheValue', () => {
     const cachedValue = {
       credentials: mockCredentials,
       scope: 'abc',
-      permission: 'READ' as const,
+      permissions: ['list', 'get'] as LocationPermissions, // In reverse order intentionally to test handling of this case.
     };
     const store = initStore(jest.fn());
-    store.values.set('abc_READ', cachedValue);
+    store.values.set('abc_get_list', cachedValue);
     expect(
       getCacheValue(store, {
         scope: 'abc',
-        permission: 'READ',
+        permissions: ['get', 'list'],
       })
     ).toEqual(cachedValue.credentials);
   });
@@ -60,7 +61,7 @@ describe('getCacheValue', () => {
     expect(
       getCacheValue(initStore(jest.fn()), {
         scope: 'abc',
-        permission: 'READ',
+        permissions: ['list'],
       })
     ).toBeNull();
   });
@@ -72,14 +73,14 @@ describe('getCacheValue', () => {
         expiration: new Date('1970-01-01'),
       },
       scope: 'abc',
-      permission: 'READ' as const,
+      permissions: ['get', 'list'] as LocationPermissions,
     };
     const store = initStore(jest.fn());
-    store.values.set('abc_READ', expiredValue);
+    store.values.set('abc_get_list', expiredValue);
     expect(
       getCacheValue(store, {
         scope: 'abc',
-        permission: 'READ',
+        permissions: ['get', 'list'],
       })
     ).toBeNull();
     expect(store.values.size).toBe(0);
@@ -92,14 +93,14 @@ describe('getCacheValue', () => {
         expiration: new Date(Date.now() + 1000 * 20), // 20 seconds
       },
       scope: 'abc',
-      permission: 'READ' as const,
+      permissions: ['get', 'list'] as LocationPermissions,
     };
     const store = initStore(jest.fn());
-    store.values.set('abc_READ', expiringValue);
+    store.values.set('abc_get_list', expiringValue);
     expect(
       getCacheValue(store, {
         scope: 'abc',
-        permission: 'READ',
+        permissions: ['get', 'list'],
       })
     ).toBeNull();
     expect(store.values.size).toBe(0);
@@ -109,10 +110,10 @@ describe('getCacheValue', () => {
 describe('fetchNewValue', () => {
   const mockCacheLocation = {
     scope: 'abc',
-    permission: 'READ',
+    permissions: ['list', 'get'],
   } as CredentialsLocation;
   const createCacheKey = (location: CredentialsLocation) =>
-    `${location.scope}_${location.permission}` as const;
+    `${location.scope}_${location.permissions.sort().join('_')}` as const;
 
   it('should fetch new value from remote source', async () => {
     const refreshHandler = jest.fn().mockResolvedValue({
@@ -122,7 +123,9 @@ describe('fetchNewValue', () => {
     const newCredentials = await fetchNewValue(store, mockCacheLocation);
     expect(refreshHandler).toHaveBeenCalledWith({
       scope: 'abc',
-      permission: 'READ',
+      // The store sorts the permissions in-place when look up for cached credentials
+      // so the order is changed and repeatable.
+      permissions: ['get', 'list'],
     });
     expect(newCredentials).toEqual({
       credentials: mockCredentials,
@@ -150,7 +153,7 @@ describe('fetchNewValue', () => {
       credentials: mockCredentials,
       inflightCredentials: undefined,
       scope: 'abc',
-      permission: 'READ',
+      permissions: ['get', 'list'],
     });
   });
 
@@ -196,13 +199,13 @@ describe('fetchNewValue', () => {
       credentials: mockCredentials,
     });
     const store = initStore(refreshHandler, 1);
-    const cacheLocation1 = {
+    const cacheLocation1: CredentialsLocation = {
       scope: 'abc',
-      permission: 'READ' as const,
+      permissions: ['list'],
     };
-    const cacheLocation2 = {
+    const cacheLocation2: CredentialsLocation = {
       scope: 'def',
-      permission: 'READ' as const,
+      permissions: ['list'],
     };
     await fetchNewValue(store, cacheLocation1);
     await fetchNewValue(store, cacheLocation2);

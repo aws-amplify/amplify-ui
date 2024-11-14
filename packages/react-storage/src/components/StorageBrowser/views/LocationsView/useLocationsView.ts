@@ -47,7 +47,7 @@ export interface UseLocationsViewOptions {
 
 const DEFAULT_PAGE_SIZE = 100;
 export const DEFAULT_LIST_OPTIONS = {
-  exclude: 'WRITE' as const,
+  exclude: 'WRITE' as const, // FIXME: update exclude type after migration to new actions
   pageSize: DEFAULT_PAGE_SIZE,
 };
 

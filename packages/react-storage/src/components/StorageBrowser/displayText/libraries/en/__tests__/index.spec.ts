@@ -193,7 +193,7 @@ describe('DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT', () => {
       expect(
         typeof getListResultsMessage({
           bucket: '',
-          permission: 'READ',
+          permissions: ['get', 'list'],
           prefix: '',
           id: '',
           type: 'PREFIX',

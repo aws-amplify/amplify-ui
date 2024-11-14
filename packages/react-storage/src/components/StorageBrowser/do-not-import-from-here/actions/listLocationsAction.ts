@@ -1,5 +1,9 @@
 import { LocationData } from '../../actions';
-import { ListLocations, ListLocationsOutput } from '../../adapters/types';
+import {
+  ListLocations,
+  ListLocationsOutput,
+  LocationAccess,
+} from '../../adapters/types';
 import { Permission } from '../../storage-internal';
 
 import { ListActionInput, ListActionOptions, ListActionOutput } from '../types';
@@ -34,6 +38,19 @@ const shouldExclude = <T extends Permission>(
     : typeof exclude === 'string'
     ? exclude === permission
     : exclude.includes(permission);
+
+// FIXME: temporary fix until we use the list action in actions folder
+export const parseAccessGrantLocation = (
+  location: LocationAccess
+): LocationData => {
+  const { scope, type } = location;
+  if (!scope.startsWith('s3://')) {
+    throw new Error(`Invalid scope: ${scope}`);
+  }
+  const id = crypto.randomUUID();
+  const { bucket, prefix } = parseAccessGrantLocationScope(scope, type);
+  return { id, ...location, bucket, prefix };
+};
 
 export const createListLocationsAction = (
   listLocations: ListLocations
@@ -79,16 +96,7 @@ export const createListLocationsAction = (
       ];
     } while (nextNextToken && locationsResult.length < pageSize);
 
-    const nextLocations = locationsResult.map((location) => {
-      // FIXME: temporary fix until we use the list action in actions folder
-      const { scope, type } = location;
-      if (!scope.startsWith('s3://')) {
-        throw new Error(`Invalid scope: ${scope}`);
-      }
-      const id = crypto.randomUUID();
-      const { bucket, prefix } = parseAccessGrantLocationScope(scope, type);
-      return { id, ...location, bucket, prefix };
-    });
+    const nextLocations = locationsResult.map(parseAccessGrantLocation);
 
     const result = refresh
       ? nextLocations
