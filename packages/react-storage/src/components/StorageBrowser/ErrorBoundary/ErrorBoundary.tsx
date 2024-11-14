@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { CLASS_BASE } from '../views/constants';
+import { STORAGE_BROWSER_BLOCK_TO_BE_UPDATED } from '../constants';
 
 interface ErrorBoundaryProps {
   children: React.ReactNode;
@@ -11,8 +11,10 @@ interface ErrorBoundaryState {
 }
 
 const Fallback = (): React.JSX.Element => (
-  <div className={CLASS_BASE}>
-    <div className={`${CLASS_BASE}__error`}>Something went wrong.</div>
+  <div className={STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}>
+    <div className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__error-boundary`}>
+      Something went wrong.
+    </div>
   </div>
 );
 

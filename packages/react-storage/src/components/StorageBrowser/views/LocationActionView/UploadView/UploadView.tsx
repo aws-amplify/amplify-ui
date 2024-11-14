@@ -14,15 +14,16 @@ import { TitleControl } from '../../../controls/TitleControl';
 import { ControlsContextProvider } from '../../../controls/context';
 import { useDisplayText } from '../../../displayText';
 import { Controls } from '../../Controls';
-import { AMPLIFY_CLASS_BASE, CLASS_BASE } from '../../constants';
+import {
+  STORAGE_BROWSER_BLOCK,
+  STORAGE_BROWSER_BLOCK_TO_BE_UPDATED,
+} from '../../../constants';
 import { resolveClassName } from '../../utils';
 import { getActionViewTableData } from '../getActionViewTableData';
 import { useUploadView } from './useUploadView';
 import { UploadViewProps } from './types';
 
 const { Overwrite } = Controls;
-
-export const ICON_CLASS = `${CLASS_BASE}__action-status`;
 
 export function UploadView({
   className,
@@ -65,7 +66,7 @@ export function UploadView({
   const isOverwriteCheckboxDisabled = isProcessing || isProcessingComplete;
 
   return (
-    <div className={resolveClassName(AMPLIFY_CLASS_BASE, className)}>
+    <div className={resolveClassName(STORAGE_BROWSER_BLOCK, className)}>
       <ControlsContextProvider
         data={{
           actionCancelLabel,
@@ -101,8 +102,12 @@ export function UploadView({
       >
         <ActionExitControl />
         <TitleControl />
-        <ViewElement className={`${CLASS_BASE}__action-header`}>
-          <ViewElement className={`${CLASS_BASE}__upload-destination`}>
+        <ViewElement
+          className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__action-header`}
+        >
+          <ViewElement
+            className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__upload-destination`}
+          >
             <DescriptionList
               descriptions={[
                 {
@@ -118,16 +123,18 @@ export function UploadView({
             />
           </ViewElement>
           <AddFolderControl
-            className={`${CLASS_BASE}__upload-view-add-folder`}
+            className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__upload-view-add-folder`}
           />
-          <AddFilesControl className={`${CLASS_BASE}__upload-view-add-files`} />
+          <AddFilesControl
+            className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__upload-view-add-files`}
+          />
         </ViewElement>
         <DropZoneControl>
           <DataTableControl />
         </DropZoneControl>
-        <ViewElement className={`${AMPLIFY_CLASS_BASE}__footer`}>
+        <ViewElement className={`${STORAGE_BROWSER_BLOCK}__footer`}>
           <StatusDisplayControl />
-          <ViewElement className={`${AMPLIFY_CLASS_BASE}__buttons`}>
+          <ViewElement className={`${STORAGE_BROWSER_BLOCK}__buttons`}>
             <ActionCancelControl />
             <ActionStartControl />
           </ViewElement>

@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import { useResolvedComposable } from '../hooks/useResolvedComposable';
 import { useDropZone } from '../hooks/useDropZone';
 import { DropZoneControl } from '../DropZoneControl';
-import { AMPLIFY_CLASS_BASE } from '../../views/constants';
+import { STORAGE_BROWSER_BLOCK } from '../../constants';
 
 jest.mock('../hooks/useDropZone');
 jest.mock('../hooks/useResolvedComposable');
@@ -35,6 +35,8 @@ describe('DropZoneControl', () => {
 
     const child = screen.getByRole('table');
 
-    expect(child.parentElement).toHaveClass(`${AMPLIFY_CLASS_BASE}__drop-zone`);
+    expect(child.parentElement).toHaveClass(
+      `${STORAGE_BROWSER_BLOCK}__drop-zone`
+    );
   });
 });

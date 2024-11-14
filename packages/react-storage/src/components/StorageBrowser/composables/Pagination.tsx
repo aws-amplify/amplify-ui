@@ -1,5 +1,5 @@
 import React from 'react';
-import { CLASS_BASE } from '../views/constants';
+import { STORAGE_BROWSER_BLOCK_TO_BE_UPDATED } from '../constants';
 import {
   ListItemElement,
   NavElement,
@@ -15,8 +15,6 @@ export interface PaginationProps {
   highestPageVisited?: number;
 }
 
-const BLOCK_NAME = `${CLASS_BASE}__pagination`;
-
 export const Pagination = ({
   page,
   hasNextPage,
@@ -26,9 +24,16 @@ export const Pagination = ({
   if (!page) return null;
 
   return (
-    <NavElement aria-label={'Pagination'} className={BLOCK_NAME}>
-      <OrderedListElement className={`${BLOCK_NAME}-list`}>
-        <ListItemElement className={`${BLOCK_NAME}-list-item`}>
+    <NavElement
+      aria-label={'Pagination'}
+      className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__pagination`}
+    >
+      <OrderedListElement
+        className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__pagination-list`}
+      >
+        <ListItemElement
+          className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__pagination-list-item`}
+        >
           <PaginationButton
             isDisabled={page <= 1}
             onClick={() => {
@@ -37,16 +42,20 @@ export const Pagination = ({
             type="previous"
           />
         </ListItemElement>
-        <ListItemElement className={`${BLOCK_NAME}-list-item`}>
+        <ListItemElement
+          className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__pagination-list-item`}
+        >
           <SpanElement
             aria-label={`Page ${page}`}
             aria-current="page"
-            className={`${BLOCK_NAME}-current`}
+            className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__pagination-current-page`}
           >
             {page}
           </SpanElement>
         </ListItemElement>
-        <ListItemElement className={`${BLOCK_NAME}-list-item`}>
+        <ListItemElement
+          className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__pagination-list-item`}
+        >
           <PaginationButton
             isDisabled={
               !highestPageVisited ||

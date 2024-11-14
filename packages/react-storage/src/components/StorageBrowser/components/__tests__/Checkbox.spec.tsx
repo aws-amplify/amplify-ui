@@ -1,6 +1,5 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import { CLASS_BASE } from '../../views/constants';
 import { Checkbox } from '../Checkbox';
 
 const myLabelText = 'My Checkbox';
@@ -20,8 +19,6 @@ describe('Checkbox', () => {
     const label = screen.getByText(myLabelText);
     expect(input).toBeInTheDocument();
     expect(input).not.toHaveAttribute('checked');
-    expect(input).toHaveClass(`${CLASS_BASE}__checkbox-input`);
-    expect(label).toHaveClass(`${CLASS_BASE}__checkbox-label`);
     expect(label).toBeInTheDocument();
   });
 

@@ -6,16 +6,10 @@ import {
   IconElement,
   ViewElement,
 } from '../context/elements';
-import { CLASS_BASE } from '../views/constants';
+import { STORAGE_BROWSER_BLOCK_TO_BE_UPDATED } from '../constants';
 
 import { DataListProps } from './types';
 import { isFunction } from '@aws-amplify/ui';
-
-const MENU_BLOCK_NAME = `${CLASS_BASE}__actions-menu`;
-
-const BUTTON_CLASS_NAME = `${MENU_BLOCK_NAME}__action-button`;
-const MENU_CLASS_NAME = `${MENU_BLOCK_NAME}__menu`;
-const TOGGLE_CLASS_NAME = `${MENU_BLOCK_NAME}__toggle`;
 
 const ACTION_ITEM_VARIANT = 'actions-menu-item';
 
@@ -29,7 +23,7 @@ export interface ActionsMenuProps extends DataListProps<ActionItemProps> {
 
 export function ActionItem(
   {
-    className = BUTTON_CLASS_NAME,
+    className = `${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__actions-menu-button`,
     key,
     variant = ACTION_ITEM_VARIANT,
     role = 'menuitem',
@@ -85,10 +79,12 @@ export function ActionsMenu({
   };
 
   return (
-    <ViewElement className={MENU_BLOCK_NAME}>
+    <ViewElement
+      className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__actions-menu`}
+    >
       <ButtonElement
         aria-label="Actions"
-        className={TOGGLE_CLASS_NAME}
+        className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__actions-menu-toggle`}
         disabled={disabled || !data?.length}
         data-testid="ACTIONS_MENU_TOGGLE"
         onClick={() => {
@@ -97,14 +93,16 @@ export function ActionsMenu({
         variant="actions-menu-toggle"
       >
         <IconElement
-          className={`${TOGGLE_CLASS_NAME}__icon`}
+          className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__actions-menu-toggle-icon`}
           variant="vertical-kebab"
         />
       </ButtonElement>
       <ViewElement
         aria-label="Actions"
-        className={`${MENU_CLASS_NAME}${
-          isOpen ? ` ${MENU_CLASS_NAME}--open` : ''
+        className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__actions-menu-list${
+          isOpen
+            ? ` ${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__actions-menu-list--open`
+            : ''
         }`}
         data-testid="ACTIONS_MENU_LIST"
         role="menu"
