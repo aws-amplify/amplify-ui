@@ -2,12 +2,8 @@ import React from 'react';
 
 import { Field } from '../components/Field';
 import { ButtonElement, IconElement, ViewElement } from '../context/elements';
-import { CLASS_BASE } from '../views/constants';
+import { STORAGE_BROWSER_BLOCK_TO_BE_UPDATED } from '../constants';
 import { displayText } from '../displayText/en';
-
-const BLOCK_NAME = `${CLASS_BASE}__search`;
-
-const TOGGLE_BLOCK = 'toggle';
 
 export interface SearchProps {
   onSearch?: () => void;
@@ -29,15 +25,15 @@ export const Search = ({
   // FIXME: focus not returning to input field after clear
 
   return (
-    <ViewElement className={BLOCK_NAME}>
+    <ViewElement className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__search`}>
       <Field
         icon={
           <IconElement
-            className={`${BLOCK_NAME}__field__icon`}
+            className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__search-field-icon`}
             variant="search"
           />
         }
-        className={`${BLOCK_NAME}__field`}
+        className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__search-field`}
         variant="search"
         onChange={(e) => {
           onSearchQueryChange?.(e.target.value);
@@ -53,7 +49,7 @@ export const Search = ({
         {searchQuery ? (
           <ButtonElement
             aria-label={displayText.searchClearLabel}
-            className={`${BLOCK_NAME}__field-clear-button`}
+            className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__search-field-clear`}
             onClick={() => {
               onSearchClear?.();
             }}
@@ -64,7 +60,7 @@ export const Search = ({
         ) : null}
       </Field>
       <ButtonElement
-        className={`${BLOCK_NAME}__submit-button`}
+        className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__search-submit`}
         onClick={() => onSearch?.()}
       >
         Submit

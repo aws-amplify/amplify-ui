@@ -9,7 +9,10 @@ import { TitleControl } from '../../controls/TitleControl';
 import { ControlsContextProvider } from '../../controls/context';
 import { useDisplayText } from '../../displayText';
 import { Controls } from '../Controls';
-import { AMPLIFY_CLASS_BASE, CLASS_BASE } from '../constants';
+import {
+  STORAGE_BROWSER_BLOCK,
+  STORAGE_BROWSER_BLOCK_TO_BE_UPDATED,
+} from '../../constants';
 import { resolveClassName } from '../utils';
 import { getLocationsViewTableData } from './getLocationsViewTableData';
 import { LocationViewHeaders } from './getLocationsViewTableData/types';
@@ -37,15 +40,19 @@ const LocationsMessage = ({
 };
 
 const getHeaders = ({
+  hasObjectLocations,
   tableColumnBucketHeader,
   tableColumnFolderHeader,
   tableColumnPermissionsHeader,
+  tableColumnActionsHeader,
 }: {
+  hasObjectLocations: boolean;
   tableColumnBucketHeader: string;
   tableColumnFolderHeader: string;
   tableColumnPermissionsHeader: string;
+  tableColumnActionsHeader: string;
 }): LocationViewHeaders => {
-  return [
+  const headers: LocationViewHeaders = [
     {
       key: 'folder',
       type: 'sort',
@@ -62,6 +69,16 @@ const getHeaders = ({
       content: { label: tableColumnPermissionsHeader },
     },
   ];
+
+  if (hasObjectLocations) {
+    headers.push({
+      key: 'action',
+      type: 'sort',
+      content: { label: tableColumnActionsHeader },
+    });
+  }
+
+  return headers;
 };
 
 const LocationsEmptyMessage = ({ show }: { show: boolean }) => {
@@ -78,7 +95,9 @@ export function LocationsView({
       tableColumnBucketHeader,
       tableColumnFolderHeader,
       tableColumnPermissionsHeader,
+      tableColumnActionsHeader,
       searchPlaceholder,
+      getDownloadLabel,
       getPermissionName,
     },
   } = useDisplayText();
@@ -93,6 +112,7 @@ export function LocationsView({
     pageItems,
     message,
     shouldShowEmptyMessage,
+    onDownload,
     onRefresh,
     onPaginate,
     onNavigate,
@@ -102,9 +122,11 @@ export function LocationsView({
   } = useLocationsView(props);
 
   const headers = getHeaders({
+    hasObjectLocations: pageItems.some(({ type }) => type === 'OBJECT'),
     tableColumnBucketHeader,
     tableColumnFolderHeader,
     tableColumnPermissionsHeader,
+    tableColumnActionsHeader,
   });
 
   return (
@@ -115,7 +137,9 @@ export function LocationsView({
           getPermissionName,
           headers,
           pageItems,
+          onDownload,
           onNavigate,
+          getDownloadLabel,
         }),
         paginationData: {
           page,
@@ -133,17 +157,21 @@ export function LocationsView({
       onSearchClear={onSearchClear}
     >
       <div
-        className={resolveClassName(AMPLIFY_CLASS_BASE, className)}
+        className={resolveClassName(STORAGE_BROWSER_BLOCK, className)}
         data-testid="LOCATIONS_VIEW"
       >
         <TitleControl />
-        <ViewElement className={`${CLASS_BASE}__location-detail-view-controls`}>
-          <SearchControl className={`${CLASS_BASE}__locations-view-search`} />
+        <ViewElement
+          className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__location-detail-view-controls`}
+        >
+          <SearchControl
+            className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__locations-view-search`}
+          />
           <PaginationControl
-            className={`${CLASS_BASE}__locations-view-pagination`}
+            className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__locations-view-pagination`}
           />
           <DataRefreshControl
-            className={`${CLASS_BASE}__locations-view-data-refresh`}
+            className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__locations-view-data-refresh`}
           />
         </ViewElement>
         <LocationsMessage show={hasError} message={message} />

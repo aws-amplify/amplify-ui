@@ -1,9 +1,7 @@
 import React from 'react';
 
 import { Field } from '../components/Field';
-import { CLASS_BASE } from '../views/constants';
-
-const BLOCK_NAME = `${CLASS_BASE}__folder-name-field`;
+import { STORAGE_BROWSER_BLOCK_TO_BE_UPDATED } from '../constants';
 
 export interface FolderNameFieldProps {
   id?: string;
@@ -36,7 +34,7 @@ export function FolderNameField({
     <Field
       aria-describedby={id}
       aria-invalid={!!validationMessage}
-      className={`${BLOCK_NAME}__field`}
+      className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__folder-name-field`}
       disabled={isDisabled}
       id={id}
       label={label}

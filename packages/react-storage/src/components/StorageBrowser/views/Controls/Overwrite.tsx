@@ -1,13 +1,12 @@
 import React from 'react';
 
-import { CLASS_BASE } from '../constants';
+import { STORAGE_BROWSER_BLOCK_TO_BE_UPDATED } from '../../constants';
 import {
   InputElement,
   ViewElement,
   LabelElement,
 } from '../../context/elements/definitions';
 
-const BLOCK_NAME = `${CLASS_BASE}__overwrite`;
 export const LABEL_TEXT = 'Overwrite existing files';
 
 interface OverwriteControlProps {
@@ -21,7 +20,7 @@ export const OverwriteControl = ({
   disabled,
   handleChange,
 }: OverwriteControlProps): React.JSX.Element => (
-  <ViewElement className={BLOCK_NAME}>
+  <ViewElement className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__overwrite`}>
     <InputElement
       defaultChecked={defaultChecked}
       disabled={disabled}

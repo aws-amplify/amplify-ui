@@ -16,7 +16,7 @@
   }
 
   &__navigation,
-  &__exit {
+  &__action-exit {
     align-self: flex-start;
   }
 
@@ -47,7 +47,7 @@
   &__pagination {
   }
 
-  &__refresh {
+  &__data-refresh {
   }
 
   &__menu {
@@ -129,7 +129,7 @@
     }
   }
 
-  &__status {
+  &__status-display {
     justify-content: flex-end;
     display: flex;
     gap: var(--amplify-space-small);

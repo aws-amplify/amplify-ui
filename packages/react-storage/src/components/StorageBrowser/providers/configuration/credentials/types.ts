@@ -13,9 +13,8 @@ import {
 export type RegisterAuthListener = (onStateChange: () => void) => void;
 
 export type GetCredentials = (input: {
-  bucket: string;
+  scope: string;
   permission: Permission;
-  prefix: string;
 }) => LocationCredentialsProvider;
 
 export interface CredentialsStore

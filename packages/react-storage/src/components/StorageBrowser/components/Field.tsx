@@ -6,9 +6,7 @@ import {
   InputElement,
   LabelElement,
 } from '../context/elements';
-import { CLASS_BASE } from '../views/constants';
-
-const BLOCK_NAME = `${CLASS_BASE}__field`;
+import { STORAGE_BROWSER_BLOCK_TO_BE_UPDATED } from '../constants';
 
 interface FieldProps extends InputElementProps {
   className?: string;
@@ -17,7 +15,7 @@ interface FieldProps extends InputElementProps {
 }
 export function Field({
   'aria-describedby': ariaDescribedBy = 'fieldError',
-  className = BLOCK_NAME,
+  className = `${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__field`,
   children,
   label,
   icon = null,
@@ -35,7 +33,7 @@ export function Field({
       <InputElement
         {...props}
         aria-describedby={ariaDescribedBy}
-        className={`${className}__input`}
+        className={`${className}-input`}
         id={id}
         type={'text'}
       />

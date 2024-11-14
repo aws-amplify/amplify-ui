@@ -14,7 +14,7 @@ export const DEFAULT_ACTION_VIEW_DISPLAY_TEXT: Omit<
   statusDisplayCompletedLabel: 'Completed',
   statusDisplayFailedLabel: 'Failed',
   statusDisplayTotalLabel: 'Total',
-  statusDisplayQueuedLabel: 'Not Started',
+  statusDisplayQueuedLabel: 'Not started',
   // empty by default
   tableColumnCancelHeader: '',
   tableColumnStatusHeader: 'Status',

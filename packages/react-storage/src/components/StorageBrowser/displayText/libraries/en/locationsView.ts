@@ -16,7 +16,9 @@ export const DEFAULT_LOCATIONS_VIEW_DISPLAY_TEXT: DefaultLocationsViewDisplayTex
     getListResultsMessage: () => 'lol',
     getPermissionName: (permission: Permission) =>
       PERMISSION_DISPLAY_TEXT[permission] ?? permission,
+    getDownloadLabel: (fileName: string) => `Download ${fileName}`,
     tableColumnBucketHeader: 'Bucket',
     tableColumnFolderHeader: 'Folder',
     tableColumnPermissionsHeader: 'Permissions',
+    tableColumnActionsHeader: 'Actions',
   };

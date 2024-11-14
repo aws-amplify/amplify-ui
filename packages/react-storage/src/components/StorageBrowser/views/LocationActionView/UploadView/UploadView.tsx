@@ -14,7 +14,10 @@ import { TitleControl } from '../../../controls/TitleControl';
 import { ControlsContextProvider } from '../../../controls/context';
 import { useDisplayText } from '../../../displayText';
 import { Controls } from '../../Controls';
-import { AMPLIFY_CLASS_BASE } from '../../constants';
+import {
+  STORAGE_BROWSER_BLOCK,
+  STORAGE_BROWSER_BLOCK_TO_BE_UPDATED,
+} from '../../../constants';
 import { resolveClassName } from '../../utils';
 import { getActionViewTableData } from '../getActionViewTableData';
 import { useUploadView } from './useUploadView';
@@ -65,7 +68,7 @@ export function UploadView({
   const destinationList = (location.key || '/').split('/');
 
   return (
-    <div className={resolveClassName(AMPLIFY_CLASS_BASE, className)}>
+    <div className={resolveClassName(STORAGE_BROWSER_BLOCK, className)}>
       <ControlsContextProvider
         data={{
           actionCancelLabel,
@@ -101,14 +104,14 @@ export function UploadView({
       >
         <ActionExitControl />
         <TitleControl />
-        <ViewElement className={`${AMPLIFY_CLASS_BASE}__controls`}>
+        <ViewElement className={`${STORAGE_BROWSER_BLOCK}__controls`}>
           <Overwrite
             defaultChecked={isOverwriteEnabled}
             disabled={isOverwriteCheckboxDisabled}
             handleChange={onToggleOverwrite}
           />
 
-          <ViewElement className={`${AMPLIFY_CLASS_BASE}__buttons`}>
+          <ViewElement className={`${STORAGE_BROWSER_BLOCK}__buttons`}>
             <AddFolderControl />
             <AddFilesControl />
           </ViewElement>
@@ -116,9 +119,9 @@ export function UploadView({
         <DropZoneControl>
           <DataTableControl />
         </DropZoneControl>
-        <ViewElement className={`${AMPLIFY_CLASS_BASE}__summary`}>
+        <ViewElement className={`${STORAGE_BROWSER_BLOCK}__summary`}>
           <DescriptionList
-            className={`${AMPLIFY_CLASS_BASE}__destination`}
+            className={`${STORAGE_BROWSER_BLOCK}__destination`}
             descriptions={[
               {
                 term: `${actionDestinationLabel}:`,
@@ -138,9 +141,9 @@ export function UploadView({
           />
           <StatusDisplayControl />
         </ViewElement>
-        <ViewElement className={`${AMPLIFY_CLASS_BASE}__footer`}>
+        <ViewElement className={`${STORAGE_BROWSER_BLOCK}__footer`}>
           {/* Message goes here */}
-          <ViewElement className={`${AMPLIFY_CLASS_BASE}__buttons`}>
+          <ViewElement className={`${STORAGE_BROWSER_BLOCK}__buttons`}>
             <ActionCancelControl />
             <ActionStartControl />
           </ViewElement>
