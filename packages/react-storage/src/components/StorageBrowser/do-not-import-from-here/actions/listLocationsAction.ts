@@ -65,16 +65,14 @@ export const createListLocationsAction = (
       });
 
       nextNextToken = output.nextToken;
-
       locationsResult = [
         ...locationsResult,
         ...output.locations.filter(
           ({ permission, type, scope }) =>
             !(
-              type === 'OBJECT' ||
               shouldExclude(permission, exclude) ||
-              // filter out scopes that don't end with /, e.g. /prefix*
-              !scope.endsWith('/*')
+              // filter out PREFIX/BUCKET types with scopes that don't end with /*, e.g. /prefix*
+              (type !== 'OBJECT' && !scope.endsWith('/*'))
             )
         ),
       ];

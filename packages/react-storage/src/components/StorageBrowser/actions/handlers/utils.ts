@@ -92,6 +92,17 @@ export const createFileDataItem = (data: FileData): FileDataItem => ({
   fileKey: getFileKey(data.key),
 });
 
+export const createFileDataItemFromLocation = (
+  data: LocationData
+): FileDataItem => ({
+  id: data.id,
+  type: 'FILE',
+  key: data.prefix,
+  fileKey: getFileKey(data.prefix),
+  lastModified: new Date(),
+  size: 0,
+});
+
 export const isFileItem = (value: unknown): value is FileItem =>
   !!(value as FileItem).file;
 

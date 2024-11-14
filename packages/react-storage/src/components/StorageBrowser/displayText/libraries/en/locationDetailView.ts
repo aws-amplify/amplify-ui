@@ -14,7 +14,7 @@ export const DEFAULT_LOCATION_DETAIL_VIEW_DISPLAY_TEXT: DefaultLocationDetailVie
     tableColumnTypeHeader: 'Type',
     title: (location) => {
       const { current, key } = location;
-      const { bucket = '', prefix } = current ?? {};
-      return prefix ? key : bucket;
+      const { bucket = '' } = current ?? {};
+      return key || bucket;
     },
   };

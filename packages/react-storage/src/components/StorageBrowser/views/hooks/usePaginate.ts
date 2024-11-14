@@ -1,10 +1,8 @@
 import React from 'react';
-import { LocationData, LocationItemData } from '../../actions';
+
 import { isFunction } from '@aws-amplify/ui';
 
-type ListItemType = LocationItemData | LocationData;
-
-interface UsePaginate<T extends ListItemType> {
+interface UsePaginate<T> {
   currentPage: number;
   highestPageVisited: number;
   onPaginate: (page: number) => void;
@@ -12,14 +10,14 @@ interface UsePaginate<T extends ListItemType> {
   pageItems: T[];
 }
 
-interface UsePaginateProps<T extends ListItemType> {
+interface UsePaginateProps<T> {
   hasNextToken: boolean;
   items: T[];
   paginateCallback?: () => void;
   pageSize: number;
 }
 
-export const usePaginate = <T extends ListItemType>({
+export const usePaginate = <T>({
   hasNextToken,
   items,
   paginateCallback,

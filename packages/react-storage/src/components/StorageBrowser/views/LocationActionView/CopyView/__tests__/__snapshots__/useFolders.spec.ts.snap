@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`useFolders should return the correct initial state 1`] = `
+{
+  "currentPage": 1,
+  "currentQuery": "",
+  "folders": [
+    {
+      "id": "id",
+      "key": "prefix1/",
+      "lastModified": 2024-11-11T23:03:43.230Z,
+      "size": 10,
+      "type": "FOLDER",
+    },
+    {
+      "id": "id",
+      "key": "prefix2/",
+      "lastModified": 2024-11-11T23:03:43.230Z,
+      "size": 10,
+      "type": "FOLDER",
+    },
+  ],
+  "hasError": false,
+  "hasInitialized": false,
+  "hasMorePages": true,
+  "highestPageVisited": 1,
+  "isLoading": false,
+  "message": undefined,
+  "onPaginate": [Function],
+  "onQuery": [Function],
+  "onSearch": [Function],
+  "onSearchClear": [Function],
+  "onSelect": [Function],
+}
+`;

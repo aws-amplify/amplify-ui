@@ -1,10 +1,14 @@
 import React from 'react';
 
-import { ActionInputConfig, ActionConfigsProviderProps } from '../../actions';
+import {
+  ActionInputConfig,
+  ActionConfigsProviderProps,
+  LocationData,
+} from '../../actions';
 
 import { CredentialsProviderProps } from './credentials';
 
-export type GetActionInput = () => ActionInputConfig;
+export type GetActionInput = (location?: LocationData) => ActionInputConfig;
 
 export interface GetActionInputProviderProps {
   accountId?: string;

@@ -4,10 +4,7 @@ import * as AmplifyReactCore from '@aws-amplify/ui-react-core';
 
 import * as Store from '../../../../providers/store';
 import * as Config from '../../../../providers/configuration';
-import {
-  DEFAULT_LIST_OPTIONS,
-  useDestinationPicker,
-} from '../useDestinationPicker';
+import { DEFAULT_LIST_OPTIONS, useFolders } from '../useFolders';
 
 const mockDispatchStoreAction = jest.fn();
 const mockHandleList = jest.fn();
@@ -38,7 +35,7 @@ const mockItems = [
   },
 ];
 
-describe('useDestinationPicker', () => {
+describe('useFolders', () => {
   beforeEach(() => {
     jest.clearAllMocks();
 
@@ -91,7 +88,7 @@ describe('useDestinationPicker', () => {
     ]);
 
     const { result } = renderHook(() =>
-      useDestinationPicker({
+      useFolders({
         destinationList: ['prefix1'],
       })
     );
@@ -120,7 +117,7 @@ describe('useDestinationPicker', () => {
         props: { destinationList: string[] } = {
           destinationList: ['prefix1'],
         }
-      ) => useDestinationPicker(props)
+      ) => useFolders(props)
     );
     await waitFor(() => {
       rerender({
@@ -150,13 +147,13 @@ describe('useDestinationPicker', () => {
       mockHandleList,
     ]);
     const { result } = renderHook(() =>
-      useDestinationPicker({
+      useFolders({
         destinationList: ['prefix1'],
       })
     );
 
     act(() => {
-      result.current.onSearchQueryChange('moo');
+      result.current.onQuery('moo');
     });
 
     act(() => {
@@ -185,5 +182,27 @@ describe('useDestinationPicker', () => {
         }),
       })
     );
+  });
+
+  it('should handle paginate', () => {
+    const { result } = renderHook(() =>
+      useFolders({ destinationList: ['prefix1'] })
+    );
+
+    act(() => {
+      const state = result.current;
+      state.onPaginate(2);
+    });
+
+    expect(mockHandleList).toHaveBeenCalledWith({
+      config,
+      options: {
+        ...DEFAULT_LIST_OPTIONS,
+        exclude: 'FILE',
+        nextToken: undefined,
+        refresh: true,
+      },
+      prefix: 'prefix1/',
+    });
   });
 });
