@@ -167,8 +167,6 @@ export function createUseAIConversation<
     React.useEffect(() => {
       if (!conversation) return;
 
-      // There is an issue when the FIRST stream event block
-      // is a toolUse...
       const subscription = conversation.onStreamEvent({
         next: (event) => {
           const {
