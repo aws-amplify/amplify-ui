@@ -23,6 +23,9 @@ jest.mock('../../../displayText', () => ({
   useDisplayText: () => ({ LocationDetailView: { title: jest.fn() } }),
 }));
 jest.mock('../../../providers/configuration');
+jest.mock('../../../controls/DataTableControl', () => ({
+  DataTableControl: () => <div data-testid="data-table-control" />,
+}));
 jest.mock('../../../controls/LoadingIndicatorControl', () => ({
   LoadingIndicatorControl: () => (
     <div data-testid="loading-indicator-control" />
@@ -31,8 +34,10 @@ jest.mock('../../../controls/LoadingIndicatorControl', () => ({
 jest.mock('../../../controls/NavigationControl', () => ({
   NavigationControl: () => 'NavigationControl',
 }));
-jest.mock('../../../controls/DataTableControl', () => ({
-  DataTableControl: () => <div data-testid="data-table-control" />,
+jest.mock('../../../controls/SearchSubfoldersToggleControl', () => ({
+  SearchSubfoldersToggleControl: () => (
+    <div data-testid="search-subfolders-toggle-control" />
+  ),
 }));
 jest.mock('../../../tasks/useProcessTasks');
 
@@ -189,20 +194,21 @@ describe('LocationDetailView', () => {
     ]);
     mockListItemsAction({ result: testResult });
 
-    const { getByPlaceholderText, getByText, getByLabelText } = render(
-      <LocationDetailView />
-    );
+    const { getByPlaceholderText, getByTestId, getByText, getByLabelText } =
+      render(<LocationDetailView />);
 
     const input = getByPlaceholderText('Search current folder');
-    const subfolderOption = getByText('Include subfolders');
+    const searchSubfoldersToggle = getByTestId(
+      'search-subfolders-toggle-control'
+    );
 
     expect(input).toBeInTheDocument();
-    expect(subfolderOption).toBeInTheDocument();
+    expect(searchSubfoldersToggle).toBeInTheDocument();
 
     input.focus();
     await act(async () => {
       await user.keyboard('boo');
-      await user.click(subfolderOption);
+      await user.click(searchSubfoldersToggle);
       await user.click(getByText('Submit'));
     });
 
