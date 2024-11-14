@@ -5,11 +5,11 @@ export const parseAccessGrantPermission = (
   accessGrantPermission: Permission
 ): LocationPermissions => {
   if (accessGrantPermission === 'READ') {
-    return ['list', 'get'];
+    return ['get', 'list'];
   } else if (accessGrantPermission === 'WRITE') {
-    return ['write', 'delete'];
+    return ['delete', 'write'];
   } else if (accessGrantPermission === 'READWRITE') {
-    return ['list', 'get', 'write', 'delete'];
+    return ['delete', 'get', 'list', 'write'];
   }
   throw new Error('Improper Permission: Please provide correct permission.');
 };
@@ -44,7 +44,7 @@ export const parseAmplifyAuthPermission = (
 ): LocationPermissions => {
   const result: LocationPermissions = [];
 
-  permissions.sort().forEach((access: StorageAccess) => {
+  permissions.forEach((access: StorageAccess) => {
     if (access === 'read') {
       if (!result.includes('list')) {
         result.push('list');
@@ -52,7 +52,10 @@ export const parseAmplifyAuthPermission = (
       if (!result.includes('get')) {
         result.push('get');
       }
-    } else if (!result.includes(access)) {
+    } else if (
+      ['delete', 'get', 'list', 'write'].includes(access) &&
+      !result.includes(access)
+    ) {
       result.push(access);
     }
   });

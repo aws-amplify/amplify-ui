@@ -55,6 +55,7 @@ export const getLocationsViewTableData = ({
             };
           }
           case 'action': {
+            // FIXME: conditional render download button if permissions include 'get'
             return location.type === 'OBJECT'
               ? {
                   key,
