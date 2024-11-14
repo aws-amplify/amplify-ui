@@ -7,19 +7,23 @@ import {
 import { DataTableControl } from '../../controls/DataTableControl';
 import { DataRefreshControl } from '../../controls/DataRefreshControl';
 import { DropZoneControl } from '../../controls/DropZoneControl';
+import { LoadingIndicatorControl } from '../../controls/LoadingIndicatorControl';
 import { NavigationControl } from '../../controls/NavigationControl';
+import { PaginationControl } from '../../controls/PaginationControl';
 import { SearchControl } from '../../controls/SearchControl';
 import { TitleControl } from '../../controls/TitleControl';
 import { ControlsContextProvider } from '../../controls/context';
 import { useDisplayText } from '../../displayText';
 import { Controls } from '../Controls';
-import { AMPLIFY_CLASS_BASE, CLASS_BASE } from '../constants';
+import {
+  STORAGE_BROWSER_BLOCK,
+  STORAGE_BROWSER_BLOCK_TO_BE_UPDATED,
+} from '../../constants';
 import { resolveClassName } from '../utils';
 import { ActionsMenuControl } from './Controls/ActionsMenu';
 import { getLocationDetailViewTableData } from './getLocationDetailViewTableData';
 import { useLocationDetailView } from './useLocationDetailView';
 import { LocationDetailViewProps } from './types';
-import { PaginationControl } from '../../controls/PaginationControl';
 
 export const DEFAULT_ERROR_MESSAGE = 'There was an error loading items.';
 const DEFAULT_PAGE_SIZE = 100;
@@ -28,11 +32,7 @@ export const DEFAULT_LIST_OPTIONS = {
   delimiter: '/',
 };
 
-const { EmptyMessage, Loading: LoadingControl, Message } = Controls;
-
-function Loading({ show }: { show?: boolean }) {
-  return show ? <LoadingControl /> : null;
-}
+const { EmptyMessage, Message } = Controls;
 
 export const LocationDetailMessage = ({
   show,
@@ -57,7 +57,7 @@ export function LocationDetailView({
   onNavigate: onNavigateProp,
 }: LocationDetailViewProps): React.JSX.Element {
   const {
-    LocationDetailView: { title },
+    LocationDetailView: { loadingIndicatorLabel, title },
   } = useDisplayText();
 
   const {
@@ -92,12 +92,14 @@ export function LocationDetailView({
 
   return (
     <div
-      className={resolveClassName(AMPLIFY_CLASS_BASE, className)}
+      className={resolveClassName(STORAGE_BROWSER_BLOCK, className)}
       data-testid="LOCATION_DETAIL_VIEW"
     >
       <ControlsContextProvider
         data={{
           isDataRefreshDisabled: isLoading,
+          isLoading,
+          loadingIndicatorLabel,
           location,
           searchPlaceholder,
           paginationData: {
@@ -129,30 +131,33 @@ export function LocationDetailView({
         onSearchClear={onSearchClear}
       >
         <NavigationControl
-          className={`${CLASS_BASE}__location-detail-view-navigation`}
+          className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__location-detail-view-navigation`}
         />
         <TitleControl />
-        <ViewElement className={`${CLASS_BASE}__location-detail-view-controls`}>
-          <SearchControl
-            className={`${CLASS_BASE}__location-detail-view-search`}
+        <ViewElement
+          className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__location-detail-view-controls`}
+        >
+          <ViewElement
+            className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__search`}
           >
+            <SearchControl />
             <LabelElement
-              className={`${CLASS_BASE}__search-subfolder-toggle__label`}
+              className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__search-subfolder-toggle__label`}
             >
               <InputElement
                 checked={includeSubfolders}
-                className={`${CLASS_BASE}__search-subfolder-toggle__checkbox`}
+                className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__search-subfolder-toggle__checkbox`}
                 onChange={() => onIncludeSubfoldersChange?.(!includeSubfolders)}
                 type="checkbox"
               />
               Include subfolders
             </LabelElement>
-          </SearchControl>
+          </ViewElement>
           <PaginationControl
-            className={`${CLASS_BASE}__location-detail-view-pagination`}
+            className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__location-detail-view-pagination`}
           />
           <DataRefreshControl
-            className={`${CLASS_BASE}__locations-detail-view-data-refresh`}
+            className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__locations-detail-view-data-refresh`}
           />
           <ActionsMenuControl
             onActionSelect={onActionSelect}
@@ -160,7 +165,7 @@ export function LocationDetailView({
           />
         </ViewElement>
         <LocationDetailMessage show={hasError} message={message} />
-        <Loading show={isLoading} />
+        <LoadingIndicatorControl />
         {hasError ? null : (
           <DropZoneControl>
             <DataTableControl />

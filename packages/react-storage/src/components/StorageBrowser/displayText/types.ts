@@ -94,7 +94,7 @@ export interface DefaultUploadViewDisplayText
   addFilesLabel: string;
   addFolderLabel: string;
   statusDisplayOverridePreventedLabel: string;
-  overwriteExistingLabel: string;
+  overwriteToggleLabel: string;
 }
 
 export interface DefaultStorageBrowserDisplayText {

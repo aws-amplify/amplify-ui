@@ -10,10 +10,11 @@ import { FolderNameField } from './FolderNameField';
 import { LoadingIndicator } from './LoadingIndicator';
 import { Message } from './Message';
 import { Navigation } from './Navigation';
+import { OverwriteToggle } from './OverwriteToggle';
 import { Pagination } from './Pagination';
 import { StatusDisplay } from './StatusDisplay';
-import { Search } from './Search';
 import { Title } from './Title';
+import { SearchField } from './SearchField';
 
 import { Composables } from './types';
 
@@ -30,8 +31,9 @@ export const DEFAULT_COMPOSABLES: Composables = {
   LoadingIndicator,
   Message,
   Navigation,
+  OverwriteToggle,
   Pagination,
   StatusDisplay,
-  Search,
+  SearchField,
   Title,
 };

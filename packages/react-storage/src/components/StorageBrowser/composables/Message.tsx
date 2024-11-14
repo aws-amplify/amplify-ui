@@ -7,9 +7,7 @@ import {
   ViewElement,
 } from '../context/elements';
 
-import { AMPLIFY_CLASS_BASE } from '../views/constants';
-
-const BLOCK_NAME = `${AMPLIFY_CLASS_BASE}__message`;
+import { STORAGE_BROWSER_BLOCK } from '../constants';
 
 export type MessageType = MessageVariant;
 
@@ -41,20 +39,26 @@ export const Message = ({
   }
 
   return !content ? null : (
-    <ViewElement className={BLOCK_NAME} role="alert" variant={type}>
+    <ViewElement
+      className={`${STORAGE_BROWSER_BLOCK}__message`}
+      role="alert"
+      variant={type}
+    >
       <IconElement variant={type} aria-label={ariaLabel} />
-      <ViewElement className={`${BLOCK_NAME}__content`}>{content}</ViewElement>
+      <ViewElement className={`${STORAGE_BROWSER_BLOCK}__message-content`}>
+        {content}
+      </ViewElement>
       {!onDismiss ? null : (
         <ButtonElement
           onClick={onDismiss}
-          className={`${BLOCK_NAME}__dismiss`}
+          className={`${STORAGE_BROWSER_BLOCK}__message-dismiss`}
           variant="message-dismiss"
           aria-label="Dismiss message"
           role="button"
         >
           <IconElement
             variant="dismiss"
-            className={`${BLOCK_NAME}__dismiss__icon`}
+            className={`${STORAGE_BROWSER_BLOCK}__message-dismiss-icon`}
           />
         </ButtonElement>
       )}

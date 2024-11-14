@@ -1,6 +1,9 @@
 import React from 'react';
 
-import { AMPLIFY_CLASS_BASE, CLASS_BASE } from '../../constants';
+import {
+  STORAGE_BROWSER_BLOCK,
+  STORAGE_BROWSER_BLOCK_TO_BE_UPDATED,
+} from '../../../constants';
 
 import { ViewElement } from '../../../context/elements';
 
@@ -32,33 +35,43 @@ export function CopyView({
   const { isProcessing, isProcessingComplete } = state;
 
   return (
-    <div className={resolveClassName(AMPLIFY_CLASS_BASE, className)}>
+    <div className={resolveClassName(STORAGE_BROWSER_BLOCK, className)}>
       <CopyViewProvider {...state}>
         <ActionExitControl />
         <TitleControl />
-        <ViewElement className={`${CLASS_BASE}__table-wrapper`}>
+        <ViewElement
+          className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__table-wrapper`}
+        >
           <DataTableControl />
         </ViewElement>
         {isProcessing || isProcessingComplete ? null : (
           <>
-            <ViewElement className={`${CLASS_BASE}__action-destination`}>
-              <SearchControl />
+            <ViewElement
+              className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__action-destination`}
+            >
+              <ViewElement
+                className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__search`}
+              >
+                <SearchControl />
+              </ViewElement>
               <FoldersPaginatationControl />
             </ViewElement>
-            <ViewElement className={`${CLASS_BASE}__table-wrapper`}>
+            <ViewElement
+              className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__table-wrapper`}
+            >
               <LoadingIndicatorControl />
               <FoldersTableControl />
               <FoldersMessageControl />
             </ViewElement>
           </>
         )}
-        <ViewElement className={`${AMPLIFY_CLASS_BASE}-footer`}>
+        <ViewElement className={`${STORAGE_BROWSER_BLOCK}-footer`}>
           <DestinationControl />
           {!(isProcessing || isProcessingComplete) ? null : (
             <StatusDisplayControl />
           )}
           <MessageControl />
-          <ViewElement className={`${AMPLIFY_CLASS_BASE}__buttons`}>
+          <ViewElement className={`${STORAGE_BROWSER_BLOCK}__buttons`}>
             <ActionCancelControl />
             <ActionStartControl />
           </ViewElement>

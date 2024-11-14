@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { ButtonElement } from '../context/elements';
-import { CLASS_BASE } from '../views/constants';
+import { STORAGE_BROWSER_BLOCK_TO_BE_UPDATED } from '../constants';
 
 export interface AddFolderProps {
   onAddFolder?: () => void;
@@ -15,7 +15,7 @@ export const AddFolder = ({
   label,
 }: AddFolderProps): React.JSX.Element => (
   <ButtonElement
-    className={`${CLASS_BASE}__add-folder`}
+    className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__add-folder`}
     disabled={isDisabled}
     onClick={onAddFolder}
     variant="add-folder"
