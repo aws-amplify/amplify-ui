@@ -65,9 +65,7 @@ export function DeleteView({
 
         <DataTableControl />
 
-        <ViewElement
-          className={`${STORAGE_BROWSER_BLOCK}__delete-view-status-display`}
-        >
+        <ViewElement className={`${STORAGE_BROWSER_BLOCK}__summary`}>
           <StatusDisplayControl />
         </ViewElement>
         <ViewElement className={`${STORAGE_BROWSER_BLOCK}__footer`}>
