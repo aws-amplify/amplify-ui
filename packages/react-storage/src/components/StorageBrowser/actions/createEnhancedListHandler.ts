@@ -22,7 +22,7 @@ export interface EnhancedListHandlerOptions<T, K>
 interface EnhancedListHandler<T, K>
   extends AsyncDataAction<
     ListHandlerOutput<T>,
-    ListHandlerInput<EnhancedListHandlerOptions<T, K>>
+    ListHandlerInput<EnhancedListHandlerOptions<T, K> & { delimiter?: string }>
   > {}
 
 type ListItem<Action> = Action extends ListHandler<
@@ -40,6 +40,71 @@ type Options<Action> = Action extends ListHandler<
 
 export const SEARCH_LIMIT = 10000;
 export const SEARCH_PAGE_SIZE = 1000;
+
+interface Search<T> {
+  prefix: string;
+  delimiter?: string;
+  list: T[];
+  searchOptions: SearchOptions<T>;
+}
+
+function searchItems<T>({
+  prefix,
+  delimiter,
+  list,
+  searchOptions,
+}: Search<T>): T[] {
+  const { filterKey, query } = searchOptions;
+
+  if (delimiter) {
+    return list.filter((item) => {
+      const test = item[filterKey];
+      if (typeof test === 'string') {
+        const [, suffix] = test.split(prefix);
+        return suffix.includes(query);
+      }
+      return false;
+    });
+  }
+
+  const outputSet = new Set();
+  const items = [];
+
+  for (const item of list) {
+    const value = item[filterKey];
+    if (typeof value !== 'string') {
+      continue;
+    }
+    const prefixIndex = value.indexOf(prefix);
+    if (prefixIndex === -1) {
+      continue;
+    }
+    const suffix = value.substring(prefixIndex + prefix.length);
+
+    if (!suffix.includes(query)) {
+      continue;
+    }
+    const segments = value.split('/');
+
+    for (let i = 0; i < segments.length; i++) {
+      if (segments[i].includes(query)) {
+        const pathUpToSegment = segments.slice(0, i + 1).join('/');
+        const isFile = i === segments.length - 1 && !value.endsWith('/');
+        if (!outputSet.has(pathUpToSegment)) {
+          items.push({
+            ...item,
+            [filterKey]: isFile ? pathUpToSegment : pathUpToSegment + '/',
+            id: crypto.randomUUID(),
+            type: isFile ? 'FILE' : 'FOLDER',
+          });
+          outputSet.add(pathUpToSegment);
+        }
+      }
+    }
+  }
+
+  return items;
+}
 
 export const createEnhancedListHandler = <Action extends ListHandler>(
   action: Action
@@ -59,8 +124,6 @@ export const createEnhancedListHandler = <Action extends ListHandler>(
 
     // collect and filter results on `search`
     if (search) {
-      const { query, filterKey } = search;
-
       const result = [];
       let nextNextToken = undefined;
       do {
@@ -77,13 +140,11 @@ export const createEnhancedListHandler = <Action extends ListHandler>(
       } while (nextNextToken && result.length < SEARCH_LIMIT);
 
       return {
-        items: result.filter((item) => {
-          const test = item[filterKey];
-          if (typeof test === 'string') {
-            const [, suffix] = test.split(input.prefix);
-            return suffix.includes(query);
-          }
-          return false;
+        items: searchItems({
+          list: result,
+          prefix: input.prefix,
+          searchOptions: search,
+          delimiter: rest.delimiter,
         }),
         nextToken: undefined,
       };
