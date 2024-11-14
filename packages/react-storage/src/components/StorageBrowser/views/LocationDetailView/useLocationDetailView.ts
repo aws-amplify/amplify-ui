@@ -25,6 +25,7 @@ interface UseLocationDetailView {
   hasNextPage: boolean;
   highestPageVisited: number;
   isLoading: boolean;
+  isSearchingSubfolders: boolean;
   location: LocationState;
   areAllFilesSelected: boolean;
   fileDataItems: FileDataItem[] | undefined;
@@ -33,7 +34,6 @@ interface UseLocationDetailView {
   shouldShowEmptyMessage: boolean;
   searchPlaceholder: string;
   searchQuery: string;
-  includeSubfolders: boolean;
   pageItems: LocationItemData[];
   page: number;
   onDropFiles: (files: File[]) => void;
@@ -47,7 +47,7 @@ interface UseLocationDetailView {
   onSearch: () => void;
   onSearchClear: () => void;
   onSearchQueryChange: (value: string) => void;
-  onIncludeSubfoldersChange: (value: boolean) => void;
+  onToggleSearchSubfolders: () => void;
 }
 
 export type LocationDetailViewActionType =
@@ -152,10 +152,10 @@ export function useLocationDetailView(
 
   const {
     searchQuery,
-    includeSubfolders,
-    onIncludeSubfoldersChange,
+    isSearchingSubfolders,
     onSearchQueryChange,
     onSearchSubmit,
+    onToggleSearchSubfolders,
     resetSearch,
   } = useSearch({ onSearch });
 
@@ -211,10 +211,10 @@ export function useLocationDetailView(
     message,
     shouldShowEmptyMessage,
     isLoading,
+    isSearchingSubfolders,
     onPaginate,
     searchPlaceholder: displayText.searchDetailPlaceholder,
     searchQuery,
-    includeSubfolders,
     onRefresh,
     onNavigate: (location: LocationData, path?: string) => {
       onNavigate?.(location, path);
@@ -275,6 +275,6 @@ export function useLocationDetailView(
       handleReset();
     },
     onSearchQueryChange,
-    onIncludeSubfoldersChange,
+    onToggleSearchSubfolders,
   };
 }

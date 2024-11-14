@@ -1,9 +1,5 @@
 import React from 'react';
-import {
-  InputElement,
-  LabelElement,
-  ViewElement,
-} from '../../context/elements';
+import { ViewElement } from '../../context/elements';
 import { DataTableControl } from '../../controls/DataTableControl';
 import { DataRefreshControl } from '../../controls/DataRefreshControl';
 import { DropZoneControl } from '../../controls/DropZoneControl';
@@ -11,6 +7,7 @@ import { LoadingIndicatorControl } from '../../controls/LoadingIndicatorControl'
 import { NavigationControl } from '../../controls/NavigationControl';
 import { PaginationControl } from '../../controls/PaginationControl';
 import { SearchControl } from '../../controls/SearchControl';
+import { SearchSubfoldersToggleControl } from '../../controls/SearchSubfoldersToggleControl';
 import { TitleControl } from '../../controls/TitleControl';
 import { ControlsContextProvider } from '../../controls/context';
 import { useDisplayText } from '../../displayText';
@@ -57,7 +54,11 @@ export function LocationDetailView({
   onNavigate: onNavigateProp,
 }: LocationDetailViewProps): React.JSX.Element {
   const {
-    LocationDetailView: { loadingIndicatorLabel, title },
+    LocationDetailView: {
+      loadingIndicatorLabel,
+      searchSubfoldersToggleLabel,
+      title,
+    },
   } = useDisplayText();
 
   const {
@@ -66,6 +67,7 @@ export function LocationDetailView({
     hasNextPage,
     highestPageVisited,
     isLoading,
+    isSearchingSubfolders,
     location,
     areAllFilesSelected,
     fileDataItems,
@@ -75,7 +77,6 @@ export function LocationDetailView({
     shouldShowEmptyMessage,
     searchPlaceholder,
     searchQuery,
-    includeSubfolders,
     onDropFiles,
     onRefresh,
     onPaginate,
@@ -86,8 +87,8 @@ export function LocationDetailView({
     onSelectAll,
     onSearch,
     onSearchQueryChange,
-    onIncludeSubfoldersChange,
     onSearchClear,
+    onToggleSearchSubfolders,
   } = useLocationDetailView({ onNavigate: onNavigateProp, onExit });
 
   return (
@@ -99,6 +100,7 @@ export function LocationDetailView({
         data={{
           isDataRefreshDisabled: isLoading,
           isLoading,
+          isSearchingSubfolders,
           loadingIndicatorLabel,
           location,
           searchPlaceholder,
@@ -109,6 +111,7 @@ export function LocationDetailView({
             onPaginate,
           },
           searchQuery,
+          searchSubfoldersToggleLabel,
           tableData: getLocationDetailViewTableData({
             areAllFilesSelected,
             location,
@@ -129,6 +132,7 @@ export function LocationDetailView({
         onSearch={onSearch}
         onSearchQueryChange={onSearchQueryChange}
         onSearchClear={onSearchClear}
+        onToggleSearchSubfolders={onToggleSearchSubfolders}
       >
         <NavigationControl
           className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__location-detail-view-navigation`}
@@ -141,17 +145,7 @@ export function LocationDetailView({
             className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__search`}
           >
             <SearchControl />
-            <LabelElement
-              className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__search-subfolder-toggle__label`}
-            >
-              <InputElement
-                checked={includeSubfolders}
-                className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__search-subfolder-toggle__checkbox`}
-                onChange={() => onIncludeSubfoldersChange?.(!includeSubfolders)}
-                type="checkbox"
-              />
-              Include subfolders
-            </LabelElement>
+            <SearchSubfoldersToggleControl />
           </ViewElement>
           <PaginationControl
             className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__location-detail-view-pagination`}
