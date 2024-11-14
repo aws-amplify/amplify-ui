@@ -47,6 +47,7 @@ export interface AIConversationProps {
   handleSendMessage: SendMessage;
   avatars?: Avatars;
   isLoading?: boolean;
+  aiContext?: () => object;
 }
 
 export interface AIConversation<
