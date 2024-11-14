@@ -2,11 +2,11 @@ import React from 'react';
 import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { Search } from '../Search';
+import { SearchField } from '../SearchField';
 
 describe('Search', () => {
   it('renders the Search composable', () => {
-    render(<Search onSearch={jest.fn()} searchPlaceholder={'Placeholder'} />);
+    render(<SearchField onSearch={jest.fn()} placeholder={'Placeholder'} />);
 
     const field = screen.getByPlaceholderText('Placeholder');
     const button = screen.getByRole('button', { name: 'Submit' });
@@ -18,7 +18,7 @@ describe('Search', () => {
   it('calls onSearch when submit button is clicked', () => {
     const onSearch = jest.fn();
 
-    render(<Search onSearch={onSearch} />);
+    render(<SearchField onSearch={onSearch} />);
 
     const submitButton = screen.getByRole('button', { name: 'Submit' });
     act(() => {
@@ -31,7 +31,7 @@ describe('Search', () => {
     const user = userEvent.setup();
     const onSearch = jest.fn();
 
-    const { getByRole } = render(<Search onSearch={onSearch} />);
+    const { getByRole } = render(<SearchField onSearch={onSearch} />);
 
     const input = getByRole('textbox');
     input.focus();

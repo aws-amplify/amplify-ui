@@ -14,13 +14,12 @@ import { StatusDisplayControl } from '../../../controls/StatusDisplayControl';
 import { TitleControl } from '../../../controls/TitleControl';
 import { ControlsContextProvider } from '../../../controls/context';
 import { useDisplayText } from '../../../displayText';
-import { AMPLIFY_CLASS_BASE, CLASS_BASE } from '../../constants';
+import { STORAGE_BROWSER_BLOCK } from '../../../constants';
 import { resolveClassName } from '../../utils';
 import { getActionViewTableData } from '../getActionViewTableData';
 import { useUploadView } from './useUploadView';
 import { UploadViewProps } from './types';
-
-export const ICON_CLASS = `${CLASS_BASE}__action-status`;
+import { Breadcrumb } from '../../../components/BreadcrumbNavigation';
 
 export function UploadView({
   className,
@@ -61,9 +60,10 @@ export function UploadView({
   const isAddFilesDisabled = isProcessing || isProcessingComplete;
   const isAddFolderDisabled = isProcessing || isProcessingComplete;
   const isActionExitDisabled = isProcessing;
+  const destinationList = (location.key || '/').split('/');
 
   return (
-    <div className={resolveClassName(AMPLIFY_CLASS_BASE, className)}>
+    <div className={resolveClassName(STORAGE_BROWSER_BLOCK, className)}>
       <ControlsContextProvider
         data={{
           actionCancelLabel,
@@ -102,31 +102,41 @@ export function UploadView({
       >
         <ActionExitControl />
         <TitleControl />
-        <ViewElement className={`${CLASS_BASE}__action-header`}>
-          <ViewElement className={`${CLASS_BASE}__upload-destination`}>
-            <DescriptionList
-              descriptions={[
-                {
-                  term: `${actionDestinationLabel}:`,
-                  details: location.key || '/',
-                },
-              ]}
-            />
-            <OverwriteToggleControl
-              className={`${CLASS_BASE}__upload-overwrite-toggle`}
-            />
+        <ViewElement className={`${STORAGE_BROWSER_BLOCK}__controls`}>
+          <OverwriteToggleControl />
+          <ViewElement className={`${STORAGE_BROWSER_BLOCK}__buttons`}>
+            <AddFolderControl />
+            <AddFilesControl />
           </ViewElement>
-          <AddFolderControl
-            className={`${CLASS_BASE}__upload-view-add-folder`}
-          />
-          <AddFilesControl className={`${CLASS_BASE}__upload-view-add-files`} />
         </ViewElement>
         <DropZoneControl>
           <DataTableControl />
         </DropZoneControl>
-        <ViewElement className={`${AMPLIFY_CLASS_BASE}__footer`}>
+        <ViewElement className={`${STORAGE_BROWSER_BLOCK}__summary`}>
+          <DescriptionList
+            className={`${STORAGE_BROWSER_BLOCK}__destination`}
+            descriptions={[
+              {
+                term: `${actionDestinationLabel}:`,
+                details: (
+                  <>
+                    {destinationList.map((key, index) => (
+                      <Breadcrumb
+                        isCurrent={index === destinationList.length - 1}
+                        key={`${key}-${index}`}
+                        name={key}
+                      />
+                    ))}
+                  </>
+                ),
+              },
+            ]}
+          />
           <StatusDisplayControl />
-          <ViewElement className={`${AMPLIFY_CLASS_BASE}__buttons`}>
+        </ViewElement>
+        <ViewElement className={`${STORAGE_BROWSER_BLOCK}__footer`}>
+          {/* Message goes here */}
+          <ViewElement className={`${STORAGE_BROWSER_BLOCK}__buttons`}>
             <ActionCancelControl />
             <ActionStartControl />
           </ViewElement>

@@ -13,8 +13,8 @@ import { Navigation } from './Navigation';
 import { OverwriteToggle } from './OverwriteToggle';
 import { Pagination } from './Pagination';
 import { StatusDisplay } from './StatusDisplay';
-import { Search } from './Search';
 import { Title } from './Title';
+import { SearchField } from './SearchField';
 
 import { Composables } from './types';
 
@@ -34,6 +34,6 @@ export const DEFAULT_COMPOSABLES: Composables = {
   OverwriteToggle,
   Pagination,
   StatusDisplay,
-  Search,
+  SearchField,
   Title,
 };

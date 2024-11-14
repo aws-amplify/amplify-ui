@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { CLASS_BASE } from '../views/constants';
+import { STORAGE_BROWSER_BLOCK } from '../constants';
 import { InputElement, ViewElement, LabelElement } from '../context/elements/';
 
 const OVERWRITE_TOGGLE_ID = 'overwrite-toggle';
@@ -18,7 +18,7 @@ export const OverwriteToggle = ({
   label,
   onToggle,
 }: OverwriteToggleProps): React.JSX.Element => (
-  <ViewElement className={`${CLASS_BASE}__overwrite-toggle`}>
+  <ViewElement className={`${STORAGE_BROWSER_BLOCK}__overwrite-toggle`}>
     <InputElement
       checked={isOverwritingEnabled}
       disabled={isDisabled}
