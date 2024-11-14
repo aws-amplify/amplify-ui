@@ -254,7 +254,7 @@ describe('useLocationsView', () => {
     const location: LocationData = {
       bucket: 'bucket',
       id: 'id',
-      permission: 'READ',
+      permissions: ['get'],
       prefix: 'prefix',
       type: 'OBJECT',
     };

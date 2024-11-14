@@ -17,7 +17,7 @@ export const DEFAULT_LOCATIONS_VIEW_DISPLAY_TEXT: DefaultLocationsViewDisplayTex
         text = text ? 'Read/Write' : 'Write';
       }
       if (!text) {
-        throw new Error(`invalid permission ${JSON.stringify(permissions)}`);
+        text = permissions.join('/');
       }
       return text;
     },

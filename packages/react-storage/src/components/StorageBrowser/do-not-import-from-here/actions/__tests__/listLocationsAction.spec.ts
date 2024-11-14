@@ -182,6 +182,8 @@ describe('createListLocationsAction', () => {
       scope: 's3://some-bucket/invalid-prefix*',
       type: 'PREFIX',
     };
+    // Expect 9 total combinations and 0 will be filtered out.
+    // 3 different combinations of ['get', 'list'] permissions * 3 different location types.
     const fakeReadLocations = generateCombinations([
       'get',
       'list',
@@ -192,6 +194,8 @@ describe('createListLocationsAction', () => {
         getFakeLocation(permissions, 'PREFIX'),
       ])
       .flat();
+    // Expect 9 total combinations and 9 will be filtered out.
+    // 3 different combinations of ['write', 'delete'] permissions * 3 different location types.
     const fakeWriteLocations = generateCombinations([
       'write',
       'delete',
@@ -202,7 +206,10 @@ describe('createListLocationsAction', () => {
         getFakeLocation(permissions, 'PREFIX'),
       ])
       .flat();
-    const fakeReadWriteLocations: LocationAccess[] = [invalidPrefixLocation];
+    // expect 27 total combinations and 0 will be filtered out.
+    // 3 different combinations of ['get', 'list'] permissions * 3 different combinations of
+    // ['write', 'delete'] permissions * 3 different location types.
+    const fakeReadWriteLocations: LocationAccess[] = [];
     for (const fakeReadLocation of fakeReadLocations) {
       for (const fakeWriteLocation of fakeWriteLocations) {
         if (fakeWriteLocation.type === fakeReadLocation.type) {
@@ -223,33 +230,30 @@ describe('createListLocationsAction', () => {
       nextToken: 'next',
     });
     mockListLocations.mockResolvedValueOnce({
-      locations: [...fakeReadWriteLocations],
+      locations: [invalidPrefixLocation, ...fakeReadWriteLocations],
       nextToken: undefined,
     });
 
     const listLocationsAction = createListLocationsAction(mockListLocations);
     const output = await listLocationsAction(
       { nextToken: undefined, result: [] },
-      { options: { pageSize: 24, exclude: 'WRITE' } }
+      { options: { pageSize: 36, exclude: 'WRITE' } }
     );
 
     expect(mockListLocations).toHaveBeenCalledTimes(2);
     expect(mockListLocations).toHaveBeenCalledWith({
-      pageSize: 24,
+      pageSize: 36,
       nextToken: undefined,
     });
     expect(mockListLocations).toHaveBeenCalledWith({
-      pageSize: 18,
+      pageSize: 27,
       nextToken: 'next',
     });
 
     expect(output.result).toStrictEqual(
-      [
-        ...fakeReadLocations.filter((location) => location.type !== 'OBJECT'),
-        ...fakeReadWriteLocations.filter(
-          (location) => location.type !== 'OBJECT'
-        ),
-      ].map(parseAccessGrantLocation)
+      [...fakeReadLocations, ...fakeReadWriteLocations].map(
+        parseAccessGrantLocation
+      )
     );
     expect(output.nextToken).toBeUndefined();
   });
