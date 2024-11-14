@@ -96,7 +96,7 @@ export function LocationsView({
       tableColumnActionsHeader,
       searchPlaceholder,
       getDownloadLabel,
-      getPermissionName,
+      getPermissionsDisplayValue,
     },
   } = useDisplayText();
 
@@ -133,7 +133,7 @@ export function LocationsView({
         isDataRefreshDisabled: isLoading,
         loadingIndicatorLabel,
         tableData: getLocationsViewTableData({
-          getPermissionName,
+          getPermissionsDisplayValue,
           headers,
           pageItems,
           onDownload,

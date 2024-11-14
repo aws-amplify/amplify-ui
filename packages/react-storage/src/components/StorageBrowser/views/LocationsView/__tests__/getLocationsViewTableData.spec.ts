@@ -2,7 +2,7 @@ import { getLocationsViewTableData } from '../getLocationsViewTableData';
 import { LocationViewHeaders } from '../getLocationsViewTableData/types';
 import { DEFAULT_LOCATIONS_VIEW_DISPLAY_TEXT } from '../../../displayText/libraries/en/locationsView';
 
-const { getPermissionName } = DEFAULT_LOCATIONS_VIEW_DISPLAY_TEXT;
+const { getPermissionsDisplayValue } = DEFAULT_LOCATIONS_VIEW_DISPLAY_TEXT;
 
 describe('getLocationsViewTableData', () => {
   const location1 = {
@@ -48,7 +48,7 @@ describe('getLocationsViewTableData', () => {
         onNavigate: mockOnNavigate,
         headers,
         getDownloadLabel: () => 'download',
-        getPermissionName,
+        getPermissionsDisplayValue,
       })
     ).toStrictEqual({
       headers: [
@@ -85,7 +85,7 @@ describe('getLocationsViewTableData', () => {
         onDownload: mockOnDownload,
         headers,
         getDownloadLabel: () => 'download',
-        getPermissionName,
+        getPermissionsDisplayValue,
       })
     ).toStrictEqual(
       expect.objectContaining({
@@ -110,7 +110,7 @@ describe('getLocationsViewTableData', () => {
       onDownload: mockOnDownload,
       headers,
       getDownloadLabel: () => 'download',
-      getPermissionName,
+      getPermissionsDisplayValue,
     });
     const [row1FirstContent] = tableData.rows[0].content;
     const [row2FirstContent] = tableData.rows[1].content;

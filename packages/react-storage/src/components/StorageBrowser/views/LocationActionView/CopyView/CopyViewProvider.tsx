@@ -22,7 +22,7 @@ export function CopyViewProvider({
     actionExitLabel,
     actionStartLabel,
     getActionCompleteMessage,
-    getFolderListResultsMessage,
+    getListFoldersResultsMessage,
     overwriteWarningMessage,
     searchPlaceholder,
   } = useDisplayText()['CopyView'];
@@ -44,7 +44,7 @@ export function CopyViewProvider({
   const {
     folders,
     hasError: hasFoldersError,
-    message: foldersMessage,
+    message: foldersErrorMessage,
     currentQuery,
     hasInitialized: hasFoldersInitialized,
     isLoading,
@@ -86,19 +86,13 @@ export function CopyViewProvider({
     ? copyCompleteMessageType
     : 'warning';
 
-  const foldersMessageContent = !hasFoldersInitialized
+  const foldersMessage = !hasFoldersInitialized
     ? undefined
-    : getFolderListResultsMessage({
-        defaultMessage: foldersMessage,
+    : getListFoldersResultsMessage({
+        errorMessage: foldersErrorMessage,
         folders,
         query: currentQuery,
       });
-
-  const foldersMessageType = foldersMessageContent
-    ? hasFoldersError
-      ? 'error'
-      : 'info'
-    : undefined;
 
   return (
     <ControlsContextProvider
@@ -133,10 +127,7 @@ export function CopyViewProvider({
       >
         <FoldersPaginationProvider {...paginateProps}>
           <FoldersTableProvider folders={folders} onSelect={onSelect}>
-            <FoldersMessageProvider
-              content={foldersMessageContent}
-              type={foldersMessageType}
-            >
+            <FoldersMessageProvider {...foldersMessage}>
               {children}
             </FoldersMessageProvider>
           </FoldersTableProvider>

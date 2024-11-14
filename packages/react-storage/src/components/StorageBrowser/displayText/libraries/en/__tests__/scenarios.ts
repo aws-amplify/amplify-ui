@@ -1,0 +1,211 @@
+import {
+  FolderData,
+  LocationData,
+  LocationItemData,
+} from '../../../../actions';
+import { INITIAL_STATUS_COUNTS, StatusCounts } from '../../../../tasks';
+
+export const ACTION_SCENARIOS: [string, StatusCounts][] = [
+  ['all failed', { ...INITIAL_STATUS_COUNTS, FAILED: 11, TOTAL: 11 }],
+  [
+    'some failed',
+    { ...INITIAL_STATUS_COUNTS, COMPLETE: 8, FAILED: 3, TOTAL: 11 },
+  ],
+  ['all success', { ...INITIAL_STATUS_COUNTS, COMPLETE: 11, TOTAL: 11 }],
+];
+
+export const CREATE_FOLDER_ACTION_SCENARIOS: [string, StatusCounts][] = [
+  ['failed', { ...INITIAL_STATUS_COUNTS, FAILED: 1, TOTAL: 1 }],
+  [
+    'overwrite prevented',
+    { ...INITIAL_STATUS_COUNTS, OVERWRITE_PREVENTED: 1, TOTAL: 1 },
+  ],
+  ['success', { ...INITIAL_STATUS_COUNTS, COMPLETE: 1, TOTAL: 1 }],
+];
+
+export const UPLOAD_ACTION_SCENARIOS: [string, StatusCounts][] = [
+  ...ACTION_SCENARIOS,
+  [
+    'all overwrite prevented',
+    { ...INITIAL_STATUS_COUNTS, OVERWRITE_PREVENTED: 11, TOTAL: 11 },
+  ],
+  [
+    'single overwrite prevented',
+    {
+      ...INITIAL_STATUS_COUNTS,
+      OVERWRITE_PREVENTED: 1,
+      COMPLETE: 10,
+      TOTAL: 11,
+    },
+  ],
+  [
+    'single overwrite prevented with a failure',
+    {
+      ...INITIAL_STATUS_COUNTS,
+      OVERWRITE_PREVENTED: 1,
+      FAILED: 1,
+      COMPLETE: 9,
+      TOTAL: 11,
+    },
+  ],
+  [
+    'single overwrite prevented with failures',
+    {
+      ...INITIAL_STATUS_COUNTS,
+      OVERWRITE_PREVENTED: 1,
+      FAILED: 3,
+      COMPLETE: 7,
+      TOTAL: 11,
+    },
+  ],
+  [
+    'multiple overwrite prevented',
+    {
+      ...INITIAL_STATUS_COUNTS,
+      OVERWRITE_PREVENTED: 3,
+      COMPLETE: 8,
+      TOTAL: 11,
+    },
+  ],
+  [
+    'multiple overwrite prevented with a failure',
+    {
+      ...INITIAL_STATUS_COUNTS,
+      OVERWRITE_PREVENTED: 3,
+      FAILED: 1,
+      COMPLETE: 7,
+      TOTAL: 11,
+    },
+  ],
+  [
+    'multiple overwrite prevented with failures',
+    {
+      ...INITIAL_STATUS_COUNTS,
+      OVERWRITE_PREVENTED: 3,
+      FAILED: 3,
+      COMPLETE: 5,
+      TOTAL: 11,
+    },
+  ],
+  [
+    'all overwrite prevented or failed',
+    {
+      ...INITIAL_STATUS_COUNTS,
+      OVERWRITE_PREVENTED: 6,
+      FAILED: 5,
+      TOTAL: 11,
+    },
+  ],
+];
+
+export const LIST_FOLDERS_SCENARIOS: [
+  string,
+  {
+    folders: FolderData[] | undefined;
+    query?: string;
+    errorMessage?: string;
+  },
+][] = [
+  ['empty results', { folders: [] }],
+  [
+    'failed',
+    {
+      // @ts-expect-error pretend folders
+      folders: [...Array(101).keys()],
+      errorMessage: 'Network got confused',
+    },
+  ],
+  ['empty search results', { folders: [], query: 'something to look for' }],
+  [
+    'search failed',
+    {
+      // @ts-expect-error pretend folders
+      folders: [...Array(101).keys()],
+      query: 'something to look for',
+      errorMessage: 'Network got confused',
+    },
+  ],
+  [
+    'search limit reached',
+    {
+      // @ts-expect-error pretend folders
+      folders: [...Array(10000).keys()],
+      query: 'something to look for',
+    },
+  ],
+];
+
+export const LIST_LOCATIONS_SCENARIOS: [
+  string,
+  {
+    locations: LocationData[] | undefined;
+    query?: string;
+    errorMessage?: string;
+  },
+][] = [
+  ['empty results', { locations: [] }],
+  [
+    'failed',
+    {
+      // @ts-expect-error pretend folders
+      locations: [...Array(101).keys()],
+      errorMessage: 'Network got confused',
+    },
+  ],
+  ['empty search results', { locations: [], query: 'something to look for' }],
+  [
+    'search failed',
+    {
+      // @ts-expect-error pretend folders
+      locations: [...Array(101).keys()],
+      query: 'something to look for',
+      errorMessage: 'Network got confused',
+    },
+  ],
+  [
+    'search limit exhausted',
+    {
+      // @ts-expect-error pretend folders
+      locations: [...Array(10000).keys()],
+      query: 'something to look for',
+      hasExhaustedSearch: true,
+    },
+  ],
+];
+
+export const LIST_ITEMS_SCENARIOS: [
+  string,
+  {
+    items: LocationItemData[] | undefined;
+    query?: string;
+    errorMessage?: string;
+  },
+][] = [
+  ['empty results', { items: [] }],
+  [
+    'failed',
+    {
+      // @ts-expect-error pretend folders
+      items: [...Array(101).keys()],
+      errorMessage: 'Network got confused',
+    },
+  ],
+  ['empty search results', { items: [], query: 'something to look for' }],
+  [
+    'search failed',
+    {
+      // @ts-expect-error pretend folders
+      items: [...Array(101).keys()],
+      query: 'something to look for',
+      errorMessage: 'Network got confused',
+    },
+  ],
+  [
+    'search limit reached',
+    {
+      // @ts-expect-error pretend folders
+      items: [...Array(10000).keys()],
+      query: 'something to look for',
+    },
+  ],
+];

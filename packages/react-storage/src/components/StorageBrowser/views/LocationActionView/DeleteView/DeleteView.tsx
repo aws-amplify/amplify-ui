@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { ControlsContextProvider } from '../../../controls/context';
 import { ViewElement } from '../../../context/elements';
 import { ActionCancelControl } from '../../../controls/ActionCancelControl';
 import { ActionExitControl } from '../../../controls/ActionExitControl';
@@ -7,10 +8,11 @@ import { ActionStartControl } from '../../../controls/ActionStartControl';
 import { DataTableControl } from '../../../controls/DataTableControl';
 import { StatusDisplayControl } from '../../../controls/StatusDisplayControl';
 import { TitleControl } from '../../../controls/TitleControl';
-import { ControlsContextProvider } from '../../../controls/context';
+
 import { useDisplayText } from '../../../displayText';
 import { STORAGE_BROWSER_BLOCK } from '../../../constants';
 import { resolveClassName } from '../../utils';
+
 import { getActionViewTableData } from '../getActionViewTableData';
 import { useDeleteView } from './useDeleteView';
 import { DeleteViewProps } from './types';

@@ -13,8 +13,8 @@ export const DEFAULT_LOCATIONS_VIEW_DISPLAY_TEXT: DefaultLocationsViewDisplayTex
     ...DEFAULT_LIST_VIEW_DISPLAY_TEXT,
     title: 'Home',
     searchPlaceholder: 'Filter folders and files',
-    getListResultsMessage: () => 'lol',
-    getPermissionName: (permission: Permission) =>
+    getListLocationsResultMessage: () => undefined,
+    getPermissionsDisplayValue: (permission: Permission) =>
       PERMISSION_DISPLAY_TEXT[permission] ?? permission,
     getDownloadLabel: (fileName: string) => `Download ${fileName}`,
     tableColumnBucketHeader: 'Bucket',

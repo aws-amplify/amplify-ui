@@ -6,23 +6,46 @@ export const DEFAULT_COPY_VIEW_DISPLAY_TEXT: DefaultCopyViewDisplayText = {
   title: 'Copy',
   actionStartLabel: 'Copy',
   actionDestinationLabel: 'Copy destination:',
-  getFolderListResultsMessage: ({ folders, query, defaultMessage }) => {
+  getListFoldersResultsMessage: ({ folders, query, errorMessage }) => {
     if (!folders?.length) {
-      return query
-        ? `No folders found matching "${query}"`
-        : 'No subfolders found within selected folder.';
+      return {
+        content: query
+          ? `No folders found matching "${query}"`
+          : 'No subfolders found within selected folder.',
+        type: 'info',
+      };
     }
 
-    return defaultMessage;
+    if (errorMessage && !!query) {
+      return { content: 'Error loading folders.', type: 'error' };
+    }
+
+    if (errorMessage) {
+      return { content: 'Error loading folders.', type: 'error' };
+    }
   },
   loadingIndicatorLabel: 'Loading',
   overwriteWarningMessage:
     'Copied files will overwrite existing files at selected destination.',
   searchPlaceholder: 'Search for folders',
-  getActionCompleteMessage: (_counts) => {
-    return 'All copy operations complete.';
-  },
-  getFolderSelectedMessage: (key: string) => {
-    return `Current folder selected: ${key}. There are no additional folders under this path.`;
+  getActionCompleteMessage: (data) => {
+    const { counts } = data ?? {};
+    const { COMPLETE, FAILED, TOTAL } = counts ?? {};
+
+    if (COMPLETE === TOTAL) {
+      return {
+        content: 'All files copied.',
+        type: 'success',
+      };
+    }
+
+    if (FAILED === TOTAL) {
+      return { content: 'All files failed to copy.', type: 'error' };
+    }
+
+    return {
+      content: `${COMPLETE} files copied, ${FAILED} files failed to copy.`,
+      type: 'error',
+    };
   },
 };

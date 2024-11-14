@@ -57,7 +57,7 @@ export function LocationDetailView({
     LocationDetailView: {
       loadingIndicatorLabel,
       searchSubfoldersToggleLabel,
-      title,
+      getTitle,
     },
   } = useDisplayText();
 
@@ -123,7 +123,7 @@ export function LocationDetailView({
             onSelect,
             onSelectAll,
           }),
-          title: title(location),
+          title: getTitle(location),
         }}
         onDropFiles={onDropFiles}
         onNavigate={onNavigate}

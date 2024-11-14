@@ -30,10 +30,10 @@ jest.spyOn(Config, 'useGetActionInput').mockReturnValue(() => ({
 }));
 
 const getActionCompleteMessage = jest.fn();
-const getFolderListResultsMessage = jest.fn();
+const getListFoldersResultsMessage = jest.fn();
 jest.mock('../../../../displayText', () => ({
   useDisplayText: () => ({
-    CopyView: { getActionCompleteMessage, getFolderListResultsMessage },
+    CopyView: { getActionCompleteMessage, getListFoldersResultsMessage },
   }),
 }));
 

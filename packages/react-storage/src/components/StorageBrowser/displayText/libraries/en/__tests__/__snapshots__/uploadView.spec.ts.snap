@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CopyView display text values \`getActionCompleteMessage\` returns the expected values in the all failed scenario 1`] = `
+{
+  "content": "All files failed to upload.",
+  "type": "error",
+}
+`;
+
+exports[`CopyView display text values \`getActionCompleteMessage\` returns the expected values in the all success scenario 1`] = `
+{
+  "content": "All files uploaded.",
+  "type": "success",
+}
+`;
+
+exports[`CopyView display text values \`getActionCompleteMessage\` returns the expected values in the some failed scenario 1`] = `
+{
+  "content": "3 files failed to upload, 8 files uploaded.",
+  "type": "error",
+}
+`;
+
+exports[`CopyView display text values should match snapshot values 1`] = `
+{
+  "actionCancelLabel": "Cancel",
+  "actionDestinationLabel": "Destination",
+  "actionExitLabel": "Exit",
+  "actionStartLabel": "Upload",
+  "addFilesLabel": "Add files",
+  "addFolderLabel": "Add folder",
+  "getActionCompleteMessage": [Function],
+  "overwriteExistingLabel": "Overwrite existing files",
+  "statusDisplayCanceledLabel": "Canceled",
+  "statusDisplayCompletedLabel": "Completed",
+  "statusDisplayFailedLabel": "Failed",
+  "statusDisplayOverridePreventedLabel": "Overwrite prevented",
+  "statusDisplayQueuedLabel": "Not Started",
+  "statusDisplayTotalLabel": "Total",
+  "tableColumnCancelHeader": "",
+  "tableColumnFolderHeader": "Folder",
+  "tableColumnNameHeader": "Name",
+  "tableColumnSizeHeader": "Size",
+  "tableColumnStatusHeader": "Status",
+  "tableColumnTypeHeader": "Type",
+  "title": "Upload",
+}
+`;

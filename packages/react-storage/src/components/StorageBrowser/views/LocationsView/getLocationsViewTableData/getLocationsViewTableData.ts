@@ -9,14 +9,14 @@ export const getLocationsViewTableData = ({
   onDownload,
   headers,
   getDownloadLabel,
-  getPermissionName,
+  getPermissionsDisplayValue,
 }: {
   pageItems: LocationData[];
   onNavigate: (location: LocationData) => void;
   headers: LocationViewHeaders;
   onDownload: (location: LocationData) => void;
   getDownloadLabel: (fileName: string) => string;
-  getPermissionName: (permission: Permission) => string;
+  getPermissionsDisplayValue: (permission: Permission) => string;
 }): DataTableProps => {
   const rows: DataTableProps['rows'] = pageItems.map((location) => {
     const { bucket, id, permission, prefix } = location;
@@ -52,7 +52,7 @@ export const getLocationsViewTableData = ({
             return {
               key,
               type: 'text',
-              content: { text: getPermissionName(permission) },
+              content: { text: getPermissionsDisplayValue(permission) },
             };
           }
           case 'action': {
