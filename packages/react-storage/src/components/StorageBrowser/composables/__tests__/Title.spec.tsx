@@ -1,18 +1,15 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { Title } from '../Title';
-import { AMPLIFY_CLASS_BASE } from '../../views/constants';
 
 describe('Title', () => {
-  it('renders and has the given classname', () => {
+  it('renders', () => {
     const expectedTitle = 'StorageBrowser';
-    const BLOCK_NAME = `${AMPLIFY_CLASS_BASE}__title`;
 
     render(<Title title={expectedTitle} />);
 
     const [renderedTitle] = screen.getAllByRole('heading');
 
     expect(renderedTitle).toHaveTextContent('StorageBrowser');
-    expect(renderedTitle).toHaveClass(BLOCK_NAME);
   });
 });

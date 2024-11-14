@@ -43,6 +43,8 @@ export interface ControlsContext {
     actionCancelLabel?: string;
     actionExitLabel?: string;
     actionStartLabel?: string;
+    addFilesLabel?: string;
+    addFolderLabel?: string;
     folderNameId?: string;
     folderNameLabel?: string;
     folderNamePlaceholder?: string;
@@ -51,13 +53,15 @@ export interface ControlsContext {
     isActionStartDisabled?: boolean;
     isAddFilesDisabled?: boolean;
     isAddFolderDisabled?: boolean;
+    isOverwritingEnabled?: boolean;
     isDataRefreshDisabled?: boolean;
     isActionExitDisabled?: boolean;
     isLoading?: boolean;
     isFolderNameDisabled?: boolean;
-    isOverwriteCheckboxDisabled?: boolean;
+    isOverwriteToggleDisabled?: boolean;
     loadingIndicatorLabel?: string;
     location?: LocationState;
+    overwriteToggleLabel?: string;
     messageContent?: React.ReactNode;
     messageType?: MessageType;
     paginationData?: PaginationData;
@@ -70,6 +74,8 @@ export interface ControlsContext {
   onActionCancel?: () => void;
   onActionExit?: () => void;
   onActionStart?: () => void;
+  onAddFiles?: () => void;
+  onAddFolder?: () => void;
   onDropFiles?: (files: File[]) => void;
   onFolderNameChange?: (value: string) => void;
   onMessageDismiss?: () => void;
@@ -79,5 +85,6 @@ export interface ControlsContext {
   onSearch?: () => void;
   onSearchClear?: () => void;
   onSearchQueryChange?: (value: string) => void;
+  onToggleOverwrite?: () => void;
   onValidateFolderName?: (value: string) => void;
 }

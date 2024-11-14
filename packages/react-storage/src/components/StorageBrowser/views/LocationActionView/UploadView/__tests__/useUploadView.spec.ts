@@ -75,7 +75,9 @@ const useProcessTasksSpy = jest
   ]);
 
 describe('useUploadView', () => {
-  beforeEach(jest.clearAllMocks);
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
 
   it('should dispatchStoreAction when onDropFiles is invoked', () => {
     const { result } = renderHook(() => useUploadView());
@@ -203,12 +205,12 @@ describe('useUploadView', () => {
     const { result } = renderHook(() => useUploadView());
 
     // initial
-    expect(result.current.isOverwriteEnabled).toBe(false);
+    expect(result.current.isOverwritingEnabled).toBe(false);
 
     act(() => {
       result.current.onToggleOverwrite();
     });
 
-    expect(result.current.isOverwriteEnabled).toBe(true);
+    expect(result.current.isOverwritingEnabled).toBe(true);
   });
 });

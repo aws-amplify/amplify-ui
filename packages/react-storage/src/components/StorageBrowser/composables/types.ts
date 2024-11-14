@@ -1,6 +1,8 @@
 import { ActionCancelProps } from './ActionCancel';
 import { ActionExitProps } from './ActionExit';
 import { ActionStartProps } from './ActionStart';
+import { AddFilesProps } from './AddFiles';
+import { AddFolderProps } from './AddFolder';
 import { DataRefreshProps } from './DataRefresh';
 import { DataTableProps } from './DataTable';
 import { DropZoneProps } from './DropZone';
@@ -8,15 +10,18 @@ import { LoadingIndicatorProps } from './LoadingIndicator';
 import { MessageProps } from './Message';
 import { FolderNameFieldProps } from './FolderNameField';
 import { NavigationProps } from './Navigation';
+import { OverwriteToggleProps } from './OverwriteToggle';
 import { StatusDisplayProps } from './StatusDisplay';
 import { PaginationProps } from './Pagination';
-import { SearchProps } from './Search';
+import { SearchFieldProps } from './SearchField';
 import { TitleProps } from './Title';
 
 export interface Composables {
   ActionCancel: React.ComponentType<ActionCancelProps>;
   ActionExit: React.ComponentType<ActionExitProps>;
   ActionStart: React.ComponentType<ActionStartProps>;
+  AddFiles: React.ComponentType<AddFilesProps>;
+  AddFolder: React.ComponentType<AddFolderProps>;
   DataRefresh: React.ComponentType<DataRefreshProps>;
   DataTable: React.ComponentType<DataTableProps>;
   DropZone: React.ComponentType<DropZoneProps>;
@@ -24,8 +29,9 @@ export interface Composables {
   LoadingIndicator: React.ComponentType<LoadingIndicatorProps>;
   Message: React.ComponentType<MessageProps>;
   Navigation: React.ComponentType<NavigationProps>;
+  OverwriteToggle: React.ComponentType<OverwriteToggleProps>;
   Pagination: React.ComponentType<PaginationProps>;
-  Search: React.ComponentType<SearchProps>;
+  SearchField: React.ComponentType<SearchFieldProps>;
   StatusDisplay: React.ComponentType<StatusDisplayProps>;
   Title: React.ComponentType<TitleProps>;
 }

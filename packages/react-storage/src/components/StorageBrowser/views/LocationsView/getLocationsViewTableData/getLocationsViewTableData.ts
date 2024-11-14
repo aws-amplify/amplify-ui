@@ -6,14 +6,18 @@ import { Permission } from '../../../storage-internal';
 export const getLocationsViewTableData = ({
   pageItems,
   onNavigate,
+  onDownload,
   headers,
   isLoading,
+  getDownloadLabel,
   getPermissionName,
 }: {
   pageItems: LocationData[];
   onNavigate: (location: LocationData) => void;
   headers: LocationViewHeaders;
   isLoading: boolean;
+  onDownload: (location: LocationData) => void;
+  getDownloadLabel: (fileName: string) => string;
   getPermissionName: (permission: Permission) => string;
 }): DataTableProps => {
   const rows: DataTableProps['rows'] = pageItems.map((location) => {
@@ -27,16 +31,24 @@ export const getLocationsViewTableData = ({
             return { key, type: 'text', content: { text: bucket } };
           }
           case 'folder': {
-            return {
-              key,
-              type: 'button',
-              content: {
-                label: prefix || bucket,
-                onClick: () => {
-                  onNavigate(location);
-                },
-              },
-            };
+            return location.type === 'OBJECT'
+              ? {
+                  key,
+                  type: 'text',
+                  content: {
+                    text: prefix,
+                  },
+                }
+              : {
+                  key,
+                  type: 'button',
+                  content: {
+                    label: prefix || bucket,
+                    onClick: () => {
+                      onNavigate(location);
+                    },
+                  },
+                };
           }
           case 'permission': {
             return {
@@ -44,6 +56,25 @@ export const getLocationsViewTableData = ({
               type: 'text',
               content: { text: getPermissionName(permission) },
             };
+          }
+          case 'action': {
+            return location.type === 'OBJECT'
+              ? {
+                  key,
+                  type: 'button',
+                  content: {
+                    icon: 'download',
+                    ariaLabel: getDownloadLabel(location.prefix),
+                    onClick: () => {
+                      onDownload(location);
+                    },
+                  },
+                }
+              : {
+                  key,
+                  type: 'text',
+                  content: { text: '' },
+                };
           }
         }
       }),

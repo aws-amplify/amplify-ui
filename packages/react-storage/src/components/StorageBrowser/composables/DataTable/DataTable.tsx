@@ -11,7 +11,7 @@ import { TextDataCell } from './dataCells/TextDataCell';
 import { DataTableDataCell, DataTableHeader } from './types';
 import { WithKey } from '../../components/types';
 import { CheckboxHeader } from './headers/CheckboxHeader';
-import { LoadingControl } from '../../views/Controls';
+import { LoadingIndicator } from '../LoadingIndicator';
 
 export interface DataTableRow {
   content: WithKey<DataTableDataCell>[];
@@ -96,7 +96,9 @@ export const DataTable = ({
       headers={mappedHeaders}
       rows={mappedRows}
       isLoading={isLoading}
-      renderPlaceholder={LoadingControl}
+      renderPlaceholder={() =>
+        LoadingIndicator({ label: 'loading', isLoading })
+      }
     />
   );
 };

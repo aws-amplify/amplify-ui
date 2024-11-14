@@ -1,26 +1,25 @@
 import React from 'react';
 
 import { DescriptionList } from '../../../components/DescriptionList';
-import { ButtonElement, ViewElement } from '../../../context/elements';
+import { ViewElement } from '../../../context/elements';
 import { ActionCancelControl } from '../../../controls/ActionCancelControl';
 import { ActionExitControl } from '../../../controls/ActionExitControl';
 import { ActionStartControl } from '../../../controls/ActionStartControl';
+import { AddFilesControl } from '../../../controls/AddFilesControl';
+import { AddFolderControl } from '../../../controls/AddFolderControl';
 import { DataTableControl } from '../../../controls/DataTableControl';
 import { DropZoneControl } from '../../../controls/DropZoneControl';
+import { OverwriteToggleControl } from '../../../controls/OverwriteToggleControl';
 import { StatusDisplayControl } from '../../../controls/StatusDisplayControl';
 import { TitleControl } from '../../../controls/TitleControl';
 import { ControlsContextProvider } from '../../../controls/context';
 import { useDisplayText } from '../../../displayText';
-import { Controls } from '../../Controls';
-import { AMPLIFY_CLASS_BASE, CLASS_BASE } from '../../constants';
+import { STORAGE_BROWSER_BLOCK } from '../../../constants';
 import { resolveClassName } from '../../utils';
 import { getActionViewTableData } from '../getActionViewTableData';
 import { useUploadView } from './useUploadView';
 import { UploadViewProps } from './types';
-
-const { Overwrite } = Controls;
-
-export const ICON_CLASS = `${CLASS_BASE}__action-status`;
+import { Breadcrumb } from '../../../components/BreadcrumbNavigation';
 
 export function UploadView({
   className,
@@ -32,14 +31,17 @@ export function UploadView({
       actionDestinationLabel,
       actionExitLabel,
       actionStartLabel,
+      addFilesLabel,
+      addFolderLabel,
+      overwriteToggleLabel,
       title,
     },
   } = useDisplayText();
 
   const {
+    isOverwritingEnabled,
     isProcessing,
     isProcessingComplete,
-    isOverwriteEnabled,
     location,
     tasks,
     statusCounts,
@@ -58,21 +60,25 @@ export function UploadView({
   const isAddFilesDisabled = isProcessing || isProcessingComplete;
   const isAddFolderDisabled = isProcessing || isProcessingComplete;
   const isActionExitDisabled = isProcessing;
-  const isOverwriteCheckboxDisabled = isProcessing || isProcessingComplete;
+  const destinationList = (location.key || '/').split('/');
 
   return (
-    <div className={resolveClassName(AMPLIFY_CLASS_BASE, className)}>
+    <div className={resolveClassName(STORAGE_BROWSER_BLOCK, className)}>
       <ControlsContextProvider
         data={{
           actionCancelLabel,
           actionExitLabel,
           actionStartLabel,
+          addFilesLabel,
+          addFolderLabel,
           isActionCancelDisabled,
           isActionExitDisabled,
           isActionStartDisabled,
           isAddFilesDisabled,
           isAddFolderDisabled,
-          isOverwriteCheckboxDisabled,
+          isOverwriteToggleDisabled: isProcessing || isProcessingComplete,
+          isOverwritingEnabled,
+          overwriteToggleLabel,
           statusCounts,
           tableData: getActionViewTableData({
             tasks,
@@ -85,53 +91,52 @@ export function UploadView({
         onActionCancel={onActionCancel}
         onActionExit={onActionExit}
         onActionStart={onActionStart}
+        onAddFiles={() => {
+          onSelectFiles('FILE');
+        }}
+        onAddFolder={() => {
+          onSelectFiles('FOLDER');
+        }}
         onDropFiles={onDropFiles}
+        onToggleOverwrite={onToggleOverwrite}
       >
         <ActionExitControl />
         <TitleControl />
-        <ViewElement className={`${CLASS_BASE}__action-header`}>
-          <ViewElement className={`${CLASS_BASE}__upload-destination`}>
-            <DescriptionList
-              descriptions={[
-                {
-                  term: `${actionDestinationLabel}:`,
-                  details: location.key || '/',
-                },
-              ]}
-            />
-            <Overwrite
-              defaultChecked={isOverwriteEnabled}
-              disabled={isOverwriteCheckboxDisabled}
-              handleChange={onToggleOverwrite}
-            />
+        <ViewElement className={`${STORAGE_BROWSER_BLOCK}__controls`}>
+          <OverwriteToggleControl />
+          <ViewElement className={`${STORAGE_BROWSER_BLOCK}__buttons`}>
+            <AddFolderControl />
+            <AddFilesControl />
           </ViewElement>
-          <ButtonElement
-            disabled={isAddFolderDisabled}
-            className={`${CLASS_BASE}__add-folder`}
-            variant="add-folder"
-            onClick={() => {
-              onSelectFiles('FOLDER');
-            }}
-          >
-            Add folder
-          </ButtonElement>
-          <ButtonElement
-            disabled={isAddFilesDisabled}
-            className={`${CLASS_BASE}__add-files`}
-            variant="add-files"
-            onClick={() => {
-              onSelectFiles('FILE');
-            }}
-          >
-            Add files
-          </ButtonElement>
         </ViewElement>
         <DropZoneControl>
           <DataTableControl />
         </DropZoneControl>
-        <ViewElement className={`${AMPLIFY_CLASS_BASE}__footer`}>
+        <ViewElement className={`${STORAGE_BROWSER_BLOCK}__summary`}>
+          <DescriptionList
+            className={`${STORAGE_BROWSER_BLOCK}__destination`}
+            descriptions={[
+              {
+                term: `${actionDestinationLabel}:`,
+                details: (
+                  <>
+                    {destinationList.map((key, index) => (
+                      <Breadcrumb
+                        isCurrent={index === destinationList.length - 1}
+                        key={`${key}-${index}`}
+                        name={key}
+                      />
+                    ))}
+                  </>
+                ),
+              },
+            ]}
+          />
           <StatusDisplayControl />
-          <ViewElement className={`${AMPLIFY_CLASS_BASE}__buttons`}>
+        </ViewElement>
+        <ViewElement className={`${STORAGE_BROWSER_BLOCK}__footer`}>
+          {/* Message goes here */}
+          <ViewElement className={`${STORAGE_BROWSER_BLOCK}__buttons`}>
             <ActionCancelControl />
             <ActionStartControl />
           </ViewElement>

@@ -10,7 +10,7 @@ import {
   ViewElement,
 } from '../context/elements';
 
-import { AMPLIFY_CLASS_BASE } from '../views/constants';
+import { STORAGE_BROWSER_BLOCK } from '../constants';
 import { WithKey } from './types';
 
 interface TableItem {
@@ -26,7 +26,7 @@ interface TableProps {
   headers: WithKey<TableItem>[];
   rows: WithKey<TableRow>[];
   isLoading?: boolean;
-  renderPlaceholder: () => React.JSX.Element;
+  renderPlaceholder: () => React.JSX.Element | null;
 }
 
 export const Table = ({
@@ -36,15 +36,15 @@ export const Table = ({
   renderPlaceholder,
 }: TableProps): React.JSX.Element => {
   return (
-    <ViewElement className={`${AMPLIFY_CLASS_BASE}__data-table`}>
-      <TableElement className={`${AMPLIFY_CLASS_BASE}__table`}>
-        <TableHeadElement className={`${AMPLIFY_CLASS_BASE}__table-head`}>
+    <ViewElement className={`${STORAGE_BROWSER_BLOCK}__data-table`}>
+      <TableElement className={`${STORAGE_BROWSER_BLOCK}__table`}>
+        <TableHeadElement className={`${STORAGE_BROWSER_BLOCK}__table-head`}>
           {headers.length ? (
-            <TableRowElement className={`${AMPLIFY_CLASS_BASE}__table-row`}>
+            <TableRowElement className={`${STORAGE_BROWSER_BLOCK}__table-row`}>
               {headers.map(({ key, content }) => (
                 <TableHeaderElement
                   key={key}
-                  className={`${AMPLIFY_CLASS_BASE}__table-header`}
+                  className={`${STORAGE_BROWSER_BLOCK}__table-header`}
                 >
                   {content}
                 </TableHeaderElement>
@@ -52,19 +52,19 @@ export const Table = ({
             </TableRowElement>
           ) : null}
         </TableHeadElement>
-        <TableBodyElement className={`${AMPLIFY_CLASS_BASE}__table-body`}>
+        <TableBodyElement className={`${STORAGE_BROWSER_BLOCK}__table-body`}>
           {isLoading
             ? renderPlaceholder()
             : rows?.map(({ key, content }) => (
                 <TableRowElement
                   key={key}
-                  className={`${AMPLIFY_CLASS_BASE}__table-row`}
+                  className={`${STORAGE_BROWSER_BLOCK}__table-row`}
                 >
                   {content.map(({ key, content, type }) => {
                     return type === 'header' ? (
                       <TableHeaderElement
                         key={key}
-                        className={`${AMPLIFY_CLASS_BASE}__table-header`}
+                        className={`${STORAGE_BROWSER_BLOCK}__table-header`}
                         role="rowheader"
                       >
                         {content}
@@ -72,7 +72,7 @@ export const Table = ({
                     ) : (
                       <TableDataCellElement
                         key={key}
-                        className={`${AMPLIFY_CLASS_BASE}__table-data-cell`}
+                        className={`${STORAGE_BROWSER_BLOCK}__table-data-cell`}
                       >
                         {content}
                       </TableDataCellElement>

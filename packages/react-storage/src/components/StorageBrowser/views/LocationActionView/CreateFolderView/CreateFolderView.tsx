@@ -11,7 +11,7 @@ import { resolveClassName } from '../../utils';
 import { CreateFolderViewProps } from './types';
 import { useCreateFolderView } from './useCreateFolderView';
 import { isValidFolderName } from './utils';
-import { AMPLIFY_CLASS_BASE } from '../../constants';
+import { STORAGE_BROWSER_BLOCK } from '../../../constants';
 import { ViewElement } from '../../../context/elements';
 
 export function CreateFolderView({
@@ -62,7 +62,7 @@ export function CreateFolderView({
     isProcessingComplete;
 
   return (
-    <div className={resolveClassName(AMPLIFY_CLASS_BASE, className)}>
+    <div className={resolveClassName(STORAGE_BROWSER_BLOCK, className)}>
       <ControlsContextProvider
         data={{
           actionExitLabel,
@@ -84,9 +84,9 @@ export function CreateFolderView({
         <ActionExitControl />
         <TitleControl />
         <FolderNameFieldControl />
-        <ViewElement className={`${AMPLIFY_CLASS_BASE}__footer`}>
+        <ViewElement className={`${STORAGE_BROWSER_BLOCK}__footer`}>
           <MessageControl />
-          <ViewElement className={`${AMPLIFY_CLASS_BASE}__buttons`}>
+          <ViewElement className={`${STORAGE_BROWSER_BLOCK}__buttons`}>
             <ActionStartControl />
           </ViewElement>
         </ViewElement>

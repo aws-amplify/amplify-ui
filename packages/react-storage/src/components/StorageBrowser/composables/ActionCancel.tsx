@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { ButtonElement } from '../context/elements';
-import { AMPLIFY_CLASS_BASE } from '../views/constants';
+import { STORAGE_BROWSER_BLOCK } from '../constants';
 
 export interface ActionCancelProps {
   onCancel?: () => void;
@@ -16,7 +16,7 @@ export const ActionCancel = ({
 }: ActionCancelProps): React.JSX.Element => (
   <ButtonElement
     variant="cancel"
-    className={`${AMPLIFY_CLASS_BASE}__cancel`}
+    className={`${STORAGE_BROWSER_BLOCK}__action-cancel`}
     onClick={onCancel}
     disabled={isDisabled}
   >
