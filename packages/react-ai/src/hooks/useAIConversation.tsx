@@ -33,6 +33,16 @@ interface AIConversationState {
   conversation?: Conversation;
 }
 
+// The "states" the hook can be in
+// initial: default, nothing happened yet
+// loading: the hook has either hit AppSync to create or get a conversation
+// initialized: the hook has successfully gotten a conversation and is ready to rock
+const INITIALIZE_REF = ['initial', 'loading', 'initialized'] as const;
+
+function hasStarted(state: (typeof INITIALIZE_REF)[number]) {
+  return ['loading', 'initialized'].includes(state);
+}
+
 export type UseAIConversationHook<T extends string> = (
   routeName: T,
   input?: UseAIConversationInput
@@ -63,7 +73,7 @@ export function createUseAIConversation<
     // Using this hook without an existing conversation id means
     // it will create a new conversation when it is executed
     // we don't want to create 2 conversations
-    const initRef = React.useRef(false);
+    const initRef = React.useRef<(typeof INITIALIZE_REF)[number]>('initial');
 
     const [dataState, setDataState] = React.useState<
       DataClientState<AIConversationState>
@@ -76,30 +86,11 @@ export function createUseAIConversation<
     const { id, onInitialize, onMessage } = input;
 
     React.useEffect(() => {
-      // We don't want to run the effect multiple times
-      // because that could create multiple conversation records
-      if (initRef.current) return;
-      initRef.current = true;
       async function initialize() {
-        // no client route would mean that the user
-        // is not using TypeScript and entered the
-        // route name wrong, or there is a mismatch
-        // between the gen2 schema definition and
-        // whats in amplify_outputs
-        if (!clientRoute) {
-          setDataState({
-            ...ERROR_STATE,
-            data: { messages: [] },
-            messages: [
-              {
-                message: 'Conversation route does not exist',
-                errorInfo: null,
-                errorType: '',
-              },
-            ],
-          });
-          return;
-        }
+        // We don't want to run the effect multiple times
+        // because that could create multiple conversation records
+        if (hasStarted(initRef.current)) return;
+        initRef.current = 'loading';
 
         // Only show component loading state if we are
         // actually loading messages
@@ -135,13 +126,34 @@ export function createUseAIConversation<
               data: { conversation, messages: [] },
             });
           }
+          initRef.current = 'initialized';
         }
       }
 
+      // no client route would mean that the user
+      // is not using TypeScript and entered the
+      // route name wrong, or there is a mismatch
+      // between the gen2 schema definition and
+      // whats in amplify_outputs
+      if (!clientRoute) {
+        setDataState({
+          ...ERROR_STATE,
+          data: { messages: [] },
+          messages: [
+            {
+              message: 'Conversation route does not exist',
+              errorInfo: null,
+              errorType: '',
+            },
+          ],
+        });
+        return;
+      }
       initialize();
 
       return () => {
         contentBlocksRef.current = undefined;
+        if (hasStarted(initRef.current)) return;
         setDataState({
           ...INITIAL_STATE,
           data: { messages: [], conversation: undefined },
@@ -155,6 +167,8 @@ export function createUseAIConversation<
     React.useEffect(() => {
       if (!conversation) return;
 
+      // There is an issue when the FIRST stream event block
+      // is a toolUse...
       const subscription = conversation.onStreamEvent({
         next: (event) => {
           const {
@@ -167,13 +181,12 @@ export function createUseAIConversation<
             // previous contentBlockDeltaIndex
             contentBlockDoneAtIndex,
             // this is the text of the content block
-            text,
+            // text,
             // this is a toolUse block, will always come in a single event
             // toolUse,
             // this is the final event of the conversation turn
             stopReason,
             conversationId,
-            // associatedUserMessageId,
             id,
           } = event;
 
@@ -212,43 +225,25 @@ export function createUseAIConversation<
           }
 
           // no ref means its the first event for the message stream
+          // so lets create the contentBlocks ref or else we will
+          // add the incoming event to the right content content block
           if (!contentBlocksRef.current) {
             contentBlocksRef.current = [[event]];
-
-            setDataState((prev) => {
-              const message: ConversationMessage = {
-                id,
-                conversationId,
-                // TODO: use better logic here
-                content: [{ text: text ?? '' }],
-                createdAt: new Date().toISOString(),
-                role: 'assistant',
-                isLoading: true,
-              };
-              return {
-                ...prev,
-                data: {
-                  ...prev.data,
-                  messages: [...prev.data.messages.slice(0, -1), message],
-                },
-              };
-            });
-            return;
-          }
-
-          // place the incoming event in the right content block
-          // and order. message content is an array so a single message
-          // can have multiple content blocks, and each content block
-          // can have multiple events/chunks
-          const currentBlock = contentBlocksRef.current[contentBlockIndex];
-          if (!currentBlock) {
-            contentBlocksRef.current[contentBlockIndex] = [event];
           } else {
-            contentBlocksRef.current[contentBlockIndex] = [
-              ...currentBlock.slice(0, contentBlockDeltaIndex),
-              event,
-              ...currentBlock.slice(contentBlockDeltaIndex),
-            ];
+            // place the incoming event in the right content block
+            // and order. message content is an array so a single message
+            // can have multiple content blocks, and each content block
+            // can have multiple events/chunks
+            const currentBlock = contentBlocksRef.current[contentBlockIndex];
+            if (!currentBlock) {
+              contentBlocksRef.current[contentBlockIndex] = [event];
+            } else {
+              contentBlocksRef.current[contentBlockIndex] = [
+                ...currentBlock.slice(0, contentBlockDeltaIndex),
+                event,
+                ...currentBlock.slice(contentBlockDeltaIndex),
+              ];
+            }
           }
 
           setDataState((prev) => {
@@ -272,9 +267,6 @@ export function createUseAIConversation<
           });
         },
         error: (error) => {
-          error.errors.map((e) => {
-            return e.message;
-          });
           setDataState((prev) => {
             return {
               ...prev,
@@ -325,6 +317,18 @@ export function createUseAIConversation<
             },
           }));
           conversation.sendMessage(input);
+        } else {
+          setDataState((prev) => ({
+            ...prev,
+            ...ERROR_STATE,
+            messages: [
+              {
+                message: 'No conversation found',
+                errorInfo: null,
+                errorType: '',
+              },
+            ],
+          }));
         }
       },
       [conversation]

@@ -5,6 +5,12 @@ export type Conversation = NonNullable<
   Awaited<ReturnType<ConversationRoute['create']>>['data']
 >;
 
+// the JS client looks like this:
+// client.conversations.[name].onStreamEvent({
+//   next: (event) => {},
+//   error: (error) => {}
+// })
+// This type gets the 'event' ^
 export type ConversationStreamEvent = Parameters<
   Parameters<Conversation['onStreamEvent']>[0]['next']
 >[0];
