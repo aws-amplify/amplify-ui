@@ -410,10 +410,6 @@
   align-items: center;
   flex-wrap: wrap;
   min-width: 35rem;
-}
-
-.storage-browser__locations-view-search,
-.storage-browser__location-detail-view-search {
   flex: 1;
 }
 
