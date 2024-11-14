@@ -23,6 +23,11 @@ jest.mock('../../../displayText', () => ({
   useDisplayText: () => ({ LocationDetailView: { title: jest.fn() } }),
 }));
 jest.mock('../../../providers/configuration');
+jest.mock('../../../controls/LoadingIndicatorControl', () => ({
+  LoadingIndicatorControl: () => (
+    <div data-testid="loading-indicator-control" />
+  ),
+}));
 jest.mock('../../../controls/NavigationControl', () => ({
   NavigationControl: () => 'NavigationControl',
 }));
@@ -137,11 +142,11 @@ describe('LocationDetailView', () => {
     ]);
     mockListItemsAction({ isLoading: true, result: [] });
 
-    const { getByText } = render(<LocationDetailView />);
+    const { getByTestId } = render(<LocationDetailView />);
 
-    const text = getByText('Loading');
+    const loadingIndicator = getByTestId('loading-indicator-control');
 
-    expect(text).toBeInTheDocument();
+    expect(loadingIndicator).toBeInTheDocument();
   });
 
   it('renders correct error state', () => {
