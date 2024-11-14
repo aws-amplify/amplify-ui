@@ -20,6 +20,7 @@ export const getDestinationPickerTableData = ({
   handleNavigateFolder: (key: string) => void;
 }): DataTableProps => {
   const rows: DataTableProps['rows'] = items.map((item) => {
+    const folderName = getFolderNameFromKey(item.key);
     const row: WithKey<DataTableRow> = {
       key: item.id,
       content: [
@@ -27,10 +28,11 @@ export const getDestinationPickerTableData = ({
           key: item.id,
           type: 'button',
           content: {
-            label: getFolderNameFromKey(item.key),
+            label: folderName,
             icon: 'folder',
+            ariaLabel: `folder${folderName}`,
             onClick: () => {
-              handleNavigateFolder(getFolderNameFromKey(item.key));
+              handleNavigateFolder(folderName);
             },
           },
         },
