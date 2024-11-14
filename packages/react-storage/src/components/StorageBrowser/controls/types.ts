@@ -53,13 +53,15 @@ export interface ControlsContext {
     isActionStartDisabled?: boolean;
     isAddFilesDisabled?: boolean;
     isAddFolderDisabled?: boolean;
+    isOverwritingEnabled?: boolean;
     isDataRefreshDisabled?: boolean;
     isActionExitDisabled?: boolean;
     isLoading?: boolean;
     isFolderNameDisabled?: boolean;
-    isOverwriteCheckboxDisabled?: boolean;
+    isOverwriteToggleDisabled?: boolean;
     loadingIndicatorLabel?: string;
     location?: LocationState;
+    overwriteToggleLabel?: string;
     messageContent?: React.ReactNode;
     messageType?: MessageType;
     paginationData?: PaginationData;
@@ -83,5 +85,6 @@ export interface ControlsContext {
   onSearch?: () => void;
   onSearchClear?: () => void;
   onSearchQueryChange?: (value: string) => void;
+  onToggleOverwrite?: () => void;
   onValidateFolderName?: (value: string) => void;
 }
