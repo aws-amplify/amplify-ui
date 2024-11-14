@@ -37,10 +37,10 @@ interface AIConversationState {
 // initial: default, nothing happened yet
 // loading: the hook has either hit AppSync to create or get a conversation
 // initialized: the hook has successfully gotten a conversation and is ready to rock
-const INITIALIZE_REF = ['initial', 'loading', 'initialized'] as const;
+const INITIALIZE_REF = ['initial', 'initialLoading', 'initialized'] as const;
 
 function hasStarted(state: (typeof INITIALIZE_REF)[number]) {
-  return ['loading', 'initialized'].includes(state);
+  return ['initialLoading', 'initialized'].includes(state);
 }
 
 export type UseAIConversationHook<T extends string> = (
@@ -90,7 +90,7 @@ export function createUseAIConversation<
         // We don't want to run the effect multiple times
         // because that could create multiple conversation records
         if (hasStarted(initRef.current)) return;
-        initRef.current = 'loading';
+        initRef.current = 'initialLoading';
 
         // Only show component loading state if we are
         // actually loading messages
@@ -178,10 +178,6 @@ export function createUseAIConversation<
             // this is sent after the last content chunk, verify this matches the
             // previous contentBlockDeltaIndex
             contentBlockDoneAtIndex,
-            // this is the text of the content block
-            // text,
-            // this is a toolUse block, will always come in a single event
-            // toolUse,
             // this is the final event of the conversation turn
             stopReason,
             conversationId,
