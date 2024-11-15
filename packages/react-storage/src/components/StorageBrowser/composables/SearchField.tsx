@@ -10,7 +10,6 @@ export interface SearchFieldProps {
   label?: string;
   query?: string;
   placeholder?: string;
-  searchMessage?: React.ReactNode;
   onSearch?: () => void;
   onClear?: () => void;
   onQueryChange?: (query: string) => void;
@@ -19,7 +18,6 @@ export interface SearchFieldProps {
 export const SearchField = ({
   id,
   label,
-  searchMessage,
   onSearch,
   onClear,
   placeholder,
@@ -62,7 +60,6 @@ export const SearchField = ({
             <IconElement variant="dismiss" />
           </ButtonElement>
         ) : null}
-        {searchMessage}
       </Field>
       <ButtonElement
         className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__search-submit`}

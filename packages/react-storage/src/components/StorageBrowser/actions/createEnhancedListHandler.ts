@@ -84,20 +84,18 @@ export const createEnhancedListHandler = <Action extends ListHandler>(
         nextNextToken = output.nextToken;
       } while (nextNextToken && result.length < SEARCH_LIMIT);
 
-      const items = result.filter((item) => {
-        const test = item[filterKey];
-        if (typeof test === 'string') {
-          const suffix = test.slice(input.prefix.length);
-          return suffix.includes(query);
-        }
-        return false;
-      });
-
       return {
-        items,
+        items: result.filter((item) => {
+          const test = item[filterKey];
+          if (typeof test === 'string') {
+            const suffix = test.slice(input.prefix.length);
+            return suffix.includes(query);
+          }
+          return false;
+        }),
         search: {
           // search limit reached but we still have a next token
-          hasExhaustedSearch: !!nextNextToken,
+          hasExhaustedSearch: true,
         },
         nextToken: undefined,
       };
