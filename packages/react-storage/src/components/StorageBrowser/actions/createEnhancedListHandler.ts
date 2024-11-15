@@ -95,7 +95,7 @@ export const createEnhancedListHandler = <Action extends ListHandler>(
         }),
         search: {
           // search limit reached but we still have a next token
-          hasExhaustedSearch: true,
+          hasExhaustedSearch: !!nextNextToken,
         },
         nextToken: undefined,
       };
