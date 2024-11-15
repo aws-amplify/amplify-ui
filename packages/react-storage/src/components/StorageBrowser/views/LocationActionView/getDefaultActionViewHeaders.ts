@@ -11,7 +11,7 @@ export const getDefaultActionViewHeaders = ({
     tableColumnFolderHeader,
   },
 }: {
-  displayText: DefaultActionViewDisplayText;
+  displayText: Omit<DefaultActionViewDisplayText, 'getActionCompleteMessage'>;
 }): ActionViewHeaders => {
   return [
     {

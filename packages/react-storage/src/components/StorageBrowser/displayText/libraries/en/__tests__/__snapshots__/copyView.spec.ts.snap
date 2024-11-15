@@ -1,0 +1,111 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CopyView display text values \`getActionCompleteMessage\` returns the expected values in the all failed scenario 1`] = `
+{
+  "content": "All files failed to copy.",
+  "type": "error",
+}
+`;
+
+exports[`CopyView display text values \`getActionCompleteMessage\` returns the expected values in the all prevented overwrites scenario 1`] = `
+{
+  "content": "0 files copied, 0 files failed to copy.",
+  "type": "error",
+}
+`;
+
+exports[`CopyView display text values \`getActionCompleteMessage\` returns the expected values in the all success scenario 1`] = `
+{
+  "content": "All files copied.",
+  "type": "success",
+}
+`;
+
+exports[`CopyView display text values \`getActionCompleteMessage\` returns the expected values in the no failures, some prevented overwrites, some success scenario 1`] = `
+{
+  "content": "2 files copied, 0 files failed to copy.",
+  "type": "error",
+}
+`;
+
+exports[`CopyView display text values \`getActionCompleteMessage\` returns the expected values in the some failed scenario 1`] = `
+{
+  "content": "8 files copied, 3 files failed to copy.",
+  "type": "error",
+}
+`;
+
+exports[`CopyView display text values \`getActionCompleteMessage\` returns the expected values in the some failures, some prevented overwrites, no success scenario 1`] = `
+{
+  "content": "0 files copied, 2 files failed to copy.",
+  "type": "error",
+}
+`;
+
+exports[`CopyView display text values \`getActionCompleteMessage\` returns the expected values in the some failures, some prevented overwrites, some success scenario 1`] = `
+{
+  "content": "8 files copied, 2 files failed to copy.",
+  "type": "error",
+}
+`;
+
+exports[`CopyView display text values \`getListFoldersResultsMessage\` returns the expected values in the empty results scenario 1`] = `
+{
+  "content": "No subfolders found within selected folder.",
+  "type": "info",
+}
+`;
+
+exports[`CopyView display text values \`getListFoldersResultsMessage\` returns the expected values in the empty search results scenario 1`] = `
+{
+  "content": "No folders found matching "something to look for"",
+  "type": "info",
+}
+`;
+
+exports[`CopyView display text values \`getListFoldersResultsMessage\` returns the expected values in the failed scenario 1`] = `
+{
+  "content": "Error loading folders.",
+  "type": "error",
+}
+`;
+
+exports[`CopyView display text values \`getListFoldersResultsMessage\` returns the expected values in the search failed scenario 1`] = `
+{
+  "content": "Error loading folders.",
+  "type": "error",
+}
+`;
+
+exports[`CopyView display text values \`getListFoldersResultsMessage\` returns the expected values in the search limit reached scenario 1`] = `undefined`;
+
+exports[`CopyView display text values should match snapshot values 1`] = `
+{
+  "actionCancelLabel": "Cancel",
+  "actionDestinationLabel": "Copy destination:",
+  "actionExitLabel": "Exit",
+  "actionStartLabel": "Copy",
+  "getActionCompleteMessage": [Function],
+  "getFolderSelectedMessage": [Function],
+  "getListFoldersResultsMessage": [Function],
+  "loadingIndicatorLabel": "Loading",
+  "overwriteWarningMessage": "Copied files will overwrite existing files at selected destination.",
+  "searchClearLabel": "Clear search",
+  "searchPlaceholder": "Search for folders",
+  "searchSubmitLabel": "Submit",
+  "statusDisplayCanceledLabel": "Canceled",
+  "statusDisplayCompletedLabel": "Completed",
+  "statusDisplayFailedLabel": "Failed",
+  "statusDisplayInProgressLabel": "In progress",
+  "statusDisplayQueuedLabel": "Not started",
+  "statusDisplayTotalLabel": "Total",
+  "tableColumnCancelHeader": "",
+  "tableColumnFolderHeader": "Folder",
+  "tableColumnNameHeader": "Name",
+  "tableColumnProgressHeader": "Progress",
+  "tableColumnSizeHeader": "Size",
+  "tableColumnStatusHeader": "Status",
+  "tableColumnTypeHeader": "Type",
+  "title": "Copy",
+}
+`;

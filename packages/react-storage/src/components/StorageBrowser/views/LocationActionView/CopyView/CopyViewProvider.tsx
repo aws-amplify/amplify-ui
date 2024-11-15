@@ -10,6 +10,7 @@ import { FoldersMessageProvider } from './FoldersMessageControl';
 import { FoldersPaginationProvider } from './FoldersPaginationControl';
 import { FoldersTableProvider } from './FoldersTableControl';
 import { CopyViewProviderProps } from './types';
+import { MessageProps } from '../../../composables/Message';
 
 export function CopyViewProvider({
   children,
@@ -22,7 +23,7 @@ export function CopyViewProvider({
     actionExitLabel,
     actionStartLabel,
     getActionCompleteMessage,
-    getFolderListResultsMessage,
+    getListFoldersResultsMessage,
     overwriteWarningMessage,
     searchPlaceholder,
     searchSubmitLabel,
@@ -52,7 +53,7 @@ export function CopyViewProvider({
     hasNextPage,
     highestPageVisited,
     hasError: hasFoldersError,
-    message: foldersMessage,
+    message: foldersErrorMessage,
     query,
     hasInitialized: hasFoldersInitialized,
     onQuery,
@@ -81,35 +82,21 @@ export function CopyViewProvider({
 
   const isActionCancelDisabled = !isProcessing || isProcessingComplete;
 
-  const copyMessageContent = !isProcessingComplete
-    ? overwriteWarningMessage
-    : getActionCompleteMessage(statusCounts);
+  const message: MessageProps | undefined = !isProcessingComplete
+    ? {
+        content: overwriteWarningMessage,
+        type: 'warning',
+      }
+    : getActionCompleteMessage({ counts: statusCounts });
 
-  const copyCompleteMessageType = isProcessingComplete
-    ? statusCounts.FAILED
-      ? 'error'
-      : !statusCounts.FAILED
-      ? 'info'
-      : undefined
-    : undefined;
-
-  const copyMessageType = isProcessingComplete
-    ? copyCompleteMessageType
-    : 'warning';
-
-  const foldersMessageContent = !hasFoldersInitialized
+  const foldersMessage = !hasFoldersInitialized
     ? undefined
-    : getFolderListResultsMessage({
-        defaultMessage: foldersMessage,
+    : getListFoldersResultsMessage({
+        hasError: hasFoldersError,
+        message: foldersErrorMessage,
         folders: pageItems,
         query,
       });
-
-  const foldersMessageType = foldersMessageContent
-    ? hasFoldersError
-      ? 'error'
-      : 'info'
-    : undefined;
 
   return (
     <ControlsContextProvider
@@ -121,8 +108,7 @@ export function CopyViewProvider({
         isActionExitDisabled: isProcessing,
         isActionStartDisabled,
         isLoading,
-        messageContent: copyMessageContent,
-        messageType: copyMessageType,
+        message,
         searchQuery: query,
         searchPlaceholder,
         searchSubmitLabel,
@@ -155,10 +141,7 @@ export function CopyViewProvider({
           onPaginate={onPaginate}
         >
           <FoldersTableProvider folders={pageItems} onSelect={onSelect}>
-            <FoldersMessageProvider
-              content={foldersMessageContent}
-              type={foldersMessageType}
-            >
+            <FoldersMessageProvider {...foldersMessage}>
               {children}
             </FoldersMessageProvider>
           </FoldersTableProvider>

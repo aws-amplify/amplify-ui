@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CreateFolderView display text values \`getActionCompleteMessage\` returns the expected values in the failed scenario 1`] = `
+{
+  "content": "There was an issue creating the folder.",
+  "type": "error",
+}
+`;
+
+exports[`CreateFolderView display text values \`getActionCompleteMessage\` returns the expected values in the overwrite prevented scenario 1`] = `
+{
+  "content": "A folder already exists with the provided name",
+  "type": "warning",
+}
+`;
+
+exports[`CreateFolderView display text values \`getActionCompleteMessage\` returns the expected values in the success scenario 1`] = `
+{
+  "content": "Folder created.",
+  "type": "success",
+}
+`;
+
+exports[`CreateFolderView display text values should match snapshot values 1`] = `
+{
+  "actionCancelLabel": "Cancel",
+  "actionDestinationLabel": "Destination",
+  "actionExitLabel": "Exit",
+  "actionStartLabel": "Create folder",
+  "folderNameLabel": "Folder name",
+  "folderNamePlaceholder": "Folder name cannot contain "/" or "."",
+  "getActionCompleteMessage": [Function],
+  "getValidationMessage": [Function],
+  "statusDisplayCanceledLabel": "Canceled",
+  "statusDisplayCompletedLabel": "Completed",
+  "statusDisplayFailedLabel": "Failed",
+  "statusDisplayInProgressLabel": "In progress",
+  "statusDisplayQueuedLabel": "Not started",
+  "statusDisplayTotalLabel": "Total",
+  "tableColumnCancelHeader": "",
+  "tableColumnFolderHeader": "Folder",
+  "tableColumnNameHeader": "Name",
+  "tableColumnProgressHeader": "Progress",
+  "tableColumnSizeHeader": "Size",
+  "tableColumnStatusHeader": "Status",
+  "tableColumnTypeHeader": "Type",
+  "title": "Create folder",
+}
+`;

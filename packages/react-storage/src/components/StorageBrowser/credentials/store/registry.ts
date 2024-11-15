@@ -60,9 +60,9 @@ export const getValue = async (input: {
   const store = getCredentialsStore(storeReference);
   if (!forceRefresh) {
     const credentials = getCacheValue(store, location);
-      if (credentials !== null) {
-        return { credentials };
-      }
+    if (credentials !== null) {
+      return { credentials };
+    }
   }
 
   return fetchNewValue(store, location);
