@@ -144,7 +144,11 @@ export function useLocationDetailView(
     const searchOptions = {
       ...listOptions,
       delimiter: includeSubfolders ? undefined : listOptions.delimiter,
-      search: { query, filterKey: 'key' as const },
+      search: {
+        query,
+        filterBy: 'key' as const,
+        groupBy: includeSubfolders ? listOptions.delimiter : undefined,
+      },
     };
 
     handleReset();

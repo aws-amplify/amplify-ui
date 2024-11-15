@@ -228,7 +228,7 @@ describe('LocationDetailView', () => {
       expect.objectContaining({
         options: expect.objectContaining({
           search: {
-            filterKey: 'key',
+            filterBy: 'key',
             query: 'boo',
           },
         }),
@@ -275,7 +275,7 @@ describe('LocationDetailView', () => {
       expect.objectContaining({
         options: expect.objectContaining({
           search: {
-            filterKey: 'key',
+            filterBy: 'key',
             query: 'boo',
           },
         }),

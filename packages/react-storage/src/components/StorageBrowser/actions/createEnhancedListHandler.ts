@@ -7,9 +7,22 @@ import {
   ListHandlerOutput,
 } from './handlers';
 
+type KeyWithStringValue<T> = keyof {
+  [P in keyof T as T[P] extends string ? P : never]: T[P];
+};
+
 interface SearchOptions<T> {
   query: string;
-  filterKey: keyof T;
+  /**
+   * The key of the object in the list to filter by, which must have a string value.
+   * This determines where the `query` will be searched.
+   */
+  filterBy: KeyWithStringValue<T>;
+
+  /**
+   * Optional delimiter to group item keys.
+   */
+  groupBy?: string;
 }
 
 export interface EnhancedListHandlerOptions<T, K>
@@ -51,67 +64,60 @@ export const SEARCH_PAGE_SIZE = 1000;
 
 interface Search<T> {
   prefix: string;
-  delimiter?: string;
   list: T[];
-  searchOptions: SearchOptions<T>;
+  options: SearchOptions<T>;
 }
 
-function searchItems<T>({
-  prefix,
-  delimiter,
-  list,
-  searchOptions,
-}: Search<T>): T[] {
-  const { filterKey, query } = searchOptions;
+export function searchItems<T>({ prefix, list, options }: Search<T>): T[] {
+  const { query, filterBy, groupBy } = options;
 
-  if (delimiter) {
-    return list.filter((item) => {
-      const test = item[filterKey];
-      if (typeof test === 'string') {
-        const suffix = test.slice(prefix.length);
-        return suffix.includes(query);
-      }
-      return false;
-    });
+  // filter keys that match `filterBy` search option
+  const filteredItems = list.filter((item) => {
+    const path = item[filterBy] as string;
+    const suffix = path.slice(prefix.length);
+    return suffix.includes(query);
+  });
+
+  if (!groupBy) {
+    return filteredItems;
   }
 
-  const outputSet = new Set();
-  const items = [];
+  // group items using the provided grouping delimiter
+  const uniquePaths = new Map<string, T>();
 
-  for (const item of list) {
-    const value = item[filterKey];
-    if (typeof value !== 'string') {
-      continue;
-    }
-    const prefixIndex = value.indexOf(prefix);
-    if (prefixIndex === -1) {
-      continue;
-    }
-    const suffix = value.substring(prefixIndex + prefix.length);
+  for (const item of filteredItems) {
+    const path = item[filterBy] as string;
+    const components = path.split(groupBy);
 
-    if (!suffix.includes(query)) {
-      continue;
-    }
-    const segments = value.split('/');
+    for (const [i, component] of components.entries()) {
+      if (!component.includes(query)) {
+        continue;
+      }
 
-    for (let i = 0; i < segments.length; i++) {
-      if (segments[i].includes(query)) {
-        const pathUpToSegment = segments.slice(0, i + 1).join('/');
-        const isFile = i === segments.length - 1 && !value.endsWith('/');
-        if (!outputSet.has(pathUpToSegment)) {
-          items.push({
-            ...item,
-            [filterKey]: isFile ? pathUpToSegment : pathUpToSegment + '/',
-            id: crypto.randomUUID(),
-            type: isFile ? 'FILE' : 'FOLDER',
-          });
-          outputSet.add(pathUpToSegment);
-        }
+      // list of components ending with match
+      const matches = components.slice(0, i + 1);
+
+      // create new path
+      let matchedPath = matches.join(groupBy);
+      const isFolder = matchedPath !== path;
+      if (isFolder) {
+        matchedPath += groupBy;
+      }
+
+      // ignore prefix for match
+      if (matchedPath !== prefix && !uniquePaths.has(matchedPath)) {
+        // add a new item
+        uniquePaths.set(matchedPath, {
+          ...item,
+          id: crypto.randomUUID(),
+          [filterBy]: matchedPath,
+          type: isFolder ? 'FOLDER' : 'FILE',
+        });
       }
     }
   }
 
-  return items;
+  return Array.from(uniquePaths.values());
 }
 
 export const createEnhancedListHandler = <Action extends ListHandler>(
@@ -151,8 +157,7 @@ export const createEnhancedListHandler = <Action extends ListHandler>(
         items: searchItems({
           list: result,
           prefix: input.prefix,
-          searchOptions: search,
-          delimiter: rest.delimiter,
+          options: search,
         }),
         search: {
           // search limit reached but we still have a next token
