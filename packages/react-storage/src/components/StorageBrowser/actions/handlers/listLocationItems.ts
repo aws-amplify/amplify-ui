@@ -66,22 +66,19 @@ export const filterDotItems = (
   items: LocationItemData[],
   prefix: string
 ): LocationItemData[] =>
-  items.filter(
-    // matches object keys that are exactly either a single forward slash ("/") or one to two dots with/without a slash ("./" or "../"), nothing else.
-    (item) => {
-      // fix me, need to remove prefix first
-      const key = item.key.startsWith(prefix)
-        ? item.key.substring(prefix.length)
-        : item.key;
-      return !(
-        key === '/' ||
-        key === './' ||
-        key === '../' ||
-        key === '.' ||
-        key === '..'
-      );
-    }
-  );
+  items.filter((item) => {
+    const key = (
+      item.key.startsWith(prefix) ? item.key.substring(prefix.length) : item.key
+    ).trim();
+    // matches object keys that would cause problems either as folder names in navigation (`/`, `./`, `../`) or as objects (`.`, `..`)
+    return !(
+      key === '/' ||
+      key === './' ||
+      key === '../' ||
+      key === '.' ||
+      key === '..'
+    );
+  });
 
 export const parseResult = (
   { excludedSubpaths, items }: ListOutput,
