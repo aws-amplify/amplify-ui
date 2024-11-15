@@ -89,7 +89,6 @@ export function UploadView({
           statusDisplayQueuedLabel,
           tableData: getActionViewTableData({
             tasks,
-            isProcessing,
             shouldDisplayProgress: true,
             displayText,
             onTaskRemove,

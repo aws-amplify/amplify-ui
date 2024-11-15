@@ -18,7 +18,7 @@ describe('getActionViewTableData', () => {
         },
         status: 'QUEUED',
         cancel: jest.fn(),
-        message: '',
+        message: undefined,
         progress: undefined,
       },
       {
@@ -32,8 +32,8 @@ describe('getActionViewTableData', () => {
         },
         status: 'PENDING',
         cancel: jest.fn(),
-        message: '',
-        progress: undefined,
+        message: undefined,
+        progress: 0.2,
       },
       {
         data: {
@@ -45,9 +45,9 @@ describe('getActionViewTableData', () => {
           type: 'FILE',
         },
         status: 'COMPLETE',
-        cancel: jest.fn(),
-        message: '',
-        progress: undefined,
+        cancel: undefined,
+        message: undefined,
+        progress: 1,
       },
       {
         data: {
@@ -59,9 +59,9 @@ describe('getActionViewTableData', () => {
           type: 'FILE',
         },
         status: 'FAILED',
-        cancel: jest.fn(),
-        message: '',
-        progress: undefined,
+        cancel: undefined,
+        message: 'Failed!',
+        progress: 0.7,
       },
       {
         data: {
@@ -73,14 +73,13 @@ describe('getActionViewTableData', () => {
           type: 'FILE',
         },
         status: 'CANCELED',
-        cancel: jest.fn(),
-        message: '',
-        progress: undefined,
+        cancel: undefined,
+        message: 'Canceled!',
+        progress: 0.2,
       },
     ];
     const result = getActionViewTableData({
       tasks,
-      isProcessing: true,
       displayText: DEFAULT_UPLOAD_VIEW_DISPLAY_TEXT,
       onTaskRemove: jest.fn(),
     });
@@ -100,10 +99,9 @@ describe('getActionViewTableData', () => {
           type: 'FILE',
         },
         status: 'QUEUED',
-
         cancel: jest.fn(),
         progress: undefined,
-        message: '',
+        message: undefined,
       },
       {
         data: {
@@ -115,16 +113,14 @@ describe('getActionViewTableData', () => {
           type: 'FILE',
         },
         status: 'COMPLETE',
-
-        cancel: jest.fn(),
-        message: '',
-        progress: undefined,
+        cancel: undefined,
+        message: undefined,
+        progress: 1,
       },
     ];
 
     const result = getActionViewTableData({
       tasks,
-      isProcessing: true,
       displayText: DEFAULT_UPLOAD_VIEW_DISPLAY_TEXT,
       onTaskRemove: jest.fn(),
     });
@@ -144,7 +140,6 @@ describe('getActionViewTableData', () => {
           type: 'FILE',
         },
         status: 'QUEUED',
-
         cancel: jest.fn(),
         progress: undefined,
         message: '',
@@ -154,7 +149,6 @@ describe('getActionViewTableData', () => {
     const result = getActionViewTableData({
       tasks,
       locationKey: 'folder/subfolder/',
-      isProcessing: false,
       displayText: DEFAULT_UPLOAD_VIEW_DISPLAY_TEXT,
       onTaskRemove: jest.fn(),
     });

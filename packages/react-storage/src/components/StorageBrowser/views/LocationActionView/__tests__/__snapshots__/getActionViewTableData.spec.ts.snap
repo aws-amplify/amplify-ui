@@ -43,7 +43,7 @@ exports[`getActionViewTableData should handle tasks with prefix keys 1`] = `
       },
       {
         "content": {
-          "ariaLabel": "Cancel item: file1.txt",
+          "ariaLabel": "Remove item: file1.txt",
           "icon": "cancel",
           "isDisabled": false,
           "onClick": [Function],
@@ -209,7 +209,7 @@ exports[`getActionViewTableData should return correct table data for all task st
       },
       {
         "content": {
-          "ariaLabel": "Cancel item: file1.txt",
+          "ariaLabel": "Remove item: file1.txt",
           "icon": "cancel",
           "isDisabled": false,
           "onClick": [Function],

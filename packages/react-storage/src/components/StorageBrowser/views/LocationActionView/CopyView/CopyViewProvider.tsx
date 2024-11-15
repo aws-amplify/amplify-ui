@@ -71,7 +71,6 @@ export function CopyViewProvider({
   const tableData = getActionViewTableData({
     tasks,
     locationKey,
-    isProcessing,
     displayText,
     onTaskRemove,
   });

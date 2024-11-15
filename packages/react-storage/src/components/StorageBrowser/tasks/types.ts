@@ -28,7 +28,7 @@ export interface Task<T extends TaskData = TaskData> {
   message: string | undefined;
   progress: number | undefined;
   status: TaskStatus;
-  cancel: () => void;
+  cancel?: () => void;
 }
 
 export type Tasks<T extends TaskData> = Task<T>[];

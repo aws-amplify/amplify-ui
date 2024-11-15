@@ -202,7 +202,7 @@ describe('useProcessTasks', () => {
     expect(result.current[0].tasks[0].status).toBe('QUEUED');
 
     act(() => {
-      result.current[0].tasks[0].cancel();
+      result.current[0].tasks[0].cancel?.();
     });
 
     expect(result.current[0].tasks[0].status).toBe('CANCELED');
