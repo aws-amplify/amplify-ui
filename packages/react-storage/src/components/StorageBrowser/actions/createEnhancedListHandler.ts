@@ -23,13 +23,13 @@ export interface SearchOutput {
   hasExhaustedSearch: boolean;
 }
 
-interface EnhancedHandlerOutput<T> extends ListHandlerOutput<T> {
+interface EnhancedListHandlerOutput<T> extends ListHandlerOutput<T> {
   search?: SearchOutput;
 }
 
 interface EnhancedListHandler<T, K>
   extends AsyncDataAction<
-    EnhancedHandlerOutput<T>,
+    EnhancedListHandlerOutput<T>,
     ListHandlerInput<EnhancedListHandlerOptions<T, K>>
   > {}
 
