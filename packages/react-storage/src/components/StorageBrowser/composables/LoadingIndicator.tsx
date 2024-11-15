@@ -15,12 +15,10 @@ export function LoadingIndicator({
   return !isLoading ? null : (
     <ViewElement
       className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__loading-indicator`}
-      data-testid="loading-indicator"
     >
       <IconElement
         className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__loading-indicator-icon`}
         variant="loading"
-        data-testid="loading-indicator"
       />
       <SpanElement
         className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__loading-indicator-label`}
