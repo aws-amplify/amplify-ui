@@ -7,10 +7,10 @@ const defaultValue: PaginationProps = {};
 export const { FoldersPaginationProvider, useFoldersPagination } =
   createContextUtilities({ contextName: 'FoldersPagination', defaultValue });
 
-export const FoldersPaginatationControl = (): React.JSX.Element => {
+export const FoldersPaginationControl = (): React.JSX.Element => {
   const props = useFoldersPagination();
 
   return <Pagination {...props} />;
 };
 
-FoldersPaginatationControl.displayName = 'FoldersPagination';
+FoldersPaginationControl.displayName = 'FoldersPagination';

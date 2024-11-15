@@ -46,16 +46,28 @@ jest.mock('../DestinationControl', () => ({
 jest.mock('../FoldersMessageControl', () => ({
   FoldersMessageControl: () => <div data-testid="FoldersMessageControl" />,
 }));
-jest.mock('../FoldersPaginatationControl', () => ({
-  FoldersPaginatationControl: () => (
-    <div data-testid="FoldersPaginatationControl" />
+jest.mock('../FoldersPaginationControl', () => ({
+  FoldersPaginationControl: () => (
+    <div data-testid="FoldersPaginationControl" />
   ),
 }));
 jest.mock('../FoldersTableControl', () => ({
   FoldersTableControl: () => <div data-testid="FoldersTableControl" />,
 }));
 
-const useCopyViewSpy = jest.spyOn(UseCopyViewModule, 'useCopyView');
+const onInitialize = jest.fn();
+
+// @ts-expect-error
+const initialCopyState = {
+  isProcessing: false,
+  isProcessingComplete: false,
+  folders: { onInitialize },
+} as CopyViewState;
+
+const useCopyViewSpy = jest
+  .spyOn(UseCopyViewModule, 'useCopyView')
+  .mockReturnValue(initialCopyState);
+
 describe('CopyView', () => {
   afterEach(jest.clearAllMocks);
 
@@ -76,11 +88,6 @@ describe('CopyView', () => {
   });
 
   it('renders the expected components during folder selection', () => {
-    useCopyViewSpy.mockReturnValueOnce({
-      isProcessing: false,
-      isProcessingComplete: false,
-    } as CopyViewState);
-
     render(<CopyView />);
 
     // included
@@ -91,7 +98,7 @@ describe('CopyView', () => {
     expect(screen.queryByTestId('DestinationControl')).toBeInTheDocument();
     expect(screen.queryByTestId('FoldersMessageControl')).toBeInTheDocument();
     expect(
-      screen.queryByTestId('FoldersPaginatationControl')
+      screen.queryByTestId('FoldersPaginationControl')
     ).toBeInTheDocument();
     expect(screen.queryByTestId('FoldersTableControl')).toBeInTheDocument();
     expect(screen.queryByTestId('LoadingIndicatorControl')).toBeInTheDocument();
@@ -106,7 +113,8 @@ describe('CopyView', () => {
   });
 
   it('renders the expected components while copying is active', () => {
-    useCopyViewSpy.mockReturnValueOnce({
+    useCopyViewSpy.mockReturnValue({
+      ...initialCopyState,
       isProcessing: true,
       isProcessingComplete: false,
     } as CopyViewState);
@@ -126,7 +134,7 @@ describe('CopyView', () => {
 
     // excluded
     expect(
-      screen.queryByTestId('FoldersPaginatationControl')
+      screen.queryByTestId('FoldersPaginationControl')
     ).not.toBeInTheDocument();
     expect(screen.queryByTestId('SearchControl')).not.toBeInTheDocument();
     expect(
@@ -139,7 +147,8 @@ describe('CopyView', () => {
   });
 
   it('renders the expected components after copying has completed', () => {
-    useCopyViewSpy.mockReturnValueOnce({
+    useCopyViewSpy.mockReturnValue({
+      ...initialCopyState,
       isProcessing: false,
       isProcessingComplete: true,
     } as CopyViewState);
@@ -159,7 +168,7 @@ describe('CopyView', () => {
 
     // excluded
     expect(
-      screen.queryByTestId('FoldersPaginatationControl')
+      screen.queryByTestId('FoldersPaginationControl')
     ).not.toBeInTheDocument();
     expect(screen.queryByTestId('SearchControl')).not.toBeInTheDocument();
     expect(
