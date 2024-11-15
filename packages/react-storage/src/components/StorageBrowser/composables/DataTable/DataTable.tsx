@@ -11,7 +11,9 @@ import { TextDataCell } from './dataCells/TextDataCell';
 import { DataTableDataCell, DataTableHeader } from './types';
 import { WithKey } from '../../components/types';
 import { CheckboxHeader } from './headers/CheckboxHeader';
-import { LoadingIndicator } from '../LoadingIndicator';
+import { LoadingIndicator } from '../../components/LoadingIndicator';
+import { STORAGE_BROWSER_BLOCK } from '../../constants';
+import { ViewElement } from '../../context/elements';
 
 export interface DataTableRow {
   content: WithKey<DataTableDataCell>[];
@@ -52,53 +54,51 @@ export const DataTable = ({
     }
   });
 
-  const mappedRows = rows.map(({ key, content }) => ({
-    key,
-    content: content.map(({ key, content, type }) => {
-      switch (type) {
-        case 'button': {
-          return {
-            key,
-            content: <ButtonDataCell content={content} />,
-          };
-        }
-        case 'checkbox': {
-          return {
-            key,
-            content: <CheckboxDataCell content={content} />,
-          };
-        }
-        case 'date': {
-          return {
-            key,
-            content: <DateDataCell content={content} />,
-          };
-        }
-        case 'number': {
-          return {
-            key,
-            content: <NumberDataCell content={content} />,
-          };
-        }
-        case 'text':
-        default: {
-          return {
-            key,
-            content: <TextDataCell content={content} />,
-          };
-        }
-      }
-    }),
-  }));
+  const mappedRows = !isLoading
+    ? rows.map(({ key, content }) => ({
+        key,
+        content: content.map(({ key, content, type }) => {
+          switch (type) {
+            case 'button': {
+              return {
+                key,
+                content: <ButtonDataCell content={content} />,
+              };
+            }
+            case 'checkbox': {
+              return {
+                key,
+                content: <CheckboxDataCell content={content} />,
+              };
+            }
+            case 'date': {
+              return {
+                key,
+                content: <DateDataCell content={content} />,
+              };
+            }
+            case 'number': {
+              return {
+                key,
+                content: <NumberDataCell content={content} />,
+              };
+            }
+            case 'text':
+            default: {
+              return {
+                key,
+                content: <TextDataCell content={content} />,
+              };
+            }
+          }
+        }),
+      }))
+    : [];
 
   return (
-    <Table
-      headers={mappedHeaders}
-      rows={mappedRows}
-      isLoading={isLoading}
-      renderPlaceholder={() =>
-        LoadingIndicator({ label: 'loading', isLoading })
-      }
-    />
+    <ViewElement className={`${STORAGE_BROWSER_BLOCK}__table-wrapper`}>
+      <Table headers={mappedHeaders} rows={mappedRows} />
+      {!!isLoading && <LoadingIndicator />}
+    </ViewElement>
   );
 };

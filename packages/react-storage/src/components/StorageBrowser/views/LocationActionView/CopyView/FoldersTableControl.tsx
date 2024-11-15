@@ -9,6 +9,7 @@ import { getDestinationPickerTableData } from './utils';
 
 export interface FoldersTableProps {
   folders?: FolderData[];
+  isProcessing?: boolean;
   onSelect?: (value: string) => void;
 }
 
@@ -18,10 +19,11 @@ export const { useFoldersTable, FoldersTableProvider } = createContextUtilities(
 );
 
 export const FoldersTableControl = (): React.JSX.Element => {
-  const { folders, onSelect } = useFoldersTable();
+  const { folders, isProcessing, onSelect } = useFoldersTable();
 
   const tableData = getDestinationPickerTableData({
     folders,
+    isLoading: !!isProcessing,
     onSelect,
   });
 

@@ -25,16 +25,9 @@ interface TableRow {
 interface TableProps {
   headers: WithKey<TableItem>[];
   rows: WithKey<TableRow>[];
-  isLoading?: boolean;
-  renderPlaceholder: () => React.JSX.Element | null;
 }
 
-export const Table = ({
-  headers,
-  rows,
-  isLoading,
-  renderPlaceholder,
-}: TableProps): React.JSX.Element => {
+export const Table = ({ headers, rows }: TableProps): React.JSX.Element => {
   return (
     <ViewElement className={`${STORAGE_BROWSER_BLOCK}__data-table`}>
       <TableElement className={`${STORAGE_BROWSER_BLOCK}__table`}>
@@ -53,33 +46,31 @@ export const Table = ({
           ) : null}
         </TableHeadElement>
         <TableBodyElement className={`${STORAGE_BROWSER_BLOCK}__table-body`}>
-          {isLoading
-            ? renderPlaceholder()
-            : rows?.map(({ key, content }) => (
-                <TableRowElement
-                  key={key}
-                  className={`${STORAGE_BROWSER_BLOCK}__table-row`}
-                >
-                  {content.map(({ key, content, type }) => {
-                    return type === 'header' ? (
-                      <TableHeaderElement
-                        key={key}
-                        className={`${STORAGE_BROWSER_BLOCK}__table-header`}
-                        role="rowheader"
-                      >
-                        {content}
-                      </TableHeaderElement>
-                    ) : (
-                      <TableDataCellElement
-                        key={key}
-                        className={`${STORAGE_BROWSER_BLOCK}__table-data-cell`}
-                      >
-                        {content}
-                      </TableDataCellElement>
-                    );
-                  })}
-                </TableRowElement>
-              ))}
+          {rows?.map(({ key, content }) => (
+            <TableRowElement
+              key={key}
+              className={`${STORAGE_BROWSER_BLOCK}__table-row`}
+            >
+              {content.map(({ key, content, type }) => {
+                return type === 'header' ? (
+                  <TableHeaderElement
+                    key={key}
+                    className={`${STORAGE_BROWSER_BLOCK}__table-header`}
+                    role="rowheader"
+                  >
+                    {content}
+                  </TableHeaderElement>
+                ) : (
+                  <TableDataCellElement
+                    key={key}
+                    className={`${STORAGE_BROWSER_BLOCK}__table-data-cell`}
+                  >
+                    {content}
+                  </TableDataCellElement>
+                );
+              })}
+            </TableRowElement>
+          ))}
         </TableBodyElement>
       </TableElement>
     </ViewElement>
