@@ -1,5 +1,10 @@
 import { StatusCounts } from '../tasks';
-import { FolderData, LocationData, LocationItemData, LocationPermissions } from '../actions';
+import {
+  FolderData,
+  LocationData,
+  LocationItemData,
+  LocationPermissions,
+} from '../actions';
 import { LocationState } from '../providers/store/location';
 
 /**
@@ -14,6 +19,7 @@ export interface DefaultActionViewDisplayText {
   statusDisplayCanceledLabel: string;
   statusDisplayCompletedLabel: string;
   statusDisplayFailedLabel: string;
+  statusDisplayInProgressLabel: string;
   statusDisplayQueuedLabel: string;
   statusDisplayTotalLabel: string;
   title: string;
@@ -23,6 +29,7 @@ export interface DefaultActionViewDisplayText {
   tableColumnNameHeader: string;
   tableColumnTypeHeader: string;
   tableColumnSizeHeader: string;
+  tableColumnProgressHeader: string;
 }
 
 /**
@@ -33,6 +40,7 @@ export interface DefaultListViewDisplayText<T = any> {
   loadingIndicatorLabel: string;
   searchPlaceholder: string;
   searchSubmitLabel: string;
+  searchClearLabel: string;
 }
 
 export interface DefaultLocationsViewDisplayText
@@ -51,6 +59,8 @@ export interface DefaultLocationDetailViewDisplayText
   title: (location: LocationState) => string;
   searchExhaustedMessage: string;
   searchSubfoldersToggleLabel: string;
+  selectFileLabel: string;
+  selectAllFilesLabel: string;
   tableColumnLastModifiedHeader: string;
   tableColumnNameHeader: string;
   tableColumnSizeHeader: string;
@@ -83,6 +93,8 @@ export interface DefaultCopyViewDisplayText
   loadingIndicatorLabel: 'Loading';
   overwriteWarningMessage: string;
   searchPlaceholder: string;
+  searchSubmitLabel: string;
+  searchClearLabel: string;
 }
 
 export interface DefaultDeleteViewDisplayText
@@ -92,7 +104,7 @@ export interface DefaultUploadViewDisplayText
   extends DefaultActionViewDisplayText {
   addFilesLabel: string;
   addFolderLabel: string;
-  statusDisplayOverridePreventedLabel: string;
+  statusDisplayOverwritePreventedLabel: string;
   overwriteToggleLabel: string;
 }
 

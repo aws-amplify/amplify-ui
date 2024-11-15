@@ -25,6 +25,8 @@ jest.mock('../../../displayText', () => ({
   useDisplayText: () => ({
     LocationDetailView: {
       title: jest.fn(),
+      searchPlaceholder: 'Search current folder',
+      searchSubmitLabel: 'Submit',
       searchExhaustedMessage: 'Exhausted',
     },
   }),

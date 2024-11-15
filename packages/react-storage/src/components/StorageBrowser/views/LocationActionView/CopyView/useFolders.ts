@@ -13,6 +13,7 @@ import {
   ListLocationItemsHandlerInput,
   ListHandlerOutput,
 } from '../../../actions';
+import { FoldersState } from './types';
 
 const DEFAULT_PAGE_SIZE = 100;
 export const DEFAULT_LIST_OPTIONS = {
@@ -37,22 +38,7 @@ export const useFolders = ({
 }: {
   destinationList?: string[];
   onDestinationChange?: (destinationList: string[]) => void;
-}): {
-  currentPage: number;
-  currentQuery: string;
-  folders: FolderData[];
-  hasError: boolean;
-  hasInitialized: boolean;
-  hasMorePages: boolean;
-  highestPageVisited: number;
-  isLoading: boolean;
-  message: string | undefined;
-  onSelect: (name: string) => void;
-  onPaginate: (page: number) => void;
-  onQuery: (value: string) => void;
-  onSearch: () => void;
-  onSearchClear: () => void;
-} => {
+}): FoldersState => {
   const prefix = !destinationList
     ? ''
     : getDestinationListFullPrefix(destinationList);
@@ -72,9 +58,19 @@ export const useFolders = ({
     hasInitializedRef.current = true;
   }
 
-  const hasMorePages = !!nextToken;
+  const onInitialize = React.useCallback(() => {
+    handleList({
+      config: getInput(),
+      prefix,
+      options: { ...DEFAULT_REFRESH_OPTIONS },
+    });
+  }, [getInput, handleList, prefix]);
+
+  const hasNextToken = !!nextToken;
 
   const paginateCallback = () => {
+    if (!nextToken) return;
+
     handleList({
       config: getInput(),
       prefix,
@@ -83,16 +79,16 @@ export const useFolders = ({
   };
 
   const {
-    currentPage,
+    currentPage: page,
     onPaginate,
     highestPageVisited,
-    pageItems: folders,
+    pageItems,
     handleReset,
   } = usePaginate({
     items,
     paginateCallback,
     pageSize: DEFAULT_PAGE_SIZE,
-    hasNextToken: hasMorePages,
+    hasNextToken,
   });
 
   const onSearch = (query: string) => {
@@ -119,29 +115,22 @@ export const useFolders = ({
 
   const {
     onSearchSubmit,
-    searchQuery,
+    searchQuery: query,
     resetSearch,
     onSearchQueryChange: onQuery,
   } = useSearch({ onSearch });
 
-  React.useEffect(() => {
-    handleList({
-      config: getInput(),
-      prefix,
-      options: { ...DEFAULT_REFRESH_OPTIONS },
-    });
-  }, [getInput, handleList, prefix]);
-
   return {
-    currentPage,
-    currentQuery: searchQuery,
-    folders,
     hasError,
     hasInitialized: hasInitializedRef.current,
-    hasMorePages,
+    hasNextPage: hasNextToken,
     highestPageVisited,
     isLoading,
     message,
+    onInitialize,
+    page,
+    pageItems,
+    query,
     onPaginate,
     onQuery,
     onSearch: onSearchSubmit,
