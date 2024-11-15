@@ -83,8 +83,8 @@ describe('DataTable', () => {
 
     const [header1, header2, header3] = tableHeaders;
     expect(header1).toContainElement(headerCheckbox);
-    expect(header2).toHaveTextContent('Header-2-sort');
-    expect(header3).toHaveTextContent('Header-3-text');
+    expect(header2).toHaveTextContent('header-2-sort');
+    expect(header3).toHaveTextContent('header-3-text');
 
     const [
       row1DataCell1,

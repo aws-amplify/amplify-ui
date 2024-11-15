@@ -7,6 +7,7 @@ import { SignIn, SignOutButton } from './routed/components';
 
 import '@aws-amplify/ui-react-storage/storage-browser-styles.css';
 import '@aws-amplify/ui-react-storage/styles.css';
+import { Flex, View } from '@aws-amplify/ui-react';
 
 const { StorageBrowser } = createStorageBrowser({
   config: managedAuthAdapter,
@@ -18,10 +19,20 @@ function Example() {
   return !showSignIn ? (
     <SignIn onSignIn={() => setShowSignIn(true)} />
   ) : (
-    <>
+    <Flex
+      direction="column"
+      width="100vw"
+      height="100vh"
+      overflow="hidden"
+      padding="xl"
+    >
       <SignOutButton onSignOut={() => setShowSignIn(false)} />
-      <StorageBrowser />
-    </>
+      <View flex="1" overflow="hidden">
+        <StorageBrowser
+          displayText={{ LocationsView: { title: 'Home - Managed Auth' } }}
+        />
+      </View>
+    </Flex>
   );
 }
 

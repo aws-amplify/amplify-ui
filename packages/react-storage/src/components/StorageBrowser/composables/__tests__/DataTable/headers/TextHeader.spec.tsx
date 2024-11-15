@@ -6,7 +6,7 @@ describe('TextHeader', () => {
   it('renders', () => {
     render(<TextHeader content={{ text: 'header-text' }} />);
 
-    const textHeader = screen.getByText('Header-text');
+    const textHeader = screen.getByText('header-text');
 
     expect(textHeader).toBeInTheDocument();
   });

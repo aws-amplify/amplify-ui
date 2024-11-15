@@ -1,9 +1,10 @@
 import React from 'react';
-import { render, waitFor } from '@testing-library/react';
+import { render, waitFor, screen } from '@testing-library/react';
 import { Amplify } from 'aws-amplify';
 import * as CreateStorageBrowserModule from '../createStorageBrowser';
 import * as CreateAmplifyAuthAdapter from '../adapters/createAmplifyAuthAdapter';
 import { StorageBrowser } from '../StorageBrowserAmplify';
+import { StorageBrowserDisplayText } from '../displayText/types';
 
 const createStorageBrowserSpy = jest.spyOn(
   CreateStorageBrowserModule,
@@ -41,5 +42,18 @@ describe('StorageBrowser', () => {
     });
 
     expect(createAmplifyAuthAdapterSpy).toHaveBeenCalledTimes(1);
+  });
+
+  it('support passing custom displayText', async () => {
+    const displayText: StorageBrowserDisplayText = {
+      LocationsView: { title: 'Hello' },
+    };
+
+    await waitFor(() => {
+      render(<StorageBrowser displayText={displayText} />);
+    });
+
+    const Title = screen.getByText('Hello');
+    expect(Title).toBeInTheDocument();
   });
 });
