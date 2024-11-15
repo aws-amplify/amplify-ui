@@ -13,12 +13,14 @@ export type MessageType = MessageVariant;
 
 export interface MessageProps {
   content?: React.ReactNode;
-  onDismiss?: () => void;
+  id?: string;
+  onDismiss?: (id?: string) => void;
   type?: MessageType;
 }
 
 export const Message = ({
   content,
+  id,
   onDismiss,
   type,
 }: MessageProps): React.JSX.Element | null => {
@@ -50,7 +52,7 @@ export const Message = ({
       </ViewElement>
       {!onDismiss ? null : (
         <ButtonElement
-          onClick={onDismiss}
+          onClick={() => onDismiss(id)}
           className={`${STORAGE_BROWSER_BLOCK}__message-dismiss`}
           variant="message-dismiss"
           aria-label="Dismiss message"

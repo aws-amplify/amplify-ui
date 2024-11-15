@@ -2,17 +2,20 @@ import React from 'react';
 
 import { DescriptionList } from '../../../components/DescriptionList';
 import { ViewElement } from '../../../context/elements';
+
 import { ActionCancelControl } from '../../../controls/ActionCancelControl';
 import { ActionExitControl } from '../../../controls/ActionExitControl';
 import { ActionStartControl } from '../../../controls/ActionStartControl';
 import { AddFilesControl } from '../../../controls/AddFilesControl';
 import { AddFolderControl } from '../../../controls/AddFolderControl';
+import { ControlsContextProvider } from '../../../controls/context';
 import { DataTableControl } from '../../../controls/DataTableControl';
 import { DropZoneControl } from '../../../controls/DropZoneControl';
 import { OverwriteToggleControl } from '../../../controls/OverwriteToggleControl';
+import { MessageControl } from '../../../controls/MessageControl';
 import { StatusDisplayControl } from '../../../controls/StatusDisplayControl';
 import { TitleControl } from '../../../controls/TitleControl';
-import { ControlsContextProvider } from '../../../controls/context';
+
 import { useDisplayText } from '../../../displayText';
 import { STORAGE_BROWSER_BLOCK } from '../../../constants';
 import { resolveClassName } from '../../utils';
@@ -39,6 +42,7 @@ export function UploadView({
     statusDisplayQueuedLabel,
     overwriteToggleLabel,
     title,
+    getActionCompleteMessage,
   } = displayText;
 
   const {
@@ -65,6 +69,12 @@ export function UploadView({
   const isActionExitDisabled = isProcessing;
   const destinationList = (location.key || '/').split('/');
 
+  const message = isProcessingComplete
+    ? getActionCompleteMessage({
+        counts: statusCounts,
+      })
+    : undefined;
+
   return (
     <div className={resolveClassName(STORAGE_BROWSER_BLOCK, className)}>
       <ControlsContextProvider
@@ -82,6 +92,7 @@ export function UploadView({
           isOverwriteToggleDisabled: isProcessing || isProcessingComplete,
           isOverwritingEnabled,
           overwriteToggleLabel,
+          message,
           statusCounts,
           statusDisplayCanceledLabel,
           statusDisplayCompletedLabel,
@@ -143,7 +154,9 @@ export function UploadView({
           <StatusDisplayControl />
         </ViewElement>
         <ViewElement className={`${STORAGE_BROWSER_BLOCK}__footer`}>
-          {/* Message goes here */}
+          <ViewElement className={`${STORAGE_BROWSER_BLOCK}__message`}>
+            <MessageControl />
+          </ViewElement>
           <ViewElement className={`${STORAGE_BROWSER_BLOCK}__buttons`}>
             <ActionCancelControl />
             <ActionStartControl />

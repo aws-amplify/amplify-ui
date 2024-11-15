@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { ControlsContextProvider } from '../../../controls/context';
 import { ViewElement } from '../../../context/elements';
 import { ActionCancelControl } from '../../../controls/ActionCancelControl';
 import { ActionExitControl } from '../../../controls/ActionExitControl';
@@ -7,13 +8,15 @@ import { ActionStartControl } from '../../../controls/ActionStartControl';
 import { DataTableControl } from '../../../controls/DataTableControl';
 import { StatusDisplayControl } from '../../../controls/StatusDisplayControl';
 import { TitleControl } from '../../../controls/TitleControl';
-import { ControlsContextProvider } from '../../../controls/context';
+
 import { useDisplayText } from '../../../displayText';
 import { STORAGE_BROWSER_BLOCK } from '../../../constants';
 import { resolveClassName } from '../../utils';
+
 import { getActionViewTableData } from '../getActionViewTableData';
 import { useDeleteView } from './useDeleteView';
 import { DeleteViewProps } from './types';
+import { MessageControl } from '../../Controls';
 
 export function DeleteView({
   className,
@@ -29,6 +32,7 @@ export function DeleteView({
     statusDisplayCompletedLabel,
     statusDisplayFailedLabel,
     statusDisplayQueuedLabel,
+    getActionCompleteMessage,
   } = displayText;
 
   const {
@@ -42,6 +46,10 @@ export function DeleteView({
     onActionExit,
     onTaskRemove,
   } = useDeleteView(props);
+
+  const message = isProcessingComplete
+    ? getActionCompleteMessage({ counts: statusCounts })
+    : undefined;
 
   const tableData = getActionViewTableData({
     tasks,
@@ -68,6 +76,7 @@ export function DeleteView({
           statusCounts,
           tableData,
           title,
+          message,
         }}
         onActionStart={onActionStart}
         onActionExit={onActionExit}
@@ -83,7 +92,7 @@ export function DeleteView({
         </ViewElement>
         <ViewElement className={`${STORAGE_BROWSER_BLOCK}__footer`}>
           <ViewElement className={`${STORAGE_BROWSER_BLOCK}__message`}>
-            {/* TODO: confirmation message goes here */}
+            <MessageControl />
           </ViewElement>
           <ViewElement className={`${STORAGE_BROWSER_BLOCK}__buttons`}>
             <ActionCancelControl />
