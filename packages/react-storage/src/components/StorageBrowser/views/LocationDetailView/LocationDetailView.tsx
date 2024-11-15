@@ -59,6 +59,7 @@ export function LocationDetailView({
       searchSubfoldersToggleLabel,
       selectFileLabel,
       selectAllFilesLabel,
+      searchPlaceholder,
       title,
     },
   } = useDisplayText();
@@ -77,7 +78,6 @@ export function LocationDetailView({
     hasError,
     message,
     shouldShowEmptyMessage,
-    searchPlaceholder,
     searchQuery,
     onDropFiles,
     onRefresh,
