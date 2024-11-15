@@ -18,6 +18,7 @@ import { getLocationsViewTableData } from './getLocationsViewTableData';
 import { LocationViewHeaders } from './getLocationsViewTableData/types';
 import { useLocationsView } from './useLocationsView';
 import { LocationsViewProps } from './types';
+import { LoadingIndicator } from '../../components/LoadingIndicator';
 
 export const DEFAULT_ERROR_MESSAGE = 'There was an error loading locations.';
 
@@ -120,6 +121,8 @@ export function LocationsView({
     onSearchClear,
   } = useLocationsView(props);
 
+  const loadingIndicator = <LoadingIndicator label={loadingIndicatorLabel} />;
+
   const headers = getHeaders({
     hasObjectLocations: pageItems.some(({ type }) => type === 'OBJECT'),
     tableColumnBucketHeader,
@@ -132,6 +135,7 @@ export function LocationsView({
     <ControlsContextProvider
       data={{
         isDataRefreshDisabled: isLoading,
+        loadingIndicator,
         loadingIndicatorLabel,
         tableData: getLocationsViewTableData({
           getPermissionName,

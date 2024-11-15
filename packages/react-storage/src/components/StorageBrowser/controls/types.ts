@@ -60,6 +60,7 @@ export interface ControlsContext {
     isFolderNameDisabled?: boolean;
     isOverwriteToggleDisabled?: boolean;
     isSearchingSubfolders?: boolean;
+    loadingIndicator?: React.JSX.Element;
     loadingIndicatorLabel?: string;
     location?: LocationState;
     overwriteToggleLabel?: string;

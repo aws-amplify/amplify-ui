@@ -11,25 +11,24 @@ import { TextDataCell } from './dataCells/TextDataCell';
 import { DataTableDataCell, DataTableHeader } from './types';
 import { WithKey } from '../../components/types';
 import { CheckboxHeader } from './headers/CheckboxHeader';
-import { LoadingIndicator } from '../../components/LoadingIndicator';
 import { STORAGE_BROWSER_BLOCK } from '../../constants';
 import { ViewElement } from '../../context/elements';
-import { DEFAULT_LIST_VIEW_DISPLAY_TEXT } from '../../displayText/libraries/en/shared';
 
-const { loadingIndicatorLabel } = DEFAULT_LIST_VIEW_DISPLAY_TEXT;
 export interface DataTableRow {
   content: WithKey<DataTableDataCell>[];
 }
 
 export interface DataTableProps {
-  isLoading: boolean;
   headers: WithKey<DataTableHeader>[];
+  isLoading: boolean;
+  loadingIndicator?: React.JSX.Element;
   rows: WithKey<DataTableRow>[];
 }
 
 export const DataTable = ({
-  isLoading,
   headers,
+  isLoading,
+  loadingIndicator,
   rows,
 }: DataTableProps): React.JSX.Element => {
   const mappedHeaders = headers.map(({ key, content, type }) => {
@@ -100,7 +99,7 @@ export const DataTable = ({
   return (
     <ViewElement className={`${STORAGE_BROWSER_BLOCK}__data-table`}>
       <Table headers={mappedHeaders} rows={mappedRows} />
-      {isLoading ? <LoadingIndicator label={loadingIndicatorLabel} /> : null}
+      {isLoading ? loadingIndicator : null}
     </ViewElement>
   );
 };

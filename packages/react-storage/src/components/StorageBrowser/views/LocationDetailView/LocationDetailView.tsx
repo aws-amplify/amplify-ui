@@ -21,6 +21,7 @@ import { getLocationDetailViewTableData } from './getLocationDetailViewTableData
 import { useLocationDetailView } from './useLocationDetailView';
 import { LocationDetailViewProps } from './types';
 import { MessageControl } from '../../controls/MessageControl';
+import { LoadingIndicator } from '../../components/LoadingIndicator';
 
 export const DEFAULT_ERROR_MESSAGE = 'There was an error loading items.';
 const DEFAULT_PAGE_SIZE = 100;
@@ -67,6 +68,8 @@ export function LocationDetailView({
     },
   } = useDisplayText();
 
+  const loadingIndicator = <LoadingIndicator label={loadingIndicatorLabel} />;
+
   const {
     page,
     pageItems,
@@ -107,6 +110,7 @@ export function LocationDetailView({
           isDataRefreshDisabled: isLoading,
           isLoading,
           isSearchingSubfolders,
+          loadingIndicator,
           loadingIndicatorLabel,
           location,
           paginationData: {

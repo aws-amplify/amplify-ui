@@ -20,6 +20,7 @@ import { getActionViewTableData } from '../getActionViewTableData';
 import { useUploadView } from './useUploadView';
 import { UploadViewProps } from './types';
 import { Breadcrumb } from '../../../components/BreadcrumbNavigation';
+import { LoadingIndicator } from '../../../components/LoadingIndicator';
 
 export function UploadView({
   className,
@@ -33,6 +34,7 @@ export function UploadView({
     actionStartLabel,
     addFilesLabel,
     addFolderLabel,
+    loadingIndicatorLabel,
     statusDisplayCanceledLabel,
     statusDisplayCompletedLabel,
     statusDisplayFailedLabel,
@@ -56,6 +58,8 @@ export function UploadView({
     onSelectFiles,
     onToggleOverwrite,
   } = useUploadView(props);
+
+  const loadingIndicator = <LoadingIndicator label={loadingIndicatorLabel} />;
 
   const isActionStartDisabled =
     isProcessing || isProcessingComplete || statusCounts.TOTAL === 0;
@@ -81,6 +85,7 @@ export function UploadView({
           isAddFolderDisabled,
           isOverwriteToggleDisabled: isProcessing || isProcessingComplete,
           isOverwritingEnabled,
+          loadingIndicator,
           overwriteToggleLabel,
           statusCounts,
           statusDisplayCanceledLabel,

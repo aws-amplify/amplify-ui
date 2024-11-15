@@ -13,6 +13,7 @@ import { useCreateFolderView } from './useCreateFolderView';
 import { isValidFolderName } from './utils';
 import { STORAGE_BROWSER_BLOCK } from '../../../constants';
 import { ViewElement } from '../../../context/elements';
+import { LoadingIndicator } from '../../../components/LoadingIndicator';
 
 export function CreateFolderView({
   className,
@@ -26,6 +27,7 @@ export function CreateFolderView({
       folderNamePlaceholder,
       getActionCompleteMessage,
       getValidationMessage,
+      loadingIndicatorLabel,
       title,
     },
   } = useDisplayText();
@@ -40,6 +42,8 @@ export function CreateFolderView({
     onFolderNameChange,
     statusCounts,
   } = useCreateFolderView(props);
+
+  const loadingIndicator = <LoadingIndicator label={loadingIndicatorLabel} />;
 
   const [validationMessage, setValidationMessage] = React.useState<
     string | undefined
@@ -70,6 +74,7 @@ export function CreateFolderView({
           folderNameLabel,
           folderNamePlaceholder,
           folderNameValidationMessage: validationMessage,
+          loadingIndicator,
           actionStartLabel,
           isActionStartDisabled,
           isActionExitDisabled: isProcessing,

@@ -14,6 +14,7 @@ import { resolveClassName } from '../../utils';
 import { getActionViewTableData } from '../getActionViewTableData';
 import { useDeleteView } from './useDeleteView';
 import { DeleteViewProps } from './types';
+import { LoadingIndicator } from '../../../components/LoadingIndicator';
 
 export function DeleteView({
   className,
@@ -24,6 +25,7 @@ export function DeleteView({
     actionCancelLabel,
     actionExitLabel,
     actionStartLabel,
+    loadingIndicatorLabel,
     title,
     statusDisplayCanceledLabel,
     statusDisplayCompletedLabel,
@@ -51,6 +53,8 @@ export function DeleteView({
     onTaskRemove,
   });
 
+  const loadingIndicator = <LoadingIndicator label={loadingIndicatorLabel} />;
+
   return (
     <div className={resolveClassName(STORAGE_BROWSER_BLOCK, className)}>
       <ControlsContextProvider
@@ -61,6 +65,7 @@ export function DeleteView({
           isActionCancelDisabled: !isProcessing || isProcessingComplete,
           isActionExitDisabled: isProcessing,
           isActionStartDisabled: isProcessing || isProcessingComplete,
+          loadingIndicator,
           statusDisplayCanceledLabel,
           statusDisplayCompletedLabel,
           statusDisplayFailedLabel,
