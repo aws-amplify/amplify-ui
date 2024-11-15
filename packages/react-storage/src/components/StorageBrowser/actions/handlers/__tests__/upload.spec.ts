@@ -6,6 +6,7 @@ import {
   uploadHandler,
   UploadHandlerInput,
   UNDEFINED_CALLBACKS,
+  UPLOAD_SIZE_LIMIT,
 } from '../upload';
 
 const isCancelErrorSpy = jest.spyOn(StorageModule, 'isCancelError');
@@ -231,6 +232,21 @@ describe('uploadHandler', () => {
     expect(await result).toStrictEqual({
       message: 'Failed!',
       status: 'OVERWRITE_PREVENTED',
+    });
+  });
+
+  it('throws at file over size limit', async () => {
+    const mockBigFile: File = {
+      ...file,
+      size: UPLOAD_SIZE_LIMIT + 1,
+    };
+    const { result } = uploadHandler({
+      ...baseInput,
+      data: { key: mockBigFile.name, id: 'hi!', file: mockBigFile },
+    });
+    expect(await result).toStrictEqual({
+      message: 'File size exceeds the limit of 160 GB',
+      status: 'FAILED',
     });
   });
 });
