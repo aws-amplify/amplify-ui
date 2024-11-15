@@ -83,6 +83,9 @@ export interface DefaultActionViewDisplayText<T extends TaskData = TaskData> {
     counts?: StatusCounts;
     tasks?: Tasks<T>;
   }) => { content?: string; type?: MessageType } | undefined;
+  getInvalidFilesMessage: (data?: {
+    files?: { name: string }[];
+  }) => { content?: string; type?: MessageType } | undefined;
   statusDisplayCanceledLabel: string;
   statusDisplayCompletedLabel: string;
   statusDisplayFailedLabel: string;
