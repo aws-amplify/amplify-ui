@@ -29,53 +29,97 @@ jobs:
       fail-fast: false
       matrix:
         framework: [react-native]
-        framework-version: [
-            { formatted: latest, value: latest },
-            # { formatted: 074, value: 0.74 },
-            # { formatted: 073, value: 0.73 },
-            # { formatted: 072, value: 0.72 },
-            # { formatted: 071, value: 0.71 },
+        framework-version:
+          [
+            # uncomment to enable
+            # { formatted: latest, value: latest },
+            { formatted: 075, value: 0.75 },
+            { formatted: 074, value: 0.74 },
+            { formatted: 073, value: 0.73 },
+            { formatted: 072, value: 0.72 },
+            { formatted: 071, value: 0.71 },
           ]
         build-tool: [cli, expo]
         build-tool-version: [latest]
         pkg-manager: [npm]
         node-version: [20]
+        # uncomment to enable
         # platform: [ios, android]
         platform: [android]
         logfile: [test.log]
-        # include:
-        #   - framework: react-native
-        #     framework-version: { formatted: 070, value: "0.70" }
-        #     build-tool: cli
-        #     build-tool-version: 9
-        #     platform: android
-        #     pkg-manager: npm
-        #     node-version: 20
-        #     logfile: test.log
-        #   - framework: react-native
-        #     framework-version: { formatted: 070, value: "0.70" }
-        #     build-tool: expo
-        #     build-tool-version: latest
-        #     platform: android
-        #     pkg-manager: npm
-        #     node-version: 20
-        #     logfile: test.log
-        # - framework: react-native
-        #   framework-version: { formatted: 070, value: "0.70" }
-        #   build-tool: cli
-        #   build-tool-version: latest
-        #   platform: ios
-        #   pkg-manager: npm
-        #   node-version: 20
-        #   logfile: test.log
         exclude:
           - build-tool: expo
             platform: ios
+          - build-tool: expo
+            platform: android
+            framework-version: { formatted: '075', value: '0.75' }
+          - build-tool: expo
+            platform: android
+            framework-version: { formatted: '074', value: '0.74' }
+          - build-tool: expo
+            platform: android
+            framework-version: { formatted: '073', value: '0.73' }
+          - build-tool: expo
+            platform: android
+            framework-version: { formatted: '072', value: '0.72' }
+          - build-tool: expo
+            platform: android
+            framework-version: { formatted: '071', value: '0.71' }
+        include:
+          # Expo makes you specify a version of the SDK that supports that a particular version of React Native 
+          # https://stackoverflow.com/questions/63463373/create-an-expo-project-with-a-specific-version 
+          - framework: react-native
+            framework-version: { formatted: 070, value: '0.70' }
+            build-tool: expo
+            build-tool-version: 47
+            platform: android
+            pkg-manager: npm
+            node-version: 20
+            logfile: test.log
+          - framework: react-native
+            framework-version: { formatted: 071, value: '0.71' }
+            build-tool: expo
+            build-tool-version: 48
+            platform: android
+            pkg-manager: npm
+            node-version: 20
+            logfile: test.log
+          - framework: react-native
+            framework-version: { formatted: 072, value: '0.72' }
+            build-tool: expo
+            build-tool-version: 49
+            platform: android
+            pkg-manager: npm
+            node-version: 20
+            logfile: test.log
+          - framework: react-native
+            framework-version: { formatted: 073, value: '0.73' }
+            build-tool: expo
+            build-tool-version: 50
+            platform: android
+            pkg-manager: npm
+            node-version: 20
+            logfile: test.log
+          - framework: react-native
+            framework-version: { formatted: 074, value: '0.74' }
+            build-tool: expo
+            build-tool-version: 51
+            platform: android
+            pkg-manager: npm
+            node-version: 20
+            logfile: test.log
+          - framework: react-native
+            framework-version: { formatted: 075, value: '0.75' }
+            build-tool: expo
+            build-tool-version: 51
+            platform: android
+            pkg-manager: npm
+            node-version: 20
+            logfile: test.log
 
     env:
       MEGA_APP_NAME: rn${{ matrix.framework-version.formatted }}${{ matrix.build-tool }}${{ matrix.build-tool-version }}${{ matrix.platform }}ui${{ inputs.dist-tag }}
       EMULATOR_PORT: 5554
-
     steps:
       - name: Checkout Amplify UI
         uses: actions/checkout@b80ff79f1755d06ba70441c368a6fe801f5f3a62 # v4.1.3 https://github.com/actions/checkout/commit/cd7d8d697e10461458bc61a30d094dc601a8b017
