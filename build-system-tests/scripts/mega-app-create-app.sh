@@ -115,11 +115,11 @@ if [[ "$FRAMEWORK" == 'react-native' ]]; then
         echo "npm list react-native"
         npm list react-native
     elif [[ "$BUILD_TOOL" == "expo" ]]; then
-        echo "npx create-expo-app $MEGA_APP_NAME --template expo-template-blank-typescript"
-        npx create-expo-app $MEGA_APP_NAME --template expo-template-blank-typescript
+        echo "npx create-expo-app $MEGA_APP_NAME --template expo-template-blank-typescript@$BUILD_TOOL_VERSION"
+        npx create-expo-app $MEGA_APP_NAME --template expo-template-blank-typescript@$BUILD_TOOL_VERSION
         echo "cd $MEGA_APP_NAME"
         cd $MEGA_APP_NAME
-        echo "npm list expo" # Log the package.json to check the expo version should be later than 48.0.19
+        echo "npm list expo" # Log the package.json to check the expo version
         npm list expo
         echo "npx expo-env-info"
         npx expo-env-info

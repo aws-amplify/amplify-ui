@@ -1,3 +1,4 @@
+export { AIContextContext, AIContextProvider } from './AIContextContext';
 export { ActionsContext, ActionsProvider } from './ActionsContext';
 export { AvatarsContext, AvatarsProvider } from './AvatarsContext';
 export {
@@ -44,4 +45,8 @@ export {
   WelcomeMessageContext,
   WelcomeMessageProvider,
 } from './WelcomeMessageContext';
+export {
+  FallbackComponentContext,
+  FallbackComponentProvider,
+} from './FallbackComponentContext';
 export * from './elements';

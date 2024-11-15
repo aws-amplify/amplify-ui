@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
-import { ConversationInputContext } from '../../context';
+import { AIContextContext, ConversationInputContext } from '../../context';
 import { AIConversationElements } from '../../context/elements';
 import { AttachFileControl } from './AttachFileControl';
 import { MessagesContext } from '../../context';
@@ -16,6 +16,7 @@ import { ControlsContext } from '../../context/ControlsContext';
 import { getImageTypeFromMimeType } from '../../utils';
 import { LoadingContext } from '../../context/LoadingContext';
 import { AttachmentContext } from '../../context/AttachmentContext';
+import { isFunction } from '@aws-amplify/ui';
 
 const {
   Button,
@@ -150,9 +151,11 @@ export const FormControl: FormControl = () => {
   const { input, setInput } = React.useContext(ConversationInputContext);
   const handleSendMessage = React.useContext(SendMessageContext);
   const allowAttachments = React.useContext(AttachmentContext);
-  const ref = React.useRef<HTMLFormElement | null>(null);
   const responseComponents = React.useContext(ResponseComponentsContext);
+  const aiContext = React.useContext(AIContextContext);
+  const ref = React.useRef<HTMLFormElement | null>(null);
   const controls = React.useContext(ControlsContext);
+  const [composing, setComposing] = React.useState(false);
 
   const submitMessage = async () => {
     ref.current?.reset();
@@ -180,6 +183,7 @@ export const FormControl: FormControl = () => {
     if (handleSendMessage) {
       handleSendMessage({
         content: submittedContent,
+        aiContext: isFunction(aiContext) ? aiContext() : undefined,
         toolConfiguration:
           convertResponseComponentsToToolConfiguration(responseComponents),
       });
@@ -197,7 +201,7 @@ export const FormControl: FormControl = () => {
   ) => {
     const { key, shiftKey } = event;
 
-    if (key === 'Enter' && !shiftKey) {
+    if (key === 'Enter' && !shiftKey && !composing) {
       event.preventDefault();
 
       const hasInput =
@@ -231,7 +235,11 @@ export const FormControl: FormControl = () => {
         <VisuallyHidden>
           <Label />
         </VisuallyHidden>
-        <TextInput onKeyDown={handleOnKeyDown} />
+        <TextInput
+          onKeyDown={handleOnKeyDown}
+          onCompositionStart={() => setComposing(true)}
+          onCompositionEnd={() => setComposing(false)}
+        />
         <AttachmentListControl />
       </InputContainer>
       <SendButton>
