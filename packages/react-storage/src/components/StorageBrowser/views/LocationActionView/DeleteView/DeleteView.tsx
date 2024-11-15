@@ -83,7 +83,9 @@ export function DeleteView({
           <StatusDisplayControl />
         </ViewElement>
         <ViewElement className={`${STORAGE_BROWSER_BLOCK}__footer`}>
-          <MessageControl />
+          <ViewElement className={`${STORAGE_BROWSER_BLOCK}__message`}>
+            <MessageControl />
+          </ViewElement>
           <ViewElement className={`${STORAGE_BROWSER_BLOCK}__buttons`}>
             <ActionCancelControl />
             <ActionStartControl />

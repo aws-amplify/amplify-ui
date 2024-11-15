@@ -7,10 +7,7 @@ import * as AmplifyReactCore from '@aws-amplify/ui-react-core';
 import * as StoreModule from '../../../providers/store';
 import * as ConfigModule from '../../../providers/configuration';
 import { LocationDetailView } from '../LocationDetailView';
-import {
-  DEFAULT_LIST_OPTIONS,
-  DEFAULT_ERROR_MESSAGE,
-} from '../LocationDetailView';
+import { DEFAULT_LIST_OPTIONS } from '../LocationDetailView';
 import {
   ActionInputConfig,
   ListLocationItemsHandlerOutput,
@@ -18,6 +15,7 @@ import {
 import { useProcessTasks } from '../../../tasks/useProcessTasks';
 import { INITIAL_STATUS_COUNTS } from '../../../tasks';
 import { useDisplayText } from '../../../displayText';
+import { DEFAULT_ERROR_MESSAGE } from '../../../displayText/libraries/en/locationDetailView';
 
 jest.mock('../Controls/ActionsMenu');
 jest.mock('../../../displayText', () => {
@@ -168,7 +166,7 @@ describe('LocationDetailView', () => {
     expect(loadingIndicator).toBeInTheDocument();
   });
 
-  it('renders correct error state', () => {
+  it('invokes getListItemsResultMessage() with `errorMessage` param', () => {
     const errorMessage = 'A network error occurred.';
 
     mockListItemsAction({
@@ -179,24 +177,12 @@ describe('LocationDetailView', () => {
       nextToken: 'some-token',
     });
 
-    const { getByRole, queryByTestId } = render(<LocationDetailView />);
-
-    const message = getByRole('alert');
-    expect(message).toBeInTheDocument();
-
-    // table doesn't render
-    const table = queryByTestId('LOCATION_DETAIL_VIEW_TABLE');
-    expect(table).not.toBeInTheDocument();
-  });
-
-  it('invokes getListItemsResultMessage() with `errorMessage` param that has `DEFAULT_ERROR_MESSAGE` as the fallback', () => {
-    mockListItemsAction({ result: [], hasError: true, message: undefined });
-
     render(<LocationDetailView />);
 
     expect(mockGetListItemsResultMessage).toHaveBeenCalledWith({
       items: expect.any(Array),
-      errorMessage: DEFAULT_ERROR_MESSAGE,
+      hasError: true,
+      errorMessage,
     });
   });
 

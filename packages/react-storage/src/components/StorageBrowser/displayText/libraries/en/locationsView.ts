@@ -8,18 +8,26 @@ const PERMISSION_DISPLAY_TEXT: Record<Permission, string> = {
   READWRITE: 'Read/Write',
 };
 
+export const DEFAULT_ERROR_MESSAGE = 'There was an error loading locations.';
+
 export const DEFAULT_LOCATIONS_VIEW_DISPLAY_TEXT: DefaultLocationsViewDisplayText =
   {
     ...DEFAULT_LIST_VIEW_DISPLAY_TEXT,
     title: 'Home',
     searchPlaceholder: 'Filter folders and files',
     getListLocationsResultMessage: (data) => {
-      const { locations, hasExhaustedSearch, errorMessage, query } = data ?? {};
+      const {
+        locations,
+        query,
+        hasExhaustedSearch,
+        hasError = false,
+        errorMessage,
+      } = data ?? {};
 
-      if (errorMessage !== undefined) {
+      if (hasError) {
         return {
           type: 'error',
-          content: errorMessage,
+          content: errorMessage ?? DEFAULT_ERROR_MESSAGE,
         };
       }
 
@@ -33,7 +41,7 @@ export const DEFAULT_LOCATIONS_VIEW_DISPLAY_TEXT: DefaultLocationsViewDisplayTex
       if (query && hasExhaustedSearch) {
         return {
           type: 'warning',
-          content: 'No more folders or files found.',
+          content: `No more folders or files found by ${query}.`,
         };
       }
 

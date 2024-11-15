@@ -70,7 +70,9 @@ export function CopyView({
           {!(isProcessing || isProcessingComplete) ? null : (
             <StatusDisplayControl />
           )}
-          <MessageControl />
+          <ViewElement className={`${STORAGE_BROWSER_BLOCK}__message`}>
+            <MessageControl />
+          </ViewElement>
           <ViewElement className={`${STORAGE_BROWSER_BLOCK}__buttons`}>
             <ActionCancelControl />
             <ActionStartControl />

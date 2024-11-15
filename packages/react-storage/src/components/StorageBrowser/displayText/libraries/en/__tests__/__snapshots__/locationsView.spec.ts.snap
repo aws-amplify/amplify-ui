@@ -30,7 +30,7 @@ exports[`LocationsView display text \`getListLocationsResultMessage\` returns th
 
 exports[`LocationsView display text \`getListLocationsResultMessage\` returns the expected values in the search limit exhausted scenario 1`] = `
 {
-  "content": "No more folders or files found.",
+  "content": "No more folders or files found by something to look for.",
   "type": "warning",
 }
 `;

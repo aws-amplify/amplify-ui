@@ -21,6 +21,13 @@ exports[`LocationDetailView display text \`getListResultsMessage\` returns the e
 }
 `;
 
+exports[`LocationDetailView display text \`getListResultsMessage\` returns the expected values in the search exhausted scenario 1`] = `
+{
+  "content": "No more folders or files found by something to look for.",
+  "type": "warning",
+}
+`;
+
 exports[`LocationDetailView display text \`getListResultsMessage\` returns the expected values in the search failed scenario 1`] = `
 {
   "content": "Network got confused",

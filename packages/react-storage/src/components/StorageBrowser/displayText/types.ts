@@ -23,6 +23,7 @@ export interface DefaultListViewDisplayText {
 }
 
 interface ListMessageData {
+  hasError?: boolean;
   errorMessage?: string;
   hasExhaustedSearch?: boolean;
   query?: string;
@@ -78,7 +79,7 @@ export interface DefaultActionViewDisplayText<T extends TaskData = TaskData> {
   actionStartLabel: string;
   getActionCompleteMessage: (data?: {
     counts?: StatusCounts;
-    failedTasks?: Tasks<T>;
+    tasks?: Tasks<T>;
   }) => { content?: string; type?: MessageType } | undefined;
   statusDisplayCanceledLabel: string;
   statusDisplayCompletedLabel: string;

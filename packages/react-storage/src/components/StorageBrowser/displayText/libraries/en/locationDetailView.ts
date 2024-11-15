@@ -1,16 +1,24 @@
 import { DEFAULT_LIST_VIEW_DISPLAY_TEXT } from './shared';
 import { DefaultLocationDetailViewDisplayText } from '../../types';
 
+export const DEFAULT_ERROR_MESSAGE = 'There was an error loading items.';
+
 export const DEFAULT_LOCATION_DETAIL_VIEW_DISPLAY_TEXT: DefaultLocationDetailViewDisplayText =
   {
     ...DEFAULT_LIST_VIEW_DISPLAY_TEXT,
     getListItemsResultMessage: (data) => {
-      const { items, query, hasExhaustedSearch, errorMessage } = data ?? {};
+      const {
+        items,
+        query,
+        hasExhaustedSearch,
+        hasError = false,
+        errorMessage,
+      } = data ?? {};
 
-      if (errorMessage !== undefined) {
+      if (hasError) {
         return {
           type: 'error',
-          content: errorMessage,
+          content: errorMessage ?? DEFAULT_ERROR_MESSAGE,
         };
       }
 
@@ -24,9 +32,13 @@ export const DEFAULT_LOCATION_DETAIL_VIEW_DISPLAY_TEXT: DefaultLocationDetailVie
       if (query && hasExhaustedSearch) {
         return {
           type: 'warning',
-          content: 'No more folders or files found.',
+          content: `No more folders or files found by ${query}.`,
         };
       }
+
+      // TODO: add more cases as needed
+
+      return undefined;
     },
     searchExhaustedMessage: 'Showing results for up to the first 10,000 items',
     searchSubfoldersToggleLabel: 'Include subfolders',

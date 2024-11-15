@@ -9,7 +9,6 @@ import { SearchControl } from '../../controls/SearchControl';
 import { TitleControl } from '../../controls/TitleControl';
 import { ControlsContextProvider } from '../../controls/context';
 import { useDisplayText } from '../../displayText';
-import { Controls } from '../Controls';
 import {
   STORAGE_BROWSER_BLOCK,
   STORAGE_BROWSER_BLOCK_TO_BE_UPDATED,
@@ -20,8 +19,6 @@ import { LocationViewHeaders } from './getLocationsViewTableData/types';
 import { useLocationsView } from './useLocationsView';
 import { LocationsViewProps } from './types';
 import { MessageControl } from '../../controls/MessageControl';
-
-export const DEFAULT_ERROR_MESSAGE = 'There was an error loading locations.';
 
 const getHeaders = ({
   hasObjectLocations,
@@ -102,11 +99,12 @@ export function LocationsView({
     onSearchClear,
   } = useLocationsView(props);
 
-  // TODO: add hasExhaustedSearch param
+  // TODO: add hasExhaustedSearch + query param
   const messageControlContent = hasError
     ? getListLocationsResultMessage({
         locations: pageItems,
-        errorMessage: message ?? DEFAULT_ERROR_MESSAGE,
+        hasError,
+        errorMessage: message,
       })
     : getListLocationsResultMessage({
         locations: pageItems,
@@ -171,7 +169,9 @@ export function LocationsView({
         </ViewElement>
         <LoadingIndicatorControl />
         {hasError ? null : <DataTableControl />}
-        <MessageControl />
+        <ViewElement className={`${STORAGE_BROWSER_BLOCK}__message`}>
+          <MessageControl />
+        </ViewElement>
       </div>
     </ControlsContextProvider>
   );

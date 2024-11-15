@@ -6,11 +6,12 @@ import * as ActionsModule from '../../../do-not-import-from-here/actions';
 import * as ConfigModule from '../../../providers/configuration';
 import * as StoreModule from '../../../providers/store';
 
-import { DEFAULT_ERROR_MESSAGE, LocationsView } from '../LocationsView';
+import { LocationsView } from '../LocationsView';
 import { DEFAULT_LIST_OPTIONS } from '../useLocationsView';
 import { ActionInputConfig, LocationData } from '../../../actions';
 import { DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT } from '../../../displayText/libraries';
 import { useDisplayText } from '../../../displayText';
+import { DEFAULT_ERROR_MESSAGE } from '../../../displayText/libraries/en/locationsView';
 
 jest.mock('../../../displayText', () => {
   const mockGetListLocationsResultMessage = jest.fn();
@@ -150,6 +151,7 @@ describe('LocationsListView', () => {
 
     expect(mockGetListLocationsResultMessage).toHaveBeenCalledWith({
       locations: expect.any(Array),
+      hasError: true,
       errorMessage,
     });
 
@@ -162,24 +164,6 @@ describe('LocationsListView', () => {
     expect(nextPage).toBeDisabled();
     const prevPage = screen.getByLabelText('Go to previous page');
     expect(prevPage).toBeDisabled();
-  });
-
-  it('invokes getListLocationsResultMessage() with `errorMessage` param that has `DEFAULT_ERROR_MESSAGE` as the fallback', () => {
-    useLocationsDataSpy.mockReturnValue([
-      {
-        data: { result: results, nextToken: undefined },
-        hasError: true,
-        isLoading: false,
-        message: undefined,
-      },
-      handleListLocations,
-    ]);
-
-    render(<LocationsView />);
-    expect(mockGetListLocationsResultMessage).toHaveBeenCalledWith({
-      locations: expect.any(Array),
-      errorMessage: DEFAULT_ERROR_MESSAGE,
-    });
   });
 
   it('renders a Locations View table', () => {

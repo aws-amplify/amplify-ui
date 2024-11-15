@@ -11,7 +11,6 @@ import { SearchSubfoldersToggleControl } from '../../controls/SearchSubfoldersTo
 import { TitleControl } from '../../controls/TitleControl';
 import { ControlsContextProvider } from '../../controls/context';
 import { useDisplayText } from '../../displayText';
-import { Controls, MessageControl } from '../Controls';
 import {
   STORAGE_BROWSER_BLOCK,
   STORAGE_BROWSER_BLOCK_TO_BE_UPDATED,
@@ -21,8 +20,8 @@ import { ActionsMenuControl } from './Controls/ActionsMenu';
 import { getLocationDetailViewTableData } from './getLocationDetailViewTableData';
 import { useLocationDetailView } from './useLocationDetailView';
 import { LocationDetailViewProps } from './types';
+import { MessageControl } from '../../controls/MessageControl';
 
-export const DEFAULT_ERROR_MESSAGE = 'There was an error loading items.';
 const DEFAULT_PAGE_SIZE = 100;
 export const DEFAULT_LIST_OPTIONS = {
   pageSize: DEFAULT_PAGE_SIZE,
@@ -73,10 +72,12 @@ export function LocationDetailView({
     onToggleSearchSubfolders,
   } = useLocationDetailView({ onNavigate: onNavigateProp, onExit });
 
+  // TODO: add hasExhaustedSearch + query param
   const messageControlContent = hasError
     ? getListItemsResultMessage({
         items: pageItems,
-        errorMessage: message ?? DEFAULT_ERROR_MESSAGE,
+        hasError,
+        errorMessage: message,
       })
     : getListItemsResultMessage({
         items: pageItems,
@@ -156,7 +157,9 @@ export function LocationDetailView({
             <DataTableControl />
           </DropZoneControl>
         )}
-        <MessageControl />
+        <ViewElement className={`${STORAGE_BROWSER_BLOCK}__message`}>
+          <MessageControl />
+        </ViewElement>
       </ControlsContextProvider>
     </div>
   );
