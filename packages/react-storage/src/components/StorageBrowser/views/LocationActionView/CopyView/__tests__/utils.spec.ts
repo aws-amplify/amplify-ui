@@ -34,7 +34,7 @@ describe('getDestinationPickerTableData', () => {
     const onSelect = jest.fn();
     const output = getDestinationPickerTableData({
       onSelect,
-      folders: [{ key: 'key', id: 'id' }],
+      folders: [{ key: 'folder1/key', id: 'id' }],
     });
 
     expect(output).toStrictEqual({
@@ -47,8 +47,8 @@ describe('getDestinationPickerTableData', () => {
             {
               content: {
                 icon: 'folder',
-                ariaLabel: 'folder',
-                label: '',
+                ariaLabel: 'folder1',
+                label: 'folder1',
                 onClick: expect.any(Function),
               },
               key: 'id',

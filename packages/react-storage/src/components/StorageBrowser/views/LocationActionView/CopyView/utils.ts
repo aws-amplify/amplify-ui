@@ -44,7 +44,7 @@ export const getDestinationPickerTableData = ({
               key: item.id,
               type: 'button',
               content: {
-                ariaLabel: `folder${name}`,
+                ariaLabel: name,
                 label: name,
                 icon: 'folder',
                 onClick: () => {
