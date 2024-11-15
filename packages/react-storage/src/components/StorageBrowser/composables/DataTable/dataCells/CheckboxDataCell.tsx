@@ -8,13 +8,14 @@ export interface CheckboxDataCellProps {
     checked?: boolean;
     label?: string;
     onSelect?: () => void;
+    id?: string;
   };
 }
 
 export const CheckboxDataCell = ({
   content,
 }: CheckboxDataCellProps): React.JSX.Element => {
-  const { checked = false, label, onSelect } = content;
+  const { checked = false, label, onSelect, id } = content;
   return (
     <ViewElement className={`${CLASS_BASE}__table-checkbox-data-cell`}>
       <Checkbox
@@ -22,6 +23,7 @@ export const CheckboxDataCell = ({
         labelHidden
         labelText={label}
         onSelect={onSelect}
+        id={id}
       />
     </ViewElement>
   );

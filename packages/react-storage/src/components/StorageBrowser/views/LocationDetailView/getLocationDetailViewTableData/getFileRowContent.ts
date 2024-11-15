@@ -34,6 +34,7 @@ export const getFileRowContent = ({
           content: {
             checked: isSelected,
             label: `${displayText.locationDetailSelectFile} ${rowKey}`,
+            id: key,
             onSelect,
           },
         };
