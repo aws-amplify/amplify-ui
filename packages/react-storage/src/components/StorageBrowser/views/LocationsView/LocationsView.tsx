@@ -18,7 +18,7 @@ import { getLocationsViewTableData } from './getLocationsViewTableData';
 import { LocationViewHeaders } from './getLocationsViewTableData/types';
 import { useLocationsView } from './useLocationsView';
 import { LocationsViewProps } from './types';
-import { LoadingIndicator } from '../../components/LoadingIndicator';
+import { LoadingIndicator } from '../../composables/LoadingIndicator';
 
 export const DEFAULT_ERROR_MESSAGE = 'There was an error loading locations.';
 

@@ -20,7 +20,7 @@ import { getActionViewTableData } from '../getActionViewTableData';
 import { useUploadView } from './useUploadView';
 import { UploadViewProps } from './types';
 import { Breadcrumb } from '../../../components/BreadcrumbNavigation';
-import { LoadingIndicator } from '../../../components/LoadingIndicator';
+import { LoadingIndicator } from '../../../composables/LoadingIndicator';
 
 export function UploadView({
   className,

@@ -14,7 +14,7 @@ import { resolveClassName } from '../../utils';
 import { getActionViewTableData } from '../getActionViewTableData';
 import { useDeleteView } from './useDeleteView';
 import { DeleteViewProps } from './types';
-import { LoadingIndicator } from '../../../components/LoadingIndicator';
+import { LoadingIndicator } from '../../../composables/LoadingIndicator';
 
 export function DeleteView({
   className,

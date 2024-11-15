@@ -21,7 +21,7 @@ import { getLocationDetailViewTableData } from './getLocationDetailViewTableData
 import { useLocationDetailView } from './useLocationDetailView';
 import { LocationDetailViewProps } from './types';
 import { MessageControl } from '../../controls/MessageControl';
-import { LoadingIndicator } from '../../components/LoadingIndicator';
+import { LoadingIndicator } from '../../composables/LoadingIndicator';
 
 export const DEFAULT_ERROR_MESSAGE = 'There was an error loading items.';
 const DEFAULT_PAGE_SIZE = 100;

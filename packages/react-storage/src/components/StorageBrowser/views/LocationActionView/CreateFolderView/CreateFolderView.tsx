@@ -13,7 +13,7 @@ import { useCreateFolderView } from './useCreateFolderView';
 import { isValidFolderName } from './utils';
 import { STORAGE_BROWSER_BLOCK } from '../../../constants';
 import { ViewElement } from '../../../context/elements';
-import { LoadingIndicator } from '../../../components/LoadingIndicator';
+import { LoadingIndicator } from '../../../composables/LoadingIndicator';
 
 export function CreateFolderView({
   className,
