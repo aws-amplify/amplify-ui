@@ -3,16 +3,6 @@ import {
   DefaultListViewDisplayText,
 } from '../../types';
 
-// export const TASK_STATUS_DISPLAY_LABELS = {
-//   CANCELED: 'Canceled',
-//   COMPLETE: 'Completed',
-//   FAILED: 'Failed',
-//   OVERWRITE_PREVENTED: 'Overwrite Prevented',
-//   INITIAL: 'Not Started',
-//   PENDING: 'In Progress',
-//   QUEUED: 'Queued',
-// };
-
 export const DEFAULT_ACTION_VIEW_DISPLAY_TEXT: Omit<
   DefaultActionViewDisplayText,
   'actionStartLabel' | 'getActionCompleteMessage' | 'title'
