@@ -17,12 +17,12 @@ export interface DefaultActionViewDisplayText {
   statusDisplayFailedLabel: string;
   statusDisplayQueuedLabel: string;
   statusDisplayTotalLabel: string;
-  tableStatusDisplayCanceledLabel: 'Canceled';
-  tableStatusDisplayCompletedLabel: 'Completed';
-  tableStatusDisplayFailedLabel: 'Failed';
-  tableStatusDisplayInProgressLabel: 'In progress';
-  tableStatusDisplayQueuedLabel: 'In queue';
-  tableStatusDisplayInitialLabel: 'Not started';
+  tableStatusCanceledLabel: 'Canceled';
+  tableStatusCompletedLabel: 'Completed';
+  tableStatusFailedLabel: 'Failed';
+  tableStatusInProgressLabel: 'In progress';
+  tableStatusQueuedLabel: 'In queue';
+  tableStatusInitialLabel: 'Not started';
   title: string;
   tableColumnCancelHeader: string;
   tableColumnStatusHeader: string;
@@ -101,13 +101,9 @@ export interface DefaultUploadViewDisplayText
   addFilesLabel: string;
   addFolderLabel: string;
   statusDisplayOverwritePreventedLabel: string;
-  tableStatusDisplayOverwritePreventedLabel: string;
+  tableStatusOverwritePreventedLabel: string;
   overwriteExistingLabel: string;
 }
-
-export type AllActionViewDisplayText = DefaultDeleteViewDisplayText &
-  DefaultCopyViewDisplayText &
-  DefaultUploadViewDisplayText;
 
 export interface DefaultStorageBrowserDisplayText {
   CopyView: DefaultCopyViewDisplayText;

@@ -17,12 +17,12 @@ export const DEFAULT_ACTION_VIEW_DISPLAY_TEXT: Omit<
   statusDisplayTotalLabel: 'Total',
   statusDisplayQueuedLabel: 'Not started',
   // table task display
-  tableStatusDisplayCanceledLabel: 'Canceled',
-  tableStatusDisplayCompletedLabel: 'Completed',
-  tableStatusDisplayFailedLabel: 'Failed',
-  tableStatusDisplayInProgressLabel: 'In progress',
-  tableStatusDisplayQueuedLabel: 'In queue',
-  tableStatusDisplayInitialLabel: 'Not started',
+  tableStatusCanceledLabel: 'Canceled',
+  tableStatusCompletedLabel: 'Completed',
+  tableStatusFailedLabel: 'Failed',
+  tableStatusInProgressLabel: 'In progress',
+  tableStatusQueuedLabel: 'In queue',
+  tableStatusInitialLabel: 'Not started',
   // empty by default
   tableColumnCancelHeader: '',
   tableColumnStatusHeader: 'Status',

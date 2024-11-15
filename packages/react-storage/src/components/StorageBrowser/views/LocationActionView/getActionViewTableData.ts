@@ -14,35 +14,35 @@ import { DefaultActionViewDisplayText } from '../../displayText/types';
 const getTaskStatusDisplayLabel = ({
   status,
   displayText: {
-    tableStatusDisplayInProgressLabel,
-    tableStatusDisplayCanceledLabel,
-    tableStatusDisplayCompletedLabel,
-    tableStatusDisplayFailedLabel,
-    tableStatusDisplayOverwritePreventedLabel,
-    tableStatusDisplayQueuedLabel,
-    tableStatusDisplayInitialLabel,
+    tableStatusInProgressLabel,
+    tableStatusCanceledLabel,
+    tableStatusCompletedLabel,
+    tableStatusFailedLabel,
+    tableStatusOverwritePreventedLabel,
+    tableStatusQueuedLabel,
+    tableStatusInitialLabel,
   },
 }: {
   status: TaskStatus;
   displayText: DefaultActionViewDisplayText & {
-    tableStatusDisplayOverwritePreventedLabel?: string;
+    tableStatusOverwritePreventedLabel?: string;
   };
 }) => {
   switch (status) {
     case 'PENDING':
-      return tableStatusDisplayInProgressLabel;
+      return tableStatusInProgressLabel;
     case 'CANCELED':
-      return tableStatusDisplayCanceledLabel;
+      return tableStatusCanceledLabel;
     case 'COMPLETE':
-      return tableStatusDisplayCompletedLabel;
+      return tableStatusCompletedLabel;
     case 'FAILED':
-      return tableStatusDisplayFailedLabel;
+      return tableStatusFailedLabel;
     case 'QUEUED':
-      return tableStatusDisplayQueuedLabel;
+      return tableStatusQueuedLabel;
     case 'OVERWRITE_PREVENTED':
-      return tableStatusDisplayOverwritePreventedLabel;
+      return tableStatusOverwritePreventedLabel;
     default:
-      return tableStatusDisplayInitialLabel;
+      return tableStatusInitialLabel;
   }
 };
 
@@ -67,7 +67,7 @@ export const getActionViewTableData = <T extends TaskData = TaskData>({
   isProcessing: boolean;
   shouldDisplayProgress?: boolean;
   displayText: DefaultActionViewDisplayText & {
-    tableStatusDisplayOverwritePreventedLabel?: string;
+    tableStatusOverwritePreventedLabel?: string;
   };
   onTaskRemove?: (task: Task<T>) => void;
 }): DataTableProps => {
