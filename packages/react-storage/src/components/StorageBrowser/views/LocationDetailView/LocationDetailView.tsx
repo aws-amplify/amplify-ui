@@ -17,10 +17,10 @@ import {
   STORAGE_BROWSER_BLOCK_TO_BE_UPDATED,
 } from '../../constants';
 import { resolveClassName } from '../utils';
-import { ActionsMenuControl } from './Controls/ActionsMenu';
 import { getLocationDetailViewTableData } from './getLocationDetailViewTableData';
 import { useLocationDetailView } from './useLocationDetailView';
 import { LocationDetailViewProps } from './types';
+import { ActionsListControl } from '../../controls/ActionsListControl';
 
 export const DEFAULT_ERROR_MESSAGE = 'There was an error loading items.';
 const DEFAULT_PAGE_SIZE = 100;
@@ -49,9 +49,7 @@ const LocationDetailEmptyMessage = ({ show }: { show?: boolean }) => {
 
 export function LocationDetailView({
   className,
-  onActionSelect,
-  onExit,
-  onNavigate: onNavigateProp,
+  ...props
 }: LocationDetailViewProps): React.JSX.Element {
   const {
     LocationDetailView: {
@@ -62,6 +60,7 @@ export function LocationDetailView({
   } = useDisplayText();
 
   const {
+    actions,
     page,
     pageItems,
     hasNextPage,
@@ -77,6 +76,7 @@ export function LocationDetailView({
     shouldShowEmptyMessage,
     searchPlaceholder,
     searchQuery,
+    onActionSelect,
     onDropFiles,
     onRefresh,
     onPaginate,
@@ -89,7 +89,7 @@ export function LocationDetailView({
     onSearchQueryChange,
     onSearchClear,
     onToggleSearchSubfolders,
-  } = useLocationDetailView({ onNavigate: onNavigateProp, onExit });
+  } = useLocationDetailView(props);
 
   return (
     <div
@@ -98,6 +98,8 @@ export function LocationDetailView({
     >
       <ControlsContextProvider
         data={{
+          actions,
+          isActionsListDisabled: isLoading,
           isDataRefreshDisabled: isLoading,
           isLoading,
           isSearchingSubfolders,
@@ -125,6 +127,7 @@ export function LocationDetailView({
           }),
           title: title(location),
         }}
+        onActionSelect={onActionSelect}
         onDropFiles={onDropFiles}
         onNavigate={onNavigate}
         onNavigateHome={onNavigateHome}
@@ -153,10 +156,7 @@ export function LocationDetailView({
           <DataRefreshControl
             className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__locations-detail-view-data-refresh`}
           />
-          <ActionsMenuControl
-            onActionSelect={onActionSelect}
-            disabled={isLoading}
-          />
+          <ActionsListControl />
         </ViewElement>
         <LocationDetailMessage show={hasError} message={message} />
         <LoadingIndicatorControl />

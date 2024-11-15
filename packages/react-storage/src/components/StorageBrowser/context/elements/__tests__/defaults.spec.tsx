@@ -9,8 +9,8 @@ const TEST_ELEMENTS = Object.entries(elementsDefault).filter(
 );
 
 const BUTTON_VARIANTS: [ButtonElementVariant, string[]][] = [
-  ['actions-menu-item', ['amplify-button--link']],
-  ['actions-menu-toggle', ['amplify-button--link']],
+  ['menu-item', ['amplify-button--link']],
+  ['menu-toggle', ['amplify-button--link']],
   ['action-submit', []],
   ['cancel', ['amplify-button--link', 'amplify-button--link--error']],
   ['download', ['amplify-button--link']],

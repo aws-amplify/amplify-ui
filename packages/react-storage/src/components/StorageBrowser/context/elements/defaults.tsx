@@ -35,7 +35,7 @@ import {
 function Button(props: ButtonElementProps): React.JSX.Element {
   const { disabled, variant } = props;
   switch (variant) {
-    case 'actions-menu-item':
+    case 'menu-item':
       return (
         <_Button
           {...props}
@@ -78,7 +78,7 @@ function Button(props: ButtonElementProps): React.JSX.Element {
       return (
         <_Button {...props} size="small" paddingInline="xs" variation="link" />
       );
-    case 'actions-menu-toggle':
+    case 'menu-toggle':
     case 'download':
     case 'refresh':
     case 'sort':
@@ -182,7 +182,7 @@ function Text(props: TextElementProps): React.JSX.Element {
 
 function View({ variant, ...props }: ViewElementProps): React.JSX.Element {
   switch (variant) {
-    case 'actions-menu-list':
+    case 'menu-list':
       return (
         <_View
           {...props}

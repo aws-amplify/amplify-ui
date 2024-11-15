@@ -30,8 +30,8 @@ export type PaginateVariant = `paginate-${'next' | 'current' | 'previous'}`;
 export type MessageVariant = 'info' | 'success' | 'error' | 'warning';
 
 export type ButtonElementVariant =
-  | 'actions-menu-item'
-  | 'actions-menu-toggle'
+  | 'menu-item'
+  | 'menu-toggle'
   | 'action-submit'
   | 'add-files'
   | 'add-folder'
@@ -103,7 +103,7 @@ export const OrderedListElement = defineBaseElement({
 
 export interface UnorderedListElementProps
   extends React.ComponentProps<typeof UnorderedListElement> {}
-export const UnorderedListElement = defineBaseElement({
+export const UnorderedListElement = defineBaseElement<'ul', 'role'>({
   type: 'ul',
   displayName: 'UnorderedList',
 });

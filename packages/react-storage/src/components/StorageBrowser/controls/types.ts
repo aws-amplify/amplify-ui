@@ -1,4 +1,5 @@
 import { LocationData } from '../actions';
+import { ActionsListItem } from '../composables/ActionsList';
 import { DataTableSortHeader, DataTableProps } from '../composables/DataTable';
 import { MessageType } from '../composables/Message';
 import { Composables } from '../composables/types';
@@ -40,6 +41,7 @@ interface PaginationData {
 
 export interface ControlsContext {
   data: {
+    actions?: ActionsListItem[];
     actionCancelLabel?: string;
     actionExitLabel?: string;
     actionStartLabel?: string;
@@ -50,12 +52,13 @@ export interface ControlsContext {
     folderNamePlaceholder?: string;
     folderNameValidationMessage?: React.ReactNode;
     isActionCancelDisabled?: boolean;
+    isActionExitDisabled?: boolean;
     isActionStartDisabled?: boolean;
+    isActionsListDisabled?: boolean;
     isAddFilesDisabled?: boolean;
     isAddFolderDisabled?: boolean;
     isOverwritingEnabled?: boolean;
     isDataRefreshDisabled?: boolean;
-    isActionExitDisabled?: boolean;
     isLoading?: boolean;
     isFolderNameDisabled?: boolean;
     isOverwriteToggleDisabled?: boolean;
@@ -75,6 +78,7 @@ export interface ControlsContext {
   };
   onActionCancel?: () => void;
   onActionExit?: () => void;
+  onActionSelect?: (id: string) => void;
   onActionStart?: () => void;
   onAddFiles?: () => void;
   onAddFolder?: () => void;

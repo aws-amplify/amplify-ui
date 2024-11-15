@@ -1,6 +1,5 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import * as TempActions from '../../../../do-not-import-from-here/createTempActionsProvider';
 
 import { INITIAL_STATUS_COUNTS } from '../../../../tasks';
 import * as Config from '../../../../providers/configuration';
@@ -14,7 +13,6 @@ const TEST_ACTIONS = {
     options: { displayName: 'Delete file' },
   },
 };
-jest.spyOn(TempActions, 'useTempActions').mockReturnValue(TEST_ACTIONS);
 
 jest.spyOn(Config, 'useGetActionInput').mockReturnValue(() => ({
   accountId: '123456789012',
