@@ -46,6 +46,7 @@ export function DeleteView({
   const tableData = getActionViewTableData({
     tasks,
     locationKey: location.key,
+    isProcessing,
     displayText,
     onTaskRemove,
   });

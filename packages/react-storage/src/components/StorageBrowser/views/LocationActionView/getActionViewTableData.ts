@@ -54,11 +54,13 @@ export const getProgressHeader = (label: string): ActionViewHeaders[0] => ({
 export const getActionViewTableData = <T extends TaskData = TaskData>({
   tasks,
   displayText,
+  isProcessing,
   locationKey,
   shouldDisplayProgress = false,
   onTaskRemove,
 }: {
   tasks: Task<T>[];
+  isProcessing: boolean;
   locationKey?: string;
   shouldDisplayProgress?: boolean;
   displayText: DefaultActionViewDisplayText & {
@@ -173,7 +175,7 @@ export const getActionViewTableData = <T extends TaskData = TaskData>({
               (!isPending && !isQueued) || !cancel || progress === 1;
 
             const ariaLabel = `${
-              !isQueued ? 'Cancel' : 'Remove'
+              isProcessing ? 'Cancel' : 'Remove'
             } item: ${displayKey}`;
 
             return {

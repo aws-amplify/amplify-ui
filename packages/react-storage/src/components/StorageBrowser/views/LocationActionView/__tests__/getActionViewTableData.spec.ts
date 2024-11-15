@@ -81,6 +81,7 @@ describe('getActionViewTableData', () => {
     const result = getActionViewTableData({
       tasks,
       displayText: DEFAULT_UPLOAD_VIEW_DISPLAY_TEXT,
+      isProcessing: true,
       onTaskRemove: jest.fn(),
     });
 
@@ -98,7 +99,7 @@ describe('getActionViewTableData', () => {
           size: 1000,
           type: 'FILE',
         },
-        status: 'QUEUED',
+        status: 'PENDING',
         cancel: jest.fn(),
         progress: undefined,
         message: undefined,
@@ -122,6 +123,7 @@ describe('getActionViewTableData', () => {
     const result = getActionViewTableData({
       tasks,
       displayText: DEFAULT_UPLOAD_VIEW_DISPLAY_TEXT,
+      isProcessing: true,
       onTaskRemove: jest.fn(),
     });
 
@@ -150,6 +152,7 @@ describe('getActionViewTableData', () => {
       tasks,
       locationKey: 'folder/subfolder/',
       displayText: DEFAULT_UPLOAD_VIEW_DISPLAY_TEXT,
+      isProcessing: false,
       onTaskRemove: jest.fn(),
     });
 

@@ -91,6 +91,7 @@ export function UploadView({
             tasks,
             shouldDisplayProgress: true,
             displayText,
+            isProcessing,
             onTaskRemove,
           }),
           title,
