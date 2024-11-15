@@ -34,6 +34,7 @@ export const getFileRowContent = ({
           type: 'checkbox',
           content: {
             checked: isSelected,
+            id: key,
             label: `${selectFileLabel} ${rowKey}`,
             onSelect,
           },
@@ -43,7 +44,11 @@ export const getFileRowContent = ({
         return {
           key,
           type: 'text',
-          content: { icon: 'file', text: rowKey.slice(itemLocationKey.length) },
+          content: {
+            icon: 'file',
+            ariaLabel: 'file',
+            text: rowKey.slice(itemLocationKey.length),
+          },
         };
       }
       case 'type': {
@@ -75,7 +80,11 @@ export const getFileRowContent = ({
         return {
           key,
           type: 'button',
-          content: { icon: 'download', onClick: onDownload },
+          content: {
+            icon: 'download',
+            onClick: onDownload,
+            ariaLabel: 'download',
+          },
         };
       }
     }
