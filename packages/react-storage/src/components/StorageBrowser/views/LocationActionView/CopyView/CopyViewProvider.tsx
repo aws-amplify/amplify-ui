@@ -16,6 +16,7 @@ export function CopyViewProvider({
   children,
   ...props
 }: CopyViewProviderProps): React.JSX.Element {
+  const { CopyView: displayText } = useDisplayText();
   const {
     actionCancelLabel,
     actionDestinationLabel,
@@ -25,7 +26,11 @@ export function CopyViewProvider({
     getFolderListResultsMessage,
     overwriteWarningMessage,
     searchPlaceholder,
-  } = useDisplayText()['CopyView'];
+    statusDisplayCanceledLabel,
+    statusDisplayCompletedLabel,
+    statusDisplayFailedLabel,
+    statusDisplayQueuedLabel,
+  } = displayText;
 
   const {
     destinationList,
@@ -62,6 +67,7 @@ export function CopyViewProvider({
     tasks,
     locationKey,
     isProcessing,
+    displayText,
     onTaskRemove,
   });
 
@@ -115,6 +121,10 @@ export function CopyViewProvider({
         searchQuery: currentQuery,
         searchPlaceholder,
         statusCounts,
+        statusDisplayCanceledLabel,
+        statusDisplayCompletedLabel,
+        statusDisplayFailedLabel,
+        statusDisplayQueuedLabel,
         tableData,
       }}
       onActionCancel={onActionCancel}

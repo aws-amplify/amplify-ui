@@ -53,10 +53,5 @@ export const DEFAULT_UPLOAD_VIEW_DISPLAY_TEXT: DefaultUploadViewDisplayText = {
 
     return '🤷';
   },
-  statusDisplayCanceledLabel: 'Canceled',
-  statusDisplayCompletedLabel: 'Completed',
-  statusDisplayFailedLabel: 'Failed',
-  statusDisplayOverridePreventedLabel: 'Overwrite prevented',
-  statusDisplayQueuedLabel: 'Not Started',
   overwriteExistingLabel: 'Overwrite existing files',
 };

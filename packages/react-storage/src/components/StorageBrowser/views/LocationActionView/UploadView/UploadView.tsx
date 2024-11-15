@@ -14,10 +14,7 @@ import { TitleControl } from '../../../controls/TitleControl';
 import { ControlsContextProvider } from '../../../controls/context';
 import { useDisplayText } from '../../../displayText';
 import { Controls } from '../../Controls';
-import {
-  STORAGE_BROWSER_BLOCK,
-  STORAGE_BROWSER_BLOCK_TO_BE_UPDATED,
-} from '../../../constants';
+import { STORAGE_BROWSER_BLOCK } from '../../../constants';
 import { resolveClassName } from '../../utils';
 import { getActionViewTableData } from '../getActionViewTableData';
 import { useUploadView } from './useUploadView';
@@ -30,17 +27,20 @@ export function UploadView({
   className,
   ...props
 }: UploadViewProps): React.JSX.Element {
+  const { UploadView: displayText } = useDisplayText();
   const {
-    UploadView: {
-      actionCancelLabel,
-      actionDestinationLabel,
-      actionExitLabel,
-      actionStartLabel,
-      addFilesLabel,
-      addFolderLabel,
-      title,
-    },
-  } = useDisplayText();
+    actionCancelLabel,
+    actionDestinationLabel,
+    actionExitLabel,
+    actionStartLabel,
+    addFilesLabel,
+    addFolderLabel,
+    statusDisplayCanceledLabel,
+    statusDisplayCompletedLabel,
+    statusDisplayFailedLabel,
+    statusDisplayQueuedLabel,
+    title,
+  } = displayText;
 
   const {
     isProcessing,
@@ -83,10 +83,15 @@ export function UploadView({
           isAddFolderDisabled,
           isOverwriteCheckboxDisabled,
           statusCounts,
+          statusDisplayCanceledLabel,
+          statusDisplayCompletedLabel,
+          statusDisplayFailedLabel,
+          statusDisplayQueuedLabel,
           tableData: getActionViewTableData({
             tasks,
             isProcessing,
             shouldDisplayProgress: true,
+            displayText,
             onTaskRemove,
           }),
           title,

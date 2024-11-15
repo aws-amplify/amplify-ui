@@ -17,6 +17,13 @@ export interface DefaultActionViewDisplayText {
   statusDisplayFailedLabel: string;
   statusDisplayQueuedLabel: string;
   statusDisplayTotalLabel: string;
+  tableStatusDisplayCanceledLabel: 'Canceled';
+  tableStatusDisplayCompletedLabel: 'Completed';
+  tableStatusDisplayFailedLabel: 'Failed';
+  tableStatusDisplayOverwritePreventedLabel: 'Overwrite prevented';
+  tableStatusDisplayInProgressLabel: 'In progress';
+  tableStatusDisplayQueuedLabel: 'In queue';
+  tableStatusDisplayInitialLabel: 'Not started';
   title: string;
   tableColumnCancelHeader: string;
   tableColumnStatusHeader: string;
@@ -24,6 +31,7 @@ export interface DefaultActionViewDisplayText {
   tableColumnNameHeader: string;
   tableColumnTypeHeader: string;
   tableColumnSizeHeader: string;
+  tableColumnProgressHeader: string;
 }
 
 /**

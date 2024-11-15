@@ -66,6 +66,10 @@ export interface ControlsContext {
     searchPlaceholder?: string;
     searchQuery?: string;
     statusCounts?: StatusCounts;
+    statusDisplayCanceledLabel?: string;
+    statusDisplayCompletedLabel?: string;
+    statusDisplayFailedLabel?: string;
+    statusDisplayQueuedLabel?: string;
     tableData?: TableData;
     title?: string;
   };
