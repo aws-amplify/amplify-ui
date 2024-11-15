@@ -16,16 +16,13 @@ describe('LocationsView display text', () => {
     }
   );
 
-  it('returns the expected values from getPermissionsDisplayValue', () => {
-    const { getDownloadLabel, getPermissionsDisplayValue } =
-      DEFAULT_LOCATIONS_VIEW_DISPLAY_TEXT;
+  it('returns the expected values from getPermissionName', () => {
+    const { getPermissionName } = DEFAULT_LOCATIONS_VIEW_DISPLAY_TEXT;
 
-    expect(getPermissionsDisplayValue('READ')).toMatchSnapshot();
-    expect(getPermissionsDisplayValue('WRITE')).toMatchSnapshot();
-    expect(getPermissionsDisplayValue('READWRITE')).toMatchSnapshot();
-    // @ts-expect-error
-    // testing unknown permission type
-    expect(getPermissionsDisplayValue('CUSTOM')).toMatchSnapshot();
-    expect(getDownloadLabel('my.jpg')).toMatchSnapshot();
+    expect(getPermissionName(['get', 'list'])).toMatchSnapshot();
+    expect(getPermissionName(['write', 'delete'])).toMatchSnapshot();
+    expect(
+      getPermissionName(['delete', 'get', 'list', 'write'])
+    ).toMatchSnapshot();
   });
 });

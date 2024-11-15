@@ -1,18 +1,23 @@
 import { getLocationsViewTableData } from '../getLocationsViewTableData';
 import { LocationViewHeaders } from '../getLocationsViewTableData/types';
 import { DEFAULT_LOCATIONS_VIEW_DISPLAY_TEXT } from '../../../displayText/libraries/en/locationsView';
+import { LocationData } from '../../../actions';
 
-const { getPermissionsDisplayValue } = DEFAULT_LOCATIONS_VIEW_DISPLAY_TEXT;
+const { getPermissionName } = DEFAULT_LOCATIONS_VIEW_DISPLAY_TEXT;
 
 describe('getLocationsViewTableData', () => {
-  const location1 = {
+  const location1: LocationData = {
     bucket: 'bucket',
     id: 'id-1',
-    permission: 'READ',
+    permissions: ['get', 'list'],
     prefix: 'prefix-1/',
     type: 'PREFIX',
-  } as const;
-  const location2 = { ...location1, id: 'id-2', prefix: 'prefix-2/' };
+  };
+  const location2: LocationData = {
+    ...location1,
+    id: 'id-2',
+    prefix: 'prefix-2/',
+  };
 
   const headers: LocationViewHeaders = [
     {
@@ -48,7 +53,7 @@ describe('getLocationsViewTableData', () => {
         onNavigate: mockOnNavigate,
         headers,
         getDownloadLabel: () => 'download',
-        getPermissionsDisplayValue,
+        getPermissionName,
       })
     ).toStrictEqual({
       headers: [
@@ -85,7 +90,7 @@ describe('getLocationsViewTableData', () => {
         onDownload: mockOnDownload,
         headers,
         getDownloadLabel: () => 'download',
-        getPermissionsDisplayValue,
+        getPermissionName,
       })
     ).toStrictEqual(
       expect.objectContaining({
@@ -110,7 +115,7 @@ describe('getLocationsViewTableData', () => {
       onDownload: mockOnDownload,
       headers,
       getDownloadLabel: () => 'download',
-      getPermissionsDisplayValue,
+      getPermissionName,
     });
     const [row1FirstContent] = tableData.rows[0].content;
     const [row2FirstContent] = tableData.rows[1].content;

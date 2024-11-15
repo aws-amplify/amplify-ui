@@ -14,7 +14,6 @@ import {
 import { isFile } from '../utils';
 import { createEnhancedListHandler } from '../../actions/createEnhancedListHandler';
 import { useGetActionInput } from '../../providers/configuration';
-import { displayText } from '../../displayText/en';
 import { LocationState } from '../../providers/store/location';
 import { useSearch } from '../hooks/useSearch';
 import { useProcessTasks } from '../../tasks';
@@ -32,8 +31,8 @@ interface UseLocationDetailView {
   hasFiles: boolean;
   message: string | undefined;
   shouldShowEmptyMessage: boolean;
-  searchPlaceholder: string;
   searchQuery: string;
+  hasExhaustedSearch: boolean;
   pageItems: LocationItemData[];
   page: number;
   onDropFiles: (files: File[]) => void;
@@ -112,7 +111,8 @@ export function useLocationDetailView(
   );
 
   // set up pagination
-  const { items, nextToken } = data;
+  const { items, nextToken, search } = data;
+  const { hasExhaustedSearch = false } = search ?? {};
   const hasNextToken = !!nextToken;
   const paginateCallback = () => {
     if (hasInvalidPrefix || !nextToken) return;
@@ -213,8 +213,8 @@ export function useLocationDetailView(
     isLoading,
     isSearchingSubfolders,
     onPaginate,
-    searchPlaceholder: displayText.searchDetailPlaceholder,
     searchQuery,
+    hasExhaustedSearch,
     onRefresh,
     onNavigate: (location: LocationData, path?: string) => {
       onNavigate?.(location, path);

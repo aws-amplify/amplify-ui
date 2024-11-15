@@ -23,7 +23,7 @@ describe('LocationDetailView display text', () => {
       getTitle({
         current: {
           bucket: 'test-bucket',
-          permission: 'READ',
+          permissions: ['get', 'list'],
           id: '123',
           prefix: '',
           type: 'PREFIX',
@@ -37,7 +37,7 @@ describe('LocationDetailView display text', () => {
       getTitle({
         current: {
           bucket: 'test-bucket',
-          permission: 'READ',
+          permissions: ['get', 'list'],
           id: '123',
           prefix: '',
           type: 'PREFIX',

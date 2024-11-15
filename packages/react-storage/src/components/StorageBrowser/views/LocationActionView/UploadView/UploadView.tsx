@@ -28,19 +28,22 @@ export function UploadView({
   className,
   ...props
 }: UploadViewProps): React.JSX.Element {
+  const { UploadView: displayText } = useDisplayText();
   const {
-    UploadView: {
-      actionCancelLabel,
-      actionDestinationLabel,
-      actionExitLabel,
-      actionStartLabel,
-      getActionCompleteMessage,
-      addFilesLabel,
-      addFolderLabel,
-      overwriteToggleLabel,
-      title,
-    },
-  } = useDisplayText();
+    actionCancelLabel,
+    actionDestinationLabel,
+    actionExitLabel,
+    actionStartLabel,
+    addFilesLabel,
+    addFolderLabel,
+    statusDisplayCanceledLabel,
+    statusDisplayCompletedLabel,
+    statusDisplayFailedLabel,
+    statusDisplayQueuedLabel,
+    overwriteToggleLabel,
+    title,
+    getActionCompleteMessage,
+  } = displayText;
 
   const {
     isOverwritingEnabled,
@@ -91,10 +94,15 @@ export function UploadView({
           overwriteToggleLabel,
           message,
           statusCounts,
+          statusDisplayCanceledLabel,
+          statusDisplayCompletedLabel,
+          statusDisplayFailedLabel,
+          statusDisplayQueuedLabel,
           tableData: getActionViewTableData({
             tasks,
             isProcessing,
             shouldDisplayProgress: true,
+            displayText,
             onTaskRemove,
           }),
           title,

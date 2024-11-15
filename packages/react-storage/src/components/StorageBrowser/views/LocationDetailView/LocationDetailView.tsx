@@ -38,6 +38,11 @@ export function LocationDetailView({
     LocationDetailView: {
       loadingIndicatorLabel,
       searchSubfoldersToggleLabel,
+      selectFileLabel,
+      selectAllFilesLabel,
+      searchPlaceholder,
+      searchSubmitLabel,
+      searchClearLabel,
       getTitle,
       getListItemsResultMessage,
     },
@@ -56,7 +61,6 @@ export function LocationDetailView({
     hasFiles,
     hasError,
     message,
-    searchPlaceholder,
     searchQuery,
     onDropFiles,
     onRefresh,
@@ -72,7 +76,7 @@ export function LocationDetailView({
     onToggleSearchSubfolders,
   } = useLocationDetailView({ onNavigate: onNavigateProp, onExit });
 
-  // TODO: add hasExhaustedSearch + query param
+  // TODO: add hasExhaustedSearch + query + message param
   const messageControlContent = hasError
     ? getListItemsResultMessage({
         items: pageItems,
@@ -95,21 +99,25 @@ export function LocationDetailView({
           isSearchingSubfolders,
           loadingIndicatorLabel,
           location,
-          searchPlaceholder,
           paginationData: {
             page,
             hasNextPage,
             highestPageVisited,
             onPaginate,
           },
-          searchQuery,
+          searchPlaceholder,
           searchSubfoldersToggleLabel,
+          searchSubmitLabel,
+          searchClearLabel,
+          searchQuery,
           tableData: getLocationDetailViewTableData({
             areAllFilesSelected,
             location,
             fileDataItems,
             hasFiles,
             pageItems,
+            selectFileLabel,
+            selectAllFilesLabel,
             onDownload,
             onNavigate,
             onSelect,
@@ -138,7 +146,9 @@ export function LocationDetailView({
             className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__search`}
           >
             <SearchControl />
-            <SearchSubfoldersToggleControl />
+            <SearchSubfoldersToggleControl
+              className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__search-subfolder-toggle__label`}
+            />
           </ViewElement>
           <PaginationControl
             className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__location-detail-view-pagination`}

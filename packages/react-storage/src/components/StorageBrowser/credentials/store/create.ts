@@ -1,11 +1,11 @@
 import {
-  CredentialsLocation,
   LocationCredentialsProvider,
   StorageValidationErrorCode,
   assertValidationError,
 } from '../../storage-internal';
 import {
   CreateLocationCredentialsStoreInput,
+  CredentialsLocation,
   LocationCredentialsStore,
 } from '../types';
 

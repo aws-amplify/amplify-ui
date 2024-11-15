@@ -7,8 +7,8 @@ import {
   LocationItemData,
   TaskData,
   UploadHandlerData,
+  LocationPermissions,
 } from '../actions';
-import { Permission } from '../storage-internal';
 import { LocationState } from '../providers/store/location';
 import { MessageType } from '../composables/Message';
 import { CreateFolderHandlerData } from '../../../../dist/types/components/StorageBrowser/actions';
@@ -20,6 +20,7 @@ export interface DefaultListViewDisplayText {
   loadingIndicatorLabel: string;
   searchPlaceholder: string;
   searchSubmitLabel: string;
+  searchClearLabel: string;
 }
 
 interface ListMessageData {
@@ -39,7 +40,7 @@ export interface DefaultLocationsViewDisplayText
     data?: ListLocationsMessageData
   ) => { content?: string; type?: MessageType } | undefined;
   getDownloadLabel: (fileName: string) => string;
-  getPermissionsDisplayValue: (permission: Permission) => string;
+  getPermissionName: (permissions: LocationPermissions) => string;
   tableColumnActionsHeader: string;
   tableColumnBucketHeader: string;
   tableColumnFolderHeader: string;
@@ -58,6 +59,8 @@ export interface DefaultLocationDetailViewDisplayText
   ) => { content?: string; type?: MessageType } | undefined;
   searchExhaustedMessage: string;
   searchSubfoldersToggleLabel: string;
+  selectFileLabel: string;
+  selectAllFilesLabel: string;
   tableColumnLastModifiedHeader: string;
   tableColumnNameHeader: string;
   tableColumnSizeHeader: string;
@@ -84,6 +87,7 @@ export interface DefaultActionViewDisplayText<T extends TaskData = TaskData> {
   statusDisplayCanceledLabel: string;
   statusDisplayCompletedLabel: string;
   statusDisplayFailedLabel: string;
+  statusDisplayInProgressLabel: string;
   statusDisplayQueuedLabel: string;
   statusDisplayTotalLabel: string;
   title: string;
@@ -93,11 +97,8 @@ export interface DefaultActionViewDisplayText<T extends TaskData = TaskData> {
   tableColumnNameHeader: string;
   tableColumnTypeHeader: string;
   tableColumnSizeHeader: string;
+  tableColumnProgressHeader: string;
 }
-
-/**
- * Action view display text values
- */
 
 export interface DefaultCreateFolderViewDisplayText
   // `CreateFolderView` does not include tasks table or status display components
@@ -119,9 +120,12 @@ export interface DefaultCopyViewDisplayText
   getListFoldersResultsMessage: (
     data: ListFoldersMessageData
   ) => { content?: string; type?: MessageType } | undefined;
+  getFolderSelectedMessage: (path: string) => string;
   loadingIndicatorLabel: 'Loading';
   overwriteWarningMessage: string;
   searchPlaceholder: string;
+  searchSubmitLabel: string;
+  searchClearLabel: string;
 }
 
 export interface DefaultDeleteViewDisplayText
@@ -131,7 +135,7 @@ export interface DefaultUploadViewDisplayText
   extends DefaultActionViewDisplayText<UploadHandlerData> {
   addFilesLabel: string;
   addFolderLabel: string;
-  statusDisplayOverridePreventedLabel: string;
+  statusDisplayOverwritePreventedLabel: string;
   overwriteToggleLabel: string;
 }
 

@@ -26,6 +26,7 @@ const config: Config = {
   modulePathIgnorePatterns: ['c/dist/'],
   testPathIgnorePatterns: [
     '<rootDir>/src/components/StorageBrowser/displayText/libraries/en/__tests__/scenarios.ts',
+    '__testUtils__/',
   ],
   preset: 'ts-jest',
   setupFilesAfterEnv: ['./jest.setup.ts'],

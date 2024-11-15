@@ -3,6 +3,7 @@ import { render } from '@testing-library/react';
 
 import * as ReactCoreModule from '@aws-amplify/ui-react-core';
 
+import { LocationData } from '../../../../actions';
 import * as Config from '../../../../providers/configuration';
 import { INITIAL_STATUS_COUNTS } from '../../../../tasks';
 
@@ -61,13 +62,13 @@ const taskOne = {
   message: undefined,
 } as const;
 
-const location = {
+const location: LocationData = {
   bucket: 'bucket',
   id: 'id',
-  permission: 'READWRITE',
+  permissions: ['write'],
   prefix: `prefix/`,
   type: 'PREFIX',
-} as const;
+};
 
 const onActionCancel = jest.fn();
 const onActionExit = jest.fn();
@@ -86,6 +87,23 @@ const defaultViewState: CopyViewState = {
   ...actionCallbacks,
   onTaskRemove,
   destinationList: [],
+  folders: {
+    hasError: false,
+    hasInitialized: false,
+    hasNextPage: false,
+    highestPageVisited: 1,
+    page: 1,
+    pageItems: [],
+    query: '',
+    isLoading: false,
+    message: undefined,
+    onPaginate: jest.fn(),
+    onQuery: jest.fn(),
+    onSearch: jest.fn(),
+    onInitialize: jest.fn(),
+    onSearchClear: jest.fn(),
+    onSelect: jest.fn(),
+  },
   isProcessingComplete: false,
   isProcessing: false,
   location: { current: location, path: '', key: `itsa-prefix/` },

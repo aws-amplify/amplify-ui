@@ -30,7 +30,7 @@ describe('useDeleteView', () => {
             prefix: 'test-prefix/',
             bucket: 'bucket',
             id: 'id',
-            permission: 'READ',
+            permissions: ['delete'],
             type: 'PREFIX',
           },
           path: '',

@@ -1,12 +1,7 @@
-import {
-  ListLocations,
-  ListLocationsOutput,
-  listPaths,
-  ListPathsOutput,
-  LocationAccess,
-} from '../../storage-internal';
+import { listPaths, ListPathsOutput } from '../../storage-internal';
+import { parseAmplifyAuthPermission } from '../permissionParsers';
+import { ListLocations, ListLocationsOutput } from '../types';
 import { getPaginatedLocations } from './getPaginatedLocations';
-import { mapAmplifyPermissions } from './mapAmplifyPermissions';
 
 export const createAmplifyListLocationsHandler = (): ListLocations => {
   let cachedLocations: ListLocationsOutput['locations'] = [];
@@ -25,11 +20,11 @@ export const createAmplifyListLocationsHandler = (): ListLocations => {
     const { locations }: { locations: ListPathsOutput['locations'] } =
       await listPaths();
 
-    const sanitizedLocations: LocationAccess[] = locations.map(
+    const sanitizedLocations = locations.map(
       ({ bucket, permission, prefix, type }) => {
         return {
           type,
-          permission: mapAmplifyPermissions(permission),
+          permissions: parseAmplifyAuthPermission(permission),
           scope: `s3://${bucket}/${prefix}`,
         };
       }

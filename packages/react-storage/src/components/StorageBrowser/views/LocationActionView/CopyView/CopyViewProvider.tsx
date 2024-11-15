@@ -7,9 +7,8 @@ import { getActionViewTableData } from '../getActionViewTableData';
 
 import { DestinationProvider } from './DestinationControl';
 import { FoldersMessageProvider } from './FoldersMessageControl';
-import { FoldersPaginationProvider } from './FoldersPaginatationControl';
+import { FoldersPaginationProvider } from './FoldersPaginationControl';
 import { FoldersTableProvider } from './FoldersTableControl';
-import { useFolders } from './useFolders';
 import { CopyViewProviderProps } from './types';
 import { MessageProps } from '../../../composables/Message';
 
@@ -17,6 +16,7 @@ export function CopyViewProvider({
   children,
   ...props
 }: CopyViewProviderProps): React.JSX.Element {
+  const { CopyView: displayText } = useDisplayText();
   const {
     actionCancelLabel,
     actionDestinationLabel,
@@ -26,10 +26,17 @@ export function CopyViewProvider({
     getListFoldersResultsMessage,
     overwriteWarningMessage,
     searchPlaceholder,
-  } = useDisplayText()['CopyView'];
+    searchSubmitLabel,
+    searchClearLabel,
+    statusDisplayCanceledLabel,
+    statusDisplayCompletedLabel,
+    statusDisplayFailedLabel,
+    statusDisplayQueuedLabel,
+  } = displayText;
 
   const {
     destinationList,
+    folders,
     isProcessing,
     isProcessingComplete,
     location,
@@ -43,18 +50,21 @@ export function CopyViewProvider({
   } = props;
 
   const {
-    folders,
+    hasNextPage,
+    highestPageVisited,
     hasError: hasFoldersError,
     message: foldersErrorMessage,
-    currentQuery,
+    query,
     hasInitialized: hasFoldersInitialized,
-    isLoading,
     onQuery,
     onSearchClear,
     onSearch,
     onSelect,
-    ...paginateProps
-  } = useFolders({ destinationList, onDestinationChange });
+    onPaginate,
+    isLoading,
+    page,
+    pageItems,
+  } = folders;
 
   const { current, key: locationKey } = location ?? {};
   const { bucket } = current ?? {};
@@ -63,6 +73,7 @@ export function CopyViewProvider({
     tasks,
     locationKey,
     isProcessing,
+    displayText,
     onTaskRemove,
   });
 
@@ -81,9 +92,10 @@ export function CopyViewProvider({
   const foldersMessage = !hasFoldersInitialized
     ? undefined
     : getListFoldersResultsMessage({
+        hasError: hasFoldersError,
         message: foldersErrorMessage,
-        folders,
-        query: currentQuery,
+        folders: pageItems,
+        query,
       });
 
   return (
@@ -97,9 +109,15 @@ export function CopyViewProvider({
         isActionStartDisabled,
         isLoading,
         message,
-        searchQuery: currentQuery,
+        searchQuery: query,
         searchPlaceholder,
+        searchSubmitLabel,
+        searchClearLabel,
         statusCounts,
+        statusDisplayCanceledLabel,
+        statusDisplayCompletedLabel,
+        statusDisplayFailedLabel,
+        statusDisplayQueuedLabel,
         tableData,
       }}
       onActionCancel={onActionCancel}
@@ -116,8 +134,13 @@ export function CopyViewProvider({
         onDestinationChange={onDestinationChange}
         isDisabled={isProcessing || isProcessingComplete}
       >
-        <FoldersPaginationProvider {...paginateProps}>
-          <FoldersTableProvider folders={folders} onSelect={onSelect}>
+        <FoldersPaginationProvider
+          hasNextPage={hasNextPage}
+          highestPageVisited={highestPageVisited}
+          page={page}
+          onPaginate={onPaginate}
+        >
+          <FoldersTableProvider folders={pageItems} onSelect={onSelect}>
             <FoldersMessageProvider {...foldersMessage}>
               {children}
             </FoldersMessageProvider>

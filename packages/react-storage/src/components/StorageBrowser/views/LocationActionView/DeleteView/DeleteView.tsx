@@ -22,15 +22,18 @@ export function DeleteView({
   className,
   ...props
 }: DeleteViewProps): React.JSX.Element {
+  const { DeleteView: displayText } = useDisplayText();
   const {
-    DeleteView: {
-      actionCancelLabel,
-      actionExitLabel,
-      actionStartLabel,
-      title,
-      getActionCompleteMessage,
-    },
-  } = useDisplayText();
+    actionCancelLabel,
+    actionExitLabel,
+    actionStartLabel,
+    title,
+    statusDisplayCanceledLabel,
+    statusDisplayCompletedLabel,
+    statusDisplayFailedLabel,
+    statusDisplayQueuedLabel,
+    getActionCompleteMessage,
+  } = displayText;
 
   const {
     isProcessing,
@@ -52,6 +55,7 @@ export function DeleteView({
     tasks,
     locationKey: location.key,
     isProcessing,
+    displayText,
     onTaskRemove,
   });
 
@@ -65,6 +69,10 @@ export function DeleteView({
           isActionCancelDisabled: !isProcessing || isProcessingComplete,
           isActionExitDisabled: isProcessing,
           isActionStartDisabled: isProcessing || isProcessingComplete,
+          statusDisplayCanceledLabel,
+          statusDisplayCompletedLabel,
+          statusDisplayFailedLabel,
+          statusDisplayQueuedLabel,
           statusCounts,
           tableData,
           title,

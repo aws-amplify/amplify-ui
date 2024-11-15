@@ -3,7 +3,7 @@ import { createContextUtilities } from '@aws-amplify/ui-react-core';
 
 import { ActionProvider, createListLocationsAction } from './actions';
 import { LocationActions } from './locationActions';
-import { ListLocations } from '../storage-internal';
+import { ListLocations } from '../adapters/types';
 
 export const { useTempActions, TempActionsContext } = createContextUtilities<
   LocationActions,

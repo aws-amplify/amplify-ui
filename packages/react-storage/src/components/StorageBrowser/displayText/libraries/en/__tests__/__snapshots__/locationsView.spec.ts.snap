@@ -35,24 +35,21 @@ exports[`LocationsView display text \`getListLocationsResultMessage\` returns th
 }
 `;
 
-exports[`LocationsView display text returns the expected values from getPermissionsDisplayValue 1`] = `"Read"`;
+exports[`LocationsView display text returns the expected values from getPermissionName 1`] = `"Read"`;
 
-exports[`LocationsView display text returns the expected values from getPermissionsDisplayValue 2`] = `"Write"`;
+exports[`LocationsView display text returns the expected values from getPermissionName 2`] = `"Write"`;
 
-exports[`LocationsView display text returns the expected values from getPermissionsDisplayValue 3`] = `"Read/Write"`;
-
-exports[`LocationsView display text returns the expected values from getPermissionsDisplayValue 4`] = `"CUSTOM"`;
-
-exports[`LocationsView display text returns the expected values from getPermissionsDisplayValue 5`] = `"Download my.jpg"`;
+exports[`LocationsView display text returns the expected values from getPermissionName 3`] = `"Read/Write"`;
 
 exports[`LocationsView display text should match snapshot values 1`] = `
 {
   "getDownloadLabel": [Function],
   "getListLocationsResultMessage": [Function],
-  "getPermissionsDisplayValue": [Function],
+  "getPermissionName": [Function],
   "loadingIndicatorLabel": "Loading",
+  "searchClearLabel": "Clear search",
   "searchPlaceholder": "Filter folders and files",
-  "searchSubmitLabel": "Search",
+  "searchSubmitLabel": "Submit",
   "tableColumnActionsHeader": "Actions",
   "tableColumnBucketHeader": "Bucket",
   "tableColumnFolderHeader": "Folder",

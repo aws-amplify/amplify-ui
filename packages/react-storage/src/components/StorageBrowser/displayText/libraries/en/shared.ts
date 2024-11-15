@@ -13,6 +13,7 @@ export const DEFAULT_ACTION_VIEW_DISPLAY_TEXT: Omit<
   statusDisplayCanceledLabel: 'Canceled',
   statusDisplayCompletedLabel: 'Completed',
   statusDisplayFailedLabel: 'Failed',
+  statusDisplayInProgressLabel: 'In progress',
   statusDisplayTotalLabel: 'Total',
   statusDisplayQueuedLabel: 'Not started',
   // empty by default
@@ -22,6 +23,7 @@ export const DEFAULT_ACTION_VIEW_DISPLAY_TEXT: Omit<
   tableColumnNameHeader: 'Name',
   tableColumnTypeHeader: 'Type',
   tableColumnSizeHeader: 'Size',
+  tableColumnProgressHeader: 'Progress',
 };
 
 export const DEFAULT_LIST_VIEW_DISPLAY_TEXT: Omit<
@@ -29,5 +31,6 @@ export const DEFAULT_LIST_VIEW_DISPLAY_TEXT: Omit<
   'getListResultsMessage' | 'searchPlaceholder'
 > = {
   loadingIndicatorLabel: 'Loading',
-  searchSubmitLabel: 'Search',
+  searchSubmitLabel: 'Submit',
+  searchClearLabel: 'Clear search',
 };

@@ -3,11 +3,12 @@ import React from 'react';
 import { Field } from '../components/Field';
 import { ButtonElement, IconElement } from '../context/elements';
 import { STORAGE_BROWSER_BLOCK_TO_BE_UPDATED } from '../constants';
-import { displayText } from '../displayText/en';
 
 export interface SearchFieldProps {
   id?: string;
   label?: string;
+  clearLabel?: string;
+  submitLabel?: string;
   query?: string;
   placeholder?: string;
   onSearch?: () => void;
@@ -18,6 +19,8 @@ export interface SearchFieldProps {
 export const SearchField = ({
   id,
   label,
+  clearLabel,
+  submitLabel,
   onSearch,
   onClear,
   placeholder,
@@ -52,7 +55,7 @@ export const SearchField = ({
       >
         {query ? (
           <ButtonElement
-            aria-label={displayText.searchClearLabel}
+            aria-label={clearLabel}
             className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__search-field-clear`}
             onClick={onClear}
             variant="refresh"
@@ -65,7 +68,7 @@ export const SearchField = ({
         className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__search-submit`}
         onClick={onSearch}
       >
-        Submit
+        {submitLabel}
       </ButtonElement>
     </>
   );

@@ -1,21 +1,62 @@
 import { humanFileSize } from '@aws-amplify/ui';
 
 import { DataTableProps } from '../../composables/DataTable';
-import { Task } from '../../tasks';
-
-import {
-  DEFAULT_ACTION_VIEW_HEADERS,
-  PROGRESS_HEADER,
-  STATUS_DISPLAY_VALUES,
-} from './constants';
+import { Task, TaskStatus } from '../../tasks';
 
 import { isFileItem, isFileDataItem, TaskData } from '../../actions';
 import { getActionIcon } from './getActionIcon';
 import { getFileTypeDisplayValue } from './getFileTypeDisplayValue';
 import { getPercentValue } from '../utils';
+import { getDefaultActionViewHeaders } from './getDefaultActionViewHeaders';
+import { ActionViewHeaders } from './types';
+import { DefaultActionViewDisplayText } from '../../displayText/types';
+
+const getTaskStatusDisplayLabel = ({
+  status,
+  displayText: {
+    statusDisplayInProgressLabel,
+    statusDisplayCanceledLabel,
+    statusDisplayCompletedLabel,
+    statusDisplayFailedLabel,
+    statusDisplayQueuedLabel,
+    statusDisplayOverwritePreventedLabel,
+  },
+}: {
+  status: TaskStatus;
+  displayText: Omit<
+    DefaultActionViewDisplayText,
+    'getActionCompleteMessage'
+  > & {
+    statusDisplayOverwritePreventedLabel?: string;
+  };
+}) => {
+  switch (status) {
+    case 'PENDING':
+      return statusDisplayInProgressLabel;
+    case 'CANCELED':
+      return statusDisplayCanceledLabel;
+    case 'COMPLETE':
+      return statusDisplayCompletedLabel;
+    case 'FAILED':
+      return statusDisplayFailedLabel;
+    case 'QUEUED':
+      return statusDisplayQueuedLabel;
+    case 'OVERWRITE_PREVENTED':
+      return statusDisplayOverwritePreventedLabel;
+    default:
+      return statusDisplayQueuedLabel;
+  }
+};
+
+export const getProgressHeader = (label: string): ActionViewHeaders[0] => ({
+  key: 'progress',
+  type: 'sort',
+  content: { label },
+});
 
 export const getActionViewTableData = <T extends TaskData = TaskData>({
   tasks,
+  displayText,
   locationKey,
   isProcessing,
   shouldDisplayProgress = false,
@@ -25,11 +66,25 @@ export const getActionViewTableData = <T extends TaskData = TaskData>({
   locationKey?: string;
   isProcessing: boolean;
   shouldDisplayProgress?: boolean;
+  displayText: Omit<
+    DefaultActionViewDisplayText,
+    'getActionCompleteMessage'
+  > & {
+    tableStatusOverwritePreventedLabel?: string;
+  };
   onTaskRemove?: (task: Task<T>) => void;
 }): DataTableProps => {
-  const headers = [...DEFAULT_ACTION_VIEW_HEADERS];
+  const headers = [
+    ...getDefaultActionViewHeaders({
+      displayText,
+    }),
+  ];
   if (shouldDisplayProgress) {
-    headers.splice(-1, 0, PROGRESS_HEADER);
+    headers.splice(
+      -1,
+      0,
+      getProgressHeader(displayText.tableColumnProgressHeader)
+    );
   }
 
   const rows: DataTableProps['rows'] = tasks.map((task) => {
@@ -103,7 +158,9 @@ export const getActionViewTableData = <T extends TaskData = TaskData>({
             return {
               key,
               type: 'text',
-              content: { text: STATUS_DISPLAY_VALUES[status] },
+              content: {
+                text: getTaskStatusDisplayLabel({ status, displayText }),
+              },
             };
           }
           case 'progress': {

@@ -141,7 +141,7 @@ export const LIST_FOLDERS_SCENARIOS: [
     folders: FolderData[] | undefined;
     query?: string;
     hasError?: boolean;
-    errorMessage?: string;
+    message?: string;
     hasExhaustedSearch?: boolean;
   },
 ][] = [
@@ -152,7 +152,7 @@ export const LIST_FOLDERS_SCENARIOS: [
       // @ts-expect-error pretend folders
       folders: [...Array(101).keys()],
       hasError: true,
-      errorMessage: 'Network got confused',
+      message: 'Network got confused',
     },
   ],
   ['empty search results', { folders: [], query: 'something to look for' }],
@@ -163,7 +163,7 @@ export const LIST_FOLDERS_SCENARIOS: [
       folders: [...Array(101).keys()],
       query: 'something to look for',
       hasError: true,
-      errorMessage: 'Network got confused',
+      message: 'Network got confused',
     },
   ],
   [
@@ -182,7 +182,7 @@ export const LIST_LOCATIONS_SCENARIOS: [
     locations: LocationData[] | undefined;
     query?: string;
     hasError?: boolean;
-    errorMessage?: string;
+    message?: string;
   },
 ][] = [
   ['empty results', { locations: [] }],
@@ -192,7 +192,7 @@ export const LIST_LOCATIONS_SCENARIOS: [
       // @ts-expect-error pretend folders
       locations: [...Array(101).keys()],
       hasError: true,
-      errorMessage: 'Network got confused',
+      message: 'Network got confused',
     },
   ],
   ['empty search results', { locations: [], query: 'something to look for' }],
@@ -203,7 +203,7 @@ export const LIST_LOCATIONS_SCENARIOS: [
       locations: [...Array(101).keys()],
       query: 'something to look for',
       hasError: true,
-      errorMessage: 'Network got confused',
+      message: 'Network got confused',
     },
   ],
   [
@@ -223,7 +223,7 @@ export const LIST_ITEMS_SCENARIOS: [
     items: LocationItemData[] | undefined;
     query?: string;
     hasError?: boolean;
-    errorMessage?: string;
+    message?: string;
     hasExhaustedSearch?: boolean;
   },
 ][] = [
@@ -234,7 +234,7 @@ export const LIST_ITEMS_SCENARIOS: [
       // @ts-expect-error pretend folders
       items: [...Array(101).keys()],
       hasError: true,
-      errorMessage: 'Network got confused',
+      message: 'Network got confused',
     },
   ],
   ['empty search results', { items: [], query: 'something to look for' }],
@@ -245,7 +245,7 @@ export const LIST_ITEMS_SCENARIOS: [
       items: [...Array(101).keys()],
       query: 'something to look for',
       hasError: true,
-      errorMessage: 'Network got confused',
+      message: 'Network got confused',
     },
   ],
   [

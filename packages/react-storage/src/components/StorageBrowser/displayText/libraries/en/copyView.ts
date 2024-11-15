@@ -6,7 +6,7 @@ export const DEFAULT_COPY_VIEW_DISPLAY_TEXT: DefaultCopyViewDisplayText = {
   title: 'Copy',
   actionStartLabel: 'Copy',
   actionDestinationLabel: 'Copy destination:',
-  getListFoldersResultsMessage: ({ folders, query, message }) => {
+  getListFoldersResultsMessage: ({ folders, query, message, hasError }) => {
     if (!folders?.length) {
       return {
         content: query
@@ -20,7 +20,7 @@ export const DEFAULT_COPY_VIEW_DISPLAY_TEXT: DefaultCopyViewDisplayText = {
       return { content: 'Error loading folders.', type: 'error' };
     }
 
-    if (message) {
+    if (hasError) {
       return { content: 'Error loading folders.', type: 'error' };
     }
   },
@@ -48,4 +48,9 @@ export const DEFAULT_COPY_VIEW_DISPLAY_TEXT: DefaultCopyViewDisplayText = {
       type: 'error',
     };
   },
+  getFolderSelectedMessage: (key: string) => {
+    return `Current folder selected: ${key}. There are no additional folders under this path.`;
+  },
+  searchSubmitLabel: 'Submit',
+  searchClearLabel: 'Clear search',
 };
