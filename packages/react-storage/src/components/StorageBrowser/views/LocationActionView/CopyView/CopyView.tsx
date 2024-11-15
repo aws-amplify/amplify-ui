@@ -22,7 +22,7 @@ import { resolveClassName } from '../../utils';
 import { CopyViewProvider } from './CopyViewProvider';
 import { DestinationControl } from './DestinationControl';
 import { FoldersMessageControl } from './FoldersMessageControl';
-import { FoldersPaginatationControl } from './FoldersPaginatationControl';
+import { FoldersPaginationControl } from './FoldersPaginationControl';
 import { FoldersTableControl } from './FoldersTableControl';
 import { CopyViewProps } from './types';
 import { useCopyView } from './useCopyView';
@@ -32,7 +32,15 @@ export function CopyView({
   ...props
 }: CopyViewProps): React.JSX.Element {
   const state = useCopyView(props);
-  const { isProcessing, isProcessingComplete } = state;
+  const {
+    isProcessing,
+    isProcessingComplete,
+    folders: { onInitialize },
+  } = state;
+
+  React.useEffect(() => {
+    onInitialize();
+  }, [onInitialize]);
 
   return (
     <div className={resolveClassName(STORAGE_BROWSER_BLOCK, className)}>
@@ -54,7 +62,7 @@ export function CopyView({
               >
                 <SearchControl />
               </ViewElement>
-              <FoldersPaginatationControl />
+              <FoldersPaginationControl />
             </ViewElement>
             <ViewElement
               className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__table-wrapper`}
@@ -91,7 +99,7 @@ CopyView.Exit = ActionExitControl;
 CopyView.Folders = FoldersTableControl;
 CopyView.FoldersLoading = LoadingIndicatorControl;
 CopyView.FoldersMessage = FoldersMessageControl;
-CopyView.FoldersPagination = FoldersPaginatationControl;
+CopyView.FoldersPagination = FoldersPaginationControl;
 CopyView.FoldersSearch = SearchControl;
 CopyView.Message = MessageControl;
 CopyView.Start = ActionStartControl;
