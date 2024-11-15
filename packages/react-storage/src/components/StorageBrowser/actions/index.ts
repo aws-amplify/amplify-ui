@@ -58,6 +58,7 @@ export {
   ListLocationsHandlerOutput,
   LocationData,
   LocationItemData,
+  LocationPermissions,
   LocationType,
   TaskData,
   TaskHandler,

@@ -18,8 +18,6 @@ import {
   StoreProvider,
   StoreProviderProps,
 } from './providers';
-
-import { ListLocations } from './storage-internal';
 import { StorageBrowserDefault } from './StorageBrowserDefault';
 import { assertRegisterAuthListener } from './validators';
 import {
@@ -33,6 +31,7 @@ import { GetLocationCredentials } from './credentials/types';
 import { defaultActionConfigs } from './actions';
 import { createUseView } from './views/createUseView';
 import { DisplayTextProvider } from './displayText';
+import { ListLocations } from './adapters/types';
 
 export interface Config {
   accountId?: string;

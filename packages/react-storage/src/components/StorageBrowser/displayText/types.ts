@@ -1,6 +1,5 @@
 import { StatusCounts } from '../tasks';
-import { FolderData, LocationData, LocationItemData } from '../actions';
-import { Permission } from '../storage-internal';
+import { FolderData, LocationData, LocationItemData, LocationPermissions } from '../actions';
 import { LocationState } from '../providers/store/location';
 
 /**
@@ -38,7 +37,7 @@ export interface DefaultListViewDisplayText<T = any> {
 
 export interface DefaultLocationsViewDisplayText
   extends DefaultListViewDisplayText<LocationData> {
-  getPermissionName: (permission: Permission) => string;
+  getPermissionName: (permissions: LocationPermissions) => string;
   title: string;
   tableColumnFolderHeader: string;
   tableColumnBucketHeader: string;

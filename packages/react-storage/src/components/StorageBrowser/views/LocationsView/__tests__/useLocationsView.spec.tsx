@@ -30,35 +30,35 @@ const mockData: LocationData[] = [
   {
     bucket: 'test-bucket',
     prefix: `item-a/`,
-    permission: 'READWRITE',
+    permissions: ['delete', 'get', 'list', 'write'],
     id: '1',
     type: 'PREFIX',
   },
   {
     bucket: 'test-bucket',
     prefix: `item-b/`,
-    permission: 'READ',
+    permissions: ['get', 'list'],
     id: '2',
     type: 'PREFIX',
   },
   {
     bucket: 'test-bucket',
     prefix: `item-c/`,
-    permission: 'READWRITE',
+    permissions: ['delete', 'get', 'list', 'write'],
     id: '3',
     type: 'OBJECT',
   },
   {
     bucket: 'test-bucket',
     prefix: `item-d/`,
-    permission: 'READWRITE',
+    permissions: ['delete', 'get', 'list', 'write'],
     id: '4',
     type: 'PREFIX',
   },
   {
     bucket: 'test-bucket',
     prefix: `item-e/`,
-    permission: 'READWRITE',
+    permissions: ['delete', 'get', 'list', 'write'],
     id: '5',
     type: 'BUCKET',
   },
@@ -254,7 +254,7 @@ describe('useLocationsView', () => {
     const location: LocationData = {
       bucket: 'bucket',
       id: 'id',
-      permission: 'READ',
+      permissions: ['get'],
       prefix: 'prefix',
       type: 'OBJECT',
     };
@@ -290,7 +290,7 @@ describe('useLocationsView', () => {
       {
         bucket: 'test-bucket',
         prefix: `item-b/`,
-        permission: 'READ',
+        permissions: ['get', 'list'],
         id: '2',
         type: 'PREFIX',
       },

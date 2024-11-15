@@ -1,7 +1,6 @@
 import { DataTableProps } from '../../../composables/DataTable';
-import { LocationData } from '../../../actions';
+import { LocationData, LocationPermissions } from '../../../actions';
 import { LocationViewHeaders } from './types';
-import { Permission } from '../../../storage-internal';
 
 export const getLocationsViewTableData = ({
   pageItems,
@@ -16,10 +15,10 @@ export const getLocationsViewTableData = ({
   headers: LocationViewHeaders;
   onDownload: (location: LocationData) => void;
   getDownloadLabel: (fileName: string) => string;
-  getPermissionName: (permission: Permission) => string;
+  getPermissionName: (permissions: LocationPermissions) => string;
 }): DataTableProps => {
   const rows: DataTableProps['rows'] = pageItems.map((location) => {
-    const { bucket, id, permission, prefix } = location;
+    const { bucket, id, permissions, prefix } = location;
     return {
       key: id,
       content: headers.map(({ key: columnKey }) => {
@@ -52,10 +51,11 @@ export const getLocationsViewTableData = ({
             return {
               key,
               type: 'text',
-              content: { text: getPermissionName(permission) },
+              content: { text: getPermissionName(permissions) },
             };
           }
           case 'action': {
+            // FIXME: conditional render download button if permissions include 'get'
             return location.type === 'OBJECT'
               ? {
                   key,

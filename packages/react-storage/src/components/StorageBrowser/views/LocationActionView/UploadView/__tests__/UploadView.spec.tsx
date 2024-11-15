@@ -2,6 +2,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 
 import { INITIAL_STATUS_COUNTS } from '../../../../tasks';
+import { LocationData } from '../../../../actions';
 
 import * as UseUploadViewModule from '../useUploadView';
 import { UploadViewState } from '../types';
@@ -49,13 +50,13 @@ const taskOne = {
   status: 'QUEUED' as const,
 };
 
-const location = {
+const location: LocationData = {
   id: 'an-id-👍🏼',
   bucket: 'test-bucket',
-  permission: 'READWRITE',
+  permissions: ['write'],
   prefix: 'test-prefix/',
   type: 'PREFIX',
-} as const;
+};
 
 const initialViewState: UploadViewState = {
   ...callbacks,
