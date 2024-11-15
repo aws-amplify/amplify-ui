@@ -163,7 +163,7 @@ describe('useFolders', () => {
       options: {
         ...DEFAULT_LIST_OPTIONS,
         exclude: 'FILE',
-        search: { filterKey: 'key', query: 'moo' },
+        search: { filterBy: 'key', query: 'moo' },
       },
       prefix: 'prefix1/',
     });

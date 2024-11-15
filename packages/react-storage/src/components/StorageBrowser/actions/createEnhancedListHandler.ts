@@ -7,9 +7,22 @@ import {
   ListHandlerOutput,
 } from './handlers';
 
+type KeyWithStringValue<T> = keyof {
+  [P in keyof T as T[P] extends string ? P : never]: T[P];
+};
+
 interface SearchOptions<T> {
   query: string;
-  filterKey: keyof T;
+  /**
+   * The key of the object in the list to filter by, which must have a string value.
+   * This determines where the `query` will be searched.
+   */
+  filterBy: KeyWithStringValue<T>;
+
+  /**
+   * Optional delimiter to group item keys.
+   */
+  groupBy?: string;
 }
 
 export interface EnhancedListHandlerOptions<T, K>
@@ -49,6 +62,64 @@ type Options<Action> = Action extends ListHandler<
 export const SEARCH_LIMIT = 10000;
 export const SEARCH_PAGE_SIZE = 1000;
 
+interface Search<T> {
+  prefix: string;
+  list: T[];
+  options: SearchOptions<T>;
+}
+
+export function searchItems<T>({ prefix, list, options }: Search<T>): T[] {
+  const { query, filterBy, groupBy } = options;
+
+  // filter keys that match `filterBy` search option
+  const filteredItems = list.filter((item) => {
+    const path = item[filterBy] as string;
+    const suffix = path.slice(prefix.length);
+    return suffix.includes(query);
+  });
+
+  if (!groupBy) {
+    return filteredItems;
+  }
+
+  // group items using the provided grouping delimiter
+  const uniquePaths = new Map<string, T>();
+
+  for (const item of filteredItems) {
+    const path = item[filterBy] as string;
+    const components = path.split(groupBy);
+
+    for (const [i, component] of components.entries()) {
+      if (!component.includes(query)) {
+        continue;
+      }
+
+      // list of components ending with match
+      const matchedPathSegments = components.slice(0, i + 1);
+
+      // create new path
+      let matchedPath = matchedPathSegments.join(groupBy);
+      const isFolder = matchedPath !== path;
+      if (isFolder) {
+        matchedPath += groupBy;
+      }
+
+      // ignore prefix for match
+      if (matchedPath !== prefix && !uniquePaths.has(matchedPath)) {
+        // add a new item
+        uniquePaths.set(matchedPath, {
+          ...item,
+          id: crypto.randomUUID(),
+          [filterBy]: matchedPath,
+          type: isFolder ? 'FOLDER' : 'FILE',
+        });
+      }
+    }
+  }
+
+  return Array.from(uniquePaths.values());
+}
+
 export const createEnhancedListHandler = <Action extends ListHandler>(
   action: Action
 ): EnhancedListHandler<ListItem<Action>, Options<Action>> => {
@@ -67,8 +138,6 @@ export const createEnhancedListHandler = <Action extends ListHandler>(
 
     // collect and filter results on `search`
     if (search) {
-      const { query, filterKey } = search;
-
       const result = [];
       let nextNextToken = undefined;
       do {
@@ -85,13 +154,10 @@ export const createEnhancedListHandler = <Action extends ListHandler>(
       } while (nextNextToken && result.length < SEARCH_LIMIT);
 
       return {
-        items: result.filter((item) => {
-          const test = item[filterKey];
-          if (typeof test === 'string') {
-            const suffix = test.slice(input.prefix.length);
-            return suffix.includes(query);
-          }
-          return false;
+        items: searchItems({
+          list: result,
+          prefix: input.prefix,
+          options: search,
         }),
         search: {
           // search limit reached but we still have a next token
