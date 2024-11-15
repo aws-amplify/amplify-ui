@@ -55,5 +55,5 @@ export const DEFAULT_UPLOAD_VIEW_DISPLAY_TEXT: DefaultUploadViewDisplayText = {
   },
   statusDisplayOverwritePreventedLabel: 'Overwrite prevented',
   tableStatusOverwritePreventedLabel: 'Overwrite prevented',
-  overwriteExistingLabel: 'Overwrite existing files',
+  overwriteToggleLabel: 'Overwrite existing files',
 };

@@ -1,15 +1,16 @@
 import { renderHook, act } from '@testing-library/react-hooks';
 import { useUploadView } from '../useUploadView';
+import { LocationData } from '../../../../actions';
 import * as ConfigModule from '../../../../providers/configuration';
 import * as StoreModule from '../../../../providers/store';
 import * as TasksModule from '../../../../tasks';
 
 const useStoreSpy = jest.spyOn(StoreModule, 'useStore');
 
-const rootLocation = {
+const rootLocation: LocationData = {
   id: 'an-id-👍🏼',
   bucket: 'test-bucket',
-  permission: 'READWRITE',
+  permissions: ['write'],
   // a root `prefix` is an empty string
   prefix: '',
   type: 'BUCKET',
@@ -75,7 +76,9 @@ const useProcessTasksSpy = jest
   ]);
 
 describe('useUploadView', () => {
-  beforeEach(jest.clearAllMocks);
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
 
   it('should dispatchStoreAction when onDropFiles is invoked', () => {
     const { result } = renderHook(() => useUploadView());
@@ -203,12 +206,12 @@ describe('useUploadView', () => {
     const { result } = renderHook(() => useUploadView());
 
     // initial
-    expect(result.current.isOverwriteEnabled).toBe(false);
+    expect(result.current.isOverwritingEnabled).toBe(false);
 
     act(() => {
       result.current.onToggleOverwrite();
     });
 
-    expect(result.current.isOverwriteEnabled).toBe(true);
+    expect(result.current.isOverwritingEnabled).toBe(true);
   });
 });

@@ -5,7 +5,7 @@ describe('getFileRowContent', () => {
     current: {
       bucket: 'bucket',
       id: 'id',
-      permission: 'READ',
+      permissions: ['list', 'get'],
       prefix: 'prefix/',
       type: 'PREFIX',
     },

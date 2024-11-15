@@ -1,18 +1,23 @@
 import { getLocationsViewTableData } from '../getLocationsViewTableData';
 import { LocationViewHeaders } from '../getLocationsViewTableData/types';
 import { DEFAULT_LOCATIONS_VIEW_DISPLAY_TEXT } from '../../../displayText/libraries/en/locationsView';
+import { LocationData } from '../../../actions';
 
 const { getPermissionName } = DEFAULT_LOCATIONS_VIEW_DISPLAY_TEXT;
 
 describe('getLocationsViewTableData', () => {
-  const location1 = {
+  const location1: LocationData = {
     bucket: 'bucket',
     id: 'id-1',
-    permission: 'READ',
+    permissions: ['get', 'list'],
     prefix: 'prefix-1/',
     type: 'PREFIX',
-  } as const;
-  const location2 = { ...location1, id: 'id-2', prefix: 'prefix-2/' };
+  };
+  const location2: LocationData = {
+    ...location1,
+    id: 'id-2',
+    prefix: 'prefix-2/',
+  };
 
   const headers: LocationViewHeaders = [
     {

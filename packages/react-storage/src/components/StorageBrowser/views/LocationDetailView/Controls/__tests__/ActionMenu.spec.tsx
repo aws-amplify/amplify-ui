@@ -3,6 +3,7 @@ import { render, fireEvent } from '@testing-library/react';
 
 import * as TempActions from '../../../../do-not-import-from-here/createTempActionsProvider';
 
+import { LocationData } from '../../../../actions';
 import * as StoreModule from '../../../../providers/store';
 import { STORAGE_BROWSER_BLOCK_TO_BE_UPDATED } from '../../../../constants';
 
@@ -16,10 +17,10 @@ const TEST_ACTIONS = {
 
 jest.spyOn(TempActions, 'useTempActions').mockReturnValue(TEST_ACTIONS);
 
-const location = {
+const location: LocationData = {
   id: 'an-id-👍🏼',
   bucket: 'test-bucket',
-  permission: 'READWRITE' as const,
+  permissions: ['list'],
   prefix: 'test-prefix/',
   type: 'PREFIX' as const,
 };

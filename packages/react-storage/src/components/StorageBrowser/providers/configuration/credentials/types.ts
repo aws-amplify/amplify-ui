@@ -1,9 +1,7 @@
 import React from 'react';
 
-import {
-  LocationCredentialsProvider,
-  Permission,
-} from '../../../storage-internal';
+import { LocationPermissions } from '../../../actions';
+import { LocationCredentialsProvider } from '../../../storage-internal';
 import {
   CreateLocationCredentialsStoreInput,
   GetLocationCredentials,
@@ -14,7 +12,7 @@ export type RegisterAuthListener = (onStateChange: () => void) => void;
 
 export type GetCredentials = (input: {
   scope: string;
-  permission: Permission;
+  permissions: LocationPermissions;
 }) => LocationCredentialsProvider;
 
 export interface CredentialsStore

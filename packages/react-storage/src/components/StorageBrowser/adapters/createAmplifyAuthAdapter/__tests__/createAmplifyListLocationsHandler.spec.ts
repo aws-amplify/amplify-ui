@@ -1,11 +1,7 @@
 import { createAmplifyListLocationsHandler } from '../createAmplifyListLocationsHandler';
 import { getPaginatedLocations } from '../getPaginatedLocations';
-import {
-  ListLocations,
-  ListLocationsOutput,
-  listPaths,
-  ListPathsOutput,
-} from '../../../storage-internal';
+import { listPaths, ListPathsOutput } from '../../../storage-internal';
+import { LocationAccess, ListLocations } from '../../types';
 
 jest.mock('../../../storage-internal', () => ({
   listPaths: jest.fn(),
@@ -18,9 +14,8 @@ jest.mock(
 );
 
 describe('createAmplifyListLocationsHandler', () => {
-  const mockListPaths = listPaths as jest.MockedFunction<typeof listPaths>;
-  const mockGetPaginatedLocations =
-    getPaginatedLocations as jest.MockedFunction<typeof getPaginatedLocations>;
+  const mockListPaths = jest.mocked(listPaths);
+  const mockGetPaginatedLocations = jest.mocked(getPaginatedLocations);
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -36,10 +31,10 @@ describe('createAmplifyListLocationsHandler', () => {
         type: 'PREFIX',
       },
     ];
-    const sanitizedLocation: ListLocationsOutput['locations'] = [
+    const sanitizedLocation: LocationAccess[] = [
       {
         scope: 's3://bucket1/prefix1',
-        permission: 'READ',
+        permissions: ['get', 'list'],
         type: 'PREFIX',
       },
     ];
@@ -79,10 +74,10 @@ describe('createAmplifyListLocationsHandler', () => {
     mockListPaths.mockResolvedValueOnce({ locations: fetchedLocations });
     await handler(input);
 
-    const cachedLocations: ListLocationsOutput['locations'] = [
+    const cachedLocations: LocationAccess[] = [
       {
         scope: 's3://bucket1/prefix1',
-        permission: 'READ',
+        permissions: ['get', 'list'],
         type: 'PREFIX',
       },
     ];
@@ -122,15 +117,15 @@ describe('createAmplifyListLocationsHandler', () => {
       },
     ];
 
-    const sanitizedLocation: ListLocationsOutput['locations'] = [
+    const sanitizedLocation: LocationAccess[] = [
       {
         scope: 's3://bucket1/prefix1',
-        permission: 'READ',
+        permissions: ['get', 'list'],
         type: 'PREFIX',
       },
       {
         scope: 's3://bucket2/prefix2',
-        permission: 'READ',
+        permissions: ['get', 'list'],
         type: 'PREFIX',
       },
     ];

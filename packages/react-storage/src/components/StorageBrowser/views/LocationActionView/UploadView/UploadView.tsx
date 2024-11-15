@@ -9,19 +9,17 @@ import { AddFilesControl } from '../../../controls/AddFilesControl';
 import { AddFolderControl } from '../../../controls/AddFolderControl';
 import { DataTableControl } from '../../../controls/DataTableControl';
 import { DropZoneControl } from '../../../controls/DropZoneControl';
+import { OverwriteToggleControl } from '../../../controls/OverwriteToggleControl';
 import { StatusDisplayControl } from '../../../controls/StatusDisplayControl';
 import { TitleControl } from '../../../controls/TitleControl';
 import { ControlsContextProvider } from '../../../controls/context';
 import { useDisplayText } from '../../../displayText';
-import { Controls } from '../../Controls';
 import { STORAGE_BROWSER_BLOCK } from '../../../constants';
 import { resolveClassName } from '../../utils';
 import { getActionViewTableData } from '../getActionViewTableData';
 import { useUploadView } from './useUploadView';
 import { UploadViewProps } from './types';
 import { Breadcrumb } from '../../../components/BreadcrumbNavigation';
-
-const { Overwrite } = Controls;
 
 export function UploadView({
   className,
@@ -39,13 +37,14 @@ export function UploadView({
     statusDisplayCompletedLabel,
     statusDisplayFailedLabel,
     statusDisplayQueuedLabel,
+    overwriteToggleLabel,
     title,
   } = displayText;
 
   const {
+    isOverwritingEnabled,
     isProcessing,
     isProcessingComplete,
-    isOverwriteEnabled,
     location,
     tasks,
     statusCounts,
@@ -64,7 +63,6 @@ export function UploadView({
   const isAddFilesDisabled = isProcessing || isProcessingComplete;
   const isAddFolderDisabled = isProcessing || isProcessingComplete;
   const isActionExitDisabled = isProcessing;
-  const isOverwriteCheckboxDisabled = isProcessing || isProcessingComplete;
   const destinationList = (location.key || '/').split('/');
 
   return (
@@ -81,7 +79,9 @@ export function UploadView({
           isActionStartDisabled,
           isAddFilesDisabled,
           isAddFolderDisabled,
-          isOverwriteCheckboxDisabled,
+          isOverwriteToggleDisabled: isProcessing || isProcessingComplete,
+          isOverwritingEnabled,
+          overwriteToggleLabel,
           statusCounts,
           statusDisplayCanceledLabel,
           statusDisplayCompletedLabel,
@@ -106,16 +106,12 @@ export function UploadView({
           onSelectFiles('FOLDER');
         }}
         onDropFiles={onDropFiles}
+        onToggleOverwrite={onToggleOverwrite}
       >
         <ActionExitControl />
         <TitleControl />
         <ViewElement className={`${STORAGE_BROWSER_BLOCK}__controls`}>
-          <Overwrite
-            defaultChecked={isOverwriteEnabled}
-            disabled={isOverwriteCheckboxDisabled}
-            handleChange={onToggleOverwrite}
-          />
-
+          <OverwriteToggleControl />
           <ViewElement className={`${STORAGE_BROWSER_BLOCK}__buttons`}>
             <AddFolderControl />
             <AddFilesControl />

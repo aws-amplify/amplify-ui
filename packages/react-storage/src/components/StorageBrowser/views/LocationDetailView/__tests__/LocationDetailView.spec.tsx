@@ -14,6 +14,7 @@ import {
 import {
   ActionInputConfig,
   ListLocationItemsHandlerOutput,
+  LocationData,
 } from '../../../actions';
 import { useProcessTasks } from '../../../tasks/useProcessTasks';
 import { INITIAL_STATUS_COUNTS } from '../../../tasks';
@@ -23,11 +24,21 @@ jest.mock('../../../displayText', () => ({
   useDisplayText: () => ({ LocationDetailView: { title: jest.fn() } }),
 }));
 jest.mock('../../../providers/configuration');
+jest.mock('../../../controls/DataTableControl', () => ({
+  DataTableControl: () => <div data-testid="data-table-control" />,
+}));
+jest.mock('../../../controls/LoadingIndicatorControl', () => ({
+  LoadingIndicatorControl: () => (
+    <div data-testid="loading-indicator-control" />
+  ),
+}));
 jest.mock('../../../controls/NavigationControl', () => ({
   NavigationControl: () => 'NavigationControl',
 }));
-jest.mock('../../../controls/DataTableControl', () => ({
-  DataTableControl: () => <div data-testid="data-table-control" />,
+jest.mock('../../../controls/SearchSubfoldersToggleControl', () => ({
+  SearchSubfoldersToggleControl: () => (
+    <div data-testid="search-subfolders-toggle-control" />
+  ),
 }));
 jest.mock('../../../tasks/useProcessTasks');
 
@@ -86,10 +97,10 @@ const mockListItemsAction = ({
 const dispatchStoreAction = jest.fn();
 const useStoreSpy = jest.spyOn(StoreModule, 'useStore');
 
-const location = {
+const location: LocationData = {
   id: 'an-id-👍🏼',
   bucket: 'test-bucket',
-  permission: 'READWRITE',
+  permissions: ['delete', 'get', 'list', 'write'],
   prefix: 'test-prefix/',
   type: 'PREFIX',
 };
@@ -137,11 +148,11 @@ describe('LocationDetailView', () => {
     ]);
     mockListItemsAction({ isLoading: true, result: [] });
 
-    const { getByText } = render(<LocationDetailView />);
+    const { getByTestId } = render(<LocationDetailView />);
 
-    const text = getByText('Loading');
+    const loadingIndicator = getByTestId('loading-indicator-control');
 
-    expect(text).toBeInTheDocument();
+    expect(loadingIndicator).toBeInTheDocument();
   });
 
   it('renders correct error state', () => {
@@ -184,20 +195,21 @@ describe('LocationDetailView', () => {
     ]);
     mockListItemsAction({ result: testResult });
 
-    const { getByPlaceholderText, getByText, getByLabelText } = render(
-      <LocationDetailView />
-    );
+    const { getByPlaceholderText, getByTestId, getByText, getByLabelText } =
+      render(<LocationDetailView />);
 
     const input = getByPlaceholderText('Search current folder');
-    const subfolderOption = getByText('Include subfolders');
+    const searchSubfoldersToggle = getByTestId(
+      'search-subfolders-toggle-control'
+    );
 
     expect(input).toBeInTheDocument();
-    expect(subfolderOption).toBeInTheDocument();
+    expect(searchSubfoldersToggle).toBeInTheDocument();
 
     input.focus();
     await act(async () => {
       await user.keyboard('boo');
-      await user.click(subfolderOption);
+      await user.click(searchSubfoldersToggle);
       await user.click(getByText('Submit'));
     });
 

@@ -10,9 +10,11 @@ import { LoadingIndicatorProps } from './LoadingIndicator';
 import { MessageProps } from './Message';
 import { FolderNameFieldProps } from './FolderNameField';
 import { NavigationProps } from './Navigation';
+import { OverwriteToggleProps } from './OverwriteToggle';
 import { StatusDisplayProps } from './StatusDisplay';
 import { PaginationProps } from './Pagination';
 import { SearchFieldProps } from './SearchField';
+import { SearchSubfoldersToggleProps } from './SearchSubfoldersToggle';
 import { TitleProps } from './Title';
 
 export interface Composables {
@@ -28,8 +30,10 @@ export interface Composables {
   LoadingIndicator: React.ComponentType<LoadingIndicatorProps>;
   Message: React.ComponentType<MessageProps>;
   Navigation: React.ComponentType<NavigationProps>;
+  OverwriteToggle: React.ComponentType<OverwriteToggleProps>;
   Pagination: React.ComponentType<PaginationProps>;
   SearchField: React.ComponentType<SearchFieldProps>;
+  SearchSubfoldersToggle: React.ComponentType<SearchSubfoldersToggleProps>;
   StatusDisplay: React.ComponentType<StatusDisplayProps>;
   Title: React.ComponentType<TitleProps>;
 }
