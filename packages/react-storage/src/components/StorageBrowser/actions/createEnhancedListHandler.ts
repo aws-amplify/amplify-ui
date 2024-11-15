@@ -19,9 +19,17 @@ export interface EnhancedListHandlerOptions<T, K>
   search?: SearchOptions<T>;
 }
 
+export interface SearchOutput {
+  hasExhaustedSearch: boolean;
+}
+
+interface EnhancedHandlerOutput<T> extends ListHandlerOutput<T> {
+  search?: SearchOutput;
+}
+
 interface EnhancedListHandler<T, K>
   extends AsyncDataAction<
-    ListHandlerOutput<T>,
+    EnhancedHandlerOutput<T>,
     ListHandlerInput<EnhancedListHandlerOptions<T, K>>
   > {}
 
@@ -76,15 +84,21 @@ export const createEnhancedListHandler = <Action extends ListHandler>(
         nextNextToken = output.nextToken;
       } while (nextNextToken && result.length < SEARCH_LIMIT);
 
+      const items = result.filter((item) => {
+        const test = item[filterKey];
+        if (typeof test === 'string') {
+          const suffix = test.slice(input.prefix.length);
+          return suffix.includes(query);
+        }
+        return false;
+      });
+
       return {
-        items: result.filter((item) => {
-          const test = item[filterKey];
-          if (typeof test === 'string') {
-            const suffix = test.slice(input.prefix.length);
-            return suffix.includes(query);
-          }
-          return false;
-        }),
+        items,
+        search: {
+          // search limit reached but we still have a next token
+          hasExhaustedSearch: !!nextNextToken,
+        },
         nextToken: undefined,
       };
     }

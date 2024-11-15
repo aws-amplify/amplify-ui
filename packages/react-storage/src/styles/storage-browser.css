@@ -51,6 +51,7 @@
   align-items: flex-start;
   display: flex;
   gap: var(--storage-browser-gap);
+  flex: 0;
 }
 .storage-browser__message-dismiss {
   flex: 0 0 auto;
