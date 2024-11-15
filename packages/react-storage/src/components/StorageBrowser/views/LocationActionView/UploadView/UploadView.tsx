@@ -52,6 +52,7 @@ export function UploadView({
     location,
     tasks,
     statusCounts,
+    invalidFilesMessage,
     onActionStart,
     onActionCancel,
     onDropFiles,
@@ -59,6 +60,7 @@ export function UploadView({
     onTaskRemove,
     onSelectFiles,
     onToggleOverwrite,
+    onInvalidFilesMessageDismiss,
   } = useUploadView(props);
 
   const isActionStartDisabled =
