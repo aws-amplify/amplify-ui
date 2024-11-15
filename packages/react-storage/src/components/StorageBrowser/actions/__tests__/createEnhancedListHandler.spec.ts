@@ -103,6 +103,7 @@ describe('createEnhancedListHandler', () => {
       { name: 'date' },
     ]);
     expect(result.nextToken).toBeUndefined();
+    expect(result.search?.hasExhaustedSearch).toBeFalsy();
   });
 
   it('should collect and filter results when search and duplicate prefix is provided', async () => {
@@ -180,6 +181,7 @@ describe('createEnhancedListHandler', () => {
     expect(mockAction).toHaveBeenCalledTimes(2);
     expect(result.items.length).toBe(SEARCH_LIMIT);
     expect(result.nextToken).toBeUndefined();
+    expect(result.search?.hasExhaustedSearch).toBeTruthy();
 
     mockAction.mockReset();
   });

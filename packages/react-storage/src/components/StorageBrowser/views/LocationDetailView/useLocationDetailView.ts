@@ -34,6 +34,7 @@ interface UseLocationDetailView {
   shouldShowEmptyMessage: boolean;
   searchPlaceholder: string;
   searchQuery: string;
+  hasExhaustedSearch: boolean;
   pageItems: LocationItemData[];
   page: number;
   onDropFiles: (files: File[]) => void;
@@ -112,7 +113,8 @@ export function useLocationDetailView(
   );
 
   // set up pagination
-  const { items, nextToken } = data;
+  const { items, nextToken, search } = data;
+  const { hasExhaustedSearch = false } = search ?? {};
   const hasNextToken = !!nextToken;
   const paginateCallback = () => {
     if (hasInvalidPrefix || !nextToken) return;
@@ -215,6 +217,7 @@ export function useLocationDetailView(
     onPaginate,
     searchPlaceholder: displayText.searchDetailPlaceholder,
     searchQuery,
+    hasExhaustedSearch,
     onRefresh,
     onNavigate: (location: LocationData, path?: string) => {
       onNavigate?.(location, path);
