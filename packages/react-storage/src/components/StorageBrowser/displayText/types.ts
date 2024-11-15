@@ -57,7 +57,6 @@ export interface DefaultLocationDetailViewDisplayText
   getListItemsResultMessage: (
     data: ListItemsMessageData
   ) => { content?: string; type?: MessageType } | undefined;
-  searchExhaustedMessage: string;
   searchSubfoldersToggleLabel: string;
   selectFileLabel: string;
   selectAllFilesLabel: string;

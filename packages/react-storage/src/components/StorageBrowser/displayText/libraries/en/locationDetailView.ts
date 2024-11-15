@@ -9,7 +9,6 @@ export const DEFAULT_LOCATION_DETAIL_VIEW_DISPLAY_TEXT: DefaultLocationDetailVie
     getListItemsResultMessage: (data) => {
       const {
         items,
-        query,
         hasExhaustedSearch,
         hasError = false,
         message,
@@ -29,10 +28,10 @@ export const DEFAULT_LOCATION_DETAIL_VIEW_DISPLAY_TEXT: DefaultLocationDetailVie
         };
       }
 
-      if (query && hasExhaustedSearch) {
+      if (hasExhaustedSearch) {
         return {
-          type: 'warning',
-          content: `No more folders or files found by ${query}.`,
+          type: 'info',
+          content: `Showing results for up to the first 10,000 items.`,
         };
       }
 
@@ -40,7 +39,6 @@ export const DEFAULT_LOCATION_DETAIL_VIEW_DISPLAY_TEXT: DefaultLocationDetailVie
 
       return undefined;
     },
-    searchExhaustedMessage: 'Showing results for up to the first 10,000 items',
     searchSubfoldersToggleLabel: 'Include subfolders',
     searchPlaceholder: 'Search current folder',
     tableColumnLastModifiedHeader: 'Last modified',
