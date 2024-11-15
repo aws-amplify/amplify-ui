@@ -14,7 +14,6 @@ import {
 import { isFile } from '../utils';
 import { createEnhancedListHandler } from '../../actions/createEnhancedListHandler';
 import { useGetActionInput } from '../../providers/configuration';
-import { displayText } from '../../displayText/en';
 import { LocationState } from '../../providers/store/location';
 import { useSearch } from '../hooks/useSearch';
 import { useProcessTasks } from '../../tasks';
@@ -32,7 +31,6 @@ interface UseLocationDetailView {
   hasFiles: boolean;
   message: string | undefined;
   shouldShowEmptyMessage: boolean;
-  searchPlaceholder: string;
   searchQuery: string;
   hasExhaustedSearch: boolean;
   pageItems: LocationItemData[];
@@ -215,7 +213,6 @@ export function useLocationDetailView(
     isLoading,
     isSearchingSubfolders,
     onPaginate,
-    searchPlaceholder: displayText.searchDetailPlaceholder,
     searchQuery,
     hasExhaustedSearch,
     onRefresh,

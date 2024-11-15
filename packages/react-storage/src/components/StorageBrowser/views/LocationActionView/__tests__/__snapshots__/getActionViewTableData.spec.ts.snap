@@ -36,7 +36,7 @@ exports[`getActionViewTableData should handle tasks with prefix keys 1`] = `
       },
       {
         "content": {
-          "text": "Queued",
+          "text": "Not started",
         },
         "key": "status-1",
         "type": "text",
@@ -145,7 +145,7 @@ exports[`getActionViewTableData should have remove handler on queued files 1`] =
       },
       {
         "content": {
-          "text": "Queued",
+          "text": "Not started",
         },
         "key": "status-1",
         "type": "text",
@@ -202,7 +202,7 @@ exports[`getActionViewTableData should return correct table data for all task st
       },
       {
         "content": {
-          "text": "Queued",
+          "text": "Not started",
         },
         "key": "status-1",
         "type": "text",
@@ -254,7 +254,7 @@ exports[`getActionViewTableData should return correct table data for all task st
       },
       {
         "content": {
-          "text": "In Progress",
+          "text": "In progress",
         },
         "key": "status-2",
         "type": "text",
