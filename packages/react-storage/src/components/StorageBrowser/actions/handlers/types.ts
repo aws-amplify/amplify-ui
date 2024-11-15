@@ -36,6 +36,11 @@ export interface LocationData {
   type: LocationType;
 }
 
+export interface ListLocationsExcludeOptions {
+  exactPermissions?: LocationPermissions;
+  type?: LocationType | LocationType[];
+}
+
 export interface FolderData {
   key: string;
   id: string;

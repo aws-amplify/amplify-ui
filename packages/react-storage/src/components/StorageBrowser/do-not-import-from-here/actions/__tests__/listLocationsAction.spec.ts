@@ -3,7 +3,7 @@ import {
   parseAccessGrantLocation,
 } from '../listLocationsAction';
 import { ListLocations, LocationAccess } from '../../../adapters/types';
-import { generateCombinations } from '../../../actions/__tests__/__testUtils__/permissions';
+import { generateCombinations } from '../../../actions/__testUtils__/permissions';
 import { LocationPermissions } from '../../../actions';
 
 Object.defineProperty(globalThis, 'crypto', {

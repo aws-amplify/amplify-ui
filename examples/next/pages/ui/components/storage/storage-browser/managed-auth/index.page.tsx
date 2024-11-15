@@ -20,7 +20,7 @@ function Example() {
   ) : (
     <>
       <SignOutButton onSignOut={() => setShowSignIn(false)} />
-      <StorageBrowser.Provider></StorageBrowser.Provider>
+      <StorageBrowser />
     </>
   );
 }

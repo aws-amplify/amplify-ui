@@ -15,6 +15,8 @@ export default function Page() {
 
   const { path, ...location } = query;
 
+  // `useRouter` cannot force a query parameter to be array, however the `permissions` has to be array.
+  // When there's only 1 permission (e.g. ['list']), we need to force the `permissions` to be an array.
   if (typeof location.permissions === 'string') {
     location.permissions = [location.permissions];
   }

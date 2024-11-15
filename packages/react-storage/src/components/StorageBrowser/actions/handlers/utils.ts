@@ -6,6 +6,7 @@ import {
   FileData,
   FileDataItem,
   FileItem,
+  ListLocationsExcludeOptions,
   LocationData,
   LocationPermissions,
   LocationType,
@@ -19,6 +20,7 @@ export const constructBucket = ({
   region: string;
 } => ({ bucketName, region });
 
+// FIXME: this may not need to be exported if do-not-import-from-here actions are migrated.
 export const parseAccessGrantLocationScope = (
   scope: string,
   type: LocationType
@@ -100,11 +102,6 @@ export const parseAccessGrantLocation = (
   return { bucket, id, permissions: permissions, prefix, type };
 };
 
-export interface ExcludeType {
-  exactPermissions?: LocationPermissions;
-  type?: LocationType | LocationType[];
-}
-
 const isSamePermissions = (
   permissionsToExclude: LocationPermissions,
   locationPermissions: LocationPermissions
@@ -130,16 +127,16 @@ const isSameType = (
 
 export const shouldExcludeLocation = (
   { permissions, type }: LocationData,
-  exclude?: ExcludeType
+  exclude?: ListLocationsExcludeOptions
 ): boolean =>
   Boolean(
     exclude?.exactPermissions &&
       isSamePermissions(exclude.exactPermissions, permissions)
   ) || Boolean(exclude?.type && isSameType(exclude.type, type));
 
-export const parseAccessGrantLocations = (
+export const getFilteredLocations = (
   locations: AccessGrantLocation[],
-  exclude?: ExcludeType
+  exclude?: ListLocationsExcludeOptions
 ): LocationData[] =>
   locations.reduce(
     (filteredLocations: LocationData[], location: AccessGrantLocation) => {

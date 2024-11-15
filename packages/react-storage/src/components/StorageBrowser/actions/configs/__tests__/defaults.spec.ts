@@ -8,7 +8,7 @@ import {
 import {
   generateCombinations,
   LOCATION_PERMISSION_VALUES,
-} from '../../__tests__/__testUtils__/permissions';
+} from '../../__testUtils__/permissions';
 
 const file = {
   key: 'key',

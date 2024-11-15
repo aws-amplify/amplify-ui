@@ -5,7 +5,7 @@ import {
 } from '../../adapters/permissionParsers';
 import { StorageAccess } from '../../storage-internal';
 
-import { generateCombinations } from '../../actions/__tests__/__testUtils__/permissions';
+import { generateCombinations } from '../../actions/__testUtils__/permissions';
 
 describe('parseAccessGrantPermission', () => {
   it.each([

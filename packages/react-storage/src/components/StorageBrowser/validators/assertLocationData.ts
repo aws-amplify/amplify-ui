@@ -1,5 +1,4 @@
 import { isObject, isString } from '@aws-amplify/ui';
-import isArray from 'lodash/isArray.js';
 
 import { LocationData, LocationPermissions } from '../actions';
 
@@ -8,7 +7,7 @@ function assertLocationPermissions(
   message: string
 ): asserts value is LocationPermissions {
   if (
-    !isArray(value) ||
+    !Array.isArray(value) ||
     value.some(
       (inputPermissionEntry) =>
         typeof inputPermissionEntry !== 'string' ||

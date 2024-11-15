@@ -2,7 +2,7 @@ import { FolderData } from '../../../../actions';
 import {
   LOCATION_PERMISSION_VALUES,
   generateCombinations,
-} from '../../../../actions/__tests__/__testUtils__/permissions';
+} from '../../../../actions/__testUtils__/permissions';
 import { StatusCounts } from '../../../../tasks';
 
 import { DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT } from '../default';

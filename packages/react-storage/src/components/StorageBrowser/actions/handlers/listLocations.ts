@@ -11,13 +11,13 @@ import {
   ListHandler,
 } from './types';
 
-import { LocationData } from './types';
-import { parseAccessGrantLocations, ExcludeType } from './utils';
+import { ListLocationsExcludeOptions, LocationData } from './types';
+import { getFilteredLocations } from './utils';
 
 const DEFAULT_PAGE_SIZE = 1000;
 
 export interface ListLocationsHandlerOptions
-  extends ListHandlerOptions<ExcludeType> {}
+  extends ListHandlerOptions<ListLocationsExcludeOptions> {}
 
 export interface ListLocationsHandlerInput
   extends ListHandlerInput<ListLocationsHandlerOptions> {}
@@ -53,7 +53,7 @@ export const listLocationsHandler: ListLocationsHandler = async (input) => {
       region,
     });
 
-    const parsedOutput = parseAccessGrantLocations(output.locations, exclude);
+    const parsedOutput = getFilteredLocations(output.locations, exclude);
 
     const items = [...accumulatedItems, ...parsedOutput];
 
