@@ -12,13 +12,13 @@ export const DEFAULT_LOCATION_DETAIL_VIEW_DISPLAY_TEXT: DefaultLocationDetailVie
         query,
         hasExhaustedSearch,
         hasError = false,
-        errorMessage,
+        message,
       } = data ?? {};
 
       if (hasError) {
         return {
           type: 'error',
-          content: errorMessage ?? DEFAULT_ERROR_MESSAGE,
+          content: message ?? DEFAULT_ERROR_MESSAGE,
         };
       }
 

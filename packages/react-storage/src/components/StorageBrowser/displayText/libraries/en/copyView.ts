@@ -6,7 +6,7 @@ export const DEFAULT_COPY_VIEW_DISPLAY_TEXT: DefaultCopyViewDisplayText = {
   title: 'Copy',
   actionStartLabel: 'Copy',
   actionDestinationLabel: 'Copy destination:',
-  getListFoldersResultsMessage: ({ folders, query, errorMessage }) => {
+  getListFoldersResultsMessage: ({ folders, query, message }) => {
     if (!folders?.length) {
       return {
         content: query
@@ -16,11 +16,11 @@ export const DEFAULT_COPY_VIEW_DISPLAY_TEXT: DefaultCopyViewDisplayText = {
       };
     }
 
-    if (errorMessage && !!query) {
+    if (message && !!query) {
       return { content: 'Error loading folders.', type: 'error' };
     }
 
-    if (errorMessage) {
+    if (message) {
       return { content: 'Error loading folders.', type: 'error' };
     }
   },

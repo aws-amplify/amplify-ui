@@ -104,7 +104,7 @@ export function LocationsView({
     ? getListLocationsResultMessage({
         locations: pageItems,
         hasError,
-        errorMessage: message,
+        message,
       })
     : getListLocationsResultMessage({
         locations: pageItems,

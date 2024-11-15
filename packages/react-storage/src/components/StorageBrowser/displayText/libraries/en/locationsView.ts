@@ -21,13 +21,13 @@ export const DEFAULT_LOCATIONS_VIEW_DISPLAY_TEXT: DefaultLocationsViewDisplayTex
         query,
         hasExhaustedSearch,
         hasError = false,
-        errorMessage,
+        message,
       } = data ?? {};
 
       if (hasError) {
         return {
           type: 'error',
-          content: errorMessage ?? DEFAULT_ERROR_MESSAGE,
+          content: message ?? DEFAULT_ERROR_MESSAGE,
         };
       }
 

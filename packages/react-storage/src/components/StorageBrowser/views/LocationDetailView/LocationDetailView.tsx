@@ -77,7 +77,7 @@ export function LocationDetailView({
     ? getListItemsResultMessage({
         items: pageItems,
         hasError,
-        errorMessage: message,
+        message,
       })
     : getListItemsResultMessage({
         items: pageItems,

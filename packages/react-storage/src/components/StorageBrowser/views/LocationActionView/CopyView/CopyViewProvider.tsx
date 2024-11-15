@@ -81,7 +81,7 @@ export function CopyViewProvider({
   const foldersMessage = !hasFoldersInitialized
     ? undefined
     : getListFoldersResultsMessage({
-        errorMessage: foldersErrorMessage,
+        message: foldersErrorMessage,
         folders,
         query: currentQuery,
       });

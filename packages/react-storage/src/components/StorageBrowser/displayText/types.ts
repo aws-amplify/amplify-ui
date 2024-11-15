@@ -24,7 +24,7 @@ export interface DefaultListViewDisplayText {
 
 interface ListMessageData {
   hasError?: boolean;
-  errorMessage?: string;
+  message?: string;
   hasExhaustedSearch?: boolean;
   query?: string;
 }
