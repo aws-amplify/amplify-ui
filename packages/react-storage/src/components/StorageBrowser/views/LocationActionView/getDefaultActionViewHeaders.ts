@@ -1,5 +1,5 @@
 import { ActionViewHeaders } from './types';
-import { DEFAULT_ACTION_VIEW_DISPLAY_TEXT } from '../../displayText/libraries/en/shared';
+import { DefaultActionViewDisplayText } from '../../displayText/types';
 
 export const getDefaultActionViewHeaders = ({
   displayText: {
@@ -11,7 +11,7 @@ export const getDefaultActionViewHeaders = ({
     tableColumnFolderHeader,
   },
 }: {
-  displayText: typeof DEFAULT_ACTION_VIEW_DISPLAY_TEXT;
+  displayText: DefaultActionViewDisplayText;
 }): ActionViewHeaders => {
   return [
     {

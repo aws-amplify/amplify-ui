@@ -3,13 +3,13 @@ import { humanFileSize } from '@aws-amplify/ui';
 import { DataTableProps } from '../../composables/DataTable';
 import { Task, TaskStatus } from '../../tasks';
 
-import { DEFAULT_ACTION_VIEW_DISPLAY_TEXT } from '../../displayText/libraries/en/shared';
 import { isFileItem, isFileDataItem, TaskData } from '../../actions';
 import { getActionIcon } from './getActionIcon';
 import { getFileTypeDisplayValue } from './getFileTypeDisplayValue';
 import { getPercentValue } from '../utils';
 import { getDefaultActionViewHeaders } from './getDefaultActionViewHeaders';
 import { ActionViewHeaders } from './types';
+import { DefaultActionViewDisplayText } from '../../displayText/types';
 
 const getTaskStatusDisplayLabel = ({
   status,
@@ -24,7 +24,9 @@ const getTaskStatusDisplayLabel = ({
   },
 }: {
   status: TaskStatus;
-  displayText: typeof DEFAULT_ACTION_VIEW_DISPLAY_TEXT;
+  displayText: DefaultActionViewDisplayText & {
+    tableStatusDisplayOverwritePreventedLabel?: string;
+  };
 }) => {
   switch (status) {
     case 'PENDING':
@@ -64,7 +66,9 @@ export const getActionViewTableData = <T extends TaskData = TaskData>({
   locationKey?: string;
   isProcessing: boolean;
   shouldDisplayProgress?: boolean;
-  displayText: typeof DEFAULT_ACTION_VIEW_DISPLAY_TEXT;
+  displayText: DefaultActionViewDisplayText & {
+    tableStatusDisplayOverwritePreventedLabel?: string;
+  };
   onTaskRemove?: (task: Task<T>) => void;
 }): DataTableProps => {
   const headers = [

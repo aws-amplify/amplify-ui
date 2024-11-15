@@ -20,7 +20,6 @@ export const DEFAULT_ACTION_VIEW_DISPLAY_TEXT: Omit<
   tableStatusDisplayCanceledLabel: 'Canceled',
   tableStatusDisplayCompletedLabel: 'Completed',
   tableStatusDisplayFailedLabel: 'Failed',
-  tableStatusDisplayOverwritePreventedLabel: 'Overwrite prevented',
   tableStatusDisplayInProgressLabel: 'In progress',
   tableStatusDisplayQueuedLabel: 'In queue',
   tableStatusDisplayInitialLabel: 'Not started',

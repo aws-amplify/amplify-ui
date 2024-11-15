@@ -16,10 +16,10 @@ export const useStatusDisplay = (): StatusDisplayProps => {
   }
 
   const statuses = [
-    { name: statusDisplayCompletedLabel!, count: statusCounts.COMPLETE },
-    { name: statusDisplayFailedLabel!, count: statusCounts.FAILED },
-    { name: statusDisplayCanceledLabel!, count: statusCounts.CANCELED },
-    { name: statusDisplayQueuedLabel!, count: statusCounts.QUEUED },
+    { name: statusDisplayCompletedLabel ?? '', count: statusCounts.COMPLETE },
+    { name: statusDisplayFailedLabel ?? '', count: statusCounts.FAILED },
+    { name: statusDisplayCanceledLabel ?? '', count: statusCounts.CANCELED },
+    { name: statusDisplayQueuedLabel ?? '', count: statusCounts.QUEUED },
   ];
 
   return { statuses, total: statusCounts.TOTAL };
