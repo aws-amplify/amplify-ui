@@ -45,7 +45,7 @@ const getTaskStatusDisplayLabel = ({
 };
 
 export const getProgressHeader = (
-  progressLabel: string
+  label: string
 ): ActionViewHeaders[0] => ({
   key: 'progress',
   type: 'sort',
