@@ -7,9 +7,10 @@ export const DEFAULT_CREATE_FOLDER_VIEW_DISPLAY_TEXT: DefaultCreateFolderViewDis
     title: 'Create folder',
     actionStartLabel: 'Create folder',
     folderNameLabel: 'Folder name',
-    folderNamePlaceholder: 'Folder name cannot contain "/" or "."',
+    folderNamePlaceholder:
+      'Folder name cannot contain "/", nor end or start with "."',
     getValidationMessage: () =>
-      'Folder name cannot contain a "/" or "." character',
+      'Folder name cannot contain "/", nor end or start with "."',
     getActionCompleteMessage: ({ OVERWRITE_PREVENTED, FAILED }) =>
       OVERWRITE_PREVENTED > 0
         ? 'A folder already exists with the provided name'
