@@ -42,7 +42,7 @@ export const getFileRowContent = ({
         return {
           key,
           type: 'text',
-          content: { icon: 'file', text: rowKey.slice(itemLocationKey.length) }, // row key - /public/one.png | itemLk - /public -> show `one.png`
+          content: { icon: 'file', text: rowKey.slice(itemLocationKey.length) },
         };
       }
       case 'type': {

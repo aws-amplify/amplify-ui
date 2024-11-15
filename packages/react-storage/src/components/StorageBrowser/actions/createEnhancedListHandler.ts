@@ -43,7 +43,7 @@ interface EnhancedListHandlerOutput<T> extends ListHandlerOutput<T> {
 interface EnhancedListHandler<T, K>
   extends AsyncDataAction<
     EnhancedListHandlerOutput<T>,
-    ListHandlerInput<EnhancedListHandlerOptions<T, K> & { delimiter?: string }>
+    ListHandlerInput<EnhancedListHandlerOptions<T, K>>
   > {}
 
 type ListItem<Action> = Action extends ListHandler<
@@ -95,10 +95,10 @@ export function searchItems<T>({ prefix, list, options }: Search<T>): T[] {
       }
 
       // list of components ending with match
-      const matches = components.slice(0, i + 1);
+      const matchedPathSegments = components.slice(0, i + 1);
 
       // create new path
-      let matchedPath = matches.join(groupBy);
+      let matchedPath = matchedPathSegments.join(groupBy);
       const isFolder = matchedPath !== path;
       if (isFolder) {
         matchedPath += groupBy;

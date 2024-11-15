@@ -42,14 +42,12 @@ export function useGetActionInputCallback({
       return {
         accountId,
         bucket,
-        credentials: getCredentials({
-          permissions,
-          scope,
-        }),
-        region,
-        customEndpoint,
-      };
-    },
-    [accountId, current, customEndpoint, getCredentials, key, region]
-  );
+      credentials: getCredentials({
+        permissions,
+        scope,
+      }),
+      region,
+      customEndpoint,
+    };
+  }, [accountId, current, customEndpoint, getCredentials, key, region]);
 }

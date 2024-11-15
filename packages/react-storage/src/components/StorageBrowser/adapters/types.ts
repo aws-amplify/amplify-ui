@@ -1,8 +1,5 @@
 import { RegisterAuthListener } from '../providers';
-import {
-  GetLocationCredentials,
-  CredentialsLocation,
-} from '../credentials/types';
+import { GetLocationCredentials, CredentialsLocation } from '../credentials/types';
 import { CredentialsProvider } from '../storage-internal';
 import { LocationType } from '../actions';
 

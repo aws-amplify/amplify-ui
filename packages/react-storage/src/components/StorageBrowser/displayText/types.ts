@@ -1,10 +1,5 @@
 import { StatusCounts } from '../tasks';
-import {
-  FolderData,
-  LocationData,
-  LocationItemData,
-  LocationPermissions,
-} from '../actions';
+import { FolderData, LocationData, LocationItemData, LocationPermissions } from '../actions';
 import { LocationState } from '../providers/store/location';
 
 /**
