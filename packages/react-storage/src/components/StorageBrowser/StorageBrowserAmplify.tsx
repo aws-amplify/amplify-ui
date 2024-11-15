@@ -12,6 +12,7 @@ export interface StorageBrowserProps extends StorageBrowserPropsBase {}
 
 export const StorageBrowser = ({
   views,
+  displayText,
 }: StorageBrowserProps): React.JSX.Element => {
   const { StorageBrowser } = React.useRef(
     createStorageBrowser({
@@ -51,5 +52,5 @@ export const StorageBrowser = ({
     })
   ).current;
 
-  return <StorageBrowser views={views} />;
+  return <StorageBrowser views={views} displayText={displayText} />;
 };

@@ -32,6 +32,7 @@ import { defaultActionConfigs } from './actions';
 import { createUseView } from './views/createUseView';
 import { DisplayTextProvider } from './displayText';
 import { ListLocations } from './adapters/types';
+import { StorageBrowserDisplayText } from './displayText/types';
 
 export interface Config {
   accountId?: string;
@@ -51,6 +52,7 @@ export interface CreateStorageBrowserInput {
 
 export interface StorageBrowserProps<T = string> {
   views?: Views<T>;
+  displayText?: StorageBrowserDisplayText;
 }
 
 export interface StorageBrowserComponent<T = string, K = {}> extends Views<T> {
@@ -58,7 +60,7 @@ export interface StorageBrowserComponent<T = string, K = {}> extends Views<T> {
     props: StorageBrowserProps & Exclude<K, keyof StorageBrowserProps>
   ): React.JSX.Element;
   displayName: string;
-  Provider: (props: StoreProviderProps) => React.JSX.Element;
+  Provider: (props: StorageBrowserProviderProps) => React.JSX.Element;
 }
 
 export interface ResolvedStorageBrowserElements<
@@ -69,6 +71,10 @@ export type ActionViewName<T = string> = Exclude<
   T,
   'listLocationItems' | 'listLocations'
 >;
+
+export interface StorageBrowserProviderProps extends StoreProviderProps {
+  displayText?: StorageBrowserDisplayText;
+}
 
 export function createStorageBrowser(input: CreateStorageBrowserInput): {
   StorageBrowser: StorageBrowserComponent<
@@ -111,28 +117,28 @@ export function createStorageBrowser(input: CreateStorageBrowserInput): {
    * Provides state, configuration and action values that are shared between
    * the primary View components
    */
-  function Provider({ children, ...props }: StoreProviderProps) {
+  function Provider({ children, ...props }: StorageBrowserProviderProps) {
     return (
       <StoreProvider {...props}>
         <ConfigurationProvider>
-          <TempActionsProvider>
-            <DisplayTextProvider>
+          <DisplayTextProvider displayText={props.displayText}>
+            <TempActionsProvider>
               <ComponentsProvider
                 composables={composables}
                 elements={input.elements}
               >
                 {children}
               </ComponentsProvider>
-            </DisplayTextProvider>
-          </TempActionsProvider>
+            </TempActionsProvider>
+          </DisplayTextProvider>
         </ConfigurationProvider>
       </StoreProvider>
     );
   }
 
-  const StorageBrowser: StorageBrowserComponent = ({ views }) => (
+  const StorageBrowser: StorageBrowserComponent = ({ views, displayText }) => (
     <ErrorBoundary>
-      <Provider>
+      <Provider displayText={displayText}>
         <ViewsProvider views={views}>
           <StorageBrowserDefault />
         </ViewsProvider>
