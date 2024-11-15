@@ -40,6 +40,7 @@ exports[`@aws-amplify/ui overrides should match snapshot 1`] = `
 --amplify-components-ai-conversation-message-sender-timestamp-font-size: inherit;
 --amplify-components-ai-conversation-message-sender-timestamp-font-weight: inherit;
 --amplify-components-ai-conversation-message-body-gap: var(--amplify-space-xs);
+--amplify-components-ai-conversation-message-actions-gap: var(--amplify-space-xs);
 --amplify-components-ai-conversation-form-gap: var(--amplify-space-small);
 --amplify-components-ai-conversation-form-padding: var(--amplify-space-small);
 --amplify-components-ai-conversation-attachment-border-color: var(--amplify-colors-border-secondary);

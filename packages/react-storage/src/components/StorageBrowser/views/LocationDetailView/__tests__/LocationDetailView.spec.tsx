@@ -14,9 +14,11 @@ import {
 import {
   ActionInputConfig,
   ListLocationItemsHandlerOutput,
+  LocationData,
 } from '../../../actions';
 import { useProcessTasks } from '../../../tasks/useProcessTasks';
 import { INITIAL_STATUS_COUNTS } from '../../../tasks';
+import { SearchOutput } from '../../../actions/createEnhancedListHandler';
 
 // FIXME: Temporarily mock... 😎 temp actions hook
 import { useTempActions } from '../../../do-not-import-from-here/createTempActionsProvider';
@@ -25,7 +27,14 @@ const mockUseTempActions = useTempActions as jest.Mock;
 mockUseTempActions.mockReturnValue({});
 
 jest.mock('../../../displayText', () => ({
-  useDisplayText: () => ({ LocationDetailView: { title: jest.fn() } }),
+  useDisplayText: () => ({
+    LocationDetailView: {
+      title: jest.fn(),
+      searchPlaceholder: 'Search current folder',
+      searchSubmitLabel: 'Submit',
+      searchExhaustedMessage: 'Exhausted',
+    },
+  }),
 }));
 jest.mock('../../../providers/configuration');
 jest.mock('../../../controls/DataTableControl', () => ({
@@ -79,17 +88,19 @@ const mockListItemsAction = ({
   isLoading = false,
   message,
   result,
+  search,
   nextToken = undefined,
 }: {
   hasError?: boolean;
   isLoading?: boolean;
   message?: string;
   result: any[];
+  search?: SearchOutput;
   nextToken?: string;
 }) => {
   jest.spyOn(AmplifyReactCore, 'useDataState').mockReturnValue([
     {
-      data: { items: result, nextToken },
+      data: { items: result, nextToken, search },
       hasError,
       isLoading,
       message,
@@ -101,10 +112,10 @@ const mockListItemsAction = ({
 const dispatchStoreAction = jest.fn();
 const useStoreSpy = jest.spyOn(StoreModule, 'useStore');
 
-const location = {
+const location: LocationData = {
   id: 'an-id-👍🏼',
   bucket: 'test-bucket',
-  permission: 'READWRITE',
+  permissions: ['delete', 'get', 'list', 'write'],
   prefix: 'test-prefix/',
   type: 'PREFIX',
 };
@@ -238,6 +249,45 @@ describe('LocationDetailView', () => {
 
     // clears search
     expect(input).toHaveValue('');
+  });
+
+  it('shows search exhausted message', async () => {
+    useStoreSpy.mockReturnValue([
+      {
+        location: { current: location, path: '', key: location.prefix },
+        locationItems: { fileDataItems: undefined },
+      } as StoreModule.UseStoreState,
+      dispatchStoreAction,
+    ]);
+    mockListItemsAction({
+      result: testResult,
+      search: { hasExhaustedSearch: true },
+    });
+
+    const { getByPlaceholderText, getByText } = render(<LocationDetailView />);
+
+    const input = getByPlaceholderText('Search current folder');
+    expect(input).toBeInTheDocument();
+    input.focus();
+    await act(async () => {
+      await user.keyboard('boo');
+      await user.click(getByText('Submit'));
+    });
+
+    const message = getByText('Exhausted');
+    expect(message).toBeInTheDocument();
+
+    // search initiated
+    expect(handleList).toHaveBeenCalledWith(
+      expect.objectContaining({
+        options: expect.objectContaining({
+          search: {
+            filterKey: 'key',
+            query: 'boo',
+          },
+        }),
+      })
+    );
   });
 
   it('loads initial location items for a BUCKET location as expected', () => {

@@ -35,7 +35,7 @@ export function useGetActionInputCallback({
       assertLocationData(_location, getErrorMessage('locationData'));
       assertPrefix(_prefix, getErrorMessage('prefix'));
 
-      const { bucket, permission, type } = _location;
+      const { bucket, permissions, type } = _location;
       // BUCKET/PREFIX grants end with `*`, but object grants do not.
       const scope = `s3://${bucket}/${_prefix}${type === 'OBJECT' ? '' : '*'}`;
 
@@ -43,8 +43,8 @@ export function useGetActionInputCallback({
         accountId,
         bucket,
         credentials: getCredentials({
+          permissions,
           scope,
-          permission,
         }),
         region,
         customEndpoint,

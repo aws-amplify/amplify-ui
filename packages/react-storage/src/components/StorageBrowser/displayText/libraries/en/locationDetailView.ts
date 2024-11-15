@@ -12,6 +12,8 @@ export const DEFAULT_LOCATION_DETAIL_VIEW_DISPLAY_TEXT: DefaultLocationDetailVie
     tableColumnNameHeader: 'Name',
     tableColumnSizeHeader: 'Size',
     tableColumnTypeHeader: 'Type',
+    selectFileLabel: 'Select file',
+    selectAllFilesLabel: 'Select all files',
     title: (location) => {
       const { current, key } = location;
       const { bucket = '' } = current ?? {};

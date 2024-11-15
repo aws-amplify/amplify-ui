@@ -52,6 +52,7 @@
   display: flex;
   gap: var(--storage-browser-gap);
 }
+
 .storage-browser__message-dismiss {
   flex: 0 0 auto;
 }

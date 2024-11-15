@@ -41,7 +41,7 @@ describe('createLocationCredentialsStore', () => {
 
         const locationCredentialsProvider = store.getProvider({
           scope: 's3://bucket/path/*',
-          permission: 'READ',
+          permissions: ['list', 'get'],
         });
         const { credentials } = await locationCredentialsProvider();
         expect(credentials).toEqual(mockedCredentials);
@@ -49,7 +49,7 @@ describe('createLocationCredentialsStore', () => {
           expect.objectContaining({
             location: {
               scope: 's3://bucket/path/*',
-              permission: 'READ',
+              permissions: ['list', 'get'],
             },
             forceRefresh: false,
           })
@@ -62,7 +62,7 @@ describe('createLocationCredentialsStore', () => {
           mockedGetValue.mockResolvedValue({ credentials: mockedCredentials });
           const locationCredentialsProvider = store.getProvider({
             scope: invalidScope,
-            permission: 'READWRITE',
+            permissions: ['delete', 'get', 'list', 'write'],
           });
 
           await expect(() => locationCredentialsProvider()).rejects.toThrow(

@@ -153,6 +153,7 @@ export const FormControl: FormControl = () => {
   const ref = React.useRef<HTMLFormElement | null>(null);
   const responseComponents = React.useContext(ResponseComponentsContext);
   const controls = React.useContext(ControlsContext);
+  const [composing, setComposing] = React.useState(false);
 
   const submitMessage = async () => {
     ref.current?.reset();
@@ -197,7 +198,7 @@ export const FormControl: FormControl = () => {
   ) => {
     const { key, shiftKey } = event;
 
-    if (key === 'Enter' && !shiftKey) {
+    if (key === 'Enter' && !shiftKey && !composing) {
       event.preventDefault();
 
       const hasInput =
@@ -231,7 +232,11 @@ export const FormControl: FormControl = () => {
         <VisuallyHidden>
           <Label />
         </VisuallyHidden>
-        <TextInput onKeyDown={handleOnKeyDown} />
+        <TextInput
+          onKeyDown={handleOnKeyDown}
+          onCompositionStart={() => setComposing(true)}
+          onCompositionEnd={() => setComposing(false)}
+        />
         <AttachmentListControl />
       </InputContainer>
       <SendButton>

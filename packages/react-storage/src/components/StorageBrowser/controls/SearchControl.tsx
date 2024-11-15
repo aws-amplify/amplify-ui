@@ -7,13 +7,20 @@ import { useControlsContext } from './context';
 export const SearchControl = (): React.JSX.Element | null => {
   const { data, onSearch, onSearchQueryChange, onSearchClear } =
     useControlsContext();
-  const { searchPlaceholder, searchQuery } = data;
+  const {
+    searchPlaceholder,
+    searchClearLabel,
+    searchQuery,
+    searchSubmitLabel,
+  } = data;
   const ResolvedSearch = useResolvedComposable(SearchField, 'SearchField');
 
   return (
     <ResolvedSearch
       placeholder={searchPlaceholder}
       query={searchQuery}
+      clearLabel={searchClearLabel}
+      submitLabel={searchSubmitLabel}
       onSearch={onSearch}
       onQueryChange={onSearchQueryChange}
       onClear={onSearchClear}

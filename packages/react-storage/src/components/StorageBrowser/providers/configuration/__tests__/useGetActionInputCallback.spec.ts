@@ -18,7 +18,7 @@ const getCredentials: CredentialsModule.GetCredentials = jest.fn(
 const accountId = 'my-account-id';
 const bucket = 'my-bucket';
 const customEndpoint = 'mock-endpoint';
-const permission = 'READ' as const;
+const permissions = ['delete', 'get', 'list', 'write'];
 const prefix = 'my-prefix/';
 const region = 'my-region';
 const key = `${prefix}my-path/`;
@@ -26,7 +26,7 @@ const key = `${prefix}my-path/`;
 const location = {
   bucket,
   id: 'id-id-id',
-  permission,
+  permissions,
   prefix,
   type: 'PREFIX' as const,
 };
@@ -64,7 +64,7 @@ describe('useGetActionInputCallback', () => {
 
     expect(getCredentials).toHaveBeenCalledTimes(1);
     expect(getCredentials).toHaveBeenCalledWith({
-      permission,
+      permissions,
       scope: 's3://my-bucket/my-prefix/my-path/*',
     });
   });
@@ -90,7 +90,7 @@ describe('useGetActionInputCallback', () => {
     const prefixActionInput = getActionInput({
       bucket: 'myBucket',
       id: 'id',
-      permission: 'READ',
+      permissions: ['list'],
       prefix: 'myPrefix/',
       type: 'PREFIX',
     });
@@ -105,7 +105,7 @@ describe('useGetActionInputCallback', () => {
 
     expect(getCredentials).toHaveBeenCalledTimes(1);
     expect(getCredentials).toHaveBeenCalledWith({
-      permission: 'READ',
+      permissions: ['list'],
       scope: 's3://myBucket/myPrefix/*',
     });
   });
@@ -131,7 +131,7 @@ describe('useGetActionInputCallback', () => {
     const objectActionInput = getActionInput({
       bucket: 'myBucket',
       id: 'id',
-      permission: 'READ',
+      permissions: ['get'],
       prefix: 'myPrefix/my.jpg',
       type: 'OBJECT',
     });
@@ -146,7 +146,7 @@ describe('useGetActionInputCallback', () => {
 
     expect(getCredentials).toHaveBeenCalledTimes(1);
     expect(getCredentials).toHaveBeenCalledWith({
-      permission: 'READ',
+      permissions: ['get'],
       scope: 's3://myBucket/myPrefix/my.jpg',
     });
   });

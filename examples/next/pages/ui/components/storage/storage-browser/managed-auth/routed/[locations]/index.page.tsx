@@ -9,29 +9,6 @@ import { StorageBrowser, useView } from '../StorageBrowser';
 import '@aws-amplify/ui-react-storage/storage-browser-styles.css';
 import '@aws-amplify/ui-react-storage/styles.css';
 
-function TemporaryLogs() {
-  try {
-    useView('CreateFolder');
-  } catch (e) {
-    console.log('CreateFolder error', e.message);
-  }
-
-  try {
-    useView('Upload');
-  } catch (e) {
-    console.log('Upload error', e.message);
-  }
-
-  const locations = useView('Locations');
-  console.log('locations', locations);
-
-  const detail = useView('LocationDetail');
-  console.log('detail', detail);
-
-  const deleteState = useView('Delete');
-  console.log('delete', deleteState);
-  return null;
-}
 function Locations() {
   const router = useRouter();
 
@@ -44,7 +21,6 @@ function Locations() {
       />
 
       <StorageBrowser.Provider>
-        <TemporaryLogs />
         <StorageBrowser.LocationsView
           onNavigate={(location) => {
             router.push({

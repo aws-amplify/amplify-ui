@@ -14,7 +14,6 @@ import {
 import { isFile } from '../utils';
 import { createEnhancedListHandler } from '../../actions/createEnhancedListHandler';
 import { useGetActionInput } from '../../providers/configuration';
-import { displayText } from '../../displayText/en';
 import { LocationState } from '../../providers/store/location';
 import { useSearch } from '../hooks/useSearch';
 import { useProcessTasks } from '../../tasks';
@@ -22,6 +21,7 @@ import { downloadHandler, FileDataItem } from '../../actions/handlers';
 import { ActionsListItem } from '../../composables/ActionsList';
 import { useTempActions } from '../../do-not-import-from-here/createTempActionsProvider';
 import { IconVariant } from '../../context/elements';
+import { toAccessGrantPermission } from '../../adapters/permissionParsers';
 
 interface UseLocationDetailView {
   actions: ActionsListItem[];
@@ -36,8 +36,8 @@ interface UseLocationDetailView {
   hasFiles: boolean;
   message: string | undefined;
   shouldShowEmptyMessage: boolean;
-  searchPlaceholder: string;
   searchQuery: string;
+  hasExhaustedSearch: boolean;
   pageItems: LocationItemData[];
   page: number;
   onActionSelect: (actionType: string) => void;
@@ -104,7 +104,7 @@ export function useLocationDetailView(
 
   const [{ location, locationItems }, dispatchStoreAction] = useStore();
   const { current, key } = location;
-  const { permission, prefix } = current ?? {};
+  const { permissions, prefix } = current ?? {};
   const { fileDataItems } = locationItems;
   const hasInvalidPrefix = isUndefined(prefix);
 
@@ -119,7 +119,8 @@ export function useLocationDetailView(
   );
 
   // set up pagination
-  const { items, nextToken } = data;
+  const { items, nextToken, search } = data;
+  const { hasExhaustedSearch = false } = search ?? {};
   const hasNextToken = !!nextToken;
   const paginateCallback = () => {
     if (hasInvalidPrefix || !nextToken) return;
@@ -207,7 +208,7 @@ export function useLocationDetailView(
 
   // FIXME: Temporarily get from... 😎 temp actions hook
   const actions = React.useMemo(() => {
-    if (!permission) {
+    if (!permissions) {
       return [];
     }
     return Object.entries(tempActions).map(([actionType, { options }]) => {
@@ -218,11 +219,13 @@ export function useLocationDetailView(
         isDisabled: isFunction(disable)
           ? disable(fileDataItems ?? [])
           : disable ?? false,
-        isHidden: isFunction(hide) ? hide(permission) : hide,
+        isHidden: isFunction(hide)
+          ? hide(toAccessGrantPermission(permissions))
+          : hide,
         label: displayName,
       };
     });
-  }, [fileDataItems, permission, tempActions]);
+  }, [fileDataItems, permissions, tempActions]);
 
   return {
     actions,
@@ -240,8 +243,8 @@ export function useLocationDetailView(
     isLoading,
     isSearchingSubfolders,
     onPaginate,
-    searchPlaceholder: displayText.searchDetailPlaceholder,
     searchQuery,
+    hasExhaustedSearch,
     onRefresh,
     onNavigate: (location: LocationData, path?: string) => {
       onNavigate?.(location, path);

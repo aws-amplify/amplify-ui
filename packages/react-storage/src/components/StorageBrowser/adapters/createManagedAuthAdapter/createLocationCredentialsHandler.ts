@@ -3,7 +3,7 @@ import {
   GetLocationCredentialsInput,
 } from '../../credentials/types';
 import { getDataAccess, CredentialsProvider } from '../../storage-internal';
-
+import { toAccessGrantPermission } from '../permissionParsers';
 interface CreateLocationCredentialsHandlerInput {
   accountId: string;
   credentialsProvider: CredentialsProvider;
@@ -25,12 +25,12 @@ export const createLocationCredentialsHandler = (
    * @returns A promise which will resolve with the requested credentials.
    */
   return (input: GetLocationCredentialsInput) => {
-    const { scope, permission } = input;
+    const { scope, permissions } = input;
 
     return getDataAccess({
       accountId,
       credentialsProvider,
-      permission,
+      permission: toAccessGrantPermission(permissions),
       region,
       scope,
       customEndpoint,

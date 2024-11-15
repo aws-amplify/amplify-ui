@@ -27,6 +27,7 @@ const config: Config = {
   preset: 'ts-jest',
   setupFilesAfterEnv: ['./jest.setup.ts'],
   testEnvironment: 'jsdom',
+  testPathIgnorePatterns: ['__testUtils__/'],
 };
 
 export default config;

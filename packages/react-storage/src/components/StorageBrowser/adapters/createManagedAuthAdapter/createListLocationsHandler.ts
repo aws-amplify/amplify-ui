@@ -1,8 +1,9 @@
-import { ListLocations } from '../../storage-internal';
+import { ListLocations } from '../types';
 import {
   listCallerAccessGrants,
   CredentialsProvider,
 } from '../../storage-internal';
+import { parseAccessGrantPermission } from '../permissionParsers';
 
 interface CreateListLocationsHandlerInput {
   accountId: string;
@@ -15,8 +16,17 @@ export const createListLocationsHandler = (
   handlerInput: CreateListLocationsHandlerInput
 ): ListLocations => {
   return async function listLocations(input = {}) {
-    const result = await listCallerAccessGrants({ ...input, ...handlerInput });
+    const { locations, nextToken } = await listCallerAccessGrants({
+      ...input,
+      ...handlerInput,
+    });
 
-    return result;
+    return {
+      nextToken,
+      locations: locations.map((location) => ({
+        ...location,
+        permissions: parseAccessGrantPermission(location.permission),
+      })),
+    };
   };
 };

@@ -2,9 +2,20 @@
 
 exports[`useFolders should return the correct initial state 1`] = `
 {
-  "currentPage": 1,
-  "currentQuery": "",
-  "folders": [
+  "hasError": false,
+  "hasInitialized": false,
+  "hasNextPage": true,
+  "highestPageVisited": 1,
+  "isLoading": false,
+  "message": undefined,
+  "onInitialize": [Function],
+  "onPaginate": [Function],
+  "onQuery": [Function],
+  "onSearch": [Function],
+  "onSearchClear": [Function],
+  "onSelect": [Function],
+  "page": 1,
+  "pageItems": [
     {
       "id": "id",
       "key": "prefix1/",
@@ -20,16 +31,6 @@ exports[`useFolders should return the correct initial state 1`] = `
       "type": "FOLDER",
     },
   ],
-  "hasError": false,
-  "hasInitialized": false,
-  "hasMorePages": true,
-  "highestPageVisited": 1,
-  "isLoading": false,
-  "message": undefined,
-  "onPaginate": [Function],
-  "onQuery": [Function],
-  "onSearch": [Function],
-  "onSearchClear": [Function],
-  "onSelect": [Function],
+  "query": "",
 }
 `;

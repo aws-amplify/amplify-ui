@@ -1,6 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 
+import { LocationData } from '../../../../actions';
 import { INITIAL_STATUS_COUNTS } from '../../../../tasks';
 import * as Config from '../../../../providers/configuration';
 import * as UseDeleteViewModule from '../useDeleteView';
@@ -33,13 +34,13 @@ jest.mock('../../../../controls/context', () => ({
   useControlsContext: () => ({ actionConfig: {}, data: {} }),
 }));
 
-const location = {
+const location: LocationData = {
   bucket: 'bucket',
   id: 'id',
-  permission: 'READWRITE',
+  permissions: ['delete'],
   prefix: `prefix/`,
   type: 'PREFIX',
-} as const;
+};
 
 const onActionCancel = jest.fn();
 const onActionExit = jest.fn();

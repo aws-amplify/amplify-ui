@@ -55,7 +55,7 @@ describe('getValue', () => {
     await expect(
       getValue({
         storeSymbol: { value: Symbol('invalid') },
-        location: { scope: 'abc', permission: 'READ' },
+        location: { scope: 'abc', permissions: ['get', 'list'] },
         forceRefresh: false,
       })
     ).rejects.toThrow(
@@ -70,34 +70,29 @@ describe('getValue', () => {
     expect(
       await getValue({
         storeSymbol,
-        location: { scope: 'abc', permission: 'READ' },
+        location: { scope: 'abc', permissions: ['get', 'list'] },
         forceRefresh: false,
       })
     ).toEqual({ credentials: mockCachedValue });
     expect(getCacheValue).toHaveBeenCalledWith(mockedStore, {
       scope: 'abc',
-      permission: 'READ',
+      permissions: ['get', 'list'],
     });
   });
 
-  it('should look up a cache value for given location and READWRITE permission', async () => {
-    mockGetCacheValue.mockReturnValueOnce(null);
+  it('should look up a cache value for given location', async () => {
     mockGetCacheValue.mockReturnValueOnce(mockCachedValue);
     expect(
       await getValue({
         storeSymbol,
-        location: { scope: 'abc', permission: 'READ' },
+        location: { scope: 'abc', permissions: ['get'] },
         forceRefresh: false,
       })
     ).toEqual({ credentials: mockCachedValue });
-    expect(getCacheValue).toHaveBeenCalledTimes(2);
+    expect(getCacheValue).toHaveBeenCalledTimes(1);
     expect(getCacheValue).toHaveBeenNthCalledWith(1, mockedStore, {
       scope: 'abc',
-      permission: 'READ',
-    });
-    expect(getCacheValue).toHaveBeenNthCalledWith(2, mockedStore, {
-      scope: 'abc',
-      permission: 'READWRITE',
+      permissions: ['get'],
     });
   });
 
@@ -116,14 +111,14 @@ describe('getValue', () => {
     expect(
       await getValue({
         storeSymbol,
-        location: { scope: 'abc', permission: 'READ' },
+        location: { scope: 'abc', permissions: ['get', 'list'] },
         forceRefresh: false,
       })
     ).toEqual(mockNewValue);
     expect(mockFetchNewValue).toHaveBeenCalledTimes(1);
     expect(mockFetchNewValue).toHaveBeenCalledWith(mockedStore, {
       scope: 'abc',
-      permission: 'READ',
+      permissions: ['get', 'list'],
     });
   });
 
@@ -142,14 +137,14 @@ describe('getValue', () => {
     expect(
       await getValue({
         storeSymbol,
-        location: { scope: 'abc', permission: 'READ' },
+        location: { scope: 'abc', permissions: ['get', 'list'] },
         forceRefresh: true,
       })
     ).toEqual(mockNewValue);
     expect(mockFetchNewValue).toHaveBeenCalledTimes(1);
     expect(mockFetchNewValue).toHaveBeenCalledWith(mockedStore, {
       scope: 'abc',
-      permission: 'READ',
+      permissions: ['get', 'list'],
     });
   });
 
@@ -158,7 +153,7 @@ describe('getValue', () => {
     await expect(
       getValue({
         storeSymbol,
-        location: { scope: 'abc', permission: 'READ' },
+        location: { scope: 'abc', permissions: ['get', 'list'] },
         forceRefresh: true,
       })
     ).rejects.toThrow('Network error');
@@ -172,7 +167,7 @@ describe('removeStore', () => {
     await expect(
       getValue({
         storeSymbol: storeReference,
-        location: { scope: 'abc', permission: 'READ' },
+        location: { scope: 'abc', permissions: ['get', 'list'] },
         forceRefresh: false,
       })
     ).rejects.toThrow(

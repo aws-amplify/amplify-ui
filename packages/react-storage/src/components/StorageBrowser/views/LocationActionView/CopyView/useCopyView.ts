@@ -8,6 +8,7 @@ import { useGetActionInput } from '../../../providers/configuration';
 import { useStore } from '../../../providers/store';
 
 import { CopyViewState, UseCopyViewOptions } from './types';
+import { useFolders } from './useFolders';
 import { getDestinationListFullPrefix } from './utils';
 
 const getInitialDestinationList = (key: string, prefix?: string) =>
@@ -76,10 +77,13 @@ export const useCopyView = (options?: UseCopyViewOptions): CopyViewState => {
     [dispatchStoreAction]
   );
 
+  const folders = useFolders({ destinationList, onDestinationChange });
+
   return {
     destinationList,
     isProcessing,
     isProcessingComplete,
+    folders,
     location,
     statusCounts,
     tasks,

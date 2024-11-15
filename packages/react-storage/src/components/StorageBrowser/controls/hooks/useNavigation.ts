@@ -12,7 +12,7 @@ export const useNavigation = (): NavigationProps => {
     }
 
     const { current, path } = location;
-    const { bucket, permission, prefix = '', type } = current;
+    const { bucket, permissions, prefix = '', type } = current;
 
     const trimmedPrefix = prefix.endsWith('/') ? prefix.slice(0, -1) : prefix;
     const trimmedPath = path.endsWith('/') ? path.slice(0, -1) : path;
@@ -45,7 +45,7 @@ export const useNavigation = (): NavigationProps => {
           const destination = {
             id: crypto.randomUUID(),
             type,
-            permission,
+            permissions,
             bucket,
             prefix,
           };

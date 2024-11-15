@@ -1,9 +1,11 @@
 import React from 'react';
 import { ViewElement } from '../../context/elements';
+import { ActionsListControl } from '../../controls/ActionsListControl';
 import { DataTableControl } from '../../controls/DataTableControl';
 import { DataRefreshControl } from '../../controls/DataRefreshControl';
 import { DropZoneControl } from '../../controls/DropZoneControl';
 import { LoadingIndicatorControl } from '../../controls/LoadingIndicatorControl';
+import { MessageControl } from '../../controls/MessageControl';
 import { NavigationControl } from '../../controls/NavigationControl';
 import { PaginationControl } from '../../controls/PaginationControl';
 import { SearchControl } from '../../controls/SearchControl';
@@ -20,7 +22,6 @@ import { resolveClassName } from '../utils';
 import { getLocationDetailViewTableData } from './getLocationDetailViewTableData';
 import { useLocationDetailView } from './useLocationDetailView';
 import { LocationDetailViewProps } from './types';
-import { ActionsListControl } from '../../controls/ActionsListControl';
 
 export const DEFAULT_ERROR_MESSAGE = 'There was an error loading items.';
 const DEFAULT_PAGE_SIZE = 100;
@@ -55,6 +56,12 @@ export function LocationDetailView({
     LocationDetailView: {
       loadingIndicatorLabel,
       searchSubfoldersToggleLabel,
+      selectFileLabel,
+      selectAllFilesLabel,
+      searchPlaceholder,
+      searchSubmitLabel,
+      searchClearLabel,
+      searchExhaustedMessage,
       title,
     },
   } = useDisplayText();
@@ -74,8 +81,8 @@ export function LocationDetailView({
     hasError,
     message,
     shouldShowEmptyMessage,
-    searchPlaceholder,
     searchQuery,
+    hasExhaustedSearch,
     onActionSelect,
     onDropFiles,
     onRefresh,
@@ -105,21 +112,27 @@ export function LocationDetailView({
           isSearchingSubfolders,
           loadingIndicatorLabel,
           location,
-          searchPlaceholder,
           paginationData: {
             page,
             hasNextPage,
             highestPageVisited,
             onPaginate,
           },
-          searchQuery,
+          searchPlaceholder,
           searchSubfoldersToggleLabel,
+          searchSubmitLabel,
+          searchClearLabel,
+          searchQuery,
+          messageContent: hasExhaustedSearch ? searchExhaustedMessage : null,
+          messageType: hasExhaustedSearch ? 'info' : undefined,
           tableData: getLocationDetailViewTableData({
             areAllFilesSelected,
             location,
             fileDataItems,
             hasFiles,
             pageItems,
+            selectFileLabel,
+            selectAllFilesLabel,
             onDownload,
             onNavigate,
             onSelect,
@@ -148,7 +161,9 @@ export function LocationDetailView({
             className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__search`}
           >
             <SearchControl />
-            <SearchSubfoldersToggleControl />
+            <SearchSubfoldersToggleControl
+              className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__search-subfolder-toggle__label`}
+            />
           </ViewElement>
           <PaginationControl
             className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__location-detail-view-pagination`}
@@ -157,6 +172,11 @@ export function LocationDetailView({
             className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__locations-detail-view-data-refresh`}
           />
           <ActionsListControl />
+        </ViewElement>
+        <ViewElement
+          className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__message`}
+        >
+          <MessageControl />
         </ViewElement>
         <LocationDetailMessage show={hasError} message={message} />
         <LoadingIndicatorControl />
