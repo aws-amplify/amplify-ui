@@ -5,7 +5,7 @@ describe('getFileRowContent', () => {
     current: {
       bucket: 'bucket',
       id: 'id',
-      permission: 'READ',
+      permissions: ['list', 'get'],
       prefix: 'prefix/',
       type: 'PREFIX',
     },
@@ -30,6 +30,7 @@ describe('getFileRowContent', () => {
         rowId: 'row-id',
         rowKey: `${location.current.prefix}${location.path}${fileItem.key}`,
         size: fileItem.size,
+        selectFileLabel: 'Select file',
         onDownload: jest.fn(),
         onSelect: jest.fn(),
       })

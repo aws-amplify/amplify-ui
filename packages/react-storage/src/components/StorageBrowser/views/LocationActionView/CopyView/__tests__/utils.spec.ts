@@ -31,10 +31,10 @@ describe('getDestinationListFullPrefix', () => {
 
 describe('getDestinationPickerTableData', () => {
   it('returns the expected values', () => {
-    const handleNavigateFolder = jest.fn();
+    const onSelect = jest.fn();
     const output = getDestinationPickerTableData({
-      handleNavigateFolder,
-      items: [{ key: 'key', id: 'id' }],
+      onSelect,
+      folders: [{ key: 'key', id: 'id' }],
     });
 
     expect(output).toStrictEqual({

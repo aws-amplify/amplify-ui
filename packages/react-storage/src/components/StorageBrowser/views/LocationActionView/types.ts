@@ -18,12 +18,12 @@ export interface ActionViewState<T extends TaskData = TaskData> {
   isProcessing: boolean;
   isProcessingComplete: boolean;
   location: LocationState;
-  statusCounts: StatusCounts;
-  tasks: Tasks<T>;
-  onActionStart: () => void;
   onActionCancel: () => void;
   onActionExit: () => void;
+  onActionStart: () => void;
   onTaskRemove?: (task: Task<T>) => void;
+  statusCounts: StatusCounts;
+  tasks: Tasks<T>;
 }
 
 export interface ActionViewProps {

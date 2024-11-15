@@ -2,6 +2,7 @@ import { act, renderHook } from '@testing-library/react';
 
 import { useCredentialsStore } from '../useCredentialsStore';
 import { createLocationCredentialsStore } from '../../../../credentials/store';
+import { LocationPermissions } from '../../../../actions';
 
 jest.mock('../../../../credentials/store');
 
@@ -98,17 +99,16 @@ describe('useCredentialsStore', () => {
     const { current: store } = result;
 
     const bucket = 'my-bucket';
-    const permission = 'READWRITE';
+    const permissions: LocationPermissions = ['delete', 'get', 'list', 'write'];
     const prefix = 'my-prefix/nested-prefix/';
-
-    act(() => {
-      store.getCredentials({ bucket, permission, prefix });
-    });
-
     const scope = `s3://${bucket}/${prefix}*`;
 
+    act(() => {
+      store.getCredentials({ scope, permissions });
+    });
+
     expect(mockGetProvider).toHaveBeenCalledTimes(1);
-    expect(mockGetProvider).toHaveBeenCalledWith({ permission, scope });
+    expect(mockGetProvider).toHaveBeenCalledWith({ permissions, scope });
   });
 
   it('does not initialize a new `CredentialsStore ` when provided a valid `initialValue`', () => {

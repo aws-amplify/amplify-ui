@@ -1,6 +1,10 @@
 import { StatusCounts } from '../tasks';
-import { LocationData, LocationItemData } from '../actions';
-import { Permission } from '../storage-internal';
+import {
+  FolderData,
+  LocationData,
+  LocationItemData,
+  LocationPermissions,
+} from '../actions';
 import { LocationState } from '../providers/store/location';
 
 /**
@@ -15,6 +19,7 @@ export interface DefaultActionViewDisplayText {
   statusDisplayCanceledLabel: string;
   statusDisplayCompletedLabel: string;
   statusDisplayFailedLabel: string;
+  statusDisplayInProgressLabel: string;
   statusDisplayQueuedLabel: string;
   statusDisplayTotalLabel: string;
   title: string;
@@ -24,6 +29,7 @@ export interface DefaultActionViewDisplayText {
   tableColumnNameHeader: string;
   tableColumnTypeHeader: string;
   tableColumnSizeHeader: string;
+  tableColumnProgressHeader: string;
 }
 
 /**
@@ -34,22 +40,27 @@ export interface DefaultListViewDisplayText<T = any> {
   loadingIndicatorLabel: string;
   searchPlaceholder: string;
   searchSubmitLabel: string;
+  searchClearLabel: string;
 }
 
 export interface DefaultLocationsViewDisplayText
   extends DefaultListViewDisplayText<LocationData> {
-  getPermissionName: (permission: Permission) => string;
+  getPermissionName: (permissions: LocationPermissions) => string;
   title: string;
   tableColumnFolderHeader: string;
   tableColumnBucketHeader: string;
   tableColumnPermissionsHeader: string;
+  tableColumnActionsHeader: string;
+  getDownloadLabel: (fileName: string) => string;
 }
 
 export interface DefaultLocationDetailViewDisplayText
   extends DefaultListViewDisplayText<LocationItemData> {
   title: (location: LocationState) => string;
   searchExhaustedMessage: string;
-  searchIncludeSubfoldersLabel: string;
+  searchSubfoldersToggleLabel: string;
+  selectFileLabel: string;
+  selectAllFilesLabel: string;
   tableColumnLastModifiedHeader: string;
   tableColumnNameHeader: string;
   tableColumnSizeHeader: string;
@@ -73,16 +84,17 @@ export interface DefaultCreateFolderViewDisplayText
 
 export interface DefaultCopyViewDisplayText
   extends DefaultActionViewDisplayText {
-  actionSetDestination: string;
   getFolderListResultsMessage: (data: {
-    items: LocationItemData[];
+    folders: FolderData[] | undefined;
     query?: string;
-    errorMessage?: string;
+    defaultMessage?: string;
   }) => string | undefined;
   getFolderSelectedMessage: (path: string) => string;
   loadingIndicatorLabel: 'Loading';
   overwriteWarningMessage: string;
   searchPlaceholder: string;
+  searchSubmitLabel: string;
+  searchClearLabel: string;
 }
 
 export interface DefaultDeleteViewDisplayText
@@ -92,8 +104,8 @@ export interface DefaultUploadViewDisplayText
   extends DefaultActionViewDisplayText {
   addFilesLabel: string;
   addFolderLabel: string;
-  statusDisplayOverridePreventedLabel: string;
-  overwriteExistingLabel: string;
+  statusDisplayOverwritePreventedLabel: string;
+  overwriteToggleLabel: string;
 }
 
 export interface DefaultStorageBrowserDisplayText {

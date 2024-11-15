@@ -1,203 +1,182 @@
 import React from 'react';
-import { render } from '@testing-library/react';
-
-import * as ReactCoreModule from '@aws-amplify/ui-react-core';
-
-import * as TempActions from '../../../../do-not-import-from-here/createTempActionsProvider';
-
-import * as Config from '../../../../providers/configuration';
-import { INITIAL_STATUS_COUNTS } from '../../../../tasks';
+import { render, screen } from '@testing-library/react';
 
 import * as UseCopyViewModule from '../useCopyView';
+
 import { CopyViewState } from '../types';
 import { CopyView } from '../CopyView';
 
-const TEST_ACTIONS = { COPY_FILES: { options: { displayName: 'Copy files' } } };
-jest.spyOn(TempActions, 'useTempActions').mockReturnValue(TEST_ACTIONS);
-
-jest.spyOn(ReactCoreModule, 'useDataState').mockReturnValue([
-  {
-    data: {
-      items: [{ id: '1', key: 'Location A', type: 'FOLDER' }],
-      nextToken: undefined,
-    },
-    message: '',
-    hasError: false,
-    isLoading: false,
-  },
-  jest.fn(),
-]);
-
-jest.spyOn(Config, 'useGetActionInput').mockReturnValue(() => ({
-  accountId: '123456789012',
-  bucket: 'XXXXXXXXXXX',
-  credentials: jest.fn(),
-  region: 'us-west-2',
+jest.mock('../CopyViewProvider', () => ({
+  CopyViewProvider: ({ children }: { children?: React.ReactNode }) => (
+    <div>{children}</div>
+  ),
 }));
 
-jest.mock('../../../../displayText', () => ({
-  useDisplayText: () => ({ CopyView: {} }),
+jest.mock('../../../../controls/ActionCancelControl', () => ({
+  ActionCancelControl: () => <div data-testid="ActionCancelControl" />,
+}));
+jest.mock('../../../../controls/ActionExitControl', () => ({
+  ActionExitControl: () => <div data-testid="ActionExitControl" />,
+}));
+jest.mock('../../../../controls/ActionStartControl', () => ({
+  ActionStartControl: () => <div data-testid="ActionStartControl" />,
+}));
+jest.mock('../../../../controls/DataTableControl', () => ({
+  DataTableControl: () => <div data-testid="DataTableControl" />,
+}));
+jest.mock('../../../../controls/LoadingIndicatorControl', () => ({
+  LoadingIndicatorControl: () => <div data-testid="LoadingIndicatorControl" />,
+}));
+jest.mock('../../../../controls/MessageControl', () => ({
+  MessageControl: () => <div data-testid="MessageControl" />,
+}));
+jest.mock('../../../../controls/SearchControl', () => ({
+  SearchControl: () => <div data-testid="SearchControl" />,
+}));
+jest.mock('../../../../controls/StatusDisplayControl', () => ({
+  StatusDisplayControl: () => <div data-testid="StatusDisplayControl" />,
+}));
+jest.mock('../../../../controls/TitleControl', () => ({
+  TitleControl: () => <div data-testid="TitleControl" />,
 }));
 
-const mockControlsContextProvider = jest.fn(
-  (_: any) => 'ControlsContextProvider'
-);
-jest.mock('../../../../controls/context', () => ({
-  ControlsContextProvider: (ctx: any) => mockControlsContextProvider(ctx),
-  useControlsContext: () => ({ actionConfig: {}, data: {} }),
+jest.mock('../DestinationControl', () => ({
+  DestinationControl: () => <div data-testid="DestinationControl" />,
+}));
+jest.mock('../FoldersMessageControl', () => ({
+  FoldersMessageControl: () => <div data-testid="FoldersMessageControl" />,
+}));
+jest.mock('../FoldersPaginationControl', () => ({
+  FoldersPaginationControl: () => (
+    <div data-testid="FoldersPaginationControl" />
+  ),
+}));
+jest.mock('../FoldersTableControl', () => ({
+  FoldersTableControl: () => <div data-testid="FoldersTableControl" />,
 }));
 
-const taskOne = {
-  status: 'QUEUED',
-  data: {
-    id: 'id',
-    key: 'itsa-prefix/test-item',
-    fileKey: 'test-item',
-    lastModified: new Date(),
-    size: 1000,
-    type: 'FILE',
-  },
-  cancel: jest.fn(),
-  progress: undefined,
-  remove: jest.fn(),
-  message: undefined,
-} as const;
+const onInitialize = jest.fn();
 
-const location = {
-  bucket: 'bucket',
-  id: 'id',
-  permission: 'READWRITE',
-  prefix: `prefix/`,
-  type: 'PREFIX',
-} as const;
-
-const onActionCancel = jest.fn();
-const onActionExit = jest.fn();
-const onActionStart = jest.fn();
-const onDestinationChange = jest.fn();
-
-const actionCallbacks = {
-  onActionCancel,
-  onActionStart,
-  onActionExit,
-};
-
-const defaultViewState: CopyViewState = {
-  ...actionCallbacks,
-  destinationList: [],
-  isProcessingComplete: false,
+// @ts-expect-error
+const initialCopyState = {
   isProcessing: false,
-  location: { current: location, path: '', key: `itsa-prefix/` },
-  onDestinationChange,
-  statusCounts: { ...INITIAL_STATUS_COUNTS, QUEUED: 1, TOTAL: 1 },
-  tasks: [taskOne],
-};
+  isProcessingComplete: false,
+  folders: { onInitialize },
+} as CopyViewState;
 
 const useCopyViewSpy = jest
   .spyOn(UseCopyViewModule, 'useCopyView')
-  .mockReturnValue(defaultViewState);
+  .mockReturnValue(initialCopyState);
 
 describe('CopyView', () => {
   afterEach(jest.clearAllMocks);
 
-  it('provides the expected values to `ControlsContextProvider` on initial render', () => {
-    useCopyViewSpy.mockReturnValue(defaultViewState);
-
-    render(<CopyView />);
-
-    const { calls } = mockControlsContextProvider.mock;
-    expect(calls).toHaveLength(1);
-    expect(calls[0][0]).toMatchObject({
-      data: {
-        isActionCancelDisabled: true,
-        isActionStartDisabled: true,
-        isActionExitDisabled: false,
-        statusCounts: defaultViewState.statusCounts,
-      },
-      ...actionCallbacks,
-    });
+  it('has the expected composable components', () => {
+    expect(CopyView.Cancel).toBeDefined();
+    expect(CopyView.Destination).toBeDefined();
+    expect(CopyView.Exit).toBeDefined();
+    expect(CopyView.Folders).toBeDefined();
+    expect(CopyView.FoldersLoading).toBeDefined();
+    expect(CopyView.FoldersMessage).toBeDefined();
+    expect(CopyView.FoldersPagination).toBeDefined();
+    expect(CopyView.FoldersSearch).toBeDefined();
+    expect(CopyView.Message).toBeDefined();
+    expect(CopyView.Start).toBeDefined();
+    expect(CopyView.Statuses).toBeDefined();
+    expect(CopyView.Tasks).toBeDefined();
+    expect(CopyView.Title).toBeDefined();
   });
 
-  it('provides the expected values to `ControlsContextProvider` on destination change', () => {
-    const preprocessingViewState: CopyViewState = {
-      ...defaultViewState,
-      destinationList: ['some-prefix'],
-    };
-
-    useCopyViewSpy.mockReturnValueOnce(preprocessingViewState);
-
+  it('renders the expected components during folder selection', () => {
     render(<CopyView />);
 
-    const { calls } = mockControlsContextProvider.mock;
-    expect(calls).toHaveLength(1);
-    expect(calls[0][0]).toMatchObject({
-      data: {
-        isActionCancelDisabled: true,
-        isActionStartDisabled: false,
-        isActionExitDisabled: false,
-        statusCounts: defaultViewState.statusCounts,
-      },
-      ...actionCallbacks,
-    });
+    // included
+    expect(screen.queryByTestId('ActionCancelControl')).toBeInTheDocument();
+    expect(screen.queryByTestId('ActionExitControl')).toBeInTheDocument();
+    expect(screen.queryByTestId('ActionStartControl')).toBeInTheDocument();
+    expect(screen.queryByTestId('DataTableControl')).toBeInTheDocument();
+    expect(screen.queryByTestId('DestinationControl')).toBeInTheDocument();
+    expect(screen.queryByTestId('FoldersMessageControl')).toBeInTheDocument();
+    expect(
+      screen.queryByTestId('FoldersPaginationControl')
+    ).toBeInTheDocument();
+    expect(screen.queryByTestId('FoldersTableControl')).toBeInTheDocument();
+    expect(screen.queryByTestId('LoadingIndicatorControl')).toBeInTheDocument();
+    expect(screen.queryByTestId('MessageControl')).toBeInTheDocument();
+    expect(screen.queryByTestId('SearchControl')).toBeInTheDocument();
+    expect(screen.queryByTestId('TitleControl')).toBeInTheDocument();
+
+    // excluded
+    expect(
+      screen.queryByTestId('StatusDisplayControl')
+    ).not.toBeInTheDocument();
   });
 
-  it('provides the expected values to `ControlsContextProvider` while processing', () => {
-    const processingViewState: CopyViewState = {
-      ...defaultViewState,
-      destinationList: ['some-prefix'],
+  it('renders the expected components while copying is active', () => {
+    useCopyViewSpy.mockReturnValue({
+      ...initialCopyState,
       isProcessing: true,
-      tasks: [{ ...taskOne, status: 'PENDING' }],
-      statusCounts: { ...defaultViewState.statusCounts, PENDING: 1, QUEUED: 0 },
-    };
-
-    useCopyViewSpy.mockReturnValue(processingViewState);
+      isProcessingComplete: false,
+    } as CopyViewState);
 
     render(<CopyView />);
 
-    const { calls } = mockControlsContextProvider.mock;
-    expect(calls).toHaveLength(1);
-    expect(calls[0][0]).toMatchObject({
-      data: {
-        isActionCancelDisabled: false,
-        isActionStartDisabled: true,
-        isActionExitDisabled: true,
-        statusCounts: processingViewState.statusCounts,
-      },
-      ...actionCallbacks,
-    });
+    // included
+    expect(screen.queryByTestId('ActionCancelControl')).toBeInTheDocument();
+    expect(screen.queryByTestId('ActionExitControl')).toBeInTheDocument();
+    expect(screen.queryByTestId('ActionStartControl')).toBeInTheDocument();
+    expect(screen.queryByTestId('DataTableControl')).toBeInTheDocument();
+    expect(screen.queryByTestId('DestinationControl')).toBeInTheDocument();
+
+    expect(screen.queryByTestId('MessageControl')).toBeInTheDocument();
+    expect(screen.queryByTestId('StatusDisplayControl')).toBeInTheDocument();
+    expect(screen.queryByTestId('TitleControl')).toBeInTheDocument();
+
+    // excluded
+    expect(
+      screen.queryByTestId('FoldersPaginationControl')
+    ).not.toBeInTheDocument();
+    expect(screen.queryByTestId('SearchControl')).not.toBeInTheDocument();
+    expect(
+      screen.queryByTestId('FoldersMessageControl')
+    ).not.toBeInTheDocument();
+    expect(screen.queryByTestId('FoldersTableControl')).not.toBeInTheDocument();
+    expect(
+      screen.queryByTestId('LoadingIndicatorControl')
+    ).not.toBeInTheDocument();
   });
 
-  it('provides the expected values to `ControlsContextProvider` post processing in the happy path', () => {
-    const postProcessingViewState: CopyViewState = {
-      ...defaultViewState,
-      destinationList: ['some-prefix'],
+  it('renders the expected components after copying has completed', () => {
+    useCopyViewSpy.mockReturnValue({
+      ...initialCopyState,
+      isProcessing: false,
       isProcessingComplete: true,
-      tasks: [{ ...taskOne, status: 'COMPLETE' }],
-      statusCounts: {
-        ...defaultViewState.statusCounts,
-        COMPLETE: 1,
-        QUEUED: 0,
-      },
-    };
-
-    useCopyViewSpy.mockReturnValue(postProcessingViewState);
+    } as CopyViewState);
 
     render(<CopyView />);
 
-    const { calls } = mockControlsContextProvider.mock;
-    expect(calls).toHaveLength(1);
-    expect(calls[0][0]).toMatchObject({
-      data: {
-        isActionCancelDisabled: true,
-        isActionStartDisabled: true,
-        isActionExitDisabled: false,
-        statusCounts: postProcessingViewState.statusCounts,
-      },
-      ...actionCallbacks,
-    });
-  });
+    // included
+    expect(screen.queryByTestId('ActionCancelControl')).toBeInTheDocument();
+    expect(screen.queryByTestId('ActionExitControl')).toBeInTheDocument();
+    expect(screen.queryByTestId('ActionStartControl')).toBeInTheDocument();
+    expect(screen.queryByTestId('DataTableControl')).toBeInTheDocument();
+    expect(screen.queryByTestId('DestinationControl')).toBeInTheDocument();
 
-  it.todo(
-    'provides the expected values to `ControlsContextProvider` post processing with failures'
-  );
+    expect(screen.queryByTestId('MessageControl')).toBeInTheDocument();
+    expect(screen.queryByTestId('StatusDisplayControl')).toBeInTheDocument();
+    expect(screen.queryByTestId('TitleControl')).toBeInTheDocument();
+
+    // excluded
+    expect(
+      screen.queryByTestId('FoldersPaginationControl')
+    ).not.toBeInTheDocument();
+    expect(screen.queryByTestId('SearchControl')).not.toBeInTheDocument();
+    expect(
+      screen.queryByTestId('FoldersMessageControl')
+    ).not.toBeInTheDocument();
+    expect(screen.queryByTestId('FoldersTableControl')).not.toBeInTheDocument();
+    expect(
+      screen.queryByTestId('LoadingIndicatorControl')
+    ).not.toBeInTheDocument();
+  });
 });

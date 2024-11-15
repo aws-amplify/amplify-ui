@@ -1,6 +1,7 @@
 import { renderHook } from '@testing-library/react';
 import { useControlsContext } from '../../../controls/context';
 import { useNavigation } from '../useNavigation';
+import { LocationPermissions } from '../../../actions';
 
 jest.mock('../../../controls/context');
 
@@ -13,7 +14,7 @@ describe('useNavigation', () => {
       current: {
         bucket,
         id: 'id',
-        permission: 'READWRITE',
+        permissions: ['delete', 'get', 'list', 'write'] as LocationPermissions,
         prefix: `${prefix}/`,
         type: 'PREFIX',
       },

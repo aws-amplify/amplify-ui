@@ -1,21 +1,21 @@
 import { getPaginatedLocations } from '../getPaginatedLocations';
-import { ListLocationsOutput } from '../../../storage-internal';
+import { ListLocationsOutput } from '../../types';
 
 describe('getPaginatedLocations', () => {
   const mockLocations: ListLocationsOutput['locations'] = [
     {
       type: 'PREFIX',
-      permission: 'READ',
+      permissions: ['list'],
       scope: 's3://bucket1/path1/',
     },
     {
       type: 'PREFIX',
-      permission: 'READWRITE',
+      permissions: ['get'],
       scope: 's3://bucket2/path2/',
     },
     {
       type: 'PREFIX',
-      permission: 'WRITE',
+      permissions: ['write'],
       scope: 's3://bucket3/path3/',
     },
   ];

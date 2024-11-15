@@ -1,5 +1,10 @@
-import { LocationItemData } from '../../../../actions';
+import { FolderData } from '../../../../actions';
+import {
+  LOCATION_PERMISSION_VALUES,
+  generateCombinations,
+} from '../../../../actions/__testUtils__/permissions';
 import { StatusCounts } from '../../../../tasks';
+
 import { DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT } from '../default';
 
 describe('DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT', () => {
@@ -51,22 +56,22 @@ describe('DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT', () => {
       );
       expect(typeof getFolderSelectedMessage('')).toBe('string');
 
-      expect(getFolderListResultsMessage({ items: [] })).toBe(
-        'No subfolders found within folder.'
+      expect(getFolderListResultsMessage({ folders: [] })).toBe(
+        'No subfolders found within selected folder.'
       );
 
       const query = 'query';
-      expect(getFolderListResultsMessage({ items: [], query })).toBe(
+      expect(getFolderListResultsMessage({ folders: [], query })).toBe(
         `No folders found matching "${query}"`
       );
 
-      const errorMessage = 'oh nooooo';
+      const defaultMessage = 'oh nooooo';
       expect(
         getFolderListResultsMessage({
-          items: [{} as LocationItemData],
-          errorMessage,
+          folders: [{} as FolderData],
+          defaultMessage,
         })
-      ).toBe(errorMessage);
+      ).toBe(defaultMessage);
     });
 
     it('returns correct string for getFolderSelectedMessage', () => {
@@ -116,7 +121,7 @@ describe('DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT', () => {
       ).toMatchObject({
         getListResultsMessage: expect.any(Function),
         searchExhaustedMessage: expect.any(String),
-        searchIncludeSubfoldersLabel: expect.any(String),
+        searchSubfoldersToggleLabel: expect.any(String),
         searchPlaceholder: expect.any(String),
         tableColumnLastModifiedHeader: expect.any(String),
         tableColumnNameHeader: expect.any(String),
@@ -152,7 +157,7 @@ describe('DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT', () => {
         title({
           current: {
             bucket: 'test-bucket',
-            permission: 'READ',
+            permissions: ['list'],
             id: '123',
             prefix: '',
             type: 'PREFIX',
@@ -166,7 +171,7 @@ describe('DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT', () => {
         title({
           current: {
             bucket: 'test-bucket',
-            permission: 'READ',
+            permissions: ['list'],
             id: '123',
             prefix: '',
             type: 'PREFIX',
@@ -186,18 +191,29 @@ describe('DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT', () => {
     });
 
     it('returns string values from callbacks', () => {
-      const { getListResultsMessage } =
+      const { getListResultsMessage, getDownloadLabel, getPermissionName } =
         DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT.LocationsView;
 
       expect(
         typeof getListResultsMessage({
           bucket: '',
-          permission: 'READ',
+          permissions: ['get', 'list'],
           prefix: '',
           id: '',
           type: 'PREFIX',
         })
       ).toBe('string');
+      for (const permission of generateCombinations(
+        LOCATION_PERMISSION_VALUES
+      )) {
+        expect(typeof getPermissionName(permission)).toBe('string');
+      }
+      // @ts-expect-error
+      // testing unknown permission type
+      expect(typeof getPermissionName(['custom'])).toBe('string');
+      expect(typeof getPermissionName([])).toBe('string');
+
+      expect(typeof getDownloadLabel('my.jpg')).toBe('string');
     });
   });
 });

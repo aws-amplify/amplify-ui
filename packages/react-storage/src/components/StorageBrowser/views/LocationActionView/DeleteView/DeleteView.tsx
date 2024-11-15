@@ -9,7 +9,7 @@ import { StatusDisplayControl } from '../../../controls/StatusDisplayControl';
 import { TitleControl } from '../../../controls/TitleControl';
 import { ControlsContextProvider } from '../../../controls/context';
 import { useDisplayText } from '../../../displayText';
-import { AMPLIFY_CLASS_BASE } from '../../constants';
+import { STORAGE_BROWSER_BLOCK } from '../../../constants';
 import { resolveClassName } from '../../utils';
 import { getActionViewTableData } from '../getActionViewTableData';
 import { useDeleteView } from './useDeleteView';
@@ -19,9 +19,17 @@ export function DeleteView({
   className,
   ...props
 }: DeleteViewProps): React.JSX.Element {
+  const { DeleteView: displayText } = useDisplayText();
   const {
-    DeleteView: { actionCancelLabel, actionExitLabel, actionStartLabel, title },
-  } = useDisplayText();
+    actionCancelLabel,
+    actionExitLabel,
+    actionStartLabel,
+    title,
+    statusDisplayCanceledLabel,
+    statusDisplayCompletedLabel,
+    statusDisplayFailedLabel,
+    statusDisplayQueuedLabel,
+  } = displayText;
 
   const {
     isProcessing,
@@ -39,11 +47,12 @@ export function DeleteView({
     tasks,
     locationKey: location.key,
     isProcessing,
+    displayText,
     onTaskRemove,
   });
 
   return (
-    <div className={resolveClassName(AMPLIFY_CLASS_BASE, className)}>
+    <div className={resolveClassName(STORAGE_BROWSER_BLOCK, className)}>
       <ControlsContextProvider
         data={{
           actionCancelLabel,
@@ -52,6 +61,10 @@ export function DeleteView({
           isActionCancelDisabled: !isProcessing || isProcessingComplete,
           isActionExitDisabled: isProcessing,
           isActionStartDisabled: isProcessing || isProcessingComplete,
+          statusDisplayCanceledLabel,
+          statusDisplayCompletedLabel,
+          statusDisplayFailedLabel,
+          statusDisplayQueuedLabel,
           statusCounts,
           tableData,
           title,
@@ -65,14 +78,14 @@ export function DeleteView({
 
         <DataTableControl />
 
-        <ViewElement className={`${AMPLIFY_CLASS_BASE}__summary`}>
+        <ViewElement className={`${STORAGE_BROWSER_BLOCK}__summary`}>
           <StatusDisplayControl />
         </ViewElement>
-        <ViewElement className={`${AMPLIFY_CLASS_BASE}__footer`}>
-          <ViewElement className={`${AMPLIFY_CLASS_BASE}__message`}>
+        <ViewElement className={`${STORAGE_BROWSER_BLOCK}__footer`}>
+          <ViewElement className={`${STORAGE_BROWSER_BLOCK}__message`}>
             {/* TODO: confirmation message goes here */}
           </ViewElement>
-          <ViewElement className={`${AMPLIFY_CLASS_BASE}__buttons`}>
+          <ViewElement className={`${STORAGE_BROWSER_BLOCK}__buttons`}>
             <ActionCancelControl />
             <ActionStartControl />
           </ViewElement>

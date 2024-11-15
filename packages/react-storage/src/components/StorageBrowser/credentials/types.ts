@@ -1,8 +1,13 @@
+import { LocationPermissions } from '../actions';
 import {
   LocationCredentialsProvider,
-  CredentialsLocation,
   LocationCredentials,
 } from '../storage-internal';
+
+export interface CredentialsLocation {
+  scope: string;
+  permissions: LocationPermissions;
+}
 
 export interface CreateLocationCredentialsStoreInput {
   handler: GetLocationCredentials;

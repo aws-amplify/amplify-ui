@@ -1,6 +1,7 @@
 import { getLocationDetailViewTableData } from '../getLocationDetailViewTableData';
 import { getFileRowContent } from '../getFileRowContent';
 import { getFolderRowContent } from '../getFolderRowContent';
+import { LocationData } from '../../../../actions';
 
 jest.mock('../getFileRowContent');
 jest.mock('../getFolderRowContent');
@@ -10,13 +11,13 @@ describe('getLocationDetailViewTableData', () => {
     current: {
       bucket: 'bucket',
       id: 'id',
-      permission: 'READ',
+      permissions: ['get', 'list'],
       prefix: 'prefix/',
       type: 'PREFIX',
-    },
+    } as LocationData,
     path: 'path/',
     key: 'prefix/path/',
-  } as const;
+  };
   const fileItem = {
     key: 'file-key.ext',
     fileKey: 'file-key.ext',
@@ -95,6 +96,8 @@ describe('getLocationDetailViewTableData', () => {
         hasFiles: true,
         pageItems: [folderItem, folderItem, fileItem, fileItem, fileItem],
         onDownload: mockOnDownload,
+        selectAllFilesLabel: 'Select all files',
+        selectFileLabel: 'Select file',
         onNavigate: mockOnNavigate,
         onSelect: mockOnSelect,
         onSelectAll: mockOnSelectAll,
@@ -125,6 +128,8 @@ describe('getLocationDetailViewTableData', () => {
       location,
       hasFiles: true,
       pageItems: [folderItem, fileItem],
+      selectAllFilesLabel: 'Select all files',
+      selectFileLabel: 'Select file',
       onDownload: mockOnDownload,
       onNavigate: mockOnNavigate,
       onSelect: mockOnSelect,
@@ -144,6 +149,8 @@ describe('getLocationDetailViewTableData', () => {
       location,
       hasFiles: true,
       pageItems: [fileItem],
+      selectAllFilesLabel: 'Select all files',
+      selectFileLabel: 'Select file',
       onDownload: mockOnDownload,
       onNavigate: mockOnNavigate,
       onSelect: mockOnSelect,
@@ -163,6 +170,8 @@ describe('getLocationDetailViewTableData', () => {
       location,
       hasFiles: true,
       pageItems: [fileItem],
+      selectAllFilesLabel: 'Select all files',
+      selectFileLabel: 'Select file',
       onDownload: mockOnDownload,
       onNavigate: mockOnNavigate,
       onSelect: mockOnSelect,
@@ -182,6 +191,8 @@ describe('getLocationDetailViewTableData', () => {
       location,
       hasFiles: true,
       pageItems: [folderItem],
+      selectAllFilesLabel: 'Select all files',
+      selectFileLabel: 'Select file',
       onDownload: mockOnDownload,
       onNavigate: mockOnNavigate,
       onSelect: mockOnSelect,

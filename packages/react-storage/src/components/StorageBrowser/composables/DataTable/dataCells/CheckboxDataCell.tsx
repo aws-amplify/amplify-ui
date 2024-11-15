@@ -1,7 +1,7 @@
 import React from 'react';
 import { Checkbox } from '../../../components/Checkbox';
 import { ViewElement } from '../../../context/elements';
-import { CLASS_BASE } from '../../../views/constants';
+import { STORAGE_BROWSER_BLOCK_TO_BE_UPDATED } from '../../../constants';
 
 export interface CheckboxDataCellProps {
   content: {
@@ -17,7 +17,9 @@ export const CheckboxDataCell = ({
 }: CheckboxDataCellProps): React.JSX.Element => {
   const { checked = false, label, onSelect, id } = content;
   return (
-    <ViewElement className={`${CLASS_BASE}__table-checkbox-data-cell`}>
+    <ViewElement
+      className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__table-checkbox-data-cell`}
+    >
       <Checkbox
         checked={checked}
         labelHidden

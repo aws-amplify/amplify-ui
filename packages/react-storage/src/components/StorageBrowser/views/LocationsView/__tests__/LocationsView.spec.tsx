@@ -2,12 +2,14 @@ import React from 'react';
 import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import * as StoreModule from '../../../providers/store';
-import { DEFAULT_ERROR_MESSAGE, LocationsView } from '../LocationsView';
 import * as ActionsModule from '../../../do-not-import-from-here/actions';
-import { DEFAULT_LIST_OPTIONS } from '../useLocationsView';
-import { LocationData } from '../../../actions';
+import * as ConfigModule from '../../../providers/configuration';
 import * as DisplayTextModule from '../../../displayText';
+import * as StoreModule from '../../../providers/store';
+
+import { DEFAULT_ERROR_MESSAGE, LocationsView } from '../LocationsView';
+import { DEFAULT_LIST_OPTIONS } from '../useLocationsView';
+import { ActionInputConfig, LocationData } from '../../../actions';
 import { DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT } from '../../../displayText/libraries';
 
 const dispatchStoreAction = jest.fn();
@@ -15,6 +17,7 @@ jest
   .spyOn(StoreModule, 'useStore')
   .mockReturnValue([{} as StoreModule.UseStoreState, dispatchStoreAction]);
 
+const useGetActionSpy = jest.spyOn(ConfigModule, 'useGetActionInput');
 const useLocationsDataSpy = jest.spyOn(ActionsModule, 'useLocationsData');
 const useDisplayTextSpy = jest
   .spyOn(DisplayTextModule, 'useDisplayText')
@@ -29,7 +32,7 @@ const generateMockItems = (size: number, page: number): LocationData[] => {
       return {
         bucket: 'test-bucket',
         prefix: `item-${index}/`,
-        permission: 'READWRITE',
+        permissions: ['delete', 'get', 'list', 'write'],
         id: `identity-${index}`,
         type,
       };
@@ -87,6 +90,13 @@ const nextPageState: ActionsModule.LocationsDataState = [
   },
   handleListLocations,
 ];
+
+const config: ActionInputConfig = {
+  bucket: 'bucky',
+  credentials: jest.fn(),
+  region: 'us-west-1',
+};
+useGetActionSpy.mockReturnValue(() => config);
 
 describe('LocationsListView', () => {
   afterEach(() => {
@@ -235,6 +245,7 @@ describe('LocationsListView', () => {
     expect(handleListLocations).toHaveBeenCalledTimes(1);
     expect(handleListLocations).toHaveBeenCalledWith({
       options: {
+        // FIXME: update the exclude type after migration to new actions
         exclude: 'WRITE',
         pageSize: EXPECTED_PAGE_SIZE,
         refresh: true,
@@ -254,6 +265,7 @@ describe('LocationsListView', () => {
     expect(updatedHandleListLocations).toHaveBeenCalledTimes(1);
     expect(updatedHandleListLocations).toHaveBeenCalledWith({
       options: {
+        // FIXME: update the exclude type after migration to new actions
         exclude: 'WRITE',
         pageSize: EXPECTED_PAGE_SIZE,
         refresh: true,
@@ -319,7 +331,7 @@ describe('LocationsListView', () => {
         id: 'identity-0',
         prefix: 'item-0/',
         type: 'PREFIX',
-        permission: 'READWRITE',
+        permissions: ['delete', 'get', 'list', 'write'],
       },
     });
   });

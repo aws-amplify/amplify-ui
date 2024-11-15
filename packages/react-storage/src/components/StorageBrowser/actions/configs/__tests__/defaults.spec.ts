@@ -5,6 +5,10 @@ import {
   listLocationItemsActionConfig,
   uploadActionConfig,
 } from '../defaults';
+import {
+  generateCombinations,
+  LOCATION_PERMISSION_VALUES,
+} from '../../__testUtils__/permissions';
 
 const file = {
   key: 'key',
@@ -13,6 +17,10 @@ const file = {
   size: 100,
   type: 'FILE' as const,
 };
+
+const permissionValuesWithoutWrite = LOCATION_PERMISSION_VALUES.filter(
+  (value) => value !== 'write'
+);
 
 describe('defaultActionConfigs', () => {
   it('matches expected shape', () => {
@@ -24,10 +32,12 @@ describe('defaultActionConfigs', () => {
       const hide =
         (createFolderActionConfig.actionsListItemConfig as ActionListItemConfig)!
           .hide!;
-
-      expect(hide('READ')).toBe(true);
-      expect(hide('READWRITE')).toBe(false);
-      expect(hide('WRITE')).toBe(false);
+      for (const permissionsWithoutWrite of generateCombinations(
+        permissionValuesWithoutWrite
+      )) {
+        expect(hide(permissionsWithoutWrite)).toBe(true);
+        expect(hide([...permissionValuesWithoutWrite, 'write'])).toBe(false);
+      }
     });
 
     it('disables the action list item as expected', () => {
@@ -58,13 +68,18 @@ describe('defaultActionConfigs', () => {
       const [uploadFileListItem, uploadFolderListItem] =
         uploadActionConfig.actionsListItemConfig as ActionListItemConfig[];
 
-      expect(uploadFileListItem.hide?.('READ')).toBe(true);
-      expect(uploadFileListItem.hide?.('READWRITE')).toBe(false);
-      expect(uploadFileListItem.hide?.('WRITE')).toBe(false);
-
-      expect(uploadFolderListItem.hide?.('READ')).toBe(true);
-      expect(uploadFolderListItem.hide?.('READWRITE')).toBe(false);
-      expect(uploadFolderListItem.hide?.('WRITE')).toBe(false);
+      for (const permissionsWithoutWrite of generateCombinations(
+        permissionValuesWithoutWrite
+      )) {
+        const permissionsWithWrite = [
+          ...permissionValuesWithoutWrite,
+          'write' as const,
+        ];
+        expect(uploadFileListItem.hide?.(permissionsWithoutWrite)).toBe(true);
+        expect(uploadFileListItem.hide?.(permissionsWithWrite)).toBe(false);
+        expect(uploadFolderListItem.hide?.(permissionsWithoutWrite)).toBe(true);
+        expect(uploadFolderListItem.hide?.(permissionsWithWrite)).toBe(false);
+      }
     });
 
     it('disables the action list item as expected', () => {

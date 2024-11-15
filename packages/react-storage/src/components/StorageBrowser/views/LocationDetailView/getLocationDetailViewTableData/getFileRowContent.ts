@@ -1,7 +1,6 @@
 import { humanFileSize } from '@aws-amplify/ui';
 
 import { DataTableProps } from '../../../composables/DataTable';
-import { displayText } from '../../../displayText/en';
 
 import { LOCATION_DETAIL_VIEW_HEADERS } from './constants';
 
@@ -11,6 +10,7 @@ export const getFileRowContent = ({
   lastModified,
   rowId,
   rowKey,
+  selectFileLabel,
   size,
   onDownload,
   onSelect,
@@ -20,6 +20,7 @@ export const getFileRowContent = ({
   lastModified: Date;
   rowId: string;
   rowKey: string;
+  selectFileLabel: string;
   size: number;
   onDownload: () => void;
   onSelect: () => void;
@@ -33,8 +34,8 @@ export const getFileRowContent = ({
           type: 'checkbox',
           content: {
             checked: isSelected,
-            label: `${displayText.locationDetailSelectFile} ${rowKey}`,
             id: key,
+            label: `${selectFileLabel} ${rowKey}`,
             onSelect,
           },
         };

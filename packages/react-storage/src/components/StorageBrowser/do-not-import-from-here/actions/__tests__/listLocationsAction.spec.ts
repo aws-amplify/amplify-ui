@@ -1,7 +1,10 @@
-import { ListLocations, LocationAccess } from '../../../storage-internal';
-
-import { createListLocationsAction } from '../listLocationsAction';
-import { parseLocationAccess } from '../../../actions/handlers/utils';
+import {
+  createListLocationsAction,
+  parseAccessGrantLocation,
+} from '../listLocationsAction';
+import { ListLocations, LocationAccess } from '../../../adapters/types';
+import { generateCombinations } from '../../../actions/__testUtils__/permissions';
+import { LocationPermissions } from '../../../actions';
 
 Object.defineProperty(globalThis, 'crypto', {
   value: {
@@ -11,15 +14,31 @@ Object.defineProperty(globalThis, 'crypto', {
 
 const fakeLocation: LocationAccess = {
   scope: 's3://some-bucket/*',
-  permission: 'READ',
+  permissions: ['list'],
   type: 'BUCKET',
 };
 
 const getFakeLocation = (
-  permission: LocationAccess['permission'] = 'READWRITE',
+  permissions: LocationAccess['permissions'] = ['list'],
   type: LocationAccess['type'] = 'BUCKET'
 ) => {
-  return { ...fakeLocation, permission, type };
+  if (type === 'PREFIX') {
+    return {
+      ...fakeLocation,
+      scope: 's3://some-bucket/prefix1/*',
+      permissions,
+      type,
+    };
+  } else if (type === 'OBJECT') {
+    return {
+      ...fakeLocation,
+      scope: 's3://some-bucket/my.pdf',
+      permissions,
+      type,
+    };
+  }
+
+  return { ...fakeLocation, permissions, type };
 };
 
 const generateMockLocations = (size: number) =>
@@ -157,55 +176,84 @@ describe('createListLocationsAction', () => {
     expect(output.nextToken).toBeUndefined();
   });
 
-  it(`should filter out locations with write permission and 'OBJECT' type`, async () => {
-    const fakeReadLocations = [
-      getFakeLocation('READ', 'BUCKET'),
-      getFakeLocation('READ', 'OBJECT'),
-      getFakeLocation('READ', 'PREFIX'),
-    ];
-    const fakeWriteLocations = [
-      getFakeLocation('WRITE', 'BUCKET'),
-      getFakeLocation('WRITE', 'OBJECT'),
-      getFakeLocation('WRITE', 'PREFIX'),
-    ];
-    const fakeReadWriteLocations = [
-      getFakeLocation('READWRITE', 'BUCKET'),
-      getFakeLocation('READWRITE', 'OBJECT'),
-      getFakeLocation('READWRITE', 'PREFIX'),
-    ];
+  it('should filter out all WRITE permission grants and invalid prefix grants (prefix*)', async () => {
+    const invalidPrefixLocation: LocationAccess = {
+      permissions: ['list', 'write'],
+      scope: 's3://some-bucket/invalid-prefix*',
+      type: 'PREFIX',
+    };
+    // Expect 9 total combinations and 0 will be filtered out.
+    // 3 different combinations of ['get', 'list'] permissions * 3 different location types.
+    const fakeReadLocations = generateCombinations([
+      'get',
+      'list',
+    ] as LocationPermissions)
+      .map((permissions) => [
+        getFakeLocation(permissions, 'OBJECT'),
+        getFakeLocation(permissions, 'BUCKET'),
+        getFakeLocation(permissions, 'PREFIX'),
+      ])
+      .flat();
+    // Expect 9 total combinations and 9 will be filtered out.
+    // 3 different combinations of ['write', 'delete'] permissions * 3 different location types.
+    const fakeWriteLocations = generateCombinations([
+      'write',
+      'delete',
+    ] as LocationPermissions)
+      .map((permissions) => [
+        getFakeLocation(permissions, 'OBJECT'),
+        getFakeLocation(permissions, 'BUCKET'),
+        getFakeLocation(permissions, 'PREFIX'),
+      ])
+      .flat();
+    // expect 27 total combinations and 0 will be filtered out.
+    // 3 different combinations of ['get', 'list'] permissions * 3 different combinations of
+    // ['write', 'delete'] permissions * 3 different location types.
+    const fakeReadWriteLocations: LocationAccess[] = [];
+    for (const fakeReadLocation of fakeReadLocations) {
+      for (const fakeWriteLocation of fakeWriteLocations) {
+        if (fakeWriteLocation.type === fakeReadLocation.type) {
+          fakeReadWriteLocations.push({
+            permissions: [
+              ...fakeReadLocation.permissions,
+              ...fakeWriteLocation.permissions,
+            ],
+            type: fakeReadLocation.type,
+            scope: fakeWriteLocation.scope,
+          });
+        }
+      }
+    }
 
     mockListLocations.mockResolvedValueOnce({
-      locations: [...fakeReadLocations, ...fakeWriteLocations],
+      locations: [...fakeWriteLocations, ...fakeReadLocations],
       nextToken: 'next',
     });
     mockListLocations.mockResolvedValueOnce({
-      locations: [...fakeReadWriteLocations],
+      locations: [invalidPrefixLocation, ...fakeReadWriteLocations],
       nextToken: undefined,
     });
 
     const listLocationsAction = createListLocationsAction(mockListLocations);
     const output = await listLocationsAction(
       { nextToken: undefined, result: [] },
-      { options: { pageSize: 4, exclude: 'WRITE' } }
+      { options: { pageSize: 36, exclude: 'WRITE' } }
     );
 
     expect(mockListLocations).toHaveBeenCalledTimes(2);
     expect(mockListLocations).toHaveBeenCalledWith({
-      pageSize: 4,
+      pageSize: 36,
       nextToken: undefined,
     });
     expect(mockListLocations).toHaveBeenCalledWith({
-      pageSize: 2,
+      pageSize: 27,
       nextToken: 'next',
     });
 
     expect(output.result).toStrictEqual(
-      [
-        getFakeLocation('READ', 'BUCKET'),
-        getFakeLocation('READ', 'PREFIX'),
-        getFakeLocation('READWRITE', 'BUCKET'),
-        getFakeLocation('READWRITE', 'PREFIX'),
-      ].map(parseLocationAccess)
+      [...fakeReadLocations, ...fakeReadWriteLocations].map(
+        parseAccessGrantLocation
+      )
     );
     expect(output.nextToken).toBeUndefined();
   });
