@@ -5,6 +5,7 @@ import * as ActionsModule from '../do-not-import-from-here/actions';
 import * as ProvidersModule from '../providers';
 
 import { createStorageBrowser } from '../createStorageBrowser';
+import { StorageBrowserDisplayText } from '../displayText/types';
 
 const createConfigurationProviderSpy = jest.spyOn(
   ProvidersModule,
@@ -84,5 +85,18 @@ describe('createStorageBrowser', () => {
         upload: expect.any(Object),
       },
     });
+  });
+
+  it('support passing custom displayText', async () => {
+    const { StorageBrowser } = createStorageBrowser(input);
+    const displayText: StorageBrowserDisplayText = {
+      LocationsView: { title: 'Hello' },
+    };
+    await waitFor(() => {
+      render(<StorageBrowser displayText={displayText} />);
+    });
+
+    const Title = screen.getByText('Hello');
+    expect(Title).toBeInTheDocument();
   });
 });

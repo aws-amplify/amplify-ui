@@ -11,7 +11,7 @@ Feature: Storage Browser navigate breadcrumbs
     When I click the first button containing "public"
     Then I see the "Home" button
     When I click the "Home" button
-    Then I see "HOME"
+    Then I see "Home - Amplify Auth"
     Then I see the first button containing "public"
 
   @react

@@ -95,7 +95,11 @@ function Example() {
       >
         Sign Out
       </Button>
-      <StorageBrowser.Provider>
+      <StorageBrowser.Provider
+        displayText={{
+          LocationsView: { title: 'Home - Composable Playground' },
+        }}
+      >
         <MyStorageBrowser />
       </StorageBrowser.Provider>
     </>

@@ -60,7 +60,7 @@ export interface StorageBrowserComponent<T = string, K = {}> extends Views<T> {
     props: StorageBrowserProps & Exclude<K, keyof StorageBrowserProps>
   ): React.JSX.Element;
   displayName: string;
-  Provider: (props: StoreProviderProps) => React.JSX.Element;
+  Provider: (props: StorageBrowserProviderProps) => React.JSX.Element;
 }
 
 export interface ResolvedStorageBrowserElements<
@@ -71,6 +71,10 @@ export type ActionViewName<T = string> = Exclude<
   T,
   'listLocationItems' | 'listLocations'
 >;
+
+export interface StorageBrowserProviderProps extends StoreProviderProps {
+  displayText?: StorageBrowserDisplayText;
+}
 
 export function createStorageBrowser(input: CreateStorageBrowserInput): {
   StorageBrowser: StorageBrowserComponent<
@@ -113,18 +117,20 @@ export function createStorageBrowser(input: CreateStorageBrowserInput): {
    * Provides state, configuration and action values that are shared between
    * the primary View components
    */
-  function Provider({ children, ...props }: StoreProviderProps) {
+  function Provider({ children, ...props }: StorageBrowserProviderProps) {
     return (
       <StoreProvider {...props}>
         <ConfigurationProvider>
-          <TempActionsProvider>
-            <ComponentsProvider
-              composables={composables}
-              elements={input.elements}
-            >
-              {children}
-            </ComponentsProvider>
-          </TempActionsProvider>
+          <DisplayTextProvider displayText={props.displayText}>
+            <TempActionsProvider>
+              <ComponentsProvider
+                composables={composables}
+                elements={input.elements}
+              >
+                {children}
+              </ComponentsProvider>
+            </TempActionsProvider>
+          </DisplayTextProvider>
         </ConfigurationProvider>
       </StoreProvider>
     );
@@ -132,13 +138,11 @@ export function createStorageBrowser(input: CreateStorageBrowserInput): {
 
   const StorageBrowser: StorageBrowserComponent = ({ views, displayText }) => (
     <ErrorBoundary>
-      <DisplayTextProvider displayText={displayText}>
-        <Provider>
-          <ViewsProvider views={views}>
-            <StorageBrowserDefault />
-          </ViewsProvider>
-        </Provider>
-      </DisplayTextProvider>
+      <Provider displayText={displayText}>
+        <ViewsProvider views={views}>
+          <StorageBrowserDefault />
+        </ViewsProvider>
+      </Provider>
     </ErrorBoundary>
   );
 
