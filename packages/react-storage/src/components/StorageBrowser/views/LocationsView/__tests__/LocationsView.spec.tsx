@@ -11,7 +11,6 @@ import { DEFAULT_LIST_OPTIONS } from '../useLocationsView';
 import { ActionInputConfig, LocationData } from '../../../actions';
 import { DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT } from '../../../displayText/libraries';
 import { useDisplayText } from '../../../displayText';
-import { DEFAULT_ERROR_MESSAGE } from '../../../displayText/libraries/en/locationsView';
 
 jest.mock('../../../displayText', () => {
   const mockGetListLocationsResultMessage = jest.fn();

@@ -16,7 +16,6 @@ import {
 import { useProcessTasks } from '../../../tasks/useProcessTasks';
 import { INITIAL_STATUS_COUNTS } from '../../../tasks';
 import { useDisplayText } from '../../../displayText';
-import { DEFAULT_ERROR_MESSAGE } from '../../../displayText/libraries/en/locationDetailView';
 import { SearchOutput } from '../../../actions/createEnhancedListHandler';
 
 jest.mock('../Controls/ActionsMenu');
