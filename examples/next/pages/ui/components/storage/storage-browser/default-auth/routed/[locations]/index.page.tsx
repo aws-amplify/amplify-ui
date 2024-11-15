@@ -22,7 +22,9 @@ function Locations() {
       >
         Sign Out
       </Button>
-      <StorageBrowser.Provider>
+      <StorageBrowser.Provider
+        displayText={{ LocationsView: { title: 'Home - Routed Amplify Auth' } }}
+      >
         <StorageBrowser.LocationsView
           onNavigate={(location) => {
             router.push({
