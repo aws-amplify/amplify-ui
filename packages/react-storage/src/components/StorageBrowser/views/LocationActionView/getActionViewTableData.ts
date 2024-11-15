@@ -14,34 +14,34 @@ import { DefaultActionViewDisplayText } from '../../displayText/types';
 const getTaskStatusDisplayLabel = ({
   status,
   displayText: {
-    tableStatusInProgressLabel,
-    tableStatusCanceledLabel,
-    tableStatusCompletedLabel,
-    tableStatusFailedLabel,
-    tableStatusOverwritePreventedLabel,
-    tableStatusQueuedLabel,
+    statusDisplayInProgressLabel,
+    statusDisplayCanceledLabel,
+    statusDisplayCompletedLabel,
+    statusDisplayFailedLabel,
+    statusDisplayQueuedLabel,
+    statusDisplayOverwritePreventedLabel,
   },
 }: {
   status: TaskStatus;
   displayText: DefaultActionViewDisplayText & {
-    tableStatusOverwritePreventedLabel?: string;
+    statusDisplayOverwritePreventedLabel?: string;
   };
 }) => {
   switch (status) {
     case 'PENDING':
-      return tableStatusInProgressLabel;
+      return statusDisplayInProgressLabel;
     case 'CANCELED':
-      return tableStatusCanceledLabel;
+      return statusDisplayCanceledLabel;
     case 'COMPLETE':
-      return tableStatusCompletedLabel;
+      return statusDisplayCompletedLabel;
     case 'FAILED':
-      return tableStatusFailedLabel;
+      return statusDisplayFailedLabel;
     case 'QUEUED':
-      return tableStatusQueuedLabel;
+      return statusDisplayQueuedLabel;
     case 'OVERWRITE_PREVENTED':
-      return tableStatusOverwritePreventedLabel;
+      return statusDisplayOverwritePreventedLabel;
     default:
-      return tableStatusQueuedLabel;
+      return statusDisplayQueuedLabel;
   }
 };
 

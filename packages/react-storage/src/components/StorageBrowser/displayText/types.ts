@@ -19,13 +19,9 @@ export interface DefaultActionViewDisplayText {
   statusDisplayCanceledLabel: string;
   statusDisplayCompletedLabel: string;
   statusDisplayFailedLabel: string;
+  statusDisplayInProgressLabel: string;
   statusDisplayQueuedLabel: string;
   statusDisplayTotalLabel: string;
-  tableStatusCanceledLabel: string;
-  tableStatusCompletedLabel: string;
-  tableStatusInProgressLabel: string;
-  tableStatusFailedLabel: string;
-  tableStatusQueuedLabel: string;
   title: string;
   tableColumnCancelHeader: string;
   tableColumnStatusHeader: string;
@@ -109,7 +105,6 @@ export interface DefaultUploadViewDisplayText
   addFilesLabel: string;
   addFolderLabel: string;
   statusDisplayOverwritePreventedLabel: string;
-  tableStatusOverwritePreventedLabel: string;
   overwriteToggleLabel: string;
 }
 
