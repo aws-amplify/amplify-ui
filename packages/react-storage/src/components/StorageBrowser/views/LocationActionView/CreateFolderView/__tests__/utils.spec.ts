@@ -13,8 +13,12 @@ describe('isValidFolderName', () => {
     expect(isValidFolderName('Fruit/Kiwi')).toBe(false);
   });
 
-  it('returns false if value contains a period', () => {
-    expect(isValidFolderName('Fruit/Kiwi.')).toBe(false);
+  it('returns false if value ends with a period', () => {
+    expect(isValidFolderName('Kiwi.')).toBe(false);
+  });
+
+  it('returns false if value starts with a period', () => {
+    expect(isValidFolderName('.Kiwi')).toBe(false);
   });
 
   it('returns true when value is valid', () => {

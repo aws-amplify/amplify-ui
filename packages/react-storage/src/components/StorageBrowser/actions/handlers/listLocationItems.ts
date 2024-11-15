@@ -67,13 +67,20 @@ export const filterDotItems = (
   prefix: string
 ): LocationItemData[] =>
   items.filter(
-    // matches strings that are exactly either a single forward slash ("/") or one to two dots ("." or ".."), nothing else.
-    (item) =>
-      !(
-        item.key.startsWith(prefix)
-          ? item.key.substring(prefix.length)
-          : item.key
-      ).match(/^(\/|\.{1,2})$/)
+    // matches object keys that are exactly either a single forward slash ("/") or one to two dots with/without a slash ("./" or "../"), nothing else.
+    (item) => {
+      // fix me, need to remove prefix first
+      const key = item.key.startsWith(prefix)
+        ? item.key.substring(prefix.length)
+        : item.key;
+      return !(
+        key === '/' ||
+        key === './' ||
+        key === '../' ||
+        key === '.' ||
+        key === '..'
+      );
+    }
   );
 
 export const parseResult = (
