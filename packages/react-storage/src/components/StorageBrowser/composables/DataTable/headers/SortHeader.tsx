@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { capitalize } from '@aws-amplify/ui';
-
 import { ButtonElement, IconElement } from '../../../context/elements';
 import { STORAGE_BROWSER_BLOCK_TO_BE_UPDATED } from '../../../constants';
 
@@ -23,7 +21,7 @@ export const SortHeader = ({ content }: SortHeaderProps): React.JSX.Element => {
       className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__table-sort-header`}
       onClick={onSort}
     >
-      {label && capitalize(label)}
+      {label}
       <IconElement variant={`sort-${sortDirection ?? 'indeterminate'}`} />
     </ButtonElement>
   );

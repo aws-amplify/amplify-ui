@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { capitalize } from '@aws-amplify/ui';
-
 import { ViewElement } from '../../../context/elements';
 import { STORAGE_BROWSER_BLOCK_TO_BE_UPDATED } from '../../../constants';
 
@@ -17,7 +15,7 @@ export const TextHeader = ({ content }: TextHeaderProps): React.JSX.Element => {
     <ViewElement
       className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__table-text-header`}
     >
-      {text && capitalize(text)}
+      {text}
     </ViewElement>
   );
 };
