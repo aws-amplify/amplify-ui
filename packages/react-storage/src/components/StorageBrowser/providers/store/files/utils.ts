@@ -60,6 +60,7 @@ export const filesReducer: React.Reducer<
     case 'RESET_FILE_ITEMS': {
       return [];
     }
+    // TODO: clear message
   }
 };
 

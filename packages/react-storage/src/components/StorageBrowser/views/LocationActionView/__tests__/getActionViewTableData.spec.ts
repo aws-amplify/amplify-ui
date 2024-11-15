@@ -1,4 +1,5 @@
 import { FileDataItem } from '../../../actions/handlers';
+import { DEFAULT_UPLOAD_VIEW_DISPLAY_TEXT } from '../../../displayText/libraries/en/uploadView';
 import { Tasks } from '../../../tasks';
 
 import { getActionViewTableData } from '../getActionViewTableData';
@@ -80,6 +81,7 @@ describe('getActionViewTableData', () => {
     const result = getActionViewTableData({
       tasks,
       isProcessing: true,
+      displayText: DEFAULT_UPLOAD_VIEW_DISPLAY_TEXT,
       onTaskRemove: jest.fn(),
     });
 
@@ -123,6 +125,7 @@ describe('getActionViewTableData', () => {
     const result = getActionViewTableData({
       tasks,
       isProcessing: true,
+      displayText: DEFAULT_UPLOAD_VIEW_DISPLAY_TEXT,
       onTaskRemove: jest.fn(),
     });
 
@@ -152,6 +155,7 @@ describe('getActionViewTableData', () => {
       tasks,
       locationKey: 'folder/subfolder/',
       isProcessing: false,
+      displayText: DEFAULT_UPLOAD_VIEW_DISPLAY_TEXT,
       onTaskRemove: jest.fn(),
     });
 

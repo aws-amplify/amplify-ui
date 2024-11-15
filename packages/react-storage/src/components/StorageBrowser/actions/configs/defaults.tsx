@@ -20,7 +20,7 @@ export const copyActionConfig: CopyActionConfig = {
   componentName: 'CopyView',
   actionsListItemConfig: {
     disable: (selected) => !selected,
-    hide: (permission) => permission === 'READ',
+    hide: (permissions) => !permissions.includes('write'),
     // missing copy icon
     icon: 'download',
     label: 'Copy Files',
@@ -33,7 +33,7 @@ export const deleteActionConfig: DeleteActionConfig = {
   componentName: 'DeleteView',
   actionsListItemConfig: {
     disable: (selected) => !selected,
-    hide: (permission) => permission === 'READ',
+    hide: (permissions) => !permissions.includes('delete'),
     icon: 'delete',
     label: 'Delete Files',
   },
@@ -45,7 +45,7 @@ export const createFolderActionConfig: CreateFolderActionConfig = {
   componentName: 'CreateFolderView',
   actionsListItemConfig: {
     disable: (selected) => !!selected,
-    hide: (permission) => permission === 'READ',
+    hide: (permissions) => !permissions.includes('write'),
     icon: 'create-folder',
     label: 'Create Folder',
   },
@@ -80,14 +80,14 @@ export const uploadActionConfig: UploadActionConfig = {
     {
       disable: (selectedValues) => !!selectedValues,
       fileSelection: 'FILE',
-      hide: (permission) => permission === 'READ',
+      hide: (permissions) => !permissions.includes('write'),
       icon: 'upload-file',
       label: 'Upload File',
     },
     {
       disable: (selectedValues) => !!selectedValues,
       fileSelection: 'FOLDER',
-      hide: (permission) => permission === 'READ',
+      hide: (permissions) => !permissions.includes('write'),
       icon: 'upload-folder',
       label: 'Upload FOLDER',
     },

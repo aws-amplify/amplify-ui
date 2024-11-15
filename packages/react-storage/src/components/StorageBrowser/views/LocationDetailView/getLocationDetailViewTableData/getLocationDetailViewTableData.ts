@@ -7,7 +7,6 @@ import {
 } from '../../../actions/handlers';
 import { getFileRowContent } from './getFileRowContent';
 import { getFolderRowContent } from './getFolderRowContent';
-import { displayText } from '../../../displayText/en';
 import { FileData } from '../../../actions/handlers';
 
 import { LOCATION_DETAIL_VIEW_HEADERS } from './constants';
@@ -20,6 +19,8 @@ export const getLocationDetailViewTableData = ({
   hasFiles,
   isLoading,
   pageItems,
+  selectFileLabel,
+  selectAllFilesLabel,
   onDownload,
   onNavigate,
   onSelect,
@@ -31,6 +32,8 @@ export const getLocationDetailViewTableData = ({
   hasFiles: boolean;
   isLoading: boolean;
   pageItems: LocationItemData[];
+  selectFileLabel: string;
+  selectAllFilesLabel: string;
   onDownload: (fileItem: FileDataItem) => void;
   onNavigate: (location: LocationData, path?: string) => void;
   onSelect: (isSelected: boolean, fileItem: FileData) => void;
@@ -41,7 +44,7 @@ export const getLocationDetailViewTableData = ({
     type: 'checkbox',
     content: {
       checked: areAllFilesSelected,
-      label: displayText.locationDetailSelectAllFiles,
+      label: selectAllFilesLabel,
       onSelect: onSelectAll,
     },
   };
@@ -72,6 +75,7 @@ export const getLocationDetailViewTableData = ({
             lastModified,
             rowId: id,
             rowKey: key,
+            selectFileLabel,
             size,
             onDownload: onFileDownload,
             onSelect: onFileSelect,

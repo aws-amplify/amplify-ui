@@ -3,6 +3,7 @@ import { render } from '@testing-library/react';
 
 import * as ReactCoreModule from '@aws-amplify/ui-react-core';
 
+import { LocationData } from '../../../../actions';
 import * as Config from '../../../../providers/configuration';
 import { INITIAL_STATUS_COUNTS } from '../../../../tasks';
 
@@ -61,13 +62,13 @@ const taskOne = {
   message: undefined,
 } as const;
 
-const location = {
+const location: LocationData = {
   bucket: 'bucket',
   id: 'id',
-  permission: 'READWRITE',
+  permissions: ['write'],
   prefix: `prefix/`,
   type: 'PREFIX',
-} as const;
+};
 
 const onActionCancel = jest.fn();
 const onActionExit = jest.fn();

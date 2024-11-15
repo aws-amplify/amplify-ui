@@ -1,9 +1,8 @@
-import {
-  LocationCredentialsProvider,
-  Permission,
-} from '../../storage-internal';
+import { LocationCredentialsProvider } from '../../storage-internal';
 
 export type LocationType = 'OBJECT' | 'PREFIX' | 'BUCKET';
+
+export type LocationPermissions = ('delete' | 'get' | 'list' | 'write')[];
 
 /**
  * `location` metadata
@@ -22,7 +21,7 @@ export interface LocationData {
   /**
    * `location` permission granted to user
    */
-  permission: Permission;
+  permissions: LocationPermissions;
 
   /**
    * `location` base prefix, delimited by `'/'`. Empty string indicates bucket root
@@ -35,6 +34,11 @@ export interface LocationData {
    * @type "OBJECT" | "PREFIX" | "BUCKET"
    */
   type: LocationType;
+}
+
+export interface ListLocationsExcludeOptions {
+  exactPermissions?: LocationPermissions;
+  type?: LocationType | LocationType[];
 }
 
 export interface FolderData {

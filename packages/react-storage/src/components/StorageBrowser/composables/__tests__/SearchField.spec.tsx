@@ -6,7 +6,13 @@ import { SearchField } from '../SearchField';
 
 describe('Search', () => {
   it('renders the Search composable', () => {
-    render(<SearchField onSearch={jest.fn()} placeholder={'Placeholder'} />);
+    render(
+      <SearchField
+        onSearch={jest.fn()}
+        placeholder="Placeholder"
+        submitLabel="Submit"
+      />
+    );
 
     const field = screen.getByPlaceholderText('Placeholder');
     const button = screen.getByRole('button', { name: 'Submit' });
@@ -18,7 +24,7 @@ describe('Search', () => {
   it('calls onSearch when submit button is clicked', () => {
     const onSearch = jest.fn();
 
-    render(<SearchField onSearch={onSearch} />);
+    render(<SearchField onSearch={onSearch} submitLabel="Submit" />);
 
     const submitButton = screen.getByRole('button', { name: 'Submit' });
     act(() => {

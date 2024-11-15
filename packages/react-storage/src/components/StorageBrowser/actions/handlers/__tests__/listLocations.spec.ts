@@ -5,7 +5,7 @@ import {
   LocationAccess,
 } from '../../../storage-internal';
 
-import { parseLocations } from '../utils';
+import { getFilteredLocations } from '../utils';
 
 import {
   listLocationsHandler,
@@ -31,12 +31,13 @@ const input: ListLocationsHandlerInput = {
   options: {
     pageSize: DEFAULT_PAGE_SIZE,
     nextToken: undefined,
-    exclude: 'READ',
+    exclude: { exactPermissions: ['get', 'list'] },
   },
   prefix: 'prefix',
 };
 
 describe('listLocationsHandler', () => {
+  // TODO(@AllanZhengYP): add unit test for more permissions permutations
   beforeAll(() => {
     Object.defineProperty(globalThis, 'crypto', {
       value: { randomUUID: () => 'intentionally-static-test-id' },
@@ -60,7 +61,7 @@ describe('listLocationsHandler', () => {
     const result = await listLocationsHandler(input);
 
     expect(result.items).toEqual(
-      parseLocations(mockOutput.locations, input.options?.exclude)
+      getFilteredLocations(mockOutput.locations, input.options?.exclude)
     );
     expect(result.nextToken).toBeUndefined();
     expect(mockListCallerAccessGrants).toHaveBeenCalledTimes(1);
@@ -103,9 +104,18 @@ describe('listLocationsHandler', () => {
     const result = await listLocationsHandler(input);
 
     expect(result.items).toEqual([
-      ...parseLocations(mockOutputPage1.locations, input.options?.exclude),
-      ...parseLocations(mockOutputPage2.locations, input.options?.exclude),
-      ...parseLocations(mockOutputPage3.locations, input.options?.exclude),
+      ...getFilteredLocations(
+        mockOutputPage1.locations,
+        input.options?.exclude
+      ),
+      ...getFilteredLocations(
+        mockOutputPage2.locations,
+        input.options?.exclude
+      ),
+      ...getFilteredLocations(
+        mockOutputPage3.locations,
+        input.options?.exclude
+      ),
     ]);
     expect(result.nextToken).toBeUndefined();
     expect(mockListCallerAccessGrants).toHaveBeenCalledTimes(3);

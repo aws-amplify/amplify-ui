@@ -4,6 +4,7 @@ import { render } from '@testing-library/react';
 import * as StoreModule from '../providers/store';
 import * as ViewsModule from '../views/context';
 import { StorageBrowserDefault } from '../StorageBrowserDefault';
+import { LocationData } from '../actions';
 
 jest.spyOn(ViewsModule, 'useViews').mockReturnValue({
   LocationsView: () => <div data-testid="LOCATIONS_VIEW" />,
@@ -13,10 +14,10 @@ jest.spyOn(ViewsModule, 'useViews').mockReturnValue({
 
 const useStoreSpy = jest.spyOn(StoreModule, 'useStore');
 
-const location = {
+const location: LocationData = {
   id: 'an-id-👍🏼',
   bucket: 'test-bucket',
-  permission: 'READWRITE',
+  permissions: ['list'],
   prefix: 'test-prefix/',
   type: 'PREFIX',
 };

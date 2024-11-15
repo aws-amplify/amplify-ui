@@ -129,6 +129,11 @@ export const useFileSelect = (
           onSelect?.([...event.target.files]);
         }
 
+        // Reset the input value to allow re-selecting the same file
+        if (ref.current) {
+          ref.current.value = '';
+        }
+
         // clean up
         setInputProps(undefined);
       }}

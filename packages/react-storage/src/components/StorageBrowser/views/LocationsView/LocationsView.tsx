@@ -94,6 +94,8 @@ export function LocationsView({
       tableColumnPermissionsHeader,
       tableColumnActionsHeader,
       searchPlaceholder,
+      searchSubmitLabel,
+      searchClearLabel,
       getDownloadLabel,
       getPermissionName,
     },
@@ -147,7 +149,9 @@ export function LocationsView({
           onPaginate,
         },
         title,
-        searchPlaceholder: searchPlaceholder,
+        searchPlaceholder,
+        searchClearLabel,
+        searchSubmitLabel,
         searchQuery,
       }}
       onSearch={onSearch}

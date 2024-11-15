@@ -1,5 +1,6 @@
 import { renderHook, act } from '@testing-library/react';
 
+import { LocationData } from '../../../../actions';
 import * as StoreModule from '../../../../providers/store';
 import * as ConfigModule from '../../../../providers/configuration';
 import * as TasksModule from '../../../../tasks';
@@ -29,13 +30,13 @@ jest
   .spyOn(TasksModule, 'useProcessTasks')
   .mockReturnValue([defaultProcessingState, handleProcessTasks]);
 
-const location = {
+const location: LocationData = {
   prefix: 'test-prefix/',
   bucket: 'bucket',
   id: 'id',
-  permission: 'READWRITE',
+  permissions: ['write'],
   type: 'PREFIX',
-} as const;
+};
 
 jest.spyOn(StoreModule, 'useStore').mockReturnValue([
   {
