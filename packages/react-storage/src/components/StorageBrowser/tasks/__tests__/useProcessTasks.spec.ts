@@ -194,11 +194,9 @@ describe('useProcessTasks', () => {
   });
 
   it('cancels a QUEUED task as expected', () => {
-    const cancelableAction = createTimedAction({});
+    const action = createTimedAction({});
 
-    const { result } = renderHook(() =>
-      useProcessTasks(cancelableAction, items)
-    );
+    const { result } = renderHook(() => useProcessTasks(action, items));
 
     expect(result.current[0].tasks[0].cancel).toBeDefined();
     expect(result.current[0].tasks[0].status).toBe('QUEUED');
@@ -376,6 +374,29 @@ describe('useProcessTasks', () => {
 
     expect(completedState.isProcessing).toBe(false);
     expect(completedState.isProcessingComplete).toBe(true);
+  });
+
+  it('returns a `task` with a `cancel` value of `undefined` when the underlying action does not provide cancel from its output', () => {
+    const action = createTimedAction({});
+
+    const { result } = renderHook(() => useProcessTasks(action, items));
+
+    const [initState, handleProcess] = result.current;
+
+    expect(initState.isProcessing).toBe(false);
+    // cancel is defined before process start
+    expect(initState.tasks[0].cancel).toBeDefined();
+
+    act(() => {
+      handleProcess({ config, prefix });
+    });
+
+    const [processingState] = result.current;
+
+    expect(processingState.isProcessing).toBe(true);
+
+    // cancel is undefined while processing
+    expect(processingState.tasks[0].cancel).toBeUndefined();
   });
 
   it.todo('ignores calls to handle processing when isProcessing is true');
