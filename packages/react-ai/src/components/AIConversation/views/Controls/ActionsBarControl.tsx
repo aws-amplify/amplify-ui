@@ -37,14 +37,11 @@ export const ActionsBarControl: ActionsBarControl = ({
     <Container>
       {actions?.map((action, index) => (
         <ActionButton
-          aria-label={action.displayName}
           key={index}
           onClick={() => action.handler(message)}
           tabIndex={focusable ? 0 : -1}
         >
-          <ActionIcon data-testid={`action-icon-${action.displayName}`}>
-            {action.icon}
-          </ActionIcon>
+          {action.component}
         </ActionButton>
       ))}
     </Container>
