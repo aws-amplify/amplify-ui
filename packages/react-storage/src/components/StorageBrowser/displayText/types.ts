@@ -1,5 +1,10 @@
 import { StatusCounts } from '../tasks';
-import { FolderData, LocationData, LocationItemData, LocationPermissions } from '../actions';
+import {
+  FolderData,
+  LocationData,
+  LocationItemData,
+  LocationPermissions,
+} from '../actions';
 import { LocationState } from '../providers/store/location';
 
 /**
@@ -57,6 +62,8 @@ export interface DefaultLocationDetailViewDisplayText
   title: (location: LocationState) => string;
   searchExhaustedMessage: string;
   searchSubfoldersToggleLabel: string;
+  selectFileLabel: string;
+  selectAllFilesLabel: string;
   tableColumnLastModifiedHeader: string;
   tableColumnNameHeader: string;
   tableColumnSizeHeader: string;

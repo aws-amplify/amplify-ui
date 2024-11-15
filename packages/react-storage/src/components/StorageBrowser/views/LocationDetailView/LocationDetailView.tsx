@@ -57,6 +57,8 @@ export function LocationDetailView({
     LocationDetailView: {
       loadingIndicatorLabel,
       searchSubfoldersToggleLabel,
+      selectFileLabel,
+      selectAllFilesLabel,
       title,
     },
   } = useDisplayText();
@@ -118,6 +120,8 @@ export function LocationDetailView({
             fileDataItems,
             hasFiles,
             pageItems,
+            selectFileLabel,
+            selectAllFilesLabel,
             onDownload,
             onNavigate,
             onSelect,
