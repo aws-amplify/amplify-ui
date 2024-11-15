@@ -71,7 +71,7 @@ describe('getFileRowContent', () => {
 
   it('should not render download button if location permission does not support download', () => {
     const row = getFileRowContent({
-      permissions: ['list'],
+      permissions: ['list', 'write'],
       itemLocationKey,
       isSelected: false,
       lastModified: fileItem.lastModified,
