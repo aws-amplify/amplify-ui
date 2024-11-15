@@ -3,20 +3,44 @@ import React from 'react';
 import { uploadHandler } from '../../../actions';
 
 import { useGetActionInput } from '../../../providers/configuration';
-import { useStore } from '../../../providers/store';
+import { FileItems, useStore } from '../../../providers/store';
 import { Task, useProcessTasks } from '../../../tasks';
 
-import { DEFAULT_ACTION_CONCURRENCY } from '../constants';
+import {
+  DEFAULT_ACTION_CONCURRENCY,
+  UPLOAD_FILE_SIZE_LIMIT,
+  UPLOAD_FILE_SIZE_LIMIT_HUMAN,
+} from '../constants';
 import { UploadViewState, UseUploadViewOptions } from './types';
 import { DEFAULT_OVERWRITE_ENABLED } from './constants';
+import { isUndefined } from '@aws-amplify/ui';
 
 export const useUploadView = (
   options?: UseUploadViewOptions
 ): UploadViewState => {
+  const [invalidFiles, setInvalidFiles] = React.useState<
+    FileItems | undefined
+  >();
   const { onExit: _onExit } = options ?? {};
   const getInput = useGetActionInput();
   const [{ files, location }, dispatchStoreAction] = useStore();
   const { current, key } = location;
+
+  const validFiles = React.useMemo(
+    () =>
+      files?.filter((fileItem) => {
+        const { id, file } = fileItem;
+        if (file.size > UPLOAD_FILE_SIZE_LIMIT) {
+          setInvalidFiles((prev) =>
+            isUndefined(prev) ? [fileItem] : prev.concat(fileItem)
+          );
+          dispatchStoreAction({ type: 'REMOVE_FILE_ITEM', id });
+          return false;
+        }
+        return true;
+      }),
+    [files, dispatchStoreAction]
+  );
 
   const [isOverwritingEnabled, setIsOverwritingEnabled] = React.useState(
     DEFAULT_OVERWRITE_ENABLED
@@ -25,7 +49,7 @@ export const useUploadView = (
   const [
     { isProcessing, isProcessingComplete, statusCounts, tasks },
     handleProcess,
-  ] = useProcessTasks(uploadHandler, files, {
+  ] = useProcessTasks(uploadHandler, validFiles, {
     concurrency: DEFAULT_ACTION_CONCURRENCY,
   });
 
@@ -76,16 +100,31 @@ export const useUploadView = (
     [dispatchStoreAction]
   );
 
+  const invalidFilesMessage = React.useMemo(() => {
+    if (invalidFiles?.length) {
+      const fileNames = invalidFiles.map(({ file }) => file.name).join(', ');
+      const content = `File ${fileNames} exceeds the size limit ${UPLOAD_FILE_SIZE_LIMIT_HUMAN}. Failed to add to upload queue.`;
+      return { id: crypto.randomUUID(), content };
+    }
+    return undefined;
+  }, [invalidFiles]);
+
+  const onInvalidFilesMessageDismiss = React.useCallback(() => {
+    setInvalidFiles(undefined);
+  }, []);
+
   return {
     isProcessing,
     isProcessingComplete,
     isOverwritingEnabled,
     location,
+    invalidFilesMessage,
     statusCounts,
     tasks,
     onActionCancel,
     onActionExit,
     onActionStart,
+    onInvalidFilesMessageDismiss,
     onDropFiles,
     onTaskRemove,
     onSelectFiles,

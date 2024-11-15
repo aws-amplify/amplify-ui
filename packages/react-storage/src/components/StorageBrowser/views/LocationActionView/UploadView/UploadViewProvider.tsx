@@ -35,6 +35,7 @@ export function UploadViewProvider({
     location,
     tasks,
     statusCounts,
+    invalidFilesMessage,
     onActionStart,
     onActionCancel,
     onDropFiles,
