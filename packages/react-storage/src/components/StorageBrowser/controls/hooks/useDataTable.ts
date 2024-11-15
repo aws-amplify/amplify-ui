@@ -155,8 +155,8 @@ export const useDataTable = (): DataTableProps => {
 
   return {
     headers: mappedHeaders ?? [],
-    isLoading: isLoading,
-    loadingIndicator: loadingIndicator,
+    isLoading,
+    loadingIndicator,
     rows: sortedRows ?? [],
   };
 };
