@@ -30,6 +30,7 @@ describe('getFileRowContent', () => {
         rowId: 'row-id',
         rowKey: `${location.current.prefix}${location.path}${fileItem.key}`,
         size: fileItem.size,
+        selectFileLabel: 'Select file',
         onDownload: jest.fn(),
         onSelect: jest.fn(),
       })

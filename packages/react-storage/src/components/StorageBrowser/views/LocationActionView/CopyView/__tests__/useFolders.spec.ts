@@ -99,7 +99,7 @@ describe('useFolders', () => {
     });
   });
 
-  it('should call handleList once per destinationList change', async () => {
+  it('should update the reference of onInitialize on destinationList change', () => {
     jest.spyOn(AmplifyReactCore, 'useDataState').mockReturnValue([
       {
         data: {
@@ -113,25 +113,22 @@ describe('useFolders', () => {
       mockHandleList,
     ]);
 
-    const { rerender } = renderHook(
+    const { rerender, result } = renderHook(
       (
         props: { destinationList: string[] } = {
           destinationList: ['prefix1'],
         }
       ) => useFolders(props)
     );
-    await waitFor(() => {
-      rerender({
-        destinationList: ['prefix1', 'subfolder1'],
-      });
-      rerender({
-        destinationList: ['prefix1'],
-      });
-      rerender({
-        destinationList: ['prefix1'],
-      });
-      expect(mockHandleList).toHaveBeenCalledTimes(3);
+    const initial = result.current.onInitialize;
+
+    rerender({
+      destinationList: ['prefix1', 'subfolder1'],
     });
+
+    const next = result.current.onInitialize;
+
+    expect(next).not.toBe(initial);
   });
 
   it('should handle search', () => {
@@ -186,6 +183,20 @@ describe('useFolders', () => {
   });
 
   it('should handle paginate', () => {
+    const nextToken = 'token';
+    jest.spyOn(AmplifyReactCore, 'useDataState').mockReturnValue([
+      {
+        data: {
+          items: mockItems,
+          nextToken,
+        },
+        hasError: false,
+        isLoading: false,
+        message: undefined,
+      },
+      mockHandleList,
+    ]);
+
     const { result } = renderHook(() =>
       useFolders({ destinationList: ['prefix1'] })
     );
@@ -200,8 +211,7 @@ describe('useFolders', () => {
       options: {
         ...DEFAULT_LIST_OPTIONS,
         exclude: 'FILE',
-        nextToken: undefined,
-        refresh: true,
+        nextToken,
       },
       prefix: 'prefix1/',
     });
