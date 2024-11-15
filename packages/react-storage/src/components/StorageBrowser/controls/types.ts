@@ -1,6 +1,6 @@
 import { LocationData } from '../actions';
 import { DataTableSortHeader, DataTableProps } from '../composables/DataTable';
-import { MessageType } from '../composables/Message';
+import { MessageProps } from '../composables/Message';
 import { Composables } from '../composables/types';
 import { LocationState } from '../providers/store/location';
 import { StatusCounts } from '../tasks';
@@ -64,8 +64,7 @@ export interface ControlsContext {
     loadingIndicatorLabel?: string;
     location?: LocationState;
     overwriteToggleLabel?: string;
-    messageContent?: React.ReactNode;
-    messageType?: MessageType;
+    message?: MessageProps;
     paginationData?: PaginationData;
     searchPlaceholder?: string;
     searchQuery?: string;
@@ -87,7 +86,6 @@ export interface ControlsContext {
   onAddFolder?: () => void;
   onDropFiles?: (files: File[]) => void;
   onFolderNameChange?: (value: string) => void;
-  onMessageDismiss?: () => void;
   onNavigate?: (location: LocationData, path?: string) => void;
   onNavigateHome?: () => void;
   onRefresh?: () => void;

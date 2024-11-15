@@ -7,10 +7,7 @@ import * as AmplifyReactCore from '@aws-amplify/ui-react-core';
 import * as StoreModule from '../../../providers/store';
 import * as ConfigModule from '../../../providers/configuration';
 import { LocationDetailView } from '../LocationDetailView';
-import {
-  DEFAULT_LIST_OPTIONS,
-  DEFAULT_ERROR_MESSAGE,
-} from '../LocationDetailView';
+import { DEFAULT_LIST_OPTIONS } from '../LocationDetailView';
 import {
   ActionInputConfig,
   ListLocationItemsHandlerOutput,
@@ -18,19 +15,24 @@ import {
 } from '../../../actions';
 import { useProcessTasks } from '../../../tasks/useProcessTasks';
 import { INITIAL_STATUS_COUNTS } from '../../../tasks';
+import { useDisplayText } from '../../../displayText';
 import { SearchOutput } from '../../../actions/createEnhancedListHandler';
 
 jest.mock('../Controls/ActionsMenu');
-jest.mock('../../../displayText', () => ({
-  useDisplayText: () => ({
-    LocationDetailView: {
-      title: jest.fn(),
-      searchPlaceholder: 'Search current folder',
-      searchSubmitLabel: 'Submit',
-      searchExhaustedMessage: 'Exhausted',
-    },
-  }),
-}));
+jest.mock('../../../displayText', () => {
+  const mockGetListItemsResultMessage = jest.fn();
+  return {
+    useDisplayText: () => ({
+      LocationDetailView: {
+        getTitle: jest.fn(),
+        getListItemsResultMessage: mockGetListItemsResultMessage,
+        searchPlaceholder: 'Search current folder',
+        searchSubmitLabel: 'Submit',
+        searchExhaustedMessage: 'Exhausted',
+      },
+    }),
+  };
+});
 jest.mock('../../../providers/configuration');
 jest.mock('../../../controls/DataTableControl', () => ({
   DataTableControl: () => <div data-testid="data-table-control" />,
@@ -103,6 +105,10 @@ const mockListItemsAction = ({
     handleList,
   ]);
 };
+const mockUseDisplayText = jest.mocked(useDisplayText);
+const mockGetListItemsResultMessage = jest.mocked(
+  mockUseDisplayText().LocationDetailView.getListItemsResultMessage
+);
 
 const dispatchStoreAction = jest.fn();
 const useStoreSpy = jest.spyOn(StoreModule, 'useStore');
@@ -144,11 +150,12 @@ describe('LocationDetailView', () => {
   });
 
   afterEach(() => {
+    mockGetListItemsResultMessage.mockClear();
     uuid = 0;
     jest.clearAllMocks();
   });
 
-  it('renders correct error state', () => {
+  it('invokes getListItemsResultMessage() with `errorMessage` param', () => {
     const errorMessage = 'A network error occurred.';
 
     mockListItemsAction({
@@ -159,23 +166,13 @@ describe('LocationDetailView', () => {
       nextToken: 'some-token',
     });
 
-    const { getByRole, queryByTestId } = render(<LocationDetailView />);
+    render(<LocationDetailView />);
 
-    const message = getByRole('alert');
-    expect(message).toBeInTheDocument();
-
-    // table doesn't render
-    const table = queryByTestId('LOCATION_DETAIL_VIEW_TABLE');
-    expect(table).not.toBeInTheDocument();
-  });
-
-  it('renders a default error Message', () => {
-    mockListItemsAction({ result: [], hasError: true, message: undefined });
-
-    const { getByText } = render(<LocationDetailView />);
-
-    const messageText = getByText(DEFAULT_ERROR_MESSAGE);
-    expect(messageText).toBeInTheDocument();
+    expect(mockGetListItemsResultMessage).toHaveBeenCalledWith({
+      items: expect.any(Array),
+      hasError: true,
+      message: errorMessage,
+    });
   });
 
   it('allows searching for items', async () => {
@@ -252,8 +249,11 @@ describe('LocationDetailView', () => {
       await user.click(getByText('Submit'));
     });
 
-    const message = getByText('Exhausted');
-    expect(message).toBeInTheDocument();
+    expect(mockGetListItemsResultMessage).toHaveBeenCalledWith({
+      items: expect.any(Array),
+      hasExhaustedSearch: true,
+      message: undefined,
+    });
 
     // search initiated
     expect(handleList).toHaveBeenCalledWith(

@@ -5,15 +5,15 @@ import { useMessage } from '../useMessage';
 
 const messageType = 'info';
 const messageContent = 'Really saying something!';
-const onMessageDismiss = jest.fn();
 
 describe('useMessage', () => {
   const controlsContext: ControlsContext = {
     data: {
-      messageType,
-      messageContent,
+      message: {
+        type: messageType,
+        content: messageContent,
+      },
     },
-    onMessageDismiss,
   };
 
   const useControlsContextSpy = jest.spyOn(
@@ -32,7 +32,6 @@ describe('useMessage', () => {
     expect(result.current).toMatchObject({
       type: messageType,
       content: messageContent,
-      onDismiss: onMessageDismiss,
     });
   });
 });

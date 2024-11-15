@@ -10,7 +10,6 @@ import { SearchSubfoldersToggleControl } from '../../controls/SearchSubfoldersTo
 import { TitleControl } from '../../controls/TitleControl';
 import { ControlsContextProvider } from '../../controls/context';
 import { useDisplayText } from '../../displayText';
-import { Controls } from '../Controls';
 import {
   STORAGE_BROWSER_BLOCK,
   STORAGE_BROWSER_BLOCK_TO_BE_UPDATED,
@@ -22,30 +21,12 @@ import { useLocationDetailView } from './useLocationDetailView';
 import { LocationDetailViewProps } from './types';
 import { MessageControl } from '../../controls/MessageControl';
 import { LoadingIndicator } from '../../composables/LoadingIndicator';
+import { MessageProps } from '../../composables/Message';
 
-export const DEFAULT_ERROR_MESSAGE = 'There was an error loading items.';
 const DEFAULT_PAGE_SIZE = 100;
 export const DEFAULT_LIST_OPTIONS = {
   pageSize: DEFAULT_PAGE_SIZE,
   delimiter: '/',
-};
-
-const { EmptyMessage, Message } = Controls;
-
-export const LocationDetailMessage = ({
-  show,
-  message,
-}: {
-  show?: boolean;
-  message?: string;
-}): React.JSX.Element | null => {
-  return show ? (
-    <Message variant="error">{message ?? DEFAULT_ERROR_MESSAGE}</Message>
-  ) : null;
-};
-
-const LocationDetailEmptyMessage = ({ show }: { show?: boolean }) => {
-  return show ? <EmptyMessage>No items to show.</EmptyMessage> : null;
 };
 
 export function LocationDetailView({
@@ -63,8 +44,8 @@ export function LocationDetailView({
       searchPlaceholder,
       searchSubmitLabel,
       searchClearLabel,
-      searchExhaustedMessage,
-      title,
+      getTitle,
+      getListItemsResultMessage,
     },
   } = useDisplayText();
 
@@ -83,9 +64,7 @@ export function LocationDetailView({
     hasFiles,
     hasError,
     message,
-    shouldShowEmptyMessage,
     searchQuery,
-    hasExhaustedSearch,
     onDropFiles,
     onRefresh,
     onPaginate,
@@ -98,7 +77,28 @@ export function LocationDetailView({
     onSearchQueryChange,
     onSearchClear,
     onToggleSearchSubfolders,
+    hasExhaustedSearch,
   } = useLocationDetailView({ onNavigate: onNavigateProp, onExit });
+
+  let messageControlContent: MessageProps | undefined;
+
+  if (hasError) {
+    messageControlContent = getListItemsResultMessage({
+      items: pageItems,
+      hasError,
+      message,
+    });
+  } else if (hasExhaustedSearch) {
+    messageControlContent = getListItemsResultMessage({
+      items: pageItems,
+      hasExhaustedSearch,
+      message,
+    });
+  } else {
+    messageControlContent = getListItemsResultMessage({
+      items: pageItems,
+    });
+  }
 
   return (
     <div
@@ -124,8 +124,6 @@ export function LocationDetailView({
           searchSubmitLabel,
           searchClearLabel,
           searchQuery,
-          messageContent: hasExhaustedSearch ? searchExhaustedMessage : null,
-          messageType: hasExhaustedSearch ? 'info' : undefined,
           tableData: getLocationDetailViewTableData({
             areAllFilesSelected,
             location,
@@ -139,7 +137,8 @@ export function LocationDetailView({
             onSelect,
             onSelectAll,
           }),
-          title: title(location),
+          title: getTitle(location),
+          message: messageControlContent,
         }}
         onDropFiles={onDropFiles}
         onNavigate={onNavigate}
@@ -176,18 +175,14 @@ export function LocationDetailView({
             disabled={isLoading}
           />
         </ViewElement>
-        <ViewElement
-          className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__message`}
-        >
-          <MessageControl />
-        </ViewElement>
-        <LocationDetailMessage show={hasError} message={message} />
         {hasError ? null : (
           <DropZoneControl>
             <DataTableControl />
           </DropZoneControl>
         )}
-        <LocationDetailEmptyMessage show={shouldShowEmptyMessage} />
+        <ViewElement className={`${STORAGE_BROWSER_BLOCK}__message`}>
+          <MessageControl />
+        </ViewElement>
       </ControlsContextProvider>
     </div>
   );

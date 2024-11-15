@@ -49,8 +49,8 @@ export function CreateFolderView({
     string | undefined
   >();
 
-  const messageContent = isProcessingComplete
-    ? getActionCompleteMessage(statusCounts)
+  const message = isProcessingComplete
+    ? getActionCompleteMessage({ counts: statusCounts })
     : undefined;
 
   const onValidateFolderName = (value: string) => {
@@ -78,7 +78,7 @@ export function CreateFolderView({
           actionStartLabel,
           isActionStartDisabled,
           isActionExitDisabled: isProcessing,
-          messageContent,
+          message,
           title,
         }}
         onActionExit={onActionExit}
@@ -90,7 +90,9 @@ export function CreateFolderView({
         <TitleControl />
         <FolderNameFieldControl />
         <ViewElement className={`${STORAGE_BROWSER_BLOCK}__footer`}>
-          <MessageControl />
+          <ViewElement className={`${STORAGE_BROWSER_BLOCK}__message`}>
+            <MessageControl />
+          </ViewElement>
           <ViewElement className={`${STORAGE_BROWSER_BLOCK}__buttons`}>
             <ActionStartControl />
           </ViewElement>

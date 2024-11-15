@@ -4,13 +4,25 @@ import userEvent from '@testing-library/user-event';
 
 import * as ActionsModule from '../../../do-not-import-from-here/actions';
 import * as ConfigModule from '../../../providers/configuration';
-import * as DisplayTextModule from '../../../displayText';
 import * as StoreModule from '../../../providers/store';
 
-import { DEFAULT_ERROR_MESSAGE, LocationsView } from '../LocationsView';
+import { LocationsView } from '../LocationsView';
 import { DEFAULT_LIST_OPTIONS } from '../useLocationsView';
 import { ActionInputConfig, LocationData } from '../../../actions';
 import { DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT } from '../../../displayText/libraries';
+import { useDisplayText } from '../../../displayText';
+
+jest.mock('../../../displayText', () => {
+  const mockGetListLocationsResultMessage = jest.fn();
+  return {
+    useDisplayText: () => ({
+      LocationsView: {
+        ...DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT.LocationsView,
+        getListLocationsResultMessage: mockGetListLocationsResultMessage,
+      },
+    }),
+  };
+});
 
 const dispatchStoreAction = jest.fn();
 jest
@@ -19,9 +31,10 @@ jest
 
 const useGetActionSpy = jest.spyOn(ConfigModule, 'useGetActionInput');
 const useLocationsDataSpy = jest.spyOn(ActionsModule, 'useLocationsData');
-const useDisplayTextSpy = jest
-  .spyOn(DisplayTextModule, 'useDisplayText')
-  .mockReturnValue(DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT);
+const mockUseDisplayText = jest.mocked(useDisplayText);
+const mockGetListLocationsResultMessage = jest.mocked(
+  mockUseDisplayText().LocationsView.getListLocationsResultMessage
+);
 
 const generateMockItems = (size: number, page: number): LocationData[] => {
   return Array(size)
@@ -100,6 +113,7 @@ useGetActionSpy.mockReturnValue(() => config);
 
 describe('LocationsListView', () => {
   afterEach(() => {
+    mockGetListLocationsResultMessage.mockClear();
     jest.clearAllMocks();
   });
 
@@ -117,10 +131,9 @@ describe('LocationsListView', () => {
     render(<LocationsView />);
 
     expect(useLocationsDataSpy).toHaveBeenCalled();
-    expect(useDisplayTextSpy).toHaveBeenCalled();
   });
 
-  it('renders a returned error message for `LocationsListView`', () => {
+  it('invokes getListLocationsResultMessage() with `errorMessage` param', () => {
     const errorMessage = 'Something went wrong.';
 
     useLocationsDataSpy.mockReturnValue([
@@ -135,10 +148,11 @@ describe('LocationsListView', () => {
 
     render(<LocationsView />);
 
-    const message = screen.getByRole('alert');
-    const messageText = screen.getByText(errorMessage);
-    expect(message).toBeInTheDocument();
-    expect(messageText).toBeInTheDocument();
+    expect(mockGetListLocationsResultMessage).toHaveBeenCalledWith({
+      locations: expect.any(Array),
+      hasError: true,
+      message: errorMessage,
+    });
 
     // table doesn't render
     const table = screen.queryByRole('table');
@@ -149,23 +163,6 @@ describe('LocationsListView', () => {
     expect(nextPage).toBeDisabled();
     const prevPage = screen.getByLabelText('Go to previous page');
     expect(prevPage).toBeDisabled();
-  });
-
-  it('renders a fallback error message for `LocationsListView`', () => {
-    useLocationsDataSpy.mockReturnValue([
-      {
-        data: { result: results, nextToken: undefined },
-        hasError: true,
-        isLoading: false,
-        message: undefined,
-      },
-      handleListLocations,
-    ]);
-
-    render(<LocationsView />);
-
-    const messageText = screen.getByText(DEFAULT_ERROR_MESSAGE);
-    expect(messageText).toBeInTheDocument();
   });
 
   it('renders a Locations View table', () => {

@@ -23,7 +23,10 @@ const getTaskStatusDisplayLabel = ({
   },
 }: {
   status: TaskStatus;
-  displayText: DefaultActionViewDisplayText & {
+  displayText: Omit<
+    DefaultActionViewDisplayText,
+    'getActionCompleteMessage'
+  > & {
     statusDisplayOverwritePreventedLabel?: string;
   };
 }) => {
@@ -63,7 +66,10 @@ export const getActionViewTableData = <T extends TaskData = TaskData>({
   isProcessing: boolean;
   locationKey?: string;
   shouldDisplayProgress?: boolean;
-  displayText: DefaultActionViewDisplayText & {
+  displayText: Omit<
+    DefaultActionViewDisplayText,
+    'getActionCompleteMessage'
+  > & {
     tableStatusOverwritePreventedLabel?: string;
   };
   onTaskRemove?: (task: Task<T>) => void;
