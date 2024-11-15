@@ -6,17 +6,29 @@ import { LocationData } from '../../../actions';
 const { getPermissionName } = DEFAULT_LOCATIONS_VIEW_DISPLAY_TEXT;
 
 describe('getLocationsViewTableData', () => {
-  const location1: LocationData = {
+  const folderLocation1: LocationData = {
     bucket: 'bucket',
     id: 'id-1',
     permissions: ['get', 'list'],
     prefix: 'prefix-1/',
     type: 'PREFIX',
   };
-  const location2: LocationData = {
-    ...location1,
+  const folderLocation2: LocationData = {
+    ...folderLocation1,
     id: 'id-2',
     prefix: 'prefix-2/',
+  };
+  const objectLocation: LocationData = {
+    ...folderLocation1,
+    id: 'id-3',
+    prefix: 'object-3',
+    type: 'OBJECT',
+  };
+  const listOnlyObjectLocation: LocationData = {
+    ...objectLocation,
+    id: 'id-4',
+    prefix: 'object-4',
+    permissions: ['list'],
   };
 
   const headers: LocationViewHeaders = [
@@ -35,6 +47,11 @@ describe('getLocationsViewTableData', () => {
       type: 'sort',
       content: { label: 'Permission' },
     },
+    {
+      key: 'action',
+      type: 'sort',
+      content: { label: 'Actions' },
+    },
   ];
 
   // create mocks
@@ -45,11 +62,11 @@ describe('getLocationsViewTableData', () => {
     mockOnNavigate.mockClear();
   });
 
-  it('should return table data as expected', () => {
+  it('should return table data with folder as expected', () => {
     expect(
       getLocationsViewTableData({
         onDownload: mockOnDownload,
-        pageItems: [location1],
+        pageItems: [folderLocation1],
         onNavigate: mockOnNavigate,
         headers,
         getDownloadLabel: () => 'download',
@@ -60,21 +77,107 @@ describe('getLocationsViewTableData', () => {
         expect.objectContaining({ content: { label: 'Folder' } }),
         expect.objectContaining({ content: { label: 'Bucket' } }),
         expect.objectContaining({ content: { label: 'Permission' } }),
+        expect.objectContaining({ content: { label: 'Actions' } }),
       ],
       rows: [
         expect.objectContaining({
           content: [
             expect.objectContaining({
               type: 'button',
-              content: expect.objectContaining({ label: location1.prefix }),
+              content: expect.objectContaining({
+                label: folderLocation1.prefix,
+              }),
             }),
             expect.objectContaining({
               type: 'text',
-              content: expect.objectContaining({ text: location1.bucket }),
+              content: expect.objectContaining({
+                text: folderLocation1.bucket,
+              }),
             }),
             expect.objectContaining({
               type: 'text',
               content: expect.objectContaining({ text: 'Read' }),
+            }),
+            expect.objectContaining({
+              type: 'text',
+              content: expect.objectContaining({ text: '' }),
+            }),
+          ],
+        }),
+      ],
+    });
+  });
+
+  it('should return table data with object as expected', () => {
+    expect(
+      getLocationsViewTableData({
+        onDownload: mockOnDownload,
+        pageItems: [objectLocation],
+        onNavigate: mockOnNavigate,
+        headers,
+        getDownloadLabel: () => 'download',
+        getPermissionName,
+      })
+    ).toMatchObject({
+      rows: [
+        expect.objectContaining({
+          content: [
+            expect.objectContaining({
+              type: 'text',
+              content: expect.objectContaining({ text: objectLocation.prefix }),
+            }),
+            expect.objectContaining({
+              type: 'text',
+              content: expect.objectContaining({ text: objectLocation.bucket }),
+            }),
+            expect.objectContaining({
+              type: 'text',
+              content: expect.objectContaining({ text: 'Read' }),
+            }),
+            expect.objectContaining({
+              type: 'button',
+              content: expect.objectContaining({ icon: 'download' }),
+            }),
+          ],
+        }),
+      ],
+    });
+  });
+
+  it('should return table data with list-only object as expected', () => {
+    expect(
+      getLocationsViewTableData({
+        onDownload: mockOnDownload,
+        pageItems: [listOnlyObjectLocation],
+        onNavigate: mockOnNavigate,
+        headers,
+        getDownloadLabel: () => 'download',
+        getPermissionName,
+      })
+    ).toMatchObject({
+      rows: [
+        expect.objectContaining({
+          content: [
+            expect.objectContaining({
+              type: 'text',
+              content: expect.objectContaining({
+                text: listOnlyObjectLocation.prefix,
+              }),
+            }),
+            expect.objectContaining({
+              type: 'text',
+              content: expect.objectContaining({
+                text: listOnlyObjectLocation.bucket,
+              }),
+            }),
+            expect.objectContaining({
+              type: 'text',
+              content: expect.objectContaining({ text: 'Read' }),
+            }),
+            // Download button should not be rendered.
+            expect.objectContaining({
+              type: 'text',
+              content: expect.objectContaining({ text: '' }),
             }),
           ],
         }),
@@ -85,7 +188,7 @@ describe('getLocationsViewTableData', () => {
   it('uses bucket label when prefix is empty', () => {
     expect(
       getLocationsViewTableData({
-        pageItems: [{ ...location1, prefix: '' }],
+        pageItems: [{ ...folderLocation1, prefix: '' }],
         onNavigate: mockOnNavigate,
         onDownload: mockOnDownload,
         headers,
@@ -99,7 +202,9 @@ describe('getLocationsViewTableData', () => {
             content: expect.arrayContaining([
               expect.objectContaining({
                 type: 'button',
-                content: expect.objectContaining({ label: location1.bucket }),
+                content: expect.objectContaining({
+                  label: folderLocation1.bucket,
+                }),
               }),
             ]),
           }),
@@ -110,7 +215,7 @@ describe('getLocationsViewTableData', () => {
 
   it('navigates to corresponding locations', () => {
     const tableData = getLocationsViewTableData({
-      pageItems: [location1, location2],
+      pageItems: [folderLocation1, folderLocation2],
       onNavigate: mockOnNavigate,
       onDownload: mockOnDownload,
       headers,
@@ -126,7 +231,7 @@ describe('getLocationsViewTableData', () => {
       row2FirstContent.content.onClick?.();
       row1FirstContent.content.onClick?.();
     }
-    expect(mockOnNavigate).toHaveBeenNthCalledWith(1, location2);
-    expect(mockOnNavigate).toHaveBeenNthCalledWith(2, location1);
+    expect(mockOnNavigate).toHaveBeenNthCalledWith(1, folderLocation2);
+    expect(mockOnNavigate).toHaveBeenNthCalledWith(2, folderLocation1);
   });
 });
