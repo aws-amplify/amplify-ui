@@ -19,10 +19,9 @@ export const DEFAULT_ACTION_VIEW_DISPLAY_TEXT: Omit<
   // table task display
   tableStatusCanceledLabel: 'Canceled',
   tableStatusCompletedLabel: 'Completed',
-  tableStatusFailedLabel: 'Failed',
   tableStatusInProgressLabel: 'In progress',
-  tableStatusQueuedLabel: 'In queue',
-  tableStatusInitialLabel: 'Not started',
+  tableStatusFailedLabel: 'Failed',
+  tableStatusQueuedLabel: 'Not started',
   // empty by default
   tableColumnCancelHeader: '',
   tableColumnStatusHeader: 'Status',

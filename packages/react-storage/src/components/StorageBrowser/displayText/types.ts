@@ -17,12 +17,11 @@ export interface DefaultActionViewDisplayText {
   statusDisplayFailedLabel: string;
   statusDisplayQueuedLabel: string;
   statusDisplayTotalLabel: string;
-  tableStatusCanceledLabel: 'Canceled';
-  tableStatusCompletedLabel: 'Completed';
-  tableStatusFailedLabel: 'Failed';
-  tableStatusInProgressLabel: 'In progress';
-  tableStatusQueuedLabel: 'In queue';
-  tableStatusInitialLabel: 'Not started';
+  tableStatusCanceledLabel: string;
+  tableStatusCompletedLabel: string;
+  tableStatusInProgressLabel: string;
+  tableStatusFailedLabel: string;
+  tableStatusQueuedLabel: string;
   title: string;
   tableColumnCancelHeader: string;
   tableColumnStatusHeader: string;
