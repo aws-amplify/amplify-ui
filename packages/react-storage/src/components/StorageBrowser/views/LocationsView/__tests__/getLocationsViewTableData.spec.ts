@@ -144,6 +144,10 @@ describe('getLocationsViewTableData', () => {
     });
   });
 
+  /**
+   * List-only permission and object location type does not co-exist in a single auth mode. This validation
+   * ensures UI to be agnostic to the auth modes.
+   **/
   it('should return table data with list-only object as expected', () => {
     expect(
       getLocationsViewTableData({
