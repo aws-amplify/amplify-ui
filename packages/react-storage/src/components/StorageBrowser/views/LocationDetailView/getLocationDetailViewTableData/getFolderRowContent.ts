@@ -22,6 +22,7 @@ export const getFolderRowContent = ({
           type: 'button',
           content: {
             icon: 'folder',
+            ariaLabel: itemSubPath,
             label: itemSubPath,
             onClick: onNavigate,
           },
