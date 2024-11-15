@@ -66,12 +66,11 @@ export function UploadView({
   const isActionExitDisabled = isProcessing;
   const destinationList = (location.key || '/').split('/');
 
-  const message = !isProcessingComplete
-    ? undefined
-    : getActionCompleteMessage({
+  const message = isProcessingComplete
+    ? getActionCompleteMessage({
         counts: statusCounts,
-        // failedTasks: tasks.filter(null),
-      });
+      })
+    : undefined;
 
   return (
     <div className={resolveClassName(STORAGE_BROWSER_BLOCK, className)}>

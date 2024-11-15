@@ -8,7 +8,9 @@ import { UploadViewState } from '../types';
 import { UploadView } from '../UploadView';
 
 jest.mock('../../../../displayText', () => ({
-  useDisplayText: () => ({ UploadView: {} }),
+  useDisplayText: () => ({
+    UploadView: { getActionCompleteMessage: jest.fn() },
+  }),
 }));
 
 const mockControlsContextProvider = jest.fn(

@@ -11,6 +11,7 @@ import { FoldersPaginationProvider } from './FoldersPaginatationControl';
 import { FoldersTableProvider } from './FoldersTableControl';
 import { useFolders } from './useFolders';
 import { CopyViewProviderProps } from './types';
+import { MessageProps } from '../../../composables/Message';
 
 export function CopyViewProvider({
   children,
@@ -70,21 +71,12 @@ export function CopyViewProvider({
 
   const isActionCancelDisabled = !isProcessing || isProcessingComplete;
 
-  const copyMessageContent = !isProcessingComplete
-    ? overwriteWarningMessage
-    : getActionCompleteMessage(statusCounts);
-
-  const copyCompleteMessageType = isProcessingComplete
-    ? statusCounts.FAILED
-      ? 'error'
-      : !statusCounts.FAILED
-      ? 'info'
-      : undefined
-    : undefined;
-
-  const copyMessageType = isProcessingComplete
-    ? copyCompleteMessageType
-    : 'warning';
+  const message: MessageProps | undefined = !isProcessingComplete
+    ? {
+        content: overwriteWarningMessage,
+        type: 'warning',
+      }
+    : getActionCompleteMessage({ counts: statusCounts });
 
   const foldersMessage = !hasFoldersInitialized
     ? undefined
@@ -104,8 +96,7 @@ export function CopyViewProvider({
         isActionExitDisabled: isProcessing,
         isActionStartDisabled,
         isLoading,
-        messageContent: copyMessageContent,
-        messageType: copyMessageType,
+        message,
         searchQuery: currentQuery,
         searchPlaceholder,
         statusCounts,

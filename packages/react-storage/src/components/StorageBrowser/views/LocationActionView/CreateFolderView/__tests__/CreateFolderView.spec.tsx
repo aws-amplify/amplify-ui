@@ -107,7 +107,7 @@ describe('CreateFolderView', () => {
       data: {
         isActionStartDisabled: true,
         folderNameId,
-        messageContent: undefined,
+        message: undefined,
       },
       onValidateFolderName: expect.any(Function),
     });
@@ -123,7 +123,7 @@ describe('CreateFolderView', () => {
       data: {
         isActionStartDisabled: false,
         folderNameId,
-        messageContent: undefined,
+        message: undefined,
       },
       onValidateFolderName: expect.any(Function),
     });
@@ -139,7 +139,7 @@ describe('CreateFolderView', () => {
       data: {
         isActionStartDisabled: true,
         folderNameId,
-        messageContent: undefined,
+        message: undefined,
       },
       onValidateFolderName: expect.any(Function),
     });
@@ -156,7 +156,7 @@ describe('CreateFolderView', () => {
       data: {
         isActionStartDisabled: true,
         folderNameId,
-        messageContent: 'Success!',
+        message: 'Success!',
       },
       onValidateFolderName: expect.any(Function),
     });

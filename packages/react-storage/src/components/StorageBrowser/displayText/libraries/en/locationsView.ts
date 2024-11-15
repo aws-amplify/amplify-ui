@@ -13,7 +13,34 @@ export const DEFAULT_LOCATIONS_VIEW_DISPLAY_TEXT: DefaultLocationsViewDisplayTex
     ...DEFAULT_LIST_VIEW_DISPLAY_TEXT,
     title: 'Home',
     searchPlaceholder: 'Filter folders and files',
-    getListLocationsResultMessage: () => undefined,
+    getListLocationsResultMessage: (data) => {
+      const { locations, hasExhaustedSearch, errorMessage, query } = data ?? {};
+
+      if (errorMessage !== undefined) {
+        return {
+          type: 'error',
+          content: errorMessage,
+        };
+      }
+
+      if (locations?.length === 0 && !hasExhaustedSearch) {
+        return {
+          type: 'info',
+          content: 'No folders or files.',
+        };
+      }
+
+      if (query && hasExhaustedSearch) {
+        return {
+          type: 'warning',
+          content: 'No more folders or files found.',
+        };
+      }
+
+      // TODO: add more cases as needed
+
+      return undefined;
+    },
     getPermissionsDisplayValue: (permission: Permission) =>
       PERMISSION_DISPLAY_TEXT[permission] ?? permission,
     getDownloadLabel: (fileName: string) => `Download ${fileName}`,

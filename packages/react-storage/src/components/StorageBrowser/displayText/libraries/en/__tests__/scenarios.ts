@@ -12,6 +12,43 @@ export const ACTION_SCENARIOS: [string, StatusCounts][] = [
     { ...INITIAL_STATUS_COUNTS, COMPLETE: 8, FAILED: 3, TOTAL: 11 },
   ],
   ['all success', { ...INITIAL_STATUS_COUNTS, COMPLETE: 11, TOTAL: 11 }],
+  [
+    'some failures, some prevented overwrites, some success',
+    {
+      ...INITIAL_STATUS_COUNTS,
+      COMPLETE: 8,
+      OVERWRITE_PREVENTED: 3,
+      FAILED: 2,
+      TOTAL: 13,
+    },
+  ],
+  [
+    'some failures, some prevented overwrites, no success',
+    {
+      ...INITIAL_STATUS_COUNTS,
+      COMPLETE: 0,
+      OVERWRITE_PREVENTED: 3,
+      FAILED: 2,
+      TOTAL: 5,
+    },
+  ],
+  [
+    'no failures, some prevented overwrites, some success',
+    {
+      ...INITIAL_STATUS_COUNTS,
+      COMPLETE: 2,
+      OVERWRITE_PREVENTED: 3,
+      TOTAL: 5,
+    },
+  ],
+  [
+    'all prevented overwrites',
+    {
+      ...INITIAL_STATUS_COUNTS,
+      OVERWRITE_PREVENTED: 3,
+      TOTAL: 3,
+    },
+  ],
 ];
 
 export const CREATE_FOLDER_ACTION_SCENARIOS: [string, StatusCounts][] = [

@@ -7,6 +7,13 @@ exports[`CopyView display text values \`getActionCompleteMessage\` returns the e
 }
 `;
 
+exports[`CopyView display text values \`getActionCompleteMessage\` returns the expected values in the all prevented overwrites scenario 1`] = `
+{
+  "content": "0 files copied, 0 files failed to copy.",
+  "type": "error",
+}
+`;
+
 exports[`CopyView display text values \`getActionCompleteMessage\` returns the expected values in the all success scenario 1`] = `
 {
   "content": "All files copied.",
@@ -14,9 +21,30 @@ exports[`CopyView display text values \`getActionCompleteMessage\` returns the e
 }
 `;
 
+exports[`CopyView display text values \`getActionCompleteMessage\` returns the expected values in the no failures, some prevented overwrites, some success scenario 1`] = `
+{
+  "content": "2 files copied, 0 files failed to copy.",
+  "type": "error",
+}
+`;
+
 exports[`CopyView display text values \`getActionCompleteMessage\` returns the expected values in the some failed scenario 1`] = `
 {
   "content": "8 files copied, 3 files failed to copy.",
+  "type": "error",
+}
+`;
+
+exports[`CopyView display text values \`getActionCompleteMessage\` returns the expected values in the some failures, some prevented overwrites, no success scenario 1`] = `
+{
+  "content": "0 files copied, 2 files failed to copy.",
+  "type": "error",
+}
+`;
+
+exports[`CopyView display text values \`getActionCompleteMessage\` returns the expected values in the some failures, some prevented overwrites, some success scenario 1`] = `
+{
+  "content": "8 files copied, 2 files failed to copy.",
   "type": "error",
 }
 `;

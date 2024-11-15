@@ -19,22 +19,9 @@ import { getLocationsViewTableData } from './getLocationsViewTableData';
 import { LocationViewHeaders } from './getLocationsViewTableData/types';
 import { useLocationsView } from './useLocationsView';
 import { LocationsViewProps } from './types';
+import { MessageControl } from '../../controls/MessageControl';
 
 export const DEFAULT_ERROR_MESSAGE = 'There was an error loading locations.';
-
-const { EmptyMessage, Message } = Controls;
-
-const LocationsMessage = ({
-  show,
-  message,
-}: {
-  show: boolean;
-  message?: string;
-}): React.JSX.Element | null => {
-  return show ? (
-    <Message variant="error">{message ?? DEFAULT_ERROR_MESSAGE}</Message>
-  ) : null;
-};
 
 const getHeaders = ({
   hasObjectLocations,
@@ -78,10 +65,6 @@ const getHeaders = ({
   return headers;
 };
 
-const LocationsEmptyMessage = ({ show }: { show: boolean }) => {
-  return show ? <EmptyMessage>No locations to show.</EmptyMessage> : null;
-};
-
 export function LocationsView({
   className,
   ...props
@@ -97,6 +80,7 @@ export function LocationsView({
       searchPlaceholder,
       getDownloadLabel,
       getPermissionsDisplayValue,
+      getListLocationsResultMessage,
     },
   } = useDisplayText();
 
@@ -109,7 +93,6 @@ export function LocationsView({
     searchQuery,
     pageItems,
     message,
-    shouldShowEmptyMessage,
     onDownload,
     onRefresh,
     onPaginate,
@@ -118,6 +101,16 @@ export function LocationsView({
     onSearchQueryChange,
     onSearchClear,
   } = useLocationsView(props);
+
+  // TODO: add hasExhaustedSearch param
+  const messageControlContent = hasError
+    ? getListLocationsResultMessage({
+        locations: pageItems,
+        errorMessage: message ?? DEFAULT_ERROR_MESSAGE,
+      })
+    : getListLocationsResultMessage({
+        locations: pageItems,
+      });
 
   const headers = getHeaders({
     hasObjectLocations: pageItems.some(({ type }) => type === 'OBJECT'),
@@ -149,6 +142,7 @@ export function LocationsView({
         title,
         searchPlaceholder: searchPlaceholder,
         searchQuery,
+        message: messageControlContent,
       }}
       onSearch={onSearch}
       onRefresh={onRefresh}
@@ -175,10 +169,9 @@ export function LocationsView({
             className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__locations-view-data-refresh`}
           />
         </ViewElement>
-        <LocationsMessage show={hasError} message={message} />
         <LoadingIndicatorControl />
         {hasError ? null : <DataTableControl />}
-        <LocationsEmptyMessage show={shouldShowEmptyMessage} />
+        <MessageControl />
       </div>
     </ControlsContextProvider>
   );

@@ -12,13 +12,10 @@ export const { useFoldersMessage, FoldersMessageProvider } =
   createContextUtilities({ contextName: 'FoldersMessage', defaultValue });
 
 export const FoldersMessageControl = (): React.JSX.Element => {
-  const { content, type, onDismiss } = useFoldersMessage();
+  const message = useFoldersMessage();
 
   return (
-    <ControlsContextProvider
-      data={{ messageContent: content, messageType: type }}
-      onMessageDismiss={onDismiss}
-    >
+    <ControlsContextProvider data={{ message }}>
       <MessageControl />
     </ControlsContextProvider>
   );

@@ -16,13 +16,20 @@ import { resolveClassName } from '../../utils';
 import { getActionViewTableData } from '../getActionViewTableData';
 import { useDeleteView } from './useDeleteView';
 import { DeleteViewProps } from './types';
+import { MessageControl } from '../../Controls';
 
 export function DeleteView({
   className,
   ...props
 }: DeleteViewProps): React.JSX.Element {
   const {
-    DeleteView: { actionCancelLabel, actionExitLabel, actionStartLabel, title },
+    DeleteView: {
+      actionCancelLabel,
+      actionExitLabel,
+      actionStartLabel,
+      title,
+      getActionCompleteMessage,
+    },
   } = useDisplayText();
 
   const {
@@ -36,6 +43,10 @@ export function DeleteView({
     onActionExit,
     onTaskRemove,
   } = useDeleteView(props);
+
+  const message = isProcessingComplete
+    ? getActionCompleteMessage({ counts: statusCounts })
+    : undefined;
 
   const tableData = getActionViewTableData({
     tasks,
@@ -57,6 +68,7 @@ export function DeleteView({
           statusCounts,
           tableData,
           title,
+          message,
         }}
         onActionStart={onActionStart}
         onActionExit={onActionExit}
@@ -71,9 +83,7 @@ export function DeleteView({
           <StatusDisplayControl />
         </ViewElement>
         <ViewElement className={`${STORAGE_BROWSER_BLOCK}__footer`}>
-          <ViewElement className={`${STORAGE_BROWSER_BLOCK}__message`}>
-            {/* TODO: confirmation message goes here */}
-          </ViewElement>
+          <MessageControl />
           <ViewElement className={`${STORAGE_BROWSER_BLOCK}__buttons`}>
             <ActionCancelControl />
             <ActionStartControl />

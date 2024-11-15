@@ -5,13 +5,27 @@ export const DEFAULT_LOCATION_DETAIL_VIEW_DISPLAY_TEXT: DefaultLocationDetailVie
   {
     ...DEFAULT_LIST_VIEW_DISPLAY_TEXT,
     getListItemsResultMessage: (data) => {
-      const { items, query, hasExhaustedSearch } = data ?? {};
+      const { items, query, hasExhaustedSearch, errorMessage } = data ?? {};
+
+      if (errorMessage !== undefined) {
+        return {
+          type: 'error',
+          content: errorMessage,
+        };
+      }
+
       if (!items?.length) {
-        return { content: 'empty', type: 'info' };
+        return {
+          type: 'info',
+          content: 'No files.',
+        };
       }
 
       if (query && hasExhaustedSearch) {
-        return { content: 'exhasuted search!', type: 'warning' };
+        return {
+          type: 'warning',
+          content: 'No more folders or files found.',
+        };
       }
     },
     searchExhaustedMessage: 'Showing results for up to the first 10,000 items',

@@ -7,6 +7,13 @@ exports[`CopyView display text values \`getActionCompleteMessage\` returns the e
 }
 `;
 
+exports[`CopyView display text values \`getActionCompleteMessage\` returns the expected values in the all prevented overwrites scenario 1`] = `
+{
+  "content": "Overwrite prevented for all files.",
+  "type": "warning",
+}
+`;
+
 exports[`CopyView display text values \`getActionCompleteMessage\` returns the expected values in the all success scenario 1`] = `
 {
   "content": "All files uploaded.",
@@ -14,9 +21,30 @@ exports[`CopyView display text values \`getActionCompleteMessage\` returns the e
 }
 `;
 
+exports[`CopyView display text values \`getActionCompleteMessage\` returns the expected values in the no failures, some prevented overwrites, some success scenario 1`] = `
+{
+  "content": "Overwrite prevented for 3 files, 2 files uploaded.",
+  "type": "warning",
+}
+`;
+
 exports[`CopyView display text values \`getActionCompleteMessage\` returns the expected values in the some failed scenario 1`] = `
 {
   "content": "3 files failed to upload, 8 files uploaded.",
+  "type": "error",
+}
+`;
+
+exports[`CopyView display text values \`getActionCompleteMessage\` returns the expected values in the some failures, some prevented overwrites, no success scenario 1`] = `
+{
+  "content": "Overwrite prevented for 3 files, 2 files failed to upload.",
+  "type": "error",
+}
+`;
+
+exports[`CopyView display text values \`getActionCompleteMessage\` returns the expected values in the some failures, some prevented overwrites, some success scenario 1`] = `
+{
+  "content": "Overwrite prevented for 3 files, 2 files failed to upload, 8 files uploaded.",
   "type": "error",
 }
 `;

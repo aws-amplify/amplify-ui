@@ -11,7 +11,7 @@ import { SearchSubfoldersToggleControl } from '../../controls/SearchSubfoldersTo
 import { TitleControl } from '../../controls/TitleControl';
 import { ControlsContextProvider } from '../../controls/context';
 import { useDisplayText } from '../../displayText';
-import { Controls } from '../Controls';
+import { Controls, MessageControl } from '../Controls';
 import {
   STORAGE_BROWSER_BLOCK,
   STORAGE_BROWSER_BLOCK_TO_BE_UPDATED,
@@ -29,24 +29,6 @@ export const DEFAULT_LIST_OPTIONS = {
   delimiter: '/',
 };
 
-const { EmptyMessage, Message } = Controls;
-
-export const LocationDetailMessage = ({
-  show,
-  message,
-}: {
-  show?: boolean;
-  message?: string;
-}): React.JSX.Element | null => {
-  return show ? (
-    <Message variant="error">{message ?? DEFAULT_ERROR_MESSAGE}</Message>
-  ) : null;
-};
-
-const LocationDetailEmptyMessage = ({ show }: { show?: boolean }) => {
-  return show ? <EmptyMessage>No items to show.</EmptyMessage> : null;
-};
-
 export function LocationDetailView({
   className,
   onActionSelect,
@@ -58,6 +40,7 @@ export function LocationDetailView({
       loadingIndicatorLabel,
       searchSubfoldersToggleLabel,
       getTitle,
+      getListItemsResultMessage,
     },
   } = useDisplayText();
 
@@ -74,7 +57,6 @@ export function LocationDetailView({
     hasFiles,
     hasError,
     message,
-    shouldShowEmptyMessage,
     searchPlaceholder,
     searchQuery,
     onDropFiles,
@@ -90,6 +72,15 @@ export function LocationDetailView({
     onSearchClear,
     onToggleSearchSubfolders,
   } = useLocationDetailView({ onNavigate: onNavigateProp, onExit });
+
+  const messageControlContent = hasError
+    ? getListItemsResultMessage({
+        items: pageItems,
+        errorMessage: message ?? DEFAULT_ERROR_MESSAGE,
+      })
+    : getListItemsResultMessage({
+        items: pageItems,
+      });
 
   return (
     <div
@@ -124,6 +115,7 @@ export function LocationDetailView({
             onSelectAll,
           }),
           title: getTitle(location),
+          message: messageControlContent,
         }}
         onDropFiles={onDropFiles}
         onNavigate={onNavigate}
@@ -158,14 +150,13 @@ export function LocationDetailView({
             disabled={isLoading}
           />
         </ViewElement>
-        <LocationDetailMessage show={hasError} message={message} />
         <LoadingIndicatorControl />
         {hasError ? null : (
           <DropZoneControl>
             <DataTableControl />
           </DropZoneControl>
         )}
-        <LocationDetailEmptyMessage show={shouldShowEmptyMessage} />
+        <MessageControl />
       </ControlsContextProvider>
     </div>
   );
