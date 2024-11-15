@@ -52,6 +52,7 @@ describe('getLocationsViewTableData', () => {
         pageItems: [location1],
         onNavigate: mockOnNavigate,
         headers,
+        isLoading: false,
         getDownloadLabel: () => 'download',
         getPermissionName,
       })
@@ -61,6 +62,7 @@ describe('getLocationsViewTableData', () => {
         expect.objectContaining({ content: { label: 'Bucket' } }),
         expect.objectContaining({ content: { label: 'Permission' } }),
       ],
+      isLoading: false,
       rows: [
         expect.objectContaining({
           content: [
@@ -89,6 +91,7 @@ describe('getLocationsViewTableData', () => {
         onNavigate: mockOnNavigate,
         onDownload: mockOnDownload,
         headers,
+        isLoading: false,
         getDownloadLabel: () => 'download',
         getPermissionName,
       })
@@ -114,6 +117,7 @@ describe('getLocationsViewTableData', () => {
       onNavigate: mockOnNavigate,
       onDownload: mockOnDownload,
       headers,
+      isLoading: false,
       getDownloadLabel: () => 'download',
       getPermissionName,
     });

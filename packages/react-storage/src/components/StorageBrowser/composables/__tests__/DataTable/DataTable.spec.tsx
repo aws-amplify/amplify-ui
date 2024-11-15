@@ -65,7 +65,7 @@ describe('DataTable', () => {
       },
     ];
 
-    render(<DataTable headers={headers} rows={rows} />);
+    render(<DataTable headers={headers} isLoading={false} rows={rows} />);
 
     const table = screen.getByRole('table');
     const tableRowGroups = screen.getAllByRole('rowgroup');

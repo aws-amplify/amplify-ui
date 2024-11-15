@@ -148,23 +148,6 @@ describe('LocationDetailView', () => {
     jest.clearAllMocks();
   });
 
-  it('shows a Loading element when first loaded', () => {
-    useStoreSpy.mockReturnValueOnce([
-      {
-        location: { current: location, path: '', key: location.prefix },
-        locationItems: { fileDataItems: undefined },
-      } as StoreModule.UseStoreState,
-      dispatchStoreAction,
-    ]);
-    mockListItemsAction({ isLoading: true, result: [] });
-
-    const { getByTestId } = render(<LocationDetailView />);
-
-    const loadingIndicator = getByTestId('loading-indicator-control');
-
-    expect(loadingIndicator).toBeInTheDocument();
-  });
-
   it('renders correct error state', () => {
     const errorMessage = 'A network error occurred.';
 

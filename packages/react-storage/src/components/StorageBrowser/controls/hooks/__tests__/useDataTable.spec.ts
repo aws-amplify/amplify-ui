@@ -55,6 +55,7 @@ describe('useDataTable', () => {
             { key: 'header-4', ...textHeader },
             { key: 'header-5', ...textHeader },
           ],
+          isLoading: false,
           rows: [
             {
               key: 'row-1',
@@ -88,6 +89,7 @@ describe('useDataTable', () => {
         { key: 'header-4', ...textHeader },
         { key: 'header-5', ...textHeader },
       ],
+      isLoading: false,
       rows: [
         {
           key: 'row-1',
@@ -108,7 +110,11 @@ describe('useDataTable', () => {
 
     const { result } = renderHook(() => useDataTable());
 
-    expect(result.current).toStrictEqual({ headers: [], rows: [] });
+    expect(result.current).toStrictEqual({
+      headers: [],
+      isLoading: false,
+      rows: [],
+    });
   });
 
   it('handles data with no sortable columns', () => {
@@ -116,6 +122,7 @@ describe('useDataTable', () => {
       data: {
         tableData: {
           headers: [{ key: 'header-1', ...textHeader }],
+          isLoading: false,
           rows: [
             {
               key: 'row-1',
@@ -130,6 +137,7 @@ describe('useDataTable', () => {
 
     expect(result.current).toStrictEqual({
       headers: [expect.objectContaining({ key: 'header-1' })],
+      isLoading: false,
       rows: [expect.objectContaining({ key: 'row-1' })],
     });
   });
@@ -143,6 +151,7 @@ describe('useDataTable', () => {
             { key: 'header-2', ...sortHeader },
             { key: 'header-3', ...sortHeader },
           ],
+          isLoading: false,
           rows: [
             {
               key: 'row-1',
@@ -189,6 +198,7 @@ describe('useDataTable', () => {
             { key: 'header-2', ...sortHeader },
             { key: 'header-3', ...sortHeader },
           ],
+          isLoading: false,
           rows: [
             {
               key: 'row-1',
@@ -262,6 +272,7 @@ describe('useDataTable', () => {
       data: {
         tableData: {
           headers: [{ key: 'header-1', ...sortHeader }],
+          isLoading: false,
           rows: [
             {
               key: 'row-1',
@@ -297,6 +308,7 @@ describe('useDataTable', () => {
       data: {
         tableData: {
           headers: [{ key: 'header-1', ...sortHeader }],
+          isLoading: false,
           rows: [
             {
               key: 'row-1',
@@ -332,6 +344,7 @@ describe('useDataTable', () => {
       data: {
         tableData: {
           headers: [{ key: 'header-1', ...sortHeader }],
+          isLoading: false,
           rows: [
             {
               key: 'row-1',
