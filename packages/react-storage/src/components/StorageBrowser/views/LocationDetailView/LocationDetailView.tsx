@@ -60,6 +60,8 @@ export function LocationDetailView({
       selectFileLabel,
       selectAllFilesLabel,
       searchPlaceholder,
+      searchSubmitLabel,
+      searchClearLabel,
       title,
     },
   } = useDisplayText();
@@ -105,15 +107,17 @@ export function LocationDetailView({
           isSearchingSubfolders,
           loadingIndicatorLabel,
           location,
-          searchPlaceholder,
           paginationData: {
             page,
             hasNextPage,
             highestPageVisited,
             onPaginate,
           },
-          searchQuery,
+          searchPlaceholder,
           searchSubfoldersToggleLabel,
+          searchSubmitLabel,
+          searchClearLabel,
+          searchQuery,
           tableData: getLocationDetailViewTableData({
             areAllFilesSelected,
             location,

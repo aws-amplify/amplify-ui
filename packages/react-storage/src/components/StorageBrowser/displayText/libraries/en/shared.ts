@@ -37,5 +37,6 @@ export const DEFAULT_LIST_VIEW_DISPLAY_TEXT: Omit<
   'getListResultsMessage' | 'searchPlaceholder'
 > = {
   loadingIndicatorLabel: 'Loading',
-  searchSubmitLabel: 'Search',
+  searchSubmitLabel: 'Submit',
+  searchClearLabel: 'Clear search',
 };

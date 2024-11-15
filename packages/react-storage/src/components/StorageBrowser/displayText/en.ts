@@ -7,5 +7,4 @@ export const displayText = {
   uploadFolderTitle: 'Upload folder',
   uploadFilesTitle: 'Upload files',
   deleteFilesTitle: 'Delete files',
-  searchClearLabel: 'Clear search',
 };

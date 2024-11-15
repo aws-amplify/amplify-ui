@@ -18,11 +18,13 @@ export const DEFAULT_COPY_VIEW_DISPLAY_TEXT: DefaultCopyViewDisplayText = {
   loadingIndicatorLabel: 'Loading',
   overwriteWarningMessage:
     'Copied files will overwrite existing files at selected destination.',
-  searchPlaceholder: 'Search for folders',
   getActionCompleteMessage: (_counts) => {
     return 'All copy operations complete.';
   },
   getFolderSelectedMessage: (key: string) => {
     return `Current folder selected: ${key}. There are no additional folders under this path.`;
   },
+  searchPlaceholder: 'Search for folders',
+  searchSubmitLabel: 'Submit',
+  searchClearLabel: 'Clear search',
 };

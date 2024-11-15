@@ -69,6 +69,8 @@ export interface ControlsContext {
     searchPlaceholder?: string;
     searchQuery?: string;
     searchSubfoldersToggleLabel?: string;
+    searchSubmitLabel?: string;
+    searchClearLabel?: string;
     statusCounts?: StatusCounts;
     statusDisplayCanceledLabel?: string;
     statusDisplayCompletedLabel?: string;

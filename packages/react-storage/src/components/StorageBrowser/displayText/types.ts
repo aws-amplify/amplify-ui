@@ -44,6 +44,7 @@ export interface DefaultListViewDisplayText<T = any> {
   loadingIndicatorLabel: string;
   searchPlaceholder: string;
   searchSubmitLabel: string;
+  searchClearLabel: string;
 }
 
 export interface DefaultLocationsViewDisplayText
@@ -96,6 +97,8 @@ export interface DefaultCopyViewDisplayText
   loadingIndicatorLabel: 'Loading';
   overwriteWarningMessage: string;
   searchPlaceholder: string;
+  searchSubmitLabel: string;
+  searchClearLabel: string;
 }
 
 export interface DefaultDeleteViewDisplayText
