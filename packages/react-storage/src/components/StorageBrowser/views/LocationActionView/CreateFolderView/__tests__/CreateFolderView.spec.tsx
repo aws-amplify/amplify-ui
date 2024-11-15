@@ -6,6 +6,7 @@ import { CreateFolderViewState } from '../types';
 
 import { ControlsContext } from '../../../../controls/types';
 import { CreateFolderView } from '../CreateFolderView';
+import { MessageProps } from '../../../../composables/Message';
 
 const getActionCompleteMessage = jest.fn();
 const getValidationMessage = jest.fn();
@@ -146,7 +147,8 @@ describe('CreateFolderView', () => {
   });
 
   it('provides the expected values to `ControlsContextProvider` post processing', () => {
-    getActionCompleteMessage.mockReturnValue('Success!');
+    const mockMessage: MessageProps = { content: 'Success!', type: 'info' };
+    getActionCompleteMessage.mockReturnValue(mockMessage);
     useCreateFolderViewSpy.mockReturnValue(postProcessingViewState);
     render(<CreateFolderView />);
 
@@ -156,7 +158,7 @@ describe('CreateFolderView', () => {
       data: {
         isActionStartDisabled: true,
         folderNameId,
-        message: 'Success!',
+        message: mockMessage,
       },
       onValidateFolderName: expect.any(Function),
     });

@@ -56,7 +56,7 @@ export interface DefaultLocationDetailViewDisplayText
     data: ListItemsMessageData
   ) => { content?: string; type?: MessageType } | undefined;
   searchExhaustedMessage: string;
-  searchIncludeSubfoldersLabel: string;
+  searchSubfoldersToggleLabel: string;
   tableColumnLastModifiedHeader: string;
   tableColumnNameHeader: string;
   tableColumnSizeHeader: string;
@@ -92,38 +92,6 @@ export interface DefaultActionViewDisplayText<T extends TaskData = TaskData> {
   tableColumnNameHeader: string;
   tableColumnTypeHeader: string;
   tableColumnSizeHeader: string;
-}
-
-/**
- * Common list view display text values
- */
-export interface DefaultListViewDisplayText<T = any> {
-  getListResultsMessage: (data: T, error?: Error) => string;
-  loadingIndicatorLabel: string;
-  searchPlaceholder: string;
-  searchSubmitLabel: string;
-}
-
-export interface DefaultLocationsViewDisplayText
-  extends DefaultListViewDisplayText<LocationData> {
-  getPermissionName: (permission: Permission) => string;
-  title: string;
-  tableColumnFolderHeader: string;
-  tableColumnBucketHeader: string;
-  tableColumnPermissionsHeader: string;
-  tableColumnActionsHeader: string;
-  getDownloadLabel: (fileName: string) => string;
-}
-
-export interface DefaultLocationDetailViewDisplayText
-  extends DefaultListViewDisplayText<LocationItemData> {
-  title: (location: LocationState) => string;
-  searchExhaustedMessage: string;
-  searchSubfoldersToggleLabel: string;
-  tableColumnLastModifiedHeader: string;
-  tableColumnNameHeader: string;
-  tableColumnSizeHeader: string;
-  tableColumnTypeHeader: string;
 }
 
 /**
