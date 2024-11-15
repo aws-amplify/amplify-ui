@@ -14,7 +14,9 @@ import { CheckboxHeader } from './headers/CheckboxHeader';
 import { LoadingIndicator } from '../../components/LoadingIndicator';
 import { STORAGE_BROWSER_BLOCK } from '../../constants';
 import { ViewElement } from '../../context/elements';
+import { DEFAULT_LIST_VIEW_DISPLAY_TEXT } from '../../displayText/libraries/en/shared';
 
+const { loadingIndicatorLabel } = DEFAULT_LIST_VIEW_DISPLAY_TEXT;
 export interface DataTableRow {
   content: WithKey<DataTableDataCell>[];
 }
@@ -54,8 +56,9 @@ export const DataTable = ({
     }
   });
 
-  const mappedRows = !isLoading
-    ? rows.map(({ key, content }) => ({
+  const mappedRows = isLoading
+    ? []
+    : rows.map(({ key, content }) => ({
         key,
         content: content.map(({ key, content, type }) => {
           switch (type) {
@@ -92,13 +95,12 @@ export const DataTable = ({
             }
           }
         }),
-      }))
-    : [];
+      }));
 
   return (
     <ViewElement className={`${STORAGE_BROWSER_BLOCK}__table-wrapper`}>
       <Table headers={mappedHeaders} rows={mappedRows} />
-      {!!isLoading && <LoadingIndicator />}
+      {isLoading ? <LoadingIndicator label={loadingIndicatorLabel} /> : null}
     </ViewElement>
   );
 };
