@@ -35,10 +35,6 @@ export interface UploadHandler
 // https://github.com/aws-amplify/amplify-js/blob/1a5366d113c9af4ce994168653df3aadb142c581/packages/storage/src/providers/s3/utils/constants.ts#L16
 export const MULTIPART_UPLOAD_THRESHOLD_BYTES = 5 * 1024 * 1024;
 
-// 160 GB max upload limit.
-const GB = 1024 * 1024 * 1024;
-export const UPLOAD_SIZE_LIMIT = 160 * GB;
-
 export const UNDEFINED_CALLBACKS = {
   cancel: undefined,
   pause: undefined,
@@ -54,15 +50,6 @@ export const uploadHandler: UploadHandler = ({
   const { accountId, credentials, customEndpoint } = config;
   const { key, file } = data;
   const { onProgress, preventOverwrite } = options ?? {};
-
-  if (file.size > UPLOAD_SIZE_LIMIT) {
-    return {
-      result: Promise.resolve({
-        status: 'FAILED',
-        message: `File size exceeds the limit of ${UPLOAD_SIZE_LIMIT / GB} GB`,
-      }),
-    };
-  }
 
   const input: UploadDataInput = {
     path: `${destinationPrefix}${key}`,
