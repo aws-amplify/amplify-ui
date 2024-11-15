@@ -60,6 +60,7 @@
   }
 
   &__table-wrapper {
+    overflow: hidden;
     display: grid;
     grid-template-rows: auto 1fr;
     height: 100%;
