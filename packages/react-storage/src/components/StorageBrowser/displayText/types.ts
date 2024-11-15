@@ -10,13 +10,13 @@ import { LocationState } from '../providers/store/location';
 /**
  * Common display text values available on each action view (e.g. upload, copy, etc)
  */
-export interface DefaultActionViewDisplayText
-  extends DefaultListViewDisplayText<LocationData> {
+export interface DefaultActionViewDisplayText {
   actionCancelLabel: string;
   actionDestinationLabel: string;
   actionExitLabel: string;
   actionStartLabel: string;
   getActionCompleteMessage: (counts: StatusCounts) => string;
+  loadingIndicatorLabel: string;
   statusDisplayCanceledLabel: string;
   statusDisplayCompletedLabel: string;
   statusDisplayFailedLabel: string;

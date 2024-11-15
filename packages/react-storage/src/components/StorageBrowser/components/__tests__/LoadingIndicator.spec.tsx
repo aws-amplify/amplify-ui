@@ -4,7 +4,7 @@ import { LoadingIndicator } from '../LoadingIndicator';
 
 describe('LoadingIndicator', () => {
   it('renders', () => {
-    render(<LoadingIndicator />);
+    render(<LoadingIndicator label="Loading" />);
 
     const indicator = screen.getByText('Loading');
 
