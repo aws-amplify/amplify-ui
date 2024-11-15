@@ -98,7 +98,7 @@ export const DataTable = ({
       }));
 
   return (
-    <ViewElement className={`${STORAGE_BROWSER_BLOCK}__table-wrapper`}>
+    <ViewElement className={`${STORAGE_BROWSER_BLOCK}__data-table`}>
       <Table headers={mappedHeaders} rows={mappedRows} />
       {isLoading ? <LoadingIndicator label={loadingIndicatorLabel} /> : null}
     </ViewElement>
