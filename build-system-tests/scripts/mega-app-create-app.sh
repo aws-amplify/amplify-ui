@@ -100,8 +100,13 @@ if [[ "$FRAMEWORK" == 'react-native' ]]; then
     echo "rm -rf $MEGA_APP_NAME" # Remove $MEGA_APP_NAME if it exists
     rm -rf $MEGA_APP_NAME
     if [[ "$BUILD_TOOL" == 'cli' ]]; then
-        echo "npx react-native@${BUILD_TOOL_VERSION} init $MEGA_APP_NAME --version $FRAMEWORK_VERSION"
-        npx react-native@${BUILD_TOOL_VERSION} init $MEGA_APP_NAME --version $FRAMEWORK_VERSION
+        if [[ $BUILD_TOOL_VERSION == 9 ]]; then # RN CLI v9 doesn't recognize --pm flag
+            echo "npx @react-native-community/cli@$BUILD_TOOL_VERSION init $MEGA_APP_NAME --version $FRAMEWORK_VERSION"
+            npx @react-native-community/cli@$BUILD_TOOL_VERSION init $MEGA_APP_NAME --version $FRAMEWORK_VERSION
+        else # --pm flag fixes https://github.com/CocoaPods/CocoaPods/issues/12546
+            echo "npx @react-native-community/cli@$BUILD_TOOL_VERSION init $MEGA_APP_NAME --version $FRAMEWORK_VERSION --pm npm"
+            npx @react-native-community/cli@$BUILD_TOOL_VERSION init $MEGA_APP_NAME --version $FRAMEWORK_VERSION --pm npm
+        fi
         # React-Native, since 0.71.8,
         # no longer shows warning "npm WARN exec The following package was not found and will be installed: react-native@0.71.8",
         # so we log the package.json to check the versions
@@ -110,11 +115,11 @@ if [[ "$FRAMEWORK" == 'react-native' ]]; then
         echo "npm list react-native"
         npm list react-native
     elif [[ "$BUILD_TOOL" == "expo" ]]; then
-        echo "npx create-expo-app $MEGA_APP_NAME --template expo-template-blank-typescript@sdk-51"
-        npx create-expo-app $MEGA_APP_NAME --template expo-template-blank-typescript@sdk-51 # Temporarily pin expo to version 51
+        echo "npx create-expo-app $MEGA_APP_NAME --template expo-template-blank-typescript@$BUILD_TOOL_VERSION"
+        npx create-expo-app $MEGA_APP_NAME --template expo-template-blank-typescript@$BUILD_TOOL_VERSION
         echo "cd $MEGA_APP_NAME"
         cd $MEGA_APP_NAME
-        echo "npm list expo" # Log the package.json to check the expo version should be later than 48.0.19
+        echo "npm list expo" # Log the package.json to check the expo version
         npm list expo
         echo "npx expo-env-info"
         npx expo-env-info
