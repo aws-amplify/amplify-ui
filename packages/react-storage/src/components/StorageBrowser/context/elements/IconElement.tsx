@@ -126,7 +126,7 @@ export const DEFAULT_ICON_PATHS: Record<IconVariant, string> = {
 };
 
 const DEFAULT_ICON_ATTRIBUTES = {
-  // 'aria-hidden': true,
+  'aria-hidden': true,
   width: '24',
   height: '24',
   // `viewBox` coordinates map to `path` data in DEFAULT_ICON_PATHS

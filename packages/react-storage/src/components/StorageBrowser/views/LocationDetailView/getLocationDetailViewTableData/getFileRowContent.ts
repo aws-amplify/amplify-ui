@@ -79,7 +79,11 @@ export const getFileRowContent = ({
         return {
           key,
           type: 'button',
-          content: { icon: 'download', onClick: onDownload },
+          content: {
+            icon: 'download',
+            onClick: onDownload,
+            ariaLabel: 'download',
+          },
         };
       }
     }

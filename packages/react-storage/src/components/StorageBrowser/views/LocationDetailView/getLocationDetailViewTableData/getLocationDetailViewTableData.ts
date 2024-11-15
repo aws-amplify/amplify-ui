@@ -41,6 +41,7 @@ export const getLocationDetailViewTableData = ({
       checked: areAllFilesSelected,
       label: displayText.locationDetailSelectAllFiles,
       onSelect: onSelectAll,
+      id: 'header-checkbox',
     },
   };
 

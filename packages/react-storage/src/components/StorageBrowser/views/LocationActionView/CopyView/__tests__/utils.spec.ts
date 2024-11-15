@@ -47,6 +47,7 @@ describe('getDestinationPickerTableData', () => {
             {
               content: {
                 icon: 'folder',
+                ariaLabel: 'folder',
                 label: '',
                 onClick: expect.any(Function),
               },
