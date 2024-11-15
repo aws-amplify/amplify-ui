@@ -21,7 +21,13 @@ import { INITIAL_STATUS_COUNTS } from '../../../tasks';
 
 jest.mock('../Controls/ActionsMenu');
 jest.mock('../../../displayText', () => ({
-  useDisplayText: () => ({ LocationDetailView: { title: jest.fn() } }),
+  useDisplayText: () => ({
+    LocationDetailView: {
+      title: jest.fn(),
+      searchPlaceholder: 'Search current folder',
+      searchSubmitLabel: 'Submit',
+    },
+  }),
 }));
 jest.mock('../../../providers/configuration');
 jest.mock('../../../controls/DataTableControl', () => ({
