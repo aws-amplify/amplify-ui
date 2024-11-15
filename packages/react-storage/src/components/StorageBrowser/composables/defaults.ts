@@ -1,4 +1,5 @@
 import { ActionCancel } from './ActionCancel';
+import { ActionDestination } from './ActionDestination';
 import { ActionExit } from './ActionExit';
 import { ActionStart } from './ActionStart';
 import { ActionsList } from './ActionsList';
@@ -22,6 +23,7 @@ import { Composables } from './types';
 
 export const DEFAULT_COMPOSABLES: Composables = {
   ActionCancel,
+  ActionDestination,
   ActionExit,
   ActionStart,
   ActionsList,

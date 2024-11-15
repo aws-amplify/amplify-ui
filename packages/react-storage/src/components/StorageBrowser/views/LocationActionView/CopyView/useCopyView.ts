@@ -2,26 +2,13 @@ import React, { useState } from 'react';
 
 import { isFunction } from '@aws-amplify/ui';
 
-import { copyHandler } from '../../../actions/handlers';
+import { copyHandler, LocationData } from '../../../actions/handlers';
 import { Task, useProcessTasks } from '../../../tasks';
 import { useGetActionInput } from '../../../providers/configuration';
 import { useStore } from '../../../providers/store';
 
 import { CopyViewState, UseCopyViewOptions } from './types';
 import { useFolders } from './useFolders';
-import { getDestinationListFullPrefix } from './utils';
-
-const getInitialDestinationList = (key: string, prefix?: string) =>
-  // handle root bucket access grant
-  key === ''
-    ? ['']
-    : // handle subfolder inside root access grant
-    key && prefix == ''
-    ? ['', ...key.split('/').slice(0, -1)]
-    : // regular access that starts at prefix (not root bucket)
-    key.includes('/')
-    ? key.split('/').slice(0, -1)
-    : [];
 
 export const useCopyView = (options?: UseCopyViewOptions): CopyViewState => {
   const { onExit } = options ?? {};
@@ -32,7 +19,7 @@ export const useCopyView = (options?: UseCopyViewOptions): CopyViewState => {
     },
     dispatchStoreAction,
   ] = useStore();
-  const { key, current } = location;
+  const { current } = location;
 
   const getInput = useGetActionInput();
 
@@ -45,14 +32,12 @@ export const useCopyView = (options?: UseCopyViewOptions): CopyViewState => {
   const { isProcessing, isProcessingComplete, statusCounts, tasks } =
     processState;
 
-  const [destinationList, onDestinationChange] = useState(() =>
-    getInitialDestinationList(key, current?.prefix)
-  );
+  const [destination, setDestination] = useState(location);
 
   const onActionStart = () => {
     handleProcess({
       config: getInput(),
-      destinationPrefix: getDestinationListFullPrefix(destinationList),
+      destinationPrefix: destination.key,
     });
   };
 
@@ -77,10 +62,21 @@ export const useCopyView = (options?: UseCopyViewOptions): CopyViewState => {
     [dispatchStoreAction]
   );
 
-  const folders = useFolders({ destinationList, onDestinationChange });
+  const folders = useFolders({ destination, setDestination });
+
+  const onSelectDestination = (
+    selectedDestination: LocationData,
+    path?: string
+  ) => {
+    setDestination({
+      current: selectedDestination,
+      path: path ?? '',
+      key: `${selectedDestination.prefix ?? ''}${path}`,
+    });
+  };
 
   return {
-    destinationList,
+    destination,
     isProcessing,
     isProcessingComplete,
     folders,
@@ -89,8 +85,8 @@ export const useCopyView = (options?: UseCopyViewOptions): CopyViewState => {
     tasks,
     onActionCancel,
     onActionStart,
-    onDestinationChange,
     onActionExit,
+    onSelectDestination,
     onTaskRemove,
   };
 };

@@ -1,4 +1,5 @@
 import { FolderData, CopyHandlerData, LocationData } from '../../../actions';
+import { LocationState } from '../../../providers/store/location';
 import {
   ActionViewComponent,
   ActionViewProps,
@@ -7,8 +8,8 @@ import {
 
 export interface CopyViewState extends ActionViewState<CopyHandlerData> {
   folders: FoldersState;
-  destinationList: string[];
-  onDestinationChange: (destination: string[]) => void;
+  destination: LocationState;
+  onSelectDestination: (location: LocationData, path?: string) => void;
 }
 
 export interface CopyViewProviderProps extends CopyViewState {
@@ -31,12 +32,12 @@ export interface FoldersState {
   isLoading: boolean;
   message: string | undefined;
   page: number;
-  onInitialize: () => void;
   pageItems: FolderData[];
   query: string;
-  onSelect: (name: string) => void;
+  onInitialize: () => void;
   onPaginate: (page: number) => void;
   onQuery: (value: string) => void;
   onSearch: () => void;
   onSearchClear: () => void;
+  onSelectFolder: (id: string, folderLocationPath: string) => void;
 }

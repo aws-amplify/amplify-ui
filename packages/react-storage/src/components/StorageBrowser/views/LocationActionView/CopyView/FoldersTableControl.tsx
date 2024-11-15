@@ -5,11 +5,13 @@ import { FolderData } from '../../../actions';
 import { ControlsContextProvider } from '../../../controls/context';
 import { DataTableControl } from '../../../controls/DataTableControl';
 
-import { getDestinationPickerTableData } from './utils';
+import { getDestinationPickerTableData } from './getDestinationPickerTableData';
+import { LocationState } from '../../../providers/store/location';
 
 export interface FoldersTableProps {
+  destination?: LocationState;
   folders?: FolderData[];
-  onSelect?: (value: string) => void;
+  onSelectFolder?: (id: string, folderLocationPath: string) => void;
 }
 
 const defaultValue: FoldersTableProps = {};
@@ -18,11 +20,15 @@ export const { useFoldersTable, FoldersTableProvider } = createContextUtilities(
 );
 
 export const FoldersTableControl = (): React.JSX.Element => {
-  const { folders, onSelect } = useFoldersTable();
+  const { destination, folders, onSelectFolder } = useFoldersTable();
+
+  const { current, path = '' } = destination ?? {};
 
   const tableData = getDestinationPickerTableData({
+    prefix: current?.prefix ?? '',
+    path,
     folders,
-    onSelect,
+    onSelectFolder,
   });
 
   return (

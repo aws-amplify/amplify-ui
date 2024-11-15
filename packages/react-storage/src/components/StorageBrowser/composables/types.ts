@@ -1,4 +1,5 @@
 import { ActionCancelProps } from './ActionCancel';
+import { ActionDestinationProps } from './ActionDestination';
 import { ActionExitProps } from './ActionExit';
 import { ActionStartProps } from './ActionStart';
 import { ActionsListProps } from './ActionsList';
@@ -20,6 +21,7 @@ import { TitleProps } from './Title';
 
 export interface Composables {
   ActionCancel: React.ComponentType<ActionCancelProps>;
+  ActionDestination: React.ComponentType<ActionDestinationProps>;
   ActionExit: React.ComponentType<ActionExitProps>;
   ActionStart: React.ComponentType<ActionStartProps>;
   ActionsList: React.ComponentType<ActionsListProps>;

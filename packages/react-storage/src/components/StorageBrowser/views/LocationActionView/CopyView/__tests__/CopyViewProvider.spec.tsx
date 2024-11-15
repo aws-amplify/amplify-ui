@@ -73,8 +73,7 @@ const location: LocationData = {
 const onActionCancel = jest.fn();
 const onActionExit = jest.fn();
 const onActionStart = jest.fn();
-
-const onDestinationChange = jest.fn();
+const onSelectDestination = jest.fn();
 const onTaskRemove = jest.fn();
 
 const actionCallbacks = {
@@ -85,8 +84,7 @@ const actionCallbacks = {
 
 const defaultViewState: CopyViewState = {
   ...actionCallbacks,
-  onTaskRemove,
-  destinationList: [],
+  destination: { current: undefined, path: '', key: '' },
   folders: {
     hasError: false,
     hasNextPage: false,
@@ -101,14 +99,15 @@ const defaultViewState: CopyViewState = {
     onSearch: jest.fn(),
     onInitialize: jest.fn(),
     onSearchClear: jest.fn(),
-    onSelect: jest.fn(),
+    onSelectFolder: jest.fn(),
   },
   isProcessingComplete: false,
   isProcessing: false,
   location: { current: location, path: '', key: `itsa-prefix/` },
-  onDestinationChange,
   statusCounts: { ...INITIAL_STATUS_COUNTS, QUEUED: 1, TOTAL: 1 },
   tasks: [taskOne],
+  onTaskRemove,
+  onSelectDestination,
 };
 
 describe('CopyViewProvider', () => {
@@ -133,7 +132,7 @@ describe('CopyViewProvider', () => {
   it('provides the expected values to `ControlsContextProvider` on destination change', () => {
     const preprocessingViewState: CopyViewState = {
       ...defaultViewState,
-      destinationList: ['some-prefix'],
+      destination: { current: location, path: '', key: `itsa-prefix/` },
     };
 
     render(<CopyViewProvider {...preprocessingViewState} />);
@@ -154,7 +153,7 @@ describe('CopyViewProvider', () => {
   it('provides the expected values to `ControlsContextProvider` while processing', () => {
     const processingViewState: CopyViewState = {
       ...defaultViewState,
-      destinationList: ['some-prefix'],
+      destination: { current: location, path: '', key: `itsa-prefix/` },
       isProcessing: true,
       tasks: [{ ...taskOne, status: 'PENDING' }],
       statusCounts: { ...defaultViewState.statusCounts, PENDING: 1, QUEUED: 0 },
@@ -178,7 +177,7 @@ describe('CopyViewProvider', () => {
   it('provides the expected values to `ControlsContextProvider` post processing in the happy path', () => {
     const postProcessingViewState: CopyViewState = {
       ...defaultViewState,
-      destinationList: ['some-prefix'],
+      destination: { current: location, path: '', key: `itsa-prefix/` },
       isProcessingComplete: true,
       tasks: [{ ...taskOne, status: 'COMPLETE' }],
       statusCounts: {

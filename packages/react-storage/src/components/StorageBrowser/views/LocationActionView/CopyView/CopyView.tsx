@@ -20,12 +20,12 @@ import { TitleControl } from '../../../controls/TitleControl';
 import { resolveClassName } from '../../utils';
 
 import { CopyViewProvider } from './CopyViewProvider';
-import { DestinationControl } from './DestinationControl';
 import { FoldersMessageControl } from './FoldersMessageControl';
 import { FoldersPaginationControl } from './FoldersPaginationControl';
 import { FoldersTableControl } from './FoldersTableControl';
 import { CopyViewProps } from './types';
 import { useCopyView } from './useCopyView';
+import { ActionDestinationControl } from '../../../controls/ActionDestinationControl';
 
 export function CopyView({
   className,
@@ -55,7 +55,7 @@ export function CopyView({
         {isProcessing || isProcessingComplete ? null : (
           <>
             <ViewElement
-              className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__action-destination`}
+              className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__copy-destination-header`}
             >
               <ViewElement
                 className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__search`}
@@ -74,7 +74,7 @@ export function CopyView({
           </>
         )}
         <ViewElement className={`${STORAGE_BROWSER_BLOCK}-footer`}>
-          <DestinationControl />
+          <ActionDestinationControl />
           {!(isProcessing || isProcessingComplete) ? null : (
             <StatusDisplayControl />
           )}
@@ -96,7 +96,7 @@ CopyView.displayName = 'CopyView';
 CopyView.Provider = CopyViewProvider;
 
 CopyView.Cancel = ActionCancelControl;
-CopyView.Destination = DestinationControl;
+CopyView.Destination = ActionDestinationControl;
 CopyView.Exit = ActionExitControl;
 CopyView.Folders = FoldersTableControl;
 CopyView.FoldersLoading = LoadingIndicatorControl;
