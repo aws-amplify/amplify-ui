@@ -21,6 +21,7 @@ import { getLocationDetailViewTableData } from './getLocationDetailViewTableData
 import { useLocationDetailView } from './useLocationDetailView';
 import { LocationDetailViewProps } from './types';
 import { MessageControl } from '../../controls/MessageControl';
+import { MessageProps } from '../../composables/Message';
 
 const DEFAULT_PAGE_SIZE = 100;
 export const DEFAULT_LIST_OPTIONS = {
@@ -74,18 +75,28 @@ export function LocationDetailView({
     onSearchQueryChange,
     onSearchClear,
     onToggleSearchSubfolders,
+    hasExhaustedSearch,
   } = useLocationDetailView({ onNavigate: onNavigateProp, onExit });
 
-  // TODO: add hasExhaustedSearch + query + message param
-  const messageControlContent = hasError
-    ? getListItemsResultMessage({
-        items: pageItems,
-        hasError,
-        message,
-      })
-    : getListItemsResultMessage({
-        items: pageItems,
-      });
+  let messageControlContent: MessageProps | undefined;
+
+  if (hasError) {
+    messageControlContent = getListItemsResultMessage({
+      items: pageItems,
+      hasError,
+      message,
+    });
+  } else if (hasExhaustedSearch) {
+    messageControlContent = getListItemsResultMessage({
+      items: pageItems,
+      hasExhaustedSearch,
+      message,
+    });
+  } else {
+    messageControlContent = getListItemsResultMessage({
+      items: pageItems,
+    });
+  }
 
   return (
     <div

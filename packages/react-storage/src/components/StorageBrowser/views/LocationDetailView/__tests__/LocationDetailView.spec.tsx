@@ -267,8 +267,11 @@ describe('LocationDetailView', () => {
       await user.click(getByText('Submit'));
     });
 
-    const message = getByText('Exhausted');
-    expect(message).toBeInTheDocument();
+    expect(mockGetListItemsResultMessage).toHaveBeenCalledWith({
+      items: expect.any(Array),
+      hasExhaustedSearch: true,
+      message: undefined,
+    });
 
     // search initiated
     expect(handleList).toHaveBeenCalledWith(
