@@ -20,7 +20,6 @@ const getTaskStatusDisplayLabel = ({
     tableStatusFailedLabel,
     tableStatusOverwritePreventedLabel,
     tableStatusQueuedLabel,
-    tableStatusInitialLabel,
   },
 }: {
   status: TaskStatus;
@@ -42,13 +41,11 @@ const getTaskStatusDisplayLabel = ({
     case 'OVERWRITE_PREVENTED':
       return tableStatusOverwritePreventedLabel;
     default:
-      return tableStatusInitialLabel;
+      return tableStatusQueuedLabel;
   }
 };
 
-export const getProgressHeader = (
-  label: string
-): ActionViewHeaders[0] => ({
+export const getProgressHeader = (label: string): ActionViewHeaders[0] => ({
   key: 'progress',
   type: 'sort',
   content: { label },
