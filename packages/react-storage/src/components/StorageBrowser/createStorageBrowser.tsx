@@ -32,6 +32,7 @@ import { defaultActionConfigs } from './actions';
 import { createUseView } from './views/createUseView';
 import { DisplayTextProvider } from './displayText';
 import { ListLocations } from './adapters/types';
+import { StorageBrowserDisplayText } from './displayText/types';
 
 export interface Config {
   accountId?: string;
@@ -51,6 +52,7 @@ export interface CreateStorageBrowserInput {
 
 export interface StorageBrowserProps<T = string> {
   views?: Views<T>;
+  displayText?: StorageBrowserDisplayText;
 }
 
 export interface StorageBrowserComponent<T = string, K = {}> extends Views<T> {
@@ -116,27 +118,27 @@ export function createStorageBrowser(input: CreateStorageBrowserInput): {
       <StoreProvider {...props}>
         <ConfigurationProvider>
           <TempActionsProvider>
-            <DisplayTextProvider>
-              <ComponentsProvider
-                composables={composables}
-                elements={input.elements}
-              >
-                {children}
-              </ComponentsProvider>
-            </DisplayTextProvider>
+            <ComponentsProvider
+              composables={composables}
+              elements={input.elements}
+            >
+              {children}
+            </ComponentsProvider>
           </TempActionsProvider>
         </ConfigurationProvider>
       </StoreProvider>
     );
   }
 
-  const StorageBrowser: StorageBrowserComponent = ({ views }) => (
+  const StorageBrowser: StorageBrowserComponent = ({ views, displayText }) => (
     <ErrorBoundary>
-      <Provider>
-        <ViewsProvider views={views}>
-          <StorageBrowserDefault />
-        </ViewsProvider>
-      </Provider>
+      <DisplayTextProvider displayText={displayText}>
+        <Provider>
+          <ViewsProvider views={views}>
+            <StorageBrowserDefault />
+          </ViewsProvider>
+        </Provider>
+      </DisplayTextProvider>
     </ErrorBoundary>
   );
 
