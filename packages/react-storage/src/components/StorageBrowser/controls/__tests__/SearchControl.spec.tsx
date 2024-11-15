@@ -23,24 +23,18 @@ describe('SearchControl', () => {
     mockUseResolvedComposable.mockReset();
   });
 
-  it('renders the SearchControl with children', () => {
+  it('renders the SearchControl', () => {
     mockUseControlsContext.mockReturnValue({
       data: { searchPlaceholder: 'Placeholder' },
       onSearch: jest.fn(),
     });
 
-    render(
-      <SearchControl>
-        <input type="checkbox" />
-      </SearchControl>
-    );
+    render(<SearchControl />);
 
     const field = screen.getByPlaceholderText('Placeholder');
-    const checkbox = screen.getByRole('checkbox');
     const button = screen.getByRole('button', { name: 'Submit' });
 
     expect(button).toBeInTheDocument();
     expect(field).toBeInTheDocument();
-    expect(checkbox).toBeInTheDocument();
   });
 });

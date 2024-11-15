@@ -32,7 +32,7 @@ const generateMockItems = (size: number, page: number): LocationData[] => {
       return {
         bucket: 'test-bucket',
         prefix: `item-${index}/`,
-        permission: 'READWRITE',
+        permissions: ['delete', 'get', 'list', 'write'],
         id: `identity-${index}`,
         type,
       };
@@ -245,6 +245,7 @@ describe('LocationsListView', () => {
     expect(handleListLocations).toHaveBeenCalledTimes(1);
     expect(handleListLocations).toHaveBeenCalledWith({
       options: {
+        // FIXME: update the exclude type after migration to new actions
         exclude: 'WRITE',
         pageSize: EXPECTED_PAGE_SIZE,
         refresh: true,
@@ -264,6 +265,7 @@ describe('LocationsListView', () => {
     expect(updatedHandleListLocations).toHaveBeenCalledTimes(1);
     expect(updatedHandleListLocations).toHaveBeenCalledWith({
       options: {
+        // FIXME: update the exclude type after migration to new actions
         exclude: 'WRITE',
         pageSize: EXPECTED_PAGE_SIZE,
         refresh: true,
@@ -329,7 +331,7 @@ describe('LocationsListView', () => {
         id: 'identity-0',
         prefix: 'item-0/',
         type: 'PREFIX',
-        permission: 'READWRITE',
+        permissions: ['delete', 'get', 'list', 'write'],
       },
     });
   });

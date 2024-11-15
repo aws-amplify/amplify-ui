@@ -14,20 +14,37 @@ import {
 import {
   ActionInputConfig,
   ListLocationItemsHandlerOutput,
+  LocationData,
 } from '../../../actions';
 import { useProcessTasks } from '../../../tasks/useProcessTasks';
 import { INITIAL_STATUS_COUNTS } from '../../../tasks';
+import { SearchOutput } from '../../../actions/createEnhancedListHandler';
 
 jest.mock('../Controls/ActionsMenu');
 jest.mock('../../../displayText', () => ({
-  useDisplayText: () => ({ LocationDetailView: { title: jest.fn() } }),
+  useDisplayText: () => ({
+    LocationDetailView: {
+      title: jest.fn(),
+      searchExhaustedMessage: 'Exhausted',
+    },
+  }),
 }));
 jest.mock('../../../providers/configuration');
+jest.mock('../../../controls/DataTableControl', () => ({
+  DataTableControl: () => <div data-testid="data-table-control" />,
+}));
+jest.mock('../../../controls/LoadingIndicatorControl', () => ({
+  LoadingIndicatorControl: () => (
+    <div data-testid="loading-indicator-control" />
+  ),
+}));
 jest.mock('../../../controls/NavigationControl', () => ({
   NavigationControl: () => 'NavigationControl',
 }));
-jest.mock('../../../controls/DataTableControl', () => ({
-  DataTableControl: () => <div data-testid="data-table-control" />,
+jest.mock('../../../controls/SearchSubfoldersToggleControl', () => ({
+  SearchSubfoldersToggleControl: () => (
+    <div data-testid="search-subfolders-toggle-control" />
+  ),
 }));
 jest.mock('../../../tasks/useProcessTasks');
 
@@ -64,17 +81,19 @@ const mockListItemsAction = ({
   isLoading = false,
   message,
   result,
+  search,
   nextToken = undefined,
 }: {
   hasError?: boolean;
   isLoading?: boolean;
   message?: string;
   result: any[];
+  search?: SearchOutput;
   nextToken?: string;
 }) => {
   jest.spyOn(AmplifyReactCore, 'useDataState').mockReturnValue([
     {
-      data: { items: result, nextToken },
+      data: { items: result, nextToken, search },
       hasError,
       isLoading,
       message,
@@ -86,10 +105,10 @@ const mockListItemsAction = ({
 const dispatchStoreAction = jest.fn();
 const useStoreSpy = jest.spyOn(StoreModule, 'useStore');
 
-const location = {
+const location: LocationData = {
   id: 'an-id-👍🏼',
   bucket: 'test-bucket',
-  permission: 'READWRITE',
+  permissions: ['delete', 'get', 'list', 'write'],
   prefix: 'test-prefix/',
   type: 'PREFIX',
 };
@@ -137,11 +156,11 @@ describe('LocationDetailView', () => {
     ]);
     mockListItemsAction({ isLoading: true, result: [] });
 
-    const { getByText } = render(<LocationDetailView />);
+    const { getByTestId } = render(<LocationDetailView />);
 
-    const text = getByText('Loading');
+    const loadingIndicator = getByTestId('loading-indicator-control');
 
-    expect(text).toBeInTheDocument();
+    expect(loadingIndicator).toBeInTheDocument();
   });
 
   it('renders correct error state', () => {
@@ -184,20 +203,21 @@ describe('LocationDetailView', () => {
     ]);
     mockListItemsAction({ result: testResult });
 
-    const { getByPlaceholderText, getByText, getByLabelText } = render(
-      <LocationDetailView />
-    );
+    const { getByPlaceholderText, getByTestId, getByText, getByLabelText } =
+      render(<LocationDetailView />);
 
     const input = getByPlaceholderText('Search current folder');
-    const subfolderOption = getByText('Include subfolders');
+    const searchSubfoldersToggle = getByTestId(
+      'search-subfolders-toggle-control'
+    );
 
     expect(input).toBeInTheDocument();
-    expect(subfolderOption).toBeInTheDocument();
+    expect(searchSubfoldersToggle).toBeInTheDocument();
 
     input.focus();
     await act(async () => {
       await user.keyboard('boo');
-      await user.click(subfolderOption);
+      await user.click(searchSubfoldersToggle);
       await user.click(getByText('Submit'));
     });
 
@@ -222,6 +242,45 @@ describe('LocationDetailView', () => {
 
     // clears search
     expect(input).toHaveValue('');
+  });
+
+  it('shows search exhausted message', async () => {
+    useStoreSpy.mockReturnValue([
+      {
+        location: { current: location, path: '', key: location.prefix },
+        locationItems: { fileDataItems: undefined },
+      } as StoreModule.UseStoreState,
+      dispatchStoreAction,
+    ]);
+    mockListItemsAction({
+      result: testResult,
+      search: { hasExhaustedSearch: true },
+    });
+
+    const { getByPlaceholderText, getByText } = render(<LocationDetailView />);
+
+    const input = getByPlaceholderText('Search current folder');
+    expect(input).toBeInTheDocument();
+    input.focus();
+    await act(async () => {
+      await user.keyboard('boo');
+      await user.click(getByText('Submit'));
+    });
+
+    const message = getByText('Exhausted');
+    expect(message).toBeInTheDocument();
+
+    // search initiated
+    expect(handleList).toHaveBeenCalledWith(
+      expect.objectContaining({
+        options: expect.objectContaining({
+          search: {
+            filterKey: 'key',
+            query: 'boo',
+          },
+        }),
+      })
+    );
   });
 
   it('loads initial location items for a BUCKET location as expected', () => {

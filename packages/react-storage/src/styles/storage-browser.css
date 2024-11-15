@@ -52,6 +52,7 @@
   display: flex;
   gap: var(--storage-browser-gap);
 }
+
 .storage-browser__message-dismiss {
   flex: 0 0 auto;
 }
@@ -410,10 +411,6 @@
   align-items: center;
   flex-wrap: wrap;
   min-width: 35rem;
-}
-
-.storage-browser__locations-view-search,
-.storage-browser__location-detail-view-search {
   flex: 1;
 }
 

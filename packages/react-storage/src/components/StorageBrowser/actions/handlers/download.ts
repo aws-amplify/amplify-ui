@@ -25,7 +25,7 @@ function downloadFromUrl(fileName: string, url: string) {
 
   a.href = url;
   a.download = fileName;
-
+  a.target = '_blank';
   document.body.appendChild(a);
 
   a.click();

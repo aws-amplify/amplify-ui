@@ -16,10 +16,10 @@ const createCredentialsStore = ({
   const { destroy, getProvider } = createLocationCredentialsStore(input);
   return {
     destroy,
-    getCredentials: ({ scope, permission }) =>
+    getCredentials: ({ scope, permissions }) =>
       getProvider({
         scope,
-        permission,
+        permissions,
       }),
   };
 };

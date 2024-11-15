@@ -25,6 +25,7 @@ interface UseLocationDetailView {
   hasNextPage: boolean;
   highestPageVisited: number;
   isLoading: boolean;
+  isSearchingSubfolders: boolean;
   location: LocationState;
   areAllFilesSelected: boolean;
   fileDataItems: FileDataItem[] | undefined;
@@ -33,7 +34,7 @@ interface UseLocationDetailView {
   shouldShowEmptyMessage: boolean;
   searchPlaceholder: string;
   searchQuery: string;
-  includeSubfolders: boolean;
+  hasExhaustedSearch: boolean;
   pageItems: LocationItemData[];
   page: number;
   onDropFiles: (files: File[]) => void;
@@ -47,7 +48,7 @@ interface UseLocationDetailView {
   onSearch: () => void;
   onSearchClear: () => void;
   onSearchQueryChange: (value: string) => void;
-  onIncludeSubfoldersChange: (value: boolean) => void;
+  onToggleSearchSubfolders: () => void;
 }
 
 export type LocationDetailViewActionType =
@@ -112,7 +113,8 @@ export function useLocationDetailView(
   );
 
   // set up pagination
-  const { items, nextToken } = data;
+  const { items, nextToken, search } = data;
+  const { hasExhaustedSearch = false } = search ?? {};
   const hasNextToken = !!nextToken;
   const paginateCallback = () => {
     if (hasInvalidPrefix || !nextToken) return;
@@ -152,10 +154,10 @@ export function useLocationDetailView(
 
   const {
     searchQuery,
-    includeSubfolders,
-    onIncludeSubfoldersChange,
+    isSearchingSubfolders,
     onSearchQueryChange,
     onSearchSubmit,
+    onToggleSearchSubfolders,
     resetSearch,
   } = useSearch({ onSearch });
 
@@ -211,10 +213,11 @@ export function useLocationDetailView(
     message,
     shouldShowEmptyMessage,
     isLoading,
+    isSearchingSubfolders,
     onPaginate,
     searchPlaceholder: displayText.searchDetailPlaceholder,
     searchQuery,
-    includeSubfolders,
+    hasExhaustedSearch,
     onRefresh,
     onNavigate: (location: LocationData, path?: string) => {
       onNavigate?.(location, path);
@@ -275,6 +278,6 @@ export function useLocationDetailView(
       handleReset();
     },
     onSearchQueryChange,
-    onIncludeSubfoldersChange,
+    onToggleSearchSubfolders,
   };
 }

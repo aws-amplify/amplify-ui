@@ -2,8 +2,9 @@ import React from 'react';
 
 import { ViewElement } from '../../context/elements';
 import { DataRefreshControl } from '../../controls/DataRefreshControl';
-import { PaginationControl } from '../../controls/PaginationControl';
 import { DataTableControl } from '../../controls/DataTableControl';
+import { LoadingIndicatorControl } from '../../controls/LoadingIndicatorControl';
+import { PaginationControl } from '../../controls/PaginationControl';
 import { SearchControl } from '../../controls/SearchControl';
 import { TitleControl } from '../../controls/TitleControl';
 import { ControlsContextProvider } from '../../controls/context';
@@ -21,11 +22,7 @@ import { LocationsViewProps } from './types';
 
 export const DEFAULT_ERROR_MESSAGE = 'There was an error loading locations.';
 
-const { EmptyMessage, Loading: LoadingElement, Message } = Controls;
-
-const Loading = ({ show }: { show: boolean }) => {
-  return show ? <LoadingElement /> : null;
-};
+const { EmptyMessage, Message } = Controls;
 
 const LocationsMessage = ({
   show,
@@ -91,6 +88,7 @@ export function LocationsView({
 }: LocationsViewProps): React.JSX.Element {
   const {
     LocationsView: {
+      loadingIndicatorLabel,
       title,
       tableColumnBucketHeader,
       tableColumnFolderHeader,
@@ -133,6 +131,7 @@ export function LocationsView({
     <ControlsContextProvider
       data={{
         isDataRefreshDisabled: isLoading,
+        loadingIndicatorLabel,
         tableData: getLocationsViewTableData({
           getPermissionName,
           headers,
@@ -164,9 +163,11 @@ export function LocationsView({
         <ViewElement
           className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__location-detail-view-controls`}
         >
-          <SearchControl
-            className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__locations-view-search`}
-          />
+          <ViewElement
+            className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__search`}
+          >
+            <SearchControl />
+          </ViewElement>
           <PaginationControl
             className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__locations-view-pagination`}
           />
@@ -175,7 +176,7 @@ export function LocationsView({
           />
         </ViewElement>
         <LocationsMessage show={hasError} message={message} />
-        <Loading show={isLoading} />
+        <LoadingIndicatorControl />
         {hasError ? null : <DataTableControl />}
         <LocationsEmptyMessage show={shouldShowEmptyMessage} />
       </div>

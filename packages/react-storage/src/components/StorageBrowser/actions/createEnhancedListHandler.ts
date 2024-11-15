@@ -19,9 +19,17 @@ export interface EnhancedListHandlerOptions<T, K>
   search?: SearchOptions<T>;
 }
 
+export interface SearchOutput {
+  hasExhaustedSearch: boolean;
+}
+
+interface EnhancedListHandlerOutput<T> extends ListHandlerOutput<T> {
+  search?: SearchOutput;
+}
+
 interface EnhancedListHandler<T, K>
   extends AsyncDataAction<
-    ListHandlerOutput<T>,
+    EnhancedListHandlerOutput<T>,
     ListHandlerInput<EnhancedListHandlerOptions<T, K> & { delimiter?: string }>
   > {}
 
@@ -60,7 +68,7 @@ function searchItems<T>({
     return list.filter((item) => {
       const test = item[filterKey];
       if (typeof test === 'string') {
-        const [, suffix] = test.split(prefix);
+        const suffix = test.slice(prefix.length);
         return suffix.includes(query);
       }
       return false;
@@ -146,6 +154,10 @@ export const createEnhancedListHandler = <Action extends ListHandler>(
           searchOptions: search,
           delimiter: rest.delimiter,
         }),
+        search: {
+          // search limit reached but we still have a next token
+          hasExhaustedSearch: !!nextNextToken,
+        },
         nextToken: undefined,
       };
     }

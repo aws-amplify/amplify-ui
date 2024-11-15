@@ -85,7 +85,7 @@ describe('createAmplifyAuthAdapter', () => {
 
     await expect(
       getLocationCredentials({
-        permission: 'READWRITE',
+        permissions: ['delete', 'get', 'list', 'write'],
         scope: 's3://bucket/prefix/*',
       })
     ).rejects.toThrow(MISSING_TEMPORARY_CREDENTIALS_ERROR);
@@ -99,7 +99,7 @@ describe('createAmplifyAuthAdapter', () => {
 
     await expect(
       getLocationCredentials({
-        permission: 'READWRITE',
+        permissions: ['delete', 'get', 'list', 'write'],
         scope: 's3://bucket/prefix/*',
       })
     ).rejects.toThrow(MISSING_IDENTITY_ID_ERROR);

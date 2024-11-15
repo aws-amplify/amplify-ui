@@ -1,6 +1,10 @@
 import { StatusCounts } from '../tasks';
-import { FolderData, LocationData, LocationItemData } from '../actions';
-import { Permission } from '../storage-internal';
+import {
+  FolderData,
+  LocationData,
+  LocationItemData,
+  LocationPermissions,
+} from '../actions';
 import { LocationState } from '../providers/store/location';
 
 /**
@@ -38,7 +42,7 @@ export interface DefaultListViewDisplayText<T = any> {
 
 export interface DefaultLocationsViewDisplayText
   extends DefaultListViewDisplayText<LocationData> {
-  getPermissionName: (permission: Permission) => string;
+  getPermissionName: (permissions: LocationPermissions) => string;
   title: string;
   tableColumnFolderHeader: string;
   tableColumnBucketHeader: string;
@@ -51,7 +55,7 @@ export interface DefaultLocationDetailViewDisplayText
   extends DefaultListViewDisplayText<LocationItemData> {
   title: (location: LocationState) => string;
   searchExhaustedMessage: string;
-  searchIncludeSubfoldersLabel: string;
+  searchSubfoldersToggleLabel: string;
   tableColumnLastModifiedHeader: string;
   tableColumnNameHeader: string;
   tableColumnSizeHeader: string;
@@ -94,7 +98,7 @@ export interface DefaultUploadViewDisplayText
   addFilesLabel: string;
   addFolderLabel: string;
   statusDisplayOverridePreventedLabel: string;
-  overwriteExistingLabel: string;
+  overwriteToggleLabel: string;
 }
 
 export interface DefaultStorageBrowserDisplayText {

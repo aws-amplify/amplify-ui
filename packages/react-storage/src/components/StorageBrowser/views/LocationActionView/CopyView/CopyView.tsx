@@ -49,7 +49,11 @@ export function CopyView({
             <ViewElement
               className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__action-destination`}
             >
-              <SearchControl />
+              <ViewElement
+                className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__search`}
+              >
+                <SearchControl />
+              </ViewElement>
               <FoldersPaginatationControl />
             </ViewElement>
             <ViewElement
