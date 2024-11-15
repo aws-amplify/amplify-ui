@@ -49,7 +49,7 @@ export const getProgressHeader = (
 ): ActionViewHeaders[0] => ({
   key: 'progress',
   type: 'sort',
-  content: { label: progressLabel },
+  content: { label },
 });
 
 export const getActionViewTableData = <T extends TaskData = TaskData>({
