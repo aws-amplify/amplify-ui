@@ -28,11 +28,9 @@ export const getDestinationListFullPrefix = (
 
 export const getDestinationPickerTableData = ({
   folders,
-  isLoading,
   onSelect,
 }: {
   folders?: { key: string; id: string }[];
-  isLoading: boolean;
   onSelect?: (name: string) => void;
 }): DataTableProps => {
   const rows: DataTableProps['rows'] = !folders
@@ -60,7 +58,6 @@ export const getDestinationPickerTableData = ({
 
   const tableData: DataTableProps = {
     headers: DESTINATION_PICKER_COLUMNS,
-    isLoading,
     rows,
   };
   return tableData;

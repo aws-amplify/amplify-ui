@@ -135,6 +135,7 @@ export function LocationsView({
     <ControlsContextProvider
       data={{
         isDataRefreshDisabled: isLoading,
+        isLoading,
         loadingIndicator,
         loadingIndicatorLabel,
         tableData: getLocationsViewTableData({
