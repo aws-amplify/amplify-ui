@@ -141,7 +141,6 @@ export function LocationsView({
         tableData: getLocationsViewTableData({
           getPermissionName,
           headers,
-          isLoading,
           pageItems,
           onDownload,
           onNavigate,

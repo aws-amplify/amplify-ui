@@ -131,7 +131,6 @@ export function LocationDetailView({
             location,
             fileDataItems,
             hasFiles,
-            isLoading,
             pageItems,
             selectFileLabel,
             selectAllFilesLabel,

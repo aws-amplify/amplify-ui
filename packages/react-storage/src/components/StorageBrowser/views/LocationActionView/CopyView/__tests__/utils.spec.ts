@@ -35,14 +35,12 @@ describe('getDestinationPickerTableData', () => {
     const output = getDestinationPickerTableData({
       onSelect,
       folders: [{ key: 'key', id: 'id' }],
-      isLoading: false,
     });
 
     expect(output).toStrictEqual({
       headers: [
         { content: { label: 'Folder name' }, key: 'key', type: 'sort' },
       ],
-      isLoading: false,
       rows: [
         {
           content: [

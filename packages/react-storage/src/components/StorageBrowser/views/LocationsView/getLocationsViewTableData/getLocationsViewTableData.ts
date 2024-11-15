@@ -7,14 +7,12 @@ export const getLocationsViewTableData = ({
   onNavigate,
   onDownload,
   headers,
-  isLoading,
   getDownloadLabel,
   getPermissionName,
 }: {
   pageItems: LocationData[];
   onNavigate: (location: LocationData) => void;
   headers: LocationViewHeaders;
-  isLoading: boolean;
   onDownload: (location: LocationData) => void;
   getDownloadLabel: (fileName: string) => string;
   getPermissionName: (permissions: LocationPermissions) => string;
@@ -81,5 +79,5 @@ export const getLocationsViewTableData = ({
     };
   });
 
-  return { headers, isLoading, rows };
+  return { headers, rows };
 };

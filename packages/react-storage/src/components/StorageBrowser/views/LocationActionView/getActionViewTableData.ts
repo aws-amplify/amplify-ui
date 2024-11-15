@@ -196,5 +196,5 @@ export const getActionViewTableData = <T extends TaskData = TaskData>({
     };
   });
 
-  return { headers, isLoading: isProcessing, rows };
+  return { headers, rows };
 };
