@@ -184,7 +184,7 @@ export const getActionViewTableData = <T extends TaskData = TaskData>({
               content: {
                 isDisabled,
                 onClick: () => {
-                  if (isQueued) {
+                  if (!isProcessing) {
                     onTaskRemove?.(task);
                   }
                   cancel?.();
