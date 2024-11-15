@@ -19,9 +19,17 @@ export interface EnhancedListHandlerOptions<T, K>
   search?: SearchOptions<T>;
 }
 
+export interface SearchOutput {
+  hasExhaustedSearch: boolean;
+}
+
+interface EnhancedListHandlerOutput<T> extends ListHandlerOutput<T> {
+  search?: SearchOutput;
+}
+
 interface EnhancedListHandler<T, K>
   extends AsyncDataAction<
-    ListHandlerOutput<T>,
+    EnhancedListHandlerOutput<T>,
     ListHandlerInput<EnhancedListHandlerOptions<T, K>>
   > {}
 
@@ -85,6 +93,10 @@ export const createEnhancedListHandler = <Action extends ListHandler>(
           }
           return false;
         }),
+        search: {
+          // search limit reached but we still have a next token
+          hasExhaustedSearch: !!nextNextToken,
+        },
         nextToken: undefined,
       };
     }

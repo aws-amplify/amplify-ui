@@ -21,6 +21,7 @@ import { ActionsMenuControl } from './Controls/ActionsMenu';
 import { getLocationDetailViewTableData } from './getLocationDetailViewTableData';
 import { useLocationDetailView } from './useLocationDetailView';
 import { LocationDetailViewProps } from './types';
+import { MessageControl } from '../../controls/MessageControl';
 
 export const DEFAULT_ERROR_MESSAGE = 'There was an error loading items.';
 const DEFAULT_PAGE_SIZE = 100;
@@ -62,6 +63,7 @@ export function LocationDetailView({
       searchPlaceholder,
       searchSubmitLabel,
       searchClearLabel,
+      searchExhaustedMessage,
       title,
     },
   } = useDisplayText();
@@ -81,6 +83,7 @@ export function LocationDetailView({
     message,
     shouldShowEmptyMessage,
     searchQuery,
+    hasExhaustedSearch,
     onDropFiles,
     onRefresh,
     onPaginate,
@@ -118,6 +121,8 @@ export function LocationDetailView({
           searchSubmitLabel,
           searchClearLabel,
           searchQuery,
+          messageContent: hasExhaustedSearch ? searchExhaustedMessage : null,
+          messageType: hasExhaustedSearch ? 'info' : undefined,
           tableData: getLocationDetailViewTableData({
             areAllFilesSelected,
             location,
@@ -153,7 +158,9 @@ export function LocationDetailView({
             className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__search`}
           >
             <SearchControl />
-            <SearchSubfoldersToggleControl />
+            <SearchSubfoldersToggleControl
+              className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__search-subfolder-toggle__label`}
+            />
           </ViewElement>
           <PaginationControl
             className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__location-detail-view-pagination`}
@@ -165,6 +172,11 @@ export function LocationDetailView({
             onActionSelect={onActionSelect}
             disabled={isLoading}
           />
+        </ViewElement>
+        <ViewElement
+          className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__message`}
+        >
+          <MessageControl />
         </ViewElement>
         <LocationDetailMessage show={hasError} message={message} />
         <LoadingIndicatorControl />
