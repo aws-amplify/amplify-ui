@@ -20,8 +20,8 @@ export interface DataTableRow {
 
 export interface DataTableProps {
   headers: WithKey<DataTableHeader>[];
-  isLoading: boolean;
-  loadingIndicator?: React.JSX.Element;
+  isLoading?: boolean;
+  loadingIndicator?: React.ReactNode;
   rows: WithKey<DataTableRow>[];
 }
 
