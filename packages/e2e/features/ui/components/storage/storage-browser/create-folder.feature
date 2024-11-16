@@ -36,4 +36,4 @@ Feature: Create folder with Storage Browser
     Then the "Create Folder" button is disabled 
     When I type a new "Folder name" with value "Blackberry/"
     When I lose focus on "Folder name" input
-    Then I see "Folder name cannot contain a \"/\" or \".\" character"
+    Then I see 'Folder name cannot contain \"/\", nor end or start with \".\"'
