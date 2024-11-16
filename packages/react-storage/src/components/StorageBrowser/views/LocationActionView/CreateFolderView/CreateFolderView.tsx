@@ -43,7 +43,9 @@ export function CreateFolderView({
     statusCounts,
   } = useCreateFolderView(props);
 
-  const loadingIndicator = <LoadingIndicator label={loadingIndicatorLabel} />;
+  const loadingIndicator = (
+    <LoadingIndicator isLoading label={loadingIndicatorLabel} />
+  );
 
   const [validationMessage, setValidationMessage] = React.useState<
     string | undefined

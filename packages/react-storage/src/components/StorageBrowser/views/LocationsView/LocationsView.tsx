@@ -101,7 +101,9 @@ export function LocationsView({
     onSearchClear,
   } = useLocationsView(props);
 
-  const loadingIndicator = <LoadingIndicator label={loadingIndicatorLabel} />;
+  const loadingIndicator = (
+    <LoadingIndicator isLoading label={loadingIndicatorLabel} />
+  );
 
   // TODO: add hasExhaustedSearch + query param
   const messageControlContent = hasError

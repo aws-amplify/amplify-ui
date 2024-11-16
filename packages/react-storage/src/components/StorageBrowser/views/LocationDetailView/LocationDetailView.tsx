@@ -49,7 +49,9 @@ export function LocationDetailView({
     },
   } = useDisplayText();
 
-  const loadingIndicator = <LoadingIndicator label={loadingIndicatorLabel} />;
+  const loadingIndicator = (
+    <LoadingIndicator isLoading label={loadingIndicatorLabel} />
+  );
 
   const {
     page,

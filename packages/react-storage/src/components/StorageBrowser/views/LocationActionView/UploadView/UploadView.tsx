@@ -63,7 +63,9 @@ export function UploadView({
     onToggleOverwrite,
   } = useUploadView(props);
 
-  const loadingIndicator = <LoadingIndicator label={loadingIndicatorLabel} />;
+  const loadingIndicator = (
+    <LoadingIndicator isLoading label={loadingIndicatorLabel} />
+  );
 
   const isActionStartDisabled =
     isProcessing || isProcessingComplete || statusCounts.TOTAL === 0;

@@ -61,7 +61,9 @@ export function DeleteView({
     onTaskRemove,
   });
 
-  const loadingIndicator = <LoadingIndicator label={loadingIndicatorLabel} />;
+  const loadingIndicator = (
+    <LoadingIndicator isLoading label={loadingIndicatorLabel} />
+  );
 
   return (
     <div className={resolveClassName(STORAGE_BROWSER_BLOCK, className)}>
