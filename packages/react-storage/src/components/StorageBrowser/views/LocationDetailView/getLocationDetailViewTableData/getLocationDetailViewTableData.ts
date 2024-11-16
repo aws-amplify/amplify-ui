@@ -69,6 +69,7 @@ export const getLocationDetailViewTableData = ({
         return {
           key: id,
           content: getFileRowContent({
+            permissions: current?.permissions ?? [],
             isSelected,
             itemLocationKey: `${current?.prefix ?? ''}${path}`,
             lastModified,
