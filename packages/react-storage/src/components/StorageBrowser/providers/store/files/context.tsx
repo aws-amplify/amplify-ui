@@ -20,7 +20,10 @@ export const { FilesContext, useFiles } = createContextUtilities({
 export function FilesProvider({
   children,
 }: FilesProviderProps): React.JSX.Element {
-  const [items, dispatch] = React.useReducer(filesReducer, []);
+  const [items, dispatch] = React.useReducer(filesReducer, {
+    validFiles: [],
+    invalidFiles: [],
+  });
 
   const [fileInput, handleFileSelect] = useFileSelect((nextFiles) => {
     dispatch({ type: 'ADD_FILE_ITEMS', files: nextFiles });

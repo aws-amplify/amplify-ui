@@ -2,6 +2,7 @@ import { act, renderHook } from '@testing-library/react';
 import { FilesProvider, useFiles } from '../context';
 
 import * as UIReactModule from '@aws-amplify/ui-react/internal';
+import { UPLOAD_FILE_SIZE_LIMIT } from '../../../../views/LocationActionView/constants';
 
 let uuid = 0;
 Object.defineProperty(globalThis, 'crypto', {
@@ -20,7 +21,7 @@ describe('useFiles', () => {
     const { result } = renderHook(() => useFiles(), { wrapper: FilesProvider });
     const [state, handler] = result.current;
 
-    expect(state).toStrictEqual([]);
+    expect(state).toStrictEqual({ validFiles: [], invalidFiles: [] });
     expect(typeof handler).toBe('function');
   });
 
@@ -39,22 +40,30 @@ describe('useFiles', () => {
     expect(handleFileSelect).toHaveBeenCalledTimes(1);
   });
 
-  it('adds files as as expected', () => {
+  it('adds files as expected', () => {
     const fileOne = new File([], 'file-one');
     const fileTwo = new File([], 'file-two');
+    const invalidFileThree = {
+      ...new File([], 'file-three-invalid'),
+      size: UPLOAD_FILE_SIZE_LIMIT + 1,
+    };
 
     const { result } = renderHook(() => useFiles(), { wrapper: FilesProvider });
 
     const [initState, handler] = result.current;
 
-    expect(initState).toStrictEqual([]);
+    expect(initState).toStrictEqual({ validFiles: [], invalidFiles: [] });
 
     act(() => {
-      handler({ type: 'ADD_FILE_ITEMS', files: [fileOne, fileTwo] });
+      handler({
+        type: 'ADD_FILE_ITEMS',
+        files: [fileOne, fileTwo, invalidFileThree],
+      });
     });
 
     const [nextState] = result.current;
 
-    expect(nextState).toHaveLength(2);
+    expect(nextState?.validFiles).toHaveLength(2);
+    expect(nextState?.invalidFiles).toHaveLength(1);
   });
 });

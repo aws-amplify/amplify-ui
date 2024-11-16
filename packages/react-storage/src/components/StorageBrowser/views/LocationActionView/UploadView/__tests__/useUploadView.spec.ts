@@ -104,16 +104,35 @@ describe('useUploadView', () => {
     });
   });
 
-  it('should dispatchStoreAction when onRemoveFile is invoked', () => {
-    mockUserStoreState.files = [invalidFileItem];
+  it('should return invalidFiles from store', () => {
+    mockUserStoreState.files = {
+      validFiles: [],
+      invalidFiles: [invalidFileItem],
+    };
     const { result } = renderHook(() => useUploadView());
 
-    expect(dispatchStoreAction).toHaveBeenCalledWith({
-      type: 'REMOVE_FILE_ITEM',
-      id: invalidFileItem.id,
-    });
-
     expect(result.current.invalidFiles).toEqual([invalidFileItem]);
+  });
+
+  it('should clear invalidFiles after upload is started', () => {
+    mockUserStoreState.files = {
+      validFiles: [fileItemOne],
+      invalidFiles: [invalidFileItem],
+    };
+    renderHook(() => useUploadView());
+
+    expect(useProcessTasksSpy).toHaveBeenCalledTimes(1);
+    const onTaskProgressCallback =
+      useProcessTasksSpy.mock.calls[0][2]?.onTaskProgress;
+    expect(onTaskProgressCallback).toBeDefined();
+    act(() => {
+      // @ts-expect-error Input is not needed
+      onTaskProgressCallback?.();
+    });
+    expect(dispatchStoreAction).toHaveBeenCalledTimes(1);
+    expect(dispatchStoreAction).toHaveBeenCalledWith({
+      type: 'RESET_INVALID_FILE_ITEMS',
+    });
   });
 
   it('should dispatchStoreAction when onSelectFiles is invoked with different types', () => {

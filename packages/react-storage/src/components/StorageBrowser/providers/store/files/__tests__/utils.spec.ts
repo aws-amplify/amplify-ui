@@ -1,4 +1,5 @@
-import { FileItems, FileItem } from '../types';
+import { UPLOAD_FILE_SIZE_LIMIT } from '../../../../views/LocationActionView/constants';
+import { FileItem } from '../types';
 import { resolveFiles, filesReducer, parseFileSelectParams } from '../utils';
 
 let uuid = 0;
@@ -14,6 +15,10 @@ Object.defineProperty(globalThis, 'crypto', {
 const fileOne = new File([], 'file-one');
 const fileTwo = new File([], 'file-two');
 const fileThree = new File([], 'file-three');
+const invalidFile = {
+  ...new File([], 'file-invalid'),
+  size: UPLOAD_FILE_SIZE_LIMIT + 1,
+};
 
 const fileItemOne: FileItem = {
   id: 'item-one',
@@ -27,17 +32,29 @@ const fileItemTwo: FileItem = {
   key: fileTwo.name,
 };
 
+const invalidFileItem: FileItem = {
+  id: 'item-invalid',
+  file: invalidFile,
+  key: invalidFile.name,
+};
+
 describe('files context utils', () => {
   describe('resolveFiles', () => {
     it('returns the previous `items` when incoming `files` are `undefined`', () => {
-      const previous = [fileItemOne, fileItemTwo];
+      const previous = {
+        validFiles: [fileItemOne, fileItemTwo],
+        invalidFiles: [],
+      };
       const output = resolveFiles(previous, undefined);
 
       expect(output).toBe(previous);
     });
 
     it('returns the previous `items` when incoming `files` is an empty array', () => {
-      const previous = [fileItemOne, fileItemTwo];
+      const previous = {
+        validFiles: [fileItemOne, fileItemTwo],
+        invalidFiles: [],
+      };
       const output = resolveFiles(previous, []);
 
       expect(output).toBe(previous);
@@ -45,21 +62,26 @@ describe('files context utils', () => {
 
     it('returns the previous `items` when incoming `files` are all duplicates', () => {
       const incoming = [fileOne, fileTwo];
-      const previous = [fileItemOne, fileItemTwo];
+      const previous = {
+        validFiles: [fileItemOne, fileItemTwo],
+        invalidFiles: [],
+      };
       const output = resolveFiles(previous, incoming);
-
-      expect(output).toBe(previous);
+      expect(output).toEqual(previous);
     });
 
     it('filters incoming `files` that exist in previous `items`', () => {
       const incoming = [fileOne, fileTwo, fileThree];
-      const previous = [fileItemOne, fileItemTwo];
+      const previous = {
+        validFiles: [fileItemOne, fileItemTwo],
+        invalidFiles: [],
+      };
       const output = resolveFiles(previous, incoming);
 
       expect(output).not.toBe(previous);
-      expect(output).toHaveLength(3);
+      expect(output.validFiles).toHaveLength(3);
 
-      const newItem = output[1];
+      const newItem = output.validFiles[1];
 
       expect(newItem.file).toBe(fileThree);
       expect(newItem.key).toBe(fileThree.name);
@@ -68,11 +90,11 @@ describe('files context utils', () => {
 
     it('returns the sorted next `items` when previous `items` are `undefined`', () => {
       const incoming = [fileTwo, fileOne];
-      const previous: FileItems = [];
+      const previous = { validFiles: [], invalidFiles: [] };
       const output = resolveFiles(previous, incoming);
 
-      expect(output).toHaveLength(2);
-      const [itemOne, itemTwo] = output;
+      expect(output.validFiles).toHaveLength(2);
+      const [itemOne, itemTwo] = output.validFiles;
 
       expect(itemOne.file).toBe(fileOne);
       expect(itemTwo.file).toBe(fileTwo);
@@ -80,12 +102,15 @@ describe('files context utils', () => {
 
     it('merges, sorts and returns previous and next `items`', () => {
       const incoming = [fileThree];
-      const previous = [fileItemOne, fileItemTwo];
+      const previous = {
+        validFiles: [fileItemOne, fileItemTwo],
+        invalidFiles: [],
+      };
       const output = resolveFiles(previous, incoming);
 
-      expect(output).toHaveLength(3);
+      expect(output.validFiles).toHaveLength(3);
 
-      const [itemOne, itemTwo, itemThree] = output;
+      const [itemOne, itemTwo, itemThree] = output.validFiles;
 
       // fileItemOne.key === 'item-one'
       expect(itemOne.key).toBe(fileItemOne.key);
@@ -98,61 +123,108 @@ describe('files context utils', () => {
     });
 
     it('returns the webKitRelativePath as key when available', () => {
-      const incoming = [
-        { ...fileThree, webkitRelativePath: 'test/file/file-three' },
-      ];
-      const previous = [fileItemOne, fileItemTwo];
-      const output = resolveFiles(previous, incoming);
+      const newFile = new File([], 'new-file');
+      Object.assign(newFile, { webkitRelativePath: 'test/file/new-file' });
+      const incoming = [newFile];
+      const previous = {
+        validFiles: [fileItemOne, fileItemTwo],
+        invalidFiles: [],
+      };
+      const { validFiles: output } = resolveFiles(previous, incoming);
 
       expect(output).toHaveLength(3);
-      expect(output[2].key).toBe('test/file/file-three');
+      expect(output[2].key).toBe('test/file/new-file');
     });
   });
 
   describe('filesReducer', () => {
     it('adds `fileItems` as expected', () => {
       const incoming = [fileOne, fileTwo, fileThree];
-      const previous = [fileItemOne, fileItemTwo];
+      const previous = {
+        validFiles: [fileItemOne, fileItemTwo],
+        invalidFiles: [],
+      };
       const output = filesReducer(previous, {
         type: 'ADD_FILE_ITEMS',
         files: incoming,
       });
 
-      expect(output).toHaveLength(3);
+      expect(output.validFiles).toHaveLength(3);
+      expect(output.invalidFiles).toHaveLength(0);
+    });
+
+    it('adds `fileItems` that is invalid', () => {
+      const previous = {
+        validFiles: [fileItemOne, fileItemTwo],
+        invalidFiles: [],
+      };
+      const output = filesReducer(previous, {
+        type: 'ADD_FILE_ITEMS',
+        files: [invalidFile],
+      });
+
+      expect(output.validFiles).toHaveLength(2);
+      expect(output.invalidFiles).toHaveLength(1);
     });
 
     it('removes a `fileItem` as expected', () => {
-      const previous = [fileItemOne, fileItemTwo];
+      const previous = {
+        validFiles: [fileItemOne, fileItemTwo],
+        invalidFiles: [],
+      };
       const targetId = fileItemOne.id;
 
-      const output = filesReducer(previous, {
+      const { validFiles } = filesReducer(previous, {
         type: 'REMOVE_FILE_ITEM',
         id: targetId,
       });
 
-      expect(output).toHaveLength(1);
-      expect(output[0]).toBe(fileItemTwo);
+      expect(validFiles).toHaveLength(1);
+      expect(validFiles[0]).toBe(fileItemTwo);
     });
 
     it('returns the previous items on remove when previous and next items are the same length', () => {
-      const previous = [fileItemOne, fileItemTwo];
+      const previous = {
+        validFiles: [fileItemOne, fileItemTwo],
+        invalidFiles: [],
+      };
       const targetId = 'not a real id lol';
 
-      const output = filesReducer(previous, {
+      const { validFiles: outputValidFiles } = filesReducer(previous, {
         type: 'REMOVE_FILE_ITEM',
         id: targetId,
       });
 
-      expect(output).toHaveLength(2);
-      expect(output).toBe(previous);
+      expect(outputValidFiles).toHaveLength(2);
+      expect(outputValidFiles).toBe(previous.validFiles);
     });
 
     it('resets `fileItems` as expected', () => {
-      const previous = [fileItemOne, fileItemTwo];
+      const previous = {
+        validFiles: [fileItemOne, fileItemTwo],
+        invalidFiles: [invalidFileItem],
+      };
 
-      const output = filesReducer(previous, { type: 'RESET_FILE_ITEMS' });
+      const { validFiles, invalidFiles } = filesReducer(previous, {
+        type: 'RESET_FILE_ITEMS',
+      });
 
-      expect(output).toHaveLength(0);
+      expect(validFiles).toHaveLength(0);
+      expect(invalidFiles).toHaveLength(0);
+    });
+
+    it('resets invalid `fileTimes` as expected', () => {
+      const previous = {
+        validFiles: [fileItemOne, fileItemTwo],
+        invalidFiles: [invalidFileItem],
+      };
+
+      const { validFiles, invalidFiles } = filesReducer(previous, {
+        type: 'RESET_INVALID_FILE_ITEMS',
+      });
+
+      expect(validFiles).toBe(previous.validFiles);
+      expect(invalidFiles).toHaveLength(0);
     });
   });
 

@@ -3,43 +3,21 @@ import React from 'react';
 import { uploadHandler } from '../../../actions';
 
 import { useGetActionInput } from '../../../providers/configuration';
-import { FileItems, useStore } from '../../../providers/store';
+import { useStore } from '../../../providers/store';
 import { Task, useProcessTasks } from '../../../tasks';
 
-import {
-  DEFAULT_ACTION_CONCURRENCY,
-  UPLOAD_FILE_SIZE_LIMIT,
-} from '../constants';
+import { DEFAULT_ACTION_CONCURRENCY } from '../constants';
 import { UploadViewState, UseUploadViewOptions } from './types';
 import { DEFAULT_OVERWRITE_ENABLED } from './constants';
-import { isUndefined } from '@aws-amplify/ui';
 
 export const useUploadView = (
   options?: UseUploadViewOptions
 ): UploadViewState => {
-  const [invalidFiles, setInvalidFiles] = React.useState<
-    FileItems | undefined
-  >();
   const { onExit: _onExit } = options ?? {};
   const getInput = useGetActionInput();
   const [{ files, location }, dispatchStoreAction] = useStore();
   const { current, key } = location;
-
-  const validFiles = React.useMemo(
-    () =>
-      files?.filter((fileItem) => {
-        const { id, file } = fileItem;
-        if (file.size > UPLOAD_FILE_SIZE_LIMIT) {
-          setInvalidFiles((prev) =>
-            isUndefined(prev) ? [fileItem] : prev.concat(fileItem)
-          );
-          dispatchStoreAction({ type: 'REMOVE_FILE_ITEM', id });
-          return false;
-        }
-        return true;
-      }),
-    [files, dispatchStoreAction]
-  );
+  const { validFiles, invalidFiles } = files ?? {};
 
   const [isOverwritingEnabled, setIsOverwritingEnabled] = React.useState(
     DEFAULT_OVERWRITE_ENABLED
@@ -50,9 +28,10 @@ export const useUploadView = (
     handleProcess,
   ] = useProcessTasks(uploadHandler, validFiles, {
     concurrency: DEFAULT_ACTION_CONCURRENCY,
+    // TODO: in reality, this should be on `onTaskStart` hood. But we don't have it today.
     onTaskProgress: () => {
       if (invalidFiles) {
-        setInvalidFiles(undefined);
+        dispatchStoreAction({ type: 'RESET_INVALID_FILE_ITEMS' });
       }
     },
   });

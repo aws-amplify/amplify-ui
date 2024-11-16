@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { ActionTypeAction, useActionType } from './actionType';
-import { FileItems, FilesActionType, useFiles } from './files';
+import { FileItemsState, FilesActionType, useFiles } from './files';
 import { LocationActionType, LocationState, useLocation } from './location';
 import {
   LocationItemsAction,
@@ -11,7 +11,7 @@ import {
 
 export interface UseStoreState {
   actionType: string | undefined;
-  files: FileItems | undefined;
+  files: FileItemsState | undefined;
   location: LocationState;
   locationItems: LocationItemsState;
 }
@@ -36,7 +36,8 @@ export function useStore(): [UseStoreState, HandleStoreAction] {
         case 'ADD_FILE_ITEMS':
         case 'REMOVE_FILE_ITEM':
         case 'SELECT_FILES':
-        case 'RESET_FILE_ITEMS': {
+        case 'RESET_FILE_ITEMS':
+        case 'RESET_INVALID_FILE_ITEMS': {
           dispatchFilesAction(action);
           break;
         }

@@ -81,7 +81,7 @@ export const DEFAULT_UPLOAD_VIEW_DISPLAY_TEXT: DefaultUploadViewDisplayText = {
     return { content: 'All files uploaded.', type };
   },
   getFilesValidationMessage: ({ invalidFiles } = {}) => {
-    if (!invalidFiles) {
+    if (!invalidFiles?.length) {
       return undefined;
     }
     const fileNames = invalidFiles

@@ -4,46 +4,75 @@ import { isEmpty, isString, isUndefined } from '@aws-amplify/ui';
 import { HandleFileSelect } from '@aws-amplify/ui-react/internal';
 
 import { SelectionType } from '../../../actions/configs';
+// FIXME move to closer constant file.
+import { UPLOAD_FILE_SIZE_LIMIT } from '../../../views/LocationActionView/constants';
 
-import { FileItem, FileItems, FilesActionType } from './types';
+import { FileItem, FileItemsState, FilesActionType } from './types';
 
 const compareFileItems = (prev: FileItem, next: FileItem) =>
   prev.key.localeCompare(next.key);
 
+const isValidFile = (file: File) => file.size <= UPLOAD_FILE_SIZE_LIMIT;
+
+const isSameFiles = (prev: File, next: File) =>
+  prev.name === next.name &&
+  prev.webkitRelativePath === next.webkitRelativePath;
+
+const generateFileItem = (file: File): FileItem => ({
+  key: isEmpty(file.webkitRelativePath) ? file.name : file.webkitRelativePath,
+  id: crypto.randomUUID(),
+  file,
+});
+
 export const resolveFiles = (
-  prevItems: FileItems,
+  prevItems: FileItemsState,
   files: File[] | undefined
-): FileItems => {
+): FileItemsState => {
   if (!files?.length) return prevItems;
 
-  // construct `nextItems` and filter out existing `file` entries
-  const nextItems = files.reduce((items: FileItems, file) => {
-    const { name, webkitRelativePath } = file;
+  const { validFiles: prevValidFiles, invalidFiles: prevInvalidFiles } =
+    prevItems;
 
-    return prevItems.some(
-      ({ file: existing }) =>
-        existing.name === name &&
-        existing.webkitRelativePath === webkitRelativePath
+  const nextValidFiles = files
+    .filter(isValidFile)
+    .filter(
+      (file) =>
+        !prevValidFiles.some(({ file: existing }) =>
+          isSameFiles(existing, file)
+        )
     )
-      ? items
-      : items.concat({
-          key: isEmpty(webkitRelativePath) ? name : webkitRelativePath,
-          id: crypto.randomUUID(),
-          file,
-        });
-  }, []);
+    .map(generateFileItem);
 
-  if (!nextItems.length) return prevItems;
+  const nextInvalidFiles = files
+    .filter((file) => !isValidFile(file))
+    .filter(
+      (file) =>
+        !prevInvalidFiles.some(({ file: existing }) =>
+          isSameFiles(existing, file)
+        )
+    )
+    .map(generateFileItem);
 
-  if (!prevItems.length) {
-    return nextItems.sort(compareFileItems);
+  if (!prevValidFiles.length) {
+    nextValidFiles.sort(compareFileItems);
   }
 
-  return prevItems.concat(nextItems).sort(compareFileItems);
+  if (!prevInvalidFiles.length) {
+    nextInvalidFiles.sort(compareFileItems);
+  }
+
+  return {
+    validFiles: nextValidFiles.length
+      ? prevValidFiles.concat(nextValidFiles).sort(compareFileItems)
+      : prevValidFiles,
+    invalidFiles: nextInvalidFiles.length
+      ? prevInvalidFiles.concat(nextInvalidFiles).sort(compareFileItems)
+      : prevInvalidFiles,
+  };
 };
 
 export const filesReducer: React.Reducer<
-  FileItems,
+  FileItemsState,
   Exclude<FilesActionType, { type: 'SELECT_FILES' }>
 > = (prevItems, input) => {
   switch (input.type) {
@@ -51,16 +80,23 @@ export const filesReducer: React.Reducer<
       return resolveFiles(prevItems, input.files);
     }
     case 'REMOVE_FILE_ITEM': {
-      const filteredItems = prevItems.filter(({ id }) => id !== input.id);
+      const filteredValidFiles = prevItems.validFiles.filter(
+        ({ id }) => id !== input.id
+      );
 
-      return filteredItems.length === prevItems.length
+      return filteredValidFiles.length === prevItems.validFiles.length
         ? prevItems
-        : filteredItems;
+        : {
+            validFiles: filteredValidFiles,
+            invalidFiles: prevItems.invalidFiles,
+          };
     }
     case 'RESET_FILE_ITEMS': {
-      return [];
+      return { validFiles: [], invalidFiles: [] };
     }
-    // TODO: clear message
+    case 'RESET_INVALID_FILE_ITEMS': {
+      return { ...prevItems, invalidFiles: [] };
+    }
   }
 };
 
