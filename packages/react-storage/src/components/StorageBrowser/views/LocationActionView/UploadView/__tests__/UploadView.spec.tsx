@@ -10,7 +10,10 @@ import { UploadView } from '../UploadView';
 
 jest.mock('../../../../displayText', () => ({
   useDisplayText: () => ({
-    UploadView: { getActionCompleteMessage: jest.fn() },
+    UploadView: {
+      getActionCompleteMessage: jest.fn(),
+      getFilesValidationMessage: jest.fn(),
+    },
   }),
 }));
 
@@ -42,6 +45,11 @@ const statusCounts = { ...INITIAL_STATUS_COUNTS };
 
 const testFile = new File([], 'test-ooo');
 const data = { id: 'some-uuid', file: testFile, key: testFile.name };
+const invalidFileData = {
+  file: new File([], 'very-big-file'),
+  id: 'uuid',
+  key: 'very-big-file',
+};
 
 const taskOne = {
   data,
@@ -67,6 +75,7 @@ const initialViewState: UploadViewState = {
   isProcessingComplete: false,
   isProcessing: false,
   tasks: [],
+  invalidFiles: undefined,
   statusCounts,
 };
 
@@ -74,6 +83,7 @@ const preprocessingViewState: UploadViewState = {
   ...initialViewState,
   tasks: [taskOne],
   statusCounts: { ...statusCounts, QUEUED: 1, TOTAL: 1 },
+  invalidFiles: [invalidFileData],
 };
 
 const processingViewState: UploadViewState = {

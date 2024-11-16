@@ -9,7 +9,6 @@ import { Task, useProcessTasks } from '../../../tasks';
 import {
   DEFAULT_ACTION_CONCURRENCY,
   UPLOAD_FILE_SIZE_LIMIT,
-  UPLOAD_FILE_SIZE_LIMIT_HUMAN,
 } from '../constants';
 import { UploadViewState, UseUploadViewOptions } from './types';
 import { DEFAULT_OVERWRITE_ENABLED } from './constants';
@@ -51,6 +50,11 @@ export const useUploadView = (
     handleProcess,
   ] = useProcessTasks(uploadHandler, validFiles, {
     concurrency: DEFAULT_ACTION_CONCURRENCY,
+    onTaskProgress: () => {
+      if (invalidFiles) {
+        setInvalidFiles(undefined);
+      }
+    },
   });
 
   const onDropFiles = React.useCallback(
@@ -100,31 +104,17 @@ export const useUploadView = (
     [dispatchStoreAction]
   );
 
-  const invalidFilesMessage = React.useMemo(() => {
-    if (invalidFiles?.length) {
-      const fileNames = invalidFiles.map(({ file }) => file.name).join(', ');
-      const content = `File ${fileNames} exceeds the size limit ${UPLOAD_FILE_SIZE_LIMIT_HUMAN}. Failed to add to upload queue.`;
-      return { id: crypto.randomUUID(), content };
-    }
-    return undefined;
-  }, [invalidFiles]);
-
-  const onInvalidFilesMessageDismiss = React.useCallback(() => {
-    setInvalidFiles(undefined);
-  }, []);
-
   return {
     isProcessing,
     isProcessingComplete,
     isOverwritingEnabled,
     location,
-    invalidFilesMessage,
+    invalidFiles,
     statusCounts,
     tasks,
     onActionCancel,
     onActionExit,
     onActionStart,
-    onInvalidFilesMessageDismiss,
     onDropFiles,
     onTaskRemove,
     onSelectFiles,

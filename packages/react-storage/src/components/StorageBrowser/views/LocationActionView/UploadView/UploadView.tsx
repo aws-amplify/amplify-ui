@@ -43,6 +43,7 @@ export function UploadView({
     overwriteToggleLabel,
     title,
     getActionCompleteMessage,
+    getFilesValidationMessage,
   } = displayText;
 
   const {
@@ -52,7 +53,7 @@ export function UploadView({
     location,
     tasks,
     statusCounts,
-    invalidFilesMessage,
+    invalidFiles,
     onActionStart,
     onActionCancel,
     onDropFiles,
@@ -60,7 +61,6 @@ export function UploadView({
     onTaskRemove,
     onSelectFiles,
     onToggleOverwrite,
-    onInvalidFilesMessageDismiss,
   } = useUploadView(props);
 
   const isActionStartDisabled =
@@ -75,6 +75,8 @@ export function UploadView({
     ? getActionCompleteMessage({
         counts: statusCounts,
       })
+    : invalidFiles && !isProcessing
+    ? getFilesValidationMessage({ invalidFiles })
     : undefined;
 
   return (
