@@ -1,3 +1,4 @@
+import { LocationPermissions } from '../../../../actions';
 import { getFileRowContent } from '../getFileRowContent';
 
 describe('getFileRowContent', () => {
@@ -5,7 +6,7 @@ describe('getFileRowContent', () => {
     current: {
       bucket: 'bucket',
       id: 'id',
-      permissions: ['list', 'get'],
+      permissions: ['list', 'get'] satisfies LocationPermissions,
       prefix: 'prefix/',
       type: 'PREFIX',
     },
@@ -24,6 +25,7 @@ describe('getFileRowContent', () => {
   it('should return file row content as expected', () => {
     expect(
       getFileRowContent({
+        permissions: location.current.permissions,
         itemLocationKey,
         isSelected: false,
         lastModified: fileItem.lastModified,
@@ -65,5 +67,25 @@ describe('getFileRowContent', () => {
         }),
       ])
     );
+  });
+
+  it('should not render download button if location permission does not support download', () => {
+    const row = getFileRowContent({
+      permissions: ['list', 'write'],
+      itemLocationKey,
+      isSelected: false,
+      lastModified: fileItem.lastModified,
+      rowId: 'row-id',
+      rowKey: `${location.current.prefix}${location.path}${fileItem.key}`,
+      size: fileItem.size,
+      selectFileLabel: 'Select file',
+      onDownload: jest.fn(),
+      onSelect: jest.fn(),
+    });
+    const fileActionCell = row[5];
+    expect(fileActionCell).toMatchObject({
+      type: 'text',
+      content: expect.objectContaining({ text: '' }),
+    });
   });
 });

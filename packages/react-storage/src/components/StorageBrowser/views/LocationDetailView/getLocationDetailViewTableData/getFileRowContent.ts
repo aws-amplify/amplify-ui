@@ -3,8 +3,10 @@ import { humanFileSize } from '@aws-amplify/ui';
 import { DataTableProps } from '../../../composables/DataTable';
 
 import { LOCATION_DETAIL_VIEW_HEADERS } from './constants';
+import { LocationPermissions } from '../../../actions';
 
 export const getFileRowContent = ({
+  permissions,
   isSelected,
   itemLocationKey,
   lastModified,
@@ -15,6 +17,7 @@ export const getFileRowContent = ({
   onDownload,
   onSelect,
 }: {
+  permissions: LocationPermissions;
   isSelected: boolean;
   itemLocationKey: string;
   lastModified: Date;
@@ -77,15 +80,17 @@ export const getFileRowContent = ({
         };
       }
       case 'download': {
-        return {
-          key,
-          type: 'button',
-          content: {
-            icon: 'download',
-            onClick: onDownload,
-            ariaLabel: 'download',
-          },
-        };
+        return permissions.includes('get')
+          ? {
+              key,
+              type: 'button',
+              content: {
+                icon: 'download',
+                onClick: onDownload,
+                ariaLabel: 'download',
+              },
+            }
+          : { key, type: 'text', content: { text: '' } };
       }
     }
   });
