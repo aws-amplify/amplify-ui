@@ -16,12 +16,17 @@ import { createEnhancedListHandler } from '../../actions/createEnhancedListHandl
 import { useGetActionInput } from '../../providers/configuration';
 import { LocationState } from '../../providers/store/location';
 import { useSearch } from '../hooks/useSearch';
-import { useProcessTasks } from '../../tasks';
-import { downloadHandler, FileDataItem } from '../../actions/handlers';
+import { Tasks, useProcessTasks } from '../../tasks';
+import {
+  downloadHandler,
+  DownloadHandlerData,
+  FileDataItem,
+} from '../../actions/handlers';
 
 interface UseLocationDetailView {
   hasError: boolean;
   hasNextPage: boolean;
+  hasDownloadError: boolean;
   highestPageVisited: number;
   isLoading: boolean;
   isSearchingSubfolders: boolean;
@@ -30,6 +35,7 @@ interface UseLocationDetailView {
   fileDataItems: FileDataItem[] | undefined;
   hasFiles: boolean;
   message: string | undefined;
+  downloadErrorMessage: string | undefined;
   shouldShowEmptyMessage: boolean;
   searchQuery: string;
   hasExhaustedSearch: boolean;
@@ -81,6 +87,18 @@ const listLocationItemsAction = createEnhancedListHandler(
   listLocationItemsHandler
 );
 
+const getDownloadErrorMessageFromFailedDownloadTask = (
+  tasks: Tasks<DownloadHandlerData>
+): string | undefined => {
+  if (!tasks.length) {
+    return undefined;
+  }
+
+  return `Failed to download ${
+    tasks[0].data.fileKey ?? tasks[0].data.key
+  } due to error: ${tasks[0].message}.`;
+};
+
 export function useLocationDetailView(
   options?: UseLocationDetailViewOptions
 ): UseLocationDetailView {
@@ -100,7 +118,7 @@ export function useLocationDetailView(
   const { fileDataItems } = locationItems;
   const hasInvalidPrefix = isUndefined(prefix);
 
-  const [_, handleDownload] = useProcessTasks(downloadHandler);
+  const [downloadTaskResult, handleDownload] = useProcessTasks(downloadHandler);
 
   const [{ data, isLoading, hasError, message }, handleList] = useDataState(
     listLocationItemsAction,
@@ -210,9 +228,13 @@ export function useLocationDetailView(
     fileDataItems,
     hasFiles: fileItems.length > 0,
     hasError,
+    hasDownloadError: downloadTaskResult.statusCounts.FAILED > 0,
     hasNextPage: hasNextToken,
     highestPageVisited,
     message,
+    downloadErrorMessage: getDownloadErrorMessageFromFailedDownloadTask(
+      downloadTaskResult.tasks
+    ),
     shouldShowEmptyMessage,
     isLoading,
     isSearchingSubfolders,
