@@ -61,9 +61,10 @@ export function DropdownMenu({
   return (
     <ViewElement className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__menu`}>
       <ButtonElement
+        aria-label="Menu Toggle"
         className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__menu-toggle`}
         disabled={isDisabled || !items?.length}
-        data-testid="ACTIONS_MENU_TOGGLE"
+        data-testid="MENU_TOGGLE"
         onClick={() => {
           setIsOpen((prev) => !prev);
         }}
@@ -81,7 +82,7 @@ export function DropdownMenu({
             ? ` ${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__menu-list--open`
             : ''
         }`}
-        data-testid="ACTIONS_MENU_LIST"
+        data-testid="MENU_LIST"
         role="menu"
         variant="menu-list"
       >
