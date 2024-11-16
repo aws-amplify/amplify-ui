@@ -42,7 +42,7 @@ export default function Page() {
         path={path as string}
         displayText={{
           LocationDetailView: {
-            title: (location) => `${location.key} - Routed Amplify Auth`,
+            getTitle: (location) => `${location.key} - Routed Amplify Auth`,
           },
         }}
       >
