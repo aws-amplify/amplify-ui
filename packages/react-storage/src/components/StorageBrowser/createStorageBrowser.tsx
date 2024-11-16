@@ -1,14 +1,8 @@
 import React from 'react';
-import { MergeBaseElements } from '@aws-amplify/ui-react-core/elements';
 
-import {
-  LocationActions,
-  locationActionsDefault,
-} from './do-not-import-from-here/locationActions';
-import { createTempActionsProvider } from './do-not-import-from-here/createTempActionsProvider';
-
+import { ListLocations } from './actions';
 import { DEFAULT_COMPOSABLES } from './composables';
-import { StorageBrowserElements } from './context/elements';
+import { StorageBrowserElements, elementsDefault } from './context/elements';
 import { Components, ComponentsProvider } from './ComponentsProvider';
 import { ErrorBoundary } from './ErrorBoundary';
 
@@ -31,7 +25,6 @@ import { GetLocationCredentials } from './credentials/types';
 import { defaultActionConfigs } from './actions';
 import { createUseView } from './views/createUseView';
 import { DisplayTextProvider } from './displayText';
-import { ListLocations } from './adapters/types';
 import { StorageBrowserDisplayText } from './displayText/types';
 
 export interface Config {
@@ -44,7 +37,8 @@ export interface Config {
 }
 
 export interface CreateStorageBrowserInput {
-  actions?: LocationActions;
+  // to be updated
+  actions?: never;
   config: Config;
   components?: Components;
   elements?: Partial<StorageBrowserElements>;
@@ -62,10 +56,6 @@ export interface StorageBrowserComponent<T = string, K = {}> extends Views<T> {
   displayName: string;
   Provider: (props: StorageBrowserProviderProps) => React.JSX.Element;
 }
-
-export interface ResolvedStorageBrowserElements<
-  T extends Partial<StorageBrowserElements>,
-> extends MergeBaseElements<StorageBrowserElements, T> {}
 
 export type ActionViewName<T = string> = Exclude<
   T,
@@ -95,15 +85,16 @@ export function createStorageBrowser(input: CreateStorageBrowserInput): {
     region,
   } = input.config;
 
-  // will be replaced, contains the v0 actions API approach
-  const TempActionsProvider = createTempActionsProvider({
-    ...input,
-    actions: locationActionsDefault,
-  });
-
   const ConfigurationProvider = createConfigurationProvider({
     accountId,
-    actions: defaultActionConfigs,
+    actions: {
+      ...defaultActionConfigs,
+      listLocations: {
+        componentName: 'LocationsView',
+        handler: input.config.listLocations,
+        displayName: 'NOOOOOOOO',
+      },
+    },
     customEndpoint,
     displayName: 'ConfigurationProvider',
     getLocationCredentials,
@@ -112,6 +103,7 @@ export function createStorageBrowser(input: CreateStorageBrowserInput): {
   });
 
   const composables = { ...DEFAULT_COMPOSABLES, ...input.components };
+  const elements = { ...elementsDefault, ...input.elements };
 
   /**
    * Provides state, configuration and action values that are shared between
@@ -122,14 +114,9 @@ export function createStorageBrowser(input: CreateStorageBrowserInput): {
       <StoreProvider {...props}>
         <ConfigurationProvider>
           <DisplayTextProvider displayText={props.displayText}>
-            <TempActionsProvider>
-              <ComponentsProvider
-                composables={composables}
-                elements={input.elements}
-              >
-                {children}
-              </ComponentsProvider>
-            </TempActionsProvider>
+            <ComponentsProvider composables={composables} elements={elements}>
+              {children}
+            </ComponentsProvider>
           </DisplayTextProvider>
         </ConfigurationProvider>
       </StoreProvider>

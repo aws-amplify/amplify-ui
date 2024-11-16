@@ -1,12 +1,12 @@
 import { TransferProgressEvent } from 'aws-amplify/storage';
 import { LocationAccess as AccessGrantLocation } from '../../storage-internal';
+import { ListLocationsExcludeOptions } from './types';
 
 import {
   ActionInputConfig,
   FileData,
   FileDataItem,
   FileItem,
-  ListLocationsExcludeOptions,
   LocationData,
   LocationPermissions,
   LocationType,
@@ -19,32 +19,6 @@ export const constructBucket = ({
   bucketName: string;
   region: string;
 } => ({ bucketName, region });
-
-// FIXME: this may not need to be exported if do-not-import-from-here actions are migrated.
-export const parseAccessGrantLocationScope = (
-  scope: string,
-  type: LocationType
-): { bucket: string; prefix: string } => {
-  const slicedScope = scope.slice(5);
-  if (type === 'BUCKET') {
-    // { scope: 's3://bucket/*', type: 'BUCKET', },
-    const bucket = slicedScope.slice(0, -2);
-    const prefix = '';
-    return { bucket, prefix };
-  } else if (type === 'PREFIX') {
-    // { scope: 's3://bucket/path/*', type: 'PREFIX', },
-    const bucket = slicedScope.slice(0, slicedScope.indexOf('/'));
-    const prefix = `${slicedScope.slice(bucket.length + 1, -1)}`;
-    return { bucket, prefix };
-  } else if (type === 'OBJECT') {
-    // { scope: 's3://bucket/path/to/object', type: 'OBJECT', },
-    const bucket = slicedScope.slice(0, slicedScope.indexOf('/'));
-    const prefix = slicedScope.slice(bucket.length + 1);
-    return { bucket, prefix };
-  } else {
-    throw new Error(`Invalid location type: ${type}`);
-  }
-};
 
 export const parseAccessGrantLocation = (
   location: AccessGrantLocation
@@ -128,11 +102,16 @@ const isSameType = (
 export const shouldExcludeLocation = (
   { permissions, type }: LocationData,
   exclude?: ListLocationsExcludeOptions
-): boolean =>
-  Boolean(
+): boolean => {
+  const excludeByPermssion = !!(
     exclude?.exactPermissions &&
-      isSamePermissions(exclude.exactPermissions, permissions)
-  ) || Boolean(exclude?.type && isSameType(exclude.type, type));
+    isSamePermissions(exclude.exactPermissions, permissions)
+  );
+
+  const excludeByType = !!(exclude?.type && isSameType(exclude.type, type));
+
+  return excludeByPermssion || excludeByType;
+};
 
 export const getFilteredLocations = (
   locations: AccessGrantLocation[],
@@ -141,9 +120,19 @@ export const getFilteredLocations = (
   locations.reduce(
     (filteredLocations: LocationData[], location: AccessGrantLocation) => {
       const parsedLocation = parseAccessGrantLocation(location);
-      if (shouldExcludeLocation(parsedLocation, exclude)) {
+
+      const isNonFolderLikePrefix =
+        !parsedLocation.prefix.endsWith('/') &&
+        parsedLocation.type === 'PREFIX';
+
+      if (isNonFolderLikePrefix) {
+        return filteredLocations;
+      }
+
+      if (!shouldExcludeLocation(parsedLocation, exclude)) {
         filteredLocations.push(parsedLocation);
       }
+
       return filteredLocations;
     },
     []
@@ -164,6 +153,8 @@ export const createFileDataItemFromLocation = (
   type: 'FILE',
   key: data.prefix,
   fileKey: getFileKey(data.prefix),
+  // `lastModified` and `size` included to satisfy
+  // expected shape of `FileDataItem`
   lastModified: new Date(),
   size: 0,
 });

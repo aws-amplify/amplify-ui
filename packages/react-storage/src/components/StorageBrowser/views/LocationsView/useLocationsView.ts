@@ -1,13 +1,17 @@
 import React from 'react';
 
-import { useLocationsData } from '../../do-not-import-from-here/actions';
 import { usePaginate } from '../hooks/usePaginate';
-import { downloadHandler, LocationData } from '../../actions';
+import {
+  createFileDataItemFromLocation,
+  downloadHandler,
+  ListLocationsExcludeOptions,
+  LocationData,
+  useListLocations,
+} from '../../actions';
 import { useStore } from '../../providers/store';
 import { useSearch } from '../hooks/useSearch';
 import { useGetActionInput } from '../../providers/configuration';
 import { useProcessTasks } from '../../tasks';
-import { createFileDataItemFromLocation } from '../../actions/handlers';
 
 interface UseLocationsView {
   hasNextPage: boolean;
@@ -32,22 +36,17 @@ interface InitialValues {
   pageSize?: number;
 }
 
-export type LocationsViewActionType =
-  | { type: 'REFRESH_DATA' }
-  | { type: 'RESET' }
-  | { type: 'PAGINATE'; page: number }
-  | { type: 'NAVIGATE'; location: LocationData }
-  | { type: 'SEARCH'; query: string };
-
 export interface UseLocationsViewOptions {
   initialValues?: InitialValues;
-  onDispatch?: React.Dispatch<LocationsViewActionType>;
   onNavigate?: (location: LocationData) => void;
 }
 
+const DEFAULT_EXCLUDE: ListLocationsExcludeOptions = {
+  exactPermissions: ['delete', 'write'],
+};
 const DEFAULT_PAGE_SIZE = 100;
 export const DEFAULT_LIST_OPTIONS = {
-  exclude: 'WRITE' as const, // FIXME: update exclude type after migration to new actions
+  exclude: DEFAULT_EXCLUDE,
   pageSize: DEFAULT_PAGE_SIZE,
 };
 
@@ -55,12 +54,14 @@ export function useLocationsView(
   options?: UseLocationsViewOptions
 ): UseLocationsView {
   const getConfig = useGetActionInput();
-  const [state, handleList] = useLocationsData();
+
+  const [state, handleList] = useListLocations();
+  const { data, message, hasError, isLoading } = state;
+
   const [_, handleDownload] = useProcessTasks(downloadHandler);
   const [, dispatchStoreAction] = useStore();
   const [term, setTerm] = React.useState('');
-  const { data, message, hasError, isLoading } = state;
-  const { result, nextToken } = data;
+  const { items, nextToken } = data;
   const hasNextToken = !!nextToken;
 
   const onNavigate = options?.onNavigate;
@@ -101,7 +102,7 @@ export function useLocationsView(
     highestPageVisited,
     pageItems,
   } = usePaginate({
-    items: result,
+    items,
     paginateCallback,
     pageSize: listOptions.pageSize,
     hasNextToken,

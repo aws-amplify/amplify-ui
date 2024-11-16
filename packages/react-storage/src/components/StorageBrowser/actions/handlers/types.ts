@@ -36,11 +36,6 @@ export interface LocationData {
   type: LocationType;
 }
 
-export interface ListLocationsExcludeOptions {
-  exactPermissions?: LocationPermissions;
-  type?: LocationType | LocationType[];
-}
-
 export interface FolderData {
   key: string;
   id: string;
@@ -124,3 +119,8 @@ export interface ListHandlerOutput<T = any> {
 }
 
 export type ListHandler<T = any, K = any> = (input: T) => Promise<K>;
+
+export interface ListLocationsExcludeOptions {
+  exactPermissions?: LocationPermissions;
+  type?: LocationType | LocationType[];
+}

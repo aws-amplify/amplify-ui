@@ -2,17 +2,12 @@ import { renderHook, act } from '@testing-library/react';
 import { DataState } from '@aws-amplify/ui-react-core';
 
 import { useLocationsView, DEFAULT_LIST_OPTIONS } from '../useLocationsView';
-import {
-  ActionInputConfig,
-  FileDataItem,
-  LocationData,
-} from '../../../actions';
-import * as ActionsModule from '../../../do-not-import-from-here/actions';
+
+import * as ActionsModule from '../../../actions';
 import * as StoreModule from '../../../providers/store';
 import * as TasksModule from '../../../tasks';
 import * as ConfigModule from '../../../providers/configuration';
 
-import { ListLocationsActionOutput } from '../../../do-not-import-from-here/actions/listLocationsAction';
 import { createFileDataItemFromLocation } from '../../../actions/handlers';
 
 jest.useFakeTimers();
@@ -23,10 +18,10 @@ jest
   .spyOn(StoreModule, 'useStore')
   .mockReturnValue([{} as StoreModule.UseStoreState, dispatchStoreAction]);
 
-const useLocationsDataSpy = jest.spyOn(ActionsModule, 'useLocationsData');
+const useLocationsDataSpy = jest.spyOn(ActionsModule, 'useListLocations');
 const useGetActionSpy = jest.spyOn(ConfigModule, 'useGetActionInput');
 
-const mockData: LocationData[] = [
+const mockData: ActionsModule.LocationData[] = [
   {
     bucket: 'test-bucket',
     prefix: `item-a/`,
@@ -66,14 +61,14 @@ const mockData: LocationData[] = [
 
 const EXPECTED_PAGE_SIZE = 3;
 function mockUseLocationsData(
-  returnValue: DataState<ListLocationsActionOutput>
+  returnValue: DataState<ActionsModule.ListLocationsOutput>
 ) {
   const handleList = jest.fn();
   useLocationsDataSpy.mockReturnValue([returnValue, handleList]);
   return handleList;
 }
 
-const taskOne: TasksModule.Task<FileDataItem> = {
+const taskOne: TasksModule.Task<ActionsModule.FileDataItem> = {
   data: {
     fileKey: 'key',
     id: 'id',
@@ -99,7 +94,7 @@ jest.spyOn(TasksModule, 'useProcessTasks').mockReturnValue([
   handleDownload,
 ]);
 
-const config: ActionInputConfig = {
+const config: ActionsModule.ActionInputConfig = {
   bucket: 'bucky',
   credentials: jest.fn(),
   region: 'us-weast-1',
@@ -113,7 +108,7 @@ describe('useLocationsView', () => {
 
   it('should fetch and set location data on mount', () => {
     const mockDataState = {
-      data: { result: mockData, nextToken: undefined },
+      data: { items: mockData, nextToken: undefined },
       message: '',
       hasError: false,
       isLoading: false,
@@ -140,7 +135,7 @@ describe('useLocationsView', () => {
     // empty state
     mockUseLocationsData({
       data: {
-        result: [],
+        items: [],
         nextToken: undefined,
       },
       message: '',
@@ -158,7 +153,7 @@ describe('useLocationsView', () => {
     // mock first page data
     const mockDataState = {
       data: {
-        result: mockData.slice(0, EXPECTED_PAGE_SIZE),
+        items: mockData.slice(0, EXPECTED_PAGE_SIZE),
         nextToken: 'token123',
       },
       message: '',
@@ -176,7 +171,7 @@ describe('useLocationsView', () => {
 
     // mock next page
     mockUseLocationsData({
-      data: { result: mockData, nextToken: undefined },
+      data: { items: mockData, nextToken: undefined },
       message: '',
       hasError: false,
       isLoading: false,
@@ -207,7 +202,7 @@ describe('useLocationsView', () => {
 
   it('should handle refreshing location data', () => {
     const mockDataState = {
-      data: { result: [], nextToken: 'token123' },
+      data: { items: [], nextToken: 'token123' },
       message: '',
       hasError: false,
       isLoading: false,
@@ -251,7 +246,7 @@ describe('useLocationsView', () => {
 
   it('should handle downloading a file', () => {
     const { result } = renderHook(() => useLocationsView());
-    const location: LocationData = {
+    const location: ActionsModule.LocationData = {
       bucket: 'bucket',
       id: 'id',
       permissions: ['get'],
@@ -269,7 +264,7 @@ describe('useLocationsView', () => {
 
   it('should handle search', () => {
     const mockDataState = {
-      data: { result: mockData, nextToken: undefined },
+      data: { items: mockData, nextToken: undefined },
       message: '',
       hasError: false,
       isLoading: false,
@@ -289,7 +284,7 @@ describe('useLocationsView', () => {
     expect(result.current.pageItems).toEqual([
       {
         bucket: 'test-bucket',
-        prefix: `item-b/`,
+        prefix: 'item-b/',
         permissions: ['get', 'list'],
         id: '2',
         type: 'PREFIX',

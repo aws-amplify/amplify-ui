@@ -34,7 +34,7 @@ export const deleteActionConfig: DeleteActionConfig = {
   actionsListItemConfig: {
     disable: (selected) => !selected,
     hide: (permissions) => !permissions.includes('delete'),
-    icon: 'delete',
+    icon: 'delete-file',
     label: 'Delete Files',
   },
   displayName: 'Delete',
@@ -76,33 +76,39 @@ export const listLocationsActionConfig: ListLocationsActionConfig = {
 
 export const uploadActionConfig: UploadActionConfig = {
   componentName: 'UploadView',
-  actionsListItemConfig: [
-    {
-      disable: (selectedValues) => !!selectedValues,
-      fileSelection: 'FILE',
-      hide: (permissions) => !permissions.includes('write'),
-      icon: 'upload-file',
-      label: 'Upload File',
-    },
-    {
-      disable: (selectedValues) => !!selectedValues,
-      fileSelection: 'FOLDER',
-      hide: (permissions) => !permissions.includes('write'),
-      icon: 'upload-folder',
-      label: 'Upload FOLDER',
-    },
-  ],
+  actionsListItemConfig: {
+    disable: (selectedValues) => !!selectedValues,
+    fileSelection: 'FILE',
+    hide: (permissions) => !permissions.includes('write'),
+    icon: 'upload-file',
+    label: 'Upload',
+  },
   isCancelable: true,
   includeProgress: true,
   handler: uploadHandler,
   displayName: 'Upload',
 };
 
-export const defaultActionConfigs = {
-  // copy: copyActionConfig,
+export const defaultActionViewConfigs = {
+  copy: copyActionConfig,
   createFolder: createFolderActionConfig,
   delete: deleteActionConfig,
+  upload: uploadActionConfig,
+};
+
+export type DefaultActionViewType = keyof typeof defaultActionViewConfigs;
+
+export const DEFAULT_ACTION_VIEW_TYPES = Object.keys(
+  defaultActionViewConfigs
+) as DefaultActionViewType[];
+
+export const isDefaultActionViewType = (
+  value?: string
+): value is DefaultActionViewType =>
+  DEFAULT_ACTION_VIEW_TYPES.some((type) => type === value);
+
+export const defaultActionConfigs = {
+  ...defaultActionViewConfigs,
   listLocationItems: listLocationItemsActionConfig,
   listLocations: listLocationsActionConfig,
-  upload: uploadActionConfig,
 };

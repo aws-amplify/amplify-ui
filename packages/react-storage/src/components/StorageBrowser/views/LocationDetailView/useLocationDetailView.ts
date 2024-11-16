@@ -12,20 +12,19 @@ import {
   listLocationItemsHandler,
 } from '../../actions';
 import { isFile } from '../utils';
-import { createEnhancedListHandler } from '../../actions/createEnhancedListHandler';
+import { createEnhancedListHandler } from '../../actions/useAction/createEnhancedListHandler';
 import { useGetActionInput } from '../../providers/configuration';
 import { LocationState } from '../../providers/store/location';
 import { useSearch } from '../hooks/useSearch';
 import { ActionsListItem } from '../../composables/ActionsList';
-import { useTempActions } from '../../do-not-import-from-here/createTempActionsProvider';
-import { IconVariant } from '../../context/elements';
-import { toAccessGrantPermission } from '../../adapters/permissionParsers';
+
 import { Tasks, useProcessTasks } from '../../tasks';
 import {
   downloadHandler,
   DownloadHandlerData,
   FileDataItem,
-} from '../../actions/handlers';
+  defaultActionViewConfigs,
+} from '../../actions';
 
 interface UseLocationDetailView {
   actions: ActionsListItem[];
@@ -118,8 +117,6 @@ export function useLocationDetailView(
 
   const listOptions = listOptionsRef.current;
 
-  const tempActions = useTempActions();
-
   const [{ location, locationItems }, dispatchStoreAction] = useStore();
   const { current, key } = location;
   const { permissions, prefix } = current ?? {};
@@ -130,10 +127,7 @@ export function useLocationDetailView(
 
   const [{ data, isLoading, hasError, message }, handleList] = useDataState(
     listLocationItemsAction,
-    {
-      items: [],
-      nextToken: undefined,
-    }
+    { items: [], nextToken: undefined }
   );
 
   // set up pagination
@@ -228,26 +222,29 @@ export function useLocationDetailView(
   const shouldShowEmptyMessage =
     pageItems.length === 0 && !isLoading && !hasError;
 
-  // FIXME: Temporarily get from... 😎 temp actions hook
   const actions = React.useMemo(() => {
     if (!permissions) {
       return [];
     }
-    return Object.entries(tempActions).map(([actionType, { options }]) => {
-      const { icon, hide, disable, displayName } = options ?? {};
-      return {
-        actionType,
-        icon: (icon as { props: { variant: IconVariant } }).props.variant,
-        isDisabled: isFunction(disable)
-          ? disable(fileDataItems ?? [])
-          : disable ?? false,
-        isHidden: isFunction(hide)
-          ? hide(toAccessGrantPermission(permissions))
-          : hide,
-        label: displayName,
-      };
-    });
-  }, [fileDataItems, permissions, tempActions]);
+
+    return Object.entries(defaultActionViewConfigs).map(
+      ([actionType, config]) => {
+        const { actionsListItemConfig } = config ?? {};
+
+        const { icon, hide, disable, label } = actionsListItemConfig ?? {};
+
+        return {
+          actionType,
+          icon,
+          isDisabled: isFunction(disable)
+            ? disable(fileDataItems)
+            : disable ?? false,
+          isHidden: isFunction(hide) ? hide(permissions) : hide,
+          label,
+        };
+      }
+    );
+  }, [fileDataItems, permissions]);
 
   return {
     actions,

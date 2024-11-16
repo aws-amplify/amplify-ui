@@ -1,15 +1,10 @@
 import { createManagedAuthAdapter } from '../../../adapters/createManagedAuthAdapter/createManagedAuthAdapter';
-import { createListLocationsHandler } from '../../../adapters/createManagedAuthAdapter/createListLocationsHandler';
 import { createLocationCredentialsHandler } from '../../../adapters/createManagedAuthAdapter/createLocationCredentialsHandler';
 
-jest.mock(
-  '../../../adapters/createManagedAuthAdapter/createListLocationsHandler'
-);
 jest.mock(
   '../../../adapters/createManagedAuthAdapter/createLocationCredentialsHandler'
 );
 
-const mockCreateListLocationsHandler = jest.mocked(createListLocationsHandler);
 const mockCreateLocationCredentialsHandler = jest.mocked(
   createLocationCredentialsHandler
 );
@@ -19,14 +14,10 @@ describe('createManagedAuthConfigAdapter', () => {
   const accountId = 'XXXXXXXXXXXX';
   const credentialsProvider = jest.fn();
   const customEndpoint = 'mock-endpoint';
-  const mockCreatedListLocationsHandler = jest.fn();
   const mockCreatedLocationCredentialsHandler = jest.fn();
   const mockRegisterAuthListener = jest.fn();
 
   beforeEach(() => {
-    mockCreateListLocationsHandler.mockReturnValue(
-      mockCreatedListLocationsHandler
-    );
     mockCreateLocationCredentialsHandler.mockReturnValue(
       mockCreatedLocationCredentialsHandler
     );
@@ -60,13 +51,7 @@ describe('createManagedAuthConfigAdapter', () => {
         registerAuthListener: mockRegisterAuthListener,
       })
     ).toMatchObject({
-      listLocations: mockCreatedListLocationsHandler,
-    });
-    expect(mockCreateListLocationsHandler).toHaveBeenCalledWith({
-      region,
-      accountId,
-      credentialsProvider,
-      customEndpoint,
+      listLocations: expect.any(Function),
     });
   });
 
