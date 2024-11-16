@@ -36,7 +36,7 @@
 .storage-browser__pagination-button-icon,
 .storage-browser__data-refresh-icon,
 .storage-browser__message-dismiss-icon,
-.storage-browser__actions-menu-toggle-icon {
+.storage-browser__menu-toggle-icon {
   display: block;
 }
 
@@ -75,13 +75,13 @@
   margin-inline-end: var(--storage-browser-gap-small);
 }
 
-.storage-browser__actions-menu {
+.storage-browser__menu {
   position: relative;
   display: inline-block;
   justify-self: flex-end;
 }
 
-.storage-browser__actions-menu-list {
+.storage-browser__menu-list {
   display: none;
   gap: var(--storage-browser-gap-small);
   flex-direction: column;
@@ -89,15 +89,15 @@
   inset-inline-end: 0;
   inset-block-start: 100%;
   width: max-content;
-  max-width: var(--storage-browser-actions-menu-max-width);
+  max-width: var(--storage-browser-menu-max-width);
   z-index: 2;
 }
 
-.storage-browser__actions-menu-list--open {
+.storage-browser__menu-list--open {
   display: flex;
 }
 
-.storage-browser__actions-menu-button {
+.storage-browser__menu-item {
   display: flex;
   gap: var(--storage-browser-gap-small);
   align-items: center;

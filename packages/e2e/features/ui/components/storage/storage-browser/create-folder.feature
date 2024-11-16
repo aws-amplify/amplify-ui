@@ -9,8 +9,8 @@ Feature: Create folder with Storage Browser
     Then I type my password
     Then I click the "Sign in" button
     When I click the first button containing "public"
-    Then I see the "Actions" button
-    When I click the "Actions" button
+    Then I see the "Menu Toggle" button
+    When I click the "Menu Toggle" button
     Then I see the "Create Folder" menuitem
     When I click the "Create Folder" menuitem
     Then I see "Folder name"
@@ -27,8 +27,8 @@ Feature: Create folder with Storage Browser
     Then I type my password
     Then I click the "Sign in" button
     When I click the first button containing "public"
-    Then I see the "Actions" button
-    When I click the "Actions" button
+    Then I see the "Menu Toggle" button
+    When I click the "Menu Toggle" button
     Then I see the "Create Folder" menuitem
     When I click the "Create Folder" menuitem
     Then I see "Folder name"

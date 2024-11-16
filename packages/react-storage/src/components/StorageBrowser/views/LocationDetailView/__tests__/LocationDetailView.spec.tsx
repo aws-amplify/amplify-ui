@@ -18,7 +18,12 @@ import { INITIAL_STATUS_COUNTS } from '../../../tasks';
 import { useDisplayText } from '../../../displayText';
 import { SearchOutput } from '../../../actions/createEnhancedListHandler';
 
-jest.mock('../Controls/ActionsMenu');
+// FIXME: Temporarily mock... 😎 temp actions hook
+import { useTempActions } from '../../../do-not-import-from-here/createTempActionsProvider';
+jest.mock('../../../do-not-import-from-here/createTempActionsProvider');
+const mockUseTempActions = useTempActions as jest.Mock;
+mockUseTempActions.mockReturnValue({});
+
 jest.mock('../../../displayText', () => {
   const mockGetListItemsResultMessage = jest.fn();
   return {

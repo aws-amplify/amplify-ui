@@ -1,6 +1,7 @@
 import { ActionCancelProps } from './ActionCancel';
 import { ActionExitProps } from './ActionExit';
 import { ActionStartProps } from './ActionStart';
+import { ActionsListProps } from './ActionsList';
 import { AddFilesProps } from './AddFiles';
 import { AddFolderProps } from './AddFolder';
 import { DataRefreshProps } from './DataRefresh';
@@ -21,6 +22,7 @@ export interface Composables {
   ActionCancel: React.ComponentType<ActionCancelProps>;
   ActionExit: React.ComponentType<ActionExitProps>;
   ActionStart: React.ComponentType<ActionStartProps>;
+  ActionsList: React.ComponentType<ActionsListProps>;
   AddFiles: React.ComponentType<AddFilesProps>;
   AddFolder: React.ComponentType<AddFolderProps>;
   DataRefresh: React.ComponentType<DataRefreshProps>;

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { isUndefined } from '@aws-amplify/ui';
+import { isFunction, isUndefined } from '@aws-amplify/ui';
 import { useDataState } from '@aws-amplify/ui-react-core';
 
 import { usePaginate } from '../hooks/usePaginate';
@@ -16,6 +16,10 @@ import { createEnhancedListHandler } from '../../actions/createEnhancedListHandl
 import { useGetActionInput } from '../../providers/configuration';
 import { LocationState } from '../../providers/store/location';
 import { useSearch } from '../hooks/useSearch';
+import { ActionsListItem } from '../../composables/ActionsList';
+import { useTempActions } from '../../do-not-import-from-here/createTempActionsProvider';
+import { IconVariant } from '../../context/elements';
+import { toAccessGrantPermission } from '../../adapters/permissionParsers';
 import { Tasks, useProcessTasks } from '../../tasks';
 import {
   downloadHandler,
@@ -24,6 +28,7 @@ import {
 } from '../../actions/handlers';
 
 interface UseLocationDetailView {
+  actions: ActionsListItem[];
   hasError: boolean;
   hasNextPage: boolean;
   hasDownloadError: boolean;
@@ -41,6 +46,7 @@ interface UseLocationDetailView {
   hasExhaustedSearch: boolean;
   pageItems: LocationItemData[];
   page: number;
+  onActionSelect: (actionType: string) => void;
   onDropFiles: (files: File[]) => void;
   onRefresh: () => void;
   onNavigate: (location: LocationData, path?: string) => void;
@@ -72,7 +78,7 @@ interface InitialValues {
 export interface UseLocationDetailViewOptions {
   initialValues?: InitialValues;
   onDispatch?: React.Dispatch<LocationDetailViewActionType>;
-  onActionSelect?: (type: string) => void;
+  onActionSelect?: (actionType: string) => void;
   onExit?: () => void;
   onNavigate?: (location: LocationData, path?: string) => void;
 }
@@ -103,7 +109,7 @@ export function useLocationDetailView(
   options?: UseLocationDetailViewOptions
 ): UseLocationDetailView {
   const getConfig = useGetActionInput();
-  const { initialValues, onActionSelect, onExit, onNavigate } = options ?? {};
+  const { initialValues, onExit, onNavigate } = options ?? {};
 
   const listOptionsRef = React.useRef({
     ...DEFAULT_LIST_OPTIONS,
@@ -112,9 +118,11 @@ export function useLocationDetailView(
 
   const listOptions = listOptionsRef.current;
 
+  const tempActions = useTempActions();
+
   const [{ location, locationItems }, dispatchStoreAction] = useStore();
   const { current, key } = location;
-  const { prefix } = current ?? {};
+  const { permissions, prefix } = current ?? {};
   const { fileDataItems } = locationItems;
   const hasInvalidPrefix = isUndefined(prefix);
 
@@ -220,7 +228,29 @@ export function useLocationDetailView(
   const shouldShowEmptyMessage =
     pageItems.length === 0 && !isLoading && !hasError;
 
+  // FIXME: Temporarily get from... 😎 temp actions hook
+  const actions = React.useMemo(() => {
+    if (!permissions) {
+      return [];
+    }
+    return Object.entries(tempActions).map(([actionType, { options }]) => {
+      const { icon, hide, disable, displayName } = options ?? {};
+      return {
+        actionType,
+        icon: (icon as { props: { variant: IconVariant } }).props.variant,
+        isDisabled: isFunction(disable)
+          ? disable(fileDataItems ?? [])
+          : disable ?? false,
+        isHidden: isFunction(hide)
+          ? hide(toAccessGrantPermission(permissions))
+          : hide,
+        label: displayName,
+      };
+    });
+  }, [fileDataItems, permissions, tempActions]);
+
   return {
+    actions,
     page: currentPage,
     pageItems,
     location,
@@ -257,7 +287,7 @@ export function useLocationDetailView(
         type: 'SET_ACTION_TYPE',
         actionType,
       });
-      onActionSelect?.(actionType);
+      options?.onActionSelect?.(actionType);
     },
     onDownload: (data: FileDataItem) => {
       handleDownload({ config: getConfig(), data });
@@ -274,6 +304,10 @@ export function useLocationDetailView(
       });
       dispatchStoreAction({ type: 'RESET_ACTION_TYPE' });
       dispatchStoreAction({ type: 'RESET_LOCATION_ITEMS' });
+    },
+    onActionSelect: (actionType) => {
+      options?.onActionSelect?.(actionType);
+      dispatchStoreAction({ type: 'SET_ACTION_TYPE', actionType });
     },
     onSelect: (isSelected: boolean, fileItem: FileData) => {
       dispatchStoreAction(
