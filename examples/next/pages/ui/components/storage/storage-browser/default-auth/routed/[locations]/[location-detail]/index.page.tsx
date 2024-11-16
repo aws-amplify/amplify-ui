@@ -40,6 +40,11 @@ export default function Page() {
         key={key}
         location={location as any}
         path={path as string}
+        displayText={{
+          LocationDetailView: {
+            getTitle: (location) => `${location.key} - Routed Amplify Auth`,
+          },
+        }}
       >
         <StorageBrowser.LocationDetailView
           onActionSelect={(actionType) => {

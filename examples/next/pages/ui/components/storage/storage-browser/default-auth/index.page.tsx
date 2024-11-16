@@ -32,7 +32,9 @@ function Example() {
         Sign Out
       </Button>
       <View flex="1" overflow="hidden">
-        <StorageBrowser />
+        <StorageBrowser
+          displayText={{ LocationsView: { title: 'Home - Amplify Auth' } }}
+        />
       </View>
     </Flex>
   );

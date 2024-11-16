@@ -45,7 +45,7 @@ export const useCreateFolderView = (params?: {
       dipatchStoreAction({ type: 'RESET_ACTION_TYPE' });
     },
     onFolderNameChange: (value) => {
-      setFolderName(value);
+      setFolderName(value.trim());
     },
     statusCounts,
     tasks,

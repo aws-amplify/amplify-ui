@@ -5,7 +5,7 @@ import { SortHeader } from '../../../DataTable/headers/SortHeader';
 describe('SortHeader', () => {
   it('renders', () => {
     const { container } = render(
-      <SortHeader content={{ label: 'header-sort', onSort: jest.fn() }} />
+      <SortHeader content={{ label: 'Header-sort', onSort: jest.fn() }} />
     );
 
     const sortHeader = screen.getByRole('button');
