@@ -14,4 +14,5 @@ Feature: StorageBrowser Filter Locations
     Then I see the first button containing "public"
     Then I do not see the button containing "private"
     When I click the button containing "Clear search"
- Then I see the first button containing "private"
+    Then I see the first button containing "private"
+    
