@@ -138,6 +138,5 @@ export interface ListLocationsActionViewSubComponents {
 export interface ListLocationItemsActionViewSubComponents
   extends ListLocationsActionViewSubComponents {
   ActionList: (props: DefaultViewSubComponentProps) => React.JSX.Element;
-  ActionsMenu: (props: DefaultViewSubComponentProps) => React.JSX.Element;
   Navigate: (props: DefaultViewSubComponentProps) => React.JSX.Element;
 }

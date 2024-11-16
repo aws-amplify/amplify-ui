@@ -1,8 +1,11 @@
 import React from 'react';
+
 import { ViewElement } from '../../context/elements';
+import { ActionsListControl } from '../../controls/ActionsListControl';
 import { DataTableControl } from '../../controls/DataTableControl';
 import { DataRefreshControl } from '../../controls/DataRefreshControl';
 import { DropZoneControl } from '../../controls/DropZoneControl';
+import { MessageControl } from '../../controls/MessageControl';
 import { NavigationControl } from '../../controls/NavigationControl';
 import { PaginationControl } from '../../controls/PaginationControl';
 import { SearchControl } from '../../controls/SearchControl';
@@ -15,11 +18,9 @@ import {
   STORAGE_BROWSER_BLOCK_TO_BE_UPDATED,
 } from '../../constants';
 import { resolveClassName } from '../utils';
-import { ActionsMenuControl } from './Controls/ActionsMenu';
 import { getLocationDetailViewTableData } from './getLocationDetailViewTableData';
 import { useLocationDetailView } from './useLocationDetailView';
 import { LocationDetailViewProps } from './types';
-import { MessageControl } from '../../controls/MessageControl';
 import { LoadingIndicator } from '../../composables/LoadingIndicator';
 
 const DEFAULT_PAGE_SIZE = 100;
@@ -30,9 +31,7 @@ export const DEFAULT_LIST_OPTIONS = {
 
 export function LocationDetailView({
   className,
-  onActionSelect,
-  onExit,
-  onNavigate: onNavigateProp,
+  ...props
 }: LocationDetailViewProps): React.JSX.Element {
   const {
     LocationDetailView: {
@@ -53,6 +52,7 @@ export function LocationDetailView({
   );
 
   const {
+    actions,
     page,
     pageItems,
     hasNextPage,
@@ -68,6 +68,8 @@ export function LocationDetailView({
     message,
     downloadErrorMessage,
     searchQuery,
+    hasExhaustedSearch,
+    onActionSelect,
     onDropFiles,
     onRefresh,
     onPaginate,
@@ -80,8 +82,7 @@ export function LocationDetailView({
     onSearchQueryChange,
     onSearchClear,
     onToggleSearchSubfolders,
-    hasExhaustedSearch,
-  } = useLocationDetailView({ onNavigate: onNavigateProp, onExit });
+  } = useLocationDetailView(props);
 
   const messageControlContent = getListItemsResultMessage({
     items: pageItems,
@@ -97,6 +98,8 @@ export function LocationDetailView({
     >
       <ControlsContextProvider
         data={{
+          actions,
+          isActionsListDisabled: isLoading,
           isDataRefreshDisabled: isLoading,
           isLoading,
           isSearchingSubfolders,
@@ -130,6 +133,7 @@ export function LocationDetailView({
           title: getTitle(location),
           message: messageControlContent,
         }}
+        onActionSelect={onActionSelect}
         onDropFiles={onDropFiles}
         onNavigate={onNavigate}
         onNavigateHome={onNavigateHome}
@@ -160,10 +164,7 @@ export function LocationDetailView({
           <DataRefreshControl
             className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__locations-detail-view-data-refresh`}
           />
-          <ActionsMenuControl
-            onActionSelect={onActionSelect}
-            disabled={isLoading}
-          />
+          <ActionsListControl />
         </ViewElement>
         {hasError ? null : (
           <DropZoneControl>

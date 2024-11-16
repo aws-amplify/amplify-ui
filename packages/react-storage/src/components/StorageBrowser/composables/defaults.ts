@@ -1,6 +1,7 @@
 import { ActionCancel } from './ActionCancel';
 import { ActionExit } from './ActionExit';
 import { ActionStart } from './ActionStart';
+import { ActionsList } from './ActionsList';
 import { AddFiles } from './AddFiles';
 import { AddFolder } from './AddFolder';
 import { DataRefresh } from './DataRefresh';
@@ -23,6 +24,7 @@ export const DEFAULT_COMPOSABLES: Composables = {
   ActionCancel,
   ActionExit,
   ActionStart,
+  ActionsList,
   AddFiles,
   AddFolder,
   DataRefresh,
