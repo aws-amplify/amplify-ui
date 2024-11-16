@@ -5,10 +5,7 @@ import {
 
 export const DEFAULT_ACTION_VIEW_DISPLAY_TEXT: Omit<
   DefaultActionViewDisplayText,
-  | 'actionStartLabel'
-  | 'getActionCompleteMessage'
-  | 'title'
-  | 'getFilesValidationMessage'
+  'actionStartLabel' | 'getActionCompleteMessage' | 'title'
 > = {
   actionCancelLabel: 'Cancel',
   actionExitLabel: 'Exit',
