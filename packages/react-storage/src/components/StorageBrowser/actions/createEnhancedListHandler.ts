@@ -104,8 +104,8 @@ export function searchItems<T>({ prefix, list, options }: Search<T>): T[] {
         matchedPath += groupBy;
       }
 
-      // ignore prefix for match
-      if (matchedPath !== prefix && !uniquePaths.has(matchedPath)) {
+      // ignore anything below the prefix for matching
+      if (matchedPath.length > prefix.length && !uniquePaths.has(matchedPath)) {
         // add a new item
         uniquePaths.set(matchedPath, {
           ...item,

@@ -102,15 +102,11 @@ export function LocationsView({
   } = useLocationsView(props);
 
   // TODO: add hasExhaustedSearch + query param
-  const messageControlContent = hasError
-    ? getListLocationsResultMessage({
-        locations: pageItems,
-        hasError,
-        message,
-      })
-    : getListLocationsResultMessage({
-        locations: pageItems,
-      });
+  const messageControlContent = getListLocationsResultMessage({
+    locations: pageItems,
+    hasError,
+    message,
+  });
 
   const headers = getHeaders({
     hasObjectLocations: pageItems.some(({ type }) => type === 'OBJECT'),
