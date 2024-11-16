@@ -21,7 +21,6 @@ import { useLocationDetailView } from './useLocationDetailView';
 import { LocationDetailViewProps } from './types';
 import { MessageControl } from '../../controls/MessageControl';
 import { LoadingIndicator } from '../../composables/LoadingIndicator';
-import { MessageProps } from '../../composables/Message';
 
 const DEFAULT_PAGE_SIZE = 100;
 export const DEFAULT_LIST_OPTIONS = {
@@ -65,7 +64,9 @@ export function LocationDetailView({
     fileDataItems,
     hasFiles,
     hasError,
+    hasDownloadError,
     message,
+    downloadErrorMessage,
     searchQuery,
     onDropFiles,
     onRefresh,
@@ -82,25 +83,12 @@ export function LocationDetailView({
     hasExhaustedSearch,
   } = useLocationDetailView({ onNavigate: onNavigateProp, onExit });
 
-  let messageControlContent: MessageProps | undefined;
-
-  if (hasError) {
-    messageControlContent = getListItemsResultMessage({
-      items: pageItems,
-      hasError,
-      message,
-    });
-  } else if (hasExhaustedSearch) {
-    messageControlContent = getListItemsResultMessage({
-      items: pageItems,
-      hasExhaustedSearch,
-      message,
-    });
-  } else {
-    messageControlContent = getListItemsResultMessage({
-      items: pageItems,
-    });
-  }
+  const messageControlContent = getListItemsResultMessage({
+    items: pageItems,
+    hasError: hasError || hasDownloadError,
+    hasExhaustedSearch,
+    message: hasError ? message : downloadErrorMessage,
+  });
 
   return (
     <div

@@ -52,7 +52,7 @@ describe('resolveDisplayText', () => {
         title: 'DeleteViewTitle',
       },
       LocationDetailView: {
-        title: () => 'LocationDetailViewTitle',
+        getTitle: () => 'LocationDetailViewTitle',
       },
       LocationsView: {
         title: 'LocationsViewTitle',
@@ -65,7 +65,7 @@ describe('resolveDisplayText', () => {
     expect(result.CopyView.title).toBe('CopyViewTitle');
     expect(result.CreateFolderView.title).toBe('CreateFolderViewTitle');
     expect(result.DeleteView.title).toBe('DeleteViewTitle');
-    expect(result.LocationDetailView.title({} as LocationState)).toBe(
+    expect(result.LocationDetailView.getTitle({} as LocationState)).toBe(
       'LocationDetailViewTitle'
     );
     expect(result.LocationsView.title).toBe('LocationsViewTitle');

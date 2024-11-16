@@ -28,7 +28,7 @@ exports[`CreateFolderView display text values should match snapshot values 1`] =
   "actionExitLabel": "Exit",
   "actionStartLabel": "Create folder",
   "folderNameLabel": "Folder name",
-  "folderNamePlaceholder": "Folder name cannot contain "/" or "."",
+  "folderNamePlaceholder": "Folder name cannot contain "/", nor end or start with "."",
   "getActionCompleteMessage": [Function],
   "getValidationMessage": [Function],
   "loadingIndicatorLabel": "Loading",

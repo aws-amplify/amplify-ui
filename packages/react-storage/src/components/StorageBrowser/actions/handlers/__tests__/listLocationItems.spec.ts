@@ -142,12 +142,14 @@ describe('parseResult', () => {
   });
 
   describe('filterDotItems', () => {
-    it('should filter out items starting with "/" or "." or "..', () => {
+    it('should filter out invalid keys: "/", "." etc', () => {
       const output = {
         items: [
-          { path: `/`, lastModified: new Date(), size: 0 },
-          { path: `.`, lastModified: new Date(), size: 0 },
-          { path: `..`, lastModified: new Date(), size: 0 },
+          { path: ` / `, lastModified: new Date(), size: 0 },
+          { path: ` ./ `, lastModified: new Date(), size: 0 },
+          { path: ` ../ `, lastModified: new Date(), size: 0 },
+          { path: ` . `, lastModified: new Date(), size: 0 },
+          { path: ` .. `, lastModified: new Date(), size: 0 },
           { path: `${prefix}visible`, lastModified: new Date(), size: 0 },
         ],
       };

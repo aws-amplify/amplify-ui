@@ -228,26 +228,38 @@ describe('Search', () => {
       ]);
     });
 
-    it('should not match prefix', () => {
+    it('should only match paths ahead of prefix', () => {
       const mockData = [
         {
-          key: 'collections/photo1.jpg',
+          key: 'photos/album/random-photos/photo1.jpg',
         },
         {
-          key: 'collections/photos/',
+          key: 'photos/album/cats/pic.jpg',
         },
       ];
 
       const output = searchItems<Item>({
         list: mockData,
-        prefix: 'collections/',
+        prefix: 'photos/album/',
         options: {
           filterBy: 'key',
           groupBy: '/',
-          query: 'collection',
+          query: 'photo',
         },
       });
-      expect(output).toEqual([]);
+
+      expect(output).toEqual([
+        {
+          id: expect.any(String),
+          key: 'photos/album/random-photos/',
+          type: 'FOLDER',
+        },
+        {
+          id: expect.any(String),
+          key: 'photos/album/random-photos/photo1.jpg',
+          type: 'FILE',
+        },
+      ]);
     });
 
     it('should handle consecutive delimiters', () => {

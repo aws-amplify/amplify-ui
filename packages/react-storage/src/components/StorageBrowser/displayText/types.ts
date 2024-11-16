@@ -11,7 +11,7 @@ import {
 } from '../actions';
 import { LocationState } from '../providers/store/location';
 import { MessageType } from '../composables/Message';
-import { CreateFolderHandlerData } from '../../../../dist/types/components/StorageBrowser/actions';
+import { CreateFolderHandlerData } from '../actions';
 
 /**
  * Common list view display text values
