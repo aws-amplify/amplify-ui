@@ -1,19 +1,15 @@
 import { LocationData, UploadHandlerData } from '../../../actions';
-import { FileItem } from '../../../providers';
+import { FileItem, FileItems } from '../../../providers';
 import { ActionViewType, ActionViewProps, ActionViewState } from '../types';
 
-export interface UploadViewMessage {
-  id: string;
-  content: string;
-}
+export type InvalidFileReason = 'FILE_TOO_BIG';
 
 export interface UploadViewState extends ActionViewState<FileItem> {
   isOverwritingEnabled: boolean;
   onDropFiles: (files: File[]) => void;
   onSelectFiles: (type: 'FILE' | 'FOLDER') => void;
   onToggleOverwrite: () => void;
-  invalidFilesMessage: UploadViewMessage | undefined;
-  onInvalidFilesMessageDismiss: (() => void) | undefined;
+  invalidFiles: FileItems | undefined;
 }
 
 export interface UploadViewProps

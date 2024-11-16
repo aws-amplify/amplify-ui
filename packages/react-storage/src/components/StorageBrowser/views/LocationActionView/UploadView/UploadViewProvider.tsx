@@ -26,6 +26,7 @@ export function UploadViewProvider({
     overwriteToggleLabel,
     title,
     getActionCompleteMessage,
+    getFilesValidationMessage,
   } = displayText;
 
   const {
@@ -35,7 +36,7 @@ export function UploadViewProvider({
     location,
     tasks,
     statusCounts,
-    invalidFilesMessage,
+    invalidFiles,
     onActionStart,
     onActionCancel,
     onDropFiles,
@@ -56,6 +57,8 @@ export function UploadViewProvider({
     ? getActionCompleteMessage({
         counts: statusCounts,
       })
+    : invalidFiles && !isProcessing
+    ? getFilesValidationMessage({ invalidFiles })
     : undefined;
 
   return (

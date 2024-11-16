@@ -1,6 +1,7 @@
 import { StatusCounts, Tasks } from '../tasks';
 import {
   CopyHandlerData,
+  CreateFolderHandlerData,
   DeleteHandlerData,
   FolderData,
   LocationData,
@@ -11,7 +12,7 @@ import {
 } from '../actions';
 import { LocationState } from '../providers/store/location';
 import { MessageType } from '../composables/Message';
-import { CreateFolderHandlerData } from '../actions';
+import { FileItems } from '../providers';
 
 /**
  * Common list view display text values
@@ -83,9 +84,6 @@ export interface DefaultActionViewDisplayText<T extends TaskData = TaskData> {
     counts?: StatusCounts;
     tasks?: Tasks<T>;
   }) => { content?: string; type?: MessageType } | undefined;
-  getInvalidFilesMessage: (data?: {
-    files?: { name: string }[];
-  }) => { content?: string; type?: MessageType } | undefined;
   statusDisplayCanceledLabel: string;
   statusDisplayCompletedLabel: string;
   statusDisplayFailedLabel: string;
@@ -138,6 +136,9 @@ export interface DefaultUploadViewDisplayText
   addFolderLabel: string;
   statusDisplayOverwritePreventedLabel: string;
   overwriteToggleLabel: string;
+  getFilesValidationMessage: (data?: {
+    invalidFiles?: FileItems;
+  }) => { content?: string; type?: MessageType } | undefined;
 }
 
 export interface DefaultStorageBrowserDisplayText {

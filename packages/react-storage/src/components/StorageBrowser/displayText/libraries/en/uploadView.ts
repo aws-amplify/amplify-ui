@@ -1,6 +1,6 @@
 import { DEFAULT_ACTION_VIEW_DISPLAY_TEXT } from './shared';
 import { DefaultUploadViewDisplayText } from '../../types';
-import { UPLOAD_FILE_SIZE_LIMIT_HUMAN } from '../../../views/LocationActionView/constants';
+import { UPLOAD_FILE_SIZE_LIMIT } from '../../../views/LocationActionView/constants';
 
 export const DEFAULT_UPLOAD_VIEW_DISPLAY_TEXT: DefaultUploadViewDisplayText = {
   ...DEFAULT_ACTION_VIEW_DISPLAY_TEXT,
@@ -80,11 +80,14 @@ export const DEFAULT_UPLOAD_VIEW_DISPLAY_TEXT: DefaultUploadViewDisplayText = {
 
     return { content: 'All files uploaded.', type };
   },
-  getInvalidFilesMessage: (data) => {
-    const fileNames = data?.files?.map(({ name }) => name).join(', ') ?? '';
-    if (!fileNames) {
+  getFilesValidationMessage: ({ invalidFiles } = {}) => {
+    if (!invalidFiles) {
       return undefined;
     }
+    const fileNames = invalidFiles
+      .filter(({ file }) => file.size > UPLOAD_FILE_SIZE_LIMIT)
+      .map(({ file }) => file.name)
+      .join(', ');
     return {
       content: `File ${fileNames} exceeds the size limit 160 GB. Failed to add to upload queue.`,
       type: 'warning',
