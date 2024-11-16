@@ -89,7 +89,7 @@ export const DEFAULT_UPLOAD_VIEW_DISPLAY_TEXT: DefaultUploadViewDisplayText = {
       .map(({ file }) => file.name)
       .join(', ');
     return {
-      content: `File ${fileNames} exceeds the size limit 160 GB. Failed to add to upload queue.`,
+      content: `These files cannot be added to the upload queue due to they are larger than 160GB respectively: ${fileNames}`,
       type: 'warning',
     };
   },
