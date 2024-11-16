@@ -1,2 +1,1 @@
 export const DEFAULT_ACTION_CONCURRENCY = 4;
-export const UPLOAD_FILE_SIZE_LIMIT = 160 * 1000 * 1000 * 1000;

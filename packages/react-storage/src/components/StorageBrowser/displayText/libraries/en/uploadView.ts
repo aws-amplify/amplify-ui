@@ -1,6 +1,6 @@
 import { DEFAULT_ACTION_VIEW_DISPLAY_TEXT } from './shared';
 import { DefaultUploadViewDisplayText } from '../../types';
-import { UPLOAD_FILE_SIZE_LIMIT } from '../../../views/LocationActionView/constants';
+import { isFileTooBig } from '../../../validators';
 
 export const DEFAULT_UPLOAD_VIEW_DISPLAY_TEXT: DefaultUploadViewDisplayText = {
   ...DEFAULT_ACTION_VIEW_DISPLAY_TEXT,
@@ -80,18 +80,18 @@ export const DEFAULT_UPLOAD_VIEW_DISPLAY_TEXT: DefaultUploadViewDisplayText = {
 
     return { content: 'All files uploaded.', type };
   },
-  getFilesValidationMessage: ({ invalidFiles } = {}) => {
-    if (!invalidFiles) {
-      return undefined;
-    }
-    const fileNames = invalidFiles
-      .filter(({ file }) => file.size > UPLOAD_FILE_SIZE_LIMIT)
+  getFilesValidationMessage: ({ invalidFiles = [] } = {}) => {
+    const tooBigFileNames = invalidFiles
+      .filter(({ file }) => isFileTooBig(file))
       .map(({ file }) => file.name)
       .join(', ');
-    return {
-      content: `These files cannot be added to the upload queue due to they are larger than 160GB respectively: ${fileNames}`,
-      type: 'warning',
-    };
+    if (tooBigFileNames) {
+      return {
+        content: `Files larger that 160GB cannot be added to the upload queue: ${tooBigFileNames}`,
+        type: 'warning',
+      };
+    }
+    return undefined;
   },
   statusDisplayOverwritePreventedLabel: 'Overwrite prevented',
   overwriteToggleLabel: 'Overwrite existing files',

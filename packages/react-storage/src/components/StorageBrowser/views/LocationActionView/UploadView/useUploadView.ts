@@ -6,13 +6,11 @@ import { useGetActionInput } from '../../../providers/configuration';
 import { FileItems, useStore } from '../../../providers/store';
 import { Task, useProcessTasks } from '../../../tasks';
 
-import {
-  DEFAULT_ACTION_CONCURRENCY,
-  UPLOAD_FILE_SIZE_LIMIT,
-} from '../constants';
+import { DEFAULT_ACTION_CONCURRENCY } from '../constants';
 import { UploadViewState, UseUploadViewOptions } from './types';
 import { DEFAULT_OVERWRITE_ENABLED } from './constants';
 import { isUndefined } from '@aws-amplify/ui';
+import { isFileTooBig } from '../../../validators';
 
 export const useUploadView = (
   options?: UseUploadViewOptions
@@ -25,21 +23,22 @@ export const useUploadView = (
   const [{ files, location }, dispatchStoreAction] = useStore();
   const { current, key } = location;
 
-  const validFiles = React.useMemo(
-    () =>
-      files?.filter((fileItem) => {
-        const { id, file } = fileItem;
-        if (file.size > UPLOAD_FILE_SIZE_LIMIT) {
-          setInvalidFiles((prev) =>
-            isUndefined(prev) ? [fileItem] : prev.concat(fileItem)
-          );
-          dispatchStoreAction({ type: 'REMOVE_FILE_ITEM', id });
-          return false;
-        }
-        return true;
-      }),
-    [files, dispatchStoreAction]
-  );
+  const validFiles = React.useMemo(() => {
+    const validFileItems: FileItems = [];
+    files?.forEach((fileItem) => {
+      const { id, file } = fileItem;
+      if (isFileTooBig(file)) {
+        setInvalidFiles((prev) =>
+          isUndefined(prev) ? [fileItem] : prev.concat(fileItem)
+        );
+        dispatchStoreAction({ type: 'REMOVE_FILE_ITEM', id });
+      } else {
+        validFileItems.push(fileItem);
+      }
+    });
+
+    return validFileItems;
+  }, [files, dispatchStoreAction]);
 
   const [isOverwritingEnabled, setIsOverwritingEnabled] = React.useState(
     DEFAULT_OVERWRITE_ENABLED

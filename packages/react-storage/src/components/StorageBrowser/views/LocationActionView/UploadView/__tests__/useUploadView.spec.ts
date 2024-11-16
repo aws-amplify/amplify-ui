@@ -4,7 +4,7 @@ import { LocationData } from '../../../../actions';
 import * as ConfigModule from '../../../../providers/configuration';
 import * as StoreModule from '../../../../providers/store';
 import * as TasksModule from '../../../../tasks';
-import { UPLOAD_FILE_SIZE_LIMIT } from '../../constants';
+import { UPLOAD_FILE_SIZE_LIMIT } from '../../../../validators/isFileTooBig';
 
 const useStoreSpy = jest.spyOn(StoreModule, 'useStore');
 

@@ -53,13 +53,15 @@ export function UploadViewProvider({
   const isAddFolderDisabled = isProcessing || isProcessingComplete;
   const isActionExitDisabled = isProcessing;
 
-  const message = isProcessingComplete
+  const actionCompleteMessage = isProcessingComplete
     ? getActionCompleteMessage({
         counts: statusCounts,
       })
-    : invalidFiles && !isProcessing
-    ? getFilesValidationMessage({ invalidFiles })
     : undefined;
+  const filesValidationMessage =
+    invalidFiles && !isProcessing
+      ? getFilesValidationMessage({ invalidFiles })
+      : undefined;
 
   return (
     <ControlsContextProvider
@@ -80,7 +82,7 @@ export function UploadViewProvider({
         isOverwritingEnabled,
         overwriteToggleLabel,
         destination: location,
-        message,
+        message: actionCompleteMessage ?? filesValidationMessage,
         statusCounts,
         statusDisplayCanceledLabel,
         statusDisplayCompletedLabel,
