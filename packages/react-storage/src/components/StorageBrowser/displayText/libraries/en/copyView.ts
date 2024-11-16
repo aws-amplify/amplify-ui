@@ -48,9 +48,6 @@ export const DEFAULT_COPY_VIEW_DISPLAY_TEXT: DefaultCopyViewDisplayText = {
       type: 'error',
     };
   },
-  getFolderSelectedMessage: (key: string) => {
-    return `Current folder selected: ${key}. There are no additional folders under this path.`;
-  },
   searchSubmitLabel: 'Submit',
   searchClearLabel: 'Clear search',
 };

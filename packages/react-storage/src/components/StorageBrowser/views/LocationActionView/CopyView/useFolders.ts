@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useDataState, useHasValueUpdated } from '@aws-amplify/ui-react-core';
+import { useDataState } from '@aws-amplify/ui-react-core';
 
 import { usePaginate } from '../../hooks/usePaginate';
 import { listLocationItemsHandler, FolderData } from '../../../actions';
@@ -51,12 +51,6 @@ export const useFolders = ({
   const getInput = useGetActionInput();
 
   const { items, nextToken } = data;
-
-  const hasInitializedRef = React.useRef(false);
-  const hasItemsChanged = useHasValueUpdated(items, true);
-  if (hasItemsChanged) {
-    hasInitializedRef.current = true;
-  }
 
   const onInitialize = React.useCallback(() => {
     handleList({
@@ -122,7 +116,6 @@ export const useFolders = ({
 
   return {
     hasError,
-    hasInitialized: hasInitializedRef.current,
     hasNextPage: hasNextToken,
     highestPageVisited,
     isLoading,

@@ -23,7 +23,6 @@ export function CopyViewProvider({
     actionExitLabel,
     actionStartLabel,
     getActionCompleteMessage,
-    getListFoldersResultsMessage,
     overwriteWarningMessage,
     searchPlaceholder,
     searchSubmitLabel,
@@ -55,7 +54,6 @@ export function CopyViewProvider({
     hasError: hasFoldersError,
     message: foldersErrorMessage,
     query,
-    hasInitialized: hasFoldersInitialized,
     onQuery,
     onSearchClear,
     onSearch,
@@ -88,15 +86,6 @@ export function CopyViewProvider({
         type: 'warning',
       }
     : getActionCompleteMessage({ counts: statusCounts });
-
-  const foldersMessage = !hasFoldersInitialized
-    ? undefined
-    : getListFoldersResultsMessage({
-        hasError: hasFoldersError,
-        message: foldersErrorMessage,
-        folders: pageItems,
-        query,
-      });
 
   return (
     <ControlsContextProvider
@@ -141,7 +130,12 @@ export function CopyViewProvider({
           onPaginate={onPaginate}
         >
           <FoldersTableProvider folders={pageItems} onSelect={onSelect}>
-            <FoldersMessageProvider {...foldersMessage}>
+            <FoldersMessageProvider
+              folders={folders.pageItems}
+              hasError={hasFoldersError}
+              message={foldersErrorMessage}
+              query={query}
+            >
               {children}
             </FoldersMessageProvider>
           </FoldersTableProvider>

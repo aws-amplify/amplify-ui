@@ -26,7 +26,6 @@ export interface UseCopyViewOptions {
 
 export interface FoldersState {
   hasError: boolean;
-  hasInitialized: boolean;
   hasNextPage: boolean;
   highestPageVisited: number;
   isLoading: boolean;
