@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LocationsView display text \`getListLocationsResultMessage\` returns the expected values in the empty results scenario 1`] = `
+{
+  "content": "No folders or files.",
+  "type": "info",
+}
+`;
+
+exports[`LocationsView display text \`getListLocationsResultMessage\` returns the expected values in the empty search results scenario 1`] = `
+{
+  "content": "No folders or files.",
+  "type": "info",
+}
+`;
+
+exports[`LocationsView display text \`getListLocationsResultMessage\` returns the expected values in the failed scenario 1`] = `
+{
+  "content": "Network got confused",
+  "type": "error",
+}
+`;
+
+exports[`LocationsView display text \`getListLocationsResultMessage\` returns the expected values in the search failed scenario 1`] = `
+{
+  "content": "Network got confused",
+  "type": "error",
+}
+`;
+
+exports[`LocationsView display text \`getListLocationsResultMessage\` returns the expected values in the search limit exhausted scenario 1`] = `
+{
+  "content": "No more folders or files found by something to look for.",
+  "type": "warning",
+}
+`;
+
+exports[`LocationsView display text returns the expected values from getPermissionName 1`] = `"Read"`;
+
+exports[`LocationsView display text returns the expected values from getPermissionName 2`] = `"Write"`;
+
+exports[`LocationsView display text returns the expected values from getPermissionName 3`] = `"Read/Write"`;
+
+exports[`LocationsView display text should match snapshot values 1`] = `
+{
+  "getDownloadLabel": [Function],
+  "getListLocationsResultMessage": [Function],
+  "getPermissionName": [Function],
+  "loadingIndicatorLabel": "Loading",
+  "searchClearLabel": "Clear search",
+  "searchPlaceholder": "Filter folders and files",
+  "searchSubmitLabel": "Submit",
+  "tableColumnActionsHeader": "Actions",
+  "tableColumnBucketHeader": "Bucket",
+  "tableColumnFolderHeader": "Folder",
+  "tableColumnPermissionsHeader": "Permissions",
+  "title": "Home",
+}
+`;

@@ -7,51 +7,77 @@ export const DEFAULT_UPLOAD_VIEW_DISPLAY_TEXT: DefaultUploadViewDisplayText = {
   actionStartLabel: 'Upload',
   addFilesLabel: 'Add files',
   addFolderLabel: 'Add folder',
-  getActionCompleteMessage: (_counts) => {
-    // if (counts.FAILED === counts.TOTAL) {
-    //   return 'All uploads failed to complete.';
-    // }
+  getActionCompleteMessage: (data) => {
+    const { counts } = data ?? {};
+    const { COMPLETE, FAILED, OVERWRITE_PREVENTED } = counts ?? {};
 
-    // if (counts.CANCELED === counts.TOTAL) {
-    //   return 'All uploads canceled.';
-    // }
+    const hasPreventedOverwrite = !!OVERWRITE_PREVENTED;
+    const hasFailure = !!FAILED;
+    const hasSuccess = !!COMPLETE;
 
-    // if (counts.OVERWRITE_PREVENTED === counts.TOTAL) {
-    //   return 'Overwrite prevention applied to all uploads.';
-    // }
+    const preventedOverwriteMessage = !hasPreventedOverwrite
+      ? undefined
+      : `Overwrite prevented for ${OVERWRITE_PREVENTED} file${
+          OVERWRITE_PREVENTED > 1 ? 's' : ''
+        }`;
 
-    // if (counts.TOTAL === counts.COMPLETE) {
-    //   return 'All uploads completed successfully.';
-    // }
+    const failedMessage = !hasFailure
+      ? undefined
+      : `${FAILED} file${FAILED > 1 ? 's' : ''} failed to upload`;
 
-    // const prefix = 'All uploads complete';
+    const completedMessage = !hasSuccess
+      ? undefined
+      : `${COMPLETE} file${COMPLETE > 1 ? 's' : ''} uploaded`;
 
-    // const succeeded = `${counts.COMPLETE} uploads successful`;
-    // const overwritePrevented = `overwrite prevention applied to ${counts.OVERWRITE_PREVENTED} uploads`;
-    // const _canceled = `${counts.CANCELED} uploads canceled`;
-    // const _failed = `${counts.FAILED} uploads failed`;
+    const type = hasFailure
+      ? 'error'
+      : hasPreventedOverwrite
+      ? 'warning'
+      : 'success';
 
-    // // succeeded & errors
-    // // succeeded & errors & cancellations
-    // // succeeded & errors & cancellations & overwrite prevented
-    // // succeeded & cancellations
-    // // succeeded & cancellations & overwrite prevented
-    // // errors & cancellations
-    // // errors & cancellations & overwrite prevented
-    // // succeeded & cancellations & overwrite prevented
-    // // succeeded & overwrite prevented
-    // if (counts.TOTAL === counts.COMPLETE + counts.OVERWRITE_PREVENTED) {
-    //   return `${prefix}. ${succeeded}, ${overwritePrevented}.`;
-    // }
+    // some failures, some prevented overwrites, some success
+    if (hasFailure && hasPreventedOverwrite && hasSuccess) {
+      return {
+        content: `${preventedOverwriteMessage}, ${failedMessage}, ${completedMessage}.`,
+        type,
+      };
+    }
 
-    // const hasErrors = counts.FAILED > 0;
-    // const _hasCanceledTasks = counts.CANCELED > 0;
+    // some failures, some prevented overwrites, no success
+    if (hasFailure && hasPreventedOverwrite && !hasSuccess) {
+      return {
+        content: `${preventedOverwriteMessage}, ${failedMessage}.`,
+        type,
+      };
+    }
 
-    // if (hasErrors) {
-    //   return `All uploads complete. ${counts.COMPLETE} of ${counts.TOTAL} uploads successful, ${counts.FAILED} uploads failed to complete.`;
-    // }
+    // some failures, no overwrite, some success
+    if (hasFailure && !hasPreventedOverwrite && hasSuccess) {
+      return {
+        content: `${failedMessage}, ${completedMessage}.`,
+        type,
+      };
+    }
 
-    return '🤷';
+    // no failures, some prevented overwrites, some success
+    if (!hasFailure && hasPreventedOverwrite && hasSuccess) {
+      return {
+        content: `${preventedOverwriteMessage}, ${completedMessage}.`,
+        type,
+      };
+    }
+
+    // all failures
+    if (hasFailure && !hasPreventedOverwrite && !hasSuccess) {
+      return { content: 'All files failed to upload.', type };
+    }
+
+    // all prevented overwrites
+    if (!hasFailure && hasPreventedOverwrite && !hasSuccess) {
+      return { content: 'Overwrite prevented for all files.', type };
+    }
+
+    return { content: 'All files uploaded.', type };
   },
   statusDisplayOverwritePreventedLabel: 'Overwrite prevented',
   overwriteToggleLabel: 'Overwrite existing files',

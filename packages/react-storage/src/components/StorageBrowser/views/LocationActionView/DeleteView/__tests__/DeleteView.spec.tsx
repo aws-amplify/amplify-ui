@@ -23,7 +23,11 @@ jest.spyOn(Config, 'useGetActionInput').mockReturnValue(() => ({
 }));
 
 jest.mock('../../../../displayText', () => ({
-  useDisplayText: () => ({ DeleteView: {} }),
+  useDisplayText: () => ({
+    DeleteView: {
+      getActionCompleteMessage: jest.fn(),
+    },
+  }),
 }));
 
 const mockControlsContextProvider = jest.fn(
@@ -176,7 +180,7 @@ describe('DeleteView', () => {
       ],
     };
 
-    useDeleteViewSpy.mockReturnValueOnce(postProcessingViewState);
+    useDeleteViewSpy.mockReturnValue(postProcessingViewState);
 
     render(<DeleteView />);
 

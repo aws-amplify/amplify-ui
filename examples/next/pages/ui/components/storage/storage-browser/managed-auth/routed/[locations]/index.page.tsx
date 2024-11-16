@@ -20,7 +20,9 @@ function Locations() {
         }}
       />
 
-      <StorageBrowser.Provider>
+      <StorageBrowser.Provider
+        displayText={{ LocationsView: { title: 'Home - Routed Managed Auth' } }}
+      >
         <StorageBrowser.LocationsView
           onNavigate={(location) => {
             router.push({

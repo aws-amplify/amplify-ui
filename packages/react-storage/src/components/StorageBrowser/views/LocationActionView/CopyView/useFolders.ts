@@ -98,7 +98,7 @@ export const useFolders = ({
       prefix,
       options: {
         ...DEFAULT_LIST_OPTIONS,
-        search: { query, filterKey: 'key' },
+        search: { query, filterBy: 'key' },
       },
     });
   };

@@ -585,7 +585,7 @@ describe('useLocationDetailView', () => {
       options: {
         ...DEFAULT_LIST_OPTIONS,
         delimiter: '/',
-        search: { filterKey: 'key', query: 'moo' },
+        search: { filterBy: 'key', query: 'moo' },
       },
       prefix: 'item-b-key/',
     });
@@ -635,7 +635,7 @@ describe('useLocationDetailView', () => {
       options: {
         ...DEFAULT_LIST_OPTIONS,
         delimiter: undefined,
-        search: { filterKey: 'key', query: 'moo' },
+        search: { filterBy: 'key', query: 'moo', groupBy: '/' },
       },
       prefix: 'item-b-key/',
     });

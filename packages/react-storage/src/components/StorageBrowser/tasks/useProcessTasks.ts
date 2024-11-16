@@ -170,13 +170,13 @@ export const useProcessTasks: UseProcessTasks = <
       input as TaskHandlerInput<T> & K
     );
 
-    const cancel = () => {
-      if (!_cancel) return;
-
-      const task = getTask();
-      if (task && isFunction(onTaskCancel)) onTaskCancel(task);
-      _cancel();
-    };
+    const cancel = !_cancel
+      ? undefined
+      : () => {
+          const task = getTask();
+          if (task && isFunction(onTaskCancel)) onTaskCancel(task);
+          _cancel();
+        };
 
     result
       .then((output) => {

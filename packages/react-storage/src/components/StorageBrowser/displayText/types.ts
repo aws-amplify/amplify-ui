@@ -1,21 +1,88 @@
-import { StatusCounts } from '../tasks';
+import { StatusCounts, Tasks } from '../tasks';
 import {
+  CopyHandlerData,
+  DeleteHandlerData,
   FolderData,
   LocationData,
   LocationItemData,
+  TaskData,
+  UploadHandlerData,
   LocationPermissions,
 } from '../actions';
 import { LocationState } from '../providers/store/location';
+import { MessageType } from '../composables/Message';
+import { CreateFolderHandlerData } from '../../../../dist/types/components/StorageBrowser/actions';
+
+/**
+ * Common list view display text values
+ */
+export interface DefaultListViewDisplayText {
+  loadingIndicatorLabel: string;
+  searchPlaceholder: string;
+  searchSubmitLabel: string;
+  searchClearLabel: string;
+}
+
+interface ListMessageData {
+  hasError?: boolean;
+  message?: string;
+  hasExhaustedSearch?: boolean;
+  query?: string;
+}
+
+interface ListLocationsMessageData extends ListMessageData {
+  locations: LocationData[] | undefined;
+}
+
+export interface DefaultLocationsViewDisplayText
+  extends DefaultListViewDisplayText {
+  getListLocationsResultMessage: (
+    data?: ListLocationsMessageData
+  ) => { content?: string; type?: MessageType } | undefined;
+  getDownloadLabel: (fileName: string) => string;
+  getPermissionName: (permissions: LocationPermissions) => string;
+  tableColumnActionsHeader: string;
+  tableColumnBucketHeader: string;
+  tableColumnFolderHeader: string;
+  tableColumnPermissionsHeader: string;
+  title: string;
+}
+
+interface ListItemsMessageData extends ListMessageData {
+  items: LocationItemData[] | undefined;
+}
+
+export interface DefaultLocationDetailViewDisplayText
+  extends DefaultListViewDisplayText {
+  getListItemsResultMessage: (
+    data: ListItemsMessageData
+  ) => { content?: string; type?: MessageType } | undefined;
+  searchSubfoldersToggleLabel: string;
+  selectFileLabel: string;
+  selectAllFilesLabel: string;
+  tableColumnLastModifiedHeader: string;
+  tableColumnNameHeader: string;
+  tableColumnSizeHeader: string;
+  tableColumnTypeHeader: string;
+  getTitle: (location: LocationState) => string;
+}
+
+/**
+ * Action view display text values
+ */
 
 /**
  * Common display text values available on each action view (e.g. upload, copy, etc)
  */
-export interface DefaultActionViewDisplayText {
+export interface DefaultActionViewDisplayText<T extends TaskData = TaskData> {
   actionCancelLabel: string;
   actionDestinationLabel: string;
   actionExitLabel: string;
   actionStartLabel: string;
-  getActionCompleteMessage: (counts: StatusCounts) => string;
+  getActionCompleteMessage: (data?: {
+    counts?: StatusCounts;
+    tasks?: Tasks<T>;
+  }) => { content?: string; type?: MessageType } | undefined;
   statusDisplayCanceledLabel: string;
   statusDisplayCompletedLabel: string;
   statusDisplayFailedLabel: string;
@@ -32,63 +99,26 @@ export interface DefaultActionViewDisplayText {
   tableColumnProgressHeader: string;
 }
 
-/**
- * Common list view display text values
- */
-export interface DefaultListViewDisplayText<T = any> {
-  getListResultsMessage: (data: T, error?: Error) => string;
-  loadingIndicatorLabel: string;
-  searchPlaceholder: string;
-  searchSubmitLabel: string;
-  searchClearLabel: string;
-}
-
-export interface DefaultLocationsViewDisplayText
-  extends DefaultListViewDisplayText<LocationData> {
-  getPermissionName: (permissions: LocationPermissions) => string;
-  title: string;
-  tableColumnFolderHeader: string;
-  tableColumnBucketHeader: string;
-  tableColumnPermissionsHeader: string;
-  tableColumnActionsHeader: string;
-  getDownloadLabel: (fileName: string) => string;
-}
-
-export interface DefaultLocationDetailViewDisplayText
-  extends DefaultListViewDisplayText<LocationItemData> {
-  title: (location: LocationState) => string;
-  searchExhaustedMessage: string;
-  searchSubfoldersToggleLabel: string;
-  selectFileLabel: string;
-  selectAllFilesLabel: string;
-  tableColumnLastModifiedHeader: string;
-  tableColumnNameHeader: string;
-  tableColumnSizeHeader: string;
-  tableColumnTypeHeader: string;
-}
-
-/**
- * Action view display text values
- */
-
 export interface DefaultCreateFolderViewDisplayText
-  // `CreateFolderView` does not include that table or status display components
+  // `CreateFolderView` does not include tasks table or status display components
   extends Omit<
-    DefaultActionViewDisplayText,
+    DefaultActionViewDisplayText<CreateFolderHandlerData>,
     `${'tableColumn' | 'statusDisplay'}${string}`
   > {
   folderNameLabel: string;
   folderNamePlaceholder: string;
-  getValidationMessage: (folderName: string) => string;
+  getValidationMessage: (folderName: string) => string | undefined;
+}
+
+interface ListFoldersMessageData extends ListMessageData {
+  folders: FolderData[] | undefined;
 }
 
 export interface DefaultCopyViewDisplayText
-  extends DefaultActionViewDisplayText {
-  getFolderListResultsMessage: (data: {
-    folders: FolderData[] | undefined;
-    query?: string;
-    defaultMessage?: string;
-  }) => string | undefined;
+  extends DefaultActionViewDisplayText<CopyHandlerData> {
+  getListFoldersResultsMessage: (
+    data: ListFoldersMessageData
+  ) => { content?: string; type?: MessageType } | undefined;
   getFolderSelectedMessage: (path: string) => string;
   loadingIndicatorLabel: 'Loading';
   overwriteWarningMessage: string;
@@ -98,10 +128,10 @@ export interface DefaultCopyViewDisplayText
 }
 
 export interface DefaultDeleteViewDisplayText
-  extends DefaultActionViewDisplayText {}
+  extends DefaultActionViewDisplayText<DeleteHandlerData> {}
 
 export interface DefaultUploadViewDisplayText
-  extends DefaultActionViewDisplayText {
+  extends DefaultActionViewDisplayText<UploadHandlerData> {
   addFilesLabel: string;
   addFolderLabel: string;
   statusDisplayOverwritePreventedLabel: string;
@@ -117,15 +147,23 @@ export interface DefaultStorageBrowserDisplayText {
   UploadView: DefaultUploadViewDisplayText;
 }
 
-interface CreateFolderViewDisplayText
+export interface CreateFolderViewDisplayText
   extends Partial<DefaultCreateFolderViewDisplayText> {}
-interface CopyViewDisplayText extends Partial<DefaultCopyViewDisplayText> {}
-interface DeleteViewDisplayText extends Partial<DefaultDeleteViewDisplayText> {}
-interface LocationsViewDisplayText
+
+export interface CopyViewDisplayText
+  extends Partial<DefaultCopyViewDisplayText> {}
+
+export interface DeleteViewDisplayText
+  extends Partial<DefaultDeleteViewDisplayText> {}
+
+export interface LocationsViewDisplayText
   extends Partial<DefaultLocationsViewDisplayText> {}
-interface LocationDetailViewDisplayText
+
+export interface LocationDetailViewDisplayText
   extends Partial<DefaultLocationDetailViewDisplayText> {}
-interface UploadViewDisplayText extends Partial<DefaultUploadViewDisplayText> {}
+
+export interface UploadViewDisplayText
+  extends Partial<DefaultUploadViewDisplayText> {}
 
 export interface StorageBrowserDisplayText {
   LocationsView?: LocationsViewDisplayText;

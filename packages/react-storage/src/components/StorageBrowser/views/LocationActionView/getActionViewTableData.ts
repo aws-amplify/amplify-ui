@@ -23,7 +23,10 @@ const getTaskStatusDisplayLabel = ({
   },
 }: {
   status: TaskStatus;
-  displayText: DefaultActionViewDisplayText & {
+  displayText: Omit<
+    DefaultActionViewDisplayText,
+    'getActionCompleteMessage'
+  > & {
     statusDisplayOverwritePreventedLabel?: string;
   };
 }) => {
@@ -54,16 +57,19 @@ export const getProgressHeader = (label: string): ActionViewHeaders[0] => ({
 export const getActionViewTableData = <T extends TaskData = TaskData>({
   tasks,
   displayText,
-  locationKey,
   isProcessing,
+  locationKey,
   shouldDisplayProgress = false,
   onTaskRemove,
 }: {
   tasks: Task<T>[];
-  locationKey?: string;
   isProcessing: boolean;
+  locationKey?: string;
   shouldDisplayProgress?: boolean;
-  displayText: DefaultActionViewDisplayText & {
+  displayText: Omit<
+    DefaultActionViewDisplayText,
+    'getActionCompleteMessage'
+  > & {
     tableStatusOverwritePreventedLabel?: string;
   };
   onTaskRemove?: (task: Task<T>) => void;
@@ -82,7 +88,7 @@ export const getActionViewTableData = <T extends TaskData = TaskData>({
   }
 
   const rows: DataTableProps['rows'] = tasks.map((task) => {
-    const { data, progress, status } = task;
+    const { cancel, data, progress, status } = task;
     const { id } = data;
     const displayKey = isFileDataItem(data)
       ? data.fileKey
@@ -168,9 +174,12 @@ export const getActionViewTableData = <T extends TaskData = TaskData>({
             };
           }
           case 'cancel': {
+            const isPending = status === 'PENDING';
+            const isQueued = status === 'QUEUED';
+
             const isDisabled =
-              (isProcessing && !task.cancel) ||
-              (status !== 'PENDING' && status !== 'QUEUED');
+              (!isPending && !isQueued) || !cancel || progress === 1;
+
             const ariaLabel = `${
               isProcessing ? 'Cancel' : 'Remove'
             } item: ${displayKey}`;
@@ -181,7 +190,10 @@ export const getActionViewTableData = <T extends TaskData = TaskData>({
               content: {
                 isDisabled,
                 onClick: () => {
-                  isProcessing ? task.cancel() : onTaskRemove?.(task);
+                  if (!isProcessing) {
+                    onTaskRemove?.(task);
+                  }
+                  cancel?.();
                 },
                 ariaLabel,
                 icon: 'cancel',

@@ -56,7 +56,7 @@ describe('createEnhancedListHandler', () => {
     const handler = createEnhancedListHandler(mockAction as Handler);
     const prevState = { items: [], nextToken: undefined };
     const options = {
-      search: { query: 'a', filterKey: 'name' as const },
+      search: { query: 'a', filterBy: 'name' as const },
     };
 
     const result = await handler(prevState, {
@@ -87,7 +87,7 @@ describe('createEnhancedListHandler', () => {
     const handler = createEnhancedListHandler(mockAction as Handler);
     const prevState = { items: [], nextToken: undefined };
     const options = {
-      search: { query: 'a', filterKey: 'name' as const },
+      search: { query: 'a', filterBy: 'name' as const },
     };
 
     const result = await handler(prevState, {
@@ -115,7 +115,7 @@ describe('createEnhancedListHandler', () => {
     const handler = createEnhancedListHandler(mockAction as Handler);
     const prevState = { items: [], nextToken: undefined };
     const options = {
-      search: { query: 'foo', filterKey: 'name' as const },
+      search: { query: 'foo', filterBy: 'name' as const },
     };
 
     const result = await handler(prevState, {
@@ -125,31 +125,6 @@ describe('createEnhancedListHandler', () => {
     });
 
     expect(result.items).toEqual([{ name: 'foo/date/foo' }]);
-    expect(result.nextToken).toBeUndefined();
-  });
-
-  it('should not fail when non-string values are indexed for search', async () => {
-    mockAction.mockResolvedValueOnce({
-      items: [
-        { name: 'a_prefix/apple', id: 1 },
-        { name: 'a_prefix/banana', id: 2 },
-      ],
-      nextToken: null,
-    });
-
-    const handler = createEnhancedListHandler(mockAction as Handler);
-    const prevState = { items: [], nextToken: undefined };
-    const options = {
-      search: { query: 'z', filterKey: 'id' as const },
-    };
-
-    const result = await handler(prevState, {
-      config,
-      prefix: 'a_prefix',
-      options,
-    });
-
-    expect(result.items).toEqual([]);
     expect(result.nextToken).toBeUndefined();
   });
 
@@ -169,7 +144,7 @@ describe('createEnhancedListHandler', () => {
     const handler = createEnhancedListHandler(mockAction as Handler);
     const prevState = { items: [], nextToken: undefined };
     const options = {
-      search: { query: 'item', filterKey: 'name' as const },
+      search: { query: 'item', filterBy: 'name' as const },
     };
 
     const result = await handler(prevState, {
