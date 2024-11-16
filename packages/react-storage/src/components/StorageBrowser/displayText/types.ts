@@ -119,7 +119,6 @@ export interface DefaultCopyViewDisplayText
   getListFoldersResultsMessage: (
     data: ListFoldersMessageData
   ) => { content?: string; type?: MessageType } | undefined;
-  getFolderSelectedMessage: (path: string) => string;
   loadingIndicatorLabel: 'Loading';
   overwriteWarningMessage: string;
   searchPlaceholder: string;

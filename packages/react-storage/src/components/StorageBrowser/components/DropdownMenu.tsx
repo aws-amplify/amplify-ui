@@ -96,6 +96,7 @@ export function DropdownMenu({
                 icon={icon}
                 label={label}
                 onClick={() => {
+                  setIsOpen(false);
                   onItemSelect?.(id);
                 }}
               />

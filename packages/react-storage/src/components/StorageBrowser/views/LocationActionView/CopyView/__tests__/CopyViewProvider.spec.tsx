@@ -89,7 +89,6 @@ const defaultViewState: CopyViewState = {
   destinationList: [],
   folders: {
     hasError: false,
-    hasInitialized: false,
     hasNextPage: false,
     highestPageVisited: 1,
     page: 1,

@@ -3,7 +3,6 @@
 exports[`useFolders should return the correct initial state 1`] = `
 {
   "hasError": false,
-  "hasInitialized": false,
   "hasNextPage": true,
   "highestPageVisited": 1,
   "isLoading": false,
