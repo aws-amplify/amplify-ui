@@ -194,6 +194,45 @@ describe('LocationDetailView', () => {
       items: expect.any(Array),
       hasError: true,
       message: errorMessage,
+      hasExhaustedSearch: false,
+    });
+  });
+
+  it('invokes getListItemsResultMessage() with expected params when there is a download error', () => {
+    mockUseProcessTasks.mockReturnValueOnce([
+      {
+        isProcessing: false,
+        isProcessingComplete: false,
+        statusCounts: {
+          ...INITIAL_STATUS_COUNTS,
+          FAILED: 1,
+        },
+        tasks: [
+          {
+            data: { key: 'test-key', id: '123' },
+            message: 'NotFound',
+            progress: 0,
+            status: 'FAILED',
+          },
+        ],
+      },
+      jest.fn(),
+    ]);
+
+    mockListItemsAction({
+      isLoading: false,
+      hasError: false,
+      result: [{ key: 'test1', type: 'FOLDER' }],
+      nextToken: 'some-token',
+    });
+
+    render(<LocationDetailView />);
+
+    expect(mockGetListItemsResultMessage).toHaveBeenCalledWith({
+      items: expect.any(Array),
+      hasError: true,
+      message: 'Failed to download test-key due to error: NotFound.',
+      hasExhaustedSearch: false,
     });
   });
 
@@ -274,6 +313,7 @@ describe('LocationDetailView', () => {
     expect(mockGetListItemsResultMessage).toHaveBeenCalledWith({
       items: expect.any(Array),
       hasExhaustedSearch: true,
+      hasError: false,
       message: undefined,
     });
 

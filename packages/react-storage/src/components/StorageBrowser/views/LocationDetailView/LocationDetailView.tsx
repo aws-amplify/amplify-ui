@@ -1,5 +1,5 @@
 import React from 'react';
-import { MessageProps } from '../../composables/Message';
+
 import { ViewElement } from '../../context/elements';
 import { ActionsListControl } from '../../controls/ActionsListControl';
 import { DataTableControl } from '../../controls/DataTableControl';
@@ -60,7 +60,9 @@ export function LocationDetailView({
     fileDataItems,
     hasFiles,
     hasError,
+    hasDownloadError,
     message,
+    downloadErrorMessage,
     searchQuery,
     hasExhaustedSearch,
     onActionSelect,
@@ -78,25 +80,12 @@ export function LocationDetailView({
     onToggleSearchSubfolders,
   } = useLocationDetailView(props);
 
-  let messageControlContent: MessageProps | undefined;
-
-  if (hasError) {
-    messageControlContent = getListItemsResultMessage({
-      items: pageItems,
-      hasError,
-      message,
-    });
-  } else if (hasExhaustedSearch) {
-    messageControlContent = getListItemsResultMessage({
-      items: pageItems,
-      hasExhaustedSearch,
-      message,
-    });
-  } else {
-    messageControlContent = getListItemsResultMessage({
-      items: pageItems,
-    });
-  }
+  const messageControlContent = getListItemsResultMessage({
+    items: pageItems,
+    hasError: hasError || hasDownloadError,
+    hasExhaustedSearch,
+    message: hasError ? message : downloadErrorMessage,
+  });
 
   return (
     <div
