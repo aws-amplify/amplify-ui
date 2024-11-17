@@ -499,7 +499,7 @@ describe('useLocationDetailView', () => {
     });
     expect(mockDispatchStoreAction).toHaveBeenCalledWith({
       type: 'SET_ACTION_TYPE',
-      actionType: 'UPLOAD_FILES',
+      actionType: 'upload',
     });
   });
 
@@ -522,7 +522,7 @@ describe('useLocationDetailView', () => {
     });
     expect(mockDispatchStoreAction).toHaveBeenCalledWith({
       type: 'SET_ACTION_TYPE',
-      actionType: 'UPLOAD_FOLDER',
+      actionType: 'upload',
     });
   });
 
@@ -548,7 +548,7 @@ describe('useLocationDetailView', () => {
     });
     expect(mockDispatchStoreAction).toHaveBeenCalledWith({
       type: 'SET_ACTION_TYPE',
-      actionType: 'UPLOAD_FILES',
+      actionType: 'upload',
     });
   });
 

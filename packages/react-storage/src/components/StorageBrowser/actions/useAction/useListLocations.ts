@@ -18,7 +18,7 @@ import {
 
 // Utility type functioning as a shim to allow for the outputted
 // enhanced `ListLocations` handler to not require `config` and `prefix`
-// in usage, which are reequired by the signature of `createEnhancedListHandler`
+// in usage, which are required by the signature of `createEnhancedListHandler`
 type RemoveConfigAndPrefix<T> = Omit<T, 'prefix' | 'config'>;
 
 export interface UseListLocationsState

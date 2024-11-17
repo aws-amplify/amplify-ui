@@ -11,7 +11,6 @@ import {
   LocationItemData,
   listLocationItemsHandler,
 } from '../../actions';
-import { isFile } from '../utils';
 import { createEnhancedListHandler } from '../../actions/useAction/createEnhancedListHandler';
 import { useGetActionInput } from '../../providers/configuration';
 import { LocationState } from '../../providers/store/location';
@@ -277,13 +276,9 @@ export function useLocationDetailView(
     },
     onDropFiles: (files: File[]) => {
       dispatchStoreAction({ type: 'ADD_FILE_ITEMS', files });
-      const actionType = files.some((file) => isFile(file))
-        ? 'UPLOAD_FILES'
-        : 'UPLOAD_FOLDER';
-      dispatchStoreAction({
-        type: 'SET_ACTION_TYPE',
-        actionType,
-      });
+
+      const actionType = 'upload';
+      dispatchStoreAction({ type: 'SET_ACTION_TYPE', actionType });
       options?.onActionSelect?.(actionType);
     },
     onDownload: (data: FileDataItem) => {

@@ -1,8 +1,5 @@
 import { isFunction, isString } from '@aws-amplify/ui';
 
-// checks if a dropped item is a file or a folder, as a folder will not have a type
-export const isFile = (file: File): boolean => file.type !== '';
-
 export const getPercentValue = (value: number): number =>
   Math.round(value * 100);
 

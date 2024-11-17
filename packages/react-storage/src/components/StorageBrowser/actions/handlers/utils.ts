@@ -103,14 +103,14 @@ export const shouldExcludeLocation = (
   { permissions, type }: LocationData,
   exclude?: ListLocationsExcludeOptions
 ): boolean => {
-  const excludeByPermssion = !!(
+  const excludedByPermssions = !!(
     exclude?.exactPermissions &&
     isSamePermissions(exclude.exactPermissions, permissions)
   );
 
-  const excludeByType = !!(exclude?.type && isSameType(exclude.type, type));
+  const excludedByType = !!(exclude?.type && isSameType(exclude.type, type));
 
-  return excludeByPermssion || excludeByType;
+  return excludedByPermssions || excludedByType;
 };
 
 export const getFilteredLocations = (
