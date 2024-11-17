@@ -5,7 +5,7 @@ import {
   ListHandlerOptions,
   ListHandlerInput,
   ListHandlerOutput,
-} from './handlers';
+} from '../handlers';
 
 type KeyWithStringValue<T> = keyof {
   [P in keyof T as T[P] extends string ? P : never]: T[P];
@@ -36,14 +36,17 @@ export interface SearchOutput {
   hasExhaustedSearch: boolean;
 }
 
-interface EnhancedListHandlerOutput<T> extends ListHandlerOutput<T> {
+export interface EnhancedListHandlerOutput<T> extends ListHandlerOutput<T> {
   search?: SearchOutput;
 }
 
-interface EnhancedListHandler<T, K>
+export interface EnhancedListHandlerInput<T, K>
+  extends ListHandlerInput<EnhancedListHandlerOptions<T, K>> {}
+
+export interface EnhancedListHandler<T, K>
   extends AsyncDataAction<
     EnhancedListHandlerOutput<T>,
-    ListHandlerInput<EnhancedListHandlerOptions<T, K>>
+    EnhancedListHandlerInput<T, K>
   > {}
 
 type ListItem<Action> = Action extends ListHandler<

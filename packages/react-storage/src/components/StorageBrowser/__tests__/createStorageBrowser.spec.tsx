@@ -1,7 +1,6 @@
 import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 
-import * as ActionsModule from '../do-not-import-from-here/actions';
 import * as ProvidersModule from '../providers';
 
 import { createStorageBrowser } from '../createStorageBrowser';
@@ -11,26 +10,6 @@ const createConfigurationProviderSpy = jest.spyOn(
   ProvidersModule,
   'createConfigurationProvider'
 );
-
-jest.spyOn(ActionsModule, 'useLocationsData').mockReturnValue([
-  {
-    isLoading: false,
-    data: { result: [], nextToken: undefined },
-    hasError: false,
-    message: undefined,
-  },
-  jest.fn(),
-]);
-
-jest.spyOn(ActionsModule, 'useAction').mockReturnValue([
-  {
-    data: { result: [], nextToken: undefined },
-    hasError: false,
-    isLoading: false,
-    message: undefined,
-  },
-  jest.fn(),
-]);
 
 const accountId = '012345678901';
 const customEndpoint = 'mock-endpoint';
@@ -78,6 +57,7 @@ describe('createStorageBrowser', () => {
       region: config.region,
       registerAuthListener: config.registerAuthListener,
       actions: {
+        copy: expect.any(Object),
         createFolder: expect.any(Object),
         delete: expect.any(Object),
         listLocationItems: expect.any(Object),

@@ -5,7 +5,9 @@ export {
   ComponentName,
   defaultActionConfigs,
   DefaultActionConfigs,
+  defaultActionViewConfigs,
   DefaultActionKey,
+  isDefaultActionViewType,
   SelectionType,
   TaskActionConfig,
   useActionConfig,
@@ -18,6 +20,7 @@ export {
   CopyHandlerData,
   CopyHandlerInput,
   CopyHandlerOutput,
+  createFileDataItemFromLocation,
   createFileDataItem,
   createFolderHandler,
   CreateFolderHandler,
@@ -51,6 +54,10 @@ export {
   ListLocationItemsHandlerInput,
   ListLocationItemsHandlerOptions,
   ListLocationItemsHandlerOutput,
+  ListLocationsExcludeOptions,
+  ListLocations,
+  ListLocationsInput,
+  ListLocationsOutput,
   listLocationsHandler,
   ListLocationsHandler,
   ListLocationsHandlerInput,
@@ -72,3 +79,7 @@ export {
   UploadHandlerOptions,
   UploadHandlerOutput,
 } from './handlers';
+
+export { ActionState } from './types';
+
+export { useListLocations, UseListLocationsState } from './useAction';

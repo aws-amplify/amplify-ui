@@ -6,7 +6,7 @@ import { usePaginate } from '../../hooks/usePaginate';
 import { listLocationItemsHandler, FolderData } from '../../../actions';
 import { useGetActionInput } from '../../../providers/configuration';
 
-import { createEnhancedListHandler } from '../../../actions/createEnhancedListHandler';
+import { createEnhancedListHandler } from '../../../actions/useAction/createEnhancedListHandler';
 import { useSearch } from '../../hooks/useSearch';
 import {
   ListLocationItemsHandlerInput,

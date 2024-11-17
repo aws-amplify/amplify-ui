@@ -1,9 +1,9 @@
-import { createListLocationsHandler } from './createListLocationsHandler';
 import { createLocationCredentialsHandler } from './createLocationCredentialsHandler';
 import {
   StorageBrowserAuthAdapter,
   CreateManagedAuthAdapterInput,
 } from '../types';
+import { listLocationsHandler, ListLocationsInput } from '../../actions';
 
 /**
  * Create configuration including handlers to call S3 Access Grant APIs to list and get
@@ -19,12 +19,15 @@ export const createManagedAuthAdapter = ({
   region,
   registerAuthListener,
 }: CreateManagedAuthAdapterInput): StorageBrowserAuthAdapter => {
-  const listLocations = createListLocationsHandler({
-    credentialsProvider,
+  const config = {
     accountId,
+    credentials: credentialsProvider,
     customEndpoint,
     region,
-  });
+  };
+
+  const listLocations = ({ options }: ListLocationsInput = {}) =>
+    listLocationsHandler({ config, options });
 
   const getLocationCredentials = createLocationCredentialsHandler({
     credentialsProvider,

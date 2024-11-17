@@ -1,38 +1,34 @@
-import { ListLocationsOutput } from '../types';
+import { ListLocationsHandlerOutput, LocationData } from '../../actions';
 
 export const getPaginatedLocations = ({
-  locations,
+  items,
   pageSize,
   nextToken,
 }: {
-  locations: ListLocationsOutput['locations'];
+  items: LocationData[];
   pageSize?: number;
   nextToken?: string;
-}): { locations: ListLocationsOutput['locations']; nextToken?: string } => {
+}): ListLocationsHandlerOutput => {
   if (pageSize) {
     if (nextToken) {
-      if (Number(nextToken) > locations.length) {
-        return { locations: [], nextToken: undefined };
+      if (Number(nextToken) > items.length) {
+        return { items: [], nextToken: undefined };
       }
       const start = -nextToken;
       const end = start + pageSize < 0 ? start + pageSize : undefined;
 
       return {
-        locations: locations.slice(start, end),
+        items: items.slice(start, end),
         nextToken: end ? `${-end}` : undefined,
       };
     }
 
     return {
-      locations: locations.slice(0, pageSize),
+      items: items.slice(0, pageSize),
       nextToken:
-        locations.length > pageSize
-          ? `${locations.length - pageSize}`
-          : undefined,
+        items.length > pageSize ? `${items.length - pageSize}` : undefined,
     };
   }
 
-  return {
-    locations,
-  };
+  return { items, nextToken: undefined };
 };

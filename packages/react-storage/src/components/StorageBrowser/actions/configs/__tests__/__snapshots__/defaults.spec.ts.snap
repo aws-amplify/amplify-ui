@@ -2,6 +2,17 @@
 
 exports[`defaultActionConfigs matches expected shape 1`] = `
 {
+  "copy": {
+    "actionsListItemConfig": {
+      "disable": [Function],
+      "hide": [Function],
+      "icon": "download",
+      "label": "Copy Files",
+    },
+    "componentName": "CopyView",
+    "displayName": "Copy",
+    "handler": [Function],
+  },
   "createFolder": {
     "actionsListItemConfig": {
       "disable": [Function],
@@ -18,7 +29,7 @@ exports[`defaultActionConfigs matches expected shape 1`] = `
     "actionsListItemConfig": {
       "disable": [Function],
       "hide": [Function],
-      "icon": "delete",
+      "icon": "delete-file",
       "label": "Delete Files",
     },
     "componentName": "DeleteView",
@@ -36,22 +47,13 @@ exports[`defaultActionConfigs matches expected shape 1`] = `
     "handler": [Function],
   },
   "upload": {
-    "actionsListItemConfig": [
-      {
-        "disable": [Function],
-        "fileSelection": "FILE",
-        "hide": [Function],
-        "icon": "upload-file",
-        "label": "Upload File",
-      },
-      {
-        "disable": [Function],
-        "fileSelection": "FOLDER",
-        "hide": [Function],
-        "icon": "upload-folder",
-        "label": "Upload FOLDER",
-      },
-    ],
+    "actionsListItemConfig": {
+      "disable": [Function],
+      "fileSelection": "FILE",
+      "hide": [Function],
+      "icon": "upload-file",
+      "label": "Upload",
+    },
     "componentName": "UploadView",
     "displayName": "Upload",
     "handler": [Function],

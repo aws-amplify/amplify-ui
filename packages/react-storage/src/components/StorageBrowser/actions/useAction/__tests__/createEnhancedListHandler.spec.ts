@@ -7,7 +7,7 @@ import {
   ListHandler,
   ListHandlerInput,
   ListHandlerOutput,
-} from '../handlers';
+} from '../../handlers';
 
 const mockAction = jest.fn();
 
