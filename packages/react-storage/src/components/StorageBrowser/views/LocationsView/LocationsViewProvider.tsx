@@ -60,7 +60,6 @@ export function LocationsViewProvider({
           page,
           hasNextPage,
           highestPageVisited,
-          onPaginate,
         },
         title,
         searchPlaceholder,
@@ -69,8 +68,9 @@ export function LocationsViewProvider({
         searchQuery,
         message: messageControlContent,
       }}
-      onSearch={onSearch}
+      onPaginate={onPaginate}
       onRefresh={onRefresh}
+      onSearch={onSearch}
       onSearchQueryChange={onSearchQueryChange}
       onSearchClear={onSearchClear}
     >

@@ -1,17 +1,17 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { PaginationControl } from '../PaginationControl';
-import { usePagination } from '../hooks/usePagination';
+import { SearchFieldControl } from '../SearchFieldControl';
+import { useSearchField } from '../hooks/useSearchField';
 import { useResolvedComposable } from '../hooks/useResolvedComposable';
 
-jest.mock('../hooks/usePagination');
+jest.mock('../hooks/useSearchField');
 jest.mock('../hooks/useResolvedComposable');
-jest.mock('../../composables/Pagination', () => ({
-  Pagination: () => <div data-testid="pagination" />,
+jest.mock('../../composables/SearchField', () => ({
+  SearchField: () => <div data-testid="search-field" />,
 }));
 
-describe('PaginationControl', () => {
-  const mockUsePagination = jest.mocked(usePagination);
+describe('SearchFieldControl', () => {
+  const mockUseSearchField = jest.mocked(useSearchField);
   const mockUseResolvedComposable = jest.mocked(useResolvedComposable);
 
   beforeAll(() => {
@@ -21,13 +21,13 @@ describe('PaginationControl', () => {
   });
 
   afterEach(() => {
-    mockUsePagination.mockClear();
+    mockUseSearchField.mockClear();
   });
 
   it('renders', () => {
-    render(<PaginationControl />);
+    render(<SearchFieldControl />);
 
-    const searchSubfoldersToggle = screen.getByTestId('pagination');
+    const searchSubfoldersToggle = screen.getByTestId('search-field');
 
     expect(searchSubfoldersToggle).toBeInTheDocument();
   });
