@@ -94,7 +94,7 @@ export function CopyViewProvider({
         actionStartLabel,
         destination,
         isActionCancelDisabled,
-        isActionDestinationNavigable: true,
+        isActionDestinationNavigable: !isProcessing && !isProcessingComplete,
         isActionExitDisabled: isProcessing,
         isActionStartDisabled,
         isLoading,
