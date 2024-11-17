@@ -8,12 +8,12 @@ import { useGetActionInput } from '../../../providers/configuration';
 
 import { createEnhancedListHandler } from '../../../actions/createEnhancedListHandler';
 import { useSearch } from '../../hooks/useSearch';
-import { getDestinationListFullPrefix } from './utils';
 import {
   ListLocationItemsHandlerInput,
   ListHandlerOutput,
 } from '../../../actions';
 import { FoldersState } from './types';
+import { LocationState } from '../../../providers/store/location';
 
 const DEFAULT_PAGE_SIZE = 100;
 export const DEFAULT_LIST_OPTIONS = {
@@ -28,20 +28,20 @@ export type ListFoldersAction = (
   input: ListLocationItemsHandlerInput
 ) => Promise<ListHandlerOutput<FolderData>>;
 
+interface UseFoldersInput {
+  destination: LocationState;
+  setDestination: (destination: LocationState) => void;
+}
+
 const listLocationItemsAction = createEnhancedListHandler(
   listLocationItemsHandler as ListFoldersAction
 );
 
 export const useFolders = ({
-  destinationList,
-  onDestinationChange,
-}: {
-  destinationList?: string[];
-  onDestinationChange?: (destinationList: string[]) => void;
-}): FoldersState => {
-  const prefix = !destinationList
-    ? ''
-    : getDestinationListFullPrefix(destinationList);
+  destination,
+  setDestination,
+}: UseFoldersInput): FoldersState => {
+  const { current, key } = destination;
 
   const [{ data, hasError, isLoading, message }, handleList] = useDataState(
     listLocationItemsAction,
@@ -55,10 +55,10 @@ export const useFolders = ({
   const onInitialize = React.useCallback(() => {
     handleList({
       config: getInput(),
-      prefix,
+      prefix: key,
       options: { ...DEFAULT_REFRESH_OPTIONS },
     });
-  }, [getInput, handleList, prefix]);
+  }, [getInput, handleList, key]);
 
   const hasNextToken = !!nextToken;
 
@@ -67,7 +67,7 @@ export const useFolders = ({
 
     handleList({
       config: getInput(),
-      prefix,
+      prefix: key,
       options: { ...DEFAULT_LIST_OPTIONS, nextToken },
     });
   };
@@ -89,7 +89,7 @@ export const useFolders = ({
     handleReset();
     handleList({
       config: getInput(),
-      prefix,
+      prefix: key,
       options: {
         ...DEFAULT_LIST_OPTIONS,
         search: { query, filterBy: 'key' },
@@ -97,14 +97,16 @@ export const useFolders = ({
     });
   };
 
-  const onSelect = (name: string) => {
-    const newPath = !destinationList
-      ? undefined
-      : [...destinationList, name.replace('/', '')];
+  const onSelectFolder = (id: string, folderLocationPath: string) => {
+    if (!current) {
+      return;
+    }
 
-    if (!newPath) return;
-
-    onDestinationChange?.(newPath);
+    setDestination({
+      current: { ...current, id },
+      path: folderLocationPath,
+      key: `${current.prefix ?? ''}${folderLocationPath}`,
+    });
   };
 
   const {
@@ -132,10 +134,10 @@ export const useFolders = ({
       resetSearch();
       handleList({
         config: getInput(),
-        prefix,
+        prefix: key,
         options: { ...DEFAULT_REFRESH_OPTIONS },
       });
     },
-    onSelect,
+    onSelectFolder,
   };
 };

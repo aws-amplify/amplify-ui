@@ -6,6 +6,7 @@ import { LocationData } from '../../../../actions';
 import * as Store from '../../../../providers/store';
 import * as Config from '../../../../providers/configuration';
 import { DEFAULT_LIST_OPTIONS, useFolders } from '../useFolders';
+import { LocationState } from '../../../../providers/store/location';
 
 const mockDispatchStoreAction = jest.fn();
 const mockHandleList = jest.fn();
@@ -37,6 +38,20 @@ const mockItems = [
 ];
 
 describe('useFolders', () => {
+  const location = {
+    current: {
+      prefix: 'prefix1/',
+      bucket: 'bucket',
+      id: 'id',
+      permissions: ['get', 'list'],
+      type: 'PREFIX',
+    } as LocationData,
+    path: '',
+    key: 'prefix1/',
+  };
+
+  const mockSetDestination = jest.fn();
+
   beforeEach(() => {
     jest.clearAllMocks();
 
@@ -44,17 +59,7 @@ describe('useFolders', () => {
       {
         actionType: 'COPY',
         files: [],
-        location: {
-          current: {
-            prefix: 'test-prefix/',
-            bucket: 'bucket',
-            id: 'id',
-            permissions: ['get', 'list'],
-            type: 'PREFIX',
-          } as LocationData,
-          path: '',
-          key: 'test-prefix/',
-        },
+        location,
         locationItems: {
           fileDataItems: [
             {
@@ -89,9 +94,7 @@ describe('useFolders', () => {
     ]);
 
     const { result } = renderHook(() =>
-      useFolders({
-        destinationList: ['prefix1'],
-      })
+      useFolders({ destination: location, setDestination: mockSetDestination })
     );
 
     await waitFor(() => {
@@ -99,7 +102,7 @@ describe('useFolders', () => {
     });
   });
 
-  it('should update the reference of onInitialize on destinationList change', () => {
+  it('should update the reference of onInitialize on destination change', () => {
     jest.spyOn(AmplifyReactCore, 'useDataState').mockReturnValue([
       {
         data: {
@@ -115,15 +118,22 @@ describe('useFolders', () => {
 
     const { rerender, result } = renderHook(
       (
-        props: { destinationList: string[] } = {
-          destinationList: ['prefix1'],
+        props: { destination: LocationState; setDestination: () => void } = {
+          destination: location,
+          setDestination: mockSetDestination,
         }
       ) => useFolders(props)
     );
     const initial = result.current.onInitialize;
 
     rerender({
-      destinationList: ['prefix1', 'subfolder1'],
+      destination: {
+        ...location,
+        current: { ...location.current },
+        path: 'subfolder1/',
+        key: `${location.current.prefix}subfolder1/`,
+      },
+      setDestination: mockSetDestination,
     });
 
     const next = result.current.onInitialize;
@@ -145,9 +155,7 @@ describe('useFolders', () => {
       mockHandleList,
     ]);
     const { result } = renderHook(() =>
-      useFolders({
-        destinationList: ['prefix1'],
-      })
+      useFolders({ destination: location, setDestination: mockSetDestination })
     );
 
     act(() => {
@@ -198,7 +206,7 @@ describe('useFolders', () => {
     ]);
 
     const { result } = renderHook(() =>
-      useFolders({ destinationList: ['prefix1'] })
+      useFolders({ destination: location, setDestination: mockSetDestination })
     );
 
     act(() => {

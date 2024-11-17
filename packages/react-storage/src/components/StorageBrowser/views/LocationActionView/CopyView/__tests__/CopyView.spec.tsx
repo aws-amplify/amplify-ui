@@ -15,6 +15,11 @@ jest.mock('../CopyViewProvider', () => ({
 jest.mock('../../../../controls/ActionCancelControl', () => ({
   ActionCancelControl: () => <div data-testid="ActionCancelControl" />,
 }));
+jest.mock('../../../../controls/ActionDestinationControl', () => ({
+  ActionDestinationControl: () => (
+    <div data-testid="ActionDestinationControl" />
+  ),
+}));
 jest.mock('../../../../controls/ActionExitControl', () => ({
   ActionExitControl: () => <div data-testid="ActionExitControl" />,
 }));
@@ -38,10 +43,6 @@ jest.mock('../../../../controls/StatusDisplayControl', () => ({
 }));
 jest.mock('../../../../controls/TitleControl', () => ({
   TitleControl: () => <div data-testid="TitleControl" />,
-}));
-
-jest.mock('../DestinationControl', () => ({
-  DestinationControl: () => <div data-testid="DestinationControl" />,
 }));
 jest.mock('../FoldersMessageControl', () => ({
   FoldersMessageControl: () => <div data-testid="FoldersMessageControl" />,
@@ -95,7 +96,9 @@ describe('CopyView', () => {
     expect(screen.queryByTestId('ActionExitControl')).toBeInTheDocument();
     expect(screen.queryByTestId('ActionStartControl')).toBeInTheDocument();
     expect(screen.queryByTestId('DataTableControl')).toBeInTheDocument();
-    expect(screen.queryByTestId('DestinationControl')).toBeInTheDocument();
+    expect(
+      screen.queryByTestId('ActionDestinationControl')
+    ).toBeInTheDocument();
     expect(screen.queryByTestId('FoldersMessageControl')).toBeInTheDocument();
     expect(
       screen.queryByTestId('FoldersPaginationControl')
@@ -126,7 +129,9 @@ describe('CopyView', () => {
     expect(screen.queryByTestId('ActionExitControl')).toBeInTheDocument();
     expect(screen.queryByTestId('ActionStartControl')).toBeInTheDocument();
     expect(screen.queryByTestId('DataTableControl')).toBeInTheDocument();
-    expect(screen.queryByTestId('DestinationControl')).toBeInTheDocument();
+    expect(
+      screen.queryByTestId('ActionDestinationControl')
+    ).toBeInTheDocument();
 
     expect(screen.queryByTestId('MessageControl')).toBeInTheDocument();
     expect(screen.queryByTestId('StatusDisplayControl')).toBeInTheDocument();
@@ -160,7 +165,9 @@ describe('CopyView', () => {
     expect(screen.queryByTestId('ActionExitControl')).toBeInTheDocument();
     expect(screen.queryByTestId('ActionStartControl')).toBeInTheDocument();
     expect(screen.queryByTestId('DataTableControl')).toBeInTheDocument();
-    expect(screen.queryByTestId('DestinationControl')).toBeInTheDocument();
+    expect(
+      screen.queryByTestId('ActionDestinationControl')
+    ).toBeInTheDocument();
 
     expect(screen.queryByTestId('MessageControl')).toBeInTheDocument();
     expect(screen.queryByTestId('StatusDisplayControl')).toBeInTheDocument();

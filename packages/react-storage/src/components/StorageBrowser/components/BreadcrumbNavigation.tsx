@@ -10,6 +10,7 @@ import {
 
 import { STORAGE_BROWSER_BLOCK_TO_BE_UPDATED } from '../constants';
 import { isFunction } from '@aws-amplify/ui';
+import { Separator } from './Separator';
 
 export interface BreadcrumbProps {
   isCurrent?: boolean;
@@ -19,18 +20,8 @@ export interface BreadcrumbProps {
 
 interface BreadcrumbNavigationProps {
   breadcrumbs: BreadcrumbProps[];
+  role?: React.AriaRole;
 }
-
-const Separator = () => {
-  return (
-    <SpanElement
-      aria-hidden
-      className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__breadcrumb-separator`}
-    >
-      /
-    </SpanElement>
-  );
-};
 
 export const Breadcrumb = ({
   isCurrent,
@@ -55,7 +46,7 @@ export const Breadcrumb = ({
         ) : (
           <SpanElement
             className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__breadcrumb-text`}
-            variant="navigate-text"
+            variant="navigation-text"
           >
             {name}
           </SpanElement>
@@ -66,13 +57,15 @@ export const Breadcrumb = ({
   );
 };
 
-export const BreadcrumbNavigation = ({
+export function BreadcrumbNavigation({
   breadcrumbs,
-}: BreadcrumbNavigationProps): React.JSX.Element => {
+  role = 'navigation',
+}: BreadcrumbNavigationProps): React.JSX.Element {
   return (
     <NavElement
       aria-label={'Breadcrumb'}
       className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__breadcrumb`}
+      role={role}
     >
       <OrderedListElement
         className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__breadcrumb-list`}
@@ -90,4 +83,4 @@ export const BreadcrumbNavigation = ({
       </OrderedListElement>
     </NavElement>
   );
-};
+}

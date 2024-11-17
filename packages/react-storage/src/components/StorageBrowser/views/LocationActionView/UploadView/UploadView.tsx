@@ -1,8 +1,6 @@
 import React from 'react';
 
-import { DescriptionList } from '../../../components/DescriptionList';
 import { ViewElement } from '../../../context/elements';
-
 import { ActionCancelControl } from '../../../controls/ActionCancelControl';
 import { ActionExitControl } from '../../../controls/ActionExitControl';
 import { ActionStartControl } from '../../../controls/ActionStartControl';
@@ -22,7 +20,7 @@ import { resolveClassName } from '../../utils';
 import { getActionViewTableData } from '../getActionViewTableData';
 import { useUploadView } from './useUploadView';
 import { UploadViewProps } from './types';
-import { Breadcrumb } from '../../../components/BreadcrumbNavigation';
+import { ActionDestinationControl } from '../../../controls/ActionDestinationControl';
 
 export function UploadView({
   className,
@@ -67,7 +65,6 @@ export function UploadView({
   const isAddFilesDisabled = isProcessing || isProcessingComplete;
   const isAddFolderDisabled = isProcessing || isProcessingComplete;
   const isActionExitDisabled = isProcessing;
-  const destinationList = (location.key || '/').split('/');
 
   const message = isProcessingComplete
     ? getActionCompleteMessage({
@@ -80,6 +77,7 @@ export function UploadView({
       <ControlsContextProvider
         data={{
           actionCancelLabel,
+          actionDestinationLabel,
           actionExitLabel,
           actionStartLabel,
           addFilesLabel,
@@ -89,9 +87,11 @@ export function UploadView({
           isActionStartDisabled,
           isAddFilesDisabled,
           isAddFolderDisabled,
+          isActionDestinationNavigable: false,
           isOverwriteToggleDisabled: isProcessing || isProcessingComplete,
           isOverwritingEnabled,
           overwriteToggleLabel,
+          destination: location,
           message,
           statusCounts,
           statusDisplayCanceledLabel,
@@ -132,25 +132,7 @@ export function UploadView({
           <DataTableControl />
         </DropZoneControl>
         <ViewElement className={`${STORAGE_BROWSER_BLOCK}__summary`}>
-          <DescriptionList
-            className={`${STORAGE_BROWSER_BLOCK}__destination`}
-            descriptions={[
-              {
-                term: `${actionDestinationLabel}:`,
-                details: (
-                  <>
-                    {destinationList.map((key, index) => (
-                      <Breadcrumb
-                        isCurrent={index === destinationList.length - 1}
-                        key={`${key}-${index}`}
-                        name={key}
-                      />
-                    ))}
-                  </>
-                ),
-              },
-            ]}
-          />
+          <ActionDestinationControl />
           <StatusDisplayControl />
         </ViewElement>
         <ViewElement className={`${STORAGE_BROWSER_BLOCK}__footer`}>
