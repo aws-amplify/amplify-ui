@@ -288,6 +288,12 @@ Then('I see the button containing {string}', (name: string) => {
   }).should('exist');
 });
 
+Then('I do not see the button containing {string}', (name: string) => {
+  cy.findByRole('button', {
+    name: new RegExp(`${escapeRegExp(name)}`, 'i'),
+  }).should('not.exist');
+});
+
 Then('I see the first button containing {string}', (name: string) => {
   cy.findAllByRole('button', {
     name: new RegExp(`${escapeRegExp(name)}`, 'i'),
@@ -545,6 +551,13 @@ When('I type an invalid no lower case new password', () => {
 When('I type my new password', () => {
   cy.findInputField('New Password').type(Cypress.env('VALID_PASSWORD'));
 });
+
+When(
+  'I see input with placeholder {string} and type {string}',
+  (name: string, value: string) => {
+    cy.findByPlaceholderText(name).type(value);
+  }
+);
 
 Then('I click the submit button', () => {
   /**
