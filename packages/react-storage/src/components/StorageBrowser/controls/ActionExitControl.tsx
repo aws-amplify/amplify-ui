@@ -1,12 +1,13 @@
 import React from 'react';
 
-import { useResolvedComposable } from './hooks/useResolvedComposable';
 import { ActionExit } from '../composables/ActionExit';
+
 import { useActionExit } from './hooks/useActionExit';
+import { useResolvedComposable } from './hooks/useResolvedComposable';
 
 export const ActionExitControl = (): React.JSX.Element => {
   const props = useActionExit();
-  const ResolvedActionExit = useResolvedComposable(ActionExit, 'ActionExit');
+  const Resolved = useResolvedComposable(ActionExit, 'ActionExit');
 
-  return <ResolvedActionExit {...props} />;
+  return <Resolved {...props} />;
 };

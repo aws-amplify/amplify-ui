@@ -118,6 +118,16 @@ const useDeleteViewSpy = jest
 describe('DeleteView', () => {
   afterEach(jest.clearAllMocks);
 
+  it('has the expected composable components', () => {
+    expect(DeleteView.Cancel).toBeDefined();
+    expect(DeleteView.Exit).toBeDefined();
+    expect(DeleteView.Message).toBeDefined();
+    expect(DeleteView.Start).toBeDefined();
+    expect(DeleteView.Statuses).toBeDefined();
+    expect(DeleteView.TasksTable).toBeDefined();
+    expect(DeleteView.Title).toBeDefined();
+  });
+
   it('provides the expected values to `ControlsContextProvider` on initial render', () => {
     render(<DeleteView />);
 

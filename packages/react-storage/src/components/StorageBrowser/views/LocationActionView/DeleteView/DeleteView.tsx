@@ -1,92 +1,29 @@
 import React from 'react';
 
-import { ControlsContextProvider } from '../../../controls/context';
 import { ViewElement } from '../../../context/elements';
 import { ActionCancelControl } from '../../../controls/ActionCancelControl';
 import { ActionExitControl } from '../../../controls/ActionExitControl';
 import { ActionStartControl } from '../../../controls/ActionStartControl';
 import { DataTableControl } from '../../../controls/DataTableControl';
+import { MessageControl } from '../../../controls/MessageControl';
 import { StatusDisplayControl } from '../../../controls/StatusDisplayControl';
 import { TitleControl } from '../../../controls/TitleControl';
 
-import { useDisplayText } from '../../../displayText';
 import { STORAGE_BROWSER_BLOCK } from '../../../constants';
-import { resolveClassName } from '../../utils';
 
-import { getActionViewTableData } from '../getActionViewTableData';
+import { DeleteViewProvider } from './DeleteViewProvider';
 import { useDeleteView } from './useDeleteView';
-import { DeleteViewProps } from './types';
-import { MessageControl } from '../../Controls';
+import { DeleteViewInterface } from './types';
 
-export function DeleteView({
-  className,
-  ...props
-}: DeleteViewProps): React.JSX.Element {
-  const { DeleteView: displayText } = useDisplayText();
-  const {
-    actionCancelLabel,
-    actionExitLabel,
-    actionStartLabel,
-    title,
-    statusDisplayCanceledLabel,
-    statusDisplayCompletedLabel,
-    statusDisplayFailedLabel,
-    statusDisplayQueuedLabel,
-    getActionCompleteMessage,
-  } = displayText;
-
-  const {
-    isProcessing,
-    isProcessingComplete,
-    location,
-    statusCounts,
-    tasks,
-    onActionCancel,
-    onActionStart,
-    onActionExit,
-    onTaskRemove,
-  } = useDeleteView(props);
-
-  const message = isProcessingComplete
-    ? getActionCompleteMessage({ counts: statusCounts })
-    : undefined;
-
-  const tableData = getActionViewTableData({
-    tasks,
-    locationKey: location.key,
-    isProcessing,
-    displayText,
-    onTaskRemove,
-  });
+export const DeleteView: DeleteViewInterface = ({ className, ...props }) => {
+  const state = useDeleteView(props);
 
   return (
-    <div className={resolveClassName(STORAGE_BROWSER_BLOCK, className)}>
-      <ControlsContextProvider
-        data={{
-          actionCancelLabel,
-          actionExitLabel,
-          actionStartLabel,
-          isActionCancelDisabled: !isProcessing || isProcessingComplete,
-          isActionExitDisabled: isProcessing,
-          isActionStartDisabled: isProcessing || isProcessingComplete,
-          statusDisplayCanceledLabel,
-          statusDisplayCompletedLabel,
-          statusDisplayFailedLabel,
-          statusDisplayQueuedLabel,
-          statusCounts,
-          tableData,
-          title,
-          message,
-        }}
-        onActionStart={onActionStart}
-        onActionExit={onActionExit}
-        onActionCancel={onActionCancel}
-      >
+    <ViewElement className={className}>
+      <DeleteViewProvider {...state}>
         <ActionExitControl />
         <TitleControl />
-
         <DataTableControl />
-
         <ViewElement className={`${STORAGE_BROWSER_BLOCK}__summary`}>
           <StatusDisplayControl />
         </ViewElement>
@@ -99,7 +36,19 @@ export function DeleteView({
             <ActionStartControl />
           </ViewElement>
         </ViewElement>
-      </ControlsContextProvider>
-    </div>
+      </DeleteViewProvider>
+    </ViewElement>
   );
-}
+};
+
+DeleteView.displayName = 'DeleteView';
+
+DeleteView.Provider = DeleteViewProvider;
+
+DeleteView.Cancel = ActionCancelControl;
+DeleteView.Exit = ActionExitControl;
+DeleteView.Message = MessageControl;
+DeleteView.Start = ActionStartControl;
+DeleteView.Statuses = StatusDisplayControl;
+DeleteView.TasksTable = DataTableControl;
+DeleteView.Title = TitleControl;

@@ -1,9 +1,10 @@
-import { getLocationsViewTableData } from '../getLocationsViewTableData';
-import { LocationViewHeaders } from '../getLocationsViewTableData/types';
-import { DEFAULT_LOCATIONS_VIEW_DISPLAY_TEXT } from '../../../displayText/libraries/en/locationsView';
 import { LocationData } from '../../../actions';
+import { DEFAULT_LOCATIONS_VIEW_DISPLAY_TEXT } from '../../../displayText/libraries/en/locationsView';
 
-const { getPermissionName } = DEFAULT_LOCATIONS_VIEW_DISPLAY_TEXT;
+import { getLocationsViewTableData } from '../getLocationsViewTableData';
+import { getHeaders } from '../getLocationsViewTableData/getHeaders';
+
+jest.mock('../getLocationsViewTableData/getHeaders');
 
 describe('getLocationsViewTableData', () => {
   const folderLocation1: LocationData = {
@@ -31,32 +32,34 @@ describe('getLocationsViewTableData', () => {
     permissions: ['list'],
   };
 
-  const headers: LocationViewHeaders = [
-    {
-      key: 'folder',
-      type: 'sort',
-      content: { label: 'Folder' },
-    },
-    {
-      key: 'bucket',
-      type: 'sort',
-      content: { label: 'Bucket' },
-    },
-    {
-      key: 'permission',
-      type: 'sort',
-      content: { label: 'Permission' },
-    },
-    {
-      key: 'action',
-      type: 'sort',
-      content: { label: 'Actions' },
-    },
-  ];
-
-  // create mocks
+  const mockGetHeaders = jest.mocked(getHeaders);
   const mockOnNavigate = jest.fn();
   const mockOnDownload = jest.fn();
+
+  beforeAll(() => {
+    mockGetHeaders.mockReturnValue([
+      {
+        key: 'folder',
+        type: 'sort',
+        content: { label: 'Folder' },
+      },
+      {
+        key: 'bucket',
+        type: 'sort',
+        content: { label: 'Bucket' },
+      },
+      {
+        key: 'permission',
+        type: 'sort',
+        content: { label: 'Permission' },
+      },
+      {
+        key: 'action',
+        type: 'sort',
+        content: { label: 'Actions' },
+      },
+    ]);
+  });
 
   afterEach(() => {
     mockOnNavigate.mockClear();
@@ -68,9 +71,7 @@ describe('getLocationsViewTableData', () => {
         onDownload: mockOnDownload,
         pageItems: [folderLocation1],
         onNavigate: mockOnNavigate,
-        headers,
-        getDownloadLabel: () => 'download',
-        getPermissionName,
+        displayText: DEFAULT_LOCATIONS_VIEW_DISPLAY_TEXT,
       })
     ).toStrictEqual({
       headers: [
@@ -114,9 +115,7 @@ describe('getLocationsViewTableData', () => {
         onDownload: mockOnDownload,
         pageItems: [objectLocation],
         onNavigate: mockOnNavigate,
-        headers,
-        getDownloadLabel: () => 'download',
-        getPermissionName,
+        displayText: DEFAULT_LOCATIONS_VIEW_DISPLAY_TEXT,
       })
     ).toMatchObject({
       rows: [
@@ -154,9 +153,7 @@ describe('getLocationsViewTableData', () => {
         onDownload: mockOnDownload,
         pageItems: [listOnlyObjectLocation],
         onNavigate: mockOnNavigate,
-        headers,
-        getDownloadLabel: () => 'download',
-        getPermissionName,
+        displayText: DEFAULT_LOCATIONS_VIEW_DISPLAY_TEXT,
       })
     ).toMatchObject({
       rows: [
@@ -195,9 +192,7 @@ describe('getLocationsViewTableData', () => {
         pageItems: [{ ...folderLocation1, prefix: '' }],
         onNavigate: mockOnNavigate,
         onDownload: mockOnDownload,
-        headers,
-        getDownloadLabel: () => 'download',
-        getPermissionName,
+        displayText: DEFAULT_LOCATIONS_VIEW_DISPLAY_TEXT,
       })
     ).toStrictEqual(
       expect.objectContaining({
@@ -222,9 +217,7 @@ describe('getLocationsViewTableData', () => {
       pageItems: [folderLocation1, folderLocation2],
       onNavigate: mockOnNavigate,
       onDownload: mockOnDownload,
-      headers,
-      getDownloadLabel: () => 'download',
-      getPermissionName,
+      displayText: DEFAULT_LOCATIONS_VIEW_DISPLAY_TEXT,
     });
     const [row1FirstContent] = tableData.rows[0].content;
     const [row2FirstContent] = tableData.rows[1].content;

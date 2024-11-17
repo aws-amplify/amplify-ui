@@ -1,7 +1,11 @@
-import { CopyHandlerData, CreateFolderHandlerData } from '../../../actions';
+import {
+  CopyHandlerData,
+  CreateFolderHandlerData,
+  LocationData,
+} from '../../../actions';
 
 import {
-  ActionViewComponent,
+  ActionViewInterface,
   ActionViewState,
   ActionViewProps,
 } from '../types';
@@ -17,5 +21,20 @@ export interface CreateFolderViewProps
   extends ActionViewProps,
     Partial<CreateFolderViewState> {}
 
-export interface CreateFolderViewComponent
-  extends ActionViewComponent<CopyHandlerData, CreateFolderViewProps> {}
+export interface CreateFolderViewProviderProps extends CreateFolderViewState {
+  children?: React.ReactNode;
+}
+
+export interface CreateFolderViewInterface
+  extends ActionViewInterface<CopyHandlerData, CreateFolderViewProps> {
+  Provider: (props: CreateFolderViewProviderProps) => React.JSX.Element;
+  Exit: () => React.JSX.Element | null;
+  NameField: () => React.JSX.Element | null;
+  Message: () => React.JSX.Element | null;
+  Start: () => React.JSX.Element | null;
+  Title: () => React.JSX.Element | null;
+}
+
+export interface UseCreateFolderViewOptions {
+  onExit?: (location?: LocationData) => void;
+}
