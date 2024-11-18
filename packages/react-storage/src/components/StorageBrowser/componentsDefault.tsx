@@ -187,7 +187,14 @@ const ActionsList: Components['ActionsList'] = ({
   isDisabled,
 }) => {
   return (
-    <Menu isDisabled={isDisabled}>
+    <Menu
+      isDisabled={isDisabled}
+      trigger={
+        <Button ariaLabel="Menu Toggle">
+          <IconElement className="amplify-icon" variant="menu" />
+        </Button>
+      }
+    >
       {items
         .filter(({ isHidden }) => !isHidden)
         .map(({ actionType, icon, label, isDisabled }, i) => {
