@@ -6,12 +6,14 @@ export const getActionIcon = (status: TaskStatus | 'CANCELED'): IconVariant => {
     case 'PENDING': {
       return 'action-progress';
     }
-    case 'COMPLETE':
-    case 'OVERWRITE_PREVENTED': {
+    case 'COMPLETE': {
       return 'action-success';
     }
     case 'FAILED': {
       return 'action-error';
+    }
+    case 'OVERWRITE_PREVENTED': {
+      return 'info';
     }
     case 'CANCELED': {
       return 'action-canceled';
