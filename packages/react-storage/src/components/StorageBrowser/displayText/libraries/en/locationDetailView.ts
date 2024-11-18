@@ -52,7 +52,7 @@ export const DEFAULT_LOCATION_DETAIL_VIEW_DISPLAY_TEXT: DefaultLocationDetailVie
     tableColumnTypeHeader: 'Type',
     selectFileLabel: 'Select file',
     selectAllFilesLabel: 'Select all files',
-    getActionListItemLabel: (key: string | undefined = '') => {
+    getActionListItemLabel: (key: string = '') => {
       switch (key) {
         case 'Copy':
           return 'Copy';
