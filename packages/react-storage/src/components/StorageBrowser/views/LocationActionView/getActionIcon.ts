@@ -13,7 +13,7 @@ export const getActionIcon = (status: TaskStatus | 'CANCELED'): IconVariant => {
       return 'action-error';
     }
     case 'OVERWRITE_PREVENTED': {
-      return 'info';
+      return 'action-info';
     }
     case 'CANCELED': {
       return 'action-canceled';
