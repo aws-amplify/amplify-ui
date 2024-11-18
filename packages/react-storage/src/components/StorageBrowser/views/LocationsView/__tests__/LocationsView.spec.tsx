@@ -150,6 +150,7 @@ describe('LocationsListView', () => {
 
     expect(mockGetListLocationsResultMessage).toHaveBeenCalledWith({
       locations: expect.any(Array),
+      isLoading: false,
       hasError: true,
       message: errorMessage,
     });
@@ -163,6 +164,30 @@ describe('LocationsListView', () => {
     expect(nextPage).toBeDisabled();
     const prevPage = screen.getByLabelText('Go to previous page');
     expect(prevPage).toBeDisabled();
+  });
+
+  it('does not show Message when items are being loaded', () => {
+    useListLocationsSpy.mockReturnValue([
+      {
+        data: {
+          items: [],
+          nextToken: undefined,
+          search: { hasExhaustedSearch: false },
+        },
+        hasError: false,
+        isLoading: true,
+        message: undefined,
+      },
+      handleListLocations,
+    ]);
+
+    render(<LocationsView />);
+
+    expect(mockGetListLocationsResultMessage).toHaveBeenCalledWith({
+      locations: [],
+      isLoading: true,
+      hasError: false,
+    });
   });
 
   it('renders a Locations View table', () => {

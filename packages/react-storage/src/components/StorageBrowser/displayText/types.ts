@@ -28,6 +28,7 @@ interface ListMessageData {
   message?: string;
   hasExhaustedSearch?: boolean;
   query?: string;
+  isLoading?: boolean;
 }
 
 interface ListLocationsMessageData extends ListMessageData {

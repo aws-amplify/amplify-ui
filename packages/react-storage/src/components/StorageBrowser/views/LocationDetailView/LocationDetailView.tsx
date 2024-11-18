@@ -81,6 +81,7 @@ export function LocationDetailView({
   } = useLocationDetailView(props);
 
   const messageControlContent = getListItemsResultMessage({
+    isLoading,
     items: pageItems,
     hasError: hasError || hasDownloadError,
     hasExhaustedSearch,
@@ -161,12 +162,12 @@ export function LocationDetailView({
           />
           <ActionsListControl />
         </ViewElement>
-        <LoadingIndicatorControl />
         {hasError ? null : (
           <DropZoneControl>
             <DataTableControl />
           </DropZoneControl>
         )}
+        <LoadingIndicatorControl />
         <ViewElement className={`${STORAGE_BROWSER_BLOCK}__message`}>
           <MessageControl />
         </ViewElement>

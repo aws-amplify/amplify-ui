@@ -103,6 +103,7 @@ export function LocationsView({
 
   // TODO: add hasExhaustedSearch + query param
   const messageControlContent = getListLocationsResultMessage({
+    isLoading,
     locations: pageItems,
     hasError,
     message,
@@ -140,6 +141,7 @@ export function LocationsView({
         searchClearLabel,
         searchSubmitLabel,
         searchQuery,
+        isLoading,
         message: messageControlContent,
       }}
       onSearch={onSearch}
@@ -167,8 +169,8 @@ export function LocationsView({
             className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__locations-view-data-refresh`}
           />
         </ViewElement>
-        <LoadingIndicatorControl />
         {hasError ? null : <DataTableControl />}
+        <LoadingIndicatorControl />
         <ViewElement className={`${STORAGE_BROWSER_BLOCK}__message`}>
           <MessageControl />
         </ViewElement>
