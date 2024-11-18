@@ -45,6 +45,7 @@ export interface FoldersState {
   page: number;
   pageItems: FolderData[];
   query: string;
+  hasExhaustedSearch: boolean;
   onInitialize: () => void;
   onPaginate: (page: number) => void;
   onQuery: (value: string) => void;

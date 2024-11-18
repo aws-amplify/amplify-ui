@@ -53,6 +53,7 @@ export function CopyViewProvider({
     hasError: hasFoldersError,
     message: foldersErrorMessage,
     query,
+    hasExhaustedSearch,
     isLoading,
     page,
     pageItems,
@@ -134,6 +135,7 @@ export function CopyViewProvider({
             hasError={hasFoldersError}
             message={foldersErrorMessage}
             query={query}
+            hasExhaustedSearch={hasExhaustedSearch}
           >
             {children}
           </FoldersMessageProvider>
