@@ -111,6 +111,7 @@ exports[`@aws-amplify/ui-react/internal exports should match snapshot 1`] = `
   "IconVisibilityOff",
   "IconWarning",
   "PrimitiveCatalog",
+  "STORAGE_BROWSER_ICON_PATHS",
   "useAuth",
   "useColorMode",
   "useDeprecationWarning",
