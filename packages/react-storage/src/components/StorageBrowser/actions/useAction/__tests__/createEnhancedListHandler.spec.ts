@@ -118,6 +118,7 @@ describe('createEnhancedListHandler', () => {
       })
       .mockResolvedValueOnce({
         items: [
+          { name: 'melon', alt: 'aka-melon' },
           { name: 'foo/bar/cherry', alt: '' },
           { name: 'date', alt: '' },
         ],
@@ -142,6 +143,7 @@ describe('createEnhancedListHandler', () => {
 
     expect(result.items).toEqual([
       expect.objectContaining({ name: 'banana' }),
+      expect.objectContaining({ name: 'melon', alt: 'aka-melon' }),
       expect.objectContaining({ name: 'foo/bar/cherry' }),
       expect.objectContaining({ name: 'date' }),
     ]);
