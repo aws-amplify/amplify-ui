@@ -1,21 +1,14 @@
 import React from 'react';
 
 import { Navigation } from '../composables/Navigation';
-import { ViewElement } from '../context/elements';
-import { ControlProps } from './types';
-import { useResolvedComposable } from './hooks/useResolvedComposable';
-import { useNavigation } from './hooks/useNavigation';
 
-export const NavigationControl = ({
-  className,
-}: ControlProps): React.JSX.Element | null => {
+import { useNavigation } from './hooks/useNavigation';
+import { useResolvedComposable } from './hooks/useResolvedComposable';
+
+export const NavigationControl = (): React.JSX.Element => {
   const props = useNavigation();
 
-  const ResolvedNavigation = useResolvedComposable(Navigation, 'Navigation');
+  const Resolved = useResolvedComposable(Navigation, 'Navigation');
 
-  return (
-    <ViewElement className={className}>
-      <ResolvedNavigation {...props} />
-    </ViewElement>
-  );
+  return <Resolved {...props} />;
 };

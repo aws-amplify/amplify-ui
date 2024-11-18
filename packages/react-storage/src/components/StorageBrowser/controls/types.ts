@@ -6,10 +6,6 @@ import { Composables } from '../composables/types';
 import { LocationState } from '../providers/store/location';
 import { StatusCounts } from '../tasks';
 
-export interface ControlProps {
-  className?: string;
-}
-
 export interface Controls {
   props: React.ComponentProps<Composables[keyof Composables]>;
 }

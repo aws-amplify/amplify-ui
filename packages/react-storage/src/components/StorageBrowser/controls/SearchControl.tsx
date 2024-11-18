@@ -1,10 +1,11 @@
 import React from 'react';
 
 import { SearchField } from '../composables/SearchField';
-import { useResolvedComposable } from './hooks/useResolvedComposable';
-import { useControlsContext } from './context';
 
-export const SearchControl = (): React.JSX.Element | null => {
+import { useControlsContext } from './context';
+import { useResolvedComposable } from './hooks/useResolvedComposable';
+
+export const SearchControl = (): React.JSX.Element => {
   const { data, onSearch, onSearchQueryChange, onSearchClear } =
     useControlsContext();
   const {
@@ -13,10 +14,10 @@ export const SearchControl = (): React.JSX.Element | null => {
     searchQuery,
     searchSubmitLabel,
   } = data;
-  const ResolvedSearch = useResolvedComposable(SearchField, 'SearchField');
+  const Resolved = useResolvedComposable(SearchField, 'SearchField');
 
   return (
-    <ResolvedSearch
+    <Resolved
       placeholder={searchPlaceholder}
       query={searchQuery}
       clearLabel={searchClearLabel}

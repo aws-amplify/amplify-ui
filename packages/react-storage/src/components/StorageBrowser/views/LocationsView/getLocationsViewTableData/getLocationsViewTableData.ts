@@ -1,22 +1,35 @@
 import { DataTableProps } from '../../../composables/DataTable';
-import { LocationData, LocationPermissions } from '../../../actions';
-import { LocationViewHeaders } from './types';
+import { LocationData } from '../../../actions';
+import { getHeaders } from './getHeaders';
+import { DefaultLocationsViewDisplayText } from '../../../displayText/types';
 
 export const getLocationsViewTableData = ({
+  displayText,
   pageItems,
   onNavigate,
   onDownload,
-  headers,
-  getDownloadLabel,
-  getPermissionName,
 }: {
+  displayText: DefaultLocationsViewDisplayText;
   pageItems: LocationData[];
   onNavigate: (location: LocationData) => void;
-  headers: LocationViewHeaders;
   onDownload: (location: LocationData) => void;
-  getDownloadLabel: (fileName: string) => string;
-  getPermissionName: (permissions: LocationPermissions) => string;
 }): DataTableProps => {
+  const {
+    tableColumnActionsHeader,
+    tableColumnBucketHeader,
+    tableColumnFolderHeader,
+    tableColumnPermissionsHeader,
+    getDownloadLabel,
+    getPermissionName,
+  } = displayText;
+  const headers = getHeaders({
+    hasObjectLocations: pageItems.some(({ type }) => type === 'OBJECT'),
+    tableColumnActionsHeader,
+    tableColumnBucketHeader,
+    tableColumnFolderHeader,
+    tableColumnPermissionsHeader,
+  });
+
   const rows: DataTableProps['rows'] = pageItems.map((location) => {
     const { bucket, id, permissions, prefix } = location;
     return {

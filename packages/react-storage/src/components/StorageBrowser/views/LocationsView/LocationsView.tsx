@@ -1,156 +1,29 @@
 import React from 'react';
 
-import { ViewElement } from '../../context/elements';
-import { DataRefreshControl } from '../../controls/DataRefreshControl';
-import { DataTableControl } from '../../controls/DataTableControl';
-import { LoadingIndicatorControl } from '../../controls/LoadingIndicatorControl';
-import { PaginationControl } from '../../controls/PaginationControl';
-import { SearchControl } from '../../controls/SearchControl';
-import { TitleControl } from '../../controls/TitleControl';
-import { ControlsContextProvider } from '../../controls/context';
-import { useDisplayText } from '../../displayText';
 import {
   STORAGE_BROWSER_BLOCK,
   STORAGE_BROWSER_BLOCK_TO_BE_UPDATED,
 } from '../../constants';
-import { resolveClassName } from '../utils';
-import { getLocationsViewTableData } from './getLocationsViewTableData';
-import { LocationViewHeaders } from './getLocationsViewTableData/types';
-import { useLocationsView } from './useLocationsView';
-import { LocationsViewProps } from './types';
+import { ViewElement } from '../../context/elements';
+import { DataRefreshControl } from '../../controls/DataRefreshControl';
+import { DataTableControl } from '../../controls/DataTableControl';
+import { LoadingIndicatorControl } from '../../controls/LoadingIndicatorControl';
 import { MessageControl } from '../../controls/MessageControl';
+import { PaginationControl } from '../../controls/PaginationControl';
+import { SearchControl } from '../../controls/SearchControl';
+import { TitleControl } from '../../controls/TitleControl';
 
-const getHeaders = ({
-  hasObjectLocations,
-  tableColumnBucketHeader,
-  tableColumnFolderHeader,
-  tableColumnPermissionsHeader,
-  tableColumnActionsHeader,
-}: {
-  hasObjectLocations: boolean;
-  tableColumnBucketHeader: string;
-  tableColumnFolderHeader: string;
-  tableColumnPermissionsHeader: string;
-  tableColumnActionsHeader: string;
-}): LocationViewHeaders => {
-  const headers: LocationViewHeaders = [
-    {
-      key: 'folder',
-      type: 'sort',
-      content: { label: tableColumnFolderHeader },
-    },
-    {
-      key: 'bucket',
-      type: 'sort',
-      content: { label: tableColumnBucketHeader },
-    },
-    {
-      key: 'permission',
-      type: 'sort',
-      content: { label: tableColumnPermissionsHeader },
-    },
-  ];
+import { LocationsViewProvider } from './LocationsViewProvider';
+import { LocationsViewType } from './types';
+import { useLocationsView } from './useLocationsView';
 
-  if (hasObjectLocations) {
-    headers.push({
-      key: 'action',
-      type: 'sort',
-      content: { label: tableColumnActionsHeader },
-    });
-  }
-
-  return headers;
-};
-
-export function LocationsView({
-  className,
-  ...props
-}: LocationsViewProps): React.JSX.Element {
-  const {
-    LocationsView: {
-      loadingIndicatorLabel,
-      title,
-      tableColumnBucketHeader,
-      tableColumnFolderHeader,
-      tableColumnPermissionsHeader,
-      tableColumnActionsHeader,
-      searchPlaceholder,
-      searchSubmitLabel,
-      searchClearLabel,
-      getDownloadLabel,
-      getPermissionName,
-      getListLocationsResultMessage,
-    },
-  } = useDisplayText();
-
-  const {
-    hasError,
-    hasNextPage,
-    highestPageVisited,
-    page,
-    isLoading,
-    searchQuery,
-    pageItems,
-    message,
-    onDownload,
-    onRefresh,
-    onPaginate,
-    onNavigate,
-    onSearch,
-    onSearchQueryChange,
-    onSearchClear,
-  } = useLocationsView(props);
-
-  // TODO: add hasExhaustedSearch + query param
-  const messageControlContent = getListLocationsResultMessage({
-    locations: pageItems,
-    hasError,
-    message,
-  });
-
-  const headers = getHeaders({
-    hasObjectLocations: pageItems.some(({ type }) => type === 'OBJECT'),
-    tableColumnBucketHeader,
-    tableColumnFolderHeader,
-    tableColumnPermissionsHeader,
-    tableColumnActionsHeader,
-  });
+export const LocationsView: LocationsViewType = ({ className, ...props }) => {
+  const state = useLocationsView(props);
+  const { hasError } = state;
 
   return (
-    <ControlsContextProvider
-      data={{
-        isDataRefreshDisabled: isLoading,
-        loadingIndicatorLabel,
-        tableData: getLocationsViewTableData({
-          getPermissionName,
-          headers,
-          pageItems,
-          onDownload,
-          onNavigate,
-          getDownloadLabel,
-        }),
-        paginationData: {
-          page,
-          hasNextPage,
-          highestPageVisited,
-          onPaginate,
-        },
-        title,
-        searchPlaceholder,
-        searchClearLabel,
-        searchSubmitLabel,
-        searchQuery,
-        message: messageControlContent,
-      }}
-      onSearch={onSearch}
-      onRefresh={onRefresh}
-      onSearchQueryChange={onSearchQueryChange}
-      onSearchClear={onSearchClear}
-    >
-      <div
-        className={resolveClassName(STORAGE_BROWSER_BLOCK, className)}
-        data-testid="LOCATIONS_VIEW"
-      >
+    <ViewElement className={className} data-testid="LOCATIONS_VIEW">
+      <LocationsViewProvider {...state}>
         <TitleControl />
         <ViewElement
           className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__location-detail-view-controls`}
@@ -160,19 +33,27 @@ export function LocationsView({
           >
             <SearchControl />
           </ViewElement>
-          <PaginationControl
-            className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__locations-view-pagination`}
-          />
-          <DataRefreshControl
-            className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__locations-view-data-refresh`}
-          />
+          <PaginationControl />
+          <DataRefreshControl />
         </ViewElement>
         <LoadingIndicatorControl />
         {hasError ? null : <DataTableControl />}
         <ViewElement className={`${STORAGE_BROWSER_BLOCK}__message`}>
           <MessageControl />
         </ViewElement>
-      </div>
-    </ControlsContextProvider>
+      </LocationsViewProvider>
+    </ViewElement>
   );
-}
+};
+
+LocationsView.displayName = 'LocationsView';
+
+LocationsView.Provider = LocationsViewProvider;
+
+LocationsView.LoadingIndicator = LoadingIndicatorControl;
+LocationsView.LocationsTable = DataTableControl;
+LocationsView.Message = MessageControl;
+LocationsView.Pagination = PaginationControl;
+LocationsView.Refresh = DataRefreshControl;
+LocationsView.Search = SearchControl;
+LocationsView.Title = TitleControl;

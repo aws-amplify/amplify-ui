@@ -1,10 +1,11 @@
 import React from 'react';
 
 import { Message } from '../composables/Message';
+
 import { useMessage } from './hooks/useMessage';
 import { useResolvedComposable } from './hooks/useResolvedComposable';
 
-export const MessageControl = (): React.JSX.Element | null => {
+export const MessageControl = (): React.JSX.Element => {
   const props = useMessage();
 
   const Resolved = useResolvedComposable(Message, 'Message');

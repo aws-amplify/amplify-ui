@@ -97,6 +97,21 @@ const useUploadViewSpy = jest
 describe('UploadView', () => {
   afterEach(jest.clearAllMocks);
 
+  it('has the expected composable components', () => {
+    expect(UploadView.AddFiles).toBeDefined();
+    expect(UploadView.AddFolder).toBeDefined();
+    expect(UploadView.Cancel).toBeDefined();
+    expect(UploadView.Destination).toBeDefined();
+    expect(UploadView.DropZone).toBeDefined();
+    expect(UploadView.Exit).toBeDefined();
+    expect(UploadView.Message).toBeDefined();
+    expect(UploadView.OverwriteToggle).toBeDefined();
+    expect(UploadView.Start).toBeDefined();
+    expect(UploadView.Statuses).toBeDefined();
+    expect(UploadView.TasksTable).toBeDefined();
+    expect(UploadView.Title).toBeDefined();
+  });
+
   it('provides the expected boolean flags to `ControlsContextProvider` prior to processing when tasks is empty', () => {
     render(<UploadView />);
 

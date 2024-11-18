@@ -1,16 +1,17 @@
 import React from 'react';
 
 import { ActionDestination } from '../composables/ActionDestination';
-import { useResolvedComposable } from './hooks/useResolvedComposable';
+
 import { useActionDestination } from './hooks/useActionDestination';
+import { useResolvedComposable } from './hooks/useResolvedComposable';
 
 export const ActionDestinationControl = (): React.JSX.Element => {
   const props = useActionDestination();
 
-  const ResolvedActionDestination = useResolvedComposable(
+  const Resolved = useResolvedComposable(
     ActionDestination,
     'ActionDestination'
   );
 
-  return <ResolvedActionDestination {...props} />;
+  return <Resolved {...props} />;
 };

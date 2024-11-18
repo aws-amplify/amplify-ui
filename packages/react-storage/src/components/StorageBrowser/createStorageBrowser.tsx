@@ -1,73 +1,36 @@
 import React from 'react';
 
-import { ListLocations } from './actions';
 import { DEFAULT_COMPOSABLES } from './composables';
-import { StorageBrowserElements, elementsDefault } from './context/elements';
-import { Components, ComponentsProvider } from './ComponentsProvider';
+import { elementsDefault } from './context/elements';
+import { ComponentsProvider } from './ComponentsProvider';
 import { ErrorBoundary } from './ErrorBoundary';
 
-import {
-  createConfigurationProvider,
-  RegisterAuthListener,
-  StoreProvider,
-  StoreProviderProps,
-} from './providers';
+import { createConfigurationProvider, StoreProvider } from './providers';
 import { StorageBrowserDefault } from './StorageBrowserDefault';
 import { assertRegisterAuthListener } from './validators';
 import {
-  Views,
+  CopyView,
+  CreateFolderView,
+  DeleteView,
   LocationActionView,
   LocationDetailView,
   LocationsView,
+  UploadView,
   ViewsProvider,
 } from './views';
-import { GetLocationCredentials } from './credentials/types';
 import { defaultActionConfigs } from './actions';
-import { createUseView } from './views/createUseView';
+
 import { DisplayTextProvider } from './displayText';
-import { StorageBrowserDisplayText } from './displayText/types';
+import { createUseView } from './views/createUseView';
 
-export interface Config {
-  accountId?: string;
-  customEndpoint?: string;
-  getLocationCredentials: GetLocationCredentials;
-  listLocations: ListLocations;
-  registerAuthListener: RegisterAuthListener;
-  region: string;
-}
-
-export interface CreateStorageBrowserInput {
-  // to be updated
-  actions?: never;
-  config: Config;
-  components?: Components;
-  elements?: Partial<StorageBrowserElements>;
-}
-
-export interface StorageBrowserProps<T = string> {
-  views?: Views<T>;
-  displayText?: StorageBrowserDisplayText;
-}
-
-export interface StorageBrowserComponent<T = string, K = {}> extends Views<T> {
-  (
-    props: StorageBrowserProps & Exclude<K, keyof StorageBrowserProps>
-  ): React.JSX.Element;
-  displayName: string;
-  Provider: (props: StorageBrowserProviderProps) => React.JSX.Element;
-}
-
-export type ActionViewName<T = string> = Exclude<
-  T,
-  'listLocationItems' | 'listLocations'
->;
-
-export interface StorageBrowserProviderProps extends StoreProviderProps {
-  displayText?: StorageBrowserDisplayText;
-}
+import {
+  CreateStorageBrowserInput,
+  StorageBrowserProviderProps,
+  StorageBrowserType,
+} from './types';
 
 export function createStorageBrowser(input: CreateStorageBrowserInput): {
-  StorageBrowser: StorageBrowserComponent<
+  StorageBrowser: StorageBrowserType<
     keyof Omit<
       typeof defaultActionConfigs,
       'listLocationItems' | 'listLocations'
@@ -123,7 +86,7 @@ export function createStorageBrowser(input: CreateStorageBrowserInput): {
     );
   }
 
-  const StorageBrowser: StorageBrowserComponent = ({ views, displayText }) => (
+  const StorageBrowser: StorageBrowserType = ({ views, displayText }) => (
     <ErrorBoundary>
       <Provider displayText={displayText}>
         <ViewsProvider views={views}>
@@ -136,6 +99,11 @@ export function createStorageBrowser(input: CreateStorageBrowserInput): {
   StorageBrowser.LocationActionView = LocationActionView;
   StorageBrowser.LocationDetailView = LocationDetailView;
   StorageBrowser.LocationsView = LocationsView;
+
+  StorageBrowser.CopyView = CopyView;
+  StorageBrowser.CreateFolderView = CreateFolderView;
+  StorageBrowser.DeleteView = DeleteView;
+  StorageBrowser.UploadView = UploadView;
 
   StorageBrowser.Provider = Provider;
 

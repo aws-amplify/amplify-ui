@@ -1,13 +1,14 @@
 import React from 'react';
 
 import { DataTable } from '../composables/DataTable';
+
 import { useDataTable } from './hooks/useDataTable';
 import { useResolvedComposable } from './hooks/useResolvedComposable';
 
-export const DataTableControl = (): React.JSX.Element | null => {
+export const DataTableControl = (): React.JSX.Element => {
   const props = useDataTable();
 
-  const ResolvedDataTable = useResolvedComposable(DataTable, 'DataTable');
+  const Resolved = useResolvedComposable(DataTable, 'DataTable');
 
-  return <ResolvedDataTable {...props} />;
+  return <Resolved {...props} />;
 };

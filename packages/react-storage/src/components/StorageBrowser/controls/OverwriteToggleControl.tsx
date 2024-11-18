@@ -1,23 +1,13 @@
 import React from 'react';
 
-import { ControlProps } from './types';
-import { useResolvedComposable } from './hooks/useResolvedComposable';
 import { OverwriteToggle } from '../composables/OverwriteToggle';
+
 import { useOverwriteToggle } from './hooks/useOverwriteToggle';
-import { ViewElement } from '../context/elements';
+import { useResolvedComposable } from './hooks/useResolvedComposable';
 
-export const OverwriteToggleControl = ({
-  className,
-}: ControlProps): React.JSX.Element => {
+export const OverwriteToggleControl = (): React.JSX.Element => {
   const props = useOverwriteToggle();
-  const ResolvedOverwriteToggle = useResolvedComposable(
-    OverwriteToggle,
-    'OverwriteToggle'
-  );
+  const Resolved = useResolvedComposable(OverwriteToggle, 'OverwriteToggle');
 
-  return (
-    <ViewElement className={className}>
-      <ResolvedOverwriteToggle {...props} />
-    </ViewElement>
-  );
+  return <Resolved {...props} />;
 };
