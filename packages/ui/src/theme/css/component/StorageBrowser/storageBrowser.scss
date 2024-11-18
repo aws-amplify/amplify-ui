@@ -68,7 +68,8 @@
     position: relative;
     border-width: var(--amplify-border-widths-small);
     border-style: solid;
-    border-color: var(--amplify-colors-border-secondary);
+    border-color: var(--amplify-colors-border-primary);
+    border-radius: var(--amplify-radii-small);
     width: 100%;
     height: 100%;
     display: block;
@@ -84,6 +85,7 @@
       top: 0;
       background: var(--amplify-colors-background-primary);
       box-shadow: var(--amplify-shadows-small);
+      z-index: 2;
     }
 
     // <tbody>
@@ -129,13 +131,60 @@
     &-header--size {
       text-align: end;
     }
+
+    &-button-data-cell,
+    &-date-data-cell,
+    &-number-data-cell,
+    &-text-data-cell,
+    &-sort-header {
+      display: flex;
+      width: 100%;
+      gap: var(--amplify-space-xxs);
+      padding: var(--amplify-space-xxs);
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      align-items: center;
+      justify-content: flex-start;
+    }
   }
 
-  &__status-display {
-    justify-content: flex-end;
+  &__status {
     display: flex;
-    gap: var(--amplify-space-small);
-    flex: 1;
+    flex-direction: row;
+    gap: var(--amplify-space-xs);
+    align-items: center;
+
+    &-display {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+      align-items: center;
+      gap: var(--amplify-space-small);
+      flex: 1;
+    }
+
+    &-label {
+      font-weight: var(--amplify-font-weights-bold);
+    }
+
+    &-value {
+      color: var(--amplify-colors-font-secondary);
+    }
+  }
+
+  &__destination {
+    display: flex;
+    flex-direction: row;
+    gap: var(--amplify-space-xs);
+    align-items: center;
+
+    &-label {
+      font-weight: var(--amplify-font-weights-bold);
+    }
+
+    &-value {
+    }
   }
 
   &__message {
@@ -146,5 +195,13 @@
     justify-content: flex-end;
     display: flex;
     gap: var(--amplify-space-small);
+  }
+
+  &__loader {
+    position: absolute;
+    stroke-width: var(--amplify-border-widths-large);
+    height: var(--amplify-border-widths-large);
+    top: 0;
+    z-index: 3;
   }
 }

@@ -6,7 +6,7 @@ import {
   IconElement,
   StorageBrowserIconType,
 } from '../../../context/elements';
-import { STORAGE_BROWSER_BLOCK_TO_BE_UPDATED } from '../../../constants';
+import { STORAGE_BROWSER_BLOCK } from '../../../constants';
 
 export interface ButtonDataCellProps {
   content: {
@@ -33,9 +33,9 @@ export const ButtonDataCell = ({
   return (
     <ButtonElement
       className={[
-        `${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__table-button-data-cell`,
+        `${STORAGE_BROWSER_BLOCK}__table-button-data-cell`,
         isIconOnlyButton
-          ? `${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__table-button-data-cell--icon-only`
+          ? `${STORAGE_BROWSER_BLOCK}__table-button-data-cell--icon-only`
           : '',
       ].join(' ')}
       disabled={isDisabled}
@@ -45,7 +45,7 @@ export const ButtonDataCell = ({
     >
       {icon && (
         <IconElement
-          className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__table-button-data-cell-icon--${icon}`}
+          className={`${STORAGE_BROWSER_BLOCK}__table-button-data-cell-icon--${icon}`}
           variant={icon}
         />
       )}
