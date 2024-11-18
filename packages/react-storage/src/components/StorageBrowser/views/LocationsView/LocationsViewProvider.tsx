@@ -40,6 +40,7 @@ export function LocationsViewProvider({
 
   // TODO: add hasExhaustedSearch + query param
   const messageControlContent = getListLocationsResultMessage({
+    isLoading,
     locations: pageItems,
     hasError,
     message,
@@ -68,6 +69,7 @@ export function LocationsViewProvider({
         searchSubmitLabel,
         searchQuery,
         message: messageControlContent,
+        isLoading,
       }}
       onSearch={onSearch}
       onRefresh={onRefresh}

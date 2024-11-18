@@ -21,6 +21,8 @@ exports[`LocationsView display text \`getListLocationsResultMessage\` returns th
 }
 `;
 
+exports[`LocationsView display text \`getListLocationsResultMessage\` returns the expected values in the loading scenario 1`] = `undefined`;
+
 exports[`LocationsView display text \`getListLocationsResultMessage\` returns the expected values in the search failed scenario 1`] = `
 {
   "content": "Network got confused",

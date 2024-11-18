@@ -20,6 +20,7 @@ import { TitleControl } from '../../controls/TitleControl';
 import { LocationDetailViewType } from './types';
 import { useLocationDetailView } from './useLocationDetailView';
 import { LocationDetailViewProvider } from './LocationDetailViewProvider';
+import { classNames } from '@aws-amplify/ui';
 
 const DEFAULT_PAGE_SIZE = 100;
 export const DEFAULT_LIST_OPTIONS = {
@@ -35,7 +36,10 @@ export const LocationDetailView: LocationDetailViewType = ({
   const { hasError } = state;
 
   return (
-    <ViewElement className={className} data-testid="LOCATION_DETAIL_VIEW">
+    <ViewElement
+      className={classNames(STORAGE_BROWSER_BLOCK, className)}
+      data-testid="LOCATION_DETAIL_VIEW"
+    >
       <LocationDetailViewProvider {...state}>
         <NavigationControl />
         <TitleControl />
@@ -52,13 +56,13 @@ export const LocationDetailView: LocationDetailViewType = ({
           <DataRefreshControl />
           <ActionsListControl />
         </ViewElement>
-        <LoadingIndicatorControl />
         {hasError ? null : (
           <DropZoneControl>
             <DataTableControl />
           </DropZoneControl>
         )}
-        <ViewElement className={`${STORAGE_BROWSER_BLOCK}__message`}>
+        <LoadingIndicatorControl />
+        <ViewElement className={`${STORAGE_BROWSER_BLOCK}__footer`}>
           <MessageControl />
         </ViewElement>
       </LocationDetailViewProvider>

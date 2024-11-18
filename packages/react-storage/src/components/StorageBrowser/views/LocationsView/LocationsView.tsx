@@ -16,13 +16,17 @@ import { TitleControl } from '../../controls/TitleControl';
 import { LocationsViewProvider } from './LocationsViewProvider';
 import { LocationsViewType } from './types';
 import { useLocationsView } from './useLocationsView';
+import { classNames } from '@aws-amplify/ui';
 
 export const LocationsView: LocationsViewType = ({ className, ...props }) => {
   const state = useLocationsView(props);
   const { hasError } = state;
 
   return (
-    <ViewElement className={className} data-testid="LOCATIONS_VIEW">
+    <ViewElement
+      className={classNames(STORAGE_BROWSER_BLOCK, className)}
+      data-testid="LOCATIONS_VIEW"
+    >
       <LocationsViewProvider {...state}>
         <TitleControl />
         <ViewElement
@@ -36,8 +40,8 @@ export const LocationsView: LocationsViewType = ({ className, ...props }) => {
           <PaginationControl />
           <DataRefreshControl />
         </ViewElement>
-        <LoadingIndicatorControl />
         {hasError ? null : <DataTableControl />}
+        <LoadingIndicatorControl />
         <ViewElement className={`${STORAGE_BROWSER_BLOCK}__message`}>
           <MessageControl />
         </ViewElement>

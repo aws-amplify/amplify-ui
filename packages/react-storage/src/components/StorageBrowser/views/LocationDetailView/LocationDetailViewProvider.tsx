@@ -59,6 +59,7 @@ export function LocationDetailViewProvider({
   } = props;
 
   const messageControlContent = getListItemsResultMessage({
+    isLoading,
     items: pageItems,
     hasError: hasError || hasDownloadError,
     hasExhaustedSearch,
