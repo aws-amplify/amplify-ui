@@ -21,12 +21,6 @@ import {
   DEFAULT_LIST_OPTIONS,
 } from '../useLocationDetailView';
 
-// FIXME: Temporarily mock... 😎 temp actions hook
-import { useTempActions } from '../../../do-not-import-from-here/createTempActionsProvider';
-jest.mock('../../../do-not-import-from-here/createTempActionsProvider');
-const mockUseTempActions = useTempActions as jest.Mock;
-mockUseTempActions.mockReturnValue({});
-
 const useDataStateSpy = jest.spyOn(AmplifyReactCore, 'useDataState');
 const useStoreSpy = jest.spyOn(StoreModule, 'useStore');
 const useGetActionSpy = jest.spyOn(ConfigModule, 'useGetActionInput');
@@ -505,7 +499,7 @@ describe('useLocationDetailView', () => {
     });
     expect(mockDispatchStoreAction).toHaveBeenCalledWith({
       type: 'SET_ACTION_TYPE',
-      actionType: 'UPLOAD_FILES',
+      actionType: 'upload',
     });
   });
 
@@ -528,7 +522,7 @@ describe('useLocationDetailView', () => {
     });
     expect(mockDispatchStoreAction).toHaveBeenCalledWith({
       type: 'SET_ACTION_TYPE',
-      actionType: 'UPLOAD_FOLDER',
+      actionType: 'upload',
     });
   });
 
@@ -554,7 +548,7 @@ describe('useLocationDetailView', () => {
     });
     expect(mockDispatchStoreAction).toHaveBeenCalledWith({
       type: 'SET_ACTION_TYPE',
-      actionType: 'UPLOAD_FILES',
+      actionType: 'upload',
     });
   });
 
@@ -661,7 +655,6 @@ describe('useLocationDetailView', () => {
     const mockOnActionSelect = jest.fn();
     const actionType = 'action-type';
     useStoreSpy.mockReturnValue([testStoreState, mockDispatchStoreAction]);
-    mockUseTempActions.mockReturnValueOnce({});
 
     const { result } = renderHook(() =>
       useLocationDetailView({ onActionSelect: mockOnActionSelect })

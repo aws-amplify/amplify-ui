@@ -10,7 +10,10 @@ import { UploadView } from '../UploadView';
 
 jest.mock('../../../../displayText', () => ({
   useDisplayText: () => ({
-    UploadView: { getActionCompleteMessage: jest.fn() },
+    UploadView: {
+      getActionCompleteMessage: jest.fn(),
+      getFilesValidationMessage: jest.fn(),
+    },
   }),
 }));
 
@@ -42,6 +45,11 @@ const statusCounts = { ...INITIAL_STATUS_COUNTS };
 
 const testFile = new File([], 'test-ooo');
 const data = { id: 'some-uuid', file: testFile, key: testFile.name };
+const invalidFileData = {
+  file: new File([], 'very-big-file'),
+  id: 'uuid',
+  key: 'very-big-file',
+};
 
 const taskOne = {
   data,
@@ -67,6 +75,7 @@ const initialViewState: UploadViewState = {
   isProcessingComplete: false,
   isProcessing: false,
   tasks: [],
+  invalidFiles: undefined,
   statusCounts,
 };
 
@@ -74,6 +83,7 @@ const preprocessingViewState: UploadViewState = {
   ...initialViewState,
   tasks: [taskOne],
   statusCounts: { ...statusCounts, QUEUED: 1, TOTAL: 1 },
+  invalidFiles: [invalidFileData],
 };
 
 const processingViewState: UploadViewState = {
@@ -96,6 +106,21 @@ const useUploadViewSpy = jest
 
 describe('UploadView', () => {
   afterEach(jest.clearAllMocks);
+
+  it('has the expected composable components', () => {
+    expect(UploadView.AddFiles).toBeDefined();
+    expect(UploadView.AddFolder).toBeDefined();
+    expect(UploadView.Cancel).toBeDefined();
+    expect(UploadView.Destination).toBeDefined();
+    expect(UploadView.DropZone).toBeDefined();
+    expect(UploadView.Exit).toBeDefined();
+    expect(UploadView.Message).toBeDefined();
+    expect(UploadView.OverwriteToggle).toBeDefined();
+    expect(UploadView.Start).toBeDefined();
+    expect(UploadView.Statuses).toBeDefined();
+    expect(UploadView.TasksTable).toBeDefined();
+    expect(UploadView.Title).toBeDefined();
+  });
 
   it('provides the expected boolean flags to `ControlsContextProvider` prior to processing when tasks is empty', () => {
     render(<UploadView />);

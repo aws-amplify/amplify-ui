@@ -1,20 +1,13 @@
 import React from 'react';
 
-import { ControlProps } from './types';
-import { useResolvedComposable } from './hooks/useResolvedComposable';
 import { ActionsList } from '../composables/ActionsList';
+
 import { useActionsList } from './hooks/useActionsList';
-import { ViewElement } from '../context/elements';
+import { useResolvedComposable } from './hooks/useResolvedComposable';
 
-export const ActionsListControl = ({
-  className,
-}: ControlProps): React.JSX.Element => {
+export const ActionsListControl = (): React.JSX.Element => {
   const props = useActionsList();
-  const ResolvedActionsList = useResolvedComposable(ActionsList, 'ActionsList');
+  const Resolved = useResolvedComposable(ActionsList, 'ActionsList');
 
-  return (
-    <ViewElement className={className}>
-      <ResolvedActionsList {...props} />
-    </ViewElement>
-  );
+  return <Resolved {...props} />;
 };

@@ -16,13 +16,7 @@ import {
 import { useProcessTasks } from '../../../tasks/useProcessTasks';
 import { INITIAL_STATUS_COUNTS } from '../../../tasks';
 import { useDisplayText } from '../../../displayText';
-import { SearchOutput } from '../../../actions/createEnhancedListHandler';
-
-// FIXME: Temporarily mock... 😎 temp actions hook
-import { useTempActions } from '../../../do-not-import-from-here/createTempActionsProvider';
-jest.mock('../../../do-not-import-from-here/createTempActionsProvider');
-const mockUseTempActions = useTempActions as jest.Mock;
-mockUseTempActions.mockReturnValue({});
+import { SearchOutput } from '../../../actions/useAction/createEnhancedListHandler';
 
 jest.mock('../../../displayText', () => {
   const mockGetListItemsResultMessage = jest.fn();
@@ -160,6 +154,37 @@ describe('LocationDetailView', () => {
     jest.clearAllMocks();
   });
 
+  it('has the expected composable components', () => {
+    expect(LocationDetailView.ActionsList).toBeDefined();
+    expect(LocationDetailView.DropZone).toBeDefined();
+    expect(LocationDetailView.LoadingIndicator).toBeDefined();
+    expect(LocationDetailView.LocationItemsTable).toBeDefined();
+    expect(LocationDetailView.Message).toBeDefined();
+    expect(LocationDetailView.Navigation).toBeDefined();
+    expect(LocationDetailView.Pagination).toBeDefined();
+    expect(LocationDetailView.Refresh).toBeDefined();
+    expect(LocationDetailView.Search).toBeDefined();
+    expect(LocationDetailView.SearchSubfoldersToggle).toBeDefined();
+    expect(LocationDetailView.Title).toBeDefined();
+  });
+
+  it('shows a Loading element when first loaded', () => {
+    useStoreSpy.mockReturnValueOnce([
+      {
+        location: { current: location, path: '', key: location.prefix },
+        locationItems: { fileDataItems: undefined },
+      } as StoreModule.UseStoreState,
+      dispatchStoreAction,
+    ]);
+    mockListItemsAction({ isLoading: true, result: [] });
+
+    const { getByTestId } = render(<LocationDetailView />);
+
+    const loadingIndicator = getByTestId('loading-indicator-control');
+
+    expect(loadingIndicator).toBeInTheDocument();
+  });
+
   it('invokes getListItemsResultMessage() with `errorMessage` param', () => {
     const errorMessage = 'A network error occurred.';
 
@@ -175,8 +200,26 @@ describe('LocationDetailView', () => {
 
     expect(mockGetListItemsResultMessage).toHaveBeenCalledWith({
       items: expect.any(Array),
+      isLoading: false,
       hasError: true,
       message: errorMessage,
+      hasExhaustedSearch: false,
+    });
+  });
+
+  it('invokes getListItemsResultMessage() with `isLoading` param', () => {
+    mockListItemsAction({
+      isLoading: true,
+      hasError: false,
+      result: [],
+    });
+
+    render(<LocationDetailView />);
+
+    expect(mockGetListItemsResultMessage).toHaveBeenCalledWith({
+      items: [],
+      isLoading: true,
+      hasError: false,
       hasExhaustedSearch: false,
     });
   });
@@ -214,6 +257,7 @@ describe('LocationDetailView', () => {
     expect(mockGetListItemsResultMessage).toHaveBeenCalledWith({
       items: expect.any(Array),
       hasError: true,
+      isLoading: false,
       message: 'Failed to download test-key due to error: NotFound.',
       hasExhaustedSearch: false,
     });
@@ -296,6 +340,7 @@ describe('LocationDetailView', () => {
     expect(mockGetListItemsResultMessage).toHaveBeenCalledWith({
       items: expect.any(Array),
       hasExhaustedSearch: true,
+      isLoading: false,
       hasError: false,
       message: undefined,
     });

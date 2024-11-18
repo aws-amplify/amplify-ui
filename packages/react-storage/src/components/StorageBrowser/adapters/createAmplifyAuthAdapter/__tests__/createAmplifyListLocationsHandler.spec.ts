@@ -1,7 +1,8 @@
-import { createAmplifyListLocationsHandler } from '../createAmplifyListLocationsHandler';
-import { getPaginatedLocations } from '../getPaginatedLocations';
+import { ListLocations, LocationData } from '../../../actions';
 import { listPaths, ListPathsOutput } from '../../../storage-internal';
-import { LocationAccess, ListLocations } from '../../types';
+
+import { getPaginatedLocations } from '../getPaginatedLocations';
+import { createAmplifyListLocationsHandler } from '../createAmplifyListLocationsHandler';
 
 jest.mock('../../../storage-internal', () => ({
   listPaths: jest.fn(),
@@ -15,7 +16,14 @@ jest.mock(
 
 describe('createAmplifyListLocationsHandler', () => {
   const mockListPaths = jest.mocked(listPaths);
-  const mockGetPaginatedLocations = jest.mocked(getPaginatedLocations);
+  const mockGetPaginatedItems = jest.mocked(getPaginatedLocations);
+  const mockId = 'intentionally-static-test-id';
+
+  beforeAll(() => {
+    Object.defineProperty(globalThis, 'crypto', {
+      value: { randomUUID: () => mockId },
+    });
+  });
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -27,75 +35,79 @@ describe('createAmplifyListLocationsHandler', () => {
       {
         bucket: 'bucket1',
         permission: ['read'],
-        prefix: 'prefix1',
+        prefix: 'prefix1/*',
         type: 'PREFIX',
       },
     ];
-    const sanitizedLocation: LocationAccess[] = [
+    const sanitizedLocations: LocationData[] = [
       {
-        scope: 's3://bucket1/prefix1',
+        prefix: 'prefix1/',
+        bucket: 'bucket1',
+        id: mockId,
         permissions: ['get', 'list'],
         type: 'PREFIX',
       },
     ];
 
-    const input = { pageSize: 10, nextToken: undefined };
+    const input = { options: { pageSize: 10, nextToken: undefined } };
     const paginatedResult = {
-      locations: sanitizedLocation,
+      items: sanitizedLocations,
       nextToken: undefined,
     };
 
     mockListPaths.mockResolvedValueOnce({ locations: fetchedLocations });
-    mockGetPaginatedLocations.mockReturnValueOnce(paginatedResult);
+    mockGetPaginatedItems.mockReturnValueOnce(paginatedResult);
 
     const result = await handler(input);
 
     expect(result).toEqual(paginatedResult);
     expect(mockListPaths).toHaveBeenCalledTimes(1);
-    expect(mockGetPaginatedLocations).toHaveBeenCalledWith({
-      locations: sanitizedLocation,
-      pageSize: input.pageSize,
-      nextToken: input.nextToken,
+    expect(mockGetPaginatedItems).toHaveBeenCalledWith({
+      items: sanitizedLocations,
+      pageSize: input.options.pageSize,
+      nextToken: input.options.nextToken,
     });
   });
 
   it('should fetch locations from the cache', async () => {
     const handler: ListLocations = createAmplifyListLocationsHandler();
-    const input = { pageSize: 10, nextToken: undefined };
+    const input = { options: { pageSize: 10, nextToken: undefined } };
 
     const fetchedLocations: ListPathsOutput['locations'] = [
       {
         bucket: 'bucket1',
         permission: ['read'],
-        prefix: 'prefix1',
+        prefix: 'prefix1/*',
         type: 'PREFIX',
       },
     ];
     mockListPaths.mockResolvedValueOnce({ locations: fetchedLocations });
     await handler(input);
 
-    const cachedLocations: LocationAccess[] = [
+    const cachedItems: LocationData[] = [
       {
-        scope: 's3://bucket1/prefix1',
+        prefix: 'prefix1/',
+        bucket: 'bucket1',
+        id: mockId,
         permissions: ['get', 'list'],
         type: 'PREFIX',
       },
     ];
 
     const paginatedResult = {
-      locations: cachedLocations,
+      items: cachedItems,
       nextToken: undefined,
     };
 
-    mockGetPaginatedLocations.mockReturnValueOnce(paginatedResult);
+    mockGetPaginatedItems.mockReturnValueOnce(paginatedResult);
 
     const result = await handler(input);
 
     expect(result).toEqual(paginatedResult);
-    expect(mockGetPaginatedLocations).toHaveBeenCalledWith({
-      locations: cachedLocations,
-      pageSize: input.pageSize,
-      nextToken: input.nextToken,
+    expect(mockGetPaginatedItems).toHaveBeenCalledWith({
+      items: cachedItems,
+      pageSize: input.options.pageSize,
+      nextToken: input.options.nextToken,
     });
     expect(mockListPaths).toHaveBeenCalledTimes(1);
   });
@@ -106,47 +118,51 @@ describe('createAmplifyListLocationsHandler', () => {
       {
         bucket: 'bucket1',
         permission: ['read'],
-        prefix: 'prefix1',
+        prefix: 'prefix1/*',
         type: 'PREFIX',
       },
       {
         bucket: 'bucket2',
         permission: ['read'],
-        prefix: 'prefix2',
+        prefix: 'prefix2/*',
         type: 'PREFIX',
       },
     ];
 
-    const sanitizedLocation: LocationAccess[] = [
+    const sanitizedLocations: LocationData[] = [
       {
-        scope: 's3://bucket1/prefix1',
+        prefix: 'prefix1/',
+        bucket: 'bucket1',
+        id: mockId,
         permissions: ['get', 'list'],
         type: 'PREFIX',
       },
       {
-        scope: 's3://bucket2/prefix2',
+        prefix: 'prefix2/',
+        bucket: 'bucket2',
+        id: mockId,
         permissions: ['get', 'list'],
         type: 'PREFIX',
       },
     ];
 
-    const input = { pageSize: 1, nextToken: undefined };
+    const input = { options: { pageSize: 1, nextToken: undefined } };
     const paginatedResult = {
-      locations: [sanitizedLocation[0]],
+      items: [{ ...sanitizedLocations }[0]],
       nextToken: 'token1',
     };
 
     mockListPaths.mockResolvedValueOnce({ locations: fetchedLocations });
-    mockGetPaginatedLocations.mockReturnValueOnce(paginatedResult);
+    mockGetPaginatedItems.mockReturnValueOnce(paginatedResult);
 
     const result = await handler(input);
 
-    expect(result.locations).toEqual(paginatedResult.locations);
+    expect(result.items).toEqual(paginatedResult.items);
     expect(mockListPaths).toHaveBeenCalledTimes(1);
-    expect(mockGetPaginatedLocations).toHaveBeenCalledWith({
-      locations: sanitizedLocation,
-      pageSize: input.pageSize,
-      nextToken: input.nextToken,
+    expect(mockGetPaginatedItems).toHaveBeenCalledWith({
+      items: sanitizedLocations,
+      pageSize: input.options.pageSize,
+      nextToken: input.options.nextToken,
     });
   });
 });

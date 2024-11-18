@@ -22,18 +22,17 @@ const generateMockLocations = (size: number, mockLocations: LocationAccess) =>
 const accountId = 'account-id';
 const credentials: LocationCredentialsProvider = jest.fn();
 const region = 'region';
-const bucket = 'bucket';
+
 const customEndpoint = 'mock-endpoint';
 const DEFAULT_PAGE_SIZE = 5;
 
 const input: ListLocationsHandlerInput = {
-  config: { accountId, credentials, customEndpoint, region, bucket },
+  config: { accountId, credentials, customEndpoint, region },
   options: {
     pageSize: DEFAULT_PAGE_SIZE,
     nextToken: undefined,
     exclude: { exactPermissions: ['get', 'list'] },
   },
-  prefix: 'prefix',
 };
 
 describe('listLocationsHandler', () => {
@@ -51,7 +50,7 @@ describe('listLocationsHandler', () => {
   it('should fetch a single page of results successfully', async () => {
     const mockOutput: ListLocationsOutput = {
       locations: [
-        { scope: 's3://bucket/prefix', permission: 'READ', type: 'PREFIX' },
+        { scope: 's3://bucket/prefix/*', permission: 'READ', type: 'PREFIX' },
       ],
       nextToken: undefined,
     };
@@ -77,8 +76,8 @@ describe('listLocationsHandler', () => {
 
   it('should fetch multiple pages of results successfully', async () => {
     const mockLocation: LocationAccess = {
-      scope: 's3://bucket/prefix1',
-      permission: 'READ',
+      scope: 's3://bucket/prefix1/*',
+      permission: 'READWRITE',
       type: 'PREFIX',
     };
     const mockOutputPage1: ListLocationsOutput = {

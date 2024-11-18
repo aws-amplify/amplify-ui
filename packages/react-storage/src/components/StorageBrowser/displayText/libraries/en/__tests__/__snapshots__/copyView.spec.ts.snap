@@ -82,11 +82,10 @@ exports[`CopyView display text values \`getListFoldersResultsMessage\` returns t
 exports[`CopyView display text values should match snapshot values 1`] = `
 {
   "actionCancelLabel": "Cancel",
-  "actionDestinationLabel": "Copy destination:",
+  "actionDestinationLabel": "Copy destination",
   "actionExitLabel": "Exit",
   "actionStartLabel": "Copy",
   "getActionCompleteMessage": [Function],
-  "getFolderSelectedMessage": [Function],
   "getListFoldersResultsMessage": [Function],
   "loadingIndicatorLabel": "Loading",
   "overwriteWarningMessage": "Copied files will overwrite existing files at selected destination.",

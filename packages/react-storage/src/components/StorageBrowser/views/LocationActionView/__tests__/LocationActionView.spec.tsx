@@ -42,27 +42,22 @@ describe('LocationActionView', () => {
   it.each([
     {
       view: 'CreateFolderView',
-      actionType: 'CREATE_FOLDER',
+      actionType: 'createFolder',
       testId: 'create-folder-view',
     },
     {
       view: 'CopyView',
-      actionType: 'COPY_FILES',
+      actionType: 'copy',
       testId: 'copy-view',
     },
     {
       view: 'DeleteView',
-      actionType: 'DELETE_FILES',
+      actionType: 'delete',
       testId: 'delete-view',
     },
     {
       view: 'UploadView',
-      actionType: 'UPLOAD_FILES',
-      testId: 'upload-view',
-    },
-    {
-      view: 'UploadView',
-      actionType: 'UPLOAD_FOLDER',
+      actionType: 'upload',
       testId: 'upload-view',
     },
   ])(

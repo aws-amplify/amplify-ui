@@ -100,6 +100,14 @@ const useCreateFolderViewSpy = jest
 describe('CreateFolderView', () => {
   afterEach(jest.clearAllMocks);
 
+  it('has the expected composable components', () => {
+    expect(CreateFolderView.Exit).toBeDefined();
+    expect(CreateFolderView.NameField).toBeDefined();
+    expect(CreateFolderView.Message).toBeDefined();
+    expect(CreateFolderView.Start).toBeDefined();
+    expect(CreateFolderView.Title).toBeDefined();
+  });
+
   it('provides the expected values to `ControlsContextProvider` on initial render', () => {
     render(<CreateFolderView />);
 

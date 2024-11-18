@@ -1,19 +1,17 @@
 import React from 'react';
 import { isFunction } from '@aws-amplify/ui';
 
-import { LocationData } from '../../../actions';
-
-import { useStore } from '../../../providers/store';
-
-import { useProcessTasks } from '../../../tasks';
 import { createFolderHandler } from '../../../actions';
 import { useGetActionInput } from '../../../providers/configuration';
-import { CreateFolderViewState } from './types';
+import { useStore } from '../../../providers/store';
+import { useProcessTasks } from '../../../tasks';
 
-export const useCreateFolderView = (params?: {
-  onExit?: (location: LocationData) => void;
-}): CreateFolderViewState => {
-  const { onExit } = params ?? {};
+import { CreateFolderViewState, UseCreateFolderViewOptions } from './types';
+
+export const useCreateFolderView = (
+  options?: UseCreateFolderViewOptions
+): CreateFolderViewState => {
+  const { onExit } = options ?? {};
   const [folderName, setFolderName] = React.useState('');
   const folderNameId = React.useRef(crypto.randomUUID()).current;
 
@@ -41,7 +39,7 @@ export const useCreateFolderView = (params?: {
       });
     },
     onActionExit: () => {
-      if (isFunction(onExit)) onExit(current!);
+      if (isFunction(onExit)) onExit(current);
       dipatchStoreAction({ type: 'RESET_ACTION_TYPE' });
     },
     onFolderNameChange: (value) => {

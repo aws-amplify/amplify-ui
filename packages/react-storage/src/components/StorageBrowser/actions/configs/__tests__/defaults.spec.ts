@@ -65,8 +65,7 @@ describe('defaultActionConfigs', () => {
 
   describe('uploadActionConfig', () => {
     it('hides the action list item as expected', () => {
-      const [uploadFileListItem, uploadFolderListItem] =
-        uploadActionConfig.actionsListItemConfig as ActionListItemConfig[];
+      const uploadFileListItem = uploadActionConfig.actionsListItemConfig!;
 
       for (const permissionsWithoutWrite of generateCombinations(
         permissionValuesWithoutWrite
@@ -77,20 +76,14 @@ describe('defaultActionConfigs', () => {
         ];
         expect(uploadFileListItem.hide?.(permissionsWithoutWrite)).toBe(true);
         expect(uploadFileListItem.hide?.(permissionsWithWrite)).toBe(false);
-        expect(uploadFolderListItem.hide?.(permissionsWithoutWrite)).toBe(true);
-        expect(uploadFolderListItem.hide?.(permissionsWithWrite)).toBe(false);
       }
     });
 
     it('disables the action list item as expected', () => {
-      const [uploadFileListItem, uploadFolderListItem] =
-        uploadActionConfig.actionsListItemConfig as ActionListItemConfig[];
+      const uploadFileListItem = uploadActionConfig.actionsListItemConfig!;
 
       expect(uploadFileListItem.disable?.([file])).toBe(true);
       expect(uploadFileListItem.disable?.(undefined)).toBe(false);
-
-      expect(uploadFolderListItem.disable?.([file])).toBe(true);
-      expect(uploadFolderListItem.disable?.(undefined)).toBe(false);
     });
   });
 });

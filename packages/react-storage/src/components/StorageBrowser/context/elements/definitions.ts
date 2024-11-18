@@ -79,7 +79,7 @@ export const LabelElement = defineBaseElement<'label', 'htmlFor'>({
 
 export interface NavElementProps
   extends React.ComponentProps<typeof NavElement> {}
-export const NavElement = defineBaseElement({
+export const NavElement = defineBaseElement<'nav', 'role'>({
   type: 'nav',
   displayName: 'Nav',
 });

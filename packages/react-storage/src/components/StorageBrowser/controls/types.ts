@@ -6,10 +6,6 @@ import { Composables } from '../composables/types';
 import { LocationState } from '../providers/store/location';
 import { StatusCounts } from '../tasks';
 
-export interface ControlProps {
-  className?: string;
-}
-
 export interface Controls {
   props: React.ComponentProps<Composables[keyof Composables]>;
 }
@@ -43,10 +39,12 @@ export interface ControlsContext {
   data: {
     actions?: ActionsListItem[];
     actionCancelLabel?: string;
+    actionDestinationLabel?: string;
     actionExitLabel?: string;
     actionStartLabel?: string;
     addFilesLabel?: string;
     addFolderLabel?: string;
+    destination?: LocationState;
     folderNameId?: string;
     folderNameLabel?: string;
     folderNamePlaceholder?: string;
@@ -57,6 +55,7 @@ export interface ControlsContext {
     isActionsListDisabled?: boolean;
     isAddFilesDisabled?: boolean;
     isAddFolderDisabled?: boolean;
+    isActionDestinationNavigable?: boolean;
     isOverwritingEnabled?: boolean;
     isDataRefreshDisabled?: boolean;
     isLoading?: boolean;
@@ -96,6 +95,7 @@ export interface ControlsContext {
   onSearch?: () => void;
   onSearchClear?: () => void;
   onSearchQueryChange?: (value: string) => void;
+  onSelectDestination?: (location: LocationData, path?: string) => void;
   onToggleOverwrite?: () => void;
   onToggleSearchSubfolders?: () => void;
   onValidateFolderName?: (value: string) => void;

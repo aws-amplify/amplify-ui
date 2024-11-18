@@ -1,21 +1,13 @@
 import React from 'react';
 
 import { Pagination } from '../composables/Pagination';
-import { ViewElement } from '../context/elements';
-import { ControlProps } from './types';
 import { useResolvedComposable } from './hooks/useResolvedComposable';
 import { useControlsContext } from './context';
 
-export const PaginationControl = ({
-  className,
-}: ControlProps): React.JSX.Element | null => {
+export const PaginationControl = (): React.JSX.Element => {
   const { data } = useControlsContext();
 
-  const ResolvedPagination = useResolvedComposable(Pagination, 'Pagination');
+  const Resolved = useResolvedComposable(Pagination, 'Pagination');
 
-  return (
-    <ViewElement className={className}>
-      <ResolvedPagination {...data.paginationData} />
-    </ViewElement>
-  );
+  return <Resolved {...data.paginationData} />;
 };

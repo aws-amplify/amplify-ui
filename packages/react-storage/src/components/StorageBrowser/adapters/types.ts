@@ -4,12 +4,7 @@ import {
   CredentialsLocation,
 } from '../credentials/types';
 import { CredentialsProvider } from '../storage-internal';
-import { LocationType } from '../actions';
-
-export interface ListLocationsInput {
-  pageSize?: number;
-  nextToken?: string;
-}
+import { LocationType, ListLocations } from '../actions';
 
 export interface LocationAccess extends CredentialsLocation {
   /**
@@ -19,15 +14,6 @@ export interface LocationAccess extends CredentialsLocation {
    * * OBJECT: `'s3://<bucket>/<prefix-with-path>/<object>'`
    */
   readonly type: LocationType;
-}
-
-export interface ListLocationsOutput {
-  locations: LocationAccess[];
-  nextToken?: string;
-}
-
-export interface ListLocations {
-  (input: ListLocationsInput): Promise<ListLocationsOutput>;
 }
 
 export interface CreateManagedAuthAdapterInput {

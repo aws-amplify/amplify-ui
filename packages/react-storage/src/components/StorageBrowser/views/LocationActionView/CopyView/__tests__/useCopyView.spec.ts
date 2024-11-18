@@ -12,22 +12,24 @@ describe('useCopyView', () => {
   const mockDispatchStoreAction = jest.fn();
   const mockCancel = jest.fn();
 
+  const location = {
+    current: {
+      prefix: 'test-prefix/',
+      bucket: 'bucket',
+      id: 'id',
+      permissions: ['delete', 'get', 'list', 'write'],
+      type: 'PREFIX',
+    } as LocationData,
+    path: '',
+    key: 'test-prefix/',
+  };
+
   beforeEach(() => {
     jest.spyOn(Store, 'useStore').mockReturnValue([
       {
         actionType: 'COPY',
         files: [],
-        location: {
-          current: {
-            prefix: 'test-prefix/',
-            bucket: 'bucket',
-            id: 'id',
-            permissions: ['delete', 'get', 'list', 'write'],
-            type: 'PREFIX',
-          } as LocationData,
-          path: '',
-          key: 'test-prefix/',
-        },
+        location,
         locationItems: {
           fileDataItems: [
             {
@@ -96,7 +98,6 @@ describe('useCopyView', () => {
 
     expect(result.current).toEqual(
       expect.objectContaining({
-        destinationList: ['test-prefix'],
         isProcessing: false,
         isProcessingComplete: false,
         onActionCancel: expect.any(Function),
@@ -178,6 +179,28 @@ describe('useCopyView', () => {
     });
     expect(mockDispatchStoreAction).toHaveBeenCalledWith({
       type: 'RESET_ACTION_TYPE',
+    });
+  });
+
+  it('should set a destination', () => {
+    const { result } = renderHook(() => useCopyView());
+
+    expect(result.current.destination).toStrictEqual(location);
+
+    const destinationLocation = {
+      ...location.current,
+      id: 'id-2',
+    };
+    const destinationPath = 'test-path/';
+
+    act(() => {
+      result.current.onSelectDestination(destinationLocation, destinationPath);
+    });
+
+    expect(result.current.destination).toStrictEqual({
+      current: destinationLocation,
+      path: destinationPath,
+      key: `${location.current.prefix}${destinationPath}`,
     });
   });
 });

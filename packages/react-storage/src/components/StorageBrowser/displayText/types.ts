@@ -1,6 +1,7 @@
 import { StatusCounts, Tasks } from '../tasks';
 import {
   CopyHandlerData,
+  CreateFolderHandlerData,
   DeleteHandlerData,
   FolderData,
   LocationData,
@@ -11,7 +12,7 @@ import {
 } from '../actions';
 import { LocationState } from '../providers/store/location';
 import { MessageType } from '../composables/Message';
-import { CreateFolderHandlerData } from '../actions';
+import { FileItems } from '../providers';
 
 /**
  * Common list view display text values
@@ -28,6 +29,7 @@ interface ListMessageData {
   message?: string;
   hasExhaustedSearch?: boolean;
   query?: string;
+  isLoading?: boolean;
 }
 
 interface ListLocationsMessageData extends ListMessageData {
@@ -120,7 +122,6 @@ export interface DefaultCopyViewDisplayText
   getListFoldersResultsMessage: (
     data: ListFoldersMessageData
   ) => { content?: string; type?: MessageType } | undefined;
-  getFolderSelectedMessage: (path: string) => string;
   loadingIndicatorLabel: 'Loading';
   overwriteWarningMessage: string;
   searchPlaceholder: string;
@@ -137,6 +138,9 @@ export interface DefaultUploadViewDisplayText
   addFolderLabel: string;
   statusDisplayOverwritePreventedLabel: string;
   overwriteToggleLabel: string;
+  getFilesValidationMessage: (data?: {
+    invalidFiles?: FileItems;
+  }) => { content?: string; type?: MessageType } | undefined;
 }
 
 export interface DefaultStorageBrowserDisplayText {

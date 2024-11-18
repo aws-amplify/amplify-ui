@@ -5,7 +5,6 @@ import { useDisplayText } from '../../../displayText';
 
 import { getActionViewTableData } from '../getActionViewTableData';
 
-import { DestinationProvider } from './DestinationControl';
 import { FoldersMessageProvider } from './FoldersMessageControl';
 import { FoldersPaginationProvider } from './FoldersPaginationControl';
 import { FoldersTableProvider } from './FoldersTableControl';
@@ -23,7 +22,6 @@ export function CopyViewProvider({
     actionExitLabel,
     actionStartLabel,
     getActionCompleteMessage,
-    getListFoldersResultsMessage,
     overwriteWarningMessage,
     searchPlaceholder,
     searchSubmitLabel,
@@ -35,18 +33,18 @@ export function CopyViewProvider({
   } = displayText;
 
   const {
-    destinationList,
+    destination,
     folders,
     isProcessing,
     isProcessingComplete,
     location,
+    statusCounts,
+    tasks,
     onActionCancel,
     onActionExit,
     onActionStart,
-    onDestinationChange,
+    onSelectDestination,
     onTaskRemove,
-    statusCounts,
-    tasks,
   } = props;
 
   const {
@@ -55,19 +53,17 @@ export function CopyViewProvider({
     hasError: hasFoldersError,
     message: foldersErrorMessage,
     query,
-    hasInitialized: hasFoldersInitialized,
-    onQuery,
-    onSearchClear,
-    onSearch,
-    onSelect,
-    onPaginate,
     isLoading,
     page,
     pageItems,
+    onPaginate,
+    onQuery,
+    onSearchClear,
+    onSearch,
+    onSelectFolder,
   } = folders;
 
-  const { current, key: locationKey } = location ?? {};
-  const { bucket } = current ?? {};
+  const { key: locationKey } = location ?? {};
 
   const tableData = getActionViewTableData({
     tasks,
@@ -78,7 +74,7 @@ export function CopyViewProvider({
   });
 
   const isActionStartDisabled =
-    isProcessing || isProcessingComplete || destinationList.length === 0;
+    isProcessing || isProcessingComplete || !destination?.current;
 
   const isActionCancelDisabled = !isProcessing || isProcessingComplete;
 
@@ -89,22 +85,16 @@ export function CopyViewProvider({
       }
     : getActionCompleteMessage({ counts: statusCounts });
 
-  const foldersMessage = !hasFoldersInitialized
-    ? undefined
-    : getListFoldersResultsMessage({
-        hasError: hasFoldersError,
-        message: foldersErrorMessage,
-        folders: pageItems,
-        query,
-      });
-
   return (
     <ControlsContextProvider
       data={{
         actionCancelLabel,
+        actionDestinationLabel,
         actionExitLabel,
         actionStartLabel,
+        destination,
         isActionCancelDisabled,
+        isActionDestinationNavigable: !isProcessing && !isProcessingComplete,
         isActionExitDisabled: isProcessing,
         isActionStartDisabled,
         isLoading,
@@ -126,27 +116,29 @@ export function CopyViewProvider({
       onSearch={onSearch}
       onSearchClear={onSearchClear}
       onSearchQueryChange={onQuery}
+      onSelectDestination={onSelectDestination}
     >
-      <DestinationProvider
-        bucket={bucket}
-        label={actionDestinationLabel}
-        destinationList={destinationList}
-        onDestinationChange={onDestinationChange}
-        isDisabled={isProcessing || isProcessingComplete}
+      <FoldersPaginationProvider
+        hasNextPage={hasNextPage}
+        highestPageVisited={highestPageVisited}
+        page={page}
+        onPaginate={onPaginate}
       >
-        <FoldersPaginationProvider
-          hasNextPage={hasNextPage}
-          highestPageVisited={highestPageVisited}
-          page={page}
-          onPaginate={onPaginate}
+        <FoldersTableProvider
+          destination={destination}
+          folders={pageItems}
+          onSelectFolder={onSelectFolder}
         >
-          <FoldersTableProvider folders={pageItems} onSelect={onSelect}>
-            <FoldersMessageProvider {...foldersMessage}>
-              {children}
-            </FoldersMessageProvider>
-          </FoldersTableProvider>
-        </FoldersPaginationProvider>
-      </DestinationProvider>
+          <FoldersMessageProvider
+            folders={folders.pageItems}
+            hasError={hasFoldersError}
+            message={foldersErrorMessage}
+            query={query}
+          >
+            {children}
+          </FoldersMessageProvider>
+        </FoldersTableProvider>
+      </FoldersPaginationProvider>
     </ControlsContextProvider>
   );
 }

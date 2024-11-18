@@ -1,8 +1,7 @@
-import {
-  defineBaseElementWithRef,
-  withBaseElementProps,
-} from '@aws-amplify/ui-react-core/elements';
 import React from 'react';
+
+import { defineBaseElement } from '@aws-amplify/ui-react-core/elements';
+import { useIcons } from '@aws-amplify/ui-react/internal';
 
 export type IconElementProps = React.ComponentProps<typeof BaseIconElement>;
 
@@ -136,11 +135,7 @@ const DEFAULT_ICON_ATTRIBUTES = {
   role: 'img',
 };
 
-export const BaseIconElement = defineBaseElementWithRef<
-  'svg',
-  never,
-  IconVariant
->({
+export const BaseIconElement = defineBaseElement<'svg', never, IconVariant>({
   type: 'svg',
   displayName: 'Icon',
 });
@@ -162,4 +157,14 @@ const getIconProps = ({
   };
 };
 
-export const IconElement = withBaseElementProps(BaseIconElement, getIconProps);
+export const IconElement = (props: IconElementProps): React.JSX.Element => {
+  const { variant } = props;
+  const icons = useIcons('storageBrowser');
+
+  const icon = variant ? icons?.[variant] : undefined;
+  if (icon) {
+    return <>{icon}</>;
+  }
+
+  return <BaseIconElement {...getIconProps(props)} />;
+};

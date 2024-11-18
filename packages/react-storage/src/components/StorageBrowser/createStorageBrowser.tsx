@@ -1,83 +1,36 @@
 import React from 'react';
-import { MergeBaseElements } from '@aws-amplify/ui-react-core/elements';
-
-import {
-  LocationActions,
-  locationActionsDefault,
-} from './do-not-import-from-here/locationActions';
-import { createTempActionsProvider } from './do-not-import-from-here/createTempActionsProvider';
 
 import { DEFAULT_COMPOSABLES } from './composables';
-import { StorageBrowserElements } from './context/elements';
-import { Components, ComponentsProvider } from './ComponentsProvider';
+import { elementsDefault } from './context/elements';
+import { ComponentsProvider } from './ComponentsProvider';
 import { ErrorBoundary } from './ErrorBoundary';
 
-import {
-  createConfigurationProvider,
-  RegisterAuthListener,
-  StoreProvider,
-  StoreProviderProps,
-} from './providers';
+import { createConfigurationProvider, StoreProvider } from './providers';
 import { StorageBrowserDefault } from './StorageBrowserDefault';
 import { assertRegisterAuthListener } from './validators';
 import {
-  Views,
+  CopyView,
+  CreateFolderView,
+  DeleteView,
   LocationActionView,
   LocationDetailView,
   LocationsView,
+  UploadView,
   ViewsProvider,
 } from './views';
-import { GetLocationCredentials } from './credentials/types';
 import { defaultActionConfigs } from './actions';
-import { createUseView } from './views/createUseView';
+
 import { DisplayTextProvider } from './displayText';
-import { ListLocations } from './adapters/types';
-import { StorageBrowserDisplayText } from './displayText/types';
+import { createUseView } from './views/createUseView';
 
-export interface Config {
-  accountId?: string;
-  customEndpoint?: string;
-  getLocationCredentials: GetLocationCredentials;
-  listLocations: ListLocations;
-  registerAuthListener: RegisterAuthListener;
-  region: string;
-}
-
-export interface CreateStorageBrowserInput {
-  actions?: LocationActions;
-  config: Config;
-  components?: Components;
-  elements?: Partial<StorageBrowserElements>;
-}
-
-export interface StorageBrowserProps<T = string> {
-  views?: Views<T>;
-  displayText?: StorageBrowserDisplayText;
-}
-
-export interface StorageBrowserComponent<T = string, K = {}> extends Views<T> {
-  (
-    props: StorageBrowserProps & Exclude<K, keyof StorageBrowserProps>
-  ): React.JSX.Element;
-  displayName: string;
-  Provider: (props: StorageBrowserProviderProps) => React.JSX.Element;
-}
-
-export interface ResolvedStorageBrowserElements<
-  T extends Partial<StorageBrowserElements>,
-> extends MergeBaseElements<StorageBrowserElements, T> {}
-
-export type ActionViewName<T = string> = Exclude<
-  T,
-  'listLocationItems' | 'listLocations'
->;
-
-export interface StorageBrowserProviderProps extends StoreProviderProps {
-  displayText?: StorageBrowserDisplayText;
-}
+import {
+  CreateStorageBrowserInput,
+  StorageBrowserProviderProps,
+  StorageBrowserType,
+} from './types';
 
 export function createStorageBrowser(input: CreateStorageBrowserInput): {
-  StorageBrowser: StorageBrowserComponent<
+  StorageBrowser: StorageBrowserType<
     keyof Omit<
       typeof defaultActionConfigs,
       'listLocationItems' | 'listLocations'
@@ -95,15 +48,16 @@ export function createStorageBrowser(input: CreateStorageBrowserInput): {
     region,
   } = input.config;
 
-  // will be replaced, contains the v0 actions API approach
-  const TempActionsProvider = createTempActionsProvider({
-    ...input,
-    actions: locationActionsDefault,
-  });
-
   const ConfigurationProvider = createConfigurationProvider({
     accountId,
-    actions: defaultActionConfigs,
+    actions: {
+      ...defaultActionConfigs,
+      // @ts-expect-error To be addressed with line 40
+      listLocations: {
+        componentName: 'LocationsView',
+        handler: input.config.listLocations,
+      },
+    },
     customEndpoint,
     displayName: 'ConfigurationProvider',
     getLocationCredentials,
@@ -112,6 +66,7 @@ export function createStorageBrowser(input: CreateStorageBrowserInput): {
   });
 
   const composables = { ...DEFAULT_COMPOSABLES, ...input.components };
+  const elements = { ...elementsDefault, ...input.elements };
 
   /**
    * Provides state, configuration and action values that are shared between
@@ -122,21 +77,16 @@ export function createStorageBrowser(input: CreateStorageBrowserInput): {
       <StoreProvider {...props}>
         <ConfigurationProvider>
           <DisplayTextProvider displayText={props.displayText}>
-            <TempActionsProvider>
-              <ComponentsProvider
-                composables={composables}
-                elements={input.elements}
-              >
-                {children}
-              </ComponentsProvider>
-            </TempActionsProvider>
+            <ComponentsProvider composables={composables} elements={elements}>
+              {children}
+            </ComponentsProvider>
           </DisplayTextProvider>
         </ConfigurationProvider>
       </StoreProvider>
     );
   }
 
-  const StorageBrowser: StorageBrowserComponent = ({ views, displayText }) => (
+  const StorageBrowser: StorageBrowserType = ({ views, displayText }) => (
     <ErrorBoundary>
       <Provider displayText={displayText}>
         <ViewsProvider views={views}>
@@ -149,6 +99,11 @@ export function createStorageBrowser(input: CreateStorageBrowserInput): {
   StorageBrowser.LocationActionView = LocationActionView;
   StorageBrowser.LocationDetailView = LocationDetailView;
   StorageBrowser.LocationsView = LocationsView;
+
+  StorageBrowser.CopyView = CopyView;
+  StorageBrowser.CreateFolderView = CreateFolderView;
+  StorageBrowser.DeleteView = DeleteView;
+  StorageBrowser.UploadView = UploadView;
 
   StorageBrowser.Provider = Provider;
 

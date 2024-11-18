@@ -1,29 +1,54 @@
 import {
-  ListLocationsOutput,
   listCallerAccessGrants,
+  LocationCredentialsProvider,
 } from '../../storage-internal';
 import { assertAccountId } from '../../validators';
 
 import {
   ListHandlerOptions,
-  ListHandlerInput,
-  ListHandlerOutput,
   ListHandler,
+  ListLocationsExcludeOptions,
+  LocationData,
 } from './types';
-
-import { ListLocationsExcludeOptions, LocationData } from './types';
 import { getFilteredLocations } from './utils';
 
 const DEFAULT_PAGE_SIZE = 1000;
 
+export interface ListLocationsOptions extends ListLocationsHandlerOptions {}
+
+export interface ListLocationsInput {
+  options?: ListLocationsOptions;
+}
+
+export interface ListLocationsOutput {
+  items: LocationData[];
+  nextToken: string | undefined;
+}
+
+// `ListLocations` and its associated input/output types are the types
+// used `Config` option of `CreateStorageBrowser` that do not require
+// `config` values as they are provided through higher-order functions
+// defined in the default and managed auth adapters
+export interface ListLocations
+  extends ListHandler<ListLocationsInput, ListLocationsOutput> {}
+
 export interface ListLocationsHandlerOptions
   extends ListHandlerOptions<ListLocationsExcludeOptions> {}
 
-export interface ListLocationsHandlerInput
-  extends ListHandlerInput<ListLocationsHandlerOptions> {}
+export interface ListLocationsHandlerInput {
+  options?: ListLocationsHandlerOptions;
+  config: {
+    accountId?: string;
+    credentials: LocationCredentialsProvider;
+    customEndpoint?: string;
+    region: string;
+  };
+}
 
-export interface ListLocationsHandlerOutput
-  extends ListHandlerOutput<LocationData> {}
+export interface ListLocationsHandlerOutput {
+  items: LocationData[];
+  nextToken: string | undefined;
+}
 
 export interface ListLocationsHandler
   extends ListHandler<ListLocationsHandlerInput, ListLocationsHandlerOutput> {}
@@ -36,10 +61,7 @@ export const listLocationsHandler: ListLocationsHandler = async (input) => {
   const fetchLocations = async (
     accumulatedItems: LocationData[],
     locationsNextToken: ListLocationsOutput['nextToken']
-  ): Promise<{
-    items: LocationData[];
-    nextToken: ListLocationsOutput['nextToken'];
-  }> => {
+  ): Promise<ListLocationsHandlerOutput> => {
     const remainingPageSize = pageSize - accumulatedItems.length;
 
     assertAccountId(accountId);
@@ -61,7 +83,7 @@ export const listLocationsHandler: ListLocationsHandler = async (input) => {
       return fetchLocations(items, output.nextToken);
     }
 
-    return { items: items, nextToken: output.nextToken };
+    return { items, nextToken: output.nextToken };
   };
 
   return fetchLocations([], nextToken);

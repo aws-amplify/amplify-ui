@@ -5,7 +5,7 @@ export const DEFAULT_COPY_VIEW_DISPLAY_TEXT: DefaultCopyViewDisplayText = {
   ...DEFAULT_ACTION_VIEW_DISPLAY_TEXT,
   title: 'Copy',
   actionStartLabel: 'Copy',
-  actionDestinationLabel: 'Copy destination:',
+  actionDestinationLabel: 'Copy destination',
   getListFoldersResultsMessage: ({ folders, query, message, hasError }) => {
     if (!folders?.length) {
       return {
@@ -47,9 +47,6 @@ export const DEFAULT_COPY_VIEW_DISPLAY_TEXT: DefaultCopyViewDisplayText = {
       content: `${COMPLETE} files copied, ${FAILED} files failed to copy.`,
       type: 'error',
     };
-  },
-  getFolderSelectedMessage: (key: string) => {
-    return `Current folder selected: ${key}. There are no additional folders under this path.`;
   },
   searchSubmitLabel: 'Submit',
   searchClearLabel: 'Clear search',

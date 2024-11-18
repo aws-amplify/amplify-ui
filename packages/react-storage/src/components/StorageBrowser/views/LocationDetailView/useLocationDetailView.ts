@@ -8,80 +8,20 @@ import { useStore } from '../../providers/store';
 import {
   FileData,
   LocationData,
-  LocationItemData,
   listLocationItemsHandler,
 } from '../../actions';
-import { isFile } from '../utils';
-import { createEnhancedListHandler } from '../../actions/createEnhancedListHandler';
+import { createEnhancedListHandler } from '../../actions/useAction/createEnhancedListHandler';
 import { useGetActionInput } from '../../providers/configuration';
-import { LocationState } from '../../providers/store/location';
 import { useSearch } from '../hooks/useSearch';
-import { ActionsListItem } from '../../composables/ActionsList';
-import { useTempActions } from '../../do-not-import-from-here/createTempActionsProvider';
-import { IconVariant } from '../../context/elements';
-import { toAccessGrantPermission } from '../../adapters/permissionParsers';
+
 import { Tasks, useProcessTasks } from '../../tasks';
 import {
   downloadHandler,
   DownloadHandlerData,
   FileDataItem,
-} from '../../actions/handlers';
-
-interface UseLocationDetailView {
-  actions: ActionsListItem[];
-  hasError: boolean;
-  hasNextPage: boolean;
-  hasDownloadError: boolean;
-  highestPageVisited: number;
-  isLoading: boolean;
-  isSearchingSubfolders: boolean;
-  location: LocationState;
-  areAllFilesSelected: boolean;
-  fileDataItems: FileDataItem[] | undefined;
-  hasFiles: boolean;
-  message: string | undefined;
-  downloadErrorMessage: string | undefined;
-  shouldShowEmptyMessage: boolean;
-  searchQuery: string;
-  hasExhaustedSearch: boolean;
-  pageItems: LocationItemData[];
-  page: number;
-  onActionSelect: (actionType: string) => void;
-  onDropFiles: (files: File[]) => void;
-  onRefresh: () => void;
-  onNavigate: (location: LocationData, path?: string) => void;
-  onNavigateHome: () => void;
-  onPaginate: (page: number) => void;
-  onDownload: (fileItem: FileDataItem) => void;
-  onSelect: (isSelected: boolean, fileItem: FileData) => void;
-  onSelectAll: () => void;
-  onSearch: () => void;
-  onSearchClear: () => void;
-  onSearchQueryChange: (value: string) => void;
-  onToggleSearchSubfolders: () => void;
-}
-
-export type LocationDetailViewActionType =
-  | { type: 'REFRESH_DATA' } // refresh data only
-  | { type: 'RESET' } // reset view to initial state
-  | { type: 'PAGINATE'; page: number }
-  | { type: 'ACCESS_ITEM'; key: string }
-  | { type: 'NAVIGATE'; location: LocationData; path: string }
-  | { type: 'ADD_FILES'; files: File[] }
-  | { type: 'SEARCH'; query: string; includeSubfolders?: boolean };
-
-interface InitialValues {
-  pageSize?: number;
-  delimiter?: string;
-}
-
-export interface UseLocationDetailViewOptions {
-  initialValues?: InitialValues;
-  onDispatch?: React.Dispatch<LocationDetailViewActionType>;
-  onActionSelect?: (actionType: string) => void;
-  onExit?: () => void;
-  onNavigate?: (location: LocationData, path?: string) => void;
-}
+  defaultActionViewConfigs,
+} from '../../actions';
+import { LocationDetailViewState, UseLocationDetailViewOptions } from './types';
 
 const DEFAULT_PAGE_SIZE = 100;
 export const DEFAULT_LIST_OPTIONS = {
@@ -105,9 +45,9 @@ const getDownloadErrorMessageFromFailedDownloadTask = (
   } due to error: ${tasks[0].message}.`;
 };
 
-export function useLocationDetailView(
+export const useLocationDetailView = (
   options?: UseLocationDetailViewOptions
-): UseLocationDetailView {
+): LocationDetailViewState => {
   const getConfig = useGetActionInput();
   const { initialValues, onExit, onNavigate } = options ?? {};
 
@@ -117,8 +57,6 @@ export function useLocationDetailView(
   });
 
   const listOptions = listOptionsRef.current;
-
-  const tempActions = useTempActions();
 
   const [{ location, locationItems }, dispatchStoreAction] = useStore();
   const { current, key } = location;
@@ -130,10 +68,7 @@ export function useLocationDetailView(
 
   const [{ data, isLoading, hasError, message }, handleList] = useDataState(
     listLocationItemsAction,
-    {
-      items: [],
-      nextToken: undefined,
-    }
+    { items: [], nextToken: undefined }
   );
 
   // set up pagination
@@ -228,26 +163,29 @@ export function useLocationDetailView(
   const shouldShowEmptyMessage =
     pageItems.length === 0 && !isLoading && !hasError;
 
-  // FIXME: Temporarily get from... 😎 temp actions hook
   const actions = React.useMemo(() => {
     if (!permissions) {
       return [];
     }
-    return Object.entries(tempActions).map(([actionType, { options }]) => {
-      const { icon, hide, disable, displayName } = options ?? {};
-      return {
-        actionType,
-        icon: (icon as { props: { variant: IconVariant } }).props.variant,
-        isDisabled: isFunction(disable)
-          ? disable(fileDataItems ?? [])
-          : disable ?? false,
-        isHidden: isFunction(hide)
-          ? hide(toAccessGrantPermission(permissions))
-          : hide,
-        label: displayName,
-      };
-    });
-  }, [fileDataItems, permissions, tempActions]);
+
+    return Object.entries(defaultActionViewConfigs).map(
+      ([actionType, config]) => {
+        const { actionsListItemConfig } = config ?? {};
+
+        const { icon, hide, disable, label } = actionsListItemConfig ?? {};
+
+        return {
+          actionType,
+          icon,
+          isDisabled: isFunction(disable)
+            ? disable(fileDataItems)
+            : disable ?? false,
+          isHidden: isFunction(hide) ? hide(permissions) : hide,
+          label,
+        };
+      }
+    );
+  }, [fileDataItems, permissions]);
 
   return {
     actions,
@@ -280,13 +218,9 @@ export function useLocationDetailView(
     },
     onDropFiles: (files: File[]) => {
       dispatchStoreAction({ type: 'ADD_FILE_ITEMS', files });
-      const actionType = files.some((file) => isFile(file))
-        ? 'UPLOAD_FILES'
-        : 'UPLOAD_FOLDER';
-      dispatchStoreAction({
-        type: 'SET_ACTION_TYPE',
-        actionType,
-      });
+
+      const actionType = 'upload';
+      dispatchStoreAction({ type: 'SET_ACTION_TYPE', actionType });
       options?.onActionSelect?.(actionType);
     },
     onDownload: (data: FileDataItem) => {
@@ -337,4 +271,4 @@ export function useLocationDetailView(
     onSearchQueryChange,
     onToggleSearchSubfolders,
   };
-}
+};

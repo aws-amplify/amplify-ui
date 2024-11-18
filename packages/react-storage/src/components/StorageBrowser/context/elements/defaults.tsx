@@ -130,7 +130,7 @@ function Heading(props: HeadingElementProps): React.JSX.Element {
 
 function Span(props: SpanElementProps): React.JSX.Element {
   const { variant } = props;
-  if (variant === 'navigate-text') {
+  if (variant === 'navigation-text' || variant === 'destination-text') {
     return (
       <_View
         {...props}

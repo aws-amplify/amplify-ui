@@ -10,8 +10,8 @@ import {
 import { STORAGE_BROWSER_BLOCK_TO_BE_UPDATED } from '../constants';
 
 export interface DescriptionItemProps {
-  term?: string;
-  details?: string | JSX.Element;
+  term?: string | string[];
+  details?: string | string[];
 }
 
 interface DescriptionProps {

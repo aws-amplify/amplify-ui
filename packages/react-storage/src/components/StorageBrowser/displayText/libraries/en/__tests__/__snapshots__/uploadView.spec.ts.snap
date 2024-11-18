@@ -1,55 +1,122 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CopyView display text values \`getActionCompleteMessage\` returns the expected values in the all failed scenario 1`] = `
+exports[`UploadView display text values \`getActionCompleteMessage\` returns the expected values in the all failed scenario 1`] = `
 {
   "content": "All files failed to upload.",
   "type": "error",
 }
 `;
 
-exports[`CopyView display text values \`getActionCompleteMessage\` returns the expected values in the all prevented overwrites scenario 1`] = `
+exports[`UploadView display text values \`getActionCompleteMessage\` returns the expected values in the all overwrite prevented or failed scenario 1`] = `
+{
+  "content": "Overwrite prevented for 6 files, 5 files failed to upload.",
+  "type": "error",
+}
+`;
+
+exports[`UploadView display text values \`getActionCompleteMessage\` returns the expected values in the all overwrite prevented scenario 1`] = `
 {
   "content": "Overwrite prevented for all files.",
   "type": "warning",
 }
 `;
 
-exports[`CopyView display text values \`getActionCompleteMessage\` returns the expected values in the all success scenario 1`] = `
+exports[`UploadView display text values \`getActionCompleteMessage\` returns the expected values in the all prevented overwrites scenario 1`] = `
+{
+  "content": "Overwrite prevented for all files.",
+  "type": "warning",
+}
+`;
+
+exports[`UploadView display text values \`getActionCompleteMessage\` returns the expected values in the all success scenario 1`] = `
 {
   "content": "All files uploaded.",
   "type": "success",
 }
 `;
 
-exports[`CopyView display text values \`getActionCompleteMessage\` returns the expected values in the no failures, some prevented overwrites, some success scenario 1`] = `
+exports[`UploadView display text values \`getActionCompleteMessage\` returns the expected values in the multiple overwrite prevented scenario 1`] = `
+{
+  "content": "Overwrite prevented for 3 files, 8 files uploaded.",
+  "type": "warning",
+}
+`;
+
+exports[`UploadView display text values \`getActionCompleteMessage\` returns the expected values in the multiple overwrite prevented with a failure scenario 1`] = `
+{
+  "content": "Overwrite prevented for 3 files, 1 file failed to upload, 7 files uploaded.",
+  "type": "error",
+}
+`;
+
+exports[`UploadView display text values \`getActionCompleteMessage\` returns the expected values in the multiple overwrite prevented with failures scenario 1`] = `
+{
+  "content": "Overwrite prevented for 3 files, 3 files failed to upload, 5 files uploaded.",
+  "type": "error",
+}
+`;
+
+exports[`UploadView display text values \`getActionCompleteMessage\` returns the expected values in the no failures, some prevented overwrites, some success scenario 1`] = `
 {
   "content": "Overwrite prevented for 3 files, 2 files uploaded.",
   "type": "warning",
 }
 `;
 
-exports[`CopyView display text values \`getActionCompleteMessage\` returns the expected values in the some failed scenario 1`] = `
+exports[`UploadView display text values \`getActionCompleteMessage\` returns the expected values in the single overwrite prevented scenario 1`] = `
+{
+  "content": "Overwrite prevented for 1 file, 10 files uploaded.",
+  "type": "warning",
+}
+`;
+
+exports[`UploadView display text values \`getActionCompleteMessage\` returns the expected values in the single overwrite prevented with a failure scenario 1`] = `
+{
+  "content": "Overwrite prevented for 1 file, 1 file failed to upload, 9 files uploaded.",
+  "type": "error",
+}
+`;
+
+exports[`UploadView display text values \`getActionCompleteMessage\` returns the expected values in the single overwrite prevented with failures scenario 1`] = `
+{
+  "content": "Overwrite prevented for 1 file, 3 files failed to upload, 7 files uploaded.",
+  "type": "error",
+}
+`;
+
+exports[`UploadView display text values \`getActionCompleteMessage\` returns the expected values in the some failed scenario 1`] = `
 {
   "content": "3 files failed to upload, 8 files uploaded.",
   "type": "error",
 }
 `;
 
-exports[`CopyView display text values \`getActionCompleteMessage\` returns the expected values in the some failures, some prevented overwrites, no success scenario 1`] = `
+exports[`UploadView display text values \`getActionCompleteMessage\` returns the expected values in the some failures, some prevented overwrites, no success scenario 1`] = `
 {
   "content": "Overwrite prevented for 3 files, 2 files failed to upload.",
   "type": "error",
 }
 `;
 
-exports[`CopyView display text values \`getActionCompleteMessage\` returns the expected values in the some failures, some prevented overwrites, some success scenario 1`] = `
+exports[`UploadView display text values \`getActionCompleteMessage\` returns the expected values in the some failures, some prevented overwrites, some success scenario 1`] = `
 {
   "content": "Overwrite prevented for 3 files, 2 files failed to upload, 8 files uploaded.",
   "type": "error",
 }
 `;
 
-exports[`CopyView display text values should match snapshot values 1`] = `
+exports[`UploadView display text values \`getFilesValidationMessage\` returns expected values in the empty file items scenario 1`] = `undefined`;
+
+exports[`UploadView display text values \`getFilesValidationMessage\` returns expected values in the no files scenario 1`] = `undefined`;
+
+exports[`UploadView display text values \`getFilesValidationMessage\` returns expected values in the too large file scenario 1`] = `
+{
+  "content": "Files larger than 160GB cannot be added to the upload queue: file1",
+  "type": "warning",
+}
+`;
+
+exports[`UploadView display text values should match snapshot values 1`] = `
 {
   "actionCancelLabel": "Cancel",
   "actionDestinationLabel": "Destination",
@@ -58,6 +125,7 @@ exports[`CopyView display text values should match snapshot values 1`] = `
   "addFilesLabel": "Add files",
   "addFolderLabel": "Add folder",
   "getActionCompleteMessage": [Function],
+  "getFilesValidationMessage": [Function],
   "loadingIndicatorLabel": "Loading",
   "overwriteToggleLabel": "Overwrite existing files",
   "statusDisplayCanceledLabel": "Canceled",

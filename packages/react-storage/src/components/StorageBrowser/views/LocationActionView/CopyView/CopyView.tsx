@@ -17,20 +17,17 @@ import { SearchControl } from '../../../controls/SearchControl';
 import { StatusDisplayControl } from '../../../controls/StatusDisplayControl';
 import { TitleControl } from '../../../controls/TitleControl';
 
-import { resolveClassName } from '../../utils';
-
 import { CopyViewProvider } from './CopyViewProvider';
-import { DestinationControl } from './DestinationControl';
 import { FoldersMessageControl } from './FoldersMessageControl';
 import { FoldersPaginationControl } from './FoldersPaginationControl';
 import { FoldersTableControl } from './FoldersTableControl';
-import { CopyViewProps } from './types';
-import { useCopyView } from './useCopyView';
+import { ActionDestinationControl } from '../../../controls/ActionDestinationControl';
 
-export function CopyView({
-  className,
-  ...props
-}: CopyViewProps): React.JSX.Element {
+import { CopyViewType } from './types';
+import { useCopyView } from './useCopyView';
+import { classNames } from '@aws-amplify/ui';
+
+export const CopyView: CopyViewType = ({ className, ...props }) => {
   const state = useCopyView(props);
   const {
     isProcessing,
@@ -43,7 +40,7 @@ export function CopyView({
   }, [onInitialize]);
 
   return (
-    <div className={resolveClassName(STORAGE_BROWSER_BLOCK, className)}>
+    <ViewElement className={classNames(STORAGE_BROWSER_BLOCK, className)}>
       <CopyViewProvider {...state}>
         <ActionExitControl />
         <TitleControl />
@@ -55,7 +52,7 @@ export function CopyView({
         {isProcessing || isProcessingComplete ? null : (
           <>
             <ViewElement
-              className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__action-destination`}
+              className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__copy-destination-header`}
             >
               <ViewElement
                 className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__search`}
@@ -74,7 +71,7 @@ export function CopyView({
           </>
         )}
         <ViewElement className={`${STORAGE_BROWSER_BLOCK}-footer`}>
-          <DestinationControl />
+          <ActionDestinationControl />
           {!(isProcessing || isProcessingComplete) ? null : (
             <StatusDisplayControl />
           )}
@@ -87,24 +84,24 @@ export function CopyView({
           </ViewElement>
         </ViewElement>
       </CopyViewProvider>
-    </div>
+    </ViewElement>
   );
-}
+};
 
 CopyView.displayName = 'CopyView';
 
 CopyView.Provider = CopyViewProvider;
 
 CopyView.Cancel = ActionCancelControl;
-CopyView.Destination = DestinationControl;
+CopyView.Destination = ActionDestinationControl;
 CopyView.Exit = ActionExitControl;
-CopyView.Folders = FoldersTableControl;
-CopyView.FoldersLoading = LoadingIndicatorControl;
+CopyView.FoldersLoadingIndicator = LoadingIndicatorControl;
 CopyView.FoldersMessage = FoldersMessageControl;
 CopyView.FoldersPagination = FoldersPaginationControl;
 CopyView.FoldersSearch = SearchControl;
+CopyView.FoldersTable = FoldersTableControl;
 CopyView.Message = MessageControl;
 CopyView.Start = ActionStartControl;
 CopyView.Statuses = StatusDisplayControl;
-CopyView.Tasks = DataTableControl;
+CopyView.TasksTable = DataTableControl;
 CopyView.Title = TitleControl;

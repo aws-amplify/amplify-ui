@@ -41,14 +41,4 @@ describe('StatusDisplayControl', () => {
     expect(bar).toHaveTextContent('2/6');
     expect(qux).toHaveTextContent('3/6');
   });
-
-  it('returns null without props', () => {
-    mockUseStatusDisplay.mockReturnValue({});
-
-    render(<StatusDisplayControl />);
-
-    expect(screen.queryByRole('list')).not.toBeInTheDocument();
-    expect(screen.queryByRole('term')).not.toBeInTheDocument();
-    expect(screen.queryByRole('definition')).not.toBeInTheDocument();
-  });
 });

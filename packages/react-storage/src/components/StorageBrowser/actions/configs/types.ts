@@ -64,7 +64,7 @@ export interface ActionListItemConfig {
   /**
    * list item icon
    */
-  icon: IconVariant | Exclude<React.ReactNode, string>;
+  icon: IconVariant;
 
   /**
    * list item label
@@ -82,7 +82,7 @@ export interface TaskActionConfig<T extends TaskHandler = TaskHandler>
    * configure action list item behavior. provide multiple configs
    * to create additional list items for a single action
    */
-  actionsListItemConfig?: ActionListItemConfig | ActionListItemConfig[];
+  actionsListItemConfig?: ActionListItemConfig;
 
   /**
    * whether the provided `handler` allow inflight cancellation
