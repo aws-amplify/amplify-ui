@@ -9,9 +9,11 @@ import {
   MenuItem,
   Menu,
   Button,
+  View,
 } from '@aws-amplify/ui-react';
 import { Components } from './ComponentsProvider';
 import { IconElement } from './context/elements';
+import { STORAGE_BROWSER_BLOCK } from './constants';
 
 const OverwriteToggle: Components['OverwriteToggle'] = ({
   isDisabled,
@@ -208,7 +210,71 @@ const ActionsList: Components['ActionsList'] = ({
   );
 };
 
+const StatusDisplay: Components['StatusDisplay'] = ({ statuses, total }) => {
+  if (!statuses?.length) {
+    return null;
+  }
+
+  return (
+    <View as="dl" className={`${STORAGE_BROWSER_BLOCK}__status-display`}>
+      {statuses.map(({ name, count }, i) => (
+        <View as="div" className={`${STORAGE_BROWSER_BLOCK}__status`} key={i}>
+          <View as="dt" className={`${STORAGE_BROWSER_BLOCK}__status-label`}>
+            {name}
+          </View>
+          <View
+            as="dd"
+            className={`${STORAGE_BROWSER_BLOCK}__status-value`}
+          >{`${count}/${total}`}</View>
+        </View>
+      ))}
+    </View>
+  );
+};
+
+const ActionDestination: Components['ActionDestination'] = ({
+  isNavigable,
+  items,
+  label,
+}) => {
+  if (!items.length) {
+    return null;
+  }
+
+  return (
+    <View as="dl" className={`${STORAGE_BROWSER_BLOCK}__destination`}>
+      <View as="dt" className={`${STORAGE_BROWSER_BLOCK}__destination-label`}>
+        {label}
+      </View>
+      <View as="dd" className={`${STORAGE_BROWSER_BLOCK}__destination-value`}>
+        <Breadcrumbs.Container>
+          {items.map((item, i) => {
+            return (
+              <Breadcrumbs.Item key={i}>
+                {isNavigable ? (
+                  <Breadcrumbs.Link
+                    as={item.isCurrent ? 'span' : 'button'}
+                    isCurrent={item.isCurrent}
+                    onClick={item.onNavigate}
+                  >
+                    {item.name}
+                  </Breadcrumbs.Link>
+                ) : (
+                  item.name
+                )}
+
+                {item.isCurrent ? null : <Breadcrumbs.Separator />}
+              </Breadcrumbs.Item>
+            );
+          })}
+        </Breadcrumbs.Container>
+      </View>
+    </View>
+  );
+};
+
 export const componentsDefault: Components = {
+  ActionDestination,
   ActionsList,
   DataRefresh,
   LoadingIndicator,
@@ -217,5 +283,6 @@ export const componentsDefault: Components = {
   OverwriteToggle,
   SearchField,
   SearchSubfoldersToggle,
+  StatusDisplay,
   FolderNameField,
 };

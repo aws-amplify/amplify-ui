@@ -133,11 +133,42 @@
     }
   }
 
-  &__status-display {
-    justify-content: flex-end;
+  &__status {
     display: flex;
-    gap: var(--amplify-space-small);
-    flex: 1;
+    flex-direction: row;
+    gap: var(--amplify-space-xs);
+    align-items: center;
+
+    &-display {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+      align-items: center;
+      gap: var(--amplify-space-small);
+      flex: 1;
+    }
+
+    &-label {
+      font-weight: var(--amplify-font-weights-bold);
+    }
+
+    &-value {
+      color: var(--amplify-colors-font-secondary);
+    }
+  }
+
+  &__destination {
+    display: flex;
+    flex-direction: row;
+    gap: var(--amplify-space-xs);
+    align-items: center;
+
+    &-label {
+      font-weight: var(--amplify-font-weights-bold);
+    }
+
+    &-value {
+    }
   }
 
   &__message {

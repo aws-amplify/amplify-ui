@@ -9,8 +9,8 @@ import {
   ViewElement,
 } from '../context/elements';
 import { Separator } from '../components/Separator';
-import { Navigation, NavigationProps } from './Navigation';
-import { useResolvedComposable } from '../controls/hooks/useResolvedComposable';
+import { NavigationProps } from './Navigation';
+import { BreadcrumbNavigation } from '../components/BreadcrumbNavigation';
 
 export interface ActionDestinationProps {
   isNavigable?: boolean;
@@ -23,8 +23,6 @@ export const ActionDestination = ({
   items,
   label,
 }: ActionDestinationProps): React.JSX.Element | null => {
-  const Resolved = useResolvedComposable(Navigation, 'Navigation');
-
   if (!items.length) {
     return null;
   }
@@ -34,7 +32,7 @@ export const ActionDestination = ({
       {isNavigable ? (
         <>
           <SpanElement>{`${label}:`}</SpanElement>
-          <Resolved items={items} />
+          <BreadcrumbNavigation breadcrumbs={items} role="complementary" />
         </>
       ) : (
         <DescriptionListElement

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Checkbox } from '@aws-amplify/ui-react';
-import { ViewElement } from '../../../context/elements';
 
 export interface CheckboxDataCellProps {
   content: {
@@ -16,15 +15,13 @@ export const CheckboxDataCell = ({
 }: CheckboxDataCellProps): React.JSX.Element => {
   const { checked = false, label, onSelect, id } = content;
   return (
-    <ViewElement>
-      <Checkbox
-        name={label ?? ''}
-        checked={checked}
-        labelHidden
-        label={label}
-        onChange={onSelect}
-        id={id}
-      />
-    </ViewElement>
+    <Checkbox
+      name={label ?? ''}
+      checked={checked}
+      labelHidden
+      label={label}
+      onChange={onSelect}
+      id={id}
+    />
   );
 };
