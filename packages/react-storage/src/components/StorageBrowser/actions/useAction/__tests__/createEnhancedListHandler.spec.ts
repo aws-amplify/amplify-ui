@@ -18,6 +18,7 @@ const config: ActionInputConfig = {
 };
 type Output = ListHandlerOutput<{
   name: string;
+  alt: string;
   id: number;
 }>;
 
@@ -102,6 +103,49 @@ describe('createEnhancedListHandler', () => {
       { name: 'foo/bar/cherry' },
       { name: 'date' },
     ]);
+    expect(result.nextToken).toBeUndefined();
+    expect(result.search?.hasExhaustedSearch).toBeFalsy();
+  });
+
+  it('should collect and filter results using a filter key function', async () => {
+    mockAction
+      .mockResolvedValueOnce({
+        items: [
+          { name: 'foo/bar/apple', alt: 'cosmic-crisp' },
+          { name: 'banana', alt: '' },
+        ],
+        nextToken: 'next',
+      })
+      .mockResolvedValueOnce({
+        items: [
+          { name: 'foo/bar/cherry', alt: '' },
+          { name: 'date', alt: '' },
+        ],
+        nextToken: null,
+      });
+
+    const handler = createEnhancedListHandler(mockAction as Handler);
+    const prevState = { items: [], nextToken: undefined };
+
+    const result = await handler(prevState, {
+      config,
+      prefix: '',
+      options: {
+        search: {
+          query: 'a',
+          filterBy: (item) => {
+            return item.alt ? 'alt' : 'name';
+          },
+        },
+      },
+    });
+
+    expect(result.items).toEqual([
+      expect.objectContaining({ name: 'banana' }),
+      expect.objectContaining({ name: 'foo/bar/cherry' }),
+      expect.objectContaining({ name: 'date' }),
+    ]);
+
     expect(result.nextToken).toBeUndefined();
     expect(result.search?.hasExhaustedSearch).toBeFalsy();
   });
