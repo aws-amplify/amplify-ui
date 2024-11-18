@@ -1,12 +1,12 @@
 import React from 'react';
 
 import { DropdownMenu } from '../components/DropdownMenu';
-import { IconVariant } from '../context/elements';
+import { StorageBrowserIconType } from '../context/elements';
 
 export interface ActionsListItem {
   isDisabled?: boolean;
   isHidden?: boolean;
-  icon?: IconVariant;
+  icon?: StorageBrowserIconType;
   actionType: string;
   label?: string;
 }

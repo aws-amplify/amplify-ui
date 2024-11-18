@@ -1,4 +1,4 @@
-import { IconVariant } from '../../context/elements';
+import { StorageBrowserIconType } from '../../context/elements';
 import { LocationPermissions } from '../../actions';
 
 import {
@@ -64,7 +64,7 @@ export interface ActionListItemConfig {
   /**
    * list item icon
    */
-  icon: IconVariant;
+  icon: StorageBrowserIconType;
 
   /**
    * list item label

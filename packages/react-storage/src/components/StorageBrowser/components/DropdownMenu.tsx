@@ -3,7 +3,7 @@ import React from 'react';
 import {
   ButtonElement,
   IconElement,
-  IconVariant,
+  StorageBrowserIconType,
   ViewElement,
 } from '../context/elements';
 import { STORAGE_BROWSER_BLOCK_TO_BE_UPDATED } from '../constants';
@@ -11,7 +11,7 @@ import { STORAGE_BROWSER_BLOCK_TO_BE_UPDATED } from '../constants';
 interface MenuItem {
   isDisabled?: boolean;
   isHidden?: boolean;
-  icon?: IconVariant;
+  icon?: StorageBrowserIconType;
   id: string;
   label?: string;
 }

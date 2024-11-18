@@ -4,13 +4,13 @@ import {
   ButtonElement,
   ButtonElementVariant,
   IconElement,
-  IconVariant,
+  StorageBrowserIconType,
 } from '../../../context/elements';
 import { STORAGE_BROWSER_BLOCK_TO_BE_UPDATED } from '../../../constants';
 
 export interface ButtonDataCellProps {
   content: {
-    icon?: IconVariant;
+    icon?: StorageBrowserIconType;
     label?: string;
     onClick?: () => void;
     ariaLabel?: string;
