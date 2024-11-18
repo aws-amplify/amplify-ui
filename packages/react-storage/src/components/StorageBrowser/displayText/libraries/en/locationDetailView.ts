@@ -52,7 +52,7 @@ export const DEFAULT_LOCATION_DETAIL_VIEW_DISPLAY_TEXT: DefaultLocationDetailVie
     tableColumnTypeHeader: 'Type',
     selectFileLabel: 'Select file',
     selectAllFilesLabel: 'Select all files',
-    getActionListLabel: (key: string | undefined) => {
+    getActionListLabel: (key: string | undefined = '') => {
       switch (key) {
         case 'Copy':
           return 'Copy';
@@ -63,7 +63,7 @@ export const DEFAULT_LOCATION_DETAIL_VIEW_DISPLAY_TEXT: DefaultLocationDetailVie
         case 'Upload':
           return 'Upload';
         default:
-          return key ?? '';
+          return key;
       }
     },
     getTitle: (location) => {
