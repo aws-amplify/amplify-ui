@@ -48,13 +48,10 @@ export async function processDroppedItems(
   // Filter out and process files from the data transfer items
   await Promise.all(
     dataTransferItems
-      .reduce<FileSystemEntry[]>(
-        (acc, { kind, webkitGetAsEntry }) =>
-          kind === 'file' && webkitGetAsEntry()
-            ? [...acc, webkitGetAsEntry()!]
-            : acc,
-        []
-      )
+      .reduce<FileSystemEntry[]>((acc, item) => {
+        const entry = item.webkitGetAsEntry();
+        return item.kind === 'file' && entry ? [...acc, entry] : acc;
+      }, [])
       .map(processFileSystemEntry)
   );
 
