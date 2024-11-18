@@ -15,7 +15,7 @@
   }
 
   &__navigation,
-  &__action-exit {
+  &__exit {
     align-self: flex-start;
   }
 
@@ -40,7 +40,10 @@
   }
 
   &__search {
+    display: flex;
+    flex-direction: row;
     flex: 1;
+    gap: var(--amplify-space-small);
   }
 
   &__pagination {
