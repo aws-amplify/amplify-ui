@@ -1,9 +1,5 @@
 import { DeleteHandlerData, LocationData } from '../../../actions';
-import {
-  ActionViewInterface,
-  ActionViewProps,
-  ActionViewState,
-} from '../types';
+import { ActionViewType, ActionViewProps, ActionViewState } from '../types';
 
 export interface DeleteViewState extends ActionViewState<DeleteHandlerData> {}
 
@@ -13,8 +9,8 @@ export interface DeleteViewProviderProps extends DeleteViewState {
   children?: React.ReactNode;
 }
 
-export interface DeleteViewInterface
-  extends ActionViewInterface<DeleteHandlerData, DeleteViewProps> {
+export interface DeleteViewType
+  extends ActionViewType<DeleteHandlerData, DeleteViewProps> {
   Provider: (props: DeleteViewProviderProps) => React.JSX.Element;
   Cancel: () => React.JSX.Element | null;
   Exit: () => React.JSX.Element | null;

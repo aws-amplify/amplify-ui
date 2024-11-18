@@ -9,10 +9,10 @@ import { MessageControl } from '../../../controls/MessageControl';
 import { TitleControl } from '../../../controls/TitleControl';
 
 import { CreateFolderViewProvider } from './CreateFolderViewProvider';
-import { CreateFolderViewInterface } from './types';
+import { CreateFolderViewType } from './types';
 import { useCreateFolderView } from './useCreateFolderView';
 
-export const CreateFolderView: CreateFolderViewInterface = ({
+export const CreateFolderView: CreateFolderViewType = ({
   className,
   ...props
 }) => {

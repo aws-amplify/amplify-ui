@@ -16,10 +16,10 @@ import { StatusDisplayControl } from '../../../controls/StatusDisplayControl';
 import { TitleControl } from '../../../controls/TitleControl';
 
 import { UploadViewProvider } from './UploadViewProvider';
-import { UploadViewInterface } from './types';
+import { UploadViewType } from './types';
 import { useUploadView } from './useUploadView';
 
-export const UploadView: UploadViewInterface = ({ className, ...props }) => {
+export const UploadView: UploadViewType = ({ className, ...props }) => {
   const state = useUploadView(props);
 
   return (

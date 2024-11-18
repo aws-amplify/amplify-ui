@@ -40,12 +40,12 @@ export interface LocationActionViewProps<
   type?: T;
 }
 
-export type LocationActionViewInterface<
+export type LocationActionViewType<
   T = string,
   K extends TaskData = TaskData,
 > = (props: LocationActionViewProps<T, K>) => React.JSX.Element | null;
 
-export interface ActionViewInterface<T extends TaskData = TaskData, K = {}> {
+export interface ActionViewType<T extends TaskData = TaskData, K = {}> {
   (
     props: ActionViewProps & Partial<ActionViewState<T>> & K
   ): React.JSX.Element | null;
@@ -58,7 +58,7 @@ export type DerivedActionViews<T> = {
     ? never
     : T[K] extends { componentName: ComponentName }
     ? T[K]['componentName']
-    : never]: ActionViewInterface<
+    : never]: ActionViewType<
     T[K] extends TaskActionConfig<TaskHandler<TaskHandlerInput<infer X>>>
       ? X
       : never

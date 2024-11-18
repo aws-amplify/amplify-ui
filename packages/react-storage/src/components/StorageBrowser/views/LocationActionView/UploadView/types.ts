@@ -1,10 +1,6 @@
 import { LocationData, UploadHandlerData } from '../../../actions';
 import { FileItem } from '../../../providers';
-import {
-  ActionViewInterface,
-  ActionViewProps,
-  ActionViewState,
-} from '../types';
+import { ActionViewType, ActionViewProps, ActionViewState } from '../types';
 
 export interface UploadViewState extends ActionViewState<FileItem> {
   isOverwritingEnabled: boolean;
@@ -21,8 +17,8 @@ export interface UploadViewProviderProps extends UploadViewState {
   children?: React.ReactNode;
 }
 
-export interface UploadViewInterface
-  extends ActionViewInterface<UploadHandlerData, UploadViewProps> {
+export interface UploadViewType
+  extends ActionViewType<UploadHandlerData, UploadViewProps> {
   Provider: (props: UploadViewProviderProps) => React.JSX.Element;
   AddFiles: () => React.JSX.Element | null;
   AddFolder: () => React.JSX.Element | null;

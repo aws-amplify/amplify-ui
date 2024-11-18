@@ -25,12 +25,12 @@ import { createUseView } from './views/createUseView';
 
 import {
   CreateStorageBrowserInput,
-  StorageBrowserComponent,
   StorageBrowserProviderProps,
+  StorageBrowserType,
 } from './types';
 
 export function createStorageBrowser(input: CreateStorageBrowserInput): {
-  StorageBrowser: StorageBrowserComponent<
+  StorageBrowser: StorageBrowserType<
     keyof Omit<
       typeof defaultActionConfigs,
       'listLocationItems' | 'listLocations'
@@ -86,7 +86,7 @@ export function createStorageBrowser(input: CreateStorageBrowserInput): {
     );
   }
 
-  const StorageBrowser: StorageBrowserComponent = ({ views, displayText }) => (
+  const StorageBrowser: StorageBrowserType = ({ views, displayText }) => (
     <ErrorBoundary>
       <Provider displayText={displayText}>
         <ViewsProvider views={views}>

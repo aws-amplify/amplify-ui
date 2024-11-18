@@ -23,10 +23,10 @@ import { FoldersPaginationControl } from './FoldersPaginationControl';
 import { FoldersTableControl } from './FoldersTableControl';
 import { ActionDestinationControl } from '../../../controls/ActionDestinationControl';
 
-import { CopyViewInterface } from './types';
+import { CopyViewType } from './types';
 import { useCopyView } from './useCopyView';
 
-export const CopyView: CopyViewInterface = ({ className, ...props }) => {
+export const CopyView: CopyViewType = ({ className, ...props }) => {
   const state = useCopyView(props);
   const {
     isProcessing,
@@ -94,11 +94,11 @@ CopyView.Provider = CopyViewProvider;
 CopyView.Cancel = ActionCancelControl;
 CopyView.Destination = ActionDestinationControl;
 CopyView.Exit = ActionExitControl;
+CopyView.FoldersLoadingIndicator = LoadingIndicatorControl;
 CopyView.FoldersMessage = FoldersMessageControl;
 CopyView.FoldersPagination = FoldersPaginationControl;
 CopyView.FoldersSearch = SearchControl;
 CopyView.FoldersTable = FoldersTableControl;
-CopyView.LoadingIndicator = LoadingIndicatorControl;
 CopyView.Message = MessageControl;
 CopyView.Start = ActionStartControl;
 CopyView.Statuses = StatusDisplayControl;

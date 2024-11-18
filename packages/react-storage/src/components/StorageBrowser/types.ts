@@ -8,10 +8,10 @@ import { Components } from './ComponentsProvider';
 import { RegisterAuthListener, StoreProviderProps } from './providers';
 
 import {
-  CopyViewInterface,
-  CreateFolderViewInterface,
-  DeleteViewInterface,
-  UploadViewInterface,
+  CopyViewType,
+  CreateFolderViewType,
+  DeleteViewType,
+  UploadViewType,
   Views,
 } from './views';
 
@@ -40,16 +40,16 @@ export interface StorageBrowserProps<T = string> {
   displayText?: StorageBrowserDisplayText;
 }
 
-export interface StorageBrowserComponent<T = string, K = {}> extends Views<T> {
+export interface StorageBrowserType<T = string, K = {}> extends Views<T> {
   (
     props: StorageBrowserProps & Exclude<K, keyof StorageBrowserProps>
   ): React.JSX.Element;
   displayName: string;
   Provider: (props: StorageBrowserProviderProps) => React.JSX.Element;
-  CopyView: CopyViewInterface;
-  CreateFolderView: CreateFolderViewInterface;
-  DeleteView: DeleteViewInterface;
-  UploadView: UploadViewInterface;
+  CopyView: CopyViewType;
+  CreateFolderView: CreateFolderViewType;
+  DeleteView: DeleteViewType;
+  UploadView: UploadViewType;
 }
 
 export type ActionViewName<T = string> = Exclude<

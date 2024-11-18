@@ -1,13 +1,13 @@
 export {
   CopyView,
-  CopyViewInterface,
+  CopyViewType,
   CreateFolderView,
-  CreateFolderViewInterface,
+  CreateFolderViewType,
   DeleteView,
-  DeleteViewInterface,
+  DeleteViewType,
   LocationActionView,
   UploadView,
-  UploadViewInterface,
+  UploadViewType,
 } from './LocationActionView';
 export {
   LocationDetailView,

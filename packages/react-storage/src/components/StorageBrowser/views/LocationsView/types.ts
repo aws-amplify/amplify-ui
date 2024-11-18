@@ -26,7 +26,7 @@ export interface LocationsViewProviderProps extends LocationsViewState {
   children?: React.ReactNode;
 }
 
-export interface LocationsViewInterface {
+export interface LocationsViewType {
   (
     props: {
       children?: React.ReactNode;

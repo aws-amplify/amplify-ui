@@ -76,11 +76,11 @@ describe('CopyView', () => {
     expect(CopyView.Cancel).toBeDefined();
     expect(CopyView.Destination).toBeDefined();
     expect(CopyView.Exit).toBeDefined();
+    expect(CopyView.FoldersLoadingIndicator).toBeDefined();
     expect(CopyView.FoldersMessage).toBeDefined();
     expect(CopyView.FoldersPagination).toBeDefined();
     expect(CopyView.FoldersSearch).toBeDefined();
     expect(CopyView.FoldersTable).toBeDefined();
-    expect(CopyView.LoadingIndicator).toBeDefined();
     expect(CopyView.Message).toBeDefined();
     expect(CopyView.Start).toBeDefined();
     expect(CopyView.Statuses).toBeDefined();

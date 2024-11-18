@@ -13,9 +13,9 @@ import { STORAGE_BROWSER_BLOCK } from '../../../constants';
 
 import { DeleteViewProvider } from './DeleteViewProvider';
 import { useDeleteView } from './useDeleteView';
-import { DeleteViewInterface } from './types';
+import { DeleteViewType } from './types';
 
-export const DeleteView: DeleteViewInterface = ({ className, ...props }) => {
+export const DeleteView: DeleteViewType = ({ className, ...props }) => {
   const state = useDeleteView(props);
 
   return (

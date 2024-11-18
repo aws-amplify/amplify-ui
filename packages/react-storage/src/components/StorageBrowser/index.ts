@@ -6,4 +6,4 @@ export {
   CreateManagedAuthAdapterInput,
   StorageBrowserAuthAdapter,
 } from './adapters';
-export { CreateStorageBrowserInput, StorageBrowserComponent } from './types';
+export { CreateStorageBrowserInput, StorageBrowserType } from './types';

@@ -14,13 +14,10 @@ import { SearchControl } from '../../controls/SearchControl';
 import { TitleControl } from '../../controls/TitleControl';
 
 import { LocationsViewProvider } from './LocationsViewProvider';
-import { LocationsViewInterface } from './types';
+import { LocationsViewType } from './types';
 import { useLocationsView } from './useLocationsView';
 
-export const LocationsView: LocationsViewInterface = ({
-  className,
-  ...props
-}) => {
+export const LocationsView: LocationsViewType = ({ className, ...props }) => {
   const state = useLocationsView(props);
   const { hasError } = state;
 

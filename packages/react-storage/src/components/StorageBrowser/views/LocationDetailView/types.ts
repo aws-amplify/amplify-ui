@@ -53,7 +53,7 @@ export interface LocationDetailViewProviderProps
   children?: React.ReactNode;
 }
 
-export interface LocationDetailViewInterface {
+export interface LocationDetailViewType {
   (
     props: {
       children?: React.ReactNode;

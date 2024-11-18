@@ -17,7 +17,7 @@ import { SearchControl } from '../../controls/SearchControl';
 import { SearchSubfoldersToggleControl } from '../../controls/SearchSubfoldersToggleControl';
 import { TitleControl } from '../../controls/TitleControl';
 
-import { LocationDetailViewInterface } from './types';
+import { LocationDetailViewType } from './types';
 import { useLocationDetailView } from './useLocationDetailView';
 import { LocationDetailViewProvider } from './LocationDetailViewProvider';
 
@@ -27,7 +27,7 @@ export const DEFAULT_LIST_OPTIONS = {
   delimiter: '/',
 };
 
-export const LocationDetailView: LocationDetailViewInterface = ({
+export const LocationDetailView: LocationDetailViewType = ({
   className,
   ...props
 }) => {

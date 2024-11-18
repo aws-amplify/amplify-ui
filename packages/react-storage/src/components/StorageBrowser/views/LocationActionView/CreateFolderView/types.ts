@@ -4,11 +4,7 @@ import {
   LocationData,
 } from '../../../actions';
 
-import {
-  ActionViewInterface,
-  ActionViewState,
-  ActionViewProps,
-} from '../types';
+import { ActionViewType, ActionViewState, ActionViewProps } from '../types';
 
 export interface CreateFolderViewState
   extends Omit<ActionViewState<CreateFolderHandlerData>, 'onActionCancel'> {
@@ -25,8 +21,8 @@ export interface CreateFolderViewProviderProps extends CreateFolderViewState {
   children?: React.ReactNode;
 }
 
-export interface CreateFolderViewInterface
-  extends ActionViewInterface<CopyHandlerData, CreateFolderViewProps> {
+export interface CreateFolderViewType
+  extends ActionViewType<CopyHandlerData, CreateFolderViewProps> {
   Provider: (props: CreateFolderViewProviderProps) => React.JSX.Element;
   Exit: () => React.JSX.Element | null;
   NameField: () => React.JSX.Element | null;
