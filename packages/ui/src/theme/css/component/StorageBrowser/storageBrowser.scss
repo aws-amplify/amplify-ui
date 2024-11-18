@@ -198,6 +198,10 @@
 
   &__message {
     flex: 1;
+
+    &-dismiss {
+      margin-left: auto;
+    }
   }
 
   &__buttons {

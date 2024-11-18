@@ -4,10 +4,11 @@ import { ActionViewType, ActionViewProps, ActionViewState } from '../types';
 
 export interface UploadViewState extends ActionViewState<FileItem> {
   isOverwritingEnabled: boolean;
+  invalidFiles: FileItems | undefined;
   onDropFiles: (files: File[]) => void;
   onSelectFiles: (type: 'FILE' | 'FOLDER') => void;
   onToggleOverwrite: () => void;
-  invalidFiles: FileItems | undefined;
+  onDismissFilesValidationMessage: () => void;
 }
 
 export interface UploadViewProps
