@@ -52,6 +52,20 @@ export const DEFAULT_LOCATION_DETAIL_VIEW_DISPLAY_TEXT: DefaultLocationDetailVie
     tableColumnTypeHeader: 'Type',
     selectFileLabel: 'Select file',
     selectAllFilesLabel: 'Select all files',
+    getActionListItemLabel: (key: string = '') => {
+      switch (key) {
+        case 'Copy':
+          return 'Copy';
+        case 'Delete':
+          return 'Delete';
+        case 'Create folder':
+          return 'Create folder';
+        case 'Upload':
+          return 'Upload';
+        default:
+          return key;
+      }
+    },
     getTitle: (location) => {
       const { current, key } = location;
       const { bucket = '' } = current ?? {};
