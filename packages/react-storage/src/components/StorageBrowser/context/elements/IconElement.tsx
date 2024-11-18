@@ -10,6 +10,7 @@ import {
 export type IconElementProps = React.ComponentProps<typeof BaseIconElement>;
 
 export type { StorageBrowserIconType };
+export { STORAGE_BROWSER_ICON_PATHS };
 
 const DEFAULT_ICON_ATTRIBUTES = {
   'aria-hidden': true,

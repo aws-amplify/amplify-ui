@@ -2,7 +2,7 @@ import React from 'react';
 
 import {
   IconElement,
-  IconVariant,
+  StorageBrowserIconType,
   SpanElement,
   ViewElement,
 } from '../../../context/elements';
@@ -10,7 +10,7 @@ import { STORAGE_BROWSER_BLOCK_TO_BE_UPDATED } from '../../../constants';
 
 export interface TextDataCellProps {
   content: {
-    icon?: IconVariant;
+    icon?: StorageBrowserIconType;
     text?: string;
   };
 }
