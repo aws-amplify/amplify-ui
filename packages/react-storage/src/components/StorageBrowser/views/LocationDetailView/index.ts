@@ -1,3 +1,3 @@
 export { LocationDetailView } from './LocationDetailView';
-export { LocationDetailViewProps } from './types';
+export { LocationDetailViewProps, LocationDetailViewType } from './types';
 export { useLocationDetailView } from './useLocationDetailView';
