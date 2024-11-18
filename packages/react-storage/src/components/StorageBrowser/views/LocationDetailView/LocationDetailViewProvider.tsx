@@ -66,11 +66,13 @@ export function LocationDetailViewProvider({
     message: hasError ? message : downloadErrorMessage,
   });
 
+  const isNoActionAvailable = actions.every((obj) => obj.isHidden);
+
   return (
     <ControlsContextProvider
       data={{
         actions,
-        isActionsListDisabled: isLoading,
+        isActionsListDisabled: isLoading || isNoActionAvailable,
         isDataRefreshDisabled: isLoading,
         isLoading,
         isSearchingSubfolders,
