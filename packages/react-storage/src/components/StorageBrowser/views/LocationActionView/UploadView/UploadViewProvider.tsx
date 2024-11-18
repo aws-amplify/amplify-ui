@@ -26,6 +26,7 @@ export function UploadViewProvider({
     overwriteToggleLabel,
     title,
     getActionCompleteMessage,
+    getFilesValidationMessage,
   } = displayText;
 
   const {
@@ -35,6 +36,7 @@ export function UploadViewProvider({
     location,
     tasks,
     statusCounts,
+    invalidFiles,
     onActionStart,
     onActionCancel,
     onDropFiles,
@@ -51,11 +53,15 @@ export function UploadViewProvider({
   const isAddFolderDisabled = isProcessing || isProcessingComplete;
   const isActionExitDisabled = isProcessing;
 
-  const message = isProcessingComplete
+  const actionCompleteMessage = isProcessingComplete
     ? getActionCompleteMessage({
         counts: statusCounts,
       })
     : undefined;
+  const filesValidationMessage =
+    invalidFiles && !isProcessing
+      ? getFilesValidationMessage({ invalidFiles })
+      : undefined;
 
   return (
     <ControlsContextProvider
@@ -76,7 +82,7 @@ export function UploadViewProvider({
         isOverwritingEnabled,
         overwriteToggleLabel,
         destination: location,
-        message,
+        message: actionCompleteMessage ?? filesValidationMessage,
         statusCounts,
         statusDisplayCanceledLabel,
         statusDisplayCompletedLabel,

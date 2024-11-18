@@ -1,6 +1,7 @@
 import { StatusCounts, Tasks } from '../tasks';
 import {
   CopyHandlerData,
+  CreateFolderHandlerData,
   DeleteHandlerData,
   FolderData,
   LocationData,
@@ -11,7 +12,7 @@ import {
 } from '../actions';
 import { LocationState } from '../providers/store/location';
 import { MessageType } from '../composables/Message';
-import { CreateFolderHandlerData } from '../actions';
+import { FileItems } from '../providers';
 
 /**
  * Common list view display text values
@@ -136,6 +137,9 @@ export interface DefaultUploadViewDisplayText
   addFolderLabel: string;
   statusDisplayOverwritePreventedLabel: string;
   overwriteToggleLabel: string;
+  getFilesValidationMessage: (data?: {
+    invalidFiles?: FileItems;
+  }) => { content?: string; type?: MessageType } | undefined;
 }
 
 export interface DefaultStorageBrowserDisplayText {

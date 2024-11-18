@@ -25,6 +25,7 @@ import { ActionDestinationControl } from '../../../controls/ActionDestinationCon
 
 import { CopyViewType } from './types';
 import { useCopyView } from './useCopyView';
+import { classNames } from '@aws-amplify/ui';
 
 export const CopyView: CopyViewType = ({ className, ...props }) => {
   const state = useCopyView(props);
@@ -39,7 +40,7 @@ export const CopyView: CopyViewType = ({ className, ...props }) => {
   }, [onInitialize]);
 
   return (
-    <ViewElement className={className}>
+    <ViewElement className={classNames(STORAGE_BROWSER_BLOCK, className)}>
       <CopyViewProvider {...state}>
         <ActionExitControl />
         <TitleControl />

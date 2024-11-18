@@ -3,12 +3,14 @@ import React from 'react';
 import { uploadHandler } from '../../../actions';
 
 import { useGetActionInput } from '../../../providers/configuration';
-import { useStore } from '../../../providers/store';
+import { FileItems, useStore } from '../../../providers/store';
 import { Task, useProcessTasks } from '../../../tasks';
 
 import { DEFAULT_ACTION_CONCURRENCY } from '../constants';
 import { UploadViewState, UseUploadViewOptions } from './types';
 import { DEFAULT_OVERWRITE_ENABLED } from './constants';
+import { isUndefined } from '@aws-amplify/ui';
+import { isFileTooBig } from '../../../validators';
 
 export const useUploadView = (
   options?: UseUploadViewOptions
@@ -18,6 +20,30 @@ export const useUploadView = (
   const [{ files, location }, dispatchStoreAction] = useStore();
   const { current, key } = location;
 
+  const { invalidFiles, validFiles } = React.useMemo(
+    () =>
+      (files ?? [])?.reduce(
+        (curr, file) => {
+          if (isFileTooBig(file.file)) {
+            curr.invalidFiles = isUndefined(curr.invalidFiles)
+              ? [file]
+              : curr.invalidFiles.concat(file);
+          } else {
+            curr.validFiles = isUndefined(curr.validFiles)
+              ? [file]
+              : curr.validFiles.concat(file);
+          }
+
+          return curr;
+        },
+        {} as {
+          invalidFiles: FileItems | undefined;
+          validFiles: FileItems | undefined;
+        }
+      ),
+    [files]
+  );
+
   const [isOverwritingEnabled, setIsOverwritingEnabled] = React.useState(
     DEFAULT_OVERWRITE_ENABLED
   );
@@ -25,7 +51,7 @@ export const useUploadView = (
   const [
     { isProcessing, isProcessingComplete, statusCounts, tasks },
     handleProcess,
-  ] = useProcessTasks(uploadHandler, files, {
+  ] = useProcessTasks(uploadHandler, validFiles, {
     concurrency: DEFAULT_ACTION_CONCURRENCY,
   });
 
@@ -46,12 +72,23 @@ export const useUploadView = (
   );
 
   const onActionStart = React.useCallback(() => {
+    invalidFiles?.forEach((file) => {
+      dispatchStoreAction({ type: 'REMOVE_FILE_ITEM', id: file.id });
+    });
+
     handleProcess({
       config: getInput(),
       destinationPrefix: key,
       options: { preventOverwrite: !isOverwritingEnabled },
     });
-  }, [isOverwritingEnabled, key, getInput, handleProcess]);
+  }, [
+    isOverwritingEnabled,
+    key,
+    getInput,
+    handleProcess,
+    invalidFiles,
+    dispatchStoreAction,
+  ]);
 
   const onActionCancel = React.useCallback(() => {
     tasks.forEach((task) => task.cancel?.());
@@ -81,6 +118,7 @@ export const useUploadView = (
     isProcessingComplete,
     isOverwritingEnabled,
     location,
+    invalidFiles,
     statusCounts,
     tasks,
     onActionCancel,
