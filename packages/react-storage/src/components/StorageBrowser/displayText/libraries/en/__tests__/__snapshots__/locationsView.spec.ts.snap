@@ -21,6 +21,8 @@ exports[`LocationsView display text \`getListLocationsResultMessage\` returns th
 }
 `;
 
+exports[`LocationsView display text \`getListLocationsResultMessage\` returns the expected values in the loading scenario 1`] = `undefined`;
+
 exports[`LocationsView display text \`getListLocationsResultMessage\` returns the expected values in the search failed scenario 1`] = `
 {
   "content": "Network got confused",
@@ -30,8 +32,8 @@ exports[`LocationsView display text \`getListLocationsResultMessage\` returns th
 
 exports[`LocationsView display text \`getListLocationsResultMessage\` returns the expected values in the search limit exhausted scenario 1`] = `
 {
-  "content": "No more folders or files found by something to look for.",
-  "type": "warning",
+  "content": "Showing results for up to the first 10,000 items.",
+  "type": "info",
 }
 `;
 
@@ -43,6 +45,7 @@ exports[`LocationsView display text returns the expected values from getPermissi
 
 exports[`LocationsView display text should match snapshot values 1`] = `
 {
+  "getDateDisplayValue": [Function],
   "getDownloadLabel": [Function],
   "getListLocationsResultMessage": [Function],
   "getPermissionName": [Function],

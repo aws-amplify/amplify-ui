@@ -3,7 +3,9 @@ import {
   LocationData,
   LocationItemData,
 } from '../../../../actions';
+import { FileItems } from '../../../../providers';
 import { INITIAL_STATUS_COUNTS, StatusCounts } from '../../../../tasks';
+import { UPLOAD_FILE_SIZE_LIMIT } from '../../../../validators/isFileTooBig';
 
 export const ACTION_SCENARIOS: [string, StatusCounts][] = [
   ['all failed', { ...INITIAL_STATUS_COUNTS, FAILED: 11, TOTAL: 11 }],
@@ -58,6 +60,31 @@ export const CREATE_FOLDER_ACTION_SCENARIOS: [string, StatusCounts][] = [
     { ...INITIAL_STATUS_COUNTS, OVERWRITE_PREVENTED: 1, TOTAL: 1 },
   ],
   ['success', { ...INITIAL_STATUS_COUNTS, COMPLETE: 1, TOTAL: 1 }],
+];
+
+export const UPLOAD_FILES_VALIDATION_SCENARIOS: [
+  string,
+  FileItems | undefined,
+][] = [
+  ['no files', undefined],
+  ['empty file items', []],
+  [
+    'too large file',
+    [
+      {
+        // @ts-expect-error: mock file
+        file: { name: 'file1', size: UPLOAD_FILE_SIZE_LIMIT + 1 },
+        key: 'file1',
+        id: 'file1-id',
+      },
+      {
+        // @ts-expect-error: mock file
+        file: { name: 'file2', size: UPLOAD_FILE_SIZE_LIMIT },
+        key: 'file2',
+        id: 'file2-id',
+      },
+    ],
+  ],
 ];
 
 export const UPLOAD_ACTION_SCENARIOS: [string, StatusCounts][] = [
@@ -183,6 +210,8 @@ export const LIST_LOCATIONS_SCENARIOS: [
     query?: string;
     hasError?: boolean;
     message?: string;
+    isLoading?: boolean;
+    hasExhaustedSearch?: boolean;
   },
 ][] = [
   ['empty results', { locations: [] }],
@@ -215,6 +244,14 @@ export const LIST_LOCATIONS_SCENARIOS: [
       hasExhaustedSearch: true,
     },
   ],
+  [
+    'loading',
+    {
+      locations: [],
+      isLoading: true,
+      hasExhaustedSearch: false,
+    },
+  ],
 ];
 
 export const LIST_ITEMS_SCENARIOS: [
@@ -224,6 +261,7 @@ export const LIST_ITEMS_SCENARIOS: [
     query?: string;
     hasError?: boolean;
     message?: string;
+    isLoading?: boolean;
     hasExhaustedSearch?: boolean;
   },
 ][] = [
@@ -263,6 +301,14 @@ export const LIST_ITEMS_SCENARIOS: [
       items: [...Array(101).keys()],
       query: 'something to look for',
       hasExhaustedSearch: true,
+    },
+  ],
+  [
+    'loading',
+    {
+      items: [],
+      isLoading: true,
+      hasExhaustedSearch: false,
     },
   ],
 ];

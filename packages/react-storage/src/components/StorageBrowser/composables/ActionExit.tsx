@@ -15,7 +15,7 @@ export const ActionExit = ({
   label,
 }: ActionExitProps): React.JSX.Element => (
   <ButtonElement
-    className={`${STORAGE_BROWSER_BLOCK}__action-exit`}
+    className={`${STORAGE_BROWSER_BLOCK}__exit`}
     variant="exit"
     onClick={onExit}
     disabled={isDisabled}

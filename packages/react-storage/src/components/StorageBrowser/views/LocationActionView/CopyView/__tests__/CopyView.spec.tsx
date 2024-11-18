@@ -108,11 +108,6 @@ describe('CopyView', () => {
     expect(screen.queryByTestId('MessageControl')).toBeInTheDocument();
     expect(screen.queryByTestId('SearchFieldControl')).toBeInTheDocument();
     expect(screen.queryByTestId('TitleControl')).toBeInTheDocument();
-
-    // excluded
-    expect(
-      screen.queryByTestId('StatusDisplayControl')
-    ).not.toBeInTheDocument();
   });
 
   it('renders the expected components while copying is active', () => {

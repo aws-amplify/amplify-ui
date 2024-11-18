@@ -6,7 +6,13 @@ export const DEFAULT_COPY_VIEW_DISPLAY_TEXT: DefaultCopyViewDisplayText = {
   title: 'Copy',
   actionStartLabel: 'Copy',
   actionDestinationLabel: 'Copy destination',
-  getListFoldersResultsMessage: ({ folders, query, message, hasError }) => {
+  getListFoldersResultsMessage: ({
+    folders,
+    query,
+    message,
+    hasError,
+    hasExhaustedSearch,
+  }) => {
     if (!folders?.length) {
       return {
         content: query
@@ -22,6 +28,13 @@ export const DEFAULT_COPY_VIEW_DISPLAY_TEXT: DefaultCopyViewDisplayText = {
 
     if (hasError) {
       return { content: 'Error loading folders.', type: 'error' };
+    }
+
+    if (hasExhaustedSearch) {
+      return {
+        content: 'Showing results for up to the first 10,000 items.',
+        type: 'info',
+      };
     }
   },
   loadingIndicatorLabel: 'Loading',

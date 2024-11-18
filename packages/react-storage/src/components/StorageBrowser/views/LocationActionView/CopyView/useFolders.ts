@@ -50,7 +50,8 @@ export const useFolders = ({
 
   const getInput = useGetActionInput();
 
-  const { items, nextToken } = data;
+  const { items, nextToken, search } = data;
+  const { hasExhaustedSearch = false } = search ?? {};
 
   const onInitialize = React.useCallback(() => {
     handleList({
@@ -97,24 +98,25 @@ export const useFolders = ({
     });
   };
 
-  const onSelectFolder = (id: string, folderLocationPath: string) => {
-    if (!current) {
-      return;
-    }
-
-    setDestination({
-      current: { ...current, id },
-      path: folderLocationPath,
-      key: `${current.prefix ?? ''}${folderLocationPath}`,
-    });
-  };
-
   const {
     onSearchSubmit,
     searchQuery: query,
     resetSearch,
     onSearchQueryChange: onQuery,
   } = useSearch({ onSearch });
+
+  const onSelectFolder = (id: string, folderLocationPath: string) => {
+    if (!current) {
+      return;
+    }
+
+    resetSearch();
+    setDestination({
+      current: { ...current, id },
+      path: folderLocationPath,
+      key: `${current.prefix ?? ''}${folderLocationPath}`,
+    });
+  };
 
   return {
     hasError,
@@ -126,6 +128,7 @@ export const useFolders = ({
     page,
     pageItems,
     query,
+    hasExhaustedSearch,
     onPaginate,
     onQuery,
     onSearch: onSearchSubmit,

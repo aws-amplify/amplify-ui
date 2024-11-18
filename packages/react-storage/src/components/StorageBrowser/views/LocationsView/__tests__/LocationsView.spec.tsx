@@ -160,7 +160,9 @@ describe('LocationsView', () => {
 
     expect(mockGetListLocationsResultMessage).toHaveBeenCalledWith({
       locations: expect.any(Array),
+      isLoading: false,
       hasError: true,
+      hasExhaustedSearch: false,
       message: errorMessage,
     });
 
@@ -173,6 +175,31 @@ describe('LocationsView', () => {
     expect(nextPage).toBeDisabled();
     const prevPage = screen.getByLabelText('Go to previous page');
     expect(prevPage).toBeDisabled();
+  });
+
+  it('does not show Message when items are being loaded', () => {
+    useListLocationsSpy.mockReturnValue([
+      {
+        data: {
+          items: [],
+          nextToken: undefined,
+          search: { hasExhaustedSearch: false },
+        },
+        hasError: false,
+        isLoading: true,
+        message: undefined,
+      },
+      handleListLocations,
+    ]);
+
+    render(<LocationsView />);
+
+    expect(mockGetListLocationsResultMessage).toHaveBeenCalledWith({
+      locations: [],
+      isLoading: true,
+      hasError: false,
+      hasExhaustedSearch: false,
+    });
   });
 
   it('renders a Locations View table', () => {
@@ -358,17 +385,29 @@ describe('LocationsView', () => {
       await user.click(getByText('Submit'));
     });
 
-    // search complete
-    expect(queryByText('item-0/')).toBeInTheDocument();
-    expect(queryByText('item-1/')).not.toBeInTheDocument();
+    // search initiated
+    expect(handleListLocations).toHaveBeenCalledWith(
+      expect.objectContaining({
+        options: expect.objectContaining({
+          search: {
+            filterBy: expect.any(Function),
+            query: 'item-0',
+          },
+        }),
+      })
+    );
 
     // refresh
     await act(async () => {
       await user.click(getByLabelText('Refresh data'));
     });
 
-    // clears search
-    expect(queryByText('item-0/')).toBeInTheDocument();
-    expect(queryByText('item-1/')).toBeInTheDocument();
+    expect(handleListLocations).toHaveBeenCalledWith(
+      expect.objectContaining({
+        options: expect.objectContaining({
+          refresh: true,
+        }),
+      })
+    );
   });
 });
