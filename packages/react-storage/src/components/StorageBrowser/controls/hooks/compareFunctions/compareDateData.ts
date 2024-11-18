@@ -4,8 +4,8 @@ import {
 } from '../../../composables/DataTable';
 
 export const compareContent = (
-  { date: a }: DataTableDateDataCell['content'],
-  { date: b }: DataTableDateDataCell['content']
+  { value: a }: DataTableDateDataCell['content'],
+  { value: b }: DataTableDateDataCell['content']
 ): number => {
   if (a === undefined) {
     return b === undefined ? 0 : 1;
