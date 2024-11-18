@@ -200,8 +200,26 @@ describe('LocationDetailView', () => {
 
     expect(mockGetListItemsResultMessage).toHaveBeenCalledWith({
       items: expect.any(Array),
+      isLoading: false,
       hasError: true,
       message: errorMessage,
+      hasExhaustedSearch: false,
+    });
+  });
+
+  it('invokes getListItemsResultMessage() with `isLoading` param', () => {
+    mockListItemsAction({
+      isLoading: true,
+      hasError: false,
+      result: [],
+    });
+
+    render(<LocationDetailView />);
+
+    expect(mockGetListItemsResultMessage).toHaveBeenCalledWith({
+      items: [],
+      isLoading: true,
+      hasError: false,
       hasExhaustedSearch: false,
     });
   });
@@ -239,6 +257,7 @@ describe('LocationDetailView', () => {
     expect(mockGetListItemsResultMessage).toHaveBeenCalledWith({
       items: expect.any(Array),
       hasError: true,
+      isLoading: false,
       message: 'Failed to download test-key due to error: NotFound.',
       hasExhaustedSearch: false,
     });
@@ -321,6 +340,7 @@ describe('LocationDetailView', () => {
     expect(mockGetListItemsResultMessage).toHaveBeenCalledWith({
       items: expect.any(Array),
       hasExhaustedSearch: true,
+      isLoading: false,
       hasError: false,
       message: undefined,
     });

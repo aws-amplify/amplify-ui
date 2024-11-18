@@ -183,6 +183,8 @@ export const LIST_LOCATIONS_SCENARIOS: [
     query?: string;
     hasError?: boolean;
     message?: string;
+    isLoading?: boolean;
+    hasExhaustedSearch?: boolean;
   },
 ][] = [
   ['empty results', { locations: [] }],
@@ -215,6 +217,14 @@ export const LIST_LOCATIONS_SCENARIOS: [
       hasExhaustedSearch: true,
     },
   ],
+  [
+    'loading',
+    {
+      locations: [],
+      isLoading: true,
+      hasExhaustedSearch: false,
+    },
+  ],
 ];
 
 export const LIST_ITEMS_SCENARIOS: [
@@ -224,6 +234,7 @@ export const LIST_ITEMS_SCENARIOS: [
     query?: string;
     hasError?: boolean;
     message?: string;
+    isLoading?: boolean;
     hasExhaustedSearch?: boolean;
   },
 ][] = [
@@ -263,6 +274,14 @@ export const LIST_ITEMS_SCENARIOS: [
       items: [...Array(101).keys()],
       query: 'something to look for',
       hasExhaustedSearch: true,
+    },
+  ],
+  [
+    'loading',
+    {
+      items: [],
+      isLoading: true,
+      hasExhaustedSearch: false,
     },
   ],
 ];
