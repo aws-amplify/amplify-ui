@@ -154,6 +154,20 @@ describe('LocationDetailView', () => {
     jest.clearAllMocks();
   });
 
+  it('has the expected composable components', () => {
+    expect(LocationDetailView.ActionsList).toBeDefined();
+    expect(LocationDetailView.DropZone).toBeDefined();
+    expect(LocationDetailView.LoadingIndicator).toBeDefined();
+    expect(LocationDetailView.LocationItemsTable).toBeDefined();
+    expect(LocationDetailView.Message).toBeDefined();
+    expect(LocationDetailView.Navigation).toBeDefined();
+    expect(LocationDetailView.Pagination).toBeDefined();
+    expect(LocationDetailView.Refresh).toBeDefined();
+    expect(LocationDetailView.Search).toBeDefined();
+    expect(LocationDetailView.SearchSubfoldersToggle).toBeDefined();
+    expect(LocationDetailView.Title).toBeDefined();
+  });
+
   it('shows a Loading element when first loaded', () => {
     useStoreSpy.mockReturnValueOnce([
       {

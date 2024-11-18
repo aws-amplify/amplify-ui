@@ -40,23 +40,16 @@ export interface LocationActionViewProps<
   type?: T;
 }
 
-export type LocationActionViewComponent<
+export type LocationActionViewType<
   T = string,
   K extends TaskData = TaskData,
 > = (props: LocationActionViewProps<T, K>) => React.JSX.Element | null;
 
-export interface ActionViewComponent<T extends TaskData = TaskData, K = {}> {
+export interface ActionViewType<T extends TaskData = TaskData, K = {}> {
   (
     props: ActionViewProps & Partial<ActionViewState<T>> & K
   ): React.JSX.Element | null;
   displayName: string;
-  Cancel: () => React.JSX.Element | null;
-  Destination: () => React.JSX.Element | null;
-  Exit: () => React.JSX.Element | null;
-  Start: () => React.JSX.Element | null;
-  StatusDisplay: () => React.JSX.Element | null;
-  Table: () => React.JSX.Element | null;
-  Title: () => React.JSX.Element | null;
 }
 
 // Custom actions derived views
@@ -65,7 +58,7 @@ export type DerivedActionViews<T> = {
     ? never
     : T[K] extends { componentName: ComponentName }
     ? T[K]['componentName']
-    : never]: ActionViewComponent<
+    : never]: ActionViewType<
     T[K] extends TaskActionConfig<TaskHandler<TaskHandlerInput<infer X>>>
       ? X
       : never

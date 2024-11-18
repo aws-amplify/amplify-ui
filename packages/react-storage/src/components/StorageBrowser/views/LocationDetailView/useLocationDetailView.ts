@@ -8,14 +8,11 @@ import { useStore } from '../../providers/store';
 import {
   FileData,
   LocationData,
-  LocationItemData,
   listLocationItemsHandler,
 } from '../../actions';
 import { createEnhancedListHandler } from '../../actions/useAction/createEnhancedListHandler';
 import { useGetActionInput } from '../../providers/configuration';
-import { LocationState } from '../../providers/store/location';
 import { useSearch } from '../hooks/useSearch';
-import { ActionsListItem } from '../../composables/ActionsList';
 
 import { Tasks, useProcessTasks } from '../../tasks';
 import {
@@ -24,62 +21,7 @@ import {
   FileDataItem,
   defaultActionViewConfigs,
 } from '../../actions';
-
-interface UseLocationDetailView {
-  actions: ActionsListItem[];
-  hasError: boolean;
-  hasNextPage: boolean;
-  hasDownloadError: boolean;
-  highestPageVisited: number;
-  isLoading: boolean;
-  isSearchingSubfolders: boolean;
-  location: LocationState;
-  areAllFilesSelected: boolean;
-  fileDataItems: FileDataItem[] | undefined;
-  hasFiles: boolean;
-  message: string | undefined;
-  downloadErrorMessage: string | undefined;
-  shouldShowEmptyMessage: boolean;
-  searchQuery: string;
-  hasExhaustedSearch: boolean;
-  pageItems: LocationItemData[];
-  page: number;
-  onActionSelect: (actionType: string) => void;
-  onDropFiles: (files: File[]) => void;
-  onRefresh: () => void;
-  onNavigate: (location: LocationData, path?: string) => void;
-  onNavigateHome: () => void;
-  onPaginate: (page: number) => void;
-  onDownload: (fileItem: FileDataItem) => void;
-  onSelect: (isSelected: boolean, fileItem: FileData) => void;
-  onSelectAll: () => void;
-  onSearch: () => void;
-  onSearchClear: () => void;
-  onSearchQueryChange: (value: string) => void;
-  onToggleSearchSubfolders: () => void;
-}
-
-export type LocationDetailViewActionType =
-  | { type: 'REFRESH_DATA' } // refresh data only
-  | { type: 'RESET' } // reset view to initial state
-  | { type: 'PAGINATE'; page: number }
-  | { type: 'ACCESS_ITEM'; key: string }
-  | { type: 'NAVIGATE'; location: LocationData; path: string }
-  | { type: 'ADD_FILES'; files: File[] }
-  | { type: 'SEARCH'; query: string; includeSubfolders?: boolean };
-
-interface InitialValues {
-  pageSize?: number;
-  delimiter?: string;
-}
-
-export interface UseLocationDetailViewOptions {
-  initialValues?: InitialValues;
-  onDispatch?: React.Dispatch<LocationDetailViewActionType>;
-  onActionSelect?: (actionType: string) => void;
-  onExit?: () => void;
-  onNavigate?: (location: LocationData, path?: string) => void;
-}
+import { LocationDetailViewState, UseLocationDetailViewOptions } from './types';
 
 const DEFAULT_PAGE_SIZE = 100;
 export const DEFAULT_LIST_OPTIONS = {
@@ -103,9 +45,9 @@ const getDownloadErrorMessageFromFailedDownloadTask = (
   } due to error: ${tasks[0].message}.`;
 };
 
-export function useLocationDetailView(
+export const useLocationDetailView = (
   options?: UseLocationDetailViewOptions
-): UseLocationDetailView {
+): LocationDetailViewState => {
   const getConfig = useGetActionInput();
   const { initialValues, onExit, onNavigate } = options ?? {};
 
@@ -329,4 +271,4 @@ export function useLocationDetailView(
     onSearchQueryChange,
     onToggleSearchSubfolders,
   };
-}
+};

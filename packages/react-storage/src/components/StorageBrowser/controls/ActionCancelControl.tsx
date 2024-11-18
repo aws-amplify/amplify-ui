@@ -1,15 +1,13 @@
 import React from 'react';
 
-import { useResolvedComposable } from './hooks/useResolvedComposable';
 import { ActionCancel } from '../composables/ActionCancel';
+
 import { useActionCancel } from './hooks/useActionCancel';
+import { useResolvedComposable } from './hooks/useResolvedComposable';
 
 export const ActionCancelControl = (): React.JSX.Element => {
   const props = useActionCancel();
-  const ResolvedActionCancel = useResolvedComposable(
-    ActionCancel,
-    'ActionCancel'
-  );
+  const Resolved = useResolvedComposable(ActionCancel, 'ActionCancel');
 
-  return <ResolvedActionCancel {...props} />;
+  return <Resolved {...props} />;
 };

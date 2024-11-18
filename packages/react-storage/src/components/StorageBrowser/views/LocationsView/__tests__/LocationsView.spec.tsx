@@ -111,10 +111,20 @@ const config: ActionInputConfig = {
 };
 useGetActionSpy.mockReturnValue(() => config);
 
-describe('LocationsListView', () => {
+describe('LocationsView', () => {
   afterEach(() => {
     mockGetListLocationsResultMessage.mockClear();
     jest.clearAllMocks();
+  });
+
+  it('has the expected composable components', () => {
+    expect(LocationsView.LoadingIndicator).toBeDefined();
+    expect(LocationsView.LocationsTable).toBeDefined();
+    expect(LocationsView.Message).toBeDefined();
+    expect(LocationsView.Pagination).toBeDefined();
+    expect(LocationsView.Refresh).toBeDefined();
+    expect(LocationsView.Search).toBeDefined();
+    expect(LocationsView.Title).toBeDefined();
   });
 
   it('renders and calls appropriate hooks', () => {

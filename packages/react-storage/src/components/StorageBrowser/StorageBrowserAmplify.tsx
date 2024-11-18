@@ -1,10 +1,8 @@
 import React from 'react';
 
 import { elementsDefault } from './context/elements';
-import {
-  createStorageBrowser,
-  StorageBrowserProps as StorageBrowserPropsBase,
-} from './createStorageBrowser';
+import { createStorageBrowser } from './createStorageBrowser';
+import { StorageBrowserProps as StorageBrowserPropsBase } from './types';
 import { createAmplifyAuthAdapter } from './adapters';
 import { TextField } from '@aws-amplify/ui-react';
 

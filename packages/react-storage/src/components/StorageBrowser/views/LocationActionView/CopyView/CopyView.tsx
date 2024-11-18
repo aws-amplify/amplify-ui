@@ -17,20 +17,16 @@ import { SearchControl } from '../../../controls/SearchControl';
 import { StatusDisplayControl } from '../../../controls/StatusDisplayControl';
 import { TitleControl } from '../../../controls/TitleControl';
 
-import { resolveClassName } from '../../utils';
-
 import { CopyViewProvider } from './CopyViewProvider';
 import { FoldersMessageControl } from './FoldersMessageControl';
 import { FoldersPaginationControl } from './FoldersPaginationControl';
 import { FoldersTableControl } from './FoldersTableControl';
-import { CopyViewProps } from './types';
-import { useCopyView } from './useCopyView';
 import { ActionDestinationControl } from '../../../controls/ActionDestinationControl';
 
-export function CopyView({
-  className,
-  ...props
-}: CopyViewProps): React.JSX.Element {
+import { CopyViewType } from './types';
+import { useCopyView } from './useCopyView';
+
+export const CopyView: CopyViewType = ({ className, ...props }) => {
   const state = useCopyView(props);
   const {
     isProcessing,
@@ -43,7 +39,7 @@ export function CopyView({
   }, [onInitialize]);
 
   return (
-    <div className={resolveClassName(STORAGE_BROWSER_BLOCK, className)}>
+    <ViewElement className={className}>
       <CopyViewProvider {...state}>
         <ActionExitControl />
         <TitleControl />
@@ -87,9 +83,9 @@ export function CopyView({
           </ViewElement>
         </ViewElement>
       </CopyViewProvider>
-    </div>
+    </ViewElement>
   );
-}
+};
 
 CopyView.displayName = 'CopyView';
 
@@ -98,13 +94,13 @@ CopyView.Provider = CopyViewProvider;
 CopyView.Cancel = ActionCancelControl;
 CopyView.Destination = ActionDestinationControl;
 CopyView.Exit = ActionExitControl;
-CopyView.Folders = FoldersTableControl;
-CopyView.FoldersLoading = LoadingIndicatorControl;
+CopyView.FoldersLoadingIndicator = LoadingIndicatorControl;
 CopyView.FoldersMessage = FoldersMessageControl;
 CopyView.FoldersPagination = FoldersPaginationControl;
 CopyView.FoldersSearch = SearchControl;
+CopyView.FoldersTable = FoldersTableControl;
 CopyView.Message = MessageControl;
 CopyView.Start = ActionStartControl;
 CopyView.Statuses = StatusDisplayControl;
-CopyView.Tasks = DataTableControl;
+CopyView.TasksTable = DataTableControl;
 CopyView.Title = TitleControl;

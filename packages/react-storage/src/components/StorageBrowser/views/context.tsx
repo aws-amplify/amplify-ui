@@ -19,8 +19,10 @@ export interface DefaultViews<T = string> {
   LocationActionView: (
     props: LocationActionViewProps<T>
   ) => React.JSX.Element | null;
-  LocationDetailView: (props: LocationDetailViewProps) => React.JSX.Element;
-  LocationsView: (props: LocationsViewProps) => React.JSX.Element;
+  LocationDetailView: (
+    props: LocationDetailViewProps
+  ) => React.JSX.Element | null;
+  LocationsView: (props: LocationsViewProps) => React.JSX.Element | null;
 }
 
 export interface Views<T = string> extends Partial<DefaultViews<T>> {}

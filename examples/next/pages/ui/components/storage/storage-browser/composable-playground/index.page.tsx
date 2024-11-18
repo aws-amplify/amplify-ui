@@ -1,16 +1,18 @@
 import React from 'react';
 
 import {
+  createManagedAuthAdapter,
   CreateStorageBrowserInput,
   createStorageBrowser,
 } from '@aws-amplify/ui-react-storage/browser';
 
-import { auth, managedAuthAdapter } from '../managedAuthAdapter';
+import { Auth } from '../managedAuthAdapter';
 
 import { Button, Flex, Breadcrumbs } from '@aws-amplify/ui-react';
 
-import '@aws-amplify/ui-react-storage/storage-browser-styles.css';
+import '@aws-amplify/ui-react/styles/reset.css';
 import '@aws-amplify/ui-react-storage/styles.css';
+import '@aws-amplify/ui-react-storage/storage-browser-styles.css';
 
 const components: CreateStorageBrowserInput['components'] = {
   Navigation: ({ items }) => (
@@ -26,15 +28,64 @@ const components: CreateStorageBrowserInput['components'] = {
   ),
 };
 
-const { StorageBrowser } = createStorageBrowser({
-  components,
-  config: managedAuthAdapter,
+export const auth = new Auth({ persistCredentials: true });
+
+const config = createManagedAuthAdapter({
+  credentialsProvider: auth.credentialsProvider,
+  region: process.env.NEXT_PUBLIC_MANAGED_AUTH_REGION,
+  accountId: process.env.NEXT_PUBLIC_MANAGED_AUTH_ACCOUNT_ID,
+  registerAuthListener: auth.registerAuthListener,
 });
 
-function LocationActionView() {
+const { StorageBrowser, useView } = createStorageBrowser({
+  components,
+  config,
+});
+
+const { CreateFolderView, DeleteView, LocationActionView } = StorageBrowser;
+
+const MyCreateFolderView = () => {
+  const viewState = useView('CreateFolder');
+  const { isProcessing } = viewState;
+  return (
+    <CreateFolderView.Provider {...viewState}>
+      {isProcessing ? <h1>Folder creation in progress</h1> : null}
+      <CreateFolderView.Start />
+      <CreateFolderView.NameField />
+    </CreateFolderView.Provider>
+  );
+};
+
+const MyDeleteView = () => {
+  const viewState = useView('Delete');
+  const { isProcessing } = viewState;
+  return (
+    <DeleteView.Provider {...viewState}>
+      {isProcessing ? <h1>Delete in progress</h1> : null}
+      <DeleteView.Start />
+      <DeleteView.TasksTable />
+    </DeleteView.Provider>
+  );
+};
+
+function MyLocationActionView({ type }: { type?: string }) {
+  let DialogContent = null;
+  if (!type) return DialogContent;
+
+  switch (type) {
+    case 'createFolder':
+      DialogContent = MyCreateFolderView;
+      break;
+    case 'delete':
+      DialogContent = MyDeleteView;
+      break;
+    default:
+      DialogContent = LocationActionView;
+  }
+
   return (
     <dialog open>
-      <StorageBrowser.LocationActionView />
+      <DialogContent />
     </dialog>
   );
 }
@@ -50,11 +101,12 @@ function MyStorageBrowser() {
       <Flex minWidth={'50vw'} direction={'column'}>
         <StorageBrowser.LocationDetailView
           onActionSelect={(actionType) => {
+            console.log(actionType);
             setActionType(actionType);
           }}
         />
       </Flex>
-      {type ? <LocationActionView /> : null}
+      <MyLocationActionView type={type} />
     </Flex>
   );
 }

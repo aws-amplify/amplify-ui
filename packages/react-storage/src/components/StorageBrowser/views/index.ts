@@ -1,4 +1,14 @@
-export { LocationActionView } from './LocationActionView';
+export {
+  CopyView,
+  CopyViewType,
+  CreateFolderView,
+  CreateFolderViewType,
+  DeleteView,
+  DeleteViewType,
+  LocationActionView,
+  UploadView,
+  UploadViewType,
+} from './LocationActionView';
 export {
   LocationDetailView,
   LocationDetailViewProps,

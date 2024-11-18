@@ -6,7 +6,7 @@ import { Task, TaskStatus } from '../../tasks';
 import { isFileItem, isFileDataItem, TaskData } from '../../actions';
 import { getActionIcon } from './getActionIcon';
 import { getFileTypeDisplayValue } from './getFileTypeDisplayValue';
-import { getPercentValue } from '../utils';
+import { getPercentValue } from './getPercentValue';
 import { getDefaultActionViewHeaders } from './getDefaultActionViewHeaders';
 import { ActionViewHeaders } from './types';
 import { DefaultActionViewDisplayText } from '../../displayText/types';
