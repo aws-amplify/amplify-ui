@@ -3,6 +3,7 @@ import * as React from 'react';
 type StorageBrowserIconType =
   | 'action-canceled'
   | 'action-error'
+  | 'action-info'
   | 'action-initial'
   | 'action-progress'
   | 'action-queued'
