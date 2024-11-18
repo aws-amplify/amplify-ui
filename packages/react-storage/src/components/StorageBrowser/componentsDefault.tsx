@@ -84,6 +84,7 @@ const SearchField: Components['SearchField'] = ({
     <AmplifySearchField
       label={label}
       size="small"
+      clearButtonLabel="Clear search"
       placeholder={placeholder}
       value={query}
       onChange={(e) => {

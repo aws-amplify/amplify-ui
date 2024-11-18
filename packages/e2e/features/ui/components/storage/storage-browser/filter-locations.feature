@@ -10,7 +10,7 @@ Feature: StorageBrowser Filter Locations
     Then I click the "Sign in" button
     Then I see the first button containing "private"
     When I see input with placeholder "Filter folders and files" and type "pu"
-    Then I click the "Submit" button
+    Then I click the "Search" button
     Then I see the first button containing "public"
     Then I do not see the button containing "private"
     When I click the button containing "Clear search"
