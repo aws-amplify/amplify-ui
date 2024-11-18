@@ -106,6 +106,7 @@ const Navigation: Components['Navigation'] = ({ items }) => {
         return (
           <Breadcrumbs.Item key={i}>
             <Breadcrumbs.Link
+              as={item.isCurrent ? 'span' : 'button'}
               isCurrent={item.isCurrent}
               onClick={item.onNavigate}
             >
