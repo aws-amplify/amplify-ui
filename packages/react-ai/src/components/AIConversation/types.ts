@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { AIConversationElements } from './context/elements';
 import {
   ActionsBarControl,
   AvatarControl,
@@ -29,7 +28,6 @@ export interface Controls {
 }
 
 export interface AIConversationInput {
-  elements?: Partial<AIConversationElements>;
   displayText?: DisplayTextTemplate<AIConversationDisplayText>;
   welcomeMessage?: React.ReactNode;
   suggestedPrompts?: SuggestedPrompt[];

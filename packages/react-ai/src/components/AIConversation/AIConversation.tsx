@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Flex, ScrollView, Text } from '@aws-amplify/ui-react';
+import { Flex, ScrollView } from '@aws-amplify/ui-react';
 import {
   IconAssistant,
   IconUser,
@@ -55,9 +55,6 @@ function AIConversationBase({
       ...defaultAvatars,
       ...avatars,
     },
-    elements: {
-      Text,
-    },
     controls: {
       MessageList,
       PromptList,
@@ -82,9 +79,6 @@ function AIConversationBase({
   );
 }
 
-/**
- * @experimental
- */
 export const AIConversation: AIConversationType<AIConversationBaseProps> =
   Object.assign(AIConversationBase, {
     Provider: AIConversationProvider,
