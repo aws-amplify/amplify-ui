@@ -67,6 +67,7 @@ export interface DefaultLocationDetailViewDisplayText
   tableColumnNameHeader: string;
   tableColumnSizeHeader: string;
   tableColumnTypeHeader: string;
+  getActionListItemLabel: (key: string | undefined) => string;
   getTitle: (location: LocationState) => string;
 }
 
