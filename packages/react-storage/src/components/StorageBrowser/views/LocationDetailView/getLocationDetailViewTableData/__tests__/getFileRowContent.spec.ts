@@ -28,6 +28,7 @@ describe('getFileRowContent', () => {
         permissions: location.current.permissions,
         itemLocationKey,
         isSelected: false,
+        getDateDisplayValue: (date) => date.toLocaleString(),
         lastModified: fileItem.lastModified,
         rowId: 'row-id',
         rowKey: `${location.current.prefix}${location.path}${fileItem.key}`,
@@ -55,7 +56,10 @@ describe('getFileRowContent', () => {
         }),
         expect.objectContaining({
           type: 'date',
-          content: expect.objectContaining({ date: fileItem.lastModified }),
+          content: expect.objectContaining({
+            value: fileItem.lastModified,
+            displayValue: fileItem.lastModified.toLocaleString(),
+          }),
         }),
         expect.objectContaining({
           type: 'number',
@@ -78,6 +82,7 @@ describe('getFileRowContent', () => {
       rowId: 'row-id',
       rowKey: `${location.current.prefix}${location.path}${fileItem.key}`,
       size: fileItem.size,
+      getDateDisplayValue: (date: Date) => date.toLocaleString(),
       selectFileLabel: 'Select file',
       onDownload: jest.fn(),
       onSelect: jest.fn(),
