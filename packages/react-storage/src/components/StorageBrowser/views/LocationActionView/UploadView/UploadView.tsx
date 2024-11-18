@@ -18,12 +18,13 @@ import { TitleControl } from '../../../controls/TitleControl';
 import { UploadViewProvider } from './UploadViewProvider';
 import { UploadViewType } from './types';
 import { useUploadView } from './useUploadView';
+import { classNames } from '@aws-amplify/ui';
 
 export const UploadView: UploadViewType = ({ className, ...props }) => {
   const state = useUploadView(props);
 
   return (
-    <ViewElement className={className}>
+    <ViewElement className={classNames(STORAGE_BROWSER_BLOCK, className)}>
       <UploadViewProvider {...state}>
         <ActionExitControl />
         <TitleControl />
