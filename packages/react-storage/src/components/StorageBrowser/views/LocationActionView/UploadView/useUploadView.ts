@@ -15,30 +15,34 @@ import { isFileTooBig } from '../../../validators';
 export const useUploadView = (
   options?: UseUploadViewOptions
 ): UploadViewState => {
-  const [invalidFiles, setInvalidFiles] = React.useState<
-    FileItems | undefined
-  >();
   const { onExit: _onExit } = options ?? {};
   const getInput = useGetActionInput();
   const [{ files, location }, dispatchStoreAction] = useStore();
   const { current, key } = location;
 
-  const validFiles = React.useMemo(() => {
-    const validFileItems: FileItems = [];
-    files?.forEach((fileItem) => {
-      const { id, file } = fileItem;
-      if (isFileTooBig(file)) {
-        setInvalidFiles((prev) =>
-          isUndefined(prev) ? [fileItem] : prev.concat(fileItem)
-        );
-        dispatchStoreAction({ type: 'REMOVE_FILE_ITEM', id });
-      } else {
-        validFileItems.push(fileItem);
-      }
-    });
+  const { invalidFiles, validFiles } = React.useMemo(
+    () =>
+      (files ?? [])?.reduce(
+        (curr, file) => {
+          if (isFileTooBig(file.file)) {
+            curr.invalidFiles = isUndefined(curr.invalidFiles)
+              ? [file]
+              : curr.invalidFiles.concat(file);
+          } else {
+            curr.validFiles = isUndefined(curr.validFiles)
+              ? [file]
+              : curr.validFiles.concat(file);
+          }
 
-    return validFileItems;
-  }, [files, dispatchStoreAction]);
+          return curr;
+        },
+        {} as {
+          invalidFiles: FileItems | undefined;
+          validFiles: FileItems | undefined;
+        }
+      ),
+    [files]
+  );
 
   const [isOverwritingEnabled, setIsOverwritingEnabled] = React.useState(
     DEFAULT_OVERWRITE_ENABLED
@@ -49,11 +53,6 @@ export const useUploadView = (
     handleProcess,
   ] = useProcessTasks(uploadHandler, validFiles, {
     concurrency: DEFAULT_ACTION_CONCURRENCY,
-    onTaskProgress: () => {
-      if (invalidFiles) {
-        setInvalidFiles(undefined);
-      }
-    },
   });
 
   const onDropFiles = React.useCallback(
@@ -73,12 +72,23 @@ export const useUploadView = (
   );
 
   const onActionStart = React.useCallback(() => {
+    invalidFiles?.forEach((file) => {
+      dispatchStoreAction({ type: 'REMOVE_FILE_ITEM', id: file.id });
+    });
+
     handleProcess({
       config: getInput(),
       destinationPrefix: key,
       options: { preventOverwrite: !isOverwritingEnabled },
     });
-  }, [isOverwritingEnabled, key, getInput, handleProcess]);
+  }, [
+    isOverwritingEnabled,
+    key,
+    getInput,
+    handleProcess,
+    invalidFiles,
+    dispatchStoreAction,
+  ]);
 
   const onActionCancel = React.useCallback(() => {
     tasks.forEach((task) => task.cancel?.());

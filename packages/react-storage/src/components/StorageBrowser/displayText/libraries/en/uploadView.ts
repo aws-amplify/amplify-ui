@@ -87,7 +87,7 @@ export const DEFAULT_UPLOAD_VIEW_DISPLAY_TEXT: DefaultUploadViewDisplayText = {
       .join(', ');
     if (tooBigFileNames) {
       return {
-        content: `Files larger that 160GB cannot be added to the upload queue: ${tooBigFileNames}`,
+        content: `Files larger than 160GB cannot be added to the upload queue: ${tooBigFileNames}`,
         type: 'warning',
       };
     }

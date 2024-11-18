@@ -2,8 +2,6 @@ import { LocationData, UploadHandlerData } from '../../../actions';
 import { FileItem, FileItems } from '../../../providers';
 import { ActionViewType, ActionViewProps, ActionViewState } from '../types';
 
-export type InvalidFileReason = 'FILE_TOO_BIG';
-
 export interface UploadViewState extends ActionViewState<FileItem> {
   isOverwritingEnabled: boolean;
   onDropFiles: (files: File[]) => void;

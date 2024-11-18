@@ -104,14 +104,9 @@ describe('useUploadView', () => {
     });
   });
 
-  it('should dispatchStoreAction when onRemoveFile is invoked', () => {
+  it('should show invalid files if exists', () => {
     mockUserStoreState.files = [invalidFileItem];
     const { result } = renderHook(() => useUploadView());
-
-    expect(dispatchStoreAction).toHaveBeenCalledWith({
-      type: 'REMOVE_FILE_ITEM',
-      id: invalidFileItem.id,
-    });
 
     expect(result.current.invalidFiles).toEqual([invalidFileItem]);
   });
@@ -141,6 +136,19 @@ describe('useUploadView', () => {
   });
 
   it('should call handleProcessTasks with the expected values', () => {
+    mockUserStoreState.files = [invalidFileItem];
+    const { result } = renderHook(() => useUploadView());
+    act(() => {
+      result.current.onActionStart();
+    });
+    expect(dispatchStoreAction).toHaveBeenCalledTimes(1);
+    expect(dispatchStoreAction).toHaveBeenCalledWith({
+      type: 'REMOVE_FILE_ITEM',
+      id: invalidFileItem.id,
+    });
+  });
+
+  it('should remove any invalid files action is started', () => {
     const { result } = renderHook(() => useUploadView());
     act(() => {
       result.current.onActionStart();
