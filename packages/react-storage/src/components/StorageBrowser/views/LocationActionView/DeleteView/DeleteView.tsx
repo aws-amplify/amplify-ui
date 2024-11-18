@@ -14,12 +14,13 @@ import { STORAGE_BROWSER_BLOCK } from '../../../constants';
 import { DeleteViewProvider } from './DeleteViewProvider';
 import { useDeleteView } from './useDeleteView';
 import { DeleteViewType } from './types';
+import { classNames } from '@aws-amplify/ui';
 
 export const DeleteView: DeleteViewType = ({ className, ...props }) => {
   const state = useDeleteView(props);
 
   return (
-    <ViewElement className={className}>
+    <ViewElement className={classNames(STORAGE_BROWSER_BLOCK, className)}>
       <DeleteViewProvider {...state}>
         <ActionExitControl />
         <TitleControl />

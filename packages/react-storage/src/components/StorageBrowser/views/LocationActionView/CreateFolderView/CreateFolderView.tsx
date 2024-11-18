@@ -11,6 +11,7 @@ import { TitleControl } from '../../../controls/TitleControl';
 import { CreateFolderViewProvider } from './CreateFolderViewProvider';
 import { CreateFolderViewType } from './types';
 import { useCreateFolderView } from './useCreateFolderView';
+import { classNames } from '@aws-amplify/ui';
 
 export const CreateFolderView: CreateFolderViewType = ({
   className,
@@ -19,7 +20,7 @@ export const CreateFolderView: CreateFolderViewType = ({
   const state = useCreateFolderView(props);
 
   return (
-    <ViewElement className={className}>
+    <ViewElement className={classNames(STORAGE_BROWSER_BLOCK, className)}>
       <CreateFolderViewProvider {...state}>
         <ActionExitControl />
         <TitleControl />
