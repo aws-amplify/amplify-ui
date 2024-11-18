@@ -11,6 +11,7 @@ export interface LocationsViewState {
   pageItems: LocationData[];
   page: number;
   searchQuery: string;
+  hasExhaustedSearch: boolean;
   onDownload: (item: LocationData) => void;
   onNavigate: (location: LocationData) => void;
   onRefresh: () => void;
