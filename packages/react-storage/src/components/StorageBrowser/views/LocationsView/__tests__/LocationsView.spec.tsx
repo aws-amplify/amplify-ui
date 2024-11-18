@@ -198,6 +198,7 @@ describe('LocationsView', () => {
       locations: [],
       isLoading: true,
       hasError: false,
+      hasExhaustedSearch: false,
     });
   });
 
