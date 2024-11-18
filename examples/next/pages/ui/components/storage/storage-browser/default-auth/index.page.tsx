@@ -2,8 +2,15 @@ import React from 'react';
 import { Amplify } from 'aws-amplify';
 import { signOut } from 'aws-amplify/auth';
 
-import { Button, Flex, View, withAuthenticator } from '@aws-amplify/ui-react';
+import {
+  Button,
+  Flex,
+  IconsProvider,
+  View,
+  withAuthenticator,
+} from '@aws-amplify/ui-react';
 import { StorageBrowser } from '@aws-amplify/ui-react-storage';
+
 import '@aws-amplify/ui-react/styles/reset.css';
 import '@aws-amplify/ui-react-storage/styles.css';
 import '@aws-amplify/ui-react-storage/storage-browser-styles.css';
@@ -11,6 +18,26 @@ import '@aws-amplify/ui-react-storage/storage-browser-styles.css';
 import config from './aws-exports';
 
 Amplify.configure(config);
+
+const IndeterminateIcon = () => (
+  <View as="span" className="amplify-icon" width="1em" height="1em">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      height="24"
+      width="24"
+      viewBox="0 0 24 24"
+    >
+      <line
+        x1="4"
+        x2="20"
+        y1="12"
+        y2="12"
+        stroke="currentColor"
+        strokeWidth="3"
+      />
+    </svg>
+  </View>
+);
 
 function Example() {
   return (
@@ -32,9 +59,15 @@ function Example() {
         Sign Out
       </Button>
       <View flex="1" overflow="hidden">
-        <StorageBrowser
-          displayText={{ LocationsView: { title: 'Home - Amplify Auth' } }}
-        />
+        <IconsProvider
+          icons={{
+            storageBrowser: { 'sort-indeterminate': <IndeterminateIcon /> },
+          }}
+        >
+          <StorageBrowser
+            displayText={{ LocationsView: { title: 'Home - Amplify Auth' } }}
+          />
+        </IconsProvider>
       </View>
     </Flex>
   );

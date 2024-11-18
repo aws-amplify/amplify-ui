@@ -80,8 +80,11 @@ export const DEFAULT_UPLOAD_VIEW_DISPLAY_TEXT: DefaultUploadViewDisplayText = {
 
     return { content: 'All files uploaded.', type };
   },
-  getFilesValidationMessage: ({ invalidFiles = [] } = {}) => {
-    const tooBigFileNames = invalidFiles
+  getFilesValidationMessage: (data) => {
+    if (!data?.invalidFiles) {
+      return undefined;
+    }
+    const tooBigFileNames = data.invalidFiles
       .filter(({ file }) => isFileTooBig(file))
       .map(({ file }) => file.name)
       .join(', ');

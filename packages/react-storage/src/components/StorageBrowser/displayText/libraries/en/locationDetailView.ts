@@ -12,7 +12,12 @@ export const DEFAULT_LOCATION_DETAIL_VIEW_DISPLAY_TEXT: DefaultLocationDetailVie
         hasExhaustedSearch,
         hasError = false,
         message,
+        isLoading,
       } = data ?? {};
+
+      if (isLoading) {
+        return undefined;
+      }
 
       if (hasError) {
         return {
