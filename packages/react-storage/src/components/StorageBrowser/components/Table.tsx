@@ -7,7 +7,6 @@ import {
   TableHeadElement,
   TableHeaderElement,
   TableRowElement,
-  ViewElement,
 } from '../context/elements';
 
 import { STORAGE_BROWSER_BLOCK } from '../constants';
@@ -29,50 +28,48 @@ interface TableProps {
 
 export const Table = ({ headers, rows }: TableProps): React.JSX.Element => {
   return (
-    <ViewElement className={`${STORAGE_BROWSER_BLOCK}__data-table`}>
-      <TableElement className={`${STORAGE_BROWSER_BLOCK}__table`}>
-        <TableHeadElement className={`${STORAGE_BROWSER_BLOCK}__table-head`}>
-          {headers.length ? (
-            <TableRowElement className={`${STORAGE_BROWSER_BLOCK}__table-row`}>
-              {headers.map(({ key, content }) => (
+    <TableElement className={`${STORAGE_BROWSER_BLOCK}__table`}>
+      <TableHeadElement className={`${STORAGE_BROWSER_BLOCK}__table-head`}>
+        {headers.length ? (
+          <TableRowElement className={`${STORAGE_BROWSER_BLOCK}__table-row`}>
+            {headers.map(({ key, content }) => (
+              <TableHeaderElement
+                key={key}
+                className={`${STORAGE_BROWSER_BLOCK}__table-header`}
+              >
+                {content}
+              </TableHeaderElement>
+            ))}
+          </TableRowElement>
+        ) : null}
+      </TableHeadElement>
+      <TableBodyElement className={`${STORAGE_BROWSER_BLOCK}__table-body`}>
+        {rows?.map(({ key, content }) => (
+          <TableRowElement
+            key={key}
+            className={`${STORAGE_BROWSER_BLOCK}__table-row`}
+          >
+            {content.map(({ key, content, type }) => {
+              return type === 'header' ? (
                 <TableHeaderElement
                   key={key}
                   className={`${STORAGE_BROWSER_BLOCK}__table-header`}
+                  role="rowheader"
                 >
                   {content}
                 </TableHeaderElement>
-              ))}
-            </TableRowElement>
-          ) : null}
-        </TableHeadElement>
-        <TableBodyElement className={`${STORAGE_BROWSER_BLOCK}__table-body`}>
-          {rows?.map(({ key, content }) => (
-            <TableRowElement
-              key={key}
-              className={`${STORAGE_BROWSER_BLOCK}__table-row`}
-            >
-              {content.map(({ key, content, type }) => {
-                return type === 'header' ? (
-                  <TableHeaderElement
-                    key={key}
-                    className={`${STORAGE_BROWSER_BLOCK}__table-header`}
-                    role="rowheader"
-                  >
-                    {content}
-                  </TableHeaderElement>
-                ) : (
-                  <TableDataCellElement
-                    key={key}
-                    className={`${STORAGE_BROWSER_BLOCK}__table-data-cell`}
-                  >
-                    {content}
-                  </TableDataCellElement>
-                );
-              })}
-            </TableRowElement>
-          ))}
-        </TableBodyElement>
-      </TableElement>
-    </ViewElement>
+              ) : (
+                <TableDataCellElement
+                  key={key}
+                  className={`${STORAGE_BROWSER_BLOCK}__table-data-cell`}
+                >
+                  {content}
+                </TableDataCellElement>
+              );
+            })}
+          </TableRowElement>
+        ))}
+      </TableBodyElement>
+    </TableElement>
   );
 };

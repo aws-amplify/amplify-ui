@@ -29,55 +29,37 @@ import { classNames } from '@aws-amplify/ui';
 
 export const CopyView: CopyViewType = ({ className, ...props }) => {
   const state = useCopyView(props);
-  const {
-    isProcessing,
-    isProcessingComplete,
-    folders: { onInitialize },
-  } = state;
-
-  React.useEffect(() => {
-    onInitialize();
-  }, [onInitialize]);
+  const { isProcessing, isProcessingComplete } = state;
 
   return (
     <ViewElement className={classNames(STORAGE_BROWSER_BLOCK, className)}>
       <CopyViewProvider {...state}>
         <ActionExitControl />
         <TitleControl />
-        <ViewElement
-          className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__table-wrapper`}
-        >
+        <ViewElement className={`${STORAGE_BROWSER_BLOCK}__data-table`}>
           <DataTableControl />
         </ViewElement>
         {isProcessing || isProcessingComplete ? null : (
           <>
-            <ViewElement
-              className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__copy-destination-header`}
-            >
-              <ViewElement
-                className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__search`}
-              >
+            <ViewElement className={`${STORAGE_BROWSER_BLOCK}__controls`}>
+              <ViewElement className={`${STORAGE_BROWSER_BLOCK}__search`}>
                 <SearchControl />
               </ViewElement>
               <FoldersPaginationControl />
             </ViewElement>
-            <ViewElement
-              className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__table-wrapper`}
-            >
+            <ViewElement className={`${STORAGE_BROWSER_BLOCK}__data-table`}>
               <LoadingIndicatorControl />
               <FoldersTableControl />
               <FoldersMessageControl />
             </ViewElement>
           </>
         )}
-        <ViewElement className={`${STORAGE_BROWSER_BLOCK}-footer`}>
+        <ViewElement className={`${STORAGE_BROWSER_BLOCK}__summary`}>
           <ActionDestinationControl />
-          {!(isProcessing || isProcessingComplete) ? null : (
-            <StatusDisplayControl />
-          )}
-          <ViewElement className={`${STORAGE_BROWSER_BLOCK}__message`}>
-            <MessageControl />
-          </ViewElement>
+          <StatusDisplayControl />
+        </ViewElement>
+        <ViewElement className={`${STORAGE_BROWSER_BLOCK}__footer`}>
+          <MessageControl />
           <ViewElement className={`${STORAGE_BROWSER_BLOCK}__buttons`}>
             <ActionCancelControl />
             <ActionStartControl />

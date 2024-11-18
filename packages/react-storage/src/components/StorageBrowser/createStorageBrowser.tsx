@@ -3,6 +3,7 @@ import React from 'react';
 import { DEFAULT_COMPOSABLES } from './composables';
 import { elementsDefault } from './context/elements';
 import { ComponentsProvider } from './ComponentsProvider';
+import { componentsDefault } from './componentsDefault';
 import { ErrorBoundary } from './ErrorBoundary';
 
 import { createConfigurationProvider, StoreProvider } from './providers';
@@ -65,7 +66,14 @@ export function createStorageBrowser(input: CreateStorageBrowserInput): {
     registerAuthListener,
   });
 
-  const composables = { ...DEFAULT_COMPOSABLES, ...input.components };
+  const composables = {
+    // fallback composables
+    ...DEFAULT_COMPOSABLES,
+    // default components
+    ...componentsDefault,
+    // override components
+    ...input.components,
+  };
   const elements = { ...elementsDefault, ...input.elements };
 
   /**

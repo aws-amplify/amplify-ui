@@ -16,7 +16,7 @@ export const ActionCancel = ({
 }: ActionCancelProps): React.JSX.Element => (
   <ButtonElement
     variant="cancel"
-    className={`${STORAGE_BROWSER_BLOCK}__action-cancel`}
+    className={`${STORAGE_BROWSER_BLOCK}__cancel`}
     onClick={onCancel}
     disabled={isDisabled}
   >

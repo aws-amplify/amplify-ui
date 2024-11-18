@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { ViewElement } from '../../../context/elements';
-import { STORAGE_BROWSER_BLOCK_TO_BE_UPDATED } from '../../../constants';
+import { STORAGE_BROWSER_BLOCK } from '../../../constants';
 
 export interface NumberDataCellProps {
   content: {
@@ -15,9 +15,7 @@ export const NumberDataCell = ({
 }: NumberDataCellProps): React.JSX.Element => {
   const { displayValue, value } = content;
   return (
-    <ViewElement
-      className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__table-number-data-cell`}
-    >
+    <ViewElement className={`${STORAGE_BROWSER_BLOCK}__table-number-data-cell`}>
       {displayValue ?? value}
     </ViewElement>
   );

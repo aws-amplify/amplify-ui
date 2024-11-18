@@ -12,6 +12,9 @@ import {
   CreateFolderViewType,
   DeleteViewType,
   UploadViewType,
+  LocationActionViewProps,
+  LocationDetailViewType,
+  LocationsViewType,
   Views,
 } from './views';
 
@@ -40,7 +43,7 @@ export interface StorageBrowserProps<T = string> {
   displayText?: StorageBrowserDisplayText;
 }
 
-export interface StorageBrowserType<T = string, K = {}> extends Views<T> {
+export interface StorageBrowserType<T = string, K = {}> {
   (
     props: StorageBrowserProps & Exclude<K, keyof StorageBrowserProps>
   ): React.JSX.Element;
@@ -50,6 +53,11 @@ export interface StorageBrowserType<T = string, K = {}> extends Views<T> {
   CreateFolderView: CreateFolderViewType;
   DeleteView: DeleteViewType;
   UploadView: UploadViewType;
+  LocationActionView: (
+    props: LocationActionViewProps<T>
+  ) => React.JSX.Element | null;
+  LocationDetailView: LocationDetailViewType;
+  LocationsView: LocationsViewType;
 }
 
 export type ActionViewName<T = string> = Exclude<

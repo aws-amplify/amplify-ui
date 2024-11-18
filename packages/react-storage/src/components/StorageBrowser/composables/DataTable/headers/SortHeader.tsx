@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { ButtonElement, IconElement } from '../../../context/elements';
-import { STORAGE_BROWSER_BLOCK_TO_BE_UPDATED } from '../../../constants';
+import { STORAGE_BROWSER_BLOCK } from '../../../constants';
 
 import { SortDirection } from '../types';
 
@@ -18,7 +18,7 @@ export const SortHeader = ({ content }: SortHeaderProps): React.JSX.Element => {
   return (
     <ButtonElement
       variant="sort"
-      className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__table-sort-header`}
+      className={`${STORAGE_BROWSER_BLOCK}__table-sort-header`}
       onClick={onSort}
     >
       {label}

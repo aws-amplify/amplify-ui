@@ -43,12 +43,8 @@ export const LocationDetailView: LocationDetailViewType = ({
       <LocationDetailViewProvider {...state}>
         <NavigationControl />
         <TitleControl />
-        <ViewElement
-          className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__location-detail-view-controls`}
-        >
-          <ViewElement
-            className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__search`}
-          >
+        <ViewElement className={`${STORAGE_BROWSER_BLOCK}__controls`}>
+          <ViewElement className={`${STORAGE_BROWSER_BLOCK}__search`}>
             <SearchControl />
             <SearchSubfoldersToggleControl />
           </ViewElement>
@@ -58,10 +54,12 @@ export const LocationDetailView: LocationDetailViewType = ({
         </ViewElement>
         {hasError ? null : (
           <DropZoneControl>
-            <DataTableControl />
+            <ViewElement className={`${STORAGE_BROWSER_BLOCK}__data-table`}>
+              <LoadingIndicatorControl />
+              <DataTableControl />
+            </ViewElement>
           </DropZoneControl>
         )}
-        <LoadingIndicatorControl />
         <ViewElement className={`${STORAGE_BROWSER_BLOCK}__footer`}>
           <MessageControl />
         </ViewElement>

@@ -1,3 +1,3 @@
 export { LocationsView } from './LocationsView';
-export { LocationsViewProps } from './types';
+export { LocationsViewProps, LocationsViewType } from './types';
 export { useLocationsView } from './useLocationsView';

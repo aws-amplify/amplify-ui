@@ -29,19 +29,17 @@ export const LocationsView: LocationsViewType = ({ className, ...props }) => {
     >
       <LocationsViewProvider {...state}>
         <TitleControl />
-        <ViewElement
-          className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__location-detail-view-controls`}
-        >
-          <ViewElement
-            className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__search`}
-          >
+        <ViewElement className={`${STORAGE_BROWSER_BLOCK}__controls`}>
+          <ViewElement className={`${STORAGE_BROWSER_BLOCK}__search`}>
             <SearchControl />
           </ViewElement>
           <PaginationControl />
           <DataRefreshControl />
         </ViewElement>
-        {hasError ? null : <DataTableControl />}
-        <LoadingIndicatorControl />
+        <ViewElement className={`${STORAGE_BROWSER_BLOCK}__data-table`}>
+          <LoadingIndicatorControl />
+          {hasError ? null : <DataTableControl />}
+        </ViewElement>
         <ViewElement className={`${STORAGE_BROWSER_BLOCK}__message`}>
           <MessageControl />
         </ViewElement>
