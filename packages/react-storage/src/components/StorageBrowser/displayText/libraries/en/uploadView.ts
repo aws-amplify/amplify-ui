@@ -1,5 +1,6 @@
 import { DEFAULT_ACTION_VIEW_DISPLAY_TEXT } from './shared';
 import { DefaultUploadViewDisplayText } from '../../types';
+import { isFileTooBig } from '../../../validators';
 
 export const DEFAULT_UPLOAD_VIEW_DISPLAY_TEXT: DefaultUploadViewDisplayText = {
   ...DEFAULT_ACTION_VIEW_DISPLAY_TEXT,
@@ -78,6 +79,19 @@ export const DEFAULT_UPLOAD_VIEW_DISPLAY_TEXT: DefaultUploadViewDisplayText = {
     }
 
     return { content: 'All files uploaded.', type };
+  },
+  getFilesValidationMessage: ({ invalidFiles = [] } = {}) => {
+    const tooBigFileNames = invalidFiles
+      .filter(({ file }) => isFileTooBig(file))
+      .map(({ file }) => file.name)
+      .join(', ');
+    if (tooBigFileNames) {
+      return {
+        content: `Files larger than 160GB cannot be added to the upload queue: ${tooBigFileNames}`,
+        type: 'warning',
+      };
+    }
+    return undefined;
   },
   statusDisplayOverwritePreventedLabel: 'Overwrite prevented',
   overwriteToggleLabel: 'Overwrite existing files',
