@@ -50,7 +50,8 @@ export const useFolders = ({
 
   const getInput = useGetActionInput();
 
-  const { items, nextToken } = data;
+  const { items, nextToken, search } = data;
+  const { hasExhaustedSearch = false } = search ?? {};
 
   const onInitialize = React.useCallback(() => {
     handleList({
@@ -126,6 +127,7 @@ export const useFolders = ({
     page,
     pageItems,
     query,
+    hasExhaustedSearch,
     onPaginate,
     onQuery,
     onSearch: onSearchSubmit,

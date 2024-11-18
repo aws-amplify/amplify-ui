@@ -13,7 +13,6 @@ export const DEFAULT_LOCATIONS_VIEW_DISPLAY_TEXT: DefaultLocationsViewDisplayTex
       const {
         isLoading,
         locations,
-        query,
         hasExhaustedSearch,
         hasError = false,
         message,
@@ -37,10 +36,10 @@ export const DEFAULT_LOCATIONS_VIEW_DISPLAY_TEXT: DefaultLocationsViewDisplayTex
         };
       }
 
-      if (query && hasExhaustedSearch) {
+      if (hasExhaustedSearch) {
         return {
-          type: 'warning',
-          content: `No more folders or files found by ${query}.`,
+          type: 'info',
+          content: `Showing results for up to the first 10,000 items.`,
         };
       }
 
