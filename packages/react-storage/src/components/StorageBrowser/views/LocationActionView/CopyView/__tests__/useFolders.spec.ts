@@ -190,6 +190,37 @@ describe('useFolders', () => {
     );
   });
 
+  it('should reset search on selecting folder', () => {
+    jest.spyOn(AmplifyReactCore, 'useDataState').mockReturnValueOnce([
+      {
+        data: {
+          items: mockItems,
+          nextToken: 'token',
+        },
+        hasError: false,
+        isLoading: false,
+        message: undefined,
+      },
+      mockHandleList,
+    ]);
+
+    const { result } = renderHook(() =>
+      useFolders({ destination: location, setDestination: mockSetDestination })
+    );
+
+    act(() => {
+      result.current.onQuery('boo');
+    });
+
+    expect(result.current.query).toBe('boo');
+
+    act(() => {
+      result.current.onSelectFolder('random-id', 'some-path');
+    });
+
+    expect(result.current.query).toBe('');
+  });
+
   it('should handle paginate', () => {
     const nextToken = 'token';
     jest.spyOn(AmplifyReactCore, 'useDataState').mockReturnValue([
