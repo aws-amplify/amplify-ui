@@ -68,7 +68,9 @@ export function LocationDetailViewProvider({
     <ControlsContextProvider
       data={{
         actions,
-        isActionsListDisabled: isLoading,
+        isActionsListDisabled:
+          isLoading ||
+          actions.filter((obj) => obj.isHidden).length == actions.length,
         isDataRefreshDisabled: isLoading,
         isLoading,
         isSearchingSubfolders,

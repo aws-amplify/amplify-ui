@@ -63,11 +63,7 @@ export function DropdownMenu({
       <ButtonElement
         aria-label="Menu Toggle"
         className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__menu-toggle`}
-        disabled={
-          isDisabled ||
-          !items?.length ||
-          items?.filter((obj) => obj.isHidden).length == items?.length
-        }
+        disabled={isDisabled || !items?.length}
         data-testid="MENU_TOGGLE"
         onClick={() => {
           setIsOpen((prev) => !prev);

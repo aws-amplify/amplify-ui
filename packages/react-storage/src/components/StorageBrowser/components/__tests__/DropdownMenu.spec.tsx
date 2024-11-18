@@ -80,20 +80,5 @@ describe('DropdownMenu', () => {
       expect(mockOnItemSelect).toHaveBeenNthCalledWith(1, menuItem1.id);
       expect(mockOnItemSelect).toHaveBeenNthCalledWith(2, menuItem2.id);
     });
-
-    it('is disabled if no item is available', () => {
-      render(
-        <DropdownMenu
-          items={[
-            { ...menuItem1, isHidden: true },
-            { ...menuItem2, isHidden: true },
-          ]}
-        />
-      );
-
-      const button = screen.getByRole('button');
-
-      expect(button).toBeDisabled();
-    });
   });
 });
