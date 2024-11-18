@@ -60,7 +60,6 @@ export const LocationDetailView: LocationDetailViewType = ({
             </ViewElement>
           </DropZoneControl>
         )}
-        <LoadingIndicatorControl />
         <ViewElement className={`${STORAGE_BROWSER_BLOCK}__footer`}>
           <MessageControl />
         </ViewElement>

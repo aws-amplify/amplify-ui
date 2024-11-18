@@ -273,6 +273,10 @@ const ActionDestination: Components['ActionDestination'] = ({
   );
 };
 
+const Title: Components['Title'] = ({ title }) => {
+  return <View className={`${STORAGE_BROWSER_BLOCK}__title`}>{title}</View>;
+};
+
 export const componentsDefault: Components = {
   ActionDestination,
   ActionsList,
@@ -285,4 +289,5 @@ export const componentsDefault: Components = {
   SearchSubfoldersToggle,
   StatusDisplay,
   FolderNameField,
+  Title,
 };
