@@ -19,6 +19,7 @@ export function LocationDetailViewProvider({
       searchPlaceholder,
       searchSubmitLabel,
       searchClearLabel,
+      getDateDisplayValue,
       getTitle,
       getListItemsResultMessage,
     },
@@ -65,11 +66,13 @@ export function LocationDetailViewProvider({
     message: hasError ? message : downloadErrorMessage,
   });
 
+  const isNoActionAvailable = actions.every((obj) => obj.isHidden);
+
   return (
     <ControlsContextProvider
       data={{
         actions,
-        isActionsListDisabled: isLoading,
+        isActionsListDisabled: isLoading || isNoActionAvailable,
         isDataRefreshDisabled: isLoading,
         isLoading,
         isSearchingSubfolders,
@@ -90,6 +93,7 @@ export function LocationDetailViewProvider({
           areAllFilesSelected,
           location,
           fileDataItems,
+          getDateDisplayValue,
           hasFiles,
           pageItems,
           selectFileLabel,

@@ -100,7 +100,7 @@ describe('files context utils', () => {
     it('returns the webKitRelativePath as key when available', () => {
       const incoming = [
         { ...fileThree, webkitRelativePath: 'test/file/file-three' },
-      ];
+      ] as File[];
       const previous = [fileItemOne, fileItemTwo];
       const output = resolveFiles(previous, incoming);
 

@@ -3,8 +3,8 @@ import { compareDateData } from '../compareDateData';
 
 describe('compareDateData', () => {
   const emptyContent = { type: 'date' as const, content: {} };
-  const a = { ...emptyContent, content: { date: new Date(1600387200000) } };
-  const b = { ...emptyContent, content: { date: new Date(1702339200000) } };
+  const a = { ...emptyContent, content: { value: new Date(1600387200000) } };
+  const b = { ...emptyContent, content: { value: new Date(1702339200000) } };
   const getComparisonResults = (direction: SortDirection) => [
     compareDateData(emptyContent, emptyContent, direction),
     compareDateData(emptyContent, b, direction),
