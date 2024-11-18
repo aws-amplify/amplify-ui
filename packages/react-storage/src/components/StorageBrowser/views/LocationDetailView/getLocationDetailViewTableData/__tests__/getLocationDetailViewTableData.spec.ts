@@ -111,7 +111,7 @@ describe('getLocationDetailViewTableData', () => {
           }),
           expect.objectContaining({ content: { label: 'Name' } }),
           expect.objectContaining({ content: { label: 'Type' } }),
-          expect.objectContaining({ content: { label: 'Last Modified' } }),
+          expect.objectContaining({ content: { label: 'Last modified' } }),
           expect.objectContaining({ content: { label: 'Size' } }),
           expect.objectContaining({ content: { text: '' } }),
         ],
