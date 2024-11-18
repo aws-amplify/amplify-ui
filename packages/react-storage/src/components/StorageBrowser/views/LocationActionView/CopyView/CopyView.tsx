@@ -29,15 +29,7 @@ import { classNames } from '@aws-amplify/ui';
 
 export const CopyView: CopyViewType = ({ className, ...props }) => {
   const state = useCopyView(props);
-  const {
-    isProcessing,
-    isProcessingComplete,
-    folders: { onInitialize },
-  } = state;
-
-  React.useEffect(() => {
-    onInitialize();
-  }, [onInitialize]);
+  const { isProcessing, isProcessingComplete } = state;
 
   return (
     <ViewElement className={classNames(STORAGE_BROWSER_BLOCK, className)}>

@@ -19,7 +19,6 @@ export const useCopyView = (options?: UseCopyViewOptions): CopyViewState => {
     },
     dispatchStoreAction,
   ] = useStore();
-  const { current } = location;
 
   const getInput = useGetActionInput();
 
@@ -28,11 +27,19 @@ export const useCopyView = (options?: UseCopyViewOptions): CopyViewState => {
     fileDataItems,
     { concurrency: 4 }
   );
+  const [destination, setDestination] = useState(location);
+
+  const folders = useFolders({ destination, setDestination });
 
   const { isProcessing, isProcessingComplete, statusCounts, tasks } =
     processState;
+  const { current } = location;
+  const { onInitialize } = folders;
 
-  const [destination, setDestination] = useState(location);
+  // initial load
+  React.useEffect(() => {
+    onInitialize();
+  }, [onInitialize]);
 
   const onActionStart = () => {
     handleProcess({
@@ -61,8 +68,6 @@ export const useCopyView = (options?: UseCopyViewOptions): CopyViewState => {
     },
     [dispatchStoreAction]
   );
-
-  const folders = useFolders({ destination, setDestination });
 
   const onSelectDestination = (
     selectedDestination: LocationData,
