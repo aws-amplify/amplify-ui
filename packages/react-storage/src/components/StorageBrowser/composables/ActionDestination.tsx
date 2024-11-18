@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { STORAGE_BROWSER_BLOCK_TO_BE_UPDATED } from '../constants';
+import { STORAGE_BROWSER_BLOCK } from '../constants';
 import {
   DescriptionListElement,
   DescriptionTermElement,
@@ -9,8 +9,8 @@ import {
   ViewElement,
 } from '../context/elements';
 import { Separator } from '../components/Separator';
-import { NavigationProps } from './Navigation';
-import { BreadcrumbNavigation } from '../components/BreadcrumbNavigation';
+import { Navigation, NavigationProps } from './Navigation';
+import { useResolvedComposable } from '../controls/hooks/useResolvedComposable';
 
 export interface ActionDestinationProps {
   isNavigable?: boolean;
@@ -23,26 +23,26 @@ export const ActionDestination = ({
   items,
   label,
 }: ActionDestinationProps): React.JSX.Element | null => {
+  const Resolved = useResolvedComposable(Navigation, 'Navigation');
+
   if (!items.length) {
     return null;
   }
 
   return (
-    <ViewElement
-      className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__action-destination`}
-    >
+    <ViewElement className={`${STORAGE_BROWSER_BLOCK}__destination`}>
       {isNavigable ? (
         <>
           <SpanElement>{`${label}:`}</SpanElement>
-          <BreadcrumbNavigation breadcrumbs={items} role="complementary" />
+          <Resolved items={items} />
         </>
       ) : (
         <DescriptionListElement
-          className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__description-list`}
+          className={`${STORAGE_BROWSER_BLOCK}__description-list`}
           role="list"
         >
           <DescriptionTermElement
-            className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__description-term`}
+            className={`${STORAGE_BROWSER_BLOCK}__description-term`}
             role="term"
           >
             {`${label}:`}
@@ -51,7 +51,7 @@ export const ActionDestination = ({
             return (
               <React.Fragment key={`action-destination-item-${name}-${index}`}>
                 <DescriptionDetailsElement
-                  className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__description-details`}
+                  className={`${STORAGE_BROWSER_BLOCK}__description-details`}
                   role="definition"
                 >
                   <SpanElement variant="destination-text">{name}</SpanElement>

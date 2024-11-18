@@ -1,5 +1,5 @@
 import React from 'react';
-import { Checkbox } from '../../../components/Checkbox';
+import { Checkbox } from '@aws-amplify/ui-react';
 
 export type CheckboxHeaderProps = {
   content: {
@@ -16,10 +16,11 @@ export const CheckboxHeader = ({
   const { checked = false, label, onSelect, id } = content;
   return (
     <Checkbox
+      name={label ?? ''}
       checked={checked}
       labelHidden
-      labelText={label}
-      onSelect={onSelect}
+      label={label}
+      onChange={onSelect}
       id={id}
     />
   );

@@ -40,8 +40,10 @@ export const LocationsView: LocationsViewType = ({ className, ...props }) => {
           <PaginationControl />
           <DataRefreshControl />
         </ViewElement>
-        <LoadingIndicatorControl />
-        {hasError ? null : <DataTableControl />}
+        <ViewElement className={`${STORAGE_BROWSER_BLOCK}__data-table`}>
+          <LoadingIndicatorControl />
+          {hasError ? null : <DataTableControl />}
+        </ViewElement>
         <ViewElement className={`${STORAGE_BROWSER_BLOCK}__message`}>
           <MessageControl />
         </ViewElement>

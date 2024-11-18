@@ -6,8 +6,12 @@ import {
   Pagination as AmplifyPagination,
   Loader,
   CheckboxField,
+  MenuItem,
+  Menu,
+  Button,
 } from '@aws-amplify/ui-react';
 import { Components } from './ComponentsProvider';
+import { IconElement } from './context/elements';
 
 const OverwriteToggle: Components['OverwriteToggle'] = ({
   isDisabled,
@@ -123,7 +127,13 @@ const Navigation: Components['Navigation'] = ({ items }) => {
 
 const LoadingIndicator: Components['LoadingIndicator'] = ({ isLoading }) => {
   if (isLoading) {
-    return <Loader variation="linear" size="small" />;
+    return (
+      <Loader
+        className="amplify-storage-browser__loader"
+        variation="linear"
+        size="small"
+      />
+    );
   }
 };
 
@@ -157,7 +167,50 @@ const FolderNameField: Components['FolderNameField'] = ({
   );
 };
 
+const DataRefresh: Components['DataRefresh'] = ({ onRefresh }) => {
+  return (
+    <Button
+      onClick={() => {
+        onRefresh?.();
+      }}
+    >
+      <IconElement className="amplify-icon" variant="refresh" />
+    </Button>
+  );
+};
+
+const ActionsList: Components['ActionsList'] = ({
+  items,
+  onActionSelect,
+  isDisabled,
+}) => {
+  return (
+    <Menu isDisabled={isDisabled}>
+      {items
+        .filter(({ isHidden }) => !isHidden)
+        .map(({ actionType, icon, label, isDisabled }, i) => {
+          return (
+            <MenuItem
+              key={i}
+              size="small"
+              gap="xs"
+              isDisabled={isDisabled}
+              onClick={() => {
+                onActionSelect?.(actionType);
+              }}
+            >
+              {icon && <IconElement variant={icon} />}
+              {label}
+            </MenuItem>
+          );
+        })}
+    </Menu>
+  );
+};
+
 export const componentsDefault: Components = {
+  ActionsList,
+  DataRefresh,
   LoadingIndicator,
   Pagination,
   Navigation,

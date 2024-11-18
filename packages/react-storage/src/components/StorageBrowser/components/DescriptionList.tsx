@@ -7,7 +7,7 @@ import {
   ViewElement,
 } from '../context/elements';
 
-import { STORAGE_BROWSER_BLOCK_TO_BE_UPDATED } from '../constants';
+import { STORAGE_BROWSER_BLOCK } from '../constants';
 
 export interface DescriptionItemProps {
   term?: string | string[];
@@ -21,17 +21,15 @@ interface DescriptionProps {
 
 const Description = ({ term, details }: DescriptionItemProps) => {
   return (
-    <ViewElement
-      className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__description`}
-    >
+    <ViewElement className={`${STORAGE_BROWSER_BLOCK}__description`}>
       <DescriptionTermElement
-        className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__description-term`}
+        className={`${STORAGE_BROWSER_BLOCK}__description-term`}
         role="term"
       >
         {term}
       </DescriptionTermElement>
       <DescriptionDetailsElement
-        className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__description-details`}
+        className={`${STORAGE_BROWSER_BLOCK}__description-details`}
         role="definition"
       >
         {details}
@@ -46,7 +44,7 @@ export const DescriptionList = ({
 }: DescriptionProps): React.JSX.Element => {
   return (
     <DescriptionListElement
-      className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__description-list ${className}`}
+      className={`${STORAGE_BROWSER_BLOCK}__description-list ${className}`}
       role="list"
     >
       {descriptions.map(({ term, details }, index) => (
