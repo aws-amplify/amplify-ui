@@ -56,12 +56,12 @@ export const LocationDetailView: LocationDetailViewType = ({
           <DataRefreshControl />
           <ActionsListControl />
         </ViewElement>
-        <LoadingIndicatorControl />
         {hasError ? null : (
           <DropZoneControl>
             <DataTableControl />
           </DropZoneControl>
         )}
+        <LoadingIndicatorControl />
         <ViewElement className={`${STORAGE_BROWSER_BLOCK}__footer`}>
           <MessageControl />
         </ViewElement>

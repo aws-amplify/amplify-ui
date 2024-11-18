@@ -11,11 +11,16 @@ export const DEFAULT_LOCATIONS_VIEW_DISPLAY_TEXT: DefaultLocationsViewDisplayTex
     searchPlaceholder: 'Filter folders and files',
     getListLocationsResultMessage: (data) => {
       const {
+        isLoading,
         locations,
         hasExhaustedSearch,
         hasError = false,
         message,
       } = data ?? {};
+
+      if (isLoading) {
+        return undefined;
+      }
 
       if (hasError) {
         return {
