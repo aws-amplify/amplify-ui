@@ -68,6 +68,12 @@ export const useLocationsView = (
   const { searchQuery, onSearchQueryChange, onSearchSubmit, resetSearch } =
     useSearch({ onSearch });
 
+  const filteredItems = React.useMemo(() => {
+    return items.filter(
+      ({ prefix, bucket }) => prefix.includes(term) || bucket.includes(term)
+    );
+  }, [items, term]);
+
   const {
     currentPage,
     onPaginate,
@@ -75,17 +81,11 @@ export const useLocationsView = (
     highestPageVisited,
     pageItems,
   } = usePaginate({
-    items,
+    items: filteredItems,
     paginateCallback,
     pageSize: listOptions.pageSize,
     hasNextToken,
   });
-
-  const filteredItems = React.useMemo(() => {
-    return pageItems.filter(
-      ({ prefix, bucket }) => prefix.includes(term) || bucket.includes(term)
-    );
-  }, [pageItems, term]);
 
   const shouldShowEmptyMessage =
     pageItems.length === 0 && !isLoading && !hasError;
@@ -97,7 +97,7 @@ export const useLocationsView = (
     page: currentPage,
     hasNextPage: hasNextToken,
     highestPageVisited,
-    pageItems: filteredItems,
+    pageItems,
     shouldShowEmptyMessage,
     searchQuery,
     onDownload: (location: LocationData) => {
