@@ -19,6 +19,7 @@ export function LocationDetailViewProvider({
       searchPlaceholder,
       searchSubmitLabel,
       searchClearLabel,
+      getActionListLabel,
       getDateDisplayValue,
       getTitle,
       getListItemsResultMessage,
@@ -58,6 +59,11 @@ export function LocationDetailViewProvider({
     onToggleSearchSubfolders,
   } = props;
 
+  const actionsWithDisplayText = actions.map((item) => ({
+    ...item,
+    label: getActionListLabel(item.label),
+  }));
+
   const messageControlContent = getListItemsResultMessage({
     isLoading,
     items: pageItems,
@@ -69,7 +75,7 @@ export function LocationDetailViewProvider({
   return (
     <ControlsContextProvider
       data={{
-        actions,
+        actions: actionsWithDisplayText,
         isActionsListDisabled: isLoading,
         isDataRefreshDisabled: isLoading,
         isLoading,

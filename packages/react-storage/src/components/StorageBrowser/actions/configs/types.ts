@@ -69,7 +69,7 @@ export interface ActionListItemConfig {
   /**
    * list item label
    */
-  label: string;
+  label?: string;
 }
 
 /**

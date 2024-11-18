@@ -29,6 +29,7 @@ jest.mock('../../../displayText', () => {
         searchSubmitLabel: 'Submit',
         searchExhaustedMessage: 'Exhausted',
         getDateDisplayValue: (date: Date) => date.toLocaleString(),
+        getActionListLabel: (key: string | undefined) => key,
       },
     }),
   };
