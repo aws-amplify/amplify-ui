@@ -14,6 +14,7 @@ export interface FoldersMessageProps {
   message?: string;
   folders?: FolderData[];
   query?: string;
+  hasExhaustedSearch?: boolean;
 }
 
 const defaultValue: FoldersMessageProps = {};
@@ -24,13 +25,15 @@ export const FoldersMessageControl = (): React.JSX.Element => {
   const {
     CopyView: { getListFoldersResultsMessage },
   } = useDisplayText();
-  const { hasError, folders, message, query } = useFoldersMessage();
+  const { hasError, folders, message, query, hasExhaustedSearch } =
+    useFoldersMessage();
 
   const messageContent = getListFoldersResultsMessage({
     hasError,
     folders,
     message,
     query,
+    hasExhaustedSearch,
   });
 
   return (

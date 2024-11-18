@@ -92,6 +92,7 @@ const defaultViewState: CopyViewState = {
     page: 1,
     pageItems: [],
     query: '',
+    hasExhaustedSearch: false,
     isLoading: false,
     message: undefined,
     onPaginate: jest.fn(),

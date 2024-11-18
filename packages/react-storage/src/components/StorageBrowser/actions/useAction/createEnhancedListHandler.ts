@@ -15,9 +15,10 @@ interface SearchOptions<T> {
   query: string;
   /**
    * The key of the object in the list to filter by, which must have a string value.
+   * Also accepts a function which takes an item and returns the appropriate key.
    * This determines where the `query` will be searched.
    */
-  filterBy: KeyWithStringValue<T>;
+  filterBy: KeyWithStringValue<T> | ((item: T) => KeyWithStringValue<T>);
 
   /**
    * Optional delimiter to group item keys.
@@ -66,17 +67,18 @@ export const SEARCH_LIMIT = 10000;
 export const SEARCH_PAGE_SIZE = 1000;
 
 interface Search<T> {
-  prefix: string;
+  prefix?: string;
   list: T[];
   options: SearchOptions<T>;
 }
 
-export function searchItems<T>({ prefix, list, options }: Search<T>): T[] {
+export function searchItems<T>({ prefix = '', list, options }: Search<T>): T[] {
   const { query, filterBy, groupBy } = options;
 
   // filter keys that match `filterBy` search option
   const filteredItems = list.filter((item) => {
-    const path = item[filterBy] as string;
+    const key = typeof filterBy === 'function' ? filterBy(item) : filterBy;
+    const path = item[key] as string;
     const suffix = path.slice(prefix.length);
     return suffix.includes(query);
   });
@@ -89,7 +91,8 @@ export function searchItems<T>({ prefix, list, options }: Search<T>): T[] {
   const uniquePaths = new Map<string, T>();
 
   for (const item of filteredItems) {
-    const path = item[filterBy] as string;
+    const key = typeof filterBy === 'function' ? filterBy(item) : filterBy;
+    const path = item[key] as string;
     const components = path.split(groupBy);
 
     for (const [i, component] of components.entries()) {
@@ -113,7 +116,7 @@ export function searchItems<T>({ prefix, list, options }: Search<T>): T[] {
         uniquePaths.set(matchedPath, {
           ...item,
           id: crypto.randomUUID(),
-          [filterBy]: matchedPath,
+          [key]: matchedPath,
           type: isFolder ? 'FOLDER' : 'FILE',
         });
       }

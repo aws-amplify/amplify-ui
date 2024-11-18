@@ -33,9 +33,9 @@ export const useLocationsView = (
 
   const [_, handleDownload] = useProcessTasks(downloadHandler);
   const [, dispatchStoreAction] = useStore();
-  const [term, setTerm] = React.useState('');
-  const { items, nextToken } = data;
+  const { items, nextToken, search } = data;
   const hasNextToken = !!nextToken;
+  const { hasExhaustedSearch = false } = search ?? {};
 
   const onNavigate = options?.onNavigate;
   const initialValues = options?.initialValues ?? {};
@@ -61,13 +61,6 @@ export const useLocationsView = (
     });
   };
 
-  const onSearch = (query: string) => {
-    setTerm(query);
-  };
-
-  const { searchQuery, onSearchQueryChange, onSearchSubmit, resetSearch } =
-    useSearch({ onSearch });
-
   const {
     currentPage,
     onPaginate,
@@ -81,11 +74,23 @@ export const useLocationsView = (
     hasNextToken,
   });
 
-  const filteredItems = React.useMemo(() => {
-    return pageItems.filter(
-      ({ prefix, bucket }) => prefix.includes(term) || bucket.includes(term)
-    );
-  }, [pageItems, term]);
+  const onSearch = (query: string) => {
+    handleReset();
+    handleList({
+      options: {
+        ...listOptions,
+        search: {
+          query,
+          filterBy: (location: LocationData) => {
+            return location.prefix ? 'prefix' : 'bucket';
+          },
+        },
+      },
+    });
+  };
+
+  const { searchQuery, onSearchQueryChange, onSearchSubmit, resetSearch } =
+    useSearch({ onSearch });
 
   const shouldShowEmptyMessage =
     pageItems.length === 0 && !isLoading && !hasError;
@@ -97,9 +102,10 @@ export const useLocationsView = (
     page: currentPage,
     hasNextPage: hasNextToken,
     highestPageVisited,
-    pageItems: filteredItems,
+    pageItems,
     shouldShowEmptyMessage,
     searchQuery,
+    hasExhaustedSearch,
     onDownload: (location: LocationData) => {
       handleDownload({
         config: getConfig(location),
@@ -112,7 +118,6 @@ export const useLocationsView = (
     },
     onRefresh: () => {
       resetSearch();
-      setTerm('');
       handleReset();
       handleList({
         options: { ...listOptions, refresh: true },
@@ -122,8 +127,11 @@ export const useLocationsView = (
     onSearch: onSearchSubmit,
     onSearchQueryChange,
     onSearchClear: () => {
-      setTerm('');
       resetSearch();
+      handleReset();
+      handleList({
+        options: { ...listOptions, refresh: true },
+      });
     },
   };
 };

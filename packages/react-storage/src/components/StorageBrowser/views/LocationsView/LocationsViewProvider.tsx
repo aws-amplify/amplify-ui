@@ -27,6 +27,7 @@ export function LocationsViewProvider({
     page,
     isLoading,
     searchQuery,
+    hasExhaustedSearch,
     pageItems,
     message,
     onDownload,
@@ -38,8 +39,8 @@ export function LocationsViewProvider({
     onSearchClear,
   } = props;
 
-  // TODO: add hasExhaustedSearch + query param
   const messageControlContent = getListLocationsResultMessage({
+    hasExhaustedSearch,
     isLoading,
     locations: pageItems,
     hasError,
