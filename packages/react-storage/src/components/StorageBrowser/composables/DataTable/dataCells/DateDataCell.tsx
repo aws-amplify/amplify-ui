@@ -5,20 +5,20 @@ import { STORAGE_BROWSER_BLOCK_TO_BE_UPDATED } from '../../../constants';
 
 export interface DateDataCellProps {
   content: {
-    date?: Date;
-    text?: string;
+    value?: Date;
+    displayValue?: string;
   };
 }
 
 export const DateDataCell = ({
   content,
 }: DateDataCellProps): React.JSX.Element => {
-  const { text } = content;
+  const { value, displayValue } = content;
   return (
     <ViewElement
       className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__table-date-data-cell`}
     >
-      {text}
+      {displayValue ?? value?.toLocaleString()}
     </ViewElement>
   );
 };

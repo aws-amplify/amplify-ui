@@ -6,7 +6,9 @@ describe('DateDataCell', () => {
   const date = new Date(1726704000000);
   it('renders', () => {
     const { container } = render(
-      <DateDataCell content={{ date, text: date.toLocaleString() }} />
+      <DateDataCell
+        content={{ value: date, displayValue: date.toLocaleString() }}
+      />
     );
 
     const dateDataCell = container.querySelector('div');

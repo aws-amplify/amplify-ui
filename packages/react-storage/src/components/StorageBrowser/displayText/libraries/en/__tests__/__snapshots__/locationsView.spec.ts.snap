@@ -45,7 +45,7 @@ exports[`LocationsView display text returns the expected values from getPermissi
 
 exports[`LocationsView display text should match snapshot values 1`] = `
 {
-  "getDateText": [Function],
+  "getDateDisplayValue": [Function],
   "getDownloadLabel": [Function],
   "getListLocationsResultMessage": [Function],
   "getPermissionName": [Function],

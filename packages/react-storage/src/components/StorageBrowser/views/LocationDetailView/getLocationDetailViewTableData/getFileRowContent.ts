@@ -9,7 +9,7 @@ export const getFileRowContent = ({
   permissions,
   isSelected,
   itemLocationKey,
-  getDateText,
+  getDateDisplayValue,
   lastModified,
   rowId,
   rowKey,
@@ -22,7 +22,7 @@ export const getFileRowContent = ({
   isSelected: boolean;
   itemLocationKey: string;
   lastModified: Date;
-  getDateText: (date: Date) => string;
+  getDateDisplayValue: (date: Date) => string;
   rowId: string;
   rowKey: string;
   selectFileLabel: string;
@@ -72,7 +72,10 @@ export const getFileRowContent = ({
         return {
           key,
           type: 'date',
-          content: { date: lastModified, text: getDateText(lastModified) },
+          content: {
+            value: lastModified,
+            displayValue: getDateDisplayValue(lastModified),
+          },
         };
       }
       case 'size': {

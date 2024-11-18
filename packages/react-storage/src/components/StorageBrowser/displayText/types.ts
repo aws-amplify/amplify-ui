@@ -22,7 +22,7 @@ export interface DefaultListViewDisplayText {
   searchPlaceholder: string;
   searchSubmitLabel: string;
   searchClearLabel: string;
-  getDateText: (date: Date) => string;
+  getDateDisplayValue: (date: Date) => string;
 }
 
 interface ListMessageData {

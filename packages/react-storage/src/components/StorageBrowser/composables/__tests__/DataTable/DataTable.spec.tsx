@@ -40,7 +40,7 @@ describe('DataTable', () => {
           {
             key: 'row-1 data-cell-3',
             type: 'date' as const,
-            content: { date, text: date.toLocaleString() },
+            content: { value: date, displayValue: date.toLocaleString() },
           },
         ],
       },

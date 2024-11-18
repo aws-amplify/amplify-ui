@@ -20,7 +20,7 @@ export const getLocationDetailViewTableData = ({
   pageItems,
   selectFileLabel,
   selectAllFilesLabel,
-  getDateText,
+  getDateDisplayValue,
   onDownload,
   onNavigate,
   onSelect,
@@ -33,7 +33,7 @@ export const getLocationDetailViewTableData = ({
   pageItems: LocationItemData[];
   selectFileLabel: string;
   selectAllFilesLabel: string;
-  getDateText: (date: Date) => string;
+  getDateDisplayValue: (date: Date) => string;
   onDownload: (fileItem: FileDataItem) => void;
   onNavigate: (location: LocationData, path?: string) => void;
   onSelect: (isSelected: boolean, fileItem: FileData) => void;
@@ -75,7 +75,7 @@ export const getLocationDetailViewTableData = ({
             isSelected,
             itemLocationKey: `${current?.prefix ?? ''}${path}`,
             lastModified,
-            getDateText,
+            getDateDisplayValue,
             rowId: id,
             rowKey: key,
             selectFileLabel,
