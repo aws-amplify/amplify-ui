@@ -19,7 +19,7 @@ export function LocationDetailViewProvider({
       searchPlaceholder,
       searchSubmitLabel,
       searchClearLabel,
-      getActionListLabel,
+      getActionListItemLabel,
       getDateDisplayValue,
       getTitle,
       getListItemsResultMessage,
@@ -61,7 +61,7 @@ export function LocationDetailViewProvider({
 
   const actionsWithDisplayText = actions.map((item) => ({
     ...item,
-    label: getActionListLabel(item.label),
+    label: getActionListItemLabel(item.label),
   }));
 
   const messageControlContent = getListItemsResultMessage({

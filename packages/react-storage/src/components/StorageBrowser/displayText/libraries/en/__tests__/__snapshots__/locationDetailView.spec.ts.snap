@@ -41,7 +41,7 @@ exports[`LocationDetailView display text \`getListResultsMessage\` returns the e
 
 exports[`LocationDetailView display text should match snapshot values 1`] = `
 {
-  "getActionListLabel": [Function],
+  "getActionListItemLabel": [Function],
   "getDateDisplayValue": [Function],
   "getListItemsResultMessage": [Function],
   "getTitle": [Function],
