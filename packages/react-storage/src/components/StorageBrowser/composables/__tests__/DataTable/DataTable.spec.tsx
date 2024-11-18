@@ -22,6 +22,7 @@ describe('DataTable', () => {
       },
     ];
 
+    const date = new Date(1726704000000);
     const rows = [
       {
         key: 'row-1',
@@ -39,7 +40,7 @@ describe('DataTable', () => {
           {
             key: 'row-1 data-cell-3',
             type: 'date' as const,
-            content: { date: new Date(1726704000000) },
+            content: { date, text: date.toLocaleString() },
           },
         ],
       },

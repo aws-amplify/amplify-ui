@@ -28,6 +28,7 @@ jest.mock('../../../displayText', () => {
         searchPlaceholder: 'Search current folder',
         searchSubmitLabel: 'Submit',
         searchExhaustedMessage: 'Exhausted',
+        getDateText: (date: Date) => date.toLocaleString(),
       },
     }),
   };

@@ -33,4 +33,5 @@ export const DEFAULT_LIST_VIEW_DISPLAY_TEXT: Omit<
   loadingIndicatorLabel: 'Loading',
   searchSubmitLabel: 'Submit',
   searchClearLabel: 'Clear search',
+  getDateText: (date) => date?.toLocaleString(),
 };
