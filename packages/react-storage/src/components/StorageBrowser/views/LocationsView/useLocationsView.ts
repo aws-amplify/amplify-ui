@@ -33,8 +33,9 @@ export const useLocationsView = (
 
   const [_, handleDownload] = useProcessTasks(downloadHandler);
   const [, dispatchStoreAction] = useStore();
-  const { items, nextToken } = data;
+  const { items, nextToken, search } = data;
   const hasNextToken = !!nextToken;
+  const { hasExhaustedSearch = false } = search ?? {};
 
   const onNavigate = options?.onNavigate;
   const initialValues = options?.initialValues ?? {};
@@ -104,6 +105,7 @@ export const useLocationsView = (
     pageItems,
     shouldShowEmptyMessage,
     searchQuery,
+    hasExhaustedSearch,
     onDownload: (location: LocationData) => {
       handleDownload({
         config: getConfig(location),

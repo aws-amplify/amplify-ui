@@ -161,6 +161,7 @@ describe('LocationsView', () => {
     expect(mockGetListLocationsResultMessage).toHaveBeenCalledWith({
       locations: expect.any(Array),
       hasError: true,
+      hasExhaustedSearch: false,
       message: errorMessage,
     });
 
