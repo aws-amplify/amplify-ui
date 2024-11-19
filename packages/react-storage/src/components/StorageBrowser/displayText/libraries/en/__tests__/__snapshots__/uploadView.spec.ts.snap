@@ -1,5 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`UploadView display text values \`getActionCompleteMessage\` returns the expected values in the all canceled scenario 1`] = `
+{
+  "content": "All uploads canceled.",
+  "type": "warning",
+}
+`;
+
 exports[`UploadView display text values \`getActionCompleteMessage\` returns the expected values in the all failed scenario 1`] = `
 {
   "content": "All files failed to upload.",
@@ -35,6 +42,20 @@ exports[`UploadView display text values \`getActionCompleteMessage\` returns the
 }
 `;
 
+exports[`UploadView display text values \`getActionCompleteMessage\` returns the expected values in the few canceled scenario 1`] = `
+{
+  "content": "5 uploads canceled, 6 files uploaded.",
+  "type": "warning",
+}
+`;
+
+exports[`UploadView display text values \`getActionCompleteMessage\` returns the expected values in the multiple canceled with an overwrite prevented and some failures scenario 1`] = `
+{
+  "content": "Overwrite prevented for 1 file, 3 files failed to upload, 2 uploads canceled, 5 files uploaded.",
+  "type": "error",
+}
+`;
+
 exports[`UploadView display text values \`getActionCompleteMessage\` returns the expected values in the multiple overwrite prevented scenario 1`] = `
 {
   "content": "Overwrite prevented for 3 files, 8 files uploaded.",
@@ -59,6 +80,13 @@ exports[`UploadView display text values \`getActionCompleteMessage\` returns the
 exports[`UploadView display text values \`getActionCompleteMessage\` returns the expected values in the no failures, some prevented overwrites, some success scenario 1`] = `
 {
   "content": "Overwrite prevented for 3 files, 2 files uploaded.",
+  "type": "warning",
+}
+`;
+
+exports[`UploadView display text values \`getActionCompleteMessage\` returns the expected values in the one canceled scenario 1`] = `
+{
+  "content": "1 upload canceled, 10 files uploaded.",
   "type": "warning",
 }
 `;

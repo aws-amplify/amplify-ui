@@ -93,6 +93,15 @@ export const UPLOAD_ACTION_SCENARIOS: [string, StatusCounts][] = [
     'all overwrite prevented',
     { ...INITIAL_STATUS_COUNTS, OVERWRITE_PREVENTED: 11, TOTAL: 11 },
   ],
+  ['all canceled', { ...INITIAL_STATUS_COUNTS, CANCELED: 11, TOTAL: 11 }],
+  [
+    'one canceled',
+    { ...INITIAL_STATUS_COUNTS, COMPLETE: 10, CANCELED: 1, TOTAL: 11 },
+  ],
+  [
+    'few canceled',
+    { ...INITIAL_STATUS_COUNTS, COMPLETE: 6, CANCELED: 5, TOTAL: 11 },
+  ],
   [
     'single overwrite prevented',
     {
@@ -146,6 +155,17 @@ export const UPLOAD_ACTION_SCENARIOS: [string, StatusCounts][] = [
     {
       ...INITIAL_STATUS_COUNTS,
       OVERWRITE_PREVENTED: 3,
+      FAILED: 3,
+      COMPLETE: 5,
+      TOTAL: 11,
+    },
+  ],
+  [
+    'multiple canceled with an overwrite prevented and some failures',
+    {
+      ...INITIAL_STATUS_COUNTS,
+      OVERWRITE_PREVENTED: 1,
+      CANCELED: 2,
       FAILED: 3,
       COMPLETE: 5,
       TOTAL: 11,
