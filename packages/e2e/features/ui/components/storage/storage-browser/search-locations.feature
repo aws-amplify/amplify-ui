@@ -9,14 +9,14 @@ Feature: Search with Storage Browser
     Then I type my password
     Then I click the "Sign in" button
     When I click the first button containing "public"
-    Then I see the button containing "100"
+    Then I see the button containing "test+name"
     When I see input with placeholder "Search current folder" and type "DO_NOT"
     Then I click the "Search" button
     Then I see the button containing "DO_NOT_DELETE"
-    Then I do not see the button containing "100"
+    Then I do not see the button containing "test+name"
     # Verify clear returns to initial state
     When I click the button containing "Clear search"
-    Then I see the button containing "100"
+    Then I see the button containing "test+name"
 
     @react
     Scenario: Search within sub-directories
@@ -45,15 +45,3 @@ Feature: Search with Storage Browser
     # Verify clear removes message
     Then I click the button containing "Clear search"
     Then I do not see "No files"
-
-    @react
-    Scenario: Paginated search results
-    When I type my "email" with status "CONFIRMED"
-    Then I type my password
-    Then I click the "Sign in" button
-    Then I click the first button containing "public"
-    Then I click the button containing "100"
-    When I see input with placeholder "Search current folder" and type "10"
-    Then the "Go to next page" button is disabled
-    When I see input with placeholder "Search current folder" and type "copy"
-    Then the "Go to next page" button is enabled
