@@ -40,12 +40,12 @@ describe('defaultActionConfigs', () => {
       }
     });
 
-    it('disables the action list item as expected', () => {
+    it('is never disabled', () => {
       const disable =
         (createFolderActionConfig.actionsListItemConfig as ActionListItemConfig)!
           .disable!;
 
-      expect(disable([file])).toBe(true);
+      expect(disable([file])).toBe(false);
       expect(disable(undefined)).toBe(false);
     });
   });
@@ -79,10 +79,10 @@ describe('defaultActionConfigs', () => {
       }
     });
 
-    it('disables the action list item as expected', () => {
+    it('is never disabled', () => {
       const uploadFileListItem = uploadActionConfig.actionsListItemConfig!;
 
-      expect(uploadFileListItem.disable?.([file])).toBe(true);
+      expect(uploadFileListItem.disable?.([file])).toBe(false);
       expect(uploadFileListItem.disable?.(undefined)).toBe(false);
     });
   });
