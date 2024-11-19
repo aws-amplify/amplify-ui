@@ -8,7 +8,7 @@ describe('processDroppedItems', () => {
     isFile: true,
     isDirectory: false,
     name: file.name,
-    fullPath: `/${file.name}`,
+    fullPath: `path/${file.name}`,
     filesystem: {
       name: 'temporary',
       root: {} as FileSystemDirectoryEntry,
@@ -96,6 +96,7 @@ describe('processDroppedItems', () => {
     expect(result).toHaveLength(2);
     expect(result[0].name).toBe('dir-file1.txt');
     expect(result[1].name).toBe('dir-file2.txt');
+    expect(result[0].webkitRelativePath).toBe('path/dir-file1.txt');
   });
 
   it('should process mixed files and directories', async () => {
@@ -117,6 +118,28 @@ describe('processDroppedItems', () => {
     expect(result.map((f) => f.name)).toContain('single.txt');
     expect(result.map((f) => f.name)).toContain('dir-file1.txt');
     expect(result.map((f) => f.name)).toContain('dir-file2.txt');
+    expect(result[1].webkitRelativePath).toBe('path/dir-file1.txt');
+  });
+
+  it('should not overwrite webkitRelativePath if present', async () => {
+    const singleFile = new File([mockFileData], 'single.txt', {
+      type: 'text/plain',
+    });
+    Object.defineProperties(singleFile, {
+      webkitRelativePath: {
+        writable: true,
+      },
+    });
+    // intentionally overwriting webkitRelativePath
+    // @ts-expect-error
+    singleFile.webkitRelativePath = 'webkitpath/single.txt';
+
+    const items = [createMockDataTransferItem(createMockFileEntry(singleFile))];
+
+    const result = await processDroppedItems(items);
+
+    expect(result).toHaveLength(1);
+    expect(result[0].webkitRelativePath).toBe('webkitpath/single.txt');
   });
 
   it('should handle empty items array', async () => {
