@@ -126,7 +126,7 @@ export const TextAreaFieldPropControls: TextAreaFieldControlsInterface = ({
       <TextField
         placeholder="Set error message"
         name="errorMessage"
-        value={errorMessage as string}
+        value={errorMessage}
         onChange={(event: any) => {
           setErrorMessage(event.target.value);
         }}

@@ -42,8 +42,8 @@
     "typecheck": "tsc --noEmit"
   },
   "peerDependencies": {
-    "@aws-amplify/api-graphql": "storage-browser-integrity",
-    "aws-amplify": "storage-browser-integrity",
+    "@aws-amplify/api-graphql": "^4.3.0",
+    "aws-amplify": "^6.6.5",
     "react": "^16.14.0 || ^17.0 || ^18.0",
     "react-dom": "^16.14.0 || ^17.0 || ^18.0"
   },

@@ -47,13 +47,13 @@
     "tslib": "^2.5.2"
   },
   "peerDependencies": {
-    "@aws-amplify/geo": "storage-browser-integrity",
-    "aws-amplify": "storage-browser-integrity",
+    "@aws-amplify/geo": "^3.0.47",
+    "aws-amplify": "^6.6.5",
     "react": "^16.14.0 || ^17.0 || ^18.0",
     "react-dom": "^16.14.0 || ^17.0 || ^18.0"
   },
   "devDependencies": {
-    "@aws-amplify/geo": "storage-browser-integrity",
+    "@aws-amplify/geo": "^3.0.40",
     "@types/mapbox__mapbox-gl-draw": "^1.3.3"
   },
   "sideEffects": [
