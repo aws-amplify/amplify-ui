@@ -66,16 +66,21 @@ type Options<Action> = Action extends ListHandler<
 export const SEARCH_LIMIT = 10000;
 export const SEARCH_PAGE_SIZE = 1000;
 
+/**
+ * Normalizes and converts a string to lower case,
+ * handling Unicode characters and locale-specific case mappings.
+ *  Uses `NFKC` mapping as recommended here: https://datatracker.ietf.org/doc/html/rfc3987#section-7.5
+ */
 function normalize(input: string) {
   return input
     .normalize('NFKC')
-    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[\u0300-\u036f]/g, '') // remove diacritic modifiers
     .toLocaleLowerCase();
 }
+
 /**
  * Performs a case-insensitive check to determine if a string includes another string,
  * handling Unicode characters and locale-specific case mappings.
- * Uses `NFKC` mapping as recommended here: https://datatracker.ietf.org/doc/html/rfc3987#section-7.5
  *
  * @param {string} input - The string to search within.
  * @param {string} query - The substring to search for.
@@ -85,6 +90,7 @@ function normalize(input: string) {
  * caseInsensitiveIncludes("Photos", "photo"); // true
  * caseInsensitiveIncludes("Hello", "HELLO");   // true
  * caseInsensitiveIncludes("\uFB00", "\u0046\u0046");   // ﬀ = FF true
+ * caseInsensitiveIncludes("Cafè", "cafe");   // true
  */
 function caseInsensitiveIncludes(input: string, query: string): boolean {
   return normalize(input).includes(normalize(query));

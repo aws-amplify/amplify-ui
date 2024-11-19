@@ -363,7 +363,7 @@ describe('Search', () => {
         options: {
           filterBy: 'key',
           groupBy: '/',
-          query: 'caF',
+          query: 'caf',
         },
       });
       expect(output).toEqual([
