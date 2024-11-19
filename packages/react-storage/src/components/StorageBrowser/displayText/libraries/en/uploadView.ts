@@ -59,9 +59,9 @@ export const DEFAULT_UPLOAD_VIEW_DISPLAY_TEXT: DefaultUploadViewDisplayText = {
       : undefined;
 
     const messages = [
+      failedMessage,
       preventedOverwriteMessage,
       canceledMessage,
-      failedMessage,
       completedMessage,
     ].filter(Boolean);
 
