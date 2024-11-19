@@ -45,6 +45,7 @@ describe('defaultActionConfigs', () => {
         (createFolderActionConfig.actionsListItemConfig as ActionListItemConfig)!
           .disable!;
 
+      expect(disable([])).toBe(false);
       expect(disable([file])).toBe(false);
       expect(disable(undefined)).toBe(false);
     });
@@ -82,8 +83,61 @@ describe('defaultActionConfigs', () => {
     it('is never disabled', () => {
       const uploadFileListItem = uploadActionConfig.actionsListItemConfig!;
 
+      expect(uploadFileListItem.disable?.([])).toBe(false);
       expect(uploadFileListItem.disable?.([file])).toBe(false);
       expect(uploadFileListItem.disable?.(undefined)).toBe(false);
+    });
+  });
+
+  describe('deleteActionConfig', () => {
+    it('hides the action list item as expected', () => {
+      const deleteFileListItem =
+        defaultActionConfigs.delete.actionsListItemConfig!;
+
+      for (const permissionsWithoutDelete of generateCombinations(
+        LOCATION_PERMISSION_VALUES.filter((value) => value !== 'delete')
+      )) {
+        const permissionsWithDelete = [
+          ...permissionsWithoutDelete,
+          'delete' as const,
+        ];
+        expect(deleteFileListItem.hide?.(permissionsWithoutDelete)).toBe(true);
+        expect(deleteFileListItem.hide?.(permissionsWithDelete)).toBe(false);
+      }
+    });
+
+    it('is disabled when no files are selected', () => {
+      const deleteFileListItem =
+        defaultActionConfigs.delete.actionsListItemConfig!;
+
+      expect(deleteFileListItem.disable?.(undefined)).toBe(true);
+      expect(deleteFileListItem.disable?.([])).toBe(true);
+      expect(deleteFileListItem.disable?.([file])).toBe(false);
+    });
+  });
+
+  describe('copyActionConfig', () => {
+    it('hides the action list item as expected', () => {
+      const copyFileListItem = defaultActionConfigs.copy.actionsListItemConfig!;
+
+      for (const permissionsWithoutWrite of generateCombinations(
+        permissionValuesWithoutWrite
+      )) {
+        const permissionsWithWrite = [
+          ...permissionValuesWithoutWrite,
+          'write' as const,
+        ];
+        expect(copyFileListItem.hide?.(permissionsWithoutWrite)).toBe(true);
+        expect(copyFileListItem.hide?.(permissionsWithWrite)).toBe(false);
+      }
+    });
+
+    it('is disabled when no files are selected', () => {
+      const copyFileListItem = defaultActionConfigs.copy.actionsListItemConfig!;
+
+      expect(copyFileListItem.disable?.(undefined)).toBe(true);
+      expect(copyFileListItem.disable?.([])).toBe(true);
+      expect(copyFileListItem.disable?.([file])).toBe(false);
     });
   });
 });
