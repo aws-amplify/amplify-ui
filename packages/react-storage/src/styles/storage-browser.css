@@ -216,8 +216,7 @@
   justify-content: center;
 }
 
-.storage-browser__loading-indicator-icon,
-.storage-browser__table-text-data-cell-icon--action-progress {
+.storage-browser__loading-indicator-icon {
   animation: var(--storage-browser-loading-animation);
 }
 
