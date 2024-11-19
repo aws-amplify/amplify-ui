@@ -2,17 +2,6 @@ import { DEFAULT_ACTION_VIEW_DISPLAY_TEXT } from './shared';
 import { DefaultUploadViewDisplayText } from '../../types';
 import { isFileTooBig } from '../../../validators';
 
-function getMessage(
-  count: number,
-  total: number | undefined,
-  pluralize: string = 'file'
-): string {
-  const quantity = count === total ? 'All' : String(count);
-  const plural = count > 1 || count === total ? `${pluralize}s` : pluralize;
-
-  return `${quantity} ${plural}`;
-}
-
 export const DEFAULT_UPLOAD_VIEW_DISPLAY_TEXT: DefaultUploadViewDisplayText = {
   ...DEFAULT_ACTION_VIEW_DISPLAY_TEXT,
   title: 'Upload',
@@ -36,22 +25,37 @@ export const DEFAULT_UPLOAD_VIEW_DISPLAY_TEXT: DefaultUploadViewDisplayText = {
       : 'success';
 
     const preventedOverwriteMessage = hasPreventedOverwrite
-      ? `Overwrite prevented for ${getMessage(
-          OVERWRITE_PREVENTED,
-          TOTAL
-        ).toLocaleLowerCase()}`
+      ? [
+          'Overwrite prevented for',
+          OVERWRITE_PREVENTED === TOTAL ? 'all' : String(OVERWRITE_PREVENTED),
+          OVERWRITE_PREVENTED > 1 || OVERWRITE_PREVENTED === TOTAL
+            ? `files`
+            : 'file',
+        ].join(' ')
       : undefined;
 
     const canceledMessage = hasCanceled
-      ? `${getMessage(CANCELED, TOTAL, 'upload')} canceled`
+      ? [
+          CANCELED === TOTAL ? 'All' : String(CANCELED),
+          CANCELED > 1 || CANCELED === TOTAL ? `uploads` : 'upload',
+          'canceled',
+        ].join(' ')
       : undefined;
 
     const failedMessage = hasFailure
-      ? `${getMessage(FAILED, TOTAL)} failed to upload`
+      ? [
+          FAILED === TOTAL ? 'All' : String(FAILED),
+          FAILED > 1 || FAILED === TOTAL ? `files` : 'file',
+          'failed to upload',
+        ].join(' ')
       : undefined;
 
     const completedMessage = hasSuccess
-      ? `${getMessage(COMPLETE, TOTAL)} uploaded`
+      ? [
+          COMPLETE === TOTAL ? 'All' : String(COMPLETE),
+          COMPLETE > 1 || COMPLETE === TOTAL ? `files` : 'file',
+          'uploaded',
+        ].join(' ')
       : undefined;
 
     const messages = [

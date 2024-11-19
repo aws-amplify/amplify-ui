@@ -2,7 +2,7 @@
 
 exports[`UploadView display text values \`getActionCompleteMessage\` returns the expected values in the all canceled scenario 1`] = `
 {
-  "content": "All files canceled.",
+  "content": "All uploads canceled.",
   "type": "warning",
 }
 `;
@@ -44,14 +44,14 @@ exports[`UploadView display text values \`getActionCompleteMessage\` returns the
 
 exports[`UploadView display text values \`getActionCompleteMessage\` returns the expected values in the few canceled scenario 1`] = `
 {
-  "content": "5 files canceled.",
+  "content": "5 uploads canceled, 6 files uploaded.",
   "type": "warning",
 }
 `;
 
 exports[`UploadView display text values \`getActionCompleteMessage\` returns the expected values in the multiple canceled with an overwrite prevented and some failures scenario 1`] = `
 {
-  "content": "Overwrite prevented for 1 file, 2 files canceled, 3 files failed to upload, 5 files uploaded.",
+  "content": "Overwrite prevented for 1 file, 2 uploads canceled, 3 files failed to upload, 5 files uploaded.",
   "type": "error",
 }
 `;
@@ -86,7 +86,7 @@ exports[`UploadView display text values \`getActionCompleteMessage\` returns the
 
 exports[`UploadView display text values \`getActionCompleteMessage\` returns the expected values in the one canceled scenario 1`] = `
 {
-  "content": "1 file canceled.",
+  "content": "1 upload canceled, 10 files uploaded.",
   "type": "warning",
 }
 `;
