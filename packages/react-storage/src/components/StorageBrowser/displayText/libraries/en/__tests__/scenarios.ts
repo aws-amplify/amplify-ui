@@ -93,6 +93,9 @@ export const UPLOAD_ACTION_SCENARIOS: [string, StatusCounts][] = [
     'all overwrite prevented',
     { ...INITIAL_STATUS_COUNTS, OVERWRITE_PREVENTED: 11, TOTAL: 11 },
   ],
+  ['all canceled', { ...INITIAL_STATUS_COUNTS, CANCELED: 11, TOTAL: 11 }],
+  ['one canceled', { ...INITIAL_STATUS_COUNTS, CANCELED: 1, TOTAL: 11 }],
+  ['few canceled', { ...INITIAL_STATUS_COUNTS, CANCELED: 5, TOTAL: 11 }],
   [
     'single overwrite prevented',
     {

@@ -2,6 +2,17 @@ import { DEFAULT_ACTION_VIEW_DISPLAY_TEXT } from './shared';
 import { DefaultUploadViewDisplayText } from '../../types';
 import { isFileTooBig } from '../../../validators';
 
+function getMessage(
+  count: number,
+  total: number | undefined,
+  result?: string
+): string {
+  const quantity = count === total ? 'All' : String(count);
+  const pluralize = count > 1 || count === total ? 'files' : 'file';
+
+  return `${quantity} ${pluralize}${result ? ` ${result}` : ''}`;
+}
+
 export const DEFAULT_UPLOAD_VIEW_DISPLAY_TEXT: DefaultUploadViewDisplayText = {
   ...DEFAULT_ACTION_VIEW_DISPLAY_TEXT,
   title: 'Upload',
@@ -10,72 +21,51 @@ export const DEFAULT_UPLOAD_VIEW_DISPLAY_TEXT: DefaultUploadViewDisplayText = {
   addFolderLabel: 'Add folder',
   getActionCompleteMessage: (data) => {
     const { counts } = data ?? {};
-    const { COMPLETE, FAILED, OVERWRITE_PREVENTED } = counts ?? {};
+    const { COMPLETE, FAILED, OVERWRITE_PREVENTED, CANCELED, TOTAL } =
+      counts ?? {};
 
     const hasPreventedOverwrite = !!OVERWRITE_PREVENTED;
     const hasFailure = !!FAILED;
     const hasSuccess = !!COMPLETE;
-
-    const preventedOverwriteMessage = !hasPreventedOverwrite
-      ? undefined
-      : `Overwrite prevented for ${OVERWRITE_PREVENTED} file${
-          OVERWRITE_PREVENTED > 1 ? 's' : ''
-        }`;
-
-    const failedMessage = !hasFailure
-      ? undefined
-      : `${FAILED} file${FAILED > 1 ? 's' : ''} failed to upload`;
-
-    const completedMessage = !hasSuccess
-      ? undefined
-      : `${COMPLETE} file${COMPLETE > 1 ? 's' : ''} uploaded`;
+    const hasCanceled = !!CANCELED;
 
     const type = hasFailure
       ? 'error'
-      : hasPreventedOverwrite
+      : hasPreventedOverwrite || hasCanceled
       ? 'warning'
       : 'success';
 
-    // some failures, some prevented overwrites, some success
-    if (hasFailure && hasPreventedOverwrite && hasSuccess) {
+    const preventedOverwriteMessage = hasPreventedOverwrite
+      ? `Overwrite prevented for ${getMessage(
+          OVERWRITE_PREVENTED,
+          TOTAL
+        ).toLocaleLowerCase()}`
+      : undefined;
+
+    const canceledMessage = hasCanceled
+      ? getMessage(CANCELED, TOTAL, 'canceled')
+      : undefined;
+
+    const failedMessage = hasFailure
+      ? getMessage(FAILED, TOTAL, 'failed to upload')
+      : undefined;
+
+    const completedMessage = hasSuccess
+      ? getMessage(COMPLETE, TOTAL, 'uploaded')
+      : undefined;
+
+    const messages = [
+      preventedOverwriteMessage,
+      canceledMessage,
+      failedMessage,
+      completedMessage,
+    ].filter(Boolean);
+
+    if (messages.length > 0) {
       return {
-        content: `${preventedOverwriteMessage}, ${failedMessage}, ${completedMessage}.`,
+        content: messages.join(', ') + '.',
         type,
       };
-    }
-
-    // some failures, some prevented overwrites, no success
-    if (hasFailure && hasPreventedOverwrite && !hasSuccess) {
-      return {
-        content: `${preventedOverwriteMessage}, ${failedMessage}.`,
-        type,
-      };
-    }
-
-    // some failures, no overwrite, some success
-    if (hasFailure && !hasPreventedOverwrite && hasSuccess) {
-      return {
-        content: `${failedMessage}, ${completedMessage}.`,
-        type,
-      };
-    }
-
-    // no failures, some prevented overwrites, some success
-    if (!hasFailure && hasPreventedOverwrite && hasSuccess) {
-      return {
-        content: `${preventedOverwriteMessage}, ${completedMessage}.`,
-        type,
-      };
-    }
-
-    // all failures
-    if (hasFailure && !hasPreventedOverwrite && !hasSuccess) {
-      return { content: 'All files failed to upload.', type };
-    }
-
-    // all prevented overwrites
-    if (!hasFailure && hasPreventedOverwrite && !hasSuccess) {
-      return { content: 'Overwrite prevented for all files.', type };
     }
 
     return { content: 'All files uploaded.', type };
