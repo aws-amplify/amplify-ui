@@ -152,6 +152,7 @@ export const FormControl: FormControl = () => {
   const handleSendMessage = React.useContext(SendMessageContext);
   const allowAttachments = React.useContext(AttachmentContext);
   const responseComponents = React.useContext(ResponseComponentsContext);
+  const isLoading = React.useContext(LoadingContext);
   const aiContext = React.useContext(AIContextContext);
   const ref = React.useRef<HTMLFormElement | null>(null);
   const controls = React.useContext(ControlsContext);
@@ -219,6 +220,7 @@ export const FormControl: FormControl = () => {
         input={input!}
         setInput={setInput!}
         allowAttachments={allowAttachments}
+        isLoading={isLoading}
       />
     );
   }
