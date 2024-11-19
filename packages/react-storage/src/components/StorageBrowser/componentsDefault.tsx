@@ -10,6 +10,7 @@ import {
   Menu,
   Button,
   View,
+  Heading,
 } from '@aws-amplify/ui-react';
 import { Components } from './ComponentsProvider';
 import { IconElement } from './context/elements';
@@ -175,6 +176,7 @@ const DataRefresh: Components['DataRefresh'] = ({ onRefresh }) => {
       onClick={() => {
         onRefresh?.();
       }}
+      aria-label="Refresh data"
     >
       <IconElement className="amplify-icon" variant="refresh" />
     </Button>
@@ -281,7 +283,11 @@ const ActionDestination: Components['ActionDestination'] = ({
 };
 
 const Title: Components['Title'] = ({ title }) => {
-  return <View className={`${STORAGE_BROWSER_BLOCK}__title`}>{title}</View>;
+  return (
+    <Heading className={`${STORAGE_BROWSER_BLOCK}__title`} level={2}>
+      {title}
+    </Heading>
+  );
 };
 
 export const componentsDefault: Components = {
