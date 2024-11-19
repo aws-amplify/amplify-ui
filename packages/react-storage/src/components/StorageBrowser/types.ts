@@ -2,7 +2,6 @@ import React from 'react';
 
 import { ListLocations } from './actions';
 
-import { StorageBrowserElements } from './context/elements';
 import { Components } from './ComponentsProvider';
 
 import { RegisterAuthListener, StoreProviderProps } from './providers';
@@ -35,7 +34,6 @@ export interface CreateStorageBrowserInput {
   actions?: never;
   config: Config;
   components?: Components;
-  elements?: Partial<StorageBrowserElements>;
 }
 
 export interface StorageBrowserProps<T = string> {

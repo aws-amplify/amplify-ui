@@ -1,8 +1,7 @@
 import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { elementsDefault } from '../defaults';
 import { ButtonElementVariant } from '../definitions';
-import { createStorageBrowser } from '../../../createStorageBrowser';
 
 const TEST_ELEMENTS = Object.entries(elementsDefault).filter(
   ([name]) => !name.startsWith('Table')
@@ -32,32 +31,7 @@ const VIEW_VARIANTS: [string, string[]][] = [
   ['error', ['amplify-message--error']],
 ];
 
-const config = {
-  accountId: '012345678901',
-  getLocationCredentials: jest.fn(),
-  listLocations: jest.fn(),
-  region: 'region',
-  registerAuthListener: jest.fn(),
-};
-
 describe('elementsDefault', () => {
-  it('should render the elementsDefault when used', async () => {
-    const { StorageBrowser } = createStorageBrowser({
-      elements: elementsDefault,
-      config,
-    });
-
-    render(<StorageBrowser />);
-
-    await waitFor(() => {
-      expect(screen.getByRole('heading', { name: 'Home' })).toBeInTheDocument();
-    });
-
-    const refresh = screen.getByRole('button', { name: 'Refresh data' });
-
-    expect(refresh.classList).toContain('amplify-button');
-  });
-
   it.each(TEST_ELEMENTS)('should render %s', async (name, Element) => {
     render(<Element testId={name} />);
 
