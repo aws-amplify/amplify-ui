@@ -4,13 +4,17 @@ import { LocationData } from '../../../../actions';
 import * as Store from '../../../../providers/store';
 import * as Config from '../../../../providers/configuration';
 import * as Tasks from '../../../../tasks';
+import { useFolders } from '../useFolders';
 
 import { useCopyView } from '../useCopyView';
+
+jest.mock('../useFolders');
 
 describe('useCopyView', () => {
   const mockProcessTasks = jest.fn();
   const mockDispatchStoreAction = jest.fn();
   const mockCancel = jest.fn();
+  const mockUseFolders = jest.mocked(useFolders);
 
   const location = {
     current: {
@@ -23,6 +27,13 @@ describe('useCopyView', () => {
     path: '',
     key: 'test-prefix/',
   };
+
+  beforeAll(() => {
+    // @ts-expect-error partial mock
+    mockUseFolders.mockReturnValue({
+      onInitialize: jest.fn(),
+    });
+  });
 
   beforeEach(() => {
     jest.spyOn(Store, 'useStore').mockReturnValue([
