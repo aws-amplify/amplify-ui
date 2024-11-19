@@ -8,6 +8,7 @@ export interface ControlsContextProps {
     {
       handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
       allowAttachments?: boolean;
+      isLoading?: boolean;
     } & Required<ConversationInputContext>
   >;
   MessageList?: React.ComponentType<{ messages: ConversationMessage[] }>;

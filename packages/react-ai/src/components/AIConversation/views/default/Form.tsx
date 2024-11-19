@@ -10,7 +10,6 @@ import { IconAttach, IconSend, useIcons } from '@aws-amplify/ui-react/internal';
 import { ComponentClassName } from '@aws-amplify/ui';
 import { ControlsContextProps } from '../../context/ControlsContext';
 import { Attachments } from './Attachments';
-import { LoadingContext } from '../../context/LoadingContext';
 import { ConversationInputContext } from '../../context';
 
 function isHTMLFormElement(target: EventTarget): target is HTMLFormElement {
@@ -54,12 +53,12 @@ export const Form: Required<ControlsContextProps>['Form'] = ({
   input,
   handleSubmit,
   allowAttachments,
+  isLoading,
 }) => {
   const icons = useIcons('aiConversation');
   const sendIcon = icons?.send ?? <IconSend />;
   const attachIcon = icons?.attach ?? <IconAttach />;
   const hiddenInput = React.useRef<HTMLInputElement>(null);
-  const isLoading = React.useContext(LoadingContext);
   const [composing, setComposing] = React.useState(false);
   const isInputEmpty = !input?.text?.length && !input?.files?.length;
 
