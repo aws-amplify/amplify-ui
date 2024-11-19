@@ -40,7 +40,7 @@ describe('defaultActionConfigs', () => {
       }
     });
 
-    it('not to disable the action regardless the disable callback param', () => {
+    it('is never disabled', () => {
       const disable =
         (createFolderActionConfig.actionsListItemConfig as ActionListItemConfig)!
           .disable!;
@@ -79,7 +79,7 @@ describe('defaultActionConfigs', () => {
       }
     });
 
-    it('not to disable the action regardless the disable callback param', () => {
+    it('is never disabled', () => {
       const uploadFileListItem = uploadActionConfig.actionsListItemConfig!;
 
       expect(uploadFileListItem.disable?.([file])).toBe(false);
