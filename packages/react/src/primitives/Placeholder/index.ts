@@ -1,1 +1,0 @@
-export { Placeholder } from './Placeholder';

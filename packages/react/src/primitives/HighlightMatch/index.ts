@@ -1,1 +1,0 @@
-export { HighlightMatch } from './HighlightMatch';

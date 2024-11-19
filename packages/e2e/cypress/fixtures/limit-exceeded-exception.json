@@ -1,4 +1,0 @@
-{
-  "__type": "LimitExceededException",
-  "message": "Exceeded daily email limit for the operation or the account. If a higher limit is required, please configure your user pool to use your own Amazon SES configuration for sending email."
-}

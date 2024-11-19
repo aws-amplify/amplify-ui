@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`withFormProvider renders a Provider wrapped Form as expected 1`] = `
-<div>
-  value
-</div>
-`;

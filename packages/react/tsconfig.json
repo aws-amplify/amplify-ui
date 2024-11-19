@@ -1,8 +1,0 @@
-{
-  "extends": "@aws-amplify/typescript-config/tsconfig.react.json",
-  "compilerOptions": {
-    "noImplicitAny": false
-  },
-  "include": ["*.ts", "*.mjs", "scripts", "src/**/*.ts", "src/**/*.tsx"],
-  "exclude": ["node_modules"]
-}

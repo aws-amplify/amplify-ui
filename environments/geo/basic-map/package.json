@@ -1,8 +1,0 @@
-{
-  "private": true,
-  "name": "@aws-amplify/ui-basic-map-environment",
-  "version": "0.0.1",
-  "scripts": {
-    "pull": "amplify pull --appId d1xll51xlvl8ri --envName staging"
-  }
-}

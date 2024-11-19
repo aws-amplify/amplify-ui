@@ -1,9 +1,0 @@
-.globally-styled-searchfield.amplify-searchfield {
-  --amplify-components-button-color: rebeccapurple;
-  --amplify-components-button-border-color: rebeccapurple;
-  --amplify-components-fieldcontrol-border-color: rebeccapurple;
-}
-.custom-searchfield-class .amplify-input,
-.custom-searchfield-class .amplify-button {
-  border-radius: 0;
-}

@@ -1,7 +1,0 @@
-{
-  "private": true,
-  "name": "@aws-amplify/ui-react-internal",
-  "main": "../dist/internal.js",
-  "module": "../dist/esm/internal.mjs",
-  "types": "../dist/types/internal.d.ts"
-}

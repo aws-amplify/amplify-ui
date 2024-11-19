@@ -1,6 +1,0 @@
-.message-global-styles {
-  --amplify-components-message-filled-background-color: var(
-    --amplify-colors-purple-10
-  );
-  --amplify-components-message-heading-font-size: var(--amplify-font-sizes-xl);
-}

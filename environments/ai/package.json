@@ -1,8 +1,0 @@
-{
-  "private": true,
-  "name": "@aws-amplify/ui-environments-ai",
-  "version": "0.0.1",
-  "scripts": {
-    "pull": "yarn --cwd gen2/ generate"
-  }
-}

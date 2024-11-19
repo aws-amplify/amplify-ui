@@ -1,8 +1,0 @@
-{
-  "private": true,
-  "name": "@aws-amplify/ui-environments-geo",
-  "version": "0.0.1",
-  "scripts": {
-    "pull": "../pull-environments.sh -r us-east-2"
-  }
-}
