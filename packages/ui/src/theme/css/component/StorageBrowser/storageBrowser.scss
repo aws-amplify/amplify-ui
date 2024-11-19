@@ -146,6 +146,15 @@
       white-space: nowrap;
       align-items: center;
       justify-content: flex-start;
+
+      &-icon {
+        &--action-progress {
+          animation-name: amplify-loader-circular;
+          animation-timing-function: linear;
+          animation-iteration-count: infinite;
+          animation-duration: var(--amplify-components-loader-animation-duration);
+        }
+      }
     }
   }
 

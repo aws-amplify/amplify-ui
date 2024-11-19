@@ -1,9 +1,6 @@
 import React from 'react';
 
-import {
-  STORAGE_BROWSER_BLOCK,
-  STORAGE_BROWSER_BLOCK_TO_BE_UPDATED,
-} from '../../constants';
+import { STORAGE_BROWSER_BLOCK } from '../../constants';
 import { ViewElement } from '../../context/elements';
 import { DataRefreshControl } from '../../controls/DataRefreshControl';
 import { DataTableControl } from '../../controls/DataTableControl';
