@@ -1,5 +1,26 @@
 # @aws-amplify/ui
 
+## 6.6.6
+
+### Patch Changes
+
+- [#6149](https://github.com/aws-amplify/amplify-ui/pull/6149) [`0d4d2b91c`](https://github.com/aws-amplify/amplify-ui/commit/0d4d2b91c84b2eb5e9365bb837855e5a9b4e3c06) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - chore: get ai package ready for release
+
+- [#5999](https://github.com/aws-amplify/amplify-ui/pull/5999) [`24635cfd5`](https://github.com/aws-amplify/amplify-ui/commit/24635cfd5fb6b01bfd3bde1464c7064b2d1484c4) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - chore: ai cleanup
+
+  ```jsx
+  <AIConversation
+    messages={messages}
+    handleSendMessage={handleSendMessage}
+    actions={[
+      {
+        component: <MdCopyAll />,
+        handler: (message) => {},
+      },
+    ]}
+  />
+  ```
+
 ## 6.6.5
 
 ### Patch Changes
