@@ -1,4 +1,4 @@
-import { When } from '@badeball/cypress-cucumber-preprocessor';
+import { When, Then } from '@badeball/cypress-cucumber-preprocessor';
 
 When(
   'I drag and drop a file into the storage browser with file name {string}',
@@ -34,3 +34,34 @@ When(
     });
   }
 );
+
+Then('I see download for file {string}', (name: string) => {
+  cy.contains('table tbody td:nth-child(2)', new RegExp('^' + name + '$'))
+    .siblings()
+    .last()
+    .children('button');
+});
+
+Then('I see no download for folder {string}', (name: string) => {
+  cy.contains('table tbody td:nth-child(2)', new RegExp('^' + name + '$'))
+    .siblings()
+    .last()
+    .children('div');
+});
+
+Then('I click and see download succeed for {string}', (name: string) => {
+  cy.intercept('HEAD', 'https://*.s3.*.amazonaws.com/**').as(
+    'downloadValidation'
+  );
+
+  cy.contains('table tbody td:nth-child(2)', new RegExp('^' + name + '$'))
+    .siblings()
+    .last()
+    .within(() => {
+      cy.get('button').click({ force: true });
+
+      cy.wait('@downloadValidation').then((interception) => {
+        assert.equal(interception.response.statusCode, 200);
+      });
+    });
+});

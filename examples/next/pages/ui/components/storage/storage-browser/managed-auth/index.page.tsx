@@ -7,7 +7,6 @@ import { SignIn, SignOutButton } from './routed/components';
 
 import { Flex, View } from '@aws-amplify/ui-react';
 
-import '@aws-amplify/ui-react/styles/reset.css';
 import '@aws-amplify/ui-react-storage/styles.css';
 import '@aws-amplify/ui-react-storage/storage-browser-styles.css';
 

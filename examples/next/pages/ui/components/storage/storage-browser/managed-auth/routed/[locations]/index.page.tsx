@@ -4,10 +4,10 @@ import { useRouter } from 'next/router';
 import { Flex } from '@aws-amplify/ui-react';
 
 import { SignOutButton } from '../components';
-import { StorageBrowser, useView } from '../StorageBrowser';
+import { StorageBrowser } from '../StorageBrowser';
 
-import '@aws-amplify/ui-react-storage/storage-browser-styles.css';
 import '@aws-amplify/ui-react-storage/styles.css';
+import '@aws-amplify/ui-react-storage/storage-browser-styles.css';
 
 function Locations() {
   const router = useRouter();

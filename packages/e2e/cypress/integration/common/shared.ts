@@ -8,6 +8,17 @@ import { get, escapeRegExp } from 'lodash';
 let language = 'en-US';
 let window = null;
 let stub = null;
+const randomFileName = `fileName${Math.random() * 10000}`;
+
+const clickButtonWithText = (name: string) => {
+  cy.findByRole('button', {
+    name: new RegExp(`${escapeRegExp(name)}`, 'i'),
+  }).click();
+};
+
+const typeInInputHandler = (field: string, value: string) => {
+  cy.findInputField(field).type(value);
+};
 
 const getRoute = (routeMatcher: { headers: { [key: string]: string } }) => {
   return `${routeMatcher.headers?.['X-Amz-Target'] || 'route'}`;
@@ -239,10 +250,11 @@ When('I type a new {string}', (field: string) => {
   cy.findInputField(field).typeAliasWithStatus(field, `${Date.now()}`);
 });
 
-const typeInInputHandler = (field: string, value: string) => {
-  cy.findInputField(field).type(value);
-};
 When('I type a new {string} with value {string}', typeInInputHandler);
+
+When('I type a new {string} with random value', (field: string) => {
+  typeInInputHandler(field, randomFileName);
+});
 
 When('I lose focus on {string} input', (field: string) => {
   cy.findInputField(field).blur();
@@ -268,10 +280,10 @@ Then('I press the {string} key', (key: string) => {
   cy.get('body').type(key);
 });
 
-When('I click the button containing {string}', (name: string) => {
-  cy.findByRole('button', {
-    name: new RegExp(`${escapeRegExp(name)}`, 'i'),
-  }).click();
+When('I click the button containing {string}', clickButtonWithText);
+
+When('I click the button containing random name', () => {
+  clickButtonWithText(randomFileName);
 });
 
 When('I click the first button containing {string}', (name: string) => {

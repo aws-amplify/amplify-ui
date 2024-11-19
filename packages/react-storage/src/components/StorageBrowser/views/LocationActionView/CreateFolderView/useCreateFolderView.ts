@@ -21,7 +21,7 @@ export const useCreateFolderView = (
     handleCreateFolder,
   ] = useProcessTasks(createFolderHandler);
 
-  const [{ location }, dipatchStoreAction] = useStore();
+  const [{ location }, dispatchStoreAction] = useStore();
   const { current, key: destinationPrefix } = location;
 
   return {
@@ -40,7 +40,7 @@ export const useCreateFolderView = (
     },
     onActionExit: () => {
       if (isFunction(onExit)) onExit(current);
-      dipatchStoreAction({ type: 'RESET_ACTION_TYPE' });
+      dispatchStoreAction({ type: 'RESET_ACTION_TYPE' });
     },
     onFolderNameChange: (value) => {
       setFolderName(value.trim());
