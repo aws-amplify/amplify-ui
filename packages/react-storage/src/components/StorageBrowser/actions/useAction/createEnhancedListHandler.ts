@@ -66,6 +66,28 @@ type Options<Action> = Action extends ListHandler<
 export const SEARCH_LIMIT = 10000;
 export const SEARCH_PAGE_SIZE = 1000;
 
+const NORMALIZATION_FORM = 'NFKC';
+/**
+ * Performs a case-insensitive check to determine if a string includes another string,
+ * handling Unicode characters and locale-specific case mappings.
+ * Uses `NFKC` mapping as recommended here: https://datatracker.ietf.org/doc/html/rfc3987#section-7.5
+ *
+ * @param {string} input - The string to search within.
+ * @param {string} query - The substring to search for.
+ * @returns {boolean} - Returns `true` if `query` is found in `input` (case-insensitively), otherwise `false`.
+ *
+ * @example
+ * caseInsensitiveIncludes("Photos", "photo"); // true
+ * caseInsensitiveIncludes("Hello", "HELLO");   // true
+ * caseInsensitiveIncludes("\uFB00", "\u0066\u0066");   // ﬀ = ff true
+ */
+function caseInsensitiveIncludes(input: string, query: string): boolean {
+  return input
+    .toLocaleLowerCase()
+    .normalize(NORMALIZATION_FORM)
+    .includes(query.toLocaleLowerCase().normalize(NORMALIZATION_FORM));
+}
+
 interface Search<T> {
   prefix?: string;
   list: T[];
@@ -80,7 +102,7 @@ export function searchItems<T>({ prefix = '', list, options }: Search<T>): T[] {
     const key = typeof filterBy === 'function' ? filterBy(item) : filterBy;
     const path = item[key] as string;
     const suffix = path.slice(prefix.length);
-    return suffix.includes(query);
+    return caseInsensitiveIncludes(suffix, query);
   });
 
   if (!groupBy) {
@@ -96,7 +118,7 @@ export function searchItems<T>({ prefix = '', list, options }: Search<T>): T[] {
     const components = path.split(groupBy);
 
     for (const [i, component] of components.entries()) {
-      if (!component.includes(query)) {
+      if (!caseInsensitiveIncludes(component, query)) {
         continue;
       }
 

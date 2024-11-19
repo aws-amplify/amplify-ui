@@ -337,5 +337,57 @@ describe('Search', () => {
         },
       ]);
     });
+
+    it('should be case insensitive', () => {
+      const mockData = [
+        {
+          key: 'collections/seattle/Cafe.jpg',
+        },
+        {
+          key: 'collections/ Ca\uFB00e\x01photos.jpg ',
+        },
+        {
+          key: 'collections/album/caFe/',
+        },
+        {
+          key: 'collections/album/random/cafe-vita.png',
+        },
+        {
+          key: 'collections/album/random/pic.jpg',
+        },
+      ];
+
+      const output = searchItems<Item>({
+        list: mockData,
+        prefix: 'collections/',
+        options: {
+          filterBy: 'key',
+          groupBy: '/',
+          query: 'caf',
+        },
+      });
+      expect(output).toEqual([
+        {
+          id: expect.any(String),
+          key: 'collections/seattle/Cafe.jpg',
+          type: 'FILE',
+        },
+        {
+          id: expect.any(String),
+          key: 'collections/ Ca\uFB00e\x01photos.jpg ',
+          type: 'FILE',
+        },
+        {
+          id: expect.any(String),
+          key: 'collections/album/caFe/',
+          type: 'FOLDER',
+        },
+        {
+          id: expect.any(String),
+          key: 'collections/album/random/cafe-vita.png',
+          type: 'FILE',
+        },
+      ]);
+    });
   });
 });
