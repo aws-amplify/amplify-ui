@@ -73,7 +73,7 @@ export function LocationDetailViewProvider({
   });
 
   const isNoActionAvailable =
-    !Array.isArray(actions) || actions?.every((action) => action.isHidden);
+    !Array.isArray(actions) || !actions?.every((action) => action.isHidden);
 
   return (
     <ControlsContextProvider
