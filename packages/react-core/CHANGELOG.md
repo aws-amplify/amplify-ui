@@ -1,5 +1,14 @@
 # @aws-amplify/ui-react-core
 
+## 3.0.30
+
+### Patch Changes
+
+- [#6145](https://github.com/aws-amplify/amplify-ui/pull/6145) [`90ea18ba0`](https://github.com/aws-amplify/amplify-ui/commit/90ea18ba076f884cad7f49b646f3f820e1b80c0e) Thanks [@dindjarinjs](https://github.com/dindjarinjs)! - chore: fix issue where drag and drop throws illegal invocation
+
+- Updated dependencies [[`0d4d2b91c`](https://github.com/aws-amplify/amplify-ui/commit/0d4d2b91c84b2eb5e9365bb837855e5a9b4e3c06), [`24635cfd5`](https://github.com/aws-amplify/amplify-ui/commit/24635cfd5fb6b01bfd3bde1464c7064b2d1484c4)]:
+  - @aws-amplify/ui@6.6.6
+
 ## 3.0.29
 
 ### Patch Changes

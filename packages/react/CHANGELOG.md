@@ -1,5 +1,23 @@
 # @aws-amplify/ui-react
 
+## 6.6.0
+
+### Minor Changes
+
+- [#6155](https://github.com/aws-amplify/amplify-ui/pull/6155) [`f1b1da8a1`](https://github.com/aws-amplify/amplify-ui/commit/f1b1da8a1adfb23948156a5618cbf605279d941d) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - feat(dropzone): add dropzone support for files within dropped directories (#6062)
+
+### Patch Changes
+
+- [#6031](https://github.com/aws-amplify/amplify-ui/pull/6031) [`2e3a051d9`](https://github.com/aws-amplify/amplify-ui/commit/2e3a051d9c2d48d5be22d2e83095cbd060ce2b40) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - fix(textarea): autoresize textarea resets when value is empty
+
+  There was a bug with the autoresize text area where it would not reset the size when a value was cleared. This fixes that bug
+
+- [#6149](https://github.com/aws-amplify/amplify-ui/pull/6149) [`0d4d2b91c`](https://github.com/aws-amplify/amplify-ui/commit/0d4d2b91c84b2eb5e9365bb837855e5a9b4e3c06) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - chore: get ai package ready for release
+
+- Updated dependencies [[`90ea18ba0`](https://github.com/aws-amplify/amplify-ui/commit/90ea18ba076f884cad7f49b646f3f820e1b80c0e), [`0d4d2b91c`](https://github.com/aws-amplify/amplify-ui/commit/0d4d2b91c84b2eb5e9365bb837855e5a9b4e3c06), [`24635cfd5`](https://github.com/aws-amplify/amplify-ui/commit/24635cfd5fb6b01bfd3bde1464c7064b2d1484c4)]:
+  - @aws-amplify/ui-react-core@3.0.30
+  - @aws-amplify/ui@6.6.6
+
 ## 6.5.5
 
 ### Patch Changes
