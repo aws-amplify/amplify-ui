@@ -30,7 +30,6 @@ type CreateComponentThemeProps<
  * to both completely customize built-in components and
  * build your own components!
  *
- * @experimental
  *
  * ```ts
  * // built-in component styling
