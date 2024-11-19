@@ -11,8 +11,6 @@ import { TextDataCell } from './dataCells/TextDataCell';
 import { DataTableDataCell, DataTableHeader } from './types';
 import { WithKey } from '../../components/types';
 import { CheckboxHeader } from './headers/CheckboxHeader';
-import { STORAGE_BROWSER_BLOCK } from '../../constants';
-import { ViewElement } from '../../context/elements';
 
 export interface DataTableRow {
   content: WithKey<DataTableDataCell>[];
@@ -21,14 +19,12 @@ export interface DataTableRow {
 export interface DataTableProps {
   headers: WithKey<DataTableHeader>[];
   isLoading?: boolean;
-  loadingIndicator?: React.ReactNode;
   rows: WithKey<DataTableRow>[];
 }
 
 export const DataTable = ({
   headers,
   isLoading,
-  loadingIndicator,
   rows,
 }: DataTableProps): React.JSX.Element => {
   const mappedHeaders = headers.map(({ key, content, type }) => {
@@ -96,10 +92,5 @@ export const DataTable = ({
         }),
       }));
 
-  return (
-    <ViewElement className={`${STORAGE_BROWSER_BLOCK}__data-table`}>
-      <Table headers={mappedHeaders} rows={mappedRows} />
-      {isLoading ? loadingIndicator : null}
-    </ViewElement>
-  );
+  return <Table headers={mappedHeaders} rows={mappedRows} />;
 };
