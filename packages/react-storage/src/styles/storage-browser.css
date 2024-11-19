@@ -217,7 +217,7 @@
 }
 
 .storage-browser__loading-indicator-icon,
-.storage-browser__table-text-data-cell-icon--action-progress {
+.amplify-storage-browser__table-text-data-cell-icon--action-progress {
   animation: var(--storage-browser-loading-animation);
 }
 
