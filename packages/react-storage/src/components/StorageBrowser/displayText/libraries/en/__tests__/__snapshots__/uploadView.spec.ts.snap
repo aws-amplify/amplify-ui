@@ -16,7 +16,7 @@ exports[`UploadView display text values \`getActionCompleteMessage\` returns the
 
 exports[`UploadView display text values \`getActionCompleteMessage\` returns the expected values in the all overwrite prevented or failed scenario 1`] = `
 {
-  "content": "5 files failed to upload, Overwrite prevented for 6 files.",
+  "content": "Overwrite prevented for 6 files, 5 files failed to upload.",
   "type": "error",
 }
 `;
@@ -51,7 +51,7 @@ exports[`UploadView display text values \`getActionCompleteMessage\` returns the
 
 exports[`UploadView display text values \`getActionCompleteMessage\` returns the expected values in the multiple canceled with an overwrite prevented and some failures scenario 1`] = `
 {
-  "content": "3 files failed to upload, Overwrite prevented for 1 file, 2 uploads canceled, 5 files uploaded.",
+  "content": "Overwrite prevented for 1 file, 3 files failed to upload, 2 uploads canceled, 5 files uploaded.",
   "type": "error",
 }
 `;
@@ -65,14 +65,14 @@ exports[`UploadView display text values \`getActionCompleteMessage\` returns the
 
 exports[`UploadView display text values \`getActionCompleteMessage\` returns the expected values in the multiple overwrite prevented with a failure scenario 1`] = `
 {
-  "content": "1 file failed to upload, Overwrite prevented for 3 files, 7 files uploaded.",
+  "content": "Overwrite prevented for 3 files, 1 file failed to upload, 7 files uploaded.",
   "type": "error",
 }
 `;
 
 exports[`UploadView display text values \`getActionCompleteMessage\` returns the expected values in the multiple overwrite prevented with failures scenario 1`] = `
 {
-  "content": "3 files failed to upload, Overwrite prevented for 3 files, 5 files uploaded.",
+  "content": "Overwrite prevented for 3 files, 3 files failed to upload, 5 files uploaded.",
   "type": "error",
 }
 `;
@@ -100,14 +100,14 @@ exports[`UploadView display text values \`getActionCompleteMessage\` returns the
 
 exports[`UploadView display text values \`getActionCompleteMessage\` returns the expected values in the single overwrite prevented with a failure scenario 1`] = `
 {
-  "content": "1 file failed to upload, Overwrite prevented for 1 file, 9 files uploaded.",
+  "content": "Overwrite prevented for 1 file, 1 file failed to upload, 9 files uploaded.",
   "type": "error",
 }
 `;
 
 exports[`UploadView display text values \`getActionCompleteMessage\` returns the expected values in the single overwrite prevented with failures scenario 1`] = `
 {
-  "content": "3 files failed to upload, Overwrite prevented for 1 file, 7 files uploaded.",
+  "content": "Overwrite prevented for 1 file, 3 files failed to upload, 7 files uploaded.",
   "type": "error",
 }
 `;
@@ -121,14 +121,14 @@ exports[`UploadView display text values \`getActionCompleteMessage\` returns the
 
 exports[`UploadView display text values \`getActionCompleteMessage\` returns the expected values in the some failures, some prevented overwrites, no success scenario 1`] = `
 {
-  "content": "2 files failed to upload, Overwrite prevented for 3 files.",
+  "content": "Overwrite prevented for 3 files, 2 files failed to upload.",
   "type": "error",
 }
 `;
 
 exports[`UploadView display text values \`getActionCompleteMessage\` returns the expected values in the some failures, some prevented overwrites, some success scenario 1`] = `
 {
-  "content": "2 files failed to upload, Overwrite prevented for 3 files, 8 files uploaded.",
+  "content": "Overwrite prevented for 3 files, 2 files failed to upload, 8 files uploaded.",
   "type": "error",
 }
 `;
