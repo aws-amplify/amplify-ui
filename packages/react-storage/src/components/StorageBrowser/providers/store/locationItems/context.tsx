@@ -29,7 +29,7 @@ export interface LocationItemsProviderProps {
   children?: React.ReactNode;
 }
 
-const locatonItemsReducer = (
+const locationItemsReducer = (
   prevState: LocationItemsState,
   event: LocationItemsAction
 ): LocationItemsState => {
@@ -84,7 +84,7 @@ export const { LocationItemsContext, useLocationItems } =
 export function LocationItemsProvider({
   children,
 }: LocationItemsProviderProps): React.JSX.Element {
-  const value = React.useReducer(locatonItemsReducer, DEFAULT_STATE);
+  const value = React.useReducer(locationItemsReducer, DEFAULT_STATE);
 
   return (
     <LocationItemsContext.Provider value={value}>
