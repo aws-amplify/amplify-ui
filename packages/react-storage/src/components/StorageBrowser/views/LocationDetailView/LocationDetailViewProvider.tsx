@@ -72,7 +72,8 @@ export function LocationDetailViewProvider({
     message: hasError ? message : downloadErrorMessage,
   });
 
-  const isNoActionAvailable = actions.every((obj) => obj.isHidden);
+  const isNoActionAvailable =
+    !actions || actions?.every((action) => action.isHidden);
 
   return (
     <ControlsContextProvider
