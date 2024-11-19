@@ -1,8 +1,0 @@
-{
-  "private": true,
-  "name": "@aws-amplify/ui-auth-with-totp-and-sms-environment",
-  "version": "0.0.1",
-  "scripts": {
-    "pull": "amplify pull --appId d3ba9ay5udguc5 --envName staging"
-  }
-}

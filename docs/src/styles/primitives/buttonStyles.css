@@ -1,8 +1,0 @@
-.my-custom-button {
-  --amplify-ui-components-button-primary-background-color: #0057ff;
-  --amplify-ui-components-button-primary-hover-background-color: #4d89fc;
-}
-
-.colorful-button {
-  background: linear-gradient(90deg, #fdbb2d 0%, #22c1c3 100%);
-}

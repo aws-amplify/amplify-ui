@@ -1,9 +1,0 @@
-.global-styling-slider {
-  --amplify-components-sliderfield-range-background-color: var(
-    --amplify-colors-orange-60
-  );
-}
-
-.custom-slider .amplify-sliderfield__track {
-  background-color: var(--amplify-colors-purple-80);
-}

@@ -1,1 +1,0 @@
-export { ThemeProviderDirectionExample } from './ThemeProviderDirectionExample';

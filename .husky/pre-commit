@@ -1,9 +1,0 @@
-#!/bin/sh
-branch="$(git branch --show-current)"
-
-if [ "$branch" = "main" ]; then
-  echo "Direct commits to main branch are not allowed."
-  exit 1
-fi
-
-npx lint-staged

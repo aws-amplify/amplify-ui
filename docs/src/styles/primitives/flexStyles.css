@@ -1,8 +1,0 @@
-.my-custom-flex {
-  justify-content: center;
-  gap: 3rem;
-}
-
-.styled-flex {
-  flex-direction: column-reverse;
-}

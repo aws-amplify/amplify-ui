@@ -1,6 +1,0 @@
-[
-  {
-    "Action": ["rekognition:GetFaceLivenessSessionResults"],
-    "Resource": ["*"]
-  }
-]

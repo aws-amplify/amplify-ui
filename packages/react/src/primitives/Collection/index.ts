@@ -1,1 +1,0 @@
-export { Collection } from './Collection';

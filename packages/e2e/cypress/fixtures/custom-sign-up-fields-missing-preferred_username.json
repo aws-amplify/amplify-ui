@@ -1,4 +1,0 @@
-{
-  "__type": "InvalidParameterException",
-  "message": "Attributes did not conform to the schema: preferred_username: The attribute is required\n"
-}

@@ -1,7 +1,0 @@
-{
-  "CodeDeliveryDetails": {
-    "AttributeName": "phone_number",
-    "DeliveryMedium": "SMS",
-    "Destination": "+*******4444"
-  }
-}

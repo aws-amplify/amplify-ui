@@ -1,8 +1,0 @@
-{
-  "challengeName": "SMS_MFA",
-  "challengeParameters": {
-    "CODE_DELIVERY_DELIVERY_MEDIUM": "SMS",
-    "CODE_DELIVERY_DESTINATION": "+*******0839"
-  },
-  "session": "••••••"
-}

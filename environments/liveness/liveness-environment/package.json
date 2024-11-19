@@ -1,8 +1,0 @@
-{
-  "private": true,
-  "name": "@aws-amplify/ui-liveness-environment",
-  "version": "0.0.1",
-  "scripts": {
-    "pull": "amplify pull --appId d2pnskzbmchcgk --envName dev"
-  }
-}

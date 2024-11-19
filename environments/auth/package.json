@@ -1,9 +1,0 @@
-{
-  "private": true,
-  "name": "@aws-amplify/ui-environments-auth",
-  "version": "0.0.1",
-  "scripts": {
-    "pull": "../pull-environments.sh -r us-east-2",
-    "pull:email": "yarn pull -i \"\\./auth-with-email\""
-  }
-}
