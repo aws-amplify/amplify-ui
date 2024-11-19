@@ -5,12 +5,12 @@ import { isFileTooBig } from '../../../validators';
 function getMessage(
   count: number,
   total: number | undefined,
-  result?: string
+  pluralize: string = 'file'
 ): string {
   const quantity = count === total ? 'All' : String(count);
-  const pluralize = count > 1 || count === total ? 'files' : 'file';
+  const plural = count > 1 || count === total ? `${pluralize}s` : pluralize;
 
-  return `${quantity} ${pluralize}${result ? ` ${result}` : ''}`;
+  return `${quantity} ${plural}`;
 }
 
 export const DEFAULT_UPLOAD_VIEW_DISPLAY_TEXT: DefaultUploadViewDisplayText = {
@@ -43,15 +43,15 @@ export const DEFAULT_UPLOAD_VIEW_DISPLAY_TEXT: DefaultUploadViewDisplayText = {
       : undefined;
 
     const canceledMessage = hasCanceled
-      ? getMessage(CANCELED, TOTAL, 'canceled')
+      ? `${getMessage(CANCELED, TOTAL, 'upload')} canceled`
       : undefined;
 
     const failedMessage = hasFailure
-      ? getMessage(FAILED, TOTAL, 'failed to upload')
+      ? `${getMessage(FAILED, TOTAL)} failed to upload`
       : undefined;
 
     const completedMessage = hasSuccess
-      ? getMessage(COMPLETE, TOTAL, 'uploaded')
+      ? `${getMessage(COMPLETE, TOTAL)} uploaded`
       : undefined;
 
     const messages = [
