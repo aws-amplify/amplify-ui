@@ -16,13 +16,6 @@ describe('useCopyView', () => {
   const mockCancel = jest.fn();
   const mockUseFolders = jest.mocked(useFolders);
 
-  beforeAll(() => {
-    // @ts-expect-error partial mock
-    mockUseFolders.mockReturnValue({
-      onInitialize: jest.fn(),
-    });
-  });
-
   const location = {
     current: {
       prefix: 'test-prefix/',
@@ -34,6 +27,13 @@ describe('useCopyView', () => {
     path: '',
     key: 'test-prefix/',
   };
+
+  beforeAll(() => {
+    // @ts-expect-error partial mock
+    mockUseFolders.mockReturnValue({
+      onInitialize: jest.fn(),
+    });
+  });
 
   beforeEach(() => {
     jest.spyOn(Store, 'useStore').mockReturnValue([

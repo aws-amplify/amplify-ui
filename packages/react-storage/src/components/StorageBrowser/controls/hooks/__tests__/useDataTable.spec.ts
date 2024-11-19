@@ -55,7 +55,6 @@ describe('useDataTable', () => {
             { key: 'header-4', ...textHeader },
             { key: 'header-5', ...textHeader },
           ],
-          isLoading: undefined,
           rows: [
             {
               key: 'row-1',
@@ -122,7 +121,6 @@ describe('useDataTable', () => {
       data: {
         tableData: {
           headers: [{ key: 'header-1', ...textHeader }],
-          isLoading: undefined,
           rows: [
             {
               key: 'row-1',
@@ -151,7 +149,6 @@ describe('useDataTable', () => {
             { key: 'header-2', ...sortHeader },
             { key: 'header-3', ...sortHeader },
           ],
-          isLoading: undefined,
           rows: [
             {
               key: 'row-1',
@@ -198,7 +195,6 @@ describe('useDataTable', () => {
             { key: 'header-2', ...sortHeader },
             { key: 'header-3', ...sortHeader },
           ],
-          isLoading: undefined,
           rows: [
             {
               key: 'row-1',
@@ -272,7 +268,6 @@ describe('useDataTable', () => {
       data: {
         tableData: {
           headers: [{ key: 'header-1', ...sortHeader }],
-          isLoading: undefined,
           rows: [
             {
               key: 'row-1',
@@ -308,7 +303,6 @@ describe('useDataTable', () => {
       data: {
         tableData: {
           headers: [{ key: 'header-1', ...sortHeader }],
-          isLoading: undefined,
           rows: [
             {
               key: 'row-1',
@@ -344,7 +338,6 @@ describe('useDataTable', () => {
       data: {
         tableData: {
           headers: [{ key: 'header-1', ...sortHeader }],
-          isLoading: undefined,
           rows: [
             {
               key: 'row-1',
