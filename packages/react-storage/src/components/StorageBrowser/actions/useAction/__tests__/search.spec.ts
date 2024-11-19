@@ -341,13 +341,13 @@ describe('Search', () => {
     it('should be case insensitive', () => {
       const mockData = [
         {
-          key: 'collections/seattle/Cafe.jpg',
+          key: 'collections/seattle/Cafè.jpg',
         },
         {
           key: 'collections/ Ca\uFB00e\x01photos.jpg ',
         },
         {
-          key: 'collections/album/caFe/',
+          key: 'collections/album/CaFe/',
         },
         {
           key: 'collections/album/random/cafe-vita.png',
@@ -369,7 +369,7 @@ describe('Search', () => {
       expect(output).toEqual([
         {
           id: expect.any(String),
-          key: 'collections/seattle/Cafe.jpg',
+          key: 'collections/seattle/Cafè.jpg',
           type: 'FILE',
         },
         {
@@ -379,7 +379,7 @@ describe('Search', () => {
         },
         {
           id: expect.any(String),
-          key: 'collections/album/Cafe/',
+          key: 'collections/album/CaFe/',
           type: 'FOLDER',
         },
         {

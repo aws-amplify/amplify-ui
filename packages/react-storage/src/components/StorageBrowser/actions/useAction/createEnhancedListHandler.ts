@@ -66,7 +66,12 @@ type Options<Action> = Action extends ListHandler<
 export const SEARCH_LIMIT = 10000;
 export const SEARCH_PAGE_SIZE = 1000;
 
-const NORMALIZATION_FORM = 'NFKC';
+function normalize(input: string) {
+  return input
+    .normalize('NFKC')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLocaleLowerCase();
+}
 /**
  * Performs a case-insensitive check to determine if a string includes another string,
  * handling Unicode characters and locale-specific case mappings.
@@ -82,10 +87,7 @@ const NORMALIZATION_FORM = 'NFKC';
  * caseInsensitiveIncludes("\uFB00", "\u0046\u0046");   // ﬀ = FF true
  */
 function caseInsensitiveIncludes(input: string, query: string): boolean {
-  return input
-    .toLocaleLowerCase()
-    .normalize(NORMALIZATION_FORM)
-    .includes(query.toLocaleLowerCase().normalize(NORMALIZATION_FORM));
+  return normalize(input).includes(normalize(query));
 }
 
 interface Search<T> {
