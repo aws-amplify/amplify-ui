@@ -49,6 +49,13 @@ exports[`UploadView display text values \`getActionCompleteMessage\` returns the
 }
 `;
 
+exports[`UploadView display text values \`getActionCompleteMessage\` returns the expected values in the multiple canceled with an overwrite prevented and some failures scenario 1`] = `
+{
+  "content": "Overwrite prevented for 1 file, 2 files canceled, 3 files failed to upload, 5 files uploaded.",
+  "type": "error",
+}
+`;
+
 exports[`UploadView display text values \`getActionCompleteMessage\` returns the expected values in the multiple overwrite prevented scenario 1`] = `
 {
   "content": "Overwrite prevented for 3 files, 8 files uploaded.",
