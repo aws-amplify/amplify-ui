@@ -363,7 +363,7 @@ describe('Search', () => {
         options: {
           filterBy: 'key',
           groupBy: '/',
-          query: 'caf',
+          query: 'caF',
         },
       });
       expect(output).toEqual([
@@ -379,7 +379,7 @@ describe('Search', () => {
         },
         {
           id: expect.any(String),
-          key: 'collections/album/caFe/',
+          key: 'collections/album/Cafe/',
           type: 'FOLDER',
         },
         {

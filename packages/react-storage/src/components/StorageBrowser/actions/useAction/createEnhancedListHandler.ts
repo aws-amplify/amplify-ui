@@ -79,7 +79,7 @@ const NORMALIZATION_FORM = 'NFKC';
  * @example
  * caseInsensitiveIncludes("Photos", "photo"); // true
  * caseInsensitiveIncludes("Hello", "HELLO");   // true
- * caseInsensitiveIncludes("\uFB00", "\u0066\u0066");   // ﬀ = ff true
+ * caseInsensitiveIncludes("\uFB00", "\u0046\u0046");   // ﬀ = FF true
  */
 function caseInsensitiveIncludes(input: string, query: string): boolean {
   return input
