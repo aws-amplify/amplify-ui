@@ -83,7 +83,6 @@ export interface DefaultActionViewDisplayText<T extends TaskData = TaskData> {
   actionDestinationLabel: string;
   actionExitLabel: string;
   actionStartLabel: string;
-  loadingIndicatorLabel: string;
   getActionCompleteMessage: (data?: {
     counts?: StatusCounts;
     tasks?: Tasks<T>;

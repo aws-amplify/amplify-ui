@@ -56,7 +56,6 @@ describe('useDataTable', () => {
             { key: 'header-5', ...textHeader },
           ],
           isLoading: undefined,
-          loadingIndicator: undefined,
           rows: [
             {
               key: 'row-1',
@@ -91,7 +90,6 @@ describe('useDataTable', () => {
         { key: 'header-5', ...textHeader },
       ],
       isLoading: undefined,
-      loadingIndicator: undefined,
       rows: [
         {
           key: 'row-1',
@@ -115,7 +113,6 @@ describe('useDataTable', () => {
     expect(result.current).toStrictEqual({
       headers: [],
       isLoading: undefined,
-      loadingIndicator: undefined,
       rows: [],
     });
   });
@@ -126,7 +123,6 @@ describe('useDataTable', () => {
         tableData: {
           headers: [{ key: 'header-1', ...textHeader }],
           isLoading: undefined,
-          loadingIndicator: undefined,
           rows: [
             {
               key: 'row-1',
@@ -142,7 +138,6 @@ describe('useDataTable', () => {
     expect(result.current).toStrictEqual({
       headers: [expect.objectContaining({ key: 'header-1' })],
       isLoading: undefined,
-      loadingIndicator: undefined,
       rows: [expect.objectContaining({ key: 'row-1' })],
     });
   });
@@ -157,7 +152,6 @@ describe('useDataTable', () => {
             { key: 'header-3', ...sortHeader },
           ],
           isLoading: undefined,
-          loadingIndicator: undefined,
           rows: [
             {
               key: 'row-1',
@@ -205,7 +199,6 @@ describe('useDataTable', () => {
             { key: 'header-3', ...sortHeader },
           ],
           isLoading: undefined,
-          loadingIndicator: undefined,
           rows: [
             {
               key: 'row-1',
@@ -280,7 +273,6 @@ describe('useDataTable', () => {
         tableData: {
           headers: [{ key: 'header-1', ...sortHeader }],
           isLoading: undefined,
-          loadingIndicator: undefined,
           rows: [
             {
               key: 'row-1',
@@ -317,7 +309,6 @@ describe('useDataTable', () => {
         tableData: {
           headers: [{ key: 'header-1', ...sortHeader }],
           isLoading: undefined,
-          loadingIndicator: undefined,
           rows: [
             {
               key: 'row-1',
@@ -354,7 +345,6 @@ describe('useDataTable', () => {
         tableData: {
           headers: [{ key: 'header-1', ...sortHeader }],
           isLoading: undefined,
-          loadingIndicator: undefined,
           rows: [
             {
               key: 'row-1',

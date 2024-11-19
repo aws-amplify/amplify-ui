@@ -16,18 +16,6 @@ describe('useCopyView', () => {
   const mockCancel = jest.fn();
   const mockUseFolders = jest.mocked(useFolders);
 
-  const location = {
-    current: {
-      prefix: 'test-prefix/',
-      bucket: 'bucket',
-      id: 'id',
-      permissions: ['delete', 'get', 'list', 'write'],
-      type: 'PREFIX',
-    } as LocationData,
-    path: '',
-    key: 'test-prefix/',
-  };
-
   beforeAll(() => {
     // @ts-expect-error partial mock
     mockUseFolders.mockReturnValue({

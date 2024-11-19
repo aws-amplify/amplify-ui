@@ -10,7 +10,6 @@ export const DEFAULT_ACTION_VIEW_DISPLAY_TEXT: Omit<
   actionCancelLabel: 'Cancel',
   actionExitLabel: 'Exit',
   actionDestinationLabel: 'Destination',
-  loadingIndicatorLabel: 'Loading',
   statusDisplayCanceledLabel: 'Canceled',
   statusDisplayCompletedLabel: 'Completed',
   statusDisplayFailedLabel: 'Failed',

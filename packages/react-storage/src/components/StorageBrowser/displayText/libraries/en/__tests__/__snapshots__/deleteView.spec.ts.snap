@@ -56,7 +56,6 @@ exports[`CopyView display text values should match snapshot values 1`] = `
   "actionExitLabel": "Exit",
   "actionStartLabel": "Delete",
   "getActionCompleteMessage": [Function],
-  "loadingIndicatorLabel": "Loading",
   "statusDisplayCanceledLabel": "Canceled",
   "statusDisplayCompletedLabel": "Completed",
   "statusDisplayFailedLabel": "Failed",
