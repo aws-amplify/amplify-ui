@@ -2,15 +2,15 @@ import React from 'react';
 
 import {
   IconElement,
-  IconVariant,
+  StorageBrowserIconType,
   SpanElement,
   ViewElement,
 } from '../../../context/elements';
-import { STORAGE_BROWSER_BLOCK_TO_BE_UPDATED } from '../../../constants';
+import { STORAGE_BROWSER_BLOCK } from '../../../constants';
 
 export interface TextDataCellProps {
   content: {
-    icon?: IconVariant;
+    icon?: StorageBrowserIconType;
     text?: string;
   };
 }
@@ -20,17 +20,15 @@ export const TextDataCell = ({
 }: TextDataCellProps): React.JSX.Element => {
   const { icon, text } = content;
   return (
-    <ViewElement
-      className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__table-text-data-cell`}
-    >
+    <ViewElement className={`${STORAGE_BROWSER_BLOCK}__table-text-data-cell`}>
       {icon && (
         <IconElement
-          className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__table-text-data-cell-icon ${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__table-text-data-cell-icon--${icon}`}
+          className={`${STORAGE_BROWSER_BLOCK}__table-text-data-cell-icon ${STORAGE_BROWSER_BLOCK}__table-text-data-cell-icon--${icon}`}
           variant={icon}
         />
       )}
       <SpanElement
-        className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__table-text-data-cell-text`}
+        className={`${STORAGE_BROWSER_BLOCK}__table-text-data-cell-text`}
         title={text}
       >
         {text}

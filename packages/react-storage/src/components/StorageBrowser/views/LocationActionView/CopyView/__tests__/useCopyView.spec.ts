@@ -4,13 +4,36 @@ import { LocationData } from '../../../../actions';
 import * as Store from '../../../../providers/store';
 import * as Config from '../../../../providers/configuration';
 import * as Tasks from '../../../../tasks';
+import { useFolders } from '../useFolders';
 
 import { useCopyView } from '../useCopyView';
+
+jest.mock('../useFolders');
 
 describe('useCopyView', () => {
   const mockProcessTasks = jest.fn();
   const mockDispatchStoreAction = jest.fn();
   const mockCancel = jest.fn();
+  const mockUseFolders = jest.mocked(useFolders);
+
+  const location = {
+    current: {
+      prefix: 'test-prefix/',
+      bucket: 'bucket',
+      id: 'id',
+      permissions: ['delete', 'get', 'list', 'write'],
+      type: 'PREFIX',
+    } as LocationData,
+    path: '',
+    key: 'test-prefix/',
+  };
+
+  beforeAll(() => {
+    // @ts-expect-error partial mock
+    mockUseFolders.mockReturnValue({
+      onInitialize: jest.fn(),
+    });
+  });
 
   const location = {
     current: {

@@ -22,6 +22,7 @@ export interface DefaultListViewDisplayText {
   searchPlaceholder: string;
   searchSubmitLabel: string;
   searchClearLabel: string;
+  getDateDisplayValue: (date: Date) => string;
 }
 
 interface ListMessageData {
@@ -66,6 +67,7 @@ export interface DefaultLocationDetailViewDisplayText
   tableColumnNameHeader: string;
   tableColumnSizeHeader: string;
   tableColumnTypeHeader: string;
+  getActionListItemLabel: (key: string | undefined) => string;
   getTitle: (location: LocationState) => string;
 }
 

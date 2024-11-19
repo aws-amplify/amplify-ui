@@ -19,6 +19,8 @@ export function LocationDetailViewProvider({
       searchPlaceholder,
       searchSubmitLabel,
       searchClearLabel,
+      getActionListItemLabel,
+      getDateDisplayValue,
       getTitle,
       getListItemsResultMessage,
     },
@@ -57,6 +59,11 @@ export function LocationDetailViewProvider({
     onToggleSearchSubfolders,
   } = props;
 
+  const actionsWithDisplayText = actions.map((item) => ({
+    ...item,
+    label: getActionListItemLabel(item.label),
+  }));
+
   const messageControlContent = getListItemsResultMessage({
     isLoading,
     items: pageItems,
@@ -65,11 +72,14 @@ export function LocationDetailViewProvider({
     message: hasError ? message : downloadErrorMessage,
   });
 
+  const isNoActionAvailable =
+    !Array.isArray(actions) || actions?.every((action) => action.isHidden);
+
   return (
     <ControlsContextProvider
       data={{
-        actions,
-        isActionsListDisabled: isLoading,
+        actions: actionsWithDisplayText,
+        isActionsListDisabled: isLoading || isNoActionAvailable,
         isDataRefreshDisabled: isLoading,
         isLoading,
         isSearchingSubfolders,
@@ -90,6 +100,7 @@ export function LocationDetailViewProvider({
           areAllFilesSelected,
           location,
           fileDataItems,
+          getDateDisplayValue,
           hasFiles,
           pageItems,
           selectFileLabel,

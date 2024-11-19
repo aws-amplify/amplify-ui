@@ -126,7 +126,6 @@ exports[`UploadView display text values should match snapshot values 1`] = `
   "addFolderLabel": "Add folder",
   "getActionCompleteMessage": [Function],
   "getFilesValidationMessage": [Function],
-  "loadingIndicatorLabel": "Loading",
   "overwriteToggleLabel": "Overwrite existing files",
   "statusDisplayCanceledLabel": "Canceled",
   "statusDisplayCompletedLabel": "Completed",

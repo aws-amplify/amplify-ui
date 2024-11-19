@@ -36,7 +36,9 @@ export const UploadView: UploadViewType = ({ className, ...props }) => {
           </ViewElement>
         </ViewElement>
         <DropZoneControl>
-          <DataTableControl />
+          <ViewElement className={`${STORAGE_BROWSER_BLOCK}__data-table`}>
+            <DataTableControl />
+          </ViewElement>
         </DropZoneControl>
         <ViewElement className={`${STORAGE_BROWSER_BLOCK}__summary`}>
           <ActionDestinationControl />

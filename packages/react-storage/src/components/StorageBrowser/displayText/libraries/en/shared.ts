@@ -34,4 +34,13 @@ export const DEFAULT_LIST_VIEW_DISPLAY_TEXT: Omit<
   loadingIndicatorLabel: 'Loading',
   searchSubmitLabel: 'Submit',
   searchClearLabel: 'Clear search',
+  getDateDisplayValue: (date: Date) =>
+    new Intl.DateTimeFormat('en-US', {
+      month: 'short',
+      day: 'numeric',
+      hour: 'numeric',
+      year: 'numeric',
+      minute: 'numeric',
+      hourCycle: 'h12',
+    }).format(date),
 };

@@ -1,6 +1,10 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import { IconElement, IconVariant, DEFAULT_ICON_PATHS } from '../IconElement';
+import {
+  IconElement,
+  StorageBrowserIconType,
+  STORAGE_BROWSER_ICON_PATHS,
+} from '../IconElement';
 
 describe('IconElement', () => {
   it('should render icon', () => {
@@ -22,11 +26,11 @@ describe('IconElement', () => {
     expect(svgElement).toHaveAttribute('xmlns', 'http://www.w3.org/2000/svg');
   });
 
-  it.each(Object.entries(DEFAULT_ICON_PATHS))(
+  it.each(Object.entries(STORAGE_BROWSER_ICON_PATHS))(
     'should render correct path for a %s `Icon` variant',
     (variant, expectedPath) => {
       const { container } = render(
-        <IconElement variant={variant as IconVariant} />
+        <IconElement variant={variant as StorageBrowserIconType} />
       );
 
       const path = container.querySelector('path');

@@ -162,6 +162,7 @@ describe('LocationsView', () => {
       locations: expect.any(Array),
       isLoading: false,
       hasError: true,
+      hasExhaustedSearch: false,
       message: errorMessage,
     });
 
@@ -197,6 +198,7 @@ describe('LocationsView', () => {
       locations: [],
       isLoading: true,
       hasError: false,
+      hasExhaustedSearch: false,
     });
   });
 
@@ -383,17 +385,29 @@ describe('LocationsView', () => {
       await user.click(getByText('Submit'));
     });
 
-    // search complete
-    expect(queryByText('item-0/')).toBeInTheDocument();
-    expect(queryByText('item-1/')).not.toBeInTheDocument();
+    // search initiated
+    expect(handleListLocations).toHaveBeenCalledWith(
+      expect.objectContaining({
+        options: expect.objectContaining({
+          search: {
+            filterBy: expect.any(Function),
+            query: 'item-0',
+          },
+        }),
+      })
+    );
 
     // refresh
     await act(async () => {
       await user.click(getByLabelText('Refresh data'));
     });
 
-    // clears search
-    expect(queryByText('item-0/')).toBeInTheDocument();
-    expect(queryByText('item-1/')).toBeInTheDocument();
+    expect(handleListLocations).toHaveBeenCalledWith(
+      expect.objectContaining({
+        options: expect.objectContaining({
+          refresh: true,
+        }),
+      })
+    );
   });
 });

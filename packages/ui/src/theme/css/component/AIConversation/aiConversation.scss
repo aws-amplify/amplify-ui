@@ -77,6 +77,17 @@
       background-color: var(--internal-content-bg);
       border-radius: var(--amplify-radii-medium);
       padding: var(--internal-content-padding);
+      display: flex;
+      flex-direction: column;
+      gap: var(--amplify-space-small);
+    }
+
+    &__text {
+      display: block;
+    }
+
+    &__image {
+      max-width: 25%;
     }
 
     &__actions {

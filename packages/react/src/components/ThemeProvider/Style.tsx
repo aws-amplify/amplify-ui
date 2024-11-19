@@ -4,10 +4,6 @@ interface StyleProps extends React.ComponentProps<'style'> {
   cssText?: string;
 }
 
-/**
- * @experimental
- * [📖 Docs](https://ui.docs.amplify.aws/react/components/theme)
- */
 export const Style = ({ cssText, ...rest }: StyleProps): JSX.Element | null => {
   /*
     Only inject theme CSS variables if given a theme.

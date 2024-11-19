@@ -269,7 +269,7 @@ describe('useLocationsView', () => {
       hasError: false,
       isLoading: false,
     };
-    mockUseLocationsData(mockDataState);
+    const handleList = mockUseLocationsData(mockDataState);
     const { result } = renderHook(() => useLocationsView());
 
     act(() => {
@@ -280,22 +280,31 @@ describe('useLocationsView', () => {
       result.current.onSearch();
     });
 
+    expect(result.current.searchQuery).toBe('item-b');
     // search complete
-    expect(result.current.pageItems).toEqual([
-      {
-        bucket: 'test-bucket',
-        prefix: 'item-b/',
-        permissions: ['get', 'list'],
-        id: '2',
-        type: 'PREFIX',
-      },
-    ]);
+    expect(handleList).toHaveBeenCalledWith(
+      expect.objectContaining({
+        options: expect.objectContaining({
+          search: {
+            filterBy: expect.any(Function),
+            query: 'item-b',
+          },
+        }),
+      })
+    );
 
     // clear search
     act(() => {
       result.current.onSearchClear();
     });
 
-    expect(result.current.pageItems).toEqual(mockData);
+    expect(result.current.searchQuery).toEqual('');
+    expect(handleList).toHaveBeenCalledWith(
+      expect.objectContaining({
+        options: expect.objectContaining({
+          refresh: true,
+        }),
+      })
+    );
   });
 });
