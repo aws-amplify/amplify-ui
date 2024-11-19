@@ -10,7 +10,6 @@ import { Auth } from '../managedAuthAdapter';
 
 import { Button, Flex, Breadcrumbs } from '@aws-amplify/ui-react';
 
-import '@aws-amplify/ui-react/styles/reset.css';
 import '@aws-amplify/ui-react-storage/styles.css';
 import '@aws-amplify/ui-react-storage/storage-browser-styles.css';
 
@@ -42,7 +41,23 @@ const { StorageBrowser, useView } = createStorageBrowser({
   config,
 });
 
-const { CreateFolderView, DeleteView, LocationActionView } = StorageBrowser;
+const { CopyView, CreateFolderView, DeleteView, LocationActionView } =
+  StorageBrowser;
+
+const MyCopyView = () => {
+  const viewState = useView('Copy');
+  const { isProcessing } = viewState;
+
+  return (
+    <CopyView.Provider {...viewState}>
+      {isProcessing ? <h1>Copy in progress</h1> : null}
+      <CopyView.Start />
+      <CopyView.TasksTable />
+      <CopyView.FoldersTable />
+      <CopyView.Destination />
+    </CopyView.Provider>
+  );
+};
 
 const MyCreateFolderView = () => {
   const viewState = useView('CreateFolder');
@@ -73,6 +88,9 @@ function MyLocationActionView({ type }: { type?: string }) {
   if (!type) return DialogContent;
 
   switch (type) {
+    case 'copy':
+      DialogContent = MyCopyView;
+      break;
     case 'createFolder':
       DialogContent = MyCreateFolderView;
       break;

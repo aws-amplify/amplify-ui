@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { STORAGE_BROWSER_BLOCK_TO_BE_UPDATED } from '../constants';
+import { STORAGE_BROWSER_BLOCK } from '../constants';
 import {
   DescriptionListElement,
   DescriptionTermElement,
@@ -28,9 +28,7 @@ export const ActionDestination = ({
   }
 
   return (
-    <ViewElement
-      className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__action-destination`}
-    >
+    <ViewElement className={`${STORAGE_BROWSER_BLOCK}__destination`}>
       {isNavigable ? (
         <>
           <SpanElement>{`${label}:`}</SpanElement>
@@ -38,11 +36,11 @@ export const ActionDestination = ({
         </>
       ) : (
         <DescriptionListElement
-          className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__description-list`}
+          className={`${STORAGE_BROWSER_BLOCK}__description-list`}
           role="list"
         >
           <DescriptionTermElement
-            className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__description-term`}
+            className={`${STORAGE_BROWSER_BLOCK}__description-term`}
             role="term"
           >
             {`${label}:`}
@@ -51,7 +49,7 @@ export const ActionDestination = ({
             return (
               <React.Fragment key={`action-destination-item-${name}-${index}`}>
                 <DescriptionDetailsElement
-                  className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__description-details`}
+                  className={`${STORAGE_BROWSER_BLOCK}__description-details`}
                   role="definition"
                 >
                   <SpanElement variant="destination-text">{name}</SpanElement>

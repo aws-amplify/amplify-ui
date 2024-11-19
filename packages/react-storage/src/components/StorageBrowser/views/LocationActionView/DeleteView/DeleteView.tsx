@@ -24,7 +24,9 @@ export const DeleteView: DeleteViewType = ({ className, ...props }) => {
       <DeleteViewProvider {...state}>
         <ActionExitControl />
         <TitleControl />
-        <DataTableControl />
+        <ViewElement className={`${STORAGE_BROWSER_BLOCK}__data-table`}>
+          <DataTableControl />
+        </ViewElement>
         <ViewElement className={`${STORAGE_BROWSER_BLOCK}__summary`}>
           <StatusDisplayControl />
         </ViewElement>

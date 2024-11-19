@@ -98,24 +98,25 @@ export const useFolders = ({
     });
   };
 
-  const onSelectFolder = (id: string, folderLocationPath: string) => {
-    if (!current) {
-      return;
-    }
-
-    setDestination({
-      current: { ...current, id },
-      path: folderLocationPath,
-      key: `${current.prefix ?? ''}${folderLocationPath}`,
-    });
-  };
-
   const {
     onSearchSubmit,
     searchQuery: query,
     resetSearch,
     onSearchQueryChange: onQuery,
   } = useSearch({ onSearch });
+
+  const onSelectFolder = (id: string, folderLocationPath: string) => {
+    if (!current) {
+      return;
+    }
+
+    resetSearch();
+    setDestination({
+      current: { ...current, id },
+      path: folderLocationPath,
+      key: `${current.prefix ?? ''}${folderLocationPath}`,
+    });
+  };
 
   return {
     hasError,

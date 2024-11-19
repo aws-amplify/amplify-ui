@@ -1,7 +1,5 @@
 import React from 'react';
-import { Checkbox } from '../../../components/Checkbox';
-import { ViewElement } from '../../../context/elements';
-import { STORAGE_BROWSER_BLOCK_TO_BE_UPDATED } from '../../../constants';
+import { Checkbox } from '@aws-amplify/ui-react';
 
 export interface CheckboxDataCellProps {
   content: {
@@ -17,16 +15,13 @@ export const CheckboxDataCell = ({
 }: CheckboxDataCellProps): React.JSX.Element => {
   const { checked = false, label, onSelect, id } = content;
   return (
-    <ViewElement
-      className={`${STORAGE_BROWSER_BLOCK_TO_BE_UPDATED}__table-checkbox-data-cell`}
-    >
-      <Checkbox
-        checked={checked}
-        labelHidden
-        labelText={label}
-        onSelect={onSelect}
-        id={id}
-      />
-    </ViewElement>
+    <Checkbox
+      name={label ?? ''}
+      checked={checked}
+      labelHidden
+      label={label}
+      onChange={onSelect}
+      id={id}
+    />
   );
 };

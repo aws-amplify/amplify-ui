@@ -43,7 +43,7 @@ export const deleteActionConfig: DeleteActionConfig = {
 export const createFolderActionConfig: CreateFolderActionConfig = {
   componentName: 'CreateFolderView',
   actionsListItemConfig: {
-    disable: (selected) => !!selected,
+    disable: () => false,
     hide: (permissions) => !permissions.includes('write'),
     icon: 'create-folder',
     label: 'Create folder',
@@ -76,7 +76,7 @@ export const listLocationsActionConfig: ListLocationsActionConfig = {
 export const uploadActionConfig: UploadActionConfig = {
   componentName: 'UploadView',
   actionsListItemConfig: {
-    disable: (selectedValues) => !!selectedValues,
+    disable: () => false,
     fileSelection: 'FILE',
     hide: (permissions) => !permissions.includes('write'),
     icon: 'upload-file',

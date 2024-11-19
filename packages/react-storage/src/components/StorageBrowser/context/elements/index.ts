@@ -47,4 +47,8 @@ export {
   SpanElement,
   StorageBrowserElements,
 } from './definitions';
-export { IconElement, IconElementProps, IconVariant } from './IconElement';
+export {
+  IconElement,
+  IconElementProps,
+  StorageBrowserIconType,
+} from './IconElement';
