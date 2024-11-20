@@ -19,6 +19,7 @@ const baseInput: CopyHandlerInput = {
     fileKey: 'some-key.hehe',
     lastModified: new Date(),
     size: 100000000,
+    eTag: 'etag',
     type: 'FILE',
   },
 };
@@ -46,6 +47,8 @@ describe('copyHandler', () => {
         expectedBucketOwner: `${baseInput.config.accountId}`,
         bucket,
         path: baseInput.data.key,
+        eTag: baseInput.data.eTag,
+        notModifiedSince: baseInput.data.lastModified,
       },
       options: {
         locationCredentialsProvider: baseInput.config.credentials,
@@ -54,6 +57,24 @@ describe('copyHandler', () => {
     };
 
     expect(copySpy).toHaveBeenCalledWith(expected);
+  });
+
+  it('provides eTag and notModifiedSince to copy for durableness', () => {
+    copyHandler(baseInput);
+
+    const bucket = {
+      bucketName: `${baseInput.config.bucket}`,
+      region: `${baseInput.config.region}`,
+    };
+
+    const copyInput = copySpy.mock.lastCall?.[0];
+    expect(copyInput).toHaveProperty('source', {
+      expectedBucketOwner: `${baseInput.config.accountId}`,
+      bucket,
+      path: baseInput.data.key,
+      eTag: baseInput.data.eTag,
+      notModifiedSince: baseInput.data.lastModified,
+    });
   });
 
   it.each([

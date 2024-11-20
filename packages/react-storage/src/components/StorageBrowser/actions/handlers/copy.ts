@@ -1,4 +1,4 @@
-import { copy } from '../../storage-internal';
+import { copy, CopyInput } from '../../storage-internal';
 import {
   FileDataItem,
   TaskHandler,
@@ -27,12 +27,12 @@ export const copyHandler: CopyHandler = (input) => {
     credentials,
     customEndpoint,
   } = config;
-  const { key: sourcePath, fileKey } = data;
+  const { key: sourcePath, fileKey, lastModified, eTag } = data;
 
   const bucket = constructBucket(config);
 
   const destinationPath = `${path}${fileKey}`;
-  const source = {
+  const source: CopyInput['source'] = {
     bucket,
     expectedBucketOwner,
     /**
@@ -43,8 +43,15 @@ export const copyHandler: CopyHandler = (input) => {
      * see: https://docs.aws.amazon.com/AmazonS3/latest/API/API_CopyObject.html#API_CopyObject_RequestSyntax
      */
     path: sourcePath.split('/').map(encodeURIComponent).join('/'),
+    notModifiedSince: lastModified,
+    eTag,
   };
-  const destination = { bucket, expectedBucketOwner, path: destinationPath };
+
+  const destination: CopyInput['destination'] = {
+    bucket,
+    expectedBucketOwner,
+    path: destinationPath,
+  };
 
   const result = copy({
     source,
