@@ -7,8 +7,8 @@ MEGA_APP_NAME=""
 FRAMEWORK="react"
 FRAMEWORK_VERSION="latest"
 PKG_MANAGER="npm"
-TAG="latest"
-JS_TAG="latest"
+TAG="next"
+JS_TAG="unstable"
 
 # Import install function
 source "./scripts/install-dependencies-with-retries.sh"
@@ -41,14 +41,14 @@ while [[ $# -gt 0 ]]; do
         PKG_MANAGER=$2
         shift
         ;;
-    -t | --tag)
-        TAG=$2
-        shift
-        ;;
-    -js | --js-tag)
-        JS_TAG=$2
-        shift
-        ;;
+    # -t | --tag)
+    #     TAG=$2
+    #     shift
+    #     ;;
+    # -js | --js-tag)
+    #     JS_TAG=$2
+    #     shift
+    #     ;;
     -h | --help)
         echo "Usage: mega-app-create-app.sh [OPTIONS]"
         echo "Options:"
