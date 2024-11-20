@@ -70,12 +70,14 @@ while [[ $# -gt 0 ]]; do
     shift
 done
 
+#   npm run setup:react:next -- --framework-version latest --build-tool-version latest --pkg-manager npm --tag next --js-tag unstable
+
 echo "##########################"
 echo "# Start Mega App Install #"
 echo "##########################"
 
 TAGGED_UI_FRAMEWORK="@aws-amplify/ui-$FRAMEWORK@$TAG"
-DEPENDENCIES="$FRAMEWORK@$FRAMEWORK_VERSION $TAGGED_UI_FRAMEWORK aws-amplify@$JS_TAG @aws-amplify/storage@$JS_TAG"
+DEPENDENCIES="$FRAMEWORK@$FRAMEWORK_VERSION $TAGGED_UI_FRAMEWORK aws-amplify@$JS_TAG @aws-amplify/storage@$JS_TAG @aws-amplify/core@$JS_TAG @aws-amplify/geo@$JS_TAG"
 
 echo "cd ./mega-apps/${MEGA_APP_NAME}"
 cd "./mega-apps/${MEGA_APP_NAME}"
