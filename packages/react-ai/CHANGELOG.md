@@ -1,5 +1,70 @@
 # @aws-amplify/ui-react-ai
 
+## 1.0.0
+
+### Major Changes
+
+- [#6149](https://github.com/aws-amplify/amplify-ui/pull/6149) [`0d4d2b91c`](https://github.com/aws-amplify/amplify-ui/commit/0d4d2b91c84b2eb5e9365bb837855e5a9b4e3c06) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - chore: get ai package ready for release
+
+### Minor Changes
+
+- [#6090](https://github.com/aws-amplify/amplify-ui/pull/6090) [`a25e5ed7a`](https://github.com/aws-amplify/amplify-ui/commit/a25e5ed7a19a3a612ec3e60f773df6c4071586dd) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - feat(ai): add aiContext prop to AIConversation
+
+  ```tsx
+  <AIConversation
+    messages={messages}
+    isLoading={isLoading}
+    handleSendMessage={sendMessage}
+    // This will let the LLM know about the current state of this application
+    // so it can better respond to questions, you can put any information
+    // in this object that might be helpful
+    aiContext={() => {
+      return {
+        currentTime: new Date().toLocaleTimeString(),
+      };
+    }}
+  />
+  ```
+
+- [#5920](https://github.com/aws-amplify/amplify-ui/pull/5920) [`dcdb2cdf0`](https://github.com/aws-amplify/amplify-ui/commit/dcdb2cdf05226bb8440a2be844f1d3ca7dbb1874) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - AI streaming
+
+  This update brings streaming responses to the `useAIConversation()` hook and `<AIConversation />` component. No changes need to be made in your code to get streaming responses now.
+
+- [#6006](https://github.com/aws-amplify/amplify-ui/pull/6006) [`759623301`](https://github.com/aws-amplify/amplify-ui/commit/759623301f2184bb6081692486a5ecb498670688) Thanks [@sasssssssa](https://github.com/sasssssssa)! - fix: AIConversation doesn't care about conversion, for example Hira to Kanji in Japanese
+
+  When to push Return/Enter key in the Form about AIConversation component, it can decide to send a message by whether in editing the text.
+
+- [#5968](https://github.com/aws-amplify/amplify-ui/pull/5968) [`3b96ff7c0`](https://github.com/aws-amplify/amplify-ui/commit/3b96ff7c027ec5650afabda9f451572b492bbabd) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - feat(ai): add fallback response component
+
+  ```tsx
+  <AIConversation
+    FallBackResponseComponent={(props) => <>{JSON.stringify(props)}</>}
+    //...
+  />
+  ```
+
+- [#5999](https://github.com/aws-amplify/amplify-ui/pull/5999) [`24635cfd5`](https://github.com/aws-amplify/amplify-ui/commit/24635cfd5fb6b01bfd3bde1464c7064b2d1484c4) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - chore: ai cleanup
+
+  ```jsx
+  <AIConversation
+    messages={messages}
+    handleSendMessage={handleSendMessage}
+    actions={[
+      {
+        component: <MdCopyAll />,
+        handler: (message) => {},
+      },
+    ]}
+  />
+  ```
+
+### Patch Changes
+
+- Updated dependencies [[`90ea18ba0`](https://github.com/aws-amplify/amplify-ui/commit/90ea18ba076f884cad7f49b646f3f820e1b80c0e), [`2e3a051d9`](https://github.com/aws-amplify/amplify-ui/commit/2e3a051d9c2d48d5be22d2e83095cbd060ce2b40), [`f1b1da8a1`](https://github.com/aws-amplify/amplify-ui/commit/f1b1da8a1adfb23948156a5618cbf605279d941d), [`0d4d2b91c`](https://github.com/aws-amplify/amplify-ui/commit/0d4d2b91c84b2eb5e9365bb837855e5a9b4e3c06), [`24635cfd5`](https://github.com/aws-amplify/amplify-ui/commit/24635cfd5fb6b01bfd3bde1464c7064b2d1484c4)]:
+  - @aws-amplify/ui-react-core@3.0.30
+  - @aws-amplify/ui-react@6.6.0
+  - @aws-amplify/ui@6.6.6
+
 ## 0.4.0
 
 ### Minor Changes

@@ -69,11 +69,11 @@ export const SEARCH_PAGE_SIZE = 1000;
 /**
  * Normalizes and converts a string to lower case,
  * handling Unicode characters and locale-specific case mappings.
- *  Uses `NFKC` mapping as recommended here: https://datatracker.ietf.org/doc/html/rfc3987#section-7.5
+ * Uses NFKD to fully decompose unicode: https://unicode.org/reports/tr15/#Normalization_Forms_Table
  */
 function normalize(input: string) {
   return input
-    .normalize('NFKC')
+    .normalize('NFKD')
     .replace(/[\u0300-\u036f]/g, '') // remove diacritic modifiers
     .toLocaleLowerCase();
 }

@@ -67,6 +67,7 @@ describe('listLocationItemsHandler', () => {
           region: input.config.region,
         },
         customEndpoint: input.config.customEndpoint,
+        expectedBucketOwner: input.config.accountId,
         locationCredentialsProvider: input.config.credentials,
         nextToken: undefined,
         pageSize: input.options.pageSize + 1,

@@ -363,9 +363,10 @@ describe('Search', () => {
         options: {
           filterBy: 'key',
           groupBy: '/',
-          query: 'caf',
+          query: 'càf',
         },
       });
+
       expect(output).toEqual([
         {
           id: expect.any(String),
@@ -385,6 +386,42 @@ describe('Search', () => {
         {
           id: expect.any(String),
           key: 'collections/album/random/cafe-vita.png',
+          type: 'FILE',
+        },
+      ]);
+    });
+    it('ignores diacritics', () => {
+      const mockData = [
+        {
+          key: 'collections/São Paulo/',
+        },
+        {
+          key: 'collections/random/Sãopaulino.jpg',
+        },
+        {
+          key: 'collections/random/photos.jpg ',
+        },
+      ];
+
+      const output = searchItems<Item>({
+        list: mockData,
+        prefix: 'collections/',
+        options: {
+          filterBy: 'key',
+          groupBy: '/',
+          query: 'sao',
+        },
+      });
+
+      expect(output).toEqual([
+        {
+          id: expect.any(String),
+          key: 'collections/São Paulo/',
+          type: 'FOLDER',
+        },
+        {
+          id: expect.any(String),
+          key: 'collections/random/Sãopaulino.jpg',
           type: 'FILE',
         },
       ]);

@@ -94,7 +94,13 @@ export const listLocationItemsHandler: ListLocationItemsHandler = async (
   input
 ) => {
   const { config, prefix, options } = input;
-  const { bucket: _bucket, credentials, customEndpoint, region } = config;
+  const {
+    bucket: _bucket,
+    credentials,
+    customEndpoint,
+    region,
+    accountId,
+  } = config;
 
   const {
     exclude,
@@ -129,6 +135,7 @@ export const listLocationItemsHandler: ListLocationItemsHandler = async (
         ..._options,
         bucket,
         customEndpoint,
+        expectedBucketOwner: accountId,
         locationCredentialsProvider: credentials,
         pageSize,
         subpathStrategy,
