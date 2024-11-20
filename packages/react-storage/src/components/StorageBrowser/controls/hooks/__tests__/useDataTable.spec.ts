@@ -88,6 +88,7 @@ describe('useDataTable', () => {
         { key: 'header-4', ...textHeader },
         { key: 'header-5', ...textHeader },
       ],
+      isLoading: undefined,
       rows: [
         {
           key: 'row-1',
@@ -108,7 +109,11 @@ describe('useDataTable', () => {
 
     const { result } = renderHook(() => useDataTable());
 
-    expect(result.current).toStrictEqual({ headers: [], rows: [] });
+    expect(result.current).toStrictEqual({
+      headers: [],
+      isLoading: undefined,
+      rows: [],
+    });
   });
 
   it('handles data with no sortable columns', () => {
@@ -130,6 +135,7 @@ describe('useDataTable', () => {
 
     expect(result.current).toStrictEqual({
       headers: [expect.objectContaining({ key: 'header-1' })],
+      isLoading: undefined,
       rows: [expect.objectContaining({ key: 'row-1' })],
     });
   });
