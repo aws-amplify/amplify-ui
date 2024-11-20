@@ -43,6 +43,7 @@ export interface FolderData {
 }
 
 export interface FileData {
+  eTag?: string;
   key: string;
   lastModified: Date;
   id: string;

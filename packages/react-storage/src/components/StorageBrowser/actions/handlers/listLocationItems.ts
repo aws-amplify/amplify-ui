@@ -43,7 +43,7 @@ const parseItems = (
   items
     // remove root `key` from results
     .filter(({ path }) => path !== excludedPath)
-    .map(({ path: key, lastModified, size }) => {
+    .map(({ path: key, lastModified, size, eTag }) => {
       const id = crypto.randomUUID();
       // Mark zero byte files as Folders
       if (size === 0 && key.endsWith('/')) {
@@ -53,6 +53,7 @@ const parseItems = (
       return {
         key,
         id,
+        eTag,
         lastModified: lastModified!,
         size: size!,
         type: 'FILE',
