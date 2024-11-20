@@ -41,7 +41,7 @@
     "react-copy-to-clipboard": "^5.0.4",
     "react-dom": "18.2.0",
     "react-icons": "^4.3.1",
-    "react-live": "^2.4.1",
+    "react-live": "^4.1.8",
     "rehype": "^11.0.0",
     "rehype-autolink-headings": "^5.1.0",
     "rehype-slug": "^4.0.1",
