@@ -10,6 +10,7 @@ FRAMEWORK_VERSION="latest"
 PKG_MANAGER="npm"
 PLATFORM="android"
 TAG="latest"
+JS_TAG="latest"
 
 # Options
 # e.g.
@@ -51,6 +52,10 @@ while [[ $# -gt 0 ]]; do
     TAG=$2
     shift
     ;;
+  -j | --js-tag)
+    TAG=$2
+    shift
+    ;;
   -h | --help)
     echo "Usage: mega-app-create-app.sh [OPTIONS]"
     echo "Options:"
@@ -62,6 +67,7 @@ while [[ $# -gt 0 ]]; do
     echo "  -f, --framework-version     Specify the framework version (default: latest)"
     echo "  -P, --pkg-manager           Specify the package manager: npm, yarn (default: npm)"
     echo "  -t, --tag                   Specify the Amplify UI version tag (default: latest)"
+    echo "  -j, --js-tag                Specify the Amplify JS version tag (default: latest)"
     echo "  -h, --help                  Show help message"
     exit 0
     ;;
@@ -91,7 +97,7 @@ BASE_OPTIONS="--build-tool $BUILD_TOOL --name $MEGA_APP_NAME --framework $FRAMEW
 ./scripts/mega-app-copy-files.sh $BASE_OPTIONS
 
 # Install dependencies
-./scripts/mega-app-install.sh $BASE_OPTIONS --pkg-manager $PKG_MANAGER --tag $TAG
+./scripts/mega-app-install.sh $BASE_OPTIONS --pkg-manager $PKG_MANAGER --tag $TAG --js-tag $JS_TAG
 
 # Build mega app
 ./scripts/mega-app-build.sh $BASE_OPTIONS --platform $PLATFORM

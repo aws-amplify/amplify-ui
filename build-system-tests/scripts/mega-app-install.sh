@@ -8,6 +8,7 @@ FRAMEWORK="react"
 FRAMEWORK_VERSION="latest"
 PKG_MANAGER="npm"
 TAG="latest"
+JS_TAG="latest"
 
 # Import install function
 source "./scripts/install-dependencies-with-retries.sh"
@@ -44,6 +45,10 @@ while [[ $# -gt 0 ]]; do
         TAG=$2
         shift
         ;;
+    -js | --js-tag)
+        JS_TAG=$2
+        shift
+        ;;
     -h | --help)
         echo "Usage: mega-app-create-app.sh [OPTIONS]"
         echo "Options:"
@@ -70,7 +75,7 @@ echo "# Start Mega App Install #"
 echo "##########################"
 
 TAGGED_UI_FRAMEWORK="@aws-amplify/ui-$FRAMEWORK@$TAG"
-DEPENDENCIES="$FRAMEWORK@$FRAMEWORK_VERSION $TAGGED_UI_FRAMEWORK aws-amplify"
+DEPENDENCIES="$FRAMEWORK@$FRAMEWORK_VERSION $TAGGED_UI_FRAMEWORK aws-amplify@$JS_TAG"
 
 echo "cd ./mega-apps/${MEGA_APP_NAME}"
 cd "./mega-apps/${MEGA_APP_NAME}"
