@@ -30,8 +30,6 @@ export interface Config {
 }
 
 export interface CreateStorageBrowserInput {
-  // to be updated
-  actions?: never;
   config: Config;
   components?: Components;
 }
