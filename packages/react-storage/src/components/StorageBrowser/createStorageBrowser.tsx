@@ -74,7 +74,6 @@ export function createStorageBrowser(input: CreateStorageBrowserInput): {
     // override components
     ...input.components,
   };
-  const elements = { ...elementsDefault, ...input.elements };
 
   /**
    * Provides state, configuration and action values that are shared between
@@ -85,7 +84,10 @@ export function createStorageBrowser(input: CreateStorageBrowserInput): {
       <StoreProvider {...props}>
         <ConfigurationProvider>
           <DisplayTextProvider displayText={props.displayText}>
-            <ComponentsProvider composables={composables} elements={elements}>
+            <ComponentsProvider
+              composables={composables}
+              elements={elementsDefault}
+            >
               {children}
             </ComponentsProvider>
           </DisplayTextProvider>
