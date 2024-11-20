@@ -393,10 +393,10 @@ describe('Search', () => {
     it('ignores diacritics', () => {
       const mockData = [
         {
-          key: 'collections/Straße.jpg',
+          key: 'collections/São Paulo/',
         },
         {
-          key: 'collections/Straße/photos.jpg ',
+          key: 'collections/random/Sãopaulino.jpg',
         },
         {
           key: 'collections/random/photos.jpg ',
@@ -409,20 +409,20 @@ describe('Search', () => {
         options: {
           filterBy: 'key',
           groupBy: '/',
-          query: 'strasse',
+          query: 'sao',
         },
       });
 
       expect(output).toEqual([
         {
           id: expect.any(String),
-          key: 'collections/Straße.jpg',
-          type: 'FILE',
+          key: 'collections/São Paulo/',
+          type: 'FOLDER',
         },
         {
           id: expect.any(String),
-          key: 'collections/Straße/',
-          type: 'FOLDER',
+          key: 'collections/random/Sãopaulino.jpg',
+          type: 'FILE',
         },
       ]);
     });
