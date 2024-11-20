@@ -9,12 +9,6 @@ import * as UseDeleteViewModule from '../useDeleteView';
 import { DeleteViewState } from '../types';
 import { DeleteView } from '../DeleteView';
 
-const TEST_ACTIONS = {
-  DELETE_FILES: {
-    options: { displayName: 'Delete file' },
-  },
-};
-
 jest.spyOn(Config, 'useGetActionInput').mockReturnValue(() => ({
   accountId: '123456789012',
   bucket: 'XXXXXXXXXXX',
