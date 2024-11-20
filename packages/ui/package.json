@@ -50,7 +50,7 @@
   },
   "peerDependencies": {
     "@aws-amplify/core": "*",
-    "aws-amplify": "unstable",
+    "aws-amplify": "^6.9.0",
     "xstate": "^4.33.6"
   },
   "peerDependenciesMeta": {
