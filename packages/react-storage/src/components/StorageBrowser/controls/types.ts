@@ -1,5 +1,5 @@
 import { LocationData } from '../actions';
-import { ActionsListItem } from '../composables/ActionsList';
+import { ActionListItem } from '../composables/ActionsList';
 import { DataTableSortHeader, DataTableProps } from '../composables/DataTable';
 import { MessageProps } from '../composables/Message';
 import { Composables } from '../composables/types';
@@ -37,7 +37,7 @@ interface PaginationData {
 
 export interface ControlsContext {
   data: {
-    actions?: ActionsListItem[];
+    actions?: ActionListItem[];
     actionCancelLabel?: string;
     actionDestinationLabel?: string;
     actionExitLabel?: string;

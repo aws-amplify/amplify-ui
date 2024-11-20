@@ -2,20 +2,18 @@ import React from 'react';
 import { renderHook } from '@testing-library/react';
 
 import { defaultActionConfigs } from '../defaults';
-import { ActionConfigs } from '../types';
+import { ActionViewConfigs } from '../types';
 
 import { ActionConfigsProvider, useActionConfigs } from '../context';
 
 describe('useActionConfigs', () => {
   it('returns default and custom config values passed to `ActionConfigsProvider`', () => {
     const someCoolHandler = jest.fn();
-    const configs: ActionConfigs = {
+    const configs: ActionViewConfigs = {
       ...defaultActionConfigs,
       SomeCoolAction: {
-        componentName: 'SomeCoolView',
+        viewName: 'SomeCoolView',
         handler: someCoolHandler,
-        isCancelable: false,
-        displayName: 'Do Cool Action',
       },
     };
 

@@ -5,27 +5,34 @@ import {
   TaskHandlerOptions,
   TaskHandlerInput,
   TaskHandlerOutput,
-  FileDataItem,
+  TaskData,
 } from './types';
 
 import { constructBucket } from './utils';
 
 export interface DeleteHandlerOptions extends TaskHandlerOptions {}
 
-export interface DeleteHandlerData extends FileDataItem {}
+export interface DeleteHandlerData extends TaskData {
+  fileKey: string;
+}
 
 export interface DeleteHandlerInput
   extends TaskHandlerInput<DeleteHandlerData, DeleteHandlerOptions> {}
 
-export interface DeleteHandlerOutput extends TaskHandlerOutput {}
+export interface DeleteHandlerOutput
+  extends TaskHandlerOutput<{ key: string }> {}
 
 export interface DeleteHandler
   extends TaskHandler<DeleteHandlerInput, DeleteHandlerOutput> {}
 
 export const deleteHandler: DeleteHandler = ({
   config,
-  data: { key },
+  data,
 }): DeleteHandlerOutput => {
+  // eslint-disable-next-line no-console
+  console.log('delete data', data);
+
+  const { key } = data;
   const { accountId, credentials, customEndpoint } = config;
 
   const result = remove({
@@ -36,11 +43,12 @@ export const deleteHandler: DeleteHandler = ({
       expectedBucketOwner: accountId,
       customEndpoint,
     },
-  });
+  })
+    .then(({ path }) => ({
+      status: 'COMPLETE' as const,
+      value: { key: path },
+    }))
+    .catch(({ message }: Error) => ({ message, status: 'FAILED' as const }));
 
-  return {
-    result: result
-      .then(() => ({ status: 'COMPLETE' as const }))
-      .catch(({ message }: Error) => ({ message, status: 'FAILED' as const })),
-  };
+  return { result };
 };

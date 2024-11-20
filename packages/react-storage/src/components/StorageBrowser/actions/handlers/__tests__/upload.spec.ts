@@ -27,8 +27,7 @@ const onProgress = jest.fn();
 
 const baseInput: UploadHandlerInput = {
   config,
-  data: { key: file.name, id: 'an-id', file },
-  destinationPrefix: 'prefix/',
+  data: { key: `'prefix/'${file.name}`, id: 'an-id', file },
 };
 
 const cancel = jest.fn();
@@ -73,7 +72,7 @@ describe('uploadHandler', () => {
         preventOverwrite: true,
         checksumAlgorithm: 'crc-32',
       },
-      path: `${baseInput.destinationPrefix}${baseInput.data.key}`,
+      path: baseInput.data.key,
     };
 
     expect(uploadDataSpy).toHaveBeenCalledWith(expected);

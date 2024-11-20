@@ -80,6 +80,7 @@ const useProcessTasksSpy = jest
       isProcessingComplete: false,
       statusCounts: TasksModule.INITIAL_STATUS_COUNTS,
       tasks: [],
+      reset: jest.fn(),
     },
     handleProcessTasks,
   ]);
@@ -161,7 +162,6 @@ describe('useUploadView', () => {
         region: 'region',
       },
       options: { preventOverwrite: true },
-      destinationPrefix: '',
     });
   });
 
@@ -181,6 +181,7 @@ describe('useUploadView', () => {
           PENDING: 2,
           TOTAL: 2,
         },
+        reset: jest.fn(),
       },
       handleProcessTasks,
     ]);
@@ -212,6 +213,7 @@ describe('useUploadView', () => {
           FAILED: 1,
           TOTAL: 2,
         },
+        reset: jest.fn(),
       },
       handleProcessTasks,
     ]);

@@ -18,8 +18,7 @@ const onProgress = jest.fn();
 
 const baseInput: CreateFolderHandlerInput = {
   config,
-  data: { key: '', id: 'an-id' },
-  destinationPrefix: 'prefix/',
+  data: { key: 'prefix/', id: 'an-id' },
 };
 
 const error = new Error('Failed!');
@@ -59,7 +58,7 @@ describe('createFolderHandler', () => {
         onProgress: expect.any(Function),
         preventOverwrite: true,
       },
-      path: `${baseInput.destinationPrefix}${baseInput.data.key}`,
+      path: baseInput.data.key,
     };
 
     expect(uploadDataSpy).toHaveBeenCalledWith(expected);

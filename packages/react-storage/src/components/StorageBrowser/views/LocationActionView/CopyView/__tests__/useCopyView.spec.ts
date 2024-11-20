@@ -33,6 +33,10 @@ describe('useCopyView', () => {
     mockUseFolders.mockReturnValue({
       onInitialize: jest.fn(),
     });
+
+    Object.defineProperty(globalThis, 'crypto', {
+      value: { randomUUID: () => 'intentionally-static-test-id' },
+    });
   });
 
   beforeEach(() => {
@@ -138,7 +142,6 @@ describe('useCopyView', () => {
 
     expect(mockProcessTasks).toHaveBeenCalledTimes(1);
     expect(mockProcessTasks).toHaveBeenCalledWith({
-      destinationPrefix: 'test-prefix/',
       config: {
         accountId: '123456789012',
         bucket: 'XXXXXXXXXXX',

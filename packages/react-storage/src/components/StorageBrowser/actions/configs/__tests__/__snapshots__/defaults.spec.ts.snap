@@ -3,51 +3,45 @@
 exports[`defaultActionConfigs matches expected shape 1`] = `
 {
   "copy": {
-    "actionsListItemConfig": {
+    "actionListItem": {
       "disable": [Function],
       "hide": [Function],
       "icon": "copy-file",
       "label": "Copy",
     },
     "componentName": "CopyView",
-    "displayName": "Copy",
     "handler": [Function],
   },
   "createFolder": {
-    "actionsListItemConfig": {
+    "actionListItem": {
       "disable": [Function],
       "hide": [Function],
       "icon": "create-folder",
       "label": "Create folder",
     },
     "componentName": "CreateFolderView",
-    "displayName": "Create Folder",
     "handler": [Function],
-    "isCancelable": false,
   },
   "delete": {
-    "actionsListItemConfig": {
+    "actionListItem": {
       "disable": [Function],
       "hide": [Function],
       "icon": "delete-file",
       "label": "Delete",
     },
     "componentName": "DeleteView",
-    "displayName": "Delete",
     "handler": [Function],
   },
   "listLocationItems": {
     "componentName": "LocationDetailView",
-    "displayName": [Function],
     "handler": [Function],
   },
   "listLocations": {
     "componentName": "LocationsView",
-    "displayName": "Home",
     "handler": [Function],
   },
   "upload": {
-    "actionsListItemConfig": {
+    "actionListItem": {
       "disable": [Function],
       "fileSelection": "FILE",
       "hide": [Function],
@@ -55,10 +49,7 @@ exports[`defaultActionConfigs matches expected shape 1`] = `
       "label": "Upload",
     },
     "componentName": "UploadView",
-    "displayName": "Upload",
     "handler": [Function],
-    "includeProgress": true,
-    "isCancelable": true,
   },
 }
 `;

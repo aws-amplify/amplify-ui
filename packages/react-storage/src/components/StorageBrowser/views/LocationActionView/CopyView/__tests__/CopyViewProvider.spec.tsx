@@ -51,6 +51,7 @@ const taskOne = {
   data: {
     id: 'id',
     key: 'itsa-prefix/test-item',
+    sourceKey: 'itsa-prefix/test-item',
     fileKey: 'test-item',
     lastModified: new Date(),
     size: 1000,

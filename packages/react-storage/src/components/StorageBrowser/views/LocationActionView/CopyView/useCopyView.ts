@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-
 import { isFunction } from '@aws-amplify/ui';
 
-import { copyHandler, LocationData } from '../../../actions/handlers';
-import { Task, useProcessTasks } from '../../../tasks';
-import { useGetActionInput } from '../../../providers/configuration';
+import { LocationData } from '../../../actions';
 import { useStore } from '../../../providers/store';
+import { Task } from '../../../tasks';
+import { useAction } from '../../../useAction';
 
 import { CopyViewState, UseCopyViewOptions } from './types';
 import { useFolders } from './useFolders';
@@ -20,16 +19,24 @@ export const useCopyView = (options?: UseCopyViewOptions): CopyViewState => {
     dispatchStoreAction,
   ] = useStore();
 
-  const getInput = useGetActionInput();
-
-  const [processState, handleProcess] = useProcessTasks(
-    copyHandler,
-    fileDataItems,
-    { concurrency: 4 }
-  );
   const [destination, setDestination] = useState(location);
 
+  const data = React.useMemo(
+    () =>
+      fileDataItems?.map((item) => ({
+        ...item,
+        // generate new `id` on each `destination.key` change to refresh
+        // task data provided to `useActon`
+        id: crypto.randomUUID(),
+        key: `${destination.key}${item.fileKey}`,
+        sourceKey: item.key,
+      })),
+    [destination.key, fileDataItems]
+  );
+
   const folders = useFolders({ destination, setDestination });
+
+  const [processState, handleProcess] = useAction('copy', { items: data! });
 
   const { isProcessing, isProcessingComplete, statusCounts, tasks } =
     processState;
@@ -42,10 +49,7 @@ export const useCopyView = (options?: UseCopyViewOptions): CopyViewState => {
   }, [onInitialize]);
 
   const onActionStart = () => {
-    handleProcess({
-      config: getInput(),
-      destinationPrefix: destination.key,
-    });
+    handleProcess();
   };
 
   const onActionCancel = () => {

@@ -57,6 +57,7 @@ describe('useDeleteView', () => {
       {
         isProcessing: false,
         isProcessingComplete: false,
+        reset: jest.fn(),
         statusCounts: { ...Tasks.INITIAL_STATUS_COUNTS, QUEUED: 3, TOTAL: 3 },
         tasks: [
           {
@@ -132,6 +133,7 @@ describe('useDeleteView', () => {
       {
         isProcessing: false,
         isProcessingComplete: false,
+        reset: jest.fn(),
         statusCounts: { ...Tasks.INITIAL_STATUS_COUNTS, QUEUED: 1, TOTAL: 1 },
         tasks: [
           {

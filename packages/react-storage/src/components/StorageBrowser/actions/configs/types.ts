@@ -1,17 +1,25 @@
 import { StorageBrowserIconType } from '../../context/elements';
-import { LocationPermissions } from '../../actions';
 
 import {
-  ListLocationsHandler,
-  ListLocationItemsHandler,
-  LocationItemData,
-  LocationItemType,
-  UploadHandler,
+  CopyHandler,
   CreateFolderHandler,
   DeleteHandler,
-  CopyHandler,
+  DownloadHandler,
+  ListLocationItemsHandler,
+  ListLocations,
+  LocationItemData,
+  LocationPermissions,
+  TaskData,
   TaskHandler,
+  TaskHandlerInput,
+  TaskHandlerOutput,
+  UploadHandler,
 } from '../handlers';
+
+export type ActionHandler<TData = any, RValue = any> = TaskHandler<
+  TaskHandlerInput<TData & TaskData>,
+  TaskHandlerOutput<RValue>
+>;
 
 type StringWithoutSpaces<T extends string> = Exclude<
   T,
@@ -19,29 +27,7 @@ type StringWithoutSpaces<T extends string> = Exclude<
 >;
 
 export type ComponentName = Capitalize<`${string}View`>;
-type ActionName = StringWithoutSpaces<string>;
-
-/**
- * native OS file picker type. to restrict selectable file types, define the picker types
- * followed by accepted file types as strings
- * @example
- * ```ts
- * type JPEGOnly = ['FOLDER', '.jpeg'];
- * ```
- */
-export type SelectionType = LocationItemType | [LocationItemType, ...string[]];
-
-export interface ActionConfigTemplate<T> {
-  /**
-   * The name of the component associated with the action
-   */
-  componentName: ComponentName;
-
-  /**
-   * action handler
-   */
-  handler: T;
-}
+export type ActionName<T extends string = string> = StringWithoutSpaces<T>;
 
 export interface ActionListItemConfig {
   /**
@@ -49,11 +35,6 @@ export interface ActionListItemConfig {
    * @default false
    */
   disable?: (selectedValues: LocationItemData[] | undefined) => boolean;
-
-  /**
-   * open native OS file picker with associated selection type on item select
-   */
-  fileSelection?: SelectionType;
 
   /**
    * conditionally render list item based on location permission
@@ -76,92 +57,70 @@ export interface ActionListItemConfig {
  * defines an action to be included in the actions list of the `LocationDetailView` with
  * a dedicated subcomponent of the `LocationActionView`
  */
-export interface TaskActionConfig<T extends TaskHandler = TaskHandler>
-  extends ActionConfigTemplate<T> {
+export interface ActionViewConfig<
+  T extends ActionHandler = ActionHandler,
+  K extends ComponentName = ComponentName,
+> {
+  /**
+   * action handler
+   */
+  handler: T;
+
+  /**
+   * The view slot name associated with the action provided on the
+   * `StorageBrowser` through the `views` prop
+   */
+  viewName: K;
+
   /**
    * configure action list item behavior. provide multiple configs
    * to create additional list items for a single action
    */
-  actionsListItemConfig?: ActionListItemConfig;
-
-  /**
-   * whether the provided `handler` allow inflight cancellation
-   * @default false
-   */
-  isCancelable?: boolean;
-
-  /**
-   * show per task progress in the action task table
-   * @default false
-   */
-  includeProgress?: boolean;
-
-  /**
-   * default display name value displayed on action view
-   */
-  displayName: string;
+  actionListItem: ActionListItemConfig;
 }
 
-export interface ListActionConfig<T> extends ActionConfigTemplate<T> {}
+export interface UploadActionConfig
+  extends ActionViewConfig<UploadHandler, 'UploadView'> {}
 
-export interface UploadActionConfig extends TaskActionConfig<UploadHandler> {
-  componentName: 'UploadView';
-}
+export interface DeleteActionConfig
+  extends ActionViewConfig<DeleteHandler, 'DeleteView'> {}
 
-export interface DeleteActionConfig extends TaskActionConfig<DeleteHandler> {
-  componentName: 'DeleteView';
-}
-
-export interface CopyActionConfig extends TaskActionConfig<CopyHandler> {
-  componentName: 'CopyView';
-}
+export interface CopyActionConfig
+  extends ActionViewConfig<CopyHandler, 'CopyView'> {}
 
 export interface CreateFolderActionConfig
-  extends TaskActionConfig<CreateFolderHandler> {
-  componentName: 'CreateFolderView';
-}
+  extends ActionViewConfig<CreateFolderHandler, 'CreateFolderView'> {}
 
-export interface ListLocationsActionConfig
-  extends ListActionConfig<ListLocationsHandler> {
-  componentName: 'LocationsView';
-  displayName: string;
-}
-
-export interface ListLocationItemsActionConfig
-  extends ListActionConfig<ListLocationItemsHandler> {
-  componentName: 'LocationDetailView';
-  displayName: (
-    bucket: string | undefined,
-    prefix: string | undefined
-  ) => string;
+export interface ListActionConfig<T> {
+  /**
+   * action handler
+   */
+  handler: T;
 }
 
 export interface DefaultActionConfigs {
-  ListLocationItems: ListLocationItemsActionConfig;
-  ListLocations: ListLocationsActionConfig;
-  CreateFolder: CreateFolderActionConfig;
-  Upload: UploadActionConfig;
-  Delete: DeleteActionConfig;
-  Copy: CopyActionConfig;
+  createFolder?: CreateFolderActionConfig;
+  listLocationItems?: ListLocationItemsHandler;
+  upload?: UploadActionConfig;
+  delete?: DeleteActionConfig;
+  download?: DownloadHandler;
+  copy?: CopyActionConfig;
 }
 
-export type DefaultActionKey = keyof DefaultActionConfigs;
+export interface ExtendedDefaultActionConfigs
+  extends Required<DefaultActionConfigs> {
+  listLocations: ListLocations;
+}
 
-export type ActionConfigs<ActionsKeys extends ActionName = ActionName> = Record<
-  ActionsKeys,
-  | ListLocationItemsActionConfig
-  | ListLocationsActionConfig
-  | CreateFolderActionConfig
-  | UploadActionConfig
-  | TaskActionConfig
+export type CustomActionConfigs = Record<
+  ActionName,
+  ActionViewConfig | ActionHandler
 >;
 
-export type ResolveActionHandler<T> = T extends
-  | TaskActionConfig<infer K>
-  | ListActionConfig<infer K>
-  ? K
-  : never;
+export interface ExtendedActionConfigs {
+  default?: ExtendedDefaultActionConfigs;
+  custom?: CustomActionConfigs;
+}
 
-export type ResolveActionHandlers<T> = {
-  [K in keyof T]: ResolveActionHandler<T[K]>;
-};
+export type ActionViewConfigs<ActionsKeys extends ActionName = ActionName> =
+  Record<ActionsKeys, ActionViewConfig>;

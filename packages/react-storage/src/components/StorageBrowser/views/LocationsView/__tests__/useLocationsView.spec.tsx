@@ -8,8 +8,6 @@ import * as StoreModule from '../../../providers/store';
 import * as TasksModule from '../../../tasks';
 import * as ConfigModule from '../../../providers/configuration';
 
-import { createFileDataItemFromLocation } from '../../../actions/handlers';
-
 jest.useFakeTimers();
 jest.setSystemTime(1);
 
@@ -86,6 +84,7 @@ const taskOne: TasksModule.Task<ActionsModule.FileDataItem> = {
 const handleDownload = jest.fn();
 jest.spyOn(TasksModule, 'useProcessTasks').mockReturnValue([
   {
+    reset: jest.fn(),
     isProcessing: false,
     isProcessingComplete: false,
     statusCounts: TasksModule.INITIAL_STATUS_COUNTS,
@@ -101,7 +100,14 @@ const config: ActionsModule.ActionInputConfig = {
 };
 useGetActionSpy.mockReturnValue(() => config);
 
+const mockId = 'intentionally-static-test-id';
 describe('useLocationsView', () => {
+  beforeAll(() => {
+    Object.defineProperty(globalThis, 'crypto', {
+      value: { randomUUID: () => mockId },
+    });
+  });
+
   afterEach(() => {
     jest.clearAllMocks();
   });
@@ -258,7 +264,7 @@ describe('useLocationsView', () => {
     expect(handleDownload).toHaveBeenCalledTimes(1);
     expect(handleDownload).toHaveBeenCalledWith({
       config,
-      data: createFileDataItemFromLocation(location),
+      data: {},
     });
   });
 

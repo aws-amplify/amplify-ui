@@ -21,6 +21,7 @@ jest.spyOn(ConfigModule, 'useGetActionInput').mockReturnValue(() => config);
 const defaultProcessingState = {
   isProcessing: false,
   isProcessingComplete: false,
+  reset: jest.fn(),
   statusCounts: { ...TasksModule.INITIAL_STATUS_COUNTS },
   tasks: [],
 };
@@ -66,8 +67,6 @@ describe('useCreateFolderView', () => {
 
     expect(handleProcessTasks).toHaveBeenCalledWith({
       config,
-      data: { id: 'intentionally-static-test-id', key: '/' },
-      destinationPrefix: 'test-prefix/',
       options: { preventOverwrite: true },
     });
   });

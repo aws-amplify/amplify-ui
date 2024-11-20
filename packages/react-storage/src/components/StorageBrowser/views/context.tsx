@@ -1,63 +1,33 @@
 import React from 'react';
 
-import {
-  LocationActionView as LocationActionViewDefault,
-  LocationActionViewProps,
-} from './LocationActionView';
-import {
-  LocationDetailView as LocationDetailViewDefault,
-  LocationDetailViewProps,
-} from './LocationDetailView';
-import {
-  LocationsView as LocationsViewDefault,
-  LocationsViewProps,
-} from './LocationsView';
+import { ExtendedActionConfigs } from '../actions';
 
-const ERROR_MESSAGE = '`useViews` must be called from within a `ViewsProvider`';
+import { Views, ViewsContextType } from './types';
+import { DEFAULT_ACTION_VIEWS, DEFAULT_PRIMARY_VIEWS, getViews } from './utils';
 
-export interface DefaultViews<T = string> {
-  LocationActionView: (
-    props: LocationActionViewProps<T>
-  ) => React.JSX.Element | null;
-  LocationDetailView: (
-    props: LocationDetailViewProps
-  ) => React.JSX.Element | null;
-  LocationsView: (props: LocationsViewProps) => React.JSX.Element | null;
-}
-
-export interface Views<T = string> extends Partial<DefaultViews<T>> {}
-
-const ViewsContext = React.createContext<DefaultViews | undefined>(undefined);
+export const ViewsContext = React.createContext<ViewsContextType>({
+  primary: DEFAULT_PRIMARY_VIEWS,
+  action: DEFAULT_ACTION_VIEWS,
+});
 
 export function ViewsProvider({
   children,
   views,
+  actions,
 }: {
   children?: React.ReactNode;
+  actions?: ExtendedActionConfigs;
   views?: Views;
 }): React.JSX.Element {
-  // destructure `views` to prevent extraneous rerender of components in the
-  // scenario of an unstable reference provided as `views`
-  const { LocationDetailView, LocationActionView, LocationsView } = views ?? {};
-  const value = React.useMemo(
-    () => ({
-      LocationActionView: LocationActionView ?? LocationActionViewDefault,
-      LocationDetailView: LocationDetailView ?? LocationDetailViewDefault,
-      LocationsView: LocationsView ?? LocationsViewDefault,
-    }),
-    [LocationDetailView, LocationActionView, LocationsView]
-  );
+  const { custom } = actions ?? {};
+
+  const value = React.useMemo(() => getViews(views, custom), [custom, views]);
 
   return (
     <ViewsContext.Provider value={value}>{children}</ViewsContext.Provider>
   );
 }
 
-export function useViews(): DefaultViews {
-  const context = React.useContext(ViewsContext);
-  if (!context) {
-    throw new Error(ERROR_MESSAGE);
-  }
-
-  return context;
+export function useViews(): ViewsContextType {
+  return React.useContext(ViewsContext);
 }

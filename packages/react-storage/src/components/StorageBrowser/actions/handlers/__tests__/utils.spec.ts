@@ -1,4 +1,4 @@
-import { LocationAccess as AccessGrantLocation } from '../../../storage-internal';
+import { LocationAccess as AccessGrantLocation } from '../../storage-internal';
 import { LocationData } from '../types';
 
 import {

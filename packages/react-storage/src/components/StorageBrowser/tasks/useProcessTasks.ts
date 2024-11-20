@@ -1,16 +1,13 @@
 import React from 'react';
 
-import {
-  TaskHandlerInput,
-  TaskData,
-  TaskHandlerOutput,
-  TaskHandler,
-} from '../actions';
+import { ActionHandler, TaskHandlerInput, TaskData } from '../actions';
+
+import { isFunction } from '@aws-amplify/ui';
 
 import {
   HandleProcessTasks,
-  ProcessTasksOptions,
   Task,
+  ProcessTasksOptions,
   UseProcessTasksState,
 } from './types';
 import {
@@ -18,17 +15,6 @@ import {
   isProcessingTasks,
   hasCompletedProcessingTasks,
 } from './utils';
-import { isFunction } from '@aws-amplify/ui';
-
-export type UseProcessTasks = <
-  T extends TaskData,
-  K,
-  D extends T[] | undefined,
->(
-  handler: TaskHandler<TaskHandlerInput<T> & K, TaskHandlerOutput>,
-  items?: D,
-  options?: ProcessTasksOptions<T, D extends T[] ? number : never>
-) => UseProcessTasksState<T, K, D>;
 
 const QUEUED_TASK_BASE = {
   cancel: undefined,
@@ -37,21 +23,24 @@ const QUEUED_TASK_BASE = {
   status: 'QUEUED' as const,
 };
 
-const isTaskHandlerInput = (
-  input: TaskHandlerInput | Omit<TaskHandlerInput, 'data'>
-): input is TaskHandlerInput => !!(input as TaskHandlerInput).data;
+const isTaskHandlerInput = <T extends TaskData>(
+  input: TaskHandlerInput<T> | Omit<TaskHandlerInput<T>, 'data'>
+): input is TaskHandlerInput<T> => !!(input as TaskHandlerInput<T>).data;
 
-export const useProcessTasks: UseProcessTasks = <
-  T extends TaskData,
-  // input params not included in `TaskHandlerInput`
-  K,
-  // infered value of `items` for conditional typing of `concurrency
-  D extends T[] | undefined,
+export const useProcessTasks = <
+  TData extends TaskData = TaskData,
+  RValue = any,
+  // infered value of `items` for conditional typing of `concurrency`
+  D extends TData[] | undefined = undefined,
 >(
-  handler: TaskHandler<TaskHandlerInput<T> & K, TaskHandlerOutput>,
+  handler: ActionHandler<TData, RValue>,
   items?: D,
-  options?: ProcessTasksOptions<T, D extends T[] ? number : never>
-): UseProcessTasksState<T, K, D> => {
+  options?: ProcessTasksOptions<
+    TData,
+    RValue,
+    D extends TData[] ? number : never
+  >
+): UseProcessTasksState<TData, D> => {
   const { concurrency, ...callbacks } = options ?? {};
 
   const callbacksRef = React.useRef(callbacks);
@@ -60,12 +49,12 @@ export const useProcessTasks: UseProcessTasks = <
     callbacksRef.current = callbacks;
   }
 
-  const tasksRef = React.useRef<Map<string, Task<T>>>(new Map());
+  const tasksRef = React.useRef<Map<string, Task<TData>>>(new Map());
 
   const flush = React.useReducer(() => ({}), {})[1];
 
   const updateTask = React.useCallback(
-    (id: string, next?: Partial<Task<T>>) => {
+    (id: string, next?: Partial<Task<TData>>) => {
       const { onTaskRemove } = callbacksRef.current;
       const task = tasksRef.current.get(id);
 
@@ -84,7 +73,7 @@ export const useProcessTasks: UseProcessTasks = <
   );
 
   const createTask = React.useCallback(
-    (data: T) => {
+    (data: TData) => {
       const getTask = () => tasksRef.current.get(data.id);
       const { onTaskCancel } = callbacksRef.current;
 
@@ -109,7 +98,7 @@ export const useProcessTasks: UseProcessTasks = <
       taskLookup[data.id] = true;
     });
 
-    items?.forEach((item) => {
+    items?.forEach((item: TData) => {
       if (!taskLookup[item.id]) {
         // If an item doesn't yet have a task created for it, create one
         createTask(item);
@@ -128,7 +117,7 @@ export const useProcessTasks: UseProcessTasks = <
     flush();
   }, [createTask, flush, updateTask, items]);
 
-  const processNextTask: HandleProcessTasks<T, K, D> = (_input) => {
+  const processNextTask: HandleProcessTasks<TData, D> = (_input) => {
     const hasInputData = isTaskHandlerInput(_input);
     if (hasInputData) {
       createTask(_input.data);
@@ -153,21 +142,27 @@ export const useProcessTasks: UseProcessTasks = <
 
     const getTask = () => tasksRef.current.get(data.id);
 
-    const onProgress = ({ id }: T, progress?: number) => {
+    const { options } = _input;
+    const { onProgress: _onProgress, onSuccess, onError } = options ?? {};
+
+    const onProgress = ({ id }: TData, progress?: number) => {
       const task = getTask();
 
       if (task && isFunction(onTaskProgress)) {
         onTaskProgress(task, progress);
       }
 
+      if (task && isFunction(_onProgress)) {
+        _onProgress(data, progress);
+      }
+
       updateTask(id, { progress });
     };
 
-    const { options } = _input;
     const input = { ..._input, data, options: { ...options, onProgress } };
 
     const { cancel: _cancel, result } = handler(
-      input as TaskHandlerInput<T> & K
+      input as TaskHandlerInput<TData>
     );
 
     const cancel = !_cancel
@@ -181,13 +176,20 @@ export const useProcessTasks: UseProcessTasks = <
     result
       .then((output) => {
         const task = getTask();
-        if (task && isFunction(onTaskSuccess)) onTaskSuccess(task);
+
+        if (task && isFunction(onTaskSuccess)) {
+          onTaskSuccess(task, output?.value);
+        }
+
+        if (task && isFunction(onSuccess)) onSuccess(data, output?.value);
 
         updateTask(data.id, output);
       })
       .catch((e: Error) => {
         const task = getTask();
         if (task && isFunction(onTaskError)) onTaskError(task, e);
+
+        if (task && isFunction(onError)) onError(data, e?.message);
 
         updateTask(data.id, { message: e.message, status: 'FAILED' });
       })
@@ -209,7 +211,7 @@ export const useProcessTasks: UseProcessTasks = <
   const isProcessing = isProcessingTasks(statusCounts);
   const isProcessingComplete = hasCompletedProcessingTasks(statusCounts);
 
-  const handleProcessTasks: HandleProcessTasks<T, K, D> = (input) => {
+  const handleProcessTasks: HandleProcessTasks<TData, D> = (input) => {
     if (isProcessing) {
       return;
     }
@@ -226,8 +228,12 @@ export const useProcessTasks: UseProcessTasks = <
     }
   };
 
+  const reset = () => {
+    tasks.forEach(({ data }) => updateTask(data.id));
+  };
+
   return [
-    { isProcessing, isProcessingComplete, statusCounts, tasks },
+    { isProcessing, isProcessingComplete, reset, statusCounts, tasks },
     handleProcessTasks,
   ];
 };
