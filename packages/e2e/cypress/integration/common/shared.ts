@@ -8,6 +8,17 @@ import { get, escapeRegExp } from 'lodash';
 let language = 'en-US';
 let window = null;
 let stub = null;
+const randomFileName = `fileName${Math.random() * 10000}`;
+
+const clickButtonWithText = (name: string) => {
+  cy.findByRole('button', {
+    name: new RegExp(`${escapeRegExp(name)}`, 'i'),
+  }).click();
+};
+
+const typeInInputHandler = (field: string, value: string) => {
+  cy.findInputField(field).type(value);
+};
 
 const getRoute = (routeMatcher: { headers: { [key: string]: string } }) => {
   return `${routeMatcher.headers?.['X-Amz-Target'] || 'route'}`;
@@ -95,6 +106,22 @@ Given(
     cy.wait(getWaitRoute(routeMatcher)).then((interception) => {
       assert.isNotNull(interception, 'API call confirmed');
     });
+  }
+);
+
+Given(
+  'I intercept a {string} request to {string}',
+  (method: string, endpoint: string) => {
+    cy.intercept(method, endpoint).as(`${method}_REQUEST`);
+  }
+);
+
+Then(
+  'I confirm the {string} request has a status of {string}',
+  (method: string, statusCode: string) => {
+    cy.wait(`@${method}_REQUEST`)
+      .its('response.statusCode')
+      .should('eq', +statusCode);
   }
 );
 
@@ -223,10 +250,15 @@ When('I type a new {string}', (field: string) => {
   cy.findInputField(field).typeAliasWithStatus(field, `${Date.now()}`);
 });
 
-const typeInInputHandler = (field: string, value: string) => {
-  cy.findInputField(field).type(value);
-};
 When('I type a new {string} with value {string}', typeInInputHandler);
+
+When('I type a new {string} with random value', (field: string) => {
+  typeInInputHandler(field, randomFileName);
+});
+
+When('I lose focus on {string} input', (field: string) => {
+  cy.findInputField(field).blur();
+});
 
 When('I click the {string} tab', (label: string) => {
   cy.findByRole('tab', {
@@ -244,6 +276,44 @@ When('I click the {string} button', (name: string) => {
   }).click();
 });
 
+Then('I press the {string} key', (key: string) => {
+  cy.get('body').type(key);
+});
+
+When('I click the button containing {string}', clickButtonWithText);
+
+When('I click the button containing random name', () => {
+  clickButtonWithText(randomFileName);
+});
+
+When('I click the first button containing {string}', (name: string) => {
+  cy.findAllByRole('button', {
+    name: new RegExp(`${escapeRegExp(name)}`, 'i'),
+  })
+    .first()
+    .click();
+});
+
+Then('I see the button containing {string}', (name: string) => {
+  cy.findByRole('button', {
+    name: new RegExp(`${escapeRegExp(name)}`, 'i'),
+  }).should('exist');
+});
+
+Then('I do not see the button containing {string}', (name: string) => {
+  cy.findByRole('button', {
+    name: new RegExp(`${escapeRegExp(name)}`, 'i'),
+  }).should('not.exist');
+});
+
+Then('I see the first button containing {string}', (name: string) => {
+  cy.findAllByRole('button', {
+    name: new RegExp(`${escapeRegExp(name)}`, 'i'),
+  })
+    .first()
+    .should('exist');
+});
+
 Then('I see the {string} button', (name: string) => {
   cy.findByRole('button', {
     name: new RegExp(`^${escapeRegExp(name)}$`, 'i'),
@@ -254,6 +324,18 @@ Then('I do not see the {string} button', (name: string) => {
   cy.findByRole('button', {
     name: new RegExp(`^${escapeRegExp(name)}$`, 'i'),
   }).should('not.exist');
+});
+
+When('I click the {string} menuitem', (label: string) => {
+  cy.findByRole('menuitem', {
+    name: new RegExp(`^${escapeRegExp(label)}$`, 'i'),
+  }).click();
+});
+
+Then('I see the {string} menuitem', (label: string) => {
+  cy.findByRole('menuitem', {
+    name: new RegExp(`^${escapeRegExp(label)}$`, 'i'),
+  }).should('exist');
 });
 
 When('I click the {string} checkbox', (label: string) => {
@@ -284,6 +366,12 @@ Then('I see {string}', (message: string) => {
   cy.findByRole('document')
     .contains(new RegExp(escapeRegExp(message), 'i'))
     .should('exist');
+});
+
+Then('I do not see {string}', (message: string) => {
+  cy.findByRole('document')
+    .contains(new RegExp(escapeRegExp(message), 'i'))
+    .should('not.exist');
 });
 
 Then('I see {string} element', (id: string) => {
@@ -475,6 +563,13 @@ When('I type an invalid no lower case new password', () => {
 When('I type my new password', () => {
   cy.findInputField('New Password').type(Cypress.env('VALID_PASSWORD'));
 });
+
+When(
+  'I see input with placeholder {string} and type {string}',
+  (name: string, value: string) => {
+    cy.findByPlaceholderText(name).type(value);
+  }
+);
 
 Then('I click the submit button', () => {
   /**
