@@ -39,7 +39,7 @@
     "@aws-amplify/ui-react-core": "3.0.30"
   },
   "peerDependencies": {
-    "aws-amplify": "storage-browser-integrity",
+    "aws-amplify": "unstable",
     "react": "^16.14.0 || ^17.0 || ^18.0"
   },
   "sideEffects": false
