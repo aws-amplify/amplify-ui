@@ -1,5 +1,9 @@
 import React from 'react';
 
+import { setUserAgent } from '@aws-amplify/ui';
+
+import { VERSION } from '../../version';
+
 import { DEFAULT_COMPOSABLES } from './composables';
 import { elementsDefault } from './context/elements';
 import { ComponentsProvider } from './ComponentsProvider';
@@ -48,6 +52,12 @@ export function createStorageBrowser(input: CreateStorageBrowserInput): {
     getLocationCredentials,
     region,
   } = input.config;
+
+  setUserAgent({
+    componentName: 'StorageBrowser',
+    packageName: 'react-storage',
+    version: VERSION,
+  });
 
   const ConfigurationProvider = createConfigurationProvider({
     accountId,
