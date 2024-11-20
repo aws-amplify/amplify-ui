@@ -59,6 +59,24 @@ describe('copyHandler', () => {
     expect(copySpy).toHaveBeenCalledWith(expected);
   });
 
+  it('provides eTag and notModifiedSince to copy for durableness', () => {
+    copyHandler(baseInput);
+
+    const bucket = {
+      bucketName: `${baseInput.config.bucket}`,
+      region: `${baseInput.config.region}`,
+    };
+
+    const copyInput = copySpy.mock.lastCall?.[0];
+    expect(copyInput).toHaveProperty('source', {
+      expectedBucketOwner: `${baseInput.config.accountId}`,
+      bucket,
+      path: baseInput.data.key,
+      eTag: baseInput.data.eTag,
+      notModifiedSince: baseInput.data.lastModified,
+    });
+  });
+
   it.each([
     ['unicode', 'bucket/path/☺️', 'bucket/path/%E2%98%BA%EF%B8%8F'],
     ['already encoded', 'bucket/path/%20', 'bucket/path/%2520'],
