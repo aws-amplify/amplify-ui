@@ -41,14 +41,14 @@ while [[ $# -gt 0 ]]; do
         PKG_MANAGER=$2
         shift
         ;;
-    # -t | --tag)
-    #     TAG=$2
-    #     shift
-    #     ;;
-    # -js | --js-tag)
-    #     JS_TAG=$2
-    #     shift
-    #     ;;
+    -t | --tag)
+        TAG="next"
+        shift
+        ;;
+    -js | --js-tag)
+        JS_TAG="unstable"
+        shift
+        ;;
     -h | --help)
         echo "Usage: mega-app-create-app.sh [OPTIONS]"
         echo "Options:"
