@@ -366,6 +366,7 @@ describe('Search', () => {
           query: 'càf',
         },
       });
+
       expect(output).toEqual([
         {
           id: expect.any(String),
@@ -386,6 +387,42 @@ describe('Search', () => {
           id: expect.any(String),
           key: 'collections/album/random/cafe-vita.png',
           type: 'FILE',
+        },
+      ]);
+    });
+    it('ignores diacritics', () => {
+      const mockData = [
+        {
+          key: 'collections/Straße.jpg',
+        },
+        {
+          key: 'collections/Straße/photos.jpg ',
+        },
+        {
+          key: 'collections/random/photos.jpg ',
+        },
+      ];
+
+      const output = searchItems<Item>({
+        list: mockData,
+        prefix: 'collections/',
+        options: {
+          filterBy: 'key',
+          groupBy: '/',
+          query: 'strasse',
+        },
+      });
+
+      expect(output).toEqual([
+        {
+          id: expect.any(String),
+          key: 'collections/Straße.jpg',
+          type: 'FILE',
+        },
+        {
+          id: expect.any(String),
+          key: 'collections/Straße/',
+          type: 'FOLDER',
         },
       ]);
     });
