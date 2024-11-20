@@ -43,7 +43,7 @@
   },
   "peerDependencies": {
     "@aws-amplify/core": "*",
-    "aws-amplify": "^6.6.5",
+    "aws-amplify": "unstable",
     "react": "^16.14.0 || ^17.0 || ^18.0",
     "react-dom": "^16.14.0 || ^17.0 || ^18.0"
   },

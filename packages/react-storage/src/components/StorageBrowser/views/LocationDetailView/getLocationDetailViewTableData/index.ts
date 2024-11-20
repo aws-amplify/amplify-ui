@@ -1,0 +1,1 @@
+export { getLocationDetailViewTableData } from './getLocationDetailViewTableData';
