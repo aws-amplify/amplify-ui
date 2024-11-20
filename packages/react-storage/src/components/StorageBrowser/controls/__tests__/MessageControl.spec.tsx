@@ -1,26 +1,34 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { MessageControl } from '../MessageControl';
-import * as UseMessageModule from '../hooks/useMessage';
+import { useMessage } from '../hooks/useMessage';
+import { useResolvedComposable } from '../hooks/useResolvedComposable';
 
-const useMessageSpy = jest.spyOn(UseMessageModule, 'useMessage');
-
-const content = 'Jello world!';
-const onDismiss = jest.fn();
-const type = 'warning';
+jest.mock('../hooks/useMessage');
+jest.mock('../hooks/useResolvedComposable');
+jest.mock('../../composables/Message', () => ({
+  Message: () => <div data-testid="message" />,
+}));
 
 describe('MessageControl', () => {
-  beforeEach(() => {
-    useMessageSpy.mockClear();
+  const mockUseMessage = jest.mocked(useMessage);
+  const mockUseResolvedComposable = jest.mocked(useResolvedComposable);
+
+  beforeAll(() => {
+    mockUseResolvedComposable.mockImplementation(
+      (component) => component as () => React.JSX.Element
+    );
+  });
+
+  afterEach(() => {
+    mockUseMessage.mockClear();
   });
 
   it('renders', () => {
-    useMessageSpy.mockReturnValue({ content, onDismiss, type });
-
     render(<MessageControl />);
 
-    const messageContent = screen.getByText(content);
+    const message = screen.getByTestId('message');
 
-    expect(messageContent).toBeInTheDocument();
+    expect(message).toBeInTheDocument();
   });
 });
