@@ -7,6 +7,10 @@ on:
       dist-tag:
         required: true
         type: string
+      js-dist-tag:
+        required: false
+        default: 'latest'
+        type: string
 
 jobs:
   build:
@@ -189,7 +193,7 @@ jobs:
           $ANDROID_HOME/platform-tools/adb shell settings put global animator_duration_scale 0.0
 
       - name: Create MegaApp ${{ env.MEGA_APP_NAME }} and run build on NodeJS ${{ matrix.node-version }}
-        run: npm run setup:${{matrix.framework}}:${{matrix.build-tool}} -- --name ${{ env.MEGA_APP_NAME }} --platform ${{matrix.platform}} --tag ${{inputs.dist-tag}} --framework-version ${{matrix.framework-version.value}} --build-tool-version ${{matrix.build-tool-version}}
+        run: npm run setup:${{matrix.framework}}:${{matrix.build-tool}} -- --name ${{ env.MEGA_APP_NAME }} --platform ${{matrix.platform}} --tag ${{inputs.dist-tag}} --js-tag ${{inputs.js-dist-tag}} --framework-version ${{matrix.framework-version.value}} --build-tool-version ${{matrix.build-tool-version}}
         shell: bash
         working-directory: build-system-tests
       - name: Detect Mega App Error in Log

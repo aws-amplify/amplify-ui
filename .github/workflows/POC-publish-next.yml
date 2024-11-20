@@ -86,9 +86,9 @@ jobs:
 
   build-test-react-native:
     uses: ./.github/workflows/reusable-build-system-test-react-native.yml
-    needs: publish
     with:
       dist-tag: next
+      js-dist-tag: unstable      
 
   # log-failure-metric:
   #   # Send a failure data point to metric PublishNextFailure in github-workflows@ us-east-2, if it's a failure
