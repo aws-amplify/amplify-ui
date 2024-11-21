@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui-react-liveness",
-  "version": "3.1.16",
+  "version": "3.1.17",
   "main": "dist/index.js",
   "module": "dist/esm/index.mjs",
   "exports": {
@@ -43,13 +43,13 @@
   },
   "peerDependencies": {
     "@aws-amplify/core": "*",
-    "aws-amplify": "unstable",
+    "aws-amplify": "^6.9.0",
     "react": "^16.14.0 || ^17.0 || ^18.0",
     "react-dom": "^16.14.0 || ^17.0 || ^18.0"
   },
   "dependencies": {
-    "@aws-amplify/ui": "6.6.6",
-    "@aws-amplify/ui-react": "6.6.0",
+    "@aws-amplify/ui": "6.7.0",
+    "@aws-amplify/ui-react": "6.7.0",
     "@aws-sdk/client-rekognitionstreaming": "3.621.0",
     "@aws-sdk/util-format-url": "3.609.0",
     "@smithy/eventstream-serde-browser": "^2.0.4",
