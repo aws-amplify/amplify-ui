@@ -1320,6 +1320,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           videoEl,
           selectableDevices,
           selectedDeviceId,
+          videoMediaStream,
         } = context.videoAssociatedParams!;
         const { initialFace, ovalDetails } = context.ovalAssociatedParams!;
         const { startFace, endFace } = context.faceMatchAssociatedParams!;
@@ -1356,6 +1357,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           device: {
             camera: userCamera,
             screen: window.screen,
+            capabilities: videoMediaStream!.getTracks()[0]?.getCapabilities(),
           },
           media: {
             calculatedStartTimestamp: recordingStartedTimestamp,
