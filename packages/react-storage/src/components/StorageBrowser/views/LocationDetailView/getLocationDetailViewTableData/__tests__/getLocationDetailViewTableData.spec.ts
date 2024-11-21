@@ -218,4 +218,43 @@ describe('getLocationDetailViewTableData', () => {
       `${location.path}folder/`
     );
   });
+
+  describe('has search results', () => {
+    it('should return table data with path', () => {
+      expect(
+        getLocationDetailViewTableData({
+          areAllFilesSelected: false,
+          location,
+          hasFiles: true,
+          hasSearchResults: true,
+          pageItems: [folderItem, folderItem, fileItem, fileItem, fileItem],
+          onDownload: mockOnDownload,
+          getDateDisplayValue: (date: Date) => date.toLocaleString(),
+          selectAllFilesLabel: 'Select all files',
+          selectFileLabel: 'Select file',
+          onNavigate: mockOnNavigate,
+          onSelect: mockOnSelect,
+          onSelectAll: mockOnSelectAll,
+        })
+      ).toStrictEqual(
+        expect.objectContaining({
+          headers: [
+            expect.objectContaining({
+              type: 'checkbox',
+              content: expect.objectContaining({ checked: false }),
+            }),
+            expect.objectContaining({ content: { label: 'Name' } }),
+            expect.objectContaining({ content: { label: 'Path' } }),
+            expect.objectContaining({ content: { label: 'Type' } }),
+            expect.objectContaining({ content: { label: 'Last modified' } }),
+            expect.objectContaining({ content: { label: 'Size' } }),
+            expect.objectContaining({ content: { text: '' } }),
+          ],
+          rows: expect.any(Array),
+        })
+      );
+      expect(mockGetFileRowContent).toHaveBeenCalledTimes(3);
+      expect(mockGetFolderRowContent).toHaveBeenCalledTimes(2);
+    });
+  });
 });
