@@ -144,8 +144,6 @@ export function searchItems<T>({ prefix = '', list, options }: Search<T>): T[] {
           ...item,
           id: crypto.randomUUID(),
           [key]: isFolder ? matchedPath + groupBy : matchedPath,
-          name: isFolder ? component + groupBy : component,
-          path: matchedPath.slice(prefix.length).slice(0, -component.length),
           type: isFolder ? 'FOLDER' : 'FILE',
         });
       }

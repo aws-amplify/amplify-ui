@@ -65,26 +65,19 @@ export const getLocationDetailViewTableData = ({
 
   const [noopCheckbox, nameHeader, ...rest] = LOCATION_DETAIL_VIEW_HEADERS;
 
-  const headers: LocationDetailViewHeaders = [];
-
-  if (hasFiles) {
-    headers.push(headerCheckbox, nameHeader);
-  } else {
-    headers.push(noopCheckbox, nameHeader);
-  }
-
-  if (hasSearchResults) {
-    headers.push(pathHeader);
-  }
-
-  headers.push(...rest);
+  const headers: LocationDetailViewHeaders = [
+    hasFiles ? headerCheckbox : noopCheckbox,
+    nameHeader,
+    ...(hasSearchResults ? [pathHeader] : []),
+    ...rest,
+  ];
 
   const rows: DataTableProps['rows'] = pageItems.map((locationItem) => {
-    const { id, key, type, name } = locationItem;
+    const { id, key, type } = locationItem;
     switch (type) {
       case 'FILE': {
         const { lastModified, size } = locationItem;
-        const { current, path } = location;
+        const { current } = location;
         const isSelected =
           fileDataItems?.some((item) => item.id === id) ?? false;
         const onFileDownload = () => {
@@ -96,13 +89,9 @@ export const getLocationDetailViewTableData = ({
         return {
           key: id,
           content: getFileRowContent({
-            hasSearchResults,
             headers,
             permissions: current?.permissions ?? [],
             isSelected,
-            path: locationItem.path ?? '',
-            name,
-            itemLocationKey: `${current?.prefix ?? ''}${path}`,
             lastModified,
             getDateDisplayValue,
             rowId: id,
@@ -115,8 +104,7 @@ export const getLocationDetailViewTableData = ({
         };
       }
       case 'FOLDER': {
-        const { current, path } = location;
-        const itemSubPath = key.slice(`${current?.prefix ?? ''}${path}`.length);
+        const { current } = location;
         const itemLocationPath = key.slice(current?.prefix.length);
         const onFolderNavigate = () => {
           if (!current) {
@@ -127,10 +115,8 @@ export const getLocationDetailViewTableData = ({
         return {
           key: id,
           content: getFolderRowContent({
-            path: locationItem.path ?? '',
             headers,
-            itemSubPath,
-            name,
+            rowKey: key,
             rowId: id,
             onNavigate: onFolderNavigate,
           }),

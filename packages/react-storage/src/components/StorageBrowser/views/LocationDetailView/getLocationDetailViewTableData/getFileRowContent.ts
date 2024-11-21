@@ -5,15 +5,13 @@ import { DataTableProps } from '../../../composables/DataTable';
 import { LOCATION_DETAIL_VIEW_HEADERS } from './constants';
 import { LocationPermissions } from '../../../actions';
 import { LocationDetailViewHeaders } from './types';
+import { getFileKey, getFilePath } from '../../../actions/handlers';
 
 export const getFileRowContent = ({
   permissions,
   isSelected,
-  itemLocationKey,
   getDateDisplayValue,
   lastModified,
-  path,
-  name,
   rowId,
   rowKey,
   selectFileLabel,
@@ -24,14 +22,10 @@ export const getFileRowContent = ({
 }: {
   permissions: LocationPermissions;
   isSelected: boolean;
-  itemLocationKey: string;
   lastModified: Date;
   headers: LocationDetailViewHeaders;
-  hasSearchResults: boolean;
   getDateDisplayValue: (date: Date) => string;
   rowId: string;
-  path: string;
-  name?: string;
   rowKey: string;
   selectFileLabel: string;
   size: number;
@@ -60,7 +54,7 @@ export const getFileRowContent = ({
           content: {
             icon: 'file',
             ariaLabel: 'file',
-            text: name ?? rowKey.slice(itemLocationKey.length),
+            text: getFileKey(rowKey),
           },
         };
       }
@@ -69,7 +63,7 @@ export const getFileRowContent = ({
           key,
           type: 'text',
           content: {
-            text: path,
+            text: getFilePath(rowKey),
           },
         };
       }

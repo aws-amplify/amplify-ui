@@ -14,7 +14,7 @@ exports[`getActionViewTableData should handle tasks with prefix keys 1`] = `
       },
       {
         "content": {
-          "text": "/",
+          "text": "folder/subfolder/",
         },
         "key": "folder-1",
         "type": "text",
@@ -66,7 +66,7 @@ exports[`getActionViewTableData should handle tasks with prefix keys 1`] = `
       },
       {
         "content": {
-          "text": "/",
+          "text": "/root/",
         },
         "key": "folder-2",
         "type": "text",
@@ -180,7 +180,7 @@ exports[`getActionViewTableData should return correct table data for all task st
       },
       {
         "content": {
-          "text": "/",
+          "text": "some-prefix/",
         },
         "key": "folder-1",
         "type": "text",
@@ -232,7 +232,7 @@ exports[`getActionViewTableData should return correct table data for all task st
       },
       {
         "content": {
-          "text": "/",
+          "text": "some-prefix/",
         },
         "key": "folder-2",
         "type": "text",
@@ -284,7 +284,7 @@ exports[`getActionViewTableData should return correct table data for all task st
       },
       {
         "content": {
-          "text": "/",
+          "text": "some-prefix/",
         },
         "key": "folder-3",
         "type": "text",
@@ -336,7 +336,7 @@ exports[`getActionViewTableData should return correct table data for all task st
       },
       {
         "content": {
-          "text": "/",
+          "text": "some-prefix/",
         },
         "key": "folder-4",
         "type": "text",
@@ -388,7 +388,7 @@ exports[`getActionViewTableData should return correct table data for all task st
       },
       {
         "content": {
-          "text": "/",
+          "text": "some-prefix/",
         },
         "key": "folder-5",
         "type": "text",

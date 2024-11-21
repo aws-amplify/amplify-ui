@@ -38,8 +38,6 @@ export interface LocationData {
 
 export interface FolderData {
   key: string;
-  path?: string;
-  name?: string;
   id: string;
   type: 'FOLDER';
 }
@@ -47,8 +45,6 @@ export interface FolderData {
 export interface FileData {
   eTag?: string;
   key: string;
-  path?: string;
-  name?: string;
   lastModified: Date;
   id: string;
   size: number;
