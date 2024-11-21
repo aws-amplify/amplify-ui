@@ -12,6 +12,8 @@ export const getFileRowContent = ({
   itemLocationKey,
   getDateDisplayValue,
   lastModified,
+  path,
+  name,
   rowId,
   rowKey,
   selectFileLabel,
@@ -28,6 +30,8 @@ export const getFileRowContent = ({
   hasSearchResults: boolean;
   getDateDisplayValue: (date: Date) => string;
   rowId: string;
+  path: string;
+  name?: string;
   rowKey: string;
   selectFileLabel: string;
   size: number;
@@ -56,7 +60,7 @@ export const getFileRowContent = ({
           content: {
             icon: 'file',
             ariaLabel: 'file',
-            text: rowKey.slice(itemLocationKey.length),
+            text: name ?? rowKey.slice(itemLocationKey.length),
           },
         };
       }
@@ -65,7 +69,7 @@ export const getFileRowContent = ({
           key,
           type: 'text',
           content: {
-            text: rowKey.slice(0, itemLocationKey.length),
+            text: path,
           },
         };
       }

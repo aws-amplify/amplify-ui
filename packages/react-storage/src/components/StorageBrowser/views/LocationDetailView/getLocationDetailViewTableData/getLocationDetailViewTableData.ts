@@ -80,7 +80,7 @@ export const getLocationDetailViewTableData = ({
   headers.push(...rest);
 
   const rows: DataTableProps['rows'] = pageItems.map((locationItem) => {
-    const { id, key, type } = locationItem;
+    const { id, key, type, name } = locationItem;
     switch (type) {
       case 'FILE': {
         const { lastModified, size } = locationItem;
@@ -100,6 +100,8 @@ export const getLocationDetailViewTableData = ({
             headers,
             permissions: current?.permissions ?? [],
             isSelected,
+            path: locationItem.path ?? '',
+            name,
             itemLocationKey: `${current?.prefix ?? ''}${path}`,
             lastModified,
             getDateDisplayValue,
@@ -125,8 +127,10 @@ export const getLocationDetailViewTableData = ({
         return {
           key: id,
           content: getFolderRowContent({
+            path: locationItem.path ?? '',
             headers,
             itemSubPath,
+            name,
             rowId: id,
             onNavigate: onFolderNavigate,
           }),

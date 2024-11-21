@@ -5,11 +5,15 @@ import { LocationDetailViewHeaders } from './types';
 export const getFolderRowContent = ({
   itemSubPath,
   rowId,
+  path,
+  name,
   headers,
   onNavigate,
 }: {
   itemSubPath: string;
   rowId: string;
+  path: string;
+  name?: string;
   headers: LocationDetailViewHeaders;
   onNavigate: () => void;
 }): DataTableProps['rows'][number]['content'] =>
@@ -25,8 +29,8 @@ export const getFolderRowContent = ({
           type: 'button',
           content: {
             icon: 'folder',
-            ariaLabel: itemSubPath,
-            label: itemSubPath,
+            ariaLabel: name ?? itemSubPath,
+            label: name ?? itemSubPath,
             onClick: onNavigate,
           },
         };
@@ -36,7 +40,7 @@ export const getFolderRowContent = ({
           key,
           type: 'text',
           content: {
-            text: itemSubPath,
+            text: path,
           },
         };
       }
