@@ -8,7 +8,13 @@ import { get, escapeRegExp } from 'lodash';
 let language = 'en-US';
 let window = null;
 let stub = null;
-const randomFileName = `fileName${Math.random() * 10000}`;
+export const randomFileName = `fileName${Math.random() * 10000}`;
+
+const doesDocumentContainText = (text: string) => {
+  cy.findByRole('document')
+    .contains(new RegExp(escapeRegExp(text), 'i'))
+    .should('exist');
+};
 
 const clickButtonWithText = (name: string) => {
   cy.findByRole('button', {
@@ -270,6 +276,10 @@ When('I click the {string}', (id: string) => {
   cy.findByTestId(id).click();
 });
 
+When('I click the element with id attribute {string}', (id: string) => {
+  cy.get(`#${id}`).click({ force: true });
+});
+
 When('I click the {string} button', (name: string) => {
   cy.findByRole('button', {
     name: new RegExp(`^${escapeRegExp(name)}$`, 'i'),
@@ -362,10 +372,15 @@ Then('I see tab {string}', (search: string) => {
   cy.findAllByRole('tab').first().should('be.visible').contains(search);
 });
 
-Then('I see {string}', (message: string) => {
-  cy.findByRole('document')
-    .contains(new RegExp(escapeRegExp(message), 'i'))
-    .should('exist');
+Then('I see {string}', doesDocumentContainText);
+
+Then('I see the file with a random name', () => {
+  doesDocumentContainText(`${randomFileName}`);
+});
+
+Then('I see the two files with random names', () => {
+  doesDocumentContainText(`${randomFileName}1`);
+  doesDocumentContainText(`${randomFileName}2`);
 });
 
 Then('I do not see {string}', (message: string) => {
@@ -581,6 +596,10 @@ Then('I click the submit button', () => {
   }).click();
 });
 
+Then('I click the label containing text {string}', (labelText: string) => {
+  cy.contains('label', labelText).should('be.visible').click({ force: true });
+});
+
 Then('I confirm {string} error is accessible in password field', () => {
   // input field should be invalid
   cy.findInputField('Password')
@@ -645,3 +664,33 @@ Then('I see the {string} radio button checked', (label: string) => {
     'be.checked'
   );
 });
+
+When('I upload a file with a random name', () => {
+  cy.get('input[type="file"]').selectFile(
+    {
+      contents: Cypress.Buffer.from('file content'),
+      fileName: `${randomFileName}`,
+      mimeType: 'text/plain',
+    },
+    { force: true }
+  );
+});
+
+When(
+  'I upload a folder {string} with two files with random names',
+  (folderName: string) => {
+    const folderFiles = [
+      {
+        contents: Cypress.Buffer.from('File 1 content'),
+        fileName: `${folderName}/${randomFileName}1`,
+        mimeType: 'text/plain',
+      },
+      {
+        contents: Cypress.Buffer.from('File 2 content'),
+        fileName: `${folderName}/${randomFileName}2`,
+        mimeType: 'text/plain',
+      },
+    ];
+    cy.get('input[type="file"]').selectFile(folderFiles, { force: true });
+  }
+);
