@@ -71,14 +71,14 @@ export const useUploadView = (
     [dispatchStoreAction]
   );
 
-  const handleResetInvalidFiles = React.useCallback(() => {
+  const onDismissFilesValidationMessage = React.useCallback(() => {
     invalidFiles?.forEach((file) => {
       dispatchStoreAction({ type: 'REMOVE_FILE_ITEM', id: file.id });
     });
   }, [invalidFiles, dispatchStoreAction]);
 
   const onActionStart = React.useCallback(() => {
-    handleResetInvalidFiles();
+    onDismissFilesValidationMessage();
 
     handleProcess({
       config: getInput(),
@@ -90,7 +90,7 @@ export const useUploadView = (
     key,
     getInput,
     handleProcess,
-    handleResetInvalidFiles,
+    onDismissFilesValidationMessage,
   ]);
 
   const onActionCancel = React.useCallback(() => {
@@ -131,6 +131,6 @@ export const useUploadView = (
     onTaskRemove,
     onSelectFiles,
     onToggleOverwrite,
-    handleResetInvalidFiles,
+    onDismissFilesValidationMessage,
   };
 };
