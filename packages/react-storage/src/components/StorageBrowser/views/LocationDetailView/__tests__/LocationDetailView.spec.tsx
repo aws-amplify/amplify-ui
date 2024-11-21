@@ -12,6 +12,7 @@ import {
   ActionInputConfig,
   ListLocationItemsHandlerOutput,
   LocationData,
+  LocationItemData,
 } from '../../../actions';
 import { useProcessTasks } from '../../../tasks/useProcessTasks';
 import { INITIAL_STATUS_COUNTS } from '../../../tasks';
@@ -93,7 +94,7 @@ const mockListItemsAction = ({
   isLoading?: boolean;
   message?: string;
   result: any[];
-  search?: SearchOutput;
+  search?: SearchOutput<LocationItemData>;
   nextToken?: string;
 }) => {
   jest.spyOn(AmplifyReactCore, 'useDataState').mockReturnValue([
@@ -326,7 +327,10 @@ describe('LocationDetailView', () => {
     ]);
     mockListItemsAction({
       result: testResult,
-      search: { hasExhaustedSearch: true },
+      search: {
+        hasExhaustedSearch: true,
+        options: { filterBy: 'key', query: 'boo' },
+      },
     });
 
     const { getByPlaceholderText, getByText } = render(<LocationDetailView />);

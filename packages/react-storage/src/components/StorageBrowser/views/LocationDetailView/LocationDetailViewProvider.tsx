@@ -43,8 +43,7 @@ export function LocationDetailViewProvider({
     message,
     downloadErrorMessage,
     searchQuery,
-    hasExhaustedSearch,
-    hasSearchResults,
+    searchInfo,
     onActionSelect,
     onDropFiles,
     onRefresh,
@@ -65,6 +64,9 @@ export function LocationDetailViewProvider({
     label: getActionListItemLabel(item.label),
   }));
 
+  const { hasExhaustedSearch = false, options: searchOptions } =
+    searchInfo ?? {};
+  const showPaths = Boolean(searchOptions?.groupBy);
   const messageControlContent = getListItemsResultMessage({
     isLoading,
     items: pageItems,
@@ -103,7 +105,7 @@ export function LocationDetailViewProvider({
           fileDataItems,
           getDateDisplayValue,
           hasFiles,
-          showPaths: hasSearchResults && isSearchingSubfolders,
+          showPaths,
           pageItems,
           selectFileLabel,
           selectAllFilesLabel,

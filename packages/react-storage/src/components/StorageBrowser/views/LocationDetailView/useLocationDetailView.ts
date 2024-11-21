@@ -73,7 +73,6 @@ export const useLocationDetailView = (
 
   // set up pagination
   const { items, nextToken, search } = data;
-  const { hasExhaustedSearch = false } = search ?? {};
   const hasNextToken = !!nextToken;
   const paginateCallback = () => {
     if (hasInvalidPrefix || !nextToken) return;
@@ -208,8 +207,7 @@ export const useLocationDetailView = (
     isSearchingSubfolders,
     onPaginate,
     searchQuery,
-    hasExhaustedSearch,
-    hasSearchResults: !!search,
+    searchInfo: search,
     onRefresh,
     onNavigate: (location: LocationData, path?: string) => {
       onNavigate?.(location, path);

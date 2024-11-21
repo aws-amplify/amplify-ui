@@ -8,6 +8,7 @@ import { ActionsListItem } from '../../composables/ActionsList';
 import { LocationState } from '../../providers/store/location';
 
 import { ListViewProps } from '../types';
+import { SearchOutput } from '../../actions/useAction/createEnhancedListHandler';
 
 export interface LocationDetailViewState {
   actions: ActionsListItem[];
@@ -25,8 +26,7 @@ export interface LocationDetailViewState {
   downloadErrorMessage: string | undefined;
   shouldShowEmptyMessage: boolean;
   searchQuery: string;
-  hasExhaustedSearch: boolean;
-  hasSearchResults: boolean;
+  searchInfo: SearchOutput<LocationItemData> | undefined;
   pageItems: LocationItemData[];
   page: number;
   onActionSelect: (actionType: string) => void;
