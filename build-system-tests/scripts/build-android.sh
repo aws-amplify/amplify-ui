@@ -28,13 +28,14 @@ fi
 
 # Run npm run android in the background
 if [ $BUILD_TOOL == 'expo' ]; then
-  log "command" "npm run android -- -p 19000 >$LOG_FILE &"
 
   # Bypass Expo Go by creating native artifacts
+  log "command" "npx expo prebuild"
   npx expo prebuild
 
   # Run npm run android in the background
-  npm run android -- -p 19000 >$LOG_FILE &
+  log "command" "npm run android -- --port 19000 >$LOG_FILE &"
+  npm run android -- --port 19000 >$LOG_FILE &
   npx wait-on -t 20000 tcp:19000
 else
   log "command" "cd android >$LOG_FILE "
