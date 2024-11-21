@@ -31,6 +31,7 @@ const onActionExit = jest.fn();
 const onDropFiles = jest.fn();
 const onSelectFiles = jest.fn();
 const onToggleOverwrite = jest.fn();
+const onDismissFilesValidationMessage = jest.fn();
 
 const callbacks = {
   onActionCancel,
@@ -39,6 +40,7 @@ const callbacks = {
   onActionExit,
   onSelectFiles,
   onToggleOverwrite,
+  onDismissFilesValidationMessage,
 };
 
 const statusCounts = { ...INITIAL_STATUS_COUNTS };

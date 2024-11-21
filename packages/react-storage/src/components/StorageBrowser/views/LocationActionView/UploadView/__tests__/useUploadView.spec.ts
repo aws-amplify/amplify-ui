@@ -141,18 +141,6 @@ describe('useUploadView', () => {
     act(() => {
       result.current.onActionStart();
     });
-    expect(dispatchStoreAction).toHaveBeenCalledTimes(1);
-    expect(dispatchStoreAction).toHaveBeenCalledWith({
-      type: 'REMOVE_FILE_ITEM',
-      id: invalidFileItem.id,
-    });
-  });
-
-  it('should remove any invalid files action is started', () => {
-    const { result } = renderHook(() => useUploadView());
-    act(() => {
-      result.current.onActionStart();
-    });
     expect(handleProcessTasks).toHaveBeenCalledTimes(1);
     expect(handleProcessTasks).toHaveBeenCalledWith({
       config: {
@@ -162,6 +150,32 @@ describe('useUploadView', () => {
       },
       options: { preventOverwrite: true },
       destinationPrefix: '',
+    });
+  });
+
+  it('should remove any invalid files action is started', () => {
+    mockUserStoreState.files = [invalidFileItem];
+    const { result } = renderHook(() => useUploadView());
+    act(() => {
+      result.current.onActionStart();
+    });
+    expect(dispatchStoreAction).toHaveBeenCalledTimes(1);
+    expect(dispatchStoreAction).toHaveBeenCalledWith({
+      type: 'REMOVE_FILE_ITEM',
+      id: invalidFileItem.id,
+    });
+  });
+
+  it('should remove any invalid files when files validation message is dismissed', () => {
+    mockUserStoreState.files = [invalidFileItem];
+    const { result } = renderHook(() => useUploadView());
+    act(() => {
+      result.current.onDismissFilesValidationMessage();
+    });
+    expect(dispatchStoreAction).toHaveBeenCalledTimes(1);
+    expect(dispatchStoreAction).toHaveBeenCalledWith({
+      type: 'REMOVE_FILE_ITEM',
+      id: invalidFileItem.id,
     });
   });
 
