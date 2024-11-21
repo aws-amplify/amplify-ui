@@ -8,7 +8,7 @@ export interface UploadViewState extends ActionViewState<FileItem> {
   onDropFiles: (files: File[]) => void;
   onSelectFiles: (type: 'FILE' | 'FOLDER') => void;
   onToggleOverwrite: () => void;
-  onDismissFilesValidationMessage: () => void;
+  handleResetInvalidFiles: () => void;
 }
 
 export interface UploadViewProps

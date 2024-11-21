@@ -44,7 +44,7 @@ export function UploadViewProvider({
     onTaskRemove,
     onSelectFiles,
     onToggleOverwrite,
-    onDismissFilesValidationMessage,
+    handleResetInvalidFiles,
   } = props;
 
   const isActionStartDisabled =
@@ -63,7 +63,7 @@ export function UploadViewProvider({
     invalidFiles && !isProcessing
       ? {
           ...getFilesValidationMessage({ invalidFiles }),
-          onDismiss: onDismissFilesValidationMessage,
+          onDismiss: handleResetInvalidFiles,
         }
       : undefined;
 
