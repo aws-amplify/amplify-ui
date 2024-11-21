@@ -26,12 +26,12 @@ Feature: Search with Storage Browser
     When I click the first button containing "public"
     When I see input with placeholder "Search current folder" and type "DELETE"
     Then I click the "Search" button
-    Then I do not see the button containing "DO_NOT_DELETE/DONT_DELETE_SUB"
+    Then I do not see the button containing "DONT_DELETE_SUB"
     When I click the button containing "Clear search"
     When I click the "Include Subfolders" checkbox
     When I see input with placeholder "Search current folder" and type "DELETE"
     Then I click the "Search" button
-    Then I see "DO_NOT_DELETE/DONT_DELETE_SUB"
+    Then I see "DONT_DELETE_SUB"
 
     @react
     Scenario: Search with no matching results
