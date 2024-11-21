@@ -183,7 +183,6 @@ describe('LocationsView', () => {
         data: {
           items: [],
           nextToken: undefined,
-          search: { hasExhaustedSearch: false },
         },
         hasError: false,
         isLoading: true,
