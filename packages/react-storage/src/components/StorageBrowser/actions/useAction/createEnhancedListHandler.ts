@@ -134,8 +134,11 @@ export function searchItems<T>({ prefix = '', list, options }: Search<T>): T[] {
       const matchedPathSegments = components.slice(0, i + 1);
 
       // create new path
-      const matchedPath = matchedPathSegments.join(groupBy);
+      let matchedPath = matchedPathSegments.join(groupBy);
       const isFolder = matchedPath !== path;
+      if (isFolder) {
+        matchedPath += groupBy;
+      }
 
       // ignore anything below the prefix for matching
       if (matchedPath.length > prefix.length && !uniquePaths.has(matchedPath)) {
@@ -143,7 +146,7 @@ export function searchItems<T>({ prefix = '', list, options }: Search<T>): T[] {
         uniquePaths.set(matchedPath, {
           ...item,
           id: crypto.randomUUID(),
-          [key]: isFolder ? matchedPath + groupBy : matchedPath,
+          [key]: matchedPath,
           type: isFolder ? 'FOLDER' : 'FILE',
         });
       }
