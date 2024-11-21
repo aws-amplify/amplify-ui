@@ -22,7 +22,7 @@ export const getLocationDetailViewTableData = ({
   location,
   fileDataItems,
   hasFiles,
-  hasSearchResults,
+  showPaths,
   pageItems,
   selectFileLabel,
   selectAllFilesLabel,
@@ -36,7 +36,7 @@ export const getLocationDetailViewTableData = ({
   location: LocationState;
   fileDataItems?: FileData[];
   hasFiles: boolean;
-  hasSearchResults: boolean;
+  showPaths: boolean;
   pageItems: LocationItemData[];
   selectFileLabel: string;
   selectAllFilesLabel: string;
@@ -68,7 +68,7 @@ export const getLocationDetailViewTableData = ({
   const headers: LocationDetailViewHeaders = [
     hasFiles ? headerCheckbox : noopCheckbox,
     nameHeader,
-    ...(hasSearchResults ? [pathHeader] : []),
+    ...(showPaths ? [pathHeader] : []),
     ...rest,
   ];
 

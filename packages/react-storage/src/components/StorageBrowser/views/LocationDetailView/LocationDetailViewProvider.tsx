@@ -103,7 +103,7 @@ export function LocationDetailViewProvider({
           fileDataItems,
           getDateDisplayValue,
           hasFiles,
-          hasSearchResults,
+          showPaths: hasSearchResults && isSearchingSubfolders,
           pageItems,
           selectFileLabel,
           selectAllFilesLabel,
