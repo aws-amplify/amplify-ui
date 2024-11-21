@@ -209,6 +209,7 @@ export const useLocationDetailView = (
     onPaginate,
     searchQuery,
     hasExhaustedSearch,
+    hasSearchResults: !!search,
     onRefresh,
     onNavigate: (location: LocationData, path?: string) => {
       onNavigate?.(location, path);

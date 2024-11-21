@@ -26,6 +26,7 @@ export interface LocationDetailViewState {
   shouldShowEmptyMessage: boolean;
   searchQuery: string;
   hasExhaustedSearch: boolean;
+  hasSearchResults: boolean;
   pageItems: LocationItemData[];
   page: number;
   onActionSelect: (actionType: string) => void;

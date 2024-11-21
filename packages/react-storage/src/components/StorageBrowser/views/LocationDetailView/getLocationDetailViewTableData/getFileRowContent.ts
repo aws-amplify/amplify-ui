@@ -4,6 +4,7 @@ import { DataTableProps } from '../../../composables/DataTable';
 
 import { LOCATION_DETAIL_VIEW_HEADERS } from './constants';
 import { LocationPermissions } from '../../../actions';
+import { LocationDetailViewHeaders } from './types';
 
 export const getFileRowContent = ({
   permissions,
@@ -17,11 +18,14 @@ export const getFileRowContent = ({
   size,
   onDownload,
   onSelect,
+  headers,
 }: {
   permissions: LocationPermissions;
   isSelected: boolean;
   itemLocationKey: string;
   lastModified: Date;
+  headers: LocationDetailViewHeaders;
+  hasSearchResults: boolean;
   getDateDisplayValue: (date: Date) => string;
   rowId: string;
   rowKey: string;
@@ -30,7 +34,7 @@ export const getFileRowContent = ({
   onDownload: () => void;
   onSelect: () => void;
 }): DataTableProps['rows'][number]['content'] =>
-  LOCATION_DETAIL_VIEW_HEADERS.map(({ key: columnKey }) => {
+  headers.map(({ key: columnKey }) => {
     const key = `${columnKey}-${rowId}`;
     switch (columnKey) {
       case 'checkbox': {
@@ -53,6 +57,15 @@ export const getFileRowContent = ({
             icon: 'file',
             ariaLabel: 'file',
             text: rowKey.slice(itemLocationKey.length),
+          },
+        };
+      }
+      case 'path': {
+        return {
+          key,
+          type: 'text',
+          content: {
+            text: rowKey.slice(0, itemLocationKey.length),
           },
         };
       }

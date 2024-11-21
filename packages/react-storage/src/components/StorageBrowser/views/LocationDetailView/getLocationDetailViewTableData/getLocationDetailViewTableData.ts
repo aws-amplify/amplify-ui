@@ -1,4 +1,7 @@
-import { DataTableProps } from '../../../composables/DataTable';
+import {
+  DataTableHeader,
+  DataTableProps,
+} from '../../../composables/DataTable';
 import { LocationData } from '../../../actions';
 import {
   createFileDataItem,
@@ -11,12 +14,15 @@ import { FileData } from '../../../actions/handlers';
 
 import { LOCATION_DETAIL_VIEW_HEADERS } from './constants';
 import { LocationState } from '../../../providers/store/location';
+import { HeaderKeys, LocationDetailViewHeaders } from './types';
+import { WithKey } from '../../../components/types';
 
 export const getLocationDetailViewTableData = ({
   areAllFilesSelected,
   location,
   fileDataItems,
   hasFiles,
+  hasSearchResults,
   pageItems,
   selectFileLabel,
   selectAllFilesLabel,
@@ -30,6 +36,7 @@ export const getLocationDetailViewTableData = ({
   location: LocationState;
   fileDataItems?: FileData[];
   hasFiles: boolean;
+  hasSearchResults: boolean;
   pageItems: LocationItemData[];
   selectFileLabel: string;
   selectAllFilesLabel: string;
@@ -39,7 +46,7 @@ export const getLocationDetailViewTableData = ({
   onSelect: (isSelected: boolean, fileItem: FileData) => void;
   onSelectAll: () => void;
 }): DataTableProps => {
-  const headerCheckbox: DataTableProps['headers'][number] = {
+  const headerCheckbox: WithKey<DataTableHeader, HeaderKeys> = {
     key: 'checkbox',
     type: 'checkbox',
     content: {
@@ -50,9 +57,27 @@ export const getLocationDetailViewTableData = ({
     },
   };
 
-  const headers = hasFiles
-    ? [headerCheckbox, ...LOCATION_DETAIL_VIEW_HEADERS.slice(1)]
-    : LOCATION_DETAIL_VIEW_HEADERS;
+  const pathHeader: WithKey<DataTableHeader, HeaderKeys> = {
+    key: 'path',
+    type: 'sort',
+    content: { label: 'Path' },
+  };
+
+  const [noopCheckbox, nameHeader, ...rest] = LOCATION_DETAIL_VIEW_HEADERS;
+
+  const headers: LocationDetailViewHeaders = [];
+
+  if (hasFiles) {
+    headers.push(headerCheckbox, nameHeader);
+  } else {
+    headers.push(noopCheckbox, nameHeader);
+  }
+
+  if (hasSearchResults) {
+    headers.push(pathHeader);
+  }
+
+  headers.push(...rest);
 
   const rows: DataTableProps['rows'] = pageItems.map((locationItem) => {
     const { id, key, type } = locationItem;
@@ -71,6 +96,8 @@ export const getLocationDetailViewTableData = ({
         return {
           key: id,
           content: getFileRowContent({
+            hasSearchResults,
+            headers,
             permissions: current?.permissions ?? [],
             isSelected,
             itemLocationKey: `${current?.prefix ?? ''}${path}`,
@@ -98,6 +125,7 @@ export const getLocationDetailViewTableData = ({
         return {
           key: id,
           content: getFolderRowContent({
+            headers,
             itemSubPath,
             rowId: id,
             onNavigate: onFolderNavigate,
