@@ -14,10 +14,6 @@ interface ComponentStyleProps extends React.ComponentProps<'style'> {
   componentThemes: BaseComponentTheme[];
 }
 
-/**
- * @experimental
- * [📖 Docs](https://ui.docs.amplify.aws/react/components/theme)
- */
 export const ComponentStyle = ({
   theme,
   componentThemes = [],

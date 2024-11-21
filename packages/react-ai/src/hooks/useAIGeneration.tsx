@@ -1,7 +1,13 @@
 import * as React from 'react';
-import { DataState } from '@aws-amplify/ui-react-core';
 import { V6Client } from '@aws-amplify/api-graphql';
 import { getSchema } from '../types';
+import {
+  DataClientResponse,
+  DataClientState,
+  ERROR_STATE,
+  INITIAL_STATE,
+  LOADING_STATE,
+} from './shared';
 
 export interface UseAIGenerationHookWrapper<
   Key extends keyof AIGenerationClient<Schema>['generations'],
@@ -10,7 +16,7 @@ export interface UseAIGenerationHookWrapper<
   useAIGeneration: <U extends Key>(
     routeName: U
   ) => [
-    Awaited<GenerationState<Schema[U]['returnType']>>,
+    Awaited<DataClientState<Schema[U]['returnType']>>,
     (input: Schema[U]['args']) => void,
   ];
 }
@@ -21,7 +27,7 @@ export type UseAIGenerationHook<
 > = (
   routeName: Key
 ) => [
-  Awaited<GenerationState<Schema[Key]['returnType']>>,
+  Awaited<DataClientState<Schema[Key]['returnType']>>,
   (input: Schema[Key]['args']) => void,
 ];
 
@@ -29,32 +35,6 @@ type AIGenerationClient<T extends Record<any, any>> = Pick<
   V6Client<T>,
   'generations'
 >;
-
-interface GraphQLFormattedError {
-  readonly message: string;
-  readonly errorType: string;
-  readonly errorInfo: null | {
-    [key: string]: unknown;
-  };
-}
-
-type SingularReturnValue<T> = {
-  data: T | null;
-  errors?: GraphQLFormattedError[];
-};
-
-type GenerationState<T> = Omit<DataState<T>, 'message'> & {
-  messages?: GraphQLFormattedError[];
-};
-
-// default state
-const INITIAL_STATE = {
-  hasError: false,
-  isLoading: false,
-  messages: undefined,
-};
-const LOADING_STATE = { hasError: false, isLoading: true, messages: undefined };
-const ERROR_STATE = { hasError: true, isLoading: false };
 
 export function createUseAIGeneration<
   Client extends Record<'generations' | 'conversations', Record<string, any>>,
@@ -65,11 +45,11 @@ export function createUseAIGeneration<
   >(
     routeName: Key
   ): [
-    state: GenerationState<Schema[Key]['returnType']>,
-    handleAction: (input: Schema[Key]['args']) => void,
+    state: DataClientState<Schema[Key]['returnType']>,
+    handleAction: (input: Schema[Key]['args']) => Promise<void>,
   ] => {
     const [dataState, setDataState] = React.useState<
-      GenerationState<Schema[Key]['returnType']>
+      DataClientState<Schema[Key]['returnType']>
     >(() => ({
       ...INITIAL_STATE,
       data: undefined,
@@ -83,7 +63,7 @@ export function createUseAIGeneration<
           client.generations as AIGenerationClient<Schema>['generations']
         )[routeName](input);
 
-        const { data, errors } = result as SingularReturnValue<
+        const { data, errors } = result as DataClientResponse<
           Schema[Key]['returnType']
         >;
 

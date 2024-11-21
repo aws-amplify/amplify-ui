@@ -770,7 +770,7 @@ exports[`Props Table 1`] = `
                     },
                     "errorMessage": {
                         "name": "errorMessage",
-                        "type": "string | undefined",
+                        "type": "React.ReactNode",
                         "description": " When defined and \`hasError\` is true, show error message",
                         "category": "BaseFieldProps",
                         "isOptional": true
@@ -2692,7 +2692,7 @@ exports[`Props Table 1`] = `
                     },
                     "errorMessage": {
                         "name": "errorMessage",
-                        "type": "string | undefined",
+                        "type": "React.ReactNode",
                         "description": " When defined and \`hasError\` is true, show error message",
                         "category": "BaseFieldProps",
                         "isOptional": true
@@ -7317,7 +7317,7 @@ exports[`Props Table 1`] = `
                     },
                     "errorMessage": {
                         "name": "errorMessage",
-                        "type": "string | undefined",
+                        "type": "React.ReactNode",
                         "description": " When defined and \`hasError\` is true, show error message",
                         "category": "BaseFieldProps",
                         "isOptional": true
@@ -7679,7 +7679,7 @@ exports[`Props Table 1`] = `
                     },
                     "errorMessage": {
                         "name": "errorMessage",
-                        "type": "string | undefined",
+                        "type": "React.ReactNode",
                         "description": " When defined and \`hasError\` is true, show error message",
                         "category": "BaseFieldProps",
                         "isOptional": true
@@ -8326,7 +8326,7 @@ exports[`Props Table 1`] = `
                     },
                     "errorMessage": {
                         "name": "errorMessage",
-                        "type": "string | undefined",
+                        "type": "React.ReactNode",
                         "description": " When defined and \`hasError\` is true, show error message",
                         "category": "BaseFieldProps",
                         "isOptional": true
@@ -9457,7 +9457,7 @@ exports[`Props Table 1`] = `
                     },
                     "errorMessage": {
                         "name": "errorMessage",
-                        "type": "string | undefined",
+                        "type": "React.ReactNode",
                         "description": " When defined and \`hasError\` is true, show error message",
                         "category": "BaseFieldProps",
                         "isOptional": true
@@ -9791,7 +9791,7 @@ exports[`Props Table 1`] = `
                     },
                     "errorMessage": {
                         "name": "errorMessage",
-                        "type": "string | undefined",
+                        "type": "React.ReactNode",
                         "description": " When defined and \`hasError\` is true, show error message",
                         "category": "BaseFieldProps",
                         "isOptional": true
@@ -10272,7 +10272,7 @@ exports[`Props Table 1`] = `
                     },
                     "errorMessage": {
                         "name": "errorMessage",
-                        "type": "string | undefined",
+                        "type": "React.ReactNode",
                         "description": " When defined and \`hasError\` is true, show error message",
                         "category": "BaseFieldProps",
                         "isOptional": true
@@ -10711,7 +10711,7 @@ exports[`Props Table 1`] = `
                     },
                     "errorMessage": {
                         "name": "errorMessage",
-                        "type": "string | undefined",
+                        "type": "React.ReactNode",
                         "description": " When defined and \`hasError\` is true, show error message",
                         "category": "BaseFieldProps",
                         "isOptional": true
@@ -11220,7 +11220,7 @@ exports[`Props Table 1`] = `
                     },
                     "errorMessage": {
                         "name": "errorMessage",
-                        "type": "string | undefined",
+                        "type": "React.ReactNode",
                         "description": " When defined and \`hasError\` is true, show error message",
                         "category": "BaseFieldProps",
                         "isOptional": true
@@ -13353,7 +13353,7 @@ exports[`Props Table 1`] = `
                     },
                     "errorMessage": {
                         "name": "errorMessage",
-                        "type": "string | undefined",
+                        "type": "React.ReactNode",
                         "description": " When defined and \`hasError\` is true, show error message",
                         "category": "BaseFieldProps",
                         "isOptional": true
@@ -13722,7 +13722,7 @@ exports[`Props Table 1`] = `
                     },
                     "errorMessage": {
                         "name": "errorMessage",
-                        "type": "string | undefined",
+                        "type": "React.ReactNode",
                         "description": " When defined and \`hasError\` is true, show error message",
                         "category": "BaseFieldProps",
                         "isOptional": true

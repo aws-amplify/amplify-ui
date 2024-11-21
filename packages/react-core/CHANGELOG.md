@@ -1,5 +1,62 @@
 # @aws-amplify/ui-react-core
 
+## 3.1.0
+
+### Minor Changes
+
+- [#6175](https://github.com/aws-amplify/amplify-ui/pull/6175) [`70971f310`](https://github.com/aws-amplify/amplify-ui/commit/70971f310f69717657849f29d0a9e1d993b08d9a) Thanks [@calebpollman](https://github.com/calebpollman)! - feat(storage-browser): add `StorageBrowser` and `createStorageBrowser`
+
+  ```tsx
+  import { Amplify } from 'aws-amplify';
+
+  import { StorageBrowser } from '@aws-amplify/ui-react-storage';
+  import '@aws-amplify/ui-react-storage/styles.css';
+
+  import config from './aws-exports';
+
+  Amplify.configure(config);
+
+  function App() {
+    return <StorageBrowser />;
+  }
+  ```
+
+  ```tsx
+  import { Amplify } from 'aws-amplify';
+
+  import {
+    createAmplifyAuthAdapter,
+    createStorageBrowser,
+  } from '@aws-amplify/ui-react-storage/browser';
+  import '@aws-amplify/ui-react-storage/styles.css';
+
+  import config from './aws-exports';
+
+  Amplify.configure(config);
+
+  const { StorageBrowser } = createStorageBrowser({
+    config: createAmplifyAuthAdapter(),
+  });
+
+  function App() {
+    return <StorageBrowser />;
+  }
+  ```
+
+### Patch Changes
+
+- Updated dependencies [[`70971f310`](https://github.com/aws-amplify/amplify-ui/commit/70971f310f69717657849f29d0a9e1d993b08d9a)]:
+  - @aws-amplify/ui@6.7.0
+
+## 3.0.30
+
+### Patch Changes
+
+- [#6145](https://github.com/aws-amplify/amplify-ui/pull/6145) [`90ea18ba0`](https://github.com/aws-amplify/amplify-ui/commit/90ea18ba076f884cad7f49b646f3f820e1b80c0e) Thanks [@dindjarinjs](https://github.com/dindjarinjs)! - chore: fix issue where drag and drop throws illegal invocation
+
+- Updated dependencies [[`0d4d2b91c`](https://github.com/aws-amplify/amplify-ui/commit/0d4d2b91c84b2eb5e9365bb837855e5a9b4e3c06), [`24635cfd5`](https://github.com/aws-amplify/amplify-ui/commit/24635cfd5fb6b01bfd3bde1464c7064b2d1484c4)]:
+  - @aws-amplify/ui@6.6.6
+
 ## 3.0.29
 
 ### Patch Changes
