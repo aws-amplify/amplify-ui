@@ -1,0 +1,21 @@
+---
+title: Storage Browser
+description: The StorageBrowser gives your users a simple interface for interacting with data stored in Amazon S3.
+reactSource: packages/react-storage/src/components/StorageBrowser/StorageBrowser.tsx
+supportedFrameworks: react
+---
+
+import { getCustomStaticPath } from "@/utils/getCustomStaticPath";
+import ReactPage from './react.mdx';
+
+export async function getStaticPaths() {
+  return getCustomStaticPath(frontmatter.supportedFrameworks);
+}
+
+{/*  `getStaticProps` is required to prevent "Error: getStaticPaths was added without a getStaticProps. Without getStaticProps, getStaticPaths does nothing" */}
+
+export async function getStaticProps() {
+  return { props: {} }
+}
+
+<ReactPage />

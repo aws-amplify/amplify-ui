@@ -1,0 +1,105 @@
+import { StorageBrowser } from './examples/test.tsx'
+
+## Overview
+
+<StorageBrowser />
+
+The `StorageBrowser` component 
+
+
+
+## Setup and Authentication
+
+The `StorageBrowser` component is the first Amplify UI component to support different authentication method other than Amplify Auth using Amazon Cognito. 
+
+In order to show S3 locations and their contents to end users, you first need to set up your preferred authentication and authorization methods. There are 3 ways you can set up authentication/authorization with the storage browser component:
+
+1. **Amplify auth:** If you are already using Amplify then this option lets you get started the fastest. It uses Amazon Cognito for authentication and IAM policies for authorization and access. And by using Amplify Gen 2, the access rules for users and groups can be customized.
+2. **AWS IAM Identity Center and S3 Access Grants:** We recommend this option if you want to grant access on a per-S3-prefix basis to both IAM principals and directly to users or groups from your corporate directory. With S3 Access Grants capabilities, applications can request data from Amazon S3 on behalf of the current authenticated user. This means your applications no longer need to first map the user to an IAM principal. And when you use S3 Access Grants with IAM Identity Center trusted identity propagation, each AWS CloudTrail data event for S3 references the end user identity that accessed your data.
+3. **Custom auth:** We recommend this option if you have your own identity and authorization service for authenticating and authorizing users in your application. To use this option, you will need to provide the list of S3 locations to display to the user and a mechanism for fetching scoped credentials for each location.
+
+### Amplify Auth
+
+Make sure you have an Amplify Gen2 project started, by following the [getting started guides](https://docs.amplify.aws/react/start/quickstart/). Then create an S3 bucket with access rules by [defining a storage resource and adding authorization rules](https://docs.amplify.aws/react/build-a-backend/storage/authorization/):
+
+```ts
+export const storage = defineStorage({
+  name: 'myProjectFiles',
+  access: (allow) => ({
+    'public/*': [
+      allow.guest.to(['read']),
+      allow.authenticated.to(['read', 'write', 'delete']),
+    ],
+    'protected/{entity_id}/*': [
+      allow.authenticated.to(['read']),
+      allow.entity('identity').to(['read', 'write', 'delete'])
+    ],
+    'private/{entity_id}/*': [
+      allow.entity('identity').to(['read', 'write', 'delete'])
+    ]
+  })
+});
+```
+
+Then in your React code, call `Amplify.configure()` with your `amplify_outputs.json`. If you have some access rules that require a logged in user, like `allow.authenticated`, you can wrap your page in the [`<Authenticator>`]() component. 
+
+
+
+## Configuration
+
+```ts
+import {
+  createAmplifyAuthAdapter,
+  createStorageBrowser,
+} from '@aws-amplify/ui-react-storage/browser';
+import "@aws-amplify/ui-react-storage/styles.css";
+
+import config from './amplify_outputs.json';
+
+Amplify.configure(config);
+
+export const { StorageBrowser } = createStorageBrowser({
+  config: createAmplifyAuthAdapter(),
+});
+```
+
+### Auth adapters
+
+`createManagedAuthAdapter`
+`createAmplifyAuthAdapter`
+
+
+
+## Theming
+
+
+
+## Composition
+
+The `<StorageBrowser>` component comes with 
+
+## Custom UI
+
+
+## Browser Navigation
+
+### Next.js pages router
+
+```tsx
+export default function Page() {
+  const router = useRouter();
+
+  return (
+    <StorageBrowser.Provider>
+      <StorageBrowser.LocationsView
+        onNavigate={(location) => {
+          router.push({
+            pathname: `${router.pathname}/location-detail`,
+            query: { ...location },
+          });
+        }}
+      />
+    </StorageBrowser.Provider>
+  )
+}
+```

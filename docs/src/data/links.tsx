@@ -205,6 +205,13 @@ export const connectedComponents: ComponentNavItem[] = [
     platforms: ['react'],
   },
   {
+    href: '/connected-components/storage/storage-browser',
+    label: 'Storage Browser',
+    body: 'The StorageBrowser gives your users a simple interface for interacting with data stored in Amazon S3.',
+    platforms: ['react'],
+    tertiary: true,
+  },
+  {
     href: '/connected-components/storage/storageimage',
     label: 'Storage Image',
     body: 'StorageImage component allows users to load an image managed by Amplify Storage.',
