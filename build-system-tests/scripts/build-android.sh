@@ -34,7 +34,7 @@ if [ $BUILD_TOOL == 'expo' ]; then
   npx expo prebuild
 
   # Run npm run android in the background
-  log "command" "npm run android -- --port 19000 >$LOG_FILE &"
+  log "command" "npm run android -- -p 19000 >$LOG_FILE &"
   npm run android -- -p 19000 >$LOG_FILE &
   npx wait-on -t 20000 tcp:19000
 else
