@@ -1,5 +1,6 @@
 import { LocationPermissions } from '../../../../actions';
 import { getFileRowContent } from '../getFileRowContent';
+import { LOCATION_DETAIL_VIEW_HEADERS } from '../constants';
 
 describe('getFileRowContent', () => {
   const location = {
@@ -20,13 +21,12 @@ describe('getFileRowContent', () => {
     size: 1,
     type: 'FILE',
   } as const;
-  const itemLocationKey = `${location.current.prefix}${location.path}`;
 
   it('should return file row content as expected', () => {
     expect(
       getFileRowContent({
+        headers: LOCATION_DETAIL_VIEW_HEADERS,
         permissions: location.current.permissions,
-        itemLocationKey,
         isSelected: false,
         getDateDisplayValue: (date) => date.toLocaleString(),
         lastModified: fileItem.lastModified,
@@ -76,7 +76,7 @@ describe('getFileRowContent', () => {
   it('should not render download button if location permission does not support download', () => {
     const row = getFileRowContent({
       permissions: ['list', 'write'],
-      itemLocationKey,
+      headers: LOCATION_DETAIL_VIEW_HEADERS,
       isSelected: false,
       lastModified: fileItem.lastModified,
       rowId: 'row-id',

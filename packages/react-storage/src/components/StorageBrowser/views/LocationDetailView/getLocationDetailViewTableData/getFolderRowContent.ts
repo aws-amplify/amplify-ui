@@ -1,16 +1,19 @@
 import { DataTableProps } from '../../../composables/DataTable';
-import { LOCATION_DETAIL_VIEW_HEADERS } from './constants';
+import { LocationDetailViewHeaders } from './types';
+import { getFolderName, getFolderPath } from '../../../actions/handlers';
 
 export const getFolderRowContent = ({
-  itemSubPath,
   rowId,
+  rowKey,
+  headers,
   onNavigate,
 }: {
-  itemSubPath: string;
   rowId: string;
+  rowKey: string;
+  headers: LocationDetailViewHeaders;
   onNavigate: () => void;
 }): DataTableProps['rows'][number]['content'] =>
-  LOCATION_DETAIL_VIEW_HEADERS.map(({ key: columnKey }) => {
+  headers.map(({ key: columnKey }) => {
     const key = `${columnKey}-${rowId}`;
     switch (columnKey) {
       case 'checkbox': {
@@ -22,9 +25,18 @@ export const getFolderRowContent = ({
           type: 'button',
           content: {
             icon: 'folder',
-            ariaLabel: itemSubPath,
-            label: itemSubPath,
+            ariaLabel: getFolderName(rowKey),
+            label: getFolderName(rowKey),
             onClick: onNavigate,
+          },
+        };
+      }
+      case 'path': {
+        return {
+          key,
+          type: 'text',
+          content: {
+            text: getFolderPath(rowKey),
           },
         };
       }

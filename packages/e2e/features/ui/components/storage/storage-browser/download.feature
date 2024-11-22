@@ -18,4 +18,4 @@ Feature: Download on Storage Browser
     Then I type my password
     Then I click the "Sign in" button
     When I click the first button containing "public"
-    Then I see no download for folder "DO_NOT_DELETE/"
+    Then I see no download for folder "DO_NOT_DELETE"

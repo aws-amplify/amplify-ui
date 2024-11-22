@@ -5,6 +5,8 @@ import {
   shouldExcludeLocation,
   getFileKey,
   parseAccessGrantLocation,
+  getFolderPath,
+  getFolderName,
 } from '../utils';
 
 describe('parseLocationAccess', () => {
@@ -106,6 +108,56 @@ describe('getFileKey', () => {
 
   it('should handle paths with multiple slashes', () => {
     expect(getFileKey('/path//to///file.txt')).toBe('file.txt');
+  });
+});
+
+describe('folder functions', () => {
+  describe('getFolderPath', () => {
+    it('should return the parent folder path for a given folder key', () => {
+      expect(getFolderPath('parent-folder/sub-folder/')).toBe('parent-folder/');
+    });
+
+    it('should handle root-level folder correctly', () => {
+      expect(getFolderPath('root/')).toBe('');
+    });
+
+    it('should return an empty string for an empty key', () => {
+      expect(getFolderPath('')).toBe('');
+    });
+
+    it('should handle nested folder paths correctly', () => {
+      expect(getFolderPath('grandparent/parent/child/')).toBe(
+        'grandparent/parent/'
+      );
+    });
+
+    it('should handle multiple slashes', () => {
+      expect(getFolderPath('grandparent/parent///child/')).toBe(
+        'grandparent/parent///'
+      );
+    });
+  });
+
+  describe('getFolderName', () => {
+    it('should return the folder name for a given folder key', () => {
+      expect(getFolderName('parent-folder/sub-folder/')).toBe('sub-folder');
+    });
+
+    it('should handle root-level folder correctly', () => {
+      expect(getFolderName('root/')).toBe('root');
+    });
+
+    it('should return an empty string for an empty key', () => {
+      expect(getFolderName('')).toBe('');
+    });
+
+    it('should handle nested folder names correctly', () => {
+      expect(getFolderName('grandparent/parent/child/')).toBe('child');
+    });
+
+    it('should handle multiple slashes', () => {
+      expect(getFolderName('grandparent///parent/child/')).toBe('child');
+    });
   });
 });
 

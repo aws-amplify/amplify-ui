@@ -33,12 +33,13 @@ export interface EnhancedListHandlerOptions<T, K>
   search?: SearchOptions<T>;
 }
 
-export interface SearchOutput {
+export interface SearchOutput<T> {
   hasExhaustedSearch: boolean;
+  options: SearchOptions<T>;
 }
 
 export interface EnhancedListHandlerOutput<T> extends ListHandlerOutput<T> {
-  search?: SearchOutput;
+  search?: SearchOutput<T>;
 }
 
 export interface EnhancedListHandlerInput<T, K>
@@ -198,6 +199,7 @@ export const createEnhancedListHandler = <Action extends ListHandler>(
         search: {
           // search limit reached but we still have a next token
           hasExhaustedSearch: !!nextNextToken,
+          options: search,
         },
         nextToken: undefined,
       };

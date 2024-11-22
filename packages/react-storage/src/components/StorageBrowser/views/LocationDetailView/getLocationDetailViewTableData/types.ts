@@ -5,6 +5,7 @@ export type HeaderKeys =
   | 'checkbox'
   | 'name'
   | 'type'
+  | 'path'
   | 'last-modified'
   | 'size'
   | 'download';

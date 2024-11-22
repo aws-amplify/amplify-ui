@@ -1,4 +1,7 @@
-import { DataTableProps } from '../../../composables/DataTable';
+import {
+  DataTableHeader,
+  DataTableProps,
+} from '../../../composables/DataTable';
 import { LocationData } from '../../../actions';
 import {
   createFileDataItem,
@@ -11,12 +14,15 @@ import { FileData } from '../../../actions/handlers';
 
 import { LOCATION_DETAIL_VIEW_HEADERS } from './constants';
 import { LocationState } from '../../../providers/store/location';
+import { HeaderKeys, LocationDetailViewHeaders } from './types';
+import { WithKey } from '../../../components/types';
 
 export const getLocationDetailViewTableData = ({
   areAllFilesSelected,
   location,
   fileDataItems,
   hasFiles,
+  showPaths,
   pageItems,
   selectFileLabel,
   selectAllFilesLabel,
@@ -30,6 +36,7 @@ export const getLocationDetailViewTableData = ({
   location: LocationState;
   fileDataItems?: FileData[];
   hasFiles: boolean;
+  showPaths: boolean;
   pageItems: LocationItemData[];
   selectFileLabel: string;
   selectAllFilesLabel: string;
@@ -39,7 +46,7 @@ export const getLocationDetailViewTableData = ({
   onSelect: (isSelected: boolean, fileItem: FileData) => void;
   onSelectAll: () => void;
 }): DataTableProps => {
-  const headerCheckbox: DataTableProps['headers'][number] = {
+  const headerCheckbox: WithKey<DataTableHeader, HeaderKeys> = {
     key: 'checkbox',
     type: 'checkbox',
     content: {
@@ -50,16 +57,27 @@ export const getLocationDetailViewTableData = ({
     },
   };
 
-  const headers = hasFiles
-    ? [headerCheckbox, ...LOCATION_DETAIL_VIEW_HEADERS.slice(1)]
-    : LOCATION_DETAIL_VIEW_HEADERS;
+  const pathHeader: WithKey<DataTableHeader, HeaderKeys> = {
+    key: 'path',
+    type: 'sort',
+    content: { label: 'Path' },
+  };
+
+  const [noopCheckbox, nameHeader, ...rest] = LOCATION_DETAIL_VIEW_HEADERS;
+
+  const headers: LocationDetailViewHeaders = [
+    hasFiles ? headerCheckbox : noopCheckbox,
+    nameHeader,
+    ...(showPaths ? [pathHeader] : []),
+    ...rest,
+  ];
 
   const rows: DataTableProps['rows'] = pageItems.map((locationItem) => {
     const { id, key, type } = locationItem;
     switch (type) {
       case 'FILE': {
         const { lastModified, size } = locationItem;
-        const { current, path } = location;
+        const { current } = location;
         const isSelected =
           fileDataItems?.some((item) => item.id === id) ?? false;
         const onFileDownload = () => {
@@ -71,9 +89,9 @@ export const getLocationDetailViewTableData = ({
         return {
           key: id,
           content: getFileRowContent({
+            headers,
             permissions: current?.permissions ?? [],
             isSelected,
-            itemLocationKey: `${current?.prefix ?? ''}${path}`,
             lastModified,
             getDateDisplayValue,
             rowId: id,
@@ -86,8 +104,7 @@ export const getLocationDetailViewTableData = ({
         };
       }
       case 'FOLDER': {
-        const { current, path } = location;
-        const itemSubPath = key.slice(`${current?.prefix ?? ''}${path}`.length);
+        const { current } = location;
         const itemLocationPath = key.slice(current?.prefix.length);
         const onFolderNavigate = () => {
           if (!current) {
@@ -98,7 +115,8 @@ export const getLocationDetailViewTableData = ({
         return {
           key: id,
           content: getFolderRowContent({
-            itemSubPath,
+            headers,
+            rowKey: key,
             rowId: id,
             onNavigate: onFolderNavigate,
           }),

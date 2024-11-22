@@ -1,4 +1,5 @@
 import { getFolderRowContent } from '../getFolderRowContent';
+import { LOCATION_DETAIL_VIEW_HEADERS } from '../constants';
 
 describe('getFolderRowContent', () => {
   const folderItem = {
@@ -10,7 +11,8 @@ describe('getFolderRowContent', () => {
   it('should return folder row content as expected', () => {
     expect(
       getFolderRowContent({
-        itemSubPath: folderItem.key,
+        headers: LOCATION_DETAIL_VIEW_HEADERS,
+        rowKey: folderItem.key,
         rowId: 'row-id',
         onNavigate: jest.fn(),
       })
@@ -19,7 +21,7 @@ describe('getFolderRowContent', () => {
         expect.objectContaining({ type: 'text', content: { text: '' } }),
         expect.objectContaining({
           type: 'button',
-          content: expect.objectContaining({ label: folderItem.key }),
+          content: expect.objectContaining({ label: 'path' }),
         }),
         expect.objectContaining({ type: 'text', content: { text: 'Folder' } }),
         expect.objectContaining({ type: 'text', content: { text: '' } }),

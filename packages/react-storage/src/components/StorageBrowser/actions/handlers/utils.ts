@@ -141,6 +141,15 @@ export const getFilteredLocations = (
 export const getFileKey = (key: string): string =>
   key.slice(key.lastIndexOf('/') + 1, key.length);
 
+export const getFilePath = (key: string): string =>
+  key.slice(0, key.lastIndexOf('/') + 1);
+
+export const getFolderPath = (key: string): string =>
+  getFilePath(key.slice(0, -1));
+
+export const getFolderName = (key: string): string =>
+  getFileKey(key.slice(0, -1));
+
 export const createFileDataItem = (data: FileData): FileDataItem => ({
   ...data,
   fileKey: getFileKey(data.key),

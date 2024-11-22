@@ -4,11 +4,12 @@ import { DataTableProps } from '../../../composables/DataTable';
 
 import { LOCATION_DETAIL_VIEW_HEADERS } from './constants';
 import { LocationPermissions } from '../../../actions';
+import { LocationDetailViewHeaders } from './types';
+import { getFileKey, getFilePath } from '../../../actions/handlers';
 
 export const getFileRowContent = ({
   permissions,
   isSelected,
-  itemLocationKey,
   getDateDisplayValue,
   lastModified,
   rowId,
@@ -17,11 +18,12 @@ export const getFileRowContent = ({
   size,
   onDownload,
   onSelect,
+  headers,
 }: {
   permissions: LocationPermissions;
   isSelected: boolean;
-  itemLocationKey: string;
   lastModified: Date;
+  headers: LocationDetailViewHeaders;
   getDateDisplayValue: (date: Date) => string;
   rowId: string;
   rowKey: string;
@@ -30,7 +32,7 @@ export const getFileRowContent = ({
   onDownload: () => void;
   onSelect: () => void;
 }): DataTableProps['rows'][number]['content'] =>
-  LOCATION_DETAIL_VIEW_HEADERS.map(({ key: columnKey }) => {
+  headers.map(({ key: columnKey }) => {
     const key = `${columnKey}-${rowId}`;
     switch (columnKey) {
       case 'checkbox': {
@@ -52,7 +54,16 @@ export const getFileRowContent = ({
           content: {
             icon: 'file',
             ariaLabel: 'file',
-            text: rowKey.slice(itemLocationKey.length),
+            text: getFileKey(rowKey),
+          },
+        };
+      }
+      case 'path': {
+        return {
+          key,
+          type: 'text',
+          content: {
+            text: getFilePath(rowKey),
           },
         };
       }

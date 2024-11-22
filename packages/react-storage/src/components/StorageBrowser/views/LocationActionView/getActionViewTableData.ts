@@ -10,6 +10,7 @@ import { getPercentValue } from './getPercentValue';
 import { getDefaultActionViewHeaders } from './getDefaultActionViewHeaders';
 import { ActionViewHeaders } from './types';
 import { DefaultActionViewDisplayText } from '../../displayText/types';
+import { getFilePath } from '../../actions/handlers';
 
 const getTaskStatusDisplayLabel = ({
   status,
@@ -110,8 +111,12 @@ export const getActionViewTableData = <T extends TaskData = TaskData>({
             };
           }
           case 'folder': {
-            if (locationKey) {
-              return { key, type: 'text', content: { text: locationKey } };
+            if (isFileDataItem(data)) {
+              return {
+                key,
+                type: 'text',
+                content: { text: getFilePath(data.key) },
+              };
             }
 
             if (isFileItem(data)) {
@@ -128,6 +133,10 @@ export const getActionViewTableData = <T extends TaskData = TaskData>({
                     : '-',
                 },
               };
+            }
+
+            if (locationKey) {
+              return { key, type: 'text', content: { text: locationKey } };
             }
 
             return { key, type: 'text', content: { text: '/' } };
