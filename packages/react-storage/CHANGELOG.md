@@ -1,5 +1,11 @@
 # @aws-amplify/ui-react-storage
 
+## 3.4.1
+
+### Patch Changes
+
+- [#6050](https://github.com/aws-amplify/amplify-ui/pull/6050) [`36e1ee7782e8e6f73e44e08da379cbb17e278e9d`](https://github.com/aws-amplify/amplify-ui/commit/36e1ee7782e8e6f73e44e08da379cbb17e278e9d) Thanks [@choyky](https://github.com/choyky)! - fix (Storage/FileUploader): FileUploader does not upload processed file contents in certain scenarios
+
 ## 3.4.0
 
 ### Minor Changes
