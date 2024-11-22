@@ -12,10 +12,13 @@ Amplify.configure(awsExports);
 const processFile: StorageManagerProps['processFile'] = async ({ file }) => {
   const fileExtension = file.name.split('.').pop();
 
-  const text = 'This is the content of my file';
-  const blob = new Blob([text], { type: 'text/plain' });
+  // pretend the input `file` has been compressed:
+  const blob = new Blob(['Compressed data'], { type: 'text/plain' });
+  const compressedFile = new File([blob], undefined, {
+    type: 'text/plain',
+  });
 
-  return file
+  return compressedFile
     .arrayBuffer()
     .then((filebuffer) => window.crypto.subtle.digest('SHA-1', filebuffer))
     .then((hashBuffer) => {
@@ -24,9 +27,7 @@ const processFile: StorageManagerProps['processFile'] = async ({ file }) => {
         .map((a) => a.toString(16).padStart(2, '0'))
         .join('');
       return {
-        file: new File([blob], `${hashHex}.${fileExtension}`, {
-          type: 'text/plain',
-        }),
+        file: compressedFile,
         key: `${hashHex}.${fileExtension}`,
       };
     });
