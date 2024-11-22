@@ -1,4 +1,9 @@
+import { Accordion } from '@aws-amplify/ui-react';
+import ReactPropsTable from '@/components/propsTable/ReactPropsTable';
+import { Example, ExampleCode } from '@/components/Example';
 import { StorageBrowser } from './examples/MockStorageBrowser.tsx'
+import { DISPLAY_TEXT, COPY_VIEW_DISPLAY_TEXT } from './props.ts'
+import {I18n, Custom, ComposedLocations, ComposedUpload } from './examples'
 
 ## Overview
 
@@ -43,63 +48,172 @@ export const storage = defineStorage({
 
 Then in your React code, call `Amplify.configure()` with your `amplify_outputs.json`. If you have some access rules that require a logged in user, like `allow.authenticated`, you can wrap your page in the [`<Authenticator>`]() component. 
 
+### IAM Identity Center and S3 Access Grants
 
-
-## Configuration
-
-```ts
-import {
-  createAmplifyAuthAdapter,
-  createStorageBrowser,
-} from '@aws-amplify/ui-react-storage/browser';
-import "@aws-amplify/ui-react-storage/styles.css";
-
-import config from './amplify_outputs.json';
-
-Amplify.configure(config);
-
-export const { StorageBrowser } = createStorageBrowser({
-  config: createAmplifyAuthAdapter(),
-});
-```
-
-### Auth adapters
-
-`createManagedAuthAdapter`
-`createAmplifyAuthAdapter`
+### Custom auth
 
 
 
-## Theming
+## Customization
 
+### Theming
 
-
-## Composition
-
-The `<StorageBrowser>` component comes with 
-
-## Custom UI
-
-
-## Browser Navigation
-
-### Next.js pages router
+### Display Text
 
 ```tsx
-export default function Page() {
-  const router = useRouter();
+<StorageBrowser
+  displayText={{
+    LocationsView: {
+      title: 'Storage Browser Home'
+    }
+  }}
+/>
+```
 
-  return (
-    <StorageBrowser.Provider>
-      <StorageBrowser.LocationsView
-        onNavigate={(location) => {
-          router.push({
-            pathname: `${router.pathname}/location-detail`,
-            query: { ...location },
-          });
-        }}
-      />
-    </StorageBrowser.Provider>
-  )
+<Accordion items={DISPLAY_TEXT.map(({key,props}) => {
+  return {
+    trigger: key,
+    value: key,
+    content: <ReactPropsTable props={props} />
+  }
+})}
+/>
+
+#### Internationalization
+
+You can use the `displayText` prop to also support different languages. Use an open source library like i18next, react-intl, or make your own:
+
+<Example>
+  <I18n />
+  <ExampleCode>
+    ```jsx file=./examples/i18n.tsx
+    ```
+  </ExampleCode>
+</Example>
+
+### Composition
+
+If you wanted to move around some of the components in the Locations view without wanting to rebuild the entire view yourself, you can use the composable components of the Locations view. You will first need to use the `useView('Locations')` hook and pass its return to the `<StorageBrowser.LocationsView.Provider>` and then the children of the provider can be the composed sub-components. 
+
+
+### Custom UI
+
+The `createStorageBrowser` function returns the `<StorageBrowser>` component as well as two hooks: `useView()` and `useAction()`. These hooks are built so that you can use the Storage Browser's internal state and handlers to build your own UI on top the Storage Browser functionality.
+
+<Example>
+  <Custom />
+  <ExampleCode>
+    ```jsx file=./examples/Custom.tsx
+    ```
+  </ExampleCode>
+</Example>
+
+
+The `useView()` hook takes a single argument which is the name of the view you want to get the state and handlers for. The available views are `Locations`, `LocationDetails`, `Copy`, `Upload`, `Delete`, and `CreateFolder`. The return of the hook will have all the necessary internal state and handlers required to build that view. In fact, the Storage Browser component itself uses the `useView()` to manage its state, so you can build the UI exactly how we do!
+
+
+## View reference
+
+### Locations view
+
+#### Locations view state
+
+```ts
+interface LocationsViewState {
+  hasNextPage: boolean;
+  hasError: boolean;
+  highestPageVisited: number;
+  isLoading: boolean;
+  message: string | undefined;
+  shouldShowEmptyMessage: boolean;
+  pageItems: LocationData[];
+  page: number;
+  searchQuery: string;
+  hasExhaustedSearch: boolean;
+  onDownload: (item: LocationData) => void;
+  onNavigate: (location: LocationData) => void;
+  onRefresh: () => void;
+  onPaginate: (page: number) => void;
+  onSearch: () => void;
+  onSearchQueryChange: (value: string) => void;
+  onSearchClear: () => void;
 }
 ```
+
+#### Locations view composable components
+
+```tsx
+Provider: (props: LocationsViewProviderProps) => React.JSX.Element;
+LoadingIndicator: () => React.JSX.Element | null;
+LocationsTable: () => React.JSX.Element | null;
+Message: () => React.JSX.Element | null;
+Pagination: () => React.JSX.Element | null;
+Refresh: () => React.JSX.Element | null;
+Search: () => React.JSX.Element | null;
+Title: () => React.JSX.Element | null;
+```
+
+<Example>
+  <ComposedLocations />
+  <ExampleCode>
+    ```jsx file=./examples/ComposedLocations.tsx
+    ```
+  </ExampleCode>
+</Example>
+
+### LocationDetails view
+
+#### LocationDetails view state
+
+```ts
+interface LocationDetailViewState {
+  actions: ActionsListItem[];
+  hasError: boolean;
+  hasNextPage: boolean;
+  hasDownloadError: boolean;
+  highestPageVisited: number;
+  isLoading: boolean;
+  isSearchingSubfolders: boolean;
+  location: LocationState;
+  areAllFilesSelected: boolean;
+  fileDataItems: FileDataItem[] | undefined;
+  hasFiles: boolean;
+  message: string | undefined;
+  downloadErrorMessage: string | undefined;
+  shouldShowEmptyMessage: boolean;
+  searchQuery: string;
+  hasExhaustedSearch: boolean;
+  pageItems: LocationItemData[];
+  page: number;
+  onActionSelect: (actionType: string) => void;
+  onDropFiles: (files: File[]) => void;
+  onRefresh: () => void;
+  onNavigate: (location: LocationData, path?: string) => void;
+  onNavigateHome: () => void;
+  onPaginate: (page: number) => void;
+  onDownload: (fileItem: FileDataItem) => void;
+  onSelect: (isSelected: boolean, fileItem: FileData) => void;
+  onSelectAll: () => void;
+  onSearch: () => void;
+  onSearchClear: () => void;
+  onSearchQueryChange: (value: string) => void;
+  onToggleSearchSubfolders: () => void;
+}
+```
+
+### Upload view
+
+<Example>
+  <ComposedUpload />
+  <ExampleCode>
+    ```jsx file=./examples/ComposedUpload.tsx
+    ```
+  </ExampleCode>
+</Example>
+
+
+### Copy view
+
+### Delete view
+
+### CreateFolder view
