@@ -74,7 +74,7 @@ Feature: Create folder with Storage Browser
     Then I see the "Upload" menuitem
     When I click the "Upload" menuitem
     Then the "Upload" button is disabled
-    Then I upload a file with a random name
+    Then I upload "1" files with random names
     Then I see "Not started"
     Then I click the label containing text "Overwrite existing files"
     When I click the "Upload" button
@@ -82,9 +82,9 @@ Feature: Create folder with Storage Browser
     Then I see "All files uploaded"
     When I click the "Exit" button
     # list uploaded file
-    Then I see the file with a random name
+    Then I see "1" files with random names
     # copy file
-    Then I click checkbox for random file name
+    Then I click checkbox for with "1" files with random names
     When I click the "Menu Toggle" button
     When I click the "Copy" menuitem
     Then I see "Copy destination"
@@ -93,7 +93,7 @@ Feature: Create folder with Storage Browser
     Then I see "All files copied"
     When I click the "Exit" button
     # delete file
-    Then I click checkbox for random file name
+    Then I click checkbox for with "1" files with random names
     When I click the "Menu Toggle" button
     Then I click the "Delete" menuitem
     Then I click the "Delete" button
@@ -101,7 +101,7 @@ Feature: Create folder with Storage Browser
     When I click the "Exit" button
     # delete file copy
     When I click the first button containing "DoNotDeleteThisFolder_CanDeleteAllChildren"
-    Then I click checkbox for random file name
+    Then I click checkbox for with "1" files with random names
     When I click the "Menu Toggle" button
     Then I click the "Delete" menuitem
     Then I click the "Delete" button
@@ -119,7 +119,7 @@ Feature: Create folder with Storage Browser
     Then I see the "Upload" menuitem
     When I click the "Upload" menuitem
     Then the "Upload" button is disabled
-    Then I upload a folder "e2eTemp" with two files with random names
+    Then I upload a folder "e2eTemp" with "2" files with random names
     Then I see "Not started"
     Then I click the label containing text "Overwrite existing files"
     When I click the "Upload" button
@@ -128,7 +128,7 @@ Feature: Create folder with Storage Browser
     When I click the "Exit" button
     # list uploaded file
     When I click the first button containing "e2eTemp"
-    Then I see the two files with random names
+    Then I see "2" files with random names
     # delete created file
     Then I click the element with id attribute "header-checkbox"
     When I click the "Menu Toggle" button
@@ -137,4 +137,5 @@ Feature: Create folder with Storage Browser
     Then I see "All files deleted"
     When I click the "Exit" button
     # verify all files are deleted
-    Then I see "No files" 
+    Then I see "No files"
+

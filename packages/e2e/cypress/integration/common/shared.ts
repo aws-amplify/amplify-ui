@@ -26,6 +26,22 @@ const typeInInputHandler = (field: string, value: string) => {
   cy.findInputField(field).type(value);
 };
 
+const fileInputUpload = (fileCount: number = 1, folderName?: string) => {
+  const folderFiles = [];
+  for (let i = 1; i <= fileCount; i++) {
+    const fileName = folderName
+      ? `${folderName}/${randomFileName}-${i}`
+      : `${randomFileName}-${i}`;
+
+    folderFiles.push({
+      contents: Cypress.Buffer.from(`File ${i} content`),
+      fileName,
+      mimeType: 'text/plain',
+    });
+  }
+  cy.get('input[type="file"]').selectFile(folderFiles, { force: true });
+};
+
 const getRoute = (routeMatcher: { headers: { [key: string]: string } }) => {
   return `${routeMatcher.headers?.['X-Amz-Target'] || 'route'}`;
 };
@@ -374,13 +390,10 @@ Then('I see tab {string}', (search: string) => {
 
 Then('I see {string}', doesDocumentContainText);
 
-Then('I see the file with a random name', () => {
-  doesDocumentContainText(`${randomFileName}`);
-});
-
-Then('I see the two files with random names', () => {
-  doesDocumentContainText(`${randomFileName}1`);
-  doesDocumentContainText(`${randomFileName}2`);
+Then('I see {string} files with random names', (count: string) => {
+  for (let i = 1; i <= parseInt(count); i++) {
+    doesDocumentContainText(`${randomFileName}-${i}`);
+  }
 });
 
 Then('I do not see {string}', (message: string) => {
@@ -665,32 +678,12 @@ Then('I see the {string} radio button checked', (label: string) => {
   );
 });
 
-When('I upload a file with a random name', () => {
-  cy.get('input[type="file"]').selectFile(
-    {
-      contents: Cypress.Buffer.from('file content'),
-      fileName: `${randomFileName}`,
-      mimeType: 'text/plain',
-    },
-    { force: true }
-  );
-});
+When('I upload {string} files with random names', (count: string) =>
+  fileInputUpload(parseInt(count))
+);
 
 When(
-  'I upload a folder {string} with two files with random names',
-  (folderName: string) => {
-    const folderFiles = [
-      {
-        contents: Cypress.Buffer.from('File 1 content'),
-        fileName: `${folderName}/${randomFileName}1`,
-        mimeType: 'text/plain',
-      },
-      {
-        contents: Cypress.Buffer.from('File 2 content'),
-        fileName: `${folderName}/${randomFileName}2`,
-        mimeType: 'text/plain',
-      },
-    ];
-    cy.get('input[type="file"]').selectFile(folderFiles, { force: true });
-  }
+  'I upload a folder {string} with {string} files with random names',
+  (folderName: string, count: string) =>
+    fileInputUpload(parseInt(count), folderName)
 );

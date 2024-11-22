@@ -78,6 +78,12 @@ Then('I click and see download succeed for {string}', (name: string) => {
 
 Then('I click checkbox for file {string}', selectTableRowCheckBox);
 
-Then('I click checkbox for random file name', () =>
-  selectTableRowCheckBox(randomFileName)
+Then(
+  'I click checkbox for with {string} files with random names',
+  (count: string) => {
+    const fileCount = parseInt(count);
+    for (let i = 1; i <= fileCount; i++) {
+      selectTableRowCheckBox(`${randomFileName}-${i}`);
+    }
+  }
 );
