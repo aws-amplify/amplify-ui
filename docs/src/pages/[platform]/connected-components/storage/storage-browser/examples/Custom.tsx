@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { createStorageBrowser } from '@aws-amplify/ui-react-storage/browser';
-import { Button, Flex } from '@aws-amplify/ui-react';
+import { Button, Flex, Text } from '@aws-amplify/ui-react';
 import { mockConfig } from './mockConfig';
+import { IconChevronRight } from '@aws-amplify/ui-react/internal';
 
 const { StorageBrowser, useView } = createStorageBrowser({
   config: mockConfig,
@@ -11,19 +12,25 @@ function LocationsView() {
   const state = useView('Locations');
 
   return (
-    <Flex direction="column" padding="large">
+    <Flex direction="column" padding="medium">
+      <Text fontWeight="bold">Locations</Text>
       {state.pageItems.map((location) => {
         return (
           <Button
             key={location.id}
-            size="small"
-            variation="link"
             justifyContent="flex-start"
             onClick={() => {
               state.onNavigate(location);
             }}
           >
-            {location.bucket}/{location.prefix}
+            <Text flex="1">
+              s3://{location.bucket}/{location.prefix}
+            </Text>
+            <Text as="span" color="font.tertiary" fontWeight="normal">
+              {location.permissions.includes('list') ? 'Read' : null}{' '}
+              {location.permissions.includes('write') ? 'Write' : null}
+            </Text>
+            <IconChevronRight color="font.tertiary" />
           </Button>
         );
       })}
