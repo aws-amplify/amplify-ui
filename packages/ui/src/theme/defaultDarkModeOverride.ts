@@ -105,9 +105,9 @@ const darkModeTokens = {
     },
 
     shadow: {
-      primary: { value: 'hsla(0, 0%, 0%, 0.75)' },
-      secondary: { value: 'hsla(0, 0%, 0%, 0.65)' },
-      tertiary: { value: 'hsla(0, 0%, 0%, 0.55)' },
+      primary: { value: 'hsla(100, 100%, 100%, 0.25)' },
+      secondary: { value: 'hsla(100, 100%, 100%, 0.15)' },
+      tertiary: { value: 'hsla(100, 100%, 100%, 0.05)' },
     },
 
     overlay: {
