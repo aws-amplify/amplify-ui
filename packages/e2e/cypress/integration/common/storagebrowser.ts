@@ -1,4 +1,14 @@
 import { When, Then } from '@badeball/cypress-cucumber-preprocessor';
+import { randomFileName } from './shared';
+
+const selectTableRowCheckBox = (name: string) => {
+  cy.contains('table tbody td:nth-child(2)', new RegExp('^' + name + '$'))
+    .siblings()
+    .first()
+    .within(() => {
+      cy.get('label').click({ force: true });
+    });
+};
 
 When(
   'I drag and drop a file into the storage browser with file name {string}',
@@ -65,3 +75,15 @@ Then('I click and see download succeed for {string}', (name: string) => {
       });
     });
 });
+
+Then('I click checkbox for file {string}', selectTableRowCheckBox);
+
+Then(
+  'I click checkbox for with {string} files with random names',
+  (count: string) => {
+    const fileCount = parseInt(count);
+    for (let i = 1; i <= fileCount; i++) {
+      selectTableRowCheckBox(`${randomFileName}-${i}`);
+    }
+  }
+);
