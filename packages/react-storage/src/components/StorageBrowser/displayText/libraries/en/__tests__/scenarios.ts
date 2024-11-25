@@ -324,6 +324,14 @@ export const LIST_ITEMS_SCENARIOS: [
     },
   ],
   [
+    'search exhausted with no results',
+    {
+      items: [],
+      query: 'something to look for',
+      hasExhaustedSearch: true,
+    },
+  ],
+  [
     'loading',
     {
       items: [],
