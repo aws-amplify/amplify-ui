@@ -27,8 +27,8 @@ describe('ActionDestinationControl', () => {
   it('renders', () => {
     render(<ActionDestinationControl />);
 
-    const ActionDestination = screen.getByTestId('action-destination');
+    const actionDestination = screen.getByTestId('action-destination');
 
-    expect(ActionDestination).toBeInTheDocument();
+    expect(actionDestination).toBeInTheDocument();
   });
 });

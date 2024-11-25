@@ -11,7 +11,6 @@ jest.mock('../../composables/OverwriteToggle', () => ({
 }));
 
 describe('OverwriteToggleControl', () => {
-  // assert mocks
   const mockUseOverwriteToggle = jest.mocked(useOverwriteToggle);
   const mockUseResolvedComposable = jest.mocked(useResolvedComposable);
 

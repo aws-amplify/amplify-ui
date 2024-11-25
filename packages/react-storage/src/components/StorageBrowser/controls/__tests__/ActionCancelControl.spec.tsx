@@ -1,45 +1,34 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { ActionCancelControl } from '../ActionCancelControl';
-import * as useActionCancelModule from '../hooks/useActionCancel';
+import { useActionCancel } from '../hooks/useActionCancel';
+import { useResolvedComposable } from '../hooks/useResolvedComposable';
+
+jest.mock('../hooks/useActionCancel');
+jest.mock('../hooks/useResolvedComposable');
+jest.mock('../../composables/ActionCancel', () => ({
+  ActionCancel: () => <div data-testid="action-cancel" />,
+}));
 
 describe('ActionCancelControl', () => {
-  const useActionCancelSpy = jest.spyOn(
-    useActionCancelModule,
-    'useActionCancel'
-  );
+  const mockUseActionCancel = jest.mocked(useActionCancel);
+  const mockUseResolvedComposable = jest.mocked(useResolvedComposable);
 
-  beforeEach(() => {
-    useActionCancelSpy.mockClear();
+  beforeAll(() => {
+    mockUseResolvedComposable.mockImplementation(
+      (component) => component as () => React.JSX.Element
+    );
+  });
+
+  afterEach(() => {
+    mockUseActionCancel.mockClear();
   });
 
   it('renders', () => {
-    useActionCancelSpy.mockReturnValue({
-      isDisabled: false,
-      onCancel: jest.fn(),
-      label: 'Cancel',
-    });
     render(<ActionCancelControl />);
 
-    const button = screen.getByRole('button', {
-      name: 'Cancel',
-    });
+    const actionCancel = screen.getByTestId('action-cancel');
 
-    expect(button).toBeInTheDocument();
-  });
-
-  it('disables button', () => {
-    useActionCancelSpy.mockReturnValue({
-      isDisabled: true,
-      onCancel: jest.fn(),
-      label: 'Cancel',
-    });
-    render(<ActionCancelControl />);
-
-    const button = screen.getByRole('button', {
-      name: 'Cancel',
-    });
-
-    expect(button).toBeDisabled();
+    expect(actionCancel).toBeInTheDocument();
   });
 });
