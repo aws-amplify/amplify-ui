@@ -35,16 +35,7 @@ const theme = createTheme({
 export default function Example() {
   return (
     <View backgroundColor="background.tertiary" {...theme.containerProps()}>
-      <StorageBrowser
-        displayText={{
-          LocationsView: {
-            // Some display texts are a string
-            title: 'Select a location',
-            // Some are a function that return a string
-            getPermissionName: (permissions) => permissions.join('/'),
-          },
-        }}
-      />
+      <StorageBrowser />
       <ThemeStyle theme={theme} />
     </View>
   );
