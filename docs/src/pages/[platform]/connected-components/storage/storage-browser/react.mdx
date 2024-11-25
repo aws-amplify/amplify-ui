@@ -1,8 +1,27 @@
-import { Accordion, Message } from '@aws-amplify/ui-react';
+import { Accordion, Message, Tabs, View } from '@aws-amplify/ui-react';
 import ReactPropsTable from '@/components/propsTable/ReactPropsTable';
 import { Example, ExampleCode } from '@/components/Example';
 import { DISPLAY_TEXT } from './props.ts'
-import { Default, I18n, Custom, ComposedLocations, ComposedUpload, DisplayText, Theming, Icons } from './examples'
+import {
+  Default,
+  I18n,
+  Custom,
+  ComposedCopyView,
+  ComposedCreateFolderView,
+  ComposedDeleteView,
+  ComposedLocationsView,
+  ComposedLocationDetailView,
+  ComposedUploadView,
+  CustomCreateFolderView,
+  CustomCopyView,
+  CustomDeleteView,
+  CustomLocationsView,
+  CustomLocationDetailView,
+  CustomUploadView,
+  DisplayText,
+  Theming,
+  Icons,
+} from './examples'
 
 
 <Example>
@@ -314,12 +333,81 @@ You can use the `displayText` prop to also support different languages. You can 
 
 ### Composition
 
-If you wanted to move around some of the components in the Locations view without wanting to rebuild the entire view yourself, you can use the composable components of the Locations view. You will first need to use the `useView('Locations')` hook and pass its return to the `<StorageBrowser.LocationsView.Provider>` and then the children of the provider can be the composed sub-components. 
+If you wanted to move around some of the components in any of the views without wanting to rebuild the entire view yourself, you can use the composable components of the view(s) you wish to customize. You will first need to use the `useView('[view name]')` hook and pass its return to the `<StorageBrowser.[view name].Provider>` and then the children of the provider can be the composed sub-components. 
+
+Below you wll find examples of how to compose each view. See [View reference](#view-reference) for all the composable components each view has. 
+
+<Tabs.Container defaultValue="Locations">
+  <Tabs.List>
+    <Tabs.Item value="Locations">Locations</Tabs.Item>
+    <Tabs.Item value="LocationDetail">Location Detail</Tabs.Item>
+    <Tabs.Item value="Upload">Upload</Tabs.Item>
+    <Tabs.Item value="Copy">Copy</Tabs.Item>
+    <Tabs.Item value="CreateFolder">CreateFolder</Tabs.Item>
+    <Tabs.Item value="Delete">Delete</Tabs.Item>
+  </Tabs.List>
+  <Tabs.Panel value="Locations">
+    <Example>
+      <ComposedLocationsView />
+      <ExampleCode>
+        ```tsx file=./examples/ComposedLocationsView.tsx
+        ```
+      </ExampleCode>
+    </Example>
+  </Tabs.Panel>
+  <Tabs.Panel value="LocationDetail">
+    <Example>
+      <ComposedLocationDetailView />
+      <ExampleCode>
+        ```tsx file=./examples/ComposedLocationDetailView.tsx
+        ```
+      </ExampleCode>
+    </Example>
+  </Tabs.Panel>
+  <Tabs.Panel value="CreateFolder">
+    <Example>
+      <ComposedCreateFolderView />
+      <ExampleCode>
+        ```jsx file=./examples/ComposedCreateFolderView.tsx
+        ```
+      </ExampleCode>
+    </Example>
+  </Tabs.Panel>
+  <Tabs.Panel value="Upload">
+    <Example>
+      <ComposedUploadView />
+      <ExampleCode>
+        ```jsx file=./examples/ComposedUploadView.tsx
+        ```
+      </ExampleCode>
+    </Example>
+  </Tabs.Panel>
+  <Tabs.Panel value="Copy">
+    <Example>
+      <ComposedCopyView />
+      <ExampleCode>
+        ```jsx file=./examples/ComposedCopyView.tsx
+        ```
+      </ExampleCode>
+    </Example>
+  </Tabs.Panel>
+  <Tabs.Panel value="Delete">
+    <Example>
+      <ComposedDeleteView />
+      <ExampleCode>
+        ```jsx file=./examples/ComposedDeleteView.tsx
+        ```
+      </ExampleCode>
+    </Example>
+  </Tabs.Panel>
+</Tabs.Container>
 
 
 ### Custom UI
 
-The `createStorageBrowser` function returns the `<StorageBrowser>` component as well as two hooks: `useView()` and `useAction()`. These hooks are built so that you can use the Storage Browser's internal state and handlers to build your own UI on top the Storage Browser functionality.
+The `createStorageBrowser` also returns a `useView()` hook. This hook lets you use the Storage Browser's internal state and handlers to build your own UI on top the Storage Browser functionality.
+
+The `useView()` hook takes a single argument which is the name of the view you want to get the state and handlers for. The available views are `Locations`, `LocationDetails`, `Copy`, `Upload`, `Delete`, and `CreateFolder`. The return of the hook will have all the necessary internal state and handlers required to build that view. In fact, the Storage Browser component itself uses the `useView()` to manage its state, so you can build the UI exactly how we do!
 
 <Example>
   <Custom />
@@ -329,21 +417,79 @@ The `createStorageBrowser` function returns the `<StorageBrowser>` component as 
   </ExampleCode>
 </Example>
 
+Below you will find examples of building custom UI for each view:
 
-The `useView()` hook takes a single argument which is the name of the view you want to get the state and handlers for. The available views are `Locations`, `LocationDetails`, `Copy`, `Upload`, `Delete`, and `CreateFolder`. The return of the hook will have all the necessary internal state and handlers required to build that view. In fact, the Storage Browser component itself uses the `useView()` to manage its state, so you can build the UI exactly how we do!
+<Tabs.Container defaultValue="Locations">
+  <Tabs.List>
+    <Tabs.Item value="Locations">Locations</Tabs.Item>
+    <Tabs.Item value="LocationDetail">Location Detail</Tabs.Item>
+    <Tabs.Item value="Upload">Upload</Tabs.Item>
+    <Tabs.Item value="Copy">Copy</Tabs.Item>
+    <Tabs.Item value="CreateFolder">CreateFolder</Tabs.Item>
+    <Tabs.Item value="Delete">Delete</Tabs.Item>
+  </Tabs.List>
+  <Tabs.Panel value="Locations">
+    <Example>
+      <CustomLocationsView />
+      <ExampleCode>
+        ```tsx file=./examples/CustomLocationsView.tsx
+        ```
+      </ExampleCode>
+    </Example>
+  </Tabs.Panel>
+  <Tabs.Panel value="LocationDetail">
+    <Example>
+      <CustomLocationDetailView />
+      <ExampleCode>
+        ```tsx file=./examples/CustomLocationDetailView.tsx
+        ```
+      </ExampleCode>
+    </Example>
+  </Tabs.Panel>
+  <Tabs.Panel value="Copy">
+    <Example>
+      <CustomCopyView />
+      <ExampleCode>
+        ```jsx file=./examples/CustomCopyView.tsx
+        ```
+      </ExampleCode>
+    </Example>
+  </Tabs.Panel>
+  <Tabs.Panel value="CreateFolder">
+    <Example>
+      <CustomCreateFolderView />
+      <ExampleCode>
+        ```jsx file=./examples/CustomCreateFolderView.tsx
+        ```
+      </ExampleCode>
+    </Example>
+  </Tabs.Panel>
+  <Tabs.Panel value="Upload">
+    <Example>
+      <CustomUploadView />
+      <ExampleCode>
+        ```jsx file=./examples/CustomUploadView.tsx
+        ```
+      </ExampleCode>
+    </Example>
+  </Tabs.Panel>
+  <Tabs.Panel value="Delete">
+    <Example>
+      <CustomDeleteView />
+      <ExampleCode>
+        ```jsx file=./examples/CustomDeleteView.tsx
+        ```
+      </ExampleCode>
+    </Example>
+  </Tabs.Panel>
+</Tabs.Container>
 
 
 ## View reference
 
-### Locations view
+Below you will find the interfaces that the `useView()` hook returns for a given view as well as the composable sub-components on the view.
 
-<Example>
-  <ComposedLocations />
-  <ExampleCode>
-    ```jsx file=./examples/ComposedLocations.tsx
-    ```
-  </ExampleCode>
-</Example>
+### Locations view
 
 #### Locations view state
 
@@ -371,25 +517,15 @@ interface LocationsViewState {
 
 #### Locations view components
 
-```tsx
-export interface LocationsViewType {
-  (
-    props: {
-      children?: React.ReactNode;
-      className?: string;
-    } & LocationsViewProps
-  ): React.JSX.Element | null;
-  displayName: string;
-  Provider: (props: LocationsViewProviderProps) => React.JSX.Element;
-  LoadingIndicator: () => React.JSX.Element | null;
-  LocationsTable: () => React.JSX.Element | null;
-  Message: () => React.JSX.Element | null;
-  Pagination: () => React.JSX.Element | null;
-  Refresh: () => React.JSX.Element | null;
-  Search: () => React.JSX.Element | null;
-  Title: () => React.JSX.Element | null;
-}
-```
+* `<StorageBrowser.LocationsView.Provider />`
+* `<StorageBrowser.LocationsView.LoadingIndicator />`
+* `<StorageBrowser.LocationsView.LocationsTable />`
+* `<StorageBrowser.LocationsView.Message />`
+* `<StorageBrowser.LocationsView.Pagination />`
+* `<StorageBrowser.LocationsView.Refresh />`
+* `<StorageBrowser.LocationsView.Search />`
+* `<StorageBrowser.LocationsView.Title />`
+
 
 ### LocationDetails view
 
@@ -433,39 +569,21 @@ interface LocationDetailViewState {
 
 #### LocationDetails view components
 
-```ts
-export interface LocationDetailViewType {
-  (
-    props: {
-      children?: React.ReactNode;
-      className?: string;
-    } & LocationDetailViewProps
-  ): React.JSX.Element | null;
-  displayName: string;
-  Provider: (props: LocationDetailViewProviderProps) => React.JSX.Element;
-  ActionsList: () => React.JSX.Element | null;
-  DropZone: (props: { children: React.ReactNode }) => React.JSX.Element | null;
-  LoadingIndicator: () => React.JSX.Element | null;
-  LocationItemsTable: () => React.JSX.Element | null;
-  Message: () => React.JSX.Element | null;
-  Navigation: () => React.JSX.Element | null;
-  Pagination: () => React.JSX.Element | null;
-  Refresh: () => React.JSX.Element | null;
-  Search: () => React.JSX.Element | null;
-  SearchSubfoldersToggle: () => React.JSX.Element | null;
-  Title: () => React.JSX.Element | null;
-}
-```
+* `<StorageBrowser.LocationDetails.Provider />`
+* `<StorageBrowser.LocationDetails.ActionsList />`
+* `<StorageBrowser.LocationDetails.DropZone />`
+* `<StorageBrowser.LocationDetails.LoadingIndicator />`
+* `<StorageBrowser.LocationDetails.LocationItemsTable />`
+* `<StorageBrowser.LocationDetails.Message />`
+* `<StorageBrowser.LocationDetails.Navigation />`
+* `<StorageBrowser.LocationDetails.Pagination />`
+* `<StorageBrowser.LocationDetails.Refresh />`
+* `<StorageBrowser.LocationDetails.Search />`
+* `<StorageBrowser.LocationDetails.SearchSubfoldersToggle />`
+* `<StorageBrowser.LocationDetails.Title />`
 
 ### Upload view
 
-<Example>
-  <ComposedUpload />
-  <ExampleCode>
-    ```jsx file=./examples/ComposedUpload.tsx
-    ```
-  </ExampleCode>
-</Example>
 
 #### Upload view state
 
@@ -490,24 +608,20 @@ interface UploadViewState {
 
 #### Upload view components
 
-```ts
-export interface UploadViewType
-  extends ActionViewType<UploadHandlerData, UploadViewProps> {
-  Provider: (props: UploadViewProviderProps) => React.JSX.Element;
-  AddFiles: () => React.JSX.Element | null;
-  AddFolder: () => React.JSX.Element | null;
-  Cancel: () => React.JSX.Element | null;
-  DropZone: (props: { children: React.ReactNode }) => React.JSX.Element | null;
-  Destination: () => React.JSX.Element | null;
-  Exit: () => React.JSX.Element | null;
-  Message: () => React.JSX.Element | null;
-  OverwriteToggle: () => React.JSX.Element | null;
-  Start: () => React.JSX.Element | null;
-  Statuses: () => React.JSX.Element | null;
-  TasksTable: () => React.JSX.Element | null;
-  Title: () => React.JSX.Element | null;
-}
-```
+* `<StorageBrowser.UploadView.Provider />`
+* `<StorageBrowser.UploadView.AddFiles />`
+* `<StorageBrowser.UploadView.AddFolder />`
+* `<StorageBrowser.UploadView.Cancel />`
+* `<StorageBrowser.UploadView.DropZone />`
+* `<StorageBrowser.UploadView.Destination />`
+* `<StorageBrowser.UploadView.Exit />`
+* `<StorageBrowser.UploadView.Message />`
+* `<StorageBrowser.UploadView.OverwriteToggle />`
+* `<StorageBrowser.UploadView.Start />`
+* `<StorageBrowser.UploadView.Statuses />`
+* `<StorageBrowser.UploadView.TasksTable />`
+* `<StorageBrowser.UploadView.Title />`
+
 
 ### Copy view
 
@@ -530,25 +644,21 @@ interface CopyViewState {
 
 #### Copy view components
 
-```ts
-export interface CopyViewType
-  extends ActionViewType<CopyHandlerData, CopyViewProps> {
-  Provider: (props: CopyViewProviderProps) => React.JSX.Element;
-  Cancel: () => React.JSX.Element | null;
-  Destination: () => React.JSX.Element | null;
-  Exit: () => React.JSX.Element | null;
-  FoldersLoadingIndicator: () => React.JSX.Element | null;
-  FoldersMessage: () => React.JSX.Element | null;
-  FoldersPagination: () => React.JSX.Element | null;
-  FoldersSearch: () => React.JSX.Element | null;
-  FoldersTable: () => React.JSX.Element | null;
-  Message: () => React.JSX.Element | null;
-  Start: () => React.JSX.Element | null;
-  Statuses: () => React.JSX.Element | null;
-  TasksTable: () => React.JSX.Element | null;
-  Title: () => React.JSX.Element | null;
-}
-```
+* `<StorageBrowser.CopyView.Provider />`
+* `<StorageBrowser.CopyView.Cancel />`
+* `<StorageBrowser.CopyView.Destination />`
+* `<StorageBrowser.CopyView.Exit />`
+* `<StorageBrowser.CopyView.FoldersLoadingIndicator />`
+* `<StorageBrowser.CopyView.FoldersMessage />`
+* `<StorageBrowser.CopyView.FoldersPagination />`
+* `<StorageBrowser.CopyView.FoldersSearch />`
+* `<StorageBrowser.CopyView.FoldersTable />`
+* `<StorageBrowser.CopyView.Message />`
+* `<StorageBrowser.CopyView.Start />`
+* `<StorageBrowser.CopyView.Statuses />`
+* `<StorageBrowser.CopyView.TasksTable />`
+* `<StorageBrowser.CopyView.Title />`
+
 
 ### Delete view
 
@@ -570,18 +680,15 @@ interface DeleteViewState {
 
 #### Delete view components
 
-```ts
-export interface DeleteViewType {
-  Provider: (props: DeleteViewProviderProps) => React.JSX.Element;
-  Cancel: () => React.JSX.Element | null;
-  Exit: () => React.JSX.Element | null;
-  Message: () => React.JSX.Element | null;
-  Start: () => React.JSX.Element | null;
-  Statuses: () => React.JSX.Element | null;
-  TasksTable: () => React.JSX.Element | null;
-  Title: () => React.JSX.Element | null;
-}
-```
+* `<StorageBrowser.DeleteView.Provider />`
+* `<StorageBrowser.DeleteView.Cancel />`
+* `<StorageBrowser.DeleteView.Exit />`
+* `<StorageBrowser.DeleteView.Message />`
+* `<StorageBrowser.DeleteView.Start />`
+* `<StorageBrowser.DeleteView.Statuses />`
+* `<StorageBrowser.DeleteView.TasksTable />`
+* `<StorageBrowser.DeleteView.Title />`
+
 
 ### CreateFolder view
 
@@ -603,14 +710,10 @@ interface CreateFolderViewState {
 
 #### CreateFolder view components
 
-```ts
-export interface CreateFolderViewType
-  extends ActionViewType<CopyHandlerData, CreateFolderViewProps> {
-  Provider: (props: CreateFolderViewProviderProps) => React.JSX.Element;
-  Exit: () => React.JSX.Element | null;
-  NameField: () => React.JSX.Element | null;
-  Message: () => React.JSX.Element | null;
-  Start: () => React.JSX.Element | null;
-  Title: () => React.JSX.Element | null;
-}
-```
+* `<StorageBrowser.CreateFolderView.Provider />`
+* `<StorageBrowser.CreateFolderView.Exit />`
+* `<StorageBrowser.CreateFolderView.NameField />`
+* `<StorageBrowser.CreateFolderView.Message />`
+* `<StorageBrowser.CreateFolderView.Start />`
+* `<StorageBrowser.CreateFolderView.Title />`
+
