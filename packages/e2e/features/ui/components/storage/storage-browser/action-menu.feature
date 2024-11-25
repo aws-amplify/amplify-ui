@@ -2,12 +2,12 @@ Feature: Create folder with Storage Browser
 
   Background:
     Given I'm running the example "ui/components/storage/storage-browser/default-auth"
+    And I type my "email" with status "CONFIRMED"
+    And I type my password
+    And I click the "Sign in" button
 
   @react
   Scenario: Create folder successfully creates a new empty folder
-    When I type my "email" with status "CONFIRMED"
-    Then I type my password
-    Then I click the "Sign in" button
     When I click the first button containing "public"
     When I click the first button containing "DoNotDeleteThisFolder_CanDeleteAllChildren"
     Then I see the "Menu Toggle" button
@@ -29,9 +29,6 @@ Feature: Create folder with Storage Browser
 
   @react
   Scenario: Create folder fails on overwrite of existing folder name
-    When I type my "email" with status "CONFIRMED"
-    Then I type my password
-    Then I click the "Sign in" button
     When I click the first button containing "public"
     Then I see the "Menu Toggle" button
     When I click the "Menu Toggle" button
@@ -47,9 +44,6 @@ Feature: Create folder with Storage Browser
 
   @react
   Scenario: Create folder input shows error message when folder name contains "/"
-    When I type my "email" with status "CONFIRMED"
-    Then I type my password
-    Then I click the "Sign in" button
     When I click the first button containing "public"
     Then I see the "Menu Toggle" button
     When I click the "Menu Toggle" button
@@ -64,9 +58,6 @@ Feature: Create folder with Storage Browser
 
   @react
   Scenario: upload, list, copy and delete a file using toggle menu
-    When I type my "email" with status "CONFIRMED"
-    Then I type my password
-    Then I click the "Sign in" button
     When I click the first button containing "public"
     Then I see the "Menu Toggle" button
     When I click the "Menu Toggle" button
@@ -109,9 +100,6 @@ Feature: Create folder with Storage Browser
 
   @react
   Scenario: upload a folder
-    When I type my "email" with status "CONFIRMED"
-    Then I type my password
-    Then I click the "Sign in" button
     When I click the first button containing "public"
     Then I see the "Menu Toggle" button
     When I click the "Menu Toggle" button
@@ -141,69 +129,53 @@ Feature: Create folder with Storage Browser
 
   @react
   Scenario: Upload file shows a Network error if offline
-      When I type my "email" with status "CONFIRMED"
-      Then I type my password
-      Then I click the "Sign in" button
       When I click the first button containing "public"
       Then I see the "Menu Toggle" button
       When I click the "Menu Toggle" button
       Then I see the "Upload" menuitem
       When I click the "Upload" menuitem
       Then I upload "1" files with random names
-      Then I simulate network disconnection
-      When I click the "Upload" button
+      When I simulate network disconnection
+      Then I click the "Upload" button
       Then I see "All files failed to upload"
 
   @react
   Scenario: List location items shows a Network error if offline
-      When I type my "email" with status "CONFIRMED"
-      Then I type my password
-      Then I click the "Sign in" button      
       When I see the first button containing "public"
-      Then I simulate network disconnection
-      When I click the first button containing "public"
+      When I simulate network disconnection
+      Then I click the first button containing "public"
       Then I see "Network Error"
 
   @react
   Scenario: Create folder shows a Network error if offline
-      When I type my "email" with status "CONFIRMED"
-      Then I type my password
-      Then I click the "Sign in" button
       When I click the first button containing "public"
       Then I see the "Menu Toggle" button
       When I click the "Menu Toggle" button
       Then I see the "Create Folder" menuitem
       When I click the "Create Folder" menuitem
       Then I see "Folder name"
-      When I type a new "Folder name" with random value
-      Then I simulate network disconnection
-      When I click the "Create Folder" button
+      Then I type a new "Folder name" with random value
+      When I simulate network disconnection
+      Then I click the "Create Folder" button
       Then I see "There was an issue creating the folder"
 
   @react
   Scenario: Copy file shows a Network error if offline
-      When I type my "email" with status "CONFIRMED"
-      Then I type my password
-      Then I click the "Sign in" button
       When I click the first button containing "public"
       Then I click checkbox for file "001_dont_delete_file.txt"
       When I click the "Menu Toggle" button
       When I click the "Copy" menuitem
       Then I click the "DoNotDeleteThisFolder_CanDeleteAllChildren/" button
-      Then I simulate network disconnection
+      When I simulate network disconnection
       Then I click the "Copy" button
       Then I see "All files failed to copy"
 
   @react
   Scenario: Delete file shows a Network error if offline
-      When I type my "email" with status "CONFIRMED"
-      Then I type my password
-      Then I click the "Sign in" button
       When I click the first button containing "public"
       Then I click checkbox for file "001_dont_delete_file.txt"
       When I click the "Menu Toggle" button
-      When I click the "Delete" menuitem
-      Then I simulate network disconnection
+      Then I click the "Delete" menuitem
+      When I simulate network disconnection
       Then I click the "Delete" button
       Then I see "All files failed to delete"
-
