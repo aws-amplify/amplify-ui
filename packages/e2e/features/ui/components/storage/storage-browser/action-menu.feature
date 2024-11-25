@@ -139,3 +139,71 @@ Feature: Create folder with Storage Browser
     # verify all files are deleted
     Then I see "No files"
 
+  @react
+  Scenario: Upload file shows a Network error if offline
+      When I type my "email" with status "CONFIRMED"
+      Then I type my password
+      Then I click the "Sign in" button
+      When I click the first button containing "public"
+      Then I see the "Menu Toggle" button
+      When I click the "Menu Toggle" button
+      Then I see the "Upload" menuitem
+      When I click the "Upload" menuitem
+      Then I upload "1" files with random names
+      Then I simulate network disconnection
+      When I click the "Upload" button
+      Then I see "All files failed to upload"
+
+  @react
+  Scenario: List location items shows a Network error if offline
+      When I type my "email" with status "CONFIRMED"
+      Then I type my password
+      Then I click the "Sign in" button      
+      When I see the first button containing "public"
+      Then I simulate network disconnection
+      When I click the first button containing "public"
+      Then I see "Network Error"
+
+  @react
+  Scenario: Create folder shows a Network error if offline
+      When I type my "email" with status "CONFIRMED"
+      Then I type my password
+      Then I click the "Sign in" button
+      When I click the first button containing "public"
+      Then I see the "Menu Toggle" button
+      When I click the "Menu Toggle" button
+      Then I see the "Create Folder" menuitem
+      When I click the "Create Folder" menuitem
+      Then I see "Folder name"
+      When I type a new "Folder name" with random value
+      Then I simulate network disconnection
+      When I click the "Create Folder" button
+      Then I see "There was an issue creating the folder"
+
+  @react
+  Scenario: Copy file shows a Network error if offline
+      When I type my "email" with status "CONFIRMED"
+      Then I type my password
+      Then I click the "Sign in" button
+      When I click the first button containing "public"
+      Then I click checkbox for file "001_dont_delete_file.txt"
+      When I click the "Menu Toggle" button
+      When I click the "Copy" menuitem
+      Then I click the "DoNotDeleteThisFolder_CanDeleteAllChildren/" button
+      Then I simulate network disconnection
+      Then I click the "Copy" button
+      Then I see "All files failed to copy"
+
+  @react
+  Scenario: Delete file shows a Network error if offline
+      When I type my "email" with status "CONFIRMED"
+      Then I type my password
+      Then I click the "Sign in" button
+      When I click the first button containing "public"
+      Then I click checkbox for file "001_dont_delete_file.txt"
+      When I click the "Menu Toggle" button
+      When I click the "Delete" menuitem
+      Then I simulate network disconnection
+      Then I click the "Delete" button
+      Then I see "All files failed to delete"
+
