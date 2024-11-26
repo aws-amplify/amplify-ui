@@ -10,38 +10,6 @@ let window = null;
 let stub = null;
 export const randomFileName = `fileName${Math.random() * 10000}`;
 
-const doesDocumentContainText = (text: string) => {
-  cy.findByRole('document')
-    .contains(new RegExp(escapeRegExp(text), 'i'))
-    .should('exist');
-};
-
-const clickButtonWithText = (name: string) => {
-  cy.findByRole('button', {
-    name: new RegExp(`${escapeRegExp(name)}`, 'i'),
-  }).click();
-};
-
-const typeInInputHandler = (field: string, value: string) => {
-  cy.findInputField(field).type(value);
-};
-
-const fileInputUpload = (fileCount: number = 1, folderName?: string) => {
-  const folderFiles = [];
-  for (let i = 1; i <= fileCount; i++) {
-    const fileName = folderName
-      ? `${folderName}/${randomFileName}-${i}`
-      : `${randomFileName}-${i}`;
-
-    folderFiles.push({
-      contents: Cypress.Buffer.from(`File ${i} content`),
-      fileName,
-      mimeType: 'text/plain',
-    });
-  }
-  cy.get('input[type="file"]').selectFile(folderFiles, { force: true });
-};
-
 const getRoute = (routeMatcher: { headers: { [key: string]: string } }) => {
   return `${routeMatcher.headers?.['X-Amz-Target'] || 'route'}`;
 };
@@ -272,10 +240,10 @@ When('I type a new {string}', (field: string) => {
   cy.findInputField(field).typeAliasWithStatus(field, `${Date.now()}`);
 });
 
-When('I type a new {string} with value {string}', typeInInputHandler);
+When('I type a new {string} with value {string}', cy.typeInInputHandler);
 
 When('I type a new {string} with random value', (field: string) => {
-  typeInInputHandler(field, randomFileName);
+  cy.typeInInputHandler(field, randomFileName);
 });
 
 When('I lose focus on {string} input', (field: string) => {
@@ -306,10 +274,10 @@ Then('I press the {string} key', (key: string) => {
   cy.get('body').type(key);
 });
 
-When('I click the button containing {string}', clickButtonWithText);
+When('I click the button containing {string}', cy.clickButtonWithText);
 
 When('I click the button containing random name', () => {
-  clickButtonWithText(randomFileName);
+  cy.clickButtonWithText(randomFileName);
 });
 
 When('I click the first button containing {string}', (name: string) => {
@@ -388,11 +356,11 @@ Then('I see tab {string}', (search: string) => {
   cy.findAllByRole('tab').first().should('be.visible').contains(search);
 });
 
-Then('I see {string}', doesDocumentContainText);
+Then('I see {string}', cy.doesDocumentContainText);
 
 Then('I see {string} files with random names', (count: string) => {
   for (let i = 1; i <= parseInt(count); i++) {
-    doesDocumentContainText(`${randomFileName}-${i}`);
+    cy.doesDocumentContainText(`${randomFileName}-${i}`);
   }
 });
 
@@ -679,11 +647,11 @@ Then('I see the {string} radio button checked', (label: string) => {
 });
 
 When('I upload {string} files with random names', (count: string) =>
-  fileInputUpload(parseInt(count))
+  cy.fileInputUpload(randomFileName, parseInt(count))
 );
 
 When(
   'I upload a folder {string} with {string} files with random names',
   (folderName: string, count: string) =>
-    fileInputUpload(parseInt(count), folderName)
+    cy.fileInputUpload(`${folderName}/${randomFileName}`, parseInt(count))
 );
