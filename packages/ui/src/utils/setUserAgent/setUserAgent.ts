@@ -36,6 +36,7 @@ export type ComponentName =
   | 'InAppMessaging'
   | 'LocationSearch'
   | 'MapView'
+  | 'StorageBrowser'
   | 'StorageManager'
   | 'StorageImage';
 
