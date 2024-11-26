@@ -1,4 +1,5 @@
 import { getUrl } from '../../storage-internal';
+import { checkRequiredKeys } from './integrity';
 import {
   FileDataItem,
   TaskHandler,
@@ -50,6 +51,7 @@ export const downloadHandler: DownloadHandler = ({
       expectedBucketOwner: accountId,
     },
   }).then((result) => {
+    checkRequiredKeys(result, 'StorageGetUrlOutput', ['url']);
     return result;
   });
 
