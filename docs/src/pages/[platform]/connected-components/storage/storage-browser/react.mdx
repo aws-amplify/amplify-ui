@@ -166,10 +166,12 @@ export const { StorageBrowser } = createStorageBrowser({
     credentialsProvider: async (options?: { forceRefresh?: boolean }) => {
       // return your credentials object
       return {
-        accessKeyId: 'my-access-key-id',
-        secretAccessKey: 'my-secret-access-key',
-        sessionToken: 'my-session-token',
-        expiration: new Date(),
+        credentials: {
+          accessKeyId: 'my-access-key-id',
+          secretAccessKey: 'my-secret-access-key',
+          sessionToken: 'my-session-token',
+          expiration: new Date(),
+        },
       }
     },
     // AWS `region` and `accountId`
