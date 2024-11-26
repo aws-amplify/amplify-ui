@@ -34,26 +34,26 @@ import {
 
 ## Overview
 
-Storage Browser for S3 is an open source component that you can add to your web application to provide your end users with a simple graphical interface to work with data stored in Amazon S3. With Storage Browser for S3, you can provide authorized end users access to browse, download, upload, copy, and delete data in S3 directly from your own applications. 
+Storage Browser for Amazon S3 is an open source component that you can add to your web applications to provide your end users with a simple, graphical interface to work with data stored in Amazon S3. With Storage Browser for S3, you can provide authorized end users access to easily browse, download, upload, copy, and delete data in S3 directly from your own applications.
 
-In Storage Browser, a _location_ is an S3 bucket or prefix, which can be created with Amazon S3 Access Grants or IAM policies depending on your use case. When the Storage Browser component is first rendered, it will show the LocationsView which displays a list of locations. Once a user has selected a location, the user can browse the S3 bucket at that starting point. If the locaiton has a prefix, the user cannot go outside of that prefix. 
-
+End users work with S3 _locations_ within the Storage Browser interface. _Locations_ are S3 buckets or prefixes that you authorize end users to access using Amazon S3 Access Grants or Identity and Access Management (IAM) policies, depending on your use case. When the Storage Browser component is first rendered, it will show the LocationsView which displays only the locations you have granted them access to. Once an end user has selected a location, they can browse the S3 bucket or prefix, and all the data contained further down the S3 resource path, but they cannot browse buckets or prefixes higher up the S3 resource path.
 
 ## Setup and Authentication
 
-The `StorageBrowser` component is the first Amplify UI component to support different authentication method other than Amplify Auth using Amazon Cognito. 
+The `StorageBrowser` component is the first Amplify UI component to support different authentication methods other than Amplify Auth, which is based on Amazon Cognito and IAM policies. 
 
 In order to show S3 locations and their contents to end users, you first need to set up your preferred authentication and authorization methods. There are 3 ways you can set up authentication/authorization with the storage browser component:
 
-1. **Amplify auth:** If you are already using Amplify then this option lets you get started the fastest. It uses Amazon Cognito for authentication and IAM policies for authorization and access. And by using Amplify Gen 2, the access rules for users and groups can be customized.
-2. **AWS IAM Identity Center and S3 Access Grants:** We recommend this option if you want to grant access on a per-S3-prefix basis to both IAM principals and directly to users or groups from your corporate directory. With S3 Access Grants capabilities, applications can request data from Amazon S3 on behalf of the current authenticated user. This means your applications no longer need to first map the user to an IAM principal. And when you use S3 Access Grants with IAM Identity Center trusted identity propagation, each AWS CloudTrail data event for S3 references the end user identity that accessed your data.
-3. **Custom auth:** We recommend this option if you have your own identity and authorization service for authenticating and authorizing users in your application. To use this option, you will need to provide the list of S3 locations to display to the user and a mechanism for fetching scoped credentials for each location.
 
-The StorageBrowser signs all requests made to Amazon S3 based on the temporary credentials. With Ampify Auth this is handled automatically for you based on your backed resource definitions. With IAM Identity Center and S3 Access Grants, you are responsible for 
+1. **Amplify auth:** If you are already using Amplify then this option lets you get started the fastest. It uses Amazon Cognito for authentication and IAM policies for authorization and access. And by using Amplify Gen 2, the access rules for users and groups can be customized. This option is ideal for use cases when you want to connect your customers and third-party partners to your data in S3.
+2. **AWS IAM Identity Center and S3 Access Grants:** We recommend this option if you want to grant access on a per-S3-prefix basis to both IAM principals and directly to users or groups from your corporate directory. With S3 Access Grants capabilities, applications can request data from Amazon S3 on behalf of the current authenticated user. This means your applications no longer need to first map the user to an IAM principal. And when you use S3 Access Grants with IAM Identity Center trusted identity propagation, each AWS CloudTrail data event for S3 references the end user identity that accessed your data. This option is ideal for use cases when you want to connect your entire workforce with your data in S3.
+3. **Customer managed auth:** We recommend this option if you have your own identity and authorization service for authenticating and authorizing users in your application. To use this option, you will need to provide the list of S3 locations to display to the user and a mechanism for fetching scoped AWS STS tokens for each location.
+
+The `StorageBrowser` component signs all requests made to Amazon S3 based on the temporary credentials generated by one of the authorization modes above. With Ampify Auth, this is handled automatically for you based on your backed resource definitions. With IAM Identity Center and S3 Access Grants, you are responsible for setting up IAM Identity Center and S3 Access Grants and configuring them to work with your application. With custom auth, you are responsible for configuring your application to vend STS tokens to the StorageBrowser component to authorize end users' requests during their session.
 
 ### Bucket CORS
 
-The StorageBrowser component is a client-side component that makes authorized requests to the S3 API from the browser. If you are not using Amplify to provision your S3 buckets, you will need to enable CORS policies on the buckets you want available in the StorageBrowser component.
+The `StorageBrowser` component is a client-side component that makes authorized requests to S3 APIs from the browser. If you are not using Amplify to provision your S3 buckets, you will need to enable Cross-Origin Resource Sharing (CORS) policies on the buckets you want available in the `StorageBrowser`  component. 
 
 <Example>
 <ExampleCode>
@@ -126,7 +126,7 @@ export const storage = defineStorage({
 </ExampleCode>
 </Example>
 
-While not technically the same as S3 Access Grants, the access rules defined in `defineStorage` are treated like 'locations'. Users will see all of the access paths they are authorized to see and can start browsing the S3 bucket at those paths.
+The access rules defined in `defineStorage` are treated as _locations_, which is described in the Overview. Therefore, users will have access to all of the S3 resource paths you have authorized them to access and can start browsing the S3 buckets or prefixes specified by these paths. 
 
 Then in your React code, call `Amplify.configure()` with your `amplify_outputs.json`. If you have some access rules that require a logged in user, like `allow.authenticated`, you can wrap your page in the [`<Authenticator>`](/[platform]/connected-components/authenticator) component to easily add authentication flows to your app. 
 
@@ -151,6 +151,8 @@ export const { StorageBrowser } = createStorageBrowser({
 </Example>
 
 ### IAM Identity Center and S3 Access Grants
+
+To use this authorization method, you first have to configure an IAM Identity Center and set up permission grants for your users and groups in S3 Access Grants. Then, you connect your application to Identity Center and configure your application to exchange an identity token from your external Identity Provider with one from Identity Center. Afterwards, you configure your application to provide the Identity Center token to Storage Browser when a user opens the page in your application to access your data in S3. To learn more, visit the [S3 documentation](https://docs.aws.amazon.com/AmazonS3/latest/userguide/storage-browser.html).
 
 <Example>
 <ExampleCode>
@@ -186,9 +188,9 @@ export const { StorageBrowser } = createStorageBrowser({
 </ExampleCode>
 </Example>
 
-### Custom auth
+### Customer managed auth
 
-Using custom auth you will need to provide the temporary credentials used to sign the requests to S3.
+To use your own identity and authorization service with Storage Browser, you will need to provide the temporary credentials used to sign the requests your end users are making to S3 through the `StorageBrowser` component.
 
 <Example>
 <ExampleCode>
@@ -198,6 +200,7 @@ import '@aws-amplify/ui-react-storage/styles.css';
 
 export const { StorageBrowser } = createStorageBrowser({
    config: {
+    // Default AWS `region` and `accountId` of the S3 buckets.
     region: 'XXX',
     accountId: 'XXXXXX',
     listLocations: async (input = {}) => {
@@ -208,7 +211,6 @@ export const { StorageBrowser } = createStorageBrowser({
             bucketName: '[bucket name]',
             prefix: '', // empty path means bucket root
             id: 'XXXXXXX', // unique identifier 
-            region: 'us-east-1',
             type: 'BUCKET',
             permission: ['delete', 'get', 'list', 'write'],
           },
@@ -216,7 +218,6 @@ export const { StorageBrowser } = createStorageBrowser({
             bucketName: '[bucket name]',
             prefix: 'some/path',
             id: 'XXXXXXX', // unique identifier 
-            region: 'us-east-1',
             type: 'PREFIX',
             permission: ['delete', 'get', 'list', 'write'],
           }
@@ -243,7 +244,7 @@ export const { StorageBrowser } = createStorageBrowser({
 </ExampleCode>
 </Example>
 
-To use custom auth you will need to provide these config values to `createStorageBrowser`:
+You will also need to provide these config values to `createStorageBrowser`: 
 
 <Example>
 <ExampleCode>
@@ -264,11 +265,11 @@ interface Config {
 
 ### Theming
 
-The Storage Browser component is built on the Amplify UI components so if you already have an Amplify UI theme it will just work with the Storage Browser. The components used in the Storage Browser are: [`<Button>`](/[platform]/components/button), [`<Breadcrumbs>`](/[platform]/components/breadcrumbs), [`<Menu>`](/[platform]/components/menu), [`<Pagination>`](/[platform]/components/pagination), [`<SearchField>`](/[platform]/components/searchfield), [`<Checkbox>`](/[platform]/components/checkboxfield), [`<TextField>`](/[platform]/textfield), and [`<Message>`](/[platform]/components/message).
+The `StorageBrowser` component is built on Amplify UI components so if you already have an Amplify UI theme it will just work with the Storage Browser out of the box. The components used in the Storage Browser are: [`<Button>`](/[platform]/components/button), [`<Breadcrumbs>`](/[platform]/components/breadcrumbs), [`<Menu>`](/[platform]/components/menu), [`<Pagination>`](/[platform]/components/pagination), [`<SearchField>`](/[platform]/components/searchfield), [`<Checkbox>`](/[platform]/components/checkboxfield), [`<TextField>`](/[platform]/textfield), and [`<Message>`](/[platform]/components/message).
 
 #### Theme object
 
-You can use the `createTheme()` function to theme the Storage Browser component
+You can use the `createTheme()` function to theme the `StorageBrowser` component
 
 <Example>
   <Theming />
@@ -288,7 +289,7 @@ One way to theme the Storage Browser component is to use plain CSS. Amplify UI c
 
 ### Icons
 
-You can use the `<IconsProvider>` to customize the icons used in the Storage Browser component. 
+You can use the `<IconsProvider>` to customize the icons used in the `StorageBrowser` component. 
 
 <Example>
   <Icons />
@@ -300,7 +301,7 @@ You can use the `<IconsProvider>` to customize the icons used in the Storage Bro
 
 ### Display Text
 
-You can customize all of the text (except S3 data like keys and bucket names) used in the Storage Browser by using the `displayText` prop which is a nested object organized by view. You don't need to provide an entire object; the StorageBrowser will merge your input with the default strings. Some texts are plain strings and others are are functions that take some input, like a date, and return a string. 
+You can customize all of the text (except S3 data like keys and bucket names) used in Storage Browser by using the `displayText` prop which is a nested object organized by view. You don't need to provide an entire object; the `StorageBrowser` component will merge your input with the default strings. Some texts are plain strings and others are are functions that take some input, like a date, and return a string. 
 
 <Example>
   <DisplayText />
@@ -310,7 +311,7 @@ You can customize all of the text (except S3 data like keys and bucket names) us
   </ExampleCode>
 </Example>
 
-All of the display texts are below with their default values and type
+All of the display texts are listed below with their default values and types.
 
 <Accordion items={DISPLAY_TEXT.map(({key,props}) => {
   return {
@@ -323,7 +324,7 @@ All of the display texts are below with their default values and type
 
 #### Internationalization
 
-You can use the `displayText` prop to also support different languages. You can use an open source library like i18next, react-intl, or make your own:
+You can also use the `displayText` prop to also support different languages. You can use an open source library like i18next, react-intl, or make your own:
 
 <Example>
   <I18n />
@@ -335,9 +336,9 @@ You can use the `displayText` prop to also support different languages. You can 
 
 ### Composition
 
-If you wanted to move around some of the components in any of the views without wanting to rebuild the entire view yourself, you can use the composable components of the view(s) you wish to customize. You will first need to use the `useView('[view name]')` hook and pass its return to the `<StorageBrowser.[view name].Provider>` and then the children of the provider can be the composed sub-components. 
+If you wanted to rearrange some of the components in any of the views without wanting to rebuild the entire view yourself, you can use the composable components of the view(s) you wish to customize. You will first need to use the `useView('[view name]')` hook and pass the return to the `<StorageBrowser.[view name].Provider>` and then the children of the provider can be the composed sub-components. 
 
-Below you wll find examples of how to compose each view. See [View reference](#view-reference) for all the composable components each view has. 
+Below you wll find examples of how to compose each view. See [View reference](#view-reference) for a list of components that can be composed in each view.
 
 <Tabs.Container defaultValue="Locations">
   <Tabs.List>
@@ -407,9 +408,9 @@ Below you wll find examples of how to compose each view. See [View reference](#v
 
 ### Custom UI
 
-The `createStorageBrowser` also returns a `useView()` hook. This hook lets you use the Storage Browser's internal state and handlers to build your own UI on top the Storage Browser functionality.
+The `createStorageBrowser` function returns a `useView()` hook that lets you use the Storage Browser's internal state and event handlers to build your own UI on top the Storage Browser functionality.
 
-The `useView()` hook takes a single argument which is the name of the view you want to get the state and handlers for. The available views are `Locations`, `LocationDetails`, `Copy`, `Upload`, `Delete`, and `CreateFolder`. The return of the hook will have all the necessary internal state and handlers required to build that view. In fact, the Storage Browser component itself uses the `useView()` to manage its state, so you can build the UI exactly how we do!
+The `useView()` hook takes a single argument which is the name of the view you want to get the UI state and event handlers for. The available views are `Locations`, `LocationDetails`, `Copy`, `Upload`, `Delete`, and `CreateFolder`. The return value of the hook will have all the necessary internal state and event handlers required to build that view. In fact, the Storage Browser component itself uses the `useView()` to manage its state, so you can build the UI exactly how we do!
 
 <Example>
   <Custom />
@@ -489,7 +490,7 @@ Below you will find examples of building custom UI for each view:
 
 ## View reference
 
-Below you will find the interfaces that the `useView()` hook returns for a given view as well as the composable sub-components on the view.
+Below you will find the interfaces that the `useView()` hook returns for a given view as well as the composable sub-components of the view.
 
 ### Locations view
 
