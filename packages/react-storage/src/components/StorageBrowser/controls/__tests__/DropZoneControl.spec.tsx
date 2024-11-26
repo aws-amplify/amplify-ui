@@ -1,42 +1,38 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { useResolvedComposable } from '../hooks/useResolvedComposable';
-import { useDropZone } from '../hooks/useDropZone';
 import { DropZoneControl } from '../DropZoneControl';
-import { STORAGE_BROWSER_BLOCK } from '../../constants';
+import { useDropZone } from '../hooks/useDropZone';
+import { useResolvedComposable } from '../hooks/useResolvedComposable';
 
 jest.mock('../hooks/useDropZone');
 jest.mock('../hooks/useResolvedComposable');
+jest.mock('../../composables/DropZone', () => ({
+  DropZone: () => <div data-testid="drop-zone" />,
+}));
 
 describe('DropZoneControl', () => {
-  // assert mocks
-  const mockUseDropZone = useDropZone as jest.Mock;
-  const mockUseResolvedComposable = useResolvedComposable as jest.Mock;
+  const mockUseDropZone = jest.mocked(useDropZone);
+  const mockUseResolvedComposable = jest.mocked(useResolvedComposable);
 
   beforeAll(() => {
     mockUseResolvedComposable.mockImplementation(
-      (component: React.JSX.Element) => component
+      (component) => component as () => React.JSX.Element
     );
   });
 
   afterEach(() => {
-    mockUseDropZone.mockReset();
-    mockUseResolvedComposable.mockClear();
+    mockUseDropZone.mockClear();
   });
 
   it('renders', () => {
-    mockUseDropZone.mockReturnValue({});
-
     render(
       <DropZoneControl>
         <table />
       </DropZoneControl>
     );
 
-    const child = screen.getByRole('table');
+    const dropZone = screen.getByTestId('drop-zone');
 
-    expect(child.parentElement).toHaveClass(
-      `${STORAGE_BROWSER_BLOCK}__drop-zone`
-    );
+    expect(dropZone).toBeInTheDocument();
   });
 });

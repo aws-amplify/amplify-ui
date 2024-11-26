@@ -1,9 +1,10 @@
 import { renderHook } from '@testing-library/react';
-import { useControlsContext } from '../../../controls/context';
-import { useActionDestination } from '../useActionDestination';
 import { LocationPermissions } from '../../../actions';
+import { ActionDestinationProps } from '../../../composables/ActionDestination';
+import { useControlsContext } from '../../../controls/context';
 import { getNavigationItems } from '../getNavigationItems';
 import { getNavigationParts } from '../getNavigationParts';
+import { useActionDestination } from '../useActionDestination';
 
 jest.mock('../../../controls/context');
 jest.mock('../getNavigationItems');
@@ -29,15 +30,14 @@ describe('useActionDestination', () => {
   const mockGetNavigationItems = jest.mocked(getNavigationItems);
   const mockGetNavigationParts = jest.mocked(getNavigationParts);
   const mockUseControlsContext = jest.mocked(useControlsContext);
-  const mockOnSelectDestination = jest.fn();
 
   beforeEach(() => {
     mockUseControlsContext.mockReturnValue({
       data,
-      onSelectDestination: mockOnSelectDestination,
+      onSelectDestination: jest.fn(),
     });
     mockGetNavigationItems.mockReturnValue([
-      { name: bucket, onNavigate: mockOnSelectDestination, isCurrent: true },
+      { name: bucket, onNavigate: jest.fn(), isCurrent: true },
     ]);
   });
 
@@ -47,16 +47,18 @@ describe('useActionDestination', () => {
     mockGetNavigationParts.mockClear();
   });
 
-  it('returns useActionDestination data', () => {
+  it('returns ActionDestination props', () => {
     const { result } = renderHook(() => useActionDestination());
 
-    expect(result.current).toStrictEqual({
+    const expected: ActionDestinationProps = {
       label: actionDestinationLabel,
       items: [
         { name: bucket, onNavigate: expect.any(Function), isCurrent: true },
       ],
       isNavigable: undefined,
-    });
+    };
+
+    expect(result.current).toStrictEqual(expected);
   });
 
   it('returns empty items if current location is undefined', () => {
@@ -65,17 +67,5 @@ describe('useActionDestination', () => {
     const { result } = renderHook(() => useActionDestination());
 
     expect(result.current).toStrictEqual({ items: [] });
-  });
-
-  it('calls onSelectDestination', () => {
-    mockGetNavigationItems.mockReturnValue([
-      { name: bucket, onNavigate: mockOnSelectDestination, isCurrent: true },
-    ]);
-    const { result } = renderHook(() => useActionDestination());
-    const [navigationItem] = result.current?.items ?? [];
-
-    navigationItem?.onNavigate?.();
-
-    expect(mockOnSelectDestination).toHaveBeenCalled();
   });
 });

@@ -1,32 +1,38 @@
 import { renderHook } from '@testing-library/react';
+import { AddFolderProps } from '../../../composables/AddFolder';
 import { useControlsContext } from '../../../controls/context';
 import { useAddFolder } from '../useAddFolder';
 
 jest.mock('../../../controls/context');
 
 describe('useAddFolder', () => {
+  const data = {
+    addFolderLabel: 'add-folder-label',
+    isAddFolderDisabled: false,
+  };
+
   const mockUseControlsContext = jest.mocked(useControlsContext);
+
+  beforeEach(() => {
+    mockUseControlsContext.mockReturnValue({
+      data,
+      onAddFolder: jest.fn(),
+    });
+  });
 
   afterEach(() => {
     mockUseControlsContext.mockReset();
   });
 
-  it('returns useAddFolder data', () => {
-    const data = {
-      addFolderLabel: 'add-folder-label',
-      isAddFolderDisabled: false,
-    };
-    mockUseControlsContext.mockReturnValue({
-      data,
-      onAddFolder: jest.fn(),
-    });
-
+  it('returns AddFolder props', () => {
     const { result } = renderHook(() => useAddFolder());
 
-    expect(result.current).toStrictEqual({
-      isDisabled: data.isAddFolderDisabled,
+    const expected: AddFolderProps = {
       label: data.addFolderLabel,
+      isDisabled: data.isAddFolderDisabled,
       onAddFolder: expect.any(Function),
-    });
+    };
+
+    expect(result.current).toStrictEqual(expected);
   });
 });
