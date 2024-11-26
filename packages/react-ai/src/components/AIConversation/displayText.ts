@@ -13,10 +13,10 @@ export const defaultAIConversationDisplayTextEn: Required<AIConversationDisplayT
     getMaxAttachmentErrorText(count: number): string {
       return `Cannot choose more than ${count} ${
         count === 1 ? 'file' : 'files'
-      }`;
+      }. `;
     },
     getAttachmentSizeErrorText(sizeText: string): string {
-      return `File size must be below ${sizeText}`;
+      return `File size must be below ${sizeText}.`;
     },
   };
 
