@@ -1,7 +1,9 @@
 import * as React from 'react';
+import { humanFileSize } from '@aws-amplify/ui';
 import {
   Button,
   DropZone,
+  Message,
   TextAreaField,
   View,
   VisuallyHidden,
@@ -10,7 +12,7 @@ import { IconAttach, IconSend, useIcons } from '@aws-amplify/ui-react/internal';
 import { ComponentClassName } from '@aws-amplify/ui';
 import { ControlsContextProps } from '../../context/ControlsContext';
 import { Attachments } from './Attachments';
-import { ConversationInputContext } from '../../context';
+import { attachmentsValidator } from '../../utils';
 
 function isHTMLFormElement(target: EventTarget): target is HTMLFormElement {
   return 'form' in target;
@@ -23,21 +25,18 @@ function isHTMLFormElement(target: EventTarget): target is HTMLFormElement {
 const FormWrapper = ({
   children,
   allowAttachments,
-  setInput,
+  validateAttachments,
 }: {
   children: React.ReactNode;
   allowAttachments?: boolean;
-  setInput: ConversationInputContext['setInput'];
+  validateAttachments: (files: File[]) => Promise<void>;
 }) => {
   if (allowAttachments) {
     return (
       <DropZone
         className={ComponentClassName.AIConversationFormDropzone}
         onDropComplete={({ acceptedFiles }) => {
-          setInput?.((prevInput) => ({
-            ...prevInput,
-            files: [...(prevInput?.files ?? []), ...acceptedFiles],
-          }));
+          validateAttachments(acceptedFiles);
         }}
       >
         {children}
@@ -53,7 +52,12 @@ export const Form: Required<ControlsContextProps>['Form'] = ({
   input,
   handleSubmit,
   allowAttachments,
+  maxAttachmentSize,
+  maxAttachments,
+  displayText,
   isLoading,
+  error,
+  setError,
 }) => {
   const icons = useIcons('aiConversation');
   const sendIcon = icons?.send ?? <IconSend />;
@@ -62,8 +66,46 @@ export const Form: Required<ControlsContextProps>['Form'] = ({
   const [composing, setComposing] = React.useState(false);
   const isInputEmpty = !input?.text?.length && !input?.files?.length;
 
+  const validateAttachments = React.useCallback(
+    async (files: File[]) => {
+      const previousFiles = input?.files ?? [];
+      const { acceptedFiles, hasMaxError, hasMaxSizeError } =
+        await attachmentsValidator({
+          files: [...files, ...previousFiles],
+          maxAttachments,
+          maxAttachmentSize,
+        });
+
+      if (hasMaxError ?? hasMaxSizeError) {
+        let error = '';
+        if (hasMaxError) {
+          error += displayText.getMaxAttachmentErrorText(maxAttachments);
+        }
+        if (hasMaxSizeError) {
+          error += displayText.getAttachmentSizeErrorText(
+            // base64 size is about 137% that of the file size
+            // https://en.wikipedia.org/wiki/Base64#MIME
+            humanFileSize((maxAttachmentSize - 814) / 1.37, true)
+          );
+        }
+        setError(error);
+      } else {
+        setError(undefined);
+      }
+
+      setInput((prevValue) => ({
+        ...prevValue,
+        files: acceptedFiles,
+      }));
+    },
+    [setInput, input, displayText, maxAttachmentSize, maxAttachments, setError]
+  );
+
   return (
-    <FormWrapper allowAttachments={allowAttachments} setInput={setInput}>
+    <FormWrapper
+      validateAttachments={validateAttachments}
+      allowAttachments={allowAttachments}
+    >
       <View
         as="form"
         className={ComponentClassName.AIConversationForm}
@@ -86,17 +128,13 @@ export const Form: Required<ControlsContextProps>['Form'] = ({
                 tabIndex={-1}
                 ref={hiddenInput}
                 onChange={(e) => {
-                  const { files } = e.target;
-                  if (!files || files.length === 0) {
+                  if (!e.target.files || e.target.files.length === 0) {
                     return;
                   }
-                  setInput((prevValue) => ({
-                    ...prevValue,
-                    files: [...(prevValue?.files ?? []), ...Array.from(files)],
-                  }));
+                  validateAttachments(Array.from(e.target.files));
                 }}
                 multiple
-                accept="*"
+                accept=".jpeg,.png,.webp,.gif"
                 data-testid="hidden-file-input"
               />
             </VisuallyHidden>
@@ -141,6 +179,15 @@ export const Form: Required<ControlsContextProps>['Form'] = ({
           <span>{sendIcon}</span>
         </Button>
       </View>
+      {error ? (
+        <Message
+          className={ComponentClassName.AIConversationFormError}
+          variation="plain"
+          colorTheme="warning"
+        >
+          {error}
+        </Message>
+      ) : null}
       <Attachments setInput={setInput} files={input?.files} />
     </FormWrapper>
   );

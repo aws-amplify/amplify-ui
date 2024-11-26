@@ -1,7 +1,11 @@
 import React from 'react';
 
 import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
-import { AIContextContext, ConversationInputContext } from '../../context';
+import {
+  AIContextContext,
+  ConversationInputContext,
+  useConversationDisplayText,
+} from '../../context';
 import { AIConversationElements } from '../../context/elements';
 import { AttachFileControl } from './AttachFileControl';
 import { MessagesContext } from '../../context';
@@ -148,9 +152,13 @@ const InputContainer = withBaseElementProps(View, {
 });
 
 export const FormControl: FormControl = () => {
-  const { input, setInput } = React.useContext(ConversationInputContext);
+  const { input, setInput, error, setError } = React.useContext(
+    ConversationInputContext
+  );
   const handleSendMessage = React.useContext(SendMessageContext);
-  const allowAttachments = React.useContext(AttachmentContext);
+  const { allowAttachments, maxAttachmentSize, maxAttachments } =
+    React.useContext(AttachmentContext);
+  const displayText = useConversationDisplayText();
   const responseComponents = React.useContext(ResponseComponentsContext);
   const isLoading = React.useContext(LoadingContext);
   const aiContext = React.useContext(AIContextContext);
@@ -219,8 +227,13 @@ export const FormControl: FormControl = () => {
         handleSubmit={handleSubmit}
         input={input!}
         setInput={setInput!}
-        allowAttachments={allowAttachments}
+        allowAttachments={allowAttachments!}
+        maxAttachmentSize={maxAttachmentSize!}
+        maxAttachments={maxAttachments!}
+        displayText={displayText}
         isLoading={isLoading}
+        error={error!}
+        setError={setError!}
       />
     );
   }

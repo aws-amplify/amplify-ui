@@ -1,10 +1,23 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { Form } from '../Form';
+import { defaultAIConversationDisplayTextEn } from '../../../displayText';
 
 const setInput = jest.fn();
 const input = {};
 const handleSubmit = jest.fn();
+
+const defaultProps = {
+  allowAttachments: true,
+  setInput,
+  input,
+  handleSubmit,
+  displayText: defaultAIConversationDisplayTextEn,
+  error: '',
+  setError: () => {},
+  maxAttachmentSize: 400000,
+  maxAttachments: 20,
+};
 
 describe('Form', () => {
   beforeEach(() => {
@@ -13,14 +26,7 @@ describe('Form', () => {
   });
 
   it('renders a Form component with the correct elements', () => {
-    const result = render(
-      <Form
-        allowAttachments
-        setInput={setInput}
-        input={input}
-        handleSubmit={handleSubmit}
-      />
-    );
+    const result = render(<Form {...defaultProps} />);
     expect(result.container).toBeDefined();
 
     const form = screen.findByRole('form');
@@ -35,14 +41,7 @@ describe('Form', () => {
   });
 
   it('can upload files to the input', async () => {
-    const result = render(
-      <Form
-        allowAttachments
-        setInput={setInput}
-        input={input}
-        handleSubmit={handleSubmit}
-      />
-    );
+    const result = render(<Form {...defaultProps} />);
     expect(result.container).toBeDefined();
 
     const fileInput: HTMLInputElement = screen.getByTestId('hidden-file-input');
@@ -50,6 +49,9 @@ describe('Form', () => {
       type: 'text/plain',
     });
     File.prototype.text = jest.fn().mockResolvedValueOnce('foo.txt');
+    File.prototype.arrayBuffer = jest
+      .fn()
+      .mockResolvedValueOnce(Buffer.from([]));
     await waitFor(() =>
       fireEvent.change(fileInput, {
         target: { files: [testFile] },
