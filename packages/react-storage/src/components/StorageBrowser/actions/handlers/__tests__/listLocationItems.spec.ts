@@ -1,4 +1,4 @@
-import * as StorageModule from '../../../storage-internal';
+import { list } from '../../../storage-internal';
 
 import {
   listLocationItemsHandler,
@@ -16,9 +16,7 @@ Object.defineProperty(globalThis, 'crypto', {
   },
 });
 
-const listSpy = jest
-  .spyOn(StorageModule, 'list')
-  .mockImplementation(() => Promise.resolve({ items: [], nextToken: '' }));
+jest.mock('../../../storage-internal');
 
 const baseInput: ListLocationItemsHandlerInput = {
   prefix: 'prefix/',
@@ -34,12 +32,18 @@ const baseInput: ListLocationItemsHandlerInput = {
 const prefix = 'prefix1/';
 
 describe('listLocationItemsHandler', () => {
+  const mockList = jest.mocked(list);
+
   beforeEach(() => {
-    listSpy.mockClear();
+    mockList.mockResolvedValue({ items: [], nextToken: '' });
+  });
+
+  afterEach(() => {
+    mockList.mockReset();
   });
 
   it('returns the expected output shape in the happy path', async () => {
-    listSpy.mockResolvedValueOnce({ items: [], nextToken: 'tokeno' });
+    mockList.mockResolvedValueOnce({ items: [], nextToken: 'tokeno' });
 
     const { items, nextToken } = await listLocationItemsHandler(baseInput);
 
@@ -48,7 +52,7 @@ describe('listLocationItemsHandler', () => {
   });
 
   it('provides expected `pageSize` to `list` on initial load', async () => {
-    listSpy.mockResolvedValueOnce({ items: [] });
+    mockList.mockResolvedValueOnce({ items: [] });
 
     const input = {
       ...baseInput,
@@ -58,8 +62,8 @@ describe('listLocationItemsHandler', () => {
 
     await listLocationItemsHandler(input);
 
-    expect(listSpy).toHaveBeenCalledTimes(1);
-    expect(listSpy).toHaveBeenCalledWith({
+    expect(mockList).toHaveBeenCalledTimes(1);
+    expect(mockList).toHaveBeenCalledWith({
       path: input.prefix,
       options: {
         bucket: {
@@ -75,8 +79,9 @@ describe('listLocationItemsHandler', () => {
       },
     });
   });
+
   it('provides `pageSize` number of items after removing items that match / or . or ..', async () => {
-    listSpy
+    mockList
       .mockResolvedValueOnce({
         items: [
           { path: `/`, lastModified: new Date(), size: 0 },
@@ -102,7 +107,48 @@ describe('listLocationItemsHandler', () => {
 
     const listItems = await listLocationItemsHandler(input);
     expect(listItems.items).toHaveLength(input.options.pageSize);
-    expect(listSpy).toHaveBeenCalledTimes(2);
+    expect(mockList).toHaveBeenCalledTimes(2);
+  });
+
+  it('can exclude by type', async () => {
+    mockList.mockResolvedValueOnce({
+      items: [
+        { path: `someFolder/`, lastModified: new Date(), size: 0 },
+        { path: `someFile`, lastModified: new Date(), size: 56984 },
+      ],
+    });
+
+    const input = { ...baseInput, options: { exclude: 'FOLDER' as const } };
+
+    const listItems = await listLocationItemsHandler(input);
+    expect(listItems.items).toHaveLength(1);
+  });
+
+  it('uses appropriate subpathStrategy when delimiter is present', async () => {
+    const input = { ...baseInput, options: { delimiter: '/' } };
+
+    await listLocationItemsHandler(input);
+    expect(mockList).toHaveBeenCalledWith(
+      expect.objectContaining({
+        options: expect.objectContaining({
+          subpathStrategy: { delimiter: '/', strategy: 'exclude' },
+        }),
+      })
+    );
+  });
+
+  it('can list with an offset', async () => {
+    const input = {
+      ...baseInput,
+      options: { nextToken: 'some-token', pageSize: 3 },
+    };
+
+    await listLocationItemsHandler(input);
+    expect(mockList).toHaveBeenCalledWith(
+      expect.objectContaining({
+        options: expect.objectContaining({ pageSize: 3 }),
+      })
+    );
   });
 });
 

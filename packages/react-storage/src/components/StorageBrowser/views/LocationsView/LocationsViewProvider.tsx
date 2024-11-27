@@ -42,7 +42,7 @@ export function LocationsViewProvider({
   const messageControlContent = getListLocationsResultMessage({
     hasExhaustedSearch,
     isLoading,
-    locations: pageItems,
+    items: pageItems,
     hasError,
     message,
   });
@@ -62,7 +62,6 @@ export function LocationsViewProvider({
           page,
           hasNextPage,
           highestPageVisited,
-          onPaginate,
         },
         title,
         searchPlaceholder,
@@ -72,8 +71,9 @@ export function LocationsViewProvider({
         message: messageControlContent,
         isLoading,
       }}
-      onSearch={onSearch}
+      onPaginate={onPaginate}
       onRefresh={onRefresh}
+      onSearch={onSearch}
       onSearchQueryChange={onSearchQueryChange}
       onSearchClear={onSearchClear}
     >

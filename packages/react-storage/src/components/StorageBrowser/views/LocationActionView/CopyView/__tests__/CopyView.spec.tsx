@@ -35,8 +35,8 @@ jest.mock('../../../../controls/LoadingIndicatorControl', () => ({
 jest.mock('../../../../controls/MessageControl', () => ({
   MessageControl: () => <div data-testid="MessageControl" />,
 }));
-jest.mock('../../../../controls/SearchControl', () => ({
-  SearchControl: () => <div data-testid="SearchControl" />,
+jest.mock('../../../../controls/SearchFieldControl', () => ({
+  SearchFieldControl: () => <div data-testid="SearchFieldControl" />,
 }));
 jest.mock('../../../../controls/StatusDisplayControl', () => ({
   StatusDisplayControl: () => <div data-testid="StatusDisplayControl" />,
@@ -106,7 +106,7 @@ describe('CopyView', () => {
     expect(screen.queryByTestId('FoldersTableControl')).toBeInTheDocument();
     expect(screen.queryByTestId('LoadingIndicatorControl')).toBeInTheDocument();
     expect(screen.queryByTestId('MessageControl')).toBeInTheDocument();
-    expect(screen.queryByTestId('SearchControl')).toBeInTheDocument();
+    expect(screen.queryByTestId('SearchFieldControl')).toBeInTheDocument();
     expect(screen.queryByTestId('TitleControl')).toBeInTheDocument();
   });
 
@@ -136,7 +136,7 @@ describe('CopyView', () => {
     expect(
       screen.queryByTestId('FoldersPaginationControl')
     ).not.toBeInTheDocument();
-    expect(screen.queryByTestId('SearchControl')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('SearchFieldControl')).not.toBeInTheDocument();
     expect(
       screen.queryByTestId('FoldersMessageControl')
     ).not.toBeInTheDocument();
@@ -172,7 +172,7 @@ describe('CopyView', () => {
     expect(
       screen.queryByTestId('FoldersPaginationControl')
     ).not.toBeInTheDocument();
-    expect(screen.queryByTestId('SearchControl')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('SearchFieldControl')).not.toBeInTheDocument();
     expect(
       screen.queryByTestId('FoldersMessageControl')
     ).not.toBeInTheDocument();

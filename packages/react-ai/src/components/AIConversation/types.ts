@@ -37,6 +37,8 @@ export interface AIConversationInput {
   variant?: MessageVariant;
   controls?: ControlsContextProps;
   allowAttachments?: boolean;
+  maxAttachments?: number;
+  maxAttachmentSize?: number;
   messageRenderer?: MessageRenderer;
 }
 

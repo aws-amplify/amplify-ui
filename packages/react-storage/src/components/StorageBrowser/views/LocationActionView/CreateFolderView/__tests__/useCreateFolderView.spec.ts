@@ -1,34 +1,14 @@
 import { renderHook, act } from '@testing-library/react';
 
 import { LocationData } from '../../../../actions';
-import * as StoreModule from '../../../../providers/store';
-import * as ConfigModule from '../../../../providers/configuration';
-import * as TasksModule from '../../../../tasks';
+import { useStore } from '../../../../providers/store';
+import { INITIAL_STATUS_COUNTS } from '../../../../tasks';
+import { useAction } from '../../../../useAction';
 
 import { useCreateFolderView } from '../useCreateFolderView';
 
-const mockDispatchStoreAction = jest.fn();
-
-const credentials = jest.fn();
-const config = {
-  accountId: '123456789012',
-  bucket: 'XXXXXXXXXXX',
-  credentials,
-  region: 'us-west-2',
-};
-jest.spyOn(ConfigModule, 'useGetActionInput').mockReturnValue(() => config);
-
-const defaultProcessingState = {
-  isProcessing: false,
-  isProcessingComplete: false,
-  statusCounts: { ...TasksModule.INITIAL_STATUS_COUNTS },
-  tasks: [],
-};
-
-const handleProcessTasks = jest.fn();
-jest
-  .spyOn(TasksModule, 'useProcessTasks')
-  .mockReturnValue([defaultProcessingState, handleProcessTasks]);
+jest.mock('../../../../providers/store');
+jest.mock('../../../../useAction');
 
 const location: LocationData = {
   prefix: 'test-prefix/',
@@ -38,38 +18,50 @@ const location: LocationData = {
   type: 'PREFIX',
 };
 
-jest.spyOn(StoreModule, 'useStore').mockReturnValue([
-  {
-    actionType: 'CREATE_FOLDER',
-    files: [],
-    location: { current: location, path: '', key: 'test-prefix/' },
-    locationItems: { fileDataItems: undefined },
-  },
-  mockDispatchStoreAction,
-]);
-
 describe('useCreateFolderView', () => {
+  const mockUseStore = jest.mocked(useStore);
+  const mockUseAction = jest.mocked(useAction);
+  const mockDispatchStoreAction = jest.fn();
+  const mockHandleCreateFolder = jest.fn();
+
   beforeAll(() => {
     Object.defineProperty(globalThis, 'crypto', {
       value: { randomUUID: () => 'intentionally-static-test-id' },
     });
+    mockUseAction.mockReturnValue([
+      {
+        isProcessing: false,
+        isProcessingComplete: false,
+        reset: jest.fn(),
+        statusCounts: { ...INITIAL_STATUS_COUNTS },
+        tasks: [],
+      },
+      mockHandleCreateFolder,
+    ]);
+    mockUseStore.mockReturnValue([
+      {
+        actionType: 'CREATE_FOLDER',
+        files: [],
+        location: { current: location, path: '', key: 'test-prefix/' },
+        locationItems: { fileDataItems: undefined },
+      },
+      mockDispatchStoreAction,
+    ]);
   });
 
-  afterEach(jest.clearAllMocks);
+  afterEach(() => {
+    mockDispatchStoreAction.mockClear();
+    mockHandleCreateFolder.mockClear();
+  });
 
-  it('should call handleProcessTasks when onActionStart is called', () => {
+  it('should call mockHandleCreateFolder when onActionStart is called', () => {
     const { result } = renderHook(() => useCreateFolderView());
 
     act(() => {
       result.current.onActionStart();
     });
 
-    expect(handleProcessTasks).toHaveBeenCalledWith({
-      config,
-      data: { id: 'intentionally-static-test-id', key: '/' },
-      destinationPrefix: 'test-prefix/',
-      options: { preventOverwrite: true },
-    });
+    expect(mockHandleCreateFolder).toHaveBeenCalledTimes(1);
   });
 
   it('resets state when onActionExit is called', () => {

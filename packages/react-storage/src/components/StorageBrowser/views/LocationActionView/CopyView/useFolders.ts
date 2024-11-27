@@ -1,19 +1,12 @@
 import React from 'react';
 
-import { useDataState } from '@aws-amplify/ui-react-core';
+import { LocationState } from '../../../providers/store/location';
+import { useList } from '../../../useAction';
 
 import { usePaginate } from '../../hooks/usePaginate';
-import { listLocationItemsHandler, FolderData } from '../../../actions';
-import { useGetActionInput } from '../../../providers/configuration';
-
-import { createEnhancedListHandler } from '../../../actions/useAction/createEnhancedListHandler';
 import { useSearch } from '../../hooks/useSearch';
-import {
-  ListLocationItemsHandlerInput,
-  ListHandlerOutput,
-} from '../../../actions';
+
 import { FoldersState } from './types';
-import { LocationState } from '../../../providers/store/location';
 
 const DEFAULT_PAGE_SIZE = 100;
 export const DEFAULT_LIST_OPTIONS = {
@@ -24,18 +17,10 @@ export const DEFAULT_LIST_OPTIONS = {
 
 const DEFAULT_REFRESH_OPTIONS = { ...DEFAULT_LIST_OPTIONS, refresh: true };
 
-export type ListFoldersAction = (
-  input: ListLocationItemsHandlerInput
-) => Promise<ListHandlerOutput<FolderData>>;
-
 interface UseFoldersInput {
   destination: LocationState;
   setDestination: (destination: LocationState) => void;
 }
-
-const listLocationItemsAction = createEnhancedListHandler(
-  listLocationItemsHandler as ListFoldersAction
-);
 
 export const useFolders = ({
   destination,
@@ -43,23 +28,18 @@ export const useFolders = ({
 }: UseFoldersInput): FoldersState => {
   const { current, key } = destination;
 
-  const [{ data, hasError, isLoading, message }, handleList] = useDataState(
-    listLocationItemsAction,
-    { items: [], nextToken: undefined }
-  );
-
-  const getInput = useGetActionInput();
+  const [{ data, hasError, isLoading, message }, handleList] =
+    useList('folderItems');
 
   const { items, nextToken, search } = data;
   const { hasExhaustedSearch = false } = search ?? {};
 
   const onInitialize = React.useCallback(() => {
     handleList({
-      config: getInput(),
       prefix: key,
       options: { ...DEFAULT_REFRESH_OPTIONS },
     });
-  }, [getInput, handleList, key]);
+  }, [handleList, key]);
 
   const hasNextToken = !!nextToken;
 
@@ -67,7 +47,6 @@ export const useFolders = ({
     if (!nextToken) return;
 
     handleList({
-      config: getInput(),
       prefix: key,
       options: { ...DEFAULT_LIST_OPTIONS, nextToken },
     });
@@ -89,7 +68,6 @@ export const useFolders = ({
   const onSearch = (query: string) => {
     handleReset();
     handleList({
-      config: getInput(),
       prefix: key,
       options: {
         ...DEFAULT_LIST_OPTIONS,
@@ -136,7 +114,6 @@ export const useFolders = ({
       handleReset();
       resetSearch();
       handleList({
-        config: getInput(),
         prefix: key,
         options: { ...DEFAULT_REFRESH_OPTIONS },
       });

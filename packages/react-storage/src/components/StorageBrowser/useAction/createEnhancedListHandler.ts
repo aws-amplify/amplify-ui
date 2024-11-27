@@ -5,7 +5,7 @@ import {
   ListHandlerOptions,
   ListHandlerInput,
   ListHandlerOutput,
-} from '../handlers';
+} from '../actions';
 
 type KeyWithStringValue<T> = keyof {
   [P in keyof T as T[P] extends string ? P : never]: T[P];
@@ -42,7 +42,7 @@ export interface EnhancedListHandlerOutput<T> extends ListHandlerOutput<T> {
 }
 
 export interface EnhancedListHandlerInput<T, K>
-  extends ListHandlerInput<EnhancedListHandlerOptions<T, K>> {}
+  extends Omit<ListHandlerInput<EnhancedListHandlerOptions<T, K>>, 'config'> {}
 
 export interface EnhancedListHandler<T, K>
   extends AsyncDataAction<
@@ -58,7 +58,7 @@ type ListItem<Action> = Action extends ListHandler<
   : never;
 
 type Options<Action> = Action extends ListHandler<
-  ListHandlerInput<ListHandlerOptions<infer E>>
+  Omit<ListHandlerInput<ListHandlerOptions<infer E>>, 'config'>
 >
   ? E
   : never;

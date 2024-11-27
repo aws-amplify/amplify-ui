@@ -1,5 +1,5 @@
-import * as InternalStorageModule from '../../../storage-internal';
-import * as StorageModule from 'aws-amplify/storage';
+import { uploadData, UploadDataInput } from '../../../storage-internal';
+import { isCancelError } from 'aws-amplify/storage';
 
 import {
   MULTIPART_UPLOAD_THRESHOLD_BYTES,
@@ -8,8 +8,8 @@ import {
   UNDEFINED_CALLBACKS,
 } from '../upload';
 
-const isCancelErrorSpy = jest.spyOn(StorageModule, 'isCancelError');
-const uploadDataSpy = jest.spyOn(InternalStorageModule, 'uploadData');
+jest.mock('aws-amplify/storage');
+jest.mock('../../../storage-internal');
 
 const credentials = jest.fn();
 
@@ -23,43 +23,51 @@ const config: UploadHandlerInput['config'] = {
 
 const file = new File([], 'test-o');
 
-const onProgress = jest.fn();
-
 const baseInput: UploadHandlerInput = {
   config,
-  data: { key: file.name, id: 'an-id', file },
-  destinationPrefix: 'prefix/',
+  data: { key: `'prefix/'${file.name}`, id: 'an-id', file },
 };
-
-const cancel = jest.fn();
-const pause = jest.fn();
-const resume = jest.fn();
 
 const error = new Error('Failed!');
 
 describe('uploadHandler', () => {
+  const mockUploadDataReturnValue = {
+    cancel: jest.fn(),
+    pause: jest.fn(),
+    resume: jest.fn(),
+    result: Promise.resolve({ path: file.name }),
+    state: 'SUCCESS' as const,
+  };
+  const mockIsCancelError = jest.mocked(isCancelError);
+  const mockUploadData = jest.mocked(uploadData);
+  const mockOnProgress = jest.fn();
+
   beforeEach(() => {
-    jest.clearAllMocks();
+    mockUploadData.mockReturnValue(mockUploadDataReturnValue);
+  });
+
+  afterEach(() => {
+    mockOnProgress.mockClear();
+    mockIsCancelError.mockReset();
+    mockUploadData.mockReset();
   });
 
   it('behaves as expected in the happy path', async () => {
-    uploadDataSpy.mockReturnValueOnce({
-      cancel,
-      pause,
-      resume,
-      result: Promise.resolve({ path: file.name }),
-      state: 'SUCCESS',
-    });
-
     const { result } = uploadHandler(baseInput);
 
-    expect(await result).toStrictEqual({ status: 'COMPLETE' });
+    expect(await result).toStrictEqual({
+      status: 'COMPLETE',
+      value: { key: file.name },
+    });
   });
 
   it('calls upload with the expected values', () => {
-    uploadHandler({ ...baseInput, options: { preventOverwrite: true } });
+    uploadHandler({
+      ...baseInput,
+      data: { ...baseInput.data, preventOverwrite: true },
+    });
 
-    const expected: InternalStorageModule.UploadDataInput = {
+    const expected: UploadDataInput = {
       data: file,
       options: {
         expectedBucketOwner: config.accountId,
@@ -73,60 +81,52 @@ describe('uploadHandler', () => {
         preventOverwrite: true,
         checksumAlgorithm: 'crc-32',
       },
-      path: `${baseInput.destinationPrefix}${baseInput.data.key}`,
+      path: baseInput.data.key,
     };
 
-    expect(uploadDataSpy).toHaveBeenCalledWith(expected);
+    expect(mockUploadData).toHaveBeenCalledWith(expected);
   });
 
   it('calls provided onProgress callback as expected in the happy path', async () => {
-    uploadDataSpy.mockImplementation(({ options }) => {
-      // @ts-expect-error - `options` is potentially `undefined` in the `uploadData` input interface
-      options.onProgress({ totalBytes: 23, transferredBytes: 23 });
+    mockUploadData.mockImplementation(({ options }) => {
+      options?.onProgress?.({ totalBytes: 23, transferredBytes: 23 });
 
-      return {
-        cancel,
-        pause,
-        resume,
-        result: Promise.resolve({ path: file.name }),
-        state: 'SUCCESS',
-      };
+      return mockUploadDataReturnValue;
     });
 
     const { result } = uploadHandler({
       ...baseInput,
-      options: { onProgress },
+      options: { onProgress: mockOnProgress },
     });
 
-    expect(await result).toStrictEqual({ status: 'COMPLETE' });
+    expect(await result).toStrictEqual({
+      status: 'COMPLETE',
+      value: { key: file.name },
+    });
 
-    expect(onProgress).toHaveBeenCalledTimes(1);
-    expect(onProgress).toHaveBeenCalledWith(baseInput.data, 1);
+    expect(mockOnProgress).toHaveBeenCalledTimes(1);
+    expect(mockOnProgress).toHaveBeenCalledWith(baseInput.data, 1);
   });
 
   it('calls provided onProgress callback as expected when `totalBytes` is `undefined`', async () => {
-    uploadDataSpy.mockImplementation(({ options }) => {
-      // @ts-expect-error - `options` is potentially `undefined` in the `uploadData` input interface
-      options.onProgress({ transferredBytes: 23 });
+    mockUploadData.mockImplementation(({ options }) => {
+      options?.onProgress?.({ transferredBytes: 23 });
 
-      return {
-        cancel,
-        pause,
-        resume,
-        result: Promise.resolve({ path: file.name }),
-        state: 'SUCCESS',
-      };
+      return mockUploadDataReturnValue;
     });
 
     const { result } = uploadHandler({
       ...baseInput,
-      options: { onProgress },
+      options: { onProgress: mockOnProgress },
     });
 
-    expect(await result).toStrictEqual({ status: 'COMPLETE' });
+    expect(await result).toStrictEqual({
+      status: 'COMPLETE',
+      value: { key: file.name },
+    });
 
-    expect(onProgress).toHaveBeenCalledTimes(1);
-    expect(onProgress).toHaveBeenCalledWith(baseInput.data, undefined);
+    expect(mockOnProgress).toHaveBeenCalledTimes(1);
+    expect(mockOnProgress).toHaveBeenCalledWith(baseInput.data, undefined);
   });
 
   it('returns the expected callback values for a file size greater than 5 mb', async () => {
@@ -135,50 +135,42 @@ describe('uploadHandler', () => {
       '😅'
     );
 
-    uploadDataSpy.mockReturnValueOnce({
-      cancel,
-      pause,
-      resume,
-      result: Promise.resolve({ path: file.name }),
-      state: 'SUCCESS',
-    });
-
     const { result, ...callbacks } = uploadHandler({
       ...baseInput,
       data: { key: bigFile.name, id: 'hi!', file: bigFile },
     });
 
-    expect(await result).toStrictEqual({ status: 'COMPLETE' });
+    expect(await result).toStrictEqual({
+      status: 'COMPLETE',
+      value: { key: file.name },
+    });
 
-    expect(callbacks).toStrictEqual({ cancel, pause, resume });
+    expect(callbacks).toStrictEqual({
+      cancel: expect.any(Function),
+      pause: expect.any(Function),
+      resume: expect.any(Function),
+    });
   });
 
   it('returns undefined callback values for a file size less than 5 mb', async () => {
     const smallFile = new File([], '😅');
-
-    uploadDataSpy.mockReturnValueOnce({
-      cancel,
-      pause,
-      resume,
-      result: Promise.resolve({ path: file.name }),
-      state: 'SUCCESS',
-    });
 
     const { result, ...callbacks } = uploadHandler({
       ...baseInput,
       data: { key: smallFile.name, id: 'ohh', file: smallFile },
     });
 
-    expect(await result).toStrictEqual({ status: 'COMPLETE' });
+    expect(await result).toStrictEqual({
+      status: 'COMPLETE',
+      value: { key: file.name },
+    });
 
     expect(callbacks).toStrictEqual(UNDEFINED_CALLBACKS);
   });
 
   it('handles a failure as expected', async () => {
-    uploadDataSpy.mockReturnValueOnce({
-      cancel,
-      pause,
-      resume,
+    mockUploadData.mockReturnValue({
+      ...mockUploadDataReturnValue,
       result: Promise.reject(error),
       state: 'ERROR',
     });
@@ -194,11 +186,9 @@ describe('uploadHandler', () => {
   it('handles a cancel failure as expected', async () => {
     // turn off console.warn in test output
     jest.spyOn(console, 'warn').mockReturnValueOnce();
-    isCancelErrorSpy.mockReturnValue(true);
-    uploadDataSpy.mockReturnValueOnce({
-      cancel,
-      pause,
-      resume,
+    mockIsCancelError.mockReturnValue(true);
+    mockUploadData.mockReturnValue({
+      ...mockUploadDataReturnValue,
       result: Promise.reject(error),
       state: 'ERROR',
     });
@@ -215,17 +205,15 @@ describe('uploadHandler', () => {
     const preconditionError = new Error('Failed!');
     preconditionError.name = 'PreconditionFailed';
 
-    uploadDataSpy.mockReturnValueOnce({
-      cancel,
-      pause,
-      resume,
+    mockUploadData.mockReturnValue({
+      ...mockUploadDataReturnValue,
       result: Promise.reject(preconditionError),
       state: 'ERROR',
     });
 
     const { result } = uploadHandler({
       ...baseInput,
-      options: { preventOverwrite: true },
+      data: { ...baseInput.data, preventOverwrite: true },
     });
 
     expect(await result).toStrictEqual({

@@ -13,20 +13,19 @@ import {
 
 import { constructBucket, getProgress } from './utils';
 
-export interface UploadHandlerOptions extends TaskHandlerOptions {
-  preventOverwrite?: boolean;
-}
+export interface UploadHandlerOptions
+  extends TaskHandlerOptions<{ key: string }> {}
 
 export interface UploadHandlerData extends TaskData {
   file: File;
+  preventOverwrite?: boolean;
 }
 
 export interface UploadHandlerInput
-  extends TaskHandlerInput<UploadHandlerData, UploadHandlerOptions> {
-  destinationPrefix: string;
-}
+  extends TaskHandlerInput<UploadHandlerData, UploadHandlerOptions> {}
 
-export interface UploadHandlerOutput extends TaskHandlerOutput {}
+export interface UploadHandlerOutput
+  extends TaskHandlerOutput<{ key: string }> {}
 
 export interface UploadHandler
   extends TaskHandler<UploadHandlerInput, UploadHandlerOutput> {}
@@ -35,24 +34,21 @@ export interface UploadHandler
 // https://github.com/aws-amplify/amplify-js/blob/1a5366d113c9af4ce994168653df3aadb142c581/packages/storage/src/providers/s3/utils/constants.ts#L16
 export const MULTIPART_UPLOAD_THRESHOLD_BYTES = 5 * 1024 * 1024;
 
+export const DEFAULT_CHECKSUM_ALGORITHM = 'crc-32';
+
 export const UNDEFINED_CALLBACKS = {
   cancel: undefined,
   pause: undefined,
   resume: undefined,
 };
 
-export const uploadHandler: UploadHandler = ({
-  config,
-  data,
-  destinationPrefix,
-  options,
-}) => {
+export const uploadHandler: UploadHandler = ({ config, data, options }) => {
   const { accountId, credentials, customEndpoint } = config;
-  const { key, file } = data;
-  const { onProgress, preventOverwrite } = options ?? {};
+  const { key, file, preventOverwrite } = data;
+  const { onProgress } = options ?? {};
 
   const input: UploadDataInput = {
-    path: `${destinationPrefix}${key}`,
+    path: key,
     data: file,
     options: {
       bucket: constructBucket(config),
@@ -63,7 +59,7 @@ export const uploadHandler: UploadHandler = ({
       },
       preventOverwrite,
       customEndpoint,
-      checksumAlgorithm: 'crc-32',
+      checksumAlgorithm: DEFAULT_CHECKSUM_ALGORITHM,
     },
   };
 
@@ -74,11 +70,14 @@ export const uploadHandler: UploadHandler = ({
       ? { cancel, pause, resume }
       : UNDEFINED_CALLBACKS),
     result: result
-      .then(() => ({ status: 'COMPLETE' as const }))
+      .then((output) => ({
+        status: 'COMPLETE' as const,
+        value: { key: output.path },
+      }))
       .catch((error: Error) => {
         const { message } = error;
         if (error.name === 'PreconditionFailed') {
-          return { message, status: 'OVERWRITE_PREVENTED' as const };
+          return { message, status: 'OVERWRITE_PREVENTED' };
         }
         return {
           message,

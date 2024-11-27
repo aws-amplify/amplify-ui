@@ -1,18 +1,13 @@
 import React from 'react';
 
-import { usePaginate } from '../hooks/usePaginate';
-import {
-  createFileDataItemFromLocation,
-  downloadHandler,
-  ListLocationsExcludeOptions,
-  LocationData,
-  useListLocations,
-} from '../../actions';
+import { ListLocationsExcludeOptions, LocationData } from '../../actions';
 import { useStore } from '../../providers/store';
+import { useAction, useList } from '../../useAction';
+
+import { usePaginate } from '../hooks/usePaginate';
 import { useSearch } from '../hooks/useSearch';
-import { useGetActionInput } from '../../providers/configuration';
-import { useProcessTasks } from '../../tasks';
 import { LocationsViewState, UseLocationsViewOptions } from './types';
+import { getFileKey } from '../../actions/handlers';
 
 const DEFAULT_EXCLUDE: ListLocationsExcludeOptions = {
   exactPermissions: ['delete', 'write'],
@@ -26,13 +21,11 @@ export const DEFAULT_LIST_OPTIONS = {
 export const useLocationsView = (
   options?: UseLocationsViewOptions
 ): LocationsViewState => {
-  const getConfig = useGetActionInput();
+  const handleDownload = useAction('download')[1];
+  const [state, handleList] = useList('locations');
+  const dispatchStoreAction = useStore()[1];
 
-  const [state, handleList] = useListLocations();
   const { data, message, hasError, isLoading } = state;
-
-  const [_, handleDownload] = useProcessTasks(downloadHandler);
-  const [, dispatchStoreAction] = useStore();
   const { items, nextToken, search } = data;
   const hasNextToken = !!nextToken;
   const { hasExhaustedSearch = false } = search ?? {};
@@ -48,17 +41,13 @@ export const useLocationsView = (
 
   // initial load
   React.useEffect(() => {
-    handleList({
-      options: { ...listOptions, refresh: true },
-    });
+    handleList({ options: { ...listOptions, refresh: true } });
   }, [handleList, listOptions]);
 
   // set up pagination
   const paginateCallback = () => {
     if (!nextToken) return;
-    handleList({
-      options: { ...listOptions, nextToken },
-    });
+    handleList({ options: { ...listOptions, nextToken } });
   };
 
   const {
@@ -92,9 +81,6 @@ export const useLocationsView = (
   const { searchQuery, onSearchQueryChange, onSearchSubmit, resetSearch } =
     useSearch({ onSearch });
 
-  const shouldShowEmptyMessage =
-    pageItems.length === 0 && !isLoading && !hasError;
-
   return {
     isLoading,
     hasError,
@@ -103,13 +89,17 @@ export const useLocationsView = (
     hasNextPage: hasNextToken,
     highestPageVisited,
     pageItems,
-    shouldShowEmptyMessage,
     searchQuery,
     hasExhaustedSearch,
     onDownload: (location: LocationData) => {
+      const { prefix: key } = location;
       handleDownload({
-        config: getConfig(location),
-        data: createFileDataItemFromLocation(location),
+        data: {
+          fileKey: getFileKey(key),
+          key,
+          id: crypto.randomUUID(),
+        },
+        location,
       });
     },
     onNavigate: (location: LocationData) => {
@@ -119,9 +109,7 @@ export const useLocationsView = (
     onRefresh: () => {
       resetSearch();
       handleReset();
-      handleList({
-        options: { ...listOptions, refresh: true },
-      });
+      handleList({ options: { ...listOptions, refresh: true } });
     },
     onPaginate,
     onSearch: onSearchSubmit,

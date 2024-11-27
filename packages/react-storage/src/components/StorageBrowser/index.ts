@@ -1,5 +1,6 @@
 export { componentsDefault } from './componentsDefault';
 export { createStorageBrowser } from './createStorageBrowser';
+export { ActionViewConfig, ActionHandler, FileDataItem } from './actions';
 export {
   createAmplifyAuthAdapter,
   createManagedAuthAdapter,
