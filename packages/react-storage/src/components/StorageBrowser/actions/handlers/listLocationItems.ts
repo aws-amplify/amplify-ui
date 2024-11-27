@@ -116,9 +116,9 @@ export const listLocationItemsHandler: ListLocationItemsHandler = async (
     strategy: delimiter ? 'exclude' : 'include',
   };
 
-  // `ListObjectsV2` returns the root `key` on initial request, which is from
-  // filtered from `results` by `parseResult`, creatimg a scenario where the
-  // return count of `results` to be one item less than provided the `pageSize`.
+  // `ListObjectsV2` returns the root `key` on initial request which, when from
+  // filtered from `results` by `parseResult`, creates a scenario where the
+  // return count of `results` is one item less than the provided `pageSize`.
   // To mitigate, if a `pageSize` is provided and there are no previous `results`
   // or `refresh` is `true` increment the provided `pageSize` by `1`
   const hasOffset = !nextToken;
