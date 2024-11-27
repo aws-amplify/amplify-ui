@@ -128,7 +128,7 @@ export const storage = defineStorage({
 
 The access rules defined in `defineStorage` are treated as _locations_, which is described in the Overview. Therefore, users will have access to all of the S3 resource paths you have authorized them to access and can start browsing the S3 buckets or prefixes specified by these paths. 
 
-Then in your React code, call `Amplify.configure()` with your `amplify_outputs.json`. If you have some access rules that require a logged in user, like `allow.authenticated`, you can wrap your page in the [`<Authenticator>`](/[platform]/connected-components/authenticator) component to easily add authentication flows to your app. 
+Then in your React code, call `Amplify.configure()` with your `amplify_outputs.json`. If you have some access rules that require a logged in user, like `allow.authenticated`, you can wrap your page in the [`<Authenticator>`](/react/connected-components/authenticator) component to easily add authentication flows to your app. 
 
 <Example>
 <ExampleCode>
@@ -265,7 +265,7 @@ interface Config {
 
 ### Theming
 
-The `StorageBrowser` component is built on Amplify UI components so if you already have an Amplify UI theme it will just work with the Storage Browser out of the box. The components used in the Storage Browser are: [`<Button>`](/[platform]/components/button), [`<Breadcrumbs>`](/[platform]/components/breadcrumbs), [`<Menu>`](/[platform]/components/menu), [`<Pagination>`](/[platform]/components/pagination), [`<SearchField>`](/[platform]/components/searchfield), [`<Checkbox>`](/[platform]/components/checkboxfield), [`<TextField>`](/[platform]/textfield), and [`<Message>`](/[platform]/components/message).
+The `StorageBrowser` component is built on Amplify UI components so if you already have an Amplify UI theme it will just work with the Storage Browser out of the box. The components used in the Storage Browser are: [`<Button>`](/react/components/button), [`<Breadcrumbs>`](/react/components/breadcrumbs), [`<Menu>`](/react/components/menu), [`<Pagination>`](/react/components/pagination), [`<SearchField>`](/react/components/searchfield), [`<Checkbox>`](/react/components/checkboxfield), [`<TextField>`](/react/textfield), and [`<Message>`](/react/components/message).
 
 #### Theme object
 
@@ -720,3 +720,16 @@ interface CreateFolderViewState {
 * `<StorageBrowser.CreateFolderView.Start />`
 * `<StorageBrowser.CreateFolderView.Title />`
 
+## Roadmap
+
+We made our roadmap for Storage Browser public so that you could see what's in store and provide feedback to help drive the future direction of this product. Visit our [roadmap](https://github.com/orgs/aws-amplify/projects/137) and share your thoughts today.
+
+These are the features we are currently evaluating.
+
+1. Thumbnail  previews
+2. Full object previews
+3. User-controlled object tags
+4. Support for S3 Glacier Flexible Retrieval and S3 Glacier Deep Archive
+5. Support for S3 Access Points
+6. User controlled byte-range GETs
+7. Support for a CloudFront cache

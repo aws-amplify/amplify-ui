@@ -6,7 +6,7 @@ const dictionary = {
   en: null,
   es: {
     LocationsView: {
-      title: 'La Casa',
+      title: 'Inicio',
     },
   },
 };
