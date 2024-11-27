@@ -6,7 +6,7 @@ import { Flex } from '@aws-amplify/ui-react';
 
 import '@aws-amplify/ui-react-storage/styles.css';
 
-const { StorageBrowser, useAction, useView } = createStorageBrowser({
+const { StorageBrowser } = createStorageBrowser({
   actions: {
     default: {
       copy: {
@@ -48,8 +48,7 @@ const { StorageBrowser, useAction, useView } = createStorageBrowser({
         },
         viewName: 'DeleteView',
       },
-      download: ({ data }) => {
-        const { key } = data;
+      download: () => {
         return {
           result: Promise.resolve({
             status: 'COMPLETE',

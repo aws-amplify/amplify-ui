@@ -10,10 +10,6 @@ import {
   withAuthenticator,
 } from '@aws-amplify/ui-react';
 import { StorageBrowser } from '@aws-amplify/ui-react-storage';
-import {
-  ActionConfig,
-  ActionHandler,
-} from '@aws-amplify/ui-react-storage/browser';
 
 import '@aws-amplify/ui-react-storage/styles.css';
 
