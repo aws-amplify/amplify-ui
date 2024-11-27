@@ -1,8 +1,7 @@
-import * as StorageModule from '../../../storage-internal';
-
+import { copy, CopyInput } from '../../../storage-internal';
 import { copyHandler, CopyHandlerInput } from '../copy';
 
-const copySpy = jest.spyOn(StorageModule, 'copy');
+jest.mock('../../../storage-internal');
 
 const baseInput: CopyHandlerInput = {
   config: {
@@ -25,8 +24,14 @@ const baseInput: CopyHandlerInput = {
 };
 
 describe('copyHandler', () => {
+  const mockCopy = jest.mocked(copy);
+
+  beforeEach(() => {
+    mockCopy.mockResolvedValue({ path: '' });
+  });
+
   afterEach(() => {
-    copySpy.mockClear();
+    mockCopy.mockReset();
   });
 
   it('calls `copy` wth the expected values', () => {
@@ -37,7 +42,7 @@ describe('copyHandler', () => {
       region: baseInput.config.region,
     };
 
-    const expected: StorageModule.CopyInput = {
+    const expected: CopyInput = {
       destination: {
         expectedBucketOwner: baseInput.config.accountId,
         bucket,
@@ -56,7 +61,7 @@ describe('copyHandler', () => {
       },
     };
 
-    expect(copySpy).toHaveBeenCalledWith(expected);
+    expect(mockCopy).toHaveBeenCalledWith(expected);
   });
 
   it('provides eTag and notModifiedSince to copy for durableness', () => {
@@ -67,7 +72,7 @@ describe('copyHandler', () => {
       region: `${baseInput.config.region}`,
     };
 
-    const copyInput = copySpy.mock.lastCall?.[0];
+    const copyInput = mockCopy.mock.lastCall?.[0];
     expect(copyInput).toHaveProperty('source', {
       expectedBucketOwner: `${baseInput.config.accountId}`,
       bucket,
@@ -97,6 +102,23 @@ describe('copyHandler', () => {
       }),
     });
 
-    expect(copySpy).toHaveBeenCalledWith(expected);
+    expect(mockCopy).toHaveBeenCalledWith(expected);
+  });
+
+  it('returns a complete status', async () => {
+    const { result } = copyHandler(baseInput);
+
+    expect(await result).toEqual({ status: 'COMPLETE' });
+  });
+
+  it('returns failed status', async () => {
+    const errorMessage = 'error-message';
+    mockCopy.mockRejectedValue(new Error(errorMessage));
+    const { result } = copyHandler(baseInput);
+
+    expect(await result).toEqual({
+      status: 'FAILED',
+      message: errorMessage,
+    });
   });
 });

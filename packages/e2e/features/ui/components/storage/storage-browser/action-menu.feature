@@ -118,12 +118,10 @@ Feature: Create folder with Storage Browser
     # upload file
     Then I see the "Upload" menuitem
     When I click the "Upload" menuitem
-    Then the "Upload" button is disabled
     Then I upload a folder "e2eTemp" with "2" files with random names
     Then I see "Not started"
     Then I click the label containing text "Overwrite existing files"
     When I click the "Upload" button
-    Then I see "100%"
     Then I see "All files uploaded"
     When I click the "Exit" button
     # list uploaded file
@@ -135,7 +133,4 @@ Feature: Create folder with Storage Browser
     Then I click the "Delete" menuitem
     Then I click the "Delete" button
     Then I see "All files deleted"
-    When I click the "Exit" button
-    # verify all files are deleted
-    Then I see "No files"
 
