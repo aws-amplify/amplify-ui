@@ -24,14 +24,11 @@ export const getViews = (
 
   const customActionViews = !isObject(customConfigs)
     ? {}
-    : Object.entries(customConfigs).reduce((acc, config) => {
+    : Object.entries(customConfigs).reduce((acc, [key, config]) => {
         // ignore custom actions that are only handlers
-        return !isObject(config) || isFunction(config[1])
+        return !isObject(config) || isFunction(config)
           ? acc
-          : {
-              ...acc,
-              [config[0]]: views?.[config[1]?.viewName as keyof Views],
-            };
+          : { ...acc, [key]: views?.[config.viewName as keyof Views] };
       }, {});
 
   return {
