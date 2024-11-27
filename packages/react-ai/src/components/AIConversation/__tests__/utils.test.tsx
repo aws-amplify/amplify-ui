@@ -78,7 +78,7 @@ describe('attachmentsValidator', () => {
     expect(result.acceptedFiles).toHaveLength(1);
     expect(result.rejectedFiles).toHaveLength(0);
     expect(result.hasMaxAttachmentSizeError).toBeFalsy();
-    expect(result.hasMaxAttachmentsError).toBeUndefined();
+    expect(result.hasMaxAttachmentsError).toBeFalsy();
   });
 
   it('should reject files exceeding size limit', async () => {
@@ -92,7 +92,7 @@ describe('attachmentsValidator', () => {
     expect(result.acceptedFiles).toHaveLength(0);
     expect(result.rejectedFiles).toHaveLength(1);
     expect(result.hasMaxAttachmentSizeError).toBeTruthy();
-    expect(result.hasMaxAttachmentsError).toBeUndefined();
+    expect(result.hasMaxAttachmentsError).toBeFalsy();
   });
 
   it('should handle mixed valid and invalid file sizes', async () => {
@@ -110,7 +110,7 @@ describe('attachmentsValidator', () => {
     expect(result.acceptedFiles).toHaveLength(2);
     expect(result.rejectedFiles).toHaveLength(1);
     expect(result.hasMaxAttachmentSizeError).toBeTruthy();
-    expect(result.hasMaxAttachmentsError).toBeUndefined();
+    expect(result.hasMaxAttachmentsError).toBeFalsy();
   });
 
   it('should enforce maximum number of attachments', async () => {
@@ -143,6 +143,6 @@ describe('attachmentsValidator', () => {
     expect(result.acceptedFiles).toHaveLength(0);
     expect(result.rejectedFiles).toHaveLength(0);
     expect(result.hasMaxAttachmentSizeError).toBeFalsy();
-    expect(result.hasMaxAttachmentsError).toBeUndefined();
+    expect(result.hasMaxAttachmentsError).toBeFalsy();
   });
 });
