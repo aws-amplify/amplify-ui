@@ -1,4 +1,4 @@
-import { DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT } from '@aws-amplify/ui-react-storage/browser';
+import { DefaultStorageBrowserDisplayText } from '@aws-amplify/ui-react-storage/browser';
 
 function displayTextToProps([key, value]: [string, unknown]) {
   const isString = typeof value === 'string';
@@ -10,7 +10,7 @@ function displayTextToProps([key, value]: [string, unknown]) {
 }
 
 export const DISPLAY_TEXT = Object.entries(
-  DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT
+  DefaultStorageBrowserDisplayText
 ).map(([key, value]) => {
   return {
     key,
