@@ -53,6 +53,14 @@ export const useProcessTasks = <
 
   const flush = React.useReducer(() => ({}), {})[1];
 
+  const refreshTaskData = React.useCallback((id: string, data: TData) => {
+    const task = tasksRef.current.get(id);
+
+    if (!task || task.data.id !== data.id) return;
+
+    tasksRef.current.set(id, { ...task, data });
+  }, []);
+
   const updateTask = React.useCallback(
     (id: string, next?: Partial<Task<TData>>) => {
       const { onTaskRemove } = callbacksRef.current;
@@ -102,6 +110,8 @@ export const useProcessTasks = <
       if (!taskLookup[item.id]) {
         // If an item doesn't yet have a task created for it, create one
         createTask(item);
+      } else {
+        refreshTaskData(item.id, item);
       }
       // Remove the item from the lookup to mark it as "synced"
       delete taskLookup[item.id];
@@ -115,7 +125,7 @@ export const useProcessTasks = <
     });
 
     flush();
-  }, [createTask, flush, updateTask, items]);
+  }, [createTask, flush, updateTask, items, refreshTaskData]);
 
   const processNextTask: HandleProcessTasks<TData, D> = (_input) => {
     const hasInputData = isTaskHandlerInput(_input);
