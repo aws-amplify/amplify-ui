@@ -4,7 +4,6 @@ import { copyHandler, CopyHandlerInput } from '../copy';
 jest.mock('../../../storage-internal');
 
 const baseInput: CopyHandlerInput = {
-  destinationPrefix: 'destination/',
   config: {
     accountId: '012345678901',
     bucket: 'bucket',
@@ -14,20 +13,21 @@ const baseInput: CopyHandlerInput = {
   },
   data: {
     id: 'identity',
-    key: 'some-prefixfix/some-key.hehe',
+    key: 'destination/some-prefixfix/some-key.hehe',
+    sourceKey: 'some-prefixfix/some-key.hehe',
     fileKey: 'some-key.hehe',
     lastModified: new Date(),
-    size: 100000000,
     eTag: 'etag',
-    type: 'FILE',
   },
 };
 
 describe('copyHandler', () => {
+  const path = 'path';
+
   const mockCopy = jest.mocked(copy);
 
   beforeEach(() => {
-    mockCopy.mockResolvedValue({ path: '' });
+    mockCopy.mockResolvedValue({ path });
   });
 
   afterEach(() => {
@@ -38,20 +38,20 @@ describe('copyHandler', () => {
     copyHandler(baseInput);
 
     const bucket = {
-      bucketName: `${baseInput.config.bucket}`,
-      region: `${baseInput.config.region}`,
+      bucketName: baseInput.config.bucket,
+      region: baseInput.config.region,
     };
 
     const expected: CopyInput = {
       destination: {
         expectedBucketOwner: baseInput.config.accountId,
         bucket,
-        path: `${baseInput.destinationPrefix}${baseInput.data.fileKey}`,
+        path: baseInput.data.key,
       },
       source: {
-        expectedBucketOwner: `${baseInput.config.accountId}`,
+        expectedBucketOwner: baseInput.config.accountId,
         bucket,
-        path: baseInput.data.key,
+        path: baseInput.data.sourceKey,
         eTag: baseInput.data.eTag,
         notModifiedSince: baseInput.data.lastModified,
       },
@@ -76,7 +76,7 @@ describe('copyHandler', () => {
     expect(copyInput).toHaveProperty('source', {
       expectedBucketOwner: `${baseInput.config.accountId}`,
       bucket,
-      path: baseInput.data.key,
+      path: baseInput.data.sourceKey,
       eTag: baseInput.data.eTag,
       notModifiedSince: baseInput.data.lastModified,
     });
@@ -93,10 +93,7 @@ describe('copyHandler', () => {
   ])('encodes the source path that is %s', (_, sourcePath, expectedPath) => {
     copyHandler({
       ...baseInput,
-      data: {
-        ...baseInput.data,
-        key: sourcePath,
-      },
+      data: { ...baseInput.data, sourceKey: sourcePath },
     });
 
     const expected = expect.objectContaining({
@@ -111,7 +108,7 @@ describe('copyHandler', () => {
   it('returns a complete status', async () => {
     const { result } = copyHandler(baseInput);
 
-    expect(await result).toEqual({ status: 'COMPLETE' });
+    expect(await result).toEqual({ status: 'COMPLETE', value: { key: path } });
   });
 
   it('returns failed status', async () => {

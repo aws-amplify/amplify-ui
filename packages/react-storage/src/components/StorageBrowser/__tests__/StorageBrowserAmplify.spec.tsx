@@ -36,7 +36,6 @@ describe('StorageBrowser', () => {
 
     expect(createStorageBrowserSpy).toHaveBeenCalledTimes(1);
     expect(createStorageBrowserSpy).toHaveBeenCalledWith({
-      components: expect.anything(),
       config: expect.anything(),
     });
 

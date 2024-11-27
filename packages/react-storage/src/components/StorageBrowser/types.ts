@@ -1,6 +1,14 @@
 import React from 'react';
 
-import { ListLocations } from './actions';
+import {
+  CustomActionConfigs,
+  DefaultActionConfigs,
+  ExtendedActionConfigs,
+  ListLocations,
+} from './actions';
+import { GetLocationCredentials } from './credentials/types';
+
+import { UseView } from './views/useView';
 
 import { Components } from './ComponentsProvider';
 
@@ -11,14 +19,15 @@ import {
   CreateFolderViewType,
   DeleteViewType,
   UploadViewType,
-  LocationActionViewProps,
+  LocationActionViewType,
   LocationDetailViewType,
   LocationsViewType,
   Views,
 } from './views';
 
-import { GetLocationCredentials } from './credentials/types';
 import { StorageBrowserDisplayText } from './displayText';
+
+import { DerivedActionHandlers, UseAction } from './useAction';
 
 export interface Config {
   accountId?: string;
@@ -29,38 +38,69 @@ export interface Config {
   region: string;
 }
 
+export interface StorageBrowserActions {
+  default?: DefaultActionConfigs;
+  custom?: CustomActionConfigs;
+}
+
 export interface CreateStorageBrowserInput {
+  actions?: StorageBrowserActions;
   config: Config;
   components?: Components;
 }
 
-export interface StorageBrowserProps<T = string> {
-  views?: Views<T>;
+export interface StorageBrowserProps<K = string, V = {}> {
   displayText?: StorageBrowserDisplayText;
+  views?: Views<K, V>;
 }
 
-export interface StorageBrowserType<T = string, K = {}> {
-  (
-    props: StorageBrowserProps & Exclude<K, keyof StorageBrowserProps>
-  ): React.JSX.Element;
+export interface StorageBrowserProviderProps<V = {}>
+  extends StoreProviderProps {
+  displayText?: StorageBrowserDisplayText;
+  // `views` intentionally scoped to custom slots to prevent conflicts with composability
+  views?: V;
+}
+
+export interface StorageBrowserType<K = string, V = {}> {
+  (props: StorageBrowserProps<K, V>): React.JSX.Element;
   displayName: string;
-  Provider: (props: StorageBrowserProviderProps) => React.JSX.Element;
+  Provider: (props: StorageBrowserProviderProps<V>) => React.JSX.Element;
   CopyView: CopyViewType;
   CreateFolderView: CreateFolderViewType;
   DeleteView: DeleteViewType;
   UploadView: UploadViewType;
-  LocationActionView: (
-    props: LocationActionViewProps<T>
-  ) => React.JSX.Element | null;
+  LocationActionView: LocationActionViewType<K>;
   LocationDetailView: LocationDetailViewType;
   LocationsView: LocationsViewType;
 }
 
-export type ActionViewName<T = string> = Exclude<
-  T,
-  'listLocationItems' | 'listLocations'
->;
+type DefaultActionType<T = string> = Exclude<T, keyof DefaultActionConfigs>;
 
-export interface StorageBrowserProviderProps extends StoreProviderProps {
-  displayText?: StorageBrowserDisplayText;
+export type DerivedCustomViews<T extends StorageBrowserActions> = {
+  [K in keyof T['custom'] as K extends DefaultActionType<K>
+    ? T['custom'][K] extends { viewName: `${string}View` }
+      ? T['custom'][K]['viewName']
+      : never
+    : never]?: () => React.JSX.Element | null;
+};
+
+export type DerivedActionViewType<T extends StorageBrowserActions> =
+  | keyof {
+      [K in keyof T['custom'] as K extends DefaultActionType<K>
+        ? T['custom'][K] extends { viewName: `${string}View` }
+          ? K
+          : never
+        : never]?: any;
+    }
+  | Exclude<keyof DefaultActionConfigs, 'download'>;
+
+export interface CreateStorageBrowserOutput<
+  C extends ExtendedActionConfigs = ExtendedActionConfigs,
+> {
+  StorageBrowser: StorageBrowserType<
+    DerivedActionViewType<C>,
+    DerivedCustomViews<C>
+  >;
+  useAction: UseAction<DerivedActionHandlers<C>>;
+  useView: UseView;
 }

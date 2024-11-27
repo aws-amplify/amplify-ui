@@ -1,12 +1,4 @@
-import {
-  ComponentName,
-  DefaultActionKey,
-  LocationData,
-  TaskActionConfig,
-  TaskData,
-  TaskHandler,
-  TaskHandlerInput,
-} from '../../actions';
+import { LocationData, TaskData } from '../../actions';
 
 import { LocationState } from '../../providers/store/location';
 
@@ -32,18 +24,14 @@ export interface ActionViewProps {
   onExit?: (location?: LocationData) => void;
 }
 
-export interface LocationActionViewProps<
-  T = string,
-  K extends TaskData = TaskData,
-> extends Partial<ActionViewState<K>>,
-    ActionViewProps {
+export interface LocationActionViewProps<T = string> {
+  onExit?: () => void;
   type?: T;
 }
 
-export type LocationActionViewType<
-  T = string,
-  K extends TaskData = TaskData,
-> = (props: LocationActionViewProps<T, K>) => React.JSX.Element | null;
+export type LocationActionViewType<T = string> = (
+  props: LocationActionViewProps<T>
+) => React.JSX.Element | null;
 
 export interface ActionViewType<T extends TaskData = TaskData, K = {}> {
   (
@@ -51,19 +39,6 @@ export interface ActionViewType<T extends TaskData = TaskData, K = {}> {
   ): React.JSX.Element | null;
   displayName: string;
 }
-
-// Custom actions derived views
-export type DerivedActionViews<T> = {
-  readonly [K in keyof T as K extends DefaultActionKey
-    ? never
-    : T[K] extends { componentName: ComponentName }
-    ? T[K]['componentName']
-    : never]: ActionViewType<
-    T[K] extends TaskActionConfig<TaskHandler<TaskHandlerInput<infer X>>>
-      ? X
-      : never
-  >;
-};
 
 export type HeaderKeys =
   | 'name'
