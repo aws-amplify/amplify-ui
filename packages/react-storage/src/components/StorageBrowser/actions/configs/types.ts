@@ -26,7 +26,7 @@ type StringWithoutSpaces<T extends string> = Exclude<
   ` ${string}` | `${string} ` | `${string} ${string}`
 >;
 
-export type ComponentName = Capitalize<`${string}View`>;
+export type ViewName = Capitalize<`${string}View`>;
 export type ActionName<T extends string = string> = StringWithoutSpaces<T>;
 
 export interface ActionListItemConfig {
@@ -59,7 +59,7 @@ export interface ActionListItemConfig {
  */
 export interface ActionViewConfig<
   T extends ActionHandler = ActionHandler,
-  K extends ComponentName = ComponentName,
+  K extends ViewName = ViewName,
 > {
   /**
    * action handler

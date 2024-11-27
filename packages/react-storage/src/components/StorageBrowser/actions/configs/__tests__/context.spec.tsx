@@ -10,10 +10,8 @@ describe('useActionConfigs', () => {
   it('returns default and custom config values passed to `ActionConfigsProvider`', () => {
     const someCoolHandler = jest.fn();
     const configs: ActionViewConfigs = {
-      ...{
-        copy: defaultActionConfigs.copy,
-        upload: defaultActionConfigs.upload,
-      },
+      copy: defaultActionConfigs.copy,
+      upload: defaultActionConfigs.upload,
       SomeCoolAction: {
         viewName: 'SomeCoolView',
         handler: someCoolHandler,

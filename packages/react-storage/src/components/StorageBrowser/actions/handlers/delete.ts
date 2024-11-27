@@ -29,9 +29,6 @@ export const deleteHandler: DeleteHandler = ({
   config,
   data,
 }): DeleteHandlerOutput => {
-  // eslint-disable-next-line no-console
-  console.log('delete data', data);
-
   const { key } = data;
   const { accountId, credentials, customEndpoint } = config;
 
