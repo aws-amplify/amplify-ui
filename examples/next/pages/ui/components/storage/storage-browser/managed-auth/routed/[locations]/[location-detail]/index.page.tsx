@@ -6,7 +6,6 @@ import { SignOutButton } from '../../components';
 import { StorageBrowser } from '../../StorageBrowser';
 
 import '@aws-amplify/ui-react-storage/styles.css';
-import '@aws-amplify/ui-react-storage/storage-browser-styles.css';
 
 export default function Page() {
   const { back, query, pathname, replace } = useRouter();

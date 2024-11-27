@@ -6,7 +6,6 @@ import useIsSignedIn from './useIsSignedIn';
 import { Authenticator } from '@aws-amplify/ui-react';
 
 import '@aws-amplify/ui-react-storage/styles.css';
-import '@aws-amplify/ui-react-storage/storage-browser-styles.css';
 
 function Example() {
   const router = useRouter();
