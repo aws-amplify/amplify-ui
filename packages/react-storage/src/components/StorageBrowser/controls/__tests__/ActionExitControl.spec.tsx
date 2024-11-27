@@ -1,38 +1,34 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { ActionExitControl } from '../ActionExitControl';
-import * as UseActionExitModule from '../hooks/useActionExit';
+import { useActionExit } from '../hooks/useActionExit';
+import { useResolvedComposable } from '../hooks/useResolvedComposable';
+
+jest.mock('../hooks/useActionExit');
+jest.mock('../hooks/useResolvedComposable');
+jest.mock('../../composables/ActionExit', () => ({
+  ActionExit: () => <div data-testid="action-exit" />,
+}));
 
 describe('ActionExitControl', () => {
-  const useActionExitSpy = jest.spyOn(UseActionExitModule, 'useActionExit');
+  const mockUseActionExit = jest.mocked(useActionExit);
+  const mockUseResolvedComposable = jest.mocked(useResolvedComposable);
 
-  beforeEach(() => {
-    useActionExitSpy.mockClear();
+  beforeAll(() => {
+    mockUseResolvedComposable.mockImplementation(
+      (component) => component as () => React.JSX.Element
+    );
+  });
+
+  afterEach(() => {
+    mockUseActionExit.mockClear();
   });
 
   it('renders', () => {
-    useActionExitSpy.mockReturnValue({
-      isDisabled: false,
-      onExit: jest.fn(),
-      label: 'Exit',
-    });
     render(<ActionExitControl />);
 
-    const button = screen.getByRole('button', { name: 'Exit' });
+    const actionExit = screen.getByTestId('action-exit');
 
-    expect(button).toBeInTheDocument();
-  });
-
-  it('disables button', () => {
-    useActionExitSpy.mockReturnValue({
-      isDisabled: true,
-      onExit: jest.fn(),
-      label: 'Exit',
-    });
-    render(<ActionExitControl />);
-
-    const button = screen.getByRole('button', { name: 'Exit' });
-
-    expect(button).toBeDisabled();
+    expect(actionExit).toBeInTheDocument();
   });
 });

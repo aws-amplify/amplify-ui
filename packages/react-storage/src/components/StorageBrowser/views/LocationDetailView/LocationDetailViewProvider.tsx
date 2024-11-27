@@ -89,7 +89,6 @@ export function LocationDetailViewProvider({
           page,
           hasNextPage,
           highestPageVisited,
-          onPaginate,
         },
         searchPlaceholder,
         searchSubfoldersToggleLabel,
@@ -117,6 +116,7 @@ export function LocationDetailViewProvider({
       onDropFiles={onDropFiles}
       onNavigate={onNavigate}
       onNavigateHome={onNavigateHome}
+      onPaginate={onPaginate}
       onRefresh={onRefresh}
       onSearch={onSearch}
       onSearchQueryChange={onSearchQueryChange}

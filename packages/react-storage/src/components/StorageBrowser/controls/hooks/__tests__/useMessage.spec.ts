@@ -1,37 +1,46 @@
 import { renderHook } from '@testing-library/react';
-import * as controlsContextModule from '../../context';
-import { ControlsContext } from '../../types';
+import { MessageProps } from '../../../composables/Message';
+import { useControlsContext } from '../../../controls/context';
 import { useMessage } from '../useMessage';
 
-const messageType = 'info';
-const messageContent = 'Really saying something!';
+jest.mock('../../../controls/context');
 
 describe('useMessage', () => {
-  const controlsContext: ControlsContext = {
-    data: {
-      message: {
-        type: messageType,
-        content: messageContent,
-      },
-    },
-  };
+  const message = {
+    id: 'message-id',
+    content: 'message-content',
+    type: 'success',
+    onDismiss: jest.fn(),
+  } as const;
 
-  const useControlsContextSpy = jest.spyOn(
-    controlsContextModule,
-    'useControlsContext'
-  );
+  const mockUseControlsContext = jest.mocked(useControlsContext);
 
-  afterEach(() => {
-    useControlsContextSpy.mockClear();
+  beforeEach(() => {
+    mockUseControlsContext.mockReturnValue({ data: { message } });
   });
 
-  it('provides the expected values to consumers', () => {
-    useControlsContextSpy.mockReturnValue(controlsContext);
+  afterEach(() => {
+    mockUseControlsContext.mockReset();
+  });
+
+  it('returns Message props', () => {
     const { result } = renderHook(() => useMessage());
 
-    expect(result.current).toMatchObject({
-      type: messageType,
-      content: messageContent,
-    });
+    const expected: MessageProps = {
+      id: message.id,
+      content: message.content,
+      type: message.type,
+      onDismiss: expect.any(Function),
+    };
+
+    expect(result.current).toStrictEqual(expected);
+  });
+
+  it('returns empty object if message is undefined', () => {
+    mockUseControlsContext.mockReturnValue({ data: {} });
+
+    const { result } = renderHook(() => useMessage());
+
+    expect(result.current).toStrictEqual({});
   });
 });

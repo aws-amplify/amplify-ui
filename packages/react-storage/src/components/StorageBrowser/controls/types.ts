@@ -31,7 +31,6 @@ interface TableData {
 interface PaginationData {
   hasNextPage: boolean;
   highestPageVisited: number;
-  onPaginate: (page: number) => void;
   page: number;
 }
 
@@ -90,6 +89,7 @@ export interface ControlsContext {
   onFolderNameChange?: (value: string) => void;
   onNavigate?: (location: LocationData, path?: string) => void;
   onNavigateHome?: () => void;
+  onPaginate?: (page: number) => void;
   onRefresh?: () => void;
   onSearch?: () => void;
   onSearchClear?: () => void;

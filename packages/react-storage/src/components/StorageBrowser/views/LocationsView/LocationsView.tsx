@@ -7,7 +7,7 @@ import { DataTableControl } from '../../controls/DataTableControl';
 import { LoadingIndicatorControl } from '../../controls/LoadingIndicatorControl';
 import { MessageControl } from '../../controls/MessageControl';
 import { PaginationControl } from '../../controls/PaginationControl';
-import { SearchControl } from '../../controls/SearchControl';
+import { SearchFieldControl } from '../../controls/SearchFieldControl';
 import { TitleControl } from '../../controls/TitleControl';
 
 import { LocationsViewProvider } from './LocationsViewProvider';
@@ -28,7 +28,7 @@ export const LocationsView: LocationsViewType = ({ className, ...props }) => {
         <TitleControl />
         <ViewElement className={`${STORAGE_BROWSER_BLOCK}__controls`}>
           <ViewElement className={`${STORAGE_BROWSER_BLOCK}__search`}>
-            <SearchControl />
+            <SearchFieldControl />
           </ViewElement>
           <PaginationControl />
           <DataRefreshControl />
@@ -54,5 +54,5 @@ LocationsView.LocationsTable = DataTableControl;
 LocationsView.Message = MessageControl;
 LocationsView.Pagination = PaginationControl;
 LocationsView.Refresh = DataRefreshControl;
-LocationsView.Search = SearchControl;
+LocationsView.Search = SearchFieldControl;
 LocationsView.Title = TitleControl;

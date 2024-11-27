@@ -1,35 +1,34 @@
 import { renderHook } from '@testing-library/react';
-import * as controlsContextModule from '../../context';
-import { ControlsContext } from '../../types';
+import { LoadingIndicatorProps } from '../../../composables/LoadingIndicator';
+import { useControlsContext } from '../../../controls/context';
 import { useLoadingIndicator } from '../useLoadingIndicator';
 
-const isLoading = true;
-const loadingIndicatorLabel = 'Load!';
+jest.mock('../../../controls/context');
 
 describe('useLoadingIndicator', () => {
-  const controlsContext: ControlsContext = {
-    data: {
-      isLoading,
-      loadingIndicatorLabel,
-    },
+  const data = {
+    loadingIndicatorLabel: 'loading-indicator-label',
+    isLoading: false,
   };
 
-  const useControlsContextSpy = jest.spyOn(
-    controlsContextModule,
-    'useControlsContext'
-  );
+  const mockUseControlsContext = jest.mocked(useControlsContext);
 
-  afterEach(() => {
-    useControlsContextSpy.mockClear();
+  beforeEach(() => {
+    mockUseControlsContext.mockReturnValue({ data });
   });
 
-  it('provides the expected values to consumers', () => {
-    useControlsContextSpy.mockReturnValue(controlsContext);
+  afterEach(() => {
+    mockUseControlsContext.mockReset();
+  });
+
+  it('returns LoadingIndicator props', () => {
     const { result } = renderHook(() => useLoadingIndicator());
 
-    expect(result.current).toMatchObject({
-      isLoading,
-      label: loadingIndicatorLabel,
-    });
+    const expected: LoadingIndicatorProps = {
+      label: data.loadingIndicatorLabel,
+      isLoading: data.isLoading,
+    };
+
+    expect(result.current).toStrictEqual(expected);
   });
 });

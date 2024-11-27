@@ -75,3 +75,34 @@ Cypress.Commands.add('findInputField', (field: string) => {
 Cypress.Commands.add('waitForIdleMap', () => {
   cy.window().its('idleMap').should('be.true');
 });
+
+Cypress.Commands.add('clickButtonWithText', (name: string) => {
+  cy.findByRole('button', {
+    name: new RegExp(`${escapeRegExp(name)}`, 'i'),
+  }).click();
+});
+
+Cypress.Commands.add('doesDocumentContainText', (text: string) => {
+  cy.findByRole('document')
+    .contains(new RegExp(escapeRegExp(text), 'i'))
+    .should('exist');
+});
+
+Cypress.Commands.add('typeInInputHandler', (field: string, value: string) => {
+  cy.findInputField(field).type(value);
+});
+
+Cypress.Commands.add(
+  'fileInputUpload',
+  (fileName: string, fileCount: number = 1) => {
+    const folderFiles = [];
+    for (let i = 1; i <= fileCount; i++) {
+      folderFiles.push({
+        contents: Cypress.Buffer.from(`File ${i} content`),
+        fileName: `${fileName}-${i}`,
+        mimeType: 'text/plain',
+      });
+    }
+    cy.get('input[type="file"]').selectFile(folderFiles, { force: true });
+  }
+);
