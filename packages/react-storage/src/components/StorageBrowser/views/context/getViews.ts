@@ -1,37 +1,11 @@
 import React from 'react';
 import { capitalize, isFunction, isObject } from '@aws-amplify/ui';
 
-import { CustomActionConfigs } from '../actions';
-
-import {
-  LocationActionView as LocationActionViewDefault,
-  UploadView,
-  CreateFolderView,
-  CopyView,
-  DeleteView,
-} from './LocationActionView';
-import { LocationDetailView as LocationDetailViewDefault } from './LocationDetailView';
-import { LocationsView as LocationsViewDefault } from './LocationsView';
-
-import {
-  DefaultActionViewsByActionName,
-  PrimaryViews,
-  Views,
-  ViewsContextType,
-} from './types';
-
-export const DEFAULT_PRIMARY_VIEWS: PrimaryViews = {
-  LocationActionView: LocationActionViewDefault,
-  LocationDetailView: LocationDetailViewDefault,
-  LocationsView: LocationsViewDefault,
-};
-
-export const DEFAULT_ACTION_VIEWS: DefaultActionViewsByActionName = {
-  createFolder: CreateFolderView,
-  copy: CopyView,
-  delete: DeleteView,
-  upload: UploadView,
-};
+import { CustomActionConfigs } from '../../actions';
+import { DEFAULT_ACTION_VIEWS } from './actionViews';
+import { DEFAULT_PRIMARY_VIEWS } from './primaryViews';
+import { DefaultActionViewsByActionName, Views } from '../types';
+import { ViewsContextType } from './types';
 
 export const getViews = (
   views?: Views,

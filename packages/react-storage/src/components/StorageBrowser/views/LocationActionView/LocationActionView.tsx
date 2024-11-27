@@ -1,17 +1,16 @@
 import React from 'react';
 
 import { useStore } from '../../providers/store';
-// creating circular dependency
-import { useViews } from '../context';
+import { useActionViews } from '../context/actionViews';
 
-import { LocationActionViewProps } from './types';
+import { LocationActionViewType } from './types';
 
-export const LocationActionView = ({
+export const LocationActionView: LocationActionViewType = ({
   type,
   ...props
-}: LocationActionViewProps): React.JSX.Element | null => {
+}) => {
   const [{ actionType = type }] = useStore();
-  const views = useViews().action;
+  const views = useActionViews().action;
 
   const ActionView = actionType
     ? views[actionType as keyof typeof views]

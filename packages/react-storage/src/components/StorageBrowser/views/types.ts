@@ -50,11 +50,6 @@ export interface DefaultActionViewsByActionName {
   upload: (props: UploadViewProps) => React.JSX.Element | null;
 }
 
-export interface ViewsContextType<T = string, K = {}> {
-  primary: PrimaryViews<T>;
-  action: DefaultActionViewsByActionName & K;
-}
-
 export type Views<T = string, K = {}> = Partial<
   PrimaryViews<T> & DefaultActionViews & K
 >;
