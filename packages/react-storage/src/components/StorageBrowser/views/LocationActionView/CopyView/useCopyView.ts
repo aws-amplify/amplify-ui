@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { isFunction } from '@aws-amplify/ui';
 
 import { LocationData } from '../../../actions';
@@ -18,21 +18,25 @@ export const useCopyView = (options?: UseCopyViewOptions): CopyViewState => {
     },
     dispatchStoreAction,
   ] = useStore();
+  const idLookup = useRef<Record<string, string>>({});
 
   const [destination, setDestination] = useState(location);
 
-  const data = React.useMemo(
-    () =>
-      fileDataItems?.map((item) => ({
+  const data = React.useMemo(() => {
+    idLookup.current = {};
+    return fileDataItems?.map((item) => {
+      // generate new `id` on each `destination.key` change to refresh
+      // task data provided to `useActon`
+      const id = crypto.randomUUID();
+      idLookup.current[id] = item.id;
+      return {
         ...item,
-        // generate new `id` on each `destination.key` change to refresh
-        // task data provided to `useActon`
-        id: crypto.randomUUID(),
+        id,
         key: `${destination.key}${item.fileKey}`,
         sourceKey: item.key,
-      })),
-    [destination.key, fileDataItems]
-  );
+      };
+    });
+  }, [destination.key, fileDataItems]);
 
   const folders = useFolders({ destination, setDestination });
 
@@ -68,7 +72,10 @@ export const useCopyView = (options?: UseCopyViewOptions): CopyViewState => {
 
   const onTaskRemove = React.useCallback(
     ({ data }: Task) => {
-      dispatchStoreAction({ type: 'REMOVE_LOCATION_ITEM', id: data.id });
+      dispatchStoreAction({
+        type: 'REMOVE_LOCATION_ITEM',
+        id: idLookup.current[data.id],
+      });
     },
     [dispatchStoreAction]
   );
