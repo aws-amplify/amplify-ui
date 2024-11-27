@@ -55,11 +55,17 @@ describe('uploadHandler', () => {
   it('behaves as expected in the happy path', async () => {
     const { result } = uploadHandler(baseInput);
 
-    expect(await result).toStrictEqual({ status: 'COMPLETE' });
+    expect(await result).toStrictEqual({
+      status: 'COMPLETE',
+      value: { key: file.name },
+    });
   });
 
   it('calls upload with the expected values', () => {
-    uploadHandler({ ...baseInput, options: { preventOverwrite: true } });
+    uploadHandler({
+      ...baseInput,
+      data: { ...baseInput.data, preventOverwrite: true },
+    });
 
     const expected: UploadDataInput = {
       data: file,
@@ -93,7 +99,10 @@ describe('uploadHandler', () => {
       options: { onProgress: mockOnProgress },
     });
 
-    expect(await result).toStrictEqual({ status: 'COMPLETE' });
+    expect(await result).toStrictEqual({
+      status: 'COMPLETE',
+      value: { key: file.name },
+    });
 
     expect(mockOnProgress).toHaveBeenCalledTimes(1);
     expect(mockOnProgress).toHaveBeenCalledWith(baseInput.data, 1);
@@ -111,7 +120,10 @@ describe('uploadHandler', () => {
       options: { onProgress: mockOnProgress },
     });
 
-    expect(await result).toStrictEqual({ status: 'COMPLETE' });
+    expect(await result).toStrictEqual({
+      status: 'COMPLETE',
+      value: { key: file.name },
+    });
 
     expect(mockOnProgress).toHaveBeenCalledTimes(1);
     expect(mockOnProgress).toHaveBeenCalledWith(baseInput.data, undefined);
@@ -128,7 +140,10 @@ describe('uploadHandler', () => {
       data: { key: bigFile.name, id: 'hi!', file: bigFile },
     });
 
-    expect(await result).toStrictEqual({ status: 'COMPLETE' });
+    expect(await result).toStrictEqual({
+      status: 'COMPLETE',
+      value: { key: file.name },
+    });
 
     expect(callbacks).toStrictEqual({
       cancel: expect.any(Function),
@@ -145,7 +160,10 @@ describe('uploadHandler', () => {
       data: { key: smallFile.name, id: 'ohh', file: smallFile },
     });
 
-    expect(await result).toStrictEqual({ status: 'COMPLETE' });
+    expect(await result).toStrictEqual({
+      status: 'COMPLETE',
+      value: { key: file.name },
+    });
 
     expect(callbacks).toStrictEqual(UNDEFINED_CALLBACKS);
   });
@@ -195,7 +213,7 @@ describe('uploadHandler', () => {
 
     const { result } = uploadHandler({
       ...baseInput,
-      options: { preventOverwrite: true },
+      data: { ...baseInput.data, preventOverwrite: true },
     });
 
     expect(await result).toStrictEqual({

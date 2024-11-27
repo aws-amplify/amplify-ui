@@ -1,9 +1,4 @@
-import { ActionListItemConfig } from '../types';
-import {
-  createFolderActionConfig,
-  defaultActionConfigs,
-  uploadActionConfig,
-} from '../defaults';
+import { defaultActionConfigs } from '../defaults';
 import {
   generateCombinations,
   LOCATION_PERMISSION_VALUES,
@@ -26,34 +21,25 @@ describe('defaultActionConfigs', () => {
     expect(defaultActionConfigs).toMatchSnapshot();
   });
 
-  describe('createFolderActionConfig', () => {
+  describe('createFolder', () => {
+    const { disable, hide } = defaultActionConfigs.createFolder.actionListItem;
     it('hides the action list item as expected', () => {
-      const hide =
-        (createFolderActionConfig.actionListItem as ActionListItemConfig)!
-          .hide!;
       for (const permissionsWithoutWrite of generateCombinations(
         permissionValuesWithoutWrite
       )) {
-        expect(hide(permissionsWithoutWrite)).toBe(true);
-        expect(hide([...permissionValuesWithoutWrite, 'write'])).toBe(false);
+        expect(hide?.(permissionsWithoutWrite)).toBe(true);
+        expect(hide?.([...permissionValuesWithoutWrite, 'write'])).toBe(false);
       }
     });
 
     it('is never disabled', () => {
-      const disable =
-        (createFolderActionConfig.actionListItem as ActionListItemConfig)!
-          .disable!;
-
-      expect(disable([])).toBe(false);
-      expect(disable([file])).toBe(false);
-      expect(disable(undefined)).toBe(false);
+      expect(disable).toBeUndefined();
     });
   });
 
-  describe('uploadActionConfig', () => {
+  describe('upload', () => {
+    const { disable, hide } = defaultActionConfigs.upload.actionListItem;
     it('hides the action list item as expected', () => {
-      const uploadFileListItem = uploadActionConfig.actionListItem;
-
       for (const permissionsWithoutWrite of generateCombinations(
         permissionValuesWithoutWrite
       )) {
@@ -61,24 +47,19 @@ describe('defaultActionConfigs', () => {
           ...permissionValuesWithoutWrite,
           'write' as const,
         ];
-        expect(uploadFileListItem.hide?.(permissionsWithoutWrite)).toBe(true);
-        expect(uploadFileListItem.hide?.(permissionsWithWrite)).toBe(false);
+        expect(hide?.(permissionsWithoutWrite)).toBe(true);
+        expect(hide?.(permissionsWithWrite)).toBe(false);
       }
     });
 
     it('is never disabled', () => {
-      const uploadFileListItem = uploadActionConfig.actionListItem;
-
-      expect(uploadFileListItem.disable?.([])).toBe(false);
-      expect(uploadFileListItem.disable?.([file])).toBe(false);
-      expect(uploadFileListItem.disable?.(undefined)).toBe(false);
+      expect(disable).toBeUndefined();
     });
   });
 
-  describe('deleteActionConfig', () => {
+  describe('delete', () => {
+    const { disable, hide } = defaultActionConfigs.delete.actionListItem;
     it('hides the action list item as expected', () => {
-      const deleteFileListItem = defaultActionConfigs.delete.actionListItem;
-
       for (const permissionsWithoutDelete of generateCombinations(
         LOCATION_PERMISSION_VALUES.filter((value) => value !== 'delete')
       )) {
@@ -86,24 +67,21 @@ describe('defaultActionConfigs', () => {
           ...permissionsWithoutDelete,
           'delete' as const,
         ];
-        expect(deleteFileListItem.hide?.(permissionsWithoutDelete)).toBe(true);
-        expect(deleteFileListItem.hide?.(permissionsWithDelete)).toBe(false);
+        expect(hide?.(permissionsWithoutDelete)).toBe(true);
+        expect(hide?.(permissionsWithDelete)).toBe(false);
       }
     });
 
     it('is disabled when no files are selected', () => {
-      const deleteFileListItem = defaultActionConfigs.delete.actionListItem;
-
-      expect(deleteFileListItem.disable?.(undefined)).toBe(true);
-      expect(deleteFileListItem.disable?.([])).toBe(true);
-      expect(deleteFileListItem.disable?.([file])).toBe(false);
+      expect(disable?.(undefined)).toBe(true);
+      expect(disable?.([])).toBe(true);
+      expect(disable?.([file])).toBe(false);
     });
   });
 
-  describe('copyActionConfig', () => {
+  describe('copy', () => {
+    const { disable, hide } = defaultActionConfigs.copy.actionListItem;
     it('hides the action list item as expected', () => {
-      const copyFileListItem = defaultActionConfigs.copy.actionListItem;
-
       for (const permissionsWithoutWrite of generateCombinations(
         permissionValuesWithoutWrite
       )) {
@@ -111,17 +89,15 @@ describe('defaultActionConfigs', () => {
           ...permissionValuesWithoutWrite,
           'write' as const,
         ];
-        expect(copyFileListItem.hide?.(permissionsWithoutWrite)).toBe(true);
-        expect(copyFileListItem.hide?.(permissionsWithWrite)).toBe(false);
+        expect(hide?.(permissionsWithoutWrite)).toBe(true);
+        expect(hide?.(permissionsWithWrite)).toBe(false);
       }
     });
 
     it('is disabled when no files are selected', () => {
-      const copyFileListItem = defaultActionConfigs.copy.actionListItem;
-
-      expect(copyFileListItem.disable?.(undefined)).toBe(true);
-      expect(copyFileListItem.disable?.([])).toBe(true);
-      expect(copyFileListItem.disable?.([file])).toBe(false);
+      expect(disable?.(undefined)).toBe(true);
+      expect(disable?.([])).toBe(true);
+      expect(disable?.([file])).toBe(false);
     });
   });
 });

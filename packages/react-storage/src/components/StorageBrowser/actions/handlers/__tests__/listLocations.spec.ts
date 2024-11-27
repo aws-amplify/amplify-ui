@@ -3,7 +3,7 @@ import {
   ListLocationsOutput,
   LocationCredentialsProvider,
   LocationAccess,
-} from '../../storage-internal';
+} from '../../../storage-internal';
 
 import { getFilteredLocations } from '../utils';
 

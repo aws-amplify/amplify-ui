@@ -17,7 +17,7 @@ import {
 export const copyActionConfig: CopyActionConfig = {
   viewName: 'CopyView',
   actionListItem: {
-    disable: (selected) => !selected,
+    disable: (selected) => !selected || selected.length === 0,
     hide: (permissions) => !permissions.includes('write'),
     icon: 'copy-file',
     label: 'Copy',
@@ -28,7 +28,7 @@ export const copyActionConfig: CopyActionConfig = {
 export const deleteActionConfig: DeleteActionConfig = {
   viewName: 'DeleteView',
   actionListItem: {
-    disable: (selected) => !selected,
+    disable: (selected) => !selected || selected.length === 0,
     hide: (permissions) => !permissions.includes('delete'),
     icon: 'delete-file',
     label: 'Delete',

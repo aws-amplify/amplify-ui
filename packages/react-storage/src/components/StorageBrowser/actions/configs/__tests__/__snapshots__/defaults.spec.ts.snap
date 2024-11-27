@@ -9,18 +9,17 @@ exports[`defaultActionConfigs matches expected shape 1`] = `
       "icon": "copy-file",
       "label": "Copy",
     },
-    "componentName": "CopyView",
     "handler": [Function],
+    "viewName": "CopyView",
   },
   "createFolder": {
     "actionListItem": {
-      "disable": [Function],
       "hide": [Function],
       "icon": "create-folder",
       "label": "Create folder",
     },
-    "componentName": "CreateFolderView",
     "handler": [Function],
+    "viewName": "CreateFolderView",
   },
   "delete": {
     "actionListItem": {
@@ -29,27 +28,19 @@ exports[`defaultActionConfigs matches expected shape 1`] = `
       "icon": "delete-file",
       "label": "Delete",
     },
-    "componentName": "DeleteView",
     "handler": [Function],
+    "viewName": "DeleteView",
   },
-  "listLocationItems": {
-    "componentName": "LocationDetailView",
-    "handler": [Function],
-  },
-  "listLocations": {
-    "componentName": "LocationsView",
-    "handler": [Function],
-  },
+  "download": [Function],
+  "listLocationItems": [Function],
   "upload": {
     "actionListItem": {
-      "disable": [Function],
-      "fileSelection": "FILE",
       "hide": [Function],
       "icon": "upload-file",
       "label": "Upload",
     },
-    "componentName": "UploadView",
     "handler": [Function],
+    "viewName": "UploadView",
   },
 }
 `;

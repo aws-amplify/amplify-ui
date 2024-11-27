@@ -3,14 +3,16 @@ import { useActionHandlers } from './context';
 import { DefaultActionHandlers, UseAction } from './types';
 import { useHandler } from './useHandler';
 
+type ListHandlerKeys = 'listLocations' | 'listLocationItems';
+
 export const ERROR_MESSAGE =
   '`useAction` must be called from within `StorageBrowser.Provider`';
 
-// @ts-expect-error
 export const useAction: UseAction<DefaultActionHandlers> = (key, options) => {
-  // @ts-expect-error intentionally ignore TS here to avoid usage of the below
-  // keys with `useAction`
-  if (key === 'listLocations' || key === 'listLocationItems') {
+  if (
+    (key as ListHandlerKeys) === 'listLocations' ||
+    (key as ListHandlerKeys) === 'listLocationItems'
+  ) {
     throw new Error(
       `Value of \`${key}\` cannot be used to index \`useAction\``
     );

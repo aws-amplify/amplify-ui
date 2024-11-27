@@ -3,7 +3,6 @@ import {
   SEARCH_LIMIT,
 } from '../createEnhancedListHandler';
 import {
-  ActionInputConfig,
   ListHandler,
   ListHandlerInput,
   ListHandlerOutput,
@@ -11,11 +10,6 @@ import {
 
 const mockAction = jest.fn();
 
-const config: ActionInputConfig = {
-  bucket: 'bucky',
-  credentials: jest.fn(),
-  region: 'us-west-1',
-};
 type Output = ListHandlerOutput<{
   name: string;
   alt: string;
@@ -35,7 +29,6 @@ describe('createEnhancedListHandler', () => {
     const options = { reset: true };
 
     const result = await handler(prevState, {
-      config,
       prefix: 'a_prefix',
       options,
     });
@@ -61,7 +54,6 @@ describe('createEnhancedListHandler', () => {
     };
 
     const result = await handler(prevState, {
-      config,
       prefix: 'a_prefix',
       options,
     });
@@ -92,7 +84,6 @@ describe('createEnhancedListHandler', () => {
     };
 
     const result = await handler(prevState, {
-      config,
       prefix: '',
       options,
     });
@@ -129,7 +120,6 @@ describe('createEnhancedListHandler', () => {
     const prevState = { items: [], nextToken: undefined };
 
     const result = await handler(prevState, {
-      config,
       prefix: '',
       options: {
         search: {
@@ -165,7 +155,6 @@ describe('createEnhancedListHandler', () => {
     };
 
     const result = await handler(prevState, {
-      config,
       prefix: 'foo/',
       options,
     });
@@ -194,7 +183,6 @@ describe('createEnhancedListHandler', () => {
     };
 
     const result = await handler(prevState, {
-      config,
       prefix: 'a_prefix',
       options,
     });
@@ -218,13 +206,11 @@ describe('createEnhancedListHandler', () => {
     const options = { refresh: true, nextToken: 'token' };
 
     const result = await handler(prevState, {
-      config,
       prefix: 'a_prefix',
       options,
     });
 
     expect(mockAction).toHaveBeenCalledWith({
-      config,
       prefix: 'a_prefix',
       options: { nextToken: undefined },
     });
@@ -244,7 +230,6 @@ describe('createEnhancedListHandler', () => {
     const options = { refresh: false };
 
     const result = await handler(prevState, {
-      config,
       prefix: 'a_prefix',
       options,
     });

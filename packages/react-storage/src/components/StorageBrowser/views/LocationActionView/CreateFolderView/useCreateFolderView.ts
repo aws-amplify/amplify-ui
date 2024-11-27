@@ -2,7 +2,7 @@ import React from 'react';
 import { isFunction } from '@aws-amplify/ui';
 
 import { CreateFolderHandlerData } from '../../../actions';
-import { useAction } from '../../../useAction/useAction';
+import { useAction } from '../../../useAction';
 import { useStore } from '../../../providers/store';
 
 import { CreateFolderViewState, UseCreateFolderViewOptions } from './types';

@@ -1,25 +1,20 @@
 import { renderHook, act } from '@testing-library/react';
 import { DataState } from '@aws-amplify/ui-react-core';
 
+import { ListLocationsOutput, LocationData } from '../../../actions';
+import { getFileKey } from '../../../actions/handlers';
+import { UseStoreState, useStore } from '../../../providers/store';
+import { useAction, useList } from '../../../useAction';
+
 import { useLocationsView, DEFAULT_LIST_OPTIONS } from '../useLocationsView';
 
-import * as ActionsModule from '../../../actions';
-import * as StoreModule from '../../../providers/store';
-import * as TasksModule from '../../../tasks';
-import * as ConfigModule from '../../../providers/configuration';
-
+jest.mock('../../../actions/handlers');
+jest.mock('../../../providers/store');
+jest.mock('../../../useAction');
 jest.useFakeTimers();
 jest.setSystemTime(1);
 
-const dispatchStoreAction = jest.fn();
-jest
-  .spyOn(StoreModule, 'useStore')
-  .mockReturnValue([{} as StoreModule.UseStoreState, dispatchStoreAction]);
-
-const useLocationsDataSpy = jest.spyOn(ActionsModule, 'useListLocations');
-const useGetActionSpy = jest.spyOn(ConfigModule, 'useGetActionInput');
-
-const mockData: ActionsModule.LocationData[] = [
+const mockData: LocationData[] = [
   {
     bucket: 'test-bucket',
     prefix: `item-a/`,
@@ -57,55 +52,34 @@ const mockData: ActionsModule.LocationData[] = [
   },
 ];
 
-const EXPECTED_PAGE_SIZE = 3;
-function mockUseLocationsData(
-  returnValue: DataState<ActionsModule.ListLocationsOutput>
-) {
-  const handleList = jest.fn();
-  useLocationsDataSpy.mockReturnValue([returnValue, handleList]);
-  return handleList;
-}
-
-const taskOne: TasksModule.Task<ActionsModule.FileDataItem> = {
-  data: {
-    fileKey: 'key',
-    id: 'id',
-    key: 'key',
-    lastModified: new Date(1),
-    size: 0,
-    type: 'FILE',
-  },
-  cancel: jest.fn(),
-  message: undefined,
-  progress: undefined,
-  status: 'QUEUED',
-};
-
-const handleDownload = jest.fn();
-jest.spyOn(TasksModule, 'useProcessTasks').mockReturnValue([
-  {
-    reset: jest.fn(),
-    isProcessing: false,
-    isProcessingComplete: false,
-    statusCounts: TasksModule.INITIAL_STATUS_COUNTS,
-    tasks: [taskOne],
-  },
-  handleDownload,
-]);
-
-const config: ActionsModule.ActionInputConfig = {
-  bucket: 'bucky',
-  credentials: jest.fn(),
-  region: 'us-weast-1',
-};
-useGetActionSpy.mockReturnValue(() => config);
-
-const mockId = 'intentionally-static-test-id';
 describe('useLocationsView', () => {
+  const EXPECTED_PAGE_SIZE = 3;
+  const mockId = 'intentionally-static-test-id';
+  const fileKey = 'file-key';
+
+  const mockGetFileKey = jest.mocked(getFileKey);
+  const mockUseAction = jest.mocked(useAction);
+  const mockUseList = jest.mocked(useList);
+  const mockUseStore = jest.mocked(useStore);
+  const mockDispatchStoreAction = jest.fn();
+  const mockHandleDownload = jest.fn();
+
+  function mockUseLocationsData(returnValue: DataState<ListLocationsOutput>) {
+    const handleList = jest.fn();
+    mockUseList.mockReturnValue([returnValue, handleList]);
+    return handleList;
+  }
+
   beforeAll(() => {
     Object.defineProperty(globalThis, 'crypto', {
       value: { randomUUID: () => mockId },
     });
+    mockUseStore.mockReturnValue([
+      {} as UseStoreState,
+      mockDispatchStoreAction,
+    ]);
+    mockUseAction.mockReturnValue([{}, mockHandleDownload]);
+    mockGetFileKey.mockReturnValue(fileKey);
   });
 
   afterEach(() => {
@@ -244,7 +218,7 @@ describe('useLocationsView', () => {
       state.onNavigate(expectedLocation);
     });
 
-    expect(dispatchStoreAction).toHaveBeenCalledWith({
+    expect(mockDispatchStoreAction).toHaveBeenCalledWith({
       type: 'NAVIGATE',
       location: expectedLocation,
     });
@@ -252,7 +226,7 @@ describe('useLocationsView', () => {
 
   it('should handle downloading a file', () => {
     const { result } = renderHook(() => useLocationsView());
-    const location: ActionsModule.LocationData = {
+    const location: LocationData = {
       bucket: 'bucket',
       id: 'id',
       permissions: ['get'],
@@ -261,10 +235,14 @@ describe('useLocationsView', () => {
     };
 
     result.current.onDownload(location);
-    expect(handleDownload).toHaveBeenCalledTimes(1);
-    expect(handleDownload).toHaveBeenCalledWith({
-      config,
-      data: {},
+    expect(mockHandleDownload).toHaveBeenCalledTimes(1);
+    expect(mockHandleDownload).toHaveBeenCalledWith({
+      data: {
+        fileKey,
+        id: mockId,
+        key: location.prefix,
+      },
+      location,
     });
   });
 

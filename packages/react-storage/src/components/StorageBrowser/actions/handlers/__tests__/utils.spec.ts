@@ -1,4 +1,4 @@
-import { LocationAccess as AccessGrantLocation } from '../../storage-internal';
+import { LocationAccess as AccessGrantLocation } from '../../../storage-internal';
 import { LocationData } from '../types';
 
 import {
@@ -8,7 +8,6 @@ import {
   getFilteredLocations,
   isFileItem,
   isFileDataItem,
-  createFileDataItemFromLocation,
   createFileDataItem,
 } from '../utils';
 
@@ -196,29 +195,6 @@ describe('utils', () => {
           type: 'FILE' as const,
         })
       ).toStrictEqual(expect.objectContaining({ fileKey }));
-    });
-  });
-
-  describe('createFileDataItemFromLocation', () => {
-    const location: LocationData = {
-      bucket: 'bucket',
-      id: 'id',
-      permissions: ['list', 'get'],
-      prefix: `prefix/${fileKey}`,
-      type: 'OBJECT',
-    };
-
-    it('creates a FileDataItem from location', () => {
-      expect(createFileDataItemFromLocation(location)).toStrictEqual(
-        expect.objectContaining({
-          id: location.id,
-          type: 'FILE',
-          key: location.prefix,
-          fileKey,
-          lastModified: expect.any(Date),
-          size: 0,
-        })
-      );
     });
   });
 

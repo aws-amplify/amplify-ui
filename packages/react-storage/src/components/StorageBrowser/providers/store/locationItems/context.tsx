@@ -61,15 +61,12 @@ const locationItemsReducer = (
 
       if (!prevState.fileDataItems) return prevState;
 
-      const fileDataItems =
-        prevState.fileDataItems?.filter((item) => item.id !== id) ?? [];
+      const fileDataItems = prevState.fileDataItems.filter(
+        (item) => item.id !== id
+      );
 
       if (fileDataItems.length === prevState.fileDataItems.length) {
         return prevState;
-      }
-
-      if (fileDataItems.length > 0) {
-        return { fileDataItems: undefined };
       }
 
       return { fileDataItems };

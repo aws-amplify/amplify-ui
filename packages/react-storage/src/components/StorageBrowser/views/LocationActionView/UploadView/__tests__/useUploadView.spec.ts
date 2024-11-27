@@ -1,12 +1,14 @@
 import { renderHook, act } from '@testing-library/react-hooks';
-import { useUploadView } from '../useUploadView';
-import { LocationData } from '../../../../actions';
-import * as ConfigModule from '../../../../providers/configuration';
-import * as StoreModule from '../../../../providers/store';
-import * as TasksModule from '../../../../tasks';
-import { UPLOAD_FILE_SIZE_LIMIT } from '../../../../validators/isFileTooBig';
+import { FileItem, LocationData } from '../../../../actions';
 
-const useStoreSpy = jest.spyOn(StoreModule, 'useStore');
+import { UseStoreState, useStore } from '../../../../providers/store';
+import { Task, INITIAL_STATUS_COUNTS } from '../../../../tasks';
+import { useAction } from '../../../../useAction';
+import { UPLOAD_FILE_SIZE_LIMIT } from '../../../../validators/isFileTooBig';
+import { useUploadView } from '../useUploadView';
+
+jest.mock('../../../../providers/store');
+jest.mock('../../../../useAction');
 
 const rootLocation: LocationData = {
   id: 'an-id-👍🏼',
@@ -16,20 +18,6 @@ const rootLocation: LocationData = {
   prefix: '',
   type: 'BUCKET',
 };
-
-const mockUserStoreState = {
-  location: { current: rootLocation, path: '', key: '' },
-  files: undefined,
-} as StoreModule.UseStoreState;
-const dispatchStoreAction = jest.fn();
-useStoreSpy.mockReturnValue([mockUserStoreState, dispatchStoreAction]);
-
-const credentials = jest.fn();
-const config: ConfigModule.GetActionInput = jest.fn(() => ({
-  credentials,
-  bucket: rootLocation.bucket,
-  region: 'region',
-}));
 
 const testFileOne = new File([], 'test-ooo');
 const fileItemOne = {
@@ -53,10 +41,7 @@ const invalidFileItem = {
   key: invalidFile.name,
 };
 
-jest.spyOn(ConfigModule, 'useGetActionInput').mockReturnValue(config);
-const handleProcessTasks = jest.fn();
-
-const taskOne: TasksModule.Task<StoreModule.FileItem> = {
+const taskOne: Task<FileItem> = {
   data: fileItemOne,
   cancel: jest.fn(),
   message: undefined,
@@ -64,7 +49,7 @@ const taskOne: TasksModule.Task<StoreModule.FileItem> = {
   status: 'QUEUED',
 };
 
-const taskTwo: TasksModule.Task<StoreModule.FileItem> = {
+const taskTwo: Task<FileItem> = {
   data: fileItemTwo,
   cancel: jest.fn(),
   message: undefined,
@@ -72,55 +57,78 @@ const taskTwo: TasksModule.Task<StoreModule.FileItem> = {
   status: 'QUEUED',
 };
 
-const useProcessTasksSpy = jest
-  .spyOn(TasksModule, 'useProcessTasks')
-  .mockReturnValue([
-    {
-      isProcessing: false,
-      isProcessingComplete: false,
-      statusCounts: TasksModule.INITIAL_STATUS_COUNTS,
-      tasks: [],
-      reset: jest.fn(),
-    },
-    handleProcessTasks,
-  ]);
-
 describe('useUploadView', () => {
-  afterEach(() => {
-    mockUserStoreState.files = undefined;
-    jest.clearAllMocks();
+  const mockUserStoreState = {
+    location: { current: rootLocation, path: '', key: '' },
+    files: undefined,
+  } as UseStoreState;
+
+  const mockUseAction = jest.mocked(useAction);
+  const mockUseStore = jest.mocked(useStore);
+  const mockCancel = jest.fn();
+  const mockDispatchStoreAction = jest.fn();
+  const mockHandleUpload = jest.fn();
+
+  beforeEach(() => {
+    mockUseStore.mockReturnValue([
+      { ...mockUserStoreState },
+      mockDispatchStoreAction,
+    ]);
+    mockUseAction.mockReturnValue([
+      {
+        isProcessing: false,
+        isProcessingComplete: false,
+        statusCounts: INITIAL_STATUS_COUNTS,
+        tasks: [
+          { ...taskOne, status: 'PENDING', cancel: mockCancel },
+          { ...taskTwo, status: 'PENDING', cancel: mockCancel },
+        ],
+      },
+      mockHandleUpload,
+    ]);
   });
 
-  it('should dispatchStoreAction when onDropFiles is invoked', () => {
+  afterEach(() => {
+    mockUseAction.mockReset();
+    mockUseStore.mockReset();
+    mockCancel.mockClear();
+    mockDispatchStoreAction.mockClear();
+    mockHandleUpload.mockClear();
+  });
+
+  it('should mockDispatchStoreAction when onDropFiles is invoked', () => {
     const { result } = renderHook(() => useUploadView());
 
     act(() => {
       result.current.onDropFiles([testFileOne]);
     });
 
-    expect(dispatchStoreAction).toHaveBeenCalledTimes(1);
-    expect(dispatchStoreAction).toHaveBeenCalledWith({
+    expect(mockDispatchStoreAction).toHaveBeenCalledTimes(1);
+    expect(mockDispatchStoreAction).toHaveBeenCalledWith({
       type: 'ADD_FILE_ITEMS',
       files: [testFileOne],
     });
   });
 
   it('should show invalid files if exists', () => {
-    mockUserStoreState.files = [invalidFileItem];
+    mockUseStore.mockReturnValue([
+      { ...mockUserStoreState, files: [invalidFileItem] },
+      mockDispatchStoreAction,
+    ]);
     const { result } = renderHook(() => useUploadView());
 
     expect(result.current.invalidFiles).toEqual([invalidFileItem]);
   });
 
-  it('should dispatchStoreAction when onSelectFiles is invoked with different types', () => {
+  it('should mockDispatchStoreAction when onSelectFiles is invoked with different types', () => {
     const { result } = renderHook(() => useUploadView());
 
     act(() => {
       result.current.onSelectFiles('FILE');
     });
 
-    expect(dispatchStoreAction).toHaveBeenCalledTimes(1);
-    expect(dispatchStoreAction).toHaveBeenCalledWith({
+    expect(mockDispatchStoreAction).toHaveBeenCalledTimes(1);
+    expect(mockDispatchStoreAction).toHaveBeenCalledWith({
       type: 'SELECT_FILES',
       selectionType: 'FILE',
     });
@@ -129,21 +137,24 @@ describe('useUploadView', () => {
       result.current.onSelectFiles('FOLDER');
     });
 
-    expect(dispatchStoreAction).toHaveBeenCalledTimes(2);
-    expect(dispatchStoreAction).toHaveBeenCalledWith({
+    expect(mockDispatchStoreAction).toHaveBeenCalledTimes(2);
+    expect(mockDispatchStoreAction).toHaveBeenCalledWith({
       type: 'SELECT_FILES',
       selectionType: 'FOLDER',
     });
   });
 
-  it('should call handleProcessTasks with the expected values', () => {
-    mockUserStoreState.files = [invalidFileItem];
+  it('should call mockHandleUpload with the expected values', () => {
+    mockUseStore.mockReturnValue([
+      { ...mockUserStoreState, files: [invalidFileItem] },
+      mockDispatchStoreAction,
+    ]);
     const { result } = renderHook(() => useUploadView());
     act(() => {
       result.current.onActionStart();
     });
-    expect(dispatchStoreAction).toHaveBeenCalledTimes(1);
-    expect(dispatchStoreAction).toHaveBeenCalledWith({
+    expect(mockDispatchStoreAction).toHaveBeenCalledTimes(1);
+    expect(mockDispatchStoreAction).toHaveBeenCalledWith({
       type: 'REMOVE_FILE_ITEM',
       id: invalidFileItem.id,
     });
@@ -154,68 +165,38 @@ describe('useUploadView', () => {
     act(() => {
       result.current.onActionStart();
     });
-    expect(handleProcessTasks).toHaveBeenCalledTimes(1);
-    expect(handleProcessTasks).toHaveBeenCalledWith({
-      config: {
-        bucket: rootLocation.bucket,
-        credentials,
-        region: 'region',
-      },
-      options: { preventOverwrite: true },
-    });
+    expect(mockHandleUpload).toHaveBeenCalledTimes(1);
   });
 
   it('should call cancel on each pending task when onCancel is invoked', () => {
-    const tasks: TasksModule.Task<StoreModule.FileItem>[] = [
-      { ...taskOne, status: 'PENDING' },
-      { ...taskTwo, status: 'PENDING' },
-    ];
-
-    useProcessTasksSpy.mockReturnValue([
-      {
-        tasks,
-        isProcessing: true,
-        isProcessingComplete: false,
-        statusCounts: {
-          ...TasksModule.INITIAL_STATUS_COUNTS,
-          PENDING: 2,
-          TOTAL: 2,
-        },
-        reset: jest.fn(),
-      },
-      handleProcessTasks,
-    ]);
-
     const { result } = renderHook(() => useUploadView());
 
     act(() => {
       result.current.onActionCancel();
     });
 
-    expect(tasks[0].cancel).toHaveBeenCalledTimes(1);
-    expect(tasks[1].cancel).toHaveBeenCalledTimes(1);
+    expect(mockCancel).toHaveBeenCalledTimes(2);
   });
 
   it('should call remove on each task, provided onExit and dispatch actions when returned onExit is invoked', () => {
-    const tasks: TasksModule.Task<StoreModule.FileItem>[] = [
+    const tasks: Task<FileItem>[] = [
       { ...taskOne, status: 'FAILED' },
       { ...taskTwo, status: 'COMPLETE' },
     ];
 
-    useProcessTasksSpy.mockReturnValue([
+    mockUseAction.mockReturnValue([
       {
         tasks,
         isProcessing: true,
         isProcessingComplete: false,
         statusCounts: {
-          ...TasksModule.INITIAL_STATUS_COUNTS,
+          ...INITIAL_STATUS_COUNTS,
           COMPLETE: 1,
           FAILED: 1,
           TOTAL: 2,
         },
-        reset: jest.fn(),
       },
-      handleProcessTasks,
+      mockHandleUpload,
     ]);
 
     const onExit = jest.fn();
@@ -229,7 +210,7 @@ describe('useUploadView', () => {
     expect(onExit).toHaveBeenCalledTimes(1);
     expect(onExit).toHaveBeenCalledWith(rootLocation);
 
-    expect(dispatchStoreAction.mock.calls).toEqual([
+    expect(mockDispatchStoreAction.mock.calls).toEqual([
       [{ type: 'RESET_FILE_ITEMS' }],
       [{ type: 'RESET_ACTION_TYPE' }],
     ]);

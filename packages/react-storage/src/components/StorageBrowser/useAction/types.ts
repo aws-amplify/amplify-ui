@@ -119,5 +119,5 @@ export type UseAction<V extends Record<keyof V, ActionHandler>> = <
 ) => UseHandlerState<
   TData,
   V[K] extends ActionHandler<any, infer R> ? R : never,
-  U extends TOptions ? TOptions : undefined
+  U
 >;

@@ -4,7 +4,7 @@ import { isUndefined } from '@aws-amplify/ui';
 import { UploadHandlerData } from '../../../actions';
 import { FileItems, useStore } from '../../../providers/store';
 import { Task } from '../../../tasks';
-import { useAction } from '../../../useAction/useAction';
+import { useAction } from '../../../useAction';
 import { isFileTooBig } from '../../../validators';
 
 import { UploadViewState, UseUploadViewOptions } from './types';

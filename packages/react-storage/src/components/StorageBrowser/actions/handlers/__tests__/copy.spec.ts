@@ -17,17 +17,17 @@ const baseInput: CopyHandlerInput = {
     sourceKey: 'some-prefixfix/some-key.hehe',
     fileKey: 'some-key.hehe',
     lastModified: new Date(),
-    size: 100000000,
     eTag: 'etag',
-    type: 'FILE',
   },
 };
 
 describe('copyHandler', () => {
+  const path = 'path';
+
   const mockCopy = jest.mocked(copy);
 
   beforeEach(() => {
-    mockCopy.mockResolvedValue({ path: '' });
+    mockCopy.mockResolvedValue({ path });
   });
 
   afterEach(() => {
@@ -76,7 +76,7 @@ describe('copyHandler', () => {
     expect(copyInput).toHaveProperty('source', {
       expectedBucketOwner: `${baseInput.config.accountId}`,
       bucket,
-      path: baseInput.data.key,
+      path: baseInput.data.sourceKey,
       eTag: baseInput.data.eTag,
       notModifiedSince: baseInput.data.lastModified,
     });
@@ -108,7 +108,7 @@ describe('copyHandler', () => {
   it('returns a complete status', async () => {
     const { result } = copyHandler(baseInput);
 
-    expect(await result).toEqual({ status: 'COMPLETE' });
+    expect(await result).toEqual({ status: 'COMPLETE', value: { key: path } });
   });
 
   it('returns failed status', async () => {
