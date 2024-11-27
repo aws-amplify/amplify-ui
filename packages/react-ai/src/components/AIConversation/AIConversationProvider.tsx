@@ -37,6 +37,8 @@ export const AIConversationProvider = ({
   displayText,
   handleSendMessage,
   isLoading,
+  maxAttachmentSize,
+  maxAttachments,
   messages,
   messageRenderer,
   responseComponents,
@@ -60,7 +62,11 @@ export const AIConversationProvider = ({
               <ResponseComponentsProvider
                 responseComponents={responseComponents}
               >
-                <AttachmentProvider allowAttachments={allowAttachments}>
+                <AttachmentProvider
+                  allowAttachments={allowAttachments}
+                  maxAttachmentSize={maxAttachmentSize}
+                  maxAttachments={maxAttachments}
+                >
                   <ConversationDisplayTextProvider {..._displayText}>
                     <ConversationInputContextProvider>
                       <SendMessageContextProvider

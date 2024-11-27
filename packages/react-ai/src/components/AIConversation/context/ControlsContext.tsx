@@ -2,8 +2,6 @@ import React from 'react';
 import { ConversationInputContextProps } from './ConversationInputContext';
 import { SuggestedPrompt } from '../types';
 import { ConversationMessage } from '../../../types';
-import { AttachmentContextProps } from './AttachmentContext';
-import { ConversationDisplayText } from '../displayText';
 
 export interface ControlsContextProps {
   Form?: React.ComponentType<
@@ -11,9 +9,8 @@ export interface ControlsContextProps {
       handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
       allowAttachments?: boolean;
       isLoading?: boolean;
-      displayText: Required<ConversationDisplayText>;
-    } & Required<ConversationInputContextProps> &
-      Required<AttachmentContextProps>
+      onValidate: (files: File[]) => Promise<void>;
+    } & ConversationInputContextProps
   >;
   MessageList?: React.ComponentType<{ messages: ConversationMessage[] }>;
   PromptList?: React.ComponentType<{

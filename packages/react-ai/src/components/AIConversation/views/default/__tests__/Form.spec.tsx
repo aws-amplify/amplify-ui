@@ -1,22 +1,18 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { Form } from '../Form';
-import { defaultAIConversationDisplayTextEn } from '../../../displayText';
 
 const setInput = jest.fn();
 const input = {};
 const handleSubmit = jest.fn();
+const onValidate = jest.fn();
 
 const defaultProps = {
   allowAttachments: true,
   setInput,
   input,
   handleSubmit,
-  displayText: defaultAIConversationDisplayTextEn,
-  error: '',
-  setError: () => {},
-  maxAttachmentSize: 400000,
-  maxAttachments: 20,
+  onValidate,
 };
 
 describe('Form', () => {
@@ -57,7 +53,7 @@ describe('Form', () => {
         target: { files: [testFile] },
       })
     );
-    expect(setInput).toHaveBeenCalledTimes(1);
+    expect(onValidate).toHaveBeenCalledTimes(1);
     expect(fileInput.files).not.toBeNull();
     expect(fileInput.files![0]).toStrictEqual(testFile);
   });
