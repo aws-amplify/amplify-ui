@@ -224,26 +224,31 @@ export const FormControl: FormControl = () => {
   const onValidate = React.useCallback(
     async (files: File[]) => {
       const previousFiles = input?.files ?? [];
-      const { acceptedFiles, hasMaxError, hasMaxSizeError } =
-        await attachmentsValidator({
-          files: [...files, ...previousFiles],
-          maxAttachments,
-          maxAttachmentSize,
-        });
+      const {
+        acceptedFiles,
+        hasMaxAttachmentsError,
+        hasMaxAttachmentSizeError,
+      } = await attachmentsValidator({
+        files: [...files, ...previousFiles],
+        maxAttachments,
+        maxAttachmentSize,
+      });
 
-      if (hasMaxError ?? hasMaxSizeError) {
-        let error = '';
-        if (hasMaxError) {
-          error += displayText.getMaxAttachmentErrorText(maxAttachments);
+      if (hasMaxAttachmentsError || hasMaxAttachmentSizeError) {
+        const errors = [];
+        if (hasMaxAttachmentsError) {
+          errors.push(displayText.getMaxAttachmentErrorText(maxAttachments));
         }
-        if (hasMaxSizeError) {
-          error += displayText.getAttachmentSizeErrorText(
-            // base64 size is about 137% that of the file size
-            // https://en.wikipedia.org/wiki/Base64#MIME
-            humanFileSize((maxAttachmentSize - 814) / 1.37, true)
+        if (hasMaxAttachmentSizeError) {
+          errors.push(
+            displayText.getAttachmentSizeErrorText(
+              // base64 size is about 137% that of the file size
+              // https://en.wikipedia.org/wiki/Base64#MIME
+              humanFileSize((maxAttachmentSize - 814) / 1.37, true)
+            )
           );
         }
-        setError?.(error);
+        setError?.(errors.join(' '));
       } else {
         setError?.(undefined);
       }

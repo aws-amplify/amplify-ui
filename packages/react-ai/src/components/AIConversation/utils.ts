@@ -56,8 +56,8 @@ export async function attachmentsValidator({
 }): Promise<{
   acceptedFiles: File[];
   rejectedFiles: File[];
-  hasMaxSizeError?: boolean;
-  hasMaxError?: boolean;
+  hasMaxAttachmentSizeError: boolean;
+  hasMaxAttachmentsError: boolean;
 }> {
   const acceptedFiles: File[] = [];
   const rejectedFiles: File[] = [];
@@ -77,13 +77,14 @@ export async function attachmentsValidator({
     return {
       acceptedFiles: acceptedFiles.slice(0, maxAttachments),
       rejectedFiles: [...acceptedFiles.slice(maxAttachments), ...rejectedFiles],
-      hasMaxError: true,
-      hasMaxSizeError,
+      hasMaxAttachmentsError: true,
+      hasMaxAttachmentSizeError: hasMaxSizeError,
     };
   }
   return {
     acceptedFiles,
     rejectedFiles,
-    hasMaxSizeError,
+    hasMaxAttachmentsError: false,
+    hasMaxAttachmentSizeError: hasMaxSizeError,
   };
 }

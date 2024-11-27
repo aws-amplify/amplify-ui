@@ -77,8 +77,8 @@ describe('attachmentsValidator', () => {
 
     expect(result.acceptedFiles).toHaveLength(1);
     expect(result.rejectedFiles).toHaveLength(0);
-    expect(result.hasMaxSizeError).toBeFalsy();
-    expect(result.hasMaxError).toBeUndefined();
+    expect(result.hasMaxAttachmentSizeError).toBeFalsy();
+    expect(result.hasMaxAttachmentsError).toBeUndefined();
   });
 
   it('should reject files exceeding size limit', async () => {
@@ -91,8 +91,8 @@ describe('attachmentsValidator', () => {
 
     expect(result.acceptedFiles).toHaveLength(0);
     expect(result.rejectedFiles).toHaveLength(1);
-    expect(result.hasMaxSizeError).toBeTruthy();
-    expect(result.hasMaxError).toBeUndefined();
+    expect(result.hasMaxAttachmentSizeError).toBeTruthy();
+    expect(result.hasMaxAttachmentsError).toBeUndefined();
   });
 
   it('should handle mixed valid and invalid file sizes', async () => {
@@ -109,8 +109,8 @@ describe('attachmentsValidator', () => {
 
     expect(result.acceptedFiles).toHaveLength(2);
     expect(result.rejectedFiles).toHaveLength(1);
-    expect(result.hasMaxSizeError).toBeTruthy();
-    expect(result.hasMaxError).toBeUndefined();
+    expect(result.hasMaxAttachmentSizeError).toBeTruthy();
+    expect(result.hasMaxAttachmentsError).toBeUndefined();
   });
 
   it('should enforce maximum number of attachments', async () => {
@@ -128,8 +128,8 @@ describe('attachmentsValidator', () => {
 
     expect(result.acceptedFiles).toHaveLength(2);
     expect(result.rejectedFiles).toHaveLength(2);
-    expect(result.hasMaxError).toBeTruthy();
-    expect(result.hasMaxSizeError).toBeFalsy();
+    expect(result.hasMaxAttachmentsError).toBeTruthy();
+    expect(result.hasMaxAttachmentSizeError).toBeFalsy();
   });
 
   it('should handle empty file list', async () => {
@@ -142,7 +142,7 @@ describe('attachmentsValidator', () => {
 
     expect(result.acceptedFiles).toHaveLength(0);
     expect(result.rejectedFiles).toHaveLength(0);
-    expect(result.hasMaxSizeError).toBeFalsy();
-    expect(result.hasMaxError).toBeUndefined();
+    expect(result.hasMaxAttachmentSizeError).toBeFalsy();
+    expect(result.hasMaxAttachmentsError).toBeUndefined();
   });
 });
