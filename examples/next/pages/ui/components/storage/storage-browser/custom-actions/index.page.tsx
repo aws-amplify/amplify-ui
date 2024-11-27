@@ -102,7 +102,7 @@ const { StorageBrowser } = createStorageBrowser({
           {
             bucket: 'my-bucket',
             id: crypto.randomUUID(),
-            permissions: ['delete', 'get', 'list', 'write'] as const,
+            permissions: ['delete', 'get', 'list', 'write'],
             prefix: 'my-prefix',
             type: 'PREFIX',
           },
