@@ -11,6 +11,7 @@ export const enDict: AuthenticatorDictionary = {
   Code: 'Code',
   'Confirm Password': 'Confirm Password',
   'Confirm Sign Up': 'Confirm Sign Up',
+  'Confirm Email Code': 'Confirm Email Code',
   'Confirm SMS Code': 'Confirm SMS Code',
   'Confirm MFA Code': 'Confirm MFA Code',
   'Confirm TOTP Code': 'Confirm TOTP Code',

@@ -6,7 +6,11 @@ import {
 } from '../../../machines/authenticator/types';
 import { authenticatorTextUtil } from '../textUtil';
 
-const AUTH_CHALLENGE_NAMES: ChallengeName[] = ['SMS_MFA', 'SOFTWARE_TOKEN_MFA'];
+const AUTH_CHALLENGE_NAMES: ChallengeName[] = [
+  'SMS_MFA',
+  'SOFTWARE_TOKEN_MFA',
+  'EMAIL_OTP',
+];
 
 const SOCIAL_PROVIDERS: SocialProvider[] = [
   'apple',
