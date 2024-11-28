@@ -2,19 +2,20 @@ import React from 'react';
 
 import { useDataState } from '@aws-amplify/ui-react-core';
 
-import { useActionConfig } from '../configs';
 import {
-  ListLocations,
   LocationData,
   ListLocationsExcludeOptions,
-} from '../handlers';
-import { ActionState } from '../types';
+  ListLocations,
+} from '../actions';
 
+import { USE_LIST_ERROR_MESSAGE } from './constants';
+import { useActionHandlers } from './context';
 import {
   createEnhancedListHandler,
   EnhancedListHandlerInput,
   EnhancedListHandlerOutput,
 } from './createEnhancedListHandler';
+import { ListActionState } from './types';
 
 // Utility type functioning as a shim to allow for the outputted
 // enhanced `ListLocations` handler to not require `config` and `prefix`
@@ -22,7 +23,7 @@ import {
 type RemoveConfigAndPrefix<T> = Omit<T, 'prefix' | 'config'>;
 
 export interface UseListLocationsState
-  extends ActionState<
+  extends ListActionState<
     EnhancedListHandlerOutput<LocationData>,
     RemoveConfigAndPrefix<
       EnhancedListHandlerInput<LocationData, ListLocationsExcludeOptions>
@@ -30,10 +31,13 @@ export interface UseListLocationsState
   > {}
 
 export const useListLocations = (): UseListLocationsState => {
-  const { handler } = useActionConfig('listLocations');
+  const { handlers } = useActionHandlers({
+    errorMessage: USE_LIST_ERROR_MESSAGE,
+  });
+  const { listLocations } = handlers;
   const enhancedHandler = React.useMemo(
-    () => createEnhancedListHandler(handler as ListLocations),
-    [handler]
+    () => createEnhancedListHandler(listLocations as ListLocations),
+    [listLocations]
   );
 
   return useDataState(enhancedHandler, {

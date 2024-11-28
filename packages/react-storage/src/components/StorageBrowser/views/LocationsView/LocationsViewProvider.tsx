@@ -42,7 +42,7 @@ export function LocationsViewProvider({
   const messageControlContent = getListLocationsResultMessage({
     hasExhaustedSearch,
     isLoading,
-    locations: pageItems,
+    items: pageItems,
     hasError,
     message,
   });

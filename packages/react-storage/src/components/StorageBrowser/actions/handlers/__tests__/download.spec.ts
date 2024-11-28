@@ -17,9 +17,6 @@ const baseInput: DownloadHandlerInput = {
     id: 'id',
     key: 'prefix/file-name',
     fileKey: 'file-name',
-    lastModified: new Date(),
-    size: 1000022,
-    type: 'FILE',
   },
 };
 
@@ -61,7 +58,7 @@ describe('downloadHandler', () => {
   it('returns a complete status', async () => {
     const { result } = downloadHandler(baseInput);
 
-    expect(await result).toEqual({ status: 'COMPLETE' });
+    expect(await result).toEqual({ status: 'COMPLETE', value: { url } });
   });
 
   it('returns failed status', async () => {

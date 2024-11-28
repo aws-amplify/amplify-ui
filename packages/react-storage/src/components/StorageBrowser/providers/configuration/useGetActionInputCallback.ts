@@ -25,19 +25,21 @@ export function useGetActionInputCallback({
   const { current, key } = location;
 
   return React.useCallback(
-    (location?: LocationData) => {
+    (_location?: LocationData) => {
       // prefer passed in location / prefix over current location in state
-      const _location = location ?? current;
+      const location = _location ?? current;
       // when `location` has been provided as a param, resolve `_prefix` to `location.prefix`.
       // in the default scenario where `current` is the target `location` use the fully qualified `key`
       // that includes the default `prefix` and any additional prefixes from navigation
-      const _prefix = location ? location.prefix : key;
-      assertLocationData(_location, getErrorMessage('locationData'));
-      assertPrefix(_prefix, getErrorMessage('prefix'));
+      const prefix = _location ? _location.prefix : key;
 
-      const { bucket, permissions, type } = _location;
+      assertLocationData(location, getErrorMessage('locationData'));
+
+      assertPrefix(prefix, getErrorMessage('prefix'));
+
+      const { bucket, permissions, type } = location;
       // BUCKET/PREFIX grants end with `*`, but object grants do not.
-      const scope = `s3://${bucket}/${_prefix}${type === 'OBJECT' ? '' : '*'}`;
+      const scope = `s3://${bucket}/${prefix}${type === 'OBJECT' ? '' : '*'}`;
 
       return {
         accountId,

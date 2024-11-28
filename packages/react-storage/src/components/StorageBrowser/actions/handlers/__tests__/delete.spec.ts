@@ -16,17 +16,16 @@ const baseInput: DeleteHandlerInput = {
     id: 'id',
     key: 'prefix/key.png',
     fileKey: 'key.png',
-    lastModified: new Date(),
-    size: 829292,
-    type: 'FILE',
   },
 };
 
 describe('deleteHandler', () => {
+  const path = 'path';
+
   const mockRemove = jest.mocked(remove);
 
   beforeEach(() => {
-    mockRemove.mockResolvedValue({ path: '' });
+    mockRemove.mockResolvedValue({ path });
   });
 
   afterEach(() => {
@@ -55,7 +54,7 @@ describe('deleteHandler', () => {
   it('returns a complete status', async () => {
     const { result } = deleteHandler(baseInput);
 
-    expect(await result).toEqual({ status: 'COMPLETE' });
+    expect(await result).toEqual({ status: 'COMPLETE', value: { key: path } });
   });
 
   it('returns failed status', async () => {

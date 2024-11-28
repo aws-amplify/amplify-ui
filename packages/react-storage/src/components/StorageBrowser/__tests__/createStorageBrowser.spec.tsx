@@ -56,14 +56,6 @@ describe('createStorageBrowser', () => {
       getLocationCredentials: config.getLocationCredentials,
       region: config.region,
       registerAuthListener: config.registerAuthListener,
-      actions: {
-        copy: expect.any(Object),
-        createFolder: expect.any(Object),
-        delete: expect.any(Object),
-        listLocationItems: expect.any(Object),
-        listLocations: expect.any(Object),
-        upload: expect.any(Object),
-      },
     });
   });
 
