@@ -17,6 +17,7 @@ import { defaultServices } from './defaultServices';
 
 // copied from JS v6 types
 export type ChallengeName =
+  | 'EMAIL_OTP'
   | 'SMS_MFA'
   | 'SOFTWARE_TOKEN_MFA'
   | 'SELECT_MFA_TYPE'
@@ -142,6 +143,7 @@ export type InitialStep = 'FORGOT_PASSWORD' | 'SIGN_IN' | 'SIGN_UP';
 
 export type SignInStep =
   | 'CONFIRM_SIGN_IN_WITH_SMS_CODE'
+  | 'CONFIRM_SIGN_IN_WITH_EMAIL_CODE'
   | 'CONFIRM_SIGN_IN_WITH_TOTP_CODE'
   | 'CONFIRM_SIGN_IN_WITH_NEW_PASSWORD_REQUIRED'
   | 'CONFIRM_SIGN_UP'
@@ -163,7 +165,7 @@ export type UserAttributeStep =
   | 'CONFIRM_ATTRIBUTE_WITH_CODE'
   | 'CONFIRM_ATTRIBUTE_COMPLETE'; // 'DONE'
 
-type Step =
+export type Step =
   | InitialStep
   | SignInStep
   | SignUpStep

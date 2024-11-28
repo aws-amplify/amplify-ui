@@ -7,9 +7,10 @@ import {
 
 import { MachineOptions } from 'xstate';
 
-import { AuthActorContext, AuthEvent } from './types';
+import { AuthActorContext, AuthEvent, Step } from './types';
 
-const SIGN_IN_STEP_MFA_CONFIRMATION: string[] = [
+const SIGN_IN_STEP_MFA_CONFIRMATION: Step[] = [
+  'CONFIRM_SIGN_IN_WITH_EMAIL_CODE',
   'CONFIRM_SIGN_IN_WITH_SMS_CODE',
   'CONFIRM_SIGN_IN_WITH_TOTP_CODE',
 ];
