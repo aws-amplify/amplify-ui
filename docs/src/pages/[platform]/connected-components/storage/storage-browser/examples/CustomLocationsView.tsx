@@ -1,14 +1,9 @@
 import * as React from 'react';
-import { createStorageBrowser } from '@aws-amplify/ui-react-storage/browser';
 import { Button, Flex, Text } from '@aws-amplify/ui-react';
 import { FiChevronRight } from 'react-icons/fi';
-import { mockConfig } from './mockConfig';
+import { StorageBrowser, useView } from './MockStorageBrowser';
 
-const { StorageBrowser, useView } = createStorageBrowser({
-  config: mockConfig,
-});
-
-function LocationsView() {
+export function CustomLocationsView() {
   const state = useView('Locations');
 
   return (
@@ -35,13 +30,5 @@ function LocationsView() {
         );
       })}
     </Flex>
-  );
-}
-
-export default function Example() {
-  return (
-    <StorageBrowser.Provider>
-      <LocationsView />
-    </StorageBrowser.Provider>
   );
 }

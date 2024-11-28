@@ -6,18 +6,7 @@ import {
   Default,
   I18n,
   Custom,
-  ComposedCopyView,
-  ComposedCreateFolderView,
-  ComposedDeleteView,
-  ComposedLocationsView,
-  ComposedLocationDetailView,
-  ComposedUploadView,
-  CustomCreateFolderView,
-  CustomCopyView,
-  CustomDeleteView,
-  CustomLocationsView,
-  CustomLocationDetailView,
-  CustomUploadView,
+  Composed,
   DisplayText,
   Theming,
   Icons,
@@ -340,8 +329,11 @@ If you wanted to rearrange some of the components in any of the views without wa
 
 Below you wll find examples of how to compose each view. See [View reference](#view-reference) for a list of components that can be composed in each view.
 
-<Tabs.Container defaultValue="Locations">
+<Example>
+  <Composed />
+  <Tabs.Container defaultValue="StorageBrowser">
   <Tabs.List>
+    <Tabs.Item value="StorageBrowser">StorageBrowser</Tabs.Item>
     <Tabs.Item value="Locations">Locations</Tabs.Item>
     <Tabs.Item value="LocationDetail">Location Detail</Tabs.Item>
     <Tabs.Item value="Upload">Upload</Tabs.Item>
@@ -349,61 +341,52 @@ Below you wll find examples of how to compose each view. See [View reference](#v
     <Tabs.Item value="CreateFolder">CreateFolder</Tabs.Item>
     <Tabs.Item value="Delete">Delete</Tabs.Item>
   </Tabs.List>
+  <Tabs.Panel value="StorageBrowser">
+      <ExampleCode>
+        ```tsx file=./examples/Composed.tsx
+        ```
+      </ExampleCode>
+  </Tabs.Panel>
   <Tabs.Panel value="Locations">
-    <Example>
-      <ComposedLocationsView />
       <ExampleCode>
         ```tsx file=./examples/ComposedLocationsView.tsx
         ```
       </ExampleCode>
-    </Example>
   </Tabs.Panel>
   <Tabs.Panel value="LocationDetail">
-    <Example>
-      <ComposedLocationDetailView />
       <ExampleCode>
         ```tsx file=./examples/ComposedLocationDetailView.tsx
         ```
       </ExampleCode>
-    </Example>
   </Tabs.Panel>
   <Tabs.Panel value="CreateFolder">
-    <Example>
-      <ComposedCreateFolderView />
       <ExampleCode>
         ```jsx file=./examples/ComposedCreateFolderView.tsx
         ```
       </ExampleCode>
-    </Example>
   </Tabs.Panel>
   <Tabs.Panel value="Upload">
-    <Example>
-      <ComposedUploadView />
       <ExampleCode>
         ```jsx file=./examples/ComposedUploadView.tsx
         ```
       </ExampleCode>
-    </Example>
   </Tabs.Panel>
   <Tabs.Panel value="Copy">
-    <Example>
-      <ComposedCopyView />
       <ExampleCode>
         ```jsx file=./examples/ComposedCopyView.tsx
         ```
       </ExampleCode>
-    </Example>
   </Tabs.Panel>
   <Tabs.Panel value="Delete">
-    <Example>
-      <ComposedDeleteView />
       <ExampleCode>
         ```jsx file=./examples/ComposedDeleteView.tsx
         ```
       </ExampleCode>
-    </Example>
   </Tabs.Panel>
 </Tabs.Container>
+</Example>
+
+
 
 
 ### Custom UI
@@ -414,78 +397,54 @@ The `useView()` hook takes a single argument which is the name of the view you w
 
 <Example>
   <Custom />
-  <ExampleCode>
-    ```jsx file=./examples/Custom.tsx
-    ```
-  </ExampleCode>
-</Example>
-
-Below you will find examples of building custom UI for each view:
-
-<Tabs.Container defaultValue="Locations">
+<Tabs.Container defaultValue="StorageBrowser">
   <Tabs.List>
+    <Tabs.Item value="StorageBrowser">StorageBrowser</Tabs.Item>
     <Tabs.Item value="Locations">Locations</Tabs.Item>
-    <Tabs.Item value="LocationDetail">Location Detail</Tabs.Item>
     <Tabs.Item value="Upload">Upload</Tabs.Item>
     <Tabs.Item value="Copy">Copy</Tabs.Item>
     <Tabs.Item value="CreateFolder">CreateFolder</Tabs.Item>
     <Tabs.Item value="Delete">Delete</Tabs.Item>
   </Tabs.List>
+  <Tabs.Panel value="StorageBrowser">
+    <ExampleCode>
+    ```jsx file=./examples/Custom.tsx
+    ```
+  </ExampleCode>
+  </Tabs.Panel>
   <Tabs.Panel value="Locations">
-    <Example>
-      <CustomLocationsView />
       <ExampleCode>
         ```tsx file=./examples/CustomLocationsView.tsx
         ```
       </ExampleCode>
-    </Example>
-  </Tabs.Panel>
-  <Tabs.Panel value="LocationDetail">
-    <Example>
-      <CustomLocationDetailView />
-      <ExampleCode>
-        ```tsx file=./examples/CustomLocationDetailView.tsx
-        ```
-      </ExampleCode>
-    </Example>
   </Tabs.Panel>
   <Tabs.Panel value="Copy">
-    <Example>
-      <CustomCopyView />
       <ExampleCode>
         ```jsx file=./examples/CustomCopyView.tsx
         ```
       </ExampleCode>
-    </Example>
   </Tabs.Panel>
   <Tabs.Panel value="CreateFolder">
-    <Example>
-      <CustomCreateFolderView />
       <ExampleCode>
         ```jsx file=./examples/CustomCreateFolderView.tsx
         ```
-      </ExampleCode>
-    </Example>
+        </ExampleCode>
   </Tabs.Panel>
   <Tabs.Panel value="Upload">
-    <Example>
-      <CustomUploadView />
       <ExampleCode>
         ```jsx file=./examples/CustomUploadView.tsx
         ```
       </ExampleCode>
-    </Example>
   </Tabs.Panel>
   <Tabs.Panel value="Delete">
-    <Example>
-      <CustomDeleteView />
       <ExampleCode>
         ```jsx file=./examples/CustomDeleteView.tsx
         ```
       </ExampleCode>
-    </Example>
   </Tabs.Panel>
 </Tabs.Container>
+</Example>
+
 
 
 ## View reference

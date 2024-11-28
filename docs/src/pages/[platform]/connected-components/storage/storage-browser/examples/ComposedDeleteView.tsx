@@ -1,29 +1,15 @@
 import * as React from 'react';
-import { createStorageBrowser } from '@aws-amplify/ui-react-storage/browser';
-import { mockConfig } from './mockConfig'; // IGNORE
+import { StorageBrowser, useView } from './MockStorageBrowser';
 
-const { StorageBrowser, useView } = createStorageBrowser({
-  //...
-  config: mockConfig, // IGNORE
-});
-
-function DeleteView() {
+export function ComposedDeleteView({ onExit }: { onExit: () => void }) {
   const state = useView('Delete');
 
   return (
-    <StorageBrowser.DeleteView.Provider {...state}>
+    <StorageBrowser.DeleteView.Provider {...state} onActionExit={onExit}>
       <StorageBrowser.DeleteView.Exit />
       <StorageBrowser.DeleteView.TasksTable />
       <StorageBrowser.DeleteView.Start />
       <StorageBrowser.DeleteView.Message />
     </StorageBrowser.DeleteView.Provider>
-  );
-}
-
-export default function Example() {
-  return (
-    <StorageBrowser.Provider>
-      <DeleteView />
-    </StorageBrowser.Provider>
   );
 }

@@ -1,23 +1,15 @@
 import * as React from 'react';
-import { createStorageBrowser } from '@aws-amplify/ui-react-storage/browser';
-import {
-  Button,
-  Flex,
-  Text,
-  View,
-  VisuallyHidden,
-} from '@aws-amplify/ui-react';
-import { mockConfig } from './mockConfig';
+import { Button, Flex, Text, View } from '@aws-amplify/ui-react';
+import { useView } from './MockStorageBrowser';
 
-const { StorageBrowser, useView } = createStorageBrowser({
-  config: mockConfig,
-});
-
-function UploadView() {
+export function CustomUploadView({ onExit }: { onExit: () => void }) {
   const state = useView('Upload');
 
   return (
-    <>
+    <Flex direction="column">
+      <Button variation="link" alignSelf="flex-start" onClick={onExit}>
+        Exit
+      </Button>
       <Button
         onClick={() => {
           state.onSelectFiles('FILE');
@@ -33,14 +25,6 @@ function UploadView() {
           </View>
         );
       })}
-    </>
-  );
-}
-
-export default function Example() {
-  return (
-    <StorageBrowser.Provider>
-      <UploadView />
-    </StorageBrowser.Provider>
+    </Flex>
   );
 }

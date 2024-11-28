@@ -1,11 +1,6 @@
 import * as React from 'react';
-import { createStorageBrowser } from '@aws-amplify/ui-react-storage/browser';
-import { Button, Flex } from '@aws-amplify/ui-react';
-import { mockConfig } from './mockConfig';
-
-const { StorageBrowser, useView } = createStorageBrowser({
-  config: mockConfig,
-});
+import { Flex } from '@aws-amplify/ui-react';
+import { StorageBrowser, useView } from './MockStorageBrowser';
 
 function LocationsView() {
   const state = useView('Locations');

@@ -1,17 +1,11 @@
 import * as React from 'react';
-import { createStorageBrowser } from '@aws-amplify/ui-react-storage/browser';
-import { mockConfig } from './mockConfig'; // IGNORE
+import { StorageBrowser, useView } from './MockStorageBrowser';
 
-const { StorageBrowser, useView } = createStorageBrowser({
-  //...
-  config: mockConfig, // IGNORE
-});
-
-function CopyView() {
+export function ComposedCopyView({ onExit }: { onExit: () => void }) {
   const state = useView('Copy');
 
   return (
-    <StorageBrowser.CopyView.Provider {...state}>
+    <StorageBrowser.CopyView.Provider {...state} onActionExit={onExit}>
       <StorageBrowser.CopyView.Exit />
       <StorageBrowser.CopyView.TasksTable />
       <StorageBrowser.CopyView.Destination />
@@ -20,21 +14,5 @@ function CopyView() {
       <StorageBrowser.CopyView.Start />
       <StorageBrowser.CopyView.Message />
     </StorageBrowser.CopyView.Provider>
-  );
-}
-
-export default function Example() {
-  return (
-    <StorageBrowser.Provider
-      location={{
-        bucket: 'test',
-        prefix: '/foo',
-        id: '1234',
-        type: 'PREFIX',
-        permissions: ['write', 'list', 'get', 'delete'],
-      }}
-    >
-      <CopyView />
-    </StorageBrowser.Provider>
   );
 }

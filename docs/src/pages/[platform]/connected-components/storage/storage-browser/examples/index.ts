@@ -1,16 +1,7 @@
 export { default as I18n } from './i18n';
+export { default as Composed } from './Composed';
 export { default as Custom } from './Custom';
-export { default as CustomCreateFolderView } from './CustomCreateFolderView';
-export { default as CustomCopyView } from './CustomCopyView';
-export { default as CustomDeleteView } from './CustomDeleteView';
-export { default as CustomLocationsView } from './CustomLocationsView';
-export { default as CustomLocationDetailView } from './CustomLocationDetailView';
-export { default as CustomUploadView } from './CustomUploadView';
-export { default as ComposedCreateFolderView } from './ComposedCreateFolderView';
-export { default as ComposedCopyView } from './ComposedCopyView';
-export { default as ComposedDeleteView } from './ComposedDeleteView';
 export { default as ComposedLocationsView } from './ComposedLocationsView';
-export { default as ComposedUploadView } from './ComposedUploadView';
 export { default as ComposedLocationDetailView } from './ComposedLocationDetailView';
 export { default as DisplayText } from './DisplayText';
 export { default as Theming } from './Theming';

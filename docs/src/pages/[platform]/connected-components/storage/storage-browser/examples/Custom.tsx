@@ -1,70 +1,61 @@
 import * as React from 'react';
-import { createStorageBrowser } from '@aws-amplify/ui-react-storage/browser';
-import { Button, Flex, Text } from '@aws-amplify/ui-react';
-import { mockConfig } from './mockConfig';
-import { IconChevronRight } from '@aws-amplify/ui-react/internal';
+import { StorageBrowser, useView } from './MockStorageBrowser';
+import { CustomDeleteView } from './CustomDeleteView';
+import { CustomCopyView } from './CustomCopyView';
+import { CustomCreateFolderView } from './CustomCreateFolderView';
+import { CustomUploadView } from './CustomUploadView';
+import { CustomLocationsView } from './CustomLocationsView';
 
-const { StorageBrowser, useView } = createStorageBrowser({
-  config: mockConfig,
-});
+function MyLocationActionView({
+  type,
+  onExit,
+}: {
+  type?: string;
+  onExit: () => void;
+}) {
+  let DialogContent = null;
+  if (!type) return DialogContent;
 
-function LocationsView() {
-  const state = useView('Locations');
-
-  return (
-    <Flex direction="column" padding="medium">
-      <Text fontWeight="bold">Locations</Text>
-      {state.pageItems.map((location) => {
-        return (
-          <Button
-            key={location.id}
-            justifyContent="flex-start"
-            onClick={() => {
-              state.onNavigate(location);
-            }}
-          >
-            <Text flex="1">
-              s3://{location.bucket}/{location.prefix}
-            </Text>
-            <Text as="span" color="font.tertiary" fontWeight="normal">
-              {location.permissions.includes('list') ? 'Read' : null}{' '}
-              {location.permissions.includes('write') ? 'Write' : null}
-            </Text>
-            <IconChevronRight color="font.tertiary" />
-          </Button>
-        );
-      })}
-    </Flex>
-  );
+  switch (type) {
+    case 'copy':
+      return <CustomCopyView onExit={onExit} />;
+    case 'createFolder':
+      return <CustomCreateFolderView onExit={onExit} />;
+    case 'delete':
+      return <CustomDeleteView onExit={onExit} />;
+    case 'upload':
+      return <CustomUploadView onExit={onExit} />;
+    default:
+      return null;
+  }
 }
 
 function MyStorageBrowser() {
   const state = useView('LocationDetail');
   const [currentAction, setCurrentAction] = React.useState<string>();
-  const ref = React.useRef<HTMLDialogElement>(null);
 
   if (!state.location.current) {
-    return <LocationsView />;
+    return <CustomLocationsView />;
+  }
+
+  if (currentAction) {
+    return (
+      <MyLocationActionView
+        type={currentAction}
+        onExit={() => {
+          setCurrentAction(undefined);
+        }}
+      />
+    );
   }
 
   return (
-    <>
-      <StorageBrowser.LocationDetailView
-        key={currentAction}
-        onActionSelect={(action) => {
-          setCurrentAction(action);
-          ref.current?.showModal();
-        }}
-      />
-      <dialog ref={ref}>
-        <StorageBrowser.LocationActionView
-          onExit={() => {
-            setCurrentAction(undefined);
-            ref.current?.close();
-          }}
-        />
-      </dialog>
-    </>
+    <StorageBrowser.LocationDetailView
+      key={currentAction}
+      onActionSelect={(action) => {
+        setCurrentAction(action);
+      }}
+    />
   );
 }
 

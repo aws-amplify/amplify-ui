@@ -1,13 +1,8 @@
 import * as React from 'react';
-import { createStorageBrowser } from '@aws-amplify/ui-react-storage/browser';
-import { Button, Flex, TextField, View } from '@aws-amplify/ui-react';
-import { mockConfig } from './mockConfig';
+import { Button, Flex, TextField } from '@aws-amplify/ui-react';
+import { useView } from './MockStorageBrowser';
 
-const { StorageBrowser, useView } = createStorageBrowser({
-  config: mockConfig,
-});
-
-function CreateFolderView() {
+export function CustomCreateFolderView({ onExit }: { onExit: () => void }) {
   const state = useView('CreateFolder');
 
   return (
@@ -23,6 +18,9 @@ function CreateFolderView() {
       }}
       direction="column"
     >
+      <Button variation="link" alignSelf="flex-start" onClick={onExit}>
+        Exit
+      </Button>
       <TextField
         label=""
         value={state.folderName}
@@ -32,13 +30,5 @@ function CreateFolderView() {
         outerEndComponent={<Button type="submit">Start</Button>}
       />
     </Flex>
-  );
-}
-
-export default function Example() {
-  return (
-    <StorageBrowser.Provider>
-      <CreateFolderView />
-    </StorageBrowser.Provider>
   );
 }
