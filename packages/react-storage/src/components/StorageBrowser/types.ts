@@ -61,26 +61,25 @@ export interface StorageBrowserProviderProps<V = {}>
   views?: V;
 }
 
-export interface StorageBrowserType<C extends ExtendedActionConfigs> {
-  (
-    props: StorageBrowserProps<DerivedActionViewType<C>, DerivedCustomViews<C>>
-  ): React.JSX.Element;
+export interface StorageBrowserType<K = string, V = {}> {
+  (props: StorageBrowserProps<K, V>): React.JSX.Element;
   displayName: string;
-  Provider: (
-    props: StorageBrowserProviderProps<DerivedCustomViews<C>>
-  ) => React.JSX.Element;
+  Provider: (props: StorageBrowserProviderProps<V>) => React.JSX.Element;
   CopyView: CopyViewType;
   CreateFolderView: CreateFolderViewType;
   DeleteView: DeleteViewType;
   UploadView: UploadViewType;
-  LocationActionView: LocationActionViewType<DerivedActionViewType<C>>;
+  LocationActionView: LocationActionViewType<K>;
   LocationDetailView: LocationDetailViewType;
   LocationsView: LocationsViewType;
 }
 
 type DefaultActionType<T = string> = Exclude<T, keyof DefaultActionConfigs>;
 
-export type DerivedCustomViews<T extends StorageBrowserActions> = {
+/**
+ * @internal @unstable
+ */
+export type DerivedActionViews<T extends StorageBrowserActions> = {
   [K in keyof T['custom'] as K extends DefaultActionType<K>
     ? T['custom'][K] extends { viewName: `${string}View` }
       ? T['custom'][K]['viewName']
@@ -88,6 +87,9 @@ export type DerivedCustomViews<T extends StorageBrowserActions> = {
     : never]?: () => React.JSX.Element | null;
 };
 
+/**
+ * @internal @unstable
+ */
 export type DerivedActionViewType<T extends StorageBrowserActions> =
   | keyof {
       [K in keyof T['custom'] as K extends DefaultActionType<K>
@@ -101,7 +103,10 @@ export type DerivedActionViewType<T extends StorageBrowserActions> =
 export interface CreateStorageBrowserOutput<
   C extends ExtendedActionConfigs = ExtendedActionConfigs,
 > {
-  StorageBrowser: StorageBrowserType<C>;
+  StorageBrowser: StorageBrowserType<
+    DerivedActionViewType<C>,
+    DerivedActionViews<C>
+  >;
   useAction: UseAction<DerivedActionHandlers<C>>;
   useView: UseView;
 }

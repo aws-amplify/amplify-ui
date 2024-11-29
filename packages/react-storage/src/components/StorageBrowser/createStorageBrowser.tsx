@@ -36,6 +36,7 @@ import {
   CreateStorageBrowserOutput,
   StorageBrowserProviderProps,
   StorageBrowserType,
+  DerivedActionViews,
   DerivedActionViewType,
 } from './types';
 import {
@@ -124,10 +125,10 @@ export function createStorageBrowser<
     );
   }
 
-  const StorageBrowser: StorageBrowserType<RInput> = ({
-    views,
-    displayText,
-  }) => (
+  const StorageBrowser: StorageBrowserType<
+    DerivedActionViewType<RInput>,
+    DerivedActionViews<RInput>
+  > = ({ views, displayText }) => (
     <ErrorBoundary>
       <Provider displayText={displayText} views={views}>
         <StorageBrowserDefault />

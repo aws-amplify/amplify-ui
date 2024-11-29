@@ -117,6 +117,9 @@ export type CustomActionConfigs = Record<
   ActionViewConfig | ActionHandler
 >;
 
+/**
+ * @internal @unstable
+ */
 export interface ExtendedActionConfigs {
   default?: ExtendedDefaultActionConfigs;
   custom?: CustomActionConfigs;
