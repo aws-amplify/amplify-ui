@@ -5,9 +5,14 @@ import {
   DefaultActionConfigs,
   ExtendedActionConfigs,
   ListLocations,
+  LocationData,
 } from './actions';
 import { GetLocationCredentials } from './credentials/types';
-import { Components } from './ComponentsProvider';
+
+import { UseView } from './views/useView';
+
+import { StorageBrowserComponents } from './ComponentsProvider';
+
 import { RegisterAuthListener, StoreProviderProps } from './providers';
 
 import {
@@ -18,15 +23,15 @@ import {
   LocationActionViewType,
   LocationDetailViewType,
   LocationsViewType,
-  Views,
   UseView,
+  StorageBrowserViews,
 } from './views';
 
 import { StorageBrowserDisplayText } from './displayText';
 
 import { DerivedActionHandlers, UseAction } from './useAction';
 
-export interface Config {
+export interface StorageBrowserConfig {
   accountId?: string;
   customEndpoint?: string;
   getLocationCredentials: GetLocationCredentials;
@@ -41,40 +46,135 @@ export interface StorageBrowserActions {
 }
 
 export interface CreateStorageBrowserInput {
+  /**
+   * Override and default `StorageBrowser` actions and action view configs.
+   */
   actions?: StorageBrowserActions;
-  config: Config;
-  components?: Components;
+
+  /**
+   * `StorageBrowser` configuration properties.
+   */
+  config: StorageBrowserConfig;
+
+  /**
+   * Overrides default `components` used within `StorageBrowser`
+   */
+  components?: StorageBrowserComponents;
 }
 
 export interface StorageBrowserProps<K = string, V = {}> {
+  /**
+   * Overrides default display string values. Supports resolving of static and dynamic text
+   * values and error messages.
+   *
+   * @example
+   * ```tsx
+   * const myDisplayText = {
+   *   CreateFolderView: {
+   *     // static text
+   *     // default: "Create folder"
+   *     title: 'Add subfolder",
+   *
+   *     // dynamic text
+   *     // default: () => 'Folder name cannot contain "/", nor end or start with "."'
+   *     getValidationMessage?: (foldeerName) =>
+   *       `Folder name ${folderName} cannot contain "/", nor end or start with "."`
+   *   }
+   * }
+   *
+   * <StorageBrowser displayText={{ displayText: myDisplayText }} />
+   * ```
+   */
   displayText?: StorageBrowserDisplayText;
-  views?: Views<K, V>;
+
+  /**
+   * Overrides default top level views and custom views defined by the `actions` parameter of
+   * `createStorageBrowser`.
+   */
+  views?: StorageBrowserViews<K, V>;
 }
 
 export interface StorageBrowserProviderProps<V = {}>
   extends StoreProviderProps {
+  /**
+   * See @typedef {StorageBrowserProps['displayText']}
+   */
   displayText?: StorageBrowserDisplayText;
-  // `views` intentionally scoped to custom slots to prevent conflicts with composability
+
+  /**
+   * Accepts custom action views rendered by `LocationActionView`.
+   */
   views?: V;
+
+  /**
+   * Sets initial `location` data. Provide to initialize the `StorageBrowser` with an initial
+   * `actionType`.
+   *
+   * @example
+   * ```tsx
+   * <StorageBroeser.Provider actionType="upload">
+   *   <StorageBroeser />
+   * </StorageBroeser.Provider>
+   * ```
+   */
+  location?: LocationData;
 }
 
+/**
+ * StorageBrowser` component, provider and view components.
+ */
 export interface StorageBrowserType<K = string, V = {}> {
   (props: StorageBrowserProps<K, V>): React.JSX.Element;
   displayName: string;
+  /**
+   * `StorageBrowser` React.Context provider. Composed `StorageBrowser` components
+   * must be a descendant of a `Provider` element.
+   *
+   * @example
+   * ```tsx
+   * <StorageBrowser.Provider>
+   *   <Modal content={<StorageBrowser.UploadView />}>
+   * </StorageBrowser.Provider>
+   * ```
+   */
   Provider: (props: StorageBrowserProviderProps<V>) => React.JSX.Element;
+
+  /**
+   * Utility view aggregating all action views. Can be used to render a standalone
+   * action view.
+   *
+   * @example
+   * ```tsx
+   * <StorageBrowser.LocationActionView type="copy" />
+   * ```
+   */
+  LocationActionView: LocationActionViewType<K>;
+
+  /**
+   * Displays data related to the selected or provided `location` and action
+   * selection.
+   */
+  LocationDetailView: LocationDetailViewType;
+
+  /**
+   * Entry point view displaying end user allowed locations.
+   */
+  LocationsView: LocationsViewType;
+
+  /**
+   * Standalone composable default action view components.
+   */
   CopyView: CopyViewType;
   CreateFolderView: CreateFolderViewType;
   DeleteView: DeleteViewType;
   UploadView: UploadViewType;
-  LocationActionView: LocationActionViewType<K>;
-  LocationDetailView: LocationDetailViewType;
-  LocationsView: LocationsViewType;
 }
 
 type DefaultActionType<T = string> = Exclude<T, keyof DefaultActionConfigs>;
 
 /**
  * @internal @unstable
+ * Utility type resolving available custom action view component slots
  */
 export type DerivedActionViews<T extends StorageBrowserActions> = {
   [K in keyof T['custom'] as K extends DefaultActionType<K>
@@ -86,6 +186,12 @@ export type DerivedActionViews<T extends StorageBrowserActions> = {
 
 /**
  * @internal @unstable
+ * Utility type of excluded action keys that do not have a corresponding action view.
+ */
+type DefaultActionWithoutViewType = 'download';
+
+/**
+ * Utility type resolving available location action view types
  */
 export type DerivedActionViewType<T extends StorageBrowserActions> =
   | keyof {
@@ -95,7 +201,7 @@ export type DerivedActionViewType<T extends StorageBrowserActions> =
           : never
         : never]?: any;
     }
-  | Exclude<keyof DefaultActionConfigs, 'download'>;
+  | Exclude<keyof DefaultActionConfigs, DefaultActionWithoutViewType>;
 
 export interface CreateStorageBrowserOutput<
   C extends ExtendedActionConfigs = ExtendedActionConfigs,
