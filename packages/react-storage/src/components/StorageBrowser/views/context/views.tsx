@@ -1,6 +1,6 @@
 import React from 'react';
 import { ExtendedActionConfigs } from '../../actions';
-import { Views } from '../types';
+import { StorageBrowserViews } from '../types';
 import { ViewsContextType } from './types';
 import { getViews } from './getViews';
 import { ActionViewsContext } from './actionViews';
@@ -13,7 +13,7 @@ export function ViewsProvider({
 }: {
   children?: React.ReactNode;
   actions?: ExtendedActionConfigs;
-  views?: Views;
+  views?: StorageBrowserViews;
 }): React.JSX.Element {
   const { custom } = actions ?? {};
 

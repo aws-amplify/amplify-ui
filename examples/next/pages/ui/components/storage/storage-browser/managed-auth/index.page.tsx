@@ -50,7 +50,17 @@ const generateLink: ActionViewConfig<GetLink, 'LinkActionView'> = {
 };
 
 const { StorageBrowser, useAction, useView } = createStorageBrowser({
-  actions: { custom: { generateLink } },
+  actions: {
+    custom: {
+      generateLink,
+      madeUp: (input) => {
+        const { data } = input;
+        const { madeUp } = data;
+
+        return { result: Promise.resolve({ status: 'CANCELED' }) };
+      },
+    },
+  },
   config: managedAuthAdapter,
 });
 
@@ -69,6 +79,7 @@ const LinkActionView = () => {
   );
 
   const [{ tasks }, handleCreate] = useAction('generateLink', { items });
+  const [{ task: ___task }, ___handleCreate] = useAction('generateLink');
 
   return (
     <Flex direction="column">

@@ -16,6 +16,30 @@ import {
   UploadHandler,
 } from '../handlers';
 
+/**
+ * Utility type repressnting the Function signature of `StoageBrowser` action handlers. First
+ * positional generic adds additional properties to `TaskHandlerInput` `data` parameter,
+ * second positional generic specifies optional return value provided to `TaskHandlerInput`
+ * `options.onSuccess` callback and `Task.value`.
+ *
+ * @example
+ * ```ts
+ * interface MyData {
+ *   user: {
+ *     name: string
+ *     id: string
+ *   };
+ * }
+ *
+ * interface MyReturnValue {
+ *   link: string;
+ * }
+ *
+ * type CreateDownloadLink = ActionHandler<MyData, MyReturnValue>;
+ *
+ * const createDonwloadLink: CreateDownloadLink = ()
+ * ```
+ */
 export type ActionHandler<TData = any, RValue = any> = TaskHandler<
   TaskHandlerInput<TData & TaskData>,
   TaskHandlerOutput<RValue>
@@ -112,6 +136,10 @@ export interface ExtendedDefaultActionConfigs
   listLocations: ListLocations;
 }
 
+/**
+ * Accepts either an ActionViewConfig for creation of a action list item an corresponding view
+ * slot or an action handler for standalone action usage
+ */
 export type CustomActionConfigs = Record<
   ActionName,
   ActionViewConfig | ActionHandler
