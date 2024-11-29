@@ -77,8 +77,8 @@ export interface StorageBrowserType<K = string, V = {}> {
 type DefaultActionType<T = string> = Exclude<T, keyof DefaultActionConfigs>;
 
 /**
- * @internal
- **/
+ * @internal @unstable
+ */
 export type DerivedActionViews<T extends StorageBrowserActions> = {
   [K in keyof T['custom'] as K extends DefaultActionType<K>
     ? T['custom'][K] extends { viewName: `${string}View` }
