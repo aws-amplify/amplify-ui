@@ -76,7 +76,10 @@ export interface StorageBrowserType<K = string, V = {}> {
 
 type DefaultActionType<T = string> = Exclude<T, keyof DefaultActionConfigs>;
 
-export type DerivedCustomViews<T extends StorageBrowserActions> = {
+/**
+ * @internal
+ **/
+export type DerivedActionViews<T extends StorageBrowserActions> = {
   [K in keyof T['custom'] as K extends DefaultActionType<K>
     ? T['custom'][K] extends { viewName: `${string}View` }
       ? T['custom'][K]['viewName']
@@ -84,6 +87,9 @@ export type DerivedCustomViews<T extends StorageBrowserActions> = {
     : never]?: () => React.JSX.Element | null;
 };
 
+/**
+ * @internal
+ **/
 export type DerivedActionViewType<T extends StorageBrowserActions> =
   | keyof {
       [K in keyof T['custom'] as K extends DefaultActionType<K>
@@ -99,7 +105,7 @@ export interface CreateStorageBrowserOutput<
 > {
   StorageBrowser: StorageBrowserType<
     DerivedActionViewType<C>,
-    DerivedCustomViews<C>
+    DerivedActionViews<C>
   >;
   useAction: UseAction<DerivedActionHandlers<C>>;
   useView: UseView;
