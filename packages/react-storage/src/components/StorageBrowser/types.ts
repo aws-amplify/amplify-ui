@@ -88,8 +88,8 @@ export type DerivedActionViews<T extends StorageBrowserActions> = {
 };
 
 /**
- * @internal
- **/
+ * @internal @unstable
+ */
 export type DerivedActionViewType<T extends StorageBrowserActions> =
   | keyof {
       [K in keyof T['custom'] as K extends DefaultActionType<K>
