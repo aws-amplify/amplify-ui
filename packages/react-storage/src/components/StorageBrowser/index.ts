@@ -8,3 +8,4 @@ export {
   StorageBrowserAuthAdapter,
 } from './adapters';
 export { CreateStorageBrowserInput, StorageBrowserType } from './types';
+export { DefaultStorageBrowserDisplayText } from './displayText';
