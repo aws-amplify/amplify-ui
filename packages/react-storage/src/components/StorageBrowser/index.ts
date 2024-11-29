@@ -18,3 +18,4 @@ export {
   DerivedActionViewType,
   DerivedActionViews,
 } from './types';
+export { DefaultStorageBrowserDisplayText } from './displayText';

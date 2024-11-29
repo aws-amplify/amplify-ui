@@ -11,6 +11,7 @@ exports[`@aws-amplify/ui-react-storage exports should match snapshot 1`] = `
 
 exports[`@aws-amplify/ui-react-storage/browser exports should match snapshot 1`] = `
 [
+  "DefaultStorageBrowserDisplayText",
   "componentsDefault",
   "createAmplifyAuthAdapter",
   "createManagedAuthAdapter",
