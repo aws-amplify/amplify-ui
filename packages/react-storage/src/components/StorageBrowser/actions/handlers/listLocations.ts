@@ -1,7 +1,4 @@
-import {
-  listCallerAccessGrants,
-  LocationCredentialsProvider,
-} from '../../storage-internal';
+import { listCallerAccessGrants } from '../../storage-internal';
 import { assertAccountId } from '../../validators';
 
 import {
@@ -9,6 +6,7 @@ import {
   ListHandler,
   ListLocationsExcludeOptions,
   LocationData,
+  ActionInputConfig,
 } from './types';
 import { getFilteredLocations } from './utils';
 
@@ -37,18 +35,10 @@ export interface ListLocationsHandlerOptions
 
 export interface ListLocationsHandlerInput {
   options?: ListLocationsHandlerOptions;
-  config: {
-    accountId?: string;
-    credentials: LocationCredentialsProvider;
-    customEndpoint?: string;
-    region: string;
-  };
+  config: Omit<ActionInputConfig, 'bucket'>;
 }
 
-export interface ListLocationsHandlerOutput {
-  items: LocationData[];
-  nextToken: string | undefined;
-}
+export interface ListLocationsHandlerOutput extends ListLocationsOutput {}
 
 export interface ListLocationsHandler
   extends ListHandler<ListLocationsHandlerInput, ListLocationsHandlerOutput> {}

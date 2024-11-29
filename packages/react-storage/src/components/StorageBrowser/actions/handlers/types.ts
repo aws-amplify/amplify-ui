@@ -88,7 +88,8 @@ export interface TaskHandlerOptions<V = any> {
   onSuccess?: (data: { key: string; id: string }, value: V) => void;
   onError?: (
     data: { key: string; id: string },
-    message: string | undefined
+    message: string | undefined,
+    error: Error
   ) => void;
 }
 

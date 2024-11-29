@@ -28,16 +28,16 @@ const isTaskHandlerInput = <T extends TaskData>(
 ): input is TaskHandlerInput<T> => !!(input as TaskHandlerInput<T>).data;
 
 export const useProcessTasks = <
-  TData extends TaskData = TaskData,
-  RValue = any,
+  TData extends TaskData,
+  TResult,
   // infered value of `items` for conditional typing of `concurrency`
   D extends TData[] | undefined = undefined,
 >(
-  handler: ActionHandler<TData, RValue>,
+  handler: ActionHandler<TData, TResult>,
   items?: D,
   options?: ProcessTasksOptions<
     TData,
-    RValue,
+    TResult,
     D extends TData[] ? number : never
   >
 ): UseProcessTasksState<TData, D> => {
@@ -199,7 +199,12 @@ export const useProcessTasks = <
         const task = getTask();
         if (task && isFunction(onTaskError)) onTaskError(task, e);
 
-        if (task && isFunction(onError)) onError(data, e?.message);
+        if (task && isFunction(onError)) {
+          // eslint-disable-next-line no-console
+          console.log('in useProcessTasks');
+
+          onError(data, e?.message, e);
+        }
 
         updateTask(data.id, { message: e.message, status: 'FAILED' });
       })

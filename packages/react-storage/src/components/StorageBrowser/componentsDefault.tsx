@@ -12,11 +12,11 @@ import {
   View,
   Heading,
 } from '@aws-amplify/ui-react';
-import { Components } from './ComponentsProvider';
+import { StorageBrowserComponents } from './ComponentsProvider';
 import { IconElement } from './context/elements';
 import { STORAGE_BROWSER_BLOCK } from './constants';
 
-const OverwriteToggle: Components['OverwriteToggle'] = ({
+const OverwriteToggle: StorageBrowserComponents['OverwriteToggle'] = ({
   isDisabled,
   isOverwritingEnabled,
   label = '',
@@ -36,25 +36,22 @@ const OverwriteToggle: Components['OverwriteToggle'] = ({
   );
 };
 
-const SearchSubfoldersToggle: Components['SearchSubfoldersToggle'] = ({
-  isSearchingSubfolders,
-  label = '',
-  onToggle,
-}) => {
-  return (
-    <CheckboxField
-      name={label}
-      label={label}
-      labelPosition="end"
-      checked={isSearchingSubfolders}
-      onChange={() => {
-        onToggle?.();
-      }}
-    />
-  );
-};
+const SearchSubfoldersToggle: StorageBrowserComponents['SearchSubfoldersToggle'] =
+  ({ isSearchingSubfolders, label = '', onToggle }) => {
+    return (
+      <CheckboxField
+        name={label}
+        label={label}
+        labelPosition="end"
+        checked={isSearchingSubfolders}
+        onChange={() => {
+          onToggle?.();
+        }}
+      />
+    );
+  };
 
-const Pagination: Components['Pagination'] = ({
+const Pagination: StorageBrowserComponents['Pagination'] = ({
   page = 1,
   onPaginate,
   hasNextPage,
@@ -79,7 +76,7 @@ const Pagination: Components['Pagination'] = ({
   );
 };
 
-const SearchField: Components['SearchField'] = ({
+const SearchField: StorageBrowserComponents['SearchField'] = ({
   onQueryChange,
   onSearch,
   onClear,
@@ -107,7 +104,7 @@ const SearchField: Components['SearchField'] = ({
   );
 };
 
-const Navigation: Components['Navigation'] = ({ items }) => {
+const Navigation: StorageBrowserComponents['Navigation'] = ({ items }) => {
   return (
     <Breadcrumbs.Container>
       {items.map((item, i) => {
@@ -128,7 +125,9 @@ const Navigation: Components['Navigation'] = ({ items }) => {
   );
 };
 
-const LoadingIndicator: Components['LoadingIndicator'] = ({ isLoading }) => {
+const LoadingIndicator: StorageBrowserComponents['LoadingIndicator'] = ({
+  isLoading,
+}) => {
   if (isLoading) {
     return (
       <Loader
@@ -140,7 +139,7 @@ const LoadingIndicator: Components['LoadingIndicator'] = ({ isLoading }) => {
   }
 };
 
-const FolderNameField: Components['FolderNameField'] = ({
+const FolderNameField: StorageBrowserComponents['FolderNameField'] = ({
   onChange,
   label,
   placeholder,
@@ -170,7 +169,9 @@ const FolderNameField: Components['FolderNameField'] = ({
   );
 };
 
-const DataRefresh: Components['DataRefresh'] = ({ onRefresh }) => {
+const DataRefresh: StorageBrowserComponents['DataRefresh'] = ({
+  onRefresh,
+}) => {
   return (
     <Button
       onClick={() => {
@@ -183,7 +184,7 @@ const DataRefresh: Components['DataRefresh'] = ({ onRefresh }) => {
   );
 };
 
-const ActionsList: Components['ActionsList'] = ({
+const ActionsList: StorageBrowserComponents['ActionsList'] = ({
   items,
   onActionSelect,
   isDisabled,
@@ -219,7 +220,10 @@ const ActionsList: Components['ActionsList'] = ({
   );
 };
 
-const StatusDisplay: Components['StatusDisplay'] = ({ statuses, total }) => {
+const StatusDisplay: StorageBrowserComponents['StatusDisplay'] = ({
+  statuses,
+  total,
+}) => {
   if (!statuses?.length) {
     return null;
   }
@@ -241,7 +245,7 @@ const StatusDisplay: Components['StatusDisplay'] = ({ statuses, total }) => {
   );
 };
 
-const ActionDestination: Components['ActionDestination'] = ({
+const ActionDestination: StorageBrowserComponents['ActionDestination'] = ({
   isNavigable,
   items,
   label,
@@ -282,7 +286,7 @@ const ActionDestination: Components['ActionDestination'] = ({
   );
 };
 
-const Title: Components['Title'] = ({ title }) => {
+const Title: StorageBrowserComponents['Title'] = ({ title }) => {
   return (
     <Heading className={`${STORAGE_BROWSER_BLOCK}__title`} level={2}>
       {title}
@@ -290,7 +294,7 @@ const Title: Components['Title'] = ({ title }) => {
   );
 };
 
-export const componentsDefault: Components = {
+export const componentsDefault: StorageBrowserComponents = {
   ActionDestination,
   ActionsList,
   DataRefresh,
