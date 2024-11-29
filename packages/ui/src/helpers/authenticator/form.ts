@@ -19,11 +19,14 @@ export const setFormOrder = (
   let orderedKeys = [] as keyValues[];
   if (formOverrides) {
     orderedKeys = Object.keys(formOverrides)
-      .reduce((prev, key) => {
-        // reduce to array that can be sorted
-        prev.push([key, formOverrides[key]?.order as number]);
-        return prev;
-      }, [] as Array<Array<keyValues>>)
+      .reduce(
+        (prev, key) => {
+          // reduce to array that can be sorted
+          prev.push([key, formOverrides[key]?.order as number]);
+          return prev;
+        },
+        [] as Array<Array<keyValues>>
+      )
       .sort(
         (a: keyValues[], b: keyValues[]) =>
           //sort them based on order
