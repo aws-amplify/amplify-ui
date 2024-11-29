@@ -39,12 +39,12 @@ export type HandleProcessTasks<T extends TaskData, U> = (
   input: U extends T[] ? Omit<TaskHandlerInput<T>, 'data'> : TaskHandlerInput<T>
 ) => void;
 
-export interface TasksState<T extends TaskData = TaskData> {
+export interface TasksState<T extends TaskData = TaskData, V = any> {
   isProcessing: boolean;
   isProcessingComplete: boolean;
   reset: () => void;
   statusCounts: StatusCounts;
-  tasks: Tasks<T>;
+  tasks: Tasks<T, V>;
 }
 export type UseProcessTasksState<T extends TaskData, D> = [
   TasksState<T>,

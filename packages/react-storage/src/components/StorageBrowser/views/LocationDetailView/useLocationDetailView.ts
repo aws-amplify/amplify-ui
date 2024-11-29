@@ -63,7 +63,7 @@ export const useLocationDetailView = (
   const { items, nextToken, search } = data;
   const { hasExhaustedSearch = false } = search ?? {};
   const hasNextToken = !!nextToken;
-  const paginateCallback = () => {
+  const onPaginate = () => {
     if (hasInvalidPrefix || !nextToken) return;
     dispatchStoreAction({ type: 'RESET_LOCATION_ITEMS' });
     handleList({
@@ -74,15 +74,14 @@ export const useLocationDetailView = (
 
   const {
     currentPage,
-    onPaginate,
+    handlePaginate,
     handleReset,
     highestPageVisited,
     pageItems,
   } = usePaginate({
     items,
-    paginateCallback,
+    onPaginate,
     pageSize: listOptions.pageSize,
-    hasNextToken,
   });
 
   const onSearch = (query: string, includeSubfolders?: boolean) => {
@@ -173,7 +172,7 @@ export const useLocationDetailView = (
     downloadErrorMessage: getDownloadErrorMessageFromFailedDownloadTask(task),
     isLoading,
     isSearchSubfoldersEnabled,
-    onPaginate,
+    onPaginate: handlePaginate,
     searchQuery,
     hasExhaustedSearch,
     onRefresh,

@@ -5,7 +5,6 @@ import { useList } from '../../../useAction';
 
 import { usePaginate } from '../../hooks/usePaginate';
 import { useSearch } from '../../hooks/useSearch';
-
 import { FoldersState } from './types';
 
 const DEFAULT_PAGE_SIZE = 100;
@@ -41,10 +40,10 @@ export const useFolders = ({
     });
   }, [handleList, key]);
 
-  const hasNextToken = !!nextToken;
+  const hasNextPage = !!nextToken;
 
-  const paginateCallback = () => {
-    if (!nextToken) return;
+  const onPaginate = () => {
+    if (!hasNextPage) return;
 
     handleList({
       prefix: key,
@@ -54,15 +53,14 @@ export const useFolders = ({
 
   const {
     currentPage: page,
-    onPaginate,
+    handlePaginate,
     highestPageVisited,
     pageItems,
     handleReset,
   } = usePaginate({
     items,
-    paginateCallback,
+    onPaginate,
     pageSize: DEFAULT_PAGE_SIZE,
-    hasNextToken,
   });
 
   const onSearch = (query: string) => {
@@ -98,7 +96,7 @@ export const useFolders = ({
 
   return {
     hasError,
-    hasNextPage: hasNextToken,
+    hasNextPage,
     highestPageVisited,
     isLoading,
     message,
@@ -107,7 +105,7 @@ export const useFolders = ({
     pageItems,
     query,
     hasExhaustedSearch,
-    onPaginate,
+    onPaginate: handlePaginate,
     onQuery,
     onSearch: onSearchSubmit,
     onSearchClear: () => {

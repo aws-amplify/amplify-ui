@@ -55,69 +55,104 @@ export type DerivedActionHandlers<
   [K in keyof D]: ResolveHandlerType<D[K]>;
 };
 
-export interface HandleTasksOptions<U extends TaskData = TaskData> {
-  items: U[];
-  onTaskSuccess?: (task: Task<U>) => void;
+export interface HandleTasksOptions<
+  TData extends TaskData = TaskData,
+  TResult = any,
+> {
+  items: TData[];
+  onTaskSuccess?: (task: Task<TData, TResult>) => void;
 }
+
+export type InferActionOptions<T> = T extends ActionHandler<infer I, infer R>
+  ? HandleTasksOptions<I & TaskData, R>
+  : never;
 
 interface HandleTasksInput {
   location?: LocationData;
 }
 
-export interface HandleTaskInput<T, K> {
-  data: T;
+interface HandleTaskInput<TData, TResult> {
+  data: TData;
   location?: LocationData;
   options?: {
-    onSuccess?: (data: { id: string; key: string }, value: K) => void;
+    onSuccess?: (data: { id: string; key: string }, result: TResult) => void;
     onError?: (
       data: { id: string; key: string },
-      message: string | undefined
+      message: string | undefined,
+      error: Error
     ) => void;
   };
 }
 
-export type HandlerInput<
-  T extends TaskData,
-  K,
-  U = undefined,
-> = U extends undefined ? HandleTaskInput<T, K> : HandleTasksInput;
+type HandlerInput<TData, TResult, U> = U extends undefined
+  ? HandleTaskInput<TData, TResult>
+  : HandleTasksInput;
 
-export interface TasksState<T extends TaskData, V = any> {
+export type InferHandlerInput<T, U = undefined> = T extends ActionHandler<
+  infer I,
+  infer R
+>
+  ? HandlerInput<I, R, U>
+  : never;
+
+export interface TasksState<TData extends TaskData, TResult> {
   isProcessing: boolean;
   isProcessingComplete: boolean;
   reset: () => void;
   statusCounts: StatusCounts;
-  tasks: Tasks<T, V>;
+  tasks: Tasks<TData, TResult>;
 }
 
-export type HandleTasks = (input?: HandleTasksInput) => void;
-export type UseTasksState<T extends TaskData, V = any> = [
-  TasksState<T, V>,
+type HandleTasks = (input?: HandleTasksInput) => void;
+type UseTasksState<TData extends TaskData, TResult> = [
+  TasksState<TData, TResult>,
   HandleTasks,
 ];
 
-export type HandleTask<T, K> = (input: HandleTaskInput<T, K>) => void;
-export type UseTaskState<T extends TaskData, R> = [
-  { task: Task<T, R> | undefined; isProcessing: boolean },
-  HandleTask<T, R>,
+type HandleTask<TData, TResult> = (
+  input: HandleTaskInput<TData, TResult>
+) => void;
+type UseTaskState<TData extends TaskData, TResult> = [
+  { task: Task<TData, TResult> | undefined; isProcessing: boolean },
+  HandleTask<TData, TResult>,
 ];
 
-export type UseHandlerState<
-  T extends TaskData,
-  R,
+type UseHandlerState<
+  TData extends TaskData,
+  TResult,
   U = undefined,
-> = U extends undefined ? UseTaskState<T, R> : UseTasksState<T, R>;
+> = U extends undefined
+  ? UseTaskState<TData, TResult>
+  : UseTasksState<TData, TResult>;
 
-export type UseAction<V extends Record<keyof V, ActionHandler>> = <
-  K extends keyof V,
-  TData extends V[K] extends ActionHandler<infer D> ? D & TaskData : never,
-  TOptions extends HandleTasksOptions<TData>,
-  U extends TOptions | undefined = undefined,
->(
-  key: K,
-  options?: U
-) => UseHandlerState<
-  TData,
-  V[K] extends ActionHandler<any, infer R> ? R : never,
-  U
->;
+export type InferUseHandlerState<T, U = undefined> = T extends ActionHandler<
+  infer I,
+  infer R
+>
+  ? UseHandlerState<I & TaskData, R, U>
+  : never;
+
+/**
+ * `StorageBrowser` utility hook used to run default and custom action handlers
+ * from within a parent `StorageBrowser.Provider`. `useAction` provides the
+ * action handler with the current `location` state and credentials values,
+ * as well as any parameters provided as `data` at the `useAction` call site
+ */
+export interface UseAction<
+  Handlers extends Record<keyof Handlers, ActionHandler>,
+> {
+  /**
+   * Returns atomic task `state` and `handler``input`, `handler`
+   * requires `input` containing `data` and `options`
+   */
+  <K extends keyof Handlers>(key: K): InferUseHandlerState<Handlers[K]>;
+
+  /**
+   * Returns batch task state and `handler` with optional input, accepts `options`
+   * as second argument
+   */
+  <K extends keyof Handlers, TOptions extends InferActionOptions<Handlers[K]>>(
+    key: K,
+    options?: TOptions
+  ): InferUseHandlerState<Handlers[K], TOptions>;
+}
