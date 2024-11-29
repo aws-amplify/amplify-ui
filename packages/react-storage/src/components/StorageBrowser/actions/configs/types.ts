@@ -118,8 +118,8 @@ export type CustomActionConfigs = Record<
 >;
 
 /**
- * @internal
- **/
+ * @internal @unstable
+ */
 export interface ExtendedActionConfigs {
   default?: ExtendedDefaultActionConfigs;
   custom?: CustomActionConfigs;
