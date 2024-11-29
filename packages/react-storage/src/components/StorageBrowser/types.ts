@@ -61,19 +61,15 @@ export interface StorageBrowserProviderProps<V = {}>
   views?: V;
 }
 
-export interface StorageBrowserType<C extends ExtendedActionConfigs> {
-  (
-    props: StorageBrowserProps<DerivedActionViewType<C>, DerivedCustomViews<C>>
-  ): React.JSX.Element;
+export interface StorageBrowserType<K = string, V = {}> {
+  (props: StorageBrowserProps<K, V>): React.JSX.Element;
   displayName: string;
-  Provider: (
-    props: StorageBrowserProviderProps<DerivedCustomViews<C>>
-  ) => React.JSX.Element;
+  Provider: (props: StorageBrowserProviderProps<V>) => React.JSX.Element;
   CopyView: CopyViewType;
   CreateFolderView: CreateFolderViewType;
   DeleteView: DeleteViewType;
   UploadView: UploadViewType;
-  LocationActionView: LocationActionViewType<DerivedActionViewType<C>>;
+  LocationActionView: LocationActionViewType<K>;
   LocationDetailView: LocationDetailViewType;
   LocationsView: LocationsViewType;
 }
@@ -101,7 +97,10 @@ export type DerivedActionViewType<T extends StorageBrowserActions> =
 export interface CreateStorageBrowserOutput<
   C extends ExtendedActionConfigs = ExtendedActionConfigs,
 > {
-  StorageBrowser: StorageBrowserType<C>;
+  StorageBrowser: StorageBrowserType<
+    DerivedActionViewType<C>,
+    DerivedCustomViews<C>
+  >;
   useAction: UseAction<DerivedActionHandlers<C>>;
   useView: UseView;
 }
