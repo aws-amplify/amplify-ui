@@ -55,9 +55,9 @@ export type DerivedActionHandlers<
   [K in keyof D]: ResolveHandlerType<D[K]>;
 };
 
-export interface HandleTasksOptions<U extends TaskData = TaskData> {
+export interface HandleTasksOptions<U extends TaskData = TaskData, R = any> {
   items: U[];
-  onTaskSuccess?: (task: Task<U>) => void;
+  onTaskSuccess?: (task: Task<U, R>) => void;
 }
 
 interface HandleTasksInput {
@@ -108,16 +108,30 @@ export type UseHandlerState<
   U = undefined,
 > = U extends undefined ? UseTaskState<T, R> : UseTasksState<T, R>;
 
+export interface UseActionOptions<TD extends TaskData = TaskData, R = any>
+  extends HandleTasksOptions<TD, R> {}
+
+export type UseActionState<
+  TD extends TaskData = TaskData,
+  R = {},
+  U = undefined,
+> = UseHandlerState<TD, R, U>;
+
+/**
+ * `StorageBrowser` React hook utility used to call default and custom actions
+ * from within a parent `StorageBrowser.Provider`.
+ *
+ * `useAction` provides the called action with `location` state and credentials
+ * values, as well as any parameters provided as `data` at the `useAction` call
+ * site.
+ */
 export type UseAction<V extends Record<keyof V, ActionHandler>> = <
   K extends keyof V,
   TData extends V[K] extends ActionHandler<infer D> ? D & TaskData : never,
-  TOptions extends HandleTasksOptions<TData>,
+  RValue extends V[K] extends ActionHandler<any, infer R> ? R : never,
+  TOptions extends UseActionOptions<TData, RValue>,
   U extends TOptions | undefined = undefined,
 >(
   key: K,
   options?: U
-) => UseHandlerState<
-  TData,
-  V[K] extends ActionHandler<any, infer R> ? R : never,
-  U
->;
+) => UseActionState<TData, RValue, U>;

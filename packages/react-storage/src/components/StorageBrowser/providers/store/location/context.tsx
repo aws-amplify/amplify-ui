@@ -67,7 +67,14 @@ export type LocationStateContext = [
 
 export interface LocationProviderProps {
   children?: React.ReactNode;
+  /**
+   * Sets initial `location` data.
+   */
   location?: LocationData;
+
+  /**
+   * Sets initial `location` subpath to establish initial navigation state.
+   */
   path?: string;
 }
 
