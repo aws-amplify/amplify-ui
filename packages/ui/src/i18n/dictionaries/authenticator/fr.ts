@@ -4,6 +4,8 @@ export const frDict: AuthenticatorDictionary = {
   'Account recovery requires verified contact information':
     'La récupération du compte nécessite des informations de contact vérifiées',
   'Back to Sign In': 'Retour à la connexion',
+  'Cannot reset password for the user as there is no registered/verified email or phone_number':
+    "Impossible de réinitialiser le mot de passe pour l'utilisateur car il n'a pas d'adresse e-mail ou de numéro de téléphone enregistré / vérifié",
   'Change Password': 'Modifier le mot de passe',
   Changing: 'Modification en cours',
   Code: 'Code',
