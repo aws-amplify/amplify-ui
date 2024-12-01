@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 import {
   listCallerAccessGrants,
   ListLocationsOutput,
@@ -126,5 +127,38 @@ describe('listLocationsHandler', () => {
     await expect(listLocationsHandler(input)).rejects.toThrow(
       'Storage Browser: Must provide accountId to `listCallerAccessGrants`.'
     );
+  });
+
+  it('should throw if list does not provide locations', async () => {
+    input.config.accountId = accountId;
+    mockListCallerAccessGrants.mockResolvedValueOnce({} as any);
+    await expect(listLocationsHandler(input)).rejects.toThrow(
+      'Required keys missing for ListLocationsOutput: locations.'
+    );
+  });
+
+  ['scope', 'type', 'permission'].forEach((requiredKey) => {
+    input.config.accountId = accountId;
+    it(`should throw if any location is missing ${requiredKey}`, async () => {
+      mockListCallerAccessGrants.mockResolvedValueOnce({
+        locations: [
+          {
+            scope: 's3://bucket/prefix1/*',
+            permission: 'READWRITE',
+            type: 'PREFIX',
+          },
+          {
+            scope: 's3://bucket/prefix1/*',
+            permission: 'READWRITE',
+            type: 'PREFIX',
+            [requiredKey]: undefined,
+          },
+        ],
+      });
+
+      await expect(listLocationsHandler(input)).rejects.toThrow(
+        `Required keys missing for AccessGrantLocation #1: ${requiredKey}.`
+      );
+    });
   });
 });
