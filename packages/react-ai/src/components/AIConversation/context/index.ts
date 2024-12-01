@@ -1,6 +1,8 @@
+export { AIContextContext, AIContextProvider } from './AIContextContext';
 export { ActionsContext, ActionsProvider } from './ActionsContext';
 export { AvatarsContext, AvatarsProvider } from './AvatarsContext';
 export {
+  ConversationInputContextProps,
   ConversationInputContext,
   ConversationInput,
   ConversationInputContextProvider,
@@ -39,9 +41,17 @@ export {
   MessageRendererContext,
   useMessageRenderer,
 } from './MessageRenderContext';
-export { AttachmentProvider, AttachmentContext } from './AttachmentContext';
+export {
+  AttachmentProvider,
+  AttachmentContext,
+  AttachmentContextProps,
+} from './AttachmentContext';
 export {
   WelcomeMessageContext,
   WelcomeMessageProvider,
 } from './WelcomeMessageContext';
+export {
+  FallbackComponentContext,
+  FallbackComponentProvider,
+} from './FallbackComponentContext';
 export * from './elements';

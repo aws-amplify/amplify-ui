@@ -13,15 +13,30 @@ import React from 'react';
  * are always optional at the interface level, allowing for additional `props`
  * to be added to existing `BaseElement` interfaces as needed.
  */
-export type BaseElement<T = {}, K = {}> = React.ForwardRefExoticComponent<
+export type BaseElement<T = {}> = (props: T) => React.JSX.Element;
+
+/**
+ * @internal @unstable
+ *
+ * see @type {BaseElement}
+ *
+ * `BaseElement` with a `ref` corresponding to the `element` type
+ */
+export type BaseElementWithRef<
+  T = {},
+  K = {},
+> = React.ForwardRefExoticComponent<
   React.PropsWithoutRef<T> & React.RefAttributes<K>
 >;
 
 type ListElementSubType = 'Ordered' | 'Unordered';
-type ListElementDisplayName = 'List' | `${ListElementSubType}List`;
+type ListElementDisplayName = `${ListElementSubType}List`;
 
-type TableElementSubType = 'Body' | 'Data' | 'Row' | 'Head' | 'Header';
+type TableElementSubType = 'Body' | 'DataCell' | 'Row' | 'Head' | 'Header';
 type TableElementDisplayName = 'Table' | `Table${TableElementSubType}`;
+
+type DescriptionElementSubType = 'Details' | 'List' | 'Term';
+type DescriptionElementDisplayName = `Description${DescriptionElementSubType}`;
 
 /**
  * @internal @unstable
@@ -30,7 +45,6 @@ type TableElementDisplayName = 'Table' | `Table${TableElementSubType}`;
  */
 export type ElementDisplayName =
   | 'Button'
-  | 'Divider'
   | 'Heading' // h1, h2, etc
   | 'Icon'
   | 'Image'
@@ -44,6 +58,7 @@ export type ElementDisplayName =
   | 'TextArea'
   | 'Title'
   | 'View'
+  | DescriptionElementDisplayName
   | ListElementDisplayName
   | TableElementDisplayName;
 
@@ -68,7 +83,7 @@ export type ReactElementType = keyof React.JSX.IntrinsicElements;
  * @internal @unstable
  */
 export type ReactElementProps<T extends ReactElementType> =
-  React.JSX.IntrinsicElements[T];
+  React.ComponentProps<T>;
 
 /**
  * @internal @unstable
@@ -85,5 +100,98 @@ export type BaseElementProps<
   V = string,
   K extends Record<ElementPropKey<keyof K>, any> = Record<string, any>,
 > = React.AriaAttributes &
-  React.RefAttributes<ElementRefType<K>> &
+  React.Attributes &
   Pick<K, ElementPropKey<T>> & { testId?: string; variant?: V };
+
+/**
+ * @internal @unstable
+ */
+export type BaseElementWithRefProps<
+  T extends keyof K,
+  V = string,
+  K extends Record<ElementPropKey<keyof K>, any> = Record<string, any>,
+> = BaseElementProps<T, V, K> & React.RefAttributes<ElementRefType<K>>;
+
+/**
+ * @internal @unstable
+ */
+export type ElementWithAndWithoutRef<
+  T extends ReactElementType,
+  K extends React.ComponentType<React.ComponentProps<T>> = React.ComponentType<
+    React.ComponentProps<T>
+  >,
+> = K extends React.ComponentType<infer U>
+  ? React.ForwardRefExoticComponent<U>
+  : never;
+
+/**
+ * @internal @unstable
+ *
+ * Merge `BaseElement` defintions with `elements` types provided by
+ * consumers, for use with top level connected component function
+ * signatures.
+ *
+ * Example:
+ *
+ * ```tsx
+ *  export function createStorageBrowser<
+ *    T extends Partial<StorageBrowserElements>,
+ *  >({ elements }: CreateStorageBrowserInput<T> = {}): {
+ *    StorageBrowser: StorageBrowser<MergeElements<StorageBrowserElements, T>>
+ *  } {
+ *    // ...do create stuff
+ *  };
+ * ```
+ */
+export type MergeBaseElements<T, K extends Partial<T>> = {
+  [U in keyof T]: K[U] extends T[U] ? K[U] : T[U];
+};
+
+/**
+ * @internal @unstable
+ *
+ * Extend the defintion of a `BaseElement` with additional `props`.
+ *
+ * Use cases are restricted to scenarios where additional `props`
+ * are required for a `ControlElement` interface, for example:
+ *
+ * @example
+ * ```tsx
+ *  const FieldInput = defineBaseElementWithRef({
+ *    type: 'input',
+ *    displayName: 'Input'
+ *  });
+ *
+ *  type InputWithSearchCallback =
+ *    ExtendBaseElement<
+ *      typeof FieldInput,
+ *      { onSearch?: (event: { value: string }) => void }
+ *    >
+ *
+ *  const SearchInput = React.forwardRef((
+ *    { onSearch, ...props }
+ *    ref
+ *    ) => {
+ *      // ...do something with onSearch
+ *
+ *      return <FieldInput {...props} ref={ref} />;
+ *  });
+ * ```
+ *
+ * Caveats:
+ * - additional `props` should not be passed directly to
+ * `BaseElement` components, the outputted interface should be
+ * applied to a wrapping element that handles the additional `props`
+ *
+ * - additional `props` that share a key with existing `props`
+ * are omitted from the outputted interface to adhere to `BaseElement`
+ * type contracts
+ *
+ */
+export type ExtendBaseElement<
+  // `BaseElement` to extend
+  T extends React.ComponentType,
+  // additional `props`
+  K = {},
+  U extends React.ComponentPropsWithRef<T> = React.ComponentPropsWithRef<T>,
+> = BaseElementWithRef<U & Omit<K, keyof U>, U>;

@@ -1,7 +1,11 @@
 import React from 'react';
 
 import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
-import { ConversationInputContext } from '../../context';
+import {
+  AIContextContext,
+  ConversationInputContext,
+  useConversationDisplayText,
+} from '../../context';
 import { AIConversationElements } from '../../context/elements';
 import { AttachFileControl } from './AttachFileControl';
 import { MessagesContext } from '../../context';
@@ -13,9 +17,10 @@ import {
   ResponseComponentsContext,
 } from '../../context/ResponseComponentsContext';
 import { ControlsContext } from '../../context/ControlsContext';
-import { getImageTypeFromMimeType } from '../../utils';
+import { attachmentsValidator, getImageTypeFromMimeType } from '../../utils';
 import { LoadingContext } from '../../context/LoadingContext';
 import { AttachmentContext } from '../../context/AttachmentContext';
+import { humanFileSize, isFunction } from '@aws-amplify/ui';
 
 const {
   Button,
@@ -147,12 +152,19 @@ const InputContainer = withBaseElementProps(View, {
 });
 
 export const FormControl: FormControl = () => {
-  const { input, setInput } = React.useContext(ConversationInputContext);
+  const { input, setInput, error, setError } = React.useContext(
+    ConversationInputContext
+  );
   const handleSendMessage = React.useContext(SendMessageContext);
-  const allowAttachments = React.useContext(AttachmentContext);
-  const ref = React.useRef<HTMLFormElement | null>(null);
+  const { allowAttachments, maxAttachmentSize, maxAttachments } =
+    React.useContext(AttachmentContext);
+  const displayText = useConversationDisplayText();
   const responseComponents = React.useContext(ResponseComponentsContext);
+  const isLoading = React.useContext(LoadingContext);
+  const aiContext = React.useContext(AIContextContext);
+  const ref = React.useRef<HTMLFormElement | null>(null);
   const controls = React.useContext(ControlsContext);
+  const [composing, setComposing] = React.useState(false);
 
   const submitMessage = async () => {
     ref.current?.reset();
@@ -180,6 +192,7 @@ export const FormControl: FormControl = () => {
     if (handleSendMessage) {
       handleSendMessage({
         content: submittedContent,
+        aiContext: isFunction(aiContext) ? aiContext() : undefined,
         toolConfiguration:
           convertResponseComponentsToToolConfiguration(responseComponents),
       });
@@ -197,7 +210,7 @@ export const FormControl: FormControl = () => {
   ) => {
     const { key, shiftKey } = event;
 
-    if (key === 'Enter' && !shiftKey) {
+    if (key === 'Enter' && !shiftKey && !composing) {
       event.preventDefault();
 
       const hasInput =
@@ -208,13 +221,57 @@ export const FormControl: FormControl = () => {
     }
   };
 
+  const onValidate = React.useCallback(
+    async (files: File[]) => {
+      const previousFiles = input?.files ?? [];
+      const {
+        acceptedFiles,
+        hasMaxAttachmentsError,
+        hasMaxAttachmentSizeError,
+      } = await attachmentsValidator({
+        files: [...files, ...previousFiles],
+        maxAttachments,
+        maxAttachmentSize,
+      });
+
+      if (hasMaxAttachmentsError || hasMaxAttachmentSizeError) {
+        const errors = [];
+        if (hasMaxAttachmentsError) {
+          errors.push(displayText.getMaxAttachmentErrorText(maxAttachments));
+        }
+        if (hasMaxAttachmentSizeError) {
+          errors.push(
+            displayText.getAttachmentSizeErrorText(
+              // base64 size is about 137% that of the file size
+              // https://en.wikipedia.org/wiki/Base64#MIME
+              humanFileSize((maxAttachmentSize - 814) / 1.37, true)
+            )
+          );
+        }
+        setError?.(errors.join(' '));
+      } else {
+        setError?.(undefined);
+      }
+
+      setInput?.((prevValue) => ({
+        ...prevValue,
+        files: acceptedFiles,
+      }));
+    },
+    [setInput, input, displayText, maxAttachmentSize, maxAttachments, setError]
+  );
+
   if (controls?.Form) {
     return (
       <controls.Form
         handleSubmit={handleSubmit}
-        input={input!}
-        setInput={setInput!}
+        input={input}
+        setInput={setInput}
+        onValidate={onValidate}
         allowAttachments={allowAttachments}
+        isLoading={isLoading}
+        error={error}
+        setError={setError}
       />
     );
   }
@@ -231,7 +288,11 @@ export const FormControl: FormControl = () => {
         <VisuallyHidden>
           <Label />
         </VisuallyHidden>
-        <TextInput onKeyDown={handleOnKeyDown} />
+        <TextInput
+          onKeyDown={handleOnKeyDown}
+          onCompositionStart={() => setComposing(true)}
+          onCompositionEnd={() => setComposing(false)}
+        />
         <AttachmentListControl />
       </InputContainer>
       <SendButton>

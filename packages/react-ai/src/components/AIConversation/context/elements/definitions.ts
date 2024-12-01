@@ -1,4 +1,4 @@
-import { defineBaseElement } from '@aws-amplify/ui-react-core/elements';
+import { defineBaseElementWithRef } from '@aws-amplify/ui-react-core/elements';
 import { IconElement } from './IconElement';
 
 export interface AIConversationElements {
@@ -16,27 +16,27 @@ export interface AIConversationElements {
   View: typeof ViewElement;
 }
 
-export const LabelElement = defineBaseElement<'label', 'htmlFor'>({
+export const LabelElement = defineBaseElementWithRef<'label', 'htmlFor'>({
   type: 'label',
   displayName: 'Label',
 });
 
-export const TextElement = defineBaseElement({
+export const TextElement = defineBaseElementWithRef({
   type: 'p',
   displayName: 'Text',
 });
 
-export const UnorderedListElement = defineBaseElement({
+export const UnorderedListElement = defineBaseElementWithRef({
   type: 'ul',
   displayName: 'UnorderedList',
 });
 
-export const ListItemElement = defineBaseElement({
+export const ListItemElement = defineBaseElementWithRef({
   type: 'li',
   displayName: 'ListItem',
 });
 
-export const HeadingElement = defineBaseElement({
+export const HeadingElement = defineBaseElementWithRef({
   type: 'h2',
   displayName: 'Title',
 });
@@ -44,12 +44,12 @@ export const HeadingElement = defineBaseElement({
 export type IconElementProps = React.ComponentProps<typeof IconElement>;
 
 type ImageElementProps = 'src' | 'alt';
-export const ImageElement = defineBaseElement<'img', ImageElementProps>({
+export const ImageElement = defineBaseElementWithRef<'img', ImageElementProps>({
   type: 'img',
   displayName: 'Image',
 });
 
-export const InputElement = defineBaseElement<'input', 'type'>({
+export const InputElement = defineBaseElementWithRef<'input', 'type'>({
   type: 'input',
   displayName: 'Input',
 });
@@ -57,7 +57,7 @@ export const InputElement = defineBaseElement<'input', 'type'>({
 type ButtonElementProps = 'disabled' | 'onClick' | 'type' | 'tabIndex';
 type ButtonElementVariant = 'attach' | 'remove' | 'send-message';
 
-export const ButtonElement = defineBaseElement<
+export const ButtonElement = defineBaseElementWithRef<
   'button',
   ButtonElementProps,
   ButtonElementVariant
@@ -65,12 +65,12 @@ export const ButtonElement = defineBaseElement<
 
 type ViewElementProps = 'onFocus' | 'tabIndex' | 'onKeyDown';
 
-export const ViewElement = defineBaseElement<'div', ViewElementProps>({
+export const ViewElement = defineBaseElementWithRef<'div', ViewElementProps>({
   type: 'div',
   displayName: 'View',
 });
 
-export const SpanElement = defineBaseElement({
+export const SpanElement = defineBaseElementWithRef({
   type: 'span',
   displayName: 'Span',
 });
@@ -81,9 +81,11 @@ type TextAreaElementProps =
   | 'onChange'
   | 'placeholder'
   | 'autoFocus'
+  | 'onCompositionStart'
+  | 'onCompositionEnd'
   | 'onKeyDown';
 
-export const TextAreaElement = defineBaseElement<
+export const TextAreaElement = defineBaseElementWithRef<
   'textarea',
   TextAreaElementProps
 >({

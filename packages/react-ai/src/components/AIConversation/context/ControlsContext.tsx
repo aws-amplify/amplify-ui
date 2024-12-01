@@ -1,5 +1,5 @@
 import React from 'react';
-import { ConversationInputContext } from './ConversationInputContext';
+import { ConversationInputContextProps } from './ConversationInputContext';
 import { SuggestedPrompt } from '../types';
 import { ConversationMessage } from '../../../types';
 
@@ -8,12 +8,14 @@ export interface ControlsContextProps {
     {
       handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
       allowAttachments?: boolean;
-    } & Required<ConversationInputContext>
+      isLoading?: boolean;
+      onValidate: (files: File[]) => Promise<void>;
+    } & ConversationInputContextProps
   >;
   MessageList?: React.ComponentType<{ messages: ConversationMessage[] }>;
   PromptList?: React.ComponentType<{
     suggestedPrompts?: SuggestedPrompt[];
-    setInput: ConversationInputContext['setInput'];
+    setInput: ConversationInputContextProps['setInput'];
   }>;
 }
 

@@ -30,6 +30,7 @@ export const ComponentClassName = {
   AIConversationAttachmentRemove: 'amplify-ai-conversation__attachment__remove',
   AIConversationForm: 'amplify-ai-conversation__form',
   AIConversationFormAttach: 'amplify-ai-conversation__form__attach',
+  AIConversationFormError: 'amplify-ai-conversation__form__error',
   AIConversationFormSend: 'amplify-ai-conversation__form__send',
   AIConversationFormField: 'amplify-ai-conversation__form__field',
   AIConversationFormDropzone: 'amplify-ai-conversation__form__dropzone',
