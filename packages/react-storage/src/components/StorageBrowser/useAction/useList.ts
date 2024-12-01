@@ -1,31 +1,42 @@
-import { useListLocations } from './useListLocations';
-import { useListLocationItems } from './useListLocationItems';
-import { useListFolderItems } from './useListFolderItems';
+import { useListLocations, UseListLocationsState } from './useListLocations';
+import {
+  useListLocationItems,
+  UseListLocationItemsState,
+} from './useListLocationItems';
+import {
+  useListFolderItems,
+  UseListFolderItemsState,
+} from './useListFolderItems';
 
-const LIST_ACTION_HOOKS = {
+interface DefaultUseListStates {
+  folderItems: UseListFolderItemsState;
+  locationItems: UseListLocationItemsState;
+  locations: UseListLocationsState;
+}
+
+type UseListHooks = {
+  [K in keyof DefaultUseListStates]: () => DefaultUseListStates[K];
+};
+
+const LIST_ACTION_HOOKS: UseListHooks = {
   folderItems: useListFolderItems,
   locationItems: useListLocationItems,
   locations: useListLocations,
 };
 
-type ListActionHooks = typeof LIST_ACTION_HOOKS;
+type UseListType = keyof DefaultUseListStates;
 
-type ListActionType = keyof ListActionHooks;
-
-export type UseList = <
-  K extends keyof ListActionHooks,
-  S extends ListActionHooks[K],
->(
+export type UseList = <K extends UseListType>(
   type: K
-) => ReturnType<S>;
+) => DefaultUseListStates[K];
 
-const isListActionViewType = (value: unknown): value is ListActionType =>
-  Object.keys(LIST_ACTION_HOOKS).includes(value as ListActionType);
+const isListActionViewType = (value: unknown): value is UseListType =>
+  Object.keys(LIST_ACTION_HOOKS).includes(value as UseListType);
 
-// @ts-expect-error
 export const useList: UseList = (type) => {
   if (!isListActionViewType(type)) {
     throw new Error(`Value of \`${type}\` cannot be used to index \`useList\``);
   }
+
   return LIST_ACTION_HOOKS[type]();
 };
