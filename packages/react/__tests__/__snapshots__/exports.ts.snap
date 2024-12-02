@@ -10106,6 +10106,9 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
       "display": {
         "type": "string",
       },
+      "endColor": {
+        "type": "string",
+      },
       "flex": {
         "type": "string",
       },
@@ -10260,6 +10263,9 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
         "type": "string",
       },
       "size": {
+        "type": "string",
+      },
+      "startColor": {
         "type": "string",
       },
       "testId": {
