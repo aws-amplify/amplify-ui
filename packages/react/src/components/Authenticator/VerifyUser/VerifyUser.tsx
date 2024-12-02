@@ -39,7 +39,7 @@ const generateRadioGroup = (
           name="unverifiedAttr"
           value={key}
           key={key}
-          defaultChecked={index === 0}
+          checked={index === 0}
         >
           {translate(verificationType)}:{' '}
           {censorContactMethod(verificationType, value)}
