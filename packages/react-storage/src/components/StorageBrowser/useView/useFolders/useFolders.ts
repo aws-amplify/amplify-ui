@@ -6,7 +6,23 @@ import { useList } from '../../../useAction';
 import { usePaginate } from '../../hooks/usePaginate';
 import { useSearch } from '../../hooks/useSearch';
 
-import { FoldersState } from './types';
+export interface FoldersState {
+  hasError: boolean;
+  hasNextPage: boolean;
+  highestPageVisited: number;
+  isLoading: boolean;
+  message: string | undefined;
+  page: number;
+  pageItems: FolderData[];
+  query: string;
+  hasExhaustedSearch: boolean;
+  onInitialize: () => void;
+  onPaginate: (page: number) => void;
+  onQuery: (value: string) => void;
+  onSearch: () => void;
+  onSearchClear: () => void;
+  onSelectFolder: (id: string, folderLocationPath: string) => void;
+}
 
 const DEFAULT_PAGE_SIZE = 100;
 export const DEFAULT_LIST_OPTIONS = {

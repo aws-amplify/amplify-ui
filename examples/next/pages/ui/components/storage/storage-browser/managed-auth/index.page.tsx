@@ -50,17 +50,7 @@ const generateLink: ActionViewConfig<GetLink, 'LinkActionView'> = {
 };
 
 const { StorageBrowser, useAction, useView } = createStorageBrowser({
-  actions: {
-    custom: {
-      generateLink,
-      madeUp: (input) => {
-        const { data } = input;
-        const { madeUp } = data;
-
-        return { result: Promise.resolve({ status: 'CANCELED' }) };
-      },
-    },
-  },
+  actions: { custom: { generateLink } },
   config: managedAuthAdapter,
 });
 
