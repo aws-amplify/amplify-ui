@@ -1,0 +1,16 @@
+# Description: this workflow runs build mega-apps that have all the connected components for React Native.
+
+name: POC / Build System Test Canary / React Native / parameterize
+
+permissions:
+  id-token: write # This is required for aws-actions/configure-aws-credentials
+
+on:
+    pull_request:
+        branches: [rn-parameterize-build-test]
+
+jobs:
+  build:
+    uses: ./.github/workflows/reusable-build-system-test-react-native.yml
+    with:
+      dist-tag: latest
