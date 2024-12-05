@@ -138,6 +138,13 @@ code {
   hyphens: none;
 }
 
+dialog {
+  min-width: 50%;
+  max-width: 80%;
+  min-height: 20%;
+  max-height: 80%;
+}
+
 h2 {
   font-size: var(--amplify-components-heading-2-font-size);
   font-weight: var(--amplify-components-heading-2-font-weight);

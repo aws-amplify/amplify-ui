@@ -2,6 +2,7 @@ import {
   convertBufferToBase64,
   formatDate,
   getImageTypeFromMimeType,
+  attachmentsValidator,
 } from '../utils';
 
 describe('convertBufferToBase64', () => {
@@ -55,5 +56,93 @@ describe('getImageTypeFromMimeType', () => {
     expect(getImageTypeFromMimeType('image/gif')).toBe('gif');
     expect(getImageTypeFromMimeType('image/png')).toBe('png');
     expect(getImageTypeFromMimeType('image/webp')).toBe('webp');
+  });
+});
+
+describe('attachmentsValidator', () => {
+  // Helper function to create mock files
+  const createMockFile = (size: number, name = 'test.txt'): File => {
+    const buffer = new ArrayBuffer(size);
+    File.prototype.arrayBuffer = jest.fn().mockResolvedValueOnce(buffer);
+    return new File([buffer], name, { type: 'text/plain' });
+  };
+
+  it('should accept files within size limit', async () => {
+    const files = [createMockFile(100)];
+    const result = await attachmentsValidator({
+      files,
+      maxAttachments: 3,
+      maxAttachmentSize: 1000,
+    });
+
+    expect(result.acceptedFiles).toHaveLength(1);
+    expect(result.rejectedFiles).toHaveLength(0);
+    expect(result.hasMaxAttachmentSizeError).toBeFalsy();
+    expect(result.hasMaxAttachmentsError).toBeFalsy();
+  });
+
+  it('should reject files exceeding size limit', async () => {
+    const files = [createMockFile(2000)];
+    const result = await attachmentsValidator({
+      files,
+      maxAttachments: 3,
+      maxAttachmentSize: 1000,
+    });
+
+    expect(result.acceptedFiles).toHaveLength(0);
+    expect(result.rejectedFiles).toHaveLength(1);
+    expect(result.hasMaxAttachmentSizeError).toBeTruthy();
+    expect(result.hasMaxAttachmentsError).toBeFalsy();
+  });
+
+  it('should handle mixed valid and invalid file sizes', async () => {
+    const files = [
+      createMockFile(500),
+      createMockFile(2000),
+      createMockFile(800),
+    ];
+    const result = await attachmentsValidator({
+      files,
+      maxAttachments: 3,
+      maxAttachmentSize: 1000,
+    });
+
+    expect(result.acceptedFiles).toHaveLength(2);
+    expect(result.rejectedFiles).toHaveLength(1);
+    expect(result.hasMaxAttachmentSizeError).toBeTruthy();
+    expect(result.hasMaxAttachmentsError).toBeFalsy();
+  });
+
+  it('should enforce maximum number of attachments', async () => {
+    const files = [
+      createMockFile(100),
+      createMockFile(200),
+      createMockFile(300),
+      createMockFile(400),
+    ];
+    const result = await attachmentsValidator({
+      files,
+      maxAttachments: 2,
+      maxAttachmentSize: 1000,
+    });
+
+    expect(result.acceptedFiles).toHaveLength(2);
+    expect(result.rejectedFiles).toHaveLength(2);
+    expect(result.hasMaxAttachmentsError).toBeTruthy();
+    expect(result.hasMaxAttachmentSizeError).toBeFalsy();
+  });
+
+  it('should handle empty file list', async () => {
+    const files: File[] = [];
+    const result = await attachmentsValidator({
+      files,
+      maxAttachments: 3,
+      maxAttachmentSize: 1000,
+    });
+
+    expect(result.acceptedFiles).toHaveLength(0);
+    expect(result.rejectedFiles).toHaveLength(0);
+    expect(result.hasMaxAttachmentSizeError).toBeFalsy();
+    expect(result.hasMaxAttachmentsError).toBeFalsy();
   });
 });

@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`defaultActionConfigs matches expected shape 1`] = `
+{
+  "copy": {
+    "actionListItem": {
+      "disable": [Function],
+      "hide": [Function],
+      "icon": "copy-file",
+      "label": "Copy",
+    },
+    "handler": [Function],
+    "viewName": "CopyView",
+  },
+  "createFolder": {
+    "actionListItem": {
+      "hide": [Function],
+      "icon": "create-folder",
+      "label": "Create folder",
+    },
+    "handler": [Function],
+    "viewName": "CreateFolderView",
+  },
+  "delete": {
+    "actionListItem": {
+      "disable": [Function],
+      "hide": [Function],
+      "icon": "delete-file",
+      "label": "Delete",
+    },
+    "handler": [Function],
+    "viewName": "DeleteView",
+  },
+  "download": [Function],
+  "listLocationItems": [Function],
+  "upload": {
+    "actionListItem": {
+      "hide": [Function],
+      "icon": "upload-file",
+      "label": "Upload",
+    },
+    "handler": [Function],
+    "viewName": "UploadView",
+  },
+}
+`;

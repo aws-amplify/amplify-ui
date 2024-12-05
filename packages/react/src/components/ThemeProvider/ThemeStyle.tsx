@@ -12,10 +12,6 @@ interface ThemeStyleProps extends React.ComponentProps<'style'> {
   theme?: WebTheme;
 }
 
-/**
- * @experimental
- * [📖 Docs](https://ui.docs.amplify.aws/react/components/theme)
- */
 export const ThemeStyle = ({
   theme,
   ...rest

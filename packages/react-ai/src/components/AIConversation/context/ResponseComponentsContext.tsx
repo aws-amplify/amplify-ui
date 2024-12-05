@@ -1,6 +1,5 @@
 import React from 'react';
-import { ResponseComponents } from '../types';
-import { ToolConfiguration } from '../../../types';
+import { ToolConfiguration, ResponseComponents } from '../../../types';
 
 type ResponseComponentsContextProps = ResponseComponents | undefined;
 
@@ -9,7 +8,9 @@ export const RESPONSE_COMPONENT_PREFIX = 'AMPLIFY_UI_';
 export const ResponseComponentsContext =
   React.createContext<ResponseComponentsContextProps>(undefined);
 
-const prependResponseComponents = (responseComponents?: ResponseComponents) => {
+export const prependResponseComponents = (
+  responseComponents?: ResponseComponents
+): ResponseComponents | undefined => {
   if (!responseComponents) return responseComponents;
   return Object.keys(responseComponents).reduce(
     (prev, key) => (
@@ -50,7 +51,12 @@ export const convertResponseComponentsToToolConfiguration = (
     const { props } = responseComponents[toolName];
     const requiredProps: string[] = [];
     Object.keys(props).forEach((propName) => {
-      if (props[propName].required) requiredProps.push(propName);
+      if (props[propName].required) {
+        requiredProps.push(propName);
+        // The inputSchema for a tool needs to not
+        // have `required` in the properties
+        props[propName].required = undefined;
+      }
     });
     tools[toolName] = {
       description: responseComponents[toolName].description,

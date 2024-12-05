@@ -41,7 +41,6 @@ describe('convertResponseComponentsToToolConfiguration', () => {
                   type: 'string',
                   description:
                     'The response you want to render in the component.',
-                  required: true,
                 },
                 foobar: {
                   type: 'number',

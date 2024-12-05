@@ -1,5 +1,5 @@
 import React from 'react';
-import { BaseElement, ElementRefType } from './types';
+import { BaseElementWithRef, ElementRefType } from './types';
 
 /**
  * @internal @unstable
@@ -16,7 +16,7 @@ import { BaseElement, ElementRefType } from './types';
  * type InputElementPropKey = 'onChange' | 'type';
  *
  * // create `InputElement` base with `type` generic and extended `props` key
- * export const InputElement = defineBaseElement<"input", InputElementPropKey>({
+ * export const InputElement = defineBaseElementWithRef<"input", InputElementPropKey>({
  *   type: "input",
  *   displayName: "Input",
  * });
@@ -38,7 +38,7 @@ export default function withBaseElementProps<
 >(
   Target: React.ForwardRefExoticComponent<T>,
   defaultProps: K
-): BaseElement<T, ElementRefType<T>> {
+): BaseElementWithRef<T, ElementRefType<T>> {
   const Component = React.forwardRef<ElementRefType<T>, T>((props, ref) => (
     <Target
       {...{

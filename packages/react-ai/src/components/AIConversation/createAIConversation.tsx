@@ -9,14 +9,10 @@ import { ViewElement as View } from './context/elements/definitions';
 import { AIConversationProvider } from './AIConversationProvider';
 import { DefaultMessageControl } from './views/Controls/DefaultMessageControl';
 
-/**
- * @experimental
- */
 export function createAIConversation(input: AIConversationInput = {}): {
   AIConversation: AIConversation;
 } {
   const {
-    elements,
     suggestedPrompts,
     actions,
     responseComponents,
@@ -31,7 +27,6 @@ export function createAIConversation(input: AIConversationInput = {}): {
   function AIConversation(props: AIConversationProps): JSX.Element {
     const { messages, avatars, handleSendMessage, isLoading } = props;
     const providerProps = {
-      elements,
       actions,
       suggestedPrompts,
       responseComponents,

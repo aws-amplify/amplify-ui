@@ -18,6 +18,7 @@ export type AIConversationTheme<Required extends boolean = false> =
         form__dropzone?: ComponentStyles;
         form__attatch?: ComponentStyles;
         form__send?: ComponentStyles;
+        form_error?: ComponentStyles;
         form_field?: ComponentStyles;
 
         attachment?: ComponentStyles;

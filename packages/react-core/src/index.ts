@@ -35,6 +35,8 @@ export {
 } from './components';
 
 export {
+  AsyncDataAction,
+  DataAction,
   useDeprecationWarning,
   UseDeprecationWarning,
   useGetUrl,

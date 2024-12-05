@@ -135,6 +135,11 @@ export const ComponentsMetadata: ComponentClassNameItems = {
     components: ['AIConversation'],
     description: 'Class applied to the form element',
   },
+  AIConversationFormError: {
+    className: ComponentClassName.AIConversationFormError,
+    components: ['AIConversation'],
+    description: 'Class applied to the error message of the form',
+  },
   AIConversationFormAttach: {
     className: ComponentClassName.AIConversationFormAttach,
     components: ['AIConversation'],

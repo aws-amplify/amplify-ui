@@ -110,6 +110,7 @@ exports[`Sitemap Snapshot 1`] = `
 /react/connected-components/liveness/troubleshooting, 
 /react/connected-components/storage, 
 /react/connected-components/storage/fileuploader, 
+/react/connected-components/storage/storage-browser, 
 /react/connected-components/storage/storageimage, 
 /react/getting-started/accessibility, 
 /react/getting-started/figma, 

@@ -16,7 +16,8 @@ export const ElementsContext = React.createContext<Elements | undefined>(
  *
  * `ElementsProvider` provides the values contained in `ElementsContext`
  * to its `children`. `ElementsContext` lookup is handled directly
- * by `BaseElement`components returned by `defineBaseElement`.
+ * by `BaseElement`components returned by `defineBaseElement` and
+ * `defineBaseElementWithRef`.
  *
  * @example
  *
@@ -25,7 +26,7 @@ export const ElementsContext = React.createContext<Elements | undefined>(
  *
  * ```tsx
  * // `BaseElement`, renders custom or default element defintion
- * const ViewElement = defineBaseElement({
+ * const ViewElement = defineBaseElementWithRef({
  *   displayName: "View",
  *   type: "div",
  * });

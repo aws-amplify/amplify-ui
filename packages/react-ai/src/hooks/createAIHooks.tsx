@@ -17,9 +17,6 @@ type UseAIHooks<
   >;
 } & UseAIGenerationHookWrapper<keyof Client['generations'], Schema>;
 
-/**
- * @experimental
- */
 export function createAIHooks<
   Client extends Record<'generations' | 'conversations', Record<string, any>>,
   Schema extends getSchema<Client>,

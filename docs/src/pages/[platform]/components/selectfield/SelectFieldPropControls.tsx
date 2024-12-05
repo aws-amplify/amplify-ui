@@ -116,7 +116,7 @@ export const SelectFieldPropControls: SelectFieldPropControlsInterface = ({
         label="errorMessage"
         name="errorMessage"
         placeholder="Specify error message"
-        value={errorMessage}
+        value={errorMessage as string}
         onChange={(event) =>
           setErrorMessage(
             event.target.value as SelectFieldProps['errorMessage']

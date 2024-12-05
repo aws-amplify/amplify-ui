@@ -1,8 +1,8 @@
-import { Amplify } from 'aws-amplify';
-import { Authenticator } from '@aws-amplify/ui-react';
-import { generateClient } from 'aws-amplify/data';
 import React from 'react';
-import { AIContextProvider, createAIHooks } from '@aws-amplify/ui-react-ai';
+import { Amplify } from 'aws-amplify';
+import { generateClient } from 'aws-amplify/data';
+import { Authenticator } from '@aws-amplify/ui-react';
+import { createAIHooks } from '@aws-amplify/ui-react-ai';
 
 import outputs from './amplify_outputs.js';
 import type { Schema } from '@environments/ai/gen2/amplify/data/resource';
@@ -13,14 +13,6 @@ const { useAIConversation } = createAIHooks(client);
 Amplify.configure(outputs);
 
 export default function App() {
-  return (
-    <AIContextProvider>
-      <MyConversation />
-    </AIContextProvider>
-  );
-}
-
-export function MyConversation() {
   const [
     {
       data: { messages },

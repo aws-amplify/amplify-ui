@@ -20,8 +20,6 @@ class MyDocument extends Document {
         </Head>
         <body>
           <title>React Example App</title>
-          <h1>React Example App</h1>
-
           <Main />
           <NextScript />
         </body>

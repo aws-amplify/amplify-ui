@@ -73,7 +73,7 @@ export const esDict: AuthenticatorDictionary = {
   'Confirm Sign In': 'Confirmar inicio de sesión',
   'Forgot Password': 'Olvidé mi contraseña',
   'Incorrect username or password.':
-  'Nombre de usuario o contraseña incorrecta',
+    'Nombre de usuario o contraseña incorrecta',
   'Enter your Family Name': 'Escriba su apellido',
   'Enter your Given Name': 'Escriba su nombre',
   'Given Name': 'Nombre',
@@ -96,12 +96,19 @@ export const esDict: AuthenticatorDictionary = {
   'Username/client id combination not found.': 'El usuario no existe',
   'Username cannot be empty': 'El nombre de usuario no puede estar vacío',
   'Your passwords must match': 'Las contraseñas deben coincidir',
-  'Password must have at least 8 characters': 'La contraseña debe tener al menos 8 caracteres',
-  'Password did not conform with policy: Password must have uppercase characters': 'La contraseña debe tener al menos un carácter en mayúscula',
-  'Password did not conform with policy: Password must have numeric characters': 'La contraseña debe tener al menos un carácter numérico',
-  'Password did not conform with policy: Password must have symbol characters': 'La contraseña debe tener al menos un símbolo',
-  'Password did not conform with policy: Password must have lowercase characters': 'La contraseña debe tener al menos un carácter en minúsculas',
-  'Invalid verification code provided, please try again.': 'Código de verificación no válido, inténtelo de nuevo.',
-  'Attempt limit exceeded, please try after some time.': 'Número máximo de intentos excedido, por favor inténtelo de nuevo más tarde.',
-  'A network error has occurred.': 'Se ha producido un error de red.'
+  'Password must have at least 8 characters':
+    'La contraseña debe tener al menos 8 caracteres',
+  'Password did not conform with policy: Password must have uppercase characters':
+    'La contraseña debe tener al menos un carácter en mayúscula',
+  'Password did not conform with policy: Password must have numeric characters':
+    'La contraseña debe tener al menos un carácter numérico',
+  'Password did not conform with policy: Password must have symbol characters':
+    'La contraseña debe tener al menos un símbolo',
+  'Password did not conform with policy: Password must have lowercase characters':
+    'La contraseña debe tener al menos un carácter en minúsculas',
+  'Invalid verification code provided, please try again.':
+    'Código de verificación no válido, inténtelo de nuevo.',
+  'Attempt limit exceeded, please try after some time.':
+    'Número máximo de intentos excedido, por favor inténtelo de nuevo más tarde.',
+  'A network error has occurred.': 'Se ha producido un error de red.',
 };

@@ -5,7 +5,6 @@ export {
 } from './FileUploader';
 
 export { StorageImage, StorageImageProps } from './StorageImage';
-
 export {
   StorageManager,
   StorageManagerHandle,

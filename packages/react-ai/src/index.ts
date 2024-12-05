@@ -6,7 +6,7 @@ export {
   ResponseComponent,
   SuggestedPrompt,
 } from './components';
-export { createAIHooks, AIContextProvider } from './hooks';
+export { createAIHooks } from './hooks';
 export {
   ConversationMessage,
   ConversationMessageContent,

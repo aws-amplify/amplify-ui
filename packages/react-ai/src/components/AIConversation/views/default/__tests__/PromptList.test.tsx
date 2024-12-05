@@ -2,12 +2,12 @@ import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import { PromptList } from '../PromptList';
 import { ComponentClassName } from '@aws-amplify/ui';
-import { ConversationInputContext } from '../../../context';
+import { ConversationInputContextProps } from '../../../context';
 
 describe('PromptList', () => {
   const mockSetInput = jest.fn<
-    ReturnType<Required<ConversationInputContext>['setInput']>,
-    Parameters<Required<ConversationInputContext>['setInput']>
+    ReturnType<Required<ConversationInputContextProps>['setInput']>,
+    Parameters<Required<ConversationInputContextProps>['setInput']>
   >();
 
   it('renders without crashing', () => {

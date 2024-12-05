@@ -7,7 +7,7 @@
   "scripts": {
     "clean": "rimraf node_modules",
     "dev": "TZ=UTC cypress open",
-    "test": "TZ=UTC cypress run --spec 'features/**/*.feature'"
+    "test:web": "TZ=UTC cypress run --spec 'features/**/*.feature'"
   },
   "cypress-cucumber-preprocessor": {
     "filterSpecs": true,

@@ -12,10 +12,6 @@ interface GlobalStyleProps extends React.ComponentProps<'style'> {
   styles: Parameters<typeof createGlobalCSS>[0];
 }
 
-/**
- * @experimental
- * [📖 Docs](https://ui.docs.amplify.aws/react/components/theme)
- */
 export const GlobalStyle = ({
   styles,
   ...rest
