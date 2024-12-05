@@ -153,40 +153,69 @@ describe('getInput', () => {
     expect(output).toStrictEqual(expected);
   });
 
-  it('includes additional values returned from `processFile` in `options`', async () => {
+  it('correctly parses values returned from `processFile`', async () => {
     const contentDisposition = 'attachment';
     const metadata = { key };
-
-    const expected: UploadDataWithPathInput = {
-      data: file,
-      options: {
-        bucket: undefined,
-        contentDisposition,
-        contentType: file.type,
-        metadata,
-        onProgress,
-        useAccelerateEndpoint: undefined,
-      },
-      path: `${stringPath}${processFilePrefix}${key}`,
-    };
+    const processedFile = new File([''], `myfile.txt`);
 
     const input = getInput({
       ...pathStringInput,
       processFile: ({ key, ...rest }) => ({
+        ...rest,
         key: `${processFilePrefix}${key}`,
+        file: processedFile,
         metadata,
         contentDisposition,
-        ...rest,
       }),
     });
 
     const output = await input();
 
-    expect(output).toStrictEqual(expected);
-    expect(output.options?.metadata).toStrictEqual(metadata);
-    expect(output.options?.contentDisposition).toStrictEqual(
-      contentDisposition
-    );
+    expect(output).toMatchObject({
+      data: expect.any(File),
+      options: {
+        contentDisposition,
+        contentType: file.type,
+        metadata,
+        onProgress: expect.any(Function),
+        useAccelerateEndpoint: undefined,
+      },
+      path: `${stringPath}${processFilePrefix}${key}`,
+    });
+    expect(output.data).toBe(processedFile);
+  });
+
+  it('correctly parses values returned from `processFile` when in accessLevel mode', async () => {
+    const contentDisposition = 'attachment';
+    const metadata = { key };
+    const processedFile = new File([], `myfile.txt`);
+
+    const input = getInput({
+      ...accessLevelWithoutPathInput,
+      processFile: ({ key, ...rest }) => ({
+        ...rest,
+        key: `${processFilePrefix}${key}`,
+        metadata,
+        contentDisposition,
+        file: processedFile,
+      }),
+    });
+
+    const output = await input();
+
+    expect(output).toMatchObject({
+      data: expect.any(File),
+      options: {
+        accessLevel,
+        contentDisposition,
+        contentType: file.type,
+        metadata,
+        onProgress: expect.any(Function),
+        useAccelerateEndpoint: undefined,
+      },
+    });
+
+    expect(output.data).toBe(processedFile);
   });
 
   it('defaults `options.contentType` to "binary/octet-stream" when no file type is provided', async () => {

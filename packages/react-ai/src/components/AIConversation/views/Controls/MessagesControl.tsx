@@ -1,7 +1,10 @@
 import React from 'react';
+import { Image } from '@aws-amplify/ui-react';
 import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
 
 import {
+  FallbackComponentContext,
+  MessageRendererContext,
   MessagesContext,
   MessageVariantContext,
   RoleContext,
@@ -17,29 +20,28 @@ import {
   ResponseComponentsContext,
 } from '../../context/ResponseComponentsContext';
 import { ControlsContext } from '../../context/ControlsContext';
+import { ImageProps } from '@aws-amplify/ui-react';
+import { classNames } from '@aws-amplify/ui';
 
-const { Image, Span, Text, View } = AIConversationElements;
+const { Text, View } = AIConversationElements;
 
-const MESSAGES_BLOCK = 'ai-messages';
-const MESSAGE_BLOCK = 'ai-message';
+const MESSAGES_BLOCK = 'amplify-ai-conversation__message__list';
+const MESSAGE_BLOCK = 'amplify-ai-conversation__message';
 
-const MediaContentBase = withBaseElementProps(Image, {
-  alt: 'Image attachment',
-});
-
-const MediaContent: typeof MediaContentBase = React.forwardRef(
-  function MediaContent(props, ref) {
-    const variant = React.useContext(MessageVariantContext);
-    const role = React.useContext(RoleContext);
-    return (
-      <MediaContentBase
-        ref={ref}
-        className={`${MESSAGE_BLOCK}__image ${MESSAGE_BLOCK}__image--${variant} ${MESSAGE_BLOCK}__image--${role}`}
-        {...props}
-      />
-    );
-  }
-);
+const MediaContent: React.ComponentType<ImageProps> = (props) => {
+  const variant = React.useContext(MessageVariantContext);
+  const role = React.useContext(RoleContext);
+  return (
+    <Image
+      className={classNames(
+        `${MESSAGE_BLOCK}__image`,
+        variant && `${MESSAGE_BLOCK}__image--${variant}`,
+        `${MESSAGE_BLOCK}__image--${role}`
+      )}
+      {...props}
+    />
+  );
+};
 
 const TextContent: typeof Text = React.forwardRef(
   function TextContent(props, ref) {
@@ -47,79 +49,75 @@ const TextContent: typeof Text = React.forwardRef(
   }
 );
 
-const ContentContainer: typeof View = React.forwardRef(
-  function ContentContainer(props, ref) {
-    const variant = React.useContext(MessageVariantContext);
-    return (
-      <View
-        data-testid={'content'}
-        className={`${MESSAGE_BLOCK}__content ${MESSAGE_BLOCK}__content--${variant}`}
-        ref={ref}
-        {...props}
-      />
-    );
+const ToolContent = ({
+  toolUse,
+}: {
+  toolUse: NonNullable<ConversationMessage['content'][number]['toolUse']>;
+}) => {
+  const responseComponents = React.useContext(ResponseComponentsContext) ?? {};
+  const FallbackComponent = React.useContext(FallbackComponentContext);
+
+  // For now tool use is limited to custom response components
+  const { name, input } = toolUse;
+
+  if (!name || !name.startsWith(RESPONSE_COMPONENT_PREFIX)) {
+    return;
+  } else {
+    const response = responseComponents[name];
+    if (response) {
+      const CustomComponent = response.component;
+      return <CustomComponent {...(input as object)} />;
+    }
+    // fallback if there is a UI component message but we don't have
+    // a React component that matches
+    if (FallbackComponent) {
+      return <FallbackComponent {...(input as object)} />;
+    }
   }
-);
+};
 
 export const MessageControl: MessageControl = ({ message }) => {
-  const responseComponents = React.useContext(ResponseComponentsContext);
+  const messageRenderer = React.useContext(MessageRendererContext);
+
   return (
-    <ContentContainer>
+    <>
       {message.content.map((content, index) => {
         if (content.text) {
-          return (
+          return messageRenderer?.text ? (
+            <React.Fragment key={index}>
+              {messageRenderer.text({ text: content.text })}
+            </React.Fragment>
+          ) : (
             <TextContent data-testid={'text-content'} key={index}>
               {content.text}
             </TextContent>
           );
         } else if (content.image) {
-          return (
+          return messageRenderer?.image ? (
+            <React.Fragment key={index}>
+              {messageRenderer?.image({ image: content.image })}
+            </React.Fragment>
+          ) : (
             <MediaContent
               data-testid={'image-content'}
               key={index}
+              alt=""
               src={convertBufferToBase64(
                 content.image?.source.bytes,
                 content.image?.format
               )}
-            ></MediaContent>
+            />
           );
         } else if (content.toolUse) {
-          // For now tool use is limited to custom response components
-          const { name, input } = content.toolUse;
-          if (
-            !responseComponents ||
-            !name ||
-            !name.startsWith(RESPONSE_COMPONENT_PREFIX)
-          ) {
-            return;
-          } else {
-            const response = responseComponents[name];
-            const CustomComponent = response.component;
-            return <CustomComponent {...(input as object)} key={index} />;
-          }
+          return <ToolContent toolUse={content.toolUse} key={index} />;
         }
       })}
-    </ContentContainer>
+    </>
   );
 };
-
-MessageControl.Container = ContentContainer;
-MessageControl.MediaContent = MediaContent;
-MessageControl.TextContent = TextContent;
-interface MessageControl<
-  T extends Partial<AIConversationElements> = AIConversationElements,
-> {
+interface MessageControl {
   (props: { message: ConversationMessage }): JSX.Element;
-  Container: T['View'];
-  MediaContent: T['Image'];
-  TextContent: T['Text'];
 }
-
-const Separator = withBaseElementProps(Span, {
-  'aria-hidden': true,
-  children: '|',
-  className: `${MESSAGE_BLOCK}__separator`,
-});
 
 const Timestamp = withBaseElementProps(Text, {
   className: `${MESSAGE_BLOCK}__timestamp`,
@@ -164,7 +162,7 @@ const Layout: typeof View = React.forwardRef(function Layout(props, ref) {
   );
 });
 
-export const MessagesControl: MessagesControl = ({ renderMessage }) => {
+export const MessagesControl: MessagesControl = () => {
   const messages = React.useContext(MessagesContext);
   const controls = React.useContext(ControlsContext);
   const { getMessageTimestampText } = useConversationDisplayText();
@@ -226,9 +224,7 @@ export const MessagesControl: MessagesControl = ({ renderMessage }) => {
   return (
     <Layout>
       {messagesWithRenderableContent?.map((message, index) => {
-        return renderMessage ? (
-          renderMessage(message)
-        ) : (
+        return (
           <RoleContext.Provider value={message.role} key={`message-${index}`}>
             <MessageContainer
               data-testid={`message`}
@@ -240,7 +236,6 @@ export const MessagesControl: MessagesControl = ({ renderMessage }) => {
             >
               <HeaderContainer>
                 <AvatarControl />
-                <Separator />
                 <Timestamp>
                   {getMessageTimestampText(new Date(message.createdAt))}
                 </Timestamp>
@@ -266,17 +261,13 @@ MessagesControl.Container = MessageContainer;
 MessagesControl.HeaderContainer = HeaderContainer;
 MessagesControl.Layout = Layout;
 MessagesControl.Message = MessageControl;
-MessagesControl.Separator = Separator;
 
 export interface MessagesControl {
-  (props: {
-    renderMessage?: (message: ConversationMessage) => React.ReactNode;
-  }): JSX.Element;
+  (): JSX.Element;
   ActionsBar: ActionsBarControl;
   Avatar: AvatarControl;
   Container: AIConversationElements['View'];
   HeaderContainer: AIConversationElements['View'];
   Layout: AIConversationElements['View'];
   Message: MessageControl;
-  Separator: AIConversationElements['Span'];
 }

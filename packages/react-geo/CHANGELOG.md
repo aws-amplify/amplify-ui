@@ -1,5 +1,42 @@
 # @aws-amplify/ui-react-geo
 
+## 2.0.33
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @aws-amplify/ui-react-core@3.1.1
+
+## 2.0.32
+
+### Patch Changes
+
+- Updated dependencies [[`70971f310`](https://github.com/aws-amplify/amplify-ui/commit/70971f310f69717657849f29d0a9e1d993b08d9a)]:
+  - @aws-amplify/ui-react-core@3.1.0
+
+## 2.0.31
+
+### Patch Changes
+
+- Updated dependencies [[`90ea18ba0`](https://github.com/aws-amplify/amplify-ui/commit/90ea18ba076f884cad7f49b646f3f820e1b80c0e)]:
+  - @aws-amplify/ui-react-core@3.0.30
+
+## 2.0.30
+
+### Patch Changes
+
+- [#5917](https://github.com/aws-amplify/amplify-ui/pull/5917) [`3655af2be`](https://github.com/aws-amplify/amplify-ui/commit/3655af2be54733d364e71d3c7f86f32d7bbcf811) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - chore(ai): adding UA string for AIConversation
+
+- Updated dependencies [[`3655af2be`](https://github.com/aws-amplify/amplify-ui/commit/3655af2be54733d364e71d3c7f86f32d7bbcf811)]:
+  - @aws-amplify/ui-react-core@3.0.29
+
+## 2.0.29
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @aws-amplify/ui-react-core@3.0.28
+
 ## 2.0.28
 
 ### Patch Changes

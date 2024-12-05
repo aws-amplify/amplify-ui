@@ -3,16 +3,18 @@ import { render, screen } from '@testing-library/react';
 
 import { ActionsProvider } from '../../../context/ActionsContext';
 import { AvatarsProvider } from '../../../context/AvatarsContext';
-import {
-  MessagesProvider,
-  RoleContext,
-} from '../../../context/MessagesContext';
+import { MessagesProvider } from '../../../context/MessagesContext';
 import { MessageVariantProvider } from '../../../context/MessageVariantContext';
 import { MessagesControl, MessageControl } from '../MessagesControl';
 
 import { convertBufferToBase64 } from '../../../utils';
 import { ConversationMessage } from '../../../../../types';
 import { ResponseComponentsProvider } from '../../../context/ResponseComponentsContext';
+import {
+  FallbackComponentProvider,
+  MessageRendererProvider,
+} from '../../../context';
+import { View } from '@aws-amplify/ui-react';
 
 const AITextMessage: ConversationMessage = {
   conversationId: 'foobar',
@@ -164,12 +166,13 @@ describe('MessagesControl', () => {
     );
     const messagesContainer = container.firstChild;
     expect(messagesContainer).toBeDefined();
-    expect(messagesContainer).toHaveClass('ai-messages__container');
 
     const messageContainer = messagesContainer?.firstChild;
     expect(messageContainer).toBeDefined();
-    expect(messageContainer).toHaveClass('ai-message');
-    expect(messageContainer).toHaveClass('ai-message--assistant');
+    expect(messageContainer).toHaveClass('amplify-ai-conversation__message');
+    expect(messageContainer).toHaveClass(
+      'amplify-ai-conversation__message--assistant'
+    );
   });
 
   it('renders MessagesControl with custom classnames', () => {
@@ -184,14 +187,16 @@ describe('MessagesControl', () => {
     );
     const messagesContainer = container.firstChild;
     expect(messagesContainer).toBeDefined();
-    expect(messagesContainer).toHaveClass('ai-messages__container');
-    expect(messagesContainer).toHaveClass('ai-messages__container--bubble');
 
     const messageContainer = messagesContainer?.firstChild;
     expect(messageContainer).toBeDefined();
-    expect(messageContainer).toHaveClass('ai-message');
-    expect(messageContainer).toHaveClass('ai-message--assistant');
-    expect(messageContainer).toHaveClass('ai-message--bubble');
+    expect(messageContainer).toHaveClass('amplify-ai-conversation__message');
+    expect(messageContainer).toHaveClass(
+      'amplify-ai-conversation__message--assistant'
+    );
+    expect(messageContainer).toHaveClass(
+      'amplify-ai-conversation__message--bubble'
+    );
   });
 
   it('renders a MessagesControl element with avatars and actions', () => {
@@ -210,44 +215,6 @@ describe('MessagesControl', () => {
     const actionElements = screen.getAllByRole('button');
     expect(avatarElements).toHaveLength(3);
     expect(actionElements).toHaveLength(2);
-  });
-
-  it('renders a MessagesControl element with a custom renderMessage function', () => {
-    const customMessage = jest.fn((message: ConversationMessage) => (
-      <div key={message.id} data-testid="custom-message">
-        {message.content.map((content, index) => {
-          if (content.text) {
-            return <p key={index}>{content.text}</p>;
-          } else if (content.image) {
-            return (
-              <img
-                key={index}
-                src={convertBufferToBase64(
-                  content.image?.source.bytes,
-                  content.image?.format
-                )}
-              ></img>
-            );
-          }
-        })}
-      </div>
-    ));
-
-    render(
-      <MessagesProvider
-        messages={[AITextMessage, userTextMessage, AIImageMessage]}
-      >
-        <MessagesControl renderMessage={customMessage} />
-      </MessagesProvider>
-    );
-
-    expect(customMessage).toHaveBeenCalledTimes(3);
-
-    const defaultMessageElements = screen.queryAllByTestId('message');
-    expect(defaultMessageElements).toHaveLength(0);
-
-    const customMessageElements = screen.queryAllByTestId('custom-message');
-    expect(customMessageElements).toHaveLength(3);
   });
 
   it('renders avatars and actions appropriately if the same user sends multiple messages', () => {
@@ -321,40 +288,6 @@ describe('MessagesControl', () => {
 });
 
 describe('MessageControl', () => {
-  it('renders default classnames', () => {
-    render(
-      <RoleContext.Provider value="assistant">
-        <MessageControl message={AIImageMessage} />
-      </RoleContext.Provider>
-    );
-
-    const content = screen.getByTestId('content');
-    expect(content).toBeInTheDocument();
-    expect(content).toHaveClass('ai-message__content');
-
-    const textContent = screen.getByText('Yes, here is proof.');
-    const imageContent = screen.getByRole('img');
-    expect(textContent).toBeInTheDocument();
-    expect(textContent).toHaveClass('ai-message__text');
-    expect(imageContent).toBeInTheDocument();
-    expect(imageContent).toHaveClass('ai-message__image');
-  });
-
-  it('renders custom classnames', () => {
-    render(
-      <RoleContext.Provider value="assistant">
-        <MessageVariantProvider variant="bubble">
-          <MessageControl message={AIImageMessage} />
-        </MessageVariantProvider>
-      </RoleContext.Provider>
-    );
-
-    const content = screen.getByTestId('content');
-    expect(content).toBeInTheDocument();
-    expect(content).toHaveClass('ai-message__content');
-    expect(content).toHaveClass('ai-message__content--bubble');
-  });
-
   it('renders text content', () => {
     render(<MessageControl message={userTextMessage} />);
     const message = screen.getByText('Are you sentient?');
@@ -377,6 +310,18 @@ describe('MessageControl', () => {
     expect(message).toBeInTheDocument();
   });
 
+  it('renders fallback response component if no response component is found', async () => {
+    render(
+      <FallbackComponentProvider
+        FallbackComponent={() => <View testId="fallback" />}
+      >
+        <MessageControl message={AIResponseComponentMessage} />
+      </FallbackComponentProvider>
+    );
+    const fallbackComponent = await screen.findByTestId('fallback');
+    expect(fallbackComponent).toBeInTheDocument();
+  });
+
   it('renders text when sent with a tooluse content', () => {
     render(<MessageControl message={TextAndToolUseMessage} />);
     const message = screen.getByText('hey what up');
@@ -385,6 +330,35 @@ describe('MessageControl', () => {
 
   it('renders nothing when only a toolUse block is sent', () => {
     const { container } = render(<MessageControl message={ToolUseMessage} />);
-    expect(container.firstChild).toBeEmptyDOMElement();
+    expect(container.firstChild).toBeNull();
+  });
+
+  it('uses text message renderer if passed', () => {
+    render(
+      <MessageRendererProvider
+        text={({ text }) => <div data-testid="custom-message">{text}</div>}
+      >
+        <MessageControl message={AITextMessage} />
+      </MessageRendererProvider>
+    );
+    const message = screen.getByTestId('custom-message');
+    expect(message).toBeInTheDocument();
+  });
+
+  it('uses image message renderer if passed', () => {
+    render(
+      <MessageRendererProvider
+        image={({ image }) => (
+          <img
+            data-testid="custom-message"
+            src={convertBufferToBase64(image.source.bytes, image.format)}
+          />
+        )}
+      >
+        <MessageControl message={AIImageMessage} />
+      </MessageRendererProvider>
+    );
+    const message = screen.getByTestId('custom-message');
+    expect(message).toBeInTheDocument();
   });
 });

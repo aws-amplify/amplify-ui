@@ -1,6 +1,8 @@
+export { AIContextContext, AIContextProvider } from './AIContextContext';
 export { ActionsContext, ActionsProvider } from './ActionsContext';
 export { AvatarsContext, AvatarsProvider } from './AvatarsContext';
 export {
+  ConversationInputContextProps,
   ConversationInputContext,
   ConversationInput,
   ConversationInputContextProvider,
@@ -34,5 +36,22 @@ export {
   RESPONSE_COMPONENT_PREFIX,
 } from './ResponseComponentsContext';
 export { SendMessageContextProvider } from './SendMessageContext';
-
+export {
+  MessageRendererProvider,
+  MessageRendererContext,
+  useMessageRenderer,
+} from './MessageRenderContext';
+export {
+  AttachmentProvider,
+  AttachmentContext,
+  AttachmentContextProps,
+} from './AttachmentContext';
+export {
+  WelcomeMessageContext,
+  WelcomeMessageProvider,
+} from './WelcomeMessageContext';
+export {
+  FallbackComponentContext,
+  FallbackComponentProvider,
+} from './FallbackComponentContext';
 export * from './elements';

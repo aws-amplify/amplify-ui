@@ -607,6 +607,150 @@ exports[`CSS Variables Table 1`] = `
         "value": "var(--amplify-space-small)"
     },
     {
+        "variable": "--amplify-components-ai-conversation-attachment-border-color",
+        "value": "var(--amplify-colors-border-secondary)"
+    },
+    {
+        "variable": "--amplify-components-ai-conversation-attachment-border-radius",
+        "value": "var(--amplify-radii-small)"
+    },
+    {
+        "variable": "--amplify-components-ai-conversation-attachment-border-width",
+        "value": "var(--amplify-border-widths-small)"
+    },
+    {
+        "variable": "--amplify-components-ai-conversation-attachment-font-size",
+        "value": "var(--amplify-font-sizes-small)"
+    },
+    {
+        "variable": "--amplify-components-ai-conversation-attachment-gap",
+        "value": "var(--amplify-space-xs)"
+    },
+    {
+        "variable": "--amplify-components-ai-conversation-attachment-image-height",
+        "value": "var(--amplify-font-sizes-medium)"
+    },
+    {
+        "variable": "--amplify-components-ai-conversation-attachment-image-width",
+        "value": "var(--amplify-font-sizes-medium)"
+    },
+    {
+        "variable": "--amplify-components-ai-conversation-attachment-list-gap",
+        "value": "var(--amplify-space-xxs)"
+    },
+    {
+        "variable": "--amplify-components-ai-conversation-attachment-list-padding-block-start",
+        "value": "var(--amplify-space-xs)"
+    },
+    {
+        "variable": "--amplify-components-ai-conversation-attachment-name-color",
+        "value": "var(--amplify-colors-font-primary)"
+    },
+    {
+        "variable": "--amplify-components-ai-conversation-attachment-name-font-size",
+        "value": "var(--amplify-font-sizes-small)"
+    },
+    {
+        "variable": "--amplify-components-ai-conversation-attachment-name-font-weight",
+        "value": "var(--amplify-font-weights-normal)"
+    },
+    {
+        "variable": "--amplify-components-ai-conversation-attachment-padding-block",
+        "value": "var(--amplify-space-xxxs)"
+    },
+    {
+        "variable": "--amplify-components-ai-conversation-attachment-padding-inline",
+        "value": "var(--amplify-space-xs)"
+    },
+    {
+        "variable": "--amplify-components-ai-conversation-attachment-remove-padding",
+        "value": "var(--amplify-space-xxs)"
+    },
+    {
+        "variable": "--amplify-components-ai-conversation-attachment-size-color",
+        "value": "var(--amplify-colors-font-tertiary)"
+    },
+    {
+        "variable": "--amplify-components-ai-conversation-attachment-size-font-size",
+        "value": "var(--amplify-font-sizes-small)"
+    },
+    {
+        "variable": "--amplify-components-ai-conversation-attachment-size-font-weight",
+        "value": "var(--amplify-font-weights-normal)"
+    },
+    {
+        "variable": "--amplify-components-ai-conversation-form-gap",
+        "value": "var(--amplify-space-small)"
+    },
+    {
+        "variable": "--amplify-components-ai-conversation-form-padding",
+        "value": "var(--amplify-space-small)"
+    },
+    {
+        "variable": "--amplify-components-ai-conversation-message-actions-gap",
+        "value": "var(--amplify-space-xs)"
+    },
+    {
+        "variable": "--amplify-components-ai-conversation-message-assistant-background-color",
+        "value": "var(--amplify-colors-primary-10)"
+    },
+    {
+        "variable": "--amplify-components-ai-conversation-message-background-color",
+        "value": "var(--amplify-colors-background-secondary)"
+    },
+    {
+        "variable": "--amplify-components-ai-conversation-message-body-gap",
+        "value": "var(--amplify-space-xs)"
+    },
+    {
+        "variable": "--amplify-components-ai-conversation-message-border-radius",
+        "value": "var(--amplify-radii-large)"
+    },
+    {
+        "variable": "--amplify-components-ai-conversation-message-gap",
+        "value": "var(--amplify-space-small)"
+    },
+    {
+        "variable": "--amplify-components-ai-conversation-message-padding-block",
+        "value": "var(--amplify-space-small)"
+    },
+    {
+        "variable": "--amplify-components-ai-conversation-message-padding-inline",
+        "value": "var(--amplify-space-small)"
+    },
+    {
+        "variable": "--amplify-components-ai-conversation-message-sender-gap",
+        "value": "var(--amplify-space-small)"
+    },
+    {
+        "variable": "--amplify-components-ai-conversation-message-sender-timestamp-color",
+        "value": "var(--amplify-colors-font-tertiary)"
+    },
+    {
+        "variable": "--amplify-components-ai-conversation-message-sender-timestamp-font-size",
+        "value": "inherit"
+    },
+    {
+        "variable": "--amplify-components-ai-conversation-message-sender-timestamp-font-weight",
+        "value": "inherit"
+    },
+    {
+        "variable": "--amplify-components-ai-conversation-message-sender-username-color",
+        "value": "var(--amplify-colors-font-primary)"
+    },
+    {
+        "variable": "--amplify-components-ai-conversation-message-sender-username-font-size",
+        "value": "inherit"
+    },
+    {
+        "variable": "--amplify-components-ai-conversation-message-sender-username-font-weight",
+        "value": "var(--amplify-font-weights-bold)"
+    },
+    {
+        "variable": "--amplify-components-ai-conversation-message-user-background-color",
+        "value": "var(--amplify-colors-background-secondary)"
+    },
+    {
         "variable": "--amplify-components-alert-align-items",
         "value": "center"
     },

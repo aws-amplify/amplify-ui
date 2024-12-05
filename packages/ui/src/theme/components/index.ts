@@ -1,4 +1,5 @@
 import { WebTokens } from '../tokens';
+import { AIConversationTheme } from './aiConverstion';
 import { AccordionTheme } from './accordion';
 import { AlertTheme } from './alert';
 import { AutoCompleteTheme } from './autocomplete';
@@ -33,6 +34,7 @@ import { SelectTheme } from './select';
 import { SelectFieldTheme } from './selectField';
 import { SliderFieldTheme } from './sliderField';
 import { StepperFieldTheme } from './stepperField';
+import { StorageBrowserTheme } from './storageBrowser';
 import { StorageManagerTheme } from './storageManager';
 import { SwitchFieldTheme, SwitchTheme } from './switchField';
 import { TableTheme } from './table';
@@ -51,6 +53,7 @@ export type { ComponentTheme, BaseComponentTheme, BaseTheme };
 export type ComponentsTheme<TokensType extends WebTokens = WebTokens> =
   | BaseComponentTheme<BaseTheme, string, TokensType>
   | BaseComponentTheme<AccordionTheme, 'accordion', TokensType>
+  | BaseComponentTheme<AIConversationTheme, 'ai-conversation', TokensType>
   | BaseComponentTheme<AlertTheme, 'alert', TokensType>
   | BaseComponentTheme<AutoCompleteTheme, 'autocomplete', TokensType>
   | BaseComponentTheme<AvatarTheme, 'avatar', TokensType>
@@ -84,6 +87,7 @@ export type ComponentsTheme<TokensType extends WebTokens = WebTokens> =
   | BaseComponentTheme<SelectFieldTheme, 'selectfield', TokensType>
   | BaseComponentTheme<SliderFieldTheme, 'sliderfield', TokensType>
   | BaseComponentTheme<StepperFieldTheme, 'stepperfield', TokensType>
+  | BaseComponentTheme<StorageBrowserTheme, 'storage-browser', TokensType>
   | BaseComponentTheme<StorageManagerTheme, 'storagemanager', TokensType>
   | BaseComponentTheme<SwitchTheme, 'switch', TokensType>
   | BaseComponentTheme<SwitchFieldTheme, 'switchfield', TokensType>
@@ -100,6 +104,7 @@ export type ComponentsTheme<TokensType extends WebTokens = WebTokens> =
 // if the name extends from a known name, like 'alert' this should return the specific shape
 export type AllComponentThemes = {
   accordion: AccordionTheme;
+  'ai-conversation': AIConversationTheme;
   alert: AlertTheme;
   autocomplete: AutoCompleteTheme;
   avatar: AvatarTheme;
@@ -133,6 +138,7 @@ export type AllComponentThemes = {
   selectfield: SelectFieldTheme;
   sliderfield: SliderFieldTheme;
   stepperfield: StepperFieldTheme;
+  'storage-browser': StorageBrowserTheme;
   storagemanager: StorageManagerTheme;
   switch: SwitchTheme;
   switchfield: SwitchFieldTheme;

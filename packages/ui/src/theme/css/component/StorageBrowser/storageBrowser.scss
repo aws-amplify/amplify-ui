@@ -1,0 +1,216 @@
+.amplify-storage-browser {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  height: 100%;
+  position: relative;
+  padding: var(--amplify-space-small);
+  gap: var(--amplify-space-small);
+
+  /* Error boundary */
+  &__error {
+    background-color: var(--amplify-colors-background-error);
+    color: var(--amplify-colors-font-error);
+    padding: var(--amplify-space-medium);
+  }
+
+  &__navigation,
+  &__exit {
+    align-self: flex-start;
+  }
+
+  &__title {
+    font-weight: var(--amplify-font-weights-bold);
+    font-size: var(--amplify-font-sizes-large);
+  }
+
+  &__controls,
+  &__summary,
+  &__footer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: var(--amplify-space-medium);
+  }
+
+  &__footer {
+    justify-content: flex-end;
+  }
+
+  &__search {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    gap: var(--amplify-space-small);
+  }
+
+  &__pagination {
+  }
+
+  &__data-refresh {
+  }
+
+  &__menu {
+  }
+
+  &__drop-zone {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    display: block;
+  }
+
+  &__data-table {
+    overflow: auto;
+    position: relative;
+    border-width: var(--amplify-border-widths-small);
+    border-style: solid;
+    border-color: var(--amplify-colors-border-primary);
+    border-radius: var(--amplify-radii-small);
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  &__table {
+    width: 100%;
+    position: relative;
+
+    // <thead>
+    &-head {
+      position: sticky;
+      top: 0;
+      background: var(--amplify-colors-background-primary);
+      box-shadow: var(--amplify-shadows-small);
+      z-index: 2;
+    }
+
+    // <tbody>
+    &-body {
+    }
+
+    // <tr>
+    &-row {
+    }
+
+    // <th>
+    &-header {
+      border: none;
+      padding: var(--amplify-space-xxxs);
+    }
+
+    // <td>
+    &-data-cell {
+      padding: var(--amplify-space-xxxs);
+
+      &:first-child,
+      &:last-child {
+        border-inline-start-width: 0;
+        border-inline-end-width: 0;
+      }
+
+      &-icon {
+        vertical-align: middle;
+        margin-inline-end: var(--amplify-space-xs);
+      }
+    }
+
+    &-header--select,
+    &-data--select,
+    // TODO: genericize
+    &-header--download,
+    &-data--download,
+    &-data--cancel {
+      text-align: center;
+    }
+
+    &-data--size,
+    &-header--size {
+      text-align: end;
+    }
+
+    &-button-data-cell,
+    &-date-data-cell,
+    &-number-data-cell,
+    &-text-data-cell,
+    &-sort-header {
+      display: flex;
+      width: 100%;
+      gap: var(--amplify-space-xxs);
+      padding: var(--amplify-space-xxs);
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      align-items: center;
+      justify-content: flex-start;
+
+      &-icon {
+        &--action-progress {
+          animation-name: amplify-loader-circular;
+          animation-timing-function: linear;
+          animation-iteration-count: infinite;
+          animation-duration: var(--amplify-components-loader-animation-duration);
+        }
+      }
+    }
+  }
+
+  &__status {
+    display: flex;
+    flex-direction: row;
+    gap: var(--amplify-space-xs);
+    align-items: center;
+
+    &-display {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+      align-items: center;
+      gap: var(--amplify-space-small);
+      flex: 1;
+    }
+
+    &-label {
+      font-weight: var(--amplify-font-weights-bold);
+    }
+
+    &-value {
+      color: var(--amplify-colors-font-secondary);
+    }
+  }
+
+  &__destination {
+    display: flex;
+    flex-direction: row;
+    gap: var(--amplify-space-xs);
+    align-items: center;
+
+    &-label {
+      font-weight: var(--amplify-font-weights-bold);
+    }
+
+    &-value {
+    }
+  }
+
+  &__message {
+    flex: 1;
+  }
+
+  &__buttons {
+    justify-content: flex-end;
+    display: flex;
+    gap: var(--amplify-space-small);
+  }
+
+  &__loader {
+    position: absolute;
+    stroke-width: var(--amplify-border-widths-large);
+    height: var(--amplify-border-widths-large);
+    top: 0;
+    z-index: 3;
+  }
+}
