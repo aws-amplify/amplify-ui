@@ -17,7 +17,7 @@ export interface InAppMessagingProviderProps {
 
 export default function InAppMessagingProvider({
   children,
-}: InAppMessagingProviderProps): JSX.Element {
+}: InAppMessagingProviderProps): React.JSX.Element {
   const [message, setMessage] =
     useState<InAppMessagingContextType['message']>(null);
 

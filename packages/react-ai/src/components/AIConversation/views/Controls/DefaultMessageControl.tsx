@@ -3,7 +3,7 @@ import { MessagesContext } from '../../context';
 import { PromptControl } from './PromptControl';
 import { WelcomeMessageContext } from '../../context/WelcomeMessageContext';
 
-export const DefaultMessageControl = (): JSX.Element | undefined => {
+export const DefaultMessageControl = (): React.JSX.Element | undefined => {
   const messages = React.useContext(MessagesContext);
   const welcomeMessage = React.useContext(WelcomeMessageContext);
 

@@ -29,7 +29,7 @@ export interface TextPropControlsProps extends TextProps {
 }
 
 interface TextPropControlsInterface {
-  (props: TextPropControlsProps): JSX.Element;
+  (props: TextPropControlsProps): React.JSX.Element;
 }
 
 export const TextPropControls: TextPropControlsInterface = ({

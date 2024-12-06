@@ -13,7 +13,7 @@ export const FilterChildren = ({
   allowedFilters,
   children = null,
   targetFilter,
-}: FilterChildrenProps): JSX.Element | null => {
+}: FilterChildrenProps): React.JSX.Element | null => {
   const showContent =
     Array.isArray(allowedFilters) &&
     allowedFilters.some((filter) => filter === targetFilter);

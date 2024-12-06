@@ -11,7 +11,7 @@ import { CarouselMessageProps } from './types';
 
 export default function CarouselMessage(
   props: CarouselMessageProps
-): JSX.Element {
+): React.JSX.Element {
   const { data, ...rest } = props;
   const { style } = rest;
 

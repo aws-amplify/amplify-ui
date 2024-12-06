@@ -7,7 +7,7 @@ export interface MenuPropControlsProps extends MenuProps {
 }
 
 interface MenuPropControlsInterface {
-  (props: MenuPropControlsProps): JSX.Element;
+  (props: MenuPropControlsProps): React.JSX.Element;
 }
 
 export const MenuPropControls: MenuPropControlsInterface = ({

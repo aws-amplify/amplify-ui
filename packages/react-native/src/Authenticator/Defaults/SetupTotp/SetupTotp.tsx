@@ -35,7 +35,7 @@ const SetupTotp = ({
   totpSecretCode,
   validationErrors,
   ...rest
-}: DefaultSetupTotpProps): JSX.Element => {
+}: DefaultSetupTotpProps): React.JSX.Element => {
   const {
     disableFormSubmit: disabled,
     fields: fieldsWithHandlers,

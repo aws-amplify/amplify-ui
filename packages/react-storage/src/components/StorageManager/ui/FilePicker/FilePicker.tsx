@@ -10,7 +10,7 @@ export function FilePicker({
   className = ComponentClassName.StorageManagerFilePicker,
   size = 'small',
   ...props
-}: FilePickerProps): JSX.Element {
+}: FilePickerProps): React.JSX.Element {
   return (
     <Button {...props} className={className} size={size}>
       {children}
