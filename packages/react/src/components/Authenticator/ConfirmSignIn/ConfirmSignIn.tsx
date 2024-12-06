@@ -16,7 +16,7 @@ const { getChallengeText } = authenticatorTextUtil;
 export const ConfirmSignIn = ({
   className,
   variation,
-}: RouteProps): JSX.Element => {
+}: RouteProps): React.JSX.Element => {
   const { isPending } = useAuthenticator((context) => [context.isPending]);
   const { handleChange, handleSubmit } = useFormHandlers();
 
@@ -64,7 +64,7 @@ function Header() {
 }
 
 ConfirmSignIn.Header = Header;
-ConfirmSignIn.Footer = function Footer(): JSX.Element {
+ConfirmSignIn.Footer = function Footer(): React.JSX.Element {
   // @ts-ignore
   return null;
 };

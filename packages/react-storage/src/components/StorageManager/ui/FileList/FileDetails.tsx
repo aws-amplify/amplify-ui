@@ -6,7 +6,7 @@ import { UploadDetailsProps } from './types';
 export const UploadDetails = ({
   displayName,
   fileSize,
-}: UploadDetailsProps): JSX.Element => {
+}: UploadDetailsProps): React.JSX.Element => {
   return (
     <>
       <View className={ComponentClassName.StorageManagerFileMain}>

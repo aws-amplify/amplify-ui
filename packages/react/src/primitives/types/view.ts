@@ -62,7 +62,7 @@ export type PrimitiveProps<
  */
 interface JSElementForwardRefRenderFunction<T, P = {}> {
   // return `JSX.Element` or `null` in place of `React.ReactNode`
-  (props: P, ref: React.ForwardedRef<T>): JSX.Element | null;
+  (props: P, ref: React.ForwardedRef<T>): React.JSX.Element | null;
   displayName?: string | undefined;
   // explicit rejected with `never` required due to
   // https://github.com/microsoft/TypeScript/issues/36826
@@ -94,7 +94,8 @@ interface JSXElementForwardRefExoticComponent<P = {}> {
   (props: P): React.ReactElement | null;
   defaultProps?: Partial<P> | undefined;
   displayName?: string | undefined;
-  propTypes?: React.WeakValidationMap<P> | undefined;
+  // deprecated in React@19 but needed for backwards compatibility
+  propTypes?: any;
   readonly $$typeof: symbol;
 }
 

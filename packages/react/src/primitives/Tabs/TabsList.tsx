@@ -10,7 +10,7 @@ import { BaseTabsListProps, TabsListProps, TabsItemProps } from './types';
 import { TabsContext } from './TabsContext';
 
 const isValidTab = (
-  child: React.ReactFragment | React.ReactChild | React.ReactPortal
+  child: unknown
 ): child is React.ReactElement<TabsItemProps> =>
   React.isValidElement<TabsItemProps>(child);
 

@@ -10,7 +10,9 @@ export function PropsTableExpander({
 }: {
   propsSortedByCategory: SortedPropertiesByCategory;
 }) {
-  const expanderItem = (categoryProperty: CategoryProperty): JSX.Element => {
+  const expanderItem = (
+    categoryProperty: CategoryProperty
+  ): React.JSX.Element => {
     const title = Object.keys(categoryProperty)[0];
     return (
       <Accordion.Item key={title} value={title}>

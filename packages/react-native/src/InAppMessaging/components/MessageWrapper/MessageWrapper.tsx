@@ -17,7 +17,7 @@ export default function MessageWrapper({
   children,
   disableSafeAreaView,
   style,
-}: MessageWrapperProps): JSX.Element {
+}: MessageWrapperProps): React.JSX.Element {
   return (
     <Modal transparent visible supportedOrientations={SUPPORTED_ORIENTATIONS}>
       <SafeAreaProvider>

@@ -4,4 +4,4 @@ export type InternalIcon = (
   props: ViewProps & {
     size?: string | number;
   }
-) => JSX.Element;
+) => React.JSX.Element;
