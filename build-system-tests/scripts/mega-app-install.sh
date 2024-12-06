@@ -105,7 +105,7 @@ if [ "$PKG_MANAGER" == 'yarn' ]; then
     yarn add $DEPENDENCIES
 else
     if [[ "$FRAMEWORK" == "react-native" ]]; then
-        DEPENDENCIES="$TAGGED_UI_FRAMEWORK @aws-amplify/react-native aws-amplify react-native-safe-area-context@4.14.0 @react-native-community/netinfo @react-native-async-storage/async-storage react-native-get-random-values react-native-url-polyfill"
+        DEPENDENCIES="$TAGGED_UI_FRAMEWORK @aws-amplify/react-native aws-amplify react-native-safe-area-context@^4.14.0 @react-native-community/netinfo @react-native-async-storage/async-storage react-native-get-random-values react-native-url-polyfill"
         echo "npm install $DEPENDENCIES"
         npm install $DEPENDENCIES
         if [[ "$BUILD_TOOL" == "expo" ]]; then
