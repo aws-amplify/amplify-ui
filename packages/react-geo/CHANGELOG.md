@@ -1,5 +1,11 @@
 # @aws-amplify/ui-react-geo
 
+## 2.0.34
+
+### Patch Changes
+
+- [#6235](https://github.com/aws-amplify/amplify-ui/pull/6235) [`303c250c2f64853f7f52182554622755a5de52d5`](https://github.com/aws-amplify/amplify-ui/commit/303c250c2f64853f7f52182554622755a5de52d5) Thanks [@calebpollman](https://github.com/calebpollman)! - fix: bump maplibre-gl-js-amplify dep
+
 ## 2.0.33
 
 ### Patch Changes
