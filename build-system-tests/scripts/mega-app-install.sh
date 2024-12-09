@@ -105,7 +105,7 @@ if [ "$PKG_MANAGER" == 'yarn' ]; then
     yarn add $DEPENDENCIES
 else
     if [[ "$FRAMEWORK" == "react-native" ]]; then
-        # react-native-safe-area-context versions 5.0.0+ do no support RN 0.74 and lower
+        # react-native-safe-area-context v5.0.0+ does not support RN 0.74 and lower
         DEPENDENCIES="$TAGGED_UI_FRAMEWORK @aws-amplify/react-native aws-amplify react-native-safe-area-context@^4.2.5 @react-native-community/netinfo @react-native-async-storage/async-storage react-native-get-random-values react-native-url-polyfill"
         echo "npm install $DEPENDENCIES"
         npm install $DEPENDENCIES
