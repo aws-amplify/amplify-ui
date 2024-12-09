@@ -12,8 +12,13 @@ import {
 import { View } from '../View';
 import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
+export const CSS_VAR_START_COLOR: string =
+  '--amplify-components-placeholder-start-color';
+export const CSS_VAR_END_COLOR: string =
+  '--amplify-components-placeholder-end-color';
+
 const PlaceholderPrimitive: Primitive<PlaceholderProps, 'div'> = (
-  { className, children, isLoaded, size, ...rest },
+  { className, children, endColor, isLoaded, size, startColor, ...rest },
   ref
 ) => {
   if (isLoaded) {
@@ -28,6 +33,10 @@ const PlaceholderPrimitive: Primitive<PlaceholderProps, 'div'> = (
         className
       )}
       ref={ref}
+      style={{
+        [CSS_VAR_START_COLOR]: startColor && `${startColor}`,
+        [CSS_VAR_END_COLOR]: endColor && `${endColor}`,
+      }}
       {...rest}
     />
   );

@@ -8095,6 +8095,13 @@ exports[`Props Table 1`] = `
                         "category": "BaseComponentProps",
                         "isOptional": true
                     },
+                    "endColor": {
+                        "name": "endColor",
+                        "type": "StyleToken<Property.Color> | undefined",
+                        "description": "This property will change the animation end color of the placeholder component",
+                        "category": "BasePlaceholderProps",
+                        "isOptional": true
+                    },
                     "isLoaded": {
                         "name": "isLoaded",
                         "type": "boolean | undefined",
@@ -8106,6 +8113,13 @@ exports[`Props Table 1`] = `
                         "name": "size",
                         "type": "'small' | 'large'",
                         "description": "Controls the display size of placeholder",
+                        "category": "BasePlaceholderProps",
+                        "isOptional": true
+                    },
+                    "startColor": {
+                        "name": "startColor",
+                        "type": "StyleToken<Property.Color> | undefined",
+                        "description": "This property will change the animation start color of the placeholder component",
                         "category": "BasePlaceholderProps",
                         "isOptional": true
                     },
