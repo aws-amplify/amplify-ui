@@ -1,6 +1,11 @@
 import * as React from 'react';
 
-import type { StorageAccessLevel } from '@aws-amplify/core';
+import { FileStatus, StorageAccessLevel } from '../FileUploader/types';
+import {
+  FileUploaderDisplayText as StorageManagerDisplayText,
+  PathCallback,
+  UploadTask,
+} from '../FileUploader/utils';
 
 import {
   ContainerProps,
@@ -10,16 +15,6 @@ import {
   FileListProps,
   FilePickerProps,
 } from './ui';
-import { StorageManagerDisplayText, PathCallback, UploadTask } from './utils';
-
-export enum FileStatus {
-  ADDED = 'added',
-  QUEUED = 'queued',
-  UPLOADING = 'uploading',
-  PAUSED = 'paused',
-  ERROR = 'error',
-  UPLOADED = 'uploaded',
-}
 
 export interface StorageFile {
   id: string;

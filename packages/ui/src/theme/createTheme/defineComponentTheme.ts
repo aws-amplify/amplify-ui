@@ -5,6 +5,8 @@ import {
   ComponentThemeOverride,
 } from '../components/utils';
 import { WebTokens } from '../tokens';
+import { WebTheme } from '../types';
+import { createComponentCSS } from './createComponentCSS';
 import {
   createComponentClasses,
   ClassNameFunction,
@@ -28,7 +30,6 @@ type CreateComponentThemeProps<
  * to both completely customize built-in components and
  * build your own components!
  *
- * @experimental
  *
  * ```ts
  * // built-in component styling
@@ -74,16 +75,30 @@ export function defineComponentTheme<
   theme: typeof theme;
   name: string;
   overrides?: typeof overrides;
+  cssText: (props: {
+    theme: Pick<WebTheme, 'tokens' | 'breakpoints' | 'name'>;
+  }) => string;
 } {
   const prefix = 'amplify-';
   const className = createComponentClasses<ThemeType, NameType>({
     name,
     prefix,
   });
+
+  const cssText = (props: {
+    theme: Pick<WebTheme, 'tokens' | 'breakpoints' | 'name'>;
+  }) => {
+    return createComponentCSS({
+      theme: props.theme,
+      components: [{ name, theme }],
+    });
+  };
+
   return {
     className,
     theme,
     overrides,
     name,
+    cssText,
   };
 }

@@ -39,7 +39,22 @@ module.exports = {
     },
     {
       extends: ['@aws-amplify/amplify-ui/jest'],
-      files: ['**/__mocks__/**', '**/__tests__/**'],
+      files: [
+        '**/__tests__/**',
+        // this file doesn't fit the typical pattern of being in a __tests__ directory
+        './projects/ui-angular/src/lib/components/authenticator/components/setup-totp/setup-totp.component.spec.ts',
+      ],
+    },
+    {
+      rules: {
+        'import/no-extraneous-dependencies': [
+          'error',
+          {
+            packageDir: ['.', '../..', './projects/ui-angular'],
+          },
+        ],
+      },
+      files: ['**/*.ts'],
     },
   ],
 };

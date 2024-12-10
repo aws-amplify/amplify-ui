@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text } from 'react-native';
-import { render } from '@testing-library/react-native';
+import { waitFor, render } from '@testing-library/react-native';
 
 import * as UIReactCoreModule from '@aws-amplify/ui-react-core';
 import {
@@ -53,7 +53,9 @@ describe('withAuthenticator', () => {
 
     const { toJSON, queryByTestId } = render(<TestApp />);
 
-    expect(queryByTestId(CHILD_TEST_ID)).toBeNull();
+    waitFor(() => {
+      expect(queryByTestId(CHILD_TEST_ID)).toBeNull();
+    });
     expect(toJSON()).toMatchSnapshot();
   });
 
@@ -67,7 +69,9 @@ describe('withAuthenticator', () => {
 
     const { toJSON, getByTestId } = render(<TestApp />);
 
-    expect(getByTestId(CHILD_TEST_ID)).toBeDefined();
+    waitFor(() => {
+      expect(getByTestId(CHILD_TEST_ID)).toBeDefined();
+    });
     expect(toJSON()).toMatchSnapshot();
   });
 });

@@ -1,6 +1,7 @@
 import { TextAreaField } from '@aws-amplify/ui-react';
 import { TextAreaFieldDemo } from './demo';
 import {
+  AutoresizeTextareaExample,
   DefaultRequiredTextAreaFieldExample,
   DefaultTextAreaExample,
   RequiredTextAreaFieldExample,
@@ -92,6 +93,22 @@ To enforce a maximum length of multiline text, use the `maxLength` prop.
   <TextAreaMaxLengthExample />
   <ExampleCode>
     ```jsx file=./examples/TextAreaMaxLengthExample.tsx
+
+    ```
+
+  </ExampleCode>
+</Example>
+
+### Autoresize
+
+You can add `autoResize` to have the textarea component resize based on the content in the input. 
+
+*Note: this only works with a controlled `TextAreaField`*
+
+<Example>
+  <AutoresizeTextareaExample />
+  <ExampleCode>
+    ```jsx file=./examples/AutoresizeTextareaExample.tsx
 
     ```
 

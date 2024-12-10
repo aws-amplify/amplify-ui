@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui-react-geo",
-  "version": "2.0.19",
+  "version": "2.0.33",
   "main": "dist/index.js",
   "module": "dist/esm/index.mjs",
   "exports": {
@@ -31,7 +31,7 @@
     "check:esm": "node --input-type=module --eval 'import \"@aws-amplify/ui-react-geo\"'",
     "clean": "rimraf dist node_modules",
     "dev": "yarn build:rollup --watch",
-    "lint": "yarn typecheck && eslint src --ext .js,.ts,.tsx",
+    "lint": "yarn typecheck && eslint .",
     "prebuild": "rimraf dist",
     "size": "yarn size-limit",
     "test": "jest",
@@ -39,21 +39,21 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@aws-amplify/ui-react-core": "3.0.18",
+    "@aws-amplify/ui-react-core": "3.1.1",
     "mapbox-gl": "1.13.1",
     "maplibre-gl": "2.1.9",
-    "maplibre-gl-js-amplify": "^4.0.1",
+    "maplibre-gl-js-amplify": "^4.0.2",
     "react-map-gl": "7.0.23",
     "tslib": "^2.5.2"
   },
   "peerDependencies": {
-    "@aws-amplify/geo": "^3.0.40",
-    "aws-amplify": "^6.3.2",
+    "@aws-amplify/geo": "^3.0.59",
+    "aws-amplify": "^6.9.0",
     "react": "^16.14.0 || ^17.0 || ^18.0",
     "react-dom": "^16.14.0 || ^17.0 || ^18.0"
   },
   "devDependencies": {
-    "@aws-amplify/geo": "^3.0.40",
+    "@aws-amplify/geo": "^3.0.59",
     "@types/mapbox__mapbox-gl-draw": "^1.3.3"
   },
   "sideEffects": [
@@ -64,13 +64,13 @@
       "name": "LocationSearch",
       "path": "dist/esm/index.mjs",
       "import": "{ LocationSearch }",
-      "limit": "261 kB"
+      "limit": "202.5 kB"
     },
     {
       "name": "MapView",
       "path": "dist/esm/index.mjs",
       "import": "{ MapView }",
-      "limit": "259 kB"
+      "limit": "202 kB"
     }
   ]
 }

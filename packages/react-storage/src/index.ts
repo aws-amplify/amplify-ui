@@ -1,7 +1,11 @@
 export {
+  FileUploader,
+  FileUploaderHandle,
+  FileUploaderProps,
   StorageImage,
   StorageImageProps,
   StorageManager,
+  StorageManagerHandle,
   StorageManagerProps,
   DropZoneProps,
   ContainerProps,
@@ -10,3 +14,7 @@ export {
   FileListHeaderProps,
   FileListFooterProps,
 } from './components';
+export {
+  StorageBrowser,
+  StorageBrowserProps,
+} from './components/StorageBrowser/StorageBrowserAmplify';

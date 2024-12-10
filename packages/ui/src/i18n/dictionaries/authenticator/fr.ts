@@ -20,7 +20,8 @@ export const frDict: AuthenticatorDictionary = {
   'Dismiss alert': `Supprimer l'alerte`,
   Email: 'Email',
   'Enter your code': 'Saisissez cotre code de confirmation',
-  'Enter your Email': 'Saisissez votre adresse email',
+  'Enter your Email': 'Saisissez votre adresse e-mail',
+  'Enter your email': 'Saisissez votre adresse e-mail',
   'Enter your phone number': 'Saisissez votre numéro de téléphone',
   'Enter your username': "Saisissez votre nom d'utilisateur",
   'Forgot your password?': 'Mot de passe oublié ? ',
@@ -62,7 +63,7 @@ export const frDict: AuthenticatorDictionary = {
   'Add your Website': 'Ajoutez votre site web',
   'An account with the given email already exists.':
     'Un utilisateur avec cette adresse email existe déjà.',
-  'Birthdate': 'Date de naissance',
+  Birthdate: 'Date de naissance',
   Change: 'Modifier',
   'Confirm a Code': 'Confirmer un code',
   'Confirm Sign In': 'Confirmer la connexion',
@@ -78,9 +79,11 @@ export const frDict: AuthenticatorDictionary = {
   'Enter your Phone Number': 'Saisissez votre numéro de téléphone',
   'Enter your Preferred Username': "Saisissez votre nom d'utilisateur",
   'Enter your password': 'Saisissez votre mot de passe',
+  'Given Name': 'Prénom',
   'Family Name': 'Nom de famille',
   'Forgot Password': 'Mot de passe oublié',
   'Forgot Password?': 'Mot de passe oublié ?',
+  'Incorrect username or password.': 'Identifiant ou mot de passe incorrect.',
   'Have an account? ': 'Déjà un compte ? ',
   Hello: 'Bonjour',
   'Incorrect username or password': 'Identifiant ou mot de passe incorrect',
@@ -90,14 +93,14 @@ export const frDict: AuthenticatorDictionary = {
   'Lost your code? ': 'Vous avez perdu votre code ? ',
   'Network error': 'Erreur réseau',
   'New Password': 'Nouveau mot de passe',
-  'Name': 'Nom',
+  Name: 'Nom',
   'No account? ': 'Pas de compte ? ',
   'Please confirm your Password': 'Confirmez votre mot de passe',
   'Preferred Username': "Nom d'utilisateur préféré",
-  'Profile': 'Profil',
+  Profile: 'Profil',
   'Resend a Code': 'Renvoyer un code',
-  'Reset password': 'Réinitialisez votre mot de passe',
-  'Reset Password': 'Réinitialisez votre mot de passe',
+  'Reset password': 'Réinitialiser le mot de passe',
+  'Reset Password': 'Réinitialiser le mot de passe',
   Send: 'Envoyer',
   'Sign In with AWS': 'Se connecter avec AWS',
   'Sign Out': 'Déconnexion',
@@ -114,5 +117,20 @@ export const frDict: AuthenticatorDictionary = {
     'Votre code est en route. Pour vous connecter entrez le code reçu sur ce numéro de téléphone',
   'Your passwords must match': 'Vos mots de passe doivent être identiques',
   'It may take a minute to arrive.': 'Cela peut prendre quelques minutes.',
-  'Website': 'Site web',
+  Website: 'Site web',
+  'Password must have at least 8 characters':
+    'Le mot de passe doit comporter au moins 8 caractères',
+  'Password did not conform with policy: Password must have uppercase characters':
+    'Le mot de passe doit comporter des caractères majuscules',
+  'Password did not conform with policy: Password must have numeric characters':
+    'Le mot de passe doit comporter des caractères numériques',
+  'Password did not conform with policy: Password must have symbol characters':
+    'Le mot de passe doit comporter des symboles',
+  'Password did not conform with policy: Password must have lowercase characters':
+    'Le mot de passe doit comporter des caractères minuscules',
+  'Invalid verification code provided, please try again.':
+    'Code de vérification invalide, veuillez réessayer.',
+  'Attempt limit exceeded, please try after some time.':
+    'Nombre maximum de tentatives dépassé, veuillez réessayer plus tard.',
+  'A network error has occurred.': "Une erreur de réseau s'est produite.",
 };

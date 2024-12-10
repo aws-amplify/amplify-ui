@@ -5,8 +5,10 @@ import {
   getProperties,
   copy,
   getUrl,
+  isCancelError,
+  type UploadDataInput,
+  type UploadDataOutput,
 } from '@aws-amplify/storage';
-import type { UploadDataInput, UploadDataOutput } from '@aws-amplify/storage';
 
 type UploadData = (props: UploadDataInput) => UploadDataOutput;
 
@@ -66,4 +68,13 @@ const uploadData: UploadData = (props) => {
   };
 };
 
-export { uploadData, downloadData, copy, remove, list, getUrl, getProperties };
+export {
+  isCancelError,
+  uploadData,
+  downloadData,
+  copy,
+  remove,
+  list,
+  getUrl,
+  getProperties,
+};

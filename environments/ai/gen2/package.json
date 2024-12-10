@@ -1,0 +1,8 @@
+{
+  "private": true,
+  "name": "@aws-amplify/ui-gen2-ai-environment",
+  "version": "0.0.1",
+  "scripts": {
+    "generate": "AWS_REGION=us-west-2 npx @aws-amplify/backend-cli@latest generate outputs --branch gen2-ai-backend --app-id dlbmj68rw0w3c"
+  }
+}

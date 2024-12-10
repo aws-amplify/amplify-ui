@@ -23,7 +23,6 @@ export const heDict = { ...authenticatorDict.heDict };
 export const uaDict = { ...authenticatorDict.uaDict };
 export const thDict = { ...authenticatorDict.thDict };
 
-
 export const defaultTexts = {
   ...authenticatorDict.defaultTexts,
   // new module related default texts goes here

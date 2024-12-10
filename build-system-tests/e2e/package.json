@@ -1,0 +1,34 @@
+{
+  "name": "canary-cypress",
+  "version": "0.0.1",
+  "license": "MIT",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "clean": "rimraf node_modules",
+    "dev": "TZ=UTC cypress open",
+    "test:web": "TZ=UTC cypress run --spec 'features/**/*.feature'"
+  },
+  "cypress-cucumber-preprocessor": {
+    "filterSpecs": true,
+    "stepDefinitions": [
+      "cypress/integration/common/*.ts"
+    ]
+  },
+  "author": "",
+  "devDependencies": {
+    "@badeball/cypress-cucumber-preprocessor": "^16.0.3",
+    "@bahmutov/cypress-esbuild-preprocessor": "~2.2.0",
+    "@testing-library/cypress": "^9.0.0",
+    "cypress": "^12.17.3",
+    "dotenv-safe": "^8.2.0",
+    "rimraf": "^3.0.2",
+    "typescript": "^5.1.6"
+  },
+  "resolutions": {
+    "**/cypress-cucumber-preprocessor/**/semver": "6.3.1",
+    "**/cypress-cucumber-preprocessor/**/core-js-compat/**/semver": "7.5.4",
+    "@cypress/request": "^3.0.0",
+    "tough-cookie": "4.1.3"
+  }
+}

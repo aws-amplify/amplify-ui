@@ -1,36 +1,27 @@
 #!/bin/bash
+set -e
 
 # Default values
-BUILD_TOOL="cra"
-BUILD_TOOL_VERSION="latest"
-LANGUAGE="ts"
+BUILD_TOOL="next"
 MEGA_APP_NAME=""
 FRAMEWORK="react"
 FRAMEWORK_VERSION="latest"
 PKG_MANAGER="npm"
-PKG_MANAGER_VERSION="latest"
+TAG="latest"
 
 # Import install function
-source "./scripts/install-with-retries.sh"
+source "./scripts/install-dependencies-with-retries.sh"
 
 # Options
 # e.g.
-# $ ./mega-app-install.sh --build-tool react --build-tool-version latest --language typescript --name react-latest-cra-latest-node-18-ts --framework cra --framework-version latest --pkg-manager npm --pkg-manager-version latest
-# $ ./mega-app-install.sh -B react -b latest -l typescript -n react-latest-cra-latest-node-18-ts -F cra -f latest -P npm -p latest
-# $ ./mega-app-install.sh -n react-latest-cra-latest-node-18-ts
+# $ ./mega-app-install.sh --build-tool react --build-tool-version latest --name react-latest-next-latest-node-18-ts --framework next --framework-version latest --pkg-manager npm
+# $ ./mega-app-install.sh -B react -b latest -l typescript -n react-latest-next-latest-node-18-ts -F next -f latest -P npm -p latest
+# $ ./mega-app-install.sh -n react-latest-next-latest-node-18-ts
 
 while [[ $# -gt 0 ]]; do
     case $1 in
     -B | --build-tool)
         BUILD_TOOL=$2
-        shift
-        ;;
-    -b | --build-tool-version)
-        BUILD_TOOL_VERSION=$2
-        shift
-        ;;
-    -l | --language)
-        LANGUAGE=$2
         shift
         ;;
     -n | --name)
@@ -49,21 +40,20 @@ while [[ $# -gt 0 ]]; do
         PKG_MANAGER=$2
         shift
         ;;
-    -p | --pkg-manager-version)
-        PKG_MANAGER_VERSION=$2
+    -t | --tag)
+        TAG=$2
         shift
         ;;
     -h | --help)
         echo "Usage: mega-app-create-app.sh [OPTIONS]"
         echo "Options:"
-        echo "  -B, --build-tool            Specify the build tool: cra, next, vite, angular-cli, vue-cli, nuxt, react-native-cli, expo. (default: cra)"
+        echo "  -B, --build-tool            Specify the build tool: next, next, vite, angular-cli, vue-cli, nuxt, react-native-cli, expo. (default: next)"
         echo "  -b, --build-tool-version    Specify the build tool version (default: latest)"
-        echo "  -l, --language              Specify the language: js, ts (default: js)"
         echo "  -n, --name                  Specify the mega app name (required)"
         echo "  -F, --framework             Specify the framework: react, angular, vue, react-native (default: react)"
         echo "  -f, --framework-version     Specify the framework version (default: latest)"
         echo "  -P, --pkg-manager           Specify the package manager: npm, yarn (default: npm)"
-        echo "  -p, --pkg-manager-version   Specify the package manager version (default: latest)"
+        echo "  -t, --tag                   Specify the tag (default: latest)"
         echo "  -h, --help                  Show help message"
         exit 0
         ;;
@@ -75,75 +65,61 @@ while [[ $# -gt 0 ]]; do
     shift
 done
 
-# Check if MEGA_APP_NAME is provided
-if [[ -z "$MEGA_APP_NAME" ]]; then
-    MEGA_APP_NAME="$FRAMEWORK-$FRAMEWORK_VERSION-$BUILD_TOOL-$BUILD_TOOL_VERSION-$LANGUAGE"
-fi
-
 echo "##########################"
 echo "# Start Mega App Install #"
 echo "##########################"
 
-DEPENDENCIES="$FRAMEWORK@$FRAMEWORK_VERSION @aws-amplify/ui-$FRAMEWORK aws-amplify"
+TAGGED_UI_FRAMEWORK="@aws-amplify/ui-$FRAMEWORK@$TAG"
+DEPENDENCIES="$FRAMEWORK@$FRAMEWORK_VERSION $TAGGED_UI_FRAMEWORK aws-amplify"
 
 echo "cd ./mega-apps/${MEGA_APP_NAME}"
-cd ./mega-apps/${MEGA_APP_NAME}
+cd "./mega-apps/${MEGA_APP_NAME}"
 
 if [ "$FRAMEWORK" == 'react' ]; then
     # add react-dom
-    echo "DEPENDENCIES='$DEPENDENCIES react-dom@$FRAMEWORK_VERSION @aws-amplify/ui-react-storage @aws-amplify/ui-react-geo @aws-amplify/ui-react-notifications @aws-amplify/geo'"
-    DEPENDENCIES="$DEPENDENCIES react-dom@$FRAMEWORK_VERSION @aws-amplify/ui-react-storage @aws-amplify/ui-react-geo @aws-amplify/ui-react-notifications @aws-amplify/geo"
+    DEPENDENCIES="$DEPENDENCIES react-dom@$FRAMEWORK_VERSION @aws-amplify/ui-react-liveness@$TAG @aws-amplify/ui-react-storage@$TAG @aws-amplify/ui-react-geo@$TAG @aws-amplify/ui-react-notifications@$TAG @aws-amplify/geo"
+    echo "DEPENDENCIES=$DEPENDENCIES"
 
-    if [[ "$BUILD_TOOL" == 'cra' && "$LANGUAGE" == 'ts' ]]; then
-        DEP_TYPES="@types/react@$FRAMEWORK_VERSION @types/react-dom@$FRAMEWORK_VERSION"
-        echo "DEP_TYPES='$DEP_TYPES'"
+    if [ "$BUILD_TOOL" == 'vite' ]; then
+        # https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility
+        # Fixes `EventEmitter is not a constructor`` error with geocoder package 
+        DEPENDENCIES="$DEPENDENCIES events"
+        echo "DEPENDENCIES=$DEPENDENCIES"
     fi
 
 elif [ "$FRAMEWORK" == 'angular' ]; then
     # remove angular since it's deprecated https://www.npmjs.com/package/angular
     # We've install @amplify/cli when creating the app
-    echo "DEPENDENCIES="@aws-amplify/ui-$FRAMEWORK aws-amplify""
-    DEPENDENCIES="@aws-amplify/ui-$FRAMEWORK aws-amplify"
+    DEPENDENCIES="$TAGGED_UI_FRAMEWORK aws-amplify"
+    echo "DEPENDENCIES=$DEPENDENCIES"
 fi
-
-echo "Dependencies to be installed: $DEPENDENCIES"
 
 if [ "$PKG_MANAGER" == 'yarn' ]; then
     echo "yarn version"
     yarn -v
-    echo "yarn set version $PKG_MANAGER_VERSION"
-    yarn set version $PKG_MANAGER_VERSION
+    echo "yarn set version latest"
+    yarn set version latest
     echo "yarn version"
     yarn -v
-    if [[ "$BUILD_TOOL" == 'cra' && "$LANGUAGE" == 'ts' ]]; then
-        echo "yarn add $DEP_TYPES"
-        yarn add $DEP_TYPES
-    fi
     echo "yarn add $DEPENDENCIES"
     yarn add $DEPENDENCIES
 else
-    if [[ "$BUILD_TOOL" == 'cra' && "$LANGUAGE" == 'ts' ]]; then
-        # If not testing the latest React, we need to download its types.
-        # CRA is the only framework that we test React 16.
-        install_with_retries npm "$DEP_TYPES"
-    fi
-
-    if [[ "$BUILD_TOOL" == 'next' && "$BUILD_TOOL_VERSION" == '11' ]]; then
-        # We have to remove the initial downloaded node_modules for Next.js 11,
-        # because create-next-app only creates the app with the latest version
-        echo "rm -rf node_modules"
-        rm -rf node_modules
-    fi
-
     if [[ "$FRAMEWORK" == "react-native" ]]; then
-        echo "npm install @aws-amplify/ui-react-native @aws-amplify/react-native aws-amplify react-native-safe-area-context @react-native-community/netinfo @react-native-async-storage/async-storage react-native-get-random-values react-native-url-polyfill"
-        npm install @aws-amplify/ui-react-native @aws-amplify/react-native aws-amplify react-native-safe-area-context @react-native-community/netinfo @react-native-async-storage/async-storage react-native-get-random-values react-native-url-polyfill
+        # react-native-safe-area-context v5.0.0+ does not support RN 0.74 and lower
+        DEPENDENCIES="$TAGGED_UI_FRAMEWORK @aws-amplify/react-native aws-amplify react-native-safe-area-context@^4.2.5 @react-native-community/netinfo @react-native-async-storage/async-storage react-native-get-random-values react-native-url-polyfill"
+        echo "npm install $DEPENDENCIES"
+        npm install $DEPENDENCIES
         if [[ "$BUILD_TOOL" == "expo" ]]; then
-            echo "npx expo install --fix" 
-            npx expo install --fix # fix the dependencies that are incompatible with the installed expo versio
+            if [[ "$FRAMEWORK_VERSION" == "0.75" ]]; then 
+                # Expo SDK version 51.0.0 supports RN 0.74 and 0.75 but installs 0.74 by default https://expo.dev/changelog/2024/08-14-react-native-0.75#2-install-updated-packages
+                echo "npx expo install react-native@~0.75.0"
+                npx expo install react-native@~0.75.0
+            fi
+            echo "npx expo install --fix"
+            npx expo install --fix # fix the dependencies that are incompatible with the installed expo version
         fi
     else
-        install_with_retries npm "$DEPENDENCIES"
+        install_dependencies_with_retries npm "$DEPENDENCIES"
     fi
 fi
 

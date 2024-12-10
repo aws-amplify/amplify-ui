@@ -1,0 +1,67 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LocationDetailView display text \`getListResultsMessage\` returns the expected values in the empty results scenario 1`] = `
+{
+  "content": "No files.",
+  "type": "info",
+}
+`;
+
+exports[`LocationDetailView display text \`getListResultsMessage\` returns the expected values in the empty search results scenario 1`] = `
+{
+  "content": "No files.",
+  "type": "info",
+}
+`;
+
+exports[`LocationDetailView display text \`getListResultsMessage\` returns the expected values in the failed scenario 1`] = `
+{
+  "content": "Network got confused",
+  "type": "error",
+}
+`;
+
+exports[`LocationDetailView display text \`getListResultsMessage\` returns the expected values in the loading scenario 1`] = `undefined`;
+
+exports[`LocationDetailView display text \`getListResultsMessage\` returns the expected values in the search exhausted scenario 1`] = `
+{
+  "content": "Showing results for up to the first 10,000 items.",
+  "type": "info",
+}
+`;
+
+exports[`LocationDetailView display text \`getListResultsMessage\` returns the expected values in the search exhausted with no results scenario 1`] = `
+{
+  "content": "No results found in the first 10,000 items.",
+  "type": "info",
+}
+`;
+
+exports[`LocationDetailView display text \`getListResultsMessage\` returns the expected values in the search failed scenario 1`] = `
+{
+  "content": "Network got confused",
+  "type": "error",
+}
+`;
+
+exports[`LocationDetailView display text \`getListResultsMessage\` returns the expected values in the search limit reached scenario 1`] = `undefined`;
+
+exports[`LocationDetailView display text should match snapshot values 1`] = `
+{
+  "getActionListItemLabel": [Function],
+  "getDateDisplayValue": [Function],
+  "getListItemsResultMessage": [Function],
+  "getTitle": [Function],
+  "loadingIndicatorLabel": "Loading",
+  "searchClearLabel": "Clear search",
+  "searchPlaceholder": "Search current folder",
+  "searchSubfoldersToggleLabel": "Include subfolders",
+  "searchSubmitLabel": "Submit",
+  "selectAllFilesLabel": "Select all files",
+  "selectFileLabel": "Select file",
+  "tableColumnLastModifiedHeader": "Last modified",
+  "tableColumnNameHeader": "Name",
+  "tableColumnSizeHeader": "Size",
+  "tableColumnTypeHeader": "Type",
+}
+`;

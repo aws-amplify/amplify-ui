@@ -6,11 +6,12 @@ import {
   useDeprecationWarning,
   useSetUserAgent,
 } from '@aws-amplify/ui-react-core';
-import { useDropZone } from '@aws-amplify/ui-react/internal';
+import { useDropZone } from '@aws-amplify/ui-react-core';
 
-import { useStorageManager, useUploadFiles } from './hooks';
+import { useFileUploader, useUploadFiles } from '../FileUploader/hooks';
+import { FileStatus } from '../FileUploader/types';
+
 import {
-  FileStatus,
   StorageManagerProps,
   StorageManagerPathProps,
   StorageManagerHandle,
@@ -25,10 +26,10 @@ import {
 } from './ui';
 import {
   checkMaxFileSize,
-  defaultStorageManagerDisplayText,
+  defaultFileUploaderDisplayText,
   filterAllowedFiles,
   TaskHandler,
-} from './utils';
+} from '../FileUploader/utils';
 import { VERSION } from '../../version';
 
 const logger = getLogger('Storage');
@@ -62,6 +63,12 @@ const StorageManagerBase = React.forwardRef(function StorageManager(
   }: StorageManagerPathProps | StorageManagerProps,
   ref: React.ForwardedRef<StorageManagerHandle>
 ): JSX.Element {
+  useDeprecationWarning({
+    message:
+      'The `StorageManager` component has been renamed as the `FileUploader` component.',
+    shouldWarn: false,
+  });
+
   if (!maxFileCount) {
     // eslint-disable-next-line no-console
     console.warn(MISSING_REQUIRED_PROPS_MESSAGE);
@@ -91,7 +98,7 @@ const StorageManagerBase = React.forwardRef(function StorageManager(
     (typeof maxFileCount === 'number' && maxFileCount > 1);
 
   const displayText = {
-    ...defaultStorageManagerDisplayText,
+    ...defaultFileUploaderDisplayText,
     ...overrideDisplayText,
   };
 
@@ -111,13 +118,12 @@ const StorageManagerBase = React.forwardRef(function StorageManager(
     files,
     removeUpload,
     queueFiles,
-    setProcessedKey,
     setUploadingFile,
     setUploadPaused,
     setUploadProgress,
     setUploadSuccess,
     setUploadResumed,
-  } = useStorageManager(defaultFiles);
+  } = useFileUploader(defaultFiles);
 
   React.useImperativeHandle(ref, () => ({ clearFiles }));
 
@@ -149,7 +155,6 @@ const StorageManagerBase = React.forwardRef(function StorageManager(
     onUploadError,
     onUploadSuccess,
     onUploadStart,
-    onProcessFileSuccess: setProcessedKey,
     setUploadingFile,
     setUploadProgress,
     setUploadSuccess,
@@ -205,8 +210,7 @@ const StorageManagerBase = React.forwardRef(function StorageManager(
     if (typeof onFileRemove === 'function') {
       const file = files.find((file) => file.id === id);
       if (file) {
-        // return `processedKey` if available and `processFile` is provided
-        const key = (processFile && file?.processedKey) ?? file.key;
+        const key = file.resolvedKey ?? file.key;
         onFileRemove({ key });
       }
     }

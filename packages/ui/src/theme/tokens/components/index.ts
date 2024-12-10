@@ -1,6 +1,8 @@
 import { AlertTokens, alert } from './alert';
+import { AIConversationTokens, aiConversation } from './aiConversation';
 import { AutocompleteTokens, autocomplete } from './autocomplete';
 import { AuthenticatorTokens, authenticator } from './authenticator';
+import { AvatarTokens, avatar } from './avatar';
 import { badge, BadgeTokens } from './badge';
 import { breadcrumbs, BreadcrumbsTokens } from './breadcrumbs';
 import { button, ButtonTokens } from './button';
@@ -18,6 +20,7 @@ import { fieldcontrol, FieldControlTokens } from './fieldControl';
 import { fieldgroup, FieldGroupTokens } from './fieldGroup';
 import { fieldset, FieldsetTokens } from './fieldset';
 import { fieldmessages, FieldMessagesTokens } from './fieldMessages';
+import { fileuploader, FileUploaderTokens } from './fileuploader';
 import { flex, FlexTokens } from './flex';
 import { heading, HeadingTokens } from './heading';
 import { highlightmatch, HighlightMatchTokens } from './highlightMatch';
@@ -59,9 +62,11 @@ import { OutputVariantKey } from '../types/designToken';
 
 type BaseComponentTokens<Output extends OutputVariantKey> = {
   accordion?: AccordionTokens<Output>;
+  aiConversation?: AIConversationTokens<Output>;
   alert?: AlertTokens<Output>;
   authenticator?: AuthenticatorTokens<Output>;
   autocomplete?: AutocompleteTokens<Output>;
+  avatar?: AvatarTokens<Output>;
   badge?: BadgeTokens<Output>;
   breadcrumbs?: BreadcrumbsTokens<Output>;
   button?: ButtonTokens<Output>;
@@ -78,6 +83,7 @@ type BaseComponentTokens<Output extends OutputVariantKey> = {
   fieldcontrol?: FieldControlTokens<Output>;
   fieldgroup?: FieldGroupTokens<Output>;
   fieldmessages?: FieldMessagesTokens<Output>;
+  fileuploader?: FileUploaderTokens<Output>;
   flex?: FlexTokens<Output>;
   heading?: HeadingTokens<Output>;
   highlightmatch?: HighlightMatchTokens<Output>;
@@ -127,9 +133,11 @@ export type WebComponentTokens = Required<{
 
 export const components: DefaultComponentTokens = {
   accordion,
+  aiConversation,
   alert,
   authenticator,
   autocomplete,
+  avatar,
   badge,
   breadcrumbs,
   button,
@@ -146,6 +154,7 @@ export const components: DefaultComponentTokens = {
   fieldgroup,
   fieldmessages,
   fieldset,
+  fileuploader,
   flex,
   heading,
   icon,
