@@ -1,5 +1,30 @@
 # @aws-amplify/ui-react-storage
 
+## 3.5.0
+
+### Minor Changes
+
+- [#6220](https://github.com/aws-amplify/amplify-ui/pull/6220) [`efbfd14e35967388acaa333089cc3737218c9008`](https://github.com/aws-amplify/amplify-ui/commit/efbfd14e35967388acaa333089cc3737218c9008) Thanks [@calebpollman](https://github.com/calebpollman)! - feat(storage-browser): add custom actions
+
+  ```
+
+  ```
+
+- [#6219](https://github.com/aws-amplify/amplify-ui/pull/6219) [`8bf3c306f7df74d514fcd496edb10cfe69b0158b`](https://github.com/aws-amplify/amplify-ui/commit/8bf3c306f7df74d514fcd496edb10cfe69b0158b) Thanks [@ashwinkumar6](https://github.com/ashwinkumar6)! - fix(react-storage): expose additional storage browser types
+
+### Patch Changes
+
+- Updated dependencies [[`9ab56f499f4596062fe4614a016efc3dfc88ef03`](https://github.com/aws-amplify/amplify-ui/commit/9ab56f499f4596062fe4614a016efc3dfc88ef03)]:
+  - @aws-amplify/ui@6.7.1
+  - @aws-amplify/ui-react@6.7.1
+  - @aws-amplify/ui-react-core@3.1.1
+
+## 3.4.1
+
+### Patch Changes
+
+- [#6050](https://github.com/aws-amplify/amplify-ui/pull/6050) [`36e1ee7782e8e6f73e44e08da379cbb17e278e9d`](https://github.com/aws-amplify/amplify-ui/commit/36e1ee7782e8e6f73e44e08da379cbb17e278e9d) Thanks [@choyky](https://github.com/choyky)! - fix (Storage/FileUploader): FileUploader does not upload processed file contents in certain scenarios
+
 ## 3.4.0
 
 ### Minor Changes

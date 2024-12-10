@@ -1,40 +1,38 @@
-import * as controlsContextModule from '../../../controls/context';
-import { ControlsContext } from '../../types';
+import { renderHook } from '@testing-library/react';
+import { ActionCancelProps } from '../../../composables/ActionCancel';
+import { useControlsContext } from '../../../controls/context';
 import { useActionCancel } from '../useActionCancel';
 
+jest.mock('../../../controls/context');
+
 describe('useActionCancel', () => {
-  const controlsContext: ControlsContext = {
-    data: {
-      actionCancelLabel: 'Cancel',
-      isActionCancelDisabled: false,
-    },
-    onActionCancel: jest.fn(),
+  const data = {
+    actionCancelLabel: 'action-cancel-label',
+    isActionCancelDisabled: false,
   };
-  const useControlsContextSpy = jest.spyOn(
-    controlsContextModule,
-    'useControlsContext'
-  );
 
-  afterEach(() => {
-    useControlsContextSpy.mockClear();
-  });
+  const mockUseControlsContext = jest.mocked(useControlsContext);
 
-  it('returns object as it is received from ControlsContext', () => {
-    useControlsContextSpy.mockReturnValue(controlsContext);
-
-    expect(useActionCancel()).toStrictEqual({
-      label: controlsContext.data.actionCancelLabel,
-      onCancel: controlsContext.onActionCancel,
-      isDisabled: controlsContext.data.isActionCancelDisabled,
+  beforeEach(() => {
+    mockUseControlsContext.mockReturnValue({
+      data,
+      onActionCancel: jest.fn(),
     });
   });
 
-  it('calls onActionCancel from ControlsContext when onCancel is called', () => {
-    useControlsContextSpy.mockReturnValue(controlsContext);
+  afterEach(() => {
+    mockUseControlsContext.mockReset();
+  });
 
-    const { onCancel } = useActionCancel();
-    onCancel!();
+  it('returns ActionCancel props', () => {
+    const { result } = renderHook(() => useActionCancel());
 
-    expect(controlsContext.onActionCancel).toHaveBeenCalledTimes(1);
+    const expected: ActionCancelProps = {
+      label: data.actionCancelLabel,
+      isDisabled: data.isActionCancelDisabled,
+      onCancel: expect.any(Function),
+    };
+
+    expect(result.current).toStrictEqual(expected);
   });
 });

@@ -1,4 +1,5 @@
 import { renderHook } from '@testing-library/react';
+import { ActionsListProps } from '../../../composables/ActionsList';
 import { useControlsContext } from '../../../controls/context';
 import { useActionsList } from '../useActionsList';
 
@@ -20,11 +21,13 @@ describe('useActionsList', () => {
 
     const { result } = renderHook(() => useActionsList());
 
-    expect(result.current).toStrictEqual({
+    const expected: ActionsListProps = {
       isDisabled: data.isActionsListDisabled,
       items: data.actions,
       onActionSelect: expect.any(Function),
-    });
+    };
+
+    expect(result.current).toStrictEqual(expected);
   });
 
   it('returns default values if actions is undefined', () => {

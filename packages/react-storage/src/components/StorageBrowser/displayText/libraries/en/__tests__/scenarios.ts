@@ -226,7 +226,7 @@ export const LIST_FOLDERS_SCENARIOS: [
 export const LIST_LOCATIONS_SCENARIOS: [
   string,
   {
-    locations: LocationData[] | undefined;
+    items: LocationData[] | undefined;
     query?: string;
     hasError?: boolean;
     message?: string;
@@ -234,22 +234,22 @@ export const LIST_LOCATIONS_SCENARIOS: [
     hasExhaustedSearch?: boolean;
   },
 ][] = [
-  ['empty results', { locations: [] }],
+  ['empty results', { items: [] }],
   [
     'failed',
     {
       // @ts-expect-error pretend folders
-      locations: [...Array(101).keys()],
+      items: [...Array(101).keys()],
       hasError: true,
       message: 'Network got confused',
     },
   ],
-  ['empty search results', { locations: [], query: 'something to look for' }],
+  ['empty search results', { items: [], query: 'something to look for' }],
   [
     'search failed',
     {
       // @ts-expect-error pretend folders
-      locations: [...Array(101).keys()],
+      items: [...Array(101).keys()],
       query: 'something to look for',
       hasError: true,
       message: 'Network got confused',
@@ -259,7 +259,7 @@ export const LIST_LOCATIONS_SCENARIOS: [
     'search limit exhausted',
     {
       // @ts-expect-error pretend folders
-      locations: [...Array(10000).keys()],
+      items: [...Array(10000).keys()],
       query: 'something to look for',
       hasExhaustedSearch: true,
     },
@@ -267,7 +267,7 @@ export const LIST_LOCATIONS_SCENARIOS: [
   [
     'loading',
     {
-      locations: [],
+      items: [],
       isLoading: true,
       hasExhaustedSearch: false,
     },
@@ -319,6 +319,14 @@ export const LIST_ITEMS_SCENARIOS: [
     {
       // @ts-expect-error pretend folders
       items: [...Array(101).keys()],
+      query: 'something to look for',
+      hasExhaustedSearch: true,
+    },
+  ],
+  [
+    'search exhausted with no results',
+    {
+      items: [],
       query: 'something to look for',
       hasExhaustedSearch: true,
     },

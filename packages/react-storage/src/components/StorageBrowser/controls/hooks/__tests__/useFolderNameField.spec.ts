@@ -1,51 +1,46 @@
 import { renderHook } from '@testing-library/react';
-import * as controlsContextModule from '../../context';
-import { ControlsContext } from '../../types';
+import { FolderNameFieldProps } from '../../../composables/FolderNameField';
+import { useControlsContext } from '../../../controls/context';
 import { useFolderNameField } from '../useFolderNameField';
 
-const folderNameId = 'folderNameId';
-const folderNameLabel = 'folderNameLabel';
-const folderNamePlaceholder = 'folderNamePlaceholder';
-const folderNameValidationMessage = 'folderNameValidationMessage';
-const isFolderNameDisabled = false;
-
-const onFolderNameChange = jest.fn();
-const onValidateFolderName = jest.fn();
+jest.mock('../../../controls/context');
 
 describe('useFolderNameField', () => {
-  const controlsContext: ControlsContext = {
-    data: {
-      folderNameId,
-      folderNameLabel,
-      folderNamePlaceholder,
-      folderNameValidationMessage,
-      isFolderNameDisabled,
-    },
-    onFolderNameChange,
-    onValidateFolderName,
+  const data = {
+    folderNameId: 'folder-name-id',
+    folderNameLabel: 'folder-name-label',
+    folderNamePlaceholder: 'folder-name-placeholder',
+    folderNameValidationMessage: 'folder-name-validation-message',
+    isFolderNameDisabled: false,
   };
 
-  const useControlsContextSpy = jest.spyOn(
-    controlsContextModule,
-    'useControlsContext'
-  );
+  const mockUseControlsContext = jest.mocked(useControlsContext);
 
-  afterEach(() => {
-    useControlsContextSpy.mockClear();
+  beforeEach(() => {
+    mockUseControlsContext.mockReturnValue({
+      data,
+      onFolderNameChange: jest.fn(),
+      onValidateFolderName: jest.fn(),
+    });
   });
 
-  it('provides the expected values to consumers', () => {
-    useControlsContextSpy.mockReturnValue(controlsContext);
+  afterEach(() => {
+    mockUseControlsContext.mockReset();
+  });
+
+  it('returns FolderNameField props', () => {
     const { result } = renderHook(() => useFolderNameField());
 
-    expect(result.current).toMatchObject({
-      id: folderNameId,
-      isDisabled: isFolderNameDisabled,
-      label: folderNameLabel,
-      onChange: onFolderNameChange,
-      onValidate: onValidateFolderName,
-      placeholder: folderNamePlaceholder,
-      validationMessage: folderNameValidationMessage,
-    });
+    const expected: FolderNameFieldProps = {
+      id: data.folderNameId,
+      isDisabled: data.isFolderNameDisabled,
+      label: data.folderNameLabel,
+      placeholder: data.folderNamePlaceholder,
+      validationMessage: data.folderNameValidationMessage,
+      onChange: expect.any(Function),
+      onValidate: expect.any(Function),
+    };
+
+    expect(result.current).toStrictEqual(expected);
   });
 });

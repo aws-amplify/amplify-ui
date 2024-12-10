@@ -7,6 +7,7 @@ export {
   DeleteViewType,
   LocationActionView,
   LocationActionViewProps,
+  LocationActionViewType,
   UploadView,
   UploadViewType,
 } from './LocationActionView';
@@ -20,4 +21,5 @@ export {
   LocationsViewProps,
   LocationsViewType,
 } from './LocationsView';
-export * from './context';
+
+export * from './types';

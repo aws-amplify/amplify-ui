@@ -10,7 +10,7 @@ import { ActionStartControl } from '../../../controls/ActionStartControl';
 import { DataTableControl } from '../../../controls/DataTableControl';
 import { LoadingIndicatorControl } from '../../../controls/LoadingIndicatorControl';
 import { MessageControl } from '../../../controls/MessageControl';
-import { SearchControl } from '../../../controls/SearchControl';
+import { SearchFieldControl } from '../../../controls/SearchFieldControl';
 import { StatusDisplayControl } from '../../../controls/StatusDisplayControl';
 import { TitleControl } from '../../../controls/TitleControl';
 
@@ -40,7 +40,7 @@ export const CopyView: CopyViewType = ({ className, ...props }) => {
           <>
             <ViewElement className={`${STORAGE_BROWSER_BLOCK}__controls`}>
               <ViewElement className={`${STORAGE_BROWSER_BLOCK}__search`}>
-                <SearchControl />
+                <SearchFieldControl />
               </ViewElement>
               <FoldersPaginationControl />
             </ViewElement>
@@ -77,7 +77,7 @@ CopyView.Exit = ActionExitControl;
 CopyView.FoldersLoadingIndicator = LoadingIndicatorControl;
 CopyView.FoldersMessage = FoldersMessageControl;
 CopyView.FoldersPagination = FoldersPaginationControl;
-CopyView.FoldersSearch = SearchControl;
+CopyView.FoldersSearch = SearchFieldControl;
 CopyView.FoldersTable = FoldersTableControl;
 CopyView.Message = MessageControl;
 CopyView.Start = ActionStartControl;

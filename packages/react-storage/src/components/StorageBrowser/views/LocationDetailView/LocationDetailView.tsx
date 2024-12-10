@@ -10,7 +10,7 @@ import { LoadingIndicatorControl } from '../../controls/LoadingIndicatorControl'
 import { MessageControl } from '../../controls/MessageControl';
 import { NavigationControl } from '../../controls/NavigationControl';
 import { PaginationControl } from '../../controls/PaginationControl';
-import { SearchControl } from '../../controls/SearchControl';
+import { SearchFieldControl } from '../../controls/SearchFieldControl';
 import { SearchSubfoldersToggleControl } from '../../controls/SearchSubfoldersToggleControl';
 import { TitleControl } from '../../controls/TitleControl';
 
@@ -42,7 +42,7 @@ export const LocationDetailView: LocationDetailViewType = ({
         <TitleControl />
         <ViewElement className={`${STORAGE_BROWSER_BLOCK}__controls`}>
           <ViewElement className={`${STORAGE_BROWSER_BLOCK}__search`}>
-            <SearchControl />
+            <SearchFieldControl />
             <SearchSubfoldersToggleControl />
           </ViewElement>
           <PaginationControl />
@@ -77,6 +77,6 @@ LocationDetailView.Message = MessageControl;
 LocationDetailView.Navigation = NavigationControl;
 LocationDetailView.Pagination = PaginationControl;
 LocationDetailView.Refresh = DataRefreshControl;
-LocationDetailView.Search = SearchControl;
+LocationDetailView.Search = SearchFieldControl;
 LocationDetailView.SearchSubfoldersToggle = SearchSubfoldersToggleControl;
 LocationDetailView.Title = TitleControl;

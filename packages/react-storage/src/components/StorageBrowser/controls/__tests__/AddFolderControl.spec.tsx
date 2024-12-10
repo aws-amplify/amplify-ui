@@ -11,7 +11,6 @@ jest.mock('../../composables/AddFolder', () => ({
 }));
 
 describe('AddFolderControl', () => {
-  // assert mocks
   const mockUseAddFolder = jest.mocked(useAddFolder);
   const mockUseResolvedComposable = jest.mocked(useResolvedComposable);
 

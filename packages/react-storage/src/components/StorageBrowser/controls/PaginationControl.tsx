@@ -2,12 +2,12 @@ import React from 'react';
 
 import { Pagination } from '../composables/Pagination';
 import { useResolvedComposable } from './hooks/useResolvedComposable';
-import { useControlsContext } from './context';
+import { usePagination } from './hooks/usePagination';
 
 export const PaginationControl = (): React.JSX.Element => {
-  const { data } = useControlsContext();
+  const props = usePagination();
 
   const Resolved = useResolvedComposable(Pagination, 'Pagination');
 
-  return <Resolved {...data.paginationData} />;
+  return <Resolved {...props} />;
 };

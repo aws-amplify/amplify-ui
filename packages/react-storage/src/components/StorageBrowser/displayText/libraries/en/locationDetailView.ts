@@ -26,6 +26,13 @@ export const DEFAULT_LOCATION_DETAIL_VIEW_DISPLAY_TEXT: DefaultLocationDetailVie
         };
       }
 
+      if (!items?.length && hasExhaustedSearch) {
+        return {
+          type: 'info',
+          content: `No results found in the first 10,000 items.`,
+        };
+      }
+
       if (!items?.length) {
         return {
           type: 'info',

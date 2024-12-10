@@ -1,27 +1,24 @@
 import { renderHook, act } from '@testing-library/react';
 
-import * as Store from '../../../../providers/store';
-import * as Config from '../../../../providers/configuration';
-import * as Tasks from '../../../../tasks';
+import { useStore } from '../../../../providers/store';
+import { useAction } from '../../../../useAction';
 
 import { useDeleteView } from '../useDeleteView';
+import { INITIAL_STATUS_COUNTS } from '../../../../tasks';
 
-const mockProcessTasks = jest.fn();
-const mockDispatchStoreAction = jest.fn();
-
-const credentials = jest.fn();
-jest.spyOn(Config, 'useGetActionInput').mockReturnValue(() => ({
-  accountId: '123456789012',
-  bucket: 'XXXXXXXXXXX',
-  credentials,
-  region: 'us-west-2',
-}));
+jest.mock('../../../../providers/store');
+jest.mock('../../../../useAction');
 
 describe('useDeleteView', () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
+  const mockeUseAction = jest.mocked(useAction);
+  const mockeUseStore = jest.mocked(useStore);
+  const mockCancel = jest.fn();
+  const mockDispatchStoreAction = jest.fn();
+  const mockHandleDelete = jest.fn();
+  const mockReset = jest.fn();
 
-    jest.spyOn(Store, 'useStore').mockReturnValue([
+  beforeEach(() => {
+    mockeUseStore.mockReturnValue([
       {
         actionType: 'DELETE',
         files: [],
@@ -52,38 +49,47 @@ describe('useDeleteView', () => {
       mockDispatchStoreAction,
     ]);
 
-    // Mock the useProcessTasks hook
-    jest.spyOn(Tasks, 'useProcessTasks').mockReturnValue([
+    mockeUseAction.mockReturnValue([
       {
         isProcessing: false,
         isProcessingComplete: false,
-        statusCounts: { ...Tasks.INITIAL_STATUS_COUNTS, QUEUED: 3, TOTAL: 3 },
+        reset: mockReset,
+        statusCounts: { ...INITIAL_STATUS_COUNTS, QUEUED: 3, TOTAL: 3 },
         tasks: [
           {
             status: 'QUEUED',
             data: { key: 'test-item', id: 'id' },
-            cancel: jest.fn(),
+            cancel: mockCancel,
             message: 'test-message',
             progress: undefined,
           },
           {
             status: 'QUEUED',
             data: { key: 'test-item2', id: 'id2' },
-            cancel: jest.fn(),
+            cancel: mockCancel,
             message: 'test-message',
             progress: undefined,
           },
           {
             status: 'QUEUED',
             data: { key: 'test-item3', id: 'id3' },
-            cancel: jest.fn(),
+            cancel: mockCancel,
             message: 'test-message',
             progress: undefined,
           },
         ],
       },
-      mockProcessTasks,
+      mockHandleDelete,
     ]);
+  });
+
+  afterEach(() => {
+    mockCancel.mockClear();
+    mockDispatchStoreAction.mockClear();
+    mockHandleDelete.mockClear();
+    mockReset.mockClear();
+    mockeUseAction.mockReset();
+    mockeUseStore.mockReset();
   });
 
   it('should return the correct initial state', () => {
@@ -116,43 +122,17 @@ describe('useDeleteView', () => {
       result.current.onActionStart();
     });
 
-    expect(mockProcessTasks).toHaveBeenCalledWith({
-      config: {
-        accountId: '123456789012',
-        bucket: 'XXXXXXXXXXX',
-        credentials,
-        region: 'us-west-2',
-      },
-    });
+    expect(mockHandleDelete).toHaveBeenCalledTimes(1);
   });
 
   it('should call cancel on tasks when onActionCancel is called', () => {
-    const mockCancel = jest.fn();
-    jest.spyOn(Tasks, 'useProcessTasks').mockReturnValue([
-      {
-        isProcessing: false,
-        isProcessingComplete: false,
-        statusCounts: { ...Tasks.INITIAL_STATUS_COUNTS, QUEUED: 1, TOTAL: 1 },
-        tasks: [
-          {
-            data: { key: 'test-item', id: 'id' },
-            status: 'QUEUED',
-            cancel: mockCancel(),
-            message: 'test-message',
-            progress: undefined,
-          },
-        ],
-      },
-      mockProcessTasks,
-    ]);
-
     const { result } = renderHook(() => useDeleteView());
 
     act(() => {
       result.current.onActionCancel();
     });
 
-    expect(mockCancel).toHaveBeenCalled();
+    expect(mockCancel).toHaveBeenCalledTimes(3);
   });
 
   it('should reset state when onActionExit is called', () => {

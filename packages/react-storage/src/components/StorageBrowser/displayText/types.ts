@@ -34,7 +34,7 @@ interface ListMessageData {
 }
 
 interface ListLocationsMessageData extends ListMessageData {
-  locations: LocationData[] | undefined;
+  items: LocationData[] | undefined;
 }
 
 export interface DefaultLocationsViewDisplayText
