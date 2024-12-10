@@ -655,3 +655,9 @@ When(
   (folderName: string, count: string) =>
     cy.fileInputUpload(`${folderName}/${randomFileName}`, parseInt(count))
 );
+
+When('I simulate network disconnection', () => {
+  cy.intercept('', (req) => {
+    req.destroy();
+  });
+});
