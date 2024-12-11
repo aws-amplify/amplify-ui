@@ -1,8 +1,8 @@
-import * as StorageModule from '../../../storage-internal';
+import { remove, RemoveInput } from '../../../storage-internal';
 
 import { deleteHandler, DeleteHandlerInput } from '../delete';
 
-const removeSpy = jest.spyOn(StorageModule, 'remove');
+jest.mock('../../../storage-internal');
 
 const baseInput: DeleteHandlerInput = {
   config: {
@@ -16,17 +16,26 @@ const baseInput: DeleteHandlerInput = {
     id: 'id',
     key: 'prefix/key.png',
     fileKey: 'key.png',
-    lastModified: new Date(),
-    size: 829292,
-    type: 'FILE',
   },
 };
 
 describe('deleteHandler', () => {
+  const path = 'path';
+
+  const mockRemove = jest.mocked(remove);
+
+  beforeEach(() => {
+    mockRemove.mockResolvedValue({ path });
+  });
+
+  afterEach(() => {
+    mockRemove.mockReset();
+  });
+
   it('calls `remove` and returns the expected `key`', () => {
     deleteHandler(baseInput);
 
-    const expected: StorageModule.RemoveInput = {
+    const expected: RemoveInput = {
       path: baseInput.data.key,
       options: {
         expectedBucketOwner: baseInput.config.accountId,
@@ -39,6 +48,23 @@ describe('deleteHandler', () => {
       },
     };
 
-    expect(removeSpy).toHaveBeenCalledWith(expected);
+    expect(mockRemove).toHaveBeenCalledWith(expected);
+  });
+
+  it('returns a complete status', async () => {
+    const { result } = deleteHandler(baseInput);
+
+    expect(await result).toEqual({ status: 'COMPLETE', value: { key: path } });
+  });
+
+  it('returns failed status', async () => {
+    const errorMessage = 'error-message';
+    mockRemove.mockRejectedValue(new Error(errorMessage));
+    const { result } = deleteHandler(baseInput);
+
+    expect(await result).toEqual({
+      status: 'FAILED',
+      message: errorMessage,
+    });
   });
 });

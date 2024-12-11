@@ -1,8 +1,8 @@
-import * as StorageModule from '../../../storage-internal';
+import { getUrl, GetUrlInput } from '../../../storage-internal';
 
 import { downloadHandler, DownloadHandlerInput } from '../download';
 
-const downloadSpy = jest.spyOn(StorageModule, 'getUrl');
+jest.mock('../../../storage-internal');
 
 const baseInput: DownloadHandlerInput = {
   config: {
@@ -16,17 +16,27 @@ const baseInput: DownloadHandlerInput = {
     id: 'id',
     key: 'prefix/file-name',
     fileKey: 'file-name',
-    lastModified: new Date(),
-    size: 1000022,
-    type: 'FILE',
   },
 };
 
 describe('downloadHandler', () => {
+  const url = new URL('mock://fake.url');
+  const mockGetUrl = jest.mocked(getUrl);
+
+  beforeEach(() => {
+    const expiresAt = new Date();
+    expiresAt.setDate(expiresAt.getDate() + 1);
+    mockGetUrl.mockResolvedValue({ expiresAt, url });
+  });
+
+  afterEach(() => {
+    mockGetUrl.mockReset();
+  });
+
   it('calls `getUrl` with the expected values', () => {
     downloadHandler(baseInput);
 
-    const expected: StorageModule.GetUrlInput = {
+    const expected: GetUrlInput = {
       path: baseInput.data.key,
       options: {
         bucket: {
@@ -41,6 +51,23 @@ describe('downloadHandler', () => {
       },
     };
 
-    expect(downloadSpy).toHaveBeenCalledWith(expected);
+    expect(mockGetUrl).toHaveBeenCalledWith(expected);
+  });
+
+  it('returns a complete status', async () => {
+    const { result } = downloadHandler(baseInput);
+
+    expect(await result).toEqual({ status: 'COMPLETE', value: { url } });
+  });
+
+  it('returns failed status', async () => {
+    const errorMessage = 'error-message';
+    mockGetUrl.mockRejectedValue(new Error(errorMessage));
+    const { result } = downloadHandler(baseInput);
+
+    expect(await result).toEqual({
+      status: 'FAILED',
+      message: errorMessage,
+    });
   });
 });

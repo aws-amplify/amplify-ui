@@ -4,43 +4,42 @@ import {
   LocationData,
   LocationItemData,
 } from '../../actions';
-import { ActionsListItem } from '../../composables/ActionsList';
+import { ActionListItem } from '../../composables/ActionsList';
 import { LocationState } from '../../providers/store/location';
 
 import { ListViewProps } from '../types';
 
 export interface LocationDetailViewState {
-  actions: ActionsListItem[];
-  hasError: boolean;
-  hasNextPage: boolean;
+  actionItems: ActionListItem[];
+  actionType: string | undefined;
+  downloadErrorMessage: string | undefined;
+  fileDataItems: FileDataItem[] | undefined;
   hasDownloadError: boolean;
+  hasError: boolean;
+  hasExhaustedSearch: boolean;
+  hasNextPage: boolean;
   highestPageVisited: number;
   isLoading: boolean;
-  isSearchingSubfolders: boolean;
+  isSearchSubfoldersEnabled: boolean;
   location: LocationState;
-  areAllFilesSelected: boolean;
-  fileDataItems: FileDataItem[] | undefined;
-  hasFiles: boolean;
   message: string | undefined;
-  downloadErrorMessage: string | undefined;
-  shouldShowEmptyMessage: boolean;
-  searchQuery: string;
-  hasExhaustedSearch: boolean;
-  pageItems: LocationItemData[];
-  page: number;
+  onActionExit: () => void;
   onActionSelect: (actionType: string) => void;
+  onDownload: (fileItem: FileDataItem) => void;
   onDropFiles: (files: File[]) => void;
-  onRefresh: () => void;
   onNavigate: (location: LocationData, path?: string) => void;
   onNavigateHome: () => void;
   onPaginate: (page: number) => void;
-  onDownload: (fileItem: FileDataItem) => void;
-  onSelect: (isSelected: boolean, fileItem: FileData) => void;
-  onSelectAll: () => void;
+  onRefresh: () => void;
   onSearch: () => void;
   onSearchClear: () => void;
   onSearchQueryChange: (value: string) => void;
+  onSelect: (isSelected: boolean, fileItem: FileData) => void;
   onToggleSearchSubfolders: () => void;
+  onToggleSelectAll: () => void;
+  page: number;
+  pageItems: LocationItemData[];
+  searchQuery: string;
 }
 
 export interface LocationDetailViewProps extends ListViewProps {

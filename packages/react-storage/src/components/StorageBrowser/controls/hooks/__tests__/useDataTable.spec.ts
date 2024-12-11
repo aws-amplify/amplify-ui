@@ -1,11 +1,14 @@
 import { act, renderHook } from '@testing-library/react';
+import {
+  DataTableProps,
+  DataTableSortHeader,
+} from '../../../composables/DataTable';
 import { useControlsContext } from '../../../controls/context';
-import { useDataTable } from '../useDataTable';
 import { compareButtonData } from '../compareFunctions/compareButtonData';
 import { compareDateData } from '../compareFunctions/compareDateData';
 import { compareNumberData } from '../compareFunctions/compareNumberData';
 import { compareTextData } from '../compareFunctions/compareTextData';
-import { DataTableSortHeader } from '../../../composables/DataTable';
+import { useDataTable } from '../useDataTable';
 
 jest.mock('../../../controls/context');
 jest.mock('../compareFunctions/compareButtonData');
@@ -14,14 +17,14 @@ jest.mock('../compareFunctions/compareNumberData');
 jest.mock('../compareFunctions/compareTextData');
 
 describe('useDataTable', () => {
-  const checkboxHeader = { type: 'checkbox', content: {} };
-  const sortHeader = { type: 'sort', content: {} };
-  const textHeader = { type: 'text', content: {} };
-  const buttonDataCell = { type: 'button', content: {} };
-  const checkboxDataCell = { type: 'checkbox', content: {} };
-  const dateDataCell = { type: 'date', content: {} };
-  const numberDataCell = { type: 'number', content: {} };
-  const textDataCell = { type: 'text', content: {} };
+  const checkboxHeader = { type: 'checkbox', content: {} } as const;
+  const sortHeader = { type: 'sort', content: {} } as const;
+  const textHeader = { type: 'text', content: {} } as const;
+  const buttonDataCell = { type: 'button', content: {} } as const;
+  const checkboxDataCell = { type: 'checkbox', content: {} } as const;
+  const dateDataCell = { type: 'date', content: {} } as const;
+  const numberDataCell = { type: 'number', content: {} } as const;
+  const textDataCell = { type: 'text', content: {} } as const;
   // assert mocks
   const mockUseControlsContext = useControlsContext as jest.Mock;
   const mockCompareButtonData = compareButtonData as jest.Mock;
@@ -44,7 +47,7 @@ describe('useDataTable', () => {
     mockCompareTextData.mockReset();
   });
 
-  it('returns useDataTable data', () => {
+  it('returns DataTable props', () => {
     mockUseControlsContext.mockReturnValue({
       data: {
         tableData: {
@@ -73,7 +76,7 @@ describe('useDataTable', () => {
 
     const { result } = renderHook(() => useDataTable());
 
-    expect(result.current).toStrictEqual({
+    const expected: DataTableProps = {
       headers: [
         { key: 'header-1', ...checkboxHeader },
         {
@@ -101,7 +104,8 @@ describe('useDataTable', () => {
           ],
         },
       ],
-    });
+    };
+    expect(result.current).toStrictEqual(expected);
   });
 
   it('returns empty headers and rows if tableData is undefined', () => {

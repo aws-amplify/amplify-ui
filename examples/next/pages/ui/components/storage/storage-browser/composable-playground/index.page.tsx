@@ -11,7 +11,6 @@ import { Auth } from '../managedAuthAdapter';
 import { Button, Flex, Breadcrumbs } from '@aws-amplify/ui-react';
 
 import '@aws-amplify/ui-react-storage/styles.css';
-import '@aws-amplify/ui-react-storage/storage-browser-styles.css';
 
 const components: CreateStorageBrowserInput['components'] = {
   Navigation: ({ items }) => (

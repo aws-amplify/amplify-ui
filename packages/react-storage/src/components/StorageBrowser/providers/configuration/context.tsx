@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { createContextUtilities } from '@aws-amplify/ui-react-core';
 
 import { GetActionInputProviderProps, GetActionInput } from './types';

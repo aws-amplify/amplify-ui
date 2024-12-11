@@ -1,27 +1,34 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { LoadingIndicatorControl } from '../LoadingIndicatorControl';
-import * as UseLoadingIndicatorModule from '../hooks/useLoadingIndicator';
+import { useLoadingIndicator } from '../hooks/useLoadingIndicator';
+import { useResolvedComposable } from '../hooks/useResolvedComposable';
 
-const label = 'Spinning probably';
-
-const useLoadingIndicatorSpy = jest.spyOn(
-  UseLoadingIndicatorModule,
-  'useLoadingIndicator'
-);
+jest.mock('../hooks/useLoadingIndicator');
+jest.mock('../hooks/useResolvedComposable');
+jest.mock('../../composables/LoadingIndicator', () => ({
+  LoadingIndicator: () => <div data-testid="loading-indicator" />,
+}));
 
 describe('LoadingIndicatorControl', () => {
-  beforeEach(() => {
-    useLoadingIndicatorSpy.mockClear();
+  const mockUseLoadingIndicator = jest.mocked(useLoadingIndicator);
+  const mockUseResolvedComposable = jest.mocked(useResolvedComposable);
+
+  beforeAll(() => {
+    mockUseResolvedComposable.mockImplementation(
+      (component) => component as () => React.JSX.Element
+    );
+  });
+
+  afterEach(() => {
+    mockUseLoadingIndicator.mockClear();
   });
 
   it('renders', () => {
-    useLoadingIndicatorSpy.mockReturnValue({ isLoading: true, label });
-
     render(<LoadingIndicatorControl />);
 
-    const span = screen.getByText(label);
+    const loadingIndicator = screen.getByTestId('loading-indicator');
 
-    expect(span).toBeInTheDocument();
+    expect(loadingIndicator).toBeInTheDocument();
   });
 });

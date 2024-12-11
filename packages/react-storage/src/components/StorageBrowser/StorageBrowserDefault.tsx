@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useViews } from './views';
+import { useViews } from './views/context';
 import { useStore } from './providers/store';
 
 /**
@@ -10,7 +10,8 @@ import { useStore } from './providers/store';
  * - render `ActionView` on action selection
  */
 export function StorageBrowserDefault(): React.JSX.Element {
-  const { LocationActionView, LocationDetailView, LocationsView } = useViews();
+  const { primary } = useViews();
+  const { LocationActionView, LocationDetailView, LocationsView } = primary;
 
   const [{ actionType, location }] = useStore();
   const { current } = location;

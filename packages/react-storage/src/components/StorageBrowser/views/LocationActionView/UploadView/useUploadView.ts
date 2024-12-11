@@ -1,117 +1,108 @@
 import React from 'react';
+import { isUndefined } from '@aws-amplify/ui';
 
-import { uploadHandler } from '../../../actions';
-
-import { useGetActionInput } from '../../../providers/configuration';
+import { UploadHandlerData } from '../../../actions';
 import { FileItems, useStore } from '../../../providers/store';
-import { Task, useProcessTasks } from '../../../tasks';
+import { Task } from '../../../tasks';
+import { useAction } from '../../../useAction';
+import { isFileTooBig } from '../../../validators';
 
-import { DEFAULT_ACTION_CONCURRENCY } from '../constants';
 import { UploadViewState, UseUploadViewOptions } from './types';
 import { DEFAULT_OVERWRITE_ENABLED } from './constants';
-import { isUndefined } from '@aws-amplify/ui';
-import { isFileTooBig } from '../../../validators';
+
+interface FilesData {
+  invalidFiles: FileItems | undefined;
+  validFiles: FileItems | undefined;
+  data: UploadHandlerData[];
+}
 
 export const useUploadView = (
   options?: UseUploadViewOptions
 ): UploadViewState => {
   const { onExit: _onExit } = options ?? {};
-  const getInput = useGetActionInput();
+
   const [{ files, location }, dispatchStoreAction] = useStore();
-  const { current, key } = location;
-
-  const { invalidFiles, validFiles } = React.useMemo(
-    () =>
-      (files ?? [])?.reduce(
-        (curr, file) => {
-          if (isFileTooBig(file.file)) {
-            curr.invalidFiles = isUndefined(curr.invalidFiles)
-              ? [file]
-              : curr.invalidFiles.concat(file);
-          } else {
-            curr.validFiles = isUndefined(curr.validFiles)
-              ? [file]
-              : curr.validFiles.concat(file);
-          }
-
-          return curr;
-        },
-        {} as {
-          invalidFiles: FileItems | undefined;
-          validFiles: FileItems | undefined;
-        }
-      ),
-    [files]
-  );
+  const { current } = location;
 
   const [isOverwritingEnabled, setIsOverwritingEnabled] = React.useState(
     DEFAULT_OVERWRITE_ENABLED
   );
 
+  const filesData = React.useMemo(
+    () =>
+      (files ?? [])?.reduce(
+        (curr: FilesData, item) => {
+          if (isFileTooBig(item.file)) {
+            curr.invalidFiles = isUndefined(curr.invalidFiles)
+              ? [item]
+              : curr.invalidFiles.concat(item);
+          } else {
+            curr.validFiles = isUndefined(curr.validFiles)
+              ? [item]
+              : curr.validFiles.concat(item);
+
+            const parsedFileItem = {
+              ...item,
+              key: `${location.key}${item.key}`,
+            };
+
+            curr.data = curr.data.concat({
+              ...parsedFileItem,
+              preventOverwrite: !isOverwritingEnabled,
+            });
+          }
+
+          return curr;
+        },
+        { invalidFiles: undefined, validFiles: undefined, data: [] }
+      ),
+    [files, isOverwritingEnabled, location.key]
+  );
+
+  const { data, invalidFiles } = filesData;
+
   const [
     { isProcessing, isProcessingComplete, statusCounts, tasks },
-    handleProcess,
-  ] = useProcessTasks(uploadHandler, validFiles, {
-    concurrency: DEFAULT_ACTION_CONCURRENCY,
-  });
+    handleUploads,
+  ] = useAction('upload', { items: data });
 
-  const onDropFiles = React.useCallback(
-    (files: File[]) => {
-      if (files) {
-        dispatchStoreAction({ type: 'ADD_FILE_ITEMS', files });
-      }
-    },
-    [dispatchStoreAction]
-  );
+  const onDropFiles = (files: File[]) => {
+    if (files) {
+      dispatchStoreAction({ type: 'ADD_FILE_ITEMS', files });
+    }
+  };
 
-  const onSelectFiles = React.useCallback(
-    (type?: 'FILE' | 'FOLDER') => {
-      dispatchStoreAction({ type: 'SELECT_FILES', selectionType: type });
-    },
-    [dispatchStoreAction]
-  );
+  const onSelectFiles = (type?: 'FILE' | 'FOLDER') => {
+    dispatchStoreAction({ type: 'SELECT_FILES', selectionType: type });
+  };
 
-  const onActionStart = React.useCallback(() => {
+  const onActionStart = () => {
     invalidFiles?.forEach((file) => {
       dispatchStoreAction({ type: 'REMOVE_FILE_ITEM', id: file.id });
     });
 
-    handleProcess({
-      config: getInput(),
-      destinationPrefix: key,
-      options: { preventOverwrite: !isOverwritingEnabled },
-    });
-  }, [
-    isOverwritingEnabled,
-    key,
-    getInput,
-    handleProcess,
-    invalidFiles,
-    dispatchStoreAction,
-  ]);
+    handleUploads();
+  };
 
-  const onActionCancel = React.useCallback(() => {
+  const onActionCancel = () => {
     tasks.forEach((task) => task.cancel?.());
-  }, [tasks]);
+  };
 
-  const onActionExit = React.useCallback(() => {
+  const onActionExit = () => {
     // clear files state
     dispatchStoreAction({ type: 'RESET_FILE_ITEMS' });
     // clear selected action
     dispatchStoreAction({ type: 'RESET_ACTION_TYPE' });
     _onExit?.(current);
-  }, [dispatchStoreAction, _onExit, current]);
+  };
 
-  const onToggleOverwrite = React.useCallback(() => {
+  const onToggleOverwrite = () => {
     setIsOverwritingEnabled((prev) => !prev);
-  }, []);
+  };
 
-  const onTaskRemove = React.useCallback(
-    ({ data }: Task) => {
-      dispatchStoreAction({ type: 'REMOVE_FILE_ITEM', id: data.id });
-    },
-    [dispatchStoreAction]
-  );
+  const onTaskRemove = ({ data }: Task) => {
+    dispatchStoreAction({ type: 'REMOVE_FILE_ITEM', id: data.id });
+  };
 
   return {
     isProcessing,

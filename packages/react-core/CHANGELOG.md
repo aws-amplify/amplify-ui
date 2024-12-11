@@ -1,5 +1,60 @@
 # @aws-amplify/ui-react-core
 
+## 3.1.1
+
+### Patch Changes
+
+- Updated dependencies [[`9ab56f499f4596062fe4614a016efc3dfc88ef03`](https://github.com/aws-amplify/amplify-ui/commit/9ab56f499f4596062fe4614a016efc3dfc88ef03)]:
+  - @aws-amplify/ui@6.7.1
+
+## 3.1.0
+
+### Minor Changes
+
+- [#6175](https://github.com/aws-amplify/amplify-ui/pull/6175) [`70971f310`](https://github.com/aws-amplify/amplify-ui/commit/70971f310f69717657849f29d0a9e1d993b08d9a) Thanks [@calebpollman](https://github.com/calebpollman)! - feat(storage-browser): add `StorageBrowser` and `createStorageBrowser`
+
+  ```tsx
+  import { Amplify } from 'aws-amplify';
+
+  import { StorageBrowser } from '@aws-amplify/ui-react-storage';
+  import '@aws-amplify/ui-react-storage/styles.css';
+
+  import config from './aws-exports';
+
+  Amplify.configure(config);
+
+  function App() {
+    return <StorageBrowser />;
+  }
+  ```
+
+  ```tsx
+  import { Amplify } from 'aws-amplify';
+
+  import {
+    createAmplifyAuthAdapter,
+    createStorageBrowser,
+  } from '@aws-amplify/ui-react-storage/browser';
+  import '@aws-amplify/ui-react-storage/styles.css';
+
+  import config from './aws-exports';
+
+  Amplify.configure(config);
+
+  const { StorageBrowser } = createStorageBrowser({
+    config: createAmplifyAuthAdapter(),
+  });
+
+  function App() {
+    return <StorageBrowser />;
+  }
+  ```
+
+### Patch Changes
+
+- Updated dependencies [[`70971f310`](https://github.com/aws-amplify/amplify-ui/commit/70971f310f69717657849f29d0a9e1d993b08d9a)]:
+  - @aws-amplify/ui@6.7.0
+
 ## 3.0.30
 
 ### Patch Changes

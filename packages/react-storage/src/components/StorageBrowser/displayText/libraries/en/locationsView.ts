@@ -12,7 +12,7 @@ export const DEFAULT_LOCATIONS_VIEW_DISPLAY_TEXT: DefaultLocationsViewDisplayTex
     getListLocationsResultMessage: (data) => {
       const {
         isLoading,
-        locations,
+        items,
         hasExhaustedSearch,
         hasError = false,
         message,
@@ -29,7 +29,7 @@ export const DEFAULT_LOCATIONS_VIEW_DISPLAY_TEXT: DefaultLocationsViewDisplayTex
         };
       }
 
-      if (locations?.length === 0 && !hasExhaustedSearch) {
+      if (items?.length === 0 && !hasExhaustedSearch) {
         return {
           type: 'info',
           content: 'No folders or files.',

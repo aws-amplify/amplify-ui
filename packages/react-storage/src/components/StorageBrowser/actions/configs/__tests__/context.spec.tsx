@@ -2,29 +2,32 @@ import React from 'react';
 import { renderHook } from '@testing-library/react';
 
 import { defaultActionConfigs } from '../defaults';
-import { ActionConfigs } from '../types';
+import { ActionViewConfigs } from '../types';
 
 import { ActionConfigsProvider, useActionConfigs } from '../context';
 
 describe('useActionConfigs', () => {
   it('returns default and custom config values passed to `ActionConfigsProvider`', () => {
     const someCoolHandler = jest.fn();
-    const configs: ActionConfigs = {
-      ...defaultActionConfigs,
+    const configs: ActionViewConfigs = {
+      copy: defaultActionConfigs.copy,
+      upload: defaultActionConfigs.upload,
       SomeCoolAction: {
-        componentName: 'SomeCoolView',
+        viewName: 'SomeCoolView',
         handler: someCoolHandler,
-        isCancelable: false,
-        displayName: 'Do Cool Action',
+        actionListItem: {
+          icon: 'info',
+          label: 'Do something cool',
+        },
       },
     };
 
     const { result } = renderHook(useActionConfigs, {
       wrapper: (props) => (
-        <ActionConfigsProvider {...props} actions={configs} />
+        <ActionConfigsProvider {...props} actionConfigs={configs} />
       ),
     });
 
-    expect(result.current.actions).toStrictEqual(configs);
+    expect(result.current.actionConfigs).toStrictEqual(configs);
   });
 });
