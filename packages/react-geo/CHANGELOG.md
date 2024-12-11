@@ -1,5 +1,16 @@
 # @aws-amplify/ui-react-geo
 
+## 2.0.34
+
+### Patch Changes
+
+- [#6235](https://github.com/aws-amplify/amplify-ui/pull/6235) [`303c250c2f64853f7f52182554622755a5de52d5`](https://github.com/aws-amplify/amplify-ui/commit/303c250c2f64853f7f52182554622755a5de52d5) Thanks [@calebpollman](https://github.com/calebpollman)! - fix: bump maplibre-gl-js-amplify dep
+
+- [#6244](https://github.com/aws-amplify/amplify-ui/pull/6244) [`8a3c802986874795fdc0b7c77830b88887718520`](https://github.com/aws-amplify/amplify-ui/commit/8a3c802986874795fdc0b7c77830b88887718520) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(react-geo): use caret operator for amplify maplibre dep
+
+- Updated dependencies []:
+  - @aws-amplify/ui-react-core@3.1.2
+
 ## 2.0.33
 
 ### Patch Changes
