@@ -35,7 +35,7 @@ const UNSORTABLE_GROUPS: DataTableDataCell['type'][] = ['checkbox'];
 
 export const useDataTable = (): DataTableProps => {
   const { data } = useControlsContext();
-  const { tableData } = data;
+  const { isLoading, tableData } = data;
 
   const defaultSortIndex = React.useMemo(
     () => tableData?.headers?.findIndex(({ type }) => type === 'sort') ?? -1,
@@ -154,6 +154,7 @@ export const useDataTable = (): DataTableProps => {
 
   return {
     headers: mappedHeaders ?? [],
+    isLoading,
     rows: sortedRows ?? [],
   };
 };
