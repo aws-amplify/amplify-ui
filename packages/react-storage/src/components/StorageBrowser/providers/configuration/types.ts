@@ -1,10 +1,6 @@
 import React from 'react';
 
-import {
-  ActionInputConfig,
-  ActionConfigsProviderProps,
-  LocationData,
-} from '../../actions';
+import { ActionInputConfig, LocationData } from '../../actions';
 
 import { CredentialsProviderProps } from './credentials';
 
@@ -19,8 +15,7 @@ export interface GetActionInputProviderProps {
 
 export interface CreateConfigurationProviderInput<
   T extends React.ComponentType<any>,
-> extends ActionConfigsProviderProps,
-    GetActionInputProviderProps,
+> extends GetActionInputProviderProps,
     CredentialsProviderProps {
   ChildComponent?: T;
   displayName: string;

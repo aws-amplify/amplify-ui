@@ -1,16 +1,17 @@
-import { DataTableProps } from '../../../composables/DataTable';
-import { LocationData } from '../../../actions';
 import {
+  FileData,
   createFileDataItem,
   FileDataItem,
   LocationItemData,
-} from '../../../actions/handlers';
+  LocationData,
+} from '../../../actions';
+import { DataTableProps } from '../../../composables/DataTable';
+import { LocationState } from '../../../providers/store/location';
+
 import { getFileRowContent } from './getFileRowContent';
 import { getFolderRowContent } from './getFolderRowContent';
-import { FileData } from '../../../actions/handlers';
 
 import { LOCATION_DETAIL_VIEW_HEADERS } from './constants';
-import { LocationState } from '../../../providers/store/location';
 
 export const getLocationDetailViewTableData = ({
   areAllFilesSelected,

@@ -1,5 +1,64 @@
 # @aws-amplify/ui
 
+## 6.7.1
+
+### Patch Changes
+
+- [#6211](https://github.com/aws-amplify/amplify-ui/pull/6211) [`9ab56f499f4596062fe4614a016efc3dfc88ef03`](https://github.com/aws-amplify/amplify-ui/commit/9ab56f499f4596062fe4614a016efc3dfc88ef03) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - feat(ai) add attachment validations
+
+  The current limitations on the Amplify AI kit for attachments is 400kb (of base64'd size) per image, and 20 images per message are now being enforced before the message is sent.
+  These limits can be adjusted via props as well.
+
+  ```tsx
+  <AIConversation
+    maxAttachments={2}
+    maxAttachmentSize={100_000} // 100,000 bytes or 100kb
+  />
+  ```
+
+## 6.7.0
+
+### Minor Changes
+
+- [#6175](https://github.com/aws-amplify/amplify-ui/pull/6175) [`70971f310`](https://github.com/aws-amplify/amplify-ui/commit/70971f310f69717657849f29d0a9e1d993b08d9a) Thanks [@calebpollman](https://github.com/calebpollman)! - feat(storage-browser): add `StorageBrowser` and `createStorageBrowser`
+
+  ```tsx
+  import { Amplify } from 'aws-amplify';
+
+  import { StorageBrowser } from '@aws-amplify/ui-react-storage';
+  import '@aws-amplify/ui-react-storage/styles.css';
+
+  import config from './aws-exports';
+
+  Amplify.configure(config);
+
+  function App() {
+    return <StorageBrowser />;
+  }
+  ```
+
+  ```tsx
+  import { Amplify } from 'aws-amplify';
+
+  import {
+    createAmplifyAuthAdapter,
+    createStorageBrowser,
+  } from '@aws-amplify/ui-react-storage/browser';
+  import '@aws-amplify/ui-react-storage/styles.css';
+
+  import config from './aws-exports';
+
+  Amplify.configure(config);
+
+  const { StorageBrowser } = createStorageBrowser({
+    config: createAmplifyAuthAdapter(),
+  });
+
+  function App() {
+    return <StorageBrowser />;
+  }
+  ```
+
 ## 6.6.6
 
 ### Patch Changes

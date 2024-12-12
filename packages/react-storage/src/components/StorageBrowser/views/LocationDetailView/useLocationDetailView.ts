@@ -1,26 +1,22 @@
 import React from 'react';
 
 import { isFunction, isUndefined } from '@aws-amplify/ui';
-import { useDataState } from '@aws-amplify/ui-react-core';
 
 import { usePaginate } from '../hooks/usePaginate';
 import { useStore } from '../../providers/store';
 import {
-  FileData,
-  LocationData,
-  listLocationItemsHandler,
-} from '../../actions';
-import { createEnhancedListHandler } from '../../actions/useAction/createEnhancedListHandler';
-import { useGetActionInput } from '../../providers/configuration';
-import { useSearch } from '../hooks/useSearch';
-
-import { Tasks, useProcessTasks } from '../../tasks';
-import {
-  downloadHandler,
   DownloadHandlerData,
   FileDataItem,
-  defaultActionViewConfigs,
+  FileData,
+  LocationData,
+  useActionConfigs,
 } from '../../actions';
+import { useAction, useList } from '../../useAction';
+
+import { useSearch } from '../hooks/useSearch';
+
+import { Task } from '../../tasks';
+
 import { LocationDetailViewState, UseLocationDetailViewOptions } from './types';
 
 const DEFAULT_PAGE_SIZE = 100;
@@ -29,26 +25,19 @@ export const DEFAULT_LIST_OPTIONS = {
   pageSize: DEFAULT_PAGE_SIZE,
 };
 
-const listLocationItemsAction = createEnhancedListHandler(
-  listLocationItemsHandler
-);
-
 const getDownloadErrorMessageFromFailedDownloadTask = (
-  tasks: Tasks<DownloadHandlerData>
+  task: Task<DownloadHandlerData> | undefined
 ): string | undefined => {
-  if (!tasks.length) {
-    return undefined;
-  }
+  if (!task) return;
 
   return `Failed to download ${
-    tasks[0].data.fileKey ?? tasks[0].data.key
-  } due to error: ${tasks[0].message}.`;
+    task.data.fileKey ?? task.data.key
+  } due to error: ${task.message}.`;
 };
 
 export const useLocationDetailView = (
   options?: UseLocationDetailViewOptions
 ): LocationDetailViewState => {
-  const getConfig = useGetActionInput();
   const { initialValues, onExit, onNavigate } = options ?? {};
 
   const listOptionsRef = React.useRef({
@@ -58,18 +47,17 @@ export const useLocationDetailView = (
 
   const listOptions = listOptionsRef.current;
 
-  const [{ location, locationItems }, dispatchStoreAction] = useStore();
+  const [{ location, locationItems, actionType }, dispatchStoreAction] =
+    useStore();
   const { current, key } = location;
   const { permissions, prefix } = current ?? {};
   const { fileDataItems } = locationItems;
   const hasInvalidPrefix = isUndefined(prefix);
 
-  const [downloadTaskResult, handleDownload] = useProcessTasks(downloadHandler);
+  const [{ task }, handleDownload] = useAction('download');
 
-  const [{ data, isLoading, hasError, message }, handleList] = useDataState(
-    listLocationItemsAction,
-    { items: [], nextToken: undefined }
-  );
+  const [{ data, isLoading, hasError, message }, handleList] =
+    useList('locationItems');
 
   // set up pagination
   const { items, nextToken, search } = data;
@@ -79,7 +67,6 @@ export const useLocationDetailView = (
     if (hasInvalidPrefix || !nextToken) return;
     dispatchStoreAction({ type: 'RESET_LOCATION_ITEMS' });
     handleList({
-      config: getConfig(),
       prefix: key,
       options: { ...listOptions, nextToken },
     });
@@ -111,13 +98,14 @@ export const useLocationDetailView = (
     };
 
     handleReset();
-    handleList({ config: getConfig(), prefix: key, options: searchOptions });
+    handleList({ prefix: key, options: searchOptions });
+
     dispatchStoreAction({ type: 'RESET_LOCATION_ITEMS' });
   };
 
   const {
     searchQuery,
-    isSearchingSubfolders,
+    isSearchingSubfolders: isSearchSubfoldersEnabled,
     onSearchQueryChange,
     onSearchSubmit,
     onToggleSearchSubfolders,
@@ -126,90 +114,79 @@ export const useLocationDetailView = (
 
   const onRefresh = () => {
     if (hasInvalidPrefix) return;
+
     handleReset();
     resetSearch();
     handleList({
-      config: getConfig(),
       prefix: key,
       options: { ...listOptions, refresh: true },
     });
+
     dispatchStoreAction({ type: 'RESET_LOCATION_ITEMS' });
   };
 
   React.useEffect(() => {
     if (hasInvalidPrefix) return;
     handleList({
-      config: getConfig(),
       prefix: key,
       options: { ...listOptions, refresh: true },
     });
     handleReset();
-  }, [
-    handleList,
-    handleReset,
-    listOptions,
-    hasInvalidPrefix,
-    getConfig,
-    prefix,
-    key,
-  ]);
+  }, [handleList, handleReset, listOptions, hasInvalidPrefix, key]);
 
-  // Logic for Select All Files functionality
-  const fileItems = React.useMemo(
-    () => pageItems.filter((item): item is FileData => item.type === 'FILE'),
-    [pageItems]
-  );
-  const areAllFilesSelected = fileDataItems?.length === fileItems.length;
-  const shouldShowEmptyMessage =
-    pageItems.length === 0 && !isLoading && !hasError;
+  const { actionConfigs } = useActionConfigs();
 
-  const actions = React.useMemo(() => {
+  const actionItems = React.useMemo(() => {
     if (!permissions) {
       return [];
     }
 
-    return Object.entries(defaultActionViewConfigs).map(
-      ([actionType, config]) => {
-        const { actionsListItemConfig } = config ?? {};
+    return !actionConfigs
+      ? []
+      : Object.entries(actionConfigs).map(([type, { actionListItem }]) => {
+          const { icon, hide, disable, label } = actionListItem ?? {};
 
-        const { icon, hide, disable, label } = actionsListItemConfig ?? {};
-
-        return {
-          actionType,
-          icon,
-          isDisabled: isFunction(disable)
-            ? disable(fileDataItems)
-            : disable ?? false,
-          isHidden: isFunction(hide) ? hide(permissions) : hide,
-          label,
-        };
-      }
-    );
-  }, [fileDataItems, permissions]);
+          return {
+            actionType: type,
+            icon,
+            isDisabled: isFunction(disable)
+              ? disable(fileDataItems)
+              : disable ?? false,
+            isHidden: isFunction(hide) ? hide(permissions) : hide,
+            label,
+          };
+        });
+  }, [actionConfigs, fileDataItems, permissions]);
 
   return {
-    actions,
+    actionItems,
+    actionType,
     page: currentPage,
     pageItems,
     location,
-    areAllFilesSelected,
     fileDataItems,
-    hasFiles: fileItems.length > 0,
     hasError,
-    hasDownloadError: downloadTaskResult.statusCounts.FAILED > 0,
+    hasDownloadError: task?.status === 'FAILED',
     hasNextPage: hasNextToken,
     highestPageVisited,
     message,
-    downloadErrorMessage: getDownloadErrorMessageFromFailedDownloadTask(
-      downloadTaskResult.tasks
-    ),
-    shouldShowEmptyMessage,
+    downloadErrorMessage: getDownloadErrorMessageFromFailedDownloadTask(task),
     isLoading,
-    isSearchingSubfolders,
+    isSearchSubfoldersEnabled,
     onPaginate,
     searchQuery,
     hasExhaustedSearch,
     onRefresh,
+    onActionExit: () => {
+      dispatchStoreAction({ type: 'RESET_ACTION_TYPE' });
+    },
+    onActionSelect: (nextActionType) => {
+      options?.onActionSelect?.(nextActionType);
+      dispatchStoreAction({
+        type: 'SET_ACTION_TYPE',
+        actionType: nextActionType,
+      });
+    },
     onNavigate: (location: LocationData, path?: string) => {
       onNavigate?.(location, path);
       resetSearch();
@@ -224,24 +201,19 @@ export const useLocationDetailView = (
       options?.onActionSelect?.(actionType);
     },
     onDownload: (data: FileDataItem) => {
-      handleDownload({ config: getConfig(), data });
+      handleDownload({ data });
     },
     onNavigateHome: () => {
       onExit?.();
       dispatchStoreAction({ type: 'RESET_LOCATION' });
 
       handleList({
-        config: getConfig(),
         // @todo: prefix should not be required to refresh
         prefix: prefix ?? '',
         options: { reset: true },
       });
       dispatchStoreAction({ type: 'RESET_ACTION_TYPE' });
       dispatchStoreAction({ type: 'RESET_LOCATION_ITEMS' });
-    },
-    onActionSelect: (actionType) => {
-      options?.onActionSelect?.(actionType);
-      dispatchStoreAction({ type: 'SET_ACTION_TYPE', actionType });
     },
     onSelect: (isSelected: boolean, fileItem: FileData) => {
       dispatchStoreAction(
@@ -250,9 +222,12 @@ export const useLocationDetailView = (
           : { type: 'SET_LOCATION_ITEMS', items: [fileItem] }
       );
     },
-    onSelectAll: () => {
+    onToggleSelectAll: () => {
+      const fileItems = pageItems.filter(
+        (item): item is FileData => item.type === 'FILE'
+      );
       dispatchStoreAction(
-        areAllFilesSelected
+        fileItems.length === fileDataItems?.length
           ? { type: 'RESET_LOCATION_ITEMS' }
           : { type: 'SET_LOCATION_ITEMS', items: fileItems }
       );
@@ -262,7 +237,6 @@ export const useLocationDetailView = (
       resetSearch();
       if (hasInvalidPrefix) return;
       handleList({
-        config: getConfig(),
         prefix: key,
         options: { ...listOptions, refresh: true },
       });

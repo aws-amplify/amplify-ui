@@ -1,9 +1,10 @@
 import { renderHook } from '@testing-library/react';
-import { useControlsContext } from '../../../controls/context';
-import { useNavigation } from '../useNavigation';
 import { LocationPermissions } from '../../../actions';
+import { NavigationProps } from '../../../composables/Navigation';
+import { useControlsContext } from '../../../controls/context';
 import { getNavigationItems } from '../getNavigationItems';
 import { getNavigationParts } from '../getNavigationParts';
+import { useNavigation } from '../useNavigation';
 
 jest.mock('../../../controls/context');
 jest.mock('../getNavigationItems');
@@ -49,15 +50,17 @@ describe('useNavigation', () => {
     mockOnNavigateHome.mockClear();
   });
 
-  it('returns useNavigation data', () => {
+  it('returns Navigation props', () => {
     const { result } = renderHook(() => useNavigation());
 
-    expect(result.current).toStrictEqual({
+    const expected: NavigationProps = {
       items: [
         { name: 'Home', onNavigate: expect.any(Function) },
         { name: bucket, onNavigate: expect.any(Function), isCurrent: true },
       ],
-    });
+    };
+
+    expect(result.current).toStrictEqual(expected);
   });
 
   it('returns empty items if current location is undefined', () => {
