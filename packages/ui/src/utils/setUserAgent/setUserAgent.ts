@@ -8,6 +8,7 @@ import {
   IN_APP_MESSAGING_INPUT_BASE,
   LOCATION_SEARCH_INPUT_BASE,
   MAP_VIEW_INPUT_BASE,
+  STORAGE_BROWSER_INPUT_BASE,
   STORAGE_MANAGER_INPUT_BASE,
 } from './constants';
 import { noop } from '../utils';
@@ -120,6 +121,13 @@ export const setUserAgent = ({
     case 'StorageManager': {
       setCustomUserAgent({
         ...STORAGE_MANAGER_INPUT_BASE,
+        additionalDetails: [[componentName], packageData],
+      });
+      break;
+    }
+    case 'StorageBrowser': {
+      setCustomUserAgent({
+        ...STORAGE_BROWSER_INPUT_BASE,
         additionalDetails: [[componentName], packageData],
       });
       break;

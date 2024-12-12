@@ -93,3 +93,17 @@ export const STORAGE_MANAGER_INPUT_BASE: Omit<
   apis: [StorageAction.UploadData],
   category: Category.Storage,
 };
+
+export const STORAGE_BROWSER_INPUT_BASE: Omit<
+  StorageUserAgentInput,
+  'additionalDetails'
+> = {
+  apis: [
+    StorageAction.UploadData,
+    StorageAction.Copy,
+    StorageAction.GetUrl,
+    StorageAction.List,
+    StorageAction.Remove,
+  ],
+  category: Category.Storage,
+};
