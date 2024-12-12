@@ -170,8 +170,7 @@ export const getActionViewTableData = <T extends TaskData = TaskData>({
               content: {
                 value: progress,
                 displayValue: `${getPercentValue(
-                  // Zero-byte files are uploaded instantly and don't report a progress
-                  // Here we default progress to 100% if progress value is unavailable but status is recognized as complete
+                  // Default progress to 100% if progress value is unavailable but status is recognized as complete
                   progress ?? status === 'COMPLETE' ? 1 : 0
                 )}%`,
               },
