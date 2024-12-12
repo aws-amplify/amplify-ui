@@ -21,7 +21,7 @@ export interface GridItemPropControlsProps extends GridItemStyleProps {
 }
 
 interface GridItemPropControls {
-  (props: GridItemPropControlsProps): JSX.Element;
+  (props: GridItemPropControlsProps): React.JSX.Element;
 }
 
 export const GridItemPropControls: GridItemPropControls = ({

@@ -2970,7 +2970,7 @@ exports[`Props Table 1`] = `
                     },
                     "children": {
                         "name": "children",
-                        "type": "(item: Item, index: number) => JSX.Element",
+                        "type": "(item: Item, index: number) => React.JSX.Element",
                         "description": "The component to be repeated\\nSame interface as Array.prototype.map",
                         "category": "CollectionChildren",
                         "isOptional": false

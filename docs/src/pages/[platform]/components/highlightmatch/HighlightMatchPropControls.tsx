@@ -9,7 +9,7 @@ export interface HighlightMatchPropControlsProps extends HighlightMatchProps {
 }
 
 interface HighlightMatchPropControlsInterface {
-  (props: HighlightMatchPropControlsProps): JSX.Element;
+  (props: HighlightMatchPropControlsProps): React.JSX.Element;
 }
 
 export const HighlightMatchPropControls: HighlightMatchPropControlsInterface =

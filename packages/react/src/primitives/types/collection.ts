@@ -66,7 +66,7 @@ interface CollectionChildren<Item> {
    * The component to be repeated
    * Same interface as Array.prototype.map
    */
-  children: (item: Item, index: number) => JSX.Element;
+  children: (item: Item, index: number) => React.JSX.Element;
 }
 
 export interface CollectionBaseProps<Item> extends CollectionChildren<Item> {
@@ -84,7 +84,7 @@ export type GridCollectionProps<Item> = Omit<BaseGridProps, 'children'> &
 
 /**
  * Omits `React.ReactNode` as children to prevent intersection type for `children` of
- * `React.ReactNode & (item: Item, index: number) => JSX.Element`
+ * `React.ReactNode & (item: Item, index: number) => React.JSX.Element`
  * and replaces with `CollectionChildren`
  */
 type ReplaceChildren<T, Item> = Omit<T, 'children'> & CollectionChildren<Item>;

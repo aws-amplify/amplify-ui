@@ -46,7 +46,7 @@ function ChangePassword({
   onError,
   onSuccess,
   validators,
-}: ChangePasswordProps): JSX.Element | null {
+}: ChangePasswordProps): React.JSX.Element | null {
   const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
   const [formValues, setFormValues] = React.useState<FormValues>({});
   const [validationError, setValidationError] = React.useState<ValidationError>(

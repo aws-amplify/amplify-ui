@@ -215,7 +215,7 @@ function View({ variant, ...props }: ViewElementProps): React.JSX.Element {
   }
 }
 
-const Nav = (props: NavElementProps): JSX.Element => (
+const Nav = (props: NavElementProps): React.JSX.Element => (
   <_View {...props} as="nav" />
 );
 

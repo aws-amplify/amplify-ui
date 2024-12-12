@@ -20,7 +20,7 @@ const DefaultRadioFormFields = ({
   fieldLabelStyle,
   isPending,
   style,
-}: DefaultRadioFormFieldsProps): JSX.Element => {
+}: DefaultRadioFormFieldsProps): React.JSX.Element => {
   return (
     <RadioGroup disabled={isPending} style={style}>
       {(fields ?? []).map(({ name, value, ...props }) => {

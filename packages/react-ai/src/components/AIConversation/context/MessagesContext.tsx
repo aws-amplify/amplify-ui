@@ -17,7 +17,7 @@ export const MessagesProvider = ({
 }: {
   children?: React.ReactNode;
   messages: ConversationMessage[];
-}): JSX.Element => {
+}): React.JSX.Element => {
   return (
     <MessagesContext.Provider value={messages}>
       {children}

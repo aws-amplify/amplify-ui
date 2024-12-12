@@ -29,7 +29,7 @@ export const ControlsProvider = ({
 }: {
   children?: React.ReactNode;
   controls?: ControlsContextProps;
-}): JSX.Element => {
+}): React.JSX.Element => {
   return (
     <ControlsContext.Provider value={controls}>
       {children}

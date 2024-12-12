@@ -11,7 +11,7 @@ export const WelcomeMessageProvider = ({
 }: {
   children?: React.ReactNode;
   welcomeMessage?: React.ReactNode;
-}): JSX.Element => {
+}): React.JSX.Element => {
   return (
     <WelcomeMessageContext.Provider value={welcomeMessage}>
       {children}

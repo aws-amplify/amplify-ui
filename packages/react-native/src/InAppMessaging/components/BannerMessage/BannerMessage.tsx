@@ -10,7 +10,7 @@ import { BannerMessageProps } from './types';
 export default function BannerMessage({
   position = 'top',
   ...props
-}: BannerMessageProps): JSX.Element | null {
+}: BannerMessageProps): React.JSX.Element | null {
   const messageProps = useMessageProps(
     props,
     (imageDimensions: ImageDimensions) =>

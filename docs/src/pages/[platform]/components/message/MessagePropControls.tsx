@@ -24,7 +24,7 @@ export interface MessagePropControlsProps extends MessageProps {
 }
 
 interface MessagePropControlsInterface {
-  (props: MessagePropControlsProps): JSX.Element;
+  (props: MessagePropControlsProps): React.JSX.Element;
 }
 
 export const MessagePropControls: MessagePropControlsInterface = ({

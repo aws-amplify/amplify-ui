@@ -14,7 +14,7 @@ export default function Tabs({
   selectedIndex = 0,
   style,
   ...rest
-}: TabsProps): JSX.Element {
+}: TabsProps): React.JSX.Element {
   const theme = useTheme();
   const themedStyle = getThemedStyles(theme, indicatorPosition);
 

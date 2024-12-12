@@ -9,7 +9,7 @@ export const FileThumbnail = ({
   fileName,
   isImage,
   url,
-}: FileThumbnailProps): JSX.Element => {
+}: FileThumbnailProps): React.JSX.Element => {
   const icons = useIcons('storageManager');
   const thumbnail = isImage ? (
     <Image alt={fileName} src={url} />

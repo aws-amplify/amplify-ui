@@ -69,7 +69,9 @@ export function createUseAIConversation<
 
     // We need to keep track of the stream events as the come in
     // for an assistant message, but don't need to keep them in state
-    const contentBlocksRef = React.useRef<ConversationStreamEvent[][]>();
+    const contentBlocksRef = React.useRef<
+      ConversationStreamEvent[][] | undefined
+    >(undefined);
     // Using this hook without an existing conversation id means
     // it will create a new conversation when it is executed
     // we don't want to create 2 conversations

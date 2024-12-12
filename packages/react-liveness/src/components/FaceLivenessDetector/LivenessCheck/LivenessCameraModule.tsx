@@ -95,7 +95,7 @@ const MemoizedMatchIndicator = React.memo(MatchIndicator);
 
 export const LivenessCameraModule = (
   props: LivenessCameraModuleProps
-): JSX.Element => {
+): React.JSX.Element => {
   const {
     isMobileScreen,
     isRecordingStopped,

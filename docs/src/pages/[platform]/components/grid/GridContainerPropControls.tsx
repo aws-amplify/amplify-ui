@@ -22,7 +22,7 @@ export interface GridContainerPropControlsProps
 }
 
 interface GridContainerPropControls {
-  (props: GridContainerPropControlsProps): JSX.Element;
+  (props: GridContainerPropControlsProps): React.JSX.Element;
 }
 
 export const GridContainerPropControls: GridContainerPropControls = ({

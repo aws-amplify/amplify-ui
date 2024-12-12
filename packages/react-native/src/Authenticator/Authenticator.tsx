@@ -56,7 +56,7 @@ function Authenticator({
   Footer,
   Header,
   ...options
-}: AuthenticatorProps): JSX.Element | null {
+}: AuthenticatorProps): React.JSX.Element | null {
   useDeprecationWarning({
     message:
       'The `passwordSettings` prop has been deprecated and will be removed in a future major version of Amplify UI.',

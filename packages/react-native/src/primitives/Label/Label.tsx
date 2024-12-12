@@ -11,7 +11,7 @@ export default function Label({
   style,
   variant = 'primary',
   ...rest
-}: LabelProps): JSX.Element {
+}: LabelProps): React.JSX.Element {
   const theme = useTheme();
   const themedStyle = getThemedStyles(theme);
   const textStyle = [themedStyle.text, themedStyle[variant], style];
