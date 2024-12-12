@@ -2,8 +2,7 @@ import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 
 import * as ProvidersModule from '../providers';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import * as UserAgentModule from '@aws-amplify/core/internals/utils';
+import * as UIModule from '@aws-amplify/ui';
 
 import { createStorageBrowser } from '../createStorageBrowser';
 import { StorageBrowserDisplayText } from '../displayText/types';
@@ -13,7 +12,7 @@ const createConfigurationProviderSpy = jest.spyOn(
   'createConfigurationProvider'
 );
 
-const setCustomUserAgentSpy = jest.spyOn(UserAgentModule, 'setCustomUserAgent');
+const setCustomUserAgentSpy = jest.spyOn(UIModule, 'setUserAgent');
 
 const accountId = '012345678901';
 const customEndpoint = 'mock-endpoint';
@@ -84,12 +83,9 @@ describe('createStorageBrowser', () => {
     });
 
     expect(setCustomUserAgentSpy).toHaveBeenCalledWith({
-      additionalDetails: [
-        ['StorageBrowser'],
-        ['ui-react-storage', expect.any(String)],
-      ],
-      apis: ['1', '4', '7', '3', '5', '8', '9'],
-      category: 'storage',
+      componentName: 'StorageBrowser',
+      packageName: 'react-storage',
+      version: '3.5.0',
     });
   });
 });
