@@ -104,6 +104,8 @@ export const STORAGE_BROWSER_INPUT_BASE: Omit<
     StorageAction.GetUrl,
     StorageAction.List,
     StorageAction.Remove,
+    StorageAction.GetDataAccess,
+    StorageAction.ListCallerAccessGrants,
   ],
   category: Category.Storage,
 };
