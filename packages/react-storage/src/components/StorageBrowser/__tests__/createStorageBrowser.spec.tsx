@@ -88,7 +88,7 @@ describe('createStorageBrowser', () => {
         ['StorageBrowser'],
         ['ui-react-storage', expect.any(String)],
       ],
-      apis: ['1', '4', '7', '3', '5'],
+      apis: ['1', '4', '7', '3', '5', '8', '9'],
       category: 'storage',
     });
   });
