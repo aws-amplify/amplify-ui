@@ -85,7 +85,8 @@ describe('createStorageBrowser', () => {
     expect(setCustomUserAgentSpy).toHaveBeenCalledWith({
       componentName: 'StorageBrowser',
       packageName: 'react-storage',
-      version: '3.5.0',
+      // prefer non-static string - `version` field is updated on each package bump
+      version: expect.any(String),
     });
   });
 });
