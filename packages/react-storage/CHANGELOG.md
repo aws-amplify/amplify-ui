@@ -1,5 +1,18 @@
 # @aws-amplify/ui-react-storage
 
+## 3.5.1
+
+### Patch Changes
+
+- [#6252](https://github.com/aws-amplify/amplify-ui/pull/6252) [`1cb03be29c9485104d65d9bf7d224e694975143d`](https://github.com/aws-amplify/amplify-ui/commit/1cb03be29c9485104d65d9bf7d224e694975143d) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(react-storage): default nullish progress to 100% if status is "complete"
+
+- [#6252](https://github.com/aws-amplify/amplify-ui/pull/6252) [`1cb03be29c9485104d65d9bf7d224e694975143d`](https://github.com/aws-amplify/amplify-ui/commit/1cb03be29c9485104d65d9bf7d224e694975143d) Thanks [@calebpollman](https://github.com/calebpollman)! - chore: add user agent string to createStorageBrowser
+
+- Updated dependencies [[`4a9e16c194e145c6881583f2362bccd8974bc1fc`](https://github.com/aws-amplify/amplify-ui/commit/4a9e16c194e145c6881583f2362bccd8974bc1fc), [`96be188317d72b89b6bfbc14a3d4ee76daad2a8b`](https://github.com/aws-amplify/amplify-ui/commit/96be188317d72b89b6bfbc14a3d4ee76daad2a8b)]:
+  - @aws-amplify/ui-react@6.7.2
+  - @aws-amplify/ui@6.7.2
+  - @aws-amplify/ui-react-core@3.1.2
+
 ## 3.5.0
 
 ### Minor Changes
