@@ -12,6 +12,7 @@ import { AuthActorContext, AuthEvent } from './types';
 const SIGN_IN_STEP_MFA_CONFIRMATION: string[] = [
   'CONFIRM_SIGN_IN_WITH_SMS_CODE',
   'CONFIRM_SIGN_IN_WITH_TOTP_CODE',
+  'CONFIRM_SIGN_IN_WITH_EMAIL_CODE',
 ];
 
 // response next step guards
@@ -55,7 +56,7 @@ const isConfirmUserAttributeStep = (_: AuthActorContext, { data }: AuthEvent) =>
 
 const isShouldConfirmUserAttributeStep = (
   _: AuthActorContext,
-  { data }: AuthEvent
+  { data }: AuthEvent 
 ) => data?.step === 'SHOULD_CONFIRM_USER_ATTRIBUTE';
 
 const isResetPasswordStep = (_: AuthActorContext, { data }: AuthEvent) =>
@@ -79,6 +80,12 @@ const shouldConfirmResetPassword = ({ step }: AuthActorContext) =>
 
 const shouldConfirmSignUp = ({ step }: AuthActorContext) =>
   step === 'CONFIRM_SIGN_UP';
+
+const shouldSetupEmailMfa = ({ step }: AuthActorContext) =>
+  step === 'CONTINUE_SIGN_IN_WITH_EMAIL_MFA_SETUP'; // 'CONTINUE_SIGN_IN_WITH_EMAIL_SETUP' in js library
+
+const shouldSelectMfa = ({ step }: AuthActorContext) =>
+  step === 'CONTINUE_SIGN_IN_WITH_MFA_SELECTION';
 
 // miscellaneous guards
 const shouldVerifyAttribute = (
@@ -132,6 +139,8 @@ const GUARDS: MachineOptions<AuthActorContext, AuthEvent>['guards'] = {
   shouldResetPassword,
   shouldResetPasswordFromSignIn,
   shouldSetupTotp,
+  shouldSetupEmailMfa,
+  shouldSelectMfa,
   shouldVerifyAttribute,
 };
 

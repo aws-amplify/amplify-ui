@@ -63,6 +63,10 @@ const setChallengeName = assign({
       ? 'SMS_MFA'
       : signInStep === 'CONFIRM_SIGN_IN_WITH_TOTP_CODE'
       ? 'SOFTWARE_TOKEN_MFA'
+      : signInStep === 'CONFIRM_SIGN_IN_WITH_EMAIL_CODE'
+      ? 'EMAIL_OTP'
+      : signInStep === 'CONTINUE_SIGN_IN_WITH_MFA_SELECTION'
+      ? 'SELECT_MFA_TYPE'
       : undefined;
   },
 });

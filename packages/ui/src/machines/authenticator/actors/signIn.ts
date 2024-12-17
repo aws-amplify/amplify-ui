@@ -90,9 +90,23 @@ export function signInActor({ services }: SignInMachineOptions) {
               cond: 'shouldConfirmSignIn',
               target: 'confirmSignIn',
             },
+            /*
+            {
+              cond: 'shouldSelectMfa',
+              target: 'confirmSignIn',
+            },
+            */
+            {
+              cond: 'shouldSelectMfa',
+              target: 'selectMfa',
+            },
             {
               cond: 'shouldSetupTotp',
               target: 'setupTotp',
+            },
+            {
+              cond: 'shouldSetupEmailMfa',
+              target: 'setupEmailMfa', // implement this
             },
             {
               cond: ({ step }) =>
@@ -270,6 +284,52 @@ export function signInActor({ services }: SignInMachineOptions) {
               tags: 'pending',
               entry: ['sendUpdate', 'clearError'],
               invoke: { src: 'confirmSignIn', ...handleSignInResponse },
+            },
+          },
+        },
+        setupEmailMfa: {
+          initial: 'edit',
+          exit: ['clearFormValues', 'clearError', 'clearTouched'],
+          states: {
+            edit: {
+              entry: 'sendUpdate',
+              on: {
+                SUBMIT: { actions: 'handleSubmit', target: 'submit' },
+                SIGN_IN: '#signInActor.signIn',
+                CHANGE: { actions: 'handleInput' },
+              },
+            },
+            submit: {
+              tags: 'pending',
+              entry: ['sendUpdate', 'clearError'],
+              invoke: { src: 'confirmSignIn', ...handleSignInResponse },
+            },
+          },
+        },
+        selectMfa: {
+          initial: 'edit',
+          exit: [
+            'clearChallengeName',
+            'clearFormValues',
+            'clearError',
+            'clearTouched',
+          ],
+          states: {
+            edit: {
+              entry: 'sendUpdate',
+              on: {
+                SUBMIT: { actions: 'handleSubmit', target: 'submit' },
+                SIGN_IN: '#signInActor.signIn',
+                CHANGE: { actions: 'handleInput' },
+              },
+            },
+            submit: {
+              tags: 'pending',
+              entry: ['clearError', 'sendUpdate'],
+              invoke: {
+                src: 'confirmSignIn',
+                ...handleSignInResponse,
+              },
             },
           },
         },
