@@ -49,6 +49,13 @@ ForgotPassword.Footer = Footer;
 ForgotPassword.FormFields = FormFields;
 ForgotPassword.Header = Header;
 
+const SelectMfa: DefaultComponents<{}>['SelectMfa'] = () => {
+  return null;
+};
+SelectMfa.Footer = Footer;
+SelectMfa.FormFields = FormFields;
+SelectMfa.Header = Header;
+
 const SetupTotp: DefaultComponents<{}>['SetupTotp'] = () => {
   return null;
 };
@@ -84,6 +91,7 @@ export const DEFAULTS: DefaultComponents<{}> = {
   ConfirmVerifyUser,
   ForceNewPassword,
   ForgotPassword,
+  SelectMfa,
   SetupTotp,
   SignIn,
   SignUp,

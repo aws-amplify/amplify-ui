@@ -19,6 +19,7 @@ export type AuthenticatorRouteComponentKey =
   | 'confirmSignUp'
   | 'confirmVerifyUser'
   | 'forgotPassword'
+  | 'selectMfa'
   | 'setupTotp'
   | 'verifyUser';
 

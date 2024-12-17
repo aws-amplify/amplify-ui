@@ -17,6 +17,14 @@ export const defaultFormFieldOptions: DefaultFormFieldOptions = {
     autocomplete: 'bday',
     isRequired: true,
   },
+  select_mfa_email: {
+    label: 'Email MFA',
+    type: 'radio',
+  },
+  select_mfa_totp: {
+    label: 'TOTP MFA',
+    type: 'radio',
+  },
   confirmation_code: {
     label: 'Confirmation Code',
     placeholder: 'Enter your Confirmation Code',
