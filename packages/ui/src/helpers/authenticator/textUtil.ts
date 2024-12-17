@@ -15,6 +15,10 @@ const getChallengeText = (challengeName?: ChallengeName): string => {
       return translate(DefaultTexts.CONFIRM_SMS);
     case 'SOFTWARE_TOKEN_MFA':
       return translate(DefaultTexts.CONFIRM_TOTP);
+    case 'EMAIL_OTP':
+      return translate(DefaultTexts.CONFIRM_EMAIL);
+    case 'SELECT_MFA_TYPE':
+      return translate(DefaultTexts.SELECT_MFA_TYPE);
     default:
       return translate(DefaultTexts.CONFIRM_MFA_DEFAULT);
   }

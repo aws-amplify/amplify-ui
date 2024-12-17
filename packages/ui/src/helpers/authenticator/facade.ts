@@ -41,6 +41,7 @@ export type AuthenticatorRoute =
   | 'forgotPassword'
   | 'setup'
   | 'signOut'
+  | 'selectMfa'
   | 'setupTotp'
   | 'signIn'
   | 'signUp'

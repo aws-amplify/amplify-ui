@@ -19,6 +19,7 @@ import { defaultServices } from './defaultServices';
 export type ChallengeName =
   | 'SMS_MFA'
   | 'SOFTWARE_TOKEN_MFA'
+  | 'EMAIL_OTP'
   | 'SELECT_MFA_TYPE'
   | 'MFA_SETUP'
   | 'PASSWORD_VERIFIER'
@@ -147,6 +148,10 @@ export type SignInStep =
   | 'CONFIRM_SIGN_UP'
   | 'CONTINUE_SIGN_IN_WITH_TOTP_SETUP'
   | 'RESET_PASSWORD'
+  | 'CONTINUE_SIGN_IN_WITH_MFA_SETUP_SELECTION'
+  | 'CONTINUE_SIGN_IN_WITH_EMAIL_MFA_SETUP' // 'CONTINUE_SIGN_IN_WITH_EMAIL_SETUP' in js library
+  | 'CONTINUE_SIGN_IN_WITH_MFA_SELECTION'
+  | 'CONFIRM_SIGN_IN_WITH_EMAIL_CODE'
   | 'SIGN_IN_COMPLETE'; // 'DONE'
 
 export type ResetPasswordStep =

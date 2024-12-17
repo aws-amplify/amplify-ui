@@ -61,6 +61,8 @@ export type SocialProvider = 'amazon' | 'apple' | 'facebook' | 'google';
 export const authFieldsWithDefaults = [
   ...LoginMechanismArray,
   ...signUpFieldsWithDefault,
+  'select_mfa_email',
+  'select_mfa_totp',
   'confirmation_code',
   'password',
   'confirm_password',
