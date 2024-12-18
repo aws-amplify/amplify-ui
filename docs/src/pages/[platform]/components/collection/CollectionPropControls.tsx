@@ -18,7 +18,7 @@ export type CollectionPropControlsProps = Omit<
   };
 
 interface CollectionPropControlsInterface {
-  (props: CollectionPropControlsProps): JSX.Element;
+  (props: CollectionPropControlsProps): React.JSX.Element;
 }
 
 export const CollectionPropControls: CollectionPropControlsInterface = ({

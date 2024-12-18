@@ -35,7 +35,7 @@ export const routeSelector: UseMachineSelector = ({ route }) => [route];
 function ComponentRouteProvider({
   children,
   hideSignUp = false,
-}: ComponentRouteProviderProps): JSX.Element {
+}: ComponentRouteProviderProps): React.JSX.Element {
   const { route: _route, setRoute: setRouteBase } = useMachine(routeSelector);
 
   const route = isRoute(_route, ...COMPONENT_ROUTE) ? _route : undefined;

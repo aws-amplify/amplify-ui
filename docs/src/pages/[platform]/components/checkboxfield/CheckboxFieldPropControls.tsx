@@ -26,7 +26,7 @@ export interface CheckboxFieldPropControlsProps extends CheckboxFieldProps {
 }
 
 interface CheckboxFieldPropControlsInterface {
-  (props: CheckboxFieldPropControlsProps): JSX.Element;
+  (props: CheckboxFieldPropControlsProps): React.JSX.Element;
 }
 
 export const CheckboxFieldPropControls: CheckboxFieldPropControlsInterface = ({

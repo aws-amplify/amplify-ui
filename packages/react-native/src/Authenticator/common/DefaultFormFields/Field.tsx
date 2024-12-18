@@ -28,7 +28,7 @@ const HIDDEN_INPUT_PROPS: TextInputProps = {
 
 const HiddenInput = () => <TextInput {...HIDDEN_INPUT_PROPS} />;
 
-const Field = ({ type, ...rest }: FieldProps): JSX.Element => {
+const Field = ({ type, ...rest }: FieldProps): React.JSX.Element => {
   const isPassword = type === 'password';
   const Field = isPassword
     ? PasswordField

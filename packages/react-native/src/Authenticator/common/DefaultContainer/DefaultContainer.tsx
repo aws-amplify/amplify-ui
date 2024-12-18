@@ -26,7 +26,7 @@ export default function DefaultContainer({
   scrollViewContentContainerStyle,
   style,
   ...rest
-}: ContainerProps): JSX.Element | null {
+}: ContainerProps): React.JSX.Element | null {
   const theme = useTheme();
   const insets = useSafeAreaInsets();
 

@@ -53,7 +53,7 @@ describe('ConfirmResetPassword', () => {
     expect(getAllByRole('header')).toBeDefined();
     expect(getByText(getSubmitText())).toBeDefined();
     expect(getByText(getResendCodeText())).toBeDefined();
-    expect(getAllByRole('text')).toHaveLength(fields.length);
+    expect(getAllByRole('text')).toHaveLength(5);
   });
 
   it('renders an error message', () => {

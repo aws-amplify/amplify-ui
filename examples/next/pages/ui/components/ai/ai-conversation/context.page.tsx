@@ -60,7 +60,7 @@ const AIContextProvider = ({
   children,
 }: {
   children?: React.ReactNode;
-}): JSX.Element => {
+}): React.JSX.Element => {
   const [data, setData] = React.useState({});
   return (
     <AIContext.Provider value={{ data, setData }}>

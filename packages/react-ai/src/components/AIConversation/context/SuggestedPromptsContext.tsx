@@ -12,7 +12,7 @@ export const SuggestedPromptProvider = ({
 }: {
   children?: React.ReactNode;
   suggestedPrompts?: SuggestedPrompt[];
-}): JSX.Element => {
+}): React.JSX.Element => {
   return (
     <SuggestedPromptsContext.Provider value={suggestedPrompts}>
       {children}

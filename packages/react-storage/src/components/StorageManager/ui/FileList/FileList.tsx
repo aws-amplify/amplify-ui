@@ -18,7 +18,7 @@ export function FileList({
   onPause,
   showThumbnails,
   maxFileCount,
-}: FileListProps): JSX.Element | null {
+}: FileListProps): React.JSX.Element | null {
   if (files.length < 1) {
     return null;
   }

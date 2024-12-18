@@ -47,7 +47,7 @@ export function MachineProvider({
   children,
   initialRoute: initialState,
   ...data
-}: MachineProviderProps): JSX.Element {
+}: MachineProviderProps): React.JSX.Element {
   const service = useInterpret(() =>
     createAuthenticatorMachine({
       ...data,

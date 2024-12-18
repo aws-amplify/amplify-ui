@@ -15,7 +15,7 @@ export default function Button({
   textStyle,
   variant = 'default',
   ...rest
-}: ButtonProps): JSX.Element {
+}: ButtonProps): React.JSX.Element {
   const theme = useTheme();
   const themedStyle = getThemedStyles(theme);
 
