@@ -1,5 +1,14 @@
 # @aws-amplify/ui-react-liveness
 
+## 3.1.20
+
+### Patch Changes
+
+- [#6255](https://github.com/aws-amplify/amplify-ui/pull/6255) [`825cccc92f5c326f0f110c8439a1c2c6553ff00a`](https://github.com/aws-amplify/amplify-ui/commit/825cccc92f5c326f0f110c8439a1c2c6553ff00a) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(react): remove direct usage of react-test-renderer and types
+
+- Updated dependencies []:
+  - @aws-amplify/ui-react@6.7.3
+
 ## 3.1.19
 
 ### Patch Changes
