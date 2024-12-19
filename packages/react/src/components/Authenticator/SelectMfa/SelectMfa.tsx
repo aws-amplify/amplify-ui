@@ -3,15 +3,55 @@ import { authenticatorTextUtil } from '@aws-amplify/ui';
 
 import { Flex } from '../../../primitives/Flex';
 import { Heading } from '../../../primitives/Heading';
+import { Radio } from '../../../primitives/Radio';
+import { RadioGroupField } from '../../../primitives/RadioGroupField';
 import { useAuthenticator } from '@aws-amplify/ui-react-core';
 import { useCustomComponents } from '../hooks/useCustomComponents';
 import { useFormHandlers } from '../hooks/useFormHandlers';
-import { FormFields } from '../shared/FormFields';
+// import { FormFields } from '../shared/FormFields';
 import { ConfirmSignInFooter } from '../shared/ConfirmSignInFooter';
 import { RemoteErrorMessage } from '../shared/RemoteErrorMessage';
 import { RouteContainer, RouteProps } from '../RouteContainer';
 
 const { getChallengeText } = authenticatorTextUtil;
+
+/*
+interface MfaOptions {
+  email: string;
+  username: string;
+}
+
+const opt: MfaOptions = {
+  email: 'EMAIL',
+  username: 'Totp Prop',
+};
+
+type MfaType = 'EMAIL' | 'wow';
+*/
+/*
+const generateRadioGroup = (
+  attributes: MfaOptions
+): JSX.Element[] => {
+  return Object.entries(attributes).map(
+    ([key, value]: [string, string], index) => {
+      const MfaType = (
+        defaultFormFieldOptions[key] as { label: MfaType }
+      ).label;
+      return (
+        <Radio
+          name="MfaAtt"
+          value={key}
+          key={key}
+          defaultChecked={index === 0}
+        >
+          {MfaType}:{' '}
+          {value}
+        </Radio>
+      );
+    }
+  );
+};
+*/
 
 export const SelectMfa = ({
   className,
@@ -30,6 +70,29 @@ export const SelectMfa = ({
     },
   } = useCustomComponents();
 
+  const verificationRadioGroup = (
+    <RadioGroupField
+      legend="What up peeps"
+      name="figure it out"
+      isDisabled={isPending}
+    >
+      <Radio
+        name="mfa_selection"
+        value="EMAIL"
+        key="EMAIL"
+      >
+        email:EMAIL
+      </Radio>
+      <Radio
+        name="mfa_selection"
+        value="TOTP"
+        key="wow"
+      >
+        totp:wow
+      </Radio>
+    </RadioGroupField>
+  );
+
   return (
     <RouteContainer className={className} variation={variation}>
       <form
@@ -43,7 +106,8 @@ export const SelectMfa = ({
           <Header />
 
           <Flex direction="column">
-            <FormFields />
+            {verificationRadioGroup}
+
             <RemoteErrorMessage />
           </Flex>
 
@@ -67,3 +131,5 @@ SelectMfa.Footer = function Footer(): JSX.Element {
   // @ts-ignore
   return null;
 };
+
+// <FormFields />

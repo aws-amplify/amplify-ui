@@ -327,7 +327,7 @@ export function signInActor({ services }: SignInMachineOptions) {
               tags: 'pending',
               entry: ['clearError', 'sendUpdate'],
               invoke: {
-                src: 'confirmSignIn',
+                src: 'selectMfa',
                 ...handleSignInResponse,
               },
             },
@@ -365,6 +365,12 @@ export function signInActor({ services }: SignInMachineOptions) {
         },
         confirmSignIn({ formValues }) {
           const { confirmation_code: challengeResponse } = formValues;
+          console.log('this is in the state machine - confirm sign in:', challengeResponse);
+          return services.handleConfirmSignIn({ challengeResponse });
+        },
+        selectMfa({ formValues }) {
+          const { mfa_selection: challengeResponse } = formValues;
+          console.log('this is in the state machine - select mfa:', challengeResponse);
           return services.handleConfirmSignIn({ challengeResponse });
         },
         async handleForceChangePassword({ formValues }) {

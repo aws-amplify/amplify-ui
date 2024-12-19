@@ -69,8 +69,6 @@ export interface FormFieldOptions {
   autocomplete?: string;
   /** Whether the first character is auto-capitalized */
   autocapitalize?: string;
-  /** Value to be passed by radio button */
-  value?: string;
 }
 
 export interface LegacyFormFieldOptions extends FormFieldOptions {

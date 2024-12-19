@@ -58,11 +58,17 @@ export type LoginMechanism = (typeof LoginMechanismArray)[number];
 /** List of social provider Authenticator supports */
 export type SocialProvider = 'amazon' | 'apple' | 'facebook' | 'google';
 
+/** Utility type for selecting MFA method with which to confirm sign in */
+export type MfaMethod = 'EMAIL' | 'SMS' | 'TOTP';
+
 export const authFieldsWithDefaults = [
   ...LoginMechanismArray,
   ...signUpFieldsWithDefault,
+  /*
   'select_mfa_email',
   'select_mfa_totp',
+  */
+  'mfa_selection',
   'confirmation_code',
   'password',
   'confirm_password',

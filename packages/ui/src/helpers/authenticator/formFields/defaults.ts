@@ -53,17 +53,11 @@ const getConfirmationCodeFormFields = (_: AuthMachineState): FormFields => ({
   },
 });
 
-const getSelectionFormFields = (_: AuthMachineState): FormFields => ({
-  select_email: {
-    ...getDefaultFormField('select_mfa_email'),
-    label: 'Email Label',
-    value: 'EMAIL'
-  },
-  select_totp: {
-    ...getDefaultFormField('select_mfa_totp'),
-    label: 'TOTP Label',
-    value: 'wow'
-  },
+const getMfaSelectionFormFields = (_: AuthMachineState): FormFields => ({
+  mfa_selection: {
+    ...getDefaultFormField('mfa_selection'),
+    label: 'MFA Selection!'
+  }
 });
 
 const getSignInFormFields = (state: AuthMachineState): FormFields => ({
@@ -192,6 +186,6 @@ export const defaultFormFieldsGetters: Record<
   forgotPassword: getForgotPasswordFormFields,
   confirmResetPassword: getConfirmResetPasswordFormFields,
   confirmVerifyUser: getConfirmationCodeFormFields,
-  selectMfa: getSelectionFormFields,
+  selectMfa: getMfaSelectionFormFields,
   setupTotp: getConfirmationCodeFormFields,
 };

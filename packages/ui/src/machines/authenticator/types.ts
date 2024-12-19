@@ -5,6 +5,7 @@ import {
   LoginMechanism,
   SignUpAttribute,
   SocialProvider,
+  MfaMethod,
   UnverifiedUserAttributes,
   AuthFormData,
   AuthFormFields,
@@ -127,6 +128,7 @@ export interface AuthContext {
     loginMechanisms?: LoginMechanism[];
     signUpAttributes?: SignUpAttribute[];
     socialProviders?: SocialProvider[];
+    mfaMethods?: MfaMethod[];
     formFields?: AuthFormFields;
     initialState?: 'signIn' | 'signUp' | 'forgotPassword';
     passwordSettings?: PasswordSettings;
