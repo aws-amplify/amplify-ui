@@ -17,6 +17,7 @@ const ViewPrimitive: Primitive<ViewProps, 'div'> = (
     isDisabled,
     style,
     inert,
+
     ...rest
   },
   ref
