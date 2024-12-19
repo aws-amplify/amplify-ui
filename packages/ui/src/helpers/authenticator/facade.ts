@@ -11,6 +11,7 @@ import {
   FederatedProvider,
   LoginMechanism,
   SocialProvider,
+  MfaMethod,
   UnverifiedUserAttributes,
   ValidationError,
 } from '../../types';
@@ -41,6 +42,7 @@ export type AuthenticatorRoute =
   | 'forgotPassword'
   | 'setup'
   | 'signOut'
+  | 'selectMfa'
   | 'setupTotp'
   | 'signIn'
   | 'signUp'
@@ -59,6 +61,7 @@ interface AuthenticatorServiceContextFacade {
   isPending: boolean;
   route: AuthenticatorRoute;
   socialProviders: SocialProvider[];
+  mfaMethods: MfaMethod[];
   totpSecretCode: string | null;
   unverifiedUserAttributes: UnverifiedUserAttributes;
   user: AuthUser;
@@ -182,6 +185,7 @@ export const getServiceContextFacade = (
   } = actorContext;
 
   const { socialProviders = [] } = state.context?.config ?? {};
+  const { mfaMethods = [] } = state.context?.config ?? {};
 
   // check for user in actorContext prior to state context. actorContext is more "up to date",
   // but is not available on all states
@@ -219,6 +223,7 @@ export const getServiceContextFacade = (
     isPending,
     route,
     socialProviders,
+    mfaMethods,
     totpSecretCode,
     unverifiedUserAttributes,
     user,

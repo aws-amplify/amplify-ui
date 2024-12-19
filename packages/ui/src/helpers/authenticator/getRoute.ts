@@ -39,6 +39,9 @@ export const getRoute = (
       return 'confirmSignUp';
     case actorState?.matches('confirmSignIn'):
       return 'confirmSignIn';
+    case actorState?.matches('selectMfa.edit'):
+    case actorState?.matches('selectMfa.submit'):
+      return 'selectMfa';
     case actorState?.matches('setupTotp.edit'):
     case actorState?.matches('setupTotp.submit'):
       return 'setupTotp';
