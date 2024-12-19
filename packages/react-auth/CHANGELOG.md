@@ -1,5 +1,14 @@
 # @aws-amplify/ui-react-auth
 
+## 0.0.41
+
+### Patch Changes
+
+- Updated dependencies [[`825cccc92f5c326f0f110c8439a1c2c6553ff00a`](https://github.com/aws-amplify/amplify-ui/commit/825cccc92f5c326f0f110c8439a1c2c6553ff00a), [`954e9be2d055a57ebddab5b902e3e6b427d09f67`](https://github.com/aws-amplify/amplify-ui/commit/954e9be2d055a57ebddab5b902e3e6b427d09f67)]:
+  - @aws-amplify/ui-react-core@3.1.3
+  - @aws-amplify/ui-react@6.7.3
+  - @aws-amplify/ui-react-core-auth@0.0.36
+
 ## 0.0.40
 
 ### Patch Changes
