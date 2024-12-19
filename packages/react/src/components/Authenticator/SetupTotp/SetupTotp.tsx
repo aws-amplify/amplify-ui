@@ -24,7 +24,7 @@ const { getSetupTotpText, getCopiedText, getLoadingText } =
 export const SetupTotp = ({
   className,
   variation,
-}: RouteProps): JSX.Element => {
+}: RouteProps): React.JSX.Element => {
   const { totpSecretCode, isPending, username, QRFields } = useAuthenticator(
     (context) => [context.isPending, context.totpSecretCode, context.username]
   );
@@ -125,11 +125,11 @@ export const SetupTotp = ({
   );
 };
 
-SetupTotp.Header = function Header(): JSX.Element {
+SetupTotp.Header = function Header(): React.JSX.Element {
   return <Heading level={3}>{getSetupTotpText()}</Heading>;
 };
 
-SetupTotp.Footer = function Footer(): JSX.Element {
+SetupTotp.Footer = function Footer(): React.JSX.Element {
   // @ts-ignore
   return null;
 };

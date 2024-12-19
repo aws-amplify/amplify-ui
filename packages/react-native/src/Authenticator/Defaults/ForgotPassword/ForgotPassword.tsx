@@ -28,7 +28,7 @@ const ForgotPassword = ({
   toSignIn,
   validationErrors,
   ...rest
-}: DefaultForgotPasswordProps): JSX.Element => {
+}: DefaultForgotPasswordProps): React.JSX.Element => {
   const {
     disableFormSubmit: disabled,
     fields: fieldsWithHandlers,
