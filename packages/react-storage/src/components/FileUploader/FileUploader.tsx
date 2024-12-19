@@ -45,6 +45,7 @@ const FileUploaderBase = React.forwardRef(function FileUploader(
     acceptedFileTypes = [],
     accessLevel,
     autoUpload = true,
+    bucket,
     components,
     defaultFiles,
     displayText: overrideDisplayText,
@@ -142,6 +143,7 @@ const FileUploaderBase = React.forwardRef(function FileUploader(
 
   useUploadFiles({
     accessLevel,
+    bucket,
     files,
     isResumable,
     maxFileCount,
