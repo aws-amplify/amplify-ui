@@ -60,6 +60,7 @@ describe('getInput', () => {
     const expected: UploadDataWithPathInput = {
       data: file,
       options: {
+        bucket: undefined,
         contentType: file.type,
         useAccelerateEndpoint: undefined,
         onProgress,
@@ -78,6 +79,7 @@ describe('getInput', () => {
     const expected: UploadDataWithPathInput = {
       data: file,
       options: {
+        bucket: undefined,
         contentType: file.type,
         useAccelerateEndpoint: undefined,
         onProgress,
@@ -97,6 +99,7 @@ describe('getInput', () => {
       data: file,
       options: {
         accessLevel,
+        bucket: undefined,
         contentType: file.type,
         useAccelerateEndpoint: undefined,
         onProgress,
@@ -116,6 +119,7 @@ describe('getInput', () => {
       data: file,
       options: {
         accessLevel,
+        bucket: undefined,
         contentType: file.type,
         useAccelerateEndpoint: undefined,
         onProgress,
@@ -134,6 +138,7 @@ describe('getInput', () => {
     const expected: UploadDataWithPathInput = {
       data: file,
       options: {
+        bucket: undefined,
         contentType: file.type,
         useAccelerateEndpoint: undefined,
         onProgress,
@@ -218,6 +223,7 @@ describe('getInput', () => {
     const expected: UploadDataWithPathInput = {
       data,
       options: {
+        bucket: undefined,
         contentType: 'binary/octet-stream',
         useAccelerateEndpoint: undefined,
         onProgress,
@@ -237,6 +243,7 @@ describe('getInput', () => {
     const expected: UploadDataWithPathInput = {
       data,
       options: {
+        bucket: undefined,
         contentType: 'binary/octet-stream',
         useAccelerateEndpoint: true,
         onProgress,
