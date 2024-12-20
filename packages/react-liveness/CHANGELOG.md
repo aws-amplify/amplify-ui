@@ -1,5 +1,15 @@
 # @aws-amplify/ui-react-liveness
 
+## 3.1.19
+
+### Patch Changes
+
+- [#6250](https://github.com/aws-amplify/amplify-ui/pull/6250) [`27c72b51e1f11073e383eb848a99589c234abb23`](https://github.com/aws-amplify/amplify-ui/commit/27c72b51e1f11073e383eb848a99589c234abb23) Thanks [@calebpollman](https://github.com/calebpollman)! - deps: resolve all versions of nanoid to 3.3.8
+
+- Updated dependencies [[`4a9e16c194e145c6881583f2362bccd8974bc1fc`](https://github.com/aws-amplify/amplify-ui/commit/4a9e16c194e145c6881583f2362bccd8974bc1fc), [`96be188317d72b89b6bfbc14a3d4ee76daad2a8b`](https://github.com/aws-amplify/amplify-ui/commit/96be188317d72b89b6bfbc14a3d4ee76daad2a8b)]:
+  - @aws-amplify/ui-react@6.7.2
+  - @aws-amplify/ui@6.7.2
+
 ## 3.1.18
 
 ### Patch Changes
