@@ -1,5 +1,16 @@
 # @aws-amplify/ui-react-geo
 
+## 2.1.0
+
+### Minor Changes
+
+- [#5826](https://github.com/aws-amplify/amplify-ui/pull/5826) [`954e9be2d055a57ebddab5b902e3e6b427d09f67`](https://github.com/aws-amplify/amplify-ui/commit/954e9be2d055a57ebddab5b902e3e6b427d09f67) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(react): add support for React 19
+
+### Patch Changes
+
+- Updated dependencies [[`825cccc92f5c326f0f110c8439a1c2c6553ff00a`](https://github.com/aws-amplify/amplify-ui/commit/825cccc92f5c326f0f110c8439a1c2c6553ff00a), [`954e9be2d055a57ebddab5b902e3e6b427d09f67`](https://github.com/aws-amplify/amplify-ui/commit/954e9be2d055a57ebddab5b902e3e6b427d09f67)]:
+  - @aws-amplify/ui-react-core@3.2.0
+
 ## 2.0.34
 
 ### Patch Changes
