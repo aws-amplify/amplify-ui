@@ -13,6 +13,7 @@ import {
   SocialProvider,
   UnverifiedUserAttributes,
   ValidationError,
+  MfaType,
 } from '../../types';
 
 import {
@@ -41,6 +42,7 @@ export type AuthenticatorRoute =
   | 'forgotPassword'
   | 'setup'
   | 'signOut'
+  | 'selectMfa'
   | 'setupTotp'
   | 'signIn'
   | 'signUp'
@@ -59,6 +61,7 @@ interface AuthenticatorServiceContextFacade {
   isPending: boolean;
   route: AuthenticatorRoute;
   socialProviders: SocialProvider[];
+  allowedMFATypes: MfaType[] | undefined;
   totpSecretCode: string | null;
   unverifiedUserAttributes: UnverifiedUserAttributes;
   user: AuthUser;
@@ -173,6 +176,7 @@ export const getServiceContextFacade = (
   const actorContext = (getActorContext(state) ?? {}) as AuthActorContext;
   const {
     challengeName,
+    allowedMFATypes,
     codeDeliveryDetails,
     remoteError: error,
     validationError: validationErrors,
@@ -219,6 +223,7 @@ export const getServiceContextFacade = (
     isPending,
     route,
     socialProviders,
+    allowedMFATypes,
     totpSecretCode,
     unverifiedUserAttributes,
     user,

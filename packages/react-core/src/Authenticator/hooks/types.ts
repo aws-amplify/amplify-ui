@@ -15,6 +15,7 @@ export type AuthenticatorRouteComponentKey =
   | 'confirmVerifyUser'
   | 'forceNewPassword'
   | 'forgotPassword'
+  | 'selectMfa'
   | 'setupTotp'
   | 'signIn'
   | 'signUp'
@@ -123,6 +124,13 @@ export type ResetPasswordBaseProps<FieldType = {}> = {
   ComponentSlots<FieldType> &
   ValidationProps;
 
+export type SelectMfaBaseProps<FieldType = {}> = {
+  challengeName: ChallengeName | undefined;
+  toSignIn: UseAuthenticator['toSignIn'];
+} & CommonRouteProps &
+  ComponentSlots<FieldType> &
+  ValidationProps;
+
 export type SetupTotpBaseProps<FieldType = {}> = {
   toSignIn: UseAuthenticator['toSignIn'];
   totpSecretCode: UseAuthenticator['totpSecretCode'];
@@ -163,6 +171,7 @@ export interface DefaultProps<FieldType = {}> {
   ConfirmVerifyUser: ConfirmVerifyUserProps<FieldType>;
   ForceNewPassword: ForceResetPasswordBaseProps<FieldType>;
   ForgotPassword: ResetPasswordBaseProps<FieldType>;
+  SelectMfa: SelectMfaBaseProps<FieldType>;
   SetupTotp: SetupTotpBaseProps<FieldType>;
   SignIn: SignInBaseProps<FieldType>;
   SignUp: SignUpBaseProps<FieldType>;
