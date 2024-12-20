@@ -56,7 +56,7 @@ const isConfirmUserAttributeStep = (_: AuthActorContext, { data }: AuthEvent) =>
 
 const isShouldConfirmUserAttributeStep = (
   _: AuthActorContext,
-  { data }: AuthEvent 
+  { data }: AuthEvent
 ) => data?.step === 'SHOULD_CONFIRM_USER_ATTRIBUTE';
 
 const isResetPasswordStep = (_: AuthActorContext, { data }: AuthEvent) =>

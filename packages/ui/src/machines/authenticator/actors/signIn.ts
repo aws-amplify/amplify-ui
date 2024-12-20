@@ -91,12 +91,6 @@ export function signInActor({ services }: SignInMachineOptions) {
               cond: 'shouldConfirmSignIn',
               target: 'confirmSignIn',
             },
-            /*
-            {
-              cond: 'shouldSelectMfa',
-              target: 'confirmSignIn',
-            },
-            */
             {
               cond: 'shouldSelectMfa',
               target: 'selectMfa',

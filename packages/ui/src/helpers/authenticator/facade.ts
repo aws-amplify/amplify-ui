@@ -186,7 +186,6 @@ export const getServiceContextFacade = (
   } = actorContext;
 
   const { socialProviders = [] } = state.context?.config ?? {};
-  // const { mfaMethods = [] } = state.context?.config ?? {};
 
   // check for user in actorContext prior to state context. actorContext is more "up to date",
   // but is not available on all states

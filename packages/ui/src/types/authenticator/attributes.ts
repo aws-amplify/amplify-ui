@@ -64,10 +64,6 @@ export type MfaType = 'SMS' | 'TOTP' | 'EMAIL';
 export const authFieldsWithDefaults = [
   ...LoginMechanismArray,
   ...signUpFieldsWithDefault,
-  /*
-  'select_mfa_email',
-  'select_mfa_totp',
-  */
   'mfa_selection',
   'confirmation_code',
   'password',

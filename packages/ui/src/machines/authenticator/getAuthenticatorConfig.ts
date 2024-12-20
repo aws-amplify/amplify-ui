@@ -10,7 +10,6 @@ export interface LegacyConfig {
   aws_cognito_signup_attributes?: string[];
   aws_cognito_verification_mechanisms?: string[];
   aws_cognito_social_providers?: string[];
-  aws_cognito_mfa_types?: string[];
   aws_cognito_password_protection_settings?: Record<string, any>;
 }
 
