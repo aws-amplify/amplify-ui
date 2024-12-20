@@ -27,6 +27,7 @@ export function useFormHandlers(): {
     ({
       target: { checked, name, type, value },
     }: React.ChangeEvent<HTMLFormElement>) => {
+      console.log(checked, name, type, value);
       const isUncheckedCheckbox = type === 'checkbox' && !checked;
       updateForm({
         name,
@@ -39,7 +40,10 @@ export function useFormHandlers(): {
   const handleSubmit = useCallback(
     (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
-      submitForm(getFormDataFromEvent(event));
+      const a  = getFormDataFromEvent(event);
+      console.log(a);
+      submitForm(a);
+      //submitForm(getFormDataFromEvent(event));
     },
     [submitForm]
   );

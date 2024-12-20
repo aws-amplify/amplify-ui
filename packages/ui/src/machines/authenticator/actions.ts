@@ -22,6 +22,7 @@ import {
   V5CodeDeliveryDetails,
 } from './types';
 import { getUsernameSignUp, sanitizePhoneNumber } from './utils';
+import { MfaType } from '../../types';
 
 const { assign } = xStateActions;
 
@@ -58,6 +59,7 @@ const setConfirmAttributeCompleteStep = assign({
 // map v6 `signInStep` to v5 `challengeName`
 const setChallengeName = assign({
   challengeName: (_, { data }: AuthEvent): ChallengeName | undefined => {
+    console.log('log data from challengeName action: ', data);
     const { signInStep } = (data as SignInOutput).nextStep;
     return signInStep === 'CONFIRM_SIGN_IN_WITH_SMS_CODE'
       ? 'SMS_MFA'
@@ -68,6 +70,16 @@ const setChallengeName = assign({
       : signInStep === 'CONTINUE_SIGN_IN_WITH_MFA_SELECTION'
       ? 'SELECT_MFA_TYPE'
       : undefined;
+  },
+});
+
+const clearAllowedMFATypes = assign({ allowedMFATypes: {} });
+
+const setAllowedMFATypes = assign({
+  allowedMFATypes: (_, { data }: AuthEvent): MfaType[] => {
+    console.log('log data from mfa action: ', data);
+    const { allowedMFATypes } = (data as SignInOutput).nextStep;
+    return allowedMFATypes;
   },
 });
 
@@ -225,6 +237,7 @@ const ACTIONS: MachineOptions<AuthActorContext, AuthEvent>['actions'] = {
   clearTouched,
   clearUser,
   clearValidationError,
+  clearAllowedMFATypes,
   handleBlur,
   handleInput,
   handleSubmit,
@@ -242,6 +255,7 @@ const ACTIONS: MachineOptions<AuthActorContext, AuthEvent>['actions'] = {
   setSelectedUserAttribute,
   setSignInStep,
   setTotpSecretCode,
+  setAllowedMFATypes,
   setUser,
   setUnverifiedUserAttributes,
   setUsernameForgotPassword,

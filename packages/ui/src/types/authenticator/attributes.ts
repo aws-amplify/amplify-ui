@@ -59,7 +59,7 @@ export type LoginMechanism = (typeof LoginMechanismArray)[number];
 export type SocialProvider = 'amazon' | 'apple' | 'facebook' | 'google';
 
 /** Utility type for selecting MFA method with which to confirm sign in */
-export type MfaMethod = 'EMAIL' | 'SMS' | 'TOTP';
+export type MfaType = 'SMS' | 'TOTP' | 'EMAIL';
 
 export const authFieldsWithDefaults = [
   ...LoginMechanismArray,

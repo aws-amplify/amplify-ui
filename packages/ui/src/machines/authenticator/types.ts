@@ -5,7 +5,7 @@ import {
   LoginMechanism,
   SignUpAttribute,
   SocialProvider,
-  MfaMethod,
+  MfaType,
   UnverifiedUserAttributes,
   AuthFormData,
   AuthFormFields,
@@ -128,7 +128,6 @@ export interface AuthContext {
     loginMechanisms?: LoginMechanism[];
     signUpAttributes?: SignUpAttribute[];
     socialProviders?: SocialProvider[];
-    mfaMethods?: MfaMethod[];
     formFields?: AuthFormFields;
     initialState?: 'signIn' | 'signUp' | 'forgotPassword';
     passwordSettings?: PasswordSettings;
@@ -188,6 +187,7 @@ interface BaseFormContext {
   step: Step;
   totpSecretCode?: string;
   unverifiedUserAttributes?: UnverifiedUserAttributes;
+  allowedMFATypes?: MfaType[];
 
   // kept in memory for submission to relevnat APIs
   username?: string;

@@ -49,6 +49,7 @@ const handleSignInResponse = {
         'setMissingAttributes',
         'setNextSignInStep',
         'setTotpSecretCode',
+        'setAllowedMFATypes',
       ],
       target: '#signInActor.init',
     },

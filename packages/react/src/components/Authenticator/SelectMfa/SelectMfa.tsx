@@ -1,5 +1,5 @@
 import React from 'react';
-import { authenticatorTextUtil } from '@aws-amplify/ui';
+import { authenticatorTextUtil, MfaType } from '@aws-amplify/ui';
 
 import { Flex } from '../../../primitives/Flex';
 import { Heading } from '../../../primitives/Heading';
@@ -12,8 +12,17 @@ import { useFormHandlers } from '../hooks/useFormHandlers';
 import { ConfirmSignInFooter } from '../shared/ConfirmSignInFooter';
 import { RemoteErrorMessage } from '../shared/RemoteErrorMessage';
 import { RouteContainer, RouteProps } from '../RouteContainer';
+import { toLower } from 'lodash';
 
 const { getChallengeText } = authenticatorTextUtil;
+
+function parseMfaTypes(types?: MfaType[]): string {
+  if(types) {
+    return types.join();
+  } else {
+    return 'types was undefined.';
+  }
+}
 
 /*
 interface MfaOptions {
@@ -28,15 +37,29 @@ const opt: MfaOptions = {
 
 type MfaType = 'EMAIL' | 'wow';
 */
-/*
+
 const generateRadioGroup = (
-  attributes: MfaOptions
+  attributes?: MfaType[]
 ): JSX.Element[] => {
-  return Object.entries(attributes).map(
+  const elements: JSX.Element[] = [];
+  console.log('print attributes: ', attributes);
+  attributes.forEach((value, index) => {
+    console.log('print value and index: ', value, index);
+    elements.push((
+      <Radio
+        name="mfa_selection"
+        value={value}
+        key={value}
+      >
+        Option {index}: {value}
+      </Radio>
+    ));
+  });
+  return elements;
+  /*
+  return attributes.map
     ([key, value]: [string, string], index) => {
-      const MfaType = (
-        defaultFormFieldOptions[key] as { label: MfaType }
-      ).label;
+      const MfaType = 
       return (
         <Radio
           name="MfaAtt"
@@ -50,14 +73,19 @@ const generateRadioGroup = (
       );
     }
   );
+  */
 };
-*/
+
 
 export const SelectMfa = ({
   className,
   variation,
 }: RouteProps): JSX.Element => {
   const { isPending } = useAuthenticator((context) => [context.isPending]);
+  const { allowedMFATypes } = useAuthenticator(({ allowedMFATypes }) => [
+    allowedMFATypes,
+  ]);
+
   const { handleChange, handleSubmit } = useFormHandlers();
 
   const {
@@ -71,6 +99,15 @@ export const SelectMfa = ({
   } = useCustomComponents();
 
   const verificationRadioGroup = (
+    <RadioGroupField
+      legend="What up peeps"
+      name="figure it out"
+      isDisabled={isPending}
+    >
+      {generateRadioGroup(allowedMFATypes)}
+    </RadioGroupField>
+    
+    /*
     <RadioGroupField
       legend="What up peeps"
       name="figure it out"
@@ -91,6 +128,8 @@ export const SelectMfa = ({
         totp:wow
       </Radio>
     </RadioGroupField>
+
+    */
   );
 
   return (
@@ -124,7 +163,11 @@ SelectMfa.Header = function Header(): JSX.Element {
     challengeName,
   ]);
 
-  return <Heading level={3}>{getChallengeText(challengeName)}</Heading>;
+  const { allowedMFATypes } = useAuthenticator(({ allowedMFATypes }) => [
+    allowedMFATypes,
+  ]);
+
+  return <Heading level={3}>{getChallengeText(challengeName)}<br/>MFA types: {parseMfaTypes(allowedMFATypes)}</Heading>;
 }
 
 SelectMfa.Footer = function Footer(): JSX.Element {
