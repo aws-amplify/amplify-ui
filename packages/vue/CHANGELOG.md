@@ -1,5 +1,14 @@
 # @aws-amplify/ui-vue
 
+## 4.2.26
+
+### Patch Changes
+
+- [#6250](https://github.com/aws-amplify/amplify-ui/pull/6250) [`27c72b51e1f11073e383eb848a99589c234abb23`](https://github.com/aws-amplify/amplify-ui/commit/27c72b51e1f11073e383eb848a99589c234abb23) Thanks [@calebpollman](https://github.com/calebpollman)! - deps: resolve all versions of nanoid to 3.3.8
+
+- Updated dependencies [[`96be188317d72b89b6bfbc14a3d4ee76daad2a8b`](https://github.com/aws-amplify/amplify-ui/commit/96be188317d72b89b6bfbc14a3d4ee76daad2a8b)]:
+  - @aws-amplify/ui@6.7.2
+
 ## 4.2.25
 
 ### Patch Changes

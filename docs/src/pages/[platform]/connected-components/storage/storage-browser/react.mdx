@@ -195,20 +195,20 @@ export const { StorageBrowser } = createStorageBrowser({
     listLocations: async (input = {}) => {
       const { nextToken, pageSize } = input;
       return {
-        locations: [
+        items: [
           {
-            bucketName: '[bucket name]',
+            bucket: '[bucket name]',
             prefix: '', // empty path means bucket root
             id: 'XXXXXXX', // unique identifier 
             type: 'BUCKET',
-            permission: ['delete', 'get', 'list', 'write'],
+            permissions: ['delete', 'get', 'list', 'write'],
           },
           {
-            bucketName: '[bucket name]',
+            bucket: '[bucket name]',
             prefix: 'some/path',
             id: 'XXXXXXX', // unique identifier 
             type: 'PREFIX',
-            permission: ['delete', 'get', 'list', 'write'],
+            permissions: ['delete', 'get', 'list', 'write'],
           }
         ]
       }

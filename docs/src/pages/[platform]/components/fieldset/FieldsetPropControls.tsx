@@ -25,7 +25,7 @@ export interface FieldsetPropControlsProps extends FieldsetProps {
 }
 
 interface FieldsetPropControlsInterface {
-  (props: FieldsetPropControlsProps): JSX.Element;
+  (props: FieldsetPropControlsProps): React.JSX.Element;
 }
 
 export const FieldsetPropControls: FieldsetPropControlsInterface = ({

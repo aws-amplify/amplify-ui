@@ -1,5 +1,30 @@
 # @aws-amplify/ui-react-native
 
+## 2.3.0
+
+### Minor Changes
+
+- [#6266](https://github.com/aws-amplify/amplify-ui/pull/6266) [`50cde53145bfffc97f17b6da5c650c25d992fd97`](https://github.com/aws-amplify/amplify-ui/commit/50cde53145bfffc97f17b6da5c650c25d992fd97) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(react-native): update allowed peerDep to >=0.70
+
+- [#5826](https://github.com/aws-amplify/amplify-ui/pull/5826) [`954e9be2d055a57ebddab5b902e3e6b427d09f67`](https://github.com/aws-amplify/amplify-ui/commit/954e9be2d055a57ebddab5b902e3e6b427d09f67) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(react): add support for React 19
+
+### Patch Changes
+
+- [#6255](https://github.com/aws-amplify/amplify-ui/pull/6255) [`825cccc92f5c326f0f110c8439a1c2c6553ff00a`](https://github.com/aws-amplify/amplify-ui/commit/825cccc92f5c326f0f110c8439a1c2c6553ff00a) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(react): remove direct usage of react-test-renderer and types
+
+- Updated dependencies [[`825cccc92f5c326f0f110c8439a1c2c6553ff00a`](https://github.com/aws-amplify/amplify-ui/commit/825cccc92f5c326f0f110c8439a1c2c6553ff00a), [`954e9be2d055a57ebddab5b902e3e6b427d09f67`](https://github.com/aws-amplify/amplify-ui/commit/954e9be2d055a57ebddab5b902e3e6b427d09f67)]:
+  - @aws-amplify/ui-react-core-notifications@2.1.0
+  - @aws-amplify/ui-react-core@3.2.0
+
+## 2.2.20
+
+### Patch Changes
+
+- Updated dependencies [[`96be188317d72b89b6bfbc14a3d4ee76daad2a8b`](https://github.com/aws-amplify/amplify-ui/commit/96be188317d72b89b6bfbc14a3d4ee76daad2a8b)]:
+  - @aws-amplify/ui@6.7.2
+  - @aws-amplify/ui-react-core@3.1.2
+  - @aws-amplify/ui-react-core-notifications@2.0.33
+
 ## 2.2.19
 
 ### Patch Changes

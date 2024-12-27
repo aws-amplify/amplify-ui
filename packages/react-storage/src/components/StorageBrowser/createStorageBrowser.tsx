@@ -1,5 +1,9 @@
 import React from 'react';
 
+import { setUserAgent } from '@aws-amplify/ui';
+
+import { VERSION } from '../../version';
+
 import {
   defaultActionConfigs,
   getActionConfigs,
@@ -60,6 +64,12 @@ export function createStorageBrowser<
     getLocationCredentials,
     region,
   } = input.config;
+
+  setUserAgent({
+    componentName: 'StorageBrowser',
+    packageName: 'react-storage',
+    version: VERSION,
+  });
 
   const actions = {
     default: {

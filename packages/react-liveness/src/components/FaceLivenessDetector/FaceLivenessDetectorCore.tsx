@@ -22,7 +22,7 @@ export interface FaceLivenessDetectorCoreProps
 
 export default function FaceLivenessDetectorCore(
   props: FaceLivenessDetectorCoreProps
-): JSX.Element {
+): React.JSX.Element {
   const { components, config, displayText } = props;
   const currElementRef = React.useRef<HTMLDivElement>(null);
   const {
