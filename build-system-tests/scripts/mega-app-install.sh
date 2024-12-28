@@ -108,7 +108,7 @@ else
         # react-native-safe-area-context v5.0.0+ does not support RN 0.74 and lower
         DEPENDENCIES="$TAGGED_UI_FRAMEWORK @aws-amplify/react-native aws-amplify react-native-safe-area-context@^4.2.5 @react-native-community/netinfo @react-native-async-storage/async-storage react-native-get-random-values react-native-url-polyfill"
         echo "npm install $DEPENDENCIES"
-        npm install $DEPENDENCIES
+        install_dependencies_with_retries npm "$DEPENDENCIES"
         if [[ "$BUILD_TOOL" == "expo" ]]; then
             if [[ "$FRAMEWORK_VERSION" == "0.75" ]]; then 
                 # Expo SDK version 51.0.0 supports RN 0.74 and 0.75 but installs 0.74 by default https://expo.dev/changelog/2024/08-14-react-native-0.75#2-install-updated-packages
