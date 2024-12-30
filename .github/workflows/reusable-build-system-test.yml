@@ -2,9 +2,24 @@
 #
 # See build-system-test.yml for usage.
 on:
-  push:
-    branches: [restore-react-latest-testing]
-
+  workflow_call:
+    inputs:
+      dist-tag:
+        required: true
+        type: string
+    secrets:
+      AUTH_E2E_ROLE_ARN:
+        required: true
+      DOMAIN:
+        required: true
+      PHONE_NUMBER:
+        required: true
+      USERNAME:
+        required: true
+      NEW_PASSWORD:
+        required: true
+      VALID_PASSWORD:
+        required: true
 jobs:
   build:
     runs-on: ubuntu-latest
