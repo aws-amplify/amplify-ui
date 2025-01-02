@@ -12,7 +12,7 @@ export interface TabsPropControlsProps extends TabsProps {
 }
 
 interface TabsPropControlsInterface {
-  (props: TabsPropControlsProps): React.JSX.Element;
+  (props: TabsPropControlsProps): JSX.Element;
 }
 
 export const TabsPropControls: TabsPropControlsInterface = ({

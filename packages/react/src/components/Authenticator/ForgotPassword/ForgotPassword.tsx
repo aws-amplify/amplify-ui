@@ -21,7 +21,7 @@ const {
 export const ForgotPassword = ({
   className,
   variation,
-}: RouteProps): React.JSX.Element => {
+}: RouteProps): JSX.Element => {
   const { isPending } = useAuthenticator((context) => [context.isPending]);
   const { handleChange, handleSubmit } = useFormHandlers();
 
@@ -70,11 +70,11 @@ export const ForgotPassword = ({
   );
 };
 
-ForgotPassword.Header = function Header(): React.JSX.Element {
+ForgotPassword.Header = function Header(): JSX.Element {
   return <Heading level={3}>{getResetYourPasswordText()}</Heading>;
 };
 
-ForgotPassword.Footer = function Footer(): React.JSX.Element {
+ForgotPassword.Footer = function Footer(): JSX.Element {
   // @ts-ignore
   return null;
 };

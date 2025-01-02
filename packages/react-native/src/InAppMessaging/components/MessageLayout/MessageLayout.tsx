@@ -16,7 +16,7 @@ import { LayoutProps } from './types';
 export default function MessageLayout({
   orientation,
   ...props
-}: LayoutProps): React.JSX.Element {
+}: LayoutProps): JSX.Element {
   const {
     body,
     hasButtons,

@@ -15,7 +15,7 @@ export interface WithAuthenticatorProps {
 export function withAuthenticator<Props = {}>(
   Component: React.ComponentType<Props & WithAuthenticatorProps>,
   options: WithAuthenticatorOptions = {}
-): (props: Props) => React.JSX.Element {
+): (props: Props) => JSX.Element {
   const { variation = 'modal' } = options;
 
   return function WrappedWithAuthenticator(props: Props) {

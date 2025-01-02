@@ -56,7 +56,7 @@ export interface BaseAutocompleteMenuProps extends BaseViewProps {
    * @description
    * A list of Option JSX elements
    */
-  children: React.JSX.Element[];
+  children: JSX.Element[];
 
   /**
    * @description

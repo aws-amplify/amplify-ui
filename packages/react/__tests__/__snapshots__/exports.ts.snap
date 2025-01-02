@@ -339,9 +339,6 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
       "position": {
         "type": "string",
       },
-      "ref": {
-        "type": "string",
-      },
       "right": {
         "type": "string",
       },
@@ -1753,9 +1750,6 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
         "type": "string",
       },
       "position": {
-        "type": "string",
-      },
-      "ref": {
         "type": "string",
       },
       "right": {
@@ -4032,9 +4026,6 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
         "type": "string",
       },
       "position": {
-        "type": "string",
-      },
-      "ref": {
         "type": "string",
       },
       "right": {
@@ -9923,9 +9914,6 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
       "readOnly": {
         "type": "boolean",
       },
-      "ref": {
-        "type": "string",
-      },
       "rel": {
         "type": "string",
       },
@@ -14938,9 +14926,6 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
         "type": "string",
       },
       "position": {
-        "type": "string",
-      },
-      "ref": {
         "type": "string",
       },
       "right": {

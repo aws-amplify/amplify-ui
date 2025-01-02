@@ -94,7 +94,7 @@ export const renderErrorModal = ({
 }: {
   errorState: ErrorState;
   overrideErrorDisplayText?: ErrorDisplayText;
-}): React.JSX.Element | null => {
+}): JSX.Element | null => {
   const displayText: Required<ErrorDisplayText> = {
     ...defaultErrorDisplayText,
     ...overrideErrorDisplayText,

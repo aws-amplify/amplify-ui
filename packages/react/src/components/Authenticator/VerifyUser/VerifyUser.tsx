@@ -28,7 +28,7 @@ const {
 
 const generateRadioGroup = (
   attributes: UnverifiedUserAttributes
-): React.JSX.Element[] => {
+): JSX.Element[] => {
   return Object.entries(attributes).map(
     ([key, value]: [string, string], index) => {
       const verificationType = (
@@ -52,7 +52,7 @@ const generateRadioGroup = (
 export const VerifyUser = ({
   className,
   variation,
-}: RouteProps): React.JSX.Element => {
+}: RouteProps): JSX.Element => {
   const {
     components: {
       // @ts-ignore
@@ -113,11 +113,11 @@ export const VerifyUser = ({
   );
 };
 
-VerifyUser.Header = function Header(): React.JSX.Element {
+VerifyUser.Header = function Header(): JSX.Element {
   return <Heading level={3}>{getAccountRecoveryInfoText()}</Heading>;
 };
 
-VerifyUser.Footer = function Footer(): React.JSX.Element {
+VerifyUser.Footer = function Footer(): JSX.Element {
   // @ts-ignore
   return null;
 };

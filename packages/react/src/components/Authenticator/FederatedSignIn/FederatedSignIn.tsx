@@ -11,7 +11,7 @@ import { FederatedSignInButton } from './FederatedSignInButtons';
 
 const { getSignInWithFederationText, getOrText } = authenticatorTextUtil;
 
-export function FederatedSignIn(): React.JSX.Element {
+export function FederatedSignIn(): JSX.Element {
   const { route, socialProviders } = useAuthenticator(
     ({ route, socialProviders }) => [route, socialProviders]
   );

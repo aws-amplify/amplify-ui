@@ -15,7 +15,7 @@ interface ThemeStyleProps extends React.ComponentProps<'style'> {
 export const ThemeStyle = ({
   theme,
   ...rest
-}: ThemeStyleProps): React.JSX.Element | null => {
+}: ThemeStyleProps): JSX.Element | null => {
   if (!theme) return null;
 
   const { name, cssText } = theme;

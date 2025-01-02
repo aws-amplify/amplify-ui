@@ -7,7 +7,6 @@ exports[`useForm returns the expected values from getFieldState in the happy pat
   "invalid": false,
   "isDirty": false,
   "isTouched": false,
-  "isValidating": false,
 }
 `;
 

@@ -10,7 +10,7 @@ export const AIContextProvider = ({
 }: {
   children?: React.ReactNode;
   aiContext?: () => object;
-}): React.JSX.Element => {
+}): JSX.Element => {
   return (
     <AIContextContext.Provider value={aiContext}>
       {children}

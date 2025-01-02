@@ -26,7 +26,7 @@ export default function DefaultContent<
   Header,
   headerText,
   validationErrors,
-}: DefaultContentProps<FieldsType>): React.JSX.Element {
+}: DefaultContentProps<FieldsType>): JSX.Element {
   const themedStyles = useThemedStyles(getDefaultStyle);
 
   const linkButtons = useMemo(

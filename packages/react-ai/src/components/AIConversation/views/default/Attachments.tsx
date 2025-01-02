@@ -48,7 +48,7 @@ export const Attachments = ({
 }: {
   files?: File[];
   setInput: ConversationInputContextProps['setInput'];
-}): React.JSX.Element | null => {
+}): JSX.Element | null => {
   if (!files || files.length < 1) {
     return null;
   }

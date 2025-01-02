@@ -17,7 +17,7 @@ export interface LinkPropControlsProps extends LinkProps {
 }
 
 interface LinkPropControlsInterface {
-  (props: LinkPropControlsProps): React.JSX.Element;
+  (props: LinkPropControlsProps): JSX.Element;
 }
 
 export const LinkPropControls: LinkPropControlsInterface = ({

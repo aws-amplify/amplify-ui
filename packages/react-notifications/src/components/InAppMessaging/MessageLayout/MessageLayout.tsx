@@ -47,7 +47,7 @@ export function MessageLayout({
   primaryButton,
   secondaryButton,
   styles,
-}: MessageLayoutProps): React.JSX.Element {
+}: MessageLayoutProps): JSX.Element {
   const buttonModifiers = React.useMemo(
     () => ({
       primary: getButtonModifier(styles.primaryButton),

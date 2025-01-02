@@ -34,7 +34,7 @@ export default function RadioGroup<T>({
   size,
   style,
   ...rest
-}: RadioGroupProps<T>): React.JSX.Element {
+}: RadioGroupProps<T>): JSX.Element {
   const theme = useTheme();
   const themedStyle = getThemedStyles(theme);
 

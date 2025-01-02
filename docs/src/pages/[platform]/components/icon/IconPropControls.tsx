@@ -11,7 +11,7 @@ export interface IconPropControlsProps extends IconProps {
 }
 
 interface IconPropControlsInterface {
-  (props: IconPropControlsProps): React.JSX.Element;
+  (props: IconPropControlsProps): JSX.Element;
 }
 
 export const IconPropControls: IconPropControlsInterface = ({

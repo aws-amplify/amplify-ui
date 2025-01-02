@@ -30,7 +30,7 @@ const ConfirmResetPassword = ({
   resendCode,
   validationErrors,
   ...rest
-}: DefaultConfirmResetPasswordProps): React.JSX.Element => {
+}: DefaultConfirmResetPasswordProps): JSX.Element => {
   const {
     disableFormSubmit,
     fields: fieldsWithHandlers,

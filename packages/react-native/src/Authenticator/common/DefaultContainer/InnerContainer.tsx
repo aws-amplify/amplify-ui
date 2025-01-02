@@ -8,7 +8,7 @@ import { ContainerProps } from './types';
 export default function InnerContainer({
   children,
   ...rest
-}: ContainerProps): React.JSX.Element | null {
+}: ContainerProps): JSX.Element | null {
   const theme = useTheme();
 
   const themedStyle = getInnerContainerStyles(theme);

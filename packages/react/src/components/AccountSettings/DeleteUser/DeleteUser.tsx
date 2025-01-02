@@ -19,7 +19,7 @@ function DeleteUser({
   handleDelete,
   onError,
   onSuccess,
-}: DeleteUserProps): React.JSX.Element | null {
+}: DeleteUserProps): JSX.Element | null {
   const [state, setState] = React.useState<DeleteUserState>('IDLE');
   const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
 

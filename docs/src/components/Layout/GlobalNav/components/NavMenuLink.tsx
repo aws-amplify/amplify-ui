@@ -15,7 +15,7 @@ export function NavMenuLink({
   setShowGlobalNav?: Dispatch<SetStateAction<boolean>>;
 }) {
   const label: string = navMenuItem.label;
-  const linkContent: React.JSX.Element =
+  const linkContent: JSX.Element =
     navMenuItem.type === 'EXTERNAL' ? (
       <ExternalLink>{label}</ExternalLink>
     ) : (

@@ -11,7 +11,7 @@ export function CloseIconButton({
   onClick,
   style,
   ...rest
-}: CloseIconButtonProps): React.JSX.Element {
+}: CloseIconButtonProps): JSX.Element {
   return (
     <Button
       ariaLabel={dismissButtonLabel}

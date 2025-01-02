@@ -12,7 +12,7 @@ export interface FederatedSignInButtonProps {
   text: string;
 }
 
-const AppleIcon = (): React.JSX.Element => {
+const AppleIcon = (): JSX.Element => {
   return (
     <svg
       aria-label="Apple icon"
@@ -29,7 +29,7 @@ const AppleIcon = (): React.JSX.Element => {
   );
 };
 
-const GoogleIcon = (): React.JSX.Element => {
+const GoogleIcon = (): JSX.Element => {
   return (
     <svg
       aria-label="Google icon"
@@ -58,7 +58,7 @@ const GoogleIcon = (): React.JSX.Element => {
   );
 };
 
-const FacebookIcon = (): React.JSX.Element => {
+const FacebookIcon = (): JSX.Element => {
   return (
     <Icon
       className="federated-sign-in-icon"
@@ -70,7 +70,7 @@ const FacebookIcon = (): React.JSX.Element => {
   );
 };
 
-const AmazonIcon = (): React.JSX.Element => {
+const AmazonIcon = (): JSX.Element => {
   return (
     <svg
       aria-label="Amazon icon"
@@ -95,7 +95,7 @@ const AmazonIcon = (): React.JSX.Element => {
 
 export const FederatedSignInButton = (
   props: FederatedSignInButtonProps
-): React.JSX.Element => {
+): JSX.Element => {
   const { icon, provider, text } = props;
   const { toFederatedSignIn } = useAuthenticator();
 

@@ -21,7 +21,7 @@ export default function Checkbox<T>({
   style,
   value,
   ...rest
-}: CheckboxProps<T>): React.JSX.Element {
+}: CheckboxProps<T>): JSX.Element {
   const [checked, setChecked] = useState(selected ?? false);
   const theme = useTheme();
   const themedStyle = getThemedStyles(theme, labelPosition);

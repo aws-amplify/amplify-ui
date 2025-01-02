@@ -18,7 +18,7 @@ export const ComponentStyle = ({
   theme,
   componentThemes = [],
   ...rest
-}: ComponentStyleProps): React.JSX.Element | null => {
+}: ComponentStyleProps): JSX.Element | null => {
   if (!theme || !componentThemes.length) {
     return null;
   }

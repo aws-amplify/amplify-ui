@@ -14,7 +14,7 @@ export const ThemeProvider = ({
   children,
   theme,
   colorMode,
-}: ThemeProviderProps): React.JSX.Element => {
+}: ThemeProviderProps): JSX.Element => {
   const value = React.useMemo(
     () => ({ theme: createTheme(theme, colorMode) }),
     [theme, colorMode]

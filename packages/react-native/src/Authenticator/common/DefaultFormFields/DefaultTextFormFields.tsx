@@ -19,7 +19,7 @@ const DefaultTextFormFields = ({
   isPending = false,
   style,
   validationErrors,
-}: DefaultTextFormFieldsProps): React.JSX.Element => {
+}: DefaultTextFormFieldsProps): JSX.Element => {
   const formFields = (fields ?? []).map(({ name, type, ...field }) => {
     const errors = validationErrors ? getErrors(validationErrors?.[name]) : [];
 

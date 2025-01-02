@@ -30,7 +30,7 @@ const ConfirmSignIn = ({
   toSignIn,
   validationErrors,
   ...rest
-}: DefaultConfirmSignInProps): React.JSX.Element => {
+}: DefaultConfirmSignInProps): JSX.Element => {
   const {
     disableFormSubmit: disabled,
     fields: fieldsWithHandlers,

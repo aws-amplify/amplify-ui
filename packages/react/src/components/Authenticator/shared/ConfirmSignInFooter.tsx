@@ -8,7 +8,7 @@ import { Flex } from '../../../primitives/Flex';
 const { getConfirmText, getConfirmingText, getBackToSignInText } =
   authenticatorTextUtil;
 
-export const ConfirmSignInFooter = (): React.JSX.Element => {
+export const ConfirmSignInFooter = (): JSX.Element => {
   const { isPending, toSignIn } = useAuthenticator((context) => [
     context.isPending,
     context.toSignIn,

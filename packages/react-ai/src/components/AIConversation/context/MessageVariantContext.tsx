@@ -11,7 +11,7 @@ export const MessageVariantProvider = ({
 }: {
   children?: React.ReactNode;
   variant?: MessageVariant;
-}): React.JSX.Element => {
+}): JSX.Element => {
   return (
     <MessageVariantContext.Provider value={variant}>
       {children}

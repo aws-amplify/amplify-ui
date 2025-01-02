@@ -16,7 +16,7 @@ const getCurrentUserSpy = jest
   .spyOn(Auth, 'getCurrentUser')
   .mockResolvedValue({ userId: '1234', username: 'test' });
 
-function TestComponent(): React.JSX.Element | null {
+function TestComponent(): JSX.Element | null {
   const { authStatus } = useAuthenticator();
   return <>{authStatus}</>;
 }

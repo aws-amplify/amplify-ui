@@ -64,7 +64,7 @@ describe('CheckboxField test suite', () => {
   });
 
   describe('Checkbox functionality', () => {
-    const expectFunctionality = async (component: React.JSX.Element) => {
+    const expectFunctionality = async (component: JSX.Element) => {
       render(component);
 
       const checkbox = await screen.findByTestId(
