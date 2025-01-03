@@ -40,7 +40,7 @@ export const usePaginationItems = ({
   onNext,
   onPrevious,
   onChange,
-}: UsePaginationItemsProps): React.JSX.Element[] => {
+}: UsePaginationItemsProps): JSX.Element[] => {
   const previousItem = (
     <PaginationItem
       type="previous"

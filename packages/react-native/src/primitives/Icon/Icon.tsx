@@ -13,7 +13,7 @@ export default function Icon({
   size,
   style,
   ...rest
-}: IconProps): React.JSX.Element {
+}: IconProps): JSX.Element {
   const theme = useTheme();
   const themedStyle = useMemo(
     () => getThemedStyles(theme, color, size),

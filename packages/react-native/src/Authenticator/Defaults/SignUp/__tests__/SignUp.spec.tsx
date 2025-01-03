@@ -59,7 +59,7 @@ describe('SignUp', () => {
     expect(toJSON()).toMatchSnapshot();
 
     expect(queryByText(getCreatingAccountText())).toBe(null);
-    expect(getAllByRole('text')).toHaveLength(6);
+    expect(getAllByRole('text')).toHaveLength(fields.length);
   });
 
   it('renders as expected with errors', () => {

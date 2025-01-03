@@ -38,7 +38,7 @@ export interface SelectFieldPropControlsProps extends SelectFieldProps {
 }
 
 interface SelectFieldPropControlsInterface {
-  (props: SelectFieldPropControlsProps): React.JSX.Element;
+  (props: SelectFieldPropControlsProps): JSX.Element;
 }
 
 export const SelectFieldPropControls: SelectFieldPropControlsInterface = ({

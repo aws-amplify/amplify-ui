@@ -6,16 +6,16 @@ import { Backdrop } from './Backdrop';
 import { BackdropProps } from './types';
 
 export function withBackdrop<Props>(
-  Content: (props: Props) => React.JSX.Element,
+  Content: (props: Props) => JSX.Element,
   options: BackdropProps = {}
-): (props: Props) => React.JSX.Element {
+): (props: Props) => JSX.Element {
   return function ContentWithBackdrop(props: Props) {
     return (
       <>
         <Backdrop {...options} />
         <Flex className="amplify-inappmessaging-backdrop-content-container">
           <View className="amplify-inappmessaging-backdrop-content">
-            <Content {...(props as Props & React.JSX.IntrinsicAttributes)} />
+            <Content {...(props as Props & JSX.IntrinsicAttributes)} />
           </View>
         </Flex>
       </>

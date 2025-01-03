@@ -10,6 +10,6 @@ export interface ContainerProps {
 export function Container({
   children,
   className,
-}: ContainerProps): React.JSX.Element {
+}: ContainerProps): JSX.Element {
   return <View className={className}>{children}</View>;
 }

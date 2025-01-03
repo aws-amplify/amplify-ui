@@ -23,7 +23,7 @@ export default function FederatedProviderButtons({
   socialProviders,
   style,
   toFederatedSignIn,
-}: FederatedProviderButtonsProps): React.JSX.Element | null {
+}: FederatedProviderButtonsProps): JSX.Element | null {
   const theme = useTheme();
   const themedStyle = getThemedStyles(theme);
 

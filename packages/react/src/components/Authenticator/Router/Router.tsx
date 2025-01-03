@@ -11,11 +11,9 @@ import { ConfirmResetPassword, ForgotPassword } from '../ForgotPassword';
 import { isSignInOrSignUpRoute } from '../utils';
 import { RouterProps } from './types';
 
-type RouteComponent = (
-  props: Omit<RouterProps, 'children'>
-) => React.JSX.Element;
+type RouteComponent = (props: Omit<RouterProps, 'children'>) => JSX.Element;
 
-function RenderNothing(): React.JSX.Element {
+function RenderNothing(): JSX.Element {
   // @ts-ignore
   return null;
 }
@@ -59,7 +57,7 @@ export function Router({
   className,
   hideSignUp,
   variation,
-}: RouterProps): React.JSX.Element {
+}: RouterProps): JSX.Element {
   const { route } = useAuthenticator(({ route }) => [route]);
   const RouterChildren = useMemo(() => getRouteComponent(route), [route]);
 

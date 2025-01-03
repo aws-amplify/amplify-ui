@@ -24,7 +24,7 @@ export default function AuthenticatorProvider({
   children,
 }: {
   children: ReactNode;
-}): React.JSX.Element {
+}): JSX.Element {
   // `authStatus` is exposed by `useAuthenticator` but should not be derived directly from the
   // state machine as the machine only updates on `Authenticator` initiated events, which
   // leads to scenarios where the state machine `authStatus` gets "stuck". For exmample,

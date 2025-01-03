@@ -22,7 +22,7 @@ const {
 export function ConfirmSignUp({
   className,
   variation,
-}: RouteProps): React.JSX.Element {
+}: RouteProps): JSX.Element {
   const { isPending, resendCode, codeDeliveryDetails } = useAuthenticator(
     (context) => [
       context.isPending,
@@ -97,7 +97,7 @@ const DefaultHeader = () => {
 
 ConfirmSignUp.Header = DefaultHeader;
 
-ConfirmSignUp.Footer = function Footer(): React.JSX.Element {
+ConfirmSignUp.Footer = function Footer(): JSX.Element {
   // @ts-ignore
   return null;
 };

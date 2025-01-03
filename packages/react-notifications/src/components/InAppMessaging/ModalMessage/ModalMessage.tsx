@@ -9,9 +9,7 @@ import { MessageLayout } from '../MessageLayout';
 import { BLOCK_CLASS, DIALOG_CLASS } from './constants';
 import { ModalMessageProps } from './types';
 
-export function ModalMessage(
-  props: ModalMessageProps
-): React.JSX.Element | null {
+export function ModalMessage(props: ModalMessageProps): JSX.Element | null {
   const messageProps = useMessageProps(props);
   const shouldBeFullWidth = useBreakpointValue([true, true, false]);
   const { shouldRenderMessage, styles } = messageProps;

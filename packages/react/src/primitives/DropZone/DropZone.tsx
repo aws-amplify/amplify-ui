@@ -6,14 +6,7 @@ import { DropZoneProps, BaseDropZoneProps } from './types';
 import { DropZoneProvider } from './DropZoneProvider';
 import { DropZoneContainer } from './DropZoneContainer';
 import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
-import {
-  Accepted,
-  AcceptedType,
-  Default,
-  DefaultType,
-  Rejected,
-  RejectedType,
-} from './DropZoneChildren';
+import { Accepted, Default, Rejected } from './DropZoneChildren';
 
 const DropZonePrimitive: Primitive<DropZoneProps, 'div'> = (
   { children, testId, isDisabled, acceptedFileTypes, onDropComplete, ...rest },
@@ -52,9 +45,9 @@ const DropZonePrimitive: Primitive<DropZoneProps, 'div'> = (
 };
 
 type DropZoneType = ForwardRefPrimitive<BaseDropZoneProps, 'div'> & {
-  Accepted: AcceptedType;
-  Rejected: RejectedType;
-  Default: DefaultType;
+  Accepted: typeof Accepted;
+  Rejected: typeof Rejected;
+  Default: typeof Default;
 };
 
 /**

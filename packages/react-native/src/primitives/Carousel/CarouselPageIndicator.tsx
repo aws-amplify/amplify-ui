@@ -15,7 +15,7 @@ export default function CarouselPageIndicator({
   indicatorTestId,
   numberOfItems,
   style,
-}: CarouselPageIndicatorProps): React.JSX.Element {
+}: CarouselPageIndicatorProps): JSX.Element {
   const items = useMemo(
     () =>
       new Array(numberOfItems ?? 0)

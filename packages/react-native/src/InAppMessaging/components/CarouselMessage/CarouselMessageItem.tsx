@@ -10,7 +10,7 @@ import { CarouselMessageItemProps } from './types';
 
 export default function CarouselMessageItem(
   props: CarouselMessageItemProps
-): React.JSX.Element | null {
+): JSX.Element | null {
   const { deviceOrientation, isPortraitMode } = useDeviceOrientation();
   const messageProps = useMessageProps(
     props,

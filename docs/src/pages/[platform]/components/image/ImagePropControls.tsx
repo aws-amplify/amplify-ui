@@ -28,7 +28,7 @@ export interface ImagePropControlsProps extends ImageOptions {
 }
 
 interface ImagePropControlsInterface {
-  (props: ImagePropControlsProps): React.JSX.Element;
+  (props: ImagePropControlsProps): JSX.Element;
 }
 
 export const ImagePropControls: ImagePropControlsInterface = ({

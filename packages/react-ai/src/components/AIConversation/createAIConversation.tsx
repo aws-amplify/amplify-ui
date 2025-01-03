@@ -24,7 +24,7 @@ export function createAIConversation(input: AIConversationInput = {}): {
     FallbackResponseComponent,
   } = input;
 
-  function AIConversation(props: AIConversationProps): React.JSX.Element {
+  function AIConversation(props: AIConversationProps): JSX.Element {
     const { messages, avatars, handleSendMessage, isLoading } = props;
     const providerProps = {
       actions,

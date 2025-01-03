@@ -7,7 +7,7 @@ import { Property } from '../../../scripts/types/catalog';
 export const PropsTableBody = ([
   propName,
   { name, type, description, isOptional },
-]: [string, Property]): React.JSX.Element => {
+]: [string, Property]): JSX.Element => {
   return (
     <TableRow key={name}>
       <ResponsiveTableCell label="Name">

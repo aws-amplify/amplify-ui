@@ -15,7 +15,7 @@ export interface FlexPropControlsProps extends FlexProps {
 }
 
 interface FlexPropControlsInterface {
-  (props: FlexPropControlsProps): React.JSX.Element;
+  (props: FlexPropControlsProps): JSX.Element;
 }
 
 export const FlexPropControls: FlexPropControlsInterface = ({

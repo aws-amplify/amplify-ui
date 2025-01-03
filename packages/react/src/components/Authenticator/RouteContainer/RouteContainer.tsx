@@ -17,7 +17,7 @@ export function RouteContainer({
   children,
   className,
   variation = 'default',
-}: RouteContainerProps): React.JSX.Element {
+}: RouteContainerProps): JSX.Element {
   const { route } = useAuthenticator(({ route }) => [route]);
 
   const {

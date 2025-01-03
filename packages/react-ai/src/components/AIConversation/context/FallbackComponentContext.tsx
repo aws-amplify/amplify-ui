@@ -11,7 +11,7 @@ export const FallbackComponentProvider = ({
 }: {
   children?: React.ReactNode;
   FallbackComponent?: AIConversationInput['FallbackResponseComponent'];
-}): React.JSX.Element => {
+}): JSX.Element => {
   return (
     <FallbackComponentContext.Provider value={FallbackComponent}>
       {children}
