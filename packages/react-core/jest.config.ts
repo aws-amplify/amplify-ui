@@ -23,7 +23,6 @@ const config: Config = {
   moduleNameMapper: { '^uuid$': '<rootDir>/../../node_modules/uuid' },
   modulePathIgnorePatterns: ['<rootDir>/dist/'],
   preset: 'ts-jest',
-  setupFilesAfterEnv: ['./jest.setup.ts'],
   testEnvironment: 'jsdom',
 };
 

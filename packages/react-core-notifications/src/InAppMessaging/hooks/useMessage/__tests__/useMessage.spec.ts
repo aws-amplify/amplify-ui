@@ -1,8 +1,7 @@
 import * as InAppModule from 'aws-amplify/in-app-messaging';
 import { ConsoleLogger as Logger } from 'aws-amplify/utils';
 import { RenderNothing } from '@aws-amplify/ui-react-core';
-
-import { useInAppMessaging } from '../../../context';
+import { useInAppMessaging } from '../../useInAppMessaging';
 import {
   BannerMessageCommonProps,
   InAppMessage,
@@ -12,7 +11,7 @@ import { UseMessageParams } from '../types';
 import { EMPTY_PROPS } from '../useMessage';
 import { useMessage } from '..';
 
-jest.mock('../../../context');
+jest.mock('../../useInAppMessaging');
 jest.useFakeTimers();
 
 type TestStyle = { backgroundColor: string };

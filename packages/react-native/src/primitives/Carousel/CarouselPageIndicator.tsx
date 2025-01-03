@@ -12,7 +12,6 @@ export default function CarouselPageIndicator({
   activeStyle,
   currentIndex,
   inactiveStyle,
-  indicatorTestId,
   numberOfItems,
   style,
 }: CarouselPageIndicatorProps): JSX.Element {
@@ -25,17 +24,15 @@ export default function CarouselPageIndicator({
             <View
               style={[DEFAULT_CAROUSEL_INDICATOR_ACTIVE_STYLE, activeStyle]}
               key={`indicator-item-${index}`}
-              testID={indicatorTestId}
             />
           ) : (
             <View
               style={[DEFAULT_CAROUSEL_INDICATOR_INACTIVE_STYLE, inactiveStyle]}
               key={`indicator-item-${index}`}
-              testID={indicatorTestId}
             />
           )
         ),
-    [activeStyle, currentIndex, inactiveStyle, indicatorTestId, numberOfItems]
+    [activeStyle, currentIndex, inactiveStyle, numberOfItems]
   );
 
   return <SafeAreaView style={style}>{items}</SafeAreaView>;

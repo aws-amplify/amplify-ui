@@ -1,9 +1,11 @@
-import { renderHook, act } from '@testing-library/react';
-
+import React from 'react';
+import TestRenderer, { ReactTestRenderer } from 'react-test-renderer';
 import * as InAppModule from 'aws-amplify/in-app-messaging';
+import { RenderNothing } from '@aws-amplify/ui-react-core';
 
-import { InAppMessagingContextType } from '../InAppMessagingContext';
-import { useInAppMessagingState } from '../useInAppMessagingState';
+import { useInAppMessaging } from '../../../hooks/useInAppMessaging';
+import { InAppMessagingContextType } from '../..';
+import { InAppMessagingProvider } from '..';
 
 const onMessageReceivedSpy = jest.spyOn(InAppModule, 'onMessageReceived');
 
@@ -22,17 +24,32 @@ const mockOnMessageReceived = (
   return { remove: mockRemove };
 };
 
+const TestComponent = () => {
+  const props = useInAppMessaging();
+  return <RenderNothing {...props} />;
+};
+
 const message = { layout: 'TOP_BANNER' as const, id: '0', content: [] };
 
-describe('useInAppMessagingState', () => {
+describe('InAppMessagingProvider', () => {
+  let renderer: ReactTestRenderer;
+
   beforeEach(() => {
-    jest.clearAllMocks();
+    jest.resetAllMocks();
 
     onMessageReceivedSpy.mockImplementation(mockOnMessageReceived);
+
+    TestRenderer.act(() => {
+      renderer = TestRenderer.create(
+        <InAppMessagingProvider>
+          <TestComponent />
+        </InAppMessagingProvider>
+      );
+    });
   });
 
   it('vends the expected initial context values', () => {
-    const expected = {
+    const expectedProps = {
       clearMessage: expect.any(
         Function
       ) as InAppMessagingContextType['clearMessage'],
@@ -43,14 +60,12 @@ describe('useInAppMessagingState', () => {
       style: undefined,
     };
 
-    const { result } = renderHook(() => useInAppMessagingState());
-
-    expect(result.current).toEqual(expected);
+    expect(renderer.root.findByType(RenderNothing).props).toEqual(
+      expectedProps
+    );
   });
 
   it('registers a listener to InAppMessaging.onMessageReceived as expected', () => {
-    renderHook(() => useInAppMessagingState());
-
     expect(onMessageReceivedSpy).toHaveBeenCalledTimes(1);
     expect(onMessageReceivedSpy).toHaveBeenCalledWith(
       expect.any(Function) as InAppMessagingContextType['displayMessage']
@@ -58,52 +73,53 @@ describe('useInAppMessagingState', () => {
   });
 
   it('updates the value of message when the listener registered to InAppMessaging.onMessageReceived is called', () => {
-    const { result } = renderHook(() => useInAppMessagingState());
-
-    expect(result.current.message).toBeNull();
-
-    act(() => {
+    TestRenderer.act(() => {
       onMessageReceivedCallback(message);
     });
 
-    expect(result.current.message).toStrictEqual(message);
+    const consumer = renderer.root.findByType(RenderNothing);
+
+    expect((consumer.props as InAppMessagingContextType).message).toStrictEqual(
+      message
+    );
   });
 
   it('removes the listener registered to InAppMessaging.onMessageReceived as expected', () => {
-    const { unmount } = renderHook(() => useInAppMessagingState());
-
-    act(() => {
-      unmount();
+    TestRenderer.act(() => {
+      renderer.unmount();
     });
 
     expect(mockRemove).toHaveBeenCalledTimes(1);
   });
 
   it('updates the value of message when displayMessage is called', () => {
-    const { result } = renderHook(() => useInAppMessagingState());
+    const consumer = renderer.root.findByType(RenderNothing);
 
-    act(() => {
-      result.current.displayMessage(message);
+    TestRenderer.act(() => {
+      (
+        consumer.props
+          .displayMessage as InAppMessagingContextType['displayMessage']
+      )(message);
     });
 
-    expect(result.current.message).toStrictEqual(message);
+    expect((consumer.props as InAppMessagingContextType).message).toStrictEqual(
+      message
+    );
   });
 
   it('updates the value of message when clearMessage is called', () => {
-    const { result } = renderHook(() => useInAppMessagingState());
+    const consumer = renderer.root.findByType(RenderNothing);
 
-    expect(result.current.message).toBeNull();
-
-    act(() => {
-      result.current.displayMessage(message);
+    TestRenderer.act(() => {
+      (consumer.props as InAppMessagingContextType).displayMessage(message);
     });
 
-    expect(result.current.message).toStrictEqual(message);
+    expect(consumer.props.message).not.toBeNull();
 
-    act(() => {
-      result.current.clearMessage();
+    TestRenderer.act(() => {
+      (consumer.props as InAppMessagingContextType).clearMessage();
     });
 
-    expect(result.current.message).toBeNull();
+    expect(consumer.props.message).toBeNull();
   });
 });

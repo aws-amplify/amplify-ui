@@ -1,11 +1,9 @@
 import React from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-
 import { Amplify } from 'aws-amplify';
 import { initializeInAppMessaging } from 'aws-amplify/in-app-messaging';
-import { withInAppMessaging } from '@aws-amplify/ui-react-native';
+import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 
+import { withInAppMessaging } from '@aws-amplify/ui-react-native';
 import { Button, Checkbox, Radio, RadioGroup } from '../../../ui';
 import { useInAppDemo, ACTIONS, LAYOUTS, ORIENTATIONS } from './utils';
 import config from './aws-exports';
@@ -57,85 +55,83 @@ function Demo() {
 
   return (
     <SafeAreaView style={styles.wrapper}>
-      <ScrollView>
-        <View style={styles.container}>
-          <Text style={styles.heading}>Configure Demo Message</Text>
-          <DemoRadioGroup
-            data={LAYOUTS}
-            label="Layout"
-            onChange={handleAction('setLayout')}
-            value={layout}
-          />
-          <DemoDivider />
-          <DemoCheckbox
-            label="Has Header"
-            onChange={handleAction('setHasHeader')}
-            selected={hasHeader}
-            value={hasHeader}
-          />
-          <DemoDivider />
-          <DemoCheckbox
-            label="Has Message"
-            onChange={handleAction('setHasMessage')}
-            selected={hasMessage}
-            value={hasMessage}
-          />
-          <DemoDivider />
-          <DemoCheckbox
-            selected={hasImage}
-            label="Has Image"
-            onChange={handleAction('setHasImage')}
-            value={hasImage}
-          />
-          <DemoDivider />
-          <DemoRadioGroup
-            data={ORIENTATIONS}
-            direction="horizontal"
-            disabled={!hasImage}
-            label="Image Orientation"
-            onChange={handleAction('setImageOrientation')}
-            value={imageOrientation}
-          />
-          <DemoDivider />
-          <DemoCheckbox
-            label="Has Primary Button"
-            onChange={handleAction('setHasPrimaryButton')}
-            selected={hasPrimaryButton}
-            value={hasPrimaryButton}
-          />
-          <DemoDivider />
-          <DemoRadioGroup
-            data={ACTIONS}
-            disabled={!hasPrimaryButton}
-            label="Primary Button Action"
-            onChange={handleAction('setPrimaryButtonAction')}
-            value={primaryButtonAction}
-          />
-          <DemoDivider />
-          <DemoCheckbox
-            disabled={!hasPrimaryButton}
-            label="Has Secondary Button"
-            onChange={handleAction('setHasSecondaryButton')}
-            selected={hasSecondaryButton}
-            value={hasSecondaryButton}
-          />
-          <DemoDivider />
-          <DemoRadioGroup
-            data={ACTIONS}
-            disabled={!hasPrimaryButton || !hasSecondaryButton}
-            label="Secondary Button Action"
-            onChange={handleAction('setSecondaryButtonAction')}
-            value={secondaryButtonAction}
-          />
-          <Button
-            onPress={displayDemoMessage}
-            style={styles.button}
-            textStyle={styles.buttonLabel}
-          >
-            Display Demo Message
-          </Button>
-        </View>
-      </ScrollView>
+      <View style={styles.container}>
+        <Text style={styles.heading}>Configure Demo Message</Text>
+        <DemoRadioGroup
+          data={LAYOUTS}
+          label="Layout"
+          onChange={handleAction('setLayout')}
+          value={layout}
+        />
+        <DemoDivider />
+        <DemoCheckbox
+          label="Has Header"
+          onChange={handleAction('setHasHeader')}
+          selected={hasHeader}
+          value={hasHeader}
+        />
+        <DemoDivider />
+        <DemoCheckbox
+          label="Has Message"
+          onChange={handleAction('setHasMessage')}
+          selected={hasMessage}
+          value={hasMessage}
+        />
+        <DemoDivider />
+        <DemoCheckbox
+          selected={hasImage}
+          label="Has Image"
+          onChange={handleAction('setHasImage')}
+          value={hasImage}
+        />
+        <DemoDivider />
+        <DemoRadioGroup
+          data={ORIENTATIONS}
+          direction="horizontal"
+          disabled={!hasImage}
+          label="Image Orientation"
+          onChange={handleAction('setImageOrientation')}
+          value={imageOrientation}
+        />
+        <DemoDivider />
+        <DemoCheckbox
+          label="Has Primary Button"
+          onChange={handleAction('setHasPrimaryButton')}
+          selected={hasPrimaryButton}
+          value={hasPrimaryButton}
+        />
+        <DemoDivider />
+        <DemoRadioGroup
+          data={ACTIONS}
+          disabled={!hasPrimaryButton}
+          label="Primary Button Action"
+          onChange={handleAction('setPrimaryButtonAction')}
+          value={primaryButtonAction}
+        />
+        <DemoDivider />
+        <DemoCheckbox
+          disabled={!hasPrimaryButton}
+          label="Has Secondary Button"
+          onChange={handleAction('setHasSecondaryButton')}
+          selected={hasSecondaryButton}
+          value={hasSecondaryButton}
+        />
+        <DemoDivider />
+        <DemoRadioGroup
+          data={ACTIONS}
+          disabled={!hasPrimaryButton || !hasSecondaryButton}
+          label="Secondary Button Action"
+          onChange={handleAction('setSecondaryButtonAction')}
+          value={secondaryButtonAction}
+        />
+        <Button
+          onPress={displayDemoMessage}
+          style={styles.button}
+          textStyle={styles.buttonLabel}
+        >
+          Display Demo Message
+        </Button>
+      </View>
     </SafeAreaView>
   );
 }
@@ -156,7 +152,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    paddingHorizontal: 16,
+    paddingHorizontal: 24,
   },
   divider: {
     backgroundColor: 'black',
@@ -168,8 +164,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     fontSize: 24,
     fontWeight: '700',
-    marginBottom: 8,
-    marginTop: 24,
+    marginVertical: 8,
   },
   label: {
     fontSize: 18,

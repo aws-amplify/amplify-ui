@@ -14,7 +14,6 @@ export interface CarouselPageIndicatorProps {
   activeStyle?: StyleProp<ViewStyle>;
   currentIndex: number | null;
   inactiveStyle?: StyleProp<ViewStyle>;
-  indicatorTestId?: string;
   numberOfItems: number;
   style?: StyleProp<ViewStyle>;
 }

@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { act, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import { LivenessIconWithPopover } from '../LivenessIconWithPopover';
+import { act } from 'react-test-renderer';
 
 describe('LivenessIconWithPopover', () => {
   it('should render the component content appropriately', () => {
