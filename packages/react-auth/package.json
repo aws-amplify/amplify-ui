@@ -1,7 +1,7 @@
 {
   "name": "@aws-amplify/ui-react-auth",
   "private": true,
-  "version": "0.0.41",
+  "version": "0.0.42",
   "main": "dist/index.js",
   "module": "dist/esm/index.mjs",
   "exports": {
@@ -41,9 +41,9 @@
   },
   "dependencies": {
     "@aws-amplify/ui": "6.7.2",
-    "@aws-amplify/ui-react": "6.8.0",
-    "@aws-amplify/ui-react-core": "3.2.0",
-    "@aws-amplify/ui-react-core-auth": "0.0.36",
+    "@aws-amplify/ui-react": "6.8.1",
+    "@aws-amplify/ui-react-core": "3.2.1",
+    "@aws-amplify/ui-react-core-auth": "0.0.37",
     "@xstate/react": "3.2.2",
     "lodash": "4.17.21",
     "tslib": "^2.5.2"
