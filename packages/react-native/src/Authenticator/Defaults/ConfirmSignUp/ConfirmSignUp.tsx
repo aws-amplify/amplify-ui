@@ -31,7 +31,7 @@ const ConfirmSignUp = ({
   resendCode,
   validationErrors,
   ...rest
-}: DefaultConfirmSignUpProps): React.JSX.Element => {
+}: DefaultConfirmSignUpProps): JSX.Element => {
   const {
     disableFormSubmit: disabled,
     fields: fieldsWithHandlers,

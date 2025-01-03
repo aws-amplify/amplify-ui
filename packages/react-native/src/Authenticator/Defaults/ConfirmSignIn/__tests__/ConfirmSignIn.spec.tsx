@@ -44,7 +44,7 @@ describe('ConfirmSignIn', () => {
     expect(getAllByRole('header')).toBeDefined();
     expect(getByText(getChallengeText('SMS_MFA'))).toBeDefined();
     expect(getByText(getConfirmText())).toBeDefined();
-    expect(getAllByRole('text')).toHaveLength(3);
+    expect(getAllByRole('text')).toHaveLength(fields.length);
   });
 
   it('renders an error message', () => {

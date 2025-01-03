@@ -21,7 +21,7 @@ export default function ErrorMessage({
   onDismiss,
   style,
   ...rest
-}: ErrorMessageProps): React.JSX.Element {
+}: ErrorMessageProps): JSX.Element {
   const theme = useTheme();
   const themedStyle = getThemedStyles(theme);
 

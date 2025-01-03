@@ -21,7 +21,7 @@ export interface RatingOptions {
    * override the empty icon an will create a rating component that uses
    * different icons for filled and empty icons.
    */
-  emptyIcon?: React.JSX.Element;
+  emptyIcon?: JSX.Element;
 
   /**
    * @description
@@ -37,7 +37,7 @@ export interface RatingOptions {
    * with the emptyIcon prop
    * Default is <IconStar />
    */
-  icon?: React.JSX.Element;
+  icon?: JSX.Element;
 
   /**
    * @description

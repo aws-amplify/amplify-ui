@@ -17,7 +17,7 @@ export function DropZone({
   onDragStart,
   onDrop,
   testId,
-}: DropZoneProps): React.JSX.Element {
+}: DropZoneProps): JSX.Element {
   const { dropFilesText } = displayText;
   const icons = useIcons('storageManager');
 

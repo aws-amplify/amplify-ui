@@ -33,7 +33,7 @@ export interface StylePropControlsProps extends BaseStyleProps {
 }
 
 interface StylePropControlsInterface {
-  (props: StylePropControlsProps): React.JSX.Element;
+  (props: StylePropControlsProps): JSX.Element;
 }
 
 export const StylePropControls: StylePropControlsInterface = ({

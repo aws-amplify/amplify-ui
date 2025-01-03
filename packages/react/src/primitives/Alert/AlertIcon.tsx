@@ -24,7 +24,7 @@ export const AlertIcon = ({
   ariaHidden,
   ariaLabel,
   role,
-}: AlertIconProps): React.JSX.Element | null => {
+}: AlertIconProps): JSX.Element | null => {
   const icons = useIcons('alert');
   let icon;
   switch (variation) {

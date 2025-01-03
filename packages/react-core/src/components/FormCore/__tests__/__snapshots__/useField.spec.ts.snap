@@ -7,7 +7,6 @@ exports[`useField returns the expected values in the happy path 1`] = `
   "invalid": false,
   "isDirty": false,
   "isTouched": false,
-  "isValidating": false,
   "name": "test-field",
   "onBlur": [Function],
   "onChange": [Function],

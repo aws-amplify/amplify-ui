@@ -11,7 +11,7 @@ type RenderWithLivenessLivenessProviderResult = RenderResult & {
 };
 
 export function renderWithLivenessProvider(
-  ui: React.JSX.Element
+  ui: JSX.Element
 ): RenderWithLivenessLivenessProviderResult {
   const mockComponentProps: FaceLivenessDetectorProps = {
     region: 'us-east-1',

@@ -11,7 +11,7 @@ export default function FederatedProviderButton({
   style,
   textStyle,
   ...rest
-}: FederatedProviderButtonProps): React.JSX.Element {
+}: FederatedProviderButtonProps): JSX.Element {
   const pressableStyle = usePressableContainerStyles({
     overrideStyle: style,
   });

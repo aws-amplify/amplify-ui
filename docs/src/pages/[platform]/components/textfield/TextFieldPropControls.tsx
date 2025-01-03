@@ -34,7 +34,7 @@ export interface TextFieldPropControlsProps extends TextFieldProps {
 }
 
 interface TextFieldPropControlsInterface {
-  (props: TextFieldPropControlsProps): React.JSX.Element;
+  (props: TextFieldPropControlsProps): JSX.Element;
 }
 
 export const TextFieldPropControls: TextFieldPropControlsInterface = ({

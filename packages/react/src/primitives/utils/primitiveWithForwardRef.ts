@@ -20,6 +20,6 @@ export const primitiveWithForwardRef = <
   P extends BaseViewProps,
   E extends ElementType,
 >(
-  primitive: Primitive<React.PropsWithoutRef<P>, E>
+  primitive: Primitive<P, E>
 ): ForwardRefPrimitive<P, E> =>
   React.forwardRef(primitive) as ForwardRefPrimitive<P, E>;

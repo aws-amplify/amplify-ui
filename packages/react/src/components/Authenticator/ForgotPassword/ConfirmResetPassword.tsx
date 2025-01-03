@@ -16,7 +16,7 @@ const { getResendCodeText, getResetYourPasswordText } = authenticatorTextUtil;
 export const ConfirmResetPassword = ({
   className,
   variation,
-}: RouteProps): React.JSX.Element => {
+}: RouteProps): JSX.Element => {
   const { isPending } = useAuthenticator((context) => [context.isPending]);
   const { handleBlur, handleChange, handleSubmit } = useFormHandlers();
 
@@ -59,13 +59,13 @@ export const ConfirmResetPassword = ({
   );
 };
 
-ConfirmResetPassword.Header = function Header(): React.JSX.Element {
+ConfirmResetPassword.Header = function Header(): JSX.Element {
   const headerText = getResetYourPasswordText();
 
   return <Heading level={3}>{headerText}</Heading>;
 };
 
-ConfirmResetPassword.Footer = function Footer(): React.JSX.Element {
+ConfirmResetPassword.Footer = function Footer(): JSX.Element {
   // @ts-ignore
   return null;
 };

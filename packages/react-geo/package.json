@@ -49,8 +49,8 @@
   "peerDependencies": {
     "@aws-amplify/geo": "^3.0.59",
     "aws-amplify": "^6.9.0",
-    "react": "^16.14 || ^17 || ^18 || ^19",
-    "react-dom": "^16.14 || ^17 || ^18 || ^19"
+    "react": "^16.14.0 || ^17.0 || ^18.0",
+    "react-dom": "^16.14.0 || ^17.0 || ^18.0"
   },
   "devDependencies": {
     "@aws-amplify/geo": "^3.0.59",

@@ -25,7 +25,7 @@ export function FileControl({
   status,
   displayText,
   thumbnailUrl,
-}: FileControlProps): React.JSX.Element {
+}: FileControlProps): JSX.Element {
   const {
     getPausedText,
     getUploadingText,

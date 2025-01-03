@@ -13,7 +13,7 @@ export function CustomizationComponents() {
       region={'us-east-1'}
       onAnalysisComplete={async () => {}}
       components={{
-        PhotosensitiveWarning: (): React.JSX.Element => {
+        PhotosensitiveWarning: (): JSX.Element => {
           return (
             <Alert
               variation="warning"

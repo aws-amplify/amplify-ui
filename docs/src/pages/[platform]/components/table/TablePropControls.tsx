@@ -18,7 +18,7 @@ export interface TablePropControlsProps extends TableProps {
 }
 
 interface TablePropControlsInterface {
-  (props: TablePropControlsProps): React.JSX.Element;
+  (props: TablePropControlsProps): JSX.Element;
 }
 
 export const TablePropControls: TablePropControlsInterface = ({

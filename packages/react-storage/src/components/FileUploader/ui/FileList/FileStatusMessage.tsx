@@ -15,7 +15,7 @@ export const FileStatusMessage = ({
   percentage,
   status,
   uploadSuccessfulText,
-}: FileStatusMessageProps): React.JSX.Element | null => {
+}: FileStatusMessageProps): JSX.Element | null => {
   const icons = useIcons('storageManager');
   switch (status) {
     case FileStatus.UPLOADING: {

@@ -42,7 +42,7 @@ const GridCollection = <Item,>({
 );
 
 const renderCollectionOrNoResultsFound = <Item,>(
-  collection: React.JSX.Element | null,
+  collection: JSX.Element | null,
   items: Item[],
   searchNoResultsFound: React.ReactNode
 ) => {
@@ -75,7 +75,7 @@ export const Collection = <Item, Element extends ElementType>({
   type = 'list',
   testId,
   ...rest
-}: BaseCollectionProps<Item, Element>): React.JSX.Element => {
+}: BaseCollectionProps<Item, Element>): JSX.Element => {
   const [searchText, setSearchText] = React.useState<string>();
 
   // eslint-disable-next-line react-hooks/exhaustive-deps

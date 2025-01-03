@@ -20,7 +20,7 @@ export interface InputPropControlsProps extends InputProps {
 }
 
 interface InputPropControlsInterface {
-  (props: InputPropControlsProps): React.JSX.Element;
+  (props: InputPropControlsProps): JSX.Element;
 }
 
 export const InputPropControls: InputPropControlsInterface = ({

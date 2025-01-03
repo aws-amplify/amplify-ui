@@ -43,7 +43,7 @@ export interface SliderFieldPropControlsProps extends SliderFieldProps {
 }
 
 interface SliderFieldPropControlsInterface {
-  (props: SliderFieldPropControlsProps): React.JSX.Element;
+  (props: SliderFieldPropControlsProps): JSX.Element;
 }
 
 export const SliderFieldPropControls: SliderFieldPropControlsInterface = ({

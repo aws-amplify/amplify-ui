@@ -10,7 +10,7 @@ export function FilePicker({
   className = ComponentClassName.FileUploaderFilePicker,
   size = 'small',
   ...props
-}: FilePickerProps): React.JSX.Element {
+}: FilePickerProps): JSX.Element {
   return (
     <Button {...props} className={className} size={size}>
       {children}

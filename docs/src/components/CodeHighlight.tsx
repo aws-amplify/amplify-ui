@@ -43,9 +43,17 @@ export const CodeHighlight = ({
           >
             <View as="code" className={classNames(className, prismClassName)}>
               {tokens.map((line, i) => (
-                <View {...getLineProps({ line })} className="code-line" key={i}>
+                <View
+                  className="code-line"
+                  key={i}
+                  {...getLineProps({ line, key: i })}
+                >
                   {line.map((token, key) => (
-                    <Text {...getTokenProps({ token })} as="span" key={key} />
+                    <Text
+                      as="span"
+                      key={key}
+                      {...getTokenProps({ token, key })}
+                    />
                   ))}
                 </View>
               ))}

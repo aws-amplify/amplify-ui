@@ -17,7 +17,7 @@ export default function IconButton({
   source,
   style,
   ...rest
-}: IconButtonProps): React.JSX.Element {
+}: IconButtonProps): JSX.Element {
   const theme = useTheme();
   const themedStyle = getThemedStyles(theme);
 
