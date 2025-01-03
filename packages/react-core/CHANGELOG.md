@@ -1,5 +1,11 @@
 # @aws-amplify/ui-react-core
 
+## 3.2.1
+
+### Patch Changes
+
+- [#6278](https://github.com/aws-amplify/amplify-ui/pull/6278) [`475e4a37a404bd116ec55e95579acb8f2d23c9a4`](https://github.com/aws-amplify/amplify-ui/commit/475e4a37a404bd116ec55e95579acb8f2d23c9a4) Thanks [@jordanvn](https://github.com/jordanvn)! - revert changes introduced for React 19 support
+
 ## 3.2.0
 
 ### Minor Changes
