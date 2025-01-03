@@ -10,7 +10,7 @@ import { I18n } from 'aws-amplify/utils';
 import * as React from 'react';
 
 type ScreenProps = {
-  Component: React.JSX.Element;
+  Component: JSX.Element;
 };
 
 function Screen({ Component }: ScreenProps) {

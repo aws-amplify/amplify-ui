@@ -4,10 +4,7 @@ interface StyleProps extends React.ComponentProps<'style'> {
   cssText?: string;
 }
 
-export const Style = ({
-  cssText,
-  ...rest
-}: StyleProps): React.JSX.Element | null => {
+export const Style = ({ cssText, ...rest }: StyleProps): JSX.Element | null => {
   /*
     Only inject theme CSS variables if given a theme.
     The CSS file users import already has the default theme variables in it.

@@ -7,7 +7,7 @@ export const FieldErrors = ({
   errors,
   errorStyle,
   style,
-}: FieldErrorsProps): React.JSX.Element | null => {
+}: FieldErrorsProps): JSX.Element | null => {
   if (!errors || !errors.length) {
     return null;
   }

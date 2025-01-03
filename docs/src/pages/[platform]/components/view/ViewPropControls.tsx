@@ -20,7 +20,7 @@ export interface ViewPropControlsProps extends ViewProps {
 }
 
 export interface ViewPropControlsInterface {
-  (props: ViewPropControlsProps): React.JSX.Element;
+  (props: ViewPropControlsProps): JSX.Element;
 }
 
 export const ViewPropControls: ViewPropControlsInterface = ({

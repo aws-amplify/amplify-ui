@@ -6,7 +6,7 @@ import { UploadDetailsProps } from './types';
 export const UploadDetails = ({
   displayName,
   fileSize,
-}: UploadDetailsProps): React.JSX.Element => {
+}: UploadDetailsProps): JSX.Element => {
   return (
     <>
       <View className={ComponentClassName.FileUploaderFileMain}>

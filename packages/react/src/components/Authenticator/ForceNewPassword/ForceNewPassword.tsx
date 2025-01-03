@@ -17,7 +17,7 @@ const { getChangePasswordText, getChangingText, getBackToSignInText } =
 export const ForceNewPassword = ({
   className,
   variation,
-}: RouteProps): React.JSX.Element => {
+}: RouteProps): JSX.Element => {
   const { isPending, toSignIn } = useAuthenticator((context) => [
     context.isPending,
     context.toSignIn,
@@ -76,14 +76,14 @@ export const ForceNewPassword = ({
   );
 };
 
-ForceNewPassword.FormFields = function FormFields(): React.JSX.Element | null {
+ForceNewPassword.FormFields = function FormFields(): JSX.Element | null {
   return <DefaultFormFields />;
 };
 
-ForceNewPassword.Header = function Header(): React.JSX.Element | null {
+ForceNewPassword.Header = function Header(): JSX.Element | null {
   return <Heading level={4}>{getChangePasswordText()}</Heading>;
 };
 
-ForceNewPassword.Footer = function Footer(): React.JSX.Element | null {
+ForceNewPassword.Footer = function Footer(): JSX.Element | null {
   return null;
 };

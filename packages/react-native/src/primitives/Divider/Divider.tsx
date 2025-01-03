@@ -13,7 +13,7 @@ export default function Divider({
   labelStyle,
   lineStyle,
   style,
-}: DividerProps): React.JSX.Element {
+}: DividerProps): JSX.Element {
   const theme = useTheme();
   const themedStyle = getThemedStyles(theme);
 

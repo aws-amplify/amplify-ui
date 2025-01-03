@@ -25,7 +25,7 @@ export default function TextField({
   labelStyle,
   style,
   ...rest
-}: TextFieldProps): React.JSX.Element {
+}: TextFieldProps): JSX.Element {
   const theme = useTheme();
   const themedStyle = useMemo(() => getThemedStyles(theme), [theme]);
 

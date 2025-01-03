@@ -30,7 +30,7 @@ function AIConversationBase({
   avatars,
   controls,
   ...rest
-}: AIConversationBaseProps): React.JSX.Element {
+}: AIConversationBaseProps): JSX.Element {
   useSetUserAgent({
     componentName: 'AIConversation',
     packageName: 'react-ai',

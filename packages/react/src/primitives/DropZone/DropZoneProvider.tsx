@@ -10,7 +10,7 @@ const DropZoneProvider = ({
 }: {
   value: DragState;
   children?: React.ReactNode;
-}): React.JSX.Element => {
+}): JSX.Element => {
   return (
     <DropZoneContext.Provider value={value}>
       {children}

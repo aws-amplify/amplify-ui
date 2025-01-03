@@ -116,7 +116,7 @@ export const MessageControl: MessageControl = ({ message }) => {
   );
 };
 interface MessageControl {
-  (props: { message: ConversationMessage }): React.JSX.Element;
+  (props: { message: ConversationMessage }): JSX.Element;
 }
 
 const Timestamp = withBaseElementProps(Text, {
@@ -232,9 +232,7 @@ export const MessagesControl: MessagesControl = () => {
               tabIndex={focusedItemIndex === index ? 0 : -1}
               onFocus={() => handleFocus(index)}
               onKeyDown={(event) => onKeyDown(index, event)}
-              ref={(el) => {
-                messagesRef.current[index] = el;
-              }}
+              ref={(el) => (messagesRef.current[index] = el)}
             >
               <HeaderContainer>
                 <AvatarControl />
@@ -265,7 +263,7 @@ MessagesControl.Layout = Layout;
 MessagesControl.Message = MessageControl;
 
 export interface MessagesControl {
-  (): React.JSX.Element;
+  (): JSX.Element;
   ActionsBar: ActionsBarControl;
   Avatar: AvatarControl;
   Container: AIConversationElements['View'];

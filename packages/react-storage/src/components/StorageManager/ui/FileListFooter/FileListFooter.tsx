@@ -16,7 +16,7 @@ export function FileListFooter({
   remainingFilesCount,
   onClearAll,
   onUploadAll,
-}: FileListFooterProps): React.JSX.Element {
+}: FileListFooterProps): JSX.Element {
   const { clearAllButtonText, getUploadButtonText } = displayText;
   return (
     <View className={ComponentClassName.StorageManagerPreviewerFooter}>

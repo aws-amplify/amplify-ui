@@ -2970,7 +2970,7 @@ exports[`Props Table 1`] = `
                     },
                     "children": {
                         "name": "children",
-                        "type": "(item: Item, index: number) => React.JSX.Element",
+                        "type": "(item: Item, index: number) => JSX.Element",
                         "description": "The component to be repeated\\nSame interface as Array.prototype.map",
                         "category": "CollectionChildren",
                         "isOptional": false
@@ -7712,10 +7712,10 @@ exports[`Props Table 1`] = `
                         "category": "BaseInputProps",
                         "isOptional": true
                     },
-                    "enterKeyHint": {
-                        "name": "enterKeyHint",
-                        "type": "EnterKeyHint | undefined",
-                        "description": "Defines what action label (or icon) to present for the enter key on virtual keyboards. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/enterkeyhint)",
+                    "placeholder": {
+                        "name": "placeholder",
+                        "type": "string | undefined",
+                        "description": "Placeholder text shown when field is empty Accessibility tip: avoid putting important instructions for filling out the TextField in the placeholder. Use descriptiveText for important instructions.",
                         "category": "BaseInputProps",
                         "isOptional": true
                     },
@@ -7747,13 +7747,6 @@ exports[`Props Table 1`] = `
                         "category": "BaseInputProps",
                         "isOptional": true
                     },
-                    "name": {
-                        "name": "name",
-                        "type": "string | undefined",
-                        "description": "Name of the field. Submitted with the form as part of a name/value pair.",
-                        "category": "BaseInputProps",
-                        "isOptional": true
-                    },
                     "autoComplete": {
                         "name": "autoComplete",
                         "type": "string | undefined",
@@ -7775,6 +7768,13 @@ exports[`Props Table 1`] = `
                         "category": "BaseInputProps",
                         "isOptional": true
                     },
+                    "enterKeyHint": {
+                        "name": "enterKeyHint",
+                        "type": "EnterKeyHint | undefined",
+                        "description": "Defines what action label (or icon) to present for the enter key on virtual keyboards. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/enterkeyhint)",
+                        "category": "BaseInputProps",
+                        "isOptional": true
+                    },
                     "isReadOnly": {
                         "name": "isReadOnly",
                         "type": "boolean | undefined",
@@ -7789,10 +7789,10 @@ exports[`Props Table 1`] = `
                         "category": "BaseInputProps",
                         "isOptional": true
                     },
-                    "placeholder": {
-                        "name": "placeholder",
+                    "name": {
+                        "name": "name",
                         "type": "string | undefined",
-                        "description": "Placeholder text shown when field is empty Accessibility tip: avoid putting important instructions for filling out the TextField in the placeholder. Use descriptiveText for important instructions.",
+                        "description": "Name of the field. Submitted with the form as part of a name/value pair.",
                         "category": "BaseInputProps",
                         "isOptional": true
                     },
@@ -8394,10 +8394,10 @@ exports[`Props Table 1`] = `
                         "category": "BaseInputProps",
                         "isOptional": true
                     },
-                    "enterKeyHint": {
-                        "name": "enterKeyHint",
-                        "type": "EnterKeyHint | undefined",
-                        "description": "Defines what action label (or icon) to present for the enter key on virtual keyboards. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/enterkeyhint)",
+                    "placeholder": {
+                        "name": "placeholder",
+                        "type": "string | undefined",
+                        "description": "Placeholder text shown when field is empty Accessibility tip: avoid putting important instructions for filling out the TextField in the placeholder. Use descriptiveText for important instructions.",
                         "category": "BaseInputProps",
                         "isOptional": true
                     },
@@ -8436,6 +8436,13 @@ exports[`Props Table 1`] = `
                         "category": "BaseInputProps",
                         "isOptional": true
                     },
+                    "enterKeyHint": {
+                        "name": "enterKeyHint",
+                        "type": "EnterKeyHint | undefined",
+                        "description": "Defines what action label (or icon) to present for the enter key on virtual keyboards. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/enterkeyhint)",
+                        "category": "BaseInputProps",
+                        "isOptional": true
+                    },
                     "isReadOnly": {
                         "name": "isReadOnly",
                         "type": "boolean | undefined",
@@ -8447,13 +8454,6 @@ exports[`Props Table 1`] = `
                         "name": "isRequired",
                         "type": "boolean | undefined",
                         "description": "Whether field should be marked required.",
-                        "category": "BaseInputProps",
-                        "isOptional": true
-                    },
-                    "placeholder": {
-                        "name": "placeholder",
-                        "type": "string | undefined",
-                        "description": "Placeholder text shown when field is empty Accessibility tip: avoid putting important instructions for filling out the TextField in the placeholder. Use descriptiveText for important instructions.",
                         "category": "BaseInputProps",
                         "isOptional": true
                     }
@@ -8936,7 +8936,7 @@ exports[`Props Table 1`] = `
                     },
                     "emptyIcon": {
                         "name": "emptyIcon",
-                        "type": "React.JSX.Element | undefined",
+                        "type": "JSX.Element | undefined",
                         "description": "This will override which icon to use as the empty icon. This will only\\noverride the empty icon an will create a rating component that uses\\ndifferent icons for filled and empty icons.",
                         "category": "RatingOptions",
                         "isOptional": true
@@ -8950,7 +8950,7 @@ exports[`Props Table 1`] = `
                     },
                     "icon": {
                         "name": "icon",
-                        "type": "React.JSX.Element | undefined",
+                        "type": "JSX.Element | undefined",
                         "description": "This will override which icon to use. This will override both\\nthe filled and empty icon values unless an empty icon is specified\\nwith the emptyIcon prop\\nDefault is <IconStar />",
                         "category": "RatingOptions",
                         "isOptional": true

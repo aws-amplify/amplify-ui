@@ -7,7 +7,7 @@ import { Container } from '../Container';
 
 const CHILD_CONTENT = 'Test Children';
 
-const MockChildren = (): React.JSX.Element => {
+const MockChildren = (): JSX.Element => {
   return <View>{CHILD_CONTENT}</View>;
 };
 

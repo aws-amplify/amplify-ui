@@ -28,7 +28,7 @@ export interface AutocompletePropControlsProps extends AutocompleteProps {
 }
 
 interface AutocompletePropControlsInterface {
-  (props: AutocompletePropControlsProps): React.JSX.Element;
+  (props: AutocompletePropControlsProps): JSX.Element;
 }
 
 export const AutocompletePropControls: AutocompletePropControlsInterface = ({

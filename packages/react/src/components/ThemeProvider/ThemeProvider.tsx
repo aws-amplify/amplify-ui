@@ -50,7 +50,7 @@ export function ThemeProvider({
   direction = 'ltr',
   nonce,
   theme,
-}: ThemeProviderProps): React.JSX.Element {
+}: ThemeProviderProps): JSX.Element {
   const value = React.useMemo(
     () => ({ theme: createTheme(theme), colorMode }),
     [theme, colorMode]

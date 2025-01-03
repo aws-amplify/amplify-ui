@@ -3,7 +3,7 @@ import React from 'react';
 import { isObject } from '@aws-amplify/ui';
 
 import { StorageFiles, FileStatus, DefaultFile } from '../../types';
-import { GetFileErrorMessage } from './types';
+import { Action, GetFileErrorMessage, UseFileUploaderState } from './types';
 import { fileUploaderStateReducer } from './reducer';
 import {
   addFilesAction,
@@ -45,7 +45,9 @@ const createFileFromDefault = (file: DefaultFile) =>
 export function useFileUploader(
   defaultFiles: Array<DefaultFile> = []
 ): UseFileUploader {
-  const [{ files }, dispatch] = React.useReducer(fileUploaderStateReducer, {
+  const [{ files }, dispatch] = React.useReducer<
+    (prevState: UseFileUploaderState, action: Action) => UseFileUploaderState
+  >(fileUploaderStateReducer, {
     files: (Array.isArray(defaultFiles)
       ? defaultFiles.map(createFileFromDefault).filter((file) => !!file)
       : []) as StorageFiles,

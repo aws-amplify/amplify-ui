@@ -6,12 +6,12 @@ import { InAppMessageDisplay, MessageComponents } from '../InAppMessageDisplay';
 export default function withInAppMessaging<Props = {}>(
   Component: React.ComponentType<Props>,
   options?: { components?: MessageComponents }
-): (props: Props) => React.JSX.Element {
+): (props: Props) => JSX.Element {
   return function WrappedWithInAppMessaging(props: Props) {
     return (
       <InAppMessagingProvider>
         <InAppMessageDisplay {...options} />
-        <Component {...(props as Props & React.JSX.IntrinsicAttributes)} />
+        <Component {...(props as Props & JSX.IntrinsicAttributes)} />
       </InAppMessagingProvider>
     );
   };

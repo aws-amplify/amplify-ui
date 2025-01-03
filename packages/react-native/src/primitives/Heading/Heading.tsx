@@ -11,7 +11,7 @@ export default function Heading({
   level = 6,
   style,
   ...rest
-}: HeadingProps): React.JSX.Element {
+}: HeadingProps): JSX.Element {
   const theme = useTheme();
   const themedStyle = getThemedStyles(theme);
 

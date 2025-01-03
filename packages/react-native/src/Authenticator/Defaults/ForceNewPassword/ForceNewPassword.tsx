@@ -26,7 +26,7 @@ const ForceNewPassword = ({
   toSignIn,
   validationErrors,
   ...rest
-}: DefaultForceNewPasswordProps): React.JSX.Element => {
+}: DefaultForceNewPasswordProps): JSX.Element => {
   const {
     disableFormSubmit,
     fields: fieldsWithHandlers,

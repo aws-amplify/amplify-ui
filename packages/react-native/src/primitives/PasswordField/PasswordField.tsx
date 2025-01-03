@@ -19,7 +19,7 @@ export default function PasswordField({
   showPasswordButton = true,
   style,
   ...rest
-}: PasswordFieldProps): React.JSX.Element {
+}: PasswordFieldProps): JSX.Element {
   const theme = useTheme();
   const themedStyle = getThemedStyles(theme);
 

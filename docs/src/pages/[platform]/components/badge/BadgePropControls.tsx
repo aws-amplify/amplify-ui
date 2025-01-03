@@ -14,7 +14,7 @@ export interface BadgePropControlsProps extends BadgeProps {
 }
 
 interface BadgePropControlsInterface {
-  (props: BadgePropControlsProps): React.JSX.Element;
+  (props: BadgePropControlsProps): JSX.Element;
 }
 
 export const BadgePropControls: BadgePropControlsInterface = ({

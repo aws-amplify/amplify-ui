@@ -27,4 +27,4 @@ export interface ProviderProps<T extends PrimitivesDefault, K> {
 
 export type ProviderComponent<T extends PrimitivesDefault, K> = (
   params: ProviderProps<T, K>
-) => React.JSX.Element;
+) => JSX.Element;

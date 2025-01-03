@@ -47,7 +47,7 @@ export interface TextAreaFieldControlsProps extends BaseTextAreaFieldProps {
 }
 
 interface TextAreaFieldControlsInterface {
-  (props: TextAreaFieldControlsProps): React.JSX.Element;
+  (props: TextAreaFieldControlsProps): JSX.Element;
 }
 
 export const TextAreaFieldPropControls: TextAreaFieldControlsInterface = ({

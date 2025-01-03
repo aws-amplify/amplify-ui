@@ -30,7 +30,7 @@ const App = () => {
               </View>
             );
           },
-          PhotosensitiveWarning: (): React.JSX.Element => {
+          PhotosensitiveWarning: (): JSX.Element => {
             return (
               <Alert
                 variation="warning"
@@ -43,7 +43,7 @@ const App = () => {
               </Alert>
             );
           },
-          Instructions: (): React.JSX.Element => {
+          Instructions: (): JSX.Element => {
             return (
               <Card variation="elevated">
                 Instructions to follow to use liveness face detector

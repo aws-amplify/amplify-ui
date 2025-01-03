@@ -144,7 +144,7 @@ interface ActionsPrimitives<P> {
   SecondaryButton: React.ComponentType<SecondaryButtonPrimitiveProps<P>>;
 }
 
-export type ActionsControlType<T = unknown> = (() => React.JSX.Element) &
+export type ActionsControlType<T = unknown> = (() => JSX.Element) &
   ActionsPrimitives<T>;
 
 interface LinksPrimitives<P> {
@@ -152,7 +152,7 @@ interface LinksPrimitives<P> {
   ButtonGroup: React.ComponentType<ButtonGroupPrimitiveProps>;
 }
 
-export type LinksControlType<T = unknown> = (() => React.JSX.Element) &
+export type LinksControlType<T = unknown> = (() => JSX.Element) &
   LinksPrimitives<T> &
   NonPrimitiveControls['Links'];
 
@@ -162,10 +162,9 @@ interface FederatedProvidersPrimitives<P> {
   Divider: React.ComponentType<ViewPrimitiveProps>;
 }
 
-export type FederatedProvidersControlType<T = unknown> =
-  (() => React.JSX.Element) &
-    FederatedProvidersPrimitives<T> &
-    NonPrimitiveControls['FederatedProviders'];
+export type FederatedProvidersControlType<T = unknown> = (() => JSX.Element) &
+  FederatedProvidersPrimitives<T> &
+  NonPrimitiveControls['FederatedProviders'];
 
 export interface SetupTotpPrimitives<P> {
   Container: React.ComponentType<ViewPrimitiveProps>;
@@ -177,15 +176,15 @@ export interface SetupTotpPrimitives<P> {
   Loader: React.ComponentType;
 }
 
-export type SetupTotpControlType<T = unknown> = (() => React.JSX.Element) &
+export type SetupTotpControlType<T = unknown> = (() => JSX.Element) &
   SetupTotpPrimitives<T>;
 
 interface VerifyContactMethodPrimitives<T = unknown> {
   RadioGroup: React.ComponentType<RadioGroupPrimitiveProps<T>>;
 }
 
-export type VerifyContactMethodControlType<T = unknown> =
-  (() => React.JSX.Element) & VerifyContactMethodPrimitives<T>;
+export type VerifyContactMethodControlType<T = unknown> = (() => JSX.Element) &
+  VerifyContactMethodPrimitives<T>;
 
 /**
  * Compound Control values contain primitives

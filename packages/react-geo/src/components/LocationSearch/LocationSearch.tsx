@@ -74,9 +74,7 @@ const LocationSearchStandalone = (props: LocationSearchProps) => {
  *   return <LocationSearch />;
  * }
  */
-export const LocationSearch = (
-  props: LocationSearchProps
-): React.JSX.Element => {
+export const LocationSearch = (props: LocationSearchProps): JSX.Element => {
   const { current: map } = useMap();
 
   useSetUserAgent({

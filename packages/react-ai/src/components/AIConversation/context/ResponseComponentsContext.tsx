@@ -27,7 +27,7 @@ export const ResponseComponentsProvider = ({
 }: {
   children?: React.ReactNode;
   responseComponents?: ResponseComponents;
-}): React.JSX.Element => {
+}): JSX.Element => {
   const _responseComponents = React.useMemo(
     () => prependResponseComponents(responseComponents),
     [responseComponents]

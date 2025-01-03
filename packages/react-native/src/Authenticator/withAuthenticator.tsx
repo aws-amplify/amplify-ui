@@ -5,12 +5,12 @@ import { WithAuthenticatorOptions } from './types';
 export default function withAuthenticator<Props = {}>(
   Component: React.ComponentType<Props>,
   options: WithAuthenticatorOptions = {}
-): (props: Props) => React.JSX.Element {
+): (props: Props) => JSX.Element {
   return function WrappedWithAuthenticator(props: Props) {
     return (
       <Authenticator.Provider>
         <Authenticator {...options}>
-          <Component {...(props as Props & React.JSX.IntrinsicAttributes)} />
+          <Component {...(props as Props & JSX.IntrinsicAttributes)} />
         </Authenticator>
       </Authenticator.Provider>
     );

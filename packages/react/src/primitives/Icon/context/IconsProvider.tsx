@@ -11,7 +11,7 @@ export { IconsContextInterface };
 export function IconsProvider({
   children,
   icons,
-}: IconProviderProps): React.JSX.Element {
+}: IconProviderProps): JSX.Element {
   return (
     <IconsContext.Provider value={icons}>{children}</IconsContext.Provider>
   );

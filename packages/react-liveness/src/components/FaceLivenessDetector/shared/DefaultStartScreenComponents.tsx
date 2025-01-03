@@ -26,7 +26,7 @@ export const DefaultPhotosensitiveWarning = ({
   headingText,
   infoText,
   labelText,
-}: DefaultPhotosensitiveWarningProps): React.JSX.Element => {
+}: DefaultPhotosensitiveWarningProps): JSX.Element => {
   return (
     <Flex
       className={`${ComponentClassName.Alert} ${LivenessClassNames.StartScreenWarning}`}
@@ -49,7 +49,7 @@ interface DefaultRecordingIconProps {
 
 export const DefaultRecordingIcon = ({
   recordingIndicatorText,
-}: DefaultRecordingIconProps): React.JSX.Element => {
+}: DefaultRecordingIconProps): JSX.Element => {
   return (
     <View className={LivenessClassNames.RecordingIconContainer}>
       <RecordingIcon>{recordingIndicatorText}</RecordingIcon>
@@ -63,7 +63,7 @@ interface CancelButtonProps {
 
 export const DefaultCancelButton = ({
   cancelLivenessCheckText,
-}: CancelButtonProps): React.JSX.Element => {
+}: CancelButtonProps): JSX.Element => {
   return (
     <View className={LivenessClassNames.CancelContainer}>
       <CancelButtonComponent

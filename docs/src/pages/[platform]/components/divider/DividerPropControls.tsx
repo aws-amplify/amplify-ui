@@ -15,7 +15,7 @@ export interface DividerPropControlsProps extends DividerOptions {
 }
 
 interface DividerPropControlsInterface {
-  (props: DividerPropControlsProps): React.JSX.Element;
+  (props: DividerPropControlsProps): JSX.Element;
 }
 
 export const DividerPropControls: DividerPropControlsInterface = ({

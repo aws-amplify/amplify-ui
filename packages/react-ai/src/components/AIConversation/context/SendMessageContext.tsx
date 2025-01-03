@@ -11,7 +11,7 @@ export const SendMessageContextProvider = ({
 }: {
   children?: React.ReactNode;
   handleSendMessage: SendMessage;
-}): React.JSX.Element => {
+}): JSX.Element => {
   return (
     <SendMessageContext.Provider value={handleSendMessage}>
       {children}
