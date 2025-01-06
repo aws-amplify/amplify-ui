@@ -31,7 +31,7 @@ export interface SearchFieldPropControlsProps extends SearchFieldProps {
 }
 
 interface SearchFieldPropControlsInterface {
-  (props: SearchFieldPropControlsProps): JSX.Element;
+  (props: SearchFieldPropControlsProps): React.JSX.Element;
 }
 
 export const SearchFieldPropControls: SearchFieldPropControlsInterface = ({

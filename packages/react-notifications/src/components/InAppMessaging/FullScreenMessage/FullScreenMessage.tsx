@@ -12,7 +12,7 @@ import { FullScreenMessageProps } from './types';
 
 export function FullScreenMessage(
   props: FullScreenMessageProps
-): JSX.Element | null {
+): React.JSX.Element | null {
   const messageProps = useMessageProps(props);
   const shouldBeFullScreen = useBreakpointValue([true, true, false]);
   const { shouldRenderMessage, styles } = messageProps;
