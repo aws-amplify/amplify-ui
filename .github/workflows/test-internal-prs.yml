@@ -138,6 +138,11 @@ jobs:
       DOCSEARCH_DOCS_API_KEY: ${{ secrets.DOCSEARCH_DOCS_API_KEY }}
       DOCSEARCH_DOCS_INDEX_NAME: ${{ secrets.DOCSEARCH_DOCS_INDEX_NAME }}
 
+  build-test-react-native:
+    uses: ./.github/workflows/reusable-build-system-test-react-native.yml
+    with:
+      dist-tag: latest
+
   update-success-status:
     if: ${{ success() }}
     needs: [setup, e2e, codeql, dependency-review]
