@@ -10,9 +10,10 @@ import {
 import { act, render } from '@testing-library/react-native';
 
 import Carousel from '../Carousel';
-import { ReactTestInstance } from 'react-test-renderer';
 
 jest.mock('../CarouselPageIndicator', () => 'CarouselPageIndicator');
+
+type ReactTestInstance = ReturnType<typeof render>['UNSAFE_root'];
 
 type ItemProps = { str?: string };
 

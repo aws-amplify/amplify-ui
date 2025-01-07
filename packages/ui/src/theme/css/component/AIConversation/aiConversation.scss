@@ -127,12 +127,19 @@
     flex-direction: row;
     align-items: flex-start;
     gap: var(--amplify-components-ai-conversation-form-gap);
-    padding: var(--amplify-components-ai-conversation-form-padding);
 
     &__dropzone {
       text-align: initial;
       border: none;
+      padding: var(--amplify-components-ai-conversation-form-padding);
+    }
+
+    &__error {
       padding: 0;
+      padding-block-start: var(
+        --amplify-components-ai-conversation-attachment-list-padding-block-start
+      );
+      gap: var(--amplify-components-ai-conversation-attachment-gap);
     }
 
     &__attach {
@@ -172,7 +179,7 @@
       flex-wrap: wrap;
       gap: var(--amplify-components-ai-conversation-attachment-list-gap);
       padding-block-start: var(
-        --amplify-components-ai-conversation-attachment-padding-block-start
+        --amplify-components-ai-conversation-attachment-list-padding-block-start
       );
     }
 

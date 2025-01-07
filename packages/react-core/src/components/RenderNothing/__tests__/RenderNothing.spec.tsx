@@ -1,12 +1,12 @@
 import React from 'react';
-import TestRenderer from 'react-test-renderer';
+import { render } from '@testing-library/react';
 
 import RenderNothing from '../RenderNothing';
 
 describe('RenderNothing', () => {
   it('renders nothing', () => {
-    const renderer = TestRenderer.create(<RenderNothing />);
+    const { container } = render(<RenderNothing />);
 
-    expect(renderer.toJSON()).toBeNull();
+    expect(container).toBeEmptyDOMElement();
   });
 });

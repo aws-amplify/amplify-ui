@@ -3,8 +3,15 @@
  * Based on Atom's One Light theme: https://github.com/atom/atom/tree/master/packages/one-light-syntax
  */
 
-.docs-home code.prism-code {
-  font-size: inherit;
+.docs-home {
+  code.prism-code {
+    font-size: inherit;
+  }
+
+  pre.prism-code {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 code[class*='language-'],

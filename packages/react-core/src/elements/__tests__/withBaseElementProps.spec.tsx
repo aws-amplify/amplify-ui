@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import defineBaseElement from '../defineBaseElement';
+import { defineBaseElementWithRef } from '../defineBaseElement';
 import withBaseElementProps from '../withBaseElementProps';
 
 const displayName = 'Input';
@@ -8,7 +8,7 @@ const type = 'input';
 
 describe('withBaseElementProps', () => {
   it('applies a `defaultProps` object to a `Target` element', () => {
-    const InputElement = defineBaseElement<'input', 'type'>({
+    const InputElement = defineBaseElementWithRef<'input', 'type'>({
       type,
       displayName,
     });
@@ -38,7 +38,7 @@ describe('withBaseElementProps', () => {
   });
 
   it('resolves and applies a `defaultProps` callback to a `Target` element', () => {
-    const InputElement = defineBaseElement<'input', 'type'>({
+    const InputElement = defineBaseElementWithRef<'input', 'type'>({
       type,
       displayName,
     });
@@ -68,7 +68,7 @@ describe('withBaseElementProps', () => {
   });
 
   it('`defaultProps` are overriden by `props` passed to wrapped `BaseElement`', () => {
-    const InputElement = defineBaseElement<'input', 'type'>({
+    const InputElement = defineBaseElementWithRef<'input', 'type'>({
       type,
       displayName,
     });
@@ -100,10 +100,12 @@ describe('withBaseElementProps', () => {
   });
 
   it('provides `props` passed to wrapped `BaseElement` to `defaultProps` callback functions', () => {
-    const InputElement = defineBaseElement<'input', 'disabled' | 'type'>({
-      type,
-      displayName,
-    });
+    const InputElement = defineBaseElementWithRef<'input', 'disabled' | 'type'>(
+      {
+        type,
+        displayName,
+      }
+    );
 
     const defaultProps = { type: 'checkbox' };
 

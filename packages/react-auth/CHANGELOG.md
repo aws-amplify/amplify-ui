@@ -1,5 +1,53 @@
 # @aws-amplify/ui-react-auth
 
+## 0.0.42
+
+### Patch Changes
+
+- Updated dependencies [[`475e4a37a404bd116ec55e95579acb8f2d23c9a4`](https://github.com/aws-amplify/amplify-ui/commit/475e4a37a404bd116ec55e95579acb8f2d23c9a4)]:
+  - @aws-amplify/ui-react-core@3.2.1
+  - @aws-amplify/ui-react@6.8.1
+  - @aws-amplify/ui-react-core-auth@0.0.37
+
+## 0.0.41
+
+### Patch Changes
+
+- Updated dependencies [[`c623990d5fb6af635b1964a51a8ff2c807938235`](https://github.com/aws-amplify/amplify-ui/commit/c623990d5fb6af635b1964a51a8ff2c807938235), [`825cccc92f5c326f0f110c8439a1c2c6553ff00a`](https://github.com/aws-amplify/amplify-ui/commit/825cccc92f5c326f0f110c8439a1c2c6553ff00a), [`954e9be2d055a57ebddab5b902e3e6b427d09f67`](https://github.com/aws-amplify/amplify-ui/commit/954e9be2d055a57ebddab5b902e3e6b427d09f67)]:
+  - @aws-amplify/ui-react@6.8.0
+  - @aws-amplify/ui-react-core@3.2.0
+  - @aws-amplify/ui-react-core-auth@0.0.36
+
+## 0.0.40
+
+### Patch Changes
+
+- Updated dependencies [[`4a9e16c194e145c6881583f2362bccd8974bc1fc`](https://github.com/aws-amplify/amplify-ui/commit/4a9e16c194e145c6881583f2362bccd8974bc1fc), [`96be188317d72b89b6bfbc14a3d4ee76daad2a8b`](https://github.com/aws-amplify/amplify-ui/commit/96be188317d72b89b6bfbc14a3d4ee76daad2a8b)]:
+  - @aws-amplify/ui-react@6.7.2
+  - @aws-amplify/ui@6.7.2
+  - @aws-amplify/ui-react-core@3.1.2
+  - @aws-amplify/ui-react-core-auth@0.0.35
+
+## 0.0.39
+
+### Patch Changes
+
+- Updated dependencies [[`9ab56f499f4596062fe4614a016efc3dfc88ef03`](https://github.com/aws-amplify/amplify-ui/commit/9ab56f499f4596062fe4614a016efc3dfc88ef03)]:
+  - @aws-amplify/ui@6.7.1
+  - @aws-amplify/ui-react@6.7.1
+  - @aws-amplify/ui-react-core@3.1.1
+  - @aws-amplify/ui-react-core-auth@0.0.34
+
+## 0.0.38
+
+### Patch Changes
+
+- Updated dependencies [[`70971f310`](https://github.com/aws-amplify/amplify-ui/commit/70971f310f69717657849f29d0a9e1d993b08d9a)]:
+  - @aws-amplify/ui-react@6.7.0
+  - @aws-amplify/ui-react-core@3.1.0
+  - @aws-amplify/ui@6.7.0
+  - @aws-amplify/ui-react-core-auth@0.0.33
+
 ## 0.0.37
 
 ### Patch Changes
