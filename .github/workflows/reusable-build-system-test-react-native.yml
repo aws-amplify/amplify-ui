@@ -19,6 +19,7 @@ jobs:
         framework-version: [
             # uncomment to enable
             # { formatted: latest, value: latest },
+            { formatted: 076, value: 0.76 },
             { formatted: 075, value: 0.75 },
             { formatted: 074, value: 0.74 },
             { formatted: 073, value: 0.73 },
@@ -36,6 +37,9 @@ jobs:
         exclude:
           - build-tool: expo
             platform: ios
+          - build-tool: expo
+            platform: android
+            framework-version: { formatted: '076', value: '0.76' }
           - build-tool: expo
             platform: android
             framework-version: { formatted: '075', value: '0.75' }
@@ -98,6 +102,14 @@ jobs:
             framework-version: { formatted: 075, value: '0.75' }
             build-tool: expo
             build-tool-version: 51
+            platform: android
+            pkg-manager: npm
+            node-version: 20
+            logfile: test.log
+          - framework: react-native
+            framework-version: { formatted: 076, value: '0.76' }
+            build-tool: expo
+            build-tool-version: 52
             platform: android
             pkg-manager: npm
             node-version: 20
