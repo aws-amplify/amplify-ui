@@ -18,7 +18,7 @@ jobs:
         framework: [react-native]
         framework-version: [
             # uncomment to enable
-            # { formatted: latest, value: latest },
+            { formatted: latest, value: latest },
             { formatted: 076, value: 0.76 },
             { formatted: 075, value: 0.75 },
             { formatted: 074, value: 0.74 },
