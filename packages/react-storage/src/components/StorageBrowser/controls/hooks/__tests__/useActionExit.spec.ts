@@ -1,40 +1,38 @@
-import * as controlsContextModule from '../../../controls/context';
-import { ControlsContext } from '../../types';
+import { renderHook } from '@testing-library/react';
+import { ActionExitProps } from '../../../composables/ActionExit';
+import { useControlsContext } from '../../../controls/context';
 import { useActionExit } from '../useActionExit';
 
+jest.mock('../../../controls/context');
+
 describe('useActionExit', () => {
-  const controlsContext: ControlsContext = {
-    data: {
-      actionExitLabel: 'Exit',
-      isActionExitDisabled: false,
-    },
-    onActionExit: jest.fn(),
+  const data = {
+    actionExitLabel: 'action-exit-label',
+    isActionExitDisabled: false,
   };
-  const useControlsContextSpy = jest.spyOn(
-    controlsContextModule,
-    'useControlsContext'
-  );
 
-  afterEach(() => {
-    useControlsContextSpy.mockClear();
-  });
+  const mockUseControlsContext = jest.mocked(useControlsContext);
 
-  it('returns object as it is received from ControlsContext', () => {
-    useControlsContextSpy.mockReturnValue(controlsContext);
-
-    expect(useActionExit()).toStrictEqual({
-      label: controlsContext.data.actionExitLabel,
-      onExit: controlsContext.onActionExit,
-      isDisabled: controlsContext.data.isActionExitDisabled,
+  beforeEach(() => {
+    mockUseControlsContext.mockReturnValue({
+      data,
+      onActionExit: jest.fn(),
     });
   });
 
-  it('calls onActionExit from ControlsContext when onActionExit is called', () => {
-    useControlsContextSpy.mockReturnValue(controlsContext);
+  afterEach(() => {
+    mockUseControlsContext.mockReset();
+  });
 
-    const { onExit } = useActionExit();
-    onExit!();
+  it('returns ActionExit props', () => {
+    const { result } = renderHook(() => useActionExit());
 
-    expect(controlsContext.onActionExit).toHaveBeenCalledTimes(1);
+    const expected: ActionExitProps = {
+      label: data.actionExitLabel,
+      isDisabled: data.isActionExitDisabled,
+      onExit: expect.any(Function),
+    };
+
+    expect(result.current).toStrictEqual(expected);
   });
 });

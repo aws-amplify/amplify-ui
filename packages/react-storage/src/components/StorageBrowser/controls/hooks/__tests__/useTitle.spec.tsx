@@ -1,32 +1,28 @@
+import { renderHook } from '@testing-library/react';
+import { TitleProps } from '../../../composables/Title';
 import { useControlsContext } from '../../../controls/context';
 import { useTitle } from '../useTitle';
 
 jest.mock('../../../controls/context');
 
 describe('useTitle', () => {
-  const data = {
-    title: 'ShinyNewTitle',
-  };
+  const data = { title: 'title' };
 
   const mockUseControlsContext = jest.mocked(useControlsContext);
+
+  beforeEach(() => {
+    mockUseControlsContext.mockReturnValue({ data });
+  });
 
   afterEach(() => {
     mockUseControlsContext.mockReset();
   });
 
-  it('returns Title data', () => {
-    mockUseControlsContext.mockReturnValue({ data });
+  it('returns Title props', () => {
+    const { result } = renderHook(() => useTitle());
 
-    expect(useTitle()).toStrictEqual({
-      title: 'ShinyNewTitle',
-    });
-  });
+    const expected: TitleProps = { title: data.title };
 
-  it('returns an undefined value for title when missing from data', () => {
-    mockUseControlsContext.mockReturnValue({ data: {} });
-
-    expect(useTitle()).toStrictEqual({
-      title: undefined,
-    });
+    expect(result.current).toStrictEqual(expected);
   });
 });

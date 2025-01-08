@@ -80,10 +80,15 @@ export interface TaskData {
   id: string;
 }
 
-export interface TaskHandlerOptions {
+export interface TaskHandlerOptions<V = any> {
   onProgress?: (
     data: { key: string; id: string },
     progress: number | undefined
+  ) => void;
+  onSuccess?: (data: { key: string; id: string }, value: V) => void;
+  onError?: (
+    data: { key: string; id: string },
+    message: string | undefined
   ) => void;
 }
 
@@ -96,11 +101,12 @@ export interface TaskHandlerInput<
   options?: K;
 }
 
-export interface TaskHandlerOutput {
+export interface TaskHandlerOutput<K = any> {
   cancel?: () => void;
   result: Promise<{
     message?: string;
     status: 'CANCELED' | 'COMPLETE' | 'FAILED' | 'OVERWRITE_PREVENTED';
+    value?: K;
   }>;
 }
 

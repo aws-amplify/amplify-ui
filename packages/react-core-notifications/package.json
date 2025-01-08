@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui-react-core-notifications",
-  "version": "2.0.31",
+  "version": "2.1.1",
   "main": "dist/index.js",
   "module": "dist/esm/index.mjs",
   "exports": {
@@ -35,8 +35,8 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@aws-amplify/ui": "6.7.0",
-    "@aws-amplify/ui-react-core": "3.1.0"
+    "@aws-amplify/ui": "6.7.2",
+    "@aws-amplify/ui-react-core": "3.2.1"
   },
   "peerDependencies": {
     "aws-amplify": "^6.9.0",

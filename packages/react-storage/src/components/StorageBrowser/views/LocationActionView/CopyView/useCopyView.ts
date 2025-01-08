@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
-
+import React, { useRef, useState } from 'react';
 import { isFunction } from '@aws-amplify/ui';
 
-import { copyHandler, LocationData } from '../../../actions/handlers';
-import { Task, useProcessTasks } from '../../../tasks';
-import { useGetActionInput } from '../../../providers/configuration';
+import { LocationData } from '../../../actions';
 import { useStore } from '../../../providers/store';
+import { Task } from '../../../tasks';
+import { useAction } from '../../../useAction';
 
 import { CopyViewState, UseCopyViewOptions } from './types';
 import { useFolders } from './useFolders';
@@ -19,17 +18,29 @@ export const useCopyView = (options?: UseCopyViewOptions): CopyViewState => {
     },
     dispatchStoreAction,
   ] = useStore();
+  const idLookup = useRef<Record<string, string>>({});
 
-  const getInput = useGetActionInput();
-
-  const [processState, handleProcess] = useProcessTasks(
-    copyHandler,
-    fileDataItems,
-    { concurrency: 4 }
-  );
   const [destination, setDestination] = useState(location);
 
+  const data = React.useMemo(() => {
+    idLookup.current = {};
+    return fileDataItems?.map((item) => {
+      // generate new `id` on each `destination.key` change to refresh
+      // task data provided to `useActon`
+      const id = crypto.randomUUID();
+      idLookup.current[id] = item.id;
+      return {
+        ...item,
+        id,
+        key: `${destination.key}${item.fileKey}`,
+        sourceKey: item.key,
+      };
+    });
+  }, [destination.key, fileDataItems]);
+
   const folders = useFolders({ destination, setDestination });
+
+  const [processState, handleProcess] = useAction('copy', { items: data! });
 
   const { isProcessing, isProcessingComplete, statusCounts, tasks } =
     processState;
@@ -42,10 +53,7 @@ export const useCopyView = (options?: UseCopyViewOptions): CopyViewState => {
   }, [onInitialize]);
 
   const onActionStart = () => {
-    handleProcess({
-      config: getInput(),
-      destinationPrefix: destination.key,
-    });
+    handleProcess();
   };
 
   const onActionCancel = () => {
@@ -64,7 +72,10 @@ export const useCopyView = (options?: UseCopyViewOptions): CopyViewState => {
 
   const onTaskRemove = React.useCallback(
     ({ data }: Task) => {
-      dispatchStoreAction({ type: 'REMOVE_LOCATION_ITEM', id: data.id });
+      dispatchStoreAction({
+        type: 'REMOVE_LOCATION_ITEM',
+        id: idLookup.current[data.id],
+      });
     },
     [dispatchStoreAction]
   );

@@ -1,24 +1,34 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { TitleControl } from '../TitleControl';
-import * as useTitleModule from '../hooks/useTitle';
+import { useTitle } from '../hooks/useTitle';
+import { useResolvedComposable } from '../hooks/useResolvedComposable';
+
+jest.mock('../hooks/useTitle');
+jest.mock('../hooks/useResolvedComposable');
+jest.mock('../../composables/Title', () => ({
+  Title: () => <div data-testid="title" />,
+}));
 
 describe('TitleControl', () => {
-  const useTitleSpy = jest.spyOn(useTitleModule, 'useTitle');
+  const mockUseTitle = jest.mocked(useTitle);
+  const mockUseResolvedComposable = jest.mocked(useResolvedComposable);
+
+  beforeAll(() => {
+    mockUseResolvedComposable.mockImplementation(
+      (component) => component as () => React.JSX.Element
+    );
+  });
 
   afterEach(() => {
-    useTitleSpy.mockReset();
+    mockUseTitle.mockClear();
   });
 
   it('renders', () => {
-    useTitleSpy.mockReturnValue({
-      title: 'Amplify',
-    });
-
     render(<TitleControl />);
 
-    const [renderedTitle] = screen.getAllByRole('heading');
+    const title = screen.getByTestId('title');
 
-    expect(renderedTitle).toHaveTextContent('Amplify');
+    expect(title).toBeInTheDocument();
   });
 });

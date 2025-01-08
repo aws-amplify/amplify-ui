@@ -1,5 +1,5 @@
 import { LocationData } from '../actions';
-import { ActionsListItem } from '../composables/ActionsList';
+import { ActionListItem } from '../composables/ActionsList';
 import { DataTableSortHeader, DataTableProps } from '../composables/DataTable';
 import { MessageProps } from '../composables/Message';
 import { Composables } from '../composables/types';
@@ -31,13 +31,12 @@ interface TableData {
 interface PaginationData {
   hasNextPage: boolean;
   highestPageVisited: number;
-  onPaginate: (page: number) => void;
   page: number;
 }
 
 export interface ControlsContext {
   data: {
-    actions?: ActionsListItem[];
+    actions?: ActionListItem[];
     actionCancelLabel?: string;
     actionDestinationLabel?: string;
     actionExitLabel?: string;
@@ -90,6 +89,7 @@ export interface ControlsContext {
   onFolderNameChange?: (value: string) => void;
   onNavigate?: (location: LocationData, path?: string) => void;
   onNavigateHome?: () => void;
+  onPaginate?: (page: number) => void;
   onRefresh?: () => void;
   onSearch?: () => void;
   onSearchClear?: () => void;

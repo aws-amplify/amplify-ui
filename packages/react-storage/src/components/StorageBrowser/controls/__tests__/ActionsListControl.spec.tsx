@@ -27,8 +27,8 @@ describe('ActionsListControl', () => {
   it('renders', () => {
     render(<ActionsListControl />);
 
-    const ActionsList = screen.getByTestId('actions-list');
+    const actionsList = screen.getByTestId('actions-list');
 
-    expect(ActionsList).toBeInTheDocument();
+    expect(actionsList).toBeInTheDocument();
   });
 });

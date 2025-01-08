@@ -1,3 +1,5 @@
+import { renderHook } from '@testing-library/react';
+import { StatusDisplayProps } from '../../../composables/StatusDisplay';
 import { useControlsContext } from '../../../controls/context';
 import { useStatusDisplay } from '../useStatusDisplay';
 
@@ -9,23 +11,24 @@ describe('useStatusDisplay', () => {
       CANCELED: 2,
       COMPLETE: 4,
       FAILED: 3,
+      OVERWRITE_PREVENTED: 0,
       PENDING: 0,
       QUEUED: 1,
       TOTAL: 10,
     },
   };
-
-  // assert mocks
-  const mockUseControlsContext = useControlsContext as jest.Mock;
+  const mockUseControlsContext = jest.mocked(useControlsContext);
 
   afterEach(() => {
     mockUseControlsContext.mockReset();
   });
 
-  it('returns useStatusDisplay data', () => {
+  it('returns StatusDisplay props', () => {
     mockUseControlsContext.mockReturnValue({ data });
 
-    expect(useStatusDisplay()).toStrictEqual({
+    const { result } = renderHook(() => useStatusDisplay());
+
+    const expected: StatusDisplayProps = {
       statuses: [
         expect.objectContaining({ count: 4 }),
         expect.objectContaining({ count: 3 }),
@@ -33,7 +36,9 @@ describe('useStatusDisplay', () => {
         expect.objectContaining({ count: 1 }),
       ],
       total: 10,
-    });
+    };
+
+    expect(result.current).toStrictEqual(expected);
   });
 
   it('returns default values if statusCounts is undefined', () => {
@@ -49,6 +54,7 @@ describe('useStatusDisplay', () => {
           CANCELED: 0,
           COMPLETE: 0,
           FAILED: 0,
+          OVERWRITE_PREVENTED: 0,
           PENDING: 0,
           QUEUED: 0,
           TOTAL: 0,

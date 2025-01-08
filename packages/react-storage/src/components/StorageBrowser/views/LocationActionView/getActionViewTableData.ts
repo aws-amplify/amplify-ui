@@ -48,7 +48,7 @@ const getTaskStatusDisplayLabel = ({
   }
 };
 
-export const getProgressHeader = (label: string): ActionViewHeaders[0] => ({
+const getProgressHeader = (label: string): ActionViewHeaders[0] => ({
   key: 'progress',
   type: 'sort',
   content: { label },
@@ -169,7 +169,10 @@ export const getActionViewTableData = <T extends TaskData = TaskData>({
               type: 'number',
               content: {
                 value: progress,
-                displayValue: `${getPercentValue(progress ?? 0)}%`,
+                displayValue: `${getPercentValue(
+                  // Default progress to 100% if progress value is unavailable but status is recognized as complete
+                  progress ?? status === 'COMPLETE' ? 1 : 0
+                )}%`,
               },
             };
           }
