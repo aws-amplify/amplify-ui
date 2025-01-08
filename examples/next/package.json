@@ -19,16 +19,15 @@
     "@aws-sdk/credential-providers": "^3.370.0",
     "next": "^14.2.21",
     "next-global-css": "^1.1.1",
-    "react": "18.2.0",
+    "react": "^18.3.0",
     "react-copy-to-clipboard": "^5.1.0",
-    "react-dom": "18.2.0",
+    "react-dom": "^18.3.0",
     "react-icons": "^4.4.0",
     "react-map-gl": "7.0.23",
     "swr": "^2.0.0"
   },
   "devDependencies": {
     "@types/node": "^15.12.4",
-    "@types/react": "^18.2.22",
     "eslint": "^8.44.0",
     "eslint-config-next": "^13.5.5",
     "rimraf": "^3.0.2"

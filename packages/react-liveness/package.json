@@ -44,8 +44,8 @@
   "peerDependencies": {
     "@aws-amplify/core": "*",
     "aws-amplify": "^6.9.0",
-    "react": "^16.14.0 || ^17.0 || ^18.0",
-    "react-dom": "^16.14.0 || ^17.0 || ^18.0"
+    "react": "^16.14 || ^17 || ^18 || ^19",
+    "react-dom": "^16.14 || ^17 || ^18 || ^19"
   },
   "dependencies": {
     "@aws-amplify/ui": "6.7.2",

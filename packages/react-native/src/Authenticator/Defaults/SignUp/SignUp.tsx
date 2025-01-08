@@ -34,7 +34,7 @@ const SignUp = ({
   toSignIn,
   validationErrors,
   ...rest
-}: DefaultSignUpProps): JSX.Element => {
+}: DefaultSignUpProps): React.JSX.Element => {
   const {
     disableFormSubmit,
     fields: fieldsWithHandlers,

@@ -10,7 +10,7 @@ import { ModalMessageProps } from './types';
 
 export default function ModalMessage(
   props: ModalMessageProps
-): JSX.Element | null {
+): React.JSX.Element | null {
   const { deviceOrientation, isPortraitMode } = useDeviceOrientation();
   const messageProps = useMessageProps(
     props,

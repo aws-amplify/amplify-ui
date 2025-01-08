@@ -27,7 +27,7 @@ const onMessageAction: OnMessageAction = ({ action, url }) => {
 
 function InAppMessageDisplay({
   components: overrideComponents,
-}: InAppMessageDisplayProps): JSX.Element | null {
+}: InAppMessageDisplayProps): React.JSX.Element | null {
   const components = React.useMemo(
     () => ({ ...platformComponents, ...overrideComponents }),
     [overrideComponents]
