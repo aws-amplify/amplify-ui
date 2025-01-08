@@ -31,3 +31,4 @@ Feature: Drag and drop files within Storage Browser
     Then I press the "{esc}" key
     When I drag and drop a file into the storage browser with file name "test.txt"
     Then I see "test.txt"
+
