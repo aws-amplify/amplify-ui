@@ -130,14 +130,14 @@ Feature: Create folder with Storage Browser
       Then I see the "Upload" menuitem
       When I click the "Upload" menuitem
       Then I upload "1" files with random names
-      When I simulate network disconnection
+      When A network failure occurs
       Then I click the "Upload" button
       Then I see "All files failed to upload"
 
   @react
   Scenario: List location items shows a Network error if offline
       When I see the first button containing "public"
-      When I simulate network disconnection
+      When A network failure occurs
       Then I click the first button containing "public"
       Then I see "Network Error"
 
@@ -150,7 +150,7 @@ Feature: Create folder with Storage Browser
       When I click the "Create Folder" menuitem
       Then I see "Folder name"
       Then I type a new "Folder name" with random value
-      When I simulate network disconnection
+      When A network failure occurs
       Then I click the "Create Folder" button
       Then I see "There was an issue creating the folder"
 
@@ -161,7 +161,7 @@ Feature: Create folder with Storage Browser
       When I click the "Menu Toggle" button
       When I click the "Copy" menuitem
       Then I click the "DoNotDeleteThisFolder_CanDeleteAllChildren/" button
-      When I simulate network disconnection
+      When A network failure occurs
       Then I click the "Copy" button
       Then I see "All files failed to copy"
 
@@ -171,6 +171,6 @@ Feature: Create folder with Storage Browser
       Then I click checkbox for file "001_dont_delete_file.txt"
       When I click the "Menu Toggle" button
       Then I click the "Delete" menuitem
-      When I simulate network disconnection
+      When A network failure occurs
       Then I click the "Delete" button
       Then I see "All files failed to delete"
