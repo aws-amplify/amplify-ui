@@ -4,11 +4,17 @@ import { MergeProps } from '@aws-amplify/ui-react-core';
 import { AriaProps, BaseComponentProps } from './base';
 import { BaseStyleProps } from './style';
 
+/**
+ * @deprecated will be removed in a future major version
+ */
 // A utility type to check if a type is any
 export type IsAny<Type> = (Type extends never ? true : false) extends false
   ? false
   : true;
 
+/**
+ * @deprecated will be removed in a future major version
+ */
 export type ElementType = React.ElementType;
 
 type AsProp<Element extends ElementType> = {
@@ -19,6 +25,9 @@ type AsProp<Element extends ElementType> = {
   as?: Element;
 };
 
+/**
+ * @deprecated will be removed in a future major version
+ */
 export type PrimitivePropsWithAs<
   Props extends BaseViewProps,
   Element extends ElementType,
@@ -29,6 +38,9 @@ type PrimitivePropsWithRef<
   Element extends ElementType,
 > = Omit<Props, 'ref'> & React.RefAttributes<React.ComponentRef<Element>>;
 
+/**
+ * @deprecated will be removed in a future major version
+ */
 export type PrimitivePropsWithHTMLAttributes<
   Props extends BaseViewProps,
   Element extends ElementType,
@@ -47,6 +59,9 @@ export type PrimitivePropsWithHTMLAttributes<
       >
     : any;
 
+/**
+ * @deprecated will be removed in a future major version
+ */
 export type PrimitiveProps<
   Props extends BaseViewProps,
   Element extends ElementType,
@@ -56,59 +71,28 @@ export type PrimitiveProps<
 >;
 
 /**
- * @see {React.ForwardRefRenderFunction}
- * Modifies return type of `React.ForwardRefRenderFunction`
- * to allow usage in React 16
+ * @deprecated will be removed in a future major version
  */
-interface JSElementForwardRefRenderFunction<T, P = {}> {
-  // return `JSX.Element` or `null` in place of `React.ReactNode`
-  (props: P, ref: React.ForwardedRef<T>): React.JSX.Element | null;
-  displayName?: string | undefined;
-  // explicit rejected with `never` required due to
-  // https://github.com/microsoft/TypeScript/issues/36826
-  /**
-   * defaultProps are not supported on render functions
-   */
-  defaultProps?: never | undefined;
-  /**
-   * propTypes are not supported on render functions
-   */
-  propTypes?: never | undefined;
-}
-
 export interface Primitive<
   Props extends BaseViewProps,
   Element extends ElementType,
-> extends JSElementForwardRefRenderFunction<
-    React.ComponentRef<Element>,
-    Props
-  > {}
+> extends React.ForwardRefRenderFunction<React.ComponentRef<Element>, Props> {}
 
 /**
- * @see {React.ForwardRefExoticComponent}
- * Modifies return type of `React.ForwardRefExoticComponent`
- * to allow usage in React 16
+ * @deprecated will be removed in a future major version
  */
-interface JSXElementForwardRefExoticComponent<P = {}> {
-  // return `React.ReactElement` or `null` in place of `React.ReactNode`
-  (props: P): React.ReactElement | null;
-  defaultProps?: Partial<P> | undefined;
-  displayName?: string | undefined;
-  // deprecated in React@19 but needed for backwards compatibility in previous versions
-  propTypes?: any;
-  readonly $$typeof: symbol;
-}
-
 export interface ForwardRefPrimitive<
   Props extends BaseViewProps,
   DefaultElement extends ElementType,
-> extends JSXElementForwardRefExoticComponent<
+> extends React.ForwardRefExoticComponent<
     PrimitiveProps<Props, DefaultElement>
   > {
   // overload the JSX constructor to make it accept generics
   <Element extends ElementType = DefaultElement>(
     props: PrimitiveProps<Props, Element>
-  ): React.ReactElement<Props, Element> | null;
+  ): ReturnType<
+    React.ForwardRefExoticComponent<PrimitiveProps<Props, DefaultElement>>
+  >;
 }
 
 /** @deprecated For internal use only */
