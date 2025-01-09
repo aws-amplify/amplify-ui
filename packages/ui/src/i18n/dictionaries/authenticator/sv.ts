@@ -86,4 +86,5 @@ export const svDict: AuthenticatorDictionary = {
   'User does not exist': 'Användaren finns inte',
   'Username cannot be empty': 'Användarnamnet kan inte vara tomt',
   'We Emailed You': 'Vi har skickat e-post till dig',
+  'Please confirm your Password': 'Bekräfta ditt lösenord',
 };
