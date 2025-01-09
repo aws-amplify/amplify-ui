@@ -6,7 +6,6 @@ import { SignOutButton } from '../../components';
 import { StorageBrowser } from '../../StorageBrowser';
 
 import '@aws-amplify/ui-react-storage/styles.css';
-import '@aws-amplify/ui-react-storage/storage-browser-styles.css';
 
 export default function Page() {
   const { back, query, pathname, replace } = useRouter();
@@ -50,7 +49,10 @@ export default function Page() {
           }}
         />
         {typeof query.actionType === 'string' ? (
-          <dialog open={!!query.actionType}>
+          <dialog
+            open={!!query.actionType}
+            style={{ width: '50vw', position: 'absolute', zIndex: 1000 }}
+          >
             <StorageBrowser.LocationActionView
               onExit={() => {
                 replace({ query: { ...query, actionType: undefined } });

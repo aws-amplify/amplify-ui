@@ -18,16 +18,16 @@ const onProgress = jest.fn();
 
 const baseInput: CreateFolderHandlerInput = {
   config,
-  data: { key: '', id: 'an-id' },
-  destinationPrefix: 'prefix/',
+  data: { key: 'prefix/', id: 'an-id' },
 };
 
 describe('createFolderHandler', () => {
+  const path = 'path';
   const mockUploadDataReturnValue = {
     cancel: jest.fn(),
     pause: jest.fn(),
     resume: jest.fn(),
-    result: Promise.resolve({ path: '' }),
+    result: Promise.resolve({ path }),
     state: 'SUCCESS' as const,
   };
   const mockUploadData = jest.mocked(uploadData);
@@ -46,11 +46,17 @@ describe('createFolderHandler', () => {
   it('behaves as expected in the happy path', async () => {
     const { result } = createFolderHandler(baseInput);
 
-    expect(await result).toStrictEqual({ status: 'COMPLETE' });
+    expect(await result).toStrictEqual({
+      status: 'COMPLETE',
+      value: { key: path },
+    });
   });
 
   it('calls `uploadData` with the expected values', () => {
-    createFolderHandler({ ...baseInput, options: { preventOverwrite: true } });
+    createFolderHandler({
+      ...baseInput,
+      data: { ...baseInput.data, preventOverwrite: true },
+    });
 
     const expected: UploadDataInput = {
       data: '',
@@ -65,7 +71,7 @@ describe('createFolderHandler', () => {
         onProgress: expect.any(Function),
         preventOverwrite: true,
       },
-      path: `${baseInput.destinationPrefix}${baseInput.data.key}`,
+      path: baseInput.data.key,
     };
 
     expect(mockUploadData).toHaveBeenCalledWith(expected);
@@ -83,7 +89,10 @@ describe('createFolderHandler', () => {
       options: { onProgress },
     });
 
-    expect(await result).toStrictEqual({ status: 'COMPLETE' });
+    expect(await result).toStrictEqual({
+      status: 'COMPLETE',
+      value: { key: path },
+    });
 
     expect(onProgress).toHaveBeenCalledTimes(1);
     expect(onProgress).toHaveBeenCalledWith(baseInput.data, 1);
@@ -101,7 +110,10 @@ describe('createFolderHandler', () => {
       options: { onProgress },
     });
 
-    expect(await result).toStrictEqual({ status: 'COMPLETE' });
+    expect(await result).toStrictEqual({
+      status: 'COMPLETE',
+      value: { key: path },
+    });
 
     expect(onProgress).toHaveBeenCalledTimes(1);
     expect(onProgress).toHaveBeenCalledWith(baseInput.data, undefined);

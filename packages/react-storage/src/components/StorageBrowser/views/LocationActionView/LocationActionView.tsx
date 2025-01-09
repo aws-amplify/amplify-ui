@@ -1,37 +1,24 @@
 import React from 'react';
 
-import { isDefaultActionViewType } from '../../actions';
 import { useStore } from '../../providers/store';
+import { useActionViews } from '../context/actionViews';
 
-import { CreateFolderView } from './CreateFolderView';
-import { CopyView } from './CopyView';
-import { DeleteView } from './DeleteView';
-import { UploadView } from './UploadView';
+import { LocationActionViewType } from './types';
 
-export interface LocationActionViewProps<T = string> {
-  onExit?: () => void;
-  type?: T;
-}
-
-export const LocationActionView = ({
+export const LocationActionView: LocationActionViewType = ({
   type,
   ...props
-}: LocationActionViewProps): React.JSX.Element | null => {
+}) => {
   const [{ actionType = type }] = useStore();
+  const views = useActionViews().action;
 
-  if (!isDefaultActionViewType(actionType)) return null;
+  const ActionView = actionType
+    ? views[actionType as keyof typeof views]
+    : undefined;
 
-  return (
-    <>
-      {actionType === 'createFolder' ? (
-        <CreateFolderView {...props} />
-      ) : actionType === 'delete' ? (
-        <DeleteView {...props} />
-      ) : actionType === 'copy' ? (
-        <CopyView {...props} />
-      ) : (
-        <UploadView {...props} />
-      )}
-    </>
-  );
+  if (ActionView) {
+    return <ActionView {...props} />;
+  }
+
+  return null;
 };

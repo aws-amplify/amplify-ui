@@ -87,7 +87,7 @@ export type ComponentsTheme<TokensType extends WebTokens = WebTokens> =
   | BaseComponentTheme<SelectFieldTheme, 'selectfield', TokensType>
   | BaseComponentTheme<SliderFieldTheme, 'sliderfield', TokensType>
   | BaseComponentTheme<StepperFieldTheme, 'stepperfield', TokensType>
-  | BaseComponentTheme<StorageBrowserTheme, 'storagebrowser', TokensType>
+  | BaseComponentTheme<StorageBrowserTheme, 'storage-browser', TokensType>
   | BaseComponentTheme<StorageManagerTheme, 'storagemanager', TokensType>
   | BaseComponentTheme<SwitchTheme, 'switch', TokensType>
   | BaseComponentTheme<SwitchFieldTheme, 'switchfield', TokensType>
@@ -138,7 +138,7 @@ export type AllComponentThemes = {
   selectfield: SelectFieldTheme;
   sliderfield: SliderFieldTheme;
   stepperfield: StepperFieldTheme;
-  storagebrowser: StorageBrowserTheme;
+  'storage-browser': StorageBrowserTheme;
   storagemanager: StorageManagerTheme;
   switch: SwitchTheme;
   switchfield: SwitchFieldTheme;

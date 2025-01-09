@@ -6,6 +6,7 @@ import {
   IN_APP_MESSAGING_INPUT_BASE,
   LOCATION_SEARCH_INPUT_BASE,
   MAP_VIEW_INPUT_BASE,
+  STORAGE_BROWSER_INPUT_BASE,
   STORAGE_MANAGER_INPUT_BASE,
 } from '../constants';
 import { setUserAgent } from '..';
@@ -133,6 +134,22 @@ describe('setUserAgent', () => {
     expect(setCustomUserAgentSpy).toHaveBeenCalledWith({
       ...STORAGE_MANAGER_INPUT_BASE,
       additionalDetails: [['StorageManager'], ['ui-react-storage', '1.0.0']],
+    });
+  });
+
+  it('passes the expected input for StorageBrowser', () => {
+    const details: SetUserAgentOptions = {
+      componentName: 'StorageBrowser',
+      packageName: 'react-storage',
+      version: '1.0.0',
+    };
+
+    setUserAgent(details);
+
+    expect(setCustomUserAgentSpy).toHaveBeenCalledTimes(1);
+    expect(setCustomUserAgentSpy).toHaveBeenCalledWith({
+      ...STORAGE_BROWSER_INPUT_BASE,
+      additionalDetails: [['StorageBrowser'], ['ui-react-storage', '1.0.0']],
     });
   });
 });

@@ -9,6 +9,8 @@ import { demoState } from '@/utils/demoState';
 const propsToCode = (props: PlaceholderProps) => {
   return (
     '<Placeholder' +
+    (props.startColor ? ` startColor="${props.startColor}"` : '') +
+    (props.endColor ? ` endColor="${props.endColor}"` : '') +
     (props.size ? ` size="${props.size}"` : '') +
     (props.isLoaded ? ` isLoaded={${props.isLoaded}}` : '') +
     ' />'
@@ -28,8 +30,10 @@ export const PlaceholderDemo = () => {
       propControls={<PlaceholderControls {...placeholderProps} />}
     >
       <Placeholder
-        isLoaded={placeholderProps.isLoaded}
+        startColor={placeholderProps.startColor}
+        endColor={placeholderProps.endColor}
         size={placeholderProps.size}
+        isLoaded={placeholderProps.isLoaded}
       />
     </Demo>
   );

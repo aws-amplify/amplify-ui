@@ -1,11 +1,11 @@
+import React from 'react';
 import { isFunction } from '@aws-amplify/ui';
 
-import { DeleteViewState, UseDeleteViewOptions } from './types';
-import { deleteHandler } from '../../../actions/handlers';
 import { useStore } from '../../../providers/store';
-import { useGetActionInput } from '../../../providers/configuration';
-import { Task, useProcessTasks } from '../../../tasks';
-import React from 'react';
+import { Task } from '../../../tasks';
+import { useAction } from '../../../useAction';
+
+import { DeleteViewState, UseDeleteViewOptions } from './types';
 
 export const useDeleteView = (
   options?: UseDeleteViewOptions
@@ -14,22 +14,27 @@ export const useDeleteView = (
 
   const [{ location, locationItems }, dispatchStoreAction] = useStore();
   const { fileDataItems } = locationItems;
-  const { current } = location;
+  const { current, key } = location;
 
-  const getInput = useGetActionInput();
-
-  const [processState, handleProcess] = useProcessTasks(
-    deleteHandler,
-    fileDataItems,
-    { concurrency: 4 }
+  const data = React.useMemo(
+    () =>
+      !fileDataItems
+        ? []
+        : fileDataItems.map((item) => ({
+            ...item,
+            key: `${key}${item.fileKey}`,
+          })),
+    [fileDataItems, key]
   );
+
+  const [processState, handleProcess] = useAction('delete', { items: data });
 
   const { isProcessing, isProcessingComplete, statusCounts, tasks } =
     processState;
 
   const onActionStart = () => {
     if (!current) return;
-    handleProcess({ config: getInput() });
+    handleProcess();
   };
 
   const onActionCancel = () => {

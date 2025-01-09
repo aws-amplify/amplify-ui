@@ -7,9 +7,17 @@ import { StorageBrowserDefault } from '../StorageBrowserDefault';
 import { LocationData } from '../actions';
 
 jest.spyOn(ViewsModule, 'useViews').mockReturnValue({
-  LocationsView: () => <div data-testid="LOCATIONS_VIEW" />,
-  LocationDetailView: () => <div data-testid="LOCATION_DETAIL_VIEW" />,
-  LocationActionView: () => <div data-testid="LOCATION_ACTION_VIEW" />,
+  primary: {
+    LocationsView: () => <div data-testid="LOCATIONS_VIEW" />,
+    LocationDetailView: () => <div data-testid="LOCATION_DETAIL_VIEW" />,
+    LocationActionView: () => <div data-testid="LOCATION_ACTION_VIEW" />,
+  },
+  action: {
+    copy: () => <div />,
+    createFolder: () => <div />,
+    delete: () => <div />,
+    upload: () => <div />,
+  },
 });
 
 const useStoreSpy = jest.spyOn(StoreModule, 'useStore');
