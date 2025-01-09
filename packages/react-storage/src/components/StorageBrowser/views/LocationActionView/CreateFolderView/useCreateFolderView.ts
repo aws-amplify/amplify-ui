@@ -1,10 +1,9 @@
 import React from 'react';
 import { isFunction } from '@aws-amplify/ui';
 
-import { createFolderHandler } from '../../../actions';
-import { useGetActionInput } from '../../../providers/configuration';
+import { CreateFolderHandlerData } from '../../../actions';
+import { useAction } from '../../../useAction';
 import { useStore } from '../../../providers/store';
-import { useProcessTasks } from '../../../tasks';
 
 import { CreateFolderViewState, UseCreateFolderViewOptions } from './types';
 
@@ -15,14 +14,26 @@ export const useCreateFolderView = (
   const [folderName, setFolderName] = React.useState('');
   const folderNameId = React.useRef(crypto.randomUUID()).current;
 
-  const getConfig = useGetActionInput();
+  const [{ location }, dispatchStoreAction] = useStore();
+  const { current, key } = location;
+
+  const data: CreateFolderHandlerData[] = React.useMemo(
+    () => [
+      {
+        // generate new `id` on each `folderName` change to refresh task
+        // data provided to `useAction`
+        id: crypto.randomUUID(),
+        key: `${key}${folderName}/`,
+        preventOverwrite: true,
+      },
+    ],
+    [key, folderName]
+  );
+
   const [
     { tasks, isProcessing, isProcessingComplete, statusCounts },
     handleCreateFolder,
-  ] = useProcessTasks(createFolderHandler);
-
-  const [{ location }, dispatchStoreAction] = useStore();
-  const { current, key: destinationPrefix } = location;
+  ] = useAction('createFolder', { items: data });
 
   return {
     folderName,
@@ -31,12 +42,7 @@ export const useCreateFolderView = (
     isProcessingComplete,
     location,
     onActionStart: () => {
-      handleCreateFolder({
-        config: getConfig(),
-        data: { id: folderNameId, key: `${folderName}/` },
-        destinationPrefix,
-        options: { preventOverwrite: true },
-      });
+      handleCreateFolder();
     },
     onActionExit: () => {
       if (isFunction(onExit)) onExit(current);

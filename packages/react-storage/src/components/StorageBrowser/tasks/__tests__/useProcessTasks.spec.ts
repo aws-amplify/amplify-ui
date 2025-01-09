@@ -17,8 +17,6 @@ const config: ActionInputConfig = {
   region: 'region',
 };
 
-const prefix = 'prefix';
-
 const items: FileItem[] = [
   { key: '0', id: '0', file: new File([], '0') },
   { key: '1', id: '1', file: new File([], '1') },
@@ -32,7 +30,7 @@ const action = jest.fn(
   }: TaskHandlerInput<
     FileItem,
     TaskHandlerOptions & { extraOption?: boolean }
-  > & { prefix: string }): TaskHandlerOutput => {
+  >): TaskHandlerOutput => {
     const { key } = data;
     // initial progress
     options?.onProgress?.(data, 0.5);
@@ -80,7 +78,7 @@ const createTimedAction =
     ms?: number;
     resolvedStatus?: 'COMPLETE' | 'FAILED' | 'CANCELED' | 'OVERWRITE_PREVENTED';
     shouldReject?: boolean;
-  }): ((input: TaskHandlerInput & { prefix: string }) => TaskHandlerOutput) =>
+  }): ((input: TaskHandlerInput) => TaskHandlerOutput) =>
   () => ({
     cancel,
     pause: undefined,
@@ -113,7 +111,7 @@ describe('useProcessTasks', () => {
     expect(result.current[0].tasks[2].status).toBe('QUEUED');
 
     act(() => {
-      processTasks({ config, prefix });
+      processTasks({ config });
     });
 
     expect(action).toHaveBeenCalledTimes(2);
@@ -121,13 +119,11 @@ describe('useProcessTasks', () => {
       config,
       data: { key: items[0].key, id: items[0].id, file: items[0].file },
       options: { onProgress: expect.any(Function) },
-      prefix,
     });
     expect(action).toHaveBeenCalledWith({
       config,
       data: { key: items[1].key, id: items[1].id, file: items[1].file },
       options: { onProgress: expect.any(Function) },
-      prefix,
     });
 
     expect(result.current[0].tasks[0].status).toBe('PENDING');
@@ -164,7 +160,7 @@ describe('useProcessTasks', () => {
     expect(result.current[0].tasks[0].status).toBe('QUEUED');
 
     act(() => {
-      processTasks({ config, prefix });
+      processTasks({ config });
     });
 
     expect(result.current[0].tasks[0].cancel).toBeDefined();
@@ -230,7 +226,7 @@ describe('useProcessTasks', () => {
       expect(result.current[0].tasks[0].status).toBe('QUEUED');
 
       act(() => {
-        processTasks({ config, prefix });
+        processTasks({ config });
       });
 
       expect(result.current[0].tasks[0].status).toBe('PENDING');
@@ -265,7 +261,8 @@ describe('useProcessTasks', () => {
     expect(result.current[0].tasks[2].status).toBe('QUEUED');
 
     act(() => {
-      processTasks({ config, prefix, options: { extraOption: true } });
+      // @ts-expect-error options typing is broken right now
+      processTasks({ config, options: { extraOption: true } });
     });
 
     expect(action).toHaveBeenCalledTimes(1);
@@ -273,7 +270,6 @@ describe('useProcessTasks', () => {
       config,
       data: { key: items[0].key, id: items[0].id, file: items[0].file },
       options: { extraOption: true, onProgress: expect.any(Function) },
-      prefix,
     });
 
     expect(result.current[0].tasks[0].status).toBe('PENDING');
@@ -321,7 +317,7 @@ describe('useProcessTasks', () => {
     expect(initState.tasks.length).toBe(3);
 
     act(() => {
-      handleProcess({ config, prefix });
+      handleProcess({ config });
     });
 
     const nextItems = [items[1], items[2]];
@@ -358,7 +354,7 @@ describe('useProcessTasks', () => {
     expect(initState.isProcessingComplete).toBe(false);
 
     act(() => {
-      handleProcess({ config, prefix });
+      handleProcess({ config });
     });
 
     const [processingState] = result.current;
@@ -388,7 +384,7 @@ describe('useProcessTasks', () => {
     expect(initState.tasks[0].cancel).toBeDefined();
 
     act(() => {
-      handleProcess({ config, prefix });
+      handleProcess({ config });
     });
 
     const [processingState] = result.current;

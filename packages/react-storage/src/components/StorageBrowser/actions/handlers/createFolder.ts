@@ -1,5 +1,5 @@
-import { uploadData } from '../../storage-internal';
 import { isFunction } from '@aws-amplify/ui';
+import { uploadData } from '../../storage-internal';
 
 import {
   TaskData,
@@ -10,34 +10,34 @@ import {
 } from './types';
 import { constructBucket, getProgress } from './utils';
 
-export interface CreateFolderHandlerData extends TaskData {}
-export interface CreateFolderHandlerOptions extends TaskHandlerOptions {
+export interface CreateFolderHandlerData extends TaskData {
   preventOverwrite?: boolean;
 }
+export interface CreateFolderHandlerOptions
+  extends TaskHandlerOptions<{ key: string }> {}
 
 export interface CreateFolderHandlerInput
   extends TaskHandlerInput<
     CreateFolderHandlerData,
     CreateFolderHandlerOptions
-  > {
-  destinationPrefix: string;
-}
+  > {}
 
-export interface CreateFolderHandlerOutput extends TaskHandlerOutput {}
+export interface CreateFolderHandlerOutput
+  extends TaskHandlerOutput<{ key: string }> {}
 
 export interface CreateFolderHandler
   extends TaskHandler<CreateFolderHandlerInput, CreateFolderHandlerOutput> {}
 
 export const createFolderHandler: CreateFolderHandler = (input) => {
-  const { destinationPrefix, config, data, options } = input;
+  const { config, data, options } = input;
   const { accountId, credentials, customEndpoint } = config;
-  const { onProgress, preventOverwrite } = options ?? {};
-  const { key } = data;
+  const { onProgress } = options ?? {};
+  const { key, preventOverwrite } = data;
 
   const bucket = constructBucket(config);
 
   const { result } = uploadData({
-    path: `${destinationPrefix}${key}`,
+    path: key,
     data: '',
     options: {
       bucket,
@@ -53,12 +53,15 @@ export const createFolderHandler: CreateFolderHandler = (input) => {
 
   return {
     result: result
-      .then(() => ({ status: 'COMPLETE' as const }))
+      .then(({ path }) => ({
+        status: 'COMPLETE' as const,
+        value: { key: path },
+      }))
       .catch(({ message, name }: Error) => {
         if (name === 'PreconditionFailed') {
-          return { message, status: 'OVERWRITE_PREVENTED' } as const;
+          return { message, status: 'OVERWRITE_PREVENTED' };
         }
-        return { message, status: 'FAILED' as const };
+        return { message, status: 'FAILED' };
       }),
   };
 };

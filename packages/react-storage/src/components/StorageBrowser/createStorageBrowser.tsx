@@ -1,5 +1,16 @@
 import React from 'react';
 
+import { setUserAgent } from '@aws-amplify/ui';
+
+import { VERSION } from '../../version';
+
+import {
+  defaultActionConfigs,
+  getActionConfigs,
+  ActionConfigsProvider,
+  ExtendedActionConfigs,
+} from './actions';
+
 import { DEFAULT_COMPOSABLES } from './composables';
 import { elementsDefault } from './context/elements';
 import { ComponentsProvider } from './ComponentsProvider';
@@ -17,28 +28,33 @@ import {
   LocationDetailView,
   LocationsView,
   UploadView,
-  ViewsProvider,
+  LocationActionViewType,
 } from './views';
-import { defaultActionConfigs } from './actions';
+import { useView } from './views/useView';
+import { ViewsProvider } from './views/context';
 
 import { DisplayTextProvider } from './displayText';
-import { createUseView } from './views/createUseView';
 
 import {
   CreateStorageBrowserInput,
+  CreateStorageBrowserOutput,
   StorageBrowserProviderProps,
   StorageBrowserType,
+  DerivedActionViews,
+  DerivedActionViewType,
 } from './types';
+import {
+  getActionHandlers,
+  ActionHandlersProvider,
+  useAction,
+} from './useAction';
 
-export function createStorageBrowser(input: CreateStorageBrowserInput): {
-  StorageBrowser: StorageBrowserType<
-    keyof Omit<
-      typeof defaultActionConfigs,
-      'listLocationItems' | 'listLocations'
-    >
-  >;
-  useView: ReturnType<typeof createUseView<typeof defaultActionConfigs>>;
-} {
+export function createStorageBrowser<
+  Input extends CreateStorageBrowserInput,
+  RInput extends Input['actions'] extends ExtendedActionConfigs
+    ? Input['actions']
+    : ExtendedActionConfigs,
+>(input: Input): CreateStorageBrowserOutput<RInput> {
   assertRegisterAuthListener(input.config.registerAuthListener);
 
   const {
@@ -49,16 +65,28 @@ export function createStorageBrowser(input: CreateStorageBrowserInput): {
     region,
   } = input.config;
 
+  setUserAgent({
+    componentName: 'StorageBrowser',
+    packageName: 'react-storage',
+    version: VERSION,
+  });
+
+  const actions = {
+    default: {
+      ...defaultActionConfigs,
+      ...input.actions?.default,
+      // always last
+      listLocations: input.config.listLocations,
+    },
+    custom: input.actions?.custom,
+  };
+
+  const handlers = getActionHandlers(actions);
+
+  const actionConfigs = getActionConfigs(actions);
+
   const ConfigurationProvider = createConfigurationProvider({
     accountId,
-    actions: {
-      ...defaultActionConfigs,
-      // @ts-expect-error To be addressed with line 40
-      listLocations: {
-        componentName: 'LocationsView',
-        handler: input.config.listLocations,
-      },
-    },
     customEndpoint,
     displayName: 'ConfigurationProvider',
     getLocationCredentials,
@@ -79,34 +107,47 @@ export function createStorageBrowser(input: CreateStorageBrowserInput): {
    * Provides state, configuration and action values that are shared between
    * the primary View components
    */
-  function Provider({ children, ...props }: StorageBrowserProviderProps) {
+  function Provider({
+    children,
+    displayText,
+    views,
+    ...props
+  }: StorageBrowserProviderProps) {
     return (
       <StoreProvider {...props}>
         <ConfigurationProvider>
-          <DisplayTextProvider displayText={props.displayText}>
-            <ComponentsProvider
-              composables={composables}
-              elements={elementsDefault}
-            >
-              {children}
-            </ComponentsProvider>
-          </DisplayTextProvider>
+          <ActionConfigsProvider actionConfigs={actionConfigs}>
+            <ActionHandlersProvider handlers={handlers}>
+              <DisplayTextProvider displayText={displayText}>
+                <ViewsProvider actions={actions} views={views}>
+                  <ComponentsProvider
+                    composables={composables}
+                    elements={elementsDefault}
+                  >
+                    {children}
+                  </ComponentsProvider>
+                </ViewsProvider>
+              </DisplayTextProvider>
+            </ActionHandlersProvider>
+          </ActionConfigsProvider>
         </ConfigurationProvider>
       </StoreProvider>
     );
   }
 
-  const StorageBrowser: StorageBrowserType = ({ views, displayText }) => (
+  const StorageBrowser: StorageBrowserType<
+    DerivedActionViewType<RInput>,
+    DerivedActionViews<RInput>
+  > = ({ views, displayText }) => (
     <ErrorBoundary>
-      <Provider displayText={displayText}>
-        <ViewsProvider views={views}>
-          <StorageBrowserDefault />
-        </ViewsProvider>
+      <Provider displayText={displayText} views={views}>
+        <StorageBrowserDefault />
       </Provider>
     </ErrorBoundary>
   );
 
-  StorageBrowser.LocationActionView = LocationActionView;
+  StorageBrowser.LocationActionView =
+    LocationActionView as LocationActionViewType<DerivedActionViewType<RInput>>;
   StorageBrowser.LocationDetailView = LocationDetailView;
   StorageBrowser.LocationsView = LocationsView;
 
@@ -119,7 +160,5 @@ export function createStorageBrowser(input: CreateStorageBrowserInput): {
 
   StorageBrowser.displayName = 'StorageBrowser';
 
-  const useView = createUseView(defaultActionConfigs);
-
-  return { StorageBrowser, useView };
+  return { StorageBrowser, useAction, useView };
 }

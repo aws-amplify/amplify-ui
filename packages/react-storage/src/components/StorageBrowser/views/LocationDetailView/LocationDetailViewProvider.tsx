@@ -5,6 +5,7 @@ import { useDisplayText } from '../../displayText';
 
 import { LocationDetailViewProviderProps } from './types';
 import { getLocationDetailViewTableData } from './getLocationDetailViewTableData';
+import { FileData } from '../../actions';
 
 export function LocationDetailViewProvider({
   children,
@@ -27,17 +28,15 @@ export function LocationDetailViewProvider({
   } = useDisplayText();
 
   const {
-    actions,
+    actionItems,
     page,
     pageItems,
     hasNextPage,
     highestPageVisited,
     isLoading,
-    isSearchingSubfolders,
+    isSearchSubfoldersEnabled,
     location,
-    areAllFilesSelected,
     fileDataItems,
-    hasFiles,
     hasError,
     hasDownloadError,
     message,
@@ -52,17 +51,25 @@ export function LocationDetailViewProvider({
     onNavigate,
     onNavigateHome,
     onSelect,
-    onSelectAll,
+    onToggleSelectAll,
     onSearch,
     onSearchQueryChange,
     onSearchClear,
     onToggleSearchSubfolders,
   } = props;
 
-  const actionsWithDisplayText = actions.map((item) => ({
+  const actionsWithDisplayText = actionItems.map((item) => ({
     ...item,
     label: getActionListItemLabel(item.label),
   }));
+
+  const fileItems = pageItems.filter(
+    (item): item is FileData => item.type === 'FILE'
+  );
+
+  const areAllFilesSelected = fileDataItems?.length === fileItems.length;
+
+  const hasFiles = fileItems.length > 0;
 
   const messageControlContent = getListItemsResultMessage({
     isLoading,
@@ -72,17 +79,19 @@ export function LocationDetailViewProvider({
     message: hasError ? message : downloadErrorMessage,
   });
 
-  const isNoActionAvailable =
-    !Array.isArray(actions) || actions?.every((action) => action.isHidden);
+  const isActionsListDisabled =
+    isLoading ||
+    !actionItems?.length ||
+    actionItems.every(({ isHidden }) => isHidden);
 
   return (
     <ControlsContextProvider
       data={{
         actions: actionsWithDisplayText,
-        isActionsListDisabled: isLoading || isNoActionAvailable,
+        isActionsListDisabled,
         isDataRefreshDisabled: isLoading,
         isLoading,
-        isSearchingSubfolders,
+        isSearchingSubfolders: isSearchSubfoldersEnabled,
         loadingIndicatorLabel,
         location,
         paginationData: {
@@ -107,7 +116,7 @@ export function LocationDetailViewProvider({
           onDownload,
           onNavigate,
           onSelect,
-          onSelectAll,
+          onSelectAll: onToggleSelectAll,
         }),
         title: getTitle(location),
         message: messageControlContent,

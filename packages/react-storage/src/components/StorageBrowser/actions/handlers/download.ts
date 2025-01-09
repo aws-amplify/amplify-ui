@@ -1,6 +1,6 @@
 import { getUrl } from '../../storage-internal';
 import {
-  FileDataItem,
+  TaskData,
   TaskHandler,
   TaskHandlerInput,
   TaskHandlerOptions,
@@ -9,13 +9,17 @@ import {
 
 import { constructBucket } from './utils';
 
-export interface DownloadHandlerData extends FileDataItem {}
+export interface DownloadHandlerData extends TaskData {
+  fileKey: string;
+}
+
 export interface DownloadHandlerOptions extends TaskHandlerOptions {}
 
 export interface DownloadHandlerInput
   extends TaskHandlerInput<DownloadHandlerData, DownloadHandlerOptions> {}
 
-export interface DownloadHandlerOutput extends TaskHandlerOutput {}
+export interface DownloadHandlerOutput
+  extends TaskHandlerOutput<{ url: URL }> {}
 
 export interface DownloadHandler
   extends TaskHandler<DownloadHandlerInput, DownloadHandlerOutput> {}
@@ -49,16 +53,12 @@ export const downloadHandler: DownloadHandler = ({
       contentDisposition: 'attachment',
       expectedBucketOwner: accountId,
     },
-  }).then((result) => {
-    return result;
-  });
+  })
+    .then(({ url }) => {
+      downloadFromUrl(key, url.toString());
+      return { status: 'COMPLETE' as const, value: { url } };
+    })
+    .catch(({ message }: Error) => ({ message, status: 'FAILED' as const }));
 
-  return {
-    result: result
-      .then(({ url }) => {
-        downloadFromUrl(key, url.toString());
-        return { status: 'COMPLETE' as const };
-      })
-      .catch(({ message }: Error) => ({ message, status: 'FAILED' as const })),
-  };
+  return { result };
 };

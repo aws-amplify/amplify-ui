@@ -1,22 +1,13 @@
 import { act, renderHook, waitFor } from '@testing-library/react';
 
-import * as AmplifyReactCore from '@aws-amplify/ui-react-core';
-
 import { LocationData } from '../../../../actions';
-import * as Store from '../../../../providers/store';
-import * as Config from '../../../../providers/configuration';
-import { DEFAULT_LIST_OPTIONS, useFolders } from '../useFolders';
+import { useStore } from '../../../../providers/store';
 import { LocationState } from '../../../../providers/store/location';
+import { useList } from '../../../../useAction';
+import { DEFAULT_LIST_OPTIONS, useFolders } from '../useFolders';
 
-const mockDispatchStoreAction = jest.fn();
-const mockHandleList = jest.fn();
-const config = {
-  accountId: '123456789012',
-  bucket: 'bucket',
-  credentials: jest.fn(),
-  region: 'us-west-2',
-};
-
+jest.mock('../../../../useAction');
+jest.mock('../../../../providers/store');
 jest.useFakeTimers();
 jest.setSystemTime(1731366223230);
 
@@ -26,14 +17,14 @@ const mockItems = [
     lastModified: new Date(),
     id: 'id',
     size: 10,
-    type: 'FOLDER',
+    type: 'FOLDER' as const,
   },
   {
     key: 'prefix2/',
     lastModified: new Date(),
     id: 'id',
     size: 10,
-    type: 'FOLDER',
+    type: 'FOLDER' as const,
   },
 ];
 
@@ -50,12 +41,14 @@ describe('useFolders', () => {
     key: 'prefix1/',
   };
 
+  const mockUseList = jest.mocked(useList);
+  const mockUseStore = jest.mocked(useStore);
+  const mockDispatchStoreAction = jest.fn();
+  const mockHandleList = jest.fn();
   const mockSetDestination = jest.fn();
 
   beforeEach(() => {
-    jest.clearAllMocks();
-
-    jest.spyOn(Store, 'useStore').mockReturnValue([
+    mockUseStore.mockReturnValue([
       {
         actionType: 'COPY',
         files: [],
@@ -75,12 +68,7 @@ describe('useFolders', () => {
       },
       mockDispatchStoreAction,
     ]);
-
-    jest.spyOn(Config, 'useGetActionInput').mockReturnValue(() => config);
-  });
-
-  it('should return the correct initial state', async () => {
-    jest.spyOn(AmplifyReactCore, 'useDataState').mockReturnValueOnce([
+    mockUseList.mockReturnValue([
       {
         data: {
           items: mockItems,
@@ -92,7 +80,17 @@ describe('useFolders', () => {
       },
       mockHandleList,
     ]);
+  });
 
+  afterEach(() => {
+    mockDispatchStoreAction.mockClear();
+    mockHandleList.mockClear();
+    mockSetDestination.mockClear();
+    mockUseList.mockReset();
+    mockUseStore.mockReset();
+  });
+
+  it('should return the correct initial state', async () => {
     const { result } = renderHook(() =>
       useFolders({ destination: location, setDestination: mockSetDestination })
     );
@@ -103,19 +101,6 @@ describe('useFolders', () => {
   });
 
   it('should update the reference of onInitialize on destination change', () => {
-    jest.spyOn(AmplifyReactCore, 'useDataState').mockReturnValue([
-      {
-        data: {
-          items: mockItems,
-          nextToken: 'token',
-        },
-        hasError: false,
-        isLoading: false,
-        message: undefined,
-      },
-      mockHandleList,
-    ]);
-
     const { rerender, result } = renderHook(
       (
         props: { destination: LocationState; setDestination: () => void } = {
@@ -142,18 +127,6 @@ describe('useFolders', () => {
   });
 
   it('should handle search', () => {
-    jest.spyOn(AmplifyReactCore, 'useDataState').mockReturnValueOnce([
-      {
-        data: {
-          items: mockItems,
-          nextToken: 'token',
-        },
-        hasError: false,
-        isLoading: false,
-        message: undefined,
-      },
-      mockHandleList,
-    ]);
     const { result } = renderHook(() =>
       useFolders({ destination: location, setDestination: mockSetDestination })
     );
@@ -167,7 +140,6 @@ describe('useFolders', () => {
     });
 
     expect(mockHandleList).toHaveBeenCalledWith({
-      config,
       options: {
         ...DEFAULT_LIST_OPTIONS,
         exclude: 'FILE',
@@ -191,19 +163,6 @@ describe('useFolders', () => {
   });
 
   it('should reset search on selecting folder', () => {
-    jest.spyOn(AmplifyReactCore, 'useDataState').mockReturnValueOnce([
-      {
-        data: {
-          items: mockItems,
-          nextToken: 'token',
-        },
-        hasError: false,
-        isLoading: false,
-        message: undefined,
-      },
-      mockHandleList,
-    ]);
-
     const { result } = renderHook(() =>
       useFolders({ destination: location, setDestination: mockSetDestination })
     );
@@ -223,7 +182,7 @@ describe('useFolders', () => {
 
   it('should handle paginate', () => {
     const nextToken = 'token';
-    jest.spyOn(AmplifyReactCore, 'useDataState').mockReturnValue([
+    mockUseList.mockReturnValue([
       {
         data: {
           items: mockItems,
@@ -246,7 +205,6 @@ describe('useFolders', () => {
     });
 
     expect(mockHandleList).toHaveBeenCalledWith({
-      config,
       options: {
         ...DEFAULT_LIST_OPTIONS,
         exclude: 'FILE',

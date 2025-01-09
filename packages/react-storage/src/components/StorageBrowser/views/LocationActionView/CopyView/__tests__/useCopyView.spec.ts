@@ -1,21 +1,18 @@
 import { renderHook, act } from '@testing-library/react';
 
 import { LocationData } from '../../../../actions';
-import * as Store from '../../../../providers/store';
-import * as Config from '../../../../providers/configuration';
-import * as Tasks from '../../../../tasks';
-import { useFolders } from '../useFolders';
+import { useStore } from '../../../../providers/store';
+import { INITIAL_STATUS_COUNTS } from '../../../../tasks';
+import { useAction } from '../../../../useAction';
 
 import { useCopyView } from '../useCopyView';
+import { useFolders } from '../useFolders';
 
+jest.mock('../../../../providers/store');
+jest.mock('../../../../useAction');
 jest.mock('../useFolders');
 
 describe('useCopyView', () => {
-  const mockProcessTasks = jest.fn();
-  const mockDispatchStoreAction = jest.fn();
-  const mockCancel = jest.fn();
-  const mockUseFolders = jest.mocked(useFolders);
-
   const location = {
     current: {
       prefix: 'test-prefix/',
@@ -27,16 +24,57 @@ describe('useCopyView', () => {
     path: '',
     key: 'test-prefix/',
   };
+  const mockUseAction = jest.mocked(useAction);
+  const mockUseFolders = jest.mocked(useFolders);
+  const mockUseStore = jest.mocked(useStore);
+  const mockCancel = jest.fn();
+  const mockDispatchStoreAction = jest.fn();
+  const mockHandleCopy = jest.fn();
 
   beforeAll(() => {
     // @ts-expect-error partial mock
     mockUseFolders.mockReturnValue({
       onInitialize: jest.fn(),
     });
+
+    Object.defineProperty(globalThis, 'crypto', {
+      value: { randomUUID: () => 'intentionally-static-test-id' },
+    });
   });
 
   beforeEach(() => {
-    jest.spyOn(Store, 'useStore').mockReturnValue([
+    mockUseAction.mockReturnValue([
+      {
+        isProcessing: false,
+        isProcessingComplete: false,
+        statusCounts: { ...INITIAL_STATUS_COUNTS, QUEUED: 3, TOTAL: 3 },
+        tasks: [
+          {
+            status: 'QUEUED',
+            data: { key: 'test-item', id: 'id' },
+            cancel: mockCancel,
+            message: 'test-message',
+            progress: undefined,
+          },
+          {
+            status: 'QUEUED',
+            data: { key: 'test-item2', id: 'id2' },
+            cancel: mockCancel,
+            message: 'test-message',
+            progress: undefined,
+          },
+          {
+            status: 'QUEUED',
+            data: { key: 'test-item3', id: 'id3' },
+            cancel: mockCancel,
+            message: 'test-message',
+            progress: undefined,
+          },
+        ],
+      },
+      mockHandleCopy,
+    ]);
+    mockUseStore.mockReturnValue([
       {
         actionType: 'COPY',
         files: [],
@@ -56,52 +94,15 @@ describe('useCopyView', () => {
       },
       mockDispatchStoreAction,
     ]);
-
-    jest.spyOn(Config, 'useGetActionInput').mockReturnValue(() => ({
-      accountId: '123456789012',
-      bucket: 'XXXXXXXXXXX',
-      credentials: jest.fn(),
-      region: 'us-west-2',
-    }));
-
-    // Mock the useProcessTasks hook
-    jest.spyOn(Tasks, 'useProcessTasks').mockReturnValue([
-      {
-        isProcessing: false,
-        isProcessingComplete: false,
-        statusCounts: { ...Tasks.INITIAL_STATUS_COUNTS, QUEUED: 3, TOTAL: 3 },
-        tasks: [
-          {
-            status: 'QUEUED',
-            data: { key: 'test-item', id: 'id' },
-            cancel: jest.fn(),
-            message: 'test-message',
-            progress: undefined,
-          },
-          {
-            status: 'QUEUED',
-            data: { key: 'test-item2', id: 'id2' },
-            cancel: jest.fn(),
-            message: 'test-message',
-            progress: undefined,
-          },
-          {
-            status: 'QUEUED',
-            data: { key: 'test-item3', id: 'id3' },
-            cancel: jest.fn(),
-            message: 'test-message',
-            progress: undefined,
-          },
-        ],
-      },
-      mockProcessTasks,
-    ]);
   });
 
   afterEach(() => {
-    mockProcessTasks.mockClear();
-    mockDispatchStoreAction.mockClear();
     mockCancel.mockClear();
+    mockDispatchStoreAction.mockClear();
+    mockHandleCopy.mockClear();
+    mockUseFolders.mockClear();
+    mockUseAction.mockReset();
+    mockUseStore.mockReset();
   });
 
   it('should return the correct initial state', () => {
@@ -136,44 +137,17 @@ describe('useCopyView', () => {
       result.current.onActionStart();
     });
 
-    expect(mockProcessTasks).toHaveBeenCalledTimes(1);
-    expect(mockProcessTasks).toHaveBeenCalledWith({
-      destinationPrefix: 'test-prefix/',
-      config: {
-        accountId: '123456789012',
-        bucket: 'XXXXXXXXXXX',
-        credentials: expect.any(Function),
-        region: 'us-west-2',
-      },
-    });
+    expect(mockHandleCopy).toHaveBeenCalledTimes(1);
   });
 
   it('should call cancel on tasks when onActionCancel is called', () => {
-    jest.spyOn(Tasks, 'useProcessTasks').mockReturnValue([
-      {
-        isProcessing: false,
-        isProcessingComplete: false,
-        statusCounts: { ...Tasks.INITIAL_STATUS_COUNTS, QUEUED: 1, TOTAL: 1 },
-        tasks: [
-          {
-            data: { key: 'test-item', id: 'id' },
-            status: 'QUEUED',
-            cancel: mockCancel(),
-            message: 'test-message',
-            progress: undefined,
-          },
-        ],
-      },
-      mockProcessTasks,
-    ]);
-
     const { result } = renderHook(() => useCopyView());
 
     act(() => {
       result.current.onActionCancel();
     });
 
-    expect(mockCancel).toHaveBeenCalled();
+    expect(mockCancel).toHaveBeenCalledTimes(3);
   });
 
   it('should reset state when onActionExit is called', () => {
