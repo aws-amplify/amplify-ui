@@ -168,7 +168,7 @@ jobs:
           TAGS: '@${{ matrix.framework }}'
 
       - name: Upload videos and screenshots
-        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2 https://github.com/actions/upload-artifact/commit/0b7f8abb1508181956e8e162db84b466c27e18ce
+        uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4.5.0 https://github.com/actions/upload-artifact/commit/65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08
         if: ${{ failure() && steps.e2e.outcome != 'success' }}
         with:
           name: canary-cypress-error-${{ env.MEGA_APP_NAME }}
