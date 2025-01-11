@@ -8,17 +8,7 @@ import { get, escapeRegExp } from 'lodash';
 let language = 'en-US';
 let window = null;
 let stub = null;
-const randomFileName = `fileName${Math.random() * 10000}`;
-
-const clickButtonWithText = (name: string) => {
-  cy.findByRole('button', {
-    name: new RegExp(`${escapeRegExp(name)}`, 'i'),
-  }).click();
-};
-
-const typeInInputHandler = (field: string, value: string) => {
-  cy.findInputField(field).type(value);
-};
+export const randomFileName = `fileName${Math.random() * 10000}`;
 
 const getRoute = (routeMatcher: { headers: { [key: string]: string } }) => {
   return `${routeMatcher.headers?.['X-Amz-Target'] || 'route'}`;
@@ -250,10 +240,10 @@ When('I type a new {string}', (field: string) => {
   cy.findInputField(field).typeAliasWithStatus(field, `${Date.now()}`);
 });
 
-When('I type a new {string} with value {string}', typeInInputHandler);
+When('I type a new {string} with value {string}', cy.typeInInputHandler);
 
 When('I type a new {string} with random value', (field: string) => {
-  typeInInputHandler(field, randomFileName);
+  cy.typeInInputHandler(field, randomFileName);
 });
 
 When('I lose focus on {string} input', (field: string) => {
@@ -270,6 +260,10 @@ When('I click the {string}', (id: string) => {
   cy.findByTestId(id).click();
 });
 
+When('I click the element with id attribute {string}', (id: string) => {
+  cy.get(`#${id}`).click({ force: true });
+});
+
 When('I click the {string} button', (name: string) => {
   cy.findByRole('button', {
     name: new RegExp(`^${escapeRegExp(name)}$`, 'i'),
@@ -280,10 +274,10 @@ Then('I press the {string} key', (key: string) => {
   cy.get('body').type(key);
 });
 
-When('I click the button containing {string}', clickButtonWithText);
+When('I click the button containing {string}', cy.clickButtonWithText);
 
 When('I click the button containing random name', () => {
-  clickButtonWithText(randomFileName);
+  cy.clickButtonWithText(randomFileName);
 });
 
 When('I click the first button containing {string}', (name: string) => {
@@ -362,10 +356,12 @@ Then('I see tab {string}', (search: string) => {
   cy.findAllByRole('tab').first().should('be.visible').contains(search);
 });
 
-Then('I see {string}', (message: string) => {
-  cy.findByRole('document')
-    .contains(new RegExp(escapeRegExp(message), 'i'))
-    .should('exist');
+Then('I see {string}', cy.doesDocumentContainText);
+
+Then('I see {string} files with random names', (count: string) => {
+  for (let i = 1; i <= parseInt(count); i++) {
+    cy.doesDocumentContainText(`${randomFileName}-${i}`);
+  }
 });
 
 Then('I do not see {string}', (message: string) => {
@@ -581,6 +577,10 @@ Then('I click the submit button', () => {
   }).click();
 });
 
+Then('I click the label containing text {string}', (labelText: string) => {
+  cy.contains('label', labelText).should('be.visible').click({ force: true });
+});
+
 Then('I confirm {string} error is accessible in password field', () => {
   // input field should be invalid
   cy.findInputField('Password')
@@ -644,4 +644,20 @@ Then('I see the {string} radio button checked', (label: string) => {
   cy.findByLabelText(new RegExp(`^${escapeRegExp(label)}`, 'i')).should(
     'be.checked'
   );
+});
+
+When('I upload {string} files with random names', (count: string) =>
+  cy.fileInputUpload(randomFileName, parseInt(count))
+);
+
+When(
+  'I upload a folder {string} with {string} files with random names',
+  (folderName: string, count: string) =>
+    cy.fileInputUpload(`${folderName}/${randomFileName}`, parseInt(count))
+);
+
+When('A network failure occurs', () => {
+  cy.intercept('', (req) => {
+    req.destroy();
+  });
 });

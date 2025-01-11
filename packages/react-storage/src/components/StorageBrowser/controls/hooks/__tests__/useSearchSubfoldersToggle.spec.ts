@@ -1,4 +1,5 @@
 import { renderHook } from '@testing-library/react';
+import { SearchSubfoldersToggleProps } from '../../../composables/SearchSubfoldersToggle';
 import { useControlsContext } from '../../../controls/context';
 import { useSearchSubfoldersToggle } from '../useSearchSubfoldersToggle';
 
@@ -11,7 +12,7 @@ describe('useSearchSubfoldersToggle', () => {
     mockUseControlsContext.mockReset();
   });
 
-  it('returns useSearchSubfoldersToggle data', () => {
+  it('returns SearchSubfoldersToggle props', () => {
     const data = {
       isSearchingSubfolders: true,
       searchSubfoldersToggleLabel: 'search-subfolders-label',
@@ -23,10 +24,12 @@ describe('useSearchSubfoldersToggle', () => {
 
     const { result } = renderHook(() => useSearchSubfoldersToggle());
 
-    expect(result.current).toStrictEqual({
+    const expected: SearchSubfoldersToggleProps = {
       isSearchingSubfolders: data.isSearchingSubfolders,
       label: data.searchSubfoldersToggleLabel,
       onToggle: expect.any(Function),
-    });
+    };
+
+    expect(result.current).toStrictEqual(expected);
   });
 });

@@ -35,7 +35,7 @@ const defaultOptions: SnackOptions = {
     '@aws-amplify/rtn-web-browser',
     '@aws-amplify/ui-react-native',
     'aws-amplify@5.3.11',
-    'react-native-safe-area-context',
+    'react-native-safe-area-context@^4.2.5',
     '@react-native-community/netinfo',
     '@react-native-async-storage/async-storage',
     'react-native-get-random-values',

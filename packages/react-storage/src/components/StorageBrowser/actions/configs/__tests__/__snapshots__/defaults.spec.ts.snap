@@ -3,62 +3,44 @@
 exports[`defaultActionConfigs matches expected shape 1`] = `
 {
   "copy": {
-    "actionsListItemConfig": {
+    "actionListItem": {
       "disable": [Function],
       "hide": [Function],
       "icon": "copy-file",
       "label": "Copy",
     },
-    "componentName": "CopyView",
-    "displayName": "Copy",
     "handler": [Function],
+    "viewName": "CopyView",
   },
   "createFolder": {
-    "actionsListItemConfig": {
-      "disable": [Function],
+    "actionListItem": {
       "hide": [Function],
       "icon": "create-folder",
       "label": "Create folder",
     },
-    "componentName": "CreateFolderView",
-    "displayName": "Create Folder",
     "handler": [Function],
-    "isCancelable": false,
+    "viewName": "CreateFolderView",
   },
   "delete": {
-    "actionsListItemConfig": {
+    "actionListItem": {
       "disable": [Function],
       "hide": [Function],
       "icon": "delete-file",
       "label": "Delete",
     },
-    "componentName": "DeleteView",
-    "displayName": "Delete",
     "handler": [Function],
+    "viewName": "DeleteView",
   },
-  "listLocationItems": {
-    "componentName": "LocationDetailView",
-    "displayName": [Function],
-    "handler": [Function],
-  },
-  "listLocations": {
-    "componentName": "LocationsView",
-    "displayName": "Home",
-    "handler": [Function],
-  },
+  "download": [Function],
+  "listLocationItems": [Function],
   "upload": {
-    "actionsListItemConfig": {
-      "disable": [Function],
-      "fileSelection": "FILE",
+    "actionListItem": {
       "hide": [Function],
       "icon": "upload-file",
       "label": "Upload",
     },
-    "componentName": "UploadView",
-    "displayName": "Upload",
     "handler": [Function],
-    "includeProgress": true,
-    "isCancelable": true,
+    "viewName": "UploadView",
   },
 }
 `;

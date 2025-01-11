@@ -1,23 +1,24 @@
 import { renderHook } from '@testing-library/react';
+import { OverwriteToggleProps } from '../../../composables/OverwriteToggle';
 import { useControlsContext } from '../../../controls/context';
 import { useOverwriteToggle } from '../useOverwriteToggle';
 
 jest.mock('../../../controls/context');
 
 describe('useOverwriteToggle', () => {
-  // assert mocks
+  const data = {
+    isOverwritingEnabled: false,
+    isOverwriteToggleDisabled: false,
+    overwriteToggleLabel: 'overwrite-label',
+  };
+
   const mockUseControlsContext = jest.mocked(useControlsContext);
 
   afterEach(() => {
     mockUseControlsContext.mockReset();
   });
 
-  it('returns useOverwriteToggle data', () => {
-    const data = {
-      isOverwritingEnabled: false,
-      isOverwriteToggleDisabled: false,
-      overwriteToggleLabel: 'overwrite-label',
-    };
+  it('returns OverwriteToggle props', () => {
     mockUseControlsContext.mockReturnValue({
       data,
       onToggleOverwrite: jest.fn(),
@@ -25,11 +26,13 @@ describe('useOverwriteToggle', () => {
 
     const { result } = renderHook(() => useOverwriteToggle());
 
-    expect(result.current).toStrictEqual({
+    const expected: OverwriteToggleProps = {
       isDisabled: data.isOverwriteToggleDisabled,
       isOverwritingEnabled: data.isOverwritingEnabled,
       label: data.overwriteToggleLabel,
       onToggle: expect.any(Function),
-    });
+    };
+
+    expect(result.current).toStrictEqual(expected);
   });
 });

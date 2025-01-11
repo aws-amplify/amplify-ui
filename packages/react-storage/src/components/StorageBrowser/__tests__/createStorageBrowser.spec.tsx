@@ -2,6 +2,7 @@ import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 
 import * as ProvidersModule from '../providers';
+import * as UIModule from '@aws-amplify/ui';
 
 import { createStorageBrowser } from '../createStorageBrowser';
 import { StorageBrowserDisplayText } from '../displayText/types';
@@ -10,6 +11,8 @@ const createConfigurationProviderSpy = jest.spyOn(
   ProvidersModule,
   'createConfigurationProvider'
 );
+
+const setCustomUserAgentSpy = jest.spyOn(UIModule, 'setUserAgent');
 
 const accountId = '012345678901';
 const customEndpoint = 'mock-endpoint';
@@ -56,14 +59,6 @@ describe('createStorageBrowser', () => {
       getLocationCredentials: config.getLocationCredentials,
       region: config.region,
       registerAuthListener: config.registerAuthListener,
-      actions: {
-        copy: expect.any(Object),
-        createFolder: expect.any(Object),
-        delete: expect.any(Object),
-        listLocationItems: expect.any(Object),
-        listLocations: expect.any(Object),
-        upload: expect.any(Object),
-      },
     });
   });
 
@@ -78,5 +73,20 @@ describe('createStorageBrowser', () => {
 
     const Title = screen.getByText('Hello');
     expect(Title).toBeInTheDocument();
+  });
+
+  it('sets a custom user agent', async () => {
+    const { StorageBrowser } = createStorageBrowser(input);
+
+    await waitFor(() => {
+      render(<StorageBrowser />);
+    });
+
+    expect(setCustomUserAgentSpy).toHaveBeenCalledWith({
+      componentName: 'StorageBrowser',
+      packageName: 'react-storage',
+      // prefer non-static string - `version` field is updated on each package bump
+      version: expect.any(String),
+    });
   });
 });

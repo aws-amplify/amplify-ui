@@ -16,10 +16,10 @@ jobs:
       fail-fast: false
       matrix:
         framework: [react-native]
-        framework-version:
-          [
+        framework-version: [
             # uncomment to enable
-            # { formatted: latest, value: latest },
+            { formatted: latest, value: latest },
+            { formatted: 076, value: 0.76 },
             { formatted: 075, value: 0.75 },
             { formatted: 074, value: 0.74 },
             { formatted: 073, value: 0.73 },
@@ -39,6 +39,9 @@ jobs:
             platform: ios
           - build-tool: expo
             platform: android
+            framework-version: { formatted: '076', value: '0.76' }
+          - build-tool: expo
+            platform: android
             framework-version: { formatted: '075', value: '0.75' }
           - build-tool: expo
             platform: android
@@ -53,8 +56,8 @@ jobs:
             platform: android
             framework-version: { formatted: '071', value: '0.71' }
         include:
-          # Expo makes you specify a version of the SDK that supports that a particular version of React Native 
-          # https://stackoverflow.com/questions/63463373/create-an-expo-project-with-a-specific-version 
+          # Expo makes you specify a version of the SDK that supports a specific version of React Native
+          # https://stackoverflow.com/questions/63463373/create-an-expo-project-with-a-specific-version
           - framework: react-native
             framework-version: { formatted: 070, value: '0.70' }
             build-tool: expo
@@ -99,6 +102,14 @@ jobs:
             framework-version: { formatted: 075, value: '0.75' }
             build-tool: expo
             build-tool-version: 51
+            platform: android
+            pkg-manager: npm
+            node-version: 20
+            logfile: test.log
+          - framework: react-native
+            framework-version: { formatted: 076, value: '0.76' }
+            build-tool: expo
+            build-tool-version: 52
             platform: android
             pkg-manager: npm
             node-version: 20

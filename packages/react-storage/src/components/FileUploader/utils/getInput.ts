@@ -61,7 +61,7 @@ export const getInput = ({
         hasCallbackPath ? path({ identityId }) : path
       }${processedKey}`;
 
-      inputResult = { data: file, path: resolvedPath, options };
+      inputResult = { data, path: resolvedPath, options };
     }
 
     return inputResult;

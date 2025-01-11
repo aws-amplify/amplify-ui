@@ -1,4 +1,14 @@
-import { SelectionType, TaskData } from '../../../actions';
+import { LocationItemType, TaskData } from '../../../actions';
+
+/**
+ * native OS file picker type. to restrict selectable file types, define the picker types
+ * followed by accepted file types as strings
+ * @example
+ * ```ts
+ * type JPEGOnly = ['FOLDER', '.jpeg'];
+ * ```
+ */
+export type SelectionType = LocationItemType | [LocationItemType, ...string[]];
 
 export type FilesActionType =
   | { type: 'ADD_FILE_ITEMS'; files?: File[] }

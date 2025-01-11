@@ -1,7 +1,11 @@
 import React from 'react';
 
 import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
-import { AIContextContext, ConversationInputContext } from '../../context';
+import {
+  AIContextContext,
+  ConversationInputContext,
+  useConversationDisplayText,
+} from '../../context';
 import { AIConversationElements } from '../../context/elements';
 import { AttachFileControl } from './AttachFileControl';
 import { MessagesContext } from '../../context';
@@ -13,10 +17,10 @@ import {
   ResponseComponentsContext,
 } from '../../context/ResponseComponentsContext';
 import { ControlsContext } from '../../context/ControlsContext';
-import { getImageTypeFromMimeType } from '../../utils';
+import { attachmentsValidator, getImageTypeFromMimeType } from '../../utils';
 import { LoadingContext } from '../../context/LoadingContext';
 import { AttachmentContext } from '../../context/AttachmentContext';
-import { isFunction } from '@aws-amplify/ui';
+import { humanFileSize, isFunction } from '@aws-amplify/ui';
 
 const {
   Button,
@@ -148,9 +152,13 @@ const InputContainer = withBaseElementProps(View, {
 });
 
 export const FormControl: FormControl = () => {
-  const { input, setInput } = React.useContext(ConversationInputContext);
+  const { input, setInput, error, setError } = React.useContext(
+    ConversationInputContext
+  );
   const handleSendMessage = React.useContext(SendMessageContext);
-  const allowAttachments = React.useContext(AttachmentContext);
+  const { allowAttachments, maxAttachmentSize, maxAttachments } =
+    React.useContext(AttachmentContext);
+  const displayText = useConversationDisplayText();
   const responseComponents = React.useContext(ResponseComponentsContext);
   const isLoading = React.useContext(LoadingContext);
   const aiContext = React.useContext(AIContextContext);
@@ -213,14 +221,57 @@ export const FormControl: FormControl = () => {
     }
   };
 
+  const onValidate = React.useCallback(
+    async (files: File[]) => {
+      const previousFiles = input?.files ?? [];
+      const {
+        acceptedFiles,
+        hasMaxAttachmentsError,
+        hasMaxAttachmentSizeError,
+      } = await attachmentsValidator({
+        files: [...files, ...previousFiles],
+        maxAttachments,
+        maxAttachmentSize,
+      });
+
+      if (hasMaxAttachmentsError || hasMaxAttachmentSizeError) {
+        const errors = [];
+        if (hasMaxAttachmentsError) {
+          errors.push(displayText.getMaxAttachmentErrorText(maxAttachments));
+        }
+        if (hasMaxAttachmentSizeError) {
+          errors.push(
+            displayText.getAttachmentSizeErrorText(
+              // base64 size is about 137% that of the file size
+              // https://en.wikipedia.org/wiki/Base64#MIME
+              humanFileSize((maxAttachmentSize - 814) / 1.37, true)
+            )
+          );
+        }
+        setError?.(errors.join(' '));
+      } else {
+        setError?.(undefined);
+      }
+
+      setInput?.((prevValue) => ({
+        ...prevValue,
+        files: acceptedFiles,
+      }));
+    },
+    [setInput, input, displayText, maxAttachmentSize, maxAttachments, setError]
+  );
+
   if (controls?.Form) {
     return (
       <controls.Form
         handleSubmit={handleSubmit}
-        input={input!}
-        setInput={setInput!}
+        input={input}
+        setInput={setInput}
+        onValidate={onValidate}
         allowAttachments={allowAttachments}
         isLoading={isLoading}
+        error={error}
+        setError={setError}
       />
     );
   }

@@ -1,60 +1,34 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { ActionStartControl } from '../ActionStartControl';
-import * as useActionStartModule from '../hooks/useActionStart';
+import { useActionStart } from '../hooks/useActionStart';
+import { useResolvedComposable } from '../hooks/useResolvedComposable';
+
+jest.mock('../hooks/useActionStart');
+jest.mock('../hooks/useResolvedComposable');
+jest.mock('../../composables/ActionStart', () => ({
+  ActionStart: () => <div data-testid="action-start" />,
+}));
 
 describe('ActionStartControl', () => {
-  const useActionStartSpy = jest.spyOn(useActionStartModule, 'useActionStart');
+  const mockUseActionStart = jest.mocked(useActionStart);
+  const mockUseResolvedComposable = jest.mocked(useResolvedComposable);
 
-  beforeEach(() => {
-    useActionStartSpy.mockClear();
+  beforeAll(() => {
+    mockUseResolvedComposable.mockImplementation(
+      (component) => component as () => React.JSX.Element
+    );
+  });
+
+  afterEach(() => {
+    mockUseActionStart.mockClear();
   });
 
   it('renders', () => {
-    useActionStartSpy.mockReturnValue({
-      isDisabled: false,
-      onStart: jest.fn(),
-      label: 'Start',
-    });
     render(<ActionStartControl />);
 
-    const button = screen.getByRole('button', {
-      name: 'Start',
-    });
+    const actionStart = screen.getByTestId('action-start');
 
-    expect(button).toBeInTheDocument();
-  });
-
-  it('renders with custom label', () => {
-    useActionStartSpy.mockReturnValue({
-      isDisabled: false,
-      onStart: jest.fn(),
-      label: 'Custom Label',
-    });
-    render(<ActionStartControl />);
-
-    const button = screen.getByRole('button', {
-      name: 'Custom Label',
-    });
-
-    expect(button).toBeInTheDocument();
-  });
-
-  it('calls onStart when button is clicked', () => {
-    const mockOnStart = jest.fn();
-    useActionStartSpy.mockReturnValue({
-      isDisabled: false,
-      onStart: mockOnStart,
-      label: 'Start',
-    });
-    render(<ActionStartControl />);
-
-    const button = screen.getByRole('button', {
-      name: 'Start',
-    });
-
-    button.click();
-
-    expect(mockOnStart).toHaveBeenCalled();
+    expect(actionStart).toBeInTheDocument();
   });
 });

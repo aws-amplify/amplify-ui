@@ -11,7 +11,6 @@ jest.mock('../../composables/SearchSubfoldersToggle', () => ({
 }));
 
 describe('SearchSubfoldersToggleControl', () => {
-  // assert mocks
   const mockUseSearchSubfoldersToggle = jest.mocked(useSearchSubfoldersToggle);
   const mockUseResolvedComposable = jest.mocked(useResolvedComposable);
 

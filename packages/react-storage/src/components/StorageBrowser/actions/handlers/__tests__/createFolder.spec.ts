@@ -1,8 +1,8 @@
 import { createFolderHandler, CreateFolderHandlerInput } from '../createFolder';
 
-import * as InternalStorageModule from '../../../storage-internal';
+import { uploadData, UploadDataInput } from '../../../storage-internal';
 
-const uploadDataSpy = jest.spyOn(InternalStorageModule, 'uploadData');
+jest.mock('../../../storage-internal');
 
 const credentials = jest.fn();
 
@@ -18,35 +18,47 @@ const onProgress = jest.fn();
 
 const baseInput: CreateFolderHandlerInput = {
   config,
-  data: { key: '', id: 'an-id' },
-  destinationPrefix: 'prefix/',
+  data: { key: 'prefix/', id: 'an-id' },
 };
 
-const error = new Error('Failed!');
-
 describe('createFolderHandler', () => {
+  const path = 'path';
+  const mockUploadDataReturnValue = {
+    cancel: jest.fn(),
+    pause: jest.fn(),
+    resume: jest.fn(),
+    result: Promise.resolve({ path }),
+    state: 'SUCCESS' as const,
+  };
+  const mockUploadData = jest.mocked(uploadData);
+
   beforeEach(() => {
     jest.clearAllMocks();
+    mockUploadData.mockReturnValue(mockUploadDataReturnValue);
   });
 
-  it('behaves as expected in the happy path', async () => {
-    uploadDataSpy.mockReturnValueOnce({
-      cancel: jest.fn(),
-      pause: jest.fn(),
-      resume: jest.fn(),
-      result: Promise.resolve({ path: '' }),
-      state: 'SUCCESS',
-    });
+  afterEach(() => {
+    mockUploadData.mockReset();
+  });
 
+  beforeEach(() => {});
+
+  it('behaves as expected in the happy path', async () => {
     const { result } = createFolderHandler(baseInput);
 
-    expect(await result).toStrictEqual({ status: 'COMPLETE' });
+    expect(await result).toStrictEqual({
+      status: 'COMPLETE',
+      value: { key: path },
+    });
   });
 
   it('calls `uploadData` with the expected values', () => {
-    createFolderHandler({ ...baseInput, options: { preventOverwrite: true } });
+    createFolderHandler({
+      ...baseInput,
+      data: { ...baseInput.data, preventOverwrite: true },
+    });
 
-    const expected: InternalStorageModule.UploadDataInput = {
+    const expected: UploadDataInput = {
       data: '',
       options: {
         expectedBucketOwner: config.accountId,
@@ -59,24 +71,17 @@ describe('createFolderHandler', () => {
         onProgress: expect.any(Function),
         preventOverwrite: true,
       },
-      path: `${baseInput.destinationPrefix}${baseInput.data.key}`,
+      path: baseInput.data.key,
     };
 
-    expect(uploadDataSpy).toHaveBeenCalledWith(expected);
+    expect(mockUploadData).toHaveBeenCalledWith(expected);
   });
 
   it('calls provided onProgress callback as expected in the happy path', async () => {
-    uploadDataSpy.mockImplementation(({ options }) => {
-      // @ts-expect-error - `options` is potentially `undefined` in the `uploadData` input interface
-      options.onProgress({ totalBytes: 23, transferredBytes: 23 });
+    mockUploadData.mockImplementation(({ options }) => {
+      options?.onProgress?.({ totalBytes: 23, transferredBytes: 23 });
 
-      return {
-        cancel: jest.fn(),
-        pause: jest.fn(),
-        resume: jest.fn(),
-        result: Promise.resolve({ path: '' }),
-        state: 'SUCCESS',
-      };
+      return mockUploadDataReturnValue;
     });
 
     const { result } = createFolderHandler({
@@ -84,24 +89,20 @@ describe('createFolderHandler', () => {
       options: { onProgress },
     });
 
-    expect(await result).toStrictEqual({ status: 'COMPLETE' });
+    expect(await result).toStrictEqual({
+      status: 'COMPLETE',
+      value: { key: path },
+    });
 
     expect(onProgress).toHaveBeenCalledTimes(1);
     expect(onProgress).toHaveBeenCalledWith(baseInput.data, 1);
   });
 
   it('calls provided onProgress callback as expected when `totalBytes` is `undefined`', async () => {
-    uploadDataSpy.mockImplementation(({ options }) => {
-      // @ts-expect-error - `options` is potentially `undefined` in the `uploadData` input interface
-      options.onProgress({ transferredBytes: 23 });
+    mockUploadData.mockImplementation(({ options }) => {
+      options?.onProgress?.({ transferredBytes: 23 });
 
-      return {
-        cancel: jest.fn(),
-        pause: jest.fn(),
-        resume: jest.fn(),
-        result: Promise.resolve({ path: '' }),
-        state: 'SUCCESS',
-      };
+      return mockUploadDataReturnValue;
     });
 
     const { result } = createFolderHandler({
@@ -109,25 +110,28 @@ describe('createFolderHandler', () => {
       options: { onProgress },
     });
 
-    expect(await result).toStrictEqual({ status: 'COMPLETE' });
+    expect(await result).toStrictEqual({
+      status: 'COMPLETE',
+      value: { key: path },
+    });
 
     expect(onProgress).toHaveBeenCalledTimes(1);
     expect(onProgress).toHaveBeenCalledWith(baseInput.data, undefined);
   });
 
   it('handles a failure as expected', async () => {
-    uploadDataSpy.mockReturnValueOnce({
-      cancel: jest.fn(),
-      pause: jest.fn(),
-      resume: jest.fn(),
-      result: Promise.reject(error),
+    const errorMessage = 'error-message';
+
+    mockUploadData.mockReturnValue({
+      ...mockUploadDataReturnValue,
+      result: Promise.reject(new Error(errorMessage)),
       state: 'ERROR',
     });
 
     const { result } = createFolderHandler(baseInput);
 
     expect(await result).toStrictEqual({
-      message: error.message,
+      message: errorMessage,
       status: 'FAILED',
     });
   });
@@ -137,10 +141,8 @@ describe('createFolderHandler', () => {
     const overwritePreventedError = new Error(message);
     overwritePreventedError.name = 'PreconditionFailed';
 
-    uploadDataSpy.mockReturnValueOnce({
-      cancel: jest.fn(),
-      pause: jest.fn(),
-      resume: jest.fn(),
+    mockUploadData.mockReturnValue({
+      ...mockUploadDataReturnValue,
       result: Promise.reject(overwritePreventedError),
       state: 'ERROR',
     });

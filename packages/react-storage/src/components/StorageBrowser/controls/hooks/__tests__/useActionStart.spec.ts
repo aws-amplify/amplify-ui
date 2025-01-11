@@ -1,40 +1,38 @@
-import * as controlsContextModule from '../../../controls/context';
-import { ControlsContext } from '../../types';
+import { renderHook } from '@testing-library/react';
+import { ActionStartProps } from '../../../composables/ActionStart';
+import { useControlsContext } from '../../../controls/context';
 import { useActionStart } from '../useActionStart';
 
+jest.mock('../../../controls/context');
+
 describe('useActionStart', () => {
-  const controlsContext: ControlsContext = {
-    data: {
-      actionStartLabel: 'Start',
-    },
-    onActionStart: jest.fn(),
+  const data = {
+    actionStartLabel: 'action-start-label',
+    isActionStartDisabled: false,
   };
 
-  const useControlsContextSpy = jest.spyOn(
-    controlsContextModule,
-    'useControlsContext'
-  );
+  const mockUseControlsContext = jest.mocked(useControlsContext);
 
-  afterEach(() => {
-    useControlsContextSpy.mockClear();
-  });
-
-  it('returns object as it is received from ControlsContext', () => {
-    useControlsContextSpy.mockReturnValue(controlsContext);
-
-    expect(useActionStart()).toStrictEqual({
-      label: controlsContext.data.actionStartLabel,
-      onStart: expect.any(Function),
-      isDisabled: controlsContext.data.isActionStartDisabled,
+  beforeEach(() => {
+    mockUseControlsContext.mockReturnValue({
+      data,
+      onActionStart: jest.fn(),
     });
   });
 
-  it('calls onActionStart from ControlsContext when onStart is called', () => {
-    useControlsContextSpy.mockReturnValue(controlsContext);
+  afterEach(() => {
+    mockUseControlsContext.mockReset();
+  });
 
-    const { onStart } = useActionStart();
-    onStart!();
+  it('returns ActionStart props', () => {
+    const { result } = renderHook(() => useActionStart());
 
-    expect(controlsContext.onActionStart).toHaveBeenCalledTimes(1);
+    const expected: ActionStartProps = {
+      label: data.actionStartLabel,
+      isDisabled: data.isActionStartDisabled,
+      onStart: expect.any(Function),
+    };
+
+    expect(result.current).toStrictEqual(expected);
   });
 });
