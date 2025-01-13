@@ -94,7 +94,7 @@ export const FILE_UPLOADER = [
   {
     name: `defaultFiles?`,
     description: 'An array of files that already exist in the cloud.',
-    type: 'Array<{s3key: string}>',
+    type: 'Array<{key: string}>',
   },
   {
     name: `displayText?`,

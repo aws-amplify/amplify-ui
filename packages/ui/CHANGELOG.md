@@ -1,5 +1,11 @@
 # @aws-amplify/ui
 
+## 6.7.2
+
+### Patch Changes
+
+- [#6185](https://github.com/aws-amplify/amplify-ui/pull/6185) [`96be188317d72b89b6bfbc14a3d4ee76daad2a8b`](https://github.com/aws-amplify/amplify-ui/commit/96be188317d72b89b6bfbc14a3d4ee76daad2a8b) Thanks [@tiffanynwyeung](https://github.com/tiffanynwyeung)! - fix: missing elevated card shadow on dark mode
+
 ## 6.7.1
 
 ### Patch Changes
