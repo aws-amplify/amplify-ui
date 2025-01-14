@@ -1,14 +1,14 @@
 ---
-"@aws-amplify/ui": patch
-"@aws-amplify/ui-react": patch
-"@aws-amplify/ui-react-ai": patch
-"@aws-amplify/ui-react-core": patch
-"@aws-amplify/ui-react-core-notifications": patch
-"@aws-amplify/ui-react-geo": patch
-"@aws-amplify/ui-react-liveness": patch
-"@aws-amplify/ui-react-native": patch
-"@aws-amplify/ui-react-notifications": patch
-"@aws-amplify/ui-react-storage": patch
+"@aws-amplify/ui": minor
+"@aws-amplify/ui-react": minor
+"@aws-amplify/ui-react-ai": minor
+"@aws-amplify/ui-react-core": minor
+"@aws-amplify/ui-react-core-notifications": minor
+"@aws-amplify/ui-react-geo": minor
+"@aws-amplify/ui-react-liveness": minor
+"@aws-amplify/ui-react-native": minor
+"@aws-amplify/ui-react-notifications": minor
+"@aws-amplify/ui-react-storage": minor
 ---
 
 feat(react): reenable react 19 support
