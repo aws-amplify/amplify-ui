@@ -27,7 +27,7 @@ export interface RadioGroupFieldPropControlsProps extends RadioGroupFieldProps {
 }
 
 interface RadioGroupFieldPropControlsInterface {
-  (props: RadioGroupFieldPropControlsProps): JSX.Element;
+  (props: RadioGroupFieldPropControlsProps): React.JSX.Element;
 }
 
 export const RadioGroupFieldPropControls: RadioGroupFieldPropControlsInterface =

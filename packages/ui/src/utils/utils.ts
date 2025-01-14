@@ -1,6 +1,8 @@
 import { Modifiers } from '../types';
 
 /**
+ * @deprecated - will be removed in a future major version
+ *
  * Some libraries may not follow Node ES module spec and could be loaded as CommonJS modules,
  * To ensure the interoperability between ESM and CJS, modules from those libraries have to be loaded via namespace import
  * And sanitized by the function below because unlike ESM namespace, CJS namespace set `module.exports` object on the `default` key
