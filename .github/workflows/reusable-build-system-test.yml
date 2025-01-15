@@ -28,9 +28,7 @@ jobs:
       fail-fast: false
       matrix:
         framework: [react]
-        # temporarily pointing all react tests to v18
-        # framework-version: [latest]
-        framework-version: [18]
+        framework-version: [latest]
         build-tool: [next, vite]
         build-tool-version: [latest]
         pkg-manager: [npm]
