@@ -31,11 +31,77 @@ import { StorageBrowserDisplayText } from './displayText';
 
 import { DerivedActionHandlers, UseAction } from './useAction';
 
+/**
+ * Configuration properties
+ */
 export interface StorageBrowserConfig {
+  /**
+   * AWS Account Id
+   */
   accountId?: string;
+  /**
+   * Custom S3 endpoint used in action handler calls
+   */
   customEndpoint?: string;
+  /**
+   * Location credentials retrieval handler
+   */
   getLocationCredentials: GetLocationCredentials;
+  /**
+   * @required
+   *
+   * Locations list handler
+   */
   listLocations: ListLocations;
+  /**
+   * @required
+   *
+   * Provided handler receives an `onStateChange` callback to be called from
+   * the consumer on auth status changes to clear in memory credentials
+   *
+   * @example
+   * ```tsx
+   * // src/auth.ts
+   * class MyAuth {
+   *   // ...other private fields
+   *   private onStateChange: () => void | undefined;
+   *
+   *   registerAuthListener = (onStateChange: () => void) => {
+   *     // set `onStateChange` callback
+   *     this.onStateChange = onStateChange;
+   *   };
+   *
+   *   signOut() {
+   *     // ...do sign out stuff
+   *
+   *     // run `onStateChange` callback
+   *     this.onStateChange?.();
+   *   }
+   * }
+   *
+   * export const myAuth = new MyAuth();
+   *
+   * // src/storage-browser.ts
+   * import {
+   *     createStorageBrowser,
+   *     createManagedAuthAdapter
+   * } from '@aws-amplify/ui-react-storage/browser';
+   *
+   * import { myAuth } from './auth.ts';
+   *
+   *
+   * const managedAuthAdapter = createManagedAuthAdapter({
+   *     accountId: myAuth.accountId,
+   *     credentialsProvider: auth.credentialsProvider,
+   *     region: myAuth.region,
+   *     registerAuthListener: auth.registerAuthListener,
+   * });
+   *
+   * export const { StorageBrowser } = createStorageBrowser({
+   *     config: managedAuthAdapter,
+   * });
+   * ```
+   */
   registerAuthListener: RegisterAuthListener;
   region: string;
 }
