@@ -2,12 +2,12 @@ Feature: Storage Browser navigate breadcrumbs
 
   Background:
     Given I'm running the example "ui/components/storage/storage-browser/default-auth"
+    And I type my "email" with status "CONFIRMED"
+    And I type my password
+    And I click the "Sign in" button
 
   @react
   Scenario: Navigate back to Home
-    When I type my "email" with status "CONFIRMED"
-    Then I type my password
-    Then I click the "Sign in" button
     When I click the first button containing "public"
     Then I see the "Home" button
     When I click the "Home" button
@@ -16,9 +16,6 @@ Feature: Storage Browser navigate breadcrumbs
 
   @react
   Scenario: Navigate back up to prefix
-    When I type my "email" with status "CONFIRMED"
-    Then I type my password
-    Then I click the "Sign in" button
     When I click the first button containing "public"
     Then I see the "DO_NOT_DELETE/" button
     When I click the "DO_NOT_DELETE/" button
@@ -29,9 +26,6 @@ Feature: Storage Browser navigate breadcrumbs
 
   @react
   Scenario: Navigate to parent folder from nested child folder
-    When I type my "email" with status "CONFIRMED"
-    Then I type my password
-    Then I click the "Sign in" button
     When I click the first button containing "public"
     Then I see the "DO_NOT_DELETE/" button
     When I click the "DO_NOT_DELETE/" button
