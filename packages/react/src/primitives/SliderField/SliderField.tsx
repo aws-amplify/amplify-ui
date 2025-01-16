@@ -90,16 +90,17 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, 'span'> = (
     [onChange]
   );
 
+  const realValue = isControlled ? value : currentValue;
   const renderedValue = React.useMemo(() => {
     const formattedValue = isFunction(formatValue)
-      ? formatValue(currentValue)
-      : currentValue;
+      ? formatValue(realValue)
+      : realValue;
     return typeof formatValue === 'string' ? (
       <View as="span">{formattedValue}</View>
     ) : (
       formattedValue
     );
-  }, [currentValue, formatValue]);
+  }, [realValue, formatValue]);
 
   const isVertical = orientation === 'vertical';
   const componentClasses = classNames(
