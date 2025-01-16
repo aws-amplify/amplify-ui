@@ -1,5 +1,21 @@
 # @aws-amplify/ui
 
+## 6.8.0
+
+### Minor Changes
+
+- [#6296](https://github.com/aws-amplify/amplify-ui/pull/6296) [`8d2aa79b174d4e48aaca913bd568898b8c8975a2`](https://github.com/aws-amplify/amplify-ui/commit/8d2aa79b174d4e48aaca913bd568898b8c8975a2) Thanks [@calebpollman](https://github.com/calebpollman)! - feat(react): reenable react 19 support
+
+### Patch Changes
+
+- [#6125](https://github.com/aws-amplify/amplify-ui/pull/6125) [`8757f03b7b1d761d9a13cfe29382a2208d4f3999`](https://github.com/aws-amplify/amplify-ui/commit/8757f03b7b1d761d9a13cfe29382a2208d4f3999) Thanks [@BeforeSunset16](https://github.com/BeforeSunset16)! - feat(i18n): add Chinese translations for password fields in zh.ts
+
+## 6.7.2
+
+### Patch Changes
+
+- [#6185](https://github.com/aws-amplify/amplify-ui/pull/6185) [`96be188317d72b89b6bfbc14a3d4ee76daad2a8b`](https://github.com/aws-amplify/amplify-ui/commit/96be188317d72b89b6bfbc14a3d4ee76daad2a8b) Thanks [@tiffanynwyeung](https://github.com/tiffanynwyeung)! - fix: missing elevated card shadow on dark mode
+
 ## 6.7.1
 
 ### Patch Changes

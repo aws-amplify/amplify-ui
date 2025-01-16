@@ -45,7 +45,7 @@ RemoveButtonControl.Button = RemoveButton;
 interface RemoveButtonControl<
   T extends Partial<AIConversationElements> = AIConversationElements,
 > {
-  (props: { onRemove: () => void }): JSX.Element;
+  (props: { onRemove: () => void }): React.JSX.Element;
   Button: T['Button'];
   Icon: T['Icon'];
 }
@@ -91,7 +91,7 @@ TextControl.Separator = Separator;
 interface TextControl<
   T extends Partial<AIConversationElements> = AIConversationElements,
 > {
-  (props: { fileName: string; fileSize: number }): JSX.Element;
+  (props: { fileName: string; fileSize: number }): React.JSX.Element;
   Container: T['View'];
   FileName: T['Text'];
   FileSize: T['Text'];
@@ -120,7 +120,7 @@ AttachmentControl.Text = TextControl;
 interface AttachmentControl<
   T extends Partial<AIConversationElements> = AIConversationElements,
 > {
-  (props: { image: File; onRemove: () => void }): JSX.Element;
+  (props: { image: File; onRemove: () => void }): React.JSX.Element;
   Container: T['ListItem'];
   ImageIcon: T['Icon'];
   RemoveButton: RemoveButtonControl<T>;
@@ -158,7 +158,7 @@ AttachmentListControl.Item = AttachmentControl;
 export interface AttachmentListControl<
   T extends Partial<AIConversationElements> = AIConversationElements,
 > {
-  (): JSX.Element;
+  (): React.JSX.Element;
   List: T['UnorderedList'];
   Item: AttachmentControl<T>;
 }

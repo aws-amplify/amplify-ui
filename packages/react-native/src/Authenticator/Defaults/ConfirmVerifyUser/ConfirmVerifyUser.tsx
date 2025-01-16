@@ -29,7 +29,7 @@ const ConfirmVerifyUser = ({
   skipVerification,
   validationErrors,
   ...rest
-}: DefaultConfirmVerifyUserProps): JSX.Element => {
+}: DefaultConfirmVerifyUserProps): React.JSX.Element => {
   const {
     disableFormSubmit: disabled,
     fields: fieldsWithHandlers,

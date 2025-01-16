@@ -1,5 +1,47 @@
 # @aws-amplify/ui-react-geo
 
+## 2.2.0
+
+### Minor Changes
+
+- [#6296](https://github.com/aws-amplify/amplify-ui/pull/6296) [`8d2aa79b174d4e48aaca913bd568898b8c8975a2`](https://github.com/aws-amplify/amplify-ui/commit/8d2aa79b174d4e48aaca913bd568898b8c8975a2) Thanks [@calebpollman](https://github.com/calebpollman)! - feat(react): reenable react 19 support
+
+### Patch Changes
+
+- Updated dependencies [[`8d2aa79b174d4e48aaca913bd568898b8c8975a2`](https://github.com/aws-amplify/amplify-ui/commit/8d2aa79b174d4e48aaca913bd568898b8c8975a2)]:
+  - @aws-amplify/ui-react-core@3.3.0
+
+## 2.1.1
+
+### Patch Changes
+
+- [#6278](https://github.com/aws-amplify/amplify-ui/pull/6278) [`475e4a37a404bd116ec55e95579acb8f2d23c9a4`](https://github.com/aws-amplify/amplify-ui/commit/475e4a37a404bd116ec55e95579acb8f2d23c9a4) Thanks [@jordanvn](https://github.com/jordanvn)! - revert changes introduced for React 19 support
+
+- Updated dependencies [[`475e4a37a404bd116ec55e95579acb8f2d23c9a4`](https://github.com/aws-amplify/amplify-ui/commit/475e4a37a404bd116ec55e95579acb8f2d23c9a4)]:
+  - @aws-amplify/ui-react-core@3.2.1
+
+## 2.1.0
+
+### Minor Changes
+
+- [#5826](https://github.com/aws-amplify/amplify-ui/pull/5826) [`954e9be2d055a57ebddab5b902e3e6b427d09f67`](https://github.com/aws-amplify/amplify-ui/commit/954e9be2d055a57ebddab5b902e3e6b427d09f67) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(react): add support for React 19
+
+### Patch Changes
+
+- Updated dependencies [[`825cccc92f5c326f0f110c8439a1c2c6553ff00a`](https://github.com/aws-amplify/amplify-ui/commit/825cccc92f5c326f0f110c8439a1c2c6553ff00a), [`954e9be2d055a57ebddab5b902e3e6b427d09f67`](https://github.com/aws-amplify/amplify-ui/commit/954e9be2d055a57ebddab5b902e3e6b427d09f67)]:
+  - @aws-amplify/ui-react-core@3.2.0
+
+## 2.0.34
+
+### Patch Changes
+
+- [#6235](https://github.com/aws-amplify/amplify-ui/pull/6235) [`303c250c2f64853f7f52182554622755a5de52d5`](https://github.com/aws-amplify/amplify-ui/commit/303c250c2f64853f7f52182554622755a5de52d5) Thanks [@calebpollman](https://github.com/calebpollman)! - fix: bump maplibre-gl-js-amplify dep
+
+- [#6244](https://github.com/aws-amplify/amplify-ui/pull/6244) [`8a3c802986874795fdc0b7c77830b88887718520`](https://github.com/aws-amplify/amplify-ui/commit/8a3c802986874795fdc0b7c77830b88887718520) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(react-geo): use caret operator for amplify maplibre dep
+
+- Updated dependencies []:
+  - @aws-amplify/ui-react-core@3.1.2
+
 ## 2.0.33
 
 ### Patch Changes
