@@ -16,7 +16,7 @@ export interface FaceLivenessDetectorProviderProps
 export function FaceLivenessDetectorProvider({
   children,
   ...props
-}: FaceLivenessDetectorProviderProps): JSX.Element {
+}: FaceLivenessDetectorProviderProps): React.JSX.Element {
   return (
     <FaceLivenessDetectorContext.Provider value={props}>
       {children}

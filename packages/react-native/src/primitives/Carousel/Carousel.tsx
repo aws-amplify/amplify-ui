@@ -15,7 +15,7 @@ import { CarouselProps } from './types';
 
 export default function Carousel<T>(
   props: CarouselProps<T>
-): JSX.Element | null {
+): React.JSX.Element | null {
   const {
     data,
     indicatorActiveStyle,

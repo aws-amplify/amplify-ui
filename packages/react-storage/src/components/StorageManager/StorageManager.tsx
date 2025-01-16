@@ -63,7 +63,7 @@ const StorageManagerBase = React.forwardRef(function StorageManager(
     useAccelerateEndpoint,
   }: StorageManagerPathProps | StorageManagerProps,
   ref: React.ForwardedRef<StorageManagerHandle>
-): JSX.Element {
+): React.JSX.Element {
   useDeprecationWarning({
     message:
       'The `StorageManager` component has been renamed as the `FileUploader` component.',
