@@ -227,8 +227,6 @@ describe('SliderField:', () => {
       );
     });
 
-    it('should work as controlled', async () => {});
-
     describe('Root', () => {
       it('should render default and custom classname', async () => {
         const className = 'class-test';
