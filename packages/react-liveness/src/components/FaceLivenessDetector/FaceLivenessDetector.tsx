@@ -21,7 +21,7 @@ const credentialProvider = async () => {
 
 export default function FaceLivenessDetector(
   props: FaceLivenessDetectorProps
-): JSX.Element {
+): React.JSX.Element {
   const { config, ...rest } = props;
   return (
     <FaceLivenessDetectorCore

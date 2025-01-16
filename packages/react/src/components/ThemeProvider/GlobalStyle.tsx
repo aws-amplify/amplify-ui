@@ -15,7 +15,7 @@ interface GlobalStyleProps extends React.ComponentProps<'style'> {
 export const GlobalStyle = ({
   styles,
   ...rest
-}: GlobalStyleProps): JSX.Element | null => {
+}: GlobalStyleProps): React.JSX.Element | null => {
   if (!styles) {
     return null;
   }

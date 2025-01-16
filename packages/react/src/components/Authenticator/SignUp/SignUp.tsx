@@ -13,7 +13,7 @@ import { FormFields as DefaultFormFields } from '../shared/FormFields';
 
 const { getCreateAccountText, getCreatingAccountText } = authenticatorTextUtil;
 
-export function SignUp(): JSX.Element {
+export function SignUp(): React.JSX.Element {
   const { hasValidationErrors, isPending } = useAuthenticator((context) => [
     context.hasValidationErrors,
     context.isPending,
@@ -68,14 +68,14 @@ export function SignUp(): JSX.Element {
   );
 }
 
-SignUp.Header = function Header(): JSX.Element {
+SignUp.Header = function Header(): React.JSX.Element {
   // @ts-ignore
   return null;
 };
 SignUp.FormFields = function FormFields() {
   return <DefaultFormFields />;
 };
-SignUp.Footer = function Footer(): JSX.Element {
+SignUp.Footer = function Footer(): React.JSX.Element {
   // @ts-ignore
   return null;
 };

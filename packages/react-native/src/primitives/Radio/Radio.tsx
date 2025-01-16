@@ -33,7 +33,7 @@ export default function Radio<T>({
   style,
   value,
   ...rest
-}: RadioProps<T>): JSX.Element {
+}: RadioProps<T>): React.JSX.Element {
   const theme = useTheme();
   const themedStyle = getThemedStyles(theme);
 

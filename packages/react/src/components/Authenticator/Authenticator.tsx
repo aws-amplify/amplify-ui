@@ -37,7 +37,10 @@ export type AuthenticatorProps = Partial<
     RouterProps & {
       children:
         | React.ReactNode
-        | ((props: { signOut?: SignOut; user?: AuthUser }) => JSX.Element);
+        | ((props: {
+            signOut?: SignOut;
+            user?: AuthUser;
+          }) => React.JSX.Element);
       formFields: {
         [key in FormFieldComponents]?: {
           [field_name: string]: ReactFormFieldOptions;
@@ -76,7 +79,7 @@ export function AuthenticatorInternal({
   services,
   socialProviders,
   variation,
-}: AuthenticatorProps): JSX.Element {
+}: AuthenticatorProps): React.JSX.Element {
   useDeprecationWarning({
     message:
       'The `passwordSettings` prop has been deprecated and will be removed in a future major version of Amplify UI.',
@@ -137,7 +140,7 @@ export function AuthenticatorInternal({
 /**
  * [📖 Docs](https://ui.docs.amplify.aws/react/connected-components/authenticator)
  */
-export function Authenticator(props: AuthenticatorProps): JSX.Element {
+export function Authenticator(props: AuthenticatorProps): React.JSX.Element {
   useSetUserAgent({
     componentName: 'Authenticator',
     packageName: 'react',

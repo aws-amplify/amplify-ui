@@ -17,7 +17,7 @@ export function FileListHeader({
   fileCount,
   remainingFilesCount,
   selectedFilesCount = 0,
-}: FileListHeaderProps): JSX.Element {
+}: FileListHeaderProps): React.JSX.Element {
   const { getFilesUploadedText, getRemainingFilesText, getSelectedFilesText } =
     displayText;
 
