@@ -90,16 +90,10 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, 'span'> = (
     [onChange]
   );
 
-  const renderedValue = React.useMemo(() => {
-    const formattedValue = isFunction(formatValue)
-      ? formatValue(currentValue)
-      : currentValue;
-    return typeof formatValue === 'string' ? (
-      <View as="span">{formattedValue}</View>
-    ) : (
-      formattedValue
-    );
-  }, [currentValue, formatValue]);
+  const realValue = isControlled ? value : currentValue;
+  const formattedValue = isFunction(formatValue)
+    ? formatValue(realValue)
+    : realValue;
 
   const isVertical = orientation === 'vertical';
   const componentClasses = classNames(
@@ -137,7 +131,13 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, 'span'> = (
         visuallyHidden={labelHidden}
       >
         <View as="span">{label}</View>
-        {!isValueHidden ? renderedValue : null}
+        {!isValueHidden ? (
+          typeof formatValue === 'string' ? (
+            <View as="span">{formattedValue}</View>
+          ) : (
+            formattedValue
+          )
+        ) : null}
       </Label>
       <FieldDescription
         id={descriptionId}
