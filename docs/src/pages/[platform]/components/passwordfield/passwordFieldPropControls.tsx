@@ -50,7 +50,7 @@ export interface PasswordFieldControlsProps extends PasswordFieldProps {
 }
 
 interface PasswordFieldPropControlsInterface {
-  (props: PasswordFieldControlsProps): JSX.Element;
+  (props: PasswordFieldControlsProps): React.JSX.Element;
 }
 
 export const PasswordFieldPropControls: PasswordFieldPropControlsInterface = ({

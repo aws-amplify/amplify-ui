@@ -19,7 +19,7 @@ export interface AlertPropControlsProps extends AlertProps {
 }
 
 interface AlertPropControlsInterface {
-  (props: AlertPropControlsProps): JSX.Element;
+  (props: AlertPropControlsProps): React.JSX.Element;
 }
 
 export const AlertPropControls: AlertPropControlsInterface = ({

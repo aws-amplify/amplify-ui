@@ -61,7 +61,7 @@ const FileUploaderBase = React.forwardRef(function FileUploader(
     useAccelerateEndpoint,
   }: FileUploaderPathProps | FileUploaderProps,
   ref: React.ForwardedRef<FileUploaderHandle>
-): JSX.Element {
+): React.JSX.Element {
   if (!maxFileCount) {
     // eslint-disable-next-line no-console
     console.warn(MISSING_REQUIRED_PROPS_MESSAGE);

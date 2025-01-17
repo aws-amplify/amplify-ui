@@ -32,7 +32,7 @@ export interface SwitchPropControlsProps extends SwitchFieldProps {
 }
 
 interface SwitchPropControlsInterface {
-  (props: SwitchPropControlsProps): JSX.Element;
+  (props: SwitchPropControlsProps): React.JSX.Element;
 }
 
 export const SwitchPropControls: SwitchPropControlsInterface = ({
