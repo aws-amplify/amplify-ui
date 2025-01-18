@@ -9,6 +9,7 @@ import {
   TaskHandlerOptions,
 } from './types';
 import { constructBucket, getProgress } from './utils';
+import { DEFAULT_CHECKSUM_ALGORITHM } from './constants';
 
 export interface CreateFolderHandlerData extends TaskData {
   preventOverwrite?: boolean;
@@ -48,6 +49,7 @@ export const createFolderHandler: CreateFolderHandler = (input) => {
         if (isFunction(onProgress)) onProgress(data, getProgress(event));
       },
       preventOverwrite,
+      checksumAlgorithm: DEFAULT_CHECKSUM_ALGORITHM,
     },
   });
 
