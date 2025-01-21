@@ -12,6 +12,7 @@ import {
 } from './types';
 
 import { constructBucket, getProgress } from './utils';
+import { DEFAULT_CHECKSUM_ALGORITHM } from './constants';
 
 export interface UploadHandlerOptions
   extends TaskHandlerOptions<{ key: string }> {}
@@ -33,8 +34,6 @@ export interface UploadHandler
 // 5MB for multipart upload
 // https://github.com/aws-amplify/amplify-js/blob/1a5366d113c9af4ce994168653df3aadb142c581/packages/storage/src/providers/s3/utils/constants.ts#L16
 export const MULTIPART_UPLOAD_THRESHOLD_BYTES = 5 * 1024 * 1024;
-
-export const DEFAULT_CHECKSUM_ALGORITHM = 'crc-32';
 
 export const UNDEFINED_CALLBACKS = {
   cancel: undefined,
