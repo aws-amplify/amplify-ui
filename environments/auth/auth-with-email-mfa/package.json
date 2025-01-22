@@ -1,0 +1,25 @@
+{
+  "name": "auth-with-email-mfa",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "pull": "npx @aws-amplify/backend-cli@latest generate outputs --stack amplify-authwithemailmfa-staging-sandbox-25d8fab59b"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@aws-amplify/backend": "^1.13.0",
+    "@aws-amplify/backend-cli": "^1.4.7",
+    "aws-cdk": "^2.176.0",
+    "aws-cdk-lib": "^2.176.0",
+    "constructs": "^10.4.2",
+    "esbuild": "^0.24.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3"
+  },
+  "dependencies": {
+    "aws-amplify": "^6.12.1"
+  }
+}
