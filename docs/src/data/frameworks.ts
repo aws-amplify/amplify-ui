@@ -61,6 +61,6 @@ export const FRAMEWORK_INSTALL_SCRIPTS = {
   vue: 'npm i @aws-amplify/ui-vue aws-amplify',
   angular: 'npm i @aws-amplify/ui-angular aws-amplify',
   flutter: 'flutter pub add amplify_authenticator',
-  android: "implementation 'com.amplifyframework.ui:liveness:1.2.6'",
+  android: "implementation 'com.amplifyframework.ui:liveness:1.3.0'",
   'react-native': `npm i @aws-amplify/ui-react-native aws-amplify ${REACT_NATIVE_DEPENDENCIES}`,
 };
