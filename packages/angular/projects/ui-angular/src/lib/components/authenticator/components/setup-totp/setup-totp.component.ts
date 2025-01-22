@@ -1,5 +1,6 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import QRCode from 'qrcode';
+import { BehaviorSubject } from 'rxjs';
 import { ConsoleLogger as Logger } from 'aws-amplify/utils';
 import {
   FormFieldsArray,
@@ -27,8 +28,9 @@ const {
 })
 export class SetupTotpComponent implements OnInit {
   @HostBinding('attr.data-amplify-authenticator-setup-totp') dataAttr = '';
+  public qrCodeSource: string;
+  public qrCodeSource$: BehaviorSubject<string>;
   public headerText = getSetupTotpText();
-  public qrCodeSource = '';
   public totpSecretCode = '';
   public copyTextLabel = getCopyText();
 
@@ -37,7 +39,10 @@ export class SetupTotpComponent implements OnInit {
   public confirmText = getConfirmText();
   public sortedFormFields: FormFieldsArray;
 
-  constructor(public authenticator: AuthenticatorService) {}
+  constructor(public authenticator: AuthenticatorService) {
+    this.qrCodeSource = '';
+    this.qrCodeSource$ = new BehaviorSubject<string>(this.qrCodeSource);
+  }
 
   public get context(): AuthenticatorService['slotContext'] {
     return this.authenticator.slotContext;
@@ -64,6 +69,7 @@ export class SetupTotpComponent implements OnInit {
 
       logger.info('totp code was generated:', totpCode);
       this.qrCodeSource = await QRCode.toDataURL(totpCode);
+      this.qrCodeSource$.next(this.qrCodeSource);
     } catch (err) {
       logger.error(err);
     }

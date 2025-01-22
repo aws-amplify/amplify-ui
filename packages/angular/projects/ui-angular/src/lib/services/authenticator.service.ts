@@ -1,9 +1,8 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Observable, ObservedValueOf, Subject, from } from 'rxjs';
 import { Event, interpret, Subscription } from 'xstate';
 
 import { AuthUser, getCurrentUser } from 'aws-amplify/auth';
-import { ConsoleLogger as Logger } from 'aws-amplify/utils';
 import {
   AuthContext,
   AuthenticatorServiceFacade,
@@ -18,10 +17,6 @@ import {
 } from '@aws-amplify/ui';
 import { translate } from '@aws-amplify/ui';
 
-import { AuthSubscriptionCallback } from '../common/types';
-
-const logger = new Logger('state-machine');
-
 /**
  * AuthenticatorService provides access to the authenticator state and context.
  */
@@ -30,6 +25,7 @@ const logger = new Logger('state-machine');
 })
 export class AuthenticatorService implements OnDestroy {
   private _authState: AuthMachineState;
+  private _authStateObservable$: Observable<ObservedValueOf<AuthInterpreter>>;
   private _authStatus: AuthStatus = 'configuring';
   private _authService: AuthInterpreter;
   private _machineSubscription: Subscription;
@@ -40,6 +36,11 @@ export class AuthenticatorService implements OnDestroy {
   constructor() {
     const machine = createAuthenticatorMachine();
     this._authService = interpret(machine).start();
+    /**
+     * create an observable from the interpreted machine (service) that can then be
+     * subscribed to to detect changes, per xstate.js.org/docs/recipes/rxjs.html
+     */
+    this._authStateObservable$ = from(this._authService);
 
     this.getInitialAuthStatus();
     this.setupMachineSubscription();
@@ -152,6 +153,13 @@ export class AuthenticatorService implements OnDestroy {
   }
 
   /** @deprecated For internal use only */
+  public get authStateObservable$(): Observable<
+    ObservedValueOf<AuthInterpreter>
+  > {
+    return this._authStateObservable$;
+  }
+
+  /** @deprecated For internal use only */
   public get authService(): AuthInterpreter {
     return this._authService;
   }
@@ -174,19 +182,6 @@ export class AuthenticatorService implements OnDestroy {
   /** @deprecated For internal use only */
   public get hubSubject(): Subject<void> {
     return this._hubSubject;
-  }
-
-  public subscribe(callback: AuthSubscriptionCallback): Subscription {
-    if (!this._authService) {
-      logger.error(
-        'Subscription attempted before machine was created. This is likely a bug on the library, please consider filing a bug.'
-      );
-    }
-
-    const subscription = this._authService.subscribe(() => {
-      callback(this._facade);
-    });
-    return subscription;
   }
 
   ngOnDestroy(): void {

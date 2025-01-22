@@ -7,10 +7,10 @@
     <amplify-slot name="setup-totp-header" [context]="context">
       <h3 class="amplify-heading amplify-heading--3">{{ this.headerText }}</h3>
     </amplify-slot>
-    <p *ngIf="!qrCodeSource">Loading...</p>
+    <p *ngIf="!qrCodeSource$">Loading...</p>
     <img
-      *ngIf="qrCodeSource"
-      [src]="qrCodeSource"
+      *ngIf="qrCodeSource$ | async"
+      [src]="qrCodeSource$ | async"
       alt="qr code"
       data-amplify-qrcode
       width="228"
