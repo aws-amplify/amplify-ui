@@ -45,13 +45,17 @@ export interface StorageManagerProps extends FileUploaderProps {}
 
 export interface StorageManagerPathProps
   extends Omit<StorageManagerProps, 'accessLevel' | 'bucket' | 'path'> {
+  /** S3 bucket, allows either a string or `BucketInfo`:
+   * - `string`: the "friendly name" assigned to the bucket
+   * - `BucketInfo`: object containing the actual S3 bucket name and its region
+   */
+  bucket?: StorageBucket;
   /**
    * S3 bucket key, allows either a `string` or a `PathCallback`:
    * - `string`: `path` is prefixed to the file `key` for each file
    * - `PathCallback`: callback provided an input containing the current `identityId`,
    *    resolved value is prefixed to the file `key` for each file
    */
-  bucket?: StorageBucket;
   path: string | PathCallback;
   accessLevel?: never;
   useAccelerateEndpoint?: boolean;

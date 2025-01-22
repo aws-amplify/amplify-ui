@@ -39,7 +39,7 @@ export interface StorageImageProps extends Omit<ImageProps, 'src'> {
 
 type OmittedPropKey =
   | 'accessLevel'
-  | 'bucket'
+  | 'bucket' // include `bucket` to disallow `never` in `StorageImagePathProps`
   | 'imgKey'
   | 'identityId'
   | 'onStorageGetError'

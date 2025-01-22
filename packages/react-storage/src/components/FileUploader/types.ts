@@ -80,7 +80,6 @@ export interface FileUploaderProps {
   /**
    * Component overrides
    */
-  bucket?: never;
   components?: {
     Container?: React.ComponentType<ContainerProps>;
     DropZone?: React.ComponentType<DropZoneProps>;
@@ -139,6 +138,8 @@ export interface FileUploaderProps {
   path?: string;
 
   useAccelerateEndpoint?: boolean;
+
+  bucket?: never;
 }
 
 export interface FileUploaderPathProps
