@@ -4,6 +4,8 @@ export const esDict: AuthenticatorDictionary = {
   'Account recovery requires verified contact information':
     'La recuperación de la cuenta requiere información de contacto verificada',
   'Back to Sign In': 'Volver a inicio de sesión',
+  'Cannot reset password for the user as there is no registered/verified email or phone_number':
+    'No se puede restablecer la contraseña para el usuario debido a que no hay Email registrado / verificado o número de teléfono',
   'Change Password': 'Cambiar contraseña',
   Changing: 'Cambiando',
   Code: 'Código',
