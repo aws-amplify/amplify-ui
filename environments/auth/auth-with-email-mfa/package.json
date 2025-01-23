@@ -1,0 +1,8 @@
+{
+  "private": true,
+  "name": "@aws-amplify/auth-with-email-mfa",
+  "version": "0.0.1",
+  "scripts": {
+    "generate": "npx @aws-amplify/backend-cli@latest generate outputs --stack amplify-authwithemailmfa-staging-sandbox-25d8fab59b"
+  }
+}
