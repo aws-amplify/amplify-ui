@@ -3,7 +3,6 @@ import {
   confirmSignIn,
   ConfirmSignInInput,
   fetchUserAttributes,
-  resendSignUpCode,
   resetPassword,
   signInWithRedirect,
 } from 'aws-amplify/auth';
@@ -297,7 +296,7 @@ export function signInActor({ services }: SignInMachineOptions) {
           return resetPassword({ username });
         },
         handleResendSignUpCode({ username }) {
-          return resendSignUpCode({ username });
+          return services.handleResendSignUpCode({ username });
         },
         handleSignIn({ formValues, username }) {
           const { password } = formValues;
