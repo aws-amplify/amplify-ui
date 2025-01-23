@@ -3,7 +3,7 @@
   "name": "@aws-amplify/ui-environments-auth",
   "version": "0.0.1",
   "scripts": {
-    "pull": "../pull-environments.sh -r us-east-2 -e \"./auth/auth-with-email-mfa\" && yarn --cwd auth-with-email-mfa/ generate",
+    "pull": "../pull-environments.sh -r us-east-2 -e \"\\./auth/auth-with-email-mfa\" && yarn --cwd auth-with-email-mfa/ generate",
     "pull:email": "yarn pull -i \"\\./auth-with-email\""
   }
 }
