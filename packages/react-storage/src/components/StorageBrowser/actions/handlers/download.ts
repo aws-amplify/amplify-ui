@@ -1,4 +1,5 @@
 import { getUrl } from '../../storage-internal';
+import { checkRequiredKeys } from './integrity';
 import {
   TaskData,
   TaskHandler,
@@ -54,7 +55,9 @@ export const downloadHandler: DownloadHandler = ({
       expectedBucketOwner: accountId,
     },
   })
-    .then(({ url }) => {
+    .then((result) => {
+      checkRequiredKeys(result, 'StorageGetUrlOutput', ['url']);
+      const { url } = result;
       downloadFromUrl(key, url.toString());
       return { status: 'COMPLETE' as const, value: { url } };
     })

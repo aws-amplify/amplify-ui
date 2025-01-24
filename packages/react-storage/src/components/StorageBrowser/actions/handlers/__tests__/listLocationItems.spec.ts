@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 import { list } from '../../../storage-internal';
 
 import {
@@ -149,6 +150,33 @@ describe('listLocationItemsHandler', () => {
         options: expect.objectContaining({ pageSize: 3 }),
       })
     );
+  });
+
+  it('should throw if list does not provide items', async () => {
+    mockList.mockResolvedValueOnce({} as any);
+    await expect(listLocationItemsHandler(baseInput)).rejects.toThrow(
+      'Required keys missing for ListOutput: items.'
+    );
+  });
+
+  ['path', 'lastModified', 'size'].forEach((requiredKey) => {
+    it(`should throw if any item is missing ${requiredKey}`, async () => {
+      mockList.mockResolvedValueOnce({
+        items: [
+          { path: `${prefix}-1`, lastModified: new Date(), size: 0 },
+          {
+            path: `${prefix}-2`,
+            lastModified: new Date(),
+            size: 0,
+            [requiredKey]: undefined,
+          },
+        ],
+      });
+
+      await expect(listLocationItemsHandler(baseInput)).rejects.toThrow(
+        `Required keys missing for ListOutputItem #1: ${requiredKey}.`
+      );
+    });
   });
 });
 
