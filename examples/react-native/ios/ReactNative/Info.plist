@@ -56,7 +56,7 @@
 			<dict>
 				<key>CFBundleURLSchemes</key>
 				<array>
-					<string>myapp</string>
+					<string>fed-auth-example</string>
 				</array>
 			</dict>
 		</array>
