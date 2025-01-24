@@ -7,11 +7,7 @@ import {
   ListLocations,
 } from './actions';
 import { GetLocationCredentials } from './credentials/types';
-
-import { UseView } from './views/useView';
-
 import { Components } from './ComponentsProvider';
-
 import { RegisterAuthListener, StoreProviderProps } from './providers';
 
 import {
@@ -23,6 +19,7 @@ import {
   LocationDetailViewType,
   LocationsViewType,
   Views,
+  UseView,
 } from './views';
 
 import { StorageBrowserDisplayText } from './displayText';

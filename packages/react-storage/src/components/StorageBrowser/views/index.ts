@@ -1,3 +1,4 @@
+export { ViewsProvider, useViews } from './context';
 export {
   CopyView,
   CopyViewType,
@@ -21,5 +22,6 @@ export {
   LocationsViewProps,
   LocationsViewType,
 } from './LocationsView';
+export { useView, UseView } from './useView';
 
 export * from './types';
