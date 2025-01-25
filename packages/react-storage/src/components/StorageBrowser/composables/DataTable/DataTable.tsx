@@ -18,11 +18,13 @@ export interface DataTableRow {
 
 export interface DataTableProps {
   headers: WithKey<DataTableHeader>[];
+  isLoading?: boolean;
   rows: WithKey<DataTableRow>[];
 }
 
 export const DataTable = ({
   headers,
+  isLoading,
   rows,
 }: DataTableProps): React.JSX.Element => {
   const mappedHeaders = headers.map(({ key, content, type }) => {
@@ -49,44 +51,46 @@ export const DataTable = ({
     }
   });
 
-  const mappedRows = rows.map(({ key, content }) => ({
-    key,
-    content: content.map(({ key, content, type }) => {
-      switch (type) {
-        case 'button': {
-          return {
-            key,
-            content: <ButtonDataCell content={content} />,
-          };
-        }
-        case 'checkbox': {
-          return {
-            key,
-            content: <CheckboxDataCell content={content} />,
-          };
-        }
-        case 'date': {
-          return {
-            key,
-            content: <DateDataCell content={content} />,
-          };
-        }
-        case 'number': {
-          return {
-            key,
-            content: <NumberDataCell content={content} />,
-          };
-        }
-        case 'text':
-        default: {
-          return {
-            key,
-            content: <TextDataCell content={content} />,
-          };
-        }
-      }
-    }),
-  }));
+  const mappedRows = isLoading
+    ? []
+    : rows.map(({ key, content }) => ({
+        key,
+        content: content.map(({ key, content, type }) => {
+          switch (type) {
+            case 'button': {
+              return {
+                key,
+                content: <ButtonDataCell content={content} />,
+              };
+            }
+            case 'checkbox': {
+              return {
+                key,
+                content: <CheckboxDataCell content={content} />,
+              };
+            }
+            case 'date': {
+              return {
+                key,
+                content: <DateDataCell content={content} />,
+              };
+            }
+            case 'number': {
+              return {
+                key,
+                content: <NumberDataCell content={content} />,
+              };
+            }
+            case 'text':
+            default: {
+              return {
+                key,
+                content: <TextDataCell content={content} />,
+              };
+            }
+          }
+        }),
+      }));
 
   return <Table headers={mappedHeaders} rows={mappedRows} />;
 };
