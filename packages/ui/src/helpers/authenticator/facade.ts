@@ -45,7 +45,9 @@ export type AuthenticatorRoute =
   | 'signIn'
   | 'signUp'
   | 'transition'
-  | 'verifyUser';
+  | 'verifyUser'
+  | 'setupEmail'
+  | 'selectMfaType';
 
 type AuthenticatorValidationErrors = ValidationError;
 export type AuthStatus = 'configuring' | 'authenticated' | 'unauthenticated';
@@ -64,6 +66,7 @@ interface AuthenticatorServiceContextFacade {
   user: AuthUser;
   username: string;
   validationErrors: AuthenticatorValidationErrors;
+  allowedMfaTypes: string[];
 }
 
 type SendEventAlias =
@@ -99,6 +102,7 @@ interface NextAuthenticatorServiceContextFacade {
   totpSecretCode: string | undefined;
   username: string | undefined;
   unverifiedUserAttributes: UnverifiedUserAttributes | undefined;
+  allowedMfaTypes: string[] | undefined;
 }
 
 interface NextAuthenticatorSendEventAliases
@@ -179,6 +183,7 @@ export const getServiceContextFacade = (
     totpSecretCode = null,
     unverifiedUserAttributes,
     username,
+    allowedMfaTypes,
   } = actorContext;
 
   const { socialProviders = [] } = state.context?.config ?? {};
@@ -224,6 +229,7 @@ export const getServiceContextFacade = (
     user,
     username,
     validationErrors,
+    allowedMfaTypes,
 
     // @v6-migration-note
     // While most of the properties
@@ -248,6 +254,7 @@ export const getNextServiceContextFacade = (
     totpSecretCode,
     unverifiedUserAttributes,
     username,
+    allowedMfaTypes,
   } = actorContext;
 
   const { socialProviders: federatedProviders, loginMechanisms } =
@@ -272,6 +279,7 @@ export const getNextServiceContextFacade = (
     totpSecretCode,
     unverifiedUserAttributes,
     username,
+    allowedMfaTypes,
   };
 };
 

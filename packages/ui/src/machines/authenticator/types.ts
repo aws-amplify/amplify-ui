@@ -19,6 +19,7 @@ import { defaultServices } from './defaultServices';
 export type ChallengeName =
   | 'SMS_MFA'
   | 'SOFTWARE_TOKEN_MFA'
+  | 'EMAIL_OTP'
   | 'SELECT_MFA_TYPE'
   | 'MFA_SETUP'
   | 'PASSWORD_VERIFIER'
@@ -114,6 +115,7 @@ export interface ActorDoneData {
   totpSecretCode?: string;
   username?: string;
   unverifiedUserAttributes?: UnverifiedUserAttributes;
+  allowedMfaTypes?: string[];
 }
 
 /**
@@ -146,6 +148,9 @@ export type SignInStep =
   | 'CONFIRM_SIGN_IN_WITH_NEW_PASSWORD_REQUIRED'
   | 'CONFIRM_SIGN_UP'
   | 'CONTINUE_SIGN_IN_WITH_TOTP_SETUP'
+  | 'CONTINUE_SIGN_IN_WITH_EMAIL_SETUP'
+  | 'CONTINUE_SIGN_IN_WITH_MFA_SETUP_SELECTION'
+  | 'CONTINUE_SIGN_IN_WITH_MFA_SELECTION'
   | 'RESET_PASSWORD'
   | 'SIGN_IN_COMPLETE'; // 'DONE'
 
@@ -181,6 +186,7 @@ interface BaseFormContext {
   step: Step;
   totpSecretCode?: string;
   unverifiedUserAttributes?: UnverifiedUserAttributes;
+  allowedMfaTypes?: string[];
 
   // kept in memory for submission to relevnat APIs
   username?: string;
