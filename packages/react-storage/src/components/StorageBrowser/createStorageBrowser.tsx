@@ -10,31 +10,14 @@ import {
   ActionConfigsProvider,
   ExtendedActionConfigs,
 } from './actions';
-
 import { DEFAULT_COMPOSABLES } from './composables';
 import { elementsDefault } from './context/elements';
 import { ComponentsProvider } from './ComponentsProvider';
 import { componentsDefault } from './componentsDefault';
+import { DisplayTextProvider } from './displayText';
 import { ErrorBoundary } from './ErrorBoundary';
-
 import { createConfigurationProvider, StoreProvider } from './providers';
 import { StorageBrowserDefault } from './StorageBrowserDefault';
-import { assertRegisterAuthListener } from './validators';
-import {
-  CopyView,
-  CreateFolderView,
-  DeleteView,
-  LocationActionView,
-  LocationDetailView,
-  LocationsView,
-  UploadView,
-  LocationActionViewType,
-} from './views';
-import { useView } from './views/useView';
-import { ViewsProvider } from './views/context';
-
-import { DisplayTextProvider } from './displayText';
-
 import {
   CreateStorageBrowserInput,
   CreateStorageBrowserOutput,
@@ -48,6 +31,19 @@ import {
   ActionHandlersProvider,
   useAction,
 } from './useAction';
+import { assertRegisterAuthListener } from './validators';
+import {
+  CopyView,
+  CreateFolderView,
+  DeleteView,
+  LocationActionView,
+  LocationDetailView,
+  LocationsView,
+  UploadView,
+  LocationActionViewType,
+  useView,
+  ViewsProvider,
+} from './views';
 
 export function createStorageBrowser<
   Input extends CreateStorageBrowserInput,

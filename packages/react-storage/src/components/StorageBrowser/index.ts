@@ -12,10 +12,11 @@ export {
   CreateManagedAuthAdapterInput,
   StorageBrowserAuthAdapter,
 } from './adapters';
+export { DefaultStorageBrowserDisplayText } from './displayText';
 export {
   CreateStorageBrowserInput,
   StorageBrowserType,
   DerivedActionViewType,
   DerivedActionViews,
 } from './types';
-export { DefaultStorageBrowserDisplayText } from './displayText';
+export { UseView } from './views';
