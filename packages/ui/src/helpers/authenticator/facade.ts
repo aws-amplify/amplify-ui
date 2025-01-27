@@ -66,7 +66,7 @@ interface AuthenticatorServiceContextFacade {
   user: AuthUser;
   username: string;
   validationErrors: AuthenticatorValidationErrors;
-  allowedMfaTypes: string[];
+  allowedMfaTypes?: string[] | undefined;
 }
 
 type SendEventAlias =
@@ -102,7 +102,7 @@ interface NextAuthenticatorServiceContextFacade {
   totpSecretCode: string | undefined;
   username: string | undefined;
   unverifiedUserAttributes: UnverifiedUserAttributes | undefined;
-  allowedMfaTypes: string[] | undefined;
+  allowedMfaTypes?: string[] | undefined;
 }
 
 interface NextAuthenticatorSendEventAliases
