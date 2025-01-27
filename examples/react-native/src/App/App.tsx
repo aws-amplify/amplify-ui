@@ -139,6 +139,7 @@ export const ExampleComponent = () => {
       return <SignUpWithUsername />;
     case 'ui/components/authenticator/sign-up-with-attributes':
       return <SignUpWithAttributes />;
+    case 'SocialProviders':
     case '/ui/components/authenticator/social-providers':
       return <SocialProviders />;
     case 'ui/components/authenticator/forgot-password':
