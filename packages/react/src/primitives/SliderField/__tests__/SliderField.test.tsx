@@ -17,6 +17,7 @@ import {
 import { ComponentClassName } from '@aws-amplify/ui';
 import { AUTO_GENERATED_ID_PREFIX } from '../../utils/useStableId';
 import { ERROR_SUFFIX, DESCRIPTION_SUFFIX } from '../../../helpers/constants';
+import { Button } from '../../Button';
 
 // Jest uses JSDom, which apparently doesn't support the ResizeObserver API
 // This will get around that API reference error in Jest
@@ -131,7 +132,14 @@ describe('SliderField:', () => {
   describe('Slider', () => {
     const ControlledSliderField = () => {
       const [value, setValue] = React.useState(5);
-      return <SliderField label="slider" value={value} onChange={setValue} />;
+      return (
+        <>
+          <SliderField label="slider" value={value} onChange={setValue} />
+          <Button testId="test-button" onClick={() => setValue(10)}>
+            Set to 10
+          </Button>
+        </>
+      );
     };
 
     it('should work as uncontrolled component', async () => {
@@ -151,15 +159,27 @@ describe('SliderField:', () => {
     it('should work as controlled component', async () => {
       render(<ControlledSliderField />);
       const slider = await screen.findByRole('slider');
+      const label = await screen.findByTestId(SLIDER_LABEL_TEST_ID);
       expect(slider).toHaveAttribute('aria-valuenow', '5');
+      expect(label).toHaveTextContent('5');
       fireEvent.keyDown(slider, { key: 'ArrowUp', code: 'ArrowUp' });
       expect(slider).toHaveAttribute('aria-valuenow', '6');
+      expect(label).toHaveTextContent('6');
       fireEvent.keyDown(slider, { key: 'ArrowUp', code: 'ArrowUp' });
       expect(slider).toHaveAttribute('aria-valuenow', '7');
+      expect(label).toHaveTextContent('7');
       fireEvent.keyDown(slider, { key: 'ArrowDown', code: 'ArrowDown' });
       expect(slider).toHaveAttribute('aria-valuenow', '6');
+      expect(label).toHaveTextContent('6');
       fireEvent.keyDown(slider, { key: 'ArrowDown', code: 'ArrowDown' });
       expect(slider).toHaveAttribute('aria-valuenow', '5');
+      expect(label).toHaveTextContent('5');
+
+      // External update (remount) should work as well
+      const button = await screen.findByTestId('test-button');
+      fireEvent.click(button);
+      expect(slider).toHaveAttribute('aria-valuenow', '10');
+      expect(label).toHaveTextContent('10');
     });
 
     it('should set step', async () => {

@@ -1,5 +1,5 @@
 import { renderHook } from '@testing-library/react-hooks';
-import * as ReactHookForm from 'react-hook-form';
+import ReactHookForm from 'react-hook-form';
 
 import { useForm } from '..';
 import FormProvider from '../FormProvider';
@@ -9,6 +9,7 @@ import { DEFAULT_ERROR_MESSAGE } from '../useForm';
 // mock 'react-hook-form` context
 const mockFormContext: ReactHookForm.UseFormReturn = {
   formState: {
+    disabled: false,
     isDirty: false,
     isLoading: false,
     isSubmitSuccessful: false,
@@ -20,6 +21,7 @@ const mockFormContext: ReactHookForm.UseFormReturn = {
     dirtyFields: [],
     touchedFields: [],
     errors: {},
+    validatingFields: {},
   },
   getFieldState: jest.fn(),
   getValues: jest.fn(),

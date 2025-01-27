@@ -6,6 +6,7 @@ export { Breadcrumbs } from './Breadcrumbs';
 export { Button } from './Button';
 export { ButtonGroup } from './ButtonGroup';
 export { Card } from './Card';
+export { Checkbox } from './Checkbox';
 export { CheckboxField } from './CheckboxField';
 export { Collection } from './Collection';
 export { Divider } from './Divider';

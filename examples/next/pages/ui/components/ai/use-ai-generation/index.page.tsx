@@ -1,4 +1,5 @@
 import { Amplify } from 'aws-amplify';
+import { signOut } from 'aws-amplify/auth';
 import { createAIHooks } from '@aws-amplify/ui-react-ai';
 import { generateClient } from 'aws-amplify/api';
 import '@aws-amplify/ui-react/styles.css';
@@ -9,7 +10,9 @@ import {
   Button,
   Flex,
   Loader,
-  TextField,
+  TextAreaField,
+  Text,
+  View,
   withAuthenticator,
 } from '@aws-amplify/ui-react';
 import React from 'react';
@@ -20,27 +23,47 @@ const { useAIGeneration } = createAIHooks(client);
 Amplify.configure(outputs);
 
 function Example() {
-  const [{ data, isLoading, hasError, messages }, handler] =
+  const [description, setDescription] = React.useState('');
+  const [{ data, isLoading }, generateRecipe] =
     useAIGeneration('generateRecipe');
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const description = formData.get('description') as string;
-    handler({ description });
+
+  const handleClick = async () => {
+    generateRecipe({ description });
   };
+
   return (
-    <Flex direction="column" gap="medium">
-      <Flex direction="row" as="form" onSubmit={handleSubmit}>
-        <TextField label="description" name="description" />
-        <Button type="submit">generate</Button>
+    <Flex direction="column">
+      <Button
+        onClick={() => {
+          signOut();
+        }}
+      >
+        Sign out
+      </Button>
+      <Flex direction="row">
+        <TextAreaField
+          autoResize
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          label="Description"
+        />
+        <Button onClick={handleClick}>generate</Button>
       </Flex>
-      {isLoading ? <Loader /> : null}
-      {hasError ? (
-        <div>
-          {messages?.map(({ message }, i) => <div key={i}>{message}</div>)}
-        </div>
-      ) : null}
-      {data ? <div>{JSON.stringify(data)}</div> : null}
+      {isLoading ? (
+        <Loader variation="linear" />
+      ) : (
+        <>
+          <Text fontWeight="bold">{data?.name}</Text>
+          <View as="ul">
+            {data?.ingredients?.map((ingredient) => (
+              <View as="li" key={ingredient}>
+                {ingredient}
+              </View>
+            ))}
+          </View>
+          <Text testId="recipe">{data?.instructions}</Text>
+        </>
+      )}
     </Flex>
   );
 }

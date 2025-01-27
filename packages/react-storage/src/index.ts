@@ -14,3 +14,7 @@ export {
   FileListHeaderProps,
   FileListFooterProps,
 } from './components';
+export {
+  StorageBrowser,
+  StorageBrowserProps,
+} from './components/StorageBrowser/StorageBrowserAmplify';

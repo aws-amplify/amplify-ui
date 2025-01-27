@@ -14,15 +14,11 @@ interface ComponentStyleProps extends React.ComponentProps<'style'> {
   componentThemes: BaseComponentTheme[];
 }
 
-/**
- * @experimental
- * [📖 Docs](https://ui.docs.amplify.aws/react/components/theme)
- */
 export const ComponentStyle = ({
   theme,
   componentThemes = [],
   ...rest
-}: ComponentStyleProps): JSX.Element | null => {
+}: ComponentStyleProps): React.JSX.Element | null => {
   if (!theme || !componentThemes.length) {
     return null;
   }
