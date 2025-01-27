@@ -1,5 +1,15 @@
 # @aws-amplify/ui-react
 
+## 6.9.1
+
+### Patch Changes
+
+- [#6303](https://github.com/aws-amplify/amplify-ui/pull/6303) [`6e51c1750f8f3e01cf8827f4c5c2e5ef02240ca6`](https://github.com/aws-amplify/amplify-ui/commit/6e51c1750f8f3e01cf8827f4c5c2e5ef02240ca6) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(slider): remounted controlled value not updating
+
+- Updated dependencies [[`272ec8e575718ea990dcb9f51d1baaf522f45fb6`](https://github.com/aws-amplify/amplify-ui/commit/272ec8e575718ea990dcb9f51d1baaf522f45fb6)]:
+  - @aws-amplify/ui@6.8.1
+  - @aws-amplify/ui-react-core@3.3.1
+
 ## 6.9.0
 
 ### Minor Changes

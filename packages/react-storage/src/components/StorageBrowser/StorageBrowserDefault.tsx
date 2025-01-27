@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useViews } from './views/context';
+import { useViews } from './views';
 import { useStore } from './providers/store';
 
 /**

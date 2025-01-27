@@ -1,5 +1,11 @@
 # @aws-amplify/ui
 
+## 6.8.1
+
+### Patch Changes
+
+- [#6288](https://github.com/aws-amplify/amplify-ui/pull/6288) [`272ec8e575718ea990dcb9f51d1baaf522f45fb6`](https://github.com/aws-amplify/amplify-ui/commit/272ec8e575718ea990dcb9f51d1baaf522f45fb6) Thanks [@berg-dee](https://github.com/berg-dee)! - fix(ui): fix and add missing sv translations
+
 ## 6.8.0
 
 ### Minor Changes
