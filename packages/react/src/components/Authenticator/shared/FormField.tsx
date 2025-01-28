@@ -7,6 +7,7 @@ import { TextField } from '../../../primitives/TextField';
 import { useAuthenticator } from '@aws-amplify/ui-react-core';
 import { useStableId } from '../../../primitives/utils/useStableId';
 import { ValidationErrors } from '../../shared/ValidationErrors';
+import { Radio, RadioGroupField } from '../../../primitives';
 
 export interface FormFieldProps extends Omit<FormFieldOptions, 'label'> {
   // label is a required prop for the UI field components used in FormField
@@ -16,6 +17,7 @@ export interface FormFieldProps extends Omit<FormFieldOptions, 'label'> {
 
 export function FormField({
   autocomplete: autoComplete,
+  radioOptions,
   dialCode,
   name,
   type,
@@ -69,6 +71,16 @@ export function FormField({
           id={errorId}
         />
       </>
+    );
+  } else if (type === 'radio') {
+    return (
+      <RadioGroupField {...props} legend={props.label} name={name}>
+        {radioOptions?.map((option) => (
+          <Radio key={option} value={option}>
+            {option}
+          </Radio>
+        ))}
+      </RadioGroupField>
     );
   } else {
     return (

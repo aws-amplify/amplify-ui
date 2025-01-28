@@ -16,6 +16,8 @@ import {
   SignUpMachineKey,
   SetupTotpMachineKey,
   VerifyUserMachineKey,
+  SetupEmailMachineKey,
+  SelectMfaMachineKey,
 } from './types';
 
 export const EVENT_HANDLER_KEY_MAP: Record<
@@ -86,6 +88,20 @@ const SETUP_TOTP_MACHINE_KEYS: SetupTotpMachineKey[] = [
   'totpSecretCode',
   'username',
 ];
+
+const SETUP_EMAIL_MACHINE_KEY: SetupEmailMachineKey[] = [
+  ...COMMON_ROUTE_MACHINE_KEYS,
+  'toSignIn',
+  'username',
+];
+
+const SELECT_MFA_MACHINE_KEY: SelectMfaMachineKey[] = [
+  ...COMMON_ROUTE_MACHINE_KEYS,
+  'toSignIn',
+  'allowedMfaTypes',
+  'username',
+];
+
 const VERIFY_USER_MACHINE_KEYS: VerifyUserMachineKey[] = [
   ...COMMON_ROUTE_MACHINE_KEYS,
   'skipVerification',
@@ -104,5 +120,7 @@ export const MACHINE_PROP_KEYS: Record<
   signUp: SIGN_UP_MACHINE_KEYS,
   forgotPassword: RESET_PASSWORD_MACHINE_KEYS,
   setupTotp: SETUP_TOTP_MACHINE_KEYS,
+  setupEmail: SETUP_EMAIL_MACHINE_KEY,
+  selectMfaType: SELECT_MFA_MACHINE_KEY,
   verifyUser: VERIFY_USER_MACHINE_KEYS,
 };

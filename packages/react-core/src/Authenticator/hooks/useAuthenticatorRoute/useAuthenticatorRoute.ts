@@ -20,6 +20,8 @@ import {
   resolveSignInRoute,
   resolveSignUpRoute,
   resolveVerifyUserRoute,
+  resolveSetupEmailRoute,
+  resolveSelectMfaTypeRoute,
 } from './utils';
 
 export default function useAuthenticatorRoute<FieldType>(
@@ -43,6 +45,12 @@ export default function useAuthenticatorRoute<FieldType>(
 export default function useAuthenticatorRoute<FieldType>(
   params: UseAuthenticatorRouteParams<FieldType>
 ): UseAuthenticatorRoute<'SetupTotp'>;
+export default function useAuthenticatorRoute<FieldType>(
+  params: UseAuthenticatorRouteParams<FieldType>
+): UseAuthenticatorRoute<'SetupEmail'>;
+export default function useAuthenticatorRoute<FieldType>(
+  params: UseAuthenticatorRouteParams<FieldType>
+): UseAuthenticatorRoute<'SelectMfaType'>;
 export default function useAuthenticatorRoute<FieldType>(
   params: UseAuthenticatorRouteParams<FieldType>
 ): UseAuthenticatorRoute<'SignIn'>;
@@ -80,6 +88,8 @@ export default function useAuthenticatorRoute<FieldType>({
     SignIn,
     SignUp,
     VerifyUser,
+    SetupEmail,
+    SelectMfaType,
   } = components;
 
   switch (route) {
@@ -109,6 +119,12 @@ export default function useAuthenticatorRoute<FieldType>({
     }
     case 'setupTotp': {
       return resolveSetupTotpRoute(SetupTotp, routeSelectorProps);
+    }
+    case 'selectMfaType': {
+      return resolveSelectMfaTypeRoute(SelectMfaType, routeSelectorProps);
+    }
+    case 'setupEmail': {
+      return resolveSetupEmailRoute(SetupEmail, routeSelectorProps);
     }
     case 'signIn': {
       return resolveSignInRoute(SignIn, routeSelectorProps);
