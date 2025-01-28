@@ -2,12 +2,12 @@ Feature: Search with Storage Browser
 
     Background:
         Given I'm running the example "ui/components/storage/storage-browser/default-auth"
+        And I type my "email" with status "CONFIRMED"
+        And I type my password
+        And I click the "Sign in" button
 
     @react
     Scenario: Search folders and subfolders with matching results
-    When I type my "email" with status "CONFIRMED"
-    Then I type my password
-    Then I click the "Sign in" button
     When I click the first button containing "public"
     Then I see the button containing "DoNotDeleteThisFolder_CanDeleteAllChildren"
     When I see input with placeholder "Search current folder" and type "DO_NOT"
@@ -26,9 +26,6 @@ Feature: Search with Storage Browser
 
     @react
     Scenario: Search with no matching results
-    When I type my "email" with status "CONFIRMED"
-    Then I type my password
-    Then I click the "Sign in" button
     When I click the first button containing "public"
     When I see input with placeholder "Search current folder" and type "XXXXXXXX"
     Then I click the "Search" button

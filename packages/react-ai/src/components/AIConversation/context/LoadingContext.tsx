@@ -10,7 +10,7 @@ export const LoadingContextProvider = ({
 }: {
   children?: React.ReactNode;
   isLoading?: boolean;
-}): JSX.Element => {
+}): React.JSX.Element => {
   return (
     <LoadingContext.Provider value={isLoading}>
       {children}

@@ -8,14 +8,14 @@ import { Flex } from '../../../primitives/Flex';
 export interface TwoButtonSubmitFooterProps {
   cancelButtonSendType: AuthEventTypes;
   cancelButtonText: string;
-  submitButtonText?: JSX.Element;
+  submitButtonText?: React.JSX.Element;
 }
 
 const { getSubmitText, getSubmittingText } = authenticatorTextUtil;
 
 export const TwoButtonSubmitFooter = (
   props: TwoButtonSubmitFooterProps
-): JSX.Element => {
+): React.JSX.Element => {
   const { cancelButtonSendType, cancelButtonText, submitButtonText } = props;
 
   const { isPending, resendCode, skipVerification, toSignIn } =

@@ -1,6 +1,7 @@
 import { createFolderHandler, CreateFolderHandlerInput } from '../createFolder';
 
 import { uploadData, UploadDataInput } from '../../../storage-internal';
+import { DEFAULT_CHECKSUM_ALGORITHM } from '../constants';
 
 jest.mock('../../../storage-internal');
 
@@ -70,6 +71,7 @@ describe('createFolderHandler', () => {
         locationCredentialsProvider: credentials,
         onProgress: expect.any(Function),
         preventOverwrite: true,
+        checksumAlgorithm: DEFAULT_CHECKSUM_ALGORITHM,
       },
       path: baseInput.data.key,
     };

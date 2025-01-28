@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { classNames } from '@aws-amplify/ui';
-import * as Dropdown from '@radix-ui/react-dropdown-menu';
-
-import { sanitizeNamespaceImport } from '@aws-amplify/ui';
+import { DropdownMenuItem } from '@radix-ui/react-dropdown-menu';
 
 import { ComponentClassName } from '@aws-amplify/ui';
 import { MenuButton } from './MenuButton';
@@ -13,10 +11,6 @@ import {
   Primitive,
 } from '../types';
 import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
-
-// Radix packages don't support ESM in Node, in some scenarios(e.g. SSR)
-// We have to use namespace import and sanitize it to ensure the interoperablity between ESM and CJS
-const { DropdownMenuItem } = sanitizeNamespaceImport(Dropdown);
 
 export const MENU_ITEM_TEST_ID = 'amplify-menu-item-test-id';
 

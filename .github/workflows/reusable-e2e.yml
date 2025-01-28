@@ -91,7 +91,7 @@ jobs:
           persist-credentials: false
 
       - name: Next.js Cache
-        uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.1.2 https://github.com/actions/cache/commit/0c45773b623bea8c8e75f6c82b208c3cf94ea4f9
+        uses: actions/cache@1bd1e32a3bdc45362d1e726936510720a7c30a57 # v4.2.0 https://github.com/actions/cache/commit/1bd1e32a3bdc45362d1e726936510720a7c30a57
         with:
           path: ${{ github.workspace }}/.next/cache
           key: ${{ runner.os }}-nextjs-${{ hashFiles('**/yarn.lock') }}
@@ -107,7 +107,7 @@ jobs:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
 
       - name: Restore cypress runner Cache
-        uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.1.2 https://github.com/actions/cache/commit/0c45773b623bea8c8e75f6c82b208c3cf94ea4f9
+        uses: actions/cache@1bd1e32a3bdc45362d1e726936510720a7c30a57 # v4.2.0 https://github.com/actions/cache/commit/1bd1e32a3bdc45362d1e726936510720a7c30a57
         id: restore-cypress-cache
         with:
           path: ~/.cache/Cypress
@@ -116,7 +116,7 @@ jobs:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
 
       - name: Restore node_modules cache
-        uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.1.2 https://github.com/actions/cache/commit/0c45773b623bea8c8e75f6c82b208c3cf94ea4f9
+        uses: actions/cache@1bd1e32a3bdc45362d1e726936510720a7c30a57 # v4.2.0 https://github.com/actions/cache/commit/1bd1e32a3bdc45362d1e726936510720a7c30a57
         id: restore-cache
         with:
           path: |
@@ -127,7 +127,7 @@ jobs:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 3
 
       - name: Restore ui/dist cache
-        uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.1.2 https://github.com/actions/cache/commit/0c45773b623bea8c8e75f6c82b208c3cf94ea4f9
+        uses: actions/cache@1bd1e32a3bdc45362d1e726936510720a7c30a57 # v4.2.0 https://github.com/actions/cache/commit/1bd1e32a3bdc45362d1e726936510720a7c30a57
         id: restore-ui-cache
         with:
           path: ./packages/ui/dist
@@ -135,7 +135,7 @@ jobs:
 
       - name: Restore ${{ matrix.package }}/dist cache
         id: restore-package-cache
-        uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.1.2 https://github.com/actions/cache/commit/0c45773b623bea8c8e75f6c82b208c3cf94ea4f9
+        uses: actions/cache@1bd1e32a3bdc45362d1e726936510720a7c30a57 # v4.2.0 https://github.com/actions/cache/commit/1bd1e32a3bdc45362d1e726936510720a7c30a57
         with:
           path: ./packages/${{ matrix.package }}/dist
           key: ${{ runner.os }}-${{ matrix.package }}-${{ inputs.commit }}
@@ -331,7 +331,7 @@ jobs:
           VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
 
       - name: Upload failure screenshots and errors
-        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2 https://github.com/actions/upload-artifact/commit/0b7f8abb1508181956e8e162db84b466c27e18ce
+        uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4.5.0 https://github.com/actions/upload-artifact/commit/65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08
         if: ${{ failure() && steps.e2e.outcome != 'success' }}
         with:
           name: e2e-cypress-error-${{ matrix.package }}
@@ -394,7 +394,7 @@ jobs:
 
       - name: Restore CocoaPods cache
         id: restore-cocoapods-cache
-        uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.1.2 https://github.com/actions/cache/commit/0c45773b623bea8c8e75f6c82b208c3cf94ea4f9
+        uses: actions/cache@1bd1e32a3bdc45362d1e726936510720a7c30a57 # v4.2.0 https://github.com/actions/cache/commit/1bd1e32a3bdc45362d1e726936510720a7c30a57
         with:
           path: ./examples/react-native/ios/Pods
           key: ${{ runner.os }}-cocoapods-${{ inputs.commit }}
@@ -481,7 +481,7 @@ jobs:
           VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
 
       - name: Upload failure screenshots and errors
-        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2 https://github.com/actions/upload-artifact/commit/0b7f8abb1508181956e8e162db84b466c27e18ce
+        uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4.5.0 https://github.com/actions/upload-artifact/commit/65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08
         if: ${{ failure() && steps.e2e-ios.outcome != 'success' }}
         with:
           name: e2e-detox-error-react-native-ios
@@ -622,7 +622,7 @@ jobs:
           adb -s emulator-$EMULATOR2_PORT emu kill
 
       - name: Upload failure screenshots and errors
-        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2 https://github.com/actions/upload-artifact/commit/0b7f8abb1508181956e8e162db84b466c27e18ce
+        uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4.5.0 https://github.com/actions/upload-artifact/commit/65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08
         if: ${{ failure() && steps.e2e-android.outcome != 'success' }}
         with:
           name: e2e-detox-error-react-native-android
@@ -652,7 +652,7 @@ jobs:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
 
       - name: Restore cypress runner Cache
-        uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.1.2 https://github.com/actions/cache/commit/0c45773b623bea8c8e75f6c82b208c3cf94ea4f9
+        uses: actions/cache@1bd1e32a3bdc45362d1e726936510720a7c30a57 # v4.2.0 https://github.com/actions/cache/commit/1bd1e32a3bdc45362d1e726936510720a7c30a57
         id: restore-cypress-cache
         with:
           path: ~/.cache/Cypress
@@ -661,7 +661,7 @@ jobs:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
 
       - name: Restore Puppeteer runner cache
-        uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.1.2 https://github.com/actions/cache/commit/0c45773b623bea8c8e75f6c82b208c3cf94ea4f9
+        uses: actions/cache@1bd1e32a3bdc45362d1e726936510720a7c30a57 # v4.2.0 https://github.com/actions/cache/commit/1bd1e32a3bdc45362d1e726936510720a7c30a57
         id: restore-puppeteer-cache
         with:
           path: ~/.cache/puppeteer
@@ -670,7 +670,7 @@ jobs:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
 
       - name: Restore node_modules cache
-        uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.1.2 https://github.com/actions/cache/commit/0c45773b623bea8c8e75f6c82b208c3cf94ea4f9
+        uses: actions/cache@1bd1e32a3bdc45362d1e726936510720a7c30a57 # v4.2.0 https://github.com/actions/cache/commit/1bd1e32a3bdc45362d1e726936510720a7c30a57
         id: restore-cache
         with:
           path: |
@@ -736,7 +736,7 @@ jobs:
         run: yarn docs test:links
 
       - name: Upload failure screenshots and errors
-        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2 https://github.com/actions/upload-artifact/commit/0b7f8abb1508181956e8e162db84b466c27e18ce
+        uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4.5.0 https://github.com/actions/upload-artifact/commit/65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08
         if: ${{ failure() && steps.e2e.outcome != 'success' }}
         with:
           name: docs-e2e-cypress-error

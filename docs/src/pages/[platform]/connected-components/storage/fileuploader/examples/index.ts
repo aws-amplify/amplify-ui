@@ -1,5 +1,4 @@
 export { App as DefaultExample } from './Default';
-export { App as ComponentOverridesExample } from './ComponentOverrides';
 export { App as DisplayTextExample } from './DisplayText';
 export { App as EventExample } from './Event';
 export { App as FileTypesExample } from './FileTypes';
