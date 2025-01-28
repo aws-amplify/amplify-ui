@@ -1,5 +1,13 @@
 # @aws-amplify/ui-react-storage
 
+## 3.7.2
+
+### Patch Changes
+
+- [#6322](https://github.com/aws-amplify/amplify-ui/pull/6322) [`e81446d992a98c4b765e83e9e4fcad8c3d910b75`](https://github.com/aws-amplify/amplify-ui/commit/e81446d992a98c4b765e83e9e4fcad8c3d910b75) Thanks [@jordanvn](https://github.com/jordanvn)! - removed outdated storage browser styles
+
+- [#6314](https://github.com/aws-amplify/amplify-ui/pull/6314) [`f2fc55d7b77b3716ab31237526a65afafcbb2f80`](https://github.com/aws-amplify/amplify-ui/commit/f2fc55d7b77b3716ab31237526a65afafcbb2f80) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(storage-browser): export UseView type
+
 ## 3.7.1
 
 ### Patch Changes
