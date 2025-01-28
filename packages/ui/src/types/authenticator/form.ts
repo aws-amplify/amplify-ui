@@ -70,8 +70,8 @@ export interface FormFieldOptions {
   autocomplete?: string;
   /** Whether the first character is auto-capitalized */
   autocapitalize?: string;
-  /** Mfa Types Allowed For Setup or Selection */
-  allowedMfaTypes?: string[];
+  /** Options for radio input groups*/
+  radioOptions?: string[];
 }
 
 export interface LegacyFormFieldOptions extends FormFieldOptions {

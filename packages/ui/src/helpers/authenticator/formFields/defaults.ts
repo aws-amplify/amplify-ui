@@ -175,7 +175,7 @@ const getSelectMfaTypeFormFields = (state: AuthMachineState): FormFields => {
       placeholder: 'Please select desired MFA type',
       type: 'radio',
       isRequired: true,
-      allowedMfaTypes: allowedMfaTypes,
+      radioOptions: allowedMfaTypes,
     },
   };
 };
