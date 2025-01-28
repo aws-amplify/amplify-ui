@@ -303,7 +303,7 @@ export function createAuthenticatorMachine(
           { cond: 'hasActor', actions: forwardTo(({ actorRef }) => actorRef) },
         ]),
         setActorDoneData: assign({
-          actorDoneData: (context, event): ActorDoneData => ({
+          actorDoneData: (_, event): ActorDoneData => ({
             challengeName: event.data.challengeName,
             codeDeliveryDetails: event.data.codeDeliveryDetails,
             missingAttributes: event.data.missingAttributes,
@@ -312,6 +312,7 @@ export function createAuthenticatorMachine(
             step: event.data.step,
             totpSecretCode: event.data.totpSecretCode,
             unverifiedUserAttributes: event.data.unverifiedUserAttributes,
+            allowedMfaTypes: event.data.allowedMfaTypes,
           }),
         }),
         applyAmplifyConfig: assign({
