@@ -14,6 +14,7 @@ const skipAttributeVerification = jest.fn();
 const toFederatedSignIn = jest.fn();
 const totpSecretCode = undefined;
 const unverifiedUserAttributes = {};
+const allowedMfaTypes = undefined;
 
 export const mockMachineContext: NextAuthenticatorServiceFacade = {
   challengeName,
@@ -31,6 +32,7 @@ export const mockMachineContext: NextAuthenticatorServiceFacade = {
   totpSecretCode,
   unverifiedUserAttributes,
   username: 'Charles',
+  allowedMfaTypes,
 };
 
 export const mockUseMachineOutput: UseMachine = mockMachineContext;
