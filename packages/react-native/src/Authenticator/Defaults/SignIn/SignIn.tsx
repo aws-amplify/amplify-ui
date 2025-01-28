@@ -26,7 +26,7 @@ const SignIn = ({
   toSignUp,
   validationErrors,
   ...rest
-}: DefaultSignInProps): JSX.Element => {
+}: DefaultSignInProps): React.JSX.Element => {
   const {
     getSignInTabText,
     getSignInText,
