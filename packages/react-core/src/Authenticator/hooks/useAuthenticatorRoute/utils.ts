@@ -154,6 +154,32 @@ export function resolveSetupTotpRoute<FieldType = {}>(
   };
 }
 
+export function resolveSetupEmailRoute<FieldType = {}>(
+  Component: Defaults<FieldType>['SetupEmail'],
+  props: UseAuthenticator
+): UseAuthenticatorRoute<'SetupEmail', FieldType> {
+  return {
+    Component,
+    props: {
+      ...Component,
+      ...getConvertedMachineProps('setupEmail', props),
+    },
+  };
+}
+
+export function resolveSelectMfaTypeRoute<FieldType = {}>(
+  Component: Defaults<FieldType>['SelectMfaType'],
+  props: UseAuthenticator
+): UseAuthenticatorRoute<'SelectMfaType', FieldType> {
+  return {
+    Component,
+    props: {
+      ...Component,
+      ...getConvertedMachineProps('selectMfaType', props),
+    },
+  };
+}
+
 export function resolveSignInRoute<FieldType = {}>(
   Component: Defaults<FieldType>['SignIn'],
   props: UseAuthenticator
