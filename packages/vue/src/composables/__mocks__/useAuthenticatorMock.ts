@@ -28,4 +28,5 @@ export const baseMockServiceFacade: UseAuthenticator = {
   username: 'tobias',
   validationErrors:
     {} as unknown as AuthenticatorServiceFacade['validationErrors'],
+  allowedMfaTypes: undefined,
 };
