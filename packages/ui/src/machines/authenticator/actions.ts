@@ -73,6 +73,12 @@ const setChallengeName = assign({
         return 'SOFTWARE_TOKEN_MFA';
       case 'CONFIRM_SIGN_IN_WITH_EMAIL_CODE':
         return 'EMAIL_OTP';
+      case 'CONTINUE_SIGN_IN_WITH_MFA_SETUP_SELECTION':
+      case 'CONTINUE_SIGN_IN_WITH_EMAIL_SETUP':
+      case 'CONTINUE_SIGN_IN_WITH_TOTP_SETUP':
+        return 'MFA_SETUP';
+      case 'CONTINUE_SIGN_IN_WITH_MFA_SELECTION':
+        return 'SELECT_MFA_TYPE';
       default:
         return undefined;
     }
