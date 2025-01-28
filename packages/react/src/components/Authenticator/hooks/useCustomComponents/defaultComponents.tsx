@@ -6,6 +6,8 @@ import { SetupTotp } from '../../SetupTotp';
 import { ConfirmSignIn } from '../../ConfirmSignIn/ConfirmSignIn';
 import { ConfirmVerifyUser, VerifyUser } from '../../VerifyUser';
 import { ConfirmResetPassword, ForgotPassword } from '../../ForgotPassword';
+import { SelectMfaType } from '../../SelectMfaType';
+import { SetupEmail } from '../../SetupEmail';
 
 // use the very generic name of Components as this is a temporary interface and is not exported
 interface Components {
@@ -25,6 +27,8 @@ export interface DefaultComponents extends Omit<Components, 'FormFields'> {
   SignIn?: Omit<Components, 'FormFields'>;
   SignUp?: Components;
   VerifyUser?: Omit<Components, 'FormFields'>;
+  SelectMfaType?: Omit<Components, 'FormFields'>;
+  SetupEmail?: Omit<Components, 'FormFields'>;
 }
 
 export const defaultComponents: DefaultComponents = {
@@ -72,6 +76,14 @@ export const defaultComponents: DefaultComponents = {
   ForgotPassword: {
     Header: ForgotPassword.Header,
     Footer: ForgotPassword.Footer,
+  },
+  SelectMfaType: {
+    Header: SelectMfaType.Header,
+    Footer: SelectMfaType.Footer,
+  },
+  SetupEmail: {
+    Header: SetupEmail.Header,
+    Footer: SetupEmail.Footer,
   },
   // @ts-ignore
   Footer: (): React.JSX.Element => null,
