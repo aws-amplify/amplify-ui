@@ -50,6 +50,12 @@ export const FILE_UPLOADER = [
     type: 'boolean',
   },
   {
+    name: 'bucket?',
+    description:
+      'The S3 bucket which be will accessed. Allows either a string containing the user-assigned "friendly name" or an object containing a combination of the backend-assigned name on S3 and the S3 region.',
+    type: 'string | { bucketName: string, region: string }',
+  },
+  {
     name: `maxFileCount`,
     description: '',
     type: 'integer',
