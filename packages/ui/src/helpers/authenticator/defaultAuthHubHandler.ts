@@ -37,9 +37,10 @@ export const defaultAuthHubHandler: AuthMachineHubHandler = (
       break;
     }
     case 'tokenRefresh_failure': {
-      if (data?.error?.name !== AmplifyErrorCode.NetworkError) {
-        send('SIGN_OUT');
+      if (data?.error?.name === AmplifyErrorCode.NetworkError) {
+        return;
       }
+      send('SIGN_OUT');
       break;
     }
     default: {
