@@ -44,7 +44,7 @@ describe('ForgotPassword', () => {
     expect(getAllByRole('header')).toBeDefined();
     expect(getByText(getResetYourPasswordText())).toBeDefined();
     expect(getByText(getSendCodeText())).toBeDefined();
-    expect(getAllByRole('text')).toHaveLength(fields.length);
+    expect(getAllByRole('text')).toHaveLength(3);
   });
 
   it('renders an error message', () => {

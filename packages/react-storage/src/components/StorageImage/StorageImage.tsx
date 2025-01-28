@@ -53,7 +53,7 @@ export const StorageImage = ({
   onGetUrlError,
   validateObjectExistence = true,
   ...rest
-}: StorageImageProps | StorageImagePathProps): JSX.Element => {
+}: StorageImageProps | StorageImagePathProps): React.JSX.Element => {
   const hasImgkey = !!imgKey;
   const hasPath = !!path;
   const hasDeprecatedOptions = !!accessLevel || !!identityId;

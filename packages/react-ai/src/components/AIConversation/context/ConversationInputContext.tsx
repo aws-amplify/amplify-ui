@@ -21,7 +21,7 @@ export const ConversationInputContextProvider = ({
   children,
 }: {
   children?: React.ReactNode;
-}): JSX.Element => {
+}): React.JSX.Element => {
   const [input, setInput] = React.useState<ConversationInput | undefined>();
   const [error, setError] = React.useState<string>();
 

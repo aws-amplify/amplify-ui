@@ -23,7 +23,7 @@ function SignOutButton() {
   return <Button title="Sign Out" onPress={signOut} />;
 }
 
-function App(): JSX.Element {
+function App(): React.JSX.Element {
   return (
     <>
       <Authenticator.Provider>
