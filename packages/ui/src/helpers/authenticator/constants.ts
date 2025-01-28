@@ -17,6 +17,11 @@ export const defaultFormFieldOptions: DefaultFormFieldOptions = {
     autocomplete: 'bday',
     isRequired: true,
   },
+  mfa_selection: {
+    label: 'MFA Selection',
+    type: 'text',
+    isRequired: true,
+  },
   confirmation_code: {
     label: 'Confirmation Code',
     placeholder: 'Enter your Confirmation Code',

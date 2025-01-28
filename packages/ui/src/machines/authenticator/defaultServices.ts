@@ -75,6 +75,15 @@ export const defaultServices = {
         ) as SocialProvider[])
       : undefined;
 
+    const { mfa } = result.Auth?.Cognito ?? {};
+    console.log('default service mfa: ', mfa);
+    console.log('default service rest of it: ', {
+      ...cliConfig,
+      loginMechanisms: parsedLoginMechanisms,
+      signUpAttributes: parsedSignupAttributes,
+      socialProviders: parsedSocialProviders,
+    });
+
     return {
       ...cliConfig,
       loginMechanisms: parsedLoginMechanisms,

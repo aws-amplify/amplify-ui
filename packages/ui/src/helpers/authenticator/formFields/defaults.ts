@@ -53,6 +53,13 @@ const getConfirmationCodeFormFields = (_: AuthMachineState): FormFields => ({
   },
 });
 
+const getMfaSelectionFormFields = (_: AuthMachineState): FormFields => ({
+  mfa_selection: {
+    ...getDefaultFormField('mfa_selection'),
+    label: 'MFA Selection!'
+  }
+});
+
 const getSignInFormFields = (state: AuthMachineState): FormFields => ({
   username: { ...getAliasDefaultFormField(state) },
   password: {
@@ -179,5 +186,6 @@ export const defaultFormFieldsGetters: Record<
   forgotPassword: getForgotPasswordFormFields,
   confirmResetPassword: getConfirmResetPasswordFormFields,
   confirmVerifyUser: getConfirmationCodeFormFields,
+  selectMfa: getMfaSelectionFormFields,
   setupTotp: getConfirmationCodeFormFields,
 };
