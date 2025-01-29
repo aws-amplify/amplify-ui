@@ -37,3 +37,7 @@ When(
 When('I type my password', () => {
   cy.findInputField('Password').type(Cypress.env('VALID_PASSWORD'));
 });
+
+When('I select the MFA type {string}', (mfaType: string) => {
+  cy.get(`.amplify-radio__label`).contains(mfaType).click();
+});
