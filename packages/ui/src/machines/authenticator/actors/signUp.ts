@@ -1,7 +1,6 @@
 import { createMachine, sendUpdate } from 'xstate';
 
 import {
-  autoSignIn,
   ConfirmSignUpInput,
   resendSignUpCode,
   signInWithRedirect,
@@ -278,7 +277,7 @@ export function signUpActor({ services }: SignUpMachineOptions) {
       guards,
       services: {
         autoSignIn() {
-          return autoSignIn();
+          return services.handleAutoSignIn();
         },
         async fetchUserAttributes() {
           return fetchUserAttributes();
