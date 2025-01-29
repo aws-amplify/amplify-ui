@@ -74,13 +74,20 @@ export function FormField({
     );
   } else if (type === 'radio') {
     return (
-      <RadioGroupField {...props} legend={props.label} name={name}>
-        {radioOptions?.map((option) => (
-          <Radio key={option} value={option}>
-            {option}
-          </Radio>
-        ))}
-      </RadioGroupField>
+      <>
+        <RadioGroupField {...props} legend={props.label} name={name}>
+          {radioOptions?.map((option) => (
+            <Radio key={option} value={option}>
+              {option}
+            </Radio>
+          ))}
+        </RadioGroupField>
+        <ValidationErrors
+          dataAttr="data-amplify-sign-up-errors"
+          errors={errors}
+          id={errorId}
+        />
+      </>
     );
   } else {
     return (
