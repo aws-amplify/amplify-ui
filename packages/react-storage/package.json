@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui-react-storage",
-  "version": "3.7.1",
+  "version": "3.7.2",
   "main": "dist/index.js",
   "module": "dist/esm/index.mjs",
   "exports": {
@@ -14,12 +14,10 @@
       "types": "./dist/types/components/StorageBrowser/index.d.ts",
       "import": "./dist/esm/browser.mjs"
     },
-    "./styles.css": "./dist/styles.css",
-    "./storage-browser-styles.css": "./dist/storage-browser-styles.css"
+    "./styles.css": "./dist/styles.css"
   },
   "browser": {
-    "./styles.css": "./dist/styles.css",
-    "./storage-browser-styles.css": "./dist/storage-browser-styles.css"
+    "./styles.css": "./dist/styles.css"
   },
   "types": "dist/types/index.d.ts",
   "license": "Apache-2.0",

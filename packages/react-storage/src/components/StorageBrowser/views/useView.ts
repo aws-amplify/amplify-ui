@@ -7,7 +7,7 @@ import {
 import { useLocationsView } from './LocationsView';
 import { useLocationDetailView } from './LocationDetailView';
 
-const USE_VIEW_HOOKS = {
+export const DEFAULT_VIEW_HOOKS = {
   Copy: useCopyView,
   CreateFolder: useCreateFolderView,
   Delete: useDeleteView,
@@ -16,8 +16,8 @@ const USE_VIEW_HOOKS = {
   Upload: useUploadView,
 };
 
-type DefaultUseViews = typeof USE_VIEW_HOOKS;
-export type UseViewType = keyof DefaultUseViews;
+type DefaultViewHooks = typeof DEFAULT_VIEW_HOOKS;
+export type UseViewType = keyof DefaultViewHooks;
 
 export type ViewKey<T> = T extends Record<
   string,
@@ -28,15 +28,15 @@ export type ViewKey<T> = T extends Record<
   ? K
   : never;
 
+const isUseViewType = (value: unknown): value is UseViewType =>
+  !!DEFAULT_VIEW_HOOKS?.[value as UseViewType];
+
 export type UseView = <
-  K extends keyof DefaultUseViews,
-  S extends DefaultUseViews[K],
+  K extends UseViewType,
+  S extends ReturnType<DefaultViewHooks[K]>,
 >(
   type: K
-) => ReturnType<S>;
-
-const isUseViewType = (value: unknown): value is UseViewType =>
-  !!USE_VIEW_HOOKS?.[value as UseViewType];
+) => S;
 
 // @ts-expect-error
 export const useView: UseView = (type) => {
@@ -44,5 +44,5 @@ export const useView: UseView = (type) => {
     throw new Error(`Value of \`${type}\` cannot be used to index \`useView\``);
   }
 
-  return USE_VIEW_HOOKS[type]();
+  return DEFAULT_VIEW_HOOKS[type]();
 };

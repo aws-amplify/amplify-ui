@@ -1,10 +1,11 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 
-import * as StoreModule from '../providers/store';
-import * as ViewsModule from '../views/context';
-import { StorageBrowserDefault } from '../StorageBrowserDefault';
 import { LocationData } from '../actions';
+import * as StoreModule from '../providers/store';
+import * as ViewsModule from '../views';
+
+import { StorageBrowserDefault } from '../StorageBrowserDefault';
 
 jest.spyOn(ViewsModule, 'useViews').mockReturnValue({
   primary: {
