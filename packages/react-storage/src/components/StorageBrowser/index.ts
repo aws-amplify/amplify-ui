@@ -3,8 +3,10 @@ export { createStorageBrowser } from './createStorageBrowser';
 export {
   ActionViewConfig,
   ActionHandler,
-  FileDataItem,
   ExtendedActionConfigs,
+  DEFAULT_ACTION_HANDLERS,
+  defaultActionConfigs,
+  FileDataItem,
 } from './actions';
 export {
   createAmplifyAuthAdapter,

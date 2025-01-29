@@ -43,8 +43,8 @@ export const UNDEFINED_CALLBACKS = {
 
 export const uploadHandler: UploadHandler = ({ config, data, options }) => {
   const { accountId, credentials, customEndpoint } = config;
-  const { key, file, preventOverwrite } = data;
-  const { onProgress } = options ?? {};
+  const { id, key, file, preventOverwrite } = data;
+  const { onProgress, onError } = options ?? {};
 
   const input: UploadDataInput = {
     path: key,
@@ -74,6 +74,11 @@ export const uploadHandler: UploadHandler = ({ config, data, options }) => {
         value: { key: output.path },
       }))
       .catch((error: Error) => {
+        if (onError) {
+          // eslint-disable-next-line no-console
+          console.log('in upload handler', error);
+          onError({ key, id }, error.message, error);
+        }
         const { message } = error;
         if (error.name === 'PreconditionFailed') {
           return { message, status: 'OVERWRITE_PREVENTED' };

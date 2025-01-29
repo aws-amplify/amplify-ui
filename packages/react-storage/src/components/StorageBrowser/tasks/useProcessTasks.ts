@@ -199,7 +199,12 @@ export const useProcessTasks = <
         const task = getTask();
         if (task && isFunction(onTaskError)) onTaskError(task, e);
 
-        if (task && isFunction(onError)) onError(data, e?.message);
+        if (task && isFunction(onError)) {
+          // eslint-disable-next-line no-console
+          console.log('in useProcessTasks');
+
+          onError(data, e?.message, e);
+        }
 
         updateTask(data.id, { message: e.message, status: 'FAILED' });
       })

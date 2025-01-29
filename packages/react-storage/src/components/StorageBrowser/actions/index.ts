@@ -12,6 +12,7 @@ export {
   CreateFolderHandlerInput,
   CreateFolderHandlerOptions,
   CreateFolderHandlerOutput,
+  DEFAULT_ACTION_HANDLERS,
   downloadHandler,
   DownloadHandler,
   DownloadHandlerData,
