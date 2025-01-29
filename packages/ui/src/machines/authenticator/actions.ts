@@ -47,7 +47,7 @@ const setTotpSecretCode = assign({
 
 const setAllowedMfaTypes = assign({
   allowedMfaTypes: (_, { data }: AuthEvent) => {
-    return data.nextStep?.allowedMFATypes || [];
+    return data.nextStep?.allowedMFATypes;
   },
 });
 

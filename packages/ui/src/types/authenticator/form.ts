@@ -70,7 +70,7 @@ export interface FormFieldOptions {
   autocomplete?: string;
   /** Whether the first character is auto-capitalized */
   autocapitalize?: string;
-  /** Options for radio input groups*/
+  /** Options for radio input groups */
   radioOptions?: string[];
 }
 
