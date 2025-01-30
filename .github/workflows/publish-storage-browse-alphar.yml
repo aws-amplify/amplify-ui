@@ -1,0 +1,13 @@
+name: Test and Publish / poc/sto-bro-alpha
+
+on:
+  push:
+    branches: [poc/sto-bro-errors]
+
+jobs:
+  publish:
+    uses: aws-amplify/amplify-ui/.github/workflows/reusable-tagged-publish.yml@main
+    with:
+      dist-tag: storage-browser-alpha
+    secrets:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

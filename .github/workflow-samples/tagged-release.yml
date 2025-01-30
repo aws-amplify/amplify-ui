@@ -7,14 +7,14 @@
 # To use: replace <BRANCH> with your release branch name. Replace <TAG> with
 #         your NPM tag name.
 
-name: Test and Publish / poc/sto-bro-errors
+name: Test and Publish / <BRANCH>
 
 on:
   # You may change this to `pull_request` if you want to run this on a PRs.
   # This can be useful for publishing hotfixes quickly to unblock customers,
   # but otherwise, we recommend to use a release branch.
   push:
-    branches: [poc/sto-bro-errors]
+    branches: [<BRANCH>]
 
 # This permission block is only required if you're running e2e tests.
 permissions:
@@ -64,6 +64,6 @@ jobs:
     uses: ./.github/workflows/reusable-tagged-publish.yml
     needs: e2e
     with:
-      dist-tag: storage-browser-alpha
+      dist-tag: <TAG>
     secrets:
       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
