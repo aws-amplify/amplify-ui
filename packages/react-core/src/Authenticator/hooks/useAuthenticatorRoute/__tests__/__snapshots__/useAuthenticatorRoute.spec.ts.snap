@@ -108,6 +108,46 @@ exports[`useAuthenticatorRoute returns the expected values for the forgotPasswor
 }
 `;
 
+exports[`useAuthenticatorRoute returns the expected values for the selectMfaType route 1`] = `
+{
+  "Component": [Function],
+  "props": {
+    "Footer": [Function],
+    "FormFields": [Function],
+    "Header": [Function],
+    "allowedMfaTypes": [
+      "EMAIL",
+      "TOTP",
+    ],
+    "error": "error",
+    "handleBlur": [MockFunction],
+    "handleChange": [MockFunction],
+    "handleSubmit": [MockFunction],
+    "isPending": false,
+    "toSignIn": [MockFunction],
+    "username": "george",
+  },
+}
+`;
+
+exports[`useAuthenticatorRoute returns the expected values for the setupEmail route 1`] = `
+{
+  "Component": [Function],
+  "props": {
+    "Footer": [Function],
+    "FormFields": [Function],
+    "Header": [Function],
+    "error": "error",
+    "handleBlur": [MockFunction],
+    "handleChange": [MockFunction],
+    "handleSubmit": [MockFunction],
+    "isPending": false,
+    "toSignIn": [MockFunction],
+    "username": "george",
+  },
+}
+`;
+
 exports[`useAuthenticatorRoute returns the expected values for the setupTotp route 1`] = `
 {
   "Component": [Function],
