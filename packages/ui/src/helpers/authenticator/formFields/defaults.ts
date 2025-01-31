@@ -1,6 +1,7 @@
 /**
  * This file contains helpers that generate default formFields for each screen
  */
+import { authenticatorTextUtil } from '../textUtil';
 import { getActorContext, getActorState } from '../actor';
 import { defaultFormFieldOptions } from '../constants';
 import { isAuthFieldWithDefaults } from '../form';
@@ -16,6 +17,8 @@ import {
   SignInState,
 } from '../../../machines/authenticator/types';
 import { getPrimaryAlias } from '../formFields/utils';
+
+const { getMfaTypeLabelByValue } = authenticatorTextUtil;
 
 export const DEFAULT_COUNTRY_CODE = '+1';
 
@@ -176,7 +179,10 @@ const getSelectMfaTypeFormFields = (state: AuthMachineState): FormFields => {
       type: 'radio',
       isRequired: true,
       // TODO - i18n
-      radioOptions: allowedMfaTypes.map((value) => ({ label: value, value })),
+      radioOptions: allowedMfaTypes.map((value) => ({
+        label: getMfaTypeLabelByValue(value),
+        value,
+      })),
     },
   };
 };

@@ -17,6 +17,7 @@ export const defaultTexts = {
   CONFIRM_RESET_PASSWORD_HEADING: 'Reset your Password',
   CONFIRM_SIGNUP_HEADING: 'Confirm Sign Up',
   CONFIRM_SMS: 'Confirm SMS Code',
+  CONFIRM_EMAIL: 'Confirm Email Code',
   // If challenge name is not returned
   CONFIRM_MFA_DEFAULT: 'Confirm MFA Code',
   CONFIRM_TOTP: 'Confirm TOTP Code',
@@ -47,6 +48,8 @@ export const defaultTexts = {
   LOADING: 'Loading',
   LOGIN_NAME: 'Username',
   MIDDLE_NAME: 'Middle Name',
+  MFA_SETUP_SELECTION: 'Multi-Factor Authentication Setup',
+  MFA_SELECTION: 'Multi-Factor Authentication',
   NAME: 'Name',
   NICKNAME: 'Nickname',
   NEW_PASSWORD: 'New password',
