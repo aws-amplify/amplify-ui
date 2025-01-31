@@ -77,6 +77,20 @@ VerifyUser.Footer = Footer;
 VerifyUser.FormFields = FormFields;
 VerifyUser.Header = Header;
 
+const SetupEmail: DefaultComponents<{}>['SetupEmail'] = () => {
+  return null;
+};
+SetupEmail.Footer = Footer;
+SetupEmail.FormFields = FormFields;
+SetupEmail.Header = Header;
+
+const SelectMfaType: DefaultComponents<{}>['SelectMfaType'] = () => {
+  return null;
+};
+SelectMfaType.Footer = Footer;
+SelectMfaType.FormFields = FormFields;
+SelectMfaType.Header = Header;
+
 export const DEFAULTS: DefaultComponents<{}> = {
   ConfirmResetPassword,
   ConfirmSignIn,
@@ -88,6 +102,8 @@ export const DEFAULTS: DefaultComponents<{}> = {
   SignIn,
   SignUp,
   VerifyUser,
+  SetupEmail,
+  SelectMfaType,
 };
 
 const OverrideConfirmResetPassword: Overrides['ConfirmResetPassword'] = () =>
