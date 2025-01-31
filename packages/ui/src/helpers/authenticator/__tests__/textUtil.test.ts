@@ -4,6 +4,12 @@ import { authenticatorTextUtil } from '../textUtil';
 
 describe('authenticatorTextUtil', () => {
   describe('getChallengeText', () => {
+    it('returns the correct text for the "EMAIL_OTP" challenge', () => {
+      expect(authenticatorTextUtil.getChallengeText('EMAIL_OTP')).toEqual(
+        'Confirm Email Code'
+      );
+    });
+
     it('returns the correct text for the "SMS_MFA" challenge', () => {
       expect(authenticatorTextUtil.getChallengeText('SMS_MFA')).toEqual(
         'Confirm SMS Code'
@@ -117,6 +123,8 @@ describe('authenticatorTextUtil', () => {
         let result;
         if (name === 'getChallengeText') {
           result = fn.call(authenticatorTextUtil, 'SMS_MFA');
+        } else if (name === 'getMfaTypeLabelByValue') {
+          result = fn.call(authenticatorTextUtil, 'EMAIL');
         } else {
           result = fn.call(authenticatorTextUtil);
         }
