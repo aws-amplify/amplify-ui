@@ -30,6 +30,10 @@ const updateBlur = jest.fn();
 const updateForm = jest.fn();
 const user = { username: 'username', userId: 'userId' };
 const validationErrors = {};
+const allowedMfaTypes = [
+  'EMAIL',
+  'TOTP',
+] as AuthenticatorMachineContext['allowedMfaTypes'];
 
 export const mockMachineContext: AuthenticatorMachineContext = {
   authStatus,
@@ -53,7 +57,7 @@ export const mockMachineContext: AuthenticatorMachineContext = {
   toFederatedSignIn,
   toForgotPassword,
   totpSecretCode,
-
+  allowedMfaTypes,
   unverifiedUserAttributes,
   username: 'george',
   validationErrors,

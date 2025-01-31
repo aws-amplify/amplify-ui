@@ -1,5 +1,6 @@
 import { SocialProvider } from '../../types';
 import {
+  AuthMFAType,
   ChallengeName,
   V5CodeDeliveryDetails,
 } from '../../machines/authenticator/types';
@@ -11,6 +12,9 @@ import { AuthenticatorRoute } from './facade';
  */
 const getChallengeText = (challengeName?: ChallengeName): string => {
   switch (challengeName) {
+    // TODO - i18n
+    case 'EMAIL_OTP':
+      return translate(DefaultTexts.CONFIRM_EMAIL);
     case 'SMS_MFA':
       return translate(DefaultTexts.CONFIRM_SMS);
     case 'SOFTWARE_TOKEN_MFA':
@@ -79,6 +83,24 @@ const getSignInWithFederationText = (
   );
 };
 
+/**
+ * SelectMfaType
+ */
+// TODO - i18n
+const getSelectMfaTypeByChallengeName = (
+  challengeName: ChallengeName
+): string => {
+  if (challengeName === 'MFA_SETUP') {
+    return translate(DefaultTexts.MFA_SETUP_SELECTION);
+  }
+
+  return translate(DefaultTexts.MFA_SELECTION);
+};
+// TODO - i18n
+const getMfaTypeLabelByValue = (value: AuthMFAType): string => {
+  return value;
+};
+
 export const authenticatorTextUtil = {
   /** Shared */
   getBackToSignInText: () => translate(DefaultTexts.BACK_SIGN_IN),
@@ -137,6 +159,10 @@ export const authenticatorTextUtil = {
 
   /** FederatedSignIn */
   getSignInWithFederationText,
+
+  /** SelectMfaType */
+  getSelectMfaTypeByChallengeName,
+  getMfaTypeLabelByValue,
 
   /** VerifyUser */
   getSkipText: () => translate(DefaultTexts.SKIP),

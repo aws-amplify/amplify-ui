@@ -57,6 +57,10 @@ export const getRoute = (
       return 'verifyUser';
     case actorState?.matches('confirmVerifyUserAttribute'):
       return 'confirmVerifyUser';
+    case actorState?.matches('setupEmail'):
+      return 'setupEmail';
+    case actorState?.matches('selectMfaType'):
+      return 'selectMfaType';
     case state.matches('getCurrentUser'):
     case actorState?.matches('fetchUserAttributes'):
       /**
