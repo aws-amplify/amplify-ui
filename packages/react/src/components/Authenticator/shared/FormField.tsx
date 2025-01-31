@@ -76,9 +76,9 @@ export function FormField({
     return (
       <>
         <RadioGroupField {...props} legend={props.label} name={name}>
-          {radioOptions?.map((option) => (
-            <Radio key={option} value={option}>
-              {option}
+          {radioOptions?.map(({ label, value }) => (
+            <Radio key={value} value={value}>
+              {label}
             </Radio>
           ))}
         </RadioGroupField>
