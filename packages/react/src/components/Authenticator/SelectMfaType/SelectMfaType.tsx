@@ -9,6 +9,9 @@ import { ConfirmSignInFooter } from '../shared/ConfirmSignInFooter';
 import { RemoteErrorMessage } from '../shared/RemoteErrorMessage';
 import { FormFields } from '../shared/FormFields';
 import { RouteContainer, RouteProps } from '../RouteContainer';
+import { authenticatorTextUtil } from '@aws-amplify/ui';
+
+const { getSelectMfaTypeByChallengeName } = authenticatorTextUtil;
 
 export const SelectMfaType = ({
   className,
@@ -59,12 +62,10 @@ SelectMfaType.Header = function Header(): JSX.Element {
   const { challengeName } = useAuthenticator((context) => {
     return [context.challengeName];
   });
-  const isSetup = challengeName === 'MFA_SETUP';
+
   return (
     <Heading level={3}>
-      {['Multi-Factor', 'Authentication', isSetup && 'Setup']
-        .filter(Boolean)
-        .join(' ')}
+      {getSelectMfaTypeByChallengeName(challengeName)}
     </Heading>
   );
 };
