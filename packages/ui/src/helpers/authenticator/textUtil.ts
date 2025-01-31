@@ -1,5 +1,6 @@
 import { SocialProvider } from '../../types';
 import {
+  AuthMFAType,
   ChallengeName,
   V5CodeDeliveryDetails,
 } from '../../machines/authenticator/types';
@@ -96,7 +97,7 @@ const getSelectMfaTypeByChallengeName = (
   return translate(DefaultTexts.MFA_SELECTION);
 };
 // TODO - i18n
-const getMfaTypeLabelByValue = (value: string): string => {
+const getMfaTypeLabelByValue = (value: AuthMFAType): string => {
   return value;
 };
 

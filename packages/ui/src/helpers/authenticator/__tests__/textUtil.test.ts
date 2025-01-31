@@ -1,4 +1,7 @@
-import { V6AuthDeliveryMedium } from '../../../machines/authenticator/types';
+import {
+  AuthMFAType,
+  V6AuthDeliveryMedium,
+} from '../../../machines/authenticator/types';
 
 import { authenticatorTextUtil } from '../textUtil';
 
@@ -115,6 +118,30 @@ describe('authenticatorTextUtil', () => {
         'Forgot Password?'
       );
     });
+  });
+
+  describe('getSelectMfaTypeByChallengeName', () => {
+    it('returns the correct text when challengeName is MFA_SETUP', () => {
+      expect(
+        authenticatorTextUtil.getSelectMfaTypeByChallengeName('MFA_SETUP')
+      ).toEqual('Multi-Factor Authentication Setup');
+    });
+    it('returns the correct text when challengeName is SELECT_MFA_TYPE', () => {
+      expect(
+        authenticatorTextUtil.getSelectMfaTypeByChallengeName('SELECT_MFA_TYPE')
+      ).toEqual('Multi-Factor Authentication');
+    });
+  });
+
+  describe('getMfaTypeLabelByValue', () => {
+    it.each(['EMAIL', 'SMS', 'TOTP'] as AuthMFAType[])(
+      'returns the correct text when value is %s',
+      (value) => {
+        expect(authenticatorTextUtil.getMfaTypeLabelByValue(value)).toEqual(
+          value
+        );
+      }
+    );
   });
 
   describe('authenticator shared text', () => {

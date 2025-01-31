@@ -29,6 +29,9 @@ export type ChallengeName =
   | 'ADMIN_NO_SRP_AUTH'
   | 'NEW_PASSWORD_REQUIRED';
 
+// JS v6 Mfa Types
+export type AuthMFAType = 'SMS' | 'TOTP' | 'EMAIL';
+
 /**
  * `AuthDeliveryMedium` is deeply nested in the v6 types, added this as utility
  */
@@ -115,7 +118,7 @@ export interface ActorDoneData {
   totpSecretCode?: string;
   username?: string;
   unverifiedUserAttributes?: UnverifiedUserAttributes;
-  allowedMfaTypes?: string[];
+  allowedMfaTypes?: AuthMFAType[];
 }
 
 /**
@@ -186,7 +189,7 @@ interface BaseFormContext {
   step: Step;
   totpSecretCode?: string;
   unverifiedUserAttributes?: UnverifiedUserAttributes;
-  allowedMfaTypes?: string[];
+  allowedMfaTypes?: AuthMFAType[];
 
   // kept in memory for submission to relevnat APIs
   username?: string;

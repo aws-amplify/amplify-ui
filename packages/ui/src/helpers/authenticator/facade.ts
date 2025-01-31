@@ -17,6 +17,7 @@ import {
 
 import {
   AuthActorContext,
+  AuthMFAType,
   AuthEvent,
   AuthEventData,
   AuthEventTypes,
@@ -66,7 +67,7 @@ interface AuthenticatorServiceContextFacade {
   user: AuthUser;
   username: string;
   validationErrors: AuthenticatorValidationErrors;
-  allowedMfaTypes: string[] | undefined;
+  allowedMfaTypes: AuthMFAType[] | undefined;
 }
 
 type SendEventAlias =
@@ -102,7 +103,7 @@ interface NextAuthenticatorServiceContextFacade {
   totpSecretCode: string | undefined;
   username: string | undefined;
   unverifiedUserAttributes: UnverifiedUserAttributes | undefined;
-  allowedMfaTypes: string[] | undefined;
+  allowedMfaTypes: AuthMFAType[] | undefined;
 }
 
 interface NextAuthenticatorSendEventAliases
