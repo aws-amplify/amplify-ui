@@ -41,6 +41,9 @@ const DEFAULTS = {
   SignIn,
   SignUp,
   VerifyUser,
+  // TODO - update with RN implementation
+  SetupEmail: null as never,
+  SelectMfaType: null as never,
 };
 
 const routePropSelector = ({
