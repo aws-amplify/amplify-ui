@@ -49,7 +49,7 @@ const customServices: AuthContext['services'] = {
 
 export default function App() {
   return (
-    <Authenticator initialState="signIn" services={customServices}>
+    <Authenticator services={customServices}>
       {({ signOut, user }) => (
         <main>
           <h1>Hello {user.username}</h1>
