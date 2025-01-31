@@ -71,7 +71,7 @@ export interface FormFieldOptions {
   /** Whether the first character is auto-capitalized */
   autocapitalize?: string;
   /** Options for radio input groups */
-  radioOptions?: string[];
+  radioOptions?: { label: string; value: string }[];
 }
 
 export interface LegacyFormFieldOptions extends FormFieldOptions {
