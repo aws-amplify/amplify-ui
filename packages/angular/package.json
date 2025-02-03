@@ -43,6 +43,8 @@
   },
   "workspaces": {
     "nohoist": [
+      "**/@angular",
+      "**/@angular/**",
       "@angular-devkit/build-angular"
     ]
   },
