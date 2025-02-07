@@ -1,5 +1,11 @@
 # @aws-amplify/ui-react-storage
 
+## 3.8.0
+
+### Minor Changes
+
+- [#5562](https://github.com/aws-amplify/amplify-ui/pull/5562) [`2e107f96db84d4a2b29bf3c03750fceb92f25bca`](https://github.com/aws-amplify/amplify-ui/commit/2e107f96db84d4a2b29bf3c03750fceb92f25bca) Thanks [@jordanvn](https://github.com/jordanvn)! - Support for multiple buckets added to storage image and file uploader
+
 ## 3.7.2
 
 ### Patch Changes
