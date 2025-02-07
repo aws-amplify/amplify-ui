@@ -1,8 +1,14 @@
 import { ListLocations, LocationData } from '../../../actions';
-import { listPaths, ListPathsOutput } from '../../../storage-internal';
+import { listPaths } from '../../../storage-internal';
 
 import { getPaginatedLocations } from '../getPaginatedLocations';
-import { createAmplifyListLocationsHandler } from '../createAmplifyListLocationsHandler';
+import {
+  createAmplifyListLocationsHandler,
+  PathAccessWithPermission,
+  PathAccessWithPermissions,
+  ExtendedListPaths,
+  ExtendedListPathsOutput,
+} from '../createAmplifyListLocationsHandler';
 
 jest.mock('../../../storage-internal', () => ({
   listPaths: jest.fn(),
@@ -15,7 +21,7 @@ jest.mock(
 );
 
 describe('createAmplifyListLocationsHandler', () => {
-  const mockListPaths = jest.mocked(listPaths);
+  const mockListPaths = jest.mocked(listPaths as ExtendedListPaths);
   const mockGetPaginatedItems = jest.mocked(getPaginatedLocations);
   const mockId = 'intentionally-static-test-id';
 
@@ -31,7 +37,7 @@ describe('createAmplifyListLocationsHandler', () => {
 
   it('should fetch locations when the cache is empty', async () => {
     const handler = createAmplifyListLocationsHandler();
-    const fetchedLocations: ListPathsOutput['locations'] = [
+    const fetchedLocations: ExtendedListPathsOutput['locations'] = [
       {
         bucket: 'bucket1',
         permission: ['read'],
@@ -73,7 +79,7 @@ describe('createAmplifyListLocationsHandler', () => {
     const handler: ListLocations = createAmplifyListLocationsHandler();
     const input = { options: { pageSize: 10, nextToken: undefined } };
 
-    const fetchedLocations: ListPathsOutput['locations'] = [
+    const fetchedLocations: ExtendedListPathsOutput['locations'] = [
       {
         bucket: 'bucket1',
         permission: ['read'],
@@ -114,7 +120,7 @@ describe('createAmplifyListLocationsHandler', () => {
 
   it('should handle pagination', async () => {
     const handler = createAmplifyListLocationsHandler();
-    const fetchedLocations: ListPathsOutput['locations'] = [
+    const fetchedLocations: ExtendedListPathsOutput['locations'] = [
       {
         bucket: 'bucket1',
         permission: ['read'],
@@ -164,5 +170,163 @@ describe('createAmplifyListLocationsHandler', () => {
       pageSize: input.options.pageSize,
       nextToken: input.options.nextToken,
     });
+  });
+
+  it('behaves as expected when no input is provided', async () => {
+    const handler: ListLocations = createAmplifyListLocationsHandler();
+
+    const fetchedLocations: ExtendedListPathsOutput['locations'] = [
+      {
+        bucket: 'bucket1',
+        permission: ['read'],
+        prefix: 'prefix1/*',
+        type: 'PREFIX',
+      },
+    ];
+    mockListPaths.mockResolvedValueOnce({ locations: fetchedLocations });
+
+    const sanitizedLocations: LocationData[] = [
+      {
+        prefix: 'prefix1/',
+        bucket: 'bucket1',
+        id: mockId,
+        permissions: ['get', 'list'],
+        type: 'PREFIX',
+      },
+    ];
+
+    const paginatedResult = { items: sanitizedLocations, nextToken: undefined };
+
+    mockGetPaginatedItems.mockReturnValueOnce(paginatedResult);
+    // @ts-expect-error intentionally call `handler` without `input` to test robustness
+    const result = await handler();
+
+    expect(result).toEqual(paginatedResult);
+    expect(mockGetPaginatedItems).toHaveBeenCalledWith({
+      items: sanitizedLocations,
+      pageSize: undefined,
+      nextToken: undefined,
+    });
+    expect(mockListPaths).toHaveBeenCalledTimes(1);
+  });
+
+  it('handles a returned prefix that does not end with "*" as expected', async () => {
+    const handler: ListLocations = createAmplifyListLocationsHandler();
+    const input = { options: { pageSize: 10, nextToken: undefined } };
+
+    const fetchedLocations: ExtendedListPathsOutput['locations'] = [
+      {
+        bucket: 'bucket1',
+        permission: ['read'],
+        prefix: 'prefix1/',
+        type: 'PREFIX',
+      },
+    ];
+    mockListPaths.mockResolvedValueOnce({ locations: fetchedLocations });
+
+    const sanitizedLocations: LocationData[] = [
+      {
+        prefix: 'prefix1/',
+        bucket: 'bucket1',
+        id: mockId,
+        permissions: ['get', 'list'],
+        type: 'PREFIX',
+      },
+    ];
+
+    const paginatedResult = { items: sanitizedLocations, nextToken: undefined };
+    mockGetPaginatedItems.mockReturnValueOnce(paginatedResult);
+
+    const result = await handler(input);
+
+    expect(result).toEqual(paginatedResult);
+    expect(mockGetPaginatedItems).toHaveBeenCalledWith({
+      items: sanitizedLocations,
+      pageSize: input.options.pageSize,
+      nextToken: input.options.nextToken,
+    });
+    expect(mockListPaths).toHaveBeenCalledTimes(1);
+  });
+
+  it('handles a location returned from `listPaths` that includes a "permission" key as expected', async () => {
+    const handler: ListLocations = createAmplifyListLocationsHandler();
+    const input = { options: { pageSize: 10, nextToken: undefined } };
+
+    const fetchedLocations: PathAccessWithPermission[] = [
+      {
+        bucket: 'bucket1',
+        permission: ['read'],
+        prefix: 'prefix1/',
+        type: 'PREFIX',
+      },
+    ];
+    mockListPaths.mockResolvedValueOnce({ locations: fetchedLocations });
+
+    const sanitizedLocations: LocationData[] = [
+      {
+        prefix: 'prefix1/',
+        bucket: 'bucket1',
+        id: mockId,
+        permissions: ['get', 'list'],
+        type: 'PREFIX',
+      },
+    ];
+
+    const paginatedResult = {
+      items: sanitizedLocations,
+      nextToken: undefined,
+    };
+    mockGetPaginatedItems.mockReturnValueOnce(paginatedResult);
+
+    const result = await handler(input);
+
+    expect(result).toEqual(paginatedResult);
+    expect(mockGetPaginatedItems).toHaveBeenCalledWith({
+      items: sanitizedLocations,
+      pageSize: input.options.pageSize,
+      nextToken: input.options.nextToken,
+    });
+    expect(mockListPaths).toHaveBeenCalledTimes(1);
+  });
+
+  it('handles a location returned from `listPaths` that includes a "permissions" key as expected', async () => {
+    const handler: ListLocations = createAmplifyListLocationsHandler();
+    const input = { options: { pageSize: 10, nextToken: undefined } };
+
+    const fetchedLocations: PathAccessWithPermissions[] = [
+      {
+        bucket: 'bucket1',
+        permissions: ['read'],
+        prefix: 'prefix1/',
+        type: 'PREFIX',
+      },
+    ];
+    mockListPaths.mockResolvedValueOnce({ locations: fetchedLocations });
+
+    const sanitizedLocations: LocationData[] = [
+      {
+        prefix: 'prefix1/',
+        bucket: 'bucket1',
+        id: mockId,
+        permissions: ['get', 'list'],
+        type: 'PREFIX',
+      },
+    ];
+
+    const paginatedResult = {
+      items: sanitizedLocations,
+      nextToken: undefined,
+    };
+    mockGetPaginatedItems.mockReturnValueOnce(paginatedResult);
+
+    const result = await handler(input);
+
+    expect(result).toEqual(paginatedResult);
+    expect(mockGetPaginatedItems).toHaveBeenCalledWith({
+      items: sanitizedLocations,
+      pageSize: input.options.pageSize,
+      nextToken: input.options.nextToken,
+    });
+    expect(mockListPaths).toHaveBeenCalledTimes(1);
   });
 });

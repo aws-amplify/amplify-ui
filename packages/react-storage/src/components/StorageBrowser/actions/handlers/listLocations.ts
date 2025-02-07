@@ -45,10 +45,7 @@ export interface ListLocationsHandlerInput {
   };
 }
 
-export interface ListLocationsHandlerOutput {
-  items: LocationData[];
-  nextToken: string | undefined;
-}
+export interface ListLocationsHandlerOutput extends ListLocationsOutput {}
 
 export interface ListLocationsHandler
   extends ListHandler<ListLocationsHandlerInput, ListLocationsHandlerOutput> {}

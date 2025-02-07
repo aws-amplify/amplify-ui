@@ -19,13 +19,13 @@ export const toAccessGrantPermission = (
 ): Permission => {
   let result: string = '';
 
-  permission.forEach((access: StorageAccess) => {
-    if (['read', 'get', 'list'].includes(access as string)) {
+  permission.forEach((access: string) => {
+    if (['read', 'get', 'list'].includes(access)) {
       if (!result.includes('READ')) {
         result = 'READ' + result;
       }
     }
-    if (['write', 'delete'].includes(access as string)) {
+    if (['write', 'delete'].includes(access)) {
       if (!result.includes('WRITE')) {
         result += 'WRITE';
       }
@@ -39,7 +39,7 @@ export const toAccessGrantPermission = (
   return result as Permission;
 };
 
-export const parseAmplifyAuthPermission = (
+export const parseAmplifyAuthPermissions = (
   permissions: StorageAccess[]
 ): LocationPermissions => {
   const result: LocationPermissions = [];

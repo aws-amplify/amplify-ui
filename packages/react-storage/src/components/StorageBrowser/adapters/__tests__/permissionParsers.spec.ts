@@ -1,7 +1,7 @@
 import {
   parseAccessGrantPermission,
   toAccessGrantPermission,
-  parseAmplifyAuthPermission,
+  parseAmplifyAuthPermissions,
 } from '../../adapters/permissionParsers';
 import { StorageAccess } from '../../storage-internal';
 
@@ -62,7 +62,7 @@ describe('toAccessGrantPermission', () => {
   });
 });
 
-describe('parseAmplifyAuthPermission', () => {
+describe('parseAmplifyAuthPermissions', () => {
   it.each([
     [['read'], ['get', 'list']],
     [
@@ -78,14 +78,14 @@ describe('parseAmplifyAuthPermission', () => {
       ['delete', 'write'],
     ],
   ])('should parse %s to %s', (permission, expected) => {
-    expect(parseAmplifyAuthPermission(permission as StorageAccess[])).toEqual(
+    expect(parseAmplifyAuthPermissions(permission as StorageAccess[])).toEqual(
       expected
     );
   });
 
   it('should throw an error if the permission is invalid', () => {
     // @ts-expect-error: test invalid permission
-    expect(() => parseAmplifyAuthPermission(['INVALID'])).toThrow(
+    expect(() => parseAmplifyAuthPermissions(['INVALID'])).toThrow(
       'Improper Permission: Please provide correct permission.'
     );
   });
