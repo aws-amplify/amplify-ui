@@ -93,7 +93,7 @@ jobs:
       - name: Build packages
         run: yarn build
       - name: Publish to @latest
-        uses: changesets/action@b98cec97583b917ff1dc6179dd4d230d3e439894
+        uses: changesets/action@07dc948a9f77d5ebbdbcea0d7e452a2f57c55ca9
         with:
           publish: yarn publish:latest
         env:
