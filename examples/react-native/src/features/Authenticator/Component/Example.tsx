@@ -1,8 +1,9 @@
-import React from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { Button, StyleSheet, Text, View, TextInput } from 'react-native';
 
 import { Amplify } from 'aws-amplify';
 import { Authenticator, useAuthenticator } from '@aws-amplify/ui-react-native';
+import type { DefaultSignInProps } from '@aws-amplify/ui-react-native/dist/Authenticator/Defaults/types';
 
 import awsconfig from './aws-exports';
 Amplify.configure(awsconfig);
@@ -12,10 +13,26 @@ function SignOutButton() {
   return <Button onPress={signOut} title="Sign Out" />;
 }
 
-const MySignIn = () => {
+const MySignIn = (props: DefaultSignInProps) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const onLoginPress = () => {
+    try {
+      props.handleSubmit({
+        username: email,
+        password,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <View>
-      <Text>My Sign In</Text>
+      <TextInput onChangeText={setEmail} value={email}/>
+      <TextInput onChangeText={setPassword} value={password}/>
+      <Button onPress={onLoginPress} title="Login" />
     </View>
   );
 };
@@ -25,7 +42,7 @@ function App() {
     <Authenticator.Provider>
       <Authenticator
         // render override SignIn subcomponent
-        components={{ SignIn: MySignIn }}
+        components={{ SignIn: props => <MySignIn {...props} /> }}
       >
         <View style={style.container}>
           <SignOutButton />
