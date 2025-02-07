@@ -167,6 +167,26 @@ You can limit what users upload with these 3 props:
   </ExampleCode>
 </Example>
 
+## Setting a Bucket
+
+If you have [configured your Amplify project to use multiple S3 buckets](https://docs.amplify.aws/react/build-a-backend/storage/set-up-storage/#configure-additional-storage-buckets), you can use the `bucket` prop to choose which of the buckets the component will use:
+
+<Example>
+  <FileTypesExample />
+  <ExampleCode>
+    ```jsx file=./examples/BucketFriendly.tsx
+    ```
+  </ExampleCode>
+</Example>
+
+Alternatively, you can specify the bucket using the name and region it is assigned within S3:
+
+<Example>
+  <ExampleCode>
+    ```jsx file=./examples/BucketExact.tsx
+    ```
+  </ExampleCode>
+</Example>
 
 ## Pausable / Resumable Uploads
 
