@@ -141,6 +141,7 @@ export type SetupEmailBaseProps<FieldType = {}> = {
   ValidationProps;
 
 export type SelectMfaTypeBaseProps<FieldType = {}> = {
+  challengeName: ChallengeName | undefined;
   toSignIn: UseAuthenticator['toSignIn'];
   allowedMfaTypes: UseAuthenticator['allowedMfaTypes'];
   username: UseAuthenticator['username'];

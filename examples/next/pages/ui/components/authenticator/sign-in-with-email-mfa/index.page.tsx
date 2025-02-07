@@ -4,7 +4,7 @@ import { Authenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
 import awsExports from './aws-exports';
-import { AuthContext, emailRegex } from '@aws-amplify/ui';
+import { AuthContext } from '@aws-amplify/ui';
 Amplify.configure(awsExports);
 
 const customServices: AuthContext['services'] = {
@@ -22,10 +22,7 @@ const customServices: AuthContext['services'] = {
     };
   },
   handleConfirmSignIn: async ({ challengeResponse }) => {
-    if (/^\d+$/.test(challengeResponse)) {
-      if (challengeResponse.length !== 6) {
-        throw new Error('Invalid code or auth state for the user.');
-      }
+    if (/^\d{6}$/.test(challengeResponse)) {
       return {
         isSignedIn: true,
         nextStep: {
@@ -33,6 +30,7 @@ const customServices: AuthContext['services'] = {
         },
       };
     }
+    throw new Error('Invalid code or auth state for the user.');
   },
   getCurrentUser: async () => {
     return {
