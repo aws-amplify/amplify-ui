@@ -9,6 +9,10 @@ import AWSExports from './shared/add-aws-exports-type.mdx';
 
 <AWSExports />
 
+### Server-side Rendering (SSR)
+
+Amplify UI components are interactive and designed to work on the client side. You must ensure that code invoking Amplify UI components are not executed on the server in SSR-enabled projects.
+
 ### Problems with `OnPush` change detection
 
 The Authenticator component currently does not support use of the `OnPush` [change detection strategy](https://angular.io/api/core/ChangeDetectionStrategy). Please use the `Default` strategy instead.
