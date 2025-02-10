@@ -29,7 +29,7 @@ export const getFileRowContent = ({
   size: number;
   onDownload: () => void;
   onSelect: () => void;
-}): DataTableProps['rows'][number]['content'] =>
+}): NonNullable<DataTableProps['rows']>[number]['content'] =>
   LOCATION_DETAIL_VIEW_HEADERS.map(({ key: columnKey }) => {
     const key = `${columnKey}-${rowId}`;
     switch (columnKey) {

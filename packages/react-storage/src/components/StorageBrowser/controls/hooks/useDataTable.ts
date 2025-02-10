@@ -85,7 +85,7 @@ export const useDataTable = (): DataTableProps => {
 
   const sortedRows = React.useMemo(() => {
     // Early return if there is no table data
-    if (!tableData) {
+    if (!tableData?.rows) {
       return;
     }
     // Return rows as is if there are no sortable columns
@@ -104,7 +104,7 @@ export const useDataTable = (): DataTableProps => {
 
     tableData.rows.forEach((row) => {
       const { type } = row.content[index];
-      groupedRows[type].push(row);
+      groupedRows[type]!.push(row);
     });
 
     const groupOrder =
@@ -115,7 +115,7 @@ export const useDataTable = (): DataTableProps => {
         if (UNSORTABLE_GROUPS.includes(groupType)) {
           return groupedRows[groupType];
         }
-        return groupedRows[groupType].sort((rowA, rowB) => {
+        return groupedRows[groupType]!.sort((rowA, rowB) => {
           switch (groupType) {
             case 'button': {
               return compareButtonData(
@@ -149,12 +149,12 @@ export const useDataTable = (): DataTableProps => {
           }
         });
       })
+      .filter((row) => row !== undefined)
       .flat();
   }, [sortState, tableData]);
 
   return {
     headers: mappedHeaders ?? [],
-    isLoading,
-    rows: sortedRows ?? [],
+    rows: !isLoading ? sortedRows : [],
   };
 };

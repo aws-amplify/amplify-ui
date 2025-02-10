@@ -18,13 +18,11 @@ export interface DataTableRow {
 
 export interface DataTableProps {
   headers: WithKey<DataTableHeader>[];
-  isLoading?: boolean;
-  rows: WithKey<DataTableRow>[];
+  rows?: WithKey<DataTableRow>[];
 }
 
 export const DataTable = ({
   headers,
-  isLoading,
   rows,
 }: DataTableProps): React.JSX.Element => {
   const mappedHeaders = headers.map(({ key, content, type }) => {
@@ -51,7 +49,7 @@ export const DataTable = ({
     }
   });
 
-  const mappedRows = isLoading
+  const mappedRows = !rows
     ? []
     : rows.map(({ key, content }) => ({
         key,

@@ -25,7 +25,7 @@ interface TableData {
     | Exclude<DataTableProps['headers'][number], DataTableSortHeader>
     | TruncatedSortHeader
   )[];
-  rows: DataTableProps['rows'];
+  rows?: DataTableProps['rows'];
 }
 
 interface PaginationData {
