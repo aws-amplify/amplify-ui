@@ -16,6 +16,7 @@
     "esModuleInterop": true,
     "strict": true,
     "paths": {
+      "@angular/*": ["node_modules/@angular/*"],
       "@aws-amplify/ui-angular": ["../../packages/angular/dist/ui-angular"],
       "@aws-amplify/ui-angular/*": ["../../packages/angular/dist/ui-angular/*"],
       "@environments/*": ["../../environments/*"]
