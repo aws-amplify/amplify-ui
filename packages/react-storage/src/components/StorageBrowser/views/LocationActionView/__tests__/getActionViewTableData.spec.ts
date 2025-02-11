@@ -186,9 +186,9 @@ describe('getActionViewTableData', () => {
       },
       {
         data: {
-          id: '1',
-          fileKey: 'file1.txt',
-          key: 'folder/subfolder/file1.txt',
+          id: '2',
+          fileKey: 'file2.txt',
+          key: 'folder/subfolder/file2.txt',
           lastModified: new Date(),
           size: 1000,
           type: 'FILE',
@@ -200,9 +200,9 @@ describe('getActionViewTableData', () => {
       },
       {
         data: {
-          id: '1',
-          fileKey: 'file1.txt',
-          key: 'folder/subfolder/file1.txt',
+          id: '3',
+          fileKey: 'file3.txt',
+          key: 'folder/subfolder/file3.txt',
           lastModified: new Date(),
           size: 1000,
           type: 'FILE',
