@@ -11,6 +11,15 @@ import awsConfig from './aws-exports';
 Amplify.configure(awsConfig);
 
 const customServices: AuthContext['services'] = {
+  handleSignUp: async () => {
+    return {
+      isSignUpComplete: true,
+      userId: '******************',
+      nextStep: {
+        signUpStep: 'COMPLETE_AUTO_SIGN_IN',
+      },
+    };
+  },
   handleAutoSignIn: async () => {
     return {
       isSignedIn: false,
