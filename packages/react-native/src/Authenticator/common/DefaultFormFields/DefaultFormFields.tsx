@@ -16,10 +16,10 @@ const DefaultFormFields = ({
   fieldLabelStyle,
   isPending = false,
   validationErrors,
-  fields,
+  fields = [],
   style,
 }: DefaultFormFieldsProps): React.JSX.Element => {
-  const formFields = (fields ?? []).map((field) => {
+  const formFields = fields.map((field) => {
     const errors = validationErrors
       ? getErrors(validationErrors?.[field.name])
       : [];

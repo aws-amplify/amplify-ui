@@ -198,7 +198,6 @@ describe('getSanitizedFields', () => {
       'Each field must have a name; field has been ignored.'
     );
 
-    expect(output).toHaveLength(1);
     expect(output).toStrictEqual([validField]);
   });
 
@@ -214,10 +213,9 @@ describe('getSanitizedFields', () => {
 
     expect(warnSpy).toHaveBeenCalledTimes(1);
     expect(warnSpy).toHaveBeenCalledWith(
-      'Each field name must be unique; field with duplicate name of email has been ignored.'
+      'Each field name must be unique; field with duplicate name of "email" has been ignored.'
     );
 
-    expect(output).toHaveLength(1);
     expect(output).toStrictEqual([validField]);
   });
 
@@ -237,10 +235,9 @@ describe('getSanitizedFields', () => {
 
     expect(warnSpy).toHaveBeenCalledTimes(1);
     expect(warnSpy).toHaveBeenCalledWith(
-      'Each radio field must have at least one option available for selection; field without radioOptions mfa_type has been ignored.'
+      'Each radio field must have at least one option available for selection; field of name "mfa_type" without radioOptions has been ignored.'
     );
 
-    expect(output).toHaveLength(1);
     expect(output).toStrictEqual([validField]);
   });
 });

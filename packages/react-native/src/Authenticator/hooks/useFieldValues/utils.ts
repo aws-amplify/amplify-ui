@@ -87,14 +87,14 @@ export const getSanitizedFields = (fields: TypedField[]): TypedField[] => {
 
     if (names[name]) {
       logger.warn(
-        `Each field name must be unique; field with duplicate name of ${name} has been ignored.`
+        `Each field name must be unique; field with duplicate name of "${name}" has been ignored.`
       );
       return false;
     }
 
     if (isRadioFieldOptions(field) && !field.radioOptions?.length) {
       logger.warn(
-        `Each radio field must have at least one option available for selection; field without radioOptions ${name} has been ignored.`
+        `Each radio field must have at least one option available for selection; field of name "${name}" without radioOptions has been ignored.`
       );
       return false;
     }

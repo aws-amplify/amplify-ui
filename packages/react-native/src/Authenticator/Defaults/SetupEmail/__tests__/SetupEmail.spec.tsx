@@ -73,6 +73,6 @@ describe('SetupEmail', () => {
     const { queryByText } = render(<SetupEmail {...props} isPending />);
 
     expect(queryByText(getConfirmingText())).toBeDefined();
-    expect(queryByText(getConfirmText())).toBe(null);
+    expect(queryByText(getConfirmText())).toBeNull();
   });
 });
