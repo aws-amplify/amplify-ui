@@ -1,5 +1,5 @@
 import { Amplify, ResourcesConfig } from 'aws-amplify';
-import { autoSignIn, UserAttributeKey } from 'aws-amplify/auth';
+import { UserAttributeKey } from 'aws-amplify/auth';
 
 import {
   confirmResetPassword,
@@ -89,8 +89,6 @@ export const defaultServices = {
   handleConfirmSignUp: confirmSignUp,
   handleForgotPasswordSubmit: confirmResetPassword,
   handleForgotPassword: resetPassword,
-  handleAutoSignIn: autoSignIn,
-
   // Validation hooks for overriding
   async validateCustomSignUp(
     _: AuthFormData,

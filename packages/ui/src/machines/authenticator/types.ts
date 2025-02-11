@@ -1,5 +1,5 @@
 import { State } from 'xstate';
-import { AuthUser } from 'aws-amplify/auth';
+import { AuthUser, SignInOutput } from 'aws-amplify/auth';
 
 import {
   LoginMechanism,
@@ -135,7 +135,11 @@ export interface AuthContext {
     initialState?: 'signIn' | 'signUp' | 'forgotPassword';
     passwordSettings?: PasswordSettings;
   };
-  services?: Partial<typeof defaultServices>;
+  // default autoSignIn reference from Amplify JS changes outside of state machine
+  // avoid mutating context outside of state machine
+  services?: Partial<typeof defaultServices> & {
+    handleAutoSignIn?: () => Promise<SignInOutput>;
+  };
   user?: AuthUser;
   // data returned from actors when they finish and reach their final state
   actorDoneData?: ActorDoneData;
