@@ -5,7 +5,7 @@ import {
   DefaultContent,
   DefaultFooter,
   DefaultHeader,
-  DefaultRadioFormFields,
+  DefaultVerifyUserFormFields,
 } from '../../common';
 import { useFieldValues } from '../../hooks';
 import { DefaultVerifyUserProps } from '../types';
@@ -68,7 +68,7 @@ const VerifyUser = ({
 };
 
 VerifyUser.Footer = DefaultFooter;
-VerifyUser.FormFields = DefaultRadioFormFields;
+VerifyUser.FormFields = DefaultVerifyUserFormFields;
 VerifyUser.Header = DefaultHeader;
 
 VerifyUser.displayName = COMPONENT_NAME;

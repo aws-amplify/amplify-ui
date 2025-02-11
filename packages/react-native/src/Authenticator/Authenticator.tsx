@@ -28,6 +28,8 @@ import {
   SignIn,
   SignUp,
   VerifyUser,
+  SetupEmail,
+  SelectMfaType,
 } from './Defaults';
 
 const DEFAULTS = {
@@ -41,9 +43,8 @@ const DEFAULTS = {
   SignIn,
   SignUp,
   VerifyUser,
-  // TODO - update with RN implementation
-  SetupEmail: null as never,
-  SelectMfaType: null as never,
+  SetupEmail,
+  SelectMfaType,
 };
 
 const routePropSelector = ({
@@ -121,5 +122,7 @@ Authenticator.SetupTotp = SetupTotp;
 Authenticator.SignIn = SignIn;
 Authenticator.SignUp = SignUp;
 Authenticator.VerifyUser = VerifyUser;
+Authenticator.SetupEmail = SetupEmail;
+Authenticator.SelectMfaType = SelectMfaType;
 
 export default Authenticator;
