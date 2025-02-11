@@ -2,7 +2,7 @@ import React from 'react';
 import { censorContactMethod, ContactMethod } from '@aws-amplify/ui';
 
 import { Radio, RadioGroup } from '../../../primitives';
-import { DefaultRadioFormFieldsProps } from './types';
+import { DefaultVerifyUserFormFieldsProps } from './types';
 
 interface AttributeMap {
   email: ContactMethod;
@@ -14,13 +14,13 @@ const attributeMap: AttributeMap = {
   phone_number: 'Phone Number',
 };
 
-const DefaultRadioFormFields = ({
+const DefaultVerifyUserFormFields = ({
   fields,
   fieldContainerStyle,
   fieldLabelStyle,
   isPending,
   style,
-}: DefaultRadioFormFieldsProps): React.JSX.Element => {
+}: DefaultVerifyUserFormFieldsProps): React.JSX.Element => {
   return (
     <RadioGroup disabled={isPending} style={style}>
       {(fields ?? []).map(({ name, value, ...props }) => {
@@ -43,6 +43,6 @@ const DefaultRadioFormFields = ({
   );
 };
 
-DefaultRadioFormFields.displayName = 'FormFields';
+DefaultVerifyUserFormFields.displayName = 'FormFields';
 
-export default DefaultRadioFormFields;
+export default DefaultVerifyUserFormFields;
