@@ -115,17 +115,13 @@ exports[`useAuthenticatorRoute returns the expected values for the selectMfaType
     "Footer": [Function],
     "FormFields": [Function],
     "Header": [Function],
-    "allowedMfaTypes": [
-      "EMAIL",
-      "TOTP",
-    ],
+    "challengeName": "CUSTOM_CHALLENGE",
     "error": "error",
     "handleBlur": [MockFunction],
     "handleChange": [MockFunction],
     "handleSubmit": [MockFunction],
     "isPending": false,
     "toSignIn": [MockFunction],
-    "username": "george",
   },
 }
 `;
@@ -143,7 +139,6 @@ exports[`useAuthenticatorRoute returns the expected values for the setupEmail ro
     "handleSubmit": [MockFunction],
     "isPending": false,
     "toSignIn": [MockFunction],
-    "username": "george",
   },
 }
 `;

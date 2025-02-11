@@ -1,5 +1,7 @@
 import * as React from 'react';
 
+import { authenticatorTextUtil } from '@aws-amplify/ui';
+
 import { Flex } from '../../../primitives/Flex';
 import { Heading } from '../../../primitives/Heading';
 import { useAuthenticator } from '@aws-amplify/ui-react-core';
@@ -9,6 +11,8 @@ import { ConfirmSignInFooter } from '../shared/ConfirmSignInFooter';
 import { RemoteErrorMessage } from '../shared/RemoteErrorMessage';
 import { FormFields } from '../shared/FormFields';
 import { RouteContainer, RouteProps } from '../RouteContainer';
+
+const { getSetupEmailText } = authenticatorTextUtil;
 
 export const SetupEmail = ({
   className,
@@ -51,7 +55,7 @@ export const SetupEmail = ({
 };
 
 SetupEmail.Header = function Header(): JSX.Element {
-  return <Heading level={3}>Setup Email</Heading>;
+  return <Heading level={3}>{getSetupEmailText()}</Heading>;
 };
 
 SetupEmail.Footer = function Footer(): JSX.Element {

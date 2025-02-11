@@ -135,15 +135,13 @@ export type SetupTotpBaseProps<FieldType = {}> = {
 
 export type SetupEmailBaseProps<FieldType = {}> = {
   toSignIn: UseAuthenticator['toSignIn'];
-  username: UseAuthenticator['username'];
 } & CommonRouteProps &
   ComponentSlots<FieldType> &
   ValidationProps;
 
 export type SelectMfaTypeBaseProps<FieldType = {}> = {
+  challengeName: UseAuthenticator['challengeName'];
   toSignIn: UseAuthenticator['toSignIn'];
-  allowedMfaTypes: UseAuthenticator['allowedMfaTypes'];
-  username: UseAuthenticator['username'];
 } & CommonRouteProps &
   ComponentSlots<FieldType> &
   ValidationProps;

@@ -92,14 +92,12 @@ const SETUP_TOTP_MACHINE_KEYS: SetupTotpMachineKey[] = [
 const SETUP_EMAIL_MACHINE_KEY: SetupEmailMachineKey[] = [
   ...COMMON_ROUTE_MACHINE_KEYS,
   'toSignIn',
-  'username',
 ];
 
-const SELECT_MFA_MACHINE_KEY: SelectMfaMachineKey[] = [
+const SELECT_MFA_MACHINE_KEYS: SelectMfaMachineKey[] = [
   ...COMMON_ROUTE_MACHINE_KEYS,
+  'challengeName',
   'toSignIn',
-  'allowedMfaTypes',
-  'username',
 ];
 
 const VERIFY_USER_MACHINE_KEYS: VerifyUserMachineKey[] = [
@@ -121,6 +119,6 @@ export const MACHINE_PROP_KEYS: Record<
   forgotPassword: RESET_PASSWORD_MACHINE_KEYS,
   setupTotp: SETUP_TOTP_MACHINE_KEYS,
   setupEmail: SETUP_EMAIL_MACHINE_KEY,
-  selectMfaType: SELECT_MFA_MACHINE_KEY,
+  selectMfaType: SELECT_MFA_MACHINE_KEYS,
   verifyUser: VERIFY_USER_MACHINE_KEYS,
 };
