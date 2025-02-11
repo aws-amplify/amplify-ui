@@ -85,6 +85,6 @@ describe('SelectMfaType', () => {
     const { queryByText } = render(<SelectMfaType {...props} isPending />);
 
     expect(queryByText(getConfirmingText())).toBeDefined();
-    expect(queryByText(getConfirmText())).toBe(null);
+    expect(queryByText(getConfirmText())).toBeNull();
   });
 });
