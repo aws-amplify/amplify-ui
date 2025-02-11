@@ -1,0 +1,856 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SelectMfaType renders an error message 1`] = `
+[
+  <Text
+    accessibilityRole="header"
+    style={
+      [
+        {
+          "color": "hsl(210, 50%, 10%)",
+        },
+        {
+          "fontSize": 24,
+          "fontWeight": "500",
+          "lineHeight": 36,
+        },
+        {
+          "marginVertical": 12,
+          "paddingHorizontal": 12,
+        },
+      ]
+    }
+  >
+    Multi-Factor Authentication Setup
+  </Text>,
+  <View
+    style={
+      {
+        "paddingBottom": 8,
+      }
+    }
+  >
+    <View
+      style={
+        [
+          {},
+          {
+            "flexDirection": "column-reverse",
+          },
+          {
+            "paddingBottom": 8,
+          },
+        ]
+      }
+      testID="amplify__radio-group__container"
+    >
+      <View
+        accessibilityRole="radiogroup"
+        accessible={true}
+        style={
+          {
+            "flexDirection": "column",
+          }
+        }
+      >
+        <View
+          accessibilityRole="radio"
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          name="mfa_type"
+          onBlur={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          radioOptions={
+            [
+              {
+                "label": "Email message (EMAIL)",
+                "value": "EMAIL",
+              },
+              {
+                "label": "Software Token Mfa (TOTP)",
+                "value": "TOTP",
+              },
+            ]
+          }
+          style={
+            [
+              {
+                "alignItems": "center",
+                "flexDirection": "row",
+              },
+              undefined,
+              {
+                "paddingHorizontal": 12,
+              },
+            ]
+          }
+          type="radio"
+        >
+          <View
+            style={
+              [
+                {
+                  "alignItems": "center",
+                  "borderColor": "hsl(210, 10%, 58%)",
+                  "borderRadius": 999,
+                  "borderWidth": 2,
+                  "justifyContent": "center",
+                  "margin": 4,
+                },
+                {
+                  "height": 20,
+                  "width": 20,
+                },
+                undefined,
+              ]
+            }
+            testID="amplify__radio-button__container"
+          />
+          <Text
+            accessibilityRole="text"
+            style={
+              [
+                {
+                  "fontSize": 16,
+                  "fontWeight": "400",
+                  "lineHeight": 24,
+                },
+                {
+                  "color": "hsl(210, 50%, 10%)",
+                },
+                {},
+              ]
+            }
+          >
+            Email message (EMAIL)
+          </Text>
+        </View>
+        <View
+          accessibilityRole="radio"
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          name="mfa_type"
+          onBlur={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          radioOptions={
+            [
+              {
+                "label": "Email message (EMAIL)",
+                "value": "EMAIL",
+              },
+              {
+                "label": "Software Token Mfa (TOTP)",
+                "value": "TOTP",
+              },
+            ]
+          }
+          style={
+            [
+              {
+                "alignItems": "center",
+                "flexDirection": "row",
+              },
+              undefined,
+              {
+                "paddingHorizontal": 12,
+              },
+            ]
+          }
+          type="radio"
+        >
+          <View
+            style={
+              [
+                {
+                  "alignItems": "center",
+                  "borderColor": "hsl(210, 10%, 58%)",
+                  "borderRadius": 999,
+                  "borderWidth": 2,
+                  "justifyContent": "center",
+                  "margin": 4,
+                },
+                {
+                  "height": 20,
+                  "width": 20,
+                },
+                undefined,
+              ]
+            }
+            testID="amplify__radio-button__container"
+          />
+          <Text
+            accessibilityRole="text"
+            style={
+              [
+                {
+                  "fontSize": 16,
+                  "fontWeight": "400",
+                  "lineHeight": 24,
+                },
+                {
+                  "color": "hsl(210, 50%, 10%)",
+                },
+                {},
+              ]
+            }
+          >
+            Software Token Mfa (TOTP)
+          </Text>
+        </View>
+      </View>
+    </View>
+  </View>,
+  <View
+    accessibilityRole="alert"
+    accessible={true}
+    style={
+      [
+        {
+          "alignItems": "center",
+          "backgroundColor": "hsl(0, 75%, 95%)",
+          "flexDirection": "row",
+          "paddingHorizontal": 8,
+          "paddingVertical": 12,
+        },
+        {
+          "marginHorizontal": 12,
+        },
+      ]
+    }
+    testID="amplify__error-message"
+  >
+    <Image
+      accessibilityRole="image"
+      accessible={true}
+      source={
+        {
+          "uri": "error",
+        }
+      }
+      style={
+        [
+          {
+            "height": 20,
+            "resizeMode": "contain",
+            "tintColor": undefined,
+            "width": 20,
+          },
+          [
+            {
+              "margin": 8,
+              "tintColor": "hsl(0, 100%, 20%)",
+            },
+            {},
+          ],
+        ]
+      }
+    />
+    <Text
+      style={
+        [
+          {
+            "color": "hsl(0, 100%, 20%)",
+            "flex": 1,
+            "fontSize": 16,
+            "paddingHorizontal": 8,
+          },
+          {},
+        ]
+      }
+    >
+      Test error message
+    </Text>
+  </View>,
+  <View
+    accessibilityRole="button"
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": false,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      [
+        {
+          "alignItems": "center",
+          "backgroundColor": "hsl(190, 95%, 30%)",
+          "borderRadius": 4,
+          "flexDirection": "row",
+          "gap": 12,
+          "justifyContent": "center",
+          "paddingHorizontal": 16,
+          "paddingVertical": 12,
+        },
+        undefined,
+        {
+          "margin": 12,
+        },
+      ]
+    }
+    testID="amplify__button"
+  >
+    <Text
+      style={
+        [
+          {
+            "color": "hsl(0, 0%, 100%)",
+            "fontSize": 16,
+            "fontWeight": "700",
+            "textAlign": "center",
+          },
+          {},
+        ]
+      }
+    >
+      Confirm
+    </Text>
+  </View>,
+  <View
+    style={
+      {
+        "flexDirection": "row",
+        "flexWrap": "wrap",
+        "justifyContent": "center",
+      }
+    }
+  >
+    <View
+      accessibilityRole="button"
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        [
+          {
+            "alignItems": "center",
+            "backgroundColor": "transparent",
+            "borderRadius": 4,
+            "flexDirection": "row",
+            "gap": 12,
+            "justifyContent": "center",
+            "paddingHorizontal": 16,
+            "paddingVertical": 12,
+          },
+          undefined,
+          {
+            "marginVertical": 8,
+            "minWidth": "50%",
+          },
+        ]
+      }
+    >
+      <Text
+        style={
+          [
+            {
+              "color": "hsl(190, 95%, 30%)",
+              "fontSize": 16,
+              "fontWeight": "700",
+              "textAlign": "center",
+            },
+            undefined,
+          ]
+        }
+      >
+        Back to Sign In
+      </Text>
+    </View>
+  </View>,
+]
+`;
+
+exports[`SelectMfaType renders as expected 1`] = `
+[
+  <Text
+    accessibilityRole="header"
+    style={
+      [
+        {
+          "color": "hsl(210, 50%, 10%)",
+        },
+        {
+          "fontSize": 24,
+          "fontWeight": "500",
+          "lineHeight": 36,
+        },
+        {
+          "marginVertical": 12,
+          "paddingHorizontal": 12,
+        },
+      ]
+    }
+  >
+    Multi-Factor Authentication Setup
+  </Text>,
+  <View
+    style={
+      {
+        "paddingBottom": 8,
+      }
+    }
+  >
+    <View
+      style={
+        [
+          {},
+          {
+            "flexDirection": "column-reverse",
+          },
+          {
+            "paddingBottom": 8,
+          },
+        ]
+      }
+      testID="amplify__radio-group__container"
+    >
+      <View
+        accessibilityRole="radiogroup"
+        accessible={true}
+        style={
+          {
+            "flexDirection": "column",
+          }
+        }
+      >
+        <View
+          accessibilityRole="radio"
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          name="mfa_type"
+          onBlur={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          radioOptions={
+            [
+              {
+                "label": "Email message (EMAIL)",
+                "value": "EMAIL",
+              },
+              {
+                "label": "Software Token Mfa (TOTP)",
+                "value": "TOTP",
+              },
+            ]
+          }
+          style={
+            [
+              {
+                "alignItems": "center",
+                "flexDirection": "row",
+              },
+              undefined,
+              {
+                "paddingHorizontal": 12,
+              },
+            ]
+          }
+          type="radio"
+        >
+          <View
+            style={
+              [
+                {
+                  "alignItems": "center",
+                  "borderColor": "hsl(210, 10%, 58%)",
+                  "borderRadius": 999,
+                  "borderWidth": 2,
+                  "justifyContent": "center",
+                  "margin": 4,
+                },
+                {
+                  "height": 20,
+                  "width": 20,
+                },
+                undefined,
+              ]
+            }
+            testID="amplify__radio-button__container"
+          />
+          <Text
+            accessibilityRole="text"
+            style={
+              [
+                {
+                  "fontSize": 16,
+                  "fontWeight": "400",
+                  "lineHeight": 24,
+                },
+                {
+                  "color": "hsl(210, 50%, 10%)",
+                },
+                {},
+              ]
+            }
+          >
+            Email message (EMAIL)
+          </Text>
+        </View>
+        <View
+          accessibilityRole="radio"
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          name="mfa_type"
+          onBlur={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          radioOptions={
+            [
+              {
+                "label": "Email message (EMAIL)",
+                "value": "EMAIL",
+              },
+              {
+                "label": "Software Token Mfa (TOTP)",
+                "value": "TOTP",
+              },
+            ]
+          }
+          style={
+            [
+              {
+                "alignItems": "center",
+                "flexDirection": "row",
+              },
+              undefined,
+              {
+                "paddingHorizontal": 12,
+              },
+            ]
+          }
+          type="radio"
+        >
+          <View
+            style={
+              [
+                {
+                  "alignItems": "center",
+                  "borderColor": "hsl(210, 10%, 58%)",
+                  "borderRadius": 999,
+                  "borderWidth": 2,
+                  "justifyContent": "center",
+                  "margin": 4,
+                },
+                {
+                  "height": 20,
+                  "width": 20,
+                },
+                undefined,
+              ]
+            }
+            testID="amplify__radio-button__container"
+          />
+          <Text
+            accessibilityRole="text"
+            style={
+              [
+                {
+                  "fontSize": 16,
+                  "fontWeight": "400",
+                  "lineHeight": 24,
+                },
+                {
+                  "color": "hsl(210, 50%, 10%)",
+                },
+                {},
+              ]
+            }
+          >
+            Software Token Mfa (TOTP)
+          </Text>
+        </View>
+      </View>
+    </View>
+  </View>,
+  <View
+    accessibilityRole="button"
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": false,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      [
+        {
+          "alignItems": "center",
+          "backgroundColor": "hsl(190, 95%, 30%)",
+          "borderRadius": 4,
+          "flexDirection": "row",
+          "gap": 12,
+          "justifyContent": "center",
+          "paddingHorizontal": 16,
+          "paddingVertical": 12,
+        },
+        undefined,
+        {
+          "margin": 12,
+        },
+      ]
+    }
+    testID="amplify__button"
+  >
+    <Text
+      style={
+        [
+          {
+            "color": "hsl(0, 0%, 100%)",
+            "fontSize": 16,
+            "fontWeight": "700",
+            "textAlign": "center",
+          },
+          {},
+        ]
+      }
+    >
+      Confirm
+    </Text>
+  </View>,
+  <View
+    style={
+      {
+        "flexDirection": "row",
+        "flexWrap": "wrap",
+        "justifyContent": "center",
+      }
+    }
+  >
+    <View
+      accessibilityRole="button"
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        [
+          {
+            "alignItems": "center",
+            "backgroundColor": "transparent",
+            "borderRadius": 4,
+            "flexDirection": "row",
+            "gap": 12,
+            "justifyContent": "center",
+            "paddingHorizontal": 16,
+            "paddingVertical": 12,
+          },
+          undefined,
+          {
+            "marginVertical": 8,
+            "minWidth": "50%",
+          },
+        ]
+      }
+    >
+      <Text
+        style={
+          [
+            {
+              "color": "hsl(190, 95%, 30%)",
+              "fontSize": 16,
+              "fontWeight": "700",
+              "textAlign": "center",
+            },
+            undefined,
+          ]
+        }
+      >
+        Back to Sign In
+      </Text>
+    </View>
+  </View>,
+]
+`;
