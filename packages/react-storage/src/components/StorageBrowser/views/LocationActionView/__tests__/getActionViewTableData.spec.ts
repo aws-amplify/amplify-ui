@@ -167,4 +167,68 @@ describe('getActionViewTableData', () => {
     );
     expect(result.rows).toMatchSnapshot();
   });
+
+  it('should return the right display value for progress', () => {
+    const tasks: Tasks<FileDataItem> = [
+      {
+        data: {
+          id: '1',
+          fileKey: 'file1.txt',
+          key: 'folder/subfolder/file1.txt',
+          lastModified: new Date(),
+          size: 1000,
+          type: 'FILE',
+        },
+        status: 'QUEUED',
+        cancel: jest.fn(),
+        progress: 0,
+        message: '',
+      },
+      {
+        data: {
+          id: '1',
+          fileKey: 'file1.txt',
+          key: 'folder/subfolder/file1.txt',
+          lastModified: new Date(),
+          size: 1000,
+          type: 'FILE',
+        },
+        status: 'QUEUED',
+        cancel: jest.fn(),
+        progress: 0.5,
+        message: '',
+      },
+      {
+        data: {
+          id: '1',
+          fileKey: 'file1.txt',
+          key: 'folder/subfolder/file1.txt',
+          lastModified: new Date(),
+          size: 1000,
+          type: 'FILE',
+        },
+        status: 'QUEUED',
+        cancel: jest.fn(),
+        progress: 1,
+        message: '',
+      },
+    ];
+
+    const result = getActionViewTableData({
+      tasks,
+      locationKey: 'folder/subfolder/',
+      displayText: DEFAULT_UPLOAD_VIEW_DISPLAY_TEXT,
+      isProcessing: false,
+      onTaskRemove: jest.fn(),
+      shouldDisplayProgress: true,
+    });
+
+    const zero = result.rows[0].content[5].content;
+    const half = result.rows[1].content[5].content;
+    const full = result.rows[2].content[5].content;
+
+    expect((zero as { displayValue: string }).displayValue).toBe('0%');
+    expect((half as { displayValue: string }).displayValue).toBe('50%');
+    expect((full as { displayValue: string }).displayValue).toBe('100%');
+  });
 });
