@@ -5,21 +5,21 @@ import {
   resendSignUpCode,
   signInWithRedirect,
   fetchUserAttributes,
+  autoSignIn,
 } from 'aws-amplify/auth';
 
-import { AuthEvent, SignUpContext } from '../types';
+import { AuthContext, AuthEvent, SignUpContext } from '../types';
 import { getSignUpInput } from '../utils';
 
 import { runValidators } from '../../../validators';
 
 import actions from '../actions';
-import { defaultServices } from '../defaultServices';
 import guards from '../guards';
 
 import { getFederatedSignInState } from './utils';
 
 export type SignUpMachineOptions = {
-  services?: Partial<typeof defaultServices>;
+  services?: AuthContext['services'];
 };
 
 const handleResetPasswordResponse = {
@@ -277,7 +277,7 @@ export function signUpActor({ services }: SignUpMachineOptions) {
       guards,
       services: {
         autoSignIn() {
-          return services.handleAutoSignIn();
+          return services.handleAutoSignIn?.() || autoSignIn();
         },
         async fetchUserAttributes() {
           return fetchUserAttributes();
