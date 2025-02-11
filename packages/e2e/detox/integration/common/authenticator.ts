@@ -197,8 +197,10 @@ When('I click the {string} button', async (name: string) => {
   }
 });
 
-When('I click the {string} radio button', async (label: string) => {
-  await element(by.id('amplify__radio-button__container')).tap();
+When('I click the {string} radio button', async (name: string) => {
+  await element(
+    by.text(name).withAncestor(by.id('amplify__radio-group__container'))
+  ).tap();
 });
 
 Then(
