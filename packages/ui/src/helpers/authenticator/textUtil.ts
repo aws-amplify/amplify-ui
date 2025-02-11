@@ -147,6 +147,9 @@ export const authenticatorTextUtil = {
   /** ForgotPassword */
   getResetYourPasswordText: () => translate(DefaultTexts.RESET_PASSWORD),
 
+  /** SetupEmail */
+  getSetupEmailText: () => translate(DefaultTexts.SETUP_EMAIL),
+
   /** SetupTotp */
   getSetupTotpText: () => translate(DefaultTexts.SETUP_TOTP),
   // TODO: add defaultText for below

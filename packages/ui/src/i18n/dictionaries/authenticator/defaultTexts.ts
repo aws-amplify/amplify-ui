@@ -63,6 +63,7 @@ export const defaultTexts = {
   RESET_PASSWORD: 'Reset Password',
   SEND_CODE: 'Send code',
   SENDING: 'Sending',
+  SETUP_EMAIL: 'Setup Email',
   SETUP_TOTP: 'Setup TOTP',
   SHOW_PASSWORD: 'Show password',
   SIGN_IN_BUTTON: 'Sign in',
