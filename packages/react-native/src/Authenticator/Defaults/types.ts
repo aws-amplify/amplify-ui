@@ -15,6 +15,8 @@ export interface SetupTotpStyle {}
 export interface SignInStyle {}
 export interface SignUpStyle {}
 export interface VerifyUserStyle {}
+export interface SetupEmailStyle {}
+export interface SelectMfaTypeStyle {}
 
 export type DefaultComponents<
   FieldType = {},
@@ -85,6 +87,20 @@ export type DefaultVerifyUserProps = React.ComponentPropsWithoutRef<
   >['VerifyUser']
 >;
 
+export type DefaultSetupEmailProps = React.ComponentPropsWithoutRef<
+  DefaultComponents<
+    TextFieldOptionsType,
+    { style?: SetupEmailStyle }
+  >['SetupEmail']
+>;
+
+export type DefaultSelectMfaTypeProps = React.ComponentPropsWithoutRef<
+  DefaultComponents<
+    RadioFieldOptions,
+    { style?: SelectMfaTypeStyle }
+  >['SelectMfaType']
+>;
+
 /**
  * Custom Authenticator components
  */
@@ -143,6 +159,16 @@ type VerifyUserComponent<P = {}> = OverrideComponents<
   { style?: VerifyUserStyle } & P
 >['VerifyUser'];
 
+type SetupEmailComponent<P = {}> = OverrideComponents<
+  TextFieldOptionsType,
+  { style?: SetupEmailStyle } & P
+>['SetupEmail'];
+
+type SelectMfaTypeComponent<P = {}> = OverrideComponents<
+  RadioFieldOptions,
+  { style?: SelectMfaTypeStyle } & P
+>['SelectMfaType'];
+
 /**
  * Override `Authenticator` components param
  */
@@ -157,4 +183,6 @@ export interface Components {
   SignIn?: SignInComponent;
   SignUp?: SignUpComponent;
   VerifyUser?: VerifyUserComponent;
+  SetupEmail?: SetupEmailComponent;
+  SelectMfaType?: SelectMfaTypeComponent;
 }

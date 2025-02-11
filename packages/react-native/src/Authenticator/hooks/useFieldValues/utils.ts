@@ -18,7 +18,6 @@ import {
   AuthenticatorFieldTypeKey,
   MachineFieldTypeKey,
   RadioFieldOptions,
-  TextFieldOptionsType,
   TypedField,
 } from '../types';
 import { KEY_ALLOW_LIST } from './constants';
@@ -31,16 +30,15 @@ export const isRadioFieldOptions = (
   field: TypedField
 ): field is RadioFieldOptions => field?.type === 'radio';
 
-export const getSanitizedRadioFields = (
-  fields: TypedField[],
-  componentName: AuthenticatorRouteComponentName
+export const getSanitizedVerifyUserFields = (
+  fields: TypedField[]
 ): TypedField[] => {
   const values: Record<string, boolean> = {};
 
   return fields.filter((field) => {
     if (!isRadioFieldOptions(field)) {
       logger.warn(
-        `${componentName} component does not support text fields. field with type ${field.type} has been ignored.`
+        `VerifyUser component does not support text fields. field with type ${field.type} has been ignored.`
       );
       return false;
     }
@@ -72,6 +70,36 @@ export const getSanitizedRadioFields = (
 
     // add `value` key to `values`
     values[value] = true;
+
+    return true;
+  });
+};
+
+export const getSanitizedFields = (fields: TypedField[]): TypedField[] => {
+  const names: Record<string, boolean> = {};
+  return fields.filter((field) => {
+    const { name } = field;
+
+    if (!name) {
+      logger.warn('Each field must have a name; field has been ignored.');
+      return false;
+    }
+
+    if (names[name]) {
+      logger.warn(
+        `Each field name must be unique; field with duplicate name of ${name} has been ignored.`
+      );
+      return false;
+    }
+
+    if (isRadioFieldOptions(field) && !field.radioOptions?.length) {
+      logger.warn(
+        `Each radio field must have at least one option available for selection; field without radioOptions ${name} has been ignored.`
+      );
+      return false;
+    }
+
+    names[name] = true;
 
     return true;
   });
@@ -117,7 +145,7 @@ const isKeyAllowed = (key: string) =>
 const isValidMachineFieldType = (
   type: string | undefined
 ): type is MachineFieldTypeKey =>
-  type === 'password' || type === 'tel' || type == 'email';
+  type === 'password' || type === 'tel' || type == 'email' || type === 'radio';
 
 const getFieldType = (type: string | undefined): AuthenticatorFieldTypeKey => {
   if (isValidMachineFieldType(type)) {
@@ -193,7 +221,7 @@ export function getRouteTypedFields({
  * @returns {string[]} field errors array
  */
 export const runFieldValidation = (
-  field: TextFieldOptionsType,
+  field: TypedField,
   value: string | undefined,
   stateValidations: ValidationError | undefined
 ): string[] => {
