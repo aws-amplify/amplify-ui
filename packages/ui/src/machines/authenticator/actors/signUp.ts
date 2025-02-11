@@ -18,6 +18,8 @@ import guards from '../guards';
 
 import { getFederatedSignInState } from './utils';
 
+// default autoSignIn reference from Amplify JS changes outside of state machine
+// avoid mutating context outside of state machine
 export type SignUpMachineOptions = {
   services?: AuthContext['services'];
 };
