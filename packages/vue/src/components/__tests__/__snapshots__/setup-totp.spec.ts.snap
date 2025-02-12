@@ -69,7 +69,7 @@ exports[`SetupTotp renders loading text as expected on init 1`] = `
             </div>
             
             
-            <!-- password input -->
+            <!-- radio input -->
             
             <!-- textfield input -->
             <div
@@ -258,7 +258,7 @@ exports[`SetupTotp renders qrcode image as expected after onMounted is done 1`] 
             </div>
             
             
-            <!-- password input -->
+            <!-- radio input -->
             
             <!-- textfield input -->
             <div

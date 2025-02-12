@@ -32,7 +32,7 @@ exports[`SignIn renders as expected 1`] = `
           </legend>
           
           
-          <!-- password input -->
+          <!-- radio input -->
           
           <!-- textfield input -->
           <div
@@ -85,6 +85,8 @@ exports[`SignIn renders as expected 1`] = `
           <!-- Validation error, if any -->
           <!--v-if-->
           
+          
+          <!-- radio input -->
           
           <!-- password input -->
           <div
@@ -153,6 +155,7 @@ exports[`SignIn renders as expected 1`] = `
             </div>
             
           </div>
+          
           <!-- Validation error, if any -->
           <!--v-if-->
           
