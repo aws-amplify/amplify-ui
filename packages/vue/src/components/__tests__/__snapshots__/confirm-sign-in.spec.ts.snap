@@ -31,7 +31,7 @@ exports[`ConfirmSignIn renders as expected for SMS challenge 1`] = `
           
           
           
-          <!-- password input -->
+          <!-- radio input -->
           
           <!-- textfield input -->
           <div
@@ -175,7 +175,7 @@ exports[`ConfirmSignIn renders as expected for TOTP challenge 1`] = `
           
           
           
-          <!-- password input -->
+          <!-- radio input -->
           
           <!-- textfield input -->
           <div

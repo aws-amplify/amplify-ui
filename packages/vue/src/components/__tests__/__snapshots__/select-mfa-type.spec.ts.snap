@@ -1,0 +1,198 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SelectMfaType renders as expected  1`] = `
+<div>
+  
+  <div>
+    
+    
+    <form
+      data-amplify-authenticator-selectmfatype=""
+      data-amplify-form=""
+    >
+      
+      
+      <fieldset
+        class="amplify-flex amplify-authenticator__column"
+        data-amplify-fieldset=""
+      >
+        
+        
+        <h3
+          class="amplify-heading amplify-heading--3"
+          data-amplify-heading=""
+        >
+          Multi-Factor Authentication Setup
+        </h3>
+        
+        <div
+          class="amplify-flex amplify-authenticator__column"
+        >
+          
+          
+          
+          <!-- radio input -->
+          <div
+            aria-invalid="false"
+            class="amplify-flex amplify-field amplify-radiogroupfield amplify-authenticator__column"
+            role="radiogroup"
+          >
+            
+            <label
+              class="amplify-label"
+              data-amplify-label=""
+              id="amplify-field-99999"
+            >
+              
+              Select MFA Type
+              
+            </label>
+            <div
+              aria-labelledby="amplify-field-99999"
+              class="amplify-flex amplify-field amplify-radiogroup amplify-authenticator__column"
+            >
+              
+              
+              <label
+                class="amplify-flex amplify-radio"
+                data-amplify-label=""
+                data-amplify-radio-control-label=""
+              >
+                
+                
+                <span
+                  class="amplify-text amplify-radio__label"
+                  data-amplify-text=""
+                >
+                  
+                  EMAIL
+                  
+                </span>
+                
+                <input
+                  aria-invalid="false"
+                  aria-labelledby="amplify-field-99999"
+                  class="amplify-input amplify-field-group__control amplify-visually-hidden amplify-radio__input"
+                  data-amplify-input=""
+                  data-amplify-radio-control-input=""
+                  name="mfa_type"
+                  type="radio"
+                  value="EMAIL"
+                />
+                
+                <span
+                  aria-hidden="true"
+                  class="amplify-flex amplify-radio__button"
+                  data-amplify-text=""
+                >
+                  
+                  
+                </span>
+                
+                
+              </label>
+              <label
+                class="amplify-flex amplify-radio"
+                data-amplify-label=""
+                data-amplify-radio-control-label=""
+              >
+                
+                
+                <span
+                  class="amplify-text amplify-radio__label"
+                  data-amplify-text=""
+                >
+                  
+                  TOTP
+                  
+                </span>
+                
+                <input
+                  aria-invalid="false"
+                  aria-labelledby="amplify-field-99999"
+                  class="amplify-input amplify-field-group__control amplify-visually-hidden amplify-radio__input"
+                  data-amplify-input=""
+                  data-amplify-radio-control-input=""
+                  name="mfa_type"
+                  type="radio"
+                  value="TOTP"
+                />
+                
+                <span
+                  aria-hidden="true"
+                  class="amplify-flex amplify-radio__button"
+                  data-amplify-text=""
+                >
+                  
+                  
+                </span>
+                
+                
+              </label>
+              
+              
+            </div>
+            
+          </div>
+          <!-- Validation error, if any -->
+          <!--v-if-->
+          
+          
+          
+        </div>
+        
+        <footer
+          class="amplify-flex amplify-authenticator__column"
+        >
+          
+          <!--v-if-->
+          
+          <button
+            class="amplify-button amplify-field-group__control amplify-button--primary amplify-field-group__control amplify-authenticator__font"
+            data-amplify-button=""
+            data-disabled="false"
+            data-fullwidth="false"
+            data-loading="false"
+            data-variation="primary"
+            fullwidth="false"
+            style="font-weight: normal;"
+          >
+            
+            Confirm
+            
+          </button>
+          
+          
+          <button
+            class="amplify-button amplify-field-group__control amplify-button--link amplify-button--small amplify-field-group__control amplify-authenticator__font"
+            data-amplify-button=""
+            data-disabled="false"
+            data-fullwidth="false"
+            data-loading="false"
+            data-size="small"
+            data-variation="link"
+            fullwidth="false"
+            style="font-weight: normal;"
+            type="button"
+          >
+            
+            Back to Sign In
+            
+          </button>
+          
+          
+          
+          
+        </footer>
+        
+        
+      </fieldset>
+      
+      
+    </form>
+    
+    
+  </div>
+  
+</div>
+`;

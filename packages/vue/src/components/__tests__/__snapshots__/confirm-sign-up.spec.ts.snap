@@ -40,7 +40,7 @@ exports[`ConfirmSignUp renders as expected 1`] = `
           
           
           
-          <!-- password input -->
+          <!-- radio input -->
           
           <!-- textfield input -->
           <div

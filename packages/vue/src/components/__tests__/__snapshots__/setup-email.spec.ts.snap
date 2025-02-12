@@ -1,12 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ConfirmVerifyUser renders as expected 1`] = `
+exports[`SetupEmail renders as expected  1`] = `
 <div>
   
   <div>
     
     
     <form
+      data-amplify-authenticator-setupemail=""
       data-amplify-form=""
     >
       
@@ -21,7 +22,7 @@ exports[`ConfirmVerifyUser renders as expected 1`] = `
           class="amplify-heading amplify-heading--3"
           data-amplify-heading=""
         >
-          Account recovery requires verified contact information
+          Setup Email
         </h3>
         
         <div
@@ -43,7 +44,7 @@ exports[`ConfirmVerifyUser renders as expected 1`] = `
               for="amplify-field-99999"
             >
               
-              Code *
+              Setup Email
               
             </label>
             <div
@@ -68,10 +69,10 @@ exports[`ConfirmVerifyUser renders as expected 1`] = `
                   class="amplify-input amplify-field-group__control"
                   data-amplify-input=""
                   id="amplify-field-99999"
-                  name="confirmation_code"
-                  placeholder="Code"
+                  name="email"
+                  placeholder="Email"
                   required=""
-                  type="number"
+                  type="email"
                 />
                 
               </div>
@@ -101,10 +102,10 @@ exports[`ConfirmVerifyUser renders as expected 1`] = `
             data-loading="false"
             data-variation="primary"
             fullwidth="false"
-            type="submit"
+            style="font-weight: normal;"
           >
             
-            Submit
+            Confirm
             
           </button>
           
@@ -122,7 +123,7 @@ exports[`ConfirmVerifyUser renders as expected 1`] = `
             type="button"
           >
             
-            Skip
+            Back to Sign In
             
           </button>
           
