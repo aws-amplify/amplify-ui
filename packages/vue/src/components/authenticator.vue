@@ -31,6 +31,8 @@ import ForgotPassword from './forgot-password.vue';
 import ConfirmResetPassword from './confirm-reset-password.vue';
 import VerifyUser from './verify-user.vue';
 import ConfirmVerifyUser from './confirm-verify-user.vue';
+import SelectMfaType from './select-mfa-type.vue';
+import SetupEmail from './setup-email.vue'
 
 interface AuthenticatorProps {
   hideSignUp?: boolean;
@@ -118,6 +120,8 @@ const ForgotPasswordComponent = ref();
 const confirmResetPasswordComponent = ref();
 const verifyUserComponent = ref();
 const confirmVerifyUserComponent = ref();
+const selectMfaTypeComponent = ref();
+const setupEmailComponent = ref();
 
 // text util
 const { getSignInTabText, getSignUpTabText } = authenticatorTextUtil;
@@ -143,6 +147,8 @@ const hasRouteComponent = computed(() => {
     'signIn',
     'signUp',
     'verifyUser',
+    'selectMfaType',
+    'setupEmail'
   ];
   return routesWithComponent.includes(route.value);
 });
@@ -351,6 +357,42 @@ const hasRouteComponent = computed(() => {
             <slot name="confirm-verify-user-footer"> </slot>
           </template>
         </confirm-verify-user>
+
+        <select-mfa-type
+          v-if="route === 'selectMfaType'"
+          ref="selectMfaTypeComponent"
+        >
+          <template #selectMfaTypeSlotI>
+            <slot name="select-mfa-type"></slot>
+          </template>
+          <template #header>
+            <slot name="select-mfa-type-header"></slot>
+          </template>
+          <template #select-mfa-type-form-fields>
+            <slot name="select-mfa-type-user"></slot>
+          </template>
+          <template #footer>
+            <slot name="select-mfa-type-footer"> </slot>
+          </template>
+        </select-mfa-type>
+
+        <setup-email
+          v-if="route === 'setupEmail'"
+          ref="setupEmailComponent"
+        >
+          <template #setupEmailSlotI>
+            <slot name="setup-email"></slot>
+          </template>
+          <template #header>
+            <slot name="setup-email-header"></slot>
+          </template>
+          <template #setup-email-form-fields>
+            <slot name="setup-email"></slot>
+          </template>
+          <template #footer>
+            <slot name="setup-email-footer"> </slot>
+          </template>
+        </setup-email>
       </div>
       <slot name="footer"></slot>
     </div>
