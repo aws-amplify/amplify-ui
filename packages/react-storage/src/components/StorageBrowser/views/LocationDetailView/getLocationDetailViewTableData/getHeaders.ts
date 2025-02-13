@@ -1,5 +1,5 @@
 import { LocationDetailViewHeaders } from './types';
-import { DataTableCheckboxHeader } from '../../../composables/DataTable/types';
+import { LOCATION_DETAIL_VIEW_HEADERS } from './constants';
 
 export const getHeaders = ({
   tableColumnLastModifiedHeader,
@@ -19,45 +19,67 @@ export const getHeaders = ({
   selectAllFilesLabel: string;
   onSelectAll: () => void;
   hasFiles: boolean;
-}): LocationDetailViewHeaders => {
-  const headerCheckbox: DataTableCheckboxHeader & { key: 'checkbox' } = {
-    key: 'checkbox',
-    type: 'checkbox',
-    content: {
-      checked: areAllFilesSelected,
-      label: selectAllFilesLabel,
-      onSelect: onSelectAll,
-      id: 'header-checkbox',
-    },
-  };
-  let headers: LocationDetailViewHeaders = [
-    { key: 'checkbox', type: 'text', content: { text: '' } },
-    {
-      key: 'name',
-      type: 'sort',
-      content: { label: tableColumnNameHeader },
-    },
-    {
-      key: 'type',
-      type: 'sort',
-      content: { label: tableColumnTypeHeader },
-    },
-    {
-      key: 'last-modified',
-      type: 'sort',
-      content: { label: tableColumnLastModifiedHeader },
-    },
-    {
-      key: 'size',
-      type: 'sort',
-      content: { label: tableColumnSizeHeader },
-    },
-    { key: 'download', type: 'text', content: { text: '' } },
-  ];
-
-  if (hasFiles) {
-    headers = [headerCheckbox, ...headers.slice(1)];
-  }
-
-  return headers;
-};
+}): LocationDetailViewHeaders =>
+  LOCATION_DETAIL_VIEW_HEADERS.map((key) => {
+    switch (key) {
+      case 'checkbox': {
+        if (hasFiles) {
+          return {
+            key,
+            type: 'checkbox',
+            content: {
+              checked: areAllFilesSelected,
+              label: selectAllFilesLabel,
+              id: 'header-checkbox',
+              onSelect: onSelectAll,
+            },
+          };
+        } else {
+          return {
+            key,
+            type: 'text',
+            content: { text: '' },
+          };
+        }
+      }
+      case 'name': {
+        return {
+          key,
+          type: 'sort',
+          content: {
+            label: tableColumnNameHeader,
+          },
+        };
+      }
+      case 'type': {
+        return {
+          key,
+          type: 'sort',
+          content: {
+            label: tableColumnTypeHeader,
+          },
+        };
+      }
+      case 'last-modified': {
+        return {
+          key,
+          type: 'sort',
+          content: {
+            label: tableColumnLastModifiedHeader,
+          },
+        };
+      }
+      case 'size': {
+        return {
+          key,
+          type: 'sort',
+          content: {
+            label: tableColumnSizeHeader,
+          },
+        };
+      }
+      case 'download': {
+        return { key, type: 'text', content: { text: '' } };
+      }
+    }
+  });
