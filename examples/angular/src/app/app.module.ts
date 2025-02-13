@@ -28,6 +28,9 @@ import { SignUpWithPhoneComponent } from 'src/pages/ui/components/authenticator/
 import { SignUpWithUsernameComponent } from 'src/pages/ui/components/authenticator/sign-up-with-username/sign-up-with-username.component';
 import { UseAuthenticatorComponent } from 'src/pages/ui/components/authenticator/useAuthenticator/useAuthenticator.component';
 import { UseAuthenticatorHomeComponent } from 'src/pages/ui/components/authenticator/useAuthenticator/home/useAuthenticatorHome.component';
+import { SignInWithEmailMfaComponent } from 'src/pages/ui/components/authenticator/sign-in-with-email-mfa/sign-in-with-email-mfa.component';
+import { SignInWithEmailMfaSelectionComponent } from 'src/pages/ui/components/authenticator/sign-in-with-email-mfa-selection/sign-in-with-email-mfa-selection.component';
+import { SignInWithEmailMfaSetupSelectionComponent } from 'src/pages/ui/components/authenticator/sign-in-with-email-mfa-setup-selection/sign-in-with-email-mfa-setup-selection.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +58,9 @@ import { UseAuthenticatorHomeComponent } from 'src/pages/ui/components/authentic
     SignUpWithUsernameComponent,
     UseAuthenticatorComponent,
     UseAuthenticatorHomeComponent,
+    SignInWithEmailMfaComponent,
+    SignInWithEmailMfaSelectionComponent,
+    SignInWithEmailMfaSetupSelectionComponent,
   ],
   imports: [
     BrowserModule,
