@@ -1,5 +1,17 @@
 # @aws-amplify/ui-react-storage
 
+## 3.8.0
+
+### Minor Changes
+
+- [#5562](https://github.com/aws-amplify/amplify-ui/pull/5562) [`2e107f96db84d4a2b29bf3c03750fceb92f25bca`](https://github.com/aws-amplify/amplify-ui/commit/2e107f96db84d4a2b29bf3c03750fceb92f25bca) Thanks [@jordanvn](https://github.com/jordanvn)! - Support for multiple buckets added to storage image and file uploader
+
+### Patch Changes
+
+- [#6353](https://github.com/aws-amplify/amplify-ui/pull/6353) [`261310501b8f56b08f378ca895646e17825081ee`](https://github.com/aws-amplify/amplify-ui/commit/261310501b8f56b08f378ca895646e17825081ee) Thanks [@tiffanynwyeung](https://github.com/tiffanynwyeung)! - Hide storage browser data table rows while table data is not available yet
+
+- [#6347](https://github.com/aws-amplify/amplify-ui/pull/6347) [`c850a338051830c6fe9a2fbad3b31856befd0afb`](https://github.com/aws-amplify/amplify-ui/commit/c850a338051830c6fe9a2fbad3b31856befd0afb) Thanks [@jordanvn](https://github.com/jordanvn)! - Fixed bug causing incorrect progress to be displayed during uploads
+
 ## 3.7.2
 
 ### Patch Changes
