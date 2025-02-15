@@ -7,3 +7,4 @@ export { PhoneNumberFieldComponent } from './phone-number-field/phone-number-fie
 export { TabItemComponent } from './tab-item/tab-item.component';
 export { TabsComponent } from './tabs/tabs.component';
 export { CheckboxComponent } from './checkbox/checkbox.component';
+export { RadioGroupFieldComponent } from './radio-group-field/radio-group-field.component';
