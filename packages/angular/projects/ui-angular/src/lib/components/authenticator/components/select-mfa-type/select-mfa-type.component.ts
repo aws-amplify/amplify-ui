@@ -21,6 +21,7 @@ export class SelectMfaTypeComponent implements OnInit {
   public headerText: string;
   public confirmText = getConfirmText();
   public backToSignInText = getBackToSignInText();
+
   public classNames = classNames;
   public ComponentClassName = ComponentClassName;
 
