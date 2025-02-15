@@ -1,0 +1,147 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SelectMfaTypeComponent renders as expected 1`] = `
+<div
+  id="root0"
+>
+  <form
+    data-amplify-form=""
+  >
+    <fieldset
+      class="amplify-flex amplify-authenticator__column"
+      data-amplify-fieldset=""
+    >
+      <amplify-slot
+        name="select-mfa-type-header"
+        style="display: contents;"
+      >
+        <h3
+          class="amplify-heading amplify-heading--3"
+        >
+          Multi-Factor Authentication Setup
+        </h3>
+        
+        
+      </amplify-slot>
+      <amplify-base-form-fields
+        route="selectMfaType"
+        style="display: contents;"
+      >
+        <amplify-form-field>
+          <div
+            class="amplify-flex amplify-field amplify-authenticator__column"
+          >
+            <amplify-radio-group-field>
+              <fieldset
+                class="amplify-field amplify-flex amplify-radiogroupfield"
+                role="radiogroup"
+              >
+                <label
+                  class="amplify-label"
+                  id="amplify-field-static"
+                >
+                   Select MFA Type 
+                </label>
+                <div
+                  aria-labelledby="amplify-field-static"
+                  class="amplify-field amplify-flex"
+                >
+                  <label
+                    class="amplify-flex amplify-radio"
+                  >
+                    <span
+                      class="amplify-radio__label amplify-text"
+                    >
+                      EMAIL
+                    </span>
+                    <input
+                      aria-labelledby="amplify-field-static"
+                      class="amplify-field-group__control amplify-input amplify-radio__input amplify-visually-hidden"
+                      name="mfa_type"
+                      type="radio"
+                      value="EMAIL"
+                    />
+                    <span
+                      aria-hidden="true"
+                      class="amplify-flex amplify-radio__button"
+                    />
+                  </label>
+                </div>
+                <div
+                  aria-labelledby="amplify-field-static"
+                  class="amplify-field amplify-flex"
+                >
+                  <label
+                    class="amplify-flex amplify-radio"
+                  >
+                    <span
+                      class="amplify-radio__label amplify-text"
+                    >
+                      TOTP
+                    </span>
+                    <input
+                      aria-labelledby="amplify-field-static"
+                      class="amplify-field-group__control amplify-input amplify-radio__input amplify-visually-hidden"
+                      name="mfa_type"
+                      type="radio"
+                      value="TOTP"
+                    />
+                    <span
+                      aria-hidden="true"
+                      class="amplify-flex amplify-radio__button"
+                    />
+                  </label>
+                </div>
+                
+              </fieldset>
+            </amplify-radio-group-field>
+            
+            
+            
+            
+            
+          </div>
+        </amplify-form-field>
+        
+        
+      </amplify-base-form-fields>
+      <button
+        amplify-button=""
+        class="amplify-button amplify-button--fullwidth amplify-button--medium amplify-button--primary"
+        data-fullwidth="true"
+        data-size="medium"
+        data-variation="primary"
+        fullwidth="true"
+        style="font-weight: normal;"
+        type="submit"
+        variation="primary"
+      >
+         Confirm 
+      </button>
+      <button
+        amplify-button=""
+        class="amplify-button amplify-button--fullwidth amplify-button--link amplify-button--small"
+        data-fullwidth="true"
+        data-size="small"
+        data-variation="link"
+        fontweight="normal"
+        fullwidth="true"
+        size="small"
+        style="font-weight: normal;"
+        type="button"
+        variation="link"
+      >
+         Back to Sign In 
+      </button>
+      
+    </fieldset>
+    <amplify-slot
+      name="select-mfa-type-footer"
+      style="display: contents;"
+    >
+      
+      
+    </amplify-slot>
+  </form>
+</div>
+`;

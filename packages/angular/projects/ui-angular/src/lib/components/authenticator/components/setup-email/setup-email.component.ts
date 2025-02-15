@@ -1,0 +1,34 @@
+import { Component } from '@angular/core';
+import { authenticatorTextUtil, getFormDataFromEvent } from '@aws-amplify/ui';
+
+const { getConfirmText, getBackToSignInText, getSetupEmailText } =
+  authenticatorTextUtil;
+import { AuthenticatorService } from '../../../../services/authenticator.service';
+
+@Component({
+  selector: 'amplify-setup-email',
+  templateUrl: './setup-email.component.html',
+})
+export class SetupEmailComponent {
+  public headerText = getSetupEmailText();
+  public confirmText = getConfirmText();
+  public backToSignInText = getBackToSignInText();
+
+  constructor(public authenticator: AuthenticatorService) {}
+
+  public get context(): AuthenticatorService['slotContext'] {
+    return this.authenticator.slotContext;
+  }
+
+  onInput(event: Event): void {
+    event.preventDefault();
+
+    const { name, value } = event.target as HTMLInputElement;
+    this.authenticator.updateForm({ name, value });
+  }
+
+  onSubmit(event: Event): void {
+    event.preventDefault();
+    this.authenticator.submitForm(getFormDataFromEvent(event));
+  }
+}
