@@ -4,7 +4,10 @@
   *ngIf="hasRouteComponent()"
 >
   <div data-amplify-container>
-    <amplify-slot name="header" [context]="context"></amplify-slot>
+    <amplify-slot
+      name="header"
+      [context]="context"
+    ></amplify-slot>
     <div
       data-amplify-router
       [attr.data-amplify-router-content]="hasTabs() ? undefined : ''"
@@ -122,9 +125,30 @@
       >
         <amplify-confirm-verify-user></amplify-confirm-verify-user>
       </amplify-slot>
+
+      <!-- selectMfaType content -->
+      <amplify-slot
+        name="select-mfa-type"
+        [context]="context"
+        *ngIf="route === 'selectMfaType'"
+      >
+        <amplify-select-mfa-type></amplify-select-mfa-type>
+      </amplify-slot>
+
+      <!-- setupEmail content -->
+      <amplify-slot
+        name="setup-email"
+        [context]="context"
+        *ngIf="route === 'setupEmail'"
+      >
+        <amplify-setup-email></amplify-setup-email>
+      </amplify-slot>
     </div>
 
-    <amplify-slot name="footer" [context]="context"></amplify-slot>
+    <amplify-slot
+      name="footer"
+      [context]="context"
+    ></amplify-slot>
   </div>
 </div>
 
