@@ -1,4 +1,16 @@
 <div class="amplify-flex amplify-field amplify-authenticator__column">
+  <!-- Radio Group Field -->
+  <amplify-radio-group-field
+    *ngIf="isRadioField()"
+    [name]="name"
+    [label]="formField.label"
+    [required]="formField.required"
+    [labelHidden]="formField.labelHidden"
+    [hasError]="formField.hasError"
+    [describedBy]="formField.describedBy"
+    [radioOptions]="formField.radioOptions"
+  ></amplify-radio-group-field>
+
   <!-- Country code field -->
   <amplify-phone-number-field
     *ngIf="isPhoneField()"
@@ -29,7 +41,7 @@
   ></amplify-password-field>
 
   <amplify-text-field
-    *ngIf="!isPasswordField() && !isPhoneField()"
+    *ngIf="!isRadioField() && !isPasswordField() && !isPhoneField()"
     [name]="name"
     [label]="formField.label"
     [placeholder]="formField.placeholder"
@@ -41,7 +53,11 @@
     [describedBy]="ariaDescribedBy"
   ></amplify-text-field>
 
-  <div data-amplify-sign-up-errors *ngIf="hasError()" [id]="errorId">
+  <div
+    data-amplify-sign-up-errors
+    *ngIf="hasError()"
+    [id]="errorId"
+  >
     <div
       class="amplify-text amplify-text--error"
       data-variation="error"
