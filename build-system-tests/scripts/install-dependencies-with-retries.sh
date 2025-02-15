@@ -21,8 +21,8 @@ install_dependencies_with_retries() {
             break
         fi
         # Add exponential backoff delay between failed attempts 
-        # [4/16/64]s ~= [5/15/60]s
-        local wait=$((4 ** attempt))
+        # [5/25/125]s ~= 3min total
+        local wait=$((5 ** attempt))
         attempt=$((attempt + 1))
         if [ $attempt -le $retries ]; then
             echo "$1 install failed. Retrying in $wait seconds..."
