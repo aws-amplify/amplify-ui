@@ -3,6 +3,7 @@ import { FileItem, FileItems } from '../../../providers';
 import { ActionViewType, ActionViewProps, ActionViewState } from '../types';
 
 export interface UploadViewState extends ActionViewState<FileItem> {
+  acceptedFileTypes: string[] | undefined;
   isOverwritingEnabled: boolean;
   onDropFiles: (files: File[]) => void;
   onSelectFiles: (type: 'FILE' | 'FOLDER') => void;
@@ -37,4 +38,5 @@ export interface UploadViewType
 
 export interface UseUploadViewOptions {
   onExit?: (location?: LocationData) => void;
+  acceptedFileTypes?: string[];
 }

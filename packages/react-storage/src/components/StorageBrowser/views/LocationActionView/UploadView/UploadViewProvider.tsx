@@ -30,6 +30,7 @@ export function UploadViewProvider({
   } = displayText;
 
   const {
+    acceptedFileTypes,
     isOverwritingEnabled,
     isProcessing,
     isProcessingComplete,
@@ -66,23 +67,24 @@ export function UploadViewProvider({
   return (
     <ControlsContextProvider
       data={{
+        acceptedFileTypes,
         actionCancelLabel,
         actionDestinationLabel,
         actionExitLabel,
         actionStartLabel,
         addFilesLabel,
         addFolderLabel,
+        destination: location,
         isActionCancelDisabled,
+        isActionDestinationNavigable: false,
         isActionExitDisabled,
         isActionStartDisabled,
         isAddFilesDisabled,
         isAddFolderDisabled,
-        isActionDestinationNavigable: false,
         isOverwriteToggleDisabled: isProcessing || isProcessingComplete,
         isOverwritingEnabled,
-        overwriteToggleLabel,
-        destination: location,
         message: actionCompleteMessage ?? filesValidationMessage,
+        overwriteToggleLabel,
         statusCounts,
         statusDisplayCanceledLabel,
         statusDisplayCompletedLabel,

@@ -79,6 +79,11 @@ export default function useDropZone({
     );
 
     const { rejectedFiles } = filterAllowedFiles(files, acceptedFileTypes);
+    // eslint-disable-next-line no-console
+    console.log('rejectedFiles', rejectedFiles);
+    // eslint-disable-next-line no-console
+    console.log('acceptedFileTypes', acceptedFileTypes);
+
     setDragState(rejectedFiles.length > 0 ? 'reject' : 'accept');
   };
 

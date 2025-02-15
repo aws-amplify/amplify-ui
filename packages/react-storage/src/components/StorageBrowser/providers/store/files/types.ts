@@ -5,6 +5,7 @@ import { LocationItemType, TaskData } from '../../../actions';
  * followed by accepted file types as strings
  * @example
  * ```ts
+ * // selecy folder and restrict to jpeg files
  * type JPEGOnly = ['FOLDER', '.jpeg'];
  * ```
  */

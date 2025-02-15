@@ -6,15 +6,18 @@ import { ViewElement } from '../context/elements';
 import { STORAGE_BROWSER_BLOCK } from '../constants';
 
 export interface DropZoneProps {
+  acceptedFileTypes?: string[];
   children?: React.ReactNode;
   onDropFiles?: (files: File[]) => void;
 }
 
 export const DropZone = ({
+  acceptedFileTypes,
   children,
   onDropFiles,
 }: DropZoneProps): React.JSX.Element => {
   const { dragState, ...dropHandlers } = useDropZone({
+    acceptedFileTypes,
     onDropComplete: ({ acceptedFiles }) => {
       onDropFiles?.(acceptedFiles);
     },

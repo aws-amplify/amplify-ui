@@ -36,6 +36,7 @@ interface PaginationData {
 
 export interface ControlsContext {
   data: {
+    acceptedFileTypes?: string[];
     actions?: ActionListItem[];
     actionCancelLabel?: string;
     actionDestinationLabel?: string;

@@ -6,6 +6,8 @@ export {
 export {
   FileItem,
   FileItems,
+  SelectionType,
   StoreProviderProps,
   StoreProvider,
+  useStore,
 } from './store';

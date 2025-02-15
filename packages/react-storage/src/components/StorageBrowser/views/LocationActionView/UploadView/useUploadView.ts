@@ -2,7 +2,7 @@ import React from 'react';
 import { isUndefined } from '@aws-amplify/ui';
 
 import { UploadHandlerData } from '../../../actions';
-import { FileItems, useStore } from '../../../providers/store';
+import { FileItems, SelectionType, useStore } from '../../../providers';
 import { Task } from '../../../tasks';
 import { useAction } from '../../../useAction';
 import { isFileTooBig } from '../../../validators';
@@ -11,15 +11,14 @@ import { UploadViewState, UseUploadViewOptions } from './types';
 import { DEFAULT_OVERWRITE_ENABLED } from './constants';
 
 interface FilesData {
-  invalidFiles: FileItems | undefined;
-  validFiles: FileItems | undefined;
   data: UploadHandlerData[];
+  invalidFiles: FileItems | undefined;
 }
 
 export const useUploadView = (
   options?: UseUploadViewOptions
 ): UploadViewState => {
-  const { onExit: _onExit } = options ?? {};
+  const { onExit: _onExit, acceptedFileTypes } = options ?? {};
 
   const [{ files, location }, dispatchStoreAction] = useStore();
   const { current } = location;
@@ -37,10 +36,6 @@ export const useUploadView = (
               ? [item]
               : curr.invalidFiles.concat(item);
           } else {
-            curr.validFiles = isUndefined(curr.validFiles)
-              ? [item]
-              : curr.validFiles.concat(item);
-
             const parsedFileItem = {
               ...item,
               key: `${location.key}${item.key}`,
@@ -54,7 +49,7 @@ export const useUploadView = (
 
           return curr;
         },
-        { invalidFiles: undefined, validFiles: undefined, data: [] }
+        { invalidFiles: undefined, data: [] }
       ),
     [files, isOverwritingEnabled, location.key]
   );
@@ -73,7 +68,10 @@ export const useUploadView = (
   };
 
   const onSelectFiles = (type?: 'FILE' | 'FOLDER') => {
-    dispatchStoreAction({ type: 'SELECT_FILES', selectionType: type });
+    const selectionType = !acceptedFileTypes
+      ? type
+      : ([type, acceptedFileTypes.join()] as SelectionType);
+    dispatchStoreAction({ type: 'SELECT_FILES', selectionType });
   };
 
   const onActionStart = () => {
@@ -105,19 +103,20 @@ export const useUploadView = (
   };
 
   return {
+    acceptedFileTypes,
+    invalidFiles,
+    isOverwritingEnabled,
     isProcessing,
     isProcessingComplete,
-    isOverwritingEnabled,
     location,
-    invalidFiles,
-    statusCounts,
-    tasks,
     onActionCancel,
     onActionExit,
     onActionStart,
     onDropFiles,
-    onTaskRemove,
     onSelectFiles,
+    onTaskRemove,
     onToggleOverwrite,
+    statusCounts,
+    tasks,
   };
 };

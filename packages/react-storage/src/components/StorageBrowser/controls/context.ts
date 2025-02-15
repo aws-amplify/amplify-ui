@@ -4,7 +4,4 @@ import { ControlsContext } from './types';
 const defaultValue = { data: {} } as ControlsContext;
 
 export const { useControlsContext, ControlsContextProvider } =
-  createContextUtilities({
-    contextName: 'ControlsContext',
-    defaultValue,
-  });
+  createContextUtilities({ contextName: 'ControlsContext', defaultValue });
