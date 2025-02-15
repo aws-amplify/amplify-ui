@@ -8,7 +8,7 @@ exports[`SelectMfaTypeComponent renders as expected 1`] = `
     data-amplify-form=""
   >
     <fieldset
-      class="amplify-flex amplify-authenticator__column"
+      class="amplify-authenticator__column amplify-flex"
       data-amplify-fieldset=""
     >
       <amplify-slot

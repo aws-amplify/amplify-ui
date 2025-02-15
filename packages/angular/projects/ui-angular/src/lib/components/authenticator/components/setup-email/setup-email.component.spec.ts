@@ -13,7 +13,7 @@ import { TextFieldComponent } from '../../../../primitives/text-field/text-field
 import { RadioGroupFieldComponent } from '../../../../primitives/radio-group-field/radio-group-field.component';
 
 const fieldLabel = 'Setup Email';
-const fieldInput = { name: 'email', value: 'jjarvisp@amazon.com' };
+const fieldInput = { name: 'email', value: 'user@example.com' };
 
 const mockContext: Partial<AuthActorContext> = {
   challengeName: 'MFA_SETUP',
