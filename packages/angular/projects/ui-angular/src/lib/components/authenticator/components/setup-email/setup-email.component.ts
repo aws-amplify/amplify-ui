@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
-import { authenticatorTextUtil, getFormDataFromEvent } from '@aws-amplify/ui';
+import {
+  authenticatorTextUtil,
+  classNames,
+  ComponentClassName,
+  getFormDataFromEvent,
+} from '@aws-amplify/ui';
 
 const { getConfirmText, getBackToSignInText, getSetupEmailText } =
   authenticatorTextUtil;
@@ -13,6 +18,9 @@ export class SetupEmailComponent {
   public headerText = getSetupEmailText();
   public confirmText = getConfirmText();
   public backToSignInText = getBackToSignInText();
+
+  public classNames = classNames;
+  public ComponentClassName = ComponentClassName;
 
   constructor(public authenticator: AuthenticatorService) {}
 
