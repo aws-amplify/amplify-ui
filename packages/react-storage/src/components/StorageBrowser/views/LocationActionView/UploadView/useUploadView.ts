@@ -12,7 +12,7 @@ import { DEFAULT_OVERWRITE_ENABLED } from './constants';
 
 interface FilesData {
   data: UploadHandlerData[];
-  invalidFiles: FileItems | undefined;
+  invalidFiles: File[] | undefined;
 }
 
 export const useUploadView = (
@@ -20,7 +20,7 @@ export const useUploadView = (
 ): UploadViewState => {
   const { onExit: _onExit, acceptedFileTypes } = options ?? {};
 
-  const [{ files, location }, dispatchStoreAction] = useStore();
+  const [{ fileItems, location }, dispatch] = useStore();
   const { current } = location;
 
   const [isOverwritingEnabled, setIsOverwritingEnabled] = React.useState(
@@ -29,29 +29,30 @@ export const useUploadView = (
 
   const filesData = React.useMemo(
     () =>
-      (files ?? [])?.reduce(
-        (curr: FilesData, item) => {
-          if (isFileTooBig(item.file)) {
-            curr.invalidFiles = isUndefined(curr.invalidFiles)
-              ? [item]
-              : curr.invalidFiles.concat(item);
-          } else {
-            const parsedFileItem = {
-              ...item,
-              key: `${location.key}${item.key}`,
-            };
+      (fileItems.items ?? []).reduce(
+        (prevData: FilesData, item) => {
+          // if (isFileTooBig(item.file)) {
+          //   curr.invalidFiles = isUndefined(curr.invalidFiles)
+          //     ? [item]
+          //     : curr.invalidFiles.concat(item);
+          // } else {
+          const parsedFileItem = {
+            ...item,
+            key: `${location.key}${item.key}`,
+          };
 
-            curr.data = curr.data.concat({
-              ...parsedFileItem,
-              preventOverwrite: !isOverwritingEnabled,
-            });
-          }
+          // }
 
-          return curr;
+          const data = prevData.data.concat({
+            ...parsedFileItem,
+            preventOverwrite: !isOverwritingEnabled,
+          });
+
+          return { ...prevData, data };
         },
-        { invalidFiles: undefined, data: [] }
+        { invalidFiles: fileItems.invalidFiles ?? [], data: [] }
       ),
-    [files, isOverwritingEnabled, location.key]
+    [fileItems, isOverwritingEnabled, location.key]
   );
 
   const { data, invalidFiles } = filesData;
@@ -62,21 +63,19 @@ export const useUploadView = (
   ] = useAction('upload', { items: data });
 
   const onDropFiles = (files: File[]) => {
-    if (files) {
-      dispatchStoreAction({ type: 'ADD_FILE_ITEMS', files });
-    }
+    dispatch({ type: 'ADD_FILE_ITEMS', files });
   };
 
   const onSelectFiles = (type?: 'FILE' | 'FOLDER') => {
     const selectionType = !acceptedFileTypes
       ? type
       : ([type, acceptedFileTypes.join()] as SelectionType);
-    dispatchStoreAction({ type: 'SELECT_FILES', selectionType });
+    dispatch({ type: 'SELECT_FILES', selectionType });
   };
 
   const onActionStart = () => {
     invalidFiles?.forEach((file) => {
-      dispatchStoreAction({ type: 'REMOVE_FILE_ITEM', id: file.id });
+      dispatch({ type: 'REMOVE_FILE_ITEM', id: file.id });
     });
 
     handleUploads();
@@ -88,9 +87,9 @@ export const useUploadView = (
 
   const onActionExit = () => {
     // clear files state
-    dispatchStoreAction({ type: 'RESET_FILE_ITEMS' });
+    dispatch({ type: 'RESET_FILE_ITEMS' });
     // clear selected action
-    dispatchStoreAction({ type: 'RESET_ACTION_TYPE' });
+    dispatch({ type: 'RESET_ACTION_TYPE' });
     _onExit?.(current);
   };
 
@@ -99,7 +98,7 @@ export const useUploadView = (
   };
 
   const onTaskRemove = ({ data }: Task) => {
-    dispatchStoreAction({ type: 'REMOVE_FILE_ITEM', id: data.id });
+    dispatch({ type: 'REMOVE_FILE_ITEM', id: data.id });
   };
 
   return {

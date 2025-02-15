@@ -1,41 +1,56 @@
 import React from 'react';
 
 import { noop } from '@aws-amplify/ui';
-import { createContextUtilities } from '@aws-amplify/ui-react-core';
+import {
+  createContextUtilities,
+  useDropZone,
+} from '@aws-amplify/ui-react-core';
 import { useFileSelect } from '@aws-amplify/ui-react/internal';
 
 import {
   FilesContextType,
   FilesProviderProps,
   HandleFilesAction,
+  SelectionType,
 } from './types';
-import { filesReducer, parseFileSelectParams } from './utils';
+import { DEFAULT_STATE, filesReducer, parseFileSelectParams } from './utils';
 
-const defaultValue: FilesContextType = [undefined, noop];
+const defaultValue: FilesContextType = [DEFAULT_STATE, noop];
+
 export const { FilesContext, useFiles } = createContextUtilities({
   contextName: 'Files',
   defaultValue,
 });
 
 export function FilesProvider({
+  acceptedFileTypes,
   children,
 }: FilesProviderProps): React.JSX.Element {
-  const [items, dispatch] = React.useReducer(filesReducer, []);
+  const [items, dispatch] = React.useReducer(filesReducer, DEFAULT_STATE);
 
-  const [fileInput, handleFileSelect] = useFileSelect((nextFiles) => {
-    dispatch({ type: 'ADD_FILE_ITEMS', files: nextFiles });
+  const [fileInput, handleFileSelect] = useFileSelect((files) => {
+    dispatch({ type: 'ADD_FILE_ITEMS', files });
   });
 
   const handleFilesAction: HandleFilesAction = React.useCallback(
     (action) => {
       if (action.type === 'SELECT_FILES') {
-        handleFileSelect(...parseFileSelectParams(action.selectionType));
+        handleFileSelect(
+          ...parseFileSelectParams(action.selectionType, acceptedFileTypes)
+        );
       } else {
         dispatch(action);
       }
     },
-    [handleFileSelect]
+    [handleFileSelect, acceptedFileTypes]
   );
+
+  const things = useDropZone({
+    acceptedFileTypes,
+    onDropComplete: ({ acceptedFiles: files, rejectedFiles: invalidFiles }) => {
+      dispatch({ type: 'ADD_FILE_ITEMS', files, invalidFiles });
+    },
+  });
 
   const value: FilesContextType = React.useMemo(
     () => [items, handleFilesAction],

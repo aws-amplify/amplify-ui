@@ -20,7 +20,11 @@ import { UploadViewType } from './types';
 import { useUploadView } from './useUploadView';
 import { classNames } from '@aws-amplify/ui';
 
-export const UploadView: UploadViewType = ({ className, ...props }) => {
+export const UploadView: UploadViewType = ({
+  acceptedFileTypes,
+  className,
+  ...props
+}) => {
   // eslint-disable-next-line no-console
   console.log('props', props);
 

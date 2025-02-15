@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { ActionTypeAction, useActionType } from './actionType';
-import { FileItems, FilesActionType, useFiles } from './files';
+import { FilesActionType, FileItemsState, useFiles } from './fileItems';
 import { LocationActionType, LocationState, useLocation } from './location';
 import {
   LocationItemsAction,
@@ -11,7 +11,7 @@ import {
 
 export interface UseStoreState {
   actionType: string | undefined;
-  files: FileItems | undefined;
+  fileItems: FileItemsState;
   location: LocationState;
   locationItems: LocationItemsState;
 }
@@ -25,10 +25,10 @@ export type HandleStoreAction = (
 ) => void;
 
 export function useStore(): [UseStoreState, HandleStoreAction] {
-  const [actionType, dispatchActionType] = useActionType();
-  const [files, dispatchFilesAction] = useFiles();
-  const [location, dispatchLocationAction] = useLocation();
-  const [locationItems, dispatchLocationItemsAction] = useLocationItems();
+  const [actionType, actionTypeDispatch] = useActionType();
+  const [fileItems, FileItemsDispatch] = useFiles();
+  const [location, LocationDispatch] = useLocation();
+  const [locationItems, locationItemsDispatch] = useLocationItems();
 
   const dispatchHandler: HandleStoreAction = React.useCallback(
     (action) => {
@@ -37,34 +37,34 @@ export function useStore(): [UseStoreState, HandleStoreAction] {
         case 'REMOVE_FILE_ITEM':
         case 'SELECT_FILES':
         case 'RESET_FILE_ITEMS': {
-          dispatchFilesAction(action);
+          FileItemsDispatch(action);
           break;
         }
         case 'NAVIGATE':
         case 'RESET_LOCATION': {
-          dispatchLocationAction(action);
+          LocationDispatch(action);
           break;
         }
         case 'SET_LOCATION_ITEMS':
         case 'REMOVE_LOCATION_ITEM':
         case 'RESET_LOCATION_ITEMS': {
-          dispatchLocationItemsAction(action);
+          locationItemsDispatch(action);
           break;
         }
         case 'SET_ACTION_TYPE':
         case 'RESET_ACTION_TYPE': {
-          dispatchActionType(action);
+          actionTypeDispatch(action);
           break;
         }
       }
     },
     [
-      dispatchActionType,
-      dispatchFilesAction,
-      dispatchLocationAction,
-      dispatchLocationItemsAction,
+      actionTypeDispatch,
+      FileItemsDispatch,
+      LocationDispatch,
+      locationItemsDispatch,
     ]
   );
 
-  return [{ actionType, files, location, locationItems }, dispatchHandler];
+  return [{ actionType, fileItems, location, locationItems }, dispatchHandler];
 }

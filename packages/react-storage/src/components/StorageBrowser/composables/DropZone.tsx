@@ -4,11 +4,12 @@ import { useDropZone } from '@aws-amplify/ui-react-core';
 import { ViewElement } from '../context/elements';
 
 import { STORAGE_BROWSER_BLOCK } from '../constants';
+import { useStore } from '../providers';
 
 export interface DropZoneProps {
   acceptedFileTypes?: string[];
   children?: React.ReactNode;
-  onDropFiles?: (files: File[]) => void;
+  onDropFiles?: (acceptedFiles: File[], rejectedFiles?: File[]) => void;
 }
 
 export const DropZone = ({
@@ -18,8 +19,8 @@ export const DropZone = ({
 }: DropZoneProps): React.JSX.Element => {
   const { dragState, ...dropHandlers } = useDropZone({
     acceptedFileTypes,
-    onDropComplete: ({ acceptedFiles }) => {
-      onDropFiles?.(acceptedFiles);
+    onDropComplete: ({ acceptedFiles, rejectedFiles }) => {
+      onDropFiles?.(acceptedFiles, rejectedFiles);
     },
   });
   return (

@@ -12,7 +12,7 @@ import { LocationItemType, TaskData } from '../../../actions';
 export type SelectionType = LocationItemType | [LocationItemType, ...string[]];
 
 export type FilesActionType =
-  | { type: 'ADD_FILE_ITEMS'; files?: File[] }
+  | { type: 'ADD_FILE_ITEMS'; files?: File[]; invalidFiles?: File[] }
   | { type: 'REMOVE_FILE_ITEM'; id: string }
   | { type: 'SELECT_FILES'; selectionType?: SelectionType }
   | { type: 'RESET_FILE_ITEMS' };
@@ -25,8 +25,14 @@ export interface FileItem extends TaskData {
 
 export type FileItems = FileItem[];
 
-export type FilesContextType = [FileItems | undefined, HandleFilesAction];
+export interface FileItemsState {
+  items: FileItems | undefined;
+  invalidFiles: File[] | undefined;
+}
+
+export type FilesContextType = [FileItemsState, HandleFilesAction];
 
 export interface FilesProviderProps {
+  acceptedFileTypes?: string[];
   children?: React.ReactNode;
 }

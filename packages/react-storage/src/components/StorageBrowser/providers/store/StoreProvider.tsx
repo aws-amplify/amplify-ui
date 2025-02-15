@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { LocationProvider, LocationProviderProps } from './location';
-import { FilesProvider, FilesProviderProps } from './files';
+import { FilesProvider, FilesProviderProps } from './fileItems';
 import { ActionTypeProvider, ActionTypeProviderProps } from './actionType';
 import {
   LocationItemsProvider,
@@ -15,10 +15,10 @@ export interface StoreProviderProps
     LocationItemsProviderProps {}
 
 export function StoreProvider(props: StoreProviderProps): React.JSX.Element {
-  const { actionType, children, location, path } = props;
+  const { acceptedFileTypes, actionType, children, location, path } = props;
 
   return (
-    <FilesProvider>
+    <FilesProvider acceptedFileTypes={acceptedFileTypes}>
       <LocationProvider location={location} path={path}>
         <LocationItemsProvider>
           <ActionTypeProvider actionType={actionType}>

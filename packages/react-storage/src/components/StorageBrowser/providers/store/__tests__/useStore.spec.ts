@@ -1,6 +1,6 @@
 import { renderHook } from '@testing-library/react';
 import { useActionType } from '../actionType';
-import { useFiles } from '../files';
+import { useFiles } from '../fileItems';
 import { useLocation } from '../location';
 import { useLocationItems } from '../locationItems';
 import { HandleStoreAction, useStore } from '../useStore';
