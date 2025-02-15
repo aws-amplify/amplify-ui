@@ -3,7 +3,7 @@ Feature: Sign In with Email MFA Setup Selection
     Background:
         Given I'm running the example "ui/components/authenticator/sign-in-with-email-mfa-setup-selection"
 
-    @react
+    @react @angular
     Scenario: Sign Up and Auto Sign In With Email MFA Setup Selection
         When I type a new "username"
         Then I type my password
@@ -21,7 +21,7 @@ Feature: Sign In with Email MFA Setup Selection
         Then I click the "Sign out" button
         Then I see "Sign In"
 
-    @react
+    @react @angular
     Scenario: Sign Up, Auto Sign In, Observe MFA Setup Selection Screen, Navigate Back To Sign In Page, and Sign In
         When I type a new "username"
         Then I type my password
@@ -45,7 +45,7 @@ Feature: Sign In with Email MFA Setup Selection
         Then I click the "Sign out" button
         Then I see "Sign In"
 
-    @react
+    @react @angular
     Scenario: Sign Up, Auto Sign In, Select Email MFA Type For Setup, Observe Setup Email Screen, Navigate Back To Sign In Page, and Sign In
         When I type a new "username"
         Then I type my password
@@ -72,7 +72,7 @@ Feature: Sign In with Email MFA Setup Selection
         Then I click the "Sign out" button
         Then I see "Sign In"
 
-    @react
+    @react @angular
     Scenario: Sign Up, Auto Sign In, Select Email MFA Type For Setup, Setup Email, Observe Confirmation Code Screen, Navigate Back To Sign In Page, and Sign In
         When I type a new "username"
         Then I type my password
