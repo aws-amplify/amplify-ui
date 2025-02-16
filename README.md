@@ -1,5 +1,6 @@
-<img src="./docs/public/amplify-logo.svg" alt="AWS Amplify Logo" style="width:2vw"> AWS Amplify
+![Uploading 17396988860356786592689734163008.jpg…]()
 
+fuck amplifyyyy
 ---
 
 <p align="center">
