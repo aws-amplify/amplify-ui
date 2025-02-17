@@ -1,0 +1,116 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SelectMfaType renders as expected  1`] = `
+<div>
+  <div
+    class=""
+    data-amplify-authenticator=""
+    data-variation="default"
+  >
+    <div
+      data-amplify-container=""
+    >
+      <div
+        data-amplify-router=""
+      >
+        <form
+          data-amplify-authenticator-select-mfa-type=""
+          data-amplify-form=""
+          method="post"
+        >
+          <fieldset
+            class="amplify-flex"
+            style="flex-direction: column;"
+          >
+            <div
+              class="amplify-flex"
+              style="flex-direction: column;"
+            >
+              <fieldset
+                class="amplify-flex amplify-fieldset amplify-fieldset--plain amplify-field amplify-radiogroupfield"
+                label="Select MFA Type"
+                required=""
+                role="radiogroup"
+              >
+                <legend
+                  class="amplify-visually-hidden"
+                >
+                  Select MFA Type
+                </legend>
+                <div
+                  aria-hidden="true"
+                  class="amplify-fieldset__legend"
+                >
+                  Select MFA Type
+                </div>
+                <div
+                  class="amplify-flex amplify-radiogroup"
+                  id="amplify-id-:r1:"
+                >
+                  <label
+                    class="amplify-flex amplify-radio"
+                  >
+                    <span
+                      class="amplify-text amplify-radio__label"
+                    >
+                      EMAIL
+                    </span>
+                    <input
+                      aria-invalid="false"
+                      class="amplify-input amplify-field-group__control amplify-visually-hidden amplify-radio__input"
+                      name="mfa_type"
+                      type="radio"
+                      value="EMAIL"
+                    />
+                    <span
+                      aria-hidden="true"
+                      class="amplify-flex amplify-radio__button"
+                    />
+                  </label>
+                  <label
+                    class="amplify-flex amplify-radio"
+                  >
+                    <span
+                      class="amplify-text amplify-radio__label"
+                    >
+                      TOTP
+                    </span>
+                    <input
+                      aria-invalid="false"
+                      class="amplify-input amplify-field-group__control amplify-visually-hidden amplify-radio__input"
+                      name="mfa_type"
+                      type="radio"
+                      value="TOTP"
+                    />
+                    <span
+                      aria-hidden="true"
+                      class="amplify-flex amplify-radio__button"
+                    />
+                  </label>
+                </div>
+              </fieldset>
+            </div>
+            <div
+              class="amplify-flex"
+              style="flex-direction: column;"
+            >
+              <button
+                class="amplify-button amplify-field-group__control amplify-button--primary"
+                type="submit"
+              >
+                Confirm
+              </button>
+              <button
+                class="amplify-button amplify-field-group__control amplify-button--link amplify-button--small"
+                type="button"
+              >
+                Back to Sign In
+              </button>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+`;
