@@ -19,6 +19,8 @@ import { RadioProps } from '../Radio';
 import { getThemedStyles } from './styles';
 import { RadioGroupProps } from './types';
 
+export const RADIO_GROUP_CONTAINER_TEST_ID = 'amplify__radio-group__container';
+
 export default function RadioGroup<T>({
   accessible = true,
   accessibilityRole = 'radiogroup',
@@ -73,7 +75,11 @@ export default function RadioGroup<T>({
   );
 
   return (
-    <View {...rest} style={[themedStyle.container, containerStyle, style]}>
+    <View
+      {...rest}
+      style={[themedStyle.container, containerStyle, style]}
+      testID={RADIO_GROUP_CONTAINER_TEST_ID}
+    >
       <View
         accessible={accessible}
         accessibilityRole={accessibilityRole}

@@ -7,9 +7,10 @@ import { OnChangeText, TextFieldOnBlur, TypedField } from '../types';
 import { UseFieldValues, UseFieldValuesParams } from './types';
 import {
   getSanitizedTextFields,
-  getSanitizedRadioFields,
   isRadioFieldOptions,
   runFieldValidation,
+  getSanitizedFields,
+  getSanitizedVerifyUserFields,
 } from './utils';
 
 const logger = new Logger('Authenticator');
@@ -26,7 +27,8 @@ export default function useFieldValues<FieldType extends TypedField>({
   const [touched, setTouched] = useState<Record<string, boolean>>({});
   const [fieldValidationErrors, setFieldValidationErrors] =
     useState<ValidationError>({});
-  const isRadioFieldComponent = componentName === 'VerifyUser';
+  const isVerifyUserRoute = componentName === 'VerifyUser';
+  const isSelectMfaTypeRoute = componentName === 'SelectMfaType';
 
   const sanitizedFields = useMemo(() => {
     if (!Array.isArray(fields)) {
@@ -36,12 +38,15 @@ export default function useFieldValues<FieldType extends TypedField>({
       return [];
     }
 
-    if (isRadioFieldComponent) {
-      return getSanitizedRadioFields(fields, componentName);
+    if (isVerifyUserRoute) {
+      return getSanitizedVerifyUserFields(fields);
+    }
+    if (isSelectMfaTypeRoute) {
+      return getSanitizedFields(fields);
     }
 
     return getSanitizedTextFields(fields, componentName);
-  }, [componentName, fields, isRadioFieldComponent]);
+  }, [componentName, fields, isVerifyUserRoute, isSelectMfaTypeRoute]);
 
   const fieldsWithHandlers = sanitizedFields.map((field) => {
     if (isRadioFieldOptions(field)) {
@@ -49,11 +54,16 @@ export default function useFieldValues<FieldType extends TypedField>({
         // call `onChange` passed as radio `field` option
         field.onChange?.(value);
 
-        // set `name` as value of 'unverifiedAttr'
-        setValues({ unverifiedAttr: value });
+        // on VerifyUser route, set `name` as value of 'unverifiedAttr'
+        const fieldName = isVerifyUserRoute ? 'unverifiedAttr' : field.name;
+        setValues((prev) => ({ ...prev, [fieldName]: value }));
       };
 
-      return { ...field, onChange };
+      return {
+        ...field,
+        onChange,
+        ...(isSelectMfaTypeRoute && { value: values[field.name] }),
+      };
     }
 
     const { name, label, labelHidden, ...rest } = field;
@@ -100,21 +110,12 @@ export default function useFieldValues<FieldType extends TypedField>({
     };
   }) as FieldType[];
 
-  const disableFormSubmit = isRadioFieldComponent
+  const disableFormSubmit = isVerifyUserRoute
     ? !values.unverifiedAttr
-    : fieldsWithHandlers.some(({ required, value }) => {
-        if (!required) {
-          return false;
-        }
-
-        if (value) {
-          return false;
-        }
-        return true;
-      });
+    : fieldsWithHandlers.some(({ required, value }) => required && !value);
 
   const handleFormSubmit = () => {
-    const submitValue = isRadioFieldComponent
+    const submitValue = isVerifyUserRoute
       ? values
       : fieldsWithHandlers.reduce((acc, { name, value = '', type }) => {
           /*

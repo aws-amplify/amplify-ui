@@ -4,9 +4,10 @@ import { authenticatorTextUtil } from '@aws-amplify/ui';
 import { TextFieldOptionsType, TypedField } from '../../types';
 import {
   getRouteTypedFields,
-  getSanitizedRadioFields,
+  getSanitizedVerifyUserFields,
   getSanitizedTextFields,
   runFieldValidation,
+  getSanitizedFields,
 } from '../utils';
 
 const warnSpy = jest.spyOn(Logger.prototype, 'warn');
@@ -117,7 +118,7 @@ describe('getSanitizedRadioFields', () => {
       { type: 'password', value: 'value' } as TypedField,
     ];
 
-    const output = getSanitizedRadioFields(fields, 'VerifyUser');
+    const output = getSanitizedVerifyUserFields(fields);
 
     expect(warnSpy).toHaveBeenCalledTimes(1);
     expect(warnSpy).toHaveBeenCalledWith(
@@ -139,7 +140,7 @@ describe('getSanitizedRadioFields', () => {
       { name: 'phone_number', type: 'radio' } as TypedField,
     ];
 
-    const output = getSanitizedRadioFields(fields, 'VerifyUser');
+    const output = getSanitizedVerifyUserFields(fields);
 
     expect(warnSpy).toHaveBeenCalledTimes(1);
     expect(warnSpy).toHaveBeenCalledWith(
@@ -161,7 +162,7 @@ describe('getSanitizedRadioFields', () => {
       { name: 'email', type: 'radio', value: 'testValue' } as TypedField,
     ];
 
-    const output = getSanitizedRadioFields(fields, 'VerifyUser');
+    const output = getSanitizedVerifyUserFields(fields);
 
     expect(warnSpy).toHaveBeenCalledTimes(1);
     expect(warnSpy).toHaveBeenCalledWith(
@@ -169,6 +170,74 @@ describe('getSanitizedRadioFields', () => {
     );
 
     expect(output).toHaveLength(1);
+    expect(output).toStrictEqual([validField]);
+  });
+});
+
+describe('getSanitizedFields', () => {
+  afterEach(() => {
+    jest.resetAllMocks();
+  });
+
+  it('logs a warning and ignores the field when name is missing', () => {
+    const validField: TypedField = {
+      name: 'email',
+      type: 'radio',
+      value: 'test',
+      radioOptions: [{ label: 'test', value: 'test' }],
+    };
+    const fields: TypedField[] = [
+      validField,
+      { type: 'password', value: 'value' } as TypedField,
+    ];
+
+    const output = getSanitizedFields(fields);
+
+    expect(warnSpy).toHaveBeenCalledTimes(1);
+    expect(warnSpy).toHaveBeenCalledWith(
+      'Each field must have a name; field has been ignored.'
+    );
+
+    expect(output).toStrictEqual([validField]);
+  });
+
+  it('logs a warning and ignores the field when name is duplicated.', () => {
+    const validField: TypedField = {
+      name: 'email',
+      type: 'email',
+      value: 'value',
+    };
+    const fields: TypedField[] = [validField, { ...validField }];
+
+    const output = getSanitizedFields(fields);
+
+    expect(warnSpy).toHaveBeenCalledTimes(1);
+    expect(warnSpy).toHaveBeenCalledWith(
+      'Each field name must be unique; field with duplicate name of "email" has been ignored.'
+    );
+
+    expect(output).toStrictEqual([validField]);
+  });
+
+  it('logs a warning and ignores the field when radio input is present with no options.', () => {
+    const validField: TypedField = {
+      name: 'email',
+      type: 'radio',
+      value: 'testValue',
+      radioOptions: [{ label: 'test', value: 'test' }],
+    };
+    const fields: TypedField[] = [
+      validField,
+      { name: 'mfa_type', type: 'radio', value: 'testValue' } as TypedField,
+    ];
+
+    const output = getSanitizedFields(fields);
+
+    expect(warnSpy).toHaveBeenCalledTimes(1);
+    expect(warnSpy).toHaveBeenCalledWith(
+      'Each radio field must have at least one option available for selection; field of name "mfa_type" without radioOptions has been ignored.'
+    );
+
     expect(output).toStrictEqual([validField]);
   });
 });
