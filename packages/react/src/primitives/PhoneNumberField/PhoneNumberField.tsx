@@ -46,7 +46,6 @@ const PhoneNumberFieldPrimitive: Primitive<PhoneNumberFieldProps, 'input'> = (
           name={dialCodeName}
           onChange={onDialCodeChange}
           ref={dialCodeRef}
-          role="combobox"
           size={size}
           variation={variation}
         />
