@@ -179,8 +179,6 @@ const getSelectMfaTypeFormFields = (state: AuthMachineState): FormFields => {
       placeholder: defaultTexts.SELECT_MFA_TYPE_PLACEHOLDER,
       type: 'radio',
       isRequired: true,
-      // translation applied here
-      // `applyTransformation` only translates label, placeholder
       radioOptions: allowedMfaTypes.map((value) => ({
         label: getMfaTypeLabelByValue(value),
         value,
