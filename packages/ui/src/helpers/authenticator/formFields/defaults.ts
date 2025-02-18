@@ -17,6 +17,7 @@ import {
   SignInState,
 } from '../../../machines/authenticator/types';
 import { getPrimaryAlias } from '../formFields/utils';
+import { defaultTexts } from '../../../i18n/dictionaries';
 
 const { getMfaTypeLabelByValue } = authenticatorTextUtil;
 
@@ -174,11 +175,12 @@ const getSelectMfaTypeFormFields = (state: AuthMachineState): FormFields => {
 
   return {
     mfa_type: {
-      label: 'Select MFA Type',
-      placeholder: 'Please select desired MFA type',
+      label: defaultTexts.SELECT_MFA_TYPE_LABEL,
+      placeholder: defaultTexts.SELECT_MFA_TYPE_PLACEHOLDER,
       type: 'radio',
       isRequired: true,
-      // TODO - i18n
+      // translation applied here
+      // `applyTransformation` only translates label, placeholder
       radioOptions: allowedMfaTypes.map((value) => ({
         label: getMfaTypeLabelByValue(value),
         value,

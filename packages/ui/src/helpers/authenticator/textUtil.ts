@@ -6,13 +6,13 @@ import {
 } from '../../machines/authenticator/types';
 import { translate, DefaultTexts } from '../../i18n';
 import { AuthenticatorRoute } from './facade';
+import { defaultTexts } from '../../i18n/dictionaries';
 
 /**
  * ConfirmSignIn
  */
 const getChallengeText = (challengeName?: ChallengeName): string => {
   switch (challengeName) {
-    // TODO - i18n
     case 'EMAIL_OTP':
       return translate(DefaultTexts.CONFIRM_EMAIL);
     case 'SMS_MFA':
@@ -86,7 +86,6 @@ const getSignInWithFederationText = (
 /**
  * SelectMfaType
  */
-// TODO - i18n
 const getSelectMfaTypeByChallengeName = (
   challengeName: ChallengeName
 ): string => {
@@ -96,9 +95,18 @@ const getSelectMfaTypeByChallengeName = (
 
   return translate(DefaultTexts.MFA_SELECTION);
 };
-// TODO - i18n
-const getMfaTypeLabelByValue = (value: AuthMFAType): string => {
-  return value;
+
+const getMfaTypeLabelByValue = (mfaType: AuthMFAType): string => {
+  switch (mfaType) {
+    case 'EMAIL':
+      return translate(defaultTexts.EMAIL_OTP);
+    case 'SMS':
+      return translate(defaultTexts.SMS_MFA);
+    case 'TOTP':
+      return translate(defaultTexts.SOFTWARE_TOKEN_MFA);
+    default:
+      return translate(mfaType);
+  }
 };
 
 export const authenticatorTextUtil = {

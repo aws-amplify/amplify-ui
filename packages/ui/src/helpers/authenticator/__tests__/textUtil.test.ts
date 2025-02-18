@@ -134,11 +134,17 @@ describe('authenticatorTextUtil', () => {
   });
 
   describe('getMfaTypeLabelByValue', () => {
-    it.each(['EMAIL', 'SMS', 'TOTP'] as AuthMFAType[])(
+    const getMfaTypeLabelByValueTestCases: [AuthMFAType, string][] = [
+      ['EMAIL', 'Email Message (EMAIL)'],
+      ['SMS', 'Text Message (SMS)'],
+      ['TOTP', 'Authenticator App (TOTP)'],
+    ];
+
+    it.each(getMfaTypeLabelByValueTestCases)(
       'returns the correct text when value is %s',
-      (value) => {
-        expect(authenticatorTextUtil.getMfaTypeLabelByValue(value)).toEqual(
-          value
+      (input, output) => {
+        expect(authenticatorTextUtil.getMfaTypeLabelByValue(input)).toEqual(
+          output
         );
       }
     );
