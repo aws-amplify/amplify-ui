@@ -17,11 +17,11 @@ import {
 
 import {
   AuthActorContext,
-  AuthMFAType,
   AuthEvent,
   AuthEventData,
   AuthEventTypes,
   AuthMachineState,
+  AuthMFAType,
   ChallengeName,
   NavigableRoute,
   V5CodeDeliveryDetails,
