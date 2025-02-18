@@ -19,9 +19,9 @@ export type FormFieldComponents =
   | 'confirmSignUp'
   | 'confirmVerifyUser'
   | 'forgotPassword'
-  | 'setupTotp'
   | 'setupEmail'
-  | 'selectMfaType';
+  | 'selectMfaType'
+  | 'setupTotp';
 
 /**
  * Used to customize form field attributes for each authenticator screen.

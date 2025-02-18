@@ -242,6 +242,7 @@ const ACTIONS: MachineOptions<AuthActorContext, AuthEvent>['actions'] = {
   handleBlur,
   handleInput,
   handleSubmit,
+  setAllowedMfaTypes,
   setChallengeName,
   setCodeDeliveryDetails,
   setFieldErrors,
@@ -261,7 +262,6 @@ const ACTIONS: MachineOptions<AuthActorContext, AuthEvent>['actions'] = {
   setUsernameForgotPassword,
   setUsernameSignIn,
   setUsernameSignUp,
-  setAllowedMfaTypes,
 };
 
 export default ACTIONS;

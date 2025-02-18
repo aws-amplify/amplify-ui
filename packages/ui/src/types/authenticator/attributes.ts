@@ -64,7 +64,6 @@ export const authFieldsWithDefaults = [
   'confirmation_code',
   'password',
   'confirm_password',
-  'mfa_type',
 ] as const;
 
 /** Input fields that we provide default fields with */
