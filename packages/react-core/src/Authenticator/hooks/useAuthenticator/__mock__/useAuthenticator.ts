@@ -4,6 +4,10 @@ import {
 } from '../../types';
 import { UseAuthenticator } from '../types';
 
+const allowedMfaTypes = [
+  'EMAIL',
+  'TOTP',
+] as AuthenticatorMachineContext['allowedMfaTypes'];
 const authStatus = 'unauthenticated';
 const challengeName = 'CUSTOM_CHALLENGE';
 const codeDeliveryDetails =
@@ -30,10 +34,6 @@ const updateBlur = jest.fn();
 const updateForm = jest.fn();
 const user = { username: 'username', userId: 'userId' };
 const validationErrors = {};
-const allowedMfaTypes = [
-  'EMAIL',
-  'TOTP',
-] as AuthenticatorMachineContext['allowedMfaTypes'];
 
 export const mockMachineContext: AuthenticatorMachineContext = {
   authStatus,
