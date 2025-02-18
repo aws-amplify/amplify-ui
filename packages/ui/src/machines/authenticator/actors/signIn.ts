@@ -49,6 +49,7 @@ const handleSignInResponse = {
         'setMissingAttributes',
         'setNextSignInStep',
         'setTotpSecretCode',
+        'setAllowedMfaTypes',
       ],
       target: '#signInActor.init',
     },
@@ -93,6 +94,14 @@ export function signInActor({ services }: SignInMachineOptions) {
             {
               cond: 'shouldSetupTotp',
               target: 'setupTotp',
+            },
+            {
+              cond: 'shouldSetupEmail',
+              target: 'setupEmail',
+            },
+            {
+              cond: 'shouldSelectMfaType',
+              target: 'selectMfaType',
             },
             {
               cond: ({ step }) =>
@@ -273,6 +282,44 @@ export function signInActor({ services }: SignInMachineOptions) {
             },
           },
         },
+        setupEmail: {
+          initial: 'edit',
+          exit: ['clearFormValues', 'clearError', 'clearTouched'],
+          states: {
+            edit: {
+              entry: 'sendUpdate',
+              on: {
+                SUBMIT: { actions: 'handleSubmit', target: 'submit' },
+                SIGN_IN: '#signInActor.signIn',
+                CHANGE: { actions: 'handleInput' },
+              },
+            },
+            submit: {
+              tags: 'pending',
+              entry: ['sendUpdate', 'clearError'],
+              invoke: { src: 'handleSetupEmail', ...handleSignInResponse },
+            },
+          },
+        },
+        selectMfaType: {
+          initial: 'edit',
+          exit: ['clearFormValues', 'clearError', 'clearTouched'],
+          states: {
+            edit: {
+              entry: 'sendUpdate',
+              on: {
+                SUBMIT: { actions: 'handleSubmit', target: 'submit' },
+                SIGN_IN: '#signInActor.signIn',
+                CHANGE: { actions: 'handleInput' },
+              },
+            },
+            submit: {
+              tags: 'pending',
+              entry: ['sendUpdate', 'clearError'],
+              invoke: { src: 'handleSelectMfaType', ...handleSignInResponse },
+            },
+          },
+        },
         resolved: {
           type: 'final',
           data: (context): ActorDoneData => ({
@@ -306,6 +353,16 @@ export function signInActor({ services }: SignInMachineOptions) {
         confirmSignIn({ formValues }) {
           const { confirmation_code: challengeResponse } = formValues;
           return services.handleConfirmSignIn({ challengeResponse });
+        },
+        handleSetupEmail({ formValues }) {
+          return services.handleConfirmSignIn({
+            challengeResponse: formValues.email,
+          });
+        },
+        handleSelectMfaType({ formValues }) {
+          return services.handleConfirmSignIn({
+            challengeResponse: formValues.mfa_type,
+          });
         },
         async handleForceChangePassword({ formValues }) {
           let {
