@@ -87,7 +87,7 @@ const getSignInWithFederationText = (
  * SelectMfaType
  */
 const getSelectMfaTypeByChallengeName = (
-  challengeName: ChallengeName
+  challengeName?: ChallengeName
 ): string => {
   if (challengeName === 'MFA_SETUP') {
     return translate(DefaultTexts.MFA_SETUP_SELECTION);

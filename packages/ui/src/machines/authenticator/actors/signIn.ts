@@ -13,12 +13,12 @@ import actions from '../actions';
 import { defaultServices } from '../defaultServices';
 import guards from '../guards';
 
-import { AuthEvent, ActorDoneData, SignInContext } from '../types';
+import { AuthEvent, ActorDoneData, SignInContext, AuthContext } from '../types';
 
 import { getFederatedSignInState } from './utils';
 
 export interface SignInMachineOptions {
-  services?: Partial<typeof defaultServices>;
+  services?: AuthContext['services'];
 }
 
 const handleSignInResponse = {

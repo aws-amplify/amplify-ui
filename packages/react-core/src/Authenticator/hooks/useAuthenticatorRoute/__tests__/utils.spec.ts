@@ -27,6 +27,8 @@ import {
   resolveSignInRoute,
   resolveSignUpRoute,
   resolveVerifyUserRoute,
+  resolveSetupEmailRoute,
+  resolveSelectMfaTypeRoute,
 } from '../utils';
 
 type PropsResolver = (
@@ -126,6 +128,8 @@ describe('getRouteMachineSelector', () => {
       [...commonSelectorProps, toSignIn, totpSecretCode, username, route],
     ],
     ['verifyUser', [...commonSelectorProps, skipVerification, route]],
+    ['setupEmail', [...commonSelectorProps, toSignIn, route]],
+    ['selectMfaType', [...commonSelectorProps, challengeName, toSignIn, route]],
   ])('returns the expected route selector for %s', (route, expected) => {
     const selector = getRouteMachineSelector(route as AuthenticatorRoute);
     const output = selector(machineContext);
@@ -196,6 +200,12 @@ describe('props resolver functions', () => {
       'VerifyUser',
       resolveVerifyUserRoute,
       { error, isPending, skipVerification },
+    ],
+    ['SetupEmail', resolveSetupEmailRoute, { error, isPending, toSignIn }],
+    [
+      'SelectMfaType',
+      resolveSelectMfaTypeRoute,
+      { error, isPending, challengeName, toSignIn },
     ],
   ])(
     'resolve%s returns the expected values',

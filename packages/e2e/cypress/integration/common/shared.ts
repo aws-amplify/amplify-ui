@@ -345,7 +345,7 @@ When('I click the {string} checkbox', (label: string) => {
 });
 
 When('I click the {string} radio button', (label: string) => {
-  cy.findByLabelText(new RegExp(`^${escapeRegExp(label)}`, 'i')).click();
+  cy.get(`.amplify-radio__label`).contains(label).click();
 });
 
 When('I reload the page', () => {
@@ -459,7 +459,7 @@ Then(
 
 When('I type a valid confirmation code', () => {
   // This should be intercepted & mocked
-  cy.findInputField('Confirmation Code').type('123456');
+  cy.findInputField('Confirmation Code').clear().type('123456');
 });
 
 When('I type a custom password from label {string}', (custom) => {
@@ -476,7 +476,7 @@ When('I type a valid SMS confirmation code', () => {
 });
 
 When('I type an invalid confirmation code', () => {
-  cy.findInputField('Confirmation Code').type('0000');
+  cy.findInputField('Confirmation Code').clear().type('0000');
 });
 
 When('I see one code input', () => {
