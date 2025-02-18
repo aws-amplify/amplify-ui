@@ -36,6 +36,7 @@ const user = { username: 'username', userId: 'userId' };
 const validationErrors = {};
 
 export const mockMachineContext: AuthenticatorMachineContext = {
+  allowedMfaTypes,
   authStatus,
   challengeName,
   codeDeliveryDetails,
@@ -57,7 +58,6 @@ export const mockMachineContext: AuthenticatorMachineContext = {
   toFederatedSignIn,
   toForgotPassword,
   totpSecretCode,
-  allowedMfaTypes,
   unverifiedUserAttributes,
   username: 'george',
   validationErrors,
