@@ -7,7 +7,7 @@
     "commander": "^10.0.1",
     "esbuild-register": "^3.5.0",
     "json": "^11.0.0",
-    "strip-json-comments-cli": "^2.0.2"
+    "strip-json-comments-cli": "^3.0.0"
   },
   "scripts": {
     "checkReactNativeLogs": "node --require esbuild-register ./scripts/checkReactNativeLog.ts",
