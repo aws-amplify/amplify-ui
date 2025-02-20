@@ -110,7 +110,7 @@ else
 
         # react-native-safe-area-context v5 is required for >= 0.78
         if [[ "$FRAMEWORK_VERSION" == "latest" || $FRAMEWORK_VERSION > "0.77" ]]; then
-            DEPENDENCIES="$DEPENDENCIES react-native-safe-area-context@^5.2.0"
+            DEPENDENCIES="$DEPENDENCIES react-native-safe-area-context@^5.2.0 --force"
         else
             DEPENDENCIES="$DEPENDENCIES react-native-safe-area-context@^4.2.5"
         fi;
