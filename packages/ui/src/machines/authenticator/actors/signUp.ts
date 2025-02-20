@@ -3,7 +3,6 @@ import { createMachine, sendUpdate } from 'xstate';
 import {
   autoSignIn,
   ConfirmSignUpInput,
-  resendSignUpCode,
   signInWithRedirect,
   fetchUserAttributes,
 } from 'aws-amplify/auth';
@@ -287,7 +286,7 @@ export function signUpActor({ services }: SignUpMachineOptions) {
           return services.handleConfirmSignUp(input);
         },
         resendSignUpCode({ username }) {
-          return resendSignUpCode({ username });
+          return services.handleResendSignUpCode({ username });
         },
         signInWithRedirect(_, { data }) {
           return signInWithRedirect(data);
