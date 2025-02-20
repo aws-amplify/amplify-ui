@@ -6,8 +6,8 @@ permissions:
   id-token: write # This is required for aws-actions/configure-aws-credentials
 
 on:
-  schedule:
-    - cron: '0 * * * *' # Run at the first minute of every hour
+  push:
+    branches: [james/fix/react-native-build-test-poc]
 
 jobs:
   build:
