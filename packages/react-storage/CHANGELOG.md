@@ -1,5 +1,11 @@
 # @aws-amplify/ui-react-storage
 
+## 3.8.1
+
+### Patch Changes
+
+- [#6369](https://github.com/aws-amplify/amplify-ui/pull/6369) [`f91c69b830d168eb5a7371fb8f34e38ec7e303c0`](https://github.com/aws-amplify/amplify-ui/commit/f91c69b830d168eb5a7371fb8f34e38ec7e303c0) Thanks [@jjarvisp](https://github.com/jjarvisp)! - chore(react-storage): update access level deprecation message
+
 ## 3.8.0
 
 ### Minor Changes
