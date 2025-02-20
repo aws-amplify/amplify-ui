@@ -56,9 +56,9 @@ Feature: Sign In with Phone Number
     When I update my country code from "+82" to "+20"
     Then I type my "phone number" with status "UNCONFIRMED"
     Then I type my password
-    Then I click the "Sign in" button
     Then I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.InitiateAuth" } }' with error fixture "user-not-confirmed-exception"
     Then I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ResendConfirmationCode" } }' with fixture "resend-confirmation-code-email"
+    Then I click the "Sign in" button
     Then I see "Confirmation Code"
 
   @angular @react @vue @react-native
@@ -89,9 +89,9 @@ Feature: Sign In with Phone Number
 
   @angular @react @vue
   Scenario: Phone number field autocompletes username
-  
-  On sign in form, autocomplete prefers usage of username instead of phone number. 
-  See https://www.chromium.org/developers/design-documents/form-styles-that-chromium-understands/.
+
+    On sign in form, autocomplete prefers usage of username instead of phone number.
+    See https://www.chromium.org/developers/design-documents/form-styles-that-chromium-understands/.
 
     Then "Phone Number" field autocompletes "username"
 
