@@ -1,10 +1,11 @@
 import React from 'react';
 
+import { FolderData } from '../../../actions';
 import { LocationState } from '../../../providers/store/location';
 import { useList } from '../../../useAction';
 
-import { usePaginate } from '../../hooks/usePaginate';
-import { useSearch } from '../../hooks/useSearch';
+import { usePaginate } from '../../../hooks/usePaginate';
+import { useSearch } from '../../../hooks/useSearch';
 
 export interface FoldersState {
   hasError: boolean;

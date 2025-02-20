@@ -118,10 +118,9 @@ export type UseActionState<
 > = UseHandlerState<TD, R, U>;
 
 /**
- * `StorageBrowser` React hook utility used to call default and custom actions
- * from within a parent `StorageBrowser.Provider`.
- *
- * `useAction` provides the called action with `location` state and credentials
+ * `StorageBrowser` React hook utility used to call default and custom action
+ * handlers from within a parent `StorageBrowser.Provider`. `useAction` provides
+ * the action handler with the current `location` state and credentials
  * values, as well as any parameters provided as `data` at the `useAction` call
  * site.
  */

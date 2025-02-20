@@ -137,8 +137,8 @@ export interface ExtendedDefaultActionConfigs
 }
 
 /**
- * Accepts either an ActionViewConfig for creation of a action list item an corresponding view
- * slot or an action handler for standalone action usage
+ * Accepts either an `ActionViewConfig` for creation of an action list item and corresponding
+ * view slot or an action handler for standalone action usage
  */
 export type CustomActionConfigs = Record<
   ActionName,

@@ -1,1 +1,0 @@
-export { usePaginate } from './usePaginate';

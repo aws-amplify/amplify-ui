@@ -1,12 +1,12 @@
 import React, { useRef, useState } from 'react';
 import { isFunction } from '@aws-amplify/ui';
 
-import { LocationData } from '../../actions';
-import { useStore } from '../../providers/store';
-import { Task } from '../../tasks';
-import { useAction } from '../../useAction';
+import { LocationData } from '../../../actions';
+import { useStore } from '../../../providers/store';
+import { Task } from '../../../tasks';
+import { useAction } from '../../../useAction';
 
-import { CopyViewState, UseCopyViewOptions } from '../types';
+import { CopyViewState, UseCopyViewOptions } from './types';
 import { useFolders } from './useFolders';
 
 export const useCopyView = (options?: UseCopyViewOptions): CopyViewState => {

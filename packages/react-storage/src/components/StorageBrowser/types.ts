@@ -9,8 +9,6 @@ import {
 } from './actions';
 import { GetLocationCredentials } from './credentials/types';
 
-import { UseView } from './views/useView';
-
 import { StorageBrowserComponents } from './ComponentsProvider';
 
 import { RegisterAuthListener, StoreProviderProps } from './providers';
@@ -39,25 +37,29 @@ export interface StorageBrowserConfig {
    * AWS Account Id
    */
   accountId?: string;
+
   /**
    * Custom S3 endpoint used in action handler calls
    */
   customEndpoint?: string;
+
   /**
    * Location credentials retrieval handler
    */
   getLocationCredentials: GetLocationCredentials;
+
   /**
    * @required
    *
    * Locations list handler
    */
   listLocations: ListLocations;
+
   /**
    * @required
    *
    * Provided handler receives an `onStateChange` callback to be called from
-   * the consumer on auth status changes to clear in memory credentials
+   * the consumer on auth status changes to clear in-memory credentials
    *
    * @example
    * ```tsx
@@ -92,9 +94,9 @@ export interface StorageBrowserConfig {
    *
    * const managedAuthAdapter = createManagedAuthAdapter({
    *     accountId: myAuth.accountId,
-   *     credentialsProvider: auth.credentialsProvider,
+   *     credentialsProvider: myAuth.credentialsProvider,
    *     region: myAuth.region,
-   *     registerAuthListener: auth.registerAuthListener,
+   *     registerAuthListener: myAuth.registerAuthListener,
    * });
    *
    * export const { StorageBrowser } = createStorageBrowser({
@@ -113,12 +115,12 @@ export interface StorageBrowserActions {
 
 export interface CreateStorageBrowserInput {
   /**
-   * Override and default `StorageBrowser` actions and action view configs.
+   * Override and default `StorageBrowser` actions and action view configs
    */
   actions?: StorageBrowserActions;
 
   /**
-   * `StorageBrowser` configuration properties.
+   * `StorageBrowser` configuration properties
    */
   config: StorageBrowserConfig;
 
@@ -131,7 +133,7 @@ export interface CreateStorageBrowserInput {
 export interface StorageBrowserProps<K = string, V = {}> {
   /**
    * Overrides default display string values. Supports resolving of static and dynamic text
-   * values and error messages.
+   * values and error messages
    *
    * @example
    * ```tsx
@@ -142,9 +144,9 @@ export interface StorageBrowserProps<K = string, V = {}> {
    *     title: 'Add subfolder",
    *
    *     // dynamic text
-   *     // default: () => 'Folder name cannot contain "/", nor end or start with "."'
-   *     getValidationMessage?: (foldeerName) =>
-   *       `Folder name ${folderName} cannot contain "/", nor end or start with "."`
+   *     // default: () => 'Folder name cannot contain "/", nor start or end with "."'
+   *     getValidationMessage?: (folderName) =>
+   *       `Folder name ${folderName} cannot contain "/", nor start or end with "."`
    *   }
    * }
    *
@@ -155,7 +157,7 @@ export interface StorageBrowserProps<K = string, V = {}> {
 
   /**
    * Overrides default top level views and custom views defined by the `actions` parameter of
-   * `createStorageBrowser`.
+   * `createStorageBrowser`
    */
   views?: StorageBrowserViews<K, V>;
 }
@@ -167,18 +169,25 @@ export interface StorageBrowserProviderProps<V = {}>
    */
   displayText?: StorageBrowserDisplayText;
 
+  // note: `views` intentionally scoped to custom slots to prevent conflicts with composability
   /**
-   * Accepts custom action views rendered by `LocationActionView`.
+   * Accepts custom action views rendered by `LocationActionView`
    */
   views?: V;
 
   /**
    * Sets initial `location` data. Provide to initialize the `StorageBrowser` with an initial
-   * `actionType`.
+   * `location` in the `LocationDetailView` or an action view
+   *
    *
    * @example
    * ```tsx
-   * <StorageBroeser.Provider actionType="upload">
+   * <StorageBroeser.Provider location={{
+   *   bucket: 'my-bucket;,
+   *   prefix: 'my-prefix',
+   *   id: 'some-unique-identifier',
+   *   type: 'PREFIX'
+   * }}>
    *   <StorageBroeser />
    * </StorageBroeser.Provider>
    * ```
@@ -194,7 +203,7 @@ export interface StorageBrowserType<K = string, V = {}> {
   displayName: string;
   /**
    * `StorageBrowser` React.Context provider. Composed `StorageBrowser` components
-   * must be a descendant of a `Provider` element.
+   * must be a descendant of a `Provider` element
    *
    * @example
    * ```tsx
@@ -207,7 +216,7 @@ export interface StorageBrowserType<K = string, V = {}> {
 
   /**
    * Utility view aggregating all action views. Can be used to render a standalone
-   * action view.
+   * action view
    *
    * @example
    * ```tsx
@@ -218,17 +227,17 @@ export interface StorageBrowserType<K = string, V = {}> {
 
   /**
    * Displays data related to the selected or provided `location` and action
-   * selection.
+   * selection
    */
   LocationDetailView: LocationDetailViewType;
 
   /**
-   * Entry point view displaying end user allowed locations.
+   * Entry point view displaying end user allowed locations
    */
   LocationsView: LocationsViewType;
 
   /**
-   * Standalone composable default action view components.
+   * Standalone composable default action view components
    */
   CopyView: CopyViewType;
   CreateFolderView: CreateFolderViewType;

@@ -69,7 +69,6 @@ const LinkActionView = () => {
   );
 
   const [{ tasks }, handleCreate] = useAction('generateLink', { items });
-  const [{ task: ___task }, ___handleCreate] = useAction('generateLink');
 
   return (
     <Flex direction="column">
