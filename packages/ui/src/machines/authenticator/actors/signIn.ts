@@ -15,7 +15,10 @@ import guards from '../guards';
 
 import { AuthEvent, ActorDoneData, SignInContext } from '../types';
 
-import { getFederatedSignInState } from './utils';
+import {
+  getConfirmSignInFormValuesKey,
+  getFederatedSignInState,
+} from './utils';
 
 export interface SignInMachineOptions {
   services?: Partial<typeof defaultServices>;
@@ -75,6 +78,26 @@ const handleFetchUserAttributesResponse = {
   onError: {
     actions: 'setConfirmAttributeCompleteStep',
     target: '#signInActor.resolved',
+  },
+};
+
+const defaultState = {
+  initial: 'edit',
+  exit: ['clearFormValues', 'clearError', 'clearTouched'],
+  states: {
+    edit: {
+      entry: 'sendUpdate',
+      on: {
+        SUBMIT: { actions: 'handleSubmit', target: 'submit' },
+        SIGN_IN: '#signInActor.signIn',
+        CHANGE: { actions: 'handleInput' },
+      },
+    },
+    submit: {
+      tags: 'pending',
+      entry: ['sendUpdate', 'clearError'],
+      invoke: { src: 'confirmSignIn', ...handleSignInResponse },
+    },
   },
 };
 
@@ -263,63 +286,9 @@ export function signInActor({ services }: SignInMachineOptions) {
             },
           },
         },
-        setupTotp: {
-          initial: 'edit',
-          exit: ['clearFormValues', 'clearError', 'clearTouched'],
-          states: {
-            edit: {
-              entry: 'sendUpdate',
-              on: {
-                SUBMIT: { actions: 'handleSubmit', target: 'submit' },
-                SIGN_IN: '#signInActor.signIn',
-                CHANGE: { actions: 'handleInput' },
-              },
-            },
-            submit: {
-              tags: 'pending',
-              entry: ['sendUpdate', 'clearError'],
-              invoke: { src: 'confirmSignIn', ...handleSignInResponse },
-            },
-          },
-        },
-        setupEmail: {
-          initial: 'edit',
-          exit: ['clearFormValues', 'clearError', 'clearTouched'],
-          states: {
-            edit: {
-              entry: 'sendUpdate',
-              on: {
-                SUBMIT: { actions: 'handleSubmit', target: 'submit' },
-                SIGN_IN: '#signInActor.signIn',
-                CHANGE: { actions: 'handleInput' },
-              },
-            },
-            submit: {
-              tags: 'pending',
-              entry: ['sendUpdate', 'clearError'],
-              invoke: { src: 'handleSetupEmail', ...handleSignInResponse },
-            },
-          },
-        },
-        selectMfaType: {
-          initial: 'edit',
-          exit: ['clearFormValues', 'clearError', 'clearTouched'],
-          states: {
-            edit: {
-              entry: 'sendUpdate',
-              on: {
-                SUBMIT: { actions: 'handleSubmit', target: 'submit' },
-                SIGN_IN: '#signInActor.signIn',
-                CHANGE: { actions: 'handleInput' },
-              },
-            },
-            submit: {
-              tags: 'pending',
-              entry: ['sendUpdate', 'clearError'],
-              invoke: { src: 'handleSelectMfaType', ...handleSignInResponse },
-            },
-          },
-        },
+        setupTotp: defaultState,
+        setupEmail: defaultState,
+        selectMfaType: defaultState,
         resolved: {
           type: 'final',
           data: (context): ActorDoneData => ({
@@ -350,19 +319,10 @@ export function signInActor({ services }: SignInMachineOptions) {
           const { password } = formValues;
           return services.handleSignIn({ username, password });
         },
-        confirmSignIn({ formValues }) {
-          const { confirmation_code: challengeResponse } = formValues;
+        confirmSignIn({ formValues, step }) {
+          const formValuesKey = getConfirmSignInFormValuesKey(step);
+          const { [formValuesKey]: challengeResponse } = formValues;
           return services.handleConfirmSignIn({ challengeResponse });
-        },
-        handleSetupEmail({ formValues }) {
-          return services.handleConfirmSignIn({
-            challengeResponse: formValues.email,
-          });
-        },
-        handleSelectMfaType({ formValues }) {
-          return services.handleConfirmSignIn({
-            challengeResponse: formValues.mfa_type,
-          });
         },
         async handleForceChangePassword({ formValues }) {
           let {

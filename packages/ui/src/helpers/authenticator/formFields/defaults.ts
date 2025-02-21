@@ -1,8 +1,7 @@
 /**
  * This file contains helpers that generate default formFields for each screen
  */
-import { authenticatorTextUtil } from '../textUtil';
-import { getActorContext, getActorState } from '../actor';
+import { getActorState } from '../actor';
 import { defaultFormFieldOptions } from '../constants';
 import { isAuthFieldWithDefaults } from '../form';
 import {
@@ -17,9 +16,6 @@ import {
   SignInState,
 } from '../../../machines/authenticator/types';
 import { getPrimaryAlias } from '../formFields/utils';
-import { defaultTexts } from '../../../i18n/dictionaries';
-
-const { getMfaTypeLabelByValue } = authenticatorTextUtil;
 
 export const DEFAULT_COUNTRY_CODE = '+1';
 
@@ -170,27 +166,19 @@ const getForceNewPasswordFormFields = (state: AuthMachineState): FormFields => {
   return formField;
 };
 
-const getSelectMfaTypeFormFields = (state: AuthMachineState): FormFields => {
-  const { allowedMfaTypes = [] } = getActorContext(state) || {};
-
+const getSelectMfaTypeFormFields = (_: AuthMachineState): FormFields => {
   return {
     mfa_type: {
-      label: defaultTexts.SELECT_MFA_TYPE_LABEL,
-      placeholder: defaultTexts.SELECT_MFA_TYPE_PLACEHOLDER,
+      label: 'Select MFA Type',
+      placeholder: 'Please select desired MFA type',
       type: 'radio',
       isRequired: true,
-      radioOptions: allowedMfaTypes.map((value) => ({
-        label: getMfaTypeLabelByValue(value),
-        value,
-      })),
     },
   };
 };
 
 const getSetupEmailFormFields = (_: AuthMachineState): FormFields => ({
-  email: {
-    ...getDefaultFormField('email'),
-  },
+  email: getDefaultFormField('email'),
 });
 
 /** Collect all the defaultFormFields getters */
@@ -206,7 +194,7 @@ export const defaultFormFieldsGetters: Record<
   forgotPassword: getForgotPasswordFormFields,
   confirmResetPassword: getConfirmResetPasswordFormFields,
   confirmVerifyUser: getConfirmationCodeFormFields,
-  setupTotp: getConfirmationCodeFormFields,
-  setupEmail: getSetupEmailFormFields,
   selectMfaType: getSelectMfaTypeFormFields,
+  setupEmail: getSetupEmailFormFields,
+  setupTotp: getConfirmationCodeFormFields,
 };

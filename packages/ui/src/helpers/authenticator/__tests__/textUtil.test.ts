@@ -135,7 +135,7 @@ describe('authenticatorTextUtil', () => {
 
   describe('getMfaTypeLabelByValue', () => {
     const getMfaTypeLabelByValueTestCases: [AuthMFAType, string][] = [
-      ['EMAIL', 'Email Message (EMAIL)'],
+      ['EMAIL', 'Email Message'],
       ['SMS', 'Text Message (SMS)'],
       ['TOTP', 'Authenticator App (TOTP)'],
     ];

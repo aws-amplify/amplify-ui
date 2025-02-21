@@ -42,13 +42,13 @@ export type AuthenticatorRoute =
   | 'forgotPassword'
   | 'setup'
   | 'signOut'
+  | 'selectMfaType'
+  | 'setupEmail'
   | 'setupTotp'
   | 'signIn'
   | 'signUp'
   | 'transition'
-  | 'verifyUser'
-  | 'setupEmail'
-  | 'selectMfaType';
+  | 'verifyUser';
 
 type AuthenticatorValidationErrors = ValidationError;
 export type AuthStatus = 'configuring' | 'authenticated' | 'unauthenticated';
@@ -177,6 +177,7 @@ export const getServiceContextFacade = (
 ): AuthenticatorServiceContextFacade => {
   const actorContext = (getActorContext(state) ?? {}) as AuthActorContext;
   const {
+    allowedMfaTypes,
     challengeName,
     codeDeliveryDetails,
     remoteError: error,
@@ -184,7 +185,6 @@ export const getServiceContextFacade = (
     totpSecretCode = null,
     unverifiedUserAttributes,
     username,
-    allowedMfaTypes,
   } = actorContext;
 
   const { socialProviders = [] } = state.context?.config ?? {};

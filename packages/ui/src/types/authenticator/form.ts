@@ -19,8 +19,8 @@ export type FormFieldComponents =
   | 'confirmSignUp'
   | 'confirmVerifyUser'
   | 'forgotPassword'
-  | 'setupEmail'
   | 'selectMfaType'
+  | 'setupEmail'
   | 'setupTotp';
 
 /**
@@ -70,8 +70,6 @@ export interface FormFieldOptions {
   autocomplete?: string;
   /** Whether the first character is auto-capitalized */
   autocapitalize?: string;
-  /** Options for radio input groups */
-  radioOptions?: { label: string; value: string }[];
 }
 
 export interface LegacyFormFieldOptions extends FormFieldOptions {

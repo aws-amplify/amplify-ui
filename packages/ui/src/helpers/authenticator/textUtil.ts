@@ -172,8 +172,9 @@ export const authenticatorTextUtil = {
   getSignInWithFederationText,
 
   /** SelectMfaType */
-  getSelectMfaTypeByChallengeName,
   getMfaTypeLabelByValue,
+  getSelectMfaTypeByChallengeName,
+  getSelectMfaTypeText: () => translate(DefaultTexts.SELECT_MFA_TYPE),
 
   /** VerifyUser */
   getSkipText: () => translate(DefaultTexts.SKIP),

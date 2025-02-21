@@ -171,7 +171,7 @@ export type UserAttributeStep =
   | 'CONFIRM_ATTRIBUTE_WITH_CODE'
   | 'CONFIRM_ATTRIBUTE_COMPLETE'; // 'DONE'
 
-type Step =
+export type Step =
   | InitialStep
   | SignInStep
   | SignUpStep
