@@ -2,6 +2,7 @@
 
 exports[`useMachine returns the expected values 1`] = `
 {
+  "allowedMfaTypes": undefined,
   "challengeName": undefined,
   "codeDeliveryDetails": undefined,
   "errorMessage": undefined,
