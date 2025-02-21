@@ -54,6 +54,7 @@ type AuthenticatorValidationErrors = ValidationError;
 export type AuthStatus = 'configuring' | 'authenticated' | 'unauthenticated';
 
 interface AuthenticatorServiceContextFacade {
+  allowedMfaTypes: AuthMFAType[] | undefined;
   authStatus: AuthStatus;
   challengeName: ChallengeName | undefined;
   codeDeliveryDetails: V5CodeDeliveryDetails;
@@ -67,7 +68,6 @@ interface AuthenticatorServiceContextFacade {
   user: AuthUser;
   username: string;
   validationErrors: AuthenticatorValidationErrors;
-  allowedMfaTypes: AuthMFAType[] | undefined;
 }
 
 type SendEventAlias =
@@ -93,6 +93,7 @@ export interface AuthenticatorServiceFacade
     AuthenticatorServiceContextFacade {}
 
 interface NextAuthenticatorServiceContextFacade {
+  allowedMfaTypes: AuthMFAType[] | undefined;
   challengeName: ChallengeName | undefined;
   codeDeliveryDetails: V5CodeDeliveryDetails | undefined;
   errorMessage: string | undefined;
@@ -103,7 +104,6 @@ interface NextAuthenticatorServiceContextFacade {
   totpSecretCode: string | undefined;
   username: string | undefined;
   unverifiedUserAttributes: UnverifiedUserAttributes | undefined;
-  allowedMfaTypes: AuthMFAType[] | undefined;
 }
 
 interface NextAuthenticatorSendEventAliases
@@ -249,13 +249,13 @@ export const getNextServiceContextFacade = (
 ): NextAuthenticatorServiceContextFacade => {
   const actorContext = (getActorContext(state) ?? {}) as AuthActorContext;
   const {
+    allowedMfaTypes,
     challengeName,
     codeDeliveryDetails,
     remoteError: errorMessage,
     totpSecretCode,
     unverifiedUserAttributes,
     username,
-    allowedMfaTypes,
   } = actorContext;
 
   const { socialProviders: federatedProviders, loginMechanisms } =
@@ -270,6 +270,7 @@ export const getNextServiceContextFacade = (
   const route = getRoute(state, actorState) as AuthenticatorRoute;
 
   return {
+    allowedMfaTypes,
     challengeName,
     codeDeliveryDetails,
     errorMessage,
@@ -280,7 +281,6 @@ export const getNextServiceContextFacade = (
     totpSecretCode,
     unverifiedUserAttributes,
     username,
-    allowedMfaTypes,
   };
 };
 
