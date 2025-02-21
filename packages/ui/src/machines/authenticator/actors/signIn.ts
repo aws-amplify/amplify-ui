@@ -81,9 +81,9 @@ const handleFetchUserAttributesResponse = {
   },
 };
 
-const defaultState = {
+const getDefaultConfirmSignInState = (exit: string[]) => ({
   initial: 'edit',
-  exit: ['clearFormValues', 'clearError', 'clearTouched'],
+  exit,
   states: {
     edit: {
       entry: 'sendUpdate',
@@ -99,7 +99,7 @@ const defaultState = {
       invoke: { src: 'confirmSignIn', ...handleSignInResponse },
     },
   },
-};
+});
 
 export function signInActor({ services }: SignInMachineOptions) {
   return createMachine<SignInContext, AuthEvent>(
@@ -187,33 +187,12 @@ export function signInActor({ services }: SignInMachineOptions) {
             },
           },
         },
-        confirmSignIn: {
-          initial: 'edit',
-          exit: [
-            'clearChallengeName',
-            'clearFormValues',
-            'clearError',
-            'clearTouched',
-          ],
-          states: {
-            edit: {
-              entry: 'sendUpdate',
-              on: {
-                SUBMIT: { actions: 'handleSubmit', target: 'submit' },
-                SIGN_IN: '#signInActor.signIn',
-                CHANGE: { actions: 'handleInput' },
-              },
-            },
-            submit: {
-              tags: 'pending',
-              entry: ['clearError', 'sendUpdate'],
-              invoke: {
-                src: 'confirmSignIn',
-                ...handleSignInResponse,
-              },
-            },
-          },
-        },
+        confirmSignIn: getDefaultConfirmSignInState([
+          'clearChallengeName',
+          'clearFormValues',
+          'clearError',
+          'clearTouched',
+        ]),
         forceChangePassword: {
           entry: 'sendUpdate',
           type: 'parallel',
@@ -286,9 +265,21 @@ export function signInActor({ services }: SignInMachineOptions) {
             },
           },
         },
-        setupTotp: defaultState,
-        setupEmail: defaultState,
-        selectMfaType: defaultState,
+        setupTotp: getDefaultConfirmSignInState([
+          'clearFormValues',
+          'clearError',
+          'clearTouched',
+        ]),
+        setupEmail: getDefaultConfirmSignInState([
+          'clearFormValues',
+          'clearError',
+          'clearTouched',
+        ]),
+        selectMfaType: getDefaultConfirmSignInState([
+          'clearFormValues',
+          'clearError',
+          'clearTouched',
+        ]),
         resolved: {
           type: 'final',
           data: (context): ActorDoneData => ({

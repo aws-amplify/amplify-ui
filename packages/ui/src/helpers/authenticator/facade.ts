@@ -217,6 +217,7 @@ export const getServiceContextFacade = (
   })(route);
 
   const facade = {
+    allowedMfaTypes,
     authStatus,
     challengeName,
     codeDeliveryDetails,
@@ -230,7 +231,6 @@ export const getServiceContextFacade = (
     user,
     username,
     validationErrors,
-    allowedMfaTypes,
 
     // @v6-migration-note
     // While most of the properties
