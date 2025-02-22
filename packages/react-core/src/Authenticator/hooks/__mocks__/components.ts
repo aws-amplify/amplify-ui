@@ -98,12 +98,12 @@ export const DEFAULTS: DefaultComponents<{}> = {
   ConfirmVerifyUser,
   ForceNewPassword,
   ForgotPassword,
+  SelectMfaType,
+  SetupEmail,
   SetupTotp,
   SignIn,
   SignUp,
   VerifyUser,
-  SetupEmail,
-  SelectMfaType,
 };
 
 const OverrideConfirmResetPassword: Overrides['ConfirmResetPassword'] = () =>

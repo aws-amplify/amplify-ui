@@ -28,8 +28,6 @@ exports[`SelectMfaType renders as expected  1`] = `
             >
               <fieldset
                 class="amplify-flex amplify-fieldset amplify-fieldset--plain amplify-field amplify-radiogroupfield"
-                label="Select MFA Type"
-                required=""
                 role="radiogroup"
               >
                 <legend
@@ -39,13 +37,13 @@ exports[`SelectMfaType renders as expected  1`] = `
                 </legend>
                 <div
                   aria-hidden="true"
-                  class="amplify-fieldset__legend"
+                  class="amplify-fieldset__legend amplify-visually-hidden"
                 >
                   Select MFA Type
                 </div>
                 <div
                   class="amplify-flex amplify-radiogroup"
-                  id="amplify-id-:r1:"
+                  id="amplify-id-:r0:"
                 >
                   <label
                     class="amplify-flex amplify-radio"
@@ -53,12 +51,13 @@ exports[`SelectMfaType renders as expected  1`] = `
                     <span
                       class="amplify-text amplify-radio__label"
                     >
-                      EMAIL
+                      Email Message
                     </span>
                     <input
                       aria-invalid="false"
                       class="amplify-input amplify-field-group__control amplify-visually-hidden amplify-radio__input"
                       name="mfa_type"
+                      required=""
                       type="radio"
                       value="EMAIL"
                     />
@@ -73,12 +72,13 @@ exports[`SelectMfaType renders as expected  1`] = `
                     <span
                       class="amplify-text amplify-radio__label"
                     >
-                      TOTP
+                      Authenticator App (TOTP)
                     </span>
                     <input
                       aria-invalid="false"
                       class="amplify-input amplify-field-group__control amplify-visually-hidden amplify-radio__input"
                       name="mfa_type"
+                      required=""
                       type="radio"
                       value="TOTP"
                     />

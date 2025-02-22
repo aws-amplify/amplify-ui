@@ -4,13 +4,12 @@ Feature: Sign In with Email MFA Setup Selection
         Given I'm running the example "ui/components/authenticator/sign-in-with-email-mfa-setup-selection"
 
     @react
-    Scenario: Sign Up and Auto Sign In With Email MFA Setup Selection
-        When I type a new "username"
+    Scenario: Sign In With Email MFA Setup Selection
+        When I type my "username" with status "CONFIRMED"
         Then I type my password
-        Then I confirm my password
-        Then I click the "Create Account" button
+        Then I click the "Sign in" button
         Then I see "Multi-Factor Authentication Setup"
-        Then I click the "EMAIL" radio button
+        Then I click the "Email" radio button
         Then I click the "Confirm" button
         Then I see "Setup Email"
         Then I type my "email" with status "UNCONFIRMED"
@@ -22,11 +21,10 @@ Feature: Sign In with Email MFA Setup Selection
         Then I see "Sign In"
 
     @react
-    Scenario: Sign Up, Auto Sign In, Observe MFA Setup Selection Screen, Navigate Back To Sign In Page, and Sign In
-        When I type a new "username"
+    Scenario: Sign In, Observe MFA Setup Selection Screen, Navigate Back To Sign In Page, and Sign In
+        When I type my "username" with status "CONFIRMED"
         Then I type my password
-        Then I confirm my password
-        Then I click the "Create Account" button
+        Then I click the "Sign in" button
         Then I see "Multi-Factor Authentication Setup"
         Then I click the "Back to Sign In" button
         Then I see "Sign In"
@@ -34,7 +32,7 @@ Feature: Sign In with Email MFA Setup Selection
         Then I type my password
         Then I click the "Sign in" button
         Then I see "Multi-Factor Authentication Setup"
-        Then I click the "EMAIL" radio button
+        Then I click the "Email" radio button
         Then I click the "Confirm" button
         Then I see "Setup Email"
         Then I type my "email" with status "UNCONFIRMED"
@@ -46,13 +44,12 @@ Feature: Sign In with Email MFA Setup Selection
         Then I see "Sign In"
 
     @react
-    Scenario: Sign Up, Auto Sign In, Select Email MFA Type For Setup, Observe Setup Email Screen, Navigate Back To Sign In Page, and Sign In
-        When I type a new "username"
+    Scenario: Sign In, Select Email MFA Type For Setup, Observe Setup Email Screen, Navigate Back To Sign In Page, and Sign In
+        When I type my "username" with status "CONFIRMED"
         Then I type my password
-        Then I confirm my password
-        Then I click the "Create Account" button
+        Then I click the "Sign in" button
         Then I see "Multi-Factor Authentication Setup"
-        Then I click the "EMAIL" radio button
+        Then I click the "Email" radio button
         Then I click the "Confirm" button
         Then I see "Setup Email"
         Then I click the "Back to Sign In" button
@@ -61,7 +58,7 @@ Feature: Sign In with Email MFA Setup Selection
         Then I type my password
         Then I click the "Sign in" button
         Then I see "Multi-Factor Authentication Setup"
-        Then I click the "EMAIL" radio button
+        Then I click the "Email" radio button
         Then I click the "Confirm" button
         Then I see "Setup Email"
         Then I type my "email" with status "UNCONFIRMED"
@@ -73,13 +70,12 @@ Feature: Sign In with Email MFA Setup Selection
         Then I see "Sign In"
 
     @react
-    Scenario: Sign Up, Auto Sign In, Select Email MFA Type For Setup, Setup Email, Observe Confirmation Code Screen, Navigate Back To Sign In Page, and Sign In
-        When I type a new "username"
+    Scenario: Sign In, Select Email MFA Type For Setup, Setup Email, Observe Confirmation Code Screen, Navigate Back To Sign In Page, and Sign In
+        When I type my "username" with status "CONFIRMED"
         Then I type my password
-        Then I confirm my password
-        Then I click the "Create Account" button
+        Then I click the "Sign in" button
         Then I see "Multi-Factor Authentication Setup"
-        Then I click the "EMAIL" radio button
+        Then I click the "Email" radio button
         Then I click the "Confirm" button
         Then I see "Setup Email"
         Then I type my "email" with status "CONFIRMED"
@@ -91,7 +87,7 @@ Feature: Sign In with Email MFA Setup Selection
         Then I type my password
         Then I click the "Sign in" button
         Then I see "Multi-Factor Authentication Setup"
-        Then I click the "EMAIL" radio button
+        Then I click the "Email" radio button
         Then I click the "Confirm" button
         Then I see "Setup Email"
         Then I type my "email" with status "UNCONFIRMED"

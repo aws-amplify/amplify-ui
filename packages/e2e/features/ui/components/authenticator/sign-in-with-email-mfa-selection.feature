@@ -8,7 +8,7 @@ Feature: Sign In with Email MFA Selection
         When I type my "username" with status "CONFIRMED"
         Then I type my password
         Then I click the "Sign in" button
-        Then I click the "EMAIL" radio button
+        Then I click the "Email" radio button
         Then I click the "Confirm" button
         Then I see "Confirm Email Code"
         Then I type a valid confirmation code
@@ -18,7 +18,7 @@ Feature: Sign In with Email MFA Selection
 
     @react
     Scenario: Sign In, Observe MFA Selection Screen, and Navigate Back to Sign In Page
-        When I type my "username" with status "CONFIRMED'"
+        When I type my "username" with status "CONFIRMED"
         Then I type my password
         Then I click the "Sign in" button
         Then I see "Multi-Factor Authentication"
@@ -30,7 +30,7 @@ Feature: Sign In with Email MFA Selection
         When I type my "username" with status "CONFIRMED"
         Then I type my password
         Then I click the "Sign in" button
-        Then I click the "EMAIL" radio button
+        Then I click the "Email" radio button
         Then I click the "Confirm" button
         Then I see "Confirm Email Code"
         Then I click the "Back to Sign In" button
@@ -41,7 +41,7 @@ Feature: Sign In with Email MFA Selection
         When I type my "username" with status "CONFIRMED"
         Then I type my password
         Then I click the "Sign in" button
-        Then I click the "EMAIL" radio button
+        Then I click the "Email" radio button
         Then I click the "Confirm" button
         Then I see "Confirm Email Code"
         Then I type an invalid confirmation code

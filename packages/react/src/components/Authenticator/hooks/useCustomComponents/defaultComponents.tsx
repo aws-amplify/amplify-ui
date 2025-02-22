@@ -23,12 +23,12 @@ export interface DefaultComponents extends Omit<Components, 'FormFields'> {
   ConfirmVerifyUser?: Omit<Components, 'FormFields'>;
   ForceNewPassword?: Components;
   ForgotPassword?: Omit<Components, 'FormFields'>;
+  SelectMfaType?: Omit<Components, 'FormFields'>;
+  SetupEmail?: Omit<Components, 'FormFields'>;
   SetupTotp?: Omit<Components, 'FormFields'>;
   SignIn?: Omit<Components, 'FormFields'>;
   SignUp?: Components;
   VerifyUser?: Omit<Components, 'FormFields'>;
-  SelectMfaType?: Omit<Components, 'FormFields'>;
-  SetupEmail?: Omit<Components, 'FormFields'>;
 }
 
 export const defaultComponents: DefaultComponents = {
@@ -46,6 +46,14 @@ export const defaultComponents: DefaultComponents = {
   ConfirmSignUp: {
     Header: ConfirmSignUp.Header,
     Footer: ConfirmSignUp.Footer,
+  },
+  SelectMfaType: {
+    Header: SelectMfaType.Header,
+    Footer: SelectMfaType.Footer,
+  },
+  SetupEmail: {
+    Header: SetupEmail.Header,
+    Footer: SetupEmail.Footer,
   },
   SetupTotp: {
     Header: SetupTotp.Header,
@@ -76,14 +84,6 @@ export const defaultComponents: DefaultComponents = {
   ForgotPassword: {
     Header: ForgotPassword.Header,
     Footer: ForgotPassword.Footer,
-  },
-  SelectMfaType: {
-    Header: SelectMfaType.Header,
-    Footer: SelectMfaType.Footer,
-  },
-  SetupEmail: {
-    Header: SetupEmail.Header,
-    Footer: SetupEmail.Footer,
   },
   // @ts-ignore
   Footer: (): React.JSX.Element => null,

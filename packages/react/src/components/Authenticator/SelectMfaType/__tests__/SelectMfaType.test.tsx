@@ -17,7 +17,7 @@ jest.mock('../../hooks/useCustomComponents', () => ({
   }),
 }));
 
-const fieldLabel = 'Select MFA Type';
+const fieldLabel = 'Email Message';
 const fieldInput = { name: 'mfa_type', value: 'EMAIL' };
 
 const mockUpdateForm = jest.fn();
@@ -36,24 +36,6 @@ const mockUseAuthenticatorOutput: Partial<UseAuthenticator> = {
   updateForm: mockUpdateForm,
   allowedMfaTypes: ['EMAIL', 'TOTP'],
   validationErrors: {} as AuthenticatorServiceFacade['validationErrors'],
-  fields: [
-    {
-      name: 'mfa_type',
-      label: fieldLabel,
-      required: true,
-      type: 'radio',
-      radioOptions: [
-        {
-          label: 'EMAIL',
-          value: 'EMAIL',
-        },
-        {
-          label: 'TOTP',
-          value: 'TOTP',
-        },
-      ],
-    },
-  ],
 };
 
 mockUseAuthenticator.mockReturnValue(mockUseAuthenticatorOutput as any);
@@ -69,18 +51,14 @@ describe('SelectMfaType', () => {
   });
 
   it('renders as expected ', () => {
-    const mathRandomSpy = jest.spyOn(Math, 'random').mockReturnValue(0.1);
-
     const { container } = render(<SelectMfaType {...props} />);
     expect(container).toMatchSnapshot();
-
-    mathRandomSpy.mockRestore();
   });
 
   it('sends change event on form input', async () => {
     render(<SelectMfaType {...props} />);
 
-    const radioButton = await screen.findByText(fieldInput.value);
+    const radioButton = await screen.findByText(fieldLabel);
 
     fireEvent.click(radioButton);
 
@@ -90,7 +68,7 @@ describe('SelectMfaType', () => {
   it('sends submit event on form submit', async () => {
     render(<SelectMfaType {...props} />);
 
-    const radioButton = await screen.findByText(fieldInput.value);
+    const radioButton = await screen.findByText(fieldLabel);
 
     fireEvent.click(radioButton);
 

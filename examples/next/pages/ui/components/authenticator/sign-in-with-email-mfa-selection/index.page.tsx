@@ -1,10 +1,10 @@
 import { Amplify } from 'aws-amplify';
-
+import { AuthContext } from '@aws-amplify/ui';
 import { Authenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
 import awsExports from './aws-exports';
-import { AuthContext } from '@aws-amplify/ui';
+
 Amplify.configure(awsExports);
 
 const customServices: AuthContext['services'] = {
@@ -23,6 +23,11 @@ const customServices: AuthContext['services'] = {
         isSignedIn: false,
         nextStep: {
           signInStep: 'CONFIRM_SIGN_IN_WITH_EMAIL_CODE',
+          codeDeliveryDetails: {
+            destination: 'a***@e***.com',
+            deliveryMedium: 'EMAIL',
+            attributeName: 'email',
+          },
         },
       };
     }

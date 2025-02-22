@@ -10,12 +10,12 @@ export const COMPONENT_ROUTE_KEYS: AuthenticatorRouteComponentKey[] = [
   'confirmVerifyUser',
   'forceNewPassword',
   'forgotPassword',
+  'selectMfaType',
+  'setupEmail',
   'setupTotp',
   'signIn',
   'signUp',
   'verifyUser',
-  'setupEmail',
-  'selectMfaType',
 ];
 
 export const COMPONENT_ROUTE_NAMES: AuthenticatorRouteComponentName[] = [
@@ -25,10 +25,10 @@ export const COMPONENT_ROUTE_NAMES: AuthenticatorRouteComponentName[] = [
   'ConfirmVerifyUser',
   'ForceNewPassword',
   'ForgotPassword',
+  'SelectMfaType',
+  'SetupEmail',
   'SetupTotp',
   'SignIn',
   'SignUp',
   'VerifyUser',
-  'SetupEmail',
-  'SelectMfaType',
 ];

@@ -33,6 +33,10 @@ const getRouteComponent = (route: string): RouteComponent => {
       return ConfirmSignUp;
     case 'confirmSignIn':
       return ConfirmSignIn;
+    case 'selectMfaType':
+      return SelectMfaType;
+    case 'setupEmail':
+      return SetupEmail;
     case 'setupTotp':
       return SetupTotp;
     case 'signIn':
@@ -48,10 +52,7 @@ const getRouteComponent = (route: string): RouteComponent => {
       return VerifyUser;
     case 'confirmVerifyUser':
       return ConfirmVerifyUser;
-    case 'selectMfaType':
-      return SelectMfaType;
-    case 'setupEmail':
-      return SetupEmail;
+
     default:
       // eslint-disable-next-line no-console
       console.warn(

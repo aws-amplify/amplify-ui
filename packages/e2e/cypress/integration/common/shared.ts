@@ -345,7 +345,10 @@ When('I click the {string} checkbox', (label: string) => {
 });
 
 When('I click the {string} radio button', (label: string) => {
-  cy.get(`.amplify-radio__label`).contains(label).click();
+  cy.findByLabelText(new RegExp(`^${escapeRegExp(label)}`, 'i')).click({
+    // see above comment
+    force: true,
+  });
 });
 
 When('I reload the page', () => {

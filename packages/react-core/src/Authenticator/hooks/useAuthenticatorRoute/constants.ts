@@ -14,10 +14,10 @@ import {
   ResetPasswordMachineKey,
   SignInMachineKey,
   SignUpMachineKey,
+  SelectMfaMachineKey,
+  SetupEmailMachineKey,
   SetupTotpMachineKey,
   VerifyUserMachineKey,
-  SetupEmailMachineKey,
-  SelectMfaMachineKey,
 } from './types';
 
 export const EVENT_HANDLER_KEY_MAP: Record<
@@ -117,8 +117,8 @@ export const MACHINE_PROP_KEYS: Record<
   signIn: SIGN_IN_MACHINE_KEYS,
   signUp: SIGN_UP_MACHINE_KEYS,
   forgotPassword: RESET_PASSWORD_MACHINE_KEYS,
-  setupTotp: SETUP_TOTP_MACHINE_KEYS,
-  setupEmail: SETUP_EMAIL_MACHINE_KEY,
   selectMfaType: SELECT_MFA_MACHINE_KEYS,
+  setupEmail: SETUP_EMAIL_MACHINE_KEY,
+  setupTotp: SETUP_TOTP_MACHINE_KEYS,
   verifyUser: VERIFY_USER_MACHINE_KEYS,
 };

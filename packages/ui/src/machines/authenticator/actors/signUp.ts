@@ -1,11 +1,11 @@
 import { createMachine, sendUpdate } from 'xstate';
 
 import {
+  autoSignIn,
   ConfirmSignUpInput,
   resendSignUpCode,
   signInWithRedirect,
   fetchUserAttributes,
-  autoSignIn,
 } from 'aws-amplify/auth';
 
 import { AuthContext, AuthEvent, SignUpContext } from '../types';
@@ -277,7 +277,7 @@ export function signUpActor({ services }: SignUpMachineOptions) {
       guards,
       services: {
         autoSignIn() {
-          return services.handleAutoSignIn?.() || autoSignIn();
+          return autoSignIn();
         },
         async fetchUserAttributes() {
           return fetchUserAttributes();

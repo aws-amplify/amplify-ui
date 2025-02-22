@@ -1,5 +1,5 @@
 import { State } from 'xstate';
-import { AuthUser, SignInOutput } from 'aws-amplify/auth';
+import { AuthUser } from 'aws-amplify/auth';
 
 import {
   LoginMechanism,
@@ -135,11 +135,7 @@ export interface AuthContext {
     initialState?: 'signIn' | 'signUp' | 'forgotPassword';
     passwordSettings?: PasswordSettings;
   };
-  // default autoSignIn reference from Amplify JS changes outside of state machine
-  // avoid mutating context outside of state machine
-  services?: Partial<typeof defaultServices> & {
-    handleAutoSignIn?: () => Promise<SignInOutput>;
-  };
+  services?: Partial<typeof defaultServices>;
   user?: AuthUser;
   // data returned from actors when they finish and reach their final state
   actorDoneData?: ActorDoneData;
@@ -150,6 +146,7 @@ export interface AuthContext {
 export type InitialStep = 'FORGOT_PASSWORD' | 'SIGN_IN' | 'SIGN_UP';
 
 export type SignInStep =
+  | 'CONFIRM_SIGN_IN_WITH_EMAIL_CODE'
   | 'CONFIRM_SIGN_IN_WITH_SMS_CODE'
   | 'CONFIRM_SIGN_IN_WITH_TOTP_CODE'
   | 'CONFIRM_SIGN_IN_WITH_NEW_PASSWORD_REQUIRED'

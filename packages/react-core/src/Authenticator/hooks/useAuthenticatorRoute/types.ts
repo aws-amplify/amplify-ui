@@ -10,13 +10,13 @@ import {
   DefaultProps,
   ForceResetPasswordBaseProps,
   ResetPasswordBaseProps,
+  SelectMfaTypeBaseProps,
+  SetupEmailBaseProps,
   SetupTotpBaseProps,
   SignInBaseProps,
   SignUpBaseProps,
   VerifyUserProps,
   ConfirmVerifyUserProps,
-  SetupEmailBaseProps,
-  SelectMfaTypeBaseProps,
 } from '../types';
 
 export type UseAuthenticatorRouteParams<FieldType> = {

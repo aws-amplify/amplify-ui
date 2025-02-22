@@ -1,10 +1,10 @@
 import { Amplify } from 'aws-amplify';
-
+import { AuthContext, emailRegex } from '@aws-amplify/ui';
 import { Authenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
 import awsExports from './aws-exports';
-import { AuthContext, emailRegex } from '@aws-amplify/ui';
+
 Amplify.configure(awsExports);
 
 const customServices: AuthContext['services'] = {
@@ -14,15 +14,6 @@ const customServices: AuthContext['services'] = {
       userId: '******************',
       nextStep: {
         signUpStep: 'COMPLETE_AUTO_SIGN_IN',
-      },
-    };
-  },
-  handleAutoSignIn: async () => {
-    return {
-      isSignedIn: false,
-      nextStep: {
-        signInStep: 'CONTINUE_SIGN_IN_WITH_MFA_SETUP_SELECTION',
-        allowedMFATypes: ['EMAIL', 'TOTP'],
       },
     };
   },
@@ -77,7 +68,7 @@ const customServices: AuthContext['services'] = {
 
 export default function App() {
   return (
-    <Authenticator initialState="signUp" services={customServices}>
+    <Authenticator services={customServices}>
       {({ signOut, user }) => (
         <main>
           <h1>Hello {user.username}</h1>

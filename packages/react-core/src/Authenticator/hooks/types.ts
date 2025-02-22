@@ -15,12 +15,12 @@ export type AuthenticatorRouteComponentKey =
   | 'confirmVerifyUser'
   | 'forceNewPassword'
   | 'forgotPassword'
+  | 'selectMfaType'
+  | 'setupEmail'
   | 'setupTotp'
   | 'signIn'
   | 'signUp'
-  | 'verifyUser'
-  | 'setupEmail'
-  | 'selectMfaType';
+  | 'verifyUser';
 
 export type AuthenticatorLegacyField = LegacyFormFieldOptions;
 export type AuthenticatorLegacyFields = AuthenticatorLegacyField[];
@@ -178,12 +178,12 @@ export interface DefaultProps<FieldType = {}> {
   ConfirmVerifyUser: ConfirmVerifyUserProps<FieldType>;
   ForceNewPassword: ForceResetPasswordBaseProps<FieldType>;
   ForgotPassword: ResetPasswordBaseProps<FieldType>;
+  SelectMfaType: SelectMfaTypeBaseProps<FieldType>;
+  SetupEmail: SetupEmailBaseProps<FieldType>;
   SetupTotp: SetupTotpBaseProps<FieldType>;
   SignIn: SignInBaseProps<FieldType>;
   SignUp: SignUpBaseProps<FieldType>;
   VerifyUser: VerifyUserProps<FieldType>;
-  SetupEmail: SetupEmailBaseProps<FieldType>;
-  SelectMfaType: SelectMfaTypeBaseProps<FieldType>;
 }
 
 /**

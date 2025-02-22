@@ -16,12 +16,12 @@ import {
   resolveDefault,
   resolveForceNewPasswordRoute,
   resolveForgotPasswordRoute,
+  resolveSelectMfaTypeRoute,
+  resolveSetupEmailRoute,
   resolveSetupTotpRoute,
   resolveSignInRoute,
   resolveSignUpRoute,
   resolveVerifyUserRoute,
-  resolveSetupEmailRoute,
-  resolveSelectMfaTypeRoute,
 } from './utils';
 
 export default function useAuthenticatorRoute<FieldType>(
@@ -84,12 +84,12 @@ export default function useAuthenticatorRoute<FieldType>({
     ConfirmVerifyUser,
     ForceNewPassword,
     ForgotPassword,
+    SelectMfaType,
+    SetupEmail,
     SetupTotp,
     SignIn,
     SignUp,
     VerifyUser,
-    SetupEmail,
-    SelectMfaType,
   } = components;
 
   switch (route) {
@@ -117,14 +117,14 @@ export default function useAuthenticatorRoute<FieldType>({
     case 'forgotPassword': {
       return resolveForgotPasswordRoute(ForgotPassword, routeSelectorProps);
     }
-    case 'setupTotp': {
-      return resolveSetupTotpRoute(SetupTotp, routeSelectorProps);
-    }
     case 'selectMfaType': {
       return resolveSelectMfaTypeRoute(SelectMfaType, routeSelectorProps);
     }
     case 'setupEmail': {
       return resolveSetupEmailRoute(SetupEmail, routeSelectorProps);
+    }
+    case 'setupTotp': {
+      return resolveSetupTotpRoute(SetupTotp, routeSelectorProps);
     }
     case 'signIn': {
       return resolveSignInRoute(SignIn, routeSelectorProps);

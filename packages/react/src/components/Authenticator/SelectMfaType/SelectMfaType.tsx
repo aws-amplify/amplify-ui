@@ -7,18 +7,22 @@ import { useCustomComponents } from '../hooks/useCustomComponents';
 import { useFormHandlers } from '../hooks/useFormHandlers';
 import { ConfirmSignInFooter } from '../shared/ConfirmSignInFooter';
 import { RemoteErrorMessage } from '../shared/RemoteErrorMessage';
-import { FormFields } from '../shared/FormFields';
 import { RouteContainer, RouteProps } from '../RouteContainer';
 import { authenticatorTextUtil } from '@aws-amplify/ui';
+import { RadioGroupField, Radio } from '../../../primitives';
 
-const { getSelectMfaTypeByChallengeName } = authenticatorTextUtil;
+const {
+  getMfaTypeLabelByValue,
+  getSelectMfaTypeByChallengeName,
+  getSelectMfaTypeText,
+} = authenticatorTextUtil;
 
 export const SelectMfaType = ({
   className,
   variation,
 }: RouteProps): JSX.Element => {
-  const { isPending } = useAuthenticator((context) => {
-    return [context.isPending];
+  const { isPending, allowedMfaTypes = [] } = useAuthenticator((context) => {
+    return [context.isPending, context.allowedMfaTypes];
   });
 
   const { handleChange, handleSubmit } = useFormHandlers();
@@ -46,7 +50,20 @@ export const SelectMfaType = ({
           <Header />
 
           <Flex direction="column">
-            <FormFields />
+            <RadioGroupField
+              name="mfa_type"
+              legend={getSelectMfaTypeText()}
+              legendHidden
+              isDisabled={isPending}
+              isRequired
+            >
+              {allowedMfaTypes.map((value) => (
+                <Radio name="mfa_type" key={value} value={value}>
+                  {getMfaTypeLabelByValue(value)}
+                </Radio>
+              ))}
+            </RadioGroupField>
+
             <RemoteErrorMessage />
           </Flex>
 
