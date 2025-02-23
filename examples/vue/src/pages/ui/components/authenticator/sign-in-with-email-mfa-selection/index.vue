@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { Amplify } from 'aws-amplify';
-import '@aws-amplify/ui-vue/styles.css';
+import { AuthContext } from '@aws-amplify/ui';
 import { Authenticator } from '@aws-amplify/ui-vue';
+import '@aws-amplify/ui-vue/styles.css';
 
-import aws_exports from './aws-exports';
-import { AuthContext, emailRegex } from '@aws-amplify/ui';
-Amplify.configure(aws_exports);
+import awsExports from './aws-exports';
+
+Amplify.configure(awsExports);
 
 const customServices: AuthContext['services'] = {
     handleSignIn: async () => {
@@ -23,6 +24,11 @@ const customServices: AuthContext['services'] = {
                 isSignedIn: false,
                 nextStep: {
                     signInStep: 'CONFIRM_SIGN_IN_WITH_EMAIL_CODE',
+                    codeDeliveryDetails: {
+                        destination: 'a***@e***.com',
+                        deliveryMedium: 'EMAIL',
+                        attributeName: 'email',
+                    },
                 },
             };
         }

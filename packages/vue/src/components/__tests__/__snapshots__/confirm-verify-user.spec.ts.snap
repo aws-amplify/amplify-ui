@@ -30,7 +30,7 @@ exports[`ConfirmVerifyUser renders as expected 1`] = `
           
           
           
-          <!-- radio input -->
+          <!-- password input -->
           
           <!-- textfield input -->
           <div

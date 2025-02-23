@@ -29,115 +29,98 @@ exports[`SelectMfaType renders as expected  1`] = `
           class="amplify-flex amplify-authenticator__column"
         >
           
-          
-          
-          <!-- radio input -->
-          <div
-            aria-invalid="false"
-            class="amplify-flex amplify-field amplify-radiogroupfield amplify-authenticator__column"
-            role="radiogroup"
+          <label
+            class="amplify-visually-hidden amplify-label"
+            data-amplify-label=""
+            id="amplify-field-99999"
           >
             
+            Select MFA Type
+            
+          </label>
+          <div
+            aria-labelledby="amplify-field-99999"
+            class="amplify-flex amplify-field amplify-radiogroupfield amplify-authenticator__column"
+          >
+            
+            
             <label
-              class="amplify-label"
+              class="amplify-flex amplify-radio"
               data-amplify-label=""
-              id="amplify-field-99999"
+              data-amplify-selectmfatype-label=""
             >
               
-              Select MFA Type
+              
+              <span
+                class="amplify-text amplify-radio__label"
+                data-amplify-text=""
+              >
+                
+                Email Message
+                
+              </span>
+              
+              <input
+                aria-invalid="false"
+                class="amplify-input amplify-field-group__control amplify-visually-hidden amplify-radio__input"
+                data-amplify-input=""
+                data-amplify-selectmfatype-input=""
+                name="mfa_type"
+                type="radio"
+                value="EMAIL"
+              />
+              
+              <span
+                aria-hidden="true"
+                class="amplify-flex amplify-radio__button"
+                data-amplify-text=""
+              >
+                
+                
+              </span>
+              
               
             </label>
-            <div
-              aria-labelledby="amplify-field-99999"
-              class="amplify-flex amplify-field amplify-radiogroup amplify-authenticator__column"
+            <label
+              class="amplify-flex amplify-radio"
+              data-amplify-label=""
+              data-amplify-selectmfatype-label=""
             >
               
               
-              <label
-                class="amplify-flex amplify-radio"
-                data-amplify-label=""
-                data-amplify-radio-control-label=""
+              <span
+                class="amplify-text amplify-radio__label"
+                data-amplify-text=""
+              >
+                
+                Authenticator App (TOTP)
+                
+              </span>
+              
+              <input
+                aria-invalid="false"
+                class="amplify-input amplify-field-group__control amplify-visually-hidden amplify-radio__input"
+                data-amplify-input=""
+                data-amplify-selectmfatype-input=""
+                name="mfa_type"
+                type="radio"
+                value="TOTP"
+              />
+              
+              <span
+                aria-hidden="true"
+                class="amplify-flex amplify-radio__button"
+                data-amplify-text=""
               >
                 
                 
-                <span
-                  class="amplify-text amplify-radio__label"
-                  data-amplify-text=""
-                >
-                  
-                  EMAIL
-                  
-                </span>
-                
-                <input
-                  aria-invalid="false"
-                  aria-labelledby="amplify-field-99999"
-                  class="amplify-input amplify-field-group__control amplify-visually-hidden amplify-radio__input"
-                  data-amplify-input=""
-                  data-amplify-radio-control-input=""
-                  name="mfa_type"
-                  type="radio"
-                  value="EMAIL"
-                />
-                
-                <span
-                  aria-hidden="true"
-                  class="amplify-flex amplify-radio__button"
-                  data-amplify-text=""
-                >
-                  
-                  
-                </span>
-                
-                
-              </label>
-              <label
-                class="amplify-flex amplify-radio"
-                data-amplify-label=""
-                data-amplify-radio-control-label=""
-              >
-                
-                
-                <span
-                  class="amplify-text amplify-radio__label"
-                  data-amplify-text=""
-                >
-                  
-                  TOTP
-                  
-                </span>
-                
-                <input
-                  aria-invalid="false"
-                  aria-labelledby="amplify-field-99999"
-                  class="amplify-input amplify-field-group__control amplify-visually-hidden amplify-radio__input"
-                  data-amplify-input=""
-                  data-amplify-radio-control-input=""
-                  name="mfa_type"
-                  type="radio"
-                  value="TOTP"
-                />
-                
-                <span
-                  aria-hidden="true"
-                  class="amplify-flex amplify-radio__button"
-                  data-amplify-text=""
-                >
-                  
-                  
-                </span>
-                
-                
-              </label>
+              </span>
               
               
-            </div>
+            </label>
+            
             
           </div>
-          <!-- Validation error, if any -->
-          <!--v-if-->
-          
-          
           
         </div>
         
