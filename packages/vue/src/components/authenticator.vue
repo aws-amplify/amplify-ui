@@ -143,12 +143,12 @@ const hasRouteComponent = computed(() => {
     'confirmVerifyUser',
     'forceNewPassword',
     'forgotPassword',
+    'selectMfaType',
+    'setupEmail',
     'setupTotp',
     'signIn',
     'signUp',
     'verifyUser',
-    'selectMfaType',
-    'setupEmail'
   ];
   return routesWithComponent.includes(route.value);
 });
@@ -181,7 +181,10 @@ const hasRouteComponent = computed(() => {
             @click="toSignUp"
           />
         </base-two-tabs>
-        <div v-if="hasTabs" data-amplify-router-content>
+        <div
+          v-if="hasTabs"
+          data-amplify-router-content
+        >
           <sign-in
             id="signIn-panel"
             role="tabpanel"
@@ -194,9 +197,7 @@ const hasRouteComponent = computed(() => {
               <slot name="sign-in"></slot>
             </template>
 
-            <template
-              #form="{ info, onSignInSubmit, onForgotPasswordClicked, onInput }"
-            >
+            <template #form="{ info, onSignInSubmit, onForgotPasswordClicked, onInput }">
               <slot
                 name="sign-in-form"
                 :info="info"
@@ -229,7 +230,10 @@ const hasRouteComponent = computed(() => {
               <slot name="sign-up-header"></slot>
             </template>
             <template #signup-fields="{ info }">
-              <slot name="sign-up-fields" :info="info"></slot>
+              <slot
+                name="sign-up-fields"
+                :info="info"
+              ></slot>
             </template>
 
             <template #footer>
@@ -331,7 +335,10 @@ const hasRouteComponent = computed(() => {
           </template>
         </force-new-password>
 
-        <verify-user v-if="route === 'verifyUser'" ref="verifyUserComponent">
+        <verify-user
+          v-if="route === 'verifyUser'"
+          ref="verifyUserComponent"
+        >
           <template #verifyUserSlotI>
             <slot name="verify-user"></slot>
           </template>
@@ -368,9 +375,6 @@ const hasRouteComponent = computed(() => {
           <template #header>
             <slot name="select-mfa-type-header"></slot>
           </template>
-          <template #select-mfa-type-form-fields>
-            <slot name="select-mfa-type-user"></slot>
-          </template>
           <template #footer>
             <slot name="select-mfa-type-footer"> </slot>
           </template>
@@ -385,9 +389,6 @@ const hasRouteComponent = computed(() => {
           </template>
           <template #header>
             <slot name="setup-email-header"></slot>
-          </template>
-          <template #setup-email-form-fields>
-            <slot name="setup-email"></slot>
           </template>
           <template #footer>
             <slot name="setup-email-footer"> </slot>

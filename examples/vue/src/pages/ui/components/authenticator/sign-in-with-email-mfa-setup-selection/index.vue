@@ -1,31 +1,14 @@
 <script setup lang="ts">
 import { Amplify } from 'aws-amplify';
-import '@aws-amplify/ui-vue/styles.css';
-import { Authenticator } from '@aws-amplify/ui-vue';
-
-import aws_exports from './aws-exports';
 import { AuthContext, emailRegex } from '@aws-amplify/ui';
-Amplify.configure(aws_exports);
+import { Authenticator } from '@aws-amplify/ui-vue';
+import '@aws-amplify/ui-vue/styles.css';
+
+import awsExports from './aws-exports';
+
+Amplify.configure(awsExports);
 
 const customServices: AuthContext['services'] = {
-    handleSignUp: async () => {
-        return {
-            isSignUpComplete: true,
-            userId: '******************',
-            nextStep: {
-                signUpStep: 'COMPLETE_AUTO_SIGN_IN',
-            },
-        };
-    },
-    handleAutoSignIn: async () => {
-        return {
-            isSignedIn: false,
-            nextStep: {
-                signInStep: 'CONTINUE_SIGN_IN_WITH_MFA_SETUP_SELECTION',
-                allowedMFATypes: ['EMAIL', 'TOTP'],
-            },
-        };
-    },
     handleSignIn: async () => {
         return {
             isSignedIn: false,
@@ -77,10 +60,7 @@ const customServices: AuthContext['services'] = {
 </script>
 
 <template>
-    <authenticator
-        :services="customServices"
-        :initial-state="'signUp'"
-    >
+    <authenticator :services="customServices">
         <template v-slot="{ user, signOut }">
             <h1>Hello {{ user.username }}!</h1>
             <button @click="signOut">Sign Out</button>

@@ -6,7 +6,6 @@ import { FormFieldOptions, getErrors, translate } from '@aws-amplify/ui';
 import { useAuthenticator } from '../../composables/useAuth';
 import PasswordControl from '../password-control.vue';
 import AliasControl from '../alias-control.vue';
-import RadioControl from '../radio-control.vue';
 
 interface BaseFormField {
   name: string;
@@ -24,7 +23,6 @@ const { validationErrors } = toRefs(useAuthenticator());
 const { type } = formField.value;
 
 const isPasswordField = type === 'password';
-const isRadioField = type === 'radio';
 
 const errorId = nanoid(12);
 
@@ -33,21 +31,9 @@ const hasError = computed(() => errors.value?.length > 0);
 const ariaDescribedBy = computed(() => (hasError.value ? errorId : undefined));
 </script>
 <template>
-  <!-- radio input -->
-  <radio-control
-    v-if="isRadioField"
-    :name="name"
-    :label="formField.label!"
-    :required="formField.isRequired!"
-    :label-hidden="formField.labelHidden!"
-    :radioOptions="formField.radioOptions"
-    :hasError="hasError"
-    :describedBy="ariaDescribedBy"
-  ></radio-control>
-
   <!-- password input -->
   <password-control
-    v-else-if="isPasswordField"
+    v-if="isPasswordField"
     :name="name"
     :label="formField.label!"
     :placeholder="formField.placeholder!"

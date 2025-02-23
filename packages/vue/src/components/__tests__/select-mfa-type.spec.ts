@@ -28,6 +28,7 @@ const mockServiceFacade: UseAuthenticator = {
   updateForm: updateFormSpy,
   submitForm: submitFormSpy,
   toSignIn: toSignInSpy,
+  allowedMfaTypes: ['EMAIL', 'TOTP'],
 };
 
 const useAuthenticatorSpy = jest
@@ -38,25 +39,15 @@ jest
   .spyOn(UIModule, 'getActorContext')
   .mockReturnValue({} as UIModule.AuthActorContext);
 
-const fieldLabel = 'Select MFA Type';
+const radioLabel = 'Email Message';
 const fieldInput = { name: 'mfa_type', value: 'EMAIL' };
 
 jest.spyOn(UIModule, 'getSortedFormFields').mockReturnValue([
   [
     fieldInput.name,
     {
-      label: fieldLabel,
+      label: 'Select MFA Type',
       type: 'radio',
-      radioOptions: [
-        {
-          label: 'EMAIL',
-          value: 'EMAIL',
-        },
-        {
-          label: 'TOTP',
-          value: 'TOTP',
-        },
-      ],
     },
   ],
 ]);
@@ -78,7 +69,7 @@ describe('SelectMfaType', () => {
   it('sends change event on form input', async () => {
     render(SelectMfaType, { global: { components } });
 
-    const radioButton = await screen.findByText(fieldInput.value);
+    const radioButton = await screen.findByText(radioLabel);
 
     await fireEvent.click(radioButton);
 
@@ -88,7 +79,7 @@ describe('SelectMfaType', () => {
   it('sends submit event on form submit', async () => {
     render(SelectMfaType, { global: { components } });
 
-    const radioButton = await screen.findByText(fieldInput.value);
+    const radioButton = await screen.findByText(radioLabel);
 
     await fireEvent.click(radioButton);
 

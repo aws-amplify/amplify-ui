@@ -9,16 +9,16 @@ import {
 
 import { useAuthenticator } from '../composables/useAuth';
 import { UseAuthenticator } from '../types';
-import BaseFormFields from './primitives/base-form-fields.vue';
 
+const random = Math.floor(Math.random() * 999999);
 
 const facade: UseAuthenticator = useAuthenticator();
 const { submitForm, toSignIn, updateForm } = facade;
-const { error, isPending, challengeName: challengeNameRef } = toRefs(facade);
+const { error, isPending, challengeName: challengeNameRef, allowedMfaTypes } = toRefs(facade);
 
 const challengeName = computed(() => challengeNameRef.value);
 
-const { getBackToSignInText, getConfirmText, getSelectMfaTypeByChallengeName } =
+const { getBackToSignInText, getConfirmText, getSelectMfaTypeByChallengeName, getMfaTypeLabelByValue, getSelectMfaTypeText } =
     authenticatorTextUtil;
 
 const selectMfaTypeHeading = computed(() =>
@@ -26,6 +26,7 @@ const selectMfaTypeHeading = computed(() =>
 );
 const backSignInText = computed(() => getBackToSignInText());
 const confirmText = computed(() => getConfirmText());
+const selectMfaTypeText = computed(() => getSelectMfaTypeText())
 
 const onInput = (e: Event) => {
     const { name, value } = e.target as HTMLInputElement;
@@ -65,7 +66,43 @@ const onBackToSignInClicked = () => {
                         </base-heading>
                     </slot>
                     <base-wrapper class="amplify-flex amplify-authenticator__column">
-                        <base-form-fields route="selectMfaType"></base-form-fields>
+                        <base-label
+                            class="amplify-visually-hidden amplify-label"
+                            :id="`amplify-field-${random}`"
+                        >
+                            {{ selectMfaTypeText }}
+                        </base-label>
+                        <base-wrapper
+                            class="amplify-flex amplify-field amplify-radiogroupfield amplify-authenticator__column"
+                            :aria-labelledby="`amplify-field-${random}`"
+                        >
+                            <template
+                                v-for="mfaType in allowedMfaTypes"
+                                :key="mfaType"
+                            >
+                                <base-label
+                                    class="amplify-flex amplify-radio"
+                                    data-amplify-selectmfatype-label
+                                >
+                                    <base-text class="amplify-text amplify-radio__label">
+                                        {{ getMfaTypeLabelByValue(mfaType) }}
+                                    </base-text>
+                                    <base-input
+                                        class="amplify-input amplify-field-group__control amplify-visually-hidden amplify-radio__input"
+                                        aria-invalid="false"
+                                        data-amplify-selectmfatype-input
+                                        name="mfa_type"
+                                        type="radio"
+                                        :value="mfaType"
+                                    >
+                                    </base-input>
+                                    <base-text
+                                        class="amplify-flex amplify-radio__button"
+                                        aria-hidden="true"
+                                    />
+                                </base-label>
+                            </template>
+                        </base-wrapper>
                     </base-wrapper>
                     <base-footer class="amplify-flex amplify-authenticator__column">
                         <base-alert v-if="error">

@@ -39,7 +39,7 @@ jest
   .mockReturnValue({} as UIModule.AuthActorContext);
 
 const fieldLabel = 'Setup Email';
-const fieldInput = { name: 'email', value: 'jjarvisp@amazon.com' };
+const fieldInput = { name: 'email', value: 'user@example.com' };
 
 jest.spyOn(UIModule, 'getSortedFormFields').mockReturnValue([
   [
