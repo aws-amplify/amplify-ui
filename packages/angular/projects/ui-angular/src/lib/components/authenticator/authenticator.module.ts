@@ -31,7 +31,6 @@ import { CheckboxComponent } from '../../primitives/checkbox/checkbox.component'
 import { ErrorComponent } from '../../primitives/error/error.component';
 import { PasswordFieldComponent } from '../../primitives/password-field/password-field.component';
 import { PhoneNumberFieldComponent } from '../../primitives/phone-number-field/phone-number-field.component';
-import { RadioGroupFieldComponent } from '../../primitives/radio-group-field/radio-group-field.component';
 import { SelectComponent } from '../../primitives/select/select.component';
 import { TabItemComponent } from '../../primitives/tab-item/tab-item.component';
 import { TabsComponent } from '../../primitives/tabs/tabs.component';
@@ -60,7 +59,6 @@ import { AmplifySlotDirective } from '../../utilities/amplify-slot/amplify-slot.
     FormFieldComponent,
     PasswordFieldComponent,
     PhoneNumberFieldComponent,
-    RadioGroupFieldComponent,
     ForgotPasswordComponent,
     SelectComponent,
     SelectMfaTypeComponent,

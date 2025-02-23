@@ -9,24 +9,6 @@ import { AuthContext, emailRegex } from '@aws-amplify/ui';
 })
 export class SignInWithEmailMfaSetupSelectionComponent implements OnInit {
   public services: AuthContext['services'] = {
-    handleSignUp: async () => {
-      return {
-        isSignUpComplete: true,
-        userId: '******************',
-        nextStep: {
-          signUpStep: 'COMPLETE_AUTO_SIGN_IN',
-        },
-      };
-    },
-    handleAutoSignIn: async () => {
-      return {
-        isSignedIn: false,
-        nextStep: {
-          signInStep: 'CONTINUE_SIGN_IN_WITH_MFA_SETUP_SELECTION',
-          allowedMFATypes: ['EMAIL', 'TOTP'],
-        },
-      };
-    },
     handleSignIn: async () => {
       return {
         isSignedIn: false,

@@ -1,5 +1,6 @@
 <form
     data-amplify-form
+    data-amplify-authenticator-select-mfa-type
     (submit)="onSubmit($event)"
     (input)="onInput($event)"
 >
@@ -14,8 +15,32 @@
         >
             <h3 [class]="classNames(ComponentClassName.Heading, 'amplify-heading--3')">{{ headerText }}</h3>
         </amplify-slot>
-        <amplify-base-form-fields route="selectMfaType"></amplify-base-form-fields>
-
+        <div
+            *ngFor="let mfaType of allowedMfaTypes"
+            [class]="classNames(ComponentClassName.Flex, ComponentClassName.Field, ComponentClassName.RadioGroupField)"
+            role="radiogroup"
+        >
+            <label
+                [class]="classNames(ComponentClassName.Flex, ComponentClassName.Radio)"
+                [attr.data-amplify-radio-control-label]
+            >
+                <span [class]="classNames(ComponentClassName.Text, ComponentClassName.RadioLabel)">
+                    {{getMfaTypeLabelByValue(mfaType)}}
+                </span>
+                <input
+                    [class]="classNames(ComponentClassName.Input, ComponentClassName.FieldGroupControl, ComponentClassName.VisuallyHidden, ComponentClassName.RadioInput)"
+                    [attr.data-amplify-radio-control-input]
+                    [value]="mfaType"
+                    name="mfa_type"
+                    type="radio"
+                    required
+                />
+                <span
+                    [class]="classNames(ComponentClassName.Flex, ComponentClassName.RadioButton)"
+                    [attr.aria-hidden]="true"
+                ></span>
+            </label>
+        </div>
         <button
             amplify-button
             variation="primary"

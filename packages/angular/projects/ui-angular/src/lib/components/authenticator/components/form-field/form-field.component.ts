@@ -45,10 +45,6 @@ export class FormFieldComponent {
     return this.formField.type === 'tel';
   }
 
-  isRadioField(): boolean {
-    return this.formField.type === 'radio';
-  }
-
   hasError(): boolean {
     return this.errors?.length > 0;
   }
