@@ -10,9 +10,8 @@ import { FormFieldComponent } from '../form-field/form-field.component';
 import { ButtonComponent } from '../../../../primitives/button/button.component';
 import { ErrorComponent } from '../../../../primitives/error/error.component';
 import { TextFieldComponent } from '../../../../primitives/text-field/text-field.component';
-import { RadioGroupFieldComponent } from '../../../../primitives/radio-group-field/radio-group-field.component';
 
-const fieldLabel = 'Select MFA Type';
+const radioLabel = 'Email Message';
 const fieldInput = { name: 'mfa_type', value: 'EMAIL' };
 
 const mockContext: Partial<AuthActorContext> = {
@@ -20,15 +19,12 @@ const mockContext: Partial<AuthActorContext> = {
   formFields: {
     selectMfaType: {
       mfa_type: {
-        label: fieldLabel,
+        label: 'Select MFA Type',
         type: 'radio',
-        radioOptions: [
-          { label: 'EMAIL', value: 'EMAIL' },
-          { label: 'TOTP', value: 'TOTP' },
-        ],
       },
     },
   },
+  allowedMfaTypes: ['EMAIL', 'TOTP'],
 };
 
 const mockAuthenticatorService = {
@@ -53,7 +49,6 @@ const componentDeclarations = [
   FormFieldComponent,
   ButtonComponent,
   TextFieldComponent,
-  RadioGroupFieldComponent,
 ];
 
 jest.mock('nanoid', () => ({ nanoid: jest.fn(() => 'static') }));
@@ -88,7 +83,7 @@ describe('SelectMfaTypeComponent', () => {
       ],
     });
 
-    const radioButton = await screen.findByText(fieldInput.value);
+    const radioButton = await screen.findByText(radioLabel);
 
     fireEvent.click(radioButton);
 
@@ -108,7 +103,7 @@ describe('SelectMfaTypeComponent', () => {
       ],
     });
 
-    const radioButton = await screen.findByText(fieldInput.value);
+    const radioButton = await screen.findByText(radioLabel);
 
     fireEvent.click(radioButton);
 

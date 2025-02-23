@@ -5,6 +5,7 @@ exports[`SelectMfaTypeComponent renders as expected 1`] = `
   id="root0"
 >
   <form
+    data-amplify-authenticator-select-mfa-type=""
     data-amplify-form=""
   >
     <fieldset
@@ -23,88 +24,57 @@ exports[`SelectMfaTypeComponent renders as expected 1`] = `
         
         
       </amplify-slot>
-      <amplify-base-form-fields
-        route="selectMfaType"
-        style="display: contents;"
+      <div
+        class="amplify-field amplify-flex amplify-radiogroupfield"
+        role="radiogroup"
       >
-        <amplify-form-field>
-          <div
-            class="amplify-flex amplify-field amplify-authenticator__column"
+        <label
+          class="amplify-flex amplify-radio"
+        >
+          <span
+            class="amplify-radio__label amplify-text"
           >
-            <amplify-radio-group-field>
-              <fieldset
-                class="amplify-field amplify-flex amplify-radiogroupfield"
-                role="radiogroup"
-              >
-                <label
-                  class="amplify-label"
-                  id="amplify-field-static"
-                >
-                   Select MFA Type 
-                </label>
-                <div
-                  aria-labelledby="amplify-field-static"
-                  class="amplify-field amplify-flex"
-                >
-                  <label
-                    class="amplify-flex amplify-radio"
-                  >
-                    <span
-                      class="amplify-radio__label amplify-text"
-                    >
-                      EMAIL
-                    </span>
-                    <input
-                      aria-labelledby="amplify-field-static"
-                      class="amplify-field-group__control amplify-input amplify-radio__input amplify-visually-hidden"
-                      name="mfa_type"
-                      type="radio"
-                      value="EMAIL"
-                    />
-                    <span
-                      aria-hidden="true"
-                      class="amplify-flex amplify-radio__button"
-                    />
-                  </label>
-                </div>
-                <div
-                  aria-labelledby="amplify-field-static"
-                  class="amplify-field amplify-flex"
-                >
-                  <label
-                    class="amplify-flex amplify-radio"
-                  >
-                    <span
-                      class="amplify-radio__label amplify-text"
-                    >
-                      TOTP
-                    </span>
-                    <input
-                      aria-labelledby="amplify-field-static"
-                      class="amplify-field-group__control amplify-input amplify-radio__input amplify-visually-hidden"
-                      name="mfa_type"
-                      type="radio"
-                      value="TOTP"
-                    />
-                    <span
-                      aria-hidden="true"
-                      class="amplify-flex amplify-radio__button"
-                    />
-                  </label>
-                </div>
-                
-              </fieldset>
-            </amplify-radio-group-field>
-            
-            
-            
-            
-            
-          </div>
-        </amplify-form-field>
-        
-        
-      </amplify-base-form-fields>
+             Email Message 
+          </span>
+          <input
+            class="amplify-field-group__control amplify-input amplify-radio__input amplify-visually-hidden"
+            name="mfa_type"
+            required=""
+            type="radio"
+            value="EMAIL"
+          />
+          <span
+            aria-hidden="true"
+            class="amplify-flex amplify-radio__button"
+          />
+        </label>
+      </div>
+      <div
+        class="amplify-field amplify-flex amplify-radiogroupfield"
+        role="radiogroup"
+      >
+        <label
+          class="amplify-flex amplify-radio"
+        >
+          <span
+            class="amplify-radio__label amplify-text"
+          >
+             Authenticator App (TOTP) 
+          </span>
+          <input
+            class="amplify-field-group__control amplify-input amplify-radio__input amplify-visually-hidden"
+            name="mfa_type"
+            required=""
+            type="radio"
+            value="TOTP"
+          />
+          <span
+            aria-hidden="true"
+            class="amplify-flex amplify-radio__button"
+          />
+        </label>
+      </div>
+      
       <button
         amplify-button=""
         class="amplify-button amplify-button--fullwidth amplify-button--medium amplify-button--primary"

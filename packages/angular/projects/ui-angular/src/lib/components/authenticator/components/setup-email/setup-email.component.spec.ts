@@ -10,7 +10,6 @@ import { FormFieldComponent } from '../form-field/form-field.component';
 import { ButtonComponent } from '../../../../primitives/button/button.component';
 import { ErrorComponent } from '../../../../primitives/error/error.component';
 import { TextFieldComponent } from '../../../../primitives/text-field/text-field.component';
-import { RadioGroupFieldComponent } from '../../../../primitives/radio-group-field/radio-group-field.component';
 
 const fieldLabel = 'Setup Email';
 const fieldInput = { name: 'email', value: 'user@example.com' };
@@ -21,7 +20,7 @@ const mockContext: Partial<AuthActorContext> = {
     setupEmail: {
       email: {
         label: fieldLabel,
-        type: 'text',
+        type: 'email',
       },
     },
   },
@@ -49,7 +48,6 @@ const componentDeclarations = [
   FormFieldComponent,
   ButtonComponent,
   TextFieldComponent,
-  RadioGroupFieldComponent,
 ];
 
 jest.mock('nanoid', () => ({ nanoid: jest.fn(() => 'static') }));

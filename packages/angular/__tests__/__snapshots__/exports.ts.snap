@@ -23,7 +23,6 @@ exports[`exports should match the expected snapshot 1`] = `
   "FormFieldComponent",
   "PasswordFieldComponent",
   "PhoneNumberFieldComponent",
-  "RadioGroupFieldComponent",
   "SelectComponent",
   "SetupTotpComponent",
   "SignInComponent",

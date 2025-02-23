@@ -5,6 +5,7 @@ exports[`SetupEmailComponent renders as expected 1`] = `
   id="root0"
 >
   <form
+    data-amplify-authenticator-setup-email=""
     data-amplify-form=""
   >
     <fieldset
@@ -33,7 +34,6 @@ exports[`SetupEmailComponent renders as expected 1`] = `
           >
             
             
-            
             <amplify-text-field
               style="display: contents;"
             >
@@ -53,7 +53,7 @@ exports[`SetupEmailComponent renders as expected 1`] = `
                 name="email"
                 placeholder="Enter your Email"
                 required=""
-                type="text"
+                type="email"
               />
             </amplify-text-field>
             
