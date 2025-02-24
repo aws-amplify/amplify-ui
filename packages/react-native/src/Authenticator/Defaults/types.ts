@@ -179,10 +179,10 @@ export interface Components {
   ConfirmVerifyUser?: ConfirmVerifyUserComponent;
   ForceNewPassword?: ForceNewPasswordComponent;
   ForgotPassword?: ForgotPasswordComponent;
+  SelectMfaType?: SelectMfaTypeComponent;
+  SetupEmail?: SetupEmailComponent;
   SetupTotp?: SetupTotpComponent;
   SignIn?: SignInComponent;
   SignUp?: SignUpComponent;
   VerifyUser?: VerifyUserComponent;
-  SetupEmail?: SetupEmailComponent;
-  SelectMfaType?: SelectMfaTypeComponent;
 }
