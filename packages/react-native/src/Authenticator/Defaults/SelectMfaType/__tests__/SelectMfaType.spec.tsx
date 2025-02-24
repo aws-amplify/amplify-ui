@@ -4,24 +4,28 @@ import { ChallengeName, authenticatorTextUtil } from '@aws-amplify/ui';
 
 import { SelectMfaType } from '..';
 
-const mfaType = {
-  name: 'mfa_type',
-  label: 'Select MFA Type',
-  type: 'radio' as const,
-  value: '',
-  radioOptions: [
-    {
-      label: 'Email message (EMAIL)',
-      value: 'EMAIL',
-    },
-    {
-      label: 'Software Token Mfa (TOTP)',
-      value: 'TOTP',
-    },
-  ],
-};
+const {
+  getBackToSignInText,
+  getSelectMfaTypeByChallengeName,
+  getConfirmText,
+  getConfirmingText,
+  getMfaTypeLabelByValue,
+} = authenticatorTextUtil;
 
-const fields = [mfaType];
+const fields = [
+  {
+    name: 'mfa_type',
+    label: getMfaTypeLabelByValue('EMAIL'),
+    type: 'radio' as const,
+    value: 'EMAIL',
+  },
+  {
+    name: 'mfa_type',
+    label: getMfaTypeLabelByValue('TOTP'),
+    type: 'radio' as const,
+    value: 'TOTP',
+  },
+];
 
 const props = {
   challengeName: 'MFA_SETUP' as ChallengeName,
@@ -36,13 +40,6 @@ const props = {
   isPending: false,
   toSignIn: jest.fn(),
 };
-
-const {
-  getBackToSignInText,
-  getSelectMfaTypeByChallengeName,
-  getConfirmText,
-  getConfirmingText,
-} = authenticatorTextUtil;
 
 describe('SelectMfaType', () => {
   it('renders as expected', () => {

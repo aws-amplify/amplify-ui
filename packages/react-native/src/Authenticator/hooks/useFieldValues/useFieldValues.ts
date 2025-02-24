@@ -9,8 +9,8 @@ import {
   getSanitizedTextFields,
   isRadioFieldOptions,
   runFieldValidation,
-  getSanitizedFields,
   getSanitizedVerifyUserFields,
+  getSanitizedSelectMfaTypeFields,
 } from './utils';
 
 const logger = new Logger('Authenticator');
@@ -29,6 +29,7 @@ export default function useFieldValues<FieldType extends TypedField>({
     useState<ValidationError>({});
   const isVerifyUserRoute = componentName === 'VerifyUser';
   const isSelectMfaTypeRoute = componentName === 'SelectMfaType';
+  const isRadioFieldComponent = isVerifyUserRoute || isSelectMfaTypeRoute;
 
   const sanitizedFields = useMemo(() => {
     if (!Array.isArray(fields)) {
@@ -41,8 +42,9 @@ export default function useFieldValues<FieldType extends TypedField>({
     if (isVerifyUserRoute) {
       return getSanitizedVerifyUserFields(fields);
     }
+
     if (isSelectMfaTypeRoute) {
-      return getSanitizedFields(fields);
+      return getSanitizedSelectMfaTypeFields(fields);
     }
 
     return getSanitizedTextFields(fields, componentName);
@@ -55,14 +57,19 @@ export default function useFieldValues<FieldType extends TypedField>({
         field.onChange?.(value);
 
         // on VerifyUser route, set `name` as value of 'unverifiedAttr'
-        const fieldName = isVerifyUserRoute ? 'unverifiedAttr' : field.name;
+        // on SelectMfaTYpe route, set `name` as value of 'mfa_type'
+        const fieldName = isVerifyUserRoute
+          ? 'unverifiedAttr'
+          : isSelectMfaTypeRoute
+          ? 'mfa_type'
+          : field.name;
+
         setValues((prev) => ({ ...prev, [fieldName]: value }));
       };
 
       return {
         ...field,
         onChange,
-        ...(isSelectMfaTypeRoute && { value: values[field.name] }),
       };
     }
 
@@ -112,10 +119,12 @@ export default function useFieldValues<FieldType extends TypedField>({
 
   const disableFormSubmit = isVerifyUserRoute
     ? !values.unverifiedAttr
+    : isSelectMfaTypeRoute
+    ? !values.mfa_type
     : fieldsWithHandlers.some(({ required, value }) => required && !value);
 
   const handleFormSubmit = () => {
-    const submitValue = isVerifyUserRoute
+    const submitValue = isRadioFieldComponent
       ? values
       : fieldsWithHandlers.reduce((acc, { name, value = '', type }) => {
           /*
