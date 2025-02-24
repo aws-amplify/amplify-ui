@@ -1,5 +1,11 @@
 # @aws-amplify/ui-angular
 
+## 5.0.37
+
+### Patch Changes
+
+- [#6333](https://github.com/aws-amplify/amplify-ui/pull/6333) [`10b7c9e9d3f1576df71d578892a533738a5e878e`](https://github.com/aws-amplify/amplify-ui/commit/10b7c9e9d3f1576df71d578892a533738a5e878e) Thanks [@QuentinFchx](https://github.com/QuentinFchx)! - fix(angular): stop auth actor when destroying `AuthenticatorService`
+
 ## 5.0.36
 
 ### Patch Changes

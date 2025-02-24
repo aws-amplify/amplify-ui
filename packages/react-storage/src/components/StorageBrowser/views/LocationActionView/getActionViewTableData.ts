@@ -171,7 +171,7 @@ export const getActionViewTableData = <T extends TaskData = TaskData>({
                 value: progress,
                 displayValue: `${getPercentValue(
                   // Default progress to 100% if progress value is unavailable but status is recognized as complete
-                  progress ?? status === 'COMPLETE' ? 1 : 0
+                  progress ?? (status === 'COMPLETE' ? 1 : 0)
                 )}%`,
               },
             };

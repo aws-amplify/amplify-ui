@@ -86,7 +86,7 @@ export default defineConfig({
 ### CRA 4: `Uncaught ReferenceError: g is not defined`
 
 When using [Geo components](/connected-components/geo) and Create React App v4, users may experience the following error when rendering the `<MapView>` component in a production build:
-```bash
+```markup
 Uncaught ReferenceError: g is not defined
 ```
 The error is related to this [maplibre-gl issue](https://github.com/maplibre/maplibre-gl-js/issues/1011#issuecomment-1073112585) and surfaces due to the dropped support for Internet Explorer in `maplibre-gl` v2. To correct this error, you'll need to adjust your browser target for production to exclude Internet Explorer:
@@ -120,15 +120,14 @@ to the following:
 
 Create React App v4 is not officially supported by Amplify UI. When you use it, you may get the following error
 
-```bash
+```markup
  ./node_modules/@aws-amplify/ui-react/dist/esm/components/..\/\*.mjs
-
  Can’t import the named export ‘Amplify’ from non EcmaScript module (only default export is available)
 ```
 
 To resolve the error, you may either (1) upgrade to Create React App version 5 ([Migration Guide](https://github.com/facebook/create-react-app/blob/main/CHANGELOG.md#migrating-from-40x-to-500)), or (2) override the webpack config using tools like [React App Rewired](https://github.com/timarney/react-app-rewired), [Craco](https://craco.js.org/docs/configuration/webpack/) to add the following rule:
 
-```JavaScript
+```js
 {
   module: {
     rules: [
@@ -148,7 +147,7 @@ To resolve the error, you may either (1) upgrade to Create React App version 5 (
 
 As of v2.15.0 of `@aws-amplify/ui-react` which included the release of Geo components, users of the Jest testing framework may run into the following error when attempting to run tests:
 
-```bash
+```markup
 window.URL.createObjectURL is not a function
 ```
 
@@ -170,13 +169,13 @@ This is a known problem when using the `jsdom` library (a dependency of Jest) wi
 
 ### Next 13.4+: React Server Components
 
-Next.js 13.4+ introduces [app directory](https://nextjs.org/docs/app/building-your-application/routing#the-app-directory) with the usage of [Server Components](https://nextjs.org/docs/app/building-your-application/rendering/server-components). Amplify UI components are intended to be used on the client side. See [here](#attempted-import-error-useform-is-not-exported-from-react-hook-form-imported-as-useform) for solutions.
+Next.js 13.4+ introduces [App Router](https://nextjs.org/docs/13/app/building-your-application/routing#the-app-router) with the usage of [Server Components](https://nextjs.org/docs/app/building-your-application/rendering/server-components). Amplify UI components are intended to be used on the client side. See [here](#attempted-import-error-useform-is-not-exported-from-react-hook-form-imported-as-useform) for solutions.
 
 ### Next 13.4+: `Module not found` Errors
 
 When you use Amplify with Next.js App Router, you will see the follow errors from `aws-crt` and `encoding` in the server terminal:
 
-```
+```markup
 ./node_modules/node-fetch/lib/index.js
 Module not found: Can't resolve 'encoding' in 'xxx'
 
@@ -190,14 +189,14 @@ These errors will not affect the use and functionality of the client, nor will e
 
 ### Attempted import error: 'useForm' is not exported from 'react-hook-form' (imported as 'useForm').
 
-If you attempt to use Amplify with server-side rendering, you may encounter the following error:
+If you attempt to use Amplify with Server-side rendering (SSR), you may encounter the following error:
 
-```
+```markup
 ./node_modules/@aws-amplify/ui-react-core/dist/esm/components/FormCore/FormProvider.mjs
 Attempted import error: 'useForm' is not exported from 'react-hook-form' (imported as 'useForm').
 ```
 
-Amplify UI components are interactive and designed to work on the client side. To use them inside of Server Components you must wrap them in a Client Component with "use client". For more information, see the Next.js [documentation](https://nextjs.org/docs/app/building-your-application/rendering/composition-patterns#using-third-party-packages-and-providers) on how you could achieve this.
+Amplify UI components are interactive and designed to work on the client side. To use them inside of Server Components, you must wrap them in a Client Component with the `"use client"` directive. For more information, see the Next.js [documentation](https://nextjs.org/docs/app/building-your-application/rendering/composition-patterns#using-third-party-packages-and-providers) on how you could achieve this.
 
 ## Vite
 

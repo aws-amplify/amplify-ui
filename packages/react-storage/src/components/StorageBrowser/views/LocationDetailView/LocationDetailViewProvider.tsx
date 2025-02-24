@@ -11,6 +11,7 @@ export function LocationDetailViewProvider({
   children,
   ...props
 }: LocationDetailViewProviderProps): React.JSX.Element {
+  const { LocationDetailView: displayText } = useDisplayText();
   const {
     LocationDetailView: {
       loadingIndicatorLabel,
@@ -106,6 +107,7 @@ export function LocationDetailViewProvider({
         searchQuery,
         tableData: getLocationDetailViewTableData({
           areAllFilesSelected,
+          displayText,
           location,
           fileDataItems,
           getDateDisplayValue,
