@@ -27,6 +27,27 @@ const mockActorReturnActorContextValues = {
   },
 } as unknown as AuthActorContext;
 
+const generateMockState = ({
+  allowedMfaTypes,
+  unverifiedUserAttributes,
+}: {
+  allowedMfaTypes?: AuthActorContext['allowedMfaTypes'];
+  unverifiedUserAttributes?: AuthActorContext['unverifiedUserAttributes'];
+} = {}): AuthMachineState => {
+  return {
+    context: {
+      actorRef: {
+        getSnapshot: () => ({
+          context: {
+            allowedMfaTypes,
+            unverifiedUserAttributes,
+          },
+        }),
+      },
+    },
+  } as AuthMachineState;
+};
+
 const getActorContextSpy = jest.spyOn(UIModule, 'getActorContext');
 
 const getSortedFormFieldsSpy = jest
@@ -97,23 +118,48 @@ describe('defaultComparator', () => {
 });
 
 describe('getMachineFields', () => {
-  const state = {} as unknown as AuthMachineState;
   it('calls getSortedFormFields when route is a valid component route', () => {
-    getMachineFields('signIn', state, {});
+    const state = generateMockState();
+    getMachineFields('signIn', state);
 
     expect(getSortedFormFieldsSpy).toHaveBeenCalledWith('signIn', state);
   });
 
   it('returns an empty array for a non-component route', () => {
-    const output = getMachineFields('idle', state, {});
+    const output = getMachineFields('idle', generateMockState());
 
     expect(output).toHaveLength(0);
   });
 
-  it('returns expected values for verifyUser route', () => {
-    const output = getMachineFields('verifyUser', state, {
-      email: 'test@example.com',
+  it('returns the expected values for selectMfaType route', () => {
+    const state = generateMockState({
+      allowedMfaTypes: ['EMAIL', 'TOTP'],
     });
+    const output = getMachineFields('selectMfaType', state);
+
+    expect(output).toHaveLength(2);
+    expect(output).toStrictEqual([
+      {
+        name: 'mfa_type',
+        label: 'Email Message',
+        type: 'radio',
+        value: 'EMAIL',
+      },
+      {
+        name: 'mfa_type',
+        label: 'Authenticator App (TOTP)',
+        type: 'radio',
+        value: 'TOTP',
+      },
+    ]);
+  });
+
+  it('returns expected values for verifyUser route', () => {
+    const state = generateMockState({
+      unverifiedUserAttributes: { email: 'test@example.com' },
+    });
+
+    const output = getMachineFields('verifyUser', state);
 
     expect(output).toHaveLength(1);
     expect(output).toStrictEqual([
@@ -127,16 +173,19 @@ describe('getMachineFields', () => {
   });
 
   it('returns expected values for verifyUser route when contact method is empty', () => {
-    const output = getMachineFields('verifyUser', state, {});
+    const state = generateMockState();
+    const output = getMachineFields('verifyUser', state);
 
     expect(output).toHaveLength(0);
     expect(output).toStrictEqual([]);
   });
 
   it('returns expected values for verifyUser route when contact method value is invalid', () => {
-    const output = getMachineFields('verifyUser', state, {
-      phone_number: null as unknown as string,
+    const state = generateMockState({
+      unverifiedUserAttributes: { phone_number: null as unknown as string },
     });
+
+    const output = getMachineFields('verifyUser', state);
 
     expect(output).toHaveLength(1);
     expect(output).toStrictEqual([{}]);
