@@ -4,8 +4,8 @@ import { authenticatorTextUtil } from '@aws-amplify/ui';
 import {
   DefaultContent,
   DefaultFooter,
-  DefaultFormFields,
   DefaultHeader,
+  DefaultSelectMfaTypeFormFields,
 } from '../../common';
 import { useFieldValues } from '../../hooks';
 
@@ -80,7 +80,7 @@ const SelectMfaType = ({
 };
 
 SelectMfaType.Footer = DefaultFooter;
-SelectMfaType.FormFields = DefaultFormFields;
+SelectMfaType.FormFields = DefaultSelectMfaTypeFormFields;
 SelectMfaType.Header = DefaultHeader;
 
 SelectMfaType.displayName = COMPONENT_NAME;

@@ -35,9 +35,7 @@ export type TextFieldOptionsType = (
   | DefaultFieldOptions
 ) & { labelHidden?: boolean };
 
-export type RadioFieldOptions = FieldOptions<RadioProps<string>, 'radio'> & {
-  radioOptions?: { label: string; value: string }[];
-};
+export type RadioFieldOptions = FieldOptions<RadioProps<string>, 'radio'>;
 
 /**
  * `field` options union

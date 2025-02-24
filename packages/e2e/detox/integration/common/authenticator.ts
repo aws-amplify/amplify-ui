@@ -199,7 +199,9 @@ When('I click the {string} button', async (name: string) => {
 
 When('I click the {string} radio button', async (name: string) => {
   await element(
-    by.text(name).withAncestor(by.id('amplify__radio-group__container'))
+    by
+      .text(new RegExp(`^${name}.*$`, 'i'))
+      .withAncestor(by.id('amplify__radio-group__container'))
   ).tap();
 });
 

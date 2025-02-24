@@ -11,24 +11,6 @@ import awsConfig from './aws-exports';
 Amplify.configure(awsConfig);
 
 const customServices: AuthContext['services'] = {
-  handleSignUp: async () => {
-    return {
-      isSignUpComplete: true,
-      userId: '******************',
-      nextStep: {
-        signUpStep: 'COMPLETE_AUTO_SIGN_IN',
-      },
-    };
-  },
-  handleAutoSignIn: async () => {
-    return {
-      isSignedIn: false,
-      nextStep: {
-        signInStep: 'CONTINUE_SIGN_IN_WITH_MFA_SETUP_SELECTION',
-        allowedMFATypes: ['EMAIL', 'TOTP'],
-      },
-    };
-  },
   handleSignIn: async () => {
     return {
       isSignedIn: false,
@@ -80,7 +62,7 @@ const customServices: AuthContext['services'] = {
 function App() {
   return (
     <Authenticator.Provider>
-      <Authenticator services={customServices} initialState="signUp">
+      <Authenticator services={customServices}>
         <View style={style.container}>
           <SignOutButton />
         </View>

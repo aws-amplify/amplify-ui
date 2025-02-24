@@ -4,11 +4,7 @@ import {
   UseAuthenticator,
 } from '@aws-amplify/ui-react-core';
 
-import {
-  RadioFieldOptions,
-  TextFieldOptionsType,
-  TypedField,
-} from '../../hooks';
+import { RadioFieldOptions, TextFieldOptionsType } from '../../hooks';
 
 export type FieldProps = Omit<TextFieldOptionsType, 'name'> & {
   disabled: boolean;
@@ -37,14 +33,10 @@ interface FormFieldsProps extends DefaultFormFieldsStyle {
   validationErrors?: UseAuthenticator['validationErrors'];
 }
 
-export interface DefaultFormFieldsProps extends FormFieldsProps {
-  fields?: TypedField[];
-}
-
 export interface DefaultTextFormFieldsProps extends FormFieldsProps {
   fields?: TextFieldOptionsType[];
 }
 
-export interface DefaultVerifyUserFormFieldsProps extends FormFieldsProps {
+export interface DefaultRadioFormFieldsProps extends FormFieldsProps {
   fields?: RadioFieldOptions[];
 }

@@ -5,5 +5,4 @@ export const KEY_ALLOW_LIST = [
   'required',
   'isRequired',
   'type',
-  'radioOptions',
 ];
