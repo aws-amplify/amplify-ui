@@ -6,7 +6,24 @@ const asyncAction = jest.fn((_prev: string, next: string) =>
 );
 const syncAction = jest.fn((_prev: string, next: string) => next);
 
-const errorMessage = 'Unhappy!';
+const sleepyAction = jest.fn(
+  (
+    _: string,
+    { timeout, fail }: { fail?: boolean; timeout: number }
+  ): Promise<string> =>
+    new Promise((resolve, reject) =>
+      setTimeout(
+        () =>
+          fail
+            ? reject(new Error(timeout.toString()))
+            : resolve(timeout.toString()),
+        timeout
+      )
+    )
+);
+
+const error = new Error('Unhappy!');
+const errorMessage = error.message;
 const unhappyAction = jest.fn((_, isUnhappy: boolean) =>
   isUnhappy ? Promise.reject(new Error(errorMessage)) : Promise.resolve()
 );
@@ -15,6 +32,13 @@ const initData = 'initial-data';
 const nextData = 'next-data';
 
 describe('useDataState', () => {
+  beforeAll(() => {
+    let id = 0;
+    Object.defineProperty(globalThis, 'crypto', {
+      value: { randomUUID: () => ++id },
+    });
+  });
+
   beforeEach(() => {
     jest.clearAllMocks();
   });
@@ -112,7 +136,7 @@ describe('useDataState', () => {
     });
 
     expect(onError).toHaveBeenCalledTimes(1);
-    expect(onError).toHaveBeenCalledWith(errorMessage);
+    expect(onError).toHaveBeenCalledWith(error);
   });
 
   it('handles an error and resets error state on the next call to handleAction', async () => {
@@ -157,5 +181,86 @@ describe('useDataState', () => {
     });
   });
 
-  it.todo('only returns the value of the last call to handleAction');
+  it('only returns the value of the last dispatch in the happy path', async () => {
+    jest.useFakeTimers();
+
+    const defaultValue = '';
+    const timeoutOne = 2000;
+    const timeoutTwo = 1000;
+    const expectedResult = timeoutTwo.toString();
+
+    const { result } = renderHook(() =>
+      useDataState(sleepyAction, defaultValue)
+    );
+
+    const [initState, dispatch] = result.current;
+
+    act(() => {
+      dispatch({ timeout: timeoutOne });
+    });
+
+    expect(initState.data).toBe(defaultValue);
+
+    expect(sleepyAction).toHaveBeenCalledTimes(1);
+
+    act(() => {
+      dispatch({ timeout: timeoutTwo });
+    });
+
+    expect(sleepyAction).toHaveBeenCalledTimes(2);
+
+    jest.runAllTimers();
+
+    await waitFor(() => {
+      const [resolvedState] = result.current;
+
+      // assert both calls have completed
+      expect(sleepyAction.mock.results.length).toBe(2);
+
+      expect(resolvedState.data).toBe(expectedResult);
+      expect(resolvedState.isLoading).toBe(false);
+      expect(resolvedState.hasError).toBe(false);
+    });
+  });
+
+  it('only returns the value of the last dispatch in the unhappy path', async () => {
+    jest.useFakeTimers();
+
+    const defaultValue = '';
+    const timeoutOne = 2000;
+    const timeoutTwo = 1000;
+    const expectedResult = timeoutTwo.toString();
+
+    const { result } = renderHook(() =>
+      useDataState(sleepyAction, defaultValue)
+    );
+
+    const [initState, dispatch] = result.current;
+
+    act(() => {
+      dispatch({ timeout: timeoutOne, fail: true });
+    });
+
+    expect(initState.data).toBe(defaultValue);
+
+    expect(sleepyAction).toHaveBeenCalledTimes(1);
+
+    act(() => {
+      dispatch({ timeout: timeoutTwo, fail: true });
+    });
+
+    jest.runAllTimers();
+
+    await waitFor(() => {
+      const [resolvedState] = result.current;
+
+      // assert both calls have completed
+      expect(sleepyAction.mock.results.length).toBe(2);
+
+      expect(resolvedState.data).toBe(defaultValue);
+      expect(resolvedState.message).toBe(expectedResult);
+      expect(resolvedState.hasError).toBe(true);
+      expect(resolvedState.isLoading).toBe(false);
+    });
+  });
 });
