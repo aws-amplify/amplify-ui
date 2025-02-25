@@ -27,7 +27,7 @@
     "@react-native-async-storage/async-storage": "*",
     "@testing-library/react-native": "^12.9.0",
     "metro-react-native-babel-preset": "^0.77.0",
-    "react-native-safe-area-context": "^4.7.3"
+    "react-native-safe-area-context": "^5.2.0"
   },
   "dependencies": {
     "@aws-amplify/ui": "6.8.1",
@@ -38,7 +38,7 @@
     "aws-amplify": "^6.9.0",
     "react": "*",
     "react-native": ">=0.70",
-    "react-native-safe-area-context": "^4.2.5"
+    "react-native-safe-area-context": ">=4.2.5"
   },
   "files": [
     "dist",
