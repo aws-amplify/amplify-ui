@@ -29,13 +29,13 @@
     ]
   },
   "devDependencies": {
-    "@aws-amplify/ui": "^6.8.1",
+    "@aws-amplify/ui": "^6.8.2",
     "@badeball/cypress-cucumber-preprocessor": "^22.0.1",
     "@bahmutov/cypress-esbuild-preprocessor": "^2.2.4",
     "@cucumber/cucumber": "^11.2.0",
     "@nuintun/qrcode": "^3.3.0",
-    "@testing-library/cypress": "^10.0.1",
-    "cypress": "^13.14.0",
+    "@testing-library/cypress": "^10.0.3",
+    "cypress": "^14.0.3",
     "detox": "^20.13.1",
     "dotenv": "^16.0.2"
   }

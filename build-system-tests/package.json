@@ -5,9 +5,12 @@
   "devDependencies": {
     "@supercharge/promise-pool": "^2.4.0",
     "commander": "^10.0.1",
-    "esbuild-register": "^3.5.0",
+    "esbuild-register": "^3.6.0",
     "json": "^11.0.0",
-    "strip-json-comments-cli": "^2.0.2"
+    "strip-json-comments-cli": "^3.0.0"
+  },
+  "resolutions": {
+    "esbuild": "^0.25.0"
   },
   "scripts": {
     "checkReactNativeLogs": "node --require esbuild-register ./scripts/checkReactNativeLog.ts",

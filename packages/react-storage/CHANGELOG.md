@@ -1,5 +1,18 @@
 # @aws-amplify/ui-react-storage
 
+## 3.8.1
+
+### Patch Changes
+
+- [#6346](https://github.com/aws-amplify/amplify-ui/pull/6346) [`f170ffa94e272cb53e6b9aa4cfd6fcf915083739`](https://github.com/aws-amplify/amplify-ui/commit/f170ffa94e272cb53e6b9aa4cfd6fcf915083739) Thanks [@jordanvn](https://github.com/jordanvn)! - Fixed displayText override for LocationDetailView dataTable headers
+
+- [#6369](https://github.com/aws-amplify/amplify-ui/pull/6369) [`f91c69b830d168eb5a7371fb8f34e38ec7e303c0`](https://github.com/aws-amplify/amplify-ui/commit/f91c69b830d168eb5a7371fb8f34e38ec7e303c0) Thanks [@jjarvisp](https://github.com/jjarvisp)! - chore(react-storage): update access level deprecation message
+
+- Updated dependencies [[`fa6984721124029cf2e7d5b4ac5a3cc6c34097a6`](https://github.com/aws-amplify/amplify-ui/commit/fa6984721124029cf2e7d5b4ac5a3cc6c34097a6)]:
+  - @aws-amplify/ui@6.8.2
+  - @aws-amplify/ui-react@6.9.2
+  - @aws-amplify/ui-react-core@3.3.2
+
 ## 3.8.0
 
 ### Minor Changes
