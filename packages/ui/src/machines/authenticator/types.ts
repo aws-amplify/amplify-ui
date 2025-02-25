@@ -146,6 +146,7 @@ export interface AuthContext {
 export type InitialStep = 'FORGOT_PASSWORD' | 'SIGN_IN' | 'SIGN_UP';
 
 export type SignInStep =
+  | 'CONFIRM_SIGN_IN_WITH_EMAIL_CODE'
   | 'CONFIRM_SIGN_IN_WITH_SMS_CODE'
   | 'CONFIRM_SIGN_IN_WITH_TOTP_CODE'
   | 'CONFIRM_SIGN_IN_WITH_NEW_PASSWORD_REQUIRED'
