@@ -1,19 +1,7 @@
-import { isFunction } from '@aws-amplify/ui';
 import React from 'react';
+import { isFunction } from '@aws-amplify/ui';
 
-export interface DataState<T> {
-  data: T;
-  hasError: boolean;
-  isLoading: boolean;
-  message: string | undefined;
-}
-
-export type DataAction<T = any, K = any> = (prevData: T, input: K) => T;
-
-export type AsyncDataAction<T = any, K = any> = (
-  prevData: T,
-  input: K
-) => Promise<T>;
+import { AsyncDataAction, DataAction, DataState } from './types';
 
 // default state
 const INITIAL_STATE = { hasError: false, isLoading: false, message: undefined };

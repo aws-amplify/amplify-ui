@@ -1,4 +1,5 @@
 import { act, renderHook, waitFor } from '@testing-library/react';
+
 import useDataState from '../useDataState';
 
 const asyncAction = jest.fn((_prev: string, next: string) =>
