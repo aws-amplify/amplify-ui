@@ -27,12 +27,15 @@ const resolveMaybeAsync = async <T>(
   return awaited;
 };
 
+/**
+ * @internal may be updated in future versions
+ */
 export default function useDataState<T, K>(
   action: DataAction<T, K> | AsyncDataAction<T, K>,
   initialData: T,
   options?: {
     onSuccess?: (data: T) => void;
-    onError?: (message: string) => void;
+    onError?: (error: Error) => void;
   }
 ): [state: DataState<T>, handleAction: (input: K) => void] {
   const [dataState, setDataState] = React.useState<DataState<T>>(() => ({
@@ -41,22 +44,33 @@ export default function useDataState<T, K>(
   }));
 
   const prevData = React.useRef(initialData);
+  const pendingId = React.useRef<string | undefined>();
 
   const { onSuccess, onError } = options ?? {};
 
   const handleAction: (input: K) => void = React.useCallback(
     (input) => {
+      const id = crypto.randomUUID();
+      pendingId.current = id;
+
       setDataState(({ data }) => ({ ...LOADING_STATE, data }));
 
       resolveMaybeAsync(action(prevData.current, input))
         .then((data: T) => {
-          if (isFunction(onSuccess)) onSuccess(data);
+          if (pendingId.current !== id) return;
 
           prevData.current = data;
+
+          if (isFunction(onSuccess)) onSuccess(data);
+
           setDataState({ ...INITIAL_STATE, data });
         })
-        .catch(({ message }: Error) => {
-          if (isFunction(onError)) onError(message);
+        .catch((error: Error) => {
+          if (pendingId.current !== id) return;
+
+          if (isFunction(onError)) onError(error);
+
+          const { message } = error;
 
           setDataState(({ data }) => ({ ...ERROR_STATE, data, message }));
         });
