@@ -346,7 +346,8 @@ When('I click the {string} checkbox', (label: string) => {
 
 When('I click the {string} radio button', (label: string) => {
   cy.findByLabelText(new RegExp(`^${escapeRegExp(label)}`, 'i')).click({
-    // see above comment
+    // We have to force this click because the radio button isn't visible by default
+    // and instead has ::before decoration.
     force: true,
   });
 });

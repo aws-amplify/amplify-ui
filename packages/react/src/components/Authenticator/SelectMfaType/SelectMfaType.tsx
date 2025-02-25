@@ -1,15 +1,17 @@
 import * as React from 'react';
 
+import { authenticatorTextUtil } from '@aws-amplify/ui';
+import { useAuthenticator } from '@aws-amplify/ui-react-core';
+
 import { Flex } from '../../../primitives/Flex';
 import { Heading } from '../../../primitives/Heading';
-import { useAuthenticator } from '@aws-amplify/ui-react-core';
+import { RadioGroupField } from '../../../primitives/RadioGroupField';
+import { Radio } from '../../../primitives/Radio';
 import { useCustomComponents } from '../hooks/useCustomComponents';
 import { useFormHandlers } from '../hooks/useFormHandlers';
 import { ConfirmSignInFooter } from '../shared/ConfirmSignInFooter';
 import { RemoteErrorMessage } from '../shared/RemoteErrorMessage';
 import { RouteContainer, RouteProps } from '../RouteContainer';
-import { authenticatorTextUtil } from '@aws-amplify/ui';
-import { RadioGroupField, Radio } from '../../../primitives';
 
 const {
   getMfaTypeLabelByValue,

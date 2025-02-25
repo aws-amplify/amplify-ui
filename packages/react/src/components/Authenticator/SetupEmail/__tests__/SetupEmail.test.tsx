@@ -1,9 +1,10 @@
 import * as React from 'react';
-import { fireEvent, render, screen } from '@testing-library/react';
 
+import { fireEvent, render, screen } from '@testing-library/react';
 import { useAuthenticator, UseAuthenticator } from '@aws-amplify/ui-react-core';
-import { SetupEmail } from '../SetupEmail';
 import { AuthenticatorServiceFacade } from '@aws-amplify/ui';
+
+import { SetupEmail } from '../SetupEmail';
 
 jest.mock('@aws-amplify/ui-react-core');
 

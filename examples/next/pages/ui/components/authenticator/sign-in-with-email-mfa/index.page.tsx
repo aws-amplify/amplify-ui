@@ -1,13 +1,12 @@
 import { Amplify } from 'aws-amplify';
-import { AuthContext } from '@aws-amplify/ui';
-import { Authenticator } from '@aws-amplify/ui-react';
+import { Authenticator, AuthenticatorProps } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
 import awsExports from './aws-exports';
 
 Amplify.configure(awsExports);
 
-const customServices: AuthContext['services'] = {
+const customServices: AuthenticatorProps['services'] = {
   handleSignIn: async () => {
     return {
       isSignedIn: false,
