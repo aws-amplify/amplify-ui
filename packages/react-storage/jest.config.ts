@@ -8,6 +8,7 @@ const config: Config = {
     '!<rootDir>/**/(index|version).(ts|tsx)',
     // do not collect from top level styles directory
     '!<rootDir>/src/styles/*.ts',
+    // do not collect coverage of test utils
     '!<rootDir>/src/**/__testUtils__/*.(ts|tsx)',
   ],
   coverageThreshold: {
