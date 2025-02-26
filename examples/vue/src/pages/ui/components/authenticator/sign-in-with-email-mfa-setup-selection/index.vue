@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { Amplify } from 'aws-amplify';
-import { AuthContext, emailRegex } from '@aws-amplify/ui';
 import { Authenticator } from '@aws-amplify/ui-vue';
 import '@aws-amplify/ui-vue/styles.css';
 
@@ -8,7 +7,7 @@ import awsExports from './aws-exports';
 
 Amplify.configure(awsExports);
 
-const customServices: AuthContext['services'] = {
+const customServices = {
     handleSignIn: async () => {
         return {
             isSignedIn: false,
@@ -27,7 +26,7 @@ const customServices: AuthContext['services'] = {
                 },
             };
         }
-        if (emailRegex.test(challengeResponse)) {
+        if (challengeResponse.includes("@example.com")) {
             return {
                 isSignedIn: false,
                 nextStep: {
@@ -40,7 +39,7 @@ const customServices: AuthContext['services'] = {
                 },
             };
         }
-        if (/^\d{6}$/.test(challengeResponse)) {
+        if (challengeResponse === '123456') {
             return {
                 isSignedIn: true,
                 nextStep: {
@@ -48,7 +47,6 @@ const customServices: AuthContext['services'] = {
                 },
             };
         }
-        throw new Error('Invalid code or auth state for the user.');
     },
     getCurrentUser: async () => {
         return {
