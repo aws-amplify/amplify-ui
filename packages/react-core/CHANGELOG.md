@@ -1,5 +1,14 @@
 # @aws-amplify/ui-react-core
 
+## 3.3.3
+
+### Patch Changes
+
+- [#6382](https://github.com/aws-amplify/amplify-ui/pull/6382) [`e6248bd8dd8980b095826e6476b65e19af006960`](https://github.com/aws-amplify/amplify-ui/commit/e6248bd8dd8980b095826e6476b65e19af006960) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(react-core): ensure useDataState returns value of last dispatch
+
+- Updated dependencies [[`81543cb38604a80ca2d8b93cfb7d1884d43e0a4f`](https://github.com/aws-amplify/amplify-ui/commit/81543cb38604a80ca2d8b93cfb7d1884d43e0a4f)]:
+  - @aws-amplify/ui@6.9.0
+
 ## 3.3.2
 
 ### Patch Changes

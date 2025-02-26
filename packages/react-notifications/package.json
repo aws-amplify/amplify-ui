@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui-react-notifications",
-  "version": "2.2.2",
+  "version": "2.2.3",
   "main": "dist/index.js",
   "module": "dist/esm/index.mjs",
   "exports": {
@@ -39,10 +39,10 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@aws-amplify/ui": "6.8.2",
-    "@aws-amplify/ui-react": "6.9.2",
-    "@aws-amplify/ui-react-core": "3.3.2",
-    "@aws-amplify/ui-react-core-notifications": "2.2.2",
+    "@aws-amplify/ui": "6.9.0",
+    "@aws-amplify/ui-react": "6.9.3",
+    "@aws-amplify/ui-react-core": "3.3.3",
+    "@aws-amplify/ui-react-core-notifications": "2.2.3",
     "tinycolor2": "1.4.2"
   },
   "peerDependencies": {

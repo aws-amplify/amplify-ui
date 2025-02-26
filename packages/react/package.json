@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui-react",
-  "version": "6.9.2",
+  "version": "6.9.3",
   "main": "dist/index.js",
   "module": "dist/esm/index.mjs",
   "exports": {
@@ -55,8 +55,8 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@aws-amplify/ui": "6.8.2",
-    "@aws-amplify/ui-react-core": "3.3.2",
+    "@aws-amplify/ui": "6.9.0",
+    "@aws-amplify/ui-react-core": "3.3.3",
     "@radix-ui/react-direction": "^1.1.0",
     "@radix-ui/react-dropdown-menu": "^2.1.4",
     "@radix-ui/react-slider": "^1.2.2",
