@@ -1,5 +1,4 @@
 import { Amplify } from 'aws-amplify';
-import { emailRegex } from '@aws-amplify/ui';
 import { Authenticator, AuthenticatorProps } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
