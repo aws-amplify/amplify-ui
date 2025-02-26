@@ -47,6 +47,7 @@ const customServices = {
                 },
             };
         }
+        throw new Error('Invalid code or auth state for the user.');
     },
     getCurrentUser: async () => {
         return {
