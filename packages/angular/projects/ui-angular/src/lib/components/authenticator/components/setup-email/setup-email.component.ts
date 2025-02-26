@@ -6,9 +6,10 @@ import {
   getFormDataFromEvent,
 } from '@aws-amplify/ui';
 
+import { AuthenticatorService } from '../../../../services/authenticator.service';
+
 const { getConfirmText, getBackToSignInText, getSetupEmailText } =
   authenticatorTextUtil;
-import { AuthenticatorService } from '../../../../services/authenticator.service';
 
 @Component({
   selector: 'amplify-setup-email',

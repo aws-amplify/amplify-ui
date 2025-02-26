@@ -1,11 +1,10 @@
+import { AuthActorContext } from '@aws-amplify/ui';
 import { fireEvent, render, screen } from '@testing-library/angular';
 
 import { AuthenticatorService } from '../../../../services/authenticator.service';
-
 import { SetupEmailComponent } from './setup-email.component';
 import { AmplifySlotComponent } from '../../../../utilities/amplify-slot/amplify-slot.component';
 import { BaseFormFieldsComponent } from '../base-form-fields/base-form-fields.component';
-import { AuthActorContext } from '@aws-amplify/ui';
 import { FormFieldComponent } from '../form-field/form-field.component';
 import { ButtonComponent } from '../../../../primitives/button/button.component';
 import { ErrorComponent } from '../../../../primitives/error/error.component';

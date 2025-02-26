@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Amplify } from 'aws-amplify';
+import { AuthenticatorComponent } from '@aws-amplify/ui-angular';
+
 import awsExports from './aws-exports';
-import { AuthContext } from '@aws-amplify/ui';
 
 @Component({
   selector: 'app-sign-in-with-email-mfa-selection',
   templateUrl: './sign-in-with-email-mfa-selection.component.html',
 })
 export class SignInWithEmailMfaSelectionComponent implements OnInit {
-  public services: AuthContext['services'] = {
+  public services: AuthenticatorComponent['services'] = {
     handleSignIn: async () => {
       return {
         isSignedIn: false,
@@ -33,7 +34,7 @@ export class SignInWithEmailMfaSelectionComponent implements OnInit {
         };
       }
 
-      if (/^\d{6}$/.test(challengeResponse)) {
+      if (challengeResponse === '123456') {
         return {
           isSignedIn: true,
           nextStep: {
