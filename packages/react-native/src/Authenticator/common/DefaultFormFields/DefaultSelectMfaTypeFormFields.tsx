@@ -2,7 +2,8 @@ import React from 'react';
 
 import { DefaultRadioFormFieldsProps } from './types';
 
-import { Radio, RadioGroup } from '../../../primitives';
+import { RadioGroup } from '../../../primitives/RadioGroup';
+import { Radio } from '../../../primitives/Radio';
 
 const DefaultSelectMfaTypeFormFields = ({
   fields = [],

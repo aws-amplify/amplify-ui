@@ -1,16 +1,18 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
 
-import { Authenticator } from '@aws-amplify/ui-react-native';
+import { StyleSheet, View } from 'react-native';
+import {
+  Authenticator,
+  AuthenticatorProps,
+} from '@aws-amplify/ui-react-native';
 import { Amplify } from 'aws-amplify';
 
 import { SignOutButton } from '../SignOutButton';
 import awsConfig from './aws-exports';
-import { AuthContext } from '@aws-amplify/ui';
 
 Amplify.configure(awsConfig);
 
-const customServices: AuthContext['services'] = {
+const customServices: AuthenticatorProps['services'] = {
   handleSignIn: async () => {
     return {
       isSignedIn: false,
@@ -25,7 +27,7 @@ const customServices: AuthContext['services'] = {
     };
   },
   handleConfirmSignIn: async ({ challengeResponse }) => {
-    if (/^\d{6}$/.test(challengeResponse)) {
+    if (challengeResponse.includes('@example.com')) {
       return {
         isSignedIn: true,
         nextStep: {
