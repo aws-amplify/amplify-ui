@@ -21,7 +21,7 @@ const customServices: AuthenticatorProps['services'] = {
     };
   },
   handleConfirmSignIn: async ({ challengeResponse }) => {
-    if (/^\d{6}$/.test(challengeResponse)) {
+    if (challengeResponse === '123456') {
       return {
         isSignedIn: true,
         nextStep: {

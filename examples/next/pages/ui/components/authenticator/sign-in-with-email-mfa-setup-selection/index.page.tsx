@@ -35,7 +35,7 @@ const customServices: AuthenticatorProps['services'] = {
         },
       };
     }
-    if (emailRegex.test(challengeResponse)) {
+    if (challengeResponse.includes('@example.com')) {
       return {
         isSignedIn: false,
         nextStep: {
@@ -48,7 +48,7 @@ const customServices: AuthenticatorProps['services'] = {
         },
       };
     }
-    if (/^\d{6}$/.test(challengeResponse)) {
+    if (challengeResponse === '123456') {
       return {
         isSignedIn: true,
         nextStep: {
