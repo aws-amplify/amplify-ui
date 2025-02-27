@@ -1,6 +1,14 @@
 import { AuthenticatorDictionary } from './types';
 
 export const jaDict: AuthenticatorDictionary = {
+  'Confirm Email Code': 'E メールコードを確認',
+  'Email Message': 'E メールメッセージ',
+  'Multi-Factor Authentication': '多要素認証',
+  'Multi-Factor Authentication Setup': '多要素認証のセットアップ',
+  'Select MFA Type': 'MFA タイプを選択',
+  'Setup Email': 'E メールをセットアップ',
+  'Text Message (SMS)': 'テキストメッセージ (SMS)',
+  'Authenticator App (TOTP)': '認証アプリ (TOTP)',
   'Account recovery requires verified contact information':
     'アカウントの復旧には確認済みの連絡先が必要です',
   'Back to Sign In': 'サインインに戻る',
