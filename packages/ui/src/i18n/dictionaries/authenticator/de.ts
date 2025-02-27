@@ -1,6 +1,15 @@
 import { AuthenticatorDictionary } from './types';
 
 export const deDict: AuthenticatorDictionary = {
+  'Confirm Email Code': 'E-Mail-Code bestätigen',
+  'Email Message': 'E-Mail-Nachricht',
+  'Multi-Factor Authentication': 'Multifaktor-Authentifizierung',
+  'Multi-Factor Authentication Setup':
+    'Einrichtung der Multifaktor-Authentifizierung',
+  'Select MFA Type': 'MFA-Typ auswählen',
+  'Setup Email': 'E-Mail einrichten',
+  'Text Message (SMS)': 'Textnachricht (SMS)',
+  'Authenticator App (TOTP)': 'Authentifikator-App (TOTP)',
   'Account recovery requires verified contact information':
     'Zurücksetzen des Accounts benötigt einen verifizierten Account',
   'Add your Profile': 'Ihr Profil hinzufügen',
