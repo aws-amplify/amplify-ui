@@ -1,6 +1,14 @@
 import { AuthenticatorDictionary } from './types';
 
 export const zhDict: AuthenticatorDictionary = {
+  'Confirm Email Code': '确认电子邮件代码',
+  'Email Message': '电子邮件消息',
+  'Multi-Factor Authentication': '多重身份验证',
+  'Multi-Factor Authentication Setup': '多重身份验证设置',
+  'Select MFA Type': '选择 MFA 类型',
+  'Setup Email': '设置电子邮件',
+  'Text Message (SMS)': '短信（SMS）',
+  'Authenticator App (TOTP)': 'Authenticator 应用程序（TOTP）',
   'Account recovery requires verified contact information':
     '账户恢复需要验证过的联系方式',
   'Back to Sign In': '回到登录',
