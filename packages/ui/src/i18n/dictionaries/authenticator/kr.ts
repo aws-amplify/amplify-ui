@@ -1,6 +1,14 @@
 import { AuthenticatorDictionary } from './types';
 
 export const krDict: AuthenticatorDictionary = {
+  'Confirm Email Code': '이메일 코드 확인',
+  'Email Message': '이메일 메시지',
+  'Multi-Factor Authentication': '다중 인증',
+  'Multi-Factor Authentication Setup': '다중 인증 설정',
+  'Select MFA Type': 'MFA 유형 선택',
+  'Setup Email': '이메일 설정',
+  'Text Message (SMS)': '문자 메시지(SMS)',
+  'Authenticator App (TOTP)': '인증 앱(TOTP)',
   'Account recovery requires verified contact information':
     '계정 복구를 위해 연락처 확인이 필요합니다',
   'Back to Sign In': '로그인으로 돌아가기',
