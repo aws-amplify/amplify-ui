@@ -1,6 +1,15 @@
 import { AuthenticatorDictionary } from './types';
 
 export const esDict: AuthenticatorDictionary = {
+  'Confirm Email Code': 'Confirmar el código de correo electrónico',
+  'Email Message': 'Mensaje de correo electrónico',
+  'Multi-Factor Authentication': 'Autenticación multifactor',
+  'Multi-Factor Authentication Setup':
+    'Configuración de autenticación multifactor',
+  'Select MFA Type': 'Seleccionar el tipo de MFA',
+  'Setup Email': 'Configurar correo electrónico',
+  'Text Message (SMS)': 'Mensaje de texto (SMS)',
+  'Authenticator App (TOTP)': 'Aplicación de autenticación (TOTP)',
   'Account recovery requires verified contact information':
     'La recuperación de la cuenta requiere información de contacto verificada',
   'Back to Sign In': 'Volver a inicio de sesión',
