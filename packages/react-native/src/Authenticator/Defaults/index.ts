@@ -8,4 +8,17 @@ export { SetupTotp } from './SetupTotp';
 export { SignIn } from './SignIn';
 export { SignUp } from './SignUp';
 export { VerifyUser } from './VerifyUser';
-export { Components, DefaultComponents } from './types';
+export {
+  Components,
+  DefaultComponents,
+  ConfirmResetPasswordProps,
+  ConfirmSignInProps,
+  ConfirmSignUpProps,
+  ConfirmVerifyUserProps,
+  ForceNewPasswordProps,
+  ForgotPasswordProps,
+  SetupTotpProps,
+  SignInProps,
+  SignUpProps,
+  VerifyUserProps,
+} from './types';
