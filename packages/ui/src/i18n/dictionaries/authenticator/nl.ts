@@ -1,6 +1,14 @@
 import { AuthenticatorDictionary } from './types';
 
 export const nlDict: AuthenticatorDictionary = {
+  'Confirm Email Code': 'E-mailcode bevestigen',
+  'Email Message': 'E-mailbericht',
+  'Multi-Factor Authentication': 'Multi-Factor Authentication',
+  'Multi-Factor Authentication Setup': 'Multi-Factor Authentication instellen',
+  'Select MFA Type': 'MFA-type kiezen',
+  'Setup Email': 'E-mailadres instellen',
+  'Text Message (SMS)': 'Tekstbericht (sms)',
+  'Authenticator App (TOTP)': 'Authenticator-app (TOTP)',
   'Account recovery requires verified contact information':
     'Accountherstel vereist geverifieerde contactgegevens',
   'Back to Sign In': 'Terug naar inloggen',
