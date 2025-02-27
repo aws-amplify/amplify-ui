@@ -1,8 +1,16 @@
 import { AuthenticatorDictionary } from './types';
 
 export const trDict: AuthenticatorDictionary = {
+  'Confirm Email Code': 'E-posta Kodunu Onayla',
+  'Email Message': 'E-posta Mesajı',
+  'Multi-Factor Authentication': 'Çok Faktörlü Kimlik Doğrulama',
+  'Multi-Factor Authentication Setup': 'Çok Faktörlü Kimlik Doğrulama Kurulumu',
+  'Select MFA Type': 'MFA türünü seçin',
+  'Setup Email': 'E-postayı ayarla',
+  'Text Message (SMS)': 'Kısa Mesaj (SMS)',
+  'Authenticator App (TOTP)': 'Kimlik Doğrulayıcı Uygulaması (TOTP)',
   'Account recovery requires verified contact information':
-      'Hesap kurtarma, doğrulanmış iletişim bilgilerini gerektirir',
+    'Hesap kurtarma, doğrulanmış iletişim bilgilerini gerektirir',
   'Add your Profile': 'Profilinizi ekleyin',
   'Add your Website': 'Web sitenizi ekleyin',
   'Back to Sign In': 'Oturum Açmaya Geri Dön',
@@ -76,15 +84,15 @@ export const trDict: AuthenticatorDictionary = {
   'We Sent A Code': 'Bir Kod Gönderdik',
   'We Texted You': 'Size Mesaj Gönderdik',
   'Your code is on the way. To log in, enter the code we emailed to':
-      'Kodunuz yolda. Oturum açmak için, gönderdiğimiz e-postadaki kodu girin',
+    'Kodunuz yolda. Oturum açmak için, gönderdiğimiz e-postadaki kodu girin',
   'Your code is on the way. To log in, enter the code we sent you':
-      'Kodunuz yolda. Oturum açmak için, size gönderdiğimiz kodu girin',
+    'Kodunuz yolda. Oturum açmak için, size gönderdiğimiz kodu girin',
   'Your code is on the way. To log in, enter the code we texted to':
-      'Kodunuz yolda. Oturum açmak için, gönderdiğimiz mesajdaki kodu girin',
-  
+    'Kodunuz yolda. Oturum açmak için, gönderdiğimiz mesajdaki kodu girin',
+
   // Additional translations provided by customers
   'An account with the given email already exists.':
-      'Bu e-postaya ait zaten bir hesap var.',
+    'Bu e-postaya ait zaten bir hesap var.',
   'Confirm Sign In': 'Oturum Açmayı Doğrula',
   'Have an account? ': 'Hesabınız var mı? ',
   'Incorrect username or password': 'Yanlış kullanıcı adı ya da şifre',
@@ -97,5 +105,5 @@ export const trDict: AuthenticatorDictionary = {
   'Sign Up': 'Kayıt Ol',
   'User already exists': 'Bu kullanıcı zaten var',
   'User does not exist': 'Böyle bir kullanıcı mevcut değil',
-  'Username cannot be empty': 'Kullanıcı adı boş olamaz'
+  'Username cannot be empty': 'Kullanıcı adı boş olamaz',
 };
