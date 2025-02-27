@@ -1,6 +1,15 @@
 import { AuthenticatorDictionary } from './types';
 
 export const ruDict: AuthenticatorDictionary = {
+  'Confirm Email Code': 'Подтвердите код электронной почты',
+  'Email Message': 'Сообщение по электронной почте',
+  'Multi-Factor Authentication': 'Многофакторная аутентификация',
+  'Multi-Factor Authentication Setup':
+    'Настройка многофакторной аутентификации',
+  'Select MFA Type': 'Выберите тип МФА',
+  'Setup Email': 'Настроить электронную почту',
+  'Text Message (SMS)': 'Текстовое сообщение (SMS)',
+  'Authenticator App (TOTP)': 'Приложение для аутентификации (TOTP)',
   'Account recovery requires verified contact information':
     'Восстановление учетной записи требует проверки контактной информации',
   'Back to Sign In': 'Назад, чтобы войти',
