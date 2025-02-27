@@ -16,6 +16,15 @@ const INTERNAL_DEPENDENCY_DIRECTORY_NAMES = [
   'ui',
 ];
 
+// 3rd party react native module names
+const EXTERNAL_MODULE_NAMES = [
+  '@aws-amplify/react-native',
+  'react-native',
+  'react-native-paper',
+  'react-native-url-polyfill',
+  'react-native-safe-area-context',
+];
+
 const EXAMPLE_APP_PACKAGE_JSON = require('./package.json');
 const EXAMPLE_APP_ROOT = __dirname;
 
@@ -144,20 +153,12 @@ config.server.enhanceMiddleware = (middleware) => {
   };
 };
 
-config.resolver.extraNodeModules = {
-  '@aws-amplify/react-native': path.resolve(
-    __dirname,
-    'node_modules/@aws-amplify/react-native'
-  ),
-  'react-native': path.resolve(__dirname, 'node_modules/react-native'),
-  'react-native-url-polyfill': path.resolve(
-    __dirname,
-    'node_modules/react-native-url-polyfill'
-  ),
-  'react-native-safe-area-context': path.resolve(
-    __dirname,
-    'node_modules/react-native-safe-area-context'
-  ),
-};
+config.resolver.extraNodeModules = EXTERNAL_MODULE_NAMES.reduce(
+  (modules, moduleName) => ({
+    ...modules,
+    [moduleName]: path.resolve(__dirname, `node_modules/${moduleName}`),
+  }),
+  {}
+);
 
 module.exports = config;
