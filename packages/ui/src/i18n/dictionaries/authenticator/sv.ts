@@ -1,6 +1,15 @@
 import { AuthenticatorDictionary } from './types';
 
 export const svDict: AuthenticatorDictionary = {
+  'Confirm Email Code': 'Bekräfta e-postkod',
+  'Email Message': 'E-postmeddelande',
+  'Multi-Factor Authentication': 'Multifaktorautentisering',
+  'Multi-Factor Authentication Setup':
+    'Konfigurering av multifaktorautentisering',
+  'Select MFA Type': 'Välj MFA-typ',
+  'Setup Email': 'Konfigurera e-post',
+  'Text Message (SMS)': 'Textmeddelande (SMS)',
+  'Authenticator App (TOTP)': 'Autentiseringsapp (TOTP)',
   'Account recovery requires verified contact information':
     'För att återställa kontot behöver du ett verifierat konto',
   'Back to Sign In': 'Tillbaka till inloggningen',
