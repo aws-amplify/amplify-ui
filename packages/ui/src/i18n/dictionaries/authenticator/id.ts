@@ -1,6 +1,14 @@
 import { AuthenticatorDictionary } from './types';
 
 export const idDict: AuthenticatorDictionary = {
+  'Confirm Email Code': 'Konfirmasi Kode Email',
+  'Email Message': 'Pesan Email',
+  'Multi-Factor Authentication': 'Autentikasi Multifaktor',
+  'Multi-Factor Authentication Setup': 'Pengaturan Autentikasi Multifaktor',
+  'Select MFA Type': 'Pilih tipe MFA',
+  'Setup Email': 'Atur Email',
+  'Text Message (SMS)': 'Pesan Teks (SMS)',
+  'Authenticator App (TOTP)': 'Aplikasi Pengauntentikasi (TOTP)',
   'Account recovery requires verified contact information':
     'Pemulihan akun memerlukan informasi kontak terverifikasi',
   'Back to Sign In': 'Kembali ke Masuk',
