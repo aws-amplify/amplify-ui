@@ -1,6 +1,15 @@
 import { AuthenticatorDictionary } from './types';
 
 export const plDict: AuthenticatorDictionary = {
+  'Confirm Email Code': 'Potwierdź kod e-mail',
+  'Email Message': 'Wiadomość e-mail',
+  'Multi-Factor Authentication': 'Uwierzytelnianie wieloskładnikowe',
+  'Multi-Factor Authentication Setup':
+    'Konfigurowanie uwierzytelniania wieloskładnikowego',
+  'Select MFA Type': 'Wybierz typ MFA',
+  'Setup Email': 'Konfiguracja poczty e-mail',
+  'Text Message (SMS)': 'Wiadomość tekstowa (SMS)',
+  'Authenticator App (TOTP)': 'Aplikacja uwierzytelniania (TOTP)',
   'Account recovery requires verified contact information':
     'Odzyskanie konta wymaga zweryfikowanych danych kontaktowych',
   'Back to Sign In': 'Powrót do logowania',
