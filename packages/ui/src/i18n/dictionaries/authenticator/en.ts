@@ -1,6 +1,14 @@
 import { AuthenticatorDictionary } from './types';
 
 export const enDict: AuthenticatorDictionary = {
+  'Confirm Email Code': 'Confirm Email Code',
+  'Email Message': 'Email Message',
+  'Multi-Factor Authentication': 'Multi-Factor Authentication',
+  'Multi-Factor Authentication Setup': 'Multi-Factor Authentication Setup',
+  'Select MFA Type': 'Select MFA Type',
+  'Setup Email': 'Setup Email',
+  'Text Message (SMS)': 'Text Message (SMS)',
+  'Authenticator App (TOTP)': 'Authenticator App (TOTP)',
   'Account recovery requires verified contact information':
     'Account recovery requires verified contact information',
   'Add your Profile': 'Add your Profile',
