@@ -13,7 +13,7 @@ exports[`SetupEmailComponent renders as expected 1`] = `
       data-amplify-fieldset=""
     >
       <amplify-slot
-        name="select-mfa-type-header"
+        name="setup-email-header"
         style="display: contents;"
       >
         <h3
@@ -94,7 +94,7 @@ exports[`SetupEmailComponent renders as expected 1`] = `
       
     </fieldset>
     <amplify-slot
-      name="select-mfa-type-footer"
+      name="setup-email-footer"
       style="display: contents;"
     >
       

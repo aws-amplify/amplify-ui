@@ -10,7 +10,7 @@
         [disabled]="authenticator.isPending"
     >
         <amplify-slot
-            name="select-mfa-type-header"
+            name="setup-email-header"
             [context]="context"
         >
             <h3 [class]="classNames(ComponentClassName.Heading, 'amplify-heading--3')">{{ headerText }}</h3>
@@ -41,7 +41,7 @@
         </amplify-error>
     </fieldset>
     <amplify-slot
-        name="select-mfa-type-footer"
+        name="setup-email-footer"
         [context]="context"
     ></amplify-slot>
 </form>
