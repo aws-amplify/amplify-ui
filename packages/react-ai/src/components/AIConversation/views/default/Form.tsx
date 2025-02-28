@@ -11,6 +11,7 @@ import { IconAttach, IconSend, useIcons } from '@aws-amplify/ui-react/internal';
 import { ComponentClassName } from '@aws-amplify/ui';
 import { ControlsContextProps } from '../../context/ControlsContext';
 import { Attachments } from './Attachments';
+import { validFileTypes } from '../../utils';
 
 function isHTMLFormElement(target: EventTarget): target is HTMLFormElement {
   return 'form' in target;
@@ -91,7 +92,7 @@ export const Form: Required<ControlsContextProps>['Form'] = ({
                   onValidate(Array.from(e.target.files));
                 }}
                 multiple
-                accept=".jpeg,.png,.webp,.gif"
+                accept={[...validFileTypes].map((type) => `.${type}`).join(',')}
                 data-testid="hidden-file-input"
               />
             </VisuallyHidden>

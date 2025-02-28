@@ -1,5 +1,7 @@
 import React from 'react';
-import { Image } from '@aws-amplify/ui-react';
+import { humanFileSize, classNames, ComponentClassName } from '@aws-amplify/ui';
+import { Image, type ImageProps } from '@aws-amplify/ui-react';
+import { IconDocument, useIcons } from '@aws-amplify/ui-react/internal';
 import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
 
 import {
@@ -14,14 +16,12 @@ import { AIConversationElements } from '../../context/elements';
 import { convertBufferToBase64 } from '../../utils';
 import { ActionsBarControl } from './ActionsBarControl';
 import { AvatarControl } from './AvatarControl';
-import { ConversationMessage } from '../../../../types';
+import { ConversationMessage, DocumentContentBlock } from '../../../../types';
 import {
   RESPONSE_COMPONENT_PREFIX,
   ResponseComponentsContext,
 } from '../../context/ResponseComponentsContext';
 import { ControlsContext } from '../../context/ControlsContext';
-import { ImageProps } from '@aws-amplify/ui-react';
-import { classNames } from '@aws-amplify/ui';
 
 const { Text, View } = AIConversationElements;
 
@@ -76,6 +76,26 @@ const ToolContent = ({
   }
 };
 
+export const DocumentContent = ({
+  format,
+  name,
+  source,
+}: DocumentContentBlock['document']): React.JSX.Element => {
+  const icons = useIcons('aiConversation');
+  const fileIcon = icons?.document ?? <IconDocument />;
+  return (
+    <View className={ComponentClassName.AIConversationAttachment}>
+      {fileIcon}
+      <View className={ComponentClassName.AIConversationAttachmentName}>
+        {name}.{format}
+      </View>
+      <View className={ComponentClassName.AIConversationAttachmentSize}>
+        {humanFileSize(source.bytes.length, true)}
+      </View>
+    </View>
+  );
+};
+
 export const MessageControl: MessageControl = ({ message }) => {
   const messageRenderer = React.useContext(MessageRendererContext);
 
@@ -108,6 +128,10 @@ export const MessageControl: MessageControl = ({ message }) => {
               )}
             />
           );
+          // @ts-expect-error
+        } else if (content.document) {
+          // @ts-expect-error
+          return <DocumentContent key={index} {...content.document} />;
         } else if (content.toolUse) {
           return <ToolContent toolUse={content.toolUse} key={index} />;
         }

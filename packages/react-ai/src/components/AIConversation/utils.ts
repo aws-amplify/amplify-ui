@@ -39,11 +39,41 @@ export function convertBufferToBase64(
   return `data:image/${format};base64,${base64string}`;
 }
 
-export function getImageTypeFromMimeType(
-  mimeType: string
-): 'png' | 'jpeg' | 'gif' | 'webp' {
-  return mimeType.split('/')[1] as 'png' | 'jpeg' | 'gif' | 'webp';
+export function getAttachmentFormat(file: File): string {
+  // try to get format from mime type first
+  const mimeType = file.type.split('/')[1];
+  const extension = file.name.split('.')[1];
+  if (extension) {
+    return extension;
+  }
+  return mimeType;
 }
+
+export function getValidDocumentName(file: File): string {
+  return file.name
+    .split('.')
+    .slice(0, -1)
+    .join('')
+    .replace(/[!@#$%^&*()+\-=[\]{};':"\\|,.<>/?]/g, '');
+}
+
+// Using Sets instead of Arrays for faster and easier lookups
+export const documentFileTypes = new Set([
+  'docx',
+  'csv',
+  'html',
+  'txt',
+  'pdf',
+  'md',
+  'doc',
+  'xlsx',
+  'xls',
+]);
+export const imageFileTypes = new Set(['png', 'jpeg', 'gif', 'webp']);
+export const validFileTypes = new Set([
+  ...documentFileTypes,
+  ...imageFileTypes,
+]);
 
 export async function attachmentsValidator({
   files,
@@ -64,6 +94,10 @@ export async function attachmentsValidator({
   let hasMaxSizeError = false;
 
   for (const file of files) {
+    if (!validFileTypes.has(getAttachmentFormat(file))) {
+      rejectedFiles.push(file);
+      continue;
+    }
     const arrayBuffer = await file.arrayBuffer();
     const base64 = arrayBufferToBase64(arrayBuffer);
     if (base64.length < maxAttachmentSize) {

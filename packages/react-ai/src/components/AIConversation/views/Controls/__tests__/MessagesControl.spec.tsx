@@ -97,6 +97,22 @@ const TextAndToolUseMessage: ConversationMessage = {
   createdAt: new Date(2023, 4, 21, 15, 25).toDateString(),
 };
 
+const TextAndDocumentMessage: ConversationMessage = {
+  conversatinId: 'foobar',
+  id: '3',
+  content: [
+    { text: 'hey what up' },
+    {
+      // @ts-expect-error
+      document: {
+        name: 'test',
+        format: 'txt',
+        source: { bytes: new Uint8Array([]) },
+      },
+    },
+  ],
+};
+
 const avatars = {
   user: {
     username: 'Scottleigh',
@@ -297,6 +313,12 @@ describe('MessageControl', () => {
   it('renders image content', () => {
     render(<MessageControl message={AIImageMessage} />);
     const message = screen.getByRole('img');
+    expect(message).toBeInTheDocument();
+  });
+
+  it('renders document content', () => {
+    render(<MessageControl message={TextAndDocumentMessage} />);
+    const message = screen.getByText('hey what up');
     expect(message).toBeInTheDocument();
   });
 

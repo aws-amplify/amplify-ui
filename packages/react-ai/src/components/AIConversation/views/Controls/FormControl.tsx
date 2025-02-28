@@ -11,13 +11,18 @@ import { AttachFileControl } from './AttachFileControl';
 import { MessagesContext } from '../../context';
 import { AttachmentListControl } from './AttachmentListControl';
 import { SendMessageContext } from '../../context/SendMessageContext';
-import { ConversationMessageContent, InputContent } from '../../../../types';
+import { InputContent } from '../../../../types';
 import {
   convertResponseComponentsToToolConfiguration,
   ResponseComponentsContext,
 } from '../../context/ResponseComponentsContext';
 import { ControlsContext } from '../../context/ControlsContext';
-import { attachmentsValidator, getImageTypeFromMimeType } from '../../utils';
+import {
+  attachmentsValidator,
+  documentFileTypes,
+  getAttachmentFormat,
+  getValidDocumentName,
+} from '../../utils';
 import { LoadingContext } from '../../context/LoadingContext';
 import { AttachmentContext } from '../../context/AttachmentContext';
 import { humanFileSize, isFunction } from '@aws-amplify/ui';
@@ -179,13 +184,25 @@ export const FormControl: FormControl = () => {
     if (input?.files) {
       for (const file of input.files) {
         const buffer = await file.arrayBuffer();
-        const fileContent: ConversationMessageContent = {
-          image: {
-            format: getImageTypeFromMimeType(file.type),
-            source: { bytes: new Uint8Array(buffer) },
-          },
-        };
-        submittedContent.push(fileContent);
+        const format = getAttachmentFormat(file);
+        if (documentFileTypes.has(format)) {
+          submittedContent.push({
+            // @ts-ignore
+            document: {
+              name: getValidDocumentName(file),
+              format,
+              source: { bytes: new Uint8Array(buffer) },
+            },
+          });
+        } else {
+          submittedContent.push({
+            image: {
+              // @ts-ignore
+              format,
+              source: { bytes: new Uint8Array(buffer) },
+            },
+          });
+        }
       }
     }
 
