@@ -1,6 +1,15 @@
 import { AuthenticatorDictionary } from './types';
 
 export const uaDict: AuthenticatorDictionary = {
+  'Confirm Email Code': 'Підтвердити код електронної пошти',
+  'Email Message': 'Повідомлення електронної пошти',
+  'Multi-Factor Authentication': 'Багатофакторна автентифікація',
+  'Multi-Factor Authentication Setup':
+    'Налаштування багатофакторної автентифікації',
+  'Select MFA Type': 'Виберіть тип MFA',
+  'Setup Email': 'Налаштувати електронну пошту',
+  'Text Message (SMS)': 'Текстове повідомлення (SMS)',
+  'Authenticator App (TOTP)': 'Додаток автентифікації (TOTP)',
   'Account recovery requires verified contact information':
     'Відновлення облікового запису потребує контактної інформації',
   'Back to Sign In': 'Назад на сторінку входу',
