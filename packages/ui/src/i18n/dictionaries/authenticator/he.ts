@@ -1,6 +1,14 @@
 import { AuthenticatorDictionary } from './types';
 
 export const heDict: AuthenticatorDictionary = {
+  'Confirm Email Code': 'אמת קוד אימייל',
+  'Email Message': 'הודעת אימייל',
+  'Multi-Factor Authentication': 'אימות רב-גורמי',
+  'Multi-Factor Authentication Setup': 'הגדרת אימות רב-גורמי',
+  'Select MFA Type': 'בחר סוג אימות רב-גורמי',
+  'Setup Email': 'הגדר אימייל',
+  'Text Message (SMS)': 'הודעת טקסט (SMS)',
+  'Authenticator App (TOTP)': 'אפליקציית אימות (TOTP)',
   'Account recovery requires verified contact information':
     'שחזור לקוח דורש עוד מידע',
   'Back to Sign In': 'חזור להרשמה',
