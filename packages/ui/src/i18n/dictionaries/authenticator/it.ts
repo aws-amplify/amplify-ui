@@ -1,21 +1,14 @@
 import { AuthenticatorDictionary } from './types';
 
 export const itDict: AuthenticatorDictionary = {
-  'Confirm Email Code': 'Conferma codice e-mail',
-  'Email Message': 'Messaggio e-mail',
-  'Multi-Factor Authentication': 'Autenticazione a più fattori',
-  'Multi-Factor Authentication Setup':
-    "Configurazione dell'autenticazione a più fattori",
-  'Select MFA Type': 'Seleziona il tipo di MFA',
-  'Setup Email': "Configura l'e-mail",
-  'Text Message (SMS)': 'Messaggio di testo (SMS)',
-  'Authenticator App (TOTP)': 'App di autenticazione (TOTP)',
   'Account recovery requires verified contact information':
     "Il ripristino dell'account richiede informazioni di contatto verificate",
+  'Authenticator App (TOTP)': 'App di autenticazione (TOTP)',
   'Back to Sign In': 'Torna alla schermata di accesso',
   'Change Password': 'Cambia la password',
   Changing: 'Modifica in corso',
   Code: 'Codice',
+  'Confirm Email Code': 'Conferma codice e-mail',
   'Confirm Password': 'Conferma la password',
   'Confirm Sign Up': 'Conferma registrazione',
   'Confirm SMS Code': 'Conferma codice SMS',
@@ -28,6 +21,7 @@ export const itDict: AuthenticatorDictionary = {
   'Creating Account': 'Creazione account in corso',
   'Dismiss alert': `Ignora l'avviso`,
   Email: 'Email',
+  'Email Message': 'Messaggio e-mail',
   'Enter your code': 'Inserisci il tuo codice',
   'Enter your Email': 'Inserisci la tua e-mail',
   'Enter your phone number': 'Inserisci il tuo numero di telefono"',
@@ -37,6 +31,9 @@ export const itDict: AuthenticatorDictionary = {
   'It may take a minute to arrive':
     "L'arrivo potrebbe richiedere qualche minuto",
   Loading: 'Caricamento in corso',
+  'Multi-Factor Authentication': 'Autenticazione a più fattori',
+  'Multi-Factor Authentication Setup':
+    "Configurazione dell'autenticazione a più fattori",
   'New password': 'Nuova password',
   or: 'oppure',
   Password: 'Password',
@@ -44,9 +41,11 @@ export const itDict: AuthenticatorDictionary = {
   'Resend Code': 'Invia nuovamente il codice',
   'Reset your Password': 'Reimposta la tua Password',
   'Reset your password': 'Reimposta la tua password',
+  'Select MFA Type': 'Seleziona il tipo di MFA',
   'Send code': 'Invia codice',
   'Send Code': 'Invia codice',
   Sending: 'Invio in corso',
+  'Setup Email': "Configura l'e-mail",
   'Setup TOTP': 'Configura TOTP',
   'Show password': 'Mostra password',
   'Sign in to your account': 'Accedi al tuo account',
@@ -60,6 +59,7 @@ export const itDict: AuthenticatorDictionary = {
   Skip: 'Salta',
   Submit: 'Invia',
   Submitting: 'Invio in corso',
+  'Text Message (SMS)': 'Messaggio di testo (SMS)',
   Username: 'Nome utente',
   'Verify Contact': 'Verifica contatto',
   Verify: 'Verifica',
