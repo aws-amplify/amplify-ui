@@ -1,6 +1,14 @@
 import { AuthenticatorDictionary } from './types';
 
 export const nbDict: AuthenticatorDictionary = {
+  'Confirm Email Code': 'Bekreft e-postkode',
+  'Email Message': 'E-postmelding',
+  'Multi-Factor Authentication': 'Flerfaktorautentisering',
+  'Multi-Factor Authentication Setup': 'Oppsett av flerfaktorautentisering',
+  'Select MFA Type': 'Velg MFA-type',
+  'Setup Email': 'Konfigurer e-post',
+  'Text Message (SMS)': 'Tekstmelding (SMS)',
+  'Authenticator App (TOTP)': 'Autentiseringsapp (TOTP)',
   'Account recovery requires verified contact information':
     'Gjenoppretting av konto krever verifisert kontaktinformajson',
   'Add your Profile': 'Legg til profilen din',
