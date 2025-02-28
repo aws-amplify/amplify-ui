@@ -4,8 +4,11 @@ import { ElementsProvider } from '@aws-amplify/ui-react-core/elements';
 
 import { ComposablesProvider, Composables } from './composables';
 import { StorageBrowserElements } from './context/elements';
+import { ErrorBoundaryProps } from './ErrorBoundary';
 
-export interface Components extends Partial<Composables> {}
+export interface Components extends Partial<Composables> {
+  ErrorBoundary?: React.ComponentClass<ErrorBoundaryProps>;
+}
 
 export interface ComponentsProviderProps {
   children?: React.ReactNode;
