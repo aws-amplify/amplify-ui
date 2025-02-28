@@ -1,6 +1,14 @@
 import { AuthenticatorDictionary } from './types';
 
 export const thDict: AuthenticatorDictionary = {
+  'Confirm Email Code': 'ยืนยันรหัสอีเมล',
+  'Email Message': 'ข้อความอีเมล',
+  'Multi-Factor Authentication': 'การยืนยันตัวตนหลายขั้นตอน',
+  'Multi-Factor Authentication Setup': 'ตั้งค่าการยืนยันตัวตนแบบหลายขั้นตอน',
+  'Select MFA Type': 'เลือกประเภท MFA',
+  'Setup Email': 'ตั้งค่าอีเมล',
+  'Text Message (SMS)': 'ข้อความตัวอักษร (SMS)',
+  'Authenticator App (TOTP)': 'แอปพลิเคชันยืนยันตัวตน (TOTP)',
   'Account recovery requires verified contact information':
     'การกู้คืนบัญชีต้องมีข้อมูลติดต่อที่ได้รับการยืนยันแล้ว',
   'Add your Profile': 'เพิ่มโปรไฟล์ของคุณ',
