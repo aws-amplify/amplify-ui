@@ -6,6 +6,8 @@ import { SetupTotp } from '../../SetupTotp';
 import { ConfirmSignIn } from '../../ConfirmSignIn/ConfirmSignIn';
 import { ConfirmVerifyUser, VerifyUser } from '../../VerifyUser';
 import { ConfirmResetPassword, ForgotPassword } from '../../ForgotPassword';
+import { SelectMfaType } from '../../SelectMfaType';
+import { SetupEmail } from '../../SetupEmail';
 
 // use the very generic name of Components as this is a temporary interface and is not exported
 interface Components {
@@ -21,6 +23,8 @@ export interface DefaultComponents extends Omit<Components, 'FormFields'> {
   ConfirmVerifyUser?: Omit<Components, 'FormFields'>;
   ForceNewPassword?: Components;
   ForgotPassword?: Omit<Components, 'FormFields'>;
+  SelectMfaType?: Omit<Components, 'FormFields'>;
+  SetupEmail?: Omit<Components, 'FormFields'>;
   SetupTotp?: Omit<Components, 'FormFields'>;
   SignIn?: Omit<Components, 'FormFields'>;
   SignUp?: Components;
@@ -42,6 +46,14 @@ export const defaultComponents: DefaultComponents = {
   ConfirmSignUp: {
     Header: ConfirmSignUp.Header,
     Footer: ConfirmSignUp.Footer,
+  },
+  SelectMfaType: {
+    Header: SelectMfaType.Header,
+    Footer: SelectMfaType.Footer,
+  },
+  SetupEmail: {
+    Header: SetupEmail.Header,
+    Footer: SetupEmail.Footer,
   },
   SetupTotp: {
     Header: SetupTotp.Header,
