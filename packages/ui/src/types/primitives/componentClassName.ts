@@ -45,7 +45,6 @@ export const ComponentClassName = {
   AIConversationMessageContent: 'amplify-ai-conversation__message__content',
   AIConversationMessageActions: 'amplify-ai-conversation__message__actions',
   AIConversationMessageList: 'amplify-ai-conversation__message__list',
-  AIConversationMessageDocument: 'amplify-ai-conversation__message__document',
   AIConversationPrompt: 'amplify-ai-conversation__prompt',
   Badge: 'amplify-badge',
   Breadcrumbs: 'amplify-breadcrumbs',
