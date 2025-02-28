@@ -1,16 +1,20 @@
 import { SocialProvider } from '../../types';
 import {
+  AuthMFAType,
   ChallengeName,
   V5CodeDeliveryDetails,
 } from '../../machines/authenticator/types';
 import { translate, DefaultTexts } from '../../i18n';
 import { AuthenticatorRoute } from './facade';
+import { defaultTexts } from '../../i18n/dictionaries';
 
 /**
  * ConfirmSignIn
  */
 const getChallengeText = (challengeName?: ChallengeName): string => {
   switch (challengeName) {
+    case 'EMAIL_OTP':
+      return translate(DefaultTexts.CONFIRM_EMAIL);
     case 'SMS_MFA':
       return translate(DefaultTexts.CONFIRM_SMS);
     case 'SOFTWARE_TOKEN_MFA':
@@ -79,6 +83,32 @@ const getSignInWithFederationText = (
   );
 };
 
+/**
+ * SelectMfaType
+ */
+const getSelectMfaTypeByChallengeName = (
+  challengeName: ChallengeName
+): string => {
+  if (challengeName === 'MFA_SETUP') {
+    return translate(DefaultTexts.MFA_SETUP_SELECTION);
+  }
+
+  return translate(DefaultTexts.MFA_SELECTION);
+};
+
+const getMfaTypeLabelByValue = (mfaType: AuthMFAType): string => {
+  switch (mfaType) {
+    case 'EMAIL':
+      return translate(defaultTexts.EMAIL_OTP);
+    case 'SMS':
+      return translate(defaultTexts.SMS_MFA);
+    case 'TOTP':
+      return translate(defaultTexts.SOFTWARE_TOKEN_MFA);
+    default:
+      return translate(mfaType);
+  }
+};
+
 export const authenticatorTextUtil = {
   /** Shared */
   getBackToSignInText: () => translate(DefaultTexts.BACK_SIGN_IN),
@@ -125,6 +155,9 @@ export const authenticatorTextUtil = {
   /** ForgotPassword */
   getResetYourPasswordText: () => translate(DefaultTexts.RESET_PASSWORD),
 
+  /** SetupEmail */
+  getSetupEmailText: () => translate(DefaultTexts.SETUP_EMAIL),
+
   /** SetupTotp */
   getSetupTotpText: () => translate(DefaultTexts.SETUP_TOTP),
   // TODO: add defaultText for below
@@ -137,6 +170,11 @@ export const authenticatorTextUtil = {
 
   /** FederatedSignIn */
   getSignInWithFederationText,
+
+  /** SelectMfaType */
+  getMfaTypeLabelByValue,
+  getSelectMfaTypeByChallengeName,
+  getSelectMfaTypeText: () => translate(DefaultTexts.SELECT_MFA_TYPE),
 
   /** VerifyUser */
   getSkipText: () => translate(DefaultTexts.SKIP),

@@ -19,6 +19,7 @@ import { defaultServices } from './defaultServices';
 export type ChallengeName =
   | 'SMS_MFA'
   | 'SOFTWARE_TOKEN_MFA'
+  | 'EMAIL_OTP'
   | 'SELECT_MFA_TYPE'
   | 'MFA_SETUP'
   | 'PASSWORD_VERIFIER'
@@ -27,6 +28,9 @@ export type ChallengeName =
   | 'DEVICE_PASSWORD_VERIFIER'
   | 'ADMIN_NO_SRP_AUTH'
   | 'NEW_PASSWORD_REQUIRED';
+
+// JS v6 Mfa Types
+export type AuthMFAType = 'SMS' | 'TOTP' | 'EMAIL';
 
 /**
  * `AuthDeliveryMedium` is deeply nested in the v6 types, added this as utility
@@ -114,6 +118,7 @@ export interface ActorDoneData {
   totpSecretCode?: string;
   username?: string;
   unverifiedUserAttributes?: UnverifiedUserAttributes;
+  allowedMfaTypes?: AuthMFAType[];
 }
 
 /**
@@ -146,6 +151,9 @@ export type SignInStep =
   | 'CONFIRM_SIGN_IN_WITH_NEW_PASSWORD_REQUIRED'
   | 'CONFIRM_SIGN_UP'
   | 'CONTINUE_SIGN_IN_WITH_TOTP_SETUP'
+  | 'CONTINUE_SIGN_IN_WITH_EMAIL_SETUP'
+  | 'CONTINUE_SIGN_IN_WITH_MFA_SETUP_SELECTION'
+  | 'CONTINUE_SIGN_IN_WITH_MFA_SELECTION'
   | 'RESET_PASSWORD'
   | 'SIGN_IN_COMPLETE'; // 'DONE'
 
@@ -163,7 +171,7 @@ export type UserAttributeStep =
   | 'CONFIRM_ATTRIBUTE_WITH_CODE'
   | 'CONFIRM_ATTRIBUTE_COMPLETE'; // 'DONE'
 
-type Step =
+export type Step =
   | InitialStep
   | SignInStep
   | SignUpStep
@@ -181,6 +189,7 @@ interface BaseFormContext {
   step: Step;
   totpSecretCode?: string;
   unverifiedUserAttributes?: UnverifiedUserAttributes;
+  allowedMfaTypes?: AuthMFAType[];
 
   // kept in memory for submission to relevnat APIs
   username?: string;
