@@ -4,6 +4,7 @@ import {
   ListPaginateInput,
   ListOutput,
 } from '../../storage-internal';
+import { checkRequiredKeys } from './integrity';
 import {
   ListHandler,
   ListHandlerInput,
@@ -90,6 +91,17 @@ export const parseResult = (
     prefix
   );
 
+const validateResult = (output: ListOutput) => {
+  checkRequiredKeys(output, `ListOutput`, ['items']);
+  output.items.forEach((item, i) =>
+    checkRequiredKeys(item, `ListOutputItem #${i}`, [
+      'path',
+      'lastModified',
+      'size',
+    ])
+  );
+};
+
 export const listLocationItemsHandler: ListLocationItemsHandler = async (
   input
 ) => {
@@ -143,6 +155,8 @@ export const listLocationItemsHandler: ListLocationItemsHandler = async (
     };
 
     const output = await list(listInput);
+    validateResult(output);
+
     nextNextToken = output.nextToken;
 
     const items = parseResult(output, prefix);
