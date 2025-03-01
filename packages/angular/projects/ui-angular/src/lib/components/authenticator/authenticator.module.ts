@@ -17,6 +17,8 @@ import { ForceNewPasswordComponent } from './components/force-new-password/force
 import { ForceNewPasswordFormFieldsComponent } from './components/force-new-password/force-new-password-form-fields/force-new-password-form-fields.component';
 import { FormFieldComponent } from './components/form-field/form-field.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { SelectMfaTypeComponent } from './components/select-mfa-type/select-mfa-type.component';
+import { SetupEmailComponent } from './components/setup-email/setup-email.component';
 import { SetupTotpComponent } from './components/setup-totp/setup-totp.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
@@ -59,6 +61,8 @@ import { AmplifySlotDirective } from '../../utilities/amplify-slot/amplify-slot.
     PhoneNumberFieldComponent,
     ForgotPasswordComponent,
     SelectComponent,
+    SelectMfaTypeComponent,
+    SetupEmailComponent,
     SetupTotpComponent,
     SignInComponent,
     SignUpComponent,
