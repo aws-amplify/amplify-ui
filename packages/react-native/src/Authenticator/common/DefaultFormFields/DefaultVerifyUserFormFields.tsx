@@ -14,7 +14,7 @@ const attributeMap: AttributeMap = {
   phone_number: 'Phone Number',
 };
 
-const DefaultRadioFormFields = ({
+const DefaultVerifyUserFormFields = ({
   fields,
   fieldContainerStyle,
   fieldLabelStyle,
@@ -43,6 +43,6 @@ const DefaultRadioFormFields = ({
   );
 };
 
-DefaultRadioFormFields.displayName = 'FormFields';
+DefaultVerifyUserFormFields.displayName = 'FormFields';
 
-export default DefaultRadioFormFields;
+export default DefaultVerifyUserFormFields;
