@@ -26,7 +26,7 @@ const selectMfaTypeHeading = computed(() =>
 );
 const backSignInText = computed(() => getBackToSignInText());
 const confirmText = computed(() => getConfirmText());
-const selectMfaTypeText = computed(() => getSelectMfaTypeText())
+const selectMfaTypeText = computed(() => getSelectMfaTypeText());
 
 const onInput = (e: Event) => {
     const { name, value } = e.target as HTMLInputElement;
