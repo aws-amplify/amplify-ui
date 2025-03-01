@@ -3,7 +3,7 @@ Feature: Sign In with Email MFA
     Background:
         Given I'm running the example "ui/components/authenticator/sign-in-with-email-mfa"
 
-    @react @vue @angular
+    @react @vue @angular @react-native
     Scenario: Sign In With Email MFA Selection
         When I type my "username" with status "CONFIRMED"
         Then I type my password
@@ -14,7 +14,7 @@ Feature: Sign In with Email MFA
         Then I click the "Sign out" button
         Then I see "Sign In"
 
-    @react @vue @angular
+    @react @vue @angular @react-native
     Scenario: Sign In, Observe Confirmation Code Screen, and Navigate Back To Sign In Page
         When I type my "username" with status "CONFIRMED"
         Then I type my password
@@ -23,7 +23,7 @@ Feature: Sign In with Email MFA
         Then I click the "Back to Sign In" button
         Then I see "Sign In"
 
-    @react @vue @angular
+    @react @vue @angular @react-native
     Scenario: Sign In, Enter Invalid Confirmation Code, Observe Error, Enter Valid Confirmation Code
         When I type my "username" with status "CONFIRMED"
         Then I type my password
