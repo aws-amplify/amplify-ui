@@ -89,7 +89,6 @@ export const defaultServices = {
   handleConfirmSignUp: confirmSignUp,
   handleForgotPasswordSubmit: confirmResetPassword,
   handleForgotPassword: resetPassword,
-
   // Validation hooks for overriding
   async validateCustomSignUp(
     _: AuthFormData,
