@@ -51,3 +51,16 @@ Feature: Sign In with Email MFA Selection
         Then I click the "Confirm" button
         Then I click the "Sign out" button
         Then I see "Sign In"
+
+    @react @vue @angular
+    Scenario: Sign In, Use Default Mfa Selection, Enter Valid Confirmation Code
+        When I type my "username" with status "CONFIRMED"
+        Then I type my password
+        Then I click the "Sign in" button
+        Then I click the "Confirm" button
+        Then I see "Confirm Email Code"
+        Then I type a valid confirmation code
+        Then I click the "Confirm" button
+        Then I click the "Sign out" button
+        Then I see "Sign In"
+
