@@ -2,7 +2,12 @@ import { useMemo, useState } from 'react';
 import { ConsoleLogger as Logger } from 'aws-amplify/utils';
 import { ValidationError } from '@aws-amplify/ui';
 
-import { OnChangeText, TextFieldOnBlur, TypedField } from '../types';
+import {
+  OnChangeText,
+  RadioFieldOptions,
+  TextFieldOnBlur,
+  TypedField,
+} from '../types';
 
 import { UseFieldValues, UseFieldValuesParams } from './types';
 import {
@@ -23,13 +28,25 @@ export default function useFieldValues<FieldType extends TypedField>({
   handleSubmit,
   validationErrors,
 }: UseFieldValuesParams<FieldType>): UseFieldValues<FieldType> {
-  const [values, setValues] = useState<Record<string, string>>({});
   const [touched, setTouched] = useState<Record<string, boolean>>({});
   const [fieldValidationErrors, setFieldValidationErrors] =
     useState<ValidationError>({});
   const isVerifyUserRoute = componentName === 'VerifyUser';
   const isSelectMfaTypeRoute = componentName === 'SelectMfaType';
   const isRadioFieldComponent = isVerifyUserRoute || isSelectMfaTypeRoute;
+
+  // initialize values based on route
+  // select mfa type screen should auto select first radio option
+  const [values, setValues] = useState(() => {
+    const result: Record<string, string> = {};
+    if (isSelectMfaTypeRoute) {
+      const initialValue = fields[0]?.value;
+      if (initialValue) {
+        result.mfa_type = initialValue;
+      }
+    }
+    return result;
+  });
 
   const sanitizedFields = useMemo(() => {
     if (!Array.isArray(fields)) {
@@ -67,10 +84,17 @@ export default function useFieldValues<FieldType extends TypedField>({
         setValues((prev) => ({ ...prev, [fieldName]: value }));
       };
 
-      return {
+      const result: RadioFieldOptions = {
         ...field,
         onChange,
       };
+
+      // bind selected boolean attribute for radio field
+      if (isSelectMfaTypeRoute) {
+        result.selected = values.mfa_type === field.value;
+      }
+
+      return result;
     }
 
     const { name, label, labelHidden, ...rest } = field;

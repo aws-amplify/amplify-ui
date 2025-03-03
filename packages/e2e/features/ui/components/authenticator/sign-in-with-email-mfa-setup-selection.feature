@@ -98,7 +98,7 @@ Feature: Sign In with Email MFA Setup Selection
         Then I click the "Sign out" button
         Then I see "Sign In"
 
-    @react @vue @angular
+    @react @vue @angular @react-native
     Scenario: Sign In, Use Default Mfa Selection, Enter Valid Confirmation Code
         When I type my "username" with status "CONFIRMED"
         Then I type my password

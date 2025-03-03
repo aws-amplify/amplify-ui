@@ -12,8 +12,10 @@ const DefaultSelectMfaTypeFormFields = ({
   isPending,
   style,
 }: DefaultRadioFormFieldsProps): React.JSX.Element => {
+  // set initial value for radio field based on selected bool
+  const initialValue = fields.find((field) => !!field.selected)?.value;
   return (
-    <RadioGroup disabled={isPending} style={style}>
+    <RadioGroup disabled={isPending} style={style} initialValue={initialValue}>
       {fields.map(({ value, label, ...props }) => (
         <Radio
           {...props}
