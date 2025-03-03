@@ -15,7 +15,7 @@ export function formatDate(date: Date): string {
   return `${dateString} at ${timeString}`;
 }
 
-function arrayBufferToBase64(buffer: ArrayBuffer) {
+export function arrayBufferToBase64(buffer: ArrayBuffer): string {
   // Use node-based buffer if available
   // fall back on browser if not
   if (typeof Buffer !== 'undefined') {
@@ -39,10 +39,12 @@ export function convertBufferToBase64(
   return `data:image/${format};base64,${base64string}`;
 }
 
+// This function will return the file extension or mime type
 export function getAttachmentFormat(file: File): string {
   // try to get format from mime type first
   const mimeType = file.type.split('/')[1];
-  const extension = file.name.split('.')[1];
+  const fileNameParts = file.name.split('.');
+  const extension = fileNameParts[fileNameParts.length - 1];
   if (extension) {
     return extension;
   }

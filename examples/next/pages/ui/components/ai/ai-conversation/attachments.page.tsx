@@ -43,7 +43,7 @@ function Chat() {
       isLoading={isLoading}
       handleSendMessage={sendMessage}
       allowAttachments
-      maxAttachmentSize={100_000}
+      // maxAttachmentSize={100_000}
       maxAttachments={2}
     />
   );

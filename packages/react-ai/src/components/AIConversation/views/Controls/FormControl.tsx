@@ -18,6 +18,7 @@ import {
 } from '../../context/ResponseComponentsContext';
 import { ControlsContext } from '../../context/ControlsContext';
 import {
+  arrayBufferToBase64,
   attachmentsValidator,
   documentFileTypes,
   getAttachmentFormat,
@@ -191,7 +192,10 @@ export const FormControl: FormControl = () => {
             document: {
               name: getValidDocumentName(file),
               format,
-              source: { bytes: new Uint8Array(buffer) },
+              source: {
+                // TODO: the JS client isn't converting this to base64 yet, so we will do that here now
+                bytes: arrayBufferToBase64(buffer),
+              },
             },
           });
         } else {
