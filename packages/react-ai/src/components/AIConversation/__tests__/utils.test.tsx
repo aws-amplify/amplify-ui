@@ -1,8 +1,9 @@
 import {
   convertBufferToBase64,
   formatDate,
-  getImageTypeFromMimeType,
+  getAttachmentFormat,
   attachmentsValidator,
+  getValidDocumentName,
 } from '../utils';
 
 describe('convertBufferToBase64', () => {
@@ -50,12 +51,33 @@ describe('formatDate', () => {
   });
 });
 
-describe('getImageTypeFromMimeType', () => {
-  it('should return the image type', () => {
-    expect(getImageTypeFromMimeType('image/jpeg')).toBe('jpeg');
-    expect(getImageTypeFromMimeType('image/gif')).toBe('gif');
-    expect(getImageTypeFromMimeType('image/png')).toBe('png');
-    expect(getImageTypeFromMimeType('image/webp')).toBe('webp');
+describe('getValidDocumentName', () => {
+  it('should remove invalid characters from the file name', () => {
+    const file = new File([''], 'test!@#$%^&*()+-.txt');
+    const validName = getValidDocumentName(file);
+    expect(validName).toBe('test');
+  });
+
+  it('should handle files with multiple dots correctly', () => {
+    const file = new File([''], 'test..txt');
+    const validName = getValidDocumentName(file);
+    expect(validName).toBe('test');
+  });
+});
+
+describe('getAttachmentFormat', () => {
+  it('should get format from the extension', () => {
+    const file = new File([''], 'test.docx', {
+      type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    });
+    const format = getAttachmentFormat(file);
+    expect(format).toBe('docx');
+  });
+
+  it('should get the format from mimetype if there is no extension', () => {
+    const file = new File([''], 'test', { type: 'image/png' });
+    const format = getAttachmentFormat(file);
+    expect(format).toBe('png');
   });
 });
 
