@@ -45,6 +45,13 @@ export default function useFieldValues<FieldType extends TypedField>({
         result.mfa_type = initialValue;
       }
     }
+    if (isVerifyUserRoute) {
+      const initialValue = fields[0]?.name;
+      if (initialValue) {
+        result.unverifiedAttr = initialValue;
+      }
+    }
+
     return result;
   });
 
@@ -92,6 +99,9 @@ export default function useFieldValues<FieldType extends TypedField>({
       // bind selected boolean attribute for radio field
       if (isSelectMfaTypeRoute) {
         result.selected = values.mfa_type === field.value;
+      }
+      if (isVerifyUserRoute) {
+        result.selected = values.unverifiedAttr === field.name;
       }
 
       return result;
