@@ -44,9 +44,9 @@ export function getAttachmentFormat(file: File): string {
   // try to get format from mime type first
   const mimeType = file.type.split('/')[1];
   const fileNameParts = file.name.split('.');
-  const extension = fileNameParts[fileNameParts.length - 1];
-  if (extension) {
-    return extension;
+
+  if (fileNameParts.length > 1) {
+    return fileNameParts[fileNameParts.length - 1];
   }
   return mimeType;
 }
