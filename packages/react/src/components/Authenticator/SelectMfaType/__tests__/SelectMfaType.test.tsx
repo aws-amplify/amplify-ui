@@ -18,8 +18,11 @@ jest.mock('../../hooks/useCustomComponents', () => ({
   }),
 }));
 
-const fieldLabel = 'Email Message';
-const fieldInput = { name: 'mfa_type', value: 'EMAIL' };
+const fieldName = 'mfa_type';
+const emailRadioLabel = 'Email Message';
+const totpRadioLabel = 'Authenticator App (TOTP)';
+const emailFieldInput = { name: fieldName, value: 'EMAIL' };
+const totpFieldInput = { name: fieldName, value: 'TOTP' };
 
 const mockUpdateForm = jest.fn();
 const mockSubmitForm = jest.fn();
@@ -59,28 +62,53 @@ describe('SelectMfaType', () => {
   it('sends change event on form input', async () => {
     render(<SelectMfaType {...props} />);
 
-    const radioButton = await screen.findByText(fieldLabel);
+    const totpRadioButton = await screen.findByText(totpRadioLabel);
 
-    fireEvent.click(radioButton);
+    fireEvent.click(totpRadioButton);
 
-    expect(mockUpdateForm).toHaveBeenCalledWith(fieldInput);
+    expect(mockUpdateForm).toHaveBeenCalledWith(totpFieldInput);
+
+    const emailRadioButton = await screen.findByText(emailRadioLabel);
+
+    fireEvent.click(emailRadioButton);
+
+    expect(mockUpdateForm).toHaveBeenCalledWith(emailFieldInput);
   });
 
-  it('sends submit event on form submit', async () => {
+  it('sends submit event on form submit with default', async () => {
     render(<SelectMfaType {...props} />);
 
-    const radioButton = await screen.findByText(fieldLabel);
+    const submitButton = await screen.findByRole('button', {
+      name: 'Confirm',
+    });
 
-    fireEvent.click(radioButton);
-
-    expect(mockUseAuthenticatorOutput.updateForm).toHaveBeenCalledWith(
-      fieldInput
-    );
-
-    const submitButton = await screen.findByRole('button', { name: 'Confirm' });
     fireEvent.click(submitButton);
 
     expect(mockSubmitForm).toHaveBeenCalledTimes(1);
+    expect(mockSubmitForm).toHaveBeenCalledWith({
+      [emailFieldInput.name]: emailFieldInput.value,
+    });
+  });
+
+  it('sends submit event on form submit with selection', async () => {
+    render(<SelectMfaType {...props} />);
+
+    const totpRadioButton = await screen.findByText(totpRadioLabel);
+
+    fireEvent.click(totpRadioButton);
+
+    expect(mockUseAuthenticatorOutput.updateForm).toHaveBeenCalledWith(
+      totpFieldInput
+    );
+
+    const submitButton = await screen.findByRole('button', { name: 'Confirm' });
+
+    fireEvent.click(submitButton);
+
+    expect(mockSubmitForm).toHaveBeenCalledTimes(1);
+    expect(mockSubmitForm).toHaveBeenCalledWith({
+      [totpFieldInput.name]: totpFieldInput.value,
+    });
   });
 
   it('displays error if present', async () => {

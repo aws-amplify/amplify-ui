@@ -55,6 +55,7 @@ exports[`SelectMfaType renders as expected  1`] = `
                     </span>
                     <input
                       aria-invalid="false"
+                      checked=""
                       class="amplify-input amplify-field-group__control amplify-visually-hidden amplify-radio__input"
                       name="mfa_type"
                       required=""

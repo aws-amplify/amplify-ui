@@ -10,8 +10,11 @@ import { ButtonComponent } from '../../../../primitives/button/button.component'
 import { ErrorComponent } from '../../../../primitives/error/error.component';
 import { TextFieldComponent } from '../../../../primitives/text-field/text-field.component';
 
-const radioLabel = 'Email Message';
-const fieldInput = { name: 'mfa_type', value: 'EMAIL' };
+const fieldName = 'mfa_type';
+const emailRadioLabel = 'Email Message';
+const totpRadioLabel = 'Authenticator App (TOTP)';
+const emailFieldInput = { name: fieldName, value: 'EMAIL' };
+const totpFieldInput = { name: fieldName, value: 'TOTP' };
 
 const mockContext: Partial<AuthActorContext> = {
   challengeName: 'MFA_SETUP',
@@ -82,16 +85,24 @@ describe('SelectMfaTypeComponent', () => {
       ],
     });
 
-    const radioButton = await screen.findByText(radioLabel);
+    const totpRadioButton = await screen.findByText(totpRadioLabel);
 
-    fireEvent.click(radioButton);
+    fireEvent.click(totpRadioButton);
 
     expect(mockAuthenticatorService.updateForm).toHaveBeenCalledWith(
-      fieldInput
+      totpFieldInput
+    );
+
+    const emailRadioButton = await screen.findByText(emailRadioLabel);
+
+    fireEvent.click(emailRadioButton);
+
+    expect(mockAuthenticatorService.updateForm).toHaveBeenCalledWith(
+      emailFieldInput
     );
   });
 
-  it('sends submit event on form submit', async () => {
+  it('sends submit event on form submit with default', async () => {
     await render(SelectMfaTypeComponent, {
       declarations: componentDeclarations,
       providers: [
@@ -102,12 +113,33 @@ describe('SelectMfaTypeComponent', () => {
       ],
     });
 
-    const radioButton = await screen.findByText(radioLabel);
+    const submitButton = await screen.findByRole('button', { name: 'Confirm' });
 
-    fireEvent.click(radioButton);
+    fireEvent.click(submitButton);
+
+    expect(mockAuthenticatorService.submitForm).toHaveBeenCalledTimes(1);
+    expect(mockAuthenticatorService.submitForm).toHaveBeenCalledWith({
+      [emailFieldInput.name]: emailFieldInput.value,
+    });
+  });
+
+  it('sends submit event on form submit with selection', async () => {
+    await render(SelectMfaTypeComponent, {
+      declarations: componentDeclarations,
+      providers: [
+        {
+          provide: AuthenticatorService,
+          useValue: mockAuthenticatorService,
+        },
+      ],
+    });
+
+    const totpRadioButton = await screen.findByText(totpRadioLabel);
+
+    fireEvent.click(totpRadioButton);
 
     expect(mockAuthenticatorService.updateForm).toHaveBeenCalledWith(
-      fieldInput
+      totpFieldInput
     );
 
     const submitButton = await screen.findByRole('button', { name: 'Confirm' });
@@ -115,6 +147,9 @@ describe('SelectMfaTypeComponent', () => {
     fireEvent.click(submitButton);
 
     expect(mockAuthenticatorService.submitForm).toHaveBeenCalledTimes(1);
+    expect(mockAuthenticatorService.submitForm).toHaveBeenCalledWith({
+      [totpFieldInput.name]: totpFieldInput.value,
+    });
   });
 
   it('displays and error if present', async () => {
