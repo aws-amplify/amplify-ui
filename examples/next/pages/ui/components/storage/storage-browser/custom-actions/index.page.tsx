@@ -1,12 +1,33 @@
-import React from 'react';
-
+import React, { PropsWithChildren } from 'react';
 import { createStorageBrowser } from '@aws-amplify/ui-react-storage/browser';
-
-import { Flex } from '@aws-amplify/ui-react';
+import { Flex, Message } from '@aws-amplify/ui-react';
+import './styles.css';
 
 import '@aws-amplify/ui-react-storage/styles.css';
 
-const { StorageBrowser } = createStorageBrowser({
+class CustomErrorBoundary extends React.Component<Required<PropsWithChildren>> {
+  state = {
+    hasError: false,
+  };
+
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <Message variation="outlined" colorTheme="error">
+          Oops. An unexpected error has happened.
+        </Message>
+      );
+    }
+
+    return this.props.children;
+  }
+}
+
+const { StorageBrowser, useView } = createStorageBrowser({
   actions: {
     default: {
       copy: {
@@ -83,6 +104,25 @@ const { StorageBrowser } = createStorageBrowser({
           nextToken: undefined,
         }),
     },
+    custom: {
+      mockRuntimeError: {
+        actionListItem: {
+          icon: 'error',
+          label: 'Mock unexpected error',
+        },
+        // Not used but to keep ts happy
+        handler: () => ({
+          result: Promise.resolve({
+            status: 'COMPLETE',
+            value: { key: 'trigger-runtime-error' },
+          }),
+        }),
+        viewName: 'LocationDetailView',
+      },
+    },
+  },
+  components: {
+    ErrorBoundary: CustomErrorBoundary,
   },
   config: {
     getLocationCredentials: () =>
@@ -112,6 +152,16 @@ const { StorageBrowser } = createStorageBrowser({
   },
 });
 
+function LocationDetailViewWithExpectedError() {
+  const { actionType } = useView('LocationDetail');
+
+  if (actionType === 'mockRuntimeError') {
+    throw new Error('Unexpected Error');
+  }
+
+  return <StorageBrowser.LocationDetailView />;
+}
+
 function Example() {
   return (
     <Flex
@@ -121,7 +171,11 @@ function Example() {
       overflow="hidden"
       padding="xl"
     >
-      <StorageBrowser />
+      <StorageBrowser
+        views={{
+          LocationDetailView: LocationDetailViewWithExpectedError,
+        }}
+      />
     </Flex>
   );
 }
