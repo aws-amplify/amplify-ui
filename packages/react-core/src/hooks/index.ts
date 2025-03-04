@@ -1,5 +1,5 @@
 export {
-  default as useDataState,
+  useDataState,
   AsyncDataAction,
   DataAction,
   DataState,

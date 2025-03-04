@@ -1,5 +1,11 @@
 # @aws-amplify/ui
 
+## 6.8.2
+
+### Patch Changes
+
+- [#6375](https://github.com/aws-amplify/amplify-ui/pull/6375) [`fa6984721124029cf2e7d5b4ac5a3cc6c34097a6`](https://github.com/aws-amplify/amplify-ui/commit/fa6984721124029cf2e7d5b4ac5a3cc6c34097a6) Thanks [@calebpollman](https://github.com/calebpollman)! - fix: prevent signout on token refresh failure when offline
+
 ## 6.8.1
 
 ### Patch Changes
