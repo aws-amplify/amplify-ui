@@ -66,6 +66,14 @@ Given("I'm running the docs page", () => {
   cy.visit('/');
 });
 
+Given('I intercept requests to host including {string}', (host: string) => {
+  cy.intercept({ url: '**' }, (req) => {
+    if (req.headers.host?.includes(host)) {
+      req.alias = host;
+    }
+  });
+});
+
 Given(
   'I intercept {string} with fixture {string}',
   (json: string, fixture: string) => {
@@ -112,6 +120,15 @@ Then(
     cy.wait(`@${method}_REQUEST`)
       .its('response.statusCode')
       .should('eq', +statusCode);
+  }
+);
+
+Then(
+  'I confirm the {string} request was made to host containing {string}',
+  (request: string, hostValue: string) => {
+    cy.wait(`@${request}`).then((interception) => {
+      expect(interception.request.headers.host).to.include(hostValue);
+    });
   }
 );
 
@@ -346,8 +363,6 @@ When('I click the {string} checkbox', (label: string) => {
 
 When('I click the {string} radio button', (label: string) => {
   cy.findByLabelText(new RegExp(`^${escapeRegExp(label)}`, 'i')).click({
-    // We have to force this click because the radio button isn't visible by default
-    // and instead has ::before decoration.
     force: true,
   });
 });

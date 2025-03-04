@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StorageBrowser, useView } from './MockStorageBrowser';
+import { StorageBrowser, useView } from './StorageBrowser';
 import { CustomDeleteView } from './CustomDeleteView';
 import { CustomCopyView } from './CustomCopyView';
 import { CustomCreateFolderView } from './CustomCreateFolderView';

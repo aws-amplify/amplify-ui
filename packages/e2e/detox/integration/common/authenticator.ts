@@ -138,9 +138,12 @@ When('I type a new {string}', async (field: string) => {
   );
 });
 
-When('I select my country code with status {string}', (status: string) => {
-  // do nothing, React-Native phone number field does not support country code selection yet
-});
+When(
+  'I update my country code from {string} to {string}',
+  (initialCode: string, nextCode: string) => {
+    // do nothing, React Native phone number field does not support country code selection
+  }
+);
 
 Then('I will be redirected to the confirm forgot password page', async () => {
   await expect(element(by.text('New Password')).atIndex(0)).toBeVisible();

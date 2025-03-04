@@ -9,7 +9,7 @@ Feature: Sign In with Force New Password flow
 
   @angular @react @vue
   Scenario: Back to Sign In works in the FORCE_CHANGE_PASSWORD state
-    When I select my country code with status "FORCE_CHANGE_PASSWORD"
+    When I update my country code from "+82" to "+30"
     Then I type my "phone number" with status "FORCE_CHANGE_PASSWORD"
     Then I type my password
     Then I click the "Sign in" button
@@ -19,7 +19,7 @@ Feature: Sign In with Force New Password flow
 
   @angular @react @vue
   Scenario: Sign in using a valid phone number and password and user is in a FORCE_CHANGE_PASSWORD state
-    When I select my country code with status "FORCE_CHANGE_PASSWORD"
+    When I update my country code from "+82" to "+30"
     Then I type my "phone number" with status "FORCE_CHANGE_PASSWORD"
     Then I type my password
     Then I click the "Sign in" button
@@ -32,7 +32,7 @@ Feature: Sign In with Force New Password flow
 
   @angular @react @vue
   Scenario: User is in a FORCE_CHANGE_PASSWORD state and then enters wrong password requirements
-    When I select my country code with status "FORCE_CHANGE_PASSWORD"
+    When I update my country code from "+82" to "+30"
     Then I type my "phone number" with status "FORCE_CHANGE_PASSWORD"
     Then I type my password
     Then I click the "Sign in" button
@@ -46,7 +46,7 @@ Feature: Sign In with Force New Password flow
 
   @angular @react @vue
   Scenario: User is in a FORCE_CHANGE_PASSWORD state and then enters password without lower case characters
-    When I select my country code with status "FORCE_CHANGE_PASSWORD"
+    When I update my country code from "+82" to "+30"
     Then I type my "phone number" with status "FORCE_CHANGE_PASSWORD"
     Then I type my password
     Then I click the "Sign in" button
@@ -61,7 +61,7 @@ Feature: Sign In with Force New Password flow
 
   @angular @react @vue
   Scenario: User is in a FORCE_CHANGE_PASSWORD state and then enters an invalid new password
-    When I select my country code with status "FORCE_CHANGE_PASSWORD"
+    When I update my country code from "+82" to "+30"
     Then I type my "phone number" with status "FORCE_CHANGE_PASSWORD"
     Then I type my password
     Then I click the "Sign in" button

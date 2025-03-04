@@ -6,7 +6,7 @@ import { FunctionOverridesTable } from '@/components/FunctionOverridesTable';
 
 ## Override Function Calls
 
-You can override the call to `signUp`, `signIn`, `confirmSignIn`, `confirmSignUp`, `forgotPassword` and `forgotPasswordSubmit` functions.
+You can override the call to `signUp`, `signIn`, `confirmSignIn`, `confirmSignUp`, `resendSignUpCode`, `forgotPassword` and `forgotPasswordSubmit` functions.
 To override a call you must create a new `services` object with an `async` `handle*` function that returns an `aws-amplify` `Auth` promise.
 <ForgotPasswordCallout />
 
