@@ -8,7 +8,7 @@ import {
   FcRefresh,
   FcSearch,
 } from 'react-icons/fc';
-import { StorageBrowser } from './MockStorageBrowser'; // IGNORE
+import { StorageBrowser } from './StorageBrowser'; // IGNORE
 import { IconsProvider } from '@aws-amplify/ui-react';
 
 export default function Example() {

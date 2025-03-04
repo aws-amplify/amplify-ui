@@ -6,13 +6,10 @@ import { createAmplifyAuthAdapter } from './adapters';
 
 export interface StorageBrowserProps extends StorageBrowserPropsBase {}
 
-export const StorageBrowser = ({
-  views,
-  displayText,
-}: StorageBrowserProps): React.JSX.Element => {
-  const { StorageBrowser } = React.useRef(
+export function StorageBrowser(props: StorageBrowserProps): React.JSX.Element {
+  const { StorageBrowser: StorageBrowserComponent } = React.useRef(
     createStorageBrowser({ config: createAmplifyAuthAdapter() })
   ).current;
 
-  return <StorageBrowser views={views} displayText={displayText} />;
-};
+  return <StorageBrowserComponent {...props} />;
+}

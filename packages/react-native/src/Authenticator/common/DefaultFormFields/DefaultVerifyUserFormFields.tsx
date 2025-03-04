@@ -21,8 +21,6 @@ const DefaultVerifyUserFormFields = ({
   isPending,
   style,
 }: DefaultRadioFormFieldsProps): React.JSX.Element => {
-  // set initial value for radio field based on selected bool
-  const initialValue = fields.find((field) => !!field.selected)?.name;
   return (
     <RadioGroup disabled={isPending} style={style} initialValue={initialValue}>
       {fields.map(({ name, value, ...props }) => {

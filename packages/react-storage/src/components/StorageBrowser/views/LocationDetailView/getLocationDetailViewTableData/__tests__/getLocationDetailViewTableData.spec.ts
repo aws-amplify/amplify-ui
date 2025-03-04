@@ -1,12 +1,15 @@
-import { getLocationDetailViewTableData } from '../getLocationDetailViewTableData';
+import { LocationData } from '../../../../actions';
+import { DEFAULT_LOCATION_DETAIL_VIEW_DISPLAY_TEXT } from '../../../../displayText/libraries/en/locationDetailView';
+
 import { getFileRowContent } from '../getFileRowContent';
 import { getFolderRowContent } from '../getFolderRowContent';
-import { LocationData } from '../../../../actions';
+import { getLocationDetailViewTableData } from '../getLocationDetailViewTableData';
 
 jest.mock('../getFileRowContent');
 jest.mock('../getFolderRowContent');
 
 describe('getLocationDetailViewTableData', () => {
+  const displayText = DEFAULT_LOCATION_DETAIL_VIEW_DISPLAY_TEXT;
   const location = {
     current: {
       bucket: 'bucket',
@@ -92,6 +95,7 @@ describe('getLocationDetailViewTableData', () => {
     expect(
       getLocationDetailViewTableData({
         areAllFilesSelected: false,
+        displayText,
         location,
         hasFiles: true,
         pageItems: [folderItem, folderItem, fileItem, fileItem, fileItem],
@@ -126,6 +130,7 @@ describe('getLocationDetailViewTableData', () => {
   it('should select all files', () => {
     const tableData = getLocationDetailViewTableData({
       areAllFilesSelected: false,
+      displayText,
       location,
       hasFiles: true,
       pageItems: [folderItem, fileItem],
@@ -148,6 +153,7 @@ describe('getLocationDetailViewTableData', () => {
   it('should select a file', () => {
     const tableData = getLocationDetailViewTableData({
       areAllFilesSelected: false,
+      displayText,
       location,
       hasFiles: true,
       pageItems: [fileItem],
@@ -170,6 +176,7 @@ describe('getLocationDetailViewTableData', () => {
   it('should download a file', () => {
     const tableData = getLocationDetailViewTableData({
       areAllFilesSelected: false,
+      displayText,
       location,
       hasFiles: true,
       pageItems: [fileItem],
@@ -192,6 +199,7 @@ describe('getLocationDetailViewTableData', () => {
   it('should navigate to a folder', () => {
     const tableData = getLocationDetailViewTableData({
       areAllFilesSelected: false,
+      displayText,
       location,
       hasFiles: true,
       pageItems: [folderItem],

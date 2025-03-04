@@ -1,5 +1,38 @@
 # @aws-amplify/ui-react-storage
 
+## 3.8.1
+
+### Patch Changes
+
+- [#6346](https://github.com/aws-amplify/amplify-ui/pull/6346) [`f170ffa94e272cb53e6b9aa4cfd6fcf915083739`](https://github.com/aws-amplify/amplify-ui/commit/f170ffa94e272cb53e6b9aa4cfd6fcf915083739) Thanks [@jordanvn](https://github.com/jordanvn)! - Fixed displayText override for LocationDetailView dataTable headers
+
+- [#6369](https://github.com/aws-amplify/amplify-ui/pull/6369) [`f91c69b830d168eb5a7371fb8f34e38ec7e303c0`](https://github.com/aws-amplify/amplify-ui/commit/f91c69b830d168eb5a7371fb8f34e38ec7e303c0) Thanks [@jjarvisp](https://github.com/jjarvisp)! - chore(react-storage): update access level deprecation message
+
+- Updated dependencies [[`fa6984721124029cf2e7d5b4ac5a3cc6c34097a6`](https://github.com/aws-amplify/amplify-ui/commit/fa6984721124029cf2e7d5b4ac5a3cc6c34097a6)]:
+  - @aws-amplify/ui@6.8.2
+  - @aws-amplify/ui-react@6.9.2
+  - @aws-amplify/ui-react-core@3.3.2
+
+## 3.8.0
+
+### Minor Changes
+
+- [#5562](https://github.com/aws-amplify/amplify-ui/pull/5562) [`2e107f96db84d4a2b29bf3c03750fceb92f25bca`](https://github.com/aws-amplify/amplify-ui/commit/2e107f96db84d4a2b29bf3c03750fceb92f25bca) Thanks [@jordanvn](https://github.com/jordanvn)! - Support for multiple buckets added to storage image and file uploader
+
+### Patch Changes
+
+- [#6353](https://github.com/aws-amplify/amplify-ui/pull/6353) [`261310501b8f56b08f378ca895646e17825081ee`](https://github.com/aws-amplify/amplify-ui/commit/261310501b8f56b08f378ca895646e17825081ee) Thanks [@tiffanynwyeung](https://github.com/tiffanynwyeung)! - Hide storage browser data table rows while table data is not available yet
+
+- [#6347](https://github.com/aws-amplify/amplify-ui/pull/6347) [`c850a338051830c6fe9a2fbad3b31856befd0afb`](https://github.com/aws-amplify/amplify-ui/commit/c850a338051830c6fe9a2fbad3b31856befd0afb) Thanks [@jordanvn](https://github.com/jordanvn)! - Fixed bug causing incorrect progress to be displayed during uploads
+
+## 3.7.2
+
+### Patch Changes
+
+- [#6322](https://github.com/aws-amplify/amplify-ui/pull/6322) [`e81446d992a98c4b765e83e9e4fcad8c3d910b75`](https://github.com/aws-amplify/amplify-ui/commit/e81446d992a98c4b765e83e9e4fcad8c3d910b75) Thanks [@jordanvn](https://github.com/jordanvn)! - removed outdated storage browser styles
+
+- [#6314](https://github.com/aws-amplify/amplify-ui/pull/6314) [`f2fc55d7b77b3716ab31237526a65afafcbb2f80`](https://github.com/aws-amplify/amplify-ui/commit/f2fc55d7b77b3716ab31237526a65afafcbb2f80) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(storage-browser): export UseView type
+
 ## 3.7.1
 
 ### Patch Changes
