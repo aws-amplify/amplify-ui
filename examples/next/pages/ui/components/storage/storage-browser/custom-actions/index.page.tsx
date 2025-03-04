@@ -121,9 +121,7 @@ const { StorageBrowser, useView } = createStorageBrowser({
       },
     },
   },
-  components: {
-    ErrorBoundary: CustomErrorBoundary,
-  },
+  ErrorBoundary: CustomErrorBoundary,
   config: {
     getLocationCredentials: () =>
       Promise.resolve({

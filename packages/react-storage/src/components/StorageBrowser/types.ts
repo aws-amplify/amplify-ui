@@ -44,6 +44,7 @@ export interface CreateStorageBrowserInput {
   actions?: StorageBrowserActions;
   config: Config;
   components?: Components;
+  ErrorBoundary?: React.ComponentClass;
 }
 
 export interface StorageBrowserProps<K = string, V = {}> {

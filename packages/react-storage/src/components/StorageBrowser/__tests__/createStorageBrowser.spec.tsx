@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 
 import * as ProvidersModule from '../providers';
@@ -6,7 +6,6 @@ import * as UIModule from '@aws-amplify/ui';
 
 import { createStorageBrowser } from '../createStorageBrowser';
 import { StorageBrowserDisplayText } from '../displayText/types';
-import { ErrorBoundaryProps } from '../ErrorBoundary';
 
 const createConfigurationProviderSpy = jest.spyOn(
   ProvidersModule,
@@ -102,9 +101,9 @@ describe('createStorageBrowser', () => {
   });
 
   it('should accept custom error boundary', async () => {
-    class CustomErrorBoundary extends React.Component<ErrorBoundaryProps> {
-      constructor({ children }: ErrorBoundaryProps) {
-        super({ children });
+    class CustomErrorBoundary extends React.Component<PropsWithChildren> {
+      constructor(props: PropsWithChildren) {
+        super(props);
       }
 
       render() {
@@ -120,9 +119,7 @@ describe('createStorageBrowser', () => {
 
     const { StorageBrowser } = createStorageBrowser({
       config: input.config,
-      components: {
-        ErrorBoundary: CustomErrorBoundary,
-      },
+      ErrorBoundary: CustomErrorBoundary,
     });
 
     await waitFor(() => {

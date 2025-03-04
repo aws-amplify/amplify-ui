@@ -2,7 +2,7 @@ import React from 'react';
 
 import { STORAGE_BROWSER_BLOCK_TO_BE_UPDATED } from '../constants';
 
-export interface ErrorBoundaryProps {
+interface ErrorBoundaryProps {
   children: React.ReactNode;
 }
 
