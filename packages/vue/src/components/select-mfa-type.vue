@@ -77,7 +77,7 @@ const onBackToSignInClicked = () => {
                             :aria-labelledby="`amplify-field-${random}`"
                         >
                             <template
-                                v-for="mfaType in allowedMfaTypes"
+                                v-for="(mfaType, index) in allowedMfaTypes"
                                 :key="mfaType"
                             >
                                 <base-label
@@ -94,6 +94,7 @@ const onBackToSignInClicked = () => {
                                         name="mfa_type"
                                         type="radio"
                                         :value="mfaType"
+                                        :checked="index === 0"
                                     >
                                     </base-input>
                                     <base-text

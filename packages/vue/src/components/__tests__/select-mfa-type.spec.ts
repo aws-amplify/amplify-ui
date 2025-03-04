@@ -39,12 +39,15 @@ jest
   .spyOn(UIModule, 'getActorContext')
   .mockReturnValue({} as UIModule.AuthActorContext);
 
-const radioLabel = 'Email Message';
-const fieldInput = { name: 'mfa_type', value: 'EMAIL' };
+const fieldName = 'mfa_type';
+const emailRadioLabel = 'Email Message';
+const totpRadioLabel = 'Authenticator App (TOTP)';
+const emailFieldInput = { name: fieldName, value: 'EMAIL' };
+const totpFieldInput = { name: fieldName, value: 'TOTP' };
 
 jest.spyOn(UIModule, 'getSortedFormFields').mockReturnValue([
   [
-    fieldInput.name,
+    fieldName,
     {
       label: 'Select MFA Type',
       type: 'radio',
@@ -69,26 +72,50 @@ describe('SelectMfaType', () => {
   it('sends change event on form input', async () => {
     render(SelectMfaType, { global: { components } });
 
-    const radioButton = await screen.findByText(radioLabel);
+    const totpRadioButton = await screen.findByText(totpRadioLabel);
 
-    await fireEvent.click(radioButton);
+    await fireEvent.click(totpRadioButton);
 
-    expect(updateFormSpy).toHaveBeenCalledWith(fieldInput);
+    expect(updateFormSpy).toHaveBeenCalledWith(totpFieldInput);
+
+    const emailRadioButton = await screen.findByText(emailRadioLabel);
+
+    fireEvent.click(emailRadioButton);
+
+    expect(updateFormSpy).toHaveBeenCalledWith(emailFieldInput);
   });
 
-  it('sends submit event on form submit', async () => {
+  it('sends submit event on form submit with default', async () => {
     render(SelectMfaType, { global: { components } });
 
-    const radioButton = await screen.findByText(radioLabel);
-
-    await fireEvent.click(radioButton);
-
-    expect(updateFormSpy).toHaveBeenCalledWith(fieldInput);
-
-    const submitButton = await screen.findByRole('button', { name: 'Confirm' });
+    const submitButton = await screen.findByRole('button', {
+      name: 'Confirm',
+    });
     await fireEvent.click(submitButton);
 
     expect(submitFormSpy).toHaveBeenCalledTimes(1);
+    expect(submitFormSpy).toHaveBeenCalledWith({
+      [emailFieldInput.name]: emailFieldInput.value,
+    });
+  });
+
+  it('sends submit event on form submit with selection', async () => {
+    render(SelectMfaType, { global: { components } });
+
+    const totpRadioButton = await screen.findByText(totpRadioLabel);
+
+    await fireEvent.click(totpRadioButton);
+
+    expect(updateFormSpy).toHaveBeenCalledWith(totpFieldInput);
+
+    const submitButton = await screen.findByRole('button', { name: 'Confirm' });
+
+    await fireEvent.click(submitButton);
+
+    expect(submitFormSpy).toHaveBeenCalledTimes(1);
+    expect(submitFormSpy).toHaveBeenCalledWith({
+      [totpFieldInput.name]: totpFieldInput.value,
+    });
   });
 
   it('displays error if present', async () => {

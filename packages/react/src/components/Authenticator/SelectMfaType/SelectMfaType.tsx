@@ -59,8 +59,13 @@ export const SelectMfaType = ({
               isDisabled={isPending}
               isRequired
             >
-              {allowedMfaTypes.map((value) => (
-                <Radio name="mfa_type" key={value} value={value}>
+              {allowedMfaTypes.map((value, index) => (
+                <Radio
+                  name="mfa_type"
+                  key={value}
+                  value={value}
+                  defaultChecked={index === 0}
+                >
                   {getMfaTypeLabelByValue(value)}
                 </Radio>
               ))}

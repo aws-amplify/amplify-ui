@@ -27,7 +27,7 @@ const customServices: AuthenticatorProps['services'] = {
     };
   },
   handleConfirmSignIn: async ({ challengeResponse }) => {
-    if (challengeResponse.includes('@example.com')) {
+    if (challengeResponse === '123456') {
       return {
         isSignedIn: true,
         nextStep: {

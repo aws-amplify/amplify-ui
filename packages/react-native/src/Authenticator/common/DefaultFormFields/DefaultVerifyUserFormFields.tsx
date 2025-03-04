@@ -15,17 +15,18 @@ const attributeMap: AttributeMap = {
 };
 
 const DefaultVerifyUserFormFields = ({
-  fields,
+  fields = [],
   fieldContainerStyle,
   fieldLabelStyle,
   isPending,
   style,
 }: DefaultRadioFormFieldsProps): React.JSX.Element => {
+  // set initial value for radio field based on selected bool
+  const initialValue = fields.find((field) => !!field.selected)?.name;
   return (
-    <RadioGroup disabled={isPending} style={style}>
-      {(fields ?? []).map(({ name, value, ...props }) => {
+    <RadioGroup disabled={isPending} style={style} initialValue={initialValue}>
+      {fields.map(({ name, value, ...props }) => {
         const attributeType = attributeMap[name as keyof AttributeMap];
-
         return (
           <Radio
             {...props}

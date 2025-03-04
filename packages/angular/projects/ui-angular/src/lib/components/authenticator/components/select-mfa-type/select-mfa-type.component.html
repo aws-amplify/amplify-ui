@@ -16,7 +16,7 @@
             <h3 [class]="classNames(ComponentClassName.Heading, 'amplify-heading--3')">{{ headerText }}</h3>
         </amplify-slot>
         <div
-            *ngFor="let mfaType of allowedMfaTypes"
+            *ngFor="let mfaType of allowedMfaTypes; index as i"
             [class]="classNames(ComponentClassName.Flex, ComponentClassName.Field, ComponentClassName.RadioGroupField)"
             role="radiogroup"
         >
@@ -31,6 +31,7 @@
                     [class]="classNames(ComponentClassName.Input, ComponentClassName.FieldGroupControl, ComponentClassName.VisuallyHidden, ComponentClassName.RadioInput)"
                     [attr.data-amplify-radio-control-input]
                     [value]="mfaType"
+                    [checked]="i === 0"
                     name="mfa_type"
                     type="radio"
                     required
