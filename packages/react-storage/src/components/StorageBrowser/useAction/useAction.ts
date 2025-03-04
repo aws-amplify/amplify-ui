@@ -13,14 +13,12 @@ export const useAction: UseAction<DefaultActionHandlers> = (key, options) => {
     (key as ListHandlerKeys) === 'listLocations' ||
     (key as ListHandlerKeys) === 'listLocationItems'
   ) {
-    throw new Error(
-      `Value of \`${key}\` cannot be used to index \`useAction\``
-    );
+    throw new Error(`Value of \`${key}\` cannot be provided to \`useAction\``);
   }
 
   const { handlers } = useActionHandlers({ errorMessage: ERROR_MESSAGE });
 
-  const handler = handlers[key];
+  const handler = handlers?.[key];
 
   if (!handler) {
     throw new Error(

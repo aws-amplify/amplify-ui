@@ -8,7 +8,6 @@ Feature: Sign In with SMS MFA
 
   @angular @react @vue
   Scenario: Sign in with with sms mfa and check mocked name attribute
-    When I select my country code with status "CONFIRMED"
     Then I type my "phone number" with status "CONFIRMED"
     Then I type my password
     Then I click the "Sign in" button
@@ -21,7 +20,6 @@ Feature: Sign In with SMS MFA
 
   @angular @react @vue
   Scenario: Sign in and navigate back to sign in page
-    When I select my country code with status "CONFIRMED"
     Then I type my "phone number" with status "CONFIRMED"
     Then I type my password
     Then I click the "Sign in" button
@@ -30,7 +28,6 @@ Feature: Sign In with SMS MFA
 
   @angular @react @vue
   Scenario: Incorrect SMS code with translated text
-    When I select my country code with status "CONFIRMED"
     Then I type my "phone number" with status "CONFIRMED"
     Then I type my password
     Then I click the "Sign in" button
@@ -41,7 +38,7 @@ Feature: Sign In with SMS MFA
     
   @angular @react @vue
   Scenario: Sign in with unknown credentials
-    When I select my country code with status "UNKNOWN"
+    When I update my country code from "+1" to "+20"
     Then I type my "phone number" with status "UNKNOWN"
     Then I type my password
     Then I click the "Sign in" button
@@ -50,7 +47,7 @@ Feature: Sign In with SMS MFA
   @angular @react @vue
   Scenario: Sign in with force change password with sms mfa
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.RespondToAuthChallenge" } }' with fixture "force-change-password"
-    When I select my country code with status "FORCE_CHANGE_PASSWORD"
+    When I update my country code from "+1" to "+30"
     Then I type my "phone number" with status "CONFIRMED"
     Then I type my password
     Then I click the "Sign in" button

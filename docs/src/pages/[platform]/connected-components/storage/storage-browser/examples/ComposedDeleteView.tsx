@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StorageBrowser, useView } from './MockStorageBrowser';
+import { StorageBrowser, useView } from './StorageBrowser';
 
 export function ComposedDeleteView({ onExit }: { onExit: () => void }) {
   const state = useView('Delete');

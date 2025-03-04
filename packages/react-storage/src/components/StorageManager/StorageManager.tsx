@@ -46,6 +46,7 @@ const StorageManagerBase = React.forwardRef(function StorageManager(
     acceptedFileTypes = [],
     accessLevel,
     autoUpload = true,
+    bucket,
     components,
     defaultFiles,
     displayText: overrideDisplayText,
@@ -149,6 +150,7 @@ const StorageManagerBase = React.forwardRef(function StorageManager(
 
   useUploadFiles({
     accessLevel,
+    bucket,
     files,
     isResumable,
     maxFileCount,

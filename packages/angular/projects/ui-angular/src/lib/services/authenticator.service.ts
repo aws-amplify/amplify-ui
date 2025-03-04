@@ -192,6 +192,7 @@ export class AuthenticatorService implements OnDestroy {
   ngOnDestroy(): void {
     if (this._machineSubscription) this._machineSubscription.unsubscribe();
     if (this._unsubscribeHub) this._unsubscribeHub();
+    this._authService.stop();
   }
 
   /** @deprecated For internal use only */

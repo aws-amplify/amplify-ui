@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StorageBrowser } from './MockStorageBrowser';
+import { StorageBrowser } from './StorageBrowser';
 
 export default function Example() {
   return <StorageBrowser />;

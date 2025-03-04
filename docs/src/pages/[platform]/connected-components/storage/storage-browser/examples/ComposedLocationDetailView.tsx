@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Flex } from '@aws-amplify/ui-react';
-import { StorageBrowser, useView } from './MockStorageBrowser';
+import { StorageBrowser, useView } from './StorageBrowser';
 
 function LocationDetailView() {
   const state = useView('LocationDetail');

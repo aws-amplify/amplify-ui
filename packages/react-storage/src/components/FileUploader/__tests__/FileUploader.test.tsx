@@ -246,6 +246,40 @@ describe('FileUploader', () => {
     });
   });
 
+  it('passes a supplied bucket name to the options object', async () => {
+    const onUploadSuccess = jest.fn();
+    render(
+      <FileUploader
+        bucket="my-bucket"
+        path="my-path"
+        maxFileCount={100}
+        onUploadSuccess={onUploadSuccess}
+      />
+    );
+    const hiddenInput = document.querySelector(
+      'input[type="file"]'
+    ) as HTMLInputElement;
+
+    expect(hiddenInput).toBeInTheDocument();
+    const file = new File(['file content'], 'file.txt', { type: 'text/plain' });
+    fireEvent.change(hiddenInput, {
+      target: { files: [file] },
+    });
+
+    // Wait for the file to be uploaded
+    await waitFor(() => {
+      expect(uploadDataSpy).toHaveBeenCalledWith({
+        data: file,
+        options: {
+          bucket: 'my-bucket',
+          contentType: 'text/plain',
+          onProgress: expect.any(Function),
+        },
+        path: 'my-pathfile.txt',
+      });
+    });
+  });
+
   it('calls onUploadStart callback when file starts uploading', async () => {
     const onUploadStart = jest.fn();
     render(

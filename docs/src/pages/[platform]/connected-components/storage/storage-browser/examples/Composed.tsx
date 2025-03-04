@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Button, Flex, Text } from '@aws-amplify/ui-react';
 import { IconChevronRight } from '@aws-amplify/ui-react/internal';
-import { StorageBrowser, useView } from './MockStorageBrowser';
+import { StorageBrowser, useView } from './StorageBrowser';
 import { ComposedCopyView } from './ComposedCopyView';
 import { ComposedCreateFolderView } from './ComposedCreateFolderView';
 import { ComposedDeleteView } from './ComposedDeleteView';
