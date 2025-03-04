@@ -6,6 +6,7 @@ import * as UIModule from '@aws-amplify/ui';
 
 import { createStorageBrowser } from '../createStorageBrowser';
 import { StorageBrowserDisplayText } from '../displayText/types';
+import { ErrorBoundaryProps } from '../ErrorBoundary';
 
 const createConfigurationProviderSpy = jest.spyOn(
   ProvidersModule,
@@ -98,5 +99,36 @@ describe('createStorageBrowser', () => {
       // prefer non-static string - `version` field is updated on each package bump
       version: expect.any(String),
     });
+  });
+
+  it('should accept custom error boundary', async () => {
+    class CustomErrorBoundary extends React.Component<ErrorBoundaryProps> {
+      constructor({ children }: ErrorBoundaryProps) {
+        super({ children });
+      }
+
+      render() {
+        const { children } = this.props;
+        return (
+          <div>
+            <p>Custom Error Boundary</p>
+            {children}
+          </div>
+        );
+      }
+    }
+
+    const { StorageBrowser } = createStorageBrowser({
+      config: input.config,
+      components: {
+        ErrorBoundary: CustomErrorBoundary,
+      },
+    });
+
+    await waitFor(() => {
+      render(<StorageBrowser />);
+    });
+
+    expect(screen.getByText('Custom Error Boundary')).toBeInTheDocument();
   });
 });

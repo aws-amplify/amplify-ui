@@ -231,6 +231,12 @@ Given(
   }
 );
 
+Given('I expect an exception', () => {
+  Cypress.on('uncaught:exception', () => {
+    return false;
+  });
+});
+
 When('Sign in was called with {string}', (username: string) => {
   let tempStub = stub.calledWith(username, Cypress.env('VALID_PASSWORD'));
   stub = null;
