@@ -131,7 +131,7 @@ export function createStorageBrowser<
     );
   }
 
-  const ErrorBoundary = input.components?.ErrorBoundary ?? DefaultErrorBoundary;
+  const ErrorBoundary = input.ErrorBoundary ?? DefaultErrorBoundary;
   const StorageBrowser: StorageBrowserType<
     DerivedActionViewType<RInput>,
     DerivedActionViews<RInput>
