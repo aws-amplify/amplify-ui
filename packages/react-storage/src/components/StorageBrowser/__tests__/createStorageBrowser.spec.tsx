@@ -32,6 +32,16 @@ const config = {
 const input = { config };
 
 describe('createStorageBrowser', () => {
+  beforeAll(() => {
+    // defining `crypto` here to allow `useDataState` to continue working as this test file
+    // is covering a fair amount of component code as a side effect. Not ideal and should be
+    // readdressed
+    let id = 0;
+    Object.defineProperty(globalThis, 'crypto', {
+      value: { randomUUID: () => ++id },
+    });
+  });
+
   it('throws when registerAuthListener is not a function', () => {
     const input = {
       config: { getLocationCredentials, listLocations, region },
