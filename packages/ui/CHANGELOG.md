@@ -1,5 +1,20 @@
 # @aws-amplify/ui
 
+## 6.9.0
+
+### Minor Changes
+
+- [#6312](https://github.com/aws-amplify/amplify-ui/pull/6312) [`81543cb38604a80ca2d8b93cfb7d1884d43e0a4f`](https://github.com/aws-amplify/amplify-ui/commit/81543cb38604a80ca2d8b93cfb7d1884d43e0a4f) Thanks [@kevin860](https://github.com/kevin860)! - feat(ui): allow override of resendSignUpCode function call
+
+  This feature lets you override the `resendSignUpCode` function call the same way as the `signUp`, `signIn`,
+  `confirmSignIn`, `confirmSignUp`, `forgotPassword` and `forgotPasswordSubmit` functions.
+
+## 6.8.2
+
+### Patch Changes
+
+- [#6375](https://github.com/aws-amplify/amplify-ui/pull/6375) [`fa6984721124029cf2e7d5b4ac5a3cc6c34097a6`](https://github.com/aws-amplify/amplify-ui/commit/fa6984721124029cf2e7d5b4ac5a3cc6c34097a6) Thanks [@calebpollman](https://github.com/calebpollman)! - fix: prevent signout on token refresh failure when offline
+
 ## 6.8.1
 
 ### Patch Changes
