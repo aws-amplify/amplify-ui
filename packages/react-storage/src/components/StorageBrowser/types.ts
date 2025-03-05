@@ -8,6 +8,7 @@ import {
 } from './actions';
 import { GetLocationCredentials } from './credentials/types';
 import { Components } from './ComponentsProvider';
+import { ErrorBoundaryType } from './ErrorBoundary';
 import { RegisterAuthListener, StoreProviderProps } from './providers';
 
 import {
@@ -44,7 +45,7 @@ export interface CreateStorageBrowserInput {
   actions?: StorageBrowserActions;
   config: Config;
   components?: Components;
-  ErrorBoundary?: React.ComponentClass;
+  ErrorBoundary?: ErrorBoundaryType;
 }
 
 export interface StorageBrowserProps<K = string, V = {}> {

@@ -18,6 +18,8 @@ const Fallback = (): React.JSX.Element => (
   </div>
 );
 
+export type ErrorBoundaryType = React.ComponentClass<ErrorBoundaryProps>;
+
 export class ErrorBoundary extends React.Component<
   ErrorBoundaryProps,
   ErrorBoundaryState

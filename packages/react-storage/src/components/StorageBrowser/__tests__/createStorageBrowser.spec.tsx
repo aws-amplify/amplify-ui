@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from 'react';
+import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 
 import * as ProvidersModule from '../providers';
@@ -101,8 +101,10 @@ describe('createStorageBrowser', () => {
   });
 
   it('should accept custom error boundary', async () => {
-    class CustomErrorBoundary extends React.Component<PropsWithChildren> {
-      constructor(props: PropsWithChildren) {
+    class CustomErrorBoundary extends React.Component<{
+      children: React.ReactNode;
+    }> {
+      constructor(props: { children: React.ReactNode }) {
         super(props);
       }
 
