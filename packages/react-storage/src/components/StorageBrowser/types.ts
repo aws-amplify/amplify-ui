@@ -45,7 +45,11 @@ export interface CreateStorageBrowserInput {
   actions?: StorageBrowserActions;
   config: Config;
   components?: Components;
-  ErrorBoundary?: ErrorBoundaryType;
+  /**
+   * Custom ErrorBoundary class. If omitted, a default ErrorBoundary is provided.
+   * To disable ErrorBoundary, set to `null`.
+   */
+  ErrorBoundary?: ErrorBoundaryType | null;
 }
 
 export interface StorageBrowserProps<K = string, V = {}> {

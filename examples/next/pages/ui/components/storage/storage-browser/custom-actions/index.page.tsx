@@ -1,11 +1,11 @@
-import React, { PropsWithChildren } from 'react';
+import React from 'react';
 import { createStorageBrowser } from '@aws-amplify/ui-react-storage/browser';
 import { Flex, Message } from '@aws-amplify/ui-react';
 import './styles.css';
 
 import '@aws-amplify/ui-react-storage/styles.css';
 
-class CustomErrorBoundary extends React.Component<Required<PropsWithChildren>> {
+class CustomErrorBoundary extends React.Component<React.PropsWithChildren> {
   state = {
     hasError: false,
   };

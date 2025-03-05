@@ -101,10 +101,8 @@ describe('createStorageBrowser', () => {
   });
 
   it('should accept custom error boundary', async () => {
-    class CustomErrorBoundary extends React.Component<{
-      children: React.ReactNode;
-    }> {
-      constructor(props: { children: React.ReactNode }) {
+    class CustomErrorBoundary extends React.Component<React.PropsWithChildren> {
+      constructor(props: React.PropsWithChildren) {
         super(props);
       }
 
@@ -129,5 +127,29 @@ describe('createStorageBrowser', () => {
     });
 
     expect(screen.getByText('Custom Error Boundary')).toBeInTheDocument();
+  });
+
+  it('should support disabling error boundary', () => {
+    const { StorageBrowser } = createStorageBrowser({
+      config: input.config,
+      ErrorBoundary: null,
+    });
+
+    const LocationsViewWithError = () => {
+      React.useEffect(() => {
+        throw new Error('Unexpected Error');
+      }, []);
+      return <StorageBrowser.LocationsView />;
+    };
+
+    expect(() => {
+      render(
+        <StorageBrowser
+          views={{
+            LocationsView: LocationsViewWithError,
+          }}
+        />
+      );
+    }).toThrow('Unexpected Error');
   });
 });
