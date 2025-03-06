@@ -23,6 +23,7 @@ import {
   documentFileTypes,
   getAttachmentFormat,
   getValidDocumentName,
+  validFileTypes,
 } from '../../utils';
 import { LoadingContext } from '../../context/LoadingContext';
 import { AttachmentContext } from '../../context/AttachmentContext';
@@ -223,6 +224,10 @@ export const FormControl: FormControl = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    // Clear the attachment errors when submitting
+    // because the errors are not actually preventing the submission
+    // but rather notifying the user that certain files were not attached and why they weren't
+    setError?.(undefined);
     submitMessage();
   };
 
@@ -249,16 +254,26 @@ export const FormControl: FormControl = () => {
         acceptedFiles,
         hasMaxAttachmentsError,
         hasMaxAttachmentSizeError,
+        hasUnsupportedFileError,
       } = await attachmentsValidator({
         files: [...files, ...previousFiles],
         maxAttachments,
         maxAttachmentSize,
       });
 
-      if (hasMaxAttachmentsError || hasMaxAttachmentSizeError) {
+      if (
+        hasMaxAttachmentsError ||
+        hasMaxAttachmentSizeError ||
+        hasUnsupportedFileError
+      ) {
         const errors = [];
         if (hasMaxAttachmentsError) {
           errors.push(displayText.getMaxAttachmentErrorText(maxAttachments));
+        }
+        if (hasUnsupportedFileError) {
+          errors.push(
+            displayText.getAttachmentFormatErrorText([...validFileTypes])
+          );
         }
         if (hasMaxAttachmentSizeError) {
           errors.push(

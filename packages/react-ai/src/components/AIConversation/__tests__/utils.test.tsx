@@ -63,6 +63,18 @@ describe('getValidDocumentName', () => {
     const validName = getValidDocumentName(file);
     expect(validName).toBe('test');
   });
+
+  it('should handle files with no extension correctly', () => {
+    const file = new File([''], 'test');
+    const validName = getValidDocumentName(file);
+    expect(validName).toBe('test');
+  });
+
+  it('should handle files with spaces correctly', () => {
+    const file = new File([''], 'test  file.txt');
+    const validName = getValidDocumentName(file);
+    expect(validName).toBe('test_file');
+  });
 });
 
 describe('getAttachmentFormat', () => {
@@ -166,5 +178,22 @@ describe('attachmentsValidator', () => {
     expect(result.rejectedFiles).toHaveLength(0);
     expect(result.hasMaxAttachmentSizeError).toBeFalsy();
     expect(result.hasMaxAttachmentsError).toBeFalsy();
+  });
+
+  it('should handle unsupported file types', async () => {
+    const files = [
+      new File([''], 'test.exe', { type: 'application/x-msdownload' }),
+    ];
+    const result = await attachmentsValidator({
+      files,
+      maxAttachments: 3,
+      maxAttachmentSize: 1000,
+    });
+
+    expect(result.acceptedFiles).toHaveLength(0);
+    expect(result.rejectedFiles).toHaveLength(1);
+    expect(result.hasMaxAttachmentSizeError).toBeFalsy();
+    expect(result.hasMaxAttachmentsError).toBeFalsy();
+    expect(result.hasUnsupportedFileError).toBeTruthy();
   });
 });

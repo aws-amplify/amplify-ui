@@ -60,7 +60,8 @@ export const Form: Required<ControlsContextProps>['Form'] = ({
   const attachIcon = icons?.attach ?? <IconAttach />;
   const hiddenInput = React.useRef<HTMLInputElement>(null);
   const [composing, setComposing] = React.useState(false);
-  const isInputEmpty = !input?.text?.length && !input?.files?.length;
+  // Bedrock does not accept message that are empty or are only whitespace
+  const isInputEmpty = !input?.text?.length || !!input.text.match(/^\s+$/);
 
   return (
     <FormWrapper onValidate={onValidate} allowAttachments={allowAttachments}>

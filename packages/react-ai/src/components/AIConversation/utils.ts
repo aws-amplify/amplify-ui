@@ -52,11 +52,14 @@ export function getAttachmentFormat(file: File): string {
 }
 
 export function getValidDocumentName(file: File): string {
-  return file.name
-    .split('.')
-    .slice(0, -1)
-    .join('')
-    .replace(/[!@#$%^&*()+\-=[\]{};':"\\|,.<>/?]/g, '');
+  const fileNameParts = file.name.split('.');
+
+  const baseFileName =
+    fileNameParts.length > 1 ? fileNameParts.slice(0, -1).join('') : file.name;
+
+  return baseFileName
+    .replace(/[!@#$%^&*()+\-=[\]{};':"\\|,.<>/?]/g, '')
+    .replace(/\s+/g, '_');
 }
 
 // Using Sets instead of Arrays for faster and easier lookups
@@ -90,14 +93,18 @@ export async function attachmentsValidator({
   rejectedFiles: File[];
   hasMaxAttachmentSizeError: boolean;
   hasMaxAttachmentsError: boolean;
+  hasUnsupportedFileError: boolean;
 }> {
   const acceptedFiles: File[] = [];
   const rejectedFiles: File[] = [];
-  let hasMaxSizeError = false;
+  let hasMaxAttachmentSizeError = false;
+  let hasUnsupportedFileError = false;
 
   for (const file of files) {
-    if (!validFileTypes.has(getAttachmentFormat(file))) {
+    const format = getAttachmentFormat(file);
+    if (!validFileTypes.has(format)) {
       rejectedFiles.push(file);
+      hasUnsupportedFileError = true;
       continue;
     }
     const arrayBuffer = await file.arrayBuffer();
@@ -106,21 +113,23 @@ export async function attachmentsValidator({
       acceptedFiles.push(file);
     } else {
       rejectedFiles.push(file);
-      hasMaxSizeError = true;
+      hasMaxAttachmentSizeError = true;
     }
   }
   if (acceptedFiles.length > maxAttachments) {
     return {
       acceptedFiles: acceptedFiles.slice(0, maxAttachments),
       rejectedFiles: [...acceptedFiles.slice(maxAttachments), ...rejectedFiles],
+      hasMaxAttachmentSizeError,
+      hasUnsupportedFileError,
       hasMaxAttachmentsError: true,
-      hasMaxAttachmentSizeError: hasMaxSizeError,
     };
   }
   return {
     acceptedFiles,
     rejectedFiles,
+    hasMaxAttachmentSizeError,
+    hasUnsupportedFileError,
     hasMaxAttachmentsError: false,
-    hasMaxAttachmentSizeError: hasMaxSizeError,
   };
 }
