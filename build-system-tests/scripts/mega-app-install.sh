@@ -108,9 +108,10 @@ else
         # react-native-safe-area-context v5.0.0+ does not support RN 0.74 and lower
         DEPENDENCIES="$TAGGED_UI_FRAMEWORK @aws-amplify/react-native aws-amplify @react-native-community/netinfo @react-native-async-storage/async-storage react-native-get-random-values react-native-url-polyfill"
 
-        # react-native-safe-area-context v5 is required for >= 0.78
-        if [[ "$FRAMEWORK_VERSION" == "latest" || $FRAMEWORK_VERSION > "0.77" ]]; then
-            DEPENDENCIES="$DEPENDENCIES react-native-safe-area-context@^5.2.0 --force"
+        # react-native-safe-area-context v5 is required for >= 0.74
+        if [[ "$FRAMEWORK_VERSION" == "latest" || $FRAMEWORK_VERSION > "0.74" ]]; then
+            # build system test uses latest tag, will need to remove force after release
+            DEPENDENCIES="$DEPENDENCIES react-native-safe-area-context --force"
         else
             DEPENDENCIES="$DEPENDENCIES react-native-safe-area-context@^4.2.5"
         fi;
