@@ -120,6 +120,12 @@ else
         install_dependencies_with_retries npm "$DEPENDENCIES"
         if [[ "$BUILD_TOOL" == "expo" ]]; then
             if [[ "$FRAMEWORK_VERSION" == "0.75" ]]; then 
+                # Prevent Expo from "fixing" force installed dependency
+                # Can be removed once peer dependency is available with latest tag
+                tmp=$(mktemp)
+                jq '.expo.install.exclude = ["react-native-safe-area-context"]' package.json > "$tmp"
+                mv "$tmp" package.json
+
                 # Expo SDK version 51.0.0 supports RN 0.74 and 0.75 but installs 0.74 by default https://expo.dev/changelog/2024/08-14-react-native-0.75#2-install-updated-packages
                 echo "npx expo install react-native@~0.75.0"
                 npx expo install react-native@~0.75.0
