@@ -7,13 +7,12 @@ import {
   ListLocations,
   LocationData,
 } from './actions';
-import { GetLocationCredentials } from './credentials/types';
-import { ErrorBoundaryType } from './ErrorBoundary';
-
 import { StorageBrowserComponents } from './ComponentsProvider';
-
+import { GetLocationCredentials } from './credentials';
+import { StorageBrowserDisplayText } from './displayText';
+import { ErrorBoundaryType } from './ErrorBoundary';
 import { RegisterAuthListener, StoreProviderProps } from './providers';
-
+import { DerivedActionHandlers, UseAction } from './useAction';
 import {
   CopyViewType,
   CreateFolderViewType,
@@ -25,10 +24,6 @@ import {
   UseView,
   StorageBrowserViews,
 } from './views';
-
-import { StorageBrowserDisplayText } from './displayText';
-
-import { DerivedActionHandlers, UseAction } from './useAction';
 
 /**
  * Configuration properties
