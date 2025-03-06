@@ -11,13 +11,20 @@ import { AttachFileControl } from './AttachFileControl';
 import { MessagesContext } from '../../context';
 import { AttachmentListControl } from './AttachmentListControl';
 import { SendMessageContext } from '../../context/SendMessageContext';
-import { ConversationMessageContent, InputContent } from '../../../../types';
+import { InputContent } from '../../../../types';
 import {
   convertResponseComponentsToToolConfiguration,
   ResponseComponentsContext,
 } from '../../context/ResponseComponentsContext';
 import { ControlsContext } from '../../context/ControlsContext';
-import { attachmentsValidator, getImageTypeFromMimeType } from '../../utils';
+import {
+  arrayBufferToBase64,
+  attachmentsValidator,
+  documentFileTypes,
+  getAttachmentFormat,
+  getValidDocumentName,
+  validFileTypes,
+} from '../../utils';
 import { LoadingContext } from '../../context/LoadingContext';
 import { AttachmentContext } from '../../context/AttachmentContext';
 import { humanFileSize, isFunction } from '@aws-amplify/ui';
@@ -179,13 +186,28 @@ export const FormControl: FormControl = () => {
     if (input?.files) {
       for (const file of input.files) {
         const buffer = await file.arrayBuffer();
-        const fileContent: ConversationMessageContent = {
-          image: {
-            format: getImageTypeFromMimeType(file.type),
-            source: { bytes: new Uint8Array(buffer) },
-          },
-        };
-        submittedContent.push(fileContent);
+        const format = getAttachmentFormat(file);
+        if (documentFileTypes.has(format)) {
+          submittedContent.push({
+            // @ts-ignore
+            document: {
+              name: getValidDocumentName(file),
+              format,
+              source: {
+                // TODO: the JS client isn't converting this to base64 yet, so we will do that here now
+                bytes: arrayBufferToBase64(buffer),
+              },
+            },
+          });
+        } else {
+          submittedContent.push({
+            image: {
+              // @ts-ignore
+              format,
+              source: { bytes: new Uint8Array(buffer) },
+            },
+          });
+        }
       }
     }
 
@@ -202,6 +224,10 @@ export const FormControl: FormControl = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    // Clear the attachment errors when submitting
+    // because the errors are not actually preventing the submission
+    // but rather notifying the user that certain files were not attached and why they weren't
+    setError?.(undefined);
     submitMessage();
   };
 
@@ -228,16 +254,26 @@ export const FormControl: FormControl = () => {
         acceptedFiles,
         hasMaxAttachmentsError,
         hasMaxAttachmentSizeError,
+        hasUnsupportedFileError,
       } = await attachmentsValidator({
         files: [...files, ...previousFiles],
         maxAttachments,
         maxAttachmentSize,
       });
 
-      if (hasMaxAttachmentsError || hasMaxAttachmentSizeError) {
+      if (
+        hasMaxAttachmentsError ||
+        hasMaxAttachmentSizeError ||
+        hasUnsupportedFileError
+      ) {
         const errors = [];
         if (hasMaxAttachmentsError) {
           errors.push(displayText.getMaxAttachmentErrorText(maxAttachments));
+        }
+        if (hasUnsupportedFileError) {
+          errors.push(
+            displayText.getAttachmentFormatErrorText([...validFileTypes])
+          );
         }
         if (hasMaxAttachmentSizeError) {
           errors.push(

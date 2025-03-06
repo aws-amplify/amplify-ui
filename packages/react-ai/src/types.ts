@@ -25,7 +25,24 @@ export type ConversationMessage = NonNullable<
   isLoading?: boolean;
 };
 
-export type ConversationMessageContent = ConversationMessage['content'][number];
+// temporary
+export type DocumentContentBlock = {
+  text?: never;
+  image?: never;
+  toolUse?: never;
+  toolResult?: never;
+  document: {
+    format: string;
+    name: string;
+    source: {
+      bytes: string;
+    };
+  };
+};
+
+export type ConversationMessageContent =
+  | ConversationMessage['content'][number]
+  | DocumentContentBlock;
 
 export type TextContentBlock = NonNullable<ConversationMessageContent['text']>;
 
