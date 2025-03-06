@@ -15,7 +15,7 @@ import { elementsDefault } from './context/elements';
 import { ComponentsProvider } from './ComponentsProvider';
 import { componentsDefault } from './componentsDefault';
 import { DisplayTextProvider } from './displayText';
-import { ErrorBoundary } from './ErrorBoundary';
+import { ErrorBoundary as DefaultErrorBoundary } from './ErrorBoundary';
 import { createConfigurationProvider, StoreProvider } from './providers';
 import { StorageBrowserDefault } from './StorageBrowserDefault';
 import {
@@ -130,6 +130,11 @@ export function createStorageBrowser<
       </StoreProvider>
     );
   }
+
+  const ErrorBoundary =
+    input.ErrorBoundary === null
+      ? React.Fragment
+      : input.ErrorBoundary ?? DefaultErrorBoundary;
 
   const StorageBrowser: StorageBrowserType<
     DerivedActionViewType<RInput>,
