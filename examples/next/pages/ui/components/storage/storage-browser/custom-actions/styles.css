@@ -1,4 +1,4 @@
-// Intentionally to test error boundary. No effect in prod mode.
+/* Intentionally to test error boundary. No effect in prod mode. */
 nextjs-portal {
   display: none;
 }
