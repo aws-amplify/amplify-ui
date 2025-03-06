@@ -17,7 +17,8 @@ const baseInput: CopyHandlerInput = {
     sourceKey: 'some-prefixfix/some-key.hehe',
     fileKey: 'some-key.hehe',
     lastModified: new Date(),
-    eTag: 'etag',
+    size: 100,
+    type: 'FILE',
   },
 };
 
