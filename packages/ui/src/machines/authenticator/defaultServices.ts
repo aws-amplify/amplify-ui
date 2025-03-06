@@ -6,6 +6,7 @@ import {
   confirmSignIn,
   confirmSignUp,
   getCurrentUser,
+  resendSignUpCode,
   resetPassword,
   signIn,
   signUp,
@@ -89,6 +90,7 @@ export const defaultServices = {
   handleConfirmSignUp: confirmSignUp,
   handleForgotPasswordSubmit: confirmResetPassword,
   handleForgotPassword: resetPassword,
+  handleResendSignUpCode: resendSignUpCode,
 
   // Validation hooks for overriding
   async validateCustomSignUp(
