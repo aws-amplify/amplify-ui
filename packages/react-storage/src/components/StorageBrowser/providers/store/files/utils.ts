@@ -73,3 +73,6 @@ export const parseFileSelectParams = (
   const [selectType, ...rest] = value;
   return [selectType, !rest?.length ? undefined : { accept: rest.join() }];
 };
+
+export const isFileItem = (value: unknown): value is FileItem =>
+  !!(value as FileItem).file;

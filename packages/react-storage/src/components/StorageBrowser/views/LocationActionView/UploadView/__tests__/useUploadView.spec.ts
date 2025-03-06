@@ -1,6 +1,6 @@
 import { renderHook, act } from '@testing-library/react-hooks';
-import { FileItem, LocationData } from '../../../../actions';
 
+import { FileItem, LocationData } from '../../../../actions';
 import { UseStoreState, useStore } from '../../../../providers/store';
 import { Task, INITIAL_STATUS_COUNTS } from '../../../../tasks';
 import { useAction } from '../../../../useAction';

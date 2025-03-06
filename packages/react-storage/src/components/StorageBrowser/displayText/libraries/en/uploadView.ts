@@ -20,8 +20,8 @@ export const DEFAULT_UPLOAD_VIEW_DISPLAY_TEXT: DefaultUploadViewDisplayText = {
     const type = hasFailure
       ? 'error'
       : hasPreventedOverwrite || hasCanceled
-      ? 'warning'
-      : 'success';
+        ? 'warning'
+        : 'success';
 
     const preventedOverwriteMessage = hasPreventedOverwrite
       ? [

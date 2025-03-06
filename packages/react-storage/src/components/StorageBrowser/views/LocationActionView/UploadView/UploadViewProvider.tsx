@@ -1,12 +1,13 @@
 import React from 'react';
 
+import { isMultipartUpload } from '../../../actions';
 import { ControlsContextProvider } from '../../../controls/context';
 import { useDisplayText } from '../../../displayText';
 
-import { getActionViewTableData } from '../getActionViewTableData';
+import { useResolveTableData } from '../../hooks/useResolveTableData';
+import { UPLOAD_TABLE_KEYS, UPLOAD_TABLE_RESOLVERS } from '../../utils';
 
 import { UploadViewProviderProps } from './types';
-import { getFolderText } from './utils';
 
 export function UploadViewProvider({
   children,
@@ -35,7 +36,7 @@ export function UploadViewProvider({
     isProcessing,
     isProcessingComplete,
     location,
-    tasks,
+    tasks: items,
     statusCounts,
     invalidFiles,
     onActionStart,
@@ -64,6 +65,15 @@ export function UploadViewProvider({
       ? getFilesValidationMessage({ invalidFiles })
       : undefined;
 
+  const tableData = useResolveTableData(
+    UPLOAD_TABLE_KEYS,
+    UPLOAD_TABLE_RESOLVERS,
+    {
+      items,
+      props: { displayText, isProcessing, isMultipartUpload, onTaskRemove },
+    }
+  );
+
   return (
     <ControlsContextProvider
       data={{
@@ -89,14 +99,7 @@ export function UploadViewProvider({
         statusDisplayCompletedLabel,
         statusDisplayFailedLabel,
         statusDisplayQueuedLabel,
-        tableData: getActionViewTableData({
-          getFolderText,
-          tasks,
-          shouldDisplayProgress: true,
-          displayText,
-          isProcessing,
-          onTaskRemove,
-        }),
+        tableData,
         title,
       }}
       onActionCancel={onActionCancel}
