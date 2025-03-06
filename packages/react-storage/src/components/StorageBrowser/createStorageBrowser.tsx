@@ -131,22 +131,21 @@ export function createStorageBrowser<
     );
   }
 
+  const ErrorBoundary =
+    input.ErrorBoundary === null
+      ? React.Fragment
+      : input.ErrorBoundary ?? DefaultErrorBoundary;
+
   const StorageBrowser: StorageBrowserType<
     DerivedActionViewType<RInput>,
     DerivedActionViews<RInput>
-  > = ({ views, displayText }) => {
-    const OptionalErrorBoundary =
-      input.ErrorBoundary === null
-        ? React.Fragment
-        : input.ErrorBoundary ?? DefaultErrorBoundary;
-    return (
-      <OptionalErrorBoundary>
-        <Provider displayText={displayText} views={views}>
-          <StorageBrowserDefault />
-        </Provider>
-      </OptionalErrorBoundary>
-    );
-  };
+  > = ({ views, displayText }) => (
+    <ErrorBoundary>
+      <Provider displayText={displayText} views={views}>
+        <StorageBrowserDefault />
+      </Provider>
+    </ErrorBoundary>
+  );
 
   StorageBrowser.LocationActionView =
     LocationActionView as LocationActionViewType<DerivedActionViewType<RInput>>;
