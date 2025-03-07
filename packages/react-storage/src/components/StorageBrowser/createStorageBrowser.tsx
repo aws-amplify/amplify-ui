@@ -46,10 +46,10 @@ import {
 } from './views';
 
 /**
- * Creates a `StoraageBrowser` component and utility hooks from provided configuration `input`.
+ * Creates a `StorageBrowser` component and utility hooks from provided configuration `input`.
  *
- * @param input - `StoraageBrowser` auth, actions and ui configuration values
- * @returns `StoraageBrowser` component, `useAction` and `useView` hooks
+ * @param input - `StorageBrowser` auth, actions and ui configuration values
+ * @returns `StorageBrowser` component, `useAction` and `useView` hooks
  */
 export function createStorageBrowser<
   Input extends CreateStorageBrowserInput,
