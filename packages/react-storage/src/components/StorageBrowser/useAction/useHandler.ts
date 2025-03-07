@@ -1,33 +1,40 @@
 import React from 'react';
 import { isObject } from '@aws-amplify/ui';
 
-import {
-  TaskData,
-  TaskHandler,
-  TaskHandlerInput,
-  TaskHandlerOutput,
-} from '../actions';
+import { ActionHandler, TaskData } from '../actions';
 import { useGetActionInput } from '../providers/configuration/context';
 import { useStore } from '../providers/store';
 import { useProcessTasks } from '../tasks';
 
 import { DEFAULT_ACTION_CONCURRENCY } from './constants';
-import { HandleTasksOptions, HandlerInput, UseHandlerState } from './types';
+import {
+  HandleTasksOptions,
+  InferActionOptions,
+  InferHandlerInput,
+  InferUseHandlerState,
+} from './types';
 
-const isTasksOptions = <T extends TaskData>(
-  value?: HandleTasksOptions<T>
-): value is HandleTasksOptions<T> => isObject(value);
+export const isTasksOptions = <TData extends TaskData, TResult>(
+  value?: HandleTasksOptions<TData, TResult>
+): value is HandleTasksOptions<TData, TResult> =>
+  isObject(value) && !!value?.items;
 
-export const useHandler = <
-  TData extends TaskData,
-  RValue,
-  TOptions extends HandleTasksOptions<TData>,
-  // provides conditonal return of task/tasks states
-  U extends TOptions | undefined = undefined,
+export function useHandler<T extends ActionHandler>(
+  action: T
+): InferUseHandlerState<T>;
+export function useHandler<
+  T extends ActionHandler,
+  TOptions extends InferActionOptions<T>,
+>(action: T, options?: TOptions): InferUseHandlerState<T, TOptions>;
+export function useHandler<
+  T,
+  TOptions extends InferActionOptions<T> | undefined = undefined,
 >(
-  action: TaskHandler<TaskHandlerInput<TData>, TaskHandlerOutput<RValue>>,
-  options?: U
-): UseHandlerState<TData, RValue, U> => {
+  action: T extends ActionHandler<infer I, infer R>
+    ? ActionHandler<I, R>
+    : never,
+  options?: TOptions
+): InferUseHandlerState<T, TOptions> {
   const hasOptions = isTasksOptions(options);
   const { items, onTaskSuccess } = options ?? {};
   const getConfig = useGetActionInput();
@@ -36,15 +43,16 @@ export const useHandler = <
     location: { current },
   } = useStore()[0];
 
-  const [state, processTask] = useProcessTasks(action, items, {
-    onTaskSuccess,
-    ...(items ? { concurrency: DEFAULT_ACTION_CONCURRENCY } : undefined),
-  });
+  const taskOptions = !items
+    ? undefined
+    : { concurrency: DEFAULT_ACTION_CONCURRENCY, onTaskSuccess };
+
+  const [state, processTask] = useProcessTasks(action, items, taskOptions);
 
   const { reset, isProcessing, tasks } = state;
 
   const handler = React.useCallback(
-    (input: HandlerInput<TData, RValue, U>) => {
+    (input: InferHandlerInput<T, TOptions>) => {
       const { location } = input ?? {};
       const config = getConfig(location ?? current);
 
@@ -63,5 +71,5 @@ export const useHandler = <
   return [
     hasOptions ? state : { isProcessing, task: tasks?.[0] },
     handler,
-  ] as UseHandlerState<TData, RValue, U>;
-};
+  ] as InferUseHandlerState<T, TOptions>;
+}

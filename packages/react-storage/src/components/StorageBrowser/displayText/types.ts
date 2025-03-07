@@ -171,6 +171,9 @@ export interface LocationDetailViewDisplayText
 export interface UploadViewDisplayText
   extends Partial<DefaultUploadViewDisplayText> {}
 
+/**
+ * `StorageBrowser` display text strings/resolver functions
+ */
 export interface StorageBrowserDisplayText {
   LocationsView?: LocationsViewDisplayText;
   LocationDetailView?: LocationDetailViewDisplayText;

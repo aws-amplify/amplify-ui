@@ -28,16 +28,16 @@ const isTaskHandlerInput = <T extends TaskData>(
 ): input is TaskHandlerInput<T> => !!(input as TaskHandlerInput<T>).data;
 
 export const useProcessTasks = <
-  TData extends TaskData = TaskData,
-  RValue = any,
+  TData extends TaskData,
+  TResult,
   // infered value of `items` for conditional typing of `concurrency`
   D extends TData[] | undefined = undefined,
 >(
-  handler: ActionHandler<TData, RValue>,
+  handler: ActionHandler<TData, TResult>,
   items?: D,
   options?: ProcessTasksOptions<
     TData,
-    RValue,
+    TResult,
     D extends TData[] ? number : never
   >
 ): UseProcessTasksState<TData, D> => {
@@ -153,7 +153,7 @@ export const useProcessTasks = <
     const getTask = () => tasksRef.current.get(data.id);
 
     const { options } = _input;
-    const { onProgress: _onProgress, onSuccess, onError } = options ?? {};
+    const { onProgress: _onProgress } = options ?? {};
 
     const onProgress = ({ id }: TData, progress?: number) => {
       const task = getTask();
@@ -191,15 +191,11 @@ export const useProcessTasks = <
           onTaskSuccess(task, output?.value);
         }
 
-        if (task && isFunction(onSuccess)) onSuccess(data, output?.value);
-
         updateTask(data.id, output);
       })
       .catch((e: Error) => {
         const task = getTask();
         if (task && isFunction(onTaskError)) onTaskError(task, e);
-
-        if (task && isFunction(onError)) onError(data, e?.message);
 
         updateTask(data.id, { message: e.message, status: 'FAILED' });
       })
