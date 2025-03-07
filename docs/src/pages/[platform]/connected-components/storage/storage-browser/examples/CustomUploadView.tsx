@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Button, Flex, Text, View } from '@aws-amplify/ui-react';
-import { useView } from './MockStorageBrowser';
+import { useView } from './StorageBrowser';
 
 export function CustomUploadView({ onExit }: { onExit: () => void }) {
   const state = useView('Upload');

@@ -67,6 +67,7 @@ describe('convertStylePropsToStyleObj:', () => {
       // cast to `undefined` to allow robustness testing
       color: null as unknown as undefined,
       border: '',
+      borderWidth: 0,
       borderRadius: '6px',
       ariaLabel: 'important section',
       as: 'section',
@@ -80,6 +81,7 @@ describe('convertStylePropsToStyleObj:', () => {
     expect(propStyles['backgroundColor']).toBeUndefined();
     expect(propStyles['color']).toBeUndefined();
     expect(propStyles['border']).toBeUndefined();
+    expect(propStyles['borderWidth']).toBe(props.borderWidth);
     expect(propStyles['borderRadius']).toBe(props.borderRadius);
     expect(propStyles['as']).toBeUndefined();
   });

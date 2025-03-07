@@ -36,9 +36,9 @@ for i in {1..4}; do
   # Don't add delay at end of last attempt if last attempt fails
   if [ "$i" -le 3 ]; then
     # NPM publish can be flaky causing failed installs
-    # Add exponential backoff between retries: [4/16/64]s ~= [5/15/60]s
-    echo "[ERROR]: yarn install failed with exit code $return_value, waiting to retry in $((4 * i)) seconds..."
-    sleep $((4 ** i))
+    # Add exponential backoff between retries: 5s/25s/125s ~= 3min total
+    echo "[ERROR]: yarn install failed with exit code $return_value, waiting to retry in $((5 ** i)) seconds..."
+    sleep $((5 ** i))
   fi
 done
 

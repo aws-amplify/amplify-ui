@@ -38,13 +38,14 @@ export const MISSING_REQUIRED_PROPS_MESSAGE =
 export const ACCESS_LEVEL_WITH_PATH_CALLBACK_MESSAGE =
   '`FileUploader` does not allow usage of a `path` callback prop with an `accessLevel` prop.';
 export const ACCESS_LEVEL_DEPRECATION_MESSAGE =
-  '`accessLevel` has been deprecated and will be removed in a future major version. See migration notes at https://ui.docs.amplify.aws/react/connected-components/storage/FileUploader';
+  '`accessLevel` has been deprecated and will be removed in a future major version. See migration notes at https://ui.docs.amplify.aws/react/connected-components/storage/fileuploader#deprecated-props';
 
 const FileUploaderBase = React.forwardRef(function FileUploader(
   {
     acceptedFileTypes = [],
     accessLevel,
     autoUpload = true,
+    bucket,
     components,
     defaultFiles,
     displayText: overrideDisplayText,
@@ -142,6 +143,7 @@ const FileUploaderBase = React.forwardRef(function FileUploader(
 
   useUploadFiles({
     accessLevel,
+    bucket,
     files,
     isResumable,
     maxFileCount,

@@ -1,3 +1,4 @@
+import { AmplifyErrorCode } from '@aws-amplify/core/internals/utils';
 import { Hub } from 'aws-amplify/utils';
 import {
   defaultAuthHubHandler,
@@ -5,6 +6,7 @@ import {
 } from '../defaultAuthHubHandler';
 import { AuthInterpreter } from '../types';
 
+const MockNetworkError = { name: AmplifyErrorCode.NetworkError };
 const onSignIn = jest.fn();
 const onSignOut = jest.fn();
 const service = { send: jest.fn() } as unknown as AuthInterpreter;
@@ -41,16 +43,30 @@ describe('defaultAuthHubHandler', () => {
     expect(onSignOut).toHaveBeenCalledTimes(1);
   });
 
-  it('does not call onSignOut callback on tokenRefreh_failure event if provided', () => {
+  it('does not call onSignOut callback on tokenRefresh_failure event if provided', () => {
     defaultAuthHubHandler(
-      { channel: 'auth', payload: { event: 'tokenRefreh_failure' } },
+      { channel: 'auth', payload: { event: 'tokenRefresh_failure' } },
       service,
       { onSignOut }
     );
     expect(onSignOut).not.toHaveBeenCalled();
   });
 
-  it('calls onSignIn callabck on signedIn event if provided', () => {
+  it('does not call service on tokenRefresh_failure event if NetworkError', () => {
+    defaultAuthHubHandler(
+      {
+        channel: 'auth',
+        payload: {
+          event: 'tokenRefresh_failure',
+          data: { error: MockNetworkError },
+        },
+      },
+      service
+    );
+    expect(service.send).not.toHaveBeenCalled();
+  });
+
+  it('calls onSignIn callback on signedIn event if provided', () => {
     defaultAuthHubHandler(
       { channel: 'auth', payload: { event: 'signedIn' } },
       service,

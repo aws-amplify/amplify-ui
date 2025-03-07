@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`useAction throws the expected error when called with a type not mapped to an action handler 1`] = `"No handler found for value of \`unexpected!\` provided to \`useAction\`"`;
+
+exports[`useAction throws the expected error when called with the "listLocationItems" action type 1`] = `"Value of \`listLocationItems\` cannot be provided to \`useAction\`"`;
+
+exports[`useAction throws the expected error when called with the "listLocations" action type 1`] = `"Value of \`listLocations\` cannot be provided to \`useAction\`"`;

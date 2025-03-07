@@ -1,23 +1,23 @@
 import React from 'react';
-import { render, waitFor, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { Amplify } from 'aws-amplify';
-import * as CreateStorageBrowserModule from '../createStorageBrowser';
+
+import { createStorageBrowser } from '../createStorageBrowser';
 import * as CreateAmplifyAuthAdapter from '../adapters/createAmplifyAuthAdapter';
-import { StorageBrowser } from '../StorageBrowserAmplify';
 import { StorageBrowserDisplayText } from '../displayText/types';
 
-const createStorageBrowserSpy = jest.spyOn(
-  CreateStorageBrowserModule,
-  'createStorageBrowser'
-);
+import { StorageBrowser } from '../StorageBrowserAmplify';
+
+jest.mock('../createStorageBrowser');
+
+const TestComponent = jest.fn(() => 'StorageBrowser');
+
+const createStorageBrowserMock = (
+  createStorageBrowser as jest.Mock
+).mockReturnValue({ StorageBrowser: TestComponent });
 
 jest.spyOn(Amplify, 'getConfig').mockReturnValue({
-  Storage: {
-    S3: {
-      bucket: 'XXXXXX',
-      region: 'region',
-    },
-  },
+  Storage: { S3: { bucket: 'XXXXXX', region: 'region' } },
 });
 
 const createAmplifyAuthAdapterSpy = jest.spyOn(
@@ -29,29 +29,27 @@ describe('StorageBrowser', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
-  it('calls `createStorageBrowser`', async () => {
-    await waitFor(() => {
-      render(<StorageBrowser />);
-    });
 
-    expect(createStorageBrowserSpy).toHaveBeenCalledTimes(1);
-    expect(createStorageBrowserSpy).toHaveBeenCalledWith({
+  it('calls `createStorageBrowser` and `createAmplifyAuthAdapter`', () => {
+    render(<StorageBrowser />);
+
+    expect(createStorageBrowserMock).toHaveBeenCalledTimes(1);
+    expect(createStorageBrowserMock).toHaveBeenCalledWith({
       config: expect.anything(),
     });
 
     expect(createAmplifyAuthAdapterSpy).toHaveBeenCalledTimes(1);
   });
 
-  it('support passing custom displayText', async () => {
+  it('provides the expected props to the `StorageBrowser` returned from `createStorageBrowser`', () => {
     const displayText: StorageBrowserDisplayText = {
       LocationsView: { title: 'Hello' },
     };
 
-    await waitFor(() => {
-      render(<StorageBrowser displayText={displayText} />);
-    });
+    const views = { LocationsView: jest.fn() };
 
-    const Title = screen.getByText('Hello');
-    expect(Title).toBeInTheDocument();
+    render(<StorageBrowser displayText={displayText} views={views} />);
+
+    expect(TestComponent).toHaveBeenCalledWith({ displayText, views }, {});
   });
 });

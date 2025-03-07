@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Button, Flex, Text } from '@aws-amplify/ui-react';
-import { useView } from './MockStorageBrowser';
+import { useView } from './StorageBrowser';
 
 export function CustomCopyView({ onExit }: { onExit: () => void }) {
   const state = useView('Copy');

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Button, Flex, Text } from '@aws-amplify/ui-react';
 import { FiChevronRight } from 'react-icons/fi';
-import { StorageBrowser, useView } from './MockStorageBrowser';
+import { StorageBrowser, useView } from './StorageBrowser';
 
 export function CustomLocationsView() {
   const state = useView('Locations');
