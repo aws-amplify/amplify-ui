@@ -1,15 +1,16 @@
 import { humanFileSize } from '@aws-amplify/ui';
 
+import { TaskData } from '../../actions';
 import { DataTableProps } from '../../composables/DataTable';
+import { DefaultActionViewDisplayText } from '../../displayText';
+import { isFileItem, isFileDataItem } from '../../providers';
 import { Task, TaskStatus } from '../../tasks';
 
-import { isFileItem, isFileDataItem, TaskData } from '../../actions';
 import { getActionIcon } from './getActionIcon';
 import { getFileTypeDisplayValue } from './getFileTypeDisplayValue';
 import { getPercentValue } from './getPercentValue';
 import { getDefaultActionViewHeaders } from './getDefaultActionViewHeaders';
 import { ActionViewHeaders } from './types';
-import { DefaultActionViewDisplayText } from '../../displayText/types';
 
 const getTaskStatusDisplayLabel = ({
   status,

@@ -1,13 +1,17 @@
 import React from 'react';
 
-import { ListLocationsExcludeOptions, LocationData } from '../../actions';
-import { useStore } from '../../providers/store';
+import {
+  getFileKey,
+  ListLocationsExcludeOptions,
+  LocationData,
+} from '../../actions';
+import { useStore } from '../../providers';
 import { useAction, useList } from '../../useAction';
 
 import { usePaginate } from '../hooks/usePaginate';
 import { useSearch } from '../hooks/useSearch';
+
 import { LocationsViewState, UseLocationsViewOptions } from './types';
-import { getFileKey } from '../../actions/handlers';
 
 const DEFAULT_EXCLUDE: ListLocationsExcludeOptions = {
   exactPermissions: ['delete', 'write'],

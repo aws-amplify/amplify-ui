@@ -1,13 +1,11 @@
-import {
-  FileData,
-  createFileDataItem,
-  FileDataItem,
-  LocationItemData,
-  LocationData,
-} from '../../../actions';
+import { FileData, LocationItemData, LocationData } from '../../../actions';
 import { DataTableProps } from '../../../composables/DataTable';
 import { DefaultLocationDetailViewDisplayText } from '../../../displayText/types';
-import { LocationState } from '../../../providers/store/location';
+import {
+  createFileDataItem,
+  FileDataItem,
+  LocationState,
+} from '../../../providers';
 
 import { getFileRowContent } from './getFileRowContent';
 import { getFolderRowContent } from './getFolderRowContent';

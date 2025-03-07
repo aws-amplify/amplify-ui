@@ -1,7 +1,7 @@
 import { renderHook, act } from '@testing-library/react-hooks';
-import { FileItem, LocationData } from '../../../../actions';
+import { LocationData } from '../../../../actions';
+import { FileItem, useStore, UseStoreState } from '../../../../providers';
 
-import { UseStoreState, useStore } from '../../../../providers/store';
 import { Task, INITIAL_STATUS_COUNTS } from '../../../../tasks';
 import { useAction } from '../../../../useAction';
 import { UPLOAD_FILE_SIZE_LIMIT } from '../../../../validators/isFileTooBig';

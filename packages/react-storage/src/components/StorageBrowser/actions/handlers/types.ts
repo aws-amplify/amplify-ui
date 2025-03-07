@@ -53,14 +53,6 @@ export interface FileData {
 
 export type LocationItemData = FileData | FolderData;
 
-export interface FileDataItem extends FileData, TaskData {
-  fileKey: string;
-}
-
-export interface FileItem extends TaskData {
-  file: File;
-}
-
 export interface ActionInputConfig {
   accountId?: string;
   bucket: string;

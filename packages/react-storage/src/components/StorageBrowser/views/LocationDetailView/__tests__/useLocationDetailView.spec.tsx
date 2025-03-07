@@ -4,12 +4,9 @@ import {
   LocationData,
   LocationItemData,
   FileData,
-  FileDataItem,
   FolderData,
 } from '../../../actions';
-
-import { useStore } from '../../../providers/store';
-import { LocationState } from '../../../providers/store/location';
+import { FileDataItem, LocationState, useStore } from '../../../providers';
 import { useAction, useList } from '../../../useAction';
 
 import {
@@ -17,8 +14,7 @@ import {
   DEFAULT_LIST_OPTIONS,
 } from '../useLocationDetailView';
 
-jest.mock('../../../actions/handlers');
-jest.mock('../../../providers/store');
+jest.mock('../../../providers');
 jest.mock('../../../useAction');
 
 const folderDataOne: FolderData = {

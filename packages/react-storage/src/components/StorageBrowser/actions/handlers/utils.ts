@@ -4,9 +4,6 @@ import { ListLocationsExcludeOptions } from './types';
 
 import {
   ActionInputConfig,
-  FileData,
-  FileDataItem,
-  FileItem,
   LocationData,
   LocationPermissions,
   LocationType,
@@ -140,17 +137,6 @@ export const getFilteredLocations = (
 
 export const getFileKey = (key: string): string =>
   key.slice(key.lastIndexOf('/') + 1, key.length);
-
-export const createFileDataItem = (data: FileData): FileDataItem => ({
-  ...data,
-  fileKey: getFileKey(data.key),
-});
-
-export const isFileItem = (value: unknown): value is FileItem =>
-  !!(value as FileItem).file;
-
-export const isFileDataItem = (item: unknown): item is FileDataItem =>
-  !!(item as FileDataItem).fileKey;
 
 export const getProgress = ({
   totalBytes,

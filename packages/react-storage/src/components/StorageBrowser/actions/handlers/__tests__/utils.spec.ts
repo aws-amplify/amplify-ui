@@ -6,9 +6,6 @@ import {
   getFileKey,
   parseAccessGrantLocation,
   getFilteredLocations,
-  isFileItem,
-  isFileDataItem,
-  createFileDataItem,
 } from '../utils';
 
 describe('utils', () => {
@@ -181,34 +178,6 @@ describe('utils', () => {
       expect(getFilteredLocations(locations)).toStrictEqual([
         expect.objectContaining({ prefix: folderPrefix }),
       ]);
-    });
-  });
-
-  describe('createFileDataItem', () => {
-    it('creates a FileDataItem from FileData', () => {
-      expect(
-        createFileDataItem({
-          key: `prefix/${fileKey}`,
-          lastModified: new Date(1),
-          id,
-          size: 0,
-          type: 'FILE' as const,
-        })
-      ).toStrictEqual(expect.objectContaining({ fileKey }));
-    });
-  });
-
-  describe('isFileItem', () => {
-    it('should return true if object is FileItem', () => {
-      expect(isFileItem({ file: {} })).toBe(true);
-      expect(isFileItem({})).toBe(false);
-    });
-  });
-
-  describe('isFileDataItem', () => {
-    it('should return true if object is FileDataItem', () => {
-      expect(isFileDataItem({ fileKey: 'file-key' })).toBe(true);
-      expect(isFileDataItem({})).toBe(false);
     });
   });
 });
