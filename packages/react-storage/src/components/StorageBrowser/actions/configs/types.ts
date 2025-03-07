@@ -16,6 +16,41 @@ import {
   UploadHandler,
 } from '../handlers';
 
+/**
+ * Utility type representing the function signature of `StorageBrowser` action handlers. First
+ * positional generic adds additional properties to `data` parameter, second positional
+ * generic specifies optional return value provided to `options.onSuccess` callback and
+ * `Task.value`.
+ *
+ * @example
+ * ```ts
+ * interface MyData {
+ *   user: {
+ *     name: string
+ *     id: string
+ *   };
+ * }
+ *
+ * interface MyReturnValue {
+ *   link: string;
+ * }
+ *
+ * type CreateDownloadLink = ActionHandler<MyData, MyReturnValue>;
+ *
+ * const createDownloadLink: CreateDownloadLink = (input) => {
+ *   // `config` is provided to handler, includes location data, credentials
+ *   const { config, data } = input;
+ *   const { user } = data;
+ *
+ *   const result = generatePresignedUrl(user, credentials).then((res) => ({
+ *     status: 'COMPLETE' as const,
+ *     value: { link: res.url.toString() },
+ *   }));
+ *
+ *   return { result };
+ * }
+ * ```
+ */
 export type ActionHandler<TData = any, RValue = any> = TaskHandler<
   TaskHandlerInput<TData & TaskData>,
   TaskHandlerOutput<RValue>
@@ -112,6 +147,10 @@ export interface ExtendedDefaultActionConfigs
   listLocations: ListLocations;
 }
 
+/**
+ * Accepts either an `ActionViewConfig` for creation of an action list item and corresponding
+ * view slot or an action handler for standalone action usage
+ */
 export type CustomActionConfigs = Record<
   ActionName,
   ActionViewConfig | ActionHandler
