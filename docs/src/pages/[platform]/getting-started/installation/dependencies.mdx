@@ -82,6 +82,22 @@ import { InstallScripts, TerminalCommand } from '@/components/InstallScripts.tsx
 
   <InstallScripts framework="react-native" />
 
+  <Accordion.Container>
+    <Accordion.Item value="Accordion-item">
+      <Accordion.Trigger>
+        Important note for integration with React Native projects using version `0.74` or below
+        <Accordion.Icon />
+      </Accordion.Trigger>
+      <Accordion.Content>
+        Different major versions of peer dependency `react-native-safe-area-context` are designed to be compatible with specific React Native versions.
+        <br />
+        For React Native version `0.74` or below, you must install version `4.x` of `react-native-safe-area-context`.
+        <br />
+        <TerminalCommand command="npm install react-native-safe-area-context@^4.2.5" />
+      </Accordion.Content>
+    </Accordion.Item>
+  </Accordion.Container>
+
   If your project will support Federated Sign In using the React Native `Authenticator` the `@aws-amplify/rtn-web-browser` package is also required:
 
   <TerminalCommand command="npm install @aws-amplify/rtn-web-browser" />
@@ -116,6 +132,22 @@ import { InstallScripts, TerminalCommand } from '@/components/InstallScripts.tsx
   Install `@aws-amplify/ui-react-native` and its dependencies with [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/):
 
   <InstallScripts framework="react-native" />
+
+  <Accordion.Container>
+    <Accordion.Item value="Accordion-item">
+      <Accordion.Trigger>
+        Important note for integration with React Native projects using version `0.74` or below
+        <Accordion.Icon />
+      </Accordion.Trigger>
+      <Accordion.Content>
+        Different major versions of peer dependency `react-native-safe-area-context` are designed to be compatible with specific React Native versions.
+        <br />
+        For React Native version `0.74` or below, you must install version `4.x` of `react-native-safe-area-context`.
+        <br />
+        <TerminalCommand command="npm install react-native-safe-area-context@^4.2.5" />
+      </Accordion.Content>
+    </Accordion.Item>
+  </Accordion.Container>
 
   If your project will support Federated Sign In using the React Native `Authenticator` the `@aws-amplify/rtn-web-browser` package is also required:
 
