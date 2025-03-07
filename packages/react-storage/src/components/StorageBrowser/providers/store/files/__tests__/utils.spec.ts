@@ -1,5 +1,10 @@
 import { FileItems, FileItem } from '../types';
-import { resolveFiles, filesReducer, parseFileSelectParams } from '../utils';
+import {
+  filesReducer,
+  isFileItem,
+  parseFileSelectParams,
+  resolveFiles,
+} from '../utils';
 
 let uuid = 0;
 Object.defineProperty(globalThis, 'crypto', {
@@ -179,6 +184,13 @@ describe('files context utils', () => {
       const output = parseFileSelectParams(['FOLDER', '.lolz', '.alsololz']);
 
       expect(output).toStrictEqual(['FOLDER', { accept: '.lolz,.alsololz' }]);
+    });
+  });
+
+  describe('isFileItem', () => {
+    it('should return true if object is FileItem', () => {
+      expect(isFileItem({ file: {} })).toBe(true);
+      expect(isFileItem({})).toBe(false);
     });
   });
 });

@@ -5,3 +5,5 @@ export {
   LocationItemsState,
   useLocationItems,
 } from './context';
+export * from './types';
+export { createFileDataItem, isFileDataItem } from './utils';

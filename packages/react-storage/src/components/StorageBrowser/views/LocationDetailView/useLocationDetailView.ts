@@ -2,17 +2,16 @@ import React from 'react';
 
 import { isFunction, isUndefined } from '@aws-amplify/ui';
 
-import { usePaginate } from '../hooks/usePaginate';
-import { useStore } from '../../providers/store';
 import {
   DownloadHandlerData,
-  FileDataItem,
   FileData,
   LocationData,
   useActionConfigs,
 } from '../../actions';
+import { FileDataItem, useStore } from '../../providers';
 import { useAction, useList } from '../../useAction';
 
+import { usePaginate } from '../hooks/usePaginate';
 import { useSearch } from '../hooks/useSearch';
 
 import { Task } from '../../tasks';

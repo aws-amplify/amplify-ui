@@ -1,4 +1,4 @@
-import { FileDataItem } from '../../../actions';
+import { FileDataItem } from '../../../providers';
 import { DEFAULT_UPLOAD_VIEW_DISPLAY_TEXT } from '../../../displayText/libraries/en/uploadView';
 import { Tasks } from '../../../tasks';
 

@@ -1,11 +1,6 @@
-import {
-  FileData,
-  FileDataItem,
-  LocationData,
-  LocationItemData,
-} from '../../actions';
+import { FileData, LocationData, LocationItemData } from '../../actions';
 import { ActionListItem } from '../../composables/ActionsList';
-import { LocationState } from '../../providers/store/location';
+import { FileDataItem, LocationState } from '../../providers';
 
 import { ListViewProps } from '../types';
 

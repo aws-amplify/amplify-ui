@@ -1,12 +1,10 @@
 import { renderHook } from '@testing-library/react';
 import { useActionType } from '../actionType';
-import { useFiles } from '../files';
+import { FileItem, useFiles } from '../files';
 import { useLocation } from '../location';
 import { useLocationItems } from '../locationItems';
 import { HandleStoreAction, useStore } from '../useStore';
-import { FileItem } from '../../../actions';
 
-jest.mock('../../../controls/context');
 jest.mock('../actionType');
 jest.mock('../files');
 jest.mock('../location');
