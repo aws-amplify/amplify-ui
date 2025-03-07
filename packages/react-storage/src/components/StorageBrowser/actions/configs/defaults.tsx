@@ -1,11 +1,4 @@
-import {
-  listLocationItemsHandler,
-  createFolderHandler,
-  uploadHandler,
-  copyHandler,
-  deleteHandler,
-  downloadHandler,
-} from '../handlers';
+import { defaultActionHandlers } from '../handlers';
 
 import {
   CopyActionConfig,
@@ -22,7 +15,7 @@ export const copyActionConfig: CopyActionConfig = {
     icon: 'copy-file',
     label: 'Copy',
   },
-  handler: copyHandler,
+  handler: defaultActionHandlers.copy,
 };
 
 export const deleteActionConfig: DeleteActionConfig = {
@@ -33,7 +26,7 @@ export const deleteActionConfig: DeleteActionConfig = {
     icon: 'delete-file',
     label: 'Delete',
   },
-  handler: deleteHandler,
+  handler: defaultActionHandlers.delete,
 };
 
 export const createFolderActionConfig: CreateFolderActionConfig = {
@@ -43,7 +36,7 @@ export const createFolderActionConfig: CreateFolderActionConfig = {
     icon: 'create-folder',
     label: 'Create folder',
   },
-  handler: createFolderHandler,
+  handler: defaultActionHandlers.createFolder,
 };
 
 export const uploadActionConfig: UploadActionConfig = {
@@ -53,13 +46,15 @@ export const uploadActionConfig: UploadActionConfig = {
     icon: 'upload-file',
     label: 'Upload',
   },
-  handler: uploadHandler,
+  handler: defaultActionHandlers.upload,
 };
 
+// Action view configs only, does not include `listLocationItems`
 export const defaultActionViewConfigs = {
   copy: copyActionConfig,
   createFolder: createFolderActionConfig,
-  download: downloadHandler,
+  // provide `download` handler only; `download` does not have a dedicated view/config
+  download: defaultActionHandlers.download,
   delete: deleteActionConfig,
   upload: uploadActionConfig,
 };
@@ -77,5 +72,5 @@ export const isDefaultActionViewType = (
 
 export const defaultActionConfigs = {
   ...defaultActionViewConfigs,
-  listLocationItems: listLocationItemsHandler,
+  listLocationItems: defaultActionHandlers.listLocationItems,
 };
