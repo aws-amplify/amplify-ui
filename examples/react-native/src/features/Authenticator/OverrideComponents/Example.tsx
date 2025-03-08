@@ -16,6 +16,7 @@ import {
 } from '@aws-amplify/ui-react-native';
 import { Amplify } from 'aws-amplify';
 import outputs from '@aws-amplify/ui-environments/auth/gen2/auth-with-federated-sign-in-react-native/amplify_outputs.json';
+// import outputs from '@aws-amplify/ui-environments/auth/gen2/auth-with-email-mfa/amplify_outputs.json';
 
 import { ConfirmResetPassword } from './ConfirmResetPassword';
 import { ConfirmSignIn } from './ConfirmSignIn';
@@ -23,6 +24,8 @@ import { ConfirmSignUp } from './ConfirmSignUp';
 import { ConfirmVerifyUser } from './ConfirmVerifyUser';
 import { ForceNewPassword } from './ForceNewPassword';
 import { ForgotPassword } from './ForgotPassword';
+import { SelectMfaType } from './SelectMfaType';
+import { SetupEmail } from './SetupEmail';
 import { SetupTotp } from './SetupTotp';
 import { SignIn } from './SignIn';
 import { SignUp } from './SignUp';
@@ -38,6 +41,8 @@ const components: AuthenticatorProps['components'] = {
   ConfirmVerifyUser,
   ForceNewPassword,
   ForgotPassword,
+  SelectMfaType,
+  SetupEmail,
   SetupTotp,
   SignIn,
   SignUp,

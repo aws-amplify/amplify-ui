@@ -194,6 +194,8 @@ export interface ConfirmSignUpProps extends DefaultConfirmSignUpProps {}
 export interface ConfirmVerifyUserProps extends DefaultConfirmVerifyUserProps {}
 export interface ForceNewPasswordProps extends DefaultForceNewPasswordProps {}
 export interface ForgotPasswordProps extends DefaultForgotPasswordProps {}
+export interface SelectMfaTypeProps extends DefaultSelectMfaTypeProps {}
+export interface SetupEmailProps extends DefaultSetupEmailProps {}
 export interface SetupTotpProps extends DefaultSetupTotpProps {}
 export interface SignInProps extends DefaultSignInProps {}
 export interface SignUpProps extends DefaultSignUpProps {}
