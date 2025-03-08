@@ -1,55 +1,61 @@
+/**
+ * Example.tsx
+ */
+
 import React from 'react';
-import { Button, StyleSheet, useColorScheme, View } from 'react-native';
+
+import { useColorScheme } from 'react-native';
 import {
   MD3LightTheme as LightTheme,
   MD3DarkTheme as DarkTheme,
   PaperProvider,
-  useTheme,
 } from 'react-native-paper';
-
-import { Authenticator, useAuthenticator } from '@aws-amplify/ui-react-native';
+import {
+  Authenticator,
+  AuthenticatorProps,
+} from '@aws-amplify/ui-react-native';
 import { Amplify } from 'aws-amplify';
 import outputs from '@aws-amplify/ui-environments/auth/gen2/auth-with-federated-sign-in-react-native/amplify_outputs.json';
 
-import SignIn from './SignIn';
+import { ConfirmResetPassword } from './ConfirmResetPassword';
+import { ConfirmSignIn } from './ConfirmSignIn';
+import { ConfirmSignUp } from './ConfirmSignUp';
+import { ConfirmVerifyUser } from './ConfirmVerifyUser';
+import { ForceNewPassword } from './ForceNewPassword';
+import { ForgotPassword } from './ForgotPassword';
+import { SetupTotp } from './SetupTotp';
+import { SignIn } from './SignIn';
+import { SignUp } from './SignUp';
+import { VerifyUser } from './VerifyUser';
+import { Container, SignOutButton } from './components';
 
 Amplify.configure(outputs);
 
-function SignOutButton() {
-  const { signOut } = useAuthenticator();
-  return <Button onPress={signOut} title="Sign Out" />;
-}
+const components: AuthenticatorProps['components'] = {
+  ConfirmResetPassword,
+  ConfirmSignIn,
+  ConfirmSignUp,
+  ConfirmVerifyUser,
+  ForceNewPassword,
+  ForgotPassword,
+  SetupTotp,
+  SignIn,
+  SignUp,
+  VerifyUser,
+};
 
-function Container(
-  props: React.ComponentProps<typeof Authenticator.Container>
-) {
-  const theme = useTheme();
-  return (
-    <Authenticator.Container
-      {...props}
-      style={[props?.style, { backgroundColor: theme.colors.background }]}
-    />
-  );
-}
-// 9292929
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
 
   return (
     <PaperProvider theme={isDarkMode ? DarkTheme : LightTheme}>
       <Authenticator.Provider>
-        <Authenticator Container={Container} components={{ SignIn }}>
-          <View style={style.container}>
-            <SignOutButton />
-          </View>
+        <Authenticator Container={Container} components={components}>
+          <SignOutButton />
         </Authenticator>
       </Authenticator.Provider>
     </PaperProvider>
   );
 }
-
-const style = StyleSheet.create({
-  container: { flex: 1, alignItems: 'center', justifyContent: 'center' },
-});
 
 export default App;

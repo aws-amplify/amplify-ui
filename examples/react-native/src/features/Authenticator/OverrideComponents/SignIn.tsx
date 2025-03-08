@@ -1,3 +1,7 @@
+/**
+ * SignIn.tsx
+ */
+
 import React from 'react';
 
 import { useForm } from 'react-hook-form';
@@ -12,15 +16,17 @@ import {
   TextField,
   ViewHeader,
   ViewContainer,
+  ViewSection,
+  ViewDivider,
 } from './components';
 
-function capitalize<T extends string>(value: T): Capitalize<T> {
-  return (
-    value.length ? value.charAt(0).toUpperCase() + value.slice(1) : ''
-  ) as Capitalize<T>;
+function capitalize<T extends string>([first, ...rest]: T): Capitalize<T> {
+  return [first && first.toUpperCase(), rest.join('').toLowerCase()]
+    .filter(Boolean)
+    .join('') as Capitalize<T>;
 }
 
-export default function SignIn({
+export function SignIn({
   error: errorMessage,
   fields,
   handleSubmit,
@@ -39,28 +45,37 @@ export default function SignIn({
   return (
     <ViewContainer>
       <ViewHeader>Sign In</ViewHeader>
-      {socialProviders?.map((name) => {
-        const provider = capitalize(name);
-        return (
-          <ProviderButton
-            key={provider}
-            onPress={() => toFederatedSignIn({ provider })}
-          >
-            Sign in with {provider}
-          </ProviderButton>
-        );
-      }) ?? null}
 
-      {fields.map(({ name, label, ...field }) => (
-        <TextField
-          {...field}
-          name={name}
-          control={control}
-          error={errors?.[name]?.message as string}
-          label={label}
-          rules={{ required: `${label} is required` }}
-        />
-      ))}
+      <ViewSection>
+        {socialProviders?.map((name) => {
+          const provider = capitalize(name);
+          return (
+            <ProviderButton
+              icon={name}
+              key={provider}
+              onPress={() => toFederatedSignIn({ provider })}
+            >
+              Sign in with {provider}
+            </ProviderButton>
+          );
+        }) ?? null}
+      </ViewSection>
+
+      <ViewDivider />
+
+      <ViewSection>
+        {fields.map(({ name, label, ...field }) => (
+          <TextField
+            {...field}
+            control={control}
+            error={errors?.[name]?.message as string}
+            key={name}
+            label={label}
+            name={name}
+            rules={{ required: `${label} is required` }}
+          />
+        ))}
+      </ViewSection>
 
       <SubmitButton
         disabled={!isValid}
@@ -71,7 +86,9 @@ export default function SignIn({
       >
         Submit
       </SubmitButton>
-      {errorMessage ? <ErrorMessage>{errorMessage}</ErrorMessage> : null}
+
+      <ErrorMessage>{errorMessage}</ErrorMessage>
+
       <LinksContainer>
         <LinkButton onPress={toSignUp}>Create Account</LinkButton>
         <LinkButton onPress={toForgotPassword}>Forgot Password?</LinkButton>

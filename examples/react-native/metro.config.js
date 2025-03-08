@@ -23,6 +23,7 @@ const EXTERNAL_MODULE_NAMES = [
   'react-native-paper',
   'react-native-url-polyfill',
   'react-native-safe-area-context',
+  'react-native-vector-icons',
 ];
 
 const EXAMPLE_APP_PACKAGE_JSON = require('./package.json');

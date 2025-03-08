@@ -11,6 +11,7 @@ module.exports = {
         'no-shadow': 'off',
         'no-undef': 'off',
         'prettier/prettier': 'off',
+        'react/jsx-sort-props': [1],
       },
     },
   ],
