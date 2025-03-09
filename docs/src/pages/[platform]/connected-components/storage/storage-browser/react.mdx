@@ -10,6 +10,7 @@ import {
   DisplayText,
   Theming,
   Icons,
+  GenerateUrlViewComposed,
 } from './examples'
 
 
@@ -447,6 +448,127 @@ The `useView()` hook takes a single argument which is the name of the view you w
 </Example>
 
 
+### Customize actions
+
+The Storage Browser uses actions to handle data transfer with backend services, e.g. S3. You can set the `actions` config to modify or replace default actions, or adding custom actions. The `actions` config accepts 2 categories of actions: `default` and `custom`. 
+
+#### Extend default actions
+
+The `default` actions are invoked by associated default UI views to handle data transfer with S3. They are `listLocationItems`, `copy`, `createFolder`, `delete`, `download`, `upload`.
+
+You can use `defaultActionConfigs` to access the default implementation of these actions. Below is an example to instrument the default upload action to count the files being uploaded.
+
+<Example>
+<ExampleCode>
+```ts
+import { createStorageBrowser, defaultActionConfigs } from '@aws-amplify/ui-react-storage/browser';
+
+const { StorageBrowser } = createStorageBrowser({
+  actions: {
+    default: {
+      upload: {
+        ...defaultActionConfigs.upload,
+        handler: ({ config, data, options }) =>
+          defaultActionConfigs.upload.handler({
+            config,
+            data,
+            options: {
+              ...options,
+              onSuccess: (...input) => {
+                options?.onSuccess?.(...input);
+                fileUploadCounter.add(1); // Your custom counter metrics.
+              },
+              onError: (data, message, error) => {
+                options?.onError?.(data, message, error);
+                fileUploadError.recordError(error); // Your custom error metrics.
+              },
+            },
+          }),
+      }
+    }
+  }
+});
+```
+</ExampleCode>
+</Example>
+
+#### New custom actions
+
+You can set the `custom` actions to add entirely new actions to the StorageBrowser component to be used in the custom UI view. 
+
+The `createStorageBrowser` function returns a `useAction` hook that allows you to call the custom or default action in your custom UI view. There are 2 ways to use `useActions`:
+* If your action needs to be executed concurrently on a list of selected files, like example below. You invoke the hook by supplying the inputs array in `items`, like:
+ `const [ { tasks }, handleAction ] = useAction('[my action name]', { items: ['input1', 'input2'] });`. Then call `handleAction()` to invoke concurrent execution of action and access the execution status of eac task via `tasks`.
+* If your action is only suppose to run with a given input. You invoke the hook with the action name only, like `const [{ task }, handleAction] = useAction('[my action name]');`. Then call `handleAction(input)` to invoke the action.
+
+Below is an example of a custom action that launches a custom action to generate a temporary presigned URL to selected objects.
+
+<Example>
+<GenerateUrlViewComposed />
+<Tabs.Container defaultValue="generateUrlHandler">
+<Tabs.List>
+  <Tabs.Item value="StorageBrowser">StorageBrowser</Tabs.Item>
+  <Tabs.Item value="generateUrlHandler">generateUrl</Tabs.Item>
+</Tabs.List>
+<Tabs.Panel value="StorageBrowser">
+<ExampleCode>
+```jsx file=./examples/GenerateUrlViewComposed.tsx
+```
+</ExampleCode>
+</Tabs.Panel>
+<Tabs.Panel value="generateUrlHandler">
+  <ExampleCode>
+```ts
+import { S3, GetObjectCommand } from '@aws-sdk/client-s3';
+import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
+
+import { ActionHandler } from '@aws-amplify/ui-react-storage/browser';
+
+type GenerateLink = ActionHandler<
+  { duration: number; fileKey: string },
+  { link: string }
+>;
+
+export const generateUrlHandler: GenerateLink = ({ data, config, options }) => {
+  const asyncExecution = async () => {
+    try {
+      const s3 = new S3({
+        region: config.region,
+        credentials: (await config.credentials()).credentials,
+      });
+      const command = new GetObjectCommand({
+        Bucket: config.bucket,
+        Key: data.key,
+      });
+      const url = await getSignedUrl(s3, command, {
+        expiresIn: data.duration * 60,
+      });
+      const result = {
+        status: 'COMPLETE' as const,
+        value: { link: url },
+      };
+      return result;
+    } catch (error) {
+      const message = 'Unable to generate link';
+      return {
+        status: 'FAILED' as const,
+        message,
+        error,
+      };
+    }
+  };
+
+  return { result: asyncExecution() };
+};
+```
+  </ExampleCode>
+</Tabs.Panel>
+</Tabs.Container>
+</Example>
+
+<Message colorTheme="info" variation='filled' heading="Security best practice">
+This example is for demonstration purpose only. In reality the expiration of a presigned URL is associated with the the expiry of AWS auth session signing the URL. You may need to assume a IAM role with longer-expiry session to sign a URL.
+</Message>
 
 ## View reference
 
