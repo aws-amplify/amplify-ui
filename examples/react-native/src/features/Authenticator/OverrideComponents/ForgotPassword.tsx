@@ -1,41 +1,31 @@
 /**
- * SignIn.tsx
+ * ForgotPassword.tsx
  */
 
 import React from 'react';
 
 import { useForm } from 'react-hook-form';
-import { SignInProps } from '@aws-amplify/ui-react-native';
+import { ForgotPasswordProps } from '@aws-amplify/ui-react-native';
 
 import {
   ErrorMessage,
   LinkButton,
   LinksContainer,
-  ProviderButton,
   SubmitButton,
   TextField,
   ViewHeader,
   ViewContainer,
   ViewSection,
-  ViewDivider,
 } from './components';
 
-function capitalize<T extends string>([first, ...rest]: T): Capitalize<T> {
-  return [first && first.toUpperCase(), rest.join('').toLowerCase()]
-    .filter(Boolean)
-    .join('') as Capitalize<T>;
-}
-
-export function SignIn({
+export function ForgotPassword({
   error: errorMessage,
   fields,
   handleSubmit,
   isPending,
-  socialProviders,
-  toFederatedSignIn,
-  toForgotPassword,
-  toSignUp,
-}: SignInProps): React.JSX.Element {
+
+  toSignIn,
+}: ForgotPasswordProps): React.JSX.Element {
   const {
     control,
     formState: { errors, isValid },
@@ -44,24 +34,7 @@ export function SignIn({
 
   return (
     <ViewContainer>
-      <ViewHeader>Sign In</ViewHeader>
-
-      <ViewSection>
-        {socialProviders?.map((name) => {
-          const provider = capitalize(name);
-          return (
-            <ProviderButton
-              icon={name}
-              key={provider}
-              onPress={() => toFederatedSignIn({ provider })}
-            >
-              Sign in with {provider}
-            </ProviderButton>
-          );
-        }) ?? null}
-      </ViewSection>
-
-      <ViewDivider />
+      <ViewHeader>Forgot Password</ViewHeader>
 
       <ViewSection>
         {fields.map(({ name, label, ...field }) => (
@@ -90,8 +63,7 @@ export function SignIn({
       <ErrorMessage>{errorMessage}</ErrorMessage>
 
       <LinksContainer>
-        <LinkButton onPress={toSignUp}>Sign Up</LinkButton>
-        <LinkButton onPress={toForgotPassword}>Forgot Password?</LinkButton>
+        <LinkButton onPress={toSignIn}>Back To Sign In</LinkButton>
       </LinksContainer>
     </ViewContainer>
   );
