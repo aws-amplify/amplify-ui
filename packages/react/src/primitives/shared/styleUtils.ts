@@ -128,7 +128,8 @@ export const convertStylePropsToStyleObj: ConvertStylePropsToStyleObj = ({
     .forEach((propKey) => {
       if (isComponentStyleProp(propKey)) {
         const values = props[propKey];
-        if (!values || isEmptyString(values)) return;
+        if (values === null || values === undefined || isEmptyString(values))
+          return;
 
         const reactStyleProp = ComponentPropsToStylePropsMap[propKey];
         // short circuit the style prop here if it is a string or design token
