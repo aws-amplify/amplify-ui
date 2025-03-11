@@ -11,7 +11,7 @@ import {
   TaskHandlerOptions,
 } from './types';
 
-import { constructBucket, getProgress } from './utils';
+import { constructBucket, getProgress, isMultipartUpload } from './utils';
 import { DEFAULT_CHECKSUM_ALGORITHM } from './constants';
 
 export interface UploadHandlerOptions
@@ -30,10 +30,6 @@ export interface UploadHandlerOutput
 
 export interface UploadHandler
   extends TaskHandler<UploadHandlerInput, UploadHandlerOutput> {}
-
-// 5MB for multipart upload
-// https://github.com/aws-amplify/amplify-js/blob/1a5366d113c9af4ce994168653df3aadb142c581/packages/storage/src/providers/s3/utils/constants.ts#L16
-export const MULTIPART_UPLOAD_THRESHOLD_BYTES = 5 * 1024 * 1024;
 
 export const UNDEFINED_CALLBACKS = {
   cancel: undefined,
@@ -65,7 +61,7 @@ export const uploadHandler: UploadHandler = ({ config, data, options }) => {
   const { cancel, pause, resume, result } = uploadData(input);
 
   return {
-    ...(file.size > MULTIPART_UPLOAD_THRESHOLD_BYTES
+    ...(isMultipartUpload(file)
       ? { cancel, pause, resume }
       : UNDEFINED_CALLBACKS),
     result: result

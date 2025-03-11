@@ -31,16 +31,16 @@ export const useProcessTasks = <
   TData extends TaskData,
   TResult,
   // infered value of `items` for conditional typing of `concurrency`
-  D extends TData[] | undefined = undefined,
+  TItems extends TData[] | undefined = undefined,
 >(
   handler: ActionHandler<TData, TResult>,
-  items?: D,
+  items?: TItems,
   options?: ProcessTasksOptions<
     TData,
     TResult,
-    D extends TData[] ? number : never
+    TItems extends TData[] ? number : never
   >
-): UseProcessTasksState<TData, D> => {
+): UseProcessTasksState<TData, TItems> => {
   const { concurrency, ...callbacks } = options ?? {};
 
   const callbacksRef = React.useRef(callbacks);
@@ -127,7 +127,7 @@ export const useProcessTasks = <
     flush();
   }, [createTask, flush, updateTask, items, refreshTaskData]);
 
-  const processNextTask: HandleProcessTasks<TData, D> = (_input) => {
+  const processNextTask: HandleProcessTasks<TData, TItems> = (_input) => {
     const hasInputData = isTaskHandlerInput(_input);
     if (hasInputData) {
       createTask(_input.data);
@@ -217,7 +217,7 @@ export const useProcessTasks = <
   const isProcessing = isProcessingTasks(statusCounts);
   const isProcessingComplete = hasCompletedProcessingTasks(statusCounts);
 
-  const handleProcessTasks: HandleProcessTasks<TData, D> = (input) => {
+  const handleProcessTasks: HandleProcessTasks<TData, TItems> = (input) => {
     if (isProcessing) {
       return;
     }

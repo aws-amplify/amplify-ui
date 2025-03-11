@@ -1,8 +1,8 @@
 import { uploadData, UploadDataInput } from '../../../storage-internal';
 import { isCancelError } from 'aws-amplify/storage';
 
+import { MULTIPART_UPLOAD_THRESHOLD_BYTES } from '../constants';
 import {
-  MULTIPART_UPLOAD_THRESHOLD_BYTES,
   uploadHandler,
   UploadHandlerInput,
   UNDEFINED_CALLBACKS,

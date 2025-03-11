@@ -1,4 +1,4 @@
-import { LocationItemType, TaskData } from '../../../actions';
+import { FileItem, LocationItemType } from '../../../actions';
 
 /**
  * native OS file picker type. to restrict selectable file types, define the picker types
@@ -17,10 +17,6 @@ export type FilesActionType =
   | { type: 'RESET_FILE_ITEMS' };
 
 export type HandleFilesAction = (input: FilesActionType) => void;
-
-export interface FileItem extends TaskData {
-  file: File;
-}
 
 export type FileItems = FileItem[];
 

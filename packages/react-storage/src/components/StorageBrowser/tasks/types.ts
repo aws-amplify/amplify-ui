@@ -1,52 +1,75 @@
-import { TaskHandlerInput, TaskData } from '../actions';
+import {
+  TaskHandlerInput,
+  TaskData,
+  TaskResult,
+  TaskResultStatus,
+} from '../actions';
 
-export type TaskStatus =
-  | 'CANCELED'
-  | 'FAILED'
-  | 'COMPLETE'
-  | 'OVERWRITE_PREVENTED'
-  | 'QUEUED'
-  | 'PENDING';
+/**
+ * extends {@link TaskResultStatus} to include `QUEUED` and `PENDING` statuses
+ * used in task processing
+ */
+export type TaskStatus = TaskResultStatus | 'QUEUED' | 'PENDING';
 
+/**
+ * aggregate task status counts
+ */
 export type StatusCounts = Record<TaskStatus | 'TOTAL', number>;
 
 export interface ProcessTasksOptions<
-  T extends TaskData = TaskData,
-  V = any,
-  U extends number | never = never,
+  TData extends TaskData = TaskData,
+  TValue = any,
+  TConcurrency extends number | never = never,
 > {
-  concurrency?: U;
-  onTaskCancel?: (data: Task<T>) => void;
-  onTaskComplete?: (data: Task<T>) => void;
-  onTaskError?: (data: Task<T>, error: Error | undefined) => void;
-  onTaskProgress?: (data: Task<T>, progress: number | undefined) => void;
-  onTaskSuccess?: (data: Task<T>, value: V | undefined) => void;
-  onTaskRemove?: (data: Task<T>) => void;
+  concurrency?: TConcurrency;
+  onTaskCancel?: (data: Task<TData>) => void;
+  onTaskComplete?: (data: Task<TData>) => void;
+  onTaskError?: (data: Task<TData>, error: Error | undefined) => void;
+  onTaskProgress?: (data: Task<TData>, progress: number | undefined) => void;
+  onTaskSuccess?: (data: Task<TData>, value: TValue | undefined) => void;
+  onTaskRemove?: (data: Task<TData>) => void;
 }
 
-export interface Task<T extends TaskData = TaskData, V = any> {
-  data: T;
-  message: string | undefined;
-  progress: number | undefined;
-  status: TaskStatus;
+/**
+ * task properties, extends {@link TaskResult} with task data, optional cancel
+ * handler and progress
+ */
+export interface Task<TData extends TaskData = TaskData, TValue = any>
+  extends TaskResult<TaskStatus, TValue> {
+  /**
+   * task specific data
+   */
+  data: TData;
+
+  /**
+   * optional task progress
+   */
+  progress?: number;
+
+  /**
+   * optional cancel handler
+   */
   cancel?: () => void;
-  value?: V;
 }
 
-export type Tasks<T extends TaskData, V = any> = Task<T, V>[];
+export type Tasks<TData extends TaskData, TValue = any> = Task<TData, TValue>[];
 
-export type HandleProcessTasks<T extends TaskData, U> = (
-  input: U extends T[] ? Omit<TaskHandlerInput<T>, 'data'> : TaskHandlerInput<T>
+export type HandleProcessTasks<TData extends TaskData, TItems> = (
+  // conditionally type input based on whether `items` are provided
+  input: TItems extends TData[]
+    ? Omit<TaskHandlerInput<TData>, 'data'>
+    : TaskHandlerInput<TData>
 ) => void;
 
-export interface TasksState<T extends TaskData = TaskData, V = any> {
+export interface TasksState<TData extends TaskData = TaskData, TValue = any> {
   isProcessing: boolean;
   isProcessingComplete: boolean;
   reset: () => void;
   statusCounts: StatusCounts;
-  tasks: Tasks<T, V>;
+  tasks: Tasks<TData, TValue>;
 }
-export type UseProcessTasksState<T extends TaskData, D> = [
-  TasksState<T>,
-  HandleProcessTasks<T, D>,
+
+export type UseProcessTasksState<TData extends TaskData, TItems> = [
+  TasksState<TData>,
+  HandleProcessTasks<TData, TItems>,
 ];

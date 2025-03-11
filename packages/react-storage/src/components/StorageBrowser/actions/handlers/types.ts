@@ -61,6 +61,9 @@ export interface FileItem extends TaskData {
   file: File;
 }
 
+export interface OptionalFileData
+  extends Partial<Omit<FileData, 'id' | 'key'>> {}
+
 export interface ActionInputConfig {
   accountId?: string;
   bucket: string;
@@ -102,13 +105,32 @@ export interface TaskHandlerInput<
   options?: K;
 }
 
+export type TaskResultStatus =
+  | 'CANCELED'
+  | 'COMPLETE'
+  | 'FAILED'
+  | 'OVERWRITE_PREVENTED';
+
+export interface TaskResult<TStatus, TValue> {
+  /**
+   * optional result message
+   */
+  message?: string;
+
+  /**
+   * task result status
+   */
+  status: TStatus;
+
+  /**
+   * task result value
+   */
+  value?: TValue;
+}
+
 export interface TaskHandlerOutput<K = any> {
   cancel?: () => void;
-  result: Promise<{
-    message?: string;
-    status: 'CANCELED' | 'COMPLETE' | 'FAILED' | 'OVERWRITE_PREVENTED';
-    value?: K;
-  }>;
+  result: Promise<TaskResult<TaskResultStatus, K>>;
 }
 
 export type TaskHandler<T = any, K = any> = (input: T) => K;

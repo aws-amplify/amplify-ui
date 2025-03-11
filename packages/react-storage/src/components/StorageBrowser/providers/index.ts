@@ -3,9 +3,4 @@ export {
   CredentialsProviderProps,
   RegisterAuthListener,
 } from './configuration';
-export {
-  FileItem,
-  FileItems,
-  StoreProviderProps,
-  StoreProvider,
-} from './store';
+export { FileItems, StoreProviderProps, StoreProvider } from './store';
