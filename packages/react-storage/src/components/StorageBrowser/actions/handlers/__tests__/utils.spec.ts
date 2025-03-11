@@ -1,14 +1,16 @@
 import { LocationAccess as AccessGrantLocation } from '../../../storage-internal';
-import { LocationData } from '../types';
 
+import { MULTIPART_UPLOAD_THRESHOLD_BYTES } from '../constants';
+import { LocationData } from '../types';
 import {
-  shouldExcludeLocation,
-  getFileKey,
-  parseAccessGrantLocation,
-  getFilteredLocations,
-  isFileItem,
-  isFileDataItem,
   createFileDataItem,
+  getFileKey,
+  getFilteredLocations,
+  isFileDataItem,
+  isFileItem,
+  isMultipartUpload,
+  parseAccessGrantLocation,
+  shouldExcludeLocation,
 } from '../utils';
 
 describe('utils', () => {
@@ -209,6 +211,29 @@ describe('utils', () => {
     it('should return true if object is FileDataItem', () => {
       expect(isFileDataItem({ fileKey: 'file-key' })).toBe(true);
       expect(isFileDataItem({})).toBe(false);
+    });
+  });
+
+  describe('isMultipartUpload', () => {
+    it('returns "true" for a `file.size` greater than the value of MULTIPART_UPLOAD_THRESHOLD_BYTES', () => {
+      const output = isMultipartUpload({
+        size: 1.1 * MULTIPART_UPLOAD_THRESHOLD_BYTES,
+      } as File);
+      expect(output).toBe(true);
+    });
+
+    it('returns "false" for a `file.size` equal to the value of MULTIPART_UPLOAD_THRESHOLD_BYTES', () => {
+      const output = isMultipartUpload({
+        size: MULTIPART_UPLOAD_THRESHOLD_BYTES,
+      } as File);
+      expect(output).toBe(false);
+    });
+
+    it('returns "false" for a `file.size` less than the value of MULTIPART_UPLOAD_THRESHOLD_BYTES', () => {
+      const output = isMultipartUpload({
+        size: MULTIPART_UPLOAD_THRESHOLD_BYTES / 2,
+      } as File);
+      expect(output).toBe(false);
     });
   });
 });

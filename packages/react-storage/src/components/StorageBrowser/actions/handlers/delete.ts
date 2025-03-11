@@ -1,6 +1,7 @@
 import { remove } from '../../storage-internal';
 
 import {
+  OptionalFileData,
   TaskHandler,
   TaskHandlerOptions,
   TaskHandlerInput,
@@ -12,7 +13,7 @@ import { constructBucket } from './utils';
 
 export interface DeleteHandlerOptions extends TaskHandlerOptions {}
 
-export interface DeleteHandlerData extends TaskData {
+export interface DeleteHandlerData extends OptionalFileData, TaskData {
   fileKey: string;
 }
 

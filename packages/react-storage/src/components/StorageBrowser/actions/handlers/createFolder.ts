@@ -14,8 +14,7 @@ import { DEFAULT_CHECKSUM_ALGORITHM } from './constants';
 export interface CreateFolderHandlerData extends TaskData {
   preventOverwrite?: boolean;
 }
-export interface CreateFolderHandlerOptions
-  extends TaskHandlerOptions<{ key: string }> {}
+export interface CreateFolderHandlerOptions extends TaskHandlerOptions {}
 
 export interface CreateFolderHandlerInput
   extends TaskHandlerInput<

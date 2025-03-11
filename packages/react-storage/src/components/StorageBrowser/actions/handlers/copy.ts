@@ -1,5 +1,6 @@
 import { copy, CopyInput } from '../../storage-internal';
 import {
+  OptionalFileData,
   TaskData,
   TaskHandler,
   TaskHandlerInput,
@@ -9,18 +10,14 @@ import {
 
 import { constructBucket } from './utils';
 
-export interface CopyHandlerData extends TaskData {
-  sourceKey: string;
-  eTag?: string;
+export interface CopyHandlerData extends OptionalFileData, TaskData {
   fileKey: string;
   lastModified: Date;
+  sourceKey: string;
 }
 
 export interface CopyHandlerInput
-  extends TaskHandlerInput<
-    CopyHandlerData,
-    TaskHandlerOptions<{ key: string }>
-  > {}
+  extends TaskHandlerInput<CopyHandlerData, TaskHandlerOptions> {}
 
 export interface CopyHandlerOutput extends TaskHandlerOutput<{ key: string }> {}
 

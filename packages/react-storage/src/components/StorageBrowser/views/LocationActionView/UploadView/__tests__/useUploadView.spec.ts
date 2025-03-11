@@ -78,6 +78,7 @@ describe('useUploadView', () => {
       {
         isProcessing: false,
         isProcessingComplete: false,
+        reset: jest.fn(),
         statusCounts: INITIAL_STATUS_COUNTS,
         tasks: [
           { ...taskOne, status: 'PENDING', cancel: mockCancel },
@@ -189,6 +190,7 @@ describe('useUploadView', () => {
         tasks,
         isProcessing: true,
         isProcessingComplete: false,
+        reset: jest.fn(),
         statusCounts: {
           ...INITIAL_STATUS_COUNTS,
           COMPLETE: 1,

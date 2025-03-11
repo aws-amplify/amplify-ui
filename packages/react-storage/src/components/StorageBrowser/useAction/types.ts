@@ -14,7 +14,7 @@ import {
   TaskData,
   UploadHandler,
 } from '../actions';
-import { StatusCounts, Task, Tasks } from '../tasks';
+import { ProcessTasksOptions, StatusCounts, Task } from '../tasks';
 
 export type ListActionState<T = any, K = any> = [
   state: DataState<T>,
@@ -55,82 +55,77 @@ export type DerivedActionHandlers<
   [K in keyof D]: ResolveHandlerType<D[K]>;
 };
 
-export interface HandleTasksOptions<
-  TData extends TaskData = TaskData,
-  TResult = any,
-> {
-  items: TData[];
-  onTaskSuccess?: (task: Task<TData, TResult>) => void;
+export type InferTask<THandler> =
+  THandler extends ActionHandler<infer T extends TaskData, infer V>
+    ? Task<T, V>
+    : never;
+
+//////////////////////
+// useHandler types //
+//////////////////////
+
+export interface UseHandlerOptions<T extends Task>
+  extends Pick<
+    ProcessTasksOptions<T, never>,
+    'onTaskError' | 'onTaskProgress' | 'onTaskSuccess'
+  > {}
+
+export interface UseHandlerOptionsWithItems<TTask extends Task>
+  extends UseHandlerOptions<TTask> {
+  items: TTask['data'][];
 }
 
-export type InferActionOptions<T> = T extends ActionHandler<infer I, infer R>
-  ? HandleTasksOptions<I & TaskData, R>
-  : never;
-
-interface HandleTasksInput {
+export interface HandleTasksInput {
   location?: LocationData;
 }
 
-interface HandleTaskInput<TData, TResult> {
-  data: TData;
-  location?: LocationData;
-  options?: {
-    onSuccess?: (data: { id: string; key: string }, result: TResult) => void;
-    onError?: (
-      data: { id: string; key: string },
-      message: string | undefined,
-      error: Error
-    ) => void;
-  };
-}
-
-type HandlerInput<TData, TResult, U> = U extends undefined
-  ? HandleTaskInput<TData, TResult>
-  : HandleTasksInput;
-
-export type InferHandlerInput<T, U = undefined> = T extends ActionHandler<
-  infer I,
-  infer R
->
-  ? HandlerInput<I, R, U>
-  : never;
-
-export interface TasksState<TData extends TaskData, TResult> {
+export interface TasksState<TTask> {
   isProcessing: boolean;
   isProcessingComplete: boolean;
   reset: () => void;
   statusCounts: StatusCounts;
-  tasks: Tasks<TData, TResult>;
+  tasks: TTask[];
 }
 
-type HandleTasks = (input?: HandleTasksInput) => void;
-type UseTasksState<TData extends TaskData, TResult> = [
-  TasksState<TData, TResult>,
-  HandleTasks,
+export type HandleTasksState<TTask> = [
+  TasksState<TTask>,
+  (input?: HandleTasksInput) => void,
+];
+export type HandleTaskState<TTask extends Task> = [
+  { task: TTask; isProcessing: boolean },
+  (input: HandleTaskInput<TTask['data']>) => void,
 ];
 
-type HandleTask<TData, TResult> = (
-  input: HandleTaskInput<TData, TResult>
-) => void;
-type UseTaskState<TData extends TaskData, TResult> = [
-  { task: Task<TData, TResult> | undefined; isProcessing: boolean },
-  HandleTask<TData, TResult>,
+export interface HandleTaskInput<TData> {
+  data: TData;
+  location?: LocationData;
+}
+
+/////////////////////
+// useAction types //
+/////////////////////
+
+export interface UseActionOptions<TTask extends Task>
+  extends UseHandlerOptions<TTask> {}
+
+export interface UseActionOptionsWithItems<TTask extends Task>
+  extends UseActionOptions<TTask> {
+  items: TTask['data'][];
+}
+
+interface HandleActionsInput extends HandleTasksInput {}
+
+export type UseActionsState<TTask> = [
+  TasksState<TTask>,
+  (input?: HandleActionsInput) => void,
 ];
 
-type UseHandlerState<
-  TData extends TaskData,
-  TResult,
-  U = undefined,
-> = U extends undefined
-  ? UseTaskState<TData, TResult>
-  : UseTasksState<TData, TResult>;
+interface HandleActionInput<TTask> extends HandleTaskInput<TTask> {}
 
-export type InferUseHandlerState<T, U = undefined> = T extends ActionHandler<
-  infer I,
-  infer R
->
-  ? UseHandlerState<I & TaskData, R, U>
-  : never;
+export type UseActionState<TTask extends Task> = [
+  { task: TTask | undefined; isProcessing: boolean },
+  (input: HandleActionInput<TTask['data']>) => void,
+];
 
 /**
  * `StorageBrowser` utility hook used to run default and custom action handlers
@@ -142,17 +137,27 @@ export interface UseAction<
   Handlers extends Record<keyof Handlers, ActionHandler>,
 > {
   /**
-   * Returns atomic task `state` and `handler``input`, `handler`
-   * requires `input` containing `data` and `options`
+   * accepts `handler` to be run as initial argument and `options` with `items`
+   * as second. Returns batch task state and `handler` accoeting optional input
+   * allowing for location override
    */
-  <K extends keyof Handlers>(key: K): InferUseHandlerState<Handlers[K]>;
+  <K extends keyof Handlers, TTask extends InferTask<Handlers[K]>>(
+    key: K,
+    options: UseActionOptionsWithItems<TTask>
+  ): UseActionsState<TTask>;
 
   /**
-   * Returns batch task state and `handler` with optional input, accepts `options`
-   * as second argument
+   * * accepts `handler` to be run as initial argument and `options` as second.
+   * Returns atomic task `state` and `handler``input`, `handler`  requires `input`
+   * containing `data` and `options`
    */
-  <K extends keyof Handlers, TOptions extends InferActionOptions<Handlers[K]>>(
+  <K extends keyof Handlers, TTask extends InferTask<Handlers[K]>>(
     key: K,
-    options?: TOptions
-  ): InferUseHandlerState<Handlers[K], TOptions>;
+    options?: UseActionOptions<TTask>
+  ): UseActionState<TTask>;
+
+  <K extends keyof Handlers, TTask extends InferTask<Handlers[K]>>(
+    key: K,
+    options?: UseActionOptionsWithItems<TTask> | UseActionOptions<TTask>
+  ): UseActionsState<TTask> | UseActionState<TTask>;
 }
