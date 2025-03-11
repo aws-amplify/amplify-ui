@@ -15,7 +15,7 @@ export function formatDate(date: Date): string {
   return `${dateString} at ${timeString}`;
 }
 
-export function arrayBufferToBase64(buffer: ArrayBuffer): string {
+function arrayBufferToBase64(buffer: ArrayBuffer): string {
   // Use node-based buffer if available
   // fall back on browser if not
   if (typeof Buffer !== 'undefined') {
@@ -41,14 +41,17 @@ export function convertBufferToBase64(
 
 // This function will return the file extension or mime type
 export function getAttachmentFormat(file: File): string {
-  // try to get format from mime type first
-  const mimeType = file.type.split('/')[1];
   const fileNameParts = file.name.split('.');
 
+  // try to get format from extension first
+  // this is because some document mime file types are very complex
+  // and don't easily map to what Bedrock needs like "doc" or "docx"
   if (fileNameParts.length > 1) {
     return fileNameParts[fileNameParts.length - 1];
   }
-  return mimeType;
+
+  // return mime type if no extension exists
+  return file.type.split('/')[1];
 }
 
 export function getValidDocumentName(file: File): string {
