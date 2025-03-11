@@ -1,4 +1,4 @@
-import { ImageContentBlock } from '../../types';
+import { ImageContentBlock, DocumentContentBlock } from '../../types';
 
 export function formatDate(date: Date): string {
   const dateString = date.toLocaleDateString('en-US', {
@@ -79,6 +79,18 @@ export const validFileTypes = new Set([
   ...documentFileTypes,
   ...imageFileTypes,
 ]);
+
+export function isDocumentFormat(
+  format: string
+): format is DocumentContentBlock['format'] {
+  return documentFileTypes.has(format);
+}
+
+export function isImageFormat(
+  format: string
+): format is ImageContentBlock['format'] {
+  return imageFileTypes.has(format);
+}
 
 export async function attachmentsValidator({
   files,

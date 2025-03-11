@@ -16,7 +16,7 @@ import { AIConversationElements } from '../../context/elements';
 import { convertBufferToBase64 } from '../../utils';
 import { ActionsBarControl } from './ActionsBarControl';
 import { AvatarControl } from './AvatarControl';
-import { ConversationMessage, DocumentContentBlock } from '../../../../types';
+import { ConversationMessage } from '../../../../types';
 import {
   RESPONSE_COMPONENT_PREFIX,
   ResponseComponentsContext,
@@ -80,7 +80,9 @@ export const DocumentContent = ({
   format,
   name,
   source,
-}: DocumentContentBlock['document']): React.JSX.Element => {
+}: NonNullable<
+  ConversationMessage['content'][number]['document']
+>): React.JSX.Element => {
   const icons = useIcons('aiConversation');
   const fileIcon = icons?.document ?? <IconDocument />;
   return (
@@ -128,9 +130,7 @@ export const MessageControl: MessageControl = ({ message }) => {
               )}
             />
           );
-          // @ts-expect-error
         } else if (content.document) {
-          // @ts-expect-error
           return <DocumentContent key={index} {...content.document} />;
         } else if (content.toolUse) {
           return <ToolContent toolUse={content.toolUse} key={index} />;

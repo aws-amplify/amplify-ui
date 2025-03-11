@@ -18,11 +18,11 @@ import {
 } from '../../context/ResponseComponentsContext';
 import { ControlsContext } from '../../context/ControlsContext';
 import {
-  arrayBufferToBase64,
   attachmentsValidator,
-  documentFileTypes,
   getAttachmentFormat,
   getValidDocumentName,
+  isDocumentFormat,
+  isImageFormat,
   validFileTypes,
 } from '../../utils';
 import { LoadingContext } from '../../context/LoadingContext';
@@ -187,22 +187,19 @@ export const FormControl: FormControl = () => {
       for (const file of input.files) {
         const buffer = await file.arrayBuffer();
         const format = getAttachmentFormat(file);
-        if (documentFileTypes.has(format)) {
+        if (isDocumentFormat(format)) {
           submittedContent.push({
-            // @ts-ignore
             document: {
               name: getValidDocumentName(file),
               format,
               source: {
-                // TODO: the JS client isn't converting this to base64 yet, so we will do that here now
-                bytes: arrayBufferToBase64(buffer),
+                bytes: new Uint8Array(buffer),
               },
             },
           });
-        } else {
+        } else if (isImageFormat(format)) {
           submittedContent.push({
             image: {
-              // @ts-ignore
               format,
               source: { bytes: new Uint8Array(buffer) },
             },

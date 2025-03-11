@@ -98,12 +98,11 @@ const TextAndToolUseMessage: ConversationMessage = {
 };
 
 const TextAndDocumentMessage: ConversationMessage = {
-  conversatinId: 'foobar',
+  conversationId: 'foobar',
   id: '3',
   content: [
-    { text: 'hey what up' },
+    { text: 'hey whats up' },
     {
-      // @ts-expect-error
       document: {
         name: 'test',
         format: 'txt',
@@ -111,6 +110,8 @@ const TextAndDocumentMessage: ConversationMessage = {
       },
     },
   ],
+  role: 'user',
+  createdAt: new Date(2023, 4, 21, 15, 25).toDateString(),
 };
 
 const avatars = {
@@ -318,7 +319,7 @@ describe('MessageControl', () => {
 
   it('renders document content', () => {
     render(<MessageControl message={TextAndDocumentMessage} />);
-    const message = screen.getByText('hey what up');
+    const message = screen.getByText('hey whats up');
     expect(message).toBeInTheDocument();
   });
 

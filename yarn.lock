@@ -832,10 +832,10 @@
     graphql "15.8.0"
     rxjs "^7.8.1"
 
-"@aws-amplify/data-schema@^1.0.0", "@aws-amplify/data-schema@^1.7.0":
-  version "1.16.0"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/data-schema/-/data-schema-1.16.0.tgz#586210e3569650c2526d61dd99be3ea2b3807445"
-  integrity sha512-pUgHG57bMQZ0gNrjc5HI2yuRTD3aCpVRm8d0I4unRz/felf8Llqx98AWN0U8o55O/VnIoj1OACOp42LFFA5dFA==
+"@aws-amplify/data-schema@^1.0.0", "@aws-amplify/data-schema@^1.19.0", "@aws-amplify/data-schema@^1.7.0":
+  version "1.19.0"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/data-schema/-/data-schema-1.19.0.tgz#ae6e6de93455af6a7015271091598ab3618a1688"
+  integrity sha512-M+5Jo9LU/Y5KhCZt1A22PLtb/NzQwKNji02f04GwPUWaGy47mjYfW6PC56zotDT39t8uiQvKHItYjZYZX7qbEg==
   dependencies:
     "@aws-amplify/data-schema-types" "*"
     "@smithy/util-base64" "^3.0.0"

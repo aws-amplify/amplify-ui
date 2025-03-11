@@ -25,29 +25,16 @@ export type ConversationMessage = NonNullable<
   isLoading?: boolean;
 };
 
-// temporary
-export type DocumentContentBlock = {
-  text?: never;
-  image?: never;
-  toolUse?: never;
-  toolResult?: never;
-  document: {
-    format: string;
-    name: string;
-    source: {
-      bytes: string;
-    };
-  };
-};
-
-export type ConversationMessageContent =
-  | ConversationMessage['content'][number]
-  | DocumentContentBlock;
+export type ConversationMessageContent = ConversationMessage['content'][number];
 
 export type TextContentBlock = NonNullable<ConversationMessageContent['text']>;
 
 export type ImageContentBlock = NonNullable<
   ConversationMessageContent['image']
+>;
+
+export type DocumentContentBlock = NonNullable<
+  ConversationMessageContent['document']
 >;
 
 export type ToolUseContent = NonNullable<ConversationMessageContent['toolUse']>;

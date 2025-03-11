@@ -127,7 +127,6 @@ export const MessageList: Required<ControlsContextProps>['MessageList'] = ({
         (content) =>
           content.image ??
           content.text ??
-          // @ts-expect-error
           content.document ??
           content.toolUse?.name.startsWith(RESPONSE_COMPONENT_PREFIX)
       )
