@@ -78,7 +78,10 @@ describe('useLocationsView', () => {
       {} as UseStoreState,
       mockDispatchStoreAction,
     ]);
-    mockUseAction.mockReturnValue([{}, mockHandleDownload]);
+    mockUseAction.mockReturnValue([
+      { isProcessing: false, task: undefined },
+      mockHandleDownload,
+    ]);
     mockGetFileKey.mockReturnValue(fileKey);
   });
 

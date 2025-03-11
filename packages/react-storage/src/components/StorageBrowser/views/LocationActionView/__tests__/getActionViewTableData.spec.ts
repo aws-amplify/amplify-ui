@@ -1,12 +1,12 @@
 import { FileDataItem } from '../../../actions';
 import { DEFAULT_UPLOAD_VIEW_DISPLAY_TEXT } from '../../../displayText/libraries/en/uploadView';
-import { Tasks } from '../../../tasks';
+import { Task } from '../../../tasks';
 
 import { getActionViewTableData } from '../getActionViewTableData';
 
 describe('getActionViewTableData', () => {
   it('should return correct table data for all task statuses', () => {
-    const tasks: Tasks<FileDataItem> = [
+    const tasks: Task<FileDataItem>[] = [
       {
         data: {
           id: '1',
@@ -89,7 +89,7 @@ describe('getActionViewTableData', () => {
   });
 
   it('should handle tasks with prefix keys', () => {
-    const tasks: Tasks<FileDataItem> = [
+    const tasks: Task<FileDataItem>[] = [
       {
         data: {
           id: '1',
@@ -131,7 +131,7 @@ describe('getActionViewTableData', () => {
   });
 
   it('should have remove handler on queued files', () => {
-    const tasks: Tasks<FileDataItem> = [
+    const tasks: Task<FileDataItem>[] = [
       {
         data: {
           id: '1',
@@ -168,7 +168,7 @@ describe('getActionViewTableData', () => {
   });
 
   it('should return the right display value for progress', () => {
-    const tasks: Tasks<FileDataItem> = [
+    const tasks: Task<FileDataItem>[] = [
       {
         data: {
           id: '1',

@@ -90,7 +90,7 @@ const LinkActionView = () => {
             return (
               <Flex direction="row" key={data.fileKey}>
                 <Text>{data.fileKey}</Text>
-                {value.link ? <Link href={value.link}>link</Link> : null}
+                {value?.link ? <Link href={value.link}>link</Link> : null}
                 <Text>{status}</Text>
               </Flex>
             );

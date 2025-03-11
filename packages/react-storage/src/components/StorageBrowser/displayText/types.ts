@@ -1,4 +1,4 @@
-import { StatusCounts, Tasks } from '../tasks';
+import { StatusCounts, Task } from '../tasks';
 import {
   CopyHandlerData,
   CreateFolderHandlerData,
@@ -85,7 +85,7 @@ export interface DefaultActionViewDisplayText<T extends TaskData = TaskData> {
   actionStartLabel: string;
   getActionCompleteMessage: (data?: {
     counts?: StatusCounts;
-    tasks?: Tasks<T>;
+    tasks?: Task<T>[];
   }) => { content?: string; type?: MessageType } | undefined;
   statusDisplayCanceledLabel: string;
   statusDisplayCompletedLabel: string;

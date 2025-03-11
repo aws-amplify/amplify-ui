@@ -1,14 +1,9 @@
 import { act, renderHook, waitFor } from '@testing-library/react';
 
-import {
-  ActionInputConfig,
-  TaskHandlerInput,
-  TaskHandlerOptions,
-  TaskHandlerOutput,
-} from '../../actions';
-import { FileItem } from '../../providers';
+import { ActionHandler, ActionInputConfig, FileItem } from '../../actions';
+import { Task } from '../types';
 
-import { useProcessTasks } from '../../tasks/useProcessTasks';
+import { useProcessTasks } from '../useProcessTasks';
 
 const config: ActionInputConfig = {
   accountId: 'accountId',
@@ -23,37 +18,29 @@ const items: FileItem[] = [
   { key: '2', id: '2', file: new File([], '2') },
 ];
 
-const action = jest.fn(
-  ({
-    data,
-    options,
-  }: TaskHandlerInput<
-    FileItem,
-    TaskHandlerOptions & { extraOption?: boolean }
-  >): TaskHandlerOutput => {
-    const { key } = data;
-    // initial progress
-    options?.onProgress?.(data, 0.5);
+const action: ActionHandler<FileItem> = jest.fn(({ data, options }) => {
+  const { key } = data;
+  // initial progress
+  options?.onProgress?.(data, 0.5);
 
-    if (key === '0' || key === '2') {
-      // success progress
-      options?.onProgress?.(data, 1);
-      return {
-        cancel: undefined,
-        result: Promise.resolve({ status: 'COMPLETE' as const }),
-      };
-    }
-
-    if (key === '1') {
-      return {
-        cancel: undefined,
-        result: Promise.reject({ status: 'FAILED' as const }),
-      };
-    }
-
-    throw new Error();
+  if (key === '0' || key === '2') {
+    // success progress
+    options?.onProgress?.(data, 1);
+    return {
+      cancel: undefined,
+      result: Promise.resolve({ status: 'COMPLETE' as const }),
+    };
   }
-);
+
+  if (key === '1') {
+    return {
+      cancel: undefined,
+      result: Promise.reject({ status: 'FAILED' as const }),
+    };
+  }
+
+  throw new Error();
+});
 
 const sleep = <T>(
   ms: number,
@@ -78,7 +65,7 @@ const createTimedAction =
     ms?: number;
     resolvedStatus?: 'COMPLETE' | 'FAILED' | 'CANCELED' | 'OVERWRITE_PREVENTED';
     shouldReject?: boolean;
-  }): ((input: TaskHandlerInput) => TaskHandlerOutput) =>
+  }): ActionHandler<FileItem> =>
   () => ({
     cancel,
     pause: undefined,
@@ -86,12 +73,12 @@ const createTimedAction =
     result: sleep(ms, resolvedStatus, shouldReject),
   });
 
-const onTaskCancel = jest.fn();
-const onTaskComplete = jest.fn();
-const onTaskError = jest.fn();
-const onTaskProgress = jest.fn();
-const onTaskRemove = jest.fn();
-const onTaskSuccess = jest.fn();
+const onTaskCancel = jest.fn((_task: Task<FileItem>) => null);
+const onTaskComplete = jest.fn((_task: Task<FileItem>) => null);
+const onTaskError = jest.fn((_task: Task<FileItem>) => null);
+const onTaskProgress = jest.fn((_task: Task<FileItem>) => null);
+const onTaskRemove = jest.fn((_task: Task<FileItem>) => null);
+const onTaskSuccess = jest.fn((_task: Task<FileItem>) => null);
 
 describe('useProcessTasks', () => {
   afterEach(() => {
@@ -101,7 +88,11 @@ describe('useProcessTasks', () => {
 
   it('handles concurrent tasks as expected', async () => {
     const { result } = renderHook(() =>
-      useProcessTasks(action, items, { concurrency: 2, onTaskProgress })
+      useProcessTasks(action, {
+        concurrency: 2,
+        items,
+        onTaskProgress,
+      })
     );
 
     const processTasks = result.current[1];
@@ -151,7 +142,7 @@ describe('useProcessTasks', () => {
     });
 
     const { result } = renderHook(() =>
-      useProcessTasks(cancelableAction, items, { onTaskCancel })
+      useProcessTasks(cancelableAction, { items, onTaskCancel })
     );
 
     const processTasks = result.current[1];
@@ -192,7 +183,7 @@ describe('useProcessTasks', () => {
   it('cancels a QUEUED task as expected', () => {
     const action = createTimedAction({});
 
-    const { result } = renderHook(() => useProcessTasks(action, items));
+    const { result } = renderHook(() => useProcessTasks(action, { items }));
 
     expect(result.current[0].tasks[0].cancel).toBeDefined();
     expect(result.current[0].tasks[0].status).toBe('QUEUED');
@@ -218,7 +209,7 @@ describe('useProcessTasks', () => {
       });
 
       const { result } = renderHook(() =>
-        useProcessTasks(cancelableAction, items)
+        useProcessTasks(cancelableAction, { items })
       );
 
       const processTasks = result.current[1];
@@ -247,7 +238,8 @@ describe('useProcessTasks', () => {
 
   it('behaves as expected in the happy path', async () => {
     const { result } = renderHook(() =>
-      useProcessTasks(action, items, {
+      useProcessTasks(action, {
+        items,
         onTaskError,
         onTaskComplete,
         onTaskSuccess,
@@ -291,7 +283,7 @@ describe('useProcessTasks', () => {
 
   it('removes a task as expected', () => {
     const { result, rerender } = renderHook(
-      (dataItems) => useProcessTasks(action, dataItems, { onTaskRemove }),
+      (data) => useProcessTasks(action, { items: data, onTaskRemove }),
       { initialProps: items }
     );
 
@@ -309,7 +301,7 @@ describe('useProcessTasks', () => {
 
   it('does not remove an inflight task', async () => {
     const { result, rerender } = renderHook(
-      (dataItems) => useProcessTasks(action, dataItems, { onTaskRemove }),
+      (data) => useProcessTasks(action, { items: data, onTaskRemove }),
       { initialProps: items }
     );
 
@@ -328,8 +320,8 @@ describe('useProcessTasks', () => {
   });
 
   it('excludes adding an item with an existing task', () => {
-    const { rerender, result } = renderHook((_items: FileItem[] = items) =>
-      useProcessTasks(action, _items)
+    const { rerender, result } = renderHook((data: FileItem[] = items) =>
+      useProcessTasks(action, { items: data })
     );
 
     const initTasks = result.current[0].tasks;
@@ -346,7 +338,7 @@ describe('useProcessTasks', () => {
   });
 
   it('returns the expected values for `isProcessing` and `isProcessingComplete`', async () => {
-    const { result } = renderHook(() => useProcessTasks(action, items));
+    const { result } = renderHook(() => useProcessTasks(action, { items }));
 
     const [initState, handleProcess] = result.current;
 
@@ -375,7 +367,7 @@ describe('useProcessTasks', () => {
   it('returns a `task` with a `cancel` value of `undefined` when the underlying action does not provide cancel from its output', () => {
     const action = createTimedAction({});
 
-    const { result } = renderHook(() => useProcessTasks(action, items));
+    const { result } = renderHook(() => useProcessTasks(action, { items }));
 
     const [initState, handleProcess] = result.current;
 

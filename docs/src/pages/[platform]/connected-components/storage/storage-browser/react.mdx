@@ -708,9 +708,9 @@ interface UploadViewState {
   onActionCancel: () => void;
   onActionExit: () => void;
   onActionStart: () => void;
-  onTaskRemove?: (task: Task<T>) => void;
+  onTaskRemove?: (task: Task<UploadHandlerData>) => void;
   statusCounts: StatusCounts;
-  tasks: Tasks<T>;
+  tasks: Task<UploadHandlerData>[];
 }
 ```
 
@@ -744,9 +744,9 @@ interface CopyViewState {
   onActionCancel: () => void;
   onActionExit: () => void;
   onActionStart: () => void;
-  onTaskRemove?: (task: Task<T>) => void;
+  onTaskRemove?: (task: Task<CopyHandlerData>) => void;
   statusCounts: StatusCounts;
-  tasks: Tasks<T>;
+  tasks: Task<CopyHandlerData>[];
 }
 ```
 
@@ -780,9 +780,9 @@ interface DeleteViewState {
   onActionCancel: () => void;
   onActionExit: () => void;
   onActionStart: () => void;
-  onTaskRemove?: (task: Task<T>) => void;
+  onTaskRemove?: (task: Task<DeleteHandlerData>) => void;
   statusCounts: StatusCounts;
-  tasks: Tasks<T>;
+  tasks: Task<DeleteHandlerData>[];
 }
 ```
 
@@ -810,9 +810,9 @@ interface CreateFolderViewState {
   onActionCancel: () => void;
   onActionExit: () => void;
   onActionStart: () => void;
-  onTaskRemove?: (task: Task<T>) => void;
+  onTaskRemove?: (task: Task<CreateFolderHandlerData>) => void;
   statusCounts: StatusCounts;
-  tasks: Tasks<T>;
+  tasks: Task<CreateFolderHandlerData>[];
 }
 ```
 
