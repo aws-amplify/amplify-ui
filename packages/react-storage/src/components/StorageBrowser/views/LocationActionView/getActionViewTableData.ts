@@ -83,7 +83,8 @@ export const getActionViewTableData = <T extends TaskData = TaskData>({
     headers.splice(
       -1,
       0,
-      getProgressHeader(displayText.tableColumnProgressHeader)
+      // @ts-expect-error
+      getProgressHeader(displayText.tableColumnProgressHeader as string)
     );
   }
 
