@@ -33,6 +33,10 @@ export type ImageContentBlock = NonNullable<
   ConversationMessageContent['image']
 >;
 
+export type DocumentContentBlock = NonNullable<
+  ConversationMessageContent['document']
+>;
+
 export type ToolUseContent = NonNullable<ConversationMessageContent['toolUse']>;
 
 export type ToolResultContent = NonNullable<
