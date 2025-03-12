@@ -26,7 +26,7 @@ jobs:
             { formatted: 073, value: 0.73 },
             { formatted: 072, value: 0.72 },
             { formatted: 071, value: 0.71 },
-            { formatted: 070, value: 0.70 }
+            { formatted: 070, value: '0.70' } # Format value as string to prevent auto-removal of needed trailing zero
           ]
         build-tool: [cli, expo]
         build-tool-version: [latest]
