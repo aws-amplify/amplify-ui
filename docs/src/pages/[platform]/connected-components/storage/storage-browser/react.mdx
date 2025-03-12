@@ -502,7 +502,7 @@ const { StorageBrowser } = createStorageBrowser({
 
 `custom` actions can be provided to add entirely new functionality to `StorageBrowser` which can be used by custom UI views. 
 
-The `createStorageBrowser` function returns a `useAction` hook that allows invocation of the custom or default actions in a custom UI view. There are 2 ways to use `useActions`:
+The `createStorageBrowser` function returns a `useAction` hook that allows invocation of the custom or default actions in a custom UI view. There are 2 ways to use `useAction`:
 
 * If an action should be executed concurrently on a list of data, e.g. a list of selected files, invoke the hook by supplying an array in `items`:
 
@@ -553,7 +553,7 @@ type GenerateLink = ActionHandler<
 >;
 
 export const generateUrlHandler: GenerateLink = ({ data, config, options }) => {
-  const asyncExecution = async () => {
+  const handleGenerateUrl = async () => {
     try {
       const s3 = new S3({
         region: config.region,
@@ -581,7 +581,7 @@ export const generateUrlHandler: GenerateLink = ({ data, config, options }) => {
     }
   };
 
-  return { result: asyncExecution() };
+  return { result: handleGenerateUrl() };
 };
 ```
   </ExampleCode>
