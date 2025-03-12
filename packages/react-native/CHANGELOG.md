@@ -1,5 +1,11 @@
 # @aws-amplify/ui-react-native
 
+## 2.4.4
+
+### Patch Changes
+
+- [#6383](https://github.com/aws-amplify/amplify-ui/pull/6383) [`f8319b263cc2df05e12aca672e06755ff8ffcba6`](https://github.com/aws-amplify/amplify-ui/commit/f8319b263cc2df05e12aca672e06755ff8ffcba6) Thanks [@jjarvisp](https://github.com/jjarvisp)! - chore(react-native): update react-native-safe-area-context peer dep
+
 ## 2.4.3
 
 ### Patch Changes
