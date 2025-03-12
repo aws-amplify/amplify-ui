@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { classNames, ComponentClassName } from '@aws-amplify/ui';
-import { Image } from '@aws-amplify/ui-react';
+import { Image, View } from '@aws-amplify/ui-react';
 import { useDeprecationWarning } from '@aws-amplify/ui-react/internal';
 import { useGetUrl, useSetUserAgent } from '@aws-amplify/ui-react-core';
 
@@ -53,6 +53,7 @@ export const StorageImage = ({
   onStorageGetError,
   onGetUrlError,
   validateObjectExistence = true,
+  style,
   ...rest
 }: StorageImageProps | StorageImagePathProps): React.JSX.Element => {
   const hasImgkey = !!imgKey;
@@ -99,11 +100,16 @@ export const StorageImage = ({
     ]
   );
 
-  const { url } = useGetUrl(input);
+  const { url, isLoading } = useGetUrl(input);
+
+  if (isLoading) {
+    return <View style={{ ...style }}></View>;
+  }
 
   return (
     <Image
       {...rest}
+      style={{ ...style }}
       className={classNames(ComponentClassName.StorageImage, className)}
       src={url?.toString() ?? fallbackSrc}
     />
