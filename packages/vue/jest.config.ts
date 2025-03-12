@@ -27,8 +27,10 @@ const config: Config = {
   moduleNameMapper: {
     '\\.css$': '<rootDir>/__mocks__/styleMock.js',
     '^nanoid$': '<rootDir>/../../node_modules/nanoid',
+    '^@/(.*)$': '<rootDir>/src/$1',
+    '^./src/components/(.*)$': '<rootDir>/src/components/$1',
   },
-  modulePathIgnorePatterns: ['<rootDir>/dist/'],
+  modulePathIgnorePatterns: ['<rootDir>/dist/', '<rootDir>/.rollup.cache/'],
   setupFilesAfterEnv: ['./jest.setup.ts'],
   transform: {
     '^.+\\.(ts)$': 'ts-jest',
@@ -38,6 +40,8 @@ const config: Config = {
   testEnvironmentOptions: {
     customExportConditions: ['node', 'node-addons'],
   },
+  roots: ['<rootDir>/src', '<rootDir>/__tests__'],
+  testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?|vue)$',
 };
 
 export default config;

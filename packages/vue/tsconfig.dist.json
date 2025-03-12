@@ -1,0 +1,19 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "declaration": true,
+    "declarationDir": "dist",
+    "outDir": "dist",
+    "sourceMap": true,
+    "rootDir": "src"
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"],
+  "exclude": [
+    "__tests__",
+    "__mocks__",
+    "node_modules",
+    "**/*.spec.ts",
+    "**/__tests__/**",
+    "global-spec.ts"
+  ]
+} 
