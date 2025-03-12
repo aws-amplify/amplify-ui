@@ -108,9 +108,10 @@ else
         # react-native-safe-area-context v5.0.0+ does not support RN 0.74 and lower
         DEPENDENCIES="$TAGGED_UI_FRAMEWORK @aws-amplify/react-native aws-amplify @react-native-community/netinfo @react-native-async-storage/async-storage react-native-get-random-values react-native-url-polyfill"
 
-        # react-native-safe-area-context v5 is required for >= 0.78
-        if [[ "$FRAMEWORK_VERSION" == "latest" || $FRAMEWORK_VERSION > "0.77" ]]; then
-            DEPENDENCIES="$DEPENDENCIES react-native-safe-area-context@^5.2.0 --force"
+        # react-native-safe-area-context v5 is required for >= 0.74
+        if [[ "$FRAMEWORK_VERSION" == "latest" || $FRAMEWORK_VERSION > "0.74" ]]; then
+            # build system test uses latest tag, will need to remove force after release
+            DEPENDENCIES="$DEPENDENCIES react-native-safe-area-context --force"
         else
             DEPENDENCIES="$DEPENDENCIES react-native-safe-area-context@^4.2.5"
         fi;
@@ -119,6 +120,12 @@ else
         install_dependencies_with_retries npm "$DEPENDENCIES"
         if [[ "$BUILD_TOOL" == "expo" ]]; then
             if [[ "$FRAMEWORK_VERSION" == "0.75" ]]; then 
+                # Prevent Expo from "fixing" force installed dependency
+                # Can be removed once peer dependency is available with latest tag
+                tmp=$(mktemp)
+                jq '.overrides."@aws-amplify/ui-react-native"."react-native-safe-area-context" = "$react-native-safe-area-context"' package.json > "$tmp"
+                mv "$tmp" package.json
+
                 # Expo SDK version 51.0.0 supports RN 0.74 and 0.75 but installs 0.74 by default https://expo.dev/changelog/2024/08-14-react-native-0.75#2-install-updated-packages
                 echo "npx expo install react-native@~0.75.0"
                 npx expo install react-native@~0.75.0
