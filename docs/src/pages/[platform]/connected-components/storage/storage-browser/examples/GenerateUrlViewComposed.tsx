@@ -37,11 +37,15 @@ const GenerateUrlView = () => {
   );
 
   const [
-    { tasks }, // Execution status and result of each task. The status includes  'CANCELED', 'FAILED', 'COMPLETE', 'OVERWRITE_PREVENTED', 'QUEUED', 'PENDING';
-    handleCreate, // Start executing the action at batch size of 4.
+    // Execution status and result of each task. The status includes  'CANCELED', 'FAILED', 'COMPLETE', 'OVERWRITE_PREVENTED', 'QUEUED', 'PENDING'.
+    { tasks },
+    // Start executing the action against the provided `items`.
+    handleGenerate,
   ] = useAction(
-    'generateUrl', // Name of the action
-    { items } // List of action inputs.
+    // Name of the action.
+    'generateUrl',
+    // List of action inputs.
+    { items }
   );
 
   return (
@@ -55,7 +59,7 @@ const GenerateUrlView = () => {
         max={300}
         onStepChange={setDuration}
       />
-      <Button onClick={() => handleCreate()}>Start</Button>
+      <Button onClick={() => handleGenerate()}>Start</Button>
       {!tasks
         ? null
         : tasks.map(({ data, status, value }) => {

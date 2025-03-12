@@ -454,9 +454,15 @@ The `useView()` hook takes a single argument which is the name of the view you w
 
 #### Extend default actions
 
-The `default` actions are invoked by associated default UI views to handle data transfer with S3. They are `listLocationItems`, `copy`, `createFolder`, `delete`, `download`, `upload`.
+The following `default` actions are invoked by the default UI views:
+* `listLocationItems`: List data under `bucket` or `prefix` in [LocationDetails view](#locationdetails-view).
+* `copy`: Copy data to another location within a `bucket` or `prefix` in [Copy action view](#copy-view).
+* `createFolder`: Create a folder within a `bucket` or `prefix` in [CreateFolder action view](#createfolder-view).
+* `delete`: Delete a given object in [Delete action view](#delete-view).
+* `download`: Download a given object in [LocationDetails view](#locationdetails-view) using an [anchor link](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#download).
+* `upload`: Upload a file in [Upload action view](#upload-view).
 
-You can use `defaultActionConfigs` to access the default implementation of these actions. Below is an example to instrument the default upload action to count the files being uploaded.
+`defaultActionConfigs` allows access to the default implementation of these actions. Below is an example to instrument the default upload action to count the files being uploaded.
 
 <Example>
 <ExampleCode>
@@ -494,12 +500,29 @@ const { StorageBrowser } = createStorageBrowser({
 
 #### New custom actions
 
-You can set the `custom` actions to add entirely new actions to the StorageBrowser component to be used in the custom UI view. 
+`custom` actions can be provided to add entirely new functionality to `StorageBrowser` which can be used by custom UI views. 
 
-The `createStorageBrowser` function returns a `useAction` hook that allows you to call the custom or default action in your custom UI view. There are 2 ways to use `useActions`:
-* If your action needs to be executed concurrently on a list of selected files, like example below. You invoke the hook by supplying the inputs array in `items`, like:
- `const [ { tasks }, handleAction ] = useAction('[my action name]', { items: ['input1', 'input2'] });`. Then call `handleAction()` to invoke concurrent execution of action and access the execution status of eac task via `tasks`.
-* If your action is only suppose to run with a given input. You invoke the hook with the action name only, like `const [{ task }, handleAction] = useAction('[my action name]');`. Then call `handleAction(input)` to invoke the action.
+The `createStorageBrowser` function returns a `useAction` hook that allows invocation of the custom or default actions in a custom UI view. There are 2 ways to use `useActions`:
+
+* If an action should be executed concurrently on a list of data, e.g. a list of selected files, invoke the hook by supplying an array in `items`:
+
+    ```tsx
+    // The execution status of each task is available in `tasks`
+    const [ { tasks }, handleAction ] = useAction('my-action-name', { items: ['input1', 'input2'] });
+
+    // call `handleAction()` to invoke concurrent execution against the provided `items`
+    <button onClick={() => handleAction()}>Start Concurrent Tasks!<button>
+    ```
+
+* To run an action against a single target invoke the hook with the action name only
+
+    ```tsx
+    // The execution status of the action is available in `task`
+    const [{ task }, handleAction] = useAction('[my action name]');
+
+    // call `handleAction` to invoke the execution against the given input data
+    <button onClick={() => handleAction(targetData)}>Start Single Task<button>
+    ```
 
 Below is an example of a custom action that launches a custom action to generate a temporary presigned URL to selected objects.
 
@@ -567,7 +590,7 @@ export const generateUrlHandler: GenerateLink = ({ data, config, options }) => {
 </Example>
 
 <Message colorTheme="info" variation='filled' heading="Security best practice">
-This example is for demonstration purpose only. In reality the expiration of a presigned URL is associated with the the expiry of AWS auth session signing the URL. You may need to assume a IAM role with longer-expiry session to sign a URL.
+This example is for demonstration purpose only. For more details, please refer to the [presigned URLs documentation](https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-presigned-url.html#PresignedUrl-Expiration)
 </Message>
 
 ## View reference

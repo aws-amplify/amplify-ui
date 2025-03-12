@@ -5,7 +5,7 @@ type GenerateLink = ActionHandler<
   { link: string }
 >;
 
-export const generateUrlHandler: GenerateLink = ({ data, config, options }) => {
+export const generateUrlHandler: GenerateLink = ({ data }) => {
   const asyncExecution = async () => {
     try {
       console.log('get url', data.key);
