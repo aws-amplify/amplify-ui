@@ -32,7 +32,7 @@ We currently test for the following versions:
 | -------------------- | ---------- | ------------------ |
 | Latest               | CLI        | Latest             |
 | Latest               | Expo       | Latest             |
-| 0.70 - 0.77          | CLI        | Latest             |
+| 0.71 - 0.77          | CLI        | Latest             |
 | 0.76 - 0.77          | Expo       | 52                 |
 | 0.74 - 0.75          | Expo       | 51                 |
 | 0.73                 | Expo       | 50                 |
