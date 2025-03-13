@@ -127,6 +127,8 @@
     flex-direction: row;
     align-items: flex-start;
     gap: var(--amplify-components-ai-conversation-form-gap);
+    // To ensure auto-resize textarea doesn't grow too big for its container
+    max-height: 100%;
 
     &__dropzone {
       text-align: initial;
