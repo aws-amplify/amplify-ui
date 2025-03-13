@@ -10,6 +10,7 @@ import {
   DisplayText,
   Theming,
   Icons,
+  GenerateUrlViewComposed,
 } from './examples'
 
 
@@ -447,6 +448,150 @@ The `useView()` hook takes a single argument which is the name of the view you w
 </Example>
 
 
+### Customize actions
+
+`StorageBrowser` uses actions to handle data operations with S3. The `actions` config allows for modification and replacement of default actions, or adding custom actions. The `actions` config accepts 2 categories of actions: `default` and `custom`. 
+
+#### Extend default actions
+
+The following `default` actions are invoked by the default UI views:
+* `listLocationItems`: List data under `bucket` or `prefix` in [LocationDetails view](#locationdetails-view).
+* `copy`: Copy data to another location within a `bucket` or `prefix` in [Copy action view](#copy-view).
+* `createFolder`: Create a folder within a `bucket` or `prefix` in [CreateFolder action view](#createfolder-view).
+* `delete`: Delete a given object in [Delete action view](#delete-view).
+* `download`: Download a given object in [LocationDetails view](#locationdetails-view) using an [anchor link](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#download).
+* `upload`: Upload a file in [Upload action view](#upload-view).
+
+`defaultActionConfigs` allows access to the default implementation of these actions. Below is an example to instrument the default upload action to count the files being uploaded.
+
+<Example>
+<ExampleCode>
+```ts
+import { createStorageBrowser, defaultActionConfigs } from '@aws-amplify/ui-react-storage/browser';
+
+const { StorageBrowser } = createStorageBrowser({
+  actions: {
+    default: {
+      upload: {
+        ...defaultActionConfigs.upload,
+        handler: ({ config, data, options }) =>
+          defaultActionConfigs.upload.handler({
+            config,
+            data,
+            options: {
+              ...options,
+              onSuccess: (...input) => {
+                options?.onSuccess?.(...input);
+                fileUploadCounter.add(1); // Your custom counter metrics.
+              },
+              onError: (data, message, error) => {
+                options?.onError?.(data, message, error);
+                fileUploadError.recordError(error); // Your custom error metrics.
+              },
+            },
+          }),
+      }
+    }
+  }
+});
+```
+</ExampleCode>
+</Example>
+
+#### New custom actions
+
+`custom` actions can be provided to add entirely new functionality to `StorageBrowser` which can be used by custom UI views. 
+
+The `createStorageBrowser` function returns a `useAction` hook that allows invocation of the custom or default actions in a custom UI view. There are 2 ways to use `useAction`:
+
+* If an action should be executed concurrently on a list of data, e.g. a list of selected files, invoke the hook by supplying an array in `items`:
+
+    ```tsx
+    // The execution status of each task is available in `tasks`
+    const [ { tasks }, handleAction ] = useAction('my-action-name', { items: ['input1', 'input2'] });
+
+    // call `handleAction()` to invoke concurrent execution against the provided `items`
+    <button onClick={() => handleAction()}>Start Concurrent Tasks!<button>
+    ```
+
+* To run an action against a single target invoke the hook with the action name only
+
+    ```tsx
+    // The execution status of the action is available in `task`
+    const [{ task }, handleAction] = useAction('[my action name]');
+
+    // call `handleAction` to invoke the execution against the given input data
+    <button onClick={() => handleAction(targetData)}>Start Single Task<button>
+    ```
+
+Below is an example of a custom action that launches a custom action to generate a temporary presigned URL to selected objects.
+
+<Example>
+<GenerateUrlViewComposed />
+<Tabs.Container defaultValue="generateUrlHandler">
+<Tabs.List>
+  <Tabs.Item value="StorageBrowser">StorageBrowser</Tabs.Item>
+  <Tabs.Item value="generateUrlHandler">generateUrl</Tabs.Item>
+</Tabs.List>
+<Tabs.Panel value="StorageBrowser">
+<ExampleCode>
+```jsx file=./examples/GenerateUrlViewComposed.tsx
+```
+</ExampleCode>
+</Tabs.Panel>
+<Tabs.Panel value="generateUrlHandler">
+  <ExampleCode>
+```ts
+import { S3, GetObjectCommand } from '@aws-sdk/client-s3';
+import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
+
+import { ActionHandler } from '@aws-amplify/ui-react-storage/browser';
+
+type GenerateLink = ActionHandler<
+  { duration: number; fileKey: string },
+  { link: string }
+>;
+
+export const generateUrlHandler: GenerateLink = ({ data, config, options }) => {
+  const handleGenerateUrl = async () => {
+    try {
+      const s3 = new S3({
+        region: config.region,
+        credentials: (await config.credentials()).credentials,
+      });
+      const command = new GetObjectCommand({
+        Bucket: config.bucket,
+        Key: data.key,
+      });
+      const url = await getSignedUrl(s3, command, {
+        expiresIn: data.duration * 60,
+      });
+      const result = {
+        status: 'COMPLETE' as const,
+        value: { link: url },
+      };
+      return result;
+    } catch (error) {
+      const message = 'Unable to generate link';
+      return {
+        status: 'FAILED' as const,
+        message,
+        error,
+      };
+    }
+  };
+
+  return { result: handleGenerateUrl() };
+};
+```
+  </ExampleCode>
+</Tabs.Panel>
+</Tabs.Container>
+</Example>
+
+<Message colorTheme="info" variation='filled' heading="Security best practice">
+This example is for demonstration purpose only. For more details, please refer to the [presigned URLs documentation](https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-presigned-url.html#PresignedUrl-Expiration)
+</Message>
 
 ## View reference
 
