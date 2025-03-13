@@ -16,18 +16,15 @@ export type TaskStatus = TaskResultStatus | 'QUEUED' | 'PENDING';
  */
 export type StatusCounts = Record<TaskStatus | 'TOTAL', number>;
 
-export interface ProcessTasksOptions<
-  TData extends TaskData = TaskData,
-  TValue = any,
-  TConcurrency extends number | never = never,
-> {
+export interface ProcessTasksOptions<TTask extends Task, TItems, TConcurrency> {
   concurrency?: TConcurrency;
-  onTaskCancel?: (data: Task<TData>) => void;
-  onTaskComplete?: (data: Task<TData>) => void;
-  onTaskError?: (data: Task<TData>, error: Error | undefined) => void;
-  onTaskProgress?: (data: Task<TData>, progress: number | undefined) => void;
-  onTaskSuccess?: (data: Task<TData>, value: TValue | undefined) => void;
-  onTaskRemove?: (data: Task<TData>) => void;
+  items?: TItems;
+  onTaskCancel?: (task: TTask) => void;
+  onTaskComplete?: (task: TTask) => void;
+  onTaskError?: (task: TTask, error: unknown) => void;
+  onTaskProgress?: (task: TTask, progress: number | undefined) => void;
+  onTaskSuccess?: (task: TTask, value: TTask['value'] | undefined) => void;
+  onTaskRemove?: (task: TTask) => void;
 }
 
 /**
@@ -42,12 +39,12 @@ export interface Task<TData extends TaskData = TaskData, TValue = any>
   data: TData;
 
   /**
-   * optional task progress
+   * task progress
    */
   progress?: number;
 
   /**
-   * optional cancel handler
+   * cancel handler
    */
   cancel?: () => void;
 }

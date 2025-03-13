@@ -14,7 +14,8 @@ import {
   TaskData,
   UploadHandler,
 } from '../actions';
-import { StatusCounts, Task, Tasks } from '../tasks';
+
+import { ProcessTasksOptions, StatusCounts, Task, Tasks } from '../tasks';
 
 export type ListActionState<T = any, K = any> = [
   state: DataState<T>,
@@ -55,81 +56,71 @@ export type DerivedActionHandlers<
   [K in keyof D]: ResolveHandlerType<D[K]>;
 };
 
-export interface HandleTasksOptions<
-  TData extends TaskData = TaskData,
-  TResult = any,
-> {
-  items: TData[];
-  onTaskSuccess?: (task: Task<TData, TResult>) => void;
-}
+export interface HandleTasksOptions<TTask extends Task, TItems>
+  extends Pick<
+    ProcessTasksOptions<TTask, TItems, never>,
+    'items' | 'onTaskError' | 'onTaskSuccess'
+  > {}
 
-export type InferActionOptions<T> = T extends ActionHandler<infer I, infer R>
-  ? HandleTasksOptions<I & TaskData, R>
-  : never;
-
-interface HandleTasksInput {
-  location?: LocationData;
-}
-
-interface HandleTaskInput<TData, TResult> {
-  data: TData;
-  location?: LocationData;
-  options?: {
-    onSuccess?: (data: { id: string; key: string }, result: TResult) => void;
-    onError?: (
-      data: { id: string; key: string },
-      message: string | undefined,
-      error: Error
-    ) => void;
-  };
-}
-
-type HandlerInput<TData, TResult, U> = U extends undefined
-  ? HandleTaskInput<TData, TResult>
-  : HandleTasksInput;
-
-export type InferHandlerInput<T, U = undefined> = T extends ActionHandler<
-  infer I,
+export type InferActionOptions<T> = T extends ActionHandler<
+  infer I extends TaskData,
   infer R
 >
-  ? HandlerInput<I, R, U>
+  ? HandleTasksOptions<Task<I, R>, never>
   : never;
 
-export interface TasksState<TData extends TaskData, TResult> {
+export interface HandleTasksInput {
+  location?: LocationData;
+}
+
+export interface HandleTaskInput<TData> extends HandleTasksInput {
+  data: TData;
+}
+
+// export type HandlerInput<TData, U> = U extends undefined
+//   ? HandleTaskInput<TData>
+//   : HandleTasksInput;
+
+export type HandlerInput<TData extends TaskData, TItems> = (
+  // conditionally type input based on whether `items` are provided
+  input: TItems extends TData[] ? HandleTasksInput : HandleTaskInput<TData>
+) => void;
+
+// export type InferHandlerInput<T, U = undefined> = T extends ActionHandler<
+//   infer I,
+//   infer R
+// >
+//   ? HandlerInput<I, R, U>
+//   : never;
+
+export interface TasksState<TTask> {
   isProcessing: boolean;
   isProcessingComplete: boolean;
   reset: () => void;
   statusCounts: StatusCounts;
-  tasks: Tasks<TData, TResult>;
+  tasks: TTask[];
 }
 
 type HandleTasks = (input?: HandleTasksInput) => void;
-type UseTasksState<TData extends TaskData, TResult> = [
-  TasksState<TData, TResult>,
-  HandleTasks,
+type UseTasksState<TTask> = [TasksState<TTask>, HandleTasks];
+
+type HandleTask<TData> = (input: HandleTaskInput<TData>) => void;
+
+type UseTaskState<TTask extends Task> = [
+  { task: TTask | undefined; isProcessing: boolean },
+  HandleTask<TTask['data']>,
 ];
 
-type HandleTask<TData, TResult> = (
-  input: HandleTaskInput<TData, TResult>
-) => void;
-type UseTaskState<TData extends TaskData, TResult> = [
-  { task: Task<TData, TResult> | undefined; isProcessing: boolean },
-  HandleTask<TData, TResult>,
-];
-
-type UseHandlerState<
-  TData extends TaskData,
-  TResult,
-  U = undefined,
-> = U extends undefined
-  ? UseTaskState<TData, TResult>
-  : UseTasksState<TData, TResult>;
+export type UseHandlerState<
+  TTask extends Task,
+  TItems = undefined,
+> = TItems extends undefined ? UseTaskState<TTask> : UseTasksState<TTask>;
 
 export type InferUseHandlerState<T, U = undefined> = T extends ActionHandler<
   infer I,
   infer R
 >
-  ? UseHandlerState<I & TaskData, R, U>
+  ? UseHandlerState<Task<I & TaskData, R>, U>
   : never;
 
 /**

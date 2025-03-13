@@ -17,10 +17,7 @@ export interface CopyHandlerData extends OptionalFileData, TaskData {
 }
 
 export interface CopyHandlerInput
-  extends TaskHandlerInput<
-    CopyHandlerData,
-    TaskHandlerOptions<{ key: string }>
-  > {}
+  extends TaskHandlerInput<CopyHandlerData, TaskHandlerOptions> {}
 
 export interface CopyHandlerOutput extends TaskHandlerOutput<{ key: string }> {}
 

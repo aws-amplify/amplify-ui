@@ -29,19 +29,17 @@ const isTaskHandlerInput = <T extends TaskData>(
 
 export const useProcessTasks = <
   TData extends TaskData,
-  TResult,
-  // infered value of `items` for conditional typing of `concurrency`
+  TValue,
+  TTask extends Task<TData, TValue>,
+  // infered value of provided `items`
   TItems extends TData[] | undefined = undefined,
+  // `undefined` if `items` are not provided
+  TConcurrency extends TItems extends TData[] ? number : never = never,
 >(
-  handler: ActionHandler<TData, TResult>,
-  items?: TItems,
-  options?: ProcessTasksOptions<
-    TData,
-    TResult,
-    TItems extends TData[] ? number : never
-  >
+  handler: ActionHandler<TData, TValue>,
+  options?: ProcessTasksOptions<TTask, TItems, TConcurrency>
 ): UseProcessTasksState<TData, TItems> => {
-  const { concurrency, ...callbacks } = options ?? {};
+  const { concurrency, items, ...callbacks } = options ?? {};
 
   const callbacksRef = React.useRef(callbacks);
 
@@ -49,7 +47,7 @@ export const useProcessTasks = <
     callbacksRef.current = callbacks;
   }
 
-  const tasksRef = React.useRef<Map<string, Task<TData>>>(new Map());
+  const tasksRef = React.useRef<Map<string, TTask>>(new Map());
 
   const flush = React.useReducer(() => ({}), {})[1];
 
@@ -62,7 +60,7 @@ export const useProcessTasks = <
   }, []);
 
   const updateTask = React.useCallback(
-    (id: string, next?: Partial<Task<TData>>) => {
+    <T extends Task>(id: string, next?: Partial<T>) => {
       const { onTaskRemove } = callbacksRef.current;
       const task = tasksRef.current.get(id);
 
@@ -93,7 +91,7 @@ export const useProcessTasks = <
         updateTask(data.id, { cancel: undefined, status: 'CANCELED' });
       }
 
-      const task = { ...QUEUED_TASK_BASE, cancel, data };
+      const task = { ...QUEUED_TASK_BASE, cancel, data } as TTask;
       tasksRef.current.set(data.id, task);
     },
     [updateTask]

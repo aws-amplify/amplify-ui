@@ -83,16 +83,10 @@ export interface TaskData {
   id: string;
 }
 
-export interface TaskHandlerOptions<V = any> {
+export interface TaskHandlerOptions {
   onProgress?: (
     data: { key: string; id: string },
     progress: number | undefined
-  ) => void;
-  onSuccess?: (data: { key: string; id: string }, value: V) => void;
-  onError?: (
-    data: { key: string; id: string },
-    message: string | undefined,
-    error: Error
   ) => void;
 }
 

@@ -8,7 +8,7 @@ import {
   TaskHandlerOutput,
 } from '../../actions';
 
-import { useProcessTasks } from '../../tasks/useProcessTasks';
+import { useProcessTasks } from '../useProcessTasks';
 
 const config: ActionInputConfig = {
   accountId: 'accountId',
@@ -101,7 +101,7 @@ describe('useProcessTasks', () => {
 
   it('handles concurrent tasks as expected', async () => {
     const { result } = renderHook(() =>
-      useProcessTasks(action, items, { concurrency: 2, onTaskProgress })
+      useProcessTasks(action, { concurrency: 2, items, onTaskProgress })
     );
 
     const processTasks = result.current[1];
@@ -151,7 +151,7 @@ describe('useProcessTasks', () => {
     });
 
     const { result } = renderHook(() =>
-      useProcessTasks(cancelableAction, items, { onTaskCancel })
+      useProcessTasks(cancelableAction, { items, onTaskCancel })
     );
 
     const processTasks = result.current[1];
@@ -192,7 +192,7 @@ describe('useProcessTasks', () => {
   it('cancels a QUEUED task as expected', () => {
     const action = createTimedAction({});
 
-    const { result } = renderHook(() => useProcessTasks(action, items));
+    const { result } = renderHook(() => useProcessTasks(action, { items }));
 
     expect(result.current[0].tasks[0].cancel).toBeDefined();
     expect(result.current[0].tasks[0].status).toBe('QUEUED');
@@ -218,7 +218,7 @@ describe('useProcessTasks', () => {
       });
 
       const { result } = renderHook(() =>
-        useProcessTasks(cancelableAction, items)
+        useProcessTasks(cancelableAction, { items })
       );
 
       const processTasks = result.current[1];
@@ -247,7 +247,8 @@ describe('useProcessTasks', () => {
 
   it('behaves as expected in the happy path', async () => {
     const { result } = renderHook(() =>
-      useProcessTasks(action, items, {
+      useProcessTasks(action, {
+        items,
         onTaskError,
         onTaskComplete,
         onTaskSuccess,
@@ -291,7 +292,7 @@ describe('useProcessTasks', () => {
 
   it('removes a task as expected', () => {
     const { result, rerender } = renderHook(
-      (dataItems) => useProcessTasks(action, dataItems, { onTaskRemove }),
+      (data) => useProcessTasks(action, { items: data, onTaskRemove }),
       { initialProps: items }
     );
 
@@ -309,7 +310,7 @@ describe('useProcessTasks', () => {
 
   it('does not remove an inflight task', async () => {
     const { result, rerender } = renderHook(
-      (dataItems) => useProcessTasks(action, dataItems, { onTaskRemove }),
+      (data) => useProcessTasks(action, { items: data, onTaskRemove }),
       { initialProps: items }
     );
 
@@ -328,8 +329,8 @@ describe('useProcessTasks', () => {
   });
 
   it('excludes adding an item with an existing task', () => {
-    const { rerender, result } = renderHook((_items: FileItem[] = items) =>
-      useProcessTasks(action, _items)
+    const { rerender, result } = renderHook((data: FileItem[] = items) =>
+      useProcessTasks(action, { items: data })
     );
 
     const initTasks = result.current[0].tasks;
@@ -346,7 +347,7 @@ describe('useProcessTasks', () => {
   });
 
   it('returns the expected values for `isProcessing` and `isProcessingComplete`', async () => {
-    const { result } = renderHook(() => useProcessTasks(action, items));
+    const { result } = renderHook(() => useProcessTasks(action, { items }));
 
     const [initState, handleProcess] = result.current;
 
@@ -375,7 +376,7 @@ describe('useProcessTasks', () => {
   it('returns a `task` with a `cancel` value of `undefined` when the underlying action does not provide cancel from its output', () => {
     const action = createTimedAction({});
 
-    const { result } = renderHook(() => useProcessTasks(action, items));
+    const { result } = renderHook(() => useProcessTasks(action, { items }));
 
     const [initState, handleProcess] = result.current;
 

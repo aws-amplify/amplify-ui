@@ -14,8 +14,7 @@ import {
 import { constructBucket, getProgress, isMultipartUpload } from './utils';
 import { DEFAULT_CHECKSUM_ALGORITHM } from './constants';
 
-export interface UploadHandlerOptions
-  extends TaskHandlerOptions<{ key: string }> {}
+export interface UploadHandlerOptions extends TaskHandlerOptions {}
 
 export interface UploadHandlerData extends TaskData {
   file: File;
