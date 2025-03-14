@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Button, Image, Text, View } from '@aws-amplify/ui-react';
 import { IconClose, useIcons } from '@aws-amplify/ui-react/internal';
-import { ConversationInputContext } from '../../context';
+import { ConversationInputContextProps } from '../../context';
 import { ComponentClassName, humanFileSize } from '@aws-amplify/ui';
 
 const Attachment = ({
@@ -47,8 +47,8 @@ export const Attachments = ({
   setInput,
 }: {
   files?: File[];
-  setInput: ConversationInputContext['setInput'];
-}): JSX.Element | null => {
+  setInput: ConversationInputContextProps['setInput'];
+}): React.JSX.Element | null => {
   if (!files || files.length < 1) {
     return null;
   }

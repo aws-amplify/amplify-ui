@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { AIConversationElements } from './context/elements';
 import {
   ActionsBarControl,
   AvatarControl,
@@ -29,7 +28,6 @@ export interface Controls {
 }
 
 export interface AIConversationInput {
-  elements?: Partial<AIConversationElements>;
   displayText?: DisplayTextTemplate<AIConversationDisplayText>;
   welcomeMessage?: React.ReactNode;
   suggestedPrompts?: SuggestedPrompt[];
@@ -39,6 +37,8 @@ export interface AIConversationInput {
   variant?: MessageVariant;
   controls?: ControlsContextProps;
   allowAttachments?: boolean;
+  maxAttachments?: number;
+  maxAttachmentSize?: number;
   messageRenderer?: MessageRenderer;
 }
 
@@ -47,15 +47,16 @@ export interface AIConversationProps {
   handleSendMessage: SendMessage;
   avatars?: Avatars;
   isLoading?: boolean;
+  aiContext?: () => object;
 }
 
 export interface AIConversation<
   PropsType extends AIConversationProps = AIConversationProps,
 > {
-  (props: PropsType): JSX.Element;
-  DefaultMessage: () => JSX.Element | undefined;
-  Messages: () => JSX.Element;
-  Form: () => JSX.Element;
+  (props: PropsType): React.JSX.Element;
+  DefaultMessage: () => React.JSX.Element | undefined;
+  Messages: () => React.JSX.Element;
+  Form: () => React.JSX.Element;
   Provider: (props: AIConversationProviderProps) => React.JSX.Element;
 }
 

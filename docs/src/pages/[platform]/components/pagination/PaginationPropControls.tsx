@@ -24,7 +24,7 @@ export interface PaginationPropControlsProps extends PaginationProps {
 }
 
 interface PaginationPropControlsInterface {
-  (props: PaginationPropControlsProps): JSX.Element;
+  (props: PaginationPropControlsProps): React.JSX.Element;
 }
 
 export const PaginationPropControls: PaginationPropControlsInterface = ({

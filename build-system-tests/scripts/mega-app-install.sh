@@ -105,12 +105,33 @@ if [ "$PKG_MANAGER" == 'yarn' ]; then
     yarn add $DEPENDENCIES
 else
     if [[ "$FRAMEWORK" == "react-native" ]]; then
-        DEPENDENCIES="$TAGGED_UI_FRAMEWORK @aws-amplify/react-native aws-amplify react-native-safe-area-context @react-native-community/netinfo @react-native-async-storage/async-storage react-native-get-random-values react-native-url-polyfill"
+        # react-native-safe-area-context v5.0.0+ does not support RN 0.74 and lower
+        DEPENDENCIES="$TAGGED_UI_FRAMEWORK @aws-amplify/react-native aws-amplify @react-native-community/netinfo @react-native-async-storage/async-storage react-native-get-random-values react-native-url-polyfill"
+
+        # react-native-safe-area-context v5 is required for >= 0.74
+        if [[ "$FRAMEWORK_VERSION" == "latest" || $FRAMEWORK_VERSION > "0.74" ]]; then
+            # build system test uses latest tag, will need to remove force after release
+            DEPENDENCIES="$DEPENDENCIES react-native-safe-area-context --force"
+        else
+            DEPENDENCIES="$DEPENDENCIES react-native-safe-area-context@^4.2.5"
+        fi;
+
         echo "npm install $DEPENDENCIES"
-        npm install $DEPENDENCIES
+        install_dependencies_with_retries npm "$DEPENDENCIES"
         if [[ "$BUILD_TOOL" == "expo" ]]; then
+            if [[ "$FRAMEWORK_VERSION" == "0.75" ]]; then 
+                # Prevent Expo from "fixing" force installed dependency
+                # Can be removed once peer dependency is available with latest tag
+                tmp=$(mktemp)
+                jq '.overrides."@aws-amplify/ui-react-native"."react-native-safe-area-context" = "$react-native-safe-area-context"' package.json > "$tmp"
+                mv "$tmp" package.json
+
+                # Expo SDK version 51.0.0 supports RN 0.74 and 0.75 but installs 0.74 by default https://expo.dev/changelog/2024/08-14-react-native-0.75#2-install-updated-packages
+                echo "npx expo install react-native@~0.75.0"
+                npx expo install react-native@~0.75.0
+            fi
             echo "npx expo install --fix"
-            npx expo install --fix # fix the dependencies that are incompatible with the installed expo versio
+            npx expo install --fix # fix the dependencies that are incompatible with the installed expo version
         fi
     else
         install_dependencies_with_retries npm "$DEPENDENCIES"

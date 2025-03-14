@@ -1,5 +1,69 @@
 # @aws-amplify/ui-angular
 
+## 5.0.39
+
+### Patch Changes
+
+- Updated dependencies [[`81543cb38604a80ca2d8b93cfb7d1884d43e0a4f`](https://github.com/aws-amplify/amplify-ui/commit/81543cb38604a80ca2d8b93cfb7d1884d43e0a4f)]:
+  - @aws-amplify/ui@6.9.0
+
+## 5.0.38
+
+### Patch Changes
+
+- Updated dependencies [[`fa6984721124029cf2e7d5b4ac5a3cc6c34097a6`](https://github.com/aws-amplify/amplify-ui/commit/fa6984721124029cf2e7d5b4ac5a3cc6c34097a6)]:
+  - @aws-amplify/ui@6.8.2
+
+## 5.0.37
+
+### Patch Changes
+
+- [#6333](https://github.com/aws-amplify/amplify-ui/pull/6333) [`10b7c9e9d3f1576df71d578892a533738a5e878e`](https://github.com/aws-amplify/amplify-ui/commit/10b7c9e9d3f1576df71d578892a533738a5e878e) Thanks [@QuentinFchx](https://github.com/QuentinFchx)! - fix(angular): stop auth actor when destroying `AuthenticatorService`
+
+## 5.0.36
+
+### Patch Changes
+
+- Updated dependencies [[`272ec8e575718ea990dcb9f51d1baaf522f45fb6`](https://github.com/aws-amplify/amplify-ui/commit/272ec8e575718ea990dcb9f51d1baaf522f45fb6)]:
+  - @aws-amplify/ui@6.8.1
+
+## 5.0.35
+
+### Patch Changes
+
+- Updated dependencies [[`8757f03b7b1d761d9a13cfe29382a2208d4f3999`](https://github.com/aws-amplify/amplify-ui/commit/8757f03b7b1d761d9a13cfe29382a2208d4f3999), [`8d2aa79b174d4e48aaca913bd568898b8c8975a2`](https://github.com/aws-amplify/amplify-ui/commit/8d2aa79b174d4e48aaca913bd568898b8c8975a2)]:
+  - @aws-amplify/ui@6.8.0
+
+## 5.0.34
+
+### Patch Changes
+
+- [#6250](https://github.com/aws-amplify/amplify-ui/pull/6250) [`27c72b51e1f11073e383eb848a99589c234abb23`](https://github.com/aws-amplify/amplify-ui/commit/27c72b51e1f11073e383eb848a99589c234abb23) Thanks [@calebpollman](https://github.com/calebpollman)! - deps: resolve all versions of nanoid to 3.3.8
+
+- Updated dependencies [[`96be188317d72b89b6bfbc14a3d4ee76daad2a8b`](https://github.com/aws-amplify/amplify-ui/commit/96be188317d72b89b6bfbc14a3d4ee76daad2a8b)]:
+  - @aws-amplify/ui@6.7.2
+
+## 5.0.33
+
+### Patch Changes
+
+- Updated dependencies [[`9ab56f499f4596062fe4614a016efc3dfc88ef03`](https://github.com/aws-amplify/amplify-ui/commit/9ab56f499f4596062fe4614a016efc3dfc88ef03)]:
+  - @aws-amplify/ui@6.7.1
+
+## 5.0.32
+
+### Patch Changes
+
+- Updated dependencies [[`70971f310`](https://github.com/aws-amplify/amplify-ui/commit/70971f310f69717657849f29d0a9e1d993b08d9a)]:
+  - @aws-amplify/ui@6.7.0
+
+## 5.0.31
+
+### Patch Changes
+
+- Updated dependencies [[`0d4d2b91c`](https://github.com/aws-amplify/amplify-ui/commit/0d4d2b91c84b2eb5e9365bb837855e5a9b4e3c06), [`24635cfd5`](https://github.com/aws-amplify/amplify-ui/commit/24635cfd5fb6b01bfd3bde1464c7064b2d1484c4)]:
+  - @aws-amplify/ui@6.6.6
+
 ## 5.0.30
 
 ### Patch Changes

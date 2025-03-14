@@ -35,7 +35,7 @@ const defaultOptions: SnackOptions = {
     '@aws-amplify/rtn-web-browser',
     '@aws-amplify/ui-react-native',
     'aws-amplify@5.3.11',
-    'react-native-safe-area-context',
+    'react-native-safe-area-context@^4.2.5',
     '@react-native-community/netinfo',
     '@react-native-async-storage/async-storage',
     'react-native-get-random-values',
@@ -65,7 +65,7 @@ export const ExpoSnack = (options: SnackOptions) => {
   // We need a unique ID b/c we need to listen to window events that the iframe
   // will send and it sends the iframe id
   const id = React.useRef(Math.random().toString(36).substring(2, 10));
-  const ref = React.useRef<HTMLIFrameElement>();
+  const ref = React.useRef<HTMLIFrameElement>(undefined);
   const [theme, setTheme] = React.useState('light');
 
   React.useLayoutEffect(() => {

@@ -3,12 +3,13 @@ import { UploadDataWithPathInput, UploadDataInput } from 'aws-amplify/storage';
 
 import { isString, isFunction } from '@aws-amplify/ui';
 
-import { ProcessFile, StorageAccessLevel } from '../types';
+import { ProcessFile, StorageAccessLevel, StorageBucket } from '../types';
 import { resolveFile } from './resolveFile';
 import { PathCallback, PathInput } from './uploadFile';
 
 export interface GetInputParams {
   accessLevel: StorageAccessLevel | undefined;
+  bucket?: StorageBucket;
   file: File;
   key: string;
   onProgress: NonNullable<UploadDataWithPathInput['options']>['onProgress'];
@@ -19,6 +20,7 @@ export interface GetInputParams {
 
 export const getInput = ({
   accessLevel,
+  bucket,
   file,
   key,
   onProgress,
@@ -41,7 +43,13 @@ export const getInput = ({
     const contentType = file.type || 'binary/octet-stream';
 
     // IMPORTANT: always pass `...rest` here for backwards compatibility
-    const options = { contentType, onProgress, useAccelerateEndpoint, ...rest };
+    const options = {
+      bucket,
+      contentType,
+      onProgress,
+      useAccelerateEndpoint,
+      ...rest,
+    };
 
     let inputResult: PathInput | UploadDataInput;
     if (hasKeyInput) {
@@ -61,7 +69,7 @@ export const getInput = ({
         hasCallbackPath ? path({ identityId }) : path
       }${processedKey}`;
 
-      inputResult = { data: file, path: resolvedPath, options };
+      inputResult = { data, path: resolvedPath, options };
     }
 
     return inputResult;

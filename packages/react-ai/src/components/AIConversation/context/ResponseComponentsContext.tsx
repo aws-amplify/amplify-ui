@@ -27,7 +27,7 @@ export const ResponseComponentsProvider = ({
 }: {
   children?: React.ReactNode;
   responseComponents?: ResponseComponents;
-}): JSX.Element => {
+}): React.JSX.Element => {
   const _responseComponents = React.useMemo(
     () => prependResponseComponents(responseComponents),
     [responseComponents]
@@ -51,7 +51,12 @@ export const convertResponseComponentsToToolConfiguration = (
     const { props } = responseComponents[toolName];
     const requiredProps: string[] = [];
     Object.keys(props).forEach((propName) => {
-      if (props[propName].required) requiredProps.push(propName);
+      if (props[propName].required) {
+        requiredProps.push(propName);
+        // The inputSchema for a tool needs to not
+        // have `required` in the properties
+        props[propName].required = undefined;
+      }
     });
     tools[toolName] = {
       description: responseComponents[toolName].description,

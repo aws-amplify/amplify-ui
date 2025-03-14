@@ -1,26 +1,25 @@
 import React from 'react';
 
-import { ElementsProvider } from '@aws-amplify/ui-react-core/elements';
-
 import { AIConversationInput, AIConversationProps } from './types';
 import { defaultAIConversationDisplayTextEn } from './displayText';
 import {
-  ConversationDisplayTextProvider,
-  SuggestedPromptProvider,
-  ConversationInputContextProvider,
-  AvatarsProvider,
   ActionsProvider,
-  MessageVariantProvider,
-  MessagesProvider,
+  AIContextProvider,
+  AttachmentProvider,
+  AvatarsProvider,
   ControlsProvider,
+  ConversationDisplayTextProvider,
+  ConversationInputContextProvider,
+  FallbackComponentProvider,
   LoadingContextProvider,
+  MessageRendererProvider,
+  MessagesProvider,
+  MessageVariantProvider,
   ResponseComponentsProvider,
   SendMessageContextProvider,
+  SuggestedPromptProvider,
   WelcomeMessageProvider,
-  FallbackComponentProvider,
-  MessageRendererProvider,
 } from './context';
-import { AttachmentProvider } from './context/AttachmentContext';
 
 export interface AIConversationProviderProps
   extends AIConversationInput,
@@ -29,15 +28,17 @@ export interface AIConversationProviderProps
 }
 
 export const AIConversationProvider = ({
+  aiContext,
   actions,
   allowAttachments,
   avatars,
   children,
   controls,
   displayText,
-  elements,
   handleSendMessage,
   isLoading,
+  maxAttachmentSize,
+  maxAttachments,
   messages,
   messageRenderer,
   responseComponents,
@@ -51,44 +52,51 @@ export const AIConversationProvider = ({
     ...displayText,
   };
   return (
-    <ElementsProvider elements={elements}>
-      <ControlsProvider controls={controls}>
-        <SuggestedPromptProvider suggestedPrompts={suggestedPrompts}>
-          <WelcomeMessageProvider welcomeMessage={welcomeMessage}>
-            <FallbackComponentProvider
-              FallbackComponent={FallbackResponseComponent}
-            >
-              <MessageRendererProvider {...messageRenderer}>
-                <ResponseComponentsProvider
-                  responseComponents={responseComponents}
+    <ControlsProvider controls={controls}>
+      <SuggestedPromptProvider suggestedPrompts={suggestedPrompts}>
+        <WelcomeMessageProvider welcomeMessage={welcomeMessage}>
+          <FallbackComponentProvider
+            FallbackComponent={FallbackResponseComponent}
+          >
+            <MessageRendererProvider {...messageRenderer}>
+              <ResponseComponentsProvider
+                responseComponents={responseComponents}
+              >
+                <AttachmentProvider
+                  allowAttachments={allowAttachments}
+                  maxAttachmentSize={maxAttachmentSize}
+                  maxAttachments={maxAttachments}
                 >
-                  <AttachmentProvider allowAttachments={allowAttachments}>
-                    <ConversationDisplayTextProvider {..._displayText}>
-                      <ConversationInputContextProvider>
-                        <SendMessageContextProvider
-                          handleSendMessage={handleSendMessage}
-                        >
-                          <AvatarsProvider avatars={avatars}>
-                            <ActionsProvider actions={actions}>
-                              <MessageVariantProvider variant={variant}>
-                                <MessagesProvider messages={messages}>
+                  <ConversationDisplayTextProvider {..._displayText}>
+                    <ConversationInputContextProvider>
+                      <SendMessageContextProvider
+                        handleSendMessage={handleSendMessage}
+                      >
+                        <AvatarsProvider avatars={avatars}>
+                          <ActionsProvider actions={actions}>
+                            <MessageVariantProvider variant={variant}>
+                              <MessagesProvider messages={messages}>
+                                {/* aiContext should be as close as possible to the bottom */}
+                                {/* because the intent is users should update the context */}
+                                {/* without it affecting the already rendered messages */}
+                                <AIContextProvider aiContext={aiContext}>
                                   <LoadingContextProvider isLoading={isLoading}>
                                     {children}
                                   </LoadingContextProvider>
-                                </MessagesProvider>
-                              </MessageVariantProvider>
-                            </ActionsProvider>
-                          </AvatarsProvider>
-                        </SendMessageContextProvider>
-                      </ConversationInputContextProvider>
-                    </ConversationDisplayTextProvider>
-                  </AttachmentProvider>
-                </ResponseComponentsProvider>
-              </MessageRendererProvider>
-            </FallbackComponentProvider>
-          </WelcomeMessageProvider>
-        </SuggestedPromptProvider>
-      </ControlsProvider>
-    </ElementsProvider>
+                                </AIContextProvider>
+                              </MessagesProvider>
+                            </MessageVariantProvider>
+                          </ActionsProvider>
+                        </AvatarsProvider>
+                      </SendMessageContextProvider>
+                    </ConversationInputContextProvider>
+                  </ConversationDisplayTextProvider>
+                </AttachmentProvider>
+              </ResponseComponentsProvider>
+            </MessageRendererProvider>
+          </FallbackComponentProvider>
+        </WelcomeMessageProvider>
+      </SuggestedPromptProvider>
+    </ControlsProvider>
   );
 };

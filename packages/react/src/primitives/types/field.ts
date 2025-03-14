@@ -20,7 +20,7 @@ export interface BaseFieldProps extends BaseViewProps {
    * @description
    *  When defined and `hasError` is true, show error message
    */
-  errorMessage?: string;
+  errorMessage?: React.ReactNode;
 
   /**
    * @description

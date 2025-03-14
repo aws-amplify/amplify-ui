@@ -47,7 +47,7 @@ export interface TextAreaFieldControlsProps extends BaseTextAreaFieldProps {
 }
 
 interface TextAreaFieldControlsInterface {
-  (props: TextAreaFieldControlsProps): JSX.Element;
+  (props: TextAreaFieldControlsProps): React.JSX.Element;
 }
 
 export const TextAreaFieldPropControls: TextAreaFieldControlsInterface = ({
@@ -126,7 +126,7 @@ export const TextAreaFieldPropControls: TextAreaFieldControlsInterface = ({
       <TextField
         placeholder="Set error message"
         name="errorMessage"
-        value={errorMessage}
+        value={errorMessage as string}
         onChange={(event: any) => {
           setErrorMessage(event.target.value);
         }}

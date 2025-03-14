@@ -1,5 +1,122 @@
 # @aws-amplify/ui
 
+## 6.9.0
+
+### Minor Changes
+
+- [#6312](https://github.com/aws-amplify/amplify-ui/pull/6312) [`81543cb38604a80ca2d8b93cfb7d1884d43e0a4f`](https://github.com/aws-amplify/amplify-ui/commit/81543cb38604a80ca2d8b93cfb7d1884d43e0a4f) Thanks [@kevin860](https://github.com/kevin860)! - feat(ui): allow override of resendSignUpCode function call
+
+  This feature lets you override the `resendSignUpCode` function call the same way as the `signUp`, `signIn`,
+  `confirmSignIn`, `confirmSignUp`, `forgotPassword` and `forgotPasswordSubmit` functions.
+
+## 6.8.2
+
+### Patch Changes
+
+- [#6375](https://github.com/aws-amplify/amplify-ui/pull/6375) [`fa6984721124029cf2e7d5b4ac5a3cc6c34097a6`](https://github.com/aws-amplify/amplify-ui/commit/fa6984721124029cf2e7d5b4ac5a3cc6c34097a6) Thanks [@calebpollman](https://github.com/calebpollman)! - fix: prevent signout on token refresh failure when offline
+
+## 6.8.1
+
+### Patch Changes
+
+- [#6288](https://github.com/aws-amplify/amplify-ui/pull/6288) [`272ec8e575718ea990dcb9f51d1baaf522f45fb6`](https://github.com/aws-amplify/amplify-ui/commit/272ec8e575718ea990dcb9f51d1baaf522f45fb6) Thanks [@berg-dee](https://github.com/berg-dee)! - fix(ui): fix and add missing sv translations
+
+## 6.8.0
+
+### Minor Changes
+
+- [#6296](https://github.com/aws-amplify/amplify-ui/pull/6296) [`8d2aa79b174d4e48aaca913bd568898b8c8975a2`](https://github.com/aws-amplify/amplify-ui/commit/8d2aa79b174d4e48aaca913bd568898b8c8975a2) Thanks [@calebpollman](https://github.com/calebpollman)! - feat(react): reenable react 19 support
+
+### Patch Changes
+
+- [#6125](https://github.com/aws-amplify/amplify-ui/pull/6125) [`8757f03b7b1d761d9a13cfe29382a2208d4f3999`](https://github.com/aws-amplify/amplify-ui/commit/8757f03b7b1d761d9a13cfe29382a2208d4f3999) Thanks [@BeforeSunset16](https://github.com/BeforeSunset16)! - feat(i18n): add Chinese translations for password fields in zh.ts
+
+## 6.7.2
+
+### Patch Changes
+
+- [#6185](https://github.com/aws-amplify/amplify-ui/pull/6185) [`96be188317d72b89b6bfbc14a3d4ee76daad2a8b`](https://github.com/aws-amplify/amplify-ui/commit/96be188317d72b89b6bfbc14a3d4ee76daad2a8b) Thanks [@tiffanynwyeung](https://github.com/tiffanynwyeung)! - fix: missing elevated card shadow on dark mode
+
+## 6.7.1
+
+### Patch Changes
+
+- [#6211](https://github.com/aws-amplify/amplify-ui/pull/6211) [`9ab56f499f4596062fe4614a016efc3dfc88ef03`](https://github.com/aws-amplify/amplify-ui/commit/9ab56f499f4596062fe4614a016efc3dfc88ef03) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - feat(ai) add attachment validations
+
+  The current limitations on the Amplify AI kit for attachments is 400kb (of base64'd size) per image, and 20 images per message are now being enforced before the message is sent.
+  These limits can be adjusted via props as well.
+
+  ```tsx
+  <AIConversation
+    maxAttachments={2}
+    maxAttachmentSize={100_000} // 100,000 bytes or 100kb
+  />
+  ```
+
+## 6.7.0
+
+### Minor Changes
+
+- [#6175](https://github.com/aws-amplify/amplify-ui/pull/6175) [`70971f310`](https://github.com/aws-amplify/amplify-ui/commit/70971f310f69717657849f29d0a9e1d993b08d9a) Thanks [@calebpollman](https://github.com/calebpollman)! - feat(storage-browser): add `StorageBrowser` and `createStorageBrowser`
+
+  ```tsx
+  import { Amplify } from 'aws-amplify';
+
+  import { StorageBrowser } from '@aws-amplify/ui-react-storage';
+  import '@aws-amplify/ui-react-storage/styles.css';
+
+  import config from './aws-exports';
+
+  Amplify.configure(config);
+
+  function App() {
+    return <StorageBrowser />;
+  }
+  ```
+
+  ```tsx
+  import { Amplify } from 'aws-amplify';
+
+  import {
+    createAmplifyAuthAdapter,
+    createStorageBrowser,
+  } from '@aws-amplify/ui-react-storage/browser';
+  import '@aws-amplify/ui-react-storage/styles.css';
+
+  import config from './aws-exports';
+
+  Amplify.configure(config);
+
+  const { StorageBrowser } = createStorageBrowser({
+    config: createAmplifyAuthAdapter(),
+  });
+
+  function App() {
+    return <StorageBrowser />;
+  }
+  ```
+
+## 6.6.6
+
+### Patch Changes
+
+- [#6149](https://github.com/aws-amplify/amplify-ui/pull/6149) [`0d4d2b91c`](https://github.com/aws-amplify/amplify-ui/commit/0d4d2b91c84b2eb5e9365bb837855e5a9b4e3c06) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - chore: get ai package ready for release
+
+- [#5999](https://github.com/aws-amplify/amplify-ui/pull/5999) [`24635cfd5`](https://github.com/aws-amplify/amplify-ui/commit/24635cfd5fb6b01bfd3bde1464c7064b2d1484c4) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - chore: ai cleanup
+
+  ```jsx
+  <AIConversation
+    messages={messages}
+    handleSendMessage={handleSendMessage}
+    actions={[
+      {
+        component: <MdCopyAll />,
+        handler: (message) => {},
+      },
+    ]}
+  />
+  ```
+
 ## 6.6.5
 
 ### Patch Changes

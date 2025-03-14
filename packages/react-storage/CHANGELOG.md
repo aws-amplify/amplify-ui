@@ -1,5 +1,192 @@
 # @aws-amplify/ui-react-storage
 
+## 3.8.2
+
+### Patch Changes
+
+- [#6382](https://github.com/aws-amplify/amplify-ui/pull/6382) [`e6248bd8dd8980b095826e6476b65e19af006960`](https://github.com/aws-amplify/amplify-ui/commit/e6248bd8dd8980b095826e6476b65e19af006960) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(react-core): ensure useDataState returns value of last dispatch
+
+- Updated dependencies [[`00fadd4f0fe8c79b6045558053257e9375942ca1`](https://github.com/aws-amplify/amplify-ui/commit/00fadd4f0fe8c79b6045558053257e9375942ca1), [`81543cb38604a80ca2d8b93cfb7d1884d43e0a4f`](https://github.com/aws-amplify/amplify-ui/commit/81543cb38604a80ca2d8b93cfb7d1884d43e0a4f), [`e6248bd8dd8980b095826e6476b65e19af006960`](https://github.com/aws-amplify/amplify-ui/commit/e6248bd8dd8980b095826e6476b65e19af006960)]:
+  - @aws-amplify/ui-react@6.9.3
+  - @aws-amplify/ui@6.9.0
+  - @aws-amplify/ui-react-core@3.3.3
+
+## 3.8.1
+
+### Patch Changes
+
+- [#6346](https://github.com/aws-amplify/amplify-ui/pull/6346) [`f170ffa94e272cb53e6b9aa4cfd6fcf915083739`](https://github.com/aws-amplify/amplify-ui/commit/f170ffa94e272cb53e6b9aa4cfd6fcf915083739) Thanks [@jordanvn](https://github.com/jordanvn)! - Fixed displayText override for LocationDetailView dataTable headers
+
+- [#6369](https://github.com/aws-amplify/amplify-ui/pull/6369) [`f91c69b830d168eb5a7371fb8f34e38ec7e303c0`](https://github.com/aws-amplify/amplify-ui/commit/f91c69b830d168eb5a7371fb8f34e38ec7e303c0) Thanks [@jjarvisp](https://github.com/jjarvisp)! - chore(react-storage): update access level deprecation message
+
+- Updated dependencies [[`fa6984721124029cf2e7d5b4ac5a3cc6c34097a6`](https://github.com/aws-amplify/amplify-ui/commit/fa6984721124029cf2e7d5b4ac5a3cc6c34097a6)]:
+  - @aws-amplify/ui@6.8.2
+  - @aws-amplify/ui-react@6.9.2
+  - @aws-amplify/ui-react-core@3.3.2
+
+## 3.8.0
+
+### Minor Changes
+
+- [#5562](https://github.com/aws-amplify/amplify-ui/pull/5562) [`2e107f96db84d4a2b29bf3c03750fceb92f25bca`](https://github.com/aws-amplify/amplify-ui/commit/2e107f96db84d4a2b29bf3c03750fceb92f25bca) Thanks [@jordanvn](https://github.com/jordanvn)! - Support for multiple buckets added to storage image and file uploader
+
+### Patch Changes
+
+- [#6353](https://github.com/aws-amplify/amplify-ui/pull/6353) [`261310501b8f56b08f378ca895646e17825081ee`](https://github.com/aws-amplify/amplify-ui/commit/261310501b8f56b08f378ca895646e17825081ee) Thanks [@tiffanynwyeung](https://github.com/tiffanynwyeung)! - Hide storage browser data table rows while table data is not available yet
+
+- [#6347](https://github.com/aws-amplify/amplify-ui/pull/6347) [`c850a338051830c6fe9a2fbad3b31856befd0afb`](https://github.com/aws-amplify/amplify-ui/commit/c850a338051830c6fe9a2fbad3b31856befd0afb) Thanks [@jordanvn](https://github.com/jordanvn)! - Fixed bug causing incorrect progress to be displayed during uploads
+
+## 3.7.2
+
+### Patch Changes
+
+- [#6322](https://github.com/aws-amplify/amplify-ui/pull/6322) [`e81446d992a98c4b765e83e9e4fcad8c3d910b75`](https://github.com/aws-amplify/amplify-ui/commit/e81446d992a98c4b765e83e9e4fcad8c3d910b75) Thanks [@jordanvn](https://github.com/jordanvn)! - removed outdated storage browser styles
+
+- [#6314](https://github.com/aws-amplify/amplify-ui/pull/6314) [`f2fc55d7b77b3716ab31237526a65afafcbb2f80`](https://github.com/aws-amplify/amplify-ui/commit/f2fc55d7b77b3716ab31237526a65afafcbb2f80) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(storage-browser): export UseView type
+
+## 3.7.1
+
+### Patch Changes
+
+- [#6305](https://github.com/aws-amplify/amplify-ui/pull/6305) [`ac50ec3efbdd4a976b12d02dd9eb939e0e210cc1`](https://github.com/aws-amplify/amplify-ui/commit/ac50ec3efbdd4a976b12d02dd9eb939e0e210cc1) Thanks [@jjarvisp](https://github.com/jjarvisp)! - fix(react-storage): enable default checksum algorithm for create folder action #6305
+
+- Updated dependencies [[`272ec8e575718ea990dcb9f51d1baaf522f45fb6`](https://github.com/aws-amplify/amplify-ui/commit/272ec8e575718ea990dcb9f51d1baaf522f45fb6), [`6e51c1750f8f3e01cf8827f4c5c2e5ef02240ca6`](https://github.com/aws-amplify/amplify-ui/commit/6e51c1750f8f3e01cf8827f4c5c2e5ef02240ca6)]:
+  - @aws-amplify/ui@6.8.1
+  - @aws-amplify/ui-react@6.9.1
+  - @aws-amplify/ui-react-core@3.3.1
+
+## 3.7.0
+
+### Minor Changes
+
+- [#6296](https://github.com/aws-amplify/amplify-ui/pull/6296) [`8d2aa79b174d4e48aaca913bd568898b8c8975a2`](https://github.com/aws-amplify/amplify-ui/commit/8d2aa79b174d4e48aaca913bd568898b8c8975a2) Thanks [@calebpollman](https://github.com/calebpollman)! - feat(react): reenable react 19 support
+
+### Patch Changes
+
+- Updated dependencies [[`8757f03b7b1d761d9a13cfe29382a2208d4f3999`](https://github.com/aws-amplify/amplify-ui/commit/8757f03b7b1d761d9a13cfe29382a2208d4f3999), [`8d2aa79b174d4e48aaca913bd568898b8c8975a2`](https://github.com/aws-amplify/amplify-ui/commit/8d2aa79b174d4e48aaca913bd568898b8c8975a2)]:
+  - @aws-amplify/ui@6.8.0
+  - @aws-amplify/ui-react@6.9.0
+  - @aws-amplify/ui-react-core@3.3.0
+
+## 3.6.1
+
+### Patch Changes
+
+- [#6278](https://github.com/aws-amplify/amplify-ui/pull/6278) [`475e4a37a404bd116ec55e95579acb8f2d23c9a4`](https://github.com/aws-amplify/amplify-ui/commit/475e4a37a404bd116ec55e95579acb8f2d23c9a4) Thanks [@jordanvn](https://github.com/jordanvn)! - revert changes introduced for React 19 support
+
+- Updated dependencies [[`475e4a37a404bd116ec55e95579acb8f2d23c9a4`](https://github.com/aws-amplify/amplify-ui/commit/475e4a37a404bd116ec55e95579acb8f2d23c9a4)]:
+  - @aws-amplify/ui-react-core@3.2.1
+  - @aws-amplify/ui-react@6.8.1
+
+## 3.6.0
+
+### Minor Changes
+
+- [#5826](https://github.com/aws-amplify/amplify-ui/pull/5826) [`954e9be2d055a57ebddab5b902e3e6b427d09f67`](https://github.com/aws-amplify/amplify-ui/commit/954e9be2d055a57ebddab5b902e3e6b427d09f67) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(react): add support for React 19
+
+### Patch Changes
+
+- Updated dependencies [[`c623990d5fb6af635b1964a51a8ff2c807938235`](https://github.com/aws-amplify/amplify-ui/commit/c623990d5fb6af635b1964a51a8ff2c807938235), [`825cccc92f5c326f0f110c8439a1c2c6553ff00a`](https://github.com/aws-amplify/amplify-ui/commit/825cccc92f5c326f0f110c8439a1c2c6553ff00a), [`954e9be2d055a57ebddab5b902e3e6b427d09f67`](https://github.com/aws-amplify/amplify-ui/commit/954e9be2d055a57ebddab5b902e3e6b427d09f67)]:
+  - @aws-amplify/ui-react@6.8.0
+  - @aws-amplify/ui-react-core@3.2.0
+
+## 3.5.1
+
+### Patch Changes
+
+- [#6252](https://github.com/aws-amplify/amplify-ui/pull/6252) [`1cb03be29c9485104d65d9bf7d224e694975143d`](https://github.com/aws-amplify/amplify-ui/commit/1cb03be29c9485104d65d9bf7d224e694975143d) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(react-storage): default nullish progress to 100% if status is "complete"
+
+- [#6252](https://github.com/aws-amplify/amplify-ui/pull/6252) [`1cb03be29c9485104d65d9bf7d224e694975143d`](https://github.com/aws-amplify/amplify-ui/commit/1cb03be29c9485104d65d9bf7d224e694975143d) Thanks [@calebpollman](https://github.com/calebpollman)! - chore: add user agent string to createStorageBrowser
+
+- Updated dependencies [[`4a9e16c194e145c6881583f2362bccd8974bc1fc`](https://github.com/aws-amplify/amplify-ui/commit/4a9e16c194e145c6881583f2362bccd8974bc1fc), [`96be188317d72b89b6bfbc14a3d4ee76daad2a8b`](https://github.com/aws-amplify/amplify-ui/commit/96be188317d72b89b6bfbc14a3d4ee76daad2a8b)]:
+  - @aws-amplify/ui-react@6.7.2
+  - @aws-amplify/ui@6.7.2
+  - @aws-amplify/ui-react-core@3.1.2
+
+## 3.5.0
+
+### Minor Changes
+
+- [#6220](https://github.com/aws-amplify/amplify-ui/pull/6220) [`efbfd14e35967388acaa333089cc3737218c9008`](https://github.com/aws-amplify/amplify-ui/commit/efbfd14e35967388acaa333089cc3737218c9008) Thanks [@calebpollman](https://github.com/calebpollman)! - feat(storage-browser): add custom actions
+
+  ```
+
+  ```
+
+- [#6219](https://github.com/aws-amplify/amplify-ui/pull/6219) [`8bf3c306f7df74d514fcd496edb10cfe69b0158b`](https://github.com/aws-amplify/amplify-ui/commit/8bf3c306f7df74d514fcd496edb10cfe69b0158b) Thanks [@ashwinkumar6](https://github.com/ashwinkumar6)! - fix(react-storage): expose additional storage browser types
+
+### Patch Changes
+
+- Updated dependencies [[`9ab56f499f4596062fe4614a016efc3dfc88ef03`](https://github.com/aws-amplify/amplify-ui/commit/9ab56f499f4596062fe4614a016efc3dfc88ef03)]:
+  - @aws-amplify/ui@6.7.1
+  - @aws-amplify/ui-react@6.7.1
+  - @aws-amplify/ui-react-core@3.1.1
+
+## 3.4.1
+
+### Patch Changes
+
+- [#6050](https://github.com/aws-amplify/amplify-ui/pull/6050) [`36e1ee7782e8e6f73e44e08da379cbb17e278e9d`](https://github.com/aws-amplify/amplify-ui/commit/36e1ee7782e8e6f73e44e08da379cbb17e278e9d) Thanks [@choyky](https://github.com/choyky)! - fix (Storage/FileUploader): FileUploader does not upload processed file contents in certain scenarios
+
+## 3.4.0
+
+### Minor Changes
+
+- [#6175](https://github.com/aws-amplify/amplify-ui/pull/6175) [`70971f310`](https://github.com/aws-amplify/amplify-ui/commit/70971f310f69717657849f29d0a9e1d993b08d9a) Thanks [@calebpollman](https://github.com/calebpollman)! - feat(storage-browser): add `StorageBrowser` and `createStorageBrowser`
+
+  ```tsx
+  import { Amplify } from 'aws-amplify';
+
+  import { StorageBrowser } from '@aws-amplify/ui-react-storage';
+  import '@aws-amplify/ui-react-storage/styles.css';
+
+  import config from './aws-exports';
+
+  Amplify.configure(config);
+
+  function App() {
+    return <StorageBrowser />;
+  }
+  ```
+
+  ```tsx
+  import { Amplify } from 'aws-amplify';
+
+  import {
+    createAmplifyAuthAdapter,
+    createStorageBrowser,
+  } from '@aws-amplify/ui-react-storage/browser';
+  import '@aws-amplify/ui-react-storage/styles.css';
+
+  import config from './aws-exports';
+
+  Amplify.configure(config);
+
+  const { StorageBrowser } = createStorageBrowser({
+    config: createAmplifyAuthAdapter(),
+  });
+
+  function App() {
+    return <StorageBrowser />;
+  }
+  ```
+
+### Patch Changes
+
+- Updated dependencies [[`70971f310`](https://github.com/aws-amplify/amplify-ui/commit/70971f310f69717657849f29d0a9e1d993b08d9a)]:
+  - @aws-amplify/ui-react@6.7.0
+  - @aws-amplify/ui-react-core@3.1.0
+  - @aws-amplify/ui@6.7.0
+
+## 3.3.10
+
+### Patch Changes
+
+- Updated dependencies [[`90ea18ba0`](https://github.com/aws-amplify/amplify-ui/commit/90ea18ba076f884cad7f49b646f3f820e1b80c0e), [`2e3a051d9`](https://github.com/aws-amplify/amplify-ui/commit/2e3a051d9c2d48d5be22d2e83095cbd060ce2b40), [`f1b1da8a1`](https://github.com/aws-amplify/amplify-ui/commit/f1b1da8a1adfb23948156a5618cbf605279d941d), [`0d4d2b91c`](https://github.com/aws-amplify/amplify-ui/commit/0d4d2b91c84b2eb5e9365bb837855e5a9b4e3c06), [`24635cfd5`](https://github.com/aws-amplify/amplify-ui/commit/24635cfd5fb6b01bfd3bde1464c7064b2d1484c4)]:
+  - @aws-amplify/ui-react-core@3.0.30
+  - @aws-amplify/ui-react@6.6.0
+  - @aws-amplify/ui@6.6.6
+
 ## 3.3.9
 
 ### Patch Changes

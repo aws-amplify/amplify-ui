@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui-react-storage",
-  "version": "3.3.9",
+  "version": "3.8.2",
   "main": "dist/index.js",
   "module": "dist/esm/index.mjs",
   "exports": {
@@ -8,6 +8,11 @@
       "types": "./dist/types/index.d.ts",
       "import": "./dist/esm/index.mjs",
       "require": "./dist/index.js"
+    },
+    "./browser": {
+      "main": "./dist/browser.js",
+      "types": "./dist/types/components/StorageBrowser/index.d.ts",
+      "import": "./dist/esm/browser.mjs"
     },
     "./styles.css": "./dist/styles.css"
   },
@@ -23,7 +28,8 @@
   },
   "files": [
     "dist",
-    "LICENSE"
+    "LICENSE",
+    "browser"
   ],
   "scripts": {
     "build": "yarn build:rollup",
@@ -39,26 +45,45 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@aws-amplify/ui": "6.6.5",
-    "@aws-amplify/ui-react": "6.5.5",
-    "@aws-amplify/ui-react-core": "3.0.29",
-    "lodash": "4.17.21",
+    "@aws-amplify/ui": "6.9.0",
+    "@aws-amplify/ui-react": "6.9.3",
+    "@aws-amplify/ui-react-core": "3.3.3",
     "tslib": "^2.5.2"
   },
   "peerDependencies": {
-    "aws-amplify": "^6.6.5",
-    "react": "^16.14.0 || ^17.0 || ^18.0",
-    "react-dom": "^16.14.0 || ^17.0 || ^18.0"
+    "aws-amplify": "^6.9.0",
+    "react": "^16.14 || ^17 || ^18 || ^19",
+    "react-dom": "^16.14 || ^17 || ^18 || ^19"
+  },
+  "devDependencies": {
+    "jest-tsd": "^0.2.2",
+    "@tsd/typescript": "^5.1.6",
+    "@types/node": "^18.19.50"
   },
   "sideEffects": [
     "dist/**/*.css"
   ],
   "size-limit": [
     {
+      "name": "createStorageBrowser",
+      "path": "dist/esm/browser.mjs",
+      "import": "{ createStorageBrowser }",
+      "limit": "63 kB",
+      "ignore": [
+        "@aws-amplify/storage"
+      ]
+    },
+    {
+      "name": "StorageBrowser",
+      "path": "dist/esm/index.mjs",
+      "import": "{ StorageBrowser }",
+      "limit": "85.1 kB"
+    },
+    {
       "name": "FileUploader",
       "path": "dist/esm/index.mjs",
       "import": "{ FileUploader }",
-      "limit": "21.5 kB"
+      "limit": "22 kB"
     },
     {
       "name": "StorageImage",
@@ -70,7 +95,7 @@
       "name": "StorageManager",
       "path": "dist/esm/index.mjs",
       "import": "{ StorageManager }",
-      "limit": "21.5 kB"
+      "limit": "22 kB"
     }
   ]
 }

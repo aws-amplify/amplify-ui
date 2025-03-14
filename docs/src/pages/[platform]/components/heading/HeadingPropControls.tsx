@@ -16,7 +16,7 @@ interface HeadingPropControlsProps extends HeadingProps {
 }
 
 interface HeadingPropControlsInterface {
-  (props: HeadingPropControlsProps): JSX.Element;
+  (props: HeadingPropControlsProps): React.JSX.Element;
 }
 
 export const HeadingPropControls: HeadingPropControlsInterface = ({

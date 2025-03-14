@@ -44,6 +44,7 @@ const getDeprecationMessage = ({
 
 export const StorageImage = ({
   accessLevel,
+  bucket,
   className,
   fallbackSrc,
   identityId,
@@ -53,7 +54,7 @@ export const StorageImage = ({
   onGetUrlError,
   validateObjectExistence = true,
   ...rest
-}: StorageImageProps | StorageImagePathProps): JSX.Element => {
+}: StorageImageProps | StorageImagePathProps): React.JSX.Element => {
   const hasImgkey = !!imgKey;
   const hasPath = !!path;
   const hasDeprecatedOptions = !!accessLevel || !!identityId;
@@ -82,11 +83,20 @@ export const StorageImage = ({
       onError,
       options: {
         accessLevel,
+        bucket,
         targetIdentityId: identityId,
         validateObjectExistence,
       },
     }),
-    [accessLevel, imgKey, identityId, onError, path, validateObjectExistence]
+    [
+      accessLevel,
+      bucket,
+      imgKey,
+      identityId,
+      onError,
+      path,
+      validateObjectExistence,
+    ]
   );
 
   const { url } = useGetUrl(input);

@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui-react-core",
-  "version": "3.0.29",
+  "version": "3.3.3",
   "main": "dist/index.js",
   "module": "dist/esm/index.mjs",
   "react-native": "src/index.ts",
@@ -40,15 +40,15 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@aws-amplify/ui": "6.6.5",
+    "@aws-amplify/ui": "6.9.0",
     "@xstate/react": "^3.2.2",
     "lodash": "4.17.21",
-    "react-hook-form": "^7.43.5",
+    "react-hook-form": "^7.53.2",
     "xstate": "^4.33.6"
   },
   "peerDependencies": {
-    "aws-amplify": "^6.6.5",
-    "react": "^16.14.0 || ^17.0 || ^18.0"
+    "aws-amplify": "^6.9.0",
+    "react": "^16.14 || ^17 || ^18 || ^19"
   },
   "sideEffects": false
 }

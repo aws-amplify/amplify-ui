@@ -11,7 +11,7 @@ export default function PhoneNumberField({
   labelStyle,
   style,
   ...rest
-}: PhoneNumberFieldProps): JSX.Element {
+}: PhoneNumberFieldProps): React.JSX.Element {
   const theme = useTheme();
   const themedStyle = getThemedStyles(theme);
 

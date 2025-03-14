@@ -46,6 +46,7 @@ const StorageManagerBase = React.forwardRef(function StorageManager(
     acceptedFileTypes = [],
     accessLevel,
     autoUpload = true,
+    bucket,
     components,
     defaultFiles,
     displayText: overrideDisplayText,
@@ -62,7 +63,7 @@ const StorageManagerBase = React.forwardRef(function StorageManager(
     useAccelerateEndpoint,
   }: StorageManagerPathProps | StorageManagerProps,
   ref: React.ForwardedRef<StorageManagerHandle>
-): JSX.Element {
+): React.JSX.Element {
   useDeprecationWarning({
     message:
       'The `StorageManager` component has been renamed as the `FileUploader` component.',
@@ -149,6 +150,7 @@ const StorageManagerBase = React.forwardRef(function StorageManager(
 
   useUploadFiles({
     accessLevel,
+    bucket,
     files,
     isResumable,
     maxFileCount,
