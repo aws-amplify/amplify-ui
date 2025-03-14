@@ -44,9 +44,9 @@ const UA_CONFIG = {
  */
 export default function createStorageBrowser<
   Input extends CreateStorageBrowserInput,
-  RInput extends Input['actions'] extends ExtendedActionConfigs
-    ? Input['actions']
-    : ExtendedActionConfigs,
+  RInput extends ExtendedActionConfigs & {
+    custom?: Input['actions'] extends {} ? Input['actions']['custom'] : {};
+  }
 >(input: Input): CreateStorageBrowserOutput<RInput> {
   assertRegisterAuthListener(input.config.registerAuthListener);
 
