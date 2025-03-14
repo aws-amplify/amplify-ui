@@ -35,7 +35,10 @@ export interface AIConversationTokens<OutputType extends OutputVariantKey> {
     | 'gap',
     OutputType
   > & {
-    list?: DesignTokenProperties<'paddingBlockStart' | 'gap', OutputType>;
+    list?: DesignTokenProperties<
+      'paddingBlockStart' | 'padding' | 'gap',
+      OutputType
+    >;
     image?: DesignTokenProperties<'width' | 'height', OutputType>;
     size?: DesignTokenProperties<
       'color' | 'fontSize' | 'fontWeight',
@@ -94,7 +97,8 @@ export const aiConversation: Required<AIConversationTokens<'default'>> = {
     gap: { value: '{space.xs.value}' },
 
     list: {
-      paddingBlockStart: { value: '{space.xs.value}' },
+      padding: { value: '{space.xs.value}' },
+      paddingBlockStart: { value: '0' },
       gap: { value: '{space.xxs.value}' },
     },
 
