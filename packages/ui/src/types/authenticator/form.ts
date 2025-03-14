@@ -46,6 +46,8 @@ export interface FormFieldOptions {
   label?: string;
   /** Placeholder text */
   placeholder?: string;
+  /** default value */
+  value?: string;
   /**
    * @deprecated For internal use only, please use `isRequired` instead.
    */
