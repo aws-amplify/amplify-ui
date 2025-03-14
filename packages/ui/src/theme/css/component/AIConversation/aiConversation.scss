@@ -122,6 +122,13 @@
     }
   }
 
+  &__scrollview {
+    // Because the textarea input can grow in height
+    // we don't want the scrollview which contains the messages
+    // to go to zero height, so setting the flex-basis to 50%
+    flex: 1 0 50%;
+  }
+
   &__form {
     display: flex;
     flex-direction: row;
