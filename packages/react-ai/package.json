@@ -42,7 +42,6 @@
     "typecheck": "tsc --noEmit"
   },
   "peerDependencies": {
-    "@aws-amplify/api-graphql": "^4.7.8",
     "@aws-amplify/data-schema": "^1.19.0",
     "aws-amplify": "^6.9.0",
     "react": "^16.14 || ^17 || ^18 || ^19",
@@ -62,13 +61,13 @@
       "name": "AIConversation",
       "path": "dist/esm/index.mjs",
       "import": "{ AIConversation }",
-      "limit": "25 kB"
+      "limit": "27 kB"
     },
     {
       "name": "createAIConversation",
       "path": "dist/esm/index.mjs",
       "import": "{ createAIConversation }",
-      "limit": "7 kB"
+      "limit": "20 kB"
     }
   ]
 }

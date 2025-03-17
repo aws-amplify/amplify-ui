@@ -172,6 +172,7 @@ export const FormControl: FormControl = () => {
   const ref = React.useRef<HTMLFormElement | null>(null);
   const controls = React.useContext(ControlsContext);
   const [composing, setComposing] = React.useState(false);
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
 
   const submitMessage = async () => {
     ref.current?.reset();
@@ -221,11 +222,21 @@ export const FormControl: FormControl = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    // Prevent double submission
+    if (isSubmitting) {
+      return;
+    }
+
+    setIsSubmitting(true);
+
     // Clear the attachment errors when submitting
     // because the errors are not actually preventing the submission
     // but rather notifying the user that certain files were not attached and why they weren't
     setError?.(undefined);
-    submitMessage();
+    submitMessage().then(() => {
+      setIsSubmitting(false);
+    });
   };
 
   const handleOnKeyDown: React.KeyboardEventHandler<HTMLTextAreaElement> = (
@@ -238,8 +249,11 @@ export const FormControl: FormControl = () => {
 
       const hasInput =
         !!input?.text || (input?.files?.length && input?.files?.length > 0);
-      if (hasInput) {
-        submitMessage();
+      if (hasInput && !isSubmitting && !isLoading) {
+        setIsSubmitting(true);
+        submitMessage().then(() => {
+          setIsSubmitting(false);
+        });
       }
     }
   };
@@ -302,7 +316,7 @@ export const FormControl: FormControl = () => {
         setInput={setInput}
         onValidate={onValidate}
         allowAttachments={allowAttachments}
-        isLoading={isLoading}
+        isLoading={isLoading ?? isSubmitting}
         error={error}
         setError={setError}
       />
