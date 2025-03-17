@@ -319,6 +319,9 @@ export const FormControl: FormControl = () => {
         isLoading={isLoading ?? isSubmitting}
         error={error}
         setError={setError}
+        onKeyDown={handleOnKeyDown}
+        onCompositionStart={() => setComposing(true)}
+        onCompositionEnd={() => setComposing(false)}
       />
     );
   }
