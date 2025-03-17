@@ -19,6 +19,7 @@ jobs:
         framework-version: [
             # uncomment to enable
             { formatted: latest, value: latest },
+            { formatted: 077, value: 0.77 },
             { formatted: 076, value: 0.76 },
             { formatted: 075, value: 0.75 },
             { formatted: 074, value: 0.74 },
@@ -37,6 +38,9 @@ jobs:
         exclude:
           - build-tool: expo
             platform: ios
+          - build-tool: expo
+            platform: android
+            framework-version: { formatted: '077', value: '0.77' }
           - build-tool: expo
             platform: android
             framework-version: { formatted: '076', value: '0.76' }
@@ -58,30 +62,7 @@ jobs:
         include:
           # Expo makes you specify a version of the SDK that supports a specific version of React Native
           # https://stackoverflow.com/questions/63463373/create-an-expo-project-with-a-specific-version
-          - framework: react-native
-            framework-version: { formatted: 070, value: '0.70' }
-            build-tool: expo
-            build-tool-version: 47
-            platform: android
-            pkg-manager: npm
-            node-version: 20
-            logfile: test.log
-          - framework: react-native
-            framework-version: { formatted: 071, value: '0.71' }
-            build-tool: expo
-            build-tool-version: 48
-            platform: android
-            pkg-manager: npm
-            node-version: 20
-            logfile: test.log
-          - framework: react-native
-            framework-version: { formatted: 072, value: '0.72' }
-            build-tool: expo
-            build-tool-version: 49
-            platform: android
-            pkg-manager: npm
-            node-version: 20
-            logfile: test.log
+          # Only include officially supported Expo SDK versions: https://docs.expo.dev/versions/latest/
           - framework: react-native
             framework-version: { formatted: 073, value: '0.73' }
             build-tool: expo
@@ -108,6 +89,14 @@ jobs:
             logfile: test.log
           - framework: react-native
             framework-version: { formatted: 076, value: '0.76' }
+            build-tool: expo
+            build-tool-version: 52
+            platform: android
+            pkg-manager: npm
+            node-version: 20
+            logfile: test.log
+          - framework: react-native
+            framework-version: { formatted: 077, value: '0.77' }
             build-tool: expo
             build-tool-version: 52
             platform: android
