@@ -30,7 +30,7 @@ export class VideoRecorder {
     this._stream = stream;
     this._chunks = [];
     this._recorder = new MediaRecorder(stream, {
-      bitsPerSecond: 1000000,
+      bitsPerSecond: 2000000,
       mimeType: isAndroidChromeWithBrokenH264()
         ? ALTERNATE_CHROME_MIME_TYPE
         : undefined,
