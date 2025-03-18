@@ -21,6 +21,8 @@ Amplify.configure(aws_exports);
         placeholder="Zone Info"
         name="zoneinfo"
         :hideLabel="false"
+        :required="true"
+        :disabled="false"
       />
     </template>
     <template v-slot="{ user, signOut }">

@@ -170,7 +170,7 @@ describe('authenticator', () => {
   });
 
   it.each(routesWithComponent)('renders %s subcomponent', (route) => {
-    let user = undefined;
+    let user: { username: string } | undefined = undefined;
     const challengeName = 'SOFTWARE_TOKEN_MFA';
 
     // some routes expect specific shape of user
