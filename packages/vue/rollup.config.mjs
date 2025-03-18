@@ -5,10 +5,32 @@ import postcss from 'rollup-plugin-postcss';
 import vue from 'rollup-plugin-vue';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
+import fs from 'fs-extra';
+import path from 'path';
 
 // common config settings for Vue package (only has index.ts, not internal.ts or server.ts)
 const input = ['src/index.ts'];
 const esmOutputDir = 'dist/esm';
+
+// Ensure primitive styles are copied to the correct location
+const ensureStyles = () => {
+  return {
+    name: 'ensure-styles',
+    writeBundle() {
+      // Copy the primitive styles to the dist directory
+      const primitivesStylesPath = path.resolve('src/components/primitives/styles.css');
+      const destDir = path.resolve('dist/components/primitives');
+      
+      // Ensure the directory exists
+      fs.ensureDirSync(destDir);
+      
+      // Copy the CSS file
+      fs.copyFileSync(primitivesStylesPath, path.join(destDir, 'styles.css'));
+      
+      console.log('Primitive styles copied successfully');
+    }
+  };
+};
 
 /**
  * @type {import('rollup').OutputOptions}
@@ -60,11 +82,13 @@ const config = defineConfig([
       postcss({
         extract: 'style.css',
         minimize: true,
-        sourceMap: false
+        sourceMap: false,
+        inject: false
       }),
       typescript({ 
         ...typescriptConfig
       }),
+      ensureStyles()
     ],
   },
   // ESM config
