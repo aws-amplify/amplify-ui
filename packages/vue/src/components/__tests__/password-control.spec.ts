@@ -161,18 +161,19 @@ describe('PasswordControl', () => {
     const showPasswordButton = screen.getByRole('switch');
 
     // Initial state: password is hidden (type=password)
-    // Our updated implementation doesn't directly set the attribute but uses v-bind to reactively update it
     expect(input.getAttribute('type')).toBe('password');
+    expect(showPasswordButton.getAttribute('aria-checked')).toBe('false');
 
     // Click the button to show password (should change to type=text)
     await fireEvent.click(showPasswordButton);
 
-    // Since we updated base-input.vue to work with both attributes and props,
-    // we need to check the component state via the "show password" button state instead
+    // After clicking, the password should be visible
+    expect(input.getAttribute('type')).toBe('text');
     expect(showPasswordButton.getAttribute('aria-checked')).toBe('true');
 
     // Click again to hide password (should change back to type=password)
     await fireEvent.click(showPasswordButton);
+    expect(input.getAttribute('type')).toBe('password');
     expect(showPasswordButton.getAttribute('aria-checked')).toBe('false');
   });
 });

@@ -22,15 +22,12 @@ const onInput = (e: Event): void => {
   emit('update:modelValue', (e.target as HTMLInputElement).value);
 };
 
-// Determine the appropriate role based on input type
-const determineRole = () => {
-  switch (type) {
-    case 'radio':
-      return 'radio';
-    case 'checkbox':
-      return 'checkbox';
-    default:
-      return 'textbox';
-  }
-};
+// Using a function instead of a computed binding to ensure
+// the role is determined at render time and more likely to be
+// included in the DOM for e2e tests
+function determineRole() {
+  if (type === 'radio') return 'radio';
+  if (type === 'checkbox') return 'checkbox';
+  return 'textbox';
+}
 </script>
