@@ -1,5 +1,7 @@
 import { isAndroidChromeWithBrokenH264 } from '../../utils/device';
 
+// Equivalent to 2 Kbps - needed for maintaining video quality at 60 FPS
+const BITS_PER_SECOND = 2000000;
 // Only to be used with Chrome for the Android Chrome H264 Bug - https://issues.chromium.org/issues/343199623
 const ALTERNATE_CHROME_MIME_TYPE = 'video/x-matroska;codecs=vp8';
 
@@ -30,7 +32,7 @@ export class VideoRecorder {
     this._stream = stream;
     this._chunks = [];
     this._recorder = new MediaRecorder(stream, {
-      bitsPerSecond: 2000000,
+      bitsPerSecond: BITS_PER_SECOND,
       mimeType: isAndroidChromeWithBrokenH264()
         ? ALTERNATE_CHROME_MIME_TYPE
         : undefined,
