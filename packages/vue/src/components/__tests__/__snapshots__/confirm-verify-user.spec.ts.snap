@@ -71,6 +71,7 @@ exports[`ConfirmVerifyUser renders as expected 1`] = `
                   name="confirmation_code"
                   placeholder="Code"
                   required=""
+                  role="textbox"
                   type="number"
                 />
                 

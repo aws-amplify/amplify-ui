@@ -73,6 +73,7 @@ exports[`SignIn renders as expected 1`] = `
                   name="username"
                   placeholder="Enter your Username"
                   required=""
+                  role="textbox"
                   type="text"
                 />
                 
@@ -120,6 +121,7 @@ exports[`SignIn renders as expected 1`] = `
                   name="password"
                   placeholder="Enter your Password"
                   required=""
+                  role="textbox"
                   type="password"
                 />
                 

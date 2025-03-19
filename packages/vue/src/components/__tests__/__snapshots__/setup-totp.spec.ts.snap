@@ -110,6 +110,7 @@ exports[`SetupTotp renders loading text as expected on init 1`] = `
                     name="confirmation_code"
                     placeholder="Enter your Confirmation Code"
                     required=""
+                    role="textbox"
                     type="number"
                   />
                   
@@ -299,6 +300,7 @@ exports[`SetupTotp renders qrcode image as expected after onMounted is done 1`] 
                     name="confirmation_code"
                     placeholder="Enter your Confirmation Code"
                     required=""
+                    role="textbox"
                     type="number"
                   />
                   

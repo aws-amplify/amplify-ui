@@ -66,6 +66,7 @@ exports[`SignUp renders as expected 1`] = `
                   name="username"
                   placeholder="Enter your Username"
                   required=""
+                  role="textbox"
                   type="text"
                 />
                 
@@ -113,6 +114,7 @@ exports[`SignUp renders as expected 1`] = `
                   name="password"
                   placeholder="Enter your Password"
                   required=""
+                  role="textbox"
                   type="password"
                 />
                 
@@ -184,6 +186,7 @@ exports[`SignUp renders as expected 1`] = `
                   name="confirm_password"
                   placeholder="Please your Password"
                   required=""
+                  role="textbox"
                   type="password"
                 />
                 
@@ -262,6 +265,7 @@ exports[`SignUp renders as expected 1`] = `
                   name="email"
                   placeholder="Enter your Email"
                   required=""
+                  role="textbox"
                   type="text"
                 />
                 

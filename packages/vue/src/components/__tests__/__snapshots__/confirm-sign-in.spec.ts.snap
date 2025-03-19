@@ -72,6 +72,7 @@ exports[`ConfirmSignIn renders as expected for SMS challenge 1`] = `
                   name="confirmation_code"
                   placeholder="Code"
                   required=""
+                  role="textbox"
                   type="number"
                 />
                 
@@ -216,6 +217,7 @@ exports[`ConfirmSignIn renders as expected for TOTP challenge 1`] = `
                   name="confirmation_code"
                   placeholder="Code"
                   required=""
+                  role="textbox"
                   type="number"
                 />
                 

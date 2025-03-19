@@ -81,6 +81,7 @@ exports[`ConfirmSignUp renders as expected 1`] = `
                   name="confirmation_code"
                   placeholder="Enter your code"
                   required=""
+                  role="textbox"
                   type="number"
                 />
                 
