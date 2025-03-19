@@ -1,5 +1,5 @@
 <template>
-  <input @change="(event) => onInput(event)" data-amplify-input="" />
+  <input @change="(event) => onInput(event)" data-amplify-input="" role="textbox" />
 </template>
 
 <script setup lang="ts">
