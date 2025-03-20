@@ -10,4 +10,17 @@ export { SignUp } from './SignUp';
 export { VerifyUser } from './VerifyUser';
 export { SelectMfaType } from './SelectMfaType';
 export { SetupEmail } from './SetupEmail';
-export { Components, DefaultComponents } from './types';
+export {
+  Components,
+  DefaultComponents,
+  ConfirmResetPasswordProps,
+  ConfirmSignInProps,
+  ConfirmSignUpProps,
+  ConfirmVerifyUserProps,
+  ForceNewPasswordProps,
+  ForgotPasswordProps,
+  SetupTotpProps,
+  SignInProps,
+  SignUpProps,
+  VerifyUserProps,
+} from './types';

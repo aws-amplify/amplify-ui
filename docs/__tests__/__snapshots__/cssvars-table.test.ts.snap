@@ -639,8 +639,12 @@ exports[`CSS Variables Table 1`] = `
         "value": "var(--amplify-space-xxs)"
     },
     {
-        "variable": "--amplify-components-ai-conversation-attachment-list-padding-block-start",
+        "variable": "--amplify-components-ai-conversation-attachment-list-padding",
         "value": "var(--amplify-space-xs)"
+    },
+    {
+        "variable": "--amplify-components-ai-conversation-attachment-list-padding-block-start",
+        "value": "0"
     },
     {
         "variable": "--amplify-components-ai-conversation-attachment-name-color",
