@@ -1,7 +1,8 @@
 import { InlineFilter } from '@/components/InlineFilter';
 import { Example, ExampleCode } from '@/components/Example';
 import { Accordion, Alert, Link, Message, Text, Tabs } from '@aws-amplify/ui-react';
-import { InstallScripts, TerminalCommand } from '@/components/InstallScripts.tsx';
+import { InstallScripts, TerminalCommand } from '@/components/InstallScripts';
+import { ReactNativeSafeAreaContextInstallation } from '@/components/ReactNativeSafeAreaContextInstallation';
 
 <InlineFilter filters={['android']}>
   Amplify UI Android requires Android API level 24 (Android 7.0) or above. The Amplify UI Android connected components are built using [Jetpack Compose](https://developer.android.com/jetpack/compose). You will need to update the app's `build.gradle` file as shown below to use Jetpack Compose.
@@ -82,6 +83,8 @@ import { InstallScripts, TerminalCommand } from '@/components/InstallScripts.tsx
 
   <InstallScripts framework="react-native" />
 
+  <ReactNativeSafeAreaContextInstallation />
+
   If your project will support Federated Sign In using the React Native `Authenticator` the `@aws-amplify/rtn-web-browser` package is also required:
 
   <TerminalCommand command="npm install @aws-amplify/rtn-web-browser" />
@@ -116,6 +119,8 @@ import { InstallScripts, TerminalCommand } from '@/components/InstallScripts.tsx
   Install `@aws-amplify/ui-react-native` and its dependencies with [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/):
 
   <InstallScripts framework="react-native" />
+
+  <ReactNativeSafeAreaContextInstallation />
 
   If your project will support Federated Sign In using the React Native `Authenticator` the `@aws-amplify/rtn-web-browser` package is also required:
 

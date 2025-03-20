@@ -60,8 +60,10 @@
     "nohoist": [
       "**/@react-native-community/**",
       "**/react-native",
+      "**/react-native-paper",
       "**/react-native-safe-area-context",
       "**/react-native-url-polyfill",
+      "**/react-native-vector-icons",
       "**/rollup",
       "**/@types/webgl-ext",
       "**/@types/webgl-ext/**"
