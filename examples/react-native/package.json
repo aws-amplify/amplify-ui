@@ -40,7 +40,6 @@
     "@typescript-eslint/parser": "^6.9.0",
     "babel-jest": "^29.2.1",
     "babel-loader": "^8.2.5",
-    "babel-plugin-optional-require": "^0.3.1",
     "eslint": "^8.44.0",
     "jest": "^29.7.0",
     "metro-react-native-babel-preset": "^0.77.0",
