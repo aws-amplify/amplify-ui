@@ -1,5 +1,15 @@
 # @aws-amplify/ui-react-native
 
+## 2.4.5
+
+### Patch Changes
+
+- [#6416](https://github.com/aws-amplify/amplify-ui/pull/6416) [`8cc5853caf0af9ea8f8ca6adc3a6412c90f7bbbf`](https://github.com/aws-amplify/amplify-ui/commit/8cc5853caf0af9ea8f8ca6adc3a6412c90f7bbbf) Thanks [@jjarvisp](https://github.com/jjarvisp)! - chore(authenticator): Add Authenticator Component Overrides Sample Application and Documentation
+
+- Updated dependencies [[`75bf5408c195fa1745bc88f9329c29c66258f247`](https://github.com/aws-amplify/amplify-ui/commit/75bf5408c195fa1745bc88f9329c29c66258f247)]:
+  - @aws-amplify/ui-react-core@3.3.5
+  - @aws-amplify/ui-react-core-notifications@2.2.5
+
 ## 2.4.4
 
 ### Patch Changes
