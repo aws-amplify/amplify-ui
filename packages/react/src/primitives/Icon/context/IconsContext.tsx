@@ -43,7 +43,7 @@ export type IconsContextInterface = {
   alert?: ComponentIcons<'close' | 'info' | 'error' | 'success' | 'warning'>;
   avatar?: ComponentIcons<'user'>;
   aiConversation?: ComponentIcons<
-    'attach' | 'close' | 'send' | 'remove' | 'assistant' | 'user'
+    'attach' | 'close' | 'send' | 'remove' | 'assistant' | 'user' | 'document'
   >;
   checkbox?: ComponentIcons<'indeterminate' | 'checked'>;
   field?: ComponentIcons<'clear'>;
