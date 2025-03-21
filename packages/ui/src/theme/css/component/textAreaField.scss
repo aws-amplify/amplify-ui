@@ -1,4 +1,6 @@
 .amplify-textareafield {
+  // To ensure auto-resize textarea doesn't grow too big for its container
+  max-height: 100%;
   flex-direction: column;
   --amplify-components-fieldcontrol-color: var(
     --amplify-components-textareafield-color

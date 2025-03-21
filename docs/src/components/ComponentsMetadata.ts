@@ -100,6 +100,12 @@ export const ComponentsMetadata: ComponentClassNameItems = {
     components: ['AIConversation'],
     description: 'Top level element that wraps the AIConversation primitive',
   },
+  AIConversationScrollView: {
+    className: ComponentClassName.AIConversationScrollView,
+    components: ['AIConversation'],
+    description:
+      'Scrollview element that wraps the Message list within AIConversation',
+  },
   AIConversationAttachment: {
     className: ComponentClassName.AIConversationAttachment,
     components: ['AIConversation'],

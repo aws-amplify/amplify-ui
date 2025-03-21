@@ -110,8 +110,7 @@ else
 
         # react-native-safe-area-context v5 is required for >= 0.74
         if [[ "$FRAMEWORK_VERSION" == "latest" || $FRAMEWORK_VERSION > "0.74" ]]; then
-            # build system test uses latest tag, will need to remove force after release
-            DEPENDENCIES="$DEPENDENCIES react-native-safe-area-context --force"
+            DEPENDENCIES="$DEPENDENCIES react-native-safe-area-context"
         else
             DEPENDENCIES="$DEPENDENCIES react-native-safe-area-context@^4.2.5"
         fi;
