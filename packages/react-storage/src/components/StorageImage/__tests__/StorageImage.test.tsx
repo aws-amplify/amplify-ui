@@ -184,6 +184,22 @@ describe('StorageImage', () => {
     );
   });
 
+  it('should render loadingElement when isLoading(from useGetUrl) is true', async () => {
+    const loadingElement = <div>Loading...</div>;
+    getUrlSpy.mockReturnValue(new Promise(() => {}));
+
+    render(
+      <StorageImage
+        alt="StorageImage"
+        path={path}
+        loadingElement={loadingElement}
+      />
+    );
+
+    const loadingDiv = await screen.findByText('Loading...');
+    expect(loadingDiv).toBeInTheDocument();
+  });
+
   describe('with `imgKey`', () => {
     it('should get the presigned URL and pass it to image src attribute', async () => {
       getUrlSpy.mockResolvedValue({
