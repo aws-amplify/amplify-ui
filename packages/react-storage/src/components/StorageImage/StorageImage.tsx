@@ -50,6 +50,7 @@ export const StorageImage = ({
   identityId,
   imgKey,
   path,
+  loadingElement,
   onStorageGetError,
   onGetUrlError,
   validateObjectExistence = true,
@@ -99,7 +100,11 @@ export const StorageImage = ({
     ]
   );
 
-  const { url } = useGetUrl(input);
+  const { url, isLoading } = useGetUrl(input);
+
+  if (isLoading && loadingElement !== undefined) {
+    return loadingElement;
+  }
 
   return (
     <Image
