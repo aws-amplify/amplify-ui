@@ -1,7 +1,12 @@
 import React from 'react';
 import { isFunction } from '@aws-amplify/ui';
 
-import { ActionHandler, TaskHandlerInput, TaskData } from '../actions';
+import {
+  ActionHandler,
+  TaskHandlerInput,
+  TaskData,
+  uploadHandler,
+} from '../actions';
 
 import {
   HandleProcessTasks,
@@ -28,16 +33,16 @@ const isTaskHandlerInput = <T extends TaskData>(
 ): input is TaskHandlerInput<T> => !!(input as TaskHandlerInput<T>).data;
 
 export const useProcessTasks = <
-  TTask extends Task<TData, TValue>,
   TData extends TaskData,
   TValue,
-  TInput extends InferHandleTasksInput<TItems, TData>,
+  TTask extends Task<TData, TValue>,
+  TInput extends InferHandleTasksInput<TItems, TTask['data']>,
   // infered value of provided `items`
-  TItems extends TData[] | undefined = undefined,
+  TItems extends TTask['data'][] | undefined = undefined,
 >(
   handler: ActionHandler<TData, TValue>,
   options?: ProcessTasksOptions<TTask, TItems>
-): UseProcessTasksState<TData, TInput> => {
+): UseProcessTasksState<TTask, TInput> => {
   const { concurrency, items, ...callbacks } = options ?? {};
 
   const callbacksRef = React.useRef(callbacks);
@@ -50,13 +55,16 @@ export const useProcessTasks = <
 
   const flush = React.useReducer(() => ({}), {})[1];
 
-  const refreshTaskData = React.useCallback((id: string, data: TData) => {
-    const task = tasksRef.current.get(id);
+  const refreshTaskData = React.useCallback(
+    (id: string, data: TTask['data']) => {
+      const task = tasksRef.current.get(id);
 
-    if (!task || task.data.id !== data.id) return;
+      if (!task || task.data.id !== data.id) return;
 
-    tasksRef.current.set(id, { ...task, data });
-  }, []);
+      tasksRef.current.set(id, { ...task, data });
+    },
+    []
+  );
 
   const updateTask = React.useCallback(
     <T extends Task>(id: string, next?: Partial<T>) => {
@@ -78,7 +86,7 @@ export const useProcessTasks = <
   );
 
   const createTask = React.useCallback(
-    (data: TData) => {
+    (data: TTask['data']) => {
       const getTask = () => tasksRef.current.get(data.id);
       const { onTaskCancel } = callbacksRef.current;
 
@@ -103,7 +111,7 @@ export const useProcessTasks = <
       taskLookup[data.id] = true;
     });
 
-    items?.forEach((item: TData) => {
+    items?.forEach((item: TTask['data']) => {
       if (!taskLookup[item.id]) {
         // If an item doesn't yet have a task created for it, create one
         createTask(item);
@@ -152,7 +160,7 @@ export const useProcessTasks = <
     const { options } = _input;
     const { onProgress: _onProgress } = options ?? {};
 
-    const onProgress = ({ id }: TData, progress?: number) => {
+    const onProgress = ({ id }: TTask['data'], progress?: number) => {
       const task = getTask();
 
       if (task && isFunction(onTaskProgress)) {
@@ -238,3 +246,5 @@ export const useProcessTasks = <
     handleProcessTasks,
   ];
 };
+
+const [state, handelr] = useProcessTasks(uploadHandler, { items: [] });

@@ -3,7 +3,6 @@ import {
   TaskData,
   TaskResult,
   TaskResultStatus,
-  ActionHandler,
 } from '../actions';
 
 /**
@@ -55,16 +54,16 @@ export type Tasks<TData extends TaskData, TValue = any> = Task<TData, TValue>[];
 
 export type HandleProcessTasks<TInput> = (input: TInput) => void;
 
-export interface TasksState<TData extends TaskData = TaskData, TValue = any> {
+export interface TasksState<TTask> {
   isProcessing: boolean;
   isProcessingComplete: boolean;
   reset: () => void;
   statusCounts: StatusCounts;
-  tasks: Tasks<TData, TValue>;
+  tasks: TTask[];
 }
 
-export type UseProcessTasksState<TData extends TaskData, TInput> = [
-  TasksState<TData>,
+export type UseProcessTasksState<TTask, TInput> = [
+  TasksState<TTask>,
   HandleProcessTasks<TInput>,
 ];
 
@@ -72,8 +71,3 @@ export type InferHandleTasksInput<TItems, TData extends TaskData> =
   TItems extends NonNullable<TItems>
     ? Omit<TaskHandlerInput<TData>, 'data'>
     : TaskHandlerInput<TData>;
-
-export type InferTask<THandler> =
-  THandler extends ActionHandler<infer T extends TaskData, infer V>
-    ? Task<T, V>
-    : never;

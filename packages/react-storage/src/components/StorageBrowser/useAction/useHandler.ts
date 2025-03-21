@@ -69,11 +69,8 @@ export function useHandler<
   );
 
   if (isOptionsWithItems(options)) {
-    return [
-      { ...rest, isProcessing, reset, tasks: tasks as TTask[] },
-      handleDispatch,
-    ];
+    return [{ ...rest, isProcessing, reset, tasks }, handleDispatch];
   }
 
-  return [{ isProcessing, task: tasks?.[0] as TTask }, handleDispatch];
+  return [{ isProcessing, task: tasks?.[0] }, handleDispatch];
 }
