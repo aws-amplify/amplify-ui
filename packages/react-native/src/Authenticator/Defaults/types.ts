@@ -158,3 +158,15 @@ export interface Components {
   SignUp?: SignUpComponent;
   VerifyUser?: VerifyUserComponent;
 }
+
+export interface ConfirmResetPasswordProps
+  extends DefaultConfirmResetPasswordProps {}
+export interface ConfirmSignInProps extends DefaultConfirmSignInProps {}
+export interface ConfirmSignUpProps extends DefaultConfirmSignUpProps {}
+export interface ConfirmVerifyUserProps extends DefaultConfirmVerifyUserProps {}
+export interface ForceNewPasswordProps extends DefaultForceNewPasswordProps {}
+export interface ForgotPasswordProps extends DefaultForgotPasswordProps {}
+export interface SetupTotpProps extends DefaultSetupTotpProps {}
+export interface SignInProps extends DefaultSignInProps {}
+export interface SignUpProps extends DefaultSignUpProps {}
+export interface VerifyUserProps extends DefaultVerifyUserProps {}
