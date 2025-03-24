@@ -36,6 +36,9 @@ const SlotsExample = React.lazy(
 const StylesExample = React.lazy(
   () => import('../features/Authenticator/Styles/Example')
 );
+const OverrideComponents = React.lazy(
+  () => import('../features/Authenticator/OverrideComponents/Example')
+);
 
 /**
  * `InAppMessaging` Example and Demo Apps
@@ -120,6 +123,8 @@ export const ExampleComponent = () => {
       return <ThemingExample />;
     case 'DarkModeExample':
       return <DarkModeExample />;
+    case 'OverrideComponents':
+      return <OverrideComponents />;
 
     // Detox-Cucumber e2e tests
     // below apps are not meant to be run as example apps, they are part of integration testing in CI
