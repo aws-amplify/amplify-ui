@@ -1,3 +1,5 @@
+import { Tabs } from '@aws-amplify/ui-react';
+
 ## Authenticator Container, Header & Footer Slots
 
 The Authenticator has several "slots" that you can customize to add messaging & functionality to meet your app's needs.
@@ -30,3 +32,68 @@ The `Authenticator` subcomponents can be overridden allowing for advanced use ca
 ```jsx expoSnack file=../../../../../../../examples/react-native/src/features/Authenticator/Component/Example.tsx
 
 ```
+
+### Override components with third-party component library 
+The following example shows how to override each component in the Authenticator to produce a distinct look and feel using a third-party component library.
+
+<Tabs.Container defaultValue="example">
+  <Tabs.List style={{ overflowX: 'scroll', paddingBottom: 8 }}>
+    <Tabs.Item value="example">Example.tsx</Tabs.Item>
+    <Tabs.Item value="confirm-reset-password">
+      ConfirmResetPassword.tsx
+    </Tabs.Item>
+    <Tabs.Item value="confirm-sign-in">ConfirmSignIn.tsx</Tabs.Item>
+    <Tabs.Item value="confirm-verify-user">ConfirmVerifyUser.tsx</Tabs.Item>
+    <Tabs.Item value="force-new-password">ForceNewPassword.tsx</Tabs.Item>
+    <Tabs.Item value="forgot-password">ForgotPassword.tsx</Tabs.Item>
+    <Tabs.Item value="setup-totp">SetupTotp.tsx</Tabs.Item>
+    <Tabs.Item value="sign-in">SignIn.tsx</Tabs.Item>
+    <Tabs.Item value="sign-up">SignUp.tsx</Tabs.Item>
+    <Tabs.Item value="verify-user">VerifyUser.tsx</Tabs.Item>
+    <Tabs.Item value="components">components.tsx</Tabs.Item>
+  </Tabs.List>
+  <Tabs.Panel value="example">
+    ```jsx file=../../../../../../../examples/react-native/src/features/Authenticator/OverrideComponents/Example.tsx
+    ```
+  </Tabs.Panel>
+  <Tabs.Panel value="confirm-reset-password">
+    ```jsx file=../../../../../../../examples/react-native/src/features/Authenticator/OverrideComponents/ConfirmResetPassword.tsx
+    ```
+  </Tabs.Panel>
+  <Tabs.Panel value="confirm-sign-in">
+    ```jsx file=../../../../../../../examples/react-native/src/features/Authenticator/OverrideComponents/ConfirmSignIn.tsx
+    ```
+  </Tabs.Panel>
+  <Tabs.Panel value="confirm-verify-user">
+    ```jsx file=../../../../../../../examples/react-native/src/features/Authenticator/OverrideComponents/ConfirmVerifyUser.tsx
+    ```
+  </Tabs.Panel>
+  <Tabs.Panel value="force-new-password">
+    ```jsx file=../../../../../../../examples/react-native/src/features/Authenticator/OverrideComponents/ForceNewPassword.tsx
+    ```
+  </Tabs.Panel>
+  <Tabs.Panel value="forgot-password">
+    ```jsx file=../../../../../../../examples/react-native/src/features/Authenticator/OverrideComponents/ForgotPassword.tsx
+    ```
+  </Tabs.Panel>
+  <Tabs.Panel value="setup-totp">
+    ```jsx file=../../../../../../../examples/react-native/src/features/Authenticator/OverrideComponents/SetupTotp.tsx
+    ```
+  </Tabs.Panel>
+  <Tabs.Panel value="sign-in">
+    ```jsx file=../../../../../../../examples/react-native/src/features/Authenticator/OverrideComponents/SignIn.tsx
+    ```
+  </Tabs.Panel>
+  <Tabs.Panel value="sign-up">
+    ```jsx file=../../../../../../../examples/react-native/src/features/Authenticator/OverrideComponents/SignUp.tsx
+    ```
+  </Tabs.Panel>
+  <Tabs.Panel value="verify-user">
+    ```jsx file=../../../../../../../examples/react-native/src/features/Authenticator/OverrideComponents/VerifyUser.tsx
+    ```
+  </Tabs.Panel>
+  <Tabs.Panel value="components">
+    ```jsx file=../../../../../../../examples/react-native/src/features/Authenticator/OverrideComponents/components.tsx
+    ```
+  </Tabs.Panel>
+</Tabs.Container>

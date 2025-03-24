@@ -1,5 +1,18 @@
 # @aws-amplify/ui-react-storage
 
+## 3.9.0
+
+### Minor Changes
+
+- [#6436](https://github.com/aws-amplify/amplify-ui/pull/6436) [`789cf8801a916e3c6ef52141748ed12c59d998f7`](https://github.com/aws-amplify/amplify-ui/commit/789cf8801a916e3c6ef52141748ed12c59d998f7) Thanks [@tiffanynwyeung](https://github.com/tiffanynwyeung)! - feat(ui-react-storage): allow custom error boundary
+
+### Patch Changes
+
+- Updated dependencies [[`e0fcb4322ab8af7e0699da577dc5fbcf9f7e56cc`](https://github.com/aws-amplify/amplify-ui/commit/e0fcb4322ab8af7e0699da577dc5fbcf9f7e56cc)]:
+  - @aws-amplify/ui@6.9.1
+  - @aws-amplify/ui-react@6.9.4
+  - @aws-amplify/ui-react-core@3.3.4
+
 ## 3.8.2
 
 ### Patch Changes
