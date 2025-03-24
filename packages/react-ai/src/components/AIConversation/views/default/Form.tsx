@@ -111,10 +111,11 @@ export const Form: Required<ControlsContextProps>['Form'] = ({
             setComposing(true);
           }}
           onCompositionEnd={(e) => {
+            const composedText = e?.currentTarget?.value || '';
             setComposing(false);
             setInput?.((prevValue) => ({
               ...prevValue,
-              text: (e.target as HTMLTextAreaElement).value,
+              text: composedText,
             }));
           }}
           onKeyDown={(e) => {
@@ -126,9 +127,10 @@ export const Form: Required<ControlsContextProps>['Form'] = ({
             }
           }}
           onChange={(e) => {
+            const composedText = e?.currentTarget?.value || '';
             setInput?.((prevValue) => ({
               ...prevValue,
-              text: (e.target as HTMLTextAreaElement).value,
+              text: composedText,
             }));
           }}
         />
