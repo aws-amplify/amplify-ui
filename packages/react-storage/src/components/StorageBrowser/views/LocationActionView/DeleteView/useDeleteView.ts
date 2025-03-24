@@ -1,11 +1,15 @@
 import React from 'react';
 import { isFunction } from '@aws-amplify/ui';
 
+import { FileDataItem } from '../../../actions';
 import { useStore } from '../../../providers/store';
 import { Task } from '../../../tasks';
 import { useAction } from '../../../useAction';
 
 import { DeleteViewState, UseDeleteViewOptions } from './types';
+
+// assign to constant to ensure referential equality
+const EMPTY_ITEMS: FileDataItem[] = [];
 
 export const useDeleteView = (
   options?: UseDeleteViewOptions
@@ -13,12 +17,10 @@ export const useDeleteView = (
   const { onExit: _onExit } = options ?? {};
 
   const [{ location, locationItems }, dispatchStoreAction] = useStore();
-  const { fileDataItems } = locationItems;
   const { current } = location;
+  const { fileDataItems: items = EMPTY_ITEMS } = locationItems;
 
-  const [processState, handleProcess] = useAction('delete', {
-    items: fileDataItems ?? [],
-  });
+  const [processState, handleProcess] = useAction('delete', { items });
 
   const { isProcessing, isProcessingComplete, statusCounts, tasks } =
     processState;
