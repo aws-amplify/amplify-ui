@@ -89,6 +89,17 @@ export function UploadViewProvider({
         statusDisplayFailedLabel,
         statusDisplayQueuedLabel,
         tableData: getActionViewTableData({
+          getFolderText: ({
+            data: {
+              file: { webkitRelativePath },
+            },
+          }) =>
+            webkitRelativePath
+              ? webkitRelativePath.slice(
+                  0,
+                  webkitRelativePath.lastIndexOf('/') + 1
+                )
+              : '-',
           tasks,
           shouldDisplayProgress: true,
           displayText,

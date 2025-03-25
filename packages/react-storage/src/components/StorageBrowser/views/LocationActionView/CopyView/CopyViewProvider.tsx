@@ -30,6 +30,7 @@ export function CopyViewProvider({
     statusDisplayCompletedLabel,
     statusDisplayFailedLabel,
     statusDisplayQueuedLabel,
+    title,
   } = displayText;
 
   const {
@@ -37,7 +38,6 @@ export function CopyViewProvider({
     folders,
     isProcessing,
     isProcessingComplete,
-    location,
     statusCounts,
     tasks,
     onActionCancel,
@@ -64,11 +64,10 @@ export function CopyViewProvider({
     onSelectFolder,
   } = folders;
 
-  const { key: locationKey } = location ?? {};
-
   const tableData = getActionViewTableData({
+    getFolderText: ({ data: { fileKey, sourceKey } }) =>
+      sourceKey.slice(0, -fileKey.length),
     tasks,
-    locationKey,
     isProcessing,
     displayText,
     onTaskRemove,
@@ -110,6 +109,7 @@ export function CopyViewProvider({
         statusDisplayFailedLabel,
         statusDisplayQueuedLabel,
         tableData,
+        title,
       }}
       onActionCancel={onActionCancel}
       onActionExit={onActionExit}

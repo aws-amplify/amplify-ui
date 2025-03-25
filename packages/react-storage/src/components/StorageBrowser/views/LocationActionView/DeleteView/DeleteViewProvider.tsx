@@ -25,7 +25,6 @@ export function DeleteViewProvider({
   const {
     isProcessing,
     isProcessingComplete,
-    location,
     statusCounts,
     tasks,
     onActionCancel,
@@ -40,9 +39,9 @@ export function DeleteViewProvider({
 
   const tableData = getActionViewTableData({
     tasks,
-    locationKey: location.key,
     isProcessing,
     displayText,
+    getFolderText: ({ data }) => data.key.slice(0, -data.fileKey.length),
     onTaskRemove,
   });
 
