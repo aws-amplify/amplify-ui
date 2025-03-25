@@ -6,6 +6,7 @@ import { useDisplayText } from '../../../displayText';
 import { getActionViewTableData } from '../getActionViewTableData';
 
 import { UploadViewProviderProps } from './types';
+import { getFolderText } from './utils';
 
 export function UploadViewProvider({
   children,
@@ -89,17 +90,7 @@ export function UploadViewProvider({
         statusDisplayFailedLabel,
         statusDisplayQueuedLabel,
         tableData: getActionViewTableData({
-          getFolderText: ({
-            data: {
-              file: { webkitRelativePath },
-            },
-          }) =>
-            webkitRelativePath
-              ? webkitRelativePath.slice(
-                  0,
-                  webkitRelativePath.lastIndexOf('/') + 1
-                )
-              : '-',
+          getFolderText,
           tasks,
           shouldDisplayProgress: true,
           displayText,

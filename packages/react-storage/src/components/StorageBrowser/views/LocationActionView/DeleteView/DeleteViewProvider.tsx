@@ -2,8 +2,10 @@ import React from 'react';
 
 import { ControlsContextProvider } from '../../../controls/context';
 import { useDisplayText } from '../../../displayText';
+
 import { getActionViewTableData } from '../getActionViewTableData';
 import { DeleteViewProviderProps } from './types';
+import { getFolderText } from './utils';
 
 export function DeleteViewProvider({
   children,
@@ -41,7 +43,7 @@ export function DeleteViewProvider({
     tasks,
     isProcessing,
     displayText,
-    getFolderText: ({ data }) => data.key.slice(0, -data.fileKey.length),
+    getFolderText,
     onTaskRemove,
   });
 
