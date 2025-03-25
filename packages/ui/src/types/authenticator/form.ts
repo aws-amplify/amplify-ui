@@ -19,7 +19,6 @@ export type FormFieldComponents =
   | 'confirmSignUp'
   | 'confirmVerifyUser'
   | 'forgotPassword'
-  | 'selectMfaType'
   | 'setupEmail'
   | 'setupTotp';
 
