@@ -79,7 +79,7 @@ describe('Form', () => {
 
     await waitFor(() => fireEvent.change(textInput, completeInput));
 
-    expect(textInput.value).not.toBeNull();
+    expect(textInput.value).not.toEqual('');
     expect(textInput.value).toBe('你好');
   });
 
@@ -108,7 +108,7 @@ describe('Form', () => {
       fireEvent.compositionEnd(textInput, completeInput);
     });
 
-    expect(textInput.value).not.toBeNull();
+    expect(textInput.value).not.toEqual('');
     expect(textInput.value).toBe('幸せならおkです');
   });
 });
