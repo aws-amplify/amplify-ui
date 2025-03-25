@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { Form } from '../Form';
@@ -56,5 +57,58 @@ describe('Form', () => {
     expect(onValidate).toHaveBeenCalledTimes(1);
     expect(fileInput.files).not.toBeNull();
     expect(fileInput.files![0]).toStrictEqual(testFile);
+  });
+
+  it('updates input value through multiple change events with IME characters', async () => {
+    const result = render(<Form {...defaultProps} />);
+    expect(result.container).toBeDefined();
+
+    const textInput: HTMLInputElement = screen.getByTestId('text-input');
+
+    const preMatureInput = Object.defineProperty(textInput, 'value', {
+      configurable: true,
+      value: '你',
+    });
+
+    const completeInput = Object.defineProperty(textInput, 'value', {
+      configurable: true,
+      value: '你好',
+    });
+
+    await waitFor(() => fireEvent.change(textInput, preMatureInput));
+
+    await waitFor(() => fireEvent.change(textInput, completeInput));
+
+    expect(textInput.value).not.toBeNull();
+    expect(textInput.value).toBe('你好');
+  });
+
+  it('updates input value correctly after IME composition successfully ends', async () => {
+    const result = render(<Form {...defaultProps} />);
+    expect(result.container).toBeDefined();
+
+    const textInput: HTMLInputElement = screen.getByTestId('text-input');
+
+    const preMatureInput = Object.defineProperty(textInput, 'value', {
+      configurable: true,
+      value: 'しあわせ',
+    });
+
+    const completeInput = Object.defineProperty(textInput, 'value', {
+      configurable: true,
+      value: '幸せならおkです',
+    });
+
+    await waitFor(() => {
+      fireEvent.compositionStart(textInput);
+      fireEvent.change(textInput, preMatureInput);
+    });
+
+    await waitFor(() => {
+      fireEvent.compositionEnd(textInput, completeInput);
+    });
+
+    expect(textInput.value).not.toBeNull();
+    expect(textInput.value).toBe('幸せならおkです');
   });
 });
