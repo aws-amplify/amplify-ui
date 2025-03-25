@@ -6,6 +6,7 @@ import { useDisplayText } from '../../../displayText';
 import { getActionViewTableData } from '../getActionViewTableData';
 
 import { UploadViewProviderProps } from './types';
+import { getFolderText } from './utils';
 
 export function UploadViewProvider({
   children,
@@ -89,6 +90,7 @@ export function UploadViewProvider({
         statusDisplayFailedLabel,
         statusDisplayQueuedLabel,
         tableData: getActionViewTableData({
+          getFolderText,
           tasks,
           shouldDisplayProgress: true,
           displayText,
