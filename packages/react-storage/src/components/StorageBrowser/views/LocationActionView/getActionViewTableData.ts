@@ -57,15 +57,15 @@ const getProgressHeader = (label: string): ActionViewHeaders[0] => ({
 export const getActionViewTableData = <T extends TaskData = TaskData>({
   tasks,
   displayText,
+  getFolderText,
   isProcessing,
-  locationKey,
   shouldDisplayProgress = false,
   onTaskRemove,
 }: {
   tasks: Task<T>[];
   isProcessing: boolean;
-  locationKey?: string;
   shouldDisplayProgress?: boolean;
+  getFolderText?: (task: Task<T>) => string;
   displayText: Omit<
     DefaultActionViewDisplayText,
     'getActionCompleteMessage'
@@ -111,27 +111,9 @@ export const getActionViewTableData = <T extends TaskData = TaskData>({
             };
           }
           case 'folder': {
-            if (locationKey) {
-              return { key, type: 'text', content: { text: locationKey } };
-            }
+            const text = getFolderText?.(task) ?? '/';
 
-            if (isFileItem(data)) {
-              const { webkitRelativePath } = data.file;
-              return {
-                key,
-                type: 'text',
-                content: {
-                  text: webkitRelativePath
-                    ? webkitRelativePath.slice(
-                        0,
-                        webkitRelativePath.lastIndexOf('/') + 1
-                      )
-                    : '-',
-                },
-              };
-            }
-
-            return { key, type: 'text', content: { text: '/' } };
+            return { key, type: 'text', content: { text } };
           }
           case 'type': {
             return {
