@@ -7,6 +7,9 @@ const setInput = jest.fn();
 const input = {};
 const handleSubmit = jest.fn();
 const onValidate = jest.fn();
+const onCompositionStart = jest.fn();
+const onCompositionEnd = jest.fn();
+const onKeyDown = jest.fn();
 
 const defaultProps = {
   allowAttachments: true,
@@ -14,6 +17,9 @@ const defaultProps = {
   input,
   handleSubmit,
   onValidate,
+  onCompositionStart,
+  onCompositionEnd,
+  onKeyDown,
 };
 
 describe('Form', () => {
