@@ -12,10 +12,6 @@ import { ComponentClassName } from '@aws-amplify/ui';
 import { ControlsContextProps } from '../../context/ControlsContext';
 import { Attachments } from './Attachments';
 
-function isHTMLFormElement(target: EventTarget): target is HTMLFormElement {
-  return 'form' in target;
-}
-
 /**
  * Will conditionally render the DropZone if allowAttachments
  * is true
@@ -53,12 +49,14 @@ export const Form: Required<ControlsContextProps>['Form'] = ({
   onValidate,
   isLoading,
   error,
+  onCompositionStart,
+  onCompositionEnd,
+  onKeyDown,
 }) => {
   const icons = useIcons('aiConversation');
   const sendIcon = icons?.send ?? <IconSend />;
   const attachIcon = icons?.attach ?? <IconAttach />;
   const hiddenInput = React.useRef<HTMLInputElement>(null);
-  const [composing, setComposing] = React.useState(false);
   const isInputEmpty = !input?.text?.length && !input?.files?.length;
 
   return (
@@ -107,20 +105,14 @@ export const Form: Required<ControlsContextProps>['Form'] = ({
           rows={1}
           value={input?.text ?? ''}
           testId="text-input"
-          onCompositionStart={() => setComposing(true)}
-          onCompositionEnd={() => setComposing(false)}
-          onKeyDown={(e) => {
-            // Submit on enter key if shift is not pressed also
-            const shouldSubmit = !e.shiftKey && e.key === 'Enter' && !composing;
-            if (shouldSubmit && isHTMLFormElement(e.target)) {
-              (e.target.form as HTMLFormElement).requestSubmit();
-              e.preventDefault();
-            }
-          }}
+          onCompositionStart={onCompositionStart}
+          onCompositionEnd={onCompositionEnd}
+          onKeyDown={onKeyDown}
           onChange={(e) => {
+            const composedText = e?.currentTarget?.value || '';
             setInput?.((prevValue) => ({
               ...prevValue,
-              text: e.target.value,
+              text: composedText,
             }));
           }}
         />

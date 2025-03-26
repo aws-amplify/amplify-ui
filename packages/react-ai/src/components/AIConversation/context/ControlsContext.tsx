@@ -10,6 +10,9 @@ export interface ControlsContextProps {
       allowAttachments?: boolean;
       isLoading?: boolean;
       onValidate: (files: File[]) => Promise<void>;
+      onKeyDown: React.KeyboardEventHandler<HTMLTextAreaElement>;
+      onCompositionStart: React.CompositionEventHandler<HTMLTextAreaElement>;
+      onCompositionEnd: React.CompositionEventHandler<HTMLTextAreaElement>;
     } & ConversationInputContextProps
   >;
   MessageList?: React.ComponentType<{ messages: ConversationMessage[] }>;
