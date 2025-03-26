@@ -47,6 +47,7 @@ describe('useCopyView', () => {
       {
         isProcessing: false,
         isProcessingComplete: false,
+        reset: jest.fn(),
         statusCounts: { ...INITIAL_STATUS_COUNTS, QUEUED: 3, TOTAL: 3 },
         tasks: [
           {

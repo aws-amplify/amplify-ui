@@ -51,9 +51,9 @@ import {
  * }
  * ```
  */
-export type ActionHandler<TData = any, RValue = any> = TaskHandler<
+export type ActionHandler<TData = any, TValue = any> = TaskHandler<
   TaskHandlerInput<TData & TaskData>,
-  TaskHandlerOutput<RValue>
+  TaskHandlerOutput<TValue>
 >;
 
 type StringWithoutSpaces<T extends string> = Exclude<
@@ -62,7 +62,9 @@ type StringWithoutSpaces<T extends string> = Exclude<
 >;
 
 export type ViewName = Capitalize<`${string}View`>;
-export type ActionName<T extends string = string> = StringWithoutSpaces<T>;
+
+// action names cannot contain white space
+export type ActionName<K extends string = string> = StringWithoutSpaces<K>;
 
 export interface ActionListItemConfig {
   /**
