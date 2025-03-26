@@ -184,6 +184,22 @@ const components = {
       return <Text>Footer Information</Text>;
     },
   },
+  SelectMfaType: {
+    Header() {
+      return <Heading level={3}>Select Desired MFA Type</Heading>;
+    },
+    Footer() {
+      return <Text>Footer Information</Text>;
+    },
+  },
+  SetupEmail: {
+    Header() {
+      return <Heading level={3}>Email MFA Setup</Heading>;
+    },
+    Footer() {
+      return <Text>Footer Information</Text>;
+    },
+  },
 };
 
 const formFields = {
@@ -240,6 +256,12 @@ const formFields = {
       label: 'New Label',
       placeholder: 'Enter your Confirmation Code:',
       isRequired: false,
+    },
+  },
+  setupEmail: {
+    email: {
+      label: 'New Label',
+      placeholder: 'Please enter your Email:',
     },
   },
 };

@@ -16,7 +16,6 @@ import {
 } from '@aws-amplify/ui-react-native';
 import { Amplify } from 'aws-amplify';
 import outputs from '@aws-amplify/ui-environments/auth/gen2/auth-with-federated-sign-in-react-native/amplify_outputs.json';
-// import outputs from '@aws-amplify/ui-environments/auth/gen2/auth-with-email-mfa/amplify_outputs.json';
 
 import { ConfirmResetPassword } from './ConfirmResetPassword';
 import { ConfirmSignIn } from './ConfirmSignIn';
