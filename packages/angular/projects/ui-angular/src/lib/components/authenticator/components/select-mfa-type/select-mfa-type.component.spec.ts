@@ -18,14 +18,6 @@ const totpFieldInput = { name: fieldName, value: 'TOTP' };
 
 const mockContext: Partial<AuthActorContext> = {
   challengeName: 'MFA_SETUP',
-  formFields: {
-    selectMfaType: {
-      mfa_type: {
-        label: 'Select MFA Type',
-        type: 'radio',
-      },
-    },
-  },
   allowedMfaTypes: ['EMAIL', 'TOTP'],
 };
 

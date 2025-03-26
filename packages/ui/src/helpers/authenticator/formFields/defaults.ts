@@ -166,17 +166,6 @@ const getForceNewPasswordFormFields = (state: AuthMachineState): FormFields => {
   return formField;
 };
 
-const getSelectMfaTypeFormFields = (_: AuthMachineState): FormFields => {
-  return {
-    mfa_type: {
-      label: 'Select MFA Type',
-      placeholder: 'Please select desired MFA type',
-      type: 'radio',
-      isRequired: true,
-    },
-  };
-};
-
 const getSetupEmailFormFields = (_: AuthMachineState): FormFields => ({
   email: getDefaultFormField('email'),
 });
@@ -194,7 +183,6 @@ export const defaultFormFieldsGetters: Record<
   forgotPassword: getForgotPasswordFormFields,
   confirmResetPassword: getConfirmResetPasswordFormFields,
   confirmVerifyUser: getConfirmationCodeFormFields,
-  selectMfaType: getSelectMfaTypeFormFields,
   setupEmail: getSetupEmailFormFields,
   setupTotp: getConfirmationCodeFormFields,
 };
