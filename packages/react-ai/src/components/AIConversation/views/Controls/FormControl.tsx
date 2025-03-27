@@ -11,13 +11,20 @@ import { AttachFileControl } from './AttachFileControl';
 import { MessagesContext } from '../../context';
 import { AttachmentListControl } from './AttachmentListControl';
 import { SendMessageContext } from '../../context/SendMessageContext';
-import { ConversationMessageContent, InputContent } from '../../../../types';
+import { InputContent } from '../../../../types';
 import {
   convertResponseComponentsToToolConfiguration,
   ResponseComponentsContext,
 } from '../../context/ResponseComponentsContext';
 import { ControlsContext } from '../../context/ControlsContext';
-import { attachmentsValidator, getImageTypeFromMimeType } from '../../utils';
+import {
+  attachmentsValidator,
+  getAttachmentFormat,
+  getValidDocumentName,
+  isDocumentFormat,
+  isImageFormat,
+  validFileTypes,
+} from '../../utils';
 import { LoadingContext } from '../../context/LoadingContext';
 import { AttachmentContext } from '../../context/AttachmentContext';
 import { humanFileSize, isFunction } from '@aws-amplify/ui';
@@ -165,6 +172,7 @@ export const FormControl: FormControl = () => {
   const ref = React.useRef<HTMLFormElement | null>(null);
   const controls = React.useContext(ControlsContext);
   const [composing, setComposing] = React.useState(false);
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
 
   const submitMessage = async () => {
     ref.current?.reset();
@@ -179,13 +187,25 @@ export const FormControl: FormControl = () => {
     if (input?.files) {
       for (const file of input.files) {
         const buffer = await file.arrayBuffer();
-        const fileContent: ConversationMessageContent = {
-          image: {
-            format: getImageTypeFromMimeType(file.type),
-            source: { bytes: new Uint8Array(buffer) },
-          },
-        };
-        submittedContent.push(fileContent);
+        const format = getAttachmentFormat(file);
+        if (isDocumentFormat(format)) {
+          submittedContent.push({
+            document: {
+              name: getValidDocumentName(file),
+              format,
+              source: {
+                bytes: new Uint8Array(buffer),
+              },
+            },
+          });
+        } else if (isImageFormat(format)) {
+          submittedContent.push({
+            image: {
+              format,
+              source: { bytes: new Uint8Array(buffer) },
+            },
+          });
+        }
       }
     }
 
@@ -202,7 +222,21 @@ export const FormControl: FormControl = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    submitMessage();
+
+    // Prevent double submission
+    if (isSubmitting) {
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    // Clear the attachment errors when submitting
+    // because the errors are not actually preventing the submission
+    // but rather notifying the user that certain files were not attached and why they weren't
+    setError?.(undefined);
+    submitMessage().then(() => {
+      setIsSubmitting(false);
+    });
   };
 
   const handleOnKeyDown: React.KeyboardEventHandler<HTMLTextAreaElement> = (
@@ -215,8 +249,11 @@ export const FormControl: FormControl = () => {
 
       const hasInput =
         !!input?.text || (input?.files?.length && input?.files?.length > 0);
-      if (hasInput) {
-        submitMessage();
+      if (hasInput && !isSubmitting && !isLoading) {
+        setIsSubmitting(true);
+        submitMessage().then(() => {
+          setIsSubmitting(false);
+        });
       }
     }
   };
@@ -228,16 +265,26 @@ export const FormControl: FormControl = () => {
         acceptedFiles,
         hasMaxAttachmentsError,
         hasMaxAttachmentSizeError,
+        hasUnsupportedFileError,
       } = await attachmentsValidator({
         files: [...files, ...previousFiles],
         maxAttachments,
         maxAttachmentSize,
       });
 
-      if (hasMaxAttachmentsError || hasMaxAttachmentSizeError) {
+      if (
+        hasMaxAttachmentsError ||
+        hasMaxAttachmentSizeError ||
+        hasUnsupportedFileError
+      ) {
         const errors = [];
         if (hasMaxAttachmentsError) {
           errors.push(displayText.getMaxAttachmentErrorText(maxAttachments));
+        }
+        if (hasUnsupportedFileError) {
+          errors.push(
+            displayText.getAttachmentFormatErrorText([...validFileTypes])
+          );
         }
         if (hasMaxAttachmentSizeError) {
           errors.push(
@@ -269,9 +316,12 @@ export const FormControl: FormControl = () => {
         setInput={setInput}
         onValidate={onValidate}
         allowAttachments={allowAttachments}
-        isLoading={isLoading}
+        isLoading={isLoading ?? isSubmitting}
         error={error}
         setError={setError}
+        onKeyDown={handleOnKeyDown}
+        onCompositionStart={() => setComposing(true)}
+        onCompositionEnd={() => setComposing(false)}
       />
     );
   }
