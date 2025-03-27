@@ -3,7 +3,6 @@
 export {
   AWSTemporaryCredentials,
   CopyInput,
-  CopyOutput,
   CredentialsLocation,
   CredentialsProvider,
   GetUrlInput,

@@ -1,23 +1,11 @@
-import { copyHandler, CopyHandler } from './copy';
-import { createFolderHandler, CreateFolderHandler } from './createFolder';
-import { deleteHandler, DeleteHandler } from './delete';
-import { downloadHandler, DownloadHandler } from './download';
-import {
-  listLocationItemsHandler,
-  ListLocationItemsHandler,
-} from './listLocationItems';
-import { uploadHandler, UploadHandler } from './upload';
+import { copyHandler } from './copy';
+import { createFolderHandler } from './createFolder';
+import { deleteHandler } from './delete';
+import { downloadHandler } from './download';
+import { listLocationItemsHandler } from './listLocationItems';
+import { uploadHandler } from './upload';
 
-export interface DefaultHandlers {
-  copy: CopyHandler;
-  createFolder: CreateFolderHandler;
-  delete: DeleteHandler;
-  download: DownloadHandler;
-  listLocationItems: ListLocationItemsHandler;
-  upload: UploadHandler;
-}
-
-export const defaultHandlers: DefaultHandlers = {
+export const defaultActionHandlers = {
   copy: copyHandler,
   createFolder: createFolderHandler,
   delete: deleteHandler,
