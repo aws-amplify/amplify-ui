@@ -3,6 +3,7 @@
   "compilerOptions": {
     "noImplicitAny": false,
     "skipLibCheck": true,
+    "strictNullChecks": false,
     "types": [
       "node",
       "jest",
