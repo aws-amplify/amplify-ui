@@ -67,7 +67,6 @@ exports[`VerifyUser renders as expected 1`] = `
                 data-amplify-input=""
                 data-amplify-verify-input=""
                 name="unverifiedAttr"
-                role="radio"
                 type="radio"
                 value="email"
               />
