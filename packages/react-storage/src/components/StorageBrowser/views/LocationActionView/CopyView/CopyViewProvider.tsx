@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { MessageProps } from '../../../composables/Message';
 import { ControlsContextProvider } from '../../../controls/context';
 import { useDisplayText } from '../../../displayText';
 
@@ -9,7 +10,7 @@ import { FoldersMessageProvider } from './FoldersMessageControl';
 import { FoldersPaginationProvider } from './FoldersPaginationControl';
 import { FoldersTableProvider } from './FoldersTableControl';
 import { CopyViewProviderProps } from './types';
-import { MessageProps } from '../../../composables/Message';
+import { getFolderText } from './utils';
 
 export function CopyViewProvider({
   children,
@@ -30,6 +31,7 @@ export function CopyViewProvider({
     statusDisplayCompletedLabel,
     statusDisplayFailedLabel,
     statusDisplayQueuedLabel,
+    title,
   } = displayText;
 
   const {
@@ -37,7 +39,6 @@ export function CopyViewProvider({
     folders,
     isProcessing,
     isProcessingComplete,
-    location,
     statusCounts,
     tasks,
     onActionCancel,
@@ -64,11 +65,9 @@ export function CopyViewProvider({
     onSelectFolder,
   } = folders;
 
-  const { key: locationKey } = location ?? {};
-
   const tableData = getActionViewTableData({
+    getFolderText,
     tasks,
-    locationKey,
     isProcessing,
     displayText,
     onTaskRemove,
@@ -110,6 +109,7 @@ export function CopyViewProvider({
         statusDisplayFailedLabel,
         statusDisplayQueuedLabel,
         tableData,
+        title,
       }}
       onActionCancel={onActionCancel}
       onActionExit={onActionExit}

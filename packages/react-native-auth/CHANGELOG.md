@@ -1,5 +1,22 @@
 # @aws-amplify/ui-react-native-auth
 
+## 0.0.46
+
+### Patch Changes
+
+- Updated dependencies [[`8cc5853caf0af9ea8f8ca6adc3a6412c90f7bbbf`](https://github.com/aws-amplify/amplify-ui/commit/8cc5853caf0af9ea8f8ca6adc3a6412c90f7bbbf)]:
+  - @aws-amplify/ui-react-native@2.4.5
+  - @aws-amplify/ui-react-core-auth@0.0.43
+
+## 0.0.45
+
+### Patch Changes
+
+- Updated dependencies [[`f8319b263cc2df05e12aca672e06755ff8ffcba6`](https://github.com/aws-amplify/amplify-ui/commit/f8319b263cc2df05e12aca672e06755ff8ffcba6), [`e0fcb4322ab8af7e0699da577dc5fbcf9f7e56cc`](https://github.com/aws-amplify/amplify-ui/commit/e0fcb4322ab8af7e0699da577dc5fbcf9f7e56cc)]:
+  - @aws-amplify/ui-react-native@2.4.4
+  - @aws-amplify/ui@6.9.1
+  - @aws-amplify/ui-react-core-auth@0.0.42
+
 ## 0.0.44
 
 ### Patch Changes
