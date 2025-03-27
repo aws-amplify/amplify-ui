@@ -28,6 +28,27 @@ Storage Browser for Amazon S3 is an open source component that you can add to yo
 
 End users work with S3 _locations_ within the Storage Browser interface. _Locations_ are S3 buckets or prefixes that you authorize end users to access using Amazon S3 Access Grants or Identity and Access Management (IAM) policies, depending on your use case. When the Storage Browser component is first rendered, it will show the LocationsView which displays only the locations you have granted them access to. Once an end user has selected a location, they can browse the S3 bucket or prefix, and all the data contained further down the S3 resource path, but they cannot browse buckets or prefixes higher up the S3 resource path.
 
+## Quick start
+
+The quickest way to get started using the Storage Browser for S3 is to use one of the sample projects at https://github.com/aws-samples/sample-amplify-storage-browser.  There are 3 samples to get you started based on different authentication and bucket setups:
+
+1. [Amplify Auth and Storage](https://github.com/aws-samples/sample-amplify-storage-browser)
+2. [Amplify Auth with existing bucket](https://github.com/aws-samples/sample-amplify-storage-browser/tree/sample/amplify-auth-with-existing-bucket)
+3. [IAM Identity Center with Microsoft Entra ID and S3 Access Grants](https://github.com/aws-samples/sample-amplify-storage-browser/tree/sample/managed-auth-entra)
+
+### Step 1: Fork the sample repository
+
+Go to https://github.com/aws-samples/sample-amplify-storage-browser/fork and unselect "Copy the main branch only". The sample repository is structured by branches, so each sample has its own branch. 
+
+### Step 2: Deploy the project
+
+Follow the steps on the README for the sample branch to deploy the application. You can use any hosting provider to host the frontend assets. If you are using one of the Amplify samples you can deploy the entire application (frontend and backend) by creating a new Amplify application:
+
+https://console.aws.amazon.com/amplify/create/repo-branch
+
+Then selecting the newly created Github repository and choosing the appropriate branch.  When the build completes, visit the newly deployed branch by selecting "Visit deployed URL".
+
+
 ## Setup and Authentication
 
 The `StorageBrowser` component is the first Amplify UI component to support different authentication methods other than Amplify Auth, which is based on Amazon Cognito and IAM policies. 
