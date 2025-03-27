@@ -4,11 +4,11 @@ import { deleteHandler } from '../delete';
 import { downloadHandler } from '../download';
 import { listLocationItemsHandler } from '../listLocationItems';
 import { uploadHandler } from '../upload';
-import { defaultActionHandlers } from '../defaults';
+import { defaultHandlers } from '../defaults';
 
-describe('defaultActionHandlers', () => {
+describe('defaultHandlers', () => {
   it('contains the expected handlers', () => {
-    expect(defaultActionHandlers).toStrictEqual({
+    expect(defaultHandlers).toStrictEqual({
       copy: copyHandler,
       createFolder: createFolderHandler,
       delete: deleteHandler,
