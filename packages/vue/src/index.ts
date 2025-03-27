@@ -73,8 +73,7 @@ export default {
       AuthenticatorForceNewPasswordFormFields
     );
 
-    // Register all base primitive components with both PascalCase and kebab-case names
-    // PascalCase for code references
+    // Register all base primitive components
     app.component('BaseInput', BaseInput);
     app.component('BaseLabel', BaseLabel);
     app.component('BaseSelect', BaseSelect);
@@ -89,22 +88,6 @@ export default {
     app.component('BaseText', BaseText);
     app.component('BaseTwoTabs', BaseTwoTabs);
     app.component('BaseTwoTabItem', BaseTwoTabItem);
-
-    // kebab-case for template references (required for compatibility)
-    app.component('base-input', BaseInput);
-    app.component('base-label', BaseLabel);
-    app.component('base-select', BaseSelect);
-    app.component('base-wrapper', BaseWrapper);
-    app.component('base-alert', BaseAlert);
-    app.component('base-box', BaseBox);
-    app.component('base-field-set', BaseFieldSet);
-    app.component('base-footer', BaseFooter);
-    app.component('base-form', BaseForm);
-    app.component('base-heading', BaseHeading);
-    app.component('base-spacer', BaseSpacer);
-    app.component('base-text', BaseText);
-    app.component('base-two-tabs', BaseTwoTabs);
-    app.component('base-two-tab-item', BaseTwoTabItem);
   },
 };
 

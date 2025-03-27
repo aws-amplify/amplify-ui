@@ -184,7 +184,6 @@ exports[`SignUp renders as expected 1`] = `
                   name="confirm_password"
                   placeholder="Please your Password"
                   required=""
-                  role="textbox"
                   type="password"
                 />
                 
