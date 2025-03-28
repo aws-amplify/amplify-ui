@@ -6,12 +6,10 @@ import { nodeResolve } from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import postcss from 'rollup-plugin-postcss';
 import fs from 'fs-extra';
-import path from 'path';
 
 // common config settings
 const input = ['src/index.ts'];
 const sourceMap = false;
-const tsconfig = 'tsconfig.dist.json';
 const esmOutputDir = 'dist/esm';
 
 // Common output options
@@ -68,7 +66,7 @@ const config = defineConfig([
         tsconfigOverride: {
           compilerOptions: { sourceMap, declaration: true, declarationDir: 'dist', rootDir: 'src' },
           include: ['src/**/*'],
-          exclude: ['node_modules', '**/__tests__/**', '**/*.test.*']
+          exclude: ['node_modules', '**/__tests__/**', '**/*.test.*', 'scripts/**']
         }
       }),
       ensureStyles()

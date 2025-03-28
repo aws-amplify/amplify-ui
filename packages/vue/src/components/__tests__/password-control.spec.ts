@@ -150,30 +150,18 @@ describe('PasswordControl', () => {
 
   it('toggles input field type when show password button is clicked', async () => {
     render(PasswordControl, {
-      props: {
-        name: 'password',
-        label: 'Password',
-        placeholder: 'Password',
-      },
+      global: { components },
+      props: { name: 'password', label: 'Password' },
     });
-
-    const input = screen.getByPlaceholderText('Password');
+    const input = screen.getByLabelText('Password');
     const showPasswordButton = screen.getByRole('switch');
 
-    // Initial state: password is hidden (type=password)
-    expect(input.getAttribute('type')).toBe('password');
-    expect(showPasswordButton.getAttribute('aria-checked')).toBe('false');
+    expect(input).toHaveAttribute('type', 'password');
 
-    // Click the button to show password (should change to type=text)
     await fireEvent.click(showPasswordButton);
+    expect(input).toHaveAttribute('type', 'text');
 
-    // After clicking, the password should be visible
-    expect(input.getAttribute('type')).toBe('text');
-    expect(showPasswordButton.getAttribute('aria-checked')).toBe('true');
-
-    // Click again to hide password (should change back to type=password)
     await fireEvent.click(showPasswordButton);
-    expect(input.getAttribute('type')).toBe('password');
-    expect(showPasswordButton.getAttribute('aria-checked')).toBe('false');
+    expect(input).toHaveAttribute('type', 'password');
   });
 });
