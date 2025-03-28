@@ -102,8 +102,8 @@ export const StorageImage = ({
 
   const { url, isLoading } = useGetUrl(input);
 
-  if (isLoading && loadingElement !== undefined) {
-    return loadingElement;
+  if (isLoading && loadingElement) {
+    return <>{loadingElement}</>;
   }
 
   return (

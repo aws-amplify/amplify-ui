@@ -1,6 +1,6 @@
 import { ImageProps } from '@aws-amplify/ui-react';
 import { StorageBucket } from '../FileUploader/types';
-import { JSX } from 'react';
+import React from 'react';
 
 type StorageAccessLevel = 'guest' | 'protected' | 'private';
 
@@ -36,7 +36,7 @@ export interface StorageImageProps extends Omit<ImageProps, 'src'> {
   onGetUrlError?: (error: Error) => void;
   // Creates a discriminated union between StorageImageProps and StorageImagePathProps
   path?: never;
-  loadingElement?: JSX.Element;
+  loadingElement?: React.ReactNode;
 }
 
 type OmittedPropKey =
