@@ -1358,6 +1358,18 @@
     fast-xml-parser "^4.4.1"
     tslib "^2.5.0"
 
+"@aws-amplify/ui-vue@^4.2.31":
+  version "4.2.31"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/ui-vue/-/ui-vue-4.2.31.tgz#5baa9228407efb27956edd4cf5023b1f99f892f8"
+  integrity sha512-36LY3wT0Js0yS9FdKXLdGkjBawnlleWOs1zVoGpzaib/X5LzkM+9zyp/tc/bmoNv4hEMPW0MKdaIGMQKB86KWw==
+  dependencies:
+    "@aws-amplify/ui" "6.9.1"
+    "@vueuse/core" "7.5.5"
+    "@xstate/vue" "0.8.1"
+    nanoid "3.3.8"
+    qrcode "1.5.0"
+    xstate "^4.33.6"
+
 "@aws-crypto/crc32@3.0.0":
   version "3.0.0"
   resolved "https://registry.npmjs.org/@aws-crypto/crc32/-/crc32-3.0.0.tgz#07300eca214409c33e3ff769cd5697b57fdd38fa"
@@ -3882,7 +3894,7 @@
     "@babel/template" "^7.22.15"
     "@babel/types" "^7.22.19"
 
-"@babel/helpers@^7.18.9", "@babel/helpers@^7.21.0", "@babel/helpers@^7.22.0", "@babel/helpers@^7.23.2", "@babel/helpers@^7.24.4":
+"@babel/helpers@^7.18.9", "@babel/helpers@^7.21.0", "@babel/helpers@^7.22.0", "@babel/helpers@^7.23.2":
   version "7.26.10"
   resolved "https://registry.yarnpkg.com/@babel/helpers/-/helpers-7.26.10.tgz#6baea3cd62ec2d0c1068778d63cb1314f6637384"
   integrity sha512-UPYc3SauzZ3JGgj87GgZ89JVdC5dj0AoetR5Bw6wj4niittNyFh6+eOGonYvJ1ao6B8lEa3Q3klS7ADZ53bc5g==
@@ -5554,7 +5566,7 @@
     "@babel/parser" "^7.26.9"
     "@babel/types" "^7.26.9"
 
-"@babel/traverse@^7.14.0", "@babel/traverse@^7.18.10", "@babel/traverse@^7.20.0", "@babel/traverse@^7.20.5", "@babel/traverse@^7.20.7", "@babel/traverse@^7.21.2", "@babel/traverse@^7.21.4", "@babel/traverse@^7.22.1", "@babel/traverse@^7.22.5", "@babel/traverse@^7.23.2":
+"@babel/traverse@^7.14.0", "@babel/traverse@^7.18.10", "@babel/traverse@^7.20.0", "@babel/traverse@^7.20.5", "@babel/traverse@^7.20.7", "@babel/traverse@^7.21.2", "@babel/traverse@^7.21.4", "@babel/traverse@^7.22.1", "@babel/traverse@^7.23.2":
   version "7.23.2"
   resolved "https://registry.yarnpkg.com/@babel/traverse/-/traverse-7.23.2.tgz#329c7a06735e144a506bdb2cad0268b7f46f4ad8"
   integrity sha512-azpe59SQ48qG6nu2CzcMLbxUudtN+dOM9kDbUqGq3HXUJRlo7i8fvPoxQUzYgLZ4cMVmuZgm8vvBpNeRhd6XSw==
