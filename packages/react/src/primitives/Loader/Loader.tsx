@@ -136,7 +136,15 @@ const LoaderPrimitive: Primitive<LoaderProps, 'svg'> = (
   );
 
   return (
-    <View as="svg" className={componentClasses} ref={ref} role="img" {...rest}>
+    <View
+      as="svg"
+      aria-valuenow={isDeterminate ? percentage : undefined}
+      aria-hidden={!isDeterminate}
+      className={componentClasses}
+      ref={ref}
+      role="progressbar"
+      {...rest}
+    >
       {variation === 'linear' ? linearLoader : circularLoader}
     </View>
   );
