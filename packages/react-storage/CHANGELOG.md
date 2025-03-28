@@ -1,5 +1,15 @@
 # @aws-amplify/ui-react-storage
 
+## 3.9.1
+
+### Patch Changes
+
+- [#6450](https://github.com/aws-amplify/amplify-ui/pull/6450) [`8a7ebe57123142b142ba4f30401e2e428200a618`](https://github.com/aws-amplify/amplify-ui/commit/8a7ebe57123142b142ba4f30401e2e428200a618) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(storage-browser): remove key parsing in useDeleteView
+
+- Updated dependencies [[`75bf5408c195fa1745bc88f9329c29c66258f247`](https://github.com/aws-amplify/amplify-ui/commit/75bf5408c195fa1745bc88f9329c29c66258f247)]:
+  - @aws-amplify/ui-react-core@3.3.5
+  - @aws-amplify/ui-react@6.9.5
+
 ## 3.9.0
 
 ### Minor Changes

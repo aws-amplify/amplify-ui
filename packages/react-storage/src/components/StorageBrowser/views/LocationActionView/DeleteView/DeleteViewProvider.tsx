@@ -2,8 +2,10 @@ import React from 'react';
 
 import { ControlsContextProvider } from '../../../controls/context';
 import { useDisplayText } from '../../../displayText';
+
 import { getActionViewTableData } from '../getActionViewTableData';
 import { DeleteViewProviderProps } from './types';
+import { getFolderText } from './utils';
 
 export function DeleteViewProvider({
   children,
@@ -25,7 +27,6 @@ export function DeleteViewProvider({
   const {
     isProcessing,
     isProcessingComplete,
-    location,
     statusCounts,
     tasks,
     onActionCancel,
@@ -40,9 +41,9 @@ export function DeleteViewProvider({
 
   const tableData = getActionViewTableData({
     tasks,
-    locationKey: location.key,
     isProcessing,
     displayText,
+    getFolderText,
     onTaskRemove,
   });
 

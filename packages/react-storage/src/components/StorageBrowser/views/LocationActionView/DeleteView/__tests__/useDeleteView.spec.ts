@@ -2,6 +2,7 @@ import { renderHook, act } from '@testing-library/react';
 
 import { useStore } from '../../../../providers/store';
 import { useAction } from '../../../../useAction';
+import { FileDataItem } from '../../../../actions';
 
 import { useDeleteView } from '../useDeleteView';
 import { INITIAL_STATUS_COUNTS } from '../../../../tasks';
@@ -9,16 +10,35 @@ import { INITIAL_STATUS_COUNTS } from '../../../../tasks';
 jest.mock('../../../../providers/store');
 jest.mock('../../../../useAction');
 
+const fileDataItems: FileDataItem[] = [
+  {
+    key: 'pretend-prefix/test-file.txt',
+    fileKey: 'test-file.txt',
+    lastModified: new Date(),
+    id: 'id-1',
+    size: 10,
+    type: 'FILE',
+  },
+  {
+    key: 'pretend-prefix/deeply-nested/test-file.txt',
+    fileKey: 'test-file.txt',
+    lastModified: new Date(),
+    id: 'id-2',
+    size: 10,
+    type: 'FILE',
+  },
+];
+
 describe('useDeleteView', () => {
-  const mockeUseAction = jest.mocked(useAction);
-  const mockeUseStore = jest.mocked(useStore);
+  const mockUseAction = jest.mocked(useAction);
+  const mockUseStore = jest.mocked(useStore);
   const mockCancel = jest.fn();
   const mockDispatchStoreAction = jest.fn();
   const mockHandleDelete = jest.fn();
   const mockReset = jest.fn();
 
   beforeEach(() => {
-    mockeUseStore.mockReturnValue([
+    mockUseStore.mockReturnValue([
       {
         actionType: 'DELETE',
         files: [],
@@ -33,23 +53,12 @@ describe('useDeleteView', () => {
           path: '',
           key: 'test-prefix/',
         },
-        locationItems: {
-          fileDataItems: [
-            {
-              key: 'pretend-prefix/test-file.txt',
-              fileKey: 'test-file.txt',
-              lastModified: new Date(),
-              id: 'id',
-              size: 10,
-              type: 'FILE',
-            },
-          ],
-        },
+        locationItems: { fileDataItems },
       },
       mockDispatchStoreAction,
     ]);
 
-    mockeUseAction.mockReturnValue([
+    mockUseAction.mockReturnValue([
       {
         isProcessing: false,
         isProcessingComplete: false,
@@ -88,8 +97,8 @@ describe('useDeleteView', () => {
     mockDispatchStoreAction.mockClear();
     mockHandleDelete.mockClear();
     mockReset.mockClear();
-    mockeUseAction.mockReset();
-    mockeUseStore.mockReset();
+    mockUseAction.mockReset();
+    mockUseStore.mockReset();
   });
 
   it('should return the correct initial state', () => {
@@ -150,5 +159,15 @@ describe('useDeleteView', () => {
     expect(mockDispatchStoreAction).toHaveBeenCalledWith({
       type: 'RESET_ACTION_TYPE',
     });
+  });
+
+  it('provides the unmodified value of `fileDataItems` to `useAction` as `items`', () => {
+    renderHook(() => useDeleteView());
+
+    expect(mockUseAction).toHaveBeenCalledTimes(1);
+    expect(mockUseAction).toHaveBeenCalledWith(
+      'delete',
+      expect.objectContaining({ items: fileDataItems })
+    );
   });
 });

@@ -150,7 +150,6 @@ describe('getActionViewTableData', () => {
 
     const result = getActionViewTableData({
       tasks,
-      locationKey: 'folder/subfolder/',
       displayText: DEFAULT_UPLOAD_VIEW_DISPLAY_TEXT,
       isProcessing: false,
       onTaskRemove: jest.fn(),
@@ -216,7 +215,6 @@ describe('getActionViewTableData', () => {
 
     const result = getActionViewTableData({
       tasks,
-      locationKey: 'folder/subfolder/',
       displayText: DEFAULT_UPLOAD_VIEW_DISPLAY_TEXT,
       isProcessing: false,
       onTaskRemove: jest.fn(),
