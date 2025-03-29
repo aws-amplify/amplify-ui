@@ -4,6 +4,10 @@ import {
 } from '../../types';
 import { UseAuthenticator } from '../types';
 
+const allowedMfaTypes = [
+  'EMAIL',
+  'TOTP',
+] as AuthenticatorMachineContext['allowedMfaTypes'];
 const authStatus = 'unauthenticated';
 const challengeName = 'CUSTOM_CHALLENGE';
 const codeDeliveryDetails =
@@ -32,6 +36,7 @@ const user = { username: 'username', userId: 'userId' };
 const validationErrors = {};
 
 export const mockMachineContext: AuthenticatorMachineContext = {
+  allowedMfaTypes,
   authStatus,
   challengeName,
   codeDeliveryDetails,
@@ -53,7 +58,6 @@ export const mockMachineContext: AuthenticatorMachineContext = {
   toFederatedSignIn,
   toForgotPassword,
   totpSecretCode,
-
   unverifiedUserAttributes,
   username: 'george',
   validationErrors,

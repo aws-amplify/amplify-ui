@@ -166,6 +166,10 @@ const getForceNewPasswordFormFields = (state: AuthMachineState): FormFields => {
   return formField;
 };
 
+const getSetupEmailFormFields = (_: AuthMachineState): FormFields => ({
+  email: getDefaultFormField('email'),
+});
+
 /** Collect all the defaultFormFields getters */
 export const defaultFormFieldsGetters: Record<
   FormFieldComponents,
@@ -179,5 +183,6 @@ export const defaultFormFieldsGetters: Record<
   forgotPassword: getForgotPasswordFormFields,
   confirmResetPassword: getConfirmResetPasswordFormFields,
   confirmVerifyUser: getConfirmationCodeFormFields,
+  setupEmail: getSetupEmailFormFields,
   setupTotp: getConfirmationCodeFormFields,
 };

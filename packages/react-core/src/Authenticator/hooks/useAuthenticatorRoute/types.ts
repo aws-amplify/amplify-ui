@@ -10,6 +10,8 @@ import {
   DefaultProps,
   ForceResetPasswordBaseProps,
   ResetPasswordBaseProps,
+  SelectMfaTypeBaseProps,
+  SetupEmailBaseProps,
   SetupTotpBaseProps,
   SignInBaseProps,
   SignUpBaseProps,
@@ -84,6 +86,14 @@ export type ResetPasswordMachineKey =
 
 export type SetupTotpMachineKey =
   | ExtractMachineKey<SetupTotpBaseProps>
+  | CommonRouteMachineKey;
+
+export type SetupEmailMachineKey =
+  | ExtractMachineKey<SetupEmailBaseProps>
+  | CommonRouteMachineKey;
+
+export type SelectMfaMachineKey =
+  | ExtractMachineKey<SelectMfaTypeBaseProps>
   | CommonRouteMachineKey;
 
 export type SignInMachineKey =

@@ -12,12 +12,15 @@ import actions from '../actions';
 import { defaultServices } from '../defaultServices';
 import guards from '../guards';
 
-import { AuthEvent, ActorDoneData, SignInContext } from '../types';
+import { AuthEvent, ActorDoneData, SignInContext, AuthContext } from '../types';
 
-import { getFederatedSignInState } from './utils';
+import {
+  getConfirmSignInFormValuesKey,
+  getFederatedSignInState,
+} from './utils';
 
 export interface SignInMachineOptions {
-  services?: Partial<typeof defaultServices>;
+  services?: AuthContext['services'];
 }
 
 const handleSignInResponse = {
@@ -48,6 +51,7 @@ const handleSignInResponse = {
         'setMissingAttributes',
         'setNextSignInStep',
         'setTotpSecretCode',
+        'setAllowedMfaTypes',
       ],
       target: '#signInActor.init',
     },
@@ -76,6 +80,26 @@ const handleFetchUserAttributesResponse = {
   },
 };
 
+const getDefaultConfirmSignInState = (exit: string[]) => ({
+  initial: 'edit',
+  exit,
+  states: {
+    edit: {
+      entry: 'sendUpdate',
+      on: {
+        SUBMIT: { actions: 'handleSubmit', target: 'submit' },
+        SIGN_IN: '#signInActor.signIn',
+        CHANGE: { actions: 'handleInput' },
+      },
+    },
+    submit: {
+      tags: 'pending',
+      entry: ['sendUpdate', 'clearError'],
+      invoke: { src: 'confirmSignIn', ...handleSignInResponse },
+    },
+  },
+});
+
 export function signInActor({ services }: SignInMachineOptions) {
   return createMachine<SignInContext, AuthEvent>(
     {
@@ -92,6 +116,14 @@ export function signInActor({ services }: SignInMachineOptions) {
             {
               cond: 'shouldSetupTotp',
               target: 'setupTotp',
+            },
+            {
+              cond: 'shouldSetupEmail',
+              target: 'setupEmail',
+            },
+            {
+              cond: 'shouldSelectMfaType',
+              target: 'selectMfaType',
             },
             {
               cond: ({ step }) =>
@@ -154,33 +186,12 @@ export function signInActor({ services }: SignInMachineOptions) {
             },
           },
         },
-        confirmSignIn: {
-          initial: 'edit',
-          exit: [
-            'clearChallengeName',
-            'clearFormValues',
-            'clearError',
-            'clearTouched',
-          ],
-          states: {
-            edit: {
-              entry: 'sendUpdate',
-              on: {
-                SUBMIT: { actions: 'handleSubmit', target: 'submit' },
-                SIGN_IN: '#signInActor.signIn',
-                CHANGE: { actions: 'handleInput' },
-              },
-            },
-            submit: {
-              tags: 'pending',
-              entry: ['clearError', 'sendUpdate'],
-              invoke: {
-                src: 'confirmSignIn',
-                ...handleSignInResponse,
-              },
-            },
-          },
-        },
+        confirmSignIn: getDefaultConfirmSignInState([
+          'clearChallengeName',
+          'clearFormValues',
+          'clearError',
+          'clearTouched',
+        ]),
         forceChangePassword: {
           entry: 'sendUpdate',
           type: 'parallel',
@@ -253,25 +264,21 @@ export function signInActor({ services }: SignInMachineOptions) {
             },
           },
         },
-        setupTotp: {
-          initial: 'edit',
-          exit: ['clearFormValues', 'clearError', 'clearTouched'],
-          states: {
-            edit: {
-              entry: 'sendUpdate',
-              on: {
-                SUBMIT: { actions: 'handleSubmit', target: 'submit' },
-                SIGN_IN: '#signInActor.signIn',
-                CHANGE: { actions: 'handleInput' },
-              },
-            },
-            submit: {
-              tags: 'pending',
-              entry: ['sendUpdate', 'clearError'],
-              invoke: { src: 'confirmSignIn', ...handleSignInResponse },
-            },
-          },
-        },
+        setupTotp: getDefaultConfirmSignInState([
+          'clearFormValues',
+          'clearError',
+          'clearTouched',
+        ]),
+        setupEmail: getDefaultConfirmSignInState([
+          'clearFormValues',
+          'clearError',
+          'clearTouched',
+        ]),
+        selectMfaType: getDefaultConfirmSignInState([
+          'clearFormValues',
+          'clearError',
+          'clearTouched',
+        ]),
         resolved: {
           type: 'final',
           data: (context): ActorDoneData => ({
@@ -302,8 +309,9 @@ export function signInActor({ services }: SignInMachineOptions) {
           const { password } = formValues;
           return services.handleSignIn({ username, password });
         },
-        confirmSignIn({ formValues }) {
-          const { confirmation_code: challengeResponse } = formValues;
+        confirmSignIn({ formValues, step }) {
+          const formValuesKey = getConfirmSignInFormValuesKey(step);
+          const { [formValuesKey]: challengeResponse } = formValues;
           return services.handleConfirmSignIn({ challengeResponse });
         },
         async handleForceChangePassword({ formValues }) {

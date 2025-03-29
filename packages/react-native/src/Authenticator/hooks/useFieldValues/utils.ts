@@ -31,16 +31,15 @@ export const isRadioFieldOptions = (
   field: TypedField
 ): field is RadioFieldOptions => field?.type === 'radio';
 
-export const getSanitizedRadioFields = (
-  fields: TypedField[],
-  componentName: AuthenticatorRouteComponentName
+export const getSanitizedVerifyUserFields = (
+  fields: TypedField[]
 ): TypedField[] => {
   const values: Record<string, boolean> = {};
 
   return fields.filter((field) => {
     if (!isRadioFieldOptions(field)) {
       logger.warn(
-        `${componentName} component does not support text fields. field with type ${field.type} has been ignored.`
+        `VerifyUser component does not support text fields. field with type ${field.type} has been ignored.`
       );
       return false;
     }
@@ -71,6 +70,39 @@ export const getSanitizedRadioFields = (
     }
 
     // add `value` key to `values`
+    values[value] = true;
+
+    return true;
+  });
+};
+
+export const getSanitizedSelectMfaTypeFields = (
+  fields: TypedField[]
+): TypedField[] => {
+  const values: Record<string, boolean> = {};
+
+  return fields.filter((field) => {
+    const { value } = field;
+
+    if (!isRadioFieldOptions(field)) {
+      logger.warn(
+        `SelectMfaType component does not support non-radio fields; field with type "${field.type}" has been ignored.`
+      );
+      return false;
+    }
+
+    if (!value) {
+      logger.warn('Each field must have a value; field has been ignored.');
+      return false;
+    }
+
+    if (values[value]) {
+      logger.warn(
+        `Each field value must be unique; field with duplicate value of "${value}" has been ignored.`
+      );
+      return false;
+    }
+
     values[value] = true;
 
     return true;
@@ -180,9 +212,12 @@ export function getRouteTypedFields({
 
   // `VerifyUser` does not require additional updates to the shape of `fields`
   const isVerifyUserRoute = route === 'verifyUser';
+  const isSelectMfaTypeRoute = route === 'selectMfaType';
   const radioFields = fields as TypedField[];
 
-  return isVerifyUserRoute ? radioFields : getTypedFields(fields);
+  return isVerifyUserRoute || isSelectMfaTypeRoute
+    ? radioFields
+    : getTypedFields(fields);
 }
 
 /**

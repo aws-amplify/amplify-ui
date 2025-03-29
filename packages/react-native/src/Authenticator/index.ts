@@ -7,6 +7,8 @@ export {
   ConfirmVerifyUserProps,
   ForceNewPasswordProps,
   ForgotPasswordProps,
+  SelectMfaTypeProps,
+  SetupEmailProps,
   SetupTotpProps,
   SignInProps,
   SignUpProps,

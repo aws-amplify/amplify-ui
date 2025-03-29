@@ -90,16 +90,29 @@ describe('useFieldValues', () => {
   });
 
   it('returns the expected values for radio fields', () => {
+    const radioFieldOne = {
+      ...radioField,
+    };
+    const radioFieldTwo = {
+      name: 'phone_number',
+      value: '+1234567910',
+      onChange: jest.fn,
+      type: 'radio',
+    } as RadioFieldOptions;
+
     const { result } = renderHook(() =>
       useFieldValues({
         ...props,
         componentName: 'VerifyUser',
-        fields: [radioField],
+        fields: [radioFieldOne, radioFieldTwo],
       })
     );
     expect(result.current).toStrictEqual({
-      disableFormSubmit: true,
-      fields: [{ ...radioField, onChange: expect.any(Function) }],
+      disableFormSubmit: false,
+      fields: [
+        { ...radioFieldOne, selected: true, onChange: expect.any(Function) },
+        { ...radioFieldTwo, selected: false, onChange: expect.any(Function) },
+      ],
       fieldValidationErrors: {},
       handleFormSubmit: expect.any(Function),
     });

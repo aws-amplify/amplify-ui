@@ -1,9 +1,18 @@
-import { V6AuthDeliveryMedium } from '../../../machines/authenticator/types';
+import {
+  AuthMFAType,
+  V6AuthDeliveryMedium,
+} from '../../../machines/authenticator/types';
 
 import { authenticatorTextUtil } from '../textUtil';
 
 describe('authenticatorTextUtil', () => {
   describe('getChallengeText', () => {
+    it('returns the correct text for the "EMAIL_OTP" challenge', () => {
+      expect(authenticatorTextUtil.getChallengeText('EMAIL_OTP')).toEqual(
+        'Confirm Email Code'
+      );
+    });
+
     it('returns the correct text for the "SMS_MFA" challenge', () => {
       expect(authenticatorTextUtil.getChallengeText('SMS_MFA')).toEqual(
         'Confirm SMS Code'
@@ -111,12 +120,44 @@ describe('authenticatorTextUtil', () => {
     });
   });
 
+  describe('getSelectMfaTypeByChallengeName', () => {
+    it('returns the correct text when challengeName is MFA_SETUP', () => {
+      expect(
+        authenticatorTextUtil.getSelectMfaTypeByChallengeName('MFA_SETUP')
+      ).toEqual('Multi-Factor Authentication Setup');
+    });
+    it('returns the correct text when challengeName is SELECT_MFA_TYPE', () => {
+      expect(
+        authenticatorTextUtil.getSelectMfaTypeByChallengeName('SELECT_MFA_TYPE')
+      ).toEqual('Multi-Factor Authentication');
+    });
+  });
+
+  describe('getMfaTypeLabelByValue', () => {
+    const getMfaTypeLabelByValueTestCases: [AuthMFAType, string][] = [
+      ['EMAIL', 'Email Message'],
+      ['SMS', 'Text Message (SMS)'],
+      ['TOTP', 'Authenticator App (TOTP)'],
+    ];
+
+    it.each(getMfaTypeLabelByValueTestCases)(
+      'returns the correct text when value is %s',
+      (input, output) => {
+        expect(authenticatorTextUtil.getMfaTypeLabelByValue(input)).toEqual(
+          output
+        );
+      }
+    );
+  });
+
   describe('authenticator shared text', () => {
     it('return a text for all the utils', () => {
       Object.entries(authenticatorTextUtil).map(([name, fn]) => {
         let result;
         if (name === 'getChallengeText') {
           result = fn.call(authenticatorTextUtil, 'SMS_MFA');
+        } else if (name === 'getMfaTypeLabelByValue') {
+          result = fn.call(authenticatorTextUtil, 'EMAIL');
         } else {
           result = fn.call(authenticatorTextUtil);
         }

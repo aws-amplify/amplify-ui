@@ -68,5 +68,11 @@ export class CustomSlotsComponent {
         isRequired: false,
       },
     },
+    setupEmail: {
+      email: {
+        label: 'New Label',
+        placeholder: 'Please enter your Email:',
+      },
+    },
   };
 }

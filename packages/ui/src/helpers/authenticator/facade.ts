@@ -21,6 +21,7 @@ import {
   AuthEventData,
   AuthEventTypes,
   AuthMachineState,
+  AuthMFAType,
   ChallengeName,
   NavigableRoute,
   V5CodeDeliveryDetails,
@@ -41,6 +42,8 @@ export type AuthenticatorRoute =
   | 'forgotPassword'
   | 'setup'
   | 'signOut'
+  | 'selectMfaType'
+  | 'setupEmail'
   | 'setupTotp'
   | 'signIn'
   | 'signUp'
@@ -51,6 +54,7 @@ type AuthenticatorValidationErrors = ValidationError;
 export type AuthStatus = 'configuring' | 'authenticated' | 'unauthenticated';
 
 interface AuthenticatorServiceContextFacade {
+  allowedMfaTypes: AuthMFAType[] | undefined;
   authStatus: AuthStatus;
   challengeName: ChallengeName | undefined;
   codeDeliveryDetails: V5CodeDeliveryDetails;
@@ -89,6 +93,7 @@ export interface AuthenticatorServiceFacade
     AuthenticatorServiceContextFacade {}
 
 interface NextAuthenticatorServiceContextFacade {
+  allowedMfaTypes: AuthMFAType[] | undefined;
   challengeName: ChallengeName | undefined;
   codeDeliveryDetails: V5CodeDeliveryDetails | undefined;
   errorMessage: string | undefined;
@@ -172,6 +177,7 @@ export const getServiceContextFacade = (
 ): AuthenticatorServiceContextFacade => {
   const actorContext = (getActorContext(state) ?? {}) as AuthActorContext;
   const {
+    allowedMfaTypes,
     challengeName,
     codeDeliveryDetails,
     remoteError: error,
@@ -211,6 +217,7 @@ export const getServiceContextFacade = (
   })(route);
 
   const facade = {
+    allowedMfaTypes,
     authStatus,
     challengeName,
     codeDeliveryDetails,
@@ -242,6 +249,7 @@ export const getNextServiceContextFacade = (
 ): NextAuthenticatorServiceContextFacade => {
   const actorContext = (getActorContext(state) ?? {}) as AuthActorContext;
   const {
+    allowedMfaTypes,
     challengeName,
     codeDeliveryDetails,
     remoteError: errorMessage,
@@ -262,6 +270,7 @@ export const getNextServiceContextFacade = (
   const route = getRoute(state, actorState) as AuthenticatorRoute;
 
   return {
+    allowedMfaTypes,
     challengeName,
     codeDeliveryDetails,
     errorMessage,
