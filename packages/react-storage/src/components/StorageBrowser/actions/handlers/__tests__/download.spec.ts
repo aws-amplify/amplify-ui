@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 import { getUrl, GetUrlInput } from '../../../storage-internal';
 
 import { downloadHandler, DownloadHandlerInput } from '../download';
@@ -68,6 +69,17 @@ describe('downloadHandler', () => {
     expect(await result).toEqual({
       status: 'FAILED',
       message: errorMessage,
+    });
+  });
+
+  it('should fail if getUrl does not return a url', async () => {
+    mockGetUrl.mockResolvedValue({} as any);
+
+    const result = await downloadHandler(baseInput).result;
+    expect(result).toEqual({
+      message:
+        'Required keys missing for StorageGetUrlOutput: url.\nObject: {}',
+      status: 'FAILED',
     });
   });
 });

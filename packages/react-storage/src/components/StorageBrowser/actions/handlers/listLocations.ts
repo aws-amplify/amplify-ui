@@ -1,8 +1,10 @@
 import {
   listCallerAccessGrants,
   LocationCredentialsProvider,
+  ListLocationsOutput as ListCallerAccessGrantsOutput,
 } from '../../storage-internal';
 import { assertAccountId } from '../../validators';
+import { checkRequiredKeys } from './integrity';
 
 import {
   ListHandlerOptions,
@@ -53,6 +55,17 @@ export interface ListLocationsHandlerOutput {
 export interface ListLocationsHandler
   extends ListHandler<ListLocationsHandlerInput, ListLocationsHandlerOutput> {}
 
+const validateResult = (output: ListCallerAccessGrantsOutput) => {
+  checkRequiredKeys(output, 'ListLocationsOutput', ['locations']);
+  output.locations.forEach((location, i) =>
+    checkRequiredKeys(location, `AccessGrantLocation #${i}`, [
+      'scope',
+      'type',
+      'permission',
+    ])
+  );
+};
+
 export const listLocationsHandler: ListLocationsHandler = async (input) => {
   const { config, options } = input;
   const { accountId, credentials, customEndpoint, region } = config;
@@ -74,6 +87,7 @@ export const listLocationsHandler: ListLocationsHandler = async (input) => {
       pageSize: remainingPageSize,
       region,
     });
+    validateResult(output);
 
     const parsedOutput = getFilteredLocations(output.locations, exclude);
 
