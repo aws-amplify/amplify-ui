@@ -75,6 +75,10 @@ jobs:
             package: react
             tags: '@react and not @todo-react'
 
+          - example: react-router
+            package: react
+            tags: '@react-router and not @todo-react-router'
+
           - example: vue
             package: vue
             tags: '@vue and not @todo-vue'
