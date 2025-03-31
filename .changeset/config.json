@@ -15,8 +15,10 @@
     "@aws-amplify/ui-docs",
     "@aws-amplify/ui-e2e",
     "@aws-amplify/ui-environments",
-    "@aws-amplify/ui-next-example",
+    "@aws-amplify/ui-next-pages-router-example",
+    "@aws-amplify/ui-next-app-router-example",
     "@aws-amplify/ui-react-native-example",
+    "@aws-amplify/ui-react-router-example",
     "@aws-amplify/ui-vue-example"
   ]
 }

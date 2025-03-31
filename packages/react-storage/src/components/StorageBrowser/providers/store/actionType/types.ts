@@ -10,6 +10,10 @@ export type ActionTypeStateContext = [
 ];
 
 export interface ActionTypeProviderProps {
+  /**
+   *  Sets initial `actionType`. Provide to initialize the `StorageBrowser` with an initial
+   * `actionType`
+   */
   actionType?: string;
   children?: React.ReactNode;
 }

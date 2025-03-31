@@ -1,6 +1,6 @@
 import { renderHook, act } from '@testing-library/react-hooks';
-import { FileItem, LocationData } from '../../../../actions';
 
+import { FileItem, LocationData } from '../../../../actions';
 import { UseStoreState, useStore } from '../../../../providers/store';
 import { Task, INITIAL_STATUS_COUNTS } from '../../../../tasks';
 import { useAction } from '../../../../useAction';
@@ -78,6 +78,7 @@ describe('useUploadView', () => {
       {
         isProcessing: false,
         isProcessingComplete: false,
+        reset: jest.fn(),
         statusCounts: INITIAL_STATUS_COUNTS,
         tasks: [
           { ...taskOne, status: 'PENDING', cancel: mockCancel },
@@ -189,6 +190,7 @@ describe('useUploadView', () => {
         tasks,
         isProcessing: true,
         isProcessingComplete: false,
+        reset: jest.fn(),
         statusCounts: {
           ...INITIAL_STATUS_COUNTS,
           COMPLETE: 1,

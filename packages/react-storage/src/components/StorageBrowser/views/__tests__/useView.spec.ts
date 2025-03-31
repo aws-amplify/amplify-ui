@@ -1,12 +1,12 @@
 import { renderHook } from '@testing-library/react';
-import { useView, DEFAULT_VIEW_HOOKS, UseViewType } from '../useView';
+import { USE_VIEW_HOOKS, useView, UseViewType } from '../useView';
 
 jest.mock('../LocationActionView');
 jest.mock('../LocationsView');
 jest.mock('../LocationDetailView');
 
 describe('useView', () => {
-  it.each(Object.entries(DEFAULT_VIEW_HOOKS))(
+  it.each(Object.entries(USE_VIEW_HOOKS))(
     'calls the expected hook when provided a %s type key',
     (type, hook) => {
       renderHook(() => useView(type as UseViewType));
