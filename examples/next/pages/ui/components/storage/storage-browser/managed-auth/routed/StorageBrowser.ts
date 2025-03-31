@@ -2,6 +2,7 @@ import { Auth } from '../../managedAuthAdapter';
 import {
   createManagedAuthAdapter,
   createStorageBrowser,
+  defaultActionConfigs,
 } from '@aws-amplify/ui-react-storage/browser';
 
 export const routedAuth = new Auth({ persistCredentials: true });

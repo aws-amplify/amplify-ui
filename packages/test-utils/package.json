@@ -1,0 +1,32 @@
+{
+  "name": "@aws-amplify/ui-test-utils",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Test utils for Amplify Connected Component e2e tests",
+  "exports": {
+    "./*": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/esm/*.mjs",
+      "require": "./dist/*.js",
+      "react-native": "./src/*/index.ts"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "build": "yarn build:dist",
+    "build:dist": "rollup --config",
+    "clean": "rimraf dist node_modules",
+    "dev": "yarn build --watch",
+    "lint": "yarn typecheck && eslint src --ext .js,.ts,.tsx",
+    "prebuild": "rimraf dist",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@aws-amplify/ui-react-storage": "3.9.1",
+    "tslib": "^2.5.2"
+  }
+}

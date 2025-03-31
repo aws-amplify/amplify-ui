@@ -45,22 +45,21 @@ export const useLocationsView = (
   }, [handleList, listOptions]);
 
   // set up pagination
-  const paginateCallback = () => {
+  const onPaginate = () => {
     if (!nextToken) return;
     handleList({ options: { ...listOptions, nextToken } });
   };
 
   const {
     currentPage,
-    onPaginate,
+    handlePaginate,
     handleReset,
     highestPageVisited,
     pageItems,
   } = usePaginate({
     items,
-    paginateCallback,
+    onPaginate,
     pageSize: listOptions.pageSize,
-    hasNextToken,
   });
 
   const onSearch = (query: string) => {
@@ -111,7 +110,7 @@ export const useLocationsView = (
       handleReset();
       handleList({ options: { ...listOptions, refresh: true } });
     },
-    onPaginate,
+    onPaginate: handlePaginate,
     onSearch: onSearchSubmit,
     onSearchQueryChange,
     onSearchClear: () => {

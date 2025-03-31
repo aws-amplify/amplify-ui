@@ -3,7 +3,9 @@ import React from 'react';
 import { isEmpty, isString, isUndefined } from '@aws-amplify/ui';
 import { HandleFileSelect } from '@aws-amplify/ui-react/internal';
 
-import { FileItem, FileItems, FilesActionType, SelectionType } from './types';
+import { FileItem } from '../../../actions';
+
+import { FileItems, FilesActionType, SelectionType } from './types';
 
 const compareFileItems = (prev: FileItem, next: FileItem) =>
   prev.key.localeCompare(next.key);

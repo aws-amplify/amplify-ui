@@ -34,6 +34,9 @@ const getActionCompleteMessage = jest.fn();
 const getListFoldersResultsMessage = jest.fn();
 const title = 'Copy';
 jest.mock('../../../../displayText', () => ({
+  ...jest.requireActual<typeof import('../../../../displayText')>(
+    '../../../../displayText'
+  ),
   useDisplayText: () => ({
     CopyView: { getActionCompleteMessage, getListFoldersResultsMessage, title },
   }),

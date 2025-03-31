@@ -1,4 +1,4 @@
-import { StatusCounts, Tasks } from '../tasks';
+import { StatusCounts, Task } from '../tasks';
 import {
   CopyHandlerData,
   CreateFolderHandlerData,
@@ -85,7 +85,7 @@ export interface DefaultActionViewDisplayText<T extends TaskData = TaskData> {
   actionStartLabel: string;
   getActionCompleteMessage: (data?: {
     counts?: StatusCounts;
-    tasks?: Tasks<T>;
+    tasks?: Task<T>[];
   }) => { content?: string; type?: MessageType } | undefined;
   statusDisplayCanceledLabel: string;
   statusDisplayCompletedLabel: string;
@@ -100,7 +100,6 @@ export interface DefaultActionViewDisplayText<T extends TaskData = TaskData> {
   tableColumnNameHeader: string;
   tableColumnTypeHeader: string;
   tableColumnSizeHeader: string;
-  tableColumnProgressHeader: string;
 }
 
 export interface DefaultCreateFolderViewDisplayText
@@ -128,20 +127,30 @@ export interface DefaultCopyViewDisplayText
   searchPlaceholder: string;
   searchSubmitLabel: string;
   searchClearLabel: string;
+  /**
+   * @deprecated `CopyView` does not render a "progress" header
+   */
+  tableColumnProgressHeader?: string;
 }
 
 export interface DefaultDeleteViewDisplayText
-  extends DefaultActionViewDisplayText<DeleteHandlerData> {}
+  extends DefaultActionViewDisplayText<DeleteHandlerData> {
+  /**
+   * @deprecated `DeleteView` does not render a "progress" header
+   */
+  tableColumnProgressHeader?: string;
+}
 
 export interface DefaultUploadViewDisplayText
   extends DefaultActionViewDisplayText<UploadHandlerData> {
   addFilesLabel: string;
   addFolderLabel: string;
-  statusDisplayOverwritePreventedLabel: string;
-  overwriteToggleLabel: string;
   getFilesValidationMessage: (data?: {
     invalidFiles?: FileItems;
   }) => { content?: string; type?: MessageType } | undefined;
+  overwriteToggleLabel: string;
+  statusDisplayOverwritePreventedLabel: string;
+  tableColumnProgressHeader: string;
 }
 
 export interface DefaultStorageBrowserDisplayText {
@@ -171,6 +180,9 @@ export interface LocationDetailViewDisplayText
 export interface UploadViewDisplayText
   extends Partial<DefaultUploadViewDisplayText> {}
 
+/**
+ * `StorageBrowser` display text strings/resolver functions
+ */
 export interface StorageBrowserDisplayText {
   LocationsView?: LocationsViewDisplayText;
   LocationDetailView?: LocationDetailViewDisplayText;
