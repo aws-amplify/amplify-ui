@@ -95,7 +95,6 @@ export const frDict: AuthenticatorDictionary = {
   'Incorrect username or password.': 'Identifiant ou mot de passe incorrect.',
   'Have an account? ': 'Déjà un compte ? ',
   Hello: 'Bonjour',
-  'Incorrect username or password': 'Identifiant ou mot de passe incorrect',
   'Invalid password format': 'Format de mot de passe invalide',
   'Invalid phone number format': `Format de numéro de téléphone invalide. Veuillez utiliser un format +12345678900`,
   'Loading...': 'Chargement...',
