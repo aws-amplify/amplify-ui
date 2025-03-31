@@ -56,6 +56,7 @@ exports[`VerifyUser renders as expected 1`] = `
         },
       ]
     }
+    testID="amplify__radio-group__container"
   >
     <View
       accessibilityRole="radiogroup"
@@ -130,7 +131,24 @@ exports[`VerifyUser renders as expected 1`] = `
             ]
           }
           testID="amplify__radio-button__container"
-        />
+        >
+          <View
+            style={
+              [
+                {
+                  "backgroundColor": "hsl(190, 95%, 30%)",
+                  "borderRadius": 999,
+                },
+                {
+                  "height": 12,
+                  "width": 12,
+                },
+                undefined,
+              ]
+            }
+            testID="amplify__radio-button__dot"
+          />
+        </View>
         <Text
           accessibilityRole="text"
           style={
@@ -242,7 +260,7 @@ exports[`VerifyUser renders as expected 1`] = `
       {
         "busy": undefined,
         "checked": undefined,
-        "disabled": true,
+        "disabled": false,
         "expanded": undefined,
         "selected": undefined,
       }
@@ -276,7 +294,6 @@ exports[`VerifyUser renders as expected 1`] = `
           "flexDirection": "row",
           "gap": 12,
           "justifyContent": "center",
-          "opacity": 0.6,
           "paddingHorizontal": 16,
           "paddingVertical": 12,
         },
@@ -440,6 +457,7 @@ exports[`VerifyUser renders as expected with errors 1`] = `
         },
       ]
     }
+    testID="amplify__radio-group__container"
   >
     <View
       accessibilityRole="radiogroup"
@@ -514,7 +532,24 @@ exports[`VerifyUser renders as expected with errors 1`] = `
             ]
           }
           testID="amplify__radio-button__container"
-        />
+        >
+          <View
+            style={
+              [
+                {
+                  "backgroundColor": "hsl(190, 95%, 30%)",
+                  "borderRadius": 999,
+                },
+                {
+                  "height": 12,
+                  "width": 12,
+                },
+                undefined,
+              ]
+            }
+            testID="amplify__radio-button__dot"
+          />
+        </View>
         <Text
           accessibilityRole="text"
           style={
@@ -687,7 +722,7 @@ exports[`VerifyUser renders as expected with errors 1`] = `
       {
         "busy": undefined,
         "checked": undefined,
-        "disabled": true,
+        "disabled": false,
         "expanded": undefined,
         "selected": undefined,
       }
@@ -721,7 +756,6 @@ exports[`VerifyUser renders as expected with errors 1`] = `
           "flexDirection": "row",
           "gap": 12,
           "justifyContent": "center",
-          "opacity": 0.6,
           "paddingHorizontal": 16,
           "paddingVertical": 12,
         },

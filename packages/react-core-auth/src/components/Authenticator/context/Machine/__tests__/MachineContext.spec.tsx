@@ -27,6 +27,7 @@ const mockServiceFacade: NextAuthenticatorServiceFacade = {
   totpSecretCode: undefined,
   unverifiedUserAttributes: { email: 'test#example.com' },
   username: undefined,
+  allowedMfaTypes: undefined,
 };
 
 const getNextServiceFacadeSpy = jest
