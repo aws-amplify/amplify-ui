@@ -1,5 +1,5 @@
 {
-  "name": "@aws-amplify/ui-next-app-example",
+  "name": "@aws-amplify/ui-next-app-router-example",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -10,10 +10,11 @@
   },
   "dependencies": {
     "@aws-amplify/ui-react": "^6.1.0",
+    "@aws-amplify/ui-react-storage": "^3.8.1",
     "react": "^18.3.0",
     "next": "^14.2.25",
     "react-dom": "^18",
-    "react-icons": "^4.3.1"
+    "react-icons": "^5.5.0"
   },
   "devDependencies": {
     "@types/node": "^14.14.31",
