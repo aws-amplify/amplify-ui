@@ -61,7 +61,6 @@
     ],
     "nohoist": [
       "**/@react-native-community/**",
-      "**/react-icons",
       "**/react-native",
       "**/react-native-paper",
       "**/react-native-safe-area-context",

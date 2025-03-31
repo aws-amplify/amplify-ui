@@ -14,7 +14,7 @@
     "react": "^18.3.0",
     "next": "^14.2.25",
     "react-dom": "^18",
-    "react-icons": "^5.5.0"
+    "react-icons": "^4.3.1"
   },
   "devDependencies": {
     "@types/node": "^14.14.31",
