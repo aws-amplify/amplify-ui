@@ -17,10 +17,11 @@ jest.spyOn(Config, 'useGetActionInput').mockReturnValue(() => ({
 }));
 
 jest.mock('../../../../displayText', () => ({
+  ...jest.requireActual<typeof import('../../../../displayText')>(
+    '../../../../displayText'
+  ),
   useDisplayText: () => ({
-    DeleteView: {
-      getActionCompleteMessage: jest.fn(),
-    },
+    DeleteView: { getActionCompleteMessage: jest.fn() },
   }),
 }));
 
