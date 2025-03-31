@@ -105,6 +105,7 @@
     "send": "^0.19.0",
     "serialize-javascript": "^6.0.2",
     "socks": "^2.7.3",
+    "tar-fs": "^3.0.8",
     "webpack-dev-middleware": "^5.3.4",
     "yaml": "2.2.2",
     "ws": "^8.17.1"
@@ -117,7 +118,7 @@
     "@changesets/cli": "^2.27.10",
     "@rollup/plugin-commonjs": "^28.0.0",
     "@rollup/plugin-typescript": "^12.1.0",
-    "@size-limit/preset-big-lib": "^11.1.5",
+    "@size-limit/preset-big-lib": "^11.2.0",
     "@testing-library/jest-dom": "^6.1.5",
     "@testing-library/react": "^14.0.0",
     "@testing-library/react-hooks": "^8.0.1",
