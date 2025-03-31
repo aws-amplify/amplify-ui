@@ -13,8 +13,7 @@ concurrency:
 
 on:
   pull_request:
-    # branches: [main, hotfix]
-    branches: feat-expose-sb-types/main
+    branches: [main, hotfix]
     types: [opened, synchronize, labeled]
 
 jobs:
