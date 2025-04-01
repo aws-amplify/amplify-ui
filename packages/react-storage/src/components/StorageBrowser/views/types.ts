@@ -26,6 +26,10 @@ export interface ListViewProps
   extends ActionViewProps,
     Partial<ListViewState> {}
 
+export type StorageBrowserViews<T = string, K = {}> = Partial<
+  PrimaryViews<T> & DefaultActionViews & K
+>;
+
 export interface PrimaryViews<T = string> {
   LocationActionView: (
     props: LocationActionViewProps<T>
@@ -49,7 +53,3 @@ export interface DefaultActionViewsByActionName {
   delete: (props: DeleteViewProps) => React.JSX.Element | null;
   upload: (props: UploadViewProps) => React.JSX.Element | null;
 }
-
-export type Views<T = string, K = {}> = Partial<
-  PrimaryViews<T> & DefaultActionViews & K
->;

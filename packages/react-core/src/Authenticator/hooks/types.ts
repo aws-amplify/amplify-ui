@@ -15,6 +15,8 @@ export type AuthenticatorRouteComponentKey =
   | 'confirmVerifyUser'
   | 'forceNewPassword'
   | 'forgotPassword'
+  | 'selectMfaType'
+  | 'setupEmail'
   | 'setupTotp'
   | 'signIn'
   | 'signUp'
@@ -131,6 +133,19 @@ export type SetupTotpBaseProps<FieldType = {}> = {
   ComponentSlots<FieldType> &
   ValidationProps;
 
+export type SetupEmailBaseProps<FieldType = {}> = {
+  toSignIn: UseAuthenticator['toSignIn'];
+} & CommonRouteProps &
+  ComponentSlots<FieldType> &
+  ValidationProps;
+
+export type SelectMfaTypeBaseProps<FieldType = {}> = {
+  challengeName: UseAuthenticator['challengeName'];
+  toSignIn: UseAuthenticator['toSignIn'];
+} & CommonRouteProps &
+  ComponentSlots<FieldType> &
+  ValidationProps;
+
 export type SignInBaseProps<FieldType = {}> = {
   hideSignUp?: boolean;
   socialProviders?: UseAuthenticator['socialProviders'];
@@ -163,6 +178,8 @@ export interface DefaultProps<FieldType = {}> {
   ConfirmVerifyUser: ConfirmVerifyUserProps<FieldType>;
   ForceNewPassword: ForceResetPasswordBaseProps<FieldType>;
   ForgotPassword: ResetPasswordBaseProps<FieldType>;
+  SelectMfaType: SelectMfaTypeBaseProps<FieldType>;
+  SetupEmail: SetupEmailBaseProps<FieldType>;
   SetupTotp: SetupTotpBaseProps<FieldType>;
   SignIn: SignInBaseProps<FieldType>;
   SignUp: SignUpBaseProps<FieldType>;

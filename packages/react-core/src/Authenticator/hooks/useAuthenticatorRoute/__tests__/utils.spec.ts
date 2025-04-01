@@ -23,6 +23,8 @@ import {
   resolveConfirmVerifyUserRoute,
   resolveForceNewPasswordRoute,
   resolveForgotPasswordRoute,
+  resolveSelectMfaTypeRoute,
+  resolveSetupEmailRoute,
   resolveSetupTotpRoute,
   resolveSignInRoute,
   resolveSignUpRoute,
@@ -121,6 +123,8 @@ describe('getRouteMachineSelector', () => {
         route,
       ],
     ],
+    ['selectMfaType', [...commonSelectorProps, challengeName, toSignIn, route]],
+    ['setupEmail', [...commonSelectorProps, toSignIn, route]],
     [
       'setupTotp',
       [...commonSelectorProps, toSignIn, totpSecretCode, username, route],
@@ -161,6 +165,12 @@ describe('props resolver functions', () => {
       resolveForgotPasswordRoute,
       { error, isPending, toSignIn },
     ],
+    [
+      'SelectMfaType',
+      resolveSelectMfaTypeRoute,
+      { error, isPending, challengeName, toSignIn },
+    ],
+    ['SetupEmail', resolveSetupEmailRoute, { error, isPending, toSignIn }],
     [
       'SetupTotp',
       resolveSetupTotpRoute,

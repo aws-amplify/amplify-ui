@@ -19,6 +19,7 @@ export type FormFieldComponents =
   | 'confirmSignUp'
   | 'confirmVerifyUser'
   | 'forgotPassword'
+  | 'setupEmail'
   | 'setupTotp';
 
 /**

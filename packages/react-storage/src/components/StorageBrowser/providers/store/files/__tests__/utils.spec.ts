@@ -1,4 +1,6 @@
-import { FileItems, FileItem } from '../types';
+import { FileItem } from '../../../../actions';
+import { FileItems } from '../types';
+
 import { resolveFiles, filesReducer, parseFileSelectParams } from '../utils';
 
 let uuid = 0;

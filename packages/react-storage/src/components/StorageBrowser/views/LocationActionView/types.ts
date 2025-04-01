@@ -1,10 +1,8 @@
 import { LocationData, TaskData } from '../../actions';
-
-import { LocationState } from '../../providers/store/location';
-
-import { StatusCounts, Task, Tasks } from '../../tasks';
-import { DataTableProps } from '../../composables/DataTable';
 import { WithKey } from '../../components/types';
+import { DataTableProps } from '../../composables/DataTable';
+import { LocationState } from '../../providers/store/location';
+import { StatusCounts, Task } from '../../tasks';
 
 export interface ActionViewState<T extends TaskData = TaskData> {
   isProcessing: boolean;
@@ -15,7 +13,7 @@ export interface ActionViewState<T extends TaskData = TaskData> {
   onActionStart: () => void;
   onTaskRemove?: (task: Task<T>) => void;
   statusCounts: StatusCounts;
-  tasks: Tasks<T>;
+  tasks: Task<T>[];
 }
 
 export interface ActionViewProps {

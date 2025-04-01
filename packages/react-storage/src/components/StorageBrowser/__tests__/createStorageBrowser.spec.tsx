@@ -130,6 +130,9 @@ describe('createStorageBrowser', () => {
   });
 
   it('should support disabling error boundary', () => {
+    // turn off error logging in console for test output
+    jest.spyOn(console, 'error').mockImplementation();
+
     const { StorageBrowser } = createStorageBrowser({
       config: input.config,
       ErrorBoundary: null,

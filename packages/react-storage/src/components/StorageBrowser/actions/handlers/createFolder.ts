@@ -14,8 +14,7 @@ import { DEFAULT_CHECKSUM_ALGORITHM } from './constants';
 export interface CreateFolderHandlerData extends TaskData {
   preventOverwrite?: boolean;
 }
-export interface CreateFolderHandlerOptions
-  extends TaskHandlerOptions<{ key: string }> {}
+export interface CreateFolderHandlerOptions extends TaskHandlerOptions {}
 
 export interface CreateFolderHandlerInput
   extends TaskHandlerInput<
@@ -59,11 +58,12 @@ export const createFolderHandler: CreateFolderHandler = (input) => {
         status: 'COMPLETE' as const,
         value: { key: path },
       }))
-      .catch(({ message, name }: Error) => {
+      .catch((error: Error) => {
+        const { message, name } = error;
         if (name === 'PreconditionFailed') {
-          return { message, status: 'OVERWRITE_PREVENTED' };
+          return { error, message, status: 'OVERWRITE_PREVENTED' };
         }
-        return { message, status: 'FAILED' };
+        return { error, message, status: 'FAILED' };
       }),
   };
 };

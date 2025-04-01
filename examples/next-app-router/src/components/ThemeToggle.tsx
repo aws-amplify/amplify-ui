@@ -2,7 +2,7 @@
 // https://github.com/vercel/next.js/discussions/53063
 import { Button, ColorMode } from '@aws-amplify/ui-react';
 import { useEffect, useState } from 'react';
-import { LuMoon, LuSun } from 'react-icons/lu';
+import { MdDarkMode, MdLightMode } from 'react-icons/md';
 
 function ThemeToggle({ initialValue }: { initialValue: ColorMode }) {
   const [colorMode, setColorMode] = useState(initialValue);
@@ -26,7 +26,7 @@ function ThemeToggle({ initialValue }: { initialValue: ColorMode }) {
     <Button
       onClick={() => setColorMode(colorMode === 'dark' ? 'light' : 'dark')}
     >
-      {colorMode === 'dark' ? <LuSun /> : <LuMoon />}
+      {colorMode === 'dark' ? <MdLightMode /> : <MdDarkMode />}
     </Button>
   );
 }

@@ -4,7 +4,6 @@ import { isFileTooBig } from '../../../validators';
 
 export const DEFAULT_UPLOAD_VIEW_DISPLAY_TEXT: DefaultUploadViewDisplayText = {
   ...DEFAULT_ACTION_VIEW_DISPLAY_TEXT,
-  title: 'Upload',
   actionStartLabel: 'Upload',
   addFilesLabel: 'Add files',
   addFolderLabel: 'Add folder',
@@ -21,8 +20,8 @@ export const DEFAULT_UPLOAD_VIEW_DISPLAY_TEXT: DefaultUploadViewDisplayText = {
     const type = hasFailure
       ? 'error'
       : hasPreventedOverwrite || hasCanceled
-      ? 'warning'
-      : 'success';
+        ? 'warning'
+        : 'success';
 
     const preventedOverwriteMessage = hasPreventedOverwrite
       ? [
@@ -90,6 +89,8 @@ export const DEFAULT_UPLOAD_VIEW_DISPLAY_TEXT: DefaultUploadViewDisplayText = {
     }
     return undefined;
   },
-  statusDisplayOverwritePreventedLabel: 'Overwrite prevented',
   overwriteToggleLabel: 'Overwrite existing files',
+  statusDisplayOverwritePreventedLabel: 'Overwrite prevented',
+  tableColumnProgressHeader: 'Progress',
+  title: 'Upload',
 };
