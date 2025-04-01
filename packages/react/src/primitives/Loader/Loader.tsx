@@ -139,7 +139,6 @@ const LoaderPrimitive: Primitive<LoaderProps, 'svg'> = (
     <View
       as="svg"
       aria-valuenow={isDeterminate ? percentage : undefined}
-      aria-hidden={!isDeterminate}
       className={componentClasses}
       ref={ref}
       role="progressbar"
