@@ -38,7 +38,9 @@ export const UNDEFINED_CALLBACKS = {
 
 export const uploadHandler: UploadHandler = ({ config, data, options }) => {
   const { accountId, credentials, customEndpoint } = config;
+  // const { id, key, file, preventOverwrite } = data;
   const { key, file, preventOverwrite } = data;
+  // const { onProgress, onError } = options ?? {};
   const { onProgress } = options ?? {};
 
   const input: UploadDataInput = {
@@ -71,12 +73,11 @@ export const uploadHandler: UploadHandler = ({ config, data, options }) => {
       .catch((error: Error) => {
         const { message } = error;
         if (error.name === 'PreconditionFailed') {
-          return { message, status: 'OVERWRITE_PREVENTED' };
+          return { error, message, status: 'OVERWRITE_PREVENTED' };
         }
-        return {
-          message,
-          status: isCancelError(error) ? 'CANCELED' : 'FAILED',
-        };
+
+        const status = isCancelError(error) ? 'CANCELED' : 'FAILED';
+        return { error, message, status };
       }),
   };
 };

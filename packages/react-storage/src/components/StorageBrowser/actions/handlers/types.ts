@@ -107,7 +107,12 @@ export type TaskResultStatus =
 
 export interface TaskResult<TStatus, TValue> {
   /**
-   * optional result message
+   * result error (if any)
+   */
+  error?: Error;
+
+  /**
+   * result message (if any)
    */
   message?: string;
 
@@ -117,7 +122,7 @@ export interface TaskResult<TStatus, TValue> {
   status: TStatus;
 
   /**
-   * task result value
+   * task result value (if any)
    */
   value?: TValue;
 }
