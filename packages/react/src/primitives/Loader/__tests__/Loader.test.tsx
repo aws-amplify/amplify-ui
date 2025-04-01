@@ -167,21 +167,15 @@ describe('Loader:', () => {
   });
 
   it('should render without aria-valuenow if not determinate state', async () => {
-    expect.assertions(3);
     render(<Loader />);
 
     const loader = await screen.findByRole('progressbar');
     expect(loader).not.toHaveAttribute('aria-valuenow');
-    expect(loader).not.toHaveAttribute('aria-valuemin');
-    expect(loader).not.toHaveAttribute('aria-valuemax');
   });
 
   it('should render with aria-valuenow attribute if in determinate state', async () => {
-    expect.assertions(3);
     render(<Loader isDeterminate percentage={50} />);
     const loader = await screen.findByRole('progressbar');
     expect(loader).toHaveAttribute('aria-valuenow', '50');
-    expect(loader).toHaveAttribute('aria-valuemin', '0');
-    expect(loader).toHaveAttribute('aria-valuemax', '100');
   });
 });
