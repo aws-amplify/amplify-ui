@@ -53,3 +53,9 @@ export interface FoldersState {
   onSearchClear: () => void;
   onSelectFolder: (id: string, folderLocationPath: string) => void;
 }
+
+export interface CopyViewState extends ActionViewState<CopyHandlerData> {
+  folders: FoldersState;
+  destination: LocationState;
+  onSelectDestination: (location: LocationData, path?: string) => void;
+}

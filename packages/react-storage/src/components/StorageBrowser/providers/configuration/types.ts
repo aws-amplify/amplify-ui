@@ -13,18 +13,15 @@ export interface GetActionInputProviderProps {
   customEndpoint?: string;
 }
 
-export interface CreateConfigurationProviderInput<
-  T extends React.ComponentType<any>,
-> extends GetActionInputProviderProps,
+export interface CreateConfigurationProviderInput<T>
+  extends GetActionInputProviderProps,
     CredentialsProviderProps {
   ChildComponent?: T;
   displayName: string;
   region: string;
 }
 
-export interface ConfigurationProviderComponent<
-  T extends React.ComponentType<any>,
-> {
-  (props: React.ComponentProps<T>): React.JSX.Element;
+export interface ConfigurationProviderComponent<P> {
+  (props: P): React.JSX.Element;
   displayName: string;
 }
