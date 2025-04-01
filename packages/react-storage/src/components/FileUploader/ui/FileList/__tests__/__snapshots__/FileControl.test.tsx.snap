@@ -292,7 +292,7 @@ exports[`FileControl should default to showThumbnails being true 1`] = `
       <span
         class="amplify-text amplify-fileuploader__file__size"
       />
-        aria-valuenow="0"
+      <svg
         class="amplify-loader amplify-loader--linear amplify-fileuploader__loader"
         role="progressbar"
       >
