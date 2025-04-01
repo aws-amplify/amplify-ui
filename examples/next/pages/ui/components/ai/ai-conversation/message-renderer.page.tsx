@@ -10,7 +10,6 @@ export default function Example() {
   return (
     <Card variation="outlined" width="50%" height="300px" margin="0 auto">
       <AIConversation
-        // @ts-expect-error
         messages={INITIAL_MESSAGES}
         handleSendMessage={() => {}}
         allowAttachments

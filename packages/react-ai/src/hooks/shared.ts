@@ -2,7 +2,11 @@ import { DataState } from '@aws-amplify/ui-react-core';
 import { GraphQLFormattedError } from '../types';
 
 export type DataClientState<T> = Omit<DataState<T>, 'message'> & {
+  /**
+   * @deprecated - Please use `errors` instead
+   */
   messages?: GraphQLFormattedError[];
+  errors?: GraphQLFormattedError[];
 };
 
 export type DataClientResponse<T> = {

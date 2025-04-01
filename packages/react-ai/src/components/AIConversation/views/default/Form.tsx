@@ -13,6 +13,10 @@ import { ControlsContextProps } from '../../context/ControlsContext';
 import { Attachments } from './Attachments';
 import { validFileTypes } from '../../utils';
 
+function isHTMLFormElement(target: EventTarget): target is HTMLFormElement {
+  return 'form' in target;
+}
+
 /**
  * Will conditionally render the DropZone if allowAttachments
  * is true
@@ -50,9 +54,6 @@ export const Form: Required<ControlsContextProps>['Form'] = ({
   onValidate,
   isLoading,
   error,
-  onCompositionEnd,
-  onCompositionStart,
-  onKeyDown,
 }) => {
   const icons = useIcons('aiConversation');
   const sendIcon = icons?.send ?? <IconSend />;
@@ -60,6 +61,7 @@ export const Form: Required<ControlsContextProps>['Form'] = ({
   const hiddenInput = React.useRef<HTMLInputElement>(null);
   // Bedrock does not accept message that are empty or are only whitespace
   const isInputEmpty = !input?.text?.length || !!input.text.match(/^\s+$/);
+  const [composing, setComposing] = React.useState(false);
 
   return (
     <FormWrapper onValidate={onValidate} allowAttachments={allowAttachments}>
@@ -107,9 +109,16 @@ export const Form: Required<ControlsContextProps>['Form'] = ({
           rows={1}
           value={input?.text ?? ''}
           testId="text-input"
-          onCompositionStart={onCompositionStart}
-          onCompositionEnd={onCompositionEnd}
-          onKeyDown={onKeyDown}
+          onCompositionStart={() => setComposing(true)}
+          onCompositionEnd={() => setComposing(false)}
+          onKeyDown={(e) => {
+            // Submit on enter key if shift is not pressed also
+            const shouldSubmit = !e.shiftKey && e.key === 'Enter' && !composing;
+            if (shouldSubmit && isHTMLFormElement(e.target)) {
+              (e.target.form as HTMLFormElement).requestSubmit();
+              e.preventDefault();
+            }
+          }}
           onChange={(e) => {
             setInput?.((prevValue) => ({
               ...prevValue,

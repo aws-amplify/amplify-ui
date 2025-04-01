@@ -175,6 +175,20 @@ export const FormControl: FormControl = () => {
   const [isSubmitting, setIsSubmitting] = React.useState(false);
 
   const submitMessage = async () => {
+    const hasInput =
+      !!input?.text || (input?.files?.length && input?.files?.length > 0);
+    // Prevent double submission and empty submission
+    if (isSubmitting || !hasInput) {
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    // Clear the attachment errors when submitting
+    // because the errors are not actually preventing the submission
+    // but rather notifying the user that certain files were not attached and why they weren't
+    setError?.(undefined);
+
     ref.current?.reset();
     const submittedContent: InputContent[] = [];
     if (input?.text) {
@@ -217,26 +231,13 @@ export const FormControl: FormControl = () => {
           convertResponseComponentsToToolConfiguration(responseComponents),
       });
     }
+    setIsSubmitting(false);
     if (setInput) setInput({ text: '', files: [] });
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    // Prevent double submission
-    if (isSubmitting) {
-      return;
-    }
-
-    setIsSubmitting(true);
-
-    // Clear the attachment errors when submitting
-    // because the errors are not actually preventing the submission
-    // but rather notifying the user that certain files were not attached and why they weren't
-    setError?.(undefined);
-    submitMessage().then(() => {
-      setIsSubmitting(false);
-    });
+    submitMessage();
   };
 
   const handleOnKeyDown: React.KeyboardEventHandler<HTMLTextAreaElement> = (
@@ -247,14 +248,7 @@ export const FormControl: FormControl = () => {
     if (key === 'Enter' && !shiftKey && !composing) {
       event.preventDefault();
 
-      const hasInput =
-        !!input?.text || (input?.files?.length && input?.files?.length > 0);
-      if (hasInput && !isSubmitting && !isLoading) {
-        setIsSubmitting(true);
-        submitMessage().then(() => {
-          setIsSubmitting(false);
-        });
-      }
+      submitMessage();
     }
   };
 
@@ -319,9 +313,6 @@ export const FormControl: FormControl = () => {
         isLoading={isLoading ?? isSubmitting}
         error={error}
         setError={setError}
-        onKeyDown={handleOnKeyDown}
-        onCompositionStart={() => setComposing(true)}
-        onCompositionEnd={() => setComposing(false)}
       />
     );
   }

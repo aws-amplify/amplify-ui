@@ -1,5 +1,6 @@
 import { Icon } from '@aws-amplify/ui-react';
 import { convertBufferToBase64 } from './utils';
+import { ConversationMessage } from '@aws-amplify/ui-react-ai';
 
 export const PROMPTS = [
   {
@@ -39,7 +40,7 @@ export const ACTIONS = [
   },
 ];
 
-export const INITIAL_MESSAGES = [
+export const INITIAL_MESSAGES: ConversationMessage[] = [
   {
     conversationId: 'foobar',
     id: '1',
