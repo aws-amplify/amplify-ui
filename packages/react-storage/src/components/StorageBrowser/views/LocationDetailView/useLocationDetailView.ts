@@ -62,8 +62,8 @@ export const useLocationDetailView = (
   // set up pagination
   const { items, nextToken, search } = data;
   const { hasExhaustedSearch = false } = search ?? {};
-  const hasNextToken = !!nextToken;
-  const paginateCallback = () => {
+
+  const onPaginate = () => {
     if (hasInvalidPrefix || !nextToken) return;
     dispatchStoreAction({ type: 'RESET_LOCATION_ITEMS' });
     handleList({
@@ -74,15 +74,14 @@ export const useLocationDetailView = (
 
   const {
     currentPage,
-    onPaginate,
+    handlePaginate,
     handleReset,
     highestPageVisited,
     pageItems,
   } = usePaginate({
     items,
-    paginateCallback,
+    onPaginate,
     pageSize: listOptions.pageSize,
-    hasNextToken,
   });
 
   const onSearch = (query: string, includeSubfolders?: boolean) => {
@@ -167,13 +166,13 @@ export const useLocationDetailView = (
     fileDataItems,
     hasError,
     hasDownloadError: task?.status === 'FAILED',
-    hasNextPage: hasNextToken,
+    hasNextPage: !!nextToken,
     highestPageVisited,
     message,
     downloadErrorMessage: getDownloadErrorMessageFromFailedDownloadTask(task),
     isLoading,
     isSearchSubfoldersEnabled,
-    onPaginate,
+    onPaginate: handlePaginate,
     searchQuery,
     hasExhaustedSearch,
     onRefresh,
@@ -236,10 +235,7 @@ export const useLocationDetailView = (
     onSearchClear: () => {
       resetSearch();
       if (hasInvalidPrefix) return;
-      handleList({
-        prefix: key,
-        options: { ...listOptions, refresh: true },
-      });
+      handleList({ prefix: key, options: { ...listOptions, refresh: true } });
       handleReset();
     },
     onSearchQueryChange,
