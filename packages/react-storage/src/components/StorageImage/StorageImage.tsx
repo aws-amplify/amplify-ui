@@ -106,6 +106,10 @@ export const StorageImage = ({
     return <>{loadingElement}</>;
   }
 
+  if (isLoading) {
+    return <>{null}</>;
+  }
+
   return (
     <Image
       {...rest}
