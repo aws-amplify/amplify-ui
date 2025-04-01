@@ -61,13 +61,14 @@ describe('downloadHandler', () => {
   });
 
   it('returns failed status', async () => {
-    const errorMessage = 'error-message';
-    mockGetUrl.mockRejectedValue(new Error(errorMessage));
+    const error = new Error('No download!');
+    mockGetUrl.mockRejectedValue(error);
     const { result } = downloadHandler(baseInput);
 
     expect(await result).toEqual({
+      error,
+      message: error.message,
       status: 'FAILED',
-      message: errorMessage,
     });
   });
 });

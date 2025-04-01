@@ -18,6 +18,8 @@ const items: FileItem[] = [
   { key: '2', id: '2', file: new File([], '2') },
 ];
 
+const error = new Error('some error');
+
 const action: ActionHandler<FileItem> = jest.fn(({ data, options }) => {
   const { key } = data;
   // initial progress
@@ -28,14 +30,15 @@ const action: ActionHandler<FileItem> = jest.fn(({ data, options }) => {
     options?.onProgress?.(data, 1);
     return {
       cancel: undefined,
-      result: Promise.resolve({ status: 'COMPLETE' as const }),
+      result: Promise.resolve({ status: 'COMPLETE' as const, value: key }),
     };
   }
 
   if (key === '1') {
     return {
       cancel: undefined,
-      result: Promise.reject({ status: 'FAILED' as const }),
+      message: error.message,
+      result: Promise.reject(error),
     };
   }
 
@@ -385,6 +388,75 @@ describe('useProcessTasks', () => {
 
     // cancel is undefined while processing
     expect(processingState.tasks[0].cancel).toBeUndefined();
+  });
+
+  it('returns `error` and `message` for a failed task and provides the expected values to `onTaskError`', async () => {
+    const { result } = renderHook(() =>
+      useProcessTasks(action, { concurrency: 2, items, onTaskError })
+    );
+
+    const processTasks = result.current[1];
+
+    act(() => {
+      processTasks({ config });
+    });
+
+    expect(result.current[0].tasks[0].status).toBe('PENDING');
+    expect(result.current[0].tasks[1].status).toBe('PENDING');
+    expect(result.current[0].tasks[2].status).toBe('QUEUED');
+
+    await waitFor(() => {
+      expect(action).toHaveBeenCalledTimes(3);
+    });
+
+    const failedTask = result.current[0].tasks[1];
+
+    expect(failedTask.status).toBe('FAILED');
+    expect(failedTask.message).toBe(error.message);
+
+    expect(onTaskError).toHaveBeenCalledTimes(1);
+    expect(onTaskError).toHaveBeenCalledWith(
+      {
+        cancel: undefined,
+        data: { file: items[1].file, id: '1', key: '1' },
+        message: error.message,
+        progress: 0.5,
+        status: 'FAILED',
+      },
+      error
+    );
+  });
+
+  it('provides the expected values to `onTaskSuccess', async () => {
+    const key = '0';
+    const item = items[0];
+
+    const { result } = renderHook(() =>
+      useProcessTasks(action, { onTaskSuccess })
+    );
+
+    const processTasks = result.current[1];
+
+    act(() => {
+      processTasks({ config, data: item });
+    });
+
+    await waitFor(() => {
+      expect(action).toHaveBeenCalledTimes(1);
+    });
+
+    expect(onTaskSuccess).toHaveBeenCalledTimes(1);
+    expect(onTaskSuccess).toHaveBeenCalledWith(
+      {
+        cancel: undefined,
+        data: { file: item.file, id: key, key },
+        message: undefined,
+        progress: 1,
+        status: 'COMPLETE',
+        value: key,
+      },
+      key
+    );
   });
 
   it.todo('ignores calls to handle processing when isProcessing is true');

@@ -487,39 +487,12 @@ The following `default` actions are invoked by the default UI views:
 
 <Example>
 <ExampleCode>
-```ts
-import { createStorageBrowser, defaultActionConfigs } from '@aws-amplify/ui-react-storage/browser';
-
-const { StorageBrowser } = createStorageBrowser({
-  actions: {
-    default: {
-      upload: {
-        ...defaultActionConfigs.upload,
-        handler: ({ config, data, options }) =>
-          defaultActionConfigs.upload.handler({
-            config,
-            data,
-            options: {
-              ...options,
-              onSuccess: (...input) => {
-                options?.onSuccess?.(...input);
-                fileUploadCounter.add(1); // Your custom counter metrics.
-              },
-              onError: (data, message, error) => {
-                options?.onError?.(data, message, error);
-                fileUploadError.recordError(error); // Your custom error metrics.
-              },
-            },
-          }),
-      }
-    }
-  }
-});
+```tsx file=../../../../../../../examples/next/pages/ui/components/storage/storage-browser/default-auth/routed/StorageBrowser.ts
 ```
 </ExampleCode>
 </Example>
 
-#### New custom actions
+#### Add Custom actions
 
 `custom` actions can be provided to add entirely new functionality to `StorageBrowser` which can be used by custom UI views. 
 
