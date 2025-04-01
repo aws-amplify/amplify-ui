@@ -1,10 +1,10 @@
 import { act, renderHook } from '@testing-library/react';
 
 import { useCredentialsStore } from '../useCredentialsStore';
-import { createLocationCredentialsStore } from '../../../../credentials/store';
+import { createLocationCredentialsStore } from '../../../../credentials';
 import { LocationPermissions } from '../../../../actions';
 
-jest.mock('../../../../credentials/store');
+jest.mock('../../../../credentials');
 
 class Subscription {
   // intialize as noop

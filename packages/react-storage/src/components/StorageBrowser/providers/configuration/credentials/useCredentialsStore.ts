@@ -7,8 +7,8 @@ import {
   CredentialsStore,
   RegisterAuthListener,
 } from './types';
-import { createLocationCredentialsStore } from '../../../credentials/store';
-import { GetLocationCredentials } from '../../../credentials/types';
+import { createLocationCredentialsStore } from '../../../credentials';
+import { GetLocationCredentials } from '../../../credentials';
 
 const createCredentialsStore = ({
   ...input

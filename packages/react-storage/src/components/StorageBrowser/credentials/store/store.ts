@@ -16,7 +16,7 @@ interface CredentialsLocation {
   permissions: LocationPermissions;
 }
 
-interface StoreValue extends CredentialsLocation {
+interface CredentialsStoreValue extends CredentialsLocation {
   credentials?: AWSTemporaryCredentials;
   inflightCredentials?: Promise<{ credentials: AWSTemporaryCredentials }>;
 }
@@ -43,7 +43,7 @@ const createCacheKey = (location: CredentialsLocation): CacheKey =>
 export interface LruLocationCredentialsStore {
   capacity: number;
   refreshHandler: GetLocationCredentials;
-  values: Map<CacheKey, StoreValue>;
+  values: Map<CacheKey, CredentialsStoreValue>;
 }
 
 const pastTTL = (credentials: AWSTemporaryCredentials) => {
@@ -55,7 +55,7 @@ const pastTTL = (credentials: AWSTemporaryCredentials) => {
 const setCacheRecord = (
   store: LruLocationCredentialsStore,
   key: CacheKey,
-  value: StoreValue
+  value: CredentialsStoreValue
 ): void => {
   if (store.capacity === store.values.size) {
     // Pop least used entry. The Map's key are in insertion order.
@@ -70,7 +70,7 @@ const setCacheRecord = (
 
 const dispatchRefresh = (
   refreshHandler: GetLocationCredentials,
-  value: StoreValue,
+  value: CredentialsStoreValue,
   onRefreshFailure: () => void
 ) => {
   if (value.inflightCredentials) {
@@ -112,7 +112,7 @@ export const initStore = (
   return {
     capacity: size,
     refreshHandler,
-    values: new Map<CacheKey, StoreValue>(),
+    values: new Map<CacheKey, CredentialsStoreValue>(),
   };
 };
 
@@ -152,11 +152,7 @@ export const fetchNewValue = async (
   const storeValues = store.values;
   const key = createCacheKey(location);
   if (!storeValues.has(key)) {
-    const newStoreValue: StoreValue = {
-      scope: location.scope,
-      permissions: location.permissions,
-    };
-    setCacheRecord(store, key, newStoreValue);
+    setCacheRecord(store, key, location);
   }
   const storeValue = storeValues.get(key)!;
 
