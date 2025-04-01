@@ -32,13 +32,13 @@ export default function useDataState<T, K>(
   }));
 
   const prevData = React.useRef(initialData);
-  const pendingId = React.useRef<string | undefined>();
+  const pendingId = React.useRef<Symbol | undefined>();
 
   const { onSuccess, onError } = options ?? {};
 
   const handleAction: (input: K) => void = React.useCallback(
     (input) => {
-      const id = crypto.randomUUID();
+      const id = Symbol();
       pendingId.current = id;
 
       setDataState(({ data }) => ({ ...LOADING_STATE, data }));

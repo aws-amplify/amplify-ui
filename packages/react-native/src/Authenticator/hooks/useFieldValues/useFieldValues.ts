@@ -2,14 +2,20 @@ import { useMemo, useState } from 'react';
 import { ConsoleLogger as Logger } from 'aws-amplify/utils';
 import { ValidationError } from '@aws-amplify/ui';
 
-import { OnChangeText, TextFieldOnBlur, TypedField } from '../types';
+import {
+  OnChangeText,
+  RadioFieldOptions,
+  TextFieldOnBlur,
+  TypedField,
+} from '../types';
 
 import { UseFieldValues, UseFieldValuesParams } from './types';
 import {
   getSanitizedTextFields,
-  getSanitizedRadioFields,
   isRadioFieldOptions,
   runFieldValidation,
+  getSanitizedVerifyUserFields,
+  getSanitizedSelectMfaTypeFields,
 } from './utils';
 
 const logger = new Logger('Authenticator');
@@ -22,11 +28,32 @@ export default function useFieldValues<FieldType extends TypedField>({
   handleSubmit,
   validationErrors,
 }: UseFieldValuesParams<FieldType>): UseFieldValues<FieldType> {
-  const [values, setValues] = useState<Record<string, string>>({});
   const [touched, setTouched] = useState<Record<string, boolean>>({});
   const [fieldValidationErrors, setFieldValidationErrors] =
     useState<ValidationError>({});
-  const isRadioFieldComponent = componentName === 'VerifyUser';
+  const isVerifyUserRoute = componentName === 'VerifyUser';
+  const isSelectMfaTypeRoute = componentName === 'SelectMfaType';
+  const isRadioFieldComponent = isVerifyUserRoute || isSelectMfaTypeRoute;
+
+  // initialize values based on route
+  // select mfa type screen should auto select first radio option
+  const [values, setValues] = useState(() => {
+    const result: Record<string, string> = {};
+    if (isSelectMfaTypeRoute) {
+      const initialValue = fields[0]?.value;
+      if (initialValue) {
+        result.mfa_type = initialValue;
+      }
+    }
+    if (isVerifyUserRoute) {
+      const initialValue = fields[0]?.name;
+      if (initialValue) {
+        result.unverifiedAttr = initialValue;
+      }
+    }
+
+    return result;
+  });
 
   const sanitizedFields = useMemo(() => {
     if (!Array.isArray(fields)) {
@@ -36,12 +63,16 @@ export default function useFieldValues<FieldType extends TypedField>({
       return [];
     }
 
-    if (isRadioFieldComponent) {
-      return getSanitizedRadioFields(fields, componentName);
+    if (isVerifyUserRoute) {
+      return getSanitizedVerifyUserFields(fields);
+    }
+
+    if (isSelectMfaTypeRoute) {
+      return getSanitizedSelectMfaTypeFields(fields);
     }
 
     return getSanitizedTextFields(fields, componentName);
-  }, [componentName, fields, isRadioFieldComponent]);
+  }, [componentName, fields, isVerifyUserRoute, isSelectMfaTypeRoute]);
 
   const fieldsWithHandlers = sanitizedFields.map((field) => {
     if (isRadioFieldOptions(field)) {
@@ -49,11 +80,31 @@ export default function useFieldValues<FieldType extends TypedField>({
         // call `onChange` passed as radio `field` option
         field.onChange?.(value);
 
-        // set `name` as value of 'unverifiedAttr'
-        setValues({ unverifiedAttr: value });
+        // on VerifyUser route, set `name` as value of 'unverifiedAttr'
+        // on SelectMfaTYpe route, set `name` as value of 'mfa_type'
+        const fieldName = isVerifyUserRoute
+          ? 'unverifiedAttr'
+          : isSelectMfaTypeRoute
+          ? 'mfa_type'
+          : field.name;
+
+        setValues((prev) => ({ ...prev, [fieldName]: value }));
       };
 
-      return { ...field, onChange };
+      const result: RadioFieldOptions = {
+        ...field,
+        onChange,
+      };
+
+      // bind selected boolean attribute for radio field
+      if (isSelectMfaTypeRoute) {
+        result.selected = values.mfa_type === field.value;
+      }
+      if (isVerifyUserRoute) {
+        result.selected = values.unverifiedAttr === field.name;
+      }
+
+      return result;
     }
 
     const { name, label, labelHidden, ...rest } = field;
@@ -100,18 +151,11 @@ export default function useFieldValues<FieldType extends TypedField>({
     };
   }) as FieldType[];
 
-  const disableFormSubmit = isRadioFieldComponent
+  const disableFormSubmit = isVerifyUserRoute
     ? !values.unverifiedAttr
-    : fieldsWithHandlers.some(({ required, value }) => {
-        if (!required) {
-          return false;
-        }
-
-        if (value) {
-          return false;
-        }
-        return true;
-      });
+    : isSelectMfaTypeRoute
+    ? !values.mfa_type
+    : fieldsWithHandlers.some(({ required, value }) => required && !value);
 
   const handleFormSubmit = () => {
     const submitValue = isRadioFieldComponent

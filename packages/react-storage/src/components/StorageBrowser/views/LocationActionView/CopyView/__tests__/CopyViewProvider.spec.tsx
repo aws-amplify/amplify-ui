@@ -32,9 +32,13 @@ jest.spyOn(Config, 'useGetActionInput').mockReturnValue(() => ({
 
 const getActionCompleteMessage = jest.fn();
 const getListFoldersResultsMessage = jest.fn();
+const title = 'Copy';
 jest.mock('../../../../displayText', () => ({
+  ...jest.requireActual<typeof import('../../../../displayText')>(
+    '../../../../displayText'
+  ),
   useDisplayText: () => ({
-    CopyView: { getActionCompleteMessage, getListFoldersResultsMessage },
+    CopyView: { getActionCompleteMessage, getListFoldersResultsMessage, title },
   }),
 }));
 
@@ -174,6 +178,7 @@ describe('CopyViewProvider', () => {
         isActionExitDisabled: true,
         isActionDestinationNavigable: false,
         statusCounts: processingViewState.statusCounts,
+        title,
       },
       ...actionCallbacks,
     });

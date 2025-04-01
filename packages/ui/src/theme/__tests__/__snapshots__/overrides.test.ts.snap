@@ -50,7 +50,8 @@ exports[`@aws-amplify/ui overrides should match snapshot 1`] = `
 --amplify-components-ai-conversation-attachment-padding-block: var(--amplify-space-xxxs);
 --amplify-components-ai-conversation-attachment-padding-inline: var(--amplify-space-xs);
 --amplify-components-ai-conversation-attachment-gap: var(--amplify-space-xs);
---amplify-components-ai-conversation-attachment-list-padding-block-start: var(--amplify-space-xs);
+--amplify-components-ai-conversation-attachment-list-padding: var(--amplify-space-xs);
+--amplify-components-ai-conversation-attachment-list-padding-block-start: 0;
 --amplify-components-ai-conversation-attachment-list-gap: var(--amplify-space-xxs);
 --amplify-components-ai-conversation-attachment-name-color: var(--amplify-colors-font-primary);
 --amplify-components-ai-conversation-attachment-name-font-size: var(--amplify-font-sizes-small);

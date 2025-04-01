@@ -1,5 +1,18 @@
 # @aws-amplify/ui-react-core
 
+## 3.3.5
+
+### Patch Changes
+
+- [#6445](https://github.com/aws-amplify/amplify-ui/pull/6445) [`75bf5408c195fa1745bc88f9329c29c66258f247`](https://github.com/aws-amplify/amplify-ui/commit/75bf5408c195fa1745bc88f9329c29c66258f247) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(react-core): update useDataState for RN compat
+
+## 3.3.4
+
+### Patch Changes
+
+- Updated dependencies [[`e0fcb4322ab8af7e0699da577dc5fbcf9f7e56cc`](https://github.com/aws-amplify/amplify-ui/commit/e0fcb4322ab8af7e0699da577dc5fbcf9f7e56cc)]:
+  - @aws-amplify/ui@6.9.1
+
 ## 3.3.3
 
 ### Patch Changes

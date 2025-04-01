@@ -1,12 +1,13 @@
 import { TransferProgressEvent } from 'aws-amplify/storage';
 import { LocationAccess as AccessGrantLocation } from '../../storage-internal';
-import { ListLocationsExcludeOptions } from './types';
 
+import { MULTIPART_UPLOAD_THRESHOLD_BYTES } from './constants';
 import {
   ActionInputConfig,
   FileData,
   FileDataItem,
   FileItem,
+  ListLocationsExcludeOptions,
   LocationData,
   LocationPermissions,
   LocationType,
@@ -157,3 +158,6 @@ export const getProgress = ({
   transferredBytes,
 }: TransferProgressEvent): number | undefined =>
   totalBytes ? transferredBytes / totalBytes : undefined;
+
+export const isMultipartUpload = (file: File): boolean =>
+  file.size > MULTIPART_UPLOAD_THRESHOLD_BYTES;

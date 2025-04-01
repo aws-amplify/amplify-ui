@@ -114,7 +114,10 @@ describe('useLocationDetailView', () => {
   const mockHandleList = jest.fn();
 
   beforeAll(() => {
-    mockUseAction.mockReturnValue([{}, mockHandleDownload]);
+    mockUseAction.mockReturnValue([
+      { isProcessing: false, task: undefined },
+      mockHandleDownload,
+    ]);
   });
 
   beforeEach(() => {

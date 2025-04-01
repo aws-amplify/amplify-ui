@@ -1,9 +1,8 @@
-import { CreateStorageBrowserInput } from '@aws-amplify/ui-react-storage/dist/types/components/StorageBrowser';
 import {
-  DeleteHandler,
+  CreateStorageBrowserInput,
   DeleteHandlerOutput,
   UploadHandlerOutput,
-} from '@aws-amplify/ui-react-storage/dist/types/components/StorageBrowser/actions';
+} from '@aws-amplify/ui-react-storage/browser';
 import uniqueId from 'lodash/uniqueId';
 
 export const defaultActions: CreateStorageBrowserInput['actions']['default'] = {

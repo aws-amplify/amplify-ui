@@ -1,5 +1,22 @@
 # @aws-amplify/ui-react-liveness
 
+## 3.3.5
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @aws-amplify/ui-react@6.9.5
+
+## 3.3.4
+
+### Patch Changes
+
+- [#6437](https://github.com/aws-amplify/amplify-ui/pull/6437) [`f2566d3f977a0fcc423fc824ba82c02b76e632c0`](https://github.com/aws-amplify/amplify-ui/commit/f2566d3f977a0fcc423fc824ba82c02b76e632c0) Thanks [@tiffanynwyeung](https://github.com/tiffanynwyeung)! - fix(liveness): increase max frame rate and bitrate
+
+- Updated dependencies [[`e0fcb4322ab8af7e0699da577dc5fbcf9f7e56cc`](https://github.com/aws-amplify/amplify-ui/commit/e0fcb4322ab8af7e0699da577dc5fbcf9f7e56cc)]:
+  - @aws-amplify/ui@6.9.1
+  - @aws-amplify/ui-react@6.9.4
+
 ## 3.3.3
 
 ### Patch Changes

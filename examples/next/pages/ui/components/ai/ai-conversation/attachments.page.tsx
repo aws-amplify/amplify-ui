@@ -7,7 +7,7 @@ import '@aws-amplify/ui-react/styles.css';
 
 import outputs from './amplify_outputs';
 import type { Schema } from '@environments/ai/gen2/amplify/data/resource';
-import { Authenticator, Button, Card, Flex } from '@aws-amplify/ui-react';
+import { Authenticator, Button, Card } from '@aws-amplify/ui-react';
 
 const client = generateClient<Schema>({ authMode: 'userPool' });
 const { useAIConversation } = createAIHooks(client);
@@ -52,18 +52,16 @@ function Chat() {
 export default function Example() {
   return (
     <Authenticator>
-      <Flex direction="column">
-        <Button
-          onClick={() => {
-            signOut();
-          }}
-        >
-          Sign out
-        </Button>
-        <Card flex="1" variation="outlined" height="400px" margin="large">
-          <Chat />
-        </Card>
-      </Flex>
+      <Button
+        onClick={() => {
+          signOut();
+        }}
+      >
+        Sign out
+      </Button>
+      <Card flex="1" variation="outlined" height="400px" margin="large">
+        <Chat />
+      </Card>
     </Authenticator>
   );
 }

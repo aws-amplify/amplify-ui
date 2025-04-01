@@ -1,5 +1,13 @@
 # @aws-amplify/ui
 
+## 6.9.1
+
+### Patch Changes
+
+- [#6431](https://github.com/aws-amplify/amplify-ui/pull/6431) [`e0fcb4322ab8af7e0699da577dc5fbcf9f7e56cc`](https://github.com/aws-amplify/amplify-ui/commit/e0fcb4322ab8af7e0699da577dc5fbcf9f7e56cc) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - fix(ai): textarea overflow bug
+
+  This fixes an issue where pasting a large amount of text in the text box for the AIConversation component will break the UI so the user can't see the conversation and the full text in the textarea.
+
 ## 6.9.0
 
 ### Minor Changes

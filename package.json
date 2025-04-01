@@ -4,6 +4,7 @@
   "name": "@aws-amplify/ui-monorepo",
   "scripts": {
     "build": "turbo run build --filter=./packages/* --filter=!./packages/angular --filter=./packages/angular/projects/ui-angular",
+    "build:exclude-angular": "turbo run build --filter=./packages/* --filter=!./packages/angular",
     "clean": "turbo run clean && rimraf node_modules",
     "lint": "turbo run lint --filter=./packages/* --filter=!./packages/angular --filter=./packages/angular/projects/ui-angular",
     "size": "turbo run size --filter=./packages/* --filter=!./packages/angular --filter=./packages/angular/projects/ui-angular",
@@ -27,9 +28,10 @@
     "vue": "yarn workspace @aws-amplify/ui-vue",
     "angular-example": "yarn workspace @aws-amplify/ui-angular-example",
     "docs": "yarn workspace @aws-amplify/ui-docs",
-    "next-example": "yarn workspace @aws-amplify/ui-next-example",
-    "next-app-example": "yarn workspace @aws-amplify/ui-next-app-example",
-    "react-example": "yarn workspace @aws-amplify/ui-next-example",
+    "next-example": "yarn workspace @aws-amplify/ui-next-pages-router-example",
+    "next-app-example": "yarn workspace @aws-amplify/ui-next-app-router-example",
+    "react-router-example": "yarn workspace @aws-amplify/ui-react-router-example",
+    "react-example": "yarn workspace @aws-amplify/ui-next-pages-router-example",
     "react-native-example": "yarn workspace @aws-amplify/ui-react-native-example",
     "vue-example": "yarn workspace @aws-amplify/ui-vue-example",
     "e2e": "yarn workspace @aws-amplify/ui-e2e",
@@ -60,8 +62,10 @@
     "nohoist": [
       "**/@react-native-community/**",
       "**/react-native",
+      "**/react-native-paper",
       "**/react-native-safe-area-context",
       "**/react-native-url-polyfill",
+      "**/react-native-vector-icons",
       "**/rollup",
       "**/@types/webgl-ext",
       "**/@types/webgl-ext/**"
@@ -145,7 +149,7 @@
     "ts-morph": "^17.0.0",
     "turbo": "^2.0.11",
     "typescript": "^5.2.2",
-    "vite": "^5.4.12",
+    "vite": "^5.4.16",
     "vue-tsc": "^2.0.7"
   }
 }
