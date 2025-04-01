@@ -71,12 +71,11 @@ export const uploadHandler: UploadHandler = ({ config, data, options }) => {
       .catch((error: Error) => {
         const { message } = error;
         if (error.name === 'PreconditionFailed') {
-          return { message, status: 'OVERWRITE_PREVENTED' };
+          return { error, message, status: 'OVERWRITE_PREVENTED' };
         }
-        return {
-          message,
-          status: isCancelError(error) ? 'CANCELED' : 'FAILED',
-        };
+
+        const status = isCancelError(error) ? 'CANCELED' : 'FAILED';
+        return { error, message, status };
       }),
   };
 };

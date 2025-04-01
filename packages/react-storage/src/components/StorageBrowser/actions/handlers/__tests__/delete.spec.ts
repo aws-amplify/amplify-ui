@@ -61,13 +61,14 @@ describe('deleteHandler', () => {
   });
 
   it('returns failed status', async () => {
-    const errorMessage = 'error-message';
-    mockRemove.mockRejectedValue(new Error(errorMessage));
+    const error = new Error('No delete!');
+    mockRemove.mockRejectedValue(error);
     const { result } = deleteHandler(baseInput);
 
     expect(await result).toEqual({
+      error,
+      message: error.message,
       status: 'FAILED',
-      message: errorMessage,
     });
   });
 });
