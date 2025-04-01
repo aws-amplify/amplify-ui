@@ -7,7 +7,6 @@ import App from './App';
 
 scan({
   enabled: import.meta.env.VITE_REACT_SCAN_ENABLED === 'TRUE',
-  trackUnnecessaryRenders: true,
 });
 
 createRoot(document.getElementById('root')!).render(

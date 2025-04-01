@@ -26,9 +26,8 @@ export default function Page() {
 
   return (
     <StorageBrowser
-      // @ts-expect-error
       onValueChange={handleValueChange}
-      value={value}
+      value={value ? JSON.parse(value) : null}
     />
   );
 }

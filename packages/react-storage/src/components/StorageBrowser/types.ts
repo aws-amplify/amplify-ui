@@ -11,7 +11,12 @@ import { StorageBrowserComponents } from './ComponentsProvider';
 import { GetLocationCredentials } from './credentials';
 import { StorageBrowserDisplayText } from './displayText';
 import { ErrorBoundaryType } from './ErrorBoundary';
-import { RegisterAuthListener, StoreProviderProps } from './providers';
+import {
+  RegisterAuthListener,
+  StorageBrowserEventValue,
+  StorageBrowserValue,
+  StoreProviderProps,
+} from './providers';
 import { DerivedActionHandlers, UseAction } from './useAction';
 import {
   CopyViewType,
@@ -145,6 +150,24 @@ export interface CreateStorageBrowserInput {
  */
 export interface StorageBrowserProps<K = string, V = {}> {
   /**
+   * provide to initialize the `StorageBrowser` with a default location, `actionType`
+   * or pagination values as an uncontrolled component
+   */
+  defaultValue?: StorageBrowserValue;
+
+  /**
+   * called on location, pagination or action change events. Provide with `value`
+   * prop for controlled component behavior or as a standalone prop
+   */
+  onValueChange?: (value: StorageBrowserEventValue) => void;
+
+  /**
+   * provide with `onValueChange` to use the `StorageBrowser` as a controlled
+   * component
+   */
+  value?: StorageBrowserValue;
+
+  /**
    * Overrides default display string values. Supports resolving of static and dynamic text
    * values and error messages
    *
@@ -180,7 +203,10 @@ export interface StorageBrowserProps<K = string, V = {}> {
  */
 export interface StorageBrowserProviderProps<V = {}>
   extends StoreProviderProps,
-    Pick<StorageBrowserProps, 'displayText'> {
+    Pick<
+      StorageBrowserProps,
+      'defaultValue' | 'displayText' | 'onValueChange' | 'value'
+    > {
   // note: `views` intentionally scoped to custom slots to prevent conflicts with composability
   /**
    * Accepts custom action views rendered by `LocationActionView`
@@ -188,10 +214,25 @@ export interface StorageBrowserProviderProps<V = {}>
   views?: V;
 
   /**
-   * Sets initial `location` data. Provide to initialize the `StorageBrowser` with an initial
-   * `location`
+   * @deprecated will be removed in a future major verison. Prefer `value` for controlled behavior or `defaultValue` for initializng `actionType`
+   *
+   *  initial `actionType`, does not update
+   */
+  actionType?: string;
+
+  /**
+   * @deprecated will be removed in a future major verison. Prefer `value` for controlled behavior or `defaultValue` for initializng `actionType`
+   *
+   * initial `location` data, does not update
    */
   location?: LocationData;
+
+  /**
+   * @deprecated will be removed in a future major verison. Prefer `value` for controlled behavior or `defaultValue` for initializng `actionType`
+   *
+   * initial `location` subpath to establish navigation state, does not update
+   */
+  path?: string;
 }
 
 /**

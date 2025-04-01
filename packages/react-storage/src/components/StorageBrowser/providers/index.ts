@@ -3,4 +3,10 @@ export {
   CredentialsProviderProps,
   RegisterAuthListener,
 } from './configuration';
-export { FileItems, StoreProviderProps, StoreProvider } from './store';
+export {
+  FileItems,
+  StorageBrowserEventValue,
+  StorageBrowserValue,
+  StoreProvider,
+  StoreProviderProps,
+} from './store';
