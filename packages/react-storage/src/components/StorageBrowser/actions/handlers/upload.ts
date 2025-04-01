@@ -38,7 +38,6 @@ export const UNDEFINED_CALLBACKS = {
 
 export const uploadHandler: UploadHandler = ({ config, data, options }) => {
   const { accountId, credentials, customEndpoint } = config;
-  // const { id, key, file, preventOverwrite } = data;
   const { key, file, preventOverwrite } = data;
   // const { onProgress, onError } = options ?? {};
   const { onProgress } = options ?? {};
