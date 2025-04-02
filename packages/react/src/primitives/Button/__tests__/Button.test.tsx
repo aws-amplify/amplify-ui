@@ -263,21 +263,21 @@ describe('Button test suite', () => {
     const loaderWrapper = await screen.findByText('loading');
     expect(loaderWrapper).toHaveClass(ComponentClassName.ButtonLoaderWrapper);
 
-    const loader = await screen.findByRole('img');
+    const loader = await screen.findByRole('progressbar');
     expect(loader).toHaveClass(ComponentClassName.Loader);
   });
 
   it('should pass size to Loader correctly if size is set', async () => {
     render(<Button loadingText="loading" size="small" isLoading />);
 
-    const loader = await screen.findByRole('img');
+    const loader = await screen.findByRole('progressbar');
     expect(loader).toHaveClass('amplify-loader--small');
   });
 
   it('should render Loader correctly without loadingText and isLoading is set to true', async () => {
     render(<Button isLoading />);
 
-    const loader = await screen.findByRole('img');
+    const loader = await screen.findByRole('progressbar');
     expect(loader).toHaveClass(ComponentClassName.Loader);
   });
 
