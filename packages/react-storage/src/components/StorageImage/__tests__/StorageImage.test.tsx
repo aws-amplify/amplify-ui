@@ -184,6 +184,33 @@ describe('StorageImage', () => {
     );
   });
 
+  it('should render loadingElement when isLoading(from useGetUrl) is true', async () => {
+    const loadingElement = <div>Loading...</div>;
+    getUrlSpy.mockReturnValue(new Promise(() => {}));
+
+    render(
+      <StorageImage
+        alt="StorageImage"
+        path={path}
+        loadingElement={loadingElement}
+      />
+    );
+
+    const loadingDiv = await screen.findByText('Loading...');
+    expect(loadingDiv).toBeInTheDocument();
+  });
+
+  it('should render null when isLoading is true and no loadingElement is provided', () => {
+    getUrlSpy.mockReturnValue(new Promise(() => {}));
+    const { container } = render(
+      <StorageImage alt="StorageImage" path={path} />
+    );
+
+    const img = screen.queryByRole('img');
+    expect(img).not.toBeInTheDocument();
+    expect(container.firstChild).toBeNull();
+  });
+
   describe('with `imgKey`', () => {
     it('should get the presigned URL and pass it to image src attribute', async () => {
       getUrlSpy.mockResolvedValue({

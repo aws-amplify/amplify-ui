@@ -50,11 +50,12 @@ export const StorageImage = ({
   identityId,
   imgKey,
   path,
+  loadingElement,
   onStorageGetError,
   onGetUrlError,
   validateObjectExistence = true,
   ...rest
-}: StorageImageProps | StorageImagePathProps): React.JSX.Element => {
+}: StorageImageProps | StorageImagePathProps): React.JSX.Element | null => {
   const hasImgkey = !!imgKey;
   const hasPath = !!path;
   const hasDeprecatedOptions = !!accessLevel || !!identityId;
@@ -99,7 +100,11 @@ export const StorageImage = ({
     ]
   );
 
-  const { url } = useGetUrl(input);
+  const { url, isLoading } = useGetUrl(input);
+
+  if (isLoading) {
+    return !loadingElement ? null : <>{loadingElement}</>;
+  }
 
   return (
     <Image
