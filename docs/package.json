@@ -70,7 +70,7 @@
     "glob": "^10.3.10",
     "globby": "^13.1.1",
     "postcss": "^8.4.31",
-    "puppeteer": "^19.7.2",
+    "puppeteer": "^24.4.0",
     "react-markdown": "^8.0.3",
     "ts-node": "^10.9.1"
   }
