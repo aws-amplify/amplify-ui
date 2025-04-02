@@ -3,9 +3,13 @@ import { GraphQLFormattedError } from '../types';
 
 export type DataClientState<T> = Omit<DataState<T>, 'message'> & {
   /**
-   * @deprecated - Please use `errors` instead
+   * @deprecated will be removed in a future major version. Superseded by `errors`
+   * @description errors returned from the websocket connection
    */
   messages?: GraphQLFormattedError[];
+  /**
+   * @description errors returned from the websocket connection
+   */
   errors?: GraphQLFormattedError[];
 };
 
