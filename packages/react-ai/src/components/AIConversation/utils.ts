@@ -54,15 +54,19 @@ export function getAttachmentFormat(file: File): string {
   return file.type.split('/')[1];
 }
 
+// This will take a File and return a string to be used as the document name
+// in Bedrock. Bedrock has specific requirements around a valid name:
+// https://docs.aws.amazon.com/bedrock/latest/APIReference/API_runtime_DocumentBlock.html
 export function getValidDocumentName(file: File): string {
   const fileNameParts = file.name.split('.');
 
   const baseFileName =
     fileNameParts.length > 1 ? fileNameParts.slice(0, -1).join('') : file.name;
 
-  return baseFileName
-    .replace(/[!@#$%^&*()+\-=[\]{};':"\\|,.<>/?]/g, '')
-    .replace(/\s+/g, '_');
+  // This is a regex to target special characters that are not allowed in file names
+  const specialCharactersRegex = /[!@#$%^&*()+\-=[\]{};':"\\|,.<>/?]/g;
+
+  return baseFileName.replace(specialCharactersRegex, '').replace(/\s+/g, '_');
 }
 
 // Using Sets instead of Arrays for faster and easier lookups

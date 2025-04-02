@@ -3,6 +3,7 @@ import React from 'react';
 import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
 import {
   AIContextContext,
+  ConversationInput,
   ConversationInputContext,
   useConversationDisplayText,
 } from '../../context';
@@ -158,6 +159,15 @@ const InputContainer = withBaseElementProps(View, {
   className: `${FIELD_BLOCK}__input-container`,
 });
 
+const isConversationInputWithText = (
+  input?: ConversationInput
+): input is Pick<Required<ConversationInput>, 'text'> => !!input?.text;
+
+const isConversationInputWithFiles = (
+  input?: ConversationInput
+): input is Pick<Required<ConversationInput>, 'files'> =>
+  !!input?.files?.length;
+
 export const FormControl: FormControl = () => {
   const { input, setInput, error, setError } = React.useContext(
     ConversationInputContext
@@ -173,10 +183,12 @@ export const FormControl: FormControl = () => {
   const controls = React.useContext(ControlsContext);
   const [composing, setComposing] = React.useState(false);
   const [isSubmitting, setIsSubmitting] = React.useState(false);
+  const isInputText = isConversationInputWithText(input);
+  // an empty array will resolve false when evaluating the length
+  const isInputFiles = isConversationInputWithFiles(input);
 
   const submitMessage = async () => {
-    const hasInput =
-      !!input?.text || (input?.files?.length && input?.files?.length > 0);
+    const hasInput = isInputFiles || isInputText;
     // Prevent double submission and empty submission
     if (isSubmitting || !hasInput) {
       return;
@@ -184,39 +196,32 @@ export const FormControl: FormControl = () => {
 
     setIsSubmitting(true);
 
-    // Clear the attachment errors when submitting
-    // because the errors are not actually preventing the submission
-    // but rather notifying the user that certain files were not attached and why they weren't
-    setError?.(undefined);
-
-    ref.current?.reset();
     const submittedContent: InputContent[] = [];
-    if (input?.text) {
+    if (isInputText) {
       const textContent: InputContent = {
         text: input.text,
       };
       submittedContent.push(textContent);
     }
 
-    if (input?.files) {
+    if (isInputFiles) {
       for (const file of input.files) {
         const buffer = await file.arrayBuffer();
         const format = getAttachmentFormat(file);
+        const source = { bytes: new Uint8Array(buffer) };
         if (isDocumentFormat(format)) {
           submittedContent.push({
             document: {
               name: getValidDocumentName(file),
               format,
-              source: {
-                bytes: new Uint8Array(buffer),
-              },
+              source,
             },
           });
         } else if (isImageFormat(format)) {
           submittedContent.push({
             image: {
               format,
-              source: { bytes: new Uint8Array(buffer) },
+              source,
             },
           });
         }
@@ -231,7 +236,13 @@ export const FormControl: FormControl = () => {
           convertResponseComponentsToToolConfiguration(responseComponents),
       });
     }
+
+    // Clear the attachment errors when submitting
+    // because the errors are not actually preventing the submission
+    // but rather notifying the user that certain files were not attached and why they weren't
+    setError?.(undefined);
     setIsSubmitting(false);
+    ref.current?.reset();
     if (setInput) setInput({ text: '', files: [] });
   };
 

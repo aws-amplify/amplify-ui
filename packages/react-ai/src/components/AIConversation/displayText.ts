@@ -11,12 +11,12 @@ export type ConversationDisplayText = {
 export const defaultAIConversationDisplayTextEn: Required<AIConversationDisplayText> =
   {
     getMessageTimestampText: (date) => formatDate(date),
-    getMaxAttachmentErrorText(count): string {
+    getMaxAttachmentErrorText(count) {
       return `Cannot choose more than ${count} ${
         count === 1 ? 'file' : 'files'
       }. `;
     },
-    getAttachmentSizeErrorText(sizeText): string {
+    getAttachmentSizeErrorText(sizeText) {
       return `File size must be below ${sizeText}.`;
     },
     getAttachmentFormatErrorText(formats) {
