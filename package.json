@@ -24,6 +24,7 @@
     "react-native-auth": "yarn workspace @aws-amplify/ui-react-native-auth",
     "react-notifications": "yarn workspace @aws-amplify/ui-react-notifications",
     "react-storage": "yarn workspace @aws-amplify/ui-react-storage",
+    "test-utils": "yarn workspace @aws-amplify/ui-test-utils",
     "ui": "yarn workspace @aws-amplify/ui",
     "vue": "yarn workspace @aws-amplify/ui-vue",
     "angular-example": "yarn workspace @aws-amplify/ui-angular-example",

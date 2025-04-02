@@ -75,6 +75,10 @@ jobs:
             package: react
             tags: '@react and not @todo-react'
 
+          - example: react-router
+            package: react
+            tags: '@react-router and not @todo-react-router'
+
           - example: vue
             package: vue
             tags: '@vue and not @todo-vue'
@@ -183,6 +187,9 @@ jobs:
       - name: Build react-ai package
         if: ${{ matrix.package == 'react' }}
         run: yarn react-ai build
+
+      - name: Build test-utils package
+        run: yarn test-utils build
 
       - name: Add Amplify CLI
         run: yarn global add @aws-amplify/cli
