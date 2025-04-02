@@ -41,8 +41,7 @@ export default function App() {
         }}
       />
 
-      {/* StorageBrowser.Provider: readonly */}
-      <StorageBrowser value={{}} />
+      <StorageBrowser.Provider value={{}} />
 
       {/* StorageBrowser: conflicting controlled/uncontrolled behavior */}
       <StorageBrowser defaultValue={{}} value={{}} />
