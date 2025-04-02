@@ -1,5 +1,18 @@
 # @aws-amplify/ui-react-native
 
+## 2.5.0
+
+### Minor Changes
+
+- [#6469](https://github.com/aws-amplify/amplify-ui/pull/6469) [`36c631a076b7d3d1aafc18a5854575e20e0592c2`](https://github.com/aws-amplify/amplify-ui/commit/36c631a076b7d3d1aafc18a5854575e20e0592c2) Thanks [@jjarvisp](https://github.com/jjarvisp)! - feat(authenticator): add support for email otp and select mfa type challenges
+
+### Patch Changes
+
+- Updated dependencies [[`36c631a076b7d3d1aafc18a5854575e20e0592c2`](https://github.com/aws-amplify/amplify-ui/commit/36c631a076b7d3d1aafc18a5854575e20e0592c2)]:
+  - @aws-amplify/ui-react-core@3.4.0
+  - @aws-amplify/ui@6.10.0
+  - @aws-amplify/ui-react-core-notifications@2.2.6
+
 ## 2.4.5
 
 ### Patch Changes

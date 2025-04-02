@@ -24,8 +24,8 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@aws-amplify/ui-react": "6.9.5",
-    "@aws-amplify/ui-react-storage": "3.9.1",
+    "@aws-amplify/ui-react": "6.10.0",
+    "@aws-amplify/ui-react-storage": "3.9.2",
     "@docsearch/react": "3",
     "@mdx-js/loader": "^2.1.0",
     "@mdx-js/mdx": "^2.1.0",

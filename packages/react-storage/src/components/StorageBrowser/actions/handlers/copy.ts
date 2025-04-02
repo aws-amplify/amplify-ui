@@ -67,6 +67,9 @@ export const copyHandler: CopyHandler = (input) => {
         status: 'COMPLETE' as const,
         value: { key: path },
       }))
-      .catch(({ message }: Error) => ({ message, status: 'FAILED' })),
+      .catch((error: Error) => {
+        const { message } = error;
+        return { error, message, status: 'FAILED' };
+      }),
   };
 };
