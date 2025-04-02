@@ -2,6 +2,7 @@
 
 exports[`displayText should match snapshot 1`] = `
 [
+  "getAttachmentFormatErrorText",
   "getAttachmentSizeErrorText",
   "getMaxAttachmentErrorText",
   "getMessageTimestampText",

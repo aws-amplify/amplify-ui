@@ -11,6 +11,7 @@ import { IconAttach, IconSend, useIcons } from '@aws-amplify/ui-react/internal';
 import { ComponentClassName } from '@aws-amplify/ui';
 import { ControlsContextProps } from '../../context/ControlsContext';
 import { Attachments } from './Attachments';
+import { validFileTypes } from '../../utils';
 
 function isHTMLFormElement(target: EventTarget): target is HTMLFormElement {
   return 'form' in target;
@@ -58,8 +59,9 @@ export const Form: Required<ControlsContextProps>['Form'] = ({
   const sendIcon = icons?.send ?? <IconSend />;
   const attachIcon = icons?.attach ?? <IconAttach />;
   const hiddenInput = React.useRef<HTMLInputElement>(null);
+  // Bedrock does not accept message that are empty or are only whitespace
+  const isInputEmpty = !input?.text?.length || !!input.text.match(/^\s+$/);
   const [composing, setComposing] = React.useState(false);
-  const isInputEmpty = !input?.text?.length && !input?.files?.length;
 
   return (
     <FormWrapper onValidate={onValidate} allowAttachments={allowAttachments}>
@@ -91,7 +93,7 @@ export const Form: Required<ControlsContextProps>['Form'] = ({
                   onValidate(Array.from(e.target.files));
                 }}
                 multiple
-                accept=".jpeg,.png,.webp,.gif"
+                accept={[...validFileTypes].map((type) => `.${type}`).join(',')}
                 data-testid="hidden-file-input"
               />
             </VisuallyHidden>
@@ -129,9 +131,7 @@ export const Form: Required<ControlsContextProps>['Form'] = ({
           type="submit"
           variation="primary"
           className={ComponentClassName.AIConversationFormSend}
-          // we intentionally || in the case where isLoading is false we should use the value of isInputEmpty
-          // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
-          isDisabled={isLoading || isInputEmpty}
+          isDisabled={isLoading ?? isInputEmpty}
         >
           <span>{sendIcon}</span>
         </Button>

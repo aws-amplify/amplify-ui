@@ -19,18 +19,30 @@ function Chat() {
     {
       data: { messages },
       isLoading,
+      hasError,
+      messages: errorMessages,
     },
     sendMessage,
   ] = useAIConversation('pirateChat');
 
+  if (hasError) {
+    return (
+      <div>
+        <h2>Error</h2>
+        <ul>
+          {errorMessages.map((message, i) => (
+            <li key={i}>{message.message}</li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
   return (
     <AIConversation
       messages={messages}
       isLoading={isLoading}
       handleSendMessage={sendMessage}
       allowAttachments
-      maxAttachmentSize={100_000}
-      maxAttachments={2}
     />
   );
 }
