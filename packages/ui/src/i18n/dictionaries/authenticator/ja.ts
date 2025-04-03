@@ -78,7 +78,7 @@ export const jaDict: AuthenticatorDictionary = {
   'Please confirm your Password': 'パスワードを入力',
   'Forgot Password': 'パスワードを忘れた ',
   'Have an account? ': 'アカウントを持っていますか？',
-  'Incorrect username or password': 'ユーザー名かパスワードが異なります ',
+  'Incorrect username or password.': 'ユーザー名かパスワードが異なります ',
   'Invalid password format': 'パスワードの形式が無効です ',
   'Invalid phone number format':
     '不正な電話番号の形式です。\n+12345678900 の形式で入力してください',
