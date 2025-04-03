@@ -23,7 +23,6 @@ export default function App() {
 
   return (
     <StorageBrowser
-      // @ts-expect-error to be updated
       onValueChange={handleValueChange}
       value={value ? JSON.parse(value) : {}}
     />

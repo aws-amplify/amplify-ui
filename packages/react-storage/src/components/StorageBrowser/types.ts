@@ -11,7 +11,12 @@ import { StorageBrowserComponents } from './ComponentsProvider';
 import { GetLocationCredentials } from './credentials';
 import { StorageBrowserDisplayText } from './displayText';
 import { ErrorBoundaryType } from './ErrorBoundary';
-import { RegisterAuthListener, StoreProviderProps } from './providers';
+import {
+  RegisterAuthListener,
+  StorageBrowserEventValue,
+  StorageBrowserValue,
+  StoreProviderProps,
+} from './providers';
 import { DerivedActionHandlers, UseAction } from './useAction';
 import {
   CopyViewType,
@@ -26,36 +31,34 @@ import {
 } from './views';
 
 /**
- * Configuration properties
+ * @description configuration properties
  */
 export interface StorageBrowserConfig {
   /**
-   * AWS account Id
+   * @description AWS account Id
    */
   accountId?: string;
 
   /**
-   * Custom S3 endpoint used in action handler calls
+   * @description custom S3 endpoint used in action handler calls
    */
   customEndpoint?: string;
 
   /**
-   * Location credentials retrieval handler
+   * @description location credentials retrieval handler
    */
   getLocationCredentials: GetLocationCredentials;
 
   /**
+   * @description locations list handler
    * @required
-   *
-   * Locations list handler
    */
   listLocations: ListLocations;
 
   /**
-   * @required
    *
-   * Provided handler receives an `onStateChange` callback to be called from
-   * the consumer on auth status changes to clear in-memory credentials
+   * @description provided handler receives an `onStateChange` callback to be called from the consumer on auth status changes to clear in-memory credentials
+   * @required
    *
    * @example
    * ```tsx
@@ -102,9 +105,8 @@ export interface StorageBrowserConfig {
   registerAuthListener: RegisterAuthListener;
 
   /**
+   * @description AWS account region
    * @required
-   *
-   * AWS account region
    */
   region: string;
 }
@@ -115,27 +117,27 @@ export interface StorageBrowserActions {
 }
 
 /**
- * Configuration and options for `createStorageBrowser`
+ * @description configuration and options for `createStorageBrowser`
  */
 export interface CreateStorageBrowserInput {
   /**
-   * Override and default `StorageBrowser` actions and action view configs
+   * @description override and default `StorageBrowser` actions and action view configs
    */
   actions?: StorageBrowserActions;
 
   /**
-   * `StorageBrowser` configuration properties
+   * @description `StorageBrowser` configuration properties
+   * @required
    */
   config: StorageBrowserConfig;
 
   /**
-   * Custom ErrorBoundary class. If omitted, a default ErrorBoundary is provided.
-   * To disable ErrorBoundary, set to `null`.
+   * @description custom ErrorBoundary class. If omitted, a default ErrorBoundary is provided. To disable ErrorBoundary, set to `null`.
    */
   ErrorBoundary?: ErrorBoundaryType | null;
 
   /**
-   * Overrides default `components` used within `StorageBrowser`
+   * @description Overrides default `components` used within `StorageBrowser`
    */
   components?: StorageBrowserComponents;
 }
@@ -145,9 +147,22 @@ export interface CreateStorageBrowserInput {
  */
 export interface StorageBrowserProps<K = string, V = {}> {
   /**
-   * Overrides default display string values. Supports resolving of static and dynamic text
-   * values and error messages
-   *
+   * @description provide to initialize the `StorageBrowser` with a default location, `actionType` or pagination values as an uncontrolled component
+   */
+  defaultValue?: StorageBrowserValue | null;
+
+  /**
+   * @description called on location and action change events. Provide with `value` prop for controlled component behavior or as a standalone prop
+   */
+  onValueChange?: (value: StorageBrowserEventValue) => void;
+
+  /**
+   * @description provide with `onValueChange` to use the `StorageBrowser` as a controlled component
+   */
+  value?: StorageBrowserValue | null;
+
+  /**
+   * @description Overrides default display string values. Supports resolving of static and dynamic text values and error messages
    * @example
    * ```tsx
    * const myDisplayText = {
@@ -169,41 +184,53 @@ export interface StorageBrowserProps<K = string, V = {}> {
   displayText?: StorageBrowserDisplayText;
 
   /**
-   * Accepts default top level `views` overrides and custom `views` defined by the `actions`
-   * parameter of `createStorageBrowser`
+   * @description accepts default top level `views` overrides and custom `views` defined by the `actions` parameter of `createStorageBrowser`
    */
   views?: StorageBrowserViews<K, V>;
 }
 
 /**
- * `StorageBrowser.Provider` component properties
+ * @description `StorageBrowser.Provider` component properties
  */
 export interface StorageBrowserProviderProps<V = {}>
   extends StoreProviderProps,
-    Pick<StorageBrowserProps, 'displayText'> {
+    Pick<
+      StorageBrowserProps,
+      'defaultValue' | 'displayText' | 'onValueChange' | 'value'
+    > {
   // note: `views` intentionally scoped to custom slots to prevent conflicts with composability
   /**
-   * Accepts custom action views rendered by `LocationActionView`
+   * @description accepts custom action views rendered by `LocationActionView`
    */
   views?: V;
 
   /**
-   * Sets initial `location` data. Provide to initialize the `StorageBrowser` with an initial
-   * `location`
+   * @deprecated will be removed in a future major verison. Prefer `value` for controlled behavior or `defaultValue` for initializng `actionType`
+   * @description initial `actionType`, does not update
+   */
+  actionType?: string;
+
+  /**
+   * @deprecated will be removed in a future major verison. Prefer `value` for controlled behavior or `defaultValue` for initializng `actionType`
+   * @description initial `location` data, does not update
    */
   location?: LocationData;
+
+  /**
+   * @deprecated will be removed in a future major verison. Prefer `value` for controlled behavior or `defaultValue` for initializng `actionType`
+   * @description initial `location` subpath to establish navigation state, does not update
+   */
+  path?: string;
 }
 
 /**
- * `StorageBrowser` component, provider and view components
+ * @description `StorageBrowser` component, provider and view components
  */
 export interface StorageBrowserType<K = string, V = {}> {
   (props: StorageBrowserProps<K, V>): React.JSX.Element;
   displayName: string;
   /**
-   * `StorageBrowser` React.Context provider. Composed `StorageBrowser` components
-   * must be a descendant of a `Provider` element
-   *
+   * @description `StorageBrowser` React.Context provider. Composed `StorageBrowser` components must be a descendant of a `Provider` element
    * @example
    * ```tsx
    * <StorageBrowser.Provider>
@@ -214,9 +241,7 @@ export interface StorageBrowserType<K = string, V = {}> {
   Provider: (props: StorageBrowserProviderProps<V>) => React.JSX.Element;
 
   /**
-   * Utility view aggregating all action views. Can be used to render a standalone
-   * action view
-   *
+   * @description utility view aggregating all action views. Can be used to render a standalone action view
    * @example
    * ```tsx
    * <StorageBrowser.LocationActionView type="copy" />
@@ -225,18 +250,17 @@ export interface StorageBrowserType<K = string, V = {}> {
   LocationActionView: LocationActionViewType<K>;
 
   /**
-   * Displays data related to the selected or provided `location` and action
-   * selection
+   * @description displays data related to the selected or provided `location` and action selection
    */
   LocationDetailView: LocationDetailViewType;
 
   /**
-   * Entry point view displaying `locations` returned from `listLocations`
+   * @description entry point view displaying `locations` returned from `listLocations`
    */
   LocationsView: LocationsViewType;
 
   /**
-   * Standalone composable default action view components
+   * @description standalone composable default action view components
    */
   CopyView: CopyViewType;
   CreateFolderView: CreateFolderViewType;
@@ -247,9 +271,9 @@ export interface StorageBrowserType<K = string, V = {}> {
 type DefaultActionType<T = string> = Exclude<T, keyof DefaultActionConfigs>;
 
 /**
- * @internal @unstable interface subject to change, not recommended for public use
- *
- * Utility type resolving available custom action view component slots
+ * @internal
+ * @unstable interface subject to change, not recommended for public use
+ * @description utility type resolving available custom action view component slots
  */
 export type DerivedActionViews<T extends StorageBrowserActions> = {
   [K in keyof T['custom'] as K extends DefaultActionType<K>
@@ -261,15 +285,13 @@ export type DerivedActionViews<T extends StorageBrowserActions> = {
 
 /**
  * @internal @unstable interface subject to change, not recommended for public use
- *
- * Utility type of excluded action keys that do not have a corresponding action view
+ * @description utility type of excluded action keys that do not have a corresponding action view
  */
 type DefaultActionWithoutViewType = 'download';
 
 /**
  * @internal @unstable interface subject to change, not recommended for public use
- *
- * Utility type resolving available location action view types
+ * @description utility type resolving available location action view types
  */
 export type DerivedActionViewType<T extends StorageBrowserActions> =
   | keyof {
@@ -282,13 +304,13 @@ export type DerivedActionViewType<T extends StorageBrowserActions> =
   | Exclude<keyof DefaultActionConfigs, DefaultActionWithoutViewType>;
 
 /**
- * Return values of `createStorageBrowser`
+ * @description return values of `createStorageBrowser`
  */
 export interface CreateStorageBrowserOutput<
   C extends ExtendedActionConfigs = ExtendedActionConfigs,
 > {
   /**
-   * `StorageBrowser` component and subcomponents
+   * @description `StorageBrowser` component and subcomponents
    */
   StorageBrowser: StorageBrowserType<
     DerivedActionViewType<C>,
@@ -296,12 +318,12 @@ export interface CreateStorageBrowserOutput<
   >;
 
   /**
-   * Action handler utility hook
+   * @description action handler utility hook
    */
   useAction: UseAction<DerivedActionHandlers<C>>;
 
   /**
-   * View state utility hook
+   * @description view state utility hook
    */
   useView: UseView;
 }
