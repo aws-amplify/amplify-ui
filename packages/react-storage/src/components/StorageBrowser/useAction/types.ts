@@ -1,5 +1,5 @@
 import React from 'react';
-import { DataState } from '@aws-amplify/ui-react-core';
+import { AsyncReducerState } from '@aws-amplify/ui-react-core';
 
 import {
   ActionHandler,
@@ -16,7 +16,7 @@ import {
 import { ProcessTasksOptions, StatusCounts, Task } from '../tasks';
 
 export type ListActionState<T = any, K = any> = [
-  state: DataState<T>,
+  state: AsyncReducerState<T>,
   handleAction: (...input: K[]) => void,
 ];
 

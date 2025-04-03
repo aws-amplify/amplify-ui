@@ -11,7 +11,7 @@ import {
   ERROR_STATE,
   INITIAL_STATE,
   LOADING_STATE,
-  DataClientState,
+  AiClientState,
 } from './shared';
 import { isFunction } from '@aws-amplify/ui';
 import { contentFromEvents } from './contentFromEvents';
@@ -46,7 +46,7 @@ function hasStarted(state: (typeof INITIALIZE_REF)[number]) {
 export type UseAIConversationHook<T extends string> = (
   routeName: T,
   input?: UseAIConversationInput
-) => [DataClientState<AIConversationState>, SendMessage];
+) => [AiClientState<AIConversationState>, SendMessage];
 
 export function createUseAIConversation<
   T extends Record<'conversations', Record<string, ConversationRoute>>,
@@ -77,14 +77,14 @@ export function createUseAIConversation<
     // we don't want to create 2 conversations
     const initRef = React.useRef<(typeof INITIALIZE_REF)[number]>('initial');
 
-    const [dataState, setDataState] = React.useState<
-      DataClientState<AIConversationState>
+    const [clientState, setClientState] = React.useState<
+      AiClientState<AIConversationState>
     >(() => ({
       ...INITIAL_STATE,
       data: { messages: [], conversation: undefined },
     }));
 
-    const { conversation } = dataState.data;
+    const { conversation } = clientState.data;
     const { id, onInitialize, onMessage } = input;
 
     React.useEffect(() => {
@@ -97,7 +97,7 @@ export function createUseAIConversation<
         // Only show component loading state if we are
         // actually loading messages
         if (id) {
-          setDataState({
+          setClientState({
             ...LOADING_STATE,
             data: { messages: [], conversation: undefined },
           });
@@ -108,7 +108,7 @@ export function createUseAIConversation<
           : await clientRoute.create();
 
         if (errors ?? !conversation) {
-          setDataState({
+          setClientState({
             ...ERROR_STATE,
             data: { messages: [] },
             messages: errors,
@@ -118,12 +118,12 @@ export function createUseAIConversation<
             const { data: messages } = await exhaustivelyListMessages({
               conversation,
             });
-            setDataState({
+            setClientState({
               ...INITIAL_STATE,
               data: { messages, conversation },
             });
           } else {
-            setDataState({
+            setClientState({
               ...INITIAL_STATE,
               data: { conversation, messages: [] },
             });
@@ -143,7 +143,7 @@ export function createUseAIConversation<
           errorType: '',
         };
 
-        setDataState({
+        setClientState({
           ...ERROR_STATE,
           data: { messages: [] },
           // TODO in MV bump: remove `messages`
@@ -157,12 +157,12 @@ export function createUseAIConversation<
       return () => {
         contentBlocksRef.current = undefined;
         if (hasStarted(initRef.current)) return;
-        setDataState({
+        setClientState({
           ...INITIAL_STATE,
           data: { messages: [], conversation: undefined },
         });
       };
-    }, [clientRoute, id, setDataState]);
+    }, [clientRoute, id, setClientState]);
 
     // Run a separate effect that is triggered by the conversation state
     // so that we know we have a conversation object to set up the subscription
@@ -196,7 +196,7 @@ export function createUseAIConversation<
           // stop reason will signify end of conversation turn
           if (stopReason) {
             // remove loading state from streamed message
-            setDataState((prev) => {
+            setClientState((prev) => {
               return {
                 ...prev,
                 data: {
@@ -243,7 +243,7 @@ export function createUseAIConversation<
             }
           }
 
-          setDataState((prev) => {
+          setClientState((prev) => {
             const message: ConversationMessage = {
               id,
               conversationId,
@@ -264,7 +264,7 @@ export function createUseAIConversation<
           });
         },
         error: (error) => {
-          setDataState((prev) => {
+          setClientState((prev) => {
             return {
               ...prev,
               ...ERROR_STATE,
@@ -284,13 +284,13 @@ export function createUseAIConversation<
         contentBlocksRef.current = undefined;
         subscription.unsubscribe();
       };
-    }, [conversation, onInitialize, onMessage, setDataState]);
+    }, [conversation, onInitialize, onMessage, setClientState]);
 
     const handleSendMessage = React.useCallback(
       (input: SendMesageParameters) => {
         const { content } = input;
         if (conversation) {
-          setDataState((prevState) => ({
+          setClientState((prevState) => ({
             ...prevState,
             data: {
               ...prevState.data,
@@ -322,7 +322,7 @@ export function createUseAIConversation<
             errorInfo: null,
             errorType: '',
           };
-          setDataState((prev) => ({
+          setClientState((prev) => ({
             ...prev,
             ...ERROR_STATE,
             // TODO in MV bump: remove `messages`
@@ -334,7 +334,7 @@ export function createUseAIConversation<
       [conversation]
     );
 
-    return [dataState, handleSendMessage];
+    return [clientState, handleSendMessage];
   };
 
   return useAIConversation;
