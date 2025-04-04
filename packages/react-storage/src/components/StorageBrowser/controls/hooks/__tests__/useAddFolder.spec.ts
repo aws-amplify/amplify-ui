@@ -1,6 +1,7 @@
 import { renderHook } from '@testing-library/react';
-import { AddFolderProps } from '../../../composables/AddFolder';
-import { useControlsContext } from '../../../controls/context';
+
+import { AddFolderProps } from '../../../components/composables/AddFolder';
+import { useControlsContext } from '../../context';
 import { useAddFolder } from '../useAddFolder';
 
 jest.mock('../../../controls/context');

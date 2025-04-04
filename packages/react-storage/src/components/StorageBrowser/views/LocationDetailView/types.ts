@@ -4,7 +4,8 @@ import {
   LocationData,
   LocationItemData,
 } from '../../actions';
-import { ActionListItem } from '../../composables/ActionsList';
+
+import { ActionListItem } from '../../components/composables/ActionsList';
 import { LocationState } from '../../providers/store/location';
 
 import { ListViewProps } from '../types';

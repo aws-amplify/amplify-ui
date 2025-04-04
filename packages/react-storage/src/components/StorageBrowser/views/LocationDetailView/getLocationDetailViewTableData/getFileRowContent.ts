@@ -1,9 +1,9 @@
 import { humanFileSize } from '@aws-amplify/ui';
 
-import { DataTableProps } from '../../../composables/DataTable';
+import { LocationPermissions } from '../../../actions';
+import { DataTableProps } from '../../../components';
 
 import { LOCATION_DETAIL_VIEW_HEADERS } from './constants';
-import { LocationPermissions } from '../../../actions';
 
 export const getFileRowContent = ({
   permissions,

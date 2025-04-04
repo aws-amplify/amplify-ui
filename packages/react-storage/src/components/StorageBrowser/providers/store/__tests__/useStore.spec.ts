@@ -1,18 +1,14 @@
 import { renderHook } from '@testing-library/react';
-import { useActionType } from '../actionType';
-import { useFiles } from '../files';
-import { useLocation } from '../location';
-import { useLocationItems } from '../locationItems';
-import { HandleStoreAction, useStore } from '../useStore';
-import { FileItem } from '../../../actions';
 
-jest.mock('../../../controls/context');
+import { useActionType } from '../actionType';
+import { useLocation } from '../location';
+import { HandleStoreAction, useStore } from '../useStore';
+
 jest.mock('../actionType');
-jest.mock('../files');
 jest.mock('../location');
-jest.mock('../locationItems');
 
 describe('useStore', () => {
+  const actionTypeState = 'action-type';
   const locationData = {
     bucket: 'bucket',
     id: 'id',
@@ -20,19 +16,13 @@ describe('useStore', () => {
     prefix: '',
     type: 'PREFIX' as const,
   };
-  const actionTypeState = 'action-type';
-  const filesState: FileItem[] = [];
   const locationState = { current: locationData, path: '', key: '' };
-  const locationItemsState = { fileDataItems: [] };
 
   const mockUseActionType = jest.mocked(useActionType);
-  const mocktUseFiles = jest.mocked(useFiles);
   const mocktUseLocation = jest.mocked(useLocation);
-  const mocktUseLocationItems = jest.mocked(useLocationItems);
-  const mockDispatchActionType = jest.fn();
-  const mockDispatchFilesAction = jest.fn();
-  const mockDispatchLocationAction = jest.fn();
-  const mockDispatchLocationItemsAction = jest.fn();
+
+  const mockActionTypeDispatch = jest.fn();
+  const mockLocationDispatch = jest.fn();
 
   const expectActions = (actions: Parameters<HandleStoreAction>[number][]) => {
     const { result } = renderHook(() => useStore());
@@ -52,25 +42,13 @@ describe('useStore', () => {
   beforeEach(() => {
     mockUseActionType.mockReturnValue([
       actionTypeState,
-      mockDispatchActionType,
+      mockActionTypeDispatch,
     ]);
-    mocktUseFiles.mockReturnValue([filesState, mockDispatchFilesAction]);
-    mocktUseLocation.mockReturnValue([
-      locationState,
-      mockDispatchLocationAction,
-    ]);
-    mocktUseLocationItems.mockReturnValue([
-      locationItemsState,
-      mockDispatchLocationItemsAction,
-    ]);
+
+    mocktUseLocation.mockReturnValue([locationState, mockLocationDispatch]);
   });
 
-  afterEach(() => {
-    mockUseActionType.mockClear();
-    mocktUseFiles.mockClear();
-    mocktUseLocation.mockClear();
-    mocktUseLocationItems.mockClear();
-  });
+  afterEach(jest.clearAllMocks);
 
   it('returns store state', () => {
     const { result } = renderHook(() => useStore());
@@ -78,9 +56,8 @@ describe('useStore', () => {
     expect(result.current).toStrictEqual([
       {
         actionType: actionTypeState,
-        files: filesState,
+
         location: locationState,
-        locationItems: locationItemsState,
       },
       expect.any(Function),
     ]);
@@ -90,30 +67,13 @@ describe('useStore', () => {
     expectActions([
       { type: 'SET_ACTION_TYPE', actionType: 'new-action-type' },
       { type: 'RESET_ACTION_TYPE' },
-    ]).toHaveBeenDispatchedBy(mockDispatchActionType);
-  });
-
-  it('dispatches files action', () => {
-    expectActions([
-      { type: 'ADD_FILE_ITEMS' },
-      { type: 'REMOVE_FILE_ITEM', id: 'file-id' },
-      { type: 'SELECT_FILES' },
-      { type: 'RESET_FILE_ITEMS' },
-    ]).toHaveBeenDispatchedBy(mockDispatchFilesAction);
+    ]).toHaveBeenDispatchedBy(mockActionTypeDispatch);
   });
 
   it('dispatches location action', () => {
     expectActions([
       { type: 'NAVIGATE', location: locationData },
       { type: 'RESET_LOCATION' },
-    ]).toHaveBeenDispatchedBy(mockDispatchLocationAction);
-  });
-
-  it('dispatches locationItems action', () => {
-    expectActions([
-      { type: 'SET_LOCATION_ITEMS' },
-      { type: 'REMOVE_LOCATION_ITEM', id: 'file-id' },
-      { type: 'RESET_LOCATION_ITEMS' },
-    ]).toHaveBeenDispatchedBy(mockDispatchLocationItemsAction);
+    ]).toHaveBeenDispatchedBy(mockLocationDispatch);
   });
 });

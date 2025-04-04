@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { SearchSubfoldersToggle } from '../composables/SearchSubfoldersToggle';
+import { SearchSubfoldersToggle } from '../components/composables/SearchSubfoldersToggle';
 
 import { useResolvedComposable } from './hooks/useResolvedComposable';
 import { useSearchSubfoldersToggle } from './hooks/useSearchSubfoldersToggle';

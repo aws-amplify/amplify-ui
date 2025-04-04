@@ -10,9 +10,9 @@ import {
   UploadHandlerData,
   LocationPermissions,
 } from '../actions';
+import { MessageType } from '../components';
+import { FileItems } from '../files';
 import { LocationState } from '../providers/store/location';
-import { MessageType } from '../composables/Message';
-import { FileItems } from '../providers';
 
 /**
  * Common list view display text values

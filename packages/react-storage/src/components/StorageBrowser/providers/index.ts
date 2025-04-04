@@ -1,10 +1,10 @@
 export {
   createConfigurationProvider,
   CredentialsProviderProps,
+  GetCredentials,
   RegisterAuthListener,
 } from './configuration';
 export {
-  FileItems,
   StorageBrowserEventValue,
   StorageBrowserValue,
   StoreProvider,

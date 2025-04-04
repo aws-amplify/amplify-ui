@@ -1,5 +1,4 @@
-import { DataTableProps } from '../../../composables/DataTable';
-import { WithKey } from '../../../components/types';
+import { DataTableProps, WithKey } from '../../../components';
 
 export type HeaderKeys =
   | 'checkbox'

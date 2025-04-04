@@ -23,7 +23,7 @@ const config: Config = {
     },
   },
   moduleNameMapper: { '^uuid$': '<rootDir>/../../node_modules/uuid' },
-  modulePathIgnorePatterns: ['c/dist/'],
+  modulePathIgnorePatterns: ['<rootDir>/dist/'],
   testPathIgnorePatterns: [
     '<rootDir>/src/components/StorageBrowser/displayText/libraries/en/__tests__/scenarios.ts',
     '__testUtils__/',

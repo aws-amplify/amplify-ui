@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { MessageProps } from '../../../composables/Message';
-import { ControlsContextProvider } from '../../../controls/context';
+import { MessageProps } from '../../../components/composables/Message';
+import { ControlsContextProvider } from '../../../controls';
 import { useDisplayText } from '../../../displayText';
 
 import { useResolveTableData } from '../../hooks/useResolveTableData';

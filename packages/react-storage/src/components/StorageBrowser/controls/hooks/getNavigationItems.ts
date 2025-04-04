@@ -1,5 +1,5 @@
 import { LocationData } from '../../actions';
-import { NavigationProps } from '../../composables/Navigation';
+import { NavigationProps } from '../../components/composables/Navigation';
 
 interface GetNavigationItemsInput {
   destinationParts: string[];

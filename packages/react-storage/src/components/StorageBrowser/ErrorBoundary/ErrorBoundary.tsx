@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { STORAGE_BROWSER_BLOCK_TO_BE_UPDATED } from '../constants';
+import { STORAGE_BROWSER_BLOCK_TO_BE_UPDATED } from '../components';
 
 interface ErrorBoundaryState {
   hasError: boolean;

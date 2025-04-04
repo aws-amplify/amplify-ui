@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ControlsContextProvider } from '../../controls/context';
+import { ControlsContextProvider } from '../../controls';
 import { useDisplayText } from '../../displayText';
 
 import { LocationsViewProviderProps } from './types';

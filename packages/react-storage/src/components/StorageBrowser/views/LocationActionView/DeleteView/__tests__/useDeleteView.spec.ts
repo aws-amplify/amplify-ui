@@ -1,12 +1,16 @@
 import { renderHook, act } from '@testing-library/react';
 
-import { useStore } from '../../../../providers/store';
-import { useAction } from '../../../../useAction';
 import { FileDataItem } from '../../../../actions';
+import { useFiles } from '../../../../files';
+import { useLocationItems } from '../../../../locationItems';
+import { useStore } from '../../../../providers/store';
+import { INITIAL_STATUS_COUNTS } from '../../../../tasks';
+import { useAction } from '../../../../useAction';
 
 import { useDeleteView } from '../useDeleteView';
-import { INITIAL_STATUS_COUNTS } from '../../../../tasks';
 
+jest.mock('../../../../files');
+jest.mock('../../../../locationItems');
 jest.mock('../../../../providers/store');
 jest.mock('../../../../useAction');
 
@@ -29,19 +33,31 @@ const fileDataItems: FileDataItem[] = [
   },
 ];
 
+const mockLocationItemsState = { fileDataItems };
+
 describe('useDeleteView', () => {
   const mockUseAction = jest.mocked(useAction);
+  const mockUseFiles = jest.mocked(useFiles);
+  const mockUseLocationItems = jest.mocked(useLocationItems);
   const mockUseStore = jest.mocked(useStore);
+
   const mockCancel = jest.fn();
-  const mockDispatchStoreAction = jest.fn();
+  const mockStoreDispatch = jest.fn();
+  const mockFilesDispatch = jest.fn();
+  const mockLocationItemsDispatch = jest.fn();
   const mockHandleDelete = jest.fn();
   const mockReset = jest.fn();
 
   beforeEach(() => {
+    mockUseFiles.mockReturnValue([undefined, mockFilesDispatch]);
+    mockUseLocationItems.mockReturnValue([
+      mockLocationItemsState,
+      mockLocationItemsDispatch,
+    ]);
     mockUseStore.mockReturnValue([
       {
         actionType: 'DELETE',
-        files: [],
+
         location: {
           current: {
             prefix: 'test-prefix/',
@@ -53,9 +69,8 @@ describe('useDeleteView', () => {
           path: '',
           key: 'test-prefix/',
         },
-        locationItems: { fileDataItems },
       },
-      mockDispatchStoreAction,
+      mockStoreDispatch,
     ]);
 
     mockUseAction.mockReturnValue([
@@ -92,14 +107,7 @@ describe('useDeleteView', () => {
     ]);
   });
 
-  afterEach(() => {
-    mockCancel.mockClear();
-    mockDispatchStoreAction.mockClear();
-    mockHandleDelete.mockClear();
-    mockReset.mockClear();
-    mockUseAction.mockReset();
-    mockUseStore.mockReset();
-  });
+  afterEach(jest.clearAllMocks);
 
   it('should return the correct initial state', () => {
     const { result } = renderHook(() => useDeleteView());
@@ -152,11 +160,13 @@ describe('useDeleteView', () => {
       result.current.onActionExit();
     });
 
-    expect(mockOnExit).toHaveBeenCalled();
-    expect(mockDispatchStoreAction).toHaveBeenCalledWith({
+    expect(mockOnExit).toHaveBeenCalledTimes(1);
+    expect(mockLocationItemsDispatch).toHaveBeenCalledTimes(1);
+    expect(mockLocationItemsDispatch).toHaveBeenCalledWith({
       type: 'RESET_LOCATION_ITEMS',
     });
-    expect(mockDispatchStoreAction).toHaveBeenCalledWith({
+    expect(mockStoreDispatch).toHaveBeenCalledTimes(1);
+    expect(mockStoreDispatch).toHaveBeenCalledWith({
       type: 'RESET_ACTION_TYPE',
     });
   });
