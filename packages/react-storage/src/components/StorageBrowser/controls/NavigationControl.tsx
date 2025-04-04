@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Navigation } from '../composables/Navigation';
+import { Navigation } from '../components/composables/Navigation';
 
 import { useNavigation } from './hooks/useNavigation';
 import { useResolvedComposable } from './hooks/useResolvedComposable';

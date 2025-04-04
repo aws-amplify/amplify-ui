@@ -1,10 +1,11 @@
 import { LocationData } from '../actions';
-import { ActionListItem } from '../composables/ActionsList';
-import { DataTableSortHeader, DataTableProps } from '../composables/DataTable';
-import { MessageProps } from '../composables/Message';
-import { Composables } from '../composables/types';
 import { LocationState } from '../providers/store/location';
 import { StatusCounts } from '../tasks';
+
+import { ActionListItem } from '../components/composables/ActionsList';
+import { DataTableSortHeader, DataTableProps } from '../components';
+import { MessageProps } from '../components/composables/Message';
+import { Composables } from '../components/composables/types';
 
 export interface Controls {
   props: React.ComponentProps<Composables[keyof Composables]>;

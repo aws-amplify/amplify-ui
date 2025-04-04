@@ -41,9 +41,7 @@ describe('useCreateFolderView', () => {
     mockUseStore.mockReturnValue([
       {
         actionType: 'CREATE_FOLDER',
-        files: [],
         location: { current: location, path: '', key: 'test-prefix/' },
-        locationItems: { fileDataItems: undefined },
       },
       mockDispatchStoreAction,
     ]);

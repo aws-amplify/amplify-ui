@@ -1,6 +1,8 @@
 import { renderHook } from '@testing-library/react';
-import { TitleProps } from '../../../composables/Title';
-import { useControlsContext } from '../../../controls/context';
+
+import { TitleProps } from '../../../components/composables/Title';
+import { useControlsContext } from '../../context';
+
 import { useTitle } from '../useTitle';
 
 jest.mock('../../../controls/context');

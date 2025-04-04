@@ -6,7 +6,7 @@ import { useResolvedComposable } from '../hooks/useResolvedComposable';
 
 jest.mock('../hooks/useDataTable');
 jest.mock('../hooks/useResolvedComposable');
-jest.mock('../../composables/DataTable', () => ({
+jest.mock('../../components', () => ({
   DataTable: () => <div data-testid="data-table" />,
 }));
 

@@ -1,5 +1,6 @@
 import { capitalize } from '@aws-amplify/ui';
-import { DataTableButtonDataCell } from '../../../../composables/DataTable';
+
+import { DataTableButtonDataCell } from '../../../../components';
 import { UploadViewDisplayText } from '../../../../displayText';
 
 import {

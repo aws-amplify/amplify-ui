@@ -8,6 +8,8 @@ import {
   FolderData,
 } from '../../../actions';
 
+import { useFiles } from '../../../files';
+import { useLocationItems } from '../../../locationItems';
 import { useStore } from '../../../providers/store';
 import { LocationState } from '../../../providers/store/location';
 import { useAction, useList } from '../../../useAction';
@@ -18,6 +20,8 @@ import {
 } from '../useLocationDetailView';
 
 jest.mock('../../../actions/handlers');
+jest.mock('../../../files');
+jest.mock('../../../locationItems');
 jest.mock('../../../providers/store');
 jest.mock('../../../useAction');
 
@@ -89,27 +93,27 @@ const testLocation: LocationState = {
   key: 'item-b-key/',
 };
 
-const testStoreState = {
-  location: testLocation,
-  files: [],
-  locationItems: {
-    fileDataItems: undefined,
-  },
-  actionType: undefined,
+const mockLocationItemsState = { fileDataItems: undefined };
+const mockStoreState = { location: testLocation, actionType: undefined };
+
+const mockLocation = { current: undefined, path: '', key: '' };
+const mockDataState = {
+  data: { items: testData, nextToken: undefined },
+  message: '',
+  hasError: false,
+  isLoading: false,
 };
 
 describe('useLocationDetailView', () => {
-  const mockLocation = { current: undefined, path: '', key: '' };
-  const mockDataState = {
-    data: { items: testData, nextToken: undefined },
-    message: '',
-    hasError: false,
-    isLoading: false,
-  };
   const mockUseAction = jest.mocked(useAction);
+  const mockUseFiles = jest.mocked(useFiles);
   const mockUseList = jest.mocked(useList);
+  const mockUseLocationItems = jest.mocked(useLocationItems);
   const mockUseStore = jest.mocked(useStore);
-  const mockDispatchStoreAction = jest.fn();
+
+  const mockStoreDispatch = jest.fn();
+  const mockLocationItemsDispatch = jest.fn();
+  const mockFilesDispatch = jest.fn();
   const mockHandleDownload = jest.fn();
   const mockHandleList = jest.fn();
 
@@ -121,18 +125,16 @@ describe('useLocationDetailView', () => {
   });
 
   beforeEach(() => {
-    mockUseStore.mockReturnValue([testStoreState, mockDispatchStoreAction]);
+    mockUseStore.mockReturnValue([mockStoreState, mockStoreDispatch]);
+    mockUseFiles.mockReturnValue([undefined, mockFilesDispatch]);
+    mockUseLocationItems.mockReturnValue([
+      mockLocationItemsState,
+      mockLocationItemsDispatch,
+    ]);
     mockUseList.mockReturnValue([mockDataState, mockHandleList]);
   });
 
-  afterEach(() => {
-    mockUseAction.mockClear();
-    mockDispatchStoreAction.mockClear();
-    mockHandleDownload.mockClear();
-    mockHandleList.mockClear();
-    mockUseList.mockReset();
-    mockUseStore.mockReset();
-  });
+  afterEach(jest.clearAllMocks);
 
   it('should fetch and set location data on mount', () => {
     const initialState = { initialValues: { pageSize: EXPECTED_PAGE_SIZE } };
@@ -156,8 +158,8 @@ describe('useLocationDetailView', () => {
 
   it('should not fetch on mount for invalid prefix', () => {
     mockUseStore.mockReturnValue([
-      { ...testStoreState, location: mockLocation },
-      mockDispatchStoreAction,
+      { ...mockStoreState, location: mockLocation },
+      mockStoreDispatch,
     ]);
 
     renderHook(() =>
@@ -269,8 +271,8 @@ describe('useLocationDetailView', () => {
 
   it('should not refresh location data for invalid paths', () => {
     mockUseStore.mockReturnValue([
-      { ...testStoreState, location: mockLocation },
-      mockDispatchStoreAction,
+      { ...mockStoreState, location: mockLocation },
+      mockStoreDispatch,
     ]);
 
     const mockDataState = {
@@ -294,8 +296,8 @@ describe('useLocationDetailView', () => {
 
   it('should handle selecting a location', () => {
     mockUseStore.mockReturnValue([
-      { ...testStoreState, location: mockLocation },
-      mockDispatchStoreAction,
+      { ...mockStoreState, location: mockLocation },
+      mockStoreDispatch,
     ]);
 
     const { result } = renderHook(() => useLocationDetailView());
@@ -315,7 +317,7 @@ describe('useLocationDetailView', () => {
       state.onNavigate(expectedLocation, expectedPath);
     });
 
-    expect(mockDispatchStoreAction).toHaveBeenCalledWith({
+    expect(mockStoreDispatch).toHaveBeenCalledWith({
       type: 'NAVIGATE',
       location: expectedLocation,
       path: expectedPath,
@@ -334,6 +336,10 @@ describe('useLocationDetailView', () => {
 
   it('should navigate home', () => {
     const mockOnExit = jest.fn();
+    mockUseLocationItems.mockReturnValue([
+      mockLocationItemsState,
+      mockLocationItemsDispatch,
+    ]);
 
     const { result } = renderHook(() =>
       useLocationDetailView({ onExit: mockOnExit })
@@ -342,10 +348,10 @@ describe('useLocationDetailView', () => {
     state.onNavigateHome();
 
     expect(mockOnExit).toHaveBeenCalled();
-    expect(mockDispatchStoreAction).toHaveBeenCalledWith({
+    expect(mockStoreDispatch).toHaveBeenCalledWith({
       type: 'RESET_ACTION_TYPE',
     });
-    expect(mockDispatchStoreAction).toHaveBeenCalledWith({
+    expect(mockLocationItemsDispatch).toHaveBeenCalledWith({
       type: 'RESET_LOCATION_ITEMS',
     });
   });
@@ -355,7 +361,7 @@ describe('useLocationDetailView', () => {
     const state = result.current;
     state.onSelect(false, fileItem);
 
-    expect(mockDispatchStoreAction).toHaveBeenCalledWith({
+    expect(mockLocationItemsDispatch).toHaveBeenCalledWith({
       type: 'SET_LOCATION_ITEMS',
       items: [fileItem],
     });
@@ -366,19 +372,18 @@ describe('useLocationDetailView', () => {
     const state = result.current;
     state.onSelect(true, fileItem);
 
-    expect(mockDispatchStoreAction).toHaveBeenCalledWith({
+    expect(mockLocationItemsDispatch).toHaveBeenCalledWith({
       type: 'REMOVE_LOCATION_ITEM',
       id: fileItem.id,
     });
   });
 
   it('should set all file items as selected', () => {
-    mockUseStore.mockReturnValue([
-      {
-        ...testStoreState,
-        locationItems: { fileDataItems: undefined },
-      },
-      mockDispatchStoreAction,
+    mockUseStore.mockReturnValue([mockStoreState, mockStoreDispatch]);
+
+    mockUseLocationItems.mockReturnValue([
+      { fileDataItems: undefined },
+      mockLocationItemsDispatch,
     ]);
 
     const mockDataState = {
@@ -398,7 +403,7 @@ describe('useLocationDetailView', () => {
 
     onToggleSelectAll();
 
-    expect(mockDispatchStoreAction).toHaveBeenCalledWith({
+    expect(mockLocationItemsDispatch).toHaveBeenCalledWith({
       type: 'SET_LOCATION_ITEMS',
       items: [fileDataOne, fileDataTwo],
     });
@@ -425,12 +430,10 @@ describe('useLocationDetailView', () => {
       fileKey: 'maybe-cool.png',
     };
 
-    mockUseStore.mockReturnValue([
-      {
-        ...testStoreState,
-        locationItems: { fileDataItems: [fileDataItemOne, fileDataItemTwo] },
-      },
-      mockDispatchStoreAction,
+    mockUseStore.mockReturnValue([mockStoreState, mockStoreDispatch]);
+    mockUseLocationItems.mockReturnValue([
+      { fileDataItems: [fileDataItemOne, fileDataItemTwo] },
+      mockLocationItemsDispatch,
     ]);
     mockUseList.mockReturnValue([mockDataState, jest.fn()]);
 
@@ -439,15 +442,15 @@ describe('useLocationDetailView', () => {
 
     onToggleSelectAll();
 
-    expect(mockDispatchStoreAction).toHaveBeenCalledWith({
+    expect(mockLocationItemsDispatch).toHaveBeenCalledWith({
       type: 'RESET_LOCATION_ITEMS',
     });
   });
 
   it('should handle adding files', () => {
     mockUseStore.mockReturnValue([
-      { ...testStoreState, location: mockLocation },
-      mockDispatchStoreAction,
+      { ...mockStoreState, location: mockLocation },
+      mockStoreDispatch,
     ]);
 
     const { result } = renderHook(() => useLocationDetailView());
@@ -462,11 +465,11 @@ describe('useLocationDetailView', () => {
       const state = result.current;
       state.onDropFiles(mockFiles);
     });
-    expect(mockDispatchStoreAction).toHaveBeenCalledWith({
+    expect(mockFilesDispatch).toHaveBeenCalledWith({
       type: 'ADD_FILE_ITEMS',
       files: mockFiles,
     });
-    expect(mockDispatchStoreAction).toHaveBeenCalledWith({
+    expect(mockStoreDispatch).toHaveBeenCalledWith({
       type: 'SET_ACTION_TYPE',
       actionType: 'upload',
     });
@@ -474,8 +477,8 @@ describe('useLocationDetailView', () => {
 
   it('should handle adding folders', () => {
     mockUseStore.mockReturnValue([
-      { ...testStoreState, location: mockLocation },
-      mockDispatchStoreAction,
+      { ...mockStoreState, location: mockLocation },
+      mockStoreDispatch,
     ]);
 
     const { result } = renderHook(() => useLocationDetailView());
@@ -485,11 +488,11 @@ describe('useLocationDetailView', () => {
       const state = result.current;
       state.onDropFiles([mockFolder]);
     });
-    expect(mockDispatchStoreAction).toHaveBeenCalledWith({
+    expect(mockFilesDispatch).toHaveBeenCalledWith({
       type: 'ADD_FILE_ITEMS',
       files: [mockFolder],
     });
-    expect(mockDispatchStoreAction).toHaveBeenCalledWith({
+    expect(mockStoreDispatch).toHaveBeenCalledWith({
       type: 'SET_ACTION_TYPE',
       actionType: 'upload',
     });
@@ -497,8 +500,8 @@ describe('useLocationDetailView', () => {
 
   it('should handle as files if adding files and folders', () => {
     mockUseStore.mockReturnValue([
-      { ...testStoreState, location: mockLocation },
-      mockDispatchStoreAction,
+      { ...mockStoreState, location: mockLocation },
+      mockStoreDispatch,
     ]);
 
     const { result } = renderHook(() => useLocationDetailView());
@@ -511,19 +514,18 @@ describe('useLocationDetailView', () => {
       const state = result.current;
       state.onDropFiles([mockFile, mockFolder]);
     });
-    expect(mockDispatchStoreAction).toHaveBeenCalledWith({
+    expect(mockFilesDispatch).toHaveBeenCalledWith({
       type: 'ADD_FILE_ITEMS',
       files: [mockFile, mockFolder],
     });
-    expect(mockDispatchStoreAction).toHaveBeenCalledWith({
+    expect(mockStoreDispatch).toHaveBeenCalledWith({
       type: 'SET_ACTION_TYPE',
       actionType: 'upload',
     });
   });
 
   it('should handle search', () => {
-    const handleStoreActionMock = jest.fn();
-    mockUseStore.mockReturnValue([testStoreState, handleStoreActionMock]);
+    mockUseStore.mockReturnValue([mockStoreState, mockStoreDispatch]);
     const mockDataState = {
       data: { items: [], nextToken: undefined },
       message: '',
@@ -551,7 +553,7 @@ describe('useLocationDetailView', () => {
       },
       prefix: 'item-b-key/',
     });
-    expect(handleStoreActionMock).toHaveBeenCalledWith({
+    expect(mockLocationItemsDispatch).toHaveBeenCalledWith({
       type: 'RESET_LOCATION_ITEMS',
     });
 
@@ -570,8 +572,7 @@ describe('useLocationDetailView', () => {
   });
 
   it('should handle search with subfolders', () => {
-    const handleStoreActionMock = jest.fn();
-    mockUseStore.mockReturnValue([testStoreState, handleStoreActionMock]);
+    mockUseStore.mockReturnValue([mockStoreState, mockStoreDispatch]);
     const mockDataState = {
       data: { items: [], nextToken: undefined },
       message: '',
@@ -600,7 +601,7 @@ describe('useLocationDetailView', () => {
       },
       prefix: 'item-b-key/',
     });
-    expect(handleStoreActionMock).toHaveBeenCalledWith({
+    expect(mockLocationItemsDispatch).toHaveBeenCalledWith({
       type: 'RESET_LOCATION_ITEMS',
     });
 
@@ -628,7 +629,7 @@ describe('useLocationDetailView', () => {
     result.current.onActionSelect(actionType);
 
     expect(mockOnActionSelect).toHaveBeenCalledWith(actionType);
-    expect(mockDispatchStoreAction).toHaveBeenCalledWith({
+    expect(mockStoreDispatch).toHaveBeenCalledWith({
       type: 'SET_ACTION_TYPE',
       actionType,
     });

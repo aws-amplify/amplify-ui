@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { DropZone } from '../composables/DropZone';
+import { DropZone } from '../components/composables/DropZone';
 
 import { useDropZone } from './hooks/useDropZone';
 import { useResolvedComposable } from './hooks/useResolvedComposable';

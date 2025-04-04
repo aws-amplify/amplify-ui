@@ -1,6 +1,5 @@
 import { LocationData, TaskData } from '../../actions';
-import { WithKey } from '../../components/types';
-import { DataTableProps } from '../../composables/DataTable';
+import { DataTableProps, WithKey } from '../../components';
 import { LocationState } from '../../providers/store/location';
 import { StatusCounts, Task } from '../../tasks';
 
