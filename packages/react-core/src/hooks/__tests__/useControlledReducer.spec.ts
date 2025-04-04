@@ -75,7 +75,7 @@ describe('useControlledReducer', () => {
     expect(nextState).toBe(nextControlledState);
   });
 
-  it('calls `onStateChange` on state chaanges', () => {
+  it('calls `onStateChange` on state change', () => {
     const { result } = renderHook(() =>
       useControlledReducer(reducer, initialState, { onStateChange })
     );
