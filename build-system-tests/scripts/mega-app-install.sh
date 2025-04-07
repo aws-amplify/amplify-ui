@@ -92,6 +92,14 @@ elif [ "$FRAMEWORK" == 'angular' ]; then
     # We've install @amplify/cli when creating the app
     DEPENDENCIES="$TAGGED_UI_FRAMEWORK aws-amplify"
     echo "DEPENDENCIES=$DEPENDENCIES"
+
+elif [ "$FRAMEWORK" == 'vue' ]; then
+    if [ "$BUILD_TOOL" == 'vue-cli' ]; then
+        # override webpack version
+        tmp=$(mktemp)
+        jq '."resolutions"."webpack" = "5.98.0"' package.json > "$tmp"
+        mv "$tmp" package.json
+    fi
 fi
 
 if [ "$PKG_MANAGER" == 'yarn' ]; then
