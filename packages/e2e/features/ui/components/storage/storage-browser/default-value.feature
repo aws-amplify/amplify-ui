@@ -3,7 +3,7 @@ Feature: StorageBrowser Initialize Default Value
   Background:
     Given I'm running the example "/"
   
-  @react-router
+  @react-router @next-app-router
   Scenario: Handles defaultValue prop
     Then I see the "Default Value" link
     When I click the "Default Value" link
