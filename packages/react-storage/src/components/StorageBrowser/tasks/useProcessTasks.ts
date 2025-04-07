@@ -62,7 +62,7 @@ export function useProcessTasks<
   );
 
   const updateTask = React.useCallback(
-    <T extends Task>(id: string, next?: Partial<T>) => {
+    <T extends Task>(id: string, next?: Partial<T>): TTask | undefined => {
       const { onTaskRemove } = callbacksRef.current;
       const task = tasksRef.current.get(id);
 
@@ -76,6 +76,8 @@ export function useProcessTasks<
       }
 
       flush();
+
+      return !next ? undefined : tasksRef.current.get(id);
     },
     [flush]
   );
@@ -88,9 +90,13 @@ export function useProcessTasks<
       function cancel() {
         const task = getTask();
         if (!task || task?.status !== 'QUEUED') return;
-        if (task && isFunction(onTaskCancel)) onTaskCancel(task);
+        const canceledTask = updateTask(data.id, {
+          cancel: undefined,
+          status: 'CANCELED',
+        });
 
-        updateTask(data.id, { cancel: undefined, status: 'CANCELED' });
+        if (canceledTask && isFunction(onTaskCancel))
+          onTaskCancel(canceledTask);
       }
 
       const task = { ...QUEUED_TASK_BASE, cancel, data } as TTask;
@@ -153,10 +159,11 @@ export function useProcessTasks<
     const getTask = () => tasksRef.current.get(data.id);
 
     const { options } = _input;
+
     const { onProgress: _onProgress } = options ?? {};
 
     const onProgress = ({ id }: TTask['data'], progress?: number) => {
-      const task = getTask();
+      const task = updateTask(id, { progress });
 
       if (task && isFunction(onTaskProgress)) {
         onTaskProgress(task, progress);
@@ -165,8 +172,6 @@ export function useProcessTasks<
       if (task && isFunction(_onProgress)) {
         _onProgress(data, progress);
       }
-
-      updateTask(id, { progress });
     };
 
     const input = { ..._input, data, options: { ...options, onProgress } };
@@ -183,19 +188,16 @@ export function useProcessTasks<
 
     result
       .then((output) => {
-        const task = getTask();
+        const task = updateTask(data.id, output);
+        const { value } = output;
 
-        if (task && isFunction(onTaskSuccess)) {
-          onTaskSuccess(task, output?.value);
-        }
-
-        updateTask(data.id, output);
+        if (task && isFunction(onTaskSuccess)) onTaskSuccess(task, value);
       })
-      .catch((e: Error) => {
-        const task = getTask();
-        if (task && isFunction(onTaskError)) onTaskError(task, e);
+      .catch((error: Error) => {
+        const { message } = error;
+        const task = updateTask(data.id, { message, status: 'FAILED' });
 
-        updateTask(data.id, { message: e.message, status: 'FAILED' });
+        if (task && isFunction(onTaskError)) onTaskError(task, error);
       })
       .finally(() => {
         const task = getTask();

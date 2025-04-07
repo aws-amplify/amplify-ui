@@ -113,13 +113,15 @@ describe('copyHandler', () => {
   });
 
   it('returns failed status', async () => {
-    const errorMessage = 'error-message';
-    mockCopy.mockRejectedValue(new Error(errorMessage));
+    const error = new Error('No copy!');
+
+    mockCopy.mockRejectedValue(error);
     const { result } = copyHandler(baseInput);
 
     expect(await result).toEqual({
+      error,
+      message: error.message,
       status: 'FAILED',
-      message: errorMessage,
     });
   });
 });
