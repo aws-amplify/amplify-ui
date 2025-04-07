@@ -30,7 +30,7 @@
     "angular-example": "yarn workspace @aws-amplify/ui-angular-example",
     "docs": "yarn workspace @aws-amplify/ui-docs",
     "next-example": "yarn workspace @aws-amplify/ui-next-pages-router-example",
-    "next-app-example": "yarn workspace @aws-amplify/ui-next-app-router-example",
+    "next-app-router-example": "yarn workspace @aws-amplify/ui-next-app-router-example",
     "react-router-example": "yarn workspace @aws-amplify/ui-react-router-example",
     "react-example": "yarn workspace @aws-amplify/ui-next-pages-router-example",
     "react-native-example": "yarn workspace @aws-amplify/ui-react-native-example",
