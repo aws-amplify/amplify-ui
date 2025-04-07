@@ -17,7 +17,7 @@ import {
   EnhancedListHandlerOutput,
 } from './createEnhancedListHandler';
 import { ListActionState } from './types';
-import { useGetActionInput } from '../providers/configuration';
+import { useGetActionInput } from '../configuration';
 
 type RemoveConfig<T> = Omit<T, 'config'>;
 interface EnhancedInput

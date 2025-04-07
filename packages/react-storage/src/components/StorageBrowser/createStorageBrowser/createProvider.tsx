@@ -10,15 +10,14 @@ import {
   componentsDefault,
   DEFAULT_COMPOSABLES,
 } from '../components';
+import { createConfigurationProvider } from '../configuration';
 import { DisplayTextProvider } from '../displayText';
 import { FilesProvider } from '../files';
 import { LocationItemsProvider } from '../locationItems';
-
-import { createConfigurationProvider, StoreProvider } from '../providers';
-
+import { StoreProvider } from '../store';
 import { getActionHandlers, ActionHandlersProvider } from '../useAction';
-
 import { ViewsProvider } from '../views';
+
 import {
   CreateStorageBrowserInput,
   StorageBrowserProviderProps,

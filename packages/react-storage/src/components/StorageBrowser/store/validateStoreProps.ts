@@ -13,7 +13,7 @@ export const MISSING_REQUIRED =
   'A `value` prop has been provided to `StorageBrowser` without all required `location` parameters. `StorageBrowser` will ignore the provided `location`. Missing `location` parameters: %s.';
 
 export const DEPRECATED_SUFFIX =
-  '`actionType`, `location` and `path` props have been deprecated amd will be removed in a future major version. For controlled behavior provide the `value` prop or for uncontrolled behavior provide the `defaultValue` prop.';
+  '`actionType`, `location` and `path` props have been deprecated and will be removed in a future major version. Provide the `value` prop for controlled behavior or the `defaultValue` prop for uncontrolled behavior.';
 export const DEPRECATED_PROPS =
   '`StorageBrowser` has been provided with one or more deprecated props: %s. %s';
 export const DEPRECATED_PROPS_AND_CONFLICTING =

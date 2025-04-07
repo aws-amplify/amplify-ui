@@ -66,9 +66,9 @@ export default function createStorageBrowser<
   const StorageBrowser: StorageBrowserType<
     DerivedActionViewType<RInput>,
     DerivedActionViews<RInput>
-  > = ({ views, displayText }) => (
+  > = (props) => (
     <ErrorBoundary>
-      <Provider displayText={displayText} views={views}>
+      <Provider {...props}>
         <StorageBrowserDefault />
       </Provider>
     </ErrorBoundary>

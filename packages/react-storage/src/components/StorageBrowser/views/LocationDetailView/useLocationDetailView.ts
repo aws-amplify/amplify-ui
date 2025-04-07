@@ -13,7 +13,7 @@ import {
 } from '../../actions';
 import { useFiles } from '../../files';
 import { useLocationItems } from '../../locationItems';
-import { useStore } from '../../providers/store';
+import { useStore } from '../../store';
 import { useAction, useList } from '../../useAction';
 
 import { useSearch } from '../hooks/useSearch';
@@ -187,21 +187,21 @@ export const useLocationDetailView = (
     onActionSelect: (nextActionType) => {
       options?.onActionSelect?.(nextActionType);
       storeDispatch({
-        type: 'SET_ACTION_TYPE',
+        type: 'CHANGE_ACTION_TYPE',
         actionType: nextActionType,
       });
     },
     onNavigate: (location: LocationData, path?: string) => {
       onNavigate?.(location, path);
       resetSearch();
-      storeDispatch({ type: 'NAVIGATE', location, path });
+      storeDispatch({ type: 'CHANGE_LOCATION', location, path });
       locationItemsDispatch({ type: 'RESET_LOCATION_ITEMS' });
     },
     onDropFiles: (files: File[]) => {
       filesDispatch({ type: 'ADD_FILE_ITEMS', files });
 
       const actionType = 'upload';
-      storeDispatch({ type: 'SET_ACTION_TYPE', actionType });
+      storeDispatch({ type: 'CHANGE_ACTION_TYPE', actionType });
       options?.onActionSelect?.(actionType);
     },
     onDownload: (data: FileDataItem) => {

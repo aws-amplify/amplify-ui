@@ -15,7 +15,7 @@ const config: Config = {
     global: {
       // TEMP REDUCE COVERAGE
       // branches: 87,
-      branches: 84,
+      branches: 85,
       // functions: 90,
       functions: 88,
       lines: 95,

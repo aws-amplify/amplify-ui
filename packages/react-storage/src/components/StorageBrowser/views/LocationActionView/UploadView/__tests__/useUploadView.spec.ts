@@ -2,14 +2,14 @@ import { renderHook, act } from '@testing-library/react-hooks';
 
 import { FileItem, LocationData } from '../../../../actions';
 import { useFiles } from '../../../../files';
-import { useStore } from '../../../../providers/store';
+import { useStore } from '../../../../store';
 import { Task, INITIAL_STATUS_COUNTS } from '../../../../tasks';
 import { useAction } from '../../../../useAction';
 import { UPLOAD_FILE_SIZE_LIMIT } from '../../../../validators/isFileTooBig';
 import { useUploadView } from '../useUploadView';
 
 jest.mock('../../../../files');
-jest.mock('../../../../providers/store');
+jest.mock('../../../../store');
 jest.mock('../../../../useAction');
 
 const rootLocation: LocationData = {

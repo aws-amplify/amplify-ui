@@ -1,6 +1,6 @@
 import { LocationData, TaskData } from '../../actions';
 import { DataTableProps, WithKey } from '../../components';
-import { LocationState } from '../../providers/store/location';
+import { LocationState } from '../../store';
 import { StatusCounts, Task } from '../../tasks';
 
 export interface ActionViewState<T extends TaskData = TaskData> {

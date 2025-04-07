@@ -12,7 +12,7 @@ import {
 } from '../actions';
 import { MessageType } from '../components';
 import { FileItems } from '../files';
-import { LocationState } from '../providers/store/location';
+import { LocationState } from '../store';
 
 /**
  * Common list view display text values

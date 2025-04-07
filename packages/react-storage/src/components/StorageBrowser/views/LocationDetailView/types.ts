@@ -6,7 +6,7 @@ import {
 } from '../../actions';
 
 import { ActionListItem } from '../../components/composables/ActionsList';
-import { LocationState } from '../../providers/store/location';
+import { LocationState } from '../../store';
 
 import { ListViewProps } from '../types';
 

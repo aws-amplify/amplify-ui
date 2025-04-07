@@ -2,10 +2,12 @@ import { Amplify } from 'aws-amplify';
 import { AuthSession, fetchAuthSession } from 'aws-amplify/auth';
 import { Hub } from 'aws-amplify/utils';
 
+import { RegisterAuthListener } from '../../credentials';
 import { AWSTemporaryCredentials } from '../../storage-internal';
+
 import { StorageBrowserAuthAdapter } from '../types';
+
 import { createAmplifyListLocationsHandler } from './createAmplifyListLocationsHandler';
-import { RegisterAuthListener } from '../../providers';
 
 export const MISSING_BUCKET_OR_REGION_ERROR =
   'Amplify Storage configuration not found. Did you run `Amplify.configure` from your project root?';

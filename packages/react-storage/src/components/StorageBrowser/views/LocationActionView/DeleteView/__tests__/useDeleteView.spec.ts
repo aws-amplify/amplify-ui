@@ -3,7 +3,7 @@ import { renderHook, act } from '@testing-library/react';
 import { FileDataItem } from '../../../../actions';
 import { useFiles } from '../../../../files';
 import { useLocationItems } from '../../../../locationItems';
-import { useStore } from '../../../../providers/store';
+import { useStore } from '../../../../store';
 import { INITIAL_STATUS_COUNTS } from '../../../../tasks';
 import { useAction } from '../../../../useAction';
 
@@ -11,7 +11,7 @@ import { useDeleteView } from '../useDeleteView';
 
 jest.mock('../../../../files');
 jest.mock('../../../../locationItems');
-jest.mock('../../../../providers/store');
+jest.mock('../../../../store');
 jest.mock('../../../../useAction');
 
 const fileDataItems: FileDataItem[] = [

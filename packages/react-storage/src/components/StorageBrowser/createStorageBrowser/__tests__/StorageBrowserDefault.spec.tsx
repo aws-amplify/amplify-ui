@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 
 import { LocationData } from '../../actions';
-import * as StoreModule from '../../providers/store';
+import * as StoreModule from '../../store';
 import * as ViewsModule from '../../views';
 
 import StorageBrowserDefault from '../StorageBrowserDefault';
@@ -39,7 +39,7 @@ describe('StorageBrowserDefault', () => {
       {
         actionType: undefined,
         location: { current: undefined },
-      } as StoreModule.UseStoreState,
+      } as StoreModule.StoreState,
       jest.fn(),
     ]);
     const { getByTestId } = render(<StorageBrowserDefault />);
@@ -52,7 +52,7 @@ describe('StorageBrowserDefault', () => {
       {
         actionType: undefined,
         location: { current: location },
-      } as StoreModule.UseStoreState,
+      } as StoreModule.StoreState,
       jest.fn(),
     ]);
 
@@ -66,7 +66,7 @@ describe('StorageBrowserDefault', () => {
       {
         actionType: 'super-coll-action-type',
         location: { current: location },
-      } as StoreModule.UseStoreState,
+      } as StoreModule.StoreState,
       jest.fn(),
     ]);
     const { getByTestId } = render(<StorageBrowserDefault />);

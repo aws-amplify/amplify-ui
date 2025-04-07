@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 
 import * as UIModule from '@aws-amplify/ui';
-import * as ProvidersModule from '../../providers';
+import * as ProvidersModule from '../../configuration';
 import { StorageBrowserDisplayText } from '../../displayText';
 
 import createStorageBrowser from '../createStorageBrowser';

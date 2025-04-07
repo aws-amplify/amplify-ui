@@ -1,7 +1,7 @@
 import { renderHook, act } from '@testing-library/react';
 
 import { LocationData } from '../../../../actions';
-import { useStore } from '../../../../providers/store';
+import { useStore } from '../../../../store';
 import { useLocationItems } from '../../../../locationItems';
 import { INITIAL_STATUS_COUNTS } from '../../../../tasks';
 import { useAction } from '../../../../useAction';
@@ -10,7 +10,7 @@ import { useFolders } from '../useFolders';
 import { useCopyView } from '../useCopyView';
 
 jest.mock('../../../../locationItems');
-jest.mock('../../../../providers/store');
+jest.mock('../../../../store');
 jest.mock('../../../../useAction');
 jest.mock('../useFolders');
 
