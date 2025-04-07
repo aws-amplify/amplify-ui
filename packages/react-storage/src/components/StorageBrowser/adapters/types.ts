@@ -1,6 +1,9 @@
 import { LocationType, ListLocations } from '../actions';
-import { GetLocationCredentials, CredentialsLocation } from '../credentials';
-import { RegisterAuthListener } from '../providers';
+import {
+  GetLocationCredentials,
+  CredentialsLocation,
+  RegisterAuthListener,
+} from '../credentials';
 import { CredentialsProvider } from '../storage-internal';
 
 export interface LocationAccess extends CredentialsLocation {

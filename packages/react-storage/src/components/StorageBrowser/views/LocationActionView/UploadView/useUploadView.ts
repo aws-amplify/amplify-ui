@@ -3,7 +3,7 @@ import { isUndefined } from '@aws-amplify/ui';
 
 import { UploadHandlerData } from '../../../actions';
 import { FileItems, useFiles } from '../../../files';
-import { useStore } from '../../../providers/store';
+import { useStore } from '../../../store';
 import { Task } from '../../../tasks';
 import { useAction } from '../../../useAction';
 import { isFileTooBig } from '../../../validators';

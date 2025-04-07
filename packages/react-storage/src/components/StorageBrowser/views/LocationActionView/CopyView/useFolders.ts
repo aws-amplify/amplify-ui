@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { LocationState } from '../../../providers/store/location';
+import { LocationState } from '../../../store';
 import { useList } from '../../../useAction';
 
 import { usePaginate } from '../../hooks/usePaginate';

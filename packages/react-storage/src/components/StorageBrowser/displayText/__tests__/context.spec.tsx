@@ -7,7 +7,7 @@ import {
   resolveDisplayText,
 } from '../context';
 import { DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT } from '../libraries';
-import { LocationState } from '../../providers/store/location';
+import { LocationState } from '../../store';
 
 describe('useDisplayText', () => {
   it('returns default displayText`', () => {

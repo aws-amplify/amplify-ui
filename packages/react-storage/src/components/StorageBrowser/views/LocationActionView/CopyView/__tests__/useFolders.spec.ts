@@ -1,12 +1,12 @@
 import { act, renderHook, waitFor } from '@testing-library/react';
 
 import { LocationData } from '../../../../actions';
-import { LocationState } from '../../../../providers/store/location';
+import { LocationState } from '../../../../store';
 import { useList } from '../../../../useAction';
 import { DEFAULT_LIST_OPTIONS, useFolders } from '../useFolders';
 
 jest.mock('../../../../useAction');
-jest.mock('../../../../providers/store');
+jest.mock('../../../../store');
 jest.useFakeTimers();
 jest.setSystemTime(1731366223230);
 

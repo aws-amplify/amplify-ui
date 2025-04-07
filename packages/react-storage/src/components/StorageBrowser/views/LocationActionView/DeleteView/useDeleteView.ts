@@ -3,7 +3,7 @@ import { isFunction } from '@aws-amplify/ui';
 
 import { FileDataItem } from '../../../actions';
 import { useLocationItems } from '../../../locationItems';
-import { useStore } from '../../../providers/store';
+import { useStore } from '../../../store';
 import { Task } from '../../../tasks';
 import { useAction } from '../../../useAction';
 

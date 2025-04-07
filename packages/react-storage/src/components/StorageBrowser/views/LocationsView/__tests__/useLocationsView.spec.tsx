@@ -3,13 +3,13 @@ import { DataState } from '@aws-amplify/ui-react-core';
 
 import { ListLocationsOutput, LocationData } from '../../../actions';
 import { getFileKey } from '../../../actions/handlers';
-import { UseStoreState, useStore } from '../../../providers/store';
+import { StoreState, useStore } from '../../../store';
 import { useAction, useList } from '../../../useAction';
 
 import { useLocationsView, DEFAULT_LIST_OPTIONS } from '../useLocationsView';
 
 jest.mock('../../../actions/handlers');
-jest.mock('../../../providers/store');
+jest.mock('../../../store');
 jest.mock('../../../useAction');
 jest.useFakeTimers();
 jest.setSystemTime(1);
@@ -74,10 +74,7 @@ describe('useLocationsView', () => {
     Object.defineProperty(globalThis, 'crypto', {
       value: { randomUUID: () => mockId },
     });
-    mockUseStore.mockReturnValue([
-      {} as UseStoreState,
-      mockDispatchStoreAction,
-    ]);
+    mockUseStore.mockReturnValue([{} as StoreState, mockDispatchStoreAction]);
     mockUseAction.mockReturnValue([
       { isProcessing: false, task: undefined },
       mockHandleDownload,
@@ -222,7 +219,7 @@ describe('useLocationsView', () => {
     });
 
     expect(mockDispatchStoreAction).toHaveBeenCalledWith({
-      type: 'NAVIGATE',
+      type: 'CHANGE_LOCATION',
       location: expectedLocation,
     });
   });

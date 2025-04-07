@@ -5,7 +5,7 @@ import {
   ListLocationsExcludeOptions,
   LocationData,
 } from '../../actions';
-import { useStore } from '../../providers/store';
+import { useStore } from '../../store';
 import { useAction, useList } from '../../useAction';
 
 import { usePaginate } from '../hooks/usePaginate';
@@ -106,7 +106,7 @@ export const useLocationsView = (
     },
     onNavigate: (location: LocationData) => {
       onNavigate?.(location);
-      dispatchStoreAction({ type: 'NAVIGATE', location });
+      dispatchStoreAction({ type: 'CHANGE_LOCATION', location });
     },
     onRefresh: () => {
       resetSearch();

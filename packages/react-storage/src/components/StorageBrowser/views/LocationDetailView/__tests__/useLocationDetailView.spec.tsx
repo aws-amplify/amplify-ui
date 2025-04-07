@@ -10,8 +10,8 @@ import {
 
 import { useFiles } from '../../../files';
 import { useLocationItems } from '../../../locationItems';
-import { useStore } from '../../../providers/store';
-import { LocationState } from '../../../providers/store/location';
+import { useStore } from '../../../store';
+import { LocationState } from '../../../store';
 import { useAction, useList } from '../../../useAction';
 
 import {
@@ -22,7 +22,7 @@ import {
 jest.mock('../../../actions/handlers');
 jest.mock('../../../files');
 jest.mock('../../../locationItems');
-jest.mock('../../../providers/store');
+jest.mock('../../../store');
 jest.mock('../../../useAction');
 
 const folderDataOne: FolderData = {
@@ -318,7 +318,7 @@ describe('useLocationDetailView', () => {
     });
 
     expect(mockStoreDispatch).toHaveBeenCalledWith({
-      type: 'NAVIGATE',
+      type: 'CHANGE_LOCATION',
       location: expectedLocation,
       path: expectedPath,
     });
@@ -470,7 +470,7 @@ describe('useLocationDetailView', () => {
       files: mockFiles,
     });
     expect(mockStoreDispatch).toHaveBeenCalledWith({
-      type: 'SET_ACTION_TYPE',
+      type: 'CHANGE_ACTION_TYPE',
       actionType: 'upload',
     });
   });
@@ -493,7 +493,7 @@ describe('useLocationDetailView', () => {
       files: [mockFolder],
     });
     expect(mockStoreDispatch).toHaveBeenCalledWith({
-      type: 'SET_ACTION_TYPE',
+      type: 'CHANGE_ACTION_TYPE',
       actionType: 'upload',
     });
   });
@@ -519,7 +519,7 @@ describe('useLocationDetailView', () => {
       files: [mockFile, mockFolder],
     });
     expect(mockStoreDispatch).toHaveBeenCalledWith({
-      type: 'SET_ACTION_TYPE',
+      type: 'CHANGE_ACTION_TYPE',
       actionType: 'upload',
     });
   });
@@ -630,7 +630,7 @@ describe('useLocationDetailView', () => {
 
     expect(mockOnActionSelect).toHaveBeenCalledWith(actionType);
     expect(mockStoreDispatch).toHaveBeenCalledWith({
-      type: 'SET_ACTION_TYPE',
+      type: 'CHANGE_ACTION_TYPE',
       actionType,
     });
   });

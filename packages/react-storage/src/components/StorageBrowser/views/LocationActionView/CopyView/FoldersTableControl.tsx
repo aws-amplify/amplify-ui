@@ -6,7 +6,7 @@ import { ControlsContextProvider } from '../../../controls/context';
 import { DataTableControl } from '../../../controls/DataTableControl';
 
 import { getDestinationPickerTableData } from './getDestinationPickerTableData';
-import { LocationState } from '../../../providers/store/location';
+import { LocationState } from '../../../store';
 
 export interface FoldersTableProps {
   destination?: LocationState;

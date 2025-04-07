@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useStore } from '../../providers/store';
+import { useStore } from '../../store';
 import { useActionViews } from '../context/actionViews';
 
 import { LocationActionViewType } from './types';

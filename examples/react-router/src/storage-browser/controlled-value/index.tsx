@@ -1,6 +1,8 @@
 import { useSearchParams } from 'react-router-dom';
 import { useCallback } from 'react';
 
+import { StorageBrowserEventValue } from '@aws-amplify/ui-react-storage/browser';
+
 import { StorageBrowser } from '../storage-browser';
 
 export default function App() {
@@ -11,7 +13,7 @@ export default function App() {
   const value = params.get('value');
 
   const handleValueChange = useCallback(
-    (nextValue: unknown) => {
+    (nextValue: StorageBrowserEventValue) => {
       setParams((prev) => {
         prev.set('value', JSON.stringify(nextValue));
 
@@ -24,7 +26,7 @@ export default function App() {
   return (
     <StorageBrowser
       onValueChange={handleValueChange}
-      value={value ? JSON.parse(value) : {}}
+      value={value ? JSON.parse(value) : null}
     />
   );
 }

@@ -8,15 +8,14 @@ import {
   LocationData,
 } from '../actions';
 import { StorageBrowserComponents } from '../components';
-import { GetLocationCredentials } from '../credentials';
+import { GetLocationCredentials, RegisterAuthListener } from '../credentials';
 import { StorageBrowserDisplayText } from '../displayText';
 import { ErrorBoundaryType } from '../ErrorBoundary';
 import {
-  RegisterAuthListener,
   StorageBrowserEventValue,
   StorageBrowserValue,
   StoreProviderProps,
-} from '../providers';
+} from '../store';
 import { DerivedActionHandlers, UseAction } from '../useAction';
 import {
   CopyViewType,

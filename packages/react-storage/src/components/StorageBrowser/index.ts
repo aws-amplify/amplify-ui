@@ -46,4 +46,5 @@ export {
   DefaultStorageBrowserDisplayText,
   StorageBrowserDisplayText,
 } from './displayText';
+export { StorageBrowserEventValue, StorageBrowserValue } from './store';
 export { UseView } from './views';

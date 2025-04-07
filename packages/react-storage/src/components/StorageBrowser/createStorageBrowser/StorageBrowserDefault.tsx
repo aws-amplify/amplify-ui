@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { useViews } from '../views';
-import { useStore } from '../providers/store';
+import { useStore } from '../store';
 
 /**
  * Handles default `StorageBrowser` behavior:
