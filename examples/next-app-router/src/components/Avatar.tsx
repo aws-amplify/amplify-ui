@@ -68,6 +68,7 @@ interface AvatarProps extends React.PropsWithChildren {
 export const Avatar = ({ size, children, isDisabled }: AvatarProps) => {
   console.log('im on the server');
   return (
+    // @ts-expect-error [TODO] Type '"small" | "large" | "xl" | undefined' is not assignable to type 'ColorTheme | Size | "filled" | "outlined" | { info?: boolean | null | undefined; warning?: boolean | null | undefined; success?: boolean | null | undefined; error?: boolean | ... 1 more ... | undefined; small?: boolean | ... 1 more ... | undefined; large?: boolean | ... 1 more ... | undefined; filled?: boolean | ......'.
     <div className={avatarTheme.className({ _modifiers: [size] })}>
       {children ? (
         children
@@ -75,6 +76,7 @@ export const Avatar = ({ size, children, isDisabled }: AvatarProps) => {
         <svg
           className={avatarTheme.className({
             _element: {
+              // @ts-expect-error [TODO] Type '(string | undefined)[]' is not assignable to type 'undefined'.
               icon: [isDisabled ? 'disabled' : undefined],
             },
           })}
