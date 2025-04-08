@@ -13,7 +13,7 @@ concurrency:
 
 on:
   pull_request:
-    branches: feat-sb-controlled/main
+    branches: [main, hotfix]
     types: [opened, synchronize, labeled]
 
 jobs:
