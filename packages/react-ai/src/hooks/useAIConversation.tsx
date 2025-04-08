@@ -137,16 +137,18 @@ export function createUseAIConversation<
       // between the gen2 schema definition and
       // whats in amplify_outputs
       if (!clientRoute) {
+        const error = {
+          message: 'Conversation route does not exist',
+          errorInfo: null,
+          errorType: '',
+        };
+
         setDataState({
           ...ERROR_STATE,
           data: { messages: [] },
-          messages: [
-            {
-              message: 'Conversation route does not exist',
-              errorInfo: null,
-              errorType: '',
-            },
-          ],
+          // TODO in MV bump: remove `messages`
+          messages: [error],
+          errors: [error],
         });
         return;
       }
@@ -266,7 +268,9 @@ export function createUseAIConversation<
             return {
               ...prev,
               ...ERROR_STATE,
+              // TODO in MV bump: remove `messages`
               messages: error.errors,
+              errors: error.errors,
             };
           });
         },
@@ -313,16 +317,17 @@ export function createUseAIConversation<
           }));
           conversation.sendMessage(input);
         } else {
+          const error = {
+            message: 'No conversation found',
+            errorInfo: null,
+            errorType: '',
+          };
           setDataState((prev) => ({
             ...prev,
             ...ERROR_STATE,
-            messages: [
-              {
-                message: 'No conversation found',
-                errorInfo: null,
-                errorType: '',
-              },
-            ],
+            // TODO in MV bump: remove `messages`
+            messages: [error],
+            errors: [error],
           }));
         }
       },

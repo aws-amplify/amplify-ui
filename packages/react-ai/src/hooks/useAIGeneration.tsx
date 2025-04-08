@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { V6Client } from '@aws-amplify/api-graphql';
+import type { ClientExtensions } from '@aws-amplify/data-schema/runtime';
 import { getSchema } from '../types';
 import {
   DataClientResponse,
@@ -32,7 +32,7 @@ export type UseAIGenerationHook<
 ];
 
 type AIGenerationClient<T extends Record<any, any>> = Pick<
-  V6Client<T>,
+  ClientExtensions<T>,
   'generations'
 >;
 

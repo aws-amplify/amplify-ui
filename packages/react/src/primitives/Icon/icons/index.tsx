@@ -7,6 +7,7 @@ export * from './IconCheck';
 export * from './IconChevronLeft';
 export * from './IconChevronRight';
 export * from './IconClose';
+export * from './IconDocument';
 export * from './IconEdit';
 export * from './IconError';
 export * from './IconExpandMore';
