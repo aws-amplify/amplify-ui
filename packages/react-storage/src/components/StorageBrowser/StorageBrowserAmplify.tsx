@@ -1,8 +1,10 @@
 import React from 'react';
 
-import { createStorageBrowser } from './createStorageBrowser';
-import { StorageBrowserProps as StorageBrowserPropsBase } from './types';
 import { createAmplifyAuthAdapter } from './adapters';
+import {
+  createStorageBrowser,
+  StorageBrowserProps as StorageBrowserPropsBase,
+} from './createStorageBrowser';
 
 export interface StorageBrowserProps extends StorageBrowserPropsBase {}
 

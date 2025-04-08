@@ -1,6 +1,7 @@
 import { renderHook } from '@testing-library/react';
-import { DropZoneProps } from '../../../composables/DropZone';
-import { useControlsContext } from '../../../controls/context';
+
+import { DropZoneProps } from '../../../components/composables/DropZone';
+import { useControlsContext } from '../../context';
 import { useDropZone } from '../useDropZone';
 
 jest.mock('../../../controls/context');

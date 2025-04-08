@@ -1,7 +1,13 @@
 import { LocationCredentialsProvider } from '../../storage-internal';
 
+/**
+ * `location` grant scope
+ */
 export type LocationType = 'OBJECT' | 'PREFIX' | 'BUCKET';
 
+/**
+ * `location` grant permissions
+ */
 export type LocationPermissions = ('delete' | 'get' | 'list' | 'write')[];
 
 /**
@@ -19,7 +25,7 @@ export interface LocationData {
   id: string;
 
   /**
-   * `location` permission granted to user
+   * @see {@link LocationPermissions}
    */
   permissions: LocationPermissions;
 
@@ -29,9 +35,7 @@ export interface LocationData {
   prefix: string;
 
   /**
-   * `location` grant scope
-   *
-   * @type "OBJECT" | "PREFIX" | "BUCKET"
+   * @see {@link LocationType}
    */
   type: LocationType;
 }
@@ -107,7 +111,12 @@ export type TaskResultStatus =
 
 export interface TaskResult<TStatus, TValue> {
   /**
-   * optional result message
+   * result error (if any)
+   */
+  error?: Error;
+
+  /**
+   * result message (if any)
    */
   message?: string;
 
@@ -117,7 +126,7 @@ export interface TaskResult<TStatus, TValue> {
   status: TStatus;
 
   /**
-   * task result value
+   * task result value (if any)
    */
   value?: TValue;
 }

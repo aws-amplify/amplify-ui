@@ -46,7 +46,10 @@ export const deleteHandler: DeleteHandler = ({
       status: 'COMPLETE' as const,
       value: { key: path },
     }))
-    .catch(({ message }: Error) => ({ message, status: 'FAILED' as const }));
+    .catch((error: Error) => {
+      const { message } = error;
+      return { error, message, status: 'FAILED' as const };
+    });
 
   return { result };
 };

@@ -37,6 +37,7 @@ export {
 export {
   AsyncDataAction,
   DataAction,
+  useControlledReducer,
   useDeprecationWarning,
   UseDeprecationWarning,
   useGetUrl,

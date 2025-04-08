@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui-react-storage",
-  "version": "3.9.1",
+  "version": "3.9.2",
   "main": "dist/index.js",
   "module": "dist/esm/index.mjs",
   "exports": {
@@ -45,9 +45,9 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@aws-amplify/ui": "6.9.1",
-    "@aws-amplify/ui-react": "6.9.5",
-    "@aws-amplify/ui-react-core": "3.3.5",
+    "@aws-amplify/ui": "6.10.0",
+    "@aws-amplify/ui-react": "6.10.0",
+    "@aws-amplify/ui-react-core": "3.4.0",
     "tslib": "^2.5.2"
   },
   "peerDependencies": {
@@ -68,7 +68,7 @@
       "name": "createStorageBrowser",
       "path": "dist/esm/browser.mjs",
       "import": "{ createStorageBrowser }",
-      "limit": "63 kB",
+      "limit": "64 kB",
       "ignore": [
         "@aws-amplify/storage"
       ]
@@ -77,7 +77,7 @@
       "name": "StorageBrowser",
       "path": "dist/esm/index.mjs",
       "import": "{ StorageBrowser }",
-      "limit": "85.1 kB"
+      "limit": "86.5 kB"
     },
     {
       "name": "FileUploader",

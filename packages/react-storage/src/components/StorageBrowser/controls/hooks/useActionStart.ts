@@ -1,5 +1,5 @@
-import { ActionStartProps } from '../../composables/ActionStart';
-import { useControlsContext } from '../../controls/context';
+import { ActionStartProps } from '../../components/composables/ActionStart';
+import { useControlsContext } from '../context';
 
 export const useActionStart = (): ActionStartProps => {
   const {

@@ -1,10 +1,11 @@
 import React from 'react';
 
-import { LocationState } from '../../../providers/store/location';
+import { LocationState } from '../../../store';
 import { useList } from '../../../useAction';
 
 import { usePaginate } from '../../hooks/usePaginate';
 import { useSearch } from '../../hooks/useSearch';
+
 import { FoldersState } from './types';
 
 const DEFAULT_PAGE_SIZE = 100;
@@ -67,10 +68,7 @@ export const useFolders = ({
     handleReset();
     handleList({
       prefix: key,
-      options: {
-        ...DEFAULT_LIST_OPTIONS,
-        search: { query, filterBy: 'key' },
-      },
+      options: { ...DEFAULT_LIST_OPTIONS, search: { query, filterBy: 'key' } },
     });
   };
 

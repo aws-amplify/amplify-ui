@@ -1,7 +1,10 @@
 import React from 'react';
 import { createContextUtilities } from '@aws-amplify/ui-react-core';
 
-import { PaginationProps, Pagination } from '../../../composables/Pagination';
+import {
+  Pagination,
+  PaginationProps,
+} from '../../../components/composables/Pagination';
 import { useResolvedComposable } from '../../../controls/hooks/useResolvedComposable';
 
 const defaultValue: PaginationProps = {};

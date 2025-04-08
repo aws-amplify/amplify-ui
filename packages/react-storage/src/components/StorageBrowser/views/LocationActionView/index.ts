@@ -27,7 +27,6 @@ export {
   UploadViewState,
   useUploadView,
 } from './UploadView';
-export { useActionView } from './useActionView';
 export {
   ActionViewState,
   LocationActionViewType,

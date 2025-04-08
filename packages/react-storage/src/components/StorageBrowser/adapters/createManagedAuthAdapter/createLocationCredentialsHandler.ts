@@ -1,9 +1,10 @@
 import {
   GetLocationCredentials,
   GetLocationCredentialsInput,
-} from '../../credentials/types';
+} from '../../credentials';
 import { getDataAccess, CredentialsProvider } from '../../storage-internal';
 import { toAccessGrantPermission } from '../permissionParsers';
+
 interface CreateLocationCredentialsHandlerInput {
   accountId: string;
   credentialsProvider: CredentialsProvider;

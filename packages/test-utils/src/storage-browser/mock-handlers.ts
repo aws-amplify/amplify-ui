@@ -126,7 +126,10 @@ export class MockHandlers {
     ) {
       return {
         ...UNDEFINED_CALLBACKS,
-        result: Promise.resolve({ status: 'OVERWRITE_PREVENTED' }),
+        result: Promise.resolve({
+          error: new Error('cannot overwrite existing file'),
+          status: 'OVERWRITE_PREVENTED',
+        }),
       };
     }
 

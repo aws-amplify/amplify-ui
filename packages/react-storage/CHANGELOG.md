@@ -1,5 +1,18 @@
 # @aws-amplify/ui-react-storage
 
+## 3.9.2
+
+### Patch Changes
+
+- [#6484](https://github.com/aws-amplify/amplify-ui/pull/6484) [`e612885d10058ca9deab3f57795569b86ebce9f9`](https://github.com/aws-amplify/amplify-ui/commit/e612885d10058ca9deab3f57795569b86ebce9f9) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(storage-browser): update task statuses before passing to callbacks, add error to TaskResult
+
+- [#6473](https://github.com/aws-amplify/amplify-ui/pull/6473) [`e4e7c4a6ef4dde4c76180f69c8388ae232ea9026`](https://github.com/aws-amplify/amplify-ui/commit/e4e7c4a6ef4dde4c76180f69c8388ae232ea9026) Thanks [@calebpollman](https://github.com/calebpollman)! - feat(storage-browser): add type docs, expose handlers, cleanup interfaces, refactor table content
+
+- Updated dependencies [[`36c631a076b7d3d1aafc18a5854575e20e0592c2`](https://github.com/aws-amplify/amplify-ui/commit/36c631a076b7d3d1aafc18a5854575e20e0592c2)]:
+  - @aws-amplify/ui-react-core@3.4.0
+  - @aws-amplify/ui-react@6.10.0
+  - @aws-amplify/ui@6.10.0
+
 ## 3.9.1
 
 ### Patch Changes

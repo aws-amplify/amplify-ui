@@ -1,5 +1,14 @@
 # @aws-amplify/ui-react-native-auth
 
+## 0.0.47
+
+### Patch Changes
+
+- Updated dependencies [[`36c631a076b7d3d1aafc18a5854575e20e0592c2`](https://github.com/aws-amplify/amplify-ui/commit/36c631a076b7d3d1aafc18a5854575e20e0592c2)]:
+  - @aws-amplify/ui-react-native@2.5.0
+  - @aws-amplify/ui@6.10.0
+  - @aws-amplify/ui-react-core-auth@0.0.44
+
 ## 0.0.46
 
 ### Patch Changes
