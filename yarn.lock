@@ -23729,7 +23729,7 @@ postcss-values-parser@^6.0.2:
     is-url-superb "^4.0.0"
     quote-unquote "^1.0.0"
 
-postcss@8.4.31, postcss@^8.1.10, postcss@^8.2.14, postcss@^8.3.7, postcss@^8.4.31, postcss@^8.4.35, postcss@^8.4.43, postcss@^8.4.48, postcss@^8.4.5, postcss@^8.4.7, postcss@^8.4.8, postcss@^8.5.1, postcss@^8.5.3:
+postcss@8.4.31, postcss@^8.1.10, postcss@^8.2.14, postcss@^8.3.7, postcss@^8.4.31, postcss@^8.4.35, postcss@^8.4.43, postcss@^8.4.48, postcss@^8.4.5, postcss@^8.4.7, postcss@^8.4.8, postcss@^8.5.1:
   version "8.4.47"
   resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.4.47.tgz#5bf6c9a010f3e724c503bf03ef7947dcb0fea365"
   integrity sha512-56rxCq7G/XfB4EkXq9Egn5GCqugWvDFjafDOThIdMBsI15iqPqR5r15TfSr1YPYeEI19YeaXMCbY6u88Y76GLQ==
@@ -25202,7 +25202,7 @@ rollup-plugin-typescript2@^0.31.2:
     resolve "^1.20.0"
     tslib "^2.3.1"
 
-rollup@^2.70.0, rollup@^4.20.0, rollup@^4.22.4, rollup@^4.30.1:
+rollup@^2.70.0, rollup@^4.20.0, rollup@^4.22.4:
   version "4.22.4"
   resolved "https://registry.npmjs.org/rollup/-/rollup-4.22.4.tgz#4135a6446671cd2a2453e1ad42a45d5973ec3a0f"
   integrity sha512-vD8HJ5raRcWOyymsR6Z3o6+RzfEPCnVLMFJ6vRslO1jt4LO6dUo5Qnpg7y4RkZFM2DMe3WUirkI5c16onjrc6A==
@@ -28116,25 +28116,14 @@ vite-plugin-pages@^0.25.0:
     picocolors "^1.0.0"
     yaml "^2.1.1"
 
-vite@^5.4.16:
-  version "5.4.16"
-  resolved "https://registry.yarnpkg.com/vite/-/vite-5.4.16.tgz#471983257a890ef33f2700cbbbc2134f2d08abf1"
-  integrity sha512-Y5gnfp4NemVfgOTDQAunSD4346fal44L9mszGGY/e+qxsRT5y1sMlS/8tiQ8AFAp+MFgYNSINdfEchJiPm41vQ==
+vite@^5.4.17:
+  version "5.4.17"
+  resolved "https://registry.yarnpkg.com/vite/-/vite-5.4.17.tgz#4bf61dd4cdbf64b0d6661f5dba76954cc81d5082"
+  integrity sha512-5+VqZryDj4wgCs55o9Lp+p8GE78TLVg0lasCH5xFZ4jacZjtqZa6JUw9/p0WeAojaOfncSM6v77InkFPGnvPvg==
   dependencies:
     esbuild "^0.21.3"
     postcss "^8.4.43"
     rollup "^4.20.0"
-  optionalDependencies:
-    fsevents "~2.3.3"
-
-vite@^6.2.4:
-  version "6.2.4"
-  resolved "https://registry.yarnpkg.com/vite/-/vite-6.2.4.tgz#05809de3f918fded87f73a838761995a4d66a680"
-  integrity sha512-veHMSew8CcRzhL5o8ONjy8gkfmFJAd5Ac16oxBUjlwgX3Gq2Wqr+qNC3TjPIpy7TPV/KporLga5GT9HqdrCizw==
-  dependencies:
-    esbuild "^0.25.0"
-    postcss "^8.5.3"
-    rollup "^4.30.1"
   optionalDependencies:
     fsevents "~2.3.3"
 
