@@ -15,7 +15,7 @@ Feature: StorageBrowser Controlled Behavior
     When I go forward to the next page
     Then I see the "No files." message
 
-  @react-router
+  @react-router @next-app-router
   Scenario: Handles controlled value prop
     Then I see the "Controlled Value" link
     When I click the "Controlled Value" link
