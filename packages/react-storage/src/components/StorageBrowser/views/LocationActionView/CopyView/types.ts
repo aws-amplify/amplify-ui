@@ -1,5 +1,5 @@
 import { FolderData, CopyHandlerData, LocationData } from '../../../actions';
-import { LocationState } from '../../../providers/store/location';
+import { LocationState } from '../../../store';
 import { ActionViewType, ActionViewProps, ActionViewState } from '../types';
 
 export interface CopyViewState extends ActionViewState<CopyHandlerData> {

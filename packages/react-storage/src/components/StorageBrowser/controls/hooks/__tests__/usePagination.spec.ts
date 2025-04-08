@@ -1,6 +1,7 @@
 import { renderHook } from '@testing-library/react';
-import { PaginationProps } from '../../../composables/Pagination';
-import { useControlsContext } from '../../../controls/context';
+
+import { PaginationProps } from '../../../components/composables/Pagination';
+import { useControlsContext } from '../../context';
 import { usePagination } from '../usePagination';
 
 jest.mock('../../../controls/context');

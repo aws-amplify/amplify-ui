@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ActionStart } from '../composables/ActionStart';
+import { ActionStart } from '../components/composables/ActionStart';
 
 import { useActionStart } from './hooks/useActionStart';
 import { useResolvedComposable } from './hooks/useResolvedComposable';

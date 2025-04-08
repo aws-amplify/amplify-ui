@@ -1,4 +1,4 @@
-import { StorageBrowserIconType } from '../../context/elements';
+import { StorageBrowserIconType } from '../../components/elements';
 
 import {
   CopyHandler,

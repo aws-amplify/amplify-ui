@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { DataTableProps } from '../../../composables/DataTable';
+import { DataTableProps } from '../../../components';
 
 import { DataTableResolvers } from './types';
 
