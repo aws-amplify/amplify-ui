@@ -322,7 +322,7 @@ jobs:
         run: yarn ${{ matrix.example }}-example build
 
       - name: Start ${{ matrix.example }} example
-        run: yarn ${{ matrix.example }}-example start & npx wait-on -c waitOnConfig.json -t 20000 http-get://localhost:3000/ui/components/authenticator/sign-in-with-username
+        run: yarn ${{ matrix.example }}-example start
         env:
           # Setting this value temporarily since the beta liveness sample app hits the gamma endpoint
           NEXT_PUBLIC_STREAMING_API_URL: wss://streaming-rekognition-gamma.us-east-1.amazonaws.com
