@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useGetActionInput } from '../providers/configuration';
+import { useGetActionInput } from '../configuration';
 import { DEFAULT_ACTION_CONCURRENCY } from './constants';
 import { ActionHandler } from '../actions';
 import { Task, useProcessTasks } from '../tasks';

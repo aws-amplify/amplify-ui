@@ -1,4 +1,5 @@
-import { DataTableProps } from '../../../composables/DataTable';
+import { DataTableProps } from '../../../components';
+
 import { LOCATION_DETAIL_VIEW_HEADERS } from './constants';
 
 export const getFolderRowContent = ({

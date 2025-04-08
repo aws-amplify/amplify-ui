@@ -1,7 +1,7 @@
 import { renderHook } from '@testing-library/react';
 import { LocationPermissions } from '../../../actions';
-import { ActionDestinationProps } from '../../../composables/ActionDestination';
-import { useControlsContext } from '../../../controls/context';
+import { ActionDestinationProps } from '../../../components/composables/ActionDestination';
+import { useControlsContext } from '../../context';
 import { getNavigationItems } from '../getNavigationItems';
 import { getNavigationParts } from '../getNavigationParts';
 import { useActionDestination } from '../useActionDestination';

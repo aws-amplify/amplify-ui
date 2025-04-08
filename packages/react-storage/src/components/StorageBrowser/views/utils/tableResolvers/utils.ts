@@ -3,7 +3,8 @@ import { humanFileSize } from '@aws-amplify/ui';
 import {
   DataTableButtonDataCell,
   DataTableNumberDataCell,
-} from '../../../composables/DataTable';
+} from '../../../components';
+
 import {
   CopyActionTask,
   DeleteActionTask,

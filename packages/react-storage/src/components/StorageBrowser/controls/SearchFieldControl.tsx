@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { SearchField } from '../composables/SearchField';
+import { SearchField } from '../components/composables/SearchField';
 
 import { useResolvedComposable } from './hooks/useResolvedComposable';
 import { useSearchField } from './hooks/useSearchField';

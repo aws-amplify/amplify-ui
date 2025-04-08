@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { AddFolder } from '../composables/AddFolder';
+import { AddFolder } from '../components/composables/AddFolder';
 
 import { useAddFolder } from './hooks/useAddFolder';
 import { useResolvedComposable } from './hooks/useResolvedComposable';

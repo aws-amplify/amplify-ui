@@ -1,5 +1,5 @@
 import { WithKey } from '../../../components/types';
-import { DataTableProps } from '../../../composables/DataTable';
+import { DataTableProps } from '../../../components';
 
 export type HeaderKeys = 'folder' | 'bucket' | 'permission' | 'action';
 

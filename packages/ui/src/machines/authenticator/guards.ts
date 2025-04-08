@@ -95,8 +95,12 @@ const shouldVerifyAttribute = (
   _: AuthActorContext,
   { data }: AuthEvent
 ): boolean => {
-  const { phone_number_verified, email_verified } =
+  const { email, phone_number, phone_number_verified, email_verified } =
     data as FetchUserAttributesOutput;
+
+  // if neither email nor phone_number exist
+  // there is nothing to verify
+  if (!email && !phone_number) return false;
 
   // email/phone_verified is returned as a string
   const emailNotVerified =

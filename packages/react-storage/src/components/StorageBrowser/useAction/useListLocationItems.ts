@@ -7,7 +7,7 @@ import {
   ListLocationItemsHandler,
   LocationItemData,
 } from '../actions';
-import { useGetActionInput } from '../providers/configuration';
+import { useGetActionInput } from '../configuration';
 
 import { USE_LIST_ERROR_MESSAGE } from './constants';
 import { useActionHandlers } from './context';

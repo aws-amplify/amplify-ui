@@ -1,13 +1,12 @@
 import { act, renderHook, waitFor } from '@testing-library/react';
 
 import { LocationData } from '../../../../actions';
-import { useStore } from '../../../../providers/store';
-import { LocationState } from '../../../../providers/store/location';
+import { LocationState } from '../../../../store';
 import { useList } from '../../../../useAction';
 import { DEFAULT_LIST_OPTIONS, useFolders } from '../useFolders';
 
 jest.mock('../../../../useAction');
-jest.mock('../../../../providers/store');
+jest.mock('../../../../store');
 jest.useFakeTimers();
 jest.setSystemTime(1731366223230);
 
@@ -42,38 +41,14 @@ describe('useFolders', () => {
   };
 
   const mockUseList = jest.mocked(useList);
-  const mockUseStore = jest.mocked(useStore);
-  const mockDispatchStoreAction = jest.fn();
+
   const mockHandleList = jest.fn();
   const mockSetDestination = jest.fn();
 
   beforeEach(() => {
-    mockUseStore.mockReturnValue([
-      {
-        actionType: 'COPY',
-        files: [],
-        location,
-        locationItems: {
-          fileDataItems: [
-            {
-              key: 'prefixer/test-file.txt',
-              fileKey: 'test-file.txt',
-              lastModified: new Date(),
-              id: 'id',
-              size: 10,
-              type: 'FILE',
-            },
-          ],
-        },
-      },
-      mockDispatchStoreAction,
-    ]);
     mockUseList.mockReturnValue([
       {
-        data: {
-          items: mockItems,
-          nextToken: 'token',
-        },
+        data: { items: mockItems, nextToken: 'token' },
         hasError: false,
         isLoading: false,
         message: undefined,
@@ -82,13 +57,7 @@ describe('useFolders', () => {
     ]);
   });
 
-  afterEach(() => {
-    mockDispatchStoreAction.mockClear();
-    mockHandleList.mockClear();
-    mockSetDestination.mockClear();
-    mockUseList.mockReset();
-    mockUseStore.mockReset();
-  });
+  afterEach(jest.clearAllMocks);
 
   it('should return the correct initial state', async () => {
     const { result } = renderHook(() =>
@@ -97,6 +66,29 @@ describe('useFolders', () => {
 
     await waitFor(() => {
       expect(result.current).toMatchSnapshot();
+    });
+  });
+
+  it('calls handleList from onInitialize', () => {
+    const { result } = renderHook(() =>
+      useFolders({ destination: location, setDestination: mockSetDestination })
+    );
+
+    const { onInitialize } = result.current;
+
+    act(() => {
+      onInitialize();
+    });
+
+    expect(mockHandleList).toHaveBeenCalledTimes(1);
+    expect(mockHandleList).toHaveBeenCalledWith({
+      options: {
+        delimiter: '/',
+        exclude: 'FILE',
+        pageSize: 100,
+        refresh: true,
+      },
+      prefix: 'prefix1/',
     });
   });
 
@@ -184,10 +176,7 @@ describe('useFolders', () => {
     const nextToken = 'token';
     mockUseList.mockReturnValue([
       {
-        data: {
-          items: mockItems,
-          nextToken,
-        },
+        data: { items: mockItems, nextToken },
         hasError: false,
         isLoading: false,
         message: undefined,
@@ -205,12 +194,49 @@ describe('useFolders', () => {
     });
 
     expect(mockHandleList).toHaveBeenCalledWith({
-      options: {
-        ...DEFAULT_LIST_OPTIONS,
-        exclude: 'FILE',
-        nextToken,
-      },
+      options: { ...DEFAULT_LIST_OPTIONS, exclude: 'FILE', nextToken },
       prefix: 'prefix1/',
     });
+  });
+
+  it('does not call `setDestination` from `onSelectFolder` when `current` is `undefined`', () => {
+    const { result } = renderHook(() =>
+      useFolders({
+        destination: { ...location, current: undefined },
+        setDestination: mockSetDestination,
+      })
+    );
+
+    const { onSelectFolder } = result.current;
+
+    act(() => {
+      onSelectFolder('some-id', 'some-path');
+    });
+
+    expect(mockSetDestination).not.toHaveBeenCalled();
+  });
+
+  it('does not call `handleList` from `onPaginate` when `nextToken` is `undefined', () => {
+    mockUseList.mockReturnValue([
+      {
+        data: { items: mockItems, nextToken: undefined },
+        hasError: false,
+        isLoading: false,
+        message: undefined,
+      },
+      mockHandleList,
+    ]);
+
+    const { result } = renderHook(() =>
+      useFolders({ destination: location, setDestination: mockSetDestination })
+    );
+
+    const { onPaginate } = result.current;
+
+    act(() => {
+      onPaginate(2);
+    });
+
+    expect(mockHandleList).not.toHaveBeenCalled();
   });
 });
