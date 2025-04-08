@@ -3,7 +3,7 @@ import { render } from '@testing-library/react';
 
 import { LocationData } from '../../../../actions';
 import { INITIAL_STATUS_COUNTS } from '../../../../tasks';
-import * as Config from '../../../../providers/configuration';
+import * as Config from '../../../../configuration';
 import * as UseDeleteViewModule from '../useDeleteView';
 
 import { DeleteViewState } from '../types';

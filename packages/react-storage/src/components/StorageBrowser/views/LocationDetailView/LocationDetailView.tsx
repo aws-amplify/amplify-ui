@@ -1,23 +1,25 @@
 import React from 'react';
 
-import { STORAGE_BROWSER_BLOCK } from '../../constants';
-import { ViewElement } from '../../context/elements';
-import { ActionsListControl } from '../../controls/ActionsListControl';
-import { DataTableControl } from '../../controls/DataTableControl';
-import { DataRefreshControl } from '../../controls/DataRefreshControl';
-import { DropZoneControl } from '../../controls/DropZoneControl';
-import { LoadingIndicatorControl } from '../../controls/LoadingIndicatorControl';
-import { MessageControl } from '../../controls/MessageControl';
-import { NavigationControl } from '../../controls/NavigationControl';
-import { PaginationControl } from '../../controls/PaginationControl';
-import { SearchFieldControl } from '../../controls/SearchFieldControl';
-import { SearchSubfoldersToggleControl } from '../../controls/SearchSubfoldersToggleControl';
-import { TitleControl } from '../../controls/TitleControl';
+import { classNames } from '@aws-amplify/ui';
 
+import { STORAGE_BROWSER_BLOCK, ViewElement } from '../../components';
+import {
+  ActionsListControl,
+  DataTableControl,
+  DataRefreshControl,
+  DropZoneControl,
+  LoadingIndicatorControl,
+  MessageControl,
+  NavigationControl,
+  PaginationControl,
+  SearchFieldControl,
+  SearchSubfoldersToggleControl,
+  TitleControl,
+} from '../../controls';
+
+import { LocationDetailViewProvider } from './LocationDetailViewProvider';
 import { LocationDetailViewType } from './types';
 import { useLocationDetailView } from './useLocationDetailView';
-import { LocationDetailViewProvider } from './LocationDetailViewProvider';
-import { classNames } from '@aws-amplify/ui';
 
 const DEFAULT_PAGE_SIZE = 100;
 export const DEFAULT_LIST_OPTIONS = {

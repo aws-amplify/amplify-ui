@@ -29,6 +29,7 @@ export {
   FileDataItem,
   FileItem,
   FolderData,
+  getFileKey,
   isFileDataItem,
   isFileItem,
   isMultipartUpload,

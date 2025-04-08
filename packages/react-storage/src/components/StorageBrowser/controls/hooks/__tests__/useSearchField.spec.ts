@@ -1,6 +1,8 @@
 import { renderHook } from '@testing-library/react';
-import { SearchFieldProps } from '../../../composables/SearchField';
-import { useControlsContext } from '../../../controls/context';
+
+import { SearchFieldProps } from '../../../components/composables/SearchField';
+import { useControlsContext } from '../../context';
+
 import { useSearchField } from '../useSearchField';
 
 jest.mock('../../../controls/context');

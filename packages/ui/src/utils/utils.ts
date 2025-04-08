@@ -219,10 +219,11 @@ export const classNameModifierByFlag = (
  */
 export function templateJoin(
   values: string[],
-  template: (value: string) => string
+  template: (value: string, index: number, values: string[]) => string
 ): string {
   return values.reduce(
-    (acc, curr) => `${acc}${isString(curr) ? template(curr) : ''}`,
+    (acc, curr, index) =>
+      `${acc}${isString(curr) ? template(curr, index, values) : ''}`,
     ''
   );
 }

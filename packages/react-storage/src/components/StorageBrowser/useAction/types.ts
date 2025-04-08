@@ -129,29 +129,36 @@ export type UseActionState<TTask extends Task> = [
 ];
 
 /**
- * `StorageBrowser` utility hook used to run default and custom action handlers
- * from within a parent `StorageBrowser.Provider`. `useAction` provides the
- * action handler with the current `location` state and credentials values,
- * as well as any parameters provided as `data` at the `useAction` call site
+ * @description `StorageBrowser` utility hook used to run default and custom action handlers from within a parent `StorageBrowser.Provider`. `useAction` provides the action handler with the current `location` state and credentials values, as well as any parameters provided as `data` at the `useAction` call site. accepts `handler` key to be run as initial argument and `options` with `items` as second. Returns batch tasks or atomic task state and `handler` accepting optional input allowing for location override
+ * @example
+ * batch actions - Returns batch task state and `handler` accepting optional input allowing for location override
+ * ```tsx
+ * // provide array of `items` to intialize `useAction` with batch handling behavior
+ * const items = [];
+ * const [{ tasks }, dispatchActions] = useAction('upload', { items })
+ *
+ * <button onClick={() => dispatchActions()}>start uploads</button>
+ * ```
+ *
+ * @example
+ * atomic action - returns atomic task `state` and `handler``input`, `handler` requires `input` containing `data` and `options`
+ * ```tsx
+ * // handler data
+ * const data = {}
+ * // do not provide `items` for atomic handling behavior
+ * const [{ task }, dispatchAction] = useAction('upload')
+ *
+ * <button onClick={() => dispatchAction({ data })}>start upload</button>
+ * ```
  */
 export interface UseAction<
   Handlers extends Record<keyof Handlers, ActionHandler>,
 > {
-  /**
-   * accepts `handler` to be run as initial argument and `options` with `items`
-   * as second. Returns batch task state and `handler` accoeting optional input
-   * allowing for location override
-   */
   <K extends keyof Handlers, TTask extends InferTask<Handlers[K]>>(
     key: K,
     options: UseActionOptionsWithItems<TTask>
   ): UseActionsState<TTask>;
 
-  /**
-   * * accepts `handler` to be run as initial argument and `options` as second.
-   * Returns atomic task `state` and `handler``input`, `handler`  requires `input`
-   * containing `data` and `options`
-   */
   <K extends keyof Handlers, TTask extends InferTask<Handlers[K]>>(
     key: K,
     options?: UseActionOptions<TTask>

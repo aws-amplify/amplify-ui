@@ -1,9 +1,12 @@
 import { LocationData } from '../actions';
-import { ActionListItem } from '../composables/ActionsList';
-import { DataTableSortHeader, DataTableProps } from '../composables/DataTable';
-import { MessageProps } from '../composables/Message';
-import { Composables } from '../composables/types';
-import { LocationState } from '../providers/store/location';
+import {
+  ActionListItem,
+  Composables,
+  DataTableSortHeader,
+  DataTableProps,
+  MessageProps,
+} from '../components';
+import { LocationState } from '../store';
 import { StatusCounts } from '../tasks';
 
 export interface Controls {

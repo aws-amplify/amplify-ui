@@ -1,5 +1,6 @@
 import { LocationData, UploadHandlerData } from '../../../actions';
-import { FileItems } from '../../../providers';
+import { FileItems } from '../../../files';
+
 import { ActionViewType, ActionViewProps, ActionViewState } from '../types';
 
 export interface UploadViewState extends ActionViewState<UploadHandlerData> {

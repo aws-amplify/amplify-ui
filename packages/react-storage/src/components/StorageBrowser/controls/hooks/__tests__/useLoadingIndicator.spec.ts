@@ -1,6 +1,7 @@
 import { renderHook } from '@testing-library/react';
-import { LoadingIndicatorProps } from '../../../composables/LoadingIndicator';
-import { useControlsContext } from '../../../controls/context';
+
+import { LoadingIndicatorProps } from '../../../components/composables/LoadingIndicator';
+import { useControlsContext } from '../../context';
 import { useLoadingIndicator } from '../useLoadingIndicator';
 
 jest.mock('../../../controls/context');
