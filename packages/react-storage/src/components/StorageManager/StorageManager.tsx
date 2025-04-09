@@ -183,7 +183,9 @@ const StorageManagerBase = React.forwardRef(function StorageManager(
   };
 
   const onUploadAll = () => {
-    queueFiles();
+    setTimeout(() => {
+      queueFiles();
+    }, 5000);
   };
 
   const onPauseUpload: TaskHandler = ({ id, uploadTask }) => {

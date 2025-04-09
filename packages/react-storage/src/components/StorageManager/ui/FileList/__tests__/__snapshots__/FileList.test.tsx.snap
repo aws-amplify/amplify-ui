@@ -85,6 +85,12 @@ exports[`FileList renders an alert in case of error 1`] = `
           </span>
         </button>
       </div>
+      <span
+        class="amplify-visually-hidden"
+        role="status"
+      >
+        File upload status changed: Uploading 0%
+      </span>
       <p
         class="amplify-text amplify-storagemanager__file__status"
       >
@@ -219,6 +225,12 @@ exports[`FileList renders as expected 1`] = `
           </span>
         </button>
       </div>
+      <span
+        class="amplify-visually-hidden"
+        role="status"
+      >
+        File upload status changed: Uploading 0%
+      </span>
       <p
         class="amplify-text amplify-storagemanager__file__status"
       >
@@ -311,6 +323,12 @@ exports[`FileList renders as expected when upload is resumable 1`] = `
           </span>
         </button>
       </div>
+      <span
+        class="amplify-visually-hidden"
+        role="status"
+      >
+        File upload status changed: Uploading 0%
+      </span>
       <p
         class="amplify-text amplify-storagemanager__file__status"
       >
