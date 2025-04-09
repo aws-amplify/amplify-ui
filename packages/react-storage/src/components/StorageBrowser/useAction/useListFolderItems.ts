@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useDataState } from '@aws-amplify/ui-react-core';
+import { useAsyncReducer } from '@aws-amplify/ui-react-core';
 
 import {
   LocationItemType,
@@ -58,7 +58,7 @@ export const useListFolderItems = (): UseListFolderItemsState => {
     [getConfig, listLocationItems]
   );
 
-  return useDataState(enhancedHandler, {
+  return useAsyncReducer(enhancedHandler, {
     items: [],
     nextToken: undefined,
   });

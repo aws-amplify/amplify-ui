@@ -10,9 +10,9 @@ import { INITIAL_STATUS_COUNTS } from '../../../../tasks';
 import { CopyViewState } from '../types';
 import { CopyViewProvider } from '../CopyViewProvider';
 
-jest.spyOn(ReactCoreModule, 'useDataState').mockReturnValue([
+jest.spyOn(ReactCoreModule, 'useAsyncReducer').mockReturnValue([
   {
-    data: {
+    value: {
       items: [{ id: '1', key: 'Location A', type: 'FOLDER' }],
       nextToken: undefined,
     },

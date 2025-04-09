@@ -61,11 +61,11 @@ export const useLocationDetailView = (
 
   const [{ task }, handleDownload] = useAction('download');
 
-  const [{ data, isLoading, hasError, message }, handleList] =
+  const [{ value, isLoading, hasError, message }, handleList] =
     useList('locationItems');
 
   // set up pagination
-  const { items, nextToken, search } = data;
+  const { items, nextToken, search } = value;
   const { hasExhaustedSearch = false } = search ?? {};
 
   const onPaginate = () => {

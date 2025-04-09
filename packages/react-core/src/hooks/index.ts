@@ -1,12 +1,10 @@
-export {
-  useDataState,
-  AsyncDataAction,
-  DataAction,
-  DataState,
-} from './useDataState';
-
 export { default as useControlledReducer } from './useControlledReducer';
 export { default as useDropZone, UseDropZoneParams } from './useDropZone';
+export {
+  default as useAsyncReducer,
+  AsyncReducer,
+  AsyncReducerState,
+} from './useAsyncReducer';
 export {
   default as useDeprecationWarning,
   UseDeprecationWarning,

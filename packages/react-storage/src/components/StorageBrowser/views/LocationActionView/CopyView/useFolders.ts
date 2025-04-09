@@ -28,10 +28,10 @@ export const useFolders = ({
 }: UseFoldersInput): FoldersState => {
   const { current, key } = destination;
 
-  const [{ data, hasError, isLoading, message }, handleList] =
+  const [{ value, hasError, isLoading, message }, handleList] =
     useList('folderItems');
 
-  const { items, nextToken, search } = data;
+  const { items, nextToken, search } = value;
   const { hasExhaustedSearch = false } = search ?? {};
 
   const onInitialize = React.useCallback(() => {

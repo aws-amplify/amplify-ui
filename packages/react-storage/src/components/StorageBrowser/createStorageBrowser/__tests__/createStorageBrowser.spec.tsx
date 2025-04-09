@@ -33,7 +33,7 @@ const input = { config };
 
 describe('createStorageBrowser', () => {
   beforeAll(() => {
-    // defining `crypto` here to allow `useDataState` to continue working as this test file
+    // defining `crypto` here to allow `useAsyncReducer` to continue working as this test file
     // is covering a fair amount of component code as a side effect. Not ideal and should be
     // readdressed
     let id = 0;

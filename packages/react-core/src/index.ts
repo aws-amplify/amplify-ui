@@ -35,20 +35,19 @@ export {
 } from './components';
 
 export {
-  AsyncDataAction,
-  DataAction,
+  AsyncReducer,
+  AsyncReducerState,
+  useAsyncReducer,
   useControlledReducer,
   useDeprecationWarning,
   UseDeprecationWarning,
+  useDropZone,
+  UseDropZoneParams,
   useGetUrl,
   useHasValueUpdated,
   usePreviousValue,
   useSetUserAgent,
   useTimeout,
-  useDataState,
-  DataState,
-  useDropZone,
-  UseDropZoneParams,
 } from './hooks';
 
 export { MergeProps } from './types';

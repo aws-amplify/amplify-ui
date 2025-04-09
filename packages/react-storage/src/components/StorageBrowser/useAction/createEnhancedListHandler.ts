@@ -1,4 +1,4 @@
-import { AsyncDataAction } from '@aws-amplify/ui-react-core';
+import { AsyncReducer } from '@aws-amplify/ui-react-core';
 
 import {
   ListHandler,
@@ -45,7 +45,7 @@ export interface EnhancedListHandlerInput<T, K>
   extends Omit<ListHandlerInput<EnhancedListHandlerOptions<T, K>>, 'config'> {}
 
 export interface EnhancedListHandler<T, K>
-  extends AsyncDataAction<
+  extends AsyncReducer<
     EnhancedListHandlerOutput<T>,
     EnhancedListHandlerInput<T, K>
   > {}
