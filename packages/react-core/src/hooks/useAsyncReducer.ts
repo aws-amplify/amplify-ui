@@ -40,7 +40,7 @@ export type AsyncReducer<S, A> = (prevValue: S, action: A) => Promise<S>;
  *   switch(action.type) {
  *     case 'fetch':
  *       const data = await fetchData();
- *       return { data }
+ *       return { data: state.data ? state.data.concat(data) : data }
  *     case 'clear':
  *       return { data: undefined }
  *   }
@@ -50,8 +50,6 @@ export type AsyncReducer<S, A> = (prevValue: S, action: A) => Promise<S>;
  *   const [state, dispatch] = useAsyncReducer(asyncReducer, initialState);
  *
  *   const { value: { data }, isLoading } = state;
- *
- *   if (data?.length) return null;
  *
  *   return (
  *     <button onClick={() => isLoading ? null : dispatch({ type: 'fetch'})}>
