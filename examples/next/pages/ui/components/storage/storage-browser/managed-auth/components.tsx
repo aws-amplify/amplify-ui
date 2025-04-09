@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Button, Flex } from '@aws-amplify/ui-react';
 
-import { routedAuth } from './StorageBrowser';
+import { routedAuth } from './storage-browser';
 
 export function SignIn({ onSignIn }: { onSignIn?: () => void }) {
   const [isLoading, setIsLoading] = React.useState(false);

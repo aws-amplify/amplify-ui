@@ -8,7 +8,7 @@ import {
 } from '@aws-amplify/ui-react-storage/browser';
 
 import { managedAuthAdapter } from '../managedAuthAdapter';
-import { SignIn, SignOutButton } from './routed/components';
+import { SignIn, SignOutButton } from './components';
 import {
   Button,
   Flex,

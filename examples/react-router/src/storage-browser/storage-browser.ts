@@ -12,7 +12,7 @@ export const PREFIXES = {
   base: 'my-prefix/',
   nested: 'my-nested-prefix/',
   deeplyNested: 'my-deeply-nested-prefix/',
-};
+} as const;
 
 export const INITIAL_VALUES: InitialValues = {
   locations: [
