@@ -115,10 +115,27 @@ export class MockHandlers {
     return { result: Promise.resolve({ status: 'COMPLETE' }) };
   };
 
-  upload: DefaultHandlers['upload'] = ({
-    data: { file, key, preventOverwrite },
-  }) => {
-    const prefix = key.slice(0, -file.name.length);
+  upload: DefaultHandlers['upload'] = (input) => {
+    const {
+      data: { file, key, preventOverwrite },
+    } = input;
+    const { name, webkitRelativePath } = file;
+    const hasWebkitRelativePath = !!webkitRelativePath.length;
+
+    const prefix = key.slice(0, -name.length);
+
+    if (hasWebkitRelativePath && !this.#locationItems[prefix]) {
+      // register folder prefix
+      this.#locationItems[prefix] = [];
+
+      // create new folder within parent prefix
+      const parentPrefix = key.slice(0, -webkitRelativePath.length);
+      this.#locationItems[parentPrefix].push({
+        id: crypto.randomUUID(),
+        key: prefix,
+        type: 'FOLDER' as const,
+      });
+    }
 
     if (
       preventOverwrite &&
