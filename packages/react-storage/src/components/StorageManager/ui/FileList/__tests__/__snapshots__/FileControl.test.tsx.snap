@@ -75,6 +75,12 @@ exports[`FileControl renders as expected when file is uploading 1`] = `
         </span>
       </button>
     </div>
+    <span
+      class="amplify-visually-hidden"
+      role="status"
+    >
+      File upload status changed: Uploading 0%
+    </span>
     <p
       class="amplify-text amplify-storagemanager__file__status"
     >
@@ -137,6 +143,12 @@ exports[`FileControl renders as expected when uploading is paused 1`] = `
         </span>
       </button>
     </div>
+    <span
+      class="amplify-visually-hidden"
+      role="status"
+    >
+      File upload status changed: Paused at 0%
+    </span>
     <p
       class="amplify-text amplify-storagemanager__file__status"
     >
@@ -242,6 +254,12 @@ exports[`FileControl renders thumbnails 1`] = `
         </span>
       </button>
     </div>
+    <span
+      class="amplify-visually-hidden"
+      role="status"
+    >
+      File upload status changed: Uploading 0%
+    </span>
     <p
       class="amplify-text amplify-storagemanager__file__status"
     >
@@ -347,6 +365,12 @@ exports[`FileControl should default to showThumbnails being true 1`] = `
         </span>
       </button>
     </div>
+    <span
+      class="amplify-visually-hidden"
+      role="status"
+    >
+      File upload status changed: Uploading 0%
+    </span>
     <p
       class="amplify-text amplify-storagemanager__file__status"
     >
