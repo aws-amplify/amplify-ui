@@ -44,7 +44,7 @@ export const INITIAL_VALUES: InitialValues = {
 
 const handlers = new MockHandlers({ initialValues: INITIAL_VALUES });
 
-export const { StorageBrowser } = createStorageBrowser({
+export const MOCK_CSB_INPUT = {
   actions: {
     default: {
       ...defaultActionConfigs,
@@ -82,4 +82,6 @@ export const { StorageBrowser } = createStorageBrowser({
         },
       }),
   },
-});
+};
+
+export const { StorageBrowser } = createStorageBrowser(MOCK_CSB_INPUT);

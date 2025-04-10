@@ -1,4 +1,5 @@
 // apps
+import Composed from './composed';
 import ControlledValue from './controlled-value';
 import DefaultValue from './default-value';
 import LegacyControlled from './legacy-controlled';
@@ -25,6 +26,11 @@ const CONTROLLED_VALUE_PAYLOAD = `?value=${ENCODED_VALUE}`;
 const DEFAULT_VALUE_PAYLOAD = `/value/${ENCODED_VALUE}`;
 
 const EXAMPLES = [
+  {
+    Page: Composed,
+    subpath: 'composed',
+    title: 'Composed',
+  },
   {
     Page: ControlledValue,
     subpath: 'controlled-value',
