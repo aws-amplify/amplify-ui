@@ -30,7 +30,11 @@ export {
   CreateManagedAuthAdapterInput,
   StorageBrowserAuthAdapter,
 } from './adapters';
-export { componentsDefault, StorageBrowserComponents } from './components';
+export {
+  componentsDefault,
+  StorageBrowserComponents,
+  StorageBrowserIconType,
+} from './components';
 export {
   createStorageBrowser,
   CreateStorageBrowserInput,
