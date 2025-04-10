@@ -5,7 +5,10 @@ import '@fontsource/roboto/700.css';
 
 import Button from '@mui/material/Button';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
+import Checkbox from '@mui/material/Checkbox';
 import CssBaseline from '@mui/material/CssBaseline';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormGroup from '@mui/material/FormGroup';
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 
@@ -29,7 +32,7 @@ import {
   // LoadingIndicatorProps,
   // MessageProps,
   // NavigationProps,
-  // OverwriteToggleProps,
+  OverwriteToggleProps,
   // PaginationProps,
   // SearchFieldProps,
   // SearchSubfoldersToggleProps,
@@ -102,8 +105,6 @@ export function ActionStart(props: ActionStartProps) {
 }
 
 export function AddFiles({ label, onAddFiles }: AddFilesProps) {
-  console.log('onAddFiles', onAddFiles);
-
   return <Button onClick={onAddFiles}>{label}</Button>;
 }
 
@@ -112,5 +113,31 @@ export function AddFolder({ label, onAddFolder }: AddFolderProps) {
 }
 
 export function Title({ title }: TitleProps) {
-  return <Typography variant="h5">{title}</Typography>;
+  return (
+    <Typography fontWeight="700" variant="h5">
+      {title}
+    </Typography>
+  );
+}
+
+export function OverwriteToggle({
+  isDisabled,
+  isOverwritingEnabled,
+  label,
+  onToggle,
+}: OverwriteToggleProps) {
+  return (
+    <FormGroup>
+      <FormControlLabel
+        label={label}
+        control={
+          <Checkbox
+            checked={isOverwritingEnabled}
+            disabled={isDisabled}
+            onChange={onToggle}
+          />
+        }
+      />
+    </FormGroup>
+  );
 }

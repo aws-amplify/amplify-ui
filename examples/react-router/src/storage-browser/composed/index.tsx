@@ -50,6 +50,7 @@ function MyUploadView() {
       <UploadView.Exit />
       <UploadView.Start />
       <UploadView.Cancel />
+      <UploadView.OverwriteToggle />
       <ButtonGroup disabled={isProcessing} variant="contained">
         <UploadView.AddFiles />
         <UploadView.AddFolder />
