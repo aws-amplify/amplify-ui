@@ -4,8 +4,8 @@ import { createContextUtilities } from '@aws-amplify/ui-react-core';
 import { ControlsContextProvider } from '../../../controls/context';
 
 import { MessageControl } from '../../../controls/MessageControl';
-import { ViewElement } from '../../../context/elements';
-import { STORAGE_BROWSER_BLOCK } from '../../../constants';
+import { ViewElement } from '../../../components/elements';
+import { STORAGE_BROWSER_BLOCK } from '../../../components';
 import { FolderData } from '../../../actions';
 import { useDisplayText } from '../../../displayText';
 

@@ -22,7 +22,7 @@ exports[`FileControl renders as expected when file is uploading 1`] = `
       />
       <svg
         class="amplify-loader amplify-loader--linear amplify-storagemanager__loader"
-        role="img"
+        role="progressbar"
       >
         <g>
           <line
@@ -201,7 +201,7 @@ exports[`FileControl renders thumbnails 1`] = `
       />
       <svg
         class="amplify-loader amplify-loader--linear amplify-storagemanager__loader"
-        role="img"
+        role="progressbar"
       >
         <g>
           <line
@@ -312,7 +312,7 @@ exports[`FileControl should default to showThumbnails being true 1`] = `
       />
       <svg
         class="amplify-loader amplify-loader--linear amplify-storagemanager__loader"
-        role="img"
+        role="progressbar"
       >
         <g>
           <line

@@ -1,5 +1,20 @@
 # @aws-amplify/ui-react-ai
 
+## 1.4.0
+
+### Minor Changes
+
+- [#6389](https://github.com/aws-amplify/amplify-ui/pull/6389) [`58d7b1ba39b41d59f99328a9c46d92cce840fcdf`](https://github.com/aws-amplify/amplify-ui/commit/58d7b1ba39b41d59f99328a9c46d92cce840fcdf) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - feat(ai): adding document support
+
+  The AIConversation component now accepts documents as attachments. The document file types are the [ones Bedrock supports](https://docs.aws.amazon.com/bedrock/latest/APIReference/API_runtime_DocumentBlock.html). This also fixes a bug where a user can submit empty messages in succession by pressing enter rapidly.
+
+### Patch Changes
+
+- Updated dependencies [[`e4d8cc8c04dd428d38289085a9bf797b87c058a2`](https://github.com/aws-amplify/amplify-ui/commit/e4d8cc8c04dd428d38289085a9bf797b87c058a2), [`e533dbbdade9d5ffdbd5aa7c446d958dd1980d43`](https://github.com/aws-amplify/amplify-ui/commit/e533dbbdade9d5ffdbd5aa7c446d958dd1980d43), [`80a0bd6f5179ff585ecc1fec4e6e3f152669258e`](https://github.com/aws-amplify/amplify-ui/commit/80a0bd6f5179ff585ecc1fec4e6e3f152669258e), [`58d7b1ba39b41d59f99328a9c46d92cce840fcdf`](https://github.com/aws-amplify/amplify-ui/commit/58d7b1ba39b41d59f99328a9c46d92cce840fcdf)]:
+  - @aws-amplify/ui@6.10.1
+  - @aws-amplify/ui-react-core@3.4.1
+  - @aws-amplify/ui-react@6.11.0
+
 ## 1.3.0
 
 ### Minor Changes

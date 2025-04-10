@@ -4,7 +4,7 @@ import { render } from '@testing-library/react';
 import * as ReactCoreModule from '@aws-amplify/ui-react-core';
 
 import { LocationData } from '../../../../actions';
-import * as Config from '../../../../providers/configuration';
+import * as Config from '../../../../configuration';
 import { INITIAL_STATUS_COUNTS } from '../../../../tasks';
 
 import { CopyViewState } from '../types';

@@ -1,5 +1,5 @@
-import { AddFilesProps } from '../../composables/AddFiles';
-import { useControlsContext } from '../../controls/context';
+import { AddFilesProps } from '../../components/composables/AddFiles';
+import { useControlsContext } from '../context';
 
 export const useAddFiles = (): AddFilesProps => {
   const {

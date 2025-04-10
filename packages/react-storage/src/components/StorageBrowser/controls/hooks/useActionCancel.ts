@@ -1,5 +1,5 @@
-import { ActionCancelProps } from '../../composables/ActionCancel';
-import { useControlsContext } from '../../controls/context';
+import { ActionCancelProps } from '../../components/composables/ActionCancel';
+import { useControlsContext } from '../context';
 
 export const useActionCancel = (): ActionCancelProps => {
   const {

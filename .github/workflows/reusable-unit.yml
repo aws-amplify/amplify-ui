@@ -146,6 +146,7 @@ jobs:
       - name: Check ${{ matrix.package }} bundle size
         if: |
           matrix.package == 'react' ||
+          matrix.package == 'react-ai' ||
           matrix.package == 'react-auth' ||
           matrix.package == 'react-geo' ||
           matrix.package == 'react-liveness' ||

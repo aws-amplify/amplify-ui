@@ -41,6 +41,12 @@ export const STORAGE_IMAGE = [
     type: 'string',
   },
   {
+    name: 'loadingElement?',
+    description:
+      'A React element to be loaded when the component is loading the image from Storage.',
+    type: 'string',
+  },
+  {
     name: 'onGetUrlError?',
     description: 'Triggered when an error happens calling Storage.get',
     type: `(error: Error) => void;`,
