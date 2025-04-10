@@ -4,7 +4,11 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
 import Button from '@mui/material/Button';
+import Breadcrumbs from '@mui/material/Breadcrumbs';
 import CssBaseline from '@mui/material/CssBaseline';
+import Link from '@mui/material/Link';
+import Typography from '@mui/material/Typography';
+
 import {
   ThemeProvider as MaterialThemeProvider,
   createTheme,
@@ -12,12 +16,12 @@ import {
 
 import {
   ActionCancelProps,
-  // ActionDestinationProps,
+  ActionDestinationProps,
   ActionExitProps,
   ActionStartProps,
   // ActionsListProps,
-  // AddFilesProps,
-  // AddFolderProps,
+  AddFilesProps,
+  AddFolderProps,
   // DataRefreshProps,
   // DataTableProps,
   // DropZoneProps,
@@ -30,7 +34,7 @@ import {
   // SearchFieldProps,
   // SearchSubfoldersToggleProps,
   // StatusDisplayProps,
-  // TitleProps,
+  TitleProps,
 } from './types';
 
 const theme = createTheme({ colorSchemes: { dark: true } });
@@ -58,6 +62,22 @@ export function ActionCancel(props: ActionCancelProps) {
   );
 }
 
+export function ActionDestination({ items, label }: ActionDestinationProps) {
+  return (
+    <Breadcrumbs aria-label={label}>
+      {items.map(({ isCurrent, name }) => (
+        <Link
+          color={isCurrent ? 'text.primary' : undefined}
+          underline="none"
+          key={name}
+        >
+          {name}&nbsp;/&nbsp;
+        </Link>
+      ))}
+    </Breadcrumbs>
+  );
+}
+
 export function ActionExit(props: ActionExitProps) {
   const { isDisabled, label, onExit } = props;
   return (
@@ -79,4 +99,18 @@ export function ActionStart(props: ActionStartProps) {
       {label}
     </Button>
   );
+}
+
+export function AddFiles({ label, onAddFiles }: AddFilesProps) {
+  console.log('onAddFiles', onAddFiles);
+
+  return <Button onClick={onAddFiles}>{label}</Button>;
+}
+
+export function AddFolder({ label, onAddFolder }: AddFolderProps) {
+  return <Button onClick={onAddFolder}>{label}</Button>;
+}
+
+export function Title({ title }: TitleProps) {
+  return <Typography variant="h5">{title}</Typography>;
 }
