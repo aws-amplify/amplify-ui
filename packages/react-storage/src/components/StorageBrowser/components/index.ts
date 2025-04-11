@@ -14,5 +14,5 @@ export {
   StorageBrowserComponents,
 } from './ComponentsProvider';
 export { componentsDefault } from './defaults';
-export { ViewElement } from './elements';
+export { StorageBrowserIconType, ViewElement } from './elements';
 export { WithKey } from './types';

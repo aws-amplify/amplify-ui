@@ -2,8 +2,8 @@ import { useRouter } from 'next/router';
 
 import { Flex } from '@aws-amplify/ui-react';
 
-import { SignOutButton } from '../../components';
-import { StorageBrowser } from '../../StorageBrowser';
+import { SignOutButton } from '../../../components';
+import { StorageBrowser } from '../../../storage-browser';
 
 import '@aws-amplify/ui-react-storage/styles.css';
 
@@ -42,7 +42,9 @@ export default function Page() {
             if (!location) {
               return;
             }
-            replace({ query: { ...location, path } });
+            replace({
+              query: { ...location, path },
+            });
           }}
           onExit={() => {
             back();

@@ -587,10 +587,9 @@ The `StorageBrowser` can be initialized with a default location using the `defau
 <Example>
   <Tabs.Container defaultValue="react-router">
     <Tabs.List>
-      <Tabs.Item value="react-router">
-      `react-router-dom@7.x`
-      </Tabs.Item>
-      <Tabs.Item value="next-js">`next@14.x`</Tabs.Item>
+      <Tabs.Item value="react-router">`react-router-dom@7.x`</Tabs.Item>
+      <Tabs.Item value="next-app-router">`next@14.x` App Router</Tabs.Item>
+      <Tabs.Item value="next-pages-router">`next@14.x` Pages Router</Tabs.Item>
     </Tabs.List>
     <Tabs.Panel value="react-router">
         <ExampleCode>
@@ -598,14 +597,39 @@ The `StorageBrowser` can be initialized with a default location using the `defau
           ```
         </ExampleCode>
     </Tabs.Panel>
-    <Tabs.Panel value="next-js">
+    <Tabs.Panel value="next-app-router">
         <ExampleCode>
           ```tsx file=../../../../../../../examples/next-app-router/src/app/storage-browser/default-value/page.tsx
           ```
         </ExampleCode>
     </Tabs.Panel>
+    <Tabs.Panel value="next-pages-router">
+        <ExampleCode>
+          ```tsx file=../../../../../../../examples/next/pages/ui/components/storage/storage-browser/managed-auth/default-value/index.page.tsx#L2-
+          ```
+        </ExampleCode>
+    </Tabs.Panel>
   </Tabs.Container>
 </Example>
+
+**Example `defaultValue`**
+
+Assuming an S3 uri of `"s3//:my-bucket/my-prefix/my-nested-prefix/"` where the end user has been granted access to the data within `my-prefix/`, the expected shape of `defaultValue` is:
+
+```tsx
+const defaultValue = {
+  location: {
+    // Folder `bucket` name, required
+    bucket: 'my-bucket',
+    // Folder entry point, required. For root `bucket` access provide an empty string
+    prefix: 'my-prefix/',
+    // Folder end user permissions, required
+    permissions: ['delete', 'get', 'list', 'write'],
+    // Sub-folder path, optional. Initializes the `StorageBrowser` to the nested folder and sets breadcrumb navigation
+    path: 'my-nested-prefix/',
+  },
+};
+```
 
 ## Run `StorageBrowser` in controlled mode
 
@@ -614,10 +638,9 @@ The `StorageBrowser` can be used as a controlled component by providing the `val
 <Example>
   <Tabs.Container defaultValue="react-router">
     <Tabs.List>
-      <Tabs.Item value="react-router">
-      `react-router-dom@7.x`
-      </Tabs.Item>
-      <Tabs.Item value="next-js">`next@14.x`</Tabs.Item>
+      <Tabs.Item value="react-router">`react-router-dom@7.x`</Tabs.Item>
+      <Tabs.Item value="next-app-router">`next@14.x` App Router</Tabs.Item>
+      <Tabs.Item value="next-pages-router">`next@14.x` Pages Router</Tabs.Item>
     </Tabs.List>
     <Tabs.Panel value="react-router">
         <ExampleCode>
@@ -625,9 +648,16 @@ The `StorageBrowser` can be used as a controlled component by providing the `val
           ```
         </ExampleCode>
     </Tabs.Panel>
-    <Tabs.Panel value="next-js">
+    <Tabs.Panel value="next-app-router">
         <ExampleCode>
           ```tsx file=../../../../../../../examples/next-app-router/src/app/storage-browser/controlled-value/page.tsx
+          ```
+        </ExampleCode>
+    </Tabs.Panel>
+    <Tabs.Panel value="next-pages-router">
+        <ExampleCode>
+          {/* same example as app router, but start at line 3 to exclude 'use client' */}
+          ```tsx file=../../../../../../../examples/next-app-router/src/app/storage-browser/controlled-value/page.tsx#L3-
           ```
         </ExampleCode>
     </Tabs.Panel>

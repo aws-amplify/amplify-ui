@@ -1,8 +1,10 @@
-import { Auth } from '../../managedAuthAdapter';
+import { Auth } from '../managedAuthAdapter';
 import {
   createManagedAuthAdapter,
   createStorageBrowser,
 } from '@aws-amplify/ui-react-storage/browser';
+
+import '@aws-amplify/ui-react-storage/styles.css';
 
 export const routedAuth = new Auth({ persistCredentials: true });
 
