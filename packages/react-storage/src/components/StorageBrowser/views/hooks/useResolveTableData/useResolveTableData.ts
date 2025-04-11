@@ -4,11 +4,7 @@ import { DataTableProps } from '../../../components';
 
 import { DataTableResolvers } from './types';
 
-export default function useResolveDataTable<
-  K extends string,
-  TItem = {},
-  TProps = {},
->(
+export default function useResolveTableData<K extends string, TItem, TProps>(
   keys: readonly K[] | K[],
   { getCell, getHeader, getRowKey }: DataTableResolvers<K, TProps, TItem>,
   { items, props }: { items?: TItem[]; props: TProps }

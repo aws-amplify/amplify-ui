@@ -11,7 +11,8 @@
     },
     "./internal": {
       "import": "./dist/esm/internal.mjs",
-      "require": "./dist/internal.js"
+      "require": "./dist/internal.js",
+      "types": "./dist/types/internal.d.ts"
     },
     "./server": {
       "types": "./dist/types/server.d.ts",
