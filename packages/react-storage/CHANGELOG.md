@@ -1,5 +1,14 @@
 # @aws-amplify/ui-react-storage
 
+## 3.10.1
+
+### Patch Changes
+
+- [#6512](https://github.com/aws-amplify/amplify-ui/pull/6512) [`8d3eb0ba28dcab0b627134b465c18ca9ae01c4a1`](https://github.com/aws-amplify/amplify-ui/commit/8d3eb0ba28dcab0b627134b465c18ca9ae01c4a1) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(react): add export.types for internal subpath
+
+- Updated dependencies [[`8d3eb0ba28dcab0b627134b465c18ca9ae01c4a1`](https://github.com/aws-amplify/amplify-ui/commit/8d3eb0ba28dcab0b627134b465c18ca9ae01c4a1)]:
+  - @aws-amplify/ui-react@6.11.1
+
 ## 3.10.0
 
 ### Minor Changes
