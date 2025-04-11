@@ -3,9 +3,9 @@ import { DataState } from '@aws-amplify/ui-react-core';
 
 import {
   ActionHandler,
-  ExtendedActionConfigs,
   CopyHandler,
   CreateFolderHandler,
+  CustomActionConfigs,
   DeleteHandler,
   DownloadHandler,
   ListLocationItemsHandler,
@@ -41,18 +41,14 @@ export interface ActionHandlersProviderProps extends ActionHandlersContext {
   children?: React.ReactNode;
 }
 
-type DerivedCustomActions<T> = T extends { custom?: infer U } ? U : {};
-
 export type ResolveHandlerType<T> = T extends { handler: infer X } | infer X
   ? X
   : never;
 
-export type DerivedActionHandlers<
-  C extends ExtendedActionConfigs = ExtendedActionConfigs,
-  D extends DerivedCustomActions<C> = DerivedCustomActions<C>,
-> = DefaultActionHandlers & {
-  [K in keyof D]: ResolveHandlerType<D[K]>;
-};
+export type DerivedActionHandlers<C extends CustomActionConfigs> =
+  DefaultActionHandlers & {
+    [K in keyof C]: ResolveHandlerType<C[K]>;
+  };
 
 export type InferTask<THandler> = THandler extends ActionHandler<
   infer TData,

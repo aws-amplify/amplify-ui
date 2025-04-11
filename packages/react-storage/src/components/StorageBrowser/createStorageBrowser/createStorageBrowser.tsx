@@ -4,7 +4,6 @@ import { setUserAgent } from '@aws-amplify/ui';
 
 import { VERSION } from '../../../version';
 
-import { ExtendedActionConfigs } from '../actions';
 import { ErrorBoundary as DefaultErrorBoundary } from '../ErrorBoundary';
 import { useAction } from '../useAction';
 import { assertRegisterAuthListener } from '../validators';
@@ -44,10 +43,8 @@ const UA_CONFIG = {
  */
 export default function createStorageBrowser<
   Input extends CreateStorageBrowserInput,
-  RInput extends ExtendedActionConfigs & {
-    custom?: Input['actions'] extends {} ? Input['actions']['custom'] : {};
-  }
->(input: Input): CreateStorageBrowserOutput<RInput> {
+  Actions extends NonNullable<Input['actions']>,
+>(input: Input): CreateStorageBrowserOutput<Actions> {
   assertRegisterAuthListener(input.config.registerAuthListener);
 
   setUserAgent(UA_CONFIG);
@@ -64,8 +61,8 @@ export default function createStorageBrowser<
       : input.ErrorBoundary ?? DefaultErrorBoundary;
 
   const StorageBrowser: StorageBrowserType<
-    DerivedActionViewType<RInput>,
-    DerivedActionViews<RInput>
+    DerivedActionViewType<Actions>,
+    DerivedActionViews<Actions>
   > = (props) => (
     <ErrorBoundary>
       <Provider {...props}>
@@ -75,7 +72,9 @@ export default function createStorageBrowser<
   );
 
   StorageBrowser.LocationActionView =
-    LocationActionView as LocationActionViewType<DerivedActionViewType<RInput>>;
+    LocationActionView as LocationActionViewType<
+      DerivedActionViewType<Actions>
+    >;
   StorageBrowser.LocationDetailView = LocationDetailView;
   StorageBrowser.LocationsView = LocationsView;
 

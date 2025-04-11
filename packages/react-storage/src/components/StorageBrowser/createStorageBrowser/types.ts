@@ -3,7 +3,6 @@ import React from 'react';
 import {
   CustomActionConfigs,
   DefaultActionConfigs,
-  ExtendedActionConfigs,
   ListLocations,
   LocationData,
 } from '../actions';
@@ -267,7 +266,7 @@ export interface StorageBrowserType<K = string, V = {}> {
   UploadView: UploadViewType;
 }
 
-type DefaultActionType<T = string> = Exclude<T, keyof DefaultActionConfigs>;
+type NonDefaultActionType<T = string> = Exclude<T, keyof DefaultActionConfigs>;
 
 /**
  * @internal
@@ -275,7 +274,7 @@ type DefaultActionType<T = string> = Exclude<T, keyof DefaultActionConfigs>;
  * @description utility type resolving available custom action view component slots
  */
 export type DerivedActionViews<T extends StorageBrowserActions> = {
-  [K in keyof T['custom'] as K extends DefaultActionType<K>
+  [K in keyof T['custom'] as K extends NonDefaultActionType<K>
     ? T['custom'][K] extends { viewName: `${string}View` }
       ? T['custom'][K]['viewName']
       : never
@@ -294,7 +293,7 @@ type DefaultActionWithoutViewType = 'download';
  */
 export type DerivedActionViewType<T extends StorageBrowserActions> =
   | keyof {
-      [K in keyof T['custom'] as K extends DefaultActionType<K>
+      [K in keyof T['custom'] as K extends NonDefaultActionType<K>
         ? T['custom'][K] extends { viewName: `${string}View` }
           ? K
           : never
@@ -305,9 +304,7 @@ export type DerivedActionViewType<T extends StorageBrowserActions> =
 /**
  * @description return values of `createStorageBrowser`
  */
-export interface CreateStorageBrowserOutput<
-  C extends ExtendedActionConfigs = ExtendedActionConfigs,
-> {
+export interface CreateStorageBrowserOutput<C extends StorageBrowserActions> {
   /**
    * @description `StorageBrowser` component and subcomponents
    */
@@ -319,7 +316,7 @@ export interface CreateStorageBrowserOutput<
   /**
    * @description action handler utility hook
    */
-  useAction: UseAction<DerivedActionHandlers<C>>;
+  useAction: UseAction<DerivedActionHandlers<NonNullable<C['custom']>>>;
 
   /**
    * @description view state utility hook
