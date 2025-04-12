@@ -303,3 +303,19 @@ export const cloneDeep = (obj: unknown) => {
     );
   }
 };
+
+export const dedup = <InputType, OutputType>(
+  fn: (a: InputType) => Promise<OutputType>
+) => {
+  const initSymbol = Symbol.for('init');
+  let promise: Promise<OutputType> | Symbol = initSymbol;
+  return (input: InputType) => {
+    if (promise !== initSymbol) {
+      return promise as Promise<OutputType>;
+    }
+    promise = fn(input);
+    return promise.finally(() => {
+      promise = initSymbol;
+    });
+  };
+};

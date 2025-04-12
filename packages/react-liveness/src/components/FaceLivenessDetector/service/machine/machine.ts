@@ -1,3 +1,4 @@
+import { dedup } from '@aws-amplify/ui';
 import {
   ClientSessionInformationEvent,
   LivenessResponseStream,
@@ -208,6 +209,18 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       },
     },
     states: {
+      // preCameraCheck: {
+      //   always: [
+      //     // {
+      //     //   target: 'waitForDOMAndCameraDetails',
+      //     //   actions: 'updateVideoMediaStream',
+      //     //   cond: 'hasVideoStreamAcquired',
+      //     // },
+      //     {
+      //       target: 'cameraCheck',
+      //     },
+      //   ],
+      // },
       cameraCheck: {
         entry: 'resetErrorState',
         invoke: {
@@ -874,9 +887,9 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         videoEl!.pause();
       },
       resetContext: assign({
-        challengeId: nanoid(),
-        maxFailedAttempts: 0, // Set to 0 for now as we are not allowing front end based retries for streaming
-        failedAttempts: 0,
+        challengeId: (_) => nanoid(),
+        maxFailedAttempts: (_) => 0, // Set to 0 for now as we are not allowing front end based retries for streaming
+        failedAttempts: (_) => 0,
         componentProps: (context) => context.componentProps,
         serverSessionInformation: (_) => undefined,
         videoAssociatedParams: (_) => {
@@ -888,10 +901,10 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         errorState: (_) => undefined,
         livenessStreamProvider: (_) => undefined,
         responseStreamActorRef: (_) => undefined,
-        shouldDisconnect: false,
+        shouldDisconnect: (_) => false,
         faceMatchStateBeforeStart: (_) => undefined,
         isFaceFarEnoughBeforeRecording: (_) => undefined,
-        isRecordingStopped: false,
+        isRecordingStopped: (_) => false,
       }),
     },
     guards: {
@@ -927,6 +940,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       },
       hasDOMAndCameraDetails: (context) => {
         return (
+          context.videoAssociatedParams!.videoMediaStream !== undefined &&
           context.videoAssociatedParams!.videoEl !== undefined &&
           context.videoAssociatedParams!.canvasEl !== undefined &&
           context.freshnessColorAssociatedParams!.freshnessColorEl !== undefined
@@ -946,68 +960,70 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       },
     },
     services: {
-      async checkVirtualCameraAndGetStream(context) {
-        const { videoConstraints } = context.videoAssociatedParams!;
+      checkVirtualCameraAndGetStream: dedup(
+        async function _checkVirtualCameraAndGetStream(context) {
+          const { videoConstraints } = context.videoAssociatedParams!;
 
-        // Get initial stream to enumerate devices with non-empty labels
-        const existingDeviceId = getLastSelectedCameraId();
-        const initialStream = await navigator.mediaDevices.getUserMedia({
-          video: {
-            ...videoConstraints,
-            ...(existingDeviceId ? { deviceId: existingDeviceId } : {}),
-          },
-          audio: false,
-        });
-        const devices = await navigator.mediaDevices.enumerateDevices();
-        const realVideoDevices = devices
-          .filter((device) => device.kind === 'videoinput')
-          .filter((device) => !isCameraDeviceVirtual(device));
+          const devices = await navigator.mediaDevices.enumerateDevices();
+          const realVideoDevices = devices
+            .filter((device) => device.kind === 'videoinput')
+            .filter((device) => !isCameraDeviceVirtual(device));
 
-        if (!realVideoDevices.length) {
-          throw new Error('No real video devices found');
-        }
+          if (!realVideoDevices.length) {
+            throw new Error('No real video devices found');
+          }
 
-        // Ensure that at least one of the cameras is capable of at least 15 fps
-        const tracksWithMoreThan15Fps = initialStream
-          .getTracks()
-          .filter((track) => {
-            const settings = track.getSettings();
-            return settings.frameRate! >= 15;
-          });
-
-        if (tracksWithMoreThan15Fps.length < 1) {
-          throw new Error('No camera found with more than 15 fps');
-        }
-
-        // If the initial stream is of real camera, use it otherwise use the first real camera
-        const initialStreamDeviceId =
-          tracksWithMoreThan15Fps[0].getSettings().deviceId;
-        const isInitialStreamFromRealDevice = realVideoDevices.some(
-          (device) => device.deviceId === initialStreamDeviceId
-        );
-
-        const deviceId = isInitialStreamFromRealDevice
-          ? initialStreamDeviceId
-          : realVideoDevices[0].deviceId;
-
-        let realVideoDeviceStream = initialStream;
-        if (!isInitialStreamFromRealDevice) {
-          realVideoDeviceStream = await navigator.mediaDevices.getUserMedia({
+          const existingDeviceId = getLastSelectedCameraId();
+          const initialStream = await navigator.mediaDevices.getUserMedia({
             video: {
               ...videoConstraints,
-              deviceId: { exact: deviceId },
+              ...(existingDeviceId ? { deviceId: existingDeviceId } : {}),
             },
             audio: false,
           });
-        }
-        setLastSelectedCameraId(deviceId!);
 
-        return {
-          stream: realVideoDeviceStream,
-          selectedDeviceId: initialStreamDeviceId,
-          selectableDevices: realVideoDevices,
-        };
-      },
+          // Ensure that at least one of the cameras is capable of at least 15 fps
+          const tracksWithMoreThan15Fps = initialStream
+            .getTracks()
+            .filter((track) => {
+              const settings = track.getSettings();
+              return settings.frameRate! >= 15;
+            });
+
+          if (tracksWithMoreThan15Fps.length < 1) {
+            throw new Error('No camera found with more than 15 fps');
+          }
+
+          // If the initial stream is of real camera, use it otherwise use the first real camera
+          const initialStreamDeviceId =
+            tracksWithMoreThan15Fps[0].getSettings().deviceId;
+          const isInitialStreamFromRealDevice = realVideoDevices.some(
+            (device) => device.deviceId === initialStreamDeviceId
+          );
+
+          const deviceId = isInitialStreamFromRealDevice
+            ? initialStreamDeviceId
+            : realVideoDevices[0].deviceId;
+
+          let realVideoDeviceStream = initialStream;
+          if (!isInitialStreamFromRealDevice) {
+            realVideoDeviceStream = await navigator.mediaDevices.getUserMedia({
+              video: {
+                ...videoConstraints,
+                deviceId: { exact: deviceId },
+              },
+              audio: false,
+            });
+          }
+          setLastSelectedCameraId(deviceId!);
+
+          return {
+            stream: realVideoDeviceStream,
+            selectedDeviceId: initialStreamDeviceId,
+            selectableDevices: realVideoDevices,
+          };
+        }
+      ),
       // eslint-disable-next-line @typescript-eslint/require-await
       async openLivenessStreamConnection(context) {
         const { config } = context.componentProps!;

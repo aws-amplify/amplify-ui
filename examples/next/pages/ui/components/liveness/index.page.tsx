@@ -6,6 +6,7 @@ import awsExports from '@environments/liveness/liveness-environment/src/aws-expo
 
 import LivenessDefault from './components/LivenessDefault';
 import Layout from './components/Layout';
+import { View } from '@aws-amplify/ui-react';
 
 Amplify.configure({
   ...awsExports,
@@ -13,9 +14,19 @@ Amplify.configure({
 });
 
 const App = () => {
+  const [enabled, setEnabled] = React.useState(false);
   return (
     <Layout>
-      <LivenessDefault />
+      <View display={'flex'} style={{ justifyContent: 'center' }}>
+        <button
+          onClick={() => setEnabled(!enabled)}
+          style={{ width: 'auto', margin: '20px' }}
+        >
+          {enabled ? 'Disable' : 'Enable'} Liveness Detector
+        </button>
+      </View>
+
+      {enabled && <LivenessDefault />}
     </Layout>
   );
 };
