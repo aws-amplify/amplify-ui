@@ -1,5 +1,6 @@
 import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
+import { expectTypeTestsToPassAsync } from 'jest-tsd';
 
 import * as UIModule from '@aws-amplify/ui';
 import * as ProvidersModule from '../../configuration';
@@ -40,6 +41,10 @@ describe('createStorageBrowser', () => {
     Object.defineProperty(globalThis, 'crypto', {
       value: { randomUUID: () => ++id },
     });
+  });
+
+  it('should not produce static type errors', async () => {
+    await expectTypeTestsToPassAsync(__filename);
   });
 
   it('throws when registerAuthListener is not a function', () => {
