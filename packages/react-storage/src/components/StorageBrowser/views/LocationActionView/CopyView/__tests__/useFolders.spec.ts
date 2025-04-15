@@ -48,7 +48,7 @@ describe('useFolders', () => {
   beforeEach(() => {
     mockUseList.mockReturnValue([
       {
-        data: { items: mockItems, nextToken: 'token' },
+        value: { items: mockItems, nextToken: 'token' },
         hasError: false,
         isLoading: false,
         message: undefined,
@@ -176,7 +176,7 @@ describe('useFolders', () => {
     const nextToken = 'token';
     mockUseList.mockReturnValue([
       {
-        data: { items: mockItems, nextToken },
+        value: { items: mockItems, nextToken },
         hasError: false,
         isLoading: false,
         message: undefined,
@@ -219,7 +219,7 @@ describe('useFolders', () => {
   it('does not call `handleList` from `onPaginate` when `nextToken` is `undefined', () => {
     mockUseList.mockReturnValue([
       {
-        data: { items: mockItems, nextToken: undefined },
+        value: { items: mockItems, nextToken: undefined },
         hasError: false,
         isLoading: false,
         message: undefined,
