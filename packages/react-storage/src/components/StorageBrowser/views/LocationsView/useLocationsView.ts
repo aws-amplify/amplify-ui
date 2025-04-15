@@ -28,8 +28,8 @@ export const useLocationsView = (
   const [state, handleList] = useList('locations');
   const dispatchStoreAction = useStore()[1];
 
-  const { data, message, hasError, isLoading } = state;
-  const { items, nextToken, search } = data;
+  const { value, message, hasError, isLoading } = state;
+  const { items, nextToken, search } = value;
   const hasNextToken = !!nextToken;
   const { hasExhaustedSearch = false } = search ?? {};
 

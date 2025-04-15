@@ -51,7 +51,7 @@ const fileDataTwo: FileDataItem = {
 
 // fake date for mock data below
 jest.useFakeTimers({ now: Date.UTC(2024, 0, 1) });
-const testData: LocationItemData[] = [
+const mockItems: LocationItemData[] = [
   folderDataOne,
   fileDataOne,
   fileDataTwo,
@@ -97,8 +97,8 @@ const mockLocationItemsState = { fileDataItems: undefined };
 const mockStoreState = { location: testLocation, actionType: undefined };
 
 const mockLocation = { current: undefined, path: '', key: '' };
-const mockDataState = {
-  data: { items: testData, nextToken: undefined },
+const mockListState = {
+  value: { items: mockItems, nextToken: undefined },
   message: '',
   hasError: false,
   isLoading: false,
@@ -131,7 +131,7 @@ describe('useLocationDetailView', () => {
       mockLocationItemsState,
       mockLocationItemsDispatch,
     ]);
-    mockUseList.mockReturnValue([mockDataState, mockHandleList]);
+    mockUseList.mockReturnValue([mockListState, mockHandleList]);
   });
 
   afterEach(jest.clearAllMocks);
@@ -177,7 +177,7 @@ describe('useLocationDetailView', () => {
     // set up empty page
     mockUseList.mockReturnValue([
       {
-        data: { items: [], nextToken: undefined },
+        value: { items: [], nextToken: undefined },
         message: '',
         hasError: false,
         isLoading: false,
@@ -193,9 +193,9 @@ describe('useLocationDetailView', () => {
     expect(result.current.pageItems).toEqual([]);
 
     // set up first page mock
-    const mockDataState = {
-      data: {
-        items: testData.slice(0, EXPECTED_PAGE_SIZE),
+    const mockListState = {
+      value: {
+        items: mockItems.slice(0, EXPECTED_PAGE_SIZE),
         nextToken: 'token123',
       },
       message: '',
@@ -203,14 +203,14 @@ describe('useLocationDetailView', () => {
       isLoading: false,
     };
 
-    mockUseList.mockReturnValue([mockDataState, mockHandleList]);
+    mockUseList.mockReturnValue([mockListState, mockHandleList]);
 
     rerender(initialValues);
 
     // set up second page mock
     mockUseList.mockReturnValue([
       {
-        data: { items: testData, nextToken: undefined },
+        value: { items: mockItems, nextToken: undefined },
         message: '',
         hasError: false,
         isLoading: false,
@@ -225,7 +225,7 @@ describe('useLocationDetailView', () => {
 
     // check if data is correct
     expect(result.current.page).toEqual(2);
-    expect(result.current.pageItems).toEqual(testData.slice(3));
+    expect(result.current.pageItems).toEqual(mockItems.slice(3));
 
     // go previous
     act(() => {
@@ -234,18 +234,18 @@ describe('useLocationDetailView', () => {
 
     // check data
     expect(result.current.page).toEqual(1);
-    expect(result.current.pageItems).toEqual(testData.slice(0, 3));
+    expect(result.current.pageItems).toEqual(mockItems.slice(0, 3));
   });
 
   it('should handle refreshing location data', () => {
-    const mockDataState = {
-      data: { items: [], nextToken: 'token123' },
+    const mockListState = {
+      value: { items: [], nextToken: 'token123' },
       message: '',
       hasError: false,
       isLoading: false,
     };
     const mockHandleList = jest.fn();
-    mockUseList.mockReturnValue([mockDataState, mockHandleList]);
+    mockUseList.mockReturnValue([mockListState, mockHandleList]);
 
     const { result } = renderHook(() => useLocationDetailView());
 
@@ -275,15 +275,15 @@ describe('useLocationDetailView', () => {
       mockStoreDispatch,
     ]);
 
-    const mockDataState = {
-      data: { items: [], nextToken: undefined },
+    const mockListState = {
+      value: { items: [], nextToken: undefined },
       message: '',
       hasError: false,
       isLoading: false,
     };
 
     const mockHandleList = jest.fn();
-    mockUseList.mockReturnValue([mockDataState, mockHandleList]);
+    mockUseList.mockReturnValue([mockListState, mockHandleList]);
 
     const { result } = renderHook(() => useLocationDetailView());
 
@@ -387,7 +387,7 @@ describe('useLocationDetailView', () => {
     ]);
 
     const mockDataState = {
-      data: {
+      value: {
         items: [folderDataOne, fileDataOne, fileDataTwo],
         nextToken: undefined,
       },
@@ -411,7 +411,7 @@ describe('useLocationDetailView', () => {
 
   it('should set all file items as unselected', () => {
     const mockDataState = {
-      data: {
+      value: {
         items: [folderDataOne, fileDataOne, fileDataTwo],
         nextToken: undefined,
       },
@@ -527,7 +527,7 @@ describe('useLocationDetailView', () => {
   it('should handle search', () => {
     mockUseStore.mockReturnValue([mockStoreState, mockStoreDispatch]);
     const mockDataState = {
-      data: { items: [], nextToken: undefined },
+      value: { items: [], nextToken: undefined },
       message: '',
       hasError: false,
       isLoading: false,
@@ -574,7 +574,7 @@ describe('useLocationDetailView', () => {
   it('should handle search with subfolders', () => {
     mockUseStore.mockReturnValue([mockStoreState, mockStoreDispatch]);
     const mockDataState = {
-      data: { items: [], nextToken: undefined },
+      value: { items: [], nextToken: undefined },
       message: '',
       hasError: false,
       isLoading: false,

@@ -1,13 +1,12 @@
 import { act, renderHook, waitFor } from '@testing-library/react';
 
-import useDataState from '../useDataState';
+import useAsyncReducer from '../useAsyncReducer';
 
-const asyncAction = jest.fn((_prev: string, next: string) =>
+const asyncReducer = jest.fn((_prev: string, next: string) =>
   Promise.resolve(next)
 );
-const syncAction = jest.fn((_prev: string, next: string) => next);
 
-const sleepyAction = jest.fn(
+const sleepyReducer = jest.fn(
   (
     _: string,
     { timeout, fail }: { fail?: boolean; timeout: number }
@@ -24,15 +23,14 @@ const sleepyAction = jest.fn(
 );
 
 const error = new Error('Unhappy!');
-const errorMessage = error.message;
-const unhappyAction = jest.fn((_, isUnhappy: boolean) =>
-  isUnhappy ? Promise.reject(new Error(errorMessage)) : Promise.resolve()
+const unhappyReducer = jest.fn((_, isUnhappy: boolean) =>
+  isUnhappy ? Promise.reject(error) : Promise.resolve()
 );
 
-const initData = 'initial-data';
+const initValue = 'initial-data';
 const nextData = 'next-data';
 
-describe('useDataState', () => {
+describe('useAsyncReducer', () => {
   beforeAll(() => {
     let id = 0;
     Object.defineProperty(globalThis, 'crypto', {
@@ -44,59 +42,55 @@ describe('useDataState', () => {
     jest.clearAllMocks();
   });
 
-  it.each([
-    { type: 'async', action: asyncAction },
-    { type: 'sync', action: syncAction },
-  ])(
-    'handles a $type action as expected in the happy path',
-    async ({ action }) => {
-      const { result } = renderHook(() => useDataState(action, initData));
+  it('handles an async reducer as expected', async () => {
+    const { result } = renderHook(() =>
+      useAsyncReducer(asyncReducer, initValue)
+    );
 
-      // first render
-      const [initState, handleAction] = result.current;
+    // first render
+    const [initState, handleAction] = result.current;
 
-      expect(action).not.toHaveBeenCalled();
+    expect(asyncReducer).not.toHaveBeenCalled();
 
-      expect(initState.data).toBe(initData);
-      expect(initState.hasError).toBe(false);
-      expect(initState.isLoading).toBe(false);
-      expect(initState.message).toBeUndefined();
+    expect(initState.value).toBe(initValue);
+    expect(initState.hasError).toBe(false);
+    expect(initState.isLoading).toBe(false);
+    expect(initState.message).toBeUndefined();
 
-      // call action
-      act(() => {
-        handleAction(nextData);
-      });
+    // call action
+    act(() => {
+      handleAction(nextData);
+    });
 
-      // loading result
-      const [loadingState] = result.current;
+    // loading result
+    const [loadingState] = result.current;
 
-      expect(action).toHaveBeenCalledTimes(1);
-      expect(action).toHaveBeenCalledWith(initData, nextData);
+    expect(asyncReducer).toHaveBeenCalledTimes(1);
+    expect(asyncReducer).toHaveBeenCalledWith(initValue, nextData);
 
-      expect(loadingState.data).toBe(initData);
-      expect(loadingState.hasError).toBe(false);
-      expect(loadingState.isLoading).toBe(true);
-      expect(loadingState.message).toBeUndefined();
+    expect(loadingState.value).toBe(initValue);
+    expect(loadingState.hasError).toBe(false);
+    expect(loadingState.isLoading).toBe(true);
+    expect(loadingState.message).toBeUndefined();
 
-      await waitFor(() => {
-        // action complete
-        const [nextState] = result.current;
+    await waitFor(() => {
+      // action complete
+      const [nextState] = result.current;
 
-        expect(action).toHaveBeenCalledTimes(1);
-        expect(action).toHaveBeenCalledWith(initData, nextData);
+      expect(asyncReducer).toHaveBeenCalledTimes(1);
+      expect(asyncReducer).toHaveBeenCalledWith(initValue, nextData);
 
-        expect(nextState.data).toBe(nextData);
-        expect(nextState.hasError).toBe(false);
-        expect(nextState.isLoading).toBe(false);
-        expect(nextState.message).toBeUndefined();
-      });
-    }
-  );
+      expect(nextState.value).toBe(nextData);
+      expect(nextState.hasError).toBe(false);
+      expect(nextState.isLoading).toBe(false);
+      expect(nextState.message).toBeUndefined();
+    });
+  });
 
   it('calls `onSuccess` callback as expected', async () => {
     const onSuccess = jest.fn();
     const { result } = renderHook(() =>
-      useDataState(asyncAction, initData, { onSuccess })
+      useAsyncReducer(asyncReducer, initValue, { onSuccess })
     );
 
     // first render
@@ -108,8 +102,8 @@ describe('useDataState', () => {
     });
 
     await waitFor(() => {
-      expect(asyncAction).toHaveBeenCalledTimes(1);
-      expect(asyncAction).toHaveBeenCalledWith(initData, nextData);
+      expect(asyncReducer).toHaveBeenCalledTimes(1);
+      expect(asyncReducer).toHaveBeenCalledWith(initValue, nextData);
     });
 
     expect(onSuccess).toHaveBeenCalledTimes(1);
@@ -119,7 +113,7 @@ describe('useDataState', () => {
   it('calls `onError` callback as expected', async () => {
     const onError = jest.fn();
     const { result } = renderHook(() =>
-      useDataState(unhappyAction, undefined, { onError })
+      useAsyncReducer(unhappyReducer, undefined, { onError })
     );
 
     const [_, handleAction] = result.current;
@@ -133,7 +127,7 @@ describe('useDataState', () => {
 
       expect(errorState.hasError).toBe(true);
       expect(errorState.isLoading).toBe(false);
-      expect(errorState.message).toBe(errorMessage);
+      expect(errorState.message).toBe(error.message);
     });
 
     expect(onError).toHaveBeenCalledTimes(1);
@@ -141,11 +135,13 @@ describe('useDataState', () => {
   });
 
   it('handles an error and resets error state on the next call to handleAction', async () => {
-    const { result } = renderHook(() => useDataState(unhappyAction, undefined));
+    const { result } = renderHook(() =>
+      useAsyncReducer(unhappyReducer, undefined)
+    );
 
     const [initialState, handleAction] = result.current;
 
-    expect(unhappyAction).not.toHaveBeenCalled();
+    expect(unhappyReducer).not.toHaveBeenCalled();
 
     expect(initialState.hasError).toBe(false);
     expect(initialState.isLoading).toBe(false);
@@ -166,7 +162,7 @@ describe('useDataState', () => {
 
       expect(errorState.hasError).toBe(true);
       expect(errorState.isLoading).toBe(false);
-      expect(errorState.message).toBe(errorMessage);
+      expect(errorState.message).toBe(error.message);
     });
 
     act(() => {
@@ -191,7 +187,7 @@ describe('useDataState', () => {
     const expectedResult = timeoutTwo.toString();
 
     const { result } = renderHook(() =>
-      useDataState(sleepyAction, defaultValue)
+      useAsyncReducer(sleepyReducer, defaultValue)
     );
 
     const [initState, dispatch] = result.current;
@@ -200,15 +196,15 @@ describe('useDataState', () => {
       dispatch({ timeout: timeoutOne });
     });
 
-    expect(initState.data).toBe(defaultValue);
+    expect(initState.value).toBe(defaultValue);
 
-    expect(sleepyAction).toHaveBeenCalledTimes(1);
+    expect(sleepyReducer).toHaveBeenCalledTimes(1);
 
     act(() => {
       dispatch({ timeout: timeoutTwo });
     });
 
-    expect(sleepyAction).toHaveBeenCalledTimes(2);
+    expect(sleepyReducer).toHaveBeenCalledTimes(2);
 
     jest.runAllTimers();
 
@@ -216,9 +212,9 @@ describe('useDataState', () => {
       const [resolvedState] = result.current;
 
       // assert both calls have completed
-      expect(sleepyAction.mock.results.length).toBe(2);
+      expect(sleepyReducer.mock.results.length).toBe(2);
 
-      expect(resolvedState.data).toBe(expectedResult);
+      expect(resolvedState.value).toBe(expectedResult);
       expect(resolvedState.isLoading).toBe(false);
       expect(resolvedState.hasError).toBe(false);
     });
@@ -233,7 +229,7 @@ describe('useDataState', () => {
     const expectedResult = timeoutTwo.toString();
 
     const { result } = renderHook(() =>
-      useDataState(sleepyAction, defaultValue)
+      useAsyncReducer(sleepyReducer, defaultValue)
     );
 
     const [initState, dispatch] = result.current;
@@ -242,9 +238,9 @@ describe('useDataState', () => {
       dispatch({ timeout: timeoutOne, fail: true });
     });
 
-    expect(initState.data).toBe(defaultValue);
+    expect(initState.value).toBe(defaultValue);
 
-    expect(sleepyAction).toHaveBeenCalledTimes(1);
+    expect(sleepyReducer).toHaveBeenCalledTimes(1);
 
     act(() => {
       dispatch({ timeout: timeoutTwo, fail: true });
@@ -256,9 +252,9 @@ describe('useDataState', () => {
       const [resolvedState] = result.current;
 
       // assert both calls have completed
-      expect(sleepyAction.mock.results.length).toBe(2);
+      expect(sleepyReducer.mock.results.length).toBe(2);
 
-      expect(resolvedState.data).toBe(defaultValue);
+      expect(resolvedState.value).toBe(defaultValue);
       expect(resolvedState.message).toBe(expectedResult);
       expect(resolvedState.hasError).toBe(true);
       expect(resolvedState.isLoading).toBe(false);
