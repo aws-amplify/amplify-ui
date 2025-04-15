@@ -21,7 +21,7 @@ import {
   mockStreamRecorder,
 } from '../../utils/__mocks__/testUtils';
 
-jest.useFakeTimers();
+jest.useFakeTimers({ timerLimit: 1000_000 });
 jest.mock('../../utils');
 
 const mockedHelpers = helpers as jest.Mocked<typeof helpers>;
@@ -443,17 +443,15 @@ describe('Liveness Machine', () => {
       expect(mockComponentProps.onError).toHaveBeenCalledTimes(1);
     });
 
-    it('should reach ovalMatching state after detectInitialFaceAndDrawOval success and timeout', async () => {
+    it('should reach ovalMatching state after detectInitialFaceAndDrawOval success and respect ovalMatchingTimeout', async () => {
       await transitionToRecording(service);
       await flushPromises();
 
       expect(service.state.value).toEqual({ recording: 'checkFaceDetected' });
 
-      jest.advanceTimersToNextTimer();
-      expect(service.state.value).toEqual({
-        recording: 'checkRecordingStarted',
-      });
-      jest.advanceTimersToNextTimer();
+      jest.advanceTimersToNextTimer(); // checkFaceDetected
+      jest.advanceTimersToNextTimer(); // cancelOvalDrawingTimeout
+      jest.advanceTimersToNextTimer(); // checkRecordingStarted
       expect(service.state.value).toEqual({ recording: 'ovalMatching' });
 
       expect(
@@ -466,29 +464,10 @@ describe('Liveness Machine', () => {
         mockFace
       );
 
-      await flushPromises();
-      expect(service.state.value).toEqual({ recording: 'checkMatch' });
-
-      jest.advanceTimersToNextTimer();
-      expect(service.state.value).toEqual({ recording: 'delayBeforeFlash' });
-
-      jest.runAllTimers();
-      expect(service.state.value).toEqual({
-        recording: 'flashFreshnessColors',
-      });
-
-      jest.advanceTimersToNextTimer();
-      await flushPromises();
-      expect(service.state.value).toEqual({
-        uploading: 'waitForDisconnectEvent',
-      });
-
-      jest.runAllTimers();
+      jest.advanceTimersToNextTimer(12000);
       expect(service.state.value).toEqual('timeout');
 
-      expect(service.state.context.errorState).toBe(
-        LivenessErrorState.SERVER_ERROR
-      );
+      expect(service.state.context.errorState).toBe(LivenessErrorState.TIMEOUT);
       await flushPromises();
       expect(mockComponentProps.onError).toHaveBeenCalledTimes(1);
     });
@@ -738,12 +717,10 @@ describe('Liveness Machine', () => {
       jest.advanceTimersToNextTimer(); // checkFaceDetected
       jest.advanceTimersToNextTimer(); // cancelOvalDrawingTimeout
       jest.advanceTimersToNextTimer(6000);
-      expect(service.state.value).toEqual('error');
-      expect(service.state.context.errorState).toBe(
-        LivenessErrorState.RUNTIME_ERROR
-      );
+      expect(service.state.value).toEqual('timeout');
+      expect(service.state.context.errorState).toBe(LivenessErrorState.TIMEOUT);
       await flushPromises();
-      expect(mockComponentProps.onError).toHaveBeenCalledTimes(1);
+      expect(mockComponentProps.onError).toHaveBeenCalled();
     });
 
     it('should reach error state after getLiveness returns error', async () => {

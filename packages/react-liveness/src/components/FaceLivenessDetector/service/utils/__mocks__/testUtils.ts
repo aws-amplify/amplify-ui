@@ -210,6 +210,7 @@ export const getMockContext = (): LivenessContext => ({
   },
   colorSequenceDisplay: { startSequences: jest.fn() } as any,
   errorState: undefined,
+  errorMessage: undefined,
   livenessStreamProvider: mockStreamRecorder,
   serverSessionInformation: mockSessionInformation,
   responseStreamActorRef: mockResponseStreamActorRef,
