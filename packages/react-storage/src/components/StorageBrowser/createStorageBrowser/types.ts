@@ -143,7 +143,10 @@ export interface CreateStorageBrowserInput {
 /**
  * `StorageBrowser` component properties
  */
-export interface StorageBrowserProps<K = string, V = {}> {
+export interface StorageBrowserProps<
+  LocationActionNameType = string,
+  CustomActionViews = {},
+> {
   /**
    * @description provide to initialize the `StorageBrowser` with a default location, `actionType` or pagination values as an uncontrolled component
    */
@@ -184,13 +187,13 @@ export interface StorageBrowserProps<K = string, V = {}> {
   /**
    * @description accepts default top level `views` overrides and custom `views` defined by the `actions` parameter of `createStorageBrowser`
    */
-  views?: StorageBrowserViews<K, V>;
+  views?: StorageBrowserViews<LocationActionNameType, CustomActionViews>;
 }
 
 /**
  * @description `StorageBrowser.Provider` component properties
  */
-export interface StorageBrowserProviderProps<V = {}>
+export interface StorageBrowserProviderProps<CustomActionViews = {}>
   extends StoreProviderProps,
     Pick<
       StorageBrowserProps,
@@ -200,7 +203,7 @@ export interface StorageBrowserProviderProps<V = {}>
   /**
    * @description accepts custom action views rendered by `LocationActionView`
    */
-  views?: V;
+  views?: CustomActionViews;
 
   /**
    * @deprecated will be removed in a future major verison. Prefer `value` for controlled behavior or `defaultValue` for initializng `actionType`
@@ -224,8 +227,13 @@ export interface StorageBrowserProviderProps<V = {}>
 /**
  * @description `StorageBrowser` component, provider and view components
  */
-export interface StorageBrowserType<K = string, V = {}> {
-  (props: StorageBrowserProps<K, V>): React.JSX.Element;
+export interface StorageBrowserType<
+  LocationActionNameType = string,
+  CustomActionView = {},
+> {
+  (
+    props: StorageBrowserProps<LocationActionNameType, CustomActionView>
+  ): React.JSX.Element;
   displayName: string;
   /**
    * @description `StorageBrowser` React.Context provider. Composed `StorageBrowser` components must be a descendant of a `Provider` element
@@ -236,7 +244,9 @@ export interface StorageBrowserType<K = string, V = {}> {
    * </StorageBrowser.Provider>
    * ```
    */
-  Provider: (props: StorageBrowserProviderProps<V>) => React.JSX.Element;
+  Provider: (
+    props: StorageBrowserProviderProps<CustomActionView>
+  ) => React.JSX.Element;
 
   /**
    * @description utility view aggregating all action views. Can be used to render a standalone action view
@@ -245,7 +255,7 @@ export interface StorageBrowserType<K = string, V = {}> {
    * <StorageBrowser.LocationActionView type="copy" />
    * ```
    */
-  LocationActionView: LocationActionViewType<K>;
+  LocationActionView: LocationActionViewType<LocationActionNameType>;
 
   /**
    * @description displays data related to the selected or provided `location` and action selection
@@ -291,7 +301,7 @@ type DefaultActionWithoutViewType = 'download';
  * @internal @unstable interface subject to change, not recommended for public use
  * @description utility type resolving available location action view types
  */
-export type DerivedActionViewType<T extends StorageBrowserActions> =
+export type DerivedActionNameType<T extends StorageBrowserActions> =
   | keyof {
       [K in keyof T['custom'] as K extends NonDefaultActionType<K>
         ? T['custom'][K] extends { viewName: `${string}View` }
@@ -304,19 +314,23 @@ export type DerivedActionViewType<T extends StorageBrowserActions> =
 /**
  * @description return values of `createStorageBrowser`
  */
-export interface CreateStorageBrowserOutput<C extends StorageBrowserActions> {
+export interface CreateStorageBrowserOutput<
+  ActionsType extends StorageBrowserActions,
+> {
   /**
    * @description `StorageBrowser` component and subcomponents
    */
   StorageBrowser: StorageBrowserType<
-    DerivedActionViewType<C>,
-    DerivedActionViews<C>
+    DerivedActionNameType<ActionsType>,
+    DerivedActionViews<ActionsType>
   >;
 
   /**
    * @description action handler utility hook
    */
-  useAction: UseAction<DerivedActionHandlers<NonNullable<C['custom']>>>;
+  useAction: UseAction<
+    DerivedActionHandlers<NonNullable<ActionsType['custom']>>
+  >;
 
   /**
    * @description view state utility hook

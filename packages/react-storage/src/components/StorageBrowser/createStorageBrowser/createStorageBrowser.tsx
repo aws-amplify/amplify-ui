@@ -26,7 +26,7 @@ import {
   CreateStorageBrowserOutput,
   StorageBrowserType,
   DerivedActionViews,
-  DerivedActionViewType,
+  DerivedActionNameType,
 } from './types';
 
 const UA_CONFIG = {
@@ -61,7 +61,7 @@ export default function createStorageBrowser<
       : input.ErrorBoundary ?? DefaultErrorBoundary;
 
   const StorageBrowser: StorageBrowserType<
-    DerivedActionViewType<Actions>,
+    DerivedActionNameType<Actions>,
     DerivedActionViews<Actions>
   > = (props) => (
     <ErrorBoundary>
@@ -73,7 +73,7 @@ export default function createStorageBrowser<
 
   StorageBrowser.LocationActionView =
     LocationActionView as LocationActionViewType<
-      DerivedActionViewType<Actions>
+      DerivedActionNameType<Actions>
     >;
   StorageBrowser.LocationDetailView = LocationDetailView;
   StorageBrowser.LocationsView = LocationsView;

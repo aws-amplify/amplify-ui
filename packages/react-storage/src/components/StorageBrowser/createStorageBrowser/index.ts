@@ -3,7 +3,7 @@ export {
   CreateStorageBrowserInput,
   CreateStorageBrowserOutput,
   DerivedActionViews,
-  DerivedActionViewType,
+  DerivedActionNameType as DerivedActionViewType,
   StorageBrowserActions,
   StorageBrowserConfig,
   StorageBrowserProps,
