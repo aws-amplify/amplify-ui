@@ -434,7 +434,6 @@ describe('LivenessCameraModule', () => {
       },
     };
 
-    console.log(selectIsRecordingStopped);
     const isRecordingStopped = selectIsRecordingStopped(state);
 
     expect(isRecordingStopped).toEqual(true);

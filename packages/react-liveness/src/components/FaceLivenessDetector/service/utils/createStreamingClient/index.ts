@@ -1,1 +1,1 @@
-export { createStreamingClient } from './createStreamingClient';
+export { createStreamingClient, ResponseStream } from './createStreamingClient';
