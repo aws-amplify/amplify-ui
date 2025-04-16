@@ -328,9 +328,7 @@ export interface CreateStorageBrowserOutput<
   /**
    * @description action handler utility hook
    */
-  useAction: UseAction<
-    DerivedActionHandlers<NonNullable<ActionsType['custom']>>
-  >;
+  useAction: UseAction<DerivedActionHandlers<ActionsType>>;
 
   /**
    * @description view state utility hook

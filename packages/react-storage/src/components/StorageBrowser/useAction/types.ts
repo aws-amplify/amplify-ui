@@ -5,7 +5,6 @@ import {
   ActionHandler,
   CopyHandler,
   CreateFolderHandler,
-  CustomActionConfigs,
   DeleteHandler,
   DownloadHandler,
   ListLocationItemsHandler,
@@ -14,19 +13,20 @@ import {
   UploadHandler,
 } from '../actions';
 import { ProcessTasksOptions, StatusCounts, Task } from '../tasks';
+import { StorageBrowserActions } from '../createStorageBrowser';
 
 export type ListActionState<T = any, K = any> = [
   state: AsyncReducerState<T>,
   handleAction: (...input: K[]) => void,
 ];
 
-export interface DefaultActionHandlers {
+export type DefaultActionHandlers = {
   upload: UploadHandler;
   download: DownloadHandler;
   copy: CopyHandler;
   createFolder: CreateFolderHandler;
   delete: DeleteHandler;
-}
+};
 
 export type ActionHandlers = Record<
   string,
@@ -45,9 +45,11 @@ export type ResolveHandlerType<T> = T extends { handler: infer X } | infer X
   ? X
   : never;
 
-export type DerivedActionHandlers<C extends CustomActionConfigs> =
+export type DerivedActionHandlers<ActionsType extends StorageBrowserActions> =
   DefaultActionHandlers & {
-    [K in keyof C]: ResolveHandlerType<C[K]>;
+    [K in keyof NonNullable<ActionsType['custom']>]: ResolveHandlerType<
+      NonNullable<ActionsType['custom']>[K]
+    >;
   };
 
 export type InferTask<THandler> = THandler extends ActionHandler<

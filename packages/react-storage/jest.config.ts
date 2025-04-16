@@ -4,6 +4,8 @@ const config: Config = {
   collectCoverage: true,
   collectCoverageFrom: [
     '<rootDir>/src/**/*.(ts|tsx)',
+    // do not collect from type definition files
+    '<rootDir>/src/**/*.d.(ts|tsx)',
     // do not collect from index, testUtils or version files
     '!<rootDir>/**/(index|version).(ts|tsx)',
     // do not collect from top level styles directory
@@ -27,6 +29,7 @@ const config: Config = {
   testPathIgnorePatterns: [
     '<rootDir>/src/components/StorageBrowser/displayText/libraries/en/__tests__/scenarios.ts',
     '__testUtils__/',
+    '.*\\.test-d\\.ts$',
   ],
   preset: 'ts-jest',
   setupFilesAfterEnv: ['./jest.setup.ts'],
