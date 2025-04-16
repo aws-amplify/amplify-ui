@@ -3,6 +3,7 @@ import React from 'react';
 import {
   CustomActionConfigs,
   DefaultActionConfigs,
+  ExtendedActionConfigs,
   ListLocations,
   LocationData,
 } from '../actions';
@@ -296,7 +297,7 @@ type DefaultActionWithoutViewType = 'download';
  * @internal @unstable interface subject to change, not recommended for public use
  * @description utility type resolving available location action view types
  */
-export type DerivedActionNameType<T extends StorageBrowserActions> =
+export type DerivedActionViewType<T extends StorageBrowserActions> =
   | keyof {
       [K in keyof T['custom'] as K extends NonDefaultActionType<K>
         ? T['custom'][K] extends { viewName: `${string}View` }
@@ -311,13 +312,13 @@ export type DerivedActionNameType<T extends StorageBrowserActions> =
  * @template TActions Type of `actions` passed to `createStorageBrowser`
  */
 export interface CreateStorageBrowserOutput<
-  TActions extends StorageBrowserActions,
+  TActions extends StorageBrowserActions = ExtendedActionConfigs,
 > {
   /**
    * @description `StorageBrowser` component and subcomponents
    */
   StorageBrowser: StorageBrowserType<
-    DerivedActionNameType<TActions>,
+    DerivedActionViewType<TActions>,
     DerivedActionViews<TActions>
   >;
 
