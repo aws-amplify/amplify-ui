@@ -42,9 +42,9 @@ const UA_CONFIG = {
  * @returns `StorageBrowser` component, `useAction` and `useView` hooks
  */
 export default function createStorageBrowser<
-  Input extends CreateStorageBrowserInput,
-  Actions extends NonNullable<Input['actions']>,
->(input: Input): CreateStorageBrowserOutput<Actions> {
+  TInput extends CreateStorageBrowserInput,
+  TActions extends NonNullable<TInput['actions']>,
+>(input: TInput): CreateStorageBrowserOutput<TActions> {
   assertRegisterAuthListener(input.config.registerAuthListener);
 
   setUserAgent(UA_CONFIG);
@@ -61,8 +61,8 @@ export default function createStorageBrowser<
       : input.ErrorBoundary ?? DefaultErrorBoundary;
 
   const StorageBrowser: StorageBrowserType<
-    DerivedActionNameType<Actions>,
-    DerivedActionViews<Actions>
+    DerivedActionNameType<TActions>,
+    DerivedActionViews<TActions>
   > = (props) => (
     <ErrorBoundary>
       <Provider {...props}>
@@ -73,7 +73,7 @@ export default function createStorageBrowser<
 
   StorageBrowser.LocationActionView =
     LocationActionView as LocationActionViewType<
-      DerivedActionNameType<Actions>
+      DerivedActionNameType<TActions>
     >;
   StorageBrowser.LocationDetailView = LocationDetailView;
   StorageBrowser.LocationsView = LocationsView;

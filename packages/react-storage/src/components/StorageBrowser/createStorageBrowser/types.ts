@@ -142,11 +142,10 @@ export interface CreateStorageBrowserInput {
 
 /**
  * `StorageBrowser` component properties
+ * @template TActionType Optional type of action names rendered by `LocationActionView`
+ * @template TViews Optional type of custom action view components.
  */
-export interface StorageBrowserProps<
-  LocationActionNameType = string,
-  CustomActionViews = {},
-> {
+export interface StorageBrowserProps<TActionType = string, TViews = {}> {
   /**
    * @description provide to initialize the `StorageBrowser` with a default location, `actionType` or pagination values as an uncontrolled component
    */
@@ -187,13 +186,14 @@ export interface StorageBrowserProps<
   /**
    * @description accepts default top level `views` overrides and custom `views` defined by the `actions` parameter of `createStorageBrowser`
    */
-  views?: StorageBrowserViews<LocationActionNameType, CustomActionViews>;
+  views?: StorageBrowserViews<TActionType, TViews>;
 }
 
 /**
  * @description `StorageBrowser.Provider` component properties
+ * @template TViews Optional type of custom action view components.
  */
-export interface StorageBrowserProviderProps<CustomActionViews = {}>
+export interface StorageBrowserProviderProps<TViews = {}>
   extends StoreProviderProps,
     Pick<
       StorageBrowserProps,
@@ -203,7 +203,7 @@ export interface StorageBrowserProviderProps<CustomActionViews = {}>
   /**
    * @description accepts custom action views rendered by `LocationActionView`
    */
-  views?: CustomActionViews;
+  views?: TViews;
 
   /**
    * @deprecated will be removed in a future major verison. Prefer `value` for controlled behavior or `defaultValue` for initializng `actionType`
@@ -225,15 +225,12 @@ export interface StorageBrowserProviderProps<CustomActionViews = {}>
 }
 
 /**
- * @description `StorageBrowser` component, provider and view components
+ * @description `StorageBrowser` component, provider and view components.
+ * @template TActionType Optional type of action names rendered by `LocationActionView`
+ * @template TViews Optional type of custom action view components.
  */
-export interface StorageBrowserType<
-  LocationActionNameType = string,
-  CustomActionView = {},
-> {
-  (
-    props: StorageBrowserProps<LocationActionNameType, CustomActionView>
-  ): React.JSX.Element;
+export interface StorageBrowserType<TActionType = string, TViews = {}> {
+  (props: StorageBrowserProps<TActionType, TViews>): React.JSX.Element;
   displayName: string;
   /**
    * @description `StorageBrowser` React.Context provider. Composed `StorageBrowser` components must be a descendant of a `Provider` element
@@ -244,9 +241,7 @@ export interface StorageBrowserType<
    * </StorageBrowser.Provider>
    * ```
    */
-  Provider: (
-    props: StorageBrowserProviderProps<CustomActionView>
-  ) => React.JSX.Element;
+  Provider: (props: StorageBrowserProviderProps<TViews>) => React.JSX.Element;
 
   /**
    * @description utility view aggregating all action views. Can be used to render a standalone action view
@@ -255,7 +250,7 @@ export interface StorageBrowserType<
    * <StorageBrowser.LocationActionView type="copy" />
    * ```
    */
-  LocationActionView: LocationActionViewType<LocationActionNameType>;
+  LocationActionView: LocationActionViewType<TActionType>;
 
   /**
    * @description displays data related to the selected or provided `location` and action selection
@@ -313,22 +308,23 @@ export type DerivedActionNameType<T extends StorageBrowserActions> =
 
 /**
  * @description return values of `createStorageBrowser`
+ * @template TActions Type of `actions` passed to `createStorageBrowser`
  */
 export interface CreateStorageBrowserOutput<
-  ActionsType extends StorageBrowserActions,
+  TActions extends StorageBrowserActions,
 > {
   /**
    * @description `StorageBrowser` component and subcomponents
    */
   StorageBrowser: StorageBrowserType<
-    DerivedActionNameType<ActionsType>,
-    DerivedActionViews<ActionsType>
+    DerivedActionNameType<TActions>,
+    DerivedActionViews<TActions>
   >;
 
   /**
    * @description action handler utility hook
    */
-  useAction: UseAction<DerivedActionHandlers<ActionsType>>;
+  useAction: UseAction<DerivedActionHandlers<TActions>>;
 
   /**
    * @description view state utility hook

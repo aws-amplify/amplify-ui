@@ -3,6 +3,7 @@
 import type {
   CreateStorageBrowserInput,
   CreateStorageBrowserOutput,
+  StorageBrowserConfig,
 } from '../types';
 import type { defaultActionConfigs } from '../../actions';
 
@@ -30,7 +31,7 @@ type CustomerStorageBrowserInput = {
       };
     };
   };
-  config: any;
+  config: StorageBrowserConfig;
 };
 
 /**
