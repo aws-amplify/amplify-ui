@@ -1,5 +1,11 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import {
+  render,
+  screen,
+  fireEvent,
+  waitFor,
+  within,
+} from '@testing-library/react';
 import { Form } from '../Form';
 
 const setInput = jest.fn();
@@ -56,5 +62,55 @@ describe('Form', () => {
     expect(onValidate).toHaveBeenCalledTimes(1);
     expect(fileInput.files).not.toBeNull();
     expect(fileInput.files![0]).toStrictEqual(testFile);
+  });
+
+  it('updates IME input with composition completion', async () => {
+    const preMatureInput = { currentTarget: { value: '你' } };
+    const completeInput = { currentTarget: { value: '你好' } };
+
+    const result = render(<Form {...defaultProps} />);
+    expect(result.container).toBeDefined();
+
+    const textFieldContainer = screen.getByTestId('text-input');
+
+    const textInput =
+      textFieldContainer.querySelector('textarea') ??
+      within(textFieldContainer).getByRole('textbox');
+
+    await waitFor(() => {
+      fireEvent.compositionStart(textInput);
+      fireEvent.compositionEnd(textInput, preMatureInput);
+    });
+
+    await waitFor(() => {
+      fireEvent.compositionEnd(textInput, completeInput);
+    });
+
+    expect(setInput).toHaveBeenCalledTimes(2);
+  });
+
+  it('updates IME input with composition update', async () => {
+    const preMatureInput = { currentTarget: { value: 'しあわせ' } };
+    const completeInput = { currentTarget: { value: '幸せならおkです' } };
+
+    const result = render(<Form {...defaultProps} />);
+    expect(result.container).toBeDefined();
+
+    const textFieldContainer = screen.getByTestId('text-input');
+
+    const textInput =
+      textFieldContainer.querySelector('textarea') ??
+      within(textFieldContainer).getByRole('textbox');
+
+    await waitFor(() => {
+      fireEvent.compositionStart(textInput);
+      fireEvent.compositionUpdate(textInput, preMatureInput);
+    });
+
+    await waitFor(() => {
+      fireEvent.compositionUpdate(textInput, completeInput);
+    });
+
+    expect(setInput).toHaveBeenCalledTimes(2);
   });
 });

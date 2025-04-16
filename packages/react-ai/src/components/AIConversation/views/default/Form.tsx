@@ -110,7 +110,21 @@ export const Form: Required<ControlsContextProps>['Form'] = ({
           value={input?.text ?? ''}
           testId="text-input"
           onCompositionStart={() => setComposing(true)}
-          onCompositionEnd={() => setComposing(false)}
+          onCompositionUpdate={(e) => {
+            const composedText = e?.currentTarget?.value || '';
+            setInput?.((prevValue) => ({
+              ...prevValue,
+              text: composedText,
+            }));
+          }}
+          onCompositionEnd={(e) => {
+            setComposing(false);
+            const composedText = e?.currentTarget?.value || '';
+            setInput?.((prevValue) => ({
+              ...prevValue,
+              text: composedText,
+            }));
+          }}
           onKeyDown={(e) => {
             // Submit on enter key if shift is not pressed also
             const shouldSubmit = !e.shiftKey && e.key === 'Enter' && !composing;
