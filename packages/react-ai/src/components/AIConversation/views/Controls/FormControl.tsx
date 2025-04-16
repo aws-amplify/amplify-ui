@@ -251,17 +251,6 @@ export const FormControl: FormControl = () => {
     submitMessage();
   };
 
-  const handleOnCompositionEnd: React.CompositionEventHandler<
-    HTMLTextAreaElement
-  > = (e) => {
-    const composedText = e?.currentTarget?.value || '';
-    setComposing(false);
-    setInput?.((prevValue) => ({
-      ...prevValue,
-      text: composedText,
-    }));
-  };
-
   const handleOnKeyDown: React.KeyboardEventHandler<HTMLTextAreaElement> = (
     event
   ) => {
@@ -335,9 +324,6 @@ export const FormControl: FormControl = () => {
         isLoading={isLoading ?? isSubmitting}
         error={error}
         setError={setError}
-        onKeyDown={handleOnKeyDown}
-        onCompositionStart={() => setComposing(true)}
-        onCompositionEnd={handleOnCompositionEnd}
       />
     );
   }

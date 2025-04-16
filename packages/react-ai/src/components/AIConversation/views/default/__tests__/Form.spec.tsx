@@ -72,8 +72,8 @@ describe('Form', () => {
   });
 
   it('updates IME input with composition completion', async () => {
-    const preMatureInput = { currentTarget: { value: '你' } };
-    const completeInput = { currentTarget: { value: '你好' } };
+    const input = { currentTarget: { value: '你' } };
+    const updatedInput = { currentTarget: { value: '你好' } };
 
     const result = render(<Form {...defaultProps} />);
     expect(result.container).toBeDefined();
@@ -86,19 +86,19 @@ describe('Form', () => {
 
     await waitFor(() => {
       fireEvent.compositionStart(textInput);
-      fireEvent.compositionEnd(textInput, preMatureInput);
+      fireEvent.compositionEnd(textInput, input);
     });
 
     await waitFor(() => {
-      fireEvent.compositionEnd(textInput, completeInput);
+      fireEvent.compositionEnd(textInput, updatedInput);
     });
 
     expect(setInput).toHaveBeenCalledTimes(2);
   });
 
   it('updates IME input with composition update', async () => {
-    const preMatureInput = { currentTarget: { value: 'しあわせ' } };
-    const completeInput = { currentTarget: { value: '幸せならおkです' } };
+    const input = { currentTarget: { value: 'しあわせ' } };
+    const updatedInput = { currentTarget: { value: '幸せならおkです' } };
 
     const result = render(<Form {...defaultProps} />);
     expect(result.container).toBeDefined();
@@ -111,11 +111,11 @@ describe('Form', () => {
 
     await waitFor(() => {
       fireEvent.compositionStart(textInput);
-      fireEvent.compositionUpdate(textInput, preMatureInput);
+      fireEvent.compositionUpdate(textInput, input);
     });
 
     await waitFor(() => {
-      fireEvent.compositionUpdate(textInput, completeInput);
+      fireEvent.compositionUpdate(textInput, updatedInput);
     });
 
     expect(setInput).toHaveBeenCalledTimes(2);
