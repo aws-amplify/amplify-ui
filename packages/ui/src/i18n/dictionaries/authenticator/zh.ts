@@ -77,7 +77,7 @@ export const zhDict: AuthenticatorDictionary = {
   'Confirm a Code': '确认码',
   'Confirm Sign In': '确认登录',
   'Forgot Password': '忘记密码',
-  'Incorrect username or password': '用户名或密码错误',
+  'Incorrect username or password.': '用户名或密码错误',
   'Invalid password format': '密码格式错误',
   'Invalid phone number format': '电话格式错误，请使用格式 +12345678900',
   'New Password': '新密码',

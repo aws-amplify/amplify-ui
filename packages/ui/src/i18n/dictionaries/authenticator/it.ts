@@ -82,7 +82,7 @@ export const itDict: AuthenticatorDictionary = {
   'Enter your password': 'Inserisci la tua password',
   'Forgot Password?': 'Password dimenticata?',
   'Have an account? ': 'Già registrato?',
-  'Incorrect username or password': 'Nome utente o password errati',
+  'Incorrect username or password.': 'Nome utente o password errati',
   'Invalid password format': 'Formato della password non valido',
   'Invalid phone number format': 'Formato del numero di telefono non valido',
   'Lost your code?': 'Codice smarrito?',
