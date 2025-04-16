@@ -13,6 +13,10 @@ import { ControlsContextProps } from '../../context/ControlsContext';
 import { Attachments } from './Attachments';
 import { validFileTypes } from '../../utils';
 
+function isHTMLFormElement(target: EventTarget): target is HTMLFormElement {
+  return 'form' in target;
+}
+
 /**
  * Will conditionally render the DropZone if allowAttachments
  * is true
@@ -50,9 +54,6 @@ export const Form: Required<ControlsContextProps>['Form'] = ({
   onValidate,
   isLoading,
   error,
-  onCompositionStart,
-  onCompositionEnd,
-  onKeyDown,
 }) => {
   const icons = useIcons('aiConversation');
   const sendIcon = icons?.send ?? <IconSend />;
@@ -108,14 +109,34 @@ export const Form: Required<ControlsContextProps>['Form'] = ({
           rows={1}
           value={input?.text ?? ''}
           testId="text-input"
-          onCompositionStart={onCompositionStart}
-          onCompositionEnd={onCompositionEnd}
-          onKeyDown={onKeyDown}
-          onChange={(e) => {
+          onCompositionStart={() => setComposing(true)}
+          onCompositionUpdate={(e) => {
             const composedText = e?.currentTarget?.value || '';
             setInput?.((prevValue) => ({
               ...prevValue,
               text: composedText,
+            }));
+          }}
+          onCompositionEnd={(e) => {
+            setComposing(false);
+            const composedText = e?.currentTarget?.value || '';
+            setInput?.((prevValue) => ({
+              ...prevValue,
+              text: composedText,
+            }));
+          }}
+          onKeyDown={(e) => {
+            // Submit on enter key if shift is not pressed also
+            const shouldSubmit = !e.shiftKey && e.key === 'Enter' && !composing;
+            if (shouldSubmit && isHTMLFormElement(e.target)) {
+              (e.target.form as HTMLFormElement).requestSubmit();
+              e.preventDefault();
+            }
+          }}
+          onChange={(e) => {
+            setInput?.((prevValue) => ({
+              ...prevValue,
+              text: e.target.value,
             }));
           }}
         />

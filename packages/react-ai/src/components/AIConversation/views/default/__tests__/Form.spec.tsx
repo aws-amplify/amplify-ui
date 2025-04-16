@@ -1,6 +1,12 @@
 /* eslint-disable no-console */
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import {
+  render,
+  screen,
+  fireEvent,
+  waitFor,
+  within,
+} from '@testing-library/react';
 import { Form } from '../Form';
 
 const setInput = jest.fn();
@@ -65,56 +71,53 @@ describe('Form', () => {
     expect(fileInput.files![0]).toStrictEqual(testFile);
   });
 
-  it('updates input value through multiple change events with IME characters', async () => {
+  it('updates IME input with composition completion', async () => {
+    const preMatureInput = { currentTarget: { value: '你' } };
+    const completeInput = { currentTarget: { value: '你好' } };
+
     const result = render(<Form {...defaultProps} />);
     expect(result.container).toBeDefined();
 
-    const textInput: HTMLInputElement = screen.getByTestId('text-input');
+    const textFieldContainer = screen.getByTestId('text-input');
 
-    const preMatureInput = Object.defineProperty(textInput, 'value', {
-      configurable: true,
-      value: '你',
-    });
-
-    const completeInput = Object.defineProperty(textInput, 'value', {
-      configurable: true,
-      value: '你好',
-    });
-
-    await waitFor(() => fireEvent.change(textInput, preMatureInput));
-
-    await waitFor(() => fireEvent.change(textInput, completeInput));
-
-    expect(textInput.value).not.toEqual('');
-    expect(textInput.value).toBe('你好');
-  });
-
-  it('updates input value correctly after IME composition successfully ends', async () => {
-    const result = render(<Form {...defaultProps} />);
-    expect(result.container).toBeDefined();
-
-    const textInput: HTMLInputElement = screen.getByTestId('text-input');
-
-    const preMatureInput = Object.defineProperty(textInput, 'value', {
-      configurable: true,
-      value: 'しあわせ',
-    });
-
-    const completeInput = Object.defineProperty(textInput, 'value', {
-      configurable: true,
-      value: '幸せならおkです',
-    });
+    const textInput =
+      textFieldContainer.querySelector('textarea') ??
+      within(textFieldContainer).getByRole('textbox');
 
     await waitFor(() => {
       fireEvent.compositionStart(textInput);
-      fireEvent.change(textInput, preMatureInput);
+      fireEvent.compositionEnd(textInput, preMatureInput);
     });
 
     await waitFor(() => {
       fireEvent.compositionEnd(textInput, completeInput);
     });
 
-    expect(textInput.value).not.toEqual('');
-    expect(textInput.value).toBe('幸せならおkです');
+    expect(setInput).toHaveBeenCalledTimes(2);
+  });
+
+  it('updates IME input with composition update', async () => {
+    const preMatureInput = { currentTarget: { value: 'しあわせ' } };
+    const completeInput = { currentTarget: { value: '幸せならおkです' } };
+
+    const result = render(<Form {...defaultProps} />);
+    expect(result.container).toBeDefined();
+
+    const textFieldContainer = screen.getByTestId('text-input');
+
+    const textInput =
+      textFieldContainer.querySelector('textarea') ??
+      within(textFieldContainer).getByRole('textbox');
+
+    await waitFor(() => {
+      fireEvent.compositionStart(textInput);
+      fireEvent.compositionUpdate(textInput, preMatureInput);
+    });
+
+    await waitFor(() => {
+      fireEvent.compositionUpdate(textInput, completeInput);
+    });
+
+    expect(setInput).toHaveBeenCalledTimes(2);
   });
 });
