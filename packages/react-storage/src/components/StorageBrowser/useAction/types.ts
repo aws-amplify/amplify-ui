@@ -20,13 +20,13 @@ export type ListActionState<T = any, K = any> = [
   handleAction: (...input: K[]) => void,
 ];
 
-export type DefaultActionHandlers = {
+export interface DefaultActionHandlers {
   upload: UploadHandler;
   download: DownloadHandler;
   copy: CopyHandler;
   createFolder: CreateFolderHandler;
   delete: DeleteHandler;
-};
+}
 
 export type ActionHandlers = Record<
   string,
