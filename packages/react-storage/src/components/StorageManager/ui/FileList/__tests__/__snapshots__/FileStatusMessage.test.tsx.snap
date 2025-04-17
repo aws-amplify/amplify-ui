@@ -2,6 +2,12 @@
 
 exports[`FileStatusMessage renders as expected when file is uploaded 1`] = `
 <div>
+  <span
+    class="amplify-visually-hidden"
+    role="status"
+  >
+    File upload status changed: Upload completed successfully
+  </span>
   <p
     class="amplify-text amplify-storagemanager__file__status amplify-storagemanager__file__status--success"
   >
@@ -31,6 +37,12 @@ exports[`FileStatusMessage renders as expected when file is uploaded 1`] = `
 
 exports[`FileStatusMessage renders as expected when file is uploading 1`] = `
 <div>
+  <span
+    class="amplify-visually-hidden"
+    role="status"
+  >
+    File upload status changed: Uploading 50%
+  </span>
   <p
     class="amplify-text amplify-storagemanager__file__status"
   >
@@ -41,6 +53,12 @@ exports[`FileStatusMessage renders as expected when file is uploading 1`] = `
 
 exports[`FileStatusMessage renders as expected when file uploading is paused 1`] = `
 <div>
+  <span
+    class="amplify-visually-hidden"
+    role="status"
+  >
+    File upload status changed: Paused at 50%
+  </span>
   <p
     class="amplify-text amplify-storagemanager__file__status"
   >
@@ -51,6 +69,12 @@ exports[`FileStatusMessage renders as expected when file uploading is paused 1`]
 
 exports[`FileStatusMessage renders as expected when there is an error uploading 1`] = `
 <div>
+  <span
+    class="amplify-visually-hidden"
+    role="status"
+  >
+    File upload status changed: Error
+  </span>
   <p
     class="amplify-text amplify-storagemanager__file__status amplify-storagemanager__file__status--error"
   >
@@ -80,6 +104,12 @@ exports[`FileStatusMessage renders as expected when there is an error uploading 
 
 exports[`FileStatusMessage renders custom icons from IconProvider 1`] = `
 <div>
+  <span
+    class="amplify-visually-hidden"
+    role="status"
+  >
+    File upload status changed: Error
+  </span>
   <p
     class="amplify-text amplify-storagemanager__file__status amplify-storagemanager__file__status--error"
   >
@@ -90,6 +120,12 @@ exports[`FileStatusMessage renders custom icons from IconProvider 1`] = `
     </span>
     Error
   </p>
+  <span
+    class="amplify-visually-hidden"
+    role="status"
+  >
+    File upload status changed: Upload completed successfully
+  </span>
   <p
     class="amplify-text amplify-storagemanager__file__status amplify-storagemanager__file__status--success"
   >
@@ -103,4 +139,13 @@ exports[`FileStatusMessage renders custom icons from IconProvider 1`] = `
 </div>
 `;
 
-exports[`FileStatusMessage renders nothing when status is queued 1`] = `<div />`;
+exports[`FileStatusMessage renders nothing when status is queued 1`] = `
+<div>
+  <span
+    class="amplify-visually-hidden"
+    role="status"
+  >
+    File upload status changed: Queued
+  </span>
+</div>
+`;

@@ -105,4 +105,51 @@ describe('FileStatusMessage', () => {
     expect(screen.getByTestId('error')).toBeInTheDocument();
     expect(container).toMatchSnapshot();
   });
+
+  it('announces upload progress when status is uploading', () => {
+    render(
+      <FileStatusMessage {...defaultProps} status={FileStatus.UPLOADING} />
+    );
+
+    const announcement = screen.getByRole('status');
+    expect(announcement).toHaveTextContent(
+      'File upload status changed: Uploading 50%'
+    );
+  });
+
+  it('announces paused status with progress', () => {
+    render(<FileStatusMessage {...defaultProps} status={FileStatus.PAUSED} />);
+
+    const announcement = screen.getByRole('status');
+    expect(announcement).toHaveTextContent(
+      'File upload status changed: Paused at 50%'
+    );
+  });
+
+  it('announces successful upload completion', () => {
+    render(
+      <FileStatusMessage {...defaultProps} status={FileStatus.UPLOADED} />
+    );
+
+    const announcement = screen.getByRole('status');
+    expect(announcement).toHaveTextContent(
+      'File upload status changed: Upload completed successfully'
+    );
+  });
+
+  it('announces error status', () => {
+    render(<FileStatusMessage {...defaultProps} status={FileStatus.ERROR} />);
+
+    const announcement = screen.getByRole('status');
+    expect(announcement).toHaveTextContent('File upload status changed: Error');
+  });
+
+  it('has no announcement for queued status', () => {
+    render(<FileStatusMessage {...defaultProps} status={FileStatus.QUEUED} />);
+
+    const announcement = screen.getByRole('status');
+    expect(announcement).toHaveTextContent(
+      'File upload status changed: Queued'
+    );
+  });
 });
