@@ -1,7 +1,7 @@
 import { fetchAuthSession } from 'aws-amplify/auth';
 import { AwsCredentialProvider, AwsCredentials } from '../../types';
 
-const isCredentialsProvider = (
+const isValidCredentialsProvider = (
   credentialsProvider?: AwsCredentialProvider
 ): credentialsProvider is AwsCredentialProvider =>
   typeof credentialsProvider === 'function';
@@ -26,14 +26,16 @@ const isCredentials = (
 export async function resolveCredentials(
   credentialsProvider?: AwsCredentialProvider
 ): Promise<AwsCredentials | AwsCredentialProvider> {
-  const hasCredentialsProvider = isCredentialsProvider(credentialsProvider);
+  const hasValidCredentialsProvider =
+    isValidCredentialsProvider(credentialsProvider);
 
-  if (hasCredentialsProvider) {
-    return credentialsProvider;
+  // provided `credentialsProvider` is not valid
+  if (credentialsProvider && !hasValidCredentialsProvider) {
+    throw new Error('Invalid credentialsProvider');
   }
 
-  if (credentialsProvider && !hasCredentialsProvider) {
-    throw new Error('Invalid credentialsProvider');
+  if (hasValidCredentialsProvider) {
+    return credentialsProvider;
   }
 
   try {
