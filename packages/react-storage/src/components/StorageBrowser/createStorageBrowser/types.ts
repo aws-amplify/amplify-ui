@@ -143,8 +143,10 @@ export interface CreateStorageBrowserInput {
 
 /**
  * `StorageBrowser` component properties
+ * @template TActionType Optional type of action names rendered by `LocationActionView`
+ * @template TViews Optional type of custom action view components.
  */
-export interface StorageBrowserProps<K = string, V = {}> {
+export interface StorageBrowserProps<TActionType = string, TViews = {}> {
   /**
    * @description provide to initialize the `StorageBrowser` with a default location, `actionType` or pagination values as an uncontrolled component
    */
@@ -185,13 +187,14 @@ export interface StorageBrowserProps<K = string, V = {}> {
   /**
    * @description accepts default top level `views` overrides and custom `views` defined by the `actions` parameter of `createStorageBrowser`
    */
-  views?: StorageBrowserViews<K, V>;
+  views?: StorageBrowserViews<TActionType, TViews>;
 }
 
 /**
  * @description `StorageBrowser.Provider` component properties
+ * @template TViews Optional type of custom action view components.
  */
-export interface StorageBrowserProviderProps<V = {}>
+export interface StorageBrowserProviderProps<TViews = {}>
   extends StoreProviderProps,
     Pick<
       StorageBrowserProps,
@@ -201,7 +204,7 @@ export interface StorageBrowserProviderProps<V = {}>
   /**
    * @description accepts custom action views rendered by `LocationActionView`
    */
-  views?: V;
+  views?: TViews;
 
   /**
    * @deprecated will be removed in a future major verison. Prefer `value` for controlled behavior or `defaultValue` for initializng `actionType`
@@ -223,10 +226,12 @@ export interface StorageBrowserProviderProps<V = {}>
 }
 
 /**
- * @description `StorageBrowser` component, provider and view components
+ * @description `StorageBrowser` component, provider and view components.
+ * @template TActionType Optional type of action names rendered by `LocationActionView`
+ * @template TViews Optional type of custom action view components.
  */
-export interface StorageBrowserType<K = string, V = {}> {
-  (props: StorageBrowserProps<K, V>): React.JSX.Element;
+export interface StorageBrowserType<TActionType = string, TViews = {}> {
+  (props: StorageBrowserProps<TActionType, TViews>): React.JSX.Element;
   displayName: string;
   /**
    * @description `StorageBrowser` React.Context provider. Composed `StorageBrowser` components must be a descendant of a `Provider` element
@@ -237,7 +242,7 @@ export interface StorageBrowserType<K = string, V = {}> {
    * </StorageBrowser.Provider>
    * ```
    */
-  Provider: (props: StorageBrowserProviderProps<V>) => React.JSX.Element;
+  Provider: (props: StorageBrowserProviderProps<TViews>) => React.JSX.Element;
 
   /**
    * @description utility view aggregating all action views. Can be used to render a standalone action view
@@ -246,7 +251,7 @@ export interface StorageBrowserType<K = string, V = {}> {
    * <StorageBrowser.LocationActionView type="copy" />
    * ```
    */
-  LocationActionView: LocationActionViewType<K>;
+  LocationActionView: LocationActionViewType<TActionType>;
 
   /**
    * @description displays data related to the selected or provided `location` and action selection
@@ -267,7 +272,7 @@ export interface StorageBrowserType<K = string, V = {}> {
   UploadView: UploadViewType;
 }
 
-type DefaultActionType<T = string> = Exclude<T, keyof DefaultActionConfigs>;
+type NonDefaultActionType<T = string> = Exclude<T, keyof DefaultActionConfigs>;
 
 /**
  * @internal
@@ -275,7 +280,7 @@ type DefaultActionType<T = string> = Exclude<T, keyof DefaultActionConfigs>;
  * @description utility type resolving available custom action view component slots
  */
 export type DerivedActionViews<T extends StorageBrowserActions> = {
-  [K in keyof T['custom'] as K extends DefaultActionType<K>
+  [K in keyof T['custom'] as K extends NonDefaultActionType<K>
     ? T['custom'][K] extends { viewName: `${string}View` }
       ? T['custom'][K]['viewName']
       : never
@@ -294,7 +299,7 @@ type DefaultActionWithoutViewType = 'download';
  */
 export type DerivedActionViewType<T extends StorageBrowserActions> =
   | keyof {
-      [K in keyof T['custom'] as K extends DefaultActionType<K>
+      [K in keyof T['custom'] as K extends NonDefaultActionType<K>
         ? T['custom'][K] extends { viewName: `${string}View` }
           ? K
           : never
@@ -304,22 +309,23 @@ export type DerivedActionViewType<T extends StorageBrowserActions> =
 
 /**
  * @description return values of `createStorageBrowser`
+ * @template TActions Type of `actions` passed to `createStorageBrowser`
  */
 export interface CreateStorageBrowserOutput<
-  C extends ExtendedActionConfigs = ExtendedActionConfigs,
+  TActions extends StorageBrowserActions = ExtendedActionConfigs,
 > {
   /**
    * @description `StorageBrowser` component and subcomponents
    */
   StorageBrowser: StorageBrowserType<
-    DerivedActionViewType<C>,
-    DerivedActionViews<C>
+    DerivedActionViewType<TActions>,
+    DerivedActionViews<TActions>
   >;
 
   /**
    * @description action handler utility hook
    */
-  useAction: UseAction<DerivedActionHandlers<C>>;
+  useAction: UseAction<DerivedActionHandlers<TActions>>;
 
   /**
    * @description view state utility hook

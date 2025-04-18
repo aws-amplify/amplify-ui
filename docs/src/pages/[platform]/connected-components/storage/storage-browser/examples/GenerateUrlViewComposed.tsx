@@ -75,24 +75,6 @@ const GenerateUrlView = () => {
   );
 };
 
-function MyStorageBrowser() {
-  const state = useView('LocationDetail');
-
-  if (!state.location.current) {
-    return <StorageBrowser.LocationsView />;
-  } else if (state.actionType === 'generateUrl') {
-    return <GenerateUrlView />;
-  } else if (state.actionType) {
-    return <StorageBrowser.LocationActionView />;
-  } else {
-    return <StorageBrowser.LocationDetailView />;
-  }
-}
-
 export default function Example() {
-  return (
-    <StorageBrowser.Provider>
-      <MyStorageBrowser />
-    </StorageBrowser.Provider>
-  );
+  return <StorageBrowser views={{ GenerateUrlView }} />;
 }

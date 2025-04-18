@@ -10059,11 +10059,6 @@
   resolved "https://registry.npmjs.org/@tsconfig/react-native/-/react-native-3.0.2.tgz#f7db242eee4820f5a3d0edcc86c920bb7d9ec0f2"
   integrity sha512-F7IoHEqf741lut4Z2K+IkWQRvXAhBiZMeY5L7BysG7Z2Z3MlIyFR+AagD8jQ/CqC1vowGnRwfLjeuwIpaeoJxA==
 
-"@tsd/typescript@^5.1.6":
-  version "5.6.3"
-  resolved "https://registry.yarnpkg.com/@tsd/typescript/-/typescript-5.6.3.tgz#995c054ff99d1b5e22f8e7d07d6087a56c58702d"
-  integrity sha512-Jm9tsyjxuyDxGvIlifCQMiTjL20Zv/9mfxLLuJBrlEq5v9Z5qtMB0qXp6BSbq9B2YYP9IBbaMnZ+GYSgDYh5Vw==
-
 "@turf/along@^6.0.1", "@turf/along@^6.5.0":
   version "6.5.0"
   resolved "https://registry.npmjs.org/@turf/along/-/along-6.5.0.tgz#ab12eec58a14de60fe243a62d31a474f415c8fef"
@@ -19367,15 +19362,6 @@ jest-transform-stub@^2.0.0:
   resolved "https://registry.npmjs.org/jest-transform-stub/-/jest-transform-stub-2.0.0.tgz#19018b0851f7568972147a5d60074b55f0225a7d"
   integrity sha512-lspHaCRx/mBbnm3h4uMMS3R5aZzMwyNpNIJLXj4cEsV0mIUtS4IjYJLSoyjRCtnxb6RIGJ4NL2quZzfIeNhbkg==
 
-jest-tsd@^0.2.2:
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/jest-tsd/-/jest-tsd-0.2.2.tgz#d2dec454f7ecdd8a26b37e37df4ba69f197ffe18"
-  integrity sha512-Nzgo5E9F1RON3GDkAHxVOf1dqSSRMnhJ5txULHhhK+qs2xSLmLWBbtYjKSlAYNpW/fOXSrGPOs6uE0YyWAchhA==
-  dependencies:
-    "@babel/code-frame" "^7.21.4"
-    chalk "^4.1.2"
-    tsd-lite "^0.7.0"
-
 jest-util@^27.2.0:
   version "27.5.1"
   resolved "https://registry.npmjs.org/jest-util/-/jest-util-27.5.1.tgz#3ba9771e8e31a0b85da48fe0b0891fb86c01c2f9"
@@ -27249,11 +27235,6 @@ tsconfig@^7.0.0:
     "@types/strip-json-comments" "0.0.30"
     strip-bom "^3.0.0"
     strip-json-comments "^2.0.0"
-
-tsd-lite@^0.7.0:
-  version "0.7.0"
-  resolved "https://registry.yarnpkg.com/tsd-lite/-/tsd-lite-0.7.0.tgz#838b4cff49082802eb08158afe7875acd1d74d36"
-  integrity sha512-XhQ7w/RPzfjSb98LIQB1qx7yAvRV6+h5JFP4dCvd79Hbp23X8CCx4EdRAQm6faTkRdprKYvZE8kxlK6LpJp8vg==
 
 tslib@2.4.0:
   version "2.4.0"
