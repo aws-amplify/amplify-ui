@@ -45,10 +45,10 @@ export type ResolveHandlerType<T> = T extends { handler: infer X } | infer X
   ? X
   : never;
 
-export type DerivedActionHandlers<ActionsType extends StorageBrowserActions> =
+export type DerivedActionHandlers<TActions extends StorageBrowserActions> =
   DefaultActionHandlers & {
-    [K in keyof NonNullable<ActionsType['custom']>]: ResolveHandlerType<
-      NonNullable<ActionsType['custom']>[K]
+    [K in keyof NonNullable<TActions['custom']>]: ResolveHandlerType<
+      NonNullable<TActions['custom']>[K]
     >;
   };
 
