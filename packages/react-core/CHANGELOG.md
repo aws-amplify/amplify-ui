@@ -1,5 +1,11 @@
 # @aws-amplify/ui-react-core
 
+## 3.4.2
+
+### Patch Changes
+
+- [#6507](https://github.com/aws-amplify/amplify-ui/pull/6507) [`b8fefdba2281af164756963c32fc17f7210ff6de`](https://github.com/aws-amplify/amplify-ui/commit/b8fefdba2281af164756963c32fc17f7210ff6de) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(react-core): refactor and rename useDataState to useAsyncReducer
+
 ## 3.4.1
 
 ### Patch Changes
