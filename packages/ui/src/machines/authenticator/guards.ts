@@ -7,11 +7,12 @@ import {
 
 import { MachineOptions } from 'xstate';
 
-import { AuthActorContext, AuthEvent } from './types';
+import { AuthActorContext, AuthEvent, Step } from './types';
 
-const SIGN_IN_STEP_MFA_CONFIRMATION: string[] = [
+const SIGN_IN_STEP_MFA_CONFIRMATION: Step[] = [
   'CONFIRM_SIGN_IN_WITH_SMS_CODE',
   'CONFIRM_SIGN_IN_WITH_TOTP_CODE',
+  'CONFIRM_SIGN_IN_WITH_EMAIL_CODE',
 ];
 
 // response next step guards
@@ -71,6 +72,15 @@ const shouldConfirmSignIn = ({ step }: AuthActorContext) =>
 const shouldSetupTotp = ({ step }: AuthActorContext) =>
   step === 'CONTINUE_SIGN_IN_WITH_TOTP_SETUP';
 
+const shouldSetupEmail = ({ step }: AuthActorContext) =>
+  step === 'CONTINUE_SIGN_IN_WITH_EMAIL_SETUP';
+
+const shouldSelectMfaType = ({ step }: AuthActorContext) =>
+  [
+    'CONTINUE_SIGN_IN_WITH_MFA_SELECTION',
+    'CONTINUE_SIGN_IN_WITH_MFA_SETUP_SELECTION',
+  ].includes(step);
+
 const shouldResetPassword = ({ step }: AuthActorContext) =>
   step === 'RESET_PASSWORD';
 
@@ -85,8 +95,12 @@ const shouldVerifyAttribute = (
   _: AuthActorContext,
   { data }: AuthEvent
 ): boolean => {
-  const { phone_number_verified, email_verified } =
+  const { email, phone_number, phone_number_verified, email_verified } =
     data as FetchUserAttributesOutput;
+
+  // if neither email nor phone_number exist
+  // there is nothing to verify
+  if (!email && !phone_number) return false;
 
   // email/phone_verified is returned as a string
   const emailNotVerified =
@@ -132,6 +146,8 @@ const GUARDS: MachineOptions<AuthActorContext, AuthEvent>['guards'] = {
   shouldResetPassword,
   shouldResetPasswordFromSignIn,
   shouldSetupTotp,
+  shouldSetupEmail,
+  shouldSelectMfaType,
   shouldVerifyAttribute,
 };
 

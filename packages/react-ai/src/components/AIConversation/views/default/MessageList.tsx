@@ -127,6 +127,7 @@ export const MessageList: Required<ControlsContextProps>['MessageList'] = ({
         (content) =>
           content.image ??
           content.text ??
+          content.document ??
           content.toolUse?.name.startsWith(RESPONSE_COMPONENT_PREFIX)
       )
     ) ?? [];

@@ -1,13 +1,16 @@
 import React from 'react';
 
-import { ListLocationsExcludeOptions, LocationData } from '../../actions';
-import { useStore } from '../../providers/store';
+import {
+  getFileKey,
+  ListLocationsExcludeOptions,
+  LocationData,
+} from '../../actions';
+import { useStore } from '../../store';
 import { useAction, useList } from '../../useAction';
 
 import { usePaginate } from '../hooks/usePaginate';
 import { useSearch } from '../hooks/useSearch';
 import { LocationsViewState, UseLocationsViewOptions } from './types';
-import { getFileKey } from '../../actions/handlers';
 
 const DEFAULT_EXCLUDE: ListLocationsExcludeOptions = {
   exactPermissions: ['delete', 'write'],
@@ -25,8 +28,8 @@ export const useLocationsView = (
   const [state, handleList] = useList('locations');
   const dispatchStoreAction = useStore()[1];
 
-  const { data, message, hasError, isLoading } = state;
-  const { items, nextToken, search } = data;
+  const { value, message, hasError, isLoading } = state;
+  const { items, nextToken, search } = value;
   const hasNextToken = !!nextToken;
   const { hasExhaustedSearch = false } = search ?? {};
 
@@ -45,22 +48,21 @@ export const useLocationsView = (
   }, [handleList, listOptions]);
 
   // set up pagination
-  const paginateCallback = () => {
+  const onPaginate = () => {
     if (!nextToken) return;
     handleList({ options: { ...listOptions, nextToken } });
   };
 
   const {
     currentPage,
-    onPaginate,
+    handlePaginate,
     handleReset,
     highestPageVisited,
     pageItems,
   } = usePaginate({
     items,
-    paginateCallback,
+    onPaginate,
     pageSize: listOptions.pageSize,
-    hasNextToken,
   });
 
   const onSearch = (query: string) => {
@@ -104,14 +106,14 @@ export const useLocationsView = (
     },
     onNavigate: (location: LocationData) => {
       onNavigate?.(location);
-      dispatchStoreAction({ type: 'NAVIGATE', location });
+      dispatchStoreAction({ type: 'CHANGE_LOCATION', location });
     },
     onRefresh: () => {
       resetSearch();
       handleReset();
       handleList({ options: { ...listOptions, refresh: true } });
     },
-    onPaginate,
+    onPaginate: handlePaginate,
     onSearch: onSearchSubmit,
     onSearchQueryChange,
     onSearchClear: () => {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 
-import * as StoreModule from '../../../providers/store';
+import * as StoreModule from '../../../store';
 
 import { LocationActionView } from '../LocationActionView';
 
@@ -22,7 +22,7 @@ const useStoreSpy = jest.spyOn(StoreModule, 'useStore');
 
 describe('LocationActionView', () => {
   it('returns `null` when no `actionType` is provided', () => {
-    const mockStore = { actionType: undefined } as StoreModule.UseStoreState;
+    const mockStore = { actionType: undefined } as StoreModule.StoreState;
     useStoreSpy.mockReturnValueOnce([mockStore, jest.fn()]);
 
     const { container } = render(<LocationActionView />);
@@ -31,7 +31,7 @@ describe('LocationActionView', () => {
   });
 
   it('returns `null` when `actionType` does not have a matching action view', () => {
-    const mockStore = { actionType: 'nope' } as StoreModule.UseStoreState;
+    const mockStore = { actionType: 'nope' } as StoreModule.StoreState;
     useStoreSpy.mockReturnValueOnce([mockStore, jest.fn()]);
 
     const { container } = render(<LocationActionView />);
@@ -63,7 +63,7 @@ describe('LocationActionView', () => {
   ])(
     'returns `$view` when `actionType` is "$actionType"',
     ({ actionType, testId }) => {
-      const mockStore = { actionType } as StoreModule.UseStoreState;
+      const mockStore = { actionType } as StoreModule.StoreState;
       useStoreSpy.mockReturnValueOnce([mockStore, jest.fn()]);
 
       const { getByTestId } = render(<LocationActionView />);

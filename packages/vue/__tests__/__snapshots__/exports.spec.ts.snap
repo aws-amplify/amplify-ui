@@ -17,6 +17,8 @@ exports[`@aws-amplify/ui-vue exports should match snapshot 1`] = `
   "ForgotPassword",
   "PasswordControl",
   "RenderInfo",
+  "SelectMfaType",
+  "SetupEmail",
   "SignIn",
   "SignUp",
   "VerifyUser",

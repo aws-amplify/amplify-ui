@@ -1,5 +1,5 @@
 import { FolderData, CopyHandlerData, LocationData } from '../../../actions';
-import { LocationState } from '../../../providers/store/location';
+import { LocationState } from '../../../store';
 import { ActionViewType, ActionViewProps, ActionViewState } from '../types';
 
 export interface CopyViewState extends ActionViewState<CopyHandlerData> {
@@ -52,4 +52,10 @@ export interface FoldersState {
   onSearch: () => void;
   onSearchClear: () => void;
   onSelectFolder: (id: string, folderLocationPath: string) => void;
+}
+
+export interface CopyViewState extends ActionViewState<CopyHandlerData> {
+  folders: FoldersState;
+  destination: LocationState;
+  onSelectDestination: (location: LocationData, path?: string) => void;
 }

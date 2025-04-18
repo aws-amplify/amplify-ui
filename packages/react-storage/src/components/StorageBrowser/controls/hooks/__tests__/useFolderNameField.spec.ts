@@ -1,6 +1,7 @@
 import { renderHook } from '@testing-library/react';
-import { FolderNameFieldProps } from '../../../composables/FolderNameField';
-import { useControlsContext } from '../../../controls/context';
+
+import { FolderNameFieldProps } from '../../../components/composables/FolderNameField';
+import { useControlsContext } from '../../context';
 import { useFolderNameField } from '../useFolderNameField';
 
 jest.mock('../../../controls/context');

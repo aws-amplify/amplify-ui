@@ -3,6 +3,7 @@ import React from 'react';
 import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
 import {
   AIContextContext,
+  ConversationInput,
   ConversationInputContext,
   useConversationDisplayText,
 } from '../../context';
@@ -11,13 +12,20 @@ import { AttachFileControl } from './AttachFileControl';
 import { MessagesContext } from '../../context';
 import { AttachmentListControl } from './AttachmentListControl';
 import { SendMessageContext } from '../../context/SendMessageContext';
-import { ConversationMessageContent, InputContent } from '../../../../types';
+import { InputContent } from '../../../../types';
 import {
   convertResponseComponentsToToolConfiguration,
   ResponseComponentsContext,
 } from '../../context/ResponseComponentsContext';
 import { ControlsContext } from '../../context/ControlsContext';
-import { attachmentsValidator, getImageTypeFromMimeType } from '../../utils';
+import {
+  attachmentsValidator,
+  getAttachmentFormat,
+  getValidDocumentName,
+  isDocumentFormat,
+  isImageFormat,
+  validFileTypes,
+} from '../../utils';
 import { LoadingContext } from '../../context/LoadingContext';
 import { AttachmentContext } from '../../context/AttachmentContext';
 import { humanFileSize, isFunction } from '@aws-amplify/ui';
@@ -151,6 +159,15 @@ const InputContainer = withBaseElementProps(View, {
   className: `${FIELD_BLOCK}__input-container`,
 });
 
+const isConversationInputWithText = (
+  input?: ConversationInput
+): input is Pick<Required<ConversationInput>, 'text'> => !!input?.text;
+
+const isConversationInputWithFiles = (
+  input?: ConversationInput
+): input is Pick<Required<ConversationInput>, 'files'> =>
+  !!input?.files?.length;
+
 export const FormControl: FormControl = () => {
   const { input, setInput, error, setError } = React.useContext(
     ConversationInputContext
@@ -165,27 +182,49 @@ export const FormControl: FormControl = () => {
   const ref = React.useRef<HTMLFormElement | null>(null);
   const controls = React.useContext(ControlsContext);
   const [composing, setComposing] = React.useState(false);
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
+  const isInputText = isConversationInputWithText(input);
+  // an empty array will resolve false when evaluating the length
+  const isInputFiles = isConversationInputWithFiles(input);
 
   const submitMessage = async () => {
-    ref.current?.reset();
+    const hasInput = isInputFiles || isInputText;
+    // Prevent double submission and empty submission
+    if (isSubmitting || !hasInput) {
+      return;
+    }
+
+    setIsSubmitting(true);
+
     const submittedContent: InputContent[] = [];
-    if (input?.text) {
+    if (isInputText) {
       const textContent: InputContent = {
         text: input.text,
       };
       submittedContent.push(textContent);
     }
 
-    if (input?.files) {
+    if (isInputFiles) {
       for (const file of input.files) {
         const buffer = await file.arrayBuffer();
-        const fileContent: ConversationMessageContent = {
-          image: {
-            format: getImageTypeFromMimeType(file.type),
-            source: { bytes: new Uint8Array(buffer) },
-          },
-        };
-        submittedContent.push(fileContent);
+        const format = getAttachmentFormat(file);
+        const source = { bytes: new Uint8Array(buffer) };
+        if (isDocumentFormat(format)) {
+          submittedContent.push({
+            document: {
+              name: getValidDocumentName(file),
+              format,
+              source,
+            },
+          });
+        } else if (isImageFormat(format)) {
+          submittedContent.push({
+            image: {
+              format,
+              source,
+            },
+          });
+        }
       }
     }
 
@@ -197,6 +236,13 @@ export const FormControl: FormControl = () => {
           convertResponseComponentsToToolConfiguration(responseComponents),
       });
     }
+
+    // Clear the attachment errors when submitting
+    // because the errors are not actually preventing the submission
+    // but rather notifying the user that certain files were not attached and why they weren't
+    setError?.(undefined);
+    setIsSubmitting(false);
+    ref.current?.reset();
     if (setInput) setInput({ text: '', files: [] });
   };
 
@@ -213,11 +259,7 @@ export const FormControl: FormControl = () => {
     if (key === 'Enter' && !shiftKey && !composing) {
       event.preventDefault();
 
-      const hasInput =
-        !!input?.text || (input?.files?.length && input?.files?.length > 0);
-      if (hasInput) {
-        submitMessage();
-      }
+      submitMessage();
     }
   };
 
@@ -228,16 +270,26 @@ export const FormControl: FormControl = () => {
         acceptedFiles,
         hasMaxAttachmentsError,
         hasMaxAttachmentSizeError,
+        hasUnsupportedFileError,
       } = await attachmentsValidator({
         files: [...files, ...previousFiles],
         maxAttachments,
         maxAttachmentSize,
       });
 
-      if (hasMaxAttachmentsError || hasMaxAttachmentSizeError) {
+      if (
+        hasMaxAttachmentsError ||
+        hasMaxAttachmentSizeError ||
+        hasUnsupportedFileError
+      ) {
         const errors = [];
         if (hasMaxAttachmentsError) {
           errors.push(displayText.getMaxAttachmentErrorText(maxAttachments));
+        }
+        if (hasUnsupportedFileError) {
+          errors.push(
+            displayText.getAttachmentFormatErrorText([...validFileTypes])
+          );
         }
         if (hasMaxAttachmentSizeError) {
           errors.push(
@@ -269,7 +321,7 @@ export const FormControl: FormControl = () => {
         setInput={setInput}
         onValidate={onValidate}
         allowAttachments={allowAttachments}
-        isLoading={isLoading}
+        isLoading={isLoading ?? isSubmitting}
         error={error}
         setError={setError}
       />

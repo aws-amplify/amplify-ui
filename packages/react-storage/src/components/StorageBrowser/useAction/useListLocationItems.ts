@@ -1,13 +1,13 @@
 import React from 'react';
 
-import { useDataState } from '@aws-amplify/ui-react-core';
+import { useAsyncReducer } from '@aws-amplify/ui-react-core';
 
 import {
   LocationItemType,
   ListLocationItemsHandler,
   LocationItemData,
 } from '../actions';
-import { useGetActionInput } from '../providers/configuration';
+import { useGetActionInput } from '../configuration';
 
 import { USE_LIST_ERROR_MESSAGE } from './constants';
 import { useActionHandlers } from './context';
@@ -48,7 +48,7 @@ export const useListLocationItems = (): UseListLocationItemsState => {
     [getConfig, listLocationItems]
   );
 
-  return useDataState(enhancedHandler, {
+  return useAsyncReducer(enhancedHandler, {
     items: [],
     nextToken: undefined,
   });

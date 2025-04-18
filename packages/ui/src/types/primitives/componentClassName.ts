@@ -22,6 +22,7 @@ export const ComponentClassName = {
   AvatarImage: 'amplify-avatar__image',
   AvatarLoader: 'amplify-avatar__loader',
   AIConversation: 'amplify-ai-conversation',
+  AIConversationScrollView: 'amplify-ai-conversation__scrollview',
   AIConversationAttachment: 'amplify-ai-conversation__attachment',
   AIConversationAttachmentList: 'amplify-ai-conversation__attachment__list',
   AIConversationAttachmentImage: 'amplify-ai-conversation__attachment__image',

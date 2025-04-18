@@ -1,27 +1,63 @@
 import { renderHook, act } from '@testing-library/react';
 
-import { useStore } from '../../../../providers/store';
+import { FileDataItem } from '../../../../actions';
+import { useFiles } from '../../../../files';
+import { useLocationItems } from '../../../../locationItems';
+import { useStore } from '../../../../store';
+import { INITIAL_STATUS_COUNTS } from '../../../../tasks';
 import { useAction } from '../../../../useAction';
 
 import { useDeleteView } from '../useDeleteView';
-import { INITIAL_STATUS_COUNTS } from '../../../../tasks';
 
-jest.mock('../../../../providers/store');
+jest.mock('../../../../files');
+jest.mock('../../../../locationItems');
+jest.mock('../../../../store');
 jest.mock('../../../../useAction');
 
+const fileDataItems: FileDataItem[] = [
+  {
+    key: 'pretend-prefix/test-file.txt',
+    fileKey: 'test-file.txt',
+    lastModified: new Date(),
+    id: 'id-1',
+    size: 10,
+    type: 'FILE',
+  },
+  {
+    key: 'pretend-prefix/deeply-nested/test-file.txt',
+    fileKey: 'test-file.txt',
+    lastModified: new Date(),
+    id: 'id-2',
+    size: 10,
+    type: 'FILE',
+  },
+];
+
+const mockLocationItemsState = { fileDataItems };
+
 describe('useDeleteView', () => {
-  const mockeUseAction = jest.mocked(useAction);
-  const mockeUseStore = jest.mocked(useStore);
+  const mockUseAction = jest.mocked(useAction);
+  const mockUseFiles = jest.mocked(useFiles);
+  const mockUseLocationItems = jest.mocked(useLocationItems);
+  const mockUseStore = jest.mocked(useStore);
+
   const mockCancel = jest.fn();
-  const mockDispatchStoreAction = jest.fn();
+  const mockStoreDispatch = jest.fn();
+  const mockFilesDispatch = jest.fn();
+  const mockLocationItemsDispatch = jest.fn();
   const mockHandleDelete = jest.fn();
   const mockReset = jest.fn();
 
   beforeEach(() => {
-    mockeUseStore.mockReturnValue([
+    mockUseFiles.mockReturnValue([undefined, mockFilesDispatch]);
+    mockUseLocationItems.mockReturnValue([
+      mockLocationItemsState,
+      mockLocationItemsDispatch,
+    ]);
+    mockUseStore.mockReturnValue([
       {
         actionType: 'DELETE',
-        files: [],
+
         location: {
           current: {
             prefix: 'test-prefix/',
@@ -33,23 +69,11 @@ describe('useDeleteView', () => {
           path: '',
           key: 'test-prefix/',
         },
-        locationItems: {
-          fileDataItems: [
-            {
-              key: 'pretend-prefix/test-file.txt',
-              fileKey: 'test-file.txt',
-              lastModified: new Date(),
-              id: 'id',
-              size: 10,
-              type: 'FILE',
-            },
-          ],
-        },
       },
-      mockDispatchStoreAction,
+      mockStoreDispatch,
     ]);
 
-    mockeUseAction.mockReturnValue([
+    mockUseAction.mockReturnValue([
       {
         isProcessing: false,
         isProcessingComplete: false,
@@ -83,14 +107,7 @@ describe('useDeleteView', () => {
     ]);
   });
 
-  afterEach(() => {
-    mockCancel.mockClear();
-    mockDispatchStoreAction.mockClear();
-    mockHandleDelete.mockClear();
-    mockReset.mockClear();
-    mockeUseAction.mockReset();
-    mockeUseStore.mockReset();
-  });
+  afterEach(jest.clearAllMocks);
 
   it('should return the correct initial state', () => {
     const { result } = renderHook(() => useDeleteView());
@@ -143,12 +160,24 @@ describe('useDeleteView', () => {
       result.current.onActionExit();
     });
 
-    expect(mockOnExit).toHaveBeenCalled();
-    expect(mockDispatchStoreAction).toHaveBeenCalledWith({
+    expect(mockOnExit).toHaveBeenCalledTimes(1);
+    expect(mockLocationItemsDispatch).toHaveBeenCalledTimes(1);
+    expect(mockLocationItemsDispatch).toHaveBeenCalledWith({
       type: 'RESET_LOCATION_ITEMS',
     });
-    expect(mockDispatchStoreAction).toHaveBeenCalledWith({
+    expect(mockStoreDispatch).toHaveBeenCalledTimes(1);
+    expect(mockStoreDispatch).toHaveBeenCalledWith({
       type: 'RESET_ACTION_TYPE',
     });
+  });
+
+  it('provides the unmodified value of `fileDataItems` to `useAction` as `items`', () => {
+    renderHook(() => useDeleteView());
+
+    expect(mockUseAction).toHaveBeenCalledTimes(1);
+    expect(mockUseAction).toHaveBeenCalledWith(
+      'delete',
+      expect.objectContaining({ items: fileDataItems })
+    );
   });
 });

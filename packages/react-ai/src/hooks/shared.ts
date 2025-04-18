@@ -1,14 +1,24 @@
-import { DataState } from '@aws-amplify/ui-react-core';
 import { GraphQLFormattedError } from '../types';
 
-export type DataClientState<T> = Omit<DataState<T>, 'message'> & {
+export interface AiClientState<T> {
+  data: T;
+  hasError: boolean;
+  isLoading: boolean;
+  /**
+   * @deprecated will be removed in a future major version. Superseded by `errors`
+   * @description errors returned from the websocket connection
+   */
   messages?: GraphQLFormattedError[];
-};
+  /**
+   * @description errors returned from the websocket connection
+   */
+  errors?: GraphQLFormattedError[];
+}
 
-export type DataClientResponse<T> = {
+export interface AiClientResponse<T> {
   data: T | null;
   errors?: GraphQLFormattedError[];
-};
+}
 
 // default state
 export const INITIAL_STATE = {

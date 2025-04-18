@@ -10,6 +10,7 @@ import {
   DisplayText,
   Theming,
   Icons,
+  GenerateUrlViewComposed,
 } from './examples'
 
 
@@ -26,6 +27,27 @@ import {
 Storage Browser for Amazon S3 is an open source component that you can add to your web applications to provide your end users with a simple, graphical interface to work with data stored in Amazon S3. With Storage Browser for S3, you can provide authorized end users access to easily browse, download, upload, copy, and delete data in S3 directly from your own applications.
 
 End users work with S3 _locations_ within the Storage Browser interface. _Locations_ are S3 buckets or prefixes that you authorize end users to access using Amazon S3 Access Grants or Identity and Access Management (IAM) policies, depending on your use case. When the Storage Browser component is first rendered, it will show the LocationsView which displays only the locations you have granted them access to. Once an end user has selected a location, they can browse the S3 bucket or prefix, and all the data contained further down the S3 resource path, but they cannot browse buckets or prefixes higher up the S3 resource path.
+
+## Quick start
+
+The quickest way to get started using the Storage Browser for S3 is to use one of the sample projects at https://github.com/aws-samples/sample-amplify-storage-browser.  There are 3 samples to get you started based on different authentication and bucket setups:
+
+1. [Amplify Auth and Storage](https://github.com/aws-samples/sample-amplify-storage-browser)
+2. [Amplify Auth with existing bucket](https://github.com/aws-samples/sample-amplify-storage-browser/tree/sample/amplify-auth-with-existing-bucket)
+3. [IAM Identity Center with Microsoft Entra ID and S3 Access Grants](https://github.com/aws-samples/sample-amplify-storage-browser/tree/sample/managed-auth-entra)
+
+### Step 1: Fork the sample repository
+
+Go to https://github.com/aws-samples/sample-amplify-storage-browser/fork and unselect "Copy the main branch only". The sample repository is structured by branches, so each sample has its own branch. 
+
+### Step 2: Deploy the project
+
+Follow the steps on the README for the sample branch to deploy the application. You can use any hosting provider to host the frontend assets. If you are using one of the Amplify samples you can deploy the entire application (frontend and backend) by creating a new Amplify application:
+
+https://console.aws.amazon.com/amplify/create/repo-branch
+
+Then selecting the newly created Github repository and choosing the appropriate branch.  When the build completes, visit the newly deployed branch by selecting "Visit deployed URL".
+
 
 ## Setup and Authentication
 
@@ -225,8 +247,8 @@ export const { StorageBrowser } = createStorageBrowser({
         }
       }
     },
-    registerAuthListener: (onStateChange) => {
-
+    registerAuthListener: (onAuthChange) => {
+      // call `onAuthChange` to notify the `StorageBrowser` that an end user has signed out
     }
   },
 })
@@ -269,13 +291,9 @@ You can use the `createTheme()` function to theme the `StorageBrowser` component
   </ExampleCode>
 </Example>
 
-
-
-
 #### CSS
 
 One way to theme the Storage Browser component is to use plain CSS. Amplify UI components use CSS classnames and CSS variables, so you can just write CSS to style the Storage Browser.
-
 
 ### Icons
 
@@ -387,9 +405,6 @@ Below you wll find examples of how to compose each view. See [View reference](#v
 </Tabs.Container>
 </Example>
 
-
-
-
 ### Custom UI
 
 The `createStorageBrowser` function returns a `useView()` hook that lets you use the Storage Browser's internal state and event handlers to build your own UI on top the Storage Browser functionality.
@@ -447,6 +462,207 @@ The `useView()` hook takes a single argument which is the name of the view you w
 </Example>
 
 
+### Customize actions
+
+`StorageBrowser` uses actions to handle data operations with S3. The `actions` config allows for modification and replacement of default actions, or adding custom actions. The `actions` config accepts 2 categories of actions: `default` and `custom`. 
+
+#### Extend default actions
+
+The following `default` actions are invoked by the default UI views:
+* `listLocationItems`: List data under `bucket` or `prefix` in [LocationDetails view](#locationdetails-view).
+* `copy`: Copy data to another location within a `bucket` or `prefix` in [Copy action view](#copy-view).
+* `createFolder`: Create a folder within a `bucket` or `prefix` in [CreateFolder action view](#createfolder-view).
+* `delete`: Delete a given object in [Delete action view](#delete-view).
+* `download`: Download a given object in [LocationDetails view](#locationdetails-view) using an [anchor link](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#download).
+* `upload`: Upload a file in [Upload action view](#upload-view).
+
+`defaultActionConfigs` allows access to the default implementation of these actions. Below is an example to instrument the default upload action to count the files being uploaded.
+
+<Example>
+<ExampleCode>
+```tsx file=../../../../../../../examples/next/pages/ui/components/storage/storage-browser/default-auth/routed/StorageBrowser.ts
+```
+</ExampleCode>
+</Example>
+
+#### Add Custom actions
+
+`custom` actions can be provided to add entirely new functionality to `StorageBrowser` which can be used by custom UI views. 
+
+The `createStorageBrowser` function returns a `useAction` hook that allows invocation of the custom or default actions in a custom UI view. There are 2 ways to use `useAction`:
+
+* If an action should be executed concurrently on a list of data, e.g. a list of selected files, invoke the hook by supplying an array in `items`:
+
+    ```tsx
+    // The execution status of each task is available in `tasks`
+    const [ { tasks }, handleAction ] = useAction('my-action-name', { items: ['input1', 'input2'] });
+
+    // call `handleAction()` to invoke concurrent execution against the provided `items`
+    <button onClick={() => handleAction()}>Start Concurrent Tasks!<button>
+    ```
+
+* To run an action against a single target invoke the hook with the action name only
+
+    ```tsx
+    // The execution status of the action is available in `task`
+    const [{ task }, handleAction] = useAction('[my action name]');
+
+    // call `handleAction` to invoke the execution against the given input data
+    <button onClick={() => handleAction(targetData)}>Start Single Task<button>
+    ```
+
+Below is an example of a custom action that launches a custom action to generate a temporary presigned URL to selected objects.
+
+<Example>
+<GenerateUrlViewComposed />
+<Tabs.Container defaultValue="generateUrlHandler">
+<Tabs.List>
+  <Tabs.Item value="StorageBrowser">StorageBrowser</Tabs.Item>
+  <Tabs.Item value="generateUrlHandler">generateUrl</Tabs.Item>
+</Tabs.List>
+<Tabs.Panel value="StorageBrowser">
+<ExampleCode>
+```jsx file=./examples/GenerateUrlViewComposed.tsx
+```
+</ExampleCode>
+</Tabs.Panel>
+<Tabs.Panel value="generateUrlHandler">
+  <ExampleCode>
+```ts
+import { S3, GetObjectCommand } from '@aws-sdk/client-s3';
+import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
+
+import { ActionHandler } from '@aws-amplify/ui-react-storage/browser';
+
+type GenerateLink = ActionHandler<
+  { duration: number; fileKey: string },
+  { link: string }
+>;
+
+export const generateUrlHandler: GenerateLink = ({ data, config, options }) => {
+  const handleGenerateUrl = async () => {
+    try {
+      const s3 = new S3({
+        region: config.region,
+        credentials: (await config.credentials()).credentials,
+      });
+      const command = new GetObjectCommand({
+        Bucket: config.bucket,
+        Key: data.key,
+      });
+      const url = await getSignedUrl(s3, command, {
+        expiresIn: data.duration * 60,
+      });
+      const result = {
+        status: 'COMPLETE' as const,
+        value: { link: url },
+      };
+      return result;
+    } catch (error) {
+      const message = 'Unable to generate link';
+      return {
+        status: 'FAILED' as const,
+        message,
+        error,
+      };
+    }
+  };
+
+  return { result: handleGenerateUrl() };
+};
+```
+  </ExampleCode>
+</Tabs.Panel>
+</Tabs.Container>
+</Example>
+
+<Message colorTheme="info" variation='filled' heading="Security best practice">
+This example is for demonstration purpose only. For more details, please refer to the [presigned URLs documentation](https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-presigned-url.html#PresignedUrl-Expiration)
+</Message>
+
+## Initializing `StorageBrowser` with a default location
+
+The `StorageBrowser` can be initialized with a default location using the `defaultValue` prop.
+
+<Example>
+  <Tabs.Container defaultValue="react-router">
+    <Tabs.List>
+      <Tabs.Item value="react-router">`react-router-dom@7.x`</Tabs.Item>
+      <Tabs.Item value="next-app-router">`next@14.x` App Router</Tabs.Item>
+      <Tabs.Item value="next-pages-router">`next@14.x` Pages Router</Tabs.Item>
+    </Tabs.List>
+    <Tabs.Panel value="react-router">
+        <ExampleCode>
+          ```tsx file=../../../../../../../examples/react-router/src/storage-browser/default-value/index.tsx#L2-
+          ```
+        </ExampleCode>
+    </Tabs.Panel>
+    <Tabs.Panel value="next-app-router">
+        <ExampleCode>
+          ```tsx file=../../../../../../../examples/next-app-router/src/app/storage-browser/default-value/page.tsx
+          ```
+        </ExampleCode>
+    </Tabs.Panel>
+    <Tabs.Panel value="next-pages-router">
+        <ExampleCode>
+          ```tsx file=../../../../../../../examples/next/pages/ui/components/storage/storage-browser/managed-auth/default-value/index.page.tsx#L2-
+          ```
+        </ExampleCode>
+    </Tabs.Panel>
+  </Tabs.Container>
+</Example>
+
+**Example `defaultValue`**
+
+Assuming an S3 uri of `"s3//:my-bucket/my-prefix/my-nested-prefix/"` where the end user has been granted access to the data within `my-prefix/`, the expected shape of `defaultValue` is:
+
+```tsx
+const defaultValue = {
+  location: {
+    // Folder `bucket` name, required
+    bucket: 'my-bucket',
+    // Folder entry point, required. For root `bucket` access provide an empty string
+    prefix: 'my-prefix/',
+    // Folder end user permissions, required
+    permissions: ['delete', 'get', 'list', 'write'],
+    // Sub-folder path, optional. Initializes the `StorageBrowser` to the nested folder and sets breadcrumb navigation
+    path: 'my-nested-prefix/',
+  },
+};
+```
+
+## Run `StorageBrowser` in controlled mode
+
+The `StorageBrowser` can be used as a controlled component by providing the `value` and `onValueChange` props.
+
+<Example>
+  <Tabs.Container defaultValue="react-router">
+    <Tabs.List>
+      <Tabs.Item value="react-router">`react-router-dom@7.x`</Tabs.Item>
+      <Tabs.Item value="next-app-router">`next@14.x` App Router</Tabs.Item>
+      <Tabs.Item value="next-pages-router">`next@14.x` Pages Router</Tabs.Item>
+    </Tabs.List>
+    <Tabs.Panel value="react-router">
+        <ExampleCode>
+          ```tsx file=../../../../../../../examples/react-router/src/storage-browser/controlled-value/index.tsx#L2-
+          ```
+        </ExampleCode>
+    </Tabs.Panel>
+    <Tabs.Panel value="next-app-router">
+        <ExampleCode>
+          ```tsx file=../../../../../../../examples/next-app-router/src/app/storage-browser/controlled-value/page.tsx
+          ```
+        </ExampleCode>
+    </Tabs.Panel>
+    <Tabs.Panel value="next-pages-router">
+        <ExampleCode>
+          {/* same example as app router, but start at line 3 to exclude 'use client' */}
+          ```tsx file=../../../../../../../examples/next-app-router/src/app/storage-browser/controlled-value/page.tsx#L3-
+          ```
+        </ExampleCode>
+    </Tabs.Panel>
+  </Tabs.Container>
+</Example>
 
 ## View reference
 
@@ -488,7 +704,6 @@ interface LocationsViewState {
 * `<StorageBrowser.LocationsView.Refresh />`
 * `<StorageBrowser.LocationsView.Search />`
 * `<StorageBrowser.LocationsView.Title />`
-
 
 ### LocationDetails view
 
@@ -563,9 +778,9 @@ interface UploadViewState {
   onActionCancel: () => void;
   onActionExit: () => void;
   onActionStart: () => void;
-  onTaskRemove?: (task: Task<T>) => void;
+  onTaskRemove?: (task: Task<UploadHandlerData>) => void;
   statusCounts: StatusCounts;
-  tasks: Tasks<T>;
+  tasks: Task<UploadHandlerData>[];
 }
 ```
 
@@ -599,9 +814,9 @@ interface CopyViewState {
   onActionCancel: () => void;
   onActionExit: () => void;
   onActionStart: () => void;
-  onTaskRemove?: (task: Task<T>) => void;
+  onTaskRemove?: (task: Task<CopyHandlerData>) => void;
   statusCounts: StatusCounts;
-  tasks: Tasks<T>;
+  tasks: Task<CopyHandlerData>[];
 }
 ```
 
@@ -635,9 +850,9 @@ interface DeleteViewState {
   onActionCancel: () => void;
   onActionExit: () => void;
   onActionStart: () => void;
-  onTaskRemove?: (task: Task<T>) => void;
+  onTaskRemove?: (task: Task<DeleteHandlerData>) => void;
   statusCounts: StatusCounts;
-  tasks: Tasks<T>;
+  tasks: Task<DeleteHandlerData>[];
 }
 ```
 
@@ -665,9 +880,9 @@ interface CreateFolderViewState {
   onActionCancel: () => void;
   onActionExit: () => void;
   onActionStart: () => void;
-  onTaskRemove?: (task: Task<T>) => void;
+  onTaskRemove?: (task: Task<CreateFolderHandlerData>) => void;
   statusCounts: StatusCounts;
-  tasks: Tasks<T>;
+  tasks: Task<CreateFolderHandlerData>[];
 }
 ```
 

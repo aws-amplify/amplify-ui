@@ -1,5 +1,38 @@
 # @aws-amplify/ui-react-liveness
 
+## 3.3.7
+
+### Patch Changes
+
+- Updated dependencies [[`e4d8cc8c04dd428d38289085a9bf797b87c058a2`](https://github.com/aws-amplify/amplify-ui/commit/e4d8cc8c04dd428d38289085a9bf797b87c058a2), [`e533dbbdade9d5ffdbd5aa7c446d958dd1980d43`](https://github.com/aws-amplify/amplify-ui/commit/e533dbbdade9d5ffdbd5aa7c446d958dd1980d43), [`80a0bd6f5179ff585ecc1fec4e6e3f152669258e`](https://github.com/aws-amplify/amplify-ui/commit/80a0bd6f5179ff585ecc1fec4e6e3f152669258e), [`58d7b1ba39b41d59f99328a9c46d92cce840fcdf`](https://github.com/aws-amplify/amplify-ui/commit/58d7b1ba39b41d59f99328a9c46d92cce840fcdf)]:
+  - @aws-amplify/ui@6.10.1
+  - @aws-amplify/ui-react@6.11.0
+
+## 3.3.6
+
+### Patch Changes
+
+- Updated dependencies [[`36c631a076b7d3d1aafc18a5854575e20e0592c2`](https://github.com/aws-amplify/amplify-ui/commit/36c631a076b7d3d1aafc18a5854575e20e0592c2)]:
+  - @aws-amplify/ui-react@6.10.0
+  - @aws-amplify/ui@6.10.0
+
+## 3.3.5
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @aws-amplify/ui-react@6.9.5
+
+## 3.3.4
+
+### Patch Changes
+
+- [#6437](https://github.com/aws-amplify/amplify-ui/pull/6437) [`f2566d3f977a0fcc423fc824ba82c02b76e632c0`](https://github.com/aws-amplify/amplify-ui/commit/f2566d3f977a0fcc423fc824ba82c02b76e632c0) Thanks [@tiffanynwyeung](https://github.com/tiffanynwyeung)! - fix(liveness): increase max frame rate and bitrate
+
+- Updated dependencies [[`e0fcb4322ab8af7e0699da577dc5fbcf9f7e56cc`](https://github.com/aws-amplify/amplify-ui/commit/e0fcb4322ab8af7e0699da577dc5fbcf9f7e56cc)]:
+  - @aws-amplify/ui@6.9.1
+  - @aws-amplify/ui-react@6.9.4
+
 ## 3.3.3
 
 ### Patch Changes
