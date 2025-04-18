@@ -1,5 +1,12 @@
 # @aws-amplify/ui-react-geo
 
+## 2.2.8
+
+### Patch Changes
+
+- Updated dependencies [[`b8fefdba2281af164756963c32fc17f7210ff6de`](https://github.com/aws-amplify/amplify-ui/commit/b8fefdba2281af164756963c32fc17f7210ff6de)]:
+  - @aws-amplify/ui-react-core@3.4.2
+
 ## 2.2.7
 
 ### Patch Changes
