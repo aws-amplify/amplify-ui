@@ -1,18 +1,17 @@
 import React from 'react';
 
+import type { Platform, PrimitivesDefault } from '../context';
 import {
   ComponentRouteProvider,
   displayTextEn,
   DisplayTextProvider,
   MachineProvider,
   MfaProvider,
-  Platform,
   PlatformProvider,
   PrimitivesProvider,
-  PrimitivesDefault,
 } from '../context';
 import { isComposable } from './isComposable';
-import { CreateProviderParams, ProviderComponent, Variant } from './types';
+import type { CreateProviderParams, ProviderComponent, Variant } from './types';
 
 // default `initialRoute` to `signUp`
 const INITIAL_ROUTE = 'signUp';

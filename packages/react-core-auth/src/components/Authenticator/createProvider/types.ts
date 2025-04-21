@@ -1,8 +1,8 @@
-import React from 'react';
+import type React from 'react';
 
-import { DisplayText } from '../context/DisplayText';
-import { InitialRoute } from '../context/ComponentRoute';
-import { Components, PrimitivesDefault } from '../context/Primitives';
+import type { DisplayText } from '../context/DisplayText';
+import type { InitialRoute } from '../context/ComponentRoute';
+import type { Components, PrimitivesDefault } from '../context/Primitives';
 
 /**
  * `createAuthenticator` output type:
