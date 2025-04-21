@@ -207,7 +207,7 @@ for (const [componentName, [node]] of source.getExportedDeclarations()) {
  * import { PrimitiveCatalog } from '@aws-amplify/ui-react/internal/primitives-catalog'
  */
 const primitiveCatalog = JSON.stringify(catalog, null, 2);
-const exportString = `import { PrimitiveCatalogType } from './types/catalog';
+const exportString = `import type { PrimitiveCatalogType } from './types/catalog';
 export const PrimitiveCatalog: PrimitiveCatalogType = ${primitiveCatalog};`;
 
 const internalOutputPath = path.resolve(
