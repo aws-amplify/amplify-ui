@@ -10,7 +10,7 @@ export { SignUp } from './SignUp';
 export { VerifyUser } from './VerifyUser';
 export { SelectMfaType } from './SelectMfaType';
 export { SetupEmail } from './SetupEmail';
-export {
+export type {
   Components,
   DefaultComponents,
   ConfirmResetPasswordProps,

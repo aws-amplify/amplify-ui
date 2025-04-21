@@ -17,6 +17,7 @@ module.exports = {
     '@typescript-eslint/ban-ts-comment': 'off',
     '@typescript-eslint/ban-types': 'off',
     '@typescript-eslint/consistent-type-imports': 'error',
+    '@typescript-eslint/consistent-type-exports': 'error',
     '@typescript-eslint/explicit-module-boundary-types': 2,
     '@typescript-eslint/member-ordering': 'error',
     '@typescript-eslint/no-explicit-any': 'off',

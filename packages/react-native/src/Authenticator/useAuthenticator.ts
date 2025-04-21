@@ -1,5 +1,5 @@
 // re-export `UseAuthenticator` export
-export { UseAuthenticator } from '@aws-amplify/ui-react-core';
+export type { UseAuthenticator } from '@aws-amplify/ui-react-core';
 
 import { signOut as _signOut } from 'aws-amplify/auth';
 import type { AuthEventData } from '@aws-amplify/ui';

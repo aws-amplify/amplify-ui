@@ -1,6 +1,7 @@
-export { BannerMessageProps } from './BannerMessage';
-export { CarouselMessageProps } from './CarouselMessage';
-export { FullScreenMessageProps } from './FullScreenMessage';
-export { InAppMessageDisplay, MessageComponents } from './InAppMessageDisplay';
-export { ModalMessageProps } from './ModalMessage';
+export type { BannerMessageProps } from './BannerMessage';
+export type { CarouselMessageProps } from './CarouselMessage';
+export type { FullScreenMessageProps } from './FullScreenMessage';
+export type { MessageComponents } from './InAppMessageDisplay';
+export { InAppMessageDisplay } from './InAppMessageDisplay';
+export type { ModalMessageProps } from './ModalMessage';
 export { withInAppMessaging } from './withInAppMessaging';
