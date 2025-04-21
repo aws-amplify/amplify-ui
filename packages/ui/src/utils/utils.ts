@@ -1,4 +1,4 @@
-import { Modifiers } from '../types';
+import type { Modifiers } from '../types';
 
 /**
  * @deprecated - will be removed in a future major version

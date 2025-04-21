@@ -1,4 +1,4 @@
-import { Modifiers, ComponentStyles, Elements } from './utils';
+import type { Modifiers, ComponentStyles, Elements } from './utils';
 
 type TableCellVariations = 'download' | 'select' | 'cancel';
 
