@@ -3,11 +3,13 @@ import React from 'react';
 import { Flex, Button, Text } from '@aws-amplify/ui-react';
 import { AlertIcon } from '@aws-amplify/ui-react/internal';
 
-import { LivenessErrorState, ErrorState } from '../service';
+import type { ErrorState } from '../service';
+import { LivenessErrorState } from '../service';
 
 import { Toast } from './Toast';
 import { Overlay } from './Overlay';
-import { defaultErrorDisplayText, ErrorDisplayText } from '../displayText';
+import type { ErrorDisplayText } from '../displayText';
+import { defaultErrorDisplayText } from '../displayText';
 import { LivenessClassNames } from '../types/classNames';
 
 export interface CheckScreenComponents {

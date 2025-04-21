@@ -1,13 +1,13 @@
-import {
+import type {
   ClientSessionInformationEvent,
   LivenessRequestStream,
   LivenessResponseStream,
   RekognitionStreamingClient,
-  StartFaceLivenessSessionCommand,
 } from '@aws-sdk/client-rekognitionstreaming';
+import { StartFaceLivenessSessionCommand } from '@aws-sdk/client-rekognitionstreaming';
 import { VideoRecorder } from './videoRecorder';
 
-import { AwsCredentialProvider } from '../types';
+import type { AwsCredentialProvider } from '../types';
 import { createStreamingClient } from './createStreamingClient';
 
 export interface StartLivenessStreamInput {
