@@ -6,7 +6,7 @@ import { useDisplayText } from '../../../displayText';
 import { useResolveTableData } from '../../hooks/useResolveTableData';
 import { DELETE_TABLE_KEYS, DELETE_TABLE_RESOLVERS } from '../../utils';
 
-import { DeleteViewProviderProps } from './types';
+import type { DeleteViewProviderProps } from './types';
 
 export function DeleteViewProvider({
   children,

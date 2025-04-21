@@ -1,6 +1,14 @@
-import { FolderData, CopyHandlerData, LocationData } from '../../../actions';
-import { LocationState } from '../../../store';
-import { ActionViewType, ActionViewProps, ActionViewState } from '../types';
+import type {
+  FolderData,
+  CopyHandlerData,
+  LocationData,
+} from '../../../actions';
+import type { LocationState } from '../../../store';
+import type {
+  ActionViewType,
+  ActionViewProps,
+  ActionViewState,
+} from '../types';
 
 export interface CopyViewState extends ActionViewState<CopyHandlerData> {
   folders: FoldersState;

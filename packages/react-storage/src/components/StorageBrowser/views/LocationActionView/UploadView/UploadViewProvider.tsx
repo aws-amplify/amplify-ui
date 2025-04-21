@@ -7,7 +7,7 @@ import { useDisplayText } from '../../../displayText';
 import { useResolveTableData } from '../../hooks/useResolveTableData';
 import { UPLOAD_TABLE_KEYS, UPLOAD_TABLE_RESOLVERS } from '../../utils';
 
-import { UploadViewProviderProps } from './types';
+import type { UploadViewProviderProps } from './types';
 
 export function UploadViewProvider({
   children,

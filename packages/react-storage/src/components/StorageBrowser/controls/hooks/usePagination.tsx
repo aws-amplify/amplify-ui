@@ -1,4 +1,4 @@
-import { PaginationProps } from '../../components/composables/Pagination';
+import type { PaginationProps } from '../../components/composables/Pagination';
 import { useControlsContext } from '../context';
 
 export const usePagination = (): PaginationProps => {

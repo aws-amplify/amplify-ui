@@ -1,9 +1,9 @@
 import React from 'react';
 import { isFunction } from '@aws-amplify/ui';
 
-import { ActionHandler, TaskData, TaskHandlerInput } from '../actions';
+import type { ActionHandler, TaskData, TaskHandlerInput } from '../actions';
 
-import {
+import type {
   HandleProcessTasks,
   InferHandleTasksInput,
   Task,

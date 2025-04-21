@@ -1,4 +1,4 @@
-import { DropZoneProps } from '../../components/composables/DropZone';
+import type { DropZoneProps } from '../../components/composables/DropZone';
 import { useControlsContext } from '../context';
 
 /**

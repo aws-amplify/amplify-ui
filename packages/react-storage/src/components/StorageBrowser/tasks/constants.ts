@@ -1,4 +1,4 @@
-import { StatusCounts } from './types';
+import type { StatusCounts } from './types';
 
 export const INITIAL_STATUS_COUNTS: StatusCounts = {
   CANCELED: 0,

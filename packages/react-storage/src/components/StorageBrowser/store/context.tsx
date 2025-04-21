@@ -4,7 +4,7 @@ import { noop } from '@aws-amplify/ui';
 import { createContextUtilities } from '@aws-amplify/ui-react-core';
 
 import { DEFAULT_STATE } from './constants';
-import { StoreProviderProps, StoreContextType } from './types';
+import type { StoreProviderProps, StoreContextType } from './types';
 import useStoreReducer from './useStoreReducer';
 
 const DEFAULT_VALUE: StoreContextType = [DEFAULT_STATE, noop];

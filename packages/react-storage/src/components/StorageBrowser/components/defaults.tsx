@@ -14,7 +14,7 @@ import {
 } from '@aws-amplify/ui-react';
 
 import { STORAGE_BROWSER_BLOCK } from './base';
-import { StorageBrowserComponents } from './ComponentsProvider';
+import type { StorageBrowserComponents } from './ComponentsProvider';
 import { IconElement } from './elements';
 
 const OverwriteToggle: StorageBrowserComponents['OverwriteToggle'] = ({

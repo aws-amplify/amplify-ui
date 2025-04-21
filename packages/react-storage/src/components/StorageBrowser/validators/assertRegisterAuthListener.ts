@@ -1,6 +1,6 @@
 import { isFunction } from '@aws-amplify/ui';
 
-import { RegisterAuthListener } from '../credentials';
+import type { RegisterAuthListener } from '../credentials';
 
 export function assertRegisterAuthListener(
   value: unknown

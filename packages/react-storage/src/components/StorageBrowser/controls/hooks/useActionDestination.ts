@@ -3,7 +3,7 @@ import React from 'react';
 import { useControlsContext } from '../context';
 import { getNavigationItems } from './getNavigationItems';
 import { getNavigationParts } from './getNavigationParts';
-import { ActionDestinationProps } from '../../components/composables/ActionDestination';
+import type { ActionDestinationProps } from '../../components/composables/ActionDestination';
 
 export const useActionDestination = (): ActionDestinationProps => {
   const { data, onSelectDestination } = useControlsContext();

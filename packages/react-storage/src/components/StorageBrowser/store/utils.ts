@@ -1,9 +1,9 @@
 import { isObject } from '@aws-amplify/ui';
 
-import { LocationData } from '../actions';
+import type { LocationData } from '../actions';
 
 import { DEFAULT_STATE } from './constants';
-import {
+import type {
   LocationValue,
   StorageBrowserValue,
   StoreProviderProps,

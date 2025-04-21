@@ -1,4 +1,4 @@
-import { MessageProps } from '../../components/composables/Message';
+import type { MessageProps } from '../../components/composables/Message';
 import { useControlsContext } from '../context';
 
 export const useMessage = (): MessageProps => {

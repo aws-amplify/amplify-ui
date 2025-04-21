@@ -1,7 +1,7 @@
-import { ActionHandler } from '../actions';
+import type { ActionHandler } from '../actions';
 import { useActionHandlers } from './context';
 import { useHandler } from './useHandler';
-import { DefaultActionHandlers, UseAction } from './types';
+import type { DefaultActionHandlers, UseAction } from './types';
 
 type ListHandlerKeys = 'listLocations' | 'listLocationItems';
 

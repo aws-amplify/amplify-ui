@@ -1,5 +1,5 @@
-import { WithKey } from '../../../components/types';
-import { DataTableHeader, DataTableDataCell } from '../../../components';
+import type { WithKey } from '../../../components/types';
+import type { DataTableHeader, DataTableDataCell } from '../../../components';
 
 interface ResolverProps<P> {
   /**

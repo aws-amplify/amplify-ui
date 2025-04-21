@@ -7,6 +7,7 @@ import { VERSION } from '../../../version';
 import { ErrorBoundary as DefaultErrorBoundary } from '../ErrorBoundary';
 import { useAction } from '../useAction';
 import { assertRegisterAuthListener } from '../validators';
+import type { LocationActionViewType } from '../views';
 import {
   CopyView,
   CreateFolderView,
@@ -15,13 +16,12 @@ import {
   LocationDetailView,
   LocationsView,
   UploadView,
-  LocationActionViewType,
   useView,
 } from '../views';
 
 import createProvider from './createProvider';
 import StorageBrowserDefault from './StorageBrowserDefault';
-import {
+import type {
   CreateStorageBrowserInput,
   CreateStorageBrowserOutput,
   StorageBrowserType,

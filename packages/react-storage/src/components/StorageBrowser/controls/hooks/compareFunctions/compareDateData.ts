@@ -1,4 +1,4 @@
-import { DataTableDateDataCell, SortDirection } from '../../../components';
+import type { DataTableDateDataCell, SortDirection } from '../../../components';
 
 export const compareContent = (
   { value: a }: DataTableDateDataCell['content'],

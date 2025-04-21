@@ -1,6 +1,6 @@
 import { remove } from '../../storage-internal';
 
-import {
+import type {
   OptionalFileData,
   TaskHandler,
   TaskHandlerOptions,

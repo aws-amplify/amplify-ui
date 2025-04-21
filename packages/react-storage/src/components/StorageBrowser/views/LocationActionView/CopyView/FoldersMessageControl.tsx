@@ -6,7 +6,7 @@ import { ControlsContextProvider } from '../../../controls/context';
 import { MessageControl } from '../../../controls/MessageControl';
 import { ViewElement } from '../../../components/elements';
 import { STORAGE_BROWSER_BLOCK } from '../../../components';
-import { FolderData } from '../../../actions';
+import type { FolderData } from '../../../actions';
 import { useDisplayText } from '../../../displayText';
 
 export interface FoldersMessageProps {
