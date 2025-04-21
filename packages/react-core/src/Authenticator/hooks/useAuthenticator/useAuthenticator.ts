@@ -1,11 +1,12 @@
 import React, { useCallback } from 'react';
 import { useSelector } from '@xstate/react';
-import { AuthMachineState, getServiceFacade } from '@aws-amplify/ui';
+import type { AuthMachineState } from '@aws-amplify/ui';
+import { getServiceFacade } from '@aws-amplify/ui';
 
 import { AuthenticatorContext } from '../../context';
 
 import { USE_AUTHENTICATOR_ERROR } from './constants';
-import { UseAuthenticatorSelector, UseAuthenticator } from './types';
+import type { UseAuthenticatorSelector, UseAuthenticator } from './types';
 import {
   defaultComparator,
   getComparator,

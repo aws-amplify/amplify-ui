@@ -1,8 +1,8 @@
-import {
+import type {
   AuthenticatorLegacyFields,
   AuthenticatorMachineContext,
 } from '../../types';
-import { UseAuthenticator } from '../types';
+import type { UseAuthenticator } from '../types';
 
 const allowedMfaTypes = [
   'EMAIL',
