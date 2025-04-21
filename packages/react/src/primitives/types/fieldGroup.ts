@@ -1,6 +1,6 @@
-import { BaseFlexProps } from './flex';
-import { FieldVariations } from './field';
-import { ElementType, PrimitiveProps } from './view';
+import type { BaseFlexProps } from './flex';
+import type { FieldVariations } from './field';
+import type { ElementType, PrimitiveProps } from './view';
 
 export type FieldGroupOrientation = 'horizontal' | 'vertical';
 

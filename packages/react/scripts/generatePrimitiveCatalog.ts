@@ -1,8 +1,9 @@
 import fs from 'fs';
 import path from 'path';
 
-import { Node, Project, Symbol, Type, VariableDeclaration } from 'ts-morph';
-import {
+import type { Symbol, Type, VariableDeclaration } from 'ts-morph';
+import { Node, Project } from 'ts-morph';
+import type {
   PrimitiveCatalogType,
   PrimitiveCatalogComponentProperties,
   PrimitiveCatalogComponentProperty,

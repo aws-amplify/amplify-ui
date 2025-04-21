@@ -3,10 +3,10 @@ import { classNames } from '@aws-amplify/ui';
 
 import { classNameModifier, ComponentClassName } from '@aws-amplify/ui';
 
-import { ForwardRefPrimitive, Primitive } from '../types';
+import type { ForwardRefPrimitive, Primitive } from '../types';
 import { View } from '../View';
 import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
-import { BaseTabsListProps, TabsListProps, TabsItemProps } from './types';
+import type { BaseTabsListProps, TabsListProps, TabsItemProps } from './types';
 import { TabsContext } from './TabsContext';
 
 const isValidTab = (

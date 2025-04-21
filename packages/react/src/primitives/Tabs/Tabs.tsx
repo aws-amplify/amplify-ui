@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { ForwardRefPrimitive, Primitive } from '../types';
+import type { ForwardRefPrimitive, Primitive } from '../types';
 import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
-import { BaseTabsProps, TabsProps } from './types';
+import type { BaseTabsProps, TabsProps } from './types';
 import { TabsItem } from './TabsItem';
 import { TabList } from './TabsList';
 import { TabPanel } from './TabsPanel';

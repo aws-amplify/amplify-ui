@@ -1,5 +1,5 @@
-import { BaseTextProps } from './text';
-import { ElementType, PrimitiveProps } from './view';
+import type { BaseTextProps } from './text';
+import type { ElementType, PrimitiveProps } from './view';
 
 export type HeadingLevel = 1 | 2 | 3 | 4 | 5 | 6;
 

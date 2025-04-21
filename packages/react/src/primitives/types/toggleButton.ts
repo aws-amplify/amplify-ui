@@ -1,5 +1,5 @@
-import { BaseButtonPropsWithoutColorTheme } from './button';
-import { ElementType, PrimitiveProps } from './view';
+import type { BaseButtonPropsWithoutColorTheme } from './button';
+import type { ElementType, PrimitiveProps } from './view';
 
 /** @deprecated For internal use only */
 export interface BaseToggleButtonProps

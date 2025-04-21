@@ -1,8 +1,8 @@
-import * as React from 'react';
+import type * as React from 'react';
 
-import { BaseFlexProps } from './flex';
-import { BaseButtonProps } from './button';
-import { ElementType, PrimitiveProps, BaseViewProps } from './view';
+import type { BaseFlexProps } from './flex';
+import type { BaseButtonProps } from './button';
+import type { ElementType, PrimitiveProps, BaseViewProps } from './view';
 
 export type MessageColorTheme =
   | 'neutral'

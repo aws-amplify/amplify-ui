@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import {
+import type {
   BaseViewProps,
   ElementType,
   ForwardRefPrimitive,

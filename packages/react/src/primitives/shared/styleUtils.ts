@@ -1,18 +1,19 @@
 import * as React from 'react';
-import { isDesignToken, WebTheme } from '@aws-amplify/ui';
+import type { WebTheme } from '@aws-amplify/ui';
+import { isDesignToken } from '@aws-amplify/ui';
 
-import {
-  ComponentPropsToStylePropsMap,
+import type {
   GridItemStyleProps,
   GridSpanType,
   ResponsiveObject,
   BaseViewProps,
   AllStylePropKey,
 } from '../types';
+import { ComponentPropsToStylePropsMap } from '../types';
 
 import { getValueAtCurrentBreakpoint } from './responsive/utils';
 import { useBreakpoint } from './responsive/useBreakpoint';
-import { Breakpoint, Breakpoints } from '../types/responsive';
+import type { Breakpoint, Breakpoints } from '../types/responsive';
 
 import { useTheme } from '../../hooks';
 import {

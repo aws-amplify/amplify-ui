@@ -1,7 +1,7 @@
-import { Property } from 'csstype';
+import type { Property } from 'csstype';
 
-import { ResponsiveStyle, CSSLayoutStyleProps } from './style';
-import { ElementType, PrimitiveProps, BaseViewProps } from './view';
+import type { ResponsiveStyle, CSSLayoutStyleProps } from './style';
+import type { ElementType, PrimitiveProps, BaseViewProps } from './view';
 
 export type GridSpanType = number | string | 'auto';
 
