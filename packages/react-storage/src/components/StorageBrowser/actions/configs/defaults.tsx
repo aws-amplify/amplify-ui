@@ -4,6 +4,7 @@ import type {
   CopyActionConfig,
   CreateFolderActionConfig,
   DeleteActionConfig,
+  DownloadMultipleActionConfig,
   UploadActionConfig,
 } from './types';
 
@@ -49,12 +50,23 @@ export const uploadActionConfig: UploadActionConfig = {
   handler: defaultHandlers.upload,
 };
 
+export const downloadMultipleActionConfig: DownloadMultipleActionConfig = {
+  viewName: 'DownloadMultipleView',
+  actionListItem: {
+    hide: (permissions) => !permissions.includes('get'),
+    icon: 'download',
+    label: 'Download',
+  },
+  handler: defaultHandlers.download,
+};
+
 // Action view configs only, does not include `listLocationItems`
 export const defaultActionViewConfigs = {
   copy: copyActionConfig,
   createFolder: createFolderActionConfig,
   // provide `download` handler only; `download` does not have a dedicated view/config
   download: defaultHandlers.download,
+  downloadMultiple: downloadMultipleActionConfig,
   delete: deleteActionConfig,
   upload: uploadActionConfig,
 };

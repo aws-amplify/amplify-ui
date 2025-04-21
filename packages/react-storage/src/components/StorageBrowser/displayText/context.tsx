@@ -24,6 +24,7 @@ export function resolveDisplayText(
     CopyView,
     CreateFolderView,
     DeleteView,
+    DownloadMultipleView,
     LocationDetailView,
     LocationsView,
     UploadView,
@@ -37,6 +38,10 @@ export function resolveDisplayText(
     DeleteView: {
       ...DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT.DeleteView,
       ...DeleteView,
+    },
+    DownloadMultipleView: {
+      ...DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT.DownloadMultipleView,
+      ...DownloadMultipleView,
     },
     LocationDetailView: {
       ...DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT.LocationDetailView,

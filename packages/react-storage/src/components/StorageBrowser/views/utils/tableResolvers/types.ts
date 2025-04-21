@@ -1,11 +1,13 @@
 import type {
   CopyHandlerData,
   DeleteHandlerData,
+  DownloadHandlerData,
   UploadHandlerData,
 } from '../../../actions';
 import type {
   CopyViewDisplayText,
   DeleteViewDisplayText,
+  DownloadMultipleViewDisplayText,
   UploadViewDisplayText,
 } from '../../../displayText';
 import type { Task } from '../../../tasks';
@@ -13,6 +15,7 @@ import type { DataTableResolvers } from '../../hooks/useResolveTableData';
 
 export interface CopyActionTask extends Task<CopyHandlerData> {}
 export interface DeleteActionTask extends Task<DeleteHandlerData> {}
+export interface DownloadMultipleActionTask extends Task<DownloadHandlerData> {}
 export interface UploadActionTask extends Task<UploadHandlerData> {}
 
 interface ActionTableResolverProps<TDisplayText, TTask> {
@@ -26,6 +29,12 @@ export interface CopyTableResolverProps
 
 export interface DeleteTableResolverProps
   extends ActionTableResolverProps<DeleteViewDisplayText, DeleteActionTask> {}
+
+export interface DownloadMultipleTableResolverProps
+  extends ActionTableResolverProps<
+    DownloadMultipleViewDisplayText,
+    DownloadMultipleActionTask
+  > {}
 
 export interface UploadTableResolverProps
   extends ActionTableResolverProps<UploadViewDisplayText, UploadActionTask> {
@@ -59,6 +68,13 @@ export interface DeleteTableResolvers
     DeleteActionTask
   > {}
 
+export interface DownloadMultipleTableResolvers
+  extends DataTableResolvers<
+    DeleteTableKey,
+    DeleteTableResolverProps,
+    DeleteActionTask
+  > {}
+
 export interface UploadTableResolvers
   extends DataTableResolvers<
     UploadTableKey,
@@ -68,4 +84,5 @@ export interface UploadTableResolvers
 
 export type GetCopyCell = CopyTaskTableResolvers['getCell'];
 export type GetDeleteCell = DeleteTableResolvers['getCell'];
+export type GetDownloadMultipleCell = DownloadMultipleTableResolvers['getCell'];
 export type GetUploadCell = UploadTableResolvers['getCell'];

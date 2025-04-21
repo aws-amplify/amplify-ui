@@ -7,6 +7,7 @@ import type {
   CreateFolderViewProps,
   CopyViewProps,
   DeleteViewProps,
+  DownloadMultipleViewProps,
 } from './LocationActionView';
 import type { LocationDetailViewProps } from './LocationDetailView';
 import type { LocationsViewProps } from './LocationsView';
@@ -44,6 +45,9 @@ export interface DefaultActionViews {
   CreateFolderView: (props: CreateFolderViewProps) => React.JSX.Element | null;
   CopyView: (props: CopyViewProps) => React.JSX.Element | null;
   DeleteView: (props: DeleteViewProps) => React.JSX.Element | null;
+  DownloadMultipleView: (
+    props: DownloadMultipleViewProps
+  ) => React.JSX.Element | null;
   UploadView: (props: UploadViewProps) => React.JSX.Element | null;
 }
 
@@ -51,5 +55,8 @@ export interface DefaultActionViewsByActionName {
   createFolder: (props: CreateFolderViewProps) => React.JSX.Element | null;
   copy: (props: CopyViewProps) => React.JSX.Element | null;
   delete: (props: DeleteViewProps) => React.JSX.Element | null;
+  downloadMultiple: (
+    props: DownloadMultipleViewProps
+  ) => React.JSX.Element | null;
   upload: (props: UploadViewProps) => React.JSX.Element | null;
 }

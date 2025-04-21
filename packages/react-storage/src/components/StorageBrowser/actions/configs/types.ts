@@ -128,6 +128,9 @@ export interface CopyActionConfig
 export interface CreateFolderActionConfig
   extends ActionViewConfig<CreateFolderHandler, 'CreateFolderView'> {}
 
+export interface DownloadMultipleActionConfig
+  extends ActionViewConfig<DownloadHandler, 'DownloadMultipleView'> {}
+
 export interface ListActionConfig<T> {
   /**
    * action handler
@@ -142,6 +145,7 @@ export interface DefaultActionConfigs {
   delete?: DeleteActionConfig;
   download?: DownloadHandler;
   copy?: CopyActionConfig;
+  downloadMultiple?: DownloadMultipleActionConfig;
 }
 
 export interface ExtendedDefaultActionConfigs
