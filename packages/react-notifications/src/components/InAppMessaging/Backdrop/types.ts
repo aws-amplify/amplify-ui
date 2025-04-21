@@ -1,4 +1,4 @@
-import { ViewProps } from '@aws-amplify/ui-react';
+import type { ViewProps } from '@aws-amplify/ui-react';
 
 export interface BackdropProps extends ViewProps {
   /**

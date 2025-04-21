@@ -1,4 +1,4 @@
-import { MessagePayloadStyle } from '@aws-amplify/ui-react-core-notifications';
+import type { MessagePayloadStyle } from '@aws-amplify/ui-react-core-notifications';
 
 /**
  * Inline style props for message components. Can be overridden by customer
