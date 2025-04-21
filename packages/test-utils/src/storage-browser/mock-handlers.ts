@@ -1,9 +1,9 @@
-import {
+import type {
   DefaultHandlers,
   ListLocations,
   LocationData,
 } from '@aws-amplify/ui-react-storage/browser';
-import { LocationItems, MockHandlersInput } from './types';
+import type { LocationItems, MockHandlersInput } from './types';
 
 const UNDEFINED_CALLBACKS = {
   cancel: undefined,
