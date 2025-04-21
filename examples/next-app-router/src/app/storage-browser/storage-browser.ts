@@ -4,8 +4,8 @@ import {
 } from '@aws-amplify/ui-react-storage/browser';
 import '@aws-amplify/ui-react-storage/styles.css';
 import {
-  MockHandlers,
   InitialValues,
+  MockHandlers,
 } from '@aws-amplify/ui-test-utils/storage-browser';
 
 export const PREFIXES = {
@@ -39,6 +39,7 @@ export const INITIAL_VALUES: InitialValues = {
         type: 'FOLDER',
       },
     ],
+    [`${PREFIXES.base}${PREFIXES.nested}${PREFIXES.deeplyNested}`]: [],
   },
 };
 
