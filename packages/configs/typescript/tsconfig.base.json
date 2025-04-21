@@ -5,7 +5,7 @@
     "declaration": true,
     "esModuleInterop": true,
     "importHelpers": true,
-    // "isolatedModules": true,
+    "isolatedModules": true,
     "module": "esnext",
     "moduleResolution": "node",
     "strict": true,
