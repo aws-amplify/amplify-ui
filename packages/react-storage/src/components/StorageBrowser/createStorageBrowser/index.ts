@@ -1,5 +1,5 @@
 export { default as createStorageBrowser } from './createStorageBrowser';
-export {
+export type {
   CreateStorageBrowserInput,
   CreateStorageBrowserOutput,
   DerivedActionViews,

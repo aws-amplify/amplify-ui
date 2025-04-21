@@ -1,5 +1,5 @@
 export { createLocationCredentialsStore } from './create';
-export {
+export type {
   GetLocationCredentials,
   GetLocationCredentialsInput,
   CredentialsLocation,

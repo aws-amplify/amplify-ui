@@ -1,2 +1,2 @@
 export { StorageImage } from './StorageImage';
-export { StorageImageProps } from './types';
+export type { StorageImageProps } from './types';
