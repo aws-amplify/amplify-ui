@@ -3,7 +3,7 @@ import { render, renderHook } from '@testing-library/react-native';
 
 import { useTheme } from '../../../theme';
 import Heading from '../Heading';
-import { HeadingProps } from '../types';
+import type { HeadingProps } from '../types';
 import { getThemedStyles } from '../styles';
 
 const levels: HeadingProps['level'][] = [1, 2, 3, 4, 5, 6];

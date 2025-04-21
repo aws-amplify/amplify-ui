@@ -9,7 +9,7 @@ import { Flex } from '../Flex';
 import { View } from '../View';
 import { VisuallyHidden } from '../VisuallyHidden';
 
-import {
+import type {
   FieldsetProps,
   BaseFieldsetProps,
   ForwardRefPrimitive,

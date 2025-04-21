@@ -1,5 +1,5 @@
-import { Sizes } from './base';
-import { ElementType, PrimitiveProps, BaseViewProps } from './view';
+import type { Sizes } from './base';
+import type { ElementType, PrimitiveProps, BaseViewProps } from './view';
 
 export type DividerOrientations = 'horizontal' | 'vertical';
 export type DividerSizes = Sizes;

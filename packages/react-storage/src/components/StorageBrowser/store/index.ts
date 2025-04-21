@@ -1,5 +1,5 @@
 export { StoreProvider, useStore } from './context';
-export {
+export type {
   LocationEventValue,
   LocationState,
   LocationValue,

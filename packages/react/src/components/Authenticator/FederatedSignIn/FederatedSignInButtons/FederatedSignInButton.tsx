@@ -1,5 +1,8 @@
 import React from 'react';
-import { FederatedIdentityProviders, SocialProvider } from '@aws-amplify/ui';
+import type {
+  FederatedIdentityProviders,
+  SocialProvider,
+} from '@aws-amplify/ui';
 
 import { useAuthenticator } from '@aws-amplify/ui-react-core';
 import { Button } from '../../../../primitives/Button';

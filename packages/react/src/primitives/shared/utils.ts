@@ -1,9 +1,9 @@
+import type { WebTheme } from '@aws-amplify/ui';
 import {
   cssNameTransform,
   isDesignToken,
   classNameModifier,
   classNameModifierByFlag,
-  WebTheme,
 } from '@aws-amplify/ui';
 
 import { isThemeStylePropKey } from '../types/theme';

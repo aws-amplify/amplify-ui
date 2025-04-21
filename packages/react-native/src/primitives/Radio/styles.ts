@@ -1,8 +1,8 @@
 import { StyleSheet } from 'react-native';
 
-import { StrictTheme } from '../../theme';
+import type { StrictTheme } from '../../theme';
 import { RADIO_DOT_PROPORTION } from './getRadioDimensions';
-import { RadioStyles } from './types';
+import type { RadioStyles } from './types';
 
 const ROUNDED_BORDER_RADIUS = 999;
 

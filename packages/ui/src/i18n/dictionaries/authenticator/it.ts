@@ -1,4 +1,4 @@
-import { AuthenticatorDictionary } from './types';
+import type { AuthenticatorDictionary } from './types';
 
 export const itDict: AuthenticatorDictionary = {
   'Account recovery requires verified contact information':

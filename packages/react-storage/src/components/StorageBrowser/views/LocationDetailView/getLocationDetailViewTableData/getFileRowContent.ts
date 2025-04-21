@@ -1,7 +1,7 @@
 import { humanFileSize } from '@aws-amplify/ui';
 
-import { LocationPermissions } from '../../../actions';
-import { DataTableProps } from '../../../components';
+import type { LocationPermissions } from '../../../actions';
+import type { DataTableProps } from '../../../components';
 
 import { LOCATION_DETAIL_VIEW_HEADERS } from './constants';
 

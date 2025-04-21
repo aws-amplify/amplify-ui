@@ -11,17 +11,17 @@ import {
 } from '../hooks';
 import { isMobileScreen, getLandscapeMediaQuery } from '../utils/device';
 import { CancelButton } from '../shared/CancelButton';
-import {
+import type {
   InstructionDisplayText,
   HintDisplayText,
   CameraDisplayText,
   StreamDisplayText,
   ErrorDisplayText,
-  defaultErrorDisplayText,
 } from '../displayText';
+import { defaultErrorDisplayText } from '../displayText';
 import { LandscapeErrorModal } from '../shared/LandscapeErrorModal';
 import { selectErrorState } from '../shared';
-import { FaceLivenessDetectorComponents } from '../shared/DefaultStartScreenComponents';
+import type { FaceLivenessDetectorComponents } from '../shared/DefaultStartScreenComponents';
 
 const CHECK_CLASS_NAME = 'liveness-detector-check';
 

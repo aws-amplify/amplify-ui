@@ -1,11 +1,11 @@
-import {
+import type {
   ImageSourcePropType,
   ImageStyle,
   TextStyle,
   ViewStyle,
 } from 'react-native';
 
-import { ButtonProps } from '../../../primitives';
+import type { ButtonProps } from '../../../primitives';
 
 export interface FederatedProviderButtonProps
   extends Omit<ButtonProps, 'children'> {

@@ -1,12 +1,8 @@
 import React from 'react';
 import { fireEvent, render } from '@testing-library/react-native';
 
-import {
-  AuthenticatorRoute,
-  SocialProvider,
-  authenticatorTextUtil,
-  capitalize,
-} from '@aws-amplify/ui';
+import type { AuthenticatorRoute, SocialProvider } from '@aws-amplify/ui';
+import { authenticatorTextUtil, capitalize } from '@aws-amplify/ui';
 
 import FederatedProviderButtons from '../FederatedProviderButtons';
 

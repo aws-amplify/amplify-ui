@@ -1,4 +1,4 @@
-import { GraphQLFormattedError } from '../types';
+import type { GraphQLFormattedError } from '../types';
 
 export interface AiClientState<T> {
   data: T;

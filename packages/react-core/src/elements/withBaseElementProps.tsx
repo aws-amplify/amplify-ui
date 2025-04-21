@@ -1,5 +1,5 @@
 import React from 'react';
-import { BaseElementWithRef, ElementRefType } from './types';
+import type { BaseElementWithRef, ElementRefType } from './types';
 
 /**
  * @internal @unstable

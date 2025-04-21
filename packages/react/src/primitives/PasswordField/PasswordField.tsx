@@ -2,7 +2,7 @@ import { classNames } from '@aws-amplify/ui';
 import * as React from 'react';
 
 import { ComponentClassName } from '@aws-amplify/ui';
-import {
+import type {
   BasePasswordFieldProps,
   PasswordFieldProps,
   PasswordFieldType,

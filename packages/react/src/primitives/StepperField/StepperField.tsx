@@ -11,8 +11,8 @@ import { Flex } from '../Flex';
 import { IconAdd, IconRemove, useIcons } from '../Icon';
 import { Input } from '../Input';
 import { Label } from '../Label';
-import { ForwardRefPrimitive, Primitive } from '../types/view';
-import {
+import type { ForwardRefPrimitive, Primitive } from '../types/view';
+import type {
   BaseStepperFieldProps,
   StepperFieldProps,
 } from '../types/stepperField';

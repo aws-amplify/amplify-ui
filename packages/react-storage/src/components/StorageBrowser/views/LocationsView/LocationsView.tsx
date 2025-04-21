@@ -13,7 +13,7 @@ import {
 } from '../../controls';
 
 import { LocationsViewProvider } from './LocationsViewProvider';
-import { LocationsViewType } from './types';
+import type { LocationsViewType } from './types';
 import { useLocationsView } from './useLocationsView';
 
 export const LocationsView: LocationsViewType = ({ className, ...props }) => {

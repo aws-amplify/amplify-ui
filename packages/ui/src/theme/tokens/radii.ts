@@ -1,4 +1,4 @@
-import {
+import type {
   DesignTokenValues,
   OutputVariantKey,
   RadiusValue,
@@ -9,7 +9,7 @@ type RadiusSize = 'xs' | 'small' | 'medium' | 'large' | 'xl' | 'xxl' | 'xxxl';
 
 export type Radii<
   Output extends OutputVariantKey = unknown,
-  Platform = unknown
+  Platform = unknown,
 > = DesignTokenValues<
   RadiusSize,
   RadiusValue<Platform, Output>,

@@ -1,5 +1,6 @@
-import { ColorModeOverride } from './types';
-import { ReactNativeTokens, tokens } from './tokens';
+import type { ColorModeOverride } from './types';
+import type { ReactNativeTokens } from './tokens';
+import { tokens } from './tokens';
 
 const darkModeTokens = {
   colors: {

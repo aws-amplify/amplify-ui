@@ -1,13 +1,13 @@
-import {
+import type {
   FetchUserAttributesOutput,
   ResetPasswordOutput,
   SignInOutput,
   SignUpOutput,
 } from 'aws-amplify/auth';
 
-import { MachineOptions } from 'xstate';
+import type { MachineOptions } from 'xstate';
 
-import { AuthActorContext, AuthEvent, Step } from './types';
+import type { AuthActorContext, AuthEvent, Step } from './types';
 
 const SIGN_IN_STEP_MFA_CONFIRMATION: Step[] = [
   'CONFIRM_SIGN_IN_WITH_SMS_CODE',

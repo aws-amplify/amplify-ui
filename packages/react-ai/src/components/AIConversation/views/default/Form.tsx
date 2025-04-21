@@ -9,7 +9,7 @@ import {
 } from '@aws-amplify/ui-react';
 import { IconAttach, IconSend, useIcons } from '@aws-amplify/ui-react/internal';
 import { ComponentClassName } from '@aws-amplify/ui';
-import { ControlsContextProps } from '../../context/ControlsContext';
+import type { ControlsContextProps } from '../../context/ControlsContext';
 import { Attachments } from './Attachments';
 import { validFileTypes } from '../../utils';
 

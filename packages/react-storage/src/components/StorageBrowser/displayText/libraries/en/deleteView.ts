@@ -1,5 +1,5 @@
 import { DEFAULT_ACTION_VIEW_DISPLAY_TEXT } from './shared';
-import { DefaultDeleteViewDisplayText } from '../../types';
+import type { DefaultDeleteViewDisplayText } from '../../types';
 
 export const DEFAULT_DELETE_VIEW_DISPLAY_TEXT: DefaultDeleteViewDisplayText = {
   ...DEFAULT_ACTION_VIEW_DISPLAY_TEXT,

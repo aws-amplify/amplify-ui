@@ -1,7 +1,7 @@
-import { Property } from 'csstype';
+import type { Property } from 'csstype';
 
-import { ElementType, PrimitiveProps, BaseViewProps } from './view';
-import { ResponsiveStyle } from './style';
+import type { ElementType, PrimitiveProps, BaseViewProps } from './view';
+import type { ResponsiveStyle } from './style';
 
 export interface ImageStyleProps {
   /**

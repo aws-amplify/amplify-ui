@@ -1,4 +1,4 @@
-import {
+import type {
   FetchUserAttributesOutput,
   ResendSignUpCodeOutput,
   ResetPasswordOutput,
@@ -7,10 +7,11 @@ import {
   SignUpOutput,
 } from 'aws-amplify/auth';
 
-import { actions as xStateActions, MachineOptions } from 'xstate';
+import type { MachineOptions } from 'xstate';
+import { actions as xStateActions } from 'xstate';
 import { trimValues } from '../../helpers';
 
-import {
+import type {
   AuthEvent,
   AuthActorContext,
   ResetPasswordStep,

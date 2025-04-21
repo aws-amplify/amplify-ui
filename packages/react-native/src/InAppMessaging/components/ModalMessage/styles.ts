@@ -1,4 +1,5 @@
-import { ImageStyle, StyleSheet } from 'react-native';
+import type { ImageStyle } from 'react-native';
+import { StyleSheet } from 'react-native';
 import {
   BORDER_RADIUS_BASE,
   COLOR_BLACK,
@@ -21,7 +22,7 @@ import {
   SPACING_SMALL,
 } from '../../constants';
 
-import { ModalMessageStyle } from './types';
+import type { ModalMessageStyle } from './types';
 
 const commonStyles: Omit<
   ModalMessageStyle,

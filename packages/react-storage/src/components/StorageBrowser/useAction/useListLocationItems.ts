@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useAsyncReducer } from '@aws-amplify/ui-react-core';
 
-import {
+import type {
   LocationItemType,
   ListLocationItemsHandler,
   LocationItemData,
@@ -11,12 +11,12 @@ import { useGetActionInput } from '../configuration';
 
 import { USE_LIST_ERROR_MESSAGE } from './constants';
 import { useActionHandlers } from './context';
-import {
-  createEnhancedListHandler,
+import type {
   EnhancedListHandlerInput,
   EnhancedListHandlerOutput,
 } from './createEnhancedListHandler';
-import { ListActionState } from './types';
+import { createEnhancedListHandler } from './createEnhancedListHandler';
+import type { ListActionState } from './types';
 
 type RemoveConfig<T> = Omit<T, 'config'>;
 

@@ -1,9 +1,9 @@
-import React from 'react';
+import type React from 'react';
 
-import { LocationPermissions } from '../actions';
-import { LocationCredentialsProvider } from '../storage-internal';
+import type { LocationPermissions } from '../actions';
+import type { LocationCredentialsProvider } from '../storage-internal';
 
-import {
+import type {
   CreateLocationCredentialsStoreInput,
   GetLocationCredentials,
   LocationCredentialsStore,

@@ -3,7 +3,7 @@ import React from 'react';
 import { Button, Icon, Label } from '../../../primitives';
 import { usePressableContainerStyles } from '../../../hooks';
 
-import { FederatedProviderButtonProps } from './types';
+import type { FederatedProviderButtonProps } from './types';
 
 export default function FederatedProviderButton({
   children,

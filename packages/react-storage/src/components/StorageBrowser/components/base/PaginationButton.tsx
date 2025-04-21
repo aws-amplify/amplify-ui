@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { ButtonElement, IconElement, InputElementProps } from '../elements';
+import type { InputElementProps } from '../elements';
+import { ButtonElement, IconElement } from '../elements';
 
 import { STORAGE_BROWSER_BLOCK_TO_BE_UPDATED } from './constants';
 

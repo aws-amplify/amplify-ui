@@ -1,12 +1,9 @@
-export {
-  FileUploader,
-  FileUploaderHandle,
-  FileUploaderProps,
-} from './FileUploader';
+export type { FileUploaderHandle, FileUploaderProps } from './FileUploader';
+export { FileUploader } from './FileUploader';
 
-export { StorageImage, StorageImageProps } from './StorageImage';
-export {
-  StorageManager,
+export type { StorageImageProps } from './StorageImage';
+export { StorageImage } from './StorageImage';
+export type {
   StorageManagerHandle,
   StorageManagerProps,
   DropZoneProps,
@@ -16,3 +13,4 @@ export {
   FileListHeaderProps,
   FileListFooterProps,
 } from './StorageManager';
+export { StorageManager } from './StorageManager';

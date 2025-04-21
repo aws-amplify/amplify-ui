@@ -1,10 +1,10 @@
-import { LocationType, ListLocations } from '../actions';
-import {
+import type { LocationType, ListLocations } from '../actions';
+import type {
   GetLocationCredentials,
   CredentialsLocation,
   RegisterAuthListener,
 } from '../credentials';
-import { CredentialsProvider } from '../storage-internal';
+import type { CredentialsProvider } from '../storage-internal';
 
 export interface LocationAccess extends CredentialsLocation {
   /**

@@ -1,10 +1,10 @@
-import {
-  list,
+import type {
   StorageSubpathStrategy,
   ListPaginateInput,
   ListOutput,
 } from '../../storage-internal';
-import {
+import { list } from '../../storage-internal';
+import type {
   ListHandler,
   ListHandlerInput,
   ListHandlerOptions,

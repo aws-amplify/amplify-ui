@@ -5,7 +5,7 @@ import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
 import { ComponentClassName } from '@aws-amplify/ui';
 import { Flex } from '../Flex';
 import { Input } from '../Input';
-import {
+import type {
   BaseRadioProps,
   RadioProps,
   ForwardRefPrimitive,

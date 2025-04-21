@@ -1,4 +1,4 @@
-import { SearchFieldProps } from '../../components/composables/SearchField';
+import type { SearchFieldProps } from '../../components/composables/SearchField';
 import { useControlsContext } from '../context';
 
 export const useSearchField = (): SearchFieldProps => {

@@ -1,11 +1,14 @@
-import React from 'react';
+import type React from 'react';
 import { capitalize, isFunction, isObject } from '@aws-amplify/ui';
 
-import { CustomActionConfigs } from '../../actions';
+import type { CustomActionConfigs } from '../../actions';
 import { DEFAULT_ACTION_VIEWS } from './actionViews';
 import { DEFAULT_PRIMARY_VIEWS } from './primaryViews';
-import { DefaultActionViewsByActionName, StorageBrowserViews } from '../types';
-import { ViewsContextType } from './types';
+import type {
+  DefaultActionViewsByActionName,
+  StorageBrowserViews,
+} from '../types';
+import type { ViewsContextType } from './types';
 
 export const getViews = (
   views?: StorageBrowserViews,

@@ -1,7 +1,7 @@
 import { isFunction } from '@aws-amplify/ui';
 import { uploadData } from '../../storage-internal';
 
-import {
+import type {
   TaskData,
   TaskHandler,
   TaskHandlerInput,

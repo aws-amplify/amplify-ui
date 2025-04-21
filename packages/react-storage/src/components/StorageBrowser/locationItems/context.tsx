@@ -3,7 +3,8 @@ import React from 'react';
 import { createContextUtilities } from '@aws-amplify/ui-react-core';
 import { noop } from '@aws-amplify/ui';
 
-import { createFileDataItem, FileData, FileDataItem } from '../actions';
+import type { FileData, FileDataItem } from '../actions';
+import { createFileDataItem } from '../actions';
 
 export const DEFAULT_STATE: LocationItemsState = {
   fileDataItems: undefined,

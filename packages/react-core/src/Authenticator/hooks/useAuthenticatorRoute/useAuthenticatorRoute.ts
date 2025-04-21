@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { useAuthenticator } from '../useAuthenticator';
 
-import {
+import type {
   UseAuthenticatorRoute,
   UseAuthenticatorRouteDefault,
   UseAuthenticatorRouteParams,

@@ -1,4 +1,4 @@
-import {
+import type {
   AuthenticatorServiceFacade,
   LegacyFormFieldOptions,
 } from '@aws-amplify/ui';

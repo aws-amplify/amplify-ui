@@ -8,7 +8,7 @@ import {
   DefaultVerifyUserFormFields,
 } from '../../common';
 import { useFieldValues } from '../../hooks';
-import { DefaultVerifyUserProps } from '../types';
+import type { DefaultVerifyUserProps } from '../types';
 
 const COMPONENT_NAME = 'VerifyUser';
 

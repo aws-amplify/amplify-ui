@@ -19,7 +19,7 @@ import { SearchSubfoldersToggle } from './SearchSubfoldersToggle';
 import { StatusDisplay } from './StatusDisplay';
 import { Title } from './Title';
 
-import { Composables } from './types';
+import type { Composables } from './types';
 
 export const DEFAULT_COMPOSABLES: Composables = {
   ActionCancel,

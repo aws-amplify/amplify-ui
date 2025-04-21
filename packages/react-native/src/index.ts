@@ -1,9 +1,6 @@
-export {
-  Authenticator,
+export type {
   AuthenticatorProps,
-  useAuthenticator,
   UseAuthenticator,
-  withAuthenticator,
   WithAuthenticatorOptions,
   ConfirmResetPasswordProps,
   ConfirmSignInProps,
@@ -18,9 +15,14 @@ export {
   SignUpProps,
   VerifyUserProps,
 } from './Authenticator';
-export * from './InAppMessaging';
 export {
-  Theme,
+  Authenticator,
+  useAuthenticator,
+  withAuthenticator,
+} from './Authenticator';
+export * from './InAppMessaging';
+export type { Theme } from './theme';
+export {
   ThemeProvider,
   defaultDarkModeOverride,
   defaultTheme,

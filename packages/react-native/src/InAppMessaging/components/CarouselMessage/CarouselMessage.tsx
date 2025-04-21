@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { MessageContentProps } from '@aws-amplify/ui-react-core-notifications';
+import type { MessageContentProps } from '@aws-amplify/ui-react-core-notifications';
 
 import { Carousel } from '../../../primitives';
 import { IN_APP_MESSAGING_TEST_ID } from '../../constants';
@@ -7,7 +7,7 @@ import { IN_APP_MESSAGING_TEST_ID } from '../../constants';
 import { MessageWrapper } from '../MessageWrapper';
 import CarouselMessageItem from './CarouselMessageItem';
 import { defaultStyle } from './styles';
-import { CarouselMessageProps } from './types';
+import type { CarouselMessageProps } from './types';
 
 export default function CarouselMessage(
   props: CarouselMessageProps

@@ -1,7 +1,7 @@
 import { capitalize, isString } from '@aws-amplify/ui';
 
 import { isRoute } from '../../ComponentRoute';
-import { DisplayTextDefault } from '../types';
+import type { DisplayTextDefault } from '../types';
 
 /**
  * Default display text properties

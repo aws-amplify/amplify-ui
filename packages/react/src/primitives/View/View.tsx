@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useStyles } from '../shared/styleUtils';
 import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
-import {
+import type {
   ForwardRefPrimitive,
   Primitive,
   BaseViewProps,

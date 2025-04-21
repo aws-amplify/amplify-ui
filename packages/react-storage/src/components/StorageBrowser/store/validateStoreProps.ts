@@ -1,7 +1,7 @@
 import { templateJoin } from '@aws-amplify/ui';
 
-import { LocationData } from '../actions';
-import { LocationValue, StoreProviderProps } from './types';
+import type { LocationData } from '../actions';
+import type { LocationValue, StoreProviderProps } from './types';
 
 export const CONLICTING_PROPS =
   '`StorageBrowser` has been been provided with both `value` and `defaultValue` props. StorageBrowser must be either controlled or uncontrolled (specify either the `value` prop, or the `defaultValue` prop, but not both). Decide between using a controlled or uncontrolled `StorageBrowser` and remove one of these props.';

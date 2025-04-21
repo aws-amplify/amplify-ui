@@ -1,6 +1,6 @@
 export { ActionHandlersProvider } from './context';
 export { createEnhancedListHandler } from './createEnhancedListHandler';
-export {
+export type {
   ActionHandlersProviderProps,
   DefaultActionHandlers,
   DerivedActionHandlers,

@@ -1,2 +1,2 @@
 export { default as useResolveTableData } from './useResolveTableData';
-export { DataTableResolvers } from './types';
+export type { DataTableResolvers } from './types';

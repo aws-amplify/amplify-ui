@@ -3,7 +3,7 @@ import { classNames } from '@aws-amplify/ui';
 import { Button } from '../Button';
 
 import { classNameModifier } from '../shared/utils';
-import {
+import type {
   BaseMenuButtonProps,
   MenuButtonProps,
   ForwardRefPrimitive,

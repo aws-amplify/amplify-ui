@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Table } from '../../base';
-import { WithKey } from '../../types';
+import type { WithKey } from '../../types';
 
 import { SortHeader } from './headers/SortHeader';
 import { TextHeader } from './headers/TextHeader';
@@ -10,7 +10,7 @@ import { DateDataCell } from './dataCells/DateDataCell';
 import { NumberDataCell } from './dataCells/NumberDataCell';
 import { CheckboxDataCell } from './dataCells/CheckboxDataCell';
 import { TextDataCell } from './dataCells/TextDataCell';
-import { DataTableDataCell, DataTableHeader } from './types';
+import type { DataTableDataCell, DataTableHeader } from './types';
 import { CheckboxHeader } from './headers/CheckboxHeader';
 
 export interface DataTableRow {

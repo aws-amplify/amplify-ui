@@ -1,11 +1,11 @@
+import type { LocationCredentialsProvider } from '../../storage-internal';
 import {
-  LocationCredentialsProvider,
   StorageValidationErrorCode,
   assertValidationError,
 } from '../../storage-internal';
 
 import { createStore, getValue, removeStore } from './registry';
-import {
+import type {
   CreateLocationCredentialsStoreInput,
   CredentialsLocation,
   LocationCredentialsStore,

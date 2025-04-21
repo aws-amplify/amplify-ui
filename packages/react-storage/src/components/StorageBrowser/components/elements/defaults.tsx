@@ -14,7 +14,7 @@ import {
   Text as _Text,
   View as _View,
 } from '@aws-amplify/ui-react';
-import {
+import type {
   ButtonElementProps,
   DescriptionTermElementProps,
   HeadingElementProps,

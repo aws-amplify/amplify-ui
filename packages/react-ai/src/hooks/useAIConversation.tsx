@@ -1,5 +1,5 @@
 import React from 'react';
-import {
+import type {
   Conversation,
   ConversationMessage,
   ConversationRoute,
@@ -7,12 +7,8 @@ import {
   SendMesageParameters,
   SendMessage,
 } from '../types';
-import {
-  ERROR_STATE,
-  INITIAL_STATE,
-  LOADING_STATE,
-  AiClientState,
-} from './shared';
+import type { AiClientState } from './shared';
+import { ERROR_STATE, INITIAL_STATE, LOADING_STATE } from './shared';
 import { isFunction } from '@aws-amplify/ui';
 import { contentFromEvents } from './contentFromEvents';
 import { exhaustivelyListMessages } from './exhaustivelyListMessages';

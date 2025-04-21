@@ -4,10 +4,10 @@
  * `useAuthenticator` hook/composable/service.
  */
 
-import { Sender } from 'xstate';
-import { AuthUser } from 'aws-amplify/auth';
+import type { Sender } from 'xstate';
+import type { AuthUser } from 'aws-amplify/auth';
 
-import {
+import type {
   FederatedProvider,
   LoginMechanism,
   SocialProvider,
@@ -15,7 +15,7 @@ import {
   ValidationError,
 } from '../../types';
 
-import {
+import type {
   AuthActorContext,
   AuthEvent,
   AuthEventData,

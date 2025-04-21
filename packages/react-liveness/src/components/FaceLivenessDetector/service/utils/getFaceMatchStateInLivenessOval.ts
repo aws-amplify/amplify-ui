@@ -1,10 +1,6 @@
-import {
-  LivenessOvalDetails,
-  Face,
-  FaceMatchState,
-  BoundingBox,
-} from '../types';
-import { SessionInformation } from '@aws-sdk/client-rekognitionstreaming';
+import type { LivenessOvalDetails, Face, BoundingBox } from '../types';
+import { FaceMatchState } from '../types';
+import type { SessionInformation } from '@aws-sdk/client-rekognitionstreaming';
 import {
   generateBboxFromLandmarks,
   getIntersectionOverUnion,

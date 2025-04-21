@@ -2,10 +2,10 @@ import * as React from 'react';
 import { classNames } from '@aws-amplify/ui';
 
 import { ComponentClassName } from '@aws-amplify/ui';
-import { ElementType, PrimitiveProps, BaseViewProps } from '../types/view';
+import type { ElementType, PrimitiveProps, BaseViewProps } from '../types/view';
 import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 import { IconExpandMore, useIcons } from '../Icon';
-import { ForwardRefPrimitive, Primitive } from '../types/view';
+import type { ForwardRefPrimitive, Primitive } from '../types/view';
 import { View } from '../View';
 
 interface BaseAccordionIconProps extends BaseViewProps {}

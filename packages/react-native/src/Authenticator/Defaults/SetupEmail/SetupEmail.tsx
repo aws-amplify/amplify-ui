@@ -9,7 +9,7 @@ import {
 } from '../../common';
 import { useFieldValues } from '../../hooks';
 
-import { DefaultSetupEmailProps } from '../types';
+import type { DefaultSetupEmailProps } from '../types';
 
 const COMPONENT_NAME = 'SetupEmail';
 

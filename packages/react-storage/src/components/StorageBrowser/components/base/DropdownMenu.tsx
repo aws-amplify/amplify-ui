@@ -1,11 +1,7 @@
 import React from 'react';
 
-import {
-  ButtonElement,
-  IconElement,
-  StorageBrowserIconType,
-  ViewElement,
-} from '../elements';
+import type { StorageBrowserIconType } from '../elements';
+import { ButtonElement, IconElement, ViewElement } from '../elements';
 
 import { STORAGE_BROWSER_BLOCK_TO_BE_UPDATED } from './constants';
 

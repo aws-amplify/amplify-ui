@@ -1,4 +1,5 @@
-import React, { ReactElement } from 'react';
+import type { ReactElement } from 'react';
+import React from 'react';
 import { render } from '@testing-library/react-native';
 
 import { IN_APP_MESSAGING_TEST_ID } from '../../../constants';

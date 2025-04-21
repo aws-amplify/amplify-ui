@@ -1,11 +1,11 @@
-import { CheckboxHeaderProps } from './headers/CheckboxHeader';
-import { SortHeaderProps } from './headers/SortHeader';
-import { TextHeaderProps } from './headers/TextHeader';
-import { ButtonDataCellProps } from './dataCells/ButtonDataCell';
-import { CheckboxDataCellProps } from './dataCells/CheckboxDataCell';
-import { DateDataCellProps } from './dataCells/DateDataCell';
-import { NumberDataCellProps } from './dataCells/NumberDataCell';
-import { TextDataCellProps } from './dataCells/TextDataCell';
+import type { CheckboxHeaderProps } from './headers/CheckboxHeader';
+import type { SortHeaderProps } from './headers/SortHeader';
+import type { TextHeaderProps } from './headers/TextHeader';
+import type { ButtonDataCellProps } from './dataCells/ButtonDataCell';
+import type { CheckboxDataCellProps } from './dataCells/CheckboxDataCell';
+import type { DateDataCellProps } from './dataCells/DateDataCell';
+import type { NumberDataCellProps } from './dataCells/NumberDataCell';
+import type { TextDataCellProps } from './dataCells/TextDataCell';
 
 export interface DataTableCheckboxHeader extends CheckboxHeaderProps {
   type: 'checkbox';

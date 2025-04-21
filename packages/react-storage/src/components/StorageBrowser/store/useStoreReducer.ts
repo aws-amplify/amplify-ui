@@ -1,7 +1,7 @@
 import { useControlledReducer } from '@aws-amplify/ui-react-core';
 
 import storeReducer from './storeReducer';
-import { StoreProviderProps, StoreState, StoreContextType } from './types';
+import type { StoreProviderProps, StoreState, StoreContextType } from './types';
 import { getState, getInitialState } from './utils';
 import validateStoreProps from './validateStoreProps';
 

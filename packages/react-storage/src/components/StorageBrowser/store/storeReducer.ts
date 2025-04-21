@@ -1,5 +1,5 @@
 import { DEFAULT_STATE } from './constants';
-import { StoreActionType, StoreState } from './types';
+import type { StoreActionType, StoreState } from './types';
 
 export default function storeReducer(
   state: StoreState,

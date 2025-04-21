@@ -1,10 +1,10 @@
-import { StyleProp, TextStyle, ViewStyle } from 'react-native';
-import {
+import type { StyleProp, TextStyle, ViewStyle } from 'react-native';
+import type {
   AuthenticatorFormFieldsComponent,
   UseAuthenticator,
 } from '@aws-amplify/ui-react-core';
 
-import { RadioFieldOptions, TextFieldOptionsType } from '../../hooks';
+import type { RadioFieldOptions, TextFieldOptionsType } from '../../hooks';
 
 export type FieldProps = Omit<TextFieldOptionsType, 'name'> & {
   disabled: boolean;

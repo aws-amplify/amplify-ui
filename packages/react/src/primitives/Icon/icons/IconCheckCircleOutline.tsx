@@ -3,7 +3,7 @@ import * as React from 'react';
 
 import { ComponentClassName } from '@aws-amplify/ui';
 import { View } from '../../View';
-import { InternalIcon } from './types';
+import type { InternalIcon } from './types';
 
 /**
  * @internal For internal Amplify UI use only. May be removed in a future release.

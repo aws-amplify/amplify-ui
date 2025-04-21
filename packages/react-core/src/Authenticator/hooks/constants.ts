@@ -1,4 +1,4 @@
-import {
+import type {
   AuthenticatorRouteComponentKey,
   AuthenticatorRouteComponentName,
 } from './types';

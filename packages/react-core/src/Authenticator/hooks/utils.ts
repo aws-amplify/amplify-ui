@@ -1,7 +1,11 @@
-import { AuthenticatorRoute } from '@aws-amplify/ui';
+import type { AuthenticatorRoute } from '@aws-amplify/ui';
 
 import { COMPONENT_ROUTE_KEYS, COMPONENT_ROUTE_NAMES } from './constants';
-import { AuthenticatorRouteComponentKey, Defaults, Overrides } from './types';
+import type {
+  AuthenticatorRouteComponentKey,
+  Defaults,
+  Overrides,
+} from './types';
 
 export const isComponentRouteKey = (
   route: AuthenticatorRoute

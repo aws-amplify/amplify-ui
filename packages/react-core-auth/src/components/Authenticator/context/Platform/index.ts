@@ -1,6 +1,6 @@
+export type { Platform } from './PlatformContext';
 export {
   isReactNative,
-  Platform,
   PlatformProvider,
   usePlatform,
 } from './PlatformContext';

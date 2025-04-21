@@ -5,7 +5,7 @@ import { RecordingIcon } from './';
 import { LivenessIconWithPopover } from './LivenessIconWithPopover';
 import { CancelButton as CancelButtonComponent } from './CancelButton';
 import { LivenessClassNames } from '../types/classNames';
-import { CheckScreenComponents } from './FaceLivenessErrorModal';
+import type { CheckScreenComponents } from './FaceLivenessErrorModal';
 
 export type FaceLivenessDetectorComponents = StartScreenComponents &
   CheckScreenComponents;

@@ -1,8 +1,9 @@
-import {
+import type {
   GetLocationCredentials,
   GetLocationCredentialsInput,
 } from '../../credentials';
-import { getDataAccess, CredentialsProvider } from '../../storage-internal';
+import type { CredentialsProvider } from '../../storage-internal';
+import { getDataAccess } from '../../storage-internal';
 import { toAccessGrantPermission } from '../permissionParsers';
 
 interface CreateLocationCredentialsHandlerInput {

@@ -1,5 +1,5 @@
 import { createContextUtilities } from '@aws-amplify/ui-react-core';
-import { ComposablesContext } from './types';
+import type { ComposablesContext } from './types';
 
 const defaultValue: ComposablesContext = {};
 

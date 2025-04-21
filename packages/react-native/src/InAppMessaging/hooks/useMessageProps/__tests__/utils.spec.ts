@@ -1,13 +1,17 @@
-import { PressableStateCallbackType, StyleProp, ViewStyle } from 'react-native';
+import type {
+  PressableStateCallbackType,
+  StyleProp,
+  ViewStyle,
+} from 'react-native';
 
-import {
+import type {
   MessageComponentBaseProps,
   InAppMessageLayout,
   InAppMessageTextAlign,
 } from '@aws-amplify/ui-react-core-notifications';
 import { BUTTON_PRESSED_OPACITY } from '../../../constants';
-import { MessageDefaultStyle } from '../types';
-import { StyleParams } from '../types';
+import type { MessageDefaultStyle } from '../types';
+import type { StyleParams } from '../types';
 
 import {
   getComponentButtonStyle,
