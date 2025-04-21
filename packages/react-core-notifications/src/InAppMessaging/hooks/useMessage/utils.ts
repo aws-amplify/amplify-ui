@@ -1,6 +1,6 @@
 import { ConsoleLogger as Logger } from 'aws-amplify/utils';
 
-import {
+import type {
   BannerMessageLayouts,
   InAppMessageAction,
   InAppMessageButton,
