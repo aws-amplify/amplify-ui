@@ -1,5 +1,5 @@
 import React from 'react';
-import { SendMessage } from '../../../types';
+import type { SendMessage } from '../../../types';
 
 export const SendMessageContext = React.createContext<SendMessage | undefined>(
   undefined

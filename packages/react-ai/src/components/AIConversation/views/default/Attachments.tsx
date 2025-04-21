@@ -5,7 +5,7 @@ import {
   IconDocument,
   useIcons,
 } from '@aws-amplify/ui-react/internal';
-import { ConversationInputContextProps } from '../../context';
+import type { ConversationInputContextProps } from '../../context';
 import { ComponentClassName, humanFileSize } from '@aws-amplify/ui';
 import { documentFileTypes, getAttachmentFormat } from '../../utils';
 

@@ -1,4 +1,4 @@
-import { Conversation, ConversationMessage } from '../types';
+import type { Conversation, ConversationMessage } from '../types';
 
 interface ExhaustivelyListMessagesParams {
   conversation: Conversation;

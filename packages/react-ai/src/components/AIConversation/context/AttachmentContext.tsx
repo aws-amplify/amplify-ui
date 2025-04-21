@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { AIConversationInput } from '../types';
+import type { AIConversationInput } from '../types';
 
 export interface AttachmentContextProps
   extends Pick<

@@ -16,7 +16,7 @@ import { AIConversationElements } from '../../context/elements';
 import { convertBufferToBase64 } from '../../utils';
 import { ActionsBarControl } from './ActionsBarControl';
 import { AvatarControl } from './AvatarControl';
-import { ConversationMessage } from '../../../../types';
+import type { ConversationMessage } from '../../../../types';
 import {
   RESPONSE_COMPONENT_PREFIX,
   ResponseComponentsContext,

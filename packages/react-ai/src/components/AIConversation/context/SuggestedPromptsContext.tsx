@@ -1,5 +1,5 @@
 import React from 'react';
-import { SuggestedPrompt } from '../types';
+import type { SuggestedPrompt } from '../types';
 
 type SuggestedPromptsContextProps = SuggestedPrompt[] | undefined;
 
