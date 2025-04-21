@@ -19,6 +19,13 @@ export {
   DeleteViewState,
   useDeleteView,
 } from './DeleteView';
+export {
+  DownloadMultipleView,
+  DownloadMultipleViewProps,
+  DownloadMultipleViewType,
+  DownloadMultipleViewState,
+  useDownloadMultipleView,
+} from './DownloadMultipleView';
 export { LocationActionView } from './LocationActionView';
 export {
   UploadView,

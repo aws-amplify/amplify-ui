@@ -32,7 +32,7 @@ export const useAction: UseAction<DefaultActionHandlers> = ((key, options) => {
 
   const { handlers } = useActionHandlers({ errorMessage: ERROR_MESSAGE });
 
-  const handler = handlers?.[key];
+  const handler = handlers?.[key === 'downloadMultiple' ? 'download' : key];
 
   assertActionHandler(handler, key);
 

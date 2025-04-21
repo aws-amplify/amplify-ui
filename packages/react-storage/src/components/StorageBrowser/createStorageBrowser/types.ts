@@ -21,6 +21,7 @@ import {
   CopyViewType,
   CreateFolderViewType,
   DeleteViewType,
+  DownloadMultipleViewType,
   UploadViewType,
   LocationActionViewType,
   LocationDetailViewType,
@@ -264,6 +265,7 @@ export interface StorageBrowserType<K = string, V = {}> {
   CopyView: CopyViewType;
   CreateFolderView: CreateFolderViewType;
   DeleteView: DeleteViewType;
+  DownloadMultipleView: DownloadMultipleViewType;
   UploadView: UploadViewType;
 }
 

@@ -6,6 +6,8 @@ export {
   CreateFolderViewType,
   DeleteView,
   DeleteViewType,
+  DownloadMultipleView,
+  DownloadMultipleViewType,
   LocationActionView,
   LocationActionViewProps,
   LocationActionViewType,

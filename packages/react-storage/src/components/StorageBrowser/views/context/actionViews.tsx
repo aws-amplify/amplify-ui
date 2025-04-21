@@ -7,11 +7,13 @@ import { CopyView } from '../LocationActionView/CopyView';
 import { DeleteView } from '../LocationActionView/DeleteView';
 
 import { DefaultActionViewsByActionName } from '../types';
+import { DownloadMultipleView } from '../LocationActionView';
 
 export const DEFAULT_ACTION_VIEWS: DefaultActionViewsByActionName = {
   createFolder: CreateFolderView,
   copy: CopyView,
   delete: DeleteView,
+  downloadMultiple: DownloadMultipleView,
   upload: UploadView,
 };
 
