@@ -1,9 +1,10 @@
 {
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
+    // "isolatedModules": true,
     // https://www.typescriptlang.org/tsconfig#jsx
     "jsx": "react-native",
-    
+
     // https://www.typescriptlang.org/tsconfig#skipLibCheck
     //
     // turn on for React Native packages due to type conflict between @types/node and @types/react-native
@@ -11,7 +12,7 @@
     "skipLibCheck": true,
 
     // https://www.typescriptlang.org/tsconfig#target
-    // 
+    //
     // Metro Bundler transpiles source code syntax to esnext
     "target": "esnext"
   }

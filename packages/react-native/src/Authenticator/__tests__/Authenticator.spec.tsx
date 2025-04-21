@@ -3,7 +3,7 @@ import { Text, View } from 'react-native';
 import { render } from '@testing-library/react-native';
 
 import * as UIReactCoreModule from '@aws-amplify/ui-react-core';
-import {
+import type {
   AuthenticatorMachineContext,
   UseAuthenticator,
 } from '@aws-amplify/ui-react-core';

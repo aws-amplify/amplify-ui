@@ -1,4 +1,4 @@
-import { TextFieldProps, TextFieldStyles } from '../TextField';
+import type { TextFieldProps, TextFieldStyles } from '../TextField';
 
 export interface PhoneNumberFieldProps
   extends Omit<TextFieldProps, 'secureTextEntry'> {}

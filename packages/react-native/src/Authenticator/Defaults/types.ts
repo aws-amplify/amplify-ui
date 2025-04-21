@@ -1,8 +1,8 @@
-import {
+import type {
   AuthenticatorComponentOverrides,
   AuthenticatorComponentDefaults,
 } from '@aws-amplify/ui-react-core';
-import { RadioFieldOptions, TextFieldOptionsType } from '../hooks';
+import type { RadioFieldOptions, TextFieldOptionsType } from '../hooks';
 
 // TODO fill these interfaces with custom style override types
 export interface ConfirmResetPasswordStyle {}

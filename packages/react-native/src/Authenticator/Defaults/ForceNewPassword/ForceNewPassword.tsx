@@ -9,7 +9,7 @@ import {
 } from '../../common';
 import { useFieldValues } from '../../hooks';
 
-import { DefaultForceNewPasswordProps } from '../types';
+import type { DefaultForceNewPasswordProps } from '../types';
 
 const COMPONENT_NAME = 'ForceNewPassword';
 

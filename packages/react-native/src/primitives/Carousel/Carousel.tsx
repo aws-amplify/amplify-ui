@@ -1,17 +1,11 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import {
-  Dimensions,
-  FlatList,
-  ListRenderItemInfo,
-  ScaledSize,
-  View,
-  ViewToken,
-} from 'react-native';
+import type { ListRenderItemInfo, ScaledSize, ViewToken } from 'react-native';
+import { Dimensions, FlatList, View } from 'react-native';
 
 import CarouselPageIndicator from './CarouselPageIndicator';
 import { VIEWABILITY_CONFIG } from './constants';
 import { styles } from './styles';
-import { CarouselProps } from './types';
+import type { CarouselProps } from './types';
 
 export default function Carousel<T>(
   props: CarouselProps<T>

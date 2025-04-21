@@ -1,10 +1,8 @@
 import { renderHook } from '@testing-library/react-native';
-import { ViewStyle } from 'react-native';
+import type { ViewStyle } from 'react-native';
 
-import {
-  UsePressableContainerStyleProps,
-  usePressableContainerStyles,
-} from '../usePressableContainerStyles';
+import type { UsePressableContainerStyleProps } from '../usePressableContainerStyles';
+import { usePressableContainerStyles } from '../usePressableContainerStyles';
 
 const style: ViewStyle = {
   backgroundColor: 'red',

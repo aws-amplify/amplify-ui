@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 
-import { StrictTheme } from '../../theme';
-import { DividerStyles } from './types';
+import type { StrictTheme } from '../../theme';
+import type { DividerStyles } from './types';
 
 export const getThemedStyles = (theme: StrictTheme): DividerStyles => {
   const { tokens, components } = theme;

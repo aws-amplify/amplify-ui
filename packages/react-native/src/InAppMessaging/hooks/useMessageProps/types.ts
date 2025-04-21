@@ -1,18 +1,18 @@
-import {
+import type {
   ColorValue,
   ImageStyle,
   StyleProp,
   TextStyle,
   ViewStyle,
 } from 'react-native';
-import {
+import type {
   InAppMessageLayout,
   MessagePayloadStyle,
 } from '@aws-amplify/ui-react-core-notifications';
 
-import { ButtonProps } from '../../../primitives';
+import type { ButtonProps } from '../../../primitives';
 
-import { ImageDimensions } from '../useMessageImage';
+import type { ImageDimensions } from '../useMessageImage';
 
 /**
  * Resolved message types
