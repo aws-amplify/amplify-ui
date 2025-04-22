@@ -96,7 +96,7 @@ export class ColorSequenceDisplay {
     return new Promise((resolve) => {
       setTimeout(() => {
         this.#startColorSequence({ ...params, resolve });
-      }, Math.min(TICK_RATE));
+      }, TICK_RATE);
     });
   }
 

@@ -107,10 +107,10 @@ describe('createStreamingClient', () => {
     expect(mockResolveCredentials).toHaveBeenCalledTimes(1);
     expect(mockResolveCredentials).toHaveBeenCalledWith(undefined);
 
-    const contructorParams = mockRekognitionStreamingClient.mock.calls[0][0];
+    const constructorParams = mockRekognitionStreamingClient.mock.calls[0][0];
 
     expect(mockRekognitionStreamingClient).toHaveBeenCalledTimes(1);
-    expect(mockRekognitionStreamingClient.mock.calls[0][0]).toStrictEqual({
+    expect(constructorParams).toStrictEqual({
       credentials,
       customUserAgent: expect.any(String),
       endpointProvider: expect.any(Function),

@@ -21,7 +21,7 @@ import {
   mockStreamRecorder,
 } from '../../utils/__mocks__/testUtils';
 
-jest.useFakeTimers({ timerLimit: 1000_000 });
+jest.useFakeTimers();
 jest.mock('../../utils');
 
 const mockedHelpers = helpers as jest.Mocked<typeof helpers>;
