@@ -1,5 +1,16 @@
 # @aws-amplify/ui-react-core
 
+## 3.4.2
+
+### Patch Changes
+
+- [#6520](https://github.com/aws-amplify/amplify-ui/pull/6520) [`14a6df50e04b251aaf7a215ea2a84628303002ab`](https://github.com/aws-amplify/amplify-ui/commit/14a6df50e04b251aaf7a215ea2a84628303002ab) Thanks [@ashwinkumar6](https://github.com/ashwinkumar6)! - chore: update aws-amplify version
+
+- [#6507](https://github.com/aws-amplify/amplify-ui/pull/6507) [`b8fefdba2281af164756963c32fc17f7210ff6de`](https://github.com/aws-amplify/amplify-ui/commit/b8fefdba2281af164756963c32fc17f7210ff6de) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(react-core): refactor and rename useDataState to useAsyncReducer
+
+- Updated dependencies [[`14a6df50e04b251aaf7a215ea2a84628303002ab`](https://github.com/aws-amplify/amplify-ui/commit/14a6df50e04b251aaf7a215ea2a84628303002ab)]:
+  - @aws-amplify/ui@6.10.2
+
 ## 3.4.1
 
 ### Patch Changes

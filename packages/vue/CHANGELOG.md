@@ -1,5 +1,14 @@
 # @aws-amplify/ui-vue
 
+## 4.3.2
+
+### Patch Changes
+
+- [#6520](https://github.com/aws-amplify/amplify-ui/pull/6520) [`14a6df50e04b251aaf7a215ea2a84628303002ab`](https://github.com/aws-amplify/amplify-ui/commit/14a6df50e04b251aaf7a215ea2a84628303002ab) Thanks [@ashwinkumar6](https://github.com/ashwinkumar6)! - chore: update aws-amplify version
+
+- Updated dependencies [[`14a6df50e04b251aaf7a215ea2a84628303002ab`](https://github.com/aws-amplify/amplify-ui/commit/14a6df50e04b251aaf7a215ea2a84628303002ab)]:
+  - @aws-amplify/ui@6.10.2
+
 ## 4.3.1
 
 ### Patch Changes
