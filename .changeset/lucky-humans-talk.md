@@ -1,5 +1,4 @@
 ---
-"@aws-amplify/ui-angular-mono": patch
 "@aws-amplify/ui-react-ai": patch
 "@aws-amplify/ui-react-auth": patch
 "@aws-amplify/ui-react-core-auth": patch
