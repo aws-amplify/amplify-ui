@@ -10,9 +10,11 @@ import {
   getFaceMatchState,
   getIntersectionOverUnion,
   getOvalBoundingBox,
+  getStaticLivenessOvalDetails,
   isFaceDistanceBelowThreshold,
   generateBboxFromLandmarks,
   fillOverlayCanvasFractional,
+  resolveVideoDimensions,
 } from '../utils/liveness';
 
 import {
@@ -48,7 +50,6 @@ import {
   getTrackDimensions,
 } from '../utils';
 
-import { getStaticLivenessOvalDetails } from '../utils/liveness';
 import {
   isConnectionTimeoutError,
   isThrottlingExceptionEvent,
@@ -967,9 +968,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         const { credentialProvider, endpointOverride, systemClockOffset } =
           config!;
 
-        const { videoHeight, videoWidth } =
-          context.videoAssociatedParams!.videoEl!;
-
         const livenessStreamProvider = new StreamRecorder(
           context.videoAssociatedParams!.videoMediaStream!
         );
@@ -978,6 +976,10 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           livenessStreamProvider.getVideoStream()
         ).getRequestStream();
 
+        const { height, width } = resolveVideoDimensions(
+          context.videoAssociatedParams!
+        );
+
         const { getResponseStream } = await createStreamingClient({
           credentialsProvider: credentialProvider,
           endpointOverride,
@@ -985,14 +987,11 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           systemClockOffset,
         });
 
-        const mediaSettings = context
-          .videoAssociatedParams!.videoMediaStream!.getTracks()[0]
-          .getSettings();
         responseStream = getResponseStream({
           requestStream,
           sessionId: context.componentProps!.sessionId,
-          videoHeight: (mediaSettings.height ?? videoHeight).toString(),
-          videoWidth: (mediaSettings.width ?? videoWidth).toString(),
+          videoHeight: height?.toString(),
+          videoWidth: width?.toString(),
         });
 
         return { livenessStreamProvider };

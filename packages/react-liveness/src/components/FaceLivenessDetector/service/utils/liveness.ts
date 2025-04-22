@@ -8,6 +8,7 @@ import {
   IlluminationState,
   LivenessErrorState,
   LivenessOvalDetails,
+  VideoAssociatedParams,
 } from '../types';
 import { ColorSequence, SequenceColorValue } from './ColorSequenceDisplay';
 import {
@@ -688,3 +689,14 @@ export async function isFaceDistanceBelowThreshold({
 
   return { isDistanceBelowThreshold, error };
 }
+
+export const resolveVideoDimensions = (
+  params: VideoAssociatedParams
+): Pick<MediaTrackSettings, 'height' | 'width'> => {
+  const mediaSettings = params.videoMediaStream?.getTracks()[0].getSettings();
+  const { videoHeight, videoWidth } = params.videoEl ?? {};
+  return {
+    height: mediaSettings?.height ?? videoHeight,
+    width: mediaSettings?.width ?? videoWidth,
+  };
+};

@@ -209,6 +209,11 @@ describe('Liveness Machine', () => {
       () => mockColorDisplay
     );
 
+    mockedHelpers.resolveVideoDimensions.mockImplementation(() => ({
+      height: undefined,
+      width: undefined,
+    }));
+
     mockBlazeFace.detectFaces.mockResolvedValue([mockFace]);
 
     service = interpret(machine) as unknown as LivenessInterpreter;
