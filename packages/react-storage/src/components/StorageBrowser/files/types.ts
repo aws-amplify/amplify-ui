@@ -11,17 +11,21 @@ import { FileItem, LocationItemType } from '../actions';
 export type SelectionType = LocationItemType | [LocationItemType, ...string[]];
 
 export type FilesActionType =
-  | { type: 'ADD_FILE_ITEMS'; files?: File[] }
+  | { type: 'ADD_FILE_ITEMS'; files?: File[]; sizeLimit: number }
   | { type: 'REMOVE_FILE_ITEM'; id: string }
   | { type: 'SELECT_FILES'; selectionType?: SelectionType }
   | { type: 'RESET_FILE_ITEMS' };
 
 export type HandleFilesAction = (input: FilesActionType) => void;
 
-export type FileItems = FileItem[];
+export type FileItems = {
+  items: FileItem[] | undefined;
+  invalidFiles: File[] | undefined;
+};
 
-export type FilesContextType = [FileItems | undefined, HandleFilesAction];
+export type FilesContextType = [FileItems, HandleFilesAction];
 
 export interface FilesProviderProps {
   children?: React.ReactNode;
+  fileSizeLimit?: number;
 }

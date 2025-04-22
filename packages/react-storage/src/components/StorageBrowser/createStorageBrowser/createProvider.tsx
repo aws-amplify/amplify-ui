@@ -27,6 +27,7 @@ export default function createProvider({
   actions,
   components,
   config,
+  options,
 }: CreateStorageBrowserInput): (
   props: StorageBrowserProviderProps
 ) => React.JSX.Element {
@@ -48,6 +49,8 @@ export default function createProvider({
     },
     custom: actions?.custom,
   };
+
+  const { fileSizeLimit } = options ?? {};
 
   const handlers = getActionHandlers(resolvedActions);
 
@@ -82,7 +85,7 @@ export default function createProvider({
     ...props
   }: StorageBrowserProviderProps) {
     return (
-      <StoreProvider {...props}>
+      <StoreProvider {...props} fileSizeLimit={fileSizeLimit}>
         <ConfigurationProvider>
           <ActionConfigsProvider actionConfigs={actionConfigs}>
             <ActionHandlersProvider handlers={handlers}>

@@ -139,6 +139,10 @@ export interface CreateStorageBrowserInput {
    * @description Overrides default `components` used within `StorageBrowser`
    */
   components?: StorageBrowserComponents;
+
+  options?: {
+    fileSizeLimit?: number;
+  };
 }
 
 /**

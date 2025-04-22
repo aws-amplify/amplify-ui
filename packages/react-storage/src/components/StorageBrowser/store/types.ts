@@ -52,6 +52,8 @@ export interface StoreProviderProps {
   // include `null` for improved flexibility for consumers
   defaultValue?: StorageBrowserValue | null;
 
+  fileSizeLimit?: number;
+
   // include `null` for improved flexibility for consumers
   value?: StorageBrowserValue | null;
 
