@@ -1,8 +1,12 @@
 import { translate } from '../../../i18n/translations';
-import type { FormFields, FormFieldsArray } from '../../../types';
+import type {
+  FormFields,
+  FormFieldsArray,
+  LoginMechanism,
+} from '../../../types';
 import type { AuthMachineState } from '../../../machines/authenticator/types';
 
-export const getPrimaryAlias = (state: AuthMachineState) => {
+export const getPrimaryAlias = (state: AuthMachineState): LoginMechanism => {
   const loginMechanisms = state?.context.config?.loginMechanisms;
   /**
    * @migration this is where we grab only the first index of `aws_cognito_username_attributes`
@@ -30,8 +34,8 @@ export const applyTranslation = (formFields: FormFields): FormFields => {
 export const sortFormFields = (formFields: FormFields): FormFieldsArray => {
   return Object.entries(formFields)
     .sort((a, b) => {
-      const orderA = a[1].order || Number.MAX_VALUE;
-      const orderB = b[1].order || Number.MAX_VALUE;
+      const orderA = a[1].order ?? Number.MAX_VALUE;
+      const orderB = b[1].order ?? Number.MAX_VALUE;
       return orderA - orderB;
     })
     .filter((formFieldEntry) => formFieldEntry[1] !== undefined);

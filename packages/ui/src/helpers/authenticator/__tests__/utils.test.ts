@@ -71,6 +71,7 @@ describe('isValidEmail', () => {
   });
 
   it('should return false if there is no email address', () => {
+    // @ts-expect-error robustness check
     expect(isValidEmail(null)).toBe(false);
     expect(isValidEmail(undefined)).toBe(false);
     expect(isValidEmail('')).toBe(false);

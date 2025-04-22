@@ -1,4 +1,4 @@
-import type { State } from 'xstate';
+import type { ActorRef, State } from 'xstate';
 import type { AuthUser } from 'aws-amplify/auth';
 
 import type {
@@ -125,7 +125,7 @@ export interface ActorDoneData {
  * Context interface for the top-level machine
  */
 export interface AuthContext {
-  actorRef?: any;
+  actorRef?: ActorRef<any>;
   config?: {
     loginMechanism?: LoginMechanism;
     loginMechanisms?: LoginMechanism[];

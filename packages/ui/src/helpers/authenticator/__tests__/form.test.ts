@@ -107,7 +107,9 @@ describe('isAuthFieldWithDefaults', () => {
 
 describe('getErrors', () => {
   it('should return null for falsy values', () => {
+    // @ts-expect-error robustness check
     expect(getErrors(null)).toBeNull();
+    // @ts-expect-error robustness check
     expect(getErrors(undefined)).toBeNull();
     expect(getErrors('')).toBeNull();
   });

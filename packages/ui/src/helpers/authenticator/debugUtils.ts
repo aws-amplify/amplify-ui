@@ -11,8 +11,8 @@ import type { GetRoute } from './getRoute';
  * ```
  */
 export const logRouteChanges = (fn: GetRoute): GetRoute => {
-  let prevStateValue;
-  let prevActorStateValue;
+  let prevStateValue: string | undefined;
+  let prevActorStateValue: string | undefined;
   return (state, actorState) => {
     const stateValue = state?.value ? JSON.stringify(state.value) : undefined;
     const actorStateValue = actorState?.value
@@ -22,7 +22,7 @@ export const logRouteChanges = (fn: GetRoute): GetRoute => {
     const bothUpdated =
       stateValue !== prevStateValue && actorStateValue !== prevActorStateValue;
 
-    const logValues = (label) =>
+    const logValues = (label: string) =>
       groupLog(
         label,
         { 'state.value': state?.value },

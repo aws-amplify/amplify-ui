@@ -14,14 +14,17 @@ export const defaultAuthHubHandler: AuthMachineHubHandler = (
   service,
   options
 ) => {
-  const { data, event } = payload;
+  const { data, event } = payload as {
+    data?: { error?: Error };
+    event: string;
+  };
   const { send } = service;
   const { onSignIn, onSignOut } = options ?? {};
 
   switch (event) {
     case 'signedIn': {
       if (isFunction(onSignIn)) {
-        onSignIn(payload);
+        onSignIn();
       }
       break;
     }
@@ -60,7 +63,7 @@ export const defaultAuthHubHandler: AuthMachineHubHandler = (
 export const listenToAuthHub = (
   service: AuthInterpreter,
   handler: AuthMachineHubHandler = defaultAuthHubHandler
-) => {
+): ReturnType<typeof Hub.listen> => {
   const eventHandler: Parameters<typeof Hub.listen>[1] = (data) =>
     handler(data, service);
   return Hub.listen('auth', eventHandler, 'authenticator-hub-handler');

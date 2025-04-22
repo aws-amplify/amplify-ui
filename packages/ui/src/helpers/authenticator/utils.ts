@@ -45,7 +45,7 @@ export const censorContactMethod = (
     : censorEmail(value);
 };
 
-export const hasSpecialChars = (password: string) =>
+export const hasSpecialChars = (password: string): boolean =>
   ALLOWED_SPECIAL_CHARACTERS.some((char) => password.includes(char));
 
 export const getTotpCodeURL = (
@@ -70,7 +70,7 @@ export function trimValues<T extends Record<string, string>>(
   );
 }
 
-export const isValidEmail = (value: string | undefined) => {
+export const isValidEmail = (value: string | undefined): boolean => {
   if (!value) return false;
 
   return emailRegex.test(value);

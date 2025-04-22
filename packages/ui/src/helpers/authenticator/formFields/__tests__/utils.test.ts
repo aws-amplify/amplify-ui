@@ -19,12 +19,13 @@ describe('getPrimaryAlias', () => {
   });
 
   it("shouldn't break if state isn't provided", () => {
+    // @ts-expect-error robustness check
     expect(getPrimaryAlias(null)).toEqual('username');
   });
 });
 
 describe('applyTranslation', () => {
-  const formFields: FormFields = {
+  const formFields = {
     name: {
       label: 'Name',
       placeholder: 'Enter your name',

@@ -12,7 +12,7 @@ export type GetRoute = (
 export const getRoute = (
   state: AuthMachineState,
   actorState: AuthActorState
-): AuthenticatorRoute => {
+): AuthenticatorRoute | null => {
   // 'federatedSignIn' exists as a state on both the 'signInActor' and 'signUpActor',
   // match against the `actorState` initially to determine if the federated sign in flow
   // has begun, then which actor has begun the flow and return the corresponding `route`

@@ -27,7 +27,7 @@ export const changePassword = async ({
   }
 };
 
-export const deleteUser = async () => {
+export const deleteUser = async (): Promise<void> => {
   try {
     logger.debug('calling Auth.deleteUser');
     await deleteAuthUser();

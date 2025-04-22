@@ -16,7 +16,6 @@ import type {
 } from '../../types';
 
 import type {
-  AuthActorContext,
   AuthEvent,
   AuthEventData,
   AuthEventTypes,
@@ -175,7 +174,7 @@ const getNextSendEventAliases = (
 export const getServiceContextFacade = (
   state: AuthMachineState
 ): AuthenticatorServiceContextFacade => {
-  const actorContext = (getActorContext(state) ?? {}) as AuthActorContext;
+  const actorContext = getActorContext(state) ?? {};
   const {
     allowedMfaTypes,
     challengeName,
@@ -247,7 +246,7 @@ export const getServiceContextFacade = (
 export const getNextServiceContextFacade = (
   state: AuthMachineState
 ): NextAuthenticatorServiceContextFacade => {
-  const actorContext = (getActorContext(state) ?? {}) as AuthActorContext;
+  const actorContext = getActorContext(state) ?? {};
   const {
     allowedMfaTypes,
     challengeName,

@@ -3,7 +3,6 @@
  * authenticator machine and its intepreter.
  */
 import type { Interpreter } from 'xstate';
-import type { AuthUser } from 'aws-amplify/auth';
 import type { HubCapsule } from 'aws-amplify/utils';
 
 import type {
@@ -37,7 +36,7 @@ export type AuthMachineHubHandler = (
   data: HubCapsule<any, any>,
   service: AuthInterpreter,
   options?: {
-    onSignIn?: (user: AuthUser) => void;
+    onSignIn?: () => void;
     onSignOut?: () => void;
   }
 ) => void;

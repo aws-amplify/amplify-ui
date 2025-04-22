@@ -14,7 +14,7 @@ import type {
  * to render: e.g. `getActorState(state).matches('confirmSignUp.edit').
  */
 export const getActorState = (state: AuthMachineState): AuthActorState => {
-  return state.context.actorRef?.getSnapshot();
+  return state.context.actorRef?.getSnapshot() as AuthActorState;
 };
 
 /**

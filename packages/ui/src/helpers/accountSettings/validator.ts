@@ -3,7 +3,6 @@ import { Amplify } from 'aws-amplify';
 import { hasSpecialChars } from '../authenticator';
 import type {
   ValidatorOptions,
-  PasswordSettings,
   PasswordRequirement,
   ValidationMode,
   InputEventType,
@@ -12,8 +11,7 @@ import type {
 // gets password requirement from Amplify.configure data
 export const getPasswordRequirement = (): PasswordRequirement | null => {
   const config: ResourcesConfig = Amplify.getConfig();
-  const passwordSettings = config?.Auth?.Cognito
-    .passwordFormat as PasswordSettings;
+  const passwordSettings = config?.Auth?.Cognito.passwordFormat;
 
   if (!passwordSettings) {
     return null;
@@ -120,7 +118,7 @@ export const shouldValidate = ({
   validationMode: ValidationMode;
   eventType: InputEventType;
   hasBlurred: boolean;
-}) => {
+}): boolean => {
   switch (validationMode) {
     case 'onBlur': {
       // only run validator on blur event

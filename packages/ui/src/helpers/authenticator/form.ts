@@ -6,7 +6,9 @@ import type {
 } from '../../types';
 import { authFieldsWithDefaults } from '../../types';
 
-export const getFormDataFromEvent = (event: Event) => {
+export const getFormDataFromEvent = (
+  event: Event
+): ReturnType<typeof Object.fromEntries> => {
   const formData = new FormData(event.target as HTMLFormElement);
   return Object.fromEntries(formData);
 };
@@ -50,7 +52,7 @@ const isArray = <T>(val: T | T[]): val is T[] => {
   return Array.isArray(val);
 };
 
-export const getErrors = (errors: string | string[]) => {
+export const getErrors = (errors: string | string[]): null | string[] => {
   if (!errors) return null;
   if (isArray(errors)) {
     return errors;
