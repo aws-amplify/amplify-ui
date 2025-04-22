@@ -68,13 +68,13 @@ export type Dict = Record<string, string>;
  * You can also use translate<string> to handle custom strings or dynamic content.
  */
 export function translate<T extends string>(phrase: T): string {
-  return I18n.get(phrase);
+  return I18n.get(phrase) as string;
 }
 
 /**
  * Whether I18n has a translation entry for given phrase
  */
-export function hasTranslation(phrase: string) {
+export function hasTranslation(phrase: string): boolean {
   return I18n.get(phrase) !== phrase;
 }
 
