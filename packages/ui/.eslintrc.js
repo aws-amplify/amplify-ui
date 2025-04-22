@@ -1,7 +1,5 @@
 module.exports = {
-  env: { node: true },
-  plugins: ['@typescript-eslint', 'import'],
-  extends: ['eslint:recommended'],
+  extends: '@aws-amplify/amplify-ui',
   ignorePatterns: [
     '.eslintrc.js',
     'coverage',
@@ -9,32 +7,13 @@ module.exports = {
     'node_modules',
     '__tests__',
   ],
-  parser: '@typescript-eslint/parser',
-  parserOptions: {
-    ecmaVersion: 12,
-    sourceType: 'module',
-    project: ['tsconfig.json'],
-    tsconfigRootDir: __dirname,
-  },
-  rules: {
-    'import/no-extraneous-dependencies': [
-      'error',
-      { packageDir: ['.', '../..'] },
-    ],
-    'no-console': 'error',
-    'no-debugger': 'error',
-    'no-undef': 'off',
-    // prefer `typescript-eslint` rule
-    'no-unused-vars': 'off',
-    '@typescript-eslint/consistent-type-exports': 'error',
-    '@typescript-eslint/consistent-type-imports': 'error',
-    '@typescript-eslint/no-unused-vars': [
-      'error',
-      {
-        argsIgnorePattern: '_',
-        varsIgnorePattern: '_',
-        ignoreRestSiblings: true,
-      },
-    ],
-  },
+  // point to local tsconfig
+  parserOptions: { project: ['tsconfig.json'], tsconfigRootDir: __dirname },
+  overrides: [
+    {
+      extends: ['@aws-amplify/amplify-ui/jest'],
+      files: ['**/__mocks__/**', '**/__tests__/**'],
+    },
+    { files: '*.mjs' },
+  ],
 };
