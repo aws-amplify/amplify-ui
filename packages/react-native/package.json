@@ -35,7 +35,7 @@
     "@aws-amplify/ui-react-core-notifications": "2.2.8"
   },
   "peerDependencies": {
-    "aws-amplify": "^6.14.3",
+    "aws-amplify": "rn-exports",
     "react": "*",
     "react-native": ">=0.70",
     "react-native-safe-area-context": "*"

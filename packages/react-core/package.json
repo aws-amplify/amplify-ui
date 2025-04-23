@@ -47,7 +47,7 @@
     "xstate": "^4.33.6"
   },
   "peerDependencies": {
-    "aws-amplify": "^6.14.3",
+    "aws-amplify": "rn-exports",
     "react": "^16.14 || ^17 || ^18 || ^19"
   },
   "sideEffects": false

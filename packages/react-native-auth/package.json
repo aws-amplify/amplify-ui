@@ -34,7 +34,7 @@
     "qrcode": "1.5.0"
   },
   "peerDependencies": {
-    "aws-amplify": "^6.14.3",
+    "aws-amplify": "rn-exports",
     "react": "^18",
     "react-native": "^0.70 || ^0.71 || ^0.72"
   },
