@@ -91,11 +91,7 @@ describe('useProcessTasks', () => {
 
   it('handles concurrent tasks as expected', async () => {
     const { result } = renderHook(() =>
-      useProcessTasks(action, {
-        concurrency: 2,
-        items,
-        onTaskProgress,
-      })
+      useProcessTasks(action, { items, onTaskProgress })
     );
 
     const processTasks = result.current[1];
@@ -105,7 +101,7 @@ describe('useProcessTasks', () => {
     expect(result.current[0].tasks[2].status).toBe('QUEUED');
 
     act(() => {
-      processTasks({ config });
+      processTasks({ config, options: { concurrency: 2 } });
     });
 
     expect(action).toHaveBeenCalledTimes(2);
@@ -392,13 +388,13 @@ describe('useProcessTasks', () => {
 
   it('returns `error` and `message` for a failed task and provides the expected values to `onTaskError`', async () => {
     const { result } = renderHook(() =>
-      useProcessTasks(action, { concurrency: 2, items, onTaskError })
+      useProcessTasks(action, { items, onTaskError })
     );
 
     const processTasks = result.current[1];
 
     act(() => {
-      processTasks({ config });
+      processTasks({ config, options: { concurrency: 2 } });
     });
 
     expect(result.current[0].tasks[0].status).toBe('PENDING');
