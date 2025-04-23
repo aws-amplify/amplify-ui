@@ -1,9 +1,10 @@
 import { createLocationCredentialsHandler } from './createLocationCredentialsHandler';
-import {
+import type {
   StorageBrowserAuthAdapter,
   CreateManagedAuthAdapterInput,
 } from '../types';
-import { listLocationsHandler, ListLocationsInput } from '../../actions';
+import type { ListLocationsInput } from '../../actions';
+import { listLocationsHandler } from '../../actions';
 
 /**
  * Create configuration including handlers to call S3 Access Grant APIs to list and get

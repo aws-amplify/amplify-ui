@@ -1,5 +1,5 @@
 import React from 'react';
-import { Avatars } from '../types';
+import type { Avatars } from '../types';
 
 export const AvatarsContext = React.createContext<Avatars | undefined>(
   undefined

@@ -7,7 +7,7 @@ import { useMessageProps } from '../hooks';
 import { MessageLayout } from '../MessageLayout';
 
 import { BLOCK_CLASS } from './constants';
-import { BannerMessageProps } from './types';
+import type { BannerMessageProps } from './types';
 
 export function BannerMessage(
   props: BannerMessageProps

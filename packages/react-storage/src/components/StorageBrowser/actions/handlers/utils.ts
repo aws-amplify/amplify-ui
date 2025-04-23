@@ -1,8 +1,8 @@
-import { TransferProgressEvent } from 'aws-amplify/storage';
-import { LocationAccess as AccessGrantLocation } from '../../storage-internal';
+import type { TransferProgressEvent } from 'aws-amplify/storage';
+import type { LocationAccess as AccessGrantLocation } from '../../storage-internal';
 
 import { MULTIPART_UPLOAD_THRESHOLD_BYTES } from './constants';
-import {
+import type {
   ActionInputConfig,
   FileData,
   FileDataItem,

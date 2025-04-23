@@ -1,4 +1,4 @@
-import {
+import type {
   LoginMechanism,
   PasswordSettings,
   SignUpAttribute,

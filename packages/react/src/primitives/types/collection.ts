@@ -1,8 +1,8 @@
-import * as React from 'react';
-import { BaseFlexProps } from './flex';
-import { BaseGridProps } from './grid';
-import { BaseStyleProps } from './style';
-import { ElementType, PrimitiveProps, PrimitivePropsWithAs } from './view';
+import type * as React from 'react';
+import type { BaseFlexProps } from './flex';
+import type { BaseGridProps } from './grid';
+import type { BaseStyleProps } from './style';
+import type { ElementType, PrimitiveProps, PrimitivePropsWithAs } from './view';
 
 export type CollectionType = 'list' | 'grid' | 'table';
 

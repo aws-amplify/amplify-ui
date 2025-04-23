@@ -1,5 +1,5 @@
-import React from 'react';
-import { DefaultValues } from 'react-hook-form';
+import type React from 'react';
+import type { DefaultValues } from 'react-hook-form';
 
 export interface FormValues {
   [k: string]: string;
@@ -63,7 +63,7 @@ export interface RegisterFieldParams<Values extends FormValues = FormValues> {
 
 export interface UseFormParams<
   Values extends FormValues = FormValues,
-  OnSubmit extends SubmitHandler<Values> = SubmitHandler<Values>
+  OnSubmit extends SubmitHandler<Values> = SubmitHandler<Values>,
 > {
   /**
    * Custom error message provided to `Error` on call to `useForm` outside `FormProvider`
@@ -193,7 +193,7 @@ export interface UseField<Name extends string = string>
 export interface UseFieldParams<
   OnBlur extends FocusHandler | undefined,
   OnChange extends ChangeHandler | undefined,
-  Values extends FormValues = FormValues
+  Values extends FormValues = FormValues,
 > {
   /**
    * Controlled `disabled` state
@@ -252,7 +252,7 @@ export interface UseFieldParams<
  */
 export interface UseControlledFieldParams<
   OnBlur extends FocusHandler | undefined,
-  Values extends FormValues = FormValues
+  Values extends FormValues = FormValues,
 > extends Omit<UseFieldParams<OnBlur, undefined, Values>, 'onChange'> {
   /**
    * Controlled text change event handler

@@ -4,12 +4,12 @@ import { classNames } from '@aws-amplify/ui';
 import { ComponentClassName } from '@aws-amplify/ui';
 
 import { classNameModifier } from '../shared/utils';
-import { ForwardRefPrimitive, Primitive } from '../types';
+import type { ForwardRefPrimitive, Primitive } from '../types';
 import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 import { View } from '../View';
 import { IconUser, useIcons } from '../Icon';
 import { Image } from '../Image';
-import { AvatarProps, BaseAvatarProps } from './types';
+import type { AvatarProps, BaseAvatarProps } from './types';
 import { Loader } from '../Loader';
 
 const AvatarPrimitive: Primitive<AvatarProps, 'span'> = (

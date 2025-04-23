@@ -3,7 +3,7 @@ import React from 'react';
 import { useStore } from '../../store';
 import { useActionViews } from '../context/actionViews';
 
-import { LocationActionViewType } from './types';
+import type { LocationActionViewType } from './types';
 
 export const LocationActionView: LocationActionViewType = ({
   type,

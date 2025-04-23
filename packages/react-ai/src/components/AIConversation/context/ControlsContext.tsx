@@ -1,7 +1,7 @@
 import React from 'react';
-import { ConversationInputContextProps } from './ConversationInputContext';
-import { SuggestedPrompt } from '../types';
-import { ConversationMessage } from '../../../types';
+import type { ConversationInputContextProps } from './ConversationInputContext';
+import type { SuggestedPrompt } from '../types';
+import type { ConversationMessage } from '../../../types';
 
 export interface ControlsContextProps {
   Form?: React.ComponentType<

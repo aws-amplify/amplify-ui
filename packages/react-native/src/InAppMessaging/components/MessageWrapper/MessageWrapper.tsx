@@ -1,9 +1,10 @@
 import React from 'react';
-import { Modal, ModalPropsIOS } from 'react-native';
+import type { ModalPropsIOS } from 'react-native';
+import { Modal } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 import { styles } from './styles';
-import { MessageWrapperProps } from './types';
+import type { MessageWrapperProps } from './types';
 
 const SUPPORTED_ORIENTATIONS: ModalPropsIOS['supportedOrientations'] = [
   'portrait',

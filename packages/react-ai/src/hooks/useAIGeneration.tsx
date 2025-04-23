@@ -1,13 +1,8 @@
 import * as React from 'react';
 import type { ClientExtensions } from '@aws-amplify/data-schema/runtime';
-import { getSchema } from '../types';
-import {
-  AiClientResponse,
-  AiClientState,
-  ERROR_STATE,
-  INITIAL_STATE,
-  LOADING_STATE,
-} from './shared';
+import type { getSchema } from '../types';
+import type { AiClientResponse, AiClientState } from './shared';
+import { ERROR_STATE, INITIAL_STATE, LOADING_STATE } from './shared';
 
 export interface UseAIGenerationHookWrapper<
   Key extends keyof AIGenerationClient<Schema>['generations'],

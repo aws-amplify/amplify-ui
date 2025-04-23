@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { CarouselPageIndicatorProps } from './types';
+import type { CarouselPageIndicatorProps } from './types';
 import {
   DEFAULT_CAROUSEL_INDICATOR_ACTIVE_STYLE,
   DEFAULT_CAROUSEL_INDICATOR_INACTIVE_STYLE,

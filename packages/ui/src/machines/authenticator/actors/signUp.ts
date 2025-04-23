@@ -1,13 +1,13 @@
 import { createMachine, sendUpdate } from 'xstate';
 
+import type { ConfirmSignUpInput } from 'aws-amplify/auth';
 import {
   autoSignIn,
-  ConfirmSignUpInput,
   signInWithRedirect,
   fetchUserAttributes,
 } from 'aws-amplify/auth';
 
-import { AuthContext, AuthEvent, SignUpContext } from '../types';
+import type { AuthContext, AuthEvent, SignUpContext } from '../types';
 import { getSignUpInput } from '../utils';
 
 import { runValidators } from '../../../validators';

@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { LocationData } from '../actions';
+import type { LocationData } from '../actions';
 import { useCredentials } from '../credentials';
 import { useStore } from '../store';
 import { assertLocationData, assertPrefix } from '../validators';
 
-import { GetActionInput } from './types';
+import type { GetActionInput } from './types';
 
 export const getErrorMessage = (propertyName: string): string =>
   `Unable to resolve credentials due to invalid value of '${propertyName}'`;

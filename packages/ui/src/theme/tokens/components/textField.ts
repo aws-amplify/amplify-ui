@@ -1,4 +1,7 @@
-import { DesignTokenProperties, OutputVariantKey } from '../types/designToken';
+import type {
+  DesignTokenProperties,
+  OutputVariantKey,
+} from '../types/designToken';
 
 export type TextFieldTokens<Output extends OutputVariantKey> =
   DesignTokenProperties<'color' | 'borderColor' | 'fontSize', Output> & {

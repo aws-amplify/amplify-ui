@@ -8,7 +8,7 @@ import {
   TableHeaderElement,
   TableRowElement,
 } from '../elements';
-import { WithKey } from '../types';
+import type { WithKey } from '../types';
 
 import { STORAGE_BROWSER_BLOCK } from './constants';
 

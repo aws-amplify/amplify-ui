@@ -1,5 +1,8 @@
-import { DesignTokenProperties, OutputVariantKey } from '../types/designToken';
-import { TypographyTokens } from '../types/typography';
+import type {
+  DesignTokenProperties,
+  OutputVariantKey,
+} from '../types/designToken';
+import type { TypographyTokens } from '../types/typography';
 
 type BaseDropZoneTokens<OutputType> = DesignTokenProperties<
   | 'backgroundColor'

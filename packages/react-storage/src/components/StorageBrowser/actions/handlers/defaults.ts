@@ -1,12 +1,15 @@
-import { copyHandler, CopyHandler } from './copy';
-import { createFolderHandler, CreateFolderHandler } from './createFolder';
-import { deleteHandler, DeleteHandler } from './delete';
-import { downloadHandler, DownloadHandler } from './download';
-import {
-  listLocationItemsHandler,
-  ListLocationItemsHandler,
-} from './listLocationItems';
-import { uploadHandler, UploadHandler } from './upload';
+import type { CopyHandler } from './copy';
+import { copyHandler } from './copy';
+import type { CreateFolderHandler } from './createFolder';
+import { createFolderHandler } from './createFolder';
+import type { DeleteHandler } from './delete';
+import { deleteHandler } from './delete';
+import type { DownloadHandler } from './download';
+import { downloadHandler } from './download';
+import type { ListLocationItemsHandler } from './listLocationItems';
+import { listLocationItemsHandler } from './listLocationItems';
+import type { UploadHandler } from './upload';
+import { uploadHandler } from './upload';
 
 export interface DefaultHandlers {
   copy: CopyHandler;

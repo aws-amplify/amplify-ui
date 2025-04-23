@@ -2,10 +2,11 @@ import React from 'react';
 
 import { useGetActionInput } from '../configuration';
 import { DEFAULT_ACTION_CONCURRENCY } from './constants';
-import { ActionHandler } from '../actions';
-import { Task, useProcessTasks } from '../tasks';
+import type { ActionHandler } from '../actions';
+import type { Task } from '../tasks';
+import { useProcessTasks } from '../tasks';
 
-import {
+import type {
   HandleTaskInput,
   HandleTasksInput,
   InferTask,

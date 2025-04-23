@@ -4,7 +4,7 @@ import { noop } from '@aws-amplify/ui';
 import { createContextUtilities } from '@aws-amplify/ui-react-core';
 import { useFileSelect } from '@aws-amplify/ui-react/internal';
 
-import {
+import type {
   FilesContextType,
   FilesProviderProps,
   HandleFilesAction,

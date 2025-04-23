@@ -1,13 +1,13 @@
-import {
+import type {
   FileData,
-  createFileDataItem,
   FileDataItem,
   LocationItemData,
   LocationData,
 } from '../../../actions';
-import { DataTableProps } from '../../../components';
-import { DefaultLocationDetailViewDisplayText } from '../../../displayText/types';
-import { LocationState } from '../../../store';
+import { createFileDataItem } from '../../../actions';
+import type { DataTableProps } from '../../../components';
+import type { DefaultLocationDetailViewDisplayText } from '../../../displayText/types';
+import type { LocationState } from '../../../store';
 
 import { getFileRowContent } from './getFileRowContent';
 import { getFolderRowContent } from './getFolderRowContent';

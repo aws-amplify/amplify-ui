@@ -1,4 +1,4 @@
-import { Modifiers, ComponentStyles, Elements } from './utils';
+import type { Modifiers, ComponentStyles, Elements } from './utils';
 
 export type FieldGroupTheme<Required extends boolean = false> =
   ComponentStyles &

@@ -4,7 +4,7 @@ import { View } from 'react-native';
 import { useTheme } from '../../theme';
 import { Label } from '../Label';
 import { getThemedStyles } from './styles';
-import { DividerProps } from './types';
+import type { DividerProps } from './types';
 
 export const DIVIDER_LINE_TEST_ID = 'amplify__divider__line';
 

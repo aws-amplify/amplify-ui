@@ -1,5 +1,5 @@
 import { isObject } from '@aws-amplify/ui';
-import {
+import type {
   ActionViewConfig,
   ExtendedActionConfigs,
   ActionViewConfigs,

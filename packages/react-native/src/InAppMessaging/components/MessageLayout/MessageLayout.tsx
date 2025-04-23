@@ -11,7 +11,7 @@ import {
   IN_APP_MESSAGING_TEST_ID,
 } from '../../constants';
 
-import { LayoutProps } from './types';
+import type { LayoutProps } from './types';
 
 export default function MessageLayout({
   orientation,

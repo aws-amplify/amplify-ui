@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { FileData } from '../../actions';
+import type { FileData } from '../../actions';
 import { ControlsContextProvider } from '../../controls/context';
 import { useDisplayText } from '../../displayText';
 
-import { LocationDetailViewProviderProps } from './types';
+import type { LocationDetailViewProviderProps } from './types';
 import { getLocationDetailViewTableData } from './getLocationDetailViewTableData';
 
 export function LocationDetailViewProvider({

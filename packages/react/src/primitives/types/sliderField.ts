@@ -1,9 +1,9 @@
-import { Property } from 'csstype';
-import React from 'react';
+import type { Property } from 'csstype';
+import type React from 'react';
 
-import { StyleToken } from './style';
-import { BaseTextFieldProps } from './textField';
-import { ElementType, PrimitiveProps, BaseViewProps } from './view';
+import type { StyleToken } from './style';
+import type { BaseTextFieldProps } from './textField';
+import type { ElementType, PrimitiveProps, BaseViewProps } from './view';
 
 type SliderOrientation = 'horizontal' | 'vertical';
 type Direction = 'ltr' | 'rtl';

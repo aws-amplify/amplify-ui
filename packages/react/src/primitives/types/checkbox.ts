@@ -1,9 +1,9 @@
-import { ChangeEvent, Dispatch, SetStateAction } from 'react';
-import { BaseFlexProps } from './flex';
-import { BaseInputProps } from './input';
-import { FieldProps, LabelPositions } from './field';
-import { BaseStyleProps } from './style';
-import { ElementType, PrimitiveProps } from './view';
+import type { ChangeEvent, Dispatch, SetStateAction } from 'react';
+import type { BaseFlexProps } from './flex';
+import type { BaseInputProps } from './input';
+import type { FieldProps, LabelPositions } from './field';
+import type { BaseStyleProps } from './style';
+import type { ElementType, PrimitiveProps } from './view';
 
 /** @deprecated For internal use only */
 export interface BaseCheckboxProps extends BaseFlexProps, BaseInputProps {

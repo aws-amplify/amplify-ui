@@ -9,7 +9,7 @@ import { MessageControl } from '../../../controls/MessageControl';
 import { TitleControl } from '../../../controls/TitleControl';
 
 import { CreateFolderViewProvider } from './CreateFolderViewProvider';
-import { CreateFolderViewType } from './types';
+import type { CreateFolderViewType } from './types';
 import { useCreateFolderView } from './useCreateFolderView';
 import { classNames } from '@aws-amplify/ui';
 

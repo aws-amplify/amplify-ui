@@ -1,7 +1,7 @@
 import React from 'react';
 import { createContextUtilities } from '@aws-amplify/ui-react-core';
 
-import { GetActionInputProviderProps, GetActionInput } from './types';
+import type { GetActionInputProviderProps, GetActionInput } from './types';
 import { useGetActionInputCallback } from './useGetActionInputCallback';
 
 const ERROR_MESSAGE =

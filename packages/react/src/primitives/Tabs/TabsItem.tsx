@@ -7,10 +7,10 @@ import {
   isFunction,
 } from '@aws-amplify/ui';
 
-import { ForwardRefPrimitive, Primitive } from '../types';
+import type { ForwardRefPrimitive, Primitive } from '../types';
 import { View } from '../View';
 import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
-import { BaseTabsItemProps, TabsItemProps } from './types';
+import type { BaseTabsItemProps, TabsItemProps } from './types';
 import { TabsContext } from './TabsContext';
 import { WHITESPACE_VALUE } from './constants';
 

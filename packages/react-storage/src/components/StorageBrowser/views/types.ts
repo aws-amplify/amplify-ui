@@ -1,15 +1,15 @@
-import React from 'react';
-import { LocationData } from '../actions';
+import type React from 'react';
+import type { LocationData } from '../actions';
 
-import {
+import type {
   LocationActionViewProps,
   UploadViewProps,
   CreateFolderViewProps,
   CopyViewProps,
   DeleteViewProps,
 } from './LocationActionView';
-import { LocationDetailViewProps } from './LocationDetailView';
-import { LocationsViewProps } from './LocationsView';
+import type { LocationDetailViewProps } from './LocationDetailView';
+import type { LocationsViewProps } from './LocationsView';
 
 export interface ActionViewProps {
   className?: string;

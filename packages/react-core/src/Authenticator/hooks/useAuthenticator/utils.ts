@@ -1,21 +1,26 @@
-import {
-  areEmptyArrays,
-  areEmptyObjects,
+import type {
   AuthenticatorRoute,
   AuthMachineState,
   FormFieldsArray,
-  getSortedFormFields,
   UnverifiedUserAttributes,
+  AuthMFAType,
+} from '@aws-amplify/ui';
+import {
+  areEmptyArrays,
+  areEmptyObjects,
+  getSortedFormFields,
   getActorContext,
   isString,
-  AuthMFAType,
   authenticatorTextUtil,
 } from '@aws-amplify/ui';
 
-import { AuthenticatorLegacyField, AuthenticatorLegacyFields } from '../types';
+import type {
+  AuthenticatorLegacyField,
+  AuthenticatorLegacyFields,
+} from '../types';
 import { isComponentRouteKey } from '../utils';
 
-import { Comparator, UseAuthenticatorSelector } from './types';
+import type { Comparator, UseAuthenticatorSelector } from './types';
 
 export const defaultComparator = (): false => false;
 

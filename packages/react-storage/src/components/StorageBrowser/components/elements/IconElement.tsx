@@ -2,10 +2,8 @@ import React from 'react';
 
 import { defineBaseElement } from '@aws-amplify/ui-react-core/elements';
 import { useIcons } from '@aws-amplify/ui-react/internal';
-import {
-  StorageBrowserIconType,
-  STORAGE_BROWSER_ICON_PATHS,
-} from '@aws-amplify/ui-react/internal';
+import type { StorageBrowserIconType } from '@aws-amplify/ui-react/internal';
+import { STORAGE_BROWSER_ICON_PATHS } from '@aws-amplify/ui-react/internal';
 
 export type IconElementProps = React.ComponentProps<typeof BaseIconElement>;
 

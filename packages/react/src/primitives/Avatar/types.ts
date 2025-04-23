@@ -1,5 +1,5 @@
-import { Sizes } from '../types/base';
-import { ElementType, PrimitiveProps, BaseViewProps } from '../types/view';
+import type { Sizes } from '../types/base';
+import type { ElementType, PrimitiveProps, BaseViewProps } from '../types/view';
 
 type AvatarVariations = 'default' | 'filled' | 'outlined';
 type AvatarColorThemes = 'info' | 'error' | 'warning' | 'success';

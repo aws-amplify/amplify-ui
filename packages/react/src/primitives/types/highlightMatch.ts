@@ -1,4 +1,4 @@
-import { ElementType, PrimitiveProps, BaseViewProps } from './view';
+import type { ElementType, PrimitiveProps, BaseViewProps } from './view';
 
 /** @deprecated For internal use only */
 export interface BaseHighlightMatchProps extends BaseViewProps {

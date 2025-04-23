@@ -1,10 +1,14 @@
 import { capitalize, noop } from '@aws-amplify/ui';
 
-import { WithKey } from '../../../components/types';
+import type { WithKey } from '../../../components/types';
 import { isCopyViewDisplayTextKey } from '../../../displayText';
 
 import { STATUS_ICONS, STATUS_LABELS } from './constants';
-import { CopyActionTask, CopyTableKey, CopyTaskTableResolvers } from './types';
+import type {
+  CopyActionTask,
+  CopyTableKey,
+  CopyTaskTableResolvers,
+} from './types';
 import {
   getCopyCellFolder,
   getCopyOrDeleteCancelCellContent,

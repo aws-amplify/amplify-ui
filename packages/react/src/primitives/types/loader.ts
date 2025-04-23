@@ -1,8 +1,8 @@
-import { Property } from 'csstype';
+import type { Property } from 'csstype';
 
-import { ElementType, PrimitiveProps, BaseViewProps } from '../types/view';
-import { Sizes } from './base';
-import { StyleToken } from './style';
+import type { ElementType, PrimitiveProps, BaseViewProps } from '../types/view';
+import type { Sizes } from './base';
+import type { StyleToken } from './style';
 
 export type LoaderSizes = Sizes;
 

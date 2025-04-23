@@ -1,5 +1,5 @@
-import { LocationPermissions } from '../../actions';
-import {
+import type { LocationPermissions } from '../../actions';
+import type {
   AWSTemporaryCredentials,
   LocationCredentialsProvider,
   LocationCredentials,

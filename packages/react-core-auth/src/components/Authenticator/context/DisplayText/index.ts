@@ -1,6 +1,6 @@
 export { DisplayTextProvider, useDisplayText } from './DisplayTextContext';
 export { displayTextEn } from './i18n';
-export {
+export type {
   DisplayText,
   DisplayTextDefault,
   DisplayTextProviderProps,

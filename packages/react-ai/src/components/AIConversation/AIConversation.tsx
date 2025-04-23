@@ -5,7 +5,7 @@ import {
   IconUser,
   useIcons,
 } from '@aws-amplify/ui-react/internal';
-import {
+import type {
   AIConversation as AIConversationType,
   AIConversationInput,
   AIConversationProps,

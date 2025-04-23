@@ -1,5 +1,5 @@
-import { NextAuthenticatorServiceFacade } from '@aws-amplify/ui';
-import { UseMachine } from '../types';
+import type { NextAuthenticatorServiceFacade } from '@aws-amplify/ui';
+import type { UseMachine } from '../types';
 
 const challengeName = 'CUSTOM_CHALLENGE';
 const codeDeliveryDetails = undefined;

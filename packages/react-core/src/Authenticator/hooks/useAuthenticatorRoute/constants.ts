@@ -1,8 +1,8 @@
-import {
+import type {
   AuthenticatorMachineContextKey,
   AuthenticatorRouteComponentKey,
 } from '../types';
-import {
+import type {
   CommonRouteMachineKey,
   ConfirmResetPasswordMachineKey,
   ConfirmSignInMachineKey,

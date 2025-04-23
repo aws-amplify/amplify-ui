@@ -1,4 +1,4 @@
-import { ImageContentBlock, DocumentContentBlock } from '../../types';
+import type { ImageContentBlock, DocumentContentBlock } from '../../types';
 
 export function formatDate(date: Date): string {
   const dateString = date.toLocaleDateString('en-US', {

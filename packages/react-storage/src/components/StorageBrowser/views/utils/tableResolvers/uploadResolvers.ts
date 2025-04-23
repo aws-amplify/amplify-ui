@@ -1,9 +1,9 @@
 import { capitalize } from '@aws-amplify/ui';
 
-import { WithKey } from '../../../components/types';
+import type { WithKey } from '../../../components/types';
 
 import { STATUS_ICONS, STATUS_LABELS } from './constants';
-import {
+import type {
   GetUploadCell,
   UploadActionTask,
   UploadTableKey,

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { BaseFieldErrorMessageProps } from '../types/field';
+import type { BaseFieldErrorMessageProps } from '../types/field';
 import { Text } from '../Text';
 import { ComponentClassName } from '@aws-amplify/ui';
 

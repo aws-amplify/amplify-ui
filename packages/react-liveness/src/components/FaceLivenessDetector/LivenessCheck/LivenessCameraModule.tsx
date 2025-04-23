@@ -12,14 +12,14 @@ import {
 } from '@aws-amplify/ui-react';
 import { useColorMode } from '@aws-amplify/ui-react/internal';
 import { FaceMatchState, clearOvalCanvas, drawStaticOval } from '../service';
+import type { UseMediaStreamInVideo } from '../hooks';
 import {
   useLivenessActor,
   useLivenessSelector,
   createLivenessSelector,
   useMediaStreamInVideo,
-  UseMediaStreamInVideo,
 } from '../hooks';
-import {
+import type {
   InstructionDisplayText,
   ErrorDisplayText,
   HintDisplayText,
@@ -33,9 +33,9 @@ import {
   FaceLivenessErrorModal,
   renderErrorModal,
 } from '../shared/FaceLivenessErrorModal';
+import type { FaceLivenessDetectorComponents } from '../shared/DefaultStartScreenComponents';
 import {
   DefaultPhotosensitiveWarning,
-  FaceLivenessDetectorComponents,
   DefaultCancelButton,
   DefaultRecordingIcon,
 } from '../shared/DefaultStartScreenComponents';

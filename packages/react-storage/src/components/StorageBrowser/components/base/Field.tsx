@@ -1,11 +1,7 @@
 import React from 'react';
 
-import {
-  InputElementProps,
-  ViewElement,
-  InputElement,
-  LabelElement,
-} from '../elements';
+import type { InputElementProps } from '../elements';
+import { ViewElement, InputElement, LabelElement } from '../elements';
 import { STORAGE_BROWSER_BLOCK_TO_BE_UPDATED } from './constants';
 
 interface FieldProps extends InputElementProps {

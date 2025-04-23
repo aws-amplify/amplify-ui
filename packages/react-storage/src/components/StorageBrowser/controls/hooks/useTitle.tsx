@@ -1,4 +1,4 @@
-import { TitleProps } from '../../components/composables/Title';
+import type { TitleProps } from '../../components/composables/Title';
 import { useControlsContext } from '../context';
 
 export const useTitle = (): TitleProps => {

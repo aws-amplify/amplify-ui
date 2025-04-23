@@ -8,7 +8,7 @@ import { useMessageProps } from '../hooks';
 import { MessageLayout } from '../MessageLayout';
 
 import { BLOCK_CLASS } from './constants';
-import { FullScreenMessageProps } from './types';
+import type { FullScreenMessageProps } from './types';
 
 export function FullScreenMessage(
   props: FullScreenMessageProps

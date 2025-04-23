@@ -1,6 +1,6 @@
-import { AsyncReducer } from '@aws-amplify/ui-react-core';
+import type { AsyncReducer } from '@aws-amplify/ui-react-core';
 
-import {
+import type {
   ListHandler,
   ListHandlerOptions,
   ListHandlerInput,

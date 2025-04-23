@@ -1,9 +1,9 @@
-import { Property } from 'csstype';
+import type { Property } from 'csstype';
 
-import { BaseFlexProps } from './flex';
-import { Sizes } from './base';
-import { StyleToken } from './style';
-import { ElementType, PrimitiveProps } from './view';
+import type { BaseFlexProps } from './flex';
+import type { Sizes } from './base';
+import type { StyleToken } from './style';
+import type { ElementType, PrimitiveProps } from './view';
 
 export type RatingSizes = Sizes;
 

@@ -1,4 +1,4 @@
-import { FolderNameFieldProps } from '../../components/composables/FolderNameField';
+import type { FolderNameFieldProps } from '../../components/composables/FolderNameField';
 import { useControlsContext } from '../context';
 
 export const useFolderNameField = (): FolderNameFieldProps => {

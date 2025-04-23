@@ -1,4 +1,4 @@
-import { ActionStartProps } from '../../components/composables/ActionStart';
+import type { ActionStartProps } from '../../components/composables/ActionStart';
 import { useControlsContext } from '../context';
 
 export const useActionStart = (): ActionStartProps => {

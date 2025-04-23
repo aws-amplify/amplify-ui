@@ -1,10 +1,12 @@
 export { AIContextContext, AIContextProvider } from './AIContextContext';
 export { ActionsContext, ActionsProvider } from './ActionsContext';
 export { AvatarsContext, AvatarsProvider } from './AvatarsContext';
-export {
+export type {
   ConversationInputContextProps,
-  ConversationInputContext,
   ConversationInput,
+} from './ConversationInputContext';
+export {
+  ConversationInputContext,
   ConversationInputContextProvider,
 } from './ConversationInputContext';
 export {
@@ -25,11 +27,8 @@ export {
   useConversationDisplayText,
   ConversationDisplayTextProvider,
 } from './DisplayTextContext';
-export {
-  ControlsContext,
-  ControlsContextProps,
-  ControlsProvider,
-} from './ControlsContext';
+export type { ControlsContextProps } from './ControlsContext';
+export { ControlsContext, ControlsProvider } from './ControlsContext';
 export { LoadingContextProvider } from './LoadingContext';
 export {
   ResponseComponentsProvider,
@@ -41,11 +40,8 @@ export {
   MessageRendererContext,
   useMessageRenderer,
 } from './MessageRenderContext';
-export {
-  AttachmentProvider,
-  AttachmentContext,
-  AttachmentContextProps,
-} from './AttachmentContext';
+export type { AttachmentContextProps } from './AttachmentContext';
+export { AttachmentProvider, AttachmentContext } from './AttachmentContext';
 export {
   WelcomeMessageContext,
   WelcomeMessageProvider,

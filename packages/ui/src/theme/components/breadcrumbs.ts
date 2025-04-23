@@ -1,4 +1,4 @@
-import { ComponentStyles, Elements, Modifiers } from './utils';
+import type { ComponentStyles, Elements, Modifiers } from './utils';
 
 export type BreadcrumbsTheme<Required extends boolean = false> =
   ComponentStyles &

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { ComponentClassName } from '@aws-amplify/ui';
 import { View, Button } from '@aws-amplify/ui-react';
-import { FileUploaderDisplayTextDefault as StorageManagerDisplayTextDefault } from '../../../FileUploader/utils';
+import type { FileUploaderDisplayTextDefault as StorageManagerDisplayTextDefault } from '../../../FileUploader/utils';
 
 export interface FileListFooterProps {
   remainingFilesCount: number;

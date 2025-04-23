@@ -1,7 +1,7 @@
 import { defaultTheme } from '@aws-amplify/ui';
 
 import { objectKeys } from '../../shared/utils';
-import {
+import type {
   Breakpoint,
   Breakpoints,
   ValueBreakpoints,

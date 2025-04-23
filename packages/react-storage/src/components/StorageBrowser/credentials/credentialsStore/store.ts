@@ -1,6 +1,6 @@
-import { LocationPermissions } from '../../actions';
+import type { LocationPermissions } from '../../actions';
+import type { AWSTemporaryCredentials } from '../../storage-internal';
 import {
-  AWSTemporaryCredentials,
   StorageValidationErrorCode,
   assertValidationError,
 } from '../../storage-internal';
@@ -9,7 +9,7 @@ import {
   CREDENTIALS_REFRESH_WINDOW_MS,
   CREDENTIALS_STORE_DEFAULT_SIZE,
 } from './constants';
-import {
+import type {
   CacheKey,
   CredentialsLocation,
   CredentialsStoreValue,

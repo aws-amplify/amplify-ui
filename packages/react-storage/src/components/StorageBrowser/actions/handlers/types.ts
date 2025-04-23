@@ -1,4 +1,4 @@
-import { LocationCredentialsProvider } from '../../storage-internal';
+import type { LocationCredentialsProvider } from '../../storage-internal';
 
 /**
  * `location` grant scope

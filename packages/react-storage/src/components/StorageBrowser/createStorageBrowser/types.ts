@@ -1,23 +1,26 @@
-import React from 'react';
+import type React from 'react';
 
-import {
+import type {
   CustomActionConfigs,
   DefaultActionConfigs,
   ExtendedActionConfigs,
   ListLocations,
   LocationData,
 } from '../actions';
-import { StorageBrowserComponents } from '../components';
-import { GetLocationCredentials, RegisterAuthListener } from '../credentials';
-import { StorageBrowserDisplayText } from '../displayText';
-import { ErrorBoundaryType } from '../ErrorBoundary';
-import {
+import type { StorageBrowserComponents } from '../components';
+import type {
+  GetLocationCredentials,
+  RegisterAuthListener,
+} from '../credentials';
+import type { StorageBrowserDisplayText } from '../displayText';
+import type { ErrorBoundaryType } from '../ErrorBoundary';
+import type {
   StorageBrowserEventValue,
   StorageBrowserValue,
   StoreProviderProps,
 } from '../store';
-import { DerivedActionHandlers, UseAction } from '../useAction';
-import {
+import type { DerivedActionHandlers, UseAction } from '../useAction';
+import type {
   CopyViewType,
   CreateFolderViewType,
   DeleteViewType,

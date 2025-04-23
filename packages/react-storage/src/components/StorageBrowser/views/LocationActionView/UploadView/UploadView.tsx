@@ -18,7 +18,7 @@ import {
 } from '../../../controls';
 
 import { UploadViewProvider } from './UploadViewProvider';
-import { UploadViewType } from './types';
+import type { UploadViewType } from './types';
 import { useUploadView } from './useUploadView';
 
 export const UploadView: UploadViewType = ({ className, ...props }) => {

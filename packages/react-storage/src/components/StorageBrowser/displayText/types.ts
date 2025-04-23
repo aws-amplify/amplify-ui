@@ -1,5 +1,5 @@
-import { StatusCounts, Task } from '../tasks';
-import {
+import type { StatusCounts, Task } from '../tasks';
+import type {
   CopyHandlerData,
   CreateFolderHandlerData,
   DeleteHandlerData,
@@ -10,9 +10,9 @@ import {
   UploadHandlerData,
   LocationPermissions,
 } from '../actions';
-import { MessageType } from '../components';
-import { FileItems } from '../files';
-import { LocationState } from '../store';
+import type { MessageType } from '../components';
+import type { FileItems } from '../files';
+import type { LocationState } from '../store';
 
 /**
  * Common list view display text values

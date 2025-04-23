@@ -1,7 +1,6 @@
-export {
+export type {
   LocationItemsAction,
-  LocationItemsProvider,
   LocationItemsProviderProps,
   LocationItemsState,
-  useLocationItems,
 } from './context';
+export { LocationItemsProvider, useLocationItems } from './context';

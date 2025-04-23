@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
+import type { ConversationInput } from '../../context';
 import {
   AIContextContext,
-  ConversationInput,
   ConversationInputContext,
   useConversationDisplayText,
 } from '../../context';
@@ -12,7 +12,7 @@ import { AttachFileControl } from './AttachFileControl';
 import { MessagesContext } from '../../context';
 import { AttachmentListControl } from './AttachmentListControl';
 import { SendMessageContext } from '../../context/SendMessageContext';
-import { InputContent } from '../../../../types';
+import type { InputContent } from '../../../../types';
 import {
   convertResponseComponentsToToolConfiguration,
   ResponseComponentsContext,

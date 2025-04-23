@@ -1,12 +1,11 @@
 import React from 'react';
 
 import { STORAGE_BROWSER_BLOCK } from '../../../base';
-import {
-  ButtonElement,
+import type {
   ButtonElementVariant,
-  IconElement,
   StorageBrowserIconType,
 } from '../../../elements';
+import { ButtonElement, IconElement } from '../../../elements';
 
 export interface ButtonDataCellProps {
   content: {

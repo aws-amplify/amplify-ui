@@ -1,6 +1,6 @@
 import { defaultHandlers } from '../handlers';
 
-import {
+import type {
   CopyActionConfig,
   CreateFolderActionConfig,
   DeleteActionConfig,
