@@ -1,10 +1,12 @@
 import React from 'react';
 import { isFunction } from '@aws-amplify/ui';
 
-import { ActionHandler, TaskData, TaskHandlerInput } from '../actions';
+import type { ActionHandler, TaskData } from '../actions';
 
-import {
+import type {
+  HandleBatchTasksInput,
   HandleProcessTasks,
+  HandleSingleTaskInput,
   InferHandleTasksInput,
   Task,
   ProcessTasksOptions,
@@ -23,9 +25,10 @@ const QUEUED_TASK_BASE = {
   status: 'QUEUED' as const,
 };
 
-const isTaskHandlerInput = <T extends TaskData>(
-  input: TaskHandlerInput<T> | Omit<TaskHandlerInput<T>, 'data'>
-): input is TaskHandlerInput<T> => !!(input as TaskHandlerInput<T>).data;
+const isSingleTaskInput = <TData extends TaskData>(
+  input: HandleSingleTaskInput<TData> | HandleBatchTasksInput<TData>
+): input is HandleSingleTaskInput<TData> =>
+  !!(input as HandleSingleTaskInput<TData>).data;
 
 export function useProcessTasks<
   TData,
@@ -38,7 +41,7 @@ export function useProcessTasks<
   handler: ActionHandler<TData, TValue>,
   options?: ProcessTasksOptions<TTask, TItems>
 ): UseProcessTasksState<TTask, TInput> {
-  const { concurrency, items, ...callbacks } = options ?? {};
+  const { items, ...callbacks } = options ?? {};
 
   const callbacksRef = React.useRef(callbacks);
 
@@ -133,14 +136,14 @@ export function useProcessTasks<
     flush();
   }, [createTask, flush, updateTask, items, refreshTaskData]);
 
-  const processNextTask = (_input: TInput) => {
-    const hasInputData = isTaskHandlerInput(_input);
-    if (hasInputData) {
+  const processTask = (_input: TInput) => {
+    const isSingleTask = isSingleTaskInput(_input);
+    if (isSingleTask) {
       createTask(_input.data);
       flush();
     }
 
-    const { data } = hasInputData
+    const { data } = isSingleTask
       ? _input
       : [...tasksRef.current.values()].find(
           ({ status }) => status === 'QUEUED'
@@ -203,10 +206,10 @@ export function useProcessTasks<
         const task = getTask();
         if (task && isFunction(onTaskComplete)) onTaskComplete(task);
 
-        // ignore process next task for single operation inputs
-        if (hasInputData) return;
+        // ignore process next task for single task
+        if (isSingleTask) return;
 
-        processNextTask(_input);
+        processTask(_input);
       });
 
     updateTask(data.id, { cancel, status: 'PENDING' });
@@ -222,14 +225,26 @@ export function useProcessTasks<
       return;
     }
 
+    // if single task, run `processTask` once
+    if (isSingleTaskInput(input)) {
+      processTask(input);
+      return;
+    }
+
+    const { concurrency, ...options } = input.options ?? {};
+
+    // reconstruct `input` without `concurrency`
+    const _input = { ...input, options };
+
+    // for batch tasks, if no `concurrency` process tasks individually
     if (!concurrency) {
-      processNextTask(input);
+      processTask(_input);
       return;
     }
 
     let count = 0;
     while (count < concurrency) {
-      processNextTask(input);
+      processTask(_input);
       count++;
     }
   };
