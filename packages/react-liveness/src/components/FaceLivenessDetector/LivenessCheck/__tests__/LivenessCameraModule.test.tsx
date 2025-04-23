@@ -153,7 +153,7 @@ describe('LivenessCameraModule', () => {
     });
   });
 
-  it('should render recording icon when isRecording true', () => {
+  it('should render recording icon when isRecording true', async () => {
     isRecording = true;
     mockStateMatchesAndSelectors();
 
@@ -169,7 +169,9 @@ describe('LivenessCameraModule', () => {
       />
     );
     const videoEl = screen.getByTestId('video');
-    videoEl.dispatchEvent(new Event('canplay'));
+    React.act(() => {
+      videoEl.dispatchEvent(new Event('canplay'));
+    });
 
     expect(screen.getByTestId('rec-icon')).toBeInTheDocument();
     expect(screen.getByText(recordingIndicatorText)).toBeInTheDocument();
@@ -197,7 +199,9 @@ describe('LivenessCameraModule', () => {
       />
     );
     const videoEl = screen.getByTestId('video');
-    videoEl.dispatchEvent(new Event('canplay'));
+    React.act(() => {
+      videoEl.dispatchEvent(new Event('canplay'));
+    });
 
     const cameraModule = await screen.findByTestId(testId);
     const matchIndicator = cameraModule.getElementsByClassName(
@@ -228,7 +232,9 @@ describe('LivenessCameraModule', () => {
       />
     );
     const videoEl = screen.getByTestId('video');
-    videoEl.dispatchEvent(new Event('canplay'));
+    React.act(() => {
+      videoEl.dispatchEvent(new Event('canplay'));
+    });
 
     const cameraModule = await screen.findByTestId(testId);
     const matchIndicator = cameraModule.getElementsByClassName(
@@ -259,7 +265,9 @@ describe('LivenessCameraModule', () => {
       />
     );
     const videoEl = screen.getByTestId('video');
-    videoEl.dispatchEvent(new Event('canplay'));
+    React.act(() => {
+      videoEl.dispatchEvent(new Event('canplay'));
+    });
 
     const cameraModule = await screen.findByTestId(testId);
     const matchIndicator = cameraModule.getElementsByClassName(
@@ -290,7 +298,9 @@ describe('LivenessCameraModule', () => {
       />
     );
     const videoEl = screen.getByTestId('video');
-    videoEl.dispatchEvent(new Event('canplay'));
+    React.act(() => {
+      videoEl.dispatchEvent(new Event('canplay'));
+    });
 
     const cameraModule = await screen.findByTestId(testId);
     const matchIndicator = cameraModule.getElementsByClassName(
@@ -321,7 +331,9 @@ describe('LivenessCameraModule', () => {
       />
     );
     const videoEl = screen.getByTestId('video');
-    videoEl.dispatchEvent(new Event('canplay'));
+    React.act(() => {
+      videoEl.dispatchEvent(new Event('canplay'));
+    });
 
     const cameraModule = await screen.findByTestId(testId);
     const matchIndicator = cameraModule.getElementsByClassName(
@@ -421,7 +433,9 @@ describe('LivenessCameraModule', () => {
       />
     );
     const videoEl = screen.getByTestId('video');
-    videoEl.dispatchEvent(new Event('canplay'));
+    React.act(() => {
+      videoEl.dispatchEvent(new Event('canplay'));
+    });
 
     expect(screen.getByTestId('popover-icon')).toBeInTheDocument();
   });
@@ -434,7 +448,6 @@ describe('LivenessCameraModule', () => {
       },
     };
 
-    console.log(selectIsRecordingStopped);
     const isRecordingStopped = selectIsRecordingStopped(state);
 
     expect(isRecordingStopped).toEqual(true);

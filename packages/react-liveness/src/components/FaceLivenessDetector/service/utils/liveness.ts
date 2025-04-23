@@ -1,15 +1,16 @@
-import {
-  LivenessOvalDetails,
-  IlluminationState,
-  Face,
-  FaceMatchState,
-  BoundingBox,
-  LivenessErrorState,
-  ErrorState,
-} from '../types';
-import { FaceDetection } from '../types/faceDetection';
-import { ClientFreshnessColorSequence } from '../types/service';
 import { SessionInformation } from '@aws-sdk/client-rekognitionstreaming';
+import {
+  BoundingBox,
+  ErrorState,
+  Face,
+  FaceDetection,
+  FaceMatchState,
+  IlluminationState,
+  LivenessErrorState,
+  LivenessOvalDetails,
+  VideoAssociatedParams,
+} from '../types';
+import { ColorSequence, SequenceColorValue } from './ColorSequenceDisplay';
 import {
   FACE_HEIGHT_WEIGHT,
   PUPIL_DISTANCE_WEIGHT,
@@ -561,17 +562,17 @@ export function fillOverlayCanvasFractional({
   }
 }
 
-export const isClientFreshnessColorSequence = (
-  obj: ClientFreshnessColorSequence | undefined
-): obj is ClientFreshnessColorSequence => !!obj;
+const isColorSequence = (
+  obj: ColorSequence | undefined
+): obj is ColorSequence => !!obj;
 
 export function getColorsSequencesFromSessionInformation(
   sessionInformation: SessionInformation
-): ClientFreshnessColorSequence[] {
+): ColorSequence[] {
   const colorSequenceFromSessionInfo =
     sessionInformation.Challenge!.FaceMovementAndLightChallenge!
       .ColorSequences ?? [];
-  const colorSequences: (ClientFreshnessColorSequence | undefined)[] =
+  const colorSequences: (ColorSequence | undefined)[] =
     colorSequenceFromSessionInfo.map(
       ({
         FreshnessColor,
@@ -579,7 +580,7 @@ export function getColorsSequencesFromSessionInformation(
         FlatDisplayDuration: flatDisplayDuration,
       }) => {
         const colorArray = FreshnessColor!.RGB!;
-        const color = `rgb(${colorArray[0]},${colorArray[1]},${colorArray[2]})`;
+        const color: SequenceColorValue = `rgb(${colorArray[0]},${colorArray[1]},${colorArray[2]})`;
         return typeof color !== 'undefined' &&
           typeof downscrollDuration !== 'undefined' &&
           typeof flatDisplayDuration !== 'undefined'
@@ -592,14 +593,7 @@ export function getColorsSequencesFromSessionInformation(
       }
     );
 
-  return colorSequences.filter(isClientFreshnessColorSequence);
-}
-
-export function getRGBArrayFromColorString(colorStr: string): number[] {
-  return colorStr
-    .slice(colorStr.indexOf('(') + 1, colorStr.indexOf(')'))
-    .split(',')
-    .map((str) => parseInt(str));
+  return colorSequences.filter(isColorSequence);
 }
 
 export async function getFaceMatchState(
@@ -696,30 +690,13 @@ export async function isFaceDistanceBelowThreshold({
   return { isDistanceBelowThreshold, error };
 }
 
-export function getBoundingBox({
-  deviceHeight,
-  deviceWidth,
-  height,
-  width,
-  top,
-  left,
-}: {
-  deviceHeight: number;
-  deviceWidth: number;
-  height: number;
-  width: number;
-  top: number;
-  left: number;
-}): {
-  Height: number;
-  Width: number;
-  Top: number;
-  Left: number;
-} {
+export const resolveVideoDimensions = (
+  params: VideoAssociatedParams
+): Pick<MediaTrackSettings, 'height' | 'width'> => {
+  const mediaSettings = params.videoMediaStream?.getTracks()[0].getSettings();
+  const { videoHeight, videoWidth } = params.videoEl ?? {};
   return {
-    Height: height / deviceHeight,
-    Width: width / deviceWidth,
-    Top: top / deviceHeight,
-    Left: left / deviceWidth,
+    height: mediaSettings?.height ?? videoHeight,
+    width: mediaSettings?.width ?? videoWidth,
   };
-}
+};
