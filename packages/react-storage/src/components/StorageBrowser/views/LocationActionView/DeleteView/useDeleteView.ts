@@ -2,7 +2,7 @@ import React from 'react';
 import { isFunction } from '@aws-amplify/ui';
 
 import type { FileDataItem } from '../../../actions';
-import { useLocationItems } from '../../../locationItems';
+import { useFileDataItems } from '../../../fileDataItems';
 import { useStore } from '../../../store';
 import type { Task } from '../../../tasks';
 import { useAction } from '../../../useAction';
@@ -17,10 +17,11 @@ export const useDeleteView = (
 ): DeleteViewState => {
   const { onExit: _onExit } = options ?? {};
 
+  const [{ fileDataItems: items = EMPTY_ITEMS }, fileDataItemsDispatch] =
+    useFileDataItems();
+
   const [{ location }, storeDispatch] = useStore();
-  const [locationItems, locationItemsDispatch] = useLocationItems();
   const { current } = location;
-  const { fileDataItems: items = EMPTY_ITEMS } = locationItems;
 
   const [processState, handleProcess] = useAction('delete', { items });
 
@@ -41,7 +42,7 @@ export const useDeleteView = (
 
   const onActionExit = () => {
     // clear files state
-    locationItemsDispatch({ type: 'RESET_LOCATION_ITEMS' });
+    fileDataItemsDispatch({ type: 'CLEAR_FILE_DATA_ITEMS' });
     // clear selected action
     storeDispatch({ type: 'RESET_ACTION_TYPE' });
     if (isFunction(_onExit)) _onExit(current);
@@ -49,9 +50,9 @@ export const useDeleteView = (
 
   const onTaskRemove = React.useCallback(
     ({ data }: Task) => {
-      locationItemsDispatch({ type: 'REMOVE_LOCATION_ITEM', id: data.id });
+      fileDataItemsDispatch({ type: 'UNSELECT_FILE_DATA_ITEM', id: data.id });
     },
-    [locationItemsDispatch]
+    [fileDataItemsDispatch]
   );
 
   return {

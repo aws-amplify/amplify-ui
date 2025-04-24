@@ -12,7 +12,7 @@ import type {
 } from '../../actions';
 import { useActionConfigs } from '../../actions';
 import { useFiles } from '../../files';
-import { useLocationItems } from '../../locationItems';
+import { useFileDataItems } from '../../fileDataItems';
 import { useStore } from '../../store';
 import { useAction, useList } from '../../useAction';
 
@@ -54,13 +54,12 @@ export const useLocationDetailView = (
   const listOptions = listOptionsRef.current;
 
   const [{ location, actionType }, storeDispatch] = useStore();
-  const [locationItems, locationItemsDispatch] = useLocationItems();
+  const [{ fileDataItems }, fileDataItemsDispatch] = useFileDataItems();
   const filesDispatch = useFiles()[1];
 
   // use `location.key` as `prefix`, `key` resolves to the `current.prefix` concatenated with the navigation `path`
   const { current, key: prefix } = location;
   const { permissions } = current ?? {};
-  const { fileDataItems } = locationItems;
 
   const [{ task }, handleDownload] = useAction('download');
 
@@ -73,8 +72,7 @@ export const useLocationDetailView = (
 
   const onPaginate = () => {
     if (!nextToken) return;
-    locationItemsDispatch({ type: 'RESET_LOCATION_ITEMS' });
-
+    fileDataItemsDispatch({ type: 'CLEAR_FILE_DATA_ITEMS' });
     handleList({
       prefix,
       options: { ...listOptions, nextToken },
@@ -107,7 +105,7 @@ export const useLocationDetailView = (
     handleReset();
     handleList({ prefix, options: searchOptions });
 
-    locationItemsDispatch({ type: 'RESET_LOCATION_ITEMS' });
+    fileDataItemsDispatch({ type: 'CLEAR_FILE_DATA_ITEMS' });
   };
 
   const {
@@ -127,7 +125,7 @@ export const useLocationDetailView = (
       options: { ...listOptions, refresh: true },
     });
 
-    locationItemsDispatch({ type: 'RESET_LOCATION_ITEMS' });
+    fileDataItemsDispatch({ type: 'CLEAR_FILE_DATA_ITEMS' });
   };
 
   React.useEffect(() => {
@@ -195,7 +193,7 @@ export const useLocationDetailView = (
       onNavigate?.(location, path);
       resetSearch();
       storeDispatch({ type: 'CHANGE_LOCATION', location, path });
-      locationItemsDispatch({ type: 'RESET_LOCATION_ITEMS' });
+      fileDataItemsDispatch({ type: 'CLEAR_FILE_DATA_ITEMS' });
     },
     onDropFiles: (files: File[]) => {
       filesDispatch({ type: 'ADD_FILE_ITEMS', files });
@@ -217,23 +215,23 @@ export const useLocationDetailView = (
         options: { reset: true },
       });
       storeDispatch({ type: 'RESET_ACTION_TYPE' });
-      locationItemsDispatch({ type: 'RESET_LOCATION_ITEMS' });
+      fileDataItemsDispatch({ type: 'CLEAR_FILE_DATA_ITEMS' });
     },
     onSelect: (isSelected: boolean, fileItem: FileData) => {
-      locationItemsDispatch(
+      fileDataItemsDispatch(
         isSelected
-          ? { type: 'REMOVE_LOCATION_ITEM', id: fileItem.id }
-          : { type: 'SET_LOCATION_ITEMS', items: [fileItem] }
+          ? { type: 'UNSELECT_FILE_DATA_ITEM', id: fileItem.id }
+          : { type: 'SELECT_FILE_DATA_ITEMS', items: [fileItem] }
       );
     },
     onToggleSelectAll: () => {
       const fileItems = pageItems.filter(
         (item): item is FileData => item.type === 'FILE'
       );
-      locationItemsDispatch(
+      fileDataItemsDispatch(
         fileItems.length === fileDataItems?.length
-          ? { type: 'RESET_LOCATION_ITEMS' }
-          : { type: 'SET_LOCATION_ITEMS', items: fileItems }
+          ? { type: 'CLEAR_FILE_DATA_ITEMS' }
+          : { type: 'SELECT_FILE_DATA_ITEMS', items: fileItems }
       );
     },
     onSearch: onSearchSubmit,

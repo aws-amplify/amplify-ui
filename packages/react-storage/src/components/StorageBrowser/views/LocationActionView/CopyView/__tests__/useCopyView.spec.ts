@@ -2,14 +2,14 @@ import { renderHook, act } from '@testing-library/react';
 
 import { LocationData } from '../../../../actions';
 import { useStore } from '../../../../store';
-import { useLocationItems } from '../../../../locationItems';
+import { useFileDataItems } from '../../../../fileDataItems';
 import { INITIAL_STATUS_COUNTS } from '../../../../tasks';
 import { useAction } from '../../../../useAction';
 
 import { useFolders } from '../useFolders';
 import { useCopyView } from '../useCopyView';
 
-jest.mock('../../../../locationItems');
+jest.mock('../../../../fileDataItems');
 jest.mock('../../../../store');
 jest.mock('../../../../useAction');
 jest.mock('../useFolders');
@@ -39,15 +39,15 @@ const fileDataItems = [
 ];
 
 describe('useCopyView', () => {
-  const mockLocationItemsState = { fileDataItems };
+  const mockFileDataItemsState = { fileDataItems };
 
   const mockUseAction = jest.mocked(useAction);
   const mockUseFolders = jest.mocked(useFolders);
-  const mockUseLocationItems = jest.mocked(useLocationItems);
+  const mockUseFileDataItems = jest.mocked(useFileDataItems);
   const mockUseStore = jest.mocked(useStore);
 
   const mockCancel = jest.fn();
-  const mockLocationItemsDispatch = jest.fn();
+  const mockFileDataItemsDispatch = jest.fn();
   const mockStoreDispatch = jest.fn();
   const mockHandleCopy = jest.fn();
 
@@ -104,9 +104,9 @@ describe('useCopyView', () => {
       onInitialize: jest.fn(),
     });
 
-    mockUseLocationItems.mockReturnValue([
-      mockLocationItemsState,
-      mockLocationItemsDispatch,
+    mockUseFileDataItems.mockReturnValue([
+      mockFileDataItemsState,
+      mockFileDataItemsDispatch,
     ]);
 
     Object.defineProperty(globalThis, 'crypto', {
@@ -178,9 +178,9 @@ describe('useCopyView', () => {
     });
 
     expect(mockOnExit).toHaveBeenCalled();
-    expect(mockLocationItemsDispatch).toHaveBeenCalledTimes(1);
-    expect(mockLocationItemsDispatch).toHaveBeenCalledWith({
-      type: 'RESET_LOCATION_ITEMS',
+    expect(mockFileDataItemsDispatch).toHaveBeenCalledTimes(1);
+    expect(mockFileDataItemsDispatch).toHaveBeenCalledWith({
+      type: 'CLEAR_FILE_DATA_ITEMS',
     });
     expect(mockStoreDispatch).toHaveBeenCalledTimes(1);
     expect(mockStoreDispatch).toHaveBeenCalledWith({
@@ -210,7 +210,7 @@ describe('useCopyView', () => {
     });
   });
 
-  it('calls `locationItemsDispatch` with the expected action from `onTaskRemove`', () => {
+  it('calls `mockFileDataItemsDispatch` with the expected action from `onTaskRemove`', () => {
     const { result } = renderHook(() => useCopyView());
 
     const { onTaskRemove } = result.current;
@@ -221,9 +221,9 @@ describe('useCopyView', () => {
       onTaskRemove?.(task);
     });
 
-    expect(mockLocationItemsDispatch).toHaveBeenCalledTimes(1);
-    expect(mockLocationItemsDispatch).toHaveBeenCalledWith({
-      type: 'REMOVE_LOCATION_ITEM',
+    expect(mockFileDataItemsDispatch).toHaveBeenCalledTimes(1);
+    expect(mockFileDataItemsDispatch).toHaveBeenCalledWith({
+      type: 'UNSELECT_FILE_DATA_ITEM',
       id: fileDataItems[0].id,
     });
   });

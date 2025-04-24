@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import { isFunction } from '@aws-amplify/ui';
 
 import type { LocationData } from '../../../actions';
-import { useLocationItems } from '../../../locationItems';
+import { useFileDataItems } from '../../../fileDataItems';
 import { useStore } from '../../../store';
 import type { Task } from '../../../tasks';
 import { useAction } from '../../../useAction';
@@ -13,7 +13,7 @@ import { useFolders } from './useFolders';
 export const useCopyView = (options?: UseCopyViewOptions): CopyViewState => {
   const { onExit } = options ?? {};
   const [{ location }, storeDispatch] = useStore();
-  const [{ fileDataItems }, locationItemsDispatch] = useLocationItems();
+  const [{ fileDataItems }, fileDataItemsDispatch] = useFileDataItems();
   const idLookup = useRef<Record<string, string>>({});
 
   const [destination, setDestination] = useState(location);
@@ -60,7 +60,7 @@ export const useCopyView = (options?: UseCopyViewOptions): CopyViewState => {
 
   const onActionExit = () => {
     // clear files state
-    locationItemsDispatch({ type: 'RESET_LOCATION_ITEMS' });
+    fileDataItemsDispatch({ type: 'CLEAR_FILE_DATA_ITEMS' });
     // clear selected action
     storeDispatch({ type: 'RESET_ACTION_TYPE' });
     if (isFunction(onExit)) onExit(current);
@@ -68,12 +68,12 @@ export const useCopyView = (options?: UseCopyViewOptions): CopyViewState => {
 
   const onTaskRemove = React.useCallback(
     ({ data }: Task) => {
-      locationItemsDispatch({
-        type: 'REMOVE_LOCATION_ITEM',
+      fileDataItemsDispatch({
+        type: 'UNSELECT_FILE_DATA_ITEM',
         id: idLookup.current[data.id],
       });
     },
-    [locationItemsDispatch]
+    [fileDataItemsDispatch]
   );
 
   const onSelectDestination = (

@@ -6,36 +6,36 @@ import { noop } from '@aws-amplify/ui';
 import type { FileData, FileDataItem } from '../actions';
 import { createFileDataItem } from '../actions';
 
-export const DEFAULT_STATE: LocationItemsState = {
+export const DEFAULT_STATE: FileDataItemsState = {
   fileDataItems: undefined,
 };
 
-export type LocationItemsAction =
-  | { type: 'SET_LOCATION_ITEMS'; items?: FileData[] }
-  | { type: 'REMOVE_LOCATION_ITEM'; id: string }
-  | { type: 'RESET_LOCATION_ITEMS' };
+export type FileDataItemsAction =
+  | { type: 'SELECT_FILE_DATA_ITEMS'; items?: FileData[] }
+  | { type: 'UNSELECT_FILE_DATA_ITEM'; id: string }
+  | { type: 'CLEAR_FILE_DATA_ITEMS' };
 
-export interface LocationItemsState {
+export interface FileDataItemsState {
   fileDataItems: FileDataItem[] | undefined;
 }
 
-export type HandleLocationItemsAction = (event: LocationItemsAction) => void;
+export type HandleFileDataItemsAction = (event: FileDataItemsAction) => void;
 
-export type LocationItemStateContext = [
-  LocationItemsState,
-  HandleLocationItemsAction,
+export type FileDataItemsStateContext = [
+  FileDataItemsState,
+  HandleFileDataItemsAction,
 ];
 
-export interface LocationItemsProviderProps {
+export interface FileDataItemsProviderProps {
   children?: React.ReactNode;
 }
 
-const locationItemsReducer = (
-  prevState: LocationItemsState,
-  event: LocationItemsAction
-): LocationItemsState => {
+const FileDataItemsReducer = (
+  prevState: FileDataItemsState,
+  event: FileDataItemsAction
+): FileDataItemsState => {
   switch (event.type) {
-    case 'SET_LOCATION_ITEMS': {
+    case 'SELECT_FILE_DATA_ITEMS': {
       const { items } = event;
       if (!items?.length) return prevState;
 
@@ -57,7 +57,7 @@ const locationItemsReducer = (
         fileDataItems: prevState.fileDataItems.concat(nextFileDataItems),
       };
     }
-    case 'REMOVE_LOCATION_ITEM': {
+    case 'UNSELECT_FILE_DATA_ITEM': {
       const { id } = event;
 
       if (!prevState.fileDataItems) return prevState;
@@ -72,24 +72,24 @@ const locationItemsReducer = (
 
       return { fileDataItems };
     }
-    case 'RESET_LOCATION_ITEMS': {
+    case 'CLEAR_FILE_DATA_ITEMS': {
       return DEFAULT_STATE;
     }
   }
 };
 
-const defaultValue: LocationItemStateContext = [DEFAULT_STATE, noop];
-export const { LocationItemsContext, useLocationItems } =
-  createContextUtilities({ contextName: 'LocationItems', defaultValue });
+const defaultValue: FileDataItemsStateContext = [DEFAULT_STATE, noop];
+export const { FileDataItemsContext, useFileDataItems } =
+  createContextUtilities({ contextName: 'FileDataItems', defaultValue });
 
-export function LocationItemsProvider({
+export function FileDataItemsProvider({
   children,
-}: LocationItemsProviderProps): React.JSX.Element {
-  const value = React.useReducer(locationItemsReducer, DEFAULT_STATE);
+}: FileDataItemsProviderProps): React.JSX.Element {
+  const value = React.useReducer(FileDataItemsReducer, DEFAULT_STATE);
 
   return (
-    <LocationItemsContext.Provider value={value}>
+    <FileDataItemsContext.Provider value={value}>
       {children}
-    </LocationItemsContext.Provider>
+    </FileDataItemsContext.Provider>
   );
 }

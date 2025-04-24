@@ -2,7 +2,7 @@ import { renderHook, act } from '@testing-library/react';
 
 import { FileDataItem } from '../../../../actions';
 import { useFiles } from '../../../../files';
-import { useLocationItems } from '../../../../locationItems';
+import { useFileDataItems } from '../../../../fileDataItems';
 import { useStore } from '../../../../store';
 import { INITIAL_STATUS_COUNTS } from '../../../../tasks';
 import { useAction } from '../../../../useAction';
@@ -10,7 +10,7 @@ import { useAction } from '../../../../useAction';
 import { useDeleteView } from '../useDeleteView';
 
 jest.mock('../../../../files');
-jest.mock('../../../../locationItems');
+jest.mock('../../../../fileDataItems');
 jest.mock('../../../../store');
 jest.mock('../../../../useAction');
 
@@ -33,26 +33,26 @@ const fileDataItems: FileDataItem[] = [
   },
 ];
 
-const mockLocationItemsState = { fileDataItems };
+const mockFileDataItemsState = { fileDataItems };
 
 describe('useDeleteView', () => {
   const mockUseAction = jest.mocked(useAction);
   const mockUseFiles = jest.mocked(useFiles);
-  const mockUseLocationItems = jest.mocked(useLocationItems);
+  const mockUseFileDataItems = jest.mocked(useFileDataItems);
   const mockUseStore = jest.mocked(useStore);
 
   const mockCancel = jest.fn();
   const mockStoreDispatch = jest.fn();
   const mockFilesDispatch = jest.fn();
-  const mockLocationItemsDispatch = jest.fn();
+  const mockFileDataItemsDispatch = jest.fn();
   const mockHandleDelete = jest.fn();
   const mockReset = jest.fn();
 
   beforeEach(() => {
     mockUseFiles.mockReturnValue([undefined, mockFilesDispatch]);
-    mockUseLocationItems.mockReturnValue([
-      mockLocationItemsState,
-      mockLocationItemsDispatch,
+    mockUseFileDataItems.mockReturnValue([
+      mockFileDataItemsState,
+      mockFileDataItemsDispatch,
     ]);
     mockUseStore.mockReturnValue([
       {
@@ -161,9 +161,10 @@ describe('useDeleteView', () => {
     });
 
     expect(mockOnExit).toHaveBeenCalledTimes(1);
-    expect(mockLocationItemsDispatch).toHaveBeenCalledTimes(1);
-    expect(mockLocationItemsDispatch).toHaveBeenCalledWith({
-      type: 'RESET_LOCATION_ITEMS',
+
+    expect(mockFileDataItemsDispatch).toHaveBeenCalledTimes(1);
+    expect(mockFileDataItemsDispatch).toHaveBeenCalledWith({
+      type: 'CLEAR_FILE_DATA_ITEMS',
     });
     expect(mockStoreDispatch).toHaveBeenCalledTimes(1);
     expect(mockStoreDispatch).toHaveBeenCalledWith({

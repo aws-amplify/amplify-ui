@@ -1,7 +1,7 @@
 import { act, renderHook } from '@testing-library/react';
 
 import { FileData, FileDataItem } from '../../actions/handlers';
-import { useLocationItems, LocationItemsProvider } from '../context';
+import { useFileDataItems, FileDataItemsProvider } from '../context';
 
 const fileDataOne: FileData = {
   id: 'id-one',
@@ -29,10 +29,10 @@ const fileDataItemTwo: FileDataItem = {
   fileKey: 'key-two',
 };
 
-describe('useLocationItems', () => {
+describe('useFileDataItems', () => {
   it('updates the value of `fileDataItems` as expected', () => {
-    const { result } = renderHook(() => useLocationItems(), {
-      wrapper: LocationItemsProvider,
+    const { result } = renderHook(() => useFileDataItems(), {
+      wrapper: FileDataItemsProvider,
     });
 
     const [initState, handler] = result.current;
@@ -42,7 +42,7 @@ describe('useLocationItems', () => {
     const items: FileData[] = [fileDataOne];
 
     act(() => {
-      handler({ type: 'SET_LOCATION_ITEMS', items });
+      handler({ type: 'SELECT_FILE_DATA_ITEMS', items });
     });
 
     const [nextState] = result.current;
@@ -52,7 +52,7 @@ describe('useLocationItems', () => {
     const additionalItems = [...items, fileDataTwo];
 
     act(() => {
-      handler({ type: 'SET_LOCATION_ITEMS', items: additionalItems });
+      handler({ type: 'SELECT_FILE_DATA_ITEMS', items: additionalItems });
     });
 
     const [updatedState] = result.current;
@@ -67,7 +67,7 @@ describe('useLocationItems', () => {
     const targetId = fileDataOne.id;
 
     act(() => {
-      handler({ type: 'REMOVE_LOCATION_ITEM', id: targetId });
+      handler({ type: 'UNSELECT_FILE_DATA_ITEM', id: targetId });
     });
 
     const [removedState] = result.current;
@@ -79,15 +79,15 @@ describe('useLocationItems', () => {
   });
 
   it('returns prevState on remove when filtered items have the same length as previous items', () => {
-    const { result } = renderHook(() => useLocationItems(), {
-      wrapper: LocationItemsProvider,
+    const { result } = renderHook(() => useFileDataItems(), {
+      wrapper: FileDataItemsProvider,
     });
 
     const handler = result.current[1];
 
     act(() => {
       handler({
-        type: 'SET_LOCATION_ITEMS',
+        type: 'SELECT_FILE_DATA_ITEMS',
         items: [fileDataOne, fileDataItemTwo],
       });
     });
@@ -97,7 +97,7 @@ describe('useLocationItems', () => {
     expect(nextState.fileDataItems).toHaveLength(2);
 
     act(() => {
-      handler({ type: 'REMOVE_LOCATION_ITEM', id: '🥵' });
+      handler({ type: 'UNSELECT_FILE_DATA_ITEM', id: '🥵' });
     });
 
     const [resultState] = result.current;

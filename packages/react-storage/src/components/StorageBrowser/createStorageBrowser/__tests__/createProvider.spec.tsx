@@ -6,7 +6,7 @@ import { ComponentsProvider } from '../../components';
 import { createConfigurationProvider } from '../../configuration';
 import { DisplayTextProvider } from '../../displayText';
 import { FilesProvider } from '../../files';
-import { LocationItemsProvider } from '../../locationItems';
+import { FileDataItemsProvider } from '../../fileDataItems';
 import { StoreProvider } from '../../store';
 import { ActionHandlersProvider, getActionHandlers } from '../../useAction';
 import { ViewsProvider } from '../../views';
@@ -16,10 +16,10 @@ import createProvider from '../createProvider';
 
 jest.mock('../../actions');
 jest.mock('../../components');
-jest.mock('../../displayText');
-jest.mock('../../files');
-jest.mock('../../locationItems');
 jest.mock('../../configuration');
+jest.mock('../../displayText');
+jest.mock('../../fileDataItems');
+jest.mock('../../files');
 jest.mock('../../store');
 jest.mock('../../useAction');
 jest.mock('../../views');
@@ -37,8 +37,8 @@ const mockDisplayTextProvider = jest
 const mockFilesProvider = jest
   .mocked(FilesProvider)
   .mockImplementation(({ children }) => <>{children}</>);
-const mockLocationItemsProvider = jest
-  .mocked(LocationItemsProvider)
+const mockFileDataItemsProvider = jest
+  .mocked(FileDataItemsProvider)
   .mockImplementation(({ children }) => <>{children}</>);
 const mockStoreProvider = jest
   .mocked(StoreProvider)
@@ -160,6 +160,6 @@ describe('createProvider', () => {
     );
 
     expect(mockFilesProvider).toHaveBeenCalledTimes(1);
-    expect(mockLocationItemsProvider).toHaveBeenCalledTimes(1);
+    expect(mockFileDataItemsProvider).toHaveBeenCalledTimes(1);
   });
 });
