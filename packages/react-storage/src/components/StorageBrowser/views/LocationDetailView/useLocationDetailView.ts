@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { isFunction, isUndefined } from '@aws-amplify/ui';
+import { isFunction } from '@aws-amplify/ui';
 
 import { usePaginate } from '../hooks/usePaginate';
 
@@ -57,10 +57,10 @@ export const useLocationDetailView = (
   const [locationItems, locationItemsDispatch] = useLocationItems();
   const filesDispatch = useFiles()[1];
 
-  const { current, key } = location;
-  const { permissions, prefix } = current ?? {};
+  // use `location.key` as `prefix`, `key` resolves to the `current.prefix` concatenated with the navigation `path`
+  const { current, key: prefix } = location;
+  const { permissions } = current ?? {};
   const { fileDataItems } = locationItems;
-  const hasInvalidPrefix = isUndefined(prefix);
 
   const [{ task }, handleDownload] = useAction('download');
 
@@ -72,10 +72,11 @@ export const useLocationDetailView = (
   const { hasExhaustedSearch = false } = search ?? {};
 
   const onPaginate = () => {
-    if (hasInvalidPrefix || !nextToken) return;
+    if (!nextToken) return;
     locationItemsDispatch({ type: 'RESET_LOCATION_ITEMS' });
+
     handleList({
-      prefix: key,
+      prefix,
       options: { ...listOptions, nextToken },
     });
   };
@@ -93,7 +94,6 @@ export const useLocationDetailView = (
   });
 
   const onSearch = (query: string, includeSubfolders?: boolean) => {
-    if (hasInvalidPrefix) return;
     const searchOptions = {
       ...listOptions,
       delimiter: includeSubfolders ? undefined : listOptions.delimiter,
@@ -105,7 +105,7 @@ export const useLocationDetailView = (
     };
 
     handleReset();
-    handleList({ prefix: key, options: searchOptions });
+    handleList({ prefix, options: searchOptions });
 
     locationItemsDispatch({ type: 'RESET_LOCATION_ITEMS' });
   };
@@ -120,12 +120,10 @@ export const useLocationDetailView = (
   } = useSearch({ onSearch });
 
   const onRefresh = () => {
-    if (hasInvalidPrefix) return;
-
     handleReset();
     resetSearch();
     handleList({
-      prefix: key,
+      prefix,
       options: { ...listOptions, refresh: true },
     });
 
@@ -133,13 +131,12 @@ export const useLocationDetailView = (
   };
 
   React.useEffect(() => {
-    if (hasInvalidPrefix) return;
     handleList({
-      prefix: key,
+      prefix,
       options: { ...listOptions, refresh: true },
     });
     handleReset();
-  }, [handleList, handleReset, listOptions, hasInvalidPrefix, key]);
+  }, [handleList, handleReset, listOptions, prefix]);
 
   const { actionConfigs } = useActionConfigs();
 
@@ -215,8 +212,8 @@ export const useLocationDetailView = (
       storeDispatch({ type: 'RESET_LOCATION' });
 
       handleList({
-        // @todo: prefix should not be required to refresh
-        prefix: prefix ?? '',
+        // use `current.prefix` on reset
+        prefix: current?.prefix ?? '',
         options: { reset: true },
       });
       storeDispatch({ type: 'RESET_ACTION_TYPE' });
@@ -242,8 +239,7 @@ export const useLocationDetailView = (
     onSearch: onSearchSubmit,
     onSearchClear: () => {
       resetSearch();
-      if (hasInvalidPrefix) return;
-      handleList({ prefix: key, options: { ...listOptions, refresh: true } });
+      handleList({ prefix, options: { ...listOptions, refresh: true } });
       handleReset();
     },
     onSearchQueryChange,

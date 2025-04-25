@@ -156,21 +156,6 @@ describe('useLocationDetailView', () => {
     expect(state.pageItems.length).toEqual(EXPECTED_PAGE_SIZE);
   });
 
-  it('should not fetch on mount for invalid prefix', () => {
-    mockUseStore.mockReturnValue([
-      { ...mockStoreState, location: mockLocation },
-      mockStoreDispatch,
-    ]);
-
-    renderHook(() =>
-      useLocationDetailView({
-        initialValues: { pageSize: EXPECTED_PAGE_SIZE },
-      })
-    );
-
-    expect(mockHandleList).not.toHaveBeenCalled();
-  });
-
   it('should handle pagination actions', () => {
     const mockHandleList = jest.fn();
 
@@ -267,31 +252,6 @@ describe('useLocationDetailView', () => {
       options: { ...DEFAULT_LIST_OPTIONS, refresh: true },
       prefix: 'item-b-key/',
     });
-  });
-
-  it('should not refresh location data for invalid paths', () => {
-    mockUseStore.mockReturnValue([
-      { ...mockStoreState, location: mockLocation },
-      mockStoreDispatch,
-    ]);
-
-    const mockListState = {
-      value: { items: [], nextToken: undefined },
-      message: '',
-      hasError: false,
-      isLoading: false,
-    };
-
-    const mockHandleList = jest.fn();
-    mockUseList.mockReturnValue([mockListState, mockHandleList]);
-
-    const { result } = renderHook(() => useLocationDetailView());
-
-    act(() => {
-      result.current.onRefresh();
-    });
-    expect(result.current.page).toEqual(1);
-    expect(mockHandleList).not.toHaveBeenCalled();
   });
 
   it('should handle selecting a location', () => {
