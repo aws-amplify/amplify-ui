@@ -50,17 +50,8 @@ export const useLocationsView = (
     handleList({ options: { ...listOptions, nextToken } });
   };
 
-  const {
-    currentPage,
-    handlePaginate,
-    handleReset,
-    highestPageVisited,
-    pageItems,
-  } = usePaginate({
-    items,
-    onPaginate,
-    pageSize: listOptions.pageSize,
-  });
+  const { page, handlePaginate, handleReset, highestPageVisited, pageItems } =
+    usePaginate({ items, onPaginate, pageSize: listOptions.pageSize });
 
   const onSearch = (query: string) => {
     handleReset();
@@ -69,7 +60,7 @@ export const useLocationsView = (
         ...listOptions,
         search: {
           query,
-          filterBy: (location: LocationData) => {
+          filterBy: (location) => {
             return location.prefix ? 'prefix' : 'bucket';
           },
         },
@@ -84,7 +75,7 @@ export const useLocationsView = (
     isLoading,
     hasError,
     message,
-    page: currentPage,
+    page,
     hasNextPage: hasNextToken,
     highestPageVisited,
     pageItems,

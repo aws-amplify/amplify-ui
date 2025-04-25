@@ -14,6 +14,7 @@ import { createConfigurationProvider } from '../configuration';
 import { DisplayTextProvider } from '../displayText';
 import { FilesProvider } from '../files';
 import { FileDataItemsProvider } from '../fileDataItems';
+import { LocationItemsProvider } from '../locationItems';
 import { StoreProvider } from '../store';
 import { getActionHandlers, ActionHandlersProvider } from '../useAction';
 import { ViewsProvider } from '../views';
@@ -89,9 +90,11 @@ export default function createProvider({
               <DisplayTextProvider displayText={displayText}>
                 <ViewsProvider actions={resolvedActions} views={views}>
                   <ComponentsProvider composables={composables}>
-                    <FileDataItemsProvider>
-                      <FilesProvider>{children}</FilesProvider>
-                    </FileDataItemsProvider>
+                    <LocationItemsProvider>
+                      <FileDataItemsProvider>
+                        <FilesProvider>{children}</FilesProvider>
+                      </FileDataItemsProvider>
+                    </LocationItemsProvider>
                   </ComponentsProvider>
                 </ViewsProvider>
               </DisplayTextProvider>

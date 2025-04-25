@@ -2,8 +2,6 @@ import React from 'react';
 
 import { isFunction } from '@aws-amplify/ui';
 
-import { usePaginate } from '../hooks/usePaginate';
-
 import type {
   DownloadHandlerData,
   FileDataItem,
@@ -14,9 +12,9 @@ import { useActionConfigs } from '../../actions';
 import { useFiles } from '../../files';
 import { useFileDataItems } from '../../fileDataItems';
 import { useStore } from '../../store';
-import { useAction, useList } from '../../useAction';
+import { useAction } from '../../useAction';
 
-import { useSearch } from '../hooks/useSearch';
+import { useLocationItems } from '../../locationItems';
 
 import type { Task } from '../../tasks';
 
@@ -25,10 +23,10 @@ import type {
   UseLocationDetailViewOptions,
 } from './types';
 
-const DEFAULT_PAGE_SIZE = 100;
-export const DEFAULT_LIST_OPTIONS = {
-  delimiter: '/',
-  pageSize: DEFAULT_PAGE_SIZE,
+export const DEFAULT_LIST_OPTIONS = { delimiter: '/', pageSize: 100 };
+const INITIAL_SEARCH_VALUES = {
+  isSearchSubfoldersEnabled: false,
+  searchQuery: '',
 };
 
 const getDownloadErrorMessageFromFailedDownloadTask = (
@@ -44,97 +42,37 @@ const getDownloadErrorMessageFromFailedDownloadTask = (
 export const useLocationDetailView = (
   options?: UseLocationDetailViewOptions
 ): LocationDetailViewState => {
-  const { initialValues, onExit, onNavigate } = options ?? {};
+  const {
+    initialValues: __,
+    onExit,
+    onNavigate,
+    onActionSelect,
+  } = options ?? {};
 
-  const listOptionsRef = React.useRef({
-    ...DEFAULT_LIST_OPTIONS,
-    ...initialValues,
-  });
+  // const listOptionsRef = React.useRef({
+  //   ...DEFAULT_LIST_OPTIONS,
+  //   ...initialValues,
+  // });
 
-  const listOptions = listOptionsRef.current;
+  // const listOptions = listOptionsRef.current;
 
-  const [{ location, actionType }, storeDispatch] = useStore();
+  const [searchValues, setSearchValues] = React.useState(INITIAL_SEARCH_VALUES);
+  const resetSearchState = () => {
+    setSearchValues(INITIAL_SEARCH_VALUES);
+  };
+
   const [{ fileDataItems }, fileDataItemsDispatch] = useFileDataItems();
   const filesDispatch = useFiles()[1];
 
-  // use `location.key` as `prefix`, `key` resolves to the `current.prefix` concatenated with the navigation `path`
-  const { current, key: prefix } = location;
-  const { permissions } = current ?? {};
+  const [{ location, actionType }, storeDispatch] = useStore();
+  const { permissions } = location.current ?? {};
+
+  const [
+    { pageItems, isLoading, ...locationItemsState },
+    locationItemsDispatch,
+  ] = useLocationItems();
 
   const [{ task }, handleDownload] = useAction('download');
-
-  const [{ value, isLoading, hasError, message }, handleList] =
-    useList('locationItems');
-
-  // set up pagination
-  const { items, nextToken, search } = value;
-  const { hasExhaustedSearch = false } = search ?? {};
-
-  const onPaginate = () => {
-    if (!nextToken) return;
-    fileDataItemsDispatch({ type: 'CLEAR_FILE_DATA_ITEMS' });
-    handleList({
-      prefix,
-      options: { ...listOptions, nextToken },
-    });
-  };
-
-  const {
-    currentPage,
-    handlePaginate,
-    handleReset,
-    highestPageVisited,
-    pageItems,
-  } = usePaginate({
-    items,
-    onPaginate,
-    pageSize: listOptions.pageSize,
-  });
-
-  const onSearch = (query: string, includeSubfolders?: boolean) => {
-    const searchOptions = {
-      ...listOptions,
-      delimiter: includeSubfolders ? undefined : listOptions.delimiter,
-      search: {
-        query,
-        filterBy: 'key' as const,
-        groupBy: includeSubfolders ? listOptions.delimiter : undefined,
-      },
-    };
-
-    handleReset();
-    handleList({ prefix, options: searchOptions });
-
-    fileDataItemsDispatch({ type: 'CLEAR_FILE_DATA_ITEMS' });
-  };
-
-  const {
-    searchQuery,
-    isSearchingSubfolders: isSearchSubfoldersEnabled,
-    onSearchQueryChange,
-    onSearchSubmit,
-    onToggleSearchSubfolders,
-    resetSearch,
-  } = useSearch({ onSearch });
-
-  const onRefresh = () => {
-    handleReset();
-    resetSearch();
-    handleList({
-      prefix,
-      options: { ...listOptions, refresh: true },
-    });
-
-    fileDataItemsDispatch({ type: 'CLEAR_FILE_DATA_ITEMS' });
-  };
-
-  React.useEffect(() => {
-    handleList({
-      prefix,
-      options: { ...listOptions, refresh: true },
-    });
-    handleReset();
-  }, [handleList, handleReset, listOptions, prefix]);
 
   const { actionConfigs } = useActionConfigs();
 
@@ -161,29 +99,28 @@ export const useLocationDetailView = (
   }, [actionConfigs, fileDataItems, permissions]);
 
   return {
+    ...searchValues,
+    ...locationItemsState,
     actionItems,
     actionType,
-    page: currentPage,
+    downloadErrorMessage: getDownloadErrorMessageFromFailedDownloadTask(task),
+    fileDataItems,
+    hasDownloadError: task?.status === 'FAILED',
+    isLoading,
     pageItems,
     location,
-    fileDataItems,
-    hasError,
-    hasDownloadError: task?.status === 'FAILED',
-    hasNextPage: !!nextToken,
-    highestPageVisited,
-    message,
-    downloadErrorMessage: getDownloadErrorMessageFromFailedDownloadTask(task),
-    isLoading,
-    isSearchSubfoldersEnabled,
-    onPaginate: handlePaginate,
-    searchQuery,
-    hasExhaustedSearch,
-    onRefresh,
+    onRefresh: () => {
+      locationItemsDispatch({ type: 'REFRESH' });
+      fileDataItemsDispatch({ type: 'CLEAR_FILE_DATA_ITEMS' });
+    },
+    onPaginate: (page) => {
+      locationItemsDispatch({ type: 'PAGINATE', page });
+    },
     onActionExit: () => {
       storeDispatch({ type: 'RESET_ACTION_TYPE' });
     },
     onActionSelect: (nextActionType) => {
-      options?.onActionSelect?.(nextActionType);
+      onActionSelect?.(nextActionType);
       storeDispatch({
         type: 'CHANGE_ACTION_TYPE',
         actionType: nextActionType,
@@ -191,16 +128,19 @@ export const useLocationDetailView = (
     },
     onNavigate: (location: LocationData, path?: string) => {
       onNavigate?.(location, path);
-      resetSearch();
       storeDispatch({ type: 'CHANGE_LOCATION', location, path });
+
+      // clean up
       fileDataItemsDispatch({ type: 'CLEAR_FILE_DATA_ITEMS' });
+      locationItemsDispatch({ type: 'RESET' });
+      resetSearchState();
     },
     onDropFiles: (files: File[]) => {
       filesDispatch({ type: 'ADD_FILE_ITEMS', files });
 
       const actionType = 'upload';
       storeDispatch({ type: 'CHANGE_ACTION_TYPE', actionType });
-      options?.onActionSelect?.(actionType);
+      onActionSelect?.(actionType);
     },
     onDownload: (data: FileDataItem) => {
       handleDownload({ data });
@@ -208,12 +148,7 @@ export const useLocationDetailView = (
     onNavigateHome: () => {
       onExit?.();
       storeDispatch({ type: 'RESET_LOCATION' });
-
-      handleList({
-        // use `current.prefix` on reset
-        prefix: current?.prefix ?? '',
-        options: { reset: true },
-      });
+      locationItemsDispatch({ type: 'RESET' });
       storeDispatch({ type: 'RESET_ACTION_TYPE' });
       fileDataItemsDispatch({ type: 'CLEAR_FILE_DATA_ITEMS' });
     },
@@ -234,13 +169,27 @@ export const useLocationDetailView = (
           : { type: 'SELECT_FILE_DATA_ITEMS', items: fileItems }
       );
     },
-    onSearch: onSearchSubmit,
-    onSearchClear: () => {
-      resetSearch();
-      handleList({ prefix, options: { ...listOptions, refresh: true } });
-      handleReset();
+    onSearch: () => {
+      const {
+        isSearchSubfoldersEnabled: includeSubfolders,
+        searchQuery: value,
+      } = searchValues;
+
+      const query = { includeSubfolders, value };
+
+      locationItemsDispatch({ type: 'SEARCH', query });
     },
-    onSearchQueryChange,
-    onToggleSearchSubfolders,
+    onSearchClear: () => {
+      resetSearchState();
+    },
+    onSearchQueryChange: (searchQuery) => {
+      setSearchValues((prev) => ({ ...prev, searchQuery }));
+    },
+    onToggleSearchSubfolders: () => {
+      setSearchValues(({ isSearchSubfoldersEnabled, searchQuery }) => ({
+        isSearchSubfoldersEnabled: !isSearchSubfoldersEnabled,
+        searchQuery,
+      }));
+    },
   };
 };

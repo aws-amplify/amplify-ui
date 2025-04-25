@@ -27,7 +27,7 @@ describe('usePaginate', () => {
 
     const { current } = result ?? {};
 
-    expect(current?.currentPage).toBe(1);
+    expect(current?.page).toBe(1);
     expect(current?.highestPageVisited).toBe(1);
 
     expect(typeof current?.handlePaginate).toBe('function');
@@ -46,16 +46,16 @@ describe('usePaginate', () => {
     expect(result?.current?.highestPageVisited).toBe(2);
   });
 
-  it('returns the expected value of `currentPage` on paginate', () => {
+  it('returns the expected value of `page` on paginate', () => {
     const { result } = renderHook(() => usePaginate(data));
 
-    expect(result?.current?.currentPage).toBe(1);
+    expect(result?.current?.page).toBe(1);
 
     act(() => {
       result?.current?.handlePaginate(2);
     });
 
-    expect(result?.current?.currentPage).toBe(2);
+    expect(result?.current?.page).toBe(2);
   });
 
   it('returns the expected value of pageItems', () => {

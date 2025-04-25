@@ -5,10 +5,10 @@ import { isFunction } from '@aws-amplify/ui';
 const DEFAULT_PAGE_SIZE = 100;
 
 interface UsePaginateState<T> {
-  currentPage: number;
-  highestPageVisited: number;
   handlePaginate: (page: number) => void;
   handleReset: () => void;
+  highestPageVisited: number;
+  page: number;
   pageItems: T[];
 }
 
@@ -22,42 +22,39 @@ interface UsePaginateInput<T> {
 export const usePaginate = <T>({
   items,
   onPaginate,
-  page = 1,
+  page: _page = 1,
   pageSize = DEFAULT_PAGE_SIZE,
 }: UsePaginateInput<T>): UsePaginateState<T> => {
-  const [currentPage, setCurrentPage] = React.useState(page);
-  const visitedRef = React.useRef(page);
+  const [page, setPage] = React.useState(_page);
+  const visitedRef = React.useRef(_page);
 
   const handleReset = React.useRef(() => {
-    setCurrentPage(page);
+    setPage(_page);
     // set `visitedRef` to initially provided `page`
-    visitedRef.current = page;
+    visitedRef.current = _page;
   }).current;
 
-  return React.useMemo((): UsePaginateState<T> => {
-    const hasItems = Array.isArray(items);
+  const handlePaginate = React.useCallback(
+    (nextPage: number) => {
+      if (nextPage < 1) return;
 
+      if (isFunction(onPaginate)) onPaginate(nextPage);
+
+      if (nextPage > visitedRef.current) visitedRef.current = nextPage;
+
+      setPage(nextPage);
+    },
+    [onPaginate]
+  );
+
+  return React.useMemo((): UsePaginateState<T> => {
+    const hasItems = items?.length;
     const highestPageVisited = visitedRef.current;
 
-    const isFirstPage = currentPage === 1;
-    const start = isFirstPage ? 0 : (currentPage - 1) * pageSize;
-    const end = isFirstPage ? pageSize : currentPage * pageSize;
+    const start = (page - 1) * pageSize;
+    const end = page * pageSize;
     const pageItems = hasItems ? items.slice(start, end) : [];
 
-    return {
-      currentPage,
-      handlePaginate: (page) => {
-        if (page < 1) return;
-
-        if (isFunction(onPaginate)) onPaginate(page);
-
-        if (page > currentPage) visitedRef.current = page;
-
-        setCurrentPage(page);
-      },
-      handleReset,
-      highestPageVisited,
-      pageItems,
-    };
-  }, [currentPage, handleReset, items, onPaginate, pageSize]);
+    return { handlePaginate, handleReset, highestPageVisited, page, pageItems };
+  }, [handlePaginate, handleReset, items, page, pageSize]);
 };

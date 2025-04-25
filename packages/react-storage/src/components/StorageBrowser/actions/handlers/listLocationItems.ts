@@ -105,7 +105,7 @@ export const listLocationItemsHandler: ListLocationItemsHandler = async (
   const {
     exclude,
     delimiter,
-    nextToken,
+    nextToken: _nextToken,
     pageSize: _pageSize = DEFAULT_PAGE_SIZE,
     ..._options
   } = options ?? {};
@@ -121,36 +121,44 @@ export const listLocationItemsHandler: ListLocationItemsHandler = async (
   // return count of `results` is one item less than the provided `pageSize`.
   // To mitigate, if a `pageSize` is provided and there are no previous `results`
   // or `refresh` is `true` increment the provided `pageSize` by `1`
-  const hasOffset = !nextToken;
+  const hasOffset = !_nextToken;
   const pageSize = hasOffset ? _pageSize + 1 : _pageSize;
 
-  const result: LocationItemData[] = [];
-  let nextNextToken = nextToken;
+  const items = [];
+  let nextToken = _nextToken;
+
+  // const startAfter = `${prefix}7BD2A859-1DD8-B71B-0B08A3C94545130F copy 11.jpg`;
+  // // eslint-disable-next-line no-console
+  // console.log('startAfter', startAfter);
 
   do {
     const listInput: ListPaginateInput = {
       path: prefix,
       options: {
-        nextToken: nextNextToken,
+        nextToken: nextToken,
         ..._options,
         bucket,
         customEndpoint,
         expectedBucketOwner: accountId,
         locationCredentialsProvider: credentials,
         pageSize,
+        // startAfter,
         subpathStrategy,
       },
     };
 
     const output = await list(listInput);
-    nextNextToken = output.nextToken;
+    // eslint-disable-next-line prefer-destructuring
+    nextToken = output.nextToken;
 
-    const items = parseResult(output, prefix);
+    const parsedItems = parseResult(output, prefix);
 
-    result.push(
-      ...(exclude ? items.filter((item) => item.type !== exclude) : items)
+    items.push(
+      ...(exclude
+        ? parsedItems.filter(({ type }) => type !== exclude)
+        : parsedItems)
     );
-  } while (nextNextToken && result.length < pageSize);
+  } while (nextToken && items.length < pageSize);
 
-  return { items: result, nextToken: nextNextToken };
+  return { items, nextToken };
 };

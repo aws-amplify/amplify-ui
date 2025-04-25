@@ -136,11 +136,14 @@ describe('useLocationDetailView', () => {
 
   afterEach(jest.clearAllMocks);
 
-  it('should fetch and set location data on mount', () => {
+  it('should fetch locationItems on mount', () => {
+    mockUseList.mockReturnValue([
+      { ...mockListState, value: { items: [], nextToken: undefined } },
+      mockHandleList,
+    ]);
     const initialState = { initialValues: { pageSize: EXPECTED_PAGE_SIZE } };
-    const { result } = renderHook(() => useLocationDetailView(initialState));
+    renderHook(() => useLocationDetailView(initialState));
 
-    // fetches data
     expect(mockHandleList).toHaveBeenCalledWith({
       options: {
         ...DEFAULT_LIST_OPTIONS,
@@ -149,11 +152,6 @@ describe('useLocationDetailView', () => {
       },
       prefix: 'item-b-key/',
     });
-
-    const state = result.current;
-    expect(state.isLoading).toBe(false);
-    expect(state.hasError).toBe(false);
-    expect(state.pageItems.length).toEqual(EXPECTED_PAGE_SIZE);
   });
 
   it('should handle pagination actions', () => {
