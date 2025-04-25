@@ -26,9 +26,8 @@ export const useLocationsView = (
   const dispatchStoreAction = useStore()[1];
 
   const { value, message, hasError, isLoading } = state;
-  const { items, nextToken, search } = value;
+  const { items, nextToken, hasExhaustedSearch = false } = value;
   const hasNextToken = !!nextToken;
-  const { hasExhaustedSearch = false } = search ?? {};
 
   const onNavigate = options?.onNavigate;
   const initialValues = options?.initialValues ?? {};

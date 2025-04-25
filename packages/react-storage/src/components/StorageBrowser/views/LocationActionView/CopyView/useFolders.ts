@@ -31,8 +31,7 @@ export const useFolders = ({
   const [{ value, hasError, isLoading, message }, handleList] =
     useList('folderItems');
 
-  const { items, nextToken, search } = value;
-  const { hasExhaustedSearch = false } = search ?? {};
+  const { items, nextToken, hasExhaustedSearch = false } = value;
 
   const onInitialize = React.useCallback(() => {
     handleList({

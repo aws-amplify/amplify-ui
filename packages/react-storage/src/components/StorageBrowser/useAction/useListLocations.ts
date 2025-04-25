@@ -4,7 +4,7 @@ import { useAsyncReducer } from '@aws-amplify/ui-react-core';
 
 import type {
   LocationData,
-  ListLocationsExcludeOptions,
+  ListLocationsHandlerInput,
   ListLocations,
 } from '../actions';
 
@@ -26,7 +26,7 @@ export interface UseListLocationsState
   extends ListActionState<
     EnhancedListHandlerOutput<LocationData>,
     RemoveConfigAndPrefix<
-      EnhancedListHandlerInput<LocationData, ListLocationsExcludeOptions>
+      EnhancedListHandlerInput<ListLocationsHandlerInput, LocationData>
     >
   > {}
 
