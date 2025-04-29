@@ -1,4 +1,3 @@
-import type { StatusCounts, Task } from '../tasks';
 import type {
   CopyHandlerData,
   CreateFolderHandlerData,
@@ -6,13 +5,14 @@ import type {
   FolderData,
   LocationData,
   LocationItemData,
+  LocationPermissions,
   TaskData,
   UploadHandlerData,
-  LocationPermissions,
 } from '../actions';
 import type { MessageType } from '../components';
 import type { FileItems } from '../files';
 import type { LocationState } from '../store';
+import type { StatusCounts, Task } from '../tasks';
 
 /**
  * Common list view display text values

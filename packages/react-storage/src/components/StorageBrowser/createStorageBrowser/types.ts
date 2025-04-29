@@ -24,12 +24,12 @@ import type {
   CopyViewType,
   CreateFolderViewType,
   DeleteViewType,
-  UploadViewType,
   LocationActionViewType,
   LocationDetailViewType,
   LocationsViewType,
-  UseView,
   StorageBrowserViews,
+  UploadViewType,
+  UseView,
 } from '../views';
 
 /**
@@ -118,6 +118,10 @@ export interface StorageBrowserActions {
   custom?: CustomActionConfigs;
 }
 
+export interface StorageBrowserOptions {
+  maxUploadFileSize?: number;
+}
+
 /**
  * @description configuration and options for `createStorageBrowser`
  */
@@ -142,6 +146,11 @@ export interface CreateStorageBrowserInput {
    * @description Overrides default `components` used within `StorageBrowser`
    */
   components?: StorageBrowserComponents;
+
+  /**
+   * @description `StorageBrowser` additional options
+   */
+  options?: StorageBrowserOptions;
 }
 
 /**

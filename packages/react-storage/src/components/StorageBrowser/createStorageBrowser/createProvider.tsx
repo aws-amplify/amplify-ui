@@ -1,13 +1,13 @@
 import React from 'react';
 
 import {
+  ActionConfigsProvider,
   defaultActionConfigs,
   getActionConfigs,
-  ActionConfigsProvider,
 } from '../actions';
 import {
-  ComponentsProvider,
   componentsDefault,
+  ComponentsProvider,
   DEFAULT_COMPOSABLES,
 } from '../components';
 import { createConfigurationProvider } from '../configuration';
@@ -15,7 +15,7 @@ import { DisplayTextProvider } from '../displayText';
 import { FilesProvider } from '../files';
 import { LocationItemsProvider } from '../locationItems';
 import { StoreProvider } from '../store';
-import { getActionHandlers, ActionHandlersProvider } from '../useAction';
+import { ActionHandlersProvider, getActionHandlers } from '../useAction';
 import { ViewsProvider } from '../views';
 
 import type {
@@ -27,6 +27,7 @@ export default function createProvider({
   actions,
   components,
   config,
+  options,
 }: CreateStorageBrowserInput): (
   props: StorageBrowserProviderProps
 ) => React.JSX.Element {
@@ -48,6 +49,8 @@ export default function createProvider({
     },
     custom: actions?.custom,
   };
+
+  const { maxUploadFileSize } = options ?? {};
 
   const handlers = getActionHandlers(resolvedActions);
 
@@ -90,7 +93,9 @@ export default function createProvider({
                 <ViewsProvider actions={resolvedActions} views={views}>
                   <ComponentsProvider composables={composables}>
                     <LocationItemsProvider>
-                      <FilesProvider>{children}</FilesProvider>
+                      <FilesProvider maxUploadFileSize={maxUploadFileSize}>
+                        {children}
+                      </FilesProvider>
                     </LocationItemsProvider>
                   </ComponentsProvider>
                 </ViewsProvider>

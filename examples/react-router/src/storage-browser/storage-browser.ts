@@ -83,4 +83,7 @@ export const { StorageBrowser } = createStorageBrowser({
         },
       }),
   },
+  options: {
+    maxFileSize: 1 * 1024 * 1024, // 1 MB
+  },
 });

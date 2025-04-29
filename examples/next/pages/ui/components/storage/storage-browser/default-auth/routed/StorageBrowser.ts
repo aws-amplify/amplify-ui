@@ -3,8 +3,8 @@ import { Amplify } from 'aws-amplify';
 import {
   createAmplifyAuthAdapter,
   createStorageBrowser,
-  defaultHandlers,
   defaultActionConfigs,
+  defaultHandlers,
 } from '@aws-amplify/ui-react-storage/browser';
 import '@aws-amplify/ui-react-storage/styles.css';
 
@@ -52,5 +52,8 @@ export const { StorageBrowser } = createStorageBrowser({
         },
       },
     },
+  },
+  options: {
+    maxFileSize: 1 * 1000 * 1000, // 1 MB
   },
 });

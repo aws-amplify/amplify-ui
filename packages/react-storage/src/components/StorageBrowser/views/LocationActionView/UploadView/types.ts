@@ -2,9 +2,9 @@ import type { LocationData, UploadHandlerData } from '../../../actions';
 import type { FileItems } from '../../../files';
 
 import type {
-  ActionViewType,
   ActionViewProps,
   ActionViewState,
+  ActionViewType,
 } from '../types';
 
 export interface UploadViewState extends ActionViewState<UploadHandlerData> {

@@ -5,10 +5,36 @@ import type { HandleFileSelect } from '@aws-amplify/ui-react/internal';
 
 import type { FileItem } from '../actions';
 
-import type { FileItems, FilesActionType, SelectionType } from './types';
+import { isFileTooBig } from '../validators';
+import type {
+  FileItems,
+  FileItemsData,
+  FilesActionType,
+  SelectionType,
+} from './types';
 
 const compareFileItems = (prev: FileItem, next: FileItem) =>
   prev.key.localeCompare(next.key);
+
+export const validateFiles = (
+  files: File[] | undefined,
+  maxUploadFileSize?: number
+): { validFiles: File[]; invalidFiles: File[] } =>
+  (files ?? []).reduce(
+    (curr: { validFiles: File[]; invalidFiles: File[] }, file) => {
+      if (isFileTooBig(file, maxUploadFileSize)) {
+        curr.invalidFiles = isUndefined(curr.invalidFiles)
+          ? [file]
+          : curr.invalidFiles.concat(file);
+      } else {
+        curr.validFiles = isUndefined(curr.validFiles)
+          ? [file]
+          : curr.validFiles.concat(file);
+      }
+      return curr;
+    },
+    { validFiles: [], invalidFiles: [] }
+  );
 
 export const resolveFiles = (
   prevItems: FileItems,
@@ -43,22 +69,31 @@ export const resolveFiles = (
 };
 
 export const filesReducer: React.Reducer<
-  FileItems,
+  FileItemsData,
   Exclude<FilesActionType, { type: 'SELECT_FILES' }>
 > = (prevItems, input) => {
   switch (input.type) {
     case 'ADD_FILE_ITEMS': {
-      return resolveFiles(prevItems, input.files);
+      const nextItems = resolveFiles(prevItems.items, input.files);
+      const nextInvalidFiles = resolveFiles(
+        prevItems.invalidFiles,
+        input.invalidFiles
+      );
+      return {
+        ...prevItems,
+        items: nextItems,
+        invalidFiles: nextInvalidFiles,
+      };
     }
     case 'REMOVE_FILE_ITEM': {
-      const filteredItems = prevItems.filter(({ id }) => id !== input.id);
+      const filteredItems = prevItems.items.filter(({ id }) => id !== input.id);
 
-      return filteredItems.length === prevItems.length
+      return filteredItems.length === prevItems.items.length
         ? prevItems
-        : filteredItems;
+        : { ...prevItems, items: filteredItems };
     }
     case 'RESET_FILE_ITEMS': {
-      return [];
+      return { items: [], invalidFiles: [] };
     }
     // TODO: clear message
   }

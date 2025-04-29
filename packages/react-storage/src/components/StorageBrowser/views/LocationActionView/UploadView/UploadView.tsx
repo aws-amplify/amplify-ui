@@ -1,5 +1,5 @@
-import React from 'react';
 import { classNames } from '@aws-amplify/ui';
+import React from 'react';
 
 import { STORAGE_BROWSER_BLOCK, ViewElement } from '../../../components';
 import {
@@ -11,14 +11,14 @@ import {
   AddFolderControl,
   DataTableControl,
   DropZoneControl,
-  OverwriteToggleControl,
   MessageControl,
+  OverwriteToggleControl,
   StatusDisplayControl,
   TitleControl,
 } from '../../../controls';
 
-import { UploadViewProvider } from './UploadViewProvider';
 import type { UploadViewType } from './types';
+import { UploadViewProvider } from './UploadViewProvider';
 import { useUploadView } from './useUploadView';
 
 export const UploadView: UploadViewType = ({ className, ...props }) => {
