@@ -1,4 +1,4 @@
-import { searchItems } from '../createEnhancedListHandler';
+import { searchItems } from '../searchItems';
 
 let uuid = 0;
 Object.defineProperty(globalThis, 'crypto', {

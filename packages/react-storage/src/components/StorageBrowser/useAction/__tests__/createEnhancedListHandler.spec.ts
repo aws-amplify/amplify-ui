@@ -95,7 +95,7 @@ describe('createEnhancedListHandler', () => {
       { name: 'date' },
     ]);
     expect(result.nextToken).toBeUndefined();
-    expect(result.search?.hasExhaustedSearch).toBeFalsy();
+    expect(result.hasExhaustedSearch).toBeFalsy();
   });
 
   it('should collect and filter results using a filter key function', async () => {
@@ -124,7 +124,7 @@ describe('createEnhancedListHandler', () => {
       options: {
         search: {
           query: 'a',
-          filterBy: (item) => {
+          filterBy: (item: Record<'alt' | 'name', any>) => {
             return item.alt ? 'alt' : 'name';
           },
         },
@@ -139,7 +139,7 @@ describe('createEnhancedListHandler', () => {
     ]);
 
     expect(result.nextToken).toBeUndefined();
-    expect(result.search?.hasExhaustedSearch).toBeFalsy();
+    expect(result.hasExhaustedSearch).toBeFalsy();
   });
 
   it('should collect and filter results when search and duplicate prefix is provided', async () => {
@@ -190,7 +190,7 @@ describe('createEnhancedListHandler', () => {
     expect(mockAction).toHaveBeenCalledTimes(2);
     expect(result.items.length).toBe(SEARCH_LIMIT);
     expect(result.nextToken).toBeUndefined();
-    expect(result.search?.hasExhaustedSearch).toBeTruthy();
+    expect(result.hasExhaustedSearch).toBeTruthy();
 
     mockAction.mockReset();
   });

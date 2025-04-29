@@ -3,9 +3,8 @@ import React from 'react';
 import { useAsyncReducer } from '@aws-amplify/ui-react-core';
 
 import type {
-  LocationItemType,
+  ListLocationItemsHandlerInput,
   ListLocationItemsHandler,
-  ListLocationItemsHandlerOptions,
   LocationItemData,
 } from '../actions';
 import { useGetActionInput } from '../configuration';
@@ -21,20 +20,16 @@ import type { ListActionState } from './types';
 
 type RemoveConfig<T> = Omit<T, 'config'>;
 
-interface BaseInput
-  extends RemoveConfig<
-    EnhancedListHandlerInput<LocationItemData, LocationItemType>
-  > {}
-
-interface EnhancedInput extends Omit<BaseInput, 'options'> {
-  options?: BaseInput['options'] & ListLocationItemsHandlerOptions;
-}
-
 export interface LocationItemsState
   extends EnhancedListHandlerOutput<LocationItemData> {}
 
 export interface UseListLocationItemsState
-  extends ListActionState<LocationItemsState, EnhancedInput> {}
+  extends ListActionState<
+    LocationItemsState,
+    RemoveConfig<
+      EnhancedListHandlerInput<ListLocationItemsHandlerInput, LocationItemData>
+    >
+  > {}
 
 export const useListLocationItems = (): UseListLocationItemsState => {
   const { handlers } = useActionHandlers({
@@ -47,7 +42,7 @@ export const useListLocationItems = (): UseListLocationItemsState => {
 
   const enhancedHandler = React.useMemo(
     () =>
-      createEnhancedListHandler((input: EnhancedInput) =>
+      createEnhancedListHandler((input) =>
         listLocationItems({ ...input, config: getConfig() })
       ),
     [getConfig, listLocationItems]
@@ -55,6 +50,7 @@ export const useListLocationItems = (): UseListLocationItemsState => {
 
   return useAsyncReducer(enhancedHandler, {
     items: [],
+    hasExhaustedSearch: false,
     nextToken: undefined,
   });
 };
