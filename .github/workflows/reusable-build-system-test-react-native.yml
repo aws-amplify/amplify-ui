@@ -17,16 +17,15 @@ jobs:
       matrix:
         framework: [react-native]
         framework-version: [
-            # uncomment to enable
             { formatted: latest, value: latest },
-            { formatted: 078, value: 0.78 },
-            { formatted: 077, value: 0.77 },
-            { formatted: 076, value: 0.76 },
-            { formatted: 075, value: 0.75 },
-            { formatted: 074, value: 0.74 },
-            { formatted: 073, value: 0.73 },
-            { formatted: 072, value: 0.72 },
-            { formatted: 071, value: 0.71 },
+            # { formatted: 078, value: 0.78 },
+            # { formatted: 077, value: 0.77 },
+            # { formatted: 076, value: 0.76 },
+            # { formatted: 075, value: 0.75 },
+            # { formatted: 074, value: 0.74 },
+            # { formatted: 073, value: 0.73 },
+            # { formatted: 072, value: 0.72 },
+            # { formatted: 071, value: 0.71 },
           ]
         build-tool: [cli, expo]
         build-tool-version: [latest]
@@ -174,6 +173,7 @@ jobs:
           echo -e "echo \$ANDROID_HOME"
           echo $ANDROID_HOME
           $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install 'build-tools;33.0.2' platform-tools
+          echo "platform tools installed"
           echo "y" | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install "system-images;android-27;default;x86_64"
           echo "no" | $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager create avd --force --name Pixel_5_API_27 --device "pixel_5" --abi x86_64 --package "system-images;android-27;default;x86_64"
           printf 'hw.cpu.ncore=2\n' >> ~/.android/avd/Pixel_5_API_27.avd/config.ini
