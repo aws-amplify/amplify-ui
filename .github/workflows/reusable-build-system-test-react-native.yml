@@ -172,7 +172,7 @@ jobs:
         run: |
           echo -e "echo \$ANDROID_HOME"
           echo $ANDROID_HOME
-          $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install 'build-tools;33.0.2' platform-tools
+          $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install "build-tools;33.0.2" "platform-tools"
           echo "platform tools installed"
           echo "y" | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install "system-images;android-27;default;x86_64"
           echo "system image installed"
