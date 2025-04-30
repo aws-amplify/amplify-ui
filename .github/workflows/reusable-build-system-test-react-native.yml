@@ -16,8 +16,8 @@ jobs:
       fail-fast: false
       matrix:
         framework: [react-native]
-        framework-version: [
-            # uncomment to enable
+        framework-version:
+          [
             { formatted: latest, value: latest },
             { formatted: 078, value: 0.78 },
             { formatted: 077, value: 0.77 },
@@ -134,6 +134,7 @@ jobs:
           restore-keys: pods-${{ hashFiles('examples/react-native/ios/Podfile.lock') }}
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
+
       - name: Restore node_modules cache
         if: ${{ matrix.platform == 'ios' }}
         uses: actions/cache@1bd1e32a3bdc45362d1e726936510720a7c30a57 # v4.2.0 https://github.com/actions/cache/commit/1bd1e32a3bdc45362d1e726936510720a7c30a57
@@ -145,6 +146,7 @@ jobs:
           key: ${{ runner.os }}-nodemodules
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 3
+
       - name: Install Java 17
         if: ${{ matrix.platform == 'android' }}
         uses: actions/setup-java@de1bb2b0c5634f0fc4438d7aa9944e68f9bf86cc # 3.6.0
@@ -162,6 +164,7 @@ jobs:
           echo "ruby --version"
           ruby --version
         continue-on-error: true # brew overwrite step addresses a python install issue: https://github.com/actions/runner-images/issues/8500
+
       - name: Update CocoaPods
         if: ${{ matrix.platform == 'ios' }}
         run: |
@@ -173,16 +176,13 @@ jobs:
         run: |
           echo -e "echo \$ANDROID_HOME"
           echo $ANDROID_HOME
-          $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install 'build-tools;33.0.2' platform-tools
-          echo "y" | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install "system-images;android-27;default;x86_64"
-          echo "no" | $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager create avd --force --name Pixel_5_API_27 --device "pixel_5" --abi x86_64 --package "system-images;android-27;default;x86_64"
-          printf 'hw.cpu.ncore=2\n' >> ~/.android/avd/Pixel_5_API_27.avd/config.ini
-          printf 'hw.ramSize=2048\n' >> ~/.android/avd/Pixel_5_API_27.avd/config.ini
-          printf 'hw.heapSize=576\n' >> ~/.android/avd/Pixel_5_API_27.avd/config.ini
+          $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install "build-tools;33.0.2" "platform-tools" "system-images;android-27;default;x86_64"
+          $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager create avd --name Pixel_5_API_27 --force --device "pixel_5" --abi x86_64 --package "system-images;android-27;default;x86_64"
+
       - name: Start Android emulator
         if: ${{ matrix.platform == 'android' }}
         run: |
-          nohup $ANDROID_HOME/emulator/emulator -avd Pixel_5_API_27 -port ${{ env.EMULATOR_PORT }} -no-boot-anim -no-audio -no-snapshot-load -gpu host -accel on &
+          $ANDROID_HOME/emulator/emulator -avd Pixel_5_API_27 -port ${{ env.EMULATOR_PORT }} -no-boot-anim -no-audio -no-snapshot-load -gpu host -accel on &
           $ANDROID_HOME/platform-tools/adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed | tr -d '\r') ]]; do sleep 1; done; input keyevent 82'
           $ANDROID_HOME/platform-tools/adb devices
           # disable spell checker
@@ -196,6 +196,7 @@ jobs:
         run: npm run setup:${{matrix.framework}}:${{matrix.build-tool}} -- --name ${{ env.MEGA_APP_NAME }} --platform ${{matrix.platform}} --tag ${{inputs.dist-tag}} --framework-version ${{matrix.framework-version.value}} --build-tool-version ${{matrix.build-tool-version}}
         shell: bash
         working-directory: build-system-tests
+
       - name: Detect Mega App Error in Log
         run: npm run checkReactNativeLogs -- --log-file-name ${{ matrix.logfile }} --mega-app-name ${{ env.MEGA_APP_NAME }} --platform ${{ matrix.platform }}
         shell: bash
