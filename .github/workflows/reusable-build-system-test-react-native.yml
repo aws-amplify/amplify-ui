@@ -185,6 +185,10 @@ jobs:
           # printf 'hw.ramSize=2048\n' >> ~/.config/.android/avd/Pixel_5_API_27.avd/config.ini
           # printf 'hw.heapSize=576\n' >> ~/.config/.android/avd/Pixel_5_API_27.avd/config.ini
 
+          echo $ANDROID_AVD_HOME 
+          echo $ANDROID_SDK_HOME 
+          echo $HOME
+
       - name: Start Android emulator
         if: ${{ matrix.platform == 'android' }}
         run: |
