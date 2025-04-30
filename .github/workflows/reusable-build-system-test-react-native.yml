@@ -175,11 +175,12 @@ jobs:
         run: |
           echo -e "echo \$ANDROID_HOME"
           echo $ANDROID_HOME
-
           $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install "build-tools;33.0.2" "platform-tools" "system-images;android-27;default;x86_64"
-          # echo "y" | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install "system-images;android-27;default;x86_64"
           $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager emulator
           $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager create avd --name Pixel_5_API_27 --force --device "pixel_5" --abi x86_64 --package "system-images;android-27;default;x86_64"
+          $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager 
+          echo "$ANDROID_HOME/emulator/emulator -list-avds"
+          $ANDROID_HOME/emulator/emulator -list-avds
 
       - name: Start Android emulator
         if: ${{ matrix.platform == 'android' }}
