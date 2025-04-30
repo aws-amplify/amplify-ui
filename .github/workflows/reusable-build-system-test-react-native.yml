@@ -180,13 +180,10 @@ jobs:
 
           echo "y" | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install "system-images;android-27;default;x86_64"
           echo "system image installed"
-          echo "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --list"
-          $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --list
 
-          echo "$ANDROID_HOME/cmdline-tools/latest/bin/avdmanager -h"
-          $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager -h
+          $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager --verbose create avd --force --name Pixel_5_API_27 --device "pixel_5" --abi x86_64 --package "system-images;android-27;default;x86_64"
 
-          echo "no" | $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager --verbose create avd --force --name Pixel_5_API_27 --device "pixel_5" --abi x86_64 --package "system-images;android-27;default;x86_64"
+          # echo "no" | $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager --verbose create avd --force --name Pixel_5_API_27 --device "pixel_5" --abi x86_64 --package "system-images;android-27;default;x86_64"
           echo "emulator installed"
           echo emulator -list-avds
           emulator -list-avds
