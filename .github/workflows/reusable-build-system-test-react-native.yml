@@ -178,7 +178,12 @@ jobs:
           $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install "build-tools;33.0.2" "platform-tools" "system-images;android-27;default;x86_64"
           $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager emulator
           $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager create avd --name Pixel_5_API_27 --force --device "pixel_5" --abi x86_64 --package "system-images;android-27;default;x86_64"
-          echo -e "$ANDROID_HOME/emulator/emulator -list-avds"
+
+          $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager list
+
+          printf 'hw.cpu.ncore=2\n' >> ~/.android/avd/Pixel_5_API_27.avd/config.ini
+          printf 'hw.ramSize=2048\n' >> ~/.android/avd/Pixel_5_API_27.avd/config.ini
+          printf 'hw.heapSize=576\n' >> ~/.android/avd/Pixel_5_API_27.avd/config.ini
 
       - name: Start Android emulator
         if: ${{ matrix.platform == 'android' }}
