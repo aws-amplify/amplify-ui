@@ -10,7 +10,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: macos-13
     environment: ci
     strategy:
       fail-fast: false
@@ -133,6 +133,7 @@ jobs:
           restore-keys: pods-${{ hashFiles('examples/react-native/ios/Podfile.lock') }}
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
+
       - name: Restore node_modules cache
         if: ${{ matrix.platform == 'ios' }}
         uses: actions/cache@1bd1e32a3bdc45362d1e726936510720a7c30a57 # v4.2.0 https://github.com/actions/cache/commit/1bd1e32a3bdc45362d1e726936510720a7c30a57
@@ -144,6 +145,7 @@ jobs:
           key: ${{ runner.os }}-nodemodules
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 3
+
       - name: Install Java 17
         if: ${{ matrix.platform == 'android' }}
         uses: actions/setup-java@de1bb2b0c5634f0fc4438d7aa9944e68f9bf86cc # 3.6.0
@@ -161,6 +163,7 @@ jobs:
           echo "ruby --version"
           ruby --version
         continue-on-error: true # brew overwrite step addresses a python install issue: https://github.com/actions/runner-images/issues/8500
+
       - name: Update CocoaPods
         if: ${{ matrix.platform == 'ios' }}
         run: |
@@ -175,13 +178,12 @@ jobs:
 
           $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install "build-tools;33.0.2" "platform-tools"
           echo "platform tools installed"
-          echo $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --list
-          $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --list
 
           echo "y" | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install "system-images;android-27;default;x86_64"
           echo "system image installed"
 
           $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager --verbose create avd --name Pixel_5_API_27 --device "pixel_5" --abi x86_64 --package "system-images;android-27;default;x86_64"
+          echo "emulator created"
 
           # echo "no" | $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager create avd --force --name Pixel_5_API_27 --device "pixel_5" --abi x86_64 --package "system-images;android-27;default;x86_64"
 
