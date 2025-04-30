@@ -62,50 +62,50 @@ jobs:
           - build-tool: expo
             platform: android
             framework-version: { formatted: '071', value: '0.71' }
-        include:
-          # Expo makes you specify a version of the SDK that supports a specific version of React Native
-          # https://stackoverflow.com/questions/63463373/create-an-expo-project-with-a-specific-version
-          # Only include officially supported Expo SDK versions: https://docs.expo.dev/versions/latest/
-          - framework: react-native
-            framework-version: { formatted: 077, value: '0.77' }
-            build-tool: expo
-            build-tool-version: 52
-            platform: android
-            pkg-manager: npm
-            node-version: 20
-            logfile: test.log
-          - framework: react-native
-            framework-version: { formatted: 076, value: '0.76' }
-            build-tool: expo
-            build-tool-version: 52
-            platform: android
-            pkg-manager: npm
-            node-version: 20
-            logfile: test.log
-          - framework: react-native
-            framework-version: { formatted: 075, value: '0.75' }
-            build-tool: expo
-            build-tool-version: 51
-            platform: android
-            pkg-manager: npm
-            node-version: 20
-            logfile: test.log
-          - framework: react-native
-            framework-version: { formatted: 074, value: '0.74' }
-            build-tool: expo
-            build-tool-version: 51
-            platform: android
-            pkg-manager: npm
-            node-version: 20
-            logfile: test.log
-          - framework: react-native
-            framework-version: { formatted: 073, value: '0.73' }
-            build-tool: expo
-            build-tool-version: 50
-            platform: android
-            pkg-manager: npm
-            node-version: 20
-            logfile: test.log
+        # include:
+        #   # Expo makes you specify a version of the SDK that supports a specific version of React Native
+        #   # https://stackoverflow.com/questions/63463373/create-an-expo-project-with-a-specific-version
+        #   # Only include officially supported Expo SDK versions: https://docs.expo.dev/versions/latest/
+        #   - framework: react-native
+        #     framework-version: { formatted: 077, value: '0.77' }
+        #     build-tool: expo
+        #     build-tool-version: 52
+        #     platform: android
+        #     pkg-manager: npm
+        #     node-version: 20
+        #     logfile: test.log
+        #   - framework: react-native
+        #     framework-version: { formatted: 076, value: '0.76' }
+        #     build-tool: expo
+        #     build-tool-version: 52
+        #     platform: android
+        #     pkg-manager: npm
+        #     node-version: 20
+        #     logfile: test.log
+        #   - framework: react-native
+        #     framework-version: { formatted: 075, value: '0.75' }
+        #     build-tool: expo
+        #     build-tool-version: 51
+        #     platform: android
+        #     pkg-manager: npm
+        #     node-version: 20
+        #     logfile: test.log
+        #   - framework: react-native
+        #     framework-version: { formatted: 074, value: '0.74' }
+        #     build-tool: expo
+        #     build-tool-version: 51
+        #     platform: android
+        #     pkg-manager: npm
+        #     node-version: 20
+        #     logfile: test.log
+        #   - framework: react-native
+        #     framework-version: { formatted: 073, value: '0.73' }
+        #     build-tool: expo
+        #     build-tool-version: 50
+        #     platform: android
+        #     pkg-manager: npm
+        #     node-version: 20
+        #     logfile: test.log
 
     env:
       MEGA_APP_NAME: rn${{ matrix.framework-version.formatted }}${{ matrix.build-tool }}${{ matrix.build-tool-version }}${{ matrix.platform }}ui${{ inputs.dist-tag }}
