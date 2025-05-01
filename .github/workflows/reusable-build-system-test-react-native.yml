@@ -188,6 +188,7 @@ jobs:
       - name: Start Android emulator
         if: ${{ matrix.platform == 'android' }}
         run: |
+          echo $ANDROID_HOME/emulator/emulator -list-avds
           $ANDROID_HOME/emulator/emulator -list-avds
           # # nohup $ANDROID_HOME/emulator/emulator -avd Pixel_5_API_27 -port ${{ env.EMULATOR_PORT }} -no-boot-anim -no-audio -no-snapshot-load -gpu host -accel on &
           # $ANDROID_HOME/emulator/emulator -avd Pixel_5_API_27 -port ${{ env.EMULATOR_PORT }} -no-boot-anim -no-audio -no-snapshot-load -gpu host -accel on &
