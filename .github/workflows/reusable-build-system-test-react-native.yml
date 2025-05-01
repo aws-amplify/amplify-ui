@@ -181,10 +181,6 @@ jobs:
           $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager create avd --name Pixel_5_API_27 --force --device "pixel_5" --abi x86_64 --package "system-images;android-27;default;x86_64"
           $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager list avd
 
-          $ANDROID_HOME/emulator/emulator -list-avds
-
-          echo "huh"
-
           # printf 'hw.cpu.ncore=2\n' >> ~/.config/.android/avd/Pixel_5_API_27.avd/config.ini
           # printf 'hw.ramSize=2048\n' >> ~/.config/.android/avd/Pixel_5_API_27.avd/config.ini
           # printf 'hw.heapSize=576\n' >> ~/.config/.android/avd/Pixel_5_API_27.avd/config.ini
@@ -192,7 +188,8 @@ jobs:
       - name: Start Android emulator
         if: ${{ matrix.platform == 'android' }}
         run: |
-          # $ANDROID_HOME/emulator/emulator -list-avds
+          export $HOME=/home/runner/.config
+          $ANDROID_HOME/emulator/emulator -list-avds
           # nohup $ANDROID_HOME/emulator/emulator -avd Pixel_5_API_27 -port ${{ env.EMULATOR_PORT }} -no-boot-anim -no-audio -no-snapshot-load -gpu host -accel on &
           $ANDROID_HOME/emulator/emulator -avd Pixel_5_API_27 -port ${{ env.EMULATOR_PORT }} -no-boot-anim -no-audio -no-snapshot-load -gpu host -accel on &
           $ANDROID_HOME/platform-tools/adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed | tr -d '\r') ]]; do sleep 1; done; input keyevent 82'
@@ -203,6 +200,7 @@ jobs:
           $ANDROID_HOME/platform-tools/adb shell settings put global window_animation_scale 0.0
           $ANDROID_HOME/platform-tools/adb shell settings put global transition_animation_scale 0.0
           $ANDROID_HOME/platform-tools/adb shell settings put global animator_duration_scale 0.0
+          export $HOME=/home/runner
 
       - name: Create MegaApp ${{ env.MEGA_APP_NAME }} and run build on NodeJS ${{ matrix.node-version }}
         run: npm run setup:${{matrix.framework}}:${{matrix.build-tool}} -- --name ${{ env.MEGA_APP_NAME }} --platform ${{matrix.platform}} --tag ${{inputs.dist-tag}} --framework-version ${{matrix.framework-version.value}} --build-tool-version ${{matrix.build-tool-version}}
