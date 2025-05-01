@@ -6,7 +6,7 @@ import { useResolvedComposable } from '../hooks/useResolvedComposable';
 
 jest.mock('../hooks/useFolderNameField');
 jest.mock('../hooks/useResolvedComposable');
-jest.mock('../../composables/FolderNameField', () => ({
+jest.mock('../../components/composables/FolderNameField', () => ({
   FolderNameField: () => <div data-testid="folder-name-field" />,
 }));
 

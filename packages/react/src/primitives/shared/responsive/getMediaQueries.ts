@@ -1,7 +1,7 @@
 // Inspiration for getMediaQueries and useBreakpoint
 // comes from https://github.com/iiroj/use-breakpoint/
 
-import { GetMediaQueries } from '../../types/responsive';
+import type { GetMediaQueries } from '../../types/responsive';
 import { objectKeys } from '../utils';
 
 export const getMediaQueries: GetMediaQueries = ({ breakpoints }) => {

@@ -3,21 +3,27 @@ import React from 'react';
 import { isFunction, isUndefined } from '@aws-amplify/ui';
 
 import { usePaginate } from '../hooks/usePaginate';
-import { useStore } from '../../providers/store';
-import {
+
+import type {
   DownloadHandlerData,
   FileDataItem,
   FileData,
   LocationData,
-  useActionConfigs,
 } from '../../actions';
+import { useActionConfigs } from '../../actions';
+import { useFiles } from '../../files';
+import { useLocationItems } from '../../locationItems';
+import { useStore } from '../../store';
 import { useAction, useList } from '../../useAction';
 
 import { useSearch } from '../hooks/useSearch';
 
-import { Task } from '../../tasks';
+import type { Task } from '../../tasks';
 
-import { LocationDetailViewState, UseLocationDetailViewOptions } from './types';
+import type {
+  LocationDetailViewState,
+  UseLocationDetailViewOptions,
+} from './types';
 
 const DEFAULT_PAGE_SIZE = 100;
 export const DEFAULT_LIST_OPTIONS = {
@@ -47,8 +53,10 @@ export const useLocationDetailView = (
 
   const listOptions = listOptionsRef.current;
 
-  const [{ location, locationItems, actionType }, dispatchStoreAction] =
-    useStore();
+  const [{ location, actionType }, storeDispatch] = useStore();
+  const [locationItems, locationItemsDispatch] = useLocationItems();
+  const filesDispatch = useFiles()[1];
+
   const { current, key } = location;
   const { permissions, prefix } = current ?? {};
   const { fileDataItems } = locationItems;
@@ -56,16 +64,16 @@ export const useLocationDetailView = (
 
   const [{ task }, handleDownload] = useAction('download');
 
-  const [{ data, isLoading, hasError, message }, handleList] =
+  const [{ value, isLoading, hasError, message }, handleList] =
     useList('locationItems');
 
   // set up pagination
-  const { items, nextToken, search } = data;
+  const { items, nextToken, search } = value;
   const { hasExhaustedSearch = false } = search ?? {};
 
   const onPaginate = () => {
     if (hasInvalidPrefix || !nextToken) return;
-    dispatchStoreAction({ type: 'RESET_LOCATION_ITEMS' });
+    locationItemsDispatch({ type: 'RESET_LOCATION_ITEMS' });
     handleList({
       prefix: key,
       options: { ...listOptions, nextToken },
@@ -99,7 +107,7 @@ export const useLocationDetailView = (
     handleReset();
     handleList({ prefix: key, options: searchOptions });
 
-    dispatchStoreAction({ type: 'RESET_LOCATION_ITEMS' });
+    locationItemsDispatch({ type: 'RESET_LOCATION_ITEMS' });
   };
 
   const {
@@ -121,7 +129,7 @@ export const useLocationDetailView = (
       options: { ...listOptions, refresh: true },
     });
 
-    dispatchStoreAction({ type: 'RESET_LOCATION_ITEMS' });
+    locationItemsDispatch({ type: 'RESET_LOCATION_ITEMS' });
   };
 
   React.useEffect(() => {
@@ -177,26 +185,26 @@ export const useLocationDetailView = (
     hasExhaustedSearch,
     onRefresh,
     onActionExit: () => {
-      dispatchStoreAction({ type: 'RESET_ACTION_TYPE' });
+      storeDispatch({ type: 'RESET_ACTION_TYPE' });
     },
     onActionSelect: (nextActionType) => {
       options?.onActionSelect?.(nextActionType);
-      dispatchStoreAction({
-        type: 'SET_ACTION_TYPE',
+      storeDispatch({
+        type: 'CHANGE_ACTION_TYPE',
         actionType: nextActionType,
       });
     },
     onNavigate: (location: LocationData, path?: string) => {
       onNavigate?.(location, path);
       resetSearch();
-      dispatchStoreAction({ type: 'NAVIGATE', location, path });
-      dispatchStoreAction({ type: 'RESET_LOCATION_ITEMS' });
+      storeDispatch({ type: 'CHANGE_LOCATION', location, path });
+      locationItemsDispatch({ type: 'RESET_LOCATION_ITEMS' });
     },
     onDropFiles: (files: File[]) => {
-      dispatchStoreAction({ type: 'ADD_FILE_ITEMS', files });
+      filesDispatch({ type: 'ADD_FILE_ITEMS', files });
 
       const actionType = 'upload';
-      dispatchStoreAction({ type: 'SET_ACTION_TYPE', actionType });
+      storeDispatch({ type: 'CHANGE_ACTION_TYPE', actionType });
       options?.onActionSelect?.(actionType);
     },
     onDownload: (data: FileDataItem) => {
@@ -204,18 +212,18 @@ export const useLocationDetailView = (
     },
     onNavigateHome: () => {
       onExit?.();
-      dispatchStoreAction({ type: 'RESET_LOCATION' });
+      storeDispatch({ type: 'RESET_LOCATION' });
 
       handleList({
         // @todo: prefix should not be required to refresh
         prefix: prefix ?? '',
         options: { reset: true },
       });
-      dispatchStoreAction({ type: 'RESET_ACTION_TYPE' });
-      dispatchStoreAction({ type: 'RESET_LOCATION_ITEMS' });
+      storeDispatch({ type: 'RESET_ACTION_TYPE' });
+      locationItemsDispatch({ type: 'RESET_LOCATION_ITEMS' });
     },
     onSelect: (isSelected: boolean, fileItem: FileData) => {
-      dispatchStoreAction(
+      locationItemsDispatch(
         isSelected
           ? { type: 'REMOVE_LOCATION_ITEM', id: fileItem.id }
           : { type: 'SET_LOCATION_ITEMS', items: [fileItem] }
@@ -225,7 +233,7 @@ export const useLocationDetailView = (
       const fileItems = pageItems.filter(
         (item): item is FileData => item.type === 'FILE'
       );
-      dispatchStoreAction(
+      locationItemsDispatch(
         fileItems.length === fileDataItems?.length
           ? { type: 'RESET_LOCATION_ITEMS' }
           : { type: 'SET_LOCATION_ITEMS', items: fileItems }

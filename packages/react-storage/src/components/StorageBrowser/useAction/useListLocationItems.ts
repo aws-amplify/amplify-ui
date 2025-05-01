@@ -1,22 +1,22 @@
 import React from 'react';
 
-import { useDataState } from '@aws-amplify/ui-react-core';
+import { useAsyncReducer } from '@aws-amplify/ui-react-core';
 
-import {
+import type {
   LocationItemType,
   ListLocationItemsHandler,
   LocationItemData,
 } from '../actions';
-import { useGetActionInput } from '../providers/configuration';
+import { useGetActionInput } from '../configuration';
 
 import { USE_LIST_ERROR_MESSAGE } from './constants';
 import { useActionHandlers } from './context';
-import {
-  createEnhancedListHandler,
+import type {
   EnhancedListHandlerInput,
   EnhancedListHandlerOutput,
 } from './createEnhancedListHandler';
-import { ListActionState } from './types';
+import { createEnhancedListHandler } from './createEnhancedListHandler';
+import type { ListActionState } from './types';
 
 type RemoveConfig<T> = Omit<T, 'config'>;
 
@@ -48,7 +48,7 @@ export const useListLocationItems = (): UseListLocationItemsState => {
     [getConfig, listLocationItems]
   );
 
-  return useDataState(enhancedHandler, {
+  return useAsyncReducer(enhancedHandler, {
     items: [],
     nextToken: undefined,
   });

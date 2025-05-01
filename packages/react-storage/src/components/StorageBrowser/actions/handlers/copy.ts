@@ -1,5 +1,6 @@
-import { copy, CopyInput } from '../../storage-internal';
-import {
+import type { CopyInput } from '../../storage-internal';
+import { copy } from '../../storage-internal';
+import type {
   OptionalFileData,
   TaskData,
   TaskHandler,
@@ -67,6 +68,9 @@ export const copyHandler: CopyHandler = (input) => {
         status: 'COMPLETE' as const,
         value: { key: path },
       }))
-      .catch(({ message }: Error) => ({ message, status: 'FAILED' })),
+      .catch((error: Error) => {
+        const { message } = error;
+        return { error, message, status: 'FAILED' };
+      }),
   };
 };

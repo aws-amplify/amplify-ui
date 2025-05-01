@@ -1,14 +1,10 @@
-export { componentsDefault } from './componentsDefault';
-export { createStorageBrowser } from './createStorageBrowser';
-export {
+export type {
   ActionHandler,
   ActionViewConfig,
   CopyHandlerInput,
   CopyHandlerOutput,
   CreateFolderHandlerInput,
   CreateFolderHandlerOutput,
-  defaultActionConfigs,
-  defaultHandlers,
   DefaultHandlers,
   DeleteHandlerInput,
   DeleteHandlerOutput,
@@ -26,18 +22,18 @@ export {
   UploadHandlerInput,
   UploadHandlerOutput,
 } from './actions';
-export {
-  createAmplifyAuthAdapter,
-  createManagedAuthAdapter,
+export { defaultActionConfigs, defaultHandlers } from './actions';
+export type {
   CreateManagedAuthAdapterInput,
   StorageBrowserAuthAdapter,
 } from './adapters';
-export { StorageBrowserComponents } from './ComponentsProvider';
-export {
-  DefaultStorageBrowserDisplayText,
-  StorageBrowserDisplayText,
-} from './displayText';
-export {
+export { createAmplifyAuthAdapter, createManagedAuthAdapter } from './adapters';
+export type {
+  StorageBrowserComponents,
+  StorageBrowserIconType,
+} from './components';
+export { componentsDefault } from './components';
+export type {
   CreateStorageBrowserInput,
   CreateStorageBrowserOutput,
   DerivedActionViews,
@@ -46,5 +42,9 @@ export {
   StorageBrowserProps,
   StorageBrowserProviderProps,
   StorageBrowserType,
-} from './types';
-export { UseView } from './views';
+} from './createStorageBrowser';
+export { createStorageBrowser } from './createStorageBrowser';
+export type { StorageBrowserDisplayText } from './displayText';
+export { DefaultStorageBrowserDisplayText } from './displayText';
+export type { StorageBrowserEventValue, StorageBrowserValue } from './store';
+export type { UseView } from './views';

@@ -1,9 +1,9 @@
 import React, { useMemo } from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
+import type { AuthenticatorMachineContext } from '@aws-amplify/ui-react-core';
 import {
   AuthenticatorProvider as Provider,
-  AuthenticatorMachineContext,
   resolveAuthenticatorComponents,
   useAuthenticator,
   useAuthenticatorRoute,
@@ -13,8 +13,9 @@ import {
 
 import { useDeprecationWarning } from '../hooks';
 import { DefaultContainer, InnerContainer } from './common';
-import { TypedField, getRouteTypedFields } from './hooks';
-import { AuthenticatorProps } from './types';
+import type { TypedField } from './hooks';
+import { getRouteTypedFields } from './hooks';
+import type { AuthenticatorProps } from './types';
 import { VERSION } from '../version';
 
 import {

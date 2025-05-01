@@ -2,11 +2,11 @@ import * as React from 'react';
 import { classNames } from '@aws-amplify/ui';
 
 import { ComponentClassName, isFunction } from '@aws-amplify/ui';
-import { ElementType, PrimitiveProps } from '../types/view';
+import type { ElementType, PrimitiveProps } from '../types/view';
 import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
-import { ForwardRefPrimitive, Primitive } from '../types/view';
+import type { ForwardRefPrimitive, Primitive } from '../types/view';
 import { View } from '../View';
-import { BaseAccordionProps } from './types';
+import type { BaseAccordionProps } from './types';
 import { AccordionContext } from './AccordionContext';
 
 type BaseAccordionContainerProps = Omit<BaseAccordionProps, 'items'>;

@@ -11,7 +11,8 @@ import { useCustomComponents } from '../hooks/useCustomComponents';
 import { useFormHandlers } from '../hooks/useFormHandlers';
 import { ConfirmSignInFooter } from '../shared/ConfirmSignInFooter';
 import { RemoteErrorMessage } from '../shared/RemoteErrorMessage';
-import { RouteContainer, RouteProps } from '../RouteContainer';
+import type { RouteProps } from '../RouteContainer';
+import { RouteContainer } from '../RouteContainer';
 
 const {
   getMfaTypeLabelByValue,

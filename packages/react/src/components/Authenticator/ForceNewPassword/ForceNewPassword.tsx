@@ -9,7 +9,8 @@ import { useAuthenticator } from '@aws-amplify/ui-react-core';
 import { useCustomComponents } from '../hooks/useCustomComponents';
 import { useFormHandlers } from '../hooks/useFormHandlers';
 import { FormFields as DefaultFormFields } from '../shared/FormFields';
-import { RouteContainer, RouteProps } from '../RouteContainer';
+import type { RouteProps } from '../RouteContainer';
+import { RouteContainer } from '../RouteContainer';
 
 const { getChangePasswordText, getChangingText, getBackToSignInText } =
   authenticatorTextUtil;

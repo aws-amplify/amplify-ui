@@ -1,4 +1,4 @@
-import {
+import type {
   DesignTokenValues,
   OutputVariantKey,
   RecursiveDesignToken,
@@ -9,7 +9,7 @@ type Duration = 'short' | 'medium' | 'long';
 
 export type Time<
   Output extends OutputVariantKey = unknown,
-  Platform = unknown
+  Platform = unknown,
 > = DesignTokenValues<Duration, TimeValue<Platform, Output>, Output, Platform> &
   RecursiveDesignToken<TimeValue<Platform, Output>, Output, Platform>;
 

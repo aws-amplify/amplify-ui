@@ -1,15 +1,15 @@
-import {
+import type {
   CopyHandlerData,
   DeleteHandlerData,
   UploadHandlerData,
 } from '../../../actions';
-import {
+import type {
   CopyViewDisplayText,
   DeleteViewDisplayText,
   UploadViewDisplayText,
 } from '../../../displayText';
-import { Task } from '../../../tasks';
-import { DataTableResolvers } from '../../hooks/useResolveTableData';
+import type { Task } from '../../../tasks';
+import type { DataTableResolvers } from '../../hooks/useResolveTableData';
 
 export interface CopyActionTask extends Task<CopyHandlerData> {}
 export interface DeleteActionTask extends Task<DeleteHandlerData> {}

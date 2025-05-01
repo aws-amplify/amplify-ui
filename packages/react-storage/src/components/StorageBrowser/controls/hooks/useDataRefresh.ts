@@ -1,5 +1,5 @@
-import { DataRefreshProps } from '../../composables/DataRefresh';
-import { useControlsContext } from '../../controls/context';
+import type { DataRefreshProps } from '../../components/composables/DataRefresh';
+import { useControlsContext } from '../context';
 
 export const useDataRefresh = (): DataRefreshProps => {
   const {

@@ -1,7 +1,7 @@
 import React from 'react';
-import { ExtendedActionConfigs } from '../../actions';
-import { StorageBrowserViews } from '../types';
-import { ViewsContextType } from './types';
+import type { ExtendedActionConfigs } from '../../actions';
+import type { StorageBrowserViews } from '../types';
+import type { ViewsContextType } from './types';
 import { getViews } from './getViews';
 import { ActionViewsContext } from './actionViews';
 import { PrimaryViewsContext } from './primaryViews';

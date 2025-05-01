@@ -6,10 +6,10 @@ import { ComponentClassName } from '@aws-amplify/ui';
 import { FieldDescription, FieldErrorMessage } from '../Field';
 import { Flex } from '../Flex';
 import { Label } from '../Label';
-import { ForwardRefPrimitive, Primitive } from '../types';
+import type { ForwardRefPrimitive, Primitive } from '../types';
 import { splitPrimitiveProps } from '../utils/splitPrimitiveProps';
 import { TextArea, AutoresizeTextArea } from '../TextArea';
-import {
+import type {
   BaseTextAreaFieldProps,
   TextAreaFieldProps,
 } from '../types/textAreaField';

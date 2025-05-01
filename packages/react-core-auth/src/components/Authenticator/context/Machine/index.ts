@@ -1,2 +1,2 @@
 export { MachineProvider, useMachine } from './MachineContext';
-export { UseMachine, UseMachineSelector } from './types';
+export type { UseMachine, UseMachineSelector } from './types';

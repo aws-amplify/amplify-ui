@@ -1,5 +1,5 @@
 export { LocationsView } from './LocationsView';
-export {
+export type {
   LocationsViewProps,
   LocationsViewState,
   LocationsViewType,

@@ -10,7 +10,8 @@ import { useFormHandlers } from '../hooks/useFormHandlers';
 import { ConfirmSignInFooter } from '../shared/ConfirmSignInFooter';
 import { RemoteErrorMessage } from '../shared/RemoteErrorMessage';
 import { FormFields } from '../shared/FormFields';
-import { RouteContainer, RouteProps } from '../RouteContainer';
+import type { RouteProps } from '../RouteContainer';
+import { RouteContainer } from '../RouteContainer';
 
 const { getSetupEmailText } = authenticatorTextUtil;
 

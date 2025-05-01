@@ -1,10 +1,11 @@
 import { humanFileSize } from '@aws-amplify/ui';
 
-import {
+import type {
   DataTableButtonDataCell,
   DataTableNumberDataCell,
-} from '../../../composables/DataTable';
-import {
+} from '../../../components';
+
+import type {
   CopyActionTask,
   DeleteActionTask,
   GetCopyCell,

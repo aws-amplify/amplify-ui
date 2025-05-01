@@ -1,7 +1,7 @@
-import { AuthenticatorRoute } from '@aws-amplify/ui';
+import type { AuthenticatorRoute } from '@aws-amplify/ui';
 
 import { RenderNothing } from '../../../components';
-import {
+import type {
   AuthenticatorMachineContext,
   AuthenticatorMachineContextKey,
   AuthenticatorRouteComponentKey,
@@ -10,13 +10,13 @@ import {
   Defaults,
 } from '../types';
 
-import {
+import type {
   UseAuthenticator,
   UseAuthenticatorSelector,
 } from '../useAuthenticator';
 import { isComponentRouteKey } from '../utils';
 import { MACHINE_PROP_KEYS, EVENT_HANDLER_KEY_MAP } from './constants';
-import {
+import type {
   ConvertedMachineProps,
   FormEventHandlerMachineKey,
   FormEventHandlerPropKey,

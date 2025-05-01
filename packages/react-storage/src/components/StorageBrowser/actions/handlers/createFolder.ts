@@ -1,7 +1,7 @@
 import { isFunction } from '@aws-amplify/ui';
 import { uploadData } from '../../storage-internal';
 
-import {
+import type {
   TaskData,
   TaskHandler,
   TaskHandlerInput,
@@ -58,11 +58,12 @@ export const createFolderHandler: CreateFolderHandler = (input) => {
         status: 'COMPLETE' as const,
         value: { key: path },
       }))
-      .catch(({ message, name }: Error) => {
+      .catch((error: Error) => {
+        const { message, name } = error;
         if (name === 'PreconditionFailed') {
-          return { message, status: 'OVERWRITE_PREVENTED' };
+          return { error, message, status: 'OVERWRITE_PREVENTED' };
         }
-        return { message, status: 'FAILED' };
+        return { error, message, status: 'FAILED' };
       }),
   };
 };

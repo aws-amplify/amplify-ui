@@ -1,4 +1,4 @@
-import { Config } from 'jest';
+import type { Config } from 'jest';
 
 const config: Config = {
   collectCoverage: true,
@@ -15,16 +15,15 @@ const config: Config = {
     global: {
       // TEMP REDUCE COVERAGE
       // branches: 87,
-      branches: 84,
+      branches: 85,
       // functions: 90,
-      functions: 87,
+      functions: 88,
       lines: 95,
-      // statements: 95,
-      statements: 94,
+      statements: 95,
     },
   },
   moduleNameMapper: { '^uuid$': '<rootDir>/../../node_modules/uuid' },
-  modulePathIgnorePatterns: ['c/dist/'],
+  modulePathIgnorePatterns: ['<rootDir>/dist/'],
   testPathIgnorePatterns: [
     '<rootDir>/src/components/StorageBrowser/displayText/libraries/en/__tests__/scenarios.ts',
     '__testUtils__/',

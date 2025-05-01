@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { useDataState } from '@aws-amplify/ui-react-core';
+import { useAsyncReducer } from '@aws-amplify/ui-react-core';
 
-import {
+import type {
   LocationItemType,
   FolderData,
   ListLocationItemsHandlerInput,
@@ -11,13 +11,13 @@ import {
 
 import { USE_LIST_ERROR_MESSAGE } from './constants';
 import { useActionHandlers } from './context';
-import {
-  createEnhancedListHandler,
+import type {
   EnhancedListHandlerInput,
   EnhancedListHandlerOutput,
 } from './createEnhancedListHandler';
-import { ListActionState } from './types';
-import { useGetActionInput } from '../providers/configuration';
+import { createEnhancedListHandler } from './createEnhancedListHandler';
+import type { ListActionState } from './types';
+import { useGetActionInput } from '../configuration';
 
 type RemoveConfig<T> = Omit<T, 'config'>;
 interface EnhancedInput
@@ -58,7 +58,7 @@ export const useListFolderItems = (): UseListFolderItemsState => {
     [getConfig, listLocationItems]
   );
 
-  return useDataState(enhancedHandler, {
+  return useAsyncReducer(enhancedHandler, {
     items: [],
     nextToken: undefined,
   });

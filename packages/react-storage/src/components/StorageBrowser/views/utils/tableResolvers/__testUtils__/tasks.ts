@@ -1,7 +1,11 @@
 import { MULTIPART_UPLOAD_THRESHOLD_BYTES } from '../../../../actions/handlers/constants';
+import type { TaskStatus } from '../../../../tasks';
 
-import { CopyActionTask, DeleteActionTask, UploadActionTask } from '../types';
-import { TaskStatus } from '../../../../tasks';
+import type {
+  CopyActionTask,
+  DeleteActionTask,
+  UploadActionTask,
+} from '../types';
 
 type MockCopyOrDeleteTaskStatus = Exclude<TaskStatus, 'OVERWRITE_PREVENTED'>;
 

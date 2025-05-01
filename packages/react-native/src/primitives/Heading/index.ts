@@ -1,2 +1,2 @@
 export { default as Heading } from './Heading';
-export { HeadingProps, HeadingStyles } from './types';
+export type { HeadingProps, HeadingStyles } from './types';

@@ -1,5 +1,5 @@
-import { TextStyle, ViewProps, ViewStyle } from 'react-native';
-import { RadioProps } from '../Radio';
+import type { TextStyle, ViewProps, ViewStyle } from 'react-native';
+import type { RadioProps } from '../Radio';
 
 export type Direction = 'vertical' | 'horizontal';
 

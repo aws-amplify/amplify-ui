@@ -1,7 +1,7 @@
 import { Platform, StyleSheet } from 'react-native';
 
-import { StrictTheme } from '../../theme';
-import { TextFieldStyles } from './types';
+import type { StrictTheme } from '../../theme';
+import type { TextFieldStyles } from './types';
 
 export const getThemedStyles = (theme: StrictTheme): TextFieldStyles => {
   const {

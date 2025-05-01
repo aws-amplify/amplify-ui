@@ -1,20 +1,20 @@
 import { ConsoleLogger as Logger } from 'aws-amplify/utils';
+import type { ValidationError } from '@aws-amplify/ui';
 import {
   authenticatorTextUtil,
   isString,
   isUnverifiedContactMethodType,
   isValidEmail,
   UnverifiedContactMethodType,
-  ValidationError,
 } from '@aws-amplify/ui';
-import {
+import type {
   AuthenticatorLegacyField,
   AuthenticatorRouteComponentName,
-  isAuthenticatorComponentRouteKey,
   UseAuthenticator,
 } from '@aws-amplify/ui-react-core';
+import { isAuthenticatorComponentRouteKey } from '@aws-amplify/ui-react-core';
 
-import {
+import type {
   AuthenticatorFieldTypeKey,
   MachineFieldTypeKey,
   RadioFieldOptions,

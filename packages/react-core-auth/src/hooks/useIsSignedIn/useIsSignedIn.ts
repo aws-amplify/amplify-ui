@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { Hub, HubCallback } from '@aws-amplify/core';
+import type { HubCallback } from '@aws-amplify/core';
+import { Hub } from '@aws-amplify/core';
 import { isFunction } from '@aws-amplify/ui';
 
 export interface UseIsSignedInParams {

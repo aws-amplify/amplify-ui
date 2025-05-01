@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { AuthInterpreter, AuthStatus } from '@aws-amplify/ui';
+import type { AuthInterpreter, AuthStatus } from '@aws-amplify/ui';
 
 /**
  * Authenticator React.Context type

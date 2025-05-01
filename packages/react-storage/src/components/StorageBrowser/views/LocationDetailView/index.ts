@@ -1,5 +1,5 @@
 export { LocationDetailView } from './LocationDetailView';
-export {
+export type {
   LocationDetailViewProps,
   LocationDetailViewState,
   LocationDetailViewType,

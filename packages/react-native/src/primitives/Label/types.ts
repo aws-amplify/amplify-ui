@@ -1,4 +1,4 @@
-import { TextProps, TextStyle } from 'react-native';
+import type { TextProps, TextStyle } from 'react-native';
 
 export interface LabelProps extends TextProps {
   /**

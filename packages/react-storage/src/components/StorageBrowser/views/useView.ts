@@ -1,18 +1,19 @@
-import {
-  useCopyView,
+import type {
   UploadViewState,
   CreateFolderViewState,
   DeleteViewState,
   CopyViewState,
+} from './LocationActionView';
+import {
+  useCopyView,
   useCreateFolderView,
   useUploadView,
   useDeleteView,
 } from './LocationActionView';
-import {
-  useLocationDetailView,
-  LocationDetailViewState,
-} from './LocationDetailView';
-import { useLocationsView, LocationsViewState } from './LocationsView';
+import type { LocationDetailViewState } from './LocationDetailView';
+import { useLocationDetailView } from './LocationDetailView';
+import type { LocationsViewState } from './LocationsView';
+import { useLocationsView } from './LocationsView';
 
 interface DefaultUseViewStates {
   Copy: CopyViewState;

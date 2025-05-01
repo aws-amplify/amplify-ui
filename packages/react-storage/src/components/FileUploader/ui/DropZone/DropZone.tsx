@@ -5,7 +5,7 @@ import { ComponentClassName } from '@aws-amplify/ui';
 import { View, Text } from '@aws-amplify/ui-react';
 import { classNameModifier } from '@aws-amplify/ui';
 import { IconUpload, useIcons } from '@aws-amplify/ui-react/internal';
-import { DropZoneProps } from './types';
+import type { DropZoneProps } from './types';
 
 export function DropZone({
   children,

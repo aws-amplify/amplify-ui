@@ -1,9 +1,10 @@
 import { isCancelError } from 'aws-amplify/storage';
 import { isFunction } from '@aws-amplify/ui';
 
-import { uploadData, UploadDataInput } from '../../storage-internal';
+import type { UploadDataInput } from '../../storage-internal';
+import { uploadData } from '../../storage-internal';
 
-import {
+import type {
   TaskData,
   TaskHandler,
   TaskHandlerInput,
@@ -71,12 +72,11 @@ export const uploadHandler: UploadHandler = ({ config, data, options }) => {
       .catch((error: Error) => {
         const { message } = error;
         if (error.name === 'PreconditionFailed') {
-          return { message, status: 'OVERWRITE_PREVENTED' };
+          return { error, message, status: 'OVERWRITE_PREVENTED' };
         }
-        return {
-          message,
-          status: isCancelError(error) ? 'CANCELED' : 'FAILED',
-        };
+
+        const status = isCancelError(error) ? 'CANCELED' : 'FAILED';
+        return { error, message, status };
       }),
   };
 };

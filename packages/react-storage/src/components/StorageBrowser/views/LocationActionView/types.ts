@@ -1,8 +1,7 @@
-import { LocationData, TaskData } from '../../actions';
-import { WithKey } from '../../components/types';
-import { DataTableProps } from '../../composables/DataTable';
-import { LocationState } from '../../providers/store/location';
-import { StatusCounts, Task } from '../../tasks';
+import type { LocationData, TaskData } from '../../actions';
+import type { DataTableProps, WithKey } from '../../components';
+import type { LocationState } from '../../store';
+import type { StatusCounts, Task } from '../../tasks';
 
 export interface ActionViewState<T extends TaskData = TaskData> {
   isProcessing: boolean;

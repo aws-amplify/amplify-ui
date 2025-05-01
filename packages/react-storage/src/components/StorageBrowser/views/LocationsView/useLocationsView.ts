@@ -1,13 +1,13 @@
 import React from 'react';
 
-import { ListLocationsExcludeOptions, LocationData } from '../../actions';
-import { useStore } from '../../providers/store';
+import type { ListLocationsExcludeOptions, LocationData } from '../../actions';
+import { getFileKey } from '../../actions';
+import { useStore } from '../../store';
 import { useAction, useList } from '../../useAction';
 
 import { usePaginate } from '../hooks/usePaginate';
 import { useSearch } from '../hooks/useSearch';
-import { LocationsViewState, UseLocationsViewOptions } from './types';
-import { getFileKey } from '../../actions/handlers';
+import type { LocationsViewState, UseLocationsViewOptions } from './types';
 
 const DEFAULT_EXCLUDE: ListLocationsExcludeOptions = {
   exactPermissions: ['delete', 'write'],
@@ -25,8 +25,8 @@ export const useLocationsView = (
   const [state, handleList] = useList('locations');
   const dispatchStoreAction = useStore()[1];
 
-  const { data, message, hasError, isLoading } = state;
-  const { items, nextToken, search } = data;
+  const { value, message, hasError, isLoading } = state;
+  const { items, nextToken, search } = value;
   const hasNextToken = !!nextToken;
   const { hasExhaustedSearch = false } = search ?? {};
 
@@ -103,7 +103,7 @@ export const useLocationsView = (
     },
     onNavigate: (location: LocationData) => {
       onNavigate?.(location);
-      dispatchStoreAction({ type: 'NAVIGATE', location });
+      dispatchStoreAction({ type: 'CHANGE_LOCATION', location });
     },
     onRefresh: () => {
       resetSearch();

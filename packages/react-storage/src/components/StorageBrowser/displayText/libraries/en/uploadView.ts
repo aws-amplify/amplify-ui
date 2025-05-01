@@ -1,5 +1,5 @@
 import { DEFAULT_ACTION_VIEW_DISPLAY_TEXT } from './shared';
-import { DefaultUploadViewDisplayText } from '../../types';
+import type { DefaultUploadViewDisplayText } from '../../types';
 import { isFileTooBig } from '../../../validators';
 
 export const DEFAULT_UPLOAD_VIEW_DISPLAY_TEXT: DefaultUploadViewDisplayText = {
@@ -20,8 +20,8 @@ export const DEFAULT_UPLOAD_VIEW_DISPLAY_TEXT: DefaultUploadViewDisplayText = {
     const type = hasFailure
       ? 'error'
       : hasPreventedOverwrite || hasCanceled
-        ? 'warning'
-        : 'success';
+      ? 'warning'
+      : 'success';
 
     const preventedOverwriteMessage = hasPreventedOverwrite
       ? [

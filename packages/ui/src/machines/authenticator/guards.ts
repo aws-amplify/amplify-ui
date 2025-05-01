@@ -1,13 +1,13 @@
-import {
+import type {
   FetchUserAttributesOutput,
   ResetPasswordOutput,
   SignInOutput,
   SignUpOutput,
 } from 'aws-amplify/auth';
 
-import { MachineOptions } from 'xstate';
+import type { MachineOptions } from 'xstate';
 
-import { AuthActorContext, AuthEvent, Step } from './types';
+import type { AuthActorContext, AuthEvent, Step } from './types';
 
 const SIGN_IN_STEP_MFA_CONFIRMATION: Step[] = [
   'CONFIRM_SIGN_IN_WITH_SMS_CODE',
@@ -95,8 +95,12 @@ const shouldVerifyAttribute = (
   _: AuthActorContext,
   { data }: AuthEvent
 ): boolean => {
-  const { phone_number_verified, email_verified } =
+  const { email, phone_number, phone_number_verified, email_verified } =
     data as FetchUserAttributesOutput;
+
+  // if neither email nor phone_number exist
+  // there is nothing to verify
+  if (!email && !phone_number) return false;
 
   // email/phone_verified is returned as a string
   const emailNotVerified =

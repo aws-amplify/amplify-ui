@@ -9,7 +9,8 @@ import { useFormHandlers } from '../hooks/useFormHandlers';
 import { RemoteErrorMessage } from '../shared/RemoteErrorMessage';
 import { TwoButtonSubmitFooter } from '../shared/TwoButtonSubmitFooter';
 import { FormFields } from '../shared/FormFields';
-import { RouteContainer, RouteProps } from '../RouteContainer';
+import type { RouteProps } from '../RouteContainer';
+import { RouteContainer } from '../RouteContainer';
 
 const { getAccountRecoveryInfoText, getSkipText } = authenticatorTextUtil;
 

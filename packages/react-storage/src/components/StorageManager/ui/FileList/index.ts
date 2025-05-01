@@ -1,2 +1,2 @@
 export { FileList } from './FileList';
-export { FileListProps } from './types';
+export type { FileListProps } from './types';

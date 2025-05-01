@@ -1,9 +1,8 @@
-import React from 'react';
-import { DataState } from '@aws-amplify/ui-react-core';
+import type React from 'react';
+import type { AsyncReducerState } from '@aws-amplify/ui-react-core';
 
-import {
+import type {
   ActionHandler,
-  ExtendedActionConfigs,
   CopyHandler,
   CreateFolderHandler,
   DeleteHandler,
@@ -13,10 +12,12 @@ import {
   LocationData,
   UploadHandler,
 } from '../actions';
-import { ProcessTasksOptions, StatusCounts, Task } from '../tasks';
+
+import type { ProcessTasksOptions, StatusCounts, Task } from '../tasks';
+import type { StorageBrowserActions } from '../createStorageBrowser';
 
 export type ListActionState<T = any, K = any> = [
-  state: DataState<T>,
+  state: AsyncReducerState<T>,
   handleAction: (...input: K[]) => void,
 ];
 
@@ -41,18 +42,16 @@ export interface ActionHandlersProviderProps extends ActionHandlersContext {
   children?: React.ReactNode;
 }
 
-type DerivedCustomActions<T> = T extends { custom?: infer U } ? U : {};
-
 export type ResolveHandlerType<T> = T extends { handler: infer X } | infer X
   ? X
   : never;
 
-export type DerivedActionHandlers<
-  C extends ExtendedActionConfigs = ExtendedActionConfigs,
-  D extends DerivedCustomActions<C> = DerivedCustomActions<C>,
-> = DefaultActionHandlers & {
-  [K in keyof D]: ResolveHandlerType<D[K]>;
-};
+export type DerivedActionHandlers<TActions extends StorageBrowserActions> =
+  DefaultActionHandlers & {
+    [K in keyof NonNullable<TActions['custom']>]: ResolveHandlerType<
+      NonNullable<TActions['custom']>[K]
+    >;
+  };
 
 export type InferTask<THandler> = THandler extends ActionHandler<
   infer TData,
@@ -129,29 +128,36 @@ export type UseActionState<TTask extends Task> = [
 ];
 
 /**
- * `StorageBrowser` utility hook used to run default and custom action handlers
- * from within a parent `StorageBrowser.Provider`. `useAction` provides the
- * action handler with the current `location` state and credentials values,
- * as well as any parameters provided as `data` at the `useAction` call site
+ * @description `StorageBrowser` utility hook used to run default and custom action handlers from within a parent `StorageBrowser.Provider`. `useAction` provides the action handler with the current `location` state and credentials values, as well as any parameters provided as `data` at the `useAction` call site. accepts `handler` key to be run as initial argument and `options` with `items` as second. Returns batch tasks or atomic task state and `handler` accepting optional input allowing for location override
+ * @example
+ * batch actions - Returns batch task state and `handler` accepting optional input allowing for location override
+ * ```tsx
+ * // provide array of `items` to intialize `useAction` with batch handling behavior
+ * const items = [];
+ * const [{ tasks }, dispatchActions] = useAction('upload', { items })
+ *
+ * <button onClick={() => dispatchActions()}>start uploads</button>
+ * ```
+ *
+ * @example
+ * atomic action - returns atomic task `state` and `handler``input`, `handler` requires `input` containing `data` and `options`
+ * ```tsx
+ * // handler data
+ * const data = {}
+ * // do not provide `items` for atomic handling behavior
+ * const [{ task }, dispatchAction] = useAction('upload')
+ *
+ * <button onClick={() => dispatchAction({ data })}>start upload</button>
+ * ```
  */
 export interface UseAction<
   Handlers extends Record<keyof Handlers, ActionHandler>,
 > {
-  /**
-   * accepts `handler` to be run as initial argument and `options` with `items`
-   * as second. Returns batch task state and `handler` accoeting optional input
-   * allowing for location override
-   */
   <K extends keyof Handlers, TTask extends InferTask<Handlers[K]>>(
     key: K,
     options: UseActionOptionsWithItems<TTask>
   ): UseActionsState<TTask>;
 
-  /**
-   * * accepts `handler` to be run as initial argument and `options` as second.
-   * Returns atomic task `state` and `handler``input`, `handler`  requires `input`
-   * containing `data` and `options`
-   */
   <K extends keyof Handlers, TTask extends InferTask<Handlers[K]>>(
     key: K,
     options?: UseActionOptions<TTask>

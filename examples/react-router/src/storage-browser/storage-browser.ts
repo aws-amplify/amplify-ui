@@ -4,15 +4,15 @@ import {
 } from '@aws-amplify/ui-react-storage/browser';
 import '@aws-amplify/ui-react-storage/styles.css';
 import {
-  MockHandlers,
   InitialValues,
+  MockHandlers,
 } from '@aws-amplify/ui-test-utils/storage-browser';
 
 export const PREFIXES = {
   base: 'my-prefix/',
   nested: 'my-nested-prefix/',
   deeplyNested: 'my-deeply-nested-prefix/',
-};
+} as const;
 
 export const INITIAL_VALUES: InitialValues = {
   locations: [
@@ -39,6 +39,7 @@ export const INITIAL_VALUES: InitialValues = {
         type: 'FOLDER',
       },
     ],
+    [`${PREFIXES.base}${PREFIXES.nested}${PREFIXES.deeplyNested}`]: [],
   },
 };
 

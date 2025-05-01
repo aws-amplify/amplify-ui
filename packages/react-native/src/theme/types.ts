@@ -1,6 +1,6 @@
-import { ReactNativeTokens } from '@aws-amplify/ui';
+import type { ReactNativeTokens } from '@aws-amplify/ui';
 
-import {
+import type {
   ButtonStyles,
   CheckboxStyles,
   DividerStyles,

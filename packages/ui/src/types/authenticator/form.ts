@@ -1,5 +1,5 @@
-import { ResourcesConfig } from 'aws-amplify';
-import { AuthFieldsWithDefaults } from './attributes';
+import type { ResourcesConfig } from 'aws-amplify';
+import type { AuthFieldsWithDefaults } from './attributes';
 
 /**
  * Map of each input name to its value

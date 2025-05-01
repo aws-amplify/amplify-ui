@@ -6,7 +6,7 @@ import { useResolvedComposable } from '../hooks/useResolvedComposable';
 
 jest.mock('../hooks/useSearchField');
 jest.mock('../hooks/useResolvedComposable');
-jest.mock('../../composables/SearchField', () => ({
+jest.mock('../../components/composables/SearchField', () => ({
   SearchField: () => <div data-testid="search-field" />,
 }));
 

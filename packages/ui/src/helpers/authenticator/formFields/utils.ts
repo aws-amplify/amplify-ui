@@ -1,6 +1,6 @@
 import { translate } from '../../../i18n/translations';
-import { FormFields, FormFieldsArray } from '../../../types';
-import { AuthMachineState } from '../../../machines/authenticator/types';
+import type { FormFields, FormFieldsArray } from '../../../types';
+import type { AuthMachineState } from '../../../machines/authenticator/types';
 
 export const getPrimaryAlias = (state: AuthMachineState) => {
   const loginMechanisms = state?.context.config?.loginMechanisms;

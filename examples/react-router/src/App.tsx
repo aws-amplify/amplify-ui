@@ -10,7 +10,7 @@ const ExampleLinks = () => {
   return (
     <Flex direction="column">
       <Heading level={3}>StorageBrowser</Heading>
-      {SBExamples.map(({ payload, subpath, title }) => (
+      {SBExamples.map(({ payload = '', subpath, title }) => (
         <Link
           key={subpath}
           to={`${pathname}storage-browser/${subpath}${payload}`}

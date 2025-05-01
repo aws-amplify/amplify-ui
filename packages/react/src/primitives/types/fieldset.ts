@@ -1,9 +1,9 @@
-import * as React from 'react';
+import type * as React from 'react';
 
-import { Sizes } from './base';
-import { BaseViewProps } from './view';
-import { FlexContainerStyleProps } from './flex';
-import { ElementType, PrimitiveProps } from './view';
+import type { Sizes } from './base';
+import type { BaseViewProps } from './view';
+import type { FlexContainerStyleProps } from './flex';
+import type { ElementType, PrimitiveProps } from './view';
 
 /** @deprecated For internal use only */
 export interface BaseFieldsetProps

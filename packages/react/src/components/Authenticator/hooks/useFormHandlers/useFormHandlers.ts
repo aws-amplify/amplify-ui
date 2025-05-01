@@ -1,4 +1,4 @@
-import * as React from 'react';
+import type * as React from 'react';
 import { useCallback } from 'react';
 import { getFormDataFromEvent } from '../../../../helpers/utils';
 import { useAuthenticator } from '@aws-amplify/ui-react-core';

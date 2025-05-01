@@ -3,22 +3,17 @@ export {
   ComponentRouteProvider,
   useComponentRoute,
 } from './ComponentRoute';
+export type { DisplayText, DisplayTextDefault } from './DisplayText';
 export {
   displayTextEn,
-  DisplayText,
-  DisplayTextDefault,
   DisplayTextProvider,
   useDisplayText,
 } from './DisplayText';
 export { MachineProvider, useMachine } from './Machine';
 export { MfaProvider, useMfa } from './Mfa';
-export {
-  isReactNative,
-  Platform,
-  PlatformProvider,
-  usePlatform,
-} from './Platform';
-export {
+export type { Platform } from './Platform';
+export { isReactNative, PlatformProvider, usePlatform } from './Platform';
+export type {
   ActionsControlType,
   Components,
   CompoundControlName,
@@ -28,11 +23,10 @@ export {
   LinksControlType,
   NonPrimitiveControls,
   PickControls,
-  PrimitivesProvider,
   PrimitiveControlName,
   PrimitivesDefault,
   SetupTotpControlType,
   SubmitHandler,
   VerifyContactMethodControlType,
-  usePrimitives,
 } from './Primitives';
+export { PrimitivesProvider, usePrimitives } from './Primitives';

@@ -1,12 +1,12 @@
 import { renderHook } from '@testing-library/react';
 
-import { useGetActionInput } from '../../providers/configuration';
+import { useGetActionInput } from '../../configuration';
 import { useProcessTasks } from '../../tasks';
 
 import { useHandler } from '../useHandler';
 import { DEFAULT_ACTION_CONCURRENCY } from '../constants';
 
-jest.mock('../../providers/configuration');
+jest.mock('../../configuration');
 jest.mock('../../tasks');
 
 const useProcessTasksMock = jest.mocked(useProcessTasks);
@@ -120,7 +120,10 @@ describe('useHandler', () => {
     dispatch();
 
     expect(mockUseProcessDispatch).toHaveBeenCalledTimes(1);
-    expect(mockUseProcessDispatch).toHaveBeenCalledWith({ config });
+    expect(mockUseProcessDispatch).toHaveBeenCalledWith({
+      config,
+      options: { concurrency: DEFAULT_ACTION_CONCURRENCY },
+    });
   });
 
   it('provides the expected values to `useProcessTasks` when called with `options` that include `items`', () => {
@@ -143,7 +146,6 @@ describe('useHandler', () => {
 
     expect(useProcessTasksMock).toHaveBeenCalledTimes(1);
     expect(useProcessTasksMock).toHaveBeenCalledWith(handler, {
-      concurrency: DEFAULT_ACTION_CONCURRENCY,
       items: input.items,
       onTaskError: input.onTaskError,
       onTaskProgress: input.onTaskProgress,

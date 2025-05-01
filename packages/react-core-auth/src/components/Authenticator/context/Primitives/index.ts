@@ -1,5 +1,5 @@
 export { PrimitivesProvider, usePrimitives } from './PrimitivesContext';
-export {
+export type {
   ActionsControlType,
   Components,
   CompoundControlName,
