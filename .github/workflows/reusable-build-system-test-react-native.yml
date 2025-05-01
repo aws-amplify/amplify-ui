@@ -188,8 +188,9 @@ jobs:
       - name: Start Android emulator
         if: ${{ matrix.platform == 'android' }}
         run: |
+          $ANDROID_HOME/emulator/emulator -list-avds
           # nohup $ANDROID_HOME/emulator/emulator -avd Pixel_5_API_27 -port ${{ env.EMULATOR_PORT }} -no-boot-anim -no-audio -no-snapshot-load -gpu host -accel on &
-          $ANDROID_HOME/emulator/emulator @Pixel_5_API_27 -port ${{ env.EMULATOR_PORT }} -no-boot-anim -no-audio -no-snapshot-load -gpu host -accel on &
+          $ANDROID_HOME/emulator/emulator -avd Pixel_5_API_27 -port ${{ env.EMULATOR_PORT }} -no-boot-anim -no-audio -no-snapshot-load -gpu host -accel on &
           $ANDROID_HOME/platform-tools/adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed | tr -d '\r') ]]; do sleep 1; done; input keyevent 82'
           $ANDROID_HOME/platform-tools/adb devices
           # disable spell checker
