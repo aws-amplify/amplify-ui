@@ -1,5 +1,11 @@
 # @aws-amplify/ui-react
 
+## 6.11.2
+
+### Patch Changes
+
+- [`a0fac6f06b37c9da5ce2d706eba2559c497efb1e`](https://github.com/aws-amplify/amplify-ui/commit/a0fac6f06b37c9da5ce2d706eba2559c497efb1e) Thanks [@ashwinkumar6](https://github.com/ashwinkumar6)! - chore: testing hotfix branch
+
 ## 6.11.1
 
 ### Patch Changes
