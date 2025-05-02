@@ -1,38 +1,5 @@
 import * as React from 'react';
-
-type StorageBrowserIconType =
-  | 'action-canceled'
-  | 'action-error'
-  | 'action-info'
-  | 'action-initial'
-  | 'action-progress'
-  | 'action-queued'
-  | 'action-success'
-  | 'cancel'
-  | 'create-folder'
-  | 'copy-file'
-  | 'delete-file'
-  | 'dismiss'
-  | 'download'
-  | 'error'
-  | 'exit'
-  | 'file'
-  | 'folder'
-  | 'info'
-  | 'loading'
-  | 'menu'
-  | 'paginate-next'
-  | 'paginate-previous'
-  | 'refresh'
-  | 'search'
-  | 'sort-ascending'
-  | 'sort-descending'
-  | 'sort-indeterminate'
-  | 'success'
-  | 'upload-file'
-  | 'upload-folder'
-  | 'vertical-kebab'
-  | 'warning';
+import { StorageBrowserIconType } from './StorageBrowserIcons';
 
 type ComponentIcons<Keys extends string> = {
   [Key in Keys]?: React.ReactNode;
@@ -43,7 +10,7 @@ export type IconsContextInterface = {
   alert?: ComponentIcons<'close' | 'info' | 'error' | 'success' | 'warning'>;
   avatar?: ComponentIcons<'user'>;
   aiConversation?: ComponentIcons<
-    'attach' | 'close' | 'send' | 'remove' | 'assistant' | 'user'
+    'attach' | 'close' | 'send' | 'remove' | 'assistant' | 'user' | 'document'
   >;
   checkbox?: ComponentIcons<'indeterminate' | 'checked'>;
   field?: ComponentIcons<'clear'>;

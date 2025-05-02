@@ -1,19 +1,20 @@
 import React from 'react';
+import { classNames } from '@aws-amplify/ui';
 
-import { STORAGE_BROWSER_BLOCK } from '../../constants';
-import { ViewElement } from '../../context/elements';
-import { DataRefreshControl } from '../../controls/DataRefreshControl';
-import { DataTableControl } from '../../controls/DataTableControl';
-import { LoadingIndicatorControl } from '../../controls/LoadingIndicatorControl';
-import { MessageControl } from '../../controls/MessageControl';
-import { PaginationControl } from '../../controls/PaginationControl';
-import { SearchFieldControl } from '../../controls/SearchFieldControl';
-import { TitleControl } from '../../controls/TitleControl';
+import { STORAGE_BROWSER_BLOCK, ViewElement } from '../../components';
+import {
+  DataRefreshControl,
+  DataTableControl,
+  LoadingIndicatorControl,
+  MessageControl,
+  PaginationControl,
+  SearchFieldControl,
+  TitleControl,
+} from '../../controls';
 
 import { LocationsViewProvider } from './LocationsViewProvider';
 import { LocationsViewType } from './types';
 import { useLocationsView } from './useLocationsView';
-import { classNames } from '@aws-amplify/ui';
 
 export const LocationsView: LocationsViewType = ({ className, ...props }) => {
   const state = useLocationsView(props);

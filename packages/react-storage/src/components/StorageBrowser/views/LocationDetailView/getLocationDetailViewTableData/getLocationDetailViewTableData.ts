@@ -5,9 +5,9 @@ import {
   LocationItemData,
   LocationData,
 } from '../../../actions';
-import { DataTableProps } from '../../../composables/DataTable';
+import { DataTableProps } from '../../../components';
 import { DefaultLocationDetailViewDisplayText } from '../../../displayText/types';
-import { LocationState } from '../../../providers/store/location';
+import { LocationState } from '../../../store';
 
 import { getFileRowContent } from './getFileRowContent';
 import { getFolderRowContent } from './getFolderRowContent';

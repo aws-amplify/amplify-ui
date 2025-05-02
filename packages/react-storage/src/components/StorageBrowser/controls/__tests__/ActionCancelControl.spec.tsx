@@ -6,7 +6,8 @@ import { useResolvedComposable } from '../hooks/useResolvedComposable';
 
 jest.mock('../hooks/useActionCancel');
 jest.mock('../hooks/useResolvedComposable');
-jest.mock('../../composables/ActionCancel', () => ({
+
+jest.mock('../../components/composables//ActionCancel', () => ({
   ActionCancel: () => <div data-testid="action-cancel" />,
 }));
 

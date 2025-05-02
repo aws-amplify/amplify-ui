@@ -247,8 +247,8 @@ export const { StorageBrowser } = createStorageBrowser({
         }
       }
     },
-    registerAuthListener: (onStateChange) => {
-
+    registerAuthListener: (onAuthChange) => {
+      // call `onAuthChange` to notify the `StorageBrowser` that an end user has signed out
     }
   },
 })
@@ -291,13 +291,9 @@ You can use the `createTheme()` function to theme the `StorageBrowser` component
   </ExampleCode>
 </Example>
 
-
-
-
 #### CSS
 
 One way to theme the Storage Browser component is to use plain CSS. Amplify UI components use CSS classnames and CSS variables, so you can just write CSS to style the Storage Browser.
-
 
 ### Icons
 
@@ -408,9 +404,6 @@ Below you wll find examples of how to compose each view. See [View reference](#v
   </Tabs.Panel>
 </Tabs.Container>
 </Example>
-
-
-
 
 ### Custom UI
 
@@ -587,6 +580,90 @@ export const generateUrlHandler: GenerateLink = ({ data, config, options }) => {
 This example is for demonstration purpose only. For more details, please refer to the [presigned URLs documentation](https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-presigned-url.html#PresignedUrl-Expiration)
 </Message>
 
+## Initializing `StorageBrowser` with a default location
+
+The `StorageBrowser` can be initialized with a default location using the `defaultValue` prop.
+
+<Example>
+  <Tabs.Container defaultValue="react-router">
+    <Tabs.List>
+      <Tabs.Item value="react-router">`react-router-dom@7.x`</Tabs.Item>
+      <Tabs.Item value="next-app-router">`next@14.x` App Router</Tabs.Item>
+      <Tabs.Item value="next-pages-router">`next@14.x` Pages Router</Tabs.Item>
+    </Tabs.List>
+    <Tabs.Panel value="react-router">
+        <ExampleCode>
+          ```tsx file=../../../../../../../examples/react-router/src/storage-browser/default-value/index.tsx#L2-
+          ```
+        </ExampleCode>
+    </Tabs.Panel>
+    <Tabs.Panel value="next-app-router">
+        <ExampleCode>
+          ```tsx file=../../../../../../../examples/next-app-router/src/app/storage-browser/default-value/page.tsx
+          ```
+        </ExampleCode>
+    </Tabs.Panel>
+    <Tabs.Panel value="next-pages-router">
+        <ExampleCode>
+          ```tsx file=../../../../../../../examples/next/pages/ui/components/storage/storage-browser/managed-auth/default-value/index.page.tsx#L2-
+          ```
+        </ExampleCode>
+    </Tabs.Panel>
+  </Tabs.Container>
+</Example>
+
+**Example `defaultValue`**
+
+Assuming an S3 uri of `"s3//:my-bucket/my-prefix/my-nested-prefix/"` where the end user has been granted access to the data within `my-prefix/`, the expected shape of `defaultValue` is:
+
+```tsx
+const defaultValue = {
+  location: {
+    // Folder `bucket` name, required
+    bucket: 'my-bucket',
+    // Folder entry point, required. For root `bucket` access provide an empty string
+    prefix: 'my-prefix/',
+    // Folder end user permissions, required
+    permissions: ['delete', 'get', 'list', 'write'],
+    // Sub-folder path, optional. Initializes the `StorageBrowser` to the nested folder and sets breadcrumb navigation
+    path: 'my-nested-prefix/',
+  },
+};
+```
+
+## Run `StorageBrowser` in controlled mode
+
+The `StorageBrowser` can be used as a controlled component by providing the `value` and `onValueChange` props.
+
+<Example>
+  <Tabs.Container defaultValue="react-router">
+    <Tabs.List>
+      <Tabs.Item value="react-router">`react-router-dom@7.x`</Tabs.Item>
+      <Tabs.Item value="next-app-router">`next@14.x` App Router</Tabs.Item>
+      <Tabs.Item value="next-pages-router">`next@14.x` Pages Router</Tabs.Item>
+    </Tabs.List>
+    <Tabs.Panel value="react-router">
+        <ExampleCode>
+          ```tsx file=../../../../../../../examples/react-router/src/storage-browser/controlled-value/index.tsx#L2-
+          ```
+        </ExampleCode>
+    </Tabs.Panel>
+    <Tabs.Panel value="next-app-router">
+        <ExampleCode>
+          ```tsx file=../../../../../../../examples/next-app-router/src/app/storage-browser/controlled-value/page.tsx
+          ```
+        </ExampleCode>
+    </Tabs.Panel>
+    <Tabs.Panel value="next-pages-router">
+        <ExampleCode>
+          {/* same example as app router, but start at line 3 to exclude 'use client' */}
+          ```tsx file=../../../../../../../examples/next-app-router/src/app/storage-browser/controlled-value/page.tsx#L3-
+          ```
+        </ExampleCode>
+    </Tabs.Panel>
+  </Tabs.Container>
+</Example>
+
 ## View reference
 
 Below you will find the interfaces that the `useView()` hook returns for a given view as well as the composable sub-components of the view.
@@ -627,7 +704,6 @@ interface LocationsViewState {
 * `<StorageBrowser.LocationsView.Refresh />`
 * `<StorageBrowser.LocationsView.Search />`
 * `<StorageBrowser.LocationsView.Title />`
-
 
 ### LocationDetails view
 

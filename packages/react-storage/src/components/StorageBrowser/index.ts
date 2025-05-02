@@ -1,5 +1,3 @@
-export { componentsDefault } from './componentsDefault';
-export { createStorageBrowser } from './createStorageBrowser';
 export {
   ActionHandler,
   ActionViewConfig,
@@ -32,12 +30,13 @@ export {
   CreateManagedAuthAdapterInput,
   StorageBrowserAuthAdapter,
 } from './adapters';
-export { StorageBrowserComponents } from './ComponentsProvider';
 export {
-  DefaultStorageBrowserDisplayText,
-  StorageBrowserDisplayText,
-} from './displayText';
+  componentsDefault,
+  StorageBrowserComponents,
+  StorageBrowserIconType,
+} from './components';
 export {
+  createStorageBrowser,
   CreateStorageBrowserInput,
   CreateStorageBrowserOutput,
   DerivedActionViews,
@@ -46,5 +45,10 @@ export {
   StorageBrowserProps,
   StorageBrowserProviderProps,
   StorageBrowserType,
-} from './types';
+} from './createStorageBrowser';
+export {
+  DefaultStorageBrowserDisplayText,
+  StorageBrowserDisplayText,
+} from './displayText';
+export { StorageBrowserEventValue, StorageBrowserValue } from './store';
 export { UseView } from './views';

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { FolderNameField } from '../composables/FolderNameField';
+import { FolderNameField } from '../components/composables/FolderNameField';
 
 import { useFolderNameField } from './hooks/useFolderNameField';
 import { useResolvedComposable } from './hooks/useResolvedComposable';

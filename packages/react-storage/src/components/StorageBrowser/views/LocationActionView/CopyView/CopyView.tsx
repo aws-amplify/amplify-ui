@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { STORAGE_BROWSER_BLOCK } from '../../../constants';
+import { STORAGE_BROWSER_BLOCK } from '../../../components';
 
-import { ViewElement } from '../../../context/elements';
+import { ViewElement } from '../../../components/elements';
 
 import { ActionCancelControl } from '../../../controls/ActionCancelControl';
 import { ActionExitControl } from '../../../controls/ActionExitControl';

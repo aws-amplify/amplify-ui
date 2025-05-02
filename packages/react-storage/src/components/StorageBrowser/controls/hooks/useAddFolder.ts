@@ -1,5 +1,5 @@
-import { AddFolderProps } from '../../composables/AddFolder';
-import { useControlsContext } from '../../controls/context';
+import { AddFolderProps } from '../../components/composables/AddFolder';
+import { useControlsContext } from '../context';
 
 export const useAddFolder = (): AddFolderProps => {
   const {

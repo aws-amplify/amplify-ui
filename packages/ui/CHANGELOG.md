@@ -1,5 +1,67 @@
 # @aws-amplify/ui
 
+## 6.10.1
+
+### Patch Changes
+
+- [#6489](https://github.com/aws-amplify/amplify-ui/pull/6489) [`e4d8cc8c04dd428d38289085a9bf797b87c058a2`](https://github.com/aws-amplify/amplify-ui/commit/e4d8cc8c04dd428d38289085a9bf797b87c058a2) Thanks [@jjarvisp](https://github.com/jjarvisp)! - fix(authenticator): skip verify attribute screen when no attributes to verify
+
+- [#6504](https://github.com/aws-amplify/amplify-ui/pull/6504) [`e533dbbdade9d5ffdbd5aa7c446d958dd1980d43`](https://github.com/aws-amplify/amplify-ui/commit/e533dbbdade9d5ffdbd5aa7c446d958dd1980d43) Thanks [@calebpollman](https://github.com/calebpollman)! - feat(storage-browser): add defaultValue, value, and onValueChange props
+
+  **Controlled `StorageBrowser`**
+
+  ```tsx
+  'use client';
+
+  import React from 'react';
+  import { useRouter, usePathname, useSearchParams } from 'next/navigation';
+
+  import { StorageBrowser } from '@aws-amplify/ui-react-storage';
+  import { StorageBrowserEventValue } from '@aws-amplify/ui-react-storage/browser';
+
+  export default function Page() {
+    const router = useRouter();
+    const pathname = usePathname();
+    const params = useSearchParams();
+
+    const value = params.get('value');
+
+    const handleValueChange = React.useCallback(
+      (nextValue: StorageBrowserEventValue) => {
+        const nextParams = new URLSearchParams();
+        nextParams.set('value', JSON.stringify(nextValue));
+
+        router.push(`${pathname}?${nextParams.toString()}`);
+      },
+      [pathname, router]
+    );
+
+    return (
+      <StorageBrowser
+        onValueChange={handleValueChange}
+        value={value ? JSON.parse(value) : null}
+      />
+    );
+  }
+  ```
+
+  **Initialize with `defaultValue`**
+
+  ```tsx
+  'use client';
+
+  import { StorageBrowser } from '@aws-amplify/ui-react-storage';
+  import { useSearchParams } from 'next/navigation';
+
+  export default function Page() {
+    const params = useSearchParams();
+
+    const value = params.get('value');
+
+    return <StorageBrowser defaultValue={value ? JSON.parse(value) : null} />;
+  }
+  ```
+
 ## 6.10.0
 
 ### Minor Changes

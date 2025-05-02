@@ -1,6 +1,6 @@
-import { V6Client } from '@aws-amplify/api-graphql';
+import type { ClientExtensions } from '@aws-amplify/data-schema/runtime';
 
-export type ConversationRoute = V6Client<any>['conversations'][string];
+export type ConversationRoute = ClientExtensions<any>['conversations'][string];
 export type Conversation = NonNullable<
   Awaited<ReturnType<ConversationRoute['create']>>['data']
 >;
@@ -31,6 +31,10 @@ export type TextContentBlock = NonNullable<ConversationMessageContent['text']>;
 
 export type ImageContentBlock = NonNullable<
   ConversationMessageContent['image']
+>;
+
+export type DocumentContentBlock = NonNullable<
+  ConversationMessageContent['document']
 >;
 
 export type ToolUseContent = NonNullable<ConversationMessageContent['toolUse']>;
@@ -72,7 +76,7 @@ export interface SendMesageParameters {
 export type SendMessage = (input: SendMesageParameters) => void;
 
 type AIClient<T extends Record<any, any>> = Pick<
-  V6Client<T>,
+  ClientExtensions<T>,
   'generations' | 'conversations'
 >;
 export type getSchema<T> = T extends AIClient<infer Schema> ? Schema : never;

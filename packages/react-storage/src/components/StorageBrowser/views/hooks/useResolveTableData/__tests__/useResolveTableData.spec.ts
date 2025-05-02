@@ -1,5 +1,5 @@
 import { renderHook } from '@testing-library/react';
-import useResolveDataTable from '../useResolveTableData';
+import useResolveTableData from '../useResolveTableData';
 import { DataTableResolvers } from '../types';
 
 type Key = (typeof keys)[number];
@@ -27,7 +27,7 @@ describe('useResolveTableData', () => {
     const data = { items, props: {} };
 
     const { result } = renderHook(() =>
-      useResolveDataTable(keys, resolvers, data)
+      useResolveTableData(keys, resolvers, data)
     );
 
     const { headers, rows } = result.current;
@@ -57,7 +57,7 @@ describe('useResolveTableData', () => {
     const data = { props: {} };
 
     const { result } = renderHook(() =>
-      useResolveDataTable(keys, resolvers, data)
+      useResolveTableData(keys, resolvers, data)
     );
 
     expect(result.current.rows).toHaveLength(0);
@@ -67,7 +67,7 @@ describe('useResolveTableData', () => {
     const data = { props: {} };
 
     const { rerender, result } = renderHook(() =>
-      useResolveDataTable(keys, resolvers, data)
+      useResolveTableData(keys, resolvers, data)
     );
 
     const initData = result.current;
