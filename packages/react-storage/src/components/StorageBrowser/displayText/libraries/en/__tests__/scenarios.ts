@@ -5,7 +5,7 @@ import {
 } from '../../../../actions';
 import { FileItems } from '../../../../files';
 import { INITIAL_STATUS_COUNTS, StatusCounts } from '../../../../tasks';
-import { UPLOAD_FILE_SIZE_LIMIT } from '../../../../validators/isFileTooBig';
+import { UPLOAD_FILE_SIZE_LIMIT } from '../../../../validators/isFileValid';
 
 export const ACTION_SCENARIOS: [string, StatusCounts][] = [
   ['all failed', { ...INITIAL_STATUS_COUNTS, FAILED: 11, TOTAL: 11 }],

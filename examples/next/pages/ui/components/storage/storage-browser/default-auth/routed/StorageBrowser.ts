@@ -27,6 +27,10 @@ const fileUploadCounter = {
   },
 };
 
+// example: checks if file is <= 1MB and is not a .webp image
+const customIsFileValid = (file: File) =>
+  file.size <= 1000 * 1000 && file.type !== 'image/webp';
+
 export const { StorageBrowser } = createStorageBrowser({
   config: createAmplifyAuthAdapter(),
   actions: {
@@ -54,6 +58,6 @@ export const { StorageBrowser } = createStorageBrowser({
     },
   },
   options: {
-    maxFileSize: 1 * 1000 * 1000, // 1 MB
+    onFileValidation: customIsFileValid,
   },
 });

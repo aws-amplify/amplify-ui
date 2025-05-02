@@ -1,35 +1,31 @@
-import type React from 'react';
-
 import { isEmpty, isString, isUndefined } from '@aws-amplify/ui';
 import type { HandleFileSelect } from '@aws-amplify/ui-react/internal';
 
 import type { FileItem } from '../actions';
 
-import { isFileTooBig } from '../validators';
-import type {
-  FileItems,
-  FileItemsData,
-  FilesActionType,
-  SelectionType,
-} from './types';
+import type { FileItems, SelectionType } from './types';
+interface ValidFilesData {
+  validFiles: File[];
+  invalidFiles: File[];
+}
 
 const compareFileItems = (prev: FileItem, next: FileItem) =>
   prev.key.localeCompare(next.key);
 
-export const validateFiles = (
+export const handleFileValidation = (
   files: File[] | undefined,
-  maxUploadFileSize?: number
-): { validFiles: File[]; invalidFiles: File[] } =>
+  isFileValid: (file: File) => boolean
+): ValidFilesData =>
   (files ?? []).reduce(
-    (curr: { validFiles: File[]; invalidFiles: File[] }, file) => {
-      if (isFileTooBig(file, maxUploadFileSize)) {
-        curr.invalidFiles = isUndefined(curr.invalidFiles)
-          ? [file]
-          : curr.invalidFiles.concat(file);
-      } else {
+    (curr: ValidFilesData, file) => {
+      if (isFileValid(file)) {
         curr.validFiles = isUndefined(curr.validFiles)
           ? [file]
           : curr.validFiles.concat(file);
+      } else {
+        curr.invalidFiles = isUndefined(curr.invalidFiles)
+          ? [file]
+          : curr.invalidFiles.concat(file);
       }
       return curr;
     },
@@ -66,37 +62,6 @@ export const resolveFiles = (
   }
 
   return prevItems.concat(nextItems).sort(compareFileItems);
-};
-
-export const filesReducer: React.Reducer<
-  FileItemsData,
-  Exclude<FilesActionType, { type: 'SELECT_FILES' }>
-> = (prevItems, input) => {
-  switch (input.type) {
-    case 'ADD_FILE_ITEMS': {
-      const nextItems = resolveFiles(prevItems.items, input.files);
-      const nextInvalidFiles = resolveFiles(
-        prevItems.invalidFiles,
-        input.invalidFiles
-      );
-      return {
-        ...prevItems,
-        items: nextItems,
-        invalidFiles: nextInvalidFiles,
-      };
-    }
-    case 'REMOVE_FILE_ITEM': {
-      const filteredItems = prevItems.items.filter(({ id }) => id !== input.id);
-
-      return filteredItems.length === prevItems.items.length
-        ? prevItems
-        : { ...prevItems, items: filteredItems };
-    }
-    case 'RESET_FILE_ITEMS': {
-      return { items: [], invalidFiles: [] };
-    }
-    // TODO: clear message
-  }
 };
 
 export const parseFileSelectParams = (

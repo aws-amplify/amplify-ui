@@ -1,4 +1,3 @@
-import { isFileTooBig } from '../../../validators';
 import type { DefaultUploadViewDisplayText } from '../../types';
 import { DEFAULT_ACTION_VIEW_DISPLAY_TEXT } from './shared';
 
@@ -77,13 +76,12 @@ export const DEFAULT_UPLOAD_VIEW_DISPLAY_TEXT: DefaultUploadViewDisplayText = {
     if (!data?.invalidFiles) {
       return undefined;
     }
-    const tooBigFileNames = data.invalidFiles
-      .filter(({ file }) => isFileTooBig(file))
+    const invalidFiles = data.invalidFiles
       .map(({ file }) => file.name)
       .join(', ');
-    if (tooBigFileNames) {
+    if (invalidFiles) {
       return {
-        content: `Files larger than 160 GB cannot be added to the upload queue: ${tooBigFileNames}`,
+        content: `Files larger than 160 GB cannot be added to the upload queue: ${invalidFiles}`,
         type: 'warning',
       };
     }

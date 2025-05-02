@@ -45,6 +45,10 @@ export const INITIAL_VALUES: InitialValues = {
 
 const handlers = new MockHandlers({ initialValues: INITIAL_VALUES });
 
+// example: checks if file is <= 1MB and is not a .webp image
+const customIsFileValid = (file: File) =>
+  file.size <= 1000 * 1000 && file.type !== 'image/webp';
+
 export const { StorageBrowser } = createStorageBrowser({
   actions: {
     default: {
@@ -84,6 +88,6 @@ export const { StorageBrowser } = createStorageBrowser({
       }),
   },
   options: {
-    maxFileSize: 1 * 1024 * 1024, // 1 MB
+    onFileValidation: customIsFileValid,
   },
 });

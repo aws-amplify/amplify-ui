@@ -50,7 +50,7 @@ export default function createProvider({
     custom: actions?.custom,
   };
 
-  const { maxUploadFileSize } = options ?? {};
+  const { onFileValidation } = options ?? {};
 
   const handlers = getActionHandlers(resolvedActions);
 
@@ -93,7 +93,7 @@ export default function createProvider({
                 <ViewsProvider actions={resolvedActions} views={views}>
                   <ComponentsProvider composables={composables}>
                     <LocationItemsProvider>
-                      <FilesProvider maxUploadFileSize={maxUploadFileSize}>
+                      <FilesProvider onFileValidation={onFileValidation}>
                         {children}
                       </FilesProvider>
                     </LocationItemsProvider>

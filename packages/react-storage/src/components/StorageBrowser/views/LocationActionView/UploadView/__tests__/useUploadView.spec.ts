@@ -5,7 +5,7 @@ import { useFiles } from '../../../../files';
 import { useStore } from '../../../../store';
 import { Task, INITIAL_STATUS_COUNTS } from '../../../../tasks';
 import { useAction } from '../../../../useAction';
-import { UPLOAD_FILE_SIZE_LIMIT } from '../../../../validators/isFileTooBig';
+import { UPLOAD_FILE_SIZE_LIMIT } from '../../../../validators/isFileValid';
 import { useUploadView } from '../useUploadView';
 
 jest.mock('../../../../files');

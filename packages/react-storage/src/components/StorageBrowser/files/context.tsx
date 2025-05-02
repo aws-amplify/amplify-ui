@@ -4,13 +4,14 @@ import { noop } from '@aws-amplify/ui';
 import { createContextUtilities } from '@aws-amplify/ui-react-core';
 import { useFileSelect } from '@aws-amplify/ui-react/internal';
 
-import { UPLOAD_FILE_SIZE_LIMIT } from '../validators/isFileTooBig';
+import { isFileValid } from '../validators';
+import { filesReducer } from './filesReducer';
 import type {
   FilesContextType,
   FilesProviderProps,
   HandleFilesAction,
 } from './types';
-import { filesReducer, parseFileSelectParams, validateFiles } from './utils';
+import { handleFileValidation, parseFileSelectParams } from './utils';
 
 const defaultValue: FilesContextType = [
   { items: undefined, invalidFiles: undefined },
@@ -23,7 +24,7 @@ export const { FilesContext, useFiles } = createContextUtilities({
 
 export function FilesProvider({
   children,
-  maxUploadFileSize = UPLOAD_FILE_SIZE_LIMIT,
+  onFileValidation,
 }: FilesProviderProps): React.JSX.Element {
   const [items, dispatch] = React.useReducer(filesReducer, {
     items: [],
@@ -31,9 +32,9 @@ export function FilesProvider({
   });
 
   const [fileInput, handleFileSelect] = useFileSelect((nextFiles) => {
-    const { validFiles, invalidFiles } = validateFiles(
+    const { validFiles, invalidFiles } = handleFileValidation(
       nextFiles,
-      maxUploadFileSize
+      onFileValidation ?? isFileValid
     );
     dispatch({
       type: 'ADD_FILE_ITEMS',
@@ -47,9 +48,9 @@ export function FilesProvider({
       if (action.type === 'SELECT_FILES') {
         handleFileSelect(...parseFileSelectParams(action.selectionType));
       } else if (action.type === 'ADD_FILE_ITEMS') {
-        const { validFiles, invalidFiles } = validateFiles(
+        const { validFiles, invalidFiles } = handleFileValidation(
           action.files,
-          maxUploadFileSize
+          onFileValidation ?? isFileValid
         );
         dispatch({
           type: 'ADD_FILE_ITEMS',
@@ -60,7 +61,7 @@ export function FilesProvider({
         dispatch(action);
       }
     },
-    [handleFileSelect, maxUploadFileSize]
+    [handleFileSelect, onFileValidation]
   );
 
   const value: FilesContextType = React.useMemo(

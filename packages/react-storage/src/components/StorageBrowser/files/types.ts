@@ -34,5 +34,5 @@ export type FilesContextType = [FilesState, HandleFilesAction];
 
 export interface FilesProviderProps {
   children?: React.ReactNode;
-  maxUploadFileSize?: number;
+  onFileValidation?: (file: File) => boolean;
 }
