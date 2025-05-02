@@ -52,10 +52,10 @@ jobs:
       - name: Sync hotfix branch with main
         run: |
           # First sync hotfix with main using the "theirs" strategy to resolve conflicts
-          git fetch origin ashwin-main ashwin-hotfix
-          git checkout ashwin-hotfix
+          git fetch origin ashwin-main
+          git checkout -b ashwin-hotfix
 
           # Use -X theirs to automatically resolve conflicts in favor of main
-          git merge origin/ashwin-main --no-edit -X theirs --allow-unrelated-histories
-          echo "MERGE COMPLETE"
-          git push origin ashwin-hotfix
+          # git merge origin/ashwin-main --no-edit -X theirs --allow-unrelated-histories
+          # echo "MERGE COMPLETE"
+          git push origin ashwin-hotfix -f
