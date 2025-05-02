@@ -30,6 +30,7 @@ export function FileControl({
   const {
     getPausedText,
     getUploadingText,
+    getStatusAnnouncementText,
     uploadSuccessfulText,
     pauseButtonText,
     resumeButtonText,
@@ -76,6 +77,7 @@ export function FileControl({
         uploadSuccessfulText={uploadSuccessfulText}
         getUploadingText={getUploadingText}
         getPausedText={getPausedText}
+        getStatusAnnouncementText={getStatusAnnouncementText}
         status={status}
         errorMessage={errorMessage}
         percentage={progress}

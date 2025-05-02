@@ -16,6 +16,22 @@ const defaultProps: Omit<FileStatusMessageProps, 'status'> = {
   errorMessage: errorUploading,
   percentage: 50,
   getUploadingText: (percentage: number) => `${uploadingText} ${percentage}%`,
+  getStatusAnnouncementText: (status: FileStatus, percentage?: number) => {
+    switch (status) {
+      case FileStatus.UPLOADING:
+        return `File upload status changed: Uploading ${percentage}%`;
+      case FileStatus.PAUSED:
+        return `File upload status changed: Paused at ${percentage}%`;
+      case FileStatus.UPLOADED:
+        return 'File upload status changed: Upload completed successfully';
+      case FileStatus.ERROR:
+        return 'File upload status changed: Error';
+      case FileStatus.QUEUED:
+        return 'File upload status changed: Queued';
+      default:
+        return '';
+    }
+  },
   getPausedText: () => uploadingPausedText,
   uploadSuccessfulText: uploadSuccessful,
 };
@@ -144,7 +160,7 @@ describe('FileStatusMessage', () => {
     expect(announcement).toHaveTextContent('File upload status changed: Error');
   });
 
-  it('has no announcement for queued status', () => {
+  it('announces queued status', () => {
     render(<FileStatusMessage {...defaultProps} status={FileStatus.QUEUED} />);
 
     const announcement = screen.getByRole('status');

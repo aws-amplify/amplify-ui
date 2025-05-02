@@ -12,29 +12,12 @@ export const FileStatusMessage = ({
   errorMessage,
   getPausedText,
   getUploadingText,
+  getStatusAnnouncementText,
   percentage,
   status,
   uploadSuccessfulText,
 }: FileStatusMessageProps): React.JSX.Element | null => {
   const icons = useIcons('storageManager');
-
-  // Generate the screen reader announcement text
-  const announcementText = () => {
-    switch (status) {
-      case FileStatus.UPLOADING:
-        return `File upload status changed: Uploading ${percentage}%`;
-      case FileStatus.PAUSED:
-        return `File upload status changed: Paused at ${percentage}%`;
-      case FileStatus.UPLOADED:
-        return `File upload status changed: Upload completed successfully`;
-      case FileStatus.ERROR:
-        return `File upload status changed: Error`;
-      case FileStatus.QUEUED:
-        return `File upload status changed: Queued`;
-      default:
-        return '';
-    }
-  };
 
   const renderStatusMessage = () => {
     switch (status) {
@@ -92,7 +75,9 @@ export const FileStatusMessage = ({
 
   return (
     <>
-      <VisuallyHidden role="status">{announcementText()}</VisuallyHidden>
+      <VisuallyHidden role="status">
+        {getStatusAnnouncementText(status, percentage)}
+      </VisuallyHidden>
       {renderStatusMessage()}
     </>
   );

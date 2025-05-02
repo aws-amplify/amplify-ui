@@ -38,7 +38,10 @@ export interface FileControlProps {
 export interface FileStatusMessageProps
   extends Pick<
     StorageManagerDisplayTextDefault,
-    'getUploadingText' | 'getPausedText' | 'uploadSuccessfulText'
+    | 'getUploadingText'
+    | 'getPausedText'
+    | 'uploadSuccessfulText'
+    | 'getStatusAnnouncementText'
   > {
   status: FileStatus;
   errorMessage: string;

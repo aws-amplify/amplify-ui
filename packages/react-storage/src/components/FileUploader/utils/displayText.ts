@@ -1,4 +1,5 @@
 import { DisplayTextTemplate } from '@aws-amplify/ui';
+import { FileStatus } from '../types';
 
 export type FileUploaderDisplayText = DisplayTextTemplate<{
   getFilesUploadedText?: (count: number) => string;
@@ -9,6 +10,10 @@ export type FileUploaderDisplayText = DisplayTextTemplate<{
   getUploadButtonText?: (count: number) => string;
   getMaxFilesErrorText?: (count: number) => string;
   getErrorText?: (message: string) => string;
+  getStatusAnnouncementText?: (
+    status: FileStatus,
+    percentage?: number
+  ) => string;
   doneButtonText?: string;
   clearAllButtonText?: string;
   extensionNotAllowedText?: string;
@@ -48,6 +53,22 @@ export const defaultFileUploaderDisplayText: FileUploaderDisplayTextDefault = {
   },
   getErrorText(message: string): string {
     return message;
+  },
+  getStatusAnnouncementText(status: FileStatus, percentage?: number): string {
+    switch (status) {
+      case FileStatus.UPLOADING:
+        return `File upload status changed: Uploading ${percentage}%`;
+      case FileStatus.PAUSED:
+        return `File upload status changed: Paused at ${percentage}%`;
+      case FileStatus.UPLOADED:
+        return `File upload status changed: Upload completed successfully`;
+      case FileStatus.ERROR:
+        return `File upload status changed: Error`;
+      case FileStatus.QUEUED:
+        return `File upload status changed: Queued`;
+      default:
+        return '';
+    }
   },
   doneButtonText: 'Done',
   clearAllButtonText: 'Clear all',
