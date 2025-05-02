@@ -56,7 +56,7 @@ jobs:
         id: check-pr
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            BASE_BRANCH: "main"
+            BASE_BRANCH: "ashwin-main"
             HEAD_BRANCH: "ashwin-hotfix"
         run: |
           PR_NUMBER=$(gh pr list --base $BASE_BRANCH --head $HEAD_BRANCH --json number --jq '.[0].number')
@@ -71,7 +71,7 @@ jobs:
         if: steps.check-pr.outputs.exists == 'false'
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            BASE_BRANCH: "main"
+            BASE_BRANCH: "ashwin-main"
             HEAD_BRANCH: "ashwin-hotfix"
         run: |
           gh pr create \
