@@ -11,6 +11,7 @@ on:
     branches: [ashwin-hotfix]
 
 permissions:
+    contents: write # Used to push temp branch to GitHub
     pull-requests: write # Used to create a pull request to main
 
 jobs:
@@ -30,7 +31,7 @@ jobs:
 
   create-pr-to-main:
     needs: setup
-    if: ${{ needs.setup.outputs.has-changesets != 'true' }}
+    # if: ${{ needs.setup.outputs.has-changesets != 'true' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo

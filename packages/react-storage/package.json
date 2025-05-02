@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui-react-storage",
-  "version": "3.10.3",
+  "version": "3.10.5",
   "main": "dist/index.js",
   "module": "dist/esm/index.mjs",
   "exports": {
@@ -46,7 +46,7 @@
   },
   "dependencies": {
     "@aws-amplify/ui": "6.10.2",
-    "@aws-amplify/ui-react": "6.11.2",
+    "@aws-amplify/ui-react": "6.11.4",
     "@aws-amplify/ui-react-core": "3.4.2",
     "tslib": "^2.5.2"
   },

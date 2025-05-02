@@ -1,5 +1,17 @@
 # @aws-amplify/ui-react
 
+## 6.11.4
+
+### Patch Changes
+
+- [`b85faf9ca8783fb08a768666d5c40175cbcdb417`](https://github.com/aws-amplify/amplify-ui/commit/b85faf9ca8783fb08a768666d5c40175cbcdb417) Thanks [@ashwinkumar6](https://github.com/ashwinkumar6)! - chore: testing hotfix branch mergeback
+
+## 6.11.3
+
+### Patch Changes
+
+- [#6543](https://github.com/aws-amplify/amplify-ui/pull/6543) [`a0fac6f06b37c9da5ce2d706eba2559c497efb1e`](https://github.com/aws-amplify/amplify-ui/commit/a0fac6f06b37c9da5ce2d706eba2559c497efb1e) Thanks [@github-actions](https://github.com/apps/github-actions)! - chore: testing hotfix branch mergeback
+
 ## 6.11.2
 
 ### Patch Changes
