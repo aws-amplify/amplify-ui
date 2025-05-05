@@ -4,7 +4,8 @@
 
 ### Patch Changes
 
-- [`cf63046c171b5dd349121d0d8bbf2282fb71aae4`](https://github.com/aws-amplify/amplify-ui/commit/cf63046c171b5dd349121d0d8bbf2282fb71aae4) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(storage-browser): move useProcessTasks concurrency option to dispatch handler
+- Updated dependencies [[`629d93152ad5f98f77ff2729de2759da8464b1d4`](https://github.com/aws-amplify/amplify-ui/commit/629d93152ad5f98f77ff2729de2759da8464b1d4)]:
+  - @aws-amplify/ui-react@6.11.2
 
 ## 3.10.1
 
