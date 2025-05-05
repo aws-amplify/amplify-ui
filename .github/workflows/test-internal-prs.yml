@@ -13,7 +13,7 @@ concurrency:
 
 on:
   pull_request:
-    branches: [main, hotfix]
+    branches: feat-sb/file-validation/main
     types: [opened, synchronize, labeled]
 
 jobs:
