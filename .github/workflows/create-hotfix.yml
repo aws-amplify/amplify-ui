@@ -21,5 +21,5 @@ jobs:
           HOTFIX_BRANCH: hotfix
         run: |
           # create hotfix branch from commit hash of the latest 'Version Packages'
-          git checkout -b $TEMP_BRANCH_NAME $(git log origin/main -1 --grep='^Version Packages' --author='github-actions\[bot\]' --pretty=format:"%H")
-          git push origin $TEMP_BRANCH_NAME
+          git checkout -b $HOTFIX_BRANCH $(git log origin/main -1 --grep='^Version Packages' --author='github-actions\[bot\]' --pretty=format:"%H")
+          git push origin $HOTFIX_BRANCH
