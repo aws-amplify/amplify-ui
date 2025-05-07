@@ -31,6 +31,7 @@ import './styles.css';
 
 export default {
   install: (app: App) => {
+    // Register main components
     app.component('SignIn', SignIn);
     app.component('SignUp', SignUp);
     app.component('FederatedSignIn', FederatedSignIn);
