@@ -4,13 +4,22 @@
     "noImplicitAny": false,
     "skipLibCheck": true,
     "strictNullChecks": false,
-    "types": [
-      "node",
-      "jest",
-      "@testing-library/jest-dom",
-      "vite/client"
-    ]
+    "types": ["node", "jest", "@testing-library/jest-dom", "vite/client"]
   },
-  "include": ["*.ts", "*.mjs", "scripts", "src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"],
-  "exclude": ["node_modules", "dist"]
+  "include": [
+    "__mocks__",
+    "__tests__",
+    "*.ts",
+    "*.mjs",
+    "scripts",
+    "src/**/*.ts",
+    "src/**/*.vue"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/__tests__/**",
+    "**/*.test.*",
+    "scripts/**",
+    "*.ts"
+  ]
 }

@@ -66,7 +66,7 @@ const config = defineConfig([
         tsconfigOverride: {
           compilerOptions: { sourceMap, declaration: true, declarationDir: 'dist', rootDir: 'src' },
           include: ['src/**/*'],
-          exclude: ['node_modules', '**/__tests__/**', '**/*.test.*', 'scripts/**']
+          exclude: ['node_modules', '**/__tests__/**', '**/*.test.*', 'scripts/**', '*.ts']
         }
       }),
       ensureStyles()
@@ -89,7 +89,7 @@ const config = defineConfig([
         tsconfigOverride: {
           compilerOptions: { sourceMap, declaration: false, rootDir: 'src', outDir: esmOutputDir },
           include: ['src/**/*'],
-          exclude: ['node_modules', '**/__tests__/**', '**/*.test.*']
+          exclude: ['node_modules', '**/__tests__/**', '**/*.test.*', 'scripts/**', '*.ts']
         }
       })
     ],
