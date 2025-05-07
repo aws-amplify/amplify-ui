@@ -7,7 +7,7 @@ import {
   UnverifiedContactMethodType,
 } from '@aws-amplify/ui';
 import { VerifyUser } from '..';
-import { RadioFieldOptions } from '../../../hooks/types';
+import type { RadioFieldOptions } from '../../../hooks/types';
 
 const { getSkipText, getVerifyText, getAccountRecoveryInfoText } =
   authenticatorTextUtil;

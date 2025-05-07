@@ -1,12 +1,11 @@
 import React from 'react';
-import {
-  Dimensions,
+import type {
   EmitterSubscription,
   FlatList,
   ListRenderItem,
-  Text,
   ViewToken,
 } from 'react-native';
+import { Dimensions, Text } from 'react-native';
 import { act, render } from '@testing-library/react-native';
 
 import Carousel from '../Carousel';

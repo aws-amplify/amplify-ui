@@ -1,6 +1,6 @@
-import * as React from 'react';
-import { ElementType, PrimitiveProps, BaseViewProps } from './view';
-import { BaseLinkProps } from './link';
+import type * as React from 'react';
+import type { ElementType, PrimitiveProps, BaseViewProps } from './view';
+import type { BaseLinkProps } from './link';
 
 /** @deprecated For internal use only */
 export interface BaseBreadcrumbProps extends BaseViewProps {

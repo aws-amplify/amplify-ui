@@ -1,4 +1,4 @@
-import { ComponentRoute } from './types';
+import type { ComponentRoute } from './types';
 
 export const COMPONENT_ROUTE: ComponentRoute[] = [
   'confirmResetPassword',

@@ -6,7 +6,8 @@ import { Tabs } from '../../../primitives/Tabs';
 import { View } from '../../../primitives/View';
 import { SignIn } from '../SignIn';
 import { SignUp } from '../SignUp';
-import { RouteContainer, RouteProps } from '../RouteContainer';
+import type { RouteProps } from '../RouteContainer';
+import { RouteContainer } from '../RouteContainer';
 
 const { getSignInTabText, getSignUpTabText } = authenticatorTextUtil;
 

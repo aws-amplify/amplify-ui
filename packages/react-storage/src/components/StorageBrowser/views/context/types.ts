@@ -1,4 +1,4 @@
-import { DefaultActionViewsByActionName, PrimaryViews } from '../types';
+import type { DefaultActionViewsByActionName, PrimaryViews } from '../types';
 
 export interface PrimaryViewsContextType<T = string> {
   primary: PrimaryViews<T>;

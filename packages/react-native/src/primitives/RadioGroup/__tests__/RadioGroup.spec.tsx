@@ -4,10 +4,10 @@ import { fireEvent, render, renderHook } from '@testing-library/react-native';
 import { useTheme } from '../../../theme';
 import { getThemedStyles as getThemedLabelStyles } from '../../Label/styles';
 import { Radio } from '../../Radio';
-import { Size } from '../../Radio/types';
+import type { Size } from '../../Radio/types';
 
 import RadioGroup from '../RadioGroup';
-import { Direction } from '../types';
+import type { Direction } from '../types';
 
 const directions: Direction[] = ['vertical', 'horizontal'];
 const sizes: Size[] = ['small', 'medium', 'large'];

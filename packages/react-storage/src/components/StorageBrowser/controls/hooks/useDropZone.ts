@@ -1,5 +1,5 @@
-import { DropZoneProps } from '../../composables/DropZone';
-import { useControlsContext } from '../../controls/context';
+import type { DropZoneProps } from '../../components/composables/DropZone';
+import { useControlsContext } from '../context';
 
 /**
  * This hook, not to be confused with the useDropZone vended from @aws-amplify/ui-react-core, is only intended for use

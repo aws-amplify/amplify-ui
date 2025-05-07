@@ -1,5 +1,9 @@
-import { DeleteHandlerData, LocationData } from '../../../actions';
-import { ActionViewType, ActionViewProps, ActionViewState } from '../types';
+import type { DeleteHandlerData, LocationData } from '../../../actions';
+import type {
+  ActionViewType,
+  ActionViewProps,
+  ActionViewState,
+} from '../types';
 
 export interface DeleteViewState extends ActionViewState<DeleteHandlerData> {}
 

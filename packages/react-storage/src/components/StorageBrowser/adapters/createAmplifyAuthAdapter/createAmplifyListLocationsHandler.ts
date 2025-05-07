@@ -1,6 +1,7 @@
-import { LocationData } from '../../actions';
-import { listPaths, ListPathsOutput } from '../../storage-internal';
-import { ListLocations, ListLocationsInput } from '../../actions';
+import type { LocationData } from '../../actions';
+import type { ListPathsOutput } from '../../storage-internal';
+import { listPaths } from '../../storage-internal';
+import type { ListLocations, ListLocationsInput } from '../../actions';
 
 import { parseAmplifyAuthPermission } from '../permissionParsers';
 import { getPaginatedLocations } from './getPaginatedLocations';

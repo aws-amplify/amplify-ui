@@ -1,2 +1,2 @@
 export { createProvider } from './createProvider';
-export { ProviderProps, ProviderComponent, Variant } from './types';
+export type { ProviderProps, ProviderComponent, Variant } from './types';

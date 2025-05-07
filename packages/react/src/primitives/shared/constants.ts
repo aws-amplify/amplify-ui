@@ -1,4 +1,4 @@
-import { ThemeStylePropKey, ThemeTokenKey } from '../types/theme';
+import type { ThemeStylePropKey, ThemeTokenKey } from '../types/theme';
 
 // For internal use, no need to export
 export const ComponentText = {

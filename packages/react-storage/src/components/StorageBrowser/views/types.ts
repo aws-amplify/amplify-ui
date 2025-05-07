@@ -1,15 +1,15 @@
-import React from 'react';
-import { LocationData } from '../actions';
+import type React from 'react';
+import type { LocationData } from '../actions';
 
-import {
+import type {
   LocationActionViewProps,
   UploadViewProps,
   CreateFolderViewProps,
   CopyViewProps,
   DeleteViewProps,
 } from './LocationActionView';
-import { LocationDetailViewProps } from './LocationDetailView';
-import { LocationsViewProps } from './LocationsView';
+import type { LocationDetailViewProps } from './LocationDetailView';
+import type { LocationsViewProps } from './LocationsView';
 
 export interface ActionViewProps {
   className?: string;
@@ -25,6 +25,10 @@ export interface ListViewState<T = any> {
 export interface ListViewProps
   extends ActionViewProps,
     Partial<ListViewState> {}
+
+export type StorageBrowserViews<T = string, K = {}> = Partial<
+  PrimaryViews<T> & DefaultActionViews & K
+>;
 
 export interface PrimaryViews<T = string> {
   LocationActionView: (
@@ -49,7 +53,3 @@ export interface DefaultActionViewsByActionName {
   delete: (props: DeleteViewProps) => React.JSX.Element | null;
   upload: (props: UploadViewProps) => React.JSX.Element | null;
 }
-
-export type Views<T = string, K = {}> = Partial<
-  PrimaryViews<T> & DefaultActionViews & K
->;

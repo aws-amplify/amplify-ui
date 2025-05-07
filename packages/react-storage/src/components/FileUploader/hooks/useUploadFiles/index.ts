@@ -1,1 +1,2 @@
-export { useUploadFiles, UseUploadFilesProps } from './useUploadFiles';
+export type { UseUploadFilesProps } from './useUploadFiles';
+export { useUploadFiles } from './useUploadFiles';

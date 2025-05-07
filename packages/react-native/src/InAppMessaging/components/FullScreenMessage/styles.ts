@@ -1,6 +1,6 @@
-import { ImageStyle } from 'react-native';
+import type { ImageStyle } from 'react-native';
 
-import { GetDefaultStyle } from '../../hooks';
+import type { GetDefaultStyle } from '../../hooks';
 import {
   BORDER_RADIUS_BASE,
   COLOR_LIGHT_GREY,
@@ -16,7 +16,7 @@ import {
   SPACING_MEDIUM,
 } from '../../constants';
 
-import { FullScreenMessageStyle } from './types';
+import type { FullScreenMessageStyle } from './types';
 
 const commonStyles: Omit<FullScreenMessageStyle, 'image'> = {
   body: {

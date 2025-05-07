@@ -3,8 +3,8 @@ import { classNames } from '@aws-amplify/ui';
 
 import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
 import { ComponentClassName } from '@aws-amplify/ui';
-import { ForwardRefPrimitive, Primitive } from '../types/view';
-import { BaseTextAreaProps, TextAreaProps } from '../types/textArea';
+import type { ForwardRefPrimitive, Primitive } from '../types/view';
+import type { BaseTextAreaProps, TextAreaProps } from '../types/textArea';
 import { View } from '../View';
 import { useFieldset } from '../Fieldset/useFieldset';
 import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';

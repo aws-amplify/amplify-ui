@@ -1,6 +1,7 @@
-import { isObject, isString, classNames, ClassNamesArgs } from '../../utils';
-import { ComponentThemeFromName } from '../components';
-import { BaseTheme } from '../components/utils';
+import type { ClassNamesArgs } from '../../utils';
+import { isObject, isString, classNames } from '../../utils';
+import type { ComponentThemeFromName } from '../components';
+import type { BaseTheme } from '../components/utils';
 
 // Gets the element names in a theme
 type ElementNames<T extends unknown> = T extends { _element?: any }

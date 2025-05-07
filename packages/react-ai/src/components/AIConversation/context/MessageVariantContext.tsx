@@ -1,5 +1,5 @@
 import React from 'react';
-import { MessageVariant } from '../types';
+import type { MessageVariant } from '../types';
 
 export const MessageVariantContext = React.createContext<
   MessageVariant | undefined

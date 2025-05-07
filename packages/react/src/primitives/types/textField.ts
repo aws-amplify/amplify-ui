@@ -1,9 +1,9 @@
-import * as React from 'react';
+import type * as React from 'react';
 
-import { FlexContainerStyleProps } from './flex';
-import { BaseInputProps } from './input';
-import { BaseFieldProps } from './field';
-import { PrimitiveProps, ElementType } from './view';
+import type { FlexContainerStyleProps } from './flex';
+import type { BaseInputProps } from './input';
+import type { BaseFieldProps } from './field';
+import type { PrimitiveProps, ElementType } from './view';
 
 export interface TextFieldOptions
   extends BaseFieldProps,

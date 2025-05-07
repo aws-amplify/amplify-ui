@@ -1,4 +1,4 @@
-import { FlexContainerStyleProps } from '../types';
+import type { FlexContainerStyleProps } from '../types';
 
 // To be used in unit tests to make it easier to display
 // specific error messages in the console when running

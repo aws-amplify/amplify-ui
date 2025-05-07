@@ -31,6 +31,8 @@ import ForgotPassword from './forgot-password.vue';
 import ConfirmResetPassword from './confirm-reset-password.vue';
 import VerifyUser from './verify-user.vue';
 import ConfirmVerifyUser from './confirm-verify-user.vue';
+import SelectMfaType from './select-mfa-type.vue';
+import SetupEmail from './setup-email.vue'
 
 interface AuthenticatorProps {
   hideSignUp?: boolean;
@@ -118,6 +120,8 @@ const ForgotPasswordComponent = ref();
 const confirmResetPasswordComponent = ref();
 const verifyUserComponent = ref();
 const confirmVerifyUserComponent = ref();
+const selectMfaTypeComponent = ref();
+const setupEmailComponent = ref();
 
 // text util
 const { getSignInTabText, getSignUpTabText } = authenticatorTextUtil;
@@ -139,6 +143,8 @@ const hasRouteComponent = computed(() => {
     'confirmVerifyUser',
     'forceNewPassword',
     'forgotPassword',
+    'selectMfaType',
+    'setupEmail',
     'setupTotp',
     'signIn',
     'signUp',
@@ -175,7 +181,10 @@ const hasRouteComponent = computed(() => {
             @click="toSignUp"
           />
         </base-two-tabs>
-        <div v-if="hasTabs" data-amplify-router-content>
+        <div
+          v-if="hasTabs"
+          data-amplify-router-content
+        >
           <sign-in
             id="signIn-panel"
             role="tabpanel"
@@ -188,9 +197,7 @@ const hasRouteComponent = computed(() => {
               <slot name="sign-in"></slot>
             </template>
 
-            <template
-              #form="{ info, onSignInSubmit, onForgotPasswordClicked, onInput }"
-            >
+            <template #form="{ info, onSignInSubmit, onForgotPasswordClicked, onInput }">
               <slot
                 name="sign-in-form"
                 :info="info"
@@ -223,7 +230,10 @@ const hasRouteComponent = computed(() => {
               <slot name="sign-up-header"></slot>
             </template>
             <template #signup-fields="{ info }">
-              <slot name="sign-up-fields" :info="info"></slot>
+              <slot
+                name="sign-up-fields"
+                :info="info"
+              ></slot>
             </template>
 
             <template #footer>
@@ -325,7 +335,10 @@ const hasRouteComponent = computed(() => {
           </template>
         </force-new-password>
 
-        <verify-user v-if="route === 'verifyUser'" ref="verifyUserComponent">
+        <verify-user
+          v-if="route === 'verifyUser'"
+          ref="verifyUserComponent"
+        >
           <template #verifyUserSlotI>
             <slot name="verify-user"></slot>
           </template>
@@ -351,6 +364,36 @@ const hasRouteComponent = computed(() => {
             <slot name="confirm-verify-user-footer"> </slot>
           </template>
         </confirm-verify-user>
+
+        <select-mfa-type
+          v-if="route === 'selectMfaType'"
+          ref="selectMfaTypeComponent"
+        >
+          <template #selectMfaTypeSlotI>
+            <slot name="select-mfa-type"></slot>
+          </template>
+          <template #header>
+            <slot name="select-mfa-type-header"></slot>
+          </template>
+          <template #footer>
+            <slot name="select-mfa-type-footer"> </slot>
+          </template>
+        </select-mfa-type>
+
+        <setup-email
+          v-if="route === 'setupEmail'"
+          ref="setupEmailComponent"
+        >
+          <template #setupEmailSlotI>
+            <slot name="setup-email"></slot>
+          </template>
+          <template #header>
+            <slot name="setup-email-header"></slot>
+          </template>
+          <template #footer>
+            <slot name="setup-email-footer"> </slot>
+          </template>
+        </setup-email>
       </div>
       <slot name="footer"></slot>
     </div>

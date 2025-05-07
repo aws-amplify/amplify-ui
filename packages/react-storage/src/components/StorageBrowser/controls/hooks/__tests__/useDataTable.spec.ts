@@ -1,9 +1,7 @@
 import { act, renderHook } from '@testing-library/react';
-import {
-  DataTableProps,
-  DataTableSortHeader,
-} from '../../../composables/DataTable';
-import { useControlsContext } from '../../../controls/context';
+
+import { DataTableProps, DataTableSortHeader } from '../../../components';
+import { useControlsContext } from '../../context';
 import { compareButtonData } from '../compareFunctions/compareButtonData';
 import { compareDateData } from '../compareFunctions/compareDateData';
 import { compareNumberData } from '../compareFunctions/compareNumberData';

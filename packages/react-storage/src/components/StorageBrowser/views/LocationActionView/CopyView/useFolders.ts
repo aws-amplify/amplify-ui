@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { LocationState } from '../../../providers/store/location';
+import type { LocationState } from '../../../store';
 import { useList } from '../../../useAction';
 
 import { usePaginate } from '../../hooks/usePaginate';
 import { useSearch } from '../../hooks/useSearch';
 
-import { FoldersState } from './types';
+import type { FoldersState } from './types';
 
 const DEFAULT_PAGE_SIZE = 100;
 export const DEFAULT_LIST_OPTIONS = {
@@ -28,11 +28,10 @@ export const useFolders = ({
 }: UseFoldersInput): FoldersState => {
   const { current, key } = destination;
 
-  const [{ data, hasError, isLoading, message }, handleList] =
+  const [{ value, hasError, isLoading, message }, handleList] =
     useList('folderItems');
 
-  const { items, nextToken, search } = data;
-  const { hasExhaustedSearch = false } = search ?? {};
+  const { items, nextToken, hasExhaustedSearch = false } = value;
 
   const onInitialize = React.useCallback(() => {
     handleList({
@@ -41,10 +40,10 @@ export const useFolders = ({
     });
   }, [handleList, key]);
 
-  const hasNextToken = !!nextToken;
+  const hasNextPage = !!nextToken;
 
-  const paginateCallback = () => {
-    if (!nextToken) return;
+  const onPaginate = () => {
+    if (!hasNextPage) return;
 
     handleList({
       prefix: key,
@@ -54,25 +53,21 @@ export const useFolders = ({
 
   const {
     currentPage: page,
-    onPaginate,
+    handlePaginate,
     highestPageVisited,
     pageItems,
     handleReset,
   } = usePaginate({
     items,
-    paginateCallback,
+    onPaginate,
     pageSize: DEFAULT_PAGE_SIZE,
-    hasNextToken,
   });
 
   const onSearch = (query: string) => {
     handleReset();
     handleList({
       prefix: key,
-      options: {
-        ...DEFAULT_LIST_OPTIONS,
-        search: { query, filterBy: 'key' },
-      },
+      options: { ...DEFAULT_LIST_OPTIONS, search: { query, filterBy: 'key' } },
     });
   };
 
@@ -98,7 +93,7 @@ export const useFolders = ({
 
   return {
     hasError,
-    hasNextPage: hasNextToken,
+    hasNextPage,
     highestPageVisited,
     isLoading,
     message,
@@ -107,7 +102,7 @@ export const useFolders = ({
     pageItems,
     query,
     hasExhaustedSearch,
-    onPaginate,
+    onPaginate: handlePaginate,
     onQuery,
     onSearch: onSearchSubmit,
     onSearchClear: () => {

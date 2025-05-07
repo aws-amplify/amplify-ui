@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { StatusDisplay } from '../composables/StatusDisplay';
+import { StatusDisplay } from '../components/composables/StatusDisplay';
 
 import { useResolvedComposable } from './hooks/useResolvedComposable';
 import { useStatusDisplay } from './hooks/useStatusDisplay';

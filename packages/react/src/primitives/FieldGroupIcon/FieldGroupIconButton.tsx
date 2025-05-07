@@ -6,7 +6,7 @@ import { ComponentClassName } from '@aws-amplify/ui';
 import { FieldGroupIcon } from './FieldGroupIcon';
 
 import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
-import {
+import type {
   BaseFieldGroupIconButtonProps,
   FieldGroupIconButtonProps,
   ForwardRefPrimitive,

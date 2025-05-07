@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { ForwardRefPrimitive, Primitive } from '../types/view';
-import { BaseTextAreaProps, TextAreaProps } from '../types/textArea';
+import type { ForwardRefPrimitive, Primitive } from '../types/view';
+import type { BaseTextAreaProps, TextAreaProps } from '../types/textArea';
 import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 import { TextArea } from './TextArea';
 import { useAutoresizeTextArea } from './useAutoresizeTextarea';

@@ -1,6 +1,6 @@
-import { ImageStyle } from 'react-native';
-import { IconButtonProps } from '../IconButton';
-import { TextFieldProps, TextFieldStyles } from '../TextField';
+import type { ImageStyle } from 'react-native';
+import type { IconButtonProps } from '../IconButton';
+import type { TextFieldProps, TextFieldStyles } from '../TextField';
 
 export interface PasswordFieldProps extends TextFieldProps {
   /**

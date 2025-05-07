@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Pagination } from '../composables/Pagination';
+import { Pagination } from '../components/composables/Pagination';
 import { useResolvedComposable } from './hooks/useResolvedComposable';
 import { usePagination } from './hooks/usePagination';
 

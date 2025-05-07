@@ -1,4 +1,4 @@
-export {
+export type {
   FormProviderProps,
   FormValues,
   FormHandle,

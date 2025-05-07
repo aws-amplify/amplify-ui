@@ -1,6 +1,6 @@
 import { areEmptyArrays, areEmptyObjects } from '@aws-amplify/ui';
 
-import { Comparator, UseMachineSelector } from './types';
+import type { Comparator, UseMachineSelector } from './types';
 
 export const defaultComparator = (): false => false;
 

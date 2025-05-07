@@ -2,8 +2,8 @@ import {
   fillOverlayCanvasFractional,
   getRGBArrayFromColorString,
 } from './liveness';
-import { LivenessContext } from '../types/machine';
-import { ClientFreshnessColorSequence } from '../types/service';
+import type { LivenessContext } from '../types/machine';
+import type { ClientFreshnessColorSequence } from '../types/service';
 
 const TICK_RATE = 10; // ms -- the rate at which we will render/check colors
 

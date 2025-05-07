@@ -1,7 +1,7 @@
 import React from 'react';
 import { ComponentClassName, humanFileSize } from '@aws-amplify/ui';
 import { Text, View } from '@aws-amplify/ui-react';
-import { UploadDetailsProps } from './types';
+import type { UploadDetailsProps } from './types';
 
 export const UploadDetails = ({
   displayName,

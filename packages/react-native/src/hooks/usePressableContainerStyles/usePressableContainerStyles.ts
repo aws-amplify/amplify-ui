@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { isFunction } from '@aws-amplify/ui';
-import {
+import type {
   PressableProps,
   PressableStateCallbackType,
   StyleProp,

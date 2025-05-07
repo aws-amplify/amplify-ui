@@ -1,7 +1,7 @@
-import { Property } from 'csstype';
-import { ElementType, PrimitiveProps, BaseViewProps } from './view';
-import { Sizes } from './base';
-import * as React from 'react';
+import type { Property } from 'csstype';
+import type { ElementType, PrimitiveProps, BaseViewProps } from './view';
+import type { Sizes } from './base';
+import type * as React from 'react';
 
 export type ViewBox = {
   minX?: number;

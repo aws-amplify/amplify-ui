@@ -14,8 +14,9 @@ import {
   readableStreamtoIterable,
 } from '@smithy/eventstream-serde-browser';
 import { FetchHttpHandler } from '@smithy/fetch-http-handler';
-import { HttpRequest, HttpResponse } from '@smithy/protocol-http';
-import { Provider, RequestHandler, RequestHandlerMetadata } from './types';
+import type { HttpRequest } from '@smithy/protocol-http';
+import { HttpResponse } from '@smithy/protocol-http';
+import type { Provider, RequestHandler, RequestHandlerMetadata } from './types';
 import { WS_CLOSURE_CODE } from '../constants';
 
 const DEFAULT_WS_CONNECTION_TIMEOUT_MS = 2000;

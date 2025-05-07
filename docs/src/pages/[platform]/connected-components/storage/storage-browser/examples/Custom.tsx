@@ -6,17 +6,13 @@ import { CustomCreateFolderView } from './CustomCreateFolderView';
 import { CustomUploadView } from './CustomUploadView';
 import { CustomLocationsView } from './CustomLocationsView';
 
-function MyLocationActionView({
-  type,
-  onExit,
-}: {
-  type?: string;
-  onExit: () => void;
-}) {
-  let DialogContent = null;
-  if (!type) return DialogContent;
+function MyLocationActionView() {
+  const state = useView('LocationDetail');
+  const onExit = () => {
+    state.onActionSelect('');
+  };
 
-  switch (type) {
+  switch (state.actionType) {
     case 'copy':
       return <CustomCopyView onExit={onExit} />;
     case 'createFolder':
@@ -32,31 +28,16 @@ function MyLocationActionView({
 
 function MyStorageBrowser() {
   const state = useView('LocationDetail');
-  const [currentAction, setCurrentAction] = React.useState<string>();
 
   if (!state.location.current) {
     return <CustomLocationsView />;
   }
 
-  if (currentAction) {
-    return (
-      <MyLocationActionView
-        type={currentAction}
-        onExit={() => {
-          setCurrentAction(undefined);
-        }}
-      />
-    );
+  if (state.actionType) {
+    return <MyLocationActionView />;
   }
 
-  return (
-    <StorageBrowser.LocationDetailView
-      key={currentAction}
-      onActionSelect={(action) => {
-        setCurrentAction(action);
-      }}
-    />
-  );
+  return <StorageBrowser.LocationDetailView />;
 }
 
 export default function Example() {

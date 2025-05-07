@@ -6,7 +6,7 @@ import { useResolvedComposable } from '../hooks/useResolvedComposable';
 
 jest.mock('../hooks/useActionExit');
 jest.mock('../hooks/useResolvedComposable');
-jest.mock('../../composables/ActionExit', () => ({
+jest.mock('../../components/composables/ActionExit', () => ({
   ActionExit: () => <div data-testid="action-exit" />,
 }));
 

@@ -1,0 +1,105 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SetupEmailComponent renders as expected 1`] = `
+<div
+  id="root0"
+>
+  <form
+    data-amplify-authenticator-setup-email=""
+    data-amplify-form=""
+  >
+    <fieldset
+      class="amplify-authenticator__column amplify-flex"
+      data-amplify-fieldset=""
+    >
+      <amplify-slot
+        name="setup-email-header"
+        style="display: contents;"
+      >
+        <h3
+          class="amplify-heading amplify-heading--3"
+        >
+          Setup Email
+        </h3>
+        
+        
+      </amplify-slot>
+      <amplify-base-form-fields
+        route="setupEmail"
+        style="display: contents;"
+      >
+        <amplify-form-field>
+          <div
+            class="amplify-flex amplify-field amplify-authenticator__column"
+          >
+            
+            
+            <amplify-text-field
+              style="display: contents;"
+            >
+              <label
+                class="amplify-label"
+                for="amplify-field-static"
+              >
+                 Setup Email
+
+              </label>
+              <input
+                aria-invalid="true"
+                autocapitalize="off"
+                autocomplete="username"
+                class="amplify-input"
+                id="amplify-field-static"
+                name="email"
+                placeholder="Enter your Email"
+                required=""
+                type="email"
+              />
+            </amplify-text-field>
+            
+            
+          </div>
+        </amplify-form-field>
+        
+        
+      </amplify-base-form-fields>
+      <button
+        amplify-button=""
+        class="amplify-button amplify-button--fullwidth amplify-button--medium amplify-button--primary"
+        data-fullwidth="true"
+        data-size="medium"
+        data-variation="primary"
+        fullwidth="true"
+        style="font-weight: normal;"
+        type="submit"
+        variation="primary"
+      >
+         Confirm 
+      </button>
+      <button
+        amplify-button=""
+        class="amplify-button amplify-button--fullwidth amplify-button--link amplify-button--small"
+        data-fullwidth="true"
+        data-size="small"
+        data-variation="link"
+        fontweight="normal"
+        fullwidth="true"
+        size="small"
+        style="font-weight: normal;"
+        type="button"
+        variation="link"
+      >
+         Back to Sign In 
+      </button>
+      
+    </fieldset>
+    <amplify-slot
+      name="setup-email-footer"
+      style="display: contents;"
+    >
+      
+      
+    </amplify-slot>
+  </form>
+</div>
+`;

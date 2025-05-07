@@ -1,16 +1,14 @@
-import { ComponentThemeFromName, ComponentsTheme } from '../components';
-import {
+import type { ComponentThemeFromName, ComponentsTheme } from '../components';
+import type {
   BaseTheme,
   ComponentTheme,
   ComponentThemeOverride,
 } from '../components/utils';
-import { WebTokens } from '../tokens';
-import { WebTheme } from '../types';
+import type { WebTokens } from '../tokens';
+import type { WebTheme } from '../types';
 import { createComponentCSS } from './createComponentCSS';
-import {
-  createComponentClasses,
-  ClassNameFunction,
-} from './createComponentClasses';
+import type { ClassNameFunction } from './createComponentClasses';
+import { createComponentClasses } from './createComponentClasses';
 
 type CreateComponentThemeProps<
   TokensType extends WebTokens = WebTokens,

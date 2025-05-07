@@ -1,5 +1,5 @@
 import { createContextUtilities } from '@aws-amplify/ui-react-core';
-import { MessageRenderer } from '../types';
+import type { MessageRenderer } from '../types';
 
 export const {
   MessageRendererContext,

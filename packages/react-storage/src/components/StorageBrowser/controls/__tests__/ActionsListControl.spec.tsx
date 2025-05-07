@@ -1,12 +1,14 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { ActionsListControl } from '../ActionsListControl';
+
 import { useActionsList } from '../hooks/useActionsList';
 import { useResolvedComposable } from '../hooks/useResolvedComposable';
 
+import { ActionsListControl } from '../ActionsListControl';
+
 jest.mock('../hooks/useActionsList');
 jest.mock('../hooks/useResolvedComposable');
-jest.mock('../../composables/ActionsList', () => ({
+jest.mock('../../components/composables/ActionsList', () => ({
   ActionsList: () => <div data-testid="actions-list" />,
 }));
 

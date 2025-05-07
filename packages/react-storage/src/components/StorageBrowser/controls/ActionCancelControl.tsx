@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ActionCancel } from '../composables/ActionCancel';
+import { ActionCancel } from '../components/composables/ActionCancel';
 
 import { useActionCancel } from './hooks/useActionCancel';
 import { useResolvedComposable } from './hooks/useResolvedComposable';

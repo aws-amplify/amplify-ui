@@ -1,6 +1,6 @@
 import { Image } from 'react-native';
 import { ConsoleLogger as Logger } from 'aws-amplify/utils';
-import { InAppMessageLayout } from '@aws-amplify/ui-react-core-notifications';
+import type { InAppMessageLayout } from '@aws-amplify/ui-react-core-notifications';
 
 import {
   BANNER_IMAGE_SCREEN_SIZE,
@@ -8,7 +8,7 @@ import {
   FULL_SCREEN_IMAGE_SCREEN_SIZE,
   MODAL_IMAGE_SCREEN_SIZE,
 } from './constants';
-import { ImageDimensions, ImageLoadingState } from './types';
+import type { ImageDimensions, ImageLoadingState } from './types';
 
 const logger = new Logger('InAppMessaging');
 

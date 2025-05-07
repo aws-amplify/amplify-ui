@@ -1,11 +1,12 @@
 import React from 'react';
-import { AuthenticatorRoute } from '@aws-amplify/ui';
+import type { AuthenticatorRoute } from '@aws-amplify/ui';
 import { createContextUtilities } from '@aws-amplify/ui-react-core';
 
-import { useMachine, UseMachineSelector } from '../Machine';
+import type { UseMachineSelector } from '../Machine';
+import { useMachine } from '../Machine';
 
 import { COMPONENT_ROUTE } from './constants';
-import {
+import type {
   ComponentRoute,
   ComponentRouteContextType,
   ComponentRouteProviderProps,

@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { ComponentClassName } from '@aws-amplify/ui';
-import { AlertVariations, ViewProps } from '../types';
+import type { AlertVariations, ViewProps } from '../types';
 
 import {
   IconInfo,

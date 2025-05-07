@@ -1,4 +1,4 @@
-import { Modifiers, ComponentStyles, Elements, Size } from './utils';
+import type { Modifiers, ComponentStyles, Elements, Size } from './utils';
 
 export type SwitchTheme<Required extends boolean = false> = ComponentStyles &
   Elements<

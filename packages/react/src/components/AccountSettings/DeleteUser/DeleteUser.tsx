@@ -7,7 +7,7 @@ import { useAuth } from '../../../internal';
 import { Flex } from '../../../primitives';
 import { ComponentClassName } from '../constants';
 import DEFAULTS from './defaults';
-import { DeleteUserProps, DeleteUserState } from './types';
+import type { DeleteUserProps, DeleteUserState } from './types';
 import { defaultDeleteUserDisplayText } from '../utils';
 import { VERSION } from '../../../version';
 

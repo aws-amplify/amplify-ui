@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { isFunction } from '@aws-amplify/ui';
-import {
+import type {
   InAppMessageLayout,
   MessageComponentBaseProps,
   MessagePayloadStyle,
@@ -9,7 +9,7 @@ import {
 import { DEFAULT_CAROUSEL_INDICATOR_SIZE } from '../../../primitives';
 import { BUTTON_PRESSED_OPACITY, SPACING_EXTRA_LARGE } from '../../constants';
 
-import {
+import type {
   MessageButtonStyleParams,
   MessageButtonStyleProps,
   MessageComponentStyles,

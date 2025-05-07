@@ -1,5 +1,8 @@
 import React from 'react';
-import { LivenessInterpreter, FaceLivenessDetectorProps } from '../service';
+import type {
+  LivenessInterpreter,
+  FaceLivenessDetectorProps,
+} from '../service';
 
 interface FaceLivenessDetectorContextType {
   componentProps: FaceLivenessDetectorProps;

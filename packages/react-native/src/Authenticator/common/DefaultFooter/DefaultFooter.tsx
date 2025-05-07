@@ -1,7 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 
-import { DefaultFooterProps } from './types';
+import type { DefaultFooterProps } from './types';
 
 export default function DefaultFooter({
   children,

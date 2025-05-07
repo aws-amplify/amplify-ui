@@ -1,2 +1,2 @@
 export { default as PasswordField } from './PasswordField';
-export { PasswordFieldProps, PasswordFieldStyles } from './types';
+export type { PasswordFieldProps, PasswordFieldStyles } from './types';

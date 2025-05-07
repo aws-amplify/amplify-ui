@@ -3,7 +3,7 @@ import { classNames } from '@aws-amplify/ui';
 
 import { ComponentClassName } from '@aws-amplify/ui';
 import { DialCodeSelect } from './DialCodeSelect';
-import {
+import type {
   PhoneNumberFieldProps,
   ForwardRefPrimitive,
   Primitive,

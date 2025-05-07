@@ -6,7 +6,7 @@ import { useResolvedComposable } from '../hooks/useResolvedComposable';
 
 jest.mock('../hooks/useStatusDisplay');
 jest.mock('../hooks/useResolvedComposable');
-jest.mock('../../composables/StatusDisplay', () => ({
+jest.mock('../../components/composables/StatusDisplay', () => ({
   StatusDisplay: () => <div data-testid="status-display" />,
 }));
 

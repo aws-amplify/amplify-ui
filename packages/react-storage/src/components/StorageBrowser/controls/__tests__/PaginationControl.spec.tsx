@@ -6,7 +6,7 @@ import { useResolvedComposable } from '../hooks/useResolvedComposable';
 
 jest.mock('../hooks/usePagination');
 jest.mock('../hooks/useResolvedComposable');
-jest.mock('../../composables/Pagination', () => ({
+jest.mock('../../components/composables/Pagination', () => ({
   Pagination: () => <div data-testid="pagination" />,
 }));
 

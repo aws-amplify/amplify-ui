@@ -1,8 +1,8 @@
 import { uploadData, UploadDataInput } from '../../../storage-internal';
 import { isCancelError } from 'aws-amplify/storage';
 
+import { MULTIPART_UPLOAD_THRESHOLD_BYTES } from '../constants';
 import {
-  MULTIPART_UPLOAD_THRESHOLD_BYTES,
   uploadHandler,
   UploadHandlerInput,
   UNDEFINED_CALLBACKS,
@@ -178,6 +178,7 @@ describe('uploadHandler', () => {
     const { result } = uploadHandler(baseInput);
 
     expect(await result).toStrictEqual({
+      error,
       message: error.message,
       status: 'FAILED',
     });
@@ -196,18 +197,19 @@ describe('uploadHandler', () => {
     const { result } = uploadHandler(baseInput);
 
     expect(await result).toStrictEqual({
-      message: 'Failed!',
+      error,
+      message: error.message,
       status: 'CANCELED',
     });
   });
 
   it('handles an overwrite failure as expected', async () => {
-    const preconditionError = new Error('Failed!');
-    preconditionError.name = 'PreconditionFailed';
+    const error = new Error('Failed!');
+    error.name = 'PreconditionFailed';
 
     mockUploadData.mockReturnValue({
       ...mockUploadDataReturnValue,
-      result: Promise.reject(preconditionError),
+      result: Promise.reject(error),
       state: 'ERROR',
     });
 
@@ -217,7 +219,8 @@ describe('uploadHandler', () => {
     });
 
     expect(await result).toStrictEqual({
-      message: 'Failed!',
+      error,
+      message: error.message,
       status: 'OVERWRITE_PREVENTED',
     });
   });

@@ -6,8 +6,13 @@ import {
   spawn,
 } from 'xstate';
 
-import { AuthFormFields, PasswordSettings } from '../../types';
-import { AuthEvent, AuthContext, ActorDoneData, InitialStep } from './types';
+import type { AuthFormFields, PasswordSettings } from '../../types';
+import type {
+  AuthEvent,
+  AuthContext,
+  ActorDoneData,
+  InitialStep,
+} from './types';
 import { isEmptyObject } from '../../utils';
 
 import actions from './actions';
@@ -303,7 +308,7 @@ export function createAuthenticatorMachine(
           { cond: 'hasActor', actions: forwardTo(({ actorRef }) => actorRef) },
         ]),
         setActorDoneData: assign({
-          actorDoneData: (context, event): ActorDoneData => ({
+          actorDoneData: (_, event): ActorDoneData => ({
             challengeName: event.data.challengeName,
             codeDeliveryDetails: event.data.codeDeliveryDetails,
             missingAttributes: event.data.missingAttributes,
@@ -312,6 +317,7 @@ export function createAuthenticatorMachine(
             step: event.data.step,
             totpSecretCode: event.data.totpSecretCode,
             unverifiedUserAttributes: event.data.unverifiedUserAttributes,
+            allowedMfaTypes: event.data.allowedMfaTypes,
           }),
         }),
         applyAmplifyConfig: assign({

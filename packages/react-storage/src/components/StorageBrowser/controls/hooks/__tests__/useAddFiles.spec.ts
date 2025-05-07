@@ -1,6 +1,7 @@
 import { renderHook } from '@testing-library/react';
-import { AddFilesProps } from '../../../composables/AddFiles';
-import { useControlsContext } from '../../../controls/context';
+
+import { AddFilesProps } from '../../../components/composables/AddFiles';
+import { useControlsContext } from '../../context';
 import { useAddFiles } from '../useAddFiles';
 
 jest.mock('../../../controls/context');

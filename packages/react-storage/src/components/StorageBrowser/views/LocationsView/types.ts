@@ -1,5 +1,5 @@
-import { LocationData } from '../../actions';
-import { ListViewProps } from '../types';
+import type { LocationData } from '../../actions';
+import type { ListViewProps } from '../types';
 
 export interface LocationsViewState {
   hasError: boolean;

@@ -1,12 +1,12 @@
-import { InputEventType, ValidatorOptions } from '@aws-amplify/ui';
+import type { InputEventType, ValidatorOptions } from '@aws-amplify/ui';
 
-import {
+import type {
   SubmitButtonComponent,
   ErrorMessageComponent,
   PasswordFieldComponent,
   FormValues,
 } from '../types';
-import { ChangePasswordDisplayText } from '../utils';
+import type { ChangePasswordDisplayText } from '../utils';
 
 export interface ChangePasswordComponents {
   ConfirmPasswordField?: PasswordFieldComponent;

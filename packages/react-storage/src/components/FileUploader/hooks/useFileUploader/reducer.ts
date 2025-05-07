@@ -1,5 +1,7 @@
-import { FileStatus, StorageFile, StorageFiles } from '../../types';
-import { Action, FileUploaderActionTypes, UseFileUploaderState } from './types';
+import type { StorageFile, StorageFiles } from '../../types';
+import { FileStatus } from '../../types';
+import type { Action, UseFileUploaderState } from './types';
+import { FileUploaderActionTypes } from './types';
 
 const updateFiles = (
   files: StorageFiles,

@@ -1,6 +1,8 @@
 import { renderHook } from '@testing-library/react';
-import { StatusDisplayProps } from '../../../composables/StatusDisplay';
-import { useControlsContext } from '../../../controls/context';
+
+import { StatusDisplayProps } from '../../../components/composables/StatusDisplay';
+import { useControlsContext } from '../../context';
+
 import { useStatusDisplay } from '../useStatusDisplay';
 
 jest.mock('../../../controls/context');

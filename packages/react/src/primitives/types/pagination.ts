@@ -1,6 +1,6 @@
-import { BaseComponentProps, AriaProps } from './base';
-import { BaseStyleProps } from './style';
-import { ElementType, PrimitiveProps, BaseViewProps } from './view';
+import type { BaseComponentProps, AriaProps } from './base';
+import type { BaseStyleProps } from './style';
+import type { ElementType, PrimitiveProps, BaseViewProps } from './view';
 
 export type PaginationItemType = 'page' | 'next' | 'previous' | 'ellipsis';
 export type PaginationCallbackType = 'onNext' | 'onPrevious' | 'onChange';

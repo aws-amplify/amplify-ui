@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { AnyComponent } from '../../types';
+import type { AnyComponent } from '../../types';
 
 import FormProvider from './FormProvider';
-import { FormHandle, FormProviderProps } from './types';
+import type { FormHandle, FormProviderProps } from './types';
 
 /**
  * @param Child `Form` base component wrapped inside `FormProvider`

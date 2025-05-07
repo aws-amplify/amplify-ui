@@ -5,7 +5,7 @@ import { MessageDismiss } from './MessageDismiss';
 import { MessageContent } from './MessageContent';
 import { MessageContainer } from './MessageContainer';
 
-import {
+import type {
   MessageProps,
   BaseMessageProps,
   ForwardRefPrimitive,

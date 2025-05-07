@@ -1,8 +1,8 @@
-import React from 'react';
-import { AuthUser } from 'aws-amplify/auth';
+import type React from 'react';
+import type { AuthUser } from 'aws-amplify/auth';
 
-import { ButtonComponent, ErrorMessageComponent } from '../types';
-import { DeleteUserDisplayText } from '../utils';
+import type { ButtonComponent, ErrorMessageComponent } from '../types';
+import type { DeleteUserDisplayText } from '../utils';
 
 export interface WarningViewProps {
   /** called when end user cancels account deletion */

@@ -1,7 +1,8 @@
 import { FileStatus } from '../../types';
 
-import { Action, AddFilesActionParams, FileUploaderActionTypes } from './types';
-import { TaskEvent } from '../../utils';
+import type { Action, AddFilesActionParams } from './types';
+import { FileUploaderActionTypes } from './types';
+import type { TaskEvent } from '../../utils';
 
 export const addFilesAction = ({
   files,

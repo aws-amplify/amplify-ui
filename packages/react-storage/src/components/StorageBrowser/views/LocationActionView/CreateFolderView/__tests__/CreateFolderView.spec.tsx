@@ -4,10 +4,11 @@ import { act, render } from '@testing-library/react';
 import * as UseCreateFolderViewModule from '../useCreateFolderView';
 import { CreateFolderViewState } from '../types';
 
-import { ControlsContext } from '../../../../controls/types';
+import { MessageProps } from '../../../../components';
+import { ControlsContext } from '../../../../controls';
 import { LocationData } from '../../../../actions';
+
 import { CreateFolderView } from '../CreateFolderView';
-import { MessageProps } from '../../../../composables/Message';
 
 const getActionCompleteMessage = jest.fn();
 const getValidationMessage = jest.fn();

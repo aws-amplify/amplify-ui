@@ -36,69 +36,66 @@ Amplify UI is an open-source UI library with cloud-connected components that are
 
 ## Component Matrix
 
-| **Connected Components**        | **React** | **React Native** | **Angular** | **Vue** |
-| :------------------------------ | :-------: | :--------------: | :---------: | :-----: |
-| Authenticator                   |    ✅     |        ✅        |     ✅      |   ✅    |
-| In-App Messaging                |    ✅     |        ✅        |             |         |
-| Geo (MapView)                   |    ✅     |                  |             |         |
-| Account Settings                |    ✅     |                  |             |         |
-| Storage (FileUploader)          |    ✅     |                  |             |         |
-| Storage (StorageImage)          |    ✅     |                  |             |         |
-| Liveness (FaceLivenessDetector) |    ✅     |                  |             |         |
+| **Connected Components** | **React** | **React Native** | **Angular** | **Vue** |
+| :----------------------- | :-------: | :--------------: | :---------: | :-----: |
+| Authenticator            |    ✅     |        ✅        |     ✅      |   ✅    |
+| InAppMessagingDisplay    |    ✅     |        ✅        |             |         |
+| MapView/LocationSearch   |    ✅     |                  |             |         |
+| Account Settings         |    ✅     |                  |             |         |
+| StorageBrowser           |    ✅     |                  |             |         |
+| FileUploader             |    ✅     |                  |             |         |
+| StorageImage             |    ✅     |                  |             |         |
+| FaceLivenessDetector     |    ✅     |                  |             |         |
 
-| **Primitives**   | **React** | **Angular** | **Vue** |
-| :--------------- | :-------: | :---------: | :-----: |
-| Alert            |    ✅     |             |
-| Autocomplete     |    ✅     |             |
-| Badge            |    ✅     |             |
-| Button           |    ✅     |             |
-| Card             |    ✅     |             |
-| CheckboxField    |    ✅     |             |
-| Collection       |    ✅     |             |
-| Divider          |    ✅     |             |
-| Expander         |    ✅     |             |
-| Flex             |    ✅     |             |
-| Grid             |    ✅     |             |
-| Heading          |    ✅     |             |
-| HighlightMatch   |    ✅     |             |
-| Icon             |    ✅     |             |
-| Image            |    ✅     |             |
-| Link             |    ✅     |             |
-| Loader           |    ✅     |             |
-| Menu             |    ✅     |             |
-| Pagination       |    ✅     |             |
-| PasswordField    |    ✅     |             |
-| PhoneNumberField |    ✅     |             |
-| Placeholder      |    ✅     |             |
-| RadioGroupField  |    ✅     |             |
-| Rating           |    ✅     |             |
-| ScrollView       |    ✅     |             |
-| SearchField      |    ✅     |             |
-| SelectField      |    ✅     |             |
-| SliderField      |    ✅     |             |
-| StepperField     |    ✅     |             |
-| SwitchField      |    ✅     |             |
-| Table            |    ✅     |             |
-| Tabs             |    ✅     |             |
-| Text             |    ✅     |             |
-| TextAreaField    |    ✅     |             |
-| TextField        |    ✅     |             |
-| ToggleButton     |    ✅     |             |
-| View             |    ✅     |             |
-| VisuallyHidden   |    ✅     |             |
+| **Primitives**   | **React** |
+| :--------------- | :-------: |
+| Alert            |    ✅     |
+| Autocomplete     |    ✅     |
+| Badge            |    ✅     |
+| Button           |    ✅     |
+| Card             |    ✅     |
+| CheckboxField    |    ✅     |
+| Collection       |    ✅     |
+| Divider          |    ✅     |
+| Expander         |    ✅     |
+| Flex             |    ✅     |
+| Grid             |    ✅     |
+| Heading          |    ✅     |
+| HighlightMatch   |    ✅     |
+| Icon             |    ✅     |
+| Image            |    ✅     |
+| Link             |    ✅     |
+| Loader           |    ✅     |
+| Menu             |    ✅     |
+| Pagination       |    ✅     |
+| PasswordField    |    ✅     |
+| PhoneNumberField |    ✅     |
+| Placeholder      |    ✅     |
+| RadioGroupField  |    ✅     |
+| Rating           |    ✅     |
+| ScrollView       |    ✅     |
+| SearchField      |    ✅     |
+| SelectField      |    ✅     |
+| SliderField      |    ✅     |
+| StepperField     |    ✅     |
+| SwitchField      |    ✅     |
+| Table            |    ✅     |
+| Tabs             |    ✅     |
+| Text             |    ✅     |
+| TextAreaField    |    ✅     |
+| TextField        |    ✅     |
+| ToggleButton     |    ✅     |
+| View             |    ✅     |
+| VisuallyHidden   |    ✅     |
 
 ## Frequently asked questions
 
-**What are the major benefits of the new version of Amplify UI?**
+**What are the major benefits of Amplify UI?**
 
 - **Better developer experience** Connected-components like Authenticator are being written with framework-specific implementations so that they follow framework conventions and are easier to integrate into your application.
 - **Endlessly customizable** Every detail of Amplify UI is customizable to match your brand. Style all of Amplify UI with themes, override components with your own, or build your own UI and use Amplify for complex state management.
 - **Accessible** Amplify UI components follow [WCAG](https://www.w3.org/WAI/standards-guidelines/wcag/) and [WAI-ARIA](https://www.w3.org/TR/wai-aria-1.2/) best practices and guidelines such as color contrast, keyboard navigation, accessible labels, and focus management.
 - **Primitive components (React only right now)** Primitive components are used in the connected components, like Authenticator, you can also customize them and use them to build the rest of your UI.
-
-**Why are you building primitives?**
-
-We are building more cloud-connected components and want to have consistency between them, while also allowing you to build your UI with the same primitives so you can have a consistent UI development experience.
 
 **How does this compare to other UI libraries like Tailwind, Chakra, Supabase, or Material-UI?**
 
@@ -112,6 +109,6 @@ You can also use the above link to report a bug or a feature request for previou
 
 As we continue to work on the new Amplify UI we will move UI-related issues in the amplify-js repository over here to work on them. We will continue to maintain major bug and security fixes for all existing UI packages and versions. New development for UI components will happen in this repository and eventually be published under the `@react` npm tag.
 
-## Contributing
+## We love contributors!!
 
-- [CONTRIBUTING.md](/CONTRIBUTING.md)
+See our contributing guide [CONTRIBUTING.md](/CONTRIBUTING.md) to help us scale Amplify UI!

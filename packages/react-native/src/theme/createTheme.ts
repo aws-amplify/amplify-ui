@@ -1,6 +1,6 @@
 import { deepExtend, resolveObject, usesReference } from '@aws-amplify/ui';
 import { isFunction, setupTokens } from '@aws-amplify/ui';
-import {
+import type {
   Theme,
   StrictTheme,
   ColorMode,

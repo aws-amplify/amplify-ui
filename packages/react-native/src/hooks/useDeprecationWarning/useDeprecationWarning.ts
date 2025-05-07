@@ -1,7 +1,5 @@
-import {
-  useDeprecationWarning as useDeprecationWarningBase,
-  UseDeprecationWarning,
-} from '@aws-amplify/ui-react-core';
+import type { UseDeprecationWarning } from '@aws-amplify/ui-react-core';
+import { useDeprecationWarning as useDeprecationWarningBase } from '@aws-amplify/ui-react-core';
 
 import { platform } from '../../utils';
 

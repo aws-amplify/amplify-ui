@@ -1,9 +1,9 @@
-import {
+import type {
   MessageComponentBaseProps,
   MessagePayloadStyle,
 } from '@aws-amplify/ui-react-core-notifications';
 
-import { MessageComponentStyles, MessageStyleParams } from './types';
+import type { MessageComponentStyles, MessageStyleParams } from './types';
 
 /**
  * Utility for extracting message payload style

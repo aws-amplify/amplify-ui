@@ -1,8 +1,9 @@
 // Re-export internal apis & types of `@aws-amplify/storage/internals` in a single file
 // eslint-disable-next-line import/no-extraneous-dependencies
-export {
+export type {
   AWSTemporaryCredentials,
   CopyInput,
+  CopyOutput,
   CredentialsLocation,
   CredentialsProvider,
   GetUrlInput,
@@ -17,9 +18,12 @@ export {
   RemoveInput,
   StorageAccess,
   StorageSubpathStrategy,
-  StorageValidationErrorCode,
   UploadDataInput,
   ListPathsOutput,
+} from '@aws-amplify/storage/internals';
+// eslint-disable-next-line import/no-extraneous-dependencies
+export {
+  StorageValidationErrorCode,
   assertValidationError,
   copy,
   getDataAccess,

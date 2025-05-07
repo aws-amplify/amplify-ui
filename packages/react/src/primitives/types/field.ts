@@ -1,8 +1,8 @@
-import { BaseFieldGroupIconButtonProps } from './fieldGroupIcon';
-import { BaseInputProps } from './input';
-import { BaseTextProps } from './text';
-import { BaseStyleProps } from './style';
-import { ElementType, PrimitiveProps, BaseViewProps } from './view';
+import type { BaseFieldGroupIconButtonProps } from './fieldGroupIcon';
+import type { BaseInputProps } from './input';
+import type { BaseTextProps } from './text';
+import type { BaseStyleProps } from './style';
+import type { ElementType, PrimitiveProps, BaseViewProps } from './view';
 
 /**
  * Shared type across all field types

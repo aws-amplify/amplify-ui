@@ -61,6 +61,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: deployment
     needs:
+      - setup
       - build-test
       - build-test-react-native
     if: ${{ needs.setup.outputs.has-changesets != 'true' }}

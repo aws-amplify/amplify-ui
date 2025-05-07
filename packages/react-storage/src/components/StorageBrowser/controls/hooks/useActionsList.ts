@@ -1,5 +1,5 @@
-import { ActionsListProps } from '../../composables/ActionsList';
-import { useControlsContext } from '../../controls/context';
+import type { ActionsListProps } from '../../components/composables/ActionsList';
+import { useControlsContext } from '../context';
 
 export const useActionsList = (): ActionsListProps => {
   const {

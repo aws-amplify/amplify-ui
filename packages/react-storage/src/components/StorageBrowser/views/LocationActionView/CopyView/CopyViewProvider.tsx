@@ -1,16 +1,16 @@
 import React from 'react';
 
-import { MessageProps } from '../../../composables/Message';
-import { ControlsContextProvider } from '../../../controls/context';
+import type { MessageProps } from '../../../components/composables/Message';
+import { ControlsContextProvider } from '../../../controls';
 import { useDisplayText } from '../../../displayText';
 
-import { getActionViewTableData } from '../getActionViewTableData';
+import { useResolveTableData } from '../../hooks/useResolveTableData';
+import { COPY_TABLE_KEYS, COPY_TABLE_RESOLVERS } from '../../utils';
 
 import { FoldersMessageProvider } from './FoldersMessageControl';
 import { FoldersPaginationProvider } from './FoldersPaginationControl';
 import { FoldersTableProvider } from './FoldersTableControl';
-import { CopyViewProviderProps } from './types';
-import { getFolderText } from './utils';
+import type { CopyViewProviderProps } from './types';
 
 export function CopyViewProvider({
   children,
@@ -40,7 +40,7 @@ export function CopyViewProvider({
     isProcessing,
     isProcessingComplete,
     statusCounts,
-    tasks,
+    tasks: items,
     onActionCancel,
     onActionExit,
     onActionStart,
@@ -65,12 +65,9 @@ export function CopyViewProvider({
     onSelectFolder,
   } = folders;
 
-  const tableData = getActionViewTableData({
-    getFolderText,
-    tasks,
-    isProcessing,
-    displayText,
-    onTaskRemove,
+  const tableData = useResolveTableData(COPY_TABLE_KEYS, COPY_TABLE_RESOLVERS, {
+    items,
+    props: { displayText, isProcessing, onTaskRemove },
   });
 
   const isActionStartDisabled =

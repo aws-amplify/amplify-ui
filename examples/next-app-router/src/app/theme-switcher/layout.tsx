@@ -13,7 +13,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   return (
     <div {...theme.containerProps({ colorMode })}>
-      {/* Header */}
       <Header>
         Amplify UI RSC
         <ThemeToggle initialValue={colorMode} />

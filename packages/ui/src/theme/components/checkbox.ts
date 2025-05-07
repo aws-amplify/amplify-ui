@@ -1,4 +1,4 @@
-import { Modifiers, ComponentStyles, ColorTheme, Elements } from './utils';
+import type { Modifiers, ComponentStyles, ColorTheme, Elements } from './utils';
 
 export type CheckboxTheme<Required extends boolean = false> = ComponentStyles &
   Modifiers<ColorTheme | 'disabled', Required> &

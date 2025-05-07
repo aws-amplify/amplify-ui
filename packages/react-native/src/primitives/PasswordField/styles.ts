@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 
-import { StrictTheme } from '../../theme';
-import { PasswordFieldStyles } from './types';
+import type { StrictTheme } from '../../theme';
+import type { PasswordFieldStyles } from './types';
 
 export const getThemedStyles = ({
   components,

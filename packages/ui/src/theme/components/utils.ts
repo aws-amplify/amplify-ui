@@ -1,7 +1,7 @@
 import type * as CSS from 'csstype';
-import { DesignToken } from '../types';
-import { WebTokens } from '../tokens';
-import { Breakpoints } from '../breakpoints';
+import type { DesignToken } from '../types';
+import type { WebTokens } from '../tokens';
+import type { Breakpoints } from '../breakpoints';
 
 export type ColorTheme = 'info' | 'warning' | 'success' | 'error';
 
@@ -35,12 +35,8 @@ export type Modifiers<
   Keys extends string = string,
   Required extends boolean = false,
 > = Required extends true
-  ? {
-      _modifiers: { [key in Keys]: ComponentStyles };
-    }
-  : {
-      _modifiers?: { [key in Keys]?: ComponentStyles };
-    };
+  ? { _modifiers: Record<Keys, ComponentStyles> }
+  : { _modifiers?: Partial<Record<Keys, ComponentStyles>> };
 
 export type Elements<
   Properties extends Record<

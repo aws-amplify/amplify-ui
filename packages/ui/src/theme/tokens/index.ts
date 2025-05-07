@@ -1,24 +1,38 @@
-import { borderWidths, BorderWidths } from './borderWidths';
-import { colors, Colors } from './colors';
-import {
-  components,
+import type { BorderWidths } from './borderWidths';
+import { borderWidths } from './borderWidths';
+import type { Colors } from './colors';
+import { colors } from './colors';
+import type {
   ComponentTokens,
   DefaultComponentTokens,
   WebComponentTokens,
 } from './components';
-import { fonts, Fonts } from './fonts';
-import { fontSizes, FontSizes } from './fontSizes';
-import { fontWeights, FontWeights } from './fontWeights';
-import { lineHeights, LineHeights } from './lineHeights';
-import { opacities, Opacities } from './opacities';
-import { outlineOffsets, OutlineOffsets } from './outlineOffsets';
-import { outlineWidths, OutlineWidths } from './outlineWidths';
-import { radii, Radii } from './radii';
-import { shadows, Shadows } from './shadows';
-import { space, Space } from './space';
-import { time, Time } from './time';
-import { transforms, Transforms } from './transforms';
-import { OutputVariantKey } from './types/designToken';
+import { components } from './components';
+import type { Fonts } from './fonts';
+import { fonts } from './fonts';
+import type { FontSizes } from './fontSizes';
+import { fontSizes } from './fontSizes';
+import type { FontWeights } from './fontWeights';
+import { fontWeights } from './fontWeights';
+import type { LineHeights } from './lineHeights';
+import { lineHeights } from './lineHeights';
+import type { Opacities } from './opacities';
+import { opacities } from './opacities';
+import type { OutlineOffsets } from './outlineOffsets';
+import { outlineOffsets } from './outlineOffsets';
+import type { OutlineWidths } from './outlineWidths';
+import { outlineWidths } from './outlineWidths';
+import type { Radii } from './radii';
+import { radii } from './radii';
+import type { Shadows } from './shadows';
+import { shadows } from './shadows';
+import type { Space } from './space';
+import { space } from './space';
+import type { Time } from './time';
+import { time } from './time';
+import type { Transforms } from './transforms';
+import { transforms } from './transforms';
+import type { OutputVariantKey } from './types/designToken';
 
 /**
  * Used for custom themes

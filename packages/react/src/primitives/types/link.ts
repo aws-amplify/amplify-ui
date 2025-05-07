@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { ElementType, PrimitiveProps, BaseViewProps } from './view';
+import type * as React from 'react';
+import type { ElementType, PrimitiveProps, BaseViewProps } from './view';
 
 export interface LinkOptions {
   /**

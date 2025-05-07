@@ -1,5 +1,5 @@
-import { FileStatus, FileUploaderProps } from '../FileUploader/types';
-import { PathCallback, UploadTask } from '../FileUploader/utils';
+import type { FileStatus, FileUploaderProps } from '../FileUploader/types';
+import type { PathCallback, UploadTask } from '../FileUploader/utils';
 
 interface BucketInfo {
   bucketName: string;

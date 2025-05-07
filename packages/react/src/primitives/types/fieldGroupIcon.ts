@@ -1,5 +1,5 @@
-import { ElementType, PrimitiveProps, BaseViewProps } from './view';
-import { BaseButtonProps } from './button';
+import type { ElementType, PrimitiveProps, BaseViewProps } from './view';
+import type { BaseButtonProps } from './button';
 
 /** @deprecated For internal use only */
 export interface BaseFieldGroupIconProps extends BaseViewProps {
@@ -17,7 +17,7 @@ export interface BaseFieldGroupIconProps extends BaseViewProps {
   excludeFromTabOrder?: boolean;
 }
 export type FieldGroupIconProps<
-  Element extends ElementType = 'button' | 'div'
+  Element extends ElementType = 'button' | 'div',
 > = PrimitiveProps<BaseFieldGroupIconProps, Element>;
 
 /** @deprecated For internal use only */

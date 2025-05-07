@@ -1,4 +1,4 @@
-import { Modifiers, ComponentStyles, Elements, ColorTheme } from './utils';
+import type { Modifiers, ComponentStyles, Elements, ColorTheme } from './utils';
 
 export type FileUploaderTheme<Required extends boolean = false> =
   ComponentStyles &

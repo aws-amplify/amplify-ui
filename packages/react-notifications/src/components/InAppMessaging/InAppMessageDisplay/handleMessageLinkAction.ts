@@ -1,5 +1,5 @@
 import { ConsoleLogger as Logger } from 'aws-amplify/utils';
-import { HandleMessageLinkAction } from '@aws-amplify/ui-react-core-notifications';
+import type { HandleMessageLinkAction } from '@aws-amplify/ui-react-core-notifications';
 
 const logger = new Logger('InAppMessaging');
 

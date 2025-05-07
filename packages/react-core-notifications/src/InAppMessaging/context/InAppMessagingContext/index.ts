@@ -1,8 +1,10 @@
-export {
-  default as InAppMessagingContext,
+export type {
   InAppMessagingContextType,
   InAppMessagingProviderProps,
+  UseInAppMessaging,
+} from './InAppMessagingContext';
+export {
+  default as InAppMessagingContext,
   InAppMessagingProvider,
   useInAppMessaging,
-  UseInAppMessaging,
 } from './InAppMessagingContext';

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ActionsList } from '../composables/ActionsList';
+import { ActionsList } from '../components/composables/ActionsList';
 
 import { useActionsList } from './hooks/useActionsList';
 import { useResolvedComposable } from './hooks/useResolvedComposable';

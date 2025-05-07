@@ -1,5 +1,5 @@
-import { Property } from 'csstype';
-import { WebDesignToken } from '@aws-amplify/ui';
+import type { Property } from 'csstype';
+import type { WebDesignToken } from '@aws-amplify/ui';
 
 import type {
   BoxShadowKeys,
@@ -14,10 +14,10 @@ import type {
   SpaceKeys,
   TransformKeys,
 } from './theme';
-import { FlexItemStyleProps, FlexContainerStyleProps } from './flex';
-import { GridItemStyleProps, GridContainerStyleProps } from './grid';
-import { ImageStyleProps } from './image';
-import { TextAreaStyleProps } from './textArea';
+import type { FlexItemStyleProps, FlexContainerStyleProps } from './flex';
+import type { GridItemStyleProps, GridContainerStyleProps } from './grid';
+import type { ImageStyleProps } from './image';
+import type { TextAreaStyleProps } from './textArea';
 
 /**
  * @description

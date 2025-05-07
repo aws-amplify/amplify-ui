@@ -1,11 +1,11 @@
 import * as React from 'react';
 
-import {
-  getUrl,
+import type {
   GetUrlInput,
   GetUrlOutput,
   GetUrlWithPathInput,
 } from 'aws-amplify/storage';
+import { getUrl } from 'aws-amplify/storage';
 
 import { isFunction } from '@aws-amplify/ui';
 

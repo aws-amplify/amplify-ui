@@ -9,7 +9,7 @@ import {
 } from '../../common';
 import { useFieldValues } from '../../hooks';
 
-import { DefaultConfirmResetPasswordProps } from '../types';
+import type { DefaultConfirmResetPasswordProps } from '../types';
 
 const COMPONENT_NAME = 'ConfirmResetPassword';
 

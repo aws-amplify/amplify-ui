@@ -1,6 +1,7 @@
 import { renderHook } from '@testing-library/react';
-import { ActionStartProps } from '../../../composables/ActionStart';
-import { useControlsContext } from '../../../controls/context';
+
+import { ActionStartProps } from '../../../components/composables/ActionStart';
+import { useControlsContext } from '../../context';
 import { useActionStart } from '../useActionStart';
 
 jest.mock('../../../controls/context');

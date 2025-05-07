@@ -2,8 +2,9 @@ import React from 'react';
 
 import { isObject } from '@aws-amplify/ui';
 
-import { StorageFiles, FileStatus, DefaultFile } from '../../types';
-import { GetFileErrorMessage } from './types';
+import type { StorageFiles, DefaultFile } from '../../types';
+import { FileStatus } from '../../types';
+import type { GetFileErrorMessage } from './types';
 import { fileUploaderStateReducer } from './reducer';
 import {
   addFilesAction,
@@ -15,7 +16,7 @@ import {
   setUploadStatusAction,
   setUploadSuccessAction,
 } from './actions';
-import { TaskHandler } from '../../utils';
+import type { TaskHandler } from '../../utils';
 
 export interface UseFileUploader {
   addFiles: (params: {

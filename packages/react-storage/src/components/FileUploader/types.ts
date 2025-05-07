@@ -1,6 +1,6 @@
-import * as React from 'react';
+import type * as React from 'react';
 
-import {
+import type {
   ContainerProps,
   DropZoneProps,
   FileListHeaderProps,
@@ -8,7 +8,11 @@ import {
   FileListProps,
   FilePickerProps,
 } from './ui';
-import { FileUploaderDisplayText, PathCallback, UploadTask } from './utils';
+import type {
+  FileUploaderDisplayText,
+  PathCallback,
+  UploadTask,
+} from './utils';
 
 export interface BucketInfo {
   bucketName: string;

@@ -6,7 +6,7 @@ import { MessageLayout } from '../MessageLayout';
 import { MessageWrapper } from '../MessageWrapper';
 
 import { getLandscapeStyles, getPortraitStyles } from './styles';
-import { ModalMessageProps } from './types';
+import type { ModalMessageProps } from './types';
 
 export default function ModalMessage(
   props: ModalMessageProps

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { classNames } from '@aws-amplify/ui';
-import {
+import type {
   ForwardRefPrimitive,
   Primitive,
   FlexContainerStyleProps,

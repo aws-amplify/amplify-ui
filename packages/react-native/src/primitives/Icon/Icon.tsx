@@ -3,7 +3,7 @@ import { Animated, Image } from 'react-native';
 
 import { useTheme } from '../../theme';
 import { getThemedStyles } from './styles';
-import { IconProps } from './types';
+import type { IconProps } from './types';
 
 export default function Icon({
   accessible = true,

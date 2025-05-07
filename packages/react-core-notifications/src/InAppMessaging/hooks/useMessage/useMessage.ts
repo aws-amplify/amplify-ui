@@ -4,7 +4,7 @@ import { isNil } from '@aws-amplify/ui';
 import { RenderNothing } from '@aws-amplify/ui-react-core';
 
 import { useInAppMessaging } from '../../context';
-import { UseMessage, UseMessageParams } from './types';
+import type { UseMessage, UseMessageParams } from './types';
 import { getContentProps, getPositionProp } from './utils';
 
 export const EMPTY_PROPS = Object.freeze({});

@@ -1,6 +1,12 @@
-export { Container, ContainerProps } from './Container';
-export { DropZone, DropZoneProps } from './DropZone';
-export { FileList, FileListProps } from './FileList';
-export { FileListHeader, FileListHeaderProps } from './FileListHeader';
-export { FileListFooter, FileListFooterProps } from './FileListFooter';
-export { FilePicker, FilePickerProps } from './FilePicker';
+export type { ContainerProps } from './Container';
+export { Container } from './Container';
+export type { DropZoneProps } from './DropZone';
+export { DropZone } from './DropZone';
+export type { FileListProps } from './FileList';
+export { FileList } from './FileList';
+export type { FileListHeaderProps } from './FileListHeader';
+export { FileListHeader } from './FileListHeader';
+export type { FileListFooterProps } from './FileListFooter';
+export { FileListFooter } from './FileListFooter';
+export type { FilePickerProps } from './FilePicker';
+export { FilePicker } from './FilePicker';

@@ -1,4 +1,4 @@
-import { DisplayTextTemplate } from '@aws-amplify/ui';
+import type { DisplayTextTemplate } from '@aws-amplify/ui';
 
 // ChangePassword
 export type ChangePasswordDisplayText = DisplayTextTemplate<{

@@ -1,5 +1,5 @@
 import { fetchAuthSession } from 'aws-amplify/auth';
-import { AwsCredentialProvider, AwsCredentials } from '../../types';
+import type { AwsCredentialProvider, AwsCredentials } from '../../types';
 
 const isCredentialsProvider = (
   credentialsProvider?: AwsCredentialProvider

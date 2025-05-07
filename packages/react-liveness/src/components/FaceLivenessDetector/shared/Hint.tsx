@@ -10,7 +10,7 @@ import {
   createLivenessSelector,
 } from '../hooks';
 import { Toast } from './Toast';
-import { HintDisplayText } from '../displayText';
+import type { HintDisplayText } from '../displayText';
 import { ToastWithLoader } from './ToastWithLoader';
 
 export const selectErrorState = createLivenessSelector(

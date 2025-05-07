@@ -1,6 +1,10 @@
-import { CreateFolderHandlerData, LocationData } from '../../../actions';
+import type { CreateFolderHandlerData, LocationData } from '../../../actions';
 
-import { ActionViewType, ActionViewState, ActionViewProps } from '../types';
+import type {
+  ActionViewType,
+  ActionViewState,
+  ActionViewProps,
+} from '../types';
 
 export interface CreateFolderViewState
   extends Omit<ActionViewState<CreateFolderHandlerData>, 'onActionCancel'> {

@@ -4,7 +4,7 @@ import { classNames } from '@aws-amplify/ui';
 import { Flex } from '../Flex';
 import { View } from '../View';
 import { usePaginationItems } from './usePaginationItems';
-import {
+import type {
   BasePaginationProps,
   PaginationProps,
   ForwardRefPrimitive,

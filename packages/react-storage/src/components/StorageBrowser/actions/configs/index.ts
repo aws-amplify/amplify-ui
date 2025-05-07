@@ -1,12 +1,9 @@
-export {
-  ActionConfigsProvider,
-  ActionConfigsProviderProps,
-  useActionConfigs,
-} from './context';
+export type { ActionConfigsProviderProps } from './context';
+export { ActionConfigsProvider, useActionConfigs } from './context';
+export type { DefaultActionViewType } from './defaults';
 export {
   defaultActionConfigs,
   defaultActionViewConfigs,
-  DefaultActionViewType,
   isDefaultActionViewType,
 } from './defaults';
 export * from './types';

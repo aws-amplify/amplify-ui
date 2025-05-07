@@ -1,13 +1,13 @@
-import {
+import type {
   ImageStyle,
   PressableProps,
   StyleProp,
   TextStyle,
   ViewStyle,
 } from 'react-native';
-import { IconProps } from '../Icon/types';
-import { LabelProps } from '../Label';
-import { LabelPosition } from '../Label/types';
+import type { IconProps } from '../Icon/types';
+import type { LabelProps } from '../Label';
+import type { LabelPosition } from '../Label/types';
 
 export interface CheckboxProps<T> extends PressableProps {
   iconStyle?: IconProps['style'];

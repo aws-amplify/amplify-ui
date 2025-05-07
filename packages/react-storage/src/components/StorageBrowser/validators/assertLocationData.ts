@@ -1,6 +1,6 @@
 import { isObject, isString } from '@aws-amplify/ui';
 
-import { LocationData, LocationPermissions } from '../actions';
+import type { LocationData, LocationPermissions } from '../actions';
 
 function assertLocationPermissions(
   value: unknown,

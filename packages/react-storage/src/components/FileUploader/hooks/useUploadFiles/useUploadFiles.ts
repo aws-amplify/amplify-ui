@@ -1,11 +1,13 @@
 import * as React from 'react';
 
-import { TransferProgressEvent } from 'aws-amplify/storage';
+import type { TransferProgressEvent } from 'aws-amplify/storage';
 import { isFunction } from '@aws-amplify/ui';
 
-import { getInput, PathCallback, uploadFile } from '../../utils';
-import { FileStatus, FileUploaderProps, StorageBucket } from '../../types';
-import { UseFileUploader } from '../useFileUploader';
+import type { PathCallback } from '../../utils';
+import { getInput, uploadFile } from '../../utils';
+import type { FileUploaderProps, StorageBucket } from '../../types';
+import { FileStatus } from '../../types';
+import type { UseFileUploader } from '../useFileUploader';
 
 export interface UseUploadFilesProps
   extends Pick<

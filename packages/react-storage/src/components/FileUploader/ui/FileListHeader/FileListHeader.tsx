@@ -1,5 +1,5 @@
 import React from 'react';
-import { FileUploaderDisplayTextDefault } from '../../utils';
+import type { FileUploaderDisplayTextDefault } from '../../utils';
 import { ComponentClassName } from '@aws-amplify/ui';
 import { Text } from '@aws-amplify/ui-react';
 

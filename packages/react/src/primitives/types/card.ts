@@ -1,4 +1,4 @@
-import { ElementType, PrimitiveProps, BaseViewProps } from './view';
+import type { ElementType, PrimitiveProps, BaseViewProps } from './view';
 
 export type CardVariations = 'outlined' | 'elevated';
 

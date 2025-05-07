@@ -1,7 +1,8 @@
-import { StyleSheet, ViewStyle } from 'react-native';
-import { StrictTheme } from '../../../theme';
+import type { ViewStyle } from 'react-native';
+import { StyleSheet } from 'react-native';
+import type { StrictTheme } from '../../../theme';
 
-import { ContainerStyles, InnerContainerStyles } from './types';
+import type { ContainerStyles, InnerContainerStyles } from './types';
 
 export const getThemedStyles = (
   { tokens: { colors } }: StrictTheme,

@@ -7,7 +7,7 @@ import { FieldErrorMessage, FieldDescription } from '../Field';
 import { Flex } from '../Flex';
 import { Label } from '../Label';
 import { Select } from '../Select';
-import {
+import type {
   BaseSelectFieldProps,
   SelectFieldProps,
   ForwardRefPrimitive,

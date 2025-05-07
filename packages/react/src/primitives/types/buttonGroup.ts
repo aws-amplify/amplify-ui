@@ -1,10 +1,10 @@
-import * as React from 'react';
+import type * as React from 'react';
 
-import { AriaProps } from './base';
-import { BaseStyleProps } from './style';
-import { BaseButtonProps } from './button';
-import { BaseFlexProps } from './flex';
-import { ElementType, PrimitiveProps } from './view';
+import type { AriaProps } from './base';
+import type { BaseStyleProps } from './style';
+import type { BaseButtonProps } from './button';
+import type { BaseFlexProps } from './flex';
+import type { ElementType, PrimitiveProps } from './view';
 
 /** @deprecated For internal use only */
 export interface BaseButtonGroupProps

@@ -1,6 +1,6 @@
 import { useController } from 'react-hook-form';
 
-import {
+import type {
   FormValues,
   FocusHandler,
   UseControlledField,

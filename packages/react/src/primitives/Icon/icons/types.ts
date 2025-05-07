@@ -1,4 +1,4 @@
-import { ViewProps } from '../../types';
+import type { ViewProps } from '../../types';
 
 export type InternalIcon = (
   props: ViewProps & {

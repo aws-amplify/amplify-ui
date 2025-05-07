@@ -1,11 +1,12 @@
 import React, { useMemo } from 'react';
-import { Pressable, Text, TextStyle, ViewStyle } from 'react-native';
+import type { TextStyle, ViewStyle } from 'react-native';
+import { Pressable, Text } from 'react-native';
 import { capitalize } from '@aws-amplify/ui';
 
 import { usePressableContainerStyles } from '../../hooks';
 import { useTheme } from '../../theme';
 import { getThemedStyles } from './styles';
-import { ButtonProps } from './types';
+import type { ButtonProps } from './types';
 
 export default function Button({
   accessibilityRole = 'button',

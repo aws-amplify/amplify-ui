@@ -1,4 +1,4 @@
-import {
+import type {
   DesignTokenValues,
   FontWeightValue,
   OutputVariantKey,
@@ -18,7 +18,7 @@ type FontWeight =
 
 export type FontWeights<
   Output extends OutputVariantKey = unknown,
-  Platform = unknown
+  Platform = unknown,
 > = DesignTokenValues<
   FontWeight,
   FontWeightValue<Platform, Output>,

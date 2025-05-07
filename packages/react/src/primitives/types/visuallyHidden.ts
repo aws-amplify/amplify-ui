@@ -1,4 +1,4 @@
-import { ElementType, PrimitiveProps, BaseViewProps } from './view';
+import type { ElementType, PrimitiveProps, BaseViewProps } from './view';
 
 // VisuallyHidden should not support style props
 // @TODO change to extending the following type once `[key: string]: any` has been removed:

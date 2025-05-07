@@ -1,7 +1,8 @@
-import { DataTableProps } from '../../../composables/DataTable';
-import { LocationData } from '../../../actions';
+import type { LocationData } from '../../../actions';
+import type { DataTableProps } from '../../../components';
+import type { DefaultLocationsViewDisplayText } from '../../../displayText/types';
+
 import { getHeaders } from './getHeaders';
-import { DefaultLocationsViewDisplayText } from '../../../displayText/types';
 
 export const getLocationsViewTableData = ({
   displayText,

@@ -1,8 +1,8 @@
-import * as React from 'react';
-import { MergeProps } from '@aws-amplify/ui-react-core';
+import type * as React from 'react';
+import type { MergeProps } from '@aws-amplify/ui-react-core';
 
-import { AriaProps, BaseComponentProps } from './base';
-import { BaseStyleProps } from './style';
+import type { AriaProps, BaseComponentProps } from './base';
+import type { BaseStyleProps } from './style';
 
 /**
  * @deprecated will be removed in a future major version

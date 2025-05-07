@@ -1,17 +1,20 @@
 import { act, renderHook } from '@testing-library/react-hooks';
-import { NativeSyntheticEvent, TextInputFocusEventData } from 'react-native';
+import type {
+  NativeSyntheticEvent,
+  TextInputFocusEventData,
+} from 'react-native';
 
 import { ConsoleLogger as Logger } from 'aws-amplify/utils';
 import {
   UnverifiedContactMethodType,
   authenticatorTextUtil,
 } from '@aws-amplify/ui';
-import {
+import type {
   RadioFieldOptions,
   TextFieldOptionsType,
   TypedField,
 } from '../../types';
-import { UseFieldValuesParams } from '../types';
+import type { UseFieldValuesParams } from '../types';
 import useFieldValues from '../useFieldValues';
 
 const warnSpy = jest.spyOn(Logger.prototype, 'warn').mockImplementation();
@@ -90,16 +93,29 @@ describe('useFieldValues', () => {
   });
 
   it('returns the expected values for radio fields', () => {
+    const radioFieldOne = {
+      ...radioField,
+    };
+    const radioFieldTwo = {
+      name: 'phone_number',
+      value: '+1234567910',
+      onChange: jest.fn,
+      type: 'radio',
+    } as RadioFieldOptions;
+
     const { result } = renderHook(() =>
       useFieldValues({
         ...props,
         componentName: 'VerifyUser',
-        fields: [radioField],
+        fields: [radioFieldOne, radioFieldTwo],
       })
     );
     expect(result.current).toStrictEqual({
-      disableFormSubmit: true,
-      fields: [{ ...radioField, onChange: expect.any(Function) }],
+      disableFormSubmit: false,
+      fields: [
+        { ...radioFieldOne, selected: true, onChange: expect.any(Function) },
+        { ...radioFieldTwo, selected: false, onChange: expect.any(Function) },
+      ],
       fieldValidationErrors: {},
       handleFormSubmit: expect.any(Function),
     });

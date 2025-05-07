@@ -3,7 +3,7 @@ import React from 'react';
 import { ControlsContextProvider } from '../../../controls/context';
 import { useDisplayText } from '../../../displayText';
 
-import { CreateFolderViewProviderProps } from './types';
+import type { CreateFolderViewProviderProps } from './types';
 import { isValidFolderName } from './utils';
 
 export function CreateFolderViewProvider({

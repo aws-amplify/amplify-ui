@@ -1,13 +1,14 @@
-import {
+import type {
   FileData,
   FileDataItem,
   LocationData,
   LocationItemData,
 } from '../../actions';
-import { ActionListItem } from '../../composables/ActionsList';
-import { LocationState } from '../../providers/store/location';
 
-import { ListViewProps } from '../types';
+import type { ActionListItem } from '../../components/composables/ActionsList';
+import type { LocationState } from '../../store';
+
+import type { ListViewProps } from '../types';
 
 export interface LocationDetailViewState {
   actionItems: ActionListItem[];

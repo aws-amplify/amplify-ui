@@ -4,7 +4,7 @@ import { runValidators } from '../../../validators';
 import actions from '../actions';
 import guards from '../guards';
 import { defaultServices } from '../defaultServices';
-import { AuthEvent, ResetPasswordContext } from '../types';
+import type { AuthEvent, ResetPasswordContext } from '../types';
 
 export type ForgotPasswordMachineOptions = {
   services?: Partial<typeof defaultServices>;

@@ -8,7 +8,9 @@ export { SetupTotp } from './SetupTotp';
 export { SignIn } from './SignIn';
 export { SignUp } from './SignUp';
 export { VerifyUser } from './VerifyUser';
-export {
+export { SelectMfaType } from './SelectMfaType';
+export { SetupEmail } from './SetupEmail';
+export type {
   Components,
   DefaultComponents,
   ConfirmResetPasswordProps,
@@ -17,6 +19,8 @@ export {
   ConfirmVerifyUserProps,
   ForceNewPasswordProps,
   ForgotPasswordProps,
+  SelectMfaTypeProps,
+  SetupEmailProps,
   SetupTotpProps,
   SignInProps,
   SignUpProps,

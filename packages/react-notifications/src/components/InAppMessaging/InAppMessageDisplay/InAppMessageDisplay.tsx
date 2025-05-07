@@ -1,8 +1,8 @@
 import React from 'react';
 
+import type { OnMessageAction } from '@aws-amplify/ui-react-core-notifications';
 import {
   handleMessageAction,
-  OnMessageAction,
   useMessage,
 } from '@aws-amplify/ui-react-core-notifications';
 import { ThemeProvider } from '@aws-amplify/ui-react';
@@ -13,7 +13,10 @@ import { FullScreenMessage } from '../FullScreenMessage';
 import { ModalMessage } from '../ModalMessage';
 
 import handleMessageLinkAction from './handleMessageLinkAction';
-import { InAppMessageDisplayProps, MessageDefaultComponents } from './types';
+import type {
+  InAppMessageDisplayProps,
+  MessageDefaultComponents,
+} from './types';
 import { VERSION } from '../../../version';
 
 // TODO: replace below components incrementally as they become available

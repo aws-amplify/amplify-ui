@@ -1,10 +1,10 @@
-import {
-  uploadData,
+import type {
   UploadDataInput,
   UploadDataWithPathOutput,
   UploadDataWithPathInput,
   UploadDataOutput,
 } from 'aws-amplify/storage';
+import { uploadData } from 'aws-amplify/storage';
 import { isFunction } from '@aws-amplify/ui';
 
 /**

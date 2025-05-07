@@ -9,7 +9,8 @@ import { useFormHandlers } from '../hooks/useFormHandlers';
 import { FormFields } from '../shared/FormFields';
 import { ConfirmSignInFooter } from '../shared/ConfirmSignInFooter';
 import { RemoteErrorMessage } from '../shared/RemoteErrorMessage';
-import { RouteContainer, RouteProps } from '../RouteContainer';
+import type { RouteProps } from '../RouteContainer';
+import { RouteContainer } from '../RouteContainer';
 
 const { getChallengeText } = authenticatorTextUtil;
 

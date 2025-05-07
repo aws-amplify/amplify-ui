@@ -1,6 +1,6 @@
-import { ChallengeName, DisplayTextTemplate } from '@aws-amplify/ui';
+import type { ChallengeName, DisplayTextTemplate } from '@aws-amplify/ui';
 
-import { ComponentRoute } from '../ComponentRoute';
+import type { ComponentRoute } from '../ComponentRoute';
 
 type GetChallengeText = (
   challengeName: ChallengeName | undefined

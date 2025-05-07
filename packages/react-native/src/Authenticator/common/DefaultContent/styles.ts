@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 
-import { StrictTheme } from '../../../theme';
-import { DefaultContentStyle } from './types';
+import type { StrictTheme } from '../../../theme';
+import type { DefaultContentStyle } from './types';
 
 export const getDefaultStyle = ({
   tokens: { colors, fontSizes, space },

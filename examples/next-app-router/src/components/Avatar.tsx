@@ -1,7 +1,7 @@
 import { defineComponentTheme } from '@aws-amplify/ui-react/server';
 
 export const avatarTheme = defineComponentTheme({
-  name: 'avatar',
+  name: 'my-avatar',
   theme: (tokens) => {
     return {
       display: 'inline-flex',

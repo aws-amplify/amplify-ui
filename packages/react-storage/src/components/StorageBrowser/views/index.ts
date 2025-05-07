@@ -1,27 +1,27 @@
 export { ViewsProvider, useViews } from './context';
-export {
-  CopyView,
+export type {
   CopyViewType,
-  CreateFolderView,
   CreateFolderViewType,
-  DeleteView,
   DeleteViewType,
-  LocationActionView,
   LocationActionViewProps,
   LocationActionViewType,
-  UploadView,
   UploadViewType,
 } from './LocationActionView';
 export {
-  LocationDetailView,
+  CopyView,
+  CreateFolderView,
+  DeleteView,
+  LocationActionView,
+  UploadView,
+} from './LocationActionView';
+export type {
   LocationDetailViewProps,
   LocationDetailViewType,
 } from './LocationDetailView';
-export {
-  LocationsView,
-  LocationsViewProps,
-  LocationsViewType,
-} from './LocationsView';
-export { useView, UseView } from './useView';
+export { LocationDetailView } from './LocationDetailView';
+export type { LocationsViewProps, LocationsViewType } from './LocationsView';
+export { LocationsView } from './LocationsView';
+export type { UseView } from './useView';
+export { useView } from './useView';
 
 export * from './types';

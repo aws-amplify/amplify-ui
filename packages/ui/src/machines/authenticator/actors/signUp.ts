@@ -1,25 +1,24 @@
 import { createMachine, sendUpdate } from 'xstate';
 
+import type { ConfirmSignUpInput } from 'aws-amplify/auth';
 import {
   autoSignIn,
-  ConfirmSignUpInput,
   signInWithRedirect,
   fetchUserAttributes,
 } from 'aws-amplify/auth';
 
-import { AuthEvent, SignUpContext } from '../types';
+import type { AuthContext, AuthEvent, SignUpContext } from '../types';
 import { getSignUpInput } from '../utils';
 
 import { runValidators } from '../../../validators';
 
 import actions from '../actions';
-import { defaultServices } from '../defaultServices';
 import guards from '../guards';
 
 import { getFederatedSignInState } from './utils';
 
 export type SignUpMachineOptions = {
-  services?: Partial<typeof defaultServices>;
+  services?: AuthContext['services'];
 };
 
 const handleResetPasswordResponse = {
@@ -57,6 +56,7 @@ const handleAutoSignInResponse = {
         'setChallengeName',
         'setMissingAttributes',
         'setTotpSecretCode',
+        'setAllowedMfaTypes',
       ],
       target: '#signUpActor.resolved',
     },
@@ -265,6 +265,7 @@ export function signUpActor({ services }: SignUpMachineOptions) {
             totpSecretCode: context.totpSecretCode,
             username: context.username,
             unverifiedUserAttributes: context.unverifiedUserAttributes,
+            allowedMfaTypes: context.allowedMfaTypes,
           }),
         },
       },

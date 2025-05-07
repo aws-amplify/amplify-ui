@@ -1,4 +1,4 @@
-import { ButtonProps } from '@aws-amplify/ui-react';
+import type { ButtonProps } from '@aws-amplify/ui-react';
 
 export interface CloseIconButtonProps extends ButtonProps {
   /**

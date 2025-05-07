@@ -2,7 +2,7 @@ import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { noop } from '@aws-amplify/ui';
 
-import {
+import type {
   FormValues,
   RegisterFieldParams,
   SetFormValueParams,
@@ -25,7 +25,7 @@ export const DEFAULT_ERROR_MESSAGE =
  */
 export default function useForm<
   Values extends FormValues = FormValues,
-  OnSubmit extends SubmitHandler = SubmitHandler
+  OnSubmit extends SubmitHandler = SubmitHandler,
 >(options: UseFormParams<Values, OnSubmit> = {}): UseForm<Values> {
   const formContext = useFormContext();
   const { errorMessage, onSubmit: _onSubmit } = options;

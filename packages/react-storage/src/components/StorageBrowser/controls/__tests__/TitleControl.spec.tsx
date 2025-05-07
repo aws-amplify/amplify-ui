@@ -6,7 +6,7 @@ import { useResolvedComposable } from '../hooks/useResolvedComposable';
 
 jest.mock('../hooks/useTitle');
 jest.mock('../hooks/useResolvedComposable');
-jest.mock('../../composables/Title', () => ({
+jest.mock('../../components/composables/Title', () => ({
   Title: () => <div data-testid="title" />,
 }));
 

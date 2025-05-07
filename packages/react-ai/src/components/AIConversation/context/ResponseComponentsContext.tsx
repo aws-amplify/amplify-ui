@@ -1,5 +1,5 @@
 import React from 'react';
-import { ToolConfiguration, ResponseComponents } from '../../../types';
+import type { ToolConfiguration, ResponseComponents } from '../../../types';
 
 type ResponseComponentsContextProps = ResponseComponents | undefined;
 

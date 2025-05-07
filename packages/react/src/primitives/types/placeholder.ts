@@ -1,8 +1,8 @@
-import { Property } from 'csstype';
+import type { Property } from 'csstype';
 
-import { Sizes } from './base';
-import { StyleToken } from './style';
-import { ElementType, PrimitiveProps, BaseViewProps } from './view';
+import type { Sizes } from './base';
+import type { StyleToken } from './style';
+import type { ElementType, PrimitiveProps, BaseViewProps } from './view';
 
 export type PlaceholderSizes = Sizes;
 

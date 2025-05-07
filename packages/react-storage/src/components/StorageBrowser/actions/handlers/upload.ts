@@ -1,9 +1,10 @@
 import { isCancelError } from 'aws-amplify/storage';
 import { isFunction } from '@aws-amplify/ui';
 
-import { uploadData, UploadDataInput } from '../../storage-internal';
+import type { UploadDataInput } from '../../storage-internal';
+import { uploadData } from '../../storage-internal';
 
-import {
+import type {
   TaskData,
   TaskHandler,
   TaskHandlerInput,
@@ -11,11 +12,10 @@ import {
   TaskHandlerOptions,
 } from './types';
 
-import { constructBucket, getProgress } from './utils';
+import { constructBucket, getProgress, isMultipartUpload } from './utils';
 import { DEFAULT_CHECKSUM_ALGORITHM } from './constants';
 
-export interface UploadHandlerOptions
-  extends TaskHandlerOptions<{ key: string }> {}
+export interface UploadHandlerOptions extends TaskHandlerOptions {}
 
 export interface UploadHandlerData extends TaskData {
   file: File;
@@ -30,10 +30,6 @@ export interface UploadHandlerOutput
 
 export interface UploadHandler
   extends TaskHandler<UploadHandlerInput, UploadHandlerOutput> {}
-
-// 5MB for multipart upload
-// https://github.com/aws-amplify/amplify-js/blob/1a5366d113c9af4ce994168653df3aadb142c581/packages/storage/src/providers/s3/utils/constants.ts#L16
-export const MULTIPART_UPLOAD_THRESHOLD_BYTES = 5 * 1024 * 1024;
 
 export const UNDEFINED_CALLBACKS = {
   cancel: undefined,
@@ -65,7 +61,7 @@ export const uploadHandler: UploadHandler = ({ config, data, options }) => {
   const { cancel, pause, resume, result } = uploadData(input);
 
   return {
-    ...(file.size > MULTIPART_UPLOAD_THRESHOLD_BYTES
+    ...(isMultipartUpload(file)
       ? { cancel, pause, resume }
       : UNDEFINED_CALLBACKS),
     result: result
@@ -76,12 +72,11 @@ export const uploadHandler: UploadHandler = ({ config, data, options }) => {
       .catch((error: Error) => {
         const { message } = error;
         if (error.name === 'PreconditionFailed') {
-          return { message, status: 'OVERWRITE_PREVENTED' };
+          return { error, message, status: 'OVERWRITE_PREVENTED' };
         }
-        return {
-          message,
-          status: isCancelError(error) ? 'CANCELED' : 'FAILED',
-        };
+
+        const status = isCancelError(error) ? 'CANCELED' : 'FAILED';
+        return { error, message, status };
       }),
   };
 };

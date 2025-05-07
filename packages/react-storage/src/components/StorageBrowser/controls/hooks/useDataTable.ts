@@ -1,5 +1,5 @@
 import React from 'react';
-import {
+import type {
   DataTableButtonDataCell,
   DataTableDateDataCell,
   DataTableTextDataCell,
@@ -7,7 +7,7 @@ import {
   DataTableProps,
   SortDirection,
   DataTableNumberDataCell,
-} from '../../composables/DataTable';
+} from '../../components';
 import { useControlsContext } from '../context';
 import { compareButtonData } from './compareFunctions/compareButtonData';
 import { compareDateData } from './compareFunctions/compareDateData';

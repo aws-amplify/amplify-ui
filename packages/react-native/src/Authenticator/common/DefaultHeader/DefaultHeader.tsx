@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Heading } from '../../../primitives/Heading';
-import { DefaultHeaderProps } from './types';
+import type { DefaultHeaderProps } from './types';
 
 export default function DefaultHeader({
   children,

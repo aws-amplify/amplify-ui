@@ -3,7 +3,7 @@ import React from 'react';
 import { Flex, View } from '@aws-amplify/ui-react';
 
 import { Backdrop } from './Backdrop';
-import { BackdropProps } from './types';
+import type { BackdropProps } from './types';
 
 export function withBackdrop<Props>(
   Content: (props: Props) => React.JSX.Element,

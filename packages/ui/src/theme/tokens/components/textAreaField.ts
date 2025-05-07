@@ -1,4 +1,7 @@
-import { DesignTokenProperties, OutputVariantKey } from '../types/designToken';
+import type {
+  DesignTokenProperties,
+  OutputVariantKey,
+} from '../types/designToken';
 
 type TokenKey = 'color' | 'borderColor' | 'fontSize';
 

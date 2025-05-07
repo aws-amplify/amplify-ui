@@ -6,7 +6,7 @@ import { useResolvedComposable } from '../hooks/useResolvedComposable';
 
 jest.mock('../hooks/useNavigation');
 jest.mock('../hooks/useResolvedComposable');
-jest.mock('../../composables/Navigation', () => ({
+jest.mock('../../components/composables/Navigation', () => ({
   Navigation: () => <div data-testid="navigation" />,
 }));
 

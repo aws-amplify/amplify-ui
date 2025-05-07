@@ -1,8 +1,8 @@
 import kebabCase from 'lodash/kebabCase.js';
 import { has, isObject, isString, usesReference } from '../../utils';
-import { WebDesignToken } from '../types';
-import { ShadowValue } from '../tokens/types/designToken';
-import { CSSProperties } from '../components/utils';
+import type { WebDesignToken } from '../types';
+import type { ShadowValue } from '../tokens/types/designToken';
+import type { CSSProperties } from '../components/utils';
 
 export const CSS_VARIABLE_PREFIX = 'amplify';
 

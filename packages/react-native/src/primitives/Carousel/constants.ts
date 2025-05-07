@@ -1,4 +1,4 @@
-import { ViewStyle } from 'react-native';
+import type { ViewStyle } from 'react-native';
 
 export const DEFAULT_CAROUSEL_COLOR_ACTIVE = '#a1a1a1';
 export const DEFAULT_CAROUSEL_COLOR_INACTIVE = '#d8d8d8';

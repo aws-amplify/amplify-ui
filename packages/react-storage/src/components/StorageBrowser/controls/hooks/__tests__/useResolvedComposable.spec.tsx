@@ -1,10 +1,11 @@
 import React from 'react';
 import { render, renderHook, screen } from '@testing-library/react';
 
-import { useResolvedComposable } from '../useResolvedComposable';
-import { useComposables } from '../../../composables/context';
+import { useComposables } from '../../../components/composables/context';
 
-jest.mock('../../../composables/context');
+import { useResolvedComposable } from '../useResolvedComposable';
+
+jest.mock('../../../components/composables/context');
 
 describe('useResolvedComposable', () => {
   // assert mocks

@@ -1,5 +1,5 @@
 import { DEFAULT_LIST_VIEW_DISPLAY_TEXT } from './shared';
-import { DefaultLocationDetailViewDisplayText } from '../../types';
+import type { DefaultLocationDetailViewDisplayText } from '../../types';
 
 export const DEFAULT_ERROR_MESSAGE = 'There was an error loading items.';
 

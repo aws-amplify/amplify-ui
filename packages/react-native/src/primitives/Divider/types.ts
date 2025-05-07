@@ -1,4 +1,4 @@
-import { StyleProp, TextStyle, ViewProps, ViewStyle } from 'react-native';
+import type { StyleProp, TextStyle, ViewProps, ViewStyle } from 'react-native';
 
 export interface DividerProps extends ViewProps {
   /*

@@ -61,7 +61,10 @@ const ariaDescribedBy = computed(() => (hasError.value ? errorId : undefined));
   ></alias-control>
 
   <!-- Validation error, if any -->
-  <div v-if="hasError" :id="ariaDescribedBy">
+  <div
+    v-if="hasError"
+    :id="ariaDescribedBy"
+  >
     <p
       v-for="(error, idx) in errors"
       :key="idx"

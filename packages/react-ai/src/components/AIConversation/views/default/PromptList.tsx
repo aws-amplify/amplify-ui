@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Flex, Button } from '@aws-amplify/ui-react';
 
-import { ControlsContextProps } from '../../context/ControlsContext';
+import type { ControlsContextProps } from '../../context/ControlsContext';
 import { ComponentClassName } from '@aws-amplify/ui';
 
 export const PromptList: Required<ControlsContextProps>['PromptList'] = ({

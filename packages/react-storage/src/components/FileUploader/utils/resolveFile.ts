@@ -1,5 +1,5 @@
 import { isFunction } from '@aws-amplify/ui';
-import { ProcessFile, ProcessFileParams } from '../types';
+import type { ProcessFile, ProcessFileParams } from '../types';
 
 /**
  * Utility function that takes the processFile prop, along with a file a key

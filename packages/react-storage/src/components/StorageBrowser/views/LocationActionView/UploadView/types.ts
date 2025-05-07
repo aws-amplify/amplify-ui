@@ -1,8 +1,13 @@
-import { LocationData, UploadHandlerData } from '../../../actions';
-import { FileItem, FileItems } from '../../../providers';
-import { ActionViewType, ActionViewProps, ActionViewState } from '../types';
+import type { LocationData, UploadHandlerData } from '../../../actions';
+import type { FileItems } from '../../../files';
 
-export interface UploadViewState extends ActionViewState<FileItem> {
+import type {
+  ActionViewType,
+  ActionViewProps,
+  ActionViewState,
+} from '../types';
+
+export interface UploadViewState extends ActionViewState<UploadHandlerData> {
   isOverwritingEnabled: boolean;
   onDropFiles: (files: File[]) => void;
   onSelectFiles: (type: 'FILE' | 'FOLDER') => void;

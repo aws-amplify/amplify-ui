@@ -1,5 +1,5 @@
-import { Sizes } from './base';
-import { ElementType, PrimitiveProps, BaseViewProps } from './view';
+import type { Sizes } from './base';
+import type { ElementType, PrimitiveProps, BaseViewProps } from './view';
 
 export type BadgeVariations = 'info' | 'error' | 'warning' | 'success';
 export type BadgeSizes = Sizes;

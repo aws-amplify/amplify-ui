@@ -1,5 +1,6 @@
 import React from 'react';
-import { authenticatorTextUtil, AuthEventTypes } from '@aws-amplify/ui';
+import type { AuthEventTypes } from '@aws-amplify/ui';
+import { authenticatorTextUtil } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '@aws-amplify/ui-react-core';
 import { Button } from '../../../primitives/Button';

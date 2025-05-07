@@ -1,4 +1,4 @@
-import { Modifiers, ComponentStyles, Size, Elements } from './utils';
+import type { Modifiers, ComponentStyles, Size, Elements } from './utils';
 
 export type TableTheme<Required extends boolean = false> = ComponentStyles &
   Modifiers<Size | 'bordered' | 'striped', Required> &

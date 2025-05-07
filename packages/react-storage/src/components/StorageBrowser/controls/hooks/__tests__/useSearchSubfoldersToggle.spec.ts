@@ -1,6 +1,8 @@
 import { renderHook } from '@testing-library/react';
-import { SearchSubfoldersToggleProps } from '../../../composables/SearchSubfoldersToggle';
-import { useControlsContext } from '../../../controls/context';
+
+import { SearchSubfoldersToggleProps } from '../../../components/composables/SearchSubfoldersToggle';
+import { useControlsContext } from '../../context';
+
 import { useSearchSubfoldersToggle } from '../useSearchSubfoldersToggle';
 
 jest.mock('../../../controls/context');

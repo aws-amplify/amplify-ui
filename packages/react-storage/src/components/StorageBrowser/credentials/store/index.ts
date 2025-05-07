@@ -1,1 +1,0 @@
-export { createLocationCredentialsStore } from './create';

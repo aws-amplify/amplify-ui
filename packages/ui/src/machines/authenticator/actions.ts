@@ -1,4 +1,4 @@
-import {
+import type {
   FetchUserAttributesOutput,
   ResendSignUpCodeOutput,
   ResetPasswordOutput,
@@ -7,10 +7,11 @@ import {
   SignUpOutput,
 } from 'aws-amplify/auth';
 
-import { actions as xStateActions, MachineOptions } from 'xstate';
+import type { MachineOptions } from 'xstate';
+import { actions as xStateActions } from 'xstate';
 import { trimValues } from '../../helpers';
 
-import {
+import type {
   AuthEvent,
   AuthActorContext,
   ResetPasswordStep,
@@ -45,6 +46,12 @@ const setTotpSecretCode = assign({
   },
 });
 
+const setAllowedMfaTypes = assign({
+  allowedMfaTypes: (_, { data }: AuthEvent) => {
+    return data.nextStep?.allowedMFATypes;
+  },
+});
+
 const setSignInStep = assign({ step: 'SIGN_IN' });
 
 const setShouldVerifyUserAttributeStep = assign({
@@ -59,11 +66,23 @@ const setConfirmAttributeCompleteStep = assign({
 const setChallengeName = assign({
   challengeName: (_, { data }: AuthEvent): ChallengeName | undefined => {
     const { signInStep } = (data as SignInOutput).nextStep;
-    return signInStep === 'CONFIRM_SIGN_IN_WITH_SMS_CODE'
-      ? 'SMS_MFA'
-      : signInStep === 'CONFIRM_SIGN_IN_WITH_TOTP_CODE'
-      ? 'SOFTWARE_TOKEN_MFA'
-      : undefined;
+
+    switch (signInStep) {
+      case 'CONFIRM_SIGN_IN_WITH_SMS_CODE':
+        return 'SMS_MFA';
+      case 'CONFIRM_SIGN_IN_WITH_TOTP_CODE':
+        return 'SOFTWARE_TOKEN_MFA';
+      case 'CONFIRM_SIGN_IN_WITH_EMAIL_CODE':
+        return 'EMAIL_OTP';
+      case 'CONTINUE_SIGN_IN_WITH_MFA_SETUP_SELECTION':
+      case 'CONTINUE_SIGN_IN_WITH_EMAIL_SETUP':
+      case 'CONTINUE_SIGN_IN_WITH_TOTP_SETUP':
+        return 'MFA_SETUP';
+      case 'CONTINUE_SIGN_IN_WITH_MFA_SELECTION':
+        return 'SELECT_MFA_TYPE';
+      default:
+        return undefined;
+    }
   },
 });
 
@@ -224,6 +243,7 @@ const ACTIONS: MachineOptions<AuthActorContext, AuthEvent>['actions'] = {
   handleBlur,
   handleInput,
   handleSubmit,
+  setAllowedMfaTypes,
   setChallengeName,
   setCodeDeliveryDetails,
   setFieldErrors,

@@ -1,8 +1,8 @@
 import { StyleSheet } from 'react-native';
 import { ConsoleLogger as Logger } from 'aws-amplify/utils';
 
-import { StrictTheme } from '../../theme';
-import { IconProps, IconStyles } from './types';
+import type { StrictTheme } from '../../theme';
+import type { IconProps, IconStyles } from './types';
 import { iconSizes } from './constants';
 
 const logger = new Logger('Icon-logger');

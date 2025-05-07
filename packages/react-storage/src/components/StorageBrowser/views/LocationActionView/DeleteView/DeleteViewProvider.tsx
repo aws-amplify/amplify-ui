@@ -3,9 +3,10 @@ import React from 'react';
 import { ControlsContextProvider } from '../../../controls/context';
 import { useDisplayText } from '../../../displayText';
 
-import { getActionViewTableData } from '../getActionViewTableData';
-import { DeleteViewProviderProps } from './types';
-import { getFolderText } from './utils';
+import { useResolveTableData } from '../../hooks/useResolveTableData';
+import { DELETE_TABLE_KEYS, DELETE_TABLE_RESOLVERS } from '../../utils';
+
+import type { DeleteViewProviderProps } from './types';
 
 export function DeleteViewProvider({
   children,
@@ -28,7 +29,8 @@ export function DeleteViewProvider({
     isProcessing,
     isProcessingComplete,
     statusCounts,
-    tasks,
+    tasks: items,
+
     onActionCancel,
     onActionStart,
     onActionExit,
@@ -39,13 +41,14 @@ export function DeleteViewProvider({
     ? getActionCompleteMessage({ counts: statusCounts })
     : undefined;
 
-  const tableData = getActionViewTableData({
-    tasks,
-    isProcessing,
-    displayText,
-    getFolderText,
-    onTaskRemove,
-  });
+  const tableData = useResolveTableData(
+    DELETE_TABLE_KEYS,
+    DELETE_TABLE_RESOLVERS,
+    {
+      items,
+      props: { displayText, isProcessing, onTaskRemove },
+    }
+  );
 
   return (
     <ControlsContextProvider

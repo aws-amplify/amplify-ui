@@ -1,5 +1,6 @@
 export * from './copy';
 export * from './createFolder';
+export * from './defaults';
 export * from './delete';
 export * from './download';
 export * from './listLocationItems';

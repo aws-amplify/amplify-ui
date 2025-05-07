@@ -1,8 +1,8 @@
-import * as React from 'react';
+import type * as React from 'react';
 
-import { BaseSelectFieldProps } from './selectField';
-import { BaseTextFieldProps } from './textField';
-import { ElementType, PrimitiveProps } from './view';
+import type { BaseSelectFieldProps } from './selectField';
+import type { BaseTextFieldProps } from './textField';
+import type { ElementType, PrimitiveProps } from './view';
 
 interface optionalPhoneNumberFieldProps
   extends BaseTextFieldProps,

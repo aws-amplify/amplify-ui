@@ -1,19 +1,26 @@
-import {
-  areEmptyArrays,
-  areEmptyObjects,
+import type {
   AuthenticatorRoute,
   AuthMachineState,
   FormFieldsArray,
-  getSortedFormFields,
   UnverifiedUserAttributes,
+  AuthMFAType,
+} from '@aws-amplify/ui';
+import {
+  areEmptyArrays,
+  areEmptyObjects,
+  getSortedFormFields,
   getActorContext,
   isString,
+  authenticatorTextUtil,
 } from '@aws-amplify/ui';
 
-import { AuthenticatorLegacyField, AuthenticatorLegacyFields } from '../types';
+import type {
+  AuthenticatorLegacyField,
+  AuthenticatorLegacyFields,
+} from '../types';
 import { isComponentRouteKey } from '../utils';
 
-import { Comparator, UseAuthenticatorSelector } from './types';
+import type { Comparator, UseAuthenticatorSelector } from './types';
 
 export const defaultComparator = (): false => false;
 
@@ -64,7 +71,7 @@ const flattenFormFields = (
   fields.flatMap(([name, options]) => ({ name, ...options }));
 
 const convertContactMethodsToFields = (
-  unverifiedUserAttributes: UnverifiedUserAttributes
+  unverifiedUserAttributes: UnverifiedUserAttributes = {}
 ): AuthenticatorLegacyFields => {
   return (
     unverifiedUserAttributes &&
@@ -78,19 +85,37 @@ const convertContactMethodsToFields = (
   );
 };
 
+const convertAllowedMfaTypesToFields = (
+  allowedMfaTypes: AuthMFAType[] = []
+): AuthenticatorLegacyFields => {
+  return allowedMfaTypes.map((mfaType) => ({
+    name: 'mfa_type',
+    label: authenticatorTextUtil.getMfaTypeLabelByValue(mfaType),
+    type: 'radio',
+    value: mfaType,
+  }));
+};
+
 /**
  * Retrieves default and custom (RWA only, to be updated) form field values from state machine
  * for subcomponent routes that render fields
  */
 export const getMachineFields = (
   route: AuthenticatorRoute,
-  state: AuthMachineState,
-  unverifiedUserAttributes: UnverifiedUserAttributes
+  state: AuthMachineState
 ): AuthenticatorLegacyFields => {
   if (isComponentRouteKey(route)) {
-    return route === 'verifyUser'
-      ? convertContactMethodsToFields(unverifiedUserAttributes)
-      : flattenFormFields(getSortedFormFields(route, state));
+    if (route === 'verifyUser') {
+      return convertContactMethodsToFields(
+        getActorContext(state).unverifiedUserAttributes
+      );
+    }
+    if (route === 'selectMfaType') {
+      return convertAllowedMfaTypesToFields(
+        getActorContext(state).allowedMfaTypes
+      );
+    }
+    return flattenFormFields(getSortedFormFields(route, state));
   }
 
   return [];

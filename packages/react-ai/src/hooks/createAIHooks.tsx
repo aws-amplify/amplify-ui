@@ -1,12 +1,8 @@
-import {
-  createUseAIGeneration,
-  UseAIGenerationHookWrapper,
-} from './useAIGeneration';
-import {
-  createUseAIConversation,
-  UseAIConversationHook,
-} from './useAIConversation';
-import { getSchema } from '../types';
+import type { UseAIGenerationHookWrapper } from './useAIGeneration';
+import { createUseAIGeneration } from './useAIGeneration';
+import type { UseAIConversationHook } from './useAIConversation';
+import { createUseAIConversation } from './useAIConversation';
+import type { getSchema } from '../types';
 
 type UseAIHooks<
   Client extends Record<'generations' | 'conversations', Record<string, any>>,

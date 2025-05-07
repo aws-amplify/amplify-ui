@@ -1,5 +1,7 @@
-import { copy, CopyInput } from '../../storage-internal';
-import {
+import type { CopyInput } from '../../storage-internal';
+import { copy } from '../../storage-internal';
+import type {
+  OptionalFileData,
   TaskData,
   TaskHandler,
   TaskHandlerInput,
@@ -9,18 +11,14 @@ import {
 
 import { constructBucket } from './utils';
 
-export interface CopyHandlerData extends TaskData {
-  sourceKey: string;
-  eTag?: string;
+export interface CopyHandlerData extends OptionalFileData, TaskData {
   fileKey: string;
   lastModified: Date;
+  sourceKey: string;
 }
 
 export interface CopyHandlerInput
-  extends TaskHandlerInput<
-    CopyHandlerData,
-    TaskHandlerOptions<{ key: string }>
-  > {}
+  extends TaskHandlerInput<CopyHandlerData, TaskHandlerOptions> {}
 
 export interface CopyHandlerOutput extends TaskHandlerOutput<{ key: string }> {}
 
@@ -70,6 +68,9 @@ export const copyHandler: CopyHandler = (input) => {
         status: 'COMPLETE' as const,
         value: { key: path },
       }))
-      .catch(({ message }: Error) => ({ message, status: 'FAILED' })),
+      .catch((error: Error) => {
+        const { message } = error;
+        return { error, message, status: 'FAILED' };
+      }),
   };
 };

@@ -1,8 +1,8 @@
-import { WebTheme } from '../types';
+import type { WebTheme } from '../types';
 import { propsToString } from './utils';
-import { ComponentsTheme } from '../components';
+import type { ComponentsTheme } from '../components';
 import { isFunction, splitObject } from '../../utils';
-import { BaseTheme } from '../components/utils';
+import type { BaseTheme } from '../components/utils';
 
 function addVars(selector: string, vars: Record<string, unknown>) {
   if (!vars) return '';

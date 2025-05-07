@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ActionExit } from '../composables/ActionExit';
+import { ActionExit } from '../components/composables/ActionExit';
 
 import { useActionExit } from './hooks/useActionExit';
 import { useResolvedComposable } from './hooks/useResolvedComposable';

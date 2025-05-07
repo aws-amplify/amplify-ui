@@ -11,7 +11,7 @@ import { Pagination, usePagination } from '../Pagination';
 import { SearchField } from '../SearchField';
 import { ComponentText } from '../shared/constants';
 import { strHasLength } from '../shared/utils';
-import {
+import type {
   BaseCollectionProps,
   ElementType,
   GridCollectionProps,

@@ -1,15 +1,17 @@
-import {
+import type {
   AuthUserAgentInput,
   GeoUserAgentInput,
   InAppMessagingUserAgentInput,
   StorageUserAgentInput,
+  AiUserAgentInput,
+} from '@aws-amplify/core/internals/utils';
+import {
   AuthAction,
   GeoAction,
   InAppMessagingAction,
   StorageAction,
   Category,
   AiAction,
-  AiUserAgentInput,
 } from '@aws-amplify/core/internals/utils';
 
 export const AI_INPUT_BASE: Omit<AiUserAgentInput, 'additionalDetails'> = {

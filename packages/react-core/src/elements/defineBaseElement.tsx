@@ -1,6 +1,6 @@
 import React from 'react';
 import { ElementsContext } from './ElementsContext';
-import {
+import type {
   BaseElement,
   BaseElementProps,
   BaseElementWithRef,

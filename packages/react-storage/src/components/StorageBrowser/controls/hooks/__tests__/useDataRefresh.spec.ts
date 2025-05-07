@@ -1,6 +1,7 @@
 import { renderHook } from '@testing-library/react';
-import { DataRefreshProps } from '../../../composables/DataRefresh';
-import { useControlsContext } from '../../../controls/context';
+
+import { DataRefreshProps } from '../../../components/composables/DataRefresh';
+import { useControlsContext } from '../../context';
 import { useDataRefresh } from '../useDataRefresh';
 
 jest.mock('../../../controls/context');

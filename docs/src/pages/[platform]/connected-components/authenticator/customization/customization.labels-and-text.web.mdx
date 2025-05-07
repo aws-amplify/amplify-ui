@@ -69,6 +69,23 @@ Using the same techniques as [Internationalization (I18n)](#internationalization
     </Accordion.Content>
   </Accordion.Item>
 
+  <Accordion.Item value="confirm-sign-in">
+    <Accordion.Trigger>
+      <Text fontWeight="bold">Confirm Sign In</Text>
+      <Accordion.Icon />
+    </Accordion.Trigger>
+    <Accordion.Content>
+    ```ts
+    I18n.putVocabulariesForLanguage('en', {
+      'Confirm SMS Code': 'SMS',
+      'Confirm TOTP Code': 'TOTP',
+      'Confirm Email Code': 'Email',
+      'Confirm MFA Code': 'Default',
+    });
+    ```
+    </Accordion.Content>
+  </Accordion.Item>
+
   <Accordion.Item value="forgot-password">
     <Accordion.Trigger>
       <Text fontWeight="bold">Forgot Password</Text>
@@ -102,6 +119,39 @@ Using the same techniques as [Internationalization (I18n)](#internationalization
         Code: '2FA Code',
         Confirm: 'Confirm 2FA',
         'Back to Sign In': 'Back to Login',
+      });
+      ```
+    </Accordion.Content>
+  </Accordion.Item>
+  
+  <Accordion.Item value="select-mfa-type">
+    <Accordion.Trigger>
+      <Text fontWeight="bold">Select MFA Type</Text>
+      <Accordion.Icon />
+    </Accordion.Trigger>
+    <Accordion.Content>
+      ```ts
+      I18n.putVocabulariesForLanguage('en', {
+        'Multi-Factor Authentication Setup': 'MFA Setup', // MFA Setup Selection Header
+        'Multi-Factor Authentication': 'MFA', // MFA Selection Header
+        'Select MFA Type': "Choose an MFA Type", // Radio Group Legend
+        'Email Message': 'Email', // Email Radio Option Label
+        'Text Message (SMS)': 'SMS', // SMS Radio Option Label
+        'Authenticator App (TOTP)': 'TOTP', // TOTP Radio Option Label
+      });
+      ```
+    </Accordion.Content>
+  </Accordion.Item>
+
+  <Accordion.Item value="setup-email">
+    <Accordion.Trigger>
+      <Text fontWeight="bold">Setup Email</Text>
+      <Accordion.Icon />
+    </Accordion.Trigger>
+    <Accordion.Content>
+      ```ts
+      I18n.putVocabulariesForLanguage('en', {
+        'Setup Email': 'Email Setup' // Setup Email Header
       });
       ```
     </Accordion.Content>

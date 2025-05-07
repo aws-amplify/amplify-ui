@@ -1,19 +1,22 @@
 // re-export in-app types from '@aws-amplify/ui-react-core-notifications'
-export {
+export type {
   InAppMessage,
   InAppMessageAction,
   InAppMessageButton,
   InAppMessageContent,
   InAppMessageImage,
   InAppMessageLayout,
-  InAppMessagingProvider,
   InAppMessageStyle,
   InAppMessageTextAlign,
+} from '@aws-amplify/ui-react-core-notifications';
+export {
+  InAppMessagingProvider,
   useInAppMessaging,
 } from '@aws-amplify/ui-react-core-notifications';
 
-export { BannerMessageProps } from './BannerMessage';
-export { FullScreenMessageProps } from './FullScreenMessage';
-export { InAppMessageDisplay, MessageComponents } from './InAppMessageDisplay';
-export { ModalMessageProps } from './ModalMessage';
+export type { BannerMessageProps } from './BannerMessage';
+export type { FullScreenMessageProps } from './FullScreenMessage';
+export type { MessageComponents } from './InAppMessageDisplay';
+export { InAppMessageDisplay } from './InAppMessageDisplay';
+export type { ModalMessageProps } from './ModalMessage';
 export { withInAppMessaging } from './withInAppMessaging';

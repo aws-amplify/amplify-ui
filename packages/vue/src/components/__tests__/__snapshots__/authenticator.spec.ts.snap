@@ -109,6 +109,8 @@ exports[`authenticator renders confirmResetPassword subcomponent 1`] = `
         <!--v-if-->
         <!--v-if-->
         <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
       </div>
       
       
@@ -226,6 +228,8 @@ exports[`authenticator renders confirmSignIn subcomponent 1`] = `
           
         </div>
         
+        <!--v-if-->
+        <!--v-if-->
         <!--v-if-->
         <!--v-if-->
         <!--v-if-->
@@ -359,6 +363,8 @@ exports[`authenticator renders confirmSignUp subcomponent 1`] = `
         <!--v-if-->
         <!--v-if-->
         <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
       </div>
       
       
@@ -479,6 +485,8 @@ exports[`authenticator renders confirmVerifyUser subcomponent 1`] = `
           
         </div>
         
+        <!--v-if-->
+        <!--v-if-->
       </div>
       
       
@@ -602,6 +610,8 @@ exports[`authenticator renders forceNewPassword subcomponent 1`] = `
         
         <!--v-if-->
         <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
       </div>
       
       
@@ -713,6 +723,8 @@ exports[`authenticator renders forgotPassword subcomponent 1`] = `
         </form>
         
         
+        <!--v-if-->
+        <!--v-if-->
         <!--v-if-->
         <!--v-if-->
         <!--v-if-->
@@ -877,6 +889,8 @@ exports[`authenticator renders setupTotp subcomponent 1`] = `
           
         </div>
         
+        <!--v-if-->
+        <!--v-if-->
         <!--v-if-->
         <!--v-if-->
         <!--v-if-->
@@ -1049,6 +1063,8 @@ exports[`authenticator renders signIn subcomponent 1`] = `
         <!--v-if-->
         <!--v-if-->
         <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
       </div>
       
       
@@ -1180,6 +1196,8 @@ exports[`authenticator renders signUp subcomponent 1`] = `
           
           
         </div>
+        <!--v-if-->
+        <!--v-if-->
         <!--v-if-->
         <!--v-if-->
         <!--v-if-->
@@ -1364,6 +1382,8 @@ exports[`authenticator renders verifyUser subcomponent 1`] = `
           
         </div>
         
+        <!--v-if-->
+        <!--v-if-->
         <!--v-if-->
       </div>
       

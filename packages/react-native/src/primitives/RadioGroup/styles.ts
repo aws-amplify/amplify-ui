@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 
-import { StrictTheme } from '../../theme';
-import { RadioGroupStyles } from './types';
+import type { StrictTheme } from '../../theme';
+import type { RadioGroupStyles } from './types';
 
 export const getThemedStyles = (theme: StrictTheme): RadioGroupStyles => {
   const { components } = theme;

@@ -1,5 +1,5 @@
+export type { ComponentsProviderProps } from './useCustomComponents';
 export {
-  ComponentsProviderProps,
   CustomComponentsContext,
   useCustomComponents,
 } from './useCustomComponents';

@@ -11,7 +11,7 @@ import { useDropZone } from '@aws-amplify/ui-react-core';
 import { useFileUploader, useUploadFiles } from '../FileUploader/hooks';
 import { FileStatus } from '../FileUploader/types';
 
-import {
+import type {
   StorageManagerProps,
   StorageManagerPathProps,
   StorageManagerHandle,
@@ -24,11 +24,11 @@ import {
   FileListFooter,
   FilePicker,
 } from './ui';
+import type { TaskHandler } from '../FileUploader/utils';
 import {
   checkMaxFileSize,
   defaultFileUploaderDisplayText,
   filterAllowedFiles,
-  TaskHandler,
 } from '../FileUploader/utils';
 import { VERSION } from '../../version';
 

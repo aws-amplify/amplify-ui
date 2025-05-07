@@ -1,5 +1,5 @@
 import { SignatureV4 } from '@smithy/signature-v4';
-import {
+import type {
   HttpRequest as HttpRequest,
   RequestPresigningArguments,
 } from './types';

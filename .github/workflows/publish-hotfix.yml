@@ -30,7 +30,7 @@ jobs:
         uses: ./.github/actions/has-changesets
 
   publish-hotfix:
-    needs: [setup]
+    needs: setup
     uses: ./.github/workflows/reusable-tagged-publish.yml
     with:
       dist-tag: hotfix
@@ -38,38 +38,35 @@ jobs:
       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
   build-test:
-    runs-on: ubuntu-latest
-    needs: publish-hotfix
-    environment: ci
+    uses: ./.github/workflows/reusable-build-system-test.yml
+    needs:
+      - setup
+      - publish-hotfix
     if: ${{ needs.setup.outputs.has-changesets != 'true' }}
-    steps:
-      - name: Build test v2
-        uses: ./.github/workflows/reusable-build-system-test.yml
-        with:
-          dist-tag: hotfix
-        env:
-          AUTH_E2E_ROLE_ARN: ${{ secrets.AUTH_E2E_ROLE_ARN }}
-          DOMAIN: ${{ secrets.DOMAIN }}
-          PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
-          USERNAME: ${{ secrets.USERNAME }}
-          NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
-          VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
+    with:
+      dist-tag: hotfix
+    secrets:
+      AUTH_E2E_ROLE_ARN: ${{ secrets.AUTH_E2E_ROLE_ARN }}
+      DOMAIN: ${{ secrets.DOMAIN }}
+      PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
+      USERNAME: ${{ secrets.USERNAME }}
+      NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
+      VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
 
   build-test-react-native:
-    runs-on: ubuntu-latest
-    needs: publish-hotfix
-    environment: ci
+    uses: ./.github/workflows/reusable-build-system-test-react-native.yml
+    needs:
+      - setup
+      - publish-hotfix
     if: ${{ needs.setup.outputs.has-changesets != 'true' }}
-    steps:
-      - name: Build test v2 React Native
-        uses: ./.github/workflows/reusable-build-system-test-react-native.yml
-        with:
-          dist-tag: hotfix
+    with:
+      dist-tag: hotfix
 
   publish:
     runs-on: ubuntu-latest
     environment: deployment
     needs:
+      - setup
       - build-test
       - build-test-react-native
     if: ${{ needs.setup.outputs.has-changesets != 'true' }}

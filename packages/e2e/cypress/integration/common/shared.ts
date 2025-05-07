@@ -369,6 +369,8 @@ When('I click the {string} checkbox', (label: string) => {
 
 When('I click the {string} radio button', (label: string) => {
   cy.findByLabelText(new RegExp(`^${escapeRegExp(label)}`, 'i')).click({
+    // We have to force this click because the radio button isn't visible by default
+    // and instead has ::before decoration.
     force: true,
   });
 });
@@ -484,16 +486,19 @@ Then(
 
 When('I type a valid confirmation code', () => {
   // This should be intercepted & mocked
-  cy.findInputField('Confirmation Code').type('123456');
+  cy.findInputField('Confirmation Code').clear().type('123456');
 });
 
-When('I type a custom password from label {string}', (custom) => {
+When('I type a custom password from label {string}', (custom: string) => {
   cy.findByLabelText(custom).type(Cypress.env('VALID_PASSWORD'));
 });
 
-When('I type a custom confirm password from label {string}', (custom) => {
-  cy.findByLabelText(custom).type(Cypress.env('VALID_PASSWORD'));
-});
+When(
+  'I type a custom confirm password from label {string}',
+  (custom: string) => {
+    cy.findByLabelText(custom).type(Cypress.env('VALID_PASSWORD'));
+  }
+);
 
 When('I type a valid SMS confirmation code', () => {
   // This should be intercepted & mocked
@@ -501,16 +506,19 @@ When('I type a valid SMS confirmation code', () => {
 });
 
 When('I type an invalid confirmation code', () => {
-  cy.findInputField('Confirmation Code').type('0000');
+  cy.findInputField('Confirmation Code').clear().type('0000');
 });
 
 When('I see one code input', () => {
   cy.get('input').should('have.length', 1);
 });
 
-When('I see {string} as the {string} input', (custom, order) => {
-  cy.get('input').eq(order).should('have.attr', 'placeholder', custom);
-});
+When(
+  'I see {string} as the {string} input',
+  (custom: string, order: number) => {
+    cy.get('input').eq(order).should('have.attr', 'placeholder', custom);
+  }
+);
 
 When('I dispatch {string} event', (eventName: string) => {
   if (!window) {
@@ -685,4 +693,24 @@ When('A network failure occurs', () => {
   cy.intercept('', (req) => {
     req.destroy();
   });
+});
+
+Then('I see the {string} link', (name: string) => {
+  cy.findByText(name).should('exist');
+});
+
+When('I click the {string} link', (name: string) => {
+  cy.findByText(name).click();
+});
+
+Then('I see the {string} message', (name: string) => {
+  cy.findByText(name).should('exist');
+});
+
+When('I go back to the previous page', () => {
+  cy.go('back');
+});
+
+When('I go forward to the next page', () => {
+  cy.go('forward');
 });

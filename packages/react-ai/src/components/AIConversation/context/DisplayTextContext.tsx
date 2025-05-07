@@ -1,8 +1,6 @@
 import { createContextUtilities } from '@aws-amplify/ui-react-core';
-import {
-  ConversationDisplayText,
-  defaultAIConversationDisplayTextEn,
-} from '../displayText';
+import type { ConversationDisplayText } from '../displayText';
+import { defaultAIConversationDisplayTextEn } from '../displayText';
 
 export const {
   ConversationDisplayTextContext,

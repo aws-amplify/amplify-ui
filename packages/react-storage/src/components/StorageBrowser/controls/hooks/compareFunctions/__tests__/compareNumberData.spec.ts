@@ -1,4 +1,4 @@
-import { SortDirection } from '../../../../composables/DataTable';
+import { SortDirection } from '../../../../components';
 import { compareNumberData } from '../compareNumberData';
 
 describe('compareNumberData', () => {

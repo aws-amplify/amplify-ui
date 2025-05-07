@@ -1,4 +1,4 @@
-import { LocationViewHeaders } from './types';
+import type { LocationViewHeaders } from './types';
 
 export const getHeaders = ({
   hasObjectLocations,

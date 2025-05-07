@@ -1,5 +1,5 @@
-import { AwsCredentialProvider } from './credentials';
-import { ErrorState } from './error';
+import type { AwsCredentialProvider } from './credentials';
+import type { ErrorState } from './error';
 
 /**
  * The props for the FaceLivenessDetectorCore which allows for full configuration of auth

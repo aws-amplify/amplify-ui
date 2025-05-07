@@ -1,4 +1,4 @@
-import React from 'react';
+import type React from 'react';
 
 export function isComponent<T>(
   component?: React.ComponentType<T> | React.ForwardRefExoticComponent<T>

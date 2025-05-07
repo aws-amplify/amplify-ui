@@ -1,7 +1,8 @@
 import React from 'react';
 
 import { ComponentClassName } from '@aws-amplify/ui';
-import { Button, ButtonProps } from '@aws-amplify/ui-react';
+import type { ButtonProps } from '@aws-amplify/ui-react';
+import { Button } from '@aws-amplify/ui-react';
 
 export type FilePickerProps = ButtonProps;
 

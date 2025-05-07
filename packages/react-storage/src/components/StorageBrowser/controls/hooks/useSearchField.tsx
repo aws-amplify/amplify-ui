@@ -1,5 +1,5 @@
-import { SearchFieldProps } from '../../composables/SearchField';
-import { useControlsContext } from '../../controls/context';
+import type { SearchFieldProps } from '../../components/composables/SearchField';
+import { useControlsContext } from '../context';
 
 export const useSearchField = (): SearchFieldProps => {
   const { data, onSearch, onSearchClear, onSearchQueryChange } =

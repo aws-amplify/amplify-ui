@@ -9,7 +9,7 @@ import { IconClose, useIcons } from '../Icon/internal';
 import { ComponentText } from '../shared/constants';
 import { useMessage } from './useMessage';
 
-import {
+import type {
   MessageDismissProps,
   BaseMessageDismissProps,
   ForwardRefPrimitive,

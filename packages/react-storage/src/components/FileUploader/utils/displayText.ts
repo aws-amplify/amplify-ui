@@ -1,4 +1,4 @@
-import { DisplayTextTemplate } from '@aws-amplify/ui';
+import type { DisplayTextTemplate } from '@aws-amplify/ui';
 
 export type FileUploaderDisplayText = DisplayTextTemplate<{
   getFilesUploadedText?: (count: number) => string;

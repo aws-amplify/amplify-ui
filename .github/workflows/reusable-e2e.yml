@@ -69,14 +69,25 @@ jobs:
         include:
           - example: angular
             package: angular
+            resource-path: ui/components/authenticator/sign-in-with-username
             tags: '@angular and not @todo-angular'
 
           - example: next
             package: react
+            resource-path: ui/components/authenticator/sign-in-with-username
             tags: '@react and not @todo-react'
+
+          - example: react-router
+            package: react
+            tags: '@react-router and not @todo-react-router'
+
+          - example: next-app-router
+            package: react
+            tags: '@next-app-router and not @todo-next-app-router'
 
           - example: vue
             package: vue
+            resource-path: ui/components/authenticator/sign-in-with-username
             tags: '@vue and not @todo-vue'
 
     steps:
@@ -183,6 +194,9 @@ jobs:
       - name: Build react-ai package
         if: ${{ matrix.package == 'react' }}
         run: yarn react-ai build
+
+      - name: Build test-utils package
+        run: yarn test-utils build
 
       - name: Add Amplify CLI
         run: yarn global add @aws-amplify/cli
@@ -311,7 +325,7 @@ jobs:
         run: yarn ${{ matrix.example }}-example build
 
       - name: Start ${{ matrix.example }} example
-        run: yarn ${{ matrix.example }}-example start & npx wait-on -c waitOnConfig.json -t 20000 http-get://localhost:3000/ui/components/authenticator/sign-in-with-username
+        run: yarn ${{ matrix.example }}-example start & npx wait-on -c waitOnConfig.json -t 20000 http-get://localhost:3000/${{ matrix.resource-path || '' }}
         env:
           # Setting this value temporarily since the beta liveness sample app hits the gamma endpoint
           NEXT_PUBLIC_STREAMING_API_URL: wss://streaming-rekognition-gamma.us-east-1.amazonaws.com

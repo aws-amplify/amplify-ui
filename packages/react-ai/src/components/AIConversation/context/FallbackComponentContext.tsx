@@ -1,5 +1,5 @@
 import React from 'react';
-import { AIConversationInput } from '../types';
+import type { AIConversationInput } from '../types';
 
 export const FallbackComponentContext = React.createContext<
   AIConversationInput['FallbackResponseComponent'] | undefined

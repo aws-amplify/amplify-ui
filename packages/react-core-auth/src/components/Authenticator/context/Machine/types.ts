@@ -1,4 +1,4 @@
-import {
+import type {
   AuthInterpreter,
   NextAuthenticatorServiceFacade,
 } from '@aws-amplify/ui';

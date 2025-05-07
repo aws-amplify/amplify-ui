@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { ActionViewsContextType } from './types';
+import type { ActionViewsContextType } from './types';
 import { UploadView } from '../LocationActionView/UploadView';
 import { CreateFolderView } from '../LocationActionView/CreateFolderView';
 import { CopyView } from '../LocationActionView/CopyView';
 import { DeleteView } from '../LocationActionView/DeleteView';
 
-import { DefaultActionViewsByActionName } from '../types';
+import type { DefaultActionViewsByActionName } from '../types';
 
 export const DEFAULT_ACTION_VIEWS: DefaultActionViewsByActionName = {
   createFolder: CreateFolderView,

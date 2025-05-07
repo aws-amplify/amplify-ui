@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { Flex, FlexProps } from '@aws-amplify/ui-react';
+import type { FlexProps } from '@aws-amplify/ui-react';
+import { Flex } from '@aws-amplify/ui-react';
 import { LivenessClassNames } from '../types/classNames';
 
 interface OverlayProps extends FlexProps {

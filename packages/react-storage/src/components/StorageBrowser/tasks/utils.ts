@@ -1,5 +1,5 @@
 import { INITIAL_STATUS_COUNTS } from './constants';
-import { StatusCounts, Task } from './types';
+import type { StatusCounts, Task } from './types';
 
 export const getStatusCounts = (tasks: Task[] = []): StatusCounts =>
   tasks.reduce(

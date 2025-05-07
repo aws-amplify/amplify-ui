@@ -4,7 +4,7 @@ import { DropdownMenuItem } from '@radix-ui/react-dropdown-menu';
 
 import { ComponentClassName } from '@aws-amplify/ui';
 import { MenuButton } from './MenuButton';
-import {
+import type {
   ForwardRefPrimitive,
   BaseMenuItemProps,
   MenuItemProps,

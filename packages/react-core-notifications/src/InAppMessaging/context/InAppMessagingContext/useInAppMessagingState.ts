@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { onMessageReceived } from 'aws-amplify/in-app-messaging';
-import { InAppMessagingContextType } from '../InAppMessagingContext';
+import type { InAppMessagingContextType } from '../InAppMessagingContext';
 
 export function useInAppMessagingState(): InAppMessagingContextType {
   const [message, setMessage] =

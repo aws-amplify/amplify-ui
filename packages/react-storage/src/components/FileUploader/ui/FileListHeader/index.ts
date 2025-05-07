@@ -1,1 +1,2 @@
-export { FileListHeader, FileListHeaderProps } from './FileListHeader';
+export type { FileListHeaderProps } from './FileListHeader';
+export { FileListHeader } from './FileListHeader';

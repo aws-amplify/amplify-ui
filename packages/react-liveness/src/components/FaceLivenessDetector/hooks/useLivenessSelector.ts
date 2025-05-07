@@ -1,7 +1,7 @@
 import { useSelector } from '@xstate/react';
 
 import { useFaceLivenessDetector } from '../providers';
-import { LivenessMachineState } from '../service';
+import type { LivenessMachineState } from '../service';
 
 export type LivenessSelectorFn<T> = (state: LivenessMachineState) => T;
 

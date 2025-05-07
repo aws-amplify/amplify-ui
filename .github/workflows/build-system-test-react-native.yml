@@ -7,7 +7,7 @@ permissions:
 
 on:
   schedule:
-    - cron: '0 * * * *' # Run at the first minute of every hour
+    - cron: '0 */2 * * *' # Run on the first minute of each even numbered hour
 
 jobs:
   build:

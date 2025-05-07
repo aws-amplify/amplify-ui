@@ -1,8 +1,8 @@
 import pickBy from 'lodash/pickBy.js';
 
-import { AuthActorContext } from './types';
-import { SignUpInput, UserAttributeKey } from 'aws-amplify/auth';
-import { LoginMechanism, UserAttributes } from '../../types';
+import type { AuthActorContext } from './types';
+import type { SignUpInput, UserAttributeKey } from 'aws-amplify/auth';
+import type { LoginMechanism, UserAttributes } from '../../types';
 import { isString } from '../../utils';
 
 // default `autoSignIn` flag is `true`

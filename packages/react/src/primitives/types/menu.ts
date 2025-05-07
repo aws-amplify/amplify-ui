@@ -1,9 +1,9 @@
-import * as React from 'react';
+import type * as React from 'react';
 
-import { BaseButtonPropsWithoutColorTheme } from './button';
-import { BaseFlexProps } from './flex';
-import { Sizes } from './base';
-import { ElementType, PrimitiveProps } from './view';
+import type { BaseButtonPropsWithoutColorTheme } from './button';
+import type { BaseFlexProps } from './flex';
+import type { Sizes } from './base';
+import type { ElementType, PrimitiveProps } from './view';
 
 /** @deprecated For internal use only */
 export interface BaseMenuProps extends BaseFlexProps {

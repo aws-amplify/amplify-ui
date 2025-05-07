@@ -1,4 +1,5 @@
-import { ImageStyle, StyleSheet } from 'react-native';
+import type { ImageStyle } from 'react-native';
+import { StyleSheet } from 'react-native';
 import {
   BORDER_RADIUS_BASE,
   COLOR_GREY,
@@ -17,7 +18,10 @@ import {
   SPACING_SMALL,
 } from '../../constants';
 
-import { CarouselMessageStyle, CarouselMessageComponentStyle } from './types';
+import type {
+  CarouselMessageStyle,
+  CarouselMessageComponentStyle,
+} from './types';
 
 export const defaultStyle: CarouselMessageComponentStyle = StyleSheet.create({
   pageIndicatorActive: {

@@ -1,8 +1,9 @@
 import fs from 'fs';
 import path from 'path';
 
-import { Node, Project, Symbol, Type, VariableDeclaration } from 'ts-morph';
-import {
+import type { Symbol, Type, VariableDeclaration } from 'ts-morph';
+import { Node, Project } from 'ts-morph';
+import type {
   PrimitiveCatalogType,
   PrimitiveCatalogComponentProperties,
   PrimitiveCatalogComponentProperty,
@@ -206,7 +207,7 @@ for (const [componentName, [node]] of source.getExportedDeclarations()) {
  * import { PrimitiveCatalog } from '@aws-amplify/ui-react/internal/primitives-catalog'
  */
 const primitiveCatalog = JSON.stringify(catalog, null, 2);
-const exportString = `import { PrimitiveCatalogType } from './types/catalog';
+const exportString = `import type { PrimitiveCatalogType } from './types/catalog';
 export const PrimitiveCatalog: PrimitiveCatalogType = ${primitiveCatalog};`;
 
 const internalOutputPath = path.resolve(

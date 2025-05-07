@@ -1,5 +1,5 @@
 import { DEFAULT_ACTION_VIEW_DISPLAY_TEXT } from './shared';
-import { DefaultCreateFolderViewDisplayText } from '../../types';
+import type { DefaultCreateFolderViewDisplayText } from '../../types';
 
 export const DEFAULT_CREATE_FOLDER_VIEW_DISPLAY_TEXT: DefaultCreateFolderViewDisplayText =
   {

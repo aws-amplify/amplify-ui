@@ -1,109 +1,128 @@
 import { renderHook, act } from '@testing-library/react';
 
 import { LocationData } from '../../../../actions';
-import { useStore } from '../../../../providers/store';
+import { useStore } from '../../../../store';
+import { useLocationItems } from '../../../../locationItems';
 import { INITIAL_STATUS_COUNTS } from '../../../../tasks';
 import { useAction } from '../../../../useAction';
 
-import { useCopyView } from '../useCopyView';
 import { useFolders } from '../useFolders';
+import { useCopyView } from '../useCopyView';
 
-jest.mock('../../../../providers/store');
+jest.mock('../../../../locationItems');
+jest.mock('../../../../store');
 jest.mock('../../../../useAction');
 jest.mock('../useFolders');
 
+const location = {
+  current: {
+    prefix: 'test-prefix/',
+    bucket: 'bucket',
+    id: 'id',
+    permissions: ['delete', 'get', 'list', 'write'],
+    type: 'PREFIX',
+  } as LocationData,
+  path: '',
+  key: 'test-prefix/',
+};
+
+const fileDataItems = [
+  {
+    key: 'pre-pre/test-file.txt',
+    fileKey: 'test-file.txt',
+    lastModified: new Date(),
+    sourceKey: 'source-key-one',
+    id: '1',
+    size: 10,
+    type: 'FILE' as const,
+  },
+];
+
 describe('useCopyView', () => {
-  const location = {
-    current: {
-      prefix: 'test-prefix/',
-      bucket: 'bucket',
-      id: 'id',
-      permissions: ['delete', 'get', 'list', 'write'],
-      type: 'PREFIX',
-    } as LocationData,
-    path: '',
-    key: 'test-prefix/',
-  };
+  const mockLocationItemsState = { fileDataItems };
+
   const mockUseAction = jest.mocked(useAction);
   const mockUseFolders = jest.mocked(useFolders);
+  const mockUseLocationItems = jest.mocked(useLocationItems);
   const mockUseStore = jest.mocked(useStore);
+
   const mockCancel = jest.fn();
-  const mockDispatchStoreAction = jest.fn();
+  const mockLocationItemsDispatch = jest.fn();
+  const mockStoreDispatch = jest.fn();
   const mockHandleCopy = jest.fn();
 
-  beforeAll(() => {
+  const mockActionState = {
+    isProcessing: false,
+    isProcessingComplete: false,
+    reset: jest.fn(),
+    statusCounts: { ...INITIAL_STATUS_COUNTS, QUEUED: 3, TOTAL: 3 },
+    tasks: [
+      {
+        status: 'QUEUED' as const,
+        data: fileDataItems[0],
+        cancel: mockCancel,
+        message: 'test-message',
+        progress: undefined,
+      },
+      {
+        status: 'QUEUED' as const,
+        data: {
+          key: 'test-item-two',
+          id: 'id2',
+          fileKey: 'file-key-two',
+          lastModified: new Date(),
+          sourceKey: 'source-key-two',
+        },
+        cancel: mockCancel,
+        message: 'test-message',
+        progress: undefined,
+      },
+      {
+        status: 'QUEUED' as const,
+        data: {
+          key: 'test-item-three',
+          id: 'id3',
+          fileKey: 'file-key-three',
+          lastModified: new Date(),
+          sourceKey: 'source-key-three',
+        },
+        cancel: mockCancel,
+        message: 'test-message',
+        progress: undefined,
+      },
+    ],
+  };
+
+  let mockId = 0;
+
+  beforeEach(() => {
+    // reset mockId
+    mockId = 0;
+
     // @ts-expect-error partial mock
     mockUseFolders.mockReturnValue({
       onInitialize: jest.fn(),
     });
 
+    mockUseLocationItems.mockReturnValue([
+      mockLocationItemsState,
+      mockLocationItemsDispatch,
+    ]);
+
     Object.defineProperty(globalThis, 'crypto', {
-      value: { randomUUID: () => 'intentionally-static-test-id' },
+      value: { randomUUID: () => ++mockId },
     });
   });
 
   beforeEach(() => {
-    mockUseAction.mockReturnValue([
-      {
-        isProcessing: false,
-        isProcessingComplete: false,
-        statusCounts: { ...INITIAL_STATUS_COUNTS, QUEUED: 3, TOTAL: 3 },
-        tasks: [
-          {
-            status: 'QUEUED',
-            data: { key: 'test-item', id: 'id' },
-            cancel: mockCancel,
-            message: 'test-message',
-            progress: undefined,
-          },
-          {
-            status: 'QUEUED',
-            data: { key: 'test-item2', id: 'id2' },
-            cancel: mockCancel,
-            message: 'test-message',
-            progress: undefined,
-          },
-          {
-            status: 'QUEUED',
-            data: { key: 'test-item3', id: 'id3' },
-            cancel: mockCancel,
-            message: 'test-message',
-            progress: undefined,
-          },
-        ],
-      },
-      mockHandleCopy,
-    ]);
+    mockUseAction.mockReturnValue([mockActionState, mockHandleCopy]);
     mockUseStore.mockReturnValue([
-      {
-        actionType: 'COPY',
-        files: [],
-        location,
-        locationItems: {
-          fileDataItems: [
-            {
-              key: 'pre-pre/test-file.txt',
-              fileKey: 'test-file.txt',
-              lastModified: new Date(),
-              id: 'id',
-              size: 10,
-              type: 'FILE',
-            },
-          ],
-        },
-      },
-      mockDispatchStoreAction,
+      { actionType: 'COPY', location },
+      mockStoreDispatch,
     ]);
   });
 
-  afterEach(() => {
-    mockCancel.mockClear();
-    mockDispatchStoreAction.mockClear();
-    mockHandleCopy.mockClear();
-    mockUseFolders.mockClear();
-    mockUseAction.mockReset();
-    mockUseStore.mockReset();
-  });
+  afterEach(jest.clearAllMocks);
 
   it('should return the correct initial state', () => {
     const { result } = renderHook(() => useCopyView());
@@ -159,10 +178,12 @@ describe('useCopyView', () => {
     });
 
     expect(mockOnExit).toHaveBeenCalled();
-    expect(mockDispatchStoreAction).toHaveBeenCalledWith({
+    expect(mockLocationItemsDispatch).toHaveBeenCalledTimes(1);
+    expect(mockLocationItemsDispatch).toHaveBeenCalledWith({
       type: 'RESET_LOCATION_ITEMS',
     });
-    expect(mockDispatchStoreAction).toHaveBeenCalledWith({
+    expect(mockStoreDispatch).toHaveBeenCalledTimes(1);
+    expect(mockStoreDispatch).toHaveBeenCalledWith({
       type: 'RESET_ACTION_TYPE',
     });
   });
@@ -186,6 +207,24 @@ describe('useCopyView', () => {
       current: destinationLocation,
       path: destinationPath,
       key: `${location.current.prefix}${destinationPath}`,
+    });
+  });
+
+  it('calls `locationItemsDispatch` with the expected action from `onTaskRemove`', () => {
+    const { result } = renderHook(() => useCopyView());
+
+    const { onTaskRemove } = result.current;
+
+    const task = mockActionState.tasks[0];
+
+    act(() => {
+      onTaskRemove?.(task);
+    });
+
+    expect(mockLocationItemsDispatch).toHaveBeenCalledTimes(1);
+    expect(mockLocationItemsDispatch).toHaveBeenCalledWith({
+      type: 'REMOVE_LOCATION_ITEM',
+      id: fileDataItems[0].id,
     });
   });
 });

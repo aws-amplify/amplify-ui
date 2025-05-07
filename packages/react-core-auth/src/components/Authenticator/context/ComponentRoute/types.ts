@@ -1,6 +1,6 @@
-import React from 'react';
+import type React from 'react';
 
-import { UseMachine } from '../Machine';
+import type { UseMachine } from '../Machine';
 
 export type ComponentRoute =
   | 'confirmResetPassword'

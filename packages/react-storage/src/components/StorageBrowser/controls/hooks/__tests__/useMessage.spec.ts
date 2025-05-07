@@ -1,6 +1,7 @@
 import { renderHook } from '@testing-library/react';
-import { MessageProps } from '../../../composables/Message';
-import { useControlsContext } from '../../../controls/context';
+
+import { MessageProps } from '../../../components/composables/Message';
+import { useControlsContext } from '../../context';
 import { useMessage } from '../useMessage';
 
 jest.mock('../../../controls/context');

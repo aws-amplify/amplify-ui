@@ -1,9 +1,8 @@
 import React from 'react';
 
-import { useDataState } from '@aws-amplify/ui-react-core';
+import { useAsyncReducer } from '@aws-amplify/ui-react-core';
 
-import {
-  LocationItemType,
+import type {
   FolderData,
   ListLocationItemsHandlerInput,
   ListHandlerOutput,
@@ -11,25 +10,15 @@ import {
 
 import { USE_LIST_ERROR_MESSAGE } from './constants';
 import { useActionHandlers } from './context';
-import {
-  createEnhancedListHandler,
+import type {
   EnhancedListHandlerInput,
   EnhancedListHandlerOutput,
 } from './createEnhancedListHandler';
-import { ListActionState } from './types';
-import { useGetActionInput } from '../providers/configuration';
+import { createEnhancedListHandler } from './createEnhancedListHandler';
+import type { ListActionState } from './types';
+import { useGetActionInput } from '../configuration';
 
 type RemoveConfig<T> = Omit<T, 'config'>;
-interface EnhancedInput
-  extends RemoveConfig<
-    EnhancedListHandlerInput<FolderData, LocationItemType>
-  > {}
-
-export interface UseListLocationItemsState
-  extends ListActionState<
-    EnhancedListHandlerOutput<FolderData>,
-    EnhancedInput
-  > {}
 
 export type ListFolderItemsAction = (
   input: ListLocationItemsHandlerInput
@@ -38,7 +27,9 @@ export type ListFolderItemsAction = (
 export interface UseListFolderItemsState
   extends ListActionState<
     EnhancedListHandlerOutput<FolderData>,
-    EnhancedListHandlerInput<FolderData, LocationItemType>
+    RemoveConfig<
+      EnhancedListHandlerInput<ListLocationItemsHandlerInput, FolderData>
+    >
   > {}
 
 export const useListFolderItems = (): UseListFolderItemsState => {
@@ -52,13 +43,13 @@ export const useListFolderItems = (): UseListFolderItemsState => {
 
   const enhancedHandler = React.useMemo(
     () =>
-      createEnhancedListHandler((input: EnhancedInput) =>
+      createEnhancedListHandler((input) =>
         listLocationItems({ ...input, config: getConfig() })
       ),
     [getConfig, listLocationItems]
   );
 
-  return useDataState(enhancedHandler, {
+  return useAsyncReducer(enhancedHandler, {
     items: [],
     nextToken: undefined,
   });

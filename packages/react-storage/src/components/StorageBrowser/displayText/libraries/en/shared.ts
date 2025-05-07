@@ -1,4 +1,4 @@
-import {
+import type {
   DefaultActionViewDisplayText,
   DefaultListViewDisplayText,
 } from '../../types';
@@ -23,7 +23,6 @@ export const DEFAULT_ACTION_VIEW_DISPLAY_TEXT: Omit<
   tableColumnNameHeader: 'Name',
   tableColumnTypeHeader: 'Type',
   tableColumnSizeHeader: 'Size',
-  tableColumnProgressHeader: 'Progress',
 };
 
 export const DEFAULT_LIST_VIEW_DISPLAY_TEXT: Omit<

@@ -1,13 +1,12 @@
-export {
-  createAIConversation,
-  AIConversation,
+export type {
   Avatars,
   CustomAction,
   ResponseComponent,
   SuggestedPrompt,
 } from './components';
+export { createAIConversation, AIConversation } from './components';
 export { createAIHooks } from './hooks';
-export {
+export type {
   ConversationMessage,
   ConversationMessageContent,
   SendMessage,

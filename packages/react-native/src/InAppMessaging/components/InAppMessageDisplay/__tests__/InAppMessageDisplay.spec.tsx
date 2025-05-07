@@ -1,10 +1,8 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 import { render } from '@testing-library/react-native';
-import {
-  InAppMessageLayout,
-  useMessage,
-} from '@aws-amplify/ui-react-core-notifications';
+import type { InAppMessageLayout } from '@aws-amplify/ui-react-core-notifications';
+import { useMessage } from '@aws-amplify/ui-react-core-notifications';
 
 import InAppMessageDisplay from '../InAppMessageDisplay';
 

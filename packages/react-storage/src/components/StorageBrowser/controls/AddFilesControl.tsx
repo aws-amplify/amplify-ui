@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { AddFiles } from '../composables/AddFiles';
+import { AddFiles } from '../components/composables/AddFiles';
 
 import { useAddFiles } from './hooks/useAddFiles';
 import { useResolvedComposable } from './hooks/useResolvedComposable';

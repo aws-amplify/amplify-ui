@@ -7,7 +7,7 @@ import { useMessageProps } from '../hooks';
 import { MessageLayout } from '../MessageLayout';
 
 import { BLOCK_CLASS, DIALOG_CLASS } from './constants';
-import { ModalMessageProps } from './types';
+import type { ModalMessageProps } from './types';
 
 export function ModalMessage(
   props: ModalMessageProps

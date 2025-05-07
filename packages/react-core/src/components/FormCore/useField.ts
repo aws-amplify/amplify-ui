@@ -1,5 +1,10 @@
 import useForm from './useForm';
-import { ChangeHandler, FocusHandler, UseField, UseFieldParams } from './types';
+import type {
+  ChangeHandler,
+  FocusHandler,
+  UseField,
+  UseFieldParams,
+} from './types';
 
 export const DEFAULT_ERROR_MESSAGE =
   '`useField` must be used within a `FormProvider`';
@@ -12,7 +17,7 @@ export const DEFAULT_ERROR_MESSAGE =
  */
 export default function useField<
   OnBlur extends FocusHandler,
-  OnChange extends ChangeHandler
+  OnChange extends ChangeHandler,
 >(params: UseFieldParams<OnBlur, OnChange>): UseField {
   const { getFieldState, registerField } = useForm({
     errorMessage: DEFAULT_ERROR_MESSAGE,

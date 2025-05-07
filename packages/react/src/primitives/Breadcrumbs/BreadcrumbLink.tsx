@@ -4,7 +4,7 @@ import { classNames } from '@aws-amplify/ui';
 import { ComponentClassName } from '@aws-amplify/ui';
 
 import { classNameModifierByFlag } from '../shared/utils';
-import {
+import type {
   BreadcrumbsLinkProps,
   ForwardRefPrimitive,
   Primitive,

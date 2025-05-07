@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { WebTheme, createComponentCSS } from '@aws-amplify/ui';
-import { BaseComponentTheme } from '@aws-amplify/ui';
+import type { WebTheme } from '@aws-amplify/ui';
+import { createComponentCSS } from '@aws-amplify/ui';
+import type { BaseComponentTheme } from '@aws-amplify/ui';
 import { Style } from './Style';
 
 interface ComponentStyleProps extends React.ComponentProps<'style'> {

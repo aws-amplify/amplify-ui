@@ -1,10 +1,11 @@
 import React, { useMemo } from 'react';
-import { TextInput, View, ViewStyle } from 'react-native';
+import type { ViewStyle } from 'react-native';
+import { TextInput, View } from 'react-native';
 import { Label } from '../Label';
 
 import { useTheme } from '../../theme';
 import { getThemedStyles } from './styles';
-import { TextFieldProps } from './types';
+import type { TextFieldProps } from './types';
 
 export const TEXTFIELD_CONTAINER_TEST_ID = 'amplify__text-field-container';
 export const INPUT_CONTAINER_TEST_ID = 'amplify__text-field__input-container';

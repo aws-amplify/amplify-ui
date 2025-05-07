@@ -12,7 +12,7 @@ import {
 } from '../../common';
 import { useFieldValues } from '../../hooks';
 
-import { DefaultSetupTotpProps } from '../types';
+import type { DefaultSetupTotpProps } from '../types';
 import { styles } from './styles';
 
 const COMPONENT_NAME = 'SetupTotp';

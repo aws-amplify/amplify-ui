@@ -38,7 +38,7 @@ export default function useIsSignedIn({
   const handleEvent: HubCallback = React.useCallback(
     ({ payload }) => {
       switch (payload.event) {
-        case 'signIn':
+        case 'signedIn':
         case 'autoSignIn': {
           if (isFunction(onSignIn)) {
             onSignIn();
@@ -46,7 +46,7 @@ export default function useIsSignedIn({
           setOutput({ isSignedIn: true });
           break;
         }
-        case 'signOut': {
+        case 'signedOut': {
           if (isFunction(onSignOut)) {
             onSignOut();
           }

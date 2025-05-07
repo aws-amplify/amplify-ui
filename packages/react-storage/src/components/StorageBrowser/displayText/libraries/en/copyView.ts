@@ -1,5 +1,5 @@
 import { DEFAULT_ACTION_VIEW_DISPLAY_TEXT } from './shared';
-import { DefaultCopyViewDisplayText } from '../../types';
+import type { DefaultCopyViewDisplayText } from '../../types';
 
 export const DEFAULT_COPY_VIEW_DISPLAY_TEXT: DefaultCopyViewDisplayText = {
   ...DEFAULT_ACTION_VIEW_DISPLAY_TEXT,

@@ -3,7 +3,7 @@ import { Hub } from 'aws-amplify/utils';
 
 import { isFunction } from '../../utils';
 
-import { AuthInterpreter, AuthMachineHubHandler } from './types';
+import type { AuthInterpreter, AuthMachineHubHandler } from './types';
 
 /**
  * Handles Amplify JS Auth hub events, by forwarding hub events as appropriate

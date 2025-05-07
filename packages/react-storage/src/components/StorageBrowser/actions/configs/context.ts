@@ -1,5 +1,5 @@
 import { createContextUtilities } from '@aws-amplify/ui-react-core';
-import { ActionViewConfigs } from './types';
+import type { ActionViewConfigs } from './types';
 
 export interface ActionConfigsProviderProps {
   actionConfigs: ActionViewConfigs;

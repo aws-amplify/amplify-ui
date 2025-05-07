@@ -2,11 +2,12 @@ import React, { Fragment, useMemo } from 'react';
 import { View } from 'react-native';
 
 import { Button, Label, ErrorMessage } from '../../../primitives';
-import { TextFieldOptionsType, RadioFieldOptions } from '../../hooks';
-import { StrictTheme, useTheme } from '../../../theme';
+import type { TextFieldOptionsType, RadioFieldOptions } from '../../hooks';
+import type { StrictTheme } from '../../../theme';
+import { useTheme } from '../../../theme';
 
 import { getDefaultStyle } from './styles';
-import { DefaultContentProps } from './types';
+import type { DefaultContentProps } from './types';
 
 function useThemedStyles<Style>(getStyle: (theme: StrictTheme) => Style) {
   const theme = useTheme();

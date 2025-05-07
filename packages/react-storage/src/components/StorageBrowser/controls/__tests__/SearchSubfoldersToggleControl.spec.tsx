@@ -6,7 +6,7 @@ import { useResolvedComposable } from '../hooks/useResolvedComposable';
 
 jest.mock('../hooks/useSearchSubfoldersToggle');
 jest.mock('../hooks/useResolvedComposable');
-jest.mock('../../composables/SearchSubfoldersToggle', () => ({
+jest.mock('../../components/composables/SearchSubfoldersToggle', () => ({
   SearchSubfoldersToggle: () => <div data-testid="search-subfolders-toggle" />,
 }));
 

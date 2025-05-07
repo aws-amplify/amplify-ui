@@ -1,2 +1,2 @@
 export { default as ErrorMessage } from './ErrorMessage';
-export { ErrorMessageProps, ErrorMessageStyles } from './types';
+export type { ErrorMessageProps, ErrorMessageStyles } from './types';

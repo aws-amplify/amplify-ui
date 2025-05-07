@@ -1,6 +1,6 @@
-import * as React from 'react';
-import { Sizes } from './base';
-import { ElementType, PrimitiveProps, BaseViewProps } from './view';
+import type * as React from 'react';
+import type { Sizes } from './base';
+import type { ElementType, PrimitiveProps, BaseViewProps } from './view';
 
 export type TableSize = Sizes;
 export type TableVariation = 'bordered' | 'striped';

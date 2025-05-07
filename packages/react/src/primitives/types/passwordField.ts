@@ -1,8 +1,8 @@
-import * as React from 'react';
-import { BaseButtonProps } from './button';
-import { BaseTextFieldProps } from './textField';
-import { ElementType, PrimitiveProps } from './view';
-import { BaseInputProps } from './input';
+import type * as React from 'react';
+import type { BaseButtonProps } from './button';
+import type { BaseTextFieldProps } from './textField';
+import type { ElementType, PrimitiveProps } from './view';
+import type { BaseInputProps } from './input';
 
 /** @deprecated For internal use only */
 export interface BasePasswordFieldProps extends BaseTextFieldProps {

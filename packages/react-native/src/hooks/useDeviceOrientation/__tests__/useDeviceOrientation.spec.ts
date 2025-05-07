@@ -1,8 +1,8 @@
-import { Dimensions, EventSubscription } from 'react-native';
+import type { EventSubscription } from 'react-native';
+import { Dimensions } from 'react-native';
 import { renderHook } from '@testing-library/react-hooks';
-import useDeviceOrientation, {
-  DeviceOrientation,
-} from '../useDeviceOrientation';
+import type { DeviceOrientation } from '../useDeviceOrientation';
+import useDeviceOrientation from '../useDeviceOrientation';
 
 const dimensions = {
   landscape: { height: 100, width: 300 },

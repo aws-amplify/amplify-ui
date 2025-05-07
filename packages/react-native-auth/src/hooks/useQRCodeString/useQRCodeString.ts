@@ -1,5 +1,6 @@
 import React from 'react';
-import { toString as toQRCodeString, QRCodeToStringOptions } from 'qrcode';
+import type { QRCodeToStringOptions } from 'qrcode';
+import { toString as toQRCodeString } from 'qrcode';
 
 import { isFunction } from '@aws-amplify/ui';
 

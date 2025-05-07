@@ -3,7 +3,7 @@ import {
   LocationData,
   LocationItemData,
 } from '../../../../actions';
-import { FileItems } from '../../../../providers';
+import { FileItems } from '../../../../files';
 import { INITIAL_STATUS_COUNTS, StatusCounts } from '../../../../tasks';
 import { UPLOAD_FILE_SIZE_LIMIT } from '../../../../validators/isFileTooBig';
 

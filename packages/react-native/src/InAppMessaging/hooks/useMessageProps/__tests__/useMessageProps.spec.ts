@@ -1,11 +1,11 @@
 import { renderHook } from '@testing-library/react-hooks';
-import {
+import type {
   MessageButtonProps,
   MessageComponentBaseProps,
 } from '@aws-amplify/ui-react-core-notifications';
 
 import { useMessageImage } from '../../useMessageImage';
-import { MessageOverrideStyle } from '../types';
+import type { MessageOverrideStyle } from '../types';
 import useMessageProps from '../useMessageProps';
 
 jest.mock('../../useMessageImage');

@@ -9,7 +9,7 @@ import { FileStatusMessage } from './FileStatusMessage';
 import { FileRemoveButton } from './FileRemoveButton';
 import { UploadDetails } from './FileDetails';
 import { FileThumbnail } from './FileThumbnail';
-import { FileControlProps } from './types';
+import type { FileControlProps } from './types';
 
 export function FileControl({
   onPause,

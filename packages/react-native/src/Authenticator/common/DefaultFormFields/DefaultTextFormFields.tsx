@@ -5,7 +5,7 @@ import { getErrors } from '@aws-amplify/ui';
 
 import Field from './Field';
 import { FieldErrors } from './FieldErrors';
-import {
+import type {
   // DefaultTextFormFieldsComponent,
   DefaultTextFormFieldsProps,
 } from './types';

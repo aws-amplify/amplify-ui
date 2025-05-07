@@ -1,5 +1,5 @@
-import { LocationDetailViewHeaders } from './types';
 import { LOCATION_DETAIL_VIEW_HEADERS } from './constants';
+import type { LocationDetailViewHeaders } from './types';
 
 export const getHeaders = ({
   tableColumnLastModifiedHeader,

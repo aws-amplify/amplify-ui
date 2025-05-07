@@ -2,7 +2,7 @@ import * as React from 'react';
 import { classNames } from '@aws-amplify/ui';
 
 import { ComponentClassName } from '@aws-amplify/ui';
-import {
+import type {
   BaseImageProps,
   ImageProps,
   ForwardRefPrimitive,

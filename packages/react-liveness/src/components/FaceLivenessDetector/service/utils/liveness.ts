@@ -1,15 +1,17 @@
-import {
+import type {
   LivenessOvalDetails,
-  IlluminationState,
   Face,
-  FaceMatchState,
   BoundingBox,
-  LivenessErrorState,
   ErrorState,
 } from '../types';
-import { FaceDetection } from '../types/faceDetection';
-import { ClientFreshnessColorSequence } from '../types/service';
-import { SessionInformation } from '@aws-sdk/client-rekognitionstreaming';
+import {
+  IlluminationState,
+  FaceMatchState,
+  LivenessErrorState,
+} from '../types';
+import type { FaceDetection } from '../types/faceDetection';
+import type { ClientFreshnessColorSequence } from '../types/service';
+import type { SessionInformation } from '@aws-sdk/client-rekognitionstreaming';
 import {
   FACE_HEIGHT_WEIGHT,
   PUPIL_DISTANCE_WEIGHT,

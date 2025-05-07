@@ -5,7 +5,7 @@ import { ComponentClassName, isFunction } from '@aws-amplify/ui';
 import { ComponentText } from '../shared/constants';
 import { classNameModifier } from '../shared/utils';
 import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
-import {
+import type {
   AlertProps,
   BaseAlertProps,
   ForwardRefPrimitive,

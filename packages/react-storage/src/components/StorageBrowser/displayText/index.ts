@@ -1,6 +1,6 @@
 export { DisplayTextProvider, useDisplayText } from './context';
 export { DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT as DefaultStorageBrowserDisplayText } from './libraries';
-export {
+export type {
   LocationDetailViewDisplayText,
   LocationsViewDisplayText,
   CreateFolderViewDisplayText,
@@ -9,3 +9,4 @@ export {
   DeleteViewDisplayText,
   StorageBrowserDisplayText,
 } from './types';
+export { isCopyViewDisplayTextKey, isDeleteViewDisplayTextKey } from './utils';

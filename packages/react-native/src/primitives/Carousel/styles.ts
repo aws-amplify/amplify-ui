@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-import { CarouselStyles } from './types';
+import type { CarouselStyles } from './types';
 
 export const styles: CarouselStyles = StyleSheet.create({
   indicator: {

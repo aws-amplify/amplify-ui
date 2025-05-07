@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { OverwriteToggle } from '../composables/OverwriteToggle';
+import { OverwriteToggle } from '../components/composables/OverwriteToggle';
 
 import { useOverwriteToggle } from './hooks/useOverwriteToggle';
 import { useResolvedComposable } from './hooks/useResolvedComposable';

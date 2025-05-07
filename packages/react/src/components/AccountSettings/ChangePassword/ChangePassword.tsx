@@ -2,9 +2,9 @@ import React from 'react';
 import isEqual from 'lodash/isEqual.js';
 
 import { useSetUserAgent } from '@aws-amplify/ui-react-core';
+import type { ValidatorOptions } from '@aws-amplify/ui';
 import {
   changePassword,
-  ValidatorOptions,
   getDefaultConfirmPasswordValidators,
   getDefaultPasswordValidators,
   getLogger,
@@ -14,8 +14,8 @@ import {
 import { useAuth } from '../../../internal';
 import { View, Flex } from '../../../primitives';
 import { ComponentClassName } from '../constants';
-import { FormValues, BlurredFields, ValidationError } from '../types';
-import { ChangePasswordProps, ValidateParams } from './types';
+import type { FormValues, BlurredFields, ValidationError } from '../types';
+import type { ChangePasswordProps, ValidateParams } from './types';
 import DEFAULTS from './defaults';
 import { defaultChangePasswordDisplayText } from '../utils';
 import { VERSION } from '../../../version';

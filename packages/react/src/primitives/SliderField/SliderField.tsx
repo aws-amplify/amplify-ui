@@ -10,8 +10,11 @@ import { FieldDescription, FieldErrorMessage } from '../Field';
 import { FieldGroup } from '../FieldGroup';
 import { Flex } from '../Flex';
 import { Label } from '../Label';
-import { ForwardRefPrimitive, Primitive } from '../types/view';
-import { BaseSliderFieldProps, SliderFieldProps } from '../types/sliderField';
+import type { ForwardRefPrimitive, Primitive } from '../types/view';
+import type {
+  BaseSliderFieldProps,
+  SliderFieldProps,
+} from '../types/sliderField';
 import { splitPrimitiveProps } from '../utils/splitPrimitiveProps';
 import { View } from '../View';
 import { useStableId } from '../utils/useStableId';

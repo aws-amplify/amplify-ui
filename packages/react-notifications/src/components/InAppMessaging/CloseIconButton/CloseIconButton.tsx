@@ -3,7 +3,7 @@ import * as React from 'react';
 import { Button } from '@aws-amplify/ui-react';
 import { IconClose } from '@aws-amplify/ui-react/internal';
 
-import { CloseIconButtonProps } from './types';
+import type { CloseIconButtonProps } from './types';
 
 export function CloseIconButton({
   className,

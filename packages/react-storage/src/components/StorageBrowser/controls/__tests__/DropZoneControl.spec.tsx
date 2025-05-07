@@ -6,7 +6,7 @@ import { useResolvedComposable } from '../hooks/useResolvedComposable';
 
 jest.mock('../hooks/useDropZone');
 jest.mock('../hooks/useResolvedComposable');
-jest.mock('../../composables/DropZone', () => ({
+jest.mock('../../components/composables/DropZone', () => ({
   DropZone: () => <div data-testid="drop-zone" />,
 }));
 

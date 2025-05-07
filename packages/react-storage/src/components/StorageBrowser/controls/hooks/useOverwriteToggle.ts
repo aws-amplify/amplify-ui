@@ -1,5 +1,5 @@
-import { OverwriteToggleProps } from '../../composables/OverwriteToggle';
-import { useControlsContext } from '../../controls/context';
+import type { OverwriteToggleProps } from '../../components/composables/OverwriteToggle';
+import { useControlsContext } from '../context';
 
 export const useOverwriteToggle = (): OverwriteToggleProps => {
   const {

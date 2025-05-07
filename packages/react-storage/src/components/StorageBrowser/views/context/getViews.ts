@@ -1,21 +1,26 @@
-import React from 'react';
+import type React from 'react';
 import { capitalize, isFunction, isObject } from '@aws-amplify/ui';
 
-import { CustomActionConfigs } from '../../actions';
+import type { CustomActionConfigs } from '../../actions';
 import { DEFAULT_ACTION_VIEWS } from './actionViews';
 import { DEFAULT_PRIMARY_VIEWS } from './primaryViews';
-import { DefaultActionViewsByActionName, Views } from '../types';
-import { ViewsContextType } from './types';
+import type {
+  DefaultActionViewsByActionName,
+  StorageBrowserViews,
+} from '../types';
+import type { ViewsContextType } from './types';
 
 export const getViews = (
-  views?: Views,
+  views?: StorageBrowserViews,
   customConfigs?: CustomActionConfigs
 ): ViewsContextType => {
   const resolvedDefaultActionViews = Object.entries(
     DEFAULT_ACTION_VIEWS
   ).reduce((output, [actionName, component]) => {
     // use viewName to lookup overrides for default action views
-    const viewName = capitalize(`${actionName}View` as keyof Views);
+    const viewName = capitalize(
+      `${actionName}View` as keyof StorageBrowserViews
+    );
     return {
       ...output,
       [actionName]: (views?.[viewName] ?? component) as React.ComponentType,
@@ -28,7 +33,10 @@ export const getViews = (
         // ignore custom actions that are only handlers
         return !isObject(config) || isFunction(config)
           ? acc
-          : { ...acc, [key]: views?.[config.viewName as keyof Views] };
+          : {
+              ...acc,
+              [key]: views?.[config.viewName as keyof StorageBrowserViews],
+            };
       }, {});
 
   return {

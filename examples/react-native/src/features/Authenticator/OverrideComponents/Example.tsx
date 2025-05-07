@@ -23,6 +23,8 @@ import { ConfirmSignUp } from './ConfirmSignUp';
 import { ConfirmVerifyUser } from './ConfirmVerifyUser';
 import { ForceNewPassword } from './ForceNewPassword';
 import { ForgotPassword } from './ForgotPassword';
+import { SelectMfaType } from './SelectMfaType';
+import { SetupEmail } from './SetupEmail';
 import { SetupTotp } from './SetupTotp';
 import { SignIn } from './SignIn';
 import { SignUp } from './SignUp';
@@ -38,6 +40,8 @@ const components: AuthenticatorProps['components'] = {
   ConfirmVerifyUser,
   ForceNewPassword,
   ForgotPassword,
+  SelectMfaType,
+  SetupEmail,
   SetupTotp,
   SignIn,
   SignUp,

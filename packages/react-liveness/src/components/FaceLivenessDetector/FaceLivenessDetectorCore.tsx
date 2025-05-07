@@ -1,15 +1,13 @@
 import * as React from 'react';
 import { useInterpret } from '@xstate/react';
-import {
-  livenessMachine,
-  FaceLivenessDetectorCoreProps as FaceLivenessDetectorPropsFromUi,
-} from './service';
+import type { FaceLivenessDetectorCoreProps as FaceLivenessDetectorPropsFromUi } from './service';
+import { livenessMachine } from './service';
 import { View, Flex } from '@aws-amplify/ui-react';
 
 import { FaceLivenessDetectorProvider } from './providers';
 import { LivenessCheck } from './LivenessCheck';
-import { FaceLivenessDetectorComponents } from './shared/DefaultStartScreenComponents';
-import { LivenessDisplayText } from './displayText';
+import type { FaceLivenessDetectorComponents } from './shared/DefaultStartScreenComponents';
+import type { LivenessDisplayText } from './displayText';
 import { getDisplayText } from './utils/getDisplayText';
 
 const DETECTOR_CLASS_NAME = 'liveness-detector';

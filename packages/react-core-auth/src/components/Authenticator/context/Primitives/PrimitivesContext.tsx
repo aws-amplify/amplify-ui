@@ -1,7 +1,7 @@
 import { createContextUtilities } from '@aws-amplify/ui-react-core';
 
-import { Platform } from '../Platform';
-import { PrimitivesDefault } from './types';
+import type { Platform } from '../Platform';
+import type { PrimitivesDefault } from './types';
 
 const { PrimitivesProvider, usePrimitives: usePrimitivesBase } =
   createContextUtilities<PrimitivesDefault>({

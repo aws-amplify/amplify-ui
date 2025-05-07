@@ -1,4 +1,4 @@
-import { ConversationMessage, ConversationStreamEvent } from '../types';
+import type { ConversationMessage, ConversationStreamEvent } from '../types';
 
 export const contentFromEvents = (
   contentBlocks?: ConversationStreamEvent[][]

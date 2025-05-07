@@ -1,8 +1,8 @@
-import {
+import type {
   AuthActorState,
   AuthMachineState,
 } from '../../machines/authenticator/types';
-import { AuthenticatorRoute } from './facade';
+import type { AuthenticatorRoute } from './facade';
 
 export type GetRoute = (
   state: AuthMachineState,
@@ -57,6 +57,10 @@ export const getRoute = (
       return 'verifyUser';
     case actorState?.matches('confirmVerifyUserAttribute'):
       return 'confirmVerifyUser';
+    case actorState?.matches('setupEmail'):
+      return 'setupEmail';
+    case actorState?.matches('selectMfaType'):
+      return 'selectMfaType';
     case state.matches('getCurrentUser'):
     case actorState?.matches('fetchUserAttributes'):
       /**

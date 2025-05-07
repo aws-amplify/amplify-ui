@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { BaseAccordionProps, AccordionProps } from './types';
-import { ForwardRefPrimitive, Primitive } from '../types/view';
+import type { BaseAccordionProps, AccordionProps } from './types';
+import type { ForwardRefPrimitive, Primitive } from '../types/view';
 import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 import { AccordionItem } from './AccordionItem';
 import { AccordionContent } from './AccordionContent';

@@ -1,15 +1,21 @@
 import React, { useCallback } from 'react';
 import { useInterpret, useSelector } from '@xstate/react';
-import {
+import type {
   AuthenticatorMachineOptions,
   AuthMachineState,
+} from '@aws-amplify/ui';
+import {
   getNextServiceFacade,
   createAuthenticatorMachine,
 } from '@aws-amplify/ui';
 
-import { MachineContextType, UseMachineSelector, UseMachine } from './types';
+import type {
+  MachineContextType,
+  UseMachineSelector,
+  UseMachine,
+} from './types';
 import { defaultComparator, getComparator } from './utils';
-import { InitialRoute } from '../ComponentRoute';
+import type { InitialRoute } from '../ComponentRoute';
 
 export const USE_MACHINE_ERROR =
   '`useMachine` must be used inside an `Authenticator.Provider`.';

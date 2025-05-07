@@ -2,8 +2,8 @@ import React from 'react';
 import { Button, PasswordField } from '../../../primitives';
 import { ValidationErrors } from '../../shared/ValidationErrors';
 import { DefaultErrorMessage } from '../shared/Defaults';
-import { PasswordFieldComponent } from '../types';
-import { ChangePasswordComponents } from './types';
+import type { PasswordFieldComponent } from '../types';
+import type { ChangePasswordComponents } from './types';
 
 const DefaultPasswordField: PasswordFieldComponent = ({
   fieldValidationErrors,

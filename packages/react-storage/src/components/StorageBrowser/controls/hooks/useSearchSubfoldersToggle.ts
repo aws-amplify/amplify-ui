@@ -1,5 +1,5 @@
-import { SearchSubfoldersToggleProps } from '../../composables/SearchSubfoldersToggle';
-import { useControlsContext } from '../../controls/context';
+import type { SearchSubfoldersToggleProps } from '../../components/composables/SearchSubfoldersToggle';
+import { useControlsContext } from '../context';
 
 export const useSearchSubfoldersToggle = (): SearchSubfoldersToggleProps => {
   const {
