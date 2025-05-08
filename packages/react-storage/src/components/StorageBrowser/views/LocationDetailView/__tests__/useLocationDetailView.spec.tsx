@@ -1,22 +1,21 @@
-import { renderHook, act } from '@testing-library/react';
+import { act, renderHook } from '@testing-library/react-hooks';
 
 import {
-  LocationData,
-  LocationItemData,
   FileData,
   FileDataItem,
   FolderData,
+  LocationData,
+  LocationItemData,
 } from '../../../actions';
 
 import { useFiles } from '../../../files';
 import { useLocationItems } from '../../../locationItems';
-import { useStore } from '../../../store';
-import { LocationState } from '../../../store';
+import { LocationState, useStore } from '../../../store';
 import { useAction, useList } from '../../../useAction';
 
 import {
-  useLocationDetailView,
   DEFAULT_LIST_OPTIONS,
+  useLocationDetailView,
 } from '../useLocationDetailView';
 
 jest.mock('../../../actions/handlers');
@@ -95,6 +94,7 @@ const testLocation: LocationState = {
 
 const mockLocationItemsState = { fileDataItems: undefined };
 const mockStoreState = { location: testLocation, actionType: undefined };
+const mockFileItemsState = { items: undefined, invalidFiles: undefined };
 
 const mockLocation = { current: undefined, path: '', key: '' };
 const mockListState = {
@@ -126,7 +126,7 @@ describe('useLocationDetailView', () => {
 
   beforeEach(() => {
     mockUseStore.mockReturnValue([mockStoreState, mockStoreDispatch]);
-    mockUseFiles.mockReturnValue([undefined, mockFilesDispatch]);
+    mockUseFiles.mockReturnValue([mockFileItemsState, mockFilesDispatch]);
     mockUseLocationItems.mockReturnValue([
       mockLocationItemsState,
       mockLocationItemsDispatch,

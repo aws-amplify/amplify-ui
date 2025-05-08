@@ -3,9 +3,9 @@ import {
   LocationData,
   LocationItemData,
 } from '../../../../actions';
-import { FileItems } from '../../../../files';
+import type { FileItems } from '../../../../files';
 import { INITIAL_STATUS_COUNTS, StatusCounts } from '../../../../tasks';
-import { UPLOAD_FILE_SIZE_LIMIT } from '../../../../validators/isFileTooBig';
+import { UPLOAD_FILE_SIZE_LIMIT } from '../../../../validators';
 
 export const ACTION_SCENARIOS: [string, StatusCounts][] = [
   ['all failed', { ...INITIAL_STATUS_COUNTS, FAILED: 11, TOTAL: 11 }],
@@ -76,12 +76,6 @@ export const UPLOAD_FILES_VALIDATION_SCENARIOS: [
         file: { name: 'file1', size: UPLOAD_FILE_SIZE_LIMIT + 1 },
         key: 'file1',
         id: 'file1-id',
-      },
-      {
-        // @ts-expect-error: mock file
-        file: { name: 'file2', size: UPLOAD_FILE_SIZE_LIMIT },
-        key: 'file2',
-        id: 'file2-id',
       },
     ],
   ],

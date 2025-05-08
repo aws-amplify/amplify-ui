@@ -1,7 +1,8 @@
-import { act, renderHook } from '@testing-library/react';
-import { FilesProvider, useFiles } from '../context';
-
 import * as UIReactModule from '@aws-amplify/ui-react/internal';
+import { act, renderHook } from '@testing-library/react-hooks';
+
+import { FilesProvider, useFiles } from '../context';
+import { DEFAULT_STATE } from '../utils';
 
 let uuid = 0;
 Object.defineProperty(globalThis, 'crypto', {
@@ -20,11 +21,11 @@ describe('useFiles', () => {
     const { result } = renderHook(() => useFiles(), { wrapper: FilesProvider });
     const [state, handler] = result.current;
 
-    expect(state).toStrictEqual([]);
+    expect(state).toStrictEqual(DEFAULT_STATE);
     expect(typeof handler).toBe('function');
   });
 
-  it('returned `handler` calls `handleFileSelect` as expected', () => {
+  it('returned `handler` calls `handleFileSelect` when selecting files as expected', () => {
     const handleFileSelect = jest.fn();
 
     useFileSelectSpy.mockReturnValue([[], handleFileSelect]);
@@ -39,7 +40,7 @@ describe('useFiles', () => {
     expect(handleFileSelect).toHaveBeenCalledTimes(1);
   });
 
-  it('adds files as as expected', () => {
+  it('adds valid files as expected', () => {
     const fileOne = new File([], 'file-one');
     const fileTwo = new File([], 'file-two');
 
@@ -47,7 +48,7 @@ describe('useFiles', () => {
 
     const [initState, handler] = result.current;
 
-    expect(initState).toStrictEqual([]);
+    expect(initState).toStrictEqual(DEFAULT_STATE);
 
     act(() => {
       handler({ type: 'ADD_FILE_ITEMS', files: [fileOne, fileTwo] });
@@ -55,6 +56,7 @@ describe('useFiles', () => {
 
     const [nextState] = result.current;
 
-    expect(nextState).toHaveLength(2);
+    expect(nextState.items).toHaveLength(2);
+    expect(nextState.invalidFiles).toBe(undefined);
   });
 });
