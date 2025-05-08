@@ -1,5 +1,17 @@
 # @aws-amplify/ui-react-auth
 
+## 0.0.52
+
+### Patch Changes
+
+- [#6521](https://github.com/aws-amplify/amplify-ui/pull/6521) [`1002c52796c78243f836c3c0edc95edfe244f112`](https://github.com/aws-amplify/amplify-ui/commit/1002c52796c78243f836c3c0edc95edfe244f112) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(lint): add consistent import/export type eslint rules
+
+- Updated dependencies [[`1002c52796c78243f836c3c0edc95edfe244f112`](https://github.com/aws-amplify/amplify-ui/commit/1002c52796c78243f836c3c0edc95edfe244f112)]:
+  - @aws-amplify/ui-react@6.11.2
+  - @aws-amplify/ui-react-core@3.4.3
+  - @aws-amplify/ui-react-core-auth@0.0.47
+  - @aws-amplify/ui@6.10.3
+
 ## 0.0.51
 
 ### Patch Changes
