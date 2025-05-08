@@ -1,6 +1,6 @@
-import { renderHook, act } from '@testing-library/react';
+import { act, renderHook } from '@testing-library/react-hooks';
 
-import { FileDataItem } from '../../../../actions';
+import type { FileDataItem } from '../../../../actions';
 import { useFiles } from '../../../../files';
 import { useLocationItems } from '../../../../locationItems';
 import { useStore } from '../../../../store';
@@ -34,6 +34,7 @@ const fileDataItems: FileDataItem[] = [
 ];
 
 const mockLocationItemsState = { fileDataItems };
+const mockFileItemsState = { items: undefined, invalidFiles: undefined };
 
 describe('useDeleteView', () => {
   const mockUseAction = jest.mocked(useAction);
@@ -49,7 +50,7 @@ describe('useDeleteView', () => {
   const mockReset = jest.fn();
 
   beforeEach(() => {
-    mockUseFiles.mockReturnValue([undefined, mockFilesDispatch]);
+    mockUseFiles.mockReturnValue([mockFileItemsState, mockFilesDispatch]);
     mockUseLocationItems.mockReturnValue([
       mockLocationItemsState,
       mockLocationItemsDispatch,
