@@ -4,7 +4,7 @@ import { ControlsContextProvider } from '../../../controls/context';
 import { useDisplayText } from '../../../displayText';
 
 import { useResolveTableData } from '../../hooks/useResolveTableData';
-import { DELETE_TABLE_KEYS, DELETE_TABLE_RESOLVERS } from '../../utils';
+import { DOWNLOAD_TABLE_KEYS, DOWNLOAD_TABLE_RESOLVERS } from '../../utils';
 
 import { DownloadMultipleViewProviderProps } from './types';
 
@@ -42,8 +42,8 @@ export function DownloadMultipleViewProvider({
     : undefined;
 
   const tableData = useResolveTableData(
-    DELETE_TABLE_KEYS,
-    DELETE_TABLE_RESOLVERS,
+    DOWNLOAD_TABLE_KEYS,
+    DOWNLOAD_TABLE_RESOLVERS,
     {
       items,
       props: { displayText, isProcessing },

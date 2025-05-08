@@ -10,4 +10,8 @@ export {
   DownloadMultipleViewDisplayText,
   StorageBrowserDisplayText,
 } from './types';
-export { isCopyViewDisplayTextKey, isDeleteViewDisplayTextKey } from './utils';
+export {
+  isCopyViewDisplayTextKey,
+  isDeleteViewDisplayTextKey,
+  isDownloadMultipleViewDisplayTextKey,
+} from './utils';

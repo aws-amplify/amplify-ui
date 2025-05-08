@@ -53,6 +53,7 @@ export const uploadActionConfig: UploadActionConfig = {
 export const downloadMultipleActionConfig: DownloadMultipleActionConfig = {
   viewName: 'DownloadMultipleView',
   actionListItem: {
+    disable: (selected) => !selected || selected.length === 0,
     hide: (permissions) => !permissions.includes('get'),
     icon: 'download',
     label: 'Download',
