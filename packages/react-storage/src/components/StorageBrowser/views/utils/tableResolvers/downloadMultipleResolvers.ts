@@ -1,23 +1,24 @@
 import { capitalize, noop } from '@aws-amplify/ui';
 
 import { WithKey } from '../../../components/types';
-import { isDeleteViewDisplayTextKey } from '../../../displayText';
+import { isDownloadMultipleViewDisplayTextKey } from '../../../displayText';
 
 import { STATUS_ICONS, STATUS_LABELS } from './constants';
 import {
-  DeleteActionTask,
-  DeleteTableKey,
-  DeleteTableResolvers,
-  GetDeleteCell,
+  DownloadMultipleActionTask,
+  DownloadMultipleTableResolvers,
+  DownloadTableKey,
+  GetDownloadMultipleCell,
 } from './types';
 import {
+  // TODO: rename the below util
   getCopyOrDeleteCancelCellContent,
-  getDeleteCellFolder,
+  getDownloadCellFolder,
   getFileSize,
   getFileType,
 } from './utils';
 
-export const DELETE_TABLE_KEYS = [
+export const DOWNLOAD_TABLE_KEYS = [
   'name',
   'folder',
   'type',
@@ -26,14 +27,14 @@ export const DELETE_TABLE_KEYS = [
   'cancel',
 ] as const;
 
-const getDeleteCellKey = ({
+const getDownloadCellKey = ({
   key,
   item,
-}: WithKey<{ item: DeleteActionTask }, DeleteTableKey>) =>
+}: WithKey<{ item: DownloadMultipleActionTask }, DownloadTableKey>) =>
   `${key}-${item.data.id}`;
 
-const name: GetDeleteCell = (data) => {
-  const key = getDeleteCellKey(data);
+const name: GetDownloadMultipleCell = (data) => {
+  const key = getDownloadCellKey(data);
 
   const { item } = data;
   const text = item.data.fileKey;
@@ -42,15 +43,15 @@ const name: GetDeleteCell = (data) => {
   return { key, type: 'text', content: { icon, text } };
 };
 
-const folder: GetDeleteCell = (data) => {
-  const key = getDeleteCellKey(data);
-  const text = getDeleteCellFolder(data.item);
+const folder: GetDownloadMultipleCell = (data) => {
+  const key = getDownloadCellKey(data);
+  const text = getDownloadCellFolder(data.item);
 
   return { key, type: 'text', content: { text } };
 };
 
-const type: GetDeleteCell = (data) => {
-  const key = getDeleteCellKey(data);
+const type: GetDownloadMultipleCell = (data) => {
+  const key = getDownloadCellKey(data);
   const { fileKey } = data.item.data;
 
   const text = getFileType(fileKey);
@@ -58,16 +59,16 @@ const type: GetDeleteCell = (data) => {
   return { key, type: 'text', content: { text } };
 };
 
-const size: GetDeleteCell = (data) => {
-  const key = getDeleteCellKey(data);
+const size: GetDownloadMultipleCell = (data) => {
+  const key = getDownloadCellKey(data);
   const { size: value } = data.item.data;
   const displayValue = getFileSize(value);
 
   return { key, type: 'number', content: { value, displayValue } };
 };
 
-const status: GetDeleteCell = (data) => {
-  const key = getDeleteCellKey(data);
+const status: GetDownloadMultipleCell = (data) => {
+  const key = getDownloadCellKey(data);
   const {
     item: { status },
     props: { displayText },
@@ -75,21 +76,21 @@ const status: GetDeleteCell = (data) => {
 
   const statusLabelKey = STATUS_LABELS[status];
 
-  const text = isDeleteViewDisplayTextKey(statusLabelKey)
+  const text = isDownloadMultipleViewDisplayTextKey(statusLabelKey)
     ? displayText[statusLabelKey]
     : '';
 
   return { key, type: 'text', content: { text } };
 };
 
-const cancel: GetDeleteCell = (data) => {
-  const key = getDeleteCellKey(data);
+const cancel: GetDownloadMultipleCell = (data) => {
+  const key = getDownloadCellKey(data);
   const content = getCopyOrDeleteCancelCellContent(data);
 
   return { key, type: 'button', content };
 };
 
-const DELETE_CELL_RESOLVERS = {
+const DOWNLOAD_CELL_RESOLVERS = {
   name,
   folder,
   type,
@@ -104,11 +105,11 @@ const DELETE_CELL_RESOLVERS = {
    * keep TS happy as "progress" headers were included in display text interfaces
    * and cannot be removed from the tables without a breaking change
    */
-  progress: noop as GetDeleteCell,
+  progress: noop as GetDownloadMultipleCell,
 };
 
-export const DELETE_TABLE_RESOLVERS: DeleteTableResolvers = {
-  getCell: (data) => DELETE_CELL_RESOLVERS[data.key](data),
+export const DOWNLOAD_TABLE_RESOLVERS: DownloadMultipleTableResolvers = {
+  getCell: (data) => DOWNLOAD_CELL_RESOLVERS[data.key](data),
   getHeader: ({ key, props: { displayText } }) => {
     const text = displayText[`tableColumn${capitalize(key)}Header`];
 

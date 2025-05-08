@@ -52,6 +52,7 @@ type ActionTableKey =
 
 export type CopyTableKey = Exclude<ActionTableKey, 'progress'>;
 export type DeleteTableKey = Exclude<ActionTableKey, 'progress'>;
+export type DownloadTableKey = Exclude<ActionTableKey, 'progress'>;
 export type UploadTableKey = ActionTableKey;
 
 export interface CopyTaskTableResolvers
@@ -70,9 +71,9 @@ export interface DeleteTableResolvers
 
 export interface DownloadMultipleTableResolvers
   extends DataTableResolvers<
-    DeleteTableKey,
-    DeleteTableResolverProps,
-    DeleteActionTask
+    DownloadTableKey,
+    DownloadMultipleTableResolverProps,
+    DownloadMultipleActionTask
   > {}
 
 export interface UploadTableResolvers
