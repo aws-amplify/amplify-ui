@@ -99,7 +99,7 @@ export const deDict: AuthenticatorDictionary = {
   'Sign Up with Google': 'Mit Google registrieren',
   'Forgot Password': 'Passwort vergessen',
   'Have an account? ': 'Schon registriert? ',
-  'Incorrect username or password':
+  'Incorrect username or password.':
     'Falscher Benutzername oder falsches Passwort',
   'Invalid password format': 'Ungültiges Passwort-Format',
   'Invalid phone number format': `Ungültiges Telefonummern-Format. Benutze eine Nummer im Format: +12345678900`,
