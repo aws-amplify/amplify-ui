@@ -1,8 +1,8 @@
 import * as UIReactModule from '@aws-amplify/ui-react/internal';
 import { act, renderHook } from '@testing-library/react-hooks';
 
+import { DEFAULT_STATE } from '../constants';
 import { FilesProvider, useFiles } from '../context';
-import { DEFAULT_STATE } from '../utils';
 
 let uuid = 0;
 Object.defineProperty(globalThis, 'crypto', {
@@ -57,6 +57,6 @@ describe('useFiles', () => {
     const [nextState] = result.current;
 
     expect(nextState.items).toHaveLength(2);
-    expect(nextState.invalidFiles).toBe(undefined);
+    expect(nextState.invalidFiles).toBeUndefined();
   });
 });

@@ -1,31 +1,30 @@
-import type { FileItemsState, FilesActionType } from './types';
-import { DEFAULT_STATE, resolveFiles } from './utils';
+import { DEFAULT_STATE } from './constants';
+import type { FilesActionType, FilesState } from './types';
+import { getFileItems } from './utils';
 
 export const filesReducer: React.Reducer<
-  FileItemsState,
+  FilesState,
   Exclude<FilesActionType, { type: 'SELECT_FILES' }>
-> = ({ items: prevItems, invalidFiles: prevInvalid }, input) => {
+> = (state, input) => {
   switch (input.type) {
     case 'ADD_FILE_ITEMS': {
-      const nextItems = resolveFiles(prevItems, input.files);
-      const nextInvalid = resolveFiles(prevInvalid, input.invalidFiles);
+      const items = getFileItems(state.items, input.files);
+      const invalidFiles = getFileItems(state.invalidFiles, input.invalidFiles);
 
-      return { items: nextItems, invalidFiles: nextInvalid };
+      return { items, invalidFiles };
     }
     case 'REMOVE_FILE_ITEM': {
+      const { items: prevItems } = state;
       const filteredItems = prevItems?.filter(({ id }) => id !== input.id);
 
-      /* 
-        We want to enforce that items is strictly undefined if there are no files
-        stored within it; otherwise, items is guaranteed to have at least 1+ files. 
-      */
-      const items = !filteredItems?.length
-        ? undefined
-        : filteredItems.length === prevItems?.length
-        ? prevItems
-        : filteredItems;
+      // items is strictly undefined if there are 0 files stored in it;
+      // otherwise, items is guaranteed to have at least 1+ files.
+      if (!filteredItems?.length) return { ...state, items: undefined };
 
-      return { items, invalidFiles: prevInvalid };
+      const items =
+        filteredItems.length === prevItems?.length ? prevItems : filteredItems;
+
+      return { ...state, items };
     }
     case 'RESET_FILE_ITEMS': {
       return DEFAULT_STATE;

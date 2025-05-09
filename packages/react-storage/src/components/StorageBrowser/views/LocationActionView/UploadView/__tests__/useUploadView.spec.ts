@@ -5,7 +5,6 @@ import { useFiles } from '../../../../files';
 import { useStore } from '../../../../store';
 import { INITIAL_STATUS_COUNTS, Task } from '../../../../tasks';
 import { useAction } from '../../../../useAction';
-import { UPLOAD_FILE_SIZE_LIMIT } from '../../../../validators';
 import { useUploadView } from '../useUploadView';
 
 jest.mock('../../../../files');
@@ -33,10 +32,7 @@ const fileItemTwo = {
   file: testFileTwo,
   key: testFileTwo.name,
 };
-const invalidFile = {
-  ...new File([], 'invalid-file'),
-  size: UPLOAD_FILE_SIZE_LIMIT + 1,
-};
+const invalidFile = new File([], 'invalid-file');
 const invalidFileItem = {
   id: 'invalid-file-uuid',
   file: invalidFile,

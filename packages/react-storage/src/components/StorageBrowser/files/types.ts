@@ -20,12 +20,12 @@ export type HandleFilesAction = (input: FilesActionType) => void;
 
 export type FileItems = FileItem[];
 
-export interface FileItemsState {
+export interface FilesState {
   items: FileItems | undefined;
   invalidFiles: FileItems | undefined;
 }
 
-export type FilesContextType = [FileItemsState, HandleFilesAction];
+export type FilesContextType = [FilesState, HandleFilesAction];
 
 export interface FilesProviderProps {
   children?: React.ReactNode;

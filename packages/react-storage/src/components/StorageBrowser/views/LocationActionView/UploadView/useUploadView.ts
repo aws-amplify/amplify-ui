@@ -22,18 +22,15 @@ export const useUploadView = (
     DEFAULT_OVERWRITE_ENABLED
   );
 
-  const uploadData = React.useMemo(
+  const items = React.useMemo(
     () =>
       (fileItems ?? []).reduce((curr: UploadHandlerData[], item) => {
-        const parsedFileItem = {
+        curr.push({
           ...item,
           key: `${location.key}${item.key}`,
-        };
-
-        return curr.concat({
-          ...parsedFileItem,
           preventOverwrite: !isOverwritingEnabled,
         });
+        return curr;
       }, []),
     [fileItems, isOverwritingEnabled, location.key]
   );
@@ -41,7 +38,7 @@ export const useUploadView = (
   const [
     { isProcessing, isProcessingComplete, statusCounts, tasks },
     handleUploads,
-  ] = useAction('upload', { items: uploadData });
+  ] = useAction('upload', { items });
 
   const onDropFiles = (files: File[]) => {
     if (files) {

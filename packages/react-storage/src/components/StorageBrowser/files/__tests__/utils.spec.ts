@@ -1,8 +1,7 @@
 import type { FileItem } from '../../actions';
 
-import { filesReducer } from '../filesReducer';
 import type { FileItems } from '../types';
-import { parseFileSelectParams, resolveFiles } from '../utils';
+import { getFileItems, parseFileSelectParams } from '../utils';
 
 let uuid = 0;
 Object.defineProperty(globalThis, 'crypto', {
@@ -31,17 +30,17 @@ const fileItemTwo: FileItem = {
 };
 
 describe('files context utils', () => {
-  describe('resolveFiles', () => {
+  describe('getFileItems', () => {
     it('returns the previous `items` when incoming `files` are `undefined`', () => {
       const previous = [fileItemOne, fileItemTwo];
-      const output = resolveFiles(previous, undefined);
+      const output = getFileItems(previous, undefined);
 
       expect(output).toBe(previous);
     });
 
     it('returns the previous `items` when incoming `files` is an empty array', () => {
       const previous = [fileItemOne, fileItemTwo];
-      const output = resolveFiles(previous, []);
+      const output = getFileItems(previous, []);
 
       expect(output).toBe(previous);
     });
@@ -49,7 +48,7 @@ describe('files context utils', () => {
     it('returns the previous `items` when incoming `files` are all duplicates', () => {
       const incoming = [fileOne, fileTwo];
       const previous = [fileItemOne, fileItemTwo];
-      const output = resolveFiles(previous, incoming);
+      const output = getFileItems(previous, incoming);
 
       expect(output).toBe(previous);
     });
@@ -57,12 +56,12 @@ describe('files context utils', () => {
     it('filters incoming `files` that exist in previous `items`', () => {
       const incoming = [fileOne, fileTwo, fileThree];
       const previous = [fileItemOne, fileItemTwo];
-      const output = resolveFiles(previous, incoming)!;
+      const output = getFileItems(previous, incoming);
 
       expect(output).not.toBe(previous);
       expect(output).toHaveLength(3);
 
-      const newItem = output[1];
+      const newItem = output![1];
 
       expect(newItem.file).toBe(fileThree);
       expect(newItem.key).toBe(fileThree.name);
@@ -72,10 +71,10 @@ describe('files context utils', () => {
     it('returns the sorted next `items` when previous `items` are `undefined`', () => {
       const incoming = [fileTwo, fileOne];
       const previous: FileItems = [];
-      const output = resolveFiles(previous, incoming)!;
+      const output = getFileItems(previous, incoming);
 
       expect(output).toHaveLength(2);
-      const [itemOne, itemTwo] = output;
+      const [itemOne, itemTwo] = output!;
 
       expect(itemOne.file).toBe(fileOne);
       expect(itemTwo.file).toBe(fileTwo);
@@ -84,11 +83,11 @@ describe('files context utils', () => {
     it('merges, sorts and returns previous and next `items`', () => {
       const incoming = [fileThree];
       const previous = [fileItemOne, fileItemTwo];
-      const output = resolveFiles(previous, incoming)!;
+      const output = getFileItems(previous, incoming);
 
       expect(output).toHaveLength(3);
 
-      const [itemOne, itemTwo, itemThree] = output;
+      const [itemOne, itemTwo, itemThree] = output!;
 
       // fileItemOne.key === 'item-one'
       expect(itemOne.key).toBe(fileItemOne.key);
@@ -105,69 +104,10 @@ describe('files context utils', () => {
         { ...fileThree, webkitRelativePath: 'test/file/file-three' },
       ] as File[];
       const previous = [fileItemOne, fileItemTwo];
-      const output = resolveFiles(previous, incoming)!;
+      const output = getFileItems(previous, incoming);
 
       expect(output).toHaveLength(3);
-      expect(output[2].key).toBe('test/file/file-three');
-    });
-  });
-
-  describe('filesReducer', () => {
-    it('adds `fileItems` as expected', () => {
-      const incoming = [fileOne, fileTwo, fileThree];
-      const previous = {
-        items: [fileItemOne, fileItemTwo],
-        invalidFiles: undefined,
-      };
-      const output = filesReducer(previous, {
-        type: 'ADD_FILE_ITEMS',
-        files: incoming,
-      });
-
-      expect(output.items).toHaveLength(3);
-    });
-
-    it('removes a `fileItem` as expected', () => {
-      const previous = {
-        items: [fileItemOne, fileItemTwo],
-        invalidFiles: undefined,
-      };
-      const targetId = fileItemOne.id;
-
-      const output = filesReducer(previous, {
-        type: 'REMOVE_FILE_ITEM',
-        id: targetId,
-      });
-
-      expect(output.items!).toHaveLength(1);
-      expect(output.items![0]).toBe(fileItemTwo);
-    });
-
-    it('returns the previous items on remove when previous and next items are the same length', () => {
-      const previous = {
-        items: [fileItemOne, fileItemTwo],
-        invalidFiles: undefined,
-      };
-      const targetId = 'not a real id lol';
-
-      const output = filesReducer(previous, {
-        type: 'REMOVE_FILE_ITEM',
-        id: targetId,
-      });
-
-      expect(output.items!).toHaveLength(2);
-      expect(output).toEqual(previous);
-    });
-
-    it('resets `fileItems` as expected', () => {
-      const previous = {
-        items: [fileItemOne, fileItemTwo],
-        invalidFiles: undefined,
-      };
-
-      const output = filesReducer(previous, { type: 'RESET_FILE_ITEMS' });
-
-      expect(output.items).toBe(undefined);
+      expect(output![2].key).toBe('test/file/file-three');
     });
   });
 

@@ -5,7 +5,6 @@ import {
 } from '../../../../actions';
 import type { FileItems } from '../../../../files';
 import { INITIAL_STATUS_COUNTS, StatusCounts } from '../../../../tasks';
-import { UPLOAD_FILE_SIZE_LIMIT } from '../../../../validators';
 
 export const ACTION_SCENARIOS: [string, StatusCounts][] = [
   ['all failed', { ...INITIAL_STATUS_COUNTS, FAILED: 11, TOTAL: 11 }],
@@ -73,7 +72,7 @@ export const UPLOAD_FILES_VALIDATION_SCENARIOS: [
     [
       {
         // @ts-expect-error: mock file
-        file: { name: 'file1', size: UPLOAD_FILE_SIZE_LIMIT + 1 },
+        file: { name: 'file1' },
         key: 'file1',
         id: 'file1-id',
       },
