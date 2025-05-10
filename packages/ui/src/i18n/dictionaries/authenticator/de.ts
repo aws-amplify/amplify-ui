@@ -99,6 +99,8 @@ export const deDict: AuthenticatorDictionary = {
   'Sign Up with Google': 'Mit Google registrieren',
   'Forgot Password': 'Passwort vergessen',
   'Have an account? ': 'Schon registriert? ',
+  'Incorrect username or password':
+    'Falscher Benutzername oder falsches Passwort',
   'Incorrect username or password.':
     'Falscher Benutzername oder falsches Passwort',
   'Invalid password format': 'Ungültiges Passwort-Format',

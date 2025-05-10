@@ -95,6 +95,7 @@ export const trDict: AuthenticatorDictionary = {
     'Bu e-postaya ait zaten bir hesap var.',
   'Confirm Sign In': 'Oturum Açmayı Doğrula',
   'Have an account? ': 'Hesabınız var mı? ',
+  'Incorrect username or password': 'Yanlış kullanıcı adı ya da şifre',
   'Incorrect username or password.': 'Yanlış kullanıcı adı ya da şifre',
   'Invalid password format': 'Geçersiz parola formatı',
   'Invalid phone number format': 'Geçersiz telefon numarası formatı',
