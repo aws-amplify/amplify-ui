@@ -3,6 +3,8 @@ import { act, renderHook } from '@testing-library/react-hooks';
 
 import { DEFAULT_STATE } from '../constants';
 import { FilesProvider, useFiles } from '../context';
+import * as filesReducerModule from '../filesReducer';
+import * as resolveFilesModule from '../resolveFiles';
 
 let uuid = 0;
 Object.defineProperty(globalThis, 'crypto', {
@@ -15,6 +17,8 @@ Object.defineProperty(globalThis, 'crypto', {
 });
 
 const useFileSelectSpy = jest.spyOn(UIReactModule, 'useFileSelect');
+const resolveFilesSpy = jest.spyOn(resolveFilesModule, 'resolveFiles');
+const filesReducerSpy = jest.spyOn(filesReducerModule, 'filesReducer');
 
 describe('useFiles', () => {
   it('returns the expected values', () => {
@@ -40,9 +44,25 @@ describe('useFiles', () => {
     expect(handleFileSelect).toHaveBeenCalledTimes(1);
   });
 
-  it('adds valid files as expected', () => {
+  it('updates the value of `FilesState` as expected', () => {
     const fileOne = new File([], 'file-one');
     const fileTwo = new File([], 'file-two');
+    const fileItemOne = {
+      file: fileOne,
+      id: expect.any(String),
+      key: fileOne.name,
+    };
+    const fileItemTwo = {
+      file: fileTwo,
+      id: expect.any(String),
+      key: fileTwo.name,
+    };
+    const mockNextState = {
+      items: [fileItemOne, fileItemTwo],
+      invalidFiles: undefined,
+    };
+    const mockResolveFiles = jest.mocked(resolveFilesModule.resolveFiles);
+    const mockFilesDispatch = jest.mocked(filesReducerModule.filesReducer);
 
     const { result } = renderHook(() => useFiles(), { wrapper: FilesProvider });
 
@@ -50,13 +70,49 @@ describe('useFiles', () => {
 
     expect(initState).toStrictEqual(DEFAULT_STATE);
 
+    resolveFilesSpy.mockReturnValueOnce({
+      valid: [fileOne, fileTwo],
+      invalid: undefined,
+    });
+    filesReducerSpy.mockReturnValueOnce(mockNextState);
+
     act(() => {
       handler({ type: 'ADD_FILE_ITEMS', files: [fileOne, fileTwo] });
     });
 
+    expect(mockResolveFiles).toHaveBeenCalledTimes(1);
+    expect(mockResolveFiles).toHaveBeenCalledWith([fileOne, fileTwo]);
+
+    expect(mockFilesDispatch).toHaveBeenCalledTimes(1);
+    expect(mockFilesDispatch).toHaveBeenCalledWith(
+      initState,
+      expect.objectContaining({
+        type: 'ADD_FILE_ITEMS',
+        files: [fileOne, fileTwo],
+      })
+    );
+
     const [nextState] = result.current;
 
-    expect(nextState.items).toHaveLength(2);
-    expect(nextState.invalidFiles).toBeUndefined();
+    const expectedNextState = {
+      items: [fileItemOne, fileItemTwo],
+      invalidFiles: undefined,
+    };
+
+    expect(nextState).toStrictEqual(expectedNextState);
+    expect(nextState).toBe(mockNextState);
+
+    act(() => {
+      handler({ type: 'REMOVE_FILE_ITEM', id: fileItemOne.id });
+    });
+
+    const [updatedState] = result.current;
+
+    const expectedUpdatedState = {
+      items: [fileItemTwo],
+      invalidFiles: undefined,
+    };
+
+    expect(updatedState).toStrictEqual(expectedUpdatedState);
   });
 });
