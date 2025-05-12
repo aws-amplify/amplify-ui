@@ -8,7 +8,7 @@ import type { FileItems, SelectionType } from './types';
 const compareFileItems = (prev: FileItem, next: FileItem) =>
   prev.key.localeCompare(next.key);
 
-export const getFileItems = (
+export const processFileItems = (
   prevItems: FileItems | undefined,
   files: File[] | undefined
 ): FileItems | undefined => {

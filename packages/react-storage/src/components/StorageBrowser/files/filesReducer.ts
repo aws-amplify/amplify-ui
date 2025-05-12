@@ -1,6 +1,6 @@
 import { DEFAULT_STATE } from './constants';
 import type { FilesActionType, FilesState } from './types';
-import { getFileItems } from './utils';
+import { processFileItems } from './utils';
 
 export const filesReducer: React.Reducer<
   FilesState,
@@ -10,8 +10,11 @@ export const filesReducer: React.Reducer<
     case 'ADD_FILE_ITEMS': {
       if (!input.files?.length && !input.invalidFiles?.length) return state;
 
-      const items = getFileItems(state.items, input.files);
-      const invalidFiles = getFileItems(state.invalidFiles, input.invalidFiles);
+      const items = processFileItems(state.items, input.files);
+
+      // `invalidFiles` should only track invalid files from
+      // the latest group of files added for uploading
+      const invalidFiles = processFileItems(undefined, input.invalidFiles);
 
       return { items, invalidFiles };
     }

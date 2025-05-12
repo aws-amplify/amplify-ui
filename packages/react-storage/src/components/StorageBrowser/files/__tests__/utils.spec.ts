@@ -1,7 +1,7 @@
 import type { FileItem } from '../../actions';
 
 import type { FileItems } from '../types';
-import { getFileItems, parseFileSelectParams } from '../utils';
+import { processFileItems, parseFileSelectParams } from '../utils';
 
 let uuid = 0;
 Object.defineProperty(globalThis, 'crypto', {
@@ -32,14 +32,14 @@ const fileItemTwo: FileItem = {
 describe('getFileItems', () => {
   it('returns the previous `items` when `files` is `undefined`', () => {
     const previous = [fileItemOne, fileItemTwo];
-    const output = getFileItems(previous, undefined);
+    const output = processFileItems(previous, undefined);
 
     expect(output).toBe(previous);
   });
 
   it('returns the previous `items` when `files` is an empty array', () => {
     const previous = [fileItemOne, fileItemTwo];
-    const output = getFileItems(previous, []);
+    const output = processFileItems(previous, []);
 
     expect(output).toBe(previous);
   });
@@ -47,7 +47,7 @@ describe('getFileItems', () => {
   it('returns the previous `items` when `files` are all duplicates', () => {
     const incoming = [fileOne, fileTwo];
     const previous = [fileItemOne, fileItemTwo];
-    const output = getFileItems(previous, incoming);
+    const output = processFileItems(previous, incoming);
 
     expect(output).toBe(previous);
   });
@@ -55,7 +55,7 @@ describe('getFileItems', () => {
   it('filters incoming `files` that exist in previous `items`', () => {
     const incoming = [fileOne, fileTwo, fileThree];
     const previous = [fileItemOne, fileItemTwo];
-    const output = getFileItems(previous, incoming);
+    const output = processFileItems(previous, incoming);
 
     expect(output).not.toBe(previous);
 
@@ -72,7 +72,7 @@ describe('getFileItems', () => {
     const incoming = [fileTwo, fileOne];
     const previous: FileItems = [];
 
-    const output = getFileItems(previous, incoming);
+    const output = processFileItems(previous, incoming);
     const expected = [
       { file: fileOne, id: expect.any(String), key: fileOne.name },
       { file: fileTwo, id: expect.any(String), key: fileTwo.name },
@@ -84,7 +84,7 @@ describe('getFileItems', () => {
   it('merges, sorts and returns previous and next `items`', () => {
     const incoming = [fileThree];
     const previous = [fileItemOne, fileItemTwo];
-    const output = getFileItems(previous, incoming);
+    const output = processFileItems(previous, incoming);
 
     const expected = [
       fileItemOne,
@@ -100,7 +100,7 @@ describe('getFileItems', () => {
       { ...fileThree, webkitRelativePath: 'test/file/file-three' },
     ] as File[];
     const previous = [fileItemOne, fileItemTwo];
-    const output = getFileItems(previous, incoming);
+    const output = processFileItems(previous, incoming);
 
     expect(output).toHaveLength(3);
     expect(output?.[2].key).toBe('test/file/file-three');
