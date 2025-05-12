@@ -22,7 +22,7 @@ describe('useFiles', () => {
     const [state, handler] = result.current;
 
     expect(state).toStrictEqual(DEFAULT_STATE);
-    expect(typeof handler).toBe('function');
+    expect(handler).toStrictEqual(expect.any(Function));
   });
 
   it('returned `handler` calls `handleFileSelect` when selecting files as expected', () => {

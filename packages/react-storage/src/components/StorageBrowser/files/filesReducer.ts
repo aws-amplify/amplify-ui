@@ -8,6 +8,8 @@ export const filesReducer: React.Reducer<
 > = (state, input) => {
   switch (input.type) {
     case 'ADD_FILE_ITEMS': {
+      if (!input.files?.length && !input.invalidFiles?.length) return state;
+
       const items = getFileItems(state.items, input.files);
       const invalidFiles = getFileItems(state.invalidFiles, input.invalidFiles);
 
@@ -15,16 +17,15 @@ export const filesReducer: React.Reducer<
     }
     case 'REMOVE_FILE_ITEM': {
       const { items: prevItems } = state;
-      const filteredItems = prevItems?.filter(({ id }) => id !== input.id);
+      if (!prevItems?.length) return state;
 
-      // items is strictly undefined if there are 0 files stored in it;
-      // otherwise, items is guaranteed to have at least 1+ files.
-      if (!filteredItems?.length) return { ...state, items: undefined };
+      const items = prevItems.filter(({ id }) => id !== input.id);
 
-      const items =
-        filteredItems.length === prevItems?.length ? prevItems : filteredItems;
+      if (items.length === prevItems.length) return state;
 
-      return { ...state, items };
+      // `items` is strictly undefined if it has 0 file items;
+      // otherwise, `items` is guaranteed to have at least 1+ file items.
+      return { ...state, items: items.length ? items : undefined };
     }
     case 'RESET_FILE_ITEMS': {
       return DEFAULT_STATE;
