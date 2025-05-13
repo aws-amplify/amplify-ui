@@ -118,6 +118,21 @@ export interface StorageBrowserActions {
   custom?: CustomActionConfigs;
 }
 
+export interface StorageBrowserOptions {
+  /**
+   * @description Overrides default file validation called when adding files to be uploaded
+   * @param {File} file — The file to validate
+   * @returns {boolean} — Returns true if `file` is valid, false otherwise
+   * @example
+   * ```tsx
+   * const MAX_FILE_SIZE = 10 * 1000 * 1000 * 1000; // 10 GB in bytes
+   *
+   * function myFileValidator(file: File) => file.size < MAX_FILE_SIZE;
+   * ```
+   */
+  validateFile?: (file: File) => boolean;
+}
+
 /**
  * @description configuration and options for `createStorageBrowser`
  */
@@ -142,6 +157,11 @@ export interface CreateStorageBrowserInput {
    * @description Overrides default `components` used within `StorageBrowser`
    */
   components?: StorageBrowserComponents;
+
+  /**
+   * @description Additional options and overrides for `StorageBrowser`
+   */
+  options?: StorageBrowserOptions;
 }
 
 /**

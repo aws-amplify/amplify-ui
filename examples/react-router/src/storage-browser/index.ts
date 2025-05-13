@@ -3,6 +3,7 @@ import ControlledValue from './controlled-value';
 import DefaultValue from './default-value';
 import LegacyControlled from './legacy-controlled';
 import PropsValidation from './props-validation';
+import FileValidation from './file-validation';
 
 // utils
 import { PREFIXES, INITIAL_VALUES } from './storage-browser';
@@ -50,6 +51,11 @@ const EXAMPLES = [
     Page: PropsValidation,
     subpath: 'props-validation',
     title: 'Props Validation',
+  },
+  {
+    Page: FileValidation,
+    subpath: 'file-validation',
+    title: 'File Validation',
   },
 ];
 
