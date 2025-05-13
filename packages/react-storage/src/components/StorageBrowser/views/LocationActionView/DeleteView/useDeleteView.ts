@@ -1,13 +1,13 @@
 import React from 'react';
 import { isFunction } from '@aws-amplify/ui';
 
-import { FileDataItem } from '../../../actions';
+import type { FileDataItem } from '../../../actions';
 import { useLocationItems } from '../../../locationItems';
 import { useStore } from '../../../store';
-import { Task } from '../../../tasks';
+import type { Task } from '../../../tasks';
 import { useAction } from '../../../useAction';
 
-import { DeleteViewState, UseDeleteViewOptions } from './types';
+import type { DeleteViewState, UseDeleteViewOptions } from './types';
 
 // assign to constant to ensure referential equality
 const EMPTY_ITEMS: FileDataItem[] = [];

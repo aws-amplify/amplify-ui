@@ -1,4 +1,4 @@
-import {
+import type {
   DesignTokenValues,
   OutputVariantKey,
   TransformValue,
@@ -8,7 +8,7 @@ type TransformSize = 'small' | 'medium' | 'large';
 
 export type BaseTransforms<
   Output extends OutputVariantKey = unknown,
-  Platform = unknown
+  Platform = unknown,
 > = {
   slideX?: DesignTokenValues<TransformSize, TransformValue, Output, Platform>;
 };
@@ -16,7 +16,7 @@ export type BaseTransforms<
 // `Transforms` tokens requires special handling for `required` output due to nested tokens
 export type Transforms<
   Output extends OutputVariantKey = unknown,
-  Platform = unknown
+  Platform = unknown,
 > = Output extends 'required' | 'default'
   ? Required<BaseTransforms<Output, Platform>>
   : BaseTransforms<Output, Platform>;

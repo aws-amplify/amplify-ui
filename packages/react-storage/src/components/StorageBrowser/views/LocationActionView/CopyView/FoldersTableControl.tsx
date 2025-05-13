@@ -1,12 +1,12 @@
 import React from 'react';
 import { createContextUtilities } from '@aws-amplify/ui-react-core';
 
-import { FolderData } from '../../../actions';
+import type { FolderData } from '../../../actions';
 import { ControlsContextProvider } from '../../../controls/context';
 import { DataTableControl } from '../../../controls/DataTableControl';
 
 import { getDestinationPickerTableData } from './getDestinationPickerTableData';
-import { LocationState } from '../../../store';
+import type { LocationState } from '../../../store';
 
 export interface FoldersTableProps {
   destination?: LocationState;

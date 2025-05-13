@@ -1,7 +1,7 @@
-import React from 'react';
-import { AsyncReducerState } from '@aws-amplify/ui-react-core';
+import type React from 'react';
+import type { AsyncReducerState } from '@aws-amplify/ui-react-core';
 
-import {
+import type {
   ActionHandler,
   CopyHandler,
   CreateFolderHandler,
@@ -12,8 +12,9 @@ import {
   LocationData,
   UploadHandler,
 } from '../actions';
-import { ProcessTasksOptions, StatusCounts, Task } from '../tasks';
-import { StorageBrowserActions } from '../createStorageBrowser';
+
+import type { ProcessTasksOptions, StatusCounts, Task } from '../tasks';
+import type { StorageBrowserActions } from '../createStorageBrowser';
 
 export type ListActionState<T = any, K = any> = [
   state: AsyncReducerState<T>,

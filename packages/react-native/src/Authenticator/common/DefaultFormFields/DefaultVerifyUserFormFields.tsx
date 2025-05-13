@@ -1,8 +1,9 @@
 import React from 'react';
-import { censorContactMethod, ContactMethod } from '@aws-amplify/ui';
+import type { ContactMethod } from '@aws-amplify/ui';
+import { censorContactMethod } from '@aws-amplify/ui';
 
 import { Radio, RadioGroup } from '../../../primitives';
-import { DefaultRadioFormFieldsProps } from './types';
+import type { DefaultRadioFormFieldsProps } from './types';
 
 interface AttributeMap {
   email: ContactMethod;

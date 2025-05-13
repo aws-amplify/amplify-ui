@@ -1,15 +1,12 @@
-export {
-  FormProvider,
+export type {
   FormProviderProps,
   FormValues,
   FormHandle,
   SubmitHandler,
-  useField,
-  useForm,
   UseForm,
   Validate,
   Validator,
-  withFormProvider,
 } from './FormCore';
+export { FormProvider, useField, useForm, withFormProvider } from './FormCore';
 
 export { RenderNothing } from './RenderNothing';

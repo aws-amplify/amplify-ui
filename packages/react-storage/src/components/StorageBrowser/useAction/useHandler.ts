@@ -2,10 +2,11 @@ import React from 'react';
 
 import { useGetActionInput } from '../configuration';
 import { DEFAULT_ACTION_CONCURRENCY } from './constants';
-import { ActionHandler } from '../actions';
-import { Task, useProcessTasks } from '../tasks';
+import type { ActionHandler } from '../actions';
+import type { Task } from '../tasks';
+import { useProcessTasks } from '../tasks';
 
-import {
+import type {
   HandleTaskInput,
   HandleTasksInput,
   InferTask,
@@ -45,10 +46,7 @@ export function useHandler<
   handler: THandler,
   options?: UseHandlerOptionsWithItems<TTask> | UseHandlerOptions<TTask>
 ): HandleTasksState<TTask> | HandleTaskState<TTask> {
-  const [state, handleProcessing] = useProcessTasks(handler, {
-    ...options,
-    concurrency: DEFAULT_ACTION_CONCURRENCY,
-  });
+  const [state, handleProcessing] = useProcessTasks(handler, options);
   const getConfig = useGetActionInput();
 
   const { reset, isProcessing, tasks, ...rest } = state;
@@ -63,7 +61,10 @@ export function useHandler<
 
       handleProcessing({
         config,
-        ...(hasData ? { data: input.data } : undefined),
+        ...(hasData
+          ? { data: input.data }
+          : // if no `data` provided, provide `concurrency` to `options`
+            { options: { concurrency: DEFAULT_ACTION_CONCURRENCY } }),
       });
     },
     [getConfig, handleProcessing, reset]

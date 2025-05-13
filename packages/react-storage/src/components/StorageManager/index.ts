@@ -1,6 +1,6 @@
 export { StorageManager } from './StorageManager';
-export { StorageManagerHandle, StorageManagerProps } from './types';
-export {
+export type { StorageManagerHandle, StorageManagerProps } from './types';
+export type {
   DropZoneProps,
   ContainerProps,
   FileListProps,

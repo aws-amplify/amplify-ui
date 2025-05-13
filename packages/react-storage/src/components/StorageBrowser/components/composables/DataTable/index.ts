@@ -1,5 +1,6 @@
-export { DataTable, DataTableProps, DataTableRow } from './DataTable';
-export {
+export type { DataTableProps, DataTableRow } from './DataTable';
+export { DataTable } from './DataTable';
+export type {
   DataTableSortHeader,
   DataTableTextHeader,
   DataTableHeader,

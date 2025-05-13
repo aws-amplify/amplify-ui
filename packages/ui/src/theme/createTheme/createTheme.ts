@@ -1,16 +1,16 @@
 import { defaultTheme } from '../defaultTheme';
-import { Theme, DefaultTheme, WebTheme, Override } from '../types';
+import type { Theme, DefaultTheme, WebTheme, Override } from '../types';
 import {
   deepExtend,
   flattenProperties,
   setupToken,
   setupTokens,
 } from './utils';
-import { WebDesignToken } from '../tokens/types/designToken';
+import type { WebDesignToken } from '../tokens/types/designToken';
 import { createComponentCSS } from './createComponentCSS';
 import { isString } from '../../utils';
 import { createColorPalette } from './createColorPalette';
-import { WebTokens } from '../tokens';
+import type { WebTokens } from '../tokens';
 import { createAnimationCSS } from './createAnimationCSS';
 
 /**

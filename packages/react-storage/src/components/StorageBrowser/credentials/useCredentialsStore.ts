@@ -2,11 +2,9 @@ import React from 'react';
 
 import { isFunction } from '@aws-amplify/ui';
 
-import {
-  createLocationCredentialsStore,
-  GetLocationCredentials,
-} from './credentialsStore';
-import {
+import type { GetLocationCredentials } from './credentialsStore';
+import { createLocationCredentialsStore } from './credentialsStore';
+import type {
   CreateCredentialsStoreInput,
   CredentialsStore,
   RegisterAuthListener,

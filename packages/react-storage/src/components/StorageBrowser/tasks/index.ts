@@ -1,6 +1,6 @@
 export { INITIAL_STATUS_COUNTS } from './constants';
 export { useProcessTasks } from './useProcessTasks';
-export {
+export type {
   ProcessTasksOptions,
   StatusCounts,
   Task,

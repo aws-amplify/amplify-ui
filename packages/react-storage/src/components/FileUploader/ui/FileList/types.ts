@@ -1,5 +1,5 @@
-import { FileUploaderDisplayTextDefault, TaskHandler } from '../../utils';
-import { FileStatus, StorageFile } from '../../types';
+import type { FileUploaderDisplayTextDefault, TaskHandler } from '../../utils';
+import type { FileStatus, StorageFile } from '../../types';
 
 export interface FileListProps {
   displayText: FileUploaderDisplayTextDefault;

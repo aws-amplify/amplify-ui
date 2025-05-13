@@ -1,4 +1,4 @@
-import { ComponentStyles, Elements, Modifiers, Size } from './utils';
+import type { ComponentStyles, Elements, Modifiers, Size } from './utils';
 
 export type RatingTheme<Required extends boolean = false> = ComponentStyles &
   Modifiers<Size> &

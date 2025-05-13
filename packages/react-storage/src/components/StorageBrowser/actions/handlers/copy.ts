@@ -1,5 +1,6 @@
-import { copy, CopyInput } from '../../storage-internal';
-import {
+import type { CopyInput } from '../../storage-internal';
+import { copy } from '../../storage-internal';
+import type {
   OptionalFileData,
   TaskData,
   TaskHandler,

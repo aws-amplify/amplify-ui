@@ -1,6 +1,6 @@
 import { useTheme } from './useTheme';
 import { useBreakpoint } from '../primitives/shared/responsive/useBreakpoint';
-import { Breakpoint } from '../primitives/types/responsive';
+import type { Breakpoint } from '../primitives/types/responsive';
 
 /**
  * @internal For internal Amplify UI use only. May be removed in a future release.

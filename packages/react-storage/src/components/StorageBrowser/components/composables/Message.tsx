@@ -1,11 +1,7 @@
 import React from 'react';
 
-import {
-  ButtonElement,
-  IconElement,
-  MessageVariant,
-  ViewElement,
-} from '../elements';
+import type { MessageVariant } from '../elements';
+import { ButtonElement, IconElement, ViewElement } from '../elements';
 
 import { STORAGE_BROWSER_BLOCK } from '../base';
 

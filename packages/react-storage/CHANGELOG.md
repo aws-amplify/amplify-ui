@@ -1,5 +1,24 @@
 # @aws-amplify/ui-react-storage
 
+## 3.10.3
+
+### Patch Changes
+
+- [#6533](https://github.com/aws-amplify/amplify-ui/pull/6533) [`967559aaa1bb30c76c1b333eaeab998c013bfba4`](https://github.com/aws-amplify/amplify-ui/commit/967559aaa1bb30c76c1b333eaeab998c013bfba4) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(StorageBrowser): update createEnhancedListHandler interfaces
+
+- [#6521](https://github.com/aws-amplify/amplify-ui/pull/6521) [`1002c52796c78243f836c3c0edc95edfe244f112`](https://github.com/aws-amplify/amplify-ui/commit/1002c52796c78243f836c3c0edc95edfe244f112) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(lint): add consistent import/export type eslint rules
+
+- Updated dependencies [[`1002c52796c78243f836c3c0edc95edfe244f112`](https://github.com/aws-amplify/amplify-ui/commit/1002c52796c78243f836c3c0edc95edfe244f112)]:
+  - @aws-amplify/ui-react@6.11.2
+  - @aws-amplify/ui-react-core@3.4.3
+  - @aws-amplify/ui@6.10.3
+
+## 3.10.2
+
+### Patch Changes
+
+- [`cf63046c171b5dd349121d0d8bbf2282fb71aae4`](https://github.com/aws-amplify/amplify-ui/commit/cf63046c171b5dd349121d0d8bbf2282fb71aae4) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(storage-browser): move useProcessTasks concurrency option to dispatch handler
+
 ## 3.10.1
 
 ### Patch Changes

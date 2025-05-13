@@ -1,6 +1,6 @@
-import { LocationData } from '../../../actions';
-import { DataTableProps } from '../../../components';
-import { DefaultLocationsViewDisplayText } from '../../../displayText/types';
+import type { LocationData } from '../../../actions';
+import type { DataTableProps } from '../../../components';
+import type { DefaultLocationsViewDisplayText } from '../../../displayText/types';
 
 import { getHeaders } from './getHeaders';
 

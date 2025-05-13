@@ -8,7 +8,7 @@ import { Flex } from '../Flex';
 import { IconChevronLeft, IconChevronRight, useIcons } from '../Icon';
 import { View } from '../View';
 import { VisuallyHidden } from '../VisuallyHidden';
-import { BasePaginationItemProps } from '../types/pagination';
+import type { BasePaginationItemProps } from '../types/pagination';
 import { ComponentText } from '../shared/constants';
 import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
 

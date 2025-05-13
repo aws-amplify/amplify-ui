@@ -1,6 +1,7 @@
 import React from 'react';
 import { fireEvent, render } from '@testing-library/react-native';
-import { ChallengeName, authenticatorTextUtil } from '@aws-amplify/ui';
+import type { ChallengeName } from '@aws-amplify/ui';
+import { authenticatorTextUtil } from '@aws-amplify/ui';
 
 import { SelectMfaType } from '..';
 

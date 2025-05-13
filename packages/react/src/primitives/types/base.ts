@@ -1,4 +1,5 @@
-import React, { AriaAttributes } from 'react';
+import type { AriaAttributes } from 'react';
+import type React from 'react';
 
 // Base component definition
 export interface BaseComponentProps {

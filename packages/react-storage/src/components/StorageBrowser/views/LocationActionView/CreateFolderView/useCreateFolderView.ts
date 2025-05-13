@@ -1,11 +1,14 @@
 import React from 'react';
 import { isFunction } from '@aws-amplify/ui';
 
-import { CreateFolderHandlerData } from '../../../actions';
+import type { CreateFolderHandlerData } from '../../../actions';
 import { useAction } from '../../../useAction';
 import { useStore } from '../../../store';
 
-import { CreateFolderViewState, UseCreateFolderViewOptions } from './types';
+import type {
+  CreateFolderViewState,
+  UseCreateFolderViewOptions,
+} from './types';
 
 export const useCreateFolderView = (
   options?: UseCreateFolderViewOptions

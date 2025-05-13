@@ -1,9 +1,10 @@
 import { isCancelError } from 'aws-amplify/storage';
 import { isFunction } from '@aws-amplify/ui';
 
-import { uploadData, UploadDataInput } from '../../storage-internal';
+import type { UploadDataInput } from '../../storage-internal';
+import { uploadData } from '../../storage-internal';
 
-import {
+import type {
   TaskData,
   TaskHandler,
   TaskHandlerInput,

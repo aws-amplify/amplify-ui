@@ -1,7 +1,7 @@
 import { listCallerAccessGrants } from '../../storage-internal';
 import { assertAccountId } from '../../validators';
 
-import {
+import type {
   ListHandlerOptions,
   ListHandler,
   ListLocationsExcludeOptions,

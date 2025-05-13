@@ -1,5 +1,5 @@
 import React from 'react';
-import { ElementDisplayName } from './types';
+import type { ElementDisplayName } from './types';
 
 /**
  * @internal @unstable

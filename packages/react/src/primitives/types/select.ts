@@ -1,7 +1,7 @@
-import * as React from 'react';
+import type * as React from 'react';
 
-import { ElementType, PrimitiveProps, BaseViewProps } from './view';
-import { Sizes } from './base';
+import type { ElementType, PrimitiveProps, BaseViewProps } from './view';
+import type { Sizes } from './base';
 
 export type SelectVariation = 'quiet';
 

@@ -1,5 +1,5 @@
 import { reactNativeDarkTokens, reactNativeTokens } from '@aws-amplify/ui';
-import { DefaultTheme, Override } from './types';
+import type { DefaultTheme, Override } from './types';
 
 export const defaultTheme: DefaultTheme = {
   tokens: reactNativeTokens,

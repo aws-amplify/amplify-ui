@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { FormFieldOptions, getErrors } from '@aws-amplify/ui';
+import type { FormFieldOptions } from '@aws-amplify/ui';
+import { getErrors } from '@aws-amplify/ui';
 
 import { PasswordField } from '../../../primitives/PasswordField';
 import { PhoneNumberField } from '../../../primitives/PhoneNumberField';

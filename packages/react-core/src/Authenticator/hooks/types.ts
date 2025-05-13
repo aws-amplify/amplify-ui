@@ -1,12 +1,12 @@
-import React from 'react';
+import type React from 'react';
 
-import {
+import type {
   ChallengeName,
   AuthenticatorServiceFacade,
   LegacyFormFieldOptions,
 } from '@aws-amplify/ui';
 
-import { UseAuthenticator } from './useAuthenticator';
+import type { UseAuthenticator } from './useAuthenticator';
 
 export type AuthenticatorRouteComponentKey =
   | 'confirmResetPassword'

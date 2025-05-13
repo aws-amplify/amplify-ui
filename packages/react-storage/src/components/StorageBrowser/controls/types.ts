@@ -1,13 +1,13 @@
-import { LocationData } from '../actions';
-import {
+import type { LocationData } from '../actions';
+import type {
   ActionListItem,
   Composables,
   DataTableSortHeader,
   DataTableProps,
   MessageProps,
 } from '../components';
-import { LocationState } from '../store';
-import { StatusCounts } from '../tasks';
+import type { LocationState } from '../store';
+import type { StatusCounts } from '../tasks';
 
 export interface Controls {
   props: React.ComponentProps<Composables[keyof Composables]>;

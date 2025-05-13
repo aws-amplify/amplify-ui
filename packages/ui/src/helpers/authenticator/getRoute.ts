@@ -1,8 +1,8 @@
-import {
+import type {
   AuthActorState,
   AuthMachineState,
 } from '../../machines/authenticator/types';
-import { AuthenticatorRoute } from './facade';
+import type { AuthenticatorRoute } from './facade';
 
 export type GetRoute = (
   state: AuthMachineState,

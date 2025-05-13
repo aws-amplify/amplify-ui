@@ -3,7 +3,7 @@ import { classNames } from '@aws-amplify/ui';
 
 import { ComponentClassName } from '@aws-amplify/ui';
 import { classNameModifier } from '../shared/utils';
-import {
+import type {
   MessageContainerProps,
   BaseMessageContainerProps,
   ForwardRefPrimitive,

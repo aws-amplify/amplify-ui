@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { DefaultRadioFormFieldsProps } from './types';
+import type { DefaultRadioFormFieldsProps } from './types';
 
 import { RadioGroup } from '../../../primitives/RadioGroup';
 import { Radio } from '../../../primitives/Radio';

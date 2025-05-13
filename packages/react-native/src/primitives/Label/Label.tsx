@@ -2,7 +2,7 @@ import React from 'react';
 import { Text } from 'react-native';
 
 import { useTheme } from '../../theme';
-import { LabelProps } from './types';
+import type { LabelProps } from './types';
 import { getThemedStyles } from './styles';
 
 export default function Label({

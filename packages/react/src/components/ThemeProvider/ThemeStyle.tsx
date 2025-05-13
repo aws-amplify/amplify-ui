@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { WebTheme } from '@aws-amplify/ui';
+import type { WebTheme } from '@aws-amplify/ui';
 import { Style } from './Style';
 
 interface ThemeStyleProps extends React.ComponentProps<'style'> {

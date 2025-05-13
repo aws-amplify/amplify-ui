@@ -1,4 +1,4 @@
-import { CredentialsAndIdentityId } from 'aws-amplify/auth';
+import type { CredentialsAndIdentityId } from 'aws-amplify/auth';
 
 export type AwsCredentials = CredentialsAndIdentityId['credentials'];
 

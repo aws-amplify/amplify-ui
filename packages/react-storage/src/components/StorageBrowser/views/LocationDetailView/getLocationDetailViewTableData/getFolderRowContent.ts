@@ -1,4 +1,4 @@
-import { DataTableProps } from '../../../components';
+import type { DataTableProps } from '../../../components';
 
 import { LOCATION_DETAIL_VIEW_HEADERS } from './constants';
 

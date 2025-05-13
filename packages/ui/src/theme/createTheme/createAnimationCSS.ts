@@ -1,7 +1,7 @@
 import { isFunction } from '../../utils';
-import { CSSProperties } from '../components/utils';
-import { WebTokens } from '../tokens';
-import { Animations } from '../types';
+import type { CSSProperties } from '../components/utils';
+import type { WebTokens } from '../tokens';
+import type { Animations } from '../types';
 import { propsToString } from './utils';
 
 export function createAnimationCSS({

@@ -10,7 +10,7 @@ import { ButtonGroup } from '../ButtonGroup';
 import { ComponentClassName } from '@aws-amplify/ui';
 import { IconMenu, useIcons } from '../Icon';
 import { MenuButton } from './MenuButton';
-import {
+import type {
   BaseMenuProps,
   MenuProps,
   ForwardRefPrimitive,

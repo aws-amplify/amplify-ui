@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { DataTableProps } from '../../../components';
+import type { DataTableProps } from '../../../components';
 
-import { DataTableResolvers } from './types';
+import type { DataTableResolvers } from './types';
 
 export default function useResolveTableData<K extends string, TItem, TProps>(
   keys: readonly K[] | K[],

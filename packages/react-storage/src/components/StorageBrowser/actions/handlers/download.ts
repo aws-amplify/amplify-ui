@@ -1,5 +1,5 @@
 import { getUrl } from '../../storage-internal';
-import {
+import type {
   TaskData,
   TaskHandler,
   TaskHandlerInput,

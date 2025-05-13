@@ -2,7 +2,7 @@ import React from 'react';
 
 import { createContextUtilities } from '@aws-amplify/ui-react-core';
 
-import { CredentialsProviderProps, CredentialsStore } from './types';
+import type { CredentialsProviderProps, CredentialsStore } from './types';
 import { useCredentialsStore } from './useCredentialsStore';
 
 const ERROR_MESSAGE =

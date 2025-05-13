@@ -9,7 +9,7 @@ import {
 } from '../../common';
 import { useFieldValues } from '../../hooks';
 
-import { DefaultSelectMfaTypeProps } from '../types';
+import type { DefaultSelectMfaTypeProps } from '../types';
 
 const COMPONENT_NAME = 'SelectMfaType';
 

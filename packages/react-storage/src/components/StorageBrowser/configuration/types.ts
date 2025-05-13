@@ -1,7 +1,7 @@
-import React from 'react';
+import type React from 'react';
 
-import { ActionInputConfig, LocationData } from '../actions';
-import { CredentialsProviderProps } from '../credentials';
+import type { ActionInputConfig, LocationData } from '../actions';
+import type { CredentialsProviderProps } from '../credentials';
 
 export type GetActionInput = (location?: LocationData) => ActionInputConfig;
 

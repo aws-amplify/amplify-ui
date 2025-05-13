@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { MessageProps } from '../../../components/composables/Message';
+import type { MessageProps } from '../../../components/composables/Message';
 import { ControlsContextProvider } from '../../../controls';
 import { useDisplayText } from '../../../displayText';
 
@@ -10,7 +10,7 @@ import { COPY_TABLE_KEYS, COPY_TABLE_RESOLVERS } from '../../utils';
 import { FoldersMessageProvider } from './FoldersMessageControl';
 import { FoldersPaginationProvider } from './FoldersPaginationControl';
 import { FoldersTableProvider } from './FoldersTableControl';
-import { CopyViewProviderProps } from './types';
+import type { CopyViewProviderProps } from './types';
 
 export function CopyViewProvider({
   children,

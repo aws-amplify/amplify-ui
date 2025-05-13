@@ -1,7 +1,7 @@
 import React from 'react';
 import { IconClose, useIcons } from '@aws-amplify/ui-react/internal';
 import { Button, View, VisuallyHidden } from '@aws-amplify/ui-react';
-import { FileRemoveButtonProps } from './types';
+import type { FileRemoveButtonProps } from './types';
 
 export const FileRemoveButton = ({
   altText,

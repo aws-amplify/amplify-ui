@@ -1,8 +1,9 @@
-import {
+import type {
   TaskHandlerInput,
   TaskData,
   TaskResult,
   TaskResultStatus,
+  TaskHandlerOptions,
 } from '../actions';
 
 /**
@@ -17,8 +18,6 @@ export type TaskStatus = TaskResultStatus | 'QUEUED' | 'PENDING';
 export type StatusCounts = Record<TaskStatus | 'TOTAL', number>;
 
 export interface ProcessTasksOptions<TTask extends Task, TItems = []> {
-  // has no impact in atomic mode
-  concurrency?: number;
   items?: TItems;
   onTaskCancel?: (task: TTask) => void;
   onTaskComplete?: (task: TTask) => void;
@@ -65,9 +64,19 @@ export type UseProcessTasksState<TTask, TInput> = [
   HandleProcessTasks<TInput>,
 ];
 
+interface HandleTasksOptions extends TaskHandlerOptions {
+  concurrency?: number;
+}
+
+export interface HandleBatchTasksInput<TData extends TaskData>
+  extends Omit<TaskHandlerInput<TData, HandleTasksOptions>, 'data'> {}
+
+export interface HandleSingleTaskInput<TData extends TaskData>
+  extends TaskHandlerInput<TData> {}
+
 export type InferHandleTasksInput<
   TItems,
   TData extends TaskData,
 > = TItems extends NonNullable<TItems>
-  ? Omit<TaskHandlerInput<TData>, 'data'>
-  : TaskHandlerInput<TData>;
+  ? HandleBatchTasksInput<TData>
+  : HandleSingleTaskInput<TData>;

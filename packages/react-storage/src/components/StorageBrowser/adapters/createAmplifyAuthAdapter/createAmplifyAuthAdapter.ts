@@ -1,11 +1,12 @@
 import { Amplify } from 'aws-amplify';
-import { AuthSession, fetchAuthSession } from 'aws-amplify/auth';
+import type { AuthSession } from 'aws-amplify/auth';
+import { fetchAuthSession } from 'aws-amplify/auth';
 import { Hub } from 'aws-amplify/utils';
 
-import { RegisterAuthListener } from '../../credentials';
-import { AWSTemporaryCredentials } from '../../storage-internal';
+import type { RegisterAuthListener } from '../../credentials';
+import type { AWSTemporaryCredentials } from '../../storage-internal';
 
-import { StorageBrowserAuthAdapter } from '../types';
+import type { StorageBrowserAuthAdapter } from '../types';
 
 import { createAmplifyListLocationsHandler } from './createAmplifyListLocationsHandler';
 

@@ -1,4 +1,9 @@
-import { PressableProps, StyleProp, TextStyle, ViewStyle } from 'react-native';
+import type {
+  PressableProps,
+  StyleProp,
+  TextStyle,
+  ViewStyle,
+} from 'react-native';
 
 export type ButtonVariant = 'primary' | 'default' | 'link';
 

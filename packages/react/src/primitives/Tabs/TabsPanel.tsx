@@ -3,9 +3,9 @@ import { classNames } from '@aws-amplify/ui';
 
 import { ComponentClassName, classNameModifierByFlag } from '@aws-amplify/ui';
 
-import { ForwardRefPrimitive, Primitive } from '../types';
+import type { ForwardRefPrimitive, Primitive } from '../types';
 import { View } from '../View';
-import { BaseTabsPanelProps, TabsPanelProps } from './types';
+import type { BaseTabsPanelProps, TabsPanelProps } from './types';
 import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 import { TabsContext } from './TabsContext';
 import { WHITESPACE_VALUE } from './constants';

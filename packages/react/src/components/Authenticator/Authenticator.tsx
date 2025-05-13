@@ -1,16 +1,16 @@
 import * as React from 'react';
-import {
+import type {
   AuthenticatorMachineOptions,
-  isFunction,
   FormFieldComponents,
   FormFieldOptions,
 } from '@aws-amplify/ui';
-import { AuthUser } from 'aws-amplify/auth';
+import { isFunction } from '@aws-amplify/ui';
+import type { AuthUser } from 'aws-amplify/auth';
 
+import type { UseAuthenticator } from '@aws-amplify/ui-react-core';
 import {
   AuthenticatorProvider as Provider,
   useAuthenticator,
-  UseAuthenticator,
   useAuthenticatorInitMachine,
   useSetUserAgent,
 } from '@aws-amplify/ui-react-core';
@@ -18,11 +18,10 @@ import {
 import { VERSION } from '../../version';
 import { useDeprecationWarning } from '../../hooks/useDeprecationWarning';
 
-import {
-  CustomComponentsContext,
-  ComponentsProviderProps,
-} from './hooks/useCustomComponents';
-import { Router, RouterProps } from './Router';
+import type { ComponentsProviderProps } from './hooks/useCustomComponents';
+import { CustomComponentsContext } from './hooks/useCustomComponents';
+import type { RouterProps } from './Router';
+import { Router } from './Router';
 import { SetupTotp } from './SetupTotp';
 import { SignIn } from './SignIn';
 import { SignUp } from './SignUp';

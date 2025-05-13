@@ -18,7 +18,7 @@ import { StoreProvider } from '../store';
 import { getActionHandlers, ActionHandlersProvider } from '../useAction';
 import { ViewsProvider } from '../views';
 
-import {
+import type {
   CreateStorageBrowserInput,
   StorageBrowserProviderProps,
 } from './types';

@@ -1,4 +1,4 @@
-import { ColorValues, ScaleKey } from '../tokens/colors';
+import type { ColorValues, ScaleKey } from '../tokens/colors';
 
 /**
  * Takes a set of keys and a color name and returns an object of design tokens,
