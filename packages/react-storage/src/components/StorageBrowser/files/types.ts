@@ -29,4 +29,5 @@ export type FilesContextType = [FilesState, HandleFilesAction];
 
 export interface FilesProviderProps {
   children?: React.ReactNode;
+  validateFile?: (file: File) => boolean;
 }

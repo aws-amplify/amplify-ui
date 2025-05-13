@@ -22,11 +22,15 @@ export const { FilesContext, useFiles } = createContextUtilities({
 
 export function FilesProvider({
   children,
+  validateFile,
 }: FilesProviderProps): React.JSX.Element {
   const [state, dispatch] = React.useReducer(filesReducer, DEFAULT_STATE);
 
   const [fileInput, handleFileSelect] = useFileSelect((nextFiles) => {
-    const { valid: files, invalid: invalidFiles } = resolveFiles(nextFiles);
+    const { valid: files, invalid: invalidFiles } = resolveFiles(
+      nextFiles,
+      validateFile
+    );
     dispatch({ type: 'ADD_FILE_ITEMS', files, invalidFiles });
   });
 
@@ -36,14 +40,15 @@ export function FilesProvider({
         handleFileSelect(...parseFileSelectParams(action.selectionType));
       } else if (action.type === 'ADD_FILE_ITEMS') {
         const { valid: files, invalid: invalidFiles } = resolveFiles(
-          action.files
+          action.files,
+          validateFile
         );
         dispatch({ type: 'ADD_FILE_ITEMS', files, invalidFiles });
       } else {
         dispatch(action);
       }
     },
-    [handleFileSelect]
+    [handleFileSelect, validateFile]
   );
 
   const value: FilesContextType = React.useMemo(
