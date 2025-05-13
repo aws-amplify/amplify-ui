@@ -68,8 +68,7 @@ export const useLocationDetailView = (
     useList('locationItems');
 
   // set up pagination
-  const { items, nextToken, search } = value;
-  const { hasExhaustedSearch = false } = search ?? {};
+  const { items, nextToken, hasExhaustedSearch = false } = value;
 
   const onPaginate = () => {
     if (hasInvalidPrefix || !nextToken) return;

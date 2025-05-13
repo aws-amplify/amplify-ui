@@ -3,7 +3,6 @@ import React from 'react';
 import { useAsyncReducer } from '@aws-amplify/ui-react-core';
 
 import type {
-  LocationItemType,
   FolderData,
   ListLocationItemsHandlerInput,
   ListHandlerOutput,
@@ -20,16 +19,6 @@ import type { ListActionState } from './types';
 import { useGetActionInput } from '../configuration';
 
 type RemoveConfig<T> = Omit<T, 'config'>;
-interface EnhancedInput
-  extends RemoveConfig<
-    EnhancedListHandlerInput<FolderData, LocationItemType>
-  > {}
-
-export interface UseListLocationItemsState
-  extends ListActionState<
-    EnhancedListHandlerOutput<FolderData>,
-    EnhancedInput
-  > {}
 
 export type ListFolderItemsAction = (
   input: ListLocationItemsHandlerInput
@@ -38,7 +27,9 @@ export type ListFolderItemsAction = (
 export interface UseListFolderItemsState
   extends ListActionState<
     EnhancedListHandlerOutput<FolderData>,
-    EnhancedListHandlerInput<FolderData, LocationItemType>
+    RemoveConfig<
+      EnhancedListHandlerInput<ListLocationItemsHandlerInput, FolderData>
+    >
   > {}
 
 export const useListFolderItems = (): UseListFolderItemsState => {
@@ -52,7 +43,7 @@ export const useListFolderItems = (): UseListFolderItemsState => {
 
   const enhancedHandler = React.useMemo(
     () =>
-      createEnhancedListHandler((input: EnhancedInput) =>
+      createEnhancedListHandler((input) =>
         listLocationItems({ ...input, config: getConfig() })
       ),
     [getConfig, listLocationItems]
