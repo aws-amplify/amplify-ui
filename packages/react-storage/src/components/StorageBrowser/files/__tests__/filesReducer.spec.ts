@@ -16,7 +16,8 @@ Object.defineProperty(globalThis, 'crypto', {
 const fileOne = new File([], 'file-one');
 const fileTwo = new File([], 'file-two');
 const fileThree = new File([], 'file-three');
-const invalidFile = new File([], 'invalid-file-one');
+const invalidFileOne = new File([], 'invalid-file-one');
+const invalidFileTwo = new File([], 'invalid-file-two');
 
 const fileItemOne: FileItem = {
   id: 'item-one',
@@ -28,6 +29,24 @@ const fileItemTwo: FileItem = {
   id: 'item-two',
   file: fileTwo,
   key: fileTwo.name,
+};
+
+const fileItemThree: FileItem = {
+  file: fileThree,
+  id: expect.any(String),
+  key: fileThree.name,
+};
+
+const invalidFileItemOne: FileItem = {
+  file: invalidFileOne,
+  id: expect.any(String),
+  key: invalidFileOne.name,
+};
+
+const invalidFileItemTwo: FileItem = {
+  file: invalidFileTwo,
+  id: expect.any(String),
+  key: invalidFileTwo.name,
 };
 
 describe('filesReducer', () => {
@@ -44,11 +63,7 @@ describe('filesReducer', () => {
     });
 
     const expected = {
-      items: [
-        fileItemOne,
-        { file: fileThree, id: expect.any(String), key: fileThree.name },
-        fileItemTwo,
-      ],
+      items: [fileItemOne, fileItemThree, fileItemTwo],
       invalidFiles: undefined,
     };
 
@@ -56,7 +71,7 @@ describe('filesReducer', () => {
   });
 
   it('returns the expected state on `add files` action when only invalid files are provided', () => {
-    const incoming = [invalidFile];
+    const incoming = [invalidFileOne];
     const previous = {
       items: [fileItemOne, fileItemTwo],
       invalidFiles: undefined,
@@ -69,13 +84,7 @@ describe('filesReducer', () => {
 
     const expected = {
       items: [fileItemOne, fileItemTwo],
-      invalidFiles: [
-        {
-          file: invalidFile,
-          id: expect.any(String),
-          key: invalidFile.name,
-        },
-      ],
+      invalidFiles: [invalidFileItemOne],
     };
 
     expect(output).toStrictEqual(expected);
@@ -144,6 +153,26 @@ describe('filesReducer', () => {
 
     // assert referential equality
     expect(outputThree).toBe(previous);
+  });
+
+  it('resets `invalidFiles` state on `add files` action to track latest invalid files passed in', () => {
+    const previous = {
+      items: [fileItemTwo],
+      invalidFiles: [invalidFileItemOne],
+    };
+
+    const output = filesReducer(previous, {
+      type: 'ADD_FILE_ITEMS',
+      files: [fileThree],
+      invalidFiles: [invalidFileTwo],
+    });
+
+    const expected = {
+      items: [fileItemThree, fileItemTwo],
+      invalidFiles: [invalidFileItemTwo],
+    };
+
+    expect(output).toStrictEqual(expected);
   });
 
   it('returns the expected state on `remove` action', () => {

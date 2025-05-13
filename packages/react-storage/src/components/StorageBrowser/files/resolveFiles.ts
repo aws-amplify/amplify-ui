@@ -20,13 +20,13 @@ export const resolveFiles = (
   if (!files?.length) return DEFAULT_RESOLVED_FILES;
 
   return files.reduce(
-    (curr, file) => {
+    (acc, file) => {
       if (validator(file)) {
-        curr.valid = constructFiles(curr.valid, file);
+        acc.valid = constructFiles(acc.valid, file);
       } else {
-        curr.invalid = constructFiles(curr.invalid, file);
+        acc.invalid = constructFiles(acc.invalid, file);
       }
-      return curr;
+      return acc;
     },
     { ...DEFAULT_RESOLVED_FILES }
   );

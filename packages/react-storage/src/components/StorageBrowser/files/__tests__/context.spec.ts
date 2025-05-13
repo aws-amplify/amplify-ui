@@ -21,6 +21,10 @@ const resolveFilesSpy = jest.spyOn(resolveFilesModule, 'resolveFiles');
 const filesReducerSpy = jest.spyOn(filesReducerModule, 'filesReducer');
 
 describe('useFiles', () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   it('returns the expected values', () => {
     const { result } = renderHook(() => useFiles(), { wrapper: FilesProvider });
     const [state, handler] = result.current;
@@ -49,20 +53,19 @@ describe('useFiles', () => {
     const fileTwo = new File([], 'file-two');
     const fileItemOne = {
       file: fileOne,
-      id: expect.any(String),
+      id: 'item-one',
       key: fileOne.name,
     };
     const fileItemTwo = {
       file: fileTwo,
-      id: expect.any(String),
+      id: 'item-two',
       key: fileTwo.name,
     };
     const mockNextState = {
       items: [fileItemOne, fileItemTwo],
       invalidFiles: undefined,
     };
-    const mockResolveFiles = jest.mocked(resolveFilesModule.resolveFiles);
-    const mockFilesDispatch = jest.mocked(filesReducerModule.filesReducer);
+    filesReducerSpy.mockReturnValueOnce(mockNextState);
 
     const { result } = renderHook(() => useFiles(), { wrapper: FilesProvider });
 
@@ -70,40 +73,36 @@ describe('useFiles', () => {
 
     expect(initState).toStrictEqual(DEFAULT_STATE);
 
-    resolveFilesSpy.mockReturnValueOnce({
-      valid: [fileOne, fileTwo],
-      invalid: undefined,
-    });
-    filesReducerSpy.mockReturnValueOnce(mockNextState);
-
     act(() => {
       handler({ type: 'ADD_FILE_ITEMS', files: [fileOne, fileTwo] });
     });
 
-    expect(mockResolveFiles).toHaveBeenCalledTimes(1);
-    expect(mockResolveFiles).toHaveBeenCalledWith([fileOne, fileTwo]);
+    expect(resolveFilesSpy).toHaveBeenCalledTimes(1);
+    expect(resolveFilesSpy).toHaveBeenCalledWith([fileOne, fileTwo]);
+    expect(resolveFilesSpy).toHaveReturnedWith({
+      valid: [fileOne, fileTwo],
+      invalid: undefined,
+    });
 
-    expect(mockFilesDispatch).toHaveBeenCalledTimes(1);
-    expect(mockFilesDispatch).toHaveBeenCalledWith(
-      initState,
-      expect.objectContaining({
-        type: 'ADD_FILE_ITEMS',
-        files: [fileOne, fileTwo],
-      })
-    );
-
-    const [nextState] = result.current;
-
-    const expectedNextState = {
-      items: [fileItemOne, fileItemTwo],
-      invalidFiles: undefined,
-    };
-
-    expect(nextState).toStrictEqual(expectedNextState);
-    expect(nextState).toBe(mockNextState);
+    expect(filesReducerSpy).toHaveBeenCalledTimes(1);
+    expect(filesReducerSpy).toHaveBeenCalledWith(initState, {
+      type: 'ADD_FILE_ITEMS',
+      files: [fileOne, fileTwo],
+    });
+    expect(filesReducerSpy).toHaveReturnedWith(mockNextState);
 
     act(() => {
       handler({ type: 'REMOVE_FILE_ITEM', id: fileItemOne.id });
+    });
+
+    expect(filesReducerSpy).toHaveBeenCalledTimes(2);
+    expect(filesReducerSpy).toHaveBeenLastCalledWith(mockNextState, {
+      type: 'REMOVE_FILE_ITEM',
+      id: fileItemOne.id,
+    });
+    expect(filesReducerSpy).toHaveLastReturnedWith({
+      items: [fileItemTwo],
+      invalidFiles: undefined,
     });
 
     const [updatedState] = result.current;

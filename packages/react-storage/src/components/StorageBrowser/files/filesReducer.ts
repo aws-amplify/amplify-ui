@@ -26,8 +26,8 @@ export const filesReducer: React.Reducer<
 
       if (items.length === prevItems.length) return state;
 
-      // `items` is strictly undefined if it has 0 file items;
-      // otherwise, `items` is guaranteed to have at least 1+ file items.
+      // `items` is strictly undefined if it has 0 file items
+      // otherwise, `items` is guaranteed to have at least 1+ file items
       return { ...state, items: items.length ? items : undefined };
     }
     case 'RESET_FILE_ITEMS': {
