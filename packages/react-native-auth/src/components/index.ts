@@ -1,1 +1,0 @@
-export { Authenticator } from './Authenticator';
