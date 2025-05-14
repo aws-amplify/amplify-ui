@@ -1,5 +1,332 @@
 # @aws-amplify/ui-react-liveness
 
+## 3.3.8
+
+### Patch Changes
+
+- [#6520](https://github.com/aws-amplify/amplify-ui/pull/6520) [`14a6df50e04b251aaf7a215ea2a84628303002ab`](https://github.com/aws-amplify/amplify-ui/commit/14a6df50e04b251aaf7a215ea2a84628303002ab) Thanks [@ashwinkumar6](https://github.com/ashwinkumar6)! - chore: update aws-amplify version
+
+- Updated dependencies [[`8d3eb0ba28dcab0b627134b465c18ca9ae01c4a1`](https://github.com/aws-amplify/amplify-ui/commit/8d3eb0ba28dcab0b627134b465c18ca9ae01c4a1), [`14a6df50e04b251aaf7a215ea2a84628303002ab`](https://github.com/aws-amplify/amplify-ui/commit/14a6df50e04b251aaf7a215ea2a84628303002ab)]:
+  - @aws-amplify/ui-react@6.11.1
+  - @aws-amplify/ui@6.10.2
+
+## 3.3.7
+
+### Patch Changes
+
+- Updated dependencies [[`e4d8cc8c04dd428d38289085a9bf797b87c058a2`](https://github.com/aws-amplify/amplify-ui/commit/e4d8cc8c04dd428d38289085a9bf797b87c058a2), [`e533dbbdade9d5ffdbd5aa7c446d958dd1980d43`](https://github.com/aws-amplify/amplify-ui/commit/e533dbbdade9d5ffdbd5aa7c446d958dd1980d43), [`80a0bd6f5179ff585ecc1fec4e6e3f152669258e`](https://github.com/aws-amplify/amplify-ui/commit/80a0bd6f5179ff585ecc1fec4e6e3f152669258e), [`58d7b1ba39b41d59f99328a9c46d92cce840fcdf`](https://github.com/aws-amplify/amplify-ui/commit/58d7b1ba39b41d59f99328a9c46d92cce840fcdf)]:
+  - @aws-amplify/ui@6.10.1
+  - @aws-amplify/ui-react@6.11.0
+
+## 3.3.6
+
+### Patch Changes
+
+- Updated dependencies [[`36c631a076b7d3d1aafc18a5854575e20e0592c2`](https://github.com/aws-amplify/amplify-ui/commit/36c631a076b7d3d1aafc18a5854575e20e0592c2)]:
+  - @aws-amplify/ui-react@6.10.0
+  - @aws-amplify/ui@6.10.0
+
+## 3.3.5
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @aws-amplify/ui-react@6.9.5
+
+## 3.3.4
+
+### Patch Changes
+
+- [#6437](https://github.com/aws-amplify/amplify-ui/pull/6437) [`f2566d3f977a0fcc423fc824ba82c02b76e632c0`](https://github.com/aws-amplify/amplify-ui/commit/f2566d3f977a0fcc423fc824ba82c02b76e632c0) Thanks [@tiffanynwyeung](https://github.com/tiffanynwyeung)! - fix(liveness): increase max frame rate and bitrate
+
+- Updated dependencies [[`e0fcb4322ab8af7e0699da577dc5fbcf9f7e56cc`](https://github.com/aws-amplify/amplify-ui/commit/e0fcb4322ab8af7e0699da577dc5fbcf9f7e56cc)]:
+  - @aws-amplify/ui@6.9.1
+  - @aws-amplify/ui-react@6.9.4
+
+## 3.3.3
+
+### Patch Changes
+
+- Updated dependencies [[`00fadd4f0fe8c79b6045558053257e9375942ca1`](https://github.com/aws-amplify/amplify-ui/commit/00fadd4f0fe8c79b6045558053257e9375942ca1), [`81543cb38604a80ca2d8b93cfb7d1884d43e0a4f`](https://github.com/aws-amplify/amplify-ui/commit/81543cb38604a80ca2d8b93cfb7d1884d43e0a4f)]:
+  - @aws-amplify/ui-react@6.9.3
+  - @aws-amplify/ui@6.9.0
+
+## 3.3.2
+
+### Patch Changes
+
+- Updated dependencies [[`fa6984721124029cf2e7d5b4ac5a3cc6c34097a6`](https://github.com/aws-amplify/amplify-ui/commit/fa6984721124029cf2e7d5b4ac5a3cc6c34097a6)]:
+  - @aws-amplify/ui@6.8.2
+  - @aws-amplify/ui-react@6.9.2
+
+## 3.3.1
+
+### Patch Changes
+
+- Updated dependencies [[`272ec8e575718ea990dcb9f51d1baaf522f45fb6`](https://github.com/aws-amplify/amplify-ui/commit/272ec8e575718ea990dcb9f51d1baaf522f45fb6), [`6e51c1750f8f3e01cf8827f4c5c2e5ef02240ca6`](https://github.com/aws-amplify/amplify-ui/commit/6e51c1750f8f3e01cf8827f4c5c2e5ef02240ca6)]:
+  - @aws-amplify/ui@6.8.1
+  - @aws-amplify/ui-react@6.9.1
+
+## 3.3.0
+
+### Minor Changes
+
+- [#6296](https://github.com/aws-amplify/amplify-ui/pull/6296) [`8d2aa79b174d4e48aaca913bd568898b8c8975a2`](https://github.com/aws-amplify/amplify-ui/commit/8d2aa79b174d4e48aaca913bd568898b8c8975a2) Thanks [@calebpollman](https://github.com/calebpollman)! - feat(react): reenable react 19 support
+
+### Patch Changes
+
+- Updated dependencies [[`8757f03b7b1d761d9a13cfe29382a2208d4f3999`](https://github.com/aws-amplify/amplify-ui/commit/8757f03b7b1d761d9a13cfe29382a2208d4f3999), [`8d2aa79b174d4e48aaca913bd568898b8c8975a2`](https://github.com/aws-amplify/amplify-ui/commit/8d2aa79b174d4e48aaca913bd568898b8c8975a2)]:
+  - @aws-amplify/ui@6.8.0
+  - @aws-amplify/ui-react@6.9.0
+
+## 3.2.1
+
+### Patch Changes
+
+- [#6278](https://github.com/aws-amplify/amplify-ui/pull/6278) [`475e4a37a404bd116ec55e95579acb8f2d23c9a4`](https://github.com/aws-amplify/amplify-ui/commit/475e4a37a404bd116ec55e95579acb8f2d23c9a4) Thanks [@jordanvn](https://github.com/jordanvn)! - revert changes introduced for React 19 support
+
+- Updated dependencies [[`475e4a37a404bd116ec55e95579acb8f2d23c9a4`](https://github.com/aws-amplify/amplify-ui/commit/475e4a37a404bd116ec55e95579acb8f2d23c9a4)]:
+  - @aws-amplify/ui-react@6.8.1
+
+## 3.2.0
+
+### Minor Changes
+
+- [#5826](https://github.com/aws-amplify/amplify-ui/pull/5826) [`954e9be2d055a57ebddab5b902e3e6b427d09f67`](https://github.com/aws-amplify/amplify-ui/commit/954e9be2d055a57ebddab5b902e3e6b427d09f67) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(react): add support for React 19
+
+### Patch Changes
+
+- [#6255](https://github.com/aws-amplify/amplify-ui/pull/6255) [`825cccc92f5c326f0f110c8439a1c2c6553ff00a`](https://github.com/aws-amplify/amplify-ui/commit/825cccc92f5c326f0f110c8439a1c2c6553ff00a) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(react): remove direct usage of react-test-renderer and types
+
+- Updated dependencies [[`c623990d5fb6af635b1964a51a8ff2c807938235`](https://github.com/aws-amplify/amplify-ui/commit/c623990d5fb6af635b1964a51a8ff2c807938235), [`954e9be2d055a57ebddab5b902e3e6b427d09f67`](https://github.com/aws-amplify/amplify-ui/commit/954e9be2d055a57ebddab5b902e3e6b427d09f67)]:
+  - @aws-amplify/ui-react@6.8.0
+
+## 3.1.19
+
+### Patch Changes
+
+- [#6250](https://github.com/aws-amplify/amplify-ui/pull/6250) [`27c72b51e1f11073e383eb848a99589c234abb23`](https://github.com/aws-amplify/amplify-ui/commit/27c72b51e1f11073e383eb848a99589c234abb23) Thanks [@calebpollman](https://github.com/calebpollman)! - deps: resolve all versions of nanoid to 3.3.8
+
+- Updated dependencies [[`4a9e16c194e145c6881583f2362bccd8974bc1fc`](https://github.com/aws-amplify/amplify-ui/commit/4a9e16c194e145c6881583f2362bccd8974bc1fc), [`96be188317d72b89b6bfbc14a3d4ee76daad2a8b`](https://github.com/aws-amplify/amplify-ui/commit/96be188317d72b89b6bfbc14a3d4ee76daad2a8b)]:
+  - @aws-amplify/ui-react@6.7.2
+  - @aws-amplify/ui@6.7.2
+
+## 3.1.18
+
+### Patch Changes
+
+- Updated dependencies [[`9ab56f499f4596062fe4614a016efc3dfc88ef03`](https://github.com/aws-amplify/amplify-ui/commit/9ab56f499f4596062fe4614a016efc3dfc88ef03)]:
+  - @aws-amplify/ui@6.7.1
+  - @aws-amplify/ui-react@6.7.1
+
+## 3.1.17
+
+### Patch Changes
+
+- Updated dependencies [[`70971f310`](https://github.com/aws-amplify/amplify-ui/commit/70971f310f69717657849f29d0a9e1d993b08d9a)]:
+  - @aws-amplify/ui-react@6.7.0
+  - @aws-amplify/ui@6.7.0
+
+## 3.1.16
+
+### Patch Changes
+
+- Updated dependencies [[`2e3a051d9`](https://github.com/aws-amplify/amplify-ui/commit/2e3a051d9c2d48d5be22d2e83095cbd060ce2b40), [`f1b1da8a1`](https://github.com/aws-amplify/amplify-ui/commit/f1b1da8a1adfb23948156a5618cbf605279d941d), [`0d4d2b91c`](https://github.com/aws-amplify/amplify-ui/commit/0d4d2b91c84b2eb5e9365bb837855e5a9b4e3c06), [`24635cfd5`](https://github.com/aws-amplify/amplify-ui/commit/24635cfd5fb6b01bfd3bde1464c7064b2d1484c4)]:
+  - @aws-amplify/ui-react@6.6.0
+  - @aws-amplify/ui@6.6.6
+
+## 3.1.15
+
+### Patch Changes
+
+- [#5917](https://github.com/aws-amplify/amplify-ui/pull/5917) [`3655af2be`](https://github.com/aws-amplify/amplify-ui/commit/3655af2be54733d364e71d3c7f86f32d7bbcf811) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - chore(ai): adding UA string for AIConversation
+
+- Updated dependencies [[`6fea94b89`](https://github.com/aws-amplify/amplify-ui/commit/6fea94b890d9d497a3f13e189ea0b52e8dcdadb8), [`3655af2be`](https://github.com/aws-amplify/amplify-ui/commit/3655af2be54733d364e71d3c7f86f32d7bbcf811)]:
+  - @aws-amplify/ui-react@6.5.5
+  - @aws-amplify/ui@6.6.5
+
+## 3.1.14
+
+### Patch Changes
+
+- Updated dependencies [[`ac7cb271a`](https://github.com/aws-amplify/amplify-ui/commit/ac7cb271aff895e643fb5dc927030df9245b7c5b)]:
+  - @aws-amplify/ui@6.6.4
+  - @aws-amplify/ui-react@6.5.4
+
+## 3.1.13
+
+### Patch Changes
+
+- Updated dependencies [[`0d86485fc`](https://github.com/aws-amplify/amplify-ui/commit/0d86485fc4bf74766a1b82c69cfa322ed1e9baf7)]:
+  - @aws-amplify/ui@6.6.3
+  - @aws-amplify/ui-react@6.5.3
+
+## 3.1.12
+
+### Patch Changes
+
+- [#5830](https://github.com/aws-amplify/amplify-ui/pull/5830) [`545aa6a60`](https://github.com/aws-amplify/amplify-ui/commit/545aa6a608b68b9fb78f5df56da0e1e09b537d58) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(rollup): upgrade rollup deps, migrate to mjs config file, enforce linting on mjs files
+
+- [#5853](https://github.com/aws-amplify/amplify-ui/pull/5853) [`87d74a7de`](https://github.com/aws-amplify/amplify-ui/commit/87d74a7deaa7d0cf393dfed3fb3cc85a3790c382) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(deps): remove @aws-amplify/core devDep from react-core
+
+- Updated dependencies [[`22e285f58`](https://github.com/aws-amplify/amplify-ui/commit/22e285f5802e40b78c5a055a7384943c41252428), [`545aa6a60`](https://github.com/aws-amplify/amplify-ui/commit/545aa6a608b68b9fb78f5df56da0e1e09b537d58), [`87d74a7de`](https://github.com/aws-amplify/amplify-ui/commit/87d74a7deaa7d0cf393dfed3fb3cc85a3790c382)]:
+  - @aws-amplify/ui-react@6.5.2
+  - @aws-amplify/ui@6.6.2
+
+## 3.1.11
+
+### Patch Changes
+
+- [#5796](https://github.com/aws-amplify/amplify-ui/pull/5796) [`bf9dbc334`](https://github.com/aws-amplify/amplify-ui/commit/bf9dbc334293aff844a835e1717ee529e1abded3) Thanks [@esauerbo](https://github.com/esauerbo)! - chore(deps): Fix transitive dependencies.
+
+- Updated dependencies [[`bf9dbc334`](https://github.com/aws-amplify/amplify-ui/commit/bf9dbc334293aff844a835e1717ee529e1abded3), [`3a677a1af`](https://github.com/aws-amplify/amplify-ui/commit/3a677a1afa60652fcd1a5adb734b9c94d4ba5c3d)]:
+  - @aws-amplify/ui-react@6.5.1
+  - @aws-amplify/ui@6.6.1
+
+## 3.1.10
+
+### Patch Changes
+
+- [#5798](https://github.com/aws-amplify/amplify-ui/pull/5798) [`2f0119f4c`](https://github.com/aws-amplify/amplify-ui/commit/2f0119f4cae704976c29b1e3634c54d8fae9dd95) Thanks [@thaddmt](https://github.com/thaddmt)! - fix(liveness): use video stream dimensions instead of videoEl dimensions
+
+- Updated dependencies [[`0ddeea9d4`](https://github.com/aws-amplify/amplify-ui/commit/0ddeea9d432f12621e0e32dae346e72881b790db), [`7a12237d2`](https://github.com/aws-amplify/amplify-ui/commit/7a12237d2c96107ef97d3c62d9d26d6b6f1d824c)]:
+  - @aws-amplify/ui-react@6.5.0
+  - @aws-amplify/ui@6.6.0
+
+## 3.1.9
+
+### Patch Changes
+
+- Updated dependencies [[`0ebf8b346`](https://github.com/aws-amplify/amplify-ui/commit/0ebf8b346bc744cd73e1e7891eafc07538d6419d)]:
+  - @aws-amplify/ui-react@6.4.0
+  - @aws-amplify/ui@6.5.0
+
+## 3.1.8
+
+### Patch Changes
+
+- Updated dependencies [[`9d96dd1fe`](https://github.com/aws-amplify/amplify-ui/commit/9d96dd1fe51212e8e55b0dde816122a6f5672762)]:
+  - @aws-amplify/ui@6.4.1
+  - @aws-amplify/ui-react@6.3.1
+
+## 3.1.7
+
+### Patch Changes
+
+- Updated dependencies [[`afffa89cb`](https://github.com/aws-amplify/amplify-ui/commit/afffa89cb29bb08ff1b626c727a2c9fb93bf11b3), [`afffa89cb`](https://github.com/aws-amplify/amplify-ui/commit/afffa89cb29bb08ff1b626c727a2c9fb93bf11b3), [`afffa89cb`](https://github.com/aws-amplify/amplify-ui/commit/afffa89cb29bb08ff1b626c727a2c9fb93bf11b3)]:
+  - @aws-amplify/ui-react@6.3.0
+  - @aws-amplify/ui@6.4.0
+
+## 3.1.6
+
+### Patch Changes
+
+- Updated dependencies [[`c3dfbe044`](https://github.com/aws-amplify/amplify-ui/commit/c3dfbe044fd18e084cd411ce0ff84dcab1a80224)]:
+  - @aws-amplify/ui@6.3.0
+  - @aws-amplify/ui-react@6.2.2
+
+## 3.1.5
+
+### Patch Changes
+
+- [#5737](https://github.com/aws-amplify/amplify-ui/pull/5737) [`a5acab9b4`](https://github.com/aws-amplify/amplify-ui/commit/a5acab9b41f8b0b07aa871c2dd64de7d78eeb71f) Thanks [@thaddmt](https://github.com/thaddmt)! - fix(liveness): Hide verifying screen video (#5553)
+
+- Updated dependencies [[`6e67ab6be`](https://github.com/aws-amplify/amplify-ui/commit/6e67ab6beb65e8ac7c7db6c6586df3c4f219bdbf), [`634815ff0`](https://github.com/aws-amplify/amplify-ui/commit/634815ff07defd89123963bab98f410c5e1fc9cd)]:
+  - @aws-amplify/ui@6.2.0
+  - @aws-amplify/ui-react@6.2.1
+
+## 3.1.4
+
+### Patch Changes
+
+- [#5526](https://github.com/aws-amplify/amplify-ui/pull/5526) [`f31a09caf`](https://github.com/aws-amplify/amplify-ui/commit/f31a09cafa2a05c10dffab462dc193e0baf252e8) Thanks [@esauerbo](https://github.com/esauerbo)! - chore(deps): refresh @aws-sdk/util-format-url dependency in liveness package
+
+- Updated dependencies [[`0919e55ba`](https://github.com/aws-amplify/amplify-ui/commit/0919e55ba6d5ec5f21fbf6d2062618c51b91c09b), [`50ef7ca8e`](https://github.com/aws-amplify/amplify-ui/commit/50ef7ca8e3d6ba116f587158c80ea08a5deeb868), [`d73bd9cc8`](https://github.com/aws-amplify/amplify-ui/commit/d73bd9cc84a2bd07c86d0c6937cbde35fc2c4bc2), [`29f11a53c`](https://github.com/aws-amplify/amplify-ui/commit/29f11a53cc196bde1c25d15f2f79e332f6156cdc), [`e52db7be1`](https://github.com/aws-amplify/amplify-ui/commit/e52db7be1792fb3f83fd7934f25524cdaee2d100)]:
+  - @aws-amplify/ui@6.1.0
+  - @aws-amplify/ui-react@6.2.0
+
+## 3.1.3
+
+### Patch Changes
+
+- [#5497](https://github.com/aws-amplify/amplify-ui/pull/5497) [`325187cb9`](https://github.com/aws-amplify/amplify-ui/commit/325187cb9753bedf343364ef4f92d6eb9ad9003a) Thanks [@esauerbo](https://github.com/esauerbo)! - chore(dependabot): Update dependencies in liveness package (@aws-sdk/client-rekognitionstreaming) to get fast-xml-parser fix
+
+## 3.1.2
+
+### Patch Changes
+
+- Updated dependencies [[`a0248855b`](https://github.com/aws-amplify/amplify-ui/commit/a0248855b85fe4a95d5b941b98b9d34cbc46298f), [`98135dfac`](https://github.com/aws-amplify/amplify-ui/commit/98135dfacccd5213e52b5001adbd1702e6f883fe)]:
+  - @aws-amplify/ui-react@6.1.14
+
+## 3.1.1
+
+### Patch Changes
+
+- Updated dependencies [[`31b9f299e`](https://github.com/aws-amplify/amplify-ui/commit/31b9f299e0b6253b9880700f836f47292453b40e), [`0483dd833`](https://github.com/aws-amplify/amplify-ui/commit/0483dd833698b518d1c88d98871cafb1b6019c75)]:
+  - @aws-amplify/ui-react@6.1.13
+  - @aws-amplify/ui@6.0.17
+
+## 3.1.0
+
+### Minor Changes
+
+- [#5344](https://github.com/aws-amplify/amplify-ui/pull/5344) [`407b7a52c`](https://github.com/aws-amplify/amplify-ui/commit/407b7a52c47d496cf3f158e17d617c7bc0cee065) Thanks [@esauerbo](https://github.com/esauerbo)! - feat(liveness): expose systemClockOffset to override rekognition client config.
+
+  If there is a clock skew greater than five minutes, you can optionally pass `systemClockOffset` to the `FaceLivenessDetectorCore` config, which will be applied as an offset to signing times.
+
+  ```
+  <FaceLivenessDetectorCore
+    ...
+    config={{
+      systemClockOffset:
+        createLivenessSessionApiData['systemClockOffset'],
+    }}
+  />
+  ```
+
+### Patch Changes
+
+- [#5334](https://github.com/aws-amplify/amplify-ui/pull/5334) [`a369d8b08`](https://github.com/aws-amplify/amplify-ui/commit/a369d8b083625d18ebbe9a23f70a8309f4fde4a9) Thanks [@esauerbo](https://github.com/esauerbo)! - chore(deps): Update client-rekognitionstreaming sdk and custom fetch handler
+
+## 3.0.24
+
+### Patch Changes
+
+- [#5303](https://github.com/aws-amplify/amplify-ui/pull/5303) [`47fb5ef77`](https://github.com/aws-amplify/amplify-ui/commit/47fb5ef778847c11310e4200bbfed17e9edf250a) Thanks [@esauerbo](https://github.com/esauerbo)! - fix(liveness): Fix photosensitivity text customization
+
+## 3.0.23
+
+### Patch Changes
+
+- [#5298](https://github.com/aws-amplify/amplify-ui/pull/5298) [`36a211868`](https://github.com/aws-amplify/amplify-ui/commit/36a21186808c4983cbbf1460a2cad45d9e78de24) Thanks [@thaddmt](https://github.com/thaddmt)! - fix(liveness): target android chrome 125 to use alternate mime type
+
+- [#5276](https://github.com/aws-amplify/amplify-ui/pull/5276) [`af879d490`](https://github.com/aws-amplify/amplify-ui/commit/af879d49061cb9e0070d8f735b9a9148a3e74428) Thanks [@thaddmt](https://github.com/thaddmt)! - chore(liveness): add more granular timeout messages, remove disconnect timeout
+
+## 3.0.22
+
+### Patch Changes
+
+- Updated dependencies [[`d7098c2fd`](https://github.com/aws-amplify/amplify-ui/commit/d7098c2fda994fc1ef285b349108c0e8ada9cc34)]:
+  - @aws-amplify/ui-react@6.1.12
+
+## 3.0.21
+
+### Patch Changes
+
+- [#5258](https://github.com/aws-amplify/amplify-ui/pull/5258) [`dc1b3be5b`](https://github.com/aws-amplify/amplify-ui/commit/dc1b3be5bb7307a28c856547500384f9bee52d34) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(deps): update amplify scoped and RN dep versions
+
+- Updated dependencies [[`dc1b3be5b`](https://github.com/aws-amplify/amplify-ui/commit/dc1b3be5bb7307a28c856547500384f9bee52d34)]:
+  - @aws-amplify/ui-react@6.1.11
+  - @aws-amplify/ui@6.0.16
+
+## 3.0.20
+
+### Patch Changes
+
+- Updated dependencies [[`1ca7c38e1`](https://github.com/aws-amplify/amplify-ui/commit/1ca7c38e15c5a7d307aa7e704b77d596167accb2), [`3af3e6b7a`](https://github.com/aws-amplify/amplify-ui/commit/3af3e6b7aca2914f67870b09fd5b2d81847f8e39), [`225bde836`](https://github.com/aws-amplify/amplify-ui/commit/225bde83640e9efba1b4edfce4696c74d6569b95), [`4b3f69917`](https://github.com/aws-amplify/amplify-ui/commit/4b3f6991706b774d45eb80beea2ddd606b21ce2a), [`bad0da7b9`](https://github.com/aws-amplify/amplify-ui/commit/bad0da7b9cc70069f504a37e80849b306b04f7d7), [`b92c34a99`](https://github.com/aws-amplify/amplify-ui/commit/b92c34a992b0f3d118711527360cdceeff503abb)]:
+  - @aws-amplify/ui@6.0.15
+  - @aws-amplify/ui-react@6.1.10
+
 ## 3.0.19
 
 ### Patch Changes

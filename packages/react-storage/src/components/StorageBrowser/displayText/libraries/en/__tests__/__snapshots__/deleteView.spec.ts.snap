@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CopyView display text values \`getActionCompleteMessage\` returns the expected values in the all failed scenario 1`] = `
+{
+  "content": "All files failed to delete.",
+  "type": "error",
+}
+`;
+
+exports[`CopyView display text values \`getActionCompleteMessage\` returns the expected values in the all prevented overwrites scenario 1`] = `
+{
+  "content": "0 files deleted, 0 files failed to delete.",
+  "type": "error",
+}
+`;
+
+exports[`CopyView display text values \`getActionCompleteMessage\` returns the expected values in the all success scenario 1`] = `
+{
+  "content": "All files deleted.",
+  "type": "success",
+}
+`;
+
+exports[`CopyView display text values \`getActionCompleteMessage\` returns the expected values in the no failures, some prevented overwrites, some success scenario 1`] = `
+{
+  "content": "2 files deleted, 0 files failed to delete.",
+  "type": "error",
+}
+`;
+
+exports[`CopyView display text values \`getActionCompleteMessage\` returns the expected values in the some failed scenario 1`] = `
+{
+  "content": "8 files deleted, 3 files failed to delete.",
+  "type": "error",
+}
+`;
+
+exports[`CopyView display text values \`getActionCompleteMessage\` returns the expected values in the some failures, some prevented overwrites, no success scenario 1`] = `
+{
+  "content": "0 files deleted, 2 files failed to delete.",
+  "type": "error",
+}
+`;
+
+exports[`CopyView display text values \`getActionCompleteMessage\` returns the expected values in the some failures, some prevented overwrites, some success scenario 1`] = `
+{
+  "content": "8 files deleted, 2 files failed to delete.",
+  "type": "error",
+}
+`;
+
+exports[`CopyView display text values should match snapshot values 1`] = `
+{
+  "actionCancelLabel": "Cancel",
+  "actionDestinationLabel": "Destination",
+  "actionExitLabel": "Exit",
+  "actionStartLabel": "Delete",
+  "getActionCompleteMessage": [Function],
+  "statusDisplayCanceledLabel": "Canceled",
+  "statusDisplayCompletedLabel": "Completed",
+  "statusDisplayFailedLabel": "Failed",
+  "statusDisplayInProgressLabel": "In progress",
+  "statusDisplayQueuedLabel": "Not started",
+  "statusDisplayTotalLabel": "Total",
+  "tableColumnCancelHeader": "",
+  "tableColumnFolderHeader": "Folder",
+  "tableColumnNameHeader": "Name",
+  "tableColumnSizeHeader": "Size",
+  "tableColumnStatusHeader": "Status",
+  "tableColumnTypeHeader": "Type",
+  "title": "Delete",
+}
+`;

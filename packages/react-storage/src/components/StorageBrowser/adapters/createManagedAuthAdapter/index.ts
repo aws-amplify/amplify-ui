@@ -1,0 +1,1 @@
+export { createManagedAuthAdapter } from './createManagedAuthAdapter';

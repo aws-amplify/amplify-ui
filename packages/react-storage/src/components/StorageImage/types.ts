@@ -1,5 +1,8 @@
-import { StorageAccessLevel } from '@aws-amplify/core';
-import { ImageProps } from '@aws-amplify/ui-react';
+import type { ImageProps } from '@aws-amplify/ui-react';
+import type { StorageBucket } from '../FileUploader/types';
+import type React from 'react';
+
+type StorageAccessLevel = 'guest' | 'protected' | 'private';
 
 export interface StorageImageProps extends Omit<ImageProps, 'src'> {
   // Use imgKey instead of key because key is a reserved keyword
@@ -15,6 +18,7 @@ export interface StorageImageProps extends Omit<ImageProps, 'src'> {
    * `accessLevel` will be replaced with `path` in a future major version of Amplify UI. See https://ui.docs.amplify.aws/react/connected-components/storage/storageimage#props
    */
   accessLevel: StorageAccessLevel;
+  bucket?: never;
   /**
    * @deprecated
    * `identityId` will be replaced with `path` in a future major version of Amplify UI. See https://ui.docs.amplify.aws/react/connected-components/storage/storageimage#props
@@ -32,10 +36,12 @@ export interface StorageImageProps extends Omit<ImageProps, 'src'> {
   onGetUrlError?: (error: Error) => void;
   // Creates a discriminated union between StorageImageProps and StorageImagePathProps
   path?: never;
+  loadingElement?: React.ReactNode;
 }
 
 type OmittedPropKey =
   | 'accessLevel'
+  | 'bucket' // include `bucket` to disallow `never` in `StorageImagePathProps`
   | 'imgKey'
   | 'identityId'
   | 'onStorageGetError'
@@ -46,6 +52,7 @@ export interface StorageImagePathProps
   path: string | ((input: { identityId?: string }) => string);
   imgKey?: never;
   accessLevel?: never;
+  bucket?: StorageBucket;
   identityId?: never;
   onStorageGetError?: never;
 }

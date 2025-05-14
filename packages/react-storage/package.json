@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui-react-storage",
-  "version": "3.1.0",
+  "version": "3.10.2",
   "main": "dist/index.js",
   "module": "dist/esm/index.mjs",
   "exports": {
@@ -8,6 +8,11 @@
       "types": "./dist/types/index.d.ts",
       "import": "./dist/esm/index.mjs",
       "require": "./dist/index.js"
+    },
+    "./browser": {
+      "main": "./dist/browser.js",
+      "types": "./dist/types/components/StorageBrowser/index.d.ts",
+      "import": "./dist/esm/browser.mjs"
     },
     "./styles.css": "./dist/styles.css"
   },
@@ -23,7 +28,8 @@
   },
   "files": [
     "dist",
-    "LICENSE"
+    "LICENSE",
+    "browser"
   ],
   "scripts": {
     "build": "yarn build:rollup",
@@ -31,7 +37,7 @@
     "check:esm": "node --input-type=module --eval 'import \"@aws-amplify/ui-react-storage\"'",
     "clean": "rimraf dist node_modules",
     "dev": "yarn build:rollup --watch",
-    "lint": "yarn typecheck && eslint src --ext .js,.ts,.tsx",
+    "lint": "yarn typecheck && eslint .",
     "prebuild": "rimraf dist",
     "size": "yarn size-limit",
     "test": "jest",
@@ -39,26 +45,55 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@aws-amplify/ui": "6.0.14",
-    "@aws-amplify/ui-react": "6.1.9",
-    "@aws-amplify/ui-react-core": "3.0.14",
-    "lodash": "4.17.21",
+    "@aws-amplify/ui": "6.10.2",
+    "@aws-amplify/ui-react": "6.11.1",
+    "@aws-amplify/ui-react-core": "3.4.2",
     "tslib": "^2.5.2"
   },
   "peerDependencies": {
-    "aws-amplify": "^6.2.0",
-    "react": "^16.14.0 || ^17.0 || ^18.0",
-    "react-dom": "^16.14.0 || ^17.0 || ^18.0"
+    "aws-amplify": "^6.14.3",
+    "react": "^16.14 || ^17 || ^18 || ^19",
+    "react-dom": "^16.14 || ^17 || ^18 || ^19"
+  },
+  "devDependencies": {
+    "@types/node": "^18.19.50"
   },
   "sideEffects": [
     "dist/**/*.css"
   ],
   "size-limit": [
     {
+      "name": "createStorageBrowser",
+      "path": "dist/esm/browser.mjs",
+      "import": "{ createStorageBrowser }",
+      "limit": "64.5 kB",
+      "ignore": [
+        "@aws-amplify/storage"
+      ]
+    },
+    {
+      "name": "StorageBrowser",
+      "path": "dist/esm/index.mjs",
+      "import": "{ StorageBrowser }",
+      "limit": "87 kB"
+    },
+    {
+      "name": "FileUploader",
+      "path": "dist/esm/index.mjs",
+      "import": "{ FileUploader }",
+      "limit": "22 kB"
+    },
+    {
+      "name": "StorageImage",
+      "path": "dist/esm/index.mjs",
+      "import": "{ StorageImage }",
+      "limit": "14.5 kB"
+    },
+    {
       "name": "StorageManager",
       "path": "dist/esm/index.mjs",
       "import": "{ StorageManager }",
-      "limit": "25.5 kB"
+      "limit": "22 kB"
     }
   ]
 }

@@ -16,6 +16,8 @@ import {
 } from '../../Flex/__tests__/Flex.test';
 import { ComponentClassName } from '@aws-amplify/ui';
 import { AUTO_GENERATED_ID_PREFIX } from '../../utils/useStableId';
+import { ERROR_SUFFIX, DESCRIPTION_SUFFIX } from '../../../helpers/constants';
+import { Button } from '../../Button';
 
 // Jest uses JSDom, which apparently doesn't support the ResizeObserver API
 // This will get around that API reference error in Jest
@@ -130,7 +132,14 @@ describe('SliderField:', () => {
   describe('Slider', () => {
     const ControlledSliderField = () => {
       const [value, setValue] = React.useState(5);
-      return <SliderField label="slider" value={value} onChange={setValue} />;
+      return (
+        <>
+          <SliderField label="slider" value={value} onChange={setValue} />
+          <Button testId="test-button" onClick={() => setValue(10)}>
+            Set to 10
+          </Button>
+        </>
+      );
     };
 
     it('should work as uncontrolled component', async () => {
@@ -150,15 +159,27 @@ describe('SliderField:', () => {
     it('should work as controlled component', async () => {
       render(<ControlledSliderField />);
       const slider = await screen.findByRole('slider');
+      const label = await screen.findByTestId(SLIDER_LABEL_TEST_ID);
       expect(slider).toHaveAttribute('aria-valuenow', '5');
+      expect(label).toHaveTextContent('5');
       fireEvent.keyDown(slider, { key: 'ArrowUp', code: 'ArrowUp' });
       expect(slider).toHaveAttribute('aria-valuenow', '6');
+      expect(label).toHaveTextContent('6');
       fireEvent.keyDown(slider, { key: 'ArrowUp', code: 'ArrowUp' });
       expect(slider).toHaveAttribute('aria-valuenow', '7');
+      expect(label).toHaveTextContent('7');
       fireEvent.keyDown(slider, { key: 'ArrowDown', code: 'ArrowDown' });
       expect(slider).toHaveAttribute('aria-valuenow', '6');
+      expect(label).toHaveTextContent('6');
       fireEvent.keyDown(slider, { key: 'ArrowDown', code: 'ArrowDown' });
       expect(slider).toHaveAttribute('aria-valuenow', '5');
+      expect(label).toHaveTextContent('5');
+
+      // External update (remount) should work as well
+      const button = await screen.findByTestId('test-button');
+      fireEvent.click(button);
+      expect(slider).toHaveAttribute('aria-valuenow', '10');
+      expect(label).toHaveTextContent('10');
     });
 
     it('should set step', async () => {
@@ -413,6 +434,73 @@ describe('SliderField:', () => {
 
       const slider = await screen.findByRole('slider');
       expect(slider).toHaveAccessibleDescription('Description');
+    });
+  });
+
+  describe('aria-describedby test', () => {
+    const errorMessage = 'This is an error message';
+    const descriptiveText = 'Description';
+    it('when hasError, include id of error component and describe component in the aria-describedby', async () => {
+      render(
+        <SliderField
+          defaultValue={0}
+          label="slider"
+          descriptiveText={descriptiveText}
+          errorMessage={errorMessage}
+          hasError
+        />
+      );
+
+      const thumb = await screen.findByRole('slider');
+      const ariaDescribedBy = thumb.getAttribute('aria-describedby');
+      const descriptiveTextElement = screen.queryByText(descriptiveText);
+      const errorTextElement = screen.queryByText(errorMessage);
+      expect(
+        errorTextElement?.id && errorTextElement?.id.endsWith(ERROR_SUFFIX)
+      ).toBe(true);
+      expect(
+        descriptiveTextElement?.id &&
+          descriptiveTextElement?.id.endsWith(DESCRIPTION_SUFFIX)
+      ).toBe(true);
+      expect(
+        errorTextElement?.id &&
+          descriptiveTextElement?.id &&
+          ariaDescribedBy ===
+            `${errorTextElement.id} ${descriptiveTextElement.id}`
+      ).toBe(true);
+    });
+
+    it('only show id of describe component in aria-describedby when hasError is false', async () => {
+      render(
+        <SliderField
+          defaultValue={0}
+          label="slider"
+          descriptiveText={descriptiveText}
+          errorMessage={errorMessage}
+        />
+      );
+
+      const thumb = await screen.findByRole('slider');
+      const ariaDescribedBy = thumb.getAttribute('aria-describedby');
+      const descriptiveTextElement = screen.queryByText(descriptiveText);
+      expect(
+        descriptiveTextElement?.id &&
+          ariaDescribedBy?.startsWith(descriptiveTextElement?.id)
+      ).toBe(true);
+    });
+
+    it('aria-describedby should be empty when hasError is false and descriptiveText is empty', async () => {
+      render(
+        <SliderField
+          defaultValue={0}
+          label="slider"
+          errorMessage={errorMessage}
+        />
+      );
+
+      const thumb = await screen.findByRole('slider');
+      const ariaDescribedBy = thumb.getAttribute('aria-describedby');
+      expect(ariaDescribedBy).toBeNull();
     });
   });
 });

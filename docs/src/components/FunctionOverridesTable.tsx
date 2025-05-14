@@ -93,10 +93,21 @@ export const FunctionOverridesTable = ({ framework }) => {
             </TableRow>
             <TableRow>
               <ResponsiveTableCell label="Function Call">
+                <code>resendSignUpCode</code>
+              </ResponsiveTableCell>
+              <ResponsiveTableCell label="Override Name">
+                <code>handleResendSignUpCode</code>
+              </ResponsiveTableCell>
+              <ResponsiveTableCell label="input Properties">
+                <code>{'{username}'}</code>
+              </ResponsiveTableCell>
+            </TableRow>
+            <TableRow>
+              <ResponsiveTableCell label="Function Call">
                 <code>resetPassword</code>
               </ResponsiveTableCell>
               <ResponsiveTableCell label="Override Name">
-                <code>handleResetPassword</code>
+                <code>handleForgotPassword</code>
               </ResponsiveTableCell>
               <ResponsiveTableCell label="input Properties">
                 <code>{'{username}'}</code>
@@ -107,7 +118,7 @@ export const FunctionOverridesTable = ({ framework }) => {
                 <code>confirmResetPassword</code>
               </ResponsiveTableCell>
               <ResponsiveTableCell label="Override Name">
-                <code>handleConfirmResetPassword</code>
+                <code>handleForgotPasswordSubmit</code>
               </ResponsiveTableCell>
               <ResponsiveTableCell label="input Properties">
                 <code>{'{username, newPassword, confirmationCode}'}</code>
@@ -168,6 +179,17 @@ export const FunctionOverridesTable = ({ framework }) => {
               </ResponsiveTableCell>
               <ResponsiveTableCell label="formData Properties">
                 <code>{'{username, code}'}</code>
+              </ResponsiveTableCell>
+            </TableRow>
+            <TableRow>
+              <ResponsiveTableCell label="Function Call">
+                <code>Auth.resendSignUpCode</code>
+              </ResponsiveTableCell>
+              <ResponsiveTableCell label="Override Name">
+                <code>handleResendSignUpCode</code>
+              </ResponsiveTableCell>
+              <ResponsiveTableCell label="formData Properties">
+                <code>{'{username}'}</code>
               </ResponsiveTableCell>
             </TableRow>
             <TableRow>

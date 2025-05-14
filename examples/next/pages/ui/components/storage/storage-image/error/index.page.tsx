@@ -5,9 +5,9 @@ import { Text, Loader } from '@aws-amplify/ui-react';
 import { StorageImage } from '@aws-amplify/ui-react-storage';
 
 import '@aws-amplify/ui-react/styles.css';
-import awsExports from './aws-exports';
+import amplifyOutputs from './amplify_outputs';
 
-Amplify.configure(awsExports);
+Amplify.configure(amplifyOutputs);
 
 export function StorageImageExample() {
   const [isLoaded, setIsLoaded] = React.useState(false);

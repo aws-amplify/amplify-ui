@@ -1,6 +1,6 @@
 import { isUndefined } from '@aws-amplify/ui';
 import { TIME_SLICE } from '../constants';
-import { VideoStream, StreamResult, StreamResultType } from '../types';
+import type { VideoStream, StreamResult, StreamResultType } from '../types';
 
 export class StreamRecorder {
   #chunks: Blob[];

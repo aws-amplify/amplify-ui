@@ -79,7 +79,7 @@ const onSkipClicked = (): void => {
               aria-labelledby="amplify-field-493c"
             >
               <template
-                v-for="(value, key) in unverifiedUserAttributes"
+                v-for="(value, key, index) in unverifiedUserAttributes"
                 :key="value"
               >
                 <base-label
@@ -104,6 +104,7 @@ const onSkipClicked = (): void => {
                     data-amplify-verify-input
                     name="unverifiedAttr"
                     type="radio"
+                    :checked="index === 0"
                     :value="key"
                   >
                   </base-input>

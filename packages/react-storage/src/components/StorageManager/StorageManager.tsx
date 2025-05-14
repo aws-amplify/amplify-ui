@@ -6,11 +6,12 @@ import {
   useDeprecationWarning,
   useSetUserAgent,
 } from '@aws-amplify/ui-react-core';
-import { useDropZone } from '@aws-amplify/ui-react/internal';
+import { useDropZone } from '@aws-amplify/ui-react-core';
 
-import { useStorageManager, useUploadFiles } from './hooks';
-import {
-  FileStatus,
+import { useFileUploader, useUploadFiles } from '../FileUploader/hooks';
+import { FileStatus } from '../FileUploader/types';
+
+import type {
   StorageManagerProps,
   StorageManagerPathProps,
   StorageManagerHandle,
@@ -23,12 +24,12 @@ import {
   FileListFooter,
   FilePicker,
 } from './ui';
+import type { TaskHandler } from '../FileUploader/utils';
 import {
   checkMaxFileSize,
-  defaultStorageManagerDisplayText,
+  defaultFileUploaderDisplayText,
   filterAllowedFiles,
-  TaskHandler,
-} from './utils';
+} from '../FileUploader/utils';
 import { VERSION } from '../../version';
 
 const logger = getLogger('Storage');
@@ -45,6 +46,7 @@ const StorageManagerBase = React.forwardRef(function StorageManager(
     acceptedFileTypes = [],
     accessLevel,
     autoUpload = true,
+    bucket,
     components,
     defaultFiles,
     displayText: overrideDisplayText,
@@ -58,9 +60,16 @@ const StorageManagerBase = React.forwardRef(function StorageManager(
     path,
     processFile,
     showThumbnails = true,
+    useAccelerateEndpoint,
   }: StorageManagerPathProps | StorageManagerProps,
   ref: React.ForwardedRef<StorageManagerHandle>
-): JSX.Element {
+): React.JSX.Element {
+  useDeprecationWarning({
+    message:
+      'The `StorageManager` component has been renamed as the `FileUploader` component.',
+    shouldWarn: false,
+  });
+
   if (!maxFileCount) {
     // eslint-disable-next-line no-console
     console.warn(MISSING_REQUIRED_PROPS_MESSAGE);
@@ -90,7 +99,7 @@ const StorageManagerBase = React.forwardRef(function StorageManager(
     (typeof maxFileCount === 'number' && maxFileCount > 1);
 
   const displayText = {
-    ...defaultStorageManagerDisplayText,
+    ...defaultFileUploaderDisplayText,
     ...overrideDisplayText,
   };
 
@@ -115,7 +124,7 @@ const StorageManagerBase = React.forwardRef(function StorageManager(
     setUploadProgress,
     setUploadSuccess,
     setUploadResumed,
-  } = useStorageManager(defaultFiles);
+  } = useFileUploader(defaultFiles);
 
   React.useImperativeHandle(ref, () => ({ clearFiles }));
 
@@ -141,6 +150,7 @@ const StorageManagerBase = React.forwardRef(function StorageManager(
 
   useUploadFiles({
     accessLevel,
+    bucket,
     files,
     isResumable,
     maxFileCount,
@@ -152,6 +162,7 @@ const StorageManagerBase = React.forwardRef(function StorageManager(
     setUploadSuccess,
     processFile,
     path,
+    useAccelerateEndpoint,
   });
 
   const onFilePickerChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -201,7 +212,8 @@ const StorageManagerBase = React.forwardRef(function StorageManager(
     if (typeof onFileRemove === 'function') {
       const file = files.find((file) => file.id === id);
       if (file) {
-        onFileRemove({ key: file.key });
+        const key = file.resolvedKey ?? file.key;
+        onFileRemove({ key });
       }
     }
   };

@@ -3,7 +3,7 @@ import * as React from 'react';
 
 import { classNameModifier } from '../shared/utils';
 import { ComponentClassName } from '@aws-amplify/ui';
-import {
+import type {
   BaseDividerProps,
   DividerProps,
   ForwardRefPrimitive,

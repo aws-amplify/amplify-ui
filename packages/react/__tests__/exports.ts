@@ -2,6 +2,7 @@ import { PrimitiveCatalog } from '@aws-amplify/ui-react/internal';
 
 import * as exported from '../src';
 import * as internal from '../src/internal';
+import * as server from '../src/server';
 
 describe('@aws-amplify/ui-react', () => {
   describe('exports', () => {
@@ -19,6 +20,16 @@ describe('@aws-amplify/ui-react/internal', () => {
       const sortedInternalExports = Object.keys(internal).sort();
 
       expect(sortedInternalExports).toMatchSnapshot();
+    });
+  });
+});
+
+describe('@aws-amplify/ui-react/server', () => {
+  describe('exports', () => {
+    it('should match snapshot', () => {
+      const sortedServerExports = Object.keys(server).sort();
+
+      expect(sortedServerExports).toMatchSnapshot();
     });
   });
 });

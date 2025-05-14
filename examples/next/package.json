@@ -1,5 +1,5 @@
 {
-  "name": "@aws-amplify/ui-next-example",
+  "name": "@aws-amplify/ui-next-pages-router-example",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -10,25 +10,24 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@aws-amplify/geo": "^3.0.29",
-    "@aws-amplify/ui-react": "^6.1.9",
-    "@aws-amplify/ui-react-geo": "^2.0.14",
-    "@aws-amplify/ui-react-liveness": "^3.0.19",
-    "@aws-amplify/ui-react-notifications": "^2.0.17",
-    "@aws-amplify/ui-react-storage": "^3.1.0",
+    "@aws-amplify/ui-react": "^6.11.1",
+    "@aws-amplify/ui-react-ai": "1.4.1",
+    "@aws-amplify/ui-react-geo": "^2.2.8",
+    "@aws-amplify/ui-react-liveness": "^3.3.8",
+    "@aws-amplify/ui-react-notifications": "^2.2.8",
+    "@aws-amplify/ui-react-storage": "^3.10.2",
     "@aws-sdk/credential-providers": "^3.370.0",
-    "next": "^13.5.5",
+    "next": "^14.2.25",
     "next-global-css": "^1.1.1",
-    "react": "18.2.0",
+    "react": "^18.3.0",
     "react-copy-to-clipboard": "^5.1.0",
-    "react-dom": "18.2.0",
-    "react-icons": "^4.4.0",
+    "react-dom": "^18.3.0",
+    "react-icons": "^4.3.1",
     "react-map-gl": "7.0.23",
     "swr": "^2.0.0"
   },
   "devDependencies": {
     "@types/node": "^15.12.4",
-    "@types/react": "^18.2.22",
     "eslint": "^8.44.0",
     "eslint-config-next": "^13.5.5",
     "rimraf": "^3.0.2"

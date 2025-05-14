@@ -4,6 +4,7 @@ import {
   isMobileScreen,
   isPortrait,
   getLandscapeMediaQuery,
+  isAndroidChromeWithBrokenH264,
 } from '../device';
 import { mockMatchMedia } from '../../__mocks__/utils';
 
@@ -80,6 +81,27 @@ describe('device', () => {
 
     (global.navigator as any).userAgent = GOOGLE_PIXEL_CHROME;
     expect(isIOS()).toBe(false);
+  });
+
+  describe('isAndroidChromeWithBrokenH264', () => {
+    it('true on android chrome 125.0.0.0', () => {
+      (global.navigator as any).userAgent =
+        'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Mobile Safari/537.36';
+      expect(isAndroidChromeWithBrokenH264()).toBe(true);
+    });
+    it('false on non android device', () => {
+      (global.navigator as any).userAgent = NEW_IPAD;
+      expect(isAndroidChromeWithBrokenH264()).toBe(false);
+    });
+    it('false on android with version newer or equal to 125.0.6422.146', () => {
+      (global.navigator as any).userAgent =
+        'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.6422.146 Mobile Safari/537.36';
+      expect(isAndroidChromeWithBrokenH264()).toBe(false);
+    });
+    it('false on chrome version older than 124', () => {
+      (global.navigator as any).userAgent = GOOGLE_PIXEL_CHROME;
+      expect(isAndroidChromeWithBrokenH264()).toBe(false);
+    });
   });
 });
 

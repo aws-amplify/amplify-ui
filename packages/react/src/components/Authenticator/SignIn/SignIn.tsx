@@ -15,7 +15,7 @@ import { FormFields } from '../shared/FormFields';
 const { getSignInText, getSigningInText, getForgotPasswordText } =
   authenticatorTextUtil;
 
-export function SignIn(): JSX.Element {
+export function SignIn(): React.JSX.Element {
   const { isPending } = useAuthenticator((context) => [context.isPending]);
   const { handleChange, handleSubmit } = useFormHandlers();
 
@@ -50,7 +50,6 @@ export function SignIn(): JSX.Element {
 
           <Button
             isDisabled={isPending}
-            isFullWidth
             type="submit"
             variation="primary"
             isLoading={isPending}
@@ -58,9 +57,9 @@ export function SignIn(): JSX.Element {
           >
             {getSignInText()}
           </Button>
+          <Footer />
         </Flex>
       </form>
-      <Footer />
     </View>
   );
 }
@@ -72,12 +71,7 @@ const DefaultFooter = () => {
 
   return (
     <View data-amplify-footer="">
-      <Button
-        fontWeight="normal"
-        onClick={toForgotPassword}
-        size="small"
-        variation="link"
-      >
+      <Button onClick={toForgotPassword} size="small" variation="link">
         {getForgotPasswordText()}
       </Button>
     </View>
@@ -85,7 +79,7 @@ const DefaultFooter = () => {
 };
 
 SignIn.Footer = DefaultFooter;
-SignIn.Header = function Header(): JSX.Element {
+SignIn.Header = function Header(): React.JSX.Element {
   // @ts-ignore
   return null;
 };

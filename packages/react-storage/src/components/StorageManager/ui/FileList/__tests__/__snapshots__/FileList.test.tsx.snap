@@ -22,8 +22,9 @@ exports[`FileList renders an alert in case of error 1`] = `
           class="amplify-text amplify-storagemanager__file__size"
         />
         <svg
+          aria-valuenow="0"
           class="amplify-loader amplify-loader--linear amplify-loader--determinate amplify-storagemanager__loader"
-          role="img"
+          role="progressbar"
         >
           <g>
             <line
@@ -54,6 +55,7 @@ exports[`FileList renders an alert in case of error 1`] = `
         </svg>
         <button
           class="amplify-button amplify-field-group__control amplify-button--small"
+          data-testid="storage-manager-remove-button"
           type="button"
         >
           <span
@@ -155,8 +157,9 @@ exports[`FileList renders as expected 1`] = `
           class="amplify-text amplify-storagemanager__file__size"
         />
         <svg
+          aria-valuenow="0"
           class="amplify-loader amplify-loader--linear amplify-loader--determinate amplify-storagemanager__loader"
-          role="img"
+          role="progressbar"
         >
           <g>
             <line
@@ -187,6 +190,7 @@ exports[`FileList renders as expected 1`] = `
         </svg>
         <button
           class="amplify-button amplify-field-group__control amplify-button--small"
+          data-testid="storage-manager-remove-button"
           type="button"
         >
           <span
@@ -250,7 +254,7 @@ exports[`FileList renders as expected when upload is resumable 1`] = `
         />
         <svg
           class="amplify-loader amplify-loader--linear amplify-storagemanager__loader"
-          role="img"
+          role="progressbar"
         >
           <g>
             <line
@@ -278,6 +282,7 @@ exports[`FileList renders as expected when upload is resumable 1`] = `
         </button>
         <button
           class="amplify-button amplify-field-group__control amplify-button--small"
+          data-testid="storage-manager-remove-button"
           type="button"
         >
           <span

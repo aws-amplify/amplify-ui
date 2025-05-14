@@ -1,5 +1,6 @@
 import React from 'react';
-import { authenticatorTextUtil, AuthEventTypes } from '@aws-amplify/ui';
+import type { AuthEventTypes } from '@aws-amplify/ui';
+import { authenticatorTextUtil } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '@aws-amplify/ui-react-core';
 import { Button } from '../../../primitives/Button';
@@ -8,14 +9,14 @@ import { Flex } from '../../../primitives/Flex';
 export interface TwoButtonSubmitFooterProps {
   cancelButtonSendType: AuthEventTypes;
   cancelButtonText: string;
-  submitButtonText?: JSX.Element;
+  submitButtonText?: React.JSX.Element;
 }
 
 const { getSubmitText, getSubmittingText } = authenticatorTextUtil;
 
 export const TwoButtonSubmitFooter = (
   props: TwoButtonSubmitFooterProps
-): JSX.Element => {
+): React.JSX.Element => {
   const { cancelButtonSendType, cancelButtonText, submitButtonText } = props;
 
   const { isPending, resendCode, skipVerification, toSignIn } =
@@ -46,24 +47,15 @@ export const TwoButtonSubmitFooter = (
 
   return (
     <Flex direction="column">
-      <Button
-        fontWeight="normal"
-        variation="primary"
-        isDisabled={isPending}
-        type="submit"
-      >
+      <Button variation="primary" isDisabled={isPending} type="submit">
         {submitText}
       </Button>
 
-      <Button
-        onClick={onClick}
-        type="button"
-        variation="link"
-        fontWeight="normal"
-        size="small"
-      >
-        {cancelButtonText}
-      </Button>
+      <Flex direction="column" alignItems="center">
+        <Button onClick={onClick} type="button" variation="link" size="small">
+          {cancelButtonText}
+        </Button>
+      </Flex>
     </Flex>
   );
 };

@@ -6,7 +6,8 @@ import { Tabs } from '../../../primitives/Tabs';
 import { View } from '../../../primitives/View';
 import { SignIn } from '../SignIn';
 import { SignUp } from '../SignUp';
-import { RouteContainer, RouteProps } from '../RouteContainer';
+import type { RouteProps } from '../RouteContainer';
+import { RouteContainer } from '../RouteContainer';
 
 const { getSignInTabText, getSignUpTabText } = authenticatorTextUtil;
 
@@ -16,7 +17,7 @@ export const SignInSignUpTabs = ({
   variation,
 }: {
   hideSignUp: boolean;
-} & RouteProps): JSX.Element => {
+} & RouteProps): React.JSX.Element => {
   const { route, toSignIn, toSignUp } = useAuthenticator((context) => [
     context.route,
     context.toSignIn,
@@ -32,7 +33,11 @@ export const SignInSignUpTabs = ({
         <Tabs.Container
           value={route}
           isLazy
-          onValueChange={() => (route === 'signIn' ? toSignUp() : toSignIn())}
+          onValueChange={(newRoute) => {
+            if (newRoute !== route) {
+              newRoute === 'signIn' ? toSignIn() : toSignUp();
+            }
+          }}
         >
           <Tabs.List spacing="equal" indicatorPosition="top">
             <Tabs.Item value="signIn">{getSignInTabText()}</Tabs.Item>

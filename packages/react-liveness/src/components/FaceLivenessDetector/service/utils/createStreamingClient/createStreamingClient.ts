@@ -1,19 +1,21 @@
-import {
+import type {
   LivenessRequestStream,
   LivenessResponseStream,
-  RekognitionStreamingClient,
-  RekognitionStreamingClientConfig,
-  StartFaceLivenessSessionCommand,
   StartFaceLivenessSessionCommandInput,
+  RekognitionStreamingClientConfig,
+} from '@aws-sdk/client-rekognitionstreaming';
+import {
+  RekognitionStreamingClient,
+  StartFaceLivenessSessionCommand,
 } from '@aws-sdk/client-rekognitionstreaming';
 
 import { getAmplifyUserAgent } from '@aws-amplify/core/internals/utils';
 import { isString } from '@aws-amplify/ui';
 
 import { getLivenessUserAgent } from '../../../utils/platform';
-import { AwsCredentialProvider } from '../../types';
 
 import { CONNECTION_TIMEOUT, queryParameterString } from '../constants';
+import type { AwsCredentialProvider } from '../../types';
 import { CustomWebSocketFetchHandler } from './CustomWebSocketFetchHandler';
 import { resolveCredentials } from './resolveCredentials';
 import { Signer } from './Signer';
@@ -22,12 +24,13 @@ import { createTelemetryReporterMiddleware } from '../TelemetryReporter';
 export interface RequestStream extends AsyncGenerator<LivenessRequestStream> {}
 export interface ResponseStream extends AsyncIterable<LivenessResponseStream> {}
 
-interface CreateClientConfig {
+export interface CreateClientConfig {
   credentialsProvider: AwsCredentialProvider | undefined;
   endpointOverride: string | undefined;
   region: string;
   attemptCount: number;
   preCheckViewEnabled: boolean;
+  systemClockOffset?: number;
 }
 
 interface GetResponseStreamInput {
@@ -47,6 +50,7 @@ async function getStreamingClient({
   credentialsProvider,
   endpointOverride,
   region,
+  systemClockOffset,
 }: CreateClientConfig): Promise<RekognitionStreamingClient> {
   const clientconfig: RekognitionStreamingClientConfig = {
     credentials: await resolveCredentials(credentialsProvider),
@@ -56,6 +60,7 @@ async function getStreamingClient({
       connectionTimeout: CONNECTION_TIMEOUT,
     }),
     signerConstructor: Signer,
+    systemClockOffset,
   };
 
   if (isString(endpointOverride)) {

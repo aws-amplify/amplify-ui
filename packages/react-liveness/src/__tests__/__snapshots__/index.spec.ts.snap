@@ -2,10 +2,7 @@
 
 exports[`exports should match the expected snapshot 1`] = `
 [
-  "FACE_MOVEMENT_AND_LIGHT_CHALLENGE",
-  "FACE_MOVEMENT_CHALLENGE",
   "FaceLivenessDetector",
   "FaceLivenessDetectorCore",
-  "SUPPORTED_CHALLENGES",
 ]
 `;

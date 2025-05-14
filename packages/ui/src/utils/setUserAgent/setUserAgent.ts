@@ -2,10 +2,13 @@ import { setCustomUserAgent } from '@aws-amplify/core/internals/utils';
 
 import {
   ACCOUNT_SETTINGS_INPUT_BASE,
+  AI_INPUT_BASE,
   AUTHENTICATOR_INPUT_BASE,
+  FILE_UPLOADER_BASE_INPUT,
   IN_APP_MESSAGING_INPUT_BASE,
   LOCATION_SEARCH_INPUT_BASE,
   MAP_VIEW_INPUT_BASE,
+  STORAGE_BROWSER_INPUT_BASE,
   STORAGE_MANAGER_INPUT_BASE,
 } from './constants';
 import { noop } from '../utils';
@@ -14,6 +17,7 @@ import { noop } from '../utils';
 export type PackageName =
   | 'angular'
   | 'react'
+  | 'react-ai'
   | 'react-auth'
   | 'react-geo'
   | 'react-liveness'
@@ -24,13 +28,16 @@ export type PackageName =
   | 'vue';
 
 export type ComponentName =
+  | 'AIConversation'
   | 'Authenticator'
   | 'ChangePassword'
   | 'DeleteUser'
   | 'FaceLivenessDetector'
+  | 'FileUploader'
   | 'InAppMessaging'
   | 'LocationSearch'
   | 'MapView'
+  | 'StorageBrowser'
   | 'StorageManager'
   | 'StorageImage';
 
@@ -61,6 +68,13 @@ export const setUserAgent = ({
   const packageData: [string, string] = [`ui-${packageName}`, version];
 
   switch (componentName) {
+    case 'AIConversation': {
+      setCustomUserAgent({
+        ...AI_INPUT_BASE,
+        additionalDetails: [[componentName], packageData],
+      });
+      break;
+    }
     case 'Authenticator': {
       setCustomUserAgent({
         ...AUTHENTICATOR_INPUT_BASE,
@@ -73,6 +87,13 @@ export const setUserAgent = ({
       setCustomUserAgent({
         ...ACCOUNT_SETTINGS_INPUT_BASE,
         additionalDetails: [['AccountSettings'], packageData],
+      });
+      break;
+    }
+    case 'FileUploader': {
+      setCustomUserAgent({
+        ...FILE_UPLOADER_BASE_INPUT,
+        additionalDetails: [[componentName], packageData],
       });
       break;
     }
@@ -100,6 +121,13 @@ export const setUserAgent = ({
     case 'StorageManager': {
       setCustomUserAgent({
         ...STORAGE_MANAGER_INPUT_BASE,
+        additionalDetails: [[componentName], packageData],
+      });
+      break;
+    }
+    case 'StorageBrowser': {
+      setCustomUserAgent({
+        ...STORAGE_BROWSER_INPUT_BASE,
         additionalDetails: [[componentName], packageData],
       });
       break;

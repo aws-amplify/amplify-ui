@@ -3,7 +3,7 @@ import { View } from 'react-native';
 
 import { useTheme } from '../../theme';
 import { getThemedStyles } from './styles';
-import { TabProps, TabsProps } from './types';
+import type { TabProps, TabsProps } from './types';
 
 export default function Tabs({
   accessible = true,
@@ -14,7 +14,7 @@ export default function Tabs({
   selectedIndex = 0,
   style,
   ...rest
-}: TabsProps): JSX.Element {
+}: TabsProps): React.JSX.Element {
   const theme = useTheme();
   const themedStyle = getThemedStyles(theme, indicatorPosition);
 

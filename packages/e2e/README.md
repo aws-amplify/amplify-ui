@@ -118,8 +118,8 @@ adb reverse tcp:8081 tcp:8081
 
 For our e2e tests, we use a specific pattern for test user creation in our various environments. Each test user will have a Cognito status which our tests will depend upon to test certain features. Before creating test users, do the following:
 
-1. Start an instance of an example using the environment in which you'll be creating test users
-2. Access the Amplify Admin UI for the environment
+1. [Start an instance of an example using the environment in which you'll be creating test users](../../examples/README.md)
+2. [Access the Amplify Admin UI for the environment](../../environments/README.md)
 
 #### Creating a CONFIRMED user
 

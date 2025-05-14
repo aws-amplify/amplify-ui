@@ -1,7 +1,10 @@
-export {
-  default as useDeprecationWarning,
-  UseDeprecationWarning,
-} from './useDeprecationWarning';
+export { default as useControlledReducer } from './useControlledReducer';
+export type { UseDropZoneParams } from './useDropZone';
+export { default as useDropZone } from './useDropZone';
+export type { AsyncReducer, AsyncReducerState } from './useAsyncReducer';
+export { default as useAsyncReducer } from './useAsyncReducer';
+export type { UseDeprecationWarning } from './useDeprecationWarning';
+export { default as useDeprecationWarning } from './useDeprecationWarning';
 export { default as useGetUrl } from './useGetUrl';
 export { default as useHasValueUpdated } from './useHasValueUpdated';
 export { default as usePreviousValue } from './usePreviousValue';

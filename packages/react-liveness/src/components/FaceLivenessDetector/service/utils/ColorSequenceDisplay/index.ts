@@ -1,6 +1,6 @@
-export {
+export type {
   ColorSequence,
-  ColorSequenceDisplay,
   SequenceChangeParams,
   SequenceColorValue,
 } from './ColorSequenceDisplay';
+export { ColorSequenceDisplay } from './ColorSequenceDisplay';

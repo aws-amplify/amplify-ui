@@ -1,0 +1,8 @@
+{
+  "private": true,
+  "name": "@aws-amplify/ui-gen2-storage-environment",
+  "version": "0.0.1",
+  "scripts": {
+    "generate": "AWS_REGION=us-east-2 npx @aws-amplify/backend-cli@latest generate outputs --branch gen2-storage-backend --app-id d3w3sj6rqvjdb0"
+  }
+}

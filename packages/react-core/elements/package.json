@@ -1,0 +1,6 @@
+{
+  "name": "@aws-amplify/ui-react-core/elements",
+  "main": "../dist/elements.js",
+  "module": "../dist/esm/elements.mjs",
+  "types": "../dist/types/elements/index.d.ts"
+}

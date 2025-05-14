@@ -221,10 +221,12 @@ You can customize any label, placeholder, set a field as required or not require
 To use this feature create a `formFields` prop and include the component name as a key.
 Inside that object you can list all the inputs you'd like to change by their name. Inputs can have additional client side validation by following [HTML form validation standards](https://developer.mozilla.org/en-US/docs/Learn/Forms/Form_validation).
 
+**Note:** Specifying `formFields` for a given field will overwrite any default attributes. To include defaults, you must re-specify them as shown below.
+
 The following example customizes the Sign In page by:
 
 - Updating the placeholder with `placeholder`.
-- Setting required to true with `isRequired`, which is also the default for this field.
+- Setting required to true with `isRequired`. `username` is required by default, but as mentioned above, default attributes will be overwritten and must be re-declared when using `formFields`.
 - Updating the label text with `label`.
 - Show the label using `labelHidden` set to `false`.
 
@@ -599,12 +601,13 @@ Here are the various components and input names that are available for customiza
 | `signIn`               | `username` `password`                                                                                                                                                           |
 | `signUp`               | `email` `phone_number` `username` `password` `confirm_password` `preferred_username` `birthdate` `family_name` `middle_name` `given_name` `name` `nickname` `profile` `website` |
 | `confirmSignUp`        | `confirmation_code`                                                                                                                                                             |
-| `forgotPassword`        | `username`                                                                                                                                                                      |
+| `forgotPassword`       | `username`                                                                                                                                                                     |
 | `confirmResetPassword` | `confirmation_code` `password` `confirm_password`                                                                                                                               |
 | `forceNewPassword`     | `password` `confirm_password`                                                                                                                                                   |
 | `setupTotp`            | `confirmation_code`                                                                                                                                                             |
 | `confirmSignIn`        | `confirmation_code`                                                                                                                                                             |
 | `confirmVerifyUser`    | `confirmation_code`                                                                                                                                                             |
+| `setupEmail`           | `email`                                                                                                                                                                         |  
 
 **Note:** Custom sign up attributes not listed in this table are customizable. Use the form field name as the key.
 

@@ -1,5 +1,6 @@
 import React from 'react';
-import { TextInput, TextInputProps } from 'react-native';
+import type { TextInputProps } from 'react-native';
+import { TextInput } from 'react-native';
 
 import {
   PasswordField,
@@ -7,7 +8,7 @@ import {
   TextField,
 } from '../../../primitives';
 import { platform } from '../../../utils';
-import { FieldProps } from './types';
+import type { FieldProps } from './types';
 
 const { IS_IOS } = platform;
 
@@ -28,7 +29,7 @@ const HIDDEN_INPUT_PROPS: TextInputProps = {
 
 const HiddenInput = () => <TextInput {...HIDDEN_INPUT_PROPS} />;
 
-const Field = ({ type, ...rest }: FieldProps): JSX.Element => {
+const Field = ({ type, ...rest }: FieldProps): React.JSX.Element => {
   const isPassword = type === 'password';
   const Field = isPassword
     ? PasswordField

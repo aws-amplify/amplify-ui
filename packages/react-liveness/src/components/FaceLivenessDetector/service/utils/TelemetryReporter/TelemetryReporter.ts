@@ -1,9 +1,9 @@
-import {
+import type {
   StartFaceLivenessSessionCommandInput,
   StartFaceLivenessSessionCommandOutput,
 } from '@aws-sdk/client-rekognitionstreaming';
-import { HttpRequest } from '@smithy/protocol-http';
-import {
+import type { HttpRequest } from '@smithy/protocol-http';
+import type {
   BuildHandler,
   BuildHandlerArguments,
   BuildHandlerOutput,

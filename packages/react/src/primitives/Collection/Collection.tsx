@@ -11,7 +11,7 @@ import { Pagination, usePagination } from '../Pagination';
 import { SearchField } from '../SearchField';
 import { ComponentText } from '../shared/constants';
 import { strHasLength } from '../shared/utils';
-import {
+import type {
   BaseCollectionProps,
   ElementType,
   GridCollectionProps,
@@ -42,7 +42,7 @@ const GridCollection = <Item,>({
 );
 
 const renderCollectionOrNoResultsFound = <Item,>(
-  collection: JSX.Element | null,
+  collection: React.JSX.Element | null,
   items: Item[],
   searchNoResultsFound: React.ReactNode
 ) => {
@@ -75,7 +75,7 @@ export const Collection = <Item, Element extends ElementType>({
   type = 'list',
   testId,
   ...rest
-}: BaseCollectionProps<Item, Element>): JSX.Element => {
+}: BaseCollectionProps<Item, Element>): React.JSX.Element => {
   const [searchText, setSearchText] = React.useState<string>();
 
   // eslint-disable-next-line react-hooks/exhaustive-deps

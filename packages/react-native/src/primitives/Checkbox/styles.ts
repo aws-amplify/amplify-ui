@@ -1,9 +1,9 @@
 import { StyleSheet } from 'react-native';
 
-import { StrictTheme } from '../../theme';
-import { CheckboxStyles } from './types';
+import type { StrictTheme } from '../../theme';
+import type { CheckboxStyles } from './types';
 import { getFlexDirectionFromLabelPosition } from '../Label/utils';
-import { LabelPosition } from '../Label/types';
+import type { LabelPosition } from '../Label/types';
 
 export const getThemedStyles = (
   theme: StrictTheme,

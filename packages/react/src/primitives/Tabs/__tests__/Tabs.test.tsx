@@ -86,6 +86,61 @@ describe('Tabs', () => {
     expect(tabs[1]).toHaveAttribute('aria-selected', 'true');
   });
 
+  it('creates unique IDs for two tabs with same value in different tab groups"', async () => {
+    render(
+      <Tabs.Container>
+        <Tabs.List>
+          <Tabs.Item value="Tab 1">Tab 1</Tabs.Item>
+        </Tabs.List>
+      </Tabs.Container>
+    );
+    render(
+      <Tabs.Container>
+        <Tabs.List>
+          <Tabs.Item value="Tab 1">Tab 1</Tabs.Item>
+        </Tabs.List>
+      </Tabs.Container>
+    );
+    const tabs = await screen.findAllByRole('tab');
+    expect(tabs[0].id === tabs[1].id).toBeFalsy();
+  });
+
+  it('creates unique ids for each tab with a unique value', async () => {
+    render(
+      <Tabs.Container testId="tabsTest">
+        <Tabs.List>
+          <Tabs.Item value="1">Tab 1</Tabs.Item>
+          <Tabs.Item value="2">Tab 2</Tabs.Item>
+          <Tabs.Item value="3">Tab 3</Tabs.Item>
+        </Tabs.List>
+        <Tabs.Panel value="1">Tab 1</Tabs.Panel>
+        <Tabs.Panel value="2">Tab 2</Tabs.Panel>
+        <Tabs.Panel value="3">Tab 3</Tabs.Panel>
+      </Tabs.Container>
+    );
+    const tabs = await screen.findAllByRole('tab');
+    expect(tabs[0].id === tabs[1].id).toBeFalsy();
+    expect(tabs[0].id === tabs[2].id).toBeFalsy();
+  });
+
+  it('creates the same ids tabs with the same value in the same group', async () => {
+    render(
+      <Tabs.Container testId="tabsTest">
+        <Tabs.List>
+          <Tabs.Item value="1">Tab 1</Tabs.Item>
+          <Tabs.Item value="1">Tab 2</Tabs.Item>
+          <Tabs.Item value="1">Tab 3</Tabs.Item>
+        </Tabs.List>
+        <Tabs.Panel value="1">Tab 1</Tabs.Panel>
+        <Tabs.Panel value="1">Tab 2</Tabs.Panel>
+        <Tabs.Panel value="1">Tab 3</Tabs.Panel>
+      </Tabs.Container>
+    );
+    const tabs = await screen.findAllByRole('tab');
+    expect(tabs[0].id === tabs[1].id).toBeTruthy();
+    expect(tabs[0].id === tabs[2].id).toBeTruthy();
+  });
+
   describe('TabItem', () => {
     it('can render custom classnames', async () => {
       render(

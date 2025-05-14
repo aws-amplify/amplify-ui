@@ -8,6 +8,7 @@ import {
   ScrollViewHorizontalExample,
   ScrollViewStylePropsExample,
   ScrollViewVerticalExample,
+  AutoScrollExample,
 } from './examples';
 import { Example, ExampleCode } from '@/components/Example';
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
@@ -57,6 +58,21 @@ For vertical scrollbars, set the height of the `ScrollView` smaller than the hei
 
   </ExampleCode>
 </Example>
+
+### Autoscroll
+
+You can enable the autoscroll feature by setting the `autoScroll` prop to either: `'smooth'`, `'instant'`, or `'auto'`. Enabling the autoscroll feature will automatically scroll to the end of the ScrollView when its children changes. This can be useful if you are building a chat UI for example.
+
+<Example>
+  <AutoScrollExample />
+  <ExampleCode>
+    ```jsx file=./examples/AutoScrollExample.tsx
+
+    ```
+
+  </ExampleCode>
+</Example>
+
 
 ## Accessibility
 

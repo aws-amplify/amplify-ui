@@ -20,10 +20,17 @@ import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:confetti/confetti.dart';
 import 'package:device_preview/device_preview.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_authenticator_example/authenticator_config.dart';
 import 'package:flutter_authenticator_example/stubs/amplify_auth_cognito_stub.dart';
 import 'package:flutter_authenticator_example/stubs/amplify_stub.dart';
+
+/// The color of --amplify-colors-background-primary in dark mode.
+const backgroundPrimaryDark = Color.fromRGBO(13, 26, 38, 1);
+
+/// The color of --amplify-colors-background-primary in light mode.
+const backgroundPrimaryLight = Colors.white;
 
 void main() {
   runApp(const FlutterAuthenticatorPreview());
@@ -61,17 +68,28 @@ class _FlutterAuthenticatorPreviewState
     if (deviceInfo == null) {
       return MyApp(config: _config);
     }
+    final color = switch (_config.themeMode) {
+      ThemeMode.dark => backgroundPrimaryDark,
+      ThemeMode.light => backgroundPrimaryLight,
+      ThemeMode.system => switch (MediaQuery.of(context).platformBrightness) {
+          Brightness.dark => backgroundPrimaryDark,
+          Brightness.light => backgroundPrimaryLight,
+        }
+    };
     return MaterialApp(
-      home: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          DeviceFrame(
-            screen: MyApp(
-              config: _config,
+      home: ColoredBox(
+        color: color,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            DeviceFrame(
+              screen: MyApp(
+                config: _config,
+              ),
+              device: deviceInfo,
             ),
-            device: deviceInfo,
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -354,8 +372,8 @@ ThemeData customLightTheme = ThemeData(
   // theme of the primary button for each step
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ButtonStyle(
-      padding: MaterialStateProperty.all<EdgeInsets>(const EdgeInsets.all(16)),
-      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+      padding: WidgetStateProperty.all<EdgeInsets>(const EdgeInsets.all(16)),
+      shape: WidgetStateProperty.all<RoundedRectangleBorder>(
         RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       ),
     ),
@@ -389,8 +407,8 @@ ThemeData customDarkTheme = ThemeData(
   ),
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ButtonStyle(
-      padding: MaterialStateProperty.all<EdgeInsets>(const EdgeInsets.all(16)),
-      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+      padding: WidgetStateProperty.all<EdgeInsets>(const EdgeInsets.all(16)),
+      shape: WidgetStateProperty.all<RoundedRectangleBorder>(
         RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       ),
     ),

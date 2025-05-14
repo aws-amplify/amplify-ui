@@ -17,7 +17,7 @@ export interface ToggleButtonPropControlsProps extends ToggleButtonProps {
 }
 
 export interface ToggleButtonPropControlsInterface {
-  (props: ToggleButtonPropControlsProps): JSX.Element;
+  (props: ToggleButtonPropControlsProps): React.JSX.Element;
 }
 
 export const ToggleButtonPropControls: ToggleButtonPropControlsInterface = ({

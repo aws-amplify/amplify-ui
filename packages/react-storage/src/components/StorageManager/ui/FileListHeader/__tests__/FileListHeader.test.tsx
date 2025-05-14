@@ -4,7 +4,7 @@ import { render } from '@testing-library/react';
 import { ComponentClassName } from '@aws-amplify/ui';
 
 import { FileListHeader, FileListHeaderProps } from '../FileListHeader';
-import { defaultStorageManagerDisplayText } from '../../../utils/displayText';
+import { defaultFileUploaderDisplayText as defaultStorageManagerDisplayText } from '../../../../FileUploader/utils/displayText';
 
 const headerProps: FileListHeaderProps = {
   fileCount: 2,

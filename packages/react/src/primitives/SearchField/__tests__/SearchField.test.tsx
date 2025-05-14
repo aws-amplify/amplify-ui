@@ -1,5 +1,11 @@
 import * as React from 'react';
-import { act, fireEvent, render, screen } from '@testing-library/react';
+import {
+  act,
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { ComponentClassName } from '@aws-amplify/ui';
@@ -212,6 +218,23 @@ describe('SearchField component', () => {
       });
       expect(searchField).toHaveValue('');
       expect(searchField).toHaveFocus();
+    });
+
+    it('should be focusable via keyboard', async () => {
+      const user = userEvent.setup();
+      render(<SearchField label={label} name="q" />);
+
+      const searchField = await screen.findByLabelText(label);
+
+      await act(async () => user.type(searchField, searchQuery));
+
+      const clearButton = await screen.findByLabelText(clearButtonLabel);
+      expect(clearButton).not.toHaveFocus();
+
+      await user.tab();
+      await waitFor(() => {
+        expect(clearButton).toHaveFocus();
+      });
     });
 
     it('should clear text and refocus controlled input when clicked', async () => {

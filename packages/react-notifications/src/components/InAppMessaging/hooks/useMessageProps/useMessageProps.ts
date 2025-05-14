@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useRef } from 'react';
 
-import { MessageComponentBaseProps } from '@aws-amplify/ui-react-core-notifications';
+import type { MessageComponentBaseProps } from '@aws-amplify/ui-react-core-notifications';
 
 import { useMessageImage } from '../useMessageImage';
-import { MessageOverrideStyle, UseMessageProps } from './types';
+import type { MessageOverrideStyle, UseMessageProps } from './types';
 import { getPayloadStyle, getMessageStyles } from './utils';
 
 /**

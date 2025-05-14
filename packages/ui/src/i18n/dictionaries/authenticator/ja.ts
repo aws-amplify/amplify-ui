@@ -1,12 +1,14 @@
-import { AuthenticatorDictionary } from './types';
+import type { AuthenticatorDictionary } from './types';
 
 export const jaDict: AuthenticatorDictionary = {
   'Account recovery requires verified contact information':
     'アカウントの復旧には確認済みの連絡先が必要です',
+  'Authenticator App (TOTP)': '認証アプリ (TOTP)',
   'Back to Sign In': 'サインインに戻る',
   'Change Password': 'パスワードを変える ',
   Changing: '変更中',
   Code: 'コード',
+  'Confirm Email Code': 'E メールコードを確認',
   'Confirm Password': 'パスワードの確認',
   'Confirm Sign Up': '登録する',
   'Confirm SMS Code': 'SMS コードを確認',
@@ -19,14 +21,18 @@ export const jaDict: AuthenticatorDictionary = {
   'Creating Account': 'アカウントの作成中',
   'Dismiss alert': 'アラートを閉じる',
   Email: 'メールアドレス',
+  'Email Message': 'E メールメッセージ',
   'Enter your code': 'コードを入力',
   'Enter your Email': 'メールアドレスを入力',
   'Enter your phone number': '電話番号を入力',
   'Enter your username': 'ユーザー名を入力 ',
+  'Enter your Username': 'ユーザー名を入力 ',
   'Forgot your password?': 'パスワードを忘れましたか？ ',
   'Hide password': 'パスワードを非表示',
-  'It may take a minute to arrive': '到着するまでに 1 分かかることがあります。',
+  'It may take a minute to arrive': '到着するまでに 1 分かかることがあります',
   Loading: 'ロード中',
+  'Multi-Factor Authentication': '多要素認証',
+  'Multi-Factor Authentication Setup': '多要素認証のセットアップ',
   'New password': '新しいパスワード',
   or: '又は',
   Password: 'パスワード ',
@@ -34,9 +40,11 @@ export const jaDict: AuthenticatorDictionary = {
   'Resend Code': 'コードを再送信',
   'Reset your Password': 'パスワードをリセット',
   'Reset your password': 'パスワードをリセットする',
+  'Select MFA Type': 'MFA タイプを選択',
   'Send code': 'コードを送信',
   'Send Code': 'コードを送信',
   Sending: '送信中',
+  'Setup Email': 'E メールをセットアップ',
   'Setup TOTP': 'TOTP をセットアップ',
   'Show password': 'パスワードを表示',
   'Sign in to your account': 'アカウントにサインイン ',
@@ -50,13 +58,14 @@ export const jaDict: AuthenticatorDictionary = {
   Skip: 'スキップ',
   Submit: '送信',
   Submitting: '送信中',
+  'Text Message (SMS)': 'テキストメッセージ (SMS)',
   Username: 'ユーザー名 ',
   'Verify Contact': '連絡先を確認',
   Verify: '確認',
   'We Sent A Code': 'コードが送信されました',
   'We Texted You': 'テキストが送信されました',
   'Your code is on the way. To log in, enter the code we sent you':
-    'コードが途中です。ログインするには、送信したコードを入力してください。',
+    'コードが途中です。ログインするには、送信したコードを入力してください',
 
   // Additional translations provided by customers
   'An account with the given email already exists.':

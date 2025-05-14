@@ -17,6 +17,7 @@ export { trDict } from './tr';
 export { ruDict } from './ru';
 export { heDict } from './he';
 export { uaDict } from './ua';
+export { thDict } from './th';
 
 // default text phrases
 export { defaultTexts } from './defaultTexts';

@@ -1,6 +1,6 @@
-import { LivenessRequestStream } from '@aws-sdk/client-rekognitionstreaming';
+import type { LivenessRequestStream } from '@aws-sdk/client-rekognitionstreaming';
 
-import { VideoStream } from '../types';
+import type { VideoStream } from '../types';
 import { createVideoEvent } from './utils';
 
 interface RequestStream extends AsyncGenerator<LivenessRequestStream> {}

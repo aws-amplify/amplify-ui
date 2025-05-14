@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { IconsContext, IconsContextInterface } from './IconsContext';
+import type { IconsContextInterface } from './IconsContext';
+import { IconsContext } from './IconsContext';
 
 export function useIcons<Key extends keyof IconsContextInterface>(
   component?: Key

@@ -1,10 +1,10 @@
-import {
-  authFieldsWithDefaults,
+import type {
   AuthFieldsWithDefaults,
   CommonFields,
   FormFields,
   SignUpAttribute,
 } from '../../types';
+import { authFieldsWithDefaults } from '../../types';
 
 export const getFormDataFromEvent = (event: Event) => {
   const formData = new FormData(event.target as HTMLFormElement);
@@ -19,11 +19,14 @@ export const setFormOrder = (
   let orderedKeys = [] as keyValues[];
   if (formOverrides) {
     orderedKeys = Object.keys(formOverrides)
-      .reduce((prev, key) => {
-        // reduce to array that can be sorted
-        prev.push([key, formOverrides[key]?.order as number]);
-        return prev;
-      }, [] as Array<Array<keyValues>>)
+      .reduce(
+        (prev, key) => {
+          // reduce to array that can be sorted
+          prev.push([key, formOverrides[key]?.order as number]);
+          return prev;
+        },
+        [] as Array<Array<keyValues>>
+      )
       .sort(
         (a: keyValues[], b: keyValues[]) =>
           //sort them based on order

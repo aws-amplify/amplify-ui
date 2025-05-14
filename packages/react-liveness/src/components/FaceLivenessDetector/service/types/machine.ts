@@ -1,26 +1,28 @@
-import { ActorRef, Interpreter, State } from 'xstate';
-import {
-  InternalServerException,
+import type { ActorRef, Interpreter, State } from 'xstate';
+import type {
   FaceMovementServerChallenge,
   FaceMovementAndLightServerChallenge,
+  InternalServerException,
   ServiceQuotaExceededException,
-  SessionInformation as ServerSessionInformation,
+  SessionInformation,
   ValidationException,
   ThrottlingException,
 } from '@aws-sdk/client-rekognitionstreaming';
-import {
+
+import type {
   FACE_MOVEMENT_CHALLENGE,
   FACE_MOVEMENT_AND_LIGHT_CHALLENGE,
+  StreamRecorder,
+  ColorSequenceDisplay,
 } from '../utils';
-import { ErrorState } from './error';
-import { Face, FaceDetection } from './faceDetection';
-import {
+import type { ErrorState } from './error';
+import type { Face, FaceDetection } from './faceDetection';
+import type {
   FaceLivenessDetectorCoreProps,
   FaceMatchState,
   LivenessOvalDetails,
   IlluminationState,
 } from './liveness';
-import { StreamRecorder, ColorSequenceDisplay } from '../utils';
 
 interface Challenge {
   Name: string;
@@ -77,21 +79,36 @@ export interface VideoAssociatedParams {
 
 export interface LivenessContext {
   challengeId: string | undefined;
+
   colorSequenceDisplay: ColorSequenceDisplay | undefined;
   componentProps: FaceLivenessDetectorCoreProps | undefined;
+
+  errorMessage: string | undefined;
   errorState: ErrorState | undefined;
+
   faceMatchAssociatedParams: FaceMatchAssociatedParams | undefined;
+
   faceMatchStateBeforeStart: FaceMatchState | undefined;
+
   failedAttempts: number | undefined;
+
   freshnessColorAssociatedParams: FreshnessColorAssociatedParams | undefined;
+
   isFaceFarEnoughBeforeRecording: boolean | undefined;
+
   isRecordingStopped: boolean | undefined;
+
   livenessStreamProvider: StreamRecorder | undefined;
+
   maxFailedAttempts: number | undefined;
+
   ovalAssociatedParams: OvalAssociatedParams | undefined;
-  responseStreamActorRef: ActorRef<any> | undefined;
+
   parsedSessionInformation: ParsedSessionInformation | undefined;
+  responseStreamActorRef: ActorRef<any> | undefined;
+  serverSessionInformation: SessionInformation | undefined;
   shouldDisconnect: boolean | undefined;
+
   videoAssociatedParams: VideoAssociatedParams | undefined;
 }
 
@@ -153,7 +170,7 @@ export interface StreamActorCallback {
   (params: {
     type: 'SET_SESSION_INFO';
     data: {
-      serverSessionInformation: ServerSessionInformation | undefined;
+      serverSessionInformation: SessionInformation | undefined;
     };
   }): void;
 }

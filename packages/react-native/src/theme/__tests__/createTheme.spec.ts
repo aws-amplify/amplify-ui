@@ -1,6 +1,6 @@
 import { defaultTheme } from '@aws-amplify/ui';
 import { createTheme } from '../createTheme';
-import { StrictTokens } from '../types';
+import type { StrictTokens } from '../types';
 
 describe('createTheme', () => {
   describe('without a base theme', () => {

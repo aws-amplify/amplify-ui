@@ -1,5 +1,475 @@
 # @aws-amplify/ui
 
+## 6.10.2
+
+### Patch Changes
+
+- [#6520](https://github.com/aws-amplify/amplify-ui/pull/6520) [`14a6df50e04b251aaf7a215ea2a84628303002ab`](https://github.com/aws-amplify/amplify-ui/commit/14a6df50e04b251aaf7a215ea2a84628303002ab) Thanks [@ashwinkumar6](https://github.com/ashwinkumar6)! - chore: update aws-amplify version
+
+## 6.10.1
+
+### Patch Changes
+
+- [#6489](https://github.com/aws-amplify/amplify-ui/pull/6489) [`e4d8cc8c04dd428d38289085a9bf797b87c058a2`](https://github.com/aws-amplify/amplify-ui/commit/e4d8cc8c04dd428d38289085a9bf797b87c058a2) Thanks [@jjarvisp](https://github.com/jjarvisp)! - fix(authenticator): skip verify attribute screen when no attributes to verify
+
+- [#6504](https://github.com/aws-amplify/amplify-ui/pull/6504) [`e533dbbdade9d5ffdbd5aa7c446d958dd1980d43`](https://github.com/aws-amplify/amplify-ui/commit/e533dbbdade9d5ffdbd5aa7c446d958dd1980d43) Thanks [@calebpollman](https://github.com/calebpollman)! - feat(storage-browser): add defaultValue, value, and onValueChange props
+
+  **Controlled `StorageBrowser`**
+
+  ```tsx
+  'use client';
+
+  import React from 'react';
+  import { useRouter, usePathname, useSearchParams } from 'next/navigation';
+
+  import { StorageBrowser } from '@aws-amplify/ui-react-storage';
+  import { StorageBrowserEventValue } from '@aws-amplify/ui-react-storage/browser';
+
+  export default function Page() {
+    const router = useRouter();
+    const pathname = usePathname();
+    const params = useSearchParams();
+
+    const value = params.get('value');
+
+    const handleValueChange = React.useCallback(
+      (nextValue: StorageBrowserEventValue) => {
+        const nextParams = new URLSearchParams();
+        nextParams.set('value', JSON.stringify(nextValue));
+
+        router.push(`${pathname}?${nextParams.toString()}`);
+      },
+      [pathname, router]
+    );
+
+    return (
+      <StorageBrowser
+        onValueChange={handleValueChange}
+        value={value ? JSON.parse(value) : null}
+      />
+    );
+  }
+  ```
+
+  **Initialize with `defaultValue`**
+
+  ```tsx
+  'use client';
+
+  import { StorageBrowser } from '@aws-amplify/ui-react-storage';
+  import { useSearchParams } from 'next/navigation';
+
+  export default function Page() {
+    const params = useSearchParams();
+
+    const value = params.get('value');
+
+    return <StorageBrowser defaultValue={value ? JSON.parse(value) : null} />;
+  }
+  ```
+
+## 6.10.0
+
+### Minor Changes
+
+- [#6469](https://github.com/aws-amplify/amplify-ui/pull/6469) [`36c631a076b7d3d1aafc18a5854575e20e0592c2`](https://github.com/aws-amplify/amplify-ui/commit/36c631a076b7d3d1aafc18a5854575e20e0592c2) Thanks [@jjarvisp](https://github.com/jjarvisp)! - feat(authenticator): add support for email otp and select mfa type challenges
+
+## 6.9.1
+
+### Patch Changes
+
+- [#6431](https://github.com/aws-amplify/amplify-ui/pull/6431) [`e0fcb4322ab8af7e0699da577dc5fbcf9f7e56cc`](https://github.com/aws-amplify/amplify-ui/commit/e0fcb4322ab8af7e0699da577dc5fbcf9f7e56cc) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - fix(ai): textarea overflow bug
+
+  This fixes an issue where pasting a large amount of text in the text box for the AIConversation component will break the UI so the user can't see the conversation and the full text in the textarea.
+
+## 6.9.0
+
+### Minor Changes
+
+- [#6312](https://github.com/aws-amplify/amplify-ui/pull/6312) [`81543cb38604a80ca2d8b93cfb7d1884d43e0a4f`](https://github.com/aws-amplify/amplify-ui/commit/81543cb38604a80ca2d8b93cfb7d1884d43e0a4f) Thanks [@kevin860](https://github.com/kevin860)! - feat(ui): allow override of resendSignUpCode function call
+
+  This feature lets you override the `resendSignUpCode` function call the same way as the `signUp`, `signIn`,
+  `confirmSignIn`, `confirmSignUp`, `forgotPassword` and `forgotPasswordSubmit` functions.
+
+## 6.8.2
+
+### Patch Changes
+
+- [#6375](https://github.com/aws-amplify/amplify-ui/pull/6375) [`fa6984721124029cf2e7d5b4ac5a3cc6c34097a6`](https://github.com/aws-amplify/amplify-ui/commit/fa6984721124029cf2e7d5b4ac5a3cc6c34097a6) Thanks [@calebpollman](https://github.com/calebpollman)! - fix: prevent signout on token refresh failure when offline
+
+## 6.8.1
+
+### Patch Changes
+
+- [#6288](https://github.com/aws-amplify/amplify-ui/pull/6288) [`272ec8e575718ea990dcb9f51d1baaf522f45fb6`](https://github.com/aws-amplify/amplify-ui/commit/272ec8e575718ea990dcb9f51d1baaf522f45fb6) Thanks [@berg-dee](https://github.com/berg-dee)! - fix(ui): fix and add missing sv translations
+
+## 6.8.0
+
+### Minor Changes
+
+- [#6296](https://github.com/aws-amplify/amplify-ui/pull/6296) [`8d2aa79b174d4e48aaca913bd568898b8c8975a2`](https://github.com/aws-amplify/amplify-ui/commit/8d2aa79b174d4e48aaca913bd568898b8c8975a2) Thanks [@calebpollman](https://github.com/calebpollman)! - feat(react): reenable react 19 support
+
+### Patch Changes
+
+- [#6125](https://github.com/aws-amplify/amplify-ui/pull/6125) [`8757f03b7b1d761d9a13cfe29382a2208d4f3999`](https://github.com/aws-amplify/amplify-ui/commit/8757f03b7b1d761d9a13cfe29382a2208d4f3999) Thanks [@BeforeSunset16](https://github.com/BeforeSunset16)! - feat(i18n): add Chinese translations for password fields in zh.ts
+
+## 6.7.2
+
+### Patch Changes
+
+- [#6185](https://github.com/aws-amplify/amplify-ui/pull/6185) [`96be188317d72b89b6bfbc14a3d4ee76daad2a8b`](https://github.com/aws-amplify/amplify-ui/commit/96be188317d72b89b6bfbc14a3d4ee76daad2a8b) Thanks [@tiffanynwyeung](https://github.com/tiffanynwyeung)! - fix: missing elevated card shadow on dark mode
+
+## 6.7.1
+
+### Patch Changes
+
+- [#6211](https://github.com/aws-amplify/amplify-ui/pull/6211) [`9ab56f499f4596062fe4614a016efc3dfc88ef03`](https://github.com/aws-amplify/amplify-ui/commit/9ab56f499f4596062fe4614a016efc3dfc88ef03) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - feat(ai) add attachment validations
+
+  The current limitations on the Amplify AI kit for attachments is 400kb (of base64'd size) per image, and 20 images per message are now being enforced before the message is sent.
+  These limits can be adjusted via props as well.
+
+  ```tsx
+  <AIConversation
+    maxAttachments={2}
+    maxAttachmentSize={100_000} // 100,000 bytes or 100kb
+  />
+  ```
+
+## 6.7.0
+
+### Minor Changes
+
+- [#6175](https://github.com/aws-amplify/amplify-ui/pull/6175) [`70971f310`](https://github.com/aws-amplify/amplify-ui/commit/70971f310f69717657849f29d0a9e1d993b08d9a) Thanks [@calebpollman](https://github.com/calebpollman)! - feat(storage-browser): add `StorageBrowser` and `createStorageBrowser`
+
+  ```tsx
+  import { Amplify } from 'aws-amplify';
+
+  import { StorageBrowser } from '@aws-amplify/ui-react-storage';
+  import '@aws-amplify/ui-react-storage/styles.css';
+
+  import config from './aws-exports';
+
+  Amplify.configure(config);
+
+  function App() {
+    return <StorageBrowser />;
+  }
+  ```
+
+  ```tsx
+  import { Amplify } from 'aws-amplify';
+
+  import {
+    createAmplifyAuthAdapter,
+    createStorageBrowser,
+  } from '@aws-amplify/ui-react-storage/browser';
+  import '@aws-amplify/ui-react-storage/styles.css';
+
+  import config from './aws-exports';
+
+  Amplify.configure(config);
+
+  const { StorageBrowser } = createStorageBrowser({
+    config: createAmplifyAuthAdapter(),
+  });
+
+  function App() {
+    return <StorageBrowser />;
+  }
+  ```
+
+## 6.6.6
+
+### Patch Changes
+
+- [#6149](https://github.com/aws-amplify/amplify-ui/pull/6149) [`0d4d2b91c`](https://github.com/aws-amplify/amplify-ui/commit/0d4d2b91c84b2eb5e9365bb837855e5a9b4e3c06) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - chore: get ai package ready for release
+
+- [#5999](https://github.com/aws-amplify/amplify-ui/pull/5999) [`24635cfd5`](https://github.com/aws-amplify/amplify-ui/commit/24635cfd5fb6b01bfd3bde1464c7064b2d1484c4) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - chore: ai cleanup
+
+  ```jsx
+  <AIConversation
+    messages={messages}
+    handleSendMessage={handleSendMessage}
+    actions={[
+      {
+        component: <MdCopyAll />,
+        handler: (message) => {},
+      },
+    ]}
+  />
+  ```
+
+## 6.6.5
+
+### Patch Changes
+
+- [#5917](https://github.com/aws-amplify/amplify-ui/pull/5917) [`3655af2be`](https://github.com/aws-amplify/amplify-ui/commit/3655af2be54733d364e71d3c7f86f32d7bbcf811) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - chore(ai): adding UA string for AIConversation
+
+## 6.6.4
+
+### Patch Changes
+
+- [#5827](https://github.com/aws-amplify/amplify-ui/pull/5827) [`ac7cb271a`](https://github.com/aws-amplify/amplify-ui/commit/ac7cb271aff895e643fb5dc927030df9245b7c5b) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - chore(ai): add theming for AIConversation
+
+  ```ts
+  const theme = createTheme({
+    tokens: {
+      components: {
+        aiConversation: {},
+      },
+    },
+  });
+  ```
+
+  ```ts
+  const aiConversationTheme = defineComponentTheme({
+    name: 'ai-conversation',
+    theme(tokens) {
+      return {
+        _element: {
+          message: {
+            color: tokens.colors.font.tertiary,
+          },
+        },
+      };
+    },
+  });
+  ```
+
+## 6.6.3
+
+### Patch Changes
+
+- [#5848](https://github.com/aws-amplify/amplify-ui/pull/5848) [`0d86485fc`](https://github.com/aws-amplify/amplify-ui/commit/0d86485fc4bf74766a1b82c69cfa322ed1e9baf7) Thanks [@esauerbo](https://github.com/esauerbo)! - chore: Copy `style-dictionary` functions to ui package and export from there. Remove `style-dictionary` dependency from React Native package.
+
+## 6.6.2
+
+### Patch Changes
+
+- [#5849](https://github.com/aws-amplify/amplify-ui/pull/5849) [`22e285f58`](https://github.com/aws-amplify/amplify-ui/commit/22e285f5802e40b78c5a055a7384943c41252428) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(utils): prefer isFunction
+
+- [#5830](https://github.com/aws-amplify/amplify-ui/pull/5830) [`545aa6a60`](https://github.com/aws-amplify/amplify-ui/commit/545aa6a608b68b9fb78f5df56da0e1e09b537d58) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(rollup): upgrade rollup deps, migrate to mjs config file, enforce linting on mjs files
+
+- [#5853](https://github.com/aws-amplify/amplify-ui/pull/5853) [`87d74a7de`](https://github.com/aws-amplify/amplify-ui/commit/87d74a7deaa7d0cf393dfed3fb3cc85a3790c382) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(deps): remove @aws-amplify/core devDep from react-core
+
+## 6.6.1
+
+### Patch Changes
+
+- [#5796](https://github.com/aws-amplify/amplify-ui/pull/5796) [`bf9dbc334`](https://github.com/aws-amplify/amplify-ui/commit/bf9dbc334293aff844a835e1717ee529e1abded3) Thanks [@esauerbo](https://github.com/esauerbo)! - chore(deps): Fix transitive dependencies.
+
+- [#5825](https://github.com/aws-amplify/amplify-ui/pull/5825) [`3a677a1af`](https://github.com/aws-amplify/amplify-ui/commit/3a677a1afa60652fcd1a5adb734b9c94d4ba5c3d) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - feat(theming): add global style ability (experimental)
+
+  Adding the ability to create global styles with the experimental theming APIs
+
+  ```jsx
+  <GlobalStyle styles={{
+    'body': {
+      backgroundColor: 'purple'
+      // supports design tokens!
+      color: theme.tokens.colors.font.primary
+    }
+  }} />
+  ```
+
+## 6.6.0
+
+### Minor Changes
+
+- [#5812](https://github.com/aws-amplify/amplify-ui/pull/5812) [`0ddeea9d4`](https://github.com/aws-amplify/amplify-ui/commit/0ddeea9d432f12621e0e32dae346e72881b790db) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - feat(theming) add custom component style rendering
+
+  ```jsx
+  const customComponentTheme = defineComponentTheme({
+    name: 'custom-component',
+    theme(tokens) {
+      return {
+        color: tokens.colors.red[10]
+      }
+    }
+  });
+
+  export function CustomComponent() {
+    return (
+      <>
+        <View className={customComponentTheme.className()}>
+        </View>
+        // This will create a style tag with only the styles in the component theme
+        // the styles are scoped to the global theme
+        <ComponentStyle theme={theme} componentThemes=[customComponentTheme] />
+      </>
+    )
+  }
+  ```
+
+### Patch Changes
+
+- [#5807](https://github.com/aws-amplify/amplify-ui/pull/5807) [`7a12237d2`](https://github.com/aws-amplify/amplify-ui/commit/7a12237d2c96107ef97d3c62d9d26d6b6f1d824c) Thanks [@zerbusdetroy](https://github.com/zerbusdetroy)! - Fix some FR and ES authenticator translations"
+
+## 6.5.0
+
+### Minor Changes
+
+- [#5777](https://github.com/aws-amplify/amplify-ui/pull/5777) [`0ebf8b346`](https://github.com/aws-amplify/amplify-ui/commit/0ebf8b346bc744cd73e1e7891eafc07538d6419d) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - feat(avatar): add loading state to avatar and AIConversation
+
+  ```jsx
+  <Avatar isLoading />
+  ```
+
+## 6.4.1
+
+### Patch Changes
+
+- [#5780](https://github.com/aws-amplify/amplify-ui/pull/5780) [`9d96dd1fe`](https://github.com/aws-amplify/amplify-ui/commit/9d96dd1fe51212e8e55b0dde816122a6f5672762) Thanks [@jordanvn](https://github.com/jordanvn)! - fixed missing styles for FileUploader component
+
+## 6.4.0
+
+### Minor Changes
+
+- [#5767](https://github.com/aws-amplify/amplify-ui/pull/5767) [`afffa89cb`](https://github.com/aws-amplify/amplify-ui/commit/afffa89cb29bb08ff1b626c727a2c9fb93bf11b3) Thanks [@thaddmt](https://github.com/thaddmt)! - feat(primitives): add Avatar primitive
+
+  ```jsx
+  {
+    /* Avatar with image */
+  }
+  <Avatar src="/cats/5.jpg" />;
+  {
+    /* Avatar with default placeholder icon */
+  }
+  <Avatar />;
+  {
+    /* Avatar with initials */
+  }
+  <Avatar>DB</Avatar>;
+  {
+    /* Avatar with custom icon */
+  }
+  <Avatar>
+    <FiSmile style={{ width: '60%', height: '60%' }} />
+  </Avatar>;
+  ```
+
+## 6.3.0
+
+### Minor Changes
+
+- [#5744](https://github.com/aws-amplify/amplify-ui/pull/5744) [`c3dfbe044`](https://github.com/aws-amplify/amplify-ui/commit/c3dfbe044fd18e084cd411ce0ff84dcab1a80224) Thanks [@jordanvn](https://github.com/jordanvn)! - Adds FileUploader as new default name of StorageManager to avoid confusion with new components
+
+## 6.2.0
+
+### Minor Changes
+
+- [#5436](https://github.com/aws-amplify/amplify-ui/pull/5436) [`6e67ab6be`](https://github.com/aws-amplify/amplify-ui/commit/6e67ab6beb65e8ac7c7db6c6586df3c4f219bdbf) Thanks [@vLannaAi](https://github.com/vLannaAi)! - i18n Authenticator in Thai.
+  Localization of Authenticator in the Thai Language.
+  Added a new language using the ISO code 'th'
+  Created a new dictionary for Authenticator strings, and localized with supervision of 3 Thai native speaker, verified by ChatGPT 4.o, Claude Sonnet 3.5, and Google Translate.
+
+### Patch Changes
+
+- [#5645](https://github.com/aws-amplify/amplify-ui/pull/5645) [`634815ff0`](https://github.com/aws-amplify/amplify-ui/commit/634815ff07defd89123963bab98f410c5e1fc9cd) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - chore(utils): moving humanFileSize to ui package
+
+## 6.1.0
+
+### Minor Changes
+
+- [#5546](https://github.com/aws-amplify/amplify-ui/pull/5546) [`50ef7ca8e`](https://github.com/aws-amplify/amplify-ui/commit/50ef7ca8e3d6ba116f587158c80ea08a5deeb868) Thanks [@gongte1937](https://github.com/gongte1937)! - Update japanese translation file to remove extra period
+
+- [#5170](https://github.com/aws-amplify/amplify-ui/pull/5170) [`d73bd9cc8`](https://github.com/aws-amplify/amplify-ui/commit/d73bd9cc84a2bd07c86d0c6937cbde35fc2c4bc2) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - feat(ui): experimental component theming
+
+  This feature lets you fully style and theme built-in components even if there is no design token available. For example, previously you could not add a box shadow or gradient background to the built-in Button component unless you wrote plain CSS. Now you can style every CSS property for all the built-in components with type-safety!
+
+  This also lets you define your own components and style them in the same type-safe way with zero runtime computation.
+
+  ### defineComponentTheme()
+
+  ```ts
+  import { defineComponentTheme } from '@aws-amplify/ui-react/server';
+
+  export const buttonTheme = defineComponentTheme({
+    // because 'button' is a built-in component, we get type-safety and hints
+    // based on the theme shape of our button
+    name: 'button',
+    theme: (tokens) => {
+      return {
+        textAlign: 'center',
+        padding: tokens.space.xl,
+        _modifiers: {
+          primary: {
+            backgroundColor: tokens.colors.primary[20],
+          },
+        },
+      };
+    },
+  });
+  ```
+
+  ### createTheme()
+
+  The theme object passed to `createTheme` now has an optional `components` array which is an array of component themes.
+
+  ```ts
+  export const theme = createTheme({
+    name: 'my-theme',
+    components: [buttonTheme, customComponentTheme],
+  });
+  ```
+
+  ### React Server Component support for theming
+
+  You no longer need to use the `<ThemeProvider>` and rely on React context to theme Amplify UI (you still can though!). There is a new import path for RSC-compliant code: '@aws-amplify/ui-react/server' which you can use to import `createTheme` and `defineComponentTheme` as well as a new React Server Component: `<ThemeStyle />` which will inject the styles of your theme into the page.
+
+  ```tsx
+  import { ThemeStyle, createTheme } from '@aws-amplify/ui-react/server';
+
+  const theme = createTheme({
+    //...
+  });
+
+  export default function RootLayout({
+    children,
+  }: {
+    children: React.ReactNode;
+  }) {
+    return (
+      <div {...theme.containerProps({ colorMode: 'system' })}>
+        {children}
+        <ThemeStyle theme={theme} />
+      </div>
+    );
+  }
+  ```
+
+### Patch Changes
+
+- [#5449](https://github.com/aws-amplify/amplify-ui/pull/5449) [`0919e55ba`](https://github.com/aws-amplify/amplify-ui/commit/0919e55ba6d5ec5f21fbf6d2062618c51b91c09b) Thanks [@YuJM](https://github.com/YuJM)! - update i18n kr.ts
+
+## 6.0.17
+
+### Patch Changes
+
+- [#5321](https://github.com/aws-amplify/amplify-ui/pull/5321) [`0483dd833`](https://github.com/aws-amplify/amplify-ui/commit/0483dd833698b518d1c88d98871cafb1b6019c75) Thanks [@AhmetAhunbayAWS](https://github.com/AhmetAhunbayAWS)! - This change removes an inconsistency in the heights of ratings between 0-1 (non-inclusive). This change was made per customer request via a raised issue. A customer would only need to update their code if they display ratings between 0-1 (non-inclusive).
+
+## 6.0.16
+
+### Patch Changes
+
+- [#5258](https://github.com/aws-amplify/amplify-ui/pull/5258) [`dc1b3be5b`](https://github.com/aws-amplify/amplify-ui/commit/dc1b3be5bb7307a28c856547500384f9bee52d34) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(deps): update amplify scoped and RN dep versions
+
+## 6.0.15
+
+### Patch Changes
+
+- [#5249](https://github.com/aws-amplify/amplify-ui/pull/5249) [`1ca7c38e1`](https://github.com/aws-amplify/amplify-ui/commit/1ca7c38e15c5a7d307aa7e704b77d596167accb2) Thanks [@esauerbo](https://github.com/esauerbo)! - chore(i18n): Add german translations
+
+- [#5142](https://github.com/aws-amplify/amplify-ui/pull/5142) [`3af3e6b7a`](https://github.com/aws-amplify/amplify-ui/commit/3af3e6b7aca2914f67870b09fd5b2d81847f8e39) Thanks [@gfpacheco](https://github.com/gfpacheco)! - Add additional pt translations
+
+- [#3971](https://github.com/aws-amplify/amplify-ui/pull/3971) [`225bde836`](https://github.com/aws-amplify/amplify-ui/commit/225bde83640e9efba1b4edfce4696c74d6569b95) Thanks [@jbreuil](https://github.com/jbreuil)! - fix: add missing fr translations
+
+- [#5100](https://github.com/aws-amplify/amplify-ui/pull/5100) [`4b3f69917`](https://github.com/aws-amplify/amplify-ui/commit/4b3f6991706b774d45eb80beea2ddd606b21ce2a) Thanks [@onuraycicek](https://github.com/onuraycicek)! - missing words added (Turkish)
+
+- [#4234](https://github.com/aws-amplify/amplify-ui/pull/4234) [`bad0da7b9`](https://github.com/aws-amplify/amplify-ui/commit/bad0da7b9cc70069f504a37e80849b306b04f7d7) Thanks [@yannickberk](https://github.com/yannickberk)! - fix german authenticator translation
+
+- [#5054](https://github.com/aws-amplify/amplify-ui/pull/5054) [`b92c34a99`](https://github.com/aws-amplify/amplify-ui/commit/b92c34a992b0f3d118711527360cdceeff503abb) Thanks [@sj-h4](https://github.com/sj-h4)! - Add a Japanese translation for "Enter your Username"
+
 ## 6.0.14
 
 ### Patch Changes

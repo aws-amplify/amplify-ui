@@ -1,4 +1,7 @@
-import { DesignTokenProperties, OutputVariantKey } from '../types/designToken';
+import type {
+  DesignTokenProperties,
+  OutputVariantKey,
+} from '../types/designToken';
 
 export type FieldMessagesTokens<Output extends OutputVariantKey> = {
   error?: DesignTokenProperties<'color' | 'fontSize', Output>;

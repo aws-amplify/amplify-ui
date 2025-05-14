@@ -249,6 +249,7 @@ const mockResponseStreamActorRef: ActorRef<any> = {
 
 export const getMockContext = (): LivenessContext => ({
   challengeId: 'foobar',
+  errorMessage: undefined,
   maxFailedAttempts: 3,
   failedAttempts: 0,
   componentProps: {
@@ -292,4 +293,5 @@ export const getMockContext = (): LivenessContext => ({
   faceMatchStateBeforeStart: FaceMatchState.MATCHED,
   isFaceFarEnoughBeforeRecording: true,
   isRecordingStopped: false,
+  serverSessionInformation: undefined,
 });

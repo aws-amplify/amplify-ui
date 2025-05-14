@@ -7,7 +7,7 @@ import { FieldErrorMessage, FieldDescription } from '../Field';
 import { Flex } from '../Flex';
 import { Label } from '../Label';
 import { Select } from '../Select';
-import {
+import type {
   BaseSelectFieldProps,
   SelectFieldProps,
   ForwardRefPrimitive,
@@ -16,6 +16,9 @@ import {
 import { splitPrimitiveProps } from '../utils/splitPrimitiveProps';
 import { useStableId } from '../utils/useStableId';
 import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
+import { createSpaceSeparatedIds } from '../utils/createSpaceSeparatedIds';
+import { DESCRIPTION_SUFFIX, ERROR_SUFFIX } from '../../helpers/constants';
+import { getUniqueComponentId } from '../utils/getUniqueComponentId';
 
 interface SelectFieldChildrenProps {
   children?: React.ReactNode;
@@ -64,8 +67,14 @@ const SelectFieldPrimitive: Primitive<SelectFieldProps, 'select'> = (
   } = props;
 
   const fieldId = useStableId(id);
-  const descriptionId = useStableId();
-  const ariaDescribedBy = descriptiveText ? descriptionId : undefined;
+  const stableId = useStableId();
+  const descriptionId = descriptiveText
+    ? getUniqueComponentId(stableId, DESCRIPTION_SUFFIX)
+    : undefined;
+  const errorId = hasError
+    ? getUniqueComponentId(stableId, ERROR_SUFFIX)
+    : undefined;
+  const ariaDescribedBy = createSpaceSeparatedIds([errorId, descriptionId]);
 
   const { styleProps, rest } = splitPrimitiveProps(_rest);
 
@@ -99,7 +108,11 @@ const SelectFieldPrimitive: Primitive<SelectFieldProps, 'select'> = (
       >
         {selectFieldChildren({ children, options })}
       </Select>
-      <FieldErrorMessage hasError={hasError} errorMessage={errorMessage} />
+      <FieldErrorMessage
+        id={errorId}
+        hasError={hasError}
+        errorMessage={errorMessage}
+      />
     </Flex>
   );
 };

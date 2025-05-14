@@ -1,4 +1,5 @@
 import * as React from 'react';
+import type { StorageBrowserIconType } from './StorageBrowserIcons';
 
 type ComponentIcons<Keys extends string> = {
   [Key in Keys]?: React.ReactNode;
@@ -7,6 +8,10 @@ type ComponentIcons<Keys extends string> = {
 export type IconsContextInterface = {
   accordion?: ComponentIcons<'more'>;
   alert?: ComponentIcons<'close' | 'info' | 'error' | 'success' | 'warning'>;
+  avatar?: ComponentIcons<'user'>;
+  aiConversation?: ComponentIcons<
+    'attach' | 'close' | 'send' | 'remove' | 'assistant' | 'user' | 'document'
+  >;
   checkbox?: ComponentIcons<'indeterminate' | 'checked'>;
   field?: ComponentIcons<'clear'>;
   menu?: ComponentIcons<'menu'>;
@@ -17,6 +22,7 @@ export type IconsContextInterface = {
   searchField?: ComponentIcons<'search'>;
   select?: ComponentIcons<'expand'>;
   stepperField?: ComponentIcons<'add' | 'remove'>;
+  storageBrowser?: ComponentIcons<StorageBrowserIconType>;
   storageManager?: ComponentIcons<
     'upload' | 'remove' | 'error' | 'success' | 'file'
   >;

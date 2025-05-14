@@ -2,11 +2,14 @@ import React from 'react';
 
 import { View } from '@aws-amplify/ui-react';
 
-import { BackdropProps } from './types';
+import type { BackdropProps } from './types';
 
 export const BACKDROP_TEST_ID = 'inappmessaging-backdrop';
 
-export function Backdrop({ onClick, ...rest }: BackdropProps): JSX.Element {
+export function Backdrop({
+  onClick,
+  ...rest
+}: BackdropProps): React.JSX.Element {
   return (
     <View
       className="amplify-inappmessaging-backdrop"

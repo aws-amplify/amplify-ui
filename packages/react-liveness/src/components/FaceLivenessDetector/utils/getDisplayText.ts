@@ -1,5 +1,4 @@
-import {
-  defaultLivenessDisplayText,
+import type {
   LivenessDisplayText,
   HintDisplayText,
   CameraDisplayText,
@@ -7,6 +6,7 @@ import {
   StreamDisplayText,
   ErrorDisplayText,
 } from '../displayText';
+import { defaultLivenessDisplayText } from '../displayText';
 
 interface LivenessDisplayTextInterface {
   hintDisplayText: Required<HintDisplayText>;
@@ -16,6 +16,48 @@ interface LivenessDisplayTextInterface {
   errorDisplayText: Required<ErrorDisplayText>;
 }
 
+function getMergedDisplayText(
+  overrideDisplayText: Partial<LivenessDisplayText>
+): Partial<LivenessDisplayText> {
+  const mergeField = (
+    correctKey: keyof InstructionDisplayText,
+    deprecatedKey: keyof InstructionDisplayText
+  ) => {
+    if (
+      overrideDisplayText[correctKey] &&
+      overrideDisplayText[correctKey] !== defaultLivenessDisplayText[correctKey]
+    ) {
+      return overrideDisplayText[correctKey];
+    } else if (
+      overrideDisplayText[deprecatedKey] &&
+      overrideDisplayText[deprecatedKey] !==
+        defaultLivenessDisplayText[correctKey]
+    ) {
+      return overrideDisplayText[deprecatedKey];
+    } else {
+      return defaultLivenessDisplayText[correctKey];
+    }
+  };
+
+  return {
+    photosensitivityWarningBodyText: mergeField(
+      'photosensitivityWarningBodyText',
+      'photosensitivyWarningBodyText'
+    ),
+    photosensitivityWarningHeadingText: mergeField(
+      'photosensitivityWarningHeadingText',
+      'photosensitivyWarningHeadingText'
+    ),
+    photosensitivityWarningInfoText: mergeField(
+      'photosensitivityWarningInfoText',
+      'photosensitivyWarningInfoText'
+    ),
+    photosensitivityWarningLabelText: mergeField(
+      'photosensitivityWarningLabelText',
+      'photosensitivyWarningLabelText'
+    ),
+  };
+}
 /**
  * Merges optional displayText prop with
  * defaultLivenessDisplayText and returns more bite size portions to pass
@@ -26,9 +68,12 @@ interface LivenessDisplayTextInterface {
 export function getDisplayText(
   overrideDisplayText: LivenessDisplayText | undefined
 ): LivenessDisplayTextInterface {
+  const mergedDisplayText = getMergedDisplayText(overrideDisplayText ?? {});
+
   const displayText = {
     ...defaultLivenessDisplayText,
     ...overrideDisplayText,
+    ...mergedDisplayText,
   };
 
   const {

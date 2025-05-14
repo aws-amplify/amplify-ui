@@ -1,16 +1,19 @@
-import {
+import type {
+  LivenessOvalDetails,
+  Face,
   BoundingBox,
   ErrorState,
-  Face,
-  FaceDetection,
-  FaceMatchState,
   FaceMovementAndLightChallenge,
-  IlluminationState,
-  LivenessErrorState,
-  LivenessOvalDetails,
   ParsedSessionInformation,
+  FaceDetection,
 } from '../types';
-import { ColorSequence, SequenceColorValue } from './ColorSequenceDisplay';
+import {
+  IlluminationState,
+  FaceMatchState,
+  LivenessErrorState,
+} from '../types';
+
+import type { ColorSequence, SequenceColorValue } from './ColorSequenceDisplay';
 import {
   FACE_HEIGHT_WEIGHT,
   OVAL_HEIGHT_WIDTH_RATIO,

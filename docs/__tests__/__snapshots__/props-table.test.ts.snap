@@ -770,7 +770,7 @@ exports[`Props Table 1`] = `
                     },
                     "errorMessage": {
                         "name": "errorMessage",
-                        "type": "string | undefined",
+                        "type": "React.ReactNode",
                         "description": " When defined and \`hasError\` is true, show error message",
                         "category": "BaseFieldProps",
                         "isOptional": true
@@ -947,6 +947,207 @@ exports[`Props Table 1`] = `
                         "category": "FlexContainerStyleProps",
                         "isOptional": true
                     },
+                    "flex": {
+                        "name": "flex",
+                        "type": "ResponsiveStyle<Property.Flex<0 | (string & {})>> | undefined",
+                        "description": "Shorthand for flex grow / shrink / basis",
+                        "category": "FlexItemStyleProps",
+                        "isOptional": true
+                    },
+                    "order": {
+                        "name": "order",
+                        "type": "ResponsiveStyle<Property.Order> | undefined",
+                        "description": "Sets the order to lay out an item in a flex or grid container.",
+                        "category": "FlexItemStyleProps",
+                        "isOptional": true
+                    },
+                    "grow": {
+                        "name": "grow",
+                        "type": "ResponsiveStyle<Property.FlexGrow> | undefined",
+                        "description": "Ability for flex item to grow",
+                        "category": "FlexItemStyleProps",
+                        "isOptional": true
+                    },
+                    "shrink": {
+                        "name": "shrink",
+                        "type": "ResponsiveStyle<Property.FlexShrink> | undefined",
+                        "description": "Ability for flex item to shrink",
+                        "category": "FlexItemStyleProps",
+                        "isOptional": true
+                    },
+                    "basis": {
+                        "name": "basis",
+                        "type": "ResponsiveStyle<Property.FlexBasis<0 | (string & {})>> | undefined",
+                        "description": "Default size of element before remaining space is distributed",
+                        "category": "FlexItemStyleProps",
+                        "isOptional": true
+                    },
+                    "area": {
+                        "name": "area",
+                        "type": "ResponsiveStyle<Property.GridArea> | undefined",
+                        "description": "Specifies a grid item's size and location within a grid by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the edges of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-area)",
+                        "category": "GridItemStyleProps",
+                        "isOptional": true
+                    },
+                    "column": {
+                        "name": "column",
+                        "type": "ResponsiveStyle<Property.GridColumn> | undefined",
+                        "description": "Specifies a grid item's size and location within a grid column by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the inline-start and inline-end edge of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column)",
+                        "category": "GridItemStyleProps",
+                        "isOptional": true
+                    },
+                    "columnEnd": {
+                        "name": "columnEnd",
+                        "type": "ResponsiveStyle<Property.GridColumnEnd> | undefined",
+                        "description": "Specifies a grid item's end position within the grid column by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the block-end edge of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column-end)",
+                        "category": "GridItemStyleProps",
+                        "isOptional": true
+                    },
+                    "columnSpan": {
+                        "name": "columnSpan",
+                        "type": "ResponsiveStyle<GridSpanType> | undefined",
+                        "description": "Makes it possible for an element to span across all columns when its value is set to all. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/column-span)",
+                        "category": "GridItemStyleProps",
+                        "isOptional": true
+                    },
+                    "columnStart": {
+                        "name": "columnStart",
+                        "type": "ResponsiveStyle<Property.GridColumnStart> | undefined",
+                        "description": "Specifies a grid item's start position within the grid column by contributing a line, a span, or nothing (automatic) to its grid placement. This start position defines the block-start edge of the grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column-start)",
+                        "category": "GridItemStyleProps",
+                        "isOptional": true
+                    },
+                    "row": {
+                        "name": "row",
+                        "type": "ResponsiveStyle<Property.GridRow> | undefined",
+                        "description": "Specifies a grid item's size and location within the grid row by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the inline-start and inline-end edge of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row)",
+                        "category": "GridItemStyleProps",
+                        "isOptional": true
+                    },
+                    "rowEnd": {
+                        "name": "rowEnd",
+                        "type": "ResponsiveStyle<Property.GridRowEnd> | undefined",
+                        "description": "Specifies a grid item's end position within the grid row by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the inline-end edge of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row-end)",
+                        "category": "GridItemStyleProps",
+                        "isOptional": true
+                    },
+                    "rowSpan": {
+                        "name": "rowSpan",
+                        "type": "ResponsiveStyle<GridSpanType> | undefined",
+                        "description": "",
+                        "category": "GridItemStyleProps",
+                        "isOptional": true
+                    },
+                    "rowStart": {
+                        "name": "rowStart",
+                        "type": "ResponsiveStyle<Property.GridRowStart> | undefined",
+                        "description": "Specifies a grid item's start position within the grid row by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the inline-start edge of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row-start)",
+                        "category": "GridItemStyleProps",
+                        "isOptional": true
+                    }
+                }
+            }
+        ]
+    },
+    "Avatar": {
+        "Avatar": [
+            {
+                "Main": {
+                    "id": {
+                        "name": "id",
+                        "type": "string | undefined",
+                        "description": "Unique identifier",
+                        "category": "BaseComponentProps",
+                        "isOptional": true
+                    },
+                    "children": {
+                        "name": "children",
+                        "type": "React.ReactNode",
+                        "description": "Children to be rendered inside the component",
+                        "category": "BaseComponentProps",
+                        "isOptional": true
+                    },
+                    "className": {
+                        "name": "className",
+                        "type": "string | undefined",
+                        "description": "Additional CSS class name for component",
+                        "category": "BaseComponentProps",
+                        "isOptional": true
+                    },
+                    "testId": {
+                        "name": "testId",
+                        "type": "string | undefined",
+                        "description": "Used to provide a \`data-testid\` attribute for testing purposes",
+                        "category": "BaseComponentProps",
+                        "isOptional": true
+                    },
+                    "inert": {
+                        "name": "inert",
+                        "type": "boolean | undefined",
+                        "description": "Support for the HTML \`inert\` attribute\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert",
+                        "category": "BaseComponentProps",
+                        "isOptional": true
+                    },
+                    "src": {
+                        "name": "src",
+                        "type": "string | undefined",
+                        "description": "If you provide a src it will be used as the avatar image",
+                        "category": "BaseAvatarProps",
+                        "isOptional": true
+                    },
+                    "alt": {
+                        "name": "alt",
+                        "type": "string | undefined",
+                        "description": "The alt text for the avatar image",
+                        "category": "BaseAvatarProps",
+                        "isOptional": true
+                    },
+                    "variation": {
+                        "name": "variation",
+                        "type": "AvatarVariations | undefined",
+                        "description": "The variation property will affect how the avatar looks, whether\\nit is outlined, filled, or the default style.",
+                        "category": "BaseAvatarProps",
+                        "isOptional": true
+                    },
+                    "colorTheme": {
+                        "name": "colorTheme",
+                        "type": "AvatarColorThemes | undefined",
+                        "description": "The colorTheme property will affect the color of the avatar. Depending\\non the variation the colorTheme will change background, border, and text colors",
+                        "category": "BaseAvatarProps",
+                        "isOptional": true
+                    },
+                    "size": {
+                        "name": "size",
+                        "type": "'small' | 'large'",
+                        "description": "The size property will affect the size of the avatar.",
+                        "category": "BaseAvatarProps",
+                        "isOptional": true
+                    },
+                    "isLoading": {
+                        "name": "isLoading",
+                        "type": "boolean | undefined",
+                        "description": "The isLoading property will display a loader around the avatar",
+                        "category": "BaseAvatarProps",
+                        "isOptional": true
+                    },
+                    "isDisabled": {
+                        "name": "isDisabled",
+                        "type": "boolean | undefined",
+                        "description": "Sets the Boolean \`disabled\` HTML attribute, which, when present, makes the element not mutable, focusable, or even submitted with the form",
+                        "category": "BaseViewProps",
+                        "isOptional": true
+                    },
+                    "style": {
+                        "name": "style",
+                        "type": "React.CSSProperties | undefined",
+                        "description": "Accepts a JavaScript object with camelCased properties rather than a CSS string.\\nThis is consistent with the DOM style JavaScript property, is more efficient, and prevents XSS security holes. See: [React docs](https://reactjs.org/docs/dom-elements.html#style)",
+                        "category": "BaseViewProps",
+                        "isOptional": true
+                    }
+                }
+            },
+            {
+                "Layout": {
                     "flex": {
                         "name": "flex",
                         "type": "ResponsiveStyle<Property.Flex<0 | (string & {})>> | undefined",
@@ -2491,7 +2692,7 @@ exports[`Props Table 1`] = `
                     },
                     "errorMessage": {
                         "name": "errorMessage",
-                        "type": "string | undefined",
+                        "type": "React.ReactNode",
                         "description": " When defined and \`hasError\` is true, show error message",
                         "category": "BaseFieldProps",
                         "isOptional": true
@@ -2769,7 +2970,7 @@ exports[`Props Table 1`] = `
                     },
                     "children": {
                         "name": "children",
-                        "type": "(item: Item, index: number) => JSX.Element",
+                        "type": "(item: Item, index: number) => React.JSX.Element",
                         "description": "The component to be repeated\\nSame interface as Array.prototype.map",
                         "category": "CollectionChildren",
                         "isOptional": false
@@ -6025,17 +6226,17 @@ exports[`Props Table 1`] = `
                         "category": "BaseButtonProps",
                         "isOptional": true
                     },
-                    "size": {
-                        "name": "size",
-                        "type": "'small' | 'large'",
-                        "description": "Changes the size of the button. Default: \\"medium\\"",
-                        "category": "BaseButtonProps",
-                        "isOptional": true
-                    },
                     "variation": {
                         "name": "variation",
                         "type": "| 'primary'\\n  | 'link'\\n  | 'menu'\\n  | 'warning'\\n  | 'destructive'",
                         "description": "Changes the visual weight of the button.",
+                        "category": "BaseButtonProps",
+                        "isOptional": true
+                    },
+                    "size": {
+                        "name": "size",
+                        "type": "'small' | 'large'",
+                        "description": "Changes the size of the button. Default: \\"medium\\"",
                         "category": "BaseButtonProps",
                         "isOptional": true
                     },
@@ -6287,17 +6488,17 @@ exports[`Props Table 1`] = `
                         "category": "BaseButtonProps",
                         "isOptional": true
                     },
-                    "size": {
-                        "name": "size",
-                        "type": "'small' | 'large'",
-                        "description": "Changes the size of the button. Default: \\"medium\\"",
-                        "category": "BaseButtonProps",
-                        "isOptional": true
-                    },
                     "variation": {
                         "name": "variation",
                         "type": "| 'primary'\\n  | 'link'\\n  | 'menu'\\n  | 'warning'\\n  | 'destructive'",
                         "description": "Changes the visual weight of the button.",
+                        "category": "BaseButtonProps",
+                        "isOptional": true
+                    },
+                    "size": {
+                        "name": "size",
+                        "type": "'small' | 'large'",
+                        "description": "Changes the size of the button. Default: \\"medium\\"",
                         "category": "BaseButtonProps",
                         "isOptional": true
                     },
@@ -6560,7 +6761,7 @@ exports[`Props Table 1`] = `
                     },
                     "variation": {
                         "name": "variation",
-                        "type": "\\"outlined\\" | \\"plain\\" | \\"filled\\" | undefined",
+                        "type": "\\"filled\\" | \\"outlined\\" | \\"plain\\" | undefined",
                         "description": "The variation property will affect the overall style of the Message.",
                         "category": "BaseMessageContainerProps",
                         "isOptional": true
@@ -7116,7 +7317,7 @@ exports[`Props Table 1`] = `
                     },
                     "errorMessage": {
                         "name": "errorMessage",
-                        "type": "string | undefined",
+                        "type": "React.ReactNode",
                         "description": " When defined and \`hasError\` is true, show error message",
                         "category": "BaseFieldProps",
                         "isOptional": true
@@ -7478,7 +7679,7 @@ exports[`Props Table 1`] = `
                     },
                     "errorMessage": {
                         "name": "errorMessage",
-                        "type": "string | undefined",
+                        "type": "React.ReactNode",
                         "description": " When defined and \`hasError\` is true, show error message",
                         "category": "BaseFieldProps",
                         "isOptional": true
@@ -7511,10 +7712,10 @@ exports[`Props Table 1`] = `
                         "category": "BaseInputProps",
                         "isOptional": true
                     },
-                    "placeholder": {
-                        "name": "placeholder",
-                        "type": "string | undefined",
-                        "description": "Placeholder text shown when field is empty Accessibility tip: avoid putting important instructions for filling out the TextField in the placeholder. Use descriptiveText for important instructions.",
+                    "enterKeyHint": {
+                        "name": "enterKeyHint",
+                        "type": "EnterKeyHint | undefined",
+                        "description": "Defines what action label (or icon) to present for the enter key on virtual keyboards. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/enterkeyhint)",
                         "category": "BaseInputProps",
                         "isOptional": true
                     },
@@ -7525,10 +7726,10 @@ exports[`Props Table 1`] = `
                         "category": "BaseInputProps",
                         "isOptional": true
                     },
-                    "value": {
-                        "name": "value",
-                        "type": "string | number | readonly string[] | undefined",
-                        "description": "If value is provided, this will be a controlled field.",
+                    "variation": {
+                        "name": "variation",
+                        "type": "\\"quiet\\" | undefined",
+                        "description": "Variants.",
                         "category": "BaseInputProps",
                         "isOptional": true
                     },
@@ -7539,10 +7740,17 @@ exports[`Props Table 1`] = `
                         "category": "BaseInputProps",
                         "isOptional": true
                     },
-                    "variation": {
-                        "name": "variation",
-                        "type": "\\"quiet\\" | undefined",
-                        "description": "Variants.",
+                    "value": {
+                        "name": "value",
+                        "type": "string | number | readonly string[] | undefined",
+                        "description": "If value is provided, this will be a controlled field.",
+                        "category": "BaseInputProps",
+                        "isOptional": true
+                    },
+                    "name": {
+                        "name": "name",
+                        "type": "string | undefined",
+                        "description": "Name of the field. Submitted with the form as part of a name/value pair.",
                         "category": "BaseInputProps",
                         "isOptional": true
                     },
@@ -7567,13 +7775,6 @@ exports[`Props Table 1`] = `
                         "category": "BaseInputProps",
                         "isOptional": true
                     },
-                    "enterKeyHint": {
-                        "name": "enterKeyHint",
-                        "type": "EnterKeyHint | undefined",
-                        "description": "Defines what action label (or icon) to present for the enter key on virtual keyboards. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/enterkeyhint)",
-                        "category": "BaseInputProps",
-                        "isOptional": true
-                    },
                     "isReadOnly": {
                         "name": "isReadOnly",
                         "type": "boolean | undefined",
@@ -7588,10 +7789,10 @@ exports[`Props Table 1`] = `
                         "category": "BaseInputProps",
                         "isOptional": true
                     },
-                    "name": {
-                        "name": "name",
+                    "placeholder": {
+                        "name": "placeholder",
                         "type": "string | undefined",
-                        "description": "Name of the field. Submitted with the form as part of a name/value pair.",
+                        "description": "Placeholder text shown when field is empty Accessibility tip: avoid putting important instructions for filling out the TextField in the placeholder. Use descriptiveText for important instructions.",
                         "category": "BaseInputProps",
                         "isOptional": true
                     },
@@ -7894,6 +8095,13 @@ exports[`Props Table 1`] = `
                         "category": "BaseComponentProps",
                         "isOptional": true
                     },
+                    "endColor": {
+                        "name": "endColor",
+                        "type": "StyleToken<Property.Color> | undefined",
+                        "description": "This property will change the animation end color of the placeholder component",
+                        "category": "BasePlaceholderProps",
+                        "isOptional": true
+                    },
                     "isLoaded": {
                         "name": "isLoaded",
                         "type": "boolean | undefined",
@@ -7905,6 +8113,13 @@ exports[`Props Table 1`] = `
                         "name": "size",
                         "type": "'small' | 'large'",
                         "description": "Controls the display size of placeholder",
+                        "category": "BasePlaceholderProps",
+                        "isOptional": true
+                    },
+                    "startColor": {
+                        "name": "startColor",
+                        "type": "StyleToken<Property.Color> | undefined",
+                        "description": "This property will change the animation start color of the placeholder component",
                         "category": "BasePlaceholderProps",
                         "isOptional": true
                     },
@@ -8125,7 +8340,7 @@ exports[`Props Table 1`] = `
                     },
                     "errorMessage": {
                         "name": "errorMessage",
-                        "type": "string | undefined",
+                        "type": "React.ReactNode",
                         "description": " When defined and \`hasError\` is true, show error message",
                         "category": "BaseFieldProps",
                         "isOptional": true
@@ -8179,10 +8394,10 @@ exports[`Props Table 1`] = `
                         "category": "BaseInputProps",
                         "isOptional": true
                     },
-                    "placeholder": {
-                        "name": "placeholder",
-                        "type": "string | undefined",
-                        "description": "Placeholder text shown when field is empty Accessibility tip: avoid putting important instructions for filling out the TextField in the placeholder. Use descriptiveText for important instructions.",
+                    "enterKeyHint": {
+                        "name": "enterKeyHint",
+                        "type": "EnterKeyHint | undefined",
+                        "description": "Defines what action label (or icon) to present for the enter key on virtual keyboards. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/enterkeyhint)",
                         "category": "BaseInputProps",
                         "isOptional": true
                     },
@@ -8221,13 +8436,6 @@ exports[`Props Table 1`] = `
                         "category": "BaseInputProps",
                         "isOptional": true
                     },
-                    "enterKeyHint": {
-                        "name": "enterKeyHint",
-                        "type": "EnterKeyHint | undefined",
-                        "description": "Defines what action label (or icon) to present for the enter key on virtual keyboards. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/enterkeyhint)",
-                        "category": "BaseInputProps",
-                        "isOptional": true
-                    },
                     "isReadOnly": {
                         "name": "isReadOnly",
                         "type": "boolean | undefined",
@@ -8239,6 +8447,13 @@ exports[`Props Table 1`] = `
                         "name": "isRequired",
                         "type": "boolean | undefined",
                         "description": "Whether field should be marked required.",
+                        "category": "BaseInputProps",
+                        "isOptional": true
+                    },
+                    "placeholder": {
+                        "name": "placeholder",
+                        "type": "string | undefined",
+                        "description": "Placeholder text shown when field is empty Accessibility tip: avoid putting important instructions for filling out the TextField in the placeholder. Use descriptiveText for important instructions.",
                         "category": "BaseInputProps",
                         "isOptional": true
                     }
@@ -8721,7 +8936,7 @@ exports[`Props Table 1`] = `
                     },
                     "emptyIcon": {
                         "name": "emptyIcon",
-                        "type": "JSX.Element | undefined",
+                        "type": "React.JSX.Element | undefined",
                         "description": "This will override which icon to use as the empty icon. This will only\\noverride the empty icon an will create a rating component that uses\\ndifferent icons for filled and empty icons.",
                         "category": "RatingOptions",
                         "isOptional": true
@@ -8735,7 +8950,7 @@ exports[`Props Table 1`] = `
                     },
                     "icon": {
                         "name": "icon",
-                        "type": "JSX.Element | undefined",
+                        "type": "React.JSX.Element | undefined",
                         "description": "This will override which icon to use. This will override both\\nthe filled and empty icon values unless an empty icon is specified\\nwith the emptyIcon prop\\nDefault is <IconStar />",
                         "category": "RatingOptions",
                         "isOptional": true
@@ -8980,6 +9195,13 @@ exports[`Props Table 1`] = `
                         "name": "orientation",
                         "type": "'horizontal' | 'vertical'",
                         "description": "This prop has been deprecated. To get horizontal or vertical scrollbars,\\nmake the width or height of the ScrollView component smaller than the content.",
+                        "category": "BaseScrollViewProps",
+                        "isOptional": true
+                    },
+                    "autoScroll": {
+                        "name": "autoScroll",
+                        "type": "\\"auto\\" | \\"smooth\\" | \\"instant\\" | undefined",
+                        "description": "Scroll to the end as the children of it change",
                         "category": "BaseScrollViewProps",
                         "isOptional": true
                     },
@@ -9249,7 +9471,7 @@ exports[`Props Table 1`] = `
                     },
                     "errorMessage": {
                         "name": "errorMessage",
-                        "type": "string | undefined",
+                        "type": "React.ReactNode",
                         "description": " When defined and \`hasError\` is true, show error message",
                         "category": "BaseFieldProps",
                         "isOptional": true
@@ -9583,7 +9805,7 @@ exports[`Props Table 1`] = `
                     },
                     "errorMessage": {
                         "name": "errorMessage",
-                        "type": "string | undefined",
+                        "type": "React.ReactNode",
                         "description": " When defined and \`hasError\` is true, show error message",
                         "category": "BaseFieldProps",
                         "isOptional": true
@@ -10064,7 +10286,7 @@ exports[`Props Table 1`] = `
                     },
                     "errorMessage": {
                         "name": "errorMessage",
-                        "type": "string | undefined",
+                        "type": "React.ReactNode",
                         "description": " When defined and \`hasError\` is true, show error message",
                         "category": "BaseFieldProps",
                         "isOptional": true
@@ -10503,7 +10725,7 @@ exports[`Props Table 1`] = `
                     },
                     "errorMessage": {
                         "name": "errorMessage",
-                        "type": "string | undefined",
+                        "type": "React.ReactNode",
                         "description": " When defined and \`hasError\` is true, show error message",
                         "category": "BaseFieldProps",
                         "isOptional": true
@@ -11012,7 +11234,7 @@ exports[`Props Table 1`] = `
                     },
                     "errorMessage": {
                         "name": "errorMessage",
-                        "type": "string | undefined",
+                        "type": "React.ReactNode",
                         "description": " When defined and \`hasError\` is true, show error message",
                         "category": "BaseFieldProps",
                         "isOptional": true
@@ -13129,6 +13351,13 @@ exports[`Props Table 1`] = `
                         "category": "BaseTextAreaFieldProps",
                         "isOptional": true
                     },
+                    "autoResize": {
+                        "name": "autoResize",
+                        "type": "boolean | undefined",
+                        "description": "Automatically adjusts the height of the textarea based on its content Default: false",
+                        "category": "BaseTextAreaFieldProps",
+                        "isOptional": true
+                    },
                     "descriptiveText": {
                         "name": "descriptiveText",
                         "type": "React.ReactNode",
@@ -13138,7 +13367,7 @@ exports[`Props Table 1`] = `
                     },
                     "errorMessage": {
                         "name": "errorMessage",
-                        "type": "string | undefined",
+                        "type": "React.ReactNode",
                         "description": " When defined and \`hasError\` is true, show error message",
                         "category": "BaseFieldProps",
                         "isOptional": true
@@ -13507,7 +13736,7 @@ exports[`Props Table 1`] = `
                     },
                     "errorMessage": {
                         "name": "errorMessage",
-                        "type": "string | undefined",
+                        "type": "React.ReactNode",
                         "description": " When defined and \`hasError\` is true, show error message",
                         "category": "BaseFieldProps",
                         "isOptional": true
@@ -13909,17 +14138,17 @@ exports[`Props Table 1`] = `
                         "category": "BaseButtonProps",
                         "isOptional": true
                     },
-                    "size": {
-                        "name": "size",
-                        "type": "'small' | 'large'",
-                        "description": "Changes the size of the button. Default: \\"medium\\"",
-                        "category": "BaseButtonProps",
-                        "isOptional": true
-                    },
                     "variation": {
                         "name": "variation",
                         "type": "| 'primary'\\n  | 'link'\\n  | 'menu'\\n  | 'warning'\\n  | 'destructive'",
                         "description": "Changes the visual weight of the button.",
+                        "category": "BaseButtonProps",
+                        "isOptional": true
+                    },
+                    "size": {
+                        "name": "size",
+                        "type": "'small' | 'large'",
+                        "description": "Changes the size of the button. Default: \\"medium\\"",
                         "category": "BaseButtonProps",
                         "isOptional": true
                     },
@@ -14185,17 +14414,17 @@ exports[`Props Table 1`] = `
                         "category": "BaseViewProps",
                         "isOptional": true
                     },
-                    "size": {
-                        "name": "size",
-                        "type": "'small' | 'large'",
-                        "description": "Changes the size of the button. Default: \\"medium\\"",
-                        "category": "BaseButtonProps",
-                        "isOptional": true
-                    },
                     "variation": {
                         "name": "variation",
                         "type": "| 'primary'\\n  | 'link'\\n  | 'menu'\\n  | 'warning'\\n  | 'destructive'",
                         "description": "Changes the visual weight of the button.",
+                        "category": "BaseButtonProps",
+                        "isOptional": true
+                    },
+                    "size": {
+                        "name": "size",
+                        "type": "'small' | 'large'",
+                        "description": "Changes the size of the button. Default: \\"medium\\"",
                         "category": "BaseButtonProps",
                         "isOptional": true
                     }

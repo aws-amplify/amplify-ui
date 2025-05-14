@@ -1,18 +1,20 @@
-import { Amplify, ResourcesConfig } from 'aws-amplify';
-import { UserAttributeKey } from 'aws-amplify/auth';
+import type { ResourcesConfig } from 'aws-amplify';
+import { Amplify } from 'aws-amplify';
+import type { UserAttributeKey } from 'aws-amplify/auth';
 
 import {
   confirmResetPassword,
   confirmSignIn,
   confirmSignUp,
   getCurrentUser,
+  resendSignUpCode,
   resetPassword,
   signIn,
   signUp,
 } from 'aws-amplify/auth';
 import { hasSpecialChars } from '../../helpers';
 
-import {
+import type {
   AuthFormData,
   AuthTouchData,
   LoginMechanism,
@@ -89,11 +91,12 @@ export const defaultServices = {
   handleConfirmSignUp: confirmSignUp,
   handleForgotPasswordSubmit: confirmResetPassword,
   handleForgotPassword: resetPassword,
+  handleResendSignUpCode: resendSignUpCode,
 
   // Validation hooks for overriding
   async validateCustomSignUp(
-    formData: AuthFormData,
-    touchData: AuthTouchData
+    _: AuthFormData,
+    __: AuthTouchData
   ): Promise<ValidatorResult> {},
   async validateFormPassword(
     formData: AuthFormData,
@@ -169,7 +172,7 @@ export const defaultServices = {
     }
   },
   async validatePreferredUsername(
-    formData: AuthFormData,
-    touchData: AuthTouchData
+    _: AuthFormData,
+    __: AuthTouchData
   ): Promise<ValidatorResult> {},
 };

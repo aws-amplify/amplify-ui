@@ -1,10 +1,11 @@
-import {
-  LivenessOvalDetails,
-  Face,
-  FaceMatchState,
+import type {
   BoundingBox,
+  Face,
+  LivenessOvalDetails,
   ParsedSessionInformation,
 } from '../types';
+import { FaceMatchState } from '../types';
+
 import {
   generateBboxFromLandmarks,
   getIntersectionOverUnion,

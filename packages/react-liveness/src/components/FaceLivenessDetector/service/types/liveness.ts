@@ -1,5 +1,5 @@
-import { AwsCredentialProvider } from './credentials';
-import { ErrorState } from './error';
+import type { AwsCredentialProvider } from './credentials';
+import type { ErrorState } from './error';
 
 /**
  * The props for the FaceLivenessDetectorCore which allows for full configuration of auth
@@ -79,11 +79,16 @@ export interface FaceLivenessDetectorCoreConfig {
    * Internal use only - parameter for overriding the liveness endpoint
    */
   endpointOverride?: string;
+  /**
+   * Optional parameter for overriding the systemClockOffset for the streaming client
+   * Represents the difference between the system clock and the AWS server clock in milliseconds
+   */
+  systemClockOffset?: number;
 }
 
 export type FaceLivenessDetectorConfig = Omit<
   FaceLivenessDetectorCoreConfig,
-  'credentialProvider' | 'endpointOverride'
+  'credentialProvider' | 'endpointOverride' | 'systemClockOffset'
 >;
 
 /**

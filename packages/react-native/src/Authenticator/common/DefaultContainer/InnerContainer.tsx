@@ -3,12 +3,12 @@ import { View } from 'react-native';
 
 import { useTheme } from '../../../theme';
 import { getInnerContainerStyles } from './styles';
-import { ContainerProps } from './types';
+import type { ContainerProps } from './types';
 
 export default function InnerContainer({
   children,
   ...rest
-}: ContainerProps): JSX.Element | null {
+}: ContainerProps): React.JSX.Element | null {
   const theme = useTheme();
 
   const themedStyle = getInnerContainerStyles(theme);

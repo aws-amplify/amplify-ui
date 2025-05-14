@@ -11,8 +11,8 @@ import { Flex } from '../Flex';
 import { IconAdd, IconRemove, useIcons } from '../Icon';
 import { Input } from '../Input';
 import { Label } from '../Label';
-import { ForwardRefPrimitive, Primitive } from '../types/view';
-import {
+import type { ForwardRefPrimitive, Primitive } from '../types/view';
+import type {
   BaseStepperFieldProps,
   StepperFieldProps,
 } from '../types/stepperField';
@@ -21,6 +21,9 @@ import { ComponentText } from '../shared/constants';
 import { splitPrimitiveProps } from '../utils/splitPrimitiveProps';
 import { useStableId } from '../utils/useStableId';
 import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
+import { createSpaceSeparatedIds } from '../utils/createSpaceSeparatedIds';
+import { DESCRIPTION_SUFFIX, ERROR_SUFFIX } from '../../helpers/constants';
+import { getUniqueComponentId } from '../utils/getUniqueComponentId';
 
 export const DECREASE_ICON = 'decrease-icon';
 export const INCREASE_ICON = 'increase-icon';
@@ -56,8 +59,14 @@ const StepperFieldPrimitive: Primitive<StepperFieldProps, 'input'> = (
   } = props;
 
   const fieldId = useStableId(id);
-  const descriptionId = useStableId();
-  const ariaDescribedBy = descriptiveText ? descriptionId : undefined;
+  const stableId = useStableId();
+  const descriptionId = descriptiveText
+    ? getUniqueComponentId(stableId, DESCRIPTION_SUFFIX)
+    : undefined;
+  const errorId = hasError
+    ? getUniqueComponentId(stableId, ERROR_SUFFIX)
+    : undefined;
+  const ariaDescribedBy = createSpaceSeparatedIds([errorId, descriptionId]);
 
   const { styleProps, rest } = splitPrimitiveProps(_rest);
   const icons = useIcons('stepperField');
@@ -172,7 +181,11 @@ const StepperFieldPrimitive: Primitive<StepperFieldProps, 'input'> = (
           {...rest}
         />
       </FieldGroup>
-      <FieldErrorMessage hasError={hasError} errorMessage={errorMessage} />
+      <FieldErrorMessage
+        id={errorId}
+        hasError={hasError}
+        errorMessage={errorMessage}
+      />
     </Flex>
   );
 };

@@ -8,7 +8,7 @@ import { Flex } from '../../../primitives/Flex';
 const { getConfirmText, getConfirmingText, getBackToSignInText } =
   authenticatorTextUtil;
 
-export const ConfirmSignInFooter = (): JSX.Element => {
+export const ConfirmSignInFooter = (): React.JSX.Element => {
   const { isPending, toSignIn } = useAuthenticator((context) => [
     context.isPending,
     context.toSignIn,
@@ -20,20 +20,13 @@ export const ConfirmSignInFooter = (): JSX.Element => {
         isDisabled={isPending}
         type="submit"
         variation="primary"
-        fontWeight="normal"
         isLoading={isPending}
         loadingText={getConfirmingText()}
       >
         {getConfirmText()}
       </Button>
 
-      <Button
-        onClick={toSignIn}
-        type="button"
-        variation="link"
-        fontWeight="normal"
-        size="small"
-      >
+      <Button onClick={toSignIn} type="button" variation="link" size="small">
         {getBackToSignInText()}
       </Button>
     </Flex>

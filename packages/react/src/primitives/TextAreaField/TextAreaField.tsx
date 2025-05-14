@@ -6,15 +6,18 @@ import { ComponentClassName } from '@aws-amplify/ui';
 import { FieldDescription, FieldErrorMessage } from '../Field';
 import { Flex } from '../Flex';
 import { Label } from '../Label';
-import { ForwardRefPrimitive, Primitive } from '../types';
+import type { ForwardRefPrimitive, Primitive } from '../types';
 import { splitPrimitiveProps } from '../utils/splitPrimitiveProps';
-import { TextArea } from '../TextArea';
-import {
+import { TextArea, AutoresizeTextArea } from '../TextArea';
+import type {
   BaseTextAreaFieldProps,
   TextAreaFieldProps,
 } from '../types/textAreaField';
 import { useStableId } from '../utils/useStableId';
 import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
+import { createSpaceSeparatedIds } from '../utils/createSpaceSeparatedIds';
+import { DESCRIPTION_SUFFIX, ERROR_SUFFIX } from '../../helpers/constants';
+import { getUniqueComponentId } from '../utils/getUniqueComponentId';
 
 export const DEFAULT_ROW_COUNT = 3;
 
@@ -34,6 +37,7 @@ const TextAreaFieldPrimitive: Primitive<TextAreaFieldProps, 'textarea'> = (
     size,
     testId,
     inputStyles,
+    autoResize,
     // Destructuring the 'resize' style prop because while it is a style prop
     // it should go on the textarea element and not the wrapper div.
     resize,
@@ -41,8 +45,14 @@ const TextAreaFieldPrimitive: Primitive<TextAreaFieldProps, 'textarea'> = (
   } = props;
 
   const fieldId = useStableId(id);
-  const descriptionId = useStableId();
-  const ariaDescribedBy = descriptiveText ? descriptionId : undefined;
+  const stableId = useStableId();
+  const descriptionId = descriptiveText
+    ? getUniqueComponentId(stableId, DESCRIPTION_SUFFIX)
+    : undefined;
+  const errorId = hasError
+    ? getUniqueComponentId(stableId, ERROR_SUFFIX)
+    : undefined;
+  const ariaDescribedBy = createSpaceSeparatedIds([errorId, descriptionId]);
 
   const { styleProps, rest } = splitPrimitiveProps(_rest);
 
@@ -65,18 +75,36 @@ const TextAreaFieldPrimitive: Primitive<TextAreaFieldProps, 'textarea'> = (
         labelHidden={labelHidden}
         descriptiveText={descriptiveText}
       />
-      <TextArea
-        aria-describedby={ariaDescribedBy}
+      {autoResize ? (
+        <AutoresizeTextArea
+          aria-describedby={ariaDescribedBy}
+          hasError={hasError}
+          id={fieldId}
+          ref={ref}
+          rows={rows ?? DEFAULT_ROW_COUNT}
+          size={size}
+          resize={resize}
+          {...rest}
+          {...inputStyles}
+        />
+      ) : (
+        <TextArea
+          aria-describedby={ariaDescribedBy}
+          hasError={hasError}
+          id={fieldId}
+          ref={ref}
+          rows={rows ?? DEFAULT_ROW_COUNT}
+          size={size}
+          resize={resize}
+          {...rest}
+          {...inputStyles}
+        />
+      )}
+      <FieldErrorMessage
+        id={errorId}
         hasError={hasError}
-        id={fieldId}
-        ref={ref}
-        rows={rows ?? DEFAULT_ROW_COUNT}
-        size={size}
-        resize={resize}
-        {...rest}
-        {...inputStyles}
+        errorMessage={errorMessage}
       />
-      <FieldErrorMessage hasError={hasError} errorMessage={errorMessage} />
     </Flex>
   );
 };

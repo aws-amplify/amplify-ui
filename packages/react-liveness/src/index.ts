@@ -1,7 +1,5 @@
-export {
-  FaceLivenessDetector,
+export type {
   FaceLivenessDetectorProps,
-  FaceLivenessDetectorCore,
   FaceLivenessDetectorCoreProps,
   AwsCredentialProvider,
   AwsCredentials,
@@ -11,3 +9,4 @@ export {
   FACE_MOVEMENT_CHALLENGE,
   SUPPORTED_CHALLENGES,
 } from './components';
+export { FaceLivenessDetector, FaceLivenessDetectorCore } from './components';

@@ -1,11 +1,12 @@
 import React from 'react';
-import { AuthenticatorRoute } from '@aws-amplify/ui';
+import type { AuthenticatorRoute } from '@aws-amplify/ui';
 import { createContextUtilities } from '@aws-amplify/ui-react-core';
 
-import { useMachine, UseMachineSelector } from '../Machine';
+import type { UseMachineSelector } from '../Machine';
+import { useMachine } from '../Machine';
 
 import { COMPONENT_ROUTE } from './constants';
-import {
+import type {
   ComponentRoute,
   ComponentRouteContextType,
   ComponentRouteProviderProps,
@@ -35,7 +36,7 @@ export const routeSelector: UseMachineSelector = ({ route }) => [route];
 function ComponentRouteProvider({
   children,
   hideSignUp = false,
-}: ComponentRouteProviderProps): JSX.Element {
+}: ComponentRouteProviderProps): React.JSX.Element {
   const { route: _route, setRoute: setRouteBase } = useMachine(routeSelector);
 
   const route = isRoute(_route, ...COMPONENT_ROUTE) ? _route : undefined;

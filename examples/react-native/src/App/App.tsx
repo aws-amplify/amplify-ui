@@ -36,6 +36,12 @@ const SlotsExample = React.lazy(
 const StylesExample = React.lazy(
   () => import('../features/Authenticator/Styles/Example')
 );
+const EmailMfaExample = React.lazy(
+  () => import('../features/Authenticator/EmailMfa/Example')
+);
+const OverrideComponents = React.lazy(
+  () => import('../features/Authenticator/OverrideComponents/Example')
+);
 
 /**
  * `InAppMessaging` Example and Demo Apps
@@ -91,6 +97,21 @@ const ForgotPassword = React.lazy(
 const WithAuthenticator = React.lazy(
   () => import('../ui/components/authenticator/with-authenticator/Example')
 );
+const SignInWithEmailMfa = React.lazy(
+  () => import('../ui/components/authenticator/sign-in-with-email-mfa/Example')
+);
+const SignInWithEmailMfaSelection = React.lazy(
+  () =>
+    import(
+      '../ui/components/authenticator/sign-in-with-email-mfa-selection/Example'
+    )
+);
+const SignInWithEmailMfaSetupSelection = React.lazy(
+  () =>
+    import(
+      '../ui/components/authenticator/sign-in-with-email-mfa-setup-selection/Example'
+    )
+);
 
 export const ExampleComponent = () => {
   const appName = getExampleAppName();
@@ -120,6 +141,10 @@ export const ExampleComponent = () => {
       return <ThemingExample />;
     case 'DarkModeExample':
       return <DarkModeExample />;
+    case 'EmailMfaExample':
+      return <EmailMfaExample />;
+    case 'OverrideComponents':
+      return <OverrideComponents />;
 
     // Detox-Cucumber e2e tests
     // below apps are not meant to be run as example apps, they are part of integration testing in CI
@@ -139,6 +164,7 @@ export const ExampleComponent = () => {
       return <SignUpWithUsername />;
     case 'ui/components/authenticator/sign-up-with-attributes':
       return <SignUpWithAttributes />;
+    case 'SocialProviders':
     case '/ui/components/authenticator/social-providers':
       return <SocialProviders />;
     case 'ui/components/authenticator/forgot-password':
@@ -147,6 +173,12 @@ export const ExampleComponent = () => {
       return <WithAuthenticator />;
     case 'ui/components/in-app-messaging/demo':
       return <InAppMessaging />;
+    case 'ui/components/authenticator/sign-in-with-email-mfa':
+      return <SignInWithEmailMfa />;
+    case 'ui/components/authenticator/sign-in-with-email-mfa-selection':
+      return <SignInWithEmailMfaSelection />;
+    case 'ui/components/authenticator/sign-in-with-email-mfa-setup-selection':
+      return <SignInWithEmailMfaSetupSelection />;
     default:
       console.warn(
         'EXAMPLE_APP_NAME environment variable not configured correctly, running default example app'

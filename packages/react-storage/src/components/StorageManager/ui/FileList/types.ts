@@ -1,5 +1,8 @@
-import { StorageManagerDisplayTextDefault, TaskHandler } from '../../utils';
-import { FileStatus, StorageFile } from '../../types';
+import type {
+  FileUploaderDisplayTextDefault as StorageManagerDisplayTextDefault,
+  TaskHandler,
+} from '../../../FileUploader/utils';
+import type { FileStatus, StorageFile } from '../../../FileUploader/types';
 
 export interface FileListProps {
   displayText: StorageManagerDisplayTextDefault;

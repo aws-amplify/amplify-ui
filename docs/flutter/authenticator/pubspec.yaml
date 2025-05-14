@@ -4,18 +4,22 @@ publish_to: 'none'
 version: 1.0.0+1
 
 environment:
-  sdk: ^3.0.0
-  flutter: '>=3.10.0'
+  sdk: ^3.4.0
+  flutter: '>=3.22.0'
 
 dependencies:
-  amplify_auth_cognito: ^1.3.0
-  amplify_authenticator: ^1.3.0
-  amplify_flutter: ^1.3.0
+  amplify_auth_cognito: ^2.1.0
+  amplify_authenticator: ^2.0.0
+  amplify_core: ^2.1.0
+  amplify_flutter: ^2.1.0
   confetti: ^0.7.0
-  device_preview: ^1.0.0
+  device_preview: ^1.2.0
   flutter:
     sdk: flutter
-  go_router: ^10.0.0
+  go_router: ^14.0.0
+
+dependency_overrides:
+  json_annotation: ^4.9.0 # required to support device_preview v1.2 and amplify_flutter v2
 
 dev_dependencies:
   amplify_lints: ^3.0.0

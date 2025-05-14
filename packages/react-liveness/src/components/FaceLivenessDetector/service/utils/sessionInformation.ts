@@ -1,10 +1,10 @@
-import {
+import type {
   FaceMovementServerChallenge,
   FaceMovementAndLightServerChallenge,
   ServerChallenge,
   SessionInformation as ServerSessionInformation,
 } from '@aws-sdk/client-rekognitionstreaming';
-import {
+import type {
   FaceMovementAndLightChallenge,
   FaceMovementChallenge,
   ParsedSessionInformation,

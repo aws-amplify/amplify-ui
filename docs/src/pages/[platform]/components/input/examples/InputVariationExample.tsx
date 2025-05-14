@@ -8,7 +8,7 @@ export const InputVariationExample = () => {
         <Input id="default" />
       </Flex>
       <Flex direction="column" gap="small">
-        <Label htmlFor="Quiet">Default</Label>
+        <Label htmlFor="Quiet">Quiet</Label>
         <Input id="quiet" variation="quiet" />
       </Flex>
     </Flex>

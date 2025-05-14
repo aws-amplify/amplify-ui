@@ -1,1 +1,2 @@
-export { createStreamingClient, ResponseStream } from './createStreamingClient';
+export type { ResponseStream } from './createStreamingClient';
+export { createStreamingClient } from './createStreamingClient';

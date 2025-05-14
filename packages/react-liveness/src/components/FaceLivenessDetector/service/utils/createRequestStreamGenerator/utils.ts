@@ -1,4 +1,4 @@
-import {
+import type {
   BoundingBox,
   ClientSessionInformationEvent,
   FaceMovementAndLightClientChallenge,
@@ -10,17 +10,17 @@ import {
   isFaceMovementAndLightChallenge,
   isFaceMovementChallenge,
 } from '../sessionInformation';
-import {
+import type {
   Face,
   LivenessOvalDetails,
   LivenessContext,
   ParsedSessionInformation,
 } from '../../types';
-import {
+import type {
   SequenceChangeParams,
   SequenceColorValue,
 } from '../ColorSequenceDisplay';
-import { StreamResult } from '../types';
+import type { StreamResult } from '../types';
 
 interface TrackDimensions {
   trackHeight: number;

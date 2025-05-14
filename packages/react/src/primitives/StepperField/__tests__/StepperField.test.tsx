@@ -11,6 +11,7 @@ import {
 } from '../../Flex/__tests__/Flex.test';
 import { ComponentText } from '../../shared/constants';
 import { AUTO_GENERATED_ID_PREFIX } from '../../utils/useStableId';
+import { ERROR_SUFFIX, DESCRIPTION_SUFFIX } from '../../../helpers/constants';
 
 const LABEL = 'stepper';
 
@@ -353,6 +354,64 @@ describe('StepperField:', () => {
 
       const stepperInput = await screen.findByLabelText('stepper');
       expect(stepperInput).toHaveAccessibleDescription('Description');
+    });
+  });
+
+  describe('aria-describedby test', () => {
+    const errorMessage = 'This is an error message';
+    const descriptiveText = 'Description';
+    it('when hasError, include id of error component and describe component in the aria-describedby', async () => {
+      render(
+        <StepperField
+          label="stepper"
+          descriptiveText={descriptiveText}
+          errorMessage={errorMessage}
+          hasError
+        />
+      );
+
+      const stepperInput = await screen.findByLabelText(LABEL);
+      const ariaDescribedBy = stepperInput.getAttribute('aria-describedby');
+      const descriptiveTextElement = screen.queryByText(descriptiveText);
+      const errorTextElement = screen.queryByText(errorMessage);
+      expect(
+        errorTextElement?.id && errorTextElement?.id.endsWith(ERROR_SUFFIX)
+      ).toBe(true);
+      expect(
+        descriptiveTextElement?.id &&
+          descriptiveTextElement?.id.endsWith(DESCRIPTION_SUFFIX)
+      ).toBe(true);
+      expect(
+        errorTextElement?.id &&
+          descriptiveTextElement?.id &&
+          ariaDescribedBy ===
+            `${errorTextElement.id} ${descriptiveTextElement.id}`
+      ).toBe(true);
+    });
+
+    it('only show id of describe component in aria-describedby when hasError is false', async () => {
+      render(
+        <StepperField
+          label="stepper"
+          descriptiveText={descriptiveText}
+          errorMessage={errorMessage}
+        />
+      );
+
+      const stepperInput = await screen.findByLabelText(LABEL);
+      const ariaDescribedBy = stepperInput.getAttribute('aria-describedby');
+      const descriptiveTextElement = screen.queryByText(descriptiveText);
+      expect(
+        descriptiveTextElement?.id &&
+          ariaDescribedBy?.startsWith(descriptiveTextElement?.id)
+      ).toBe(true);
+    });
+
+    it('aria-describedby should be empty when hasError is false and descriptiveText is empty', async () => {
+      render(<StepperField label="stepper" errorMessage={errorMessage} />);
+      const stepperInput = await screen.findByLabelText(LABEL);
+      const ariaDescribedBy = stepperInput.getAttribute('aria-describedby');
+      expect(ariaDescribedBy).toBeNull();
     });
   });
 });

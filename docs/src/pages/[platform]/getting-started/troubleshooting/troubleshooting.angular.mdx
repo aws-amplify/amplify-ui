@@ -1,7 +1,7 @@
 import AngularPolyfill from './shared/angular-polyfill.mdx';
 import AWSExports from './shared/add-aws-exports-type.mdx';
 
-### Global and Process Shim
+## Global and Process Shim
 
 <AngularPolyfill />
 
@@ -9,10 +9,14 @@ import AWSExports from './shared/add-aws-exports-type.mdx';
 
 <AWSExports />
 
-### Problems with `OnPush` change detection
+## Server-side Rendering (SSR)
+
+Amplify UI components are interactive and designed to work with Client-side Rendering (CSR). You must ensure that Amplify UI components are not rendered on the server in SSR-enabled projects.
+
+## Problems with `OnPush` change detection
 
 The Authenticator component currently does not support use of the `OnPush` [change detection strategy](https://angular.io/api/core/ChangeDetectionStrategy). Please use the `Default` strategy instead.
 
-### Warning: CommonJS or AMD dependencies
+## Warning: CommonJS or AMD dependencies
 
 If you see CommonJS or AMD dependencies optimization bailouts warnings, add the following [content](https://gist.github.com/wlee221/6d98d96740bea6f53327b4db4a432616) to your `angular.json`.

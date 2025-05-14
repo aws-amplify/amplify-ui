@@ -1,12 +1,15 @@
-import { AuthenticatorDictionary } from './types';
+import type { AuthenticatorDictionary } from './types';
 
 export const esDict: AuthenticatorDictionary = {
   'Account recovery requires verified contact information':
     'La recuperación de la cuenta requiere información de contacto verificada',
+  'Authenticator App (TOTP)': 'Aplicación de autenticación (TOTP)',
   'Back to Sign In': 'Volver a inicio de sesión',
   'Change Password': 'Cambiar contraseña',
   Changing: 'Cambiando',
   Code: 'Código',
+  'Code *': 'Código *',
+  'Confirm Email Code': 'Confirmar el código de correo electrónico',
   'Confirm Password': 'Confirmar contraseña',
   'Confirm Sign Up': 'Confirmar registro',
   'Confirm SMS Code': 'Confirmar el código de SMS',
@@ -19,8 +22,10 @@ export const esDict: AuthenticatorDictionary = {
   'Creating Account': 'Creando cuenta',
   'Dismiss alert': 'Descartar alerta',
   Email: 'Email',
+  'Email Message': 'Mensaje de correo electrónico',
   'Enter your code': 'Ingrese el código',
   'Enter your Email': 'Escriba su Email',
+  'Enter your email': 'Escriba su email',
   'Enter your Password': 'Escriba su Contraseña',
   'Enter your phone number': 'Ingrese el número de teléfono',
   'Enter your username': 'Ingrese el nombre de usuario',
@@ -28,6 +33,9 @@ export const esDict: AuthenticatorDictionary = {
   'Hide password': 'Ocultar contraseña',
   'It may take a minute to arrive': 'Es posible que tarde un minuto en llegar',
   Loading: 'Cargando',
+  'Multi-Factor Authentication': 'Autenticación multifactor',
+  'Multi-Factor Authentication Setup':
+    'Configuración de autenticación multifactor',
   'New password': 'Nueva contraseña',
   or: 'o',
   Password: 'Contraseña',
@@ -35,9 +43,11 @@ export const esDict: AuthenticatorDictionary = {
   'Resend Code': 'Reenviar código',
   'Reset your password': 'Restablecer su contraseña',
   'Reset your Password': 'Restablecer su Contraseña',
+  'Select MFA Type': 'Seleccionar el tipo de MFA',
   'Send code': 'Enviar código',
   'Send Code': 'Enviar código',
   Sending: 'Enviando',
+  'Setup Email': 'Configurar correo electrónico',
   'Setup TOTP': 'Configurar TOTP',
   'Show password': 'Mostrar contraseña',
   'Sign in to your account': 'Iniciar sesión en tu cuenta',
@@ -51,6 +61,7 @@ export const esDict: AuthenticatorDictionary = {
   Skip: 'Omitir',
   Submit: 'Enviar',
   Submitting: 'Enviando',
+  'Text Message (SMS)': 'Mensaje de texto (SMS)',
   Username: 'Nombre de usuario',
   'Verify Contact': 'Verificar contacto',
   Verify: 'Verificar',
@@ -72,6 +83,12 @@ export const esDict: AuthenticatorDictionary = {
   'Forgot Password': 'Olvidé mi contraseña',
   'Incorrect username or password.':
     'Nombre de usuario o contraseña incorrecta',
+  'Enter your Family Name': 'Escriba su apellido',
+  'Enter your Given Name': 'Escriba su nombre',
+  'Given Name': 'Nombre',
+  'Family Name': 'Apellido',
+  'Reset Password': 'Restablecer contraseña',
+  'Please confirm your Password': 'Confirme su contraseña',
   'Invalid password format': 'Formato de contraseña inválido',
   'Invalid phone number format': 'Formato de número de teléfono inválido',
   'Loading...': 'Cargando...',
@@ -85,6 +102,22 @@ export const esDict: AuthenticatorDictionary = {
   'Sign Up': 'Crear cuenta',
   'User already exists': 'El usuario ya existe',
   'User does not exist': 'El usuario no existe',
+  'Username/client id combination not found.': 'El usuario no existe',
   'Username cannot be empty': 'El nombre de usuario no puede estar vacío',
   'Your passwords must match': 'Las contraseñas deben coincidir',
+  'Password must have at least 8 characters':
+    'La contraseña debe tener al menos 8 caracteres',
+  'Password did not conform with policy: Password must have uppercase characters':
+    'La contraseña debe tener al menos un carácter en mayúscula',
+  'Password did not conform with policy: Password must have numeric characters':
+    'La contraseña debe tener al menos un carácter numérico',
+  'Password did not conform with policy: Password must have symbol characters':
+    'La contraseña debe tener al menos un símbolo',
+  'Password did not conform with policy: Password must have lowercase characters':
+    'La contraseña debe tener al menos un carácter en minúsculas',
+  'Invalid verification code provided, please try again.':
+    'Código de verificación no válido, inténtelo de nuevo.',
+  'Attempt limit exceeded, please try after some time.':
+    'Número máximo de intentos excedido, por favor inténtelo de nuevo más tarde.',
+  'A network error has occurred.': 'Se ha producido un error de red.',
 };

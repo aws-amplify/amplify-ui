@@ -9,6 +9,7 @@ import {
   expectFlexContainerStyleProps,
 } from '../../Flex/__tests__/Flex.test';
 import { AUTO_GENERATED_ID_PREFIX } from '../../utils/useStableId';
+import { ERROR_SUFFIX, DESCRIPTION_SUFFIX } from '../../../helpers/constants';
 
 const label = 'Field';
 const testId = 'testId';
@@ -257,6 +258,73 @@ describe('TextAreaField component', () => {
 
       const field = await screen.findByRole('textbox');
       expect(field).toHaveAccessibleDescription(descriptiveText);
+    });
+  });
+
+  describe('aria-describedby test', () => {
+    const errorMessage = 'This is an error message';
+    const descriptiveText = 'Description';
+    it('when hasError, include id of error component and describe component in the aria-describedby', async () => {
+      render(
+        <TextAreaField
+          descriptiveText={descriptiveText}
+          label="Field"
+          id="testField"
+          errorMessage={errorMessage}
+          hasError
+        />
+      );
+
+      const field = await screen.findByRole('textbox');
+      const ariaDescribedBy = field.getAttribute('aria-describedby');
+      const descriptiveTextElement = screen.queryByText(descriptiveText);
+      const errorTextElement = screen.queryByText(errorMessage);
+      expect(
+        errorTextElement?.id && errorTextElement?.id.endsWith(ERROR_SUFFIX)
+      ).toBe(true);
+      expect(
+        descriptiveTextElement?.id &&
+          descriptiveTextElement?.id.endsWith(DESCRIPTION_SUFFIX)
+      ).toBe(true);
+      expect(
+        errorTextElement?.id &&
+          descriptiveTextElement?.id &&
+          ariaDescribedBy ===
+            `${errorTextElement.id} ${descriptiveTextElement.id}`
+      ).toBe(true);
+    });
+
+    it('only show id of describe component in aria-describedby when hasError is false', async () => {
+      render(
+        <TextAreaField
+          descriptiveText={descriptiveText}
+          label="Field"
+          id="testField"
+          errorMessage={errorMessage}
+        />
+      );
+
+      const field = await screen.findByRole('textbox');
+      const ariaDescribedBy = field.getAttribute('aria-describedby');
+      const descriptiveTextElement = screen.queryByText(descriptiveText);
+      expect(
+        descriptiveTextElement?.id &&
+          ariaDescribedBy?.startsWith(descriptiveTextElement?.id)
+      ).toBe(true);
+    });
+
+    it('aria-describedby should be empty when hasError is false and descriptiveText is empty', async () => {
+      render(
+        <TextAreaField
+          label="Field"
+          id="testField"
+          errorMessage={errorMessage}
+        />
+      );
+
+      const field = await screen.findByRole('textbox');
+      const ariaDescribedBy = field.getAttribute('aria-describedby');
+      expect(ariaDescribedBy).toBeNull();
     });
   });
 });

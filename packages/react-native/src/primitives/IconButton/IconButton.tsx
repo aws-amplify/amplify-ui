@@ -1,12 +1,13 @@
 import React, { useMemo } from 'react';
-import { Pressable, ViewStyle } from 'react-native';
+import type { ViewStyle } from 'react-native';
+import { Pressable } from 'react-native';
 
 import { useTheme } from '../../theme';
 import { usePressableContainerStyles } from '../../hooks';
 
 import { getThemedStyles } from './styles';
 import { Icon, iconSizes } from '../Icon';
-import { IconButtonProps } from './types';
+import type { IconButtonProps } from './types';
 
 export default function IconButton({
   accessibilityRole = 'button',
@@ -17,7 +18,7 @@ export default function IconButton({
   source,
   style,
   ...rest
-}: IconButtonProps): JSX.Element {
+}: IconButtonProps): React.JSX.Element {
   const theme = useTheme();
   const themedStyle = getThemedStyles(theme);
 

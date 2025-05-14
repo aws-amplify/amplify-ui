@@ -1,4 +1,4 @@
-import {
+import type {
   LivenessResponseStream,
   SessionInformation as ServerSessionInformation,
 } from '@aws-sdk/client-rekognitionstreaming';
@@ -16,21 +16,20 @@ import {
   fillOverlayCanvasFractional,
 } from '../utils/liveness';
 
-import {
+import type {
   ErrorState,
   Face,
   FaceMatchAssociatedParams,
-  FaceMatchState,
   FreshnessColorAssociatedParams,
   IlluminationState,
   LivenessContext,
   LivenessError,
-  LivenessErrorState,
   LivenessEvent,
   OvalAssociatedParams,
   StreamActorCallback,
   VideoAssociatedParams,
 } from '../types';
+import { FaceMatchState, LivenessErrorState } from '../types';
 import {
   BlazeFaceFaceDetection,
   createRequestStreamGenerator,
@@ -140,10 +139,12 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
     predictableActionArguments: true,
     context: {
       challengeId: nanoid(),
+      errorMessage: undefined,
       maxFailedAttempts: 0, // Set to 0 for now as we are not allowing front end based retries for streaming
       failedAttempts: 0,
       componentProps: undefined,
       parsedSessionInformation: undefined,
+      serverSessionInformation: undefined,
       videoAssociatedParams: {
         videoConstraints: STATIC_VIDEO_CONSTRAINTS,
         selectableDevices: [],
@@ -190,15 +191,15 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         actions: 'updateDeviceAndStream',
         target: 'start',
       },
-      SERVER_ERROR: {
-        target: 'error',
-        actions: 'updateErrorStateForServer',
-      },
+      SERVER_ERROR: { target: 'error', actions: 'updateErrorStateForServer' },
       CONNECTION_TIMEOUT: {
         target: 'error',
         actions: 'updateErrorStateForConnectionTimeout',
       },
-      RUNTIME_ERROR: { target: 'error' },
+      RUNTIME_ERROR: {
+        target: 'error',
+        actions: 'updateErrorStateForRuntime',
+      },
       MOBILE_LANDSCAPE_WARNING: {
         target: 'mobileLandscapeWarning',
         actions: 'updateErrorStateForServer',
@@ -231,6 +232,10 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         },
       },
       initWebsocket: {
+        entry: () => {
+          // eslint-disable-next-line no-console
+          console.log('initWebsocket');
+        },
         initial: 'initializeLivenessStream',
         states: {
           initializeLivenessStream: {
@@ -246,6 +251,10 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             },
           },
           waitForSessionInfo: {
+            entry: () => {
+              // eslint-disable-next-line no-console
+              console.log('waitForSessionInfo');
+            },
             after: {
               0: {
                 target: '#livenessMachine.start',
@@ -257,7 +266,13 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         },
       },
       start: {
-        entry: ['initializeFaceDetector'],
+        entry: [
+          'initializeFaceDetector',
+          () => {
+            // eslint-disable-next-line no-console
+            console.log('start');
+          },
+        ],
         always: [
           {
             target: 'detectFaceBeforeStart',
@@ -305,11 +320,14 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         },
       },
       recording: {
-        entry: ['clearErrorState', 'startRecording'],
+        entry: [
+          'clearErrorState',
+          'startRecording',
+          'sendTimeoutAfterOvalDrawingDelay',
+        ],
         initial: 'ovalDrawing',
         states: {
           ovalDrawing: {
-            entry: 'sendTimeoutAfterOvalDrawingDelay',
             invoke: {
               src: 'detectInitialFaceAndDrawOval',
               onDone: {
@@ -328,13 +346,28 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           checkFaceDetected: {
             after: {
               0: {
-                target: 'checkRecordingStarted',
+                target: 'cancelOvalDrawingTimeout',
                 cond: 'hasSingleFace',
               },
               100: { target: 'ovalDrawing' },
             },
           },
+          cancelOvalDrawingTimeout: {
+            entry: [
+              'cancelOvalDrawingTimeout',
+              'sendTimeoutAfterRecordingDelay',
+            ],
+            after: {
+              0: {
+                target: 'checkRecordingStarted',
+              },
+            },
+          },
           checkRecordingStarted: {
+            entry: () => {
+              // eslint-disable-next-line no-console
+              console.log('checkRecordingStarted');
+            },
             after: {
               0: {
                 target: 'ovalMatching',
@@ -347,7 +380,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           // Evaluates face match and moves to checkMatch
           // which continually checks for match until either timeout or face match
           ovalMatching: {
-            entry: 'cancelOvalDrawingTimeout',
+            entry: 'cancelRecordingTimeout',
             invoke: {
               src: 'detectFaceAndMatchOval',
               onDone: {
@@ -360,6 +393,10 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           // for one second to show "Hold still" text before moving to `flashFreshnessColors`.
           // If not, move back to ovalMatching and re-evaluate match state
           checkMatch: {
+            entry: () => {
+              // eslint-disable-next-line no-console
+              console.log('checkMatch');
+            },
             after: {
               0: {
                 target: 'handleChallenge',
@@ -376,6 +413,10 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             },
           },
           handleChallenge: {
+            entry: () => {
+              // eslint-disable-next-line no-console
+              console.log('handleChallenge');
+            },
             always: [
               {
                 target: 'delayBeforeFlash',
@@ -388,6 +429,10 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             ],
           },
           delayBeforeFlash: {
+            entry: () => {
+              // eslint-disable-next-line no-console
+              console.log('delayBeforeFlash');
+            },
             after: { 1000: 'flashFreshnessColors' },
           },
           flashFreshnessColors: {
@@ -416,7 +461,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         initial: 'pending',
         states: {
           pending: {
-            entry: ['sendTimeoutAfterWaitingForDisconnect', 'pauseVideoStream'],
+            entry: ['pauseVideoStream'],
             invoke: {
               src: 'stopVideo',
               onDone: 'waitForDisconnectEvent',
@@ -427,16 +472,17 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             },
           },
           waitForDisconnectEvent: {
+            entry: () => {
+              // eslint-disable-next-line no-console
+              console.log('waitForDisconnectEvent');
+            },
             after: {
-              0: {
-                cond: 'getShouldDisconnect',
-                target: 'getLivenessResult',
-              },
+              0: { cond: 'getShouldDisconnect', target: 'getLivenessResult' },
               100: { target: 'waitForDisconnectEvent' },
             },
           },
           getLivenessResult: {
-            entry: ['cancelWaitForDisconnectTimeout', 'freezeStream'],
+            entry: ['freezeStream'],
             invoke: {
               src: 'getLiveness',
               onError: {
@@ -473,8 +519,8 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           'cleanUpResources',
           'callErrorCallback',
           'cancelOvalDrawingTimeout',
-          'cancelWaitForDisconnectTimeout',
           'cancelOvalMatchTimeout',
+          'cancelRecordingTimeout',
           'freezeStream',
         ],
       },
@@ -593,7 +639,10 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           return { ...context.videoAssociatedParams };
         },
       }),
-      stopRecording: () => {},
+      stopRecording: () => {
+        // eslint-disable-next-line no-console
+        console.log('stop recording');
+      },
       updateFaceMatchBeforeStartDetails: assign({
         faceMatchStateBeforeStart: (_, event) =>
           event.data!.faceMatchState as FaceMatchState,
@@ -662,6 +711,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       updateErrorStateForTimeout: assign({
         errorState: (_, event) =>
           (event.data?.errorState as ErrorState) || LivenessErrorState.TIMEOUT,
+        errorMessage: (_, event) => event.data?.message as string,
       }),
       updateErrorStateForRuntime: assign({
         errorState: (_, event) =>
@@ -701,15 +751,38 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
 
       // timeouts
       sendTimeoutAfterOvalDrawingDelay: actions.send(
-        { type: 'TIMEOUT' },
+        {
+          type: 'RUNTIME_ERROR',
+          data: {
+            message: 'Client failed to draw oval.',
+          },
+        },
         {
           delay: 5000,
           id: 'ovalDrawingTimeout',
         }
       ),
       cancelOvalDrawingTimeout: actions.cancel('ovalDrawingTimeout'),
+      sendTimeoutAfterRecordingDelay: actions.send(
+        {
+          type: 'RUNTIME_ERROR',
+          data: {
+            message: 'Client failed to start recording.',
+          },
+        },
+        {
+          delay: 5000,
+          id: 'recordingTimeout',
+        }
+      ),
+      cancelRecordingTimeout: actions.cancel('recordingTimeout'),
       sendTimeoutAfterOvalMatchDelay: actions.send(
-        { type: 'TIMEOUT' },
+        {
+          type: 'TIMEOUT',
+          data: {
+            message: 'Client timed out waiting for face to match oval.',
+          },
+        },
         {
           delay: (context) => {
             return (
@@ -721,32 +794,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         }
       ),
       cancelOvalMatchTimeout: actions.cancel('ovalMatchTimeout'),
-      sendTimeoutAfterWaitingForDisconnect: actions.send(
-        {
-          type: 'TIMEOUT',
-          data: { errorState: LivenessErrorState.SERVER_ERROR },
-        },
-        {
-          delay: 20000,
-          id: 'waitForDisconnectTimeout',
-        }
-      ),
-      cancelWaitForDisconnectTimeout: actions.cancel(
-        'waitForDisconnectTimeout'
-      ),
-      sendTimeoutAfterFaceDistanceDelay: actions.send(
-        {
-          type: 'RUNTIME_ERROR',
-          data: new Error(
-            'Avoid moving closer during countdown and ensure only one face is in front of camera.'
-          ),
-        },
-        {
-          delay: 0,
-          id: 'faceDistanceTimeout',
-        }
-      ),
-      cancelFaceDistanceTimeout: actions.cancel('faceDistanceTimeout'),
 
       // callbacks
       callUserPermissionDeniedCallback: assign({
@@ -779,7 +826,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         context.componentProps!.onUserCancel?.();
       },
       callUserTimeoutCallback: (context) => {
-        const error = new Error('Client Timeout');
+        const error = new Error(context.errorMessage ?? 'Client Timeout');
         error.name = context.errorState!;
         const livenessError: LivenessError = {
           state: context.errorState!,
@@ -876,14 +923,33 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         );
       },
       hasEnoughFaceDistanceBeforeRecording: (context) => {
+        // eslint-disable-next-line no-console
+        console.log(
+          'hasEnoughFaceDistanceBeforeRecording: ',
+          context.isFaceFarEnoughBeforeRecording
+        );
+
         return context.isFaceFarEnoughBeforeRecording!;
       },
       hasNotEnoughFaceDistanceBeforeRecording: (context) => {
         return !context.isFaceFarEnoughBeforeRecording;
       },
-      hasFreshnessColorShown: (context) =>
-        context.freshnessColorAssociatedParams!.freshnessColorsComplete!,
+      hasFreshnessColorShown: (context) => {
+        // eslint-disable-next-line no-console
+        console.log(
+          'hasFreshnessColorShown: ',
+          context.freshnessColorAssociatedParams!.freshnessColorsComplete!
+        );
+
+        return context.freshnessColorAssociatedParams!.freshnessColorsComplete!;
+      },
       hasParsedSessionInfo: (context) => {
+        // eslint-disable-next-line no-console
+        console.log(
+          'hasParsedSessionInfo',
+          context.parsedSessionInformation !== undefined
+        );
+
         return context.parsedSessionInformation !== undefined;
       },
       hasDOMAndCameraDetails: (context) => {
@@ -906,9 +972,18 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         );
       },
       getShouldDisconnect: (context) => {
+        // eslint-disable-next-line no-console
+        console.log('getShouldDisconnect', !!context.shouldDisconnect);
+
         return !!context.shouldDisconnect;
       },
       hasRecordingStarted: (context) => {
+        // eslint-disable-next-line no-console
+        console.log(
+          'hasRecordingStarted: ',
+          context.livenessStreamProvider!.hasRecordingStarted()
+        );
+
         return context.livenessStreamProvider!.hasRecordingStarted();
       },
       shouldSkipStartScreen: (context) => {
@@ -979,7 +1054,8 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       // eslint-disable-next-line @typescript-eslint/require-await
       async openLivenessStreamConnection(context) {
         const { config, disableStartScreen } = context.componentProps!;
-        const { credentialProvider, endpointOverride } = config!;
+        const { credentialProvider, endpointOverride, systemClockOffset } =
+          config!;
 
         const { videoHeight, videoWidth } =
           context.videoAssociatedParams!.videoEl!;
@@ -998,6 +1074,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           region: context.componentProps!.region,
           attemptCount: TelemetryReporter.getAttemptCountAndUpdateTimestamp(),
           preCheckViewEnabled: !disableStartScreen,
+          systemClockOffset,
         });
 
         responseStream = getResponseStream({

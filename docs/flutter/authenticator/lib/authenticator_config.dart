@@ -221,7 +221,7 @@ enum Device {
       case Device.ios:
         return Devices.ios.iPhone13;
       case Device.android:
-        return Devices.android.mediumPhone;
+        return Devices.android.samsungGalaxyS20;
       case Device.iPad:
         return Devices.ios.iPad;
       case Device.web:

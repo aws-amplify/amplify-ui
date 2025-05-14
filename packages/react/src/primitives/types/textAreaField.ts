@@ -1,8 +1,8 @@
-import { BaseTextAreaProps, TextAreaStyleProps } from './textArea';
-import { BaseFieldProps } from './field';
-import { FlexContainerStyleProps } from './flex';
-import { BaseStyleProps } from './style';
-import { ElementType, PrimitiveProps } from './view';
+import type { BaseTextAreaProps, TextAreaStyleProps } from './textArea';
+import type { BaseFieldProps } from './field';
+import type { FlexContainerStyleProps } from './flex';
+import type { BaseStyleProps } from './style';
+import type { ElementType, PrimitiveProps } from './view';
 
 /** @deprecated For internal use only */
 export interface BaseTextAreaFieldProps
@@ -10,6 +10,14 @@ export interface BaseTextAreaFieldProps
     FlexContainerStyleProps,
     BaseTextAreaProps {
   inputStyles?: BaseStyleProps & TextAreaStyleProps;
+
+  /**
+   * @description
+   * Automatically adjusts the height of the textarea based on its content
+   * @default
+   * false
+   */
+  autoResize?: boolean;
 }
 
 export type TextAreaFieldProps<Element extends ElementType = 'textarea'> =

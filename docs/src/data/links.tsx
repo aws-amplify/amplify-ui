@@ -41,6 +41,7 @@ import {
   MdChevronRight,
   MdPanToolAlt,
   MdLabel,
+  MdAccountCircle,
 } from 'react-icons/md';
 
 export interface ComponentNavItem {
@@ -204,6 +205,13 @@ export const connectedComponents: ComponentNavItem[] = [
     platforms: ['react'],
   },
   {
+    href: '/connected-components/storage/storage-browser',
+    label: 'Storage Browser',
+    body: 'The StorageBrowser provides users a simple interface for interacting with data stored in Amazon S3.',
+    platforms: ['react'],
+    tertiary: true,
+  },
+  {
     href: '/connected-components/storage/storageimage',
     label: 'Storage Image',
     body: 'StorageImage component allows users to load an image managed by Amplify Storage.',
@@ -211,9 +219,9 @@ export const connectedComponents: ComponentNavItem[] = [
     tertiary: true,
   },
   {
-    href: '/connected-components/storage/storagemanager',
-    label: 'Storage Manager',
-    body: 'StorageManager component allows users to upload and manage files in your Amplify backend.',
+    href: '/connected-components/storage/fileuploader',
+    label: 'File Uploader',
+    body: 'FileUploader component allows users to upload and manage files in your Amplify backend.',
     platforms: ['react'],
     tertiary: true,
   },
@@ -226,6 +234,13 @@ export const connectedComponents: ComponentNavItem[] = [
 ];
 
 export const dataDisplayComponents: ComponentNavItem[] = [
+  {
+    href: '/components/avatar',
+    label: 'Avatar',
+    body: `An Avatar represents a user by displaying a profile image, initials, or a fallback icon.`,
+    platforms: ['react'],
+    icon: MdAccountCircle,
+  },
   {
     href: '/components/badge',
     label: 'Badge',

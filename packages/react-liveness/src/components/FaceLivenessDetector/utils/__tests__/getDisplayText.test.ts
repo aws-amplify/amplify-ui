@@ -7,6 +7,8 @@ describe('getDisplayText', () => {
       cancelLivenessCheckText: 'Cancel verification process',
       startScreenBeginCheckText: 'Verification process',
       cameraNotFoundHeadingText: 'Camera was not found',
+      photosensitivyWarningHeadingText: 'Photosensitive Warning',
+      photosensitivityWarningInfoText: 'This is some info',
     };
 
     const {
@@ -27,6 +29,12 @@ describe('getDisplayText', () => {
     );
     expect(cameraDisplayText.cameraNotFoundHeadingText).toBe(
       customDisplayText.cameraNotFoundHeadingText
+    );
+    expect(instructionDisplayText.photosensitivityWarningHeadingText).toBe(
+      customDisplayText.photosensitivyWarningHeadingText
+    );
+    expect(instructionDisplayText.photosensitivityWarningInfoText).toBe(
+      customDisplayText.photosensitivityWarningInfoText
     );
   });
 });

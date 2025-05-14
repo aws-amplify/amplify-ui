@@ -1,4 +1,4 @@
-import {
+import type {
   ClientSessionInformationEvent,
   LivenessRequestStream,
 } from '@aws-sdk/client-rekognitionstreaming';

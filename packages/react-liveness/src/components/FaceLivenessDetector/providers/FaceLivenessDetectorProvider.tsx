@@ -1,5 +1,8 @@
 import React from 'react';
-import { LivenessInterpreter, FaceLivenessDetectorProps } from '../service';
+import type {
+  LivenessInterpreter,
+  FaceLivenessDetectorProps,
+} from '../service';
 
 interface FaceLivenessDetectorContextType {
   componentProps: FaceLivenessDetectorProps;
@@ -16,7 +19,7 @@ export interface FaceLivenessDetectorProviderProps
 export function FaceLivenessDetectorProvider({
   children,
   ...props
-}: FaceLivenessDetectorProviderProps): JSX.Element {
+}: FaceLivenessDetectorProviderProps): React.JSX.Element {
   return (
     <FaceLivenessDetectorContext.Provider value={props}>
       {children}

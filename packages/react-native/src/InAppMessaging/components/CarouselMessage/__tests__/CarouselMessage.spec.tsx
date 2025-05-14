@@ -1,10 +1,10 @@
-import React, { ReactElement } from 'react';
+import type { ReactElement } from 'react';
+import React from 'react';
 import { render } from '@testing-library/react-native';
 
 import { IN_APP_MESSAGING_TEST_ID } from '../../../constants';
 import CarouselMessage from '../CarouselMessage';
 import { defaultStyle } from '../styles';
-import { ReactTestRendererJSON } from 'react-test-renderer';
 
 jest.mock('../../../../primitives', () => ({ Carousel: 'Carousel' }));
 jest.mock('../../MessageWrapper', () => ({ MessageWrapper: 'MessageWrapper' }));
@@ -85,7 +85,9 @@ describe('CarouselMessage', () => {
     const carouselMessageItem = toJSON();
     expect(carouselMessageItem).toMatchSnapshot();
 
-    const { props } = toJSON() as ReactTestRendererJSON;
+    const { props } = toJSON() as unknown as {
+      props: { layout: string; image: { src: string } };
+    };
     expect(props.layout).toEqual(baseProps.layout);
     expect(props.image).toEqual({ src: 'image-src' });
   });

@@ -1,0 +1,7 @@
+{
+  "private": true,
+  "name": "@aws-amplify/ui-react-server",
+  "main": "../dist/server.js",
+  "module": "../dist/esm/server.mjs",
+  "types": "../dist/types/server.d.ts"
+}

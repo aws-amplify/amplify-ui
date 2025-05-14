@@ -2,8 +2,8 @@
  * This file contains helpers related to forms and input attributes.
  */
 
-import { DefaultFormFieldOptions } from '../../types';
-import {
+import type { DefaultFormFieldOptions } from '../../types';
+import type {
   AuthEventTypes,
   NavigableRoute,
 } from '../../machines/authenticator/types';

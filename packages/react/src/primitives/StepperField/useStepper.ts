@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { isFunction } from '@aws-amplify/ui';
 
-import { StepperFieldProps } from '../types/stepperField';
+import type { StepperFieldProps } from '../types/stepperField';
 
 type ChangeHandler = React.ChangeEventHandler<HTMLInputElement>;
 type ClickHandler = React.MouseEventHandler<HTMLButtonElement>;

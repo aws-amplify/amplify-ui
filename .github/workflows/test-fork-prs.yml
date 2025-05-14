@@ -119,7 +119,7 @@ jobs:
               .replace(/(\r\n|\n|\r)/gm, '') // remove last new line character
               .replace(/[^A-Za-z0-9]/g, ''); // remove non-alphanumeric characters
 
-      - uses: actions/checkout@cd7d8d697e10461458bc61a30d094dc601a8b017 # v4.1.3 https://github.com/actions/checkout/commit/cd7d8d697e10461458bc61a30d094dc601a8b017
+      - uses: actions/checkout@b80ff79f1755d06ba70441c368a6fe801f5f3a62 # v4.1.3 https://github.com/actions/checkout/commit/cd7d8d697e10461458bc61a30d094dc601a8b017
       - name: Set status to commit sha
         uses: aws-amplify/amplify-ui/.github/actions/set-status@main
         with:
@@ -157,7 +157,7 @@ jobs:
             github.rest.issues.removeLabel({ owner: REPO_OWNER, repo: REPO_NAME, issue_number: ISSUE_NUMBER, name: LABEL_NAME })
 
       - name: Checkout
-        uses: actions/checkout@cd7d8d697e10461458bc61a30d094dc601a8b017 # v4.1.3 https://github.com/actions/checkout/commit/cd7d8d697e10461458bc61a30d094dc601a8b017
+        uses: actions/checkout@b80ff79f1755d06ba70441c368a6fe801f5f3a62 # v4.1.3 https://github.com/actions/checkout/commit/cd7d8d697e10461458bc61a30d094dc601a8b017
         with:
           ref: ${{ needs.setup.outputs.commit_id }}
 
@@ -184,12 +184,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 'Checkout Repository'
-        uses: actions/checkout@cd7d8d697e10461458bc61a30d094dc601a8b017 # v4.1.3 https://github.com/actions/checkout/commit/cd7d8d697e10461458bc61a30d094dc601a8b017
+        uses: actions/checkout@b80ff79f1755d06ba70441c368a6fe801f5f3a62 # v4.1.3 https://github.com/actions/checkout/commit/cd7d8d697e10461458bc61a30d094dc601a8b017
         with:
           ref: ${{ needs.setup.outputs.commit_id }}
           repository: ${{ github.repository }}
       - name: 'Dependency Review'
-        uses: actions/dependency-review-action@9129d7d40b8c12c1ed0f60400d00c92d437adcce # v4.1.3 https://github.com/actions/dependency-review-action/commit/9129d7d40b8c12c1ed0f60400d00c92d437adcce
+        uses: actions/dependency-review-action@0c155c5e8556a497adf53f2c18edabf945ed8e70 # https://github.com/actions/dependency-review-action/commit/[HASH]
         with:
           base-ref: ${{ needs.setup.outputs.base_sha }}
           head-ref: ${{ needs.setup.outputs.commit_id }}
@@ -219,6 +219,7 @@ jobs:
       STORAGE_E2E_ROLE_ARN: ${{ secrets.STORAGE_E2E_ROLE_ARN }}
       LIVENESS_E2E_ROLE_ARN: ${{ secrets.LIVENESS_E2E_ROLE_ARN }}
       IN_APP_MESSAGING_E2E_ROLE_ARN: ${{ secrets.IN_APP_MESSAGING_E2E_ROLE_ARN }}
+      AI_E2E_ROLE_ARN: ${{ secrets.AI_E2E_ROLE_ARN }}
       DOMAIN: ${{ secrets.DOMAIN }}
       PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
       USERNAME: ${{ secrets.USERNAME }}
@@ -237,7 +238,7 @@ jobs:
     permissions:
       statuses: write # This is required for running set-status actions
     steps:
-      - uses: actions/checkout@cd7d8d697e10461458bc61a30d094dc601a8b017 # v4.1.3 https://github.com/actions/checkout/commit/cd7d8d697e10461458bc61a30d094dc601a8b017
+      - uses: actions/checkout@b80ff79f1755d06ba70441c368a6fe801f5f3a62 # v4.1.3 https://github.com/actions/checkout/commit/cd7d8d697e10461458bc61a30d094dc601a8b017
       - name: Update status when tests are successful
         uses: aws-amplify/amplify-ui/.github/actions/set-status@main
         with:
@@ -255,7 +256,7 @@ jobs:
     permissions:
       statuses: write # This is required for running set-status actions
     steps:
-      - uses: actions/checkout@cd7d8d697e10461458bc61a30d094dc601a8b017 # v4.1.3 https://github.com/actions/checkout/commit/cd7d8d697e10461458bc61a30d094dc601a8b017
+      - uses: actions/checkout@b80ff79f1755d06ba70441c368a6fe801f5f3a62 # v4.1.3 https://github.com/actions/checkout/commit/cd7d8d697e10461458bc61a30d094dc601a8b017
       - name: Update status when PR tests are not successful
         uses: aws-amplify/amplify-ui/.github/actions/set-status@main
         with:

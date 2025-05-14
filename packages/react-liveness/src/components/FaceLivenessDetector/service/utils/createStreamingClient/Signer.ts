@@ -1,8 +1,8 @@
 import { SignatureV4 } from '@smithy/signature-v4';
-import {
+import type {
   HttpRequest as HttpRequest,
   RequestPresigningArguments,
-} from '@smithy/types';
+} from './types';
 
 import { REQUEST_EXPIRY } from '../constants';
 

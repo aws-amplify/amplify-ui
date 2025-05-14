@@ -1,10 +1,10 @@
-import { Property } from 'csstype';
+import type { Property } from 'csstype';
 
-import { Sizes } from './base';
-import { BaseStyleProps, StyleToken } from './style';
-import { BaseInputProps } from './input';
-import { BaseFieldProps, LabelPositions } from './field';
-import { ElementType, PrimitiveProps } from './view';
+import type { Sizes } from './base';
+import type { BaseStyleProps, StyleToken } from './style';
+import type { BaseInputProps } from './input';
+import type { BaseFieldProps, LabelPositions } from './field';
+import type { ElementType, PrimitiveProps } from './view';
 
 /** @deprecated For internal use only */
 export interface BaseSwitchFieldProps
