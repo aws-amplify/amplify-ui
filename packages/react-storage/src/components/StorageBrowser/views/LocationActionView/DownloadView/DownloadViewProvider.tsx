@@ -6,7 +6,7 @@ import { useDisplayText } from '../../../displayText';
 import { useResolveTableData } from '../../hooks/useResolveTableData';
 import { DOWNLOAD_TABLE_KEYS, DOWNLOAD_TABLE_RESOLVERS } from '../../utils';
 
-import { DownloadViewProviderProps } from './types';
+import type { DownloadViewProviderProps } from './types';
 
 export function DownloadViewProvider({
   children,
@@ -31,10 +31,10 @@ export function DownloadViewProvider({
     isProcessingComplete,
     statusCounts,
     tasks: items,
-
     onActionCancel,
     onActionStart,
     onActionExit,
+    onTaskRemove,
   } = props;
 
   const message = isProcessingComplete
@@ -46,7 +46,7 @@ export function DownloadViewProvider({
     DOWNLOAD_TABLE_RESOLVERS,
     {
       items,
-      props: { displayText, isProcessing },
+      props: { displayText, isProcessing, onTaskRemove },
     }
   );
 

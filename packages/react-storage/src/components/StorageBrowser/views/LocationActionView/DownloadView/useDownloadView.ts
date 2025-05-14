@@ -1,11 +1,13 @@
+import React from 'react';
 import { isFunction } from '@aws-amplify/ui';
 
-import { FileDataItem } from '../../../actions';
+import type { FileDataItem } from '../../../actions';
+import type { Task } from '../../../tasks';
 import { useLocationItems } from '../../../locationItems';
 import { useStore } from '../../../store';
 import { useAction } from '../../../useAction';
 
-import { DownloadViewState, UseDownloadViewOptions } from './types';
+import type { DownloadViewState, UseDownloadViewOptions } from './types';
 
 // assign to constant to ensure referential equality
 const EMPTY_ITEMS: FileDataItem[] = [];
@@ -47,6 +49,13 @@ export const useDownloadView = (
     if (isFunction(_onExit)) _onExit(current);
   };
 
+  const onTaskRemove = React.useCallback(
+    ({ data }: Task) => {
+      locationItemsDispatch({ type: 'REMOVE_LOCATION_ITEM', id: data.id });
+    },
+    [locationItemsDispatch]
+  );
+
   return {
     isProcessing,
     isProcessingComplete,
@@ -56,5 +65,6 @@ export const useDownloadView = (
     onActionCancel,
     onActionExit,
     onActionStart,
+    onTaskRemove,
   };
 };

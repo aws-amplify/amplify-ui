@@ -1,5 +1,9 @@
-import { DownloadHandlerData, LocationData } from '../../../actions';
-import { ActionViewProps, ActionViewState, ActionViewType } from '../types';
+import type { DownloadHandlerData, LocationData } from '../../../actions';
+import type {
+  ActionViewProps,
+  ActionViewState,
+  ActionViewType,
+} from '../types';
 
 export interface DownloadViewState
   extends ActionViewState<DownloadHandlerData> {}
