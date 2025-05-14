@@ -7,7 +7,7 @@ import type {
 import type {
   CopyViewDisplayText,
   DeleteViewDisplayText,
-  DownloadMultipleViewDisplayText,
+  DownloadViewDisplayText,
   UploadViewDisplayText,
 } from '../../../displayText';
 import type { Task } from '../../../tasks';
@@ -15,7 +15,7 @@ import type { DataTableResolvers } from '../../hooks/useResolveTableData';
 
 export interface CopyActionTask extends Task<CopyHandlerData> {}
 export interface DeleteActionTask extends Task<DeleteHandlerData> {}
-export interface DownloadMultipleActionTask extends Task<DownloadHandlerData> {}
+export interface DownloadActionTask extends Task<DownloadHandlerData> {}
 export interface UploadActionTask extends Task<UploadHandlerData> {}
 
 interface ActionTableResolverProps<TDisplayText, TTask> {
@@ -30,10 +30,10 @@ export interface CopyTableResolverProps
 export interface DeleteTableResolverProps
   extends ActionTableResolverProps<DeleteViewDisplayText, DeleteActionTask> {}
 
-export interface DownloadMultipleTableResolverProps
+export interface DownloadTableResolverProps
   extends ActionTableResolverProps<
-    DownloadMultipleViewDisplayText,
-    DownloadMultipleActionTask
+    DownloadViewDisplayText,
+    DownloadActionTask
   > {}
 
 export interface UploadTableResolverProps
@@ -69,11 +69,11 @@ export interface DeleteTableResolvers
     DeleteActionTask
   > {}
 
-export interface DownloadMultipleTableResolvers
+export interface DownloadTableResolvers
   extends DataTableResolvers<
     DownloadTableKey,
-    DownloadMultipleTableResolverProps,
-    DownloadMultipleActionTask
+    DownloadTableResolverProps,
+    DownloadActionTask
   > {}
 
 export interface UploadTableResolvers
@@ -85,5 +85,5 @@ export interface UploadTableResolvers
 
 export type GetCopyCell = CopyTaskTableResolvers['getCell'];
 export type GetDeleteCell = DeleteTableResolvers['getCell'];
-export type GetDownloadMultipleCell = DownloadMultipleTableResolvers['getCell'];
+export type GetDownloadCell = DownloadTableResolvers['getCell'];
 export type GetUploadCell = UploadTableResolvers['getCell'];

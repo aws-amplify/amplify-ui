@@ -8,7 +8,7 @@ import type {
 import type {
   CopyActionTask,
   DeleteActionTask,
-  DownloadMultipleActionTask,
+  DownloadActionTask,
   GetCopyCell,
   GetDeleteCell,
   UploadActionTask,
@@ -46,7 +46,7 @@ export const getDeleteCellFolder = ({
 
 export const getDownloadCellFolder = ({
   data: { fileKey, key },
-}: DownloadMultipleActionTask): string => key.slice(0, -fileKey.length);
+}: DownloadActionTask): string => key.slice(0, -fileKey.length);
 
 export const getUploadCellProgress = ({
   progress,

@@ -1,21 +1,20 @@
 import { DownloadHandlerData, LocationData } from '../../../actions';
 import { ActionViewProps, ActionViewState, ActionViewType } from '../types';
 
-export interface DownloadMultipleViewState
+export interface DownloadViewState
   extends ActionViewState<DownloadHandlerData> {}
-export interface DownloadMultipleViewProps extends ActionViewProps {}
-export interface UseDownloadMultipleViewOptions {
+export interface DownloadViewProps extends ActionViewProps {}
+export interface UseDownloadViewOptions {
   onExit?: (location?: LocationData) => void;
 }
 
-export interface DownloadMultipleViewProviderProps
-  extends DownloadMultipleViewState {
+export interface DownloadViewProviderProps extends DownloadViewState {
   children?: React.ReactNode;
 }
 
-export interface DownloadMultipleViewType
-  extends ActionViewType<DownloadHandlerData, DownloadMultipleViewProps> {
-  Provider: (props: DownloadMultipleViewProviderProps) => React.JSX.Element;
+export interface DownloadViewType
+  extends ActionViewType<DownloadHandlerData, DownloadViewProps> {
+  Provider: (props: DownloadViewProviderProps) => React.JSX.Element;
   Cancel: () => React.JSX.Element | null;
   Exit: () => React.JSX.Element | null;
   Message: () => React.JSX.Element | null;

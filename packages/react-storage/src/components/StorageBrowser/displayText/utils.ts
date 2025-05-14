@@ -1,10 +1,11 @@
 import { DEFAULT_COPY_VIEW_DISPLAY_TEXT } from './libraries/en/copyView';
 import { DEFAULT_DELETE_VIEW_DISPLAY_TEXT } from './libraries/en/deleteView';
-import { DEFAULT_DOWNLOAD_MULTIPLE_VIEW_DISPLAY_TEXT } from './libraries/en/downloadMultipleView';
+import { DEFAULT_DOWNLOAD_VIEW_DISPLAY_TEXT } from './libraries/en/downloadView';
+
 import type {
   CopyViewDisplayText,
   DeleteViewDisplayText,
-  DownloadMultipleViewDisplayText,
+  DownloadViewDisplayText,
 } from './types';
 
 export const isCopyViewDisplayTextKey = (
@@ -17,9 +18,7 @@ export const isDeleteViewDisplayTextKey = (
 ): value is keyof DeleteViewDisplayText =>
   !!DEFAULT_DELETE_VIEW_DISPLAY_TEXT[value as keyof DeleteViewDisplayText];
 
-export const isDownloadMultipleViewDisplayTextKey = (
+export const isDownloadViewDisplayTextKey = (
   value: string
-): value is keyof DownloadMultipleViewDisplayText =>
-  !!DEFAULT_DOWNLOAD_MULTIPLE_VIEW_DISPLAY_TEXT[
-    value as keyof DownloadMultipleViewDisplayText
-  ];
+): value is keyof DownloadViewDisplayText =>
+  !!DEFAULT_DOWNLOAD_VIEW_DISPLAY_TEXT[value as keyof DownloadViewDisplayText];

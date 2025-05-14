@@ -4,7 +4,7 @@ import type {
   CopyActionConfig,
   CreateFolderActionConfig,
   DeleteActionConfig,
-  DownloadMultipleActionConfig,
+  DownloadActionConfig,
   UploadActionConfig,
 } from './types';
 
@@ -50,8 +50,8 @@ export const uploadActionConfig: UploadActionConfig = {
   handler: defaultHandlers.upload,
 };
 
-export const downloadMultipleActionConfig: DownloadMultipleActionConfig = {
-  viewName: 'DownloadMultipleView',
+export const downloadActionConfig: DownloadActionConfig = {
+  viewName: 'DownloadView',
   actionListItem: {
     disable: (selected) => !selected || selected.length === 0,
     hide: (permissions) => !permissions.includes('get'),
@@ -66,8 +66,7 @@ export const defaultActionViewConfigs = {
   copy: copyActionConfig,
   createFolder: createFolderActionConfig,
   // provide `download` handler only; `download` does not have a dedicated view/config
-  download: defaultHandlers.download,
-  downloadMultiple: downloadMultipleActionConfig,
+  download: downloadActionConfig,
   delete: deleteActionConfig,
   upload: uploadActionConfig,
 };

@@ -24,7 +24,6 @@ export type ListActionState<T = any, K = any> = [
 export interface DefaultActionHandlers {
   upload: UploadHandler;
   download: DownloadHandler;
-  downloadMultiple: DownloadHandler;
   copy: CopyHandler;
   createFolder: CreateFolderHandler;
   delete: DeleteHandler;

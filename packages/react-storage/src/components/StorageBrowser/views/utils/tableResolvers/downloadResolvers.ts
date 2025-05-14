@@ -1,14 +1,14 @@
 import { capitalize, noop } from '@aws-amplify/ui';
 
 import { WithKey } from '../../../components/types';
-import { isDownloadMultipleViewDisplayTextKey } from '../../../displayText';
+import { isDownloadViewDisplayTextKey } from '../../../displayText';
 
 import { STATUS_ICONS, STATUS_LABELS } from './constants';
 import {
-  DownloadMultipleActionTask,
-  DownloadMultipleTableResolvers,
+  DownloadActionTask,
+  DownloadTableResolvers,
   DownloadTableKey,
-  GetDownloadMultipleCell,
+  GetDownloadCell,
 } from './types';
 import {
   // TODO: rename the below util
@@ -30,10 +30,10 @@ export const DOWNLOAD_TABLE_KEYS = [
 const getDownloadCellKey = ({
   key,
   item,
-}: WithKey<{ item: DownloadMultipleActionTask }, DownloadTableKey>) =>
+}: WithKey<{ item: DownloadActionTask }, DownloadTableKey>) =>
   `${key}-${item.data.id}`;
 
-const name: GetDownloadMultipleCell = (data) => {
+const name: GetDownloadCell = (data) => {
   const key = getDownloadCellKey(data);
 
   const { item } = data;
@@ -43,14 +43,14 @@ const name: GetDownloadMultipleCell = (data) => {
   return { key, type: 'text', content: { icon, text } };
 };
 
-const folder: GetDownloadMultipleCell = (data) => {
+const folder: GetDownloadCell = (data) => {
   const key = getDownloadCellKey(data);
   const text = getDownloadCellFolder(data.item);
 
   return { key, type: 'text', content: { text } };
 };
 
-const type: GetDownloadMultipleCell = (data) => {
+const type: GetDownloadCell = (data) => {
   const key = getDownloadCellKey(data);
   const { fileKey } = data.item.data;
 
@@ -59,7 +59,7 @@ const type: GetDownloadMultipleCell = (data) => {
   return { key, type: 'text', content: { text } };
 };
 
-const size: GetDownloadMultipleCell = (data) => {
+const size: GetDownloadCell = (data) => {
   const key = getDownloadCellKey(data);
   const { size: value } = data.item.data;
   const displayValue = getFileSize(value);
@@ -67,7 +67,7 @@ const size: GetDownloadMultipleCell = (data) => {
   return { key, type: 'number', content: { value, displayValue } };
 };
 
-const status: GetDownloadMultipleCell = (data) => {
+const status: GetDownloadCell = (data) => {
   const key = getDownloadCellKey(data);
   const {
     item: { status },
@@ -76,14 +76,14 @@ const status: GetDownloadMultipleCell = (data) => {
 
   const statusLabelKey = STATUS_LABELS[status];
 
-  const text = isDownloadMultipleViewDisplayTextKey(statusLabelKey)
+  const text = isDownloadViewDisplayTextKey(statusLabelKey)
     ? displayText[statusLabelKey]
     : '';
 
   return { key, type: 'text', content: { text } };
 };
 
-const cancel: GetDownloadMultipleCell = (data) => {
+const cancel: GetDownloadCell = (data) => {
   const key = getDownloadCellKey(data);
   const content = getCopyOrDeleteCancelCellContent(data);
 
@@ -105,10 +105,10 @@ const DOWNLOAD_CELL_RESOLVERS = {
    * keep TS happy as "progress" headers were included in display text interfaces
    * and cannot be removed from the tables without a breaking change
    */
-  progress: noop as GetDownloadMultipleCell,
+  progress: noop as GetDownloadCell,
 };
 
-export const DOWNLOAD_TABLE_RESOLVERS: DownloadMultipleTableResolvers = {
+export const DOWNLOAD_TABLE_RESOLVERS: DownloadTableResolvers = {
   getCell: (data) => DOWNLOAD_CELL_RESOLVERS[data.key](data),
   getHeader: ({ key, props: { displayText } }) => {
     const text = displayText[`tableColumn${capitalize(key)}Header`];

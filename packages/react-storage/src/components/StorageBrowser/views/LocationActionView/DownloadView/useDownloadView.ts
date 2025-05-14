@@ -5,17 +5,14 @@ import { useLocationItems } from '../../../locationItems';
 import { useStore } from '../../../store';
 import { useAction } from '../../../useAction';
 
-import {
-  DownloadMultipleViewState,
-  UseDownloadMultipleViewOptions,
-} from './types';
+import { DownloadViewState, UseDownloadViewOptions } from './types';
 
 // assign to constant to ensure referential equality
 const EMPTY_ITEMS: FileDataItem[] = [];
 
-export const useDownloadMultipleView = (
-  options?: UseDownloadMultipleViewOptions
-): DownloadMultipleViewState => {
+export const useDownloadView = (
+  options?: UseDownloadViewOptions
+): DownloadViewState => {
   const { onExit: _onExit } = options ?? {};
 
   const [{ location }, storeDispatch] = useStore();
@@ -23,7 +20,7 @@ export const useDownloadMultipleView = (
   const { current } = location;
   const { fileDataItems: items = EMPTY_ITEMS } = locationItems;
 
-  const [processState, handleProcess] = useAction('downloadMultiple', {
+  const [processState, handleProcess] = useAction('download', {
     items,
   });
 

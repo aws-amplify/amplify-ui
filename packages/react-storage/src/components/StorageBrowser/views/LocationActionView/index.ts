@@ -13,14 +13,11 @@ export type {
 } from './DeleteView';
 export { DeleteView, useDeleteView } from './DeleteView';
 export type {
-  DownloadMultipleViewProps,
-  DownloadMultipleViewType,
-  DownloadMultipleViewState,
-} from './DownloadMultipleView';
-export {
-  DownloadMultipleView,
-  useDownloadMultipleView,
-} from './DownloadMultipleView';
+  DownloadViewProps,
+  DownloadViewType,
+  DownloadViewState,
+} from './DownloadView';
+export { DownloadView, useDownloadView } from './DownloadView';
 export { LocationActionView } from './LocationActionView';
 export type {
   UploadViewProps,

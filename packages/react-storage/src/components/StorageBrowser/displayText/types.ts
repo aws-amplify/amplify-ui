@@ -142,7 +142,7 @@ export interface DefaultDeleteViewDisplayText
   tableColumnProgressHeader?: string;
 }
 
-export interface DefaultDownloadMultipleViewDisplayText
+export interface DefaultDownloadViewDisplayText
   extends DefaultActionViewDisplayText<DownloadHandlerData> {}
 
 export interface DefaultUploadViewDisplayText
@@ -161,7 +161,7 @@ export interface DefaultStorageBrowserDisplayText {
   CopyView: DefaultCopyViewDisplayText;
   CreateFolderView: DefaultCreateFolderViewDisplayText;
   DeleteView: DefaultDeleteViewDisplayText;
-  DownloadMultipleView: DefaultDownloadMultipleViewDisplayText;
+  DownloadView: DefaultDownloadViewDisplayText;
   LocationsView: DefaultLocationsViewDisplayText;
   LocationDetailView: DefaultLocationDetailViewDisplayText;
   UploadView: DefaultUploadViewDisplayText;
@@ -176,8 +176,8 @@ export interface CopyViewDisplayText
 export interface DeleteViewDisplayText
   extends Partial<DefaultDeleteViewDisplayText> {}
 
-export interface DownloadMultipleViewDisplayText
-  extends Partial<DefaultDownloadMultipleViewDisplayText> {}
+export interface DownloadViewDisplayText
+  extends Partial<DefaultDownloadViewDisplayText> {}
 
 export interface LocationsViewDisplayText
   extends Partial<DefaultLocationsViewDisplayText> {}
@@ -196,7 +196,7 @@ export interface StorageBrowserDisplayText {
   LocationDetailView?: LocationDetailViewDisplayText;
   UploadView?: UploadViewDisplayText;
   DeleteView?: DeleteViewDisplayText;
-  DownloadMultipleView?: DownloadMultipleViewDisplayText;
+  DownloadView?: DownloadViewDisplayText;
   CopyView?: CopyViewDisplayText;
   CreateFolderView?: CreateFolderViewDisplayText;
 }

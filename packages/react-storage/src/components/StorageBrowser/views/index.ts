@@ -3,7 +3,7 @@ export type {
   CopyViewType,
   CreateFolderViewType,
   DeleteViewType,
-  DownloadMultipleViewType,
+  DownloadViewType,
   LocationActionViewProps,
   LocationActionViewType,
   UploadViewType,
@@ -11,7 +11,7 @@ export type {
 export {
   CopyView,
   CreateFolderView,
-  DownloadMultipleView,
+  DownloadView,
   DeleteView,
   LocationActionView,
   UploadView,

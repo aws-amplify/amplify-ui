@@ -6,13 +6,13 @@ import { useDisplayText } from '../../../displayText';
 import { useResolveTableData } from '../../hooks/useResolveTableData';
 import { DOWNLOAD_TABLE_KEYS, DOWNLOAD_TABLE_RESOLVERS } from '../../utils';
 
-import { DownloadMultipleViewProviderProps } from './types';
+import { DownloadViewProviderProps } from './types';
 
-export function DownloadMultipleViewProvider({
+export function DownloadViewProvider({
   children,
   ...props
-}: DownloadMultipleViewProviderProps): React.JSX.Element {
-  const { DownloadMultipleView: displayText } = useDisplayText();
+}: DownloadViewProviderProps): React.JSX.Element {
+  const { DownloadView: displayText } = useDisplayText();
 
   const {
     actionCancelLabel,

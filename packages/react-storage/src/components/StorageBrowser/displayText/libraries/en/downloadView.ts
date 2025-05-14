@@ -1,10 +1,10 @@
 import { DEFAULT_ACTION_VIEW_DISPLAY_TEXT } from './shared';
-import { DefaultDownloadMultipleViewDisplayText } from '../../types';
+import { DefaultDownloadViewDisplayText } from '../../types';
 
-export const DEFAULT_DOWNLOAD_MULTIPLE_VIEW_DISPLAY_TEXT: DefaultDownloadMultipleViewDisplayText =
+export const DEFAULT_DOWNLOAD_VIEW_DISPLAY_TEXT: DefaultDownloadViewDisplayText =
   {
     ...DEFAULT_ACTION_VIEW_DISPLAY_TEXT,
-    title: 'DownloadMultiple',
+    title: 'Download',
     actionStartLabel: 'Download',
     getActionCompleteMessage: (data) => {
       const { counts } = data ?? {};

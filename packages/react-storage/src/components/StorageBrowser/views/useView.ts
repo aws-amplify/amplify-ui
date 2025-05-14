@@ -9,8 +9,8 @@ import {
   useCreateFolderView,
   useUploadView,
   useDeleteView,
-  DownloadMultipleViewState,
-  useDownloadMultipleView,
+  DownloadViewState,
+  useDownloadView,
 } from './LocationActionView';
 import type { LocationDetailViewState } from './LocationDetailView';
 import { useLocationDetailView } from './LocationDetailView';
@@ -21,7 +21,7 @@ interface DefaultUseViewStates {
   Copy: CopyViewState;
   CreateFolder: CreateFolderViewState;
   Delete: DeleteViewState;
-  DownloadMultiple: DownloadMultipleViewState;
+  Download: DownloadViewState;
   LocationDetail: LocationDetailViewState;
   Locations: LocationsViewState;
   Upload: UploadViewState;
@@ -35,7 +35,7 @@ export const USE_VIEW_HOOKS: UseViewHooks = {
   Copy: useCopyView,
   CreateFolder: useCreateFolderView,
   Delete: useDeleteView,
-  DownloadMultiple: useDownloadMultipleView,
+  Download: useDownloadView,
   LocationDetail: useLocationDetailView,
   Locations: useLocationsView,
   Upload: useUploadView,

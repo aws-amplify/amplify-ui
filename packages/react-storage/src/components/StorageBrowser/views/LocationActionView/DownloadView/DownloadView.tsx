@@ -11,20 +11,17 @@ import { TitleControl } from '../../../controls/TitleControl';
 
 import { STORAGE_BROWSER_BLOCK } from '../../../components';
 
-import { DownloadMultipleViewProvider } from './DownloadMultipleViewProvider';
-import { useDownloadMultipleView } from './useDownloadMultipleView';
-import { DownloadMultipleViewType } from './types';
+import { DownloadViewProvider } from './DownloadViewProvider';
+import { useDownloadView } from './useDownloadView';
+import { DownloadViewType } from './types';
 import { classNames } from '@aws-amplify/ui';
 
-export const DownloadMultipleView: DownloadMultipleViewType = ({
-  className,
-  ...props
-}) => {
-  const state = useDownloadMultipleView(props);
+export const DownloadView: DownloadViewType = ({ className, ...props }) => {
+  const state = useDownloadView(props);
 
   return (
     <ViewElement className={classNames(STORAGE_BROWSER_BLOCK, className)}>
-      <DownloadMultipleViewProvider {...state}>
+      <DownloadViewProvider {...state}>
         <ActionExitControl />
         <TitleControl />
         <ViewElement className={`${STORAGE_BROWSER_BLOCK}__data-table`}>
@@ -42,19 +39,19 @@ export const DownloadMultipleView: DownloadMultipleViewType = ({
             <ActionStartControl />
           </ViewElement>
         </ViewElement>
-      </DownloadMultipleViewProvider>
+      </DownloadViewProvider>
     </ViewElement>
   );
 };
 
-DownloadMultipleView.displayName = 'DownloadMultipleView';
+DownloadView.displayName = 'DownloadView';
 
-DownloadMultipleView.Provider = DownloadMultipleViewProvider;
+DownloadView.Provider = DownloadViewProvider;
 
-DownloadMultipleView.Cancel = ActionCancelControl;
-DownloadMultipleView.Exit = ActionExitControl;
-DownloadMultipleView.Message = MessageControl;
-DownloadMultipleView.Start = ActionStartControl;
-DownloadMultipleView.Statuses = StatusDisplayControl;
-DownloadMultipleView.TasksTable = DataTableControl;
-DownloadMultipleView.Title = TitleControl;
+DownloadView.Cancel = ActionCancelControl;
+DownloadView.Exit = ActionExitControl;
+DownloadView.Message = MessageControl;
+DownloadView.Start = ActionStartControl;
+DownloadView.Statuses = StatusDisplayControl;
+DownloadView.TasksTable = DataTableControl;
+DownloadView.Title = TitleControl;

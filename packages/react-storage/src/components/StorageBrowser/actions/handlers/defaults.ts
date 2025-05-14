@@ -16,7 +16,6 @@ export interface DefaultHandlers {
   createFolder: CreateFolderHandler;
   delete: DeleteHandler;
   download: DownloadHandler;
-  downloadMultiple: DownloadHandler;
   listLocationItems: ListLocationItemsHandler;
   upload: UploadHandler;
 }
@@ -26,7 +25,6 @@ export const defaultHandlers: DefaultHandlers = {
   createFolder: createFolderHandler,
   delete: deleteHandler,
   download: downloadHandler,
-  downloadMultiple: downloadHandler,
   listLocationItems: listLocationItemsHandler,
   upload: uploadHandler,
 };
