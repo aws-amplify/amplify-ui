@@ -63,7 +63,7 @@ describe('useFiles', () => {
     };
     const mockNextState = {
       items: [fileItemOne, fileItemTwo],
-      invalidFiles: undefined,
+      invalidItems: undefined,
     };
     filesReducerSpy.mockReturnValueOnce(mockNextState);
 
@@ -102,14 +102,14 @@ describe('useFiles', () => {
     });
     expect(filesReducerSpy).toHaveLastReturnedWith({
       items: [fileItemTwo],
-      invalidFiles: undefined,
+      invalidItems: undefined,
     });
 
     const [updatedState] = result.current;
 
     const expectedUpdatedState = {
       items: [fileItemTwo],
-      invalidFiles: undefined,
+      invalidItems: undefined,
     };
 
     expect(updatedState).toStrictEqual(expectedUpdatedState);

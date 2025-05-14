@@ -94,7 +94,7 @@ const testLocation: LocationState = {
 
 const mockLocationItemsState = { fileDataItems: undefined };
 const mockStoreState = { location: testLocation, actionType: undefined };
-const mockFileItemsState = { items: undefined, invalidFiles: undefined };
+const mockFilesState = { items: undefined, invalidItems: undefined };
 
 const mockLocation = { current: undefined, path: '', key: '' };
 const mockListState = {
@@ -126,7 +126,7 @@ describe('useLocationDetailView', () => {
 
   beforeEach(() => {
     mockUseStore.mockReturnValue([mockStoreState, mockStoreDispatch]);
-    mockUseFiles.mockReturnValue([mockFileItemsState, mockFilesDispatch]);
+    mockUseFiles.mockReturnValue([mockFilesState, mockFilesDispatch]);
     mockUseLocationItems.mockReturnValue([
       mockLocationItemsState,
       mockLocationItemsDispatch,

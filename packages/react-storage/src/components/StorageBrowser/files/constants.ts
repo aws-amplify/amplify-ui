@@ -3,7 +3,7 @@ import type { FilesState } from './types';
 
 export const DEFAULT_STATE: FilesState = {
   items: undefined,
-  invalidFiles: undefined,
+  invalidItems: undefined,
 };
 
 export const DEFAULT_RESOLVED_FILES: ResolvedFiles = {

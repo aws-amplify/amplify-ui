@@ -12,11 +12,10 @@ export const filesReducer: React.Reducer<
 
       const items = processFileItems(state.items, input.files);
 
-      // `invalidFiles` should only track invalid files from
-      // the latest group of files added for uploading
-      const invalidFiles = processFileItems(undefined, input.invalidFiles);
+      // `invalidItems` should only track invalid items from latest `add` action
+      const invalidItems = processFileItems(undefined, input.invalidFiles);
 
-      return { items, invalidFiles };
+      return { items, invalidItems };
     }
     case 'REMOVE_FILE_ITEM': {
       const { items: prevItems } = state;

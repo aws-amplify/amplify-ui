@@ -56,9 +56,9 @@ const taskTwo: Task<FileItem> = {
 };
 
 describe('useUploadView', () => {
-  const mockUserFileItemsState = {
+  const mockUserFilesState = {
     items: undefined,
-    invalidFiles: undefined,
+    invalidItems: undefined,
   };
 
   const mockUserStoreState = {
@@ -77,7 +77,7 @@ describe('useUploadView', () => {
 
   beforeEach(() => {
     mockUseStore.mockReturnValue([mockUserStoreState, mockStoreDispatch]);
-    mockUseFiles.mockReturnValue([mockUserFileItemsState, mockFilesDispatch]);
+    mockUseFiles.mockReturnValue([mockUserFilesState, mockFilesDispatch]);
     mockUseAction.mockReturnValue([
       {
         isProcessing: false,
@@ -111,7 +111,7 @@ describe('useUploadView', () => {
 
   it('should show invalid files if exists', () => {
     mockUseFiles.mockReturnValue([
-      { items: undefined, invalidFiles: [invalidFileItem] },
+      { items: undefined, invalidItems: [invalidFileItem] },
       mockFilesDispatch,
     ]);
 

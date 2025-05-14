@@ -15,7 +15,8 @@ export const useUploadView = (
   const { onExit: _onExit } = options ?? {};
 
   const [{ location }, storeDispatch] = useStore();
-  const [{ items: fileItems, invalidFiles }, filesDispatch] = useFiles();
+  const [{ items: fileItems, invalidItems: invalidFiles }, filesDispatch] =
+    useFiles();
   const { current } = location;
 
   const [isOverwritingEnabled, setIsOverwritingEnabled] = React.useState(

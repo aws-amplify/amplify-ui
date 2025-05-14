@@ -22,7 +22,7 @@ export type FileItems = FileItem[];
 
 export interface FilesState {
   items: FileItems | undefined;
-  invalidFiles: FileItems | undefined;
+  invalidItems: FileItems | undefined;
 }
 
 export type FilesContextType = [FilesState, HandleFilesAction];

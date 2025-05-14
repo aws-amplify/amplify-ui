@@ -54,7 +54,7 @@ describe('filesReducer', () => {
     const incoming = [fileOne, fileTwo, fileThree];
     const previous = {
       items: [fileItemOne, fileItemTwo],
-      invalidFiles: undefined,
+      invalidItems: undefined,
     };
 
     const output = filesReducer(previous, {
@@ -64,7 +64,7 @@ describe('filesReducer', () => {
 
     const expected = {
       items: [fileItemOne, fileItemThree, fileItemTwo],
-      invalidFiles: undefined,
+      invalidItems: undefined,
     };
 
     expect(output).toStrictEqual(expected);
@@ -74,7 +74,7 @@ describe('filesReducer', () => {
     const incoming = [invalidFileOne];
     const previous = {
       items: [fileItemOne, fileItemTwo],
-      invalidFiles: undefined,
+      invalidItems: undefined,
     };
 
     const output = filesReducer(previous, {
@@ -84,7 +84,7 @@ describe('filesReducer', () => {
 
     const expected = {
       items: [fileItemOne, fileItemTwo],
-      invalidFiles: [invalidFileItemOne],
+      invalidItems: [invalidFileItemOne],
     };
 
     expect(output).toStrictEqual(expected);
@@ -93,7 +93,7 @@ describe('filesReducer', () => {
   it('returns the same state on `add files` action when files and/or invalidFiles are `undefined`', () => {
     const previous = {
       items: [fileItemOne, fileItemTwo],
-      invalidFiles: undefined,
+      invalidItems: undefined,
     };
 
     const outputOne = filesReducer(previous, {
@@ -126,7 +126,7 @@ describe('filesReducer', () => {
     const incoming: File[] = [];
     const previous = {
       items: [fileItemOne, fileItemTwo],
-      invalidFiles: undefined,
+      invalidItems: undefined,
     };
 
     const outputOne = filesReducer(previous, {
@@ -158,7 +158,7 @@ describe('filesReducer', () => {
   it('resets `invalidFiles` state on `add files` action to track latest invalid files passed in', () => {
     const previous = {
       items: [fileItemTwo],
-      invalidFiles: [invalidFileItemOne],
+      invalidItems: [invalidFileItemOne],
     };
 
     const output = filesReducer(previous, {
@@ -169,7 +169,7 @@ describe('filesReducer', () => {
 
     const expected = {
       items: [fileItemThree, fileItemTwo],
-      invalidFiles: [invalidFileItemTwo],
+      invalidItems: [invalidFileItemTwo],
     };
 
     expect(output).toStrictEqual(expected);
@@ -178,7 +178,7 @@ describe('filesReducer', () => {
   it('returns the expected state on `remove` action', () => {
     const previous = {
       items: [fileItemOne, fileItemTwo],
-      invalidFiles: undefined,
+      invalidItems: undefined,
     };
     const targetId = fileItemOne.id;
 
@@ -189,7 +189,7 @@ describe('filesReducer', () => {
 
     const expected = {
       items: [fileItemTwo],
-      invalidFiles: undefined,
+      invalidItems: undefined,
     };
 
     expect(output).toStrictEqual(expected);
@@ -211,7 +211,7 @@ describe('filesReducer', () => {
   it('returns the same state on `remove` action when no items are removed', () => {
     const previous = {
       items: [fileItemOne, fileItemTwo],
-      invalidFiles: undefined,
+      invalidItems: undefined,
     };
     const targetId = 'not a real id lol';
 
@@ -227,7 +227,7 @@ describe('filesReducer', () => {
   it('returns the expected state on `remove` action when all items are removed', () => {
     const previous = {
       items: [fileItemOne],
-      invalidFiles: undefined,
+      invalidItems: undefined,
     };
     const targetId = fileItemOne.id;
 
@@ -242,7 +242,7 @@ describe('filesReducer', () => {
   it('returns the expected state on reset `action`', () => {
     const previous = {
       items: [fileItemOne, fileItemTwo],
-      invalidFiles: undefined,
+      invalidItems: undefined,
     };
 
     const output = filesReducer(previous, { type: 'RESET_FILE_ITEMS' });

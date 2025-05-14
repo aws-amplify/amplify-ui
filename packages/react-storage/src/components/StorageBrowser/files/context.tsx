@@ -23,7 +23,7 @@ export const { FilesContext, useFiles } = createContextUtilities({
 export function FilesProvider({
   children,
 }: FilesProviderProps): React.JSX.Element {
-  const [items, dispatch] = React.useReducer(filesReducer, DEFAULT_STATE);
+  const [state, dispatch] = React.useReducer(filesReducer, DEFAULT_STATE);
 
   const [fileInput, handleFileSelect] = useFileSelect((nextFiles) => {
     const { valid: files, invalid: invalidFiles } = resolveFiles(nextFiles);
@@ -47,8 +47,8 @@ export function FilesProvider({
   );
 
   const value: FilesContextType = React.useMemo(
-    () => [items, handleFilesAction],
-    [items, handleFilesAction]
+    () => [state, handleFilesAction],
+    [state, handleFilesAction]
   );
 
   return (
