@@ -25,13 +25,13 @@ export const useUploadView = (
 
   const items = React.useMemo(
     () =>
-      (fileItems ?? []).reduce((curr: UploadHandlerData[], item) => {
-        curr.push({
+      (fileItems ?? []).reduce((acc: UploadHandlerData[], item) => {
+        acc.push({
           ...item,
           key: `${location.key}${item.key}`,
           preventOverwrite: !isOverwritingEnabled,
         });
-        return curr;
+        return acc;
       }, []),
     [fileItems, isOverwritingEnabled, location.key]
   );
