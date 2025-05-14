@@ -79,36 +79,23 @@ export interface VideoAssociatedParams {
 
 export interface LivenessContext {
   challengeId: string | undefined;
-
   colorSequenceDisplay: ColorSequenceDisplay | undefined;
   componentProps: FaceLivenessDetectorCoreProps | undefined;
-
   errorMessage: string | undefined;
   errorState: ErrorState | undefined;
-
   faceMatchAssociatedParams: FaceMatchAssociatedParams | undefined;
-
   faceMatchStateBeforeStart: FaceMatchState | undefined;
-
   failedAttempts: number | undefined;
-
   freshnessColorAssociatedParams: FreshnessColorAssociatedParams | undefined;
-
   isFaceFarEnoughBeforeRecording: boolean | undefined;
-
   isRecordingStopped: boolean | undefined;
-
   livenessStreamProvider: StreamRecorder | undefined;
-
   maxFailedAttempts: number | undefined;
-
   ovalAssociatedParams: OvalAssociatedParams | undefined;
-
   parsedSessionInformation: ParsedSessionInformation | undefined;
   responseStreamActorRef: ActorRef<any> | undefined;
   serverSessionInformation: SessionInformation | undefined;
   shouldDisconnect: boolean | undefined;
-
   videoAssociatedParams: VideoAssociatedParams | undefined;
 }
 

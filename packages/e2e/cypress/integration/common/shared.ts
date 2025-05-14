@@ -408,12 +408,6 @@ Then('I do not see {string}', (message: string) => {
     .should('not.exist');
 });
 
-Then('I do not see {string}', (message: string) => {
-  cy.findByRole('document')
-    .contains(new RegExp(escapeRegExp(message), 'i'))
-    .should('not.exist');
-});
-
 Then('I see {string} element', (id: string) => {
   cy.findByTestId(id).should('exist');
 });
