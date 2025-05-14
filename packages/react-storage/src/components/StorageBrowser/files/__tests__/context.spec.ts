@@ -78,7 +78,7 @@ describe('useFiles', () => {
     });
 
     expect(resolveFilesSpy).toHaveBeenCalledTimes(1);
-    expect(resolveFilesSpy).toHaveBeenCalledWith([fileOne, fileTwo]);
+    expect(resolveFilesSpy).toHaveBeenCalledWith([fileOne, fileTwo], undefined);
     expect(resolveFilesSpy).toHaveReturnedWith({
       valid: [fileOne, fileTwo],
       invalid: undefined,
