@@ -1,2 +1,2 @@
 export { default as useMessageImage } from './useMessageImage';
-export { ImageDimensions } from './types';
+export type { ImageDimensions } from './types';

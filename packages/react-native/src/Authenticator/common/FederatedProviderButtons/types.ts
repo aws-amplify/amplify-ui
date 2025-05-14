@@ -1,6 +1,6 @@
-import { StyleProp, TextStyle, ViewProps, ViewStyle } from 'react-native';
+import type { StyleProp, TextStyle, ViewProps, ViewStyle } from 'react-native';
 
-import { AuthenticatorMachineContext } from '@aws-amplify/ui-react-core';
+import type { AuthenticatorMachineContext } from '@aws-amplify/ui-react-core';
 
 export interface FederatedProviderButtonsProps
   extends Pick<

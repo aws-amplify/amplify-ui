@@ -3,7 +3,7 @@ import React from 'react';
 import { STORAGE_BROWSER_BLOCK } from '../../../base';
 import { ButtonElement, IconElement } from '../../../elements';
 
-import { SortDirection } from '../types';
+import type { SortDirection } from '../types';
 
 export type SortHeaderProps = {
   content: {

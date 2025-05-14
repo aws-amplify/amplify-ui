@@ -20,7 +20,7 @@ import { FoldersPaginationControl } from './FoldersPaginationControl';
 import { FoldersTableControl } from './FoldersTableControl';
 import { ActionDestinationControl } from '../../../controls/ActionDestinationControl';
 
-import { CopyViewType } from './types';
+import type { CopyViewType } from './types';
 import { useCopyView } from './useCopyView';
 import { classNames } from '@aws-amplify/ui';
 

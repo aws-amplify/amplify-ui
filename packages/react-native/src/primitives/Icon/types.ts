@@ -1,4 +1,4 @@
-import { ColorValue, ImageProps, ImageStyle } from 'react-native';
+import type { ColorValue, ImageProps, ImageStyle } from 'react-native';
 
 export type Size = 'xs' | 'small' | 'medium' | 'large' | 'xl';
 export type IconSizes = Record<Size, number>;

@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { LocationState } from '../../../store';
+import type { LocationState } from '../../../store';
 import { useList } from '../../../useAction';
 
 import { usePaginate } from '../../hooks/usePaginate';
 import { useSearch } from '../../hooks/useSearch';
 
-import { FoldersState } from './types';
+import type { FoldersState } from './types';
 
 const DEFAULT_PAGE_SIZE = 100;
 export const DEFAULT_LIST_OPTIONS = {
@@ -31,8 +31,7 @@ export const useFolders = ({
   const [{ value, hasError, isLoading, message }, handleList] =
     useList('folderItems');
 
-  const { items, nextToken, search } = value;
-  const { hasExhaustedSearch = false } = search ?? {};
+  const { items, nextToken, hasExhaustedSearch = false } = value;
 
   const onInitialize = React.useCallback(() => {
     handleList({

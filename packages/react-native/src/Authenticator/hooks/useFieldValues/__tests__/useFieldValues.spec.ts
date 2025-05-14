@@ -1,17 +1,20 @@
 import { act, renderHook } from '@testing-library/react-hooks';
-import { NativeSyntheticEvent, TextInputFocusEventData } from 'react-native';
+import type {
+  NativeSyntheticEvent,
+  TextInputFocusEventData,
+} from 'react-native';
 
 import { ConsoleLogger as Logger } from 'aws-amplify/utils';
 import {
   UnverifiedContactMethodType,
   authenticatorTextUtil,
 } from '@aws-amplify/ui';
-import {
+import type {
   RadioFieldOptions,
   TextFieldOptionsType,
   TypedField,
 } from '../../types';
-import { UseFieldValuesParams } from '../types';
+import type { UseFieldValuesParams } from '../types';
 import useFieldValues from '../useFieldValues';
 
 const warnSpy = jest.spyOn(Logger.prototype, 'warn').mockImplementation();

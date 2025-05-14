@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StorageBrowserIconType } from './StorageBrowserIcons';
+import type { StorageBrowserIconType } from './StorageBrowserIcons';
 
 type ComponentIcons<Keys extends string> = {
   [Key in Keys]?: React.ReactNode;

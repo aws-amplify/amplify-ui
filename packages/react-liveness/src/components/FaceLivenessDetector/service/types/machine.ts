@@ -1,5 +1,5 @@
-import { ActorRef, Interpreter, State } from 'xstate';
-import {
+import type { ActorRef, Interpreter, State } from 'xstate';
+import type {
   ValidationException,
   InternalServerException,
   ThrottlingException,
@@ -7,15 +7,15 @@ import {
   SessionInformation,
 } from '@aws-sdk/client-rekognitionstreaming';
 
-import {
+import type { StreamRecorder, ColorSequenceDisplay } from '../utils';
+import type { ErrorState } from './error';
+import type { Face, FaceDetection } from './faceDetection';
+import type {
   FaceLivenessDetectorCoreProps,
   FaceMatchState,
   LivenessOvalDetails,
   IlluminationState,
 } from './liveness';
-import { ErrorState } from './error';
-import { StreamRecorder, ColorSequenceDisplay } from '../utils';
-import { Face, FaceDetection } from './faceDetection';
 
 export interface FaceMatchAssociatedParams {
   illuminationState?: IlluminationState;

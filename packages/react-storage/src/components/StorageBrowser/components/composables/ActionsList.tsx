@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { DropdownMenu } from '../base';
-import { StorageBrowserIconType } from '../elements';
+import type { StorageBrowserIconType } from '../elements';
 
 export interface ActionListItem {
   isDisabled?: boolean;

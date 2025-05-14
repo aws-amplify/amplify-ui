@@ -1,7 +1,7 @@
 import { ConsoleLogger as Logger } from 'aws-amplify/utils';
 import { authenticatorTextUtil } from '@aws-amplify/ui';
 
-import { TextFieldOptionsType, TypedField } from '../../types';
+import type { TextFieldOptionsType, TypedField } from '../../types';
 import {
   getRouteTypedFields,
   getSanitizedSelectMfaTypeFields,

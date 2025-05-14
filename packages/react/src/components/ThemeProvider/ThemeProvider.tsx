@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { DirectionProvider } from '@radix-ui/react-direction';
 
-import { createTheme, Theme, WebTheme } from '@aws-amplify/ui';
+import type { Theme, WebTheme } from '@aws-amplify/ui';
+import { createTheme } from '@aws-amplify/ui';
 
 import { ThemeContext } from './ThemeContext';
 import { ThemeStyle } from './ThemeStyle';

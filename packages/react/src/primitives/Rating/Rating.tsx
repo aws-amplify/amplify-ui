@@ -8,7 +8,7 @@ import { IconStar, useIcons } from '../Icon';
 import { isIconFilled, isIconEmpty, isIconMixed } from './utils';
 import { RatingIcon } from './RatingIcon';
 import { RatingMixedIcon } from './RatingMixedIcon';
-import {
+import type {
   BaseRatingProps,
   RatingProps,
   ForwardRefPrimitive,

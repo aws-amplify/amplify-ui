@@ -1,7 +1,9 @@
 import * as React from 'react';
 
-import { Hub, HubCallback } from '@aws-amplify/core';
-import { AuthUser, getCurrentUser } from 'aws-amplify/auth';
+import type { HubCallback } from '@aws-amplify/core';
+import { Hub } from '@aws-amplify/core';
+import type { AuthUser } from 'aws-amplify/auth';
+import { getCurrentUser } from 'aws-amplify/auth';
 
 export interface UseAuthResult {
   user?: AuthUser;

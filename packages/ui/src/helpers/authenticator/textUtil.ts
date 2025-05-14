@@ -1,11 +1,11 @@
-import { SocialProvider } from '../../types';
-import {
+import type { SocialProvider } from '../../types';
+import type {
   AuthMFAType,
   ChallengeName,
   V5CodeDeliveryDetails,
 } from '../../machines/authenticator/types';
 import { translate, DefaultTexts } from '../../i18n';
-import { AuthenticatorRoute } from './facade';
+import type { AuthenticatorRoute } from './facade';
 import { defaultTexts } from '../../i18n/dictionaries';
 
 /**

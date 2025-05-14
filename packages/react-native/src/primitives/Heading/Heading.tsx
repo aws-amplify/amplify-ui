@@ -3,7 +3,7 @@ import { Text } from 'react-native';
 
 import { useTheme } from '../../theme';
 import { getThemedStyles } from './styles';
-import { HeadingProps } from './types';
+import type { HeadingProps } from './types';
 
 export default function Heading({
   accessibilityRole = 'header',

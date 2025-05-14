@@ -1,4 +1,4 @@
-import { FileItem, LocationItemType } from '../actions';
+import type { FileItem, LocationItemType } from '../actions';
 
 /**
  * native OS file picker type. to restrict selectable file types, define the picker types

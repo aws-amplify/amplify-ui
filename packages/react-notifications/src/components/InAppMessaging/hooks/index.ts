@@ -1,7 +1,7 @@
 export { useMessageImage } from './useMessageImage';
-export {
+export type {
   MessageComponentStyles,
   MessageOverrideStyle,
-  useMessageProps,
   UseMessageProps,
 } from './useMessageProps';
+export { useMessageProps } from './useMessageProps';

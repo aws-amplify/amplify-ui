@@ -1,5 +1,5 @@
 // features
-export {
+export type {
   AuthenticatorComponentDefaults,
   AuthenticatorComponentDefaultProps,
   AuthenticatorComponentOverrides,
@@ -8,41 +8,47 @@ export {
   AuthenticatorHeaderComponent,
   AuthenticatorLegacyField,
   AuthenticatorMachineContext,
-  AuthenticatorProvider,
   AuthenticatorRouteComponentKey,
   AuthenticatorRouteComponentName,
+  UseAuthenticator,
+  UseAuthenticatorRoute,
+} from './Authenticator';
+export {
+  AuthenticatorProvider,
   isAuthenticatorComponentRouteKey,
   resolveAuthenticatorComponents,
   useAuthenticator,
   useAuthenticatorRoute,
-  UseAuthenticator,
   useAuthenticatorInitMachine,
-  UseAuthenticatorRoute,
 } from './Authenticator';
 
-export {
-  FormProvider,
+export type {
   FormProviderProps,
-  RenderNothing,
   FormValues,
   FormHandle,
-  useField,
-  useForm,
   UseForm,
   Validate,
   Validator,
+} from './components';
+export {
+  FormProvider,
+  RenderNothing,
+  useField,
+  useForm,
   withFormProvider,
 } from './components';
 
-export {
+export type {
   AsyncReducer,
   AsyncReducerState,
+  UseDeprecationWarning,
+  UseDropZoneParams,
+} from './hooks';
+export {
   useAsyncReducer,
   useControlledReducer,
   useDeprecationWarning,
-  UseDeprecationWarning,
   useDropZone,
-  UseDropZoneParams,
   useGetUrl,
   useHasValueUpdated,
   usePreviousValue,
@@ -50,6 +56,6 @@ export {
   useTimeout,
 } from './hooks';
 
-export { MergeProps } from './types';
+export type { MergeProps } from './types';
 
 export { createContextUtilities } from './utils';

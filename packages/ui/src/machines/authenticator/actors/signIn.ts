@@ -1,7 +1,7 @@
 import { createMachine, sendUpdate } from 'xstate';
+import type { ConfirmSignInInput } from 'aws-amplify/auth';
 import {
   confirmSignIn,
-  ConfirmSignInInput,
   fetchUserAttributes,
   resetPassword,
   signInWithRedirect,
@@ -12,7 +12,12 @@ import actions from '../actions';
 import { defaultServices } from '../defaultServices';
 import guards from '../guards';
 
-import { AuthEvent, ActorDoneData, SignInContext, AuthContext } from '../types';
+import type {
+  AuthEvent,
+  ActorDoneData,
+  SignInContext,
+  AuthContext,
+} from '../types';
 
 import {
   getConfirmSignInFormValuesKey,

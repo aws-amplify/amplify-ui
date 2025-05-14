@@ -4,13 +4,13 @@ import { isFunction, isUndefined } from '@aws-amplify/ui';
 
 import { usePaginate } from '../hooks/usePaginate';
 
-import {
+import type {
   DownloadHandlerData,
   FileDataItem,
   FileData,
   LocationData,
-  useActionConfigs,
 } from '../../actions';
+import { useActionConfigs } from '../../actions';
 import { useFiles } from '../../files';
 import { useLocationItems } from '../../locationItems';
 import { useStore } from '../../store';
@@ -18,9 +18,12 @@ import { useAction, useList } from '../../useAction';
 
 import { useSearch } from '../hooks/useSearch';
 
-import { Task } from '../../tasks';
+import type { Task } from '../../tasks';
 
-import { LocationDetailViewState, UseLocationDetailViewOptions } from './types';
+import type {
+  LocationDetailViewState,
+  UseLocationDetailViewOptions,
+} from './types';
 
 const DEFAULT_PAGE_SIZE = 100;
 export const DEFAULT_LIST_OPTIONS = {
@@ -65,8 +68,7 @@ export const useLocationDetailView = (
     useList('locationItems');
 
   // set up pagination
-  const { items, nextToken, search } = value;
-  const { hasExhaustedSearch = false } = search ?? {};
+  const { items, nextToken, hasExhaustedSearch = false } = value;
 
   const onPaginate = () => {
     if (hasInvalidPrefix || !nextToken) return;

@@ -3,16 +3,18 @@ export {
   STORAGE_BROWSER_BLOCK_TO_BE_UPDATED,
 } from './base';
 
-export { Composables, DEFAULT_COMPOSABLES } from './composables';
-export { ActionListItem } from './composables/ActionsList';
+export type { Composables } from './composables';
+export { DEFAULT_COMPOSABLES } from './composables';
+export type { ActionListItem } from './composables/ActionsList';
 export * from './composables/DataTable';
-export { MessageProps, MessageType } from './composables/Message';
+export type { MessageProps, MessageType } from './composables/Message';
 
-export {
-  ComponentsProvider,
+export type {
   ComponentsProviderProps,
   StorageBrowserComponents,
 } from './ComponentsProvider';
+export { ComponentsProvider } from './ComponentsProvider';
 export { componentsDefault } from './defaults';
-export { StorageBrowserIconType, ViewElement } from './elements';
-export { WithKey } from './types';
+export type { StorageBrowserIconType } from './elements';
+export { ViewElement } from './elements';
+export type { WithKey } from './types';

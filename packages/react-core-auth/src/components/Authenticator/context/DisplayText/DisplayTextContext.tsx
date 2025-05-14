@@ -1,6 +1,6 @@
 import { createContextUtilities } from '@aws-amplify/ui-react-core';
 
-import { DisplayTextDefault } from './types';
+import type { DisplayTextDefault } from './types';
 
 export const { DisplayTextContext, DisplayTextProvider, useDisplayText } =
   createContextUtilities<DisplayTextDefault>({

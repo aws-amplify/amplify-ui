@@ -19,4 +19,4 @@ export { SearchFieldControl } from './SearchFieldControl';
 export { SearchSubfoldersToggleControl } from './SearchSubfoldersToggleControl';
 export { StatusDisplayControl } from './StatusDisplayControl';
 export { TitleControl } from './TitleControl';
-export { ControlsContext } from './types';
+export type { ControlsContext } from './types';

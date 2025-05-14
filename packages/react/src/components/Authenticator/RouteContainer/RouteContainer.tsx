@@ -2,7 +2,7 @@ import React from 'react';
 import { View } from '../../../primitives/View';
 import { useAuthenticator } from '@aws-amplify/ui-react-core';
 import { useCustomComponents } from '../hooks/useCustomComponents';
-import { RouteContainerProps } from './types';
+import type { RouteContainerProps } from './types';
 
 // TODO replace usage of this util with the `isSignInOrSignUpRoute` util in v3.
 // Currently `hasTabs` always returns `undefined` as the right condition always

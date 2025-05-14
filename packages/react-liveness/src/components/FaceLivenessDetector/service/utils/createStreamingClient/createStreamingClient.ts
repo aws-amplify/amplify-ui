@@ -1,19 +1,21 @@
-import {
+import type {
   LivenessRequestStream,
   LivenessResponseStream,
-  RekognitionStreamingClient,
-  RekognitionStreamingClientConfig,
-  StartFaceLivenessSessionCommand,
   StartFaceLivenessSessionCommandInput,
+  RekognitionStreamingClientConfig,
+} from '@aws-sdk/client-rekognitionstreaming';
+import {
+  RekognitionStreamingClient,
+  StartFaceLivenessSessionCommand,
 } from '@aws-sdk/client-rekognitionstreaming';
 
 import { getAmplifyUserAgent } from '@aws-amplify/core/internals/utils';
 import { isString } from '@aws-amplify/ui';
 
 import { getLivenessUserAgent } from '../../../utils/platform';
-import { AwsCredentialProvider } from '../../types';
 
 import { CONNECTION_TIMEOUT, FACE_MOVEMENT_CHALLENGE_NAME } from '../constants';
+import type { AwsCredentialProvider } from '../../types';
 import { CustomWebSocketFetchHandler } from './CustomWebSocketFetchHandler';
 import { resolveCredentials } from './resolveCredentials';
 import { Signer } from './Signer';

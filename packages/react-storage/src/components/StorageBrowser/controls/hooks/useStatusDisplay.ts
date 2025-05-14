@@ -1,4 +1,4 @@
-import { StatusDisplayProps } from '../../components/composables/StatusDisplay';
+import type { StatusDisplayProps } from '../../components/composables/StatusDisplay';
 import { useControlsContext } from '../context';
 
 export const useStatusDisplay = (): StatusDisplayProps => {

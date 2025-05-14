@@ -1,7 +1,7 @@
 import { ConsoleLogger as Logger } from 'aws-amplify/utils';
 import { isString } from '@aws-amplify/ui';
 
-import { InAppMessageAction } from '../types';
+import type { InAppMessageAction } from '../types';
 
 const logger = new Logger('InAppMessaging');
 

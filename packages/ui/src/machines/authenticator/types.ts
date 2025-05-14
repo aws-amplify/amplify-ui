@@ -1,7 +1,7 @@
-import { State } from 'xstate';
-import { AuthUser } from 'aws-amplify/auth';
+import type { State } from 'xstate';
+import type { AuthUser } from 'aws-amplify/auth';
 
-import {
+import type {
   LoginMechanism,
   SignUpAttribute,
   SocialProvider,
@@ -13,7 +13,7 @@ import {
   PasswordSettings,
 } from '../../types';
 
-import { defaultServices } from './defaultServices';
+import type { defaultServices } from './defaultServices';
 
 // copied from JS v6 types
 export type ChallengeName =

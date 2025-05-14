@@ -7,7 +7,7 @@ import { MessageLayout } from '../MessageLayout';
 import { MessageWrapper } from '../MessageWrapper';
 
 import { getLandscapeStyles, getPortraitStyles } from './styles';
-import { FullScreenMessageProps } from './types';
+import type { FullScreenMessageProps } from './types';
 
 export default function FullScreenMessage(
   props: FullScreenMessageProps

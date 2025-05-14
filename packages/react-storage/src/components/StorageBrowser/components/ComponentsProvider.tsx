@@ -2,7 +2,8 @@ import React from 'react';
 
 import { ElementsProvider } from '@aws-amplify/ui-react-core/elements';
 
-import { ComposablesProvider, Composables } from './composables';
+import type { Composables } from './composables';
+import { ComposablesProvider } from './composables';
 import { elementsDefault } from './elements';
 
 /**

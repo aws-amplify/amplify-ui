@@ -1,4 +1,7 @@
-import { DataTableButtonDataCell, SortDirection } from '../../../components';
+import type {
+  DataTableButtonDataCell,
+  SortDirection,
+} from '../../../components';
 
 const compareContent = (
   { label: a }: DataTableButtonDataCell['content'],

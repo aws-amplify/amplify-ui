@@ -2,20 +2,20 @@ import React from 'react';
 
 import { useAsyncReducer } from '@aws-amplify/ui-react-core';
 
-import {
+import type {
   LocationData,
-  ListLocationsExcludeOptions,
+  ListLocationsHandlerInput,
   ListLocations,
 } from '../actions';
 
 import { USE_LIST_ERROR_MESSAGE } from './constants';
 import { useActionHandlers } from './context';
-import {
-  createEnhancedListHandler,
+import type {
   EnhancedListHandlerInput,
   EnhancedListHandlerOutput,
 } from './createEnhancedListHandler';
-import { ListActionState } from './types';
+import { createEnhancedListHandler } from './createEnhancedListHandler';
+import type { ListActionState } from './types';
 
 // Utility type functioning as a shim to allow for the outputted
 // enhanced `ListLocations` handler to not require `config` and `prefix`
@@ -26,7 +26,7 @@ export interface UseListLocationsState
   extends ListActionState<
     EnhancedListHandlerOutput<LocationData>,
     RemoveConfigAndPrefix<
-      EnhancedListHandlerInput<LocationData, ListLocationsExcludeOptions>
+      EnhancedListHandlerInput<ListLocationsHandlerInput, LocationData>
     >
   > {}
 

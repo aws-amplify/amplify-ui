@@ -1,11 +1,11 @@
+import type { AWSTemporaryCredentials } from '../../storage-internal';
 import {
-  AWSTemporaryCredentials,
   StorageValidationErrorCode,
   assertValidationError,
 } from '../../storage-internal';
 
 import { fetchNewValue, getCacheValue, initStore } from './store';
-import {
+import type {
   GetLocationCredentials,
   CredentialsLocation,
   LruLocationCredentialsStore,

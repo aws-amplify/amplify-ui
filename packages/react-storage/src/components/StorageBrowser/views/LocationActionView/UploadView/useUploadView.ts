@@ -1,14 +1,15 @@
 import React from 'react';
 import { isUndefined } from '@aws-amplify/ui';
 
-import { UploadHandlerData } from '../../../actions';
-import { FileItems, useFiles } from '../../../files';
+import type { UploadHandlerData } from '../../../actions';
+import type { FileItems } from '../../../files';
+import { useFiles } from '../../../files';
 import { useStore } from '../../../store';
-import { Task } from '../../../tasks';
+import type { Task } from '../../../tasks';
 import { useAction } from '../../../useAction';
 import { isFileTooBig } from '../../../validators';
 
-import { UploadViewState, UseUploadViewOptions } from './types';
+import type { UploadViewState, UseUploadViewOptions } from './types';
 import { DEFAULT_OVERWRITE_ENABLED } from './constants';
 
 interface FilesData {

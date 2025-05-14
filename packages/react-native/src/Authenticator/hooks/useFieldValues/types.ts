@@ -1,11 +1,11 @@
-import {
+import type {
   AuthenticatorComponentDefaultProps,
   AuthenticatorRouteComponentName,
   AuthenticatorMachineContext,
 } from '@aws-amplify/ui-react-core';
-import { ValidationError } from '@aws-amplify/ui';
+import type { ValidationError } from '@aws-amplify/ui';
 
-import { TypedField } from '../types';
+import type { TypedField } from '../types';
 
 export type MachineEventHandlers = Pick<
   AuthenticatorComponentDefaultProps[AuthenticatorRouteComponentName],

@@ -2,7 +2,7 @@ import React from 'react';
 import { createContextUtilities } from '@aws-amplify/ui-react-core';
 
 import { DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT } from './libraries';
-import {
+import type {
   DefaultStorageBrowserDisplayText,
   StorageBrowserDisplayText,
 } from './types';

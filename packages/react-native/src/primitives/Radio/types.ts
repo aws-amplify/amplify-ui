@@ -1,6 +1,11 @@
-import { PressableProps, StyleProp, TextStyle, ViewStyle } from 'react-native';
+import type {
+  PressableProps,
+  StyleProp,
+  TextStyle,
+  ViewStyle,
+} from 'react-native';
 
-import { LabelPosition } from '../Label/types';
+import type { LabelPosition } from '../Label/types';
 
 export type Size = number | 'small' | 'medium' | 'large';
 

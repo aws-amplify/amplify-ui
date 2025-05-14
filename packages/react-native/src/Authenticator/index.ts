@@ -1,6 +1,6 @@
 export { default as Authenticator } from './Authenticator';
-export { ContainerProps } from './common';
-export {
+export type { ContainerProps } from './common';
+export type {
   ConfirmResetPasswordProps,
   ConfirmSignInProps,
   ConfirmSignUpProps,
@@ -14,6 +14,7 @@ export {
   SignUpProps,
   VerifyUserProps,
 } from './Defaults';
-export { AuthenticatorProps, WithAuthenticatorOptions } from './types';
-export { useAuthenticator, UseAuthenticator } from './useAuthenticator';
+export type { AuthenticatorProps, WithAuthenticatorOptions } from './types';
+export type { UseAuthenticator } from './useAuthenticator';
+export { useAuthenticator } from './useAuthenticator';
 export { default as withAuthenticator } from './withAuthenticator';

@@ -1,2 +1,2 @@
 export { default as DefaultHeader } from './DefaultHeader';
-export { DefaultHeaderProps } from './types';
+export type { DefaultHeaderProps } from './types';

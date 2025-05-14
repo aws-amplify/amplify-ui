@@ -4,14 +4,14 @@
 import { getActorState } from '../actor';
 import { defaultFormFieldOptions } from '../constants';
 import { isAuthFieldWithDefaults } from '../form';
-import {
+import type {
   FormFields,
   FormFieldOptions,
   FormFieldComponents,
   LoginMechanism,
   SignUpAttribute,
 } from '../../../types';
-import {
+import type {
   AuthMachineState,
   SignInState,
 } from '../../../machines/authenticator/types';

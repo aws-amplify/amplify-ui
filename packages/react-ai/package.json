@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui-react-ai",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "main": "dist/index.js",
   "module": "dist/esm/index.mjs",
   "exports": {
@@ -43,14 +43,14 @@
   },
   "peerDependencies": {
     "@aws-amplify/data-schema": "^1.19.0",
-    "aws-amplify": "^6.9.0",
+    "aws-amplify": "^6.14.3",
     "react": "^16.14 || ^17 || ^18 || ^19",
     "react-dom": "^16.14 || ^17 || ^18 || ^19"
   },
   "dependencies": {
-    "@aws-amplify/ui": "^6.10.1",
-    "@aws-amplify/ui-react": "^6.11.0",
-    "@aws-amplify/ui-react-core": "^3.4.1"
+    "@aws-amplify/ui": "^6.10.2",
+    "@aws-amplify/ui-react": "^6.11.1",
+    "@aws-amplify/ui-react-core": "^3.4.2"
   },
   "size-limit": [
     {

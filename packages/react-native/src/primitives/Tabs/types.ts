@@ -1,6 +1,6 @@
-import { TextStyle, ViewProps, ViewStyle } from 'react-native';
+import type { TextStyle, ViewProps, ViewStyle } from 'react-native';
 
-import { ButtonProps } from '../Button';
+import type { ButtonProps } from '../Button';
 
 type IndicatorPosition = 'top' | 'bottom';
 

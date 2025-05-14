@@ -1,4 +1,4 @@
-import {
+import type {
   LivenessResponseStream,
   SessionInformation,
 } from '@aws-sdk/client-rekognitionstreaming';
@@ -17,21 +17,20 @@ import {
   resolveVideoDimensions,
 } from '../utils/liveness';
 
-import {
+import type {
   ErrorState,
   Face,
   FaceMatchAssociatedParams,
-  FaceMatchState,
   FreshnessColorAssociatedParams,
   IlluminationState,
   LivenessContext,
   LivenessError,
-  LivenessErrorState,
   LivenessEvent,
   OvalAssociatedParams,
   StreamActorCallback,
   VideoAssociatedParams,
 } from '../types';
+import { FaceMatchState, LivenessErrorState } from '../types';
 import {
   BlazeFaceFaceDetection,
   createRequestStreamGenerator,

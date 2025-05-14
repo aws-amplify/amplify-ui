@@ -6,8 +6,13 @@ import {
   spawn,
 } from 'xstate';
 
-import { AuthFormFields, PasswordSettings } from '../../types';
-import { AuthEvent, AuthContext, ActorDoneData, InitialStep } from './types';
+import type { AuthFormFields, PasswordSettings } from '../../types';
+import type {
+  AuthEvent,
+  AuthContext,
+  ActorDoneData,
+  InitialStep,
+} from './types';
 import { isEmptyObject } from '../../utils';
 
 import actions from './actions';

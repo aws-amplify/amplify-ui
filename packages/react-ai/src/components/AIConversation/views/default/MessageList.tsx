@@ -9,8 +9,8 @@ import {
   RoleContext,
   useConversationDisplayText,
 } from '../../context';
-import { ConversationMessage } from '../../../../types';
-import { ControlsContextProps } from '../../context/ControlsContext';
+import type { ConversationMessage } from '../../../../types';
+import type { ControlsContextProps } from '../../context/ControlsContext';
 import {
   ComponentClassName,
   classNameModifier,

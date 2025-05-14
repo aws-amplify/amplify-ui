@@ -3,8 +3,8 @@ import { classNames } from '@aws-amplify/ui';
 
 import { ComponentClassName } from '@aws-amplify/ui';
 import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
-import { ElementType, PrimitiveProps, BaseViewProps } from '../types/view';
-import { ForwardRefPrimitive, Primitive } from '../types/view';
+import type { ElementType, PrimitiveProps, BaseViewProps } from '../types/view';
+import type { ForwardRefPrimitive, Primitive } from '../types/view';
 import { View } from '../View';
 
 interface BaseAccordionContentProps extends BaseViewProps {}

@@ -4,10 +4,10 @@ import { setUserAgent } from '@aws-amplify/ui';
 
 import { VERSION } from '../../../version';
 
-import { ExtendedActionConfigs } from '../actions';
 import { ErrorBoundary as DefaultErrorBoundary } from '../ErrorBoundary';
 import { useAction } from '../useAction';
 import { assertRegisterAuthListener } from '../validators';
+import type { LocationActionViewType } from '../views';
 import {
   CopyView,
   CreateFolderView,
@@ -16,13 +16,12 @@ import {
   LocationDetailView,
   LocationsView,
   UploadView,
-  LocationActionViewType,
   useView,
 } from '../views';
 
 import createProvider from './createProvider';
 import StorageBrowserDefault from './StorageBrowserDefault';
-import {
+import type {
   CreateStorageBrowserInput,
   CreateStorageBrowserOutput,
   StorageBrowserType,
@@ -43,11 +42,9 @@ const UA_CONFIG = {
  * @returns `StorageBrowser` component, `useAction` and `useView` hooks
  */
 export default function createStorageBrowser<
-  Input extends CreateStorageBrowserInput,
-  RInput extends Input['actions'] extends ExtendedActionConfigs
-    ? Input['actions']
-    : ExtendedActionConfigs,
->(input: Input): CreateStorageBrowserOutput<RInput> {
+  TInput extends CreateStorageBrowserInput,
+  TActions extends NonNullable<TInput['actions']>,
+>(input: TInput): CreateStorageBrowserOutput<TActions> {
   assertRegisterAuthListener(input.config.registerAuthListener);
 
   setUserAgent(UA_CONFIG);
@@ -64,8 +61,8 @@ export default function createStorageBrowser<
       : input.ErrorBoundary ?? DefaultErrorBoundary;
 
   const StorageBrowser: StorageBrowserType<
-    DerivedActionViewType<RInput>,
-    DerivedActionViews<RInput>
+    DerivedActionViewType<TActions>,
+    DerivedActionViews<TActions>
   > = (props) => (
     <ErrorBoundary>
       <Provider {...props}>
@@ -75,7 +72,9 @@ export default function createStorageBrowser<
   );
 
   StorageBrowser.LocationActionView =
-    LocationActionView as LocationActionViewType<DerivedActionViewType<RInput>>;
+    LocationActionView as LocationActionViewType<
+      DerivedActionViewType<TActions>
+    >;
   StorageBrowser.LocationDetailView = LocationDetailView;
   StorageBrowser.LocationsView = LocationsView;
 

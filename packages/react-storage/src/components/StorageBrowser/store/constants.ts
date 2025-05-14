@@ -1,4 +1,4 @@
-import { StoreState } from './types';
+import type { StoreState } from './types';
 
 export const DEFAULT_STATE: StoreState = {
   actionType: undefined,

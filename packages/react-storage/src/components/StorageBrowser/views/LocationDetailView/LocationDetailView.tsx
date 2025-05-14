@@ -18,7 +18,7 @@ import {
 } from '../../controls';
 
 import { LocationDetailViewProvider } from './LocationDetailViewProvider';
-import { LocationDetailViewType } from './types';
+import type { LocationDetailViewType } from './types';
 import { useLocationDetailView } from './useLocationDetailView';
 
 const DEFAULT_PAGE_SIZE = 100;

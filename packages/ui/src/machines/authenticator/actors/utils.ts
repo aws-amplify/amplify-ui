@@ -1,4 +1,4 @@
-import { Step } from '../types';
+import type { Step } from '../types';
 
 export const getFederatedSignInState = (target: 'signIn' | 'signUp') => ({
   entry: ['sendUpdate', 'clearError'],

@@ -1,7 +1,11 @@
-import { LocationData, UploadHandlerData } from '../../../actions';
-import { FileItems } from '../../../files';
+import type { LocationData, UploadHandlerData } from '../../../actions';
+import type { FileItems } from '../../../files';
 
-import { ActionViewType, ActionViewProps, ActionViewState } from '../types';
+import type {
+  ActionViewType,
+  ActionViewProps,
+  ActionViewState,
+} from '../types';
 
 export interface UploadViewState extends ActionViewState<UploadHandlerData> {
   isOverwritingEnabled: boolean;

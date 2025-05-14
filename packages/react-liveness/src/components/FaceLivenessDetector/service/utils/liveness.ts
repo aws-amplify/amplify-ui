@@ -1,16 +1,20 @@
-import { SessionInformation } from '@aws-sdk/client-rekognitionstreaming';
-import {
+import type { SessionInformation } from '@aws-sdk/client-rekognitionstreaming';
+
+import type {
   BoundingBox,
   ErrorState,
   Face,
   FaceDetection,
-  FaceMatchState,
-  IlluminationState,
-  LivenessErrorState,
   LivenessOvalDetails,
   VideoAssociatedParams,
 } from '../types';
-import { ColorSequence, SequenceColorValue } from './ColorSequenceDisplay';
+import {
+  FaceMatchState,
+  IlluminationState,
+  LivenessErrorState,
+} from '../types';
+
+import type { ColorSequence, SequenceColorValue } from './ColorSequenceDisplay';
 import {
   FACE_HEIGHT_WEIGHT,
   PUPIL_DISTANCE_WEIGHT,

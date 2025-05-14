@@ -1,7 +1,7 @@
-import React from 'react';
-import { ImageStyle, StyleProp, TextStyle, ViewStyle } from 'react-native';
+import type React from 'react';
+import type { ImageStyle, StyleProp, TextStyle, ViewStyle } from 'react-native';
 
-import {
+import type {
   AuthenticatorComponentDefaultProps,
   AuthenticatorHeaderComponent,
   AuthenticatorFooterComponent,
@@ -9,13 +9,13 @@ import {
   AuthenticatorRouteComponentName,
 } from '@aws-amplify/ui-react-core';
 
-import { ButtonProps } from '../../../primitives';
+import type { ButtonProps } from '../../../primitives';
 
-import {
+import type {
   DefaultFormFieldsComponent,
   DefaultFormFieldsStyle,
 } from '../../common';
-import { TextFieldOptionsType, RadioFieldOptions } from '../../hooks';
+import type { TextFieldOptionsType, RadioFieldOptions } from '../../hooks';
 
 export interface DefaultContentStyle {
   body?: TextStyle;
@@ -59,7 +59,7 @@ export type DefaultContentProps<
   FieldsType extends
     | TextFieldOptionsType
     | RadioFieldOptions
-    | unknown = unknown
+    | unknown = unknown,
 > = Pick<DefaultComponentProps<FieldsType>, 'error' | 'isPending'> & {
   buttons: DefaultButtons;
   body?: React.ReactNode;

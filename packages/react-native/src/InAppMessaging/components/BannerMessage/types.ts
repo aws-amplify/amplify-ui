@@ -1,7 +1,7 @@
-import { ViewStyle } from 'react-native';
-import { BannerMessageCommonProps } from '@aws-amplify/ui-react-core-notifications';
+import type { ViewStyle } from 'react-native';
+import type { BannerMessageCommonProps } from '@aws-amplify/ui-react-core-notifications';
 
-import { MessageDefaultStyle, MessageOverrideStyle } from '../../hooks';
+import type { MessageDefaultStyle, MessageOverrideStyle } from '../../hooks';
 
 export interface BannerMessageProps
   extends BannerMessageCommonProps<MessageOverrideStyle | undefined> {}

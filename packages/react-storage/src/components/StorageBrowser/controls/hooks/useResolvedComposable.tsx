@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { useComposables } from '../../components/composables/context';
-import { Composables } from '../../components/composables/types';
+import type { Composables } from '../../components/composables/types';
 
 export function useResolvedComposable<
   T extends React.ComponentType<any>,

@@ -14,16 +14,14 @@ import {
   readableStreamtoIterable,
 } from '@smithy/eventstream-serde-browser';
 import { FetchHttpHandler } from '@smithy/fetch-http-handler';
-import { HttpRequest, HttpResponse } from '@smithy/protocol-http';
-import {
-  Provider,
-  RequestHandler,
-  RequestHandlerMetadata,
-} from '@smithy/types';
+import type { HttpRequest } from '@smithy/protocol-http';
+import { HttpResponse } from '@smithy/protocol-http';
+
 import {
   WS_CLOSURE_CODE,
   DEFAULT_WS_CONNECTION_TIMEOUT_MS,
 } from '../constants';
+import type { Provider, RequestHandler, RequestHandlerMetadata } from './types';
 
 export const WEBSOCKET_CONNECTION_TIMEOUT_MESSAGE =
   'Websocket connection timeout';

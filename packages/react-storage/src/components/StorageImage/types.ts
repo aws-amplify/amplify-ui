@@ -1,6 +1,6 @@
-import { ImageProps } from '@aws-amplify/ui-react';
-import { StorageBucket } from '../FileUploader/types';
-import React from 'react';
+import type { ImageProps } from '@aws-amplify/ui-react';
+import type { StorageBucket } from '../FileUploader/types';
+import type React from 'react';
 
 type StorageAccessLevel = 'guest' | 'protected' | 'private';
 

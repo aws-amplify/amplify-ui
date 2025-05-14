@@ -1,9 +1,8 @@
-import React from 'react';
-import { AsyncReducerState } from '@aws-amplify/ui-react-core';
+import type React from 'react';
+import type { AsyncReducerState } from '@aws-amplify/ui-react-core';
 
-import {
+import type {
   ActionHandler,
-  ExtendedActionConfigs,
   CopyHandler,
   CreateFolderHandler,
   DeleteHandler,
@@ -13,7 +12,9 @@ import {
   LocationData,
   UploadHandler,
 } from '../actions';
-import { ProcessTasksOptions, StatusCounts, Task } from '../tasks';
+
+import type { ProcessTasksOptions, StatusCounts, Task } from '../tasks';
+import type { StorageBrowserActions } from '../createStorageBrowser';
 
 export type ListActionState<T = any, K = any> = [
   state: AsyncReducerState<T>,
@@ -41,18 +42,16 @@ export interface ActionHandlersProviderProps extends ActionHandlersContext {
   children?: React.ReactNode;
 }
 
-type DerivedCustomActions<T> = T extends { custom?: infer U } ? U : {};
-
 export type ResolveHandlerType<T> = T extends { handler: infer X } | infer X
   ? X
   : never;
 
-export type DerivedActionHandlers<
-  C extends ExtendedActionConfigs = ExtendedActionConfigs,
-  D extends DerivedCustomActions<C> = DerivedCustomActions<C>,
-> = DefaultActionHandlers & {
-  [K in keyof D]: ResolveHandlerType<D[K]>;
-};
+export type DerivedActionHandlers<TActions extends StorageBrowserActions> =
+  DefaultActionHandlers & {
+    [K in keyof NonNullable<TActions['custom']>]: ResolveHandlerType<
+      NonNullable<TActions['custom']>[K]
+    >;
+  };
 
 export type InferTask<THandler> = THandler extends ActionHandler<
   infer TData,

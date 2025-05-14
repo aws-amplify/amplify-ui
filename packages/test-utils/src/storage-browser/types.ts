@@ -1,4 +1,4 @@
-import {
+import type {
   ListLocationItemsHandlerOutput,
   LocationData,
 } from '@aws-amplify/ui-react-storage/browser';

@@ -1,5 +1,10 @@
-import { StyleProp, TextInputProps, TextStyle, ViewStyle } from 'react-native';
-import { LabelProps } from '../Label/types';
+import type {
+  StyleProp,
+  TextInputProps,
+  TextStyle,
+  ViewStyle,
+} from 'react-native';
+import type { LabelProps } from '../Label/types';
 
 export interface TextFieldProps extends Omit<TextInputProps, 'editable'> {
   /**

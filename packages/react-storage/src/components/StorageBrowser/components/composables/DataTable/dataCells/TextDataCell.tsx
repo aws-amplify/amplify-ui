@@ -1,12 +1,8 @@
 import React from 'react';
 
 import { STORAGE_BROWSER_BLOCK } from '../../../base';
-import {
-  IconElement,
-  StorageBrowserIconType,
-  SpanElement,
-  ViewElement,
-} from '../../../elements';
+import type { StorageBrowserIconType } from '../../../elements';
+import { IconElement, SpanElement, ViewElement } from '../../../elements';
 
 export interface TextDataCellProps {
   content: {

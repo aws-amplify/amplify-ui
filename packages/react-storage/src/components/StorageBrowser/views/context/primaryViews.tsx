@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { PrimaryViewsContextType } from './types';
+import type { PrimaryViewsContextType } from './types';
 
 import { LocationActionView as LocationActionViewDefault } from '../LocationActionView';
 import { LocationDetailView as LocationDetailViewDefault } from '../LocationDetailView';
 import { LocationsView as LocationsViewDefault } from '../LocationsView';
-import { PrimaryViews } from '../types';
+import type { PrimaryViews } from '../types';
 
 export const DEFAULT_PRIMARY_VIEWS: PrimaryViews = {
   LocationActionView: LocationActionViewDefault,

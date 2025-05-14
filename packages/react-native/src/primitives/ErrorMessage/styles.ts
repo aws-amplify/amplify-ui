@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 
-import { StrictTheme } from '../../theme';
-import { ErrorMessageStyles } from './types';
+import type { StrictTheme } from '../../theme';
+import type { ErrorMessageStyles } from './types';
 
 export const getThemedStyles = (theme: StrictTheme): ErrorMessageStyles => {
   const {

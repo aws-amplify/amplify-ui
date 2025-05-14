@@ -9,7 +9,7 @@ import { ConfirmVerifyUser, VerifyUser } from '../VerifyUser';
 import { ConfirmSignIn } from '../ConfirmSignIn/ConfirmSignIn';
 import { ConfirmResetPassword, ForgotPassword } from '../ForgotPassword';
 import { isSignInOrSignUpRoute } from '../utils';
-import { RouterProps } from './types';
+import type { RouterProps } from './types';
 import { SelectMfaType } from '../SelectMfaType';
 import { SetupEmail } from '../SetupEmail';
 

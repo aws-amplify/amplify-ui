@@ -1,8 +1,8 @@
-import { MessageComponentBaseProps } from '@aws-amplify/ui-react-core-notifications';
+import type { MessageComponentBaseProps } from '@aws-amplify/ui-react-core-notifications';
 
-import { ButtonProps } from '@aws-amplify/ui-react';
+import type { ButtonProps } from '@aws-amplify/ui-react';
 
-import {
+import type {
   MessageComponentStyles,
   MessageOverrideStyle,
   UseMessageProps,

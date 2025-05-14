@@ -9,7 +9,7 @@ import {
   ViewElement,
 } from '../elements';
 import { BreadcrumbNavigation, Separator } from '../base';
-import { NavigationProps } from './Navigation';
+import type { NavigationProps } from './Navigation';
 
 export interface ActionDestinationProps {
   isNavigable?: boolean;

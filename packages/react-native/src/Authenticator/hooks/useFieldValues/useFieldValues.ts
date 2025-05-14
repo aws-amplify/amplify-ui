@@ -1,15 +1,15 @@
 import { useMemo, useState } from 'react';
 import { ConsoleLogger as Logger } from 'aws-amplify/utils';
-import { ValidationError } from '@aws-amplify/ui';
+import type { ValidationError } from '@aws-amplify/ui';
 
-import {
+import type {
   OnChangeText,
   RadioFieldOptions,
   TextFieldOnBlur,
   TypedField,
 } from '../types';
 
-import { UseFieldValues, UseFieldValuesParams } from './types';
+import type { UseFieldValues, UseFieldValuesParams } from './types';
 import {
   getSanitizedTextFields,
   isRadioFieldOptions,

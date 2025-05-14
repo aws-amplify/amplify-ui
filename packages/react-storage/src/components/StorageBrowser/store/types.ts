@@ -1,5 +1,5 @@
-import React from 'react';
-import { LocationData, LocationType } from '../actions';
+import type React from 'react';
+import type { LocationData, LocationType } from '../actions';
 
 /**
  * @see {@link LocationData}
