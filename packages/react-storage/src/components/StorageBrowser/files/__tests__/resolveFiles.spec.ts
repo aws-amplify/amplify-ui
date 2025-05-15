@@ -1,8 +1,12 @@
-import { DEFAULT_RESOLVED_FILES, UPLOAD_FILE_SIZE_LIMIT } from '../constants';
+import {
+  DEFAULT_RESOLVED_FILES,
+  MAX_UPLOAD_OBJECT_SIZE,
+  UPLOAD_FILE_SIZE_LIMIT,
+} from '../constants';
 import { resolveFiles } from '../resolveFiles';
 
-const mockFile = (name: string, size?: number, type?: string): File => {
-  const file = new File([], name, { type });
+const mockFile = (name: string, size?: number): File => {
+  const file = new File([], name);
   if (size) {
     Object.defineProperty(file, 'size', { value: size });
   }
@@ -62,35 +66,38 @@ describe('resolveFiles', () => {
   });
 
   it('returns the expected value when a custom file validator function is provided', () => {
-    const validFile = mockFile('valid-file', 5 * 1000, 'image/png');
-    const invalidFile = mockFile('invalid-file', UPLOAD_FILE_SIZE_LIMIT - 1);
-    const invalidSizeFile = mockFile(
-      'invalid-size',
-      5 * 1000 * 1000,
-      'image/png'
-    );
-    const invalidTypeFile = mockFile(
-      'invalid-type',
-      5 * 1000,
-      'application/pdf'
-    );
+    const CUSTOM_FILE_SIZE_LIMIT = 1000 * 1000; // 1 MB
 
-    const customFileValidator = (file: File) => {
-      const validFileSize = file.size <= 1000 * 1000;
-      const onlyImages = ['image/gif', 'image/jpeg', 'image/png'].includes(
-        file.type
-      );
-      return validFileSize && onlyImages;
-    };
+    const customFileValidator = (file: File) =>
+      file.size <= CUSTOM_FILE_SIZE_LIMIT;
+
+    const validFile = mockFile('valid-file', CUSTOM_FILE_SIZE_LIMIT);
+    const invalidFileOne = mockFile('invalid-file', UPLOAD_FILE_SIZE_LIMIT - 1);
+    const invalidFileTwo = mockFile('invalid-size', CUSTOM_FILE_SIZE_LIMIT + 1);
 
     const output = resolveFiles(
-      [validFile, invalidSizeFile, invalidFile, invalidTypeFile],
+      [validFile, invalidFileTwo, invalidFileOne],
       customFileValidator
     );
 
     const expected = {
       valid: [validFile],
-      invalid: [invalidSizeFile, invalidFile, invalidTypeFile],
+      invalid: [invalidFileTwo, invalidFileOne],
+    };
+
+    expect(output).toStrictEqual(expected);
+  });
+
+  it('returns the expected value when a file passes custom file validation but not storage validation', () => {
+    const customFileValidator = (_file: File) => true;
+
+    const invalidFile = mockFile('invalid-file', MAX_UPLOAD_OBJECT_SIZE + 1);
+
+    const output = resolveFiles([invalidFile], customFileValidator);
+
+    const expected = {
+      valid: undefined,
+      invalid: [invalidFile],
     };
 
     expect(output).toStrictEqual(expected);
