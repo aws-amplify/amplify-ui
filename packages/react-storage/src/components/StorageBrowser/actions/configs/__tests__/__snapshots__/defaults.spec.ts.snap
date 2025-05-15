@@ -31,7 +31,16 @@ exports[`defaultActionConfigs matches expected shape 1`] = `
     "handler": [Function],
     "viewName": "DeleteView",
   },
-  "download": [Function],
+  "download": {
+    "actionListItem": {
+      "disable": [Function],
+      "hide": [Function],
+      "icon": "download",
+      "label": "Download",
+    },
+    "handler": [Function],
+    "viewName": "DownloadView",
+  },
   "listLocationItems": [Function],
   "upload": {
     "actionListItem": {
