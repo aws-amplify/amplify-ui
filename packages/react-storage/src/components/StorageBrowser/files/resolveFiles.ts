@@ -1,6 +1,10 @@
 import { isUndefined } from '@aws-amplify/ui';
 
-import { DEFAULT_RESOLVED_FILES, UPLOAD_FILE_SIZE_LIMIT } from './constants';
+import {
+  DEFAULT_RESOLVED_FILES,
+  MAX_UPLOAD_OBJECT_SIZE,
+  UPLOAD_FILE_SIZE_LIMIT,
+} from './constants';
 
 export interface ResolvedFiles {
   valid: File[] | undefined;
@@ -13,6 +17,11 @@ const constructFiles = (files: File[] | undefined, file: File): File[] =>
 const defaultValidateFile = (file: File): boolean =>
   file.size <= UPLOAD_FILE_SIZE_LIMIT;
 
+// Safeguard to enforce max S3 object size allowed for multipart uploads
+// when custom file validator is provided
+const isValidObjectSize = (file: File): boolean =>
+  file.size <= MAX_UPLOAD_OBJECT_SIZE;
+
 export const resolveFiles = (
   files: File[] | undefined,
   validator: (file: File) => boolean = defaultValidateFile
@@ -21,7 +30,7 @@ export const resolveFiles = (
 
   return files.reduce(
     (acc, file) => {
-      if (validator(file)) {
+      if (validator(file) && isValidObjectSize(file)) {
         acc.valid = constructFiles(acc.valid, file);
       } else {
         acc.invalid = constructFiles(acc.invalid, file);
