@@ -1,7 +1,7 @@
-import { FileItem } from '../../actions';
-import { FileItems } from '../types';
+import type { FileItem } from '../../actions';
 
-import { resolveFiles, filesReducer, parseFileSelectParams } from '../utils';
+import type { FileItems } from '../types';
+import { processFileItems, parseFileSelectParams } from '../utils';
 
 let uuid = 0;
 Object.defineProperty(globalThis, 'crypto', {
@@ -29,158 +29,106 @@ const fileItemTwo: FileItem = {
   key: fileTwo.name,
 };
 
-describe('files context utils', () => {
-  describe('resolveFiles', () => {
-    it('returns the previous `items` when incoming `files` are `undefined`', () => {
-      const previous = [fileItemOne, fileItemTwo];
-      const output = resolveFiles(previous, undefined);
+describe('getFileItems', () => {
+  it('returns the previous `items` when `files` is `undefined`', () => {
+    const previous = [fileItemOne, fileItemTwo];
+    const output = processFileItems(previous, undefined);
 
-      expect(output).toBe(previous);
-    });
-
-    it('returns the previous `items` when incoming `files` is an empty array', () => {
-      const previous = [fileItemOne, fileItemTwo];
-      const output = resolveFiles(previous, []);
-
-      expect(output).toBe(previous);
-    });
-
-    it('returns the previous `items` when incoming `files` are all duplicates', () => {
-      const incoming = [fileOne, fileTwo];
-      const previous = [fileItemOne, fileItemTwo];
-      const output = resolveFiles(previous, incoming);
-
-      expect(output).toBe(previous);
-    });
-
-    it('filters incoming `files` that exist in previous `items`', () => {
-      const incoming = [fileOne, fileTwo, fileThree];
-      const previous = [fileItemOne, fileItemTwo];
-      const output = resolveFiles(previous, incoming);
-
-      expect(output).not.toBe(previous);
-      expect(output).toHaveLength(3);
-
-      const newItem = output[1];
-
-      expect(newItem.file).toBe(fileThree);
-      expect(newItem.key).toBe(fileThree.name);
-      expect(typeof newItem.id).toBe('string');
-    });
-
-    it('returns the sorted next `items` when previous `items` are `undefined`', () => {
-      const incoming = [fileTwo, fileOne];
-      const previous: FileItems = [];
-      const output = resolveFiles(previous, incoming);
-
-      expect(output).toHaveLength(2);
-      const [itemOne, itemTwo] = output;
-
-      expect(itemOne.file).toBe(fileOne);
-      expect(itemTwo.file).toBe(fileTwo);
-    });
-
-    it('merges, sorts and returns previous and next `items`', () => {
-      const incoming = [fileThree];
-      const previous = [fileItemOne, fileItemTwo];
-      const output = resolveFiles(previous, incoming);
-
-      expect(output).toHaveLength(3);
-
-      const [itemOne, itemTwo, itemThree] = output;
-
-      // fileItemOne.key === 'item-one'
-      expect(itemOne.key).toBe(fileItemOne.key);
-
-      // fileThree.name === 'item-three'
-      expect(itemTwo.key).toBe(fileThree.name);
-
-      // fileItemTwo.key === 'item-two'
-      expect(itemThree.key).toBe(fileItemTwo.key);
-    });
-
-    it('returns the webKitRelativePath as key when available', () => {
-      const incoming = [
-        { ...fileThree, webkitRelativePath: 'test/file/file-three' },
-      ] as File[];
-      const previous = [fileItemOne, fileItemTwo];
-      const output = resolveFiles(previous, incoming);
-
-      expect(output).toHaveLength(3);
-      expect(output[2].key).toBe('test/file/file-three');
-    });
+    expect(output).toBe(previous);
   });
 
-  describe('filesReducer', () => {
-    it('adds `fileItems` as expected', () => {
-      const incoming = [fileOne, fileTwo, fileThree];
-      const previous = [fileItemOne, fileItemTwo];
-      const output = filesReducer(previous, {
-        type: 'ADD_FILE_ITEMS',
-        files: incoming,
-      });
+  it('returns the previous `items` when `files` is an empty array', () => {
+    const previous = [fileItemOne, fileItemTwo];
+    const output = processFileItems(previous, []);
 
-      expect(output).toHaveLength(3);
-    });
-
-    it('removes a `fileItem` as expected', () => {
-      const previous = [fileItemOne, fileItemTwo];
-      const targetId = fileItemOne.id;
-
-      const output = filesReducer(previous, {
-        type: 'REMOVE_FILE_ITEM',
-        id: targetId,
-      });
-
-      expect(output).toHaveLength(1);
-      expect(output[0]).toBe(fileItemTwo);
-    });
-
-    it('returns the previous items on remove when previous and next items are the same length', () => {
-      const previous = [fileItemOne, fileItemTwo];
-      const targetId = 'not a real id lol';
-
-      const output = filesReducer(previous, {
-        type: 'REMOVE_FILE_ITEM',
-        id: targetId,
-      });
-
-      expect(output).toHaveLength(2);
-      expect(output).toBe(previous);
-    });
-
-    it('resets `fileItems` as expected', () => {
-      const previous = [fileItemOne, fileItemTwo];
-
-      const output = filesReducer(previous, { type: 'RESET_FILE_ITEMS' });
-
-      expect(output).toHaveLength(0);
-    });
+    expect(output).toBe(previous);
   });
 
-  describe('parseFileSelectParams', () => {
-    it('returns the default value when `value` is `undefined`', () => {
-      const output = parseFileSelectParams();
+  it('returns the previous `items` when `files` are all duplicates', () => {
+    const incoming = [fileOne, fileTwo];
+    const previous = [fileItemOne, fileItemTwo];
+    const output = processFileItems(previous, incoming);
 
-      expect(output).toStrictEqual(['FILE', undefined]);
-    });
+    expect(output).toBe(previous);
+  });
 
-    it('returns the expected value when `value` is a `string`', () => {
-      const output = parseFileSelectParams('FOLDER');
+  it('filters incoming `files` that exist in previous `items`', () => {
+    const incoming = [fileOne, fileTwo, fileThree];
+    const previous = [fileItemOne, fileItemTwo];
+    const output = processFileItems(previous, incoming);
 
-      expect(output).toStrictEqual(['FOLDER', undefined]);
-    });
+    expect(output).not.toBe(previous);
 
-    it('returns the expected value when `value` is a single item array', () => {
-      const output = parseFileSelectParams(['FOLDER']);
+    const expected = [
+      fileItemOne,
+      { file: fileThree, id: expect.any(String), key: fileThree.name },
+      fileItemTwo,
+    ];
 
-      expect(output).toStrictEqual(['FOLDER', undefined]);
-    });
+    expect(output).toStrictEqual(expected);
+  });
 
-    it('returns the expected value when `value` is a specfied with an `accept` param', () => {
-      const output = parseFileSelectParams(['FOLDER', '.lolz', '.alsololz']);
+  it('returns the sorted next `items` when previous `items` are `undefined`', () => {
+    const incoming = [fileTwo, fileOne];
+    const previous: FileItems = [];
 
-      expect(output).toStrictEqual(['FOLDER', { accept: '.lolz,.alsololz' }]);
-    });
+    const output = processFileItems(previous, incoming);
+    const expected = [
+      { file: fileOne, id: expect.any(String), key: fileOne.name },
+      { file: fileTwo, id: expect.any(String), key: fileTwo.name },
+    ];
+
+    expect(output).toStrictEqual(expected);
+  });
+
+  it('merges, sorts and returns previous and next `items`', () => {
+    const incoming = [fileThree];
+    const previous = [fileItemOne, fileItemTwo];
+    const output = processFileItems(previous, incoming);
+
+    const expected = [
+      fileItemOne,
+      { file: fileThree, id: expect.any(String), key: fileThree.name },
+      fileItemTwo,
+    ];
+
+    expect(output).toStrictEqual(expected);
+  });
+
+  it('returns the webKitRelativePath as key when available', () => {
+    const incoming = [
+      { ...fileThree, webkitRelativePath: 'test/file/file-three' },
+    ] as File[];
+    const previous = [fileItemOne, fileItemTwo];
+    const output = processFileItems(previous, incoming);
+
+    expect(output).toHaveLength(3);
+    expect(output?.[2].key).toBe('test/file/file-three');
+  });
+});
+
+describe('parseFileSelectParams', () => {
+  it('returns the default value when `value` is `undefined`', () => {
+    const output = parseFileSelectParams();
+
+    expect(output).toStrictEqual(['FILE', undefined]);
+  });
+
+  it('returns the expected value when `value` is a `string`', () => {
+    const output = parseFileSelectParams('FOLDER');
+
+    expect(output).toStrictEqual(['FOLDER', undefined]);
+  });
+
+  it('returns the expected value when `value` is a single item array', () => {
+    const output = parseFileSelectParams(['FOLDER']);
+
+    expect(output).toStrictEqual(['FOLDER', undefined]);
+  });
+
+  it('returns the expected value when `value` is a specfied with an `accept` param', () => {
+    const output = parseFileSelectParams(['FOLDER', '.lolz', '.alsololz']);
+
+    expect(output).toStrictEqual(['FOLDER', { accept: '.lolz,.alsololz' }]);
   });
 });

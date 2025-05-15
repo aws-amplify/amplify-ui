@@ -1,22 +1,13 @@
 import React from 'react';
-import { isUndefined } from '@aws-amplify/ui';
 
 import type { UploadHandlerData } from '../../../actions';
-import type { FileItems } from '../../../files';
 import { useFiles } from '../../../files';
 import { useStore } from '../../../store';
 import type { Task } from '../../../tasks';
 import { useAction } from '../../../useAction';
-import { isFileTooBig } from '../../../validators';
 
-import type { UploadViewState, UseUploadViewOptions } from './types';
 import { DEFAULT_OVERWRITE_ENABLED } from './constants';
-
-interface FilesData {
-  invalidFiles: FileItems | undefined;
-  validFiles: FileItems | undefined;
-  data: UploadHandlerData[];
-}
+import type { UploadViewState, UseUploadViewOptions } from './types';
 
 export const useUploadView = (
   options?: UseUploadViewOptions
@@ -24,50 +15,31 @@ export const useUploadView = (
   const { onExit: _onExit } = options ?? {};
 
   const [{ location }, storeDispatch] = useStore();
-  const [files, filesDispatch] = useFiles();
+  const [{ items: fileItems, invalidItems: invalidFiles }, filesDispatch] =
+    useFiles();
   const { current } = location;
 
   const [isOverwritingEnabled, setIsOverwritingEnabled] = React.useState(
     DEFAULT_OVERWRITE_ENABLED
   );
 
-  const filesData = React.useMemo(
+  const items = React.useMemo(
     () =>
-      (files ?? [])?.reduce(
-        (curr: FilesData, item) => {
-          if (isFileTooBig(item.file)) {
-            curr.invalidFiles = isUndefined(curr.invalidFiles)
-              ? [item]
-              : curr.invalidFiles.concat(item);
-          } else {
-            curr.validFiles = isUndefined(curr.validFiles)
-              ? [item]
-              : curr.validFiles.concat(item);
-
-            const parsedFileItem = {
-              ...item,
-              key: `${location.key}${item.key}`,
-            };
-
-            curr.data = curr.data.concat({
-              ...parsedFileItem,
-              preventOverwrite: !isOverwritingEnabled,
-            });
-          }
-
-          return curr;
-        },
-        { invalidFiles: undefined, validFiles: undefined, data: [] }
-      ),
-    [files, isOverwritingEnabled, location.key]
+      (fileItems ?? []).reduce((acc: UploadHandlerData[], item) => {
+        acc.push({
+          ...item,
+          key: `${location.key}${item.key}`,
+          preventOverwrite: !isOverwritingEnabled,
+        });
+        return acc;
+      }, []),
+    [fileItems, isOverwritingEnabled, location.key]
   );
-
-  const { data, invalidFiles } = filesData;
 
   const [
     { isProcessing, isProcessingComplete, statusCounts, tasks },
     handleUploads,
-  ] = useAction('upload', { items: data });
+  ] = useAction('upload', { items });
 
   const onDropFiles = (files: File[]) => {
     if (files) {
@@ -80,10 +52,6 @@ export const useUploadView = (
   };
 
   const onActionStart = () => {
-    invalidFiles?.forEach((file) => {
-      filesDispatch({ type: 'REMOVE_FILE_ITEM', id: file.id });
-    });
-
     handleUploads();
   };
 

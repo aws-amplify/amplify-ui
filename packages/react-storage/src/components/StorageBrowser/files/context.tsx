@@ -4,14 +4,17 @@ import { noop } from '@aws-amplify/ui';
 import { createContextUtilities } from '@aws-amplify/ui-react-core';
 import { useFileSelect } from '@aws-amplify/ui-react/internal';
 
+import { DEFAULT_STATE } from './constants';
+import { filesReducer } from './filesReducer';
+import { resolveFiles } from './resolveFiles';
 import type {
   FilesContextType,
   FilesProviderProps,
   HandleFilesAction,
 } from './types';
-import { filesReducer, parseFileSelectParams } from './utils';
+import { parseFileSelectParams } from './utils';
 
-const defaultValue: FilesContextType = [undefined, noop];
+const defaultValue: FilesContextType = [DEFAULT_STATE, noop];
 export const { FilesContext, useFiles } = createContextUtilities({
   contextName: 'Files',
   defaultValue,
@@ -20,16 +23,22 @@ export const { FilesContext, useFiles } = createContextUtilities({
 export function FilesProvider({
   children,
 }: FilesProviderProps): React.JSX.Element {
-  const [items, dispatch] = React.useReducer(filesReducer, []);
+  const [state, dispatch] = React.useReducer(filesReducer, DEFAULT_STATE);
 
   const [fileInput, handleFileSelect] = useFileSelect((nextFiles) => {
-    dispatch({ type: 'ADD_FILE_ITEMS', files: nextFiles });
+    const { valid: files, invalid: invalidFiles } = resolveFiles(nextFiles);
+    dispatch({ type: 'ADD_FILE_ITEMS', files, invalidFiles });
   });
 
   const handleFilesAction: HandleFilesAction = React.useCallback(
     (action) => {
       if (action.type === 'SELECT_FILES') {
         handleFileSelect(...parseFileSelectParams(action.selectionType));
+      } else if (action.type === 'ADD_FILE_ITEMS') {
+        const { valid: files, invalid: invalidFiles } = resolveFiles(
+          action.files
+        );
+        dispatch({ type: 'ADD_FILE_ITEMS', files, invalidFiles });
       } else {
         dispatch(action);
       }
@@ -38,8 +47,8 @@ export function FilesProvider({
   );
 
   const value: FilesContextType = React.useMemo(
-    () => [items, handleFilesAction],
-    [items, handleFilesAction]
+    () => [state, handleFilesAction],
+    [state, handleFilesAction]
   );
 
   return (
