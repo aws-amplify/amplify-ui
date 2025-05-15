@@ -104,14 +104,5 @@ describe('useFiles', () => {
       items: [fileItemTwo],
       invalidItems: undefined,
     });
-
-    const [updatedState] = result.current;
-
-    const expectedUpdatedState = {
-      items: [fileItemTwo],
-      invalidItems: undefined,
-    };
-
-    expect(updatedState).toStrictEqual(expectedUpdatedState);
   });
 });
