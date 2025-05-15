@@ -15,7 +15,7 @@ describe('useView', () => {
     }
   );
 
-  it('throws when provided an unexepected key', () => {
+  it('throws when provided an unexpected key', () => {
     // turn off console.error logging for unhappy path test case
     jest.spyOn(console, 'error').mockImplementation(() => {});
 

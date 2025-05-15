@@ -4,15 +4,16 @@ import { ControlsContextProvider } from '../../../controls/context';
 import { useDisplayText } from '../../../displayText';
 
 import { useResolveTableData } from '../../hooks/useResolveTableData';
-import { DELETE_TABLE_KEYS, DELETE_TABLE_RESOLVERS } from '../../utils';
+import { DOWNLOAD_TABLE_KEYS, DOWNLOAD_TABLE_RESOLVERS } from '../../utils';
 
-import type { DeleteViewProviderProps } from './types';
+import type { DownloadViewProviderProps } from './types';
 
-export function DeleteViewProvider({
+export function DownloadViewProvider({
   children,
   ...props
-}: DeleteViewProviderProps): React.JSX.Element {
-  const { DeleteView: displayText } = useDisplayText();
+}: DownloadViewProviderProps): React.JSX.Element {
+  const { DownloadView: displayText } = useDisplayText();
+
   const {
     actionCancelLabel,
     actionExitLabel,
@@ -41,8 +42,8 @@ export function DeleteViewProvider({
     : undefined;
 
   const tableData = useResolveTableData(
-    DELETE_TABLE_KEYS,
-    DELETE_TABLE_RESOLVERS,
+    DOWNLOAD_TABLE_KEYS,
+    DOWNLOAD_TABLE_RESOLVERS,
     {
       items,
       props: { displayText, isProcessing, onTaskRemove },
