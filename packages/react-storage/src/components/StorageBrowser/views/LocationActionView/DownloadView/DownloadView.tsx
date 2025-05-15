@@ -13,7 +13,7 @@ import { STORAGE_BROWSER_BLOCK } from '../../../components';
 
 import { DownloadViewProvider } from './DownloadViewProvider';
 import { useDownloadView } from './useDownloadView';
-import { DownloadViewType } from './types';
+import type { DownloadViewType } from './types';
 import { classNames } from '@aws-amplify/ui';
 
 export const DownloadView: DownloadViewType = ({ className, ...props }) => {

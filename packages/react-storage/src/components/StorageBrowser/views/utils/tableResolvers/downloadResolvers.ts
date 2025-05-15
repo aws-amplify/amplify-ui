@@ -1,10 +1,10 @@
 import { capitalize, noop } from '@aws-amplify/ui';
 
-import { WithKey } from '../../../components/types';
+import type { WithKey } from '../../../components/types';
 import { isDownloadViewDisplayTextKey } from '../../../displayText';
 
 import { STATUS_ICONS, STATUS_LABELS } from './constants';
-import {
+import type {
   DownloadActionTask,
   DownloadTableResolvers,
   DownloadTableKey,
