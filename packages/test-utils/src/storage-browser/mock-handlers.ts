@@ -139,11 +139,7 @@ export class MockHandlers {
       });
     }
 
-    const itemIndex = this.#locationItems[prefix].findIndex(
-      (item) => item.key === key
-    );
-
-    if (itemIndex !== -1) {
+    if (this.#locationItems[prefix].some((item) => item.key === key)) {
       if (preventOverwrite) {
         return {
           ...UNDEFINED_CALLBACKS,
@@ -153,7 +149,8 @@ export class MockHandlers {
           }),
         };
       } else {
-        this.#locationItems[prefix].splice(itemIndex, 1);
+        // remove prev item as new version will be added, 'overwriting' prev item
+        this.#locationItems[prefix].filter((item) => item.key !== key);
       }
     }
 
