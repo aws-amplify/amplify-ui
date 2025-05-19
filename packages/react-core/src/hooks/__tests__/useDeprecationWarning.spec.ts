@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook } from '@testing-library/react';
 import useDeprecationWarning from '../useDeprecationWarning';
 
 // add empty mockImplementation to prevent logging output to the console

@@ -39,6 +39,9 @@ export const useStorageURL = ({
         setURL(url.toString());
       })
       .catch((error: Error) => {
+        // eslint-disable-next-line no-console
+        console.log('err?');
+
         if (ignore) {
           return;
         }

@@ -1,4 +1,4 @@
-import { renderHook, act } from '@testing-library/react-hooks';
+import { renderHook, act, waitFor } from '@testing-library/react';
 import { createUseAIGeneration } from '../useAIGeneration';
 import { INITIAL_STATE, LOADING_STATE, ERROR_STATE } from '../shared';
 
@@ -29,22 +29,17 @@ describe('useAIGeneration', () => {
     const mockData = { text: 'generated content' };
     mockClient.generations.testRoute.mockResolvedValueOnce({ data: mockData });
 
-    const { result, waitForNextUpdate } = renderHook(() =>
-      useAIGeneration('testRoute')
-    );
+    const { result } = renderHook(() => useAIGeneration('testRoute'));
 
     act(() => {
       result.current[1]({ prompt: 'test prompt' });
     });
 
-    await waitForNextUpdate();
-
-    expect(mockClient.generations.testRoute).toHaveBeenCalledWith({
-      prompt: 'test prompt',
-    });
-    expect(result.current[0]).toEqual({
-      ...INITIAL_STATE,
-      data: mockData,
+    await waitFor(() => {
+      expect(mockClient.generations.testRoute).toHaveBeenCalledWith({
+        prompt: 'test prompt',
+      });
+      expect(result.current[0]).toEqual({ ...INITIAL_STATE, data: mockData });
     });
   });
 
@@ -63,10 +58,7 @@ describe('useAIGeneration', () => {
       result.current[1]({ prompt: 'test prompt' });
     });
 
-    expect(result.current[0]).toEqual({
-      ...LOADING_STATE,
-      data: undefined,
-    });
+    expect(result.current[0]).toEqual({ ...LOADING_STATE, data: undefined });
   });
 
   it('should handle error state', async () => {
@@ -76,18 +68,16 @@ describe('useAIGeneration', () => {
       errors,
     });
 
-    const { result, waitForNextUpdate } = renderHook(() =>
-      useAIGeneration('testRoute')
-    );
+    const { result } = renderHook(() => useAIGeneration('testRoute'));
 
     act(() => {
       result.current[1]({ prompt: 'test prompt' });
     });
 
-    await waitForNextUpdate();
-
-    expect(mockClient.generations.testRoute).toHaveBeenCalledWith({
-      prompt: 'test prompt',
+    await waitFor(() => {
+      expect(mockClient.generations.testRoute).toHaveBeenCalledWith({
+        prompt: 'test prompt',
+      });
     });
 
     expect(result.current[0]).toEqual({
@@ -105,30 +95,30 @@ describe('useAIGeneration', () => {
       data: initialData,
     });
 
-    const { result, waitForNextUpdate } = renderHook(() =>
-      useAIGeneration('testRoute')
-    );
+    const { result } = renderHook(() => useAIGeneration('testRoute'));
 
     act(() => {
       result.current[1]({ prompt: 'first prompt' });
     });
 
-    await waitForNextUpdate();
+    await waitFor(() => {
+      expect(result.current[0]).toEqual({
+        ...INITIAL_STATE,
+        data: initialData,
+      });
+    });
 
-    mockClient.generations.testRoute.mockImplementation(
-      () =>
-        new Promise((resolve) =>
-          setTimeout(() => resolve({ data: newData }), 100)
-        )
-    );
+    mockClient.generations.testRoute.mockResolvedValue({ data: newData });
 
     act(() => {
       result.current[1]({ prompt: 'second prompt' });
     });
 
-    expect(result.current[0]).toEqual({
-      ...LOADING_STATE,
-      data: initialData,
+    await waitFor(() => {
+      expect(result.current[0]).toEqual({
+        ...LOADING_STATE,
+        data: initialData,
+      });
     });
   });
 });

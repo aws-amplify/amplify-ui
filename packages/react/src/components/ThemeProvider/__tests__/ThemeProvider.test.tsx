@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook } from '@testing-library/react';
 import { Theme, createTheme } from '@aws-amplify/ui';
 import * as React from 'react';
 

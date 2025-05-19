@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook } from '@testing-library/react-native';
 import type {
   MessageButtonProps,
   MessageComponentBaseProps,
@@ -83,7 +83,7 @@ describe('useMessageProps', () => {
       isImageFetching: false,
     });
 
-    rerender();
+    rerender(props);
 
     expect(onDisplay).toHaveBeenCalledTimes(1);
     expect(result.current).toEqual({

@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook } from '@testing-library/react';
 import { waitFor } from '@testing-library/react';
 
 import * as Storage from 'aws-amplify/storage';
@@ -60,11 +60,9 @@ describe('useUploadFiles', () => {
   });
 
   it('should upload all queued files', async () => {
-    const { waitForNextUpdate } = renderHook(() =>
+    renderHook(() =>
       useUploadFiles({ ...props, files: [mockUploadingFile, mockQueuedFile] })
     );
-
-    waitForNextUpdate();
 
     await waitFor(() => {
       expect(mockSetUploadingFile).toHaveBeenCalledTimes(1);
@@ -88,15 +86,13 @@ describe('useUploadFiles', () => {
   });
 
   it('should upload all resumable queued files', async () => {
-    const { waitForNextUpdate } = renderHook(() =>
+    renderHook(() =>
       useUploadFiles({
         ...props,
         isResumable: true,
         files: [mockUploadingFile, mockQueuedFile],
       })
     );
-
-    waitForNextUpdate();
 
     await waitFor(() => {
       expect(mockSetUploadingFile).toHaveBeenCalledTimes(1);
@@ -111,11 +107,9 @@ describe('useUploadFiles', () => {
   });
 
   it('should do nothing if number of queued files exceeds max number of files', async () => {
-    const { waitForNextUpdate } = renderHook(() =>
+    renderHook(() =>
       useUploadFiles({ ...props, maxFileCount: 0, files: [mockQueuedFile] })
     );
-
-    waitForNextUpdate();
 
     expect(mockSetUploadingFile).not.toHaveBeenCalled();
 
@@ -135,11 +129,7 @@ describe('useUploadFiles', () => {
         result: Promise.reject(errorMessage),
       };
     });
-    const { waitForNextUpdate } = renderHook(() =>
-      useUploadFiles({ ...props, files: [mockQueuedFile] })
-    );
-
-    waitForNextUpdate();
+    renderHook(() => useUploadFiles({ ...props, files: [mockQueuedFile] }));
 
     await waitFor(() => {
       expect(mockOnUploadError).toHaveBeenCalledTimes(1);
@@ -153,7 +143,7 @@ describe('useUploadFiles', () => {
       key: 'test.png',
     });
 
-    const { waitForNextUpdate } = renderHook(() =>
+    renderHook(() =>
       useUploadFiles({
         ...props,
         isResumable: true,
@@ -161,8 +151,6 @@ describe('useUploadFiles', () => {
         files: [mockQueuedFile],
       })
     );
-
-    waitForNextUpdate();
 
     await waitFor(() => {
       expect(mockOnUploadStart).toHaveBeenCalledWith({ key: 'test.png' });
@@ -173,7 +161,7 @@ describe('useUploadFiles', () => {
     const processFile: FileUploaderProps['processFile'] = ({ file }) =>
       new Promise((resolve) => resolve({ file, key: 'test.png' }));
 
-    const { waitForNextUpdate } = renderHook(() =>
+    renderHook(() =>
       useUploadFiles({
         ...props,
         isResumable: true,
@@ -181,8 +169,6 @@ describe('useUploadFiles', () => {
         files: [mockQueuedFile],
       })
     );
-
-    waitForNextUpdate();
 
     await waitFor(() => {
       expect(mockOnUploadStart).toHaveBeenCalledWith({
@@ -193,7 +179,7 @@ describe('useUploadFiles', () => {
 
   it('prepends valid provided `path` to `processedKey`', async () => {
     const path = 'test-path/';
-    const { waitForNextUpdate } = renderHook(() =>
+    renderHook(() =>
       useUploadFiles({
         ...props,
         isResumable: true,
@@ -202,8 +188,6 @@ describe('useUploadFiles', () => {
       })
     );
     const expected = { key: `${path}${mockQueuedFile.key}` };
-
-    waitForNextUpdate();
 
     await waitFor(() => {
       expect(mockOnUploadStart).toHaveBeenCalledWith(expected);

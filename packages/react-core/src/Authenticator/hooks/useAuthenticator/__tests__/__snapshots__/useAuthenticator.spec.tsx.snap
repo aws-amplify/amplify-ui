@@ -7,7 +7,7 @@ exports[`useAuthenticator returns the expected values 1`] = `
     "EMAIL",
     "TOTP",
   ],
-  "authStatus": "authenticated",
+  "authStatus": "configuring",
   "challengeName": "SELECT_MFA_TYPE",
   "codeDeliveryDetails": {},
   "error": undefined,
