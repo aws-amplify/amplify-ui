@@ -1,11 +1,9 @@
 import { render, screen } from '@testing-library/react';
-import { renderHook } from '@testing-library/react';
-import { Theme, createTheme } from '@aws-amplify/ui';
+import { Theme } from '@aws-amplify/ui';
 import * as React from 'react';
 
 import { ThemeProvider } from '../ThemeProvider';
 import { Heading } from '../../../primitives';
-import { useTheme } from '../../../hooks';
 
 const App = () => {
   return <Heading>Howdy</Heading>;
