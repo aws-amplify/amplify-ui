@@ -32,7 +32,7 @@ describe('useComponentRoute', () => {
       wrapper: ComponentRouteProvider,
     });
 
-    expect(result.current).toBeUndefined();
+    expect(result.current).toBeNull();
   });
 
   it('calls useMachine with routeSelector', () => {
