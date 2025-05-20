@@ -1,5 +1,4 @@
-import { renderHook } from '@testing-library/react';
-import { waitFor } from '@testing-library/react';
+import { renderHook, waitFor } from '@testing-library/react';
 
 import * as Storage from 'aws-amplify/storage';
 
