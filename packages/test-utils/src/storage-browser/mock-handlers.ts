@@ -150,7 +150,9 @@ export class MockHandlers {
         };
       } else {
         // remove prev item as new version will be added, 'overwriting' prev item
-        this.#locationItems[prefix].filter((item) => item.key !== key);
+        this.#locationItems[prefix] = this.#locationItems[prefix].filter(
+          (item) => item.key !== key
+        );
       }
     }
 
