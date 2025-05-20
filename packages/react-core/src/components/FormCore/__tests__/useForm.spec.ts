@@ -72,8 +72,6 @@ describe('useForm', () => {
     expect(() => renderHook(() => useForm({ errorMessage }))).toThrow(
       errorMessage
     );
-
-    // expect(result.error?.message).toBe(errorMessage);
   });
 
   it('returns the expected values from getFieldState in the happy path', async () => {
