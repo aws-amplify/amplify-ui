@@ -1,4 +1,4 @@
 export { COPY_TABLE_RESOLVERS } from './copyResolvers';
 export { UPLOAD_TABLE_KEYS, UPLOAD_TABLE_RESOLVERS } from './uploadResolvers';
 export { DELETE_TABLE_RESOLVERS } from './deleteResolvers';
-export { DEFAULT_ACTION_TABLE_KEYS } from './constants';
+export { ACTION_TABLE_KEYS } from './constants';

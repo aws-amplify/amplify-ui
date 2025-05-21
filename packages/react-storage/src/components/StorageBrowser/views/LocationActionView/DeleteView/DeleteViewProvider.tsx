@@ -4,7 +4,7 @@ import { ControlsContextProvider } from '../../../controls/context';
 import { useDisplayText } from '../../../displayText';
 
 import { useResolveTableData } from '../../hooks/useResolveTableData';
-import { DEFAULT_ACTION_TABLE_KEYS, DELETE_TABLE_RESOLVERS } from '../../utils';
+import { ACTION_TABLE_KEYS, DELETE_TABLE_RESOLVERS } from '../../utils';
 
 import type { DeleteViewProviderProps } from './types';
 
@@ -42,7 +42,7 @@ export function DeleteViewProvider({
     : undefined;
 
   const tableData = useResolveTableData(
-    DEFAULT_ACTION_TABLE_KEYS,
+    ACTION_TABLE_KEYS,
     DELETE_TABLE_RESOLVERS,
     {
       items,

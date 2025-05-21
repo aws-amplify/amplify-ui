@@ -7,7 +7,6 @@ import type {
 
 import type {
   ActionTask,
-  ActionTaskTableResolvers,
   CopyActionTask,
   DeleteActionTask,
   GetActionCell,
@@ -64,7 +63,7 @@ export const getFileSize = (
   fallback = '-'
 ): string => (!value ? fallback : humanFileSize(value, true));
 
-type CellInput = Parameters<GetActionCell<ActionTaskTableResolvers>>[0];
+type CellInput = Parameters<GetActionCell>[0];
 
 export const getActionCancelCellContent = <
   TInput extends CellInput,

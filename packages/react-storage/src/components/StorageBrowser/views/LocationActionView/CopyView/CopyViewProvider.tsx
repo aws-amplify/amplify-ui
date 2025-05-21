@@ -5,7 +5,7 @@ import { ControlsContextProvider } from '../../../controls';
 import { useDisplayText } from '../../../displayText';
 
 import { useResolveTableData } from '../../hooks/useResolveTableData';
-import { DEFAULT_ACTION_TABLE_KEYS, COPY_TABLE_RESOLVERS } from '../../utils';
+import { ACTION_TABLE_KEYS, COPY_TABLE_RESOLVERS } from '../../utils';
 
 import { FoldersMessageProvider } from './FoldersMessageControl';
 import { FoldersPaginationProvider } from './FoldersPaginationControl';
@@ -66,7 +66,7 @@ export function CopyViewProvider({
   } = folders;
 
   const tableData = useResolveTableData(
-    DEFAULT_ACTION_TABLE_KEYS,
+    ACTION_TABLE_KEYS,
     COPY_TABLE_RESOLVERS,
     {
       items,

@@ -7,17 +7,18 @@ import type {
   ActionTaskTableResolvers,
   GetActionCell,
 } from './types';
-import {
+import type {
   CopyViewDisplayText,
   DeleteViewDisplayText,
 } from '../../../displayText';
+import type { WithKey } from '../../../components';
+
 import {
   getActionCancelCellContent,
   getActionCellFolder,
   getFileSize,
   getFileType,
 } from './utils';
-import { WithKey } from '../../../components';
 
 /**
  * Generates a unique key for a table cell based on the key and item id

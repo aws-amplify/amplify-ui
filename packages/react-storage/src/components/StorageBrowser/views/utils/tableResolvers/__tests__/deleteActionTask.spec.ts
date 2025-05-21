@@ -2,11 +2,7 @@ import { capitalize } from '@aws-amplify/ui';
 import { DeleteViewDisplayText } from '../../../../displayText';
 
 import { MOCK_DELETE_TASKS } from '../__testUtils__/tasks';
-import {
-  DEFAULT_ACTION_TABLE_KEYS,
-  STATUS_ICONS,
-  STATUS_LABELS,
-} from '../constants';
+import { ACTION_TABLE_KEYS, STATUS_ICONS, STATUS_LABELS } from '../constants';
 import { DeleteActionTask, DeleteTableResolverProps } from '../types';
 import { DELETE_TABLE_RESOLVERS } from '../deleteResolvers';
 
@@ -32,7 +28,7 @@ describe('DELETE_TABLE_RESOLVERS', () => {
   beforeEach(jest.clearAllMocks);
 
   describe('getCell', () => {
-    it.each(DEFAULT_ACTION_TABLE_KEYS)(
+    it.each(ACTION_TABLE_KEYS)(
       'returns the expect cell `key` for a "%s" table `key`',
       (key) => {
         const data = {
@@ -239,7 +235,7 @@ describe('DELETE_TABLE_RESOLVERS', () => {
 
   describe('getHeader', () => {
     // filter out cancel, does not allow sorting
-    it.each(DEFAULT_ACTION_TABLE_KEYS.filter((key) => key !== 'cancel'))(
+    it.each(ACTION_TABLE_KEYS.filter((key) => key !== 'cancel'))(
       'returns the expect header data for a %s column',
       (key) => {
         const data = { key, props: mockProps };

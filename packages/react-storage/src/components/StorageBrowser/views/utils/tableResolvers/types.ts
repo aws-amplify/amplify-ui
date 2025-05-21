@@ -36,7 +36,7 @@ export interface UploadTableResolverProps
   isMultipartUpload: (file: File) => boolean;
 }
 
-export type FileTaskTableResolverProps =
+export type FileActionTableResolverProps =
   | CopyTableResolverProps
   | DeleteTableResolverProps;
 
@@ -53,7 +53,7 @@ export type UploadTableKey = ActionTableKey | 'progress';
 export interface ActionTaskTableResolvers
   extends DataTableResolvers<
     ActionTableKey,
-    FileTaskTableResolverProps,
+    FileActionTableResolverProps,
     ActionTask
   > {}
 
@@ -64,8 +64,6 @@ export interface UploadTableResolvers
     UploadActionTask
   > {}
 
-export type GetActionCell<
-  T extends { getCell: unknown } = ActionTaskTableResolvers,
-> = T['getCell'];
+export type GetActionCell = ActionTaskTableResolvers['getCell'];
 
 export type GetUploadCell = UploadTableResolvers['getCell'];
