@@ -1,20 +1,16 @@
 import { capitalize, noop } from '@aws-amplify/ui';
 
-import type { WithKey } from '../../../components/types';
 import { isCopyViewDisplayTextKey } from '../../../displayText';
 
 import { STATUS_ICONS, STATUS_LABELS } from './constants';
-import type {
-  CopyActionTask,
-  CopyTableKey,
-  CopyTaskTableResolvers,
-} from './types';
+import type { CopyTaskTableResolvers } from './types';
 import {
-  getCopyCellFolder,
-  getCopyOrDeleteCancelCellContent,
+  getActionCellFolder,
+  getActionCancelCellContent,
   getFileSize,
   getFileType,
 } from './utils';
+import { getActionCellKey } from './actionResolvers';
 
 export const COPY_TABLE_KEYS = [
   'name',
@@ -27,13 +23,8 @@ export const COPY_TABLE_KEYS = [
 
 type GetCopyTaskCell = CopyTaskTableResolvers['getCell'];
 
-const getCopyCellKey = ({
-  key,
-  item,
-}: WithKey<{ item: CopyActionTask }, CopyTableKey>) => `${key}-${item.data.id}`;
-
 const name: GetCopyTaskCell = (data) => {
-  const key = getCopyCellKey(data);
+  const key = getActionCellKey(data);
 
   const { item } = data;
   const text = item.data.fileKey;
@@ -43,14 +34,14 @@ const name: GetCopyTaskCell = (data) => {
 };
 
 const folder: GetCopyTaskCell = (data) => {
-  const key = getCopyCellKey(data);
-  const text = getCopyCellFolder(data.item);
+  const key = getActionCellKey(data);
+  const text = getActionCellFolder(data.item);
 
   return { key, type: 'text', content: { text } };
 };
 
 const type: GetCopyTaskCell = (data) => {
-  const key = getCopyCellKey(data);
+  const key = getActionCellKey(data);
   const { fileKey } = data.item.data;
 
   const text = getFileType(fileKey);
@@ -59,7 +50,7 @@ const type: GetCopyTaskCell = (data) => {
 };
 
 const size: GetCopyTaskCell = (data) => {
-  const key = getCopyCellKey(data);
+  const key = getActionCellKey(data);
   const { size: value } = data.item.data;
   const displayValue = getFileSize(value);
 
@@ -67,7 +58,7 @@ const size: GetCopyTaskCell = (data) => {
 };
 
 const status: GetCopyTaskCell = (data) => {
-  const key = getCopyCellKey(data);
+  const key = getActionCellKey(data);
   const {
     item: { status },
     props: { displayText },
@@ -83,8 +74,8 @@ const status: GetCopyTaskCell = (data) => {
 };
 
 const cancel: GetCopyTaskCell = (data) => {
-  const key = getCopyCellKey(data);
-  const content = getCopyOrDeleteCancelCellContent(data);
+  const key = getActionCellKey(data);
+  const content = getActionCancelCellContent(data);
 
   return { key, type: 'button', content };
 };

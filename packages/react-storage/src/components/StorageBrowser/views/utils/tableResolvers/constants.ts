@@ -15,3 +15,12 @@ export const STATUS_ICONS = {
   CANCELED: 'action-canceled',
   QUEUED: 'action-queued',
 } as const;
+
+export const DEFAULT_ACTION_TABLE_KEYS = [
+  'name',
+  'folder',
+  'type',
+  'size',
+  'status',
+  'cancel',
+] as const;

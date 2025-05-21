@@ -1,21 +1,16 @@
 import { capitalize, noop } from '@aws-amplify/ui';
 
-import type { WithKey } from '../../../components/types';
 import { isDeleteViewDisplayTextKey } from '../../../displayText';
 
 import { STATUS_ICONS, STATUS_LABELS } from './constants';
-import type {
-  DeleteActionTask,
-  DeleteTableKey,
-  DeleteTableResolvers,
-  GetDeleteCell,
-} from './types';
+import type { DeleteTableResolvers, GetDeleteCell } from './types';
 import {
-  getCopyOrDeleteCancelCellContent,
-  getDeleteCellFolder,
+  getActionCancelCellContent,
+  getActionCellFolder,
   getFileSize,
   getFileType,
 } from './utils';
+import { getActionCellKey } from './actionResolvers';
 
 export const DELETE_TABLE_KEYS = [
   'name',
@@ -26,14 +21,8 @@ export const DELETE_TABLE_KEYS = [
   'cancel',
 ] as const;
 
-const getDeleteCellKey = ({
-  key,
-  item,
-}: WithKey<{ item: DeleteActionTask }, DeleteTableKey>) =>
-  `${key}-${item.data.id}`;
-
 const name: GetDeleteCell = (data) => {
-  const key = getDeleteCellKey(data);
+  const key = getActionCellKey(data);
 
   const { item } = data;
   const text = item.data.fileKey;
@@ -43,14 +32,14 @@ const name: GetDeleteCell = (data) => {
 };
 
 const folder: GetDeleteCell = (data) => {
-  const key = getDeleteCellKey(data);
-  const text = getDeleteCellFolder(data.item);
+  const key = getActionCellKey(data);
+  const text = getActionCellFolder(data.item);
 
   return { key, type: 'text', content: { text } };
 };
 
 const type: GetDeleteCell = (data) => {
-  const key = getDeleteCellKey(data);
+  const key = getActionCellKey(data);
   const { fileKey } = data.item.data;
 
   const text = getFileType(fileKey);
@@ -59,7 +48,7 @@ const type: GetDeleteCell = (data) => {
 };
 
 const size: GetDeleteCell = (data) => {
-  const key = getDeleteCellKey(data);
+  const key = getActionCellKey(data);
   const { size: value } = data.item.data;
   const displayValue = getFileSize(value);
 
@@ -67,7 +56,7 @@ const size: GetDeleteCell = (data) => {
 };
 
 const status: GetDeleteCell = (data) => {
-  const key = getDeleteCellKey(data);
+  const key = getActionCellKey(data);
   const {
     item: { status },
     props: { displayText },
@@ -83,8 +72,8 @@ const status: GetDeleteCell = (data) => {
 };
 
 const cancel: GetDeleteCell = (data) => {
-  const key = getDeleteCellKey(data);
-  const content = getCopyOrDeleteCancelCellContent(data);
+  const key = getActionCellKey(data);
+  const content = getActionCancelCellContent(data);
 
   return { key, type: 'button', content };
 };

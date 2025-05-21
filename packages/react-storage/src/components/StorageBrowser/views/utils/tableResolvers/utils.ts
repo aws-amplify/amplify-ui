@@ -6,11 +6,12 @@ import type {
 } from '../../../components';
 
 import type {
+  ActionTask,
+  ActionTaskTableResolvers,
   CopyActionTask,
   DeleteActionTask,
   DownloadActionTask,
-  GetCopyCell,
-  GetDeleteCell,
+  GetActionCell,
   UploadActionTask,
 } from './types';
 
@@ -36,17 +37,18 @@ export const getUploadCellFolder = (
     ? webkitRelativePath.slice(0, webkitRelativePath.lastIndexOf('/') + 1)
     : fallback;
 
-export const getCopyCellFolder = ({
-  data: { fileKey, sourceKey },
-}: CopyActionTask): string => sourceKey.slice(0, -fileKey.length);
+const isCopyActionTask = (task: ActionTask): task is CopyActionTask =>
+  'sourceKey' in task.data;
 
-export const getDeleteCellFolder = ({
-  data: { fileKey, key },
-}: DeleteActionTask): string => key.slice(0, -fileKey.length);
-
-export const getDownloadCellFolder = ({
-  data: { fileKey, key },
-}: DownloadActionTask): string => key.slice(0, -fileKey.length);
+export const getActionCellFolder = (
+  task: DeleteActionTask | DownloadActionTask | CopyActionTask
+): string => {
+  const targetKey = isCopyActionTask(task)
+    ? task.data.sourceKey
+    : task.data.key;
+  const { fileKey } = task.data;
+  return targetKey.slice(0, -fileKey.length);
+};
 
 export const getUploadCellProgress = ({
   progress,
@@ -63,9 +65,9 @@ export const getFileSize = (
   fallback = '-'
 ): string => (!value ? fallback : humanFileSize(value, true));
 
-type CellInput = Parameters<GetCopyCell>[0] | Parameters<GetDeleteCell>[0];
+type CellInput = Parameters<GetActionCell<ActionTaskTableResolvers>>[0];
 
-export const getCopyOrDeleteCancelCellContent = <
+export const getActionCancelCellContent = <
   TInput extends CellInput,
   TCallback extends TInput['props']['onTaskRemove'] extends (
     item: infer TItem
