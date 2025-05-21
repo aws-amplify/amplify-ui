@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook } from '@testing-library/react';
 import { mockUseMachineOutput } from '../../Machine/__mock__/useMachine';
 import * as MachineContext from '../../Machine';
 import {
@@ -32,7 +32,7 @@ describe('useComponentRoute', () => {
       wrapper: ComponentRouteProvider,
     });
 
-    expect(result.current).toBeUndefined();
+    expect(result.current).toBeNull();
   });
 
   it('calls useMachine with routeSelector', () => {
