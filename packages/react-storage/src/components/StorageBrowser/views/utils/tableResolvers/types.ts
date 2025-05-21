@@ -2,7 +2,9 @@ import type {
   CopyHandlerData,
   DeleteHandlerData,
   UploadHandlerData,
+  TaskData,
 } from '../../../actions';
+import type { OptionalFileData } from '../../../actions/handlers';
 import type {
   CopyViewDisplayText,
   DeleteViewDisplayText,
@@ -14,6 +16,8 @@ import type { DataTableResolvers } from '../../hooks/useResolveTableData';
 export interface CopyActionTask extends Task<CopyHandlerData> {}
 export interface DeleteActionTask extends Task<DeleteHandlerData> {}
 export interface UploadActionTask extends Task<UploadHandlerData> {}
+export interface ActionTask
+  extends Task<TaskData & OptionalFileData & { fileKey: string }> {}
 
 interface ActionTableResolverProps<TDisplayText, TTask> {
   displayText: TDisplayText;
@@ -32,19 +36,29 @@ export interface UploadTableResolverProps
   isMultipartUpload: (file: File) => boolean;
 }
 
-type ActionTableKey =
+export type ActionTableKey =
   | 'name'
   | 'folder'
   | 'type'
   | 'size'
   | 'status'
-  | 'progress'
   | 'cancel';
 
-export type CopyTableKey = Exclude<ActionTableKey, 'progress'>;
-export type DeleteTableKey = Exclude<ActionTableKey, 'progress'>;
-export type UploadTableKey = ActionTableKey;
+export type CopyTableKey = ActionTableKey;
+export type DeleteTableKey = ActionTableKey;
+export type DownloadTableKey = ActionTableKey;
+export type UploadTableKey = ActionTableKey | 'progress';
 
+export interface ActionTaskTableResolvers
+  extends DataTableResolvers<
+    ActionTableKey,
+    FileTaskTableResolverProps,
+    ActionTask
+  > {}
+
+export type FileTaskTableResolverProps =
+  | CopyTableResolverProps
+  | DeleteTableResolverProps;
 export interface CopyTaskTableResolvers
   extends DataTableResolvers<
     CopyTableKey,
@@ -66,6 +80,8 @@ export interface UploadTableResolvers
     UploadActionTask
   > {}
 
-export type GetCopyCell = CopyTaskTableResolvers['getCell'];
-export type GetDeleteCell = DeleteTableResolvers['getCell'];
 export type GetUploadCell = UploadTableResolvers['getCell'];
+
+export type GetActionCell<
+  T extends { getCell: unknown } = ActionTaskTableResolvers,
+> = T['getCell'];

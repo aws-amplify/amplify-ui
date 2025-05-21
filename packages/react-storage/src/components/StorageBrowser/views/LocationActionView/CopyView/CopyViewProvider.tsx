@@ -5,7 +5,7 @@ import { ControlsContextProvider } from '../../../controls';
 import { useDisplayText } from '../../../displayText';
 
 import { useResolveTableData } from '../../hooks/useResolveTableData';
-import { COPY_TABLE_KEYS, COPY_TABLE_RESOLVERS } from '../../utils';
+import { DEFAULT_ACTION_TABLE_KEYS, COPY_TABLE_RESOLVERS } from '../../utils';
 
 import { FoldersMessageProvider } from './FoldersMessageControl';
 import { FoldersPaginationProvider } from './FoldersPaginationControl';
@@ -65,10 +65,14 @@ export function CopyViewProvider({
     onSelectFolder,
   } = folders;
 
-  const tableData = useResolveTableData(COPY_TABLE_KEYS, COPY_TABLE_RESOLVERS, {
-    items,
-    props: { displayText, isProcessing, onTaskRemove },
-  });
+  const tableData = useResolveTableData(
+    DEFAULT_ACTION_TABLE_KEYS,
+    COPY_TABLE_RESOLVERS,
+    {
+      items,
+      props: { displayText, isProcessing, onTaskRemove },
+    }
+  );
 
   const isActionStartDisabled =
     isProcessing || isProcessingComplete || !destination?.current;
