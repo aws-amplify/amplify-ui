@@ -1,22 +1,21 @@
 import { capitalize, noop } from '@aws-amplify/ui';
 
-import type { WithKey } from '../../../components/types';
 import { isDownloadViewDisplayTextKey } from '../../../displayText';
 
-import { STATUS_ICONS, STATUS_LABELS } from './constants';
+import { STATUS_LABELS } from './constants';
 import type {
-  DownloadActionTask,
+  ActionTaskTableResolvers,
   DownloadTableResolvers,
-  DownloadTableKey,
-  GetDownloadCell,
+  GetActionCell,
 } from './types';
 import {
-  // TODO: rename the below util
-  getCopyOrDeleteCancelCellContent,
-  getDownloadCellFolder,
-  getFileSize,
-  getFileType,
-} from './utils';
+  cancel,
+  folder,
+  getActionCellKey,
+  name,
+  size,
+  type,
+} from './actionResolvers';
 
 export const DOWNLOAD_TABLE_KEYS = [
   'name',
@@ -27,48 +26,42 @@ export const DOWNLOAD_TABLE_KEYS = [
   'cancel',
 ] as const;
 
-const getDownloadCellKey = ({
-  key,
-  item,
-}: WithKey<{ item: DownloadActionTask }, DownloadTableKey>) =>
-  `${key}-${item.data.id}`;
+// const name: GetActionCell<DownloadTableResolvers> = (data) => {
+//   const key = getActionCellKey(data);
 
-const name: GetDownloadCell = (data) => {
-  const key = getDownloadCellKey(data);
+//   const { item } = data;
+//   const text = item.data.fileKey;
+//   const icon = STATUS_ICONS[item.status];
 
-  const { item } = data;
-  const text = item.data.fileKey;
-  const icon = STATUS_ICONS[item.status];
+//   return { key, type: 'text', content: { icon, text } };
+// };
 
-  return { key, type: 'text', content: { icon, text } };
-};
+// const folder: GetActionCell<DownloadTableResolvers> = (data) => {
+//   const key = getActionCellKey(data);
+//   const text = getActionCellFolder(data.item);
 
-const folder: GetDownloadCell = (data) => {
-  const key = getDownloadCellKey(data);
-  const text = getDownloadCellFolder(data.item);
+//   return { key, type: 'text', content: { text } };
+// };
 
-  return { key, type: 'text', content: { text } };
-};
+// const type: GetActionCell<DownloadTableResolvers> = (data) => {
+//   const key = getActionCellKey(data);
+//   const { fileKey } = data.item.data;
 
-const type: GetDownloadCell = (data) => {
-  const key = getDownloadCellKey(data);
-  const { fileKey } = data.item.data;
+//   const text = getFileType(fileKey);
 
-  const text = getFileType(fileKey);
+//   return { key, type: 'text', content: { text } };
+// };
 
-  return { key, type: 'text', content: { text } };
-};
+// const size: GetActionCell<DownloadTableResolvers> = (data) => {
+//   const key = getActionCellKey(data);
+//   const { size: value } = data.item.data;
+//   const displayValue = getFileSize(value);
 
-const size: GetDownloadCell = (data) => {
-  const key = getDownloadCellKey(data);
-  const { size: value } = data.item.data;
-  const displayValue = getFileSize(value);
+//   return { key, type: 'number', content: { value, displayValue } };
+// };
 
-  return { key, type: 'number', content: { value, displayValue } };
-};
-
-const status: GetDownloadCell = (data) => {
-  const key = getDownloadCellKey(data);
+const status: GetActionCell<DownloadTableResolvers> = (data) => {
+  const key = getActionCellKey(data);
   const {
     item: { status },
     props: { displayText },
@@ -83,12 +76,12 @@ const status: GetDownloadCell = (data) => {
   return { key, type: 'text', content: { text } };
 };
 
-const cancel: GetDownloadCell = (data) => {
-  const key = getDownloadCellKey(data);
-  const content = getCopyOrDeleteCancelCellContent(data);
+// const cancel: GetActionCell<DownloadTableResolvers> = (data) => {
+//   const key = getActionCellKey(data);
+//   const content = getActionCancelCellContent(data);
 
-  return { key, type: 'button', content };
-};
+//   return { key, type: 'button', content };
+// };
 
 const DOWNLOAD_CELL_RESOLVERS = {
   name,
@@ -105,11 +98,23 @@ const DOWNLOAD_CELL_RESOLVERS = {
    * keep TS happy as "progress" headers were included in display text interfaces
    * and cannot be removed from the tables without a breaking change
    */
-  progress: noop as GetDownloadCell,
+  progress: noop as GetActionCell<ActionTaskTableResolvers>,
 };
 
 export const DOWNLOAD_TABLE_RESOLVERS: DownloadTableResolvers = {
-  getCell: (data) => DOWNLOAD_CELL_RESOLVERS[data.key](data),
+  getCell: (data) => {
+    const isValidKey = (
+      key: string
+    ): key is keyof typeof DOWNLOAD_CELL_RESOLVERS => {
+      return key in DOWNLOAD_CELL_RESOLVERS;
+    };
+
+    if (isValidKey(data.key)) {
+      return DOWNLOAD_CELL_RESOLVERS[data.key](data);
+    }
+
+    throw new Error(`Unexpected key for download resolvers: ${data.key}`);
+  },
   getHeader: ({ key, props: { displayText } }) => {
     const text = displayText[`tableColumn${capitalize(key)}Header`];
 
