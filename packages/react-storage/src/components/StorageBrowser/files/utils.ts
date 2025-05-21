@@ -3,10 +3,39 @@ import type { HandleFileSelect } from '@aws-amplify/ui-react/internal';
 
 import type { FileItem } from '../actions';
 
-import type { FileItems, SelectionType } from './types';
+import { DEFAULT_MAX_FILE_SIZE, DEFAULT_RESOLVED_FILES } from './constants';
+import type { FileItems, ResolvedFiles, SelectionType } from './types';
 
 const compareFileItems = (prev: FileItem, next: FileItem) =>
   prev.key.localeCompare(next.key);
+
+const constructFiles = (files: File[] | undefined, file: File): File[] =>
+  isUndefined(files) ? [file] : files.concat(file);
+
+export const defaultFileSizeValidator = (file: File): boolean =>
+  file.size <= DEFAULT_MAX_FILE_SIZE;
+
+export const resolveFiles = (
+  files: File[] | undefined,
+  validator?: (file: File) => boolean
+): ResolvedFiles => {
+  if (!files?.length) return DEFAULT_RESOLVED_FILES;
+
+  if (!validator) return { validFiles: files, invalidFiles: undefined };
+
+  return files.reduce(
+    (acc, file) => {
+      if (validator(file)) {
+        acc.validFiles = constructFiles(acc.validFiles, file);
+      } else {
+        acc.invalidFiles = constructFiles(acc.invalidFiles, file);
+      }
+      return acc;
+    },
+    // create new copy of default to be modified
+    { ...DEFAULT_RESOLVED_FILES }
+  );
+};
 
 export const processFileItems = (
   prevItems: FileItems | undefined,

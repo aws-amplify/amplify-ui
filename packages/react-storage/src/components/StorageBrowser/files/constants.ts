@@ -1,14 +1,13 @@
-import type { ResolvedFiles } from './resolveFiles';
-import type { FilesState } from './types';
+import type { FileItemsState, ResolvedFiles } from './types';
 
-export const DEFAULT_STATE: FilesState = {
-  items: undefined,
+export const DEFAULT_STATE: FileItemsState = {
+  validItems: undefined,
   invalidItems: undefined,
 };
 
 export const DEFAULT_RESOLVED_FILES: ResolvedFiles = {
-  valid: undefined,
-  invalid: undefined,
+  validFiles: undefined,
+  invalidFiles: undefined,
 };
 
-export const UPLOAD_FILE_SIZE_LIMIT = 160 * 1000 * 1000 * 1000;
+export const DEFAULT_MAX_FILE_SIZE = 160 * 1000 * 1000 * 1000;

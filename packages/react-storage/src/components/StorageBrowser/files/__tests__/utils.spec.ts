@@ -1,7 +1,13 @@
 import type { FileItem } from '../../actions';
 
+import { DEFAULT_MAX_FILE_SIZE, DEFAULT_RESOLVED_FILES } from '../constants';
 import type { FileItems } from '../types';
-import { processFileItems, parseFileSelectParams } from '../utils';
+import {
+  defaultFileSizeValidator,
+  parseFileSelectParams,
+  processFileItems,
+  resolveFiles,
+} from '../utils';
 
 let uuid = 0;
 Object.defineProperty(globalThis, 'crypto', {
@@ -17,6 +23,15 @@ const fileOne = new File([], 'file-one');
 const fileTwo = new File([], 'file-two');
 const fileThree = new File([], 'file-three');
 
+const invalidFileOne = {
+  ...new File([], 'invalid-file-one'),
+  size: DEFAULT_MAX_FILE_SIZE + 1,
+};
+const invalidFileTwo = {
+  ...new File([], 'invalid-file-two'),
+  size: DEFAULT_MAX_FILE_SIZE + 2,
+};
+
 const fileItemOne: FileItem = {
   id: 'item-one',
   file: fileOne,
@@ -29,7 +44,71 @@ const fileItemTwo: FileItem = {
   key: fileTwo.name,
 };
 
-describe('getFileItems', () => {
+describe('resolveFiles', () => {
+  it('returns the default value when `files` is `undefined`', () => {
+    const output = resolveFiles(undefined);
+
+    expect(output).toBe(DEFAULT_RESOLVED_FILES);
+  });
+
+  it('returns the default value when `files` is an empty array', () => {
+    const output = resolveFiles([]);
+
+    expect(output).toBe(DEFAULT_RESOLVED_FILES);
+  });
+
+  it('returns the expected value when no validator is provided', () => {
+    const output = resolveFiles([
+      fileOne,
+      fileTwo,
+      invalidFileOne,
+      invalidFileTwo,
+    ]);
+    const expected = {
+      validFiles: [fileOne, fileTwo, invalidFileOne, invalidFileTwo],
+      invalidFiles: undefined,
+    };
+
+    expect(output).toStrictEqual(expected);
+  });
+
+  it('returns the expected value when valid files and validator are provided', () => {
+    const output = resolveFiles([fileOne, fileTwo], defaultFileSizeValidator);
+    const expected = {
+      validFiles: [fileOne, fileTwo],
+      invalidFiles: undefined,
+    };
+
+    expect(output).toStrictEqual(expected);
+  });
+
+  it('returns the expected value when invalid files and validator are provided', () => {
+    const output = resolveFiles(
+      [invalidFileOne, invalidFileTwo],
+      defaultFileSizeValidator
+    );
+    const expected = {
+      validFiles: undefined,
+      invalidFiles: [invalidFileOne, invalidFileTwo],
+    };
+
+    expect(output).toStrictEqual(expected);
+  });
+
+  it('returns the expected value when valid and invalid files are provided', () => {
+    const output = resolveFiles(
+      [invalidFileTwo, fileOne, invalidFileOne, fileTwo],
+      defaultFileSizeValidator
+    );
+    const expected = {
+      validFiles: [fileOne, fileTwo],
+      invalidFiles: [invalidFileTwo, invalidFileOne],
+    };
+    expect(output).toStrictEqual(expected);
+  });
+});
+
+describe('processFileItems', () => {
   it('returns the previous `items` when `files` is `undefined`', () => {
     const previous = [fileItemOne, fileItemTwo];
     const output = processFileItems(previous, undefined);
@@ -55,8 +134,8 @@ describe('getFileItems', () => {
   it('filters incoming `files` that exist in previous `items`', () => {
     const incoming = [fileOne, fileTwo, fileThree];
     const previous = [fileItemOne, fileItemTwo];
-    const output = processFileItems(previous, incoming);
 
+    const output = processFileItems(previous, incoming);
     expect(output).not.toBe(previous);
 
     const expected = [

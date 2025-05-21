@@ -1,4 +1,4 @@
-import { act, renderHook } from '@testing-library/react-hooks';
+import { act, renderHook } from '@testing-library/react';
 
 import {
   FileData,
@@ -94,7 +94,7 @@ const testLocation: LocationState = {
 
 const mockLocationItemsState = { fileDataItems: undefined };
 const mockStoreState = { location: testLocation, actionType: undefined };
-const mockFilesState = { items: undefined, invalidItems: undefined };
+const mockFilesState = { validItems: undefined, invalidItems: undefined };
 
 const mockLocation = { current: undefined, path: '', key: '' };
 const mockListState = {
@@ -466,7 +466,7 @@ describe('useLocationDetailView', () => {
       state.onDropFiles(mockFiles);
     });
     expect(mockFilesDispatch).toHaveBeenCalledWith({
-      type: 'ADD_FILE_ITEMS',
+      type: 'ADD_FILES',
       files: mockFiles,
     });
     expect(mockStoreDispatch).toHaveBeenCalledWith({
@@ -489,7 +489,7 @@ describe('useLocationDetailView', () => {
       state.onDropFiles([mockFolder]);
     });
     expect(mockFilesDispatch).toHaveBeenCalledWith({
-      type: 'ADD_FILE_ITEMS',
+      type: 'ADD_FILES',
       files: [mockFolder],
     });
     expect(mockStoreDispatch).toHaveBeenCalledWith({
@@ -515,7 +515,7 @@ describe('useLocationDetailView', () => {
       state.onDropFiles([mockFile, mockFolder]);
     });
     expect(mockFilesDispatch).toHaveBeenCalledWith({
-      type: 'ADD_FILE_ITEMS',
+      type: 'ADD_FILES',
       files: [mockFile, mockFolder],
     });
     expect(mockStoreDispatch).toHaveBeenCalledWith({

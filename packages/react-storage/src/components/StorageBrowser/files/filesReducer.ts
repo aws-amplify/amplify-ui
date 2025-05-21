@@ -1,33 +1,37 @@
 import { DEFAULT_STATE } from './constants';
-import type { FilesActionType, FilesState } from './types';
+import type { FileItemsState, FilesActionType } from './types';
 import { processFileItems } from './utils';
 
 export const filesReducer: React.Reducer<
-  FilesState,
-  Exclude<FilesActionType, { type: 'SELECT_FILES' }>
-> = (state, input) => {
-  switch (input.type) {
+  FileItemsState,
+  Exclude<FilesActionType, { type: 'SELECT_FILES' } | { type: 'ADD_FILES' }>
+> = (state, action) => {
+  switch (action.type) {
     case 'ADD_FILE_ITEMS': {
-      if (!input.files?.length && !input.invalidFiles?.length) return state;
+      if (!action.validFiles?.length && !action.invalidFiles?.length) {
+        return state;
+      }
 
-      const items = processFileItems(state.items, input.files);
+      const validItems = processFileItems(state.validItems, action.validFiles);
+      // `invalidItems` should only track invalid items from latest action taken
+      const invalidItems = processFileItems(undefined, action.invalidFiles);
 
-      // `invalidItems` should only track invalid items from latest `add` action
-      const invalidItems = processFileItems(undefined, input.invalidFiles);
-
-      return { items, invalidItems };
+      return { validItems, invalidItems };
     }
     case 'REMOVE_FILE_ITEM': {
-      const { items: prevItems } = state;
+      const { validItems: prevItems } = state;
       if (!prevItems?.length) return state;
 
-      const items = prevItems.filter(({ id }) => id !== input.id);
+      const nextItems = prevItems.filter(({ id }) => id !== action.id);
 
-      if (items.length === prevItems.length) return state;
+      if (nextItems.length === prevItems.length) return state;
 
-      // `items` is strictly undefined if it has 0 file items
-      // otherwise, `items` is guaranteed to have at least 1+ file items
-      return { ...state, items: items.length ? items : undefined };
+      // `validItems` is strictly undefined if it has 0 file items
+      // otherwise, `validItems` is guaranteed to have at least 1+ file items
+      return {
+        ...state,
+        validItems: nextItems.length ? nextItems : undefined,
+      };
     }
     case 'RESET_FILE_ITEMS': {
       return DEFAULT_STATE;

@@ -1,10 +1,11 @@
 import * as UIReactModule from '@aws-amplify/ui-react/internal';
-import { act, renderHook } from '@testing-library/react-hooks';
+import { act, renderHook } from '@testing-library/react';
 
 import { DEFAULT_STATE } from '../constants';
-import { FilesProvider, useFiles } from '../context';
 import * as filesReducerModule from '../filesReducer';
-import * as resolveFilesModule from '../resolveFiles';
+import * as utilsModule from '../utils';
+
+import { FilesProvider, useFiles } from '../context';
 
 let uuid = 0;
 Object.defineProperty(globalThis, 'crypto', {
@@ -17,7 +18,7 @@ Object.defineProperty(globalThis, 'crypto', {
 });
 
 const useFileSelectSpy = jest.spyOn(UIReactModule, 'useFileSelect');
-const resolveFilesSpy = jest.spyOn(resolveFilesModule, 'resolveFiles');
+const resolveFilesSpy = jest.spyOn(utilsModule, 'resolveFiles');
 const filesReducerSpy = jest.spyOn(filesReducerModule, 'filesReducer');
 
 describe('useFiles', () => {
@@ -29,7 +30,7 @@ describe('useFiles', () => {
     const { result } = renderHook(() => useFiles(), { wrapper: FilesProvider });
     const [state, handler] = result.current;
 
-    expect(state).toStrictEqual(DEFAULT_STATE);
+    expect(state).toBe(DEFAULT_STATE);
     expect(handler).toStrictEqual(expect.any(Function));
   });
 
@@ -48,7 +49,7 @@ describe('useFiles', () => {
     expect(handleFileSelect).toHaveBeenCalledTimes(1);
   });
 
-  it('updates the value of `FilesState` as expected', () => {
+  it('updates the value of `FileItemsState` as expected', () => {
     const fileOne = new File([], 'file-one');
     const fileTwo = new File([], 'file-two');
     const fileItemOne = {
@@ -61,48 +62,49 @@ describe('useFiles', () => {
       id: 'item-two',
       key: fileTwo.name,
     };
-    const mockNextState = {
-      items: [fileItemOne, fileItemTwo],
+
+    resolveFilesSpy.mockReturnValueOnce({
+      validFiles: [fileOne, fileTwo],
+      invalidFiles: undefined,
+    });
+    filesReducerSpy.mockReturnValueOnce({
+      validItems: [fileItemOne, fileItemTwo],
       invalidItems: undefined,
-    };
-    filesReducerSpy.mockReturnValueOnce(mockNextState);
+    });
 
     const { result } = renderHook(() => useFiles(), { wrapper: FilesProvider });
 
     const [initState, handler] = result.current;
 
-    expect(initState).toStrictEqual(DEFAULT_STATE);
+    expect(initState).toBe(DEFAULT_STATE);
 
     act(() => {
-      handler({ type: 'ADD_FILE_ITEMS', files: [fileOne, fileTwo] });
+      handler({ type: 'ADD_FILES', files: [fileOne, fileTwo] });
     });
 
     expect(resolveFilesSpy).toHaveBeenCalledTimes(1);
-    expect(resolveFilesSpy).toHaveBeenCalledWith([fileOne, fileTwo]);
-    expect(resolveFilesSpy).toHaveReturnedWith({
-      valid: [fileOne, fileTwo],
-      invalid: undefined,
-    });
+    expect(resolveFilesSpy).toHaveBeenCalledWith(
+      [fileOne, fileTwo],
+      utilsModule.defaultFileSizeValidator
+    );
 
     expect(filesReducerSpy).toHaveBeenCalledTimes(1);
     expect(filesReducerSpy).toHaveBeenCalledWith(initState, {
       type: 'ADD_FILE_ITEMS',
-      files: [fileOne, fileTwo],
+      validFiles: [fileOne, fileTwo],
+      invalidFiles: undefined,
     });
-    expect(filesReducerSpy).toHaveReturnedWith(mockNextState);
+
+    const [nextState] = result.current;
 
     act(() => {
       handler({ type: 'REMOVE_FILE_ITEM', id: fileItemOne.id });
     });
 
     expect(filesReducerSpy).toHaveBeenCalledTimes(2);
-    expect(filesReducerSpy).toHaveBeenLastCalledWith(mockNextState, {
+    expect(filesReducerSpy).toHaveBeenLastCalledWith(nextState, {
       type: 'REMOVE_FILE_ITEM',
       id: fileItemOne.id,
-    });
-    expect(filesReducerSpy).toHaveLastReturnedWith({
-      items: [fileItemTwo],
-      invalidItems: undefined,
     });
   });
 });

@@ -6,13 +6,16 @@ import { useFileSelect } from '@aws-amplify/ui-react/internal';
 
 import { DEFAULT_STATE } from './constants';
 import { filesReducer } from './filesReducer';
-import { resolveFiles } from './resolveFiles';
 import type {
   FilesContextType,
   FilesProviderProps,
   HandleFilesAction,
 } from './types';
-import { parseFileSelectParams } from './utils';
+import {
+  defaultFileSizeValidator,
+  parseFileSelectParams,
+  resolveFiles,
+} from './utils';
 
 const defaultValue: FilesContextType = [DEFAULT_STATE, noop];
 export const { FilesContext, useFiles } = createContextUtilities({
@@ -26,19 +29,21 @@ export function FilesProvider({
   const [state, dispatch] = React.useReducer(filesReducer, DEFAULT_STATE);
 
   const [fileInput, handleFileSelect] = useFileSelect((nextFiles) => {
-    const { valid: files, invalid: invalidFiles } = resolveFiles(nextFiles);
-    dispatch({ type: 'ADD_FILE_ITEMS', files, invalidFiles });
+    dispatch({
+      type: 'ADD_FILE_ITEMS',
+      ...resolveFiles(nextFiles, defaultFileSizeValidator),
+    });
   });
 
   const handleFilesAction: HandleFilesAction = React.useCallback(
     (action) => {
       if (action.type === 'SELECT_FILES') {
         handleFileSelect(...parseFileSelectParams(action.selectionType));
-      } else if (action.type === 'ADD_FILE_ITEMS') {
-        const { valid: files, invalid: invalidFiles } = resolveFiles(
-          action.files
-        );
-        dispatch({ type: 'ADD_FILE_ITEMS', files, invalidFiles });
+      } else if (action.type === 'ADD_FILES') {
+        dispatch({
+          type: 'ADD_FILE_ITEMS',
+          ...resolveFiles(action.files, defaultFileSizeValidator),
+        });
       } else {
         dispatch(action);
       }

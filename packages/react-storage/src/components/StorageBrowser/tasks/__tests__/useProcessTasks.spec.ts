@@ -1,5 +1,5 @@
 import { waitFor } from '@testing-library/react';
-import { act, renderHook } from '@testing-library/react-hooks';
+import { act, renderHook } from '@testing-library/react';
 
 import type { FileItem } from '../../actions';
 import { ActionHandler, ActionInputConfig } from '../../actions';

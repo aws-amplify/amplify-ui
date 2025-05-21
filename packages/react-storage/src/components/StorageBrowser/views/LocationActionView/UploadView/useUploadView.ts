@@ -15,7 +15,7 @@ export const useUploadView = (
   const { onExit: _onExit } = options ?? {};
 
   const [{ location }, storeDispatch] = useStore();
-  const [{ items: fileItems, invalidItems: invalidFiles }, filesDispatch] =
+  const [{ validItems, invalidItems: invalidFiles }, filesDispatch] =
     useFiles();
   const { current } = location;
 
@@ -25,7 +25,7 @@ export const useUploadView = (
 
   const items = React.useMemo(
     () =>
-      (fileItems ?? []).reduce((acc: UploadHandlerData[], item) => {
+      (validItems ?? []).reduce((acc: UploadHandlerData[], item) => {
         acc.push({
           ...item,
           key: `${location.key}${item.key}`,
@@ -33,7 +33,7 @@ export const useUploadView = (
         });
         return acc;
       }, []),
-    [fileItems, isOverwritingEnabled, location.key]
+    [validItems, isOverwritingEnabled, location.key]
   );
 
   const [
@@ -43,7 +43,7 @@ export const useUploadView = (
 
   const onDropFiles = (files: File[]) => {
     if (files) {
-      filesDispatch({ type: 'ADD_FILE_ITEMS', files });
+      filesDispatch({ type: 'ADD_FILES', files });
     }
   };
 

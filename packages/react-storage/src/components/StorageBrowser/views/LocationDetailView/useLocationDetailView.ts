@@ -200,7 +200,7 @@ export const useLocationDetailView = (
       locationItemsDispatch({ type: 'RESET_LOCATION_ITEMS' });
     },
     onDropFiles: (files: File[]) => {
-      filesDispatch({ type: 'ADD_FILE_ITEMS', files });
+      filesDispatch({ type: 'ADD_FILES', files });
 
       const actionType = 'upload';
       storeDispatch({ type: 'CHANGE_ACTION_TYPE', actionType });

@@ -1,4 +1,4 @@
-import { act, renderHook } from '@testing-library/react-hooks';
+import { act, renderHook } from '@testing-library/react';
 
 import type { FileItem, LocationData } from '../../../../actions';
 import { useFiles } from '../../../../files';
@@ -57,7 +57,7 @@ const taskTwo: Task<FileItem> = {
 
 describe('useUploadView', () => {
   const mockUserFilesState = {
-    items: undefined,
+    validItems: undefined,
     invalidItems: undefined,
   };
 
@@ -104,14 +104,14 @@ describe('useUploadView', () => {
 
     expect(mockFilesDispatch).toHaveBeenCalledTimes(1);
     expect(mockFilesDispatch).toHaveBeenCalledWith({
-      type: 'ADD_FILE_ITEMS',
+      type: 'ADD_FILES',
       files: [testFileOne],
     });
   });
 
   it('should show invalid files if exists', () => {
     mockUseFiles.mockReturnValue([
-      { items: undefined, invalidItems: [invalidFileItem] },
+      { validItems: undefined, invalidItems: [invalidFileItem] },
       mockFilesDispatch,
     ]);
 
