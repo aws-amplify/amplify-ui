@@ -10,19 +10,21 @@ import type { FileItem, LocationItemType } from '../actions';
  */
 export type SelectionType = LocationItemType | [LocationItemType, ...string[]];
 
-export type FilesActionType =
+export type FileItemsActionType =
   | { type: 'ADD_FILES'; files?: File[] }
   | { type: 'ADD_FILE_ITEMS'; validFiles?: File[]; invalidFiles?: File[] }
   | { type: 'REMOVE_FILE_ITEM'; id: string }
   | { type: 'SELECT_FILES'; selectionType?: SelectionType }
   | { type: 'RESET_FILE_ITEMS' };
 
-export type FilesActionDispatchType = Exclude<
-  FilesActionType,
+export type FileItemsActionDispatchType = Exclude<
+  FileItemsActionType,
   { type: 'ADD_FILE_ITEMS' }
 >;
 
-export type HandleFilesAction = (input: FilesActionDispatchType) => void;
+export type HandleFileItemsAction = (
+  input: FileItemsActionDispatchType
+) => void;
 
 export interface ResolvedFiles {
   validFiles: File[] | undefined;
@@ -36,8 +38,8 @@ export interface FileItemsState {
   invalidItems: FileItems | undefined;
 }
 
-export type FilesContextType = [FileItemsState, HandleFilesAction];
+export type FileItemsContextType = [FileItemsState, HandleFileItemsAction];
 
-export interface FilesProviderProps {
+export interface FileItemsProviderProps {
   children?: React.ReactNode;
 }

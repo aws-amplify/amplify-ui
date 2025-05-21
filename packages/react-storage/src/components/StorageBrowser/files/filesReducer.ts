@@ -1,10 +1,10 @@
 import { DEFAULT_STATE } from './constants';
-import type { FileItemsState, FilesActionType } from './types';
+import type { FileItemsState, FileItemsActionType } from './types';
 import { processFileItems } from './utils';
 
 export const filesReducer: React.Reducer<
   FileItemsState,
-  Exclude<FilesActionType, { type: 'SELECT_FILES' } | { type: 'ADD_FILES' }>
+  Exclude<FileItemsActionType, { type: 'SELECT_FILES' } | { type: 'ADD_FILES' }>
 > = (state, action) => {
   switch (action.type) {
     case 'ADD_FILE_ITEMS': {

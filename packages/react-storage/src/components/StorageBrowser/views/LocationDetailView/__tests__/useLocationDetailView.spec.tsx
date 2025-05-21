@@ -8,7 +8,7 @@ import {
   LocationItemData,
 } from '../../../actions';
 
-import { useFiles } from '../../../files';
+import { useFileItems } from '../../../files';
 import { useLocationItems } from '../../../locationItems';
 import { LocationState, useStore } from '../../../store';
 import { useAction, useList } from '../../../useAction';
@@ -106,7 +106,7 @@ const mockListState = {
 
 describe('useLocationDetailView', () => {
   const mockUseAction = jest.mocked(useAction);
-  const mockUseFiles = jest.mocked(useFiles);
+  const mockUseFileItems = jest.mocked(useFileItems);
   const mockUseList = jest.mocked(useList);
   const mockUseLocationItems = jest.mocked(useLocationItems);
   const mockUseStore = jest.mocked(useStore);
@@ -126,7 +126,7 @@ describe('useLocationDetailView', () => {
 
   beforeEach(() => {
     mockUseStore.mockReturnValue([mockStoreState, mockStoreDispatch]);
-    mockUseFiles.mockReturnValue([mockFilesState, mockFilesDispatch]);
+    mockUseFileItems.mockReturnValue([mockFilesState, mockFilesDispatch]);
     mockUseLocationItems.mockReturnValue([
       mockLocationItemsState,
       mockLocationItemsDispatch,

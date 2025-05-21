@@ -12,7 +12,7 @@ import {
 } from '../components';
 import { createConfigurationProvider } from '../configuration';
 import { DisplayTextProvider } from '../displayText';
-import { FilesProvider } from '../files';
+import { FileItemsProvider } from '../files';
 import { LocationItemsProvider } from '../locationItems';
 import { StoreProvider } from '../store';
 import { getActionHandlers, ActionHandlersProvider } from '../useAction';
@@ -90,7 +90,7 @@ export default function createProvider({
                 <ViewsProvider actions={resolvedActions} views={views}>
                   <ComponentsProvider composables={composables}>
                     <LocationItemsProvider>
-                      <FilesProvider>{children}</FilesProvider>
+                      <FileItemsProvider>{children}</FileItemsProvider>
                     </LocationItemsProvider>
                   </ComponentsProvider>
                 </ViewsProvider>

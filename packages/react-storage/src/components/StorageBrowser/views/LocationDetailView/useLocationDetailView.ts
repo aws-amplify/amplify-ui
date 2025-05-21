@@ -11,7 +11,7 @@ import type {
   LocationData,
 } from '../../actions';
 import { useActionConfigs } from '../../actions';
-import { useFiles } from '../../files';
+import { useFileItems } from '../../files';
 import { useLocationItems } from '../../locationItems';
 import { useStore } from '../../store';
 import { useAction, useList } from '../../useAction';
@@ -55,7 +55,7 @@ export const useLocationDetailView = (
 
   const [{ location, actionType }, storeDispatch] = useStore();
   const [locationItems, locationItemsDispatch] = useLocationItems();
-  const filesDispatch = useFiles()[1];
+  const filesDispatch = useFileItems()[1];
 
   const { current, key } = location;
   const { permissions, prefix } = current ?? {};

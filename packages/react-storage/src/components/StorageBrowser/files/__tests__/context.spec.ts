@@ -5,7 +5,7 @@ import { DEFAULT_STATE } from '../constants';
 import * as filesReducerModule from '../filesReducer';
 import * as utilsModule from '../utils';
 
-import { FilesProvider, useFiles } from '../context';
+import { FileItemsProvider, useFileItems } from '../context';
 
 let uuid = 0;
 Object.defineProperty(globalThis, 'crypto', {
@@ -21,13 +21,15 @@ const useFileSelectSpy = jest.spyOn(UIReactModule, 'useFileSelect');
 const resolveFilesSpy = jest.spyOn(utilsModule, 'resolveFiles');
 const filesReducerSpy = jest.spyOn(filesReducerModule, 'filesReducer');
 
-describe('useFiles', () => {
+describe('useFileItems', () => {
   afterEach(() => {
     jest.clearAllMocks();
   });
 
   it('returns the expected values', () => {
-    const { result } = renderHook(() => useFiles(), { wrapper: FilesProvider });
+    const { result } = renderHook(() => useFileItems(), {
+      wrapper: FileItemsProvider,
+    });
     const [state, handler] = result.current;
 
     expect(state).toBe(DEFAULT_STATE);
@@ -39,7 +41,9 @@ describe('useFiles', () => {
 
     useFileSelectSpy.mockReturnValue([[], handleFileSelect]);
 
-    const { result } = renderHook(() => useFiles(), { wrapper: FilesProvider });
+    const { result } = renderHook(() => useFileItems(), {
+      wrapper: FileItemsProvider,
+    });
     const handler = result.current[1];
 
     act(() => {
@@ -72,7 +76,9 @@ describe('useFiles', () => {
       invalidItems: undefined,
     });
 
-    const { result } = renderHook(() => useFiles(), { wrapper: FilesProvider });
+    const { result } = renderHook(() => useFileItems(), {
+      wrapper: FileItemsProvider,
+    });
 
     const [initState, handler] = result.current;
 

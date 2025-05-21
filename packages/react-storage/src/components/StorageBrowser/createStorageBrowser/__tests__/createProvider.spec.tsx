@@ -5,7 +5,7 @@ import { ActionConfigsProvider, getActionConfigs } from '../../actions';
 import { ComponentsProvider } from '../../components';
 import { createConfigurationProvider } from '../../configuration';
 import { DisplayTextProvider } from '../../displayText';
-import { FilesProvider } from '../../files';
+import { FileItemsProvider } from '../../files';
 import { LocationItemsProvider } from '../../locationItems';
 import { StoreProvider } from '../../store';
 import { ActionHandlersProvider, getActionHandlers } from '../../useAction';
@@ -34,8 +34,8 @@ const mockComponentsProvider = jest
 const mockDisplayTextProvider = jest
   .mocked(DisplayTextProvider)
   .mockImplementation(({ children }) => <>{children}</>);
-const mockFilesProvider = jest
-  .mocked(FilesProvider)
+const mockFileItemsProvider = jest
+  .mocked(FileItemsProvider)
   .mockImplementation(({ children }) => <>{children}</>);
 const mockLocationItemsProvider = jest
   .mocked(LocationItemsProvider)
@@ -159,7 +159,7 @@ describe('createProvider', () => {
       {}
     );
 
-    expect(mockFilesProvider).toHaveBeenCalledTimes(1);
+    expect(mockFileItemsProvider).toHaveBeenCalledTimes(1);
     expect(mockLocationItemsProvider).toHaveBeenCalledTimes(1);
   });
 });

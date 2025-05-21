@@ -1,7 +1,7 @@
 import React from 'react';
 
 import type { UploadHandlerData } from '../../../actions';
-import { useFiles } from '../../../files';
+import { useFileItems } from '../../../files';
 import { useStore } from '../../../store';
 import type { Task } from '../../../tasks';
 import { useAction } from '../../../useAction';
@@ -16,7 +16,7 @@ export const useUploadView = (
 
   const [{ location }, storeDispatch] = useStore();
   const [{ validItems, invalidItems: invalidFiles }, filesDispatch] =
-    useFiles();
+    useFileItems();
   const { current } = location;
 
   const [isOverwritingEnabled, setIsOverwritingEnabled] = React.useState(

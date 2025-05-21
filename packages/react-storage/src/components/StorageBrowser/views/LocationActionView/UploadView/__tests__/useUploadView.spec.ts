@@ -1,7 +1,7 @@
 import { act, renderHook } from '@testing-library/react';
 
 import type { FileItem, LocationData } from '../../../../actions';
-import { useFiles } from '../../../../files';
+import { useFileItems } from '../../../../files';
 import { useStore } from '../../../../store';
 import { INITIAL_STATUS_COUNTS, Task } from '../../../../tasks';
 import { useAction } from '../../../../useAction';
@@ -67,7 +67,7 @@ describe('useUploadView', () => {
   };
 
   const mockUseAction = jest.mocked(useAction);
-  const mockUseFiles = jest.mocked(useFiles);
+  const mockUseFileItems = jest.mocked(useFileItems);
   const mockUseStore = jest.mocked(useStore);
 
   const mockCancel = jest.fn();
@@ -77,7 +77,7 @@ describe('useUploadView', () => {
 
   beforeEach(() => {
     mockUseStore.mockReturnValue([mockUserStoreState, mockStoreDispatch]);
-    mockUseFiles.mockReturnValue([mockUserFilesState, mockFilesDispatch]);
+    mockUseFileItems.mockReturnValue([mockUserFilesState, mockFilesDispatch]);
     mockUseAction.mockReturnValue([
       {
         isProcessing: false,
@@ -110,7 +110,7 @@ describe('useUploadView', () => {
   });
 
   it('should show invalid files if exists', () => {
-    mockUseFiles.mockReturnValue([
+    mockUseFileItems.mockReturnValue([
       { validItems: undefined, invalidItems: [invalidFileItem] },
       mockFilesDispatch,
     ]);

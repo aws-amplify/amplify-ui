@@ -7,9 +7,9 @@ import { useFileSelect } from '@aws-amplify/ui-react/internal';
 import { DEFAULT_STATE } from './constants';
 import { filesReducer } from './filesReducer';
 import type {
-  FilesContextType,
-  FilesProviderProps,
-  HandleFilesAction,
+  FileItemsContextType,
+  FileItemsProviderProps,
+  HandleFileItemsAction,
 } from './types';
 import {
   defaultFileSizeValidator,
@@ -17,15 +17,15 @@ import {
   resolveFiles,
 } from './utils';
 
-const defaultValue: FilesContextType = [DEFAULT_STATE, noop];
-export const { FilesContext, useFiles } = createContextUtilities({
-  contextName: 'Files',
+const defaultValue: FileItemsContextType = [DEFAULT_STATE, noop];
+export const { FileItemsContext, useFileItems } = createContextUtilities({
+  contextName: 'FileItems',
   defaultValue,
 });
 
-export function FilesProvider({
+export function FileItemsProvider({
   children,
-}: FilesProviderProps): React.JSX.Element {
+}: FileItemsProviderProps): React.JSX.Element {
   const [state, dispatch] = React.useReducer(filesReducer, DEFAULT_STATE);
 
   const [fileInput, handleFileSelect] = useFileSelect((nextFiles) => {
@@ -35,7 +35,7 @@ export function FilesProvider({
     });
   });
 
-  const handleFilesAction: HandleFilesAction = React.useCallback(
+  const handleFilesAction: HandleFileItemsAction = React.useCallback(
     (action) => {
       if (action.type === 'SELECT_FILES') {
         handleFileSelect(...parseFileSelectParams(action.selectionType));
@@ -51,15 +51,15 @@ export function FilesProvider({
     [handleFileSelect]
   );
 
-  const value: FilesContextType = React.useMemo(
+  const value: FileItemsContextType = React.useMemo(
     () => [state, handleFilesAction],
     [state, handleFilesAction]
   );
 
   return (
-    <FilesContext.Provider value={value}>
+    <FileItemsContext.Provider value={value}>
       {fileInput}
       {children}
-    </FilesContext.Provider>
+    </FileItemsContext.Provider>
   );
 }
