@@ -98,7 +98,7 @@ describe('useUploadView', () => {
 
   afterEach(jest.clearAllMocks);
 
-  it('should call `filesDispatch` when onDropFiles is invoked', () => {
+  it('should call `fileItemsDispatch` when onDropFiles is invoked', () => {
     const { result } = renderHook(() => useUploadView());
 
     act(() => {
@@ -123,7 +123,7 @@ describe('useUploadView', () => {
     expect(result.current.invalidFiles).toEqual([invalidFileItem]);
   });
 
-  it('should call `filesDispatch` when `onSelectFiles` is invoked with different types', () => {
+  it('should call `fileItemsDispatch` when `onSelectFiles` is invoked with different types', () => {
     const { result } = renderHook(() => useUploadView());
 
     act(() => {

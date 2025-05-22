@@ -15,7 +15,7 @@ export const useUploadView = (
   const { onExit: _onExit } = options ?? {};
 
   const [{ location }, storeDispatch] = useStore();
-  const [{ validItems, invalidItems: invalidFiles }, filesDispatch] =
+  const [{ validItems, invalidItems: invalidFiles }, fileItemsDispatch] =
     useFileItems();
   const { current } = location;
 
@@ -40,12 +40,12 @@ export const useUploadView = (
 
   const onDropFiles = (files: File[]) => {
     if (files) {
-      filesDispatch({ type: 'ADD_FILES', files });
+      fileItemsDispatch({ type: 'ADD_FILES', files });
     }
   };
 
   const onSelectFiles = (type?: 'FILE' | 'FOLDER') => {
-    filesDispatch({ type: 'SELECT_FILES', selectionType: type });
+    fileItemsDispatch({ type: 'SELECT_FILES', selectionType: type });
   };
 
   const onActionStart = () => {
@@ -58,7 +58,7 @@ export const useUploadView = (
 
   const onActionExit = () => {
     // clear files state
-    filesDispatch({ type: 'RESET_FILE_ITEMS' });
+    fileItemsDispatch({ type: 'RESET_FILE_ITEMS' });
     // clear selected action
     storeDispatch({ type: 'RESET_ACTION_TYPE' });
     _onExit?.(current);
@@ -69,7 +69,7 @@ export const useUploadView = (
   };
 
   const onTaskRemove = ({ data }: Task) => {
-    filesDispatch({ type: 'REMOVE_FILE_ITEM', id: data.id });
+    fileItemsDispatch({ type: 'REMOVE_FILE_ITEM', id: data.id });
   };
 
   return {

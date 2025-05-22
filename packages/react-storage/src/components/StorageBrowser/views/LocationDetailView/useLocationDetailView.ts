@@ -55,7 +55,7 @@ export const useLocationDetailView = (
 
   const [{ location, actionType }, storeDispatch] = useStore();
   const [locationItems, locationItemsDispatch] = useLocationItems();
-  const filesDispatch = useFileItems()[1];
+  const fileItemsDispatch = useFileItems()[1];
 
   const { current, key } = location;
   const { permissions, prefix } = current ?? {};
@@ -200,7 +200,7 @@ export const useLocationDetailView = (
       locationItemsDispatch({ type: 'RESET_LOCATION_ITEMS' });
     },
     onDropFiles: (files: File[]) => {
-      filesDispatch({ type: 'ADD_FILES', files });
+      fileItemsDispatch({ type: 'ADD_FILES', files });
 
       const actionType = 'upload';
       storeDispatch({ type: 'CHANGE_ACTION_TYPE', actionType });
