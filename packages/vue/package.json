@@ -72,7 +72,7 @@
   },
   "peerDependencies": {
     "@aws-amplify/core": "*",
-    "aws-amplify": "^6.9.0",
+    "aws-amplify": "*",
     "vue": "^3.0"
   }
 }
