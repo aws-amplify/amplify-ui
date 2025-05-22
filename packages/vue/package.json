@@ -27,8 +27,8 @@
   ],
   "scripts": {
     "prebuild": "rimraf dist",
-    "build": "yarn build:catalog && yarn build:CSS && yarn build:rollup",
-    "build:catalog": "yarn node -r esbuild-register scripts/generatePrimitiveCatalog.ts",
+    "build": "yarn build:CSS && yarn build:rollup",
+    "postbuild": "rimraf global-spec.d.ts jest.config.d.ts jest.setup.d.ts",
     "build:CSS": "yarn node -r esbuild-register scripts/copyCSS.ts",
     "build:rollup": "rollup --config",
     "dev": "yarn build:rollup --watch",
@@ -72,7 +72,7 @@
   },
   "peerDependencies": {
     "@aws-amplify/core": "*",
-    "aws-amplify": "*",
+    "aws-amplify": "^6.9.0",
     "vue": "^3.0"
   }
 }

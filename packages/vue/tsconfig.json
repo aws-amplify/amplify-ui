@@ -11,6 +11,6 @@
       "vite/client"
     ]
   },
-  "include": ["*.ts", "*.mjs", "scripts", "src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"],
+  "include": ["__mocks__", "__tests__", "*.ts", "*.mjs", "scripts", "src/**/*.ts", "src/**/*.vue"],
   "exclude": ["node_modules", "dist"]
 }

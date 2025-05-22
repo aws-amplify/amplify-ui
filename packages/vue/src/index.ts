@@ -111,21 +111,6 @@ export {
   AmplifyCheckBox,
   AmplifyButton,
   useAuthenticator,
-  // Export primitive components
-  BaseInput,
-  BaseLabel,
-  BaseSelect,
-  BaseWrapper,
-  BaseAlert,
-  BaseBox,
-  BaseFieldSet,
-  BaseFooter,
-  BaseForm,
-  BaseHeading,
-  BaseSpacer,
-  BaseText,
-  BaseTwoTabs,
-  BaseTwoTabItem,
 };
 
 /**
