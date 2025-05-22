@@ -5,7 +5,7 @@ import { createContextUtilities } from '@aws-amplify/ui-react-core';
 import { useFileSelect } from '@aws-amplify/ui-react/internal';
 
 import { DEFAULT_STATE } from './constants';
-import { filesReducer } from './filesReducer';
+import { fileItemsReducer } from './fileItemsReducer';
 import type {
   FileItemsContextType,
   FileItemsProviderProps,
@@ -26,7 +26,7 @@ export const { FileItemsContext, useFileItems } = createContextUtilities({
 export function FileItemsProvider({
   children,
 }: FileItemsProviderProps): React.JSX.Element {
-  const [state, dispatch] = React.useReducer(filesReducer, DEFAULT_STATE);
+  const [state, dispatch] = React.useReducer(fileItemsReducer, DEFAULT_STATE);
 
   const [fileInput, handleFileSelect] = useFileSelect((nextFiles) => {
     dispatch({

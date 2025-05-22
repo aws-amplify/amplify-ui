@@ -3,7 +3,7 @@ import {
   LocationData,
   LocationItemData,
 } from '../../../../actions';
-import type { FileItems } from '../../../../files';
+import type { FileItems } from '../../../../fileItems';
 import { INITIAL_STATUS_COUNTS, StatusCounts } from '../../../../tasks';
 
 export const ACTION_SCENARIOS: [string, StatusCounts][] = [

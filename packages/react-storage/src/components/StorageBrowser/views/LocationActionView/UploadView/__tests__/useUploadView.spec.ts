@@ -1,13 +1,13 @@
 import { act, renderHook } from '@testing-library/react';
 
 import type { FileItem, LocationData } from '../../../../actions';
-import { useFileItems } from '../../../../files';
+import { useFileItems } from '../../../../fileItems';
 import { useStore } from '../../../../store';
 import { INITIAL_STATUS_COUNTS, Task } from '../../../../tasks';
 import { useAction } from '../../../../useAction';
 import { useUploadView } from '../useUploadView';
 
-jest.mock('../../../../files');
+jest.mock('../../../../fileItems');
 jest.mock('../../../../store');
 jest.mock('../../../../useAction');
 

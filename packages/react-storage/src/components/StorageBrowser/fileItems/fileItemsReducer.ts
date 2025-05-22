@@ -2,7 +2,7 @@ import { DEFAULT_STATE } from './constants';
 import type { FileItemsState, FileItemsActionType } from './types';
 import { processFileItems } from './utils';
 
-export const filesReducer: React.Reducer<
+export const fileItemsReducer: React.Reducer<
   FileItemsState,
   Exclude<FileItemsActionType, { type: 'SELECT_FILES' } | { type: 'ADD_FILES' }>
 > = (state, action) => {
@@ -28,10 +28,8 @@ export const filesReducer: React.Reducer<
 
       // `validItems` is strictly undefined if it has 0 file items
       // otherwise, `validItems` is guaranteed to have at least 1+ file items
-      return {
-        ...state,
-        validItems: nextItems.length ? nextItems : undefined,
-      };
+      const validItems = nextItems.length ? nextItems : undefined;
+      return { ...state, validItems };
     }
     case 'RESET_FILE_ITEMS': {
       return DEFAULT_STATE;

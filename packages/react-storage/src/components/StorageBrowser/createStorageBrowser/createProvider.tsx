@@ -12,7 +12,7 @@ import {
 } from '../components';
 import { createConfigurationProvider } from '../configuration';
 import { DisplayTextProvider } from '../displayText';
-import { FileItemsProvider } from '../files';
+import { FileItemsProvider } from '../fileItems';
 import { LocationItemsProvider } from '../locationItems';
 import { StoreProvider } from '../store';
 import { getActionHandlers, ActionHandlersProvider } from '../useAction';

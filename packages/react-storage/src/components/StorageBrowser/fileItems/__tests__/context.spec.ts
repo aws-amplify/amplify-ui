@@ -2,7 +2,7 @@ import * as UIReactModule from '@aws-amplify/ui-react/internal';
 import { act, renderHook } from '@testing-library/react';
 
 import { DEFAULT_STATE } from '../constants';
-import * as filesReducerModule from '../filesReducer';
+import * as fileItemsReducerModule from '../fileItemsReducer';
 import * as utilsModule from '../utils';
 
 import { FileItemsProvider, useFileItems } from '../context';
@@ -19,7 +19,10 @@ Object.defineProperty(globalThis, 'crypto', {
 
 const useFileSelectSpy = jest.spyOn(UIReactModule, 'useFileSelect');
 const resolveFilesSpy = jest.spyOn(utilsModule, 'resolveFiles');
-const filesReducerSpy = jest.spyOn(filesReducerModule, 'filesReducer');
+const fileItemsReducerSpy = jest.spyOn(
+  fileItemsReducerModule,
+  'fileItemsReducer'
+);
 
 describe('useFileItems', () => {
   afterEach(() => {
@@ -71,7 +74,7 @@ describe('useFileItems', () => {
       validFiles: [fileOne, fileTwo],
       invalidFiles: undefined,
     });
-    filesReducerSpy.mockReturnValueOnce({
+    fileItemsReducerSpy.mockReturnValueOnce({
       validItems: [fileItemOne, fileItemTwo],
       invalidItems: undefined,
     });
@@ -94,8 +97,8 @@ describe('useFileItems', () => {
       utilsModule.defaultFileSizeValidator
     );
 
-    expect(filesReducerSpy).toHaveBeenCalledTimes(1);
-    expect(filesReducerSpy).toHaveBeenCalledWith(initState, {
+    expect(fileItemsReducerSpy).toHaveBeenCalledTimes(1);
+    expect(fileItemsReducerSpy).toHaveBeenCalledWith(initState, {
       type: 'ADD_FILE_ITEMS',
       validFiles: [fileOne, fileTwo],
       invalidFiles: undefined,
@@ -107,8 +110,8 @@ describe('useFileItems', () => {
       handler({ type: 'REMOVE_FILE_ITEM', id: fileItemOne.id });
     });
 
-    expect(filesReducerSpy).toHaveBeenCalledTimes(2);
-    expect(filesReducerSpy).toHaveBeenLastCalledWith(nextState, {
+    expect(fileItemsReducerSpy).toHaveBeenCalledTimes(2);
+    expect(fileItemsReducerSpy).toHaveBeenLastCalledWith(nextState, {
       type: 'REMOVE_FILE_ITEM',
       id: fileItemOne.id,
     });

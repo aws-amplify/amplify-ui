@@ -8,7 +8,7 @@ import { useAction } from '../../../../useAction';
 
 import { useDeleteView } from '../useDeleteView';
 
-jest.mock('../../../../files');
+jest.mock('../../../../fileItems');
 jest.mock('../../../../locationItems');
 jest.mock('../../../../store');
 jest.mock('../../../../useAction');

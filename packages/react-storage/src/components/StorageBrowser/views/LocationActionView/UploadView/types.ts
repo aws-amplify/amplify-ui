@@ -1,5 +1,5 @@
 import type { LocationData, UploadHandlerData } from '../../../actions';
-import type { FileItems } from '../../../files';
+import type { FileItems } from '../../../fileItems';
 
 import type {
   ActionViewType,

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import type { UploadHandlerData } from '../../../actions';
-import { useFileItems } from '../../../files';
+import { useFileItems } from '../../../fileItems';
 import { useStore } from '../../../store';
 import type { Task } from '../../../tasks';
 import { useAction } from '../../../useAction';

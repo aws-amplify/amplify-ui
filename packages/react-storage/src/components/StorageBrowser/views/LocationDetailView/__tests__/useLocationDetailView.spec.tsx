@@ -8,7 +8,7 @@ import {
   LocationItemData,
 } from '../../../actions';
 
-import { useFileItems } from '../../../files';
+import { useFileItems } from '../../../fileItems';
 import { useLocationItems } from '../../../locationItems';
 import { LocationState, useStore } from '../../../store';
 import { useAction, useList } from '../../../useAction';
@@ -19,7 +19,7 @@ import {
 } from '../useLocationDetailView';
 
 jest.mock('../../../actions/handlers');
-jest.mock('../../../files');
+jest.mock('../../../fileItems');
 jest.mock('../../../locationItems');
 jest.mock('../../../store');
 jest.mock('../../../useAction');

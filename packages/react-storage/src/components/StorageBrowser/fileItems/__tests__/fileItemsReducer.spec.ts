@@ -1,7 +1,7 @@
 import type { FileItem } from '../../actions';
 
 import { DEFAULT_STATE } from '../constants';
-import { filesReducer } from '../filesReducer';
+import { fileItemsReducer } from '../fileItemsReducer';
 
 let uuid = 0;
 Object.defineProperty(globalThis, 'crypto', {
@@ -49,7 +49,7 @@ const invalidFileItemTwo: FileItem = {
   key: invalidFileTwo.name,
 };
 
-describe('filesReducer', () => {
+describe('fileItemsReducer', () => {
   it('returns the expected state on `ADD_FILE_ITEMS` action when valid and invalid files are provided', () => {
     const incomingValid = [fileOne, fileTwo];
     const incomingInvalid = [invalidFileOne];
@@ -58,7 +58,7 @@ describe('filesReducer', () => {
       invalidItems: undefined,
     };
 
-    const output = filesReducer(previous, {
+    const output = fileItemsReducer(previous, {
       type: 'ADD_FILE_ITEMS',
       validFiles: incomingValid,
       invalidFiles: incomingInvalid,
@@ -78,7 +78,7 @@ describe('filesReducer', () => {
       invalidItems: undefined,
     };
 
-    const output = filesReducer(previous, {
+    const output = fileItemsReducer(previous, {
       type: 'ADD_FILE_ITEMS',
     });
 
@@ -92,7 +92,7 @@ describe('filesReducer', () => {
       invalidItems: [invalidFileItemOne],
     };
 
-    const output = filesReducer(previous, {
+    const output = fileItemsReducer(previous, {
       type: 'ADD_FILE_ITEMS',
       validFiles: [fileThree],
       invalidFiles: [invalidFileTwo],
@@ -113,7 +113,7 @@ describe('filesReducer', () => {
     };
     const targetId = fileItemOne.id;
 
-    const output = filesReducer(previous, {
+    const output = fileItemsReducer(previous, {
       type: 'REMOVE_FILE_ITEM',
       id: targetId,
     });
@@ -124,7 +124,7 @@ describe('filesReducer', () => {
   it('returns the previous state on `REMOVE_FILE_ITEM` action when previous `validItems` is `undefined`', () => {
     const targetId = 'not a real id lol';
 
-    const output = filesReducer(DEFAULT_STATE, {
+    const output = fileItemsReducer(DEFAULT_STATE, {
       type: 'REMOVE_FILE_ITEM',
       id: targetId,
     });
@@ -140,7 +140,7 @@ describe('filesReducer', () => {
     };
     const targetId = 'not a real id lol';
 
-    const output = filesReducer(previous, {
+    const output = fileItemsReducer(previous, {
       type: 'REMOVE_FILE_ITEM',
       id: targetId,
     });
@@ -155,7 +155,7 @@ describe('filesReducer', () => {
       invalidItems: undefined,
     };
 
-    const output = filesReducer(previous, {
+    const output = fileItemsReducer(previous, {
       type: 'RESET_FILE_ITEMS',
     });
 

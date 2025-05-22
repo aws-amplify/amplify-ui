@@ -11,7 +11,7 @@ import type {
   LocationData,
 } from '../../actions';
 import { useActionConfigs } from '../../actions';
-import { useFileItems } from '../../files';
+import { useFileItems } from '../../fileItems';
 import { useLocationItems } from '../../locationItems';
 import { useStore } from '../../store';
 import { useAction, useList } from '../../useAction';

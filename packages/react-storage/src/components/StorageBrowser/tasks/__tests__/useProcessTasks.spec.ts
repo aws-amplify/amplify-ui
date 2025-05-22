@@ -2,7 +2,7 @@ import { act, renderHook, waitFor } from '@testing-library/react';
 
 import type { FileItem } from '../../actions';
 import { ActionHandler, ActionInputConfig } from '../../actions';
-import type { FileItems } from '../../files';
+import type { FileItems } from '../../fileItems';
 
 import type { Task } from '../types';
 import { useProcessTasks } from '../useProcessTasks';
