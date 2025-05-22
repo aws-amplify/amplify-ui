@@ -23,16 +23,13 @@ export const useUploadView = (
     DEFAULT_OVERWRITE_ENABLED
   );
 
-  const items = React.useMemo(
+  const items: UploadHandlerData[] = React.useMemo(
     () =>
-      (validItems ?? []).reduce((acc: UploadHandlerData[], item) => {
-        acc.push({
-          ...item,
-          key: `${location.key}${item.key}`,
-          preventOverwrite: !isOverwritingEnabled,
-        });
-        return acc;
-      }, []),
+      (validItems ?? []).map((item) => ({
+        ...item,
+        key: `${location.key}${item.key}`,
+        preventOverwrite: !isOverwritingEnabled,
+      })),
     [validItems, isOverwritingEnabled, location.key]
   );
 
