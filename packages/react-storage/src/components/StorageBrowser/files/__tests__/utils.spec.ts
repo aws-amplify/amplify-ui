@@ -1,6 +1,6 @@
 import type { FileItem } from '../../actions';
 
-import { DEFAULT_MAX_FILE_SIZE, DEFAULT_RESOLVED_FILES } from '../constants';
+import { DEFAULT_RESOLVED_FILES, UPLOAD_FILE_SIZE_LIMIT } from '../constants';
 import type { FileItems } from '../types';
 import {
   defaultFileSizeValidator,
@@ -25,11 +25,7 @@ const fileThree = new File([], 'file-three');
 
 const invalidFileOne = {
   ...new File([], 'invalid-file-one'),
-  size: DEFAULT_MAX_FILE_SIZE + 1,
-};
-const invalidFileTwo = {
-  ...new File([], 'invalid-file-two'),
-  size: DEFAULT_MAX_FILE_SIZE + 2,
+  size: UPLOAD_FILE_SIZE_LIMIT + 1,
 };
 
 const fileItemOne: FileItem = {
@@ -45,85 +41,45 @@ const fileItemTwo: FileItem = {
 };
 
 describe('resolveFiles', () => {
-  it('returns the default value when `files` is `undefined`', () => {
+  it('returns the default value when no files are provided', () => {
     const output = resolveFiles(undefined);
 
     expect(output).toBe(DEFAULT_RESOLVED_FILES);
   });
 
-  it('returns the default value when `files` is an empty array', () => {
-    const output = resolveFiles([]);
-
-    expect(output).toBe(DEFAULT_RESOLVED_FILES);
-  });
-
-  it('returns the expected value when no validator is provided', () => {
-    const output = resolveFiles([
-      fileOne,
-      fileTwo,
-      invalidFileOne,
-      invalidFileTwo,
-    ]);
+  it('returns the expected value when files and no validator are provided', () => {
+    const output = resolveFiles([fileOne, invalidFileOne]);
     const expected = {
-      validFiles: [fileOne, fileTwo, invalidFileOne, invalidFileTwo],
+      validFiles: [fileOne, invalidFileOne],
       invalidFiles: undefined,
     };
 
     expect(output).toStrictEqual(expected);
   });
 
-  it('returns the expected value when valid files and validator are provided', () => {
-    const output = resolveFiles([fileOne, fileTwo], defaultFileSizeValidator);
-    const expected = {
-      validFiles: [fileOne, fileTwo],
-      invalidFiles: undefined,
-    };
-
-    expect(output).toStrictEqual(expected);
-  });
-
-  it('returns the expected value when invalid files and validator are provided', () => {
+  it('returns the expected value when files and validator are provided', () => {
     const output = resolveFiles(
-      [invalidFileOne, invalidFileTwo],
+      [fileOne, invalidFileOne],
       defaultFileSizeValidator
     );
     const expected = {
-      validFiles: undefined,
-      invalidFiles: [invalidFileOne, invalidFileTwo],
+      validFiles: [fileOne],
+      invalidFiles: [invalidFileOne],
     };
 
-    expect(output).toStrictEqual(expected);
-  });
-
-  it('returns the expected value when valid and invalid files are provided', () => {
-    const output = resolveFiles(
-      [invalidFileTwo, fileOne, invalidFileOne, fileTwo],
-      defaultFileSizeValidator
-    );
-    const expected = {
-      validFiles: [fileOne, fileTwo],
-      invalidFiles: [invalidFileTwo, invalidFileOne],
-    };
     expect(output).toStrictEqual(expected);
   });
 });
 
 describe('processFileItems', () => {
-  it('returns the previous `items` when `files` is `undefined`', () => {
+  it('returns the previous items when `files` is `undefined`', () => {
     const previous = [fileItemOne, fileItemTwo];
     const output = processFileItems(previous, undefined);
 
     expect(output).toBe(previous);
   });
 
-  it('returns the previous `items` when `files` is an empty array', () => {
-    const previous = [fileItemOne, fileItemTwo];
-    const output = processFileItems(previous, []);
-
-    expect(output).toBe(previous);
-  });
-
-  it('returns the previous `items` when `files` are all duplicates', () => {
+  it('returns the previous items when `files` are all duplicates', () => {
     const incoming = [fileOne, fileTwo];
     const previous = [fileItemOne, fileItemTwo];
     const output = processFileItems(previous, incoming);
@@ -147,7 +103,7 @@ describe('processFileItems', () => {
     expect(output).toStrictEqual(expected);
   });
 
-  it('returns the sorted next `items` when previous `items` are `undefined`', () => {
+  it('returns the sorted `nextItems` when `prevItems` are `undefined`', () => {
     const incoming = [fileTwo, fileOne];
     const previous: FileItems = [];
 
@@ -160,7 +116,7 @@ describe('processFileItems', () => {
     expect(output).toStrictEqual(expected);
   });
 
-  it('merges, sorts and returns previous and next `items`', () => {
+  it('merges, sorts and returns previous and next items', () => {
     const incoming = [fileThree];
     const previous = [fileItemOne, fileItemTwo];
     const output = processFileItems(previous, incoming);

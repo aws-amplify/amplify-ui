@@ -56,7 +56,7 @@ const taskTwo: Task<FileItem> = {
 };
 
 describe('useUploadView', () => {
-  const mockUserFilesState = {
+  const mockFileItemsState = {
     validItems: undefined,
     invalidItems: undefined,
   };
@@ -71,13 +71,16 @@ describe('useUploadView', () => {
   const mockUseStore = jest.mocked(useStore);
 
   const mockCancel = jest.fn();
-  const mockFilesDispatch = jest.fn();
+  const mockFileItemsDispatch = jest.fn();
   const mockHandleUpload = jest.fn();
   const mockStoreDispatch = jest.fn();
 
   beforeEach(() => {
     mockUseStore.mockReturnValue([mockUserStoreState, mockStoreDispatch]);
-    mockUseFileItems.mockReturnValue([mockUserFilesState, mockFilesDispatch]);
+    mockUseFileItems.mockReturnValue([
+      mockFileItemsState,
+      mockFileItemsDispatch,
+    ]);
     mockUseAction.mockReturnValue([
       {
         isProcessing: false,
@@ -102,8 +105,8 @@ describe('useUploadView', () => {
       result.current.onDropFiles([testFileOne]);
     });
 
-    expect(mockFilesDispatch).toHaveBeenCalledTimes(1);
-    expect(mockFilesDispatch).toHaveBeenCalledWith({
+    expect(mockFileItemsDispatch).toHaveBeenCalledTimes(1);
+    expect(mockFileItemsDispatch).toHaveBeenCalledWith({
       type: 'ADD_FILES',
       files: [testFileOne],
     });
@@ -112,7 +115,7 @@ describe('useUploadView', () => {
   it('should show invalid files if exists', () => {
     mockUseFileItems.mockReturnValue([
       { validItems: undefined, invalidItems: [invalidFileItem] },
-      mockFilesDispatch,
+      mockFileItemsDispatch,
     ]);
 
     const { result } = renderHook(() => useUploadView());
@@ -127,8 +130,8 @@ describe('useUploadView', () => {
       result.current.onSelectFiles('FILE');
     });
 
-    expect(mockFilesDispatch).toHaveBeenCalledTimes(1);
-    expect(mockFilesDispatch).toHaveBeenCalledWith({
+    expect(mockFileItemsDispatch).toHaveBeenCalledTimes(1);
+    expect(mockFileItemsDispatch).toHaveBeenCalledWith({
       type: 'SELECT_FILES',
       selectionType: 'FILE',
     });
@@ -137,8 +140,8 @@ describe('useUploadView', () => {
       result.current.onSelectFiles('FOLDER');
     });
 
-    expect(mockFilesDispatch).toHaveBeenCalledTimes(2);
-    expect(mockFilesDispatch).toHaveBeenCalledWith({
+    expect(mockFileItemsDispatch).toHaveBeenCalledTimes(2);
+    expect(mockFileItemsDispatch).toHaveBeenCalledWith({
       type: 'SELECT_FILES',
       selectionType: 'FOLDER',
     });
@@ -195,7 +198,7 @@ describe('useUploadView', () => {
     expect(onExit).toHaveBeenCalledTimes(1);
     expect(onExit).toHaveBeenCalledWith(rootLocation);
 
-    expect(mockFilesDispatch.mock.calls).toEqual([
+    expect(mockFileItemsDispatch.mock.calls).toEqual([
       [{ type: 'RESET_FILE_ITEMS' }],
     ]);
 

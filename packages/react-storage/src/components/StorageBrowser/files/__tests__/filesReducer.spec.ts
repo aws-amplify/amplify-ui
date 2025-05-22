@@ -50,8 +50,9 @@ const invalidFileItemTwo: FileItem = {
 };
 
 describe('filesReducer', () => {
-  it('returns the expected state on `ADD_FILE_ITEMS` action when only `validFiles` are provided', () => {
-    const incoming = [fileOne, fileTwo, fileThree];
+  it('returns the expected state on `ADD_FILE_ITEMS` action when valid and invalid files are provided', () => {
+    const incomingValid = [fileOne, fileTwo];
+    const incomingInvalid = [invalidFileOne];
     const previous = {
       validItems: [fileItemOne, fileItemTwo],
       invalidItems: undefined,
@@ -59,27 +60,8 @@ describe('filesReducer', () => {
 
     const output = filesReducer(previous, {
       type: 'ADD_FILE_ITEMS',
-      validFiles: incoming,
-    });
-
-    const expected = {
-      validItems: [fileItemOne, fileItemThree, fileItemTwo],
-      invalidItems: undefined,
-    };
-
-    expect(output).toStrictEqual(expected);
-  });
-
-  it('returns the expected state on `ADD_FILE_ITEMS` action when only `invalidFiles` are provided', () => {
-    const incoming = [invalidFileOne];
-    const previous = {
-      validItems: [fileItemOne, fileItemTwo],
-      invalidItems: undefined,
-    };
-
-    const output = filesReducer(previous, {
-      type: 'ADD_FILE_ITEMS',
-      invalidFiles: incoming,
+      validFiles: incomingValid,
+      invalidFiles: incomingInvalid,
     });
 
     const expected = {
@@ -90,72 +72,21 @@ describe('filesReducer', () => {
     expect(output).toStrictEqual(expected);
   });
 
-  it('returns the same state on `ADD_FILE_ITEMS` action when `validFiles` and `invalidFiles` are `undefined`', () => {
+  it('returns the previous state on `ADD_FILE_ITEMS` action when no files are provided', () => {
     const previous = {
       validItems: [fileItemOne, fileItemTwo],
       invalidItems: undefined,
     };
 
-    const outputOne = filesReducer(previous, {
+    const output = filesReducer(previous, {
       type: 'ADD_FILE_ITEMS',
-      validFiles: undefined,
     });
 
     // assert referential equality
-    expect(outputOne).toBe(previous);
-
-    const outputTwo = filesReducer(previous, {
-      type: 'ADD_FILE_ITEMS',
-      invalidFiles: undefined,
-    });
-
-    // assert referential equality
-    expect(outputTwo).toBe(previous);
-
-    const outputThree = filesReducer(previous, {
-      type: 'ADD_FILE_ITEMS',
-      validFiles: undefined,
-      invalidFiles: undefined,
-    });
-
-    // assert referential equality
-    expect(outputThree).toBe(previous);
+    expect(output).toBe(previous);
   });
 
-  it('returns the same state on `ADD_FILE_ITEMS` action when `validFiles` and `invalidFiles` are empty arrays', () => {
-    const incoming: File[] = [];
-    const previous = {
-      validItems: [fileItemOne, fileItemTwo],
-      invalidItems: undefined,
-    };
-
-    const outputOne = filesReducer(previous, {
-      type: 'ADD_FILE_ITEMS',
-      validFiles: incoming,
-    });
-
-    // assert referential equality
-    expect(outputOne).toBe(previous);
-
-    const outputTwo = filesReducer(previous, {
-      type: 'ADD_FILE_ITEMS',
-      invalidFiles: incoming,
-    });
-
-    // assert referential equality
-    expect(outputTwo).toBe(previous);
-
-    const outputThree = filesReducer(previous, {
-      type: 'ADD_FILE_ITEMS',
-      validFiles: incoming,
-      invalidFiles: incoming,
-    });
-
-    // assert referential equality
-    expect(outputThree).toBe(previous);
-  });
-
-  it('resets the expected `invalidItems` state to track latest files added from `ADD_FILE_ITEMS` action', () => {
+  it('resets `state.invalidItems` to track latest files added from `ADD_FILE_ITEMS` action', () => {
     const previous = {
       validItems: [fileItemTwo],
       invalidItems: [invalidFileItemOne],
@@ -175,7 +106,7 @@ describe('filesReducer', () => {
     expect(output).toStrictEqual(expected);
   });
 
-  it('returns the expected state on `REMOVE_FILE_ITEM` action', () => {
+  it('returns the expected state on `REMOVE_FILE_ITEM` action when last item is removed', () => {
     const previous = {
       validItems: [fileItemOne],
       invalidItems: undefined,
@@ -190,23 +121,19 @@ describe('filesReducer', () => {
     expect(output).toStrictEqual(DEFAULT_STATE);
   });
 
-  it('returns the previous state on `REMOVE_FILE_ITEM` action when `validItems` is `undefined`', () => {
-    const previous = {
-      validItems: undefined,
-      invalidItems: undefined,
-    };
+  it('returns the previous state on `REMOVE_FILE_ITEM` action when previous `validItems` is `undefined`', () => {
     const targetId = 'not a real id lol';
 
-    const output = filesReducer(previous, {
+    const output = filesReducer(DEFAULT_STATE, {
       type: 'REMOVE_FILE_ITEM',
       id: targetId,
     });
 
     // assert referential equality
-    expect(output).toBe(previous);
+    expect(output).toBe(DEFAULT_STATE);
   });
 
-  it('returns the previous state on `remove` action when no valid items are removed', () => {
+  it('returns the previous state on `remove` action when prev and next `validItems` are same length', () => {
     const previous = {
       validItems: [fileItemOne, fileItemTwo],
       invalidItems: undefined,

@@ -3,7 +3,7 @@ import type { HandleFileSelect } from '@aws-amplify/ui-react/internal';
 
 import type { FileItem } from '../actions';
 
-import { DEFAULT_MAX_FILE_SIZE, DEFAULT_RESOLVED_FILES } from './constants';
+import { DEFAULT_RESOLVED_FILES, UPLOAD_FILE_SIZE_LIMIT } from './constants';
 import type { FileItems, ResolvedFiles, SelectionType } from './types';
 
 const compareFileItems = (prev: FileItem, next: FileItem) =>
@@ -13,7 +13,7 @@ const constructFiles = (files: File[] | undefined, file: File): File[] =>
   isUndefined(files) ? [file] : files.concat(file);
 
 export const defaultFileSizeValidator = (file: File): boolean =>
-  file.size <= DEFAULT_MAX_FILE_SIZE;
+  file.size <= UPLOAD_FILE_SIZE_LIMIT;
 
 export const resolveFiles = (
   files: File[] | undefined,

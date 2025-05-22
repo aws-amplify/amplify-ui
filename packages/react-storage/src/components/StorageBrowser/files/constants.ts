@@ -10,4 +10,4 @@ export const DEFAULT_RESOLVED_FILES: ResolvedFiles = {
   invalidFiles: undefined,
 };
 
-export const DEFAULT_MAX_FILE_SIZE = 160 * 1000 * 1000 * 1000;
+export const UPLOAD_FILE_SIZE_LIMIT = 160 * 1000 * 1000 * 1000;

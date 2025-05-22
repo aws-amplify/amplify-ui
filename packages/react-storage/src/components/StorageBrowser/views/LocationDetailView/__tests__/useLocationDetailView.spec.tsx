@@ -94,7 +94,7 @@ const testLocation: LocationState = {
 
 const mockLocationItemsState = { fileDataItems: undefined };
 const mockStoreState = { location: testLocation, actionType: undefined };
-const mockFilesState = { validItems: undefined, invalidItems: undefined };
+const mockFileItemsState = { validItems: undefined, invalidItems: undefined };
 
 const mockLocation = { current: undefined, path: '', key: '' };
 const mockListState = {
@@ -113,7 +113,7 @@ describe('useLocationDetailView', () => {
 
   const mockStoreDispatch = jest.fn();
   const mockLocationItemsDispatch = jest.fn();
-  const mockFilesDispatch = jest.fn();
+  const mockFileItemsDispatch = jest.fn();
   const mockHandleDownload = jest.fn();
   const mockHandleList = jest.fn();
 
@@ -126,7 +126,10 @@ describe('useLocationDetailView', () => {
 
   beforeEach(() => {
     mockUseStore.mockReturnValue([mockStoreState, mockStoreDispatch]);
-    mockUseFileItems.mockReturnValue([mockFilesState, mockFilesDispatch]);
+    mockUseFileItems.mockReturnValue([
+      mockFileItemsState,
+      mockFileItemsDispatch,
+    ]);
     mockUseLocationItems.mockReturnValue([
       mockLocationItemsState,
       mockLocationItemsDispatch,
@@ -465,7 +468,7 @@ describe('useLocationDetailView', () => {
       const state = result.current;
       state.onDropFiles(mockFiles);
     });
-    expect(mockFilesDispatch).toHaveBeenCalledWith({
+    expect(mockFileItemsDispatch).toHaveBeenCalledWith({
       type: 'ADD_FILES',
       files: mockFiles,
     });
@@ -488,7 +491,7 @@ describe('useLocationDetailView', () => {
       const state = result.current;
       state.onDropFiles([mockFolder]);
     });
-    expect(mockFilesDispatch).toHaveBeenCalledWith({
+    expect(mockFileItemsDispatch).toHaveBeenCalledWith({
       type: 'ADD_FILES',
       files: [mockFolder],
     });
@@ -514,7 +517,7 @@ describe('useLocationDetailView', () => {
       const state = result.current;
       state.onDropFiles([mockFile, mockFolder]);
     });
-    expect(mockFilesDispatch).toHaveBeenCalledWith({
+    expect(mockFileItemsDispatch).toHaveBeenCalledWith({
       type: 'ADD_FILES',
       files: [mockFile, mockFolder],
     });
