@@ -4,7 +4,7 @@ import {
   FormProvider as ReactHookFormProvider,
 } from 'react-hook-form';
 
-import { FormValues, FormHandle, FormProviderProps } from './types';
+import type { FormValues, FormHandle, FormProviderProps } from './types';
 
 const DEFAULT_MODE = 'onTouched';
 

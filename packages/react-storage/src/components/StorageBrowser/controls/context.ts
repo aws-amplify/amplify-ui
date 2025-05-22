@@ -1,5 +1,5 @@
 import { createContextUtilities } from '@aws-amplify/ui-react-core';
-import { ControlsContext } from './types';
+import type { ControlsContext } from './types';
 
 const defaultValue = { data: {} } as ControlsContext;
 

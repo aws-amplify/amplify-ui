@@ -1,14 +1,16 @@
 import { createMachine, sendUpdate } from 'xstate';
+import type {
+  ConfirmUserAttributeInput,
+  SendUserAttributeVerificationCodeInput,
+} from 'aws-amplify/auth';
 import {
   confirmUserAttribute,
-  ConfirmUserAttributeInput,
   sendUserAttributeVerificationCode,
-  SendUserAttributeVerificationCodeInput,
 } from 'aws-amplify/auth';
 
 import { runValidators } from '../../../validators';
 
-import { AuthEvent, VerifyUserContext } from '../types';
+import type { AuthEvent, VerifyUserContext } from '../types';
 import actions from '../actions';
 import { defaultServices } from '../defaultServices';
 

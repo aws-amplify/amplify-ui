@@ -1,4 +1,4 @@
-import {
+import type {
   ClientSessionInformationEvent,
   LivenessResponseStream,
   SessionInformation,
@@ -16,21 +16,20 @@ import {
   generateBboxFromLandmarks,
 } from '../utils/liveness';
 
-import {
+import type {
   ErrorState,
   Face,
   FaceMatchAssociatedParams,
-  FaceMatchState,
   FreshnessColorAssociatedParams,
   IlluminationState,
   LivenessContext,
   LivenessError,
-  LivenessErrorState,
   LivenessEvent,
   OvalAssociatedParams,
   StreamActorCallback,
   VideoAssociatedParams,
 } from '../types';
+import { FaceMatchState, LivenessErrorState } from '../types';
 import {
   BlazeFaceFaceDetection,
   drawLivenessOvalInCanvas,

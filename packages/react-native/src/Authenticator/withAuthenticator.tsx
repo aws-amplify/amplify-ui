@@ -1,6 +1,6 @@
 import React from 'react';
 import Authenticator from './Authenticator';
-import { WithAuthenticatorOptions } from './types';
+import type { WithAuthenticatorOptions } from './types';
 
 export default function withAuthenticator<Props = {}>(
   Component: React.ComponentType<Props>,

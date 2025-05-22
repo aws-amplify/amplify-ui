@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Message } from '../composables/Message';
+import { Message } from '../components/composables/Message';
 
 import { useMessage } from './hooks/useMessage';
 import { useResolvedComposable } from './hooks/useResolvedComposable';

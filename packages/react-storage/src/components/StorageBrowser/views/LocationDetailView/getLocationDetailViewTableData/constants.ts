@@ -1,4 +1,4 @@
-import { HeaderKeys } from './types';
+import type { HeaderKeys } from './types';
 
 export const LOCATION_DETAIL_VIEW_HEADERS: HeaderKeys[] = [
   'checkbox',

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { DataRefresh } from '../composables/DataRefresh';
+import { DataRefresh } from '../components/composables/DataRefresh';
 
 import { useDataRefresh } from './hooks/useDataRefresh';
 import { useResolvedComposable } from './hooks/useResolvedComposable';

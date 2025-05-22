@@ -1,1 +1,2 @@
-export { FilePicker, FilePickerProps } from './FilePicker';
+export type { FilePickerProps } from './FilePicker';
+export { FilePicker } from './FilePicker';

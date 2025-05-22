@@ -1,2 +1,2 @@
 export { ModalMessage } from './ModalMessage';
-export { ModalMessageProps } from './types';
+export type { ModalMessageProps } from './types';

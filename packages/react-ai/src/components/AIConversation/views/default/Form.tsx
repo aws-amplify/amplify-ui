@@ -9,8 +9,9 @@ import {
 } from '@aws-amplify/ui-react';
 import { IconAttach, IconSend, useIcons } from '@aws-amplify/ui-react/internal';
 import { ComponentClassName } from '@aws-amplify/ui';
-import { ControlsContextProps } from '../../context/ControlsContext';
+import type { ControlsContextProps } from '../../context/ControlsContext';
 import { Attachments } from './Attachments';
+import { validFileTypes } from '../../utils';
 
 function isHTMLFormElement(target: EventTarget): target is HTMLFormElement {
   return 'form' in target;
@@ -58,8 +59,9 @@ export const Form: Required<ControlsContextProps>['Form'] = ({
   const sendIcon = icons?.send ?? <IconSend />;
   const attachIcon = icons?.attach ?? <IconAttach />;
   const hiddenInput = React.useRef<HTMLInputElement>(null);
+  // Bedrock does not accept message that are empty or are only whitespace
+  const isInputEmpty = !input?.text?.length || !!input.text.match(/^\s+$/);
   const [composing, setComposing] = React.useState(false);
-  const isInputEmpty = !input?.text?.length && !input?.files?.length;
 
   return (
     <FormWrapper onValidate={onValidate} allowAttachments={allowAttachments}>
@@ -91,7 +93,7 @@ export const Form: Required<ControlsContextProps>['Form'] = ({
                   onValidate(Array.from(e.target.files));
                 }}
                 multiple
-                accept=".jpeg,.png,.webp,.gif"
+                accept={[...validFileTypes].map((type) => `.${type}`).join(',')}
                 data-testid="hidden-file-input"
               />
             </VisuallyHidden>
@@ -108,7 +110,21 @@ export const Form: Required<ControlsContextProps>['Form'] = ({
           value={input?.text ?? ''}
           testId="text-input"
           onCompositionStart={() => setComposing(true)}
-          onCompositionEnd={() => setComposing(false)}
+          onCompositionUpdate={(e) => {
+            const composedText = e?.currentTarget?.value || '';
+            setInput?.((prevValue) => ({
+              ...prevValue,
+              text: composedText,
+            }));
+          }}
+          onCompositionEnd={(e) => {
+            setComposing(false);
+            const composedText = e?.currentTarget?.value || '';
+            setInput?.((prevValue) => ({
+              ...prevValue,
+              text: composedText,
+            }));
+          }}
           onKeyDown={(e) => {
             // Submit on enter key if shift is not pressed also
             const shouldSubmit = !e.shiftKey && e.key === 'Enter' && !composing;
@@ -129,9 +145,7 @@ export const Form: Required<ControlsContextProps>['Form'] = ({
           type="submit"
           variation="primary"
           className={ComponentClassName.AIConversationFormSend}
-          // we intentionally || in the case where isLoading is false we should use the value of isInputEmpty
-          // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
-          isDisabled={isLoading || isInputEmpty}
+          isDisabled={isLoading ?? isInputEmpty}
         >
           <span>{sendIcon}</span>
         </Button>

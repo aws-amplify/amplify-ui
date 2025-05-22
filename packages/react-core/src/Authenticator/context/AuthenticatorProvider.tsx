@@ -1,10 +1,10 @@
-import React, { ReactNode, useContext, useEffect, useMemo } from 'react';
+import type { ReactNode } from 'react';
+import React, { useContext, useEffect, useMemo } from 'react';
 import { useInterpret } from '@xstate/react';
 
 import { getCurrentUser } from 'aws-amplify/auth';
+import type { AuthStatus, AuthMachineHubHandler } from '@aws-amplify/ui';
 import {
-  AuthStatus,
-  AuthMachineHubHandler,
   createAuthenticatorMachine,
   defaultAuthHubHandler,
   listenToAuthHub,

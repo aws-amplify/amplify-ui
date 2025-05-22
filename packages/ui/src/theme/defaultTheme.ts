@@ -1,6 +1,6 @@
 import { tokens } from './tokens';
 import { breakpoints } from './breakpoints';
-import { DefaultTheme } from './types';
+import type { DefaultTheme } from './types';
 
 export const defaultTheme: DefaultTheme = {
   tokens,

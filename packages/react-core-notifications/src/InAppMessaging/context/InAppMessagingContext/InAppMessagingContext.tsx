@@ -1,5 +1,5 @@
 import React from 'react';
-import { InAppMessage } from '../../types';
+import type { InAppMessage } from '../../types';
 import { useInAppMessagingState } from './useInAppMessagingState';
 
 export interface InAppMessagingContextType {

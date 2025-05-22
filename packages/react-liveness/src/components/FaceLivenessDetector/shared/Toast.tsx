@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { Flex, View, ViewProps, useTheme } from '@aws-amplify/ui-react';
+import type { ViewProps } from '@aws-amplify/ui-react';
+import { Flex, View, useTheme } from '@aws-amplify/ui-react';
 
 import { LivenessClassNames } from '../types/classNames';
 

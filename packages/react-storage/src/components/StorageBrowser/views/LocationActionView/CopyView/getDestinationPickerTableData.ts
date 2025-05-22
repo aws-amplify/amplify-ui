@@ -1,6 +1,8 @@
-import { WithKey } from '../../../components/types';
-import { DataTableProps } from '../../../composables/DataTable';
-import { DataTableRow } from '../../../composables/DataTable/DataTable';
+import type {
+  DataTableProps,
+  DataTableRow,
+  WithKey,
+} from '../../../components';
 
 const DESTINATION_PICKER_COLUMNS: DataTableProps['headers'] = [
   { key: 'name', type: 'sort', content: { label: 'Folder name' } },

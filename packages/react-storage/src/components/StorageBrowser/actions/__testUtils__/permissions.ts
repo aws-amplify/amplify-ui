@@ -1,4 +1,4 @@
-import { LocationPermissions } from '../handlers';
+import type { LocationPermissions } from '../handlers';
 
 export const generateCombinations = <T>(values: T[]): T[][] => {
   if (values.length === 1) {

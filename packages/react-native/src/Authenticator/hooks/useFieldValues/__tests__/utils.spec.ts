@@ -1,10 +1,11 @@
 import { ConsoleLogger as Logger } from 'aws-amplify/utils';
 import { authenticatorTextUtil } from '@aws-amplify/ui';
 
-import { TextFieldOptionsType, TypedField } from '../../types';
+import type { TextFieldOptionsType, TypedField } from '../../types';
 import {
   getRouteTypedFields,
-  getSanitizedRadioFields,
+  getSanitizedSelectMfaTypeFields,
+  getSanitizedVerifyUserFields,
   getSanitizedTextFields,
   runFieldValidation,
 } from '../utils';
@@ -101,7 +102,7 @@ describe('getSanitizedTextFields', () => {
   });
 });
 
-describe('getSanitizedRadioFields', () => {
+describe('getSanitizedVerifyUserFields', () => {
   afterEach(() => {
     jest.resetAllMocks();
   });
@@ -117,7 +118,7 @@ describe('getSanitizedRadioFields', () => {
       { type: 'password', value: 'value' } as TypedField,
     ];
 
-    const output = getSanitizedRadioFields(fields, 'VerifyUser');
+    const output = getSanitizedVerifyUserFields(fields);
 
     expect(warnSpy).toHaveBeenCalledTimes(1);
     expect(warnSpy).toHaveBeenCalledWith(
@@ -139,7 +140,7 @@ describe('getSanitizedRadioFields', () => {
       { name: 'phone_number', type: 'radio' } as TypedField,
     ];
 
-    const output = getSanitizedRadioFields(fields, 'VerifyUser');
+    const output = getSanitizedVerifyUserFields(fields);
 
     expect(warnSpy).toHaveBeenCalledTimes(1);
     expect(warnSpy).toHaveBeenCalledWith(
@@ -161,7 +162,7 @@ describe('getSanitizedRadioFields', () => {
       { name: 'email', type: 'radio', value: 'testValue' } as TypedField,
     ];
 
-    const output = getSanitizedRadioFields(fields, 'VerifyUser');
+    const output = getSanitizedVerifyUserFields(fields);
 
     expect(warnSpy).toHaveBeenCalledTimes(1);
     expect(warnSpy).toHaveBeenCalledWith(
@@ -169,6 +170,72 @@ describe('getSanitizedRadioFields', () => {
     );
 
     expect(output).toHaveLength(1);
+    expect(output).toStrictEqual([validField]);
+  });
+});
+
+describe('getSanitizedSelectMfaTypeFields', () => {
+  afterEach(() => {
+    jest.resetAllMocks();
+  });
+
+  it('logs a warning and ignores the field when value is missing', () => {
+    const validField: TypedField = {
+      name: 'mfa_type',
+      type: 'radio',
+      value: 'test',
+    };
+    const fields: TypedField[] = [
+      validField,
+      { type: 'radio', name: 'mfa_type' } as TypedField,
+    ];
+
+    const output = getSanitizedSelectMfaTypeFields(fields);
+
+    expect(warnSpy).toHaveBeenCalledTimes(1);
+    expect(warnSpy).toHaveBeenCalledWith(
+      'Each field must have a value; field has been ignored.'
+    );
+
+    expect(output).toStrictEqual([validField]);
+  });
+
+  it('logs a warning and ignores the field when value is duplicated.', () => {
+    const validField: TypedField = {
+      name: 'mfa_type',
+      type: 'radio',
+      value: 'EMAIL',
+    };
+    const fields: TypedField[] = [validField, { ...validField }];
+
+    const output = getSanitizedSelectMfaTypeFields(fields);
+
+    expect(warnSpy).toHaveBeenCalledTimes(1);
+    expect(warnSpy).toHaveBeenCalledWith(
+      'Each field value must be unique; field with duplicate value of "EMAIL" has been ignored.'
+    );
+
+    expect(output).toStrictEqual([validField]);
+  });
+
+  it('logs a warning and ignores the field when type is not radio', () => {
+    const validField: TypedField = {
+      name: 'mfa_type',
+      type: 'radio',
+      value: 'EMAIL',
+    };
+    const fields: TypedField[] = [
+      validField,
+      { name: 'mfa_type', type: 'email', value: 'TOTP' } as TypedField,
+    ];
+
+    const output = getSanitizedSelectMfaTypeFields(fields);
+
+    expect(warnSpy).toHaveBeenCalledTimes(1);
+    expect(warnSpy).toHaveBeenCalledWith(
+      'SelectMfaType component does not support non-radio fields; field with type "email" has been ignored.'
+    );
+
     expect(output).toStrictEqual([validField]);
   });
 });

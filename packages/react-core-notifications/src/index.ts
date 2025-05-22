@@ -1,11 +1,10 @@
-export {
+export type {
   BannerMessageCommonProps,
   BannerMessageComponent,
   CarouselMessageCommonProps,
   CarouselMessageComponent,
   FullScreenMessageCommonProps,
   FullScreenMessageComponent,
-  handleMessageAction,
   HandleMessageLinkAction,
   InAppMessage,
   InAppMessageAction,
@@ -15,7 +14,6 @@ export {
   InAppMessageLayout,
   InAppMessageStyle,
   InAppMessagingProviderProps,
-  InAppMessagingProvider,
   InAppMessageTextAlign,
   MessageButtonProps,
   MessageCommonProps,
@@ -26,6 +24,10 @@ export {
   ModalMessageComponent,
   OnMessageAction,
   UseInAppMessaging,
+} from './InAppMessaging';
+export {
+  handleMessageAction,
+  InAppMessagingProvider,
   useInAppMessaging,
   useMessage,
 } from './InAppMessaging';

@@ -1,9 +1,9 @@
-import React from 'react';
+import type React from 'react';
 
-import { AuthenticatorMachineOptions } from '@aws-amplify/ui';
+import type { AuthenticatorMachineOptions } from '@aws-amplify/ui';
 
-import { DefaultContainerComponent } from './common';
-import { Components } from './Defaults';
+import type { DefaultContainerComponent } from './common';
+import type { Components } from './Defaults';
 
 type SupportedAuthenticatorMachineOptions = Omit<
   AuthenticatorMachineOptions,

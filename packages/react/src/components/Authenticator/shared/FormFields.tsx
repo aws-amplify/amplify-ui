@@ -1,6 +1,7 @@
 import * as React from 'react';
 
-import { FormField, FormFieldProps } from './FormField';
+import type { FormFieldProps } from './FormField';
+import { FormField } from './FormField';
 import { useAuthenticator } from '@aws-amplify/ui-react-core';
 
 export function FormFields(): React.JSX.Element {

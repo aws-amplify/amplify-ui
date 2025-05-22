@@ -39,17 +39,13 @@ function LocationsView() {
 
 const { LocationActionView } = StorageBrowser;
 
-function MyLocationActionView({
-  type,
-  onExit,
-}: {
-  type?: string;
-  onExit: () => void;
-}) {
-  let DialogContent = null;
-  if (!type) return DialogContent;
+function MyLocationActionView() {
+  const state = useView('LocationDetail');
+  const onExit = () => {
+    state.onActionSelect('');
+  };
 
-  switch (type) {
+  switch (state.actionType) {
     case 'copy':
       return <ComposedCopyView onExit={onExit} />;
     case 'createFolder':
@@ -65,8 +61,15 @@ function MyLocationActionView({
 
 function MyStorageBrowser() {
   const state = useView('LocationDetail');
-  const [currentAction, setCurrentAction] = React.useState<string>();
   const ref = React.useRef<HTMLDialogElement>(null);
+
+  React.useEffect(() => {
+    if (state.actionType) {
+      ref.current?.showModal();
+    } else {
+      ref.current?.close();
+    }
+  }, [state.actionType]);
 
   if (!state.location.current) {
     return <LocationsView />;
@@ -74,21 +77,9 @@ function MyStorageBrowser() {
 
   return (
     <>
-      <StorageBrowser.LocationDetailView
-        key={currentAction}
-        onActionSelect={(action) => {
-          setCurrentAction(action);
-          ref.current?.showModal();
-        }}
-      />
+      <StorageBrowser.LocationDetailView />
       <dialog ref={ref}>
-        <MyLocationActionView
-          type={currentAction}
-          onExit={() => {
-            setCurrentAction(undefined);
-            ref.current?.close();
-          }}
-        />
+        <MyLocationActionView />
       </dialog>
     </>
   );

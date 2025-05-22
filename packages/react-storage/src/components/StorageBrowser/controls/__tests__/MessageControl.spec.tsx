@@ -6,7 +6,7 @@ import { useResolvedComposable } from '../hooks/useResolvedComposable';
 
 jest.mock('../hooks/useMessage');
 jest.mock('../hooks/useResolvedComposable');
-jest.mock('../../composables/Message', () => ({
+jest.mock('../../components/composables/Message', () => ({
   Message: () => <div data-testid="message" />,
 }));
 

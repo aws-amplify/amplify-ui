@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { classNames } from '@aws-amplify/ui';
 import { isEmpty } from '@aws-amplify/ui';
-import { MessageButtonProps } from '@aws-amplify/ui-react-core-notifications';
+import type { MessageButtonProps } from '@aws-amplify/ui-react-core-notifications';
 import {
   Button,
   ButtonGroup,
@@ -30,7 +30,7 @@ import {
   TEXT_CONTAINER_CLASS,
   TEXT_CONTAINER_TEST_ID,
 } from './constants';
-import { MessageLayoutProps } from './types';
+import type { MessageLayoutProps } from './types';
 import { getButtonModifier } from './utils';
 
 const isMessageButton = (button: unknown): button is MessageButtonProps =>

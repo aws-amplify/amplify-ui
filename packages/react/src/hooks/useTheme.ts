@@ -1,11 +1,10 @@
 import * as React from 'react';
 
-import { createTheme, WebTheme } from '@aws-amplify/ui';
-import { ColorMode } from '../components/ThemeProvider/ThemeProvider';
-import {
-  ThemeContext,
-  ThemeContextType,
-} from '../components/ThemeProvider/ThemeContext';
+import type { WebTheme } from '@aws-amplify/ui';
+import { createTheme } from '@aws-amplify/ui';
+import type { ColorMode } from '../components/ThemeProvider/ThemeProvider';
+import type { ThemeContextType } from '../components/ThemeProvider/ThemeContext';
+import { ThemeContext } from '../components/ThemeProvider/ThemeContext';
 
 /**
  * Get current Theme object value from Amplify context.

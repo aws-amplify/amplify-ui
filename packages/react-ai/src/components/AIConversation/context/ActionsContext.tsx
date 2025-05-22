@@ -1,5 +1,5 @@
 import React from 'react';
-import { CustomAction } from '../types';
+import type { CustomAction } from '../types';
 
 export const ActionsContext = React.createContext<CustomAction[] | undefined>(
   undefined

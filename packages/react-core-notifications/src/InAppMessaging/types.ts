@@ -1,5 +1,5 @@
-import React from 'react';
-import {
+import type React from 'react';
+import type {
   InAppMessage as InAppMessageBase,
   InAppMessageAction as InAppMessageActionBase,
   InAppMessageButton as InAppMessageButtonBase,

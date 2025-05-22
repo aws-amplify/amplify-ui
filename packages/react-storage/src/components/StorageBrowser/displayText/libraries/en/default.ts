@@ -1,4 +1,4 @@
-import { DefaultStorageBrowserDisplayText } from '../../types';
+import type { DefaultStorageBrowserDisplayText } from '../../types';
 
 import { DEFAULT_CREATE_FOLDER_VIEW_DISPLAY_TEXT } from './createFolderView';
 import { DEFAULT_COPY_VIEW_DISPLAY_TEXT } from './copyView';

@@ -1,4 +1,4 @@
-import { ComponentStyles } from '../components/utils';
+import type { ComponentStyles } from '../components/utils';
 import { recursiveComponentCSS } from './createComponentCSS';
 
 type GlobalCSS = Record<string, ComponentStyles>;

@@ -1,4 +1,4 @@
-import {
+import type {
   AuthenticatorServiceFacade,
   LegacyFormFieldOptions,
 } from '@aws-amplify/ui';
@@ -19,6 +19,8 @@ export type AuthenticatorRouteComponentKey =
   | 'confirmSignUp'
   | 'confirmVerifyUser'
   | 'forgotPassword'
+  | 'selectMfaType'
+  | 'setupEmail'
   | 'setupTotp'
   | 'verifyUser';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { STORAGE_BROWSER_BLOCK } from '../../../constants';
-import { ViewElement } from '../../../context/elements';
+import { STORAGE_BROWSER_BLOCK } from '../../../components';
+import { ViewElement } from '../../../components/elements';
 import { ActionStartControl } from '../../../controls/ActionStartControl';
 import { ActionExitControl } from '../../../controls/ActionExitControl';
 import { FolderNameFieldControl } from '../../../controls/FolderNameFieldControl';
@@ -9,7 +9,7 @@ import { MessageControl } from '../../../controls/MessageControl';
 import { TitleControl } from '../../../controls/TitleControl';
 
 import { CreateFolderViewProvider } from './CreateFolderViewProvider';
-import { CreateFolderViewType } from './types';
+import type { CreateFolderViewType } from './types';
 import { useCreateFolderView } from './useCreateFolderView';
 import { classNames } from '@aws-amplify/ui';
 

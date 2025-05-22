@@ -1,4 +1,4 @@
-import { LivenessResponseStream } from '@aws-sdk/client-rekognitionstreaming';
+import type { LivenessResponseStream } from '@aws-sdk/client-rekognitionstreaming';
 import { WEBSOCKET_CONNECTION_TIMEOUT_MESSAGE } from './createStreamingClient/CustomWebSocketFetchHandler';
 
 export const isServerSesssionInformationEvent = (

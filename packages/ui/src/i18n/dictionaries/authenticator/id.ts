@@ -1,12 +1,14 @@
-import { AuthenticatorDictionary } from './types';
+import type { AuthenticatorDictionary } from './types';
 
 export const idDict: AuthenticatorDictionary = {
   'Account recovery requires verified contact information':
     'Pemulihan akun memerlukan informasi kontak terverifikasi',
+  'Authenticator App (TOTP)': 'Aplikasi Pengauntentikasi (TOTP)',
   'Back to Sign In': 'Kembali ke Masuk',
   'Change Password': 'Ubah kata sandi',
   Changing: 'Mengubah',
   Code: 'Kode',
+  'Confirm Email Code': 'Konfirmasi Kode Email',
   'Confirm Password': 'Konfirmasi kata sandi',
   'Confirm Sign Up': 'Konfirmasi Pendaftaran',
   'Confirm SMS Code': 'Konfirmasi Kode SMS',
@@ -19,6 +21,7 @@ export const idDict: AuthenticatorDictionary = {
   'Creating Account': 'Membuat Akun',
   'Dismiss alert': 'Hentikan pemberitahuan',
   Email: 'Email',
+  'Email Message': 'Pesan Email',
   'Enter your code': 'Masukkan kode anda',
   'Enter your Email': 'Masukkan email anda',
   'Enter your phone number': 'Masukkan nomor telepon anda',
@@ -27,6 +30,8 @@ export const idDict: AuthenticatorDictionary = {
   'Hide password': 'Sembunyikan kata sandi',
   'It may take a minute to arrive': 'Mungkin perlu waktu satu menit untuk tiba',
   Loading: 'Memuat',
+  'Multi-Factor Authentication': 'Autentikasi Multifaktor',
+  'Multi-Factor Authentication Setup': 'Pengaturan Autentikasi Multifaktor',
   'New password': 'Kata sandi baru',
   or: 'atau',
   Password: 'Kata sandi',
@@ -34,9 +39,11 @@ export const idDict: AuthenticatorDictionary = {
   'Resend Code': 'Kirim ulang kodenya',
   'Reset your Password': 'Reset Kata Sandi',
   'Reset your password': 'Ubah kata sandi anda',
+  'Select MFA Type': 'Pilih tipe MFA',
   'Send code': 'Kirim kode',
   'Send Code': 'Kirim Kode',
   Sending: 'Mengirim',
+  'Setup Email': 'Atur Email',
   'Setup TOTP': 'Siapkan TOTP',
   'Show password': 'Tampilkan kata sandi',
   'Sign in to your account': 'Masuk akun anda',
@@ -50,6 +57,7 @@ export const idDict: AuthenticatorDictionary = {
   Skip: 'Lewati',
   Submit: 'Ajukan',
   Submitting: 'Mengajukan',
+  'Text Message (SMS)': 'Pesan Teks (SMS)',
   Username: 'Nama akun',
   'Verify Contact': 'Verifikasi Kontak',
   Verify: 'Verifikasi',

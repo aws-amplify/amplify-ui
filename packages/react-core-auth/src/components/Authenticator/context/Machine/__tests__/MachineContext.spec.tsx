@@ -1,5 +1,5 @@
 import React from 'react';
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook } from '@testing-library/react';
 import { NextAuthenticatorServiceFacade } from '@aws-amplify/ui';
 import * as UIModule from '@aws-amplify/ui';
 
@@ -27,6 +27,7 @@ const mockServiceFacade: NextAuthenticatorServiceFacade = {
   totpSecretCode: undefined,
   unverifiedUserAttributes: { email: 'test#example.com' },
   username: undefined,
+  allowedMfaTypes: undefined,
 };
 
 const getNextServiceFacadeSpy = jest
@@ -58,9 +59,10 @@ describe('useMachine', () => {
   });
 
   it('throws an error when used outside an MachineProvider', () => {
-    const { result } = renderHook(useMachine);
+    // turn off console.error logging for unhappy path test case
+    jest.spyOn(console, 'error').mockImplementation(() => {});
 
-    expect(result.error?.message).toBe(USE_MACHINE_ERROR);
+    expect(() => renderHook(useMachine)).toThrow(USE_MACHINE_ERROR);
   });
 
   it('returns the expected values', () => {

@@ -7,7 +7,7 @@ import { Button } from '../Button';
 import { VisuallyHidden } from '../VisuallyHidden';
 import { ComponentText } from '../shared/constants';
 import { IconVisibility, IconVisibilityOff, useIcons } from '../Icon';
-import {
+import type {
   ForwardRefPrimitive,
   Primitive,
   BaseShowPasswordButtonProps,

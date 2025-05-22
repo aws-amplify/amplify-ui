@@ -7,7 +7,7 @@ import { IconButton } from '../IconButton';
 
 import { useTheme } from '../../theme';
 import { getThemedStyles } from './styles';
-import { ErrorMessageProps } from './types';
+import type { ErrorMessageProps } from './types';
 
 export const CLOSE_BUTTON_TEST_ID =
   'authenticator--error-message--close-button';

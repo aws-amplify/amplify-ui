@@ -7,17 +7,20 @@ import React, {
   useMemo,
   useState,
 } from 'react';
-import { View, ViewStyle } from 'react-native';
+import type { ViewStyle } from 'react-native';
+import { View } from 'react-native';
 
 import { useHasValueUpdated } from '@aws-amplify/ui-react-core';
 
 import { useTheme } from '../../theme';
 import { Label } from '../Label';
 import { getFlexDirectionFromLabelPosition } from '../Label/utils';
-import { RadioProps } from '../Radio';
+import type { RadioProps } from '../Radio';
 
 import { getThemedStyles } from './styles';
-import { RadioGroupProps } from './types';
+import type { RadioGroupProps } from './types';
+
+export const RADIO_GROUP_CONTAINER_TEST_ID = 'amplify__radio-group__container';
 
 export default function RadioGroup<T>({
   accessible = true,
@@ -73,7 +76,11 @@ export default function RadioGroup<T>({
   );
 
   return (
-    <View {...rest} style={[themedStyle.container, containerStyle, style]}>
+    <View
+      {...rest}
+      style={[themedStyle.container, containerStyle, style]}
+      testID={RADIO_GROUP_CONTAINER_TEST_ID}
+    >
       <View
         accessible={accessible}
         accessibilityRole={accessibilityRole}

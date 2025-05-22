@@ -1,4 +1,4 @@
-import {
+import type {
   ImageStyle,
   StyleProp,
   TextStyle,
@@ -6,7 +6,7 @@ import {
   ViewStyle,
 } from 'react-native';
 
-import { IconProps } from '../Icon';
+import type { IconProps } from '../Icon';
 
 export interface ErrorMessageProps extends ViewProps {
   iconStyle?: IconProps['style'];

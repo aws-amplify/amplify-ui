@@ -18,6 +18,8 @@ import {
   PasswordControl,
   RenderInfo,
   ForgotPassword,
+  SelectMfaType,
+  SetupEmail,
   SignIn,
   SignUp,
   VerifyUser,
@@ -59,6 +61,8 @@ export default {
     app.component('ConfirmSignIn', ConfirmSignIn);
     app.component('VerifyUser', VerifyUser);
     app.component('ConfirmVerifyUser', ConfirmVerifyUser);
+    app.component('SelectMfaType', SelectMfaType);
+    app.component('SetupEmail', SetupEmail);
     app.component('AmplifyTextField', AmplifyTextField);
     app.component('AmplifyCheckBox', AmplifyCheckBox);
     app.component('AmplifyButton', AmplifyButton);
@@ -107,6 +111,8 @@ export {
   ConfirmSignIn,
   ConfirmVerifyUser,
   VerifyUser,
+  SelectMfaType,
+  SetupEmail,
   AmplifyTextField,
   AmplifyCheckBox,
   AmplifyButton,

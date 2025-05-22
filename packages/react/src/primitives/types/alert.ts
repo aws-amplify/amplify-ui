@@ -1,7 +1,7 @@
-import * as React from 'react';
+import type * as React from 'react';
 
-import { BaseFlexProps } from './flex';
-import { ElementType, PrimitiveProps } from './view';
+import type { BaseFlexProps } from './flex';
+import type { ElementType, PrimitiveProps } from './view';
 
 export type AlertVariations = 'info' | 'error' | 'warning' | 'success';
 

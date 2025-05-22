@@ -1,5 +1,6 @@
 import React, { forwardRef, useEffect, useMemo, useState } from 'react';
-import { Amplify, ResourcesConfig } from 'aws-amplify';
+import type { ResourcesConfig } from 'aws-amplify';
+import { Amplify } from 'aws-amplify';
 import { fetchAuthSession } from 'aws-amplify/auth';
 import maplibregl from 'maplibre-gl';
 import { AmplifyMapLibreRequest } from 'maplibre-gl-js-amplify';

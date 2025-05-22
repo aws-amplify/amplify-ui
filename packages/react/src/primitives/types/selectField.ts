@@ -1,7 +1,7 @@
-import { FlexContainerStyleProps } from './flex';
-import { BaseSelectProps } from './select';
-import { BaseFieldProps } from './field';
-import { ElementType, PrimitiveProps } from './view';
+import type { FlexContainerStyleProps } from './flex';
+import type { BaseSelectProps } from './select';
+import type { BaseFieldProps } from './field';
+import type { ElementType, PrimitiveProps } from './view';
 
 /** @deprecated For internal use only */
 export interface BaseSelectFieldProps

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { DataTable } from '../composables/DataTable';
+import { DataTable } from '../components';
 
 import { useDataTable } from './hooks/useDataTable';
 import { useResolvedComposable } from './hooks/useResolvedComposable';

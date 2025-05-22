@@ -6,7 +6,7 @@ import { useResolvedComposable } from '../hooks/useResolvedComposable';
 
 jest.mock('../hooks/useOverwriteToggle');
 jest.mock('../hooks/useResolvedComposable');
-jest.mock('../../composables/OverwriteToggle', () => ({
+jest.mock('../../components/composables/OverwriteToggle', () => ({
   OverwriteToggle: () => <div data-testid="overwrite-toggle" />,
 }));
 

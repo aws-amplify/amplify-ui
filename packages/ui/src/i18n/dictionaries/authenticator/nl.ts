@@ -1,12 +1,14 @@
-import { AuthenticatorDictionary } from './types';
+import type { AuthenticatorDictionary } from './types';
 
 export const nlDict: AuthenticatorDictionary = {
   'Account recovery requires verified contact information':
     'Accountherstel vereist geverifieerde contactgegevens',
+  'Authenticator App (TOTP)': 'Authenticator-app (TOTP)',
   'Back to Sign In': 'Terug naar inloggen',
   'Change Password': 'Wachtwoord wijzigen',
   Changing: 'Wordt aangepast',
   Code: 'Code',
+  'Confirm Email Code': 'E-mailcode bevestigen',
   'Confirm Password': 'Bevestig Wachtwoord',
   'Confirm Sign Up': 'Bevestig inschrijving',
   'Confirm SMS Code': 'Bevestig SMS Code',
@@ -19,6 +21,7 @@ export const nlDict: AuthenticatorDictionary = {
   'Creating Account': 'Account wordt aangemaakt',
   'Dismiss alert': 'Waarschuwing sluiten',
   Email: 'E-mail',
+  'Email Message': 'E-mailbericht',
   'Enter your code': 'Vul je code in',
   'Enter your Email': 'Vul je e-mail in',
   'Enter your Password': 'Vul je wachtwoord in',
@@ -29,6 +32,8 @@ export const nlDict: AuthenticatorDictionary = {
   'Hide password': 'Verberg wachtwoord',
   'It may take a minute to arrive': 'Het kan even duren voordat deze aankomt',
   Loading: 'Laden',
+  'Multi-Factor Authentication': 'Multi-Factor Authentication',
+  'Multi-Factor Authentication Setup': 'Multi-Factor Authentication instellen',
   'New password': 'Nieuw wachtwoord',
   'New Password': 'Nieuw Wachtwoord',
   or: 'of',
@@ -39,9 +44,11 @@ export const nlDict: AuthenticatorDictionary = {
   'Reset Password': 'Wachtwoord resetten',
   'Reset your password': 'Reset je wachtwoord',
   'Reset your Password': 'Wachtwoord resetten',
+  'Select MFA Type': 'MFA-type kiezen',
   'Send code': 'Verstuur code',
   'Send Code': 'Verstuur Code',
   Sending: 'Versturen',
+  'Setup Email': 'E-mailadres instellen',
   'Setup TOTP': 'TOTP Instellingen',
   'Show password': 'Toon wachtwoord',
   'Sign in to your account': 'Inloggen op je account',
@@ -55,6 +62,7 @@ export const nlDict: AuthenticatorDictionary = {
   Skip: 'Overslaan',
   Submit: 'Versturen',
   Submitting: 'Wordt verstuurd',
+  'Text Message (SMS)': 'Tekstbericht (sms)',
   Username: 'Gebruikersnaam',
   'Verify Contact': 'Verifieer Contact',
   Verify: 'Verifieer',

@@ -41,7 +41,11 @@
     [describedBy]="ariaDescribedBy"
   ></amplify-text-field>
 
-  <div data-amplify-sign-up-errors *ngIf="hasError()" [id]="errorId">
+  <div
+    data-amplify-sign-up-errors
+    *ngIf="hasError()"
+    [id]="errorId"
+  >
     <div
       class="amplify-text amplify-text--error"
       data-variation="error"

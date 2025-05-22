@@ -1,8 +1,8 @@
-import {
+import type {
   AuthenticatorComponentOverrides,
   AuthenticatorComponentDefaults,
 } from '@aws-amplify/ui-react-core';
-import { RadioFieldOptions, TextFieldOptionsType } from '../hooks';
+import type { RadioFieldOptions, TextFieldOptionsType } from '../hooks';
 
 // TODO fill these interfaces with custom style override types
 export interface ConfirmResetPasswordStyle {}
@@ -15,6 +15,8 @@ export interface SetupTotpStyle {}
 export interface SignInStyle {}
 export interface SignUpStyle {}
 export interface VerifyUserStyle {}
+export interface SetupEmailStyle {}
+export interface SelectMfaTypeStyle {}
 
 export type DefaultComponents<
   FieldType = {},
@@ -85,6 +87,20 @@ export type DefaultVerifyUserProps = React.ComponentPropsWithoutRef<
   >['VerifyUser']
 >;
 
+export type DefaultSetupEmailProps = React.ComponentPropsWithoutRef<
+  DefaultComponents<
+    TextFieldOptionsType,
+    { style?: SetupEmailStyle }
+  >['SetupEmail']
+>;
+
+export type DefaultSelectMfaTypeProps = React.ComponentPropsWithoutRef<
+  DefaultComponents<
+    RadioFieldOptions,
+    { style?: SelectMfaTypeStyle }
+  >['SelectMfaType']
+>;
+
 /**
  * Custom Authenticator components
  */
@@ -143,6 +159,16 @@ type VerifyUserComponent<P = {}> = OverrideComponents<
   { style?: VerifyUserStyle } & P
 >['VerifyUser'];
 
+type SetupEmailComponent<P = {}> = OverrideComponents<
+  TextFieldOptionsType,
+  { style?: SetupEmailStyle } & P
+>['SetupEmail'];
+
+type SelectMfaTypeComponent<P = {}> = OverrideComponents<
+  RadioFieldOptions,
+  { style?: SelectMfaTypeStyle } & P
+>['SelectMfaType'];
+
 /**
  * Override `Authenticator` components param
  */
@@ -153,6 +179,8 @@ export interface Components {
   ConfirmVerifyUser?: ConfirmVerifyUserComponent;
   ForceNewPassword?: ForceNewPasswordComponent;
   ForgotPassword?: ForgotPasswordComponent;
+  SelectMfaType?: SelectMfaTypeComponent;
+  SetupEmail?: SetupEmailComponent;
   SetupTotp?: SetupTotpComponent;
   SignIn?: SignInComponent;
   SignUp?: SignUpComponent;
@@ -166,6 +194,8 @@ export interface ConfirmSignUpProps extends DefaultConfirmSignUpProps {}
 export interface ConfirmVerifyUserProps extends DefaultConfirmVerifyUserProps {}
 export interface ForceNewPasswordProps extends DefaultForceNewPasswordProps {}
 export interface ForgotPasswordProps extends DefaultForgotPasswordProps {}
+export interface SelectMfaTypeProps extends DefaultSelectMfaTypeProps {}
+export interface SetupEmailProps extends DefaultSetupEmailProps {}
 export interface SetupTotpProps extends DefaultSetupTotpProps {}
 export interface SignInProps extends DefaultSignInProps {}
 export interface SignUpProps extends DefaultSignUpProps {}

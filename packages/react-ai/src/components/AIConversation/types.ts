@@ -1,23 +1,23 @@
-import React from 'react';
+import type React from 'react';
 
-import {
+import type {
   ActionsBarControl,
   AvatarControl,
   FormControl,
   MessagesControl,
   PromptControl,
 } from './views';
-import { DisplayTextTemplate } from '@aws-amplify/ui';
-import { AIConversationDisplayText } from './displayText';
-import {
+import type { DisplayTextTemplate } from '@aws-amplify/ui';
+import type { AIConversationDisplayText } from './displayText';
+import type {
   ConversationMessage,
   SendMessage,
   ResponseComponents,
   TextContentBlock,
   ImageContentBlock,
 } from '../../types';
-import { ControlsContextProps } from './context/ControlsContext';
-import { AIConversationProviderProps } from './AIConversationProvider';
+import type { ControlsContextProps } from './context/ControlsContext';
+import type { AIConversationProviderProps } from './AIConversationProvider';
 
 export interface Controls {
   Avatars: AvatarControl;

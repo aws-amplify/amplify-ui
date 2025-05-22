@@ -9,7 +9,7 @@ import {
 } from '../../common';
 import { useFieldValues } from '../../hooks';
 
-import { DefaultConfirmSignInProps } from '../types';
+import type { DefaultConfirmSignInProps } from '../types';
 
 const COMPONENT_NAME = 'ConfirmSignIn';
 

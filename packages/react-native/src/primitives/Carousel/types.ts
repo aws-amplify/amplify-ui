@@ -1,4 +1,4 @@
-import { ListRenderItem, StyleProp, ViewStyle } from 'react-native';
+import type { ListRenderItem, StyleProp, ViewStyle } from 'react-native';
 
 export interface CarouselProps<T> {
   data: ReadonlyArray<T>;

@@ -1,8 +1,9 @@
-import { PartialDeep } from '../types';
-import { DefaultTokens, Tokens, WebTokens } from './tokens';
-import { Breakpoints } from './breakpoints';
-import { ComponentsTheme } from './components';
-import { CSSProperties } from './components/utils';
+import type { PartialDeep } from '../types';
+import type { DefaultTokens, WebTokens } from './tokens';
+import type { Tokens } from './tokens';
+import type { Breakpoints } from './breakpoints';
+import type { ComponentsTheme } from './components';
+import type { CSSProperties } from './components/utils';
 
 export * from './tokens/types/designToken';
 export type { BorderWidths } from './tokens/borderWidths';
@@ -13,7 +14,7 @@ export type { Radii } from './tokens/radii';
 export type { Shadows } from './tokens/shadows';
 export type { SpaceSizes } from './tokens/space';
 
-export { Tokens };
+export type { Tokens };
 
 /**
  * An override is a set of tokens that override others

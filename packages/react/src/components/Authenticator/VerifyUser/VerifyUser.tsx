@@ -1,10 +1,9 @@
 import React from 'react';
+import type { ContactMethod, UnverifiedUserAttributes } from '@aws-amplify/ui';
 import {
   defaultFormFieldOptions,
   censorContactMethod,
-  ContactMethod,
   translate,
-  UnverifiedUserAttributes,
   authenticatorTextUtil,
 } from '@aws-amplify/ui';
 
@@ -17,7 +16,8 @@ import { useCustomComponents } from '../hooks/useCustomComponents';
 import { useFormHandlers } from '../hooks/useFormHandlers';
 import { RemoteErrorMessage } from '../shared/RemoteErrorMessage';
 import { TwoButtonSubmitFooter } from '../shared/TwoButtonSubmitFooter';
-import { RouteContainer, RouteProps } from '../RouteContainer';
+import type { RouteProps } from '../RouteContainer';
+import { RouteContainer } from '../RouteContainer';
 
 const {
   getSkipText,

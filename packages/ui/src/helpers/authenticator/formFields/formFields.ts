@@ -2,13 +2,13 @@
  * This file contains helpers that generate default form fields, given the
  * current Authenticator / Zero Config configuration.
  */
-import { AuthMachineState } from '../../../machines/authenticator/types';
-import {
+import type { AuthMachineState } from '../../../machines/authenticator/types';
+import type {
   FormFields,
   FormFieldComponents,
   FormFieldsArray,
-  isAuthFieldsWithDefaults,
 } from '../../../types';
+import { isAuthFieldsWithDefaults } from '../../../types';
 
 import { getActorContext } from '../actor';
 import { defaultFormFieldOptions } from '../constants';
