@@ -7,7 +7,7 @@ import { MockHandlers } from '@aws-amplify/ui-test-utils/storage-browser';
 
 import { INITIAL_VALUES } from '../storage-browser';
 
-const customFileValidator = (file: File) => {
+const customValidateFile = (file: File) => {
   const validFileSize = file.size <= 1024 * 1024;
   const onlyImages = ['image/gif', 'image/jpeg', 'image/png'].includes(
     file.type
@@ -56,6 +56,6 @@ export const { StorageBrowser } = createStorageBrowser({
       }),
   },
   options: {
-    validateFile: customFileValidator,
+    validateFile: customValidateFile,
   },
 });

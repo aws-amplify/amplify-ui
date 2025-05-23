@@ -120,7 +120,7 @@ export interface StorageBrowserActions {
 
 export interface StorageBrowserOptions {
   /**
-   * @description Overrides default file validation called when adding files to be uploaded
+   * @description Overrides default file validation called when selecting files to be uploaded
    * @param {File} file — The file to validate
    * @returns {boolean} — Returns true if `file` is valid, false otherwise
    * @example
