@@ -74,11 +74,11 @@ describe('resolveFiles', () => {
       size: UPLOAD_FILE_SIZE_LIMIT - 1,
     };
 
-    const customFileValidator = jest.fn(
+    const customValidateFile = jest.fn(
       (file: File) => file.size <= 1000 * 1000
     );
 
-    const output = resolveFiles([validFile, invalidFile], customFileValidator);
+    const output = resolveFiles([validFile, invalidFile], customValidateFile);
 
     const expected = {
       validFiles: [validFile],

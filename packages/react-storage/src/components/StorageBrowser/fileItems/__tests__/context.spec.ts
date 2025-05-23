@@ -1,12 +1,17 @@
 import * as UIReactModule from '@aws-amplify/ui-react/internal';
 import { act, renderHook } from '@testing-library/react';
-import React from 'react';
 
 import { DEFAULT_STATE } from '../constants';
-import * as fileItemsReducerModule from '../fileItemsReducer';
-import * as utilsModule from '../utils';
+import { fileItemsReducer } from '../fileItemsReducer';
+import { resolveFiles } from '../utils';
 
 import { FileItemsProvider, useFileItems } from '../context';
+
+jest.mock('../fileItemsReducer');
+jest.mock('../utils', () => ({
+  ...jest.requireActual<typeof import('../utils')>('../utils'),
+  resolveFiles: jest.fn(),
+}));
 
 let uuid = 0;
 Object.defineProperty(globalThis, 'crypto', {
@@ -19,13 +24,11 @@ Object.defineProperty(globalThis, 'crypto', {
 });
 
 const useFileSelectSpy = jest.spyOn(UIReactModule, 'useFileSelect');
-const resolveFilesSpy = jest.spyOn(utilsModule, 'resolveFiles');
-const fileItemsReducerSpy = jest.spyOn(
-  fileItemsReducerModule,
-  'fileItemsReducer'
-);
 
 describe('useFileItems', () => {
+  const mockResolveFiles = jest.mocked(resolveFiles);
+  const mockFileItemsReducer = jest.mocked(fileItemsReducer);
+
   afterEach(() => {
     jest.clearAllMocks();
   });
@@ -71,21 +74,17 @@ describe('useFileItems', () => {
       key: fileTwo.name,
     };
 
-    resolveFilesSpy.mockReturnValueOnce({
+    mockResolveFiles.mockReturnValueOnce({
       validFiles: [fileOne, fileTwo],
       invalidFiles: undefined,
     });
-    fileItemsReducerSpy.mockReturnValueOnce({
+    mockFileItemsReducer.mockReturnValueOnce({
       validItems: [fileItemOne, fileItemTwo],
       invalidItems: undefined,
     });
 
     const { result } = renderHook(() => useFileItems(), {
-      wrapper: ({ children }) => (
-        <FileItemsProvider validateFile={utilsModule.defaultValidateFile}>
-          {children}
-        </FileItemsProvider>
-      ),
+      wrapper: FileItemsProvider,
     });
 
     const [initState, handler] = result.current;
@@ -96,14 +95,14 @@ describe('useFileItems', () => {
       handler({ type: 'ADD_FILES', files: [fileOne, fileTwo] });
     });
 
-    expect(resolveFilesSpy).toHaveBeenCalledTimes(1);
-    expect(resolveFilesSpy).toHaveBeenCalledWith(
+    expect(mockResolveFiles).toHaveBeenCalledTimes(1);
+    expect(mockResolveFiles).toHaveBeenCalledWith(
       [fileOne, fileTwo],
-      utilsModule.defaultValidateFile
+      undefined
     );
 
-    expect(fileItemsReducerSpy).toHaveBeenCalledTimes(1);
-    expect(fileItemsReducerSpy).toHaveBeenCalledWith(initState, {
+    expect(mockFileItemsReducer).toHaveBeenCalledTimes(1);
+    expect(mockFileItemsReducer).toHaveBeenCalledWith(initState, {
       type: 'ADD_FILE_ITEMS',
       validFiles: [fileOne, fileTwo],
       invalidFiles: undefined,
@@ -115,8 +114,8 @@ describe('useFileItems', () => {
       handler({ type: 'REMOVE_FILE_ITEM', id: fileItemOne.id });
     });
 
-    expect(fileItemsReducerSpy).toHaveBeenCalledTimes(2);
-    expect(fileItemsReducerSpy).toHaveBeenLastCalledWith(nextState, {
+    expect(mockFileItemsReducer).toHaveBeenCalledTimes(2);
+    expect(mockFileItemsReducer).toHaveBeenLastCalledWith(nextState, {
       type: 'REMOVE_FILE_ITEM',
       id: fileItemOne.id,
     });
