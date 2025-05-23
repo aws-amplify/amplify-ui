@@ -1,5 +1,5 @@
-import { render } from '@testing-library/react';
 import React from 'react';
+import { render } from '@testing-library/react';
 
 import { ActionConfigsProvider, getActionConfigs } from '../../actions';
 import { ComponentsProvider } from '../../components';
@@ -104,11 +104,11 @@ describe('createProvider', () => {
     const mockActionHandlers = {};
     mockGetActionHandlers.mockReturnValue(mockActionHandlers);
 
-    const mockFileValidator = jest.fn();
+    const mockValidateFile = jest.fn();
 
     const Provider = createProvider({
       config: { ...mockConfig, listLocations: jest.fn() },
-      options: { validateFile: mockFileValidator },
+      options: { validateFile: mockValidateFile },
     });
 
     // used to validate props passed to `ViewsProvider`
@@ -164,7 +164,7 @@ describe('createProvider', () => {
 
     expect(mockFileItemsProvider).toHaveBeenCalledTimes(1);
     expect(mockFileItemsProvider).toHaveBeenCalledWith(
-      expect.objectContaining({ validateFile: mockFileValidator }),
+      expect.objectContaining({ validateFile: mockValidateFile }),
       {}
     );
 

@@ -47,7 +47,7 @@ describe('resolveFiles', () => {
     expect(output).toBe(DEFAULT_RESOLVED_FILES);
   });
 
-  it('returns the expected value when files and no validator are provided', () => {
+  it('returns the expected value when only `files` is provided', () => {
     const output = resolveFiles([fileOne, invalidFileOne]);
     const expected = {
       validFiles: [fileOne, invalidFileOne],
@@ -57,32 +57,11 @@ describe('resolveFiles', () => {
     expect(output).toStrictEqual(expected);
   });
 
-  it('returns the expected value when files and validator are provided', () => {
+  it('returns the expected value when `files` and `validateFile` are provided', () => {
     const output = resolveFiles([fileOne, invalidFileOne], defaultValidateFile);
     const expected = {
       validFiles: [fileOne],
       invalidFiles: [invalidFileOne],
-    };
-
-    expect(output).toStrictEqual(expected);
-  });
-
-  it('returns the expected value when a custom file validator function is provided', () => {
-    const validFile = { ...new File([], 'valid-file'), size: 5 * 1000 };
-    const invalidFile = {
-      ...new File([], 'invalid-file'),
-      size: UPLOAD_FILE_SIZE_LIMIT - 1,
-    };
-
-    const customFileValidator = jest.fn(
-      (file: File) => file.size <= 1000 * 1000
-    );
-
-    const output = resolveFiles([validFile, invalidFile], customFileValidator);
-
-    const expected = {
-      validFiles: [validFile],
-      invalidFiles: [invalidFile],
     };
 
     expect(output).toStrictEqual(expected);

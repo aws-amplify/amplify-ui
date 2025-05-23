@@ -17,15 +17,15 @@ export const defaultValidateFile = (file: File): boolean =>
 
 export const resolveFiles = (
   files: File[] | undefined,
-  validator?: (file: File) => boolean
+  validateFile?: (file: File) => boolean
 ): ResolvedFiles => {
   if (!files?.length) return DEFAULT_RESOLVED_FILES;
 
-  if (!validator) return { validFiles: files, invalidFiles: undefined };
+  if (!validateFile) return { validFiles: files, invalidFiles: undefined };
 
   return files.reduce(
     (acc, file) => {
-      if (validator(file)) {
+      if (validateFile(file)) {
         acc.validFiles = constructFiles(acc.validFiles, file);
       } else {
         acc.invalidFiles = constructFiles(acc.invalidFiles, file);
