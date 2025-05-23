@@ -36,7 +36,7 @@ export interface UploadTableResolverProps
   isMultipartUpload: (file: File) => boolean;
 }
 
-export type FileActionTableResolverProps =
+export type FileTaskTableResolverProps =
   | CopyTableResolverProps
   | DeleteTableResolverProps;
 
@@ -48,13 +48,30 @@ export type ActionTableKey =
   | 'status'
   | 'cancel';
 
+export type CopyTableKey = ActionTableKey;
+export type DeleteTableKey = ActionTableKey;
+export type DownloadTableKey = ActionTableKey;
 export type UploadTableKey = ActionTableKey | 'progress';
 
 export interface ActionTaskTableResolvers
   extends DataTableResolvers<
     ActionTableKey,
-    FileActionTableResolverProps,
+    FileTaskTableResolverProps,
     ActionTask
+  > {}
+
+export interface CopyTaskTableResolvers
+  extends DataTableResolvers<
+    CopyTableKey,
+    CopyTableResolverProps,
+    CopyActionTask
+  > {}
+
+export interface DeleteTableResolvers
+  extends DataTableResolvers<
+    DeleteTableKey,
+    DeleteTableResolverProps,
+    DeleteActionTask
   > {}
 
 export interface UploadTableResolvers
