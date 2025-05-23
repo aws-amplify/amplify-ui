@@ -127,7 +127,7 @@ export interface StorageBrowserOptions {
    * ```tsx
    * const MAX_FILE_SIZE = 10 * 1000 * 1000 * 1000; // 10 GB in bytes
    *
-   * const myValidateFile(file: File) => file.size < MAX_FILE_SIZE;
+   * const myValidateFile = (file: File) => file.size < MAX_FILE_SIZE;
    * ```
    */
   validateFile?: (file: File) => boolean;

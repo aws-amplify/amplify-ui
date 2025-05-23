@@ -1,6 +1,5 @@
 import * as UIReactModule from '@aws-amplify/ui-react/internal';
 import { act, renderHook } from '@testing-library/react';
-import React from 'react';
 
 import { DEFAULT_STATE } from '../constants';
 import * as fileItemsReducerModule from '../fileItemsReducer';
@@ -81,11 +80,7 @@ describe('useFileItems', () => {
     });
 
     const { result } = renderHook(() => useFileItems(), {
-      wrapper: ({ children }) => (
-        <FileItemsProvider validateFile={utilsModule.defaultValidateFile}>
-          {children}
-        </FileItemsProvider>
-      ),
+      wrapper: FileItemsProvider,
     });
 
     const [initState, handler] = result.current;
@@ -97,10 +92,7 @@ describe('useFileItems', () => {
     });
 
     expect(resolveFilesSpy).toHaveBeenCalledTimes(1);
-    expect(resolveFilesSpy).toHaveBeenCalledWith(
-      [fileOne, fileTwo],
-      utilsModule.defaultValidateFile
-    );
+    expect(resolveFilesSpy).toHaveBeenCalledWith([fileOne, fileTwo], undefined);
 
     expect(fileItemsReducerSpy).toHaveBeenCalledTimes(1);
     expect(fileItemsReducerSpy).toHaveBeenCalledWith(initState, {
