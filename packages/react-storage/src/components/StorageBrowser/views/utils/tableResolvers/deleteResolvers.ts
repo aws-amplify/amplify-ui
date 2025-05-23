@@ -3,7 +3,7 @@ import { capitalize, noop } from '@aws-amplify/ui';
 import { isDeleteViewDisplayTextKey } from '../../../displayText';
 
 import { STATUS_LABELS } from './constants';
-import type { ActionTaskTableResolvers, GetActionCell } from './types';
+import type { FileDataTaskTableResolvers, GetActionCell } from './types';
 import {
   cancel,
   folder,
@@ -47,7 +47,7 @@ const DELETE_CELL_RESOLVERS = {
   progress: noop as GetActionCell,
 };
 
-export const DELETE_TABLE_RESOLVERS: ActionTaskTableResolvers = {
+export const DELETE_TABLE_RESOLVERS: FileDataTaskTableResolvers = {
   getCell: (data) => DELETE_CELL_RESOLVERS[data.key](data),
   getHeader: ({ key, props: { displayText } }) => {
     const text = displayText[`tableColumn${capitalize(key)}Header`];

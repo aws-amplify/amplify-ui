@@ -6,7 +6,7 @@ import type {
 } from '../../../components';
 
 import type {
-  ActionTask,
+  FileDataTask,
   CopyActionTask,
   DeleteActionTask,
   GetActionCell,
@@ -20,7 +20,7 @@ export const getFileType = (value: string, fallback = ''): string =>
 
 export const getCellName = (value: string): string =>
   // `value.split` always returns an array with at least one entry
-  // ensruing `.pop()` will always return a string
+  // ensuring `.pop()` will always return a string
   value.split('/').pop()!;
 
 export const getUploadCellFolder = (
@@ -35,7 +35,7 @@ export const getUploadCellFolder = (
     ? webkitRelativePath.slice(0, webkitRelativePath.lastIndexOf('/') + 1)
     : fallback;
 
-const isCopyActionTask = (task: ActionTask): task is CopyActionTask =>
+const isCopyActionTask = (task: FileDataTask): task is CopyActionTask =>
   'sourceKey' in task.data;
 
 export const getActionCellFolder = (

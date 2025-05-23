@@ -1,6 +1,6 @@
 import type { WithKey } from '../../../components/types';
 import { STATUS_ICONS } from './constants';
-import type { ActionTableKey, ActionTask, GetActionCell } from './types';
+import type { ActionTableKey, FileDataTask, GetActionCell } from './types';
 import {
   getActionCancelCellContent,
   getActionCellFolder,
@@ -14,7 +14,7 @@ import {
 export const getActionCellKey = ({
   key,
   item,
-}: WithKey<{ item: ActionTask }, ActionTableKey>): string =>
+}: WithKey<{ item: FileDataTask }, ActionTableKey>): string =>
   `${key}-${item.data.id}`;
 
 export const name: GetActionCell = (data) => {

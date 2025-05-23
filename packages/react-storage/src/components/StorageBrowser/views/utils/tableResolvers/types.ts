@@ -16,7 +16,7 @@ import type { DataTableResolvers } from '../../hooks/useResolveTableData';
 export interface CopyActionTask extends Task<CopyHandlerData> {}
 export interface DeleteActionTask extends Task<DeleteHandlerData> {}
 export interface UploadActionTask extends Task<UploadHandlerData> {}
-export interface ActionTask
+export interface FileDataTask
   extends Task<TaskData & OptionalFileData & { fileKey: string }> {}
 
 interface ActionTableResolverProps<TDisplayText, TTask> {
@@ -36,7 +36,7 @@ export interface UploadTableResolverProps
   isMultipartUpload: (file: File) => boolean;
 }
 
-export type FileTaskTableResolverProps =
+export type FileDataTaskTableResolverProps =
   | CopyTableResolverProps
   | DeleteTableResolverProps;
 
@@ -50,28 +50,13 @@ export type ActionTableKey =
 
 export type CopyTableKey = ActionTableKey;
 export type DeleteTableKey = ActionTableKey;
-export type DownloadTableKey = ActionTableKey;
 export type UploadTableKey = ActionTableKey | 'progress';
 
-export interface ActionTaskTableResolvers
+export interface FileDataTaskTableResolvers
   extends DataTableResolvers<
     ActionTableKey,
-    FileTaskTableResolverProps,
-    ActionTask
-  > {}
-
-export interface CopyTaskTableResolvers
-  extends DataTableResolvers<
-    CopyTableKey,
-    CopyTableResolverProps,
-    CopyActionTask
-  > {}
-
-export interface DeleteTableResolvers
-  extends DataTableResolvers<
-    DeleteTableKey,
-    DeleteTableResolverProps,
-    DeleteActionTask
+    FileDataTaskTableResolverProps,
+    FileDataTask
   > {}
 
 export interface UploadTableResolvers
@@ -81,6 +66,6 @@ export interface UploadTableResolvers
     UploadActionTask
   > {}
 
-export type GetActionCell = ActionTaskTableResolvers['getCell'];
+export type GetActionCell = FileDataTaskTableResolvers['getCell'];
 
 export type GetUploadCell = UploadTableResolvers['getCell'];
