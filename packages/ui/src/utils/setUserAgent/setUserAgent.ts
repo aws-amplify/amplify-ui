@@ -18,11 +18,9 @@ export type PackageName =
   | 'angular'
   | 'react'
   | 'react-ai'
-  | 'react-auth'
   | 'react-geo'
   | 'react-liveness'
   | 'react-native'
-  | 'react-native-auth'
   | 'react-notifications'
   | 'react-storage'
   | 'vue';

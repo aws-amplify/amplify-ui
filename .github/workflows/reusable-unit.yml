@@ -24,14 +24,11 @@ jobs:
           - angular
           - react
           - react-ai
-          - react-auth
           - react-core
-          - react-core-auth
           - react-core-notifications
           - react-geo
           - react-liveness
           - react-native
-          - react-native-auth
           - react-notifications
           - react-storage
           - ui
@@ -87,13 +84,10 @@ jobs:
         if: |
           matrix.package == 'react' ||
           matrix.package == 'react-ai' ||
-          matrix.package == 'react-auth' ||
-          matrix.package == 'react-core-auth' ||
           matrix.package == 'react-core-notifications' ||
           matrix.package == 'react-geo' ||
           matrix.package == 'react-liveness' ||
           matrix.package == 'react-native' ||
-          matrix.package == 'react-native-auth' ||
           matrix.package == 'react-notifications' ||
           matrix.package == 'react-storage'
         run: yarn react-core build
@@ -101,30 +95,17 @@ jobs:
       - name: Build react-core-notifications package
         if: |
           matrix.package == 'react-native' ||
-          matrix.package == 'react-native-auth' ||
           matrix.package == 'react-notifications'
         run: yarn react-core-notifications build
 
-      - name: Build react-core-auth package
-        if: |
-          matrix.package == 'react-auth' ||
-          matrix.package == 'react-native-auth'
-        run: yarn react-core-auth build
-
       - name: Build react package
         if: |
-          matrix.package == 'react-auth' ||
           matrix.package == 'react-ai' ||
           matrix.package == 'react-geo' ||
           matrix.package == 'react-liveness' ||
           matrix.package == 'react-notifications' ||
           matrix.package == 'react-storage'
         run: yarn react build
-
-      - name: Build react-native package
-        if: |
-          matrix.package == 'react-native-auth'
-        run: yarn react-native build
 
       - name: Build ${{ matrix.package }} package
         if: ${{ matrix.package != 'ui' }}
@@ -139,15 +120,13 @@ jobs:
       - name: Validate ${{ matrix.package }} package esm modules
         if: |
           matrix.package != 'angular' &&
-          matrix.package != 'react-native' &&
-          matrix.package != 'react-native-auth'
+          matrix.package != 'react-native'
         run: yarn ${{ matrix.package }} check:esm
 
       - name: Check ${{ matrix.package }} bundle size
         if: |
           matrix.package == 'react' ||
           matrix.package == 'react-ai' ||
-          matrix.package == 'react-auth' ||
           matrix.package == 'react-geo' ||
           matrix.package == 'react-liveness' ||
           matrix.package == 'react-notifications' ||
