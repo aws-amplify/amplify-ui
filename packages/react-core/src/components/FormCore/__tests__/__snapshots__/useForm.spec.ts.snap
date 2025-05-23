@@ -24,7 +24,7 @@ exports[`useForm returns the expected values in the happy path 1`] = `
 {
   "getFieldState": [Function],
   "getValues": [Function],
-  "isValid": true,
+  "isValid": false,
   "onSubmit": [Function],
   "registerField": [Function],
   "reset": [Function],

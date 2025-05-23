@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook, waitFor } from '@testing-library/react';
 
 import { useField } from '..';
 import FormProvider from '../FormProvider';
@@ -6,19 +6,21 @@ import { DEFAULT_ERROR_MESSAGE } from '../useField';
 
 describe('useField', () => {
   it('returns the expected values in the happy path', async () => {
-    const { result, waitForNextUpdate } = renderHook(
-      () => useField({ name: 'test-field' }),
-      { wrapper: FormProvider }
-    );
+    const { result } = renderHook(() => useField({ name: 'test-field' }), {
+      wrapper: FormProvider,
+    });
 
-    await waitForNextUpdate();
-
-    expect(result.current).toMatchSnapshot();
+    await waitFor(() => {
+      expect(result.current).toMatchSnapshot();
+    });
   });
 
   it('throws when called outside a FormProvider', () => {
-    const { result } = renderHook(() => useField({ name: 'test-field' }));
+    // turn off console.error logging for unhappy path test case
+    jest.spyOn(console, 'error').mockImplementation(() => {});
 
-    expect(result.error?.message).toBe(DEFAULT_ERROR_MESSAGE);
+    expect(() => renderHook(() => useField({ name: 'test-field' }))).toThrow(
+      DEFAULT_ERROR_MESSAGE
+    );
   });
 });
