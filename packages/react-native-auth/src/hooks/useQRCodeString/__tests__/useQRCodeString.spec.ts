@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook, waitFor } from '@testing-library/react-native';
 import QRCodeModule from 'qrcode';
 
 import { useQRCodeString, UseQRCodeStringParams } from '../useQRCodeString';
@@ -22,19 +22,19 @@ describe('useQRCodeString', () => {
   });
 
   it('behaves as expected in the happy path', async () => {
-    const { waitForNextUpdate, result } = renderHook(
-      (input: UseQRCodeStringParams = BASE_INPUT) => useQRCodeString(input)
+    const { result } = renderHook((input: UseQRCodeStringParams = BASE_INPUT) =>
+      useQRCodeString(input)
     );
 
     expect(result.current.isLoading).toBe(true);
     expect(result.current.hasError).toBe(false);
     expect(result.current.qrCodeString).toBeNull();
 
-    await waitForNextUpdate();
-
-    expect(result.current.isLoading).toBe(false);
-    expect(result.current.hasError).toBe(false);
-    expect(result.current.qrCodeString).toMatchSnapshot();
+    await waitFor(() => {
+      expect(result.current.isLoading).toBe(false);
+      expect(result.current.hasError).toBe(false);
+      expect(result.current.qrCodeString).toMatchSnapshot();
+    });
 
     expect(onSuccess).toHaveBeenCalledTimes(1);
     expect(onSuccess).toHaveBeenCalledWith(result.current.qrCodeString);
@@ -45,19 +45,17 @@ describe('useQRCodeString', () => {
 
     (toStringSpy as jest.Mock).mockRejectedValueOnce(error);
 
-    const { waitForNextUpdate, result } = renderHook(() =>
-      useQRCodeString(BASE_INPUT)
-    );
+    const { result } = renderHook(() => useQRCodeString(BASE_INPUT));
 
     expect(result.current.isLoading).toBe(true);
     expect(result.current.hasError).toBe(false);
     expect(result.current.qrCodeString).toBeNull();
 
-    await waitForNextUpdate();
-
-    expect(result.current.isLoading).toBe(false);
-    expect(result.current.hasError).toBe(true);
-    expect(result.current.qrCodeString).toBeNull();
+    await waitFor(() => {
+      expect(result.current.isLoading).toBe(false);
+      expect(result.current.hasError).toBe(true);
+      expect(result.current.qrCodeString).toBeNull();
+    });
 
     expect(onError).toHaveBeenCalledTimes(1);
     expect(onError).toHaveBeenCalledWith(error.message);
@@ -78,7 +76,7 @@ describe('useQRCodeString', () => {
       .mockResolvedValueOnce(firstResponse)
       .mockResolvedValueOnce(secondResponse);
 
-    const { waitForNextUpdate, result, rerender } = renderHook(
+    const { result, rerender } = renderHook(
       (input: UseQRCodeStringParams = BASE_INPUT) => useQRCodeString(input)
     );
 
@@ -92,13 +90,13 @@ describe('useQRCodeString', () => {
     expect(result.current.hasError).toBe(false);
     expect(result.current.qrCodeString).toBeNull();
 
-    await waitForNextUpdate();
+    await waitFor(() => {
+      expect(toStringSpy).toHaveBeenCalledTimes(2);
 
-    expect(toStringSpy).toHaveBeenCalledTimes(2);
-
-    expect(result.current.isLoading).toBe(false);
-    expect(result.current.hasError).toBe(false);
-    expect(result.current.qrCodeString).toBe(secondResponse);
+      expect(result.current.isLoading).toBe(false);
+      expect(result.current.hasError).toBe(false);
+      expect(result.current.qrCodeString).toBe(secondResponse);
+    });
 
     expect(onSuccess).toHaveBeenCalledTimes(1);
     expect(onSuccess).toHaveBeenCalledWith(secondResponse);
@@ -112,7 +110,7 @@ describe('useQRCodeString', () => {
       .mockRejectedValueOnce(firstError)
       .mockRejectedValueOnce(secondError);
 
-    const { waitForNextUpdate, result, rerender } = renderHook(
+    const { result, rerender } = renderHook(
       (input: UseQRCodeStringParams = BASE_INPUT) => useQRCodeString(input)
     );
 
@@ -126,26 +124,26 @@ describe('useQRCodeString', () => {
     expect(result.current.hasError).toBe(false);
     expect(result.current.qrCodeString).toBeNull();
 
-    await waitForNextUpdate();
+    await waitFor(() => {
+      expect(toStringSpy).toHaveBeenCalledTimes(2);
 
-    expect(toStringSpy).toHaveBeenCalledTimes(2);
-
-    expect(result.current.isLoading).toBe(false);
-    expect(result.current.hasError).toBe(true);
-    expect(result.current.qrCodeString).toBeNull();
+      expect(result.current.isLoading).toBe(false);
+      expect(result.current.hasError).toBe(true);
+      expect(result.current.qrCodeString).toBeNull();
+    });
 
     expect(onError).toHaveBeenCalledTimes(1);
     expect(onError).toHaveBeenCalledWith(secondError.message);
   });
 
   it('calls `toString` when `text` param changes', async () => {
-    const { rerender, waitForNextUpdate } = renderHook(
+    const { rerender } = renderHook(
       (input: UseQRCodeStringParams = BASE_INPUT) => useQRCodeString(input)
     );
 
-    await waitForNextUpdate();
-
-    expect(toStringSpy).toHaveBeenCalledTimes(1);
+    await waitFor(() => {
+      expect(toStringSpy).toHaveBeenCalledTimes(1);
+    });
 
     // rerender with same input
     rerender(BASE_INPUT);
@@ -155,13 +153,13 @@ describe('useQRCodeString', () => {
     // rerender with new `text` param
     rerender({ ...BASE_INPUT, text: 'new value' });
 
-    await waitForNextUpdate();
-
-    expect(toStringSpy).toHaveBeenCalledTimes(2);
+    await waitFor(() => {
+      expect(toStringSpy).toHaveBeenCalledTimes(2);
+    });
   });
 
   it('does not call `onSuccess` if it is not a function', async () => {
-    const { waitForNextUpdate, result } = renderHook(
+    const { result } = renderHook(
       // @ts-expect-error test against invalid input
       () => useQRCodeString(INVALID_INPUT)
     );
@@ -170,11 +168,11 @@ describe('useQRCodeString', () => {
     expect(result.current.hasError).toBe(false);
     expect(result.current.qrCodeString).toBeNull();
 
-    await waitForNextUpdate();
-
-    expect(result.current.isLoading).toBe(false);
-    expect(result.current.hasError).toBe(false);
-    expect(result.current.qrCodeString).toMatchSnapshot();
+    await waitFor(() => {
+      expect(result.current.isLoading).toBe(false);
+      expect(result.current.hasError).toBe(false);
+      expect(result.current.qrCodeString).toMatchSnapshot();
+    });
   });
 
   it('does not call `onError` if it is not a function', async () => {
@@ -182,7 +180,7 @@ describe('useQRCodeString', () => {
 
     (toStringSpy as jest.Mock).mockRejectedValueOnce(error);
 
-    const { waitForNextUpdate, result } = renderHook(
+    const { result } = renderHook(
       // @ts-expect-error test against invalid input
       () => useQRCodeString(INVALID_INPUT)
     );
@@ -191,10 +189,10 @@ describe('useQRCodeString', () => {
     expect(result.current.hasError).toBe(false);
     expect(result.current.qrCodeString).toBeNull();
 
-    await waitForNextUpdate();
-
-    expect(result.current.isLoading).toBe(false);
-    expect(result.current.hasError).toBe(true);
-    expect(result.current.qrCodeString).toBeNull();
+    await waitFor(() => {
+      expect(result.current.isLoading).toBe(false);
+      expect(result.current.hasError).toBe(true);
+      expect(result.current.qrCodeString).toBeNull();
+    });
   });
 });

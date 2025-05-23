@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { act, renderHook } from '@testing-library/react-hooks';
+import { act, renderHook } from '@testing-library/react';
 import useDropZone from '../useDropZone';
 import type { UseDropZoneParams } from '../useDropZone';
 

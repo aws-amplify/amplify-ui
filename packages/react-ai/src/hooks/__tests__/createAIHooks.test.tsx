@@ -1,4 +1,4 @@
-import { act, renderHook } from '@testing-library/react-hooks';
+import { act, renderHook, waitFor } from '@testing-library/react';
 import { createAIHooks } from '../createAIHooks';
 
 const listMessageMock = jest.fn().mockResolvedValue({ data: [] });
@@ -62,7 +62,7 @@ describe('createAIHooks', () => {
       generateRecipeMock.mockResolvedValueOnce(generateReturn);
       const { useAIGeneration } = createAIHooks(client);
 
-      const { result: hookResult, waitForNextUpdate } = renderHook(() =>
+      const { result: hookResult } = renderHook(() =>
         useAIGeneration('generateRecipe')
       );
 
@@ -76,10 +76,10 @@ describe('createAIHooks', () => {
       const [loadingState] = hookResult.current;
       expect(loadingState.isLoading).toBeTruthy();
 
-      await waitForNextUpdate();
-
-      const [awaitedState] = hookResult.current;
-      expect(awaitedState.data).toStrictEqual(expectedResult);
+      await waitFor(() => {
+        const [awaitedState] = hookResult.current;
+        expect(awaitedState.data).toStrictEqual(expectedResult);
+      });
     });
 
     it('returns a result with graphqlErrors', async () => {
@@ -101,11 +101,11 @@ describe('createAIHooks', () => {
       generateRecipeMock.mockResolvedValueOnce(generateReturn);
       const { useAIGeneration } = createAIHooks(client);
 
-      const { result: hookResult, waitForNextUpdate } = renderHook(() =>
+      const { result: hookResult } = renderHook(() =>
         useAIGeneration('generateRecipe')
       );
 
-      const [_result, generate] = hookResult.current;
+      const generate = hookResult.current[1];
       act(() => {
         generate({
           description: 'I want a recipe for a gluten-free chocolate cake.',
@@ -115,14 +115,14 @@ describe('createAIHooks', () => {
       const [loadingState] = hookResult.current;
       expect(loadingState.isLoading).toBeTruthy();
 
-      await waitForNextUpdate();
-
-      const [awaitedState] = hookResult.current;
-      expect(awaitedState.data).toStrictEqual(expectedResult);
-      expect(awaitedState.isLoading).toBeFalsy();
-      expect(awaitedState.hasError).toBeTruthy();
-      expect(awaitedState.messages).toHaveLength(1);
-      expect(awaitedState.messages?.[0].message).toContain('error');
+      await waitFor(() => {
+        const [awaitedState] = hookResult.current;
+        expect(awaitedState.data).toStrictEqual(expectedResult);
+        expect(awaitedState.isLoading).toBeFalsy();
+        expect(awaitedState.hasError).toBeTruthy();
+        expect(awaitedState.messages).toHaveLength(1);
+        expect(awaitedState.messages?.[0].message).toContain('error');
+      });
     });
   });
 });
