@@ -12,7 +12,7 @@ import {
 } from '../components';
 import { createConfigurationProvider } from '../configuration';
 import { DisplayTextProvider } from '../displayText';
-import { defaultFileSizeValidator, FileItemsProvider } from '../fileItems';
+import { defaultValidateFile, FileItemsProvider } from '../fileItems';
 import { LocationItemsProvider } from '../locationItems';
 import { StoreProvider } from '../store';
 import { ActionHandlersProvider, getActionHandlers } from '../useAction';
@@ -72,7 +72,7 @@ export default function createProvider({
     ...components,
   };
 
-  const { validateFile = defaultFileSizeValidator } = options ?? {};
+  const { validateFile = defaultValidateFile } = options ?? {};
 
   /**
    * Provides state, configuration and action values that are shared between

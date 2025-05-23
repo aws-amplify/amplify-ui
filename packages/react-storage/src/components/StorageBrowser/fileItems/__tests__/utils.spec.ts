@@ -3,7 +3,7 @@ import type { FileItem } from '../../actions';
 import { DEFAULT_RESOLVED_FILES, UPLOAD_FILE_SIZE_LIMIT } from '../constants';
 import type { FileItems } from '../types';
 import {
-  defaultFileSizeValidator,
+  defaultValidateFile,
   parseFileSelectParams,
   processFileItems,
   resolveFiles,
@@ -58,10 +58,7 @@ describe('resolveFiles', () => {
   });
 
   it('returns the expected value when files and validator are provided', () => {
-    const output = resolveFiles(
-      [fileOne, invalidFileOne],
-      defaultFileSizeValidator
-    );
+    const output = resolveFiles([fileOne, invalidFileOne], defaultValidateFile);
     const expected = {
       validFiles: [fileOne],
       invalidFiles: [invalidFileOne],

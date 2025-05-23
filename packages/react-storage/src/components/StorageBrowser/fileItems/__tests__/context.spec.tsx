@@ -82,7 +82,7 @@ describe('useFileItems', () => {
 
     const { result } = renderHook(() => useFileItems(), {
       wrapper: ({ children }) => (
-        <FileItemsProvider validateFile={utilsModule.defaultFileSizeValidator}>
+        <FileItemsProvider validateFile={utilsModule.defaultValidateFile}>
           {children}
         </FileItemsProvider>
       ),
@@ -99,7 +99,7 @@ describe('useFileItems', () => {
     expect(resolveFilesSpy).toHaveBeenCalledTimes(1);
     expect(resolveFilesSpy).toHaveBeenCalledWith(
       [fileOne, fileTwo],
-      utilsModule.defaultFileSizeValidator
+      utilsModule.defaultValidateFile
     );
 
     expect(fileItemsReducerSpy).toHaveBeenCalledTimes(1);

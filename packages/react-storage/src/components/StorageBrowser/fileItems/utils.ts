@@ -12,7 +12,7 @@ const compareFileItems = (prev: FileItem, next: FileItem) =>
 const constructFiles = (files: File[] | undefined, file: File): File[] =>
   isUndefined(files) ? [file] : files.concat(file);
 
-export const defaultFileSizeValidator = (file: File): boolean =>
+export const defaultValidateFile = (file: File): boolean =>
   file.size <= UPLOAD_FILE_SIZE_LIMIT;
 
 export const resolveFiles = (
