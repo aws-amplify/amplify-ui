@@ -23,11 +23,52 @@ import {
 /**
  * Generates a unique key for a table cell based on the key and item id
  */
-export const getActionCellKey = ({
+const getActionCellKey = ({
   key,
   item,
 }: WithKey<{ item: ActionTask }, ActionTableKey>): string =>
   `${key}-${item.data.id}`;
+
+const name: GetActionCell = (data) => {
+  const key = getActionCellKey(data);
+
+  const { item } = data;
+  const text = item.data.fileKey;
+  const icon = STATUS_ICONS[item.status];
+
+  return { key, type: 'text', content: { icon, text } };
+};
+
+const folder: GetActionCell = (data) => {
+  const key = getActionCellKey(data);
+  const text = getActionCellFolder(data.item);
+
+  return { key, type: 'text', content: { text } };
+};
+
+const type: GetActionCell = (data) => {
+  const key = getActionCellKey(data);
+  const { fileKey } = data.item.data;
+
+  const text = getFileType(fileKey);
+
+  return { key, type: 'text', content: { text } };
+};
+
+const size: GetActionCell = (data) => {
+  const key = getActionCellKey(data);
+  const { size: value } = data.item.data;
+  const displayValue = getFileSize(value);
+
+  return { key, type: 'number', content: { value, displayValue } };
+};
+
+const cancel: GetActionCell = (data) => {
+  const key = getActionCellKey(data);
+  const content = getActionCancelCellContent(data);
+
+  return { key, type: 'button', content };
+};
 
 /**
  * Creates table resolvers for action tasks (copy, delete, etc.)
@@ -37,52 +78,10 @@ export const getActionCellKey = ({
  * @returns ActionTaskTableResolvers for the specified action type
  */
 export const createActionResolvers = (
-  actionType: 'copy' | 'delete',
   isActionDisplayTextKey: (
     value: string
   ) => value is keyof CopyViewDisplayText | keyof DeleteViewDisplayText
 ): ActionTaskTableResolvers => {
-  const name: GetActionCell = (data) => {
-    const key = getActionCellKey(data);
-
-    const { item } = data;
-    const text = item.data.fileKey;
-    const icon = STATUS_ICONS[item.status];
-
-    return { key, type: 'text', content: { icon, text } };
-  };
-
-  const folder: GetActionCell = (data) => {
-    const key = getActionCellKey(data);
-    const text = getActionCellFolder(data.item);
-
-    return { key, type: 'text', content: { text } };
-  };
-
-  const type: GetActionCell = (data) => {
-    const key = getActionCellKey(data);
-    const { fileKey } = data.item.data;
-
-    const text = getFileType(fileKey);
-
-    return { key, type: 'text', content: { text } };
-  };
-
-  const size: GetActionCell = (data) => {
-    const key = getActionCellKey(data);
-    const { size: value } = data.item.data;
-    const displayValue = getFileSize(value);
-
-    return { key, type: 'number', content: { value, displayValue } };
-  };
-
-  const cancel: GetActionCell = (data) => {
-    const key = getActionCellKey(data);
-    const content = getActionCancelCellContent(data);
-
-    return { key, type: 'button', content };
-  };
-
   const status: GetActionCell = (data) => {
     const key = getActionCellKey(data);
     const {
@@ -106,7 +105,6 @@ export const createActionResolvers = (
     size,
     status,
     cancel,
-
     /**
      * @deprecated
      *
@@ -127,9 +125,7 @@ export const createActionResolvers = (
         return CELL_RESOLVERS[data.key](data);
       }
 
-      throw new Error(
-        `Unexpected key for ${actionType} resolvers: ${data.key}`
-      );
+      throw new Error(`Unexpected key for resolvers: ${data.key}`);
     },
     getHeader: ({ key, props: { displayText } }) => {
       const text = displayText[`tableColumn${capitalize(key)}Header`];

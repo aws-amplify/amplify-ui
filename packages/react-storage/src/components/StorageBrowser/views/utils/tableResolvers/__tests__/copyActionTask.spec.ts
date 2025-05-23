@@ -2,7 +2,11 @@ import { capitalize } from '@aws-amplify/ui';
 import { CopyViewDisplayText } from '../../../../displayText';
 
 import { MOCK_COPY_TASKS } from '../__testUtils__/tasks';
-import { ACTION_TABLE_KEYS, STATUS_ICONS, STATUS_LABELS } from '../constants';
+import {
+  FILE_DATA_ITEM_TABLE_KEYS,
+  STATUS_ICONS,
+  STATUS_LABELS,
+} from '../constants';
 import { CopyActionTask, CopyTableResolverProps } from '../types';
 import { COPY_TABLE_RESOLVERS } from '../copyResolvers';
 
@@ -28,7 +32,7 @@ describe('COPY_TABLE_RESOLVERS', () => {
   beforeEach(jest.clearAllMocks);
 
   describe('getCell', () => {
-    it.each(ACTION_TABLE_KEYS)(
+    it.each(FILE_DATA_ITEM_TABLE_KEYS)(
       'returns the expect cell `key` for a "%s" table `key`',
       (key) => {
         const data = {
@@ -235,7 +239,7 @@ describe('COPY_TABLE_RESOLVERS', () => {
 
   describe('getHeader', () => {
     // filter out cancel, does not allow sorting
-    it.each(ACTION_TABLE_KEYS.filter((key) => key !== 'cancel'))(
+    it.each(FILE_DATA_ITEM_TABLE_KEYS.filter((key) => key !== 'cancel'))(
       'returns the expect header data for a %s column',
       (key) => {
         const data = { key, props: mockProps };
