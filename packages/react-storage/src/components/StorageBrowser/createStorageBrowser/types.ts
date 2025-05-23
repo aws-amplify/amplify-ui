@@ -230,19 +230,19 @@ export interface StorageBrowserProviderProps<TViews = {}>
   views?: TViews;
 
   /**
-   * @deprecated will be removed in a future major verison. Prefer `value` for controlled behavior or `defaultValue` for initializng `actionType`
+   * @deprecated will be removed in a future major version. Prefer `value` for controlled behavior or `defaultValue` for initializng `actionType`
    * @description initial `actionType`, does not update
    */
   actionType?: string;
 
   /**
-   * @deprecated will be removed in a future major verison. Prefer `value` for controlled behavior or `defaultValue` for initializng `actionType`
+   * @deprecated will be removed in a future major version. Prefer `value` for controlled behavior or `defaultValue` for initializng `actionType`
    * @description initial `location` data, does not update
    */
   location?: LocationData;
 
   /**
-   * @deprecated will be removed in a future major verison. Prefer `value` for controlled behavior or `defaultValue` for initializng `actionType`
+   * @deprecated will be removed in a future major version. Prefer `value` for controlled behavior or `defaultValue` for initializng `actionType`
    * @description initial `location` subpath to establish navigation state, does not update
    */
   path?: string;
