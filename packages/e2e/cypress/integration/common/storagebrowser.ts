@@ -87,3 +87,14 @@ Then(
     }
   }
 );
+
+When('I upload {string} valid files with random names', (count: string) => {
+  const fileSize = 1024;
+  const fileType = 'image/jpeg';
+  cy.fileInputUpload(randomFileName, parseInt(count), fileSize, fileType);
+});
+
+When('I upload {string} invalid files with random names', (count: string) => {
+  const fileSize = 1024 * 1024 + 1;
+  cy.fileInputUpload(randomFileName, parseInt(count), fileSize);
+});

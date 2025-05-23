@@ -79,11 +79,14 @@ declare global {
        * @example
        * cy.fileInputUpload('example', 2); // Uploads "example-1.txt" and "example-2.txt"
        * cy.fileInputUpload('document');  // Uploads "document-1.txt"
+       * cy.fileInputUpload('example', 1, 1024); // Uploads "example-1.txt" with file size of 1KB
        *
        * @param fileName - The base name for the files to upload.
        * @param fileCount - The number of files to upload. Defaults to 1.
+       * @param fileSize - The size of each file to upload in bytes.
+       * @param fileType - The file type for the files to upload. Defaults to 'text/plain'.
        */
-      fileInputUpload(fileName: string, fileCount?: number): void;
+      fileInputUpload(fileName: string, fileCount?: number, fileSize?: number, fileType?: string): void;
     }
   }
 }
