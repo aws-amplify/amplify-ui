@@ -580,6 +580,23 @@ export const generateUrlHandler: GenerateLink = ({ data, config, options }) => {
 This example is for demonstration purpose only. For more details, please refer to the [presigned URLs documentation](https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-presigned-url.html#PresignedUrl-Expiration)
 </Message>
 
+### Customize file validation
+
+The `createStorageBrowser` function allows for further overrides to Storage Browser settings to be specified in the `options` config. The `options` config accepts a `validateFile` prop that can be used to replace the default file validation performed when selecting files for upload. The `validateFile` prop must be provided with a function that takes in a single file and return `true` if the file is considered valid. 
+
+[Custom `displayText`](#display-text) should also be used to show a different error message to reflect your custom validation.
+
+Below is an example to override file validation for Storage Browser to only accept image files that are less than or equal to 1 MB in size, and displays a custom error message if an invalid file is selected.
+<Example>
+<ExampleCode>
+```jsx file=./examples/CustomFileValidation.tsx
+```
+</ExampleCode>
+</Example>
+<Message colorTheme="info" variation='filled' heading="Validation best practice">
+It is important to ensure that files also adhere to the [S3 limits](https://docs.aws.amazon.com/general/latest/gr/s3.html#limits_s3) when creating custom validation. A file **will** fail during upload if it exceeds the S3 limits, even if the custom validation succeeded when selecting the file.
+</Message>
+
 ## Initializing `StorageBrowser` with a default location
 
 The `StorageBrowser` can be initialized with a default location using the `defaultValue` prop.
