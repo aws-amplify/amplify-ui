@@ -3,7 +3,7 @@ import type { FileItem } from '../../actions';
 import { DEFAULT_RESOLVED_FILES, UPLOAD_FILE_SIZE_LIMIT } from '../constants';
 import type { FileItems } from '../types';
 import {
-  defaultFileSizeValidator,
+  defaultValidateFile,
   parseFileSelectParams,
   processFileItems,
   resolveFiles,
@@ -58,13 +58,31 @@ describe('resolveFiles', () => {
   });
 
   it('returns the expected value when files and validator are provided', () => {
-    const output = resolveFiles(
-      [fileOne, invalidFileOne],
-      defaultFileSizeValidator
-    );
+    const output = resolveFiles([fileOne, invalidFileOne], defaultValidateFile);
     const expected = {
       validFiles: [fileOne],
       invalidFiles: [invalidFileOne],
+    };
+
+    expect(output).toStrictEqual(expected);
+  });
+
+  it('returns the expected value when a custom file validator function is provided', () => {
+    const validFile = { ...new File([], 'valid-file'), size: 5 * 1000 };
+    const invalidFile = {
+      ...new File([], 'invalid-file'),
+      size: UPLOAD_FILE_SIZE_LIMIT - 1,
+    };
+
+    const customValidateFile = jest.fn(
+      (file: File) => file.size <= 1000 * 1000
+    );
+
+    const output = resolveFiles([validFile, invalidFile], customValidateFile);
+
+    const expected = {
+      validFiles: [validFile],
+      invalidFiles: [invalidFile],
     };
 
     expect(output).toStrictEqual(expected);

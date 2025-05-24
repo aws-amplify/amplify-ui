@@ -12,9 +12,8 @@ import type {
   HandleFileItemsAction,
 } from './types';
 import {
-  defaultFileSizeValidator,
   parseFileSelectParams,
-  resolveFiles,
+  resolveFiles
 } from './utils';
 
 const defaultValue: FileItemsContextType = [DEFAULT_STATE, noop];
@@ -25,13 +24,14 @@ export const { FileItemsContext, useFileItems } = createContextUtilities({
 
 export function FileItemsProvider({
   children,
+  validateFile,
 }: FileItemsProviderProps): React.JSX.Element {
   const [state, dispatch] = React.useReducer(fileItemsReducer, DEFAULT_STATE);
 
   const [fileInput, handleFileSelect] = useFileSelect((nextFiles) => {
     dispatch({
       type: 'ADD_FILE_ITEMS',
-      ...resolveFiles(nextFiles, defaultFileSizeValidator),
+      ...resolveFiles(nextFiles, validateFile),
     });
   });
 
@@ -42,13 +42,13 @@ export function FileItemsProvider({
       } else if (action.type === 'ADD_FILES') {
         dispatch({
           type: 'ADD_FILE_ITEMS',
-          ...resolveFiles(action.files, defaultFileSizeValidator),
+          ...resolveFiles(action.files, validateFile),
         });
       } else {
         dispatch(action);
       }
     },
-    [handleFileSelect]
+    [handleFileSelect, validateFile]
   );
 
   const value: FileItemsContextType = React.useMemo(
