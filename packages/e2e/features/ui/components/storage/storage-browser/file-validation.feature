@@ -25,4 +25,4 @@ Feature: StorageBrowser File Validation Behavior
     When I click the "Upload" menuitem
     Then the "Upload" button is disabled
     Then I upload "1" invalid files with random names
-    Then I see "Only image files (PNG/JPEG/GIF) below 1 MB in size are accepted."
+    Then I see "Invalid files"

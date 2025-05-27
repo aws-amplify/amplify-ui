@@ -3,7 +3,7 @@ import { createStorageBrowser } from '@aws-amplify/ui-react-storage/browser';
 import '@aws-amplify/ui-react-storage/styles.css';
 import { mockConfig } from './mockConfig'; // IGNORE
 
-const MAX_FILE_SIZE = 1024 * 1024; // 1 MB
+const MAX_FILE_SIZE = 1000 * 1000; // 1 MB
 
 const customValidateFile = (file: File) => {
   const isValidSize = file.size <= MAX_FILE_SIZE;

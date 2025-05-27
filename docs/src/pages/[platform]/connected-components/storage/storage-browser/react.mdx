@@ -594,7 +594,7 @@ Below is an example to override file validation for Storage Browser to only acce
 </ExampleCode>
 </Example>
 <Message colorTheme="info" variation='filled' heading="Validation best practice">
-It is important to ensure that files also adhere to the [S3 limits](https://docs.aws.amazon.com/general/latest/gr/s3.html#limits_s3) when creating custom validation. A file **will** fail during upload if it exceeds the S3 limits, even if the custom validation succeeded when selecting the file.
+When creating custom validation, it is important to ensure that valid files also adhere to the [S3 quota limits](https://docs.aws.amazon.com/general/latest/gr/s3.html#limits_s3). A file **will** fail during upload if it exceeds the S3 limits, even if the custom validation succeeded when selecting the file.
 </Message>
 
 ## Initializing `StorageBrowser` with a default location
