@@ -10,7 +10,7 @@ export default function App() {
               ({ file }) => file.name
             );
             return {
-              content: `Only image files (PNG/JPEG/GIF) below 1 MB in size are accepted. Invalid files added to the upload queue: ${invalidFileNames}`,
+              content: `Only image files (PNG/JPEG/GIF) that are 1 MB or smaller are accepted. Invalid files added to the upload queue: ${invalidFileNames}`,
               type: 'error',
             };
           },

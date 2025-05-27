@@ -2,13 +2,14 @@ import {
   createStorageBrowser,
   defaultActionConfigs,
 } from '@aws-amplify/ui-react-storage/browser';
-import '@aws-amplify/ui-react-storage/styles.css';
 import { MockHandlers } from '@aws-amplify/ui-test-utils/storage-browser';
 
 import { INITIAL_VALUES } from '../storage-browser';
 
+import '@aws-amplify/ui-react-storage/styles.css';
+
 const customValidateFile = (file: File) => {
-  const validFileSize = file.size <= 1024 * 1024; // 1MB
+  const validFileSize = file.size <= 1000 * 1000; // 1MB
   const onlyImages = ['image/gif', 'image/jpeg', 'image/png'].includes(
     file.type
   );
