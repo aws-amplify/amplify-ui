@@ -3,9 +3,9 @@ import {
   defaultActionConfigs,
 } from '@aws-amplify/ui-react-storage/browser';
 import { MockHandlers } from '@aws-amplify/ui-test-utils/storage-browser';
+import '@aws-amplify/ui-react-storage/styles.css';
 
 import { INITIAL_VALUES } from '../storage-browser';
-import '@aws-amplify/ui-react-storage/styles.css';
 
 const customValidateFile = (file: File) => {
   const validFileSize = file.size <= 1000 * 1000; // 1MB
