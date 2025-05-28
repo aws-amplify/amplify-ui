@@ -104,8 +104,11 @@ describe('createProvider', () => {
     const mockActionHandlers = {};
     mockGetActionHandlers.mockReturnValue(mockActionHandlers);
 
+    const mockValidateFile = jest.fn();
+
     const Provider = createProvider({
       config: { ...mockConfig, listLocations: jest.fn() },
+      options: { validateFile: mockValidateFile },
     });
 
     // used to validate props passed to `ViewsProvider`
@@ -160,6 +163,11 @@ describe('createProvider', () => {
     );
 
     expect(mockFileItemsProvider).toHaveBeenCalledTimes(1);
+    expect(mockFileItemsProvider).toHaveBeenCalledWith(
+      expect.objectContaining({ validateFile: mockValidateFile }),
+      {}
+    );
+
     expect(mockLocationItemsProvider).toHaveBeenCalledTimes(1);
   });
 });

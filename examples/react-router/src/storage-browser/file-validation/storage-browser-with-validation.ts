@@ -2,45 +2,17 @@ import {
   createStorageBrowser,
   defaultActionConfigs,
 } from '@aws-amplify/ui-react-storage/browser';
-import {
-  InitialValues,
-  MockHandlers,
-} from '@aws-amplify/ui-test-utils/storage-browser';
+import { MockHandlers } from '@aws-amplify/ui-test-utils/storage-browser';
 import '@aws-amplify/ui-react-storage/styles.css';
 
-export const PREFIXES = {
-  base: 'my-prefix/',
-  nested: 'my-nested-prefix/',
-  deeplyNested: 'my-deeply-nested-prefix/',
-};
+import { INITIAL_VALUES } from '../storage-browser';
 
-export const INITIAL_VALUES: InitialValues = {
-  locations: [
-    {
-      bucket: 'my-bucket',
-      id: crypto.randomUUID(),
-      permissions: ['delete', 'get', 'list', 'write'],
-      prefix: PREFIXES.base,
-      type: 'PREFIX',
-    },
-  ],
-  locationItems: {
-    [PREFIXES.base]: [
-      {
-        id: crypto.randomUUID(),
-        key: `${PREFIXES.base}${PREFIXES.nested}`,
-        type: 'FOLDER',
-      },
-    ],
-    [`${PREFIXES.base}${PREFIXES.nested}`]: [
-      {
-        id: crypto.randomUUID(),
-        key: `${PREFIXES.base}${PREFIXES.nested}${PREFIXES.deeplyNested}`,
-        type: 'FOLDER',
-      },
-    ],
-    [`${PREFIXES.base}${PREFIXES.nested}${PREFIXES.deeplyNested}`]: [],
-  },
+const customValidateFile = (file: File) => {
+  const validFileSize = file.size <= 1000 * 1000; // 1MB
+  const onlyImages = ['image/gif', 'image/jpeg', 'image/png'].includes(
+    file.type
+  );
+  return validFileSize && onlyImages;
 };
 
 const handlers = new MockHandlers({ initialValues: INITIAL_VALUES });
@@ -82,5 +54,8 @@ export const { StorageBrowser } = createStorageBrowser({
           sessionToken: 'sessionToken',
         },
       }),
+  },
+  options: {
+    validateFile: customValidateFile,
   },
 });
