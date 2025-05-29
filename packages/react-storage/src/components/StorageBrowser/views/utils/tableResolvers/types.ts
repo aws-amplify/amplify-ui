@@ -3,8 +3,8 @@ import type {
   DeleteHandlerData,
   UploadHandlerData,
   TaskData,
+  OptionalFileData,
 } from '../../../actions';
-import type { OptionalFileData } from '../../../actions/handlers';
 import type {
   CopyViewDisplayText,
   DeleteViewDisplayText,
@@ -48,8 +48,6 @@ export type ActionTableKey =
   | 'status'
   | 'cancel';
 
-export type CopyTableKey = ActionTableKey;
-export type DeleteTableKey = ActionTableKey;
 export type UploadTableKey = ActionTableKey | 'progress';
 
 export interface FileDataTaskTableResolvers
@@ -66,6 +64,6 @@ export interface UploadTableResolvers
     UploadActionTask
   > {}
 
-export type GetActionCell = FileDataTaskTableResolvers['getCell'];
+export type GetFileDataCell = FileDataTaskTableResolvers['getCell'];
 
 export type GetUploadCell = UploadTableResolvers['getCell'];

@@ -3,18 +3,11 @@ import { capitalize, noop } from '@aws-amplify/ui';
 import { isDeleteViewDisplayTextKey } from '../../../displayText';
 
 import { STATUS_LABELS } from './constants';
-import type { FileDataTaskTableResolvers, GetActionCell } from './types';
-import {
-  cancel,
-  folder,
-  getActionCellKey,
-  name,
-  size,
-  type,
-} from './actionResolvers';
+import type { FileDataTaskTableResolvers, GetFileDataCell } from './types';
+import { cancel, folder, getFileDataCellKey, name, size, type } from './utils';
 
-const status: GetActionCell = (data) => {
-  const key = getActionCellKey(data);
+const status: GetFileDataCell = (data) => {
+  const key = getFileDataCellKey(data);
   const {
     item: { status },
     props: { displayText },
@@ -44,7 +37,7 @@ const DELETE_CELL_RESOLVERS = {
    * keep TS happy as "progress" headers were included in display text interfaces
    * and cannot be removed from the tables without a breaking change
    */
-  progress: noop as GetActionCell,
+  progress: noop as GetFileDataCell,
 };
 
 export const DELETE_TABLE_RESOLVERS: FileDataTaskTableResolvers = {

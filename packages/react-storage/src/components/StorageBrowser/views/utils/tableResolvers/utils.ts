@@ -3,15 +3,17 @@ import { humanFileSize } from '@aws-amplify/ui';
 import type {
   DataTableButtonDataCell,
   DataTableNumberDataCell,
+  WithKey,
 } from '../../../components';
 
 import type {
   FileDataTask,
   CopyActionTask,
-  DeleteActionTask,
-  GetActionCell,
+  GetFileDataCell,
   UploadActionTask,
+  ActionTableKey,
 } from './types';
+import { STATUS_ICONS } from './constants';
 
 export const getFileType = (value: string, fallback = ''): string =>
   value.lastIndexOf('.') !== -1
@@ -38,9 +40,7 @@ export const getUploadCellFolder = (
 const isCopyActionTask = (task: FileDataTask): task is CopyActionTask =>
   'sourceKey' in task.data;
 
-export const getActionCellFolder = (
-  task: DeleteActionTask | CopyActionTask
-): string => {
+export const getFileDataCellFolder = (task: FileDataTask): string => {
   const targetKey = isCopyActionTask(task)
     ? task.data.sourceKey
     : task.data.key;
@@ -63,9 +63,9 @@ export const getFileSize = (
   fallback = '-'
 ): string => (!value ? fallback : humanFileSize(value, true));
 
-type CellInput = Parameters<GetActionCell>[0];
+type CellInput = Parameters<GetFileDataCell>[0];
 
-export const getActionCancelCellContent = <
+export const getFileDataCancelCellContent = <
   TInput extends CellInput,
   TCallback extends TInput['props']['onTaskRemove'] extends (
     item: infer TItem
@@ -107,4 +107,54 @@ export const getActionCancelCellContent = <
         };
 
   return { ariaLabel, isDisabled, onClick, icon: 'cancel' as const };
+};
+
+/**
+ * Generates a unique key for a table cell based on the key and item id
+ */
+export const getFileDataCellKey = ({
+  key,
+  item,
+}: WithKey<{ item: FileDataTask }, ActionTableKey>): string =>
+  `${key}-${item.data.id}`;
+
+export const name: GetFileDataCell = (data) => {
+  const key = getFileDataCellKey(data);
+
+  const { item } = data;
+  const text = item.data.fileKey;
+  const icon = STATUS_ICONS[item.status];
+
+  return { key, type: 'text', content: { icon, text } };
+};
+
+export const folder: GetFileDataCell = (data) => {
+  const key = getFileDataCellKey(data);
+  const text = getFileDataCellFolder(data.item);
+
+  return { key, type: 'text', content: { text } };
+};
+
+export const type: GetFileDataCell = (data) => {
+  const key = getFileDataCellKey(data);
+  const { fileKey } = data.item.data;
+
+  const text = getFileType(fileKey);
+
+  return { key, type: 'text', content: { text } };
+};
+
+export const size: GetFileDataCell = (data) => {
+  const key = getFileDataCellKey(data);
+  const { size: value } = data.item.data;
+  const displayValue = getFileSize(value);
+
+  return { key, type: 'number', content: { value, displayValue } };
+};
+
+export const cancel: GetFileDataCell = (data) => {
+  const key = getFileDataCellKey(data);
+  const content = getFileDataCancelCellContent(data);
+
+  return { key, type: 'button', content };
 };
