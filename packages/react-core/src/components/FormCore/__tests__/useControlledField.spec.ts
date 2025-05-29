@@ -1,4 +1,4 @@
-import { act, renderHook } from '@testing-library/react-hooks';
+import { act, renderHook, waitFor } from '@testing-library/react';
 
 import FormProvider from '../FormProvider';
 import useControlledField, {
@@ -7,29 +7,30 @@ import useControlledField, {
 
 describe('useControlledField', () => {
   it('returns the expected values in the happy path', async () => {
-    const { result, waitForNextUpdate } = renderHook(
+    const { result } = renderHook(
       () => useControlledField({ name: 'test-field' }),
       { wrapper: FormProvider }
     );
 
-    await waitForNextUpdate();
-
-    expect(result.current).toMatchSnapshot();
+    await waitFor(() => {
+      expect(result.current).toMatchSnapshot();
+    });
   });
 
   it('throws when called outside a FormProvider', () => {
-    const { result } = renderHook(() =>
-      useControlledField({ name: 'test-field' })
-    );
+    // turn off console.error logging for unhappy path test case
+    jest.spyOn(console, 'error').mockImplementation(() => {});
 
-    expect(result.error?.message).toBe(DEFAULT_ERROR_MESSAGE);
+    expect(() =>
+      renderHook(() => useControlledField({ name: 'test-field' }))
+    ).toThrow(DEFAULT_ERROR_MESSAGE);
   });
 
-  it('calls handlers passed as props as expected', async () => {
+  it('calls handlers passed as props as expected', () => {
     const handleChangeText = jest.fn();
     const handleBlur = jest.fn();
 
-    const { result, waitForNextUpdate } = renderHook(
+    const { result } = renderHook(
       () =>
         useControlledField({
           name: 'test-field',
@@ -38,8 +39,6 @@ describe('useControlledField', () => {
         }),
       { wrapper: FormProvider }
     );
-
-    await waitForNextUpdate();
 
     const blurEvent = { text: 'blurrr' };
 

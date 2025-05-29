@@ -79,10 +79,36 @@ if [[ "$FRAMEWORK" == 'react' && "$BUILD_TOOL" == 'vite' ]]; then
 fi
 
 if [[ "$FRAMEWORK" == 'angular' ]]; then
-    echo "cp templates/components/angular/app-angular-${FRAMEWORK_VERSION}.component.ts mega-apps/${MEGA_APP_NAME}/src/app/app.component.ts"
-    cp templates/components/angular/app-angular-${FRAMEWORK_VERSION}.component.ts mega-apps/${MEGA_APP_NAME}/src/app/app.component.ts
-    echo "cp templates/components/angular/app.module.ts mega-apps/${MEGA_APP_NAME}/src/app/app.module.ts"
-    cp templates/components/angular/app.module.ts mega-apps/${MEGA_APP_NAME}/src/app/app.module.ts
+    if [[ "$FRAMEWORK_VERSION" == "latest" || "$FRAMEWORK_VERSION" -gt 15 ]]; then
+        USE_STANDALONE="true"
+    else
+        USE_STANDALONE="false"
+    fi
+
+    if [[ "$USE_STANDALONE" == "true" ]]; then
+        echo "cp templates/components/angular/app-standalone.component.ts mega-apps/${MEGA_APP_NAME}/src/app/app.component.ts"
+        cp templates/components/angular/app-standalone.component.ts mega-apps/${MEGA_APP_NAME}/src/app/app.component.ts
+
+        echo "cp templates/components/angular/main-standalone.ts mega-apps/${MEGA_APP_NAME}/src/main.ts"
+        cp templates/components/angular/main-standalone.ts mega-apps/${MEGA_APP_NAME}/src/main.ts
+
+        if [ -f "mega-apps/${MEGA_APP_NAME}/src/app/app.module.ts" ]; then
+            echo "rm mega-apps/${MEGA_APP_NAME}/src/app/app.module.ts"
+            rm mega-apps/${MEGA_APP_NAME}/src/app/app.module.ts
+        fi
+
+    else        
+        echo "cp templates/components/angular/app-ngmodule.component.ts mega-apps/${MEGA_APP_NAME}/src/app/app.component.ts"
+        cp templates/components/angular/app-ngmodule.component.ts mega-apps/${MEGA_APP_NAME}/src/app/app.component.ts
+
+        
+        echo "cp templates/components/angular/app.module.ts mega-apps/${MEGA_APP_NAME}/src/app/app.module.ts"
+        cp templates/components/angular/app.module.ts mega-apps/${MEGA_APP_NAME}/src/app/app.module.ts
+
+        
+        echo "cp templates/components/angular/main-ngmodule.ts mega-apps/${MEGA_APP_NAME}/src/main.ts"
+        cp templates/components/angular/main-ngmodule.ts mega-apps/${MEGA_APP_NAME}/src/main.ts
+    fi
     echo "npx json -I -f mega-apps/${MEGA_APP_NAME}/angular.json -e \"this.projects[\\\"$MEGA_APP_NAME\\\"].architect.build.options.styles.push(\\\"node_modules/@aws-amplify/ui-angular/theme.css\\\")\""
     npx json -I -f mega-apps/${MEGA_APP_NAME}/angular.json -e "this.projects[\"$MEGA_APP_NAME\"].architect.build.options.styles.push(\"node_modules/@aws-amplify/ui-angular/theme.css\")"
     npx json -I -f mega-apps/${MEGA_APP_NAME}/angular.json -e "this.projects[\"$MEGA_APP_NAME\"].architect.build.configurations.production.budgets = [{\"type\":\"initial\",\"maximumWarning\":\"600kb\",\"maximumError\":\"1.5mb\"},{\"type\":\"anyComponentStyle\",\"maximumWarning\":\"2kb\",\"maximumError\":\"4kb\"}]"
@@ -98,7 +124,7 @@ if [[ "$FRAMEWORK" == 'angular' ]]; then
         npx json -I -f mega-apps/${MEGA_APP_NAME}/angular.json -e "this.projects[\"$MEGA_APP_NAME\"].architect.build.options.polyfills.push(\"src/polyfills.ts\")"
         echo "strip comments from tsconfig.app.json and add polyfills.ts"
         echo "npx strip-json-comments mega-apps/${MEGA_APP_NAME}/tsconfig.app.json | npx json -a -e 'this.files.push(\"src/polyfills.ts\")' >tsconfig.app.json.tmp && mv tsconfig.app.json.tmp ./mega-apps/$MEGA_APP_NAME/tsconfig.app.json && rm -f tsconfig.app.json.tmp"
-        npx strip-json-comments mega-apps/${MEGA_APP_NAME}/tsconfig.app.json | npx json -a -e 'this.files.push("src/polyfills.ts")' >tsconfig.app.json.tmp && mv tsconfig.app.json.tmp ./mega-apps/$MEGA_APP_NAME/tsconfig.app.json && rm -f tsconfig.app.json.tmp
+        npx strip-json-comments mega-apps/${MEGA_APP_NAME}/tsconfig.app.json | npx json -a -e 'this.files = this.files || []; this.files.push("src/polyfills.ts")' >tsconfig.app.json.tmp && mv tsconfig.app.json.tmp ./mega-apps/$MEGA_APP_NAME/tsconfig.app.json && rm -f tsconfig.app.json.tmp
     fi
     # Angular 14 is incompatible with @types/node > 20.11.7, so pin at this version
     if [[ "$FRAMEWORK_VERSION" == 14 ]]; then
@@ -106,7 +132,6 @@ if [[ "$FRAMEWORK" == 'angular' ]]; then
         echo "npx json -I -f mega-apps/${MEGA_APP_NAME}/package.json -e 'this.dependencies["@types/node"] = "20.11.7"'"
         npx json -I -f mega-apps/${MEGA_APP_NAME}/package.json -e 'this.dependencies["@types/node"] = "20.11.7"'
     fi
-
 fi
 
 if [[ "$FRAMEWORK" == 'vue' ]]; then

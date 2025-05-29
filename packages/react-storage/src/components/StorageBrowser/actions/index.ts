@@ -45,6 +45,7 @@ export type {
   LocationItemType,
   LocationPermissions,
   LocationType,
+  OptionalFileData,
   TaskData,
   TaskHandler,
   TaskHandlerInput,

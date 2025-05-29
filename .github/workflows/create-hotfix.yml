@@ -1,0 +1,25 @@
+name: Create a hotfix branch
+
+on:
+  workflow_dispatch # manually triggered workflow on Actions
+
+permissions:
+  contents: write # Used to push hotfix branch
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@b80ff79f1755d06ba70441c368a6fe801f5f3a62 # v4.1.3 https://github.com/actions/checkout/commit/cd7d8d697e10461458bc61a30d094dc601a8b017
+        with:
+          # This makes Actions fetch all Git history so that Changesets can generate changelogs with the correct commits
+          fetch-depth: 0
+
+      - name: Create hotfix branch
+        env:
+          HOTFIX_BRANCH: hotfix
+        run: |
+          # create hotfix branch from commit hash of the latest 'Version Packages'
+          git checkout -b $HOTFIX_BRANCH $(git log origin/main -1 --grep='^Version Packages' --author='github-actions\[bot\]' --pretty=format:"%H")
+          git push origin $HOTFIX_BRANCH

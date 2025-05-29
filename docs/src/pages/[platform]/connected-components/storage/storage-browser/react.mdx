@@ -162,6 +162,12 @@ export const { StorageBrowser } = createStorageBrowser({
 </ExampleCode>
 </Example>
 
+<Message colorTheme="info" variation="filled" heading="Working with existing S3 storage">
+Amplify also supports [bringing in existing S3 resources](https://docs.amplify.aws/react/build-a-backend/storage/use-with-custom-s3/) instead of creating a new storage resource. When adding Storage Browser to access these resources, you may need to modify some of the example code listed in the provided documentation. 
+
+In the case where you are adding Storage Browser with an [Amplify backend configured with an existing S3 bucket](https://docs.amplify.aws/react/build-a-backend/storage/use-with-custom-s3/#configure-the-s3-bucket), keep in mind that the optional properties `buckets` and `paths` listed in the configuration examples are **required** by Storage Browser to display the bucket correctly. 
+</Message>
+
 ### IAM Identity Center and S3 Access Grants
 
 To use this authorization method, you first have to configure an IAM Identity Center and set up permission grants for your users and groups in S3 Access Grants. Then, you connect your application to Identity Center and configure your application to exchange an identity token from your external Identity Provider with one from Identity Center. Afterwards, you configure your application to provide the Identity Center token to Storage Browser when a user opens the page in your application to access your data in S3. To learn more, visit the [S3 documentation](https://docs.aws.amazon.com/AmazonS3/latest/userguide/storage-browser.html).
