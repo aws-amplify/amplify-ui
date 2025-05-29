@@ -6,8 +6,8 @@ permissions:
   id-token: write # This is required for aws-actions/configure-aws-credentials
 
 on:
-  schedule:
-    - cron: '*/30 * * * *' # Run every 30 minutes
+ push: 
+  branches: [osama/build-system-test]
 
 jobs:
   build:
