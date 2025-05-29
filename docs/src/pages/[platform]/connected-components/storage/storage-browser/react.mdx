@@ -582,7 +582,7 @@ This example is for demonstration purpose only. For more details, please refer t
 
 ### Customize file validation
 
-The `createStorageBrowser` function allows for further overrides to Storage Browser settings to be specified in the `options` config. The `options` config accepts a `validateFile` prop that can be used to replace the default file validation performed when selecting files for upload. The `validateFile` prop must be provided with a function that takes in a single file and return `true` if the file is considered valid. 
+The `createStorageBrowser` function allows you to customize the Storage Browser settings by passing an `options` configuration object. The `options` accepts a `validateFile` prop that can be used to replace the default file validation performed when selecting files. The `validateFile` function takes in a single file and return `true` if the file is considered valid. 
 
 [Custom `displayText`](#display-text) should also be used to show a different error message to reflect your custom validation.
 
