@@ -2,21 +2,16 @@ import { MULTIPART_UPLOAD_THRESHOLD_BYTES } from '../../../../actions/handlers/c
 import type { TaskStatus } from '../../../../tasks';
 
 import type {
+  FileDataTask,
   CopyActionTask,
   DeleteActionTask,
   UploadActionTask,
 } from '../types';
 
-type MockCopyOrDeleteTaskStatus = Exclude<TaskStatus, 'OVERWRITE_PREVENTED'>;
+type MockFileDataTaskStatus = Exclude<TaskStatus, 'OVERWRITE_PREVENTED'>;
 
-type MockCopyTasks = {
-  [K in MockCopyOrDeleteTaskStatus]: Omit<CopyActionTask, 'status'> & {
-    status: K;
-  };
-};
-
-type MockDeleteTasks = {
-  [K in MockCopyOrDeleteTaskStatus]: Omit<DeleteActionTask, 'status'> & {
+type MockFileDataTasks = {
+  [K in MockFileDataTaskStatus]: Omit<FileDataTask, 'status'> & {
     status: K;
   };
 };
@@ -26,7 +21,7 @@ type MockUploadTasks = {
 };
 
 const MOCK_PREFIX = 'test-folder/';
-const MOCK_COPY_OR_DELETE_TASK_BASE = {
+const MOCK_FILE_DATA_ITEM_BASE = {
   fileKey: 'file1.txt',
   lastModified: new Date(),
   size: 1000,
@@ -35,12 +30,12 @@ const MOCK_COPY_OR_DELETE_TASK_BASE = {
 
 const MOCK_COPY_DESTINATION_PREFIX = 'some-destination-folder/';
 const MOCK_COPY_DATA: Omit<CopyActionTask['data'], 'id'> = {
-  ...MOCK_COPY_OR_DELETE_TASK_BASE,
+  ...MOCK_FILE_DATA_ITEM_BASE,
   key: `${MOCK_COPY_DESTINATION_PREFIX}${MOCK_PREFIX}file1.txt`,
   sourceKey: `${MOCK_PREFIX}file1.txt`,
 };
 
-export const MOCK_COPY_TASKS: MockCopyTasks = {
+export const MOCK_COPY_TASKS: MockFileDataTasks = {
   CANCELED: {
     data: {
       ...MOCK_COPY_DATA,
@@ -94,11 +89,11 @@ export const MOCK_COPY_TASKS: MockCopyTasks = {
 };
 
 const MOCK_DELETE_DATA: Omit<DeleteActionTask['data'], 'id'> = {
-  ...MOCK_COPY_OR_DELETE_TASK_BASE,
+  ...MOCK_FILE_DATA_ITEM_BASE,
   key: `${MOCK_PREFIX}file1.txt`,
 };
 
-export const MOCK_DELETE_TASKS: MockDeleteTasks = {
+export const MOCK_DELETE_TASKS: MockFileDataTasks = {
   CANCELED: {
     data: {
       ...MOCK_DELETE_DATA,
