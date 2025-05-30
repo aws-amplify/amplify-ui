@@ -12,7 +12,7 @@ import type {
   DownloadHandlerData,
 } from '../actions';
 import type { MessageType } from '../components';
-import type { FileItems } from '../files';
+import type { FileItems } from '../fileItems';
 import type { LocationState } from '../store';
 
 /**

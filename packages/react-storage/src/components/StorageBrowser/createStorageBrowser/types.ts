@@ -119,6 +119,21 @@ export interface StorageBrowserActions {
   custom?: CustomActionConfigs;
 }
 
+export interface StorageBrowserOptions {
+  /**
+   * @description Overrides default file validation called when selecting files to be uploaded
+   * @param {File} file — The file to validate
+   * @returns {boolean} — Returns true if `file` is valid, false otherwise
+   * @example
+   * ```tsx
+   * const MAX_FILE_SIZE = 10 * 1000 * 1000 * 1000; // 10 GB in bytes
+   *
+   * const myValidateFile = (file: File) => file.size < MAX_FILE_SIZE;
+   * ```
+   */
+  validateFile?: (file: File) => boolean;
+}
+
 /**
  * @description configuration and options for `createStorageBrowser`
  */
@@ -143,6 +158,11 @@ export interface CreateStorageBrowserInput {
    * @description Overrides default `components` used within `StorageBrowser`
    */
   components?: StorageBrowserComponents;
+
+  /**
+   * @description Additional options and overrides for `StorageBrowser`
+   */
+  options?: StorageBrowserOptions;
 }
 
 /**
@@ -211,19 +231,19 @@ export interface StorageBrowserProviderProps<TViews = {}>
   views?: TViews;
 
   /**
-   * @deprecated will be removed in a future major verison. Prefer `value` for controlled behavior or `defaultValue` for initializng `actionType`
+   * @deprecated will be removed in a future major version. Prefer `value` for controlled behavior or `defaultValue` for initializing `actionType`
    * @description initial `actionType`, does not update
    */
   actionType?: string;
 
   /**
-   * @deprecated will be removed in a future major verison. Prefer `value` for controlled behavior or `defaultValue` for initializng `actionType`
+   * @deprecated will be removed in a future major version. Prefer `value` for controlled behavior or `defaultValue` for initializing `actionType`
    * @description initial `location` data, does not update
    */
   location?: LocationData;
 
   /**
-   * @deprecated will be removed in a future major verison. Prefer `value` for controlled behavior or `defaultValue` for initializng `actionType`
+   * @deprecated will be removed in a future major version. Prefer `value` for controlled behavior or `defaultValue` for initializing `actionType`
    * @description initial `location` subpath to establish navigation state, does not update
    */
   path?: string;

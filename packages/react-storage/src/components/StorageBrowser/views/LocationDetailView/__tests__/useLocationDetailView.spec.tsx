@@ -1,26 +1,25 @@
-import { renderHook, act } from '@testing-library/react';
+import { act, renderHook } from '@testing-library/react';
 
 import {
-  LocationData,
-  LocationItemData,
   FileData,
   FileDataItem,
   FolderData,
+  LocationData,
+  LocationItemData,
 } from '../../../actions';
 
-import { useFiles } from '../../../files';
+import { useFileItems } from '../../../fileItems';
 import { useLocationItems } from '../../../locationItems';
-import { useStore } from '../../../store';
-import { LocationState } from '../../../store';
+import { LocationState, useStore } from '../../../store';
 import { useAction, useList } from '../../../useAction';
 
 import {
-  useLocationDetailView,
   DEFAULT_LIST_OPTIONS,
+  useLocationDetailView,
 } from '../useLocationDetailView';
 
 jest.mock('../../../actions/handlers');
-jest.mock('../../../files');
+jest.mock('../../../fileItems');
 jest.mock('../../../locationItems');
 jest.mock('../../../store');
 jest.mock('../../../useAction');
@@ -95,6 +94,7 @@ const testLocation: LocationState = {
 
 const mockLocationItemsState = { fileDataItems: undefined };
 const mockStoreState = { location: testLocation, actionType: undefined };
+const mockFileItemsState = { validItems: undefined, invalidItems: undefined };
 
 const mockLocation = { current: undefined, path: '', key: '' };
 const mockListState = {
@@ -106,14 +106,14 @@ const mockListState = {
 
 describe('useLocationDetailView', () => {
   const mockUseAction = jest.mocked(useAction);
-  const mockUseFiles = jest.mocked(useFiles);
+  const mockUseFileItems = jest.mocked(useFileItems);
   const mockUseList = jest.mocked(useList);
   const mockUseLocationItems = jest.mocked(useLocationItems);
   const mockUseStore = jest.mocked(useStore);
 
   const mockStoreDispatch = jest.fn();
   const mockLocationItemsDispatch = jest.fn();
-  const mockFilesDispatch = jest.fn();
+  const mockFileItemsDispatch = jest.fn();
   const mockHandleDownload = jest.fn();
   const mockHandleList = jest.fn();
 
@@ -126,7 +126,10 @@ describe('useLocationDetailView', () => {
 
   beforeEach(() => {
     mockUseStore.mockReturnValue([mockStoreState, mockStoreDispatch]);
-    mockUseFiles.mockReturnValue([undefined, mockFilesDispatch]);
+    mockUseFileItems.mockReturnValue([
+      mockFileItemsState,
+      mockFileItemsDispatch,
+    ]);
     mockUseLocationItems.mockReturnValue([
       mockLocationItemsState,
       mockLocationItemsDispatch,
@@ -465,8 +468,8 @@ describe('useLocationDetailView', () => {
       const state = result.current;
       state.onDropFiles(mockFiles);
     });
-    expect(mockFilesDispatch).toHaveBeenCalledWith({
-      type: 'ADD_FILE_ITEMS',
+    expect(mockFileItemsDispatch).toHaveBeenCalledWith({
+      type: 'ADD_FILES',
       files: mockFiles,
     });
     expect(mockStoreDispatch).toHaveBeenCalledWith({
@@ -488,8 +491,8 @@ describe('useLocationDetailView', () => {
       const state = result.current;
       state.onDropFiles([mockFolder]);
     });
-    expect(mockFilesDispatch).toHaveBeenCalledWith({
-      type: 'ADD_FILE_ITEMS',
+    expect(mockFileItemsDispatch).toHaveBeenCalledWith({
+      type: 'ADD_FILES',
       files: [mockFolder],
     });
     expect(mockStoreDispatch).toHaveBeenCalledWith({
@@ -514,8 +517,8 @@ describe('useLocationDetailView', () => {
       const state = result.current;
       state.onDropFiles([mockFile, mockFolder]);
     });
-    expect(mockFilesDispatch).toHaveBeenCalledWith({
-      type: 'ADD_FILE_ITEMS',
+    expect(mockFileItemsDispatch).toHaveBeenCalledWith({
+      type: 'ADD_FILES',
       files: [mockFile, mockFolder],
     });
     expect(mockStoreDispatch).toHaveBeenCalledWith({

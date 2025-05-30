@@ -28,6 +28,7 @@ export default function Home() {
           <Link href={`/storage-browser/default-value${LINK_PAYLOAD}`}>
             Default Value
           </Link>
+          <Link href="/storage-browser/file-validation">File Validation</Link>
         </div>
       </div>
     </main>
