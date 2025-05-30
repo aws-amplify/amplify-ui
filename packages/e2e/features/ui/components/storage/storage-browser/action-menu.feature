@@ -74,6 +74,13 @@ Feature: Create folder with Storage Browser
     When I click the "Exit" button
     # list uploaded file
     Then I see "1" files with random names
+    # download file
+    Then I click checkbox for with "1" files with random names
+    When I click the "Menu Toggle" button
+    Then I click the "Download" menuitem
+    Then I click the "Download" button
+    Then I see "All files downloaded"
+    When I click the "Exit" button
     # copy file
     Then I click checkbox for with "1" files with random names
     When I click the "Menu Toggle" button
@@ -174,3 +181,12 @@ Feature: Create folder with Storage Browser
       When A network failure occurs
       Then I click the "Delete" button
       Then I see "All files failed to delete"
+  @react
+  Scenario: Download file shows a Network error if offline
+      When I click the first button containing "public"
+      Then I click checkbox for file "001_dont_delete_file.txt"
+      When I click the "Menu Toggle" button
+      Then I click the "Download" menuitem
+      When A network failure occurs
+      Then I click the "Download" button
+      Then I see "All files failed to download"
