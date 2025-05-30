@@ -5,7 +5,7 @@ import { ActionConfigsProvider, getActionConfigs } from '../../actions';
 import { ComponentsProvider } from '../../components';
 import { createConfigurationProvider } from '../../configuration';
 import { DisplayTextProvider } from '../../displayText';
-import { FilesProvider } from '../../files';
+import { FileItemsProvider } from '../../fileItems';
 import { LocationItemsProvider } from '../../locationItems';
 import { StoreProvider } from '../../store';
 import { ActionHandlersProvider, getActionHandlers } from '../../useAction';
@@ -17,7 +17,7 @@ import createProvider from '../createProvider';
 jest.mock('../../actions');
 jest.mock('../../components');
 jest.mock('../../displayText');
-jest.mock('../../files');
+jest.mock('../../fileItems');
 jest.mock('../../locationItems');
 jest.mock('../../configuration');
 jest.mock('../../store');
@@ -34,8 +34,8 @@ const mockComponentsProvider = jest
 const mockDisplayTextProvider = jest
   .mocked(DisplayTextProvider)
   .mockImplementation(({ children }) => <>{children}</>);
-const mockFilesProvider = jest
-  .mocked(FilesProvider)
+const mockFileItemsProvider = jest
+  .mocked(FileItemsProvider)
   .mockImplementation(({ children }) => <>{children}</>);
 const mockLocationItemsProvider = jest
   .mocked(LocationItemsProvider)
@@ -104,8 +104,11 @@ describe('createProvider', () => {
     const mockActionHandlers = {};
     mockGetActionHandlers.mockReturnValue(mockActionHandlers);
 
+    const mockValidateFile = jest.fn();
+
     const Provider = createProvider({
       config: { ...mockConfig, listLocations: jest.fn() },
+      options: { validateFile: mockValidateFile },
     });
 
     // used to validate props passed to `ViewsProvider`
@@ -159,7 +162,12 @@ describe('createProvider', () => {
       {}
     );
 
-    expect(mockFilesProvider).toHaveBeenCalledTimes(1);
+    expect(mockFileItemsProvider).toHaveBeenCalledTimes(1);
+    expect(mockFileItemsProvider).toHaveBeenCalledWith(
+      expect.objectContaining({ validateFile: mockValidateFile }),
+      {}
+    );
+
     expect(mockLocationItemsProvider).toHaveBeenCalledTimes(1);
   });
 });

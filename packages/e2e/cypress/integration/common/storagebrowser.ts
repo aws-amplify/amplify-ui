@@ -1,6 +1,8 @@
 import { When, Then } from '@badeball/cypress-cucumber-preprocessor';
 import { randomFileName } from './shared';
 
+const FILE_VALIDATION_SIZE_LIMIT = 1000 * 1000; // 1MB
+
 const selectTableRowCheckBox = (name: string) => {
   cy.contains('table tbody td:nth-child(2)', new RegExp('^' + name + '$'))
     .siblings()
@@ -85,5 +87,28 @@ Then(
     for (let i = 1; i <= fileCount; i++) {
       selectTableRowCheckBox(`${randomFileName}-${i}`);
     }
+  }
+);
+
+When(
+  'I upload {string} valid files of size 1MB and type jpeg with random names',
+  (count: string) => {
+    cy.fileInputUpload(
+      randomFileName,
+      parseInt(count),
+      FILE_VALIDATION_SIZE_LIMIT,
+      'image/jpeg'
+    );
+  }
+);
+
+When(
+  'I upload {string} invalid files with size greater than 1MB with random names',
+  (count: string) => {
+    cy.fileInputUpload(
+      randomFileName,
+      parseInt(count),
+      FILE_VALIDATION_SIZE_LIMIT + 1
+    );
   }
 );
