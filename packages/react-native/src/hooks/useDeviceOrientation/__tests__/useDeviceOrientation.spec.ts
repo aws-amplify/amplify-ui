@@ -1,6 +1,7 @@
 import type { EventSubscription } from 'react-native';
 import { Dimensions } from 'react-native';
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook } from '@testing-library/react-native';
+
 import type { DeviceOrientation } from '../useDeviceOrientation';
 import useDeviceOrientation from '../useDeviceOrientation';
 

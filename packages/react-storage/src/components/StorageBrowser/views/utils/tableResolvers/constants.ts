@@ -16,7 +16,7 @@ export const STATUS_ICONS = {
   QUEUED: 'action-queued',
 } as const;
 
-export const DEFAULT_ACTION_TABLE_KEYS = [
+export const FILE_DATA_ITEM_TABLE_KEYS = [
   'name',
   'folder',
   'type',

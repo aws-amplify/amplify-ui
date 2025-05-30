@@ -2,63 +2,12 @@ import { capitalize, noop } from '@aws-amplify/ui';
 
 import { isCopyViewDisplayTextKey } from '../../../displayText';
 
-import { STATUS_ICONS, STATUS_LABELS } from './constants';
-import type { CopyTaskTableResolvers } from './types';
-import {
-  getActionCellFolder,
-  getActionCancelCellContent,
-  getFileSize,
-  getFileType,
-} from './utils';
-import { getActionCellKey } from './actionResolvers';
+import { STATUS_LABELS } from './constants';
+import type { FileDataTaskTableResolvers, GetFileDataCell } from './types';
+import { cancel, folder, getFileDataCellKey, name, size, type } from './utils';
 
-export const COPY_TABLE_KEYS = [
-  'name',
-  'folder',
-  'type',
-  'size',
-  'status',
-  'cancel',
-] as const;
-
-type GetCopyTaskCell = CopyTaskTableResolvers['getCell'];
-
-const name: GetCopyTaskCell = (data) => {
-  const key = getActionCellKey(data);
-
-  const { item } = data;
-  const text = item.data.fileKey;
-  const icon = STATUS_ICONS[item.status];
-
-  return { key, type: 'text', content: { icon, text } };
-};
-
-const folder: GetCopyTaskCell = (data) => {
-  const key = getActionCellKey(data);
-  const text = getActionCellFolder(data.item);
-
-  return { key, type: 'text', content: { text } };
-};
-
-const type: GetCopyTaskCell = (data) => {
-  const key = getActionCellKey(data);
-  const { fileKey } = data.item.data;
-
-  const text = getFileType(fileKey);
-
-  return { key, type: 'text', content: { text } };
-};
-
-const size: GetCopyTaskCell = (data) => {
-  const key = getActionCellKey(data);
-  const { size: value } = data.item.data;
-  const displayValue = getFileSize(value);
-
-  return { key, type: 'number', content: { value, displayValue } };
-};
-
-const status: GetCopyTaskCell = (data) => {
-  const key = getActionCellKey(data);
+const status: GetFileDataCell = (data) => {
+  const key = getFileDataCellKey(data);
   const {
     item: { status },
     props: { displayText },
@@ -71,13 +20,6 @@ const status: GetCopyTaskCell = (data) => {
     : '';
 
   return { key, type: 'text', content: { text } };
-};
-
-const cancel: GetCopyTaskCell = (data) => {
-  const key = getActionCellKey(data);
-  const content = getActionCancelCellContent(data);
-
-  return { key, type: 'button', content };
 };
 
 const COPY_CELL_RESOLVERS = {
@@ -95,10 +37,10 @@ const COPY_CELL_RESOLVERS = {
    * keep TS happy as "progress" headers were included in display text interfaces
    * and cannot be removed from the tables without a breaking change
    */
-  progress: noop as GetCopyTaskCell,
+  progress: noop as GetFileDataCell,
 };
 
-export const COPY_TABLE_RESOLVERS: CopyTaskTableResolvers = {
+export const COPY_TABLE_RESOLVERS: FileDataTaskTableResolvers = {
   getCell: (data) => COPY_CELL_RESOLVERS[data.key](data),
   getHeader: ({ key, props: { displayText } }) => {
     const text = displayText[`tableColumn${capitalize(key)}Header`];

@@ -7,7 +7,7 @@ name: Version Packages
 
 on:
   push:
-    branches: [main]
+    branches: [main, hotfix]
 
 permissions:
   contents: write # Used to commit to "Version Packages" PR
@@ -42,5 +42,9 @@ jobs:
         uses: changesets/action@b98cec97583b917ff1dc6179dd4d230d3e439894
         with:
           version: yarn bumpVersions
+          # Use the current branch as the base for the PR
+          base: ${{ github.ref_name }}
+          # Custom title based on branch
+          title: 'Version Packages (${{ github.ref_name }})'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

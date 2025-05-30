@@ -4,7 +4,7 @@ import {
   MOCK_UPLOAD_TASKS_SINGLE_PART,
 } from '../__testUtils__/tasks';
 import {
-  getActionCancelCellContent,
+  getFileDataCancelCellContent,
   getFileSize,
   getFileType,
   getUploadCellFolder,
@@ -23,7 +23,7 @@ describe('table resolver utils', () => {
 
     it('returns the expected values for a QUEUED task prior to processing', () => {
       const item = tasks.QUEUED;
-      const output = getActionCancelCellContent({
+      const output = getFileDataCancelCellContent({
         item,
         key: 'cancel',
         props: { ...props, isProcessing: false },
@@ -39,7 +39,7 @@ describe('table resolver utils', () => {
 
     it('returns the expected values for a QUEUED task during processing', () => {
       const item = tasks.QUEUED;
-      const output = getActionCancelCellContent({
+      const output = getFileDataCancelCellContent({
         item,
         key: 'cancel',
         props: { ...props, isProcessing: true },
@@ -55,7 +55,7 @@ describe('table resolver utils', () => {
 
     it('returns the expected values for a PENDING task', () => {
       const item = tasks.PENDING;
-      const output = getActionCancelCellContent({
+      const output = getFileDataCancelCellContent({
         item,
         key: 'cancel',
         props: { ...props, isProcessing: true },
@@ -71,7 +71,7 @@ describe('table resolver utils', () => {
 
     it('returns the expected values for a CANCELED task', () => {
       const item = tasks.CANCELED;
-      const output = getActionCancelCellContent({
+      const output = getFileDataCancelCellContent({
         item,
         key: 'cancel',
         props: { ...props, isProcessing: true },
@@ -87,7 +87,7 @@ describe('table resolver utils', () => {
 
     it('returns the expected values for a COMPLETE task', () => {
       const item = tasks.COMPLETE;
-      const output = getActionCancelCellContent({
+      const output = getFileDataCancelCellContent({
         item,
         key: 'cancel',
         props: { ...props, isProcessing: true },
@@ -103,7 +103,7 @@ describe('table resolver utils', () => {
 
     it('calls onTaskRemove with the expected values for a removable task', () => {
       const item = tasks.QUEUED;
-      const output = getActionCancelCellContent({
+      const output = getFileDataCancelCellContent({
         item,
         key: 'cancel',
         props: { ...props, isProcessing: false },
@@ -131,7 +131,7 @@ describe('table resolver utils', () => {
 
     it('calls onTaskRemove with the expected values for a cancelable task', () => {
       const item = tasks.QUEUED;
-      const output = getActionCancelCellContent({
+      const output = getFileDataCancelCellContent({
         item,
         key: 'cancel',
         props: { ...props, isProcessing: true },
