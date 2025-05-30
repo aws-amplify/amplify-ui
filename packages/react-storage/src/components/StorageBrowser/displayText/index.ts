@@ -7,6 +7,11 @@ export type {
   CopyViewDisplayText,
   UploadViewDisplayText,
   DeleteViewDisplayText,
+  DownloadViewDisplayText,
   StorageBrowserDisplayText,
 } from './types';
-export { isCopyViewDisplayTextKey, isDeleteViewDisplayTextKey } from './utils';
+export {
+  isCopyViewDisplayTextKey,
+  isDeleteViewDisplayTextKey,
+  isDownloadViewDisplayTextKey,
+} from './utils';

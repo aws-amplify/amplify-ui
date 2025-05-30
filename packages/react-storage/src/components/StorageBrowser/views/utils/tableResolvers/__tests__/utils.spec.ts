@@ -1,6 +1,6 @@
 import {
   MOCK_COPY_TASKS,
-  MOCK_DELETE_TASKS,
+  MOCK_FILE_DATA_TASKS,
   MOCK_UPLOAD_TASKS_SINGLE_PART,
 } from '../__testUtils__/tasks';
 import {
@@ -14,7 +14,7 @@ import {
 describe('table resolver utils', () => {
   describe.each([
     { name: 'copy', tasks: MOCK_COPY_TASKS },
-    { name: 'delete', tasks: MOCK_DELETE_TASKS },
+    { name: 'delete', tasks: MOCK_FILE_DATA_TASKS },
   ])('getCopyOrDeleteCancelCellContent with $name tasks', ({ tasks }) => {
     const onTaskRemove = jest.fn();
     const props = { displayText: {}, onTaskRemove };
