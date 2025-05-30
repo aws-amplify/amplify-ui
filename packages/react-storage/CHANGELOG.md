@@ -1,5 +1,58 @@
 # @aws-amplify/ui-react-storage
 
+## 3.11.0
+
+### Minor Changes
+
+- [#6575](https://github.com/aws-amplify/amplify-ui/pull/6575) [`a004c2f1b9dc74075515a784edb1ee6ce2485602`](https://github.com/aws-amplify/amplify-ui/commit/a004c2f1b9dc74075515a784edb1ee6ce2485602) Thanks [@tiffanynwyeung](https://github.com/tiffanynwyeung)! - feat(storage-browser): add custom file validation and options config
+
+  **Add custom file validation**
+
+  ```tsx
+  import React from 'react';
+  import { createStorageBrowser } from '@aws-amplify/ui-react-storage/browser';
+  import '@aws-amplify/ui-react-storage/styles.css';
+
+  const MAX_FILE_SIZE = 1000 * 1000; // 1 MB
+
+  const customValidateFile = (file: File) => {
+    const isValidSize = file.size <= MAX_FILE_SIZE;
+    const isValidType = file.type.includes('image');
+    return isValidSize && isValidType;
+  };
+
+  const { StorageBrowser } = createStorageBrowser({
+    // ...config goes here...
+    options: {
+      validateFile: customValidateFile,
+    },
+  });
+
+  export default function Example() {
+    return (
+      <StorageBrowser
+        displayText={{
+          UploadView: {
+            getFilesValidationMessage: (data) => {
+              const invalidFileNames = data?.invalidFiles?.map(
+                ({ file }) => file.name
+              );
+              return {
+                content: `Only image files that are 1 MB or smaller are accepted. Invalid files: ${invalidFileNames}`,
+                type: 'error',
+              };
+            },
+          },
+        }}
+      />
+    );
+  }
+  ```
+
+### Patch Changes
+
+- [#6572](https://github.com/aws-amplify/amplify-ui/pull/6572) [`02cb81b87d8b59cef5e7b582b8a1b60e217c780e`](https://github.com/aws-amplify/amplify-ui/commit/02cb81b87d8b59cef5e7b582b8a1b60e217c780e) Thanks [@ashika112](https://github.com/ashika112)! - chore(StorageBrowser) : Generalize table resolver for default actions
+
 ## 3.10.3
 
 ### Patch Changes
