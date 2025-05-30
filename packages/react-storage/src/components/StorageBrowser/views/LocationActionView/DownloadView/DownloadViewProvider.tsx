@@ -4,7 +4,10 @@ import { ControlsContextProvider } from '../../../controls/context';
 import { useDisplayText } from '../../../displayText';
 
 import { useResolveTableData } from '../../hooks/useResolveTableData';
-import { DOWNLOAD_TABLE_KEYS, DOWNLOAD_TABLE_RESOLVERS } from '../../utils';
+import {
+  FILE_DATA_ITEM_TABLE_KEYS,
+  DOWNLOAD_TABLE_RESOLVERS,
+} from '../../utils';
 
 import type { DownloadViewProviderProps } from './types';
 
@@ -42,7 +45,7 @@ export function DownloadViewProvider({
     : undefined;
 
   const tableData = useResolveTableData(
-    DOWNLOAD_TABLE_KEYS,
+    FILE_DATA_ITEM_TABLE_KEYS,
     DOWNLOAD_TABLE_RESOLVERS,
     {
       items,
