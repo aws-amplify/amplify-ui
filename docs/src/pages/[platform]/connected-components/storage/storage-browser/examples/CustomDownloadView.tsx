@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { Button, Flex, Text } from '@aws-amplify/ui-react';
+import { Button, Flex, Text, View } from '@aws-amplify/ui-react';
 import { useView } from './StorageBrowser';
 
-export function CustomDeleteView({ onExit }: { onExit: () => void }) {
-  const state = useView('Delete');
+export function CustomDownloadView({ onExit }: { onExit: () => void }) {
+  const state = useView('Download');
 
   return (
     <Flex direction="column">
@@ -16,7 +16,7 @@ export function CustomDeleteView({ onExit }: { onExit: () => void }) {
         </Flex>
       ))}
       <Button onClick={state.onActionStart}>
-        Delete {state.tasks.length} files
+        Download {state.tasks.length} files
       </Button>
     </Flex>
   );
