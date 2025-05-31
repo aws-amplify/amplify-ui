@@ -1,6 +1,7 @@
 import {
   CreateStorageBrowserInput,
   DeleteHandlerOutput,
+  DownloadHandlerOutput,
   UploadHandlerOutput,
 } from '@aws-amplify/ui-react-storage/browser';
 import uniqueId from 'lodash/uniqueId';
@@ -59,13 +60,25 @@ export const defaultActions: CreateStorageBrowserInput['actions']['default'] = {
     },
     viewName: 'DeleteView',
   },
-  download: () => {
-    return {
-      result: Promise.resolve({
-        status: 'COMPLETE' as const,
-        value: { url: new URL('') },
-      }),
-    };
+  download: {
+    actionListItem: {
+      icon: 'download',
+      label: 'Download',
+    },
+    handler: () => {
+      const result: DownloadHandlerOutput['result'] = new Promise((resolve) => {
+        setTimeout(() => {
+          resolve({
+            status: 'COMPLETE' as const,
+            value: { url: new URL('') },
+          });
+        }, 500);
+      });
+      return {
+        result,
+      };
+    },
+    viewName: 'DownloadView',
   },
   upload: {
     actionListItem: {
