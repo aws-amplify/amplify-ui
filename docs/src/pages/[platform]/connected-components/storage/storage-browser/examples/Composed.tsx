@@ -5,6 +5,7 @@ import { StorageBrowser, useView } from './StorageBrowser';
 import { ComposedCopyView } from './ComposedCopyView';
 import { ComposedCreateFolderView } from './ComposedCreateFolderView';
 import { ComposedDeleteView } from './ComposedDeleteView';
+import { ComposedDownloadView } from './ComposedDownloadView';
 import { ComposedUploadView } from './ComposedUploadView';
 
 function LocationsView() {
@@ -52,6 +53,8 @@ function MyLocationActionView() {
       return <ComposedCreateFolderView onExit={onExit} />;
     case 'delete':
       return <ComposedDeleteView onExit={onExit} />;
+    case 'download':
+      return <ComposedDownloadView onExit={onExit} />;
     case 'upload':
       return <ComposedUploadView onExit={onExit} />;
     default:

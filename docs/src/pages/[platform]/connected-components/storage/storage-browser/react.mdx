@@ -362,6 +362,7 @@ Below you wll find examples of how to compose each view. See [View reference](#v
     <Tabs.Item value="Locations">Locations</Tabs.Item>
     <Tabs.Item value="LocationDetail">Location Detail</Tabs.Item>
     <Tabs.Item value="Upload">Upload</Tabs.Item>
+    <Tabs.Item value="Download">Download</Tabs.Item>
     <Tabs.Item value="Copy">Copy</Tabs.Item>
     <Tabs.Item value="CreateFolder">CreateFolder</Tabs.Item>
     <Tabs.Item value="Delete">Delete</Tabs.Item>
@@ -396,6 +397,12 @@ Below you wll find examples of how to compose each view. See [View reference](#v
         ```
       </ExampleCode>
   </Tabs.Panel>
+  <Tabs.Panel value="Download">
+    <ExampleCode>
+      ```jsx file=./examples/ComposedDownloadView.tsx
+      ```
+    </ExampleCode>
+  </Tabs.Panel>
   <Tabs.Panel value="Copy">
       <ExampleCode>
         ```jsx file=./examples/ComposedCopyView.tsx
@@ -424,6 +431,7 @@ The `useView()` hook takes a single argument which is the name of the view you w
     <Tabs.Item value="StorageBrowser">StorageBrowser</Tabs.Item>
     <Tabs.Item value="Locations">Locations</Tabs.Item>
     <Tabs.Item value="Upload">Upload</Tabs.Item>
+    <Tabs.Item value="Download">Download</Tabs.Item>
     <Tabs.Item value="Copy">Copy</Tabs.Item>
     <Tabs.Item value="CreateFolder">CreateFolder</Tabs.Item>
     <Tabs.Item value="Delete">Delete</Tabs.Item>
@@ -455,6 +463,12 @@ The `useView()` hook takes a single argument which is the name of the view you w
   <Tabs.Panel value="Upload">
       <ExampleCode>
         ```jsx file=./examples/CustomUploadView.tsx
+        ```
+      </ExampleCode>
+  </Tabs.Panel>
+    <Tabs.Panel value="Download">
+      <ExampleCode>
+        ```jsx file=./examples/CustomDownloadView.tsx
         ```
       </ExampleCode>
   </Tabs.Panel>
@@ -822,6 +836,36 @@ interface UploadViewState {
 * `<StorageBrowser.UploadView.Statuses />`
 * `<StorageBrowser.UploadView.TasksTable />`
 * `<StorageBrowser.UploadView.Title />`
+
+
+### Download view
+
+#### Download view state
+
+```ts
+interface DownloadViewState {
+  isProcessing: boolean;
+  isProcessingComplete: boolean;
+  location: LocationState;
+  onActionCancel: () => void;
+  onActionExit: () => void;
+  onActionStart: () => void;
+  onTaskRemove?: (task: Task<DeleteHandlerData>) => void;
+  statusCounts: StatusCounts;
+  tasks: Task<DeleteHandlerData>[];
+}
+```
+
+#### Download view components
+
+* `<StorageBrowser.DownloadView.Provider />`
+* `<StorageBrowser.DownloadView.Cancel />`
+* `<StorageBrowser.DownloadView.Exit />`
+* `<StorageBrowser.DownloadView.Message />`
+* `<StorageBrowser.DownloadView.Start />`
+* `<StorageBrowser.DownloadView.Statuses />`
+* `<StorageBrowser.DownloadView.TasksTable />`
+* `<StorageBrowser.DownloadView.Title />`
 
 
 ### Copy view
