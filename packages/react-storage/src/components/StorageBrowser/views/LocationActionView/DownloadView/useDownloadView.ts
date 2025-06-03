@@ -36,7 +36,8 @@ export const useDownloadView = (
 
   const onActionCancel = () => {
     tasks.forEach((task) => {
-      // @TODO Fixme, calling cancel on task doesn't currently work
+      // Calling cancel on task works only on queued tasks.
+      // In case of download, all download presigned url open at once so this does not really work
       if (isFunction(task.cancel)) task.cancel();
     });
   };

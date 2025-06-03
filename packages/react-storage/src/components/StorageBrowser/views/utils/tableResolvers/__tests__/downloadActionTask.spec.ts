@@ -32,7 +32,7 @@ describe('DOWNLOAD_TABLE_RESOLVERS', () => {
 
   describe('getCell', () => {
     it.each(FILE_DATA_ITEM_TABLE_KEYS)(
-      'returns the expect cell `key` for a "%s" table `key`',
+      'returns the expected cell `key` for a "%s" table `key`',
       (key) => {
         const data = {
           key,
@@ -239,7 +239,7 @@ describe('DOWNLOAD_TABLE_RESOLVERS', () => {
   describe('getHeader', () => {
     // filter out cancel, does not allow sorting
     it.each(FILE_DATA_ITEM_TABLE_KEYS.filter((key) => key !== 'cancel'))(
-      'returns the expect header data for a %s column',
+      'returns the expected header data for a %s column',
       (key) => {
         const data = { key, props: mockProps };
         const output = DOWNLOAD_TABLE_RESOLVERS.getHeader(data);
@@ -252,7 +252,7 @@ describe('DOWNLOAD_TABLE_RESOLVERS', () => {
       }
     );
 
-    it('returns the expect header data for a cancel column', () => {
+    it('returns the expected header data for a cancel column', () => {
       const key = 'cancel' as const;
       const data = { key, props: mockProps };
       const output = DOWNLOAD_TABLE_RESOLVERS.getHeader(data);
