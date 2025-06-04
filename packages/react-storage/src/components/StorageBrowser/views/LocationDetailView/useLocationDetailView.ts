@@ -11,7 +11,7 @@ import type {
   LocationData,
 } from '../../actions';
 import { useActionConfigs } from '../../actions';
-import { useFiles } from '../../files';
+import { useFileItems } from '../../fileItems';
 import { useLocationItems } from '../../locationItems';
 import { useStore } from '../../store';
 import { useAction, useList } from '../../useAction';
@@ -55,7 +55,7 @@ export const useLocationDetailView = (
 
   const [{ location, actionType }, storeDispatch] = useStore();
   const [locationItems, locationItemsDispatch] = useLocationItems();
-  const filesDispatch = useFiles()[1];
+  const fileItemsDispatch = useFileItems()[1];
 
   const { current, key } = location;
   const { permissions, prefix } = current ?? {};
@@ -200,7 +200,7 @@ export const useLocationDetailView = (
       locationItemsDispatch({ type: 'RESET_LOCATION_ITEMS' });
     },
     onDropFiles: (files: File[]) => {
-      filesDispatch({ type: 'ADD_FILE_ITEMS', files });
+      fileItemsDispatch({ type: 'ADD_FILES', files });
 
       const actionType = 'upload';
       storeDispatch({ type: 'CHANGE_ACTION_TYPE', actionType });

@@ -1,1 +1,0 @@
-export { useQRCodeString } from './useQRCodeString';
