@@ -70,7 +70,9 @@ export const defaultActions: CreateStorageBrowserInput['actions']['default'] = {
         setTimeout(() => {
           resolve({
             status: 'COMPLETE' as const,
-            value: { url: new URL('') },
+            // creating URL with empty string will throw TypeError,
+            // preventing promise from resolving
+            value: { url: null },
           });
         }, 500);
       });

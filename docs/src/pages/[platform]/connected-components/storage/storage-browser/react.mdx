@@ -422,7 +422,7 @@ Below you wll find examples of how to compose each view. See [View reference](#v
 
 The `createStorageBrowser` function returns a `useView()` hook that lets you use the Storage Browser's internal state and event handlers to build your own UI on top the Storage Browser functionality.
 
-The `useView()` hook takes a single argument which is the name of the view you want to get the UI state and event handlers for. The available views are `Locations`, `LocationDetails`, `Copy`, `Upload`, `Delete`, and `CreateFolder`. The return value of the hook will have all the necessary internal state and event handlers required to build that view. In fact, the Storage Browser component itself uses the `useView()` to manage its state, so you can build the UI exactly how we do!
+The `useView()` hook takes a single argument which is the name of the view you want to get the UI state and event handlers for. The available views are `Locations`, `LocationDetails`, `Copy`, `Upload`, `Download`, `Delete`, and `CreateFolder`. The return value of the hook will have all the necessary internal state and event handlers required to build that view. In fact, the Storage Browser component itself uses the `useView()` to manage its state, so you can build the UI exactly how we do!
 
 <Example>
   <Custom />
@@ -493,7 +493,7 @@ The following `default` actions are invoked by the default UI views:
 * `copy`: Copy data to another location within a `bucket` or `prefix` in [Copy action view](#copy-view).
 * `createFolder`: Create a folder within a `bucket` or `prefix` in [CreateFolder action view](#createfolder-view).
 * `delete`: Delete a given object in [Delete action view](#delete-view).
-* `download`: Download a given object in [LocationDetails view](#locationdetails-view) using an [anchor link](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#download).
+* `download`: Download a given object in [LocationDetails view](#locationdetails-view) using an [anchor link](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#download) or in [Download action view](#download-view).
 * `upload`: Upload a file in [Upload action view](#upload-view).
 
 `defaultActionConfigs` allows access to the default implementation of these actions. Below is an example to instrument the default upload action to count the files being uploaded.
