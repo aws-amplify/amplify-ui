@@ -65,7 +65,6 @@ export const downloadActionConfig: DownloadActionConfig = {
 export const defaultActionViewConfigs = {
   copy: copyActionConfig,
   createFolder: createFolderActionConfig,
-  // provide `download` handler only; `download` does not have a dedicated view/config
   download: downloadActionConfig,
   delete: deleteActionConfig,
   upload: uploadActionConfig,

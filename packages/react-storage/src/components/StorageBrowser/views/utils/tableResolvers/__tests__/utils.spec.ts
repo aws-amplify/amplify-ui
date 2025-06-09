@@ -15,7 +15,7 @@ describe('table resolver utils', () => {
   describe.each([
     { name: 'copy', tasks: MOCK_COPY_TASKS },
     { name: 'delete', tasks: MOCK_FILE_DATA_TASKS },
-  ])('getCopyOrDeleteCancelCellContent with $name tasks', ({ tasks }) => {
+  ])('getFileDataCancelCellContent with $name tasks', ({ tasks }) => {
     const onTaskRemove = jest.fn();
     const props = { displayText: {}, onTaskRemove };
 
