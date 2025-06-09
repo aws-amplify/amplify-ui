@@ -1,5 +1,5 @@
 import { capitalize } from '@aws-amplify/ui';
-import { DeleteViewDisplayText } from '../../../../displayText';
+import { DownloadViewDisplayText } from '../../../../displayText';
 
 import { MOCK_FILE_DATA_TASKS } from '../__testUtils__/tasks';
 import {
@@ -7,28 +7,27 @@ import {
   STATUS_ICONS,
   STATUS_LABELS,
 } from '../constants';
-import { DeleteActionTask, DeleteTableResolverProps } from '../types';
-import { DELETE_TABLE_RESOLVERS } from '../deleteResolvers';
+import { DownloadActionTask, DownloadTableResolverProps } from '../types';
+import { DOWNLOAD_TABLE_RESOLVERS } from '../downloadResolvers';
 
-const mockDisplayText: DeleteViewDisplayText = {
+const mockDisplayText: DownloadViewDisplayText = {
   tableColumnNameHeader: 'Name',
   tableColumnFolderHeader: 'Folder',
   tableColumnTypeHeader: 'Type',
   tableColumnSizeHeader: 'Size',
   tableColumnStatusHeader: 'Status',
-  tableColumnProgressHeader: 'Progress',
   tableColumnCancelHeader: 'Cancel',
 };
 
 const mockItems = Object.values(MOCK_FILE_DATA_TASKS);
 
-const mockProps: DeleteTableResolverProps = {
+const mockProps: DownloadTableResolverProps = {
   displayText: mockDisplayText,
   isProcessing: true,
   onTaskRemove: jest.fn(),
 };
 
-describe('DELETE_TABLE_RESOLVERS', () => {
+describe('DOWNLOAD_TABLE_RESOLVERS', () => {
   beforeEach(jest.clearAllMocks);
 
   describe('getCell', () => {
@@ -40,7 +39,7 @@ describe('DELETE_TABLE_RESOLVERS', () => {
           item: MOCK_FILE_DATA_TASKS.QUEUED,
           props: mockProps,
         };
-        const cell = DELETE_TABLE_RESOLVERS.getCell(data);
+        const cell = DOWNLOAD_TABLE_RESOLVERS.getCell(data);
 
         expect(cell).toBeDefined();
         expect(cell.key).toBe(`${key}-${MOCK_FILE_DATA_TASKS.QUEUED.data.id}`);
@@ -52,7 +51,7 @@ describe('DELETE_TABLE_RESOLVERS', () => {
         'returns the expected cell values when `key` is "name" for an item with "$status" status',
         (item) => {
           const key = 'name';
-          const output = DELETE_TABLE_RESOLVERS.getCell({
+          const output = DOWNLOAD_TABLE_RESOLVERS.getCell({
             item,
             key,
             props: mockProps,
@@ -73,7 +72,7 @@ describe('DELETE_TABLE_RESOLVERS', () => {
         'returns the expected cell values when `key` is `folder` for an item with "$status" status',
         (item) => {
           const key = 'folder';
-          const output = DELETE_TABLE_RESOLVERS.getCell({
+          const output = DOWNLOAD_TABLE_RESOLVERS.getCell({
             item,
             key,
             props: mockProps,
@@ -91,7 +90,7 @@ describe('DELETE_TABLE_RESOLVERS', () => {
         'returns the expected cell values when `key` is `status` for an item with "$status" status',
         (item) => {
           const key = 'status';
-          const output = DELETE_TABLE_RESOLVERS.getCell({
+          const output = DOWNLOAD_TABLE_RESOLVERS.getCell({
             item,
             key,
             props: mockProps,
@@ -109,7 +108,7 @@ describe('DELETE_TABLE_RESOLVERS', () => {
         'returns the expected cell values when `key` is `type` for an item with "$status" status',
         (item) => {
           const key = 'type';
-          const output = DELETE_TABLE_RESOLVERS.getCell({
+          const output = DOWNLOAD_TABLE_RESOLVERS.getCell({
             item,
             key,
             props: mockProps,
@@ -130,9 +129,9 @@ describe('DELETE_TABLE_RESOLVERS', () => {
           const item = {
             ...MOCK_FILE_DATA_TASKS.FAILED,
             status: 'OVERWRITE_PREVENTED',
-          } as DeleteActionTask;
+          } as DownloadActionTask;
 
-          const output = DELETE_TABLE_RESOLVERS.getCell({
+          const output = DOWNLOAD_TABLE_RESOLVERS.getCell({
             item,
             key,
             props: mockProps,
@@ -152,7 +151,7 @@ describe('DELETE_TABLE_RESOLVERS', () => {
         'returns the expected cell values when `key` is `size` for an item with "$status" status',
         (item) => {
           const key = 'size';
-          const output = DELETE_TABLE_RESOLVERS.getCell({
+          const output = DOWNLOAD_TABLE_RESOLVERS.getCell({
             item,
             key,
             props: mockProps,
@@ -172,7 +171,7 @@ describe('DELETE_TABLE_RESOLVERS', () => {
         it('returns the expected cell values for an `item` with "QUEUED" status when `isProcessing` is "true"', () => {
           const key = 'cancel';
           const item = MOCK_FILE_DATA_TASKS.QUEUED;
-          const output = DELETE_TABLE_RESOLVERS.getCell({
+          const output = DOWNLOAD_TABLE_RESOLVERS.getCell({
             item,
             key,
             props: mockProps,
@@ -193,7 +192,7 @@ describe('DELETE_TABLE_RESOLVERS', () => {
         it('returns the expected cell values for an `item` with "QUEUED" status when `isProcessing` is "false"', () => {
           const key = 'cancel';
           const item = MOCK_FILE_DATA_TASKS.QUEUED;
-          const output = DELETE_TABLE_RESOLVERS.getCell({
+          const output = DOWNLOAD_TABLE_RESOLVERS.getCell({
             item,
             key,
             props: { ...mockProps, isProcessing: false },
@@ -215,7 +214,7 @@ describe('DELETE_TABLE_RESOLVERS', () => {
           'returns the expected cell values for an `item` with "$status" status',
           (item) => {
             const key = 'cancel';
-            const output = DELETE_TABLE_RESOLVERS.getCell({
+            const output = DOWNLOAD_TABLE_RESOLVERS.getCell({
               item,
               key,
               props: mockProps,
@@ -243,7 +242,7 @@ describe('DELETE_TABLE_RESOLVERS', () => {
       'returns the expected header data for a %s column',
       (key) => {
         const data = { key, props: mockProps };
-        const output = DELETE_TABLE_RESOLVERS.getHeader(data);
+        const output = DOWNLOAD_TABLE_RESOLVERS.getHeader(data);
 
         expect(output).toStrictEqual({
           key,
@@ -256,7 +255,7 @@ describe('DELETE_TABLE_RESOLVERS', () => {
     it('returns the expected header data for a cancel column', () => {
       const key = 'cancel' as const;
       const data = { key, props: mockProps };
-      const output = DELETE_TABLE_RESOLVERS.getHeader(data);
+      const output = DOWNLOAD_TABLE_RESOLVERS.getHeader(data);
 
       expect(output).toStrictEqual({
         key,
@@ -268,7 +267,7 @@ describe('DELETE_TABLE_RESOLVERS', () => {
 
   describe('getRowKey', () => {
     it('resolves a row key as expected', () => {
-      const rowKey = DELETE_TABLE_RESOLVERS.getRowKey({
+      const rowKey = DOWNLOAD_TABLE_RESOLVERS.getRowKey({
         item: MOCK_FILE_DATA_TASKS.PENDING,
         props: mockProps,
       });
