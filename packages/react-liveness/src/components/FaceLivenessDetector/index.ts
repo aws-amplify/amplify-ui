@@ -7,6 +7,9 @@ export type {
   AwsTemporaryCredentials,
   AwsCredentials,
   ErrorState,
+} from './service';
+
+export {
   FACE_MOVEMENT_CHALLENGE,
   FACE_MOVEMENT_AND_LIGHT_CHALLENGE,
   SUPPORTED_CHALLENGES,
