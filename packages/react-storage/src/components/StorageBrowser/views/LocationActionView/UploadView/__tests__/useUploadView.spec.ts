@@ -1,14 +1,13 @@
-import { renderHook, act } from '@testing-library/react-hooks';
+import { act, renderHook } from '@testing-library/react';
 
-import { FileItem, LocationData } from '../../../../actions';
-import { useFiles } from '../../../../files';
+import type { FileItem, LocationData } from '../../../../actions';
+import { useFileItems } from '../../../../fileItems';
 import { useStore } from '../../../../store';
-import { Task, INITIAL_STATUS_COUNTS } from '../../../../tasks';
+import { INITIAL_STATUS_COUNTS, Task } from '../../../../tasks';
 import { useAction } from '../../../../useAction';
-import { UPLOAD_FILE_SIZE_LIMIT } from '../../../../validators/isFileTooBig';
 import { useUploadView } from '../useUploadView';
 
-jest.mock('../../../../files');
+jest.mock('../../../../fileItems');
 jest.mock('../../../../store');
 jest.mock('../../../../useAction');
 
@@ -33,10 +32,7 @@ const fileItemTwo = {
   file: testFileTwo,
   key: testFileTwo.name,
 };
-const invalidFile = {
-  ...new File([], 'invalid-file'),
-  size: UPLOAD_FILE_SIZE_LIMIT + 1,
-};
+const invalidFile = new File([], 'invalid-file');
 const invalidFileItem = {
   id: 'invalid-file-uuid',
   file: invalidFile,
@@ -60,23 +56,31 @@ const taskTwo: Task<FileItem> = {
 };
 
 describe('useUploadView', () => {
+  const mockFileItemsState = {
+    validItems: undefined,
+    invalidItems: undefined,
+  };
+
   const mockUserStoreState = {
     actionType: 'upload',
     location: { current: rootLocation, path: '', key: '' },
   };
 
   const mockUseAction = jest.mocked(useAction);
-  const mockUseFiles = jest.mocked(useFiles);
+  const mockUseFileItems = jest.mocked(useFileItems);
   const mockUseStore = jest.mocked(useStore);
 
   const mockCancel = jest.fn();
-  const mockFilesDispatch = jest.fn();
+  const mockFileItemsDispatch = jest.fn();
   const mockHandleUpload = jest.fn();
   const mockStoreDispatch = jest.fn();
 
   beforeEach(() => {
     mockUseStore.mockReturnValue([mockUserStoreState, mockStoreDispatch]);
-    mockUseFiles.mockReturnValue([undefined, mockFilesDispatch]);
+    mockUseFileItems.mockReturnValue([
+      mockFileItemsState,
+      mockFileItemsDispatch,
+    ]);
     mockUseAction.mockReturnValue([
       {
         isProcessing: false,
@@ -94,37 +98,40 @@ describe('useUploadView', () => {
 
   afterEach(jest.clearAllMocks);
 
-  it('should call `filesDispatch` when onDropFiles is invoked', () => {
+  it('should call `fileItemsDispatch` when onDropFiles is invoked', () => {
     const { result } = renderHook(() => useUploadView());
 
     act(() => {
       result.current.onDropFiles([testFileOne]);
     });
 
-    expect(mockFilesDispatch).toHaveBeenCalledTimes(1);
-    expect(mockFilesDispatch).toHaveBeenCalledWith({
-      type: 'ADD_FILE_ITEMS',
+    expect(mockFileItemsDispatch).toHaveBeenCalledTimes(1);
+    expect(mockFileItemsDispatch).toHaveBeenCalledWith({
+      type: 'ADD_FILES',
       files: [testFileOne],
     });
   });
 
   it('should show invalid files if exists', () => {
-    mockUseFiles.mockReturnValue([[invalidFileItem], mockFilesDispatch]);
+    mockUseFileItems.mockReturnValue([
+      { validItems: undefined, invalidItems: [invalidFileItem] },
+      mockFileItemsDispatch,
+    ]);
 
     const { result } = renderHook(() => useUploadView());
 
     expect(result.current.invalidFiles).toEqual([invalidFileItem]);
   });
 
-  it('should call `filesDispatch` when `onSelectFiles` is invoked with different types', () => {
+  it('should call `fileItemsDispatch` when `onSelectFiles` is invoked with different types', () => {
     const { result } = renderHook(() => useUploadView());
 
     act(() => {
       result.current.onSelectFiles('FILE');
     });
 
-    expect(mockFilesDispatch).toHaveBeenCalledTimes(1);
-    expect(mockFilesDispatch).toHaveBeenCalledWith({
+    expect(mockFileItemsDispatch).toHaveBeenCalledTimes(1);
+    expect(mockFileItemsDispatch).toHaveBeenCalledWith({
       type: 'SELECT_FILES',
       selectionType: 'FILE',
     });
@@ -133,30 +140,14 @@ describe('useUploadView', () => {
       result.current.onSelectFiles('FOLDER');
     });
 
-    expect(mockFilesDispatch).toHaveBeenCalledTimes(2);
-    expect(mockFilesDispatch).toHaveBeenCalledWith({
+    expect(mockFileItemsDispatch).toHaveBeenCalledTimes(2);
+    expect(mockFileItemsDispatch).toHaveBeenCalledWith({
       type: 'SELECT_FILES',
       selectionType: 'FOLDER',
     });
   });
 
-  it('should call mockHandleUpload with the expected values', () => {
-    mockUseFiles.mockReturnValue([[invalidFileItem], mockFilesDispatch]);
-
-    const { result } = renderHook(() => useUploadView());
-
-    act(() => {
-      result.current.onActionStart();
-    });
-
-    expect(mockFilesDispatch).toHaveBeenCalledTimes(1);
-    expect(mockFilesDispatch).toHaveBeenCalledWith({
-      type: 'REMOVE_FILE_ITEM',
-      id: invalidFileItem.id,
-    });
-  });
-
-  it('should remove any invalid files action is started', () => {
+  it('should call `handleUpload` when `onActionStart` is invoked', () => {
     const { result } = renderHook(() => useUploadView());
     act(() => {
       result.current.onActionStart();
@@ -207,7 +198,7 @@ describe('useUploadView', () => {
     expect(onExit).toHaveBeenCalledTimes(1);
     expect(onExit).toHaveBeenCalledWith(rootLocation);
 
-    expect(mockFilesDispatch.mock.calls).toEqual([
+    expect(mockFileItemsDispatch.mock.calls).toEqual([
       [{ type: 'RESET_FILE_ITEMS' }],
     ]);
 

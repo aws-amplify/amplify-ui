@@ -162,6 +162,12 @@ export const { StorageBrowser } = createStorageBrowser({
 </ExampleCode>
 </Example>
 
+<Message colorTheme="info" variation="filled" heading="Working with existing S3 storage">
+Amplify also supports [bringing in existing S3 resources](https://docs.amplify.aws/react/build-a-backend/storage/use-with-custom-s3/) instead of creating a new storage resource. When adding Storage Browser to access these resources, you may need to modify some of the example code listed in the provided documentation. 
+
+In the case where you are adding Storage Browser with an [Amplify backend configured with an existing S3 bucket](https://docs.amplify.aws/react/build-a-backend/storage/use-with-custom-s3/#configure-the-s3-bucket), keep in mind that the optional properties `buckets` and `paths` listed in the configuration examples are **required** by Storage Browser to display the bucket correctly. 
+</Message>
+
 ### IAM Identity Center and S3 Access Grants
 
 To use this authorization method, you first have to configure an IAM Identity Center and set up permission grants for your users and groups in S3 Access Grants. Then, you connect your application to Identity Center and configure your application to exchange an identity token from your external Identity Provider with one from Identity Center. Afterwards, you configure your application to provide the Identity Center token to Storage Browser when a user opens the page in your application to access your data in S3. To learn more, visit the [S3 documentation](https://docs.aws.amazon.com/AmazonS3/latest/userguide/storage-browser.html).
@@ -578,6 +584,23 @@ export const generateUrlHandler: GenerateLink = ({ data, config, options }) => {
 
 <Message colorTheme="info" variation='filled' heading="Security best practice">
 This example is for demonstration purpose only. For more details, please refer to the [presigned URLs documentation](https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-presigned-url.html#PresignedUrl-Expiration)
+</Message>
+
+### Customize file validation
+
+`createStorageBrowser` allows customization of the Storage Browser settings by passing `options` . To customize file validation, provide a `validateFile` prop in `options` to replace the default file validation performed when selecting files. On file selection events, `validateFile` runs against each selected file and returns `true` if the file is considered valid.
+
+[Custom `displayText`](#display-text) should also be used to show a different error message to reflect your custom validation.
+
+Below is an example to override file validation for Storage Browser to only accept image files that are less than or equal to 1 MB in size, and displays a custom error message if an invalid file is selected.
+<Example>
+<ExampleCode>
+```jsx file=./examples/CustomFileValidation.tsx
+```
+</ExampleCode>
+</Example>
+<Message colorTheme="info" variation='filled' heading="Validation best practice">
+When creating custom validation, it is important to ensure that valid files also adhere to the [S3 quota limits](https://docs.aws.amazon.com/general/latest/gr/s3.html#limits_s3). A file **will** fail during upload if it exceeds the S3 limits, even if the custom validation succeeded when selecting the file.
 </Message>
 
 ## Initializing `StorageBrowser` with a default location

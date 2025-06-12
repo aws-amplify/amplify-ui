@@ -1,4 +1,4 @@
-import { act, renderHook } from '@testing-library/react-hooks';
+import { act, renderHook, waitFor } from '@testing-library/react';
 import { createAIHooks } from '../createAIHooks';
 import { ConversationStreamEvent } from '../../types';
 
@@ -15,7 +15,7 @@ const onStreamEventMock = jest
       return { unsubscribe: jest.fn() };
     }
   );
-// .mockReturnValue({ unsubscribe: jest.fn() });
+
 const generateRecipeMock = jest.fn();
 const id = 'foobar';
 
@@ -59,18 +59,17 @@ describe('useAIConverstion', () => {
 
     expect(useAIConversation).toBeDefined();
 
-    const { result, waitForNextUpdate } = renderHook(() =>
-      useAIConversation('pirateChat')
-    );
-    await waitForNextUpdate();
-    const [
-      {
-        data: { messages },
-      },
-      sendMessage,
-    ] = result.current;
-    expect(messages).toHaveLength(0);
-    expect(sendMessage).toBeDefined();
+    const { result } = renderHook(() => useAIConversation('pirateChat'));
+    await waitFor(() => {
+      const [
+        {
+          data: { messages },
+        },
+        sendMessage,
+      ] = result.current;
+      expect(messages).toHaveLength(0);
+      expect(sendMessage).toBeDefined();
+    });
   });
 
   it('hook can send a message which updates state', async () => {
@@ -79,62 +78,70 @@ describe('useAIConverstion', () => {
 
     expect(useAIConversation).toBeDefined();
 
-    const { result, waitForNextUpdate } = renderHook(() =>
-      useAIConversation('pirateChat')
-    );
+    const { result } = renderHook(() => useAIConversation('pirateChat'));
 
-    await waitForNextUpdate();
+    const initState = result.current[0];
 
-    const [_data, sendMessage] = result.current;
+    expect(initState.data.conversation).toBeUndefined();
+
+    await waitFor(() => {
+      const nextState = result.current[0];
+      expect(nextState.data.conversation).toBeDefined();
+    });
+
+    const sendMessage = result.current[1];
 
     act(() => {
       sendMessage({ content: [{ text: '' }] });
     });
 
-    expect(result.current[0].data.messages).toHaveLength(2);
-    expect(sendMessageMock).toHaveBeenCalled();
+    await waitFor(() => {
+      expect(result.current[0].data.messages).toHaveLength(2);
+      expect(sendMessageMock).toHaveBeenCalled();
+    });
   });
 
-  it('can call onInitialize', () => {
+  it('can call onInitialize', async () => {
     const client = new mockClient();
     const { useAIConversation } = createAIHooks(client);
+    const onInitialize = jest.fn();
 
     expect(useAIConversation).toBeDefined();
 
-    const { waitForNextUpdate } = renderHook(() =>
+    renderHook(() =>
       useAIConversation('pirateChat', {
-        onInitialize: (conversation) => {
-          expect(conversation).toBeDefined();
-        },
+        onInitialize,
       })
     );
 
-    waitForNextUpdate();
+    await waitFor(() => {
+      expect(onInitialize).toHaveBeenCalledTimes(1);
+    });
   });
 
   it('should fire onMessage', async () => {
     const client = new mockClient();
     const { useAIConversation } = createAIHooks(client);
     const onMessage = jest.fn();
-    const { result, waitForNextUpdate } = renderHook(() =>
+    const { result } = renderHook(() =>
       useAIConversation('pirateChat', { onMessage })
     );
 
-    await waitForNextUpdate();
+    await waitFor(() => {
+      const [_data] = result.current;
 
-    const [_data] = result.current;
-
-    act(() => {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-      _next({
-        stopReason: 'end_turn',
-        conversationId: 'XXX',
-        id: '123',
-        contentBlockIndex: 0,
-        associatedUserMessageId: 'XXX',
+      act(() => {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+        _next({
+          stopReason: 'end_turn',
+          conversationId: 'XXX',
+          id: '123',
+          contentBlockIndex: 0,
+          associatedUserMessageId: 'XXX',
+        });
       });
-    });
 
-    expect(onMessage).toHaveBeenCalled();
+      expect(onMessage).toHaveBeenCalled();
+    });
   });
 });

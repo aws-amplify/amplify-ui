@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook, waitFor } from '@testing-library/react';
 import * as Storage from 'aws-amplify/storage';
 
 import useGetUrl, { UseGetUrlInput } from '../useGetUrl';
@@ -30,9 +30,7 @@ describe('useGetUrl', () => {
     it('should return a Storage URL', async () => {
       getUrlSpy.mockResolvedValue({ url, expiresAt: new Date() });
 
-      const { result, waitForNextUpdate } = renderHook(() =>
-        useGetUrl(KEY_INPUT)
-      );
+      const { result } = renderHook(() => useGetUrl(KEY_INPUT));
 
       expect(getUrlSpy).toHaveBeenCalledWith({
         key: KEY_INPUT.key,
@@ -42,20 +40,18 @@ describe('useGetUrl', () => {
       expect(result.current.url).toBe(undefined);
 
       // Next update will happen when getUrl resolves
-      await waitForNextUpdate();
-
-      expect(getUrlSpy).toHaveBeenCalledTimes(1);
-      expect(result.current.isLoading).toBe(false);
-      expect(result.current.url).toBe(url);
+      await waitFor(() => {
+        expect(getUrlSpy).toHaveBeenCalledTimes(1);
+        expect(result.current.isLoading).toBe(false);
+        expect(result.current.url).toBe(url);
+      });
     });
 
     it('should invoke onStorageGetError when getUrl fails', async () => {
       const customError = new Error('Something went wrong');
       getUrlSpy.mockRejectedValue(customError);
 
-      const { result, waitForNextUpdate } = renderHook(() =>
-        useGetUrl(KEY_INPUT)
-      );
+      const { result } = renderHook(() => useGetUrl(KEY_INPUT));
 
       expect(getUrlSpy).toHaveBeenCalledWith({
         key: KEY_INPUT.key,
@@ -63,12 +59,12 @@ describe('useGetUrl', () => {
       });
 
       // Next update will happen when getUrl resolves
-      await waitForNextUpdate();
-
-      expect(result.current.isLoading).toBe(false);
-      expect(result.current.url).toBe(undefined);
-      expect(onError).toHaveBeenCalledTimes(1);
-      expect(onError).toHaveBeenCalledWith(customError);
+      await waitFor(() => {
+        expect(result.current.isLoading).toBe(false);
+        expect(result.current.url).toBe(undefined);
+        expect(onError).toHaveBeenCalledTimes(1);
+        expect(onError).toHaveBeenCalledWith(customError);
+      });
     });
   });
 
@@ -76,39 +72,35 @@ describe('useGetUrl', () => {
     it('should return a Storage URL', async () => {
       getUrlSpy.mockResolvedValue({ url, expiresAt: new Date() });
 
-      const { result, waitForNextUpdate } = renderHook(() =>
-        useGetUrl(PATH_INPUT)
-      );
+      const { result } = renderHook(() => useGetUrl(PATH_INPUT));
 
       expect(getUrlSpy).toHaveBeenCalledWith({ path: PATH_INPUT.path });
       expect(result.current.isLoading).toBe(true);
       expect(result.current.url).toBe(undefined);
 
       // Next update will happen when getUrl resolves
-      await waitForNextUpdate();
-
-      expect(getUrlSpy).toHaveBeenCalledTimes(1);
-      expect(result.current.isLoading).toBe(false);
-      expect(result.current.url).toBe(url);
+      await waitFor(() => {
+        expect(getUrlSpy).toHaveBeenCalledTimes(1);
+        expect(result.current.isLoading).toBe(false);
+        expect(result.current.url).toBe(url);
+      });
     });
 
     it('should invoke onGetUrlError when getUrl fails', async () => {
       const customError = new Error('Something went wrong');
       getUrlSpy.mockRejectedValue(customError);
 
-      const { result, waitForNextUpdate } = renderHook(() =>
-        useGetUrl(PATH_INPUT)
-      );
+      const { result } = renderHook(() => useGetUrl(PATH_INPUT));
 
       expect(getUrlSpy).toHaveBeenCalledWith({ path: PATH_INPUT.path });
 
       // Next update will happen when getUrl resolves
-      await waitForNextUpdate();
-
-      expect(result.current.isLoading).toBe(false);
-      expect(result.current.url).toBe(undefined);
-      expect(onError).toHaveBeenCalledTimes(1);
-      expect(onError).toHaveBeenCalledWith(customError);
+      await waitFor(() => {
+        expect(result.current.isLoading).toBe(false);
+        expect(result.current.url).toBe(undefined);
+        expect(onError).toHaveBeenCalledTimes(1);
+        expect(onError).toHaveBeenCalledWith(customError);
+      });
     });
   });
 
@@ -121,7 +113,7 @@ describe('useGetUrl', () => {
       .mockResolvedValueOnce({ url, expiresAt: new Date() })
       .mockResolvedValueOnce({ url: secondUrl, expiresAt: new Date() });
 
-    const { result, waitForNextUpdate, rerender } = renderHook(
+    const { result, rerender } = renderHook(
       (input: UseGetUrlInput = PATH_INPUT) => useGetUrl(input)
     );
 
@@ -134,15 +126,15 @@ describe('useGetUrl', () => {
     expect(result.current.url).toBe(undefined);
 
     // Next update will happen when getUrl resolves
-    await waitForNextUpdate();
+    await waitFor(() => {
+      expect(getUrlSpy).toHaveBeenCalledWith({
+        path: 'guest/second-file.jpg',
+      });
 
-    expect(getUrlSpy).toHaveBeenCalledWith({
-      path: 'guest/second-file.jpg',
+      expect(getUrlSpy).toHaveBeenCalledTimes(2);
+      expect(result.current.isLoading).toBe(false);
+      expect(result.current.url).toBe(secondUrl);
     });
-
-    expect(getUrlSpy).toHaveBeenCalledTimes(2);
-    expect(result.current.isLoading).toBe(false);
-    expect(result.current.url).toBe(secondUrl);
   });
 
   it('ignores the first response if rerun a second time before the first call resolves in the unhappy path', async () => {
@@ -153,7 +145,7 @@ describe('useGetUrl', () => {
       .mockRejectedValueOnce(firstError)
       .mockRejectedValueOnce(secondError);
 
-    const { result, waitForNextUpdate, rerender } = renderHook(
+    const { result, rerender } = renderHook(
       (input: UseGetUrlInput = PATH_INPUT) => useGetUrl(input)
     );
 
@@ -167,13 +159,13 @@ describe('useGetUrl', () => {
     expect(result.current.url).toBe(undefined);
     expect(onError).toHaveBeenCalledTimes(0);
 
-    await waitForNextUpdate();
-
-    expect(result.current.isLoading).toBe(false);
-    expect(getUrlSpy).toHaveBeenCalledTimes(2);
-    expect(result.current.url).toBe(undefined);
-    expect(onError).toHaveBeenCalledTimes(1);
-    expect(onError).toHaveBeenCalledWith(secondError);
+    await waitFor(() => {
+      expect(result.current.isLoading).toBe(false);
+      expect(getUrlSpy).toHaveBeenCalledTimes(2);
+      expect(result.current.url).toBe(undefined);
+      expect(onError).toHaveBeenCalledTimes(1);
+      expect(onError).toHaveBeenCalledWith(secondError);
+    });
   });
 
   it('does not call `onError` if it is not a function', async () => {
@@ -183,7 +175,7 @@ describe('useGetUrl', () => {
 
     const input = { ...PATH_INPUT, onError: null };
 
-    const { result, waitForNextUpdate } = renderHook(() =>
+    const { result } = renderHook(() =>
       // @ts-expect-error test against invalid input
       useGetUrl(input)
     );
@@ -192,10 +184,10 @@ describe('useGetUrl', () => {
     expect(getUrlSpy).toHaveBeenCalledWith({ path: PATH_INPUT.path });
     expect(result.current.url).toBe(undefined);
 
-    await waitForNextUpdate();
-
-    expect(result.current.isLoading).toBe(false);
-    expect(result.current.url).toBe(undefined);
-    expect(onError).toHaveBeenCalledTimes(0);
+    await waitFor(() => {
+      expect(result.current.isLoading).toBe(false);
+      expect(result.current.url).toBe(undefined);
+      expect(onError).toHaveBeenCalledTimes(0);
+    });
   });
 });
