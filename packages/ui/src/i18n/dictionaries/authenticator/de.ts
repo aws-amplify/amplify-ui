@@ -101,6 +101,8 @@ export const deDict: AuthenticatorDictionary = {
   'Have an account? ': 'Schon registriert? ',
   'Incorrect username or password':
     'Falscher Benutzername oder falsches Passwort',
+  'Incorrect username or password.':
+    'Falscher Benutzername oder falsches Passwort',
   'Invalid password format': 'Ungültiges Passwort-Format',
   'Invalid phone number format': `Ungültiges Telefonummern-Format. Benutze eine Nummer im Format: +12345678900`,
   'It may take a minute to arrive.':
