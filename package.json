@@ -81,8 +81,6 @@
     "**/@size-limit/webpack/webpack": "^5.76.0",
     "**/serve/serve-handler/minimatch": "3.0.5",
     "**/serve/serve-handler/path-to-regexp": "3.3.0",
-    "**/serve/serve-handler/minimatch": "3.0.5",
-    "**/serve/serve-handler/path-to-regexp": "3.3.0",
     "@aws-amplify/data-schema": "^1.19.0",
     "@adobe/css-tools": "^4.3.2",
     "@sideway/formula": "^3.0.1",
