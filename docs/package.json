@@ -35,7 +35,7 @@
     "gray-matter": "^4.0.3",
     "lodash": "^4.17.21",
     "mdx-prism": "^0.3.3",
-    "next": "^14.2.25",
+    "next": "^14.2.30",
     "next-plugin-preval": "^1.2.1",
     "prism-react-renderer": "1.2.1",
     "raw-loader": "^4.0.2",
