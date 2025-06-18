@@ -1,0 +1,19 @@
+## Challenge Options
+
+Certain liveness challenges have client-side options that you can configure based on your business requirements. For example, you can configure the `FaceMovement` challenge to use either the device's front-facing camera or back-facing camera.
+
+```kotlin
+FaceLivenessDetector(
+    sessionId = <session ID>,
+    region = <region>,
+    challengeOptions = ChallengeOptions(
+        faceMovement = LivenessChallenge.FaceMovement(camera = Camera.Back)
+    ),
+    onComplete = {
+        Log.i("MyApp", "Face Liveness flow is complete")
+    },
+    onError = { error ->
+        Log.e("MyApp", "Error during Face Liveness flow", error)
+    }
+)
+```
