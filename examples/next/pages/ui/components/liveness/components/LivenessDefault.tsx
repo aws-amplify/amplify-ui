@@ -1,23 +1,27 @@
 import React from 'react';
 import { View, Flex, Loader, Text } from '@aws-amplify/ui-react';
-import {
-  FaceLivenessDetectorCore,
-  FACE_MOVEMENT_AND_LIGHT_CHALLENGE,
-  SUPPORTED_CHALLENGES,
-} from '@aws-amplify/ui-react-liveness';
+import { FaceLivenessDetectorCore } from '@aws-amplify/ui-react-liveness';
 import { useLiveness } from './useLiveness';
 import { ChallengeSelection } from './ChallengeSelection';
 import { SessionIdAlert } from './SessionIdAlert';
 import LivenessInlineResults from './LivenessInlineResults';
 
-const DEFAULT_CHALLENGE = FACE_MOVEMENT_AND_LIGHT_CHALLENGE.type;
+const FACE_MOVEMENT_AND_LIGHT_CHALLENGE = 'FaceMovementAndLightChallenge';
+const FACE_MOVEMENT_CHALLENGE = 'FaceMovementChallenge';
+
+const SUPPORTED_CHALLENGES_TYPES = [
+  FACE_MOVEMENT_AND_LIGHT_CHALLENGE,
+  FACE_MOVEMENT_CHALLENGE,
+];
 
 export default function LivenessDefault({
   components = undefined,
   credentialProvider = undefined,
   disableStartScreen = false,
 }) {
-  const [challengeType, setChallengeType] = React.useState(DEFAULT_CHALLENGE);
+  const [challengeType, setChallengeType] = React.useState(
+    FACE_MOVEMENT_AND_LIGHT_CHALLENGE
+  );
 
   const {
     getLivenessResponse,
@@ -47,9 +51,7 @@ export default function LivenessDefault({
           <ChallengeSelection
             selectedChallenge={challengeType}
             onChange={setChallengeType}
-            challengeList={SUPPORTED_CHALLENGES.map(
-              (challenge) => challenge.type
-            )}
+            challengeList={SUPPORTED_CHALLENGES_TYPES}
           />
           <SessionIdAlert
             sessionId={createLivenessSessionApiData['sessionId']}
