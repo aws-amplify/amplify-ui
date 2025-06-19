@@ -7,7 +7,7 @@ permissions:
 
 on:
   push:
-    branches: [osama/build-system-test]
+    branches: [liveness/no-lights-feature-run-e2e]
 
 jobs:
   build:
