@@ -232,10 +232,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         },
       },
       initWebsocket: {
-        entry: () => {
-          // eslint-disable-next-line no-console
-          console.log('initWebsocket');
-        },
+        entry: () => {},
         initial: 'initializeLivenessStream',
         states: {
           initializeLivenessStream: {
@@ -251,10 +248,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             },
           },
           waitForSessionInfo: {
-            entry: () => {
-              // eslint-disable-next-line no-console
-              console.log('waitForSessionInfo');
-            },
+            entry: () => {},
             after: {
               0: {
                 target: '#livenessMachine.start',
@@ -266,13 +260,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         },
       },
       start: {
-        entry: [
-          'initializeFaceDetector',
-          () => {
-            // eslint-disable-next-line no-console
-            console.log('start');
-          },
-        ],
+        entry: ['initializeFaceDetector', () => {}],
         always: [
           {
             target: 'detectFaceBeforeStart',
@@ -364,10 +352,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             },
           },
           checkRecordingStarted: {
-            entry: () => {
-              // eslint-disable-next-line no-console
-              console.log('checkRecordingStarted');
-            },
+            entry: () => {},
             after: {
               0: {
                 target: 'ovalMatching',
@@ -393,10 +378,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           // for one second to show "Hold still" text before moving to `flashFreshnessColors`.
           // If not, move back to ovalMatching and re-evaluate match state
           checkMatch: {
-            entry: () => {
-              // eslint-disable-next-line no-console
-              console.log('checkMatch');
-            },
+            entry: () => {},
             after: {
               0: {
                 target: 'handleChallenge',
@@ -413,10 +395,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             },
           },
           handleChallenge: {
-            entry: () => {
-              // eslint-disable-next-line no-console
-              console.log('handleChallenge');
-            },
+            entry: () => {},
             always: [
               {
                 target: 'delayBeforeFlash',
@@ -429,10 +408,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             ],
           },
           delayBeforeFlash: {
-            entry: () => {
-              // eslint-disable-next-line no-console
-              console.log('delayBeforeFlash');
-            },
+            entry: () => {},
             after: { 1000: 'flashFreshnessColors' },
           },
           flashFreshnessColors: {
@@ -472,10 +448,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             },
           },
           waitForDisconnectEvent: {
-            entry: () => {
-              // eslint-disable-next-line no-console
-              console.log('waitForDisconnectEvent');
-            },
+            entry: () => {},
             after: {
               0: { cond: 'getShouldDisconnect', target: 'getLivenessResult' },
               100: { target: 'waitForDisconnectEvent' },
@@ -639,10 +612,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           return { ...context.videoAssociatedParams };
         },
       }),
-      stopRecording: () => {
-        // eslint-disable-next-line no-console
-        console.log('stop recording');
-      },
+      stopRecording: () => {},
       updateFaceMatchBeforeStartDetails: assign({
         faceMatchStateBeforeStart: (_, event) =>
           event.data!.faceMatchState as FaceMatchState,
@@ -923,33 +893,15 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         );
       },
       hasEnoughFaceDistanceBeforeRecording: (context) => {
-        // eslint-disable-next-line no-console
-        console.log(
-          'hasEnoughFaceDistanceBeforeRecording: ',
-          context.isFaceFarEnoughBeforeRecording
-        );
-
         return context.isFaceFarEnoughBeforeRecording!;
       },
       hasNotEnoughFaceDistanceBeforeRecording: (context) => {
         return !context.isFaceFarEnoughBeforeRecording;
       },
       hasFreshnessColorShown: (context) => {
-        // eslint-disable-next-line no-console
-        console.log(
-          'hasFreshnessColorShown: ',
-          context.freshnessColorAssociatedParams!.freshnessColorsComplete!
-        );
-
         return context.freshnessColorAssociatedParams!.freshnessColorsComplete!;
       },
       hasParsedSessionInfo: (context) => {
-        // eslint-disable-next-line no-console
-        console.log(
-          'hasParsedSessionInfo',
-          context.parsedSessionInformation !== undefined
-        );
-
         return context.parsedSessionInformation !== undefined;
       },
       hasDOMAndCameraDetails: (context) => {
@@ -972,18 +924,9 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         );
       },
       getShouldDisconnect: (context) => {
-        // eslint-disable-next-line no-console
-        console.log('getShouldDisconnect', !!context.shouldDisconnect);
-
         return !!context.shouldDisconnect;
       },
       hasRecordingStarted: (context) => {
-        // eslint-disable-next-line no-console
-        console.log(
-          'hasRecordingStarted: ',
-          context.livenessStreamProvider!.hasRecordingStarted()
-        );
-
         return context.livenessStreamProvider!.hasRecordingStarted();
       },
       shouldSkipStartScreen: (context) => {
