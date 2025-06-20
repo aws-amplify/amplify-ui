@@ -16,6 +16,6 @@ Then('I see the {string} timeout error', (message: string) => {
 Then(
   'I click the {string} selectfield and select the {string} option',
   (selectFieldName: string, optionValue: string) => {
-    cy.get('select').scrollIntoView().select(optionValue);
+    cy.findByDisplayValue(selectFieldName).select(optionValue);
   }
 );
