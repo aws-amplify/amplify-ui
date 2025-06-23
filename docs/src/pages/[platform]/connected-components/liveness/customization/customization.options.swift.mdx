@@ -4,20 +4,19 @@ Certain liveness challenges have client-side options that you can configure base
 
 ```swift
 FaceLivenessDetectorView(
-  sessionID: <session ID>,
-  region: <region>,
-  disableStartView: true,
-  challengeOptions: .init(faceMovementChallengeOption: FaceMovementChallengeOption(camera: .back),
-  isPresented: $isPresentingLiveness,
-  onCompletion: { result in
-    switch result {
-    case .success:
-      // ...
-    case .failure(let error):
-      // ...
-    default:
-      // ...
+    sessionID: <session ID>,
+    region: <region>,
+    challengeOptions: .init(faceMovementChallengeOption: .init(camera: .back)),
+    isPresented:  $isPresentingLiveness,
+    onCompletion: { result in
+        switch result {
+        case .success:
+          // ...
+        case .failure(let error):
+          // ...
+        default:
+          // ...
+        }
     }
-  }
 )
 ```
