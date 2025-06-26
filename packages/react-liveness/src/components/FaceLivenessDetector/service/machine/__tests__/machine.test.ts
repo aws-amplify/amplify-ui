@@ -4,11 +4,9 @@ import { setImmediate } from 'timers';
 import {
   FaceLivenessDetectorProps,
   FaceMatchState,
-  FaceMovementAndLightChallenge,
   IlluminationState,
   LivenessErrorState,
   LivenessInterpreter,
-  ParsedSessionInformation,
 } from '../../types';
 import * as helpers from '../../utils';
 import {
@@ -76,31 +74,6 @@ const machine = livenessMachine.withContext({
   },
   shouldDisconnect: false,
 });
-
-const createMachineWithContext = (
-  parsedSessionInformation: ParsedSessionInformation
-) =>
-  livenessMachine.withContext({
-    ...livenessMachine.context,
-    colorSequenceDisplay: mockColorDisplay,
-    componentProps: mockComponentProps,
-    maxFailedAttempts: 1,
-    faceMatchAssociatedParams: {
-      illuminationState: IlluminationState.NORMAL,
-      faceMatchState: FaceMatchState.MATCHED,
-      faceMatchPercentage: 100,
-      currentDetectedFace: mockFace,
-      startFace: mockFace,
-      endFace: mockFace,
-    },
-    freshnessColorAssociatedParams: {
-      freshnessColorEl: document.createElement('canvas'),
-      freshnessColors: [],
-      freshnessColorsComplete: false,
-    },
-    shouldDisconnect: false,
-    parsedSessionInformation,
-  });
 
 let service: LivenessInterpreter;
 
