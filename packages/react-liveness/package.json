@@ -64,8 +64,8 @@
     "@tensorflow/tfjs-converter": "4.11.0",
     "@tensorflow/tfjs-core": "4.11.0",
     "@xstate/react": "^3.2.2",
-    "nanoid": "3.3.8",
     "tslib": "^2.5.2",
+    "uuid": "^11.1.0",
     "xstate": "^4.33.6"
   },
   "devDependencies": {
