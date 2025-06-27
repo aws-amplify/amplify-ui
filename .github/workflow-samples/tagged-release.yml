@@ -14,7 +14,7 @@ on:
   # This can be useful for publishing hotfixes quickly to unblock customers,
   # but otherwise, we recommend to use a release branch.
   push:
-    branches: [<BRANCH>]
+    branches: [<BRANCH>, branch-name-run-e2e, fix-next-publish]
 
 # This permission block is only required if you're running e2e tests.
 permissions:

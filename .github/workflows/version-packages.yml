@@ -7,7 +7,7 @@ name: Version Packages
 
 on:
   push:
-    branches: [main, hotfix]
+    branches: [main, hotfix, branch-name-run-e2e, fix-next-publish]
 
 permissions:
   contents: write # Used to commit to "Version Packages" PR

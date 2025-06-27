@@ -13,7 +13,7 @@ concurrency:
 
 on:
   pull_request:
-    branches: [main, hotfix]
+    branches: [main, hotfix, branch-name-run-e2e, fix-next-publish]
     types: [opened, synchronize, labeled]
 
 jobs:

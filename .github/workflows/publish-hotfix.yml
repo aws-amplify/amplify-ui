@@ -8,7 +8,7 @@ name: Test and Publish / hotfix
 
 on:
   push:
-    branches: [hotfix]
+    branches: [hotfix, branch-name-run-e2e, fix-next-publish]
 
 permissions:
   id-token: write # This is required for requesting the JWT
@@ -105,8 +105,8 @@ jobs:
       pull-requests: write
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      BASE_BRANCH: "main"
-      HEAD_BRANCH: "hotfix"
+      BASE_BRANCH: 'main'
+      HEAD_BRANCH: 'hotfix'
     steps:
       - name: Checkout repo
         uses: actions/checkout@b80ff79f1755d06ba70441c368a6fe801f5f3a62 # v4.1.3 https://github.com/actions/checkout/commit/cd7d8d697e10461458bc61a30d094dc601a8b017
