@@ -1,5 +1,11 @@
 # @aws-amplify/ui-react-liveness
 
+## 3.4.0
+
+### Minor Changes
+
+- [#6606](https://github.com/aws-amplify/amplify-ui/pull/6606) [`8b77604dc4d92de5921eaa4fc3066d34506cb638`](https://github.com/aws-amplify/amplify-ui/commit/8b77604dc4d92de5921eaa4fc3066d34506cb638) Thanks [@osama-rizk](https://github.com/osama-rizk)! - feat(liveness): add support for face movement only/no light challenge
+
 ## 3.3.9
 
 ### Patch Changes

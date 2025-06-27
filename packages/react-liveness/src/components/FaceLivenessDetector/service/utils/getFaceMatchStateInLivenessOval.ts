@@ -1,6 +1,11 @@
-import type { LivenessOvalDetails, Face, BoundingBox } from '../types';
+import type {
+  BoundingBox,
+  Face,
+  LivenessOvalDetails,
+  ParsedSessionInformation,
+} from '../types';
 import { FaceMatchState } from '../types';
-import type { SessionInformation } from '@aws-sdk/client-rekognitionstreaming';
+
 import {
   generateBboxFromLandmarks,
   getIntersectionOverUnion,
@@ -17,7 +22,7 @@ interface MatchStateInOvalParams {
   face: Face;
   ovalDetails: LivenessOvalDetails;
   initialFaceIntersection: number;
-  sessionInformation: SessionInformation;
+  parsedSessionInformation: ParsedSessionInformation;
   frameHeight: number;
 }
 
@@ -28,16 +33,15 @@ export function getFaceMatchStateInLivenessOval({
   face,
   ovalDetails,
   initialFaceIntersection,
-  sessionInformation,
+  parsedSessionInformation,
   frameHeight,
 }: MatchStateInOvalParams): {
   faceMatchState: FaceMatchState;
   faceMatchPercentage: number;
 } {
   let faceMatchState: FaceMatchState;
-  const challengeConfig =
-    sessionInformation?.Challenge?.FaceMovementAndLightChallenge
-      ?.ChallengeConfig;
+  const challengeConfig = parsedSessionInformation.Challenge!.ChallengeConfig;
+
   if (
     !challengeConfig ||
     !challengeConfig.OvalIouThreshold ||
@@ -51,14 +55,19 @@ export function getFaceMatchStateInLivenessOval({
     );
   }
 
-  const { OvalIouThreshold, FaceIouHeightThreshold, FaceIouWidthThreshold } =
-    challengeConfig;
+  const {
+    OvalIouThreshold,
+    FaceIouHeightThreshold,
+    FaceIouWidthThreshold,
+    OvalHeightWidthRatio,
+  } = challengeConfig;
 
-  const faceBoundingBox: BoundingBox = generateBboxFromLandmarks(
+  const faceBoundingBox: BoundingBox = generateBboxFromLandmarks({
+    ovalHeightWidthRatio: OvalHeightWidthRatio,
     face,
-    ovalDetails,
-    frameHeight
-  );
+    oval: ovalDetails,
+    frameHeight,
+  });
   const minFaceX = faceBoundingBox.left;
   const maxFaceX = faceBoundingBox.right;
   const minFaceY = faceBoundingBox.top;
