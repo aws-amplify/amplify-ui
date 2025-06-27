@@ -2,7 +2,7 @@ import type {
   LivenessResponseStream,
   SessionInformation as ServerSessionInformation,
 } from '@aws-sdk/client-rekognitionstreaming';
-import { nanoid } from 'nanoid';
+import { v4 as uuidv4 } from 'uuid';
 import { createMachine, assign, actions, spawn } from 'xstate';
 
 import {
@@ -138,7 +138,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
     initial: 'initCamera',
     predictableActionArguments: true,
     context: {
-      challengeId: nanoid(),
+      challengeId: uuidv4(),
       errorMessage: undefined,
       maxFailedAttempts: 0, // Set to 0 for now as we are not allowing front end based retries for streaming
       failedAttempts: 0,
@@ -196,10 +196,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         target: 'error',
         actions: 'updateErrorStateForConnectionTimeout',
       },
-      RUNTIME_ERROR: {
-        target: 'error',
-        actions: 'updateErrorStateForRuntime',
-      },
+      RUNTIME_ERROR: { target: 'error', actions: 'updateErrorStateForRuntime' },
       MOBILE_LANDSCAPE_WARNING: {
         target: 'mobileLandscapeWarning',
         actions: 'updateErrorStateForServer',
@@ -223,9 +220,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
                 target: 'waitForDOMAndCameraDetails',
                 actions: 'updateVideoMediaStream',
               },
-              onError: {
-                target: '#livenessMachine.permissionDenied',
-              },
+              onError: { target: '#livenessMachine.permissionDenied' },
             },
           },
           waitForDOMAndCameraDetails: {},
@@ -262,14 +257,9 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       start: {
         entry: ['initializeFaceDetector', () => {}],
         always: [
-          {
-            target: 'detectFaceBeforeStart',
-            cond: 'shouldSkipStartScreen',
-          },
+          { target: 'detectFaceBeforeStart', cond: 'shouldSkipStartScreen' },
         ],
-        on: {
-          BEGIN: 'detectFaceBeforeStart',
-        },
+        on: { BEGIN: 'detectFaceBeforeStart' },
       },
       detectFaceBeforeStart: {
         invoke: {
@@ -333,10 +323,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           },
           checkFaceDetected: {
             after: {
-              0: {
-                target: 'cancelOvalDrawingTimeout',
-                cond: 'hasSingleFace',
-              },
+              0: { target: 'cancelOvalDrawingTimeout', cond: 'hasSingleFace' },
               100: { target: 'ovalDrawing' },
             },
           },
@@ -345,11 +332,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
               'cancelOvalDrawingTimeout',
               'sendTimeoutAfterRecordingDelay',
             ],
-            after: {
-              0: {
-                target: 'checkRecordingStarted',
-              },
-            },
+            after: { 0: { target: 'checkRecordingStarted' } },
           },
           checkRecordingStarted: {
             entry: () => {},
@@ -401,10 +384,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
                 target: 'delayBeforeFlash',
                 cond: 'isFaceMovementAndLightChallenge',
               },
-              {
-                target: 'success',
-                cond: 'isFaceMovementChallenge',
-              },
+              { target: 'success', cond: 'isFaceMovementChallenge' },
             ],
           },
           delayBeforeFlash: {
@@ -415,10 +395,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             invoke: {
               src: 'flashColors',
               onDone: [
-                {
-                  target: 'success',
-                  cond: 'hasFreshnessColorShown',
-                },
+                { target: 'success', cond: 'hasFreshnessColorShown' },
                 {
                   target: 'flashFreshnessColors',
                   actions: 'updateFreshnessDetails',
@@ -426,10 +403,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
               ],
             },
           },
-          success: {
-            entry: 'stopRecording',
-            type: 'final',
-          },
+          success: { entry: 'stopRecording', type: 'final' },
         },
         onDone: 'uploading',
       },
@@ -469,10 +443,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       retryableTimeout: {
         entry: 'updateFailedAttempts',
         always: [
-          {
-            target: 'timeout',
-            cond: 'shouldTimeoutOnFailedAttempts',
-          },
+          { target: 'timeout', cond: 'shouldTimeoutOnFailedAttempts' },
           { target: 'start' },
         ],
       },
@@ -723,35 +694,23 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       sendTimeoutAfterOvalDrawingDelay: actions.send(
         {
           type: 'RUNTIME_ERROR',
-          data: {
-            message: 'Client failed to draw oval.',
-          },
+          data: { message: 'Client failed to draw oval.' },
         },
-        {
-          delay: 5000,
-          id: 'ovalDrawingTimeout',
-        }
+        { delay: 5000, id: 'ovalDrawingTimeout' }
       ),
       cancelOvalDrawingTimeout: actions.cancel('ovalDrawingTimeout'),
       sendTimeoutAfterRecordingDelay: actions.send(
         {
           type: 'RUNTIME_ERROR',
-          data: {
-            message: 'Client failed to start recording.',
-          },
+          data: { message: 'Client failed to start recording.' },
         },
-        {
-          delay: 5000,
-          id: 'recordingTimeout',
-        }
+        { delay: 5000, id: 'recordingTimeout' }
       ),
       cancelRecordingTimeout: actions.cancel('recordingTimeout'),
       sendTimeoutAfterOvalMatchDelay: actions.send(
         {
           type: 'TIMEOUT',
-          data: {
-            message: 'Client timed out waiting for face to match oval.',
-          },
+          data: { message: 'Client timed out waiting for face to match oval.' },
         },
         {
           delay: (context) => {
@@ -852,15 +811,13 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         videoEl!.pause();
       },
       resetContext: assign({
-        challengeId: nanoid(),
+        challengeId: uuidv4(),
         maxFailedAttempts: 0, // Set to 0 for now as we are not allowing front end based retries for streaming
         failedAttempts: 0,
         componentProps: (context) => context.componentProps,
         parsedSessionInformation: (_) => undefined,
         videoAssociatedParams: (_) => {
-          return {
-            videoConstraints: STATIC_VIDEO_CONSTRAINTS,
-          };
+          return { videoConstraints: STATIC_VIDEO_CONSTRAINTS };
         },
         ovalAssociatedParams: (_) => undefined,
         errorState: (_) => undefined,
@@ -939,9 +896,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
 
         // Get initial stream to enumerate devices with non-empty labels
         const initialStream = await navigator.mediaDevices.getUserMedia({
-          video: {
-            ...videoConstraints,
-          },
+          video: { ...videoConstraints },
           audio: false,
         });
         const devices = await navigator.mediaDevices.enumerateDevices();
@@ -979,10 +934,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         let realVideoDeviceStream = initialStream;
         if (!isInitialStreamFromRealDevice) {
           realVideoDeviceStream = await navigator.mediaDevices.getUserMedia({
-            video: {
-              ...videoConstraints,
-              deviceId: { exact: deviceId },
-            },
+            video: { ...videoConstraints, deviceId: { exact: deviceId } },
             audio: false,
           });
         }
@@ -1168,12 +1120,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           videoEl: videoEl!,
         });
 
-        return {
-          faceMatchState,
-          ovalDetails,
-          scaleFactor,
-          initialFace,
-        };
+        return { faceMatchState, ovalDetails, scaleFactor, initialFace };
       },
       async detectFaceAndMatchOval(context) {
         const { parsedSessionInformation } = context;
