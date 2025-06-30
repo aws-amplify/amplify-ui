@@ -52,7 +52,7 @@ interface ChallengeType {
 
 export const FACE_MOVEMENT_AND_LIGHT_CHALLENGE: ChallengeType = {
   type: 'FaceMovementAndLightChallenge',
-  version: '1.0.0',
+  version: '2.0.0',
 };
 
 export const FACE_MOVEMENT_CHALLENGE: ChallengeType = {
