@@ -1,5 +1,11 @@
 # @aws-amplify/ui-react-liveness
 
+## 3.4.1
+
+### Patch Changes
+
+- [#6608](https://github.com/aws-amplify/amplify-ui/pull/6608) [`6eae6069d46fa548e2f43a757389204aac8fc8f1`](https://github.com/aws-amplify/amplify-ui/commit/6eae6069d46fa548e2f43a757389204aac8fc8f1) Thanks [@osama-rizk](https://github.com/osama-rizk)! - fix(liveness): bump FACE_MOVEMENT_AND_LIGHT_CHALLENGE challenge to 2.0.0
+
 ## 3.4.0
 
 ### Minor Changes
