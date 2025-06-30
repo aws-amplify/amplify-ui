@@ -13,7 +13,7 @@
     "@aws-amplify/ui-react": "^6.11.2",
     "@aws-amplify/ui-react-ai": "1.5.0",
     "@aws-amplify/ui-react-geo": "^2.2.9",
-    "@aws-amplify/ui-react-liveness": "^3.4.0",
+    "@aws-amplify/ui-react-liveness": "^3.4.1",
     "@aws-amplify/ui-react-notifications": "^2.2.9",
     "@aws-amplify/ui-react-storage": "^3.11.0",
     "@aws-sdk/credential-providers": "^3.370.0",
