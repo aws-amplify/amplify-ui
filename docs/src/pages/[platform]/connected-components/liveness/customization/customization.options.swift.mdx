@@ -1,0 +1,28 @@
+import { Alert } from '@aws-amplify/ui-react';
+
+## Challenge Options
+
+Certain liveness challenges have client-side options that you can configure based on your business requirements. For example, you can configure the `FaceMovement` challenge to use either the device's front-facing camera or back-facing camera.
+
+```swift
+FaceLivenessDetectorView(
+    sessionID: <session ID>,
+    region: <region>,
+    challengeOptions: .init(faceMovementChallengeOption: .init(camera: .back)),
+    isPresented:  $isPresentingLiveness,
+    onCompletion: { result in
+        switch result {
+        case .success:
+          // ...
+        case .failure(let error):
+          // ...
+        default:
+          // ...
+        }
+    }
+)
+```
+
+<Alert variation="info" role="none">
+    When the FaceLivenessDetector is rendered, Rekognition will mark the session ID as used and any future usages of the FaceLivenessDector will require a new session ID. So if you want to change which camera is used for the FaceMovement challenge at runtime, you will need to create a new liveness session and pass the new session ID into the FaceLivenessDetector with the new Camera option.
+</Alert>

@@ -12,6 +12,8 @@ import { getCustomStaticPath } from '@/utils/getCustomStaticPath';
 import StartAndroid from './customization.start-view.android.mdx';
 import StartReact from './customization.start-view.react.mdx';
 import StartSwift from './customization.start-view.swift.mdx';
+import OptionsAndroid from './customization.options.android.mdx';
+import OptionsSwift from './customization.options.swift.mdx';
 import I18Android from './customization.i18n.android.mdx';
 import I18React from './customization.i18n.react.mdx';
 import I18Swift from './customization.i18n.swift.mdx';
@@ -41,6 +43,14 @@ export async function getStaticProps() {
 </InlineFilter>
 <InlineFilter filters={['swift']}>
   <StartSwift />
+</InlineFilter>
+
+<InlineFilter filters={['android']}>
+  <OptionsAndroid />
+</InlineFilter>
+
+<InlineFilter filters={['swift']}>
+  <OptionsSwift />
 </InlineFilter>
 
 ## Internationalization (I18n)
