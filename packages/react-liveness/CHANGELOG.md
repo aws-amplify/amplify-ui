@@ -1,5 +1,11 @@
 # @aws-amplify/ui-react-liveness
 
+## 3.4.2
+
+### Patch Changes
+
+- [#6614](https://github.com/aws-amplify/amplify-ui/pull/6614) [`b245c0d45fb3728dc6a293f3ffda3cb9b123569b`](https://github.com/aws-amplify/amplify-ui/commit/b245c0d45fb3728dc6a293f3ffda3cb9b123569b) Thanks [@adrianjoshua-strutt](https://github.com/adrianjoshua-strutt)! - fix(liveness): null-check for getSettings in UseMediaStreamInVideo
+
 ## 3.4.1
 
 ### Patch Changes
