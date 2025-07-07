@@ -6,6 +6,7 @@ import { useDisplayText } from '../../displayText';
 
 import type { LocationDetailViewProviderProps } from './types';
 import { getLocationDetailViewTableData } from './getLocationDetailViewTableData';
+import { useStore } from '../../store';
 
 export function LocationDetailViewProvider({
   children,
@@ -63,6 +64,7 @@ export function LocationDetailViewProvider({
     ...item,
     label: getActionListItemLabel(item.label),
   }));
+  const [_, storeDispatch] = useStore();
 
   const fileItems = pageItems.filter(
     (item): item is FileData => item.type === 'FILE'
@@ -119,6 +121,7 @@ export function LocationDetailViewProvider({
           onNavigate,
           onSelect,
           onSelectAll: onToggleSelectAll,
+          storeDispatch,
         }),
         title: getTitle(location),
         message: messageControlContent,

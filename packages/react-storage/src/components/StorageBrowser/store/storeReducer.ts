@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { DEFAULT_STATE } from './constants';
 import type { StoreActionType, StoreState } from './types';
 
@@ -18,12 +19,19 @@ export default function storeReducer(
 
       const key = `${location.prefix}${path}`;
 
-      return { ...state, location: { current: location, path, key } };
+      return {
+        ...state,
+        location: { current: location, path, key },
+      };
     }
     case 'RESET_LOCATION': {
       if (state.location.current === undefined) return state;
 
-      return { ...state, location: DEFAULT_STATE.location };
+      return {
+        ...state,
+        location: DEFAULT_STATE.location,
+        selectedObject: undefined,
+      };
     }
     case 'CHANGE_ACTION_TYPE': {
       const { actionType } = action;
@@ -38,6 +46,13 @@ export default function storeReducer(
       if (state.actionType === undefined) return state;
 
       return { ...state, actionType: DEFAULT_STATE.actionType };
+    }
+    case 'VIEW_OBJECT_DETAIL': {
+      const { object } = action;
+      return {
+        ...state,
+        selectedObject: object,
+      };
     }
   }
 }

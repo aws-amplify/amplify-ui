@@ -1,5 +1,5 @@
 import type React from 'react';
-import type { LocationData, LocationType } from '../actions';
+import type { FileData, LocationData, LocationType } from '../actions';
 
 /**
  * @see {@link LocationData}
@@ -81,7 +81,11 @@ export type StoreActionType =
       location: LocationData;
       path?: string;
     }
-  | { type: 'RESET_LOCATION' };
+  | { type: 'RESET_LOCATION' }
+  | {
+      type: 'VIEW_OBJECT_DETAIL';
+      object: FileData;
+    };
 
 /**
  * Stores current `location` and nested `path` values set on
@@ -123,6 +127,7 @@ export interface LocationState {
 export interface StoreState {
   actionType: string | undefined;
   location: LocationState;
+  selectedObject?: FileData;
 }
 
 export type StoreContextType = [StoreState, React.Dispatch<StoreActionType>];

@@ -13,8 +13,8 @@ export const getNavigationParts = ({
 }: GetNavigationPartsInput): string[] => {
   const { bucket, prefix = '', type } = location;
 
-  const trimmedPrefix = prefix.endsWith('/') ? prefix.slice(0, -1) : prefix;
-  const trimmedPath = path.endsWith('/') ? path.slice(0, -1) : path;
+  const trimmedPrefix = prefix?.endsWith?.('/') ? prefix.slice(0, -1) : prefix;
+  const trimmedPath = path?.endsWith?.('/') ? path.slice(0, -1) : path;
 
   const firstPrefixPart = [];
   if (type !== 'BUCKET') {

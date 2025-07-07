@@ -160,6 +160,7 @@ export interface DefaultStorageBrowserDisplayText {
   LocationsView: DefaultLocationsViewDisplayText;
   LocationDetailView: DefaultLocationDetailViewDisplayText;
   UploadView: DefaultUploadViewDisplayText;
+  objectDetailView: any;
 }
 
 export interface CreateFolderViewDisplayText

@@ -20,6 +20,8 @@ import {
 import { LocationDetailViewProvider } from './LocationDetailViewProvider';
 import type { LocationDetailViewType } from './types';
 import { useLocationDetailView } from './useLocationDetailView';
+import { ObjectDetailsViewControl } from '../../controls/ObjectDetailsViewController';
+import { useStore } from '../../store';
 
 const DEFAULT_PAGE_SIZE = 100;
 export const DEFAULT_LIST_OPTIONS = {
@@ -32,7 +34,11 @@ export const LocationDetailView: LocationDetailViewType = ({
   ...props
 }) => {
   const state = useLocationDetailView(props);
-  const { hasError } = state;
+  const [{ selectedObject }] = useStore();
+
+  const { hasError, location } = state;
+  const shouldRenderObjectDetails =
+    location.current?.type === 'OBJECT' && selectedObject;
 
   return (
     <ViewElement
@@ -55,7 +61,11 @@ export const LocationDetailView: LocationDetailViewType = ({
           <DropZoneControl>
             <ViewElement className={`${STORAGE_BROWSER_BLOCK}__data-table`}>
               <LoadingIndicatorControl />
-              <DataTableControl />
+              {shouldRenderObjectDetails ? (
+                <ObjectDetailsViewControl />
+              ) : (
+                <DataTableControl />
+              )}
             </ViewElement>
           </DropZoneControl>
         )}

@@ -17,6 +17,7 @@ export const getFileRowContent = ({
   size,
   onDownload,
   onSelect,
+  onNavigate,
 }: {
   permissions: LocationPermissions;
   isSelected: boolean;
@@ -29,8 +30,9 @@ export const getFileRowContent = ({
   size: number;
   onDownload: () => void;
   onSelect: () => void;
-}): DataTableProps['rows'][number]['content'] =>
-  LOCATION_DETAIL_VIEW_HEADERS.map((columnKey) => {
+  onNavigate: () => void;
+}): DataTableProps['rows'][number]['content'] => {
+  return LOCATION_DETAIL_VIEW_HEADERS.map((columnKey) => {
     const key = `${columnKey}-${rowId}`;
     switch (columnKey) {
       case 'checkbox': {
@@ -48,11 +50,13 @@ export const getFileRowContent = ({
       case 'name': {
         return {
           key,
-          type: 'text',
+          type: 'button',
           content: {
             icon: 'file',
             ariaLabel: 'file',
             text: rowKey.slice(itemLocationKey.length),
+            label: rowKey.slice(itemLocationKey.length),
+            onClick: onNavigate,
           },
         };
       }
@@ -103,3 +107,4 @@ export const getFileRowContent = ({
       }
     }
   });
+};

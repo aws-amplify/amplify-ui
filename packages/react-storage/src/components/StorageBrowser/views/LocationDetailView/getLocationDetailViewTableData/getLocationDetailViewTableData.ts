@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import type {
   FileData,
   FileDataItem,
@@ -27,6 +29,7 @@ export const getLocationDetailViewTableData = ({
   onNavigate,
   onSelect,
   onSelectAll,
+  storeDispatch,
 }: {
   areAllFilesSelected: boolean;
   displayText: DefaultLocationDetailViewDisplayText;
@@ -41,6 +44,7 @@ export const getLocationDetailViewTableData = ({
   onNavigate: (location: LocationData, path?: string) => void;
   onSelect: (isSelected: boolean, fileItem: FileData) => void;
   onSelectAll: () => void;
+  storeDispatch: (a: any) => void;
 }): DataTableProps => {
   const {
     tableColumnLastModifiedHeader,
@@ -67,11 +71,40 @@ export const getLocationDetailViewTableData = ({
         const { current, path } = location;
         const isSelected =
           fileDataItems?.some((item) => item.id === id) ?? false;
+
+        console.log(
+          'File data item',
+          fileDataItems?.find((item) => item.id === id),
+          fileDataItems
+        );
+
+        console.log('File data item pageItems', pageItems);
+
         const onFileDownload = () => {
           onDownload(createFileDataItem(locationItem));
         };
         const onFileSelect = () => {
           onSelect(isSelected, locationItem);
+        };
+
+        const onFileNavigate = () => {
+          if (!current) {
+            return;
+          }
+
+          const itemLocationPath = key.slice(current?.prefix?.length);
+
+          onNavigate({ ...current, id, type: 'OBJECT' }, itemLocationPath);
+          storeDispatch({
+            type: 'VIEW_OBJECT_DETAIL',
+            object: {
+              lastModified,
+              type: 'FILE',
+              size,
+              id,
+              key,
+            },
+          });
         };
         return {
           key: id,
@@ -87,13 +120,14 @@ export const getLocationDetailViewTableData = ({
             size,
             onDownload: onFileDownload,
             onSelect: onFileSelect,
+            onNavigate: onFileNavigate,
           }),
         };
       }
       case 'FOLDER': {
         const { current, path } = location;
         const itemSubPath = key.slice(`${current?.prefix ?? ''}${path}`.length);
-        const itemLocationPath = key.slice(current?.prefix.length);
+        const itemLocationPath = key.slice(current?.prefix?.length);
         const onFolderNavigate = () => {
           if (!current) {
             return;
