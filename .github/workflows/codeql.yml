@@ -2,7 +2,7 @@ name: 'CodeQL'
 
 on:
   push:
-    branches: feat-sb/multi-file-download/main
+    branches: ['main']
 
 jobs:
   analyze:
