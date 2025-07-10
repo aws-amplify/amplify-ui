@@ -2,6 +2,8 @@ export enum LivenessClassNames {
   CameraModule = 'amplify-liveness-camera-module',
   CancelContainer = 'amplify-liveness-cancel-container',
   CancelButton = 'amplify-liveness-cancel-button',
+  CenteredLoader = 'amplify-liveness-centered-loader',
+  ConnectingLoader = 'amplify-liveness-connecting-loader',
   CountdownContainer = 'amplify-liveness-countdown-container',
   DescriptionBullet = 'amplify-liveness-description-bullet',
   DescriptionBulletIndex = 'amplify-liveness-description-bullet__index',
@@ -41,6 +43,7 @@ export enum LivenessClassNames {
   Toast = 'amplify-liveness-toast',
   ToastContainer = 'amplify-liveness-toast__container',
   ToastMessage = 'amplify-liveness-toast__message',
+  UserFacingVideo = 'amplify-liveness-video--user-facing',
   Video = 'amplify-liveness-video',
   VideoAnchor = 'amplify-liveness-video-anchor',
 }

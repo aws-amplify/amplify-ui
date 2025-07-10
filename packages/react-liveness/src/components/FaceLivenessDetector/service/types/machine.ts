@@ -1,25 +1,48 @@
 import type { ActorRef, Interpreter, State } from 'xstate';
 import type {
-  ValidationException,
+  FaceMovementServerChallenge,
+  FaceMovementAndLightServerChallenge,
   InternalServerException,
-  ThrottlingException,
   ServiceQuotaExceededException,
   SessionInformation,
+  ValidationException,
+  ThrottlingException,
 } from '@aws-sdk/client-rekognitionstreaming';
 
+import type {
+  FACE_MOVEMENT_CHALLENGE,
+  FACE_MOVEMENT_AND_LIGHT_CHALLENGE,
+  StreamRecorder,
+  ColorSequenceDisplay,
+} from '../utils';
+import type { ErrorState } from './error';
+import type { Face, FaceDetection } from './faceDetection';
 import type {
   FaceLivenessDetectorCoreProps,
   FaceMatchState,
   LivenessOvalDetails,
   IlluminationState,
 } from './liveness';
-import type { ErrorState } from './error';
-import type {
-  VideoRecorder,
-  LivenessStreamProvider,
-  FreshnessColorDisplay,
-} from '../utils';
-import type { Face, FaceDetection } from './faceDetection';
+
+interface Challenge {
+  Name: string;
+}
+
+export interface FaceMovementAndLightChallenge
+  extends Challenge,
+    FaceMovementAndLightServerChallenge {
+  Name: (typeof FACE_MOVEMENT_AND_LIGHT_CHALLENGE)['type'];
+}
+
+export interface FaceMovementChallenge
+  extends Challenge,
+    FaceMovementServerChallenge {
+  Name: (typeof FACE_MOVEMENT_CHALLENGE)['type'];
+}
+
+export interface ParsedSessionInformation {
+  Challenge: FaceMovementChallenge | FaceMovementAndLightChallenge | undefined;
+}
 
 export interface FaceMatchAssociatedParams {
   illuminationState?: IlluminationState;
@@ -34,7 +57,6 @@ export interface FreshnessColorAssociatedParams {
   freshnessColorEl?: HTMLCanvasElement;
   freshnessColors?: string[];
   freshnessColorsComplete?: boolean;
-  freshnessColorDisplay?: FreshnessColorDisplay;
 }
 
 export interface OvalAssociatedParams {
@@ -49,31 +71,32 @@ export interface VideoAssociatedParams {
   videoEl?: HTMLVideoElement;
   canvasEl?: HTMLCanvasElement;
   videoMediaStream?: MediaStream;
-  videoRecorder?: VideoRecorder;
-  recordingStartTimestampMs?: number;
+  recordingStartTimestamp?: number;
   isMobile?: boolean;
   selectedDeviceId?: string;
   selectableDevices?: MediaDeviceInfo[];
 }
 
 export interface LivenessContext {
-  challengeId?: string;
-  componentProps?: FaceLivenessDetectorCoreProps;
-  errorState?: ErrorState;
-  errorMessage?: string;
-  faceMatchAssociatedParams?: FaceMatchAssociatedParams;
-  faceMatchStateBeforeStart?: FaceMatchState;
-  failedAttempts?: number;
-  freshnessColorAssociatedParams?: FreshnessColorAssociatedParams;
-  isFaceFarEnoughBeforeRecording?: boolean;
-  isRecordingStopped?: boolean;
-  livenessStreamProvider?: LivenessStreamProvider;
-  maxFailedAttempts?: number;
-  ovalAssociatedParams?: OvalAssociatedParams;
-  responseStreamActorRef?: ActorRef<any>;
-  serverSessionInformation?: SessionInformation;
-  shouldDisconnect?: boolean;
-  videoAssociatedParams?: VideoAssociatedParams;
+  challengeId: string | undefined;
+  colorSequenceDisplay: ColorSequenceDisplay | undefined;
+  componentProps: FaceLivenessDetectorCoreProps | undefined;
+  errorMessage: string | undefined;
+  errorState: ErrorState | undefined;
+  faceMatchAssociatedParams: FaceMatchAssociatedParams | undefined;
+  faceMatchStateBeforeStart: FaceMatchState | undefined;
+  failedAttempts: number | undefined;
+  freshnessColorAssociatedParams: FreshnessColorAssociatedParams | undefined;
+  isFaceFarEnoughBeforeRecording: boolean | undefined;
+  isRecordingStopped: boolean | undefined;
+  livenessStreamProvider: StreamRecorder | undefined;
+  maxFailedAttempts: number | undefined;
+  ovalAssociatedParams: OvalAssociatedParams | undefined;
+  parsedSessionInformation: ParsedSessionInformation | undefined;
+  responseStreamActorRef: ActorRef<any> | undefined;
+  serverSessionInformation: SessionInformation | undefined;
+  shouldDisconnect: boolean | undefined;
+  videoAssociatedParams: VideoAssociatedParams | undefined;
 }
 
 export type LivenessEventTypes =
@@ -133,6 +156,8 @@ export interface StreamActorCallback {
   }): void;
   (params: {
     type: 'SET_SESSION_INFO';
-    data: { sessionInfo: SessionInformation | undefined };
+    data: {
+      serverSessionInformation: SessionInformation | undefined;
+    };
   }): void;
 }
