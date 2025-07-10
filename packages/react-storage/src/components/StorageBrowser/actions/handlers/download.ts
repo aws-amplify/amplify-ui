@@ -1,5 +1,6 @@
 import { getUrl } from '../../storage-internal';
 import type {
+  OptionalFileData,
   TaskData,
   TaskHandler,
   TaskHandlerInput,
@@ -9,7 +10,7 @@ import type {
 
 import { constructBucket } from './utils';
 
-export interface DownloadHandlerData extends TaskData {
+export interface DownloadHandlerData extends OptionalFileData, TaskData {
   fileKey: string;
 }
 

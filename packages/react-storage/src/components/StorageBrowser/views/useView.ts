@@ -1,14 +1,16 @@
 import type {
-  UploadViewState,
+  CopyViewState,
   CreateFolderViewState,
   DeleteViewState,
-  CopyViewState,
+  DownloadViewState,
+  UploadViewState,
 } from './LocationActionView';
 import {
   useCopyView,
   useCreateFolderView,
-  useUploadView,
   useDeleteView,
+  useDownloadView,
+  useUploadView,
 } from './LocationActionView';
 import type { LocationDetailViewState } from './LocationDetailView';
 import { useLocationDetailView } from './LocationDetailView';
@@ -18,6 +20,7 @@ import { useLocationsView } from './LocationsView';
 interface DefaultUseViewStates {
   Copy: CopyViewState;
   CreateFolder: CreateFolderViewState;
+  Download: DownloadViewState;
   Delete: DeleteViewState;
   LocationDetail: LocationDetailViewState;
   Locations: LocationsViewState;
@@ -31,6 +34,7 @@ type UseViewHooks = {
 export const USE_VIEW_HOOKS: UseViewHooks = {
   Copy: useCopyView,
   CreateFolder: useCreateFolderView,
+  Download: useDownloadView,
   Delete: useDeleteView,
   LocationDetail: useLocationDetailView,
   Locations: useLocationsView,
