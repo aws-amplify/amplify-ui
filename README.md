@@ -25,6 +25,7 @@ Amplify UI is an open-source UI library with cloud-connected components that are
 | [@aws-amplify/ui-react](https://www.npmjs.com/package/@aws-amplify/ui-react)     | ![](https://img.shields.io/npm/dw/@aws-amplify/ui-react?label=Download&logo=Amplify&style=flat) | ![](https://img.shields.io/npm/v/@aws-amplify/ui-react/latest)          |
 | [@aws-amplify/ui-vue](https://www.npmjs.com/package/@aws-amplify/ui-vue)         | ![](https://img.shields.io/npm/dw/@aws-amplify/ui-vue?label=Download&logo=Amplify)              | ![](https://img.shields.io/npm/v/@aws-amplify/ui-vue/latest?style=flat) |
 | [@aws-amplify/ui-angular](https://www.npmjs.com/package/@aws-amplify/ui-angular) | ![](https://img.shields.io/npm/dw/@aws-amplify/ui-angular?label=Download&logo=Amplify)          | ![](https://img.shields.io/npm/v/@aws-amplify/ui-angular/latest)        |
+| [@aws-amplify/ui-svelte](https://www.npmjs.com/package/@aws-amplify/ui-svelte)   | ![](https://img.shields.io/npm/dw/@aws-amplify/ui-svelte?label=Download&logo=Amplify)           | ![](https://img.shields.io/npm/v/@aws-amplify/ui-svelte/latest)         |
 
 ## Documentation
 
@@ -36,9 +37,9 @@ Amplify UI is an open-source UI library with cloud-connected components that are
 
 ## Component Matrix
 
-| **Connected Components** | **React** | **React Native** | **Angular** | **Vue** |
-| :----------------------- | :-------: | :--------------: | :---------: | :-----: |
-| Authenticator            |    ✅     |        ✅        |     ✅      |   ✅    |
+| **Connected Components** | **React** | **React Native** | **Angular** | **Vue** | **Svelte** |
+| :----------------------- | :-------: | :--------------: | :---------: | :-----: | :--------: |
+| Authenticator            |    ✅     |        ✅        |     ✅      |   ✅    |     ✅     |
 | InAppMessagingDisplay    |    ✅     |        ✅        |             |         |
 | MapView/LocationSearch   |    ✅     |                  |             |         |
 | Account Settings         |    ✅     |                  |             |         |

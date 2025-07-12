@@ -1,0 +1,125 @@
+/**
+ * Authenticator component styles
+ */
+
+.amplify-authenticator {
+  /* Container tokens */
+  --amplify-components-authenticator-container-background-color: var(--amplify-colors-background-primary);
+  --amplify-components-authenticator-container-border: 1px solid var(--amplify-colors-border-primary);
+  --amplify-components-authenticator-container-border-radius: var(--amplify-radii-medium);
+  --amplify-components-authenticator-container-box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --amplify-components-authenticator-container-width-max: 28rem;
+  --amplify-components-authenticator-container-padding: var(--amplify-space-xl);
+  --amplify-components-authenticator-container-gap: var(--amplify-space-xs);
+  
+  /* Form tokens */
+  --amplify-components-authenticator-form-gap: var(--amplify-space-medium);
+  
+  /* Tab tokens */
+  --amplify-components-tabs-item-active-border-color: var(--amplify-colors-brand-primary);
+  --amplify-components-tabs-item-active-color: var(--amplify-colors-brand-primary);
+  --amplify-components-tabs-item-color: var(--amplify-colors-font-secondary);
+  --amplify-components-tabs-item-font-family: var(--amplify-fonts-default);
+  --amplify-components-tabs-item-font-size: var(--amplify-font-sizes-medium);
+  --amplify-components-tabs-item-font-weight: var(--amplify-font-weights-semibold);
+  --amplify-components-tabs-item-hover-color: var(--amplify-colors-font-primary);
+  --amplify-components-tabs-item-padding: var(--amplify-space-medium);
+}
+
+/* Button component tokens */
+.amplify-button {
+  --amplify-components-button-background-color: var(--amplify-colors-brand-primary);
+  --amplify-components-button-border-color: var(--amplify-colors-brand-primary);
+  --amplify-components-button-border-radius: var(--amplify-radii-small);
+  --amplify-components-button-border-style: solid;
+  --amplify-components-button-border-width: 1px;
+  --amplify-components-button-color: var(--amplify-colors-font-inverse);
+  --amplify-components-button-disabled-opacity: 0.6;
+  --amplify-components-button-focus-outline: 2px solid var(--amplify-colors-brand-primary);
+  --amplify-components-button-focus-outline-offset: 2px;
+  --amplify-components-button-font-family: var(--amplify-fonts-default);
+  --amplify-components-button-font-size: var(--amplify-font-sizes-medium);
+  --amplify-components-button-font-weight: var(--amplify-font-weights-semibold);
+  --amplify-components-button-gap: var(--amplify-space-xs);
+  --amplify-components-button-hover-background-color: var(--amplify-colors-brand-primary-80);
+  --amplify-components-button-hover-border-color: var(--amplify-colors-brand-primary-80);
+  --amplify-components-button-hover-color: var(--amplify-colors-font-inverse);
+  --amplify-components-button-active-background-color: var(--amplify-colors-brand-primary-90);
+  --amplify-components-button-active-border-color: var(--amplify-colors-brand-primary-90);
+  --amplify-components-button-active-color: var(--amplify-colors-font-inverse);
+  --amplify-components-button-line-height: var(--amplify-line-heights-medium);
+  --amplify-components-button-padding-block: var(--amplify-space-small);
+  --amplify-components-button-padding-inline: var(--amplify-space-medium);
+  --amplify-components-button-transition-duration: var(--amplify-motion-duration-fast);
+  
+  /* Size variations */
+  --amplify-components-button-small-font-size: var(--amplify-font-sizes-small);
+  --amplify-components-button-small-padding-block: var(--amplify-space-xs);
+  --amplify-components-button-small-padding-inline: var(--amplify-space-small);
+  --amplify-components-button-large-font-size: var(--amplify-font-sizes-large);
+  --amplify-components-button-large-padding-block: var(--amplify-space-medium);
+  --amplify-components-button-large-padding-inline: var(--amplify-space-large);
+  
+  /* Link variation */
+  --amplify-components-button-link-color: var(--amplify-colors-brand-primary);
+  --amplify-components-button-primary-background-color: var(--amplify-colors-brand-primary);
+  --amplify-components-button-primary-border-color: var(--amplify-colors-brand-primary);
+  --amplify-components-button-primary-color: var(--amplify-colors-font-inverse);
+}
+
+/* Field component tokens */
+.amplify-field {
+  --amplify-components-field-gap: var(--amplify-space-xs);
+  --amplify-components-field-label-required-color: var(--amplify-colors-font-error);
+  --amplify-components-field-description-color: var(--amplify-colors-font-secondary);
+  --amplify-components-field-description-font-size: var(--amplify-font-sizes-small);
+  --amplify-components-field-error-font-size: var(--amplify-font-sizes-small);
+}
+
+/* Input component tokens */
+.amplify-input {
+  --amplify-components-input-background-color: var(--amplify-colors-background-primary);
+  --amplify-components-input-border-color: var(--amplify-colors-border-primary);
+  --amplify-components-input-border-radius: var(--amplify-radii-small);
+  --amplify-components-input-border-style: solid;
+  --amplify-components-input-border-width: 1px;
+  --amplify-components-input-color: var(--amplify-colors-font-primary);
+  --amplify-components-input-disabled-background-color: var(--amplify-colors-background-disabled);
+  --amplify-components-input-disabled-color: var(--amplify-colors-font-disabled);
+  --amplify-components-input-disabled-opacity: 1;
+  --amplify-components-input-focus-border-color: var(--amplify-colors-brand-primary);
+  --amplify-components-input-focus-box-shadow-color: var(--amplify-colors-brand-primary-20);
+  --amplify-components-input-font-family: var(--amplify-fonts-default);
+  --amplify-components-input-font-size: var(--amplify-font-sizes-medium);
+  --amplify-components-input-font-weight: var(--amplify-font-weights-normal);
+  --amplify-components-input-line-height: var(--amplify-line-heights-medium);
+  --amplify-components-input-padding: var(--amplify-space-small);
+  
+  /* Size variations */
+  --amplify-components-input-small-font-size: var(--amplify-font-sizes-small);
+  --amplify-components-input-small-padding: var(--amplify-space-xs);
+  --amplify-components-input-large-font-size: var(--amplify-font-sizes-large);
+  --amplify-components-input-large-padding: var(--amplify-space-medium);
+}
+
+/* Field control tokens */
+.amplify-field {
+  --amplify-components-fieldcontrol-color: var(--amplify-colors-font-primary);
+  --amplify-components-fieldcontrol-error-border-color: var(--amplify-colors-border-error);
+  --amplify-components-fieldcontrol-error-color: var(--amplify-colors-font-error);
+  --amplify-components-fieldcontrol-font-size: var(--amplify-font-sizes-medium);
+  --amplify-components-fieldcontrol-font-weight: var(--amplify-font-weights-normal);
+  --amplify-components-fieldcontrol-line-height: var(--amplify-line-heights-medium);
+}
+
+/* Alert component tokens */
+.amplify-alert {
+  --amplify-components-alert-background-color: var(--amplify-colors-background-info);
+  --amplify-components-alert-border: 1px solid var(--amplify-colors-border-info);
+  --amplify-components-alert-border-radius: var(--amplify-radii-small);
+  --amplify-components-alert-color: var(--amplify-colors-font-info);
+  --amplify-components-alert-error-background-color: var(--amplify-colors-background-error);
+  --amplify-components-alert-error-border-color: var(--amplify-colors-border-error);
+  --amplify-components-alert-error-color: var(--amplify-colors-font-error);
+  --amplify-components-alert-padding: var(--amplify-space-medium);
+}
