@@ -142,9 +142,11 @@ if [[ "$FRAMEWORK" == 'vue' ]]; then
     fi
 
     if [[ "$BUILD_TOOL" == 'nuxt' ]]; then
-        # nuxt doesn't use the src/ directory
-        echo "cp templates/components/vue/nuxt/* mega-apps/${MEGA_APP_NAME}/"
-        cp templates/components/vue/nuxt/* mega-apps/${MEGA_APP_NAME}/
+        echo "cp templates/components/vue/nuxt/app.vue mega-apps/${MEGA_APP_NAME}/app/app.vue"
+        cp templates/components/vue/nuxt/app.vue mega-apps/${MEGA_APP_NAME}/app/app.vue
+
+        echo "cp templates/components/vue/nuxt/nuxt.config.ts mega-apps/${MEGA_APP_NAME}/nuxt.config.ts"
+        cp templates/components/vue/nuxt/nuxt.config.ts mega-apps/${MEGA_APP_NAME}/nuxt.config.ts
     else
         echo "cp templates/components/vue/App.vue mega-apps/${MEGA_APP_NAME}/src/App.vue"
         cp templates/components/vue/App.vue mega-apps/${MEGA_APP_NAME}/src/App.vue
