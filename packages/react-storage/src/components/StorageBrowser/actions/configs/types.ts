@@ -128,6 +128,9 @@ export interface CopyActionConfig
 export interface CreateFolderActionConfig
   extends ActionViewConfig<CreateFolderHandler, 'CreateFolderView'> {}
 
+export interface DownloadActionConfig
+  extends ActionViewConfig<DownloadHandler, 'DownloadView'> {}
+
 export interface ListActionConfig<T> {
   /**
    * action handler
@@ -140,7 +143,7 @@ export interface DefaultActionConfigs {
   listLocationItems?: ListLocationItemsHandler;
   upload?: UploadActionConfig;
   delete?: DeleteActionConfig;
-  download?: DownloadHandler;
+  download?: DownloadHandler | DownloadActionConfig;
   copy?: CopyActionConfig;
 }
 
