@@ -2,6 +2,7 @@ import sass from 'sass';
 import autoprefixer from 'autoprefixer';
 import postcss from 'postcss';
 import fs from 'fs-extra';
+import path from 'path';
 import { globSync } from 'glob';
 import { createTheme } from '../src/theme';
 
@@ -29,8 +30,11 @@ function writeCSS(props: {
     .process(result.css, { from: undefined })
     .then((result) => {
       result.warnings().forEach((warn) => {
+        // eslint-disable-next-line no-console
         console.warn(warn.toString());
       });
+      const dir = path.dirname(`dist/${outputPath}.css`);
+      fs.ensureDirSync(dir);
       fs.writeFileSync(`dist/${outputPath}.css`, result.css);
       fs.writeFileSync(
         `dist/${outputPath}.layer.css`,
