@@ -15,6 +15,7 @@ import {
   MessageControl,
   StatusDisplayControl,
   TitleControl,
+  PaginationControl,
 } from '../../../controls';
 
 import { UploadViewProvider } from './UploadViewProvider';
@@ -32,6 +33,7 @@ export const UploadView: UploadViewType = ({ className, ...props }) => {
         <ViewElement className={`${STORAGE_BROWSER_BLOCK}__controls`}>
           <OverwriteToggleControl />
           <ViewElement className={`${STORAGE_BROWSER_BLOCK}__buttons`}>
+            <PaginationControl />
             <AddFolderControl />
             <AddFilesControl />
           </ViewElement>
@@ -65,6 +67,7 @@ UploadView.Provider = UploadViewProvider;
 
 UploadView.AddFiles = AddFilesControl;
 UploadView.AddFolder = AddFolderControl;
+UploadView.Pagination = PaginationControl;
 UploadView.Cancel = ActionCancelControl;
 UploadView.Destination = ActionDestinationControl;
 UploadView.DropZone = DropZoneControl;
