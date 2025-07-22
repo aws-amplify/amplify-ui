@@ -1193,4 +1193,262 @@ describe('Liveness Machine', () => {
       expect(receivedArgs[1]).toEqual(mockCameraDevice);
     });
   });
+
+  describe('callCameraNotFoundCallback', () => {
+    let mockOnCameraNotFound: jest.Mock;
+    let testService: LivenessInterpreter;
+
+    beforeEach(() => {
+      mockOnCameraNotFound = jest.fn();
+      const testMachine = livenessMachine.withContext({
+        ...livenessMachine.context,
+        componentProps: {
+          ...mockcomponentProps,
+          onCameraNotFound: mockOnCameraNotFound,
+        },
+      });
+      testService = interpret(testMachine).start();
+    });
+
+    afterEach(() => {
+      testService.stop();
+      jest.clearAllMocks();
+    });
+
+    it('should call onCameraNotFound callback with correct parameters when camera is not found', () => {
+      const requestedCamera = {
+        deviceId: 'requested-device-id',
+        deviceLabel: 'Requested Camera',
+      };
+      const fallbackDevice = {
+        deviceId: 'fallback-device-id',
+        groupId: 'fallback-group-id',
+        label: 'Fallback Camera',
+      };
+
+      testService.send({
+        type: 'CAMERA_NOT_FOUND',
+        data: {
+          requestedCamera,
+          fallbackDevice,
+        },
+      });
+
+      expect(mockOnCameraNotFound).toHaveBeenCalledTimes(1);
+      expect(mockOnCameraNotFound).toHaveBeenCalledWith(
+        requestedCamera,
+        fallbackDevice
+      );
+    });
+
+    it('should call onCameraNotFound callback with deviceId only when deviceLabel is not provided', () => {
+      const requestedCamera = {
+        deviceId: 'requested-device-id',
+      };
+      const fallbackDevice = {
+        deviceId: 'fallback-device-id',
+        groupId: 'fallback-group-id',
+        label: 'Fallback Camera',
+      };
+
+      testService.send({
+        type: 'CAMERA_NOT_FOUND',
+        data: {
+          requestedCamera,
+          fallbackDevice,
+        },
+      });
+
+      expect(mockOnCameraNotFound).toHaveBeenCalledTimes(1);
+      expect(mockOnCameraNotFound).toHaveBeenCalledWith(
+        requestedCamera,
+        fallbackDevice
+      );
+    });
+
+    it('should call onCameraNotFound callback with deviceLabel only when deviceId is not provided', () => {
+      const requestedCamera = {
+        deviceLabel: 'Requested Camera',
+      };
+      const fallbackDevice = {
+        deviceId: 'fallback-device-id',
+        groupId: 'fallback-group-id',
+        label: 'Fallback Camera',
+      };
+
+      testService.send({
+        type: 'CAMERA_NOT_FOUND',
+        data: {
+          requestedCamera,
+          fallbackDevice,
+        },
+      });
+
+      expect(mockOnCameraNotFound).toHaveBeenCalledTimes(1);
+      expect(mockOnCameraNotFound).toHaveBeenCalledWith(
+        requestedCamera,
+        fallbackDevice
+      );
+    });
+
+    it('should not call onCameraNotFound callback when requestedCamera is missing', () => {
+      const fallbackDevice = {
+        deviceId: 'fallback-device-id',
+        groupId: 'fallback-group-id',
+        label: 'Fallback Camera',
+      };
+
+      testService.send({
+        type: 'CAMERA_NOT_FOUND',
+        data: {
+          fallbackDevice,
+        },
+      });
+
+      expect(mockOnCameraNotFound).not.toHaveBeenCalled();
+    });
+
+    it('should not call onCameraNotFound callback when fallbackDevice is missing', () => {
+      const requestedCamera = {
+        deviceId: 'requested-device-id',
+        deviceLabel: 'Requested Camera',
+      };
+
+      testService.send({
+        type: 'CAMERA_NOT_FOUND',
+        data: {
+          requestedCamera,
+        },
+      });
+
+      expect(mockOnCameraNotFound).not.toHaveBeenCalled();
+    });
+
+    it('should not call onCameraNotFound callback when both requestedCamera and fallbackDevice are missing', () => {
+      testService.send({
+        type: 'CAMERA_NOT_FOUND',
+        data: {},
+      });
+
+      expect(mockOnCameraNotFound).not.toHaveBeenCalled();
+    });
+
+    it('should not call onCameraNotFound callback when no data is provided', () => {
+      testService.send({
+        type: 'CAMERA_NOT_FOUND',
+      });
+
+      expect(mockOnCameraNotFound).not.toHaveBeenCalled();
+    });
+
+    it('should handle callback errors gracefully and not break state machine', () => {
+      const mockOnCameraNotFoundWithError = jest.fn().mockImplementation(() => {
+        throw new Error('Callback error');
+      });
+
+      const testMachineWithErrorCallback = livenessMachine.withContext({
+        ...livenessMachine.context,
+        componentProps: {
+          ...mockcomponentProps,
+          onCameraNotFound: mockOnCameraNotFoundWithError,
+        },
+      });
+      const serviceWithErrorCallback = interpret(
+        testMachineWithErrorCallback
+      ).start();
+
+      const requestedCamera = {
+        deviceId: 'requested-device-id',
+      };
+      const fallbackDevice = {
+        deviceId: 'fallback-device-id',
+        groupId: 'fallback-group-id',
+        label: 'Fallback Camera',
+      };
+
+      // This should not throw an error
+      expect(() => {
+        serviceWithErrorCallback.send({
+          type: 'CAMERA_NOT_FOUND',
+          data: {
+            requestedCamera,
+            fallbackDevice,
+          },
+        });
+      }).not.toThrow();
+
+      expect(mockOnCameraNotFoundWithError).toHaveBeenCalledTimes(1);
+
+      // State machine should still be functional
+      expect(serviceWithErrorCallback.state).toBeDefined();
+
+      serviceWithErrorCallback.stop();
+    });
+
+    it('should do nothing when onCameraNotFound callback is not provided', () => {
+      const testMachineWithoutCallback = livenessMachine.withContext({
+        ...livenessMachine.context,
+        componentProps: {
+          ...mockcomponentProps,
+          onCameraNotFound: undefined,
+        },
+      });
+      const serviceWithoutCallback = interpret(
+        testMachineWithoutCallback
+      ).start();
+
+      const requestedCamera = {
+        deviceId: 'requested-device-id',
+      };
+      const fallbackDevice = {
+        deviceId: 'fallback-device-id',
+        groupId: 'fallback-group-id',
+        label: 'Fallback Camera',
+      };
+
+      // This should not throw an error
+      expect(() => {
+        serviceWithoutCallback.send({
+          type: 'CAMERA_NOT_FOUND',
+          data: {
+            requestedCamera,
+            fallbackDevice,
+          },
+        });
+      }).not.toThrow();
+
+      // State machine should still be functional
+      expect(serviceWithoutCallback.state).toBeDefined();
+
+      serviceWithoutCallback.stop();
+    });
+
+    it('should do nothing when componentProps is null', () => {
+      const testMachineWithoutProps = livenessMachine.withContext({
+        ...livenessMachine.context,
+        componentProps: undefined,
+      });
+      const serviceWithoutProps = interpret(testMachineWithoutProps).start();
+
+      // This should not throw an error
+      expect(() => {
+        serviceWithoutProps.send({
+          type: 'CAMERA_NOT_FOUND',
+          data: {
+            requestedCamera: { deviceId: 'test' },
+            fallbackDevice: {
+              deviceId: 'fallback',
+              groupId: 'group',
+              label: 'label',
+            },
+          },
+        });
+      }).not.toThrow();
+
+      // State machine should still be functional
+      expect(serviceWithoutProps.state).toBeDefined();
+
+      serviceWithoutProps.stop();
+    });
+  });
 });
