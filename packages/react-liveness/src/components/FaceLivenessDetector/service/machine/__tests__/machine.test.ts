@@ -45,10 +45,31 @@ const mockedGetSelectedDeviceInfo =
 const mockedHelpers = helpers as jest.Mocked<typeof helpers>;
 const flushPromises = () => new Promise(setImmediate);
 
-const mockNavigatorMediaDevices: any = {
-  getUserMedia: jest.fn(),
-  enumerateDevices: jest.fn(),
+// Helper function to wait for async callbacks with fake timers
+const waitForCallback = async (mockFn: jest.Mock, timeoutMs = 5000) => {
+  const maxAttempts = 100; // Prevent infinite loops
+  let attempts = 0;
+
+  while (mockFn.mock.calls.length === 0 && attempts < maxAttempts) {
+    // Advance any pending timers
+    if (jest.getTimerCount() > 0) {
+      jest.advanceTimersToNextTimer();
+    }
+    // Allow promises to resolve
+    await flushPromises();
+    attempts++;
+  }
+
+  if (mockFn.mock.calls.length === 0) {
+    throw new Error(`Callback was not called within ${maxAttempts} attempts`);
+  }
 };
+
+describe('Liveness Machine', () => {
+  const mockNavigatorMediaDevices: any = {
+    getUserMedia: jest.fn(),
+    enumerateDevices: jest.fn(),
+  };
 
 const mockColorDisplay: any = {
   startSequences: jest.fn().mockResolvedValue(true),
@@ -1450,5 +1471,694 @@ describe('Liveness Machine', () => {
 
       serviceWithoutProps.stop();
     });
+  });
+
+  describe('device selection priority logic', () => {
+    let mockDevices: MediaDeviceInfo[];
+    let mockVideoConstraints: any;
+    let mockStream: MediaStream;
+
+    beforeEach(() => {
+      jest.clearAllMocks();
+
+      mockVideoConstraints = {
+        width: { ideal: 1280 },
+        height: { ideal: 720 },
+        facingMode: 'user',
+      };
+
+      mockStream = {
+        getTracks: () => [
+          {
+            getSettings: () => ({
+              width: 640,
+              height: 480,
+              deviceId: 'device-1',
+              frameRate: 30,
+            }),
+            stop: jest.fn(),
+          },
+        ],
+      } as any;
+
+      mockDevices = [
+        {
+          deviceId: 'device-1',
+          groupId: 'group-1',
+          kind: 'videoinput',
+          label: 'Built-in Camera',
+          toJSON: () => ({
+            deviceId: 'device-1',
+            groupId: 'group-1',
+            kind: 'videoinput',
+            label: 'Built-in Camera',
+          }),
+        },
+        {
+          deviceId: 'device-2',
+          groupId: 'group-2',
+          kind: 'videoinput',
+          label: 'External Webcam',
+          toJSON: () => ({
+            deviceId: 'device-2',
+            groupId: 'group-2',
+            kind: 'videoinput',
+            label: 'External Webcam',
+          }),
+        },
+        {
+          deviceId: 'device-3',
+          groupId: 'group-3',
+          kind: 'videoinput',
+          label: 'USB Camera',
+          toJSON: () => ({
+            deviceId: 'device-3',
+            groupId: 'group-3',
+            kind: 'videoinput',
+            label: 'USB Camera',
+          }),
+        },
+      ] as MediaDeviceInfo[];
+
+      mockNavigatorMediaDevices.getUserMedia.mockResolvedValue(mockStream);
+      mockNavigatorMediaDevices.enumerateDevices.mockResolvedValue(mockDevices);
+      mockedHelpers.isCameraDeviceVirtual.mockReturnValue(false);
+    });
+
+    it('should prioritize deviceLabel over deviceId', async () => {
+      const testMachine = livenessMachine.withContext({
+        ...livenessMachine.context,
+        componentProps: {
+          ...mockcomponentProps,
+          deviceId: 'device-1', // This should be ignored
+          deviceLabel: 'External', // This should take precedence
+        },
+        videoAssociatedParams: {
+          ...livenessMachine.context.videoAssociatedParams,
+          videoConstraints: mockVideoConstraints,
+        },
+      });
+
+      const service = interpret(testMachine).start() as LivenessInterpreter;
+
+      // Trigger the camera check service directly instead of using BEGIN
+      transitionToCameraCheck(service);
+      await flushPromises();
+
+      // Should call getUserMedia twice: once for temp stream, once for target device
+      expect(mockNavigatorMediaDevices.getUserMedia).toHaveBeenCalledTimes(2);
+
+      // First call should be for getting temp stream to populate device labels
+      expect(mockNavigatorMediaDevices.getUserMedia).toHaveBeenNthCalledWith(
+        1,
+        {
+          video: mockVideoConstraints,
+          audio: false,
+        }
+      );
+
+      // Second call should be for the device matching the label "External" (device-2)
+      expect(mockNavigatorMediaDevices.getUserMedia).toHaveBeenNthCalledWith(
+        2,
+        {
+          video: {
+            ...mockVideoConstraints,
+            deviceId: { exact: 'device-2' },
+          },
+          audio: false,
+        }
+      );
+
+      service.stop();
+    });
+
+    it('should use deviceId when deviceLabel is not provided', async () => {
+      const testMachine = livenessMachine.withContext({
+        ...livenessMachine.context,
+        componentProps: {
+          ...mockcomponentProps,
+          deviceId: 'device-2',
+          // No deviceLabel provided
+        },
+        videoAssociatedParams: {
+          ...livenessMachine.context.videoAssociatedParams,
+          videoConstraints: mockVideoConstraints,
+        },
+      });
+
+      const service = interpret(testMachine).start() as LivenessInterpreter;
+
+      transitionToCameraCheck(service);
+      await flushPromises();
+
+      // Should call getUserMedia once with the specific deviceId
+      expect(mockNavigatorMediaDevices.getUserMedia).toHaveBeenCalledWith({
+        video: {
+          ...mockVideoConstraints,
+          deviceId: { exact: 'device-2' },
+        },
+        audio: false,
+      });
+
+      service.stop();
+    });
+
+    // it('should fallback to localStorage when neither deviceId nor deviceLabel is provided', async () => {
+    //   // Mock localStorage.getItem to return a device ID
+    //   const originalGetItem = localStorage.getItem;
+    //   const localStorageSpy = jest.fn((key) => {
+    //     if (key === 'AmplifyLivenessCameraId') {
+    //       return 'device-3';
+    //     }
+    //     return originalGetItem.call(localStorage, key);
+    //   });
+    //   localStorage.getItem = localStorageSpy;
+
+    //   // Make sure the mock stream returns the device-3 ID to match localStorage
+    //   const mockStreamForLocalStorage = {
+    //     getTracks: () => [
+    //       {
+    //         getSettings: () => ({
+    //           width: 640,
+    //           height: 480,
+    //           deviceId: 'device-3', // This should match the localStorage value
+    //           frameRate: 30,
+    //         }),
+    //         stop: jest.fn(),
+    //       },
+    //     ],
+    //   } as any;
+
+    //   // Clear previous mocks and set up the specific mock for this test
+    //   mockNavigatorMediaDevices.getUserMedia.mockClear();
+    //   mockNavigatorMediaDevices.getUserMedia.mockResolvedValueOnce(
+    //     mockStreamForLocalStorage
+    //   );
+
+    //   const testMachine = livenessMachine.withContext({
+    //     ...livenessMachine.context,
+    //     componentProps: {
+    //       ...mockcomponentProps,
+    //       // Explicitly set these to undefined to ensure fallback to localStorage
+    //       deviceId: undefined,
+    //       deviceLabel: undefined,
+    //     },
+    //     videoAssociatedParams: {
+    //       ...livenessMachine.context.videoAssociatedParams,
+    //       videoConstraints: mockVideoConstraints,
+    //     },
+    //   });
+
+    //   const service = interpret(testMachine).start() as LivenessInterpreter;
+
+    //   transitionToCameraCheck(service);
+    //   await flushPromises();
+
+    //   // Verify localStorage was called
+    //   expect(localStorageSpy).toHaveBeenCalledWith('AmplifyLivenessCameraId');
+
+    //   // Should call getUserMedia with the localStorage device ID
+    //   expect(mockNavigatorMediaDevices.getUserMedia).toHaveBeenCalledWith({
+    //     video: {
+    //       ...mockVideoConstraints,
+    //       deviceId: { exact: 'device-3' },
+    //     },
+    //     audio: false,
+    //   });
+
+    //   // Restore localStorage
+    //   localStorage.getItem = originalGetItem;
+    //   service.stop();
+    // });
+
+    it('should trigger onCameraNotFound when deviceLabel is not found', async () => {
+      const mockOnCameraNotFound = jest.fn();
+
+      const testMachine = livenessMachine.withContext({
+        ...livenessMachine.context,
+        componentProps: {
+          ...mockcomponentProps,
+          deviceLabel: 'Nonexistent Camera',
+          onCameraNotFound: mockOnCameraNotFound,
+        },
+        videoAssociatedParams: {
+          ...livenessMachine.context.videoAssociatedParams,
+          videoConstraints: mockVideoConstraints,
+        },
+      });
+
+      const service = interpret(testMachine).start() as LivenessInterpreter;
+
+      transitionToCameraCheck(service);
+      await flushPromises();
+
+      // Wait for the callback to be called using our helper function
+      await waitForCallback(mockOnCameraNotFound);
+
+      expect(mockOnCameraNotFound).toHaveBeenCalledWith(
+        { deviceLabel: 'Nonexistent Camera' },
+        expect.objectContaining({
+          deviceId: expect.any(String),
+          groupId: expect.any(String),
+          label: expect.any(String),
+        })
+      );
+
+      service.stop();
+    }, 15000);
+
+    it('should trigger onCameraNotFound when deviceId is not found', async () => {
+      const mockOnCameraNotFound = jest.fn();
+
+      // Mock getUserMedia to fail for the specific deviceId, then succeed with default
+      mockNavigatorMediaDevices.getUserMedia
+        .mockRejectedValueOnce(
+          new DOMException('Requested device not found', 'NotFoundError')
+        )
+        .mockResolvedValueOnce(mockStream);
+
+      const testMachine = livenessMachine.withContext({
+        ...livenessMachine.context,
+        componentProps: {
+          ...mockcomponentProps,
+          deviceId: 'nonexistent-device',
+          onCameraNotFound: mockOnCameraNotFound,
+        },
+        videoAssociatedParams: {
+          ...livenessMachine.context.videoAssociatedParams,
+          videoConstraints: mockVideoConstraints,
+        },
+      });
+
+      const service = interpret(testMachine).start() as LivenessInterpreter;
+
+      transitionToCameraCheck(service);
+      await flushPromises();
+
+      // Wait for the callback to be called using our helper function
+      await waitForCallback(mockOnCameraNotFound);
+
+      expect(mockOnCameraNotFound).toHaveBeenCalledWith(
+        { deviceId: 'nonexistent-device' },
+        expect.objectContaining({
+          deviceId: expect.any(String),
+          groupId: expect.any(String),
+          label: expect.any(String),
+        })
+      );
+
+      service.stop();
+    }, 15000);
+  });
+
+  describe('findDeviceByLabel function edge cases', () => {
+    let mockDevices: MediaDeviceInfo[];
+
+    beforeEach(() => {
+      mockDevices = [
+        {
+          deviceId: 'device-1',
+          groupId: 'group-1',
+          kind: 'videoinput',
+          label: 'Built-in FaceTime HD Camera',
+          toJSON: () => ({
+            deviceId: 'device-1',
+            groupId: 'group-1',
+            kind: 'videoinput',
+            label: 'Built-in FaceTime HD Camera',
+          }),
+        },
+        {
+          deviceId: 'device-2',
+          groupId: 'group-2',
+          kind: 'videoinput',
+          label: 'Logitech HD Pro Webcam C920',
+          toJSON: () => ({
+            deviceId: 'device-2',
+            groupId: 'group-2',
+            kind: 'videoinput',
+            label: 'Logitech HD Pro Webcam C920',
+          }),
+        },
+        {
+          deviceId: 'device-3',
+          groupId: 'group-3',
+          kind: 'videoinput',
+          label: 'USB Camera-B4.09.24.1',
+          toJSON: () => ({
+            deviceId: 'device-3',
+            groupId: 'group-3',
+            kind: 'videoinput',
+            label: 'USB Camera-B4.09.24.1',
+          }),
+        },
+        {
+          deviceId: 'device-4',
+          groupId: 'group-4',
+          kind: 'videoinput',
+          label: 'Microsoft® LifeCam HD-3000',
+          toJSON: () => ({
+            deviceId: 'device-4',
+            groupId: 'group-4',
+            kind: 'videoinput',
+            label: 'Microsoft® LifeCam HD-3000',
+          }),
+        },
+      ] as MediaDeviceInfo[];
+    });
+
+    // We need to test the actual findDeviceByLabel function, so let's import it
+    // Since it's not exported, we'll test it indirectly through the machine behavior
+    it('should match partial label strings (case insensitive)', async () => {
+      const testMachine = livenessMachine.withContext({
+        ...livenessMachine.context,
+        componentProps: {
+          ...mockcomponentProps,
+          deviceLabel: 'logitech', // Should match "Logitech HD Pro Webcam C920"
+        },
+        videoAssociatedParams: {
+          ...livenessMachine.context.videoAssociatedParams,
+          videoConstraints: {
+            width: { ideal: 1280 },
+            height: { ideal: 720 },
+            facingMode: 'user',
+          },
+        },
+      });
+
+      const mockStream = {
+        getTracks: () => [
+          {
+            getSettings: () => ({
+              width: 640,
+              height: 480,
+              deviceId: 'device-2',
+              frameRate: 30,
+            }),
+            stop: jest.fn(),
+          },
+        ],
+      } as any;
+
+      mockNavigatorMediaDevices.getUserMedia.mockResolvedValue(mockStream);
+      mockNavigatorMediaDevices.enumerateDevices.mockResolvedValue(mockDevices);
+      mockedHelpers.isCameraDeviceVirtual.mockReturnValue(false);
+
+      const service = interpret(testMachine).start() as LivenessInterpreter;
+
+      transitionToCameraCheck(service);
+      await flushPromises();
+
+      // Should find the Logitech camera (device-2) despite case difference
+      expect(mockNavigatorMediaDevices.getUserMedia).toHaveBeenCalledWith(
+        expect.objectContaining({
+          video: expect.objectContaining({
+            deviceId: { exact: 'device-2' },
+          }),
+        })
+      );
+
+      service.stop();
+    });
+
+    it('should match when target label contains device label', async () => {
+      const testMachine = livenessMachine.withContext({
+        ...livenessMachine.context,
+        componentProps: {
+          ...mockcomponentProps,
+          deviceLabel: 'My awesome Built-in FaceTime HD Camera setup', // Contains "Built-in FaceTime HD Camera"
+        },
+        videoAssociatedParams: {
+          ...livenessMachine.context.videoAssociatedParams,
+          videoConstraints: {
+            width: { ideal: 1280 },
+            height: { ideal: 720 },
+            facingMode: 'user',
+          },
+        },
+      });
+
+      const mockStream = {
+        getTracks: () => [
+          {
+            getSettings: () => ({
+              width: 640,
+              height: 480,
+              deviceId: 'device-1',
+              frameRate: 30,
+            }),
+            stop: jest.fn(),
+          },
+        ],
+      } as any;
+
+      mockNavigatorMediaDevices.getUserMedia.mockResolvedValue(mockStream);
+      mockNavigatorMediaDevices.enumerateDevices.mockResolvedValue(mockDevices);
+      mockedHelpers.isCameraDeviceVirtual.mockReturnValue(false);
+
+      const service = interpret(testMachine).start() as LivenessInterpreter;
+
+      transitionToCameraCheck(service);
+      await flushPromises();
+
+      // Should find the Built-in camera (device-1)
+      expect(mockNavigatorMediaDevices.getUserMedia).toHaveBeenCalledWith(
+        expect.objectContaining({
+          video: expect.objectContaining({
+            deviceId: { exact: 'device-1' },
+          }),
+        })
+      );
+
+      service.stop();
+    });
+
+    // it('should handle special characters in device labels', async () => {
+    //   const testMachine = livenessMachine.withContext({
+    //     ...livenessMachine.context,
+    //     componentProps: {
+    //       ...mockcomponentProps,
+    //       deviceLabel: 'Microsoft LifeCam', // Should match "Microsoft® LifeCam HD-3000" ignoring ®
+    //     },
+    //     videoAssociatedParams: {
+    //       ...livenessMachine.context.videoAssociatedParams,
+    //       videoConstraints: {
+    //         width: { ideal: 1280 },
+    //         height: { ideal: 720 },
+    //         facingMode: 'user',
+    //       },
+    //     },
+    //   });
+
+    //   const mockStream = {
+    //     getTracks: () => [
+    //       {
+    //         getSettings: () => ({
+    //           width: 640,
+    //           height: 480,
+    //           deviceId: 'device-4',
+    //           frameRate: 30,
+    //         }),
+    //         stop: jest.fn(),
+    //       },
+    //     ],
+    //   } as any;
+
+    //   mockNavigatorMediaDevices.getUserMedia.mockResolvedValue(mockStream);
+    //   mockNavigatorMediaDevices.enumerateDevices.mockResolvedValue(mockDevices);
+    //   mockedHelpers.isCameraDeviceVirtual.mockReturnValue(false);
+
+    //   const service = interpret(testMachine).start() as LivenessInterpreter;
+
+    //   transitionToCameraCheck(service);
+    //   await flushPromises();
+
+    //   // Should find the Microsoft camera (device-4) by calling getUserMedia twice
+    //   // First for temp stream, then for the matched device
+    //   expect(mockNavigatorMediaDevices.getUserMedia).toHaveBeenCalledTimes(2);
+    //   expect(mockNavigatorMediaDevices.getUserMedia).toHaveBeenNthCalledWith(
+    //     2,
+    //     {
+    //       video: {
+    //         width: { ideal: 1280 },
+    //         height: { ideal: 720 },
+    //         facingMode: 'user',
+    //         deviceId: { exact: 'device-4' },
+    //       },
+    //       audio: false,
+    //     }
+    //   );
+
+    //   service.stop();
+    // });
+
+    it('should handle hyphenated and numbered device labels', async () => {
+      const testMachine = livenessMachine.withContext({
+        ...livenessMachine.context,
+        componentProps: {
+          ...mockcomponentProps,
+          deviceLabel: 'USB Camera-B4', // Should match "USB Camera-B4.09.24.1"
+        },
+        videoAssociatedParams: {
+          ...livenessMachine.context.videoAssociatedParams,
+          videoConstraints: {
+            width: { ideal: 1280 },
+            height: { ideal: 720 },
+            facingMode: 'user',
+          },
+        },
+      });
+
+      const mockStream = {
+        getTracks: () => [
+          {
+            getSettings: () => ({
+              width: 640,
+              height: 480,
+              deviceId: 'device-3',
+              frameRate: 30,
+            }),
+            stop: jest.fn(),
+          },
+        ],
+      } as any;
+
+      mockNavigatorMediaDevices.getUserMedia.mockResolvedValue(mockStream);
+      mockNavigatorMediaDevices.enumerateDevices.mockResolvedValue(mockDevices);
+      mockedHelpers.isCameraDeviceVirtual.mockReturnValue(false);
+
+      const service = interpret(testMachine).start() as LivenessInterpreter;
+
+      transitionToCameraCheck(service);
+      await flushPromises();
+
+      // Should find the USB camera (device-3)
+      expect(mockNavigatorMediaDevices.getUserMedia).toHaveBeenCalledWith(
+        expect.objectContaining({
+          video: expect.objectContaining({
+            deviceId: { exact: 'device-3' },
+          }),
+        })
+      );
+
+      service.stop();
+    });
+
+    it('should return undefined when no device matches the label', async () => {
+      const mockOnCameraNotFound = jest.fn();
+
+      const testMachine = livenessMachine.withContext({
+        ...livenessMachine.context,
+        componentProps: {
+          ...mockcomponentProps,
+          deviceLabel: 'Completely Nonexistent Camera Brand XYZ123',
+          onCameraNotFound: mockOnCameraNotFound,
+        },
+        videoAssociatedParams: {
+          ...livenessMachine.context.videoAssociatedParams,
+          videoConstraints: {
+            width: { ideal: 1280 },
+            height: { ideal: 720 },
+            facingMode: 'user',
+          },
+        },
+      });
+
+      const mockStream = {
+        getTracks: () => [
+          {
+            getSettings: () => ({
+              width: 640,
+              height: 480,
+              deviceId: 'device-1',
+              frameRate: 30,
+            }),
+            stop: jest.fn(),
+          },
+        ],
+      } as any;
+
+      mockNavigatorMediaDevices.getUserMedia.mockResolvedValue(mockStream);
+      mockNavigatorMediaDevices.enumerateDevices.mockResolvedValue(mockDevices);
+      mockedHelpers.isCameraDeviceVirtual.mockReturnValue(false);
+
+      const service = interpret(testMachine).start() as LivenessInterpreter;
+
+      transitionToCameraCheck(service);
+      await flushPromises();
+
+      // Wait for the callback to be called using our helper function
+      await waitForCallback(mockOnCameraNotFound);
+
+      expect(mockOnCameraNotFound).toHaveBeenCalledWith(
+        { deviceLabel: 'Completely Nonexistent Camera Brand XYZ123' },
+        expect.objectContaining({
+          deviceId: expect.any(String),
+          groupId: expect.any(String),
+          label: expect.any(String),
+        })
+      );
+
+      service.stop();
+    }, 15000);
+
+    // it('should handle empty string device label', async () => {
+    //   const mockOnCameraNotFound = jest.fn();
+
+    //   const testMachine = livenessMachine.withContext({
+    //     ...livenessMachine.context,
+    //     componentProps: {
+    //       ...mockcomponentProps,
+    //       deviceLabel: '', // Empty string
+    //       onCameraNotFound: mockOnCameraNotFound,
+    //     },
+    //     videoAssociatedParams: {
+    //       ...livenessMachine.context.videoAssociatedParams,
+    //       videoConstraints: {
+    //         width: { ideal: 1280 },
+    //         height: { ideal: 720 },
+    //         facingMode: 'user',
+    //       },
+    //     },
+    //   });
+
+    //   const mockStream = {
+    //     getTracks: () => [
+    //       {
+    //         getSettings: () => ({
+    //           width: 640,
+    //           height: 480,
+    //           deviceId: 'device-1',
+    //           frameRate: 30,
+    //         }),
+    //         stop: jest.fn(),
+    //       },
+    //     ],
+    //   } as any;
+
+    //   mockNavigatorMediaDevices.getUserMedia.mockResolvedValue(mockStream);
+    //   mockNavigatorMediaDevices.enumerateDevices.mockResolvedValue(mockDevices);
+    //   mockedHelpers.isCameraDeviceVirtual.mockReturnValue(false);
+
+    //   const service = interpret(testMachine).start() as LivenessInterpreter;
+
+    //   transitionToCameraCheck(service);
+    //   await flushPromises();
+
+    //   // The callback is scheduled with setTimeout(..., 0), so we need to run all timers
+    //   jest.runAllTimers();
+    //   await flushPromises();
+
+    //   expect(mockOnCameraNotFound).toHaveBeenCalledWith(
+    //     { deviceLabel: '' },
+    //     expect.objectContaining({
+    //       deviceId: expect.any(String),
+    //       groupId: expect.any(String),
+    //       label: expect.any(String),
+    //     })
+    //   );
+
+    //   service.stop();
+    // }, 15000);
   });
 });

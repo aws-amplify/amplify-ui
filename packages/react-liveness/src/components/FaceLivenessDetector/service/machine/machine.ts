@@ -1026,14 +1026,19 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             (device) => device.kind === 'videoinput'
           );
 
-          const matchingDevice = findDeviceByLabel(
-            videoDevices,
-            componentProps.deviceLabel
-          );
-          if (matchingDevice) {
-            targetDeviceId = matchingDevice.deviceId;
-          } else {
+          // Check for empty or whitespace-only string - treat as camera not found
+          if (componentProps.deviceLabel.trim() === '') {
             cameraNotFound = true;
+          } else {
+            const matchingDevice = findDeviceByLabel(
+              videoDevices,
+              componentProps.deviceLabel
+            );
+            if (matchingDevice) {
+              targetDeviceId = matchingDevice.deviceId;
+            } else {
+              cameraNotFound = true;
+            }
           }
 
           // Stop the temporary stream
