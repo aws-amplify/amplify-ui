@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { StorageBrowser, useView } from './StorageBrowser';
-import { CustomDeleteView } from './CustomDeleteView';
 import { CustomCopyView } from './CustomCopyView';
 import { CustomCreateFolderView } from './CustomCreateFolderView';
-import { CustomUploadView } from './CustomUploadView';
+import { CustomDeleteView } from './CustomDeleteView';
+import { CustomDownloadView } from './CustomDownloadView';
 import { CustomLocationsView } from './CustomLocationsView';
+import { CustomUploadView } from './CustomUploadView';
 
 function MyLocationActionView() {
   const state = useView('LocationDetail');
@@ -19,6 +20,8 @@ function MyLocationActionView() {
       return <CustomCreateFolderView onExit={onExit} />;
     case 'delete':
       return <CustomDeleteView onExit={onExit} />;
+    case 'download':
+      return <CustomDownloadView onExit={onExit} />;
     case 'upload':
       return <CustomUploadView onExit={onExit} />;
     default:

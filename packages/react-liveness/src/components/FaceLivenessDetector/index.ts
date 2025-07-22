@@ -8,3 +8,8 @@ export type {
   AwsCredentials,
   ErrorState,
 } from './service';
+export {
+  FACE_MOVEMENT_CHALLENGE,
+  FACE_MOVEMENT_AND_LIGHT_CHALLENGE,
+  SUPPORTED_CHALLENGES,
+} from './service';

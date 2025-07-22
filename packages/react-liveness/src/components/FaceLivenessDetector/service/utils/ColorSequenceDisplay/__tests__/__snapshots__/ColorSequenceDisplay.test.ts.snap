@@ -1,0 +1,249 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ColorSequenceDisplay progresses through expected sequences as expected 1`] = `
+{
+  "data": {
+    "Challenge": {
+      "FaceMovementAndLightChallenge": {
+        "ChallengeId": "challengeId",
+        "ColorDisplayed": {
+          "CurrentColor": {
+            "RGB": [
+              0,
+              0,
+              0,
+            ],
+          },
+          "CurrentColorStartTimestamp": 1000,
+          "PreviousColor": {
+            "RGB": [
+              0,
+              0,
+              0,
+            ],
+          },
+          "SequenceNumber": 0,
+        },
+      },
+    },
+  },
+  "type": "sessionInfo",
+}
+`;
+
+exports[`ColorSequenceDisplay progresses through expected sequences as expected 2`] = `
+{
+  "data": {
+    "Challenge": {
+      "FaceMovementAndLightChallenge": {
+        "ChallengeId": "challengeId",
+        "ColorDisplayed": {
+          "CurrentColor": {
+            "RGB": [
+              0,
+              255,
+              0,
+            ],
+          },
+          "CurrentColorStartTimestamp": 1000,
+          "PreviousColor": {
+            "RGB": [
+              0,
+              0,
+              0,
+            ],
+          },
+          "SequenceNumber": 1,
+        },
+      },
+    },
+  },
+  "type": "sessionInfo",
+}
+`;
+
+exports[`ColorSequenceDisplay progresses through expected sequences as expected 3`] = `
+{
+  "data": {
+    "Challenge": {
+      "FaceMovementAndLightChallenge": {
+        "ChallengeId": "challengeId",
+        "ColorDisplayed": {
+          "CurrentColor": {
+            "RGB": [
+              255,
+              0,
+              255,
+            ],
+          },
+          "CurrentColorStartTimestamp": 4000,
+          "PreviousColor": {
+            "RGB": [
+              0,
+              255,
+              0,
+            ],
+          },
+          "SequenceNumber": 2,
+        },
+      },
+    },
+  },
+  "type": "sessionInfo",
+}
+`;
+
+exports[`ColorSequenceDisplay progresses through expected sequences as expected 4`] = `
+{
+  "data": {
+    "Challenge": {
+      "FaceMovementAndLightChallenge": {
+        "ChallengeId": "challengeId",
+        "ColorDisplayed": {
+          "CurrentColor": {
+            "RGB": [
+              255,
+              0,
+              0,
+            ],
+          },
+          "CurrentColorStartTimestamp": 6000,
+          "PreviousColor": {
+            "RGB": [
+              255,
+              0,
+              255,
+            ],
+          },
+          "SequenceNumber": 3,
+        },
+      },
+    },
+  },
+  "type": "sessionInfo",
+}
+`;
+
+exports[`ColorSequenceDisplay progresses through expected sequences as expected 5`] = `
+{
+  "data": {
+    "Challenge": {
+      "FaceMovementAndLightChallenge": {
+        "ChallengeId": "challengeId",
+        "ColorDisplayed": {
+          "CurrentColor": {
+            "RGB": [
+              0,
+              0,
+              255,
+            ],
+          },
+          "CurrentColorStartTimestamp": 8000,
+          "PreviousColor": {
+            "RGB": [
+              255,
+              0,
+              0,
+            ],
+          },
+          "SequenceNumber": 4,
+        },
+      },
+    },
+  },
+  "type": "sessionInfo",
+}
+`;
+
+exports[`ColorSequenceDisplay progresses through expected sequences as expected 6`] = `
+{
+  "data": {
+    "Challenge": {
+      "FaceMovementAndLightChallenge": {
+        "ChallengeId": "challengeId",
+        "ColorDisplayed": {
+          "CurrentColor": {
+            "RGB": [
+              255,
+              0,
+              0,
+            ],
+          },
+          "CurrentColorStartTimestamp": 10000,
+          "PreviousColor": {
+            "RGB": [
+              0,
+              0,
+              255,
+            ],
+          },
+          "SequenceNumber": 5,
+        },
+      },
+    },
+  },
+  "type": "sessionInfo",
+}
+`;
+
+exports[`ColorSequenceDisplay progresses through expected sequences as expected 7`] = `
+{
+  "data": {
+    "Challenge": {
+      "FaceMovementAndLightChallenge": {
+        "ChallengeId": "challengeId",
+        "ColorDisplayed": {
+          "CurrentColor": {
+            "RGB": [
+              0,
+              255,
+              0,
+            ],
+          },
+          "CurrentColorStartTimestamp": 12000,
+          "PreviousColor": {
+            "RGB": [
+              255,
+              0,
+              0,
+            ],
+          },
+          "SequenceNumber": 6,
+        },
+      },
+    },
+  },
+  "type": "sessionInfo",
+}
+`;
+
+exports[`ColorSequenceDisplay progresses through expected sequences as expected 8`] = `
+{
+  "data": {
+    "Challenge": {
+      "FaceMovementAndLightChallenge": {
+        "ChallengeId": "challengeId",
+        "ColorDisplayed": {
+          "CurrentColor": {
+            "RGB": [
+              255,
+              0,
+              0,
+            ],
+          },
+          "CurrentColorStartTimestamp": 14000,
+          "PreviousColor": {
+            "RGB": [
+              0,
+              255,
+              0,
+            ],
+          },
+          "SequenceNumber": 7,
+        },
+      },
+    },
+  },
+  "type": "sessionInfo",
+}
+`;
