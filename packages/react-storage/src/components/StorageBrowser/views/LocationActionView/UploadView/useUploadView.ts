@@ -8,7 +8,9 @@ import { useAction } from '../../../useAction';
 
 import { DEFAULT_OVERWRITE_ENABLED } from './constants';
 import type { UploadViewState, UseUploadViewOptions } from './types';
+import { usePaginate } from '../../hooks/usePaginate';
 
+const DEFAULT_PAGE_SIZE = 100;
 export const useUploadView = (
   options?: UseUploadViewOptions
 ): UploadViewState => {
@@ -37,6 +39,14 @@ export const useUploadView = (
     { isProcessing, isProcessingComplete, statusCounts, tasks },
     handleUploads,
   ] = useAction('upload', { items });
+
+  const {
+    currentPage,
+    handlePaginate,
+    pageItems: pageTasks,
+  } = usePaginate({
+    items: tasks,
+  });
 
   const onDropFiles = (files: File[]) => {
     if (files) {
@@ -79,11 +89,15 @@ export const useUploadView = (
     location,
     invalidFiles,
     statusCounts,
-    tasks,
+    tasks: pageTasks,
+    page: currentPage,
+    hasNextPage: currentPage * DEFAULT_PAGE_SIZE < items.length,
+    highestPageVisited: Math.ceil(items.length / DEFAULT_PAGE_SIZE),
     onActionCancel,
     onActionExit,
     onActionStart,
     onDropFiles,
+    onPaginate: handlePaginate,
     onTaskRemove,
     onSelectFiles,
     onToggleOverwrite,
