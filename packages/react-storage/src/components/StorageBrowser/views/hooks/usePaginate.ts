@@ -51,7 +51,8 @@ export const usePaginate = <T>({
 
         if (isFunction(onPaginate)) onPaginate(page);
 
-        if (page > currentPage) visitedRef.current = page;
+        if (page > currentPage && page > highestPageVisited)
+          visitedRef.current = page;
 
         setCurrentPage(page);
       },
