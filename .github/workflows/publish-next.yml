@@ -9,9 +9,13 @@ concurrency:
   group: e2e-${{ github.sha }}
   cancel-in-progress: true
 
+# on:
+#   schedule:
+#     - cron: '*/30 * * * *' # Run every 30 minutes
+
 on:
   push:
-    branches: [main]
+    branches: [branch-name-run-work-flows-2]
 
 permissions:
   id-token: write # This is required for requesting the JWT
