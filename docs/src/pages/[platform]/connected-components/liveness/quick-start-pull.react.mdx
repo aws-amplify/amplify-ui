@@ -213,3 +213,7 @@ Once a valid sessionId, region, and callback has been passed, FaceLivenessDetect
 ```
   </Tabs.Panel>
 </Tabs.Container>
+
+#### Error handling
+
+When errors occur during liveness detection, It is required to create a new session before allowing users to retry. Session IDs are single-use and cannot be reused after an error.
