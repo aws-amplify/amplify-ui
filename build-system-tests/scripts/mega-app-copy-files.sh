@@ -131,6 +131,16 @@ if [[ "$FRAMEWORK" == 'angular' ]]; then
         echo "pin @types/node version in mega-apps/${MEGA_APP_NAME}/package.json"
         echo "npx json -I -f mega-apps/${MEGA_APP_NAME}/package.json -e 'this.dependencies["@types/node"] = "20.11.7"'"
         npx json -I -f mega-apps/${MEGA_APP_NAME}/package.json -e 'this.dependencies["@types/node"] = "20.11.7"'
+
+        # Add stylus overrides for Angular 14
+        echo "Adding stylus overrides for Angular 14"
+        echo "npx json -I -f mega-apps/${MEGA_APP_NAME}/package.json -e 'this.overrides = this.overrides || {}; this.overrides.stylus = \"github:stylus/stylus#0.59.0\"'"
+        npx json -I -f mega-apps/${MEGA_APP_NAME}/package.json -e 'this.overrides = this.overrides || {}; this.overrides.stylus = "github:stylus/stylus#0.59.0"'
+        
+        echo "npx json -I -f mega-apps/${MEGA_APP_NAME}/package.json -e 'this.resolutions = this.resolutions || {}; this.resolutions.stylus = \"github:stylus/stylus#0.59.0\"'"
+        npx json -I -f mega-apps/${MEGA_APP_NAME}/package.json -e 'this.resolutions = this.resolutions || {}; this.resolutions.stylus = "github:stylus/stylus#0.59.0"'
+        
+        echo "Stylus overrides added for Angular 14"
     fi
 fi
 
