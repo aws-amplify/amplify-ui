@@ -811,11 +811,15 @@ interface UploadViewState {
   invalidFiles: FileItems | undefined;
   isProcessing: boolean;
   isProcessingComplete: boolean;
+  hasNextPage: boolean;
+  highestPageVisited: number;
   location: LocationState;
   onActionCancel: () => void;
   onActionExit: () => void;
   onActionStart: () => void;
   onTaskRemove?: (task: Task<UploadHandlerData>) => void;
+  onPaginate: (page: number) => void;
+  page: number;
   statusCounts: StatusCounts;
   tasks: Task<UploadHandlerData>[];
 }
@@ -832,6 +836,7 @@ interface UploadViewState {
 * `<StorageBrowser.UploadView.Exit />`
 * `<StorageBrowser.UploadView.Message />`
 * `<StorageBrowser.UploadView.OverwriteToggle />`
+* `<StorageBrowser.UploadView.Pagination />`
 * `<StorageBrowser.UploadView.Start />`
 * `<StorageBrowser.UploadView.Statuses />`
 * `<StorageBrowser.UploadView.TasksTable />`
