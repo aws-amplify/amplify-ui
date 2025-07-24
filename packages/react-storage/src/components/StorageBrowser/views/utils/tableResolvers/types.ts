@@ -1,13 +1,15 @@
 import type {
   CopyHandlerData,
   DeleteHandlerData,
-  UploadHandlerData,
-  TaskData,
+  DownloadHandlerData,
   OptionalFileData,
+  TaskData,
+  UploadHandlerData,
 } from '../../../actions';
 import type {
   CopyViewDisplayText,
   DeleteViewDisplayText,
+  DownloadViewDisplayText,
   UploadViewDisplayText,
 } from '../../../displayText';
 import type { Task } from '../../../tasks';
@@ -15,6 +17,7 @@ import type { DataTableResolvers } from '../../hooks/useResolveTableData';
 
 export interface CopyActionTask extends Task<CopyHandlerData> {}
 export interface DeleteActionTask extends Task<DeleteHandlerData> {}
+export interface DownloadActionTask extends Task<DownloadHandlerData> {}
 export interface UploadActionTask extends Task<UploadHandlerData> {}
 export interface FileDataTask
   extends Task<TaskData & OptionalFileData & { fileKey: string }> {}
@@ -30,6 +33,12 @@ export interface CopyTableResolverProps
 
 export interface DeleteTableResolverProps
   extends ActionTableResolverProps<DeleteViewDisplayText, DeleteActionTask> {}
+
+export interface DownloadTableResolverProps
+  extends ActionTableResolverProps<
+    DownloadViewDisplayText,
+    DownloadActionTask
+  > {}
 
 export interface UploadTableResolverProps
   extends ActionTableResolverProps<UploadViewDisplayText, UploadActionTask> {

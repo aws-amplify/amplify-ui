@@ -1,4 +1,8 @@
-import { isCopyViewDisplayTextKey, isDeleteViewDisplayTextKey } from '../utils';
+import {
+  isCopyViewDisplayTextKey,
+  isDeleteViewDisplayTextKey,
+  isDownloadViewDisplayTextKey,
+} from '../utils';
 
 describe('display text utils', () => {
   describe('isCopyViewDisplayTextKey', () => {
@@ -19,6 +23,17 @@ describe('display text utils', () => {
     });
     it('returns `false` when provided an invalid key', () => {
       const output = isDeleteViewDisplayTextKey('invalid');
+      expect(output).toBe(false);
+    });
+  });
+
+  describe('isDownloadViewDisplayTextKey', () => {
+    it('returns `true` when provided a valid key', () => {
+      const output = isDownloadViewDisplayTextKey('statusDisplayCanceledLabel');
+      expect(output).toBe(true);
+    });
+    it('returns `false` when provided an invalid key', () => {
+      const output = isDownloadViewDisplayTextKey('invalid');
       expect(output).toBe(false);
     });
   });

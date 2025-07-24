@@ -362,6 +362,7 @@ Below you wll find examples of how to compose each view. See [View reference](#v
     <Tabs.Item value="Locations">Locations</Tabs.Item>
     <Tabs.Item value="LocationDetail">Location Detail</Tabs.Item>
     <Tabs.Item value="Upload">Upload</Tabs.Item>
+    <Tabs.Item value="Download">Download</Tabs.Item>
     <Tabs.Item value="Copy">Copy</Tabs.Item>
     <Tabs.Item value="CreateFolder">CreateFolder</Tabs.Item>
     <Tabs.Item value="Delete">Delete</Tabs.Item>
@@ -396,6 +397,12 @@ Below you wll find examples of how to compose each view. See [View reference](#v
         ```
       </ExampleCode>
   </Tabs.Panel>
+  <Tabs.Panel value="Download">
+    <ExampleCode>
+      ```jsx file=./examples/ComposedDownloadView.tsx
+      ```
+    </ExampleCode>
+  </Tabs.Panel>
   <Tabs.Panel value="Copy">
       <ExampleCode>
         ```jsx file=./examples/ComposedCopyView.tsx
@@ -415,7 +422,7 @@ Below you wll find examples of how to compose each view. See [View reference](#v
 
 The `createStorageBrowser` function returns a `useView()` hook that lets you use the Storage Browser's internal state and event handlers to build your own UI on top the Storage Browser functionality.
 
-The `useView()` hook takes a single argument which is the name of the view you want to get the UI state and event handlers for. The available views are `Locations`, `LocationDetails`, `Copy`, `Upload`, `Delete`, and `CreateFolder`. The return value of the hook will have all the necessary internal state and event handlers required to build that view. In fact, the Storage Browser component itself uses the `useView()` to manage its state, so you can build the UI exactly how we do!
+The `useView()` hook takes a single argument which is the name of the view you want to get the UI state and event handlers for. The available views are `Locations`, `LocationDetails`, `Copy`, `Upload`, `Download`, `Delete`, and `CreateFolder`. The return value of the hook will have all the necessary internal state and event handlers required to build that view. In fact, the Storage Browser component itself uses the `useView()` to manage its state, so you can build the UI exactly how we do!
 
 <Example>
   <Custom />
@@ -424,6 +431,7 @@ The `useView()` hook takes a single argument which is the name of the view you w
     <Tabs.Item value="StorageBrowser">StorageBrowser</Tabs.Item>
     <Tabs.Item value="Locations">Locations</Tabs.Item>
     <Tabs.Item value="Upload">Upload</Tabs.Item>
+    <Tabs.Item value="Download">Download</Tabs.Item>
     <Tabs.Item value="Copy">Copy</Tabs.Item>
     <Tabs.Item value="CreateFolder">CreateFolder</Tabs.Item>
     <Tabs.Item value="Delete">Delete</Tabs.Item>
@@ -458,6 +466,12 @@ The `useView()` hook takes a single argument which is the name of the view you w
         ```
       </ExampleCode>
   </Tabs.Panel>
+    <Tabs.Panel value="Download">
+      <ExampleCode>
+        ```jsx file=./examples/CustomDownloadView.tsx
+        ```
+      </ExampleCode>
+  </Tabs.Panel>
   <Tabs.Panel value="Delete">
       <ExampleCode>
         ```jsx file=./examples/CustomDeleteView.tsx
@@ -479,7 +493,7 @@ The following `default` actions are invoked by the default UI views:
 * `copy`: Copy data to another location within a `bucket` or `prefix` in [Copy action view](#copy-view).
 * `createFolder`: Create a folder within a `bucket` or `prefix` in [CreateFolder action view](#createfolder-view).
 * `delete`: Delete a given object in [Delete action view](#delete-view).
-* `download`: Download a given object in [LocationDetails view](#locationdetails-view) using an [anchor link](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#download).
+* `download`: Download a given object in [LocationDetails view](#locationdetails-view) using an [anchor link](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#download) or in [Download action view](#download-view).
 * `upload`: Upload a file in [Upload action view](#upload-view).
 
 `defaultActionConfigs` allows access to the default implementation of these actions. Below is an example to instrument the default upload action to count the files being uploaded.
@@ -797,11 +811,15 @@ interface UploadViewState {
   invalidFiles: FileItems | undefined;
   isProcessing: boolean;
   isProcessingComplete: boolean;
+  hasNextPage: boolean;
+  highestPageVisited: number;
   location: LocationState;
   onActionCancel: () => void;
   onActionExit: () => void;
   onActionStart: () => void;
   onTaskRemove?: (task: Task<UploadHandlerData>) => void;
+  onPaginate: (page: number) => void;
+  page: number;
   statusCounts: StatusCounts;
   tasks: Task<UploadHandlerData>[];
 }
@@ -818,10 +836,41 @@ interface UploadViewState {
 * `<StorageBrowser.UploadView.Exit />`
 * `<StorageBrowser.UploadView.Message />`
 * `<StorageBrowser.UploadView.OverwriteToggle />`
+* `<StorageBrowser.UploadView.Pagination />`
 * `<StorageBrowser.UploadView.Start />`
 * `<StorageBrowser.UploadView.Statuses />`
 * `<StorageBrowser.UploadView.TasksTable />`
 * `<StorageBrowser.UploadView.Title />`
+
+
+### Download view
+
+#### Download view state
+
+```ts
+interface DownloadViewState {
+  isProcessing: boolean;
+  isProcessingComplete: boolean;
+  location: LocationState;
+  onActionCancel: () => void;
+  onActionExit: () => void;
+  onActionStart: () => void;
+  onTaskRemove?: (task: Task<DeleteHandlerData>) => void;
+  statusCounts: StatusCounts;
+  tasks: Task<DeleteHandlerData>[];
+}
+```
+
+#### Download view components
+
+* `<StorageBrowser.DownloadView.Provider />`
+* `<StorageBrowser.DownloadView.Cancel />`
+* `<StorageBrowser.DownloadView.Exit />`
+* `<StorageBrowser.DownloadView.Message />`
+* `<StorageBrowser.DownloadView.Start />`
+* `<StorageBrowser.DownloadView.Statuses />`
+* `<StorageBrowser.DownloadView.TasksTable />`
+* `<StorageBrowser.DownloadView.Title />`
 
 
 ### Copy view
