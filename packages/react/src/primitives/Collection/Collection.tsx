@@ -132,8 +132,7 @@ export const Collection = <Item, Element extends ElementType>({
       <TableCollection
         className={ComponentClassName.CollectionItems}
         items={items}
-        // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-        tableHeader={(rest as TableCollectionProps<Item>).tableHeader!}
+        tableHeader={(rest as Partial<TableCollectionProps<Item>>).tableHeader!}
         {...rest}
       />
     ) : null;
