@@ -16,8 +16,10 @@ import type {
   ElementType,
   GridCollectionProps,
   ListCollectionProps,
+  TableCollectionProps,
 } from '../types';
 import { getItemsAtPage, itemHasText, getPageCount } from './utils';
+import { Table, TableBody } from '../Table';
 
 const DEFAULT_PAGE_SIZE = 10;
 const TYPEAHEAD_DELAY_MS = 300;
@@ -39,6 +41,18 @@ const GridCollection = <Item,>({
   ...rest
 }: GridCollectionProps<Item>) => (
   <Grid {...rest}>{Array.isArray(items) ? items.map(children) : null}</Grid>
+);
+
+const TableCollection = <Item,>({
+  children,
+  items,
+  tableHeader: TableHeader,
+  ...rest
+}: TableCollectionProps<Item>) => (
+  <Table {...rest}>
+    <TableHeader />
+    <TableBody>{Array.isArray(items) ? items.map(children) : null}</TableBody>
+  </Table>
 );
 
 const renderCollectionOrNoResultsFound = <Item,>(
@@ -112,6 +126,14 @@ export const Collection = <Item, Element extends ElementType>({
       <GridCollection
         className={ComponentClassName.CollectionItems}
         items={items}
+        {...rest}
+      />
+    ) : type === 'table' ? (
+      <TableCollection
+        className={ComponentClassName.CollectionItems}
+        items={items}
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+        tableHeader={(rest as TableCollectionProps<Item>).tableHeader!}
         {...rest}
       />
     ) : null;
