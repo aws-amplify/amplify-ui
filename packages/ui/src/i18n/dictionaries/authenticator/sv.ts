@@ -81,6 +81,7 @@ export const svDict: AuthenticatorDictionary = {
   'Forgot Password?': 'Glömt lösenord?',
   'Have an account? ': 'Redan registrerad? ',
   'Incorrect username or password': 'Felaktigt användarnamn eller lösenord',
+  'Incorrect username or password.': 'Felaktigt användarnamn eller lösenord',
   'Invalid password format': 'Ogiltigt lösenordsformat',
   'Invalid phone number format': `Ogiltigt format för telefonnummer`,
   'Lost your code? ': 'Förlorat koden? ',
