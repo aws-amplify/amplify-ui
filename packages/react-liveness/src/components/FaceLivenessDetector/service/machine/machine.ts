@@ -137,7 +137,9 @@ const responseStreamActor = async (callback: StreamActorCallback) => {
     }
   }
 };
-
+function getLastSelectedCameraId(): string | null {
+  return localStorage.getItem(CAMERA_ID_KEY);
+}
 function setLastSelectedCameraId(deviceId: string) {
   localStorage.setItem(CAMERA_ID_KEY, deviceId);
 }
@@ -606,13 +608,8 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           // Don't rethrow to prevent state machine from getting stuck
         }
       },
-      drawStaticOval: (context) => {
-        const { canvasEl, videoEl, videoMediaStream } =
-          context.videoAssociatedParams!;
 
-        drawStaticOval(canvasEl!, videoEl!, videoMediaStream!);
-      },
-      updateRecordingStartTimestampMs: assign({
+      updateRecordingStartTimestamp: assign({
         videoAssociatedParams: (context) => {
           const {
             challengeId,
@@ -839,43 +836,20 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         }
       },
       callUserTimeoutCallback: (context) => {
-        const { onUserTimeout, onUserCancel } = context.componentProps ?? {};
-
-        // If no callback is provided, just return
-        if (!onUserTimeout && !onUserCancel) {
-          return;
-        }
-
-        try {
-          const deviceInfo = getSelectedDeviceInfo(context);
-
-          // Call onUserTimeout if provided, otherwise fallback to onUserCancel for backward compatibility
-          if (onUserTimeout) {
-            onUserTimeout(deviceInfo);
-          } else if (onUserCancel) {
-            onUserCancel(deviceInfo);
-          }
-        } catch (callbackError) {
-          // console.error('Error in user timeout callback:', callbackError);
-          // Don't rethrow to prevent state machine from getting stuck
-        }
+        const error = new Error(context.errorMessage ?? 'Client Timeout');
+        error.name = context.errorState!;
+        const livenessError: LivenessError = {
+          state: context.errorState!,
+          error: error,
+        };
+        context.componentProps!.onError?.(livenessError);
       },
       callErrorCallback: (context, event) => {
-        const { onError } = context.componentProps || {};
-        if (!onError) {
-          return;
-        }
-
-        try {
-          const deviceInfo = getSelectedDeviceInfo(context);
-          const error: LivenessError =
-            (event.data?.error as LivenessError) ||
-            new Error('Unknown error occurred during liveness check');
-          onError(error, deviceInfo);
-        } catch (callbackError) {
-          //  console.error('Error in onError callback:', callbackError);
-          // Don't rethrow to prevent infinite error loops
-        }
+        const livenessError: LivenessError = {
+          state: context.errorState!,
+          error: (event.data?.error as Error) || event.data,
+        };
+        context.componentProps!.onError?.(livenessError);
       },
       cleanUpResources: (context) => {
         const { freshnessColorEl } = context.freshnessColorAssociatedParams!;
