@@ -1,12 +1,16 @@
 {
   "extends": "@aws-amplify/typescript-config/tsconfig.vue.json",
-  "include": [
-    "__mocks__",
-    "__tests__",
-    "*.ts",
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "src/**/*.vue"
-  ],
-  "exclude": ["node_modules"]
+  "compilerOptions": {
+    "noImplicitAny": false,
+    "skipLibCheck": true,
+    "strictNullChecks": false,
+    "types": [
+      "node",
+      "jest",
+      "@testing-library/jest-dom",
+      "vite/client"
+    ]
+  },
+  "include": ["__mocks__", "__tests__", "*.ts", "*.mjs", "scripts", "src/**/*.ts", "src/**/*.vue"],
+  "exclude": ["node_modules", "dist"]
 }
