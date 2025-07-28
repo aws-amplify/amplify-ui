@@ -1,8 +1,14 @@
 import * as React from 'react';
-import { screen, waitFor, fireEvent, act } from '@testing-library/react';
+import {
+  screen,
+  waitFor,
+  fireEvent,
+  act,
+  render,
+} from '@testing-library/react';
 import { when, resetAllWhenMocks } from 'jest-when';
 import { LivenessClassNames } from '../../types/classNames';
-
+import { mockVideoMediaStream } from '../../service/utils/__mocks__/testUtils';
 import {
   renderWithLivenessProvider,
   getMockedFunction,
@@ -1020,6 +1026,82 @@ describe('LivenessCameraModule', () => {
         },
         { timeout: 1000 }
       );
+    });
+  });
+  describe('Camera Device Switching', () => {
+    it('should call getUserMedia with correct constraints when camera changes', async () => {
+      // Reset all mocks before test
+      jest.clearAllMocks();
+      isStart = true;
+      mockStateMatchesAndSelectors();
+
+      const newDeviceId = 'new-camera-device-id';
+      const mockGetUserMedia = jest
+        .fn()
+        .mockResolvedValue(mockVideoMediaStream);
+
+      // Mock navigator.mediaDevices using Object.defineProperty
+      Object.defineProperty(global.navigator, 'mediaDevices', {
+        value: {
+          getUserMedia: mockGetUserMedia,
+          enumerateDevices: jest.fn(),
+        },
+        writable: true,
+      });
+
+      // Mock the selectors to return multiple devices and video constraints
+      mockUseLivenessSelector.mockImplementation((selector) => {
+        if (selector === selectSelectableDevices) {
+          return [
+            { deviceId: 'device-1', label: 'Camera 1' },
+            { deviceId: newDeviceId, label: 'Camera 2' },
+          ];
+        }
+        if (selector === selectSelectedDeviceId) {
+          return 'device-1';
+        }
+        if (selector === selectVideoConstraints) {
+          return mockVideoConstraints;
+        }
+        return undefined;
+      });
+
+      await waitFor(() => {
+        renderWithLivenessProvider(
+          <LivenessCameraModule
+            isMobileScreen={false}
+            isRecordingStopped={false}
+            hintDisplayText={hintDisplayText}
+            streamDisplayText={streamDisplayText}
+            errorDisplayText={errorDisplayText}
+            cameraDisplayText={cameraDisplayText}
+            instructionDisplayText={instructionDisplayText}
+          />
+        );
+      });
+
+      const videoEl = screen.getByTestId('video');
+      await waitFor(() => {
+        videoEl.dispatchEvent(new Event('loadedmetadata'));
+      });
+
+      // Find the camera selector dropdown
+      const cameraSelector = screen.getByRole('combobox') as HTMLSelectElement;
+      expect(cameraSelector).toBeInTheDocument();
+
+      // Simulate changing the camera selection
+      fireEvent.change(cameraSelector, { target: { value: newDeviceId } });
+
+      // Verify getUserMedia was called with the correct constraints
+      await waitFor(() => {
+        expect(mockGetUserMedia).toHaveBeenCalledWith({
+          video: {
+            ...mockVideoConstraints,
+            deviceId: { exact: newDeviceId },
+          },
+          audio: false,
+        });
+      });
     });
   });
 });
