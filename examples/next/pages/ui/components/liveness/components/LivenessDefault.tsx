@@ -1,14 +1,28 @@
+import React from 'react';
 import { View, Flex, Loader, Text } from '@aws-amplify/ui-react';
 import { FaceLivenessDetectorCore } from '@aws-amplify/ui-react-liveness';
 import { useLiveness } from './useLiveness';
+import { ChallengeSelection } from './ChallengeSelection';
 import { SessionIdAlert } from './SessionIdAlert';
 import LivenessInlineResults from './LivenessInlineResults';
 
+const FACE_MOVEMENT_AND_LIGHT_CHALLENGE = 'FaceMovementAndLightChallenge';
+const FACE_MOVEMENT_CHALLENGE = 'FaceMovementChallenge';
+
+const SUPPORTED_CHALLENGES_TYPES = [
+  FACE_MOVEMENT_AND_LIGHT_CHALLENGE,
+  FACE_MOVEMENT_CHALLENGE,
+];
+
 export default function LivenessDefault({
-  disableStartScreen = false,
   components = undefined,
   credentialProvider = undefined,
+  disableStartScreen = false,
 }) {
+  const [challengeType, setChallengeType] = React.useState(
+    FACE_MOVEMENT_AND_LIGHT_CHALLENGE
+  );
+
   const {
     getLivenessResponse,
     createLivenessSessionApiError,
@@ -16,10 +30,10 @@ export default function LivenessDefault({
     createLivenessSessionApiLoading,
     handleGetLivenessDetection,
     stopLiveness,
-  } = useLiveness();
+  } = useLiveness(challengeType);
 
   if (createLivenessSessionApiError) {
-    return <div>Some error occured...</div>;
+    return <div>Some error occurred...</div>;
   }
 
   function onUserCancel() {
@@ -34,6 +48,11 @@ export default function LivenessDefault({
         </Flex>
       ) : (
         <Flex direction="column" gap="xl">
+          <ChallengeSelection
+            selectedChallenge={challengeType}
+            onChange={setChallengeType}
+            challengeList={SUPPORTED_CHALLENGES_TYPES}
+          />
           <SessionIdAlert
             sessionId={createLivenessSessionApiData['sessionId']}
           />
@@ -62,6 +81,9 @@ export default function LivenessDefault({
                 disableStartScreen={disableStartScreen}
                 components={components}
                 config={{
+                  endpointOverride:
+                    'wss://streaming-rekognition-gamma.us-east-1.amazonaws.com',
+
                   credentialProvider: credentialProvider,
                   systemClockOffset:
                     createLivenessSessionApiData['systemClockOffset'],

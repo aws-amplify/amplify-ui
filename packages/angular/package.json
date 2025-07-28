@@ -46,5 +46,11 @@
       "@angular-devkit/build-angular"
     ]
   },
-  "typings": "./dist/ui-angular/index.d.ts"
+  "typings": "./dist/ui-angular/index.d.ts",
+  "overrides": {
+    "stylus": "github:stylus/stylus#0.59.0"
+  },
+  "resolutions": {
+    "stylus": "github:stylus/stylus#0.59.0"
+  }
 }

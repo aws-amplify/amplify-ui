@@ -1,7 +1,7 @@
 import { ACTION_SCENARIOS } from './scenarios';
 import { DEFAULT_DELETE_VIEW_DISPLAY_TEXT } from '../deleteView';
 
-describe('CopyView display text values', () => {
+describe('DeleteView display text values', () => {
   it('should match snapshot values', () => {
     expect(DEFAULT_DELETE_VIEW_DISPLAY_TEXT).toMatchSnapshot();
   });

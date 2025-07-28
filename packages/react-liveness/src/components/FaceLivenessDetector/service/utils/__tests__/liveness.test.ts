@@ -1,5 +1,6 @@
 import 'jest-canvas-mock';
 import {
+  clearOvalCanvas,
   drawLivenessOvalInCanvas,
   estimateIllumination,
   fillOverlayCanvasFractional,
@@ -15,11 +16,12 @@ import {
   mockCameraDevice,
   mockFace,
   mockOvalDetails,
-  mockSessionInformation,
+  mockFaceMovementAndLightSessionInfo,
 } from '../__mocks__/testUtils';
 import {
   Face,
   FaceMatchState,
+  FaceMovementAndLightChallenge,
   IlluminationState,
   LivenessErrorState,
 } from '../../types';
@@ -97,9 +99,9 @@ const mockTurnedFace: Face = {
 
 describe('Liveness Helper', () => {
   describe('getOvalDetailsFromSessionInformation', () => {
-    it('should parse sessionInformation and return oval parameter attributes', () => {
+    it('should parse parsedSessionInformation and return oval parameter attributes', () => {
       const ovalParameters = getOvalDetailsFromSessionInformation({
-        sessionInformation: mockSessionInformation,
+        parsedSessionInformation: mockFaceMovementAndLightSessionInfo,
         videoWidth: 1,
       });
 
@@ -107,6 +109,28 @@ describe('Liveness Helper', () => {
       expect(ovalParameters.centerY).toBe(4);
       expect(ovalParameters.width).toBe(1);
       expect(ovalParameters.height).toBe(2);
+    });
+
+    it('should throw an error if some oval parameters are not defined', () => {
+      const badSessionInfo = {
+        ...mockFaceMovementAndLightSessionInfo,
+        Challenge: {
+          ...mockFaceMovementAndLightSessionInfo.Challenge,
+          OvalParameters: {
+            Width: undefined,
+            Height: undefined,
+            CenterX: undefined,
+            CenterY: undefined,
+          },
+        } as FaceMovementAndLightChallenge,
+      };
+
+      expect(() => {
+        getOvalDetailsFromSessionInformation({
+          parsedSessionInformation: badSessionInfo,
+          videoWidth: 1,
+        });
+      }).toThrow();
     });
   });
 
@@ -154,11 +178,12 @@ describe('Liveness Helper', () => {
   describe('generateBboxfromLandmarks', () => {
     it(`should return face box bottom as 'bottom' when face is within frame`, () => {
       const frameHeight = 480;
-      const { bottom } = generateBboxFromLandmarks(
-        mockFace,
-        mockOvalDetails,
-        frameHeight
-      );
+      const { bottom } = generateBboxFromLandmarks({
+        face: mockFace,
+        oval: mockOvalDetails,
+        frameHeight: frameHeight,
+        ovalHeightWidthRatio: 1.6180000305175781,
+      });
 
       const faceBoxBottom = mockFaceCenterY + mockFaceHeight / 2;
       expect(bottom).toEqual(faceBoxBottom); // expect calculated value to be returned as it is within frame
@@ -166,21 +191,23 @@ describe('Liveness Helper', () => {
 
     it(`should return 'frameHeight' as 'bottom' when bottom of face is below frame`, () => {
       const frameHeight = 100;
-      const { bottom } = generateBboxFromLandmarks(
-        mockFace,
-        mockOvalDetails,
-        frameHeight
-      );
+      const { bottom } = generateBboxFromLandmarks({
+        face: mockFace,
+        oval: mockOvalDetails,
+        frameHeight: frameHeight,
+        ovalHeightWidthRatio: 1.6180000305175781,
+      });
       expect(bottom).toEqual(frameHeight); // expect frameHeight to be returned as it is smaller than the calculated value
     });
 
     it(`should return face box top as 'top' when face is within frame`, () => {
       const frameHeight = 480;
-      const { top } = generateBboxFromLandmarks(
-        mockFace,
-        mockOvalDetails,
-        frameHeight
-      );
+      const { top } = generateBboxFromLandmarks({
+        face: mockFace,
+        oval: mockOvalDetails,
+        frameHeight: frameHeight,
+        ovalHeightWidthRatio: 1.6180000305175781,
+      });
 
       const faceBoxTop = mockFaceCenterY - mockFaceHeight / 2;
 
@@ -189,11 +216,12 @@ describe('Liveness Helper', () => {
 
     it(`should return 0 as 'top' when top of face is above frame`, () => {
       const frameHeight = 480;
-      const { top } = generateBboxFromLandmarks(
-        mockAboveFrameFace,
-        mockOvalDetails,
-        frameHeight
-      );
+      const { top } = generateBboxFromLandmarks({
+        face: mockAboveFrameFace,
+        oval: mockOvalDetails,
+        frameHeight: frameHeight,
+        ovalHeightWidthRatio: 1.6180000305175781,
+      });
 
       expect(top).toEqual(0);
     });
@@ -201,11 +229,12 @@ describe('Liveness Helper', () => {
     it(`should return correct 'left' and 'right' values when face is matched`, () => {
       const frameHeight = 480;
 
-      const { left, right } = generateBboxFromLandmarks(
-        mockMatchedFace,
-        mockOvalDetails,
-        frameHeight
-      );
+      const { left, right } = generateBboxFromLandmarks({
+        face: mockMatchedFace,
+        oval: mockOvalDetails,
+        frameHeight: frameHeight,
+        ovalHeightWidthRatio: 1.6180000305175781,
+      });
 
       const faceBoxRight =
         mockMatchedFaceCenterX + mockMatchedFaceOcularWidth / 2;
@@ -217,11 +246,12 @@ describe('Liveness Helper', () => {
 
     it(`should return correct 'left' and 'right' values when face is turned`, () => {
       const frameHeight = 480;
-      const { left, right } = generateBboxFromLandmarks(
-        mockTurnedFace,
-        mockOvalDetails,
-        frameHeight
-      );
+      const { left, right } = generateBboxFromLandmarks({
+        face: mockTurnedFace,
+        oval: mockOvalDetails,
+        frameHeight: frameHeight,
+        ovalHeightWidthRatio: 1.6180000305175781,
+      });
 
       expect(left).toEqual(mockTurnedFace.rightEar[0]); // expect right ear to be used to limit left edge of face
       expect(right).toEqual(mockTurnedFace.leftEar[0]); // expect left ear to be used to limit right edge of face
@@ -242,6 +272,7 @@ describe('Liveness Helper', () => {
         faceDetector: mockBlazeFace,
         videoEl: jest.fn() as unknown as HTMLVideoElement,
         ovalDetails: mockOvalDetails,
+        parsedSessionInformation: mockFaceMovementAndLightSessionInfo,
       });
 
       expect(result).toStrictEqual({
@@ -257,6 +288,7 @@ describe('Liveness Helper', () => {
         faceDetector: mockBlazeFace,
         videoEl: jest.fn() as unknown as HTMLVideoElement,
         ovalDetails: mockOvalDetails,
+        parsedSessionInformation: mockFaceMovementAndLightSessionInfo,
       });
 
       expect(result).toStrictEqual({
@@ -273,7 +305,7 @@ describe('Liveness Helper', () => {
         videoEl: jest.fn() as unknown as HTMLVideoElement,
         ovalDetails: mockOvalDetails,
         reduceThreshold: true,
-        isMobile: true,
+        parsedSessionInformation: mockFaceMovementAndLightSessionInfo,
       });
 
       expect(result).toStrictEqual({
@@ -290,7 +322,7 @@ describe('Liveness Helper', () => {
         videoEl: jest.fn() as unknown as HTMLVideoElement,
         ovalDetails: mockOvalDetails,
         reduceThreshold: true,
-        isMobile: false,
+        parsedSessionInformation: mockFaceMovementAndLightSessionInfo,
       });
 
       expect(result).toStrictEqual({
@@ -303,7 +335,7 @@ describe('Liveness Helper', () => {
   describe('getColorsSequencesFromSessionInformation', () => {
     it('should return a parsed color sequence', async () => {
       const colorSequence = getColorsSequencesFromSessionInformation(
-        mockSessionInformation
+        mockFaceMovementAndLightSessionInfo
       );
 
       expect(colorSequence.length).toBe(8);
@@ -315,75 +347,37 @@ describe('Liveness Helper', () => {
     });
 
     it('should work even if there are no color sequences', async () => {
-      const mockSessionInfo: SessionInformation = {
+      const colorSequence = getColorsSequencesFromSessionInformation({
+        ...mockFaceMovementAndLightSessionInfo,
         Challenge: {
-          FaceMovementAndLightChallenge: {
-            ChallengeConfig: {
-              BlazeFaceDetectionThreshold: 0.75,
-              FaceDistanceThreshold: 0.4000000059604645,
-              FaceDistanceThresholdMax: 0,
-              FaceDistanceThresholdMin: 0.4000000059604645,
-              FaceIouHeightThreshold: 0.15000000596046448,
-              FaceIouWidthThreshold: 0.15000000596046448,
-              OvalHeightWidthRatio: 1.6180000305175781,
-              OvalIouHeightThreshold: 0.25,
-              OvalIouThreshold: 0.699999988079071,
-              OvalIouWidthThreshold: 0.25,
-            },
-            OvalParameters: {
-              Width: 1,
-              Height: 2,
-              CenterX: 3,
-              CenterY: 4,
-            },
-            LightChallengeType: 'SEQUENTIAL',
-            ColorSequences: undefined,
-          },
-        },
-      };
-      const colorSequence =
-        getColorsSequencesFromSessionInformation(mockSessionInfo);
+          ...mockFaceMovementAndLightSessionInfo.Challenge,
+          ColorSequences: undefined,
+        } as FaceMovementAndLightChallenge,
+      });
 
       expect(colorSequence.length).toBe(0);
     });
 
     it('should not return values if color sequences do not contain durations', async () => {
-      const mockSessionInfo: SessionInformation = {
+      const mockMissingDurationSessionInfo = {
+        ...mockFaceMovementAndLightSessionInfo,
         Challenge: {
-          FaceMovementAndLightChallenge: {
-            ChallengeConfig: {
-              BlazeFaceDetectionThreshold: 0.75,
-              FaceDistanceThreshold: 0.4000000059604645,
-              FaceDistanceThresholdMax: 0,
-              FaceDistanceThresholdMin: 0.4000000059604645,
-              FaceIouHeightThreshold: 0.15000000596046448,
-              FaceIouWidthThreshold: 0.15000000596046448,
-              OvalHeightWidthRatio: 1.6180000305175781,
-              OvalIouHeightThreshold: 0.25,
-              OvalIouThreshold: 0.699999988079071,
-              OvalIouWidthThreshold: 0.25,
-            },
-            OvalParameters: {
-              Width: 1,
-              Height: 2,
-              CenterX: 3,
-              CenterY: 4,
-            },
-            LightChallengeType: 'SEQUENTIAL',
-            ColorSequences: [
-              {
-                FreshnessColor: {
-                  RGB: [0, 0, 0], // black
-                },
-                DownscrollDuration: undefined,
-                FlatDisplayDuration: undefined,
+          ...mockFaceMovementAndLightSessionInfo.Challenge,
+          ColorSequences: [
+            {
+              FreshnessColor: {
+                RGB: [0, 0, 0], // black
               },
-            ],
-          },
-        },
+              DownscrollDuration: undefined,
+              FlatDisplayDuration: undefined,
+            },
+          ],
+        } as FaceMovementAndLightChallenge,
       };
-      const colorSequence =
-        getColorsSequencesFromSessionInformation(mockSessionInfo);
+
+      const colorSequence = getColorsSequencesFromSessionInformation(
+        mockMissingDurationSessionInfo
+      );
 
       expect(colorSequence.length).toBe(0);
     });
@@ -469,6 +463,29 @@ describe('Liveness Helper', () => {
       Object.defineProperty(videoEl, 'videoWidth', { value: 100 });
       Object.defineProperty(videoEl, 'videoHeight', { value: 100 });
       expect(estimateIllumination(videoEl)).toBe(IlluminationState.DARK);
+    });
+  });
+
+  describe('clearOvalCanvas', () => {
+    it('should attempt to clear the oval canvas', () => {
+      const canvas = getMockContext().videoAssociatedParams?.canvasEl!;
+
+      clearOvalCanvas({ canvas });
+
+      const canvasContext = canvas.getContext('2d');
+
+      expect(canvasContext!.restore).toBeCalled();
+      expect(canvasContext!.clearRect).toBeCalled();
+    });
+
+    it('should fail if no context is found', () => {
+      const mockGetContext = jest.fn().mockReturnValue(undefined);
+      const canvas = context.videoAssociatedParams?.canvasEl!;
+      (canvas as any).getContext = mockGetContext;
+
+      expect(() => {
+        clearOvalCanvas({ canvas });
+      }).toThrow();
     });
   });
 });

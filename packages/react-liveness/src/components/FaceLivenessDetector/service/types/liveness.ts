@@ -48,7 +48,7 @@ export interface FaceLivenessDetectorCoreProps {
    * @param fallbackDevice Information about the camera that was used instead
    */
   onCameraNotFound?: (
-    requestedCamera: { deviceId?: string; deviceLabel?: string },
+    requestedCamera: { deviceId?: string; deviceLabel?: string } | undefined,
     fallbackDevice: DeviceInfo
   ) => void;
 

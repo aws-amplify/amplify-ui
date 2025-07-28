@@ -12,7 +12,7 @@ export const FACE_LIVENESS_DETECTOR_PARAMETERS = [
   },
   {
     name: `credentialsProvider`,
-    description: 'An optional paramter that provides AWS Credentials',
+    description: 'An optional parameter that provides AWS Credentials.',
     type: `AWSCredentialsProvider?`,
   },
   {
@@ -20,6 +20,12 @@ export const FACE_LIVENESS_DETECTOR_PARAMETERS = [
     description:
       'Optional parameter for the disabling the intial view with instructions, default = false.',
     type: `Boolean`,
+  },
+  {
+    name: `challengeOptions`,
+    description:
+      'Optional parameter that allows you to configure options for a given liveness challenge.',
+    type: `ChallengeOptions`,
   },
   {
     name: `onComplete`,
@@ -60,6 +66,12 @@ export const FACE_LIVENESS_DETECTOR_ERROR_STATES = [
     name: `FaceLivenessDetectionException.SessionTimedOutException`,
     description:
       'The session timed out and did not receive response from server within the time limit.',
+    type: `Error`,
+  },
+  {
+    name: `FaceLivenessDetectionException.UnsupportedChallengeTypeException`,
+    description:
+      'The backend sent a liveness challenge that is not supported by the library.',
     type: `Error`,
   },
   {

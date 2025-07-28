@@ -24,7 +24,7 @@ export const getActionHandlers = <
     copy: copyConfig,
     createFolder: createFolderConfig,
     delete: deleteConfig,
-    download,
+    download: downloadConfig,
     upload: uploadConfig,
     listLocationItems,
     listLocations,
@@ -34,7 +34,8 @@ export const getActionHandlers = <
     copy: copyConfig.handler,
     createFolder: createFolderConfig.handler,
     delete: deleteConfig.handler,
-    download,
+    download:
+      'handler' in downloadConfig ? downloadConfig.handler : downloadConfig,
     listLocationItems,
     listLocations,
     upload: uploadConfig.handler,

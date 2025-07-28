@@ -1,5 +1,15 @@
 # @aws-amplify/ui-react-storage
 
+## 3.12.0
+
+### Minor Changes
+
+- [#6620](https://github.com/aws-amplify/amplify-ui/pull/6620) [`70e0d1eab7fc476fd09032aef8414e5a43483a49`](https://github.com/aws-amplify/amplify-ui/commit/70e0d1eab7fc476fd09032aef8414e5a43483a49) Thanks [@soberm](https://github.com/soberm)! - feat(storage-browser): Multi File Download
+
+### Patch Changes
+
+- [#6628](https://github.com/aws-amplify/amplify-ui/pull/6628) [`6f45d97a33ed487237326530bf9c1b2190d7c2fa`](https://github.com/aws-amplify/amplify-ui/commit/6f45d97a33ed487237326530bf9c1b2190d7c2fa) Thanks [@bobbor](https://github.com/bobbor)! - feat(storage-browser): paginate upload view
+
 ## 3.11.0
 
 ### Minor Changes

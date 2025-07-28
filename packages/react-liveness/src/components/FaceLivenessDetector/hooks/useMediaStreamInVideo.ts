@@ -25,12 +25,12 @@ export function useMediaStreamInVideo(
       if (isObject(videoRef.current)) {
         videoRef.current.srcObject = stream;
       }
-      const { height: streamHeight, width: streamWidth } = stream
-        .getTracks()[0]
-        .getSettings();
 
-      setVideoHeight(streamHeight);
-      setVideoWidth(streamWidth);
+      const settings = stream.getTracks()?.[0]?.getSettings();
+      if (settings) {
+        setVideoHeight(settings.height);
+        setVideoWidth(settings.width);
+      }
     }
 
     return () => {

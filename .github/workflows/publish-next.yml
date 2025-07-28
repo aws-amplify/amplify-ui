@@ -63,7 +63,7 @@ jobs:
     secrets:
       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-  deploy-sample-app:
+  deploy-sample-app-next:
     runs-on: ubuntu-latest
     environment: deployment
     needs: publish

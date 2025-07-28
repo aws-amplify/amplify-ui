@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Button, Flex, Text } from '@aws-amplify/ui-react';
-import { StorageBrowser, useView } from './StorageBrowser';
+import { useView } from './StorageBrowser';
 
 export function CustomDeleteView({ onExit }: { onExit: () => void }) {
   const state = useView('Delete');

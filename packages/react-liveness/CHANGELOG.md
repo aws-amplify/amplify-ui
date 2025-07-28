@@ -1,5 +1,23 @@
 # @aws-amplify/ui-react-liveness
 
+## 3.4.2
+
+### Patch Changes
+
+- [#6614](https://github.com/aws-amplify/amplify-ui/pull/6614) [`b245c0d45fb3728dc6a293f3ffda3cb9b123569b`](https://github.com/aws-amplify/amplify-ui/commit/b245c0d45fb3728dc6a293f3ffda3cb9b123569b) Thanks [@adrianjoshua-strutt](https://github.com/adrianjoshua-strutt)! - fix(liveness): null-check for getSettings in UseMediaStreamInVideo
+
+## 3.4.1
+
+### Patch Changes
+
+- [#6608](https://github.com/aws-amplify/amplify-ui/pull/6608) [`6eae6069d46fa548e2f43a757389204aac8fc8f1`](https://github.com/aws-amplify/amplify-ui/commit/6eae6069d46fa548e2f43a757389204aac8fc8f1) Thanks [@osama-rizk](https://github.com/osama-rizk)! - fix(liveness): bump FACE_MOVEMENT_AND_LIGHT_CHALLENGE challenge to 2.0.0
+
+## 3.4.0
+
+### Minor Changes
+
+- [#6606](https://github.com/aws-amplify/amplify-ui/pull/6606) [`8b77604dc4d92de5921eaa4fc3066d34506cb638`](https://github.com/aws-amplify/amplify-ui/commit/8b77604dc4d92de5921eaa4fc3066d34506cb638) Thanks [@osama-rizk](https://github.com/osama-rizk)! - feat(liveness): add support for face movement only/no light challenge
+
 ## 3.3.9
 
 ### Patch Changes

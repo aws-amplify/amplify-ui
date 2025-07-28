@@ -152,12 +152,42 @@ describe(CustomWebSocketFetchHandler.name, () => {
       expect(handler.sockets[mockInvalidUrl].length).toBe(0);
       globalThis.setTimeout = originalSetTimeout;
     });
+
+    it('should return timeout error if cannot setup ws connection', async () => {
+      const originalFn = setTimeout;
+      (global as any).setTimeout = jest.fn().mockImplementation(setTimeout);
+      const connectionTimeout = 1000;
+      const handler = new CustomWebSocketFetchHandler(async () => ({
+        connectionTimeout,
+      }));
+      //Using Node stream is fine because they are also async iterables.
+      const payload = new PassThrough();
+      const mockInvalidHostname = 'localhost:9876';
+      const mockInvalidUrl = `ws://${mockInvalidHostname}/`;
+
+      try {
+        await handler.handle(
+          new HttpRequest({
+            body: payload,
+            hostname: mockInvalidHostname, //invalid websocket endpoint
+            protocol: 'ws:',
+          })
+        );
+      } catch (err: any) {
+        expect(err).toBeDefined();
+        expect(err.message).toBeDefined();
+        expect(err.message).toBe('Websocket connection timeout');
+        // @ts-expect-error Property 'sockets' is private and only accessible within class 'WebSocketHandler'.
+        expect(handler.sockets[mockInvalidUrl].length).toBe(0);
+      }
+      (global as any).setTimeout = originalFn;
+    });
   });
 
   describe('should handle http requests', () => {
     it('should create fetch http handler at construction', () => {
       new CustomWebSocketFetchHandler();
-      expect(FetchHttpHandler).toHaveBeenCalled();
+      expect(FetchHttpHandler).toBeCalled();
     });
 
     it('should make http request with fetch handler', async () => {

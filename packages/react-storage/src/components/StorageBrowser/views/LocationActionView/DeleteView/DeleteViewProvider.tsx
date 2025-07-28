@@ -30,7 +30,6 @@ export function DeleteViewProvider({
     isProcessingComplete,
     statusCounts,
     tasks: items,
-
     onActionCancel,
     onActionStart,
     onActionExit,

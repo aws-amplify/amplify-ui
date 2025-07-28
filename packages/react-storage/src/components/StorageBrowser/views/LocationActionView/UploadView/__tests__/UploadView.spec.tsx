@@ -31,6 +31,7 @@ const onActionExit = jest.fn();
 const onDropFiles = jest.fn();
 const onSelectFiles = jest.fn();
 const onToggleOverwrite = jest.fn();
+const onPaginate = jest.fn();
 
 const callbacks = {
   onActionCancel,
@@ -39,6 +40,7 @@ const callbacks = {
   onActionExit,
   onSelectFiles,
   onToggleOverwrite,
+  onPaginate,
 };
 
 const statusCounts = { ...INITIAL_STATUS_COUNTS };
@@ -75,6 +77,9 @@ const initialViewState: UploadViewState = {
   isProcessingComplete: false,
   isProcessing: false,
   tasks: [],
+  page: 1,
+  hasNextPage: false,
+  highestPageVisited: 1,
   invalidFiles: undefined,
   statusCounts,
 };
