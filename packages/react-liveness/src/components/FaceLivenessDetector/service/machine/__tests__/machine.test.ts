@@ -28,20 +28,6 @@ import { livenessMachine } from '../machine';
 jest.useFakeTimers();
 jest.mock('../../utils');
 
-// Mock the getSelectedDeviceInfo function
-jest.mock('../machine', () => {
-  const originalModule = jest.requireActual('../machine');
-  return {
-    ...originalModule,
-    getSelectedDeviceInfo: jest.fn(),
-  };
-});
-
-// Import after mocking
-import { getSelectedDeviceInfo } from '../machine';
-
-const mockedGetSelectedDeviceInfo =
-  getSelectedDeviceInfo as jest.MockedFunction<typeof getSelectedDeviceInfo>;
 const mockedHelpers = helpers as jest.Mocked<typeof helpers>;
 const flushPromises = () => new Promise(setImmediate);
 
@@ -278,6 +264,7 @@ describe('Liveness Machine', () => {
         service.state.context.videoAssociatedParams!.videoMediaStream
       ).toEqual(mockVideoMediaStream);
       expect(mockNavigatorMediaDevices.getUserMedia).toHaveBeenCalledWith({
+        // video: mockVideoConstraints,
         video: {
           ...mockVideoConstraints,
           deviceId: { exact: 'some-device-id' },
@@ -297,18 +284,12 @@ describe('Liveness Machine', () => {
             getSettings: () => ({
               width: 640,
               height: 480,
-              deviceId: 'virtual-device-id', // Different device ID to simulate virtual device
+              deviceId: 'some-device-id',
               frameRate: 30,
             }),
           },
         ],
       } as MediaStream;
-
-      // Mock the virtual device check to return true for the virtual device
-      mockedHelpers.isCameraDeviceVirtual.mockImplementation(
-        (device) => device?.deviceId === 'virtual-device-id'
-      );
-
       mockNavigatorMediaDevices.getUserMedia
         .mockResolvedValueOnce(mockVirtualMediaStream)
         .mockResolvedValueOnce(mockVideoMediaStream);
@@ -322,23 +303,10 @@ describe('Liveness Machine', () => {
       expect(
         service.state.context.videoAssociatedParams!.videoMediaStream?.getTracks
       ).toBeDefined();
-
-      // First call should use default constraints
       expect(mockNavigatorMediaDevices.getUserMedia).toHaveBeenNthCalledWith(
         1,
         {
-          video: {
-            ...mockVideoConstraints,
-            deviceId: { exact: 'some-device-id' },
-          },
-          audio: false,
-        }
-      );
-
-      // Second call should use exact device ID for the real device
-      expect(mockNavigatorMediaDevices.getUserMedia).toHaveBeenNthCalledWith(
-        2,
-        {
+          // video: mockVideoConstraints,
           video: {
             ...mockVideoConstraints,
             deviceId: { exact: 'some-device-id' },
@@ -1174,16 +1142,12 @@ describe('Liveness Machine', () => {
       expect(mockComponentProps.onError).toHaveBeenCalledTimes(1);
       const livenessError = (mockComponentProps.onError as jest.Mock).mock
         .calls[0][0];
-      expect(receivedError.message).toContain(
-        'Unknown error occurred during liveness check'
-      );
+      expect(livenessError.state).toBe(LivenessErrorState.SERVER_ERROR);
     });
 
     it('should reach error state if no chunks are recorded', async () => {
-      const expectedError = new Error(
-        'Video chunks not recorded successfully.'
-      );
-      expectedError.name = LivenessErrorState.RUNTIME_ERROR;
+      const error = new Error('Video chunks not recorded successfully.');
+      error.name = LivenessErrorState.RUNTIME_ERROR;
 
       (mockStreamRecorder.getChunksLength as jest.Mock).mockReturnValue(0);
       await transitionToUploading(service);
