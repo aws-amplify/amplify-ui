@@ -25,7 +25,6 @@ import {
   IlluminationState,
   LivenessErrorState,
 } from '../../types';
-import { SessionInformation } from '@aws-sdk/client-rekognitionstreaming';
 
 const context = getMockContext();
 
