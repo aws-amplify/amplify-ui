@@ -170,7 +170,7 @@ export const LivenessCameraModule = (
               type: 'UPDATE_DEVICE_AND_STREAM',
               data: { newDeviceId: selectedDeviceId, newStream },
             });
-          } catch (error) {
+          } catch (error: any) {
             throw new Error('Error updating device:');
           }
         };

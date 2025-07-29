@@ -74,7 +74,9 @@ const DEFAULT_FACE_FIT_TIMEOUT = 7000;
 let responseStream: Promise<AsyncIterable<LivenessResponseStream>>;
 
 // Helper function to get selected device info
-export const getSelectedDeviceInfo = (context: LivenessContext) => {
+export const getSelectedDeviceInfo = (
+  context: LivenessContext
+): MediaDeviceInfo | undefined => {
   return context.videoAssociatedParams?.selectableDevices?.find(
     (device) =>
       device.deviceId === context.videoAssociatedParams?.selectedDeviceId
@@ -1034,11 +1036,12 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             },
             audio: false,
           })
-          .catch((error) => {
+          .catch((error: unknown) => {
             // If the provided deviceId/deviceLabel is not found, fall back to default device selection
             if (
-              error.name === 'NotFoundError' ||
-              error.name === 'OverconstrainedError'
+              error instanceof DOMException &&
+              (error.name === 'NotFoundError' ||
+                error.name === 'OverconstrainedError')
             ) {
               if (componentProps?.deviceId && !cameraNotFound) {
                 cameraNotFound = true;
@@ -1449,7 +1452,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         livenessStreamProvider!.dispatchStreamEvent({ type: 'streamStop' });
       },
       async getLiveness(context) {
-        const { onAnalysisComplete } = context.componentProps || {};
+        const { onAnalysisComplete } = context.componentProps ?? {};
         if (!onAnalysisComplete) {
           return;
         }
