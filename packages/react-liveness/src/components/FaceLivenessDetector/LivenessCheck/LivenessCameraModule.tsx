@@ -171,7 +171,7 @@ export const LivenessCameraModule = (
               data: { newDeviceId: selectedDeviceId, newStream },
             });
           } catch (error) {
-            console.error('Error updating device:', error);
+            throw new Error('Error updating device:');
           }
         };
         changeCamera();
