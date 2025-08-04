@@ -16,33 +16,11 @@ function createRemarkMdxFrontmatterPlugin(options = {}) {
       remarkMdxFrontmatterModule = await import('remark-mdx-frontmatter');
     }
 
-    let actualPlugin;
-    if (remarkMdxFrontmatterModule.default) {
-      actualPlugin = remarkMdxFrontmatterModule.default;
-    } else if (remarkMdxFrontmatterModule.remarkMdxFrontmatter) {
-      actualPlugin = remarkMdxFrontmatterModule.remarkMdxFrontmatter;
-    } else {
-      actualPlugin = remarkMdxFrontmatterModule;
-    }
+    let actualPlugin = remarkMdxFrontmatterModule.default;
 
-    if (typeof actualPlugin === 'function') {
-      const pluginInstance = actualPlugin(options);
+    const pluginInstance = actualPlugin(options);
 
-      if (typeof pluginInstance === 'function') {
-        return pluginInstance.call(this, tree, file);
-      } else if (
-        pluginInstance &&
-        typeof pluginInstance.transform === 'function'
-      ) {
-        return pluginInstance.transform.call(this, tree, file);
-      } else {
-        return actualPlugin.call(this, tree, file);
-      }
-    }
-
-    throw new Error(
-      'Could not determine the correct way to call remark-mdx-frontmatter plugin'
-    );
+    return pluginInstance.call(this, tree, file);
   };
 }
 
