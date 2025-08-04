@@ -36,9 +36,8 @@ export const LocationDetailView: LocationDetailViewType = ({
   const state = useLocationDetailView(props);
   const [{ selectedObject }] = useStore();
 
-  const { hasError, location } = state;
-  const shouldRenderObjectDetails =
-    location.current?.type === 'OBJECT' && selectedObject;
+  const { hasError } = state;
+  const shouldRenderObjectDetails = Boolean(selectedObject);
 
   return (
     <ViewElement
@@ -59,14 +58,32 @@ export const LocationDetailView: LocationDetailViewType = ({
         </ViewElement>
         {hasError ? null : (
           <DropZoneControl>
-            <ViewElement className={`${STORAGE_BROWSER_BLOCK}__data-table`}>
-              <LoadingIndicatorControl />
-              {/* // */}
-              <ObjectDetailsViewControl />
-              <DataTableControl />
-            </ViewElement>
+            <>
+              <ViewElement className={`${STORAGE_BROWSER_BLOCK}__data-table`}>
+                <LoadingIndicatorControl />
+
+                <DataTableControl />
+              </ViewElement>
+
+              {shouldRenderObjectDetails && (
+                <div
+                  style={{
+                    position: 'absolute',
+                    right: 0,
+                    top: 0,
+                    background: 'white',
+                    overflow: 'scroll',
+                    flex: 1,
+                    width: '50vw',
+                  }}
+                >
+                  <ObjectDetailsViewControl />
+                </div>
+              )}
+            </>
           </DropZoneControl>
         )}
+
         <ViewElement className={`${STORAGE_BROWSER_BLOCK}__footer`}>
           <MessageControl />
         </ViewElement>
@@ -90,4 +107,4 @@ LocationDetailView.Refresh = DataRefreshControl;
 LocationDetailView.Search = SearchFieldControl;
 LocationDetailView.SearchSubfoldersToggle = SearchSubfoldersToggleControl;
 LocationDetailView.Title = TitleControl;
-LocationDetailView.ObjectPreview = ObjectPreviewControl;
+// LocationDetailView.ObjectPreview = ObjectPreviewControl;

@@ -2,7 +2,6 @@
 import React from 'react';
 import { useStore } from '../../store';
 import { FileData } from '../../actions';
-import { useNavigation } from './useNavigation';
 
 const SUPPORTED_IMAGE_EXTENSIONS = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
 
@@ -15,10 +14,9 @@ export const useObjectDetailView = (): {
   };
   handleBack: () => void;
 } => {
-  const [{ selectedObject, location }, dispatch] = useStore();
+  const [{ selectedObject }, dispatch] = useStore();
   const [isLoading, setIsLoading] = React.useState(false);
   const [error, setError] = React.useState<string | undefined>();
-  const { onBack } = useNavigation();
 
   console.log('[preview] useObjectDetailView', {
     location,
@@ -27,11 +25,8 @@ export const useObjectDetailView = (): {
   });
 
   const handleBack = React.useCallback(() => {
-    console.log(
-      '[preview] calling onBack from useNavigation on useObjectDetailView'
-    );
+    console.log('[preview] calling onBack from useObjectDetailView');
     dispatch({ type: 'RESET_ACTION_TYPE' });
-    onBack();
   }, [dispatch]);
 
   const isImage = React.useMemo(() => {

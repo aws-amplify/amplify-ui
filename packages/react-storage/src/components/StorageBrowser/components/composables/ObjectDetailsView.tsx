@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable react/no-unused-prop-types */
 /* eslint-disable import/no-extraneous-dependencies */
@@ -178,7 +179,7 @@ const isVideoFile = (fileName?: string): boolean => {
 interface ImagePreviewProps {
   fileKey: string;
   alt: string;
-  location: LocationState;
+  object: FileData;
 }
 
 const ImageSkeleton: React.FC = () => (
@@ -230,9 +231,14 @@ const ImageSkeleton: React.FC = () => (
   </div>
 );
 
-const ImagePreview: React.FC<ImagePreviewProps> = ({ alt, location }) => {
+const ImagePreview: React.FC<ImagePreviewProps> = ({ alt, object }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
+
+  React.useEffect(() => {
+    setHasError(false);
+    setIsLoading(true);
+  }, [object.key]);
 
   return (
     <div
@@ -246,7 +252,7 @@ const ImagePreview: React.FC<ImagePreviewProps> = ({ alt, location }) => {
       {isLoading && <ImageSkeleton />}
 
       <StorageImage
-        path={location.key}
+        path={object.key}
         alt={alt}
         style={{
           width: '100%',
@@ -297,7 +303,7 @@ const ImagePreview: React.FC<ImagePreviewProps> = ({ alt, location }) => {
 };
 
 interface TextPreviewProps {
-  location: LocationState;
+  object: FileData;
   fileName: string;
 }
 
@@ -350,7 +356,7 @@ const TextSkeleton: React.FC = () => (
   </div>
 );
 
-const TextPreview: React.FC<TextPreviewProps> = ({ location, fileName }) => {
+const TextPreview: React.FC<TextPreviewProps> = ({ object, fileName }) => {
   return (
     <div
       style={{
@@ -374,7 +380,7 @@ const TextPreview: React.FC<TextPreviewProps> = ({ location, fileName }) => {
       </div>
 
       <StorageFile
-        path={location.key}
+        path={object.key}
         loadingElement={<TextSkeleton />}
         onError={(error) => {
           console.error('Error loading text file:', error);
@@ -390,8 +396,8 @@ const TextPreview: React.FC<TextPreviewProps> = ({ location, fileName }) => {
 
 // Add Video Preview Component
 interface VideoPreviewProps {
-  location: LocationState;
   fileName: string;
+  object: FileData;
 }
 
 const VideoSkeleton: React.FC = () => (
@@ -443,7 +449,7 @@ const VideoSkeleton: React.FC = () => (
   </div>
 );
 
-const VideoPreview: React.FC<VideoPreviewProps> = ({ location, fileName }) => {
+const VideoPreview: React.FC<VideoPreviewProps> = ({ object, fileName }) => {
   const [videoUrl, setVideoUrl] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -454,10 +460,10 @@ const VideoPreview: React.FC<VideoPreviewProps> = ({ location, fileName }) => {
         setIsLoading(true);
         setError(null);
 
-        console.log('Getting video URL for:', location.key);
+        console.log('Getting video URL for:', object.key);
 
         const { url } = await getUrl({
-          path: location.key,
+          path: object.key,
           options: {
             validateObjectExistence: true,
             expiresIn: 3600, // 1 hour
@@ -474,10 +480,10 @@ const VideoPreview: React.FC<VideoPreviewProps> = ({ location, fileName }) => {
       }
     };
 
-    if (location.key) {
+    if (object.key) {
       loadVideo();
     }
-  }, [location.key]);
+  }, [object.key]);
 
   if (isLoading) {
     return <VideoSkeleton />;
@@ -624,11 +630,10 @@ const NotSupportedPreview: React.FC<{
 
 interface FilePreviewProps {
   object: FileData;
-  location: LocationState;
 }
 
-const FilePreview: React.FC<FilePreviewProps> = ({ location }) => {
-  const { key } = location;
+const FilePreview: React.FC<FilePreviewProps> = ({ object }) => {
+  const { key } = object;
 
   const fileName = key?.split('/').pop() ?? 'Unknown';
   console.log('FilePreview', fileName, key);
@@ -637,7 +642,6 @@ const FilePreview: React.FC<FilePreviewProps> = ({ location }) => {
   const isText = isTextFile(key);
   const isVideo = isVideoFile(key);
 
-  console.log('[preview] location', location);
   console.log(
     '[preview] isImage',
     isImage,
@@ -648,15 +652,15 @@ const FilePreview: React.FC<FilePreviewProps> = ({ location }) => {
   );
 
   if (isImage && key) {
-    return <ImagePreview fileKey={key} alt={fileName} location={location} />;
+    return <ImagePreview fileKey={key} alt={fileName} object={object} />;
   }
 
   if (isText && key) {
-    return <TextPreview location={location} fileName={fileName} />;
+    return <TextPreview object={object} fileName={fileName} />;
   }
 
   if (isVideo && key) {
-    return <VideoPreview location={location} fileName={fileName} />;
+    return <VideoPreview object={object} fileName={fileName} />;
   }
 
   return <NotSupportedPreview fileName={fileName} mimeType={key} />;
@@ -709,9 +713,6 @@ export const ObjectDetailsView = ({
   handleBack,
 }: ObjectDetailsViewProps): React.JSX.Element => {
   const { object, isLoading, error } = state;
-  const { location } = useLocationDetailView();
-
-  console.log('[preview] render ObjectDetailsView location ', location);
 
   React.useEffect(() => {
     getProperties({
@@ -725,11 +726,11 @@ export const ObjectDetailsView = ({
         console.log('err', err);
       });
 
-    getFullS3ObjectDetails(location.current?.bucket, object?.key).then(
-      (data) => {
-        console.log('[details] data get full details', data);
-      }
-    );
+    // getFullS3ObjectDetails(location.current?.bucket, object?.key).then(
+    //   (data) => {
+    //     console.log('[details] data get full details', data);
+    //   }
+    // );
   }, [object?.key]);
 
   const containerStyle: React.CSSProperties = {
@@ -740,6 +741,7 @@ export const ObjectDetailsView = ({
     borderRadius: '12px',
     boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
     border: '1px solid #e5e7eb',
+    overflow: 'scroll',
   };
 
   if (isLoading) {
@@ -811,9 +813,10 @@ export const ObjectDetailsView = ({
           alignItems: 'center',
           justifyContent: 'space-between',
           marginBottom: '24px',
-          paddingBottom: '16px',
+          paddingBottom: '24px',
           borderBottom: '1px solid #e5e7eb',
           paddingLeft: 20,
+          paddingTop: 30,
         }}
       >
         <Button
@@ -836,7 +839,7 @@ export const ObjectDetailsView = ({
             e.currentTarget.style.backgroundColor = '#3b82f6';
           }}
         >
-          ← Back
+          X Close
         </Button>
       </div>
 
@@ -851,7 +854,7 @@ export const ObjectDetailsView = ({
         >
           Preview
         </HeadingElement>
-        <FilePreview object={object} location={location} />
+        <FilePreview object={object} />
       </div>
 
       <div style={{ padding: 20 }}>

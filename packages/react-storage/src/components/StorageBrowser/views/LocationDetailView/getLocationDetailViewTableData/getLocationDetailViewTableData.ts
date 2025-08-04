@@ -92,9 +92,10 @@ export const getLocationDetailViewTableData = ({
             return;
           }
 
-          const itemLocationPath = key.slice(current?.prefix?.length);
+          // const itemLocationPath = key.slice(current?.prefix?.length);
 
-          onNavigate({ ...current, id, type: 'OBJECT' }, itemLocationPath);
+          // onNavigate({ ...current, id, type: 'OBJECT' }, itemLocationPath);
+
           storeDispatch({
             type: 'VIEW_OBJECT_DETAIL',
             object: {
@@ -132,6 +133,10 @@ export const getLocationDetailViewTableData = ({
           if (!current) {
             return;
           }
+
+          storeDispatch({
+            type: 'RESET_ACTION_TYPE',
+          });
           onNavigate({ ...current, id }, itemLocationPath);
         };
         return {

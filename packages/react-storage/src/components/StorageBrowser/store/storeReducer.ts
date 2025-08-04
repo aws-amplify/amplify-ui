@@ -22,6 +22,7 @@ export default function storeReducer(
       return {
         ...state,
         location: { current: location, path, key },
+        selectedObject: undefined,
       };
     }
     case 'RESET_LOCATION': {
@@ -43,9 +44,13 @@ export default function storeReducer(
       return { ...state, actionType };
     }
     case 'RESET_ACTION_TYPE': {
-      if (state.actionType === undefined) return state;
+      // if (state.actionType === undefined) return state;
 
-      return { ...state, actionType: DEFAULT_STATE.actionType };
+      return {
+        ...state,
+        actionType: DEFAULT_STATE.actionType,
+        selectedObject: undefined,
+      };
     }
     case 'VIEW_OBJECT_DETAIL': {
       const { object } = action;

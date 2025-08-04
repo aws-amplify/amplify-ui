@@ -51,6 +51,16 @@ export const ContentPreview: React.FC<ContentPreviewProps> = ({
     setIsLoading(true);
   };
 
+  React.useEffect(() => {
+    console.log(
+      'effect inside ContentPreview objectKey',
+      objectKey,
+      previewError
+    );
+    setPreviewError(null);
+    setIsLoading(true);
+  }, [objectKey, fileName, previewError]);
+
   if (!isSupportedFile(fileName)) {
     return (
       <div className="amplify-storage-browser-content-preview">
@@ -66,6 +76,23 @@ export const ContentPreview: React.FC<ContentPreviewProps> = ({
     );
   }
 
+  if (previewError) {
+    return (
+      <div className="amplify-storage-browser-content-preview__error">
+        <div className="amplify-storage-browser-content-preview__error-icon">
+          ⚠️
+        </div>
+        <p>{previewError}</p>
+        <button
+          onClick={handleRetry}
+          className="amplify-storage-browser-content-preview__retry-button"
+        >
+          Retry
+        </button>
+      </div>
+    );
+  }
+
   return (
     <div className="amplify-storage-browser-content-preview">
       {isLoading && (
@@ -75,37 +102,21 @@ export const ContentPreview: React.FC<ContentPreviewProps> = ({
           </div>
         </div>
       )}
-
-      {previewError ? (
-        <div className="amplify-storage-browser-content-preview__error">
-          <div className="amplify-storage-browser-content-preview__error-icon">
-            ⚠️
-          </div>
-          <p>{previewError}</p>
-          <button
-            onClick={handleRetry}
-            className="amplify-storage-browser-content-preview__retry-button"
-          >
-            Retry
-          </button>
-        </div>
-      ) : (
-        isImageFile(fileName) && (
-          <div className="amplify-storage-browser-content-preview__image-container">
-            <StorageImage
-              path={objectKey}
-              alt={fileName}
-              onLoad={handleImageLoad}
-              onError={handleImageError}
-              style={{
-                maxWidth: '100%',
-                maxHeight: '500px',
-                objectFit: 'contain',
-              }}
-            />
-          </div>
-        )
-      )}
+      isImageFile(fileName) && (
+      <div className="amplify-storage-browser-content-preview__image-container">
+        <StorageImage
+          path={objectKey}
+          alt={fileName}
+          onLoad={handleImageLoad}
+          onError={handleImageError}
+          style={{
+            maxWidth: '100%',
+            maxHeight: '500px',
+            objectFit: 'contain',
+          }}
+        />
+      </div>
+      )
     </div>
   );
 };
