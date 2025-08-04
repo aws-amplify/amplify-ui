@@ -4,6 +4,7 @@ import type {
   CustomActionConfigs,
   DefaultActionConfigs,
   ExtendedActionConfigs,
+  FileData,
   ListLocations,
   LocationData,
 } from '../actions';
@@ -31,6 +32,7 @@ import type {
   UseView,
   StorageBrowserViews,
 } from '../views';
+import type { ObjectDetailsViewType } from '../views/LocationDetailView/types';
 
 /**
  * @description configuration properties
@@ -131,37 +133,6 @@ export interface StorageBrowserOptions {
    * ```
    */
   validateFile?: (file: File) => boolean;
-}
-
-/**
- * @description configuration and options for `createStorageBrowser`
- */
-export interface CreateStorageBrowserInput {
-  /**
-   * @description override and default `StorageBrowser` actions and action view configs
-   */
-  actions?: StorageBrowserActions;
-
-  /**
-   * @description `StorageBrowser` configuration properties
-   * @required
-   */
-  config: StorageBrowserConfig;
-
-  /**
-   * @description custom ErrorBoundary class. If omitted, a default ErrorBoundary is provided. To disable ErrorBoundary, set to `null`.
-   */
-  ErrorBoundary?: ErrorBoundaryType | null;
-
-  /**
-   * @description Overrides default `components` used within `StorageBrowser`
-   */
-  components?: StorageBrowserComponents;
-
-  /**
-   * @description Additional options and overrides for `StorageBrowser`
-   */
-  options?: StorageBrowserOptions;
 }
 
 /**
@@ -293,6 +264,8 @@ export interface StorageBrowserType<TActionType = string, TViews = {}> {
   CreateFolderView: CreateFolderViewType;
   DeleteView: DeleteViewType;
   UploadView: UploadViewType;
+  //This is a new property add a description here
+  ObjectViewDetails: ObjectDetailsViewType;
 }
 
 type NonDefaultActionType<T = string> = Exclude<T, keyof DefaultActionConfigs>;
@@ -354,4 +327,102 @@ export interface CreateStorageBrowserOutput<
    * @description view state utility hook
    */
   useView: UseView;
+}
+
+/**
+ * @description configuration and options for `createStorageBrowser`
+ */
+export interface CreateStorageBrowserInput {
+  /**
+   * @description override and default `StorageBrowser` actions and action view configs
+   */
+  actions?: StorageBrowserActions;
+  /**
+   * @description `StorageBrowser` configuration properties
+   * @required
+   */
+  config: StorageBrowserConfig;
+  /**
+   * @description custom ErrorBoundary class. If omitted, a default ErrorBoundary is provided. To disable ErrorBoundary, set to `null`.
+   */
+  ErrorBoundary?: ErrorBoundaryType | null;
+  /**
+   * @description Overrides default `components` used within `StorageBrowser`
+   */
+  components?: StorageBrowserComponents;
+  /**
+   * @description Additional options and overrides for `StorageBrowser`
+   */
+  options?: StorageBrowserOptions;
+
+  /**
+   * @description Configuration for file preview functionality including custom renderers, file type resolution, and size limits
+   */
+  filePreviewConfig?: FilePreviewConfig;
+}
+
+export const BUILT_IN_FILE_TYPES = ['text', 'video', 'image'] as const;
+export type BuiltInFileType = (typeof BUILT_IN_FILE_TYPES)[number];
+export type FileType = BuiltInFileType | string;
+
+type FileProperties = Omit<FileData, 'type'> & {
+  contentType: string; // Fixed typo: contetnType -> contentType
+};
+
+/**
+ * @description Options for generating file preview URLs
+ */
+export interface FilePreviewUrlOptions {
+  /**
+   * @description Whether to validate that the object exists before generating the URL
+   * @default false
+   */
+  validateObjectExistence?: boolean;
+
+  /**
+   * @description Time in seconds until the generated URL expires
+   * @default 900 (15 minutes)
+   */
+  expiresIn?: number;
+}
+
+/**
+ * @description Props provided to custom file preview renderer components
+ */
+export interface FilePreviewProps {
+  /**
+   * @description File metadata including content type and other properties
+   */
+  fileProperties: FileProperties;
+
+  /**
+   * @description Pre-signed URL for the file.
+   */
+  url: string;
+}
+
+export interface FilePreviewConfig {
+  /**
+   * @description Function to determine file type from file properties
+   * @param properties - File metadata and properties
+   * @returns FileType or undefined that will fallback to the built-in file type detection
+   */
+  fileTypeResolver?: (properties: FileProperties) => FileType | undefined;
+
+  /**
+   * @description Custom React components for rendering specific file types
+   * @example { 'image': CustomImagePreview, 'pdf': CustomPDFViewer }
+   */
+  customRenderers?: Record<FileType, React.ComponentType<FilePreviewProps>>;
+
+  /**
+   * @description Options for generating preview URLs
+   */
+  urlOptions?: FilePreviewUrlOptions;
+
+  /**
+   * @description Maximum file sizes allowed for preview by file type in kilobytes (KB)
+   * @example { 'image': 10240, 'video': 102400 } // 10MB for images, 100MB for videos
+   */
+  maxFileSizes?: Record<FileType, number>;
 }

@@ -82,6 +82,7 @@ export default function createStorageBrowser<
   StorageBrowser.CreateFolderView = CreateFolderView;
   StorageBrowser.DeleteView = DeleteView;
   StorageBrowser.UploadView = UploadView;
+  StorageBrowser.ObjectViewDetails = () => null;
 
   StorageBrowser.Provider = Provider;
 

@@ -5,13 +5,14 @@ import { FileData } from '@aws-amplify/ui-react-storage/dist/types/components/St
 const BUILT_IN_FILE_TYPES = ['text', 'video', 'image', 'unknown'] as const;
 type BuiltInFileType = (typeof BUILT_IN_FILE_TYPES)[number];
 
-// Allow built-in types OR custom string types
-type FileType = BuiltInFileType | string;
+type FileType = BuiltInFileType | string | undefined;
+type FileTypeSizeKey = BuiltInFileType | string;
 
 interface PreviewConfig {
   getFileType?: (fileData: FileData, contentType: string) => FileType;
   customRenderers?: Record<string, React.ComponentType<{ fileData: FileData }>>;
-  previewLimitConfig?: {};
+  options?: GetUrlOptions;
+  sizeLimit?: Record<FileTypeSizeKey, string>;
 }
 
 export default function Example() {
@@ -23,8 +24,10 @@ export default function Example() {
           const extension = key.split('.').pop()?.toLowerCase();
 
           if (extension === 'myext') return 'text';
-          if (extension === 'pdf') return 'document'; // custom type
+
           if (contentType === 'application/custom') return 'video';
+
+          return undefined; //Will fallback to the built-in file type resolution
         },
       }}
     />

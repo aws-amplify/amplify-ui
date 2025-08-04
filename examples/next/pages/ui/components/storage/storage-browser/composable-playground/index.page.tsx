@@ -11,6 +11,7 @@ import { Auth } from '../managedAuthAdapter';
 import { Button, Flex, Breadcrumbs } from '@aws-amplify/ui-react';
 
 import '@aws-amplify/ui-react-storage/styles.css';
+import { defineComponentTheme } from '@aws-amplify/ui';
 
 const components: CreateStorageBrowserInput['components'] = {
   Navigation: ({ items }) => (
@@ -111,7 +112,7 @@ function MyStorageBrowser() {
   const [type, setActionType] = React.useState<string | undefined>(undefined);
 
   return (
-    <Flex>
+    <Flex style={{ border: '3px solid green' }}>
       <Flex direction={'column'}>
         <StorageBrowser.LocationsView />
       </Flex>
@@ -127,6 +128,25 @@ function MyStorageBrowser() {
     </Flex>
   );
 }
+
+const storageBrowserTheme = defineComponentTheme({
+  name: 'storage-browser',
+  theme: (tokens) => {
+    return {
+      _element: {
+        controls: {
+          flexDirection: 'row-reverse',
+          backgroundColor: tokens.colors.background.primary,
+          padding: tokens.space.small,
+          borderRadius: tokens.radii.small,
+        },
+        title: {
+          fontWeight: tokens.fontWeights.thin,
+        },
+      },
+    };
+  },
+});
 
 function Example() {
   const [authenticated, setAuthenticated] = React.useState(false);
@@ -169,7 +189,11 @@ function Example() {
           LocationsView: { title: 'Home - Composable Playground' },
         }}
       >
-        <MyStorageBrowser />
+        <div
+          style={{ border: '1px solid green', height: '100px', width: '100px' }}
+        >
+          <MyStorageBrowser />
+        </div>
       </StorageBrowser.Provider>
     </>
   );

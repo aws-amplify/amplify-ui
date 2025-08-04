@@ -4,7 +4,7 @@ import type { NavigationProps } from '../../components/composables/Navigation';
 import { useControlsContext } from '../context';
 import { getNavigationItems } from './getNavigationItems';
 import { getNavigationParts } from './getNavigationParts';
-import { LocationData } from '../../actions';
+import type { LocationData } from '../../actions';
 
 export const useNavigation = (): NavigationProps & { onBack: () => void } => {
   const { data, onNavigate, onNavigateHome } = useControlsContext();

@@ -16,6 +16,7 @@ const { StorageBrowser } = createStorageBrowser({
     validateFile: customValidateFile,
   },
   config: mockConfig, // IGNORE
+  components: {},
 });
 
 export default function Example() {

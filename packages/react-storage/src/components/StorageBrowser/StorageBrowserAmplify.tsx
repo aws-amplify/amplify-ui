@@ -8,7 +8,20 @@ export interface StorageBrowserProps extends StorageBrowserPropsBase {}
 
 export function StorageBrowser(props: StorageBrowserProps): React.JSX.Element {
   const { StorageBrowser: StorageBrowserComponent } = React.useRef(
-    createStorageBrowser({ config: createAmplifyAuthAdapter() })
+    createStorageBrowser({
+      components: {},
+      config: createAmplifyAuthAdapter(),
+      filePreviewConfig: {
+        fileTypeResolver: () => {
+          return 'pdf';
+          return undefined;
+        },
+        customRenderers: {
+          // "unknown"
+          // pdf: () => <div></div>,
+        },
+      },
+    })
   ).current;
 
   return <StorageBrowserComponent {...props} />;

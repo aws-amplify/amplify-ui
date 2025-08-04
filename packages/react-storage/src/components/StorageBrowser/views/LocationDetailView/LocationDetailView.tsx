@@ -61,11 +61,9 @@ export const LocationDetailView: LocationDetailViewType = ({
           <DropZoneControl>
             <ViewElement className={`${STORAGE_BROWSER_BLOCK}__data-table`}>
               <LoadingIndicatorControl />
-              {shouldRenderObjectDetails ? (
-                <ObjectDetailsViewControl />
-              ) : (
-                <DataTableControl />
-              )}
+              {/* // */}
+              <ObjectDetailsViewControl />
+              <DataTableControl />
             </ViewElement>
           </DropZoneControl>
         )}
@@ -92,3 +90,4 @@ LocationDetailView.Refresh = DataRefreshControl;
 LocationDetailView.Search = SearchFieldControl;
 LocationDetailView.SearchSubfoldersToggle = SearchSubfoldersToggleControl;
 LocationDetailView.Title = TitleControl;
+LocationDetailView.ObjectPreview = ObjectPreviewControl;

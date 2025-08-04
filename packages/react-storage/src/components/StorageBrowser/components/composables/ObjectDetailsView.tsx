@@ -1,14 +1,76 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable react/no-unused-prop-types */
+/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable no-console */
 import React, { useState } from 'react';
 import { StorageImage } from '@aws-amplify/ui-react-storage';
 import { StorageFile } from './StorageFile';
-import { getUrl } from 'aws-amplify/storage';
+import {
+  getProperties,
+  GetPropertiesWithPathOutput,
+  getUrl,
+} from 'aws-amplify/storage';
 import { STORAGE_BROWSER_BLOCK } from '../base';
 import { ViewElement, HeadingElement, TextElement } from '../elements';
-import { FileData } from '../../actions';
+import type { FileData } from '../../actions';
 import { useLocationDetailView } from '../../views/LocationDetailView';
-import { LocationState } from '../../store';
+import type { LocationState } from '../../store';
 import { Button } from '@aws-amplify/ui-react';
+import AWS from 'aws-sdk';
+import { fetchAuthSession } from 'aws-amplify/auth';
+import { Amplify } from 'aws-amplify';
+
+async function getFullS3ObjectDetails(bucket: any, key: any) {
+  const session = await fetchAuthSession();
+  const credentials = session?.credentials;
+
+  if (!credentials) {
+    throw new Error('No valid credentials found');
+  }
+
+  // Configure AWS SDK with Amplify credentials
+  const s3 = new AWS.S3({
+    accessKeyId: credentials.accessKeyId,
+    secretAccessKey: credentials.secretAccessKey,
+    sessionToken: credentials.sessionToken,
+    region: Amplify.getConfig().Storage?.S3.region,
+  });
+
+  // const s3 = new AWS.S3();
+
+  try {
+    // Get object metadata
+    const [objectData, tags = { TagSet: [] }] = await Promise.all([
+      s3.headObject({ Bucket: bucket, Key: key }).promise(),
+      // s3.getObjectTagging({ Bucket: bucket, Key: key }).promise(),
+    ]);
+
+    console.log('[details] data get objectData', objectData);
+
+    return {
+      // Object properties
+      key: key,
+      contentType: objectData.ContentType,
+      contentLength: objectData.ContentLength,
+      lastModified: objectData.LastModified,
+      etag: objectData.ETag,
+      metadata: objectData.Metadata,
+      storageClass: objectData.StorageClass,
+
+      // Tags
+      tags: tags.TagSet,
+      tagsObject: tags.TagSet.reduce((acc, tag) => {
+        acc[tag.Key] = tag.Value;
+        return acc;
+      }, {}),
+    };
+  } catch (error) {
+    console.error('Error:', error);
+    throw error;
+  }
+}
 
 export interface ObjectDetailsViewProps {
   state: {
@@ -565,10 +627,10 @@ interface FilePreviewProps {
   location: LocationState;
 }
 
-const FilePreview: React.FC<FilePreviewProps> = ({ object, location }) => {
+const FilePreview: React.FC<FilePreviewProps> = ({ location }) => {
   const { key } = location;
 
-  const fileName = key?.split('/').pop() || 'Unknown';
+  const fileName = key?.split('/').pop() ?? 'Unknown';
   console.log('FilePreview', fileName, key);
 
   const isImage = isImageFile(key);
@@ -651,10 +713,24 @@ export const ObjectDetailsView = ({
 
   console.log('[preview] render ObjectDetailsView location ', location);
 
-  if (location.current?.type !== 'OBJECT') {
-    //@ts-expect-error
-    return null;
-  }
+  React.useEffect(() => {
+    getProperties({
+      path: object?.key ?? '',
+      options: {},
+    })
+      .then((data: GetPropertiesWithPathOutput) => {
+        console.log('[details] data get properties', data);
+      })
+      .catch((err) => {
+        console.log('err', err);
+      });
+
+    getFullS3ObjectDetails(location.current?.bucket, object?.key).then(
+      (data) => {
+        console.log('[details] data get full details', data);
+      }
+    );
+  }, [object?.key]);
 
   const containerStyle: React.CSSProperties = {
     maxWidth: '900px',
@@ -722,7 +798,7 @@ export const ObjectDetailsView = ({
   }
 
   const { size, id, key, type, lastModified } = object;
-  const fileName = key?.split('/').pop() || 'Unknown';
+  const fileName = key?.split('/').pop() ?? 'Unknown';
 
   return (
     <ViewElement

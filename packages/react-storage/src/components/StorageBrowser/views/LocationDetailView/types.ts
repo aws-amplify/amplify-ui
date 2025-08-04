@@ -75,6 +75,20 @@ export interface LocationDetailViewType {
   Title: () => React.JSX.Element | null;
 }
 
+interface ObjectDetailsViewProps {}
+
+export interface ObjectDetailsViewType {
+  (
+    props: {
+      children?: React.ReactNode;
+      className?: string;
+    } & ObjectDetailsViewProps
+  ): React.JSX.Element | null;
+  Provider: (props: LocationDetailViewProviderProps) => React.JSX.Element;
+  Preview: () => React.JSX.Element | null;
+  Metadata: () => React.JSX.Element | null;
+}
+
 interface InitialValues {
   pageSize?: number;
   delimiter?: string;

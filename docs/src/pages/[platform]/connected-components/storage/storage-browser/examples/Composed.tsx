@@ -41,6 +41,7 @@ const { LocationActionView } = StorageBrowser;
 
 function MyLocationActionView() {
   const state = useView('LocationDetail');
+
   const onExit = () => {
     state.onActionSelect('');
   };

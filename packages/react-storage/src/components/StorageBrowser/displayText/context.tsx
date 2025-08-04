@@ -50,6 +50,7 @@ export function resolveDisplayText(
       ...DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT.UploadView,
       ...UploadView,
     },
+    objectDetailView: undefined,
   };
 }
 

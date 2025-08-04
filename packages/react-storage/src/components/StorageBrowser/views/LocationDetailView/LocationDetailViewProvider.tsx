@@ -66,6 +66,10 @@ export function LocationDetailViewProvider({
   }));
   const [_, storeDispatch] = useStore();
 
+  // const { isLoading, error, metdaat, content } = usePreview({
+  //   location,
+  // });
+
   const fileItems = pageItems.filter(
     (item): item is FileData => item.type === 'FILE'
   );
@@ -125,6 +129,13 @@ export function LocationDetailViewProvider({
         }),
         title: getTitle(location),
         message: messageControlContent,
+        // selectedObject: '/foo/bar/test.png',
+        // selectedObject: {
+        //   isLoading,
+        //   error,
+        //   metdaat,
+        //   content,
+        // },
       }}
       onActionSelect={onActionSelect}
       onDropFiles={onDropFiles}

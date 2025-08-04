@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import type {
   UploadViewState,
   CreateFolderViewState,
@@ -15,6 +16,8 @@ import { useLocationDetailView } from './LocationDetailView';
 import type { LocationsViewState } from './LocationsView';
 import { useLocationsView } from './LocationsView';
 
+interface ObjectDetailsViewState {}
+
 interface DefaultUseViewStates {
   Copy: CopyViewState;
   CreateFolder: CreateFolderViewState;
@@ -22,6 +25,7 @@ interface DefaultUseViewStates {
   LocationDetail: LocationDetailViewState;
   Locations: LocationsViewState;
   Upload: UploadViewState;
+  ObjectDetails: ObjectDetailsViewState;
 }
 
 type UseViewHooks = {
@@ -35,6 +39,7 @@ export const USE_VIEW_HOOKS: UseViewHooks = {
   LocationDetail: useLocationDetailView,
   Locations: useLocationsView,
   Upload: useUploadView,
+  ObjectDetails: () => ({}) as ObjectDetailsViewState,
 };
 
 export type UseViewType = keyof DefaultUseViewStates;
