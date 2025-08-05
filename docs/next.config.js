@@ -16,7 +16,7 @@ function createRemarkMdxFrontmatterPlugin(options = {}) {
       remarkMdxFrontmatterModule = await import('remark-mdx-frontmatter');
     }
 
-    let actualPlugin = remarkMdxFrontmatterModule.default;
+    const actualPlugin = remarkMdxFrontmatterModule.default;
 
     const pluginInstance = actualPlugin(options);
 
