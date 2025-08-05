@@ -81,6 +81,14 @@ export type ListCollectionProps<Item> = Omit<BaseFlexProps, 'children'> &
   CollectionBaseProps<Item>;
 export type GridCollectionProps<Item> = Omit<BaseGridProps, 'children'> &
   CollectionBaseProps<Item>;
+export type TableCollectionProps<Item> = Omit<BaseGridProps, 'children'> &
+  CollectionBaseProps<Item> & {
+    /**
+     * @description
+     * Custom table header component to be rendered at the top of the table
+     */
+    tableHeader: () => React.ReactNode;
+  };
 
 /**
  * Omits `React.ReactNode` as children to prevent intersection type for `children` of
@@ -98,6 +106,7 @@ export type BaseCollectionProps<
   (
     | ReplaceChildren<{ type: 'list' } & ListCollectionProps<Item>, Item>
     | ReplaceChildren<{ type: 'grid' } & GridCollectionProps<Item>, Item>
+    | ReplaceChildren<{ type: 'table' } & TableCollectionProps<Item>, Item>
   );
 
 export type CollectionProps<

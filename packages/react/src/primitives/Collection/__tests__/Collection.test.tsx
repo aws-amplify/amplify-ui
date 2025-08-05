@@ -10,6 +10,7 @@ import { Flex } from '../../Flex';
 import { Text } from '../../Text';
 import { ComponentText } from '../../shared/constants';
 import { ComponentPropsToStylePropsMap } from '../../types';
+import { TableCell, TableHead, TableRow } from '../../Table';
 
 const emojis = [
   {
@@ -281,5 +282,46 @@ describe('Collection component', () => {
 
     const noResults = await screen.findByText(customText);
     expect(noResults).toBeDefined();
+  });
+
+  it('should render table with table header when type is table', async () => {
+    const borderStyle = '1px solid red';
+    render(
+      <Collection
+        testId={testList}
+        type="table"
+        items={emojis}
+        border={borderStyle}
+        tableHeader={() => (
+          <TableRow>
+            <TableHead>Title</TableHead>
+            <TableHead>Emoji</TableHead>
+          </TableRow>
+        )}
+      >
+        {(item, _index) => (
+          <TableRow>
+            <TableCell>{item.title}</TableCell>
+            <TableCell>{item.emoji}</TableCell>
+          </TableRow>
+        )}
+      </Collection>
+    );
+
+    const collection = await screen.findByTestId(testList);
+    const items = getElementByClassName<HTMLDivElement>(
+      collection,
+      ComponentClassName.CollectionItems
+    );
+
+    expect(
+      items?.style.getPropertyValue(
+        kebabCase(ComponentPropsToStylePropsMap.border)
+      )
+    ).toBe(borderStyle);
+
+    const tdNode = items?.children[1].children[0].children[0];
+    expect(tdNode?.nodeName).toBe('TD');
+    expect(tdNode?.innerHTML).toBe('LOL');
   });
 });
