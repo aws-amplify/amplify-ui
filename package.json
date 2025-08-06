@@ -108,6 +108,7 @@
     "socks": "^2.7.3",
     "tar-fs": "^3.0.9",
     "webpack-dev-middleware": "^5.3.4",
+    "webpack-dev-server": "^5.2.1",
     "yaml": "2.2.2",
     "ws": "^8.17.1",
     "stylus": "github:stylus/stylus#0.59.0"
