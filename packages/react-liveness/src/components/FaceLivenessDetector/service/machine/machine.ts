@@ -585,8 +585,8 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             onCameraChange(deviceInfo);
           }
         } catch (callbackError) {
-          // console.error('Error in onCameraChange callback:', callbackError);
-          // Don't rethrow to prevent state machine from getting stuck
+          // eslint-disable-next-line no-console
+          console.error('Error in onCameraChange callback:', callbackError);
         }
       },
       callCameraNotFoundCallback: (context, event) => {
@@ -606,8 +606,8 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             onCameraNotFound(requestedCamera, fallbackDevice);
           }
         } catch (callbackError) {
-          // console.error('Error in onCameraNotFound callback:', callbackError);
-          // Don't rethrow to prevent state machine from getting stuck
+          // eslint-disable-next-line no-console
+          console.error('Error in onCameraChange callback:', callbackError);
         }
       },
 
@@ -830,11 +830,10 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         }
 
         try {
-          const deviceInfo = getSelectedDeviceInfo(context);
-          onUserCancel(deviceInfo);
+          onUserCancel();
         } catch (callbackError) {
-          // console.error('Error in onUserCancel callback:', callbackError);
-          // Don't rethrow to prevent state machine from getting stuck
+          // eslint-disable-next-line no-console
+          console.error('Error in onUserCancel callback:', callbackError);
         }
       },
       callUserTimeoutCallback: (context) => {
