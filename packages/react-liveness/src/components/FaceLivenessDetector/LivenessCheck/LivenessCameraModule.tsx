@@ -145,40 +145,6 @@ export const LivenessCameraModule = (
     recording: 'flashFreshnessColors',
   });
 
-  // Update the device if the selectedDeviceId changes
-  React.useEffect(() => {
-    if (
-      selectedDeviceId &&
-      Array.isArray(selectableDevices) &&
-      selectableDevices.length > 0
-    ) {
-      const device = selectableDevices.find(
-        (d) => d.deviceId === selectedDeviceId
-      );
-      if (device) {
-        // Update the device in the state machine
-        const changeCamera = async () => {
-          try {
-            const newStream = await navigator.mediaDevices.getUserMedia({
-              video: {
-                ...videoConstraints,
-                deviceId: { exact: selectedDeviceId },
-              },
-              audio: false,
-            });
-            send({
-              type: 'UPDATE_DEVICE_AND_STREAM',
-              data: { newDeviceId: selectedDeviceId, newStream },
-            });
-          } catch (error: any) {
-            throw new Error('Error updating device:');
-          }
-        };
-        changeCamera();
-      }
-    }
-  }, [selectedDeviceId, selectableDevices, send, videoConstraints]);
-
   // Android/Firefox and iOS flip the values of width/height returned from
   // getUserMedia, so we'll reset these in useLayoutEffect with the videoRef
   // element's intrinsic videoWidth and videoHeight attributes

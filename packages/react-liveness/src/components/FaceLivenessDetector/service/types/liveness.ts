@@ -61,7 +61,7 @@ export interface FaceLivenessDetectorCoreProps {
    * Callback called when the user cancels the flow
    * @param deviceInfo Information about the selected device, if available
    */
-  onUserCancel?: (deviceInfo?: DeviceInfo) => void;
+  onUserCancel?: () => void;
 
   /**
    * Callback called when the liveness check times out
