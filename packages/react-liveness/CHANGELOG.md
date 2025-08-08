@@ -1,5 +1,11 @@
 # @aws-amplify/ui-react-liveness
 
+## 3.4.3
+
+### Patch Changes
+
+- [#6656](https://github.com/aws-amplify/amplify-ui/pull/6656) [`50ceedfe153f4b89d80e5dca4ee7ae355e0cd8e8`](https://github.com/aws-amplify/amplify-ui/commit/50ceedfe153f4b89d80e5dca4ee7ae355e0cd8e8) Thanks [@osama-rizk](https://github.com/osama-rizk)! - fix(ui-react-liveness): oval ratio multiplier
+
 ## 3.4.2
 
 ### Patch Changes
