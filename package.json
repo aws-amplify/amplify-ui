@@ -110,7 +110,8 @@
     "yaml": "2.2.2",
     "ws": "^8.17.1",
     "stylus": "github:stylus/stylus#0.59.0",
-    "on-headers": "^1.1.0"
+    "on-headers": "^1.1.0",
+    "tmp": "^0.2.4"
   },
   "devDependencies": {
     "@aws-amplify/backend": "^1.7.0",
@@ -152,6 +153,7 @@
     "vue-tsc": "^2.0.7"
   },
   "overrides": {
-    "stylus": "github:stylus/stylus#0.59.0"
+    "stylus": "github:stylus/stylus#0.59.0",
+    "tmp": "^0.2.4"
   }
 }
