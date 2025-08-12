@@ -58,5 +58,23 @@ export function TextPreview({
     );
   }
 
-  return <div>{content || 'File is empty'}</div>;
+  return (
+    <div
+      style={{
+        backgroundColor: '#f8fafc',
+        border: '1px solid #e2e8f0',
+        borderRadius: '8px',
+        padding: '16px',
+        fontFamily: 'Monaco, Menlo, "Ubuntu Mono", monospace',
+        fontSize: '14px',
+        lineHeight: '1.5',
+        maxHeight: '400px',
+        overflow: 'auto',
+        whiteSpace: 'pre-wrap',
+        wordBreak: 'break-word',
+      }}
+    >
+      {content || 'File is empty'}
+    </div>
+  );
 }

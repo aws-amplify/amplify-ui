@@ -1,5 +1,4 @@
 /* eslint-disable no-console */
-import { Button } from '@aws-amplify/ui-react';
 import React from 'react';
 import type { ObjectPreviewData } from '../../views/hooks/useObjectPreview';
 import type { FileType } from '../../views/utils/objectPreview/const';
@@ -8,6 +7,7 @@ import { useFilePreview } from '../../filePreview/context';
 import { VideoPreview } from '../base/preview/VideoPreview';
 import { TextPreview } from '../base/preview/TextPreview';
 import { UnsupportedView } from '../base/preview/UnsupportedView';
+import { ButtonElement, IconElement } from '../elements';
 
 export interface ObjectPreviewProps extends ObjectPreviewData {
   onCloseObjectPreview?: () => void;
@@ -64,19 +64,25 @@ export const ObjectPreview = (
   return (
     <div
       style={{
-        position: 'absolute',
-        right: 0,
-        top: 0,
-        background: 'white',
         overflow: 'scroll',
         flex: 1,
         width: '50vw',
         height: '100vw',
+        padding: 15,
+        border: '1px solid gray',
+        borderRadius: '5px',
+        marginLeft: '30px',
       }}
     >
+      <div style={{ marginBottom: 20 }}>
+        <ButtonElement variant="exit" onClick={onCloseObjectPreview}>
+          <IconElement variant="dismiss" />
+          Close
+        </ButtonElement>
+      </div>
+
       <div>{resolveRenderer()}</div>
       <div>{props?.selectedObject?.key}</div>
-      <Button onClick={onCloseObjectPreview}>Close</Button>
     </div>
   );
 };
