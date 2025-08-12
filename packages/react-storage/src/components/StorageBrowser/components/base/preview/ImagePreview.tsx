@@ -4,16 +4,16 @@ import { Image } from '@aws-amplify/ui-react';
 
 export function ImagePreview({
   url,
-  key,
+  objectKey,
 }: {
   url: string | null;
-  key: string;
+  objectKey: string;
 }): React.JSX.Element | null {
   return (
     <Image
       className={classNames(ComponentClassName.StorageImage)}
       src={url!}
-      alt={key}
+      alt={objectKey}
     />
   );
 }
