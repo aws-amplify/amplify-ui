@@ -7,6 +7,7 @@ export const enDict = {
 };
 export const esDict = { ...authenticatorDict.esDict };
 export const frDict = { ...authenticatorDict.frDict };
+export const huDict = { ...authenticatorDict.huDict };
 export const itDict = { ...authenticatorDict.itDict };
 export const jaDict = { ...authenticatorDict.jaDict };
 export const krDict = { ...authenticatorDict.krDict };
