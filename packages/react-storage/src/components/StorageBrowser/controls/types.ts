@@ -1,4 +1,4 @@
-import type { LocationData } from '../actions';
+import type { FileData, LocationData } from '../actions';
 import type {
   ActionListItem,
   Composables,
@@ -8,6 +8,7 @@ import type {
 } from '../components';
 import type { LocationState } from '../store';
 import type { StatusCounts } from '../tasks';
+import type { ObjectPreviewData } from '../views/hooks/useObjectPreview';
 
 export interface Controls {
   props: React.ComponentProps<Composables[keyof Composables]>;
@@ -71,6 +72,7 @@ export interface ControlsContext {
     paginationData?: PaginationData;
     searchPlaceholder?: string;
     searchQuery?: string;
+    objectPreviewData: ObjectPreviewData;
     searchSubfoldersToggleLabel?: string;
     searchSubmitLabel?: string;
     searchClearLabel?: string;
@@ -97,6 +99,8 @@ export interface ControlsContext {
   onSearch?: () => void;
   onSearchClear?: () => void;
   onSearchQueryChange?: (value: string) => void;
+  onFileClick?: (f: FileData) => void;
+  onCloseObjectPreview?: () => void;
   onSelectDestination?: (location: LocationData, path?: string) => void;
   onToggleOverwrite?: () => void;
   onToggleSearchSubfolders?: () => void;

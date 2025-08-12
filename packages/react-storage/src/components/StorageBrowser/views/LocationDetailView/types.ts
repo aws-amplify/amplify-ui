@@ -7,6 +7,7 @@ import type {
 
 import type { ActionListItem } from '../../components/composables/ActionsList';
 import type { LocationState } from '../../store';
+import type { ObjectPreviewData } from '../hooks/useObjectPreview';
 
 import type { ListViewProps } from '../types';
 
@@ -35,12 +36,15 @@ export interface LocationDetailViewState {
   onSearch: () => void;
   onSearchClear: () => void;
   onSearchQueryChange: (value: string) => void;
+  onFileClick: (f: FileData) => void;
+  onCloseObjectPreview: () => void;
   onSelect: (isSelected: boolean, fileItem: FileData) => void;
   onToggleSearchSubfolders: () => void;
   onToggleSelectAll: () => void;
   page: number;
   pageItems: LocationItemData[];
   searchQuery: string;
+  objectPreviewData: ObjectPreviewData;
 }
 
 export interface LocationDetailViewProps extends ListViewProps {
@@ -73,6 +77,7 @@ export interface LocationDetailViewType {
   Search: () => React.JSX.Element | null;
   SearchSubfoldersToggle: () => React.JSX.Element | null;
   Title: () => React.JSX.Element | null;
+  ObjectPreview: () => React.JSX.Element | null;
 }
 
 interface InitialValues {
