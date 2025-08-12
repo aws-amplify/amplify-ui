@@ -2,6 +2,9 @@
 import { Button } from '@aws-amplify/ui-react';
 import React from 'react';
 import type { ObjectPreviewData } from '../../views/hooks/useObjectPreview';
+import type { FileType } from '../../views/utils/objectPreview/const';
+import { ImagePreview } from '../base/preview/ImagePreview';
+import { useFilePreview } from '../../filePreview/context';
 
 export interface ObjectPreviewProps extends ObjectPreviewData {
   onCloseObjectPreview?: () => void;
@@ -10,9 +13,13 @@ export interface ObjectPreviewProps extends ObjectPreviewData {
 export const ObjectPreview = (
   props: ObjectPreviewProps
 ): React.JSX.Element | null => {
-  console.log('ObjectPreview props', props);
   const { onCloseObjectPreview } = props;
-  const { isLoading, hasError } = props;
+  const { isLoading, hasError, selectedObject, url } = props;
+  const { rendererResolver } = useFilePreview() ?? {};
+
+  if (!selectedObject) return null;
+
+  const { key, fileType } = selectedObject;
 
   if (isLoading) {
     return <div>....loading </div>;
@@ -20,6 +27,35 @@ export const ObjectPreview = (
 
   if (hasError) {
     return <div>opps... some wrong happen </div>;
+  }
+
+  function getDefaultRenderer(type: FileType | null) {
+    switch (type) {
+      case 'image':
+        return <ImagePreview key={key} url={url} />;
+
+      case 'video':
+        return <div>video</div>;
+
+      case 'text':
+        return <div>Text</div>;
+
+      case 'unknown':
+        return <div>unsupported</div>;
+
+      default:
+        return null;
+    }
+  }
+
+  function resolveRenderer() {
+    if (rendererResolver && fileType) {
+      const CustomRenderer = rendererResolver(fileType as FileType);
+      if (CustomRenderer) {
+        return <CustomRenderer url={url!} fileProperties={selectedObject!} />;
+      }
+    }
+    return getDefaultRenderer(fileType as FileType);
   }
 
   return (
@@ -34,10 +70,8 @@ export const ObjectPreview = (
         width: '50vw',
       }}
     >
-      <div>Object preview</div>
+      <div>{resolveRenderer()}</div>
       <div>{props?.selectedObject?.key}</div>
-      <div>{props?.url}</div>
-
       <Button onClick={onCloseObjectPreview}>Close</Button>
     </div>
   );

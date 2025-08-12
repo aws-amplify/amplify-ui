@@ -21,15 +21,27 @@ import {
 
 Amplify.configure(config);
 
+const MyCustomImage = ({ fileProperties, url }) => (
+  <div style={{ border: '3px solid gray' }}>
+    <div>this is my custom image renderer</div>
+    <img src={url} />
+  </div>
+);
+
 const { StorageBrowser } = createStorageBrowser({
   config: createAmplifyAuthAdapter(),
   filePreview: {
-    fileTypeResolver: () => {
-      return 'text';
-    },
+    // fileTypeResolver: () => {
+    //   return 'text';
+    // },
     urlOptions: {
       validateObjectExistence: true,
       expiresIn: 50000,
+    },
+    rendererResolver: (type) => {
+      if (type === 'image') {
+        return MyCustomImage;
+      }
     },
   },
 });
