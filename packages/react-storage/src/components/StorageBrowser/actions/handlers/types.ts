@@ -53,6 +53,8 @@ export interface FileData {
   id: string;
   size: number;
   type: 'FILE';
+  contentType?: string;
+  fileType: string | null;
 }
 
 export type LocationItemData = FileData | FolderData;

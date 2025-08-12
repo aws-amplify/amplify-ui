@@ -20,6 +20,7 @@ import {
 import { LocationDetailViewProvider } from './LocationDetailViewProvider';
 import type { LocationDetailViewType } from './types';
 import { useLocationDetailView } from './useLocationDetailView';
+import { ObjectPreviewControl } from '../../controls/ObjectPreviewControl';
 
 const DEFAULT_PAGE_SIZE = 100;
 export const DEFAULT_LIST_OPTIONS = {
@@ -33,6 +34,9 @@ export const LocationDetailView: LocationDetailViewType = ({
 }) => {
   const state = useLocationDetailView(props);
   const { hasError } = state;
+  const shouldRenderObjectDetails = Boolean(
+    state.objectPreviewData.selectedObject
+  );
 
   return (
     <ViewElement
@@ -57,6 +61,8 @@ export const LocationDetailView: LocationDetailViewType = ({
               <LoadingIndicatorControl />
               <DataTableControl />
             </ViewElement>
+
+            {shouldRenderObjectDetails && <ObjectPreviewControl />}
           </DropZoneControl>
         )}
         <ViewElement className={`${STORAGE_BROWSER_BLOCK}__footer`}>
@@ -82,3 +88,4 @@ LocationDetailView.Refresh = DataRefreshControl;
 LocationDetailView.Search = SearchFieldControl;
 LocationDetailView.SearchSubfoldersToggle = SearchSubfoldersToggleControl;
 LocationDetailView.Title = TitleControl;
+LocationDetailView.ObjectPreview = ObjectPreviewControl;

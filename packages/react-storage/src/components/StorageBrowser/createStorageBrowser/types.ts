@@ -4,6 +4,7 @@ import type {
   CustomActionConfigs,
   DefaultActionConfigs,
   ExtendedActionConfigs,
+  FileData,
   ListLocations,
   LocationData,
 } from '../actions';
@@ -32,6 +33,7 @@ import type {
   UseView,
   StorageBrowserViews,
 } from '../views';
+import type { FileType } from '../views/utils/objectPreview/const';
 
 /**
  * @description configuration properties
@@ -135,6 +137,99 @@ export interface StorageBrowserOptions {
 }
 
 /**
+ * @description Function type for dynamic file size calculation
+ */
+export type FileSizeResolver = (fileType: FileType) => number | undefined;
+
+/**
+ * @description Function type for dynamic URL options calculation
+ */
+export type UrlOptionsResolver = (
+  fileType: FileType
+) => FilePreviewUrlOptions | undefined;
+
+/**
+ * @description Function type for dynamic renderer resolution
+ */
+export type RendererResolver = (
+  fileType: FileType
+) => React.ComponentType<FilePreviewProps> | undefined;
+
+export interface FilePreview {
+  /**
+   * @description Function to determine file type from file properties
+   * @param properties - File metadata and properties
+   * @returns FileType or undefined that will fallback to the built-in file type detection
+   */
+  fileTypeResolver?: (properties: FileData) => FileType | undefined;
+
+  /**
+   * @description Function that dynamically returns a custom React component for rendering specific file types based on file type
+   * @param fileType - The resolved file type
+   * @returns React component or undefined to use built-in renderer
+   * @example fileType => fileType === 'image' ? CustomImagePreview : undefined
+   * @example fileType => {
+   *   if (fileType === 'text') return CodeRenderer;
+   *   if (fileType === 'pdf') return CustomPDFViewer;
+   *   return undefined; // Use built-in renderer
+   * }
+   */
+  rendererResolver?: RendererResolver;
+
+  /**
+   * @description Options for generating preview URLs.
+   * Can be:
+   * - A static configuration object
+   * - A function that dynamically returns URL options based on file type
+   * @example { expiresIn: 1800, validateObjectExistence: true }
+   * @example fileType => fileType === 'video' ? { expiresIn: 3600, validateObjectExistence: true } : undefined
+   */
+  urlOptions?: FilePreviewUrlOptions | UrlOptionsResolver;
+
+  /**
+   * @description Maximum file sizes allowed for preview in kilobytes (KB).
+   * Can be:
+   * - A single limit for all file types
+   * - A function that dynamically calculates the limit based on file type
+   * @example 10240 // 10MB limit for all files
+   * @example fileType => fileType === 'image' ? 5120 : undefined
+   */
+  maxFileSize?: number | FileSizeResolver;
+}
+
+/**
+ * @description Options for generating file preview URLs
+ */
+export interface FilePreviewUrlOptions {
+  /**
+   * @description Whether to validate that the object exists before generating the URL
+   * @default false
+   */
+  validateObjectExistence?: boolean;
+
+  /**
+   * @description Time in seconds until the generated URL expires
+   * @default 900 (15 minutes)
+   */
+  expiresIn?: number;
+}
+
+/**
+ * @description Props provided to custom file preview renderer components
+ */
+export interface FilePreviewProps {
+  /**
+   * @description File metadata including content type and other properties
+   */
+  fileProperties: FileData;
+
+  /**
+   * @description Pre-signed URL for the file.
+   */
+  url: string;
+}
+
+/**
  * @description configuration and options for `createStorageBrowser`
  */
 export interface CreateStorageBrowserInput {
@@ -163,6 +258,11 @@ export interface CreateStorageBrowserInput {
    * @description Additional options and overrides for `StorageBrowser`
    */
   options?: StorageBrowserOptions;
+
+  /**
+   * @description Configuration for file preview functionality including custom renderers, file type resolution, and size limits
+   */
+  filePreview?: FilePreview;
 }
 
 /**

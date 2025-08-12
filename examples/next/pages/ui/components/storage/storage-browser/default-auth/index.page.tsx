@@ -9,13 +9,30 @@ import {
   View,
   withAuthenticator,
 } from '@aws-amplify/ui-react';
-import { StorageBrowser } from '@aws-amplify/ui-react-storage';
+// import { StorageBrowser } from '@aws-amplify/ui-react-storage';
 
 import '@aws-amplify/ui-react-storage/styles.css';
 
 import config from './aws-exports';
+import {
+  createAmplifyAuthAdapter,
+  createStorageBrowser,
+} from '@aws-amplify/ui-react-storage/browser';
 
 Amplify.configure(config);
+
+const { StorageBrowser } = createStorageBrowser({
+  config: createAmplifyAuthAdapter(),
+  filePreview: {
+    fileTypeResolver: () => {
+      return 'text';
+    },
+    urlOptions: {
+      validateObjectExistence: true,
+      expiresIn: 50000,
+    },
+  },
+});
 
 const IndeterminateIcon = () => (
   <View as="span" className="amplify-icon" width="1em" height="1em">

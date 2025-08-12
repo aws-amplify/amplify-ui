@@ -12,6 +12,7 @@ import { FolderNameField } from './FolderNameField';
 import { LoadingIndicator } from './LoadingIndicator';
 import { Message } from './Message';
 import { Navigation } from './Navigation';
+import { ObjectPreview } from './ObjectPreview';
 import { OverwriteToggle } from './OverwriteToggle';
 import { Pagination } from './Pagination';
 import { SearchField } from './SearchField';
@@ -42,4 +43,5 @@ export const DEFAULT_COMPOSABLES: Composables = {
   SearchField,
   StatusDisplay,
   Title,
+  ObjectPreview,
 };
