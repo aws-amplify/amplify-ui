@@ -56,14 +56,20 @@ export const LocationDetailView: LocationDetailViewType = ({
           <ActionsListControl />
         </ViewElement>
         {hasError ? null : (
-          <DropZoneControl>
-            <ViewElement className={`${STORAGE_BROWSER_BLOCK}__data-table`}>
-              <LoadingIndicatorControl />
-              <DataTableControl />
-            </ViewElement>
-
+          <div
+            style={{
+              display: 'flex',
+              height: '100%',
+            }}
+          >
+            <DropZoneControl>
+              <ViewElement className={`${STORAGE_BROWSER_BLOCK}__data-table`}>
+                <LoadingIndicatorControl />
+                <DataTableControl />
+              </ViewElement>
+            </DropZoneControl>
             {shouldRenderObjectDetails && <ObjectPreviewControl />}
-          </DropZoneControl>
+          </div>
         )}
         <ViewElement className={`${STORAGE_BROWSER_BLOCK}__footer`}>
           <MessageControl />
