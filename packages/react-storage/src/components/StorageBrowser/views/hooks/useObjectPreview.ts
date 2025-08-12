@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import React from 'react';
 import { useState } from 'react';
 import type { FileData } from '../../actions';
@@ -25,12 +24,6 @@ export function useObjectPreview(): UseObjectPreviewReturn {
   const [hasError, setHasError] = useState(false);
   const [selectedObject, setSelectedObject] = useState<FileData | null>(null);
   const [url, setUrl] = useState<string | null>(null);
-
-  console.log(
-    'fileTypeResolver useObjectPreview',
-    fileTypeResolver,
-    urlOptions
-  );
 
   async function prepareFileForPreview() {
     try {

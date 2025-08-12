@@ -1,10 +1,10 @@
-/* eslint-disable no-console */
 import { Button } from '@aws-amplify/ui-react';
 import React from 'react';
 import type { ObjectPreviewData } from '../../views/hooks/useObjectPreview';
 import type { FileType } from '../../views/utils/objectPreview/const';
 import { ImagePreview } from '../base/preview/ImagePreview';
 import { useFilePreview } from '../../filePreview/context';
+import { VideoPreview } from '../base/preview/VideoPreview';
 
 export interface ObjectPreviewProps extends ObjectPreviewData {
   onCloseObjectPreview?: () => void;
@@ -35,7 +35,7 @@ export const ObjectPreview = (
         return <ImagePreview key={key} url={url} />;
 
       case 'video':
-        return <div>video</div>;
+        return <VideoPreview key={key} url={url} />;
 
       case 'text':
         return <div>Text</div>;
