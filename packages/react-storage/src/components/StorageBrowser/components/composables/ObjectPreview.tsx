@@ -5,6 +5,7 @@ import type { FileType } from '../../views/utils/objectPreview/const';
 import { ImagePreview } from '../base/preview/ImagePreview';
 import { useFilePreview } from '../../filePreview/context';
 import { VideoPreview } from '../base/preview/VideoPreview';
+import { TextPreview } from '../base/preview/TextPreview';
 
 export interface ObjectPreviewProps extends ObjectPreviewData {
   onCloseObjectPreview?: () => void;
@@ -32,13 +33,13 @@ export const ObjectPreview = (
   function getDefaultRenderer(type: FileType | null) {
     switch (type) {
       case 'image':
-        return <ImagePreview key={key} url={url} />;
+        return <ImagePreview objectKey={key} url={url} />;
 
       case 'video':
-        return <VideoPreview key={key} url={url} />;
+        return <VideoPreview objectKey={key} url={url} />;
 
       case 'text':
-        return <div>Text</div>;
+        return <TextPreview objectKey={key} url={url} />;
 
       case 'unknown':
         return <div>unsupported</div>;
