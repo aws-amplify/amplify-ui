@@ -34,15 +34,15 @@ const { StorageBrowser } = createStorageBrowser({
     // fileTypeResolver: () => {
     //   return 'text';
     // },
-    urlOptions: {
-      validateObjectExistence: true,
-      expiresIn: 50000,
-    },
-    rendererResolver: (type) => {
-      if (type === 'image') {
-        return MyCustomImage;
-      }
-    },
+    // urlOptions: {
+    //   validateObjectExistence: true,
+    //   expiresIn: 50000,
+    // },
+    // rendererResolver: (type) => {
+    //   if (type === 'image') {
+    //     return MyCustomImage;
+    //   }
+    // },
   },
 });
 

@@ -55,17 +55,13 @@ export function useObjectPreview(): UseObjectPreviewReturn {
       });
 
       setUrl(url.toString());
+
+      setIsLoading(false);
     } catch (error) {
       setHasError(true);
       setIsLoading(false);
     }
   }
-
-  React.useEffect(() => {
-    if (url && selectedObject?.fileType) {
-      setIsLoading(false);
-    }
-  }, [url, selectedObject?.fileType]);
 
   React.useEffect(() => {
     setIsLoading(true);
