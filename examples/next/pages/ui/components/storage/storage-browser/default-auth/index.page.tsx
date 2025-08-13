@@ -31,18 +31,23 @@ const MyCustomImage = ({ fileProperties, url }) => (
 const { StorageBrowser } = createStorageBrowser({
   config: createAmplifyAuthAdapter(),
   filePreview: {
-    // fileTypeResolver: () => {
-    //   return 'text';
-    // },
-    // urlOptions: {
-    //   validateObjectExistence: true,
-    //   expiresIn: 50000,
-    // },
-    // rendererResolver: (type) => {
-    //   if (type === 'image') {
-    //     return MyCustomImage;
-    //   }
-    // },
+    fileTypeResolver: () => {
+      // return 'text';
+      return undefined;
+    },
+    urlOptions: {
+      validateObjectExistence: true,
+      expiresIn: 50000,
+    },
+    rendererResolver: (type) => {
+      if (type === 'image') {
+        return MyCustomImage;
+      }
+    },
+    maxFileSize: (type) => {
+      // return 1024 * 1024;
+      return undefined;
+    },
   },
 });
 

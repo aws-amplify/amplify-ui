@@ -72,7 +72,7 @@ export interface ControlsContext {
     paginationData?: PaginationData;
     searchPlaceholder?: string;
     searchQuery?: string;
-    objectPreviewData: ObjectPreviewData;
+    objectPreviewData?: ObjectPreviewData;
     searchSubfoldersToggleLabel?: string;
     searchSubmitLabel?: string;
     searchClearLabel?: string;

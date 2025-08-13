@@ -6,7 +6,7 @@ import { ImagePreview } from '../base/preview/ImagePreview';
 import { useFilePreview } from '../../filePreview/context';
 import { VideoPreview } from '../base/preview/VideoPreview';
 import { TextPreview } from '../base/preview/TextPreview';
-import { UnsupportedView } from '../base/preview/UnsupportedView';
+import { FallbackView } from '../base/preview/FallbackView';
 import { ButtonElement, IconElement } from '../elements';
 
 export interface ObjectPreviewProps extends ObjectPreviewData {
@@ -16,7 +16,7 @@ export interface ObjectPreviewProps extends ObjectPreviewData {
 export const ObjectPreview = (
   props: ObjectPreviewProps
 ): React.JSX.Element | null => {
-  const { onCloseObjectPreview } = props;
+  const { onCloseObjectPreview, hasLimitExceeded } = props;
   const { isLoading, hasError, selectedObject, url } = props;
   const { rendererResolver } = useFilePreview() ?? {};
 
@@ -26,28 +26,25 @@ export const ObjectPreview = (
 
   const { key, fileType } = selectedObject;
 
-  if (isLoading) {
-    return <div>....loading </div>;
-  }
-
-  if (hasError) {
-    return <div>opps... some wrong happen </div>;
-  }
-
   function getDefaultRenderer(type: FileType | null) {
     switch (type) {
       case 'image':
-        return <ImagePreview objectKey={key} url={url} />;
+        return <ImagePreview objectKey={key} url={url!} />;
 
       case 'video':
-        return <VideoPreview objectKey={key} url={url} />;
+        return <VideoPreview objectKey={key} url={url!} />;
 
       case 'text':
-        return <TextPreview objectKey={key} url={url} />;
+        return <TextPreview objectKey={key} url={url!} />;
 
       case 'unknown':
       default:
-        return <UnsupportedView objectKey={key} />;
+        return (
+          <FallbackView
+            objectKey={key}
+            message="File preview not supported for this file type"
+          />
+        );
     }
   }
 
@@ -67,7 +64,7 @@ export const ObjectPreview = (
         overflow: 'scroll',
         flex: 1,
         width: '50vw',
-        height: '100vw',
+        height: '100vh',
         padding: 15,
         border: '1px solid gray',
         borderRadius: '5px',
@@ -81,8 +78,23 @@ export const ObjectPreview = (
         </ButtonElement>
       </div>
 
-      <div>{resolveRenderer()}</div>
-      <div>{props?.selectedObject?.key}</div>
+      <div>
+        {isLoading ? (
+          <div>....loading</div>
+        ) : hasError ? (
+          <div>opps... some wrong happen</div>
+        ) : hasLimitExceeded ? (
+          <FallbackView
+            objectKey={key}
+            message="File preview not possible due to preview size limit"
+          />
+        ) : (
+          <>
+            <div>{resolveRenderer()}</div>
+            <div>{selectedObject?.key}</div>
+          </>
+        )}
+      </div>
     </div>
   );
 };

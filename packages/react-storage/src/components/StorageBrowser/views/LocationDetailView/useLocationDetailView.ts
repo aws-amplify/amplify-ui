@@ -148,6 +148,7 @@ export const useLocationDetailView = (
     selectedObject,
     isLoading: objectPreviewIsLoading,
     hasError: objectPreviewHasError,
+    hasLimitExceeded,
     url,
   } = useObjectPreview();
 
@@ -203,6 +204,7 @@ export const useLocationDetailView = (
       isLoading: objectPreviewIsLoading,
       hasError: objectPreviewHasError,
       url,
+      hasLimitExceeded,
     },
     hasExhaustedSearch,
     onRefresh,

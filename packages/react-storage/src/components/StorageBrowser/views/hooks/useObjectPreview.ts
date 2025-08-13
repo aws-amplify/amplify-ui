@@ -6,12 +6,14 @@ import { determineFileType } from '../utils/objectPreview/fileType';
 import { useFilePreview } from '../../filePreview/context';
 import { resolveUrlOptions } from '../utils/objectPreview/urt';
 import type { FileType } from '../utils/objectPreview/const';
+import { resolveMaxFileSize } from '../utils/objectPreview/fileSize';
 
 export interface ObjectPreviewData {
-  isLoading: boolean;
-  hasError: boolean;
-  selectedObject: FileData | null;
-  url: string | null;
+  isLoading?: boolean;
+  hasError?: boolean;
+  selectedObject?: FileData | null;
+  url?: string | null;
+  hasLimitExceeded?: boolean;
 }
 
 interface UseObjectPreviewReturn extends ObjectPreviewData {
@@ -19,9 +21,10 @@ interface UseObjectPreviewReturn extends ObjectPreviewData {
 }
 
 export function useObjectPreview(): UseObjectPreviewReturn {
-  const { fileTypeResolver, urlOptions } = useFilePreview() ?? {};
+  const { fileTypeResolver, urlOptions, maxFileSize } = useFilePreview() ?? {};
   const [isLoading, setIsLoading] = useState(false);
   const [hasError, setHasError] = useState(false);
+  const [hasLimitExceeded, setHasLimitExceeded] = useState(false);
   const [selectedObject, setSelectedObject] = useState<FileData | null>(null);
   const [url, setUrl] = useState<string | null>(null);
 
@@ -48,6 +51,16 @@ export function useObjectPreview(): UseObjectPreviewReturn {
         ...allFileProperties,
         fileType,
       });
+
+      const doesLimitExceeded =
+        selectedObject.size >
+        resolveMaxFileSize(maxFileSize, fileType as FileType);
+
+      if (doesLimitExceeded) {
+        setHasLimitExceeded(true);
+        setIsLoading(false);
+        return;
+      }
 
       const { url } = await getUrl({
         path: selectedObject?.key,
@@ -76,5 +89,12 @@ export function useObjectPreview(): UseObjectPreviewReturn {
     setSelectedObject(object);
   };
 
-  return { isLoading, hasError, selectedObject, setSelectedFile, url };
+  return {
+    isLoading,
+    hasError,
+    selectedObject,
+    setSelectedFile,
+    url,
+    hasLimitExceeded,
+  };
 }
