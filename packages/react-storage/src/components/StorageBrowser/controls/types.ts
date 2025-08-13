@@ -101,6 +101,7 @@ export interface ControlsContext {
   onSearchQueryChange?: (value: string) => void;
   onFileClick?: (f: FileData) => void;
   onCloseObjectPreview?: () => void;
+  retryPreview?: () => void;
   onSelectDestination?: (location: LocationData, path?: string) => void;
   onToggleOverwrite?: () => void;
   onToggleSearchSubfolders?: () => void;

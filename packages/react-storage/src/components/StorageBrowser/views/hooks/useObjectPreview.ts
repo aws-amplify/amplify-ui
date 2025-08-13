@@ -18,6 +18,7 @@ export interface ObjectPreviewData {
 
 interface UseObjectPreviewReturn extends ObjectPreviewData {
   setSelectedFile: (p: any) => void;
+  retry: () => void;
 }
 
 export function useObjectPreview(): UseObjectPreviewReturn {
@@ -27,10 +28,15 @@ export function useObjectPreview(): UseObjectPreviewReturn {
   const [hasLimitExceeded, setHasLimitExceeded] = useState(false);
   const [selectedObject, setSelectedObject] = useState<FileData | null>(null);
   const [url, setUrl] = useState<string | null>(null);
+  const [retryTrigger, setRetryTrigger] = useState(0);
 
   async function prepareFileForPreview() {
     try {
       if (!selectedObject?.key) return;
+
+      setHasError(false);
+      setHasLimitExceeded(false);
+      setIsLoading(true);
 
       const result = await getProperties({
         path: selectedObject?.key,
@@ -77,13 +83,14 @@ export function useObjectPreview(): UseObjectPreviewReturn {
   }
 
   React.useEffect(() => {
-    setIsLoading(true);
-    setHasError(false);
-
     prepareFileForPreview();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedObject?.key]);
+  }, [selectedObject?.key, retryTrigger]);
+
+  const retry = () => {
+    setRetryTrigger((prev) => prev + 1);
+  };
 
   const setSelectedFile = (object: FileData) => {
     setSelectedObject(object);
@@ -96,5 +103,6 @@ export function useObjectPreview(): UseObjectPreviewReturn {
     setSelectedFile,
     url,
     hasLimitExceeded,
+    retry,
   };
 }
