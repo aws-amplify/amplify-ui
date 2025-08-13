@@ -8,6 +8,7 @@ import { VideoPreview } from '../base/preview/VideoPreview';
 import { TextPreview } from '../base/preview/TextPreview';
 import { FallbackView } from '../base/preview/FallbackView';
 import { ButtonElement, IconElement } from '../elements';
+import { PreviewPlaceholder } from '../base/preview/PreviewPlaceholder';
 
 export interface ObjectPreviewProps extends ObjectPreviewData {
   onCloseObjectPreview?: () => void;
@@ -80,7 +81,7 @@ export const ObjectPreview = (
 
       <div>
         {isLoading ? (
-          <div>....loading</div>
+          <PreviewPlaceholder />
         ) : hasError ? (
           <div>opps... some wrong happen</div>
         ) : hasLimitExceeded ? (

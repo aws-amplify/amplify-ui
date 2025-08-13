@@ -40,9 +40,10 @@ const { StorageBrowser } = createStorageBrowser({
       expiresIn: 50000,
     },
     rendererResolver: (type) => {
-      if (type === 'image') {
-        return MyCustomImage;
-      }
+      // if (type === 'image') {
+      //   return MyCustomImage;
+      // }
+      return undefined;
     },
     maxFileSize: (type) => {
       // return 1024 * 1024;
