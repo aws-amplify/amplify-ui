@@ -3,16 +3,18 @@ import { Button } from '@aws-amplify/ui-react';
 import { useAction } from '../../../useAction';
 import { getFileKey } from '../../../actions';
 
-export function UnsupportedView({
+export function FallbackView({
   objectKey,
+  message,
 }: {
   objectKey: string;
+  message: string;
 }): React.JSX.Element | null {
   const [_, handleDownload] = useAction('download');
 
   return (
     <div>
-      <div> File preview not supported </div>;
+      <div> {message}</div>
       <div>
         <Button
           onClick={() => {

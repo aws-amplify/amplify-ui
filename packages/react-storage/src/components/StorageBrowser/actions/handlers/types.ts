@@ -54,7 +54,7 @@ export interface FileData {
   size: number;
   type: 'FILE';
   contentType?: string;
-  fileType: string | null;
+  fileType?: string | null;
 }
 
 export type LocationItemData = FileData | FolderData;
