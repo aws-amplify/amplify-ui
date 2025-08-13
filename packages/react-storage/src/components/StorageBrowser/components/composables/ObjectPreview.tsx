@@ -6,18 +6,19 @@ import { ImagePreview } from '../base/preview/ImagePreview';
 import { useFilePreview } from '../../filePreview/context';
 import { VideoPreview } from '../base/preview/VideoPreview';
 import { TextPreview } from '../base/preview/TextPreview';
-import { FallbackView } from '../base/preview/FallbackView';
+import { PreviewFallback } from '../base/preview/PreviewFallback';
 import { ButtonElement, IconElement } from '../elements';
 import { PreviewPlaceholder } from '../base/preview/PreviewPlaceholder';
 
 export interface ObjectPreviewProps extends ObjectPreviewData {
   onCloseObjectPreview?: () => void;
+  retryPreview?: () => void;
 }
 
 export const ObjectPreview = (
   props: ObjectPreviewProps
 ): React.JSX.Element | null => {
-  const { onCloseObjectPreview, hasLimitExceeded } = props;
+  const { onCloseObjectPreview, hasLimitExceeded, retryPreview } = props;
   const { isLoading, hasError, selectedObject, url } = props;
   const { rendererResolver } = useFilePreview() ?? {};
 
@@ -41,7 +42,7 @@ export const ObjectPreview = (
       case 'unknown':
       default:
         return (
-          <FallbackView
+          <PreviewFallback
             objectKey={key}
             message="File preview not supported for this file type"
           />
@@ -83,9 +84,15 @@ export const ObjectPreview = (
         {isLoading ? (
           <PreviewPlaceholder />
         ) : hasError ? (
-          <div>opps... some wrong happen</div>
+          <PreviewFallback
+            objectKey={key}
+            message="Something went wrong"
+            isError={hasError}
+            onRetry={retryPreview}
+            showRetry={hasError}
+          />
         ) : hasLimitExceeded ? (
-          <FallbackView
+          <PreviewFallback
             objectKey={key}
             message="File preview not possible due to preview size limit"
           />

@@ -60,6 +60,7 @@ export function LocationDetailViewProvider({
     onFileClick,
     objectPreviewData,
     onCloseObjectPreview,
+    retryPreview,
   } = props;
 
   const actionsWithDisplayText = actionItems.map((item) => ({
@@ -139,6 +140,7 @@ export function LocationDetailViewProvider({
       onSearchClear={onSearchClear}
       onToggleSearchSubfolders={onToggleSearchSubfolders}
       onFileClick={onFileClick}
+      retryPreview={retryPreview}
       onCloseObjectPreview={onCloseObjectPreview}
     >
       {children}

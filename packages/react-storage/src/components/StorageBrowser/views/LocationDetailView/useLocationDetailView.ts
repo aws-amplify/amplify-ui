@@ -145,6 +145,7 @@ export const useLocationDetailView = (
 
   const {
     setSelectedFile,
+    retry: retryPreview,
     selectedObject,
     isLoading: objectPreviewIsLoading,
     hasError: objectPreviewHasError,
@@ -272,7 +273,8 @@ export const useLocationDetailView = (
     },
     onSearchQueryChange,
     onFileClick,
-    onToggleSearchSubfolders,
+    retryPreview,
     onCloseObjectPreview,
+    onToggleSearchSubfolders,
   };
 };

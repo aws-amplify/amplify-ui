@@ -4,9 +4,9 @@ import { ObjectPreview } from '../components/composables/ObjectPreview';
 import { useControlsContext } from './context';
 
 export const ObjectPreviewControl = (): React.JSX.Element => {
-  const { data, onCloseObjectPreview } = useControlsContext();
+  const { data, onCloseObjectPreview, retryPreview } = useControlsContext();
   const { objectPreviewData } = data;
-  const props = { ...objectPreviewData, onCloseObjectPreview };
+  const props = { ...objectPreviewData, onCloseObjectPreview, retryPreview };
 
   const Resolved = useResolvedComposable(ObjectPreview, 'ObjectPreview');
 
