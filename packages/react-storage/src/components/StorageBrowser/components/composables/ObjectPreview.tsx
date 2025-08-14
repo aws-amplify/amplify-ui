@@ -8,6 +8,7 @@ import { PreviewFallback } from '../base/preview/PreviewFallback';
 import { ButtonElement, IconElement } from '../elements';
 import { PreviewPlaceholder } from '../base/preview/PreviewPlaceholder';
 import type { AllFileTypes } from '../../createStorageBrowser/types';
+import { FileMetadata } from '../base/preview/FileMetadata';
 
 export interface ObjectPreviewProps extends ObjectPreviewData {
   onCloseObjectPreview?: () => void;
@@ -62,11 +63,12 @@ export const ObjectPreview = (
         overflow: 'scroll',
         flex: 1,
         width: '50vw',
-        height: '100vh',
+        minHeight: '100vh',
         padding: 15,
         border: '1px solid gray',
         borderRadius: '5px',
         marginLeft: '30px',
+        paddingBottom: 30,
       }}
     >
       <div style={{ marginBottom: 20 }}>
@@ -95,7 +97,7 @@ export const ObjectPreview = (
         ) : (
           <>
             <div>{resolveRenderer()}</div>
-            <div>{selectedObject?.key}</div>
+            <FileMetadata fileData={selectedObject} />
           </>
         )}
       </div>
