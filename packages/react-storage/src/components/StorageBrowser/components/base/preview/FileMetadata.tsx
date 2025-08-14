@@ -15,7 +15,7 @@ export function FileMetadata({
 }: FileMetadataProps): React.JSX.Element {
   const { key, lastModified, versionId = NONE, size, eTag } = fileData;
   return (
-    <div style={{ padding: 20 }}>
+    <div>
       <HeadingElement
         style={{
           marginBottom: '16px',

@@ -5,7 +5,7 @@ import { useFilePreview } from '../../filePreview/context';
 import { VideoPreview } from '../base/preview/VideoPreview';
 import { TextPreview } from '../base/preview/TextPreview';
 import { PreviewFallback } from '../base/preview/PreviewFallback';
-import { ButtonElement, IconElement } from '../elements';
+import { ButtonElement, HeadingElement, IconElement } from '../elements';
 import { PreviewPlaceholder } from '../base/preview/PreviewPlaceholder';
 import type { AllFileTypes } from '../../createStorageBrowser/types';
 import { FileMetadata } from '../base/preview/FileMetadata';
@@ -96,7 +96,19 @@ export const ObjectPreview = (
           />
         ) : (
           <>
-            <div>{resolveRenderer()}</div>
+            <div>
+              <HeadingElement
+                style={{
+                  marginBottom: '16px',
+                  color: '#374151',
+                  fontSize: '18px',
+                  fontWeight: '600',
+                }}
+              >
+                File Preview
+              </HeadingElement>
+              <div>{resolveRenderer()}</div>
+            </div>
             <FileMetadata fileData={selectedObject} />
           </>
         )}

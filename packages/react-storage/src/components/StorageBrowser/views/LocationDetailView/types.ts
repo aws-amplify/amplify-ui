@@ -6,6 +6,7 @@ import type {
 } from '../../actions';
 
 import type { ActionListItem } from '../../components/composables/ActionsList';
+import type { ObjectPreviewProps } from '../../components/composables/ObjectPreview';
 import type { LocationState } from '../../store';
 import type { ObjectPreviewData } from '../hooks/useObjectPreview';
 
@@ -78,7 +79,7 @@ export interface LocationDetailViewType {
   Search: () => React.JSX.Element | null;
   SearchSubfoldersToggle: () => React.JSX.Element | null;
   Title: () => React.JSX.Element | null;
-  ObjectPreview: () => React.JSX.Element | null;
+  ObjectPreview: (props: ObjectPreviewProps) => React.JSX.Element | null;
 }
 
 interface InitialValues {

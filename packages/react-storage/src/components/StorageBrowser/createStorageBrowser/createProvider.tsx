@@ -32,7 +32,7 @@ export default function createProvider<
   components,
   config,
   options,
-  filePreview,
+  filePreview = {},
 }: CreateStorageBrowserInput<TResolver>): (
   props: StorageBrowserProviderProps
 ) => React.JSX.Element {
@@ -92,23 +92,25 @@ export default function createProvider<
     return (
       <StoreProvider {...props}>
         <ConfigurationProvider>
-          <FilePreviewProvider<TResolver> filePreview={filePreview}>
-            <ActionConfigsProvider actionConfigs={actionConfigs}>
-              <ActionHandlersProvider handlers={handlers}>
-                <DisplayTextProvider displayText={displayText}>
-                  <ViewsProvider actions={resolvedActions} views={views}>
-                    <ComponentsProvider composables={composables}>
-                      <LocationItemsProvider>
-                        <FileItemsProvider validateFile={validateFile}>
+          <ActionConfigsProvider actionConfigs={actionConfigs}>
+            <ActionHandlersProvider handlers={handlers}>
+              <DisplayTextProvider displayText={displayText}>
+                <ViewsProvider actions={resolvedActions} views={views}>
+                  <ComponentsProvider composables={composables}>
+                    <LocationItemsProvider>
+                      <FileItemsProvider validateFile={validateFile}>
+                        <FilePreviewProvider<TResolver>
+                          filePreview={filePreview}
+                        >
                           {children}
-                        </FileItemsProvider>
-                      </LocationItemsProvider>
-                    </ComponentsProvider>
-                  </ViewsProvider>
-                </DisplayTextProvider>
-              </ActionHandlersProvider>
-            </ActionConfigsProvider>
-          </FilePreviewProvider>
+                        </FilePreviewProvider>
+                      </FileItemsProvider>
+                    </LocationItemsProvider>
+                  </ComponentsProvider>
+                </ViewsProvider>
+              </DisplayTextProvider>
+            </ActionHandlersProvider>
+          </ActionConfigsProvider>
         </ConfigurationProvider>
       </StoreProvider>
     );
