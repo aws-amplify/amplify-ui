@@ -1,12 +1,13 @@
 import type {
+  AllFileTypes,
   FilePreviewUrlOptions,
   UrlOptionsResolver,
 } from '../../../createStorageBrowser/types';
-import { DEFAULT_URL_OPTIONS, type FileType } from './const';
+import { DEFAULT_URL_OPTIONS } from './const';
 
 export function resolveUrlOptions(
-  options: FilePreviewUrlOptions | UrlOptionsResolver | undefined,
-  fileType: FileType
+  options: FilePreviewUrlOptions | UrlOptionsResolver<any> | undefined,
+  fileType: AllFileTypes<any> | null
 ): FilePreviewUrlOptions {
   if (!options) {
     return DEFAULT_URL_OPTIONS;

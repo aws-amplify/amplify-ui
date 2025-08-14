@@ -1,6 +1,7 @@
 import React from 'react';
 import { createContextUtilities } from '@aws-amplify/ui-react-core';
 import type { FilePreview } from '../createStorageBrowser/types';
+import type { FileData } from '../actions';
 
 export const { FilePreviewContext, useFilePreview } = createContextUtilities<
   FilePreview | undefined
@@ -9,15 +10,17 @@ export const { FilePreviewContext, useFilePreview } = createContextUtilities<
   errorMessage: '`useFilePreview` must be called inside `FilePreviewProvider`',
 });
 
-export function FilePreviewProvider({
+export function FilePreviewProvider<
+  TResolver extends ((properties: FileData) => string) | undefined,
+>({
   children,
   filePreview,
 }: {
   children?: React.ReactNode;
-  filePreview?: FilePreview;
+  filePreview?: FilePreview<TResolver>;
 }): React.JSX.Element {
   return (
-    <FilePreviewContext.Provider value={filePreview}>
+    <FilePreviewContext.Provider value={filePreview as FilePreview}>
       {children}
     </FilePreviewContext.Provider>
   );

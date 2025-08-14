@@ -1,4 +1,5 @@
-import type { FileType } from './const';
+import type { FileData } from '../../../actions';
+import type { AllFileTypes } from '../../../createStorageBrowser/types';
 import { EXTENSION_MAPPINGS, GENERIC_CONTENT_TYPES } from './const';
 
 export function isGenericContentType(contentType?: string): boolean {
@@ -13,7 +14,7 @@ export function isGenericContentType(contentType?: string): boolean {
 
 export function getFileTypeFromContentType(
   contentType?: string
-): FileType | null {
+): AllFileTypes<any> | null {
   if (!contentType || typeof contentType !== 'string') {
     return null;
   }
@@ -44,27 +45,26 @@ export function getFileTypeFromContentType(
 }
 
 interface DetermineFileTypeOptions {
-  fileTypeResolver?: (p: any) => FileType | undefined;
-  contentType?: string;
-  filename: string;
+  fileTypeResolver?: (p: FileData) => AllFileTypes<any> | undefined;
+  fileData: FileData;
 }
 
-export function getFileExtension(filename: string): string | null {
-  if (!filename || typeof filename !== 'string') {
+export function getFileExtension(key?: string): string | null {
+  if (!key || typeof key !== 'string') {
     return null;
   }
 
-  const lastDotIndex = filename.lastIndexOf('.');
-  if (lastDotIndex === -1 || lastDotIndex === filename.length - 1) {
+  const lastDotIndex = key.lastIndexOf('.');
+  if (lastDotIndex === -1 || lastDotIndex === key.length - 1) {
     return null;
   }
 
-  return filename.slice(lastDotIndex + 1).toLowerCase();
+  return key.slice(lastDotIndex + 1).toLowerCase();
 }
 
 export function getFileTypeFromExtension(
   extension?: string | null
-): FileType | null {
+): AllFileTypes<any> | null {
   if (!extension || typeof extension !== 'string') {
     return null;
   }
@@ -75,15 +75,13 @@ export function getFileTypeFromExtension(
 
 export function determineFileType(
   options: DetermineFileTypeOptions
-): FileType | string | null {
-  const { filename, contentType, fileTypeResolver } = options;
+): AllFileTypes<any> | null {
+  const { fileData, fileTypeResolver } = options;
+  const { contentType, key } = fileData ?? {};
 
   if (typeof fileTypeResolver === 'function') {
     try {
-      const customResult = fileTypeResolver({
-        filename,
-        contentType,
-      });
+      const customResult = fileTypeResolver(fileData);
 
       if (customResult !== undefined && customResult !== null) {
         return customResult;
@@ -100,10 +98,10 @@ export function determineFileType(
     }
   }
 
-  const extension = getFileExtension(filename);
+  const extension = getFileExtension(key);
   if (extension) {
     return getFileTypeFromExtension(extension);
   }
 
-  return 'unknown';
+  return null;
 }

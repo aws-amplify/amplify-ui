@@ -1,7 +1,5 @@
-/* eslint-disable no-console */
 import React from 'react';
 import type { ObjectPreviewData } from '../../views/hooks/useObjectPreview';
-import type { FileType } from '../../views/utils/objectPreview/const';
 import { ImagePreview } from '../base/preview/ImagePreview';
 import { useFilePreview } from '../../filePreview/context';
 import { VideoPreview } from '../base/preview/VideoPreview';
@@ -9,6 +7,7 @@ import { TextPreview } from '../base/preview/TextPreview';
 import { PreviewFallback } from '../base/preview/PreviewFallback';
 import { ButtonElement, IconElement } from '../elements';
 import { PreviewPlaceholder } from '../base/preview/PreviewPlaceholder';
+import type { AllFileTypes } from '../../createStorageBrowser/types';
 
 export interface ObjectPreviewProps extends ObjectPreviewData {
   onCloseObjectPreview?: () => void;
@@ -22,13 +21,11 @@ export const ObjectPreview = (
   const { isLoading, hasError, selectedObject, url } = props;
   const { rendererResolver } = useFilePreview() ?? {};
 
-  console.log('selectedObject ', selectedObject);
-
   if (!selectedObject) return null;
 
   const { key, fileType } = selectedObject;
 
-  function getDefaultRenderer(type: FileType | null) {
+  function getDefaultRenderer(type?: AllFileTypes<any> | null) {
     switch (type) {
       case 'image':
         return <ImagePreview objectKey={key} url={url!} />;
@@ -39,7 +36,6 @@ export const ObjectPreview = (
       case 'text':
         return <TextPreview objectKey={key} url={url!} />;
 
-      case 'unknown':
       default:
         return (
           <PreviewFallback
@@ -52,12 +48,12 @@ export const ObjectPreview = (
 
   function resolveRenderer() {
     if (rendererResolver && fileType) {
-      const CustomRenderer = rendererResolver(fileType as FileType);
+      const CustomRenderer = rendererResolver(fileType);
       if (CustomRenderer) {
         return <CustomRenderer url={url!} fileProperties={selectedObject!} />;
       }
     }
-    return getDefaultRenderer(fileType as FileType);
+    return getDefaultRenderer(fileType);
   }
 
   return (

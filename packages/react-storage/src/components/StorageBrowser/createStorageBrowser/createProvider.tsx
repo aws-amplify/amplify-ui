@@ -1,4 +1,5 @@
 import React from 'react';
+import type { FileData } from '../actions';
 
 import {
   ActionConfigsProvider,
@@ -24,13 +25,15 @@ import type {
 } from './types';
 import { FilePreviewProvider } from '../filePreview/context';
 
-export default function createProvider({
+export default function createProvider<
+  TResolver extends ((properties: FileData) => any) | undefined,
+>({
   actions,
   components,
   config,
   options,
   filePreview,
-}: CreateStorageBrowserInput): (
+}: CreateStorageBrowserInput<TResolver>): (
   props: StorageBrowserProviderProps
 ) => React.JSX.Element {
   const {
@@ -89,7 +92,7 @@ export default function createProvider({
     return (
       <StoreProvider {...props}>
         <ConfigurationProvider>
-          <FilePreviewProvider filePreview={filePreview}>
+          <FilePreviewProvider<TResolver> filePreview={filePreview}>
             <ActionConfigsProvider actionConfigs={actionConfigs}>
               <ActionHandlersProvider handlers={handlers}>
                 <DisplayTextProvider displayText={displayText}>

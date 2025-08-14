@@ -1,9 +1,10 @@
-import type { FilePreviewUrlOptions } from '../../../createStorageBrowser/types';
-
-export type FileType = 'image' | 'video' | 'text' | 'unknown';
+import type {
+  AllFileTypes,
+  FilePreviewUrlOptions,
+} from '../../../createStorageBrowser/types';
 
 export interface FileTypeMapping {
-  [key: string]: FileType;
+  [key: string]: AllFileTypes<any>;
 }
 
 export const GENERIC_CONTENT_TYPES: ReadonlySet<string> = new Set([
