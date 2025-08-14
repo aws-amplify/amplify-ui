@@ -1,3 +1,4 @@
+import type { AllFileTypes } from '../../createStorageBrowser/types';
 import type { LocationCredentialsProvider } from '../../storage-internal';
 
 /**
@@ -54,7 +55,7 @@ export interface FileData {
   size: number;
   type: 'FILE';
   contentType?: string;
-  fileType?: string | null;
+  fileType?: AllFileTypes<any> | null;
 }
 
 export type LocationItemData = FileData | FolderData;

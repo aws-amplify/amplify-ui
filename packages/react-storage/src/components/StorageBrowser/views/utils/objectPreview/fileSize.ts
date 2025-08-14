@@ -1,13 +1,12 @@
-import type { FileSizeResolver } from '../../../createStorageBrowser/types';
-import {
-  DEFAULT_FILE_SIZE_LIMIT,
-  DEFAULT_FILE_SIZE_LIMITS,
-  type FileType,
-} from './const';
+import type {
+  AllFileTypes,
+  FileSizeResolver,
+} from '../../../createStorageBrowser/types';
+import { DEFAULT_FILE_SIZE_LIMIT, DEFAULT_FILE_SIZE_LIMITS } from './const';
 
 export function resolveMaxFileSize(
-  maxFileSize: number | FileSizeResolver | undefined,
-  fileType: FileType
+  maxFileSize: number | FileSizeResolver<any> | undefined,
+  fileType: AllFileTypes<any> | null
 ): number {
   if (typeof maxFileSize === 'number') {
     return maxFileSize;
@@ -24,5 +23,5 @@ export function resolveMaxFileSize(
     }
   }
 
-  return DEFAULT_FILE_SIZE_LIMITS[fileType] || DEFAULT_FILE_SIZE_LIMIT;
+  return DEFAULT_FILE_SIZE_LIMITS[fileType!] || DEFAULT_FILE_SIZE_LIMIT;
 }

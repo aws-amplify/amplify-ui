@@ -29,6 +29,7 @@ import type {
   DerivedActionViews,
   DerivedActionViewType,
 } from './types';
+import type { FileData } from '../actions/handlers';
 
 const UA_CONFIG = {
   componentName: 'StorageBrowser',
@@ -43,9 +44,12 @@ const UA_CONFIG = {
  * @returns `StorageBrowser` component, `useAction` and `useView` hooks
  */
 export default function createStorageBrowser<
-  TInput extends CreateStorageBrowserInput,
+  TResolver extends ((properties: FileData) => any) | undefined,
+  TInput extends CreateStorageBrowserInput<TResolver>,
   TActions extends NonNullable<TInput['actions']>,
->(input: TInput): CreateStorageBrowserOutput<TActions> {
+>(
+  input: CreateStorageBrowserInput<TResolver>
+): CreateStorageBrowserOutput<TActions> {
   assertRegisterAuthListener(input.config.registerAuthListener);
 
   setUserAgent(UA_CONFIG);
@@ -54,7 +58,7 @@ export default function createStorageBrowser<
    * Provides state, configuration and action values that are shared between
    * the primary View components
    */
-  const Provider = createProvider(input);
+  const Provider = createProvider<TResolver>(input);
 
   const ErrorBoundary =
     input.ErrorBoundary === null

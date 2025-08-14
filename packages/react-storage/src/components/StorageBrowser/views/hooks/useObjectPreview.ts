@@ -5,7 +5,6 @@ import { getProperties, getUrl } from 'aws-amplify/storage';
 import { determineFileType } from '../utils/objectPreview/fileType';
 import { useFilePreview } from '../../filePreview/context';
 import { resolveUrlOptions } from '../utils/objectPreview/urt';
-import type { FileType } from '../utils/objectPreview/const';
 import { resolveMaxFileSize } from '../utils/objectPreview/fileSize';
 
 export interface ObjectPreviewData {
@@ -48,8 +47,7 @@ export function useObjectPreview(): UseObjectPreviewReturn {
       };
 
       const fileType = determineFileType({
-        contentType: allFileProperties.contentType,
-        filename: allFileProperties.key,
+        fileData: allFileProperties,
         fileTypeResolver,
       });
 
@@ -59,8 +57,7 @@ export function useObjectPreview(): UseObjectPreviewReturn {
       });
 
       const doesLimitExceeded =
-        selectedObject.size >
-        resolveMaxFileSize(maxFileSize, fileType as FileType);
+        selectedObject.size > resolveMaxFileSize(maxFileSize, fileType);
 
       if (doesLimitExceeded) {
         setHasLimitExceeded(true);
@@ -70,7 +67,7 @@ export function useObjectPreview(): UseObjectPreviewReturn {
 
       const { url } = await getUrl({
         path: selectedObject?.key,
-        options: resolveUrlOptions(urlOptions, fileType as FileType),
+        options: resolveUrlOptions(urlOptions, fileType),
       });
 
       setUrl(url.toString());
