@@ -1,5 +1,11 @@
 # @aws-amplify/ui-react
 
+## 6.12.0
+
+### Minor Changes
+
+- [#6665](https://github.com/aws-amplify/amplify-ui/pull/6665) [`8319d5afaa9f3de59f18d72d873953a1fd0e1b73`](https://github.com/aws-amplify/amplify-ui/commit/8319d5afaa9f3de59f18d72d873953a1fd0e1b73) Thanks [@jvh-aws](https://github.com/jvh-aws)! - feat(collection): Add `table` type to `Collection` UI primitive
+
 ## 6.11.2
 
 ### Patch Changes
