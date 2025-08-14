@@ -56,6 +56,7 @@ export interface FileData {
   type: 'FILE';
   contentType?: string;
   fileType?: AllFileTypes<any> | null;
+  versionId?: string;
 }
 
 export type LocationItemData = FileData | FolderData;
