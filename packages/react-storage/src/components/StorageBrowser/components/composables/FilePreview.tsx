@@ -51,7 +51,7 @@ export const FilePreview = (
     if (rendererResolver && fileType) {
       const CustomRenderer = rendererResolver(fileType);
       if (CustomRenderer) {
-        return <CustomRenderer url={url!} fileProperties={previewedFile!} />;
+        return <CustomRenderer url={url!} fileData={previewedFile!} />;
       }
     }
     return getDefaultRenderer(fileType);

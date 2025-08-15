@@ -228,7 +228,7 @@ export interface FilePreviewProps {
   /**
    * @description File metadata including content type and other properties
    */
-  fileProperties: FileData;
+  fileData: FileData;
 
   /**
    * @description Pre-signed URL for the file.
