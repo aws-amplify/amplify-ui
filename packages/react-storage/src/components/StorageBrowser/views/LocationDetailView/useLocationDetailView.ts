@@ -24,7 +24,7 @@ import type {
   LocationDetailViewState,
   UseLocationDetailViewOptions,
 } from './types';
-import { useObjectPreview } from '../hooks/useObjectPreview';
+import { useFilePreview } from '../hooks/useFilePreview';
 
 const DEFAULT_PAGE_SIZE = 100;
 export const DEFAULT_LIST_OPTIONS = {
@@ -146,13 +146,13 @@ export const useLocationDetailView = (
   const {
     retryFilePreview,
     selectedObject,
-    isLoading: objectPreviewIsLoading,
-    hasError: objectPreviewHasError,
+    isLoading: filePreviewIsLoading,
+    hasError: filePreviewHasError,
     hasLimitExceeded,
     closeFilePreview,
     openFilePreview,
     url,
-  } = useObjectPreview();
+  } = useFilePreview();
 
   const actionItems = React.useMemo(() => {
     if (!permissions) {
@@ -193,10 +193,10 @@ export const useLocationDetailView = (
     isSearchSubfoldersEnabled,
     onPaginate: handlePaginate,
     searchQuery,
-    objectPreviewData: {
+    filePreviewData: {
       selectedObject,
-      isLoading: objectPreviewIsLoading,
-      hasError: objectPreviewHasError,
+      isLoading: filePreviewIsLoading,
+      hasError: filePreviewHasError,
       url,
       hasLimitExceeded,
     },

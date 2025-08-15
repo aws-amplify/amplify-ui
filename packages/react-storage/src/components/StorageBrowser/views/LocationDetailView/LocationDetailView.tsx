@@ -20,7 +20,7 @@ import {
 import { LocationDetailViewProvider } from './LocationDetailViewProvider';
 import type { LocationDetailViewType } from './types';
 import { useLocationDetailView } from './useLocationDetailView';
-import { ObjectPreviewControl } from '../../controls/ObjectPreviewControl';
+import { FilePreviewControl } from '../../controls/FilePreviewControl';
 
 const DEFAULT_PAGE_SIZE = 100;
 export const DEFAULT_LIST_OPTIONS = {
@@ -35,7 +35,8 @@ export const LocationDetailView: LocationDetailViewType = ({
   const state = useLocationDetailView(props);
   const { hasError } = state;
   const shouldRenderObjectDetails = Boolean(
-    state.objectPreviewData.selectedObject
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    state.filePreviewData.selectedObject
   );
 
   return (
@@ -68,7 +69,7 @@ export const LocationDetailView: LocationDetailViewType = ({
                 <DataTableControl />
               </ViewElement>
             </DropZoneControl>
-            {shouldRenderObjectDetails && <ObjectPreviewControl />}
+            {shouldRenderObjectDetails && <FilePreviewControl />}
           </div>
         )}
         <ViewElement className={`${STORAGE_BROWSER_BLOCK}__footer`}>
@@ -94,4 +95,4 @@ LocationDetailView.Refresh = DataRefreshControl;
 LocationDetailView.Search = SearchFieldControl;
 LocationDetailView.SearchSubfoldersToggle = SearchSubfoldersToggleControl;
 LocationDetailView.Title = TitleControl;
-LocationDetailView.ObjectPreview = ObjectPreviewControl;
+LocationDetailView.FilePreview = FilePreviewControl;
