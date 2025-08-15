@@ -144,12 +144,13 @@ export const useLocationDetailView = (
   const { actionConfigs } = useActionConfigs();
 
   const {
-    setSelectedFile,
-    retry: retryPreview,
+    retryFilePreview,
     selectedObject,
     isLoading: objectPreviewIsLoading,
     hasError: objectPreviewHasError,
     hasLimitExceeded,
+    closeFilePreview,
+    openFilePreview,
     url,
   } = useObjectPreview();
 
@@ -174,14 +175,6 @@ export const useLocationDetailView = (
           };
         });
   }, [actionConfigs, fileDataItems, permissions]);
-
-  const onFileClick = (file: FileData) => {
-    setSelectedFile(file);
-  };
-
-  const onCloseObjectPreview = () => {
-    setSelectedFile(null);
-  };
 
   return {
     actionItems,
@@ -272,9 +265,12 @@ export const useLocationDetailView = (
       handleReset();
     },
     onSearchQueryChange,
-    onFileClick,
-    retryPreview,
-    onCloseObjectPreview,
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    retryFilePreview,
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    openFilePreview,
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    closeFilePreview,
     onToggleSearchSubfolders,
   };
 };
