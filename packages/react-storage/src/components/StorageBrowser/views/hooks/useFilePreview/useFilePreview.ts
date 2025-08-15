@@ -58,7 +58,7 @@ export function useFilePreview(): UseFilePreviewReturn {
       dispatch({
         type: 'PREVIEW_PREPARATION_SUCCESS',
         payload: {
-          object: finalFileData,
+          fileData: finalFileData,
           url: url.toString(),
         },
       });

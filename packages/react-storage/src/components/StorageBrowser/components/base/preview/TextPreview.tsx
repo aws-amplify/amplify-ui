@@ -3,10 +3,10 @@ import { TextElement } from '../../elements';
 
 export function TextPreview({
   url,
-  objectKey,
+  fileKey,
 }: {
   url: string | null;
-  objectKey: string;
+  fileKey: string;
 }): React.JSX.Element | null {
   const [content, setContent] = useState<string>('');
   const [isLoading, setIsLoading] = useState(true);
@@ -38,7 +38,7 @@ export function TextPreview({
   useEffect(() => {
     loadTextFileContent();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [objectKey]);
+  }, [fileKey]);
 
   if (isLoading) {
     return <div>...text file content</div>;

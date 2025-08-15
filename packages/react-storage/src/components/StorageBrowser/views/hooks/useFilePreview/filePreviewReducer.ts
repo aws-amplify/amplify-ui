@@ -6,7 +6,7 @@ type FilePreviewAction =
   | { type: 'START_PREVIEW_PREPARATION' }
   | {
       type: 'PREVIEW_PREPARATION_SUCCESS';
-      payload: { object: FileData; url: string };
+      payload: { fileData: FileData; url: string };
     }
   | { type: 'PREVIEW_PREPARATION_ERROR'; payload: Error }
   | { type: 'LIMIT_EXCEEDED' };
@@ -41,8 +41,8 @@ export function filePreviewReducer(
       return {
         ...state,
         isLoading: false,
-        previewedFile: action.payload.object,
-        url: action.payload.url,
+        previewedFile: action?.payload?.fileData,
+        url: action.payload?.url,
         hasError: false,
         error: null,
       };
@@ -52,7 +52,7 @@ export function filePreviewReducer(
         ...state,
         isLoading: false,
         hasError: true,
-        error: action.payload,
+        error: action?.payload,
       };
 
     case 'LIMIT_EXCEEDED':

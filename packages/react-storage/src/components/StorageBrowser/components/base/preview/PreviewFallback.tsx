@@ -4,7 +4,7 @@ import { useAction } from '../../../useAction';
 import { getFileKey } from '../../../actions';
 
 export interface PreviewFallbackProps {
-  objectKey: string;
+  fileKey: string;
   message: string;
   isError?: boolean;
   onRetry?: () => void;
@@ -13,7 +13,7 @@ export interface PreviewFallbackProps {
 }
 
 export function PreviewFallback({
-  objectKey,
+  fileKey,
   message,
   isError = false,
   onRetry,
@@ -25,8 +25,8 @@ export function PreviewFallback({
   const handleDownloadClick = () => {
     handleDownload({
       data: {
-        fileKey: getFileKey(objectKey),
-        key: objectKey,
+        fileKey: getFileKey(fileKey),
+        key: fileKey,
         id: crypto.randomUUID(),
       },
     });
@@ -105,7 +105,7 @@ export function PreviewFallback({
             fontFamily: 'monospace',
           }}
         >
-          File: {objectKey.split('/').pop()}
+          File: {fileKey.split('/').pop()}
         </div>
       </div>
 
