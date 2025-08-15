@@ -11,14 +11,14 @@ import type { AllFileTypes } from '../../createStorageBrowser/types';
 import { FileMetadata } from '../base/preview/FileMetadata';
 
 export interface ObjectPreviewProps extends ObjectPreviewData {
-  onCloseObjectPreview?: () => void;
-  retryPreview?: () => void;
+  closeFilePreview?: () => void;
+  retryFilePreview?: () => void;
 }
 
 export const ObjectPreview = (
   props: ObjectPreviewProps
 ): React.JSX.Element | null => {
-  const { onCloseObjectPreview, hasLimitExceeded, retryPreview } = props;
+  const { closeFilePreview, hasLimitExceeded, retryFilePreview } = props;
   const { isLoading, hasError, selectedObject, url } = props;
   const { rendererResolver } = useFilePreview() ?? {};
 
@@ -63,7 +63,7 @@ export const ObjectPreview = (
         overflow: 'scroll',
         flex: 1,
         width: '50vw',
-        minHeight: '100vh',
+        height: '100%',
         padding: 15,
         border: '1px solid gray',
         borderRadius: '5px',
@@ -72,7 +72,7 @@ export const ObjectPreview = (
       }}
     >
       <div style={{ marginBottom: 20 }}>
-        <ButtonElement variant="exit" onClick={onCloseObjectPreview}>
+        <ButtonElement variant="exit" onClick={closeFilePreview}>
           <IconElement variant="dismiss" />
           Close
         </ButtonElement>
@@ -86,7 +86,7 @@ export const ObjectPreview = (
             objectKey={key}
             message="Something went wrong"
             isError={hasError}
-            onRetry={retryPreview}
+            onRetry={retryFilePreview}
             showRetry={hasError}
           />
         ) : hasLimitExceeded ? (
