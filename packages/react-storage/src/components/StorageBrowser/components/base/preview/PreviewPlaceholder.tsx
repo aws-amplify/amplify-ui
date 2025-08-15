@@ -1,17 +1,11 @@
 import React from 'react';
 import { Placeholder } from '@aws-amplify/ui-react';
 
-export interface PreviewPlaceholderProps {
-  width?: string | number;
-}
-
-export function PreviewPlaceholder({
-  width = '100%',
-}: PreviewPlaceholderProps): React.JSX.Element {
+export function PreviewPlaceholder(): React.JSX.Element {
   return (
     <div
       style={{
-        width,
+        width: '100%',
         display: 'flex',
         flexDirection: 'column',
         gap: '24px',

@@ -29,18 +29,18 @@ export const FilePreview = (
   function getDefaultRenderer(type?: AllFileTypes<any> | null) {
     switch (type) {
       case 'image':
-        return <ImagePreview objectKey={key} url={url!} />;
+        return <ImagePreview fileKey={key} url={url!} />;
 
       case 'video':
-        return <VideoPreview objectKey={key} url={url!} />;
+        return <VideoPreview fileKey={key} url={url!} />;
 
       case 'text':
-        return <TextPreview objectKey={key} url={url!} />;
+        return <TextPreview fileKey={key} url={url!} />;
 
       default:
         return (
           <PreviewFallback
-            objectKey={key}
+            fileKey={key}
             message="File preview not supported for this file type"
           />
         );
@@ -83,7 +83,7 @@ export const FilePreview = (
           <PreviewPlaceholder />
         ) : hasError ? (
           <PreviewFallback
-            objectKey={key}
+            fileKey={key}
             message="Something went wrong"
             isError={hasError}
             onRetry={retryFilePreview}
@@ -91,7 +91,7 @@ export const FilePreview = (
           />
         ) : hasLimitExceeded ? (
           <PreviewFallback
-            objectKey={key}
+            fileKey={key}
             message="File preview not possible due to preview size limit"
           />
         ) : (

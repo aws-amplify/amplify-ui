@@ -2,10 +2,10 @@ import React from 'react';
 
 export function VideoPreview({
   url,
-  objectKey,
+  fileKey,
 }: {
   url: string | null;
-  objectKey: string;
+  fileKey: string;
 }): React.JSX.Element | null {
   return (
     <video
@@ -19,7 +19,7 @@ export function VideoPreview({
       onError={() => {
         //
       }}
-      aria-label={objectKey}
+      aria-label={fileKey}
     >
       <source src={url!} />
     </video>
