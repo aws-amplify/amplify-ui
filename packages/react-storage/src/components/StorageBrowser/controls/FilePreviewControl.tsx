@@ -5,8 +5,8 @@ import { useControlsContext } from './context';
 
 export const FilePreviewControl = (): React.JSX.Element => {
   const { data, closeFilePreview, retryFilePreview } = useControlsContext();
-  const { filePreviewData } = data;
-  const props = { ...filePreviewData, closeFilePreview, retryFilePreview };
+  const { filePreviewState } = data;
+  const props = { ...filePreviewState, closeFilePreview, retryFilePreview };
 
   const Resolved = useResolvedComposable(FilePreview, 'FilePreview');
 

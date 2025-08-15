@@ -1,7 +1,5 @@
 import type { FileData } from '../../../actions';
-import type { FilePreviewData } from './types';
-
-interface FilePreviewState extends FilePreviewData {}
+import type { FilePreviewState } from './types';
 
 type FilePreviewAction =
   | { type: 'RESET_STATE' }
@@ -16,7 +14,7 @@ type FilePreviewAction =
 export const initialState: FilePreviewState = {
   isLoading: false,
   hasError: false,
-  selectedObject: null,
+  previewedFile: null,
   url: null,
   hasLimitExceeded: false,
   error: null,
@@ -43,7 +41,7 @@ export function filePreviewReducer(
       return {
         ...state,
         isLoading: false,
-        selectedObject: action.payload.object,
+        previewedFile: action.payload.object,
         url: action.payload.url,
         hasError: false,
         error: null,

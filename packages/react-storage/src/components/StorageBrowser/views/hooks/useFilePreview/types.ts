@@ -1,15 +1,15 @@
 import type { FileData } from '../../../actions';
 
-export interface FilePreviewData {
+export interface FilePreviewState {
   isLoading?: boolean;
   hasError?: boolean;
-  selectedObject?: FileData | null;
+  previewedFile?: FileData | null;
   url?: string | null;
   hasLimitExceeded?: boolean;
   error?: Error | null;
 }
 
-export interface UseFilePreviewReturn extends FilePreviewData {
+export interface UseFilePreviewReturn extends FilePreviewState {
   openFilePreview: (p: FileData) => void;
   closeFilePreview: () => void;
   retryFilePreview: () => void;
