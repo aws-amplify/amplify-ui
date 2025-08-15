@@ -3,12 +3,12 @@ import { createContextUtilities } from '@aws-amplify/ui-react-core';
 import type { FilePreview } from '../createStorageBrowser/types';
 import type { FileData } from '../actions';
 
-export const { FilePreviewContext, useFilePreview } = createContextUtilities<
-  FilePreview | undefined
->({
-  contextName: 'FilePreview',
-  errorMessage: '`useFilePreview` must be called inside `FilePreviewProvider`',
-});
+export const { FilePreviewContext, useFilePreview: useFilePreviewContext } =
+  createContextUtilities<FilePreview | undefined>({
+    contextName: 'FilePreview',
+    errorMessage:
+      '`useFilePreview` must be called inside `FilePreviewProvider`',
+  });
 
 export function FilePreviewProvider<
   TResolver extends ((properties: FileData) => string) | undefined,

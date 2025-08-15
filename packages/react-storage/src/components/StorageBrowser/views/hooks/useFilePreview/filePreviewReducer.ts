@@ -1,9 +1,9 @@
 import type { FileData } from '../../../actions';
-import type { ObjectPreviewData } from './types';
+import type { FilePreviewData } from './types';
 
-interface ObjectPreviewState extends ObjectPreviewData {}
+interface FilePreviewState extends FilePreviewData {}
 
-type ObjectPreviewAction =
+type FilePreviewAction =
   | { type: 'RESET_STATE' }
   | { type: 'START_PREVIEW_PREPARATION' }
   | {
@@ -13,7 +13,7 @@ type ObjectPreviewAction =
   | { type: 'PREVIEW_PREPARATION_ERROR'; payload: Error }
   | { type: 'LIMIT_EXCEEDED' };
 
-export const initialState: ObjectPreviewState = {
+export const initialState: FilePreviewState = {
   isLoading: false,
   hasError: false,
   selectedObject: null,
@@ -22,10 +22,10 @@ export const initialState: ObjectPreviewState = {
   error: null,
 };
 
-export function objectPreviewReducer(
-  state: ObjectPreviewState,
-  action: ObjectPreviewAction
-): ObjectPreviewState {
+export function filePreviewReducer(
+  state: FilePreviewState,
+  action: FilePreviewAction
+): FilePreviewState {
   switch (action.type) {
     case 'RESET_STATE':
       return initialState;

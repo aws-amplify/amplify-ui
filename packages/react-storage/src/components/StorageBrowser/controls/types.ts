@@ -8,7 +8,7 @@ import type {
 } from '../components';
 import type { LocationState } from '../store';
 import type { StatusCounts } from '../tasks';
-import type { ObjectPreviewData } from '../views/hooks/useObjectPreview';
+import type { FilePreviewData } from '../views/hooks/useFilePreview';
 
 export interface Controls {
   props: React.ComponentProps<Composables[keyof Composables]>;
@@ -72,7 +72,7 @@ export interface ControlsContext {
     paginationData?: PaginationData;
     searchPlaceholder?: string;
     searchQuery?: string;
-    objectPreviewData?: ObjectPreviewData;
+    filePreviewData?: FilePreviewData;
     searchSubfoldersToggleLabel?: string;
     searchSubmitLabel?: string;
     searchClearLabel?: string;

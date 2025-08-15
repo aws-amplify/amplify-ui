@@ -1,8 +1,8 @@
 import React from 'react';
 import { HeadingElement, TextElement } from '../../elements';
 import type { FileData } from '../../../actions';
-import { formatFileSize } from '../../../views/utils/objectPreview/fileSize';
-import { getFileExtension } from '../../../views/utils/objectPreview/fileType';
+import { formatFileSize } from '../../../views/utils/filePreview/fileSize';
+import { getFileExtension } from '../../../views/utils/filePreview/fileType';
 
 interface FileMetadataProps {
   fileData: FileData;

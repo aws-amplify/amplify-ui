@@ -1,16 +1,16 @@
 import { useCallback, useReducer } from 'react';
 import type { FileData } from '../../../actions';
 import { getProperties, getUrl } from 'aws-amplify/storage';
-import { determineFileType } from '../../utils/objectPreview/fileType';
-import { useFilePreview } from '../../../filePreview/context';
-import { resolveUrlOptions } from '../../utils/objectPreview/urt';
-import { resolveMaxFileSize } from '../../utils/objectPreview/fileSize';
-import type { UseObjectPreviewReturn } from './types';
-import { initialState, objectPreviewReducer } from './objectPreviewReducer';
+import { determineFileType } from '../../utils/filePreview/fileType';
+import { useFilePreviewContext } from '../../../filePreview/context';
+import { resolveUrlOptions } from '../../utils/filePreview/urt';
+import { resolveMaxFileSize } from '../../utils/filePreview/fileSize';
+import type { UseFilePreviewReturn } from './types';
+import { initialState, filePreviewReducer } from './filePreviewReducer';
 
-export function useObjectPreview(): UseObjectPreviewReturn {
-  const filePreviewContext = useFilePreview();
-  const [state, dispatch] = useReducer(objectPreviewReducer, initialState);
+export function useFilePreview(): UseFilePreviewReturn {
+  const filePreviewContext = useFilePreviewContext();
+  const [state, dispatch] = useReducer(filePreviewReducer, initialState);
 
   const { fileTypeResolver, urlOptions, maxFileSize } =
     filePreviewContext ?? {};

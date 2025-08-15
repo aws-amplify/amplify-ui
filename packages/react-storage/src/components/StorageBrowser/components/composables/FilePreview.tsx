@@ -1,7 +1,7 @@
 import React from 'react';
-import type { ObjectPreviewData } from '../../views/hooks/useObjectPreview';
+import type { FilePreviewData } from '../../views/hooks/useFilePreview';
 import { ImagePreview } from '../base/preview/ImagePreview';
-import { useFilePreview } from '../../filePreview/context';
+import { useFilePreviewContext } from '../../filePreview/context';
 import { VideoPreview } from '../base/preview/VideoPreview';
 import { TextPreview } from '../base/preview/TextPreview';
 import { PreviewFallback } from '../base/preview/PreviewFallback';
@@ -10,17 +10,17 @@ import { PreviewPlaceholder } from '../base/preview/PreviewPlaceholder';
 import type { AllFileTypes } from '../../createStorageBrowser/types';
 import { FileMetadata } from '../base/preview/FileMetadata';
 
-export interface ObjectPreviewProps extends ObjectPreviewData {
+export interface FilePreviewProps extends FilePreviewData {
   closeFilePreview?: () => void;
   retryFilePreview?: () => void;
 }
 
-export const ObjectPreview = (
-  props: ObjectPreviewProps
+export const FilePreview = (
+  props: FilePreviewProps
 ): React.JSX.Element | null => {
   const { closeFilePreview, hasLimitExceeded, retryFilePreview } = props;
   const { isLoading, hasError, selectedObject, url } = props;
-  const { rendererResolver } = useFilePreview() ?? {};
+  const { rendererResolver } = useFilePreviewContext() ?? {};
 
   if (!selectedObject) return null;
 
