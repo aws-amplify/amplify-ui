@@ -145,7 +145,7 @@ export const useLocationDetailView = (
 
   const {
     retryFilePreview,
-    selectedObject,
+    previewedFile,
     isLoading: filePreviewIsLoading,
     hasError: filePreviewHasError,
     hasLimitExceeded,
@@ -193,8 +193,8 @@ export const useLocationDetailView = (
     isSearchSubfoldersEnabled,
     onPaginate: handlePaginate,
     searchQuery,
-    filePreviewData: {
-      selectedObject,
+    filePreviewState: {
+      previewedFile,
       isLoading: filePreviewIsLoading,
       hasError: filePreviewHasError,
       url,

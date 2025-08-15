@@ -1,5 +1,5 @@
 import React from 'react';
-import type { FilePreviewData } from '../../views/hooks/useFilePreview';
+import type { FilePreviewState } from '../../views/hooks/useFilePreview';
 import { ImagePreview } from '../base/preview/ImagePreview';
 import { useFilePreviewContext } from '../../filePreview/context';
 import { VideoPreview } from '../base/preview/VideoPreview';
@@ -10,7 +10,7 @@ import { PreviewPlaceholder } from '../base/preview/PreviewPlaceholder';
 import type { AllFileTypes } from '../../createStorageBrowser/types';
 import { FileMetadata } from '../base/preview/FileMetadata';
 
-export interface FilePreviewProps extends FilePreviewData {
+export interface FilePreviewProps extends FilePreviewState {
   closeFilePreview?: () => void;
   retryFilePreview?: () => void;
 }
@@ -19,12 +19,12 @@ export const FilePreview = (
   props: FilePreviewProps
 ): React.JSX.Element | null => {
   const { closeFilePreview, hasLimitExceeded, retryFilePreview } = props;
-  const { isLoading, hasError, selectedObject, url } = props;
+  const { isLoading, hasError, previewedFile, url } = props;
   const { rendererResolver } = useFilePreviewContext() ?? {};
 
-  if (!selectedObject) return null;
+  if (!previewedFile) return null;
 
-  const { key, fileType } = selectedObject;
+  const { key, fileType } = previewedFile;
 
   function getDefaultRenderer(type?: AllFileTypes<any> | null) {
     switch (type) {
@@ -51,7 +51,7 @@ export const FilePreview = (
     if (rendererResolver && fileType) {
       const CustomRenderer = rendererResolver(fileType);
       if (CustomRenderer) {
-        return <CustomRenderer url={url!} fileProperties={selectedObject!} />;
+        return <CustomRenderer url={url!} fileProperties={previewedFile!} />;
       }
     }
     return getDefaultRenderer(fileType);
@@ -109,7 +109,7 @@ export const FilePreview = (
               </HeadingElement>
               <div>{resolveRenderer()}</div>
             </div>
-            <FileMetadata fileData={selectedObject} />
+            <FileMetadata fileData={previewedFile} />
           </>
         )}
       </div>

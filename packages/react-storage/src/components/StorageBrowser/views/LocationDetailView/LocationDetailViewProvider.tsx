@@ -58,7 +58,7 @@ export function LocationDetailViewProvider({
     onSearchClear,
     onToggleSearchSubfolders,
     openFilePreview,
-    filePreviewData,
+    filePreviewState,
     closeFilePreview,
     retryFilePreview,
   } = props;
@@ -109,7 +109,7 @@ export function LocationDetailViewProvider({
         searchSubmitLabel,
         searchClearLabel,
         searchQuery,
-        filePreviewData,
+        filePreviewState,
         tableData: getLocationDetailViewTableData({
           areAllFilesSelected,
           displayText,

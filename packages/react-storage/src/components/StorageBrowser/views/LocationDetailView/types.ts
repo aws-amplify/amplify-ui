@@ -8,7 +8,7 @@ import type {
 import type { ActionListItem } from '../../components/composables/ActionsList';
 import type { FilePreviewProps } from '../../components/composables/FilePreview';
 import type { LocationState } from '../../store';
-import type { FilePreviewData } from '../hooks/useFilePreview';
+import type { FilePreviewState } from '../hooks/useFilePreview';
 
 import type { ListViewProps } from '../types';
 
@@ -46,7 +46,7 @@ export interface LocationDetailViewState {
   page: number;
   pageItems: LocationItemData[];
   searchQuery: string;
-  filePreviewData: FilePreviewData;
+  filePreviewState: FilePreviewState;
 }
 
 export interface LocationDetailViewProps extends ListViewProps {

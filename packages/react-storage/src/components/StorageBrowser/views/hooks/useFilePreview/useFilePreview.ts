@@ -68,7 +68,7 @@ export function useFilePreview(): UseFilePreviewReturn {
   }
 
   const retryFilePreview = () => {
-    prepareFileForPreview(state.selectedObject!);
+    prepareFileForPreview(state.previewedFile!);
   };
 
   const openFilePreview = (file: FileData) => {
