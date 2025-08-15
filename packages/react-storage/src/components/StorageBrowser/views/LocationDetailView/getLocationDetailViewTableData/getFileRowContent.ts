@@ -4,6 +4,7 @@ import type { LocationPermissions } from '../../../actions';
 import type { DataTableProps } from '../../../components';
 
 import { LOCATION_DETAIL_VIEW_HEADERS } from './constants';
+import { getFileThumbnail } from '../../utils/filePreview/fileIcon';
 
 export const getFileRowContent = ({
   permissions,
@@ -52,7 +53,7 @@ export const getFileRowContent = ({
           key,
           type: 'button',
           content: {
-            icon: 'file',
+            icon: getFileThumbnail(rowKey),
             ariaLabel: 'file',
             label: rowKey.slice(itemLocationKey.length),
             onClick,
