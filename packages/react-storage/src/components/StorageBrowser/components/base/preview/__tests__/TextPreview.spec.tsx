@@ -81,4 +81,20 @@ describe('TextPreview', () => {
 
     expect(mockFetch).not.toHaveBeenCalled();
   });
+
+  it('handles fetch error in useEffect', async () => {
+    const consoleSpy = jest.spyOn(console, 'error').mockImplementation();
+
+    mockFetch.mockRejectedValue(new Error('Network error'));
+
+    render(<TextPreview {...mockProps} />);
+
+    await waitFor(() => {
+      expect(
+        screen.getByText('Error loading file: Network error')
+      ).toBeInTheDocument();
+    });
+
+    consoleSpy.mockRestore();
+  });
 });

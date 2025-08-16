@@ -17,6 +17,9 @@ jest.mock('../../../controls/DropZoneControl', () => ({
     <div data-testid="drop-zone-control">{children}</div>
   ),
 }));
+jest.mock('../../../controls/FilePreviewControl', () => ({
+  FilePreviewControl: () => <div data-testid="file-preview-control" />,
+}));
 jest.mock('../../../controls/LoadingIndicatorControl', () => ({
   LoadingIndicatorControl: () => (
     <div data-testid="loading-indicator-control" />
@@ -54,7 +57,10 @@ describe('LocationDetailView', () => {
 
   beforeEach(() => {
     // @ts-expect-error partial mock return value
-    mockUseLocationDetailView.mockReturnValue({ hasError: false });
+    mockUseLocationDetailView.mockReturnValue({
+      hasError: false,
+      filePreviewState: { previewedFile: null },
+    });
   });
 
   afterEach(() => {
@@ -90,5 +96,45 @@ describe('LocationDetailView', () => {
     expect(
       screen.queryByTestId('loading-indicator-control')
     ).not.toBeInTheDocument();
+  });
+
+  it('renders FilePreviewControl when file is being previewed', () => {
+    // @ts-expect-error partial mock return value
+    mockUseLocationDetailView.mockReturnValue({
+      hasError: false,
+      filePreviewState: {
+        previewedFile: {
+          id: 'test-file',
+          key: 'test.jpg',
+          lastModified: new Date(),
+          size: 1024,
+          type: 'FILE' as const,
+        },
+      },
+    });
+
+    render(<LocationDetailView />);
+
+    expect(screen.getByTestId('file-preview-control')).toBeInTheDocument();
+  });
+
+  it('does not render FilePreviewControl when no file is being previewed', () => {
+    // @ts-expect-error partial mock return value
+    mockUseLocationDetailView.mockReturnValue({
+      hasError: false,
+      filePreviewState: {
+        previewedFile: null,
+      },
+    });
+
+    render(<LocationDetailView />);
+
+    expect(
+      screen.queryByTestId('file-preview-control')
+    ).not.toBeInTheDocument();
+  });
+
+  it('has FilePreview static property', () => {
+    expect(LocationDetailView.FilePreview).toBeDefined();
   });
 });
