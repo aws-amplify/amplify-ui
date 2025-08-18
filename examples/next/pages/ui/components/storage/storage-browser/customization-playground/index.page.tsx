@@ -88,35 +88,6 @@ const theme = createTheme({
 
 const { StorageBrowser } = createStorageBrowser({
   config: createAmplifyAuthAdapter(),
-  filePreview: {
-    fileTypeResolver: (properties) => {
-      if (properties.contentType.endsWith('pdf')) return 'pdf';
-      if (properties.key.endsWith('pdf')) return 'pdf';
-      if (properties.key.endsWith('txt')) return 'text';
-      if (properties.key.endsWith('mp4')) return 'video';
-      if (properties.key.endsWith('jpg')) return 'image';
-      return undefined;
-    },
-    maxFileSize: (fileType) => {
-      if (fileType == 'pdf') return undefined;
-    },
-    urlOptions: (fileType) => {
-      return undefined;
-    },
-    rendererResolver: (fileType) => {
-      if (fileType == 'pdf')
-        return ({ url }) => (
-          <div>
-            <div>This is the PDF resolver</div>
-            <div>This is the URL {url}</div>
-          </div>
-        );
-
-      // if (fileType == 'image') return MyCustomImage;
-
-      return undefined;
-    },
-  },
 });
 
 const IndeterminateIcon = () => (
