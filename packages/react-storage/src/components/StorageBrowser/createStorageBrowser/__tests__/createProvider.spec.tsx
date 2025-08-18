@@ -110,10 +110,12 @@ describe('createProvider', () => {
     mockGetActionHandlers.mockReturnValue(mockActionHandlers);
 
     const mockValidateFile = jest.fn();
+    const mockFilePreview = {};
 
     const Provider = createProvider({
       config: { ...mockConfig, listLocations: jest.fn() },
       options: { validateFile: mockValidateFile },
+      filePreview: mockFilePreview,
     });
 
     // used to validate props passed to `ViewsProvider`
@@ -175,7 +177,7 @@ describe('createProvider', () => {
 
     expect(mockFilePreviewProvider).toHaveBeenCalledTimes(1);
     expect(mockFilePreviewProvider).toHaveBeenCalledWith(
-      expect.objectContaining({ validateFile: mockValidateFile }),
+      expect.objectContaining({ filePreview: mockFilePreview }),
       {}
     );
 

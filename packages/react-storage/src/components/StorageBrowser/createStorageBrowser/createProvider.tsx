@@ -14,6 +14,7 @@ import {
 import { createConfigurationProvider } from '../configuration';
 import { DisplayTextProvider } from '../displayText';
 import { defaultValidateFile, FileItemsProvider } from '../fileItems';
+import { FilePreviewProvider } from '../filePreview';
 import { LocationItemsProvider } from '../locationItems';
 import { StoreProvider } from '../store';
 import { ActionHandlersProvider, getActionHandlers } from '../useAction';
@@ -23,7 +24,6 @@ import type {
   CreateStorageBrowserInput,
   StorageBrowserProviderProps,
 } from './types';
-import { FilePreviewProvider } from '../filePreview/context';
 
 export default function createProvider<
   TResolver extends ((properties: FileData) => any) | undefined,

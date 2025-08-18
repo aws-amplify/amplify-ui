@@ -1,1 +1,1 @@
-export * from './context';
+export { FilePreviewProvider, useFilePreviewContext } from './context';

@@ -57,11 +57,8 @@ export const LocationDetailView: LocationDetailViewType = ({
           <ActionsListControl />
         </ViewElement>
         {hasError ? null : (
-          <div
-            style={{
-              display: 'flex',
-              height: '100%',
-            }}
+          <ViewElement
+            className={`${STORAGE_BROWSER_BLOCK}__content-with-preview`}
           >
             <DropZoneControl>
               <ViewElement className={`${STORAGE_BROWSER_BLOCK}__data-table`}>
@@ -70,7 +67,7 @@ export const LocationDetailView: LocationDetailViewType = ({
               </ViewElement>
             </DropZoneControl>
             {shouldRenderObjectDetails && <FilePreviewControl />}
-          </div>
+          </ViewElement>
         )}
         <ViewElement className={`${STORAGE_BROWSER_BLOCK}__footer`}>
           <MessageControl />
