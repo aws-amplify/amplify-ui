@@ -162,7 +162,20 @@ function Example() {
         <View flex="1" overflow="hidden">
           <IconsProvider
             icons={{
-              storageBrowser: { 'sort-indeterminate': <IndeterminateIcon /> },
+              storageBrowser: {
+                'sort-indeterminate': <IndeterminateIcon />,
+                'file-image': <div style={{ paddingRight: '5px' }}>🖼️</div>,
+                'file-video': <div style={{ paddingRight: '5px' }}>🎥</div>,
+                'file-audio': <div style={{ paddingRight: '5px' }}>🎵</div>,
+                'file-text': <div style={{ paddingRight: '5px' }}>📄</div>,
+                'file-pdf': <div style={{ paddingRight: '5px' }}>📕</div>,
+                'file-excel': <div style={{ paddingRight: '5px' }}>📊</div>,
+                'file-word': <div style={{ paddingRight: '5px' }}>📝</div>,
+                'file-powerpoint': (
+                  <div style={{ paddingRight: '5px' }}>📊</div>
+                ),
+                'file-archive': <div style={{ paddingRight: '5px' }}>🗜️</div>,
+              },
             }}
           >
             <StorageBrowser
