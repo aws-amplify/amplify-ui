@@ -21,7 +21,7 @@ export function useFilePreview(): UseFilePreviewReturn {
     }
 
     try {
-      dispatch({ type: 'START_PREVIEW_PREPARATION' });
+      dispatch({ type: 'START_PREVIEW_PREPARATION', payload: { fileData } });
 
       const properties = await getProperties({
         path: fileData.key,

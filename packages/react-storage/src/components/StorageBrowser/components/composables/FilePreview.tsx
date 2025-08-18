@@ -5,17 +5,12 @@ import { useFilePreviewContext } from '../../filePreview/context';
 import { VideoPreview } from '../base/preview/VideoPreview';
 import { TextPreview } from '../base/preview/TextPreview';
 import { PreviewFallback } from '../base/preview/PreviewFallback';
-import {
-  ButtonElement,
-  HeadingElement,
-  IconElement,
-  ViewElement,
-} from '../elements';
+import { ButtonElement, IconElement, ViewElement } from '../elements';
 import { PreviewPlaceholder } from '../base/preview/PreviewPlaceholder';
 import type { AllFileTypes } from '../../createStorageBrowser/types';
-import { FileMetadata } from '../base/preview/FileMetadata';
 import { STORAGE_BROWSER_BLOCK } from '../base';
 import { useDisplayText } from '../../displayText';
+import { FilePreviewLayout } from '../base/preview/FilePreviewLayout';
 
 export interface FilePreviewProps extends FilePreviewState {
   closeFilePreview?: () => void;
@@ -76,34 +71,30 @@ export const FilePreview = (
 
       <ViewElement className={`${STORAGE_BROWSER_BLOCK}__file-preview-content`}>
         {isLoading ? (
-          <PreviewPlaceholder />
+          <FilePreviewLayout fileData={previewedFile}>
+            <PreviewPlaceholder />
+          </FilePreviewLayout>
         ) : hasError ? (
-          <PreviewFallback
-            fileKey={key}
-            message={displayText?.filePreview?.errorMessage}
-            isError={hasError}
-            onRetry={retryFilePreview}
-            showRetry={hasError}
-          />
+          <FilePreviewLayout fileData={previewedFile}>
+            <PreviewFallback
+              fileKey={key}
+              message={displayText?.filePreview?.errorMessage}
+              isError={hasError}
+              onRetry={retryFilePreview}
+              showRetry={hasError}
+            />
+          </FilePreviewLayout>
         ) : hasLimitExceeded ? (
-          <PreviewFallback
-            fileKey={key}
-            message={displayText?.filePreview?.sizeLimitMessage}
-          />
+          <FilePreviewLayout fileData={previewedFile}>
+            <PreviewFallback
+              fileKey={key}
+              message={displayText?.filePreview?.sizeLimitMessage}
+            />
+          </FilePreviewLayout>
         ) : (
-          <>
-            <ViewElement
-              className={`${STORAGE_BROWSER_BLOCK}__file-preview-section`}
-            >
-              <HeadingElement
-                className={`${STORAGE_BROWSER_BLOCK}__file-preview-title`}
-              >
-                {displayText?.filePreview?.filePreviewTitle}
-              </HeadingElement>
-              {resolveRenderer()}
-            </ViewElement>
-            <FileMetadata fileData={previewedFile} />
-          </>
+          <FilePreviewLayout fileData={previewedFile}>
+            {resolveRenderer()}
+          </FilePreviewLayout>
         )}
       </ViewElement>
     </ViewElement>

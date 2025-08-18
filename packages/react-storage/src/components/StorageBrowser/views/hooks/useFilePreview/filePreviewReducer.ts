@@ -3,7 +3,7 @@ import type { FilePreviewState } from './types';
 
 type FilePreviewAction =
   | { type: 'RESET_STATE' }
-  | { type: 'START_PREVIEW_PREPARATION' }
+  | { type: 'START_PREVIEW_PREPARATION'; payload: { fileData: FileData } }
   | {
       type: 'PREVIEW_PREPARATION_SUCCESS';
       payload: { fileData: FileData; url: string };
@@ -35,6 +35,7 @@ export function filePreviewReducer(
         hasError: false,
         hasLimitExceeded: false,
         error: null,
+        previewedFile: action?.payload?.fileData,
       };
 
     case 'PREVIEW_PREPARATION_SUCCESS':
