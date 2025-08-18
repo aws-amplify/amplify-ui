@@ -1,3 +1,4 @@
+/* eslint-disable react/display-name */
 import React from 'react';
 import { Amplify } from 'aws-amplify';
 import { signOut } from 'aws-amplify/auth';
@@ -9,13 +10,53 @@ import {
   View,
   withAuthenticator,
 } from '@aws-amplify/ui-react';
-import { StorageBrowser } from '@aws-amplify/ui-react-storage';
 
 import '@aws-amplify/ui-react-storage/styles.css';
 
-import config from './aws-exports';
+import config from '../default-auth/aws-exports';
+import {
+  createAmplifyAuthAdapter,
+  createStorageBrowser,
+} from '@aws-amplify/ui-react-storage/browser';
 
 Amplify.configure(config);
+
+const MyCustomImage = ({ fileData, url }) => (
+  <div style={{ border: '3px solid gray' }}>
+    <div>this is my custom image renderer</div>
+    <img src={url} />
+  </div>
+);
+const { StorageBrowser } = createStorageBrowser({
+  config: createAmplifyAuthAdapter(),
+  filePreview: {
+    fileTypeResolver: (properties) => {
+      if (properties.contentType.endsWith('pdf')) return 'pdf';
+      if (properties.key.endsWith('pdf')) return 'pdf';
+      if (properties.key.endsWith('txt')) return 'text';
+      if (properties.key.endsWith('mp4')) return 'video';
+      if (properties.key.endsWith('jpg')) return 'image';
+      return undefined;
+    },
+    maxFileSize: (fileType) => {
+      if (fileType == 'pdf') return undefined;
+    },
+    urlOptions: (fileType) => {
+      return undefined;
+    },
+    rendererResolver: (fileType) => {
+      if (fileType == 'pdf')
+        return ({ url }) => (
+          <div>
+            <div>This is the PDF resolver</div>
+            <div>This is the URL {url}</div>
+          </div>
+        );
+
+      return undefined;
+    },
+  },
+});
 
 const IndeterminateIcon = () => (
   <View as="span" className="amplify-icon" width="1em" height="1em">

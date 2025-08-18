@@ -1,16 +1,20 @@
 import React from 'react';
 
 import {
-  createManagedAuthAdapter,
   CreateStorageBrowserInput,
   createStorageBrowser,
+  createAmplifyAuthAdapter,
 } from '@aws-amplify/ui-react-storage/browser';
 
 import { Auth } from '../managedAuthAdapter';
+import config from '../default-auth/aws-exports';
 
-import { Button, Flex, Breadcrumbs } from '@aws-amplify/ui-react';
+import { Flex, Breadcrumbs, withAuthenticator } from '@aws-amplify/ui-react';
 
 import '@aws-amplify/ui-react-storage/styles.css';
+import { Amplify } from 'aws-amplify';
+
+Amplify.configure(config);
 
 const components: CreateStorageBrowserInput['components'] = {
   Navigation: ({ items }) => (
@@ -26,18 +30,14 @@ const components: CreateStorageBrowserInput['components'] = {
   ),
 };
 
-export const auth = new Auth({ persistCredentials: true });
-
-const config = createManagedAuthAdapter({
-  credentialsProvider: auth.credentialsProvider,
-  region: process.env.NEXT_PUBLIC_MANAGED_AUTH_REGION,
-  accountId: process.env.NEXT_PUBLIC_MANAGED_AUTH_ACCOUNT_ID,
-  registerAuthListener: auth.registerAuthListener,
-});
-
 const { StorageBrowser, useView } = createStorageBrowser({
   components,
-  config,
+  config: createAmplifyAuthAdapter(),
+  // filePreview: {
+  //   fileTypeResolver: () => {
+  //     return undefined;
+  //   },
+  // },
 });
 
 const { CopyView, CreateFolderView, DeleteView, LocationActionView } =
@@ -107,8 +107,75 @@ function MyLocationActionView({ type }: { type?: string }) {
   );
 }
 
-function MyStorageBrowser() {
+function MyFullyCustomPreviewer(props: any) {
+  const {
+    closeFilePreview,
+    previewedFile,
+    isLoading,
+    hasError,
+    url,
+    retryFilePreview,
+  } = props;
+  const { fileType } = previewedFile;
+
+  if (isLoading) {
+    return <div>....loading</div>;
+  }
+
+  if (hasError) {
+    return <div>...has error</div>;
+  }
+
+  function getDefaultRenderer(type?: any) {
+    switch (type) {
+      case 'image':
+        return <img src={url} />;
+
+      case 'video':
+        return <video src={url} />;
+
+      case 'text':
+        return <div>My tesxt </div>;
+
+      default:
+        return <div>not supported</div>;
+    }
+  }
+
+  return <div>{getDefaultRenderer(fileType)}</div>;
+}
+
+function MyLocationDetails() {
   const [type, setActionType] = React.useState<string | undefined>(undefined);
+  const locationsD = useView('LocationDetail');
+  const { filePreviewState, closeFilePreview, retryFilePreview } = locationsD;
+  const { hasError, isLoading, url, hasLimitExceeded, previewedFile } =
+    filePreviewState;
+
+  return (
+    <StorageBrowser.LocationDetailView.Provider {...locationsD}>
+      <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <div style={{ maxHeight: '50vh', overflow: 'scroll' }}>
+          <StorageBrowser.LocationDetailView.LocationItemsTable />
+        </div>
+
+        {previewedFile && (
+          <MyFullyCustomPreviewer
+            closeFilePreview={closeFilePreview}
+            previewedFile={previewedFile}
+            isLoading={isLoading}
+            hasError={hasError}
+            url={url}
+            retryFilePreview={retryFilePreview}
+          />
+        )}
+      </div>
+    </StorageBrowser.LocationDetailView.Provider>
+  );
+}
+
+function MyStorageBrowser() {
+  const locations = useView('Locations');
 
   return (
     <Flex>
@@ -116,54 +183,15 @@ function MyStorageBrowser() {
         <StorageBrowser.LocationsView />
       </Flex>
       <Flex minWidth={'50vw'} direction={'column'}>
-        <StorageBrowser.LocationDetailView
-          onActionSelect={(actionType) => {
-            console.log(actionType);
-            setActionType(actionType);
-          }}
-        />
+        <MyLocationDetails />
       </Flex>
-      <MyLocationActionView type={type} />
     </Flex>
   );
 }
 
 function Example() {
-  const [authenticated, setAuthenticated] = React.useState(false);
-  const [isLoading, setIsLoading] = React.useState(false);
-  const [errorMessage, setErrorMessage] = React.useState<string | undefined>();
-
-  return !authenticated ? (
-    <Flex>
-      <Button
-        onClick={() => {
-          setIsLoading(true);
-          auth.signIn({
-            onSignIn: () => {
-              setAuthenticated(true);
-              setIsLoading(false);
-            },
-            onError: (e: Error) => {
-              setErrorMessage(e.message);
-              setIsLoading(false);
-            },
-          });
-        }}
-      >
-        Sign In
-      </Button>
-      {isLoading ? <span>Authenticating...</span> : null}
-      {errorMessage ? <span>{errorMessage}</span> : null}
-    </Flex>
-  ) : (
+  return (
     <>
-      <Button
-        onClick={() => {
-          auth.signOut({ onSignOut: () => setAuthenticated(false) });
-        }}
-      >
-        Sign Out
-      </Button>
       <StorageBrowser.Provider
         displayText={{
           LocationsView: { title: 'Home - Composable Playground' },
@@ -175,4 +203,4 @@ function Example() {
   );
 }
 
-export default Example;
+export default withAuthenticator(Example);
