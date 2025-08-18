@@ -1,7 +1,33 @@
 import { DEFAULT_LIST_VIEW_DISPLAY_TEXT } from './shared';
-import type { DefaultLocationDetailViewDisplayText } from '../../types';
+import type {
+  DefaultLocationDetailViewDisplayText,
+  DefaultFilePreviewDisplayText,
+} from '../../types';
 
 export const DEFAULT_ERROR_MESSAGE = 'There was an error loading items.';
+
+const DEFAULT_FILE_PREVIEW_DISPLAY_TEXT: DefaultFilePreviewDisplayText = {
+  closeButtonLabel: 'Close',
+  filePreviewTitle: 'File Preview',
+  fileInformationTitle: 'File Information',
+  errorMessage: 'Something went wrong',
+  sizeLimitMessage: 'File preview not possible due to preview size limit',
+  keyLabel: 'Key',
+  sizeLabel: 'Size',
+  versionIdLabel: 'Version Id',
+  lastModifiedLabel: 'Last Modified',
+  entityTagLabel: 'Entity tag',
+  typeLabel: 'Type',
+  unknownValue: 'Unknown',
+  errorDescription: 'We encountered an issue while loading the file preview.',
+  unsupportedFileDescription: 'This file type is not supported for preview.',
+  filePrefix: 'File: ',
+  retryButtonLabel: 'Retry',
+  downloadButtonLabel: 'Download',
+  loadingTextContent: 'Loading file content...',
+  getTextErrorMessage: (error) => `Error loading file: ${error}`,
+  emptyFileMessage: 'File is empty',
+};
 
 export const DEFAULT_LOCATION_DETAIL_VIEW_DISPLAY_TEXT: DefaultLocationDetailViewDisplayText =
   {
@@ -80,4 +106,5 @@ export const DEFAULT_LOCATION_DETAIL_VIEW_DISPLAY_TEXT: DefaultLocationDetailVie
       const { bucket = '' } = current ?? {};
       return key || bucket;
     },
+    filePreview: DEFAULT_FILE_PREVIEW_DISPLAY_TEXT,
   };

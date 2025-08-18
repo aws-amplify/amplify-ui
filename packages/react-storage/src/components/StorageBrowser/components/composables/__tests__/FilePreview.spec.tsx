@@ -14,6 +14,37 @@ jest.mock('../../../useAction', () => ({
   useAction: () => [null, jest.fn()],
 }));
 
+jest.mock('../../../displayText', () => ({
+  useDisplayText: () => ({
+    LocationDetailView: {
+      filePreview: {
+        closeButtonLabel: 'Close',
+        filePreviewTitle: 'File Preview',
+        fileInformationTitle: 'File Information',
+        errorMessage: 'Something went wrong',
+        sizeLimitMessage: 'File preview not possible due to preview size limit',
+        keyLabel: 'Key',
+        sizeLabel: 'Size',
+        versionIdLabel: 'Version Id',
+        lastModifiedLabel: 'Last Modified',
+        entityTagLabel: 'Entity tag',
+        typeLabel: 'Type',
+        unknownValue: 'Unknown',
+        errorDescription:
+          'We encountered an issue while loading the file preview.',
+        unsupportedFileDescription:
+          'This file type is not supported for preview.',
+        filePrefix: 'File: ',
+        retryButtonLabel: 'Retry',
+        downloadButtonLabel: 'Download',
+        loadingTextContent: 'Loading file content...',
+        getTextErrorMessage: (error: string) => `Error loading file: ${error}`,
+        emptyFileMessage: 'File is empty',
+      },
+    },
+  }),
+}));
+
 const mockFileData: FileData = {
   key: 'test.jpg',
   size: 1024,

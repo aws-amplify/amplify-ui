@@ -5,6 +5,7 @@ import { useAction } from '../../../useAction';
 import { getFileKey } from '../../../actions';
 import { ViewElement, TextElement } from '../../elements';
 import { STORAGE_BROWSER_BLOCK } from '../constants';
+import { useDisplayText } from '../../../displayText';
 
 export interface PreviewFallbackProps {
   fileKey: string;
@@ -24,6 +25,7 @@ export function PreviewFallback({
   showRetry = false,
 }: PreviewFallbackProps): React.JSX.Element {
   const [_, handleDownload] = useAction('download');
+  const { LocationDetailView: displayText } = useDisplayText();
 
   const handleDownloadClick = () => {
     handleDownload({
@@ -63,13 +65,14 @@ export function PreviewFallback({
           className={`${STORAGE_BROWSER_BLOCK}__preview-fallback-description`}
         >
           {isError
-            ? 'We encountered an issue while loading the file preview.'
-            : 'This file type is not supported for preview.'}
+            ? displayText?.filePreview?.errorDescription
+            : displayText?.filePreview?.unsupportedFileDescription}
         </TextElement>
         <TextElement
           className={`${STORAGE_BROWSER_BLOCK}__preview-fallback-filename`}
         >
-          File: {fileKey.split('/').pop()}
+          {displayText.filePreview.filePrefix}
+          {fileKey.split('/').pop()}
         </TextElement>
       </ViewElement>
 
@@ -79,13 +82,13 @@ export function PreviewFallback({
         >
           {showRetry && onRetry && (
             <Button size="small" variation="primary" onClick={onRetry}>
-              Retry
+              {displayText?.filePreview?.retryButtonLabel}
             </Button>
           )}
 
           {showDownload && (
             <Button size="small" onClick={handleDownloadClick}>
-              Download
+              {displayText?.filePreview?.downloadButtonLabel}
             </Button>
           )}
         </ViewElement>

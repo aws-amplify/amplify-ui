@@ -6,6 +6,22 @@ jest.mock('../../../../useAction', () => ({
   useAction: () => [null, jest.fn()],
 }));
 
+jest.mock('../../../../displayText', () => ({
+  useDisplayText: () => ({
+    LocationDetailView: {
+      filePreview: {
+        errorDescription:
+          'We encountered an issue while loading the file preview.',
+        unsupportedFileDescription:
+          'This file type is not supported for preview.',
+        filePrefix: 'File: ',
+        retryButtonLabel: 'Retry',
+        downloadButtonLabel: 'Download',
+      },
+    },
+  }),
+}));
+
 describe('PreviewFallback', () => {
   const defaultProps = {
     fileKey: 'path/to/test-file.pdf',
