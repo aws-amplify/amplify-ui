@@ -15,6 +15,7 @@ import { PreviewPlaceholder } from '../base/preview/PreviewPlaceholder';
 import type { AllFileTypes } from '../../createStorageBrowser/types';
 import { FileMetadata } from '../base/preview/FileMetadata';
 import { STORAGE_BROWSER_BLOCK } from '../base';
+import { useDisplayText } from '../../displayText';
 
 export interface FilePreviewProps extends FilePreviewState {
   closeFilePreview?: () => void;
@@ -27,6 +28,7 @@ export const FilePreview = (
   const { closeFilePreview, hasLimitExceeded, retryFilePreview } = props;
   const { isLoading, hasError, previewedFile, url } = props;
   const { rendererResolver } = useFilePreviewContext() ?? {};
+  const { LocationDetailView: displayText } = useDisplayText();
 
   if (!previewedFile) return null;
 
@@ -68,7 +70,7 @@ export const FilePreview = (
       <ViewElement className={`${STORAGE_BROWSER_BLOCK}__file-preview-header`}>
         <ButtonElement variant="exit" onClick={closeFilePreview}>
           <IconElement variant="dismiss" />
-          Close
+          {displayText?.filePreview?.closeButtonLabel}
         </ButtonElement>
       </ViewElement>
 
@@ -78,7 +80,7 @@ export const FilePreview = (
         ) : hasError ? (
           <PreviewFallback
             fileKey={key}
-            message="Something went wrong"
+            message={displayText?.filePreview?.errorMessage}
             isError={hasError}
             onRetry={retryFilePreview}
             showRetry={hasError}
@@ -86,7 +88,7 @@ export const FilePreview = (
         ) : hasLimitExceeded ? (
           <PreviewFallback
             fileKey={key}
-            message="File preview not possible due to preview size limit"
+            message={displayText?.filePreview?.sizeLimitMessage}
           />
         ) : (
           <>
@@ -96,7 +98,7 @@ export const FilePreview = (
               <HeadingElement
                 className={`${STORAGE_BROWSER_BLOCK}__file-preview-title`}
               >
-                File Preview
+                {displayText?.filePreview?.filePreviewTitle}
               </HeadingElement>
               {resolveRenderer()}
             </ViewElement>

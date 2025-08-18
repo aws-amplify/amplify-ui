@@ -166,7 +166,36 @@ function Example() {
             }}
           >
             <StorageBrowser
-              displayText={{ LocationsView: { title: 'Home - Amplify Auth' } }}
+              displayText={{
+                LocationsView: { title: 'My Custom Storage' },
+                LocationDetailView: {
+                  filePreview: {
+                    closeButtonLabel: 'Close Preview',
+                    filePreviewTitle: '📄 File Preview Panel',
+                    fileInformationTitle: 'ℹ️ File Details',
+                    errorMessage: '❌ Preview failed to load',
+                    sizeLimitMessage: '📏 File too large for preview',
+                    keyLabel: '🔑 File Path',
+                    sizeLabel: '📊 File Size',
+                    versionIdLabel: '🏷️ Version',
+                    lastModifiedLabel: '📅 Last Updated',
+                    entityTagLabel: '🏷️ ETag',
+                    typeLabel: '📁 File Type',
+                    unknownValue: 'N/A',
+                    errorDescription:
+                      '⚠️ Something went wrong while loading the preview.',
+                    unsupportedFileDescription:
+                      '🚫 This file format is not supported for preview.',
+                    filePrefix: '📄 File: ',
+                    retryButtonLabel: '🔄 Try Again',
+                    downloadButtonLabel: '⬇️ Download File',
+                    loadingTextContent: '⏳ Loading file content...',
+                    getTextErrorMessage: (error) =>
+                      `💥 Failed to load text: ${error}`,
+                    emptyFileMessage: '📄 This file appears to be empty',
+                  },
+                },
+              }}
             />
           </IconsProvider>
         </View>

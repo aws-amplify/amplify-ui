@@ -46,6 +46,10 @@ export function resolveDisplayText(
     LocationDetailView: {
       ...DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT.LocationDetailView,
       ...LocationDetailView,
+      filePreview: {
+        ...DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT.LocationDetailView.filePreview,
+        ...(LocationDetailView?.filePreview ?? {}),
+      },
     },
     LocationsView: {
       ...DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT.LocationsView,

@@ -5,6 +5,18 @@ import { TextPreview } from '../TextPreview';
 const mockFetch = jest.fn();
 global.fetch = mockFetch;
 
+jest.mock('../../../../displayText', () => ({
+  useDisplayText: () => ({
+    LocationDetailView: {
+      filePreview: {
+        loadingTextContent: 'Loading file content...',
+        getTextErrorMessage: (error: string) => `Error loading file: ${error}`,
+        emptyFileMessage: 'File is empty',
+      },
+    },
+  }),
+}));
+
 describe('TextPreview', () => {
   const mockProps = {
     url: 'https://example.com/file.txt',

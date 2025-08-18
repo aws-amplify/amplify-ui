@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { classNames } from '@aws-amplify/ui';
 import { TextElement, ViewElement } from '../../elements';
 import { STORAGE_BROWSER_BLOCK } from '../constants';
+import { useDisplayText } from '../../../displayText';
 
 export function TextPreview({
   url,
@@ -13,6 +14,7 @@ export function TextPreview({
   const [content, setContent] = useState<string>('');
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const { LocationDetailView: displayText } = useDisplayText();
 
   async function loadTextFileContent() {
     try {
@@ -50,7 +52,9 @@ export function TextPreview({
           `${STORAGE_BROWSER_BLOCK}__text-preview--loading`
         )}
       >
-        <TextElement>Loading file content...</TextElement>
+        <TextElement>
+          {displayText?.filePreview?.loadingTextContent}
+        </TextElement>
       </ViewElement>
     );
   }
@@ -63,14 +67,16 @@ export function TextPreview({
           `${STORAGE_BROWSER_BLOCK}__text-preview--error`
         )}
       >
-        <TextElement>Error loading file: {error}</TextElement>
+        <TextElement>
+          {displayText?.filePreview?.getTextErrorMessage(error)}
+        </TextElement>
       </ViewElement>
     );
   }
 
   return (
     <ViewElement className={`${STORAGE_BROWSER_BLOCK}__text-preview`}>
-      {content || 'File is empty'}
+      {content || displayText?.filePreview?.emptyFileMessage}
     </ViewElement>
   );
 }

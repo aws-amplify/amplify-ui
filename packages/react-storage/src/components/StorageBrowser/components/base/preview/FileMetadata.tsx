@@ -4,6 +4,7 @@ import type { FileData } from '../../../actions';
 import { formatFileSize } from '../../../views/utils/filePreview/fileSize';
 import { getFileExtension } from '../../../views/utils/filePreview/fileType';
 import { STORAGE_BROWSER_BLOCK } from '../constants';
+import { useDisplayText } from '../../../displayText';
 
 interface FileMetadataProps {
   fileData: FileData;
@@ -15,25 +16,32 @@ export function FileMetadata({
   fileData,
 }: FileMetadataProps): React.JSX.Element {
   const { key, lastModified, versionId = NONE, size, eTag } = fileData;
+  const { LocationDetailView: displayText } = useDisplayText();
+
   return (
     <ViewElement className={`${STORAGE_BROWSER_BLOCK}__file-preview-section`}>
       <HeadingElement
         className={`${STORAGE_BROWSER_BLOCK}__file-preview-title`}
       >
-        File Information
+        {displayText?.filePreview?.fileInformationTitle}
       </HeadingElement>
       <ViewElement className={`${STORAGE_BROWSER_BLOCK}__file-metadata`}>
         {[
-          { label: 'Key', value: key },
-          { label: 'Size', value: formatFileSize(size) },
-          { label: 'Version Id', value: versionId },
+          { label: displayText?.filePreview?.keyLabel, value: key },
           {
-            label: 'Last Modified',
-            value: lastModified?.toLocaleString() || 'Unknown',
+            label: displayText?.filePreview?.sizeLabel,
+            value: formatFileSize(size),
           },
-          { label: 'Entity tag', value: eTag },
+          { label: displayText?.filePreview?.versionIdLabel, value: versionId },
           {
-            label: 'Type ',
+            label: displayText?.filePreview?.lastModifiedLabel,
+            value:
+              lastModified?.toLocaleString() ||
+              displayText?.filePreview?.unknownValue,
+          },
+          { label: displayText?.filePreview?.entityTagLabel, value: eTag },
+          {
+            label: displayText?.filePreview?.typeLabel,
             value: getFileExtension(key) ?? NONE,
           },
         ].map(({ label, value }) => (
