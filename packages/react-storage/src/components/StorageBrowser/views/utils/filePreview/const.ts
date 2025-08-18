@@ -21,7 +21,7 @@ export const DEFAULT_FILE_SIZE_LIMIT = 200 * 1024 * 1024; // 200MB
 export const DEFAULT_FILE_SIZE_LIMITS: Record<string, number> = {
   image: 200 * 1024 * 1024, // 200MB
   video: 2 * 1024 * 1024 * 1024, // 2GB
-  text: 100 * 1024 * 1024, // 100MB
+  text: 10 * 1024 * 1024, // 10MB
 };
 
 export const GENERIC_CONTENT_TYPES: ReadonlySet<string> = new Set([
