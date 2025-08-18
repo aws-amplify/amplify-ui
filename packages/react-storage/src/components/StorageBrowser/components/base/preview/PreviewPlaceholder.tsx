@@ -1,60 +1,43 @@
 import React from 'react';
 import { Placeholder } from '@aws-amplify/ui-react';
+import { ViewElement } from '../../elements';
+import { STORAGE_BROWSER_BLOCK } from '../constants';
 
 export function PreviewPlaceholder(): React.JSX.Element {
   return (
-    <div
-      style={{
-        width: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '24px',
-      }}
-    >
-      <div
-        style={{
-          height: '400px',
-          backgroundColor: '#f8fafc',
-          border: '1px solid #e2e8f0',
-          borderRadius: '8px',
-          padding: '16px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
+    <ViewElement className={`${STORAGE_BROWSER_BLOCK}__preview-placeholder`}>
+      <ViewElement
+        className={`${STORAGE_BROWSER_BLOCK}__preview-placeholder-main`}
       >
         <Placeholder width="100%" height="100%" />
-      </div>
+      </ViewElement>
 
-      <div
-        style={{
-          height: '200px',
-          backgroundColor: '#f8fafc',
-          border: '1px solid #e2e8f0',
-          borderRadius: '8px',
-          padding: '16px',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '12px',
-        }}
+      <ViewElement
+        className={`${STORAGE_BROWSER_BLOCK}__preview-placeholder-metadata`}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <ViewElement
+          className={`${STORAGE_BROWSER_BLOCK}__preview-placeholder-header`}
+        >
           <Placeholder width="20px" height="20px" />
           <Placeholder width="120px" height="16px" />
-        </div>
+        </ViewElement>
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+        <ViewElement
+          className={`${STORAGE_BROWSER_BLOCK}__preview-placeholder-content`}
+        >
           <Placeholder width="200px" height="14px" />
           <Placeholder width="150px" height="14px" />
           <Placeholder width="180px" height="14px" />
           <Placeholder width="100px" height="14px" />
-        </div>
+        </ViewElement>
 
-        <div style={{ display: 'flex', gap: '12px', marginTop: 'auto' }}>
+        <ViewElement
+          className={`${STORAGE_BROWSER_BLOCK}__preview-placeholder-actions`}
+        >
           <Placeholder width="100px" height="32px" />
           <Placeholder width="80px" height="32px" />
-        </div>
-      </div>
-    </div>
+        </ViewElement>
+      </ViewElement>
+    </ViewElement>
   );
 }

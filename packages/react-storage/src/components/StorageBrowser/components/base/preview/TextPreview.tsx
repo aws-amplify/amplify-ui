@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { TextElement } from '../../elements';
+import { classNames } from '@aws-amplify/ui';
+import { TextElement, ViewElement } from '../../elements';
+import { STORAGE_BROWSER_BLOCK } from '../constants';
 
 export function TextPreview({
   url,
@@ -41,40 +43,34 @@ export function TextPreview({
   }, [fileKey]);
 
   if (isLoading) {
-    return <div>...text file content</div>;
-  }
-
-  if (isLoading) {
-    <div>
-      <TextElement>Loading file content...</TextElement>
-    </div>;
+    return (
+      <ViewElement
+        className={classNames(
+          `${STORAGE_BROWSER_BLOCK}__text-preview`,
+          `${STORAGE_BROWSER_BLOCK}__text-preview--loading`
+        )}
+      >
+        <TextElement>Loading file content...</TextElement>
+      </ViewElement>
+    );
   }
 
   if (error) {
     return (
-      <div>
+      <ViewElement
+        className={classNames(
+          `${STORAGE_BROWSER_BLOCK}__text-preview`,
+          `${STORAGE_BROWSER_BLOCK}__text-preview--error`
+        )}
+      >
         <TextElement>Error loading file: {error}</TextElement>
-      </div>
+      </ViewElement>
     );
   }
 
   return (
-    <div
-      style={{
-        backgroundColor: '#f8fafc',
-        border: '1px solid #e2e8f0',
-        borderRadius: '8px',
-        padding: '16px',
-        fontFamily: 'Monaco, Menlo, "Ubuntu Mono", monospace',
-        fontSize: '14px',
-        lineHeight: '1.5',
-        maxHeight: '400px',
-        overflow: 'auto',
-        whiteSpace: 'pre-wrap',
-        wordBreak: 'break-word',
-      }}
-    >
+    <ViewElement className={`${STORAGE_BROWSER_BLOCK}__text-preview`}>
       {content || 'File is empty'}
-    </div>
+    </ViewElement>
   );
 }

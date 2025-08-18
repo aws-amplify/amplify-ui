@@ -19,7 +19,7 @@ describe('TextPreview', () => {
     mockFetch.mockImplementation(() => new Promise(() => {}));
     render(<TextPreview {...mockProps} />);
 
-    expect(screen.getByText('...text file content')).toBeInTheDocument();
+    expect(screen.getByText('Loading file content...')).toBeInTheDocument();
   });
 
   it('displays text content after successful fetch', async () => {

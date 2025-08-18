@@ -1,7 +1,10 @@
 import React from 'react';
 import { Button } from '@aws-amplify/ui-react';
+import { classNames } from '@aws-amplify/ui';
 import { useAction } from '../../../useAction';
 import { getFileKey } from '../../../actions';
+import { ViewElement, TextElement } from '../../elements';
+import { STORAGE_BROWSER_BLOCK } from '../constants';
 
 export interface PreviewFallbackProps {
   fileKey: string;
@@ -32,120 +35,61 @@ export function PreviewFallback({
     });
   };
 
-  // Different styling based on whether it's an error or just unsupported
-  const containerStyle = isError
-    ? {
-        // Error styling
-        color: '#dc2626',
-        backgroundColor: '#fef2f2',
-        border: '2px dashed #fecaca',
-      }
-    : {
-        // Fallback/unsupported styling
-        color: '#6b7280',
-        backgroundColor: '#f9fafb',
-        border: '2px dashed #d1d5db',
-      };
-
   const icon = isError ? '⚠️' : '📄';
-  const titleColor = isError ? '#991b1b' : '#374151';
-  const descriptionColor = isError ? '#7f1d1d' : '#6b7280';
+  const fallbackClass = isError
+    ? `${STORAGE_BROWSER_BLOCK}__preview-fallback--error`
+    : `${STORAGE_BROWSER_BLOCK}__preview-fallback--default`;
 
   return (
-    <div
-      style={{
-        width: '100%',
-        height: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        gap: '24px',
-        borderRadius: '8px',
-        padding: '32px',
-        textAlign: 'center',
-        ...containerStyle,
-      }}
+    <ViewElement
+      className={classNames(
+        `${STORAGE_BROWSER_BLOCK}__preview-fallback`,
+        fallbackClass
+      )}
     >
-      <div
-        style={{
-          fontSize: '64px',
-          marginBottom: '8px',
-        }}
+      <ViewElement
+        className={`${STORAGE_BROWSER_BLOCK}__preview-fallback-icon`}
       >
         {icon}
-      </div>
+      </ViewElement>
 
-      <div>
-        <div
-          style={{
-            fontWeight: 'bold',
-            fontSize: '18px',
-            marginBottom: '8px',
-            color: titleColor,
-          }}
+      <ViewElement>
+        <TextElement
+          className={`${STORAGE_BROWSER_BLOCK}__preview-fallback-title`}
         >
           {message}
-        </div>
-        <div
-          style={{
-            fontSize: '14px',
-            color: descriptionColor,
-            marginBottom: '8px',
-          }}
+        </TextElement>
+        <TextElement
+          className={`${STORAGE_BROWSER_BLOCK}__preview-fallback-description`}
         >
           {isError
             ? 'We encountered an issue while loading the file preview.'
             : 'This file type is not supported for preview.'}
-        </div>
-        <div
-          style={{
-            fontSize: '12px',
-            color: descriptionColor,
-            fontFamily: 'monospace',
-          }}
+        </TextElement>
+        <TextElement
+          className={`${STORAGE_BROWSER_BLOCK}__preview-fallback-filename`}
         >
           File: {fileKey.split('/').pop()}
-        </div>
-      </div>
+        </TextElement>
+      </ViewElement>
 
       {(showRetry || showDownload) && (
-        <div
-          style={{
-            display: 'flex',
-            gap: '12px',
-            flexWrap: 'wrap',
-            justifyContent: 'center',
-          }}
+        <ViewElement
+          className={`${STORAGE_BROWSER_BLOCK}__preview-fallback-actions`}
         >
           {showRetry && onRetry && (
-            <Button
-              size="small"
-              variation="primary"
-              onClick={onRetry}
-              style={{
-                backgroundColor: isError ? '#dc2626' : '#3b82f6',
-                borderColor: isError ? '#dc2626' : '#3b82f6',
-              }}
-            >
+            <Button size="small" variation="primary" onClick={onRetry}>
               Retry
             </Button>
           )}
 
           {showDownload && (
-            <Button
-              size="small"
-              onClick={handleDownloadClick}
-              style={{
-                borderColor: isError ? '#dc2626' : '#6b7280',
-                color: isError ? '#dc2626' : '#6b7280',
-              }}
-            >
+            <Button size="small" onClick={handleDownloadClick}>
               Download
             </Button>
           )}
-        </div>
+        </ViewElement>
       )}
-    </div>
+    </ViewElement>
   );
 }

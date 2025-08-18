@@ -5,10 +5,16 @@ import { useFilePreviewContext } from '../../filePreview/context';
 import { VideoPreview } from '../base/preview/VideoPreview';
 import { TextPreview } from '../base/preview/TextPreview';
 import { PreviewFallback } from '../base/preview/PreviewFallback';
-import { ButtonElement, HeadingElement, IconElement } from '../elements';
+import {
+  ButtonElement,
+  HeadingElement,
+  IconElement,
+  ViewElement,
+} from '../elements';
 import { PreviewPlaceholder } from '../base/preview/PreviewPlaceholder';
 import type { AllFileTypes } from '../../createStorageBrowser/types';
 import { FileMetadata } from '../base/preview/FileMetadata';
+import { STORAGE_BROWSER_BLOCK } from '../base';
 
 export interface FilePreviewProps extends FilePreviewState {
   closeFilePreview?: () => void;
@@ -58,27 +64,15 @@ export const FilePreview = (
   }
 
   return (
-    <div
-      style={{
-        overflow: 'scroll',
-        flex: 1,
-        width: '50vw',
-        height: '100%',
-        padding: 15,
-        border: '1px solid gray',
-        borderRadius: '5px',
-        marginLeft: '30px',
-        paddingBottom: 30,
-      }}
-    >
-      <div style={{ marginBottom: 20 }}>
+    <ViewElement className={`${STORAGE_BROWSER_BLOCK}__file-preview`}>
+      <ViewElement className={`${STORAGE_BROWSER_BLOCK}__file-preview-header`}>
         <ButtonElement variant="exit" onClick={closeFilePreview}>
           <IconElement variant="dismiss" />
           Close
         </ButtonElement>
-      </div>
+      </ViewElement>
 
-      <div>
+      <ViewElement className={`${STORAGE_BROWSER_BLOCK}__file-preview-content`}>
         {isLoading ? (
           <PreviewPlaceholder />
         ) : hasError ? (
@@ -96,23 +90,20 @@ export const FilePreview = (
           />
         ) : (
           <>
-            <div>
+            <ViewElement
+              className={`${STORAGE_BROWSER_BLOCK}__file-preview-section`}
+            >
               <HeadingElement
-                style={{
-                  marginBottom: '16px',
-                  color: '#374151',
-                  fontSize: '18px',
-                  fontWeight: '600',
-                }}
+                className={`${STORAGE_BROWSER_BLOCK}__file-preview-title`}
               >
                 File Preview
               </HeadingElement>
-              <div>{resolveRenderer()}</div>
-            </div>
+              {resolveRenderer()}
+            </ViewElement>
             <FileMetadata fileData={previewedFile} />
           </>
         )}
-      </div>
-    </div>
+      </ViewElement>
+    </ViewElement>
   );
 };

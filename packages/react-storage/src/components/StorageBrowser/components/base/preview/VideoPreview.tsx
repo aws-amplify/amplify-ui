@@ -1,4 +1,5 @@
 import React from 'react';
+import { STORAGE_BROWSER_BLOCK } from '../constants';
 
 export function VideoPreview({
   url,
@@ -9,13 +10,9 @@ export function VideoPreview({
 }): React.JSX.Element | null {
   return (
     <video
+      className={`${STORAGE_BROWSER_BLOCK}__video-preview`}
       controls
       preload="metadata"
-      style={{
-        width: '100%',
-        height: 'auto',
-        maxHeight: '500px',
-      }}
       onError={() => {
         //
       }}

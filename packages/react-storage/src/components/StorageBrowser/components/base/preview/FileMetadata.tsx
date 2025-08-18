@@ -1,8 +1,9 @@
 import React from 'react';
-import { HeadingElement, TextElement } from '../../elements';
+import { HeadingElement, TextElement, ViewElement } from '../../elements';
 import type { FileData } from '../../../actions';
 import { formatFileSize } from '../../../views/utils/filePreview/fileSize';
 import { getFileExtension } from '../../../views/utils/filePreview/fileType';
+import { STORAGE_BROWSER_BLOCK } from '../constants';
 
 interface FileMetadataProps {
   fileData: FileData;
@@ -15,27 +16,13 @@ export function FileMetadata({
 }: FileMetadataProps): React.JSX.Element {
   const { key, lastModified, versionId = NONE, size, eTag } = fileData;
   return (
-    <div>
+    <ViewElement className={`${STORAGE_BROWSER_BLOCK}__file-preview-section`}>
       <HeadingElement
-        style={{
-          marginBottom: '16px',
-          color: '#374151',
-          fontSize: '18px',
-          fontWeight: '600',
-        }}
+        className={`${STORAGE_BROWSER_BLOCK}__file-preview-title`}
       >
         File Information
       </HeadingElement>
-      <div
-        style={{
-          display: 'grid',
-          gap: '12px',
-          backgroundColor: '#f9fafb',
-          padding: '20px',
-          borderRadius: '8px',
-          border: '1px solid #e5e7eb',
-        }}
-      >
+      <ViewElement className={`${STORAGE_BROWSER_BLOCK}__file-metadata`}>
         {[
           { label: 'Key', value: key },
           { label: 'Size', value: formatFileSize(size) },
@@ -50,39 +37,23 @@ export function FileMetadata({
             value: getFileExtension(key) ?? NONE,
           },
         ].map(({ label, value }) => (
-          <div
+          <ViewElement
             key={label}
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              padding: '8px 0',
-              borderBottom: '1px solid #e5e7eb',
-            }}
+            className={`${STORAGE_BROWSER_BLOCK}__file-metadata-item`}
           >
             <TextElement
-              style={{
-                fontWeight: '500',
-                color: '#374151',
-                margin: 0,
-              }}
+              className={`${STORAGE_BROWSER_BLOCK}__file-metadata-label`}
             >
               {label}:
             </TextElement>
             <TextElement
-              style={{
-                color: '#6b7280',
-                margin: 0,
-                wordBreak: 'break-all',
-                textAlign: 'right',
-                maxWidth: '60%',
-              }}
+              className={`${STORAGE_BROWSER_BLOCK}__file-metadata-value`}
             >
               {value}
             </TextElement>
-          </div>
+          </ViewElement>
         ))}
-      </div>
-    </div>
+      </ViewElement>
+    </ViewElement>
   );
 }
