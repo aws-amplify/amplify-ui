@@ -4,7 +4,7 @@ import type { LocationPermissions } from '../../../actions';
 import type { DataTableProps } from '../../../components';
 
 import { LOCATION_DETAIL_VIEW_HEADERS } from './constants';
-import { getFileThumbnail } from '../../utils/files/fileIcon';
+import { getFileThumbnail } from './fileIcon';
 
 export const getFileRowContent = ({
   permissions,
