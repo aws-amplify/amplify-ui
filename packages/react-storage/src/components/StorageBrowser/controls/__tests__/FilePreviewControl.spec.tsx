@@ -23,8 +23,8 @@ jest.mock('../context', () => ({
         hasLimitExceeded: false,
       },
     },
-    closeFilePreview: jest.fn(),
-    retryFilePreview: jest.fn(),
+    onCloseFilePreview: jest.fn(),
+    onRetryFilePreview: jest.fn(),
   }),
 }));
 

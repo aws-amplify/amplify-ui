@@ -13,12 +13,12 @@ import { useDisplayText } from '../../displayText';
 import { FilePreviewLayout } from '../base/preview/FilePreviewLayout';
 
 export interface FilePreviewProps extends FilePreviewState {
-  closeFilePreview?: () => void;
-  retryFilePreview?: () => void;
+  onCloseFilePreview?: () => void;
+  onRetryFilePreview?: () => void;
 }
 
 export function FilePreview(props: FilePreviewProps): React.JSX.Element | null {
-  const { closeFilePreview, hasLimitExceeded, retryFilePreview } = props;
+  const { onCloseFilePreview, hasLimitExceeded, onRetryFilePreview } = props;
   const { isLoading, hasError, previewedFile, url } = props;
   const { rendererResolver } = useFilePreviewContext() ?? {};
   const { LocationDetailView: displayText } = useDisplayText();
@@ -61,7 +61,7 @@ export function FilePreview(props: FilePreviewProps): React.JSX.Element | null {
   return (
     <ViewElement className={`${STORAGE_BROWSER_BLOCK}__file-preview`}>
       <ViewElement className={`${STORAGE_BROWSER_BLOCK}__file-preview-header`}>
-        <ButtonElement variant="exit" onClick={closeFilePreview}>
+        <ButtonElement variant="exit" onClick={onCloseFilePreview}>
           <IconElement variant="dismiss" />
           {displayText?.filePreview?.closeButtonLabel}
         </ButtonElement>
@@ -78,7 +78,7 @@ export function FilePreview(props: FilePreviewProps): React.JSX.Element | null {
               fileKey={key}
               message={displayText?.filePreview?.errorMessage}
               isError={hasError}
-              onRetry={retryFilePreview}
+              onRetry={onRetryFilePreview}
               showRetry={hasError}
             />
           </FilePreviewLayout>

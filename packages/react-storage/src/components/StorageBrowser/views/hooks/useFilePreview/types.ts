@@ -10,7 +10,7 @@ export interface FilePreviewState {
 }
 
 export interface UseFilePreviewReturn extends FilePreviewState {
-  openFilePreview: (p: FileData) => void;
-  closeFilePreview: () => void;
-  retryFilePreview: () => void;
+  onOpenFilePreview: (p: FileData) => void;
+  onCloseFilePreview: () => void;
+  onRetryFilePreview: () => void;
 }

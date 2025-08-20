@@ -134,7 +134,8 @@ function MyFullyCustomPreviewer(props: any) {
 
 function MyLocationDetails() {
   const locationsD = useView('LocationDetail');
-  const { filePreviewState, closeFilePreview, retryFilePreview } = locationsD;
+  const { filePreviewState, onCloseFilePreview, onRetryFilePreview } =
+    locationsD;
   const { hasError, isLoading, url, previewedFile } = filePreviewState;
 
   return (
@@ -146,12 +147,12 @@ function MyLocationDetails() {
 
         {previewedFile && (
           <MyFullyCustomPreviewer
-            closeFilePreview={closeFilePreview}
+            onCloseFilePreview={onCloseFilePreview}
             previewedFile={previewedFile}
             isLoading={isLoading}
             hasError={hasError}
             url={url}
-            retryFilePreview={retryFilePreview}
+            onRetryFilePreview={onRetryFilePreview}
           />
         )}
       </div>

@@ -58,7 +58,7 @@ describe('useFilePreview', () => {
     const { result } = renderHook(() => useFilePreview());
 
     await act(async () => {
-      result.current.openFilePreview(mockFileData);
+      result.current.onOpenFilePreview(mockFileData);
     });
 
     expect(result.current.isLoading).toBe(false);
@@ -80,7 +80,7 @@ describe('useFilePreview', () => {
     const { result } = renderHook(() => useFilePreview());
 
     await act(async () => {
-      result.current.openFilePreview(mockFileData);
+      result.current.onOpenFilePreview(mockFileData);
     });
 
     expect(result.current.hasLimitExceeded).toBe(true);
@@ -93,7 +93,7 @@ describe('useFilePreview', () => {
     const { result } = renderHook(() => useFilePreview());
 
     await act(async () => {
-      result.current.openFilePreview(mockFileData);
+      result.current.onOpenFilePreview(mockFileData);
     });
 
     expect(result.current.hasError).toBe(true);
@@ -104,11 +104,11 @@ describe('useFilePreview', () => {
     const { result } = renderHook(() => useFilePreview());
 
     await act(async () => {
-      result.current.openFilePreview(mockFileData);
+      result.current.onOpenFilePreview(mockFileData);
     });
 
     act(() => {
-      result.current.closeFilePreview();
+      result.current.onCloseFilePreview();
     });
 
     expect(result.current.previewedFile).toBe(null);
@@ -122,7 +122,7 @@ describe('useFilePreview', () => {
     const { result } = renderHook(() => useFilePreview());
 
     await act(async () => {
-      result.current.openFilePreview(fileDataWithoutKey);
+      result.current.onOpenFilePreview(fileDataWithoutKey);
     });
 
     expect(mockGetProperties).not.toHaveBeenCalled();
