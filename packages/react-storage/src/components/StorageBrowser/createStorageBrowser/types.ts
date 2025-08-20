@@ -156,7 +156,7 @@ export type UrlOptionsResolver<T extends string = string> = (
 ) => FilePreviewUrlOptions | undefined;
 
 export type FilePreview<
-  TResolver extends ((properties: FileData) => any) | undefined = undefined,
+  TResolver extends ((properties: FileData) => unknown) | undefined = undefined,
 > = {
   /**
    * @description Function to determine file type from file properties
@@ -239,7 +239,7 @@ export interface FilePreviewProps {
  * @description configuration and options for `createStorageBrowser`
  */
 export interface CreateStorageBrowserInput<
-  TResolver extends ((properties: FileData) => any) | undefined = undefined,
+  TResolver extends ((properties: FileData) => unknown) | undefined = undefined,
 > {
   /**
    * @description override and default `StorageBrowser` actions and action view configs
