@@ -25,12 +25,29 @@ import {
   VerifyUser,
 } from './components/index';
 
+// Import all base primitive components
+import BaseInput from './components/primitives/base-input.vue';
+import BaseLabel from './components/primitives/base-label.vue';
+import BaseSelect from './components/primitives/base-select.vue';
+import BaseWrapper from './components/primitives/base-wrapper.vue';
+import BaseAlert from './components/primitives/base-alert.vue';
+import BaseBox from './components/primitives/base-box.vue';
+import BaseFieldSet from './components/primitives/base-field-set.vue';
+import BaseFooter from './components/primitives/base-footer.vue';
+import BaseForm from './components/primitives/base-form.vue';
+import BaseHeading from './components/primitives/base-heading.vue';
+import BaseSpacer from './components/primitives/base-spacer.vue';
+import BaseText from './components/primitives/base-text.vue';
+import BaseTwoTabs from './components/primitives/base-two-tabs.vue';
+import BaseTwoTabItem from './components/primitives/base-two-tab-item.vue';
+
 import { useAuthenticator } from './composables/useAuth';
 
 import './styles.css';
 
 export default {
   install: (app: App) => {
+    // Register main components
     app.component('SignIn', SignIn);
     app.component('SignUp', SignUp);
     app.component('FederatedSignIn', FederatedSignIn);
@@ -59,6 +76,22 @@ export default {
       'AuthenticatorForceNewPasswordFormFields',
       AuthenticatorForceNewPasswordFormFields
     );
+
+    // Register all base primitive components
+    app.component('BaseInput', BaseInput);
+    app.component('BaseLabel', BaseLabel);
+    app.component('BaseSelect', BaseSelect);
+    app.component('BaseWrapper', BaseWrapper);
+    app.component('BaseAlert', BaseAlert);
+    app.component('BaseBox', BaseBox);
+    app.component('BaseFieldSet', BaseFieldSet);
+    app.component('BaseFooter', BaseFooter);
+    app.component('BaseForm', BaseForm);
+    app.component('BaseHeading', BaseHeading);
+    app.component('BaseSpacer', BaseSpacer);
+    app.component('BaseText', BaseText);
+    app.component('BaseTwoTabs', BaseTwoTabs);
+    app.component('BaseTwoTabItem', BaseTwoTabItem);
   },
 };
 
