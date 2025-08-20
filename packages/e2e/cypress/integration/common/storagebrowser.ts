@@ -78,7 +78,26 @@ Then('I click and see download succeed for {string}', (name: string) => {
     });
 });
 
+Then(
+  'I click the download button with label {string} and see the file downloaded',
+  (label: string) => {
+    cy.intercept('HEAD', 'https://*.s3.*.amazonaws.com/**').as(
+      'downloadValidation'
+    );
+
+    cy.findByLabelText(label).click();
+
+    cy.wait('@downloadValidation').then((interception) => {
+      assert.equal(interception.response.statusCode, 200);
+    });
+  }
+);
+
 Then('I click checkbox for file {string}', selectTableRowCheckBox);
+
+Then('I see loader', () => {
+  cy.get('.amplify-storage-browser__preview-placeholder').should('exist');
+});
 
 Then(
   'I click checkbox for with {string} files with random names',

@@ -43,7 +43,7 @@ export function useFilePreview(): UseFilePreviewReturn {
       };
 
       const sizeLimit = resolveMaxFileSize(maxFileSize, fileType);
-      const isLimitExceeded = (finalFileData.size ?? 0) > sizeLimit;
+      const isLimitExceeded = (fileData.size ?? 0) > sizeLimit;
 
       if (isLimitExceeded) {
         dispatch({ type: 'LIMIT_EXCEEDED' });

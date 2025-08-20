@@ -87,7 +87,11 @@ export function PreviewFallback({
           )}
 
           {showDownload && (
-            <Button size="small" onClick={handleDownloadClick}>
+            <Button
+              size="small"
+              onClick={handleDownloadClick}
+              ariaLabel={`Download ${fileKey} file`}
+            >
               {displayText?.filePreview?.downloadButtonLabel}
             </Button>
           )}

@@ -49,13 +49,14 @@ export const getFileRowContent = ({
         };
       }
       case 'name': {
+        const fileName = rowKey.slice(itemLocationKey.length);
         return {
           key,
           type: 'button',
           content: {
             icon: getFileThumbnail(rowKey),
-            ariaLabel: 'file',
-            label: rowKey.slice(itemLocationKey.length),
+            ariaLabel: `${fileName} file`,
+            label: fileName,
             onClick,
           },
         };
