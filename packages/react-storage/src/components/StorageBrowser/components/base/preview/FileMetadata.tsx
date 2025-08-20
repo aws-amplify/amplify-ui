@@ -1,8 +1,8 @@
 import React from 'react';
 import { HeadingElement, TextElement, ViewElement } from '../../elements';
 import type { FileData } from '../../../actions';
-import { formatFileSize } from '../../../views/utils/filePreview/fileSize';
-import { getFileExtension } from '../../../views/utils/filePreview/fileType';
+import { formatFileSize } from '../../../views/utils/files/fileSize';
+import { getFileExtension } from '../../../views/utils/files/fileType';
 import { STORAGE_BROWSER_BLOCK } from '../constants';
 import { useDisplayText } from '../../../displayText';
 
