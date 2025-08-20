@@ -1,10 +1,10 @@
 import { useCallback, useReducer } from 'react';
 import type { FileData } from '../../../actions';
 import { getProperties, getUrl } from 'aws-amplify/storage';
-import { determineFileType } from '../../utils/filePreview/fileType';
+import { determineFileType } from '../../utils/files/fileType';
 import { useFilePreviewContext } from '../../../filePreview/context';
-import { resolveUrlOptions } from '../../utils/filePreview/urt';
-import { resolveMaxFileSize } from '../../utils/filePreview/fileSize';
+import { resolveUrlOptions } from '../../utils/files/urt';
+import { resolveMaxFileSize } from '../../utils/files/fileSize';
 import type { UseFilePreviewReturn } from './types';
 import { initialState, filePreviewReducer } from './filePreviewReducer';
 
