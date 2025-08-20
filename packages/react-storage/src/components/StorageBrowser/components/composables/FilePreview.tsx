@@ -17,9 +17,7 @@ export interface FilePreviewProps extends FilePreviewState {
   retryFilePreview?: () => void;
 }
 
-export const FilePreview = (
-  props: FilePreviewProps
-): React.JSX.Element | null => {
+export function FilePreview(props: FilePreviewProps): React.JSX.Element | null {
   const { closeFilePreview, hasLimitExceeded, retryFilePreview } = props;
   const { isLoading, hasError, previewedFile, url } = props;
   const { rendererResolver } = useFilePreviewContext() ?? {};
@@ -99,4 +97,4 @@ export const FilePreview = (
       </ViewElement>
     </ViewElement>
   );
-};
+}

@@ -5,7 +5,7 @@ export function VideoPreview({
   url,
   fileKey,
 }: {
-  url: string | null;
+  url: string;
   fileKey: string;
 }): React.JSX.Element | null {
   return (
@@ -18,7 +18,7 @@ export function VideoPreview({
       }}
       aria-label={fileKey}
     >
-      <source src={url!} />
+      <source src={url} />
     </video>
   );
 }

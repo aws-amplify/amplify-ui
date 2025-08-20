@@ -21,7 +21,7 @@ describe('VideoPreview', () => {
   });
 
   it('renders with null url', () => {
-    render(<VideoPreview url={null} fileKey={mockProps.fileKey} />);
+    render(<VideoPreview url={null!} fileKey={mockProps.fileKey} />);
 
     const video = screen.getByLabelText(mockProps.fileKey);
     expect(video).toHaveAttribute('aria-label', mockProps.fileKey);
