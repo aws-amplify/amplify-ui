@@ -67,22 +67,22 @@ export function useFilePreview(): UseFilePreviewReturn {
     }
   }
 
-  const retryFilePreview = () => {
+  const onRetryFilePreview = () => {
     prepareFileForPreview(state.previewedFile!);
   };
 
-  const openFilePreview = (file: FileData) => {
+  const onOpenFilePreview = (file: FileData) => {
     prepareFileForPreview(file);
   };
 
-  const closeFilePreview = useCallback(() => {
+  const onCloseFilePreview = useCallback(() => {
     dispatch({ type: 'RESET_STATE' });
   }, []);
 
   return {
     ...state,
-    retryFilePreview,
-    openFilePreview,
-    closeFilePreview,
+    onRetryFilePreview,
+    onOpenFilePreview,
+    onCloseFilePreview,
   };
 }

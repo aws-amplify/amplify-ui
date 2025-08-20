@@ -132,9 +132,9 @@ describe('useLocationDetailView', () => {
       hasError: false,
       url: null,
       hasLimitExceeded: false,
-      openFilePreview: jest.fn(),
-      closeFilePreview: jest.fn(),
-      retryFilePreview: jest.fn(),
+      onOpenFilePreview: jest.fn(),
+      onCloseFilePreview: jest.fn(),
+      onRetryFilePreview: jest.fn(),
     });
   });
 
@@ -668,9 +668,9 @@ describe('useLocationDetailView', () => {
     };
 
     const mockFilePreviewHandlers = {
-      openFilePreview: jest.fn(),
-      closeFilePreview: jest.fn(),
-      retryFilePreview: jest.fn(),
+      onOpenFilePreview: jest.fn(),
+      onCloseFilePreview: jest.fn(),
+      onRetryFilePreview: jest.fn(),
     };
 
     mockUseFilePreview.mockReturnValue({
@@ -687,14 +687,14 @@ describe('useLocationDetailView', () => {
       url: mockFilePreviewState.url,
       hasLimitExceeded: mockFilePreviewState.hasLimitExceeded,
     });
-    expect(result.current.openFilePreview).toBe(
-      mockFilePreviewHandlers.openFilePreview
+    expect(result.current.onOpenFilePreview).toBe(
+      mockFilePreviewHandlers.onOpenFilePreview
     );
-    expect(result.current.closeFilePreview).toBe(
-      mockFilePreviewHandlers.closeFilePreview
+    expect(result.current.onCloseFilePreview).toBe(
+      mockFilePreviewHandlers.onCloseFilePreview
     );
-    expect(result.current.retryFilePreview).toBe(
-      mockFilePreviewHandlers.retryFilePreview
+    expect(result.current.onRetryFilePreview).toBe(
+      mockFilePreviewHandlers.onRetryFilePreview
     );
   });
 });

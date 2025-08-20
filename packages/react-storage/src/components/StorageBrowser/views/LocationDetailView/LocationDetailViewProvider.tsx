@@ -57,10 +57,10 @@ export function LocationDetailViewProvider({
     onSearchQueryChange,
     onSearchClear,
     onToggleSearchSubfolders,
-    openFilePreview,
+    onOpenFilePreview,
     filePreviewState,
-    closeFilePreview,
-    retryFilePreview,
+    onCloseFilePreview,
+    onRetryFilePreview,
   } = props;
 
   const actionsWithDisplayText = actionItems.map((item) => ({
@@ -124,7 +124,7 @@ export function LocationDetailViewProvider({
           onNavigate,
           onSelect,
           onSelectAll: onToggleSelectAll,
-          openFilePreview,
+          onOpenFilePreview,
         }),
         title: getTitle(location),
         message: messageControlContent,
@@ -139,9 +139,9 @@ export function LocationDetailViewProvider({
       onSearchQueryChange={onSearchQueryChange}
       onSearchClear={onSearchClear}
       onToggleSearchSubfolders={onToggleSearchSubfolders}
-      openFilePreview={openFilePreview}
-      retryFilePreview={retryFilePreview}
-      closeFilePreview={closeFilePreview}
+      onOpenFilePreview={onOpenFilePreview}
+      onRetryFilePreview={onRetryFilePreview}
+      onCloseFilePreview={onCloseFilePreview}
     >
       {children}
     </ControlsContextProvider>
