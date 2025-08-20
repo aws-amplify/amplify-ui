@@ -26,7 +26,7 @@ import type {
 } from './types';
 
 export default function createProvider<
-  TResolver extends ((properties: FileData) => any) | undefined,
+  TResolver extends ((properties: FileData) => unknown) | undefined,
 >({
   actions,
   components,
