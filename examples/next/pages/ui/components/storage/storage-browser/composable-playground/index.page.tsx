@@ -6,7 +6,6 @@ import {
   createAmplifyAuthAdapter,
 } from '@aws-amplify/ui-react-storage/browser';
 
-import { Auth } from '../managedAuthAdapter';
 import config from '../default-auth/aws-exports';
 
 import { Flex, Breadcrumbs, withAuthenticator } from '@aws-amplify/ui-react';
@@ -33,11 +32,6 @@ const components: CreateStorageBrowserInput['components'] = {
 const { StorageBrowser, useView } = createStorageBrowser({
   components,
   config: createAmplifyAuthAdapter(),
-  // filePreview: {
-  //   fileTypeResolver: () => {
-  //     return undefined;
-  //   },
-  // },
 });
 
 const { CopyView, CreateFolderView, DeleteView, LocationActionView } =
@@ -108,14 +102,7 @@ function MyLocationActionView({ type }: { type?: string }) {
 }
 
 function MyFullyCustomPreviewer(props: any) {
-  const {
-    closeFilePreview,
-    previewedFile,
-    isLoading,
-    hasError,
-    url,
-    retryFilePreview,
-  } = props;
+  const { previewedFile, isLoading, hasError, url } = props;
   const { fileType } = previewedFile;
 
   if (isLoading) {
@@ -146,11 +133,9 @@ function MyFullyCustomPreviewer(props: any) {
 }
 
 function MyLocationDetails() {
-  const [type, setActionType] = React.useState<string | undefined>(undefined);
   const locationsD = useView('LocationDetail');
   const { filePreviewState, closeFilePreview, retryFilePreview } = locationsD;
-  const { hasError, isLoading, url, hasLimitExceeded, previewedFile } =
-    filePreviewState;
+  const { hasError, isLoading, url, previewedFile } = filePreviewState;
 
   return (
     <StorageBrowser.LocationDetailView.Provider {...locationsD}>
@@ -175,8 +160,6 @@ function MyLocationDetails() {
 }
 
 function MyStorageBrowser() {
-  const locations = useView('Locations');
-
   return (
     <Flex>
       <Flex direction={'column'}>

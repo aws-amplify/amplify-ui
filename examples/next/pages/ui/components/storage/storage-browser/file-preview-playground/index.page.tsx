@@ -1,5 +1,5 @@
-/* eslint-disable react/display-name */
 import React from 'react';
+import Image from 'next/image';
 import { Amplify } from 'aws-amplify';
 import { signOut } from 'aws-amplify/auth';
 
@@ -24,8 +24,19 @@ Amplify.configure(config);
 const MyCustomImage = ({ fileData, url }) => (
   <div style={{ border: '3px solid gray' }}>
     <div>this is my custom image renderer</div>
-    <img src={url} />
+    <Image src={url} alt={fileData.key} width={500} height={300} />
   </div>
+);
+
+const PdfRenderer = ({ url }) => (
+  <div>
+    <div>This is the PDF resolver</div>
+    <div>This is the URL {url}</div>
+  </div>
+);
+
+const ImageRenderer = ({ fileData, url }) => (
+  <MyCustomImage fileData={fileData} url={url} />
 );
 const { StorageBrowser } = createStorageBrowser({
   config: createAmplifyAuthAdapter(),
@@ -42,17 +53,12 @@ const { StorageBrowser } = createStorageBrowser({
       if (fileType == 'pdf') return undefined;
     },
     urlOptions: (fileType) => {
+      if (fileType == 'pdf') return { expiresIn: 100000 };
       return undefined;
     },
     rendererResolver: (fileType) => {
-      if (fileType == 'pdf')
-        return ({ url }) => (
-          <div>
-            <div>This is the PDF resolver</div>
-            <div>This is the URL {url}</div>
-          </div>
-        );
-
+      if (fileType == 'pdf') return PdfRenderer;
+      if (fileType === 'image') return ImageRenderer;
       return undefined;
     },
   },

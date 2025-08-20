@@ -1,4 +1,3 @@
-/* eslint-disable react/display-name */
 import React from 'react';
 import { Amplify } from 'aws-amplify';
 import { signOut } from 'aws-amplify/auth';
@@ -15,7 +14,6 @@ import {
   createTheme,
   defineComponentTheme,
 } from '@aws-amplify/ui-react/server';
-// import { StorageBrowser } from '@aws-amplify/ui-react-storage';
 
 import '@aws-amplify/ui-react-storage/styles.css';
 
@@ -26,13 +24,6 @@ import {
 } from '@aws-amplify/ui-react-storage/browser';
 
 Amplify.configure(config);
-
-const MyCustomImage = ({ fileData, url }) => (
-  <div style={{ border: '3px solid gray' }}>
-    <div>this is my custom image renderer</div>
-    <img src={url} />
-  </div>
-);
 
 const storageBrowserTheme = defineComponentTheme({
   name: 'storage-browser',
@@ -50,31 +41,20 @@ const storageBrowserTheme = defineComponentTheme({
           fontSize: tokens.fontSizes.large,
           fontWeight: tokens.fontWeights.bold,
         },
-        'file-metadata': {
-          backgroundColor: tokens.colors.blue[5],
-          border: `1px solid ${tokens.colors.blue[20]}`,
-          borderRadius: tokens.radii.medium,
-          padding: tokens.space.medium,
-        },
         'file-metadata-label': {
           color: tokens.colors.neutral[90],
           fontWeight: tokens.fontWeights.semibold,
         },
-        'file-metadata-value': {
-          color: tokens.colors.neutral[70],
-          fontStyle: 'italic',
-        },
         'text-preview': {
-          backgroundColor: tokens.colors.neutral[5],
           border: `1px solid ${tokens.colors.neutral[20]}`,
-          fontFamily: tokens.fonts.monospace,
           fontSize: tokens.fontSizes.small,
         },
-        'preview-fallback': {
-          backgroundColor: tokens.colors.red[5],
-          border: `2px dashed ${tokens.colors.red[40]}`,
+        'file-metadata': {
           borderRadius: tokens.radii.medium,
+          padding: tokens.space.medium,
         },
+        'file-metadata-value': {},
+        'preview-fallback': {},
       },
     };
   },
