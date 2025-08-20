@@ -144,9 +144,8 @@ type CustomFileType<T> = T extends (properties: FileData) => infer R
     : never
   : never;
 
-export type AllFileTypes<T> = T extends undefined
-  ? BuiltInFileType
-  : BuiltInFileType | CustomFileType<T>;
+export type AllFileTypes<T extends undefined | any = undefined> =
+  T extends undefined ? BuiltInFileType : BuiltInFileType | CustomFileType<T>;
 
 export type FileSizeResolver<T extends string = string> = (
   fileType: T

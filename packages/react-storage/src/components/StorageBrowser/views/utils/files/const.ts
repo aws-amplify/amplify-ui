@@ -5,7 +5,7 @@ import type {
 import type { StorageBrowserIconType } from '../../../components';
 
 export interface FileTypeMapping {
-  [key: string]: AllFileTypes<any>;
+  [key: string]: AllFileTypes;
 }
 
 export interface ThumbnailExtensionsMapping {

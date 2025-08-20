@@ -29,7 +29,7 @@ export const FilePreview = (
 
   const { key, fileType } = previewedFile;
 
-  function getDefaultRenderer(type?: AllFileTypes<any> | null) {
+  function getDefaultRenderer(type?: AllFileTypes | null) {
     switch (type) {
       case 'image':
         return <ImagePreview fileKey={key} url={url!} />;
