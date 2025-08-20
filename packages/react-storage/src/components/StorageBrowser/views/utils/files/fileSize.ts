@@ -6,7 +6,7 @@ import { DEFAULT_FILE_SIZE_LIMIT, DEFAULT_FILE_SIZE_LIMITS } from './const';
 
 export function resolveMaxFileSize(
   maxFileSize: number | FileSizeResolver<any> | undefined,
-  fileType: AllFileTypes<any> | null
+  fileType: AllFileTypes | null
 ): number {
   if (typeof maxFileSize === 'number') {
     return maxFileSize;

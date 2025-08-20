@@ -14,7 +14,7 @@ export function isGenericContentType(contentType?: string): boolean {
 
 export function getFileTypeFromContentType(
   contentType?: string
-): AllFileTypes<any> | null {
+): AllFileTypes | null {
   if (!contentType || typeof contentType !== 'string') {
     return null;
   }
@@ -45,7 +45,7 @@ export function getFileTypeFromContentType(
 }
 
 interface DetermineFileTypeOptions {
-  fileTypeResolver?: (p: FileData) => AllFileTypes<any> | undefined;
+  fileTypeResolver?: (p: FileData) => AllFileTypes | undefined;
   fileData: FileData;
 }
 
@@ -64,7 +64,7 @@ export function getFileExtension(key?: string): string | null {
 
 export function getFileTypeFromExtension(
   extension?: string | null
-): AllFileTypes<any> | null {
+): AllFileTypes | null {
   if (!extension || typeof extension !== 'string') {
     return null;
   }
@@ -75,7 +75,7 @@ export function getFileTypeFromExtension(
 
 export function determineFileType(
   options: DetermineFileTypeOptions
-): AllFileTypes<any> | null {
+): AllFileTypes | null {
   const { fileData, fileTypeResolver } = options;
   const { contentType, key } = fileData ?? {};
 
