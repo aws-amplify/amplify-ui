@@ -12,6 +12,30 @@ export function isGenericContentType(contentType?: string): boolean {
   return GENERIC_CONTENT_TYPES.has(normalizedContentType);
 }
 
+function isTextBasedApplicationType(contentType: string): boolean {
+  if (
+    contentType === 'application/json' ||
+    (contentType.startsWith('application/') && contentType.includes('+json'))
+  ) {
+    return true;
+  }
+
+  if (
+    contentType === 'application/xml' ||
+    (contentType.startsWith('application/') && contentType.includes('+xml'))
+  ) {
+    return true;
+  }
+
+  const textBasedTypes = [
+    'application/csv',
+    'application/yaml',
+    'application/toml',
+  ];
+
+  return textBasedTypes.includes(contentType);
+}
+
 export function getFileTypeFromContentType(
   contentType?: string
 ): AllFileTypes | null {
@@ -29,14 +53,9 @@ export function getFileTypeFromContentType(
     return 'video';
   }
 
-  if (normalizedContentType.startsWith('text/')) {
-    return 'text';
-  }
-
   if (
-    normalizedContentType === 'application/json' ||
-    normalizedContentType === 'application/xml' ||
-    normalizedContentType === 'application/csv'
+    normalizedContentType.startsWith('text/') ||
+    isTextBasedApplicationType(normalizedContentType)
   ) {
     return 'text';
   }
