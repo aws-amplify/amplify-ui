@@ -64,7 +64,7 @@ export function VideoPreview({
 
   if (error) {
     return (
-      <div className={`${STORAGE_BROWSER_BLOCK}__video-error`}>
+      <div>
         <Alert
           variation="error"
           isDismissible={false}
