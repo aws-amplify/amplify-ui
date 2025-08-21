@@ -10,7 +10,7 @@ export function TextPreview({
 }: {
   url: string;
   fileKey: string;
-}): React.JSX.Element | null {
+}): React.JSX.Element {
   const [content, setContent] = useState<string>('');
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
