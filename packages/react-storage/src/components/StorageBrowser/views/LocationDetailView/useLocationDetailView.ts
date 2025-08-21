@@ -265,11 +265,8 @@ export const useLocationDetailView = (
       handleReset();
     },
     onSearchQueryChange,
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     onRetryFilePreview,
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     onOpenFilePreview,
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     onCloseFilePreview,
     onToggleSearchSubfolders,
   };
