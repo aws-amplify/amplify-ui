@@ -19,7 +19,7 @@ export function getFileTypeFromContentType(
     return null;
   }
 
-  const normalizedContentType = contentType.toLowerCase().trim();
+  const normalizedContentType = contentType.toLowerCase().trim().split(';')[0];
 
   if (normalizedContentType.startsWith('image/')) {
     return 'image';
