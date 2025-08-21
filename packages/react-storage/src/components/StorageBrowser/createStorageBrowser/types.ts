@@ -144,9 +144,8 @@ type CustomFileType<T> = T extends (properties: FileData) => infer R
     : never
   : never;
 
-export type AllFileTypes<T> = T extends undefined
-  ? BuiltInFileType
-  : BuiltInFileType | CustomFileType<T>;
+export type AllFileTypes<T extends undefined | any = undefined> =
+  T extends undefined ? BuiltInFileType : BuiltInFileType | CustomFileType<T>;
 
 export type FileSizeResolver<T extends string = string> = (
   fileType: T
@@ -157,7 +156,7 @@ export type UrlOptionsResolver<T extends string = string> = (
 ) => FilePreviewUrlOptions | undefined;
 
 export type FilePreview<
-  TResolver extends ((properties: FileData) => any) | undefined = undefined,
+  TResolver extends ((properties: FileData) => unknown) | undefined = undefined,
 > = {
   /**
    * @description Function to determine file type from file properties
@@ -240,7 +239,7 @@ export interface FilePreviewProps {
  * @description configuration and options for `createStorageBrowser`
  */
 export interface CreateStorageBrowserInput<
-  TResolver extends ((properties: FileData) => any) | undefined = undefined,
+  TResolver extends ((properties: FileData) => unknown) | undefined = undefined,
 > {
   /**
    * @description override and default `StorageBrowser` actions and action view configs

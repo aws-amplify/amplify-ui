@@ -144,13 +144,13 @@ export const useLocationDetailView = (
   const { actionConfigs } = useActionConfigs();
 
   const {
-    retryFilePreview,
+    onRetryFilePreview,
     previewedFile,
     isLoading: filePreviewIsLoading,
     hasError: filePreviewHasError,
     hasLimitExceeded,
-    closeFilePreview,
-    openFilePreview,
+    onCloseFilePreview,
+    onOpenFilePreview,
     url,
   } = useFilePreview();
 
@@ -265,12 +265,9 @@ export const useLocationDetailView = (
       handleReset();
     },
     onSearchQueryChange,
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    retryFilePreview,
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    openFilePreview,
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    closeFilePreview,
+    onRetryFilePreview,
+    onOpenFilePreview,
+    onCloseFilePreview,
     onToggleSearchSubfolders,
   };
 };

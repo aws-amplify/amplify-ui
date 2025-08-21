@@ -13,7 +13,7 @@ export const { FilePreviewContext, useFilePreview: useFilePreviewContext } =
   });
 
 export function FilePreviewProvider<
-  TResolver extends ((properties: FileData) => string) | undefined,
+  TResolver extends ((properties: FileData) => unknown) | undefined,
 >({
   children,
   filePreview,

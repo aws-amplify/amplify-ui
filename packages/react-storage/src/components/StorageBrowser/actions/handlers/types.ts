@@ -55,7 +55,7 @@ export interface FileData {
   size: number;
   type: 'FILE';
   contentType?: string;
-  fileType?: AllFileTypes<any> | null;
+  fileType?: AllFileTypes | null;
   versionId?: string;
 }
 

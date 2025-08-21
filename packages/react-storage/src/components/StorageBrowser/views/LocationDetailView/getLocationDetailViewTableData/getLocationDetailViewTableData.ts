@@ -27,7 +27,7 @@ export const getLocationDetailViewTableData = ({
   onNavigate,
   onSelect,
   onSelectAll,
-  openFilePreview,
+  onOpenFilePreview,
 }: {
   areAllFilesSelected: boolean;
   displayText: DefaultLocationDetailViewDisplayText;
@@ -42,7 +42,7 @@ export const getLocationDetailViewTableData = ({
   onNavigate: (location: LocationData, path?: string) => void;
   onSelect: (isSelected: boolean, fileItem: FileData) => void;
   onSelectAll: () => void;
-  openFilePreview: (f: FileData) => void;
+  onOpenFilePreview: (f: FileData) => void;
 }): DataTableProps => {
   const {
     tableColumnLastModifiedHeader,
@@ -78,7 +78,7 @@ export const getLocationDetailViewTableData = ({
         };
 
         const onClick = () => {
-          openFilePreview(locationItem);
+          onOpenFilePreview(locationItem);
         };
 
         return {

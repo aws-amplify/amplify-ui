@@ -89,7 +89,7 @@ describe('TextPreview', () => {
   });
 
   it('does not fetch when url is null', () => {
-    render(<TextPreview url={null} fileKey={mockProps.fileKey} />);
+    render(<TextPreview url={null!} fileKey={mockProps.fileKey} />);
 
     expect(mockFetch).not.toHaveBeenCalled();
   });

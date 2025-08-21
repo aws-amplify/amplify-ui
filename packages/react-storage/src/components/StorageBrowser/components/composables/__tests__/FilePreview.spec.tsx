@@ -60,8 +60,8 @@ const defaultProps: FilePreviewProps = {
   previewedFile: mockFileData,
   url: 'https://example.com/test.jpg',
   hasLimitExceeded: false,
-  closeFilePreview: jest.fn(),
-  retryFilePreview: jest.fn(),
+  onCloseFilePreview: jest.fn(),
+  onRetryFilePreview: jest.fn(),
 };
 
 describe('FilePreview', () => {
@@ -88,7 +88,7 @@ describe('FilePreview', () => {
 
     const retryButton = screen.getByText('Retry');
     fireEvent.click(retryButton);
-    expect(defaultProps.retryFilePreview).toHaveBeenCalled();
+    expect(defaultProps.onRetryFilePreview).toHaveBeenCalled();
   });
 
   it('renders limit exceeded state', () => {
@@ -102,7 +102,7 @@ describe('FilePreview', () => {
     render(<FilePreview {...defaultProps} />);
 
     expect(screen.getByText('File Preview')).toBeInTheDocument();
-    expect(screen.getByRole('img')).toBeInTheDocument();
+    expect(screen.getByAltText('test.jpg')).toBeInTheDocument();
     expect(screen.getByText('File Information')).toBeInTheDocument();
   });
 
@@ -113,7 +113,9 @@ describe('FilePreview', () => {
     };
 
     render(<FilePreview {...videoProps} />);
-    expect(screen.getByLabelText('test.jpg')).toBeInTheDocument();
+    expect(
+      screen.getByLabelText('Video preview for test.jpg')
+    ).toBeInTheDocument();
   });
 
   it('renders text preview for text files', () => {
@@ -138,11 +140,11 @@ describe('FilePreview', () => {
     ).toBeInTheDocument();
   });
 
-  it('calls closeFilePreview when close button is clicked', () => {
+  it('calls onCloseFilePreview when close button is clicked', () => {
     render(<FilePreview {...defaultProps} />);
 
     const closeButton = screen.getByText('Close');
     fireEvent.click(closeButton);
-    expect(defaultProps.closeFilePreview).toHaveBeenCalled();
+    expect(defaultProps.onCloseFilePreview).toHaveBeenCalled();
   });
 });

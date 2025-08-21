@@ -44,7 +44,7 @@ const UA_CONFIG = {
  * @returns `StorageBrowser` component, `useAction` and `useView` hooks
  */
 export default function createStorageBrowser<
-  TResolver extends ((properties: FileData) => any) | undefined,
+  TResolver extends ((properties: FileData) => unknown) | undefined,
   TInput extends CreateStorageBrowserInput<TResolver>,
   TActions extends NonNullable<TInput['actions']>,
 >(

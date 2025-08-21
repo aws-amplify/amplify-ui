@@ -10,10 +10,10 @@ interface FilePreviewLayoutProps {
   children: React.ReactNode;
 }
 
-export const FilePreviewLayout = ({
+export function FilePreviewLayout({
   fileData,
   children,
-}: FilePreviewLayoutProps): React.JSX.Element => {
+}: FilePreviewLayoutProps): React.JSX.Element {
   const { LocationDetailView: displayText } = useDisplayText();
 
   return (
@@ -29,4 +29,4 @@ export const FilePreviewLayout = ({
       <FileMetadata fileData={fileData} />
     </>
   );
-};
+}

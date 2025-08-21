@@ -12,14 +12,38 @@ export function isGenericContentType(contentType?: string): boolean {
   return GENERIC_CONTENT_TYPES.has(normalizedContentType);
 }
 
+function isTextBasedApplicationType(contentType: string): boolean {
+  if (
+    contentType === 'application/json' ||
+    (contentType.startsWith('application/') && contentType.includes('+json'))
+  ) {
+    return true;
+  }
+
+  if (
+    contentType === 'application/xml' ||
+    (contentType.startsWith('application/') && contentType.includes('+xml'))
+  ) {
+    return true;
+  }
+
+  const textBasedTypes = [
+    'application/csv',
+    'application/yaml',
+    'application/toml',
+  ];
+
+  return textBasedTypes.includes(contentType);
+}
+
 export function getFileTypeFromContentType(
   contentType?: string
-): AllFileTypes<any> | null {
+): AllFileTypes | null {
   if (!contentType || typeof contentType !== 'string') {
     return null;
   }
 
-  const normalizedContentType = contentType.toLowerCase().trim();
+  const normalizedContentType = contentType.toLowerCase().trim().split(';')[0];
 
   if (normalizedContentType.startsWith('image/')) {
     return 'image';
@@ -29,14 +53,9 @@ export function getFileTypeFromContentType(
     return 'video';
   }
 
-  if (normalizedContentType.startsWith('text/')) {
-    return 'text';
-  }
-
   if (
-    normalizedContentType === 'application/json' ||
-    normalizedContentType === 'application/xml' ||
-    normalizedContentType === 'application/csv'
+    normalizedContentType.startsWith('text/') ||
+    isTextBasedApplicationType(normalizedContentType)
   ) {
     return 'text';
   }
@@ -45,7 +64,7 @@ export function getFileTypeFromContentType(
 }
 
 interface DetermineFileTypeOptions {
-  fileTypeResolver?: (p: FileData) => AllFileTypes<any> | undefined;
+  fileTypeResolver?: (p: FileData) => AllFileTypes | undefined;
   fileData: FileData;
 }
 
@@ -64,7 +83,7 @@ export function getFileExtension(key?: string): string | null {
 
 export function getFileTypeFromExtension(
   extension?: string | null
-): AllFileTypes<any> | null {
+): AllFileTypes | null {
   if (!extension || typeof extension !== 'string') {
     return null;
   }
@@ -75,7 +94,7 @@ export function getFileTypeFromExtension(
 
 export function determineFileType(
   options: DetermineFileTypeOptions
-): AllFileTypes<any> | null {
+): AllFileTypes | null {
   const { fileData, fileTypeResolver } = options;
   const { contentType, key } = fileData ?? {};
 

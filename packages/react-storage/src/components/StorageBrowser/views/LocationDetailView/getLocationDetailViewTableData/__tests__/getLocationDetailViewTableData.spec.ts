@@ -106,7 +106,7 @@ describe('getLocationDetailViewTableData', () => {
         onNavigate: mockOnNavigate,
         onSelect: mockOnSelect,
         onSelectAll: mockOnSelectAll,
-        openFilePreview: jest.fn(),
+        onOpenFilePreview: jest.fn(),
       })
     ).toStrictEqual(
       expect.objectContaining({
@@ -142,7 +142,7 @@ describe('getLocationDetailViewTableData', () => {
       onNavigate: mockOnNavigate,
       onSelect: mockOnSelect,
       onSelectAll: mockOnSelectAll,
-      openFilePreview: jest.fn(),
+      onOpenFilePreview: jest.fn(),
     });
 
     const [firstHeader] = tableData.headers;
@@ -166,7 +166,7 @@ describe('getLocationDetailViewTableData', () => {
       onNavigate: mockOnNavigate,
       onSelect: mockOnSelect,
       onSelectAll: mockOnSelectAll,
-      openFilePreview: jest.fn(),
+      onOpenFilePreview: jest.fn(),
     });
 
     const [checkbox] = tableData.rows[0].content;
@@ -190,7 +190,7 @@ describe('getLocationDetailViewTableData', () => {
       onNavigate: mockOnNavigate,
       onSelect: mockOnSelect,
       onSelectAll: mockOnSelectAll,
-      openFilePreview: jest.fn(),
+      onOpenFilePreview: jest.fn(),
     });
 
     const download = tableData.rows[0].content[5];
@@ -214,7 +214,7 @@ describe('getLocationDetailViewTableData', () => {
       onNavigate: mockOnNavigate,
       onSelect: mockOnSelect,
       onSelectAll: mockOnSelectAll,
-      openFilePreview: jest.fn(),
+      onOpenFilePreview: jest.fn(),
     });
 
     const button = tableData.rows[0].content[1];
