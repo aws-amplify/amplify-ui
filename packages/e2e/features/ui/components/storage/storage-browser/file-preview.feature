@@ -35,7 +35,7 @@ Feature: File Preview with Storage Browser
     Then I see "File Preview"
     Then I see "File Information"
     Then I see "001_dont_delete_video_file_preview_end_to_end_testing.mp4"
-    Then I see video with label "public/001_dont_delete_video_file_preview_end_to_end_testing.mp4"
+    Then I see video with label "Video preview for public/001_dont_delete_video_file_preview_end_to_end_testing.mp4"
     When I click the "Close" button
     Then I do not see "File Preview"
 
@@ -45,7 +45,7 @@ Feature: File Preview with Storage Browser
     Then I click the button with label "001_dont_delete_un_supported_file_preview_end_to_end_testing.pdf file"
     Then I see "File Preview"
     Then I see "File Information"
-    Then I see "001_dont_delete_un_supported_file_preview_end_txwo_end_testing.pdf"
+    Then I see "001_dont_delete_un_supported_file_preview_end_to_end_testing.pdf"
     Then I see "This file type is not supported for preview"    
     Then I click the download button with label "Download public/001_dont_delete_un_supported_file_preview_end_to_end_testing.pdf file" and see the file downloaded
     When I click the "Close" button
