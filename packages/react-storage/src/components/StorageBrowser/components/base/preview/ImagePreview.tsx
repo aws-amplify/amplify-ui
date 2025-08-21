@@ -54,22 +54,21 @@ export function ImagePreview({
   }
 
   return (
-    <>
+    <div className={`${STORAGE_BROWSER_BLOCK}__image-container`}>
       {isLoading && <PreviewPlaceholder />}
-      <img
-        key={imageKey}
-        className={classNames(
-          ComponentClassName.StorageImage,
-          `${STORAGE_BROWSER_BLOCK}__image-preview`
-        )}
-        src={url!}
-        alt={fileKey}
-        onError={handleError}
-        onLoad={handleLoad}
-        style={{
-          display: isLoading ? 'none' : 'block',
-        }}
-      />
-    </>
+      <div
+        className={`${STORAGE_BROWSER_BLOCK}__image-preview`}
+        style={{ display: isLoading ? 'none' : 'flex' }}
+      >
+        <img
+          key={imageKey}
+          className={classNames(ComponentClassName.StorageImage)}
+          src={url!}
+          alt={fileKey}
+          onError={handleError}
+          onLoad={handleLoad}
+        />
+      </div>
+    </div>
   );
 }

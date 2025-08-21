@@ -46,12 +46,12 @@ describe('VideoPreview', () => {
   });
 
   it('hides video during loading', () => {
-    render(<VideoPreview {...mockProps} />);
+    const { container } = render(<VideoPreview {...mockProps} />);
 
-    const video = screen.getByLabelText(
-      `Video preview for ${mockProps.fileKey}`
+    const videoContainer = container.querySelector(
+      '.amplify-storage-browser__video-preview'
     );
-    expect(video).toHaveStyle({ display: 'none' });
+    expect(videoContainer).toHaveStyle({ display: 'none' });
   });
 
   it('shows video and hides placeholder when loaded', async () => {
@@ -64,7 +64,10 @@ describe('VideoPreview', () => {
     fireEvent.loadedData(video);
 
     await waitFor(() => {
-      expect(video).toHaveStyle({ display: 'block' });
+      const videoContainer = container.querySelector(
+        '.amplify-storage-browser__video-preview'
+      );
+      expect(videoContainer).toHaveStyle({ display: 'flex' });
       expect(
         container.querySelector('.amplify-storage-browser__preview-placeholder')
       ).not.toBeInTheDocument();

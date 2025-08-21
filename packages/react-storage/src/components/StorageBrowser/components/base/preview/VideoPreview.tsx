@@ -85,22 +85,25 @@ export function VideoPreview({
   }
 
   return (
-    <>
+    <div className={`${STORAGE_BROWSER_BLOCK}__video-container`}>
       {isLoading && <PreviewPlaceholder />}
-      <video
-        key={videoKey}
+      <div
         className={`${STORAGE_BROWSER_BLOCK}__video-preview`}
-        controls
-        preload="metadata"
-        onError={handleError}
-        onLoadStart={handleLoadStart}
-        onLoadedData={handleLoadedData}
-        aria-label={`Video preview for ${fileKey}`}
-        style={{ display: isLoading ? 'none' : 'block' }}
+        style={{ display: isLoading ? 'none' : 'flex' }}
       >
-        <source src={url} />
-        Your browser does not support the video tag.
-      </video>
-    </>
+        <video
+          key={videoKey}
+          controls
+          preload="metadata"
+          onError={handleError}
+          onLoadStart={handleLoadStart}
+          onLoadedData={handleLoadedData}
+          aria-label={`Video preview for ${fileKey}`}
+        >
+          <source src={url} />
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </div>
   );
 }
