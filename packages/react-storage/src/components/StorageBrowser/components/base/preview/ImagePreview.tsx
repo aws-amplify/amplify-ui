@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import { classNames, ComponentClassName } from '@aws-amplify/ui';
-import { Image } from '@aws-amplify/ui-react';
+import { Alert, Button } from '@aws-amplify/ui-react';
 import { STORAGE_BROWSER_BLOCK } from '../constants';
+import { PreviewPlaceholder } from './PreviewPlaceholder';
 
 export function ImagePreview({
   url,
@@ -10,17 +11,65 @@ export function ImagePreview({
   url: string | null;
   fileKey: string;
 }): React.JSX.Element | null {
+  const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [imageKey, setImageKey] = useState(0);
+
+  const handleError = useCallback(() => {
+    setError('Failed to load image');
+    setIsLoading(false);
+  }, []);
+
+  const handleLoad = useCallback(() => {
+    setIsLoading(false);
+    setError(null);
+  }, []);
+
+  const handleRetry = useCallback(() => {
+    setError(null);
+    setIsLoading(true);
+    setImageKey((prev) => prev + 1);
+  }, []);
+
+  if (error) {
+    return (
+      <div>
+        <Alert
+          variation="error"
+          isDismissible={false}
+          heading="Image Loading Error"
+        >
+          {error}
+        </Alert>
+        <Button
+          variation="primary"
+          size="small"
+          onClick={handleRetry}
+          marginTop="15px"
+        >
+          Retry
+        </Button>
+      </div>
+    );
+  }
+
   return (
-    <Image
-      className={classNames(
-        ComponentClassName.StorageImage,
-        `${STORAGE_BROWSER_BLOCK}__image-preview`
-      )}
-      src={url!}
-      alt={fileKey}
-      style={{
-        height: '400px',
-      }}
-    />
+    <>
+      {isLoading && <PreviewPlaceholder />}
+      <img
+        key={imageKey}
+        className={classNames(
+          ComponentClassName.StorageImage,
+          `${STORAGE_BROWSER_BLOCK}__image-preview`
+        )}
+        src={url!}
+        alt={fileKey}
+        onError={handleError}
+        onLoad={handleLoad}
+        style={{
+          display: isLoading ? 'none' : 'block',
+        }}
+      />
+    </>
   );
 }
