@@ -11,7 +11,7 @@ interface VideoPreviewProps {
 export function VideoPreview({
   url,
   fileKey,
-}: VideoPreviewProps): React.JSX.Element | null {
+}: VideoPreviewProps): React.JSX.Element {
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [videoKey, setVideoKey] = useState(0);
