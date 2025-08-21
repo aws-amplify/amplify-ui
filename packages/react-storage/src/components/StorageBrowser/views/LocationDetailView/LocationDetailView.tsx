@@ -34,10 +34,7 @@ export const LocationDetailView: LocationDetailViewType = ({
 }) => {
   const state = useLocationDetailView(props);
   const { hasError } = state;
-  const shouldRenderObjectDetails = Boolean(
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    state?.filePreviewState?.previewedFile
-  );
+  const shouldRenderObjectDetails = !!state?.filePreviewState?.previewedFile;
 
   return (
     <ViewElement
