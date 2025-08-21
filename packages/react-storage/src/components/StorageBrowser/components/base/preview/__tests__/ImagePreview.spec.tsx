@@ -21,11 +21,13 @@ describe('ImagePreview', () => {
   it('shows loading placeholder initially and hides image', () => {
     const { container } = render(<ImagePreview {...mockProps} />);
 
-    const image = screen.getByRole('img', { hidden: true });
+    const imageContainer = container.querySelector(
+      '.amplify-storage-browser__image-preview'
+    );
     expect(
       container.querySelector('.amplify-storage-browser__preview-placeholder')
     ).toBeInTheDocument();
-    expect(image).toHaveStyle({ display: 'none' });
+    expect(imageContainer).toHaveStyle({ display: 'none' });
   });
 
   it('shows image and hides placeholder when loaded', async () => {
@@ -35,7 +37,10 @@ describe('ImagePreview', () => {
     fireEvent.load(image);
 
     await waitFor(() => {
-      expect(image).toHaveStyle({ display: 'block' });
+      const imageContainer = container.querySelector(
+        '.amplify-storage-browser__image-preview'
+      );
+      expect(imageContainer).toHaveStyle({ display: 'flex' });
       expect(
         container.querySelector('.amplify-storage-browser__preview-placeholder')
       ).not.toBeInTheDocument();
