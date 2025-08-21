@@ -113,7 +113,9 @@ describe('FilePreview', () => {
     };
 
     render(<FilePreview {...videoProps} />);
-    expect(screen.getByLabelText('test.jpg')).toBeInTheDocument();
+    expect(
+      screen.getByLabelText('Video preview for test.jpg')
+    ).toBeInTheDocument();
   });
 
   it('renders text preview for text files', () => {
