@@ -5,14 +5,14 @@ import type {
 import { DEFAULT_FILE_SIZE_LIMIT, DEFAULT_FILE_SIZE_LIMITS } from './const';
 
 export function resolveMaxFileSize(
-  maxFileSize: number | FileSizeResolver<any> | undefined,
+  maxFileSize: number | FileSizeResolver | undefined,
   fileType: AllFileTypes | null
 ): number {
   if (typeof maxFileSize === 'number') {
     return maxFileSize;
   }
 
-  if (typeof maxFileSize === 'function') {
+  if (typeof maxFileSize === 'function' && fileType) {
     try {
       const result = maxFileSize(fileType);
       if (typeof result === 'number') {
