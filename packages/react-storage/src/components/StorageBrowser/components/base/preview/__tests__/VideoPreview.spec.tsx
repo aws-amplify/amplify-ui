@@ -14,6 +14,26 @@ global.MediaError = {
   MEDIA_ERR_SRC_NOT_SUPPORTED,
 } as any;
 
+jest.mock('../../../../useAction', () => ({
+  useAction: () => [null, jest.fn()],
+}));
+
+jest.mock('../../../../displayText', () => ({
+  useDisplayText: () => ({
+    LocationDetailView: {
+      filePreview: {
+        errorDescription:
+          'We encountered an issue while loading the file preview.',
+        unsupportedFileDescription:
+          'This file type is not supported for preview.',
+        filePrefix: 'File: ',
+        retryButtonLabel: 'Retry',
+        downloadButtonLabel: 'Download',
+      },
+    },
+  }),
+}));
+
 describe('VideoPreview', () => {
   const mockProps = {
     url: 'https://example.com/video.mp4',
@@ -89,7 +109,6 @@ describe('VideoPreview', () => {
     fireEvent.error(video);
 
     await waitFor(() => {
-      expect(screen.getByText('Video Loading Error')).toBeInTheDocument();
       expect(
         screen.getByText('Video format is not supported')
       ).toBeInTheDocument();

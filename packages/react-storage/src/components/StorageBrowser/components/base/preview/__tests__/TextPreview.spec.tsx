@@ -5,10 +5,21 @@ import { TextPreview } from '../TextPreview';
 const mockFetch = jest.fn();
 global.fetch = mockFetch;
 
+jest.mock('../../../../useAction', () => ({
+  useAction: () => [null, jest.fn()],
+}));
+
 jest.mock('../../../../displayText', () => ({
   useDisplayText: () => ({
     LocationDetailView: {
       filePreview: {
+        errorDescription:
+          'We encountered an issue while loading the file preview.',
+        unsupportedFileDescription:
+          'This file type is not supported for preview.',
+        filePrefix: 'File: ',
+        retryButtonLabel: 'Retry',
+        downloadButtonLabel: 'Download',
         loadingTextContent: 'Loading file content...',
         getTextErrorMessage: (error: string) => `Error loading file: ${error}`,
         emptyFileMessage: 'File is empty',
@@ -54,9 +65,7 @@ describe('TextPreview', () => {
     render(<TextPreview {...mockProps} />);
 
     await waitFor(() => {
-      expect(
-        screen.getByText('Error loading file: Network error')
-      ).toBeInTheDocument();
+      expect(screen.getByText('Network error')).toBeInTheDocument();
     });
   });
 
@@ -70,7 +79,7 @@ describe('TextPreview', () => {
 
     await waitFor(() => {
       expect(
-        screen.getByText('Error loading file: Failed to fetch file: Not Found')
+        screen.getByText('Failed to fetch file: Not Found')
       ).toBeInTheDocument();
     });
   });
@@ -102,9 +111,7 @@ describe('TextPreview', () => {
     render(<TextPreview {...mockProps} />);
 
     await waitFor(() => {
-      expect(
-        screen.getByText('Error loading file: Network error')
-      ).toBeInTheDocument();
+      expect(screen.getByText('Network error')).toBeInTheDocument();
     });
 
     consoleSpy.mockRestore();
