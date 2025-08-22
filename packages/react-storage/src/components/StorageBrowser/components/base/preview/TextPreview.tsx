@@ -16,6 +16,9 @@ export function TextPreview({
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const { LocationDetailView: displayText } = useDisplayText();
+  const { filePreview } = displayText;
+  const { emptyFileMessage, loadingTextContent, textLoadErrorDescription } =
+    filePreview;
 
   async function loadTextFileContent() {
     try {
@@ -57,9 +60,7 @@ export function TextPreview({
           `${STORAGE_BROWSER_BLOCK}__text-preview--loading`
         )}
       >
-        <TextElement>
-          {displayText?.filePreview?.loadingTextContent}
-        </TextElement>
+        <TextElement>{loadingTextContent}</TextElement>
       </ViewElement>
     );
   }
@@ -69,7 +70,7 @@ export function TextPreview({
       <PreviewFallback
         fileKey={fileKey}
         message={error}
-        description="The text file could not be loaded. This may be due to network issues."
+        description={textLoadErrorDescription}
         isError
         onRetry={handleRetry}
         showRetry
@@ -79,7 +80,7 @@ export function TextPreview({
 
   return (
     <ViewElement className={`${STORAGE_BROWSER_BLOCK}__text-preview`}>
-      {content || displayText?.filePreview?.emptyFileMessage}
+      {content || emptyFileMessage}
     </ViewElement>
   );
 }

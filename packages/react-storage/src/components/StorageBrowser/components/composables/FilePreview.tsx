@@ -19,31 +19,43 @@ export interface FilePreviewProps extends FilePreviewState {
 
 export function FilePreview(props: FilePreviewProps): React.JSX.Element | null {
   const { onCloseFilePreview, hasLimitExceeded, onRetryFilePreview } = props;
-  const { isLoading, hasError, previewedFile, url } = props;
+  const { isLoading, hasError, previewedFile, url = ' ' } = props;
   const { rendererResolver } = useFilePreviewContext() ?? {};
   const { LocationDetailView: displayText } = useDisplayText();
+  const { filePreview } = displayText;
+  const {
+    closeButtonLabel,
+    unsupportedFileDescription,
+    errorMessage,
+    sizeLimitMessage,
+    generalPreviewErrorDescription,
+    fileSizeLimitDescription,
+    unsupportedFileMessage,
+  } = filePreview;
 
   if (!previewedFile) return null;
 
   const { key, fileType } = previewedFile;
 
   function getDefaultRenderer(type?: AllFileTypes | null) {
+    const fileUrl = url ?? '';
+
     switch (type) {
       case 'image':
-        return <ImagePreview fileKey={key} url={url!} />;
+        return <ImagePreview fileKey={key} url={fileUrl} />;
 
       case 'video':
-        return <VideoPreview fileKey={key} url={url!} />;
+        return <VideoPreview fileKey={key} url={fileUrl} />;
 
       case 'text':
-        return <TextPreview fileKey={key} url={url!} />;
+        return <TextPreview fileKey={key} url={fileUrl} />;
 
       default:
         return (
           <PreviewFallback
             fileKey={key}
-            message="File preview not supported for this file type"
-            description={displayText?.filePreview?.unsupportedFileDescription}
+            message={unsupportedFileMessage}
+            description={unsupportedFileDescription}
           />
         );
     }
@@ -64,7 +76,7 @@ export function FilePreview(props: FilePreviewProps): React.JSX.Element | null {
       <ViewElement className={`${STORAGE_BROWSER_BLOCK}__file-preview-header`}>
         <ButtonElement variant="exit" onClick={onCloseFilePreview}>
           <IconElement variant="dismiss" />
-          {displayText?.filePreview?.closeButtonLabel}
+          {closeButtonLabel}
         </ButtonElement>
       </ViewElement>
 
@@ -77,8 +89,8 @@ export function FilePreview(props: FilePreviewProps): React.JSX.Element | null {
           <FilePreviewLayout fileData={previewedFile}>
             <PreviewFallback
               fileKey={key}
-              message={displayText?.filePreview?.errorMessage}
-              description="An unexpected error occurred while loading the file preview. Please try again or download the file to view it."
+              message={errorMessage}
+              description={generalPreviewErrorDescription}
               isError={hasError}
               onRetry={onRetryFilePreview}
               showRetry={hasError}
@@ -88,8 +100,8 @@ export function FilePreview(props: FilePreviewProps): React.JSX.Element | null {
           <FilePreviewLayout fileData={previewedFile}>
             <PreviewFallback
               fileKey={key}
-              message={displayText?.filePreview?.sizeLimitMessage}
-              description="This file is too large to preview in the browser. You can download the file to view it with an appropriate application."
+              message={sizeLimitMessage}
+              description={fileSizeLimitDescription}
             />
           </FilePreviewLayout>
         ) : (

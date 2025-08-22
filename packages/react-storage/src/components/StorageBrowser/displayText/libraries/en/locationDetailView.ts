@@ -12,6 +12,7 @@ const DEFAULT_FILE_PREVIEW_DISPLAY_TEXT: DefaultFilePreviewDisplayText = {
   fileInformationTitle: 'File Information',
   errorMessage: 'Something went wrong',
   sizeLimitMessage: 'File preview not possible due to preview size limit',
+  unsupportedFileMessage: 'File preview not supported for this file type',
   keyLabel: 'Key',
   sizeLabel: 'Size',
   versionIdLabel: 'Version Id',
@@ -20,7 +21,18 @@ const DEFAULT_FILE_PREVIEW_DISPLAY_TEXT: DefaultFilePreviewDisplayText = {
   typeLabel: 'Type',
   unknownValue: 'Unknown',
   errorDescription: 'We encountered an issue while loading the file preview.',
-  unsupportedFileDescription: 'This file type is not supported for preview.',
+  unsupportedFileDescription:
+    'This file format is not supported for preview. You can download the file to view it with an appropriate application.',
+  imageLoadErrorDescription:
+    'The image could not be loaded. This may be due to network issues, file corruption, or an unsupported image format.',
+  videoLoadErrorDescription:
+    'The video could not be played. This may be due to network issues, file corruption, or an unsupported video format or codec.',
+  textLoadErrorDescription:
+    'The text file could not be loaded. This may be due to network issues, file access permissions, or the file being too large to display.',
+  generalPreviewErrorDescription:
+    'An unexpected error occurred while loading the file preview. Please try again or download the file to view it with an appropriate application.',
+  fileSizeLimitDescription:
+    'This file is too large to preview in the browser. You can download the file to view it with an appropriate application.',
   filePrefix: 'File: ',
   retryButtonLabel: 'Retry',
   downloadButtonLabel: 'Download',

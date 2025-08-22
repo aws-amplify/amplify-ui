@@ -4,17 +4,21 @@ import { STORAGE_BROWSER_BLOCK } from '../constants';
 import { PreviewPlaceholder } from './PreviewPlaceholder';
 import { PreviewFallback } from './PreviewFallback';
 import { getFileName } from '../../../views/utils/files/fileName';
+import { useDisplayText } from '../../../displayText';
 
 export function ImagePreview({
   url,
   fileKey,
 }: {
-  url: string | null;
+  url: string;
   fileKey: string;
 }): React.JSX.Element | null {
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [imageKey, setImageKey] = useState(0);
+  const { LocationDetailView: displayText } = useDisplayText();
+  const { filePreview } = displayText;
+  const { imageLoadErrorDescription } = filePreview;
 
   const handleError = useCallback(() => {
     setError('Failed to load image');
@@ -37,7 +41,7 @@ export function ImagePreview({
       <PreviewFallback
         fileKey={fileKey}
         message={error}
-        description="The image could not be loaded. This may be due to network issues, file corruption, or an unsupported image format."
+        description={imageLoadErrorDescription}
         isError
         onRetry={handleRetry}
         showRetry
@@ -55,7 +59,7 @@ export function ImagePreview({
         <img
           key={imageKey}
           className={classNames(ComponentClassName.StorageImage)}
-          src={url ?? ''}
+          src={url}
           alt={`Image preview for ${getFileName(fileKey)}`}
           onError={handleError}
           onLoad={handleLoad}

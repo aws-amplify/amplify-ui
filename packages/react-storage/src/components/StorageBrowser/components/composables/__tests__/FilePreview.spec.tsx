@@ -138,7 +138,7 @@ describe('FilePreview', () => {
 
     render(<FilePreview {...unsupportedProps} />);
     expect(
-      screen.getByText('File preview not supported for this file type')
+      screen.getByText('This file type is not supported for preview.')
     ).toBeInTheDocument();
   });
 

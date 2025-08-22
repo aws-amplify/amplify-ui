@@ -3,6 +3,7 @@ import { STORAGE_BROWSER_BLOCK } from '../constants';
 import { PreviewPlaceholder } from './PreviewPlaceholder';
 import { PreviewFallback } from './PreviewFallback';
 import { getFileName } from '../../../views/utils/files/fileName';
+import { useDisplayText } from '../../../displayText';
 
 interface VideoPreviewProps {
   url: string;
@@ -16,6 +17,9 @@ export function VideoPreview({
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [videoKey, setVideoKey] = useState(0);
+  const { LocationDetailView: displayText } = useDisplayText();
+  const { filePreview } = displayText;
+  const { videoLoadErrorDescription } = filePreview;
 
   const handleError = useCallback(
     (event: React.SyntheticEvent<HTMLVideoElement>) => {
@@ -68,7 +72,7 @@ export function VideoPreview({
       <PreviewFallback
         fileKey={fileKey}
         message={error}
-        description="The video could not be played. This may be due to network issues, file corruption, or an unsupported video format or codec."
+        description={videoLoadErrorDescription}
         isError
         onRetry={handleRetry}
         showRetry
