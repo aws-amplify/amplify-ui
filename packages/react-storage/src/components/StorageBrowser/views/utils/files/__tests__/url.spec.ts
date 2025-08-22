@@ -1,4 +1,4 @@
-import { resolveUrlOptions } from '../urt';
+import { resolveUrlOptions } from '../url';
 
 describe('resolveUrlOptions', () => {
   it('returns default options when no options provided', () => {
