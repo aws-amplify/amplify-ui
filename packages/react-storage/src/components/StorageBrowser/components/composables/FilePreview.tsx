@@ -43,6 +43,7 @@ export function FilePreview(props: FilePreviewProps): React.JSX.Element | null {
           <PreviewFallback
             fileKey={key}
             message="File preview not supported for this file type"
+            description={displayText?.filePreview?.unsupportedFileDescription}
           />
         );
     }
@@ -77,6 +78,7 @@ export function FilePreview(props: FilePreviewProps): React.JSX.Element | null {
             <PreviewFallback
               fileKey={key}
               message={displayText?.filePreview?.errorMessage}
+              description="An unexpected error occurred while loading the file preview. Please try again or download the file to view it."
               isError={hasError}
               onRetry={onRetryFilePreview}
               showRetry={hasError}
@@ -87,6 +89,7 @@ export function FilePreview(props: FilePreviewProps): React.JSX.Element | null {
             <PreviewFallback
               fileKey={key}
               message={displayText?.filePreview?.sizeLimitMessage}
+              description="This file is too large to preview in the browser. You can download the file to view it with an appropriate application."
             />
           </FilePreviewLayout>
         ) : (

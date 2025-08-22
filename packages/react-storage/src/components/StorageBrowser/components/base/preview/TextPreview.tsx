@@ -69,6 +69,7 @@ export function TextPreview({
       <PreviewFallback
         fileKey={fileKey}
         message={error}
+        description="The text file could not be loaded. This may be due to network issues."
         isError
         onRetry={handleRetry}
         showRetry
