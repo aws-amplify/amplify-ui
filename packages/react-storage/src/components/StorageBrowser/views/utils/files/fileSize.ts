@@ -23,5 +23,7 @@ export function resolveMaxFileSize(
     }
   }
 
-  return DEFAULT_FILE_SIZE_LIMITS[fileType!] || DEFAULT_FILE_SIZE_LIMIT;
+  return fileType
+    ? DEFAULT_FILE_SIZE_LIMITS[fileType] || DEFAULT_FILE_SIZE_LIMIT
+    : DEFAULT_FILE_SIZE_LIMIT;
 }
