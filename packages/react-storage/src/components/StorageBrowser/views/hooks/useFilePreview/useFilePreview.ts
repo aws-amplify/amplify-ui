@@ -3,7 +3,7 @@ import type { FileData } from '../../../actions';
 import { getProperties, getUrl } from 'aws-amplify/storage';
 import { determineFileType } from '../../utils/files/fileType';
 import { useFilePreviewContext } from '../../../filePreview/context';
-import { resolveUrlOptions } from '../../utils/files/urt';
+import { resolveUrlOptions } from '../../utils/files/url';
 import { resolveMaxFileSize } from '../../utils/files/fileSize';
 import type { UseFilePreviewReturn } from './types';
 import { initialState, filePreviewReducer } from './filePreviewReducer';
