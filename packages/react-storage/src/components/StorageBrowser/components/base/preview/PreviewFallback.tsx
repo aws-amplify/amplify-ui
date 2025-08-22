@@ -29,6 +29,14 @@ export function PreviewFallback({
 }: PreviewFallbackProps): React.JSX.Element {
   const [, handleDownload] = useAction('download');
   const { LocationDetailView: displayText } = useDisplayText();
+  const { filePreview: filePreviewDisplayText } = displayText;
+  const {
+    errorDescription,
+    unsupportedFileDescription,
+    filePrefix,
+    retryButtonLabel,
+    downloadButtonLabel,
+  } = filePreviewDisplayText;
 
   const handleDownloadClick = () => {
     handleDownload({
@@ -68,14 +76,12 @@ export function PreviewFallback({
           className={`${STORAGE_BROWSER_BLOCK}__preview-fallback-description`}
         >
           {description ??
-            (isError
-              ? displayText?.filePreview?.errorDescription
-              : displayText?.filePreview?.unsupportedFileDescription)}
+            (isError ? errorDescription : unsupportedFileDescription)}
         </TextElement>
         <TextElement
           className={`${STORAGE_BROWSER_BLOCK}__preview-fallback-filename`}
         >
-          {displayText.filePreview.filePrefix}
+          {filePrefix}
           {getFileName(fileKey)}
         </TextElement>
       </ViewElement>
@@ -86,13 +92,13 @@ export function PreviewFallback({
         >
           {showRetry && onRetry && (
             <Button size="small" variation="primary" onClick={onRetry}>
-              {displayText?.filePreview?.retryButtonLabel}
+              {retryButtonLabel}
             </Button>
           )}
 
           {showDownload && (
             <Button size="small" onClick={handleDownloadClick}>
-              {displayText?.filePreview?.downloadButtonLabel}
+              {downloadButtonLabel}
             </Button>
           )}
         </ViewElement>
