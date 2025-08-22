@@ -25,11 +25,3 @@ export function resolveMaxFileSize(
 
   return DEFAULT_FILE_SIZE_LIMITS[fileType!] || DEFAULT_FILE_SIZE_LIMIT;
 }
-
-export function formatFileSize(bytes?: number): string {
-  if (!bytes) return '0 bytes';
-
-  const sizes = ['bytes', 'KB', 'MB', 'GB'];
-  const i = Math.floor(Math.log(bytes) / Math.log(1024));
-  return `${(bytes / Math.pow(1024, i)).toFixed(1)} ${sizes[i]}`;
-}
