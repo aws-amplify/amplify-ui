@@ -11,6 +11,7 @@ import type { AllFileTypes } from '../../createStorageBrowser/types';
 import { STORAGE_BROWSER_BLOCK } from '../base';
 import { useDisplayText } from '../../displayText';
 import { FilePreviewLayout } from '../base/preview/FilePreviewLayout';
+import { exhaustiveCheck } from '../../views/utils/exhaustiveCheck';
 
 export interface FilePreviewProps extends FilePreviewState {
   onCloseFilePreview?: () => void;
@@ -50,7 +51,8 @@ export function FilePreview(props: FilePreviewProps): React.JSX.Element | null {
       case 'text':
         return <TextPreview fileKey={key} url={fileUrl} />;
 
-      default:
+      case null:
+      case undefined:
         return (
           <PreviewFallback
             fileKey={key}
@@ -58,6 +60,9 @@ export function FilePreview(props: FilePreviewProps): React.JSX.Element | null {
             description={unsupportedFileDescription}
           />
         );
+
+      default:
+        return exhaustiveCheck(type);
     }
   }
 
