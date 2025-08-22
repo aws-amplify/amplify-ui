@@ -16,8 +16,8 @@ export function useFilePreview(): UseFilePreviewReturn {
     filePreviewContext ?? {};
 
   const prepareFileForPreview = useCallback(
-    async (fileData: FileData) => {
-      if (!fileData?.key) {
+    async (fileData?: FileData | null) => {
+      if (!fileData || !fileData?.key) {
         return;
       }
 
@@ -71,7 +71,7 @@ export function useFilePreview(): UseFilePreviewReturn {
   );
 
   const onRetryFilePreview = useCallback(() => {
-    prepareFileForPreview(state.previewedFile!);
+    prepareFileForPreview(state.previewedFile);
   }, [prepareFileForPreview, state.previewedFile]);
 
   const onOpenFilePreview = useCallback(
