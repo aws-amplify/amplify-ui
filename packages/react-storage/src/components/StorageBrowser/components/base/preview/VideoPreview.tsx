@@ -2,6 +2,7 @@ import React, { useState, useCallback } from 'react';
 import { STORAGE_BROWSER_BLOCK } from '../constants';
 import { PreviewPlaceholder } from './PreviewPlaceholder';
 import { PreviewFallback } from './PreviewFallback';
+import { getFileName } from '../../../views/utils/files/fileName';
 
 interface VideoPreviewProps {
   url: string;
@@ -89,7 +90,7 @@ export function VideoPreview({
           onError={handleError}
           onLoadStart={handleLoadStart}
           onLoadedData={handleLoadedData}
-          aria-label={`Video preview for ${fileKey}`}
+          aria-label={`Video preview for ${getFileName(fileKey)}`}
         >
           <source src={url} />
           Your browser does not support the video tag.

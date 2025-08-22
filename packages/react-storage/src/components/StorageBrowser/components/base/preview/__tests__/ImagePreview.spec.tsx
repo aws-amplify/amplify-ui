@@ -34,7 +34,10 @@ describe('ImagePreview', () => {
 
     const image = screen.getByRole('img', { hidden: true });
     expect(image).toHaveAttribute('src', mockProps.url);
-    expect(image).toHaveAttribute('alt', mockProps.fileKey);
+    expect(image).toHaveAttribute(
+      'alt',
+      `Image preview for ${mockProps.fileKey}`
+    );
     expect(image).toHaveClass(ComponentClassName.StorageImage);
   });
 

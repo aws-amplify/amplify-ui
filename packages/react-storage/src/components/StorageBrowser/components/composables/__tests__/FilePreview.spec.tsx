@@ -102,7 +102,9 @@ describe('FilePreview', () => {
     render(<FilePreview {...defaultProps} />);
 
     expect(screen.getByText('File Preview')).toBeInTheDocument();
-    expect(screen.getByAltText('test.jpg')).toBeInTheDocument();
+    expect(
+      screen.getByAltText('Image preview for test.jpg')
+    ).toBeInTheDocument();
     expect(screen.getByText('File Information')).toBeInTheDocument();
   });
 
