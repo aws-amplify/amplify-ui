@@ -16,9 +16,13 @@ export function TextPreview({
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const { LocationDetailView: displayText } = useDisplayText();
-  const { filePreview } = displayText;
-  const { emptyFileMessage, loadingTextContent, textLoadErrorDescription } =
-    filePreview;
+  const {
+    filePreview: {
+      emptyFileMessage,
+      loadingTextContent,
+      textLoadErrorDescription,
+    },
+  } = displayText;
 
   async function loadTextFileContent() {
     try {

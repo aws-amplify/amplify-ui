@@ -55,7 +55,7 @@ describe('FileMetadata', () => {
     render(<FileMetadata fileData={mockFileData} />);
 
     expect(screen.getByText('test-folder/test-file.jpg')).toBeInTheDocument();
-    expect(screen.getByText('1.0 KB')).toBeInTheDocument();
+    expect(screen.getByText('1.0 kB')).toBeInTheDocument();
     expect(screen.getByText('test-version')).toBeInTheDocument();
     expect(screen.getByText('test-etag')).toBeInTheDocument();
   });

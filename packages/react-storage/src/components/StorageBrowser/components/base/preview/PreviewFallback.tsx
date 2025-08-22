@@ -29,14 +29,15 @@ export function PreviewFallback({
 }: PreviewFallbackProps): React.JSX.Element {
   const [, handleDownload] = useAction('download');
   const { LocationDetailView: displayText } = useDisplayText();
-  const { filePreview: filePreviewDisplayText } = displayText;
   const {
-    errorDescription,
-    unsupportedFileDescription,
-    filePrefix,
-    retryButtonLabel,
-    downloadButtonLabel,
-  } = filePreviewDisplayText;
+    filePreview: {
+      errorDescription,
+      unsupportedFileDescription,
+      filePrefix,
+      retryButtonLabel,
+      downloadButtonLabel,
+    },
+  } = displayText;
 
   const handleDownloadClick = () => {
     handleDownload({

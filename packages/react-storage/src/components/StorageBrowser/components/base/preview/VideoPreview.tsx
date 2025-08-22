@@ -18,8 +18,9 @@ export function VideoPreview({
   const [isLoading, setIsLoading] = useState(true);
   const [videoKey, setVideoKey] = useState(0);
   const { LocationDetailView: displayText } = useDisplayText();
-  const { filePreview } = displayText;
-  const { videoLoadErrorDescription } = filePreview;
+  const {
+    filePreview: { videoLoadErrorDescription },
+  } = displayText;
 
   const handleError = useCallback(
     (event: React.SyntheticEvent<HTMLVideoElement>) => {

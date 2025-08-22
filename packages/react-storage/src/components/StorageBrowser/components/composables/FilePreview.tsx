@@ -23,16 +23,17 @@ export function FilePreview(props: FilePreviewProps): React.JSX.Element | null {
   const { isLoading, hasError, previewedFile, url = ' ' } = props;
   const { rendererResolver } = useFilePreviewContext() ?? {};
   const { LocationDetailView: displayText } = useDisplayText();
-  const { filePreview } = displayText;
   const {
-    closeButtonLabel,
-    unsupportedFileDescription,
-    errorMessage,
-    sizeLimitMessage,
-    generalPreviewErrorDescription,
-    fileSizeLimitDescription,
-    unsupportedFileMessage,
-  } = filePreview;
+    filePreview: {
+      closeButtonLabel,
+      unsupportedFileDescription,
+      errorMessage,
+      sizeLimitMessage,
+      generalPreviewErrorDescription,
+      fileSizeLimitDescription,
+      unsupportedFileMessage,
+    },
+  } = displayText;
 
   if (!previewedFile) return null;
 
