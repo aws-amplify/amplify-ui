@@ -3,6 +3,7 @@ import { classNames, ComponentClassName } from '@aws-amplify/ui';
 import { STORAGE_BROWSER_BLOCK } from '../constants';
 import { PreviewPlaceholder } from './PreviewPlaceholder';
 import { PreviewFallback } from './PreviewFallback';
+import { getFileName } from '../../../views/utils/files/fileName';
 
 export function ImagePreview({
   url,
@@ -54,8 +55,8 @@ export function ImagePreview({
         <img
           key={imageKey}
           className={classNames(ComponentClassName.StorageImage)}
-          src={url!}
-          alt={fileKey}
+          src={url ?? ''}
+          alt={`Image preview for ${getFileName(fileKey)}`}
           onError={handleError}
           onLoad={handleLoad}
         />

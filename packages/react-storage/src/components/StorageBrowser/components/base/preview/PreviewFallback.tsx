@@ -6,6 +6,7 @@ import { getFileKey } from '../../../actions';
 import { ViewElement, TextElement } from '../../elements';
 import { STORAGE_BROWSER_BLOCK } from '../constants';
 import { useDisplayText } from '../../../displayText';
+import { getFileName } from '../../../views/utils/files/fileName';
 
 export interface PreviewFallbackProps {
   fileKey: string;
@@ -26,7 +27,7 @@ export function PreviewFallback({
   showDownload = true,
   showRetry = false,
 }: PreviewFallbackProps): React.JSX.Element {
-  const [_, handleDownload] = useAction('download');
+  const [, handleDownload] = useAction('download');
   const { LocationDetailView: displayText } = useDisplayText();
 
   const handleDownloadClick = () => {
@@ -75,7 +76,7 @@ export function PreviewFallback({
           className={`${STORAGE_BROWSER_BLOCK}__preview-fallback-filename`}
         >
           {displayText.filePreview.filePrefix}
-          {fileKey.split('/').pop()}
+          {getFileName(fileKey)}
         </TextElement>
       </ViewElement>
 
