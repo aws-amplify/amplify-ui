@@ -18,7 +18,7 @@ export function FilePreviewProvider<
   children,
   filePreview,
 }: {
-  children?: React.ReactNode;
+  children: React.ReactNode;
   filePreview?: FilePreview<TResolver>;
 }): React.JSX.Element {
   return (
