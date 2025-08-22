@@ -1,27 +1,30 @@
-import { RekognitionLiveness } from '@amzn/aws-rekognition-liveness-js-v2-client';
+import {
+  RekognitionClient,
+  CreateFaceLivenessSessionCommand,
+} from '@aws-sdk/client-rekognition';
 
 /**
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
  */
 
 export const handler = async (event, req) => {
-  const client = new RekognitionLiveness({
-    region: 'us-east-1',
-    endpoint: `https://us-east-1.gamma.frontend.reventlov.rekognition.aws.dev`,
-  });
+  const client = new RekognitionClient({ region: 'us-east-1' });
 
   const challengeType =
     event.queryStringParameters?.challengeType ??
     'FaceMovementAndLightChallenge';
 
-  const response = await client
-    .createFaceLivenessSession({
-      AwsAccountId: '845721723350',
-      Settings: {
-        ChallengePreferences: [{ Type: challengeType }],
-      },
-    })
-    .promise();
+  const command = new CreateFaceLivenessSessionCommand({
+    Settings: {
+      ChallengePreferences: [
+        {
+          Type: challengeType,
+        },
+      ],
+    },
+  });
+
+  const response = await client.send(command);
 
   return {
     statusCode: 200,

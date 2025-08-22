@@ -81,9 +81,6 @@ export default function LivenessDefault({
                 disableStartScreen={disableStartScreen}
                 components={components}
                 config={{
-                  endpointOverride:
-                    'wss://streaming-rekognition-gamma.us-east-1.amazonaws.com',
-
                   credentialProvider: credentialProvider,
                   systemClockOffset:
                     createLivenessSessionApiData['systemClockOffset'],
