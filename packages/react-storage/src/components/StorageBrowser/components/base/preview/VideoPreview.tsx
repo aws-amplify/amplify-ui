@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
-import { Alert, Button } from '@aws-amplify/ui-react';
 import { STORAGE_BROWSER_BLOCK } from '../constants';
 import { PreviewPlaceholder } from './PreviewPlaceholder';
+import { PreviewFallback } from './PreviewFallback';
 
 interface VideoPreviewProps {
   url: string;
@@ -64,23 +64,13 @@ export function VideoPreview({
 
   if (error) {
     return (
-      <div>
-        <Alert
-          variation="error"
-          isDismissible={false}
-          heading="Video Loading Error"
-        >
-          {error}
-        </Alert>
-        <Button
-          variation="primary"
-          size="small"
-          onClick={handleRetry}
-          marginTop="15px"
-        >
-          Retry
-        </Button>
-      </div>
+      <PreviewFallback
+        fileKey={fileKey}
+        message={error}
+        isError
+        onRetry={handleRetry}
+        showRetry
+      />
     );
   }
 

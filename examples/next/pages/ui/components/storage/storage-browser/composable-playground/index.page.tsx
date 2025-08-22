@@ -3,17 +3,20 @@ import React from 'react';
 import {
   CreateStorageBrowserInput,
   createStorageBrowser,
-  createAmplifyAuthAdapter,
+  createManagedAuthAdapter,
 } from '@aws-amplify/ui-react-storage/browser';
-
-import config from '../default-auth/aws-exports';
-
-import { Flex, Breadcrumbs, withAuthenticator } from '@aws-amplify/ui-react';
-
+import { Button, Flex, Breadcrumbs } from '@aws-amplify/ui-react';
+import { Auth } from '../managedAuthAdapter';
 import '@aws-amplify/ui-react-storage/styles.css';
-import { Amplify } from 'aws-amplify';
 
-Amplify.configure(config);
+export const auth = new Auth({ persistCredentials: true });
+
+const config = createManagedAuthAdapter({
+  credentialsProvider: auth.credentialsProvider,
+  region: process.env.NEXT_PUBLIC_MANAGED_AUTH_REGION,
+  accountId: process.env.NEXT_PUBLIC_MANAGED_AUTH_ACCOUNT_ID,
+  registerAuthListener: auth.registerAuthListener,
+});
 
 const components: CreateStorageBrowserInput['components'] = {
   Navigation: ({ items }) => (
@@ -31,7 +34,7 @@ const components: CreateStorageBrowserInput['components'] = {
 
 const { StorageBrowser, useView } = createStorageBrowser({
   components,
-  config: createAmplifyAuthAdapter(),
+  config,
 });
 
 const { CopyView, CreateFolderView, DeleteView, LocationActionView } =
@@ -132,14 +135,21 @@ function MyFullyCustomPreviewer(props: any) {
   return <div>{getDefaultRenderer(fileType)}</div>;
 }
 
-function MyLocationDetails() {
+function MyLocationDetails({
+  onActionSelect,
+}: {
+  onActionSelect: (actionType: string | undefined) => void;
+}) {
   const locationsD = useView('LocationDetail');
   const { filePreviewState, onCloseFilePreview, onRetryFilePreview } =
     locationsD;
   const { hasError, isLoading, url, previewedFile } = filePreviewState;
 
   return (
-    <StorageBrowser.LocationDetailView.Provider {...locationsD}>
+    <StorageBrowser.LocationDetailView.Provider
+      {...locationsD}
+      onActionSelect={onActionSelect}
+    >
       <div style={{ display: 'flex', flexDirection: 'column' }}>
         <div style={{ maxHeight: '50vh', overflow: 'scroll' }}>
           <StorageBrowser.LocationDetailView.LocationItemsTable />
@@ -161,21 +171,62 @@ function MyLocationDetails() {
 }
 
 function MyStorageBrowser() {
+  const [type, setActionType] = React.useState<string | undefined>(undefined);
+
   return (
     <Flex>
       <Flex direction={'column'}>
         <StorageBrowser.LocationsView />
       </Flex>
       <Flex minWidth={'50vw'} direction={'column'}>
-        <MyLocationDetails />
+        <MyLocationDetails
+          onActionSelect={(actionType) => {
+            console.log(actionType);
+            setActionType(actionType);
+          }}
+        />
       </Flex>
+      <MyLocationActionView type={type} />
     </Flex>
   );
 }
 
 function Example() {
-  return (
+  const [authenticated, setAuthenticated] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [errorMessage, setErrorMessage] = React.useState<string | undefined>();
+
+  return !authenticated ? (
+    <Flex>
+      <Button
+        onClick={() => {
+          setIsLoading(true);
+          auth.signIn({
+            onSignIn: () => {
+              setAuthenticated(true);
+              setIsLoading(false);
+            },
+            onError: (e: Error) => {
+              setErrorMessage(e.message);
+              setIsLoading(false);
+            },
+          });
+        }}
+      >
+        Sign In
+      </Button>
+      {isLoading ? <span>Authenticating...</span> : null}
+      {errorMessage ? <span>{errorMessage}</span> : null}
+    </Flex>
+  ) : (
     <>
+      <Button
+        onClick={() => {
+          auth.signOut({ onSignOut: () => setAuthenticated(false) });
+        }}
+      >
+        Sign Out
+      </Button>
       <StorageBrowser.Provider
         displayText={{
           LocationsView: { title: 'Home - Composable Playground' },
@@ -187,4 +238,4 @@ function Example() {
   );
 }
 
-export default withAuthenticator(Example);
+export default Example;
