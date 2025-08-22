@@ -1,8 +1,8 @@
 import React, { useState, useCallback } from 'react';
 import { classNames, ComponentClassName } from '@aws-amplify/ui';
-import { Alert, Button } from '@aws-amplify/ui-react';
 import { STORAGE_BROWSER_BLOCK } from '../constants';
 import { PreviewPlaceholder } from './PreviewPlaceholder';
+import { PreviewFallback } from './PreviewFallback';
 
 export function ImagePreview({
   url,
@@ -33,23 +33,13 @@ export function ImagePreview({
 
   if (error) {
     return (
-      <div>
-        <Alert
-          variation="error"
-          isDismissible={false}
-          heading="Image Loading Error"
-        >
-          {error}
-        </Alert>
-        <Button
-          variation="primary"
-          size="small"
-          onClick={handleRetry}
-          marginTop="15px"
-        >
-          Retry
-        </Button>
-      </div>
+      <PreviewFallback
+        fileKey={fileKey}
+        message={error}
+        isError
+        onRetry={handleRetry}
+        showRetry
+      />
     );
   }
 

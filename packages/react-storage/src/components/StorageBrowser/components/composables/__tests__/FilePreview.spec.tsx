@@ -125,7 +125,7 @@ describe('FilePreview', () => {
     };
 
     render(<FilePreview {...textProps} />);
-    expect(screen.getByText(/Error loading file/)).toBeInTheDocument();
+    expect(screen.getByText('fetch is not defined')).toBeInTheDocument();
   });
 
   it('renders fallback for unsupported file types', () => {

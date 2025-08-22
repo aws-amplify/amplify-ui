@@ -3,6 +3,7 @@ import { classNames } from '@aws-amplify/ui';
 import { TextElement, ViewElement } from '../../elements';
 import { STORAGE_BROWSER_BLOCK } from '../constants';
 import { useDisplayText } from '../../../displayText';
+import { PreviewFallback } from './PreviewFallback';
 
 export function TextPreview({
   url,
@@ -39,6 +40,10 @@ export function TextPreview({
     }
   }
 
+  function handleRetry() {
+    loadTextFileContent();
+  }
+
   useEffect(() => {
     loadTextFileContent();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -61,16 +66,13 @@ export function TextPreview({
 
   if (error) {
     return (
-      <ViewElement
-        className={classNames(
-          `${STORAGE_BROWSER_BLOCK}__text-preview`,
-          `${STORAGE_BROWSER_BLOCK}__text-preview--error`
-        )}
-      >
-        <TextElement>
-          {displayText?.filePreview?.getTextErrorMessage(error)}
-        </TextElement>
-      </ViewElement>
+      <PreviewFallback
+        fileKey={fileKey}
+        message={error}
+        isError
+        onRetry={handleRetry}
+        showRetry
+      />
     );
   }
 

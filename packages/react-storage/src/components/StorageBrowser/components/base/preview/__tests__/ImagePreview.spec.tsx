@@ -3,6 +3,26 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { ComponentClassName } from '@aws-amplify/ui';
 import { ImagePreview } from '../ImagePreview';
 
+jest.mock('../../../../useAction', () => ({
+  useAction: () => [null, jest.fn()],
+}));
+
+jest.mock('../../../../displayText', () => ({
+  useDisplayText: () => ({
+    LocationDetailView: {
+      filePreview: {
+        errorDescription:
+          'We encountered an issue while loading the file preview.',
+        unsupportedFileDescription:
+          'This file type is not supported for preview.',
+        filePrefix: 'File: ',
+        retryButtonLabel: 'Retry',
+        downloadButtonLabel: 'Download',
+      },
+    },
+  }),
+}));
+
 describe('ImagePreview', () => {
   const mockProps = {
     url: 'https://example.com/image.jpg',
@@ -54,7 +74,6 @@ describe('ImagePreview', () => {
     fireEvent.error(image);
 
     await waitFor(() => {
-      expect(screen.getByText('Image Loading Error')).toBeInTheDocument();
       expect(screen.getByText('Failed to load image')).toBeInTheDocument();
       expect(screen.getByText('Retry')).toBeInTheDocument();
       expect(
