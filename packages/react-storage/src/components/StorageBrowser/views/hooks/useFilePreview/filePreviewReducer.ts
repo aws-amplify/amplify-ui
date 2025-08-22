@@ -35,14 +35,14 @@ export function filePreviewReducer(
         hasError: false,
         hasLimitExceeded: false,
         error: null,
-        previewedFile: action?.payload?.fileData,
+        previewedFile: action.payload.fileData,
       };
 
     case 'PREVIEW_PREPARATION_SUCCESS':
       return {
         ...state,
         isLoading: false,
-        previewedFile: action?.payload?.fileData,
+        previewedFile: action.payload.fileData,
         url: action.payload?.url,
         hasError: false,
         error: null,
