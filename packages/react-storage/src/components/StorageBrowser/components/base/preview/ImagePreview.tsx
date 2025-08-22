@@ -17,8 +17,9 @@ export function ImagePreview({
   const [isLoading, setIsLoading] = useState(true);
   const [imageKey, setImageKey] = useState(0);
   const { LocationDetailView: displayText } = useDisplayText();
-  const { filePreview } = displayText;
-  const { imageLoadErrorDescription } = filePreview;
+  const {
+    filePreview: { imageLoadErrorDescription },
+  } = displayText;
 
   const handleError = useCallback(() => {
     setError('Failed to load image');
