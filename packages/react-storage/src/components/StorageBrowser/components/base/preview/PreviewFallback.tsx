@@ -10,6 +10,7 @@ import { useDisplayText } from '../../../displayText';
 export interface PreviewFallbackProps {
   fileKey: string;
   message: string;
+  description?: string;
   isError?: boolean;
   onRetry?: () => void;
   showDownload?: boolean;
@@ -19,6 +20,7 @@ export interface PreviewFallbackProps {
 export function PreviewFallback({
   fileKey,
   message,
+  description,
   isError = false,
   onRetry,
   showDownload = true,
@@ -64,9 +66,10 @@ export function PreviewFallback({
         <TextElement
           className={`${STORAGE_BROWSER_BLOCK}__preview-fallback-description`}
         >
-          {isError
-            ? displayText?.filePreview?.errorDescription
-            : displayText?.filePreview?.unsupportedFileDescription}
+          {description ??
+            (isError
+              ? displayText?.filePreview?.errorDescription
+              : displayText?.filePreview?.unsupportedFileDescription)}
         </TextElement>
         <TextElement
           className={`${STORAGE_BROWSER_BLOCK}__preview-fallback-filename`}

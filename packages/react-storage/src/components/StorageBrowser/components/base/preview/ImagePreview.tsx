@@ -36,6 +36,7 @@ export function ImagePreview({
       <PreviewFallback
         fileKey={fileKey}
         message={error}
+        description="The image could not be loaded. This may be due to network issues, file corruption, or an unsupported image format."
         isError
         onRetry={handleRetry}
         showRetry

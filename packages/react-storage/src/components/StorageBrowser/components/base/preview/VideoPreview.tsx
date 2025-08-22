@@ -67,6 +67,7 @@ export function VideoPreview({
       <PreviewFallback
         fileKey={fileKey}
         message={error}
+        description="The video could not be played. This may be due to network issues, file corruption, or an unsupported video format or codec."
         isError
         onRetry={handleRetry}
         showRetry
