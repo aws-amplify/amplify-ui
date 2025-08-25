@@ -766,6 +766,7 @@ interface LocationDetailViewState {
   hasExhaustedSearch: boolean;
   pageItems: LocationItemData[];
   page: number;
+  filePreviewState: FilePreviewState;  
   onActionSelect: (actionType: string) => void;
   onDropFiles: (files: File[]) => void;
   onRefresh: () => void;
@@ -779,6 +780,9 @@ interface LocationDetailViewState {
   onSearchClear: () => void;
   onSearchQueryChange: (value: string) => void;
   onToggleSearchSubfolders: () => void;
+  onOpenFilePreview: (f: FileData) => void;
+  onRetryFilePreview: () => void;
+  onCloseFilePreview: () => void;
 }
 ```
 
@@ -796,6 +800,7 @@ interface LocationDetailViewState {
 * `<StorageBrowser.LocationDetails.Search />`
 * `<StorageBrowser.LocationDetails.SearchSubfoldersToggle />`
 * `<StorageBrowser.LocationDetails.Title />`
+* `<StorageBrowser.LocationDetails.FilePreview />`
 
 ### Upload view
 
@@ -973,10 +978,9 @@ We made our roadmap for Storage Browser public so that you could see what's in s
 
 These are the features we are currently evaluating.
 
-1. Thumbnail  previews
-2. Full object previews
-3. User-controlled object tags
-4. Support for S3 Glacier Flexible Retrieval and S3 Glacier Deep Archive
-5. Support for S3 Access Points
-6. User controlled byte-range GETs
-7. Support for a CloudFront cache
+
+1. User-controlled object tags
+2. Support for S3 Glacier Flexible Retrieval and S3 Glacier Deep Archive
+3. Support for S3 Access Points
+4. User controlled byte-range GETs
+5. Support for a CloudFront cache
