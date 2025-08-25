@@ -36,7 +36,6 @@ const DEFAULT_FILE_PREVIEW_DISPLAY_TEXT: DefaultFilePreviewDisplayText = {
   filePrefix: 'File: ',
   retryButtonLabel: 'Retry',
   downloadButtonLabel: 'Download',
-  loadingTextContent: 'Loading file content...',
   getTextErrorMessage: (error) => `Error loading file: ${error}`,
   emptyFileMessage: 'File is empty',
 };

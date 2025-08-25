@@ -69,7 +69,6 @@ describe('LocationDetailView display text', () => {
       expect(filePreview).toHaveProperty('filePrefix');
       expect(filePreview).toHaveProperty('retryButtonLabel');
       expect(filePreview).toHaveProperty('downloadButtonLabel');
-      expect(filePreview).toHaveProperty('loadingTextContent');
       expect(filePreview).toHaveProperty('getTextErrorMessage');
       expect(filePreview).toHaveProperty('emptyFileMessage');
     });

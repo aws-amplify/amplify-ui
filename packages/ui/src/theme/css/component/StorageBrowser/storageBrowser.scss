@@ -394,20 +394,6 @@
     word-wrap: break-word;
     white-space: pre-wrap;
     word-break: break-word;
-
-    &--loading,
-    &--error {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 400px;
-    }
-
-    &--error {
-      color: var(--amplify-colors-font-error);
-      background-color: var(--amplify-colors-background-error);
-      border-color: var(--amplify-colors-border-error);
-    }
   }
 
   &__video-preview {

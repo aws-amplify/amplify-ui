@@ -80,7 +80,6 @@ export interface DefaultFilePreviewDisplayText {
   filePrefix: string;
   retryButtonLabel: string;
   downloadButtonLabel: string;
-  loadingTextContent: string;
   getTextErrorMessage: (error: string) => string;
   emptyFileMessage: string;
 }
