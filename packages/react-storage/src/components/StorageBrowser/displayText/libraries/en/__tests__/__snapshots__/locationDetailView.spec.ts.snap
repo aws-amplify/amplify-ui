@@ -64,7 +64,6 @@ exports[`LocationDetailView display text should match snapshot values 1`] = `
     "imageLoadErrorDescription": "The image could not be loaded. This may be due to network issues, file corruption, or an unsupported image format.",
     "keyLabel": "Key",
     "lastModifiedLabel": "Last Modified",
-    "loadingTextContent": "Loading file content...",
     "retryButtonLabel": "Retry",
     "sizeLabel": "Size",
     "sizeLimitMessage": "File preview not possible due to preview size limit",

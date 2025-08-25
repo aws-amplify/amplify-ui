@@ -37,7 +37,6 @@ jest.mock('../../../displayText', () => ({
         filePrefix: 'File: ',
         retryButtonLabel: 'Retry',
         downloadButtonLabel: 'Download',
-        loadingTextContent: 'Loading file content...',
         getTextErrorMessage: (error: string) => `Error loading file: ${error}`,
         emptyFileMessage: 'File is empty',
       },

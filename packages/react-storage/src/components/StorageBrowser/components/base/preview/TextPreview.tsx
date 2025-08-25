@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { classNames } from '@aws-amplify/ui';
-import { TextElement, ViewElement } from '../../elements';
+import { ViewElement } from '../../elements';
 import { STORAGE_BROWSER_BLOCK } from '../constants';
 import { useDisplayText } from '../../../displayText';
 import { PreviewFallback } from './PreviewFallback';
+import { PreviewPlaceholder } from './PreviewPlaceholder';
 
 export function TextPreview({
   url,
@@ -17,11 +17,7 @@ export function TextPreview({
   const [error, setError] = useState<string | null>(null);
   const { LocationDetailView: displayText } = useDisplayText();
   const {
-    filePreview: {
-      emptyFileMessage,
-      loadingTextContent,
-      textLoadErrorDescription,
-    },
+    filePreview: { emptyFileMessage, textLoadErrorDescription },
   } = displayText;
 
   async function loadTextFileContent() {
@@ -57,16 +53,7 @@ export function TextPreview({
   }, [fileKey]);
 
   if (isLoading) {
-    return (
-      <ViewElement
-        className={classNames(
-          `${STORAGE_BROWSER_BLOCK}__text-preview`,
-          `${STORAGE_BROWSER_BLOCK}__text-preview--loading`
-        )}
-      >
-        <TextElement>{loadingTextContent}</TextElement>
-      </ViewElement>
-    );
+    return <PreviewPlaceholder />;
   }
 
   if (error) {
