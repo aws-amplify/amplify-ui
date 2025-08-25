@@ -31,6 +31,21 @@ export type StorageBrowserTheme<Required extends boolean = false> =
         'table-row'?: ComponentStyles;
         'table-data-cell'?: Modifiers<TableCellVariations, Required> &
           ComponentStyles;
+
+        'content-with-preview'?: ComponentStyles;
+        'file-preview'?: ComponentStyles;
+        'file-preview-header'?: ComponentStyles;
+        'file-preview-content'?: ComponentStyles;
+        'file-preview-section'?: ComponentStyles;
+        'file-preview-title'?: ComponentStyles;
+        'file-metadata'?: ComponentStyles;
+        'file-metadata-item'?: ComponentStyles;
+        'file-metadata-label'?: ComponentStyles;
+        'file-metadata-value'?: ComponentStyles;
+        'preview-fallback'?: ComponentStyles;
+        'preview-placeholder'?: ComponentStyles;
+        'text-preview'?: ComponentStyles;
+        'video-preview'?: ComponentStyles;
       },
       Required
     >;

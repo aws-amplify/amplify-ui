@@ -4,6 +4,7 @@ import type { LocationPermissions } from '../../../actions';
 import type { DataTableProps } from '../../../components';
 
 import { LOCATION_DETAIL_VIEW_HEADERS } from './constants';
+import { getFileThumbnail } from './fileIcon';
 
 export const getFileRowContent = ({
   permissions,
@@ -17,6 +18,7 @@ export const getFileRowContent = ({
   size,
   onDownload,
   onSelect,
+  onClick,
 }: {
   permissions: LocationPermissions;
   isSelected: boolean;
@@ -29,6 +31,7 @@ export const getFileRowContent = ({
   size: number;
   onDownload: () => void;
   onSelect: () => void;
+  onClick: () => void;
 }): DataTableProps['rows'][number]['content'] =>
   LOCATION_DETAIL_VIEW_HEADERS.map((columnKey) => {
     const key = `${columnKey}-${rowId}`;
@@ -48,11 +51,12 @@ export const getFileRowContent = ({
       case 'name': {
         return {
           key,
-          type: 'text',
+          type: 'button',
           content: {
-            icon: 'file',
+            icon: getFileThumbnail(rowKey),
             ariaLabel: 'file',
-            text: rowKey.slice(itemLocationKey.length),
+            label: rowKey.slice(itemLocationKey.length),
+            onClick,
           },
         };
       }
