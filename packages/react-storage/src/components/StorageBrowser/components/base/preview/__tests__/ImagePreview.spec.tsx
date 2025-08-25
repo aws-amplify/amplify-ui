@@ -79,9 +79,7 @@ describe('ImagePreview', () => {
     await waitFor(() => {
       expect(screen.getByText('Failed to load image')).toBeInTheDocument();
       expect(screen.getByText('Retry')).toBeInTheDocument();
-      expect(
-        screen.queryByRole('img', { hidden: true })
-      ).not.toBeInTheDocument();
+      expect(screen.queryByAltText('test-image.jpg')).not.toBeInTheDocument();
     });
   });
 

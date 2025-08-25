@@ -3,7 +3,7 @@ import { Button } from '@aws-amplify/ui-react';
 import { classNames } from '@aws-amplify/ui';
 import { useAction } from '../../../useAction';
 import { getFileKey } from '../../../actions';
-import { ViewElement, TextElement } from '../../elements';
+import { ViewElement, TextElement, IconElement } from '../../elements';
 import { STORAGE_BROWSER_BLOCK } from '../constants';
 import { useDisplayText } from '../../../displayText';
 import { getFileName } from '../../../views/utils/files/fileName';
@@ -49,7 +49,7 @@ export function PreviewFallback({
     });
   };
 
-  const icon = isError ? '⚠️' : '📄';
+  const fileName = getFileName(fileKey);
   const fallbackClass = isError
     ? `${STORAGE_BROWSER_BLOCK}__preview-fallback--error`
     : `${STORAGE_BROWSER_BLOCK}__preview-fallback--default`;
@@ -64,7 +64,10 @@ export function PreviewFallback({
       <ViewElement
         className={`${STORAGE_BROWSER_BLOCK}__preview-fallback-icon`}
       >
-        {icon}
+        <IconElement
+          className="amplify-icon"
+          variant={isError ? 'error' : `file`}
+        />
       </ViewElement>
 
       <ViewElement>
@@ -83,7 +86,7 @@ export function PreviewFallback({
           className={`${STORAGE_BROWSER_BLOCK}__preview-fallback-filename`}
         >
           {filePrefix}
-          {getFileName(fileKey)}
+          {fileName}
         </TextElement>
       </ViewElement>
 
@@ -92,13 +95,22 @@ export function PreviewFallback({
           className={`${STORAGE_BROWSER_BLOCK}__preview-fallback-actions`}
         >
           {showRetry && onRetry && (
-            <Button size="small" variation="primary" onClick={onRetry}>
+            <Button
+              size="small"
+              variation="primary"
+              onClick={onRetry}
+              ariaLabel={`Retry loading ${fileName} file`}
+            >
               {retryButtonLabel}
             </Button>
           )}
 
           {showDownload && (
-            <Button size="small" onClick={handleDownloadClick}>
+            <Button
+              size="small"
+              onClick={handleDownloadClick}
+              ariaLabel={`Download ${fileName} file`}
+            >
               {downloadButtonLabel}
             </Button>
           )}
