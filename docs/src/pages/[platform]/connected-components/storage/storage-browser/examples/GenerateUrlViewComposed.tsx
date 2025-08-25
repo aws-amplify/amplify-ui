@@ -76,9 +76,5 @@ const GenerateUrlView = () => {
 };
 
 export default function Example() {
-  {
-    /* TODO remove before merge the file-preview feature branch  */
-  }
-  //@ts-expect-error
   return <StorageBrowser views={{ GenerateUrlView }} />;
 }
