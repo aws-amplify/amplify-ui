@@ -62,6 +62,7 @@ export interface DefaultFilePreviewDisplayText {
   fileInformationTitle: string;
   errorMessage: string;
   sizeLimitMessage: string;
+  unsupportedFileMessage: string;
   keyLabel: string;
   sizeLabel: string;
   versionIdLabel: string;
@@ -71,10 +72,14 @@ export interface DefaultFilePreviewDisplayText {
   unknownValue: string;
   errorDescription: string;
   unsupportedFileDescription: string;
+  imageLoadErrorDescription: string;
+  videoLoadErrorDescription: string;
+  textLoadErrorDescription: string;
+  generalPreviewErrorDescription: string;
+  fileSizeLimitDescription: string;
   filePrefix: string;
   retryButtonLabel: string;
   downloadButtonLabel: string;
-  loadingTextContent: string;
   getTextErrorMessage: (error: string) => string;
   emptyFileMessage: string;
 }

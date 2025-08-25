@@ -3,17 +3,23 @@ import { classNames, ComponentClassName } from '@aws-amplify/ui';
 import { STORAGE_BROWSER_BLOCK } from '../constants';
 import { PreviewPlaceholder } from './PreviewPlaceholder';
 import { PreviewFallback } from './PreviewFallback';
+import { getFileName } from '../../../views/utils/files/fileName';
+import { useDisplayText } from '../../../displayText';
 
 export function ImagePreview({
   url,
   fileKey,
 }: {
-  url: string | null;
+  url: string;
   fileKey: string;
 }): React.JSX.Element | null {
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [imageKey, setImageKey] = useState(0);
+  const { LocationDetailView: displayText } = useDisplayText();
+  const {
+    filePreview: { imageLoadErrorDescription },
+  } = displayText;
 
   const handleError = useCallback(() => {
     setError('Failed to load image');
@@ -36,6 +42,7 @@ export function ImagePreview({
       <PreviewFallback
         fileKey={fileKey}
         message={error}
+        description={imageLoadErrorDescription}
         isError
         onRetry={handleRetry}
         showRetry
@@ -53,8 +60,8 @@ export function ImagePreview({
         <img
           key={imageKey}
           className={classNames(ComponentClassName.StorageImage)}
-          src={url!}
-          alt={fileKey}
+          src={url}
+          alt={`Image preview for ${getFileName(fileKey)}`}
           onError={handleError}
           onLoad={handleLoad}
         />

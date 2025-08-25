@@ -114,8 +114,6 @@ function Example() {
     >
       <SignOutButton onSignOut={() => setShowSignIn(false)} />
       <View flex="1" overflow="hidden">
-        {/* TODO remove before merge the file-preview feature branch  */}
-        {/* @ts-expect-error */}
         <StorageBrowser views={{ LinkActionView }} />
         <StorageBrowser.LocationActionView />
       </View>

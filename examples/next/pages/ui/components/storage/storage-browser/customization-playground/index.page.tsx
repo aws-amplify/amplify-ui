@@ -153,7 +153,6 @@ function Example() {
                     filePrefix: '📄 File: ',
                     retryButtonLabel: '🔄 Try Again',
                     downloadButtonLabel: '⬇️ Download File',
-                    loadingTextContent: '⏳ Loading file content...',
                     getTextErrorMessage: (error) =>
                       `💥 Failed to load text: ${error}`,
                     emptyFileMessage: '📄 This file appears to be empty',

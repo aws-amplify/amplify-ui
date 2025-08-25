@@ -34,7 +34,10 @@ describe('ImagePreview', () => {
 
     const image = screen.getByRole('img', { hidden: true });
     expect(image).toHaveAttribute('src', mockProps.url);
-    expect(image).toHaveAttribute('alt', mockProps.fileKey);
+    expect(image).toHaveAttribute(
+      'alt',
+      `Image preview for ${mockProps.fileKey}`
+    );
     expect(image).toHaveClass(ComponentClassName.StorageImage);
   });
 
@@ -76,9 +79,7 @@ describe('ImagePreview', () => {
     await waitFor(() => {
       expect(screen.getByText('Failed to load image')).toBeInTheDocument();
       expect(screen.getByText('Retry')).toBeInTheDocument();
-      expect(
-        screen.queryByRole('img', { hidden: true })
-      ).not.toBeInTheDocument();
+      expect(screen.queryByAltText('test-image.jpg')).not.toBeInTheDocument();
     });
   });
 

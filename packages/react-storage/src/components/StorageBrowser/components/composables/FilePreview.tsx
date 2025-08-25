@@ -11,6 +11,7 @@ import type { AllFileTypes } from '../../createStorageBrowser/types';
 import { STORAGE_BROWSER_BLOCK } from '../base';
 import { useDisplayText } from '../../displayText';
 import { FilePreviewLayout } from '../base/preview/FilePreviewLayout';
+import { exhaustiveCheck } from '../../views/utils/exhaustiveCheck';
 
 export interface FilePreviewProps extends FilePreviewState {
   onCloseFilePreview?: () => void;
@@ -19,32 +20,50 @@ export interface FilePreviewProps extends FilePreviewState {
 
 export function FilePreview(props: FilePreviewProps): React.JSX.Element | null {
   const { onCloseFilePreview, hasLimitExceeded, onRetryFilePreview } = props;
-  const { isLoading, hasError, previewedFile, url } = props;
+  const { isLoading, hasError, previewedFile, url = ' ' } = props;
   const { rendererResolver } = useFilePreviewContext() ?? {};
   const { LocationDetailView: displayText } = useDisplayText();
+  const {
+    filePreview: {
+      closeButtonLabel,
+      unsupportedFileDescription,
+      errorMessage,
+      sizeLimitMessage,
+      generalPreviewErrorDescription,
+      fileSizeLimitDescription,
+      unsupportedFileMessage,
+    },
+  } = displayText;
 
   if (!previewedFile) return null;
 
   const { key, fileType } = previewedFile;
 
   function getDefaultRenderer(type?: AllFileTypes | null) {
+    const fileUrl = url ?? '';
+
     switch (type) {
       case 'image':
-        return <ImagePreview fileKey={key} url={url!} />;
+        return <ImagePreview fileKey={key} url={fileUrl} />;
 
       case 'video':
-        return <VideoPreview fileKey={key} url={url!} />;
+        return <VideoPreview fileKey={key} url={fileUrl} />;
 
       case 'text':
-        return <TextPreview fileKey={key} url={url!} />;
+        return <TextPreview fileKey={key} url={fileUrl} />;
 
-      default:
+      case null:
+      case undefined:
         return (
           <PreviewFallback
             fileKey={key}
-            message="File preview not supported for this file type"
+            message={unsupportedFileMessage}
+            description={unsupportedFileDescription}
           />
         );
+
+      default:
+        return exhaustiveCheck(type);
     }
   }
 
@@ -63,7 +82,7 @@ export function FilePreview(props: FilePreviewProps): React.JSX.Element | null {
       <ViewElement className={`${STORAGE_BROWSER_BLOCK}__file-preview-header`}>
         <ButtonElement variant="exit" onClick={onCloseFilePreview}>
           <IconElement variant="dismiss" />
-          {displayText?.filePreview?.closeButtonLabel}
+          {closeButtonLabel}
         </ButtonElement>
       </ViewElement>
 
@@ -76,7 +95,8 @@ export function FilePreview(props: FilePreviewProps): React.JSX.Element | null {
           <FilePreviewLayout fileData={previewedFile}>
             <PreviewFallback
               fileKey={key}
-              message={displayText?.filePreview?.errorMessage}
+              message={errorMessage}
+              description={generalPreviewErrorDescription}
               isError={hasError}
               onRetry={onRetryFilePreview}
               showRetry={hasError}
@@ -86,7 +106,8 @@ export function FilePreview(props: FilePreviewProps): React.JSX.Element | null {
           <FilePreviewLayout fileData={previewedFile}>
             <PreviewFallback
               fileKey={key}
-              message={displayText?.filePreview?.sizeLimitMessage}
+              message={sizeLimitMessage}
+              description={fileSizeLimitDescription}
             />
           </FilePreviewLayout>
         ) : (

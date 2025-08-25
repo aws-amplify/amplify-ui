@@ -1,10 +1,10 @@
 import React from 'react';
 import { HeadingElement, TextElement, ViewElement } from '../../elements';
 import type { FileData } from '../../../actions';
-import { formatFileSize } from '../../../views/utils/files/fileSize';
 import { getFileExtension } from '../../../views/utils/files/fileType';
 import { STORAGE_BROWSER_BLOCK } from '../constants';
 import { useDisplayText } from '../../../displayText';
+import { humanFileSize } from '@aws-amplify/ui';
 
 interface FileMetadataProps {
   fileData: FileData;
@@ -17,31 +17,41 @@ export function FileMetadata({
 }: FileMetadataProps): React.JSX.Element {
   const { key, lastModified, versionId = NONE, size, eTag } = fileData;
   const { LocationDetailView: displayText } = useDisplayText();
+  const {
+    filePreview: {
+      keyLabel,
+      sizeLabel,
+      versionIdLabel,
+      lastModifiedLabel,
+      entityTagLabel,
+      typeLabel,
+      fileInformationTitle,
+      unknownValue,
+    },
+  } = displayText;
 
   return (
     <ViewElement className={`${STORAGE_BROWSER_BLOCK}__file-preview-section`}>
       <HeadingElement
         className={`${STORAGE_BROWSER_BLOCK}__file-preview-title`}
       >
-        {displayText?.filePreview?.fileInformationTitle}
+        {fileInformationTitle}
       </HeadingElement>
       <ViewElement className={`${STORAGE_BROWSER_BLOCK}__file-metadata`}>
         {[
-          { label: displayText?.filePreview?.keyLabel, value: key },
+          { label: keyLabel, value: key },
           {
-            label: displayText?.filePreview?.sizeLabel,
-            value: formatFileSize(size),
+            label: sizeLabel,
+            value: humanFileSize(size, true),
           },
-          { label: displayText?.filePreview?.versionIdLabel, value: versionId },
+          { label: versionIdLabel, value: versionId },
           {
-            label: displayText?.filePreview?.lastModifiedLabel,
-            value:
-              lastModified?.toLocaleString() ||
-              displayText?.filePreview?.unknownValue,
+            label: lastModifiedLabel,
+            value: lastModified?.toLocaleString() || unknownValue,
           },
-          { label: displayText?.filePreview?.entityTagLabel, value: eTag },
+          { label: entityTagLabel, value: eTag },
           {
-            label: displayText?.filePreview?.typeLabel,
+            label: typeLabel,
             value: getFileExtension(key) ?? NONE,
           },
         ].map(({ label, value }) => (

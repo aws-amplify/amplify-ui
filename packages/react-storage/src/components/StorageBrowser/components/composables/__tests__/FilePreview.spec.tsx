@@ -37,7 +37,6 @@ jest.mock('../../../displayText', () => ({
         filePrefix: 'File: ',
         retryButtonLabel: 'Retry',
         downloadButtonLabel: 'Download',
-        loadingTextContent: 'Loading file content...',
         getTextErrorMessage: (error: string) => `Error loading file: ${error}`,
         emptyFileMessage: 'File is empty',
       },
@@ -102,7 +101,9 @@ describe('FilePreview', () => {
     render(<FilePreview {...defaultProps} />);
 
     expect(screen.getByText('File Preview')).toBeInTheDocument();
-    expect(screen.getByAltText('test.jpg')).toBeInTheDocument();
+    expect(
+      screen.getByAltText('Image preview for test.jpg')
+    ).toBeInTheDocument();
     expect(screen.getByText('File Information')).toBeInTheDocument();
   });
 
@@ -136,7 +137,7 @@ describe('FilePreview', () => {
 
     render(<FilePreview {...unsupportedProps} />);
     expect(
-      screen.getByText('File preview not supported for this file type')
+      screen.getByText('This file type is not supported for preview.')
     ).toBeInTheDocument();
   });
 

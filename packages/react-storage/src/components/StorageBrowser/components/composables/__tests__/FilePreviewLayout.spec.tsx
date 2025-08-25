@@ -62,7 +62,7 @@ describe('FilePreviewLayout', () => {
 
     expect(screen.getByText('File Information')).toBeInTheDocument();
     expect(screen.getByText('test-file.jpg')).toBeInTheDocument();
-    expect(screen.getByText('1.0 KB')).toBeInTheDocument();
+    expect(screen.getByText('1.0 kB')).toBeInTheDocument();
   });
 
   it('has correct CSS classes', () => {

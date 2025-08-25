@@ -2,6 +2,8 @@ import React, { useState, useCallback } from 'react';
 import { STORAGE_BROWSER_BLOCK } from '../constants';
 import { PreviewPlaceholder } from './PreviewPlaceholder';
 import { PreviewFallback } from './PreviewFallback';
+import { getFileName } from '../../../views/utils/files/fileName';
+import { useDisplayText } from '../../../displayText';
 
 interface VideoPreviewProps {
   url: string;
@@ -15,6 +17,10 @@ export function VideoPreview({
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [videoKey, setVideoKey] = useState(0);
+  const { LocationDetailView: displayText } = useDisplayText();
+  const {
+    filePreview: { videoLoadErrorDescription },
+  } = displayText;
 
   const handleError = useCallback(
     (event: React.SyntheticEvent<HTMLVideoElement>) => {
@@ -67,6 +73,7 @@ export function VideoPreview({
       <PreviewFallback
         fileKey={fileKey}
         message={error}
+        description={videoLoadErrorDescription}
         isError
         onRetry={handleRetry}
         showRetry
@@ -88,7 +95,7 @@ export function VideoPreview({
           onError={handleError}
           onLoadStart={handleLoadStart}
           onLoadedData={handleLoadedData}
-          aria-label={`Video preview for ${fileKey}`}
+          aria-label={`Video preview for ${getFileName(fileKey)}`}
         >
           <source src={url} />
           Your browser does not support the video tag.

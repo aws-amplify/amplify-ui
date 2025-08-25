@@ -15,6 +15,9 @@ export function FilePreviewLayout({
   children,
 }: FilePreviewLayoutProps): React.JSX.Element {
   const { LocationDetailView: displayText } = useDisplayText();
+  const {
+    filePreview: { filePreviewTitle },
+  } = displayText;
 
   return (
     <>
@@ -22,7 +25,7 @@ export function FilePreviewLayout({
         <HeadingElement
           className={`${STORAGE_BROWSER_BLOCK}__file-preview-title`}
         >
-          {displayText?.filePreview?.filePreviewTitle}
+          {filePreviewTitle}
         </HeadingElement>
         {children}
       </ViewElement>
