@@ -4,11 +4,8 @@ import type { FilePreview } from '../createStorageBrowser/types';
 import type { FileData } from '../actions';
 
 export const { FilePreviewContext, useFilePreview: useFilePreviewContext } =
-  //@ts-ignore
   createContextUtilities<FilePreview | undefined>({
     contextName: 'FilePreview',
-    errorMessage:
-      '`useFilePreview` must be called inside `FilePreviewProvider`',
     defaultValue: {},
   });
 
