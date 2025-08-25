@@ -24,7 +24,7 @@ Feature: File Preview with Storage Browser
     Then I see "File Preview"
     Then I see "File Information"
     Then I see "001_dont_delete_image_file_preview_end_to_end_testing.jpg"
-    Then I see the "public/001_dont_delete_image_file_preview_end_to_end_testing.jpg" image
+    Then I see the "Image preview for 001_dont_delete_image_file_preview_end_to_end_testing.jpg" image
     When I click the "Close" button
     Then I do not see "File Preview"
 
@@ -35,7 +35,7 @@ Feature: File Preview with Storage Browser
     Then I see "File Preview"
     Then I see "File Information"
     Then I see "001_dont_delete_video_file_preview_end_to_end_testing.mp4"
-    Then I see video with label "Video preview for public/001_dont_delete_video_file_preview_end_to_end_testing.mp4"
+    Then I see video with label "Video preview for 001_dont_delete_video_file_preview_end_to_end_testing.mp4"
     When I click the "Close" button
     Then I do not see "File Preview"
 
@@ -46,8 +46,8 @@ Feature: File Preview with Storage Browser
     Then I see "File Preview"
     Then I see "File Information"
     Then I see "001_dont_delete_un_supported_file_preview_end_to_end_testing.pdf"
-    Then I see "This file type is not supported for preview"    
-    Then I click the download button with label "Download public/001_dont_delete_un_supported_file_preview_end_to_end_testing.pdf file" and see the file downloaded
+    Then I see "File preview not supported for this file type"    
+    Then I click the download button with label "Download 001_dont_delete_un_supported_file_preview_end_to_end_testing.pdf file" and see the file downloaded
     When I click the "Close" button
     Then I do not see "File Preview"
 
@@ -59,7 +59,7 @@ Feature: File Preview with Storage Browser
     Then I see "File Information"
     Then I see "001_dont_delete_text_file_preview_limit_exceeded_end_to_end_testing.json"
     Then I see "File preview not possible due to preview size limit"
-    Then I click the download button with label "Download public/001_dont_delete_text_file_preview_limit_exceeded_end_to_end_testing.json file" and see the file downloaded
+    Then I click the download button with label "Download 001_dont_delete_text_file_preview_limit_exceeded_end_to_end_testing.json file" and see the file downloaded
     When I click the "Close" button
     Then I do not see "File Preview"
 
@@ -71,8 +71,7 @@ Feature: File Preview with Storage Browser
     Then I see "File Information"
     When A network failure occurs
     Then I see "Something went wrong"
-    Then I see the "Retry" button
-    When I click the "Retry" button 
+    Then I click the button with label "Retry loading 001_dont_delete_text_file_preview_end_to_end_testing.txt file"
     Then I see loader
     When I click the "Close" button
     Then I do not see "File Preview"
