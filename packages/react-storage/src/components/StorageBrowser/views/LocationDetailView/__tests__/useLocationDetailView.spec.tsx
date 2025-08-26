@@ -697,4 +697,101 @@ describe('useLocationDetailView', () => {
       mockFilePreviewHandlers.onRetryFilePreview
     );
   });
+
+  describe('file preview closure', () => {
+    it('closes file preview on refresh', () => {
+      const mockOnCloseFilePreview = jest.fn();
+      (useFilePreview as jest.Mock).mockReturnValue({
+        onCloseFilePreview: mockOnCloseFilePreview,
+        onOpenFilePreview: jest.fn(),
+        onRetryFilePreview: jest.fn(),
+        previewedFile: null,
+        isLoading: false,
+        hasError: false,
+        hasLimitExceeded: false,
+        url: null,
+      });
+
+      const { result } = renderHook(() => useLocationDetailView());
+
+      act(() => {
+        result.current.onRefresh();
+      });
+
+      expect(mockOnCloseFilePreview).toHaveBeenCalled();
+    });
+
+    it('closes file preview on pagination', () => {
+      const mockOnCloseFilePreview = jest.fn();
+      (useFilePreview as jest.Mock).mockReturnValue({
+        onCloseFilePreview: mockOnCloseFilePreview,
+        onOpenFilePreview: jest.fn(),
+        onRetryFilePreview: jest.fn(),
+        previewedFile: null,
+        isLoading: false,
+        hasError: false,
+        hasLimitExceeded: false,
+        url: null,
+      });
+
+      const { result } = renderHook(() => useLocationDetailView());
+
+      act(() => {
+        result.current.onPaginate(2);
+      });
+
+      expect(mockOnCloseFilePreview).toHaveBeenCalled();
+    });
+
+    it('closes file preview on navigation', () => {
+      const mockOnCloseFilePreview = jest.fn();
+      (useFilePreview as jest.Mock).mockReturnValue({
+        onCloseFilePreview: mockOnCloseFilePreview,
+        onOpenFilePreview: jest.fn(),
+        onRetryFilePreview: jest.fn(),
+        previewedFile: null,
+        isLoading: false,
+        hasError: false,
+        hasLimitExceeded: false,
+        url: null,
+      });
+
+      const { result } = renderHook(() => useLocationDetailView());
+      const mockLocation: LocationData = {
+        bucket: 'test-bucket',
+        id: 'test-id',
+        permissions: ['list'],
+        prefix: 'test-prefix/',
+        type: 'PREFIX',
+      };
+
+      act(() => {
+        result.current.onNavigate(mockLocation);
+      });
+
+      expect(mockOnCloseFilePreview).toHaveBeenCalled();
+    });
+
+    it('closes file preview on search', () => {
+      const mockOnCloseFilePreview = jest.fn();
+      (useFilePreview as jest.Mock).mockReturnValue({
+        onCloseFilePreview: mockOnCloseFilePreview,
+        onOpenFilePreview: jest.fn(),
+        onRetryFilePreview: jest.fn(),
+        previewedFile: null,
+        isLoading: false,
+        hasError: false,
+        hasLimitExceeded: false,
+        url: null,
+      });
+
+      const { result } = renderHook(() => useLocationDetailView());
+
+      act(() => {
+        result.current.onSearch();
+      });
+
+      expect(mockOnCloseFilePreview).toHaveBeenCalled();
+    });
+  });
 });

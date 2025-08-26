@@ -128,4 +128,60 @@ describe('useFilePreview', () => {
     expect(mockGetProperties).not.toHaveBeenCalled();
     expect(result.current.previewedFile).toBe(null);
   });
+
+  it('prevents opening the same file twice', () => {
+    const { result } = renderHook(() => useFilePreview());
+
+    act(() => {
+      result.current.onOpenFilePreview(mockFileData);
+    });
+
+    expect(result.current.previewedFile).toBe(mockFileData);
+
+    const initialState = result.current;
+    act(() => {
+      result.current.onOpenFilePreview(mockFileData);
+    });
+
+    expect(result.current.previewedFile).toBe(initialState.previewedFile);
+    expect(mockGetProperties).toHaveBeenCalledTimes(1);
+  });
+
+  it('prevents closing when no file is previewed', () => {
+    const { result } = renderHook(() => useFilePreview());
+
+    expect(result.current.previewedFile).toBe(null);
+
+    act(() => {
+      result.current.onCloseFilePreview();
+    });
+
+    expect(result.current.previewedFile).toBe(null);
+    expect(result.current.isLoading).toBe(false);
+    expect(result.current.hasError).toBe(false);
+  });
+
+  it('allows opening different file after one is already open', () => {
+    const { result } = renderHook(() => useFilePreview());
+    const differentFile: FileData = {
+      ...mockFileData,
+      key: 'different.jpg',
+      id: 'different-id',
+    };
+
+    // Open first file
+    act(() => {
+      result.current.onOpenFilePreview(mockFileData);
+    });
+
+    expect(result.current.previewedFile).toBe(mockFileData);
+
+    // Open different file - should work
+    act(() => {
+      result.current.onOpenFilePreview(differentFile);
+    });
+
+    expect(result.current.previewedFile).toBe(differentFile);
+    expect(mockGetProperties).toHaveBeenCalledTimes(2);
+  });
 });
