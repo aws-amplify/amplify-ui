@@ -77,14 +77,20 @@ export function useFilePreview(): UseFilePreviewReturn {
 
   const onOpenFilePreview = useCallback(
     (file: FileData) => {
+      if (file.key === state.previewedFile?.key) {
+        return;
+      }
       prepareFileForPreview(file);
     },
-    [prepareFileForPreview]
+    [prepareFileForPreview, state.previewedFile?.key]
   );
 
   const onCloseFilePreview = useCallback(() => {
+    if (!state.previewedFile?.key) {
+      return;
+    }
     dispatch({ type: 'RESET_STATE' });
-  }, []);
+  }, [state.previewedFile?.key]);
 
   return {
     ...state,
