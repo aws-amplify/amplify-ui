@@ -1,4 +1,4 @@
-import { Accordion, Message, Tabs, View } from '@aws-amplify/ui-react';
+import { Accordion, Message, Tabs, View, Text } from '@aws-amplify/ui-react';
 import ReactPropsTable from '@/components/propsTable/ReactPropsTable';
 import { Example, ExampleCode } from '@/components/Example';
 import { DISPLAY_TEXT } from './props.ts'
@@ -332,7 +332,21 @@ All of the display texts are listed below with their default values and types.
   return {
     trigger: key,
     value: key,
-    content: <ReactPropsTable props={props} />
+    content: (
+      <View>
+        <ReactPropsTable props={props.filter(prop => !prop.nested)} />
+        {props.filter(prop => prop.nested).map(nestedProp => (
+          <View key={nestedProp.name} marginTop="1rem">
+            <Text fontWeight="bold" marginBottom="0.5rem">{nestedProp.name}</Text>
+            <Accordion items={[{
+              trigger: `${nestedProp.name} properties`,
+              value: nestedProp.name,
+              content: <ReactPropsTable props={nestedProp.nested} />
+            }]} />
+          </View>
+        ))}
+      </View>
+    )
   }
 })}
 />
