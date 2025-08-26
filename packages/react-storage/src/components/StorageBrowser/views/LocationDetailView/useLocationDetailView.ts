@@ -154,6 +154,11 @@ export const useLocationDetailView = (
     url,
   } = useFilePreview();
 
+  const onSearchSave = () => {
+    onCloseFilePreview();
+    onSearchSubmit();
+  };
+
   const actionItems = React.useMemo(() => {
     if (!permissions) {
       return [];
@@ -257,7 +262,7 @@ export const useLocationDetailView = (
           : { type: 'SET_LOCATION_ITEMS', items: fileItems }
       );
     },
-    onSearch: onSearchSubmit,
+    onSearch: onSearchSave,
     onSearchClear: () => {
       resetSearch();
       if (hasInvalidPrefix) return;
