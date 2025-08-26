@@ -155,11 +155,6 @@ export const useLocationDetailView = (
 
   const { actionConfigs } = useActionConfigs();
 
-  const onSearchSave = () => {
-    onCloseFilePreview();
-    onSearchSubmit();
-  };
-
   const actionItems = React.useMemo(() => {
     if (!permissions) {
       return [];
@@ -197,7 +192,11 @@ export const useLocationDetailView = (
     downloadErrorMessage: getDownloadErrorMessageFromFailedDownloadTask(task),
     isLoading,
     isSearchSubfoldersEnabled,
-    onPaginate: handlePaginate,
+    onPaginate: (p: number) => {
+      handlePaginate(p);
+
+      onCloseFilePreview();
+    },
     searchQuery,
     filePreviewState: {
       previewedFile,
@@ -264,7 +263,10 @@ export const useLocationDetailView = (
           : { type: 'SET_LOCATION_ITEMS', items: fileItems }
       );
     },
-    onSearch: onSearchSave,
+    onSearch: () => {
+      onCloseFilePreview();
+      onSearchSubmit();
+    },
     onSearchClear: () => {
       resetSearch();
       if (hasInvalidPrefix) return;
