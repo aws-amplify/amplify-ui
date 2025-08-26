@@ -381,7 +381,6 @@ fileTypeResolver: (properties) => {
   
   // Custom types
   if (properties?.contentType?.startsWith('audio/')) return 'audio';
-  if (properties.key.endsWith('.pdf')) return 'document';
   
   return undefined; // Fallback to built-in detection
 }
