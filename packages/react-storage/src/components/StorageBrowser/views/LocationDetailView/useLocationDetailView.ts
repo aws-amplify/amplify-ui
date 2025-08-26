@@ -119,6 +119,17 @@ export const useLocationDetailView = (
     resetSearch,
   } = useSearch({ onSearch });
 
+  const {
+    onRetryFilePreview,
+    previewedFile,
+    isLoading: filePreviewIsLoading,
+    hasError: filePreviewHasError,
+    hasLimitExceeded,
+    onCloseFilePreview,
+    onOpenFilePreview,
+    url,
+  } = useFilePreview();
+
   const onRefresh = () => {
     if (hasInvalidPrefix) return;
 
@@ -130,6 +141,7 @@ export const useLocationDetailView = (
     });
 
     locationItemsDispatch({ type: 'RESET_LOCATION_ITEMS' });
+    onCloseFilePreview();
   };
 
   React.useEffect(() => {
@@ -142,17 +154,6 @@ export const useLocationDetailView = (
   }, [handleList, handleReset, listOptions, hasInvalidPrefix, key]);
 
   const { actionConfigs } = useActionConfigs();
-
-  const {
-    onRetryFilePreview,
-    previewedFile,
-    isLoading: filePreviewIsLoading,
-    hasError: filePreviewHasError,
-    hasLimitExceeded,
-    onCloseFilePreview,
-    onOpenFilePreview,
-    url,
-  } = useFilePreview();
 
   const onSearchSave = () => {
     onCloseFilePreview();
@@ -222,6 +223,7 @@ export const useLocationDetailView = (
       resetSearch();
       storeDispatch({ type: 'CHANGE_LOCATION', location, path });
       locationItemsDispatch({ type: 'RESET_LOCATION_ITEMS' });
+      onCloseFilePreview();
     },
     onDropFiles: (files: File[]) => {
       fileItemsDispatch({ type: 'ADD_FILES', files });
