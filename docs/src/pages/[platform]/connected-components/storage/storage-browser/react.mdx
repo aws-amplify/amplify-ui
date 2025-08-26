@@ -11,6 +11,7 @@ import {
   Theming,
   Icons,
   GenerateUrlViewComposed,
+  CustomFilePreview,
 } from './examples'
 
 
@@ -347,6 +348,98 @@ You can also use the `displayText` prop to also support different languages. You
     ```
   </ExampleCode>
 </Example>
+
+
+### File preview
+
+The Storage Browser includes built-in file preview functionality that allows users to preview images, videos, text files, and other supported file types directly within the interface. You can customize the file preview behavior through four main configuration options:
+
+#### 1. File Type Classification (`fileTypeResolver`)
+
+Control how the FilePreview component classifies and treats different files. You can return built-in types (`text`, `video`, `image`) or define custom types for specialized handling.
+
+```jsx
+fileTypeResolver: (properties) => {
+  // Built-in types
+  if (properties.key.endsWith('.txt')) return 'text';
+  if (properties.key.endsWith('.mp4')) return 'video';
+  if (properties.key.endsWith('.jpg')) return 'image';
+  
+  // Custom types
+  if (properties?.contentType?.startsWith('audio/')) return 'audio';
+  if (properties.key.endsWith('.pdf')) return 'document';
+  
+  return undefined; // Fallback to built-in detection
+}
+```
+
+#### 2. Custom Renderers (`rendererResolver`)
+
+Override built-in renderers or add new renderers for custom file types. Return a React component or `undefined` to use the default renderer.
+
+```jsx
+rendererResolver: (fileType) => {
+  // Override built-in image renderer
+  if (fileType === 'image') {
+    return ({ fileData, url }) => (
+      <div style={{ border: '3px solid gray' }}>
+        <img src={url} alt={fileData?.key} />
+      </div>
+    );
+  }
+  
+  // Add renderer for custom type
+  if (fileType === 'audio') {
+    return ({ fileData, url }) => (
+      <audio controls>
+        <source src={url} />
+      </audio>
+    );
+  }
+  
+  return undefined; // Use built-in renderer
+}
+```
+
+#### 3. File Size Limits (`maxFileSize`)
+
+Set maximum file sizes (in bytes) for preview. Can be a static number or a function that returns different limits per file type.
+
+```jsx
+maxFileSize: (fileType) => {
+  if (fileType === 'video') return 1000 * 1024 * 1024; // 1GB for videos
+  if (fileType === 'image') return 10 * 1024 * 1024;   // 10MB for images
+  return 5 * 1024 * 1024; // 5MB default
+}
+```
+
+#### 4. URL Generation Options (`urlOptions`)
+
+Configure S3 presigned URL generation including expiration time and object validation. Can be static options or a function for per-type configuration.
+
+```jsx
+urlOptions: (fileType) => {
+  if (fileType === 'video') {
+    return {
+      expiresIn: 1000 * 60 * 60 * 3, // 3 hours for videos
+      validateObjectExistence: true
+    };
+  }
+  return {
+    expiresIn: 900, // 15 minutes default
+    validateObjectExistence: false
+  };
+}
+```
+
+<Example>
+  <CustomFilePreview />
+  <ExampleCode>
+    ```jsx file=./examples/CustomFilePreview.tsx
+    ```
+  </ExampleCode>
+</Example>
+
 
 ### Composition
 
