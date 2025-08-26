@@ -12,6 +12,7 @@ import {
   Icons,
   GenerateUrlViewComposed,
   CustomFilePreview,
+  CustomUIFilePreview,
 } from './examples'
 
 
@@ -536,11 +537,13 @@ The `useView()` hook takes a single argument which is the name of the view you w
   <Tabs.List>
     <Tabs.Item value="StorageBrowser">StorageBrowser</Tabs.Item>
     <Tabs.Item value="Locations">Locations</Tabs.Item>
+    <Tabs.Item value="LocationDetail">Location Detail</Tabs.Item>
     <Tabs.Item value="Upload">Upload</Tabs.Item>
     <Tabs.Item value="Download">Download</Tabs.Item>
     <Tabs.Item value="Copy">Copy</Tabs.Item>
     <Tabs.Item value="CreateFolder">CreateFolder</Tabs.Item>
     <Tabs.Item value="Delete">Delete</Tabs.Item>
+    <Tabs.Item value="FilePreview">File Preview</Tabs.Item>
   </Tabs.List>
   <Tabs.Panel value="StorageBrowser">
     <ExampleCode>
@@ -551,6 +554,12 @@ The `useView()` hook takes a single argument which is the name of the view you w
   <Tabs.Panel value="Locations">
       <ExampleCode>
         ```tsx file=./examples/CustomLocationsView.tsx
+        ```
+      </ExampleCode>
+  </Tabs.Panel>
+    <Tabs.Panel value="LocationDetail">
+      <ExampleCode>
+        ```tsx file=./examples/CustomLocationDetailView.tsx
         ```
       </ExampleCode>
   </Tabs.Panel>
@@ -581,6 +590,12 @@ The `useView()` hook takes a single argument which is the name of the view you w
   <Tabs.Panel value="Delete">
       <ExampleCode>
         ```jsx file=./examples/CustomDeleteView.tsx
+        ```
+      </ExampleCode>
+  </Tabs.Panel>
+  <Tabs.Panel value="FilePreview">
+      <ExampleCode>
+        ```jsx file=./examples/CustomUIFilePreview.tsx
         ```
       </ExampleCode>
   </Tabs.Panel>

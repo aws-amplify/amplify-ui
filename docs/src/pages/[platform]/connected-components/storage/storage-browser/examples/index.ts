@@ -9,3 +9,4 @@ export { default as Icons } from './Icons';
 export { default as Default } from './Default';
 export { default as GenerateUrlViewComposed } from './GenerateUrlViewComposed';
 export { default as CustomFilePreview } from './CustomFilePreview';
+export { default as CustomUIFilePreview } from './CustomUIFilePreview';

@@ -6,6 +6,7 @@ import { CustomDeleteView } from './CustomDeleteView';
 import { CustomDownloadView } from './CustomDownloadView';
 import { CustomLocationsView } from './CustomLocationsView';
 import { CustomUploadView } from './CustomUploadView';
+import CustomLocationDetailView from './CustomLocationDetailView';
 
 function MyLocationActionView() {
   const state = useView('LocationDetail');
@@ -40,7 +41,7 @@ function MyStorageBrowser() {
     return <MyLocationActionView />;
   }
 
-  return <StorageBrowser.LocationDetailView />;
+  return <CustomLocationDetailView />;
 }
 
 export default function Example() {
