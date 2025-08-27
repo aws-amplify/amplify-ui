@@ -229,4 +229,48 @@ describe('useFilePreview', () => {
     expect(result.current.isLoading).toBe(false);
     expect(result.current.hasError).toBe(false);
   });
+
+  it('prevents opening the same file twice', () => {
+    const { result } = renderHook(() => useFilePreview(), {
+      wrapper: Provider,
+    });
+
+    act(() => {
+      result.current.onOpenFilePreview(mockFileData);
+    });
+
+    expect(result.current.previewedFile).toBe(mockFileData);
+
+    const initialState = result.current;
+    act(() => {
+      result.current.onOpenFilePreview(mockFileData);
+    });
+
+    expect(result.current.previewedFile).toBe(initialState.previewedFile);
+    expect(mockSafeGetProperties).toHaveBeenCalledTimes(1);
+  });
+
+  it('allows opening different file after one is already open', () => {
+    const { result } = renderHook(() => useFilePreview(), {
+      wrapper: Provider,
+    });
+    const differentFile: FileData = {
+      ...mockFileData,
+      key: 'different.jpg',
+      id: 'different-id',
+    };
+
+    act(() => {
+      result.current.onOpenFilePreview(mockFileData);
+    });
+
+    expect(result.current.previewedFile).toBe(mockFileData);
+
+    act(() => {
+      result.current.onOpenFilePreview(differentFile);
+    });
+
+    expect(result.current.previewedFile).toBe(differentFile);
+    expect(mockSafeGetProperties).toHaveBeenCalledTimes(2);
+  });
 });
