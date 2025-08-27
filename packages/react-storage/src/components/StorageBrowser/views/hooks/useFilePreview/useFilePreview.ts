@@ -1,12 +1,13 @@
 import { useCallback, useReducer } from 'react';
 import type { FileData } from '../../../actions';
-import { getProperties, getUrl } from 'aws-amplify/storage';
+import { getUrl } from 'aws-amplify/storage';
 import { determineFileType } from '../../utils/files/fileType';
 import { useFilePreviewContext } from '../../../filePreview/context';
 import { resolveUrlOptions } from '../../utils/files/url';
 import { resolveMaxFileSize } from '../../utils/files/fileSize';
 import type { UseFilePreviewReturn } from './types';
 import { initialState, filePreviewReducer } from './filePreviewReducer';
+import { safeGetProperties } from '../../utils/files/safeGetProperties';
 
 export function useFilePreview(): UseFilePreviewReturn {
   const filePreviewContext = useFilePreviewContext();
@@ -24,9 +25,7 @@ export function useFilePreview(): UseFilePreviewReturn {
       try {
         dispatch({ type: 'START_PREVIEW_PREPARATION', payload: { fileData } });
 
-        const properties = await getProperties({
-          path: fileData.key,
-        });
+        const properties = await safeGetProperties({ path: fileData.key });
 
         const enrichedFileData: FileData = {
           ...fileData,
@@ -44,8 +43,7 @@ export function useFilePreview(): UseFilePreviewReturn {
         };
 
         const sizeLimit = resolveMaxFileSize(maxFileSize, fileType);
-        const isLimitExceeded =
-          (properties.size ?? fileData.size ?? 0) > sizeLimit;
+        const isLimitExceeded = (fileData.size ?? 0) > sizeLimit;
 
         if (isLimitExceeded) {
           dispatch({ type: 'LIMIT_EXCEEDED' });

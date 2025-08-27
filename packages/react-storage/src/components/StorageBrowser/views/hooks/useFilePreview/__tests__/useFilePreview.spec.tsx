@@ -80,7 +80,7 @@ describe('useFilePreview', () => {
     const { result } = renderHook(() => useFilePreview());
 
     await act(async () => {
-      result.current.onOpenFilePreview(mockFileData);
+      result.current.onOpenFilePreview({ ...mockFileData, size: 2000000 });
     });
 
     expect(result.current.hasLimitExceeded).toBe(true);
@@ -88,7 +88,7 @@ describe('useFilePreview', () => {
   });
 
   it('handles errors during preparation', async () => {
-    mockGetProperties.mockRejectedValue(new Error('Network error'));
+    mockGetUrl.mockRejectedValue(new Error('Network error'));
 
     const { result } = renderHook(() => useFilePreview());
 
