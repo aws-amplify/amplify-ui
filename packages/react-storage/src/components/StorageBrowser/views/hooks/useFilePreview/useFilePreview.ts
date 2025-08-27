@@ -1,20 +1,26 @@
 import { useCallback, useReducer } from 'react';
 import type { FileData } from '../../../actions';
-import { getUrl } from 'aws-amplify/storage';
+
 import { determineFileType } from '../../utils/files/fileType';
 import { useFilePreviewContext } from '../../../filePreview/context';
+import { useGetActionInput } from '../../../configuration/context';
 import { resolveUrlOptions } from '../../utils/files/url';
 import { resolveMaxFileSize } from '../../utils/files/fileSize';
 import type { UseFilePreviewReturn } from './types';
 import { initialState, filePreviewReducer } from './filePreviewReducer';
 import { safeGetProperties } from '../../utils/files/safeGetProperties';
+import { constructBucket } from '../../../actions/handlers';
+import { getUrl } from '../../../storage-internal';
 
 export function useFilePreview(): UseFilePreviewReturn {
   const filePreviewContext = useFilePreviewContext();
+  const getConfig = useGetActionInput();
   const [state, dispatch] = useReducer(filePreviewReducer, initialState);
 
   const { fileTypeResolver, urlOptions, maxFileSize } =
     filePreviewContext ?? {};
+
+  const config = getConfig();
 
   const prepareFileForPreview = useCallback(
     async (fileData?: FileData | null) => {
@@ -22,10 +28,20 @@ export function useFilePreview(): UseFilePreviewReturn {
         return;
       }
 
+      const { accountId, customEndpoint, credentials } = config;
+
+      const sharedOptions = {
+        bucket: constructBucket(config),
+        expectedBucketOwner: accountId,
+      };
+
       try {
         dispatch({ type: 'START_PREVIEW_PREPARATION', payload: { fileData } });
 
-        const properties = await safeGetProperties({ path: fileData.key });
+        const properties = await safeGetProperties({
+          path: fileData.key,
+          options: sharedOptions,
+        });
 
         const enrichedFileData: FileData = {
           ...fileData,
@@ -52,7 +68,13 @@ export function useFilePreview(): UseFilePreviewReturn {
 
         const { url } = await getUrl({
           path: fileData.key,
-          options: resolveUrlOptions(urlOptions, fileType),
+          options: {
+            customEndpoint,
+            locationCredentialsProvider: credentials,
+            contentDisposition: 'attachment',
+            ...sharedOptions,
+            ...resolveUrlOptions(urlOptions, fileType),
+          },
         });
 
         dispatch({
@@ -66,7 +88,7 @@ export function useFilePreview(): UseFilePreviewReturn {
         dispatch({ type: 'PREVIEW_PREPARATION_ERROR', payload: null! });
       }
     },
-    [fileTypeResolver, urlOptions, maxFileSize]
+    [fileTypeResolver, urlOptions, maxFileSize, config]
   );
 
   const onRetryFilePreview = useCallback(() => {
