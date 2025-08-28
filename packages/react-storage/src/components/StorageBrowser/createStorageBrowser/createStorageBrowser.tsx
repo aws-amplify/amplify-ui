@@ -48,7 +48,9 @@ export default function createStorageBrowser<
   TInput extends CreateStorageBrowserInput<TResolver>,
   TActions extends NonNullable<TInput['actions']>,
 >(
-  input: CreateStorageBrowserInput<TResolver> & TInput
+  input: CreateStorageBrowserInput<TResolver> & {
+    actions?: TActions;
+  }
 ): CreateStorageBrowserOutput<TActions> {
   assertRegisterAuthListener(input.config.registerAuthListener);
 
