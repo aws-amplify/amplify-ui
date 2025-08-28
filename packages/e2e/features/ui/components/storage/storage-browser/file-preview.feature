@@ -9,7 +9,7 @@ Feature: File Preview with Storage Browser
   @react
   Scenario: Open and close file preview for text file
     When I click the first button containing "public"
-    Then I click the button with label "001_dont_delete_text_file_preview_end_to_end_testing.txt file"
+    When I click the button with label "001_dont_delete_text_file_preview_end_to_end_testing.txt file"
     Then I see "File Preview"
     Then I see "File Information"    
     Then I see the "This is the text file content." message
@@ -19,7 +19,7 @@ Feature: File Preview with Storage Browser
   @react
   Scenario: Open and close file preview for image file
     When I click the first button containing "public"
-    Then I click the button with label "001_dont_delete_image_file_preview_end_to_end_testing.jpg file"
+    When I click the button with label "001_dont_delete_image_file_preview_end_to_end_testing.jpg file"
     Then I see "File Preview"
     Then I see "File Information"    
     Then I see the "Image preview for 001_dont_delete_image_file_preview_end_to_end_testing.jpg" image
@@ -29,7 +29,7 @@ Feature: File Preview with Storage Browser
   @react
   Scenario: Open and close file preview for video file
     When I click the first button containing "public"
-    Then I click the button with label "001_dont_delete_video_file_preview_end_to_end_testing.mp4 file"
+    When I click the button with label "001_dont_delete_video_file_preview_end_to_end_testing.mp4 file"
     Then I see "File Preview"
     Then I see "File Information"    
     Then I see video with label "Video preview for 001_dont_delete_video_file_preview_end_to_end_testing.mp4"
@@ -39,7 +39,7 @@ Feature: File Preview with Storage Browser
   @react
   Scenario: Open and close file preview for unsupported file
     When I click the first button containing "public"
-    Then I click the button with label "001_dont_delete_un_supported_file_preview_end_to_end_testing.pdf file"
+    When I click the button with label "001_dont_delete_un_supported_file_preview_end_to_end_testing.pdf file"
     Then I see "File Preview"
     Then I see "File Information"    
     Then I see "File preview not supported for this file type"    
@@ -50,7 +50,7 @@ Feature: File Preview with Storage Browser
   @react
   Scenario: File preview shows size limit exceeded message for large files
     When I click the first button containing "public"
-    Then I click the button with label "001_dont_delete_text_file_preview_limit_exceeded_end_to_end_testing.json file"
+    When I click the button with label "001_dont_delete_text_file_preview_limit_exceeded_end_to_end_testing.json file"
     Then I see "File Preview"
     Then I see "File Information"    
     Then I see "File preview not possible due to preview size limit"
@@ -61,12 +61,12 @@ Feature: File Preview with Storage Browser
   @react
   Scenario: File preview shows error and retry functionality on network failure
     When I click the first button containing "public"
-    Then I click the button with label "001_dont_delete_text_file_preview_end_to_end_testing.txt file"
+    When I click the button with label "001_dont_delete_text_file_preview_end_to_end_testing.txt file"
     Then I see "File Preview"
     Then I see "File Information"
     When A network failure occurs
     Then I see "Something went wrong"
-    Then I click the button with label "Retry loading 001_dont_delete_text_file_preview_end_to_end_testing.txt file"
+    When I click the button with label "Retry loading 001_dont_delete_text_file_preview_end_to_end_testing.txt file"
     Then I see the File preview Loader
     When I click the "Close" button
     Then I do not see "File Preview"
