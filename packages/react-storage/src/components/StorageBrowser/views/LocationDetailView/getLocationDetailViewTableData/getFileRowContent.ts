@@ -50,6 +50,7 @@ export const getFileRowContent = ({
       }
       case 'name': {
         const fileName = rowKey.slice(itemLocationKey.length);
+
         return {
           key,
           type: 'button',
