@@ -43,20 +43,20 @@ const { StorageBrowser } = createStorageBrowser({
       return undefined;
     },
     maxFileSize: (fileType) => {
-      //1GB preview limit for videos
+      // 1GB preview limit for videos
       if (fileType == 'video') return 1000 * 1024 * 1024;
     },
     urlOptions: (fileType) => {
-      //3 hours expiration for the pre-signed url for videos
+      // 3 hours expiration for the pre-signed url for videos
       if (fileType == 'video')
         return { expiresIn: 1000 * 60 * 60 * 3, validateObjectExistence: true };
     },
     rendererResolver: (fileType) => {
-      //Add a new renderer for certain files types
+      // Add a new renderer for certain files types
       if (fileType === 'audio') return CustomAudioRenderer;
 
       if (fileType == 'image') {
-        //Override the default image renderer
+        // Override the default image renderer
         return CustomImageRenderer;
       }
     },
