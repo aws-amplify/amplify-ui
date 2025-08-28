@@ -4,14 +4,12 @@ import { STORAGE_BROWSER_BLOCK } from '../constants';
 import { useDisplayText } from '../../../displayText';
 import { PreviewFallback } from './PreviewFallback';
 import { PreviewPlaceholder } from './PreviewPlaceholder';
+import type { PreviewComponentProps } from './type';
 
 export function TextPreview({
   url,
   fileKey,
-}: {
-  url: string;
-  fileKey: string;
-}): React.JSX.Element {
+}: PreviewComponentProps): React.JSX.Element {
   const [content, setContent] = useState<string>('');
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);

@@ -5,14 +5,12 @@ import { PreviewPlaceholder } from './PreviewPlaceholder';
 import { PreviewFallback } from './PreviewFallback';
 import { getFileName } from '../../../views/utils/files/fileName';
 import { useDisplayText } from '../../../displayText';
+import type { PreviewComponentProps } from './type';
 
 export function ImagePreview({
   url,
   fileKey,
-}: {
-  url: string;
-  fileKey: string;
-}): React.JSX.Element | null {
+}: PreviewComponentProps): React.JSX.Element {
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [imageKey, setImageKey] = useState(0);
