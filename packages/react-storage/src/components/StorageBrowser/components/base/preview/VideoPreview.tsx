@@ -4,16 +4,12 @@ import { PreviewPlaceholder } from './PreviewPlaceholder';
 import { PreviewFallback } from './PreviewFallback';
 import { getFileName } from '../../../views/utils/files/fileName';
 import { useDisplayText } from '../../../displayText';
-
-interface VideoPreviewProps {
-  url: string;
-  fileKey: string;
-}
+import type { PreviewComponentProps } from './type';
 
 export function VideoPreview({
   url,
   fileKey,
-}: VideoPreviewProps): React.JSX.Element {
+}: PreviewComponentProps): React.JSX.Element {
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [videoKey, setVideoKey] = useState(0);

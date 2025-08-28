@@ -11,12 +11,18 @@ import type { AllFileTypes } from '../../createStorageBrowser/types';
 import { STORAGE_BROWSER_BLOCK } from '../base';
 import { useDisplayText } from '../../displayText';
 import { FilePreviewLayout } from '../base/preview/FilePreviewLayout';
-import { exhaustiveCheck } from '../../views/utils/exhaustiveCheck';
+import type { PreviewComponent } from '../base/preview/type';
 
 export interface FilePreviewProps extends FilePreviewState {
   onCloseFilePreview?: () => void;
   onRetryFilePreview?: () => void;
 }
+
+const rendererMap: Record<NonNullable<AllFileTypes>, PreviewComponent> = {
+  image: ImagePreview,
+  video: VideoPreview,
+  text: TextPreview,
+} as const;
 
 export function FilePreview(props: FilePreviewProps): React.JSX.Element | null {
   const { onCloseFilePreview, hasLimitExceeded, onRetryFilePreview } = props;
@@ -40,31 +46,18 @@ export function FilePreview(props: FilePreviewProps): React.JSX.Element | null {
   const { key, fileType } = previewedFile;
 
   function getDefaultRenderer(type?: AllFileTypes | null) {
-    const fileUrl = url ?? '';
-
-    switch (type) {
-      case 'image':
-        return <ImagePreview fileKey={key} url={fileUrl} />;
-
-      case 'video':
-        return <VideoPreview fileKey={key} url={fileUrl} />;
-
-      case 'text':
-        return <TextPreview fileKey={key} url={fileUrl} />;
-
-      case null:
-      case undefined:
-        return (
-          <PreviewFallback
-            fileKey={key}
-            message={unsupportedFileMessage}
-            description={unsupportedFileDescription}
-          />
-        );
-
-      default:
-        return exhaustiveCheck(type);
+    if (type && type in rendererMap) {
+      const PreviewComponent = rendererMap[type];
+      return <PreviewComponent fileKey={key} url={url ?? ''} />;
     }
+
+    return (
+      <PreviewFallback
+        fileKey={key}
+        message={unsupportedFileMessage}
+        description={unsupportedFileDescription}
+      />
+    );
   }
 
   function resolveRenderer() {
