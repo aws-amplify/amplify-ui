@@ -46,6 +46,36 @@ exports[`LocationDetailView display text \`getListResultsMessage\` returns the e
 
 exports[`LocationDetailView display text \`getListResultsMessage\` returns the expected values in the search limit reached scenario 1`] = `undefined`;
 
+exports[`LocationDetailView display text filePreview display text should have correct default values 1`] = `
+{
+  "closeButtonLabel": "Close",
+  "downloadButtonLabel": "Download",
+  "emptyFileMessage": "File is empty",
+  "entityTagLabel": "Entity tag",
+  "errorDescription": "We encountered an issue while loading the file preview.",
+  "errorMessage": "Something went wrong",
+  "fileInformationTitle": "File Information",
+  "filePrefix": "File: ",
+  "filePreviewTitle": "File Preview",
+  "fileSizeLimitDescription": "This file is too large to preview in the browser. You can download the file to view it with an appropriate application.",
+  "generalPreviewErrorDescription": "An unexpected error occurred while loading the file preview. Please try again or download the file to view it with an appropriate application.",
+  "getTextErrorMessage": [Function],
+  "imageLoadErrorDescription": "The image could not be loaded. This may be due to network issues, file corruption, or an unsupported image format.",
+  "keyLabel": "Key",
+  "lastModifiedLabel": "Last Modified",
+  "retryButtonLabel": "Retry",
+  "sizeLabel": "Size",
+  "sizeLimitMessage": "File preview not possible due to preview size limit",
+  "textLoadErrorDescription": "The text file could not be loaded. This may be due to network issues, file access permissions, or the file being too large to display.",
+  "typeLabel": "Type",
+  "unknownValue": "Unknown",
+  "unsupportedFileDescription": "This file format is not supported for preview. You can download the file to view it with an appropriate application.",
+  "unsupportedFileMessage": "File preview not supported for this file type",
+  "versionIdLabel": "Version Id",
+  "videoLoadErrorDescription": "The video could not be played. This may be due to network issues, file corruption, or an unsupported video format or codec.",
+}
+`;
+
 exports[`LocationDetailView display text should match snapshot values 1`] = `
 {
   "filePreview": {

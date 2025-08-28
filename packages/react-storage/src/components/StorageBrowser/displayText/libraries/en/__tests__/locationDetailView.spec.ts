@@ -51,35 +51,8 @@ describe('LocationDetailView display text', () => {
   describe('filePreview display text', () => {
     const { filePreview } = DEFAULT_LOCATION_DETAIL_VIEW_DISPLAY_TEXT;
 
-    it('should have all required file preview text properties', () => {
-      expect(filePreview).toHaveProperty('closeButtonLabel');
-      expect(filePreview).toHaveProperty('filePreviewTitle');
-      expect(filePreview).toHaveProperty('fileInformationTitle');
-      expect(filePreview).toHaveProperty('errorMessage');
-      expect(filePreview).toHaveProperty('sizeLimitMessage');
-      expect(filePreview).toHaveProperty('keyLabel');
-      expect(filePreview).toHaveProperty('sizeLabel');
-      expect(filePreview).toHaveProperty('versionIdLabel');
-      expect(filePreview).toHaveProperty('lastModifiedLabel');
-      expect(filePreview).toHaveProperty('entityTagLabel');
-      expect(filePreview).toHaveProperty('typeLabel');
-      expect(filePreview).toHaveProperty('unknownValue');
-      expect(filePreview).toHaveProperty('errorDescription');
-      expect(filePreview).toHaveProperty('unsupportedFileDescription');
-      expect(filePreview).toHaveProperty('filePrefix');
-      expect(filePreview).toHaveProperty('retryButtonLabel');
-      expect(filePreview).toHaveProperty('downloadButtonLabel');
-      expect(filePreview).toHaveProperty('getTextErrorMessage');
-      expect(filePreview).toHaveProperty('emptyFileMessage');
-    });
-
     it('should have correct default values', () => {
-      expect(filePreview.closeButtonLabel).toBe('Close');
-      expect(filePreview.filePreviewTitle).toBe('File Preview');
-      expect(filePreview.fileInformationTitle).toBe('File Information');
-      expect(filePreview.errorMessage).toBe('Something went wrong');
-      expect(filePreview.retryButtonLabel).toBe('Retry');
-      expect(filePreview.downloadButtonLabel).toBe('Download');
+      expect(filePreview).toMatchSnapshot();
     });
 
     it('should return formatted error message', () => {
