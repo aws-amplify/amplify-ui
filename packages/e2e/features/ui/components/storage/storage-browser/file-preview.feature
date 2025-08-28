@@ -72,6 +72,6 @@ Feature: File Preview with Storage Browser
     When A network failure occurs
     Then I see "Something went wrong"
     Then I click the button with label "Retry loading 001_dont_delete_text_file_preview_end_to_end_testing.txt file"
-    Then I see loader
+    Then I see the File preview Loader
     When I click the "Close" button
     Then I do not see "File Preview"

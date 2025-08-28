@@ -95,7 +95,7 @@ Then(
 
 Then('I click checkbox for file {string}', selectTableRowCheckBox);
 
-Then('I see loader', () => {
+Then('I see the File preview Loader', () => {
   cy.get('.amplify-storage-browser__preview-placeholder').should('exist');
 });
 
