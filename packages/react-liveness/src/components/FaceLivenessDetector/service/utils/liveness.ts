@@ -277,7 +277,7 @@ export function drawStaticOval(
   const ovalDetails = getStaticLivenessOvalDetails({
     width: width!,
     height: height!,
-    ratioMultiplier: 0.3,
+    ratioMultiplier: 0.5,
   });
   ovalDetails.flippedCenterX = width! - ovalDetails.centerX;
 

@@ -1,5 +1,11 @@
 # @aws-amplify/ui-react-native
 
+## 2.6.0
+
+### Minor Changes
+
+- [#6670](https://github.com/aws-amplify/amplify-ui/pull/6670) [`83a2d8445f70dc371371de92fdf35f7edbc9fd6a`](https://github.com/aws-amplify/amplify-ui/commit/83a2d8445f70dc371371de92fdf35f7edbc9fd6a) Thanks [@ahmedhamouda78](https://github.com/ahmedhamouda78)! - fix(ui-react-native): fix autofill not triggering change events correctly
+
 ## 2.5.3
 
 ### Patch Changes

@@ -16,6 +16,7 @@ export type AuthenticatorFieldTypeKey =
 type RadioFieldOnBlur = RadioProps<string>['onBlur'];
 export type TextFieldOnBlur = TextFieldProps['onBlur'];
 export type OnChangeText = TextFieldProps['onChangeText'];
+export type OnChange = TextFieldProps['onChange'];
 
 type FieldOptions<FieldProps, Type extends AuthenticatorFieldTypeKey> = {
   name: string;
