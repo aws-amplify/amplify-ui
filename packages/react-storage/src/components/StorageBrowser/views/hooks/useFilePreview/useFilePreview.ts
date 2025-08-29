@@ -11,6 +11,7 @@ import { initialState, filePreviewReducer } from './filePreviewReducer';
 import { safeGetProperties } from '../../utils/files/safeGetProperties';
 import { constructBucket } from '../../../actions/handlers';
 import { getUrl } from '../../../storage-internal';
+import { useStore } from '../../../store';
 
 export function useFilePreview(): UseFilePreviewReturn {
   const filePreviewContext = useFilePreviewContext();
@@ -19,15 +20,15 @@ export function useFilePreview(): UseFilePreviewReturn {
 
   const { fileTypeResolver, urlOptions, maxFileSize } =
     filePreviewContext ?? {};
-
-  const config = getConfig();
+  const [{ location }] = useStore();
 
   const prepareFileForPreview = useCallback(
     async (fileData?: FileData | null) => {
-      if (!fileData || !fileData?.key) {
+      if (!fileData || !fileData?.key || !location.current) {
         return;
       }
 
+      const config = getConfig(location.current);
       const { accountId, customEndpoint, credentials } = config;
 
       const sharedOptions = {
@@ -88,7 +89,7 @@ export function useFilePreview(): UseFilePreviewReturn {
         dispatch({ type: 'PREVIEW_PREPARATION_ERROR', payload: null! });
       }
     },
-    [fileTypeResolver, urlOptions, maxFileSize, config]
+    [fileTypeResolver, urlOptions, maxFileSize, getConfig, location]
   );
 
   const onRetryFilePreview = useCallback(() => {
