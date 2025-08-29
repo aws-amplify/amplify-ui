@@ -6,7 +6,7 @@
   "type": "module",
   "license": "Apache-2.0",
   "dependencies": {
-    "@amzn/aws-rekognition-liveness-js-v2-client": "file:./liveness-js-client-v2.tgz"
+    "@aws-sdk/client-rekognition": "^3.370.0"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.92"
