@@ -1,6 +1,12 @@
 import type { AwsCredentialProvider } from './credentials';
 import type { ErrorState } from './error';
 
+export interface DeviceInfo {
+  deviceId: string;
+  groupId: string;
+  label: string;
+}
+
 /**
  * The props for the FaceLivenessDetectorCore which allows for full configuration of auth
  */
@@ -11,10 +17,40 @@ export interface FaceLivenessDetectorCoreProps {
   sessionId: string;
 
   /**
+   * Optional device ID to pre-select a camera
+   */
+  deviceId?: string;
+
+  /**
+   * Optional device label to pre-select a camera by its label.
+   * This is more reliable than deviceId as labels typically remain consistent.
+   * If both deviceId and deviceLabel are provided, deviceLabel takes precedence.
+   */
+  deviceLabel?: string;
+
+  /**
    * Callback that signals when the liveness session has completed analysis.
    * At this point a request can be made to GetFaceLivenessSessionResults.
+   * @param deviceInfo Information about the selected device
    */
-  onAnalysisComplete: () => Promise<void>;
+  onAnalysisComplete: (deviceInfo?: DeviceInfo) => Promise<void>;
+
+  /**
+   * Callback called when the user changes the camera device
+   * @param deviceInfo Information about the newly selected device
+   */
+  onCameraChange?: (deviceInfo: DeviceInfo) => void;
+
+  /**
+   * Callback called when the specified camera (deviceId or deviceLabel) is not found
+   * and the system falls back to the default camera
+   * @param requestedCamera The camera that was requested but not found
+   * @param fallbackDevice Information about the camera that was used instead
+   */
+  onCameraNotFound?: (
+    requestedCamera: { deviceId?: string; deviceLabel?: string } | undefined,
+    fallbackDevice: DeviceInfo
+  ) => void;
 
   /**
    * The AWS region to stream the video to, for current regional support see the documentation here: FIXME LINK
@@ -23,13 +59,22 @@ export interface FaceLivenessDetectorCoreProps {
 
   /**
    * Callback called when the user cancels the flow
+   * @param deviceInfo Information about the selected device, if available
    */
   onUserCancel?: () => void;
 
   /**
-   * Callback called when there is error occured on any step
+   * Callback called when the liveness check times out
+   * @param deviceInfo Information about the selected device, if available
    */
-  onError?: (livenessError: LivenessError) => void;
+  onUserTimeout?: (deviceInfo?: DeviceInfo) => void;
+
+  /**
+   * Callback called when there is an error on any step
+   * @param livenessError The error that occurred
+   * @param deviceInfo Information about the selected device, if available
+   */
+  onError?: (livenessError: LivenessError, deviceInfo?: DeviceInfo) => void;
 
   /**
    * Optional parameter for the disabling the Start/Get Ready Screen, default: false
