@@ -1,31 +1,47 @@
 import { useCallback, useReducer } from 'react';
 import type { FileData } from '../../../actions';
-import { getProperties, getUrl } from 'aws-amplify/storage';
+
 import { determineFileType } from '../../utils/files/fileType';
 import { useFilePreviewContext } from '../../../filePreview/context';
+import { useGetActionInput } from '../../../configuration/context';
 import { resolveUrlOptions } from '../../utils/files/url';
 import { resolveMaxFileSize } from '../../utils/files/fileSize';
 import type { UseFilePreviewReturn } from './types';
 import { initialState, filePreviewReducer } from './filePreviewReducer';
+import { safeGetProperties } from '../../utils/files/safeGetProperties';
+import { constructBucket } from '../../../actions/handlers';
+import { getUrl } from '../../../storage-internal';
+import { useStore } from '../../../store';
 
 export function useFilePreview(): UseFilePreviewReturn {
   const filePreviewContext = useFilePreviewContext();
+  const getConfig = useGetActionInput();
   const [state, dispatch] = useReducer(filePreviewReducer, initialState);
 
   const { fileTypeResolver, urlOptions, maxFileSize } =
     filePreviewContext ?? {};
+  const [{ location }] = useStore();
 
   const prepareFileForPreview = useCallback(
     async (fileData?: FileData | null) => {
-      if (!fileData || !fileData?.key) {
+      if (!fileData || !fileData?.key || !location.current) {
         return;
       }
+
+      const config = getConfig(location.current);
+      const { accountId, customEndpoint, credentials } = config;
+
+      const sharedOptions = {
+        bucket: constructBucket(config),
+        expectedBucketOwner: accountId,
+      };
 
       try {
         dispatch({ type: 'START_PREVIEW_PREPARATION', payload: { fileData } });
 
-        const properties = await getProperties({
+        const properties = await safeGetProperties({
           path: fileData.key,
+          options: sharedOptions,
         });
 
         const enrichedFileData: FileData = {
@@ -44,8 +60,7 @@ export function useFilePreview(): UseFilePreviewReturn {
         };
 
         const sizeLimit = resolveMaxFileSize(maxFileSize, fileType);
-        const isLimitExceeded =
-          (properties.size ?? fileData.size ?? 0) > sizeLimit;
+        const isLimitExceeded = (fileData.size ?? 0) > sizeLimit;
 
         if (isLimitExceeded) {
           dispatch({ type: 'LIMIT_EXCEEDED' });
@@ -54,7 +69,13 @@ export function useFilePreview(): UseFilePreviewReturn {
 
         const { url } = await getUrl({
           path: fileData.key,
-          options: resolveUrlOptions(urlOptions, fileType),
+          options: {
+            customEndpoint,
+            locationCredentialsProvider: credentials,
+            contentDisposition: 'attachment',
+            ...sharedOptions,
+            ...resolveUrlOptions(urlOptions, fileType),
+          },
         });
 
         dispatch({
@@ -68,7 +89,7 @@ export function useFilePreview(): UseFilePreviewReturn {
         dispatch({ type: 'PREVIEW_PREPARATION_ERROR', payload: null! });
       }
     },
-    [fileTypeResolver, urlOptions, maxFileSize]
+    [fileTypeResolver, urlOptions, maxFileSize, getConfig, location]
   );
 
   const onRetryFilePreview = useCallback(() => {
@@ -77,14 +98,20 @@ export function useFilePreview(): UseFilePreviewReturn {
 
   const onOpenFilePreview = useCallback(
     (file: FileData) => {
+      if (file.key === state.previewedFile?.key) {
+        return;
+      }
       prepareFileForPreview(file);
     },
-    [prepareFileForPreview]
+    [prepareFileForPreview, state.previewedFile?.key]
   );
 
   const onCloseFilePreview = useCallback(() => {
+    if (!state.previewedFile?.key) {
+      return;
+    }
     dispatch({ type: 'RESET_STATE' });
-  }, []);
+  }, [state.previewedFile?.key]);
 
   return {
     ...state,
