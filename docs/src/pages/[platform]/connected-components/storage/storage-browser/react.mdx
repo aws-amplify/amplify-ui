@@ -1,4 +1,4 @@
-import { Accordion, Message, Tabs, View } from '@aws-amplify/ui-react';
+import { Accordion, Message, Tabs, View, Text } from '@aws-amplify/ui-react';
 import ReactPropsTable from '@/components/propsTable/ReactPropsTable';
 import { Example, ExampleCode } from '@/components/Example';
 import { DISPLAY_TEXT } from './props.ts'
@@ -11,6 +11,8 @@ import {
   Theming,
   Icons,
   GenerateUrlViewComposed,
+  CustomFilePreview,
+  CustomUIFilePreview,
 } from './examples'
 
 
@@ -24,7 +26,7 @@ import {
 
 ## Overview
 
-Storage Browser for Amazon S3 is an open source component that you can add to your web applications to provide your end users with a simple, graphical interface to work with data stored in Amazon S3. With Storage Browser for S3, you can provide authorized end users access to easily browse, download, upload, copy, and delete data in S3 directly from your own applications.
+Storage Browser for Amazon S3 is an open source component that you can add to your web applications to provide your end users with a simple, graphical interface to work with data stored in Amazon S3. With Storage Browser for S3, you can provide authorized end users access to easily browse, download, upload, copy, and delete data in S3 directly from your own applications. It also supports file preview for images, videos, and text files.
 
 End users work with S3 _locations_ within the Storage Browser interface. _Locations_ are S3 buckets or prefixes that you authorize end users to access using Amazon S3 Access Grants or Identity and Access Management (IAM) policies, depending on your use case. When the Storage Browser component is first rendered, it will show the LocationsView which displays only the locations you have granted them access to. Once an end user has selected a location, they can browse the S3 bucket or prefix, and all the data contained further down the S3 resource path, but they cannot browse buckets or prefixes higher up the S3 resource path.
 
@@ -331,7 +333,21 @@ All of the display texts are listed below with their default values and types.
   return {
     trigger: key,
     value: key,
-    content: <ReactPropsTable props={props} />
+    content: (
+      <View>
+        <ReactPropsTable props={props.filter(prop => !prop.nested)} />
+        {props.filter(prop => prop.nested).map(nestedProp => (
+          <View key={nestedProp.name} marginTop="1rem">
+            <Text fontWeight="bold" marginBottom="0.5rem">{nestedProp.name}</Text>
+            <Accordion items={[{
+              trigger: `${nestedProp.name} properties`,
+              value: nestedProp.name,
+              content: <ReactPropsTable props={nestedProp.nested} />
+            }]} />
+          </View>
+        ))}
+      </View>
+    )
   }
 })}
 />
@@ -347,6 +363,97 @@ You can also use the `displayText` prop to also support different languages. You
     ```
   </ExampleCode>
 </Example>
+
+
+### File preview
+
+The Storage Browser includes built-in file preview functionality that allows users to preview images, videos, and text files. You can customize the file preview behavior through four main configuration options:
+
+#### 1. File Type Classification (`fileTypeResolver`)
+
+Control how the FilePreview component classifies and treats different files. You can return built-in types (`text`, `video`, `image`) or define custom types for specialized handling.
+
+```jsx
+fileTypeResolver: (properties) => {
+  // Built-in types
+  if (properties.key.endsWith('.txt')) return 'text';
+  if (properties.key.endsWith('.mp4')) return 'video';
+  if (properties.key.endsWith('.jpg')) return 'image';
+  
+  // Custom types
+  if (properties?.contentType?.startsWith('audio/')) return 'audio';
+  
+  return undefined; // Fallback to built-in detection
+}
+```
+
+#### 2. Custom Renderers (`rendererResolver`)
+
+Override built-in renderers or add new renderers for custom file types. Return a React component or `undefined` to use the default renderer.
+
+```jsx
+rendererResolver: (fileType) => {
+  // Override built-in image renderer
+  if (fileType === 'image') {
+    return ({ fileData, url }) => (
+      <div style={{ border: '3px solid gray' }}>
+        <img src={url} alt={fileData?.key} />
+      </div>
+    );
+  }
+  
+  // Add renderer for custom type
+  if (fileType === 'audio') {
+    return ({ fileData, url }) => (
+      <audio controls>
+        <source src={url} />
+      </audio>
+    );
+  }
+  
+  return undefined; // Use built-in renderer
+}
+```
+
+#### 3. File Size Limits (`maxFileSize`)
+
+Set maximum file sizes (in bytes) for preview. Can be a static number or a function that returns different limits per file type.
+
+```jsx
+maxFileSize: (fileType) => {
+  if (fileType === 'video') return 1000 * 1024 * 1024; // 1GB for videos
+  if (fileType === 'image') return 10 * 1024 * 1024;   // 10MB for images
+  return 5 * 1024 * 1024; // 5MB default
+}
+```
+
+#### 4. URL Generation Options (`urlOptions`)
+
+Configure S3 presigned URL generation including expiration time and object validation. Can be static options or a function for per-type configuration.
+
+```jsx
+urlOptions: (fileType) => {
+  if (fileType === 'video') {
+    return {
+      expiresIn: 1000 * 60 * 60 * 3, // 3 hours for videos
+      validateObjectExistence: true
+    };
+  }
+  return {
+    expiresIn: 900, // 15 minutes default
+    validateObjectExistence: false
+  };
+}
+```
+
+<Example>
+  <CustomFilePreview />
+  <ExampleCode>
+    ```jsx file=./examples/CustomFilePreview.tsx
+    ```
+  </ExampleCode>
+</Example>
+
 
 ### Composition
 
@@ -430,11 +537,13 @@ The `useView()` hook takes a single argument which is the name of the view you w
   <Tabs.List>
     <Tabs.Item value="StorageBrowser">StorageBrowser</Tabs.Item>
     <Tabs.Item value="Locations">Locations</Tabs.Item>
+    <Tabs.Item value="LocationDetail">Location Detail</Tabs.Item>
     <Tabs.Item value="Upload">Upload</Tabs.Item>
     <Tabs.Item value="Download">Download</Tabs.Item>
     <Tabs.Item value="Copy">Copy</Tabs.Item>
     <Tabs.Item value="CreateFolder">CreateFolder</Tabs.Item>
     <Tabs.Item value="Delete">Delete</Tabs.Item>
+    <Tabs.Item value="FilePreview">File Preview</Tabs.Item>
   </Tabs.List>
   <Tabs.Panel value="StorageBrowser">
     <ExampleCode>
@@ -445,6 +554,12 @@ The `useView()` hook takes a single argument which is the name of the view you w
   <Tabs.Panel value="Locations">
       <ExampleCode>
         ```tsx file=./examples/CustomLocationsView.tsx
+        ```
+      </ExampleCode>
+  </Tabs.Panel>
+    <Tabs.Panel value="LocationDetail">
+      <ExampleCode>
+        ```tsx file=./examples/CustomLocationDetailView.tsx
         ```
       </ExampleCode>
   </Tabs.Panel>
@@ -475,6 +590,12 @@ The `useView()` hook takes a single argument which is the name of the view you w
   <Tabs.Panel value="Delete">
       <ExampleCode>
         ```jsx file=./examples/CustomDeleteView.tsx
+        ```
+      </ExampleCode>
+  </Tabs.Panel>
+  <Tabs.Panel value="FilePreview">
+      <ExampleCode>
+        ```jsx file=./examples/CustomUIFilePreview.tsx
         ```
       </ExampleCode>
   </Tabs.Panel>
@@ -766,6 +887,7 @@ interface LocationDetailViewState {
   hasExhaustedSearch: boolean;
   pageItems: LocationItemData[];
   page: number;
+  filePreviewState: FilePreviewState;  
   onActionSelect: (actionType: string) => void;
   onDropFiles: (files: File[]) => void;
   onRefresh: () => void;
@@ -779,6 +901,9 @@ interface LocationDetailViewState {
   onSearchClear: () => void;
   onSearchQueryChange: (value: string) => void;
   onToggleSearchSubfolders: () => void;
+  onOpenFilePreview: (f: FileData) => void;
+  onRetryFilePreview: () => void;
+  onCloseFilePreview: () => void;
 }
 ```
 
@@ -796,6 +921,7 @@ interface LocationDetailViewState {
 * `<StorageBrowser.LocationDetails.Search />`
 * `<StorageBrowser.LocationDetails.SearchSubfoldersToggle />`
 * `<StorageBrowser.LocationDetails.Title />`
+* `<StorageBrowser.LocationDetails.FilePreview />`
 
 ### Upload view
 
@@ -973,10 +1099,9 @@ We made our roadmap for Storage Browser public so that you could see what's in s
 
 These are the features we are currently evaluating.
 
-1. Thumbnail  previews
-2. Full object previews
-3. User-controlled object tags
-4. Support for S3 Glacier Flexible Retrieval and S3 Glacier Deep Archive
-5. Support for S3 Access Points
-6. User controlled byte-range GETs
-7. Support for a CloudFront cache
+
+1. User-controlled object tags
+2. Support for S3 Glacier Flexible Retrieval and S3 Glacier Deep Archive
+3. Support for S3 Access Points
+4. User controlled byte-range GETs
+5. Support for a CloudFront cache

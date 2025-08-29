@@ -1,9 +1,11 @@
 import * as React from 'react';
 import { Flex } from '@aws-amplify/ui-react';
 import { StorageBrowser, useView } from './StorageBrowser';
+import CustomFilePreview from './CustomUIFilePreview';
 
 function LocationDetailView() {
   const state = useView('LocationDetail');
+  const { filePreviewState, onCloseFilePreview } = state;
 
   return (
     <StorageBrowser.LocationDetailView.Provider {...state}>
@@ -15,7 +17,10 @@ function LocationDetailView() {
       <Flex direction="column" position="relative">
         <StorageBrowser.LocationDetailView.LocationItemsTable />
 
-        <StorageBrowser.LocationDetailView.FilePreview />
+        <CustomFilePreview
+          filePreviewState={filePreviewState}
+          onCloseFilePreview={onCloseFilePreview}
+        />
       </Flex>
     </StorageBrowser.LocationDetailView.Provider>
   );
