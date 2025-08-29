@@ -12,6 +12,7 @@ import { useFileItems } from '../../../fileItems';
 import { useLocationItems } from '../../../locationItems';
 import { LocationState, useStore } from '../../../store';
 import { useAction, useList } from '../../../useAction';
+import { useFilePreview } from '../../hooks/useFilePreview';
 
 import {
   DEFAULT_LIST_OPTIONS,
@@ -23,6 +24,7 @@ jest.mock('../../../fileItems');
 jest.mock('../../../locationItems');
 jest.mock('../../../store');
 jest.mock('../../../useAction');
+jest.mock('../../hooks/useFilePreview');
 
 const folderDataOne: FolderData = {
   id: '1',
@@ -110,6 +112,7 @@ describe('useLocationDetailView', () => {
   const mockUseList = jest.mocked(useList);
   const mockUseLocationItems = jest.mocked(useLocationItems);
   const mockUseStore = jest.mocked(useStore);
+  const mockUseFilePreview = jest.mocked(useFilePreview);
 
   const mockStoreDispatch = jest.fn();
   const mockLocationItemsDispatch = jest.fn();
@@ -122,6 +125,17 @@ describe('useLocationDetailView', () => {
       { isProcessing: false, task: undefined },
       mockHandleDownload,
     ]);
+
+    mockUseFilePreview.mockReturnValue({
+      previewedFile: null,
+      isLoading: false,
+      hasError: false,
+      url: null,
+      hasLimitExceeded: false,
+      onOpenFilePreview: jest.fn(),
+      onCloseFilePreview: jest.fn(),
+      onRetryFilePreview: jest.fn(),
+    });
   });
 
   beforeEach(() => {
@@ -635,6 +649,149 @@ describe('useLocationDetailView', () => {
     expect(mockStoreDispatch).toHaveBeenCalledWith({
       type: 'CHANGE_ACTION_TYPE',
       actionType,
+    });
+  });
+
+  it('should return file preview state and handlers', () => {
+    const mockFilePreviewState = {
+      previewedFile: {
+        id: 'test',
+        key: 'test.jpg',
+        lastModified: new Date(),
+        size: 1024,
+        type: 'FILE' as const,
+      },
+      isLoading: true,
+      hasError: false,
+      url: 'https://example.com/test.jpg',
+      hasLimitExceeded: false,
+    };
+
+    const mockFilePreviewHandlers = {
+      onOpenFilePreview: jest.fn(),
+      onCloseFilePreview: jest.fn(),
+      onRetryFilePreview: jest.fn(),
+    };
+
+    mockUseFilePreview.mockReturnValue({
+      ...mockFilePreviewState,
+      ...mockFilePreviewHandlers,
+    });
+
+    const { result } = renderHook(() => useLocationDetailView());
+
+    expect(result.current.filePreviewState).toEqual({
+      previewedFile: mockFilePreviewState.previewedFile,
+      isLoading: mockFilePreviewState.isLoading,
+      hasError: mockFilePreviewState.hasError,
+      url: mockFilePreviewState.url,
+      hasLimitExceeded: mockFilePreviewState.hasLimitExceeded,
+    });
+    expect(result.current.onOpenFilePreview).toBe(
+      mockFilePreviewHandlers.onOpenFilePreview
+    );
+    expect(result.current.onCloseFilePreview).toBe(
+      mockFilePreviewHandlers.onCloseFilePreview
+    );
+    expect(result.current.onRetryFilePreview).toBe(
+      mockFilePreviewHandlers.onRetryFilePreview
+    );
+  });
+
+  describe('file preview closure', () => {
+    it('closes file preview on refresh', () => {
+      const mockOnCloseFilePreview = jest.fn();
+      (useFilePreview as jest.Mock).mockReturnValue({
+        onCloseFilePreview: mockOnCloseFilePreview,
+        onOpenFilePreview: jest.fn(),
+        onRetryFilePreview: jest.fn(),
+        previewedFile: null,
+        isLoading: false,
+        hasError: false,
+        hasLimitExceeded: false,
+        url: null,
+      });
+
+      const { result } = renderHook(() => useLocationDetailView());
+
+      act(() => {
+        result.current.onRefresh();
+      });
+
+      expect(mockOnCloseFilePreview).toHaveBeenCalled();
+    });
+
+    it('closes file preview on pagination', () => {
+      const mockOnCloseFilePreview = jest.fn();
+      (useFilePreview as jest.Mock).mockReturnValue({
+        onCloseFilePreview: mockOnCloseFilePreview,
+        onOpenFilePreview: jest.fn(),
+        onRetryFilePreview: jest.fn(),
+        previewedFile: null,
+        isLoading: false,
+        hasError: false,
+        hasLimitExceeded: false,
+        url: null,
+      });
+
+      const { result } = renderHook(() => useLocationDetailView());
+
+      act(() => {
+        result.current.onPaginate(2);
+      });
+
+      expect(mockOnCloseFilePreview).toHaveBeenCalled();
+    });
+
+    it('closes file preview on navigation', () => {
+      const mockOnCloseFilePreview = jest.fn();
+      (useFilePreview as jest.Mock).mockReturnValue({
+        onCloseFilePreview: mockOnCloseFilePreview,
+        onOpenFilePreview: jest.fn(),
+        onRetryFilePreview: jest.fn(),
+        previewedFile: null,
+        isLoading: false,
+        hasError: false,
+        hasLimitExceeded: false,
+        url: null,
+      });
+
+      const { result } = renderHook(() => useLocationDetailView());
+      const mockLocation: LocationData = {
+        bucket: 'test-bucket',
+        id: 'test-id',
+        permissions: ['list'],
+        prefix: 'test-prefix/',
+        type: 'PREFIX',
+      };
+
+      act(() => {
+        result.current.onNavigate(mockLocation);
+      });
+
+      expect(mockOnCloseFilePreview).toHaveBeenCalled();
+    });
+
+    it('closes file preview on search', () => {
+      const mockOnCloseFilePreview = jest.fn();
+      (useFilePreview as jest.Mock).mockReturnValue({
+        onCloseFilePreview: mockOnCloseFilePreview,
+        onOpenFilePreview: jest.fn(),
+        onRetryFilePreview: jest.fn(),
+        previewedFile: null,
+        isLoading: false,
+        hasError: false,
+        hasLimitExceeded: false,
+        url: null,
+      });
+
+      const { result } = renderHook(() => useLocationDetailView());
+
+      act(() => {
+        result.current.onSearch();
+      });
+
+      expect(mockOnCloseFilePreview).toHaveBeenCalled();
     });
   });
 });

@@ -299,6 +299,10 @@ Then('I press the {string} key', (key: string) => {
 
 When('I click the button containing {string}', cy.clickButtonWithText);
 
+When('I click the button with label {string}', (ariaLabel: string) => {
+  cy.findByLabelText(ariaLabel).click();
+});
+
 When('I click the button containing random name', () => {
   cy.clickButtonWithText(randomFileName);
 });
@@ -407,6 +411,10 @@ Then('I see placeholder {string}', (message: string) => {
 
 Then('I see the {string} image', (alt: string) => {
   cy.findByAltText(alt).should('exist');
+});
+
+Then('I see video with label {string}', (label: string) => {
+  cy.get(`video[aria-label="${label}"]`).should('exist');
 });
 
 Then('I see {string} as a {string} field', (label: string, type: string) => {
