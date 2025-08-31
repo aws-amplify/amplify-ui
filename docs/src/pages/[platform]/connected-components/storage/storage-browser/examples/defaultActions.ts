@@ -135,21 +135,21 @@ export const defaultActions: CreateStorageBrowserInput['actions']['default'] = {
           items: [
             {
               id: uniqueId(),
-              key: `${props.prefix}test-file.txt`,
+              key: `${props.prefix}image-1.jpg`,
               lastModified: new Date(),
               size: 1008,
               type: 'FILE' as const,
             },
             {
               id: uniqueId(),
-              key: `${props.prefix}test-file2.txt`,
+              key: `${props.prefix}image-2.jpg`,
               lastModified: new Date(),
               size: 23456,
               type: 'FILE' as const,
             },
             {
               id: uniqueId(),
-              key: `${props.prefix}test-file3.txt`,
+              key: `${props.prefix}image-3.jpg`,
               lastModified: new Date(),
               size: 43456,
               type: 'FILE' as const,

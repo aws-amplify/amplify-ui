@@ -205,6 +205,15 @@ module.exports = withNextPluginPreval({
   },
 
   webpack(config) {
+    // Add alias to mock storage-internal for documentation examples
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@aws-amplify/storage/internals': path.resolve(
+        __dirname,
+        'src/pages/[platform]/connected-components/storage/storage-browser/examples/mockStorageInternal.ts'
+      ),
+    };
+
     const defaultRehypePlugins = [
       // This is a custom plugin that removes lines that end in `// IGNORE`
       // This allows us to include code necessary for an example to run
