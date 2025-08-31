@@ -25,6 +25,9 @@ function createRemarkMdxFrontmatterPlugin(options = {}) {
 }
 
 module.exports = withNextPluginPreval({
+  images: {
+    domains: ['images.unsplash.com', 'commondatastorage.googleapis.com'],
+  },
   env: {
     BRANCH,
     SITE_URL: process.env.SITE_URL,
