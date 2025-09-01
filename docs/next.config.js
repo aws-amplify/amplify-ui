@@ -208,7 +208,7 @@ module.exports = withNextPluginPreval({
   },
 
   webpack(config) {
-    // Add alias to mock storage-internal for documentation examples
+    // Add alias to mock storage-internal for storage browser examples
     config.resolve.alias = {
       ...config.resolve.alias,
       '@aws-amplify/storage/internals': path.resolve(
