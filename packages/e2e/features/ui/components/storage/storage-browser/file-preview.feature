@@ -57,3 +57,16 @@ Feature: File Preview with Storage Browser
     Then I click the download button with label "Download 001_dont_delete_text_file_preview_limit_exceeded_end_to_end_testing.json file" and see the file downloaded
     When I click the "Close" button
     Then I do not see "File Preview"
+
+  @react
+  Scenario: File preview shows error and retry functionality on network failure
+    When I click the first button containing "public"
+    When I click the button with label "001_dont_delete_text_file_preview_end_to_end_testing.txt file"
+    When A network failure occurs
+    Then I see "File Preview"
+    Then I see "File Information"
+    Then I see an error message for network failure
+    When I click the button with label "Retry loading 001_dont_delete_text_file_preview_end_to_end_testing.txt file"
+    Then I see the File preview Loader
+    When I click the "Close" button
+    Then I do not see "File Preview"
