@@ -2,6 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import { createStorageBrowser } from '@aws-amplify/ui-react-storage/browser';
 import { mockConfig } from './mockConfig'; // IGNORE
+import { defaultActions } from './defaultActions'; // IGNORE
 
 const CustomImageRenderer = ({ fileData, url }: any) => (
   <div style={{ border: '3px solid gray' }}>
@@ -31,6 +32,7 @@ const CustomAudioRenderer = ({ fileData, url }: any) => (
 
 const { StorageBrowser } = createStorageBrowser({
   config: mockConfig, // IGNORE
+  actions: { default: defaultActions }, // IGNORE
   filePreview: {
     fileTypeResolver: (properties) => {
       if (properties.key.endsWith('txt')) return 'text';
