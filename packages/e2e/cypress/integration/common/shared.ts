@@ -713,6 +713,15 @@ When('A network failure occurs', () => {
   });
 });
 
+Then('I see an error message for network failure', () => {
+  cy.get('body', { timeout: 10000 }).should(($body) => {
+    const text = $body.text();
+    expect(text).to.match(
+      /Something went wrong|Failed to fetch|Error|Network error|Unable to load/i
+    );
+  });
+});
+
 Then('I see the {string} link', (name: string) => {
   cy.findByText(name).should('exist');
 });
