@@ -7,6 +7,7 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 
 export default defineConfig({
+  projectId: 'cqhaqt',
   defaultCommandTimeout: 15000,
   e2e: {
     baseUrl: 'http://localhost:3000/',
