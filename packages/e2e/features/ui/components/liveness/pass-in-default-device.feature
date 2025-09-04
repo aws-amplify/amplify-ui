@@ -19,13 +19,13 @@ Feature: Pass In Default Device Info
     Then I see "Use preset device"
     Then I see the "Device ID" selectfield
     Then I click the "Device ID" selectfield and select the "device-1" option
-    Then I see "Device ID: device-1" 
+    Then I see "Device ID: device-1"
     Then I click the "Device Label" selectfield and select the "Default Camera" option
     Then I see "Device label takes precedence over device ID"
 
   @react
   Scenario: Custom device configuration works
-    Then I click the "custom-device" radio button
+    Then I click the "Use custom device" radio button
     Then I see the "Custom Device ID" textfield
     Then I see the "Custom Device Label" textfield
     Then I type a new "Custom Device ID" with value "my-custom-device"
@@ -50,9 +50,13 @@ Feature: Pass In Default Device Info
     Then I click the "Device ID" selectfield and select the "device-2" option
     Then I see "Current Configuration:"
     Then I see "Device ID: device-2"
+    Then I click the "Start video check" button
+    Then I see "liveness-detector" element
+    Then I see "Device Activity Log"
 
   @react
-  Scenario: Clear log functionality works
+  Scenario: Clear log functionality works  
+    Then I click the "Device ID" selectfield and select the "device-1" option
     Then I see "Device Activity Log"
     Then I see the "Clear Log" button
 
@@ -66,9 +70,20 @@ Feature: Pass In Default Device Info
 
   @react
   Scenario: Custom device shows not found behavior
-    Then I click the "custom-device" radio button
+    Then I click the "Use custom device" radio button
     Then I type a new "Custom Device ID" with value "non-existent-device"
     Then I see "Device ID: non-existent-device"
     Then I see "connecting"
     Then I click the "Start video check" button
     Then I see "liveness-detector" element
+
+  @react
+  Scenario: Device info callbacks are properly configured for liveness completion
+    Then I set up console monitoring for device callbacks
+    Then I click the "Device ID" selectfield and select the "device-1" option
+    Then I see "Device ID: device-1"
+    Then I see "Current Configuration:"
+    Then I see "Device ID: device-1"
+    Then I click the "Start video check" button
+    Then I see "liveness-detector" element
+    Then I verify onAnalysisComplete callback is configured with device info

@@ -144,7 +144,21 @@ export default function PassInDefaultDeviceExample() {
                     label="Device ID"
                     placeholder="Select a device ID"
                     value={selectedDeviceId}
-                    onChange={(e) => setSelectedDeviceId(e.target.value)}
+                    onChange={(e) => {
+                      const deviceId = e.target.value;
+                      setSelectedDeviceId(deviceId);
+                      if (deviceId) {
+                        const device = AVAILABLE_DEVICES.find(
+                          (d) => d.deviceId === deviceId
+                        );
+                        if (device) {
+                          onCameraChange({
+                            deviceId: device.deviceId,
+                            label: device.label,
+                          });
+                        }
+                      }
+                    }}
                   >
                     <option value="">None</option>
                     {AVAILABLE_DEVICES.map((device) => (
@@ -158,7 +172,21 @@ export default function PassInDefaultDeviceExample() {
                     label="Device Label"
                     placeholder="Select a device label"
                     value={selectedDeviceLabel}
-                    onChange={(e) => setSelectedDeviceLabel(e.target.value)}
+                    onChange={(e) => {
+                      const deviceLabel = e.target.value;
+                      setSelectedDeviceLabel(deviceLabel);
+                      if (deviceLabel) {
+                        const device = AVAILABLE_DEVICES.find(
+                          (d) => d.label === deviceLabel
+                        );
+                        if (device) {
+                          onCameraChange({
+                            deviceId: device.deviceId,
+                            label: device.label,
+                          });
+                        }
+                      }
+                    }}
                   >
                     <option value="">None</option>
                     {AVAILABLE_DEVICES.map((device) => (
@@ -191,14 +219,40 @@ export default function PassInDefaultDeviceExample() {
                     label="Custom Device ID"
                     placeholder="Enter custom device ID"
                     value={customDeviceId}
-                    onChange={(e) => setCustomDeviceId(e.target.value)}
+                    onChange={(e) => {
+                      const deviceId = e.target.value;
+                      setCustomDeviceId(deviceId);
+                      if (deviceId) {
+                        // Simulate camera not found scenario for demo purposes
+                        onCameraNotFound(
+                          { deviceId },
+                          {
+                            deviceId: 'default-camera',
+                            label: 'Default Camera',
+                          }
+                        );
+                      }
+                    }}
                   />
 
                   <TextField
                     label="Custom Device Label"
                     placeholder="Enter custom device label"
                     value={customDeviceLabel}
-                    onChange={(e) => setCustomDeviceLabel(e.target.value)}
+                    onChange={(e) => {
+                      const deviceLabel = e.target.value;
+                      setCustomDeviceLabel(deviceLabel);
+                      if (deviceLabel) {
+                        // Simulate camera not found scenario for demo purposes
+                        onCameraNotFound(
+                          { deviceLabel },
+                          {
+                            deviceId: 'default-camera',
+                            label: 'Default Camera',
+                          }
+                        );
+                      }
+                    }}
                   />
                 </Flex>
               )}
