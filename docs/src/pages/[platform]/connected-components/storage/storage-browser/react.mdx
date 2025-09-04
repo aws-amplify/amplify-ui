@@ -11,6 +11,7 @@ import {
   Theming,
   Icons,
   GenerateUrlViewComposed,
+  ComponentOverride,
 } from './examples'
 
 
@@ -312,6 +313,43 @@ You can use the `<IconsProvider>` to customize the icons used in the `StorageBro
     ```
   </ExampleCode>
 </Example>
+
+### Component Override
+
+You can override any of the default components used in Storage Browser by passing custom components to the `components` prop of `createStorageBrowser`. When you provide a component (e.g., `Navigation`, `DataTable`, `SearchField`), it will completely replace the default implementation.
+
+
+<Example>
+  <ComponentOverride />
+  <ExampleCode>
+    ```jsx file=./examples/ComponentOverride.tsx
+    ```
+  </ExampleCode>
+</Example>
+
+**Available Components to Override:**
+- `ActionCancel`
+- `ActionDestination`
+- `ActionExit`
+- `ActionStart`
+- `ActionsList`
+- `AddFiles`
+- `AddFolder`
+- `DataRefresh`
+- `DataTable`
+- `DropZone`
+- `FolderNameField`
+- `LoadingIndicator`
+- `Message`
+- `Navigation`
+- `OverwriteToggle`
+- `Pagination`
+- `SearchField`
+- `SearchSubfoldersToggle`
+- `StatusDisplay`
+- `Title`
+
+Each component receives the same props as the default implementation, so you can access all the data and callbacks.
 
 ### Display Text
 
