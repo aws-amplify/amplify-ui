@@ -11,6 +11,13 @@ export default function Example() {
           // Some are a function that return a string
           getPermissionName: (permissions) => permissions.join('/'),
         },
+        LocationDetailView: {
+          searchSubfoldersToggleLabel: 'Search subfolders',
+          filePreview: {
+            filePreviewTitle: 'File Preview Title',
+            closeButtonLabel: 'Close Preview',
+          },
+        },
       }}
     />
   );

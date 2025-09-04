@@ -47,4 +47,19 @@ describe('LocationDetailView display text', () => {
       })
     ).toBe(`test-bucket`);
   });
+
+  describe('filePreview display text', () => {
+    const { filePreview } = DEFAULT_LOCATION_DETAIL_VIEW_DISPLAY_TEXT;
+
+    it('should have correct default values', () => {
+      expect(filePreview).toMatchSnapshot();
+    });
+
+    it('should return formatted error message', () => {
+      const error = 'Network timeout';
+      expect(filePreview.getTextErrorMessage(error)).toBe(
+        'Error loading file: Network timeout'
+      );
+    });
+  });
 });

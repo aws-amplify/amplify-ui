@@ -36,6 +36,7 @@ describe('getFileRowContent', () => {
         selectFileLabel: 'Select file',
         onDownload: jest.fn(),
         onSelect: jest.fn(),
+        onClick: jest.fn(),
       })
     ).toStrictEqual(
       expect.arrayContaining([
@@ -47,8 +48,11 @@ describe('getFileRowContent', () => {
           }),
         }),
         expect.objectContaining({
-          type: 'text',
-          content: expect.objectContaining({ text: fileItem.key }),
+          type: 'button',
+          content: expect.objectContaining({
+            label: fileItem.key,
+            onClick: expect.any(Function),
+          }),
         }),
         expect.objectContaining({
           type: 'text',
@@ -86,6 +90,7 @@ describe('getFileRowContent', () => {
       selectFileLabel: 'Select file',
       onDownload: jest.fn(),
       onSelect: jest.fn(),
+      onClick: jest.fn(),
     });
     const fileActionCell = row[5];
     expect(fileActionCell).toMatchObject({

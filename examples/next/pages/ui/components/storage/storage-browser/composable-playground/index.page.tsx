@@ -1,16 +1,22 @@
 import React from 'react';
 
 import {
-  createManagedAuthAdapter,
   CreateStorageBrowserInput,
   createStorageBrowser,
+  createManagedAuthAdapter,
 } from '@aws-amplify/ui-react-storage/browser';
-
-import { Auth } from '../managedAuthAdapter';
-
 import { Button, Flex, Breadcrumbs } from '@aws-amplify/ui-react';
-
+import { Auth } from '../managedAuthAdapter';
 import '@aws-amplify/ui-react-storage/styles.css';
+
+export const auth = new Auth({ persistCredentials: true });
+
+const config = createManagedAuthAdapter({
+  credentialsProvider: auth.credentialsProvider,
+  region: process.env.NEXT_PUBLIC_MANAGED_AUTH_REGION,
+  accountId: process.env.NEXT_PUBLIC_MANAGED_AUTH_ACCOUNT_ID,
+  registerAuthListener: auth.registerAuthListener,
+});
 
 const components: CreateStorageBrowserInput['components'] = {
   Navigation: ({ items }) => (
@@ -25,15 +31,6 @@ const components: CreateStorageBrowserInput['components'] = {
     </Breadcrumbs.Container>
   ),
 };
-
-export const auth = new Auth({ persistCredentials: true });
-
-const config = createManagedAuthAdapter({
-  credentialsProvider: auth.credentialsProvider,
-  region: process.env.NEXT_PUBLIC_MANAGED_AUTH_REGION,
-  accountId: process.env.NEXT_PUBLIC_MANAGED_AUTH_ACCOUNT_ID,
-  registerAuthListener: auth.registerAuthListener,
-});
 
 const { StorageBrowser, useView } = createStorageBrowser({
   components,
@@ -107,6 +104,72 @@ function MyLocationActionView({ type }: { type?: string }) {
   );
 }
 
+function MyFullyCustomPreviewer(props: any) {
+  const { previewedFile, isLoading, hasError, url } = props;
+  const { fileType } = previewedFile;
+
+  if (isLoading) {
+    return <div>....loading</div>;
+  }
+
+  if (hasError) {
+    return <div>...has error</div>;
+  }
+
+  function getDefaultRenderer(type?: any) {
+    switch (type) {
+      case 'image':
+        return <img src={url} />;
+
+      case 'video':
+        return <video src={url} />;
+
+      case 'text':
+        return <div>My tesxt </div>;
+
+      default:
+        return <div>not supported</div>;
+    }
+  }
+
+  return <div>{getDefaultRenderer(fileType)}</div>;
+}
+
+function MyLocationDetails({
+  onActionSelect,
+}: {
+  onActionSelect: (actionType: string | undefined) => void;
+}) {
+  const locationsD = useView('LocationDetail');
+  const { filePreviewState, onCloseFilePreview, onRetryFilePreview } =
+    locationsD;
+  const { hasError, isLoading, url, previewedFile } = filePreviewState;
+
+  return (
+    <StorageBrowser.LocationDetailView.Provider
+      {...locationsD}
+      onActionSelect={onActionSelect}
+    >
+      <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <div style={{ maxHeight: '50vh', overflow: 'scroll' }}>
+          <StorageBrowser.LocationDetailView.LocationItemsTable />
+        </div>
+
+        {previewedFile && (
+          <MyFullyCustomPreviewer
+            onCloseFilePreview={onCloseFilePreview}
+            previewedFile={previewedFile}
+            isLoading={isLoading}
+            hasError={hasError}
+            url={url}
+            onRetryFilePreview={onRetryFilePreview}
+          />
+        )}
+      </div>
+    </StorageBrowser.LocationDetailView.Provider>
+  );
+}
+
 function MyStorageBrowser() {
   const [type, setActionType] = React.useState<string | undefined>(undefined);
 
@@ -116,7 +179,7 @@ function MyStorageBrowser() {
         <StorageBrowser.LocationsView />
       </Flex>
       <Flex minWidth={'50vw'} direction={'column'}>
-        <StorageBrowser.LocationDetailView
+        <MyLocationDetails
           onActionSelect={(actionType) => {
             console.log(actionType);
             setActionType(actionType);

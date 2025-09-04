@@ -6,6 +6,7 @@ import { ComponentsProvider } from '../../components';
 import { createConfigurationProvider } from '../../configuration';
 import { DisplayTextProvider } from '../../displayText';
 import { FileItemsProvider } from '../../fileItems';
+import { FilePreviewProvider } from '../../filePreview';
 import { LocationItemsProvider } from '../../locationItems';
 import { StoreProvider } from '../../store';
 import { ActionHandlersProvider, getActionHandlers } from '../../useAction';
@@ -18,6 +19,7 @@ jest.mock('../../actions');
 jest.mock('../../components');
 jest.mock('../../displayText');
 jest.mock('../../fileItems');
+jest.mock('../../filePreview');
 jest.mock('../../locationItems');
 jest.mock('../../configuration');
 jest.mock('../../store');
@@ -49,6 +51,9 @@ const mockActionHandlersProvider = jest
   .mockImplementation(({ children }) => <>{children}</>);
 const mockViewsProvider = jest
   .mocked(ViewsProvider)
+  .mockImplementation(({ children }) => <>{children}</>);
+const mockFilePreviewProvider = jest
+  .mocked(FilePreviewProvider)
   .mockImplementation(({ children }) => <>{children}</>);
 
 // @ts-expect-error missing `displayName`
@@ -105,10 +110,12 @@ describe('createProvider', () => {
     mockGetActionHandlers.mockReturnValue(mockActionHandlers);
 
     const mockValidateFile = jest.fn();
+    const mockFilePreview = {};
 
     const Provider = createProvider({
       config: { ...mockConfig, listLocations: jest.fn() },
       options: { validateFile: mockValidateFile },
+      filePreview: mockFilePreview,
     });
 
     // used to validate props passed to `ViewsProvider`
@@ -165,6 +172,12 @@ describe('createProvider', () => {
     expect(mockFileItemsProvider).toHaveBeenCalledTimes(1);
     expect(mockFileItemsProvider).toHaveBeenCalledWith(
       expect.objectContaining({ validateFile: mockValidateFile }),
+      {}
+    );
+
+    expect(mockFilePreviewProvider).toHaveBeenCalledTimes(1);
+    expect(mockFilePreviewProvider).toHaveBeenCalledWith(
+      expect.objectContaining({ filePreview: mockFilePreview }),
       {}
     );
 
