@@ -1,4 +1,7 @@
-import { RekognitionLiveness } from '@amzn/aws-rekognition-liveness-js-v2-client';
+import {
+  RekognitionClient,
+  GetFaceLivenessSessionResultsCommand,
+} from '@aws-sdk/client-rekognition';
 
 /**
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
@@ -8,22 +11,13 @@ export const handler = async (event, req) => {
   console.log({ req });
   console.log({ event });
 
-  const client = new RekognitionLiveness({
-    region: 'us-east-1',
-    endpoint: `https://us-east-1.gamma.frontend.reventlov.rekognition.aws.dev`,
+  const client = new RekognitionClient({ region: 'us-east-1' });
+  const command = new GetFaceLivenessSessionResultsCommand({
+    SessionId: event.pathParameters.sessionId,
   });
-
-  const response = await client
-    .getFaceLivenessSessionResults({
-      AwsAccountId: '845721723350',
-      SessionId: event.pathParameters.sessionId,
-    })
-    .promise();
+  const response = await client.send(command);
 
   const isLive = response.Confidence > 90;
-  const auditImageBytes = Buffer.from(
-    new Uint8Array(response.ReferenceImage?.Bytes)
-  ).toString('base64');
 
   return {
     statusCode: 200,
@@ -34,7 +28,7 @@ export const handler = async (event, req) => {
     body: JSON.stringify({
       isLive,
       confidenceScore: response.Confidence,
-      auditImageBytes: auditImageBytes,
+      auditImageBytes: response.ReferenceImage.Bytes,
     }),
   };
 };
