@@ -83,13 +83,12 @@ export const huDict: AuthenticatorDictionary = {
   'Password attempts exceeded': 'Jelszó próbálkozási limit túllépve',
   'Password did not conform with policy':
     'A jelszónak tartalmaznia kell kisbetűket',
-  'Password must have lowercase characters':
+  'Password must have lower case letters':
     'A jelszónak tartalmaznia kell kisbetűket',
-  'Password must have numeric characters':
-    'A jelszónak tartalmaznia kell számokat',
-  'Password must have symbol characters':
+  'Password must have numbers': 'A jelszónak tartalmaznia kell számokat',
+  'Password must have special characters':
     'A jelszónak tartalmaznia kell szimbólumokat',
-  'Password must have uppercase characters':
+  'Password must have upper case letters':
     'A jelszónak tartalmaznia kell nagybetűket',
   'Password not long enough': 'Jelszó nem elég hosszú',
   'Password must have at least 8 characters':
