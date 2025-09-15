@@ -111,7 +111,8 @@
     "ws": "^8.17.1",
     "stylus": "github:stylus/stylus#0.59.0",
     "on-headers": "^1.1.0",
-    "tmp": "^0.2.4"
+    "tmp": "^0.2.4",
+    "@tensorflow-models/face-detection/rimraf": "5.0.0"
   },
   "devDependencies": {
     "@aws-amplify/backend": "^1.7.0",
@@ -154,6 +155,9 @@
   },
   "overrides": {
     "stylus": "github:stylus/stylus#0.59.0",
-    "tmp": "^0.2.4"
+    "tmp": "^0.2.4",
+    "@tensorflow-models/face-detection": {
+      "rimraf": "5.0.0"
+    }
   }
 }
