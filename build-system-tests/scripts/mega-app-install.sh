@@ -24,6 +24,10 @@ while [[ $# -gt 0 ]]; do
         BUILD_TOOL=$2
         shift
         ;;
+    -b | --build-tool-version)
+        BUILD_TOOL_VERSION=$2
+        shift
+        ;;
     -n | --name)
         MEGA_APP_NAME=$2
         shift
@@ -114,6 +118,11 @@ else
         else
             DEPENDENCIES="$DEPENDENCIES react-native-safe-area-context@^4.2.5"
         fi;
+
+        # expo-asset is nested under expo/node_modules in expo 52, causing Metro resolution issues
+        if [[ "$BUILD_TOOL" == "expo" && $BUILD_TOOL_VERSION > "51" ]]; then
+            DEPENDENCIES="$DEPENDENCIES expo-asset"
+        fi
 
         echo "npm install $DEPENDENCIES"
         install_dependencies_with_retries npm "$DEPENDENCIES"

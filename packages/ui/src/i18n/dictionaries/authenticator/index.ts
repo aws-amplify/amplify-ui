@@ -3,6 +3,7 @@ export { deDict } from './de';
 export { enDict } from './en';
 export { esDict } from './es';
 export { frDict } from './fr';
+export { huDict } from './hu';
 export { itDict } from './it';
 export { jaDict } from './ja';
 export { krDict } from './kr';

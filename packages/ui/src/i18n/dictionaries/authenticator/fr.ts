@@ -129,13 +129,13 @@ export const frDict: AuthenticatorDictionary = {
   Website: 'Site web',
   'Password must have at least 8 characters':
     'Le mot de passe doit comporter au moins 8 caractères',
-  'Password did not conform with policy: Password must have uppercase characters':
+  'Password must have upper case letters':
     'Le mot de passe doit comporter des caractères majuscules',
-  'Password did not conform with policy: Password must have numeric characters':
+  'Password must have numbers':
     'Le mot de passe doit comporter des caractères numériques',
-  'Password did not conform with policy: Password must have symbol characters':
+  'Password must have special characters':
     'Le mot de passe doit comporter des symboles',
-  'Password did not conform with policy: Password must have lowercase characters':
+  'Password must have lower case letters':
     'Le mot de passe doit comporter des caractères minuscules',
   'Invalid verification code provided, please try again.':
     'Code de vérification invalide, veuillez réessayer.',

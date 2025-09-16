@@ -107,13 +107,13 @@ export const esDict: AuthenticatorDictionary = {
   'Your passwords must match': 'Las contraseñas deben coincidir',
   'Password must have at least 8 characters':
     'La contraseña debe tener al menos 8 caracteres',
-  'Password did not conform with policy: Password must have uppercase characters':
+  'Password must have upper case letters':
     'La contraseña debe tener al menos un carácter en mayúscula',
-  'Password did not conform with policy: Password must have numeric characters':
+  'Password must have numbers':
     'La contraseña debe tener al menos un carácter numérico',
-  'Password did not conform with policy: Password must have symbol characters':
+  'Password must have special characters':
     'La contraseña debe tener al menos un símbolo',
-  'Password did not conform with policy: Password must have lowercase characters':
+  'Password must have lower case letters':
     'La contraseña debe tener al menos un carácter en minúsculas',
   'Invalid verification code provided, please try again.':
     'Código de verificación no válido, inténtelo de nuevo.',
