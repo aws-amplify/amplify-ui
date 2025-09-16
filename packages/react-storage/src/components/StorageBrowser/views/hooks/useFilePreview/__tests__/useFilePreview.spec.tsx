@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/require-await */
 
-import { renderHook, act } from '@testing-library/react';
+import { act, renderHook, waitFor } from '@testing-library/react';
 import * as Storage from 'aws-amplify/storage';
 import { useFilePreview } from '../useFilePreview';
 import type { FileData } from '../../../../actions';
@@ -9,6 +9,11 @@ import { getUrl } from '../../../../storage-internal';
 import { safeGetProperties } from '../../../utils/files/safeGetProperties';
 import { constructBucket } from '../../../../actions/handlers';
 import { useStore } from '../../../../store';
+import {
+  FailFilePreviewContent,
+  FilePreviewContent,
+  OKFilePreviewContent,
+} from '../types';
 
 jest.mock('aws-amplify/storage');
 jest.mock('../../../../store');
@@ -107,15 +112,14 @@ describe('useFilePreview', () => {
     ]);
   });
   it('initializes with correct initial state', () => {
-    const { result } = renderHook(() => useFilePreview(), {
-      wrapper: Provider,
-    });
+    const { result } = renderHook(
+      () => useFilePreview({ activeFile: undefined }),
+      {
+        wrapper: Provider,
+      }
+    );
 
-    expect(result.current.isLoading).toBe(false);
-    expect(result.current.hasError).toBe(false);
-    expect(result.current.previewedFile).toBe(null);
-    expect(result.current.url).toBe(null);
-    expect(result.current.hasLimitExceeded).toBe(false);
+    expect(result.current.enabled).toEqual(false);
   });
 
   it('opens file for preview successfully', async () => {
@@ -130,20 +134,24 @@ describe('useFilePreview', () => {
       expiresAt: new Date(),
     });
 
-    const { result } = renderHook(() => useFilePreview(), {
-      wrapper: Provider,
-    });
+    const { result } = renderHook(
+      () => useFilePreview({ activeFile: mockFileData }),
+      {
+        wrapper: Provider,
+      }
+    );
 
-    await act(async () => {
-      result.current.onOpenFilePreview(mockFileData);
+    const { enabled, ...state } = result.current;
+    expect(enabled).toEqual(true);
+    const content = state as FilePreviewContent;
+    expect(content.isLoading).toBe(true);
+    waitFor(() => {
+      expect(content.isLoading).toBe(false);
+      const okContent = content as OKFilePreviewContent;
+      expect(okContent.ok).toBe(true);
+      expect(okContent.url).toBe('https://example.com/test.jpg');
+      expect(okContent.fileData).toEqual(mockFileData);
     });
-
-    expect(result.current.isLoading).toBe(false);
-    expect(result.current.hasError).toBe(false);
-    expect(result.current.previewedFile).toMatchObject({
-      key: 'test.jpg',
-    });
-    expect(result.current.url).toBe('https://example.com/test.jpg');
   });
 
   it('handles file size limit exceeded', async () => {
@@ -154,123 +162,112 @@ describe('useFilePreview', () => {
       lastModified: new Date(),
     });
 
-    const { result } = renderHook(() => useFilePreview(), {
-      wrapper: Provider,
-    });
+    const { result } = renderHook(
+      () => useFilePreview({ activeFile: mockFileData }),
+      {
+        wrapper: Provider,
+      }
+    );
 
-    await act(async () => {
-      result.current.onOpenFilePreview({ ...mockFileData, size: 2000000 });
+    const { enabled, ...state } = result.current;
+    expect(enabled).toEqual(true);
+    const content = state as FilePreviewContent;
+    expect(content.isLoading).toBe(true);
+    waitFor(() => {
+      expect(content.isLoading).toBe(false);
+      const failContent = content as FailFilePreviewContent;
+      expect(failContent.ok).toBe(false);
+      expect(failContent.error).toBe('LIMIT_EXCEEDED');
     });
-
-    expect(result.current.hasLimitExceeded).toBe(true);
-    expect(result.current.isLoading).toBe(false);
   });
 
   it('handles errors during preparation', async () => {
     mockGetUrl.mockRejectedValue(new Error('Network error'));
 
-    const { result } = renderHook(() => useFilePreview(), {
-      wrapper: Provider,
+    const { result } = renderHook(
+      () => useFilePreview({ activeFile: mockFileData }),
+      {
+        wrapper: Provider,
+      }
+    );
+
+    const { enabled, ...state } = result.current;
+    expect(enabled).toEqual(true);
+    const content = state as FilePreviewContent;
+    expect(content.isLoading).toBe(true);
+    waitFor(() => {
+      expect(content.isLoading).toBe(false);
+      const failContent = content as FailFilePreviewContent;
+      expect(failContent.ok).toBe(false);
+      expect(failContent.error).toBe('GENERIC_ERROR');
     });
-
-    await act(async () => {
-      result.current.onOpenFilePreview(mockFileData);
-    });
-
-    expect(result.current.hasError).toBe(true);
-    expect(result.current.isLoading).toBe(false);
-  });
-
-  it('closes preview state', async () => {
-    const { result } = renderHook(() => useFilePreview(), {
-      wrapper: Provider,
-    });
-
-    await act(async () => {
-      result.current.onOpenFilePreview(mockFileData);
-    });
-
-    act(() => {
-      result.current.onCloseFilePreview();
-    });
-
-    expect(result.current.previewedFile).toBe(null);
-    expect(result.current.url).toBe(null);
-    expect(result.current.hasError).toBe(false);
-    expect(result.current.hasLimitExceeded).toBe(false);
   });
 
   it('does not open file when key is missing', async () => {
-    const fileDataWithoutKey = { ...mockFileData, key: '' };
-    const { result } = renderHook(() => useFilePreview(), {
-      wrapper: Provider,
-    });
-
-    await act(async () => {
-      result.current.onOpenFilePreview(fileDataWithoutKey);
-    });
+    const { result } = renderHook(
+      () => useFilePreview({ activeFile: { ...mockFileData, key: '' } }),
+      {
+        wrapper: Provider,
+      }
+    );
 
     expect(mockGetProperties).not.toHaveBeenCalled();
-    expect(result.current.previewedFile).toBe(null);
-  });
-
-  it('prevents closing when no file is previewed', () => {
-    const { result } = renderHook(() => useFilePreview(), {
-      wrapper: Provider,
-    });
-
-    expect(result.current.previewedFile).toBe(null);
-
-    act(() => {
-      result.current.onCloseFilePreview();
-    });
-
-    expect(result.current.previewedFile).toBe(null);
-    expect(result.current.isLoading).toBe(false);
-    expect(result.current.hasError).toBe(false);
+    expect(result.current.enabled).toEqual(false);
   });
 
   it('prevents opening the same file twice', () => {
-    const { result } = renderHook(() => useFilePreview(), {
-      wrapper: Provider,
+    const { result, rerender } = renderHook(
+      () => useFilePreview({ activeFile: mockFileData }),
+      {
+        wrapper: Provider,
+      }
+    );
+
+    const { enabled, ...state } = result.current;
+    const content = state as OKFilePreviewContent;
+    waitFor(() => {
+      expect(content.fileData).toEqual(mockFileData);
     });
 
     act(() => {
-      result.current.onOpenFilePreview(mockFileData);
+      rerender({ activeFile: { ...mockFileData } });
     });
-
-    expect(result.current.previewedFile).toBe(mockFileData);
-
-    const initialState = result.current;
-    act(() => {
-      result.current.onOpenFilePreview(mockFileData);
-    });
-
-    expect(result.current.previewedFile).toBe(initialState.previewedFile);
+    const { enabled: newEnabled, ...newState } = result.current;
+    const newContent = newState as OKFilePreviewContent;
+    expect(newContent.fileData).toBe(content.fileData);
     expect(mockSafeGetProperties).toHaveBeenCalledTimes(1);
   });
 
   it('allows opening different file after one is already open', () => {
-    const { result } = renderHook(() => useFilePreview(), {
-      wrapper: Provider,
-    });
+    const { result, rerender } = renderHook(
+      () => useFilePreview({ activeFile: mockFileData }),
+      {
+        wrapper: Provider,
+      }
+    );
     const differentFile: FileData = {
       ...mockFileData,
       key: 'different.jpg',
       id: 'different-id',
     };
 
-    act(() => {
-      result.current.onOpenFilePreview(mockFileData);
+    const { enabled, ...state } = result.current;
+    expect(enabled).toEqual(true);
+    const content = state as OKFilePreviewContent;
+    waitFor(() => {
+      expect(content.fileData).toEqual(mockFileData);
     });
 
-    expect(result.current.previewedFile).toBe(mockFileData);
-
     act(() => {
-      result.current.onOpenFilePreview(differentFile);
+      rerender({ activeFile: differentFile });
     });
 
-    expect(result.current.previewedFile).toBe(differentFile);
-    expect(mockSafeGetProperties).toHaveBeenCalledTimes(2);
+    const { enabled: newEnabled, ...newState } = result.current;
+    expect(newEnabled).toEqual(true);
+    const newContent = newState as OKFilePreviewContent;
+    waitFor(() => {
+      expect(newContent.fileData).toEqual(differentFile);
+      expect(mockSafeGetProperties).toHaveBeenCalledTimes(2);
+    });
   });
 });

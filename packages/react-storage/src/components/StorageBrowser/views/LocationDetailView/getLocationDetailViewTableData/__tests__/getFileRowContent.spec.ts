@@ -25,6 +25,7 @@ describe('getFileRowContent', () => {
   it('should return file row content as expected', () => {
     expect(
       getFileRowContent({
+        filePreviewEnabled: true,
         permissions: location.current.permissions,
         itemLocationKey,
         isSelected: false,
@@ -80,6 +81,7 @@ describe('getFileRowContent', () => {
   it('should not render download button if location permission does not support download', () => {
     const row = getFileRowContent({
       permissions: ['list', 'write'],
+      filePreviewEnabled: false,
       itemLocationKey,
       isSelected: false,
       lastModified: fileItem.lastModified,

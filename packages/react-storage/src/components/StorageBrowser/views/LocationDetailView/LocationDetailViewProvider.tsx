@@ -30,6 +30,9 @@ export function LocationDetailViewProvider({
 
   const {
     actionItems,
+    activeFile,
+    activeFileHasNext,
+    activeFileHasPrev,
     page,
     pageItems,
     hasNextPage,
@@ -52,14 +55,14 @@ export function LocationDetailViewProvider({
     onNavigate,
     onNavigateHome,
     onSelect,
+    onSelectActiveFile,
     onToggleSelectAll,
     onSearch,
     onSearchQueryChange,
     onSearchClear,
     onToggleSearchSubfolders,
-    onOpenFilePreview,
     filePreviewState,
-    onCloseFilePreview,
+    filePreviewEnabled,
     onRetryFilePreview,
   } = props;
 
@@ -93,6 +96,9 @@ export function LocationDetailViewProvider({
     <ControlsContextProvider
       data={{
         actions: actionsWithDisplayText,
+        activeFile,
+        activeFileHasNext,
+        activeFileHasPrev,
         isActionsListDisabled,
         isDataRefreshDisabled: isLoading,
         isLoading,
@@ -111,6 +117,9 @@ export function LocationDetailViewProvider({
         searchQuery,
         filePreviewState,
         tableData: getLocationDetailViewTableData({
+          filePreviewEnabled,
+          activeFile,
+          onSelectActiveFile,
           areAllFilesSelected,
           displayText,
           location,
@@ -124,7 +133,6 @@ export function LocationDetailViewProvider({
           onNavigate,
           onSelect,
           onSelectAll: onToggleSelectAll,
-          onOpenFilePreview,
         }),
         title: getTitle(location),
         message: messageControlContent,
@@ -136,12 +144,11 @@ export function LocationDetailViewProvider({
       onPaginate={onPaginate}
       onRefresh={onRefresh}
       onSearch={onSearch}
+      onSelectActiveFile={onSelectActiveFile}
       onSearchQueryChange={onSearchQueryChange}
       onSearchClear={onSearchClear}
       onToggleSearchSubfolders={onToggleSearchSubfolders}
-      onOpenFilePreview={onOpenFilePreview}
       onRetryFilePreview={onRetryFilePreview}
-      onCloseFilePreview={onCloseFilePreview}
     >
       {children}
     </ControlsContextProvider>

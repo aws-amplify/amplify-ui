@@ -1,9 +1,9 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { PreviewFallback } from '../PreviewFallback';
 
 jest.mock('../../../../useAction', () => ({
-  useAction: () => [null, jest.fn()],
+  useAction: () => [{ isProcessing: false }, jest.fn()],
 }));
 
 jest.mock('../../../../displayText', () => ({
@@ -62,11 +62,6 @@ describe('PreviewFallback', () => {
   it('shows download button by default', () => {
     render(<PreviewFallback {...defaultProps} />);
     expect(screen.getByText('Download')).toBeInTheDocument();
-  });
-
-  it('hides download button when showDownload is false', () => {
-    render(<PreviewFallback {...defaultProps} showDownload={false} />);
-    expect(screen.queryByText('Download')).not.toBeInTheDocument();
   });
 
   it('does not show retry button when onRetry is not provided', () => {

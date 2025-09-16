@@ -1,16 +1,38 @@
 import type { FileData } from '../../../actions';
 
-export interface FilePreviewState {
-  isLoading?: boolean;
-  hasError?: boolean;
-  previewedFile?: FileData | null;
-  url?: string | null;
-  hasLimitExceeded?: boolean;
-  error?: Error | null;
-}
+export type OKFilePreviewContent = {
+  ok: true;
+  isLoading: false;
+  fileData: FileData;
+  url: string;
+};
+export type FailFilePreviewContent = {
+  isLoading: false;
+  ok: false;
+  error: string;
+};
+export type LoadingFilePreviewContent = {
+  isLoading: true;
+};
 
-export interface UseFilePreviewReturn extends FilePreviewState {
-  onOpenFilePreview: (p: FileData) => void;
-  onCloseFilePreview: () => void;
-  onRetryFilePreview: () => void;
-}
+export type FilePreviewContent =
+  | OKFilePreviewContent
+  | FailFilePreviewContent
+  | LoadingFilePreviewContent;
+
+type DisabledFilePreviewState = {
+  enabled: false;
+};
+
+export type EnabledFilePreviewState = FilePreviewContent & {
+  enabled: true;
+};
+
+export type FilePreviewState =
+  | EnabledFilePreviewState
+  | DisabledFilePreviewState;
+
+export type UseFilePreviewState = FilePreviewState & {
+  optout: boolean;
+  handleRetry: () => void;
+};

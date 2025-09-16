@@ -270,7 +270,7 @@ export interface CreateStorageBrowserInput<
   /**
    * @description Configuration for file preview functionality including custom renderers, file type resolution, and size limits
    */
-  filePreview?: FilePreview<TResolver>;
+  filePreview?: FilePreview<TResolver> | false;
 }
 
 /**

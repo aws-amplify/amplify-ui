@@ -5,8 +5,8 @@ import { classNames } from '@aws-amplify/ui';
 import { STORAGE_BROWSER_BLOCK, ViewElement } from '../../components';
 import {
   ActionsListControl,
-  DataTableControl,
   DataRefreshControl,
+  DataTableControl,
   DropZoneControl,
   LoadingIndicatorControl,
   MessageControl,
@@ -34,7 +34,6 @@ export const LocationDetailView: LocationDetailViewType = ({
 }) => {
   const state = useLocationDetailView(props);
   const { hasError } = state;
-  const shouldRenderObjectDetails = !!state?.filePreviewState?.previewedFile;
 
   return (
     <ViewElement
@@ -63,7 +62,7 @@ export const LocationDetailView: LocationDetailViewType = ({
                 <DataTableControl />
               </ViewElement>
             </DropZoneControl>
-            {shouldRenderObjectDetails && <FilePreviewControl />}
+            <FilePreviewControl />
           </ViewElement>
         )}
         <ViewElement className={`${STORAGE_BROWSER_BLOCK}__footer`}>

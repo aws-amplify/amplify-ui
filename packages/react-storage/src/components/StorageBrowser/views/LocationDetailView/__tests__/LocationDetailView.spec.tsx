@@ -59,7 +59,7 @@ describe('LocationDetailView', () => {
     // @ts-expect-error partial mock return value
     mockUseLocationDetailView.mockReturnValue({
       hasError: false,
-      filePreviewState: { previewedFile: null },
+      filePreviewState: { enabled: false },
     });
   });
 
@@ -102,36 +102,32 @@ describe('LocationDetailView', () => {
     // @ts-expect-error partial mock return value
     mockUseLocationDetailView.mockReturnValue({
       hasError: false,
+      activeFile: {
+        id: 'test-file',
+        key: 'test.jpg',
+        lastModified: new Date(),
+        size: 1024,
+        type: 'FILE' as const,
+      },
+      filePreviewEnabled: true,
       filePreviewState: {
-        previewedFile: {
+        enabled: true,
+        isLoading: false,
+        ok: true,
+        fileData: {
           id: 'test-file',
           key: 'test.jpg',
           lastModified: new Date(),
           size: 1024,
           type: 'FILE' as const,
         },
+        url: 'https://example.com/file',
       },
     });
 
     render(<LocationDetailView />);
 
     expect(screen.getByTestId('file-preview-control')).toBeInTheDocument();
-  });
-
-  it('does not render FilePreviewControl when no file is being previewed', () => {
-    // @ts-expect-error partial mock return value
-    mockUseLocationDetailView.mockReturnValue({
-      hasError: false,
-      filePreviewState: {
-        previewedFile: null,
-      },
-    });
-
-    render(<LocationDetailView />);
-
-    expect(
-      screen.queryByTestId('file-preview-control')
-    ).not.toBeInTheDocument();
   });
 
   it('has FilePreview static property', () => {

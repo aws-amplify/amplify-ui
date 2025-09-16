@@ -5,7 +5,7 @@ import CustomFilePreview from './CustomUIFilePreview';
 
 function LocationDetailView() {
   const state = useView('LocationDetail');
-  const { filePreviewState, onCloseFilePreview } = state;
+  const { filePreviewState, onSelectActiveFile } = state;
 
   return (
     <StorageBrowser.LocationDetailView.Provider {...state}>
@@ -19,7 +19,7 @@ function LocationDetailView() {
 
         <CustomFilePreview
           filePreviewState={filePreviewState}
-          onCloseFilePreview={onCloseFilePreview}
+          onCloseFilePreview={() => onSelectActiveFile(undefined)}
         />
       </Flex>
     </StorageBrowser.LocationDetailView.Provider>

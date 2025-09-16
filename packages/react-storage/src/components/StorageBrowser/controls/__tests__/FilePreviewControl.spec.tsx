@@ -1,49 +1,62 @@
-import React from 'react';
+import React, { ComponentType } from 'react';
 import { render } from '@testing-library/react';
 import { FilePreviewControl } from '../FilePreviewControl';
-import { useResolvedComposable } from '../hooks/useResolvedComposable';
+import { FilePreviewProps } from '../../components/composables/FilePreview';
+import { useControlsContext } from '../context';
 
-jest.mock('../hooks/useResolvedComposable');
+jest.mock('../hooks/useResolvedComposable', () => ({
+  useResolvedComposable:
+    (Component: ComponentType<any>, _name: string) =>
+    (props: Record<string, any>) => <Component {...props} />,
+}));
 
 jest.mock('../context', () => ({
-  useControlsContext: () => ({
+  useControlsContext: jest.fn(() => ({
     data: {
+      activeFile: {
+        key: 'test.jpg',
+        size: 1024,
+        type: 'FILE',
+        id: 'test-id',
+        fileType: 'image',
+        lastModified: new Date(),
+      },
       filePreviewState: {
+        enabled: true,
         isLoading: false,
-        hasError: false,
-        previewedFile: {
-          key: 'test.jpg',
-          size: 1024,
-          type: 'FILE',
-          id: 'test-id',
-          fileType: 'image',
-          lastModified: new Date(),
-        },
         url: 'https://example.com/test.jpg',
-        hasLimitExceeded: false,
       },
     },
-    onCloseFilePreview: jest.fn(),
     onRetryFilePreview: jest.fn(),
-  }),
+    onSelectActiveFile: jest.fn(),
+  })),
 }));
 
 jest.mock('../../components/composables/FilePreview', () => ({
-  FilePreview: ({ previewedFile }: any) =>
-    previewedFile ? <div>File Preview Component</div> : null,
+  FilePreview: ({ activeFile }: FilePreviewProps) =>
+    activeFile ? <div>File Preview Component</div> : null,
 }));
 
 describe('FilePreviewControl', () => {
-  const mockUseResolvedComposable = jest.mocked(useResolvedComposable);
-
-  beforeAll(() => {
-    mockUseResolvedComposable.mockImplementation(
-      (component) => component as () => React.JSX.Element
-    );
-  });
-
   it('renders FilePreview with correctly', () => {
     const { container } = render(<FilePreviewControl />);
     expect(container.textContent).toContain('File Preview Component');
+  });
+
+  it('does not render FilePreview when activeFile is missing', () => {
+    const mockUseControlsContext = jest.mocked(useControlsContext);
+    mockUseControlsContext.mockReturnValueOnce({
+      data: {
+        activeFile: undefined,
+        filePreviewState: {
+          enabled: true,
+          isLoading: true,
+        },
+      },
+      onRetryFilePreview: jest.fn(),
+      onSelectActiveFile: jest.fn(),
+    });
+    const { container } = render(<FilePreviewControl />);
+    expect(container.textContent).toEqual('');
   });
 });

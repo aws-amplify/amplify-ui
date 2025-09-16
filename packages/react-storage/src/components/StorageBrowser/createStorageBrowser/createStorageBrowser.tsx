@@ -25,9 +25,9 @@ import StorageBrowserDefault from './StorageBrowserDefault';
 import type {
   CreateStorageBrowserInput,
   CreateStorageBrowserOutput,
-  StorageBrowserType,
   DerivedActionViews,
   DerivedActionViewType,
+  StorageBrowserType,
 } from './types';
 import type { FileData } from '../actions/handlers';
 

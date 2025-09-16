@@ -1,11 +1,11 @@
 import React from 'react';
 
 import {
-  CreateStorageBrowserInput,
-  createStorageBrowser,
   createManagedAuthAdapter,
+  createStorageBrowser,
+  CreateStorageBrowserInput,
 } from '@aws-amplify/ui-react-storage/browser';
-import { Button, Flex, Breadcrumbs } from '@aws-amplify/ui-react';
+import { Breadcrumbs, Button, Flex } from '@aws-amplify/ui-react';
 import { Auth } from '../managedAuthAdapter';
 import '@aws-amplify/ui-react-storage/styles.css';
 
@@ -104,25 +104,31 @@ function MyLocationActionView({ type }: { type?: string }) {
   );
 }
 
-function MyFullyCustomPreviewer(props: any) {
-  const { previewedFile, isLoading, hasError, url } = props;
-  const { fileType } = previewedFile;
+function MyFullyCustomPreviewer(props: {
+  filePreview: any;
+  onRetry: () => void;
+}) {
+  const { filePreview, onRetry } = props;
 
-  if (isLoading) {
+  if (!filePreview.enabled) {
+    return null;
+  }
+
+  if (filePreview.isLoading) {
     return <div>....loading</div>;
   }
 
-  if (hasError) {
+  if (!filePreview.ok) {
     return <div>...has error</div>;
   }
 
   function getDefaultRenderer(type?: any) {
     switch (type) {
       case 'image':
-        return <img src={url} />;
+        return <img src={filePreview.url} />;
 
       case 'video':
-        return <video src={url} />;
+        return <video src={filePreview.url} />;
 
       case 'text':
         return <div>My tesxt </div>;
@@ -132,7 +138,7 @@ function MyFullyCustomPreviewer(props: any) {
     }
   }
 
-  return <div>{getDefaultRenderer(fileType)}</div>;
+  return <div>{getDefaultRenderer(filePreview.fileData.fileType)}</div>;
 }
 
 function MyLocationDetails({
@@ -140,14 +146,13 @@ function MyLocationDetails({
 }: {
   onActionSelect: (actionType: string | undefined) => void;
 }) {
-  const locationsD = useView('LocationDetail');
-  const { filePreviewState, onCloseFilePreview, onRetryFilePreview } =
-    locationsD;
-  const { hasError, isLoading, url, previewedFile } = filePreviewState;
+  const locationsDetailViewState = useView('LocationDetail');
+  const { filePreviewState, onRetryFilePreview, filePreviewEnabled } =
+    locationsDetailViewState;
 
   return (
     <StorageBrowser.LocationDetailView.Provider
-      {...locationsD}
+      {...locationsDetailViewState}
       onActionSelect={onActionSelect}
     >
       <div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -155,14 +160,10 @@ function MyLocationDetails({
           <StorageBrowser.LocationDetailView.LocationItemsTable />
         </div>
 
-        {previewedFile && (
+        {filePreviewEnabled && (
           <MyFullyCustomPreviewer
-            onCloseFilePreview={onCloseFilePreview}
-            previewedFile={previewedFile}
-            isLoading={isLoading}
-            hasError={hasError}
-            url={url}
-            onRetryFilePreview={onRetryFilePreview}
+            filePreview={filePreviewState}
+            onRetry={onRetryFilePreview}
           />
         )}
       </div>

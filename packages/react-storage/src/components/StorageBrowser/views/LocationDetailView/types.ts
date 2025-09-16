@@ -14,6 +14,9 @@ import type { ListViewProps } from '../types';
 
 export interface LocationDetailViewState {
   actionItems: ActionListItem[];
+  activeFile: FileData | undefined;
+  activeFileHasNext: boolean;
+  activeFileHasPrev: boolean;
   actionType: string | undefined;
   downloadErrorMessage: string | undefined;
   fileDataItems: FileDataItem[] | undefined;
@@ -37,16 +40,16 @@ export interface LocationDetailViewState {
   onSearch: () => void;
   onSearchClear: () => void;
   onSearchQueryChange: (value: string) => void;
-  onOpenFilePreview: (f: FileData) => void;
   onRetryFilePreview: () => void;
-  onCloseFilePreview: () => void;
   onSelect: (isSelected: boolean, fileItem: FileData) => void;
+  onSelectActiveFile: (file?: FileData | 'prev' | 'next') => void;
   onToggleSearchSubfolders: () => void;
   onToggleSelectAll: () => void;
   page: number;
   pageItems: LocationItemData[];
   searchQuery: string;
   filePreviewState: FilePreviewState;
+  filePreviewEnabled: boolean;
 }
 
 export interface LocationDetailViewProps extends ListViewProps {

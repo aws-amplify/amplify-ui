@@ -1,4 +1,4 @@
-import { useCallback, useReducer } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import type { FileData } from '../../../actions';
 
 import { determineFileType } from '../../utils/files/fileType';
@@ -6,117 +6,123 @@ import { useFilePreviewContext } from '../../../filePreview/context';
 import { useGetActionInput } from '../../../configuration/context';
 import { resolveUrlOptions } from '../../utils/files/url';
 import { resolveMaxFileSize } from '../../utils/files/fileSize';
-import type { UseFilePreviewReturn } from './types';
-import { initialState, filePreviewReducer } from './filePreviewReducer';
 import { safeGetProperties } from '../../utils/files/safeGetProperties';
 import { constructBucket } from '../../../actions/handlers';
 import { getUrl } from '../../../storage-internal';
 import { useStore } from '../../../store';
+import type { FilePreviewContent, UseFilePreviewState } from './types';
 
-export function useFilePreview(): UseFilePreviewReturn {
+export function useFilePreview({
+  activeFile,
+}: {
+  activeFile?: FileData;
+}): UseFilePreviewState {
   const filePreviewContext = useFilePreviewContext();
+  const [enabled, setEnabled] = useState(true);
   const getConfig = useGetActionInput();
-  const [state, dispatch] = useReducer(filePreviewReducer, initialState);
-
-  const { fileTypeResolver, urlOptions, maxFileSize } =
-    filePreviewContext ?? {};
   const [{ location }] = useStore();
+  const [filePreviewContent, setFilePreviewContent] =
+    useState<FilePreviewContent>({ isLoading: true });
+  const { fileTypeResolver, urlOptions, maxFileSize } =
+    (filePreviewContext ?? {}) || {};
 
-  const prepareFileForPreview = useCallback(
-    async (fileData?: FileData | null) => {
-      if (!fileData || !fileData?.key || !location.current) {
-        return;
-      }
-
-      const config = getConfig(location.current);
-      const { accountId, customEndpoint, credentials } = config;
-
-      const sharedOptions = {
-        bucket: constructBucket(config),
-        expectedBucketOwner: accountId,
-      };
-
-      try {
-        dispatch({ type: 'START_PREVIEW_PREPARATION', payload: { fileData } });
-
-        const properties = await safeGetProperties({
-          path: fileData.key,
-          options: sharedOptions,
-        });
-
-        const enrichedFileData: FileData = {
-          ...fileData,
-          ...properties,
-        };
-
-        const fileType = determineFileType({
-          fileData: enrichedFileData,
-          fileTypeResolver,
-        });
-
-        const finalFileData = {
-          ...enrichedFileData,
-          fileType,
-        };
-
-        const sizeLimit = resolveMaxFileSize(maxFileSize, fileType);
-        const isLimitExceeded = (fileData.size ?? 0) > sizeLimit;
-
-        if (isLimitExceeded) {
-          dispatch({ type: 'LIMIT_EXCEEDED' });
-          return;
-        }
-
-        const { url } = await getUrl({
-          path: fileData.key,
-          options: {
-            customEndpoint,
-            locationCredentialsProvider: credentials,
-            contentDisposition: 'attachment',
-            ...sharedOptions,
-            ...resolveUrlOptions(urlOptions, fileType),
-          },
-        });
-
-        dispatch({
-          type: 'PREVIEW_PREPARATION_SUCCESS',
-          payload: {
-            fileData: finalFileData,
-            url: url.toString(),
-          },
-        });
-      } catch (error) {
-        dispatch({ type: 'PREVIEW_PREPARATION_ERROR', payload: null! });
-      }
-    },
-    [fileTypeResolver, urlOptions, maxFileSize, getConfig, location]
-  );
-
-  const onRetryFilePreview = useCallback(() => {
-    prepareFileForPreview(state.previewedFile);
-  }, [prepareFileForPreview, state.previewedFile]);
-
-  const onOpenFilePreview = useCallback(
-    (file: FileData) => {
-      if (file.key === state.previewedFile?.key) {
-        return;
-      }
-      prepareFileForPreview(file);
-    },
-    [prepareFileForPreview, state.previewedFile?.key]
-  );
-
-  const onCloseFilePreview = useCallback(() => {
-    if (!state.previewedFile?.key) {
+  const getFilePreview = useCallback<() => Promise<void>>(async () => {
+    if (!activeFile || !activeFile?.key || !location.current) {
+      setEnabled(false);
       return;
     }
-    dispatch({ type: 'RESET_STATE' });
-  }, [state.previewedFile?.key]);
+    const config = getConfig(location.current);
+    const { accountId, customEndpoint, credentials } = config;
+    const sharedOptions = {
+      bucket: constructBucket(config),
+      expectedBucketOwner: accountId,
+    };
+    try {
+      setEnabled(true);
+      setFilePreviewContent({
+        isLoading: true,
+      });
+      const properties = await safeGetProperties({
+        path: activeFile.key,
+        options: sharedOptions,
+      });
 
-  return {
-    ...state,
-    onRetryFilePreview,
-    onOpenFilePreview,
-    onCloseFilePreview,
-  };
+      const enrichedFile = {
+        ...activeFile,
+        ...properties,
+      };
+
+      const fileType = determineFileType({
+        fileData: enrichedFile,
+        fileTypeResolver,
+      });
+
+      const finalFile = {
+        ...enrichedFile,
+        fileType,
+      };
+
+      const sizeLimit = resolveMaxFileSize(maxFileSize, fileType);
+      const isLimitExceeded = (finalFile.size ?? 0) > sizeLimit;
+
+      if (isLimitExceeded) {
+        setFilePreviewContent({
+          ok: false,
+          isLoading: false,
+          error: 'LIMIT_EXCEEDED',
+        });
+        return;
+      }
+
+      const { url } = await getUrl({
+        path: finalFile.key,
+        options: {
+          customEndpoint,
+          locationCredentialsProvider: credentials,
+          contentDisposition: 'attachment',
+          ...sharedOptions,
+          ...resolveUrlOptions(urlOptions, fileType),
+        },
+      });
+      setFilePreviewContent({
+        ok: true,
+        isLoading: false,
+        fileData: finalFile,
+        url: url.toString(),
+      });
+    } catch (error) {
+      setFilePreviewContent({
+        isLoading: false,
+        ok: false,
+        error: 'GENERIC_ERROR',
+      });
+    }
+  }, [
+    location,
+    getConfig,
+    fileTypeResolver,
+    maxFileSize,
+    urlOptions,
+    activeFile,
+  ]);
+
+  useEffect(() => {
+    getFilePreview();
+  }, [getFilePreview, activeFile]);
+
+  return useMemo(() => {
+    if (filePreviewContext === false || !enabled) {
+      return {
+        optout: filePreviewContext === false,
+        enabled: false,
+        handleRetry: () => undefined,
+      };
+    }
+    return {
+      optout: false,
+      enabled: true,
+      handleRetry: () => getFilePreview(),
+      ...filePreviewContent,
+    };
+  }, [getFilePreview, filePreviewContext, filePreviewContent, enabled]);
 }

@@ -80,8 +80,14 @@ export function TextPreview({
   }
 
   return (
-    <ViewElement className={`${STORAGE_BROWSER_BLOCK}__text-preview`}>
-      {content || emptyFileMessage}
-    </ViewElement>
+    <div className={`${STORAGE_BROWSER_BLOCK}__text-container`}>
+      {isLoading ? (
+        <PreviewPlaceholder />
+      ) : (
+        <ViewElement className={`${STORAGE_BROWSER_BLOCK}__text-preview`}>
+          {content || emptyFileMessage}
+        </ViewElement>
+      )}
+    </div>
   );
 }

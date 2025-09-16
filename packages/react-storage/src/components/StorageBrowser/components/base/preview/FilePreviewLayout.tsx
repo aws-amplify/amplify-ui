@@ -27,7 +27,9 @@ export function FilePreviewLayout({
         >
           {filePreviewTitle}
         </HeadingElement>
-        {children}
+        <div className={`${STORAGE_BROWSER_BLOCK}__file-preview-content`}>
+          {children}
+        </div>
       </ViewElement>
       <FileMetadata fileData={fileData} />
     </>

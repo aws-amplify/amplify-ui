@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { VideoPreview } from '../VideoPreview';
 
 const MEDIA_ERR_ABORTED = 1;
@@ -15,7 +15,7 @@ global.MediaError = {
 } as any;
 
 jest.mock('../../../../useAction', () => ({
-  useAction: () => [null, jest.fn()],
+  useAction: () => [{ isProcessing: false }, jest.fn()],
 }));
 
 jest.mock('../../../../displayText', () => ({

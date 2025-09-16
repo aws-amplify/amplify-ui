@@ -2,8 +2,8 @@ import type { FileData, LocationData } from '../actions';
 import type {
   ActionListItem,
   Composables,
-  DataTableSortHeader,
   DataTableProps,
+  DataTableSortHeader,
   MessageProps,
 } from '../components';
 import type { LocationState } from '../store';
@@ -41,6 +41,9 @@ interface PaginationData {
 export interface ControlsContext {
   data: {
     actions?: ActionListItem[];
+    activeFile?: FileData;
+    activeFileHasNext?: boolean;
+    activeFileHasPrev?: boolean;
     actionCancelLabel?: string;
     actionDestinationLabel?: string;
     actionExitLabel?: string;
@@ -97,6 +100,7 @@ export interface ControlsContext {
   onPaginate?: (page: number) => void;
   onRefresh?: () => void;
   onSearch?: () => void;
+  onSelectActiveFile?: (file?: FileData | 'prev' | 'next') => void;
   onSearchClear?: () => void;
   onSearchQueryChange?: (value: string) => void;
   onOpenFilePreview?: (f: FileData) => void;

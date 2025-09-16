@@ -1,10 +1,10 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { ComponentClassName } from '@aws-amplify/ui';
 import { ImagePreview } from '../ImagePreview';
 
 jest.mock('../../../../useAction', () => ({
-  useAction: () => [null, jest.fn()],
+  useAction: () => [{ isProcessing: false }, jest.fn()],
 }));
 
 jest.mock('../../../../displayText', () => ({

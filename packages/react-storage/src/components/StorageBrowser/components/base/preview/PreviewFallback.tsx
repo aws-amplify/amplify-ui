@@ -1,12 +1,16 @@
 import React from 'react';
-import { Button } from '@aws-amplify/ui-react';
+import { DownloadButton } from './DownloadButton';
 import { classNames } from '@aws-amplify/ui';
-import { useAction } from '../../../useAction';
-import { getFileKey } from '../../../actions';
-import { ViewElement, TextElement, IconElement } from '../../elements';
+import {
+  ButtonElement,
+  IconElement,
+  TextElement,
+  ViewElement,
+} from '../../elements';
 import { STORAGE_BROWSER_BLOCK } from '../constants';
 import { useDisplayText } from '../../../displayText';
 import { getFileName } from '../../../views/utils/files/fileName';
+import { getFileThumbnail } from '../../../views/LocationDetailView/getLocationDetailViewTableData/fileIcon';
 
 export interface PreviewFallbackProps {
   fileKey: string;
@@ -14,7 +18,6 @@ export interface PreviewFallbackProps {
   description?: string;
   isError?: boolean;
   onRetry?: () => void;
-  showDownload?: boolean;
   showRetry?: boolean;
 }
 
@@ -24,10 +27,8 @@ export function PreviewFallback({
   description,
   isError = false,
   onRetry,
-  showDownload = true,
   showRetry = false,
 }: PreviewFallbackProps): React.JSX.Element {
-  const [, handleDownload] = useAction('download');
   const { LocationDetailView: displayText } = useDisplayText();
   const {
     filePreview: {
@@ -35,19 +36,8 @@ export function PreviewFallback({
       unsupportedFileDescription,
       filePrefix,
       retryButtonLabel,
-      downloadButtonLabel,
     },
   } = displayText;
-
-  const handleDownloadClick = () => {
-    handleDownload({
-      data: {
-        fileKey: getFileKey(fileKey),
-        key: fileKey,
-        id: crypto.randomUUID(),
-      },
-    });
-  };
 
   const fileName = getFileName(fileKey);
   const fallbackClass = isError
@@ -66,7 +56,7 @@ export function PreviewFallback({
       >
         <IconElement
           className="amplify-icon"
-          variant={isError ? 'error' : `file`}
+          variant={isError ? 'error' : getFileThumbnail(fileKey)}
         />
       </ViewElement>
 
@@ -90,32 +80,22 @@ export function PreviewFallback({
         </TextElement>
       </ViewElement>
 
-      {(showRetry || showDownload) && (
-        <ViewElement
-          className={`${STORAGE_BROWSER_BLOCK}__preview-fallback-actions`}
-        >
-          {showRetry && onRetry && (
-            <Button
-              size="small"
-              variation="primary"
-              onClick={onRetry}
-              ariaLabel={`Retry loading ${fileName} file`}
-            >
-              {retryButtonLabel}
-            </Button>
-          )}
-
-          {showDownload && (
-            <Button
-              size="small"
-              onClick={handleDownloadClick}
-              ariaLabel={`Download ${fileName} file`}
-            >
-              {downloadButtonLabel}
-            </Button>
-          )}
-        </ViewElement>
-      )}
+      <ViewElement
+        className={`${STORAGE_BROWSER_BLOCK}__preview-fallback-actions`}
+      >
+        {showRetry && onRetry && (
+          <ButtonElement
+            variant="primary"
+            onClick={onRetry}
+            {...{
+              ['aria-label']: `Retry loading ${fileName} file`,
+            }}
+          >
+            {retryButtonLabel}
+          </ButtonElement>
+        )}
+        <DownloadButton fileKey={fileKey} />
+      </ViewElement>
     </ViewElement>
   );
 }

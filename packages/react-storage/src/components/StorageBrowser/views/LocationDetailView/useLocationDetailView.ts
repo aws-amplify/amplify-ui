@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 
 import { isFunction, isUndefined } from '@aws-amplify/ui';
 
@@ -6,8 +6,9 @@ import { usePaginate } from '../hooks/usePaginate';
 
 import type {
   DownloadHandlerData,
-  FileDataItem,
   FileData,
+  FileDataItem,
+  FolderData,
   LocationData,
 } from '../../actions';
 import { useActionConfigs } from '../../actions';
@@ -27,6 +28,7 @@ import type {
 import { useFilePreview } from '../hooks/useFilePreview';
 
 const DEFAULT_PAGE_SIZE = 100;
+
 export const DEFAULT_LIST_OPTIONS = {
   delimiter: '/',
   pageSize: DEFAULT_PAGE_SIZE,
@@ -57,6 +59,7 @@ export const useLocationDetailView = (
   const [{ location, actionType }, storeDispatch] = useStore();
   const [locationItems, locationItemsDispatch] = useLocationItems();
   const fileItemsDispatch = useFileItems()[1];
+  const [activeFile, setActiveFile] = React.useState<FileData | undefined>();
 
   const { current, key } = location;
   const { permissions, prefix } = current ?? {};
@@ -110,6 +113,67 @@ export const useLocationDetailView = (
     locationItemsDispatch({ type: 'RESET_LOCATION_ITEMS' });
   };
 
+  const { activeFileHasPrev, activeFileHasNext } = React.useMemo(() => {
+    if (!activeFile)
+      return {
+        activeFileHasNext: false,
+        activeFileHasPrev: false,
+      };
+    const idx = pageItems.findIndex((item) => item.id === activeFile?.id);
+    let pIdx = idx;
+    do {
+      --pIdx;
+    } while (pIdx >= 0 && pageItems[pIdx].type !== 'FILE');
+    let nIdx = idx;
+    do {
+      ++nIdx;
+    } while (nIdx <= pageItems.length - 1 && pageItems[nIdx].type !== 'FILE');
+
+    return {
+      activeFileHasPrev: pIdx >= 0,
+      activeFileHasNext: nIdx <= pageItems.length - 1,
+    };
+  }, [activeFile, pageItems]);
+
+  const getSuitableNextItem = useCallback(
+    <T extends 'FILE' | 'FOLDER'>(
+      direction: 'prev' | 'next',
+      type: T
+    ): (T extends 'FILE' ? FileData : FolderData) | undefined => {
+      // first find the position
+      let newIdx = pageItems.findIndex((item) => item.id === activeFile?.id);
+      if (direction === 'prev') {
+        do {
+          --newIdx;
+        } while (newIdx >= 0 && pageItems[newIdx].type !== type);
+        if (pageItems[newIdx].type === type) {
+          return pageItems[newIdx] as T extends 'FILE' ? FileData : FolderData;
+        }
+      } else {
+        do {
+          ++newIdx;
+        } while (
+          newIdx <= pageItems.length - 1 &&
+          pageItems[newIdx].type !== type
+        );
+        if (pageItems[newIdx].type === type) {
+          return pageItems[newIdx] as T extends 'FILE' ? FileData : FolderData;
+        }
+      }
+    },
+    [activeFile, pageItems]
+  );
+
+  const onSelectActiveFile = (arg?: FileData | 'next' | 'prev') => {
+    if (arg === 'prev') {
+      setActiveFile(getSuitableNextItem('prev', 'FILE'));
+    } else if (arg === 'next') {
+      setActiveFile(getSuitableNextItem('next', 'FILE'));
+    } else {
+      setActiveFile(arg);
+    }
+  };
+
   const {
     searchQuery,
     isSearchingSubfolders: isSearchSubfoldersEnabled,
@@ -119,16 +183,9 @@ export const useLocationDetailView = (
     resetSearch,
   } = useSearch({ onSearch });
 
-  const {
-    onRetryFilePreview,
-    previewedFile,
-    isLoading: filePreviewIsLoading,
-    hasError: filePreviewHasError,
-    hasLimitExceeded,
-    onCloseFilePreview,
-    onOpenFilePreview,
-    url,
-  } = useFilePreview();
+  const { handleRetry, optout, ...filePreviewState } = useFilePreview({
+    activeFile,
+  });
 
   const onRefresh = () => {
     if (hasInvalidPrefix) return;
@@ -139,9 +196,9 @@ export const useLocationDetailView = (
       prefix: key,
       options: { ...listOptions, refresh: true },
     });
+    setActiveFile(undefined);
 
     locationItemsDispatch({ type: 'RESET_LOCATION_ITEMS' });
-    onCloseFilePreview();
   };
 
   React.useEffect(() => {
@@ -151,6 +208,7 @@ export const useLocationDetailView = (
       options: { ...listOptions, refresh: true },
     });
     handleReset();
+    setActiveFile(undefined);
   }, [handleList, handleReset, listOptions, hasInvalidPrefix, key]);
 
   const { actionConfigs } = useActionConfigs();
@@ -180,6 +238,10 @@ export const useLocationDetailView = (
   return {
     actionItems,
     actionType,
+    activeFile,
+    activeFileHasNext,
+    activeFileHasPrev,
+    onSelectActiveFile,
     page: currentPage,
     pageItems,
     location,
@@ -194,17 +256,11 @@ export const useLocationDetailView = (
     isSearchSubfoldersEnabled,
     onPaginate: (p: number) => {
       handlePaginate(p);
-
-      onCloseFilePreview();
+      setActiveFile(undefined);
     },
     searchQuery,
-    filePreviewState: {
-      previewedFile,
-      isLoading: filePreviewIsLoading,
-      hasError: filePreviewHasError,
-      url,
-      hasLimitExceeded,
-    },
+    filePreviewState,
+    filePreviewEnabled: !optout,
     hasExhaustedSearch,
     onRefresh,
     onActionExit: () => {
@@ -222,7 +278,7 @@ export const useLocationDetailView = (
       resetSearch();
       storeDispatch({ type: 'CHANGE_LOCATION', location, path });
       locationItemsDispatch({ type: 'RESET_LOCATION_ITEMS' });
-      onCloseFilePreview();
+      setActiveFile(undefined);
     },
     onDropFiles: (files: File[]) => {
       fileItemsDispatch({ type: 'ADD_FILES', files });
@@ -264,7 +320,7 @@ export const useLocationDetailView = (
       );
     },
     onSearch: () => {
-      onCloseFilePreview();
+      setActiveFile(undefined);
       onSearchSubmit();
     },
     onSearchClear: () => {
@@ -274,9 +330,7 @@ export const useLocationDetailView = (
       handleReset();
     },
     onSearchQueryChange,
-    onRetryFilePreview,
-    onOpenFilePreview,
-    onCloseFilePreview,
+    onRetryFilePreview: handleRetry,
     onToggleSearchSubfolders,
   };
 };

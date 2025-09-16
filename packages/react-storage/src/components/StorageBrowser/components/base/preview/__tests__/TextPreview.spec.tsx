@@ -6,7 +6,7 @@ const mockFetch = jest.fn();
 global.fetch = mockFetch;
 
 jest.mock('../../../../useAction', () => ({
-  useAction: () => [null, jest.fn()],
+  useAction: () => [{ isProcessing: false }, jest.fn()],
 }));
 
 jest.mock('../../../../displayText', () => ({

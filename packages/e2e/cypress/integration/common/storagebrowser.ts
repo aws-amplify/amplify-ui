@@ -1,4 +1,4 @@
-import { When, Then } from '@badeball/cypress-cucumber-preprocessor';
+import { Then, When } from '@badeball/cypress-cucumber-preprocessor';
 import { randomFileName } from './shared';
 
 const FILE_VALIDATION_SIZE_LIMIT = 1000 * 1000; // 1MB
@@ -85,7 +85,7 @@ Then(
       'downloadValidation'
     );
 
-    cy.findByLabelText(label).click();
+    cy.findAllByLabelText(label).last().click();
 
     cy.wait('@downloadValidation').then((interception) => {
       assert.equal(interception.response.statusCode, 200);
