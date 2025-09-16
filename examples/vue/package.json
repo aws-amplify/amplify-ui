@@ -18,7 +18,7 @@
   "devDependencies": {
     "@types/node": "18.8.0",
     "@vue/compiler-sfc": "^3.0.5",
-    "rimraf": "^3.0.2",
+    "rimraf": "^5.0.0",
     "vite-plugin-pages": "^0.25.0"
   }
 }
