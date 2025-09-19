@@ -8,19 +8,19 @@ function LocationDetailView() {
   return (
     <StorageBrowser.LocationDetailView.Provider {...state}>
       <Flex direction="row">
+        <StorageBrowser.LocationDetailView.Pagination />
         <StorageBrowser.LocationDetailView.Refresh />
         <StorageBrowser.LocationDetailView.Search />
       </Flex>
-      <StorageBrowser.LocationDetailView.LocationItemsTable />
-      <StorageBrowser.LocationDetailView.Pagination />
+      <Flex direction="column" position="relative">
+        <StorageBrowser.LocationDetailView.LocationItemsTable />
+
+        <StorageBrowser.LocationDetailView.FilePreview />
+      </Flex>
     </StorageBrowser.LocationDetailView.Provider>
   );
 }
 
 export default function Example() {
-  return (
-    <StorageBrowser.Provider>
-      <LocationDetailView />
-    </StorageBrowser.Provider>
-  );
+  return <LocationDetailView />;
 }

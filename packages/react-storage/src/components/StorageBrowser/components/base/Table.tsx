@@ -19,6 +19,7 @@ interface TableItem {
 
 interface TableRow {
   content: WithKey<TableItem>[];
+  active?: boolean;
 }
 
 interface TableProps {
@@ -44,10 +45,12 @@ export const Table = ({ headers, rows }: TableProps): React.JSX.Element => {
         ) : null}
       </TableHeadElement>
       <TableBodyElement className={`${STORAGE_BROWSER_BLOCK}__table-body`}>
-        {rows?.map(({ key, content }) => (
+        {rows?.map(({ key, content, active }) => (
           <TableRowElement
             key={key}
-            className={`${STORAGE_BROWSER_BLOCK}__table-row`}
+            className={`${STORAGE_BROWSER_BLOCK}__table-row${
+              active ? ` ${STORAGE_BROWSER_BLOCK}__table-row_active` : ''
+            }`}
           >
             {content.map(({ key, content, type }) => {
               return type === 'header' ? (

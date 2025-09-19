@@ -25,6 +25,7 @@ describe('getFileRowContent', () => {
   it('should return file row content as expected', () => {
     expect(
       getFileRowContent({
+        filePreviewEnabled: true,
         permissions: location.current.permissions,
         itemLocationKey,
         isSelected: false,
@@ -36,6 +37,7 @@ describe('getFileRowContent', () => {
         selectFileLabel: 'Select file',
         onDownload: jest.fn(),
         onSelect: jest.fn(),
+        onClick: jest.fn(),
       })
     ).toStrictEqual(
       expect.arrayContaining([
@@ -47,8 +49,11 @@ describe('getFileRowContent', () => {
           }),
         }),
         expect.objectContaining({
-          type: 'text',
-          content: expect.objectContaining({ text: fileItem.key }),
+          type: 'button',
+          content: expect.objectContaining({
+            label: fileItem.key,
+            onClick: expect.any(Function),
+          }),
         }),
         expect.objectContaining({
           type: 'text',
@@ -76,6 +81,7 @@ describe('getFileRowContent', () => {
   it('should not render download button if location permission does not support download', () => {
     const row = getFileRowContent({
       permissions: ['list', 'write'],
+      filePreviewEnabled: false,
       itemLocationKey,
       isSelected: false,
       lastModified: fileItem.lastModified,
@@ -86,6 +92,7 @@ describe('getFileRowContent', () => {
       selectFileLabel: 'Select file',
       onDownload: jest.fn(),
       onSelect: jest.fn(),
+      onClick: jest.fn(),
     });
     const fileActionCell = row[5];
     expect(fileActionCell).toMatchObject({

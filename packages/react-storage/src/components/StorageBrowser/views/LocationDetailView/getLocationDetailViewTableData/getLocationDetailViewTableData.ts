@@ -1,8 +1,8 @@
 import type {
   FileData,
   FileDataItem,
-  LocationItemData,
   LocationData,
+  LocationItemData,
 } from '../../../actions';
 import { createFileDataItem } from '../../../actions';
 import type { DataTableProps } from '../../../components';
@@ -14,6 +14,9 @@ import { getFolderRowContent } from './getFolderRowContent';
 import { getHeaders } from './getHeaders';
 
 export const getLocationDetailViewTableData = ({
+  filePreviewEnabled,
+  activeFile,
+  onSelectActiveFile,
   areAllFilesSelected,
   displayText,
   location,
@@ -28,6 +31,9 @@ export const getLocationDetailViewTableData = ({
   onSelect,
   onSelectAll,
 }: {
+  filePreviewEnabled: boolean;
+  activeFile: FileData | undefined;
+  onSelectActiveFile: (arg: FileData) => void;
   areAllFilesSelected: boolean;
   displayText: DefaultLocationDetailViewDisplayText;
   location: LocationState;
@@ -70,12 +76,20 @@ export const getLocationDetailViewTableData = ({
         const onFileDownload = () => {
           onDownload(createFileDataItem(locationItem));
         };
+
         const onFileSelect = () => {
           onSelect(isSelected, locationItem);
         };
+
+        const onClick = () => {
+          onSelectActiveFile(locationItem);
+        };
+
         return {
           key: id,
+          active: activeFile?.id === id,
           content: getFileRowContent({
+            filePreviewEnabled,
             permissions: current?.permissions ?? [],
             isSelected,
             itemLocationKey: `${current?.prefix ?? ''}${path}`,
@@ -87,6 +101,7 @@ export const getLocationDetailViewTableData = ({
             size,
             onDownload: onFileDownload,
             onSelect: onFileSelect,
+            onClick,
           }),
         };
       }
@@ -102,6 +117,7 @@ export const getLocationDetailViewTableData = ({
         };
         return {
           key: id,
+          active: false,
           content: getFolderRowContent({
             itemSubPath,
             rowId: id,
