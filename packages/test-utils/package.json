@@ -18,12 +18,12 @@
   ],
   "scripts": {
     "build": "yarn build:dist",
-    "build:dist": "rollup --config",
-    "clean": "rimraf dist node_modules",
+    "build:dist": "yarn g:rollup --config",
+    "clean": "yarn g:rimraf dist node_modules",
     "dev": "yarn build --watch",
     "lint": "yarn typecheck && eslint src --ext .js,.ts,.tsx",
-    "prebuild": "rimraf dist",
-    "typecheck": "tsc --noEmit"
+    "prebuild": "yarn g:rimraf dist",
+    "typecheck": "yarn g:tsc --noEmit"
   },
   "dependencies": {
     "@aws-amplify/ui-react-storage": "3.13.0",

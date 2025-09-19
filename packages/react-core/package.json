@@ -29,15 +29,15 @@
     "!**/__tests__"
   ],
   "scripts": {
-    "clean": "rimraf dist node_modules",
-    "build": "rollup --config",
+    "clean": "yarn g:rimraf dist node_modules",
+    "build": "yarn g:rollup --config",
     "check:esm": "node --input-type=module --eval 'import \"@aws-amplify/ui-react-core\"'",
     "dev": "yarn build --watch",
     "lint": "yarn typecheck && eslint .",
-    "prebuild": "rimraf dist",
-    "test": "jest",
+    "prebuild": "yarn g:rimraf dist",
+    "test": "yarn g:jest",
     "test:watch": "yarn test --watch",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "yarn g:tsc --noEmit"
   },
   "dependencies": {
     "@aws-amplify/ui": "6.12.0",

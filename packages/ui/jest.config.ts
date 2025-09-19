@@ -1,4 +1,4 @@
-import { Config } from 'jest';
+import type { Config } from 'jest';
 
 const config: Config = {
   collectCoverage: true,
@@ -22,6 +22,7 @@ const config: Config = {
     },
   },
   preset: 'ts-jest',
+  forceExit: true,
   testEnvironment: 'jsdom',
   modulePathIgnorePatterns: ['<rootDir>/dist/'],
   moduleNameMapper: { '^uuid$': '<rootDir>/../../node_modules/uuid' },

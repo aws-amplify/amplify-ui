@@ -30,16 +30,16 @@
   ],
   "scripts": {
     "build": "yarn build:rollup",
-    "build:rollup": "rollup --config",
+    "build:rollup": "yarn g:rollup --config",
     "check:esm": "node --input-type=module --eval 'import \"@aws-amplify/ui-react-ai\"'",
-    "clean": "rimraf dist node_modules",
+    "clean": "yarn g:rimraf dist node_modules",
     "dev": "yarn build:rollup --watch",
     "lint": "yarn typecheck && eslint .",
-    "prebuild": "rimraf dist",
+    "prebuild": "yarn g:rimraf dist",
     "size": "yarn size-limit",
-    "test": "jest",
+    "test": "yarn g:jest",
     "test:watch": "yarn test --watch",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "yarn g:tsc --noEmit"
   },
   "peerDependencies": {
     "@aws-amplify/data-schema": "^1.19.0",

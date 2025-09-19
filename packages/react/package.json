@@ -44,16 +44,16 @@
     "build": "yarn build:catalog && yarn build:CSS && yarn build:rollup",
     "build:catalog": "yarn node -r esbuild-register scripts/generatePrimitiveCatalog.ts",
     "build:CSS": "yarn node -r esbuild-register scripts/copyCSS.ts",
-    "build:rollup": "rollup --config",
+    "build:rollup": "yarn g:rollup --config",
     "check:esm": "node --input-type=module --eval 'import \"@aws-amplify/ui-react\"'",
-    "clean": "rimraf dist node_modules",
+    "clean": "yarn g:rimraf dist node_modules",
     "dev": "yarn build:rollup --watch",
     "lint": "yarn typecheck && eslint .",
     "prebuild": "rimraf dist",
     "size": "yarn size-limit",
-    "test": "jest",
+    "test": "yarn g:jest",
     "test:watch": "yarn test --watch",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "yarn g:tsc --noEmit"
   },
   "dependencies": {
     "@aws-amplify/ui": "6.12.0",

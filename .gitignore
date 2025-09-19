@@ -1,6 +1,7 @@
 .DS_Store
 .env
 .env.local
+.yarn
 *.log
 node_modules
 aws-exports.js

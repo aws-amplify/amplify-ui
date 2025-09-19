@@ -7,7 +7,7 @@
     "dev": "ng build --watch",
     "start": "ng serve",
     "build": "ng build --configuration production",
-    "test": "jest",
+    "test": "yarn g:jest",
     "test:watch": "yarn test --watch",
     "lint": "yarn typecheck && ng lint",
     "typecheck": "tsc --noEmit"
@@ -22,6 +22,7 @@
     "@angular-eslint/template-parser": "~14.4.0",
     "@angular/animations": "^14.3.0",
     "@angular/cli": "^14.2.13",
+    "@angular/common": "^14.3.0",
     "@angular/compiler": "^14.3.0",
     "@angular/compiler-cli": "^14.3.0",
     "@angular/core": "^14.3.0",
@@ -41,10 +42,8 @@
     "typescript": "~4.6.4",
     "zone.js": "^0.13.0"
   },
-  "workspaces": {
-    "nohoist": [
-      "@angular-devkit/build-angular"
-    ]
+  "installConfig": {
+    "hoistingLimits": "workspaces"
   },
   "typings": "./dist/ui-angular/index.d.ts",
   "overrides": {

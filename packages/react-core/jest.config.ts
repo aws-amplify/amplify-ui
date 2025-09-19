@@ -20,6 +20,7 @@ const config: Config = {
       statements: 90,
     },
   },
+  forceExit: true,
   moduleNameMapper: { '^uuid$': '<rootDir>/../../node_modules/uuid' },
   modulePathIgnorePatterns: ['<rootDir>/dist/'],
   preset: 'ts-jest',

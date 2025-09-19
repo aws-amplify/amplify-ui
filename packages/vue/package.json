@@ -27,15 +27,15 @@
     "LICENSE"
   ],
   "scripts": {
-    "prebuild": "rimraf dist",
-    "build": "vite build",
-    "dev": "vite build --watch",
-    "clean": "rimraf dist node_modules",
+    "prebuild": "yarn g:rimraf dist",
+    "build": "yarn g:vite build",
+    "dev": "yarn g:vite build --watch",
+    "clean": "yarn g:rimraf dist node_modules",
     "check:esm": "node --input-type=module --eval 'import \"@aws-amplify/ui-vue\"'",
     "lint": "yarn typecheck && eslint . --ext .vue,.js,.jsx,.ts,.tsx",
-    "test": "jest",
+    "test": "yarn g:jest",
     "test:watch": "yarn test --watch",
-    "typecheck": "vue-tsc --noEmit"
+    "typecheck": "yarn g:vue-tsc --noEmit"
   },
   "dependencies": {
     "@aws-amplify/ui": "6.12.0",

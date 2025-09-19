@@ -1,14 +1,14 @@
 {
   "private": true,
-  "packageManager": "yarn@1.22.22",
+  "packageManager": "yarn@4.9.4",
   "name": "@aws-amplify/ui-monorepo",
   "scripts": {
-    "build": "turbo run build --filter=./packages/* --filter=!./packages/angular --filter=./packages/angular/projects/ui-angular",
-    "build:exclude-angular": "turbo run build --filter=./packages/* --filter=!./packages/angular",
+    "build": "turbo run build --filter='./packages/*' --filter='!./packages/angular' --filter='./packages/angular/projects/ui-angular'",
+    "build:exclude-angular": "turbo run build --filter='./packages/*' --filter='!./packages/angular'",
     "clean": "turbo run clean && rimraf node_modules",
-    "lint": "turbo run lint --filter=./packages/* --filter=!./packages/angular --filter=./packages/angular/projects/ui-angular",
-    "size": "turbo run size --filter=./packages/* --filter=!./packages/angular --filter=./packages/angular/projects/ui-angular",
-    "test": "turbo run test --filter=./packages/* --filter=!./packages/angular --filter=./packages/angular/projects/ui-angular",
+    "lint": "turbo run lint --filter='./packages/*' --filter='!./packages/angular' --filter='./packages/angular/projects/ui-angular'",
+    "size": "turbo run size --filter='./packages/*' --filter='!./packages/angular' --filter='./packages/angular/projects/ui-angular'",
+    "test": "turbo run test --filter='./packages/*' --filter='!./packages/angular' --filter='./packages/angular/projects/ui-angular' --concurrency=4",
     "setup": "yarn install && yarn build",
     "refresh": "yarn clean && yarn setup",
     "angular": "yarn workspace @aws-amplify/ui-angular",
@@ -46,7 +46,13 @@
     "version:hotfix": "yarn changeset && yarn bumpVersions && yarn angular build",
     "publish:hotfix": "yarn changeset publish --tag hotfix",
     "generateVersions": "node scripts/generateVersion",
-    "bumpVersions": "yarn changeset version && yarn generateVersions"
+    "bumpVersions": "yarn changeset version && yarn generateVersions",
+    "g:jest": "cd $INIT_CWD && jest",
+    "g:rimraf": "cd $INIT_CWD && rimraf",
+    "g:rollup": "cd $INIT_CWD && rollup",
+    "g:tsc": "cd $INIT_CWD && tsc",
+    "g:vite": "cd $INIT_CWD && vite",
+    "g:vue-tsc": "cd $INIT_CWD && vue-tsc"
   },
   "workspaces": {
     "packages": [
@@ -56,28 +62,10 @@
       "packages/*",
       "packages/angular/projects/ui-angular",
       "packages/configs/*"
-    ],
-    "nohoist": [
-      "**/@react-native-community/**",
-      "**/react-native",
-      "**/react-native-paper",
-      "**/react-native-safe-area-context",
-      "**/react-native-url-polyfill",
-      "**/react-native-vector-icons",
-      "**/rollup",
-      "**/@types/webgl-ext",
-      "**/@types/webgl-ext/**"
     ]
   },
   "resolutions": {
-    "**/@react-native-community/**/fast-xml-parser": "^4.4.1",
-    "**/@aws-*/**/fast-xml-parser": "^4.4.1",
-    "**/@aws-amplify/ui-angular-example/**/codelyzer/**/@angular/core": "10.2.5",
-    "**/@angular-devkit/build-angular/minimatch": "3.0.5",
-    "**/@angular-devkit/build-angular/webpack": "^5.76.0",
-    "**/@size-limit/webpack/webpack": "^5.76.0",
-    "**/serve/serve-handler/minimatch": "3.0.5",
-    "**/serve/serve-handler/path-to-regexp": "3.3.0",
+    "fast-xml-parser": "^4.4.1",
     "@aws-amplify/data-schema": "^1.19.0",
     "@adobe/css-tools": "^4.3.2",
     "@sideway/formula": "^3.0.1",
@@ -86,7 +74,6 @@
     "body-parser": "1.20.3",
     "cookie": "^0.7.0",
     "cross-spawn": "7.0.5",
-    "docs/next-plugin-preval/webpack": "^5.76.0",
     "esbuild": "^0.25.0",
     "follow-redirects": "^1.15.6",
     "json5": "^2.2.1",
@@ -141,6 +128,8 @@
     "jest-environment-jsdom": "^29.7.0",
     "lint-staged": ">=10",
     "prettier": "^3.0.3",
+    "react": "^18.3.0",
+    "react-native": "0.71.16",
     "react-test-renderer": "^18.3.0",
     "rimraf": "^5.0.0",
     "rollup": "^4.22.4",

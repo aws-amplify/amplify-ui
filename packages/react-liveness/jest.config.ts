@@ -25,6 +25,7 @@ const config: Config = {
   modulePathIgnorePatterns: ['<rootDir>/dist/'],
   preset: 'ts-jest',
   setupFilesAfterEnv: ['./jest.setup.ts'],
+  forceExit: true,
   testEnvironment: 'jsdom',
 };
 

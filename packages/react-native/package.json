@@ -8,15 +8,15 @@
   "license": "Apache-2.0",
   "scripts": {
     "build": "yarn build:cjs && yarn build:esm",
-    "build:cjs": "tsc --project tsconfig.cjs.json && cp -a src/assets/icons lib/assets",
-    "build:esm": "tsc --project tsconfig.esm.json && cp -a src/assets/icons dist/assets",
-    "clean": "rimraf dist",
-    "dev": "tsc --watch",
+    "build:cjs": "yarn g:tsc --project tsconfig.cjs.json && cp -a src/assets/icons lib/assets",
+    "build:esm": "yarn g:tsc --project tsconfig.esm.json && cp -a src/assets/icons dist/assets",
+    "clean": "yarn g:rimraf dist",
+    "dev": "yarn g:tsc --watch",
     "lint": "yarn typecheck && eslint src",
-    "prebuild": "rimraf dist",
-    "test": "jest",
+    "prebuild": "yarn g:rimraf dist",
+    "test": "yarn g:jest",
     "test:watch": "yarn test --watch",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "yarn g:tsc --noEmit"
   },
   "devDependencies": {
     "@aws-amplify/react-native": "^1.0.1",
@@ -27,7 +27,8 @@
     "@react-native-async-storage/async-storage": "*",
     "@testing-library/react-native": "^12.9.0",
     "metro-react-native-babel-preset": "^0.77.0",
-    "react-native-safe-area-context": "^5.2.0"
+    "react-native-safe-area-context": "^5.2.0",
+    "typescript": "^5.2.2"
   },
   "dependencies": {
     "@aws-amplify/ui": "6.12.0",
@@ -39,6 +40,9 @@
     "react": "*",
     "react-native": ">=0.70",
     "react-native-safe-area-context": "*"
+  },
+  "installConfig": {
+    "hoistingLimits": "workspaces"
   },
   "files": [
     "dist",

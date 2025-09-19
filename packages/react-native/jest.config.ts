@@ -1,4 +1,4 @@
-import { Config } from 'jest';
+import type { Config } from 'jest';
 
 const config: Config = {
   preset: 'react-native',
@@ -10,7 +10,7 @@ const config: Config = {
     '!<rootDir>/src/version.ts',
   ],
   moduleNameMapper: {
-    '^react-native$': '<rootDir>/node_modules/react-native',
+    '^react-native$': '<rootDir>../../node_modules/react-native',
     '^uuid$': '<rootDir>/../../node_modules/uuid',
   },
   modulePaths: ['<rootDir>/node_modules/'],
@@ -22,6 +22,7 @@ const config: Config = {
       statements: 90,
     },
   },
+  forceExit: true,
   setupFiles: ['<rootDir>/jest.setup.ts'],
 };
 

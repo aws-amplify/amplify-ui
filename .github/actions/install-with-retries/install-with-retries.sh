@@ -24,9 +24,9 @@ for i in {1..4}; do
 
   if [ "$NO_LOCKFILE" = "true" ]; then
     echo "[LOG]: Ignoring yarn.lock file"
-    yarn install --no-lockfile --network-timeout 60000
+    YARN_HTTP_TIMEOUT=60000 yarn install --immutable
   else
-    yarn install --network-timeout 60000
+    YARN_HTTP_TIMEOUT=60000 yarn install
   fi
 
   # Check return value and exit early if successful
