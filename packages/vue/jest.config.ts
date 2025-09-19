@@ -1,4 +1,4 @@
-import { Config } from 'jest';
+import type { Config } from 'jest';
 
 const config: Config = {
   collectCoverage: true,
@@ -21,6 +21,7 @@ const config: Config = {
       statements: 93,
     },
   },
+  forceExit: true,
   testEnvironment: 'jsdom',
   verbose: true,
   moduleFileExtensions: ['js', 'ts', 'vue'],
