@@ -91,7 +91,7 @@ BASE_OPTIONS="--build-tool $BUILD_TOOL --name $MEGA_APP_NAME --framework $FRAMEW
 ./scripts/mega-app-copy-files.sh $BASE_OPTIONS
 
 # Install dependencies
-./scripts/mega-app-install.sh $BASE_OPTIONS --pkg-manager $PKG_MANAGER --tag $TAG
+./scripts/mega-app-install.sh $BASE_OPTIONS --pkg-manager $PKG_MANAGER --tag $TAG --build-tool-version $BUILD_TOOL_VERSION 
 
 # Build mega app
 ./scripts/mega-app-build.sh $BASE_OPTIONS --platform $PLATFORM

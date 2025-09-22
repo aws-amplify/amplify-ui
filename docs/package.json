@@ -53,7 +53,7 @@
     "remark-github": "^10.1.0",
     "remark-mdx-frontmatter": "^5.2.0",
     "remark-mdx-images": "^1.0.2",
-    "rimraf": "^3.0.2",
+    "rimraf": "^5.0.0",
     "sass": "^1.43.4",
     "slugify": "^1.6.3",
     "style-dictionary": "3.9.1"
@@ -66,7 +66,7 @@
     "autoprefixer": "^10.2.4",
     "canvas": "^2.11.2",
     "dotenv-safe": "^8.2.0",
-    "eslint-config-next": "^13.5.5",
+    "eslint-config-next": "^14.2.32",
     "glob": "^10.3.10",
     "globby": "^13.1.1",
     "postcss": "^8.4.31",
