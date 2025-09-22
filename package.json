@@ -99,7 +99,8 @@
     "stylus": "github:stylus/stylus#0.59.0",
     "on-headers": "^1.1.0",
     "tmp": "^0.2.4",
-    "@tensorflow-models/face-detection/rimraf": "5.0.0"
+    "@tensorflow-models/face-detection/rimraf": "5.0.0",
+    "@angular/core": "^14.3.0"
   },
   "devDependencies": {
     "@aws-amplify/backend": "^1.7.0",
