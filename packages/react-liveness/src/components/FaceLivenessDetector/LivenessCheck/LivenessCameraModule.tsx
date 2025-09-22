@@ -1,15 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { classNames } from '@aws-amplify/ui';
 
-import {
-  Button,
-  Flex,
-  Label,
-  Loader,
-  SelectField,
-  Text,
-  View,
-} from '@aws-amplify/ui-react';
+import { Button, Flex, Loader, Text, View } from '@aws-amplify/ui-react';
 import { useColorMode } from '@aws-amplify/ui-react/internal';
 import { FaceMatchState, clearOvalCanvas, drawStaticOval } from '../service';
 import type { UseMediaStreamInVideo } from '../hooks';
@@ -29,6 +21,7 @@ import type {
 
 import { Hint, Overlay, selectErrorState, MatchIndicator } from '../shared';
 import { LivenessClassNames } from '../types/classNames';
+import { isDeviceUserFacing } from '../utils/device';
 import {
   FaceLivenessErrorModal,
   renderErrorModal,
@@ -39,7 +32,12 @@ import {
   DefaultCancelButton,
   DefaultRecordingIcon,
 } from '../shared/DefaultStartScreenComponents';
+import { FACE_MOVEMENT_CHALLENGE } from '../service/utils/constants';
+import { CameraSelector } from './CameraSelector';
 
+export const selectChallengeType = createLivenessSelector(
+  (state) => state.context.parsedSessionInformation?.Challenge?.Name
+);
 export const selectVideoConstraints = createLivenessSelector(
   (state) => state.context.videoAssociatedParams?.videoConstraints
 );
@@ -70,14 +68,6 @@ export interface LivenessCameraModuleProps {
   components?: FaceLivenessDetectorComponents;
   testId?: string;
 }
-
-const centeredLoader = (
-  <Loader
-    size="large"
-    className={LivenessClassNames.Loader}
-    data-testid="centered-loader"
-  />
-);
 
 const showMatchIndicatorStates = [
   FaceMatchState.TOO_FAR,
@@ -117,6 +107,9 @@ export const LivenessCameraModule = (
 
   const [state, send] = useLivenessActor();
 
+  const isFaceMovementChallenge =
+    useLivenessSelector(selectChallengeType) === FACE_MOVEMENT_CHALLENGE.type;
+
   const videoStream = useLivenessSelector(selectVideoStream);
   const videoConstraints = useLivenessSelector(selectVideoConstraints);
   const selectedDeviceId = useLivenessSelector(selectSelectedDeviceId);
@@ -136,8 +129,14 @@ export const LivenessCameraModule = (
   const freshnessColorRef = useRef<HTMLCanvasElement | null>(null);
 
   const [isCameraReady, setIsCameraReady] = useState<boolean>(false);
-  const isCheckingCamera = state.matches('cameraCheck');
-  const isWaitingForCamera = state.matches('waitForDOMAndCameraDetails');
+  const [isMetadataLoaded, setIsMetadataLoaded] = useState<boolean>(false);
+  const [isCameraUserFacing, setIsCameraUserFacing] = useState<boolean>(true);
+  const isInitCamera = state.matches('initCamera');
+  const isInitWebsocket = state.matches('initWebsocket');
+  const isCheckingCamera = state.matches({ initCamera: 'cameraCheck' });
+  const isWaitingForCamera = state.matches({
+    initCamera: 'waitForDOMAndCameraDetails',
+  });
   const isStartView = state.matches('start') || state.matches('userCancel');
   const isDetectFaceBeforeStart = state.matches('detectFaceBeforeStart');
   const isRecording = state.matches('recording');
@@ -157,22 +156,37 @@ export const LivenessCameraModule = (
     videoWidth && videoHeight ? videoWidth / videoHeight : 0
   );
 
-  React.useEffect(() => {
-    if (canvasRef?.current && videoRef?.current && videoStream && isStartView) {
-      drawStaticOval(canvasRef.current, videoRef.current, videoStream);
-    }
-  }, [canvasRef, videoRef, videoStream, colorMode, isStartView]);
+  // Only mobile device camera selection for no light challenge
+  const hasMultipleDevices =
+    !!selectableDevices?.length && selectableDevices.length > 1;
+  const allowDeviceSelection =
+    isStartView &&
+    hasMultipleDevices &&
+    (!isMobileScreen || isFaceMovementChallenge);
 
   React.useEffect(() => {
+    async function checkCameraFacing() {
+      const isUserFacing = await isDeviceUserFacing(selectedDeviceId);
+      setIsCameraUserFacing(isUserFacing);
+    }
+    checkCameraFacing();
+  }, [selectedDeviceId]);
+
+  React.useEffect(() => {
+    const shouldDrawOval =
+      canvasRef?.current &&
+      videoRef?.current &&
+      videoStream &&
+      isStartView &&
+      isMetadataLoaded;
+
+    if (shouldDrawOval) {
+      drawStaticOval(canvasRef.current, videoRef.current!, videoStream);
+    }
+
     const updateColorModeHandler = (e: MediaQueryListEvent) => {
-      if (
-        e.matches &&
-        canvasRef?.current &&
-        videoRef?.current &&
-        videoStream &&
-        isStartView
-      ) {
-        drawStaticOval(canvasRef.current, videoRef.current, videoStream);
+      if (e.matches && shouldDrawOval) {
+        drawStaticOval(canvasRef.current, videoRef.current!, videoStream);
       }
     };
 
@@ -190,7 +204,7 @@ export const LivenessCameraModule = (
       darkModePreference.removeEventListener('change', updateColorModeHandler);
       lightModePreference.addEventListener('change', updateColorModeHandler);
     };
-  }, [canvasRef, videoRef, videoStream, isStartView]);
+  }, [videoRef, videoStream, colorMode, isStartView, isMetadataLoaded]);
 
   React.useLayoutEffect(() => {
     if (isCameraReady) {
@@ -239,6 +253,10 @@ export const LivenessCameraModule = (
     setIsCameraReady(true);
   };
 
+  const handleLoadedMetadata = () => {
+    setIsMetadataLoaded(true);
+  };
+
   const beginLivenessCheck = React.useCallback(() => {
     send({
       type: 'BEGIN',
@@ -249,6 +267,7 @@ export const LivenessCameraModule = (
     (e: React.ChangeEvent<HTMLSelectElement>) => {
       const newDeviceId = e.target.value;
       const changeCamera = async () => {
+        setIsMetadataLoaded(false);
         const newStream = await navigator.mediaDevices.getUserMedia({
           video: {
             ...videoConstraints,
@@ -274,7 +293,7 @@ export const LivenessCameraModule = (
       >
         <Loader
           size="large"
-          className={LivenessClassNames.Loader}
+          className={LivenessClassNames.CenteredLoader}
           data-testid="centered-loader"
           position="unset"
         />
@@ -290,13 +309,28 @@ export const LivenessCameraModule = (
     );
   }
 
+  const shouldShowCenteredLoader = isInitCamera || isInitWebsocket;
+
   // We don't show full screen camera on the pre check screen (isStartView/isWaitingForCamera)
   const shouldShowFullScreenCamera =
-    isMobileScreen && !isStartView && !isWaitingForCamera;
+    isMobileScreen && !isStartView && !shouldShowCenteredLoader;
 
   return (
     <>
-      {photoSensitivityWarning}
+      {!isFaceMovementChallenge && photoSensitivityWarning}
+
+      {shouldShowCenteredLoader && (
+        <Flex className={LivenessClassNames.ConnectingLoader}>
+          <Loader
+            size="large"
+            className={LivenessClassNames.Loader}
+            data-testid="centered-loader"
+          />
+          <Text className={LivenessClassNames.LandscapeErrorModalHeader}>
+            {hintDisplayText.hintConnectingText}
+          </Text>
+        </Flex>
+      )}
 
       <Flex
         className={classNames(
@@ -307,8 +341,6 @@ export const LivenessCameraModule = (
         data-testid={testId}
         gap="zero"
       >
-        {!isCameraReady && centeredLoader}
-
         <Overlay
           horizontal="center"
           vertical={
@@ -387,9 +419,11 @@ export const LivenessCameraModule = (
             width={mediaWidth}
             height={mediaHeight}
             onCanPlay={handleMediaPlay}
+            onLoadedMetadata={handleLoadedMetadata}
             data-testid="video"
             className={classNames(
               LivenessClassNames.Video,
+              isCameraUserFacing && LivenessClassNames.UserFacingVideo,
               isRecordingStopped && LivenessClassNames.FadeOut
             )}
             aria-label={cameraDisplayText.a11yVideoLabelText}
@@ -405,38 +439,13 @@ export const LivenessCameraModule = (
             <View as="canvas" ref={canvasRef} />
           </Flex>
 
-          {isStartView &&
-            !isMobileScreen &&
-            selectableDevices &&
-            selectableDevices.length > 1 && (
-              <Flex className={LivenessClassNames.StartScreenCameraSelect}>
-                <View
-                  className={
-                    LivenessClassNames.StartScreenCameraSelectContainer
-                  }
-                >
-                  <Label
-                    htmlFor="amplify-liveness-camera-select"
-                    className={`${LivenessClassNames.StartScreenCameraSelect}__label`}
-                  >
-                    Camera:
-                  </Label>
-                  <SelectField
-                    id="amplify-liveness-camera-select"
-                    label="Camera"
-                    labelHidden
-                    value={selectedDeviceId}
-                    onChange={onCameraChange}
-                  >
-                    {selectableDevices?.map((device) => (
-                      <option value={device.deviceId} key={device.deviceId}>
-                        {device.label}
-                      </option>
-                    ))}
-                  </SelectField>
-                </View>
-              </Flex>
-            )}
+          {allowDeviceSelection ? (
+            <CameraSelector
+              onSelect={onCameraChange}
+              devices={selectableDevices}
+              deviceId={selectedDeviceId}
+            />
+          ) : null}
         </View>
       </Flex>
 

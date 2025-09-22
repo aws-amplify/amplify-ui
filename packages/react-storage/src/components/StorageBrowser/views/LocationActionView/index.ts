@@ -12,6 +12,12 @@ export type {
   DeleteViewState,
 } from './DeleteView';
 export { DeleteView, useDeleteView } from './DeleteView';
+export type {
+  DownloadViewProps,
+  DownloadViewType,
+  DownloadViewState,
+} from './DownloadView';
+export { DownloadView, useDownloadView } from './DownloadView';
 export { LocationActionView } from './LocationActionView';
 export type {
   UploadViewProps,

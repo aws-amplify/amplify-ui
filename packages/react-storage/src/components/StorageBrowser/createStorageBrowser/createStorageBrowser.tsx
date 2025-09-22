@@ -12,6 +12,7 @@ import {
   CopyView,
   CreateFolderView,
   DeleteView,
+  DownloadView,
   LocationActionView,
   LocationDetailView,
   LocationsView,
@@ -81,6 +82,7 @@ export default function createStorageBrowser<
   StorageBrowser.CopyView = CopyView;
   StorageBrowser.CreateFolderView = CreateFolderView;
   StorageBrowser.DeleteView = DeleteView;
+  StorageBrowser.DownloadView = DownloadView;
   StorageBrowser.UploadView = UploadView;
 
   StorageBrowser.Provider = Provider;
