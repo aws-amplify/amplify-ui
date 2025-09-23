@@ -28,7 +28,7 @@
   ],
   "scripts": {
     "prebuild": "yarn g:rimraf dist",
-    "build": "yarn g:vite build",
+    "build": "yarn prebuild && yarn g:vite build",
     "dev": "yarn g:vite build --watch",
     "clean": "yarn g:rimraf dist node_modules",
     "check:esm": "node --input-type=module --eval 'import \"@aws-amplify/ui-vue\"'",

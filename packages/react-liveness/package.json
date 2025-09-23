@@ -29,7 +29,7 @@
     "LICENSE"
   ],
   "scripts": {
-    "build": "yarn build:rollup",
+    "build": "yarn prebuild && yarn build:rollup",
     "build:rollup": "yarn g:rollup --config",
     "check:esm": "node --input-type=module --eval 'import \"@aws-amplify/ui-react-liveness\"'",
     "clean": "yarn g:rimraf dist node_modules",

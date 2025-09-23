@@ -41,7 +41,7 @@
     "LICENSE"
   ],
   "scripts": {
-    "build": "yarn build:catalog && yarn build:CSS && yarn build:rollup",
+    "build": "yarn prebuild && yarn build:catalog && yarn build:CSS && yarn build:rollup",
     "build:catalog": "yarn node -r esbuild-register scripts/generatePrimitiveCatalog.ts",
     "build:CSS": "yarn node -r esbuild-register scripts/copyCSS.ts",
     "build:rollup": "yarn g:rollup --config",
@@ -49,7 +49,7 @@
     "clean": "yarn g:rimraf dist node_modules",
     "dev": "yarn build:rollup --watch",
     "lint": "yarn typecheck && eslint .",
-    "prebuild": "rimraf dist",
+    "prebuild": "yarn g:rimraf dist",
     "size": "yarn g:size-limit",
     "test": "yarn g:jest",
     "test:watch": "yarn test --watch",
