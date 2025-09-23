@@ -31,7 +31,7 @@
     "LICENSE"
   ],
   "scripts": {
-    "build": "npm run build:css && yarn build:dist",
+    "build": "yarn build:css && yarn build:dist",
     "build:css": "node -r esbuild-register ./scripts/generateCSS.ts",
     "build:dist": "rollup --config",
     "check:esm": "node --input-type=module --eval 'import \"@aws-amplify/ui\"'",
@@ -41,7 +41,6 @@
     "prebuild": "rimraf dist",
     "test": "jest",
     "test:watch": "yarn test --watch",
-
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
