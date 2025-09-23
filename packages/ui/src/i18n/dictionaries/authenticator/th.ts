@@ -99,6 +99,7 @@ export const thDict: AuthenticatorDictionary = {
   'Forgot Password': 'ลืมรหัสผ่าน',
   'Have an account? ': 'มีบัญชีอยู่แล้ว? ',
   'Incorrect username or password': 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง',
+  'Incorrect username or password.': 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง',
   'Invalid password format': 'รูปแบบรหัสผ่านไม่ถูกต้อง',
   'It may take a minute to arrive.': 'อาจใช้เวลาสักครู่ในการมาถึง',
   'Lost your code? ': 'หารหัสไม่เจอ? ',
