@@ -17600,6 +17600,11 @@ fdir@^6.4.2, fdir@^6.4.3:
   resolved "https://registry.yarnpkg.com/fdir/-/fdir-6.4.3.tgz#011cdacf837eca9b811c89dbb902df714273db72"
   integrity sha512-PMXmW2y1hDDfTSRc9gaXIuCCRpuoz3Kaz8cUelp3smouvfT632ozg2vrT6lJsHKKOF59YLbOGfAWGUcKEfRMQw==
 
+fdir@^6.4.4, fdir@^6.5.0:
+  version "6.5.0"
+  resolved "https://registry.yarnpkg.com/fdir/-/fdir-6.5.0.tgz#ed2ab967a331ade62f18d077dae192684d50d350"
+  integrity sha512-tIbYtZbucOs0BRGqPJkshJUYdL+SDH7dVM8gjy+ERp3WAUjLEFJE+02kanyHtwjWOnwrKYBiwAmM0p4kLJAnXg==
+
 figures@^3.0.0, figures@^3.2.0:
   version "3.2.0"
   resolved "https://registry.npmjs.org/figures/-/figures-3.2.0.tgz#625c18bd293c604dc4a8ddb2febf0c88341746af"
@@ -23813,6 +23818,11 @@ picomatch@^4.0.2:
   resolved "https://registry.npmjs.org/picomatch/-/picomatch-4.0.2.tgz#77c742931e8f3b8820946c76cd0c1f13730d1dab"
   integrity sha512-M7BAV6Rlcy5u+m6oPhAPFgJTzAioX/6B0DxyvDlo9l8+T3nLKbrczg2WLUyzd45L8RqfUMyGPzekbMvX2Ldkwg==
 
+picomatch@^4.0.3:
+  version "4.0.3"
+  resolved "https://registry.yarnpkg.com/picomatch/-/picomatch-4.0.3.tgz#796c76136d1eead715db1e7bad785dedd695a042"
+  integrity sha512-5gTmgEY/sqK6gFXLIsQNH19lWb4ebPDLA4SdLP7dsWkIXHWlG66oPuVvXSGFPppYZz8ZDZq0dYYrbHfBCVUb1Q==
+
 pidtree@^0.6.0:
   version "0.6.0"
   resolved "https://registry.npmjs.org/pidtree/-/pidtree-0.6.0.tgz#90ad7b6d42d5841e69e0a2419ef38f8883aa057c"
@@ -26130,7 +26140,7 @@ rollup-plugin-typescript2@^0.31.2:
     resolve "^1.20.0"
     tslib "^2.3.1"
 
-rollup@^2.70.0, rollup@^4.20.0, rollup@^4.22.4, rollup@^4.30.1:
+rollup@^2.70.0, rollup@^4.20.0, rollup@^4.22.4, rollup@^4.34.9:
   version "4.40.0"
   resolved "https://registry.yarnpkg.com/rollup/-/rollup-4.40.0.tgz#13742a615f423ccba457554f006873d5a4de1920"
   integrity sha512-Noe455xmA96nnqH5piFtLobsGbCij7Tu+tb3c1vYjNbTkfzGqXqQXG3wJaYXkRZuQ0vEYN4bhwg7QnIrqB5B+w==
@@ -27879,6 +27889,14 @@ tinyglobby@^0.2.11:
     fdir "^6.4.3"
     picomatch "^4.0.2"
 
+tinyglobby@^0.2.13:
+  version "0.2.15"
+  resolved "https://registry.yarnpkg.com/tinyglobby/-/tinyglobby-0.2.15.tgz#e228dd1e638cea993d2fdb4fcd2d4602a79951c2"
+  integrity sha512-j2Zq4NyQYG5XMST4cbs02Ak8iJUdxRM0XI5QyxXuZOzKOINmWurp3smXu3y5wDcJrptwpSjgXHzIQxR0omXljQ==
+  dependencies:
+    fdir "^6.5.0"
+    picomatch "^4.0.3"
+
 tinyqueue@^2.0.3:
   version "2.0.3"
   resolved "https://registry.npmjs.org/tinyqueue/-/tinyqueue-2.0.3.tgz#64d8492ebf39e7801d7bd34062e29b45b2035f08"
@@ -29129,14 +29147,17 @@ vite@^5.4.20:
   optionalDependencies:
     fsevents "~2.3.3"
 
-vite@^6.2.6:
-  version "6.2.6"
-  resolved "https://registry.yarnpkg.com/vite/-/vite-6.2.6.tgz#7f0ccf2fdc0c1eda079ce258508728e2473d3f61"
-  integrity sha512-9xpjNl3kR4rVDZgPNdTL0/c6ao4km69a/2ihNQbcANz8RuCOK3hQBmLSJf3bRKVQjVMda+YvizNE8AwvogcPbw==
+vite@^6.3.6:
+  version "6.3.6"
+  resolved "https://registry.yarnpkg.com/vite/-/vite-6.3.6.tgz#69a976b64930750d40219fbc68c5200874d315c1"
+  integrity sha512-0msEVHJEScQbhkbVTb/4iHZdJ6SXp/AvxL2sjwYQFfBqleHtnCqv1J3sa9zbWz/6kW1m9Tfzn92vW+kZ1WV6QA==
   dependencies:
     esbuild "^0.25.0"
+    fdir "^6.4.4"
+    picomatch "^4.0.2"
     postcss "^8.5.3"
-    rollup "^4.30.1"
+    rollup "^4.34.9"
+    tinyglobby "^0.2.13"
   optionalDependencies:
     fsevents "~2.3.3"
 
