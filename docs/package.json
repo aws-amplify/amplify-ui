@@ -10,7 +10,7 @@
     "flutter:clean": "rm -rf public/flutter/authenticator",
     "flutter:copy": "cp -r ./flutter/authenticator/build/web public/flutter/authenticator",
     "prebuild": "yarn build:cssvars-table && yarn build:props-tables",
-    "build": "yarn prebuild && NODE_OPTIONS=\"--max-old-space-size=4096\" next build",
+    "build": "yarn prebuild && NODE_OPTIONS=\"--max-old-space-size=4096\" next build && yarn postbuild",
     "build:cssvars-table": "node --require esbuild-register ./scripts/generate-cssvars-table-data.ts",
     "build:props-tables": "node --require esbuild-register ./scripts/generate-props-tables-data.ts",
     "clean": "rimraf node_modules .next && yarn flutter:clean",
