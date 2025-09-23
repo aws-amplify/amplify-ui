@@ -33,7 +33,7 @@
     "dev": "yarn build:rollup --watch",
     "lint": "yarn typecheck && eslint .",
     "prebuild": "yarn g:rimraf dist",
-    "size": "yarn size-limit",
+    "size": "yarn g:size-limit",
     "test": "yarn g:jest",
     "test:watch": "yarn test --watch",
     "typecheck": "yarn g:tsc --noEmit"
