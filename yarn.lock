@@ -814,6 +814,12 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@aws-amplify/auth-with-email-mfa@workspace:environments/auth/gen2/auth-with-email-mfa":
+  version: 0.0.0-use.local
+  resolution: "@aws-amplify/auth-with-email-mfa@workspace:environments/auth/gen2/auth-with-email-mfa"
+  languageName: unknown
+  linkType: soft
+
 "@aws-amplify/auth@npm:6.12.2":
   version: 6.12.2
   resolution: "@aws-amplify/auth@npm:6.12.2"
@@ -2111,6 +2117,12 @@ __metadata:
 "@aws-amplify/ui-gen2-ai-environment@workspace:environments/ai/gen2":
   version: 0.0.0-use.local
   resolution: "@aws-amplify/ui-gen2-ai-environment@workspace:environments/ai/gen2"
+  languageName: unknown
+  linkType: soft
+
+"@aws-amplify/ui-gen2-auth-federated-react-native@workspace:environments/auth/gen2/auth-with-federated-sign-in-react-native":
+  version: 0.0.0-use.local
+  resolution: "@aws-amplify/ui-gen2-auth-federated-react-native@workspace:environments/auth/gen2/auth-with-federated-sign-in-react-native"
   languageName: unknown
   linkType: soft
 
