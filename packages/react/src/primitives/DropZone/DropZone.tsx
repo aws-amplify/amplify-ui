@@ -1,11 +1,16 @@
 import * as React from 'react';
 
 import { useDropZone } from '@aws-amplify/ui-react-core';
-import { ForwardRefPrimitive, Primitive } from '../types';
-import { DropZoneProps, BaseDropZoneProps } from './types';
+import type { ForwardRefPrimitive, Primitive } from '../types';
+import type { DropZoneProps, BaseDropZoneProps } from './types';
 import { DropZoneProvider } from './DropZoneProvider';
 import { DropZoneContainer } from './DropZoneContainer';
 import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
+import type {
+  AcceptedType,
+  DefaultType,
+  RejectedType,
+} from './DropZoneChildren';
 import { Accepted, Default, Rejected } from './DropZoneChildren';
 
 const DropZonePrimitive: Primitive<DropZoneProps, 'div'> = (
@@ -45,9 +50,9 @@ const DropZonePrimitive: Primitive<DropZoneProps, 'div'> = (
 };
 
 type DropZoneType = ForwardRefPrimitive<BaseDropZoneProps, 'div'> & {
-  Accepted: typeof Accepted;
-  Rejected: typeof Rejected;
-  Default: typeof Default;
+  Accepted: AcceptedType;
+  Rejected: RejectedType;
+  Default: DefaultType;
 };
 
 /**

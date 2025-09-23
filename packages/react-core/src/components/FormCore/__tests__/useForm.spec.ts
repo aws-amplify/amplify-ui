@@ -1,7 +1,7 @@
-import { renderHook } from '@testing-library/react-hooks';
-import * as ReactHookForm from 'react-hook-form';
+import { renderHook, waitFor } from '@testing-library/react';
+import ReactHookForm from 'react-hook-form';
 
-import { useForm } from '..';
+import useForm from '../useForm';
 import FormProvider from '../FormProvider';
 import { SubmitHandler } from '../types';
 import { DEFAULT_ERROR_MESSAGE } from '../useForm';
@@ -9,6 +9,7 @@ import { DEFAULT_ERROR_MESSAGE } from '../useForm';
 // mock 'react-hook-form` context
 const mockFormContext: ReactHookForm.UseFormReturn = {
   formState: {
+    disabled: false,
     isDirty: false,
     isLoading: false,
     isSubmitSuccessful: false,
@@ -20,6 +21,7 @@ const mockFormContext: ReactHookForm.UseFormReturn = {
     dirtyFields: [],
     touchedFields: [],
     errors: {},
+    validatingFields: {},
   },
   getFieldState: jest.fn(),
   getValues: jest.fn(),
@@ -45,36 +47,41 @@ describe('useForm', () => {
   });
 
   it('returns the expected values in the happy path', async () => {
-    const { result, waitForNextUpdate } = renderHook(() => useForm(), {
+    const { result } = renderHook(() => useForm(), {
       wrapper: FormProvider,
     });
 
-    await waitForNextUpdate();
-
-    expect(result.current).toMatchSnapshot();
+    await waitFor(() => {
+      expect(result.current).toMatchSnapshot();
+    });
   });
 
   it('throws with default error message when called outside a FormProvider', () => {
-    const { result } = renderHook(() => useForm());
+    // turn off console.error logging for unhappy path test case
+    jest.spyOn(console, 'error').mockImplementation(() => {});
 
-    expect(result.error?.message).toBe(DEFAULT_ERROR_MESSAGE);
+    expect(() => renderHook(() => useForm())).toThrow(DEFAULT_ERROR_MESSAGE);
   });
 
-  it('throws with cuatom message when called outside a FormProvider', () => {
-    const errorMessage = 'message';
-    const { result } = renderHook(() => useForm({ errorMessage }));
+  it('throws with custom message when called outside a FormProvider', () => {
+    // turn off console.error logging for unhappy path test case
+    jest.spyOn(console, 'error').mockImplementation(() => {});
 
-    expect(result.error?.message).toBe(errorMessage);
+    const errorMessage = 'message';
+
+    expect(() => renderHook(() => useForm({ errorMessage }))).toThrow(
+      errorMessage
+    );
   });
 
   it('returns the expected values from getFieldState in the happy path', async () => {
-    const { result, waitForNextUpdate } = renderHook(() => useForm(), {
+    const { result } = renderHook(() => useForm(), {
       wrapper: FormProvider,
     });
 
-    await waitForNextUpdate();
-
-    expect(result.current.getFieldState('test')).toMatchSnapshot();
+    await waitFor(() => {
+      expect(result.current.getFieldState('test')).toMatchSnapshot();
+    });
   });
 
   it('returns the expected values from getFieldState util for an invalid field', () => {

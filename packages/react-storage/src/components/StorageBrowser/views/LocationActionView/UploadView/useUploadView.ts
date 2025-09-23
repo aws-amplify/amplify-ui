@@ -1,86 +1,64 @@
 import React from 'react';
-import { isUndefined } from '@aws-amplify/ui';
 
-import { UploadHandlerData } from '../../../actions';
-import { FileItems, useStore } from '../../../providers/store';
-import { Task } from '../../../tasks';
+import type { UploadHandlerData } from '../../../actions';
+import { useFileItems } from '../../../fileItems';
+import { useStore } from '../../../store';
+import type { Task } from '../../../tasks';
 import { useAction } from '../../../useAction';
-import { isFileTooBig } from '../../../validators';
 
-import { UploadViewState, UseUploadViewOptions } from './types';
 import { DEFAULT_OVERWRITE_ENABLED } from './constants';
+import type { UploadViewState, UseUploadViewOptions } from './types';
+import { usePaginate } from '../../hooks/usePaginate';
 
-interface FilesData {
-  invalidFiles: FileItems | undefined;
-  validFiles: FileItems | undefined;
-  data: UploadHandlerData[];
-}
-
+const DEFAULT_PAGE_SIZE = 100;
 export const useUploadView = (
   options?: UseUploadViewOptions
 ): UploadViewState => {
   const { onExit: _onExit } = options ?? {};
 
-  const [{ files, location }, dispatchStoreAction] = useStore();
+  const [{ location }, storeDispatch] = useStore();
+  const [{ validItems, invalidItems: invalidFiles }, fileItemsDispatch] =
+    useFileItems();
   const { current } = location;
 
   const [isOverwritingEnabled, setIsOverwritingEnabled] = React.useState(
     DEFAULT_OVERWRITE_ENABLED
   );
 
-  const filesData = React.useMemo(
+  const items: UploadHandlerData[] = React.useMemo(
     () =>
-      (files ?? [])?.reduce(
-        (curr: FilesData, item) => {
-          if (isFileTooBig(item.file)) {
-            curr.invalidFiles = isUndefined(curr.invalidFiles)
-              ? [item]
-              : curr.invalidFiles.concat(item);
-          } else {
-            curr.validFiles = isUndefined(curr.validFiles)
-              ? [item]
-              : curr.validFiles.concat(item);
-
-            const parsedFileItem = {
-              ...item,
-              key: `${location.key}${item.key}`,
-            };
-
-            curr.data = curr.data.concat({
-              ...parsedFileItem,
-              preventOverwrite: !isOverwritingEnabled,
-            });
-          }
-
-          return curr;
-        },
-        { invalidFiles: undefined, validFiles: undefined, data: [] }
-      ),
-    [files, isOverwritingEnabled, location.key]
+      (validItems ?? []).map((item) => ({
+        ...item,
+        key: `${location.key}${item.key}`,
+        preventOverwrite: !isOverwritingEnabled,
+      })),
+    [validItems, isOverwritingEnabled, location.key]
   );
-
-  const { data, invalidFiles } = filesData;
 
   const [
     { isProcessing, isProcessingComplete, statusCounts, tasks },
     handleUploads,
-  ] = useAction('upload', { items: data });
+  ] = useAction('upload', { items });
+
+  const {
+    currentPage,
+    handlePaginate,
+    pageItems: pageTasks,
+  } = usePaginate({
+    items: tasks,
+  });
 
   const onDropFiles = (files: File[]) => {
     if (files) {
-      dispatchStoreAction({ type: 'ADD_FILE_ITEMS', files });
+      fileItemsDispatch({ type: 'ADD_FILES', files });
     }
   };
 
   const onSelectFiles = (type?: 'FILE' | 'FOLDER') => {
-    dispatchStoreAction({ type: 'SELECT_FILES', selectionType: type });
+    fileItemsDispatch({ type: 'SELECT_FILES', selectionType: type });
   };
 
   const onActionStart = () => {
-    invalidFiles?.forEach((file) => {
-      dispatchStoreAction({ type: 'REMOVE_FILE_ITEM', id: file.id });
-    });
-
     handleUploads();
   };
 
@@ -90,9 +68,9 @@ export const useUploadView = (
 
   const onActionExit = () => {
     // clear files state
-    dispatchStoreAction({ type: 'RESET_FILE_ITEMS' });
+    fileItemsDispatch({ type: 'RESET_FILE_ITEMS' });
     // clear selected action
-    dispatchStoreAction({ type: 'RESET_ACTION_TYPE' });
+    storeDispatch({ type: 'RESET_ACTION_TYPE' });
     _onExit?.(current);
   };
 
@@ -101,7 +79,7 @@ export const useUploadView = (
   };
 
   const onTaskRemove = ({ data }: Task) => {
-    dispatchStoreAction({ type: 'REMOVE_FILE_ITEM', id: data.id });
+    fileItemsDispatch({ type: 'REMOVE_FILE_ITEM', id: data.id });
   };
 
   return {
@@ -111,11 +89,15 @@ export const useUploadView = (
     location,
     invalidFiles,
     statusCounts,
-    tasks,
+    tasks: pageTasks,
+    page: currentPage,
+    hasNextPage: currentPage * DEFAULT_PAGE_SIZE < items.length,
+    highestPageVisited: Math.ceil(items.length / DEFAULT_PAGE_SIZE),
     onActionCancel,
     onActionExit,
     onActionStart,
     onDropFiles,
+    onPaginate: handlePaginate,
     onTaskRemove,
     onSelectFiles,
     onToggleOverwrite,

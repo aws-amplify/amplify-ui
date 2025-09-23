@@ -8,6 +8,22 @@ const BRANCH = gitHead === 'HEAD' ? 'main' : gitHead;
 
 const withNextPluginPreval = require('next-plugin-preval/config')();
 
+let remarkMdxFrontmatterModule = null;
+
+function createRemarkMdxFrontmatterPlugin(options = {}) {
+  return async function remarkMdxFrontmatterPlugin(tree, file) {
+    if (!remarkMdxFrontmatterModule) {
+      remarkMdxFrontmatterModule = await import('remark-mdx-frontmatter');
+    }
+
+    const actualPlugin = remarkMdxFrontmatterModule.default;
+
+    const pluginInstance = actualPlugin(options);
+
+    return pluginInstance.call(this, tree, file);
+  };
+}
+
 module.exports = withNextPluginPreval({
   env: {
     BRANCH,
@@ -230,10 +246,8 @@ module.exports = withNextPluginPreval({
               // Remove frontmatter from MDX
               require('remark-frontmatter'),
               // Extract to `frontmatter` export
-              [
-                require('remark-mdx-frontmatter').remarkMdxFrontmatter,
-                { name: 'frontmatter' },
-              ],
+              // Use the custom plugin wrapper that handles dynamic import
+              [createRemarkMdxFrontmatterPlugin, { name: 'frontmatter' }],
               require('./src/plugins/remark-layout'),
             ]),
           },

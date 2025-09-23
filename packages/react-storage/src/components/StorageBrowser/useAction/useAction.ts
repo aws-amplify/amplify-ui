@@ -1,32 +1,42 @@
-import { ActionHandler } from '../actions';
+import type { ActionHandler } from '../actions';
 import { useActionHandlers } from './context';
-import { DefaultActionHandlers, UseAction } from './types';
 import { useHandler } from './useHandler';
+import type { DefaultActionHandlers, UseAction } from './types';
 
 type ListHandlerKeys = 'listLocations' | 'listLocationItems';
 
 export const ERROR_MESSAGE =
   '`useAction` must be called from within `StorageBrowser.Provider`';
 
-export const useAction: UseAction<DefaultActionHandlers> = (key, options) => {
-  if (
-    (key as ListHandlerKeys) === 'listLocations' ||
-    (key as ListHandlerKeys) === 'listLocationItems'
-  ) {
-    throw new Error(
-      `Value of \`${key}\` cannot be used to index \`useAction\``
-    );
+function assertActionHandlerKey(
+  key: string
+): asserts key is Exclude<keyof DefaultActionHandlers, ListHandlerKeys> {
+  if (key === 'listLocations' || key === 'listLocationItems') {
+    throw new Error(`Value of \`${key}\` cannot be provided to \`useAction\``);
   }
+}
 
-  const { handlers } = useActionHandlers({ errorMessage: ERROR_MESSAGE });
-
-  const handler = handlers[key];
-
-  if (!handler) {
+function assertActionHandler<I, R>(
+  handler: unknown,
+  key: string
+): asserts handler is ActionHandler<I, R> {
+  if (typeof handler !== 'function') {
     throw new Error(
       `No handler found for value of \`${key}\` provided to \`useAction\``
     );
   }
+}
 
-  return useHandler(handler as ActionHandler, options);
-};
+export const useAction: UseAction<DefaultActionHandlers> = ((key, options) => {
+  assertActionHandlerKey(key);
+
+  const { handlers } = useActionHandlers({ errorMessage: ERROR_MESSAGE });
+
+  const handler = handlers?.[key];
+
+  assertActionHandler(handler, key);
+
+  return useHandler(handler, options);
+  // casting to allow usage of `UseAction` interface which ensures that
+  // the `options` param receives the correct typing
+}) as UseAction<DefaultActionHandlers>;

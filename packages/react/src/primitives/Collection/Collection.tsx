@@ -11,13 +11,15 @@ import { Pagination, usePagination } from '../Pagination';
 import { SearchField } from '../SearchField';
 import { ComponentText } from '../shared/constants';
 import { strHasLength } from '../shared/utils';
-import {
+import type {
   BaseCollectionProps,
   ElementType,
   GridCollectionProps,
   ListCollectionProps,
+  TableCollectionProps,
 } from '../types';
 import { getItemsAtPage, itemHasText, getPageCount } from './utils';
+import { Table, TableBody } from '../Table';
 
 const DEFAULT_PAGE_SIZE = 10;
 const TYPEAHEAD_DELAY_MS = 300;
@@ -41,8 +43,20 @@ const GridCollection = <Item,>({
   <Grid {...rest}>{Array.isArray(items) ? items.map(children) : null}</Grid>
 );
 
+const TableCollection = <Item,>({
+  children,
+  items,
+  tableHeader: TableHeader,
+  ...rest
+}: TableCollectionProps<Item>) => (
+  <Table {...rest}>
+    <TableHeader />
+    <TableBody>{Array.isArray(items) ? items.map(children) : null}</TableBody>
+  </Table>
+);
+
 const renderCollectionOrNoResultsFound = <Item,>(
-  collection: JSX.Element | null,
+  collection: React.JSX.Element | null,
   items: Item[],
   searchNoResultsFound: React.ReactNode
 ) => {
@@ -75,7 +89,7 @@ export const Collection = <Item, Element extends ElementType>({
   type = 'list',
   testId,
   ...rest
-}: BaseCollectionProps<Item, Element>): JSX.Element => {
+}: BaseCollectionProps<Item, Element>): React.JSX.Element => {
   const [searchText, setSearchText] = React.useState<string>();
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -112,6 +126,13 @@ export const Collection = <Item, Element extends ElementType>({
       <GridCollection
         className={ComponentClassName.CollectionItems}
         items={items}
+        {...rest}
+      />
+    ) : type === 'table' ? (
+      <TableCollection
+        className={ComponentClassName.CollectionItems}
+        items={items}
+        tableHeader={(rest as Partial<TableCollectionProps<Item>>).tableHeader!}
         {...rest}
       />
     ) : null;

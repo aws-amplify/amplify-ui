@@ -2,7 +2,7 @@ import React from 'react';
 import { Text } from 'react-native';
 
 import { useTheme } from '../../theme';
-import { LabelProps } from './types';
+import type { LabelProps } from './types';
 import { getThemedStyles } from './styles';
 
 export default function Label({
@@ -11,7 +11,7 @@ export default function Label({
   style,
   variant = 'primary',
   ...rest
-}: LabelProps): JSX.Element {
+}: LabelProps): React.JSX.Element {
   const theme = useTheme();
   const themedStyle = getThemedStyles(theme);
   const textStyle = [themedStyle.text, themedStyle[variant], style];

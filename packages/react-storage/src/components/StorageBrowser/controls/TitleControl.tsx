@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Title } from '../composables/Title';
+import { Title } from '../components/composables/Title';
 
 import { useResolvedComposable } from './hooks/useResolvedComposable';
 import { useTitle } from './hooks/useTitle';

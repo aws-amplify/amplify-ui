@@ -69,14 +69,25 @@ jobs:
         include:
           - example: angular
             package: angular
+            resource-path: ui/components/authenticator/sign-in-with-username
             tags: '@angular and not @todo-angular'
 
           - example: next
             package: react
+            resource-path: ui/components/authenticator/sign-in-with-username
             tags: '@react and not @todo-react'
+
+          - example: react-router
+            package: react
+            tags: '@react-router and not @todo-react-router'
+
+          - example: next-app-router
+            package: react
+            tags: '@next-app-router and not @todo-next-app-router'
 
           - example: vue
             package: vue
+            resource-path: ui/components/authenticator/sign-in-with-username
             tags: '@vue and not @todo-vue'
 
     steps:
@@ -91,7 +102,7 @@ jobs:
           persist-credentials: false
 
       - name: Next.js Cache
-        uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.1.2 https://github.com/actions/cache/commit/0c45773b623bea8c8e75f6c82b208c3cf94ea4f9
+        uses: actions/cache@1bd1e32a3bdc45362d1e726936510720a7c30a57 # v4.2.0 https://github.com/actions/cache/commit/1bd1e32a3bdc45362d1e726936510720a7c30a57
         with:
           path: ${{ github.workspace }}/.next/cache
           key: ${{ runner.os }}-nextjs-${{ hashFiles('**/yarn.lock') }}
@@ -107,7 +118,7 @@ jobs:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
 
       - name: Restore cypress runner Cache
-        uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.1.2 https://github.com/actions/cache/commit/0c45773b623bea8c8e75f6c82b208c3cf94ea4f9
+        uses: actions/cache@1bd1e32a3bdc45362d1e726936510720a7c30a57 # v4.2.0 https://github.com/actions/cache/commit/1bd1e32a3bdc45362d1e726936510720a7c30a57
         id: restore-cypress-cache
         with:
           path: ~/.cache/Cypress
@@ -116,7 +127,7 @@ jobs:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
 
       - name: Restore node_modules cache
-        uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.1.2 https://github.com/actions/cache/commit/0c45773b623bea8c8e75f6c82b208c3cf94ea4f9
+        uses: actions/cache@1bd1e32a3bdc45362d1e726936510720a7c30a57 # v4.2.0 https://github.com/actions/cache/commit/1bd1e32a3bdc45362d1e726936510720a7c30a57
         id: restore-cache
         with:
           path: |
@@ -127,7 +138,7 @@ jobs:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 3
 
       - name: Restore ui/dist cache
-        uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.1.2 https://github.com/actions/cache/commit/0c45773b623bea8c8e75f6c82b208c3cf94ea4f9
+        uses: actions/cache@1bd1e32a3bdc45362d1e726936510720a7c30a57 # v4.2.0 https://github.com/actions/cache/commit/1bd1e32a3bdc45362d1e726936510720a7c30a57
         id: restore-ui-cache
         with:
           path: ./packages/ui/dist
@@ -135,7 +146,7 @@ jobs:
 
       - name: Restore ${{ matrix.package }}/dist cache
         id: restore-package-cache
-        uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.1.2 https://github.com/actions/cache/commit/0c45773b623bea8c8e75f6c82b208c3cf94ea4f9
+        uses: actions/cache@1bd1e32a3bdc45362d1e726936510720a7c30a57 # v4.2.0 https://github.com/actions/cache/commit/1bd1e32a3bdc45362d1e726936510720a7c30a57
         with:
           path: ./packages/${{ matrix.package }}/dist
           key: ${{ runner.os }}-${{ matrix.package }}-${{ inputs.commit }}
@@ -183,6 +194,9 @@ jobs:
       - name: Build react-ai package
         if: ${{ matrix.package == 'react' }}
         run: yarn react-ai build
+
+      - name: Build test-utils package
+        run: yarn test-utils build
 
       - name: Add Amplify CLI
         run: yarn global add @aws-amplify/cli
@@ -311,7 +325,7 @@ jobs:
         run: yarn ${{ matrix.example }}-example build
 
       - name: Start ${{ matrix.example }} example
-        run: yarn ${{ matrix.example }}-example start & npx wait-on -c waitOnConfig.json -t 20000 http-get://localhost:3000/ui/components/authenticator/sign-in-with-username
+        run: yarn ${{ matrix.example }}-example start & npx wait-on -c waitOnConfig.json -t 20000 http-get://localhost:3000/${{ matrix.resource-path || '' }}
         env:
           # Setting this value temporarily since the beta liveness sample app hits the gamma endpoint
           NEXT_PUBLIC_STREAMING_API_URL: wss://streaming-rekognition-gamma.us-east-1.amazonaws.com
@@ -361,9 +375,7 @@ jobs:
           commit: ${{ inputs.commit }}
           packages: |
             packages/react-native
-            packages/react-native-auth
             packages/react-core
-            packages/react-core-auth
             packages/react-core-notifications
             packages/ui
             packages/e2e
@@ -394,7 +406,7 @@ jobs:
 
       - name: Restore CocoaPods cache
         id: restore-cocoapods-cache
-        uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.1.2 https://github.com/actions/cache/commit/0c45773b623bea8c8e75f6c82b208c3cf94ea4f9
+        uses: actions/cache@1bd1e32a3bdc45362d1e726936510720a7c30a57 # v4.2.0 https://github.com/actions/cache/commit/1bd1e32a3bdc45362d1e726936510720a7c30a57
         with:
           path: ./examples/react-native/ios/Pods
           key: ${{ runner.os }}-cocoapods-${{ inputs.commit }}
@@ -652,7 +664,7 @@ jobs:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
 
       - name: Restore cypress runner Cache
-        uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.1.2 https://github.com/actions/cache/commit/0c45773b623bea8c8e75f6c82b208c3cf94ea4f9
+        uses: actions/cache@1bd1e32a3bdc45362d1e726936510720a7c30a57 # v4.2.0 https://github.com/actions/cache/commit/1bd1e32a3bdc45362d1e726936510720a7c30a57
         id: restore-cypress-cache
         with:
           path: ~/.cache/Cypress
@@ -661,7 +673,7 @@ jobs:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
 
       - name: Restore Puppeteer runner cache
-        uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.1.2 https://github.com/actions/cache/commit/0c45773b623bea8c8e75f6c82b208c3cf94ea4f9
+        uses: actions/cache@1bd1e32a3bdc45362d1e726936510720a7c30a57 # v4.2.0 https://github.com/actions/cache/commit/1bd1e32a3bdc45362d1e726936510720a7c30a57
         id: restore-puppeteer-cache
         with:
           path: ~/.cache/puppeteer
@@ -670,7 +682,7 @@ jobs:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
 
       - name: Restore node_modules cache
-        uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.1.2 https://github.com/actions/cache/commit/0c45773b623bea8c8e75f6c82b208c3cf94ea4f9
+        uses: actions/cache@1bd1e32a3bdc45362d1e726936510720a7c30a57 # v4.2.0 https://github.com/actions/cache/commit/1bd1e32a3bdc45362d1e726936510720a7c30a57
         id: restore-cache
         with:
           path: |

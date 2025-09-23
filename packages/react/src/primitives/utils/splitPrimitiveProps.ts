@@ -1,9 +1,9 @@
-import {
+import type {
   AllStyleProps,
   BaseStyleProps,
-  ComponentPropsToStylePropsMap,
   FlexContainerStyleProps,
 } from '../types';
+import { ComponentPropsToStylePropsMap } from '../types';
 
 interface SplitProps<PrimitiveProps> {
   styleProps: AllStyleProps;
@@ -23,7 +23,7 @@ const isStyleKey = (prop: string): prop is keyof AllStyleProps => {
  * @param props this should be a destructured `rest` from the component's props
  */
 export const splitPrimitiveProps = <
-  PrimitiveProps extends Record<string, unknown>
+  PrimitiveProps extends Record<string, unknown>,
 >(
   props: PrimitiveProps
 ): SplitProps<PrimitiveProps> => {

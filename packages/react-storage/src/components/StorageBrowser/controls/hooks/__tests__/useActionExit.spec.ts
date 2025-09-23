@@ -1,6 +1,8 @@
 import { renderHook } from '@testing-library/react';
-import { ActionExitProps } from '../../../composables/ActionExit';
-import { useControlsContext } from '../../../controls/context';
+
+import { ActionExitProps } from '../../../components/composables/ActionExit';
+import { useControlsContext } from '../../context';
+
 import { useActionExit } from '../useActionExit';
 
 jest.mock('../../../controls/context');

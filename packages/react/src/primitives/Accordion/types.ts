@@ -1,5 +1,5 @@
-import React from 'react';
-import { ElementType, PrimitiveProps, BaseViewProps } from '../types/view';
+import type React from 'react';
+import type { ElementType, PrimitiveProps, BaseViewProps } from '../types/view';
 
 export interface BaseAccordionProps extends BaseViewProps {
   /**

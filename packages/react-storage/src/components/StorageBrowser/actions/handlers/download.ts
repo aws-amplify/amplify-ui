@@ -1,5 +1,6 @@
 import { getUrl } from '../../storage-internal';
-import {
+import type {
+  OptionalFileData,
   TaskData,
   TaskHandler,
   TaskHandlerInput,
@@ -9,7 +10,7 @@ import {
 
 import { constructBucket } from './utils';
 
-export interface DownloadHandlerData extends TaskData {
+export interface DownloadHandlerData extends OptionalFileData, TaskData {
   fileKey: string;
 }
 
@@ -58,7 +59,10 @@ export const downloadHandler: DownloadHandler = ({
       downloadFromUrl(key, url.toString());
       return { status: 'COMPLETE' as const, value: { url } };
     })
-    .catch(({ message }: Error) => ({ message, status: 'FAILED' as const }));
+    .catch((error: Error) => {
+      const { message } = error;
+      return { error, message, status: 'FAILED' as const };
+    });
 
   return { result };
 };

@@ -1,5 +1,114 @@
 # @aws-amplify/ui-react
 
+## 6.12.0
+
+### Minor Changes
+
+- [#6665](https://github.com/aws-amplify/amplify-ui/pull/6665) [`8319d5afaa9f3de59f18d72d873953a1fd0e1b73`](https://github.com/aws-amplify/amplify-ui/commit/8319d5afaa9f3de59f18d72d873953a1fd0e1b73) Thanks [@jvh-aws](https://github.com/jvh-aws)! - feat(collection): Add `table` type to `Collection` UI primitive
+
+## 6.11.2
+
+### Patch Changes
+
+- [#6521](https://github.com/aws-amplify/amplify-ui/pull/6521) [`1002c52796c78243f836c3c0edc95edfe244f112`](https://github.com/aws-amplify/amplify-ui/commit/1002c52796c78243f836c3c0edc95edfe244f112) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(lint): add consistent import/export type eslint rules
+
+- Updated dependencies [[`1002c52796c78243f836c3c0edc95edfe244f112`](https://github.com/aws-amplify/amplify-ui/commit/1002c52796c78243f836c3c0edc95edfe244f112)]:
+  - @aws-amplify/ui-react-core@3.4.3
+  - @aws-amplify/ui@6.10.3
+
+## 6.11.1
+
+### Patch Changes
+
+- [#6512](https://github.com/aws-amplify/amplify-ui/pull/6512) [`8d3eb0ba28dcab0b627134b465c18ca9ae01c4a1`](https://github.com/aws-amplify/amplify-ui/commit/8d3eb0ba28dcab0b627134b465c18ca9ae01c4a1) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(react): add export.types for internal subpath
+
+- Updated dependencies [[`14a6df50e04b251aaf7a215ea2a84628303002ab`](https://github.com/aws-amplify/amplify-ui/commit/14a6df50e04b251aaf7a215ea2a84628303002ab), [`b8fefdba2281af164756963c32fc17f7210ff6de`](https://github.com/aws-amplify/amplify-ui/commit/b8fefdba2281af164756963c32fc17f7210ff6de)]:
+  - @aws-amplify/ui-react-core@3.4.2
+  - @aws-amplify/ui@6.10.2
+
+## 6.11.0
+
+### Minor Changes
+
+- [#6389](https://github.com/aws-amplify/amplify-ui/pull/6389) [`58d7b1ba39b41d59f99328a9c46d92cce840fcdf`](https://github.com/aws-amplify/amplify-ui/commit/58d7b1ba39b41d59f99328a9c46d92cce840fcdf) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - feat(ai): adding document support
+
+  The AIConversation component now accepts documents as attachments. The document file types are the [ones Bedrock supports](https://docs.aws.amazon.com/bedrock/latest/APIReference/API_runtime_DocumentBlock.html). This also fixes a bug where a user can submit empty messages in succession by pressing enter rapidly.
+
+### Patch Changes
+
+- [#6466](https://github.com/aws-amplify/amplify-ui/pull/6466) [`80a0bd6f5179ff585ecc1fec4e6e3f152669258e`](https://github.com/aws-amplify/amplify-ui/commit/80a0bd6f5179ff585ecc1fec4e6e3f152669258e) Thanks [@aadimch](https://github.com/aadimch)! - fix(ui-react): Loader primitive accessibility role
+
+- Updated dependencies [[`e4d8cc8c04dd428d38289085a9bf797b87c058a2`](https://github.com/aws-amplify/amplify-ui/commit/e4d8cc8c04dd428d38289085a9bf797b87c058a2), [`e533dbbdade9d5ffdbd5aa7c446d958dd1980d43`](https://github.com/aws-amplify/amplify-ui/commit/e533dbbdade9d5ffdbd5aa7c446d958dd1980d43)]:
+  - @aws-amplify/ui@6.10.1
+  - @aws-amplify/ui-react-core@3.4.1
+
+## 6.10.0
+
+### Minor Changes
+
+- [#6469](https://github.com/aws-amplify/amplify-ui/pull/6469) [`36c631a076b7d3d1aafc18a5854575e20e0592c2`](https://github.com/aws-amplify/amplify-ui/commit/36c631a076b7d3d1aafc18a5854575e20e0592c2) Thanks [@jjarvisp](https://github.com/jjarvisp)! - feat(authenticator): add support for email otp and select mfa type challenges
+
+### Patch Changes
+
+- Updated dependencies [[`36c631a076b7d3d1aafc18a5854575e20e0592c2`](https://github.com/aws-amplify/amplify-ui/commit/36c631a076b7d3d1aafc18a5854575e20e0592c2)]:
+  - @aws-amplify/ui-react-core@3.4.0
+  - @aws-amplify/ui@6.10.0
+
+## 6.9.5
+
+### Patch Changes
+
+- Updated dependencies [[`75bf5408c195fa1745bc88f9329c29c66258f247`](https://github.com/aws-amplify/amplify-ui/commit/75bf5408c195fa1745bc88f9329c29c66258f247)]:
+  - @aws-amplify/ui-react-core@3.3.5
+
+## 6.9.4
+
+### Patch Changes
+
+- Updated dependencies [[`e0fcb4322ab8af7e0699da577dc5fbcf9f7e56cc`](https://github.com/aws-amplify/amplify-ui/commit/e0fcb4322ab8af7e0699da577dc5fbcf9f7e56cc)]:
+  - @aws-amplify/ui@6.9.1
+  - @aws-amplify/ui-react-core@3.3.4
+
+## 6.9.3
+
+### Patch Changes
+
+- [#6381](https://github.com/aws-amplify/amplify-ui/pull/6381) [`00fadd4f0fe8c79b6045558053257e9375942ca1`](https://github.com/aws-amplify/amplify-ui/commit/00fadd4f0fe8c79b6045558053257e9375942ca1) Thanks [@tacck](https://github.com/tacck)! - fix: Numeric 0 can be set in the property
+
+- Updated dependencies [[`81543cb38604a80ca2d8b93cfb7d1884d43e0a4f`](https://github.com/aws-amplify/amplify-ui/commit/81543cb38604a80ca2d8b93cfb7d1884d43e0a4f), [`e6248bd8dd8980b095826e6476b65e19af006960`](https://github.com/aws-amplify/amplify-ui/commit/e6248bd8dd8980b095826e6476b65e19af006960)]:
+  - @aws-amplify/ui@6.9.0
+  - @aws-amplify/ui-react-core@3.3.3
+
+## 6.9.2
+
+### Patch Changes
+
+- Updated dependencies [[`fa6984721124029cf2e7d5b4ac5a3cc6c34097a6`](https://github.com/aws-amplify/amplify-ui/commit/fa6984721124029cf2e7d5b4ac5a3cc6c34097a6)]:
+  - @aws-amplify/ui@6.8.2
+  - @aws-amplify/ui-react-core@3.3.2
+
+## 6.9.1
+
+### Patch Changes
+
+- [#6303](https://github.com/aws-amplify/amplify-ui/pull/6303) [`6e51c1750f8f3e01cf8827f4c5c2e5ef02240ca6`](https://github.com/aws-amplify/amplify-ui/commit/6e51c1750f8f3e01cf8827f4c5c2e5ef02240ca6) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(slider): remounted controlled value not updating
+
+- Updated dependencies [[`272ec8e575718ea990dcb9f51d1baaf522f45fb6`](https://github.com/aws-amplify/amplify-ui/commit/272ec8e575718ea990dcb9f51d1baaf522f45fb6)]:
+  - @aws-amplify/ui@6.8.1
+  - @aws-amplify/ui-react-core@3.3.1
+
+## 6.9.0
+
+### Minor Changes
+
+- [#6296](https://github.com/aws-amplify/amplify-ui/pull/6296) [`8d2aa79b174d4e48aaca913bd568898b8c8975a2`](https://github.com/aws-amplify/amplify-ui/commit/8d2aa79b174d4e48aaca913bd568898b8c8975a2) Thanks [@calebpollman](https://github.com/calebpollman)! - feat(react): reenable react 19 support
+
+### Patch Changes
+
+- Updated dependencies [[`8757f03b7b1d761d9a13cfe29382a2208d4f3999`](https://github.com/aws-amplify/amplify-ui/commit/8757f03b7b1d761d9a13cfe29382a2208d4f3999), [`8d2aa79b174d4e48aaca913bd568898b8c8975a2`](https://github.com/aws-amplify/amplify-ui/commit/8d2aa79b174d4e48aaca913bd568898b8c8975a2)]:
+  - @aws-amplify/ui@6.8.0
+  - @aws-amplify/ui-react-core@3.3.0
+
 ## 6.8.1
 
 ### Patch Changes

@@ -1,1 +1,2 @@
-export { FileListFooter, FileListFooterProps } from './FileListFooter';
+export type { FileListFooterProps } from './FileListFooter';
+export { FileListFooter } from './FileListFooter';

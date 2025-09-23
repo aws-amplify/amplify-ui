@@ -1,10 +1,8 @@
 import React from 'react';
-import { AuthenticatorMachineOptions } from '@aws-amplify/ui';
+import type { AuthenticatorMachineOptions } from '@aws-amplify/ui';
 
-import {
-  useAuthenticator,
-  UseAuthenticatorSelector,
-} from '../useAuthenticator';
+import type { UseAuthenticatorSelector } from '../useAuthenticator';
+import { useAuthenticator } from '../useAuthenticator';
 
 // only select `route` from machine context
 export const routeSelector: UseAuthenticatorSelector = ({ route }) => [route];

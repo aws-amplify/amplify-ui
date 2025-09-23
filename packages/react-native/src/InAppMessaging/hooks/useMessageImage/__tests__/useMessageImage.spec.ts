@@ -1,7 +1,7 @@
 import { Image } from 'react-native';
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook, waitFor } from '@testing-library/react-native';
 import { ConsoleLogger as Logger } from 'aws-amplify/utils';
-import { InAppMessageImage } from '@aws-amplify/ui-react-core-notifications';
+import type { InAppMessageImage } from '@aws-amplify/ui-react-core-notifications';
 
 import { getLayoutImageDimensions, prefetchNetworkImage } from '../utils';
 import useMessageImage from '../useMessageImage';
@@ -35,9 +35,7 @@ describe('useMessageImage', () => {
       }
     );
 
-    const { result, waitForNextUpdate } = renderHook(() =>
-      useMessageImage(image, 'TOP_BANNER')
-    );
+    const { result } = renderHook(() => useMessageImage(image, 'TOP_BANNER'));
 
     // first render
     expect(result.current).toStrictEqual({
@@ -46,12 +44,12 @@ describe('useMessageImage', () => {
       isImageFetching: true,
     });
 
-    await waitForNextUpdate();
-
-    expect(result.current).toStrictEqual({
-      hasRenderableImage: true,
-      imageDimensions,
-      isImageFetching: false,
+    await waitFor(() => {
+      expect(result.current).toStrictEqual({
+        hasRenderableImage: true,
+        imageDimensions,
+        isImageFetching: false,
+      });
     });
   });
 
@@ -65,9 +63,7 @@ describe('useMessageImage', () => {
       }
     );
 
-    const { result, waitForNextUpdate } = renderHook(() =>
-      useMessageImage(image, 'TOP_BANNER')
-    );
+    const { result } = renderHook(() => useMessageImage(image, 'TOP_BANNER'));
 
     // first render
     expect(result.current).toStrictEqual({
@@ -76,26 +72,24 @@ describe('useMessageImage', () => {
       isImageFetching: true,
     });
 
-    await waitForNextUpdate();
+    await waitFor(() => {
+      expect(errorSpy).toHaveBeenCalledWith(
+        `Unable to retrieve size for image: ${error}`
+      );
+      expect(errorSpy).toHaveBeenCalledTimes(1);
 
-    expect(errorSpy).toHaveBeenCalledWith(
-      `Unable to retrieve size for image: ${error}`
-    );
-    expect(errorSpy).toHaveBeenCalledTimes(1);
-
-    expect(result.current).toStrictEqual({
-      hasRenderableImage: false,
-      imageDimensions: { height: undefined, width: undefined },
-      isImageFetching: false,
+      expect(result.current).toStrictEqual({
+        hasRenderableImage: false,
+        imageDimensions: { height: undefined, width: undefined },
+        isImageFetching: false,
+      });
     });
   });
 
   it('handles prefetching errors as expected', async () => {
     (prefetchNetworkImage as jest.Mock).mockResolvedValue('failed');
 
-    const { result, waitForNextUpdate } = renderHook(() =>
-      useMessageImage(image, 'TOP_BANNER')
-    );
+    const { result } = renderHook(() => useMessageImage(image, 'TOP_BANNER'));
 
     // first render
     expect(result.current).toStrictEqual({
@@ -104,14 +98,14 @@ describe('useMessageImage', () => {
       isImageFetching: true,
     });
 
-    await waitForNextUpdate();
+    await waitFor(() => {
+      expect(errorSpy).not.toHaveBeenCalled();
 
-    expect(errorSpy).not.toHaveBeenCalled();
-
-    expect(result.current).toStrictEqual({
-      hasRenderableImage: false,
-      imageDimensions: { height: undefined, width: undefined },
-      isImageFetching: false,
+      expect(result.current).toStrictEqual({
+        hasRenderableImage: false,
+        imageDimensions: { height: undefined, width: undefined },
+        isImageFetching: false,
+      });
     });
   });
 

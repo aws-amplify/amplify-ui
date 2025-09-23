@@ -17,7 +17,8 @@ const baseInput: CopyHandlerInput = {
     sourceKey: 'some-prefixfix/some-key.hehe',
     fileKey: 'some-key.hehe',
     lastModified: new Date(),
-    eTag: 'etag',
+    size: 100,
+    type: 'FILE',
   },
 };
 
@@ -112,13 +113,15 @@ describe('copyHandler', () => {
   });
 
   it('returns failed status', async () => {
-    const errorMessage = 'error-message';
-    mockCopy.mockRejectedValue(new Error(errorMessage));
+    const error = new Error('No copy!');
+
+    mockCopy.mockRejectedValue(error);
     const { result } = copyHandler(baseInput);
 
     expect(await result).toEqual({
+      error,
+      message: error.message,
       status: 'FAILED',
-      message: errorMessage,
     });
   });
 });

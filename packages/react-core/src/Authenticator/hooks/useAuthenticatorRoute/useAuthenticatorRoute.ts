@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { useAuthenticator } from '../useAuthenticator';
 
-import {
+import type {
   UseAuthenticatorRoute,
   UseAuthenticatorRouteDefault,
   UseAuthenticatorRouteParams,
@@ -16,6 +16,8 @@ import {
   resolveDefault,
   resolveForceNewPasswordRoute,
   resolveForgotPasswordRoute,
+  resolveSelectMfaTypeRoute,
+  resolveSetupEmailRoute,
   resolveSetupTotpRoute,
   resolveSignInRoute,
   resolveSignUpRoute,
@@ -43,6 +45,12 @@ export default function useAuthenticatorRoute<FieldType>(
 export default function useAuthenticatorRoute<FieldType>(
   params: UseAuthenticatorRouteParams<FieldType>
 ): UseAuthenticatorRoute<'SetupTotp'>;
+export default function useAuthenticatorRoute<FieldType>(
+  params: UseAuthenticatorRouteParams<FieldType>
+): UseAuthenticatorRoute<'SetupEmail'>;
+export default function useAuthenticatorRoute<FieldType>(
+  params: UseAuthenticatorRouteParams<FieldType>
+): UseAuthenticatorRoute<'SelectMfaType'>;
 export default function useAuthenticatorRoute<FieldType>(
   params: UseAuthenticatorRouteParams<FieldType>
 ): UseAuthenticatorRoute<'SignIn'>;
@@ -76,6 +84,8 @@ export default function useAuthenticatorRoute<FieldType>({
     ConfirmVerifyUser,
     ForceNewPassword,
     ForgotPassword,
+    SelectMfaType,
+    SetupEmail,
     SetupTotp,
     SignIn,
     SignUp,
@@ -106,6 +116,12 @@ export default function useAuthenticatorRoute<FieldType>({
     }
     case 'forgotPassword': {
       return resolveForgotPasswordRoute(ForgotPassword, routeSelectorProps);
+    }
+    case 'selectMfaType': {
+      return resolveSelectMfaTypeRoute(SelectMfaType, routeSelectorProps);
+    }
+    case 'setupEmail': {
+      return resolveSetupEmailRoute(SetupEmail, routeSelectorProps);
     }
     case 'setupTotp': {
       return resolveSetupTotpRoute(SetupTotp, routeSelectorProps);

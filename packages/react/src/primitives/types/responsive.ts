@@ -1,4 +1,4 @@
-import { WebTheme } from '@aws-amplify/ui';
+import type { WebTheme } from '@aws-amplify/ui';
 
 export type Breakpoints = WebTheme['breakpoints']['values'];
 export type Breakpoint = keyof WebTheme['breakpoints']['values'];

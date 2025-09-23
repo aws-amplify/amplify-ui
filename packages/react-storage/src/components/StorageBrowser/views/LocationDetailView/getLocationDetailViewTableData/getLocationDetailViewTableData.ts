@@ -1,20 +1,21 @@
-import {
+import type {
   FileData,
-  createFileDataItem,
   FileDataItem,
   LocationItemData,
   LocationData,
 } from '../../../actions';
-import { DataTableProps } from '../../../composables/DataTable';
-import { LocationState } from '../../../providers/store/location';
+import { createFileDataItem } from '../../../actions';
+import type { DataTableProps } from '../../../components';
+import type { DefaultLocationDetailViewDisplayText } from '../../../displayText/types';
+import type { LocationState } from '../../../store';
 
 import { getFileRowContent } from './getFileRowContent';
 import { getFolderRowContent } from './getFolderRowContent';
-
-import { LOCATION_DETAIL_VIEW_HEADERS } from './constants';
+import { getHeaders } from './getHeaders';
 
 export const getLocationDetailViewTableData = ({
   areAllFilesSelected,
+  displayText,
   location,
   fileDataItems,
   hasFiles,
@@ -28,6 +29,7 @@ export const getLocationDetailViewTableData = ({
   onSelectAll,
 }: {
   areAllFilesSelected: boolean;
+  displayText: DefaultLocationDetailViewDisplayText;
   location: LocationState;
   fileDataItems?: FileData[];
   hasFiles: boolean;
@@ -40,20 +42,22 @@ export const getLocationDetailViewTableData = ({
   onSelect: (isSelected: boolean, fileItem: FileData) => void;
   onSelectAll: () => void;
 }): DataTableProps => {
-  const headerCheckbox: DataTableProps['headers'][number] = {
-    key: 'checkbox',
-    type: 'checkbox',
-    content: {
-      checked: areAllFilesSelected,
-      label: selectAllFilesLabel,
-      onSelect: onSelectAll,
-      id: 'header-checkbox',
-    },
-  };
-
-  const headers = hasFiles
-    ? [headerCheckbox, ...LOCATION_DETAIL_VIEW_HEADERS.slice(1)]
-    : LOCATION_DETAIL_VIEW_HEADERS;
+  const {
+    tableColumnLastModifiedHeader,
+    tableColumnNameHeader,
+    tableColumnSizeHeader,
+    tableColumnTypeHeader,
+  } = displayText;
+  const headers = getHeaders({
+    areAllFilesSelected,
+    selectAllFilesLabel,
+    hasFiles,
+    onSelectAll,
+    tableColumnLastModifiedHeader,
+    tableColumnNameHeader,
+    tableColumnSizeHeader,
+    tableColumnTypeHeader,
+  });
 
   const rows: DataTableProps['rows'] = pageItems.map((locationItem) => {
     const { id, key, type } = locationItem;

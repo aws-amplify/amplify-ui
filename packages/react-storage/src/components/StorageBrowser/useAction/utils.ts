@@ -1,12 +1,12 @@
 import { isFunction } from '@aws-amplify/ui';
-import {
+import type {
   ActionHandler,
-  isDefaultActionViewType,
   CustomActionConfigs,
   ActionViewConfig,
   ExtendedActionConfigs,
 } from '../actions';
-import { ActionHandlers } from './types';
+import { isDefaultActionViewType } from '../actions';
+import type { ActionHandlers } from './types';
 
 const resolveHandler = <V extends ActionHandler | ActionViewConfig>(
   value: V
@@ -24,7 +24,7 @@ export const getActionHandlers = <
     copy: copyConfig,
     createFolder: createFolderConfig,
     delete: deleteConfig,
-    download,
+    download: downloadConfig,
     upload: uploadConfig,
     listLocationItems,
     listLocations,
@@ -34,7 +34,8 @@ export const getActionHandlers = <
     copy: copyConfig.handler,
     createFolder: createFolderConfig.handler,
     delete: deleteConfig.handler,
-    download,
+    download:
+      'handler' in downloadConfig ? downloadConfig.handler : downloadConfig,
     listLocationItems,
     listLocations,
     upload: uploadConfig.handler,

@@ -1,6 +1,6 @@
 import { capitalize } from '@aws-amplify/ui';
 
-import { RadioDimensions, RadioStyles, Size } from './types';
+import type { RadioDimensions, RadioStyles, Size } from './types';
 
 /**
  * These utility functions are used to apply styles to

@@ -1,10 +1,10 @@
-import * as React from 'react';
+import type * as React from 'react';
 
-import { FlexContainerStyleProps } from './flex';
-import { BaseFieldProps, LabelPositions } from './field';
-import { BaseFieldsetProps } from './fieldset';
-import { BaseInputProps } from './input';
-import { ElementType, PrimitiveProps } from './view';
+import type { FlexContainerStyleProps } from './flex';
+import type { BaseFieldProps, LabelPositions } from './field';
+import type { BaseFieldsetProps } from './fieldset';
+import type { BaseInputProps } from './input';
+import type { ElementType, PrimitiveProps } from './view';
 
 /** @deprecated For internal use only */
 export interface BaseRadioGroupFieldProps

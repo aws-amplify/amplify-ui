@@ -1,16 +1,10 @@
-import {
-  listLocationItemsHandler,
-  createFolderHandler,
-  uploadHandler,
-  copyHandler,
-  deleteHandler,
-  downloadHandler,
-} from '../handlers';
+import { defaultHandlers } from '../handlers';
 
-import {
+import type {
   CopyActionConfig,
   CreateFolderActionConfig,
   DeleteActionConfig,
+  DownloadActionConfig,
   UploadActionConfig,
 } from './types';
 
@@ -22,7 +16,7 @@ export const copyActionConfig: CopyActionConfig = {
     icon: 'copy-file',
     label: 'Copy',
   },
-  handler: copyHandler,
+  handler: defaultHandlers.copy,
 };
 
 export const deleteActionConfig: DeleteActionConfig = {
@@ -33,7 +27,7 @@ export const deleteActionConfig: DeleteActionConfig = {
     icon: 'delete-file',
     label: 'Delete',
   },
-  handler: deleteHandler,
+  handler: defaultHandlers.delete,
 };
 
 export const createFolderActionConfig: CreateFolderActionConfig = {
@@ -43,7 +37,7 @@ export const createFolderActionConfig: CreateFolderActionConfig = {
     icon: 'create-folder',
     label: 'Create folder',
   },
-  handler: createFolderHandler,
+  handler: defaultHandlers.createFolder,
 };
 
 export const uploadActionConfig: UploadActionConfig = {
@@ -53,13 +47,25 @@ export const uploadActionConfig: UploadActionConfig = {
     icon: 'upload-file',
     label: 'Upload',
   },
-  handler: uploadHandler,
+  handler: defaultHandlers.upload,
 };
 
+export const downloadActionConfig: DownloadActionConfig = {
+  viewName: 'DownloadView',
+  actionListItem: {
+    disable: (selected) => !selected || selected.length === 0,
+    hide: (permissions) => !permissions.includes('get'),
+    icon: 'download',
+    label: 'Download',
+  },
+  handler: defaultHandlers.download,
+};
+
+// Action view configs only, does not include `listLocationItems`
 export const defaultActionViewConfigs = {
   copy: copyActionConfig,
   createFolder: createFolderActionConfig,
-  download: downloadHandler,
+  download: downloadActionConfig,
   delete: deleteActionConfig,
   upload: uploadActionConfig,
 };
@@ -77,5 +83,5 @@ export const isDefaultActionViewType = (
 
 export const defaultActionConfigs = {
   ...defaultActionViewConfigs,
-  listLocationItems: listLocationItemsHandler,
+  listLocationItems: defaultHandlers.listLocationItems,
 };

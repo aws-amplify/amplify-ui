@@ -1,10 +1,6 @@
 import React from 'react';
 
-import { STORAGE_BROWSER_BLOCK_TO_BE_UPDATED } from '../constants';
-
-interface ErrorBoundaryProps {
-  children: React.ReactNode;
-}
+import { STORAGE_BROWSER_BLOCK_TO_BE_UPDATED } from '../components';
 
 interface ErrorBoundaryState {
   hasError: boolean;
@@ -18,11 +14,13 @@ const Fallback = (): React.JSX.Element => (
   </div>
 );
 
+export type ErrorBoundaryType = React.ComponentType<React.PropsWithChildren>;
+
 export class ErrorBoundary extends React.Component<
-  ErrorBoundaryProps,
+  React.PropsWithChildren,
   ErrorBoundaryState
 > {
-  constructor(props: ErrorBoundaryProps) {
+  constructor(props: React.PropsWithChildren) {
     super(props);
     this.state = { hasError: false };
   }

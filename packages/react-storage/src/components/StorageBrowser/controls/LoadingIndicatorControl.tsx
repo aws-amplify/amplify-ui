@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { LoadingIndicator } from '../composables/LoadingIndicator';
+import { LoadingIndicator } from '../components/composables/LoadingIndicator';
 
 import { useLoadingIndicator } from './hooks/useLoadingIndicator';
 import { useResolvedComposable } from './hooks/useResolvedComposable';

@@ -1,15 +1,16 @@
 import React from 'react';
 
-import { ControlsContextProvider } from '../../../controls/context';
+import type { MessageProps } from '../../../components/composables/Message';
+import { ControlsContextProvider } from '../../../controls';
 import { useDisplayText } from '../../../displayText';
 
-import { getActionViewTableData } from '../getActionViewTableData';
+import { useResolveTableData } from '../../hooks/useResolveTableData';
+import { FILE_DATA_ITEM_TABLE_KEYS, COPY_TABLE_RESOLVERS } from '../../utils';
 
 import { FoldersMessageProvider } from './FoldersMessageControl';
 import { FoldersPaginationProvider } from './FoldersPaginationControl';
 import { FoldersTableProvider } from './FoldersTableControl';
-import { CopyViewProviderProps } from './types';
-import { MessageProps } from '../../../composables/Message';
+import type { CopyViewProviderProps } from './types';
 
 export function CopyViewProvider({
   children,
@@ -30,6 +31,7 @@ export function CopyViewProvider({
     statusDisplayCompletedLabel,
     statusDisplayFailedLabel,
     statusDisplayQueuedLabel,
+    title,
   } = displayText;
 
   const {
@@ -37,9 +39,8 @@ export function CopyViewProvider({
     folders,
     isProcessing,
     isProcessingComplete,
-    location,
     statusCounts,
-    tasks,
+    tasks: items,
     onActionCancel,
     onActionExit,
     onActionStart,
@@ -64,15 +65,14 @@ export function CopyViewProvider({
     onSelectFolder,
   } = folders;
 
-  const { key: locationKey } = location ?? {};
-
-  const tableData = getActionViewTableData({
-    tasks,
-    locationKey,
-    isProcessing,
-    displayText,
-    onTaskRemove,
-  });
+  const tableData = useResolveTableData(
+    FILE_DATA_ITEM_TABLE_KEYS,
+    COPY_TABLE_RESOLVERS,
+    {
+      items,
+      props: { displayText, isProcessing, onTaskRemove },
+    }
+  );
 
   const isActionStartDisabled =
     isProcessing || isProcessingComplete || !destination?.current;
@@ -110,6 +110,7 @@ export function CopyViewProvider({
         statusDisplayFailedLabel,
         statusDisplayQueuedLabel,
         tableData,
+        title,
       }}
       onActionCancel={onActionCancel}
       onActionExit={onActionExit}

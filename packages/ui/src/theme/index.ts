@@ -1,3 +1,4 @@
+export type { SetupToken } from './createTheme';
 export {
   createTheme,
   deepExtend,
@@ -9,14 +10,14 @@ export {
   isDesignToken,
   resolveObject,
   setupTokens,
-  SetupToken,
 } from './createTheme';
 
-export { BaseComponentTheme } from './components';
+export type { BaseComponentTheme } from './components';
 export { defaultTheme } from './defaultTheme';
 export {
   defaultDarkModeOverride,
   reactNativeDarkTokens,
 } from './defaultDarkModeOverride';
-export { reactNativeTokens, ReactNativeTokens } from './tokens';
+export type { ReactNativeTokens } from './tokens';
+export { reactNativeTokens } from './tokens';
 export * from './types';

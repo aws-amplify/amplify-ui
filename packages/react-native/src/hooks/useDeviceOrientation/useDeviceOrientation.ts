@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { Dimensions, EventSubscription } from 'react-native';
+import type { EventSubscription } from 'react-native';
+import { Dimensions } from 'react-native';
 
 import { isFunction } from '@aws-amplify/ui';
 

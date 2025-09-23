@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { AIConversationInput, AIConversationProps } from './types';
+import type { AIConversationInput, AIConversationProps } from './types';
 import { defaultAIConversationDisplayTextEn } from './displayText';
 import {
   ActionsProvider,

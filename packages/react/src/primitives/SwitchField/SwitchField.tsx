@@ -7,7 +7,7 @@ import { Flex } from '../Flex';
 import { FieldErrorMessage } from '../Field';
 import { Input } from '../Input';
 import { Label } from '../Label';
-import {
+import type {
   ForwardRefPrimitive,
   Primitive,
   BaseSwitchFieldProps,

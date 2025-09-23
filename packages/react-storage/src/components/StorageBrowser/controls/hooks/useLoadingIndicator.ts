@@ -1,5 +1,5 @@
-import { LoadingIndicatorProps } from '../../composables/LoadingIndicator';
-import { useControlsContext } from '../../controls/context';
+import type { LoadingIndicatorProps } from '../../components/composables/LoadingIndicator';
+import { useControlsContext } from '../context';
 
 export const useLoadingIndicator = (): LoadingIndicatorProps => {
   const {

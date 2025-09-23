@@ -1,9 +1,9 @@
 import { humanFileSize } from '@aws-amplify/ui';
 
-import { DataTableProps } from '../../../composables/DataTable';
+import type { LocationPermissions } from '../../../actions';
+import type { DataTableProps } from '../../../components';
 
 import { LOCATION_DETAIL_VIEW_HEADERS } from './constants';
-import { LocationPermissions } from '../../../actions';
 
 export const getFileRowContent = ({
   permissions,
@@ -30,7 +30,7 @@ export const getFileRowContent = ({
   onDownload: () => void;
   onSelect: () => void;
 }): DataTableProps['rows'][number]['content'] =>
-  LOCATION_DETAIL_VIEW_HEADERS.map(({ key: columnKey }) => {
+  LOCATION_DETAIL_VIEW_HEADERS.map((columnKey) => {
     const key = `${columnKey}-${rowId}`;
     switch (columnKey) {
       case 'checkbox': {

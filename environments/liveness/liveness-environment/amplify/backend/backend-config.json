@@ -17,6 +17,22 @@
           ],
           "category": "function",
           "resourceName": "livenessenvironment3477af97"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "livenessenvironment09873267"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "livenessenvironment6105cfac"
         }
       ],
       "providerPlugin": "awscloudformation",
@@ -50,7 +66,17 @@
     }
   },
   "function": {
+    "livenessenvironment09873267": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "livenessenvironment3477af97": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "livenessenvironment6105cfac": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
@@ -62,6 +88,22 @@
     }
   },
   "parameters": {
+    "AMPLIFY_function_livenessenvironment09873267_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "livenessenvironment09873267"
+        }
+      ]
+    },
+    "AMPLIFY_function_livenessenvironment09873267_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "livenessenvironment09873267"
+        }
+      ]
+    },
     "AMPLIFY_function_livenessenvironment3477af97_deploymentBucketName": {
       "usedBy": [
         {
@@ -75,6 +117,22 @@
         {
           "category": "function",
           "resourceName": "livenessenvironment3477af97"
+        }
+      ]
+    },
+    "AMPLIFY_function_livenessenvironment6105cfac_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "livenessenvironment6105cfac"
+        }
+      ]
+    },
+    "AMPLIFY_function_livenessenvironment6105cfac_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "livenessenvironment6105cfac"
         }
       ]
     },

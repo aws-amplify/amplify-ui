@@ -1,7 +1,7 @@
 import { isFunction } from '@aws-amplify/ui';
 import { uploadData } from '../../storage-internal';
 
-import {
+import type {
   TaskData,
   TaskHandler,
   TaskHandlerInput,
@@ -9,12 +9,12 @@ import {
   TaskHandlerOptions,
 } from './types';
 import { constructBucket, getProgress } from './utils';
+import { DEFAULT_CHECKSUM_ALGORITHM } from './constants';
 
 export interface CreateFolderHandlerData extends TaskData {
   preventOverwrite?: boolean;
 }
-export interface CreateFolderHandlerOptions
-  extends TaskHandlerOptions<{ key: string }> {}
+export interface CreateFolderHandlerOptions extends TaskHandlerOptions {}
 
 export interface CreateFolderHandlerInput
   extends TaskHandlerInput<
@@ -48,6 +48,7 @@ export const createFolderHandler: CreateFolderHandler = (input) => {
         if (isFunction(onProgress)) onProgress(data, getProgress(event));
       },
       preventOverwrite,
+      checksumAlgorithm: DEFAULT_CHECKSUM_ALGORITHM,
     },
   });
 
@@ -57,11 +58,12 @@ export const createFolderHandler: CreateFolderHandler = (input) => {
         status: 'COMPLETE' as const,
         value: { key: path },
       }))
-      .catch(({ message, name }: Error) => {
+      .catch((error: Error) => {
+        const { message, name } = error;
         if (name === 'PreconditionFailed') {
-          return { message, status: 'OVERWRITE_PREVENTED' };
+          return { error, message, status: 'OVERWRITE_PREVENTED' };
         }
-        return { message, status: 'FAILED' };
+        return { error, message, status: 'FAILED' };
       }),
   };
 };

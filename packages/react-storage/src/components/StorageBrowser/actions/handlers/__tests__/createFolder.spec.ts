@@ -1,6 +1,7 @@
 import { createFolderHandler, CreateFolderHandlerInput } from '../createFolder';
 
 import { uploadData, UploadDataInput } from '../../../storage-internal';
+import { DEFAULT_CHECKSUM_ALGORITHM } from '../constants';
 
 jest.mock('../../../storage-internal');
 
@@ -70,6 +71,7 @@ describe('createFolderHandler', () => {
         locationCredentialsProvider: credentials,
         onProgress: expect.any(Function),
         preventOverwrite: true,
+        checksumAlgorithm: DEFAULT_CHECKSUM_ALGORITHM,
       },
       path: baseInput.data.key,
     };
@@ -120,37 +122,38 @@ describe('createFolderHandler', () => {
   });
 
   it('handles a failure as expected', async () => {
-    const errorMessage = 'error-message';
+    const error = new Error('No new folder!');
 
     mockUploadData.mockReturnValue({
       ...mockUploadDataReturnValue,
-      result: Promise.reject(new Error(errorMessage)),
+      result: Promise.reject(error),
       state: 'ERROR',
     });
 
     const { result } = createFolderHandler(baseInput);
 
     expect(await result).toStrictEqual({
-      message: errorMessage,
+      error,
+      message: error.message,
       status: 'FAILED',
     });
   });
 
   it('returns "OVERWRITE_PREVENTED" on `PreconditionFailed` error', async () => {
-    const message = 'No overwrite!';
-    const overwritePreventedError = new Error(message);
-    overwritePreventedError.name = 'PreconditionFailed';
+    const error = new Error('No overwrite!');
+    error.name = 'PreconditionFailed';
 
     mockUploadData.mockReturnValue({
       ...mockUploadDataReturnValue,
-      result: Promise.reject(overwritePreventedError),
+      result: Promise.reject(error),
       state: 'ERROR',
     });
 
     const { result } = createFolderHandler(baseInput);
 
     expect(await result).toStrictEqual({
-      message,
+      error,
+      message: error.message,
       status: 'OVERWRITE_PREVENTED',
     });
   });

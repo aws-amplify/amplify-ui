@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { STORAGE_BROWSER_BLOCK } from '../../../constants';
+import { STORAGE_BROWSER_BLOCK } from '../../../components';
 
-import { ViewElement } from '../../../context/elements';
+import { ViewElement } from '../../../components/elements';
 
 import { ActionCancelControl } from '../../../controls/ActionCancelControl';
 import { ActionExitControl } from '../../../controls/ActionExitControl';
@@ -20,7 +20,7 @@ import { FoldersPaginationControl } from './FoldersPaginationControl';
 import { FoldersTableControl } from './FoldersTableControl';
 import { ActionDestinationControl } from '../../../controls/ActionDestinationControl';
 
-import { CopyViewType } from './types';
+import type { CopyViewType } from './types';
 import { useCopyView } from './useCopyView';
 import { classNames } from '@aws-amplify/ui';
 

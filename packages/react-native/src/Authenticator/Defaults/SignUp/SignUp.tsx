@@ -10,7 +10,7 @@ import {
 } from '../../common';
 import { useFieldValues } from '../../hooks';
 
-import { DefaultSignUpProps } from '../types';
+import type { DefaultSignUpProps } from '../types';
 
 const COMPONENT_NAME = 'SignUp';
 
@@ -34,7 +34,7 @@ const SignUp = ({
   toSignIn,
   validationErrors,
   ...rest
-}: DefaultSignUpProps): JSX.Element => {
+}: DefaultSignUpProps): React.JSX.Element => {
   const {
     disableFormSubmit,
     fields: fieldsWithHandlers,

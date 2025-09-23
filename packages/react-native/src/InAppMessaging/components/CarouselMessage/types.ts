@@ -1,11 +1,11 @@
-import { StyleProp, ViewStyle } from 'react-native';
+import type { StyleProp, ViewStyle } from 'react-native';
 
-import {
+import type {
   CarouselMessageCommonProps,
   MessageComponentBaseProps,
 } from '@aws-amplify/ui-react-core-notifications';
 
-import { MessageDefaultStyle, MessageOverrideStyle } from '../../hooks';
+import type { MessageDefaultStyle, MessageOverrideStyle } from '../../hooks';
 
 interface CarouselMessageOverrideStyle extends MessageOverrideStyle {
   pageIndicatorActive?: StyleProp<ViewStyle>;

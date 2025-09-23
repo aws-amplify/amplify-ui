@@ -1,24 +1,26 @@
 import React from 'react';
+import { classNames } from '@aws-amplify/ui';
 
-import { STORAGE_BROWSER_BLOCK } from '../../../constants';
-import { ViewElement } from '../../../context/elements';
-import { ActionCancelControl } from '../../../controls/ActionCancelControl';
-import { ActionDestinationControl } from '../../../controls/ActionDestinationControl';
-import { ActionExitControl } from '../../../controls/ActionExitControl';
-import { ActionStartControl } from '../../../controls/ActionStartControl';
-import { AddFilesControl } from '../../../controls/AddFilesControl';
-import { AddFolderControl } from '../../../controls/AddFolderControl';
-import { DataTableControl } from '../../../controls/DataTableControl';
-import { DropZoneControl } from '../../../controls/DropZoneControl';
-import { OverwriteToggleControl } from '../../../controls/OverwriteToggleControl';
-import { MessageControl } from '../../../controls/MessageControl';
-import { StatusDisplayControl } from '../../../controls/StatusDisplayControl';
-import { TitleControl } from '../../../controls/TitleControl';
+import { STORAGE_BROWSER_BLOCK, ViewElement } from '../../../components';
+import {
+  ActionCancelControl,
+  ActionDestinationControl,
+  ActionExitControl,
+  ActionStartControl,
+  AddFilesControl,
+  AddFolderControl,
+  DataTableControl,
+  DropZoneControl,
+  OverwriteToggleControl,
+  MessageControl,
+  StatusDisplayControl,
+  TitleControl,
+  PaginationControl,
+} from '../../../controls';
 
 import { UploadViewProvider } from './UploadViewProvider';
-import { UploadViewType } from './types';
+import type { UploadViewType } from './types';
 import { useUploadView } from './useUploadView';
-import { classNames } from '@aws-amplify/ui';
 
 export const UploadView: UploadViewType = ({ className, ...props }) => {
   const state = useUploadView(props);
@@ -31,6 +33,7 @@ export const UploadView: UploadViewType = ({ className, ...props }) => {
         <ViewElement className={`${STORAGE_BROWSER_BLOCK}__controls`}>
           <OverwriteToggleControl />
           <ViewElement className={`${STORAGE_BROWSER_BLOCK}__buttons`}>
+            <PaginationControl />
             <AddFolderControl />
             <AddFilesControl />
           </ViewElement>
@@ -64,6 +67,7 @@ UploadView.Provider = UploadViewProvider;
 
 UploadView.AddFiles = AddFilesControl;
 UploadView.AddFolder = AddFolderControl;
+UploadView.Pagination = PaginationControl;
 UploadView.Cancel = ActionCancelControl;
 UploadView.Destination = ActionDestinationControl;
 UploadView.DropZone = DropZoneControl;

@@ -9,8 +9,8 @@ import {
   RoleContext,
   useConversationDisplayText,
 } from '../../context';
-import { ConversationMessage } from '../../../../types';
-import { ControlsContextProps } from '../../context/ControlsContext';
+import type { ConversationMessage } from '../../../../types';
+import type { ControlsContextProps } from '../../context/ControlsContext';
 import {
   ComponentClassName,
   classNameModifier,
@@ -127,6 +127,7 @@ export const MessageList: Required<ControlsContextProps>['MessageList'] = ({
         (content) =>
           content.image ??
           content.text ??
+          content.document ??
           content.toolUse?.name.startsWith(RESPONSE_COMPONENT_PREFIX)
       )
     ) ?? [];

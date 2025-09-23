@@ -1,5 +1,116 @@
 # @aws-amplify/ui-react-native
 
+## 2.6.0
+
+### Minor Changes
+
+- [#6670](https://github.com/aws-amplify/amplify-ui/pull/6670) [`83a2d8445f70dc371371de92fdf35f7edbc9fd6a`](https://github.com/aws-amplify/amplify-ui/commit/83a2d8445f70dc371371de92fdf35f7edbc9fd6a) Thanks [@ahmedhamouda78](https://github.com/ahmedhamouda78)! - fix(ui-react-native): fix autofill not triggering change events correctly
+
+## 2.5.3
+
+### Patch Changes
+
+- [#6521](https://github.com/aws-amplify/amplify-ui/pull/6521) [`1002c52796c78243f836c3c0edc95edfe244f112`](https://github.com/aws-amplify/amplify-ui/commit/1002c52796c78243f836c3c0edc95edfe244f112) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(lint): add consistent import/export type eslint rules
+
+- Updated dependencies [[`1002c52796c78243f836c3c0edc95edfe244f112`](https://github.com/aws-amplify/amplify-ui/commit/1002c52796c78243f836c3c0edc95edfe244f112)]:
+  - @aws-amplify/ui-react-core@3.4.3
+  - @aws-amplify/ui-react-core-notifications@2.2.9
+  - @aws-amplify/ui@6.10.3
+
+## 2.5.2
+
+### Patch Changes
+
+- [#6520](https://github.com/aws-amplify/amplify-ui/pull/6520) [`14a6df50e04b251aaf7a215ea2a84628303002ab`](https://github.com/aws-amplify/amplify-ui/commit/14a6df50e04b251aaf7a215ea2a84628303002ab) Thanks [@ashwinkumar6](https://github.com/ashwinkumar6)! - chore: update aws-amplify version
+
+- Updated dependencies [[`14a6df50e04b251aaf7a215ea2a84628303002ab`](https://github.com/aws-amplify/amplify-ui/commit/14a6df50e04b251aaf7a215ea2a84628303002ab), [`b8fefdba2281af164756963c32fc17f7210ff6de`](https://github.com/aws-amplify/amplify-ui/commit/b8fefdba2281af164756963c32fc17f7210ff6de)]:
+  - @aws-amplify/ui-react-core-notifications@2.2.8
+  - @aws-amplify/ui-react-core@3.4.2
+  - @aws-amplify/ui@6.10.2
+
+## 2.5.1
+
+### Patch Changes
+
+- Updated dependencies [[`e4d8cc8c04dd428d38289085a9bf797b87c058a2`](https://github.com/aws-amplify/amplify-ui/commit/e4d8cc8c04dd428d38289085a9bf797b87c058a2), [`e533dbbdade9d5ffdbd5aa7c446d958dd1980d43`](https://github.com/aws-amplify/amplify-ui/commit/e533dbbdade9d5ffdbd5aa7c446d958dd1980d43)]:
+  - @aws-amplify/ui@6.10.1
+  - @aws-amplify/ui-react-core@3.4.1
+  - @aws-amplify/ui-react-core-notifications@2.2.7
+
+## 2.5.0
+
+### Minor Changes
+
+- [#6469](https://github.com/aws-amplify/amplify-ui/pull/6469) [`36c631a076b7d3d1aafc18a5854575e20e0592c2`](https://github.com/aws-amplify/amplify-ui/commit/36c631a076b7d3d1aafc18a5854575e20e0592c2) Thanks [@jjarvisp](https://github.com/jjarvisp)! - feat(authenticator): add support for email otp and select mfa type challenges
+
+### Patch Changes
+
+- Updated dependencies [[`36c631a076b7d3d1aafc18a5854575e20e0592c2`](https://github.com/aws-amplify/amplify-ui/commit/36c631a076b7d3d1aafc18a5854575e20e0592c2)]:
+  - @aws-amplify/ui-react-core@3.4.0
+  - @aws-amplify/ui@6.10.0
+  - @aws-amplify/ui-react-core-notifications@2.2.6
+
+## 2.4.5
+
+### Patch Changes
+
+- [#6416](https://github.com/aws-amplify/amplify-ui/pull/6416) [`8cc5853caf0af9ea8f8ca6adc3a6412c90f7bbbf`](https://github.com/aws-amplify/amplify-ui/commit/8cc5853caf0af9ea8f8ca6adc3a6412c90f7bbbf) Thanks [@jjarvisp](https://github.com/jjarvisp)! - chore(authenticator): Add Authenticator Component Overrides Sample Application and Documentation
+
+- Updated dependencies [[`75bf5408c195fa1745bc88f9329c29c66258f247`](https://github.com/aws-amplify/amplify-ui/commit/75bf5408c195fa1745bc88f9329c29c66258f247)]:
+  - @aws-amplify/ui-react-core@3.3.5
+  - @aws-amplify/ui-react-core-notifications@2.2.5
+
+## 2.4.4
+
+### Patch Changes
+
+- [#6383](https://github.com/aws-amplify/amplify-ui/pull/6383) [`f8319b263cc2df05e12aca672e06755ff8ffcba6`](https://github.com/aws-amplify/amplify-ui/commit/f8319b263cc2df05e12aca672e06755ff8ffcba6) Thanks [@jjarvisp](https://github.com/jjarvisp)! - chore(react-native): update react-native-safe-area-context peer dep
+
+- Updated dependencies [[`e0fcb4322ab8af7e0699da577dc5fbcf9f7e56cc`](https://github.com/aws-amplify/amplify-ui/commit/e0fcb4322ab8af7e0699da577dc5fbcf9f7e56cc)]:
+  - @aws-amplify/ui@6.9.1
+  - @aws-amplify/ui-react-core@3.3.4
+  - @aws-amplify/ui-react-core-notifications@2.2.4
+
+## 2.4.3
+
+### Patch Changes
+
+- Updated dependencies [[`81543cb38604a80ca2d8b93cfb7d1884d43e0a4f`](https://github.com/aws-amplify/amplify-ui/commit/81543cb38604a80ca2d8b93cfb7d1884d43e0a4f), [`e6248bd8dd8980b095826e6476b65e19af006960`](https://github.com/aws-amplify/amplify-ui/commit/e6248bd8dd8980b095826e6476b65e19af006960)]:
+  - @aws-amplify/ui@6.9.0
+  - @aws-amplify/ui-react-core@3.3.3
+  - @aws-amplify/ui-react-core-notifications@2.2.3
+
+## 2.4.2
+
+### Patch Changes
+
+- Updated dependencies [[`fa6984721124029cf2e7d5b4ac5a3cc6c34097a6`](https://github.com/aws-amplify/amplify-ui/commit/fa6984721124029cf2e7d5b4ac5a3cc6c34097a6)]:
+  - @aws-amplify/ui@6.8.2
+  - @aws-amplify/ui-react-core@3.3.2
+  - @aws-amplify/ui-react-core-notifications@2.2.2
+
+## 2.4.1
+
+### Patch Changes
+
+- Updated dependencies [[`272ec8e575718ea990dcb9f51d1baaf522f45fb6`](https://github.com/aws-amplify/amplify-ui/commit/272ec8e575718ea990dcb9f51d1baaf522f45fb6)]:
+  - @aws-amplify/ui@6.8.1
+  - @aws-amplify/ui-react-core@3.3.1
+  - @aws-amplify/ui-react-core-notifications@2.2.1
+
+## 2.4.0
+
+### Minor Changes
+
+- [#6296](https://github.com/aws-amplify/amplify-ui/pull/6296) [`8d2aa79b174d4e48aaca913bd568898b8c8975a2`](https://github.com/aws-amplify/amplify-ui/commit/8d2aa79b174d4e48aaca913bd568898b8c8975a2) Thanks [@calebpollman](https://github.com/calebpollman)! - feat(react): reenable react 19 support
+
+### Patch Changes
+
+- Updated dependencies [[`8757f03b7b1d761d9a13cfe29382a2208d4f3999`](https://github.com/aws-amplify/amplify-ui/commit/8757f03b7b1d761d9a13cfe29382a2208d4f3999), [`8d2aa79b174d4e48aaca913bd568898b8c8975a2`](https://github.com/aws-amplify/amplify-ui/commit/8d2aa79b174d4e48aaca913bd568898b8c8975a2)]:
+  - @aws-amplify/ui@6.8.0
+  - @aws-amplify/ui-react-core@3.3.0
+  - @aws-amplify/ui-react-core-notifications@2.2.0
+
 ## 2.3.1
 
 ### Patch Changes

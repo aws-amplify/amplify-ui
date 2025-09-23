@@ -8,4 +8,6 @@
   // the property as inherited.
   user-select: text;
   white-space: pre-wrap;
+  // To ensure auto-resize textarea doesn't grow too big for its container
+  max-height: 100%;
 }

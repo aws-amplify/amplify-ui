@@ -1,36 +1,32 @@
-import { LocationPermissions } from '../actions';
-import {
-  LocationCredentialsProvider,
-  LocationCredentials,
-} from '../storage-internal';
+import type React from 'react';
 
-export interface CredentialsLocation {
+import type { LocationPermissions } from '../actions';
+import type { LocationCredentialsProvider } from '../storage-internal';
+
+import type {
+  CreateLocationCredentialsStoreInput,
+  GetLocationCredentials,
+  LocationCredentialsStore,
+} from './credentialsStore';
+
+export type RegisterAuthListener = (onStateChange: () => void) => void;
+
+export type GetCredentials = (input: {
   scope: string;
   permissions: LocationPermissions;
+}) => LocationCredentialsProvider;
+
+export interface CredentialsStore
+  extends Omit<LocationCredentialsStore, 'getProvider'> {
+  getCredentials: GetCredentials;
 }
 
-export interface CreateLocationCredentialsStoreInput {
-  handler: GetLocationCredentials;
+export interface CreateCredentialsStoreInput
+  extends CreateLocationCredentialsStoreInput {}
+
+export interface CredentialsProviderProps {
+  children?: React.ReactNode;
+  getLocationCredentials: GetLocationCredentials;
+  onDestroy?: () => void;
+  registerAuthListener: RegisterAuthListener;
 }
-
-export interface LocationCredentialsStore {
-  /**
-   * Get location-specific credentials. It uses a cache internally to optimize performance when
-   * getting credentials for the same location. It will refresh credentials if they expire or
-   * when forced to.
-   */
-  getProvider(option: CredentialsLocation): LocationCredentialsProvider;
-  /**
-   * Invalidate cached credentials and force subsequent calls to get location-specific
-   * credentials to throw. It also makes subsequent calls to `getCredentialsProviderForLocation`
-   * to throw.
-   */
-  destroy(): void;
-}
-
-export type GetLocationCredentialsInput = CredentialsLocation;
-export type GetLocationCredentialsOutput = LocationCredentials;
-
-export type GetLocationCredentials = (
-  input: GetLocationCredentialsInput
-) => Promise<GetLocationCredentialsOutput>;

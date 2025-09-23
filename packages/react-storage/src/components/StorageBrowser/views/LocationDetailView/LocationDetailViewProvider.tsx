@@ -1,16 +1,17 @@
 import React from 'react';
 
+import type { FileData } from '../../actions';
 import { ControlsContextProvider } from '../../controls/context';
 import { useDisplayText } from '../../displayText';
 
-import { LocationDetailViewProviderProps } from './types';
+import type { LocationDetailViewProviderProps } from './types';
 import { getLocationDetailViewTableData } from './getLocationDetailViewTableData';
-import { FileData } from '../../actions';
 
 export function LocationDetailViewProvider({
   children,
   ...props
 }: LocationDetailViewProviderProps): React.JSX.Element {
+  const { LocationDetailView: displayText } = useDisplayText();
   const {
     LocationDetailView: {
       loadingIndicatorLabel,
@@ -106,6 +107,7 @@ export function LocationDetailViewProvider({
         searchQuery,
         tableData: getLocationDetailViewTableData({
           areAllFilesSelected,
+          displayText,
           location,
           fileDataItems,
           getDateDisplayValue,

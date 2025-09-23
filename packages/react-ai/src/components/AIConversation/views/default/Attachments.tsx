@@ -1,8 +1,13 @@
 import * as React from 'react';
 import { Button, Image, Text, View } from '@aws-amplify/ui-react';
-import { IconClose, useIcons } from '@aws-amplify/ui-react/internal';
-import { ConversationInputContextProps } from '../../context';
+import {
+  IconClose,
+  IconDocument,
+  useIcons,
+} from '@aws-amplify/ui-react/internal';
+import type { ConversationInputContextProps } from '../../context';
 import { ComponentClassName, humanFileSize } from '@aws-amplify/ui';
+import { documentFileTypes, getAttachmentFormat } from '../../utils';
 
 const Attachment = ({
   file,
@@ -10,13 +15,20 @@ const Attachment = ({
 }: React.PropsWithoutRef<{ file: File; handleRemove: () => void }>) => {
   const icons = useIcons('aiConversation');
   const removeIcon = icons?.remove ?? <IconClose />;
+  const fileIcon = icons?.document ?? <IconDocument />;
+  const format = getAttachmentFormat(file);
+  const isDocument = documentFileTypes.has(format);
   return (
     <View className={ComponentClassName.AIConversationAttachment}>
-      <Image
-        className={ComponentClassName.AIConversationAttachmentImage}
-        src={URL.createObjectURL(file)}
-        alt={file.name}
-      />
+      {isDocument ? (
+        fileIcon
+      ) : (
+        <Image
+          className={ComponentClassName.AIConversationAttachmentImage}
+          src={URL.createObjectURL(file)}
+          alt={file.name}
+        />
+      )}
       <Text
         as="span"
         className={ComponentClassName.AIConversationAttachmentName}
@@ -48,7 +60,7 @@ export const Attachments = ({
 }: {
   files?: File[];
   setInput: ConversationInputContextProps['setInput'];
-}): JSX.Element | null => {
+}): React.JSX.Element | null => {
   if (!files || files.length < 1) {
     return null;
   }

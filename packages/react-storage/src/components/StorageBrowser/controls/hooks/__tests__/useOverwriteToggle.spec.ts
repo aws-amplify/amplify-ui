@@ -1,6 +1,7 @@
 import { renderHook } from '@testing-library/react';
-import { OverwriteToggleProps } from '../../../composables/OverwriteToggle';
-import { useControlsContext } from '../../../controls/context';
+
+import { OverwriteToggleProps } from '../../../components/composables/OverwriteToggle';
+import { useControlsContext } from '../../context';
 import { useOverwriteToggle } from '../useOverwriteToggle';
 
 jest.mock('../../../controls/context');

@@ -1,5 +1,5 @@
-import { ViewStyle } from 'react-native';
-import { LabelPosition } from './types';
+import type { ViewStyle } from 'react-native';
+import type { LabelPosition } from './types';
 
 const FLEX_DIRECTIONS: Record<LabelPosition, ViewStyle['flexDirection']> = {
   start: 'row-reverse',

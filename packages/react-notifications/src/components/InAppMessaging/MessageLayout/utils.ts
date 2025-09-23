@@ -1,8 +1,8 @@
 import tinycolor from 'tinycolor2';
 
-import { MessageComponentStyles } from '../hooks/useMessageProps';
+import type { MessageComponentStyles } from '../hooks/useMessageProps';
 
-import { MessageLayoutButtonModifier } from './types';
+import type { MessageLayoutButtonModifier } from './types';
 
 /**
  * Utility for determining the class modifier for an In-App Messaging button

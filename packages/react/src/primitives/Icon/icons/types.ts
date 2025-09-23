@@ -1,7 +1,7 @@
-import { ViewProps } from '../../types';
+import type { ViewProps } from '../../types';
 
 export type InternalIcon = (
   props: ViewProps & {
     size?: string | number;
   }
-) => JSX.Element;
+) => React.JSX.Element;

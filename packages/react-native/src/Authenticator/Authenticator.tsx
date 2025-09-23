@@ -1,9 +1,9 @@
 import React, { useMemo } from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
+import type { AuthenticatorMachineContext } from '@aws-amplify/ui-react-core';
 import {
   AuthenticatorProvider as Provider,
-  AuthenticatorMachineContext,
   resolveAuthenticatorComponents,
   useAuthenticator,
   useAuthenticatorRoute,
@@ -13,8 +13,9 @@ import {
 
 import { useDeprecationWarning } from '../hooks';
 import { DefaultContainer, InnerContainer } from './common';
-import { TypedField, getRouteTypedFields } from './hooks';
-import { AuthenticatorProps } from './types';
+import type { TypedField } from './hooks';
+import { getRouteTypedFields } from './hooks';
+import type { AuthenticatorProps } from './types';
 import { VERSION } from '../version';
 
 import {
@@ -28,6 +29,8 @@ import {
   SignIn,
   SignUp,
   VerifyUser,
+  SetupEmail,
+  SelectMfaType,
 } from './Defaults';
 
 const DEFAULTS = {
@@ -41,6 +44,8 @@ const DEFAULTS = {
   SignIn,
   SignUp,
   VerifyUser,
+  SetupEmail,
+  SelectMfaType,
 };
 
 const routePropSelector = ({
@@ -56,7 +61,7 @@ function Authenticator({
   Footer,
   Header,
   ...options
-}: AuthenticatorProps): JSX.Element | null {
+}: AuthenticatorProps): React.JSX.Element | null {
   useDeprecationWarning({
     message:
       'The `passwordSettings` prop has been deprecated and will be removed in a future major version of Amplify UI.',
@@ -118,5 +123,7 @@ Authenticator.SetupTotp = SetupTotp;
 Authenticator.SignIn = SignIn;
 Authenticator.SignUp = SignUp;
 Authenticator.VerifyUser = VerifyUser;
+Authenticator.SetupEmail = SetupEmail;
+Authenticator.SelectMfaType = SelectMfaType;
 
 export default Authenticator;

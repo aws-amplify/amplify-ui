@@ -7,7 +7,7 @@ import {
   resolveDisplayText,
 } from '../context';
 import { DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT } from '../libraries';
-import { LocationState } from '../../providers/store/location';
+import { LocationState } from '../../store';
 
 describe('useDisplayText', () => {
   it('returns default displayText`', () => {
@@ -51,6 +51,9 @@ describe('resolveDisplayText', () => {
       DeleteView: {
         title: 'DeleteViewTitle',
       },
+      DownloadView: {
+        title: 'DownloadViewTitle',
+      },
       LocationDetailView: {
         getTitle: () => 'LocationDetailViewTitle',
       },
@@ -65,6 +68,7 @@ describe('resolveDisplayText', () => {
     expect(result.CopyView.title).toBe('CopyViewTitle');
     expect(result.CreateFolderView.title).toBe('CreateFolderViewTitle');
     expect(result.DeleteView.title).toBe('DeleteViewTitle');
+    expect(result.DownloadView.title).toBe('DownloadViewTitle');
     expect(result.LocationDetailView.getTitle({} as LocationState)).toBe(
       'LocationDetailViewTitle'
     );

@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { Button, Card, Flex, Text } from '../../../primitives';
-import { ButtonComponent } from '../types';
+import type { ButtonComponent } from '../types';
 import { DefaultErrorMessage } from '../shared/Defaults';
-import {
+import type {
   DeleteUserComponents,
   WarningViewComponent,
   WarningViewProps,

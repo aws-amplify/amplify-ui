@@ -1,2 +1,2 @@
 export { DropZone } from './DropZone';
-export { DropZoneProps } from './types';
+export type { DropZoneProps } from './types';

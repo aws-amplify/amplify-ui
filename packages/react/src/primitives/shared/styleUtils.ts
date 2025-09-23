@@ -1,18 +1,19 @@
 import * as React from 'react';
-import { isDesignToken, WebTheme } from '@aws-amplify/ui';
+import type { WebTheme } from '@aws-amplify/ui';
+import { isDesignToken } from '@aws-amplify/ui';
 
-import {
-  ComponentPropsToStylePropsMap,
+import type {
   GridItemStyleProps,
   GridSpanType,
   ResponsiveObject,
   BaseViewProps,
   AllStylePropKey,
 } from '../types';
+import { ComponentPropsToStylePropsMap } from '../types';
 
 import { getValueAtCurrentBreakpoint } from './responsive/utils';
 import { useBreakpoint } from './responsive/useBreakpoint';
-import { Breakpoint, Breakpoints } from '../types/responsive';
+import type { Breakpoint, Breakpoints } from '../types/responsive';
 
 import { useTheme } from '../../hooks';
 import {
@@ -128,7 +129,8 @@ export const convertStylePropsToStyleObj: ConvertStylePropsToStyleObj = ({
     .forEach((propKey) => {
       if (isComponentStyleProp(propKey)) {
         const values = props[propKey];
-        if (!values || isEmptyString(values)) return;
+        if (values === null || values === undefined || isEmptyString(values))
+          return;
 
         const reactStyleProp = ComponentPropsToStylePropsMap[propKey];
         // short circuit the style prop here if it is a string or design token

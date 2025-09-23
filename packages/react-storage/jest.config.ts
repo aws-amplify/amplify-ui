@@ -1,4 +1,4 @@
-import { Config } from 'jest';
+import type { Config } from 'jest';
 
 const config: Config = {
   collectCoverage: true,
@@ -8,22 +8,22 @@ const config: Config = {
     '!<rootDir>/**/(index|version).(ts|tsx)',
     // do not collect from top level styles directory
     '!<rootDir>/src/styles/*.ts',
+    // do not collect coverage of test utils
+    '!<rootDir>/src/**/__testUtils__/*.(ts|tsx)',
   ],
   coverageThreshold: {
     global: {
       // TEMP REDUCE COVERAGE
       // branches: 87,
+      branches: 85,
       // functions: 90,
-      // lines: 95,
-      // statements: 95,
-      branches: 82,
-      functions: 86,
-      lines: 94,
-      statements: 94,
+      functions: 88,
+      lines: 95,
+      statements: 95,
     },
   },
   moduleNameMapper: { '^uuid$': '<rootDir>/../../node_modules/uuid' },
-  modulePathIgnorePatterns: ['c/dist/'],
+  modulePathIgnorePatterns: ['<rootDir>/dist/'],
   testPathIgnorePatterns: [
     '<rootDir>/src/components/StorageBrowser/displayText/libraries/en/__tests__/scenarios.ts',
     '__testUtils__/',

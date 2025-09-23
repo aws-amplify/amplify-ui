@@ -1,5 +1,5 @@
-import { FileStatus, StorageFiles } from '../../types';
-import { UploadTask } from '../../utils';
+import type { FileStatus, StorageFiles } from '../../types';
+import type { UploadTask } from '../../utils';
 
 export interface UseFileUploaderState {
   files: StorageFiles;

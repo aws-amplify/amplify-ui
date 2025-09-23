@@ -1,5 +1,5 @@
 import React from 'react';
-import { FileUploaderDisplayTextDefault as StorageManagerDisplayTextDefault } from '../../../FileUploader/utils';
+import type { FileUploaderDisplayTextDefault as StorageManagerDisplayTextDefault } from '../../../FileUploader/utils';
 
 import { ComponentClassName } from '@aws-amplify/ui';
 import { Text } from '@aws-amplify/ui-react';
@@ -18,7 +18,7 @@ export function FileListHeader({
   fileCount,
   remainingFilesCount,
   selectedFilesCount = 0,
-}: FileListHeaderProps): JSX.Element {
+}: FileListHeaderProps): React.JSX.Element {
   const { getFilesUploadedText, getRemainingFilesText, getSelectedFilesText } =
     displayText;
 

@@ -3,7 +3,7 @@ import { Animated, Image } from 'react-native';
 
 import { useTheme } from '../../theme';
 import { getThemedStyles } from './styles';
-import { IconProps } from './types';
+import type { IconProps } from './types';
 
 export default function Icon({
   accessible = true,
@@ -13,7 +13,7 @@ export default function Icon({
   size,
   style,
   ...rest
-}: IconProps): JSX.Element {
+}: IconProps): React.JSX.Element {
   const theme = useTheme();
   const themedStyle = useMemo(
     () => getThemedStyles(theme, color, size),

@@ -1,4 +1,4 @@
-import { ComponentStyles, Modifiers } from './utils';
+import type { ComponentStyles, Modifiers } from './utils';
 
 type Level = '1' | '2' | '3' | '4' | '5' | '6';
 

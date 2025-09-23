@@ -1,24 +1,27 @@
-import { renderHook, act } from '@testing-library/react';
+import { act, renderHook } from '@testing-library/react';
 
 import {
-  LocationData,
-  LocationItemData,
   FileData,
   FileDataItem,
   FolderData,
+  LocationData,
+  LocationItemData,
 } from '../../../actions';
 
-import { useStore } from '../../../providers/store';
-import { LocationState } from '../../../providers/store/location';
+import { useFileItems } from '../../../fileItems';
+import { useLocationItems } from '../../../locationItems';
+import { LocationState, useStore } from '../../../store';
 import { useAction, useList } from '../../../useAction';
 
 import {
-  useLocationDetailView,
   DEFAULT_LIST_OPTIONS,
+  useLocationDetailView,
 } from '../useLocationDetailView';
 
 jest.mock('../../../actions/handlers');
-jest.mock('../../../providers/store');
+jest.mock('../../../fileItems');
+jest.mock('../../../locationItems');
+jest.mock('../../../store');
 jest.mock('../../../useAction');
 
 const folderDataOne: FolderData = {
@@ -47,7 +50,7 @@ const fileDataTwo: FileDataItem = {
 
 // fake date for mock data below
 jest.useFakeTimers({ now: Date.UTC(2024, 0, 1) });
-const testData: LocationItemData[] = [
+const mockItems: LocationItemData[] = [
   folderDataOne,
   fileDataOne,
   fileDataTwo,
@@ -89,47 +92,52 @@ const testLocation: LocationState = {
   key: 'item-b-key/',
 };
 
-const testStoreState = {
-  location: testLocation,
-  files: [],
-  locationItems: {
-    fileDataItems: undefined,
-  },
-  actionType: undefined,
+const mockLocationItemsState = { fileDataItems: undefined };
+const mockStoreState = { location: testLocation, actionType: undefined };
+const mockFileItemsState = { validItems: undefined, invalidItems: undefined };
+
+const mockLocation = { current: undefined, path: '', key: '' };
+const mockListState = {
+  value: { items: mockItems, nextToken: undefined },
+  message: '',
+  hasError: false,
+  isLoading: false,
 };
 
 describe('useLocationDetailView', () => {
-  const mockLocation = { current: undefined, path: '', key: '' };
-  const mockDataState = {
-    data: { items: testData, nextToken: undefined },
-    message: '',
-    hasError: false,
-    isLoading: false,
-  };
   const mockUseAction = jest.mocked(useAction);
+  const mockUseFileItems = jest.mocked(useFileItems);
   const mockUseList = jest.mocked(useList);
+  const mockUseLocationItems = jest.mocked(useLocationItems);
   const mockUseStore = jest.mocked(useStore);
-  const mockDispatchStoreAction = jest.fn();
+
+  const mockStoreDispatch = jest.fn();
+  const mockLocationItemsDispatch = jest.fn();
+  const mockFileItemsDispatch = jest.fn();
   const mockHandleDownload = jest.fn();
   const mockHandleList = jest.fn();
 
   beforeAll(() => {
-    mockUseAction.mockReturnValue([{}, mockHandleDownload]);
+    mockUseAction.mockReturnValue([
+      { isProcessing: false, task: undefined },
+      mockHandleDownload,
+    ]);
   });
 
   beforeEach(() => {
-    mockUseStore.mockReturnValue([testStoreState, mockDispatchStoreAction]);
-    mockUseList.mockReturnValue([mockDataState, mockHandleList]);
+    mockUseStore.mockReturnValue([mockStoreState, mockStoreDispatch]);
+    mockUseFileItems.mockReturnValue([
+      mockFileItemsState,
+      mockFileItemsDispatch,
+    ]);
+    mockUseLocationItems.mockReturnValue([
+      mockLocationItemsState,
+      mockLocationItemsDispatch,
+    ]);
+    mockUseList.mockReturnValue([mockListState, mockHandleList]);
   });
 
-  afterEach(() => {
-    mockUseAction.mockClear();
-    mockDispatchStoreAction.mockClear();
-    mockHandleDownload.mockClear();
-    mockHandleList.mockClear();
-    mockUseList.mockReset();
-    mockUseStore.mockReset();
-  });
+  afterEach(jest.clearAllMocks);
 
   it('should fetch and set location data on mount', () => {
     const initialState = { initialValues: { pageSize: EXPECTED_PAGE_SIZE } };
@@ -153,8 +161,8 @@ describe('useLocationDetailView', () => {
 
   it('should not fetch on mount for invalid prefix', () => {
     mockUseStore.mockReturnValue([
-      { ...testStoreState, location: mockLocation },
-      mockDispatchStoreAction,
+      { ...mockStoreState, location: mockLocation },
+      mockStoreDispatch,
     ]);
 
     renderHook(() =>
@@ -172,7 +180,7 @@ describe('useLocationDetailView', () => {
     // set up empty page
     mockUseList.mockReturnValue([
       {
-        data: { items: [], nextToken: undefined },
+        value: { items: [], nextToken: undefined },
         message: '',
         hasError: false,
         isLoading: false,
@@ -188,9 +196,9 @@ describe('useLocationDetailView', () => {
     expect(result.current.pageItems).toEqual([]);
 
     // set up first page mock
-    const mockDataState = {
-      data: {
-        items: testData.slice(0, EXPECTED_PAGE_SIZE),
+    const mockListState = {
+      value: {
+        items: mockItems.slice(0, EXPECTED_PAGE_SIZE),
         nextToken: 'token123',
       },
       message: '',
@@ -198,14 +206,14 @@ describe('useLocationDetailView', () => {
       isLoading: false,
     };
 
-    mockUseList.mockReturnValue([mockDataState, mockHandleList]);
+    mockUseList.mockReturnValue([mockListState, mockHandleList]);
 
     rerender(initialValues);
 
     // set up second page mock
     mockUseList.mockReturnValue([
       {
-        data: { items: testData, nextToken: undefined },
+        value: { items: mockItems, nextToken: undefined },
         message: '',
         hasError: false,
         isLoading: false,
@@ -220,7 +228,7 @@ describe('useLocationDetailView', () => {
 
     // check if data is correct
     expect(result.current.page).toEqual(2);
-    expect(result.current.pageItems).toEqual(testData.slice(3));
+    expect(result.current.pageItems).toEqual(mockItems.slice(3));
 
     // go previous
     act(() => {
@@ -229,18 +237,18 @@ describe('useLocationDetailView', () => {
 
     // check data
     expect(result.current.page).toEqual(1);
-    expect(result.current.pageItems).toEqual(testData.slice(0, 3));
+    expect(result.current.pageItems).toEqual(mockItems.slice(0, 3));
   });
 
   it('should handle refreshing location data', () => {
-    const mockDataState = {
-      data: { items: [], nextToken: 'token123' },
+    const mockListState = {
+      value: { items: [], nextToken: 'token123' },
       message: '',
       hasError: false,
       isLoading: false,
     };
     const mockHandleList = jest.fn();
-    mockUseList.mockReturnValue([mockDataState, mockHandleList]);
+    mockUseList.mockReturnValue([mockListState, mockHandleList]);
 
     const { result } = renderHook(() => useLocationDetailView());
 
@@ -266,19 +274,19 @@ describe('useLocationDetailView', () => {
 
   it('should not refresh location data for invalid paths', () => {
     mockUseStore.mockReturnValue([
-      { ...testStoreState, location: mockLocation },
-      mockDispatchStoreAction,
+      { ...mockStoreState, location: mockLocation },
+      mockStoreDispatch,
     ]);
 
-    const mockDataState = {
-      data: { items: [], nextToken: undefined },
+    const mockListState = {
+      value: { items: [], nextToken: undefined },
       message: '',
       hasError: false,
       isLoading: false,
     };
 
     const mockHandleList = jest.fn();
-    mockUseList.mockReturnValue([mockDataState, mockHandleList]);
+    mockUseList.mockReturnValue([mockListState, mockHandleList]);
 
     const { result } = renderHook(() => useLocationDetailView());
 
@@ -291,8 +299,8 @@ describe('useLocationDetailView', () => {
 
   it('should handle selecting a location', () => {
     mockUseStore.mockReturnValue([
-      { ...testStoreState, location: mockLocation },
-      mockDispatchStoreAction,
+      { ...mockStoreState, location: mockLocation },
+      mockStoreDispatch,
     ]);
 
     const { result } = renderHook(() => useLocationDetailView());
@@ -312,8 +320,8 @@ describe('useLocationDetailView', () => {
       state.onNavigate(expectedLocation, expectedPath);
     });
 
-    expect(mockDispatchStoreAction).toHaveBeenCalledWith({
-      type: 'NAVIGATE',
+    expect(mockStoreDispatch).toHaveBeenCalledWith({
+      type: 'CHANGE_LOCATION',
       location: expectedLocation,
       path: expectedPath,
     });
@@ -331,6 +339,10 @@ describe('useLocationDetailView', () => {
 
   it('should navigate home', () => {
     const mockOnExit = jest.fn();
+    mockUseLocationItems.mockReturnValue([
+      mockLocationItemsState,
+      mockLocationItemsDispatch,
+    ]);
 
     const { result } = renderHook(() =>
       useLocationDetailView({ onExit: mockOnExit })
@@ -339,10 +351,10 @@ describe('useLocationDetailView', () => {
     state.onNavigateHome();
 
     expect(mockOnExit).toHaveBeenCalled();
-    expect(mockDispatchStoreAction).toHaveBeenCalledWith({
+    expect(mockStoreDispatch).toHaveBeenCalledWith({
       type: 'RESET_ACTION_TYPE',
     });
-    expect(mockDispatchStoreAction).toHaveBeenCalledWith({
+    expect(mockLocationItemsDispatch).toHaveBeenCalledWith({
       type: 'RESET_LOCATION_ITEMS',
     });
   });
@@ -352,7 +364,7 @@ describe('useLocationDetailView', () => {
     const state = result.current;
     state.onSelect(false, fileItem);
 
-    expect(mockDispatchStoreAction).toHaveBeenCalledWith({
+    expect(mockLocationItemsDispatch).toHaveBeenCalledWith({
       type: 'SET_LOCATION_ITEMS',
       items: [fileItem],
     });
@@ -363,23 +375,22 @@ describe('useLocationDetailView', () => {
     const state = result.current;
     state.onSelect(true, fileItem);
 
-    expect(mockDispatchStoreAction).toHaveBeenCalledWith({
+    expect(mockLocationItemsDispatch).toHaveBeenCalledWith({
       type: 'REMOVE_LOCATION_ITEM',
       id: fileItem.id,
     });
   });
 
   it('should set all file items as selected', () => {
-    mockUseStore.mockReturnValue([
-      {
-        ...testStoreState,
-        locationItems: { fileDataItems: undefined },
-      },
-      mockDispatchStoreAction,
+    mockUseStore.mockReturnValue([mockStoreState, mockStoreDispatch]);
+
+    mockUseLocationItems.mockReturnValue([
+      { fileDataItems: undefined },
+      mockLocationItemsDispatch,
     ]);
 
     const mockDataState = {
-      data: {
+      value: {
         items: [folderDataOne, fileDataOne, fileDataTwo],
         nextToken: undefined,
       },
@@ -395,7 +406,7 @@ describe('useLocationDetailView', () => {
 
     onToggleSelectAll();
 
-    expect(mockDispatchStoreAction).toHaveBeenCalledWith({
+    expect(mockLocationItemsDispatch).toHaveBeenCalledWith({
       type: 'SET_LOCATION_ITEMS',
       items: [fileDataOne, fileDataTwo],
     });
@@ -403,7 +414,7 @@ describe('useLocationDetailView', () => {
 
   it('should set all file items as unselected', () => {
     const mockDataState = {
-      data: {
+      value: {
         items: [folderDataOne, fileDataOne, fileDataTwo],
         nextToken: undefined,
       },
@@ -422,12 +433,10 @@ describe('useLocationDetailView', () => {
       fileKey: 'maybe-cool.png',
     };
 
-    mockUseStore.mockReturnValue([
-      {
-        ...testStoreState,
-        locationItems: { fileDataItems: [fileDataItemOne, fileDataItemTwo] },
-      },
-      mockDispatchStoreAction,
+    mockUseStore.mockReturnValue([mockStoreState, mockStoreDispatch]);
+    mockUseLocationItems.mockReturnValue([
+      { fileDataItems: [fileDataItemOne, fileDataItemTwo] },
+      mockLocationItemsDispatch,
     ]);
     mockUseList.mockReturnValue([mockDataState, jest.fn()]);
 
@@ -436,15 +445,15 @@ describe('useLocationDetailView', () => {
 
     onToggleSelectAll();
 
-    expect(mockDispatchStoreAction).toHaveBeenCalledWith({
+    expect(mockLocationItemsDispatch).toHaveBeenCalledWith({
       type: 'RESET_LOCATION_ITEMS',
     });
   });
 
   it('should handle adding files', () => {
     mockUseStore.mockReturnValue([
-      { ...testStoreState, location: mockLocation },
-      mockDispatchStoreAction,
+      { ...mockStoreState, location: mockLocation },
+      mockStoreDispatch,
     ]);
 
     const { result } = renderHook(() => useLocationDetailView());
@@ -459,20 +468,20 @@ describe('useLocationDetailView', () => {
       const state = result.current;
       state.onDropFiles(mockFiles);
     });
-    expect(mockDispatchStoreAction).toHaveBeenCalledWith({
-      type: 'ADD_FILE_ITEMS',
+    expect(mockFileItemsDispatch).toHaveBeenCalledWith({
+      type: 'ADD_FILES',
       files: mockFiles,
     });
-    expect(mockDispatchStoreAction).toHaveBeenCalledWith({
-      type: 'SET_ACTION_TYPE',
+    expect(mockStoreDispatch).toHaveBeenCalledWith({
+      type: 'CHANGE_ACTION_TYPE',
       actionType: 'upload',
     });
   });
 
   it('should handle adding folders', () => {
     mockUseStore.mockReturnValue([
-      { ...testStoreState, location: mockLocation },
-      mockDispatchStoreAction,
+      { ...mockStoreState, location: mockLocation },
+      mockStoreDispatch,
     ]);
 
     const { result } = renderHook(() => useLocationDetailView());
@@ -482,20 +491,20 @@ describe('useLocationDetailView', () => {
       const state = result.current;
       state.onDropFiles([mockFolder]);
     });
-    expect(mockDispatchStoreAction).toHaveBeenCalledWith({
-      type: 'ADD_FILE_ITEMS',
+    expect(mockFileItemsDispatch).toHaveBeenCalledWith({
+      type: 'ADD_FILES',
       files: [mockFolder],
     });
-    expect(mockDispatchStoreAction).toHaveBeenCalledWith({
-      type: 'SET_ACTION_TYPE',
+    expect(mockStoreDispatch).toHaveBeenCalledWith({
+      type: 'CHANGE_ACTION_TYPE',
       actionType: 'upload',
     });
   });
 
   it('should handle as files if adding files and folders', () => {
     mockUseStore.mockReturnValue([
-      { ...testStoreState, location: mockLocation },
-      mockDispatchStoreAction,
+      { ...mockStoreState, location: mockLocation },
+      mockStoreDispatch,
     ]);
 
     const { result } = renderHook(() => useLocationDetailView());
@@ -508,21 +517,20 @@ describe('useLocationDetailView', () => {
       const state = result.current;
       state.onDropFiles([mockFile, mockFolder]);
     });
-    expect(mockDispatchStoreAction).toHaveBeenCalledWith({
-      type: 'ADD_FILE_ITEMS',
+    expect(mockFileItemsDispatch).toHaveBeenCalledWith({
+      type: 'ADD_FILES',
       files: [mockFile, mockFolder],
     });
-    expect(mockDispatchStoreAction).toHaveBeenCalledWith({
-      type: 'SET_ACTION_TYPE',
+    expect(mockStoreDispatch).toHaveBeenCalledWith({
+      type: 'CHANGE_ACTION_TYPE',
       actionType: 'upload',
     });
   });
 
   it('should handle search', () => {
-    const handleStoreActionMock = jest.fn();
-    mockUseStore.mockReturnValue([testStoreState, handleStoreActionMock]);
+    mockUseStore.mockReturnValue([mockStoreState, mockStoreDispatch]);
     const mockDataState = {
-      data: { items: [], nextToken: undefined },
+      value: { items: [], nextToken: undefined },
       message: '',
       hasError: false,
       isLoading: false,
@@ -548,7 +556,7 @@ describe('useLocationDetailView', () => {
       },
       prefix: 'item-b-key/',
     });
-    expect(handleStoreActionMock).toHaveBeenCalledWith({
+    expect(mockLocationItemsDispatch).toHaveBeenCalledWith({
       type: 'RESET_LOCATION_ITEMS',
     });
 
@@ -567,10 +575,9 @@ describe('useLocationDetailView', () => {
   });
 
   it('should handle search with subfolders', () => {
-    const handleStoreActionMock = jest.fn();
-    mockUseStore.mockReturnValue([testStoreState, handleStoreActionMock]);
+    mockUseStore.mockReturnValue([mockStoreState, mockStoreDispatch]);
     const mockDataState = {
-      data: { items: [], nextToken: undefined },
+      value: { items: [], nextToken: undefined },
       message: '',
       hasError: false,
       isLoading: false,
@@ -597,7 +604,7 @@ describe('useLocationDetailView', () => {
       },
       prefix: 'item-b-key/',
     });
-    expect(handleStoreActionMock).toHaveBeenCalledWith({
+    expect(mockLocationItemsDispatch).toHaveBeenCalledWith({
       type: 'RESET_LOCATION_ITEMS',
     });
 
@@ -625,8 +632,8 @@ describe('useLocationDetailView', () => {
     result.current.onActionSelect(actionType);
 
     expect(mockOnActionSelect).toHaveBeenCalledWith(actionType);
-    expect(mockDispatchStoreAction).toHaveBeenCalledWith({
-      type: 'SET_ACTION_TYPE',
+    expect(mockStoreDispatch).toHaveBeenCalledWith({
+      type: 'CHANGE_ACTION_TYPE',
       actionType,
     });
   });

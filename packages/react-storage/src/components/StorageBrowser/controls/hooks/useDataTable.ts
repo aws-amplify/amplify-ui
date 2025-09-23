@@ -1,5 +1,5 @@
 import React from 'react';
-import {
+import type {
   DataTableButtonDataCell,
   DataTableDateDataCell,
   DataTableTextDataCell,
@@ -7,7 +7,7 @@ import {
   DataTableProps,
   SortDirection,
   DataTableNumberDataCell,
-} from '../../composables/DataTable';
+} from '../../components';
 import { useControlsContext } from '../context';
 import { compareButtonData } from './compareFunctions/compareButtonData';
 import { compareDateData } from './compareFunctions/compareDateData';
@@ -35,7 +35,7 @@ const UNSORTABLE_GROUPS: DataTableDataCell['type'][] = ['checkbox'];
 
 export const useDataTable = (): DataTableProps => {
   const { data } = useControlsContext();
-  const { tableData } = data;
+  const { isLoading, tableData } = data;
 
   const defaultSortIndex = React.useMemo(
     () => tableData?.headers?.findIndex(({ type }) => type === 'sort') ?? -1,
@@ -154,6 +154,7 @@ export const useDataTable = (): DataTableProps => {
 
   return {
     headers: mappedHeaders ?? [],
+    isLoading,
     rows: sortedRows ?? [],
   };
 };

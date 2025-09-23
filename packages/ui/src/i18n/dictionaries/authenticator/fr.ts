@@ -1,14 +1,16 @@
-import { AuthenticatorDictionary } from './types';
+import type { AuthenticatorDictionary } from './types';
 
 export const frDict: AuthenticatorDictionary = {
   'Account recovery requires verified contact information':
     'La récupération du compte nécessite des informations de contact vérifiées',
+  'Authenticator App (TOTP)': 'Application d’authentification (TOTP)',
   'Back to Sign In': 'Retour à la connexion',
   'Cannot reset password for the user as there is no registered/verified email or phone_number':
     "Impossible de réinitialiser le mot de passe pour l'utilisateur car il n'a pas d'adresse e-mail ou de numéro de téléphone enregistré / vérifié",
   'Change Password': 'Modifier le mot de passe',
   Changing: 'Modification en cours',
   Code: 'Code',
+  'Confirm Email Code': 'Confirmer le code e-mail',
   'Confirm Password': 'Confirmez le mot de passe',
   'Confirm Sign Up': "Confirmer l'inscription",
   'Confirm SMS Code': 'Confirmer le code SMS',
@@ -21,6 +23,7 @@ export const frDict: AuthenticatorDictionary = {
   'Creating Account': `Création d'un compte`,
   'Dismiss alert': `Supprimer l'alerte`,
   Email: 'Email',
+  'Email Message': 'Message de l’e-mail',
   'Enter your code': 'Saisissez cotre code de confirmation',
   'Enter your Email': 'Saisissez votre adresse e-mail',
   'Enter your email': 'Saisissez votre adresse e-mail',
@@ -30,6 +33,9 @@ export const frDict: AuthenticatorDictionary = {
   'Hide password': 'Masquer le mot de passe',
   'It may take a minute to arrive': 'Cela peut prendre une minute',
   Loading: 'Chargement en cours',
+  'Multi-Factor Authentication': 'Authentification multifactorielle',
+  'Multi-Factor Authentication Setup':
+    'Configuration de l’authentification multifactorielle',
   'New password': 'Nouveau mot de passe',
   or: 'ou',
   Password: 'Mot de passe',
@@ -37,9 +43,11 @@ export const frDict: AuthenticatorDictionary = {
   'Resend Code': 'Renvoyer le code',
   'Reset your Password': 'Réinitialiser votre mot de passe',
   'Reset your password': 'Réinitialisez votre mot de passe',
+  'Select MFA Type': 'Sélectionner le type de MFA',
   'Send code': 'Envoyer le code',
   'Send Code': "M'envoyer un code",
   Sending: 'Envoi en cours',
+  'Setup Email': 'E-mail de configuration',
   'Setup TOTP': 'Configuration de TOTP',
   'Show password': 'Afficher le mot de passe',
   'Sign in to your account': 'Connexion à votre compte',
@@ -53,6 +61,7 @@ export const frDict: AuthenticatorDictionary = {
   Skip: 'Passer',
   Submit: 'Soumettre',
   Submitting: 'Envoi en cours',
+  'Text Message (SMS)': 'Message texte (SMS)',
   Username: "Nom d'utilisateur",
   'Verify Contact': 'Vérifier le contact',
   Verify: 'Vérifier',
@@ -122,13 +131,13 @@ export const frDict: AuthenticatorDictionary = {
   Website: 'Site web',
   'Password must have at least 8 characters':
     'Le mot de passe doit comporter au moins 8 caractères',
-  'Password did not conform with policy: Password must have uppercase characters':
+  'Password must have upper case letters':
     'Le mot de passe doit comporter des caractères majuscules',
-  'Password did not conform with policy: Password must have numeric characters':
+  'Password must have numbers':
     'Le mot de passe doit comporter des caractères numériques',
-  'Password did not conform with policy: Password must have symbol characters':
+  'Password must have special characters':
     'Le mot de passe doit comporter des symboles',
-  'Password did not conform with policy: Password must have lowercase characters':
+  'Password must have lower case letters':
     'Le mot de passe doit comporter des caractères minuscules',
   'Invalid verification code provided, please try again.':
     'Code de vérification invalide, veuillez réessayer.',

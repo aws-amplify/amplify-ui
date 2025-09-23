@@ -10,7 +10,7 @@ import {
   createLivenessSelector,
 } from '../hooks';
 import { Toast } from './Toast';
-import { HintDisplayText } from '../displayText';
+import type { HintDisplayText } from '../displayText';
 import { ToastWithLoader } from './ToastWithLoader';
 
 export const selectErrorState = createLivenessSelector(
@@ -71,7 +71,6 @@ export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
     state.matches('detectFaceDistanceBeforeRecording');
   const isStartView = state.matches('start') || state.matches('userCancel');
   const isRecording = state.matches('recording');
-  const isNotRecording = state.matches('notRecording');
   const isUploading = state.matches('uploading');
   const isCheckSuccessful = state.matches('checkSucceeded');
   const isCheckFailed = state.matches('checkFailed');
@@ -125,12 +124,6 @@ export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
       isFaceFarEnoughBeforeRecordingState === false
     ) {
       return <DefaultToast text={hintDisplayText.hintTooCloseText} />;
-    }
-
-    if (isNotRecording) {
-      return (
-        <ToastWithLoader displayText={hintDisplayText.hintConnectingText} />
-      );
     }
 
     if (isUploading) {

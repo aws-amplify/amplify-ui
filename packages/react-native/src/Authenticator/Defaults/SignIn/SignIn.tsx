@@ -10,7 +10,7 @@ import {
 } from '../../common';
 import { useFieldValues } from '../../hooks';
 
-import { DefaultSignInProps } from '../types';
+import type { DefaultSignInProps } from '../types';
 
 const COMPONENT_NAME = 'SignIn';
 
@@ -26,7 +26,7 @@ const SignIn = ({
   toSignUp,
   validationErrors,
   ...rest
-}: DefaultSignInProps): JSX.Element => {
+}: DefaultSignInProps): React.JSX.Element => {
   const {
     getSignInTabText,
     getSignInText,

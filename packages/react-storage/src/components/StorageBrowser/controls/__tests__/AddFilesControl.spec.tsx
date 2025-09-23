@@ -6,7 +6,7 @@ import { useResolvedComposable } from '../hooks/useResolvedComposable';
 
 jest.mock('../hooks/useAddFiles');
 jest.mock('../hooks/useResolvedComposable');
-jest.mock('../../composables/AddFiles', () => ({
+jest.mock('../../components/composables/AddFiles', () => ({
   AddFiles: () => <div data-testid="add-files" />,
 }));
 

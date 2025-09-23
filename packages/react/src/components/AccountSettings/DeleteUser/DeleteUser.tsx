@@ -7,7 +7,7 @@ import { useAuth } from '../../../internal';
 import { Flex } from '../../../primitives';
 import { ComponentClassName } from '../constants';
 import DEFAULTS from './defaults';
-import { DeleteUserProps, DeleteUserState } from './types';
+import type { DeleteUserProps, DeleteUserState } from './types';
 import { defaultDeleteUserDisplayText } from '../utils';
 import { VERSION } from '../../../version';
 
@@ -19,7 +19,7 @@ function DeleteUser({
   handleDelete,
   onError,
   onSuccess,
-}: DeleteUserProps): JSX.Element | null {
+}: DeleteUserProps): React.JSX.Element | null {
   const [state, setState] = React.useState<DeleteUserState>('IDLE');
   const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
 

@@ -1,5 +1,5 @@
 import { DEFAULT_LIST_VIEW_DISPLAY_TEXT } from './shared';
-import { DefaultLocationDetailViewDisplayText } from '../../types';
+import type { DefaultLocationDetailViewDisplayText } from '../../types';
 
 export const DEFAULT_ERROR_MESSAGE = 'There was an error loading items.';
 
@@ -69,6 +69,8 @@ export const DEFAULT_LOCATION_DETAIL_VIEW_DISPLAY_TEXT: DefaultLocationDetailVie
           return 'Create folder';
         case 'Upload':
           return 'Upload';
+        case 'Download':
+          return 'Download';
         default:
           return key;
       }

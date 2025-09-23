@@ -1,0 +1,8 @@
+{
+  "private": true,
+  "name": "@aws-amplify/ui-gen2-auth-federated-react-native",
+  "version": "0.0.1",
+  "scripts": {
+    "generate": "AWS_REGION=us-east-2 npx @aws-amplify/backend-cli@latest generate outputs --branch gen2-auth-with-federated-react-native --app-id d3lukld24augjv"
+  }
+}

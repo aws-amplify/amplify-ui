@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ViewElement } from '../../../context/elements';
+import { ViewElement } from '../../../components/elements';
 import { ActionCancelControl } from '../../../controls/ActionCancelControl';
 import { ActionExitControl } from '../../../controls/ActionExitControl';
 import { ActionStartControl } from '../../../controls/ActionStartControl';
@@ -9,11 +9,11 @@ import { MessageControl } from '../../../controls/MessageControl';
 import { StatusDisplayControl } from '../../../controls/StatusDisplayControl';
 import { TitleControl } from '../../../controls/TitleControl';
 
-import { STORAGE_BROWSER_BLOCK } from '../../../constants';
+import { STORAGE_BROWSER_BLOCK } from '../../../components';
 
 import { DeleteViewProvider } from './DeleteViewProvider';
 import { useDeleteView } from './useDeleteView';
-import { DeleteViewType } from './types';
+import type { DeleteViewType } from './types';
 import { classNames } from '@aws-amplify/ui';
 
 export const DeleteView: DeleteViewType = ({ className, ...props }) => {

@@ -1,5 +1,5 @@
-import { StatusDisplayProps } from '../../composables/StatusDisplay';
-import { useControlsContext } from '../../controls/context';
+import type { StatusDisplayProps } from '../../components/composables/StatusDisplay';
+import { useControlsContext } from '../context';
 
 export const useStatusDisplay = (): StatusDisplayProps => {
   const { data } = useControlsContext();

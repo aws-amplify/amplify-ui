@@ -7,6 +7,6 @@ export const STATIC_VIDEO_CONSTRAINTS: MediaTrackConstraints = {
     min: 240,
     ideal: 480,
   },
-  frameRate: { min: 15, ideal: 30, max: 30 },
+  frameRate: { min: 15, ideal: 30, max: 60 },
   facingMode: 'user',
 };

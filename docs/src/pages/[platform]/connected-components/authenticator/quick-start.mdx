@@ -1,7 +1,7 @@
 import { Accordion, Alert, Link, Text, Tabs } from '@aws-amplify/ui-react';
 import { Example, ExampleCode } from '@/components/Example';
-import { InstallScripts } from '@/components/InstallScripts';
-import { TerminalCommand } from '@/components/InstallScripts';
+import { InstallScripts, TerminalCommand } from '@/components/InstallScripts';
+import { ReactNativeSafeAreaContextInstallation } from '@/components/ReactNativeSafeAreaContextInstallation';
 import { InlineFilter } from '@/components/InlineFilter';
 import QuickStartPullWeb from './quick-start-pull.web.mdx';
 import QuickStartInstallWeb from './quick-start-install.web.mdx';
@@ -76,7 +76,7 @@ import AmplifyCLI from './amplify-cli.mdx';
       compose true
   }
   composeOptions {
-    kotlinCompilerExtensionVersion '1.2.0'
+    kotlinCompilerExtensionVersion '1.5.3'
   }
   ```
 
@@ -85,7 +85,7 @@ import AmplifyCLI from './amplify-cli.mdx';
   ```groovy
   dependencies {    
       // Authenticator dependency
-      implementation 'com.amplifyframework.ui:authenticator:1.2.0'
+      implementation 'com.amplifyframework.ui:authenticator:1.4.0'
       
       // Support for Java 8 features
       coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
@@ -113,6 +113,8 @@ import AmplifyCLI from './amplify-cli.mdx';
 </InlineFilter>
 <InlineFilter filters={['react-native']}>
   <InstallScripts />
+
+  <ReactNativeSafeAreaContextInstallation />
 
   If your project will support Federated Sign In using the React Native `Authenticator` the `@aws-amplify/rtn-web-browser` package is also required:
 

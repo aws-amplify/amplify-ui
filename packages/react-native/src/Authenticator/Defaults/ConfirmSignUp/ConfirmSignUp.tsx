@@ -9,7 +9,7 @@ import {
 } from '../../common';
 import { useFieldValues } from '../../hooks';
 
-import { DefaultConfirmSignUpProps } from '../types';
+import type { DefaultConfirmSignUpProps } from '../types';
 
 const COMPONENT_NAME = 'ConfirmSignUp';
 
@@ -31,7 +31,7 @@ const ConfirmSignUp = ({
   resendCode,
   validationErrors,
   ...rest
-}: DefaultConfirmSignUpProps): JSX.Element => {
+}: DefaultConfirmSignUpProps): React.JSX.Element => {
   const {
     disableFormSubmit: disabled,
     fields: fieldsWithHandlers,

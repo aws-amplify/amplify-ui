@@ -1,5 +1,6 @@
+import React from 'react';
 import { Amplify } from 'aws-amplify';
-import { AccountSettings, Authenticator } from '@aws-amplify/ui-react';
+import { AccountSettings, Authenticator, View } from '@aws-amplify/ui-react';
 import { FaceLivenessDetector } from '@aws-amplify/ui-react-liveness';
 import { StorageManager, FileUploader } from '@aws-amplify/ui-react-storage';
 import { MapView, LocationSearch } from '@aws-amplify/ui-react-geo';
@@ -8,11 +9,17 @@ import '@aws-amplify/ui-react-geo/styles.css';
 import awsconfig from '../../../environments/auth-with-email/src/aws-exports.js';
 Amplify.configure(awsconfig);
 
+// results in a type error if conflicting versions of `@types/react` are installed through
+// `@aws-amplify/ui-react` and the consuming project
+const ExtendedView = (props: { children?: React.ReactNode }) => (
+  <View {...props} />
+);
+
 export default function Home() {
   return (
     <Authenticator>
       {({ signOut, user = { username: '' } }) => (
-        <main>
+        <ExtendedView>
           <h1>Hello {user.username}</h1>
           <button onClick={signOut}>Sign out</button>
           <FaceLivenessDetector
@@ -55,7 +62,7 @@ export default function Home() {
           >
             <LocationSearch />
           </MapView>
-        </main>
+        </ExtendedView>
       )}
     </Authenticator>
   );

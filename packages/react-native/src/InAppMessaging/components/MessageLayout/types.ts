@@ -1,7 +1,7 @@
-import { MessageComponentBaseProps } from '@aws-amplify/ui-react-core-notifications';
+import type { MessageComponentBaseProps } from '@aws-amplify/ui-react-core-notifications';
 
-import { DeviceOrientation } from '../../../hooks';
-import {
+import type { DeviceOrientation } from '../../../hooks';
+import type {
   MessageComponentStyles,
   MessageOverrideStyle,
   UseMessageProps,

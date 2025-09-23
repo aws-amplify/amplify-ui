@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook } from '@testing-library/react';
 
 import { RenderNothing } from '../../../../components';
 import { COMPONENT_ROUTE_KEYS } from '../../constants';

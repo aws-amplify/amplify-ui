@@ -1,5 +1,5 @@
-import { ActionExitProps } from '../../composables/ActionExit';
-import { useControlsContext } from '../../controls/context';
+import type { ActionExitProps } from '../../components/composables/ActionExit';
+import { useControlsContext } from '../context';
 
 export const useActionExit = (): ActionExitProps => {
   const {
