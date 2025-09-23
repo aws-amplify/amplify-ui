@@ -80,9 +80,10 @@ jobs:
         uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2 https://github.com/actions/setup-node/commit/60edb5dd545a775178f52524783378180af0d1f8
         with:
           node-version: 20
-          cache: 'yarn'
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
+      - name: Enable Corepack
+        run: corepack enable
       - name: Install packages
         uses: ./.github/actions/install-with-retries
         with:
@@ -105,8 +106,8 @@ jobs:
       pull-requests: write
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      BASE_BRANCH: "main"
-      HEAD_BRANCH: "hotfix"
+      BASE_BRANCH: 'main'
+      HEAD_BRANCH: 'hotfix'
     steps:
       - name: Checkout repo
         uses: actions/checkout@ff7abcd0c3c05ccf6adc123a8cd1fd4fb30fb493 # v4.1.3 https://github.com/actions/checkout/commit/cd7d8d697e10461458bc61a30d094dc601a8b017
