@@ -150,7 +150,7 @@
     "ts-morph": "^17.0.0",
     "turbo": "^2.0.11",
     "typescript": "^5.2.2",
-    "vite": "^5.4.20",
+    "vite": "^6.3.6",
     "vue-tsc": "^2.0.7"
   },
   "overrides": {
