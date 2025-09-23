@@ -52,7 +52,8 @@
     "g:rollup": "cd $INIT_CWD && rollup",
     "g:tsc": "cd $INIT_CWD && tsc",
     "g:vite": "cd $INIT_CWD && vite",
-    "g:vue-tsc": "cd $INIT_CWD && vue-tsc"
+    "g:vue-tsc": "cd $INIT_CWD && vue-tsc",
+    "g:size-limit": "cd $INIT_CWD && size-limit"
   },
   "workspaces": {
     "packages": [
