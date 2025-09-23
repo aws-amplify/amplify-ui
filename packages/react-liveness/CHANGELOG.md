@@ -1,5 +1,46 @@
 # @aws-amplify/ui-react-liveness
 
+## 3.4.4
+
+### Patch Changes
+
+- Updated dependencies [[`8319d5afaa9f3de59f18d72d873953a1fd0e1b73`](https://github.com/aws-amplify/amplify-ui/commit/8319d5afaa9f3de59f18d72d873953a1fd0e1b73)]:
+  - @aws-amplify/ui-react@6.12.0
+
+## 3.4.3
+
+### Patch Changes
+
+- [#6656](https://github.com/aws-amplify/amplify-ui/pull/6656) [`50ceedfe153f4b89d80e5dca4ee7ae355e0cd8e8`](https://github.com/aws-amplify/amplify-ui/commit/50ceedfe153f4b89d80e5dca4ee7ae355e0cd8e8) Thanks [@osama-rizk](https://github.com/osama-rizk)! - fix(ui-react-liveness): oval ratio multiplier
+
+## 3.4.2
+
+### Patch Changes
+
+- [#6614](https://github.com/aws-amplify/amplify-ui/pull/6614) [`b245c0d45fb3728dc6a293f3ffda3cb9b123569b`](https://github.com/aws-amplify/amplify-ui/commit/b245c0d45fb3728dc6a293f3ffda3cb9b123569b) Thanks [@adrianjoshua-strutt](https://github.com/adrianjoshua-strutt)! - fix(liveness): null-check for getSettings in UseMediaStreamInVideo
+
+## 3.4.1
+
+### Patch Changes
+
+- [#6608](https://github.com/aws-amplify/amplify-ui/pull/6608) [`6eae6069d46fa548e2f43a757389204aac8fc8f1`](https://github.com/aws-amplify/amplify-ui/commit/6eae6069d46fa548e2f43a757389204aac8fc8f1) Thanks [@osama-rizk](https://github.com/osama-rizk)! - fix(liveness): bump FACE_MOVEMENT_AND_LIGHT_CHALLENGE challenge to 2.0.0
+
+## 3.4.0
+
+### Minor Changes
+
+- [#6606](https://github.com/aws-amplify/amplify-ui/pull/6606) [`8b77604dc4d92de5921eaa4fc3066d34506cb638`](https://github.com/aws-amplify/amplify-ui/commit/8b77604dc4d92de5921eaa4fc3066d34506cb638) Thanks [@osama-rizk](https://github.com/osama-rizk)! - feat(liveness): add support for face movement only/no light challenge
+
+## 3.3.9
+
+### Patch Changes
+
+- [#6521](https://github.com/aws-amplify/amplify-ui/pull/6521) [`1002c52796c78243f836c3c0edc95edfe244f112`](https://github.com/aws-amplify/amplify-ui/commit/1002c52796c78243f836c3c0edc95edfe244f112) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(lint): add consistent import/export type eslint rules
+
+- Updated dependencies [[`1002c52796c78243f836c3c0edc95edfe244f112`](https://github.com/aws-amplify/amplify-ui/commit/1002c52796c78243f836c3c0edc95edfe244f112)]:
+  - @aws-amplify/ui-react@6.11.2
+  - @aws-amplify/ui@6.10.3
+
 ## 3.3.8
 
 ### Patch Changes

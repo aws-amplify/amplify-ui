@@ -1,8 +1,10 @@
 import { act, renderHook, waitFor } from '@testing-library/react';
 
-import { ActionHandler, ActionInputConfig, FileItem } from '../../actions';
-import { Task } from '../types';
+import type { FileItem } from '../../actions';
+import { ActionHandler, ActionInputConfig } from '../../actions';
+import type { FileItems } from '../../fileItems';
 
+import type { Task } from '../types';
 import { useProcessTasks } from '../useProcessTasks';
 
 const config: ActionInputConfig = {
@@ -12,7 +14,7 @@ const config: ActionInputConfig = {
   region: 'region',
 };
 
-const items: FileItem[] = [
+const items: FileItems = [
   { key: '0', id: '0', file: new File([], '0') },
   { key: '1', id: '1', file: new File([], '1') },
   { key: '2', id: '2', file: new File([], '2') },

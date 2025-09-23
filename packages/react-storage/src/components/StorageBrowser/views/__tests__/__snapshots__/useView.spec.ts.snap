@@ -1,3 +1,3 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`useView throws when provided an unexepected key 1`] = `"Value of \`unexpected!\` cannot be used to index \`useView\`"`;
+exports[`useView throws when provided an unexpected key 1`] = `"Value of \`unexpected!\` cannot be used to index \`useView\`"`;

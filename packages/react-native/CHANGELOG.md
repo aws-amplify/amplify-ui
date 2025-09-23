@@ -1,5 +1,22 @@
 # @aws-amplify/ui-react-native
 
+## 2.6.0
+
+### Minor Changes
+
+- [#6670](https://github.com/aws-amplify/amplify-ui/pull/6670) [`83a2d8445f70dc371371de92fdf35f7edbc9fd6a`](https://github.com/aws-amplify/amplify-ui/commit/83a2d8445f70dc371371de92fdf35f7edbc9fd6a) Thanks [@ahmedhamouda78](https://github.com/ahmedhamouda78)! - fix(ui-react-native): fix autofill not triggering change events correctly
+
+## 2.5.3
+
+### Patch Changes
+
+- [#6521](https://github.com/aws-amplify/amplify-ui/pull/6521) [`1002c52796c78243f836c3c0edc95edfe244f112`](https://github.com/aws-amplify/amplify-ui/commit/1002c52796c78243f836c3c0edc95edfe244f112) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(lint): add consistent import/export type eslint rules
+
+- Updated dependencies [[`1002c52796c78243f836c3c0edc95edfe244f112`](https://github.com/aws-amplify/amplify-ui/commit/1002c52796c78243f836c3c0edc95edfe244f112)]:
+  - @aws-amplify/ui-react-core@3.4.3
+  - @aws-amplify/ui-react-core-notifications@2.2.9
+  - @aws-amplify/ui@6.10.3
+
 ## 2.5.2
 
 ### Patch Changes

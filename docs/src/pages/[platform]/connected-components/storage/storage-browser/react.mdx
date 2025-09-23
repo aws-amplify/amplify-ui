@@ -11,6 +11,7 @@ import {
   Theming,
   Icons,
   GenerateUrlViewComposed,
+  ComponentOverride,
 } from './examples'
 
 
@@ -162,6 +163,12 @@ export const { StorageBrowser } = createStorageBrowser({
 </ExampleCode>
 </Example>
 
+<Message colorTheme="info" variation="filled" heading="Working with existing S3 storage">
+Amplify also supports [bringing in existing S3 resources](https://docs.amplify.aws/react/build-a-backend/storage/use-with-custom-s3/) instead of creating a new storage resource. When adding Storage Browser to access these resources, you may need to modify some of the example code listed in the provided documentation. 
+
+In the case where you are adding Storage Browser with an [Amplify backend configured with an existing S3 bucket](https://docs.amplify.aws/react/build-a-backend/storage/use-with-custom-s3/#configure-the-s3-bucket), keep in mind that the optional properties `buckets` and `paths` listed in the configuration examples are **required** by Storage Browser to display the bucket correctly. 
+</Message>
+
 ### IAM Identity Center and S3 Access Grants
 
 To use this authorization method, you first have to configure an IAM Identity Center and set up permission grants for your users and groups in S3 Access Grants. Then, you connect your application to Identity Center and configure your application to exchange an identity token from your external Identity Provider with one from Identity Center. Afterwards, you configure your application to provide the Identity Center token to Storage Browser when a user opens the page in your application to access your data in S3. To learn more, visit the [S3 documentation](https://docs.aws.amazon.com/AmazonS3/latest/userguide/storage-browser.html).
@@ -307,6 +314,43 @@ You can use the `<IconsProvider>` to customize the icons used in the `StorageBro
   </ExampleCode>
 </Example>
 
+### Component Override
+
+You can override any of the default components used in Storage Browser by passing custom components to the `components` prop of `createStorageBrowser`. When you provide a component (e.g., `Navigation`, `DataTable`, `SearchField`), it will completely replace the default implementation.
+
+
+<Example>
+  <ComponentOverride />
+  <ExampleCode>
+    ```jsx file=./examples/ComponentOverride.tsx
+    ```
+  </ExampleCode>
+</Example>
+
+**Available Components to Override:**
+- `ActionCancel`
+- `ActionDestination`
+- `ActionExit`
+- `ActionStart`
+- `ActionsList`
+- `AddFiles`
+- `AddFolder`
+- `DataRefresh`
+- `DataTable`
+- `DropZone`
+- `FolderNameField`
+- `LoadingIndicator`
+- `Message`
+- `Navigation`
+- `OverwriteToggle`
+- `Pagination`
+- `SearchField`
+- `SearchSubfoldersToggle`
+- `StatusDisplay`
+- `Title`
+
+Each component receives the same props as the default implementation, so you can access all the data and callbacks.
+
 ### Display Text
 
 You can customize all of the text (except S3 data like keys and bucket names) used in Storage Browser by using the `displayText` prop which is a nested object organized by view. You don't need to provide an entire object; the `StorageBrowser` component will merge your input with the default strings. Some texts are plain strings and others are are functions that take some input, like a date, and return a string. 
@@ -356,6 +400,7 @@ Below you wll find examples of how to compose each view. See [View reference](#v
     <Tabs.Item value="Locations">Locations</Tabs.Item>
     <Tabs.Item value="LocationDetail">Location Detail</Tabs.Item>
     <Tabs.Item value="Upload">Upload</Tabs.Item>
+    <Tabs.Item value="Download">Download</Tabs.Item>
     <Tabs.Item value="Copy">Copy</Tabs.Item>
     <Tabs.Item value="CreateFolder">CreateFolder</Tabs.Item>
     <Tabs.Item value="Delete">Delete</Tabs.Item>
@@ -390,6 +435,12 @@ Below you wll find examples of how to compose each view. See [View reference](#v
         ```
       </ExampleCode>
   </Tabs.Panel>
+  <Tabs.Panel value="Download">
+    <ExampleCode>
+      ```jsx file=./examples/ComposedDownloadView.tsx
+      ```
+    </ExampleCode>
+  </Tabs.Panel>
   <Tabs.Panel value="Copy">
       <ExampleCode>
         ```jsx file=./examples/ComposedCopyView.tsx
@@ -409,7 +460,7 @@ Below you wll find examples of how to compose each view. See [View reference](#v
 
 The `createStorageBrowser` function returns a `useView()` hook that lets you use the Storage Browser's internal state and event handlers to build your own UI on top the Storage Browser functionality.
 
-The `useView()` hook takes a single argument which is the name of the view you want to get the UI state and event handlers for. The available views are `Locations`, `LocationDetails`, `Copy`, `Upload`, `Delete`, and `CreateFolder`. The return value of the hook will have all the necessary internal state and event handlers required to build that view. In fact, the Storage Browser component itself uses the `useView()` to manage its state, so you can build the UI exactly how we do!
+The `useView()` hook takes a single argument which is the name of the view you want to get the UI state and event handlers for. The available views are `Locations`, `LocationDetails`, `Copy`, `Upload`, `Download`, `Delete`, and `CreateFolder`. The return value of the hook will have all the necessary internal state and event handlers required to build that view. In fact, the Storage Browser component itself uses the `useView()` to manage its state, so you can build the UI exactly how we do!
 
 <Example>
   <Custom />
@@ -418,6 +469,7 @@ The `useView()` hook takes a single argument which is the name of the view you w
     <Tabs.Item value="StorageBrowser">StorageBrowser</Tabs.Item>
     <Tabs.Item value="Locations">Locations</Tabs.Item>
     <Tabs.Item value="Upload">Upload</Tabs.Item>
+    <Tabs.Item value="Download">Download</Tabs.Item>
     <Tabs.Item value="Copy">Copy</Tabs.Item>
     <Tabs.Item value="CreateFolder">CreateFolder</Tabs.Item>
     <Tabs.Item value="Delete">Delete</Tabs.Item>
@@ -452,6 +504,12 @@ The `useView()` hook takes a single argument which is the name of the view you w
         ```
       </ExampleCode>
   </Tabs.Panel>
+    <Tabs.Panel value="Download">
+      <ExampleCode>
+        ```jsx file=./examples/CustomDownloadView.tsx
+        ```
+      </ExampleCode>
+  </Tabs.Panel>
   <Tabs.Panel value="Delete">
       <ExampleCode>
         ```jsx file=./examples/CustomDeleteView.tsx
@@ -473,7 +531,7 @@ The following `default` actions are invoked by the default UI views:
 * `copy`: Copy data to another location within a `bucket` or `prefix` in [Copy action view](#copy-view).
 * `createFolder`: Create a folder within a `bucket` or `prefix` in [CreateFolder action view](#createfolder-view).
 * `delete`: Delete a given object in [Delete action view](#delete-view).
-* `download`: Download a given object in [LocationDetails view](#locationdetails-view) using an [anchor link](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#download).
+* `download`: Download a given object in [LocationDetails view](#locationdetails-view) using an [anchor link](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#download) or in [Download action view](#download-view).
 * `upload`: Upload a file in [Upload action view](#upload-view).
 
 `defaultActionConfigs` allows access to the default implementation of these actions. Below is an example to instrument the default upload action to count the files being uploaded.
@@ -578,6 +636,23 @@ export const generateUrlHandler: GenerateLink = ({ data, config, options }) => {
 
 <Message colorTheme="info" variation='filled' heading="Security best practice">
 This example is for demonstration purpose only. For more details, please refer to the [presigned URLs documentation](https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-presigned-url.html#PresignedUrl-Expiration)
+</Message>
+
+### Customize file validation
+
+`createStorageBrowser` allows customization of the Storage Browser settings by passing `options` . To customize file validation, provide a `validateFile` prop in `options` to replace the default file validation performed when selecting files. On file selection events, `validateFile` runs against each selected file and returns `true` if the file is considered valid.
+
+[Custom `displayText`](#display-text) should also be used to show a different error message to reflect your custom validation.
+
+Below is an example to override file validation for Storage Browser to only accept image files that are less than or equal to 1 MB in size, and displays a custom error message if an invalid file is selected.
+<Example>
+<ExampleCode>
+```jsx file=./examples/CustomFileValidation.tsx
+```
+</ExampleCode>
+</Example>
+<Message colorTheme="info" variation='filled' heading="Validation best practice">
+When creating custom validation, it is important to ensure that valid files also adhere to the [S3 quota limits](https://docs.aws.amazon.com/general/latest/gr/s3.html#limits_s3). A file **will** fail during upload if it exceeds the S3 limits, even if the custom validation succeeded when selecting the file.
 </Message>
 
 ## Initializing `StorageBrowser` with a default location
@@ -774,11 +849,15 @@ interface UploadViewState {
   invalidFiles: FileItems | undefined;
   isProcessing: boolean;
   isProcessingComplete: boolean;
+  hasNextPage: boolean;
+  highestPageVisited: number;
   location: LocationState;
   onActionCancel: () => void;
   onActionExit: () => void;
   onActionStart: () => void;
   onTaskRemove?: (task: Task<UploadHandlerData>) => void;
+  onPaginate: (page: number) => void;
+  page: number;
   statusCounts: StatusCounts;
   tasks: Task<UploadHandlerData>[];
 }
@@ -795,10 +874,41 @@ interface UploadViewState {
 * `<StorageBrowser.UploadView.Exit />`
 * `<StorageBrowser.UploadView.Message />`
 * `<StorageBrowser.UploadView.OverwriteToggle />`
+* `<StorageBrowser.UploadView.Pagination />`
 * `<StorageBrowser.UploadView.Start />`
 * `<StorageBrowser.UploadView.Statuses />`
 * `<StorageBrowser.UploadView.TasksTable />`
 * `<StorageBrowser.UploadView.Title />`
+
+
+### Download view
+
+#### Download view state
+
+```ts
+interface DownloadViewState {
+  isProcessing: boolean;
+  isProcessingComplete: boolean;
+  location: LocationState;
+  onActionCancel: () => void;
+  onActionExit: () => void;
+  onActionStart: () => void;
+  onTaskRemove?: (task: Task<DeleteHandlerData>) => void;
+  statusCounts: StatusCounts;
+  tasks: Task<DeleteHandlerData>[];
+}
+```
+
+#### Download view components
+
+* `<StorageBrowser.DownloadView.Provider />`
+* `<StorageBrowser.DownloadView.Cancel />`
+* `<StorageBrowser.DownloadView.Exit />`
+* `<StorageBrowser.DownloadView.Message />`
+* `<StorageBrowser.DownloadView.Start />`
+* `<StorageBrowser.DownloadView.Statuses />`
+* `<StorageBrowser.DownloadView.TasksTable />`
+* `<StorageBrowser.DownloadView.Title />`
 
 
 ### Copy view

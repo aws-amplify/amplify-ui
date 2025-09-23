@@ -9,9 +9,10 @@ import type {
   TaskData,
   UploadHandlerData,
   LocationPermissions,
+  DownloadHandlerData,
 } from '../actions';
 import type { MessageType } from '../components';
-import type { FileItems } from '../files';
+import type { FileItems } from '../fileItems';
 import type { LocationState } from '../store';
 
 /**
@@ -141,6 +142,9 @@ export interface DefaultDeleteViewDisplayText
   tableColumnProgressHeader?: string;
 }
 
+export interface DefaultDownloadViewDisplayText
+  extends DefaultActionViewDisplayText<DownloadHandlerData> {}
+
 export interface DefaultUploadViewDisplayText
   extends DefaultActionViewDisplayText<UploadHandlerData> {
   addFilesLabel: string;
@@ -157,6 +161,7 @@ export interface DefaultStorageBrowserDisplayText {
   CopyView: DefaultCopyViewDisplayText;
   CreateFolderView: DefaultCreateFolderViewDisplayText;
   DeleteView: DefaultDeleteViewDisplayText;
+  DownloadView: DefaultDownloadViewDisplayText;
   LocationsView: DefaultLocationsViewDisplayText;
   LocationDetailView: DefaultLocationDetailViewDisplayText;
   UploadView: DefaultUploadViewDisplayText;
@@ -170,6 +175,9 @@ export interface CopyViewDisplayText
 
 export interface DeleteViewDisplayText
   extends Partial<DefaultDeleteViewDisplayText> {}
+
+export interface DownloadViewDisplayText
+  extends Partial<DefaultDownloadViewDisplayText> {}
 
 export interface LocationsViewDisplayText
   extends Partial<DefaultLocationsViewDisplayText> {}
@@ -188,6 +196,7 @@ export interface StorageBrowserDisplayText {
   LocationDetailView?: LocationDetailViewDisplayText;
   UploadView?: UploadViewDisplayText;
   DeleteView?: DeleteViewDisplayText;
+  DownloadView?: DownloadViewDisplayText;
   CopyView?: CopyViewDisplayText;
   CreateFolderView?: CreateFolderViewDisplayText;
 }

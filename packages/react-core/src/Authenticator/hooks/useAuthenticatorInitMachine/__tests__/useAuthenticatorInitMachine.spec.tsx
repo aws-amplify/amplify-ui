@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook } from '@testing-library/react';
 
 import { useAuthenticator, UseAuthenticator } from '../../useAuthenticator';
 import { mockUseAuthenticatorOutput } from '../../useAuthenticator/__mock__/useAuthenticator';

@@ -16,6 +16,7 @@ jest.spyOn(ViewsModule, 'useViews').mockReturnValue({
   action: {
     copy: () => <div />,
     createFolder: () => <div />,
+    download: () => <div />,
     delete: () => <div />,
     upload: () => <div />,
   },

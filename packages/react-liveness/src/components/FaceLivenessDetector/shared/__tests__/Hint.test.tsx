@@ -177,17 +177,6 @@ describe('Hint', () => {
     ).toBeInTheDocument();
   });
 
-  it('should render not recording state if present', () => {
-    isNotRecording = true;
-    mockStateMatchesAndSelectors();
-
-    renderWithLivenessProvider(<Hint hintDisplayText={hintDisplayText} />);
-
-    expect(
-      screen.getByText(hintDisplayText.hintConnectingText)
-    ).toBeInTheDocument();
-  });
-
   it('should render uploading state if present', () => {
     isUploading = true;
     mockStateMatchesAndSelectors();

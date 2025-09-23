@@ -1,5 +1,21 @@
 # @aws-amplify/ui-react
 
+## 6.12.0
+
+### Minor Changes
+
+- [#6665](https://github.com/aws-amplify/amplify-ui/pull/6665) [`8319d5afaa9f3de59f18d72d873953a1fd0e1b73`](https://github.com/aws-amplify/amplify-ui/commit/8319d5afaa9f3de59f18d72d873953a1fd0e1b73) Thanks [@jvh-aws](https://github.com/jvh-aws)! - feat(collection): Add `table` type to `Collection` UI primitive
+
+## 6.11.2
+
+### Patch Changes
+
+- [#6521](https://github.com/aws-amplify/amplify-ui/pull/6521) [`1002c52796c78243f836c3c0edc95edfe244f112`](https://github.com/aws-amplify/amplify-ui/commit/1002c52796c78243f836c3c0edc95edfe244f112) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(lint): add consistent import/export type eslint rules
+
+- Updated dependencies [[`1002c52796c78243f836c3c0edc95edfe244f112`](https://github.com/aws-amplify/amplify-ui/commit/1002c52796c78243f836c3c0edc95edfe244f112)]:
+  - @aws-amplify/ui-react-core@3.4.3
+  - @aws-amplify/ui@6.10.3
+
 ## 6.11.1
 
 ### Patch Changes

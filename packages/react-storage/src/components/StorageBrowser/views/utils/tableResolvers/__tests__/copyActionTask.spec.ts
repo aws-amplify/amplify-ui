@@ -2,9 +2,13 @@ import { capitalize } from '@aws-amplify/ui';
 import { CopyViewDisplayText } from '../../../../displayText';
 
 import { MOCK_COPY_TASKS } from '../__testUtils__/tasks';
-import { STATUS_ICONS, STATUS_LABELS } from '../constants';
+import {
+  FILE_DATA_ITEM_TABLE_KEYS,
+  STATUS_ICONS,
+  STATUS_LABELS,
+} from '../constants';
 import { CopyActionTask, CopyTableResolverProps } from '../types';
-import { COPY_TABLE_KEYS, COPY_TABLE_RESOLVERS } from '../copyResolvers';
+import { COPY_TABLE_RESOLVERS } from '../copyResolvers';
 
 const mockDisplayText: CopyViewDisplayText = {
   tableColumnNameHeader: 'Name',
@@ -28,8 +32,8 @@ describe('COPY_TABLE_RESOLVERS', () => {
   beforeEach(jest.clearAllMocks);
 
   describe('getCell', () => {
-    it.each(COPY_TABLE_KEYS)(
-      'returns the expect cell `key` for a "%s" table `key`',
+    it.each(FILE_DATA_ITEM_TABLE_KEYS)(
+      'returns the expected cell `key` for a "%s" table `key`',
       (key) => {
         const data = {
           key,
@@ -235,8 +239,8 @@ describe('COPY_TABLE_RESOLVERS', () => {
 
   describe('getHeader', () => {
     // filter out cancel, does not allow sorting
-    it.each(COPY_TABLE_KEYS.filter((key) => key !== 'cancel'))(
-      'returns the expect header data for a %s column',
+    it.each(FILE_DATA_ITEM_TABLE_KEYS.filter((key) => key !== 'cancel'))(
+      'returns the expected header data for a %s column',
       (key) => {
         const data = { key, props: mockProps };
         const output = COPY_TABLE_RESOLVERS.getHeader(data);
@@ -249,7 +253,7 @@ describe('COPY_TABLE_RESOLVERS', () => {
       }
     );
 
-    it('returns the expect header data for a cancel column', () => {
+    it('returns the expected header data for a cancel column', () => {
       const key = 'cancel' as const;
       const data = { key, props: mockProps };
       const output = COPY_TABLE_RESOLVERS.getHeader(data);

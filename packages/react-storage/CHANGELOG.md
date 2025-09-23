@@ -1,5 +1,88 @@
 # @aws-amplify/ui-react-storage
 
+## 3.12.1
+
+### Patch Changes
+
+- Updated dependencies [[`8319d5afaa9f3de59f18d72d873953a1fd0e1b73`](https://github.com/aws-amplify/amplify-ui/commit/8319d5afaa9f3de59f18d72d873953a1fd0e1b73)]:
+  - @aws-amplify/ui-react@6.12.0
+
+## 3.12.0
+
+### Minor Changes
+
+- [#6620](https://github.com/aws-amplify/amplify-ui/pull/6620) [`70e0d1eab7fc476fd09032aef8414e5a43483a49`](https://github.com/aws-amplify/amplify-ui/commit/70e0d1eab7fc476fd09032aef8414e5a43483a49) Thanks [@soberm](https://github.com/soberm)! - feat(storage-browser): Multi File Download
+
+### Patch Changes
+
+- [#6628](https://github.com/aws-amplify/amplify-ui/pull/6628) [`6f45d97a33ed487237326530bf9c1b2190d7c2fa`](https://github.com/aws-amplify/amplify-ui/commit/6f45d97a33ed487237326530bf9c1b2190d7c2fa) Thanks [@bobbor](https://github.com/bobbor)! - feat(storage-browser): paginate upload view
+
+## 3.11.0
+
+### Minor Changes
+
+- [#6575](https://github.com/aws-amplify/amplify-ui/pull/6575) [`a004c2f1b9dc74075515a784edb1ee6ce2485602`](https://github.com/aws-amplify/amplify-ui/commit/a004c2f1b9dc74075515a784edb1ee6ce2485602) Thanks [@tiffanynwyeung](https://github.com/tiffanynwyeung)! - feat(storage-browser): add custom file validation and options config
+
+  **Add custom file validation**
+
+  ```tsx
+  import React from 'react';
+  import { createStorageBrowser } from '@aws-amplify/ui-react-storage/browser';
+  import '@aws-amplify/ui-react-storage/styles.css';
+
+  const MAX_FILE_SIZE = 1000 * 1000; // 1 MB
+
+  const customValidateFile = (file: File) => {
+    const isValidSize = file.size <= MAX_FILE_SIZE;
+    const isValidType = file.type.includes('image');
+    return isValidSize && isValidType;
+  };
+
+  const { StorageBrowser } = createStorageBrowser({
+    // ...config goes here...
+    options: {
+      validateFile: customValidateFile,
+    },
+  });
+
+  export default function Example() {
+    return (
+      <StorageBrowser
+        displayText={{
+          UploadView: {
+            getFilesValidationMessage: (data) => {
+              const invalidFileNames = data?.invalidFiles?.map(
+                ({ file }) => file.name
+              );
+              return {
+                content: `Only image files that are 1 MB or smaller are accepted. Invalid files: ${invalidFileNames}`,
+                type: 'error',
+              };
+            },
+          },
+        }}
+      />
+    );
+  }
+  ```
+
+### Patch Changes
+
+- [#6572](https://github.com/aws-amplify/amplify-ui/pull/6572) [`02cb81b87d8b59cef5e7b582b8a1b60e217c780e`](https://github.com/aws-amplify/amplify-ui/commit/02cb81b87d8b59cef5e7b582b8a1b60e217c780e) Thanks [@ashika112](https://github.com/ashika112)! - chore(StorageBrowser) : Generalize table resolver for default actions
+
+## 3.10.3
+
+### Patch Changes
+
+- [#6533](https://github.com/aws-amplify/amplify-ui/pull/6533) [`967559aaa1bb30c76c1b333eaeab998c013bfba4`](https://github.com/aws-amplify/amplify-ui/commit/967559aaa1bb30c76c1b333eaeab998c013bfba4) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(StorageBrowser): update createEnhancedListHandler interfaces
+
+- [#6521](https://github.com/aws-amplify/amplify-ui/pull/6521) [`1002c52796c78243f836c3c0edc95edfe244f112`](https://github.com/aws-amplify/amplify-ui/commit/1002c52796c78243f836c3c0edc95edfe244f112) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(lint): add consistent import/export type eslint rules
+
+- Updated dependencies [[`1002c52796c78243f836c3c0edc95edfe244f112`](https://github.com/aws-amplify/amplify-ui/commit/1002c52796c78243f836c3c0edc95edfe244f112)]:
+  - @aws-amplify/ui-react@6.11.2
+  - @aws-amplify/ui-react-core@3.4.3
+  - @aws-amplify/ui@6.10.3
+
 ## 3.10.2
 
 ### Patch Changes

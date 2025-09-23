@@ -2,11 +2,11 @@ import {
   createStorageBrowser,
   defaultActionConfigs,
 } from '@aws-amplify/ui-react-storage/browser';
-import '@aws-amplify/ui-react-storage/styles.css';
 import {
   InitialValues,
   MockHandlers,
 } from '@aws-amplify/ui-test-utils/storage-browser';
+import '@aws-amplify/ui-react-storage/styles.css';
 
 export const PREFIXES = {
   base: 'my-prefix/',

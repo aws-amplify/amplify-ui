@@ -1,22 +1,12 @@
 import { MULTIPART_UPLOAD_THRESHOLD_BYTES } from '../../../../actions/handlers/constants';
 import type { TaskStatus } from '../../../../tasks';
 
-import type {
-  CopyActionTask,
-  DeleteActionTask,
-  UploadActionTask,
-} from '../types';
+import type { FileDataTask, CopyActionTask, UploadActionTask } from '../types';
 
-type MockCopyOrDeleteTaskStatus = Exclude<TaskStatus, 'OVERWRITE_PREVENTED'>;
+type MockFileDataTaskStatus = Exclude<TaskStatus, 'OVERWRITE_PREVENTED'>;
 
-type MockCopyTasks = {
-  [K in MockCopyOrDeleteTaskStatus]: Omit<CopyActionTask, 'status'> & {
-    status: K;
-  };
-};
-
-type MockDeleteTasks = {
-  [K in MockCopyOrDeleteTaskStatus]: Omit<DeleteActionTask, 'status'> & {
+type MockFileDataTasks = {
+  [K in MockFileDataTaskStatus]: Omit<FileDataTask, 'status'> & {
     status: K;
   };
 };
@@ -26,7 +16,7 @@ type MockUploadTasks = {
 };
 
 const MOCK_PREFIX = 'test-folder/';
-const MOCK_COPY_OR_DELETE_TASK_BASE = {
+const MOCK_FILE_DATA_ITEM_BASE = {
   fileKey: 'file1.txt',
   lastModified: new Date(),
   size: 1000,
@@ -35,12 +25,12 @@ const MOCK_COPY_OR_DELETE_TASK_BASE = {
 
 const MOCK_COPY_DESTINATION_PREFIX = 'some-destination-folder/';
 const MOCK_COPY_DATA: Omit<CopyActionTask['data'], 'id'> = {
-  ...MOCK_COPY_OR_DELETE_TASK_BASE,
+  ...MOCK_FILE_DATA_ITEM_BASE,
   key: `${MOCK_COPY_DESTINATION_PREFIX}${MOCK_PREFIX}file1.txt`,
   sourceKey: `${MOCK_PREFIX}file1.txt`,
 };
 
-export const MOCK_COPY_TASKS: MockCopyTasks = {
+export const MOCK_COPY_TASKS: MockFileDataTasks = {
   CANCELED: {
     data: {
       ...MOCK_COPY_DATA,
@@ -93,15 +83,15 @@ export const MOCK_COPY_TASKS: MockCopyTasks = {
   },
 };
 
-const MOCK_DELETE_DATA: Omit<DeleteActionTask['data'], 'id'> = {
-  ...MOCK_COPY_OR_DELETE_TASK_BASE,
+const MOCK_FILE_DATA: Omit<FileDataTask['data'], 'id'> = {
+  ...MOCK_FILE_DATA_ITEM_BASE,
   key: `${MOCK_PREFIX}file1.txt`,
 };
 
-export const MOCK_DELETE_TASKS: MockDeleteTasks = {
+export const MOCK_FILE_DATA_TASKS: MockFileDataTasks = {
   CANCELED: {
     data: {
-      ...MOCK_DELETE_DATA,
+      ...MOCK_FILE_DATA,
       id: 'CANCELED-ID',
     },
     cancel: undefined,
@@ -111,7 +101,7 @@ export const MOCK_DELETE_TASKS: MockDeleteTasks = {
   },
   FAILED: {
     data: {
-      ...MOCK_DELETE_DATA,
+      ...MOCK_FILE_DATA,
       id: 'FAILED-ID',
     },
     status: 'FAILED',
@@ -120,7 +110,7 @@ export const MOCK_DELETE_TASKS: MockDeleteTasks = {
   },
   COMPLETE: {
     data: {
-      ...MOCK_DELETE_DATA,
+      ...MOCK_FILE_DATA,
       id: 'COMPLETE-ID',
     },
     status: 'COMPLETE',
@@ -129,7 +119,7 @@ export const MOCK_DELETE_TASKS: MockDeleteTasks = {
   },
   QUEUED: {
     data: {
-      ...MOCK_DELETE_DATA,
+      ...MOCK_FILE_DATA,
       id: 'QUEUED-ID',
     },
     cancel: jest.fn(),
@@ -139,7 +129,7 @@ export const MOCK_DELETE_TASKS: MockDeleteTasks = {
   },
   PENDING: {
     data: {
-      ...MOCK_DELETE_DATA,
+      ...MOCK_FILE_DATA,
       id: 'PENDING-ID',
     },
     status: 'PENDING',

@@ -460,6 +460,16 @@ Then('the {string} button is disabled', (name: string) => {
   }).should('be.disabled');
 });
 
+Then('the {string} button is enabled', (name: string) => {
+  cy.findByRole('button', {
+    name: new RegExp(`^${escapeRegExp(name)}$`, 'i'),
+  }).should('not.be.disabled');
+});
+
+Then('the table should have {string} rows', (value: string) => {
+  cy.get('table').find('tbody tr').should('have.length', value);
+});
+
 Then('the {string} field is invalid', (name: string) => {
   cy.findInputField(name)
     .then(($el) => $el.get(0).checkValidity())

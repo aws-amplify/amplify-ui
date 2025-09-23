@@ -124,10 +124,12 @@ export class MockHandlers {
 
     const prefix = key.slice(0, -name.length);
 
-    if (hasWebkitRelativePath && !this.#locationItems[prefix]) {
-      // register folder prefix
+    // register folder prefix if missing
+    if (!this.#locationItems[prefix]) {
       this.#locationItems[prefix] = [];
+    }
 
+    if (hasWebkitRelativePath) {
       // create new folder within parent prefix
       const parentPrefix = key.slice(0, -webkitRelativePath.length);
       this.#locationItems[parentPrefix].push({
@@ -137,17 +139,21 @@ export class MockHandlers {
       });
     }
 
-    if (
-      preventOverwrite &&
-      this.#locationItems[prefix].some((item) => item.key === key)
-    ) {
-      return {
-        ...UNDEFINED_CALLBACKS,
-        result: Promise.resolve({
-          error: new Error('cannot overwrite existing file'),
-          status: 'OVERWRITE_PREVENTED',
-        }),
-      };
+    if (this.#locationItems[prefix].some((item) => item.key === key)) {
+      if (preventOverwrite) {
+        return {
+          ...UNDEFINED_CALLBACKS,
+          result: Promise.resolve({
+            error: new Error('cannot overwrite existing file'),
+            status: 'OVERWRITE_PREVENTED',
+          }),
+        };
+      } else {
+        // remove prev item as new version will be added, 'overwriting' prev item
+        this.#locationItems[prefix] = this.#locationItems[prefix].filter(
+          (item) => item.key !== key
+        );
+      }
     }
 
     this.#locationItems[prefix].push({

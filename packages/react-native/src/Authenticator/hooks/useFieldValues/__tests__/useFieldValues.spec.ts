@@ -1,7 +1,8 @@
-import { act, renderHook } from '@testing-library/react-hooks';
+import { act, renderHook } from '@testing-library/react-native';
 import type {
   NativeSyntheticEvent,
   TextInputFocusEventData,
+  TextInputChangeEventData,
 } from 'react-native';
 
 import { ConsoleLogger as Logger } from 'aws-amplify/utils';
@@ -60,6 +61,7 @@ describe('useFieldValues', () => {
         {
           ...textField,
           onBlur: expect.any(Function),
+          onChange: expect.any(Function),
           onChangeText: expect.any(Function),
           value: undefined,
         },
@@ -83,6 +85,7 @@ describe('useFieldValues', () => {
           ...textField,
           label: undefined,
           onBlur: expect.any(Function),
+          onChange: expect.any(Function),
           onChangeText: expect.any(Function),
           value: undefined,
         },
@@ -317,6 +320,7 @@ describe('useFieldValues', () => {
           ...mockTextField,
           label: undefined,
           onBlur: expect.any(Function),
+          onChange: expect.any(Function),
           onChangeText: expect.any(Function),
           value: undefined,
         },
@@ -351,6 +355,7 @@ describe('useFieldValues', () => {
         {
           ...mockTextField,
           onBlur: expect.any(Function),
+          onChange: expect.any(Function),
           onChangeText: expect.any(Function),
           value: mockValue,
         },
@@ -410,6 +415,160 @@ describe('useFieldValues', () => {
     expect(props.handleSubmit).toHaveBeenCalledWith({
       country_code: mockValue.substring(0, 3),
       [phoneTextField.name]: mockValue.substring(3, mockValue.length),
+    });
+  });
+
+  describe('onChange handler', () => {
+    it('calls field-specific onChange handler when provided', () => {
+      const mockOnChange = jest.fn();
+      const fieldWithOnChange = {
+        ...textField,
+        onChange: mockOnChange,
+      };
+
+      const { result } = renderHook(() =>
+        useFieldValues({
+          ...props,
+          fields: [fieldWithOnChange],
+        })
+      );
+
+      const mockEvent = {
+        nativeEvent: { text: 'test' },
+      } as NativeSyntheticEvent<TextInputChangeEventData>;
+
+      act(() => {
+        result.current.fields[0].onChange?.(mockEvent);
+      });
+
+      expect(mockOnChange).toHaveBeenCalledWith(mockEvent);
+    });
+
+    it('extracts text from nativeEvent and updates field value', () => {
+      const { result } = renderHook(() =>
+        useFieldValues({
+          ...props,
+          fields: [textField],
+        })
+      );
+
+      const mockEvent = {
+        nativeEvent: { text: 'test value' },
+      } as NativeSyntheticEvent<TextInputChangeEventData>;
+
+      act(() => {
+        result.current.fields[0].onChange?.(mockEvent);
+      });
+
+      expect(result.current.fields[0].value).toBe('test value');
+      expect(props.handleChange).toHaveBeenCalledWith({
+        name: textField.name,
+        value: 'test value',
+      });
+    });
+
+    it('handles empty text in nativeEvent', () => {
+      const { result } = renderHook(() =>
+        useFieldValues({
+          ...props,
+          fields: [textField],
+        })
+      );
+
+      const mockEvent = {
+        nativeEvent: { text: undefined },
+      } as unknown as NativeSyntheticEvent<TextInputChangeEventData>;
+
+      act(() => {
+        result.current.fields[0].onChange?.(mockEvent);
+      });
+
+      expect(result.current.fields[0].value).toBe('');
+    });
+  });
+
+  describe('duplicate change prevention', () => {
+    it('prevents duplicate onChangeText calls for same value', () => {
+      const { result } = renderHook(() =>
+        useFieldValues({
+          ...props,
+          fields: [textField],
+        })
+      );
+
+      act(() => {
+        result.current.fields[0].onChangeText?.('test');
+      });
+      expect(props.handleChange).toHaveBeenCalledTimes(1);
+
+      act(() => {
+        result.current.fields[0].onChangeText?.('test');
+      });
+      expect(props.handleChange).toHaveBeenCalledTimes(1);
+    });
+
+    it('prevents duplicate onChange calls for same value', () => {
+      const { result } = renderHook(() =>
+        useFieldValues({
+          ...props,
+          fields: [textField],
+        })
+      );
+
+      const mockEvent = {
+        nativeEvent: { text: 'test' },
+      } as NativeSyntheticEvent<TextInputChangeEventData>;
+
+      act(() => {
+        result.current.fields[0].onChange?.(mockEvent);
+      });
+      expect(props.handleChange).toHaveBeenCalledTimes(1);
+
+      act(() => {
+        result.current.fields[0].onChange?.(mockEvent);
+      });
+      expect(props.handleChange).toHaveBeenCalledTimes(1);
+    });
+
+    it('allows changes for different values', () => {
+      const { result } = renderHook(() =>
+        useFieldValues({
+          ...props,
+          fields: [textField],
+        })
+      );
+
+      act(() => {
+        result.current.fields[0].onChangeText?.('value1');
+      });
+      expect(props.handleChange).toHaveBeenCalledTimes(1);
+
+      act(() => {
+        result.current.fields[0].onChangeText?.('value2');
+      });
+      expect(props.handleChange).toHaveBeenCalledTimes(2);
+    });
+  });
+
+  describe('functional state updates', () => {
+    it('uses functional setter for setValues to prevent stale closures', () => {
+      const field1 = { ...textField, name: 'field1' };
+      const field2 = { ...textField, name: 'field2' };
+
+      const { result } = renderHook(() =>
+        useFieldValues({
+          ...props,
+          fields: [field1, field2],
+        })
+      );
+
+      act(() => {
+        result.current.fields[0].onChangeText?.('value1');
+        result.current.fields[1].onChangeText?.('value2');
+      });
+
+      expect(result.current.fields[0].value).toBe('value1');
+      expect(result.current.fields[1].value).toBe('value2');
     });
   });
 });

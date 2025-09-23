@@ -69,6 +69,8 @@ export const DEFAULT_LOCATION_DETAIL_VIEW_DISPLAY_TEXT: DefaultLocationDetailVie
           return 'Create folder';
         case 'Upload':
           return 'Upload';
+        case 'Download':
+          return 'Download';
         default:
           return key;
       }

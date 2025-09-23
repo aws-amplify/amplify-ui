@@ -1,5 +1,5 @@
 import type { LocationData, UploadHandlerData } from '../../../actions';
-import type { FileItems } from '../../../files';
+import type { FileItems } from '../../../fileItems';
 
 import type {
   ActionViewType,
@@ -8,10 +8,14 @@ import type {
 } from '../types';
 
 export interface UploadViewState extends ActionViewState<UploadHandlerData> {
+  hasNextPage: boolean;
+  highestPageVisited: number;
   isOverwritingEnabled: boolean;
   onDropFiles: (files: File[]) => void;
   onSelectFiles: (type: 'FILE' | 'FOLDER') => void;
   onToggleOverwrite: () => void;
+  onPaginate: (page: number) => void;
+  page: number;
   invalidFiles: FileItems | undefined;
 }
 
@@ -38,6 +42,7 @@ export interface UploadViewType
   Statuses: () => React.JSX.Element | null;
   TasksTable: () => React.JSX.Element | null;
   Title: () => React.JSX.Element | null;
+  Pagination: () => React.JSX.Element | null;
 }
 
 export interface UseUploadViewOptions {

@@ -1,10 +1,14 @@
 import { capitalize } from '@aws-amplify/ui';
 import { DeleteViewDisplayText } from '../../../../displayText';
 
-import { MOCK_DELETE_TASKS } from '../__testUtils__/tasks';
-import { STATUS_ICONS, STATUS_LABELS } from '../constants';
+import { MOCK_FILE_DATA_TASKS } from '../__testUtils__/tasks';
+import {
+  FILE_DATA_ITEM_TABLE_KEYS,
+  STATUS_ICONS,
+  STATUS_LABELS,
+} from '../constants';
 import { DeleteActionTask, DeleteTableResolverProps } from '../types';
-import { DELETE_TABLE_KEYS, DELETE_TABLE_RESOLVERS } from '../deleteResolvers';
+import { DELETE_TABLE_RESOLVERS } from '../deleteResolvers';
 
 const mockDisplayText: DeleteViewDisplayText = {
   tableColumnNameHeader: 'Name',
@@ -16,7 +20,7 @@ const mockDisplayText: DeleteViewDisplayText = {
   tableColumnCancelHeader: 'Cancel',
 };
 
-const mockItems = Object.values(MOCK_DELETE_TASKS);
+const mockItems = Object.values(MOCK_FILE_DATA_TASKS);
 
 const mockProps: DeleteTableResolverProps = {
   displayText: mockDisplayText,
@@ -28,18 +32,18 @@ describe('DELETE_TABLE_RESOLVERS', () => {
   beforeEach(jest.clearAllMocks);
 
   describe('getCell', () => {
-    it.each(DELETE_TABLE_KEYS)(
-      'returns the expect cell `key` for a "%s" table `key`',
+    it.each(FILE_DATA_ITEM_TABLE_KEYS)(
+      'returns the expected cell `key` for a "%s" table `key`',
       (key) => {
         const data = {
           key,
-          item: MOCK_DELETE_TASKS.QUEUED,
+          item: MOCK_FILE_DATA_TASKS.QUEUED,
           props: mockProps,
         };
         const cell = DELETE_TABLE_RESOLVERS.getCell(data);
 
         expect(cell).toBeDefined();
-        expect(cell.key).toBe(`${key}-${MOCK_DELETE_TASKS.QUEUED.data.id}`);
+        expect(cell.key).toBe(`${key}-${MOCK_FILE_DATA_TASKS.QUEUED.data.id}`);
       }
     );
 
@@ -124,7 +128,7 @@ describe('DELETE_TABLE_RESOLVERS', () => {
           const key = 'status';
 
           const item = {
-            ...MOCK_DELETE_TASKS.FAILED,
+            ...MOCK_FILE_DATA_TASKS.FAILED,
             status: 'OVERWRITE_PREVENTED',
           } as DeleteActionTask;
 
@@ -167,7 +171,7 @@ describe('DELETE_TABLE_RESOLVERS', () => {
       describe('cancel cell', () => {
         it('returns the expected cell values for an `item` with "QUEUED" status when `isProcessing` is "true"', () => {
           const key = 'cancel';
-          const item = MOCK_DELETE_TASKS.QUEUED;
+          const item = MOCK_FILE_DATA_TASKS.QUEUED;
           const output = DELETE_TABLE_RESOLVERS.getCell({
             item,
             key,
@@ -188,7 +192,7 @@ describe('DELETE_TABLE_RESOLVERS', () => {
 
         it('returns the expected cell values for an `item` with "QUEUED" status when `isProcessing` is "false"', () => {
           const key = 'cancel';
-          const item = MOCK_DELETE_TASKS.QUEUED;
+          const item = MOCK_FILE_DATA_TASKS.QUEUED;
           const output = DELETE_TABLE_RESOLVERS.getCell({
             item,
             key,
@@ -207,7 +211,7 @@ describe('DELETE_TABLE_RESOLVERS', () => {
           });
         });
 
-        it.each([MOCK_DELETE_TASKS.PENDING, MOCK_DELETE_TASKS.COMPLETE])(
+        it.each([MOCK_FILE_DATA_TASKS.PENDING, MOCK_FILE_DATA_TASKS.COMPLETE])(
           'returns the expected cell values for an `item` with "$status" status',
           (item) => {
             const key = 'cancel';
@@ -235,8 +239,8 @@ describe('DELETE_TABLE_RESOLVERS', () => {
 
   describe('getHeader', () => {
     // filter out cancel, does not allow sorting
-    it.each(DELETE_TABLE_KEYS.filter((key) => key !== 'cancel'))(
-      'returns the expect header data for a %s column',
+    it.each(FILE_DATA_ITEM_TABLE_KEYS.filter((key) => key !== 'cancel'))(
+      'returns the expected header data for a %s column',
       (key) => {
         const data = { key, props: mockProps };
         const output = DELETE_TABLE_RESOLVERS.getHeader(data);
@@ -249,7 +253,7 @@ describe('DELETE_TABLE_RESOLVERS', () => {
       }
     );
 
-    it('returns the expect header data for a cancel column', () => {
+    it('returns the expected header data for a cancel column', () => {
       const key = 'cancel' as const;
       const data = { key, props: mockProps };
       const output = DELETE_TABLE_RESOLVERS.getHeader(data);
@@ -265,11 +269,11 @@ describe('DELETE_TABLE_RESOLVERS', () => {
   describe('getRowKey', () => {
     it('resolves a row key as expected', () => {
       const rowKey = DELETE_TABLE_RESOLVERS.getRowKey({
-        item: MOCK_DELETE_TASKS.PENDING,
+        item: MOCK_FILE_DATA_TASKS.PENDING,
         props: mockProps,
       });
 
-      expect(rowKey).toBe(MOCK_DELETE_TASKS.PENDING.data.id);
+      expect(rowKey).toBe(MOCK_FILE_DATA_TASKS.PENDING.data.id);
     });
   });
 });
