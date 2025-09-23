@@ -2,6 +2,18 @@
   "private": true,
   "name": "@aws-amplify/ui-environments",
   "version": "0.0.1",
+  "workspaces": [
+    "ai",
+    "ai/gen2",
+    "auth",
+    "auth/gen2/*",
+    "datastore",
+    "geo",
+    "liveness",
+    "storage",
+    "storage/gen2",
+    "in-app-messaging"
+  ],
   "scripts": {
     "ai": "yarn --cwd ai/",
     "auth": "yarn --cwd auth/",
