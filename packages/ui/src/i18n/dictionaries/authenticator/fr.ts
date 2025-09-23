@@ -92,7 +92,7 @@ export const frDict: AuthenticatorDictionary = {
   'Family Name': 'Nom de famille',
   'Forgot Password': 'Mot de passe oublié',
   'Forgot Password?': 'Mot de passe oublié ?',
-  'Incorrect username or password': 'Identifiant ou mot de passe incorrect.',
+  'Incorrect username or password': 'Identifiant ou mot de passe incorrect',
   'Incorrect username or password.': 'Identifiant ou mot de passe incorrect.',
   'Have an account? ': 'Déjà un compte ? ',
   Hello: 'Bonjour',
