@@ -814,12 +814,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-amplify/auth-with-email-mfa@workspace:environments/auth/gen2/auth-with-email-mfa":
-  version: 0.0.0-use.local
-  resolution: "@aws-amplify/auth-with-email-mfa@workspace:environments/auth/gen2/auth-with-email-mfa"
-  languageName: unknown
-  linkType: soft
-
 "@aws-amplify/auth@npm:6.12.2":
   version: 6.12.2
   resolution: "@aws-amplify/auth@npm:6.12.2"
@@ -1826,6 +1820,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@aws-amplify/ui-action-hooks-environment@workspace:environments/datastore/action-hooks":
+  version: 0.0.0-use.local
+  resolution: "@aws-amplify/ui-action-hooks-environment@workspace:environments/datastore/action-hooks"
+  languageName: unknown
+  linkType: soft
+
 "@aws-amplify/ui-angular-example@workspace:examples/angular":
   version: 0.0.0-use.local
   resolution: "@aws-amplify/ui-angular-example@workspace:examples/angular"
@@ -1910,6 +1910,78 @@ __metadata:
     "@angular/core": ">= 14.0.0"
     aws-amplify: ^6.14.3
     rxjs: ^6.5.3 || ^7.4.0
+  languageName: unknown
+  linkType: soft
+
+"@aws-amplify/ui-auth-with-all-attributes-environment@workspace:environments/auth/auth-with-all-attributes":
+  version: 0.0.0-use.local
+  resolution: "@aws-amplify/ui-auth-with-all-attributes-environment@workspace:environments/auth/auth-with-all-attributes"
+  languageName: unknown
+  linkType: soft
+
+"@aws-amplify/ui-auth-with-email-and-custom-attributes-environment@workspace:environments/auth/auth-with-email-and-custom-attributes":
+  version: 0.0.0-use.local
+  resolution: "@aws-amplify/ui-auth-with-email-and-custom-attributes-environment@workspace:environments/auth/auth-with-email-and-custom-attributes"
+  languageName: unknown
+  linkType: soft
+
+"@aws-amplify/ui-auth-with-email-environment@workspace:environments/auth/auth-with-email":
+  version: 0.0.0-use.local
+  resolution: "@aws-amplify/ui-auth-with-email-environment@workspace:environments/auth/auth-with-email"
+  languageName: unknown
+  linkType: soft
+
+"@aws-amplify/ui-auth-with-email-lambda-signup-trigger-environment@workspace:environments/auth/auth-with-email-lambda-signup-trigger":
+  version: 0.0.0-use.local
+  resolution: "@aws-amplify/ui-auth-with-email-lambda-signup-trigger-environment@workspace:environments/auth/auth-with-email-lambda-signup-trigger"
+  languageName: unknown
+  linkType: soft
+
+"@aws-amplify/ui-auth-with-federated-environment@workspace:environments/auth/auth-with-federated":
+  version: 0.0.0-use.local
+  resolution: "@aws-amplify/ui-auth-with-federated-environment@workspace:environments/auth/auth-with-federated"
+  languageName: unknown
+  linkType: soft
+
+"@aws-amplify/ui-auth-with-optional-totp-and-sms-mfa-environment@workspace:environments/auth/auth-with-optional-totp-and-sms-mfa":
+  version: 0.0.0-use.local
+  resolution: "@aws-amplify/ui-auth-with-optional-totp-and-sms-mfa-environment@workspace:environments/auth/auth-with-optional-totp-and-sms-mfa"
+  languageName: unknown
+  linkType: soft
+
+"@aws-amplify/ui-auth-with-phone-and-sms-mfa-environment@workspace:environments/auth/auth-with-phone-and-sms-mfa":
+  version: 0.0.0-use.local
+  resolution: "@aws-amplify/ui-auth-with-phone-and-sms-mfa-environment@workspace:environments/auth/auth-with-phone-and-sms-mfa"
+  languageName: unknown
+  linkType: soft
+
+"@aws-amplify/ui-auth-with-phone-number-environment@workspace:environments/auth/auth-with-phone-number":
+  version: 0.0.0-use.local
+  resolution: "@aws-amplify/ui-auth-with-phone-number-environment@workspace:environments/auth/auth-with-phone-number"
+  languageName: unknown
+  linkType: soft
+
+"@aws-amplify/ui-auth-with-totp-and-sms-environment@workspace:environments/auth/auth-with-totp-and-sms-mfa":
+  version: 0.0.0-use.local
+  resolution: "@aws-amplify/ui-auth-with-totp-and-sms-environment@workspace:environments/auth/auth-with-totp-and-sms-mfa"
+  languageName: unknown
+  linkType: soft
+
+"@aws-amplify/ui-auth-with-totp-mfa-environment@workspace:environments/auth/auth-with-totp-mfa":
+  version: 0.0.0-use.local
+  resolution: "@aws-amplify/ui-auth-with-totp-mfa-environment@workspace:environments/auth/auth-with-totp-mfa"
+  languageName: unknown
+  linkType: soft
+
+"@aws-amplify/ui-auth-with-username-no-attributes-environment@workspace:environments/auth/auth-with-username-no-attributes":
+  version: 0.0.0-use.local
+  resolution: "@aws-amplify/ui-auth-with-username-no-attributes-environment@workspace:environments/auth/auth-with-username-no-attributes"
+  languageName: unknown
+  linkType: soft
+
+"@aws-amplify/ui-basic-map-environment@workspace:environments/geo/basic-map":
+  version: 0.0.0-use.local
+  resolution: "@aws-amplify/ui-basic-map-environment@workspace:environments/geo/basic-map"
   languageName: unknown
   linkType: soft
 
@@ -2030,21 +2102,33 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@aws-amplify/ui-file-uploader-environment@workspace:environments/storage/file-uploader":
+  version: 0.0.0-use.local
+  resolution: "@aws-amplify/ui-file-uploader-environment@workspace:environments/storage/file-uploader"
+  languageName: unknown
+  linkType: soft
+
 "@aws-amplify/ui-gen2-ai-environment@workspace:environments/ai/gen2":
   version: 0.0.0-use.local
   resolution: "@aws-amplify/ui-gen2-ai-environment@workspace:environments/ai/gen2"
   languageName: unknown
   linkType: soft
 
-"@aws-amplify/ui-gen2-auth-federated-react-native@workspace:environments/auth/gen2/auth-with-federated-sign-in-react-native":
-  version: 0.0.0-use.local
-  resolution: "@aws-amplify/ui-gen2-auth-federated-react-native@workspace:environments/auth/gen2/auth-with-federated-sign-in-react-native"
-  languageName: unknown
-  linkType: soft
-
 "@aws-amplify/ui-gen2-storage-environment@workspace:environments/storage/gen2":
   version: 0.0.0-use.local
   resolution: "@aws-amplify/ui-gen2-storage-environment@workspace:environments/storage/gen2"
+  languageName: unknown
+  linkType: soft
+
+"@aws-amplify/ui-in-app-messaging-with-pinpoint-campaign-environment@workspace:environments/in-app-messaging/in-app-messaging-with-pinpoint-campaign":
+  version: 0.0.0-use.local
+  resolution: "@aws-amplify/ui-in-app-messaging-with-pinpoint-campaign-environment@workspace:environments/in-app-messaging/in-app-messaging-with-pinpoint-campaign"
+  languageName: unknown
+  linkType: soft
+
+"@aws-amplify/ui-liveness-environment@workspace:environments/liveness/liveness-environment":
+  version: 0.0.0-use.local
+  resolution: "@aws-amplify/ui-liveness-environment@workspace:environments/liveness/liveness-environment"
   languageName: unknown
   linkType: soft
 

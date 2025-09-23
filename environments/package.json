@@ -4,15 +4,19 @@
   "version": "0.0.1",
   "workspaces": [
     "ai",
-    "ai/gen2",
+    "ai/*",
     "auth",
-    "auth/gen2/*",
+    "auth/*",
     "datastore",
+    "datastore/*",
     "geo",
+    "geo/*",
     "liveness",
+    "liveness/*",
     "storage",
-    "storage/gen2",
-    "in-app-messaging"
+    "storage/*",
+    "in-app-messaging",
+    "in-app-messaging/*"
   ],
   "scripts": {
     "ai": "yarn --cwd ai/",
