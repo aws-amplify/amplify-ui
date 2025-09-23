@@ -17,7 +17,7 @@
     "src"
   ],
   "scripts": {
-    "build": "yarn build:dist",
+    "build": "yarn prebuild && yarn build:dist",
     "build:dist": "yarn g:rollup --config",
     "clean": "yarn g:rimraf dist node_modules",
     "dev": "yarn build --watch",

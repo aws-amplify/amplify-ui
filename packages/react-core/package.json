@@ -30,7 +30,7 @@
   ],
   "scripts": {
     "clean": "yarn g:rimraf dist node_modules",
-    "build": "yarn g:rollup --config",
+    "build": "yarn prebuild && yarn g:rollup --config",
     "check:esm": "node --input-type=module --eval 'import \"@aws-amplify/ui-react-core\"'",
     "dev": "yarn build --watch",
     "lint": "yarn typecheck && eslint .",

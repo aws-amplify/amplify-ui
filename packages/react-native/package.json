@@ -7,7 +7,7 @@
   "types": "dist/index.d.ts",
   "license": "Apache-2.0",
   "scripts": {
-    "build": "yarn build:cjs && yarn build:esm",
+    "build": "yarn prebuild && yarn build:cjs && yarn build:esm",
     "build:cjs": "yarn g:tsc --project tsconfig.cjs.json && cp -a src/assets/icons lib/assets",
     "build:esm": "yarn g:tsc --project tsconfig.esm.json && cp -a src/assets/icons dist/assets",
     "clean": "yarn g:rimraf dist",
