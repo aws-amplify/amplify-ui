@@ -11,6 +11,84 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@aws-amplify/ui-action-hooks-environment@workspace:datastore/action-hooks":
+  version: 0.0.0-use.local
+  resolution: "@aws-amplify/ui-action-hooks-environment@workspace:datastore/action-hooks"
+  languageName: unknown
+  linkType: soft
+
+"@aws-amplify/ui-auth-with-all-attributes-environment@workspace:auth/auth-with-all-attributes":
+  version: 0.0.0-use.local
+  resolution: "@aws-amplify/ui-auth-with-all-attributes-environment@workspace:auth/auth-with-all-attributes"
+  languageName: unknown
+  linkType: soft
+
+"@aws-amplify/ui-auth-with-email-and-custom-attributes-environment@workspace:auth/auth-with-email-and-custom-attributes":
+  version: 0.0.0-use.local
+  resolution: "@aws-amplify/ui-auth-with-email-and-custom-attributes-environment@workspace:auth/auth-with-email-and-custom-attributes"
+  languageName: unknown
+  linkType: soft
+
+"@aws-amplify/ui-auth-with-email-environment@workspace:auth/auth-with-email":
+  version: 0.0.0-use.local
+  resolution: "@aws-amplify/ui-auth-with-email-environment@workspace:auth/auth-with-email"
+  languageName: unknown
+  linkType: soft
+
+"@aws-amplify/ui-auth-with-email-lambda-signup-trigger-environment@workspace:auth/auth-with-email-lambda-signup-trigger":
+  version: 0.0.0-use.local
+  resolution: "@aws-amplify/ui-auth-with-email-lambda-signup-trigger-environment@workspace:auth/auth-with-email-lambda-signup-trigger"
+  languageName: unknown
+  linkType: soft
+
+"@aws-amplify/ui-auth-with-federated-environment@workspace:auth/auth-with-federated":
+  version: 0.0.0-use.local
+  resolution: "@aws-amplify/ui-auth-with-federated-environment@workspace:auth/auth-with-federated"
+  languageName: unknown
+  linkType: soft
+
+"@aws-amplify/ui-auth-with-optional-totp-and-sms-mfa-environment@workspace:auth/auth-with-optional-totp-and-sms-mfa":
+  version: 0.0.0-use.local
+  resolution: "@aws-amplify/ui-auth-with-optional-totp-and-sms-mfa-environment@workspace:auth/auth-with-optional-totp-and-sms-mfa"
+  languageName: unknown
+  linkType: soft
+
+"@aws-amplify/ui-auth-with-phone-and-sms-mfa-environment@workspace:auth/auth-with-phone-and-sms-mfa":
+  version: 0.0.0-use.local
+  resolution: "@aws-amplify/ui-auth-with-phone-and-sms-mfa-environment@workspace:auth/auth-with-phone-and-sms-mfa"
+  languageName: unknown
+  linkType: soft
+
+"@aws-amplify/ui-auth-with-phone-number-environment@workspace:auth/auth-with-phone-number":
+  version: 0.0.0-use.local
+  resolution: "@aws-amplify/ui-auth-with-phone-number-environment@workspace:auth/auth-with-phone-number"
+  languageName: unknown
+  linkType: soft
+
+"@aws-amplify/ui-auth-with-totp-and-sms-environment@workspace:auth/auth-with-totp-and-sms-mfa":
+  version: 0.0.0-use.local
+  resolution: "@aws-amplify/ui-auth-with-totp-and-sms-environment@workspace:auth/auth-with-totp-and-sms-mfa"
+  languageName: unknown
+  linkType: soft
+
+"@aws-amplify/ui-auth-with-totp-mfa-environment@workspace:auth/auth-with-totp-mfa":
+  version: 0.0.0-use.local
+  resolution: "@aws-amplify/ui-auth-with-totp-mfa-environment@workspace:auth/auth-with-totp-mfa"
+  languageName: unknown
+  linkType: soft
+
+"@aws-amplify/ui-auth-with-username-no-attributes-environment@workspace:auth/auth-with-username-no-attributes":
+  version: 0.0.0-use.local
+  resolution: "@aws-amplify/ui-auth-with-username-no-attributes-environment@workspace:auth/auth-with-username-no-attributes"
+  languageName: unknown
+  linkType: soft
+
+"@aws-amplify/ui-basic-map-environment@workspace:geo/basic-map":
+  version: 0.0.0-use.local
+  resolution: "@aws-amplify/ui-basic-map-environment@workspace:geo/basic-map"
+  languageName: unknown
+  linkType: soft
+
 "@aws-amplify/ui-environments-ai@workspace:ai":
   version: 0.0.0-use.local
   resolution: "@aws-amplify/ui-environments-ai@workspace:ai"
@@ -59,6 +137,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@aws-amplify/ui-file-uploader-environment@workspace:storage/file-uploader":
+  version: 0.0.0-use.local
+  resolution: "@aws-amplify/ui-file-uploader-environment@workspace:storage/file-uploader"
+  languageName: unknown
+  linkType: soft
+
 "@aws-amplify/ui-gen2-ai-environment@workspace:ai/gen2":
   version: 0.0.0-use.local
   resolution: "@aws-amplify/ui-gen2-ai-environment@workspace:ai/gen2"
@@ -74,5 +158,17 @@ __metadata:
 "@aws-amplify/ui-gen2-storage-environment@workspace:storage/gen2":
   version: 0.0.0-use.local
   resolution: "@aws-amplify/ui-gen2-storage-environment@workspace:storage/gen2"
+  languageName: unknown
+  linkType: soft
+
+"@aws-amplify/ui-in-app-messaging-with-pinpoint-campaign-environment@workspace:in-app-messaging/in-app-messaging-with-pinpoint-campaign":
+  version: 0.0.0-use.local
+  resolution: "@aws-amplify/ui-in-app-messaging-with-pinpoint-campaign-environment@workspace:in-app-messaging/in-app-messaging-with-pinpoint-campaign"
+  languageName: unknown
+  linkType: soft
+
+"@aws-amplify/ui-liveness-environment@workspace:liveness/liveness-environment":
+  version: 0.0.0-use.local
+  resolution: "@aws-amplify/ui-liveness-environment@workspace:liveness/liveness-environment"
   languageName: unknown
   linkType: soft
