@@ -71,6 +71,7 @@
   },
   "resolutions": {
     "@aws-amplify/ui-e2e/**/glob": "^10.0.0",
+    "@aws-amplify/ui-e2e/detox/**/glob": "^10.0.0",
     "**/@react-native-community/**/fast-xml-parser": "^4.4.1",
     "**/@aws-*/**/fast-xml-parser": "^4.4.1",
     "**/@aws-amplify/ui-angular-example/**/codelyzer/**/@angular/core": "10.2.5",
