@@ -5,6 +5,8 @@ export const esDict: AuthenticatorDictionary = {
     'La recuperación de la cuenta requiere información de contacto verificada',
   'Authenticator App (TOTP)': 'Aplicación de autenticación (TOTP)',
   'Back to Sign In': 'Volver a inicio de sesión',
+  'Cannot reset password for the user as there is no registered/verified email or phone_number':
+    'No se puede restablecer la contraseña para el usuario debido a que no hay Email registrado / verificado o número de teléfono',
   'Change Password': 'Cambiar contraseña',
   Changing: 'Cambiando',
   Code: 'Código',
@@ -107,13 +109,13 @@ export const esDict: AuthenticatorDictionary = {
   'Your passwords must match': 'Las contraseñas deben coincidir',
   'Password must have at least 8 characters':
     'La contraseña debe tener al menos 8 caracteres',
-  'Password did not conform with policy: Password must have uppercase characters':
+  'Password must have upper case letters':
     'La contraseña debe tener al menos un carácter en mayúscula',
-  'Password did not conform with policy: Password must have numeric characters':
+  'Password must have numbers':
     'La contraseña debe tener al menos un carácter numérico',
-  'Password did not conform with policy: Password must have symbol characters':
+  'Password must have special characters':
     'La contraseña debe tener al menos un símbolo',
-  'Password did not conform with policy: Password must have lowercase characters':
+  'Password must have lower case letters':
     'La contraseña debe tener al menos un carácter en minúsculas',
   'Invalid verification code provided, please try again.':
     'Código de verificación no válido, inténtelo de nuevo.',
