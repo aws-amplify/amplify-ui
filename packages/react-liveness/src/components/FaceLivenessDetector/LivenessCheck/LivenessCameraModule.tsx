@@ -32,7 +32,10 @@ import {
   DefaultCancelButton,
   DefaultRecordingIcon,
 } from '../shared/DefaultStartScreenComponents';
-import { FACE_MOVEMENT_CHALLENGE } from '../service/utils/constants';
+import {
+  FACE_MOVEMENT_CHALLENGE,
+  FACE_MOVEMENT_AND_LIGHT_CHALLENGE,
+} from '../service/utils/constants';
 import { CameraSelector } from './CameraSelector';
 
 export const selectChallengeType = createLivenessSelector(
@@ -55,6 +58,12 @@ export const selectSelectedDeviceId = createLivenessSelector(
 );
 export const selectSelectableDevices = createLivenessSelector(
   (state) => state.context.videoAssociatedParams?.selectableDevices
+);
+export const selectColorSequenceDisplay = createLivenessSelector(
+  (state) => state.context.colorSequenceDisplay
+);
+export const selectLivenessStreamProvider = createLivenessSelector(
+  (state) => state.context.livenessStreamProvider
 );
 
 export interface LivenessCameraModuleProps {
@@ -107,8 +116,11 @@ export const LivenessCameraModule = (
 
   const [state, send] = useLivenessActor();
 
+  const challengeType = useLivenessSelector(selectChallengeType);
   const isFaceMovementChallenge =
-    useLivenessSelector(selectChallengeType) === FACE_MOVEMENT_CHALLENGE.type;
+    challengeType === FACE_MOVEMENT_CHALLENGE.type;
+  const isFaceMovementAndLightChallenge =
+    challengeType === FACE_MOVEMENT_AND_LIGHT_CHALLENGE.type;
 
   const videoStream = useLivenessSelector(selectVideoStream);
   const videoConstraints = useLivenessSelector(selectVideoConstraints);
@@ -118,6 +130,11 @@ export const LivenessCameraModule = (
   const faceMatchPercentage = useLivenessSelector(selectFaceMatchPercentage);
   const faceMatchState = useLivenessSelector(selectFaceMatchState);
   const errorState = useLivenessSelector(selectErrorState);
+
+  const _colorSequenceDisplay = useLivenessSelector(selectColorSequenceDisplay);
+  const _livenessStreamProvider = useLivenessSelector(
+    selectLivenessStreamProvider
+  );
 
   const colorMode = useColorMode();
 
@@ -143,6 +160,9 @@ export const LivenessCameraModule = (
   const isCheckSucceeded = state.matches('checkSucceeded');
   const isFlashingFreshness = state.matches({
     recording: 'flashFreshnessColors',
+  });
+  const isFlashingColorSequence = state.matches({
+    recording: 'flashColorSequence',
   });
 
   // Android/Firefox and iOS flip the values of width/height returned from
@@ -317,7 +337,9 @@ export const LivenessCameraModule = (
 
   return (
     <>
-      {!isFaceMovementChallenge && photoSensitivityWarning}
+      {!isFaceMovementChallenge &&
+        !isFaceMovementAndLightChallenge &&
+        photoSensitivityWarning}
 
       {shouldShowCenteredLoader && (
         <Flex className={LivenessClassNames.ConnectingLoader}>
@@ -344,7 +366,9 @@ export const LivenessCameraModule = (
         <Overlay
           horizontal="center"
           vertical={
-            isRecording && !isFlashingFreshness ? 'start' : 'space-between'
+            isRecording && !isFlashingFreshness && !isFlashingColorSequence
+              ? 'start'
+              : 'space-between'
           }
           className={LivenessClassNames.InstructionOverlay}
         >
@@ -392,6 +416,7 @@ export const LivenessCameraModule = (
             */}
           {isRecording &&
           !isFlashingFreshness &&
+          !isFlashingColorSequence &&
           showMatchIndicatorStates.includes(faceMatchState!) ? (
             <MemoizedMatchIndicator
               percentage={Math.ceil(faceMatchPercentage!)}

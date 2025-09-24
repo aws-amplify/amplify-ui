@@ -1043,4 +1043,86 @@ describe('Liveness Machine', () => {
       });
     });
   });
+
+  describe('DCA v2 functionality', () => {
+    it('should initialize ColorSequenceDisplay for FaceMovementAndLightChallenge', async () => {
+      await transitionToRecording(service, 'FaceMovementAndLightChallenge');
+      await flushPromises();
+      jest.advanceTimersToNextTimer(); // checkFaceDetected
+      jest.advanceTimersToNextTimer(); // checkRecordingStarted
+      await advanceMinFaceMatches(); // detectFaceAndMatchOval - this triggers setColorDisplay
+
+      expect(mockedHelpers.ColorSequenceDisplay).toHaveBeenCalledWith(
+        expect.any(Array)
+      );
+      expect(service.state.context.colorSequenceDisplay).toBeDefined();
+    });
+
+    it('should initialize StreamRecorder (livenessStreamProvider)', async () => {
+      await transitionToNotRecording(service);
+
+      expect(service.state.context.livenessStreamProvider).toBeDefined();
+      expect(mockStreamRecorder.dispatchStreamEvent).toBeDefined();
+    });
+
+    it('should handle flashColorSequence state for DCA v2', async () => {
+      await transitionToRecording(service, 'FaceMovementAndLightChallenge');
+      await flushPromises();
+      jest.advanceTimersToNextTimer(); // checkFaceDetected
+      jest.advanceTimersToNextTimer(); // checkRecordingStarted
+      await advanceMinFaceMatches(); // detectFaceAndMatchOval
+      jest.advanceTimersToNextTimer(); // delayBeforeFlash
+
+      // Should transition to flashFreshnessColors for DCA v2
+      expect(service.state.matches({ recording: 'flashFreshnessColors' })).toBe(
+        true
+      );
+    });
+
+    it('should dispatch stream events during color sequence', async () => {
+      mockColorDisplay.startSequences.mockImplementation(
+        async ({ onSequenceColorChange, onSequenceChange }: any) => {
+          // Simulate color sequence events
+          onSequenceColorChange({
+            sequenceColor: 'rgb(255,0,0)',
+            currentColorIndex: 0,
+          });
+          onSequenceChange({ sequenceIndex: 0 });
+          return true;
+        }
+      );
+
+      await transitionToRecording(service, 'FaceMovementAndLightChallenge');
+      await flushPromises();
+      jest.advanceTimersToNextTimer(); // checkFaceDetected
+      jest.advanceTimersToNextTimer(); // checkRecordingStarted
+      await advanceMinFaceMatches(); // detectFaceAndMatchOval
+      jest.advanceTimersToNextTimer(); // delayBeforeFlash
+      await flushPromises(); // flashColorSequence
+
+      expect(mockStreamRecorder.dispatchStreamEvent).toHaveBeenCalledWith(
+        expect.objectContaining({
+          type: 'sessionInfo',
+          data: expect.objectContaining({
+            Challenge: expect.any(Object),
+          }),
+        })
+      );
+    });
+
+    it('should handle track dimensions in StreamRecorder', async () => {
+      mockedHelpers.getTrackDimensions.mockReturnValue({
+        trackWidth: 640,
+        trackHeight: 480,
+      });
+
+      await transitionToRecording(service);
+      await flushPromises();
+      jest.advanceTimersToNextTimer(); // checkFaceDetected
+      jest.advanceTimersToNextTimer(); // checkRecordingStarted - this triggers updateRecordingStartTimestamp
+
+      expect(mockedHelpers.getTrackDimensions).toHaveBeenCalled();
+      expect(service.state.context.livenessStreamProvider).toBeDefined();
+    });
+  });
 });

@@ -487,8 +487,20 @@ describe('LivenessCameraModule', () => {
 
   it('should render photosensitivity warning when challenge is FaceMovementAndLightChallenge and isNotRecording is true', async () => {
     isNotRecording = true;
+    isStart = true; // Need isStart = true for isStartView to be true
     mockStateMatchesAndSelectors();
-    mockUseLivenessSelector.mockReturnValue('FaceMovementAndLightChallenge');
+    mockUseLivenessSelector.mockReset();
+    mockUseLivenessSelector
+      .mockReturnValueOnce('FaceMovementAndLightChallenge') // challengeType
+      .mockReturnValueOnce(null) // videoStream
+      .mockReturnValueOnce({}) // videoConstraints
+      .mockReturnValueOnce('device-id') // selectedDeviceId
+      .mockReturnValueOnce(['device-id']) // selectableDevices
+      .mockReturnValueOnce(25) // faceMatchPercentage
+      .mockReturnValueOnce(FaceMatchState.MATCHED) // faceMatchState
+      .mockReturnValueOnce(undefined) // errorState
+      .mockReturnValueOnce(undefined) // colorSequenceDisplay
+      .mockReturnValueOnce(undefined); // livenessStreamProvider
     await waitFor(() => {
       renderWithLivenessProvider(
         <LivenessCameraModule
@@ -735,5 +747,38 @@ describe('LivenessCameraModule', () => {
       videoEl.dispatchEvent(new Event('loadedmetadata'));
     });
     expect(drawStaticOvalSpy).toHaveBeenCalledTimes(1);
+  });
+
+  it('should handle DCA v2 color sequence flashing state', async () => {
+    isRecording = true;
+    mockStateMatchesAndSelectors();
+
+    // Mock the flashColorSequence state
+    mockActorState.matches.mockImplementation((state: any) => {
+      if (
+        typeof state === 'object' &&
+        state.recording === 'flashColorSequence'
+      ) {
+        return true;
+      }
+      return false;
+    });
+
+    await waitFor(() => {
+      renderWithLivenessProvider(
+        <LivenessCameraModule
+          isMobileScreen={false}
+          isRecordingStopped={false}
+          hintDisplayText={hintDisplayText}
+          streamDisplayText={streamDisplayText}
+          errorDisplayText={errorDisplayText}
+          cameraDisplayText={cameraDisplayText}
+          instructionDisplayText={instructionDisplayText}
+        />
+      );
+    });
+
+    // During color sequence flashing, match indicator should not be shown
+    expect(screen.queryByTestId('match-indicator')).not.toBeInTheDocument();
   });
 });

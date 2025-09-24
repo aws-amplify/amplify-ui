@@ -8,6 +8,9 @@ const config: Config = {
     '!<rootDir>/**/index.(ts|tsx)',
     // do not collect from top level version and styles files
     '!<rootDir>/src/(styles|version).(ts|tsx)',
+    // do not collect from test utilities and mocks
+    '!<rootDir>/src/**/__mocks__/**/*.(ts|tsx)',
+    '!<rootDir>/src/**/__tests__/**/*.(ts|tsx)',
   ],
   coverageThreshold: {
     global: {
@@ -26,6 +29,9 @@ const config: Config = {
   preset: 'ts-jest',
   setupFilesAfterEnv: ['./jest.setup.ts'],
   testEnvironment: 'jsdom',
+  testEnvironmentOptions: {
+    url: 'http://localhost',
+  },
 };
 
 export default config;
