@@ -29,7 +29,8 @@ describe('convertBufferToBase64', () => {
   });
 
   it('should still work in node based Buffer is not defined', () => {
-    (window.Buffer as any) = undefined;
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    (window as any).Buffer = undefined;
     const { buffer } = new Uint8Array([72, 101, 108, 108, 111]);
     const format = 'png';
     const base64String = convertBufferToBase64(buffer, format);
