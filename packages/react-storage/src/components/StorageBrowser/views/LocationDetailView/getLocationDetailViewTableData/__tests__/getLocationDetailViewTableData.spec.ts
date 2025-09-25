@@ -43,6 +43,7 @@ describe('getLocationDetailViewTableData', () => {
   const mockOnNavigate = jest.fn();
   const mockOnSelect = jest.fn();
   const mockOnSelectAll = jest.fn();
+  const mockOnSelectActiveFile = jest.fn();
 
   beforeAll(() => {
     mockGetFileRowContent.mockImplementation(({ onDownload, onSelect }) => [
@@ -94,6 +95,8 @@ describe('getLocationDetailViewTableData', () => {
   it('should return table data as expected', () => {
     expect(
       getLocationDetailViewTableData({
+        filePreviewEnabled: false,
+        activeFile: undefined,
         areAllFilesSelected: false,
         displayText,
         location,
@@ -106,6 +109,7 @@ describe('getLocationDetailViewTableData', () => {
         onNavigate: mockOnNavigate,
         onSelect: mockOnSelect,
         onSelectAll: mockOnSelectAll,
+        onSelectActiveFile: mockOnSelectActiveFile,
       })
     ).toStrictEqual(
       expect.objectContaining({
@@ -129,7 +133,9 @@ describe('getLocationDetailViewTableData', () => {
 
   it('should select all files', () => {
     const tableData = getLocationDetailViewTableData({
+      filePreviewEnabled: false,
       areAllFilesSelected: false,
+      activeFile: undefined,
       displayText,
       location,
       hasFiles: true,
@@ -141,6 +147,7 @@ describe('getLocationDetailViewTableData', () => {
       onNavigate: mockOnNavigate,
       onSelect: mockOnSelect,
       onSelectAll: mockOnSelectAll,
+      onSelectActiveFile: mockOnSelectActiveFile,
     });
 
     const [firstHeader] = tableData.headers;
@@ -164,6 +171,9 @@ describe('getLocationDetailViewTableData', () => {
       onNavigate: mockOnNavigate,
       onSelect: mockOnSelect,
       onSelectAll: mockOnSelectAll,
+      filePreviewEnabled: false,
+      activeFile: undefined,
+      onSelectActiveFile: mockOnSelectActiveFile,
     });
 
     const [checkbox] = tableData.rows[0].content;
@@ -187,6 +197,9 @@ describe('getLocationDetailViewTableData', () => {
       onNavigate: mockOnNavigate,
       onSelect: mockOnSelect,
       onSelectAll: mockOnSelectAll,
+      filePreviewEnabled: false,
+      activeFile: undefined,
+      onSelectActiveFile: mockOnSelectActiveFile,
     });
 
     const download = tableData.rows[0].content[5];
@@ -210,6 +223,9 @@ describe('getLocationDetailViewTableData', () => {
       onNavigate: mockOnNavigate,
       onSelect: mockOnSelect,
       onSelectAll: mockOnSelectAll,
+      filePreviewEnabled: false,
+      activeFile: undefined,
+      onSelectActiveFile: mockOnSelectActiveFile,
     });
 
     const button = tableData.rows[0].content[1];

@@ -1,4 +1,4 @@
-import { When, Then } from '@badeball/cypress-cucumber-preprocessor';
+import { Then, When } from '@badeball/cypress-cucumber-preprocessor';
 import { randomFileName } from './shared';
 
 const FILE_VALIDATION_SIZE_LIMIT = 1000 * 1000; // 1MB
@@ -78,7 +78,26 @@ Then('I click and see download succeed for {string}', (name: string) => {
     });
 });
 
+Then(
+  'I click the download button with label {string} and see the file downloaded',
+  (label: string) => {
+    cy.intercept('HEAD', 'https://*.s3.*.amazonaws.com/**').as(
+      'downloadValidation'
+    );
+
+    cy.findAllByLabelText(label).last().click();
+
+    cy.wait('@downloadValidation').then((interception) => {
+      assert.equal(interception.response.statusCode, 200);
+    });
+  }
+);
+
 Then('I click checkbox for file {string}', selectTableRowCheckBox);
+
+Then('I see the File preview Loader', () => {
+  cy.get('.amplify-storage-browser__preview-placeholder').should('exist');
+});
 
 Then(
   'I click checkbox for with {string} files with random names',
