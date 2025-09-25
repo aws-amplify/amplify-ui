@@ -18,8 +18,8 @@ jobs:
   unit:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
-        fail-fast: false 
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
         package:
           - angular
