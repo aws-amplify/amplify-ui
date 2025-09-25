@@ -7,7 +7,9 @@
     "declaration": true,
     "declarationMap": true,
     "inlineSources": true,
-    "types": ["@types/long"],
+    "types": [],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
     "lib": ["dom", "es2019", "dom.iterable"]
   },
   "angularCompilerOptions": {
@@ -15,5 +17,5 @@
     "strictMetadataEmit": true,
     "enableResourceInlining": true
   },
-  "exclude": ["**/*.spec.ts"]
+  "exclude": ["**/*.spec.ts", "../../../node_modules/@types/node"]
 }
