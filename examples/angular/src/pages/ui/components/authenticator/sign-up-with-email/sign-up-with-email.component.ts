@@ -3,7 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { Amplify } from 'aws-amplify';
 import { signUp, SignUpInput } from 'aws-amplify/auth';
 import { I18n } from 'aws-amplify/utils';
-import { AuthenticatorService, translations } from '@aws-amplify/ui-angular';
+import { AuthenticatorService } from '@aws-amplify/ui-angular';
+import { translations } from '@aws-amplify/ui';
 
 import awsExports from './aws-exports';
 Amplify.configure(awsExports);
