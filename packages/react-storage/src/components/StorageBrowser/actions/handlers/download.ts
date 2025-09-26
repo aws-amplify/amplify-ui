@@ -39,8 +39,8 @@ function downloadFromUrl(fileName: string, url: string) {
 }
 
 export const downloadHandler: DownloadHandler = ({
-  config,
-  data: { key },
+ config,
+ data: { key },
 }): DownloadHandlerOutput => {
   const { accountId, credentials, customEndpoint } = config;
 
@@ -55,14 +55,14 @@ export const downloadHandler: DownloadHandler = ({
       expectedBucketOwner: accountId,
     },
   })
-    .then(({ url }) => {
-      downloadFromUrl(key, url.toString());
-      return { status: 'COMPLETE' as const, value: { url } };
-    })
-    .catch((error: Error) => {
-      const { message } = error;
-      return { error, message, status: 'FAILED' as const };
-    });
+  .then(({ url }) => {
+    downloadFromUrl(key, url.toString());
+    return { status: 'COMPLETE' as const, value: { url } };
+  })
+  .catch((error: Error) => {
+    const { message } = error;
+    return { error, message, status: 'FAILED' as const };
+  });
 
   return { result };
 };
