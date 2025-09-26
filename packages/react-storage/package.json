@@ -34,6 +34,7 @@
   "scripts": {
     "build": "yarn build:rollup",
     "build:rollup": "rollup --config",
+    "build:watch": "rollup -c -w",
     "check:esm": "node --input-type=module --eval 'import \"@aws-amplify/ui-react-storage\"'",
     "clean": "rimraf dist node_modules",
     "dev": "yarn build:rollup --watch",
@@ -48,7 +49,8 @@
     "@aws-amplify/ui": "6.13.0",
     "@aws-amplify/ui-react": "6.13.2",
     "@aws-amplify/ui-react-core": "3.4.7",
-    "tslib": "^2.5.2"
+    "tslib": "^2.5.2",
+    "jszip":"^3.10.1"
   },
   "peerDependencies": {
     "aws-amplify": "^6.14.3",
@@ -56,7 +58,8 @@
     "react-dom": "^16.14 || ^17 || ^18 || ^19"
   },
   "devDependencies": {
-    "@types/node": "^18.19.50"
+    "@types/node": "^18.19.50",
+    "node-fetch":"~3.3.2"
   },
   "sideEffects": [
     "dist/**/*.css"
@@ -66,7 +69,7 @@
       "name": "createStorageBrowser",
       "path": "dist/esm/browser.mjs",
       "import": "{ createStorageBrowser }",
-      "limit": "70 kB",
+      "limit": "93.9 kB",
       "ignore": [
         "@aws-amplify/storage"
       ]
@@ -75,7 +78,7 @@
       "name": "StorageBrowser",
       "path": "dist/esm/index.mjs",
       "import": "{ StorageBrowser }",
-      "limit": "93 kB"
+      "limit": "116.1 kB"
     },
     {
       "name": "FileUploader",
