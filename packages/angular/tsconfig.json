@@ -13,6 +13,7 @@
     "target": "es2020",
     "module": "es2020",
     "esModuleInterop": true,
+    "skipLibCheck": true,
     "paths": {}
   },
   "angularCompilerOptions": {
