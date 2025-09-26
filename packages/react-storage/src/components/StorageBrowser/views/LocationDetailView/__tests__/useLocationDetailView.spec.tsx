@@ -1,4 +1,4 @@
-import { act, renderHook } from '@testing-library/react';
+import { act, renderHook, waitFor } from '@testing-library/react';
 
 import {
   FileData,
@@ -12,6 +12,7 @@ import { useFileItems } from '../../../fileItems';
 import { useLocationItems } from '../../../locationItems';
 import { LocationState, useStore } from '../../../store';
 import { useAction, useList } from '../../../useAction';
+import { useFilePreview } from '../../hooks/useFilePreview';
 
 import {
   DEFAULT_LIST_OPTIONS,
@@ -23,6 +24,7 @@ jest.mock('../../../fileItems');
 jest.mock('../../../locationItems');
 jest.mock('../../../store');
 jest.mock('../../../useAction');
+jest.mock('../../hooks/useFilePreview');
 
 const folderDataOne: FolderData = {
   id: '1',
@@ -47,6 +49,22 @@ const fileDataTwo: FileDataItem = {
   lastModified: new Date(),
   size: 25600,
 };
+const fileDataThree: FileDataItem = {
+  id: '4',
+  key: 'Location-D.doc',
+  fileKey: 'Location-D.doc',
+  type: 'FILE',
+  lastModified: new Date(),
+  size: 12800,
+};
+const fileDataFour: FileDataItem = {
+  id: '5',
+  key: 'Location-E.pdf',
+  fileKey: 'Location-E.pdf',
+  type: 'FILE',
+  lastModified: new Date(),
+  size: 25600,
+};
 
 // fake date for mock data below
 jest.useFakeTimers({ now: Date.UTC(2024, 0, 1) });
@@ -54,20 +72,8 @@ const mockItems: LocationItemData[] = [
   folderDataOne,
   fileDataOne,
   fileDataTwo,
-  {
-    id: '4',
-    key: 'Location-D.doc',
-    type: 'FILE',
-    lastModified: new Date(),
-    size: 12800,
-  },
-  {
-    id: '5',
-    key: 'Location-E.pdf',
-    type: 'FILE',
-    lastModified: new Date(),
-    size: 25600,
-  },
+  fileDataThree,
+  fileDataFour,
 ];
 
 const fileItem: FileData = {
@@ -110,6 +116,7 @@ describe('useLocationDetailView', () => {
   const mockUseList = jest.mocked(useList);
   const mockUseLocationItems = jest.mocked(useLocationItems);
   const mockUseStore = jest.mocked(useStore);
+  const mockUseFilePreview = jest.mocked(useFilePreview);
 
   const mockStoreDispatch = jest.fn();
   const mockLocationItemsDispatch = jest.fn();
@@ -122,6 +129,12 @@ describe('useLocationDetailView', () => {
       { isProcessing: false, task: undefined },
       mockHandleDownload,
     ]);
+
+    mockUseFilePreview.mockReturnValue({
+      optout: false,
+      enabled: false,
+      handleRetry: jest.fn(),
+    });
   });
 
   beforeEach(() => {
@@ -635,6 +648,217 @@ describe('useLocationDetailView', () => {
     expect(mockStoreDispatch).toHaveBeenCalledWith({
       type: 'CHANGE_ACTION_TYPE',
       actionType,
+    });
+  });
+
+  it('should return file preview state and handlers', () => {
+    const fileData = {
+      id: 'test',
+      key: 'test.jpg',
+      lastModified: new Date(),
+      size: 1024,
+      type: 'FILE' as const,
+    };
+    const mockHandleRetry = jest.fn();
+
+    mockUseFilePreview.mockReturnValue({
+      optout: false,
+      enabled: true,
+      ok: true,
+      isLoading: false,
+      fileData,
+      url: 'https://example.com/test.jpg',
+      handleRetry: mockHandleRetry,
+    });
+
+    const { result } = renderHook(() => useLocationDetailView());
+
+    expect(result.current.filePreviewState).toEqual({
+      fileData,
+      isLoading: false,
+      ok: true,
+      enabled: true,
+      url: 'https://example.com/test.jpg',
+    });
+
+    expect(result.current.onRetryFilePreview).toBe(mockHandleRetry);
+  });
+
+  it('should set a file item as active and unset it', () => {
+    const { result, rerender } = renderHook(() => useLocationDetailView());
+    const state = result.current;
+
+    act(() => {
+      state.onSelectActiveFile(fileItem);
+    });
+
+    act(() => {
+      rerender();
+    });
+    waitFor(() => {
+      expect(result.current.activeFile).toEqual(fileItem);
+    });
+    act(() => {
+      state.onSelectActiveFile();
+    });
+    act(() => {
+      rerender();
+    });
+    waitFor(() => {
+      expect(result.current.activeFile).toBe(undefined);
+    });
+  });
+
+  it('should navigate to previous item', () => {
+    const { result, rerender } = renderHook(() => useLocationDetailView());
+    const state = result.current;
+    expect(state.pageItems).toHaveLength(5);
+    act(() => {
+      state.onSelectActiveFile(fileDataTwo);
+    });
+    act(() => {
+      rerender();
+    });
+    waitFor(() => {
+      expect(result.current.activeFileHasPrev).toBe(true);
+      expect(result.current.activeFileHasNext).toBe(true);
+    });
+    act(() => {
+      result.current.onSelectActiveFile('prev');
+    });
+    waitFor(() => {
+      expect(result.current.activeFile).toEqual(fileDataOne);
+      expect(result.current.activeFileHasPrev).toBe(false);
+      expect(result.current.activeFileHasNext).toBe(true);
+    });
+  });
+
+  it('should navigate to next item', () => {
+    const { result, rerender } = renderHook(() => useLocationDetailView());
+    const state = result.current;
+    expect(state.pageItems).toHaveLength(5);
+    act(() => {
+      state.onSelectActiveFile(fileDataThree);
+    });
+    act(() => {
+      rerender();
+    });
+    waitFor(() => {
+      expect(result.current.activeFileHasPrev).toBe(true);
+      expect(result.current.activeFileHasNext).toBe(true);
+    });
+    act(() => {
+      result.current.onSelectActiveFile('next');
+    });
+    waitFor(() => {
+      expect(result.current.activeFile).toEqual(fileDataFour);
+      expect(result.current.activeFileHasPrev).toBe(true);
+      expect(result.current.activeFileHasNext).toBe(false);
+    });
+  });
+
+  describe('file preview closure', () => {
+    it('closes file preview on refresh', () => {
+      (useFilePreview as jest.Mock).mockReturnValue({
+        onRetryFilePreview: jest.fn(),
+        enabled: true,
+        ok: true,
+        isLoading: true,
+      });
+
+      const { result, rerender } = renderHook(() => useLocationDetailView());
+      act(() => {
+        result.current.onSelectActiveFile(fileDataOne);
+      });
+      rerender();
+      waitFor(() => {
+        expect(result.current.activeFile).toEqual(fileDataOne);
+      });
+      act(() => {
+        result.current.onRefresh();
+      });
+      waitFor(() => {
+        expect(result.current.activeFile).toBe(undefined);
+      });
+    });
+
+    it('closes file preview on pagination', () => {
+      (useFilePreview as jest.Mock).mockReturnValue({
+        onRetryFilePreview: jest.fn(),
+        enabled: true,
+        ok: true,
+        isLoading: true,
+      });
+
+      const { result, rerender } = renderHook(() => useLocationDetailView());
+      act(() => {
+        result.current.onSelectActiveFile(fileDataOne);
+      });
+      rerender();
+      waitFor(() => {
+        expect(result.current.activeFile).toEqual(fileDataOne);
+      });
+      act(() => {
+        result.current.onPaginate(2);
+      });
+      waitFor(() => {
+        expect(result.current.activeFile).toBe(undefined);
+      });
+    });
+
+    it('closes file preview on navigation', () => {
+      const mockLocation: LocationData = {
+        bucket: 'test-bucket',
+        id: 'test-id',
+        permissions: ['list'],
+        prefix: 'test-prefix/',
+        type: 'PREFIX',
+      };
+      (useFilePreview as jest.Mock).mockReturnValue({
+        onRetryFilePreview: jest.fn(),
+        enabled: true,
+        ok: true,
+        isLoading: true,
+      });
+
+      const { result, rerender } = renderHook(() => useLocationDetailView());
+      act(() => {
+        result.current.onSelectActiveFile(fileDataOne);
+      });
+      rerender();
+      waitFor(() => {
+        expect(result.current.activeFile).toEqual(fileDataOne);
+      });
+      act(() => {
+        result.current.onNavigate(mockLocation);
+      });
+      waitFor(() => {
+        expect(result.current.activeFile).toBe(undefined);
+      });
+    });
+
+    it('closes file preview on search', () => {
+      (useFilePreview as jest.Mock).mockReturnValue({
+        onRetryFilePreview: jest.fn(),
+        enabled: true,
+        ok: true,
+        isLoading: true,
+      });
+
+      const { result, rerender } = renderHook(() => useLocationDetailView());
+      act(() => {
+        result.current.onSelectActiveFile(fileDataOne);
+      });
+      rerender();
+      waitFor(() => {
+        expect(result.current.activeFile).toEqual(fileDataOne);
+      });
+      act(() => {
+        result.current.onSearch();
+      });
+      waitFor(() => {
+        expect(result.current.activeFile).toBe(undefined);
+      });
     });
   });
 });

@@ -1,5 +1,25 @@
 # @aws-amplify/ui
 
+## 6.12.0
+
+### Minor Changes
+
+- [#6669](https://github.com/aws-amplify/amplify-ui/pull/6669) [`dc63ac61ce5768fdbc353800f4477f3fc71c1970`](https://github.com/aws-amplify/amplify-ui/commit/dc63ac61ce5768fdbc353800f4477f3fc71c1970) Thanks [@osama-rizk](https://github.com/osama-rizk)! - feat(storage-browser): File preview and file thumbnail.
+
+## 6.11.0
+
+### Minor Changes
+
+- [#6646](https://github.com/aws-amplify/amplify-ui/pull/6646) [`40d6a0ef10157988b044339d8ac837fb757223a3`](https://github.com/aws-amplify/amplify-ui/commit/40d6a0ef10157988b044339d8ac837fb757223a3) Thanks [@szilvia-csernus](https://github.com/szilvia-csernus)! - Added Hungarian translations for the Authenticator component.
+
+- [#6690](https://github.com/aws-amplify/amplify-ui/pull/6690) [`8fae3332b6c9297efcd2d536a55cbcf4ecd46168`](https://github.com/aws-amplify/amplify-ui/commit/8fae3332b6c9297efcd2d536a55cbcf4ecd46168) Thanks [@Simone319](https://github.com/Simone319)! - fix: update password error translation text
+
+### Patch Changes
+
+- [#6216](https://github.com/aws-amplify/amplify-ui/pull/6216) [`4663860c126440e2213e58b58540756f70328338`](https://github.com/aws-amplify/amplify-ui/commit/4663860c126440e2213e58b58540756f70328338) Thanks [@PaulVPrivateaser](https://github.com/PaulVPrivateaser)! - fix: missing fr and es translations
+
+- [#6482](https://github.com/aws-amplify/amplify-ui/pull/6482) [`414b67a7a7c5a747a36970e0db961934b71e6265`](https://github.com/aws-amplify/amplify-ui/commit/414b67a7a7c5a747a36970e0db961934b71e6265) Thanks [@wapa5pow](https://github.com/wapa5pow)! - fix: translation key mismatch
+
 ## 6.10.3
 
 ### Patch Changes

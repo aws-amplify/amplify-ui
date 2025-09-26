@@ -30,6 +30,9 @@ export function LocationDetailViewProvider({
 
   const {
     actionItems,
+    activeFile,
+    activeFileHasNext,
+    activeFileHasPrev,
     page,
     pageItems,
     hasNextPage,
@@ -52,11 +55,15 @@ export function LocationDetailViewProvider({
     onNavigate,
     onNavigateHome,
     onSelect,
+    onSelectActiveFile,
     onToggleSelectAll,
     onSearch,
     onSearchQueryChange,
     onSearchClear,
     onToggleSearchSubfolders,
+    filePreviewState,
+    filePreviewEnabled,
+    onRetryFilePreview,
   } = props;
 
   const actionsWithDisplayText = actionItems.map((item) => ({
@@ -89,6 +96,9 @@ export function LocationDetailViewProvider({
     <ControlsContextProvider
       data={{
         actions: actionsWithDisplayText,
+        activeFile,
+        activeFileHasNext,
+        activeFileHasPrev,
         isActionsListDisabled,
         isDataRefreshDisabled: isLoading,
         isLoading,
@@ -105,7 +115,11 @@ export function LocationDetailViewProvider({
         searchSubmitLabel,
         searchClearLabel,
         searchQuery,
+        filePreviewState,
         tableData: getLocationDetailViewTableData({
+          filePreviewEnabled,
+          activeFile,
+          onSelectActiveFile,
           areAllFilesSelected,
           displayText,
           location,
@@ -130,9 +144,11 @@ export function LocationDetailViewProvider({
       onPaginate={onPaginate}
       onRefresh={onRefresh}
       onSearch={onSearch}
+      onSelectActiveFile={onSelectActiveFile}
       onSearchQueryChange={onSearchQueryChange}
       onSearchClear={onSearchClear}
       onToggleSearchSubfolders={onToggleSearchSubfolders}
+      onRetryFilePreview={onRetryFilePreview}
     >
       {children}
     </ControlsContextProvider>

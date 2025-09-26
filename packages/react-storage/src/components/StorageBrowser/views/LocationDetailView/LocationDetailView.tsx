@@ -5,8 +5,8 @@ import { classNames } from '@aws-amplify/ui';
 import { STORAGE_BROWSER_BLOCK, ViewElement } from '../../components';
 import {
   ActionsListControl,
-  DataTableControl,
   DataRefreshControl,
+  DataTableControl,
   DropZoneControl,
   LoadingIndicatorControl,
   MessageControl,
@@ -20,6 +20,7 @@ import {
 import { LocationDetailViewProvider } from './LocationDetailViewProvider';
 import type { LocationDetailViewType } from './types';
 import { useLocationDetailView } from './useLocationDetailView';
+import { FilePreviewControl } from '../../controls/FilePreviewControl';
 
 const DEFAULT_PAGE_SIZE = 100;
 export const DEFAULT_LIST_OPTIONS = {
@@ -52,12 +53,17 @@ export const LocationDetailView: LocationDetailViewType = ({
           <ActionsListControl />
         </ViewElement>
         {hasError ? null : (
-          <DropZoneControl>
-            <ViewElement className={`${STORAGE_BROWSER_BLOCK}__data-table`}>
-              <LoadingIndicatorControl />
-              <DataTableControl />
-            </ViewElement>
-          </DropZoneControl>
+          <ViewElement
+            className={`${STORAGE_BROWSER_BLOCK}__content-with-preview`}
+          >
+            <DropZoneControl>
+              <ViewElement className={`${STORAGE_BROWSER_BLOCK}__data-table`}>
+                <LoadingIndicatorControl />
+                <DataTableControl />
+              </ViewElement>
+            </DropZoneControl>
+            <FilePreviewControl />
+          </ViewElement>
         )}
         <ViewElement className={`${STORAGE_BROWSER_BLOCK}__footer`}>
           <MessageControl />
@@ -82,3 +88,4 @@ LocationDetailView.Refresh = DataRefreshControl;
 LocationDetailView.Search = SearchFieldControl;
 LocationDetailView.SearchSubfoldersToggle = SearchSubfoldersToggleControl;
 LocationDetailView.Title = TitleControl;
+LocationDetailView.FilePreview = FilePreviewControl;
