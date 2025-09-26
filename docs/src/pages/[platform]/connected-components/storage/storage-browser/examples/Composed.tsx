@@ -7,6 +7,7 @@ import { ComposedCreateFolderView } from './ComposedCreateFolderView';
 import { ComposedDeleteView } from './ComposedDeleteView';
 import { ComposedDownloadView } from './ComposedDownloadView';
 import { ComposedUploadView } from './ComposedUploadView';
+import ComposedLocationDetailView from './ComposedLocationDetailView';
 
 function LocationsView() {
   const state = useView('Locations');
@@ -80,7 +81,7 @@ function MyStorageBrowser() {
 
   return (
     <>
-      <StorageBrowser.LocationDetailView />
+      <ComposedLocationDetailView />
       <dialog ref={ref}>
         <MyLocationActionView />
       </dialog>

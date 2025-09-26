@@ -1,5 +1,11 @@
 # @aws-amplify/ui
 
+## 6.12.0
+
+### Minor Changes
+
+- [#6669](https://github.com/aws-amplify/amplify-ui/pull/6669) [`dc63ac61ce5768fdbc353800f4477f3fc71c1970`](https://github.com/aws-amplify/amplify-ui/commit/dc63ac61ce5768fdbc353800f4477f3fc71c1970) Thanks [@osama-rizk](https://github.com/osama-rizk)! - feat(storage-browser): File preview and file thumbnail.
+
 ## 6.11.0
 
 ### Minor Changes

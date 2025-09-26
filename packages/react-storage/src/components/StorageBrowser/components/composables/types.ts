@@ -18,6 +18,7 @@ import type { PaginationProps } from './Pagination';
 import type { SearchFieldProps } from './SearchField';
 import type { SearchSubfoldersToggleProps } from './SearchSubfoldersToggle';
 import type { TitleProps } from './Title';
+import type { FilePreviewProps } from './FilePreview';
 
 export interface Composables {
   ActionCancel: React.ComponentType<ActionCancelProps>;
@@ -40,6 +41,7 @@ export interface Composables {
   SearchSubfoldersToggle: React.ComponentType<SearchSubfoldersToggleProps>;
   StatusDisplay: React.ComponentType<StatusDisplayProps>;
   Title: React.ComponentType<TitleProps>;
+  FilePreview: React.ComponentType<FilePreviewProps>;
 }
 
 export interface ComposablesContext {
