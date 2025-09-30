@@ -10,7 +10,6 @@ interface CameraSelectorProps {
 
 export const CameraSelector = (props: CameraSelectorProps): JSX.Element => {
   const {
-    onSelect: onCameraChange,
     devices: selectableDevices,
     deviceId: selectedDeviceId,
   } = props;
@@ -29,7 +28,6 @@ export const CameraSelector = (props: CameraSelectorProps): JSX.Element => {
           label="Camera"
           labelHidden
           value={selectedDeviceId}
-          onChange={onCameraChange}
         >
           {selectableDevices.map((device) => (
             <option value={device.deviceId} key={device.deviceId}>
