@@ -84,7 +84,7 @@ jobs:
       # This steps attempts to restore cypress runner. It will not create any new
       # cache entries however, because cypress runner isn't available yet.
       - name: Restore cypress runner from Cache
-        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2 https://github.com/actions/cache/commit/0c45773b623bea8c8e75f6c82b208c3cf94ea4f9
+        uses: actions/cache@v4 # v4.0.2 https://github.com/actions/cache/commit/0c45773b623bea8c8e75f6c82b208c3cf94ea4f9
         id: restore-cypress-cache
         with:
           path: ~/.cache/Cypress
@@ -103,7 +103,7 @@ jobs:
       # step, so we go ahead and update the cache entry.
       - name: Cache cypress runner
         if: steps.restore-cypress-cache.outputs.cache-hit != 'true'
-        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2 https://github.com/actions/cache/commit/0c45773b623bea8c8e75f6c82b208c3cf94ea4f9
+        uses: actions/cache@v4 # v4.0.2 https://github.com/actions/cache/commit/0c45773b623bea8c8e75f6c82b208c3cf94ea4f9
         with:
           path: ~/.cache/Cypress
           key: ${{ runner.os }}-canary-cypress-${{ hashFiles('canary/e2e/yarn.lock') }}
