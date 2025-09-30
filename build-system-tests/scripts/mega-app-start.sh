@@ -56,9 +56,12 @@ echo "###########################"
 echo "cd ./mega-apps/${MEGA_APP_NAME}"
 cd ./mega-apps/${MEGA_APP_NAME}
 
-if [ "$BUILD_TOOL" == 'vite' ] || [ "$BUILD_TOOL" == 'nuxt' ]; then
+if [ "$BUILD_TOOL" == 'vite' ]; then
     echo "npm run dev -- --port 3000 &"
     npm run dev -- --port 3000 &
+elif [ "$BUILD_TOOL" == 'nuxt' ]; then
+    echo "npm run preview -- --port 3000 &"
+    npm run preview -- --port 3000 &
 elif [ "$FRAMEWORK" == 'vue' ]; then
     echo "npm run serve -- --port 3000 &"
     npm run serve -- --port 3000 &

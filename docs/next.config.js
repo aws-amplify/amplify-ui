@@ -8,7 +8,26 @@ const BRANCH = gitHead === 'HEAD' ? 'main' : gitHead;
 
 const withNextPluginPreval = require('next-plugin-preval/config')();
 
+let remarkMdxFrontmatterModule = null;
+
+function createRemarkMdxFrontmatterPlugin(options = {}) {
+  return async function remarkMdxFrontmatterPlugin(tree, file) {
+    if (!remarkMdxFrontmatterModule) {
+      remarkMdxFrontmatterModule = await import('remark-mdx-frontmatter');
+    }
+
+    const actualPlugin = remarkMdxFrontmatterModule.default;
+
+    const pluginInstance = actualPlugin(options);
+
+    return pluginInstance.call(this, tree, file);
+  };
+}
+
 module.exports = withNextPluginPreval({
+  images: {
+    domains: ['images.unsplash.com'],
+  },
   env: {
     BRANCH,
     SITE_URL: process.env.SITE_URL,
@@ -189,6 +208,15 @@ module.exports = withNextPluginPreval({
   },
 
   webpack(config) {
+    // Add alias to mock storage-internal for storage browser examples
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@aws-amplify/storage/internals': path.resolve(
+        __dirname,
+        'src/pages/[platform]/connected-components/storage/storage-browser/examples/mockStorageInternal.ts'
+      ),
+    };
+
     const defaultRehypePlugins = [
       // This is a custom plugin that removes lines that end in `// IGNORE`
       // This allows us to include code necessary for an example to run
@@ -230,10 +258,8 @@ module.exports = withNextPluginPreval({
               // Remove frontmatter from MDX
               require('remark-frontmatter'),
               // Extract to `frontmatter` export
-              [
-                require('remark-mdx-frontmatter').remarkMdxFrontmatter,
-                { name: 'frontmatter' },
-              ],
+              // Use the custom plugin wrapper that handles dynamic import
+              [createRemarkMdxFrontmatterPlugin, { name: 'frontmatter' }],
               require('./src/plugins/remark-layout'),
             ]),
           },

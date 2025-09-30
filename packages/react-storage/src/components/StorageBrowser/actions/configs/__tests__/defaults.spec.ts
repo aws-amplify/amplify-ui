@@ -79,6 +79,28 @@ describe('defaultActionConfigs', () => {
     });
   });
 
+  describe('download', () => {
+    const { disable, hide } = defaultActionConfigs.download.actionListItem;
+    it('hides the action list item as expected', () => {
+      for (const permissionsWithoutDownload of generateCombinations(
+        LOCATION_PERMISSION_VALUES.filter((value) => value !== 'get')
+      )) {
+        const permissionsWithDownload = [
+          ...permissionsWithoutDownload,
+          'get' as const,
+        ];
+        expect(hide?.(permissionsWithoutDownload)).toBe(true);
+        expect(hide?.(permissionsWithDownload)).toBe(false);
+      }
+    });
+
+    it('is disabled when no files are selected', () => {
+      expect(disable?.(undefined)).toBe(true);
+      expect(disable?.([])).toBe(true);
+      expect(disable?.([file])).toBe(false);
+    });
+  });
+
   describe('copy', () => {
     const { disable, hide } = defaultActionConfigs.copy.actionListItem;
     it('hides the action list item as expected', () => {

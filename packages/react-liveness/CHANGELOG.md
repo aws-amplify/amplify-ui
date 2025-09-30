@@ -1,5 +1,40 @@
 # @aws-amplify/ui-react-liveness
 
+## 3.4.6
+
+### Patch Changes
+
+- Updated dependencies [[`dc63ac61ce5768fdbc353800f4477f3fc71c1970`](https://github.com/aws-amplify/amplify-ui/commit/dc63ac61ce5768fdbc353800f4477f3fc71c1970)]:
+  - @aws-amplify/ui-react@6.13.0
+  - @aws-amplify/ui@6.12.0
+
+## 3.4.5
+
+### Patch Changes
+
+- Updated dependencies [[`4663860c126440e2213e58b58540756f70328338`](https://github.com/aws-amplify/amplify-ui/commit/4663860c126440e2213e58b58540756f70328338), [`40d6a0ef10157988b044339d8ac837fb757223a3`](https://github.com/aws-amplify/amplify-ui/commit/40d6a0ef10157988b044339d8ac837fb757223a3), [`414b67a7a7c5a747a36970e0db961934b71e6265`](https://github.com/aws-amplify/amplify-ui/commit/414b67a7a7c5a747a36970e0db961934b71e6265), [`8fae3332b6c9297efcd2d536a55cbcf4ecd46168`](https://github.com/aws-amplify/amplify-ui/commit/8fae3332b6c9297efcd2d536a55cbcf4ecd46168)]:
+  - @aws-amplify/ui@6.11.0
+  - @aws-amplify/ui-react@6.12.1
+
+## 3.4.4
+
+### Patch Changes
+
+- Updated dependencies [[`8319d5afaa9f3de59f18d72d873953a1fd0e1b73`](https://github.com/aws-amplify/amplify-ui/commit/8319d5afaa9f3de59f18d72d873953a1fd0e1b73)]:
+  - @aws-amplify/ui-react@6.12.0
+
+## 3.4.3
+
+### Patch Changes
+
+- [#6656](https://github.com/aws-amplify/amplify-ui/pull/6656) [`50ceedfe153f4b89d80e5dca4ee7ae355e0cd8e8`](https://github.com/aws-amplify/amplify-ui/commit/50ceedfe153f4b89d80e5dca4ee7ae355e0cd8e8) Thanks [@osama-rizk](https://github.com/osama-rizk)! - fix(ui-react-liveness): oval ratio multiplier
+
+## 3.4.2
+
+### Patch Changes
+
+- [#6614](https://github.com/aws-amplify/amplify-ui/pull/6614) [`b245c0d45fb3728dc6a293f3ffda3cb9b123569b`](https://github.com/aws-amplify/amplify-ui/commit/b245c0d45fb3728dc6a293f3ffda3cb9b123569b) Thanks [@adrianjoshua-strutt](https://github.com/adrianjoshua-strutt)! - fix(liveness): null-check for getSettings in UseMediaStreamInVideo
+
 ## 3.4.1
 
 ### Patch Changes

@@ -5,6 +5,8 @@ export const frDict: AuthenticatorDictionary = {
     'La récupération du compte nécessite des informations de contact vérifiées',
   'Authenticator App (TOTP)': 'Application d’authentification (TOTP)',
   'Back to Sign In': 'Retour à la connexion',
+  'Cannot reset password for the user as there is no registered/verified email or phone_number':
+    "Impossible de réinitialiser le mot de passe pour l'utilisateur car il n'a pas d'adresse e-mail ou de numéro de téléphone enregistré / vérifié",
   'Change Password': 'Modifier le mot de passe',
   Changing: 'Modification en cours',
   Code: 'Code',
@@ -92,10 +94,10 @@ export const frDict: AuthenticatorDictionary = {
   'Family Name': 'Nom de famille',
   'Forgot Password': 'Mot de passe oublié',
   'Forgot Password?': 'Mot de passe oublié ?',
+  'Incorrect username or password': 'Identifiant ou mot de passe incorrect',
   'Incorrect username or password.': 'Identifiant ou mot de passe incorrect.',
   'Have an account? ': 'Déjà un compte ? ',
   Hello: 'Bonjour',
-  'Incorrect username or password': 'Identifiant ou mot de passe incorrect',
   'Invalid password format': 'Format de mot de passe invalide',
   'Invalid phone number format': `Format de numéro de téléphone invalide. Veuillez utiliser un format +12345678900`,
   'Loading...': 'Chargement...',
@@ -129,13 +131,13 @@ export const frDict: AuthenticatorDictionary = {
   Website: 'Site web',
   'Password must have at least 8 characters':
     'Le mot de passe doit comporter au moins 8 caractères',
-  'Password did not conform with policy: Password must have uppercase characters':
+  'Password must have upper case letters':
     'Le mot de passe doit comporter des caractères majuscules',
-  'Password did not conform with policy: Password must have numeric characters':
+  'Password must have numbers':
     'Le mot de passe doit comporter des caractères numériques',
-  'Password did not conform with policy: Password must have symbol characters':
+  'Password must have special characters':
     'Le mot de passe doit comporter des symboles',
-  'Password did not conform with policy: Password must have lowercase characters':
+  'Password must have lower case letters':
     'Le mot de passe doit comporter des caractères minuscules',
   'Invalid verification code provided, please try again.':
     'Code de vérification invalide, veuillez réessayer.',

@@ -299,6 +299,10 @@ Then('I press the {string} key', (key: string) => {
 
 When('I click the button containing {string}', cy.clickButtonWithText);
 
+When('I click the button with label {string}', (ariaLabel: string) => {
+  cy.findByLabelText(ariaLabel).click();
+});
+
 When('I click the button containing random name', () => {
   cy.clickButtonWithText(randomFileName);
 });
@@ -409,6 +413,10 @@ Then('I see the {string} image', (alt: string) => {
   cy.findByAltText(alt).should('exist');
 });
 
+Then('I see video with label {string}', (label: string) => {
+  cy.get(`video[aria-label="${label}"]`).should('exist');
+});
+
 Then('I see {string} as a {string} field', (label: string, type: string) => {
   cy.findByLabelText(new RegExp(`^${escapeRegExp(label)}$`, 'i')).should(
     'have.attr',
@@ -458,6 +466,16 @@ Then('the {string} button is disabled', (name: string) => {
   cy.findByRole('button', {
     name: new RegExp(`^${escapeRegExp(name)}$`, 'i'),
   }).should('be.disabled');
+});
+
+Then('the {string} button is enabled', (name: string) => {
+  cy.findByRole('button', {
+    name: new RegExp(`^${escapeRegExp(name)}$`, 'i'),
+  }).should('not.be.disabled');
+});
+
+Then('the table should have {string} rows', (value: string) => {
+  cy.get('table').find('tbody tr').should('have.length', value);
 });
 
 Then('the {string} field is invalid', (name: string) => {
@@ -692,6 +710,15 @@ When(
 When('A network failure occurs', () => {
   cy.intercept('', (req) => {
     req.destroy();
+  });
+});
+
+Then('I see an error message for network failure', () => {
+  cy.get('body', { timeout: 10000 }).should(($body) => {
+    const text = $body.text();
+    expect(text).to.match(
+      /Something went wrong|Failed to fetch|Error|Network error|Unable to load/i
+    );
   });
 });
 

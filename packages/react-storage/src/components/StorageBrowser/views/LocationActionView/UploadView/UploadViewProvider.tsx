@@ -32,6 +32,9 @@ export function UploadViewProvider({
   } = displayText;
 
   const {
+    hasNextPage,
+    highestPageVisited,
+    page,
     isOverwritingEnabled,
     isProcessing,
     isProcessingComplete,
@@ -42,6 +45,7 @@ export function UploadViewProvider({
     onActionStart,
     onActionCancel,
     onDropFiles,
+    onPaginate,
     onActionExit,
     onTaskRemove,
     onSelectFiles,
@@ -92,6 +96,11 @@ export function UploadViewProvider({
         isOverwriteToggleDisabled: isProcessing || isProcessingComplete,
         isOverwritingEnabled,
         overwriteToggleLabel,
+        paginationData: {
+          page,
+          hasNextPage,
+          highestPageVisited,
+        },
         destination: location,
         message: actionCompleteMessage ?? filesValidationMessage,
         statusCounts,
@@ -105,6 +114,7 @@ export function UploadViewProvider({
       onActionCancel={onActionCancel}
       onActionExit={onActionExit}
       onActionStart={onActionStart}
+      onPaginate={onPaginate}
       onAddFiles={() => {
         onSelectFiles('FILE');
       }}

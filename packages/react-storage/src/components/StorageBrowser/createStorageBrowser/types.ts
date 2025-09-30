@@ -4,6 +4,7 @@ import type {
   CustomActionConfigs,
   DefaultActionConfigs,
   ExtendedActionConfigs,
+  FileData,
   ListLocations,
   LocationData,
 } from '../actions';
@@ -24,6 +25,7 @@ import type {
   CopyViewType,
   CreateFolderViewType,
   DeleteViewType,
+  DownloadViewType,
   UploadViewType,
   LocationActionViewType,
   LocationDetailViewType,
@@ -133,10 +135,112 @@ export interface StorageBrowserOptions {
   validateFile?: (file: File) => boolean;
 }
 
+const BUILT_IN_FILE_TYPES = ['text', 'video', 'image'] as const;
+export type BuiltInFileType = (typeof BUILT_IN_FILE_TYPES)[number];
+
+type CustomFileType<T> = T extends (properties: FileData) => infer R
+  ? R extends string | undefined
+    ? Exclude<NonNullable<R>, BuiltInFileType>
+    : never
+  : never;
+
+export type AllFileTypes<T extends undefined | any = undefined> =
+  T extends undefined ? BuiltInFileType : BuiltInFileType | CustomFileType<T>;
+
+export type FileSizeResolver<T extends string = BuiltInFileType> = (
+  fileType: T
+) => number | undefined;
+
+export type UrlOptionsResolver<T extends string = BuiltInFileType> = (
+  fileType: T
+) => FilePreviewUrlOptions | undefined;
+
+export type FilePreview<
+  TResolver extends ((properties: FileData) => unknown) | undefined = undefined,
+> = {
+  /**
+   * @description Function to determine file type from file properties
+   * @param properties - File metadata and properties
+   * @returns FileType or undefined that will fallback to the built-in file type detection
+   */
+  fileTypeResolver?: TResolver;
+
+  /**
+   * @description Function that dynamically returns a custom React component for rendering specific file types based on file type
+   * @param fileType - The resolved file type
+   * @returns React component or undefined to use built-in renderer
+   * @example fileType => fileType === 'image' ? CustomImagePreview : undefined
+   * @example fileType => {
+   *   if (fileType === 'text') return CodeRenderer;
+   *   if (fileType === 'pdf') return CustomPDFViewer;
+   *   return undefined; // Use built-in renderer
+   * }
+   */
+  rendererResolver?: (
+    fileType: AllFileTypes<TResolver>
+  ) => React.ComponentType<FilePreviewProps> | undefined;
+
+  /**
+   * @description Options for generating preview URLs.
+   * Can be:
+   * - A static configuration object
+   * - A function that dynamically returns URL options based on file type
+   * @example { expiresIn: 1800, validateObjectExistence: true }
+   * @example fileType => fileType === 'video' ? { expiresIn: 3600, validateObjectExistence: true } : undefined
+   */
+  urlOptions?:
+    | FilePreviewUrlOptions
+    | UrlOptionsResolver<AllFileTypes<TResolver>>;
+
+  /**
+   * @description Maximum file sizes allowed for preview in kilobytes (KB).
+   * Can be:
+   * - A single limit for all file types
+   * - A function that dynamically calculates the limit based on file type
+   * @example 10240 // 10MB limit for all files
+   * @example fileType => fileType === 'image' ? 5120 : undefined
+   */
+  maxFileSize?: number | FileSizeResolver<AllFileTypes<TResolver>>;
+};
+
+/**
+ * @description Options for generating file preview URLs
+ */
+export interface FilePreviewUrlOptions {
+  /**
+   * @description Whether to validate that the object exists before generating the URL
+   * @default false
+   */
+  validateObjectExistence?: boolean;
+
+  /**
+   * @description Time in seconds until the generated URL expires
+   * @default 900 (15 minutes)
+   */
+  expiresIn?: number;
+}
+
+/**
+ * @description Props provided to custom file preview renderer components
+ */
+export interface FilePreviewProps {
+  /**
+   * @description File metadata including content type and other properties
+   */
+  fileData: FileData;
+
+  /**
+   * @description Pre-signed URL for the file.
+   */
+  url: string;
+}
+
 /**
  * @description configuration and options for `createStorageBrowser`
  */
-export interface CreateStorageBrowserInput {
+export interface CreateStorageBrowserInput<
+  TResolver extends ((properties: FileData) => unknown) | undefined = undefined,
+> {
   /**
    * @description override and default `StorageBrowser` actions and action view configs
    */
@@ -162,6 +266,11 @@ export interface CreateStorageBrowserInput {
    * @description Additional options and overrides for `StorageBrowser`
    */
   options?: StorageBrowserOptions;
+
+  /**
+   * @description Configuration for file preview functionality including custom renderers, file type resolution, and size limits
+   */
+  filePreview?: FilePreview<TResolver> | false;
 }
 
 /**
@@ -292,6 +401,7 @@ export interface StorageBrowserType<TActionType = string, TViews = {}> {
   CopyView: CopyViewType;
   CreateFolderView: CreateFolderViewType;
   DeleteView: DeleteViewType;
+  DownloadView: DownloadViewType;
   UploadView: UploadViewType;
 }
 

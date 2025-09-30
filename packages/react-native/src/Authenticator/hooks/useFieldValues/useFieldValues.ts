@@ -1,8 +1,9 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { ConsoleLogger as Logger } from 'aws-amplify/utils';
 import type { ValidationError } from '@aws-amplify/ui';
 
 import type {
+  OnChange,
   OnChangeText,
   RadioFieldOptions,
   TextFieldOnBlur,
@@ -29,6 +30,7 @@ export default function useFieldValues<FieldType extends TypedField>({
   validationErrors,
 }: UseFieldValuesParams<FieldType>): UseFieldValues<FieldType> {
   const [touched, setTouched] = useState<Record<string, boolean>>({});
+  const lastProcessed = useRef<string>();
   const [fieldValidationErrors, setFieldValidationErrors] =
     useState<ValidationError>({});
   const isVerifyUserRoute = componentName === 'VerifyUser';
@@ -124,9 +126,10 @@ export default function useFieldValues<FieldType extends TypedField>({
       });
     };
 
-    const onChangeText: OnChangeText = (value) => {
-      // call `onChangeText` passed as text `field` option
-      field.onChangeText?.(value);
+    const reportChange = (value: string) => {
+      if (lastProcessed.current === `${name}:${value}`) {
+        return;
+      }
 
       // call machine change handler
       handleChange({ name, value });
@@ -138,13 +141,29 @@ export default function useFieldValues<FieldType extends TypedField>({
         });
       }
 
-      setValues({ ...values, [name]: value });
+      lastProcessed.current = `${name}:${value}`;
+      setValues((prev) => ({ ...prev, [name]: value }));
+    };
+
+    const onChangeText: OnChangeText = (value) => {
+      // call `onChangeText` passed as text `field` option
+      field.onChangeText?.(value);
+
+      reportChange(value);
+    };
+
+    const onChange: OnChange = (event) => {
+      // call `onChange` passed as text `field` option
+      field.onChange?.(event);
+
+      reportChange(event.nativeEvent.text ?? '');
     };
 
     return {
       ...rest,
       label: labelHidden ? undefined : label,
       onBlur,
+      onChange,
       onChangeText,
       name,
       value: values[name],

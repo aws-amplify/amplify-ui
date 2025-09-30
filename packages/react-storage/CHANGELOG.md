@@ -1,5 +1,44 @@
 # @aws-amplify/ui-react-storage
 
+## 3.13.0
+
+### Minor Changes
+
+- [#6669](https://github.com/aws-amplify/amplify-ui/pull/6669) [`dc63ac61ce5768fdbc353800f4477f3fc71c1970`](https://github.com/aws-amplify/amplify-ui/commit/dc63ac61ce5768fdbc353800f4477f3fc71c1970) Thanks [@osama-rizk](https://github.com/osama-rizk)! - feat(storage-browser): File preview and file thumbnail.
+
+### Patch Changes
+
+- Updated dependencies [[`dc63ac61ce5768fdbc353800f4477f3fc71c1970`](https://github.com/aws-amplify/amplify-ui/commit/dc63ac61ce5768fdbc353800f4477f3fc71c1970)]:
+  - @aws-amplify/ui-react@6.13.0
+  - @aws-amplify/ui@6.12.0
+  - @aws-amplify/ui-react-core@3.4.5
+
+## 3.12.2
+
+### Patch Changes
+
+- Updated dependencies [[`4663860c126440e2213e58b58540756f70328338`](https://github.com/aws-amplify/amplify-ui/commit/4663860c126440e2213e58b58540756f70328338), [`40d6a0ef10157988b044339d8ac837fb757223a3`](https://github.com/aws-amplify/amplify-ui/commit/40d6a0ef10157988b044339d8ac837fb757223a3), [`414b67a7a7c5a747a36970e0db961934b71e6265`](https://github.com/aws-amplify/amplify-ui/commit/414b67a7a7c5a747a36970e0db961934b71e6265), [`8fae3332b6c9297efcd2d536a55cbcf4ecd46168`](https://github.com/aws-amplify/amplify-ui/commit/8fae3332b6c9297efcd2d536a55cbcf4ecd46168)]:
+  - @aws-amplify/ui@6.11.0
+  - @aws-amplify/ui-react@6.12.1
+  - @aws-amplify/ui-react-core@3.4.4
+
+## 3.12.1
+
+### Patch Changes
+
+- Updated dependencies [[`8319d5afaa9f3de59f18d72d873953a1fd0e1b73`](https://github.com/aws-amplify/amplify-ui/commit/8319d5afaa9f3de59f18d72d873953a1fd0e1b73)]:
+  - @aws-amplify/ui-react@6.12.0
+
+## 3.12.0
+
+### Minor Changes
+
+- [#6620](https://github.com/aws-amplify/amplify-ui/pull/6620) [`70e0d1eab7fc476fd09032aef8414e5a43483a49`](https://github.com/aws-amplify/amplify-ui/commit/70e0d1eab7fc476fd09032aef8414e5a43483a49) Thanks [@soberm](https://github.com/soberm)! - feat(storage-browser): Multi File Download
+
+### Patch Changes
+
+- [#6628](https://github.com/aws-amplify/amplify-ui/pull/6628) [`6f45d97a33ed487237326530bf9c1b2190d7c2fa`](https://github.com/aws-amplify/amplify-ui/commit/6f45d97a33ed487237326530bf9c1b2190d7c2fa) Thanks [@bobbor](https://github.com/bobbor)! - feat(storage-browser): paginate upload view
+
 ## 3.11.0
 
 ### Minor Changes

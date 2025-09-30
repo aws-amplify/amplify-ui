@@ -9,6 +9,7 @@ import type {
   TaskData,
   UploadHandlerData,
   LocationPermissions,
+  DownloadHandlerData,
 } from '../actions';
 import type { MessageType } from '../components';
 import type { FileItems } from '../fileItems';
@@ -55,6 +56,34 @@ interface ListItemsMessageData extends ListMessageData {
   items: LocationItemData[] | undefined;
 }
 
+export interface DefaultFilePreviewDisplayText {
+  closeButtonLabel: string;
+  filePreviewTitle: string;
+  fileInformationTitle: string;
+  errorMessage: string;
+  sizeLimitMessage: string;
+  unsupportedFileMessage: string;
+  keyLabel: string;
+  sizeLabel: string;
+  versionIdLabel: string;
+  lastModifiedLabel: string;
+  entityTagLabel: string;
+  typeLabel: string;
+  unknownValue: string;
+  errorDescription: string;
+  unsupportedFileDescription: string;
+  imageLoadErrorDescription: string;
+  videoLoadErrorDescription: string;
+  textLoadErrorDescription: string;
+  generalPreviewErrorDescription: string;
+  fileSizeLimitDescription: string;
+  filePrefix: string;
+  retryButtonLabel: string;
+  downloadButtonLabel: string;
+  getTextErrorMessage: (error: string) => string;
+  emptyFileMessage: string;
+}
+
 export interface DefaultLocationDetailViewDisplayText
   extends DefaultListViewDisplayText {
   getListItemsResultMessage: (
@@ -69,6 +98,7 @@ export interface DefaultLocationDetailViewDisplayText
   tableColumnTypeHeader: string;
   getActionListItemLabel: (key: string | undefined) => string;
   getTitle: (location: LocationState) => string;
+  filePreview: DefaultFilePreviewDisplayText;
 }
 
 /**
@@ -141,6 +171,9 @@ export interface DefaultDeleteViewDisplayText
   tableColumnProgressHeader?: string;
 }
 
+export interface DefaultDownloadViewDisplayText
+  extends DefaultActionViewDisplayText<DownloadHandlerData> {}
+
 export interface DefaultUploadViewDisplayText
   extends DefaultActionViewDisplayText<UploadHandlerData> {
   addFilesLabel: string;
@@ -157,6 +190,7 @@ export interface DefaultStorageBrowserDisplayText {
   CopyView: DefaultCopyViewDisplayText;
   CreateFolderView: DefaultCreateFolderViewDisplayText;
   DeleteView: DefaultDeleteViewDisplayText;
+  DownloadView: DefaultDownloadViewDisplayText;
   LocationsView: DefaultLocationsViewDisplayText;
   LocationDetailView: DefaultLocationDetailViewDisplayText;
   UploadView: DefaultUploadViewDisplayText;
@@ -171,11 +205,16 @@ export interface CopyViewDisplayText
 export interface DeleteViewDisplayText
   extends Partial<DefaultDeleteViewDisplayText> {}
 
+export interface DownloadViewDisplayText
+  extends Partial<DefaultDownloadViewDisplayText> {}
+
 export interface LocationsViewDisplayText
   extends Partial<DefaultLocationsViewDisplayText> {}
 
 export interface LocationDetailViewDisplayText
-  extends Partial<DefaultLocationDetailViewDisplayText> {}
+  extends Partial<Omit<DefaultLocationDetailViewDisplayText, 'filePreview'>> {
+  filePreview?: Partial<DefaultFilePreviewDisplayText>;
+}
 
 export interface UploadViewDisplayText
   extends Partial<DefaultUploadViewDisplayText> {}
@@ -188,6 +227,7 @@ export interface StorageBrowserDisplayText {
   LocationDetailView?: LocationDetailViewDisplayText;
   UploadView?: UploadViewDisplayText;
   DeleteView?: DeleteViewDisplayText;
+  DownloadView?: DownloadViewDisplayText;
   CopyView?: CopyViewDisplayText;
   CreateFolderView?: CreateFolderViewDisplayText;
 }

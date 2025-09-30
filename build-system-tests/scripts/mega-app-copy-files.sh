@@ -131,6 +131,16 @@ if [[ "$FRAMEWORK" == 'angular' ]]; then
         echo "pin @types/node version in mega-apps/${MEGA_APP_NAME}/package.json"
         echo "npx json -I -f mega-apps/${MEGA_APP_NAME}/package.json -e 'this.dependencies["@types/node"] = "20.11.7"'"
         npx json -I -f mega-apps/${MEGA_APP_NAME}/package.json -e 'this.dependencies["@types/node"] = "20.11.7"'
+
+        # Add stylus overrides for Angular 14
+        echo "Adding stylus overrides for Angular 14"
+        echo "npx json -I -f mega-apps/${MEGA_APP_NAME}/package.json -e 'this.overrides = this.overrides || {}; this.overrides.stylus = \"github:stylus/stylus#0.59.0\"'"
+        npx json -I -f mega-apps/${MEGA_APP_NAME}/package.json -e 'this.overrides = this.overrides || {}; this.overrides.stylus = "github:stylus/stylus#0.59.0"'
+        
+        echo "npx json -I -f mega-apps/${MEGA_APP_NAME}/package.json -e 'this.resolutions = this.resolutions || {}; this.resolutions.stylus = \"github:stylus/stylus#0.59.0\"'"
+        npx json -I -f mega-apps/${MEGA_APP_NAME}/package.json -e 'this.resolutions = this.resolutions || {}; this.resolutions.stylus = "github:stylus/stylus#0.59.0"'
+        
+        echo "Stylus overrides added for Angular 14"
     fi
 fi
 
@@ -142,9 +152,11 @@ if [[ "$FRAMEWORK" == 'vue' ]]; then
     fi
 
     if [[ "$BUILD_TOOL" == 'nuxt' ]]; then
-        # nuxt doesn't use the src/ directory
-        echo "cp templates/components/vue/nuxt/* mega-apps/${MEGA_APP_NAME}/"
-        cp templates/components/vue/nuxt/* mega-apps/${MEGA_APP_NAME}/
+        echo "cp templates/components/vue/nuxt/app.vue mega-apps/${MEGA_APP_NAME}/app/app.vue"
+        cp templates/components/vue/nuxt/app.vue mega-apps/${MEGA_APP_NAME}/app/app.vue
+
+        echo "cp templates/components/vue/nuxt/nuxt.config.ts mega-apps/${MEGA_APP_NAME}/nuxt.config.ts"
+        cp templates/components/vue/nuxt/nuxt.config.ts mega-apps/${MEGA_APP_NAME}/nuxt.config.ts
     else
         echo "cp templates/components/vue/App.vue mega-apps/${MEGA_APP_NAME}/src/App.vue"
         cp templates/components/vue/App.vue mega-apps/${MEGA_APP_NAME}/src/App.vue

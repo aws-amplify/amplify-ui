@@ -12,6 +12,7 @@ import {
   CopyView,
   CreateFolderView,
   DeleteView,
+  DownloadView,
   LocationActionView,
   LocationDetailView,
   LocationsView,
@@ -24,10 +25,11 @@ import StorageBrowserDefault from './StorageBrowserDefault';
 import type {
   CreateStorageBrowserInput,
   CreateStorageBrowserOutput,
-  StorageBrowserType,
   DerivedActionViews,
   DerivedActionViewType,
+  StorageBrowserType,
 } from './types';
+import type { FileData } from '../actions/handlers';
 
 const UA_CONFIG = {
   componentName: 'StorageBrowser',
@@ -42,9 +44,14 @@ const UA_CONFIG = {
  * @returns `StorageBrowser` component, `useAction` and `useView` hooks
  */
 export default function createStorageBrowser<
-  TInput extends CreateStorageBrowserInput,
+  TResolver extends ((properties: FileData) => unknown) | undefined,
+  TInput extends CreateStorageBrowserInput<TResolver>,
   TActions extends NonNullable<TInput['actions']>,
->(input: TInput): CreateStorageBrowserOutput<TActions> {
+>(
+  input: CreateStorageBrowserInput<TResolver> & {
+    actions?: TActions;
+  }
+): CreateStorageBrowserOutput<TActions> {
   assertRegisterAuthListener(input.config.registerAuthListener);
 
   setUserAgent(UA_CONFIG);
@@ -53,7 +60,7 @@ export default function createStorageBrowser<
    * Provides state, configuration and action values that are shared between
    * the primary View components
    */
-  const Provider = createProvider(input);
+  const Provider = createProvider<TResolver>(input);
 
   const ErrorBoundary =
     input.ErrorBoundary === null
@@ -81,6 +88,7 @@ export default function createStorageBrowser<
   StorageBrowser.CopyView = CopyView;
   StorageBrowser.CreateFolderView = CreateFolderView;
   StorageBrowser.DeleteView = DeleteView;
+  StorageBrowser.DownloadView = DownloadView;
   StorageBrowser.UploadView = UploadView;
 
   StorageBrowser.Provider = Provider;
