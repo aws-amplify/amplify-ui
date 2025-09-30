@@ -14,6 +14,7 @@ import type { DataTableDataCell, DataTableHeader } from './types';
 import { CheckboxHeader } from './headers/CheckboxHeader';
 
 export interface DataTableRow {
+  active?: boolean;
   content: WithKey<DataTableDataCell>[];
 }
 
@@ -54,8 +55,9 @@ export const DataTable = ({
 
   const mappedRows = isLoading
     ? []
-    : rows.map(({ key, content }) => ({
+    : rows.map(({ key, content, active }) => ({
         key,
+        active,
         content: content.map(({ key, content, type }) => {
           switch (type) {
             case 'button': {

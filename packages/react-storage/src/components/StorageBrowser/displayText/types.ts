@@ -56,6 +56,34 @@ interface ListItemsMessageData extends ListMessageData {
   items: LocationItemData[] | undefined;
 }
 
+export interface DefaultFilePreviewDisplayText {
+  closeButtonLabel: string;
+  filePreviewTitle: string;
+  fileInformationTitle: string;
+  errorMessage: string;
+  sizeLimitMessage: string;
+  unsupportedFileMessage: string;
+  keyLabel: string;
+  sizeLabel: string;
+  versionIdLabel: string;
+  lastModifiedLabel: string;
+  entityTagLabel: string;
+  typeLabel: string;
+  unknownValue: string;
+  errorDescription: string;
+  unsupportedFileDescription: string;
+  imageLoadErrorDescription: string;
+  videoLoadErrorDescription: string;
+  textLoadErrorDescription: string;
+  generalPreviewErrorDescription: string;
+  fileSizeLimitDescription: string;
+  filePrefix: string;
+  retryButtonLabel: string;
+  downloadButtonLabel: string;
+  getTextErrorMessage: (error: string) => string;
+  emptyFileMessage: string;
+}
+
 export interface DefaultLocationDetailViewDisplayText
   extends DefaultListViewDisplayText {
   getListItemsResultMessage: (
@@ -70,6 +98,7 @@ export interface DefaultLocationDetailViewDisplayText
   tableColumnTypeHeader: string;
   getActionListItemLabel: (key: string | undefined) => string;
   getTitle: (location: LocationState) => string;
+  filePreview: DefaultFilePreviewDisplayText;
 }
 
 /**
@@ -183,7 +212,9 @@ export interface LocationsViewDisplayText
   extends Partial<DefaultLocationsViewDisplayText> {}
 
 export interface LocationDetailViewDisplayText
-  extends Partial<DefaultLocationDetailViewDisplayText> {}
+  extends Partial<Omit<DefaultLocationDetailViewDisplayText, 'filePreview'>> {
+  filePreview?: Partial<DefaultFilePreviewDisplayText>;
+}
 
 export interface UploadViewDisplayText
   extends Partial<DefaultUploadViewDisplayText> {}

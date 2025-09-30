@@ -22,7 +22,7 @@
     "@testing-library/cypress": "^10.0.3",
     "cypress": "^14.0.3",
     "dotenv-safe": "^8.2.0",
-    "rimraf": "^3.0.2",
+    "rimraf": "^5.0.0",
     "typescript": "^5.1.6"
   },
   "resolutions": {

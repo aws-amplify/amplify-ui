@@ -94,6 +94,7 @@ export const nbDict: AuthenticatorDictionary = {
   'Forgot Password': 'Glemt passordet',
   'Have an account? ': 'Har en konto allerede? ',
   'Incorrect username or password': 'Feil brukernavn eller passord',
+  'Incorrect username or password.': 'Feil brukernavn eller passord',
   'Invalid password format': 'Ugyldig passordformat',
   'Invalid phone number format': 'Ugyldig telefonnummerformat',
   'Lost your code? ': 'Mistet koden? ',
