@@ -15,12 +15,6 @@ export interface FaceLivenessDetectorCoreProps {
    */
   deviceId?: string;
 
-  /**
-   * Optional device label to pre-select a camera by its label.
-   * This is more reliable than deviceId as labels typically remain consistent.
-   * If both deviceId and deviceLabel are provided, deviceLabel takes precedence.
-   */
-  deviceLabel?: string;
 
   /**
    * Callback that signals when the liveness session has completed analysis.
