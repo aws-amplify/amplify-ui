@@ -146,17 +146,7 @@ function setLastSelectedCameraId(deviceId: string) {
   localStorage.setItem(CAMERA_ID_KEY, deviceId);
 }
 
-// Helper function to find device by label
-function findDeviceByLabel(
-  devices: MediaDeviceInfo[],
-  targetLabel: string
-): MediaDeviceInfo | undefined {
-  return devices.find(
-    (device) =>
-      device.label.toLowerCase().includes(targetLabel.toLowerCase()) ||
-      targetLabel.toLowerCase().includes(device.label.toLowerCase())
-  );
-}
+ 
 
 export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
   {
@@ -568,48 +558,8 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           };
         },
       }),
-      callCameraChangeCallback: (context, event) => {
-        const { onCameraChange } = context.componentProps ?? {};
-        if (!onCameraChange) {
-          return;
-        }
-
-        try {
-          const newDeviceId = event.data?.newDeviceId as string;
-          const deviceInfo =
-            context.videoAssociatedParams?.selectableDevices?.find(
-              (device) => device.deviceId === newDeviceId
-            );
-
-          if (deviceInfo) {
-            onCameraChange(deviceInfo);
-          }
-        } catch (callbackError) {
-          // eslint-disable-next-line no-console
-          console.error('Error in onCameraChange callback:', callbackError);
-        }
-      },
-      callCameraNotFoundCallback: (context, event) => {
-        const { onCameraNotFound } = context.componentProps ?? {};
-        if (!onCameraNotFound) {
-          return;
-        }
-
-        try {
-          const requestedCamera = event.data?.requestedCamera as {
-            deviceId?: string;
-            deviceLabel?: string;
-          };
-          const fallbackDevice = event.data?.fallbackDevice as DeviceInfo;
-
-          if (requestedCamera && fallbackDevice) {
-            onCameraNotFound(requestedCamera, fallbackDevice);
-          }
-        } catch (callbackError) {
-          // eslint-disable-next-line no-console
-          console.error('Error in onCameraChange callback:', callbackError);
-        }
-      },
+      
+      
 
       updateRecordingStartTimestamp: assign({
         videoAssociatedParams: (context) => {
@@ -976,49 +926,15 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       async checkVirtualCameraAndGetStream(context) {
         const { videoConstraints } = context.videoAssociatedParams!;
 
-        // Get initial stream to enumerate devices with non-empty labels
         const { componentProps } = context;
 
-        // Priority: deviceLabel > deviceId > localStorage
         let targetDeviceId: string | undefined;
         let requestedCamera:
-          | { deviceId?: string; deviceLabel?: string }
+          | { deviceId?: string }
           | undefined;
         let cameraNotFound = false;
 
-        if (componentProps?.deviceLabel) {
-          requestedCamera = { deviceLabel: componentProps.deviceLabel };
-
-          // First, get a basic stream to populate device labels
-          const tempStream = await navigator.mediaDevices.getUserMedia({
-            video: { ...videoConstraints },
-            audio: false,
-          });
-
-          // Enumerate devices to find one matching the label
-          const devices = await navigator.mediaDevices.enumerateDevices();
-          const videoDevices = devices.filter(
-            (device) => device.kind === 'videoinput'
-          );
-
-          // Check for empty or whitespace-only string - treat as camera not found
-          if (componentProps.deviceLabel.trim() === '') {
-            cameraNotFound = true;
-          } else {
-            const matchingDevice = findDeviceByLabel(
-              videoDevices,
-              componentProps.deviceLabel
-            );
-            if (matchingDevice) {
-              targetDeviceId = matchingDevice.deviceId;
-            } else {
-              cameraNotFound = true;
-            }
-          }
-
-          // Stop the temporary stream
-          tempStream.getTracks().forEach((track) => track.stop());
-        } else if (componentProps?.deviceId) {
+        if (componentProps?.deviceId) {
           requestedCamera = { deviceId: componentProps.deviceId };
           targetDeviceId = componentProps.deviceId;
         } else {
@@ -1036,7 +952,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             audio: false,
           })
           .catch((error: unknown) => {
-            // If the provided deviceId/deviceLabel is not found, fall back to default device selection
             if (
               error instanceof DOMException &&
               (error.name === 'NotFoundError' ||
@@ -1102,21 +1017,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         };
 
         // If a camera was not found, we need to trigger the callback
-        if (cameraNotFound && requestedCamera) {
-          const fallbackDevice = realVideoDevices.find(
-            (device) => device.deviceId === deviceId
-          );
-          if (fallbackDevice) {
-            // We'll send this event after the service completes
-            setTimeout(() => {
-              context.componentProps?.onCameraNotFound?.(requestedCamera, {
-                deviceId: fallbackDevice.deviceId,
-                groupId: fallbackDevice.groupId,
-                label: fallbackDevice.label,
-              });
-            }, 0);
-          }
-        }
+        
 
         return result;
       },
