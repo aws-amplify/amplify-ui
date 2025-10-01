@@ -119,18 +119,19 @@ export class ColorSequenceDisplay {
       onSequenceStart();
     }
 
-    const sequenceStartTime = Date.now();
+    const currentTime = Date.now();
 
     let timeSinceLastColorStageChange =
-      sequenceStartTime - this.#lastColorStageChangeTimestamp;
+      currentTime - this.#lastColorStageChangeTimestamp;
 
     // Send a colorStart time only for the first tick of the first color
     if (this.#isFirstTick) {
       this.#lastColorStageChangeTimestamp = Date.now();
       this.#isFirstTick = false;
 
-      // initial sequence change
+      // initial sequence change - capture timestamp at the exact moment
       if (isFunction(onSequenceChange)) {
+        const sequenceStartTime = Date.now();
         onSequenceChange({
           prevSequenceColor: this.#previousSequence.color,
           sequenceColor: this.#sequence.color,
@@ -147,7 +148,7 @@ export class ColorSequenceDisplay {
       (this.#isScrollingStage() &&
         timeSinceLastColorStageChange >= this.#sequence.downscrollDuration)
     ) {
-      this.#handleSequenceChange({ sequenceStartTime, onSequenceChange });
+      this.#handleSequenceChange({ onSequenceChange });
       timeSinceLastColorStageChange = 0;
     }
 
@@ -184,10 +185,8 @@ export class ColorSequenceDisplay {
   // SCROLL - prev = 1, curr = 2
   // SCROLL - prev = 2, curr = 3
   #handleSequenceChange({
-    sequenceStartTime,
     onSequenceChange,
   }: {
-    sequenceStartTime: number;
     onSequenceChange?: OnSequenceChange;
   }) {
     this.#previousSequence = this.#sequence;
@@ -211,11 +210,13 @@ export class ColorSequenceDisplay {
 
     if (this.#sequence) {
       if (isFunction(onSequenceChange)) {
+        // Capture timestamp at the exact moment of sequence change
+        const sequenceStartTime = Date.now();
         onSequenceChange({
           prevSequenceColor: this.#previousSequence.color,
           sequenceColor: this.#sequence.color,
           sequenceIndex: this.#sequenceIndex,
-          sequenceStartTime: sequenceStartTime,
+          sequenceStartTime,
         });
       }
     }

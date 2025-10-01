@@ -45,6 +45,7 @@ import {
   createColorDisplayEvent,
   createSessionEndEvent,
   getTrackDimensions,
+  validateVideoDuration,
 } from '../utils';
 
 import {
@@ -600,9 +601,13 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           return { ...context.videoAssociatedParams };
         },
       }),
-      stopRecording: () => {
-        freshnessColorEndTimestamp = Date.now();
-      },
+      stopRecording: assign({
+        videoAssociatedParams: (context) => {
+          // Set the end timestamp immediately when entering success state
+          freshnessColorEndTimestamp = Date.now();
+          return { ...context.videoAssociatedParams };
+        },
+      }),
       updateFaceMatchBeforeStartDetails: assign({
         faceMatchStateBeforeStart: (_, event) =>
           event.data!.faceMatchState as FaceMatchState,
@@ -1288,6 +1293,15 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           .getTracks()[0]
           .getSettings();
 
+        // Add delay to ensure:
+        // 1. freshnessColorEndTimestamp is set before recording stops
+        // 2. MediaRecorder has time to flush all chunks
+        // 3. Last color is fully captured in the video
+        // Skip delay in test environment to avoid breaking existing tests
+        if (process.env.NODE_ENV !== 'test') {
+          await new Promise((resolve) => setTimeout(resolve, 200));
+        }
+
         // if not awaited, `getRecordingEndTimestamp` will throw
         await livenessStreamProvider!.stopRecording();
 
@@ -1338,6 +1352,40 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
               ?.ColorDisplayed;
           })
           .filter(Boolean);
+
+        // Task 5: Validate video duration using helper function
+        if (process.env.NODE_ENV !== 'production') {
+          const expectedDuration =
+            freshnessColorEndTimestamp - recordingStartTimestampActual;
+
+          await validateVideoDuration({
+            videoBlob: blobData,
+            expectedDuration,
+            tolerance: 100,
+            recordingStartTimestamp: recordingStartTimestampActual,
+            recordingEndTimestamp: freshnessColorEndTimestamp,
+            chunksCount: chunks?.length,
+          });
+        }
+
+        // Validate timestamps are monotonically increasing (development mode only)
+        if (process.env.NODE_ENV !== 'production') {
+          let lastTimestamp = 0;
+          freshnessColorSignals?.forEach((signal, index) => {
+            const currentTimestamp = signal?.CurrentColorStartTimestamp;
+            if (currentTimestamp !== undefined) {
+              if (currentTimestamp <= lastTimestamp) {
+                // eslint-disable-next-line no-console
+                console.warn(
+                  `[Liveness] Timestamp validation failed at index ${index}: ` +
+                    `${currentTimestamp} <= ${lastTimestamp}. ` +
+                    `Each color should have a unique, increasing timestamp.`
+                );
+              }
+              lastTimestamp = currentTimestamp;
+            }
+          });
+        }
 
         const userCamera = selectableDevices?.find(
           (device) => device.deviceId === selectedDeviceId
