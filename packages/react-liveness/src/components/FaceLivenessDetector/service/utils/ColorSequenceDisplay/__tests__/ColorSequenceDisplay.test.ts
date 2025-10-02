@@ -104,63 +104,67 @@ describe('ColorSequenceDisplay', () => {
 
     expect(canvasElement.style.display).toBe('');
 
-    // first sequence
+    // first sequence - only dispatches once now (skips transition on first tick)
     expect(await display.startSequences(startParams)).toBe(false);
-    expect(mockDispatchStreamEvent).toHaveBeenCalledTimes(2);
-    // first and second dispatches happen call on first call of `start`
+    expect(mockDispatchStreamEvent).toHaveBeenCalledTimes(1);
+    // first dispatch happens on first call of `start`
     expect(mockDispatchStreamEvent.mock.calls[0][0]).toMatchSnapshot();
-    // second call
-    expect(mockDispatchStreamEvent.mock.calls[1][0]).toMatchSnapshot();
     expect(onSequenceStart).toBeCalledTimes(1);
     expect(canvasElement.style.display).toBe('block');
     expect(onSequenceColorChange).toBeCalledTimes(1);
+    // First tick stays on sequence 0 (rgb(0,0,0)) - transition happens on next tick
     expect(onSequenceColorChange).toBeCalledWith({
-      heightFraction: 0,
-      sequenceColor: 'rgb(0,255,0)',
+      heightFraction: expect.any(Number),
+      sequenceColor: 'rgb(0,0,0)',
       prevSequenceColor: 'rgb(0,0,0)',
     });
 
-    // second sequence
+    // second sequence - transition happens on second tick
+    expect(await display.startSequences(startParams)).toBe(false);
+    expect(mockDispatchStreamEvent).toHaveBeenCalledTimes(2);
+    expect(mockDispatchStreamEvent.mock.calls[1][0]).toMatchSnapshot();
+    expect(canvasElement.style.display).toBe('block');
+
+    // third sequence
     expect(await display.startSequences(startParams)).toBe(false);
     expect(mockDispatchStreamEvent).toHaveBeenCalledTimes(3);
     expect(mockDispatchStreamEvent.mock.calls[2][0]).toMatchSnapshot();
     expect(canvasElement.style.display).toBe('block');
 
-    // third sequence
+    // fourth sequence
     expect(await display.startSequences(startParams)).toBe(false);
     expect(mockDispatchStreamEvent).toHaveBeenCalledTimes(4);
     expect(mockDispatchStreamEvent.mock.calls[3][0]).toMatchSnapshot();
     expect(canvasElement.style.display).toBe('block');
 
-    // fourth sequence
+    // fifth sequence
     expect(await display.startSequences(startParams)).toBe(false);
     expect(mockDispatchStreamEvent).toHaveBeenCalledTimes(5);
     expect(mockDispatchStreamEvent.mock.calls[4][0]).toMatchSnapshot();
     expect(canvasElement.style.display).toBe('block');
 
-    // fifth sequence
+    // sixth sequence
     expect(await display.startSequences(startParams)).toBe(false);
     expect(mockDispatchStreamEvent).toHaveBeenCalledTimes(6);
     expect(mockDispatchStreamEvent.mock.calls[5][0]).toMatchSnapshot();
     expect(canvasElement.style.display).toBe('block');
 
-    // sixth sequence
+    // seventh sequence
     expect(await display.startSequences(startParams)).toBe(false);
     expect(mockDispatchStreamEvent).toHaveBeenCalledTimes(7);
     expect(mockDispatchStreamEvent.mock.calls[6][0]).toMatchSnapshot();
-    expect(canvasElement.style.display).toBe('block');
-
-    // seventh sequence
-    expect(await display.startSequences(startParams)).toBe(false);
-    expect(mockDispatchStreamEvent).toHaveBeenCalledTimes(8);
-    expect(mockDispatchStreamEvent.mock.calls[7][0]).toMatchSnapshot();
     expect(onSequenceStart).toBeCalledTimes(7);
     expect(canvasElement.style.display).toBe('block');
 
-    // eighth sequence
-    expect(await display.startSequences(startParams)).toBe(true);
+    // eighth sequence (transition to last)
+    expect(await display.startSequences(startParams)).toBe(false);
     expect(mockDispatchStreamEvent).toHaveBeenCalledTimes(8);
     expect(onSequenceStart).toBeCalledTimes(8);
+    expect(canvasElement.style.display).toBe('block');
+
+    // complete
+    expect(await display.startSequences(startParams)).toBe(true);
+    expect(mockDispatchStreamEvent).toHaveBeenCalledTimes(8);
     expect(onSequencesComplete).toHaveBeenCalledTimes(1);
     expect(canvasElement.style.display).toBe('none');
   });
@@ -176,20 +180,23 @@ describe('ColorSequenceDisplay', () => {
       flatSequence,
     ]);
 
-    // first sequence
+    // first sequence - only dispatches once (skips transition on first tick)
     expect(await display.startSequences(startParams)).toBe(false);
-    // first and second dispatches happen call on first call of `start`
+    expect(mockDispatchStreamEvent).toHaveBeenCalledTimes(1);
+
+    // second sequence - transition happens on second tick
+    expect(await display.startSequences(startParams)).toBe(false);
     expect(mockDispatchStreamEvent).toHaveBeenCalledTimes(2);
 
-    // second sequence
+    // third sequence
     expect(await display.startSequences(startParams)).toBe(false);
     expect(mockDispatchStreamEvent).toHaveBeenCalledTimes(3);
 
-    // third sequence
+    // continue third sequence (transition happens)
     expect(await display.startSequences(startParams)).toBe(false);
     expect(mockDispatchStreamEvent).toHaveBeenCalledTimes(4);
 
-    // third sequence
+    // third sequence complete
     expect(await display.startSequences(startParams)).toBe(true);
     expect(mockDispatchStreamEvent).toHaveBeenCalledTimes(4);
   });

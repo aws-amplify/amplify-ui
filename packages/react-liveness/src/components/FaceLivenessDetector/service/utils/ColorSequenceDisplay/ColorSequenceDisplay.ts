@@ -126,30 +126,34 @@ export class ColorSequenceDisplay {
 
     // Send a colorStart time only for the first tick of the first color
     if (this.#isFirstTick) {
-      this.#lastColorStageChangeTimestamp = Date.now();
+      const firstSequenceTimestamp = Date.now();
+      this.#lastColorStageChangeTimestamp = firstSequenceTimestamp;
       this.#isFirstTick = false;
 
       // initial sequence change - capture timestamp at the exact moment
       if (isFunction(onSequenceChange)) {
-        const sequenceStartTime = Date.now();
         onSequenceChange({
           prevSequenceColor: this.#previousSequence.color,
           sequenceColor: this.#sequence.color,
           sequenceIndex: this.#sequenceIndex,
-          sequenceStartTime,
+          sequenceStartTime: firstSequenceTimestamp,
         });
       }
-    }
 
-    // Every 10 ms tick we will check if the threshold for flat or scrolling, if so we will try to go to the next stage
-    if (
-      (this.#isFlatStage() &&
-        timeSinceLastColorStageChange >= this.#sequence.flatDisplayDuration) ||
-      (this.#isScrollingStage() &&
-        timeSinceLastColorStageChange >= this.#sequence.downscrollDuration)
-    ) {
-      this.#handleSequenceChange({ onSequenceChange });
-      timeSinceLastColorStageChange = 0;
+      // Skip transition check on first tick to ensure unique timestamps
+      // The next tick will handle any immediate transitions
+    } else {
+      // Every 10 ms tick we will check if the threshold for flat or scrolling, if so we will try to go to the next stage
+      if (
+        (this.#isFlatStage() &&
+          timeSinceLastColorStageChange >=
+            this.#sequence.flatDisplayDuration) ||
+        (this.#isScrollingStage() &&
+          timeSinceLastColorStageChange >= this.#sequence.downscrollDuration)
+      ) {
+        this.#handleSequenceChange({ onSequenceChange });
+        timeSinceLastColorStageChange = 0;
+      }
     }
 
     const hasRemainingSequences =
@@ -206,17 +210,17 @@ export class ColorSequenceDisplay {
 
     this.#sequence = this.#colorSequences[this.#sequenceIndex];
 
-    this.#lastColorStageChangeTimestamp = Date.now();
+    // Capture the actual timestamp when this sequence change occurs
+    const actualSequenceStartTime = Date.now();
+    this.#lastColorStageChangeTimestamp = actualSequenceStartTime;
 
     if (this.#sequence) {
       if (isFunction(onSequenceChange)) {
-        // Capture timestamp at the exact moment of sequence change
-        const sequenceStartTime = Date.now();
         onSequenceChange({
           prevSequenceColor: this.#previousSequence.color,
           sequenceColor: this.#sequence.color,
           sequenceIndex: this.#sequenceIndex,
-          sequenceStartTime,
+          sequenceStartTime: actualSequenceStartTime,
         });
       }
     }

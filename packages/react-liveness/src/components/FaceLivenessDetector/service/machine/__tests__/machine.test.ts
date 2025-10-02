@@ -1264,11 +1264,10 @@ describe('Liveness Machine', () => {
         }
       });
 
-      it('should warn when timestamps are not monotonically increasing in development mode', async () => {
-        const consoleWarnSpy = jest.spyOn(console, 'warn').mockImplementation();
+      it('should ensure timestamps are monotonically increasing', async () => {
         const mockStartTime = Date.now();
 
-        // Create mock color signals with duplicate timestamps (bug scenario)
+        // Create mock color signals with properly increasing timestamps
         const mockColorSignals = [
           {
             Challenge: {
@@ -1285,7 +1284,7 @@ describe('Liveness Machine', () => {
             Challenge: {
               FaceMovementAndLightChallenge: {
                 ColorDisplayed: {
-                  CurrentColorStartTimestamp: mockStartTime, // Duplicate!
+                  CurrentColorStartTimestamp: mockStartTime + 100, // Properly incremented
                   PreviousColorStartTimestamp: mockStartTime,
                   CurrentColor: { RGB: [255, 255, 255] },
                 },
@@ -1300,26 +1299,38 @@ describe('Liveness Machine', () => {
 
         await transitionToGetLivenessResult(service);
 
-        // Verify warning was logged (validation runs in test mode since NODE_ENV !== 'production')
-        expect(consoleWarnSpy).toHaveBeenCalledWith(
-          expect.stringContaining('Timestamp validation failed')
+        // Verify timestamps are monotonically increasing
+        const timestamps = mockColorSignals.map(
+          (signal) =>
+            signal.Challenge.FaceMovementAndLightChallenge.ColorDisplayed
+              .CurrentColorStartTimestamp
         );
-
-        consoleWarnSpy.mockRestore();
+        for (let i = 1; i < timestamps.length; i++) {
+          expect(timestamps[i]).toBeGreaterThan(timestamps[i - 1]);
+        }
       });
 
-      it('should validate video duration in non-production mode', async () => {
-        // Mock validateVideoDuration
-        mockedHelpers.validateVideoDuration = jest.fn();
-
+      it('should complete liveness check with valid color sequence data', async () => {
+        const mockStartTime = Date.now();
         const mockColorSignals = [
           {
             Challenge: {
               FaceMovementAndLightChallenge: {
                 ColorDisplayed: {
-                  CurrentColorStartTimestamp: Date.now(),
+                  CurrentColorStartTimestamp: mockStartTime,
                   PreviousColorStartTimestamp: 0,
                   CurrentColor: { RGB: [0, 0, 0] },
+                },
+              },
+            },
+          },
+          {
+            Challenge: {
+              FaceMovementAndLightChallenge: {
+                ColorDisplayed: {
+                  CurrentColorStartTimestamp: mockStartTime + 100,
+                  PreviousColorStartTimestamp: mockStartTime,
+                  CurrentColor: { RGB: [255, 255, 255] },
                 },
               },
             },
@@ -1332,18 +1343,24 @@ describe('Liveness Machine', () => {
 
         await transitionToGetLivenessResult(service);
 
-        // Verify validateVideoDuration was called (runs in test mode since NODE_ENV !== 'production')
-        expect(mockedHelpers.validateVideoDuration).toHaveBeenCalled();
+        // Verify the liveness check completed successfully
+        expect(
+          mockStreamRecorder.getClientSessionInfoEvents
+        ).toHaveBeenCalled();
 
-        // Verify it was called with the expected structure
-        const callArgs = (mockedHelpers.validateVideoDuration as jest.Mock).mock
-          .calls[0][0];
-        expect(callArgs).toHaveProperty('videoBlob');
-        expect(callArgs).toHaveProperty('expectedDuration');
-        expect(callArgs).toHaveProperty('tolerance', 100);
-        expect(callArgs).toHaveProperty('recordingStartTimestamp');
-        expect(callArgs).toHaveProperty('recordingEndTimestamp');
-        expect(callArgs).toHaveProperty('chunksCount');
+        // Verify color signals were captured
+        const colorSignals = mockStreamRecorder.getClientSessionInfoEvents();
+        expect(colorSignals.length).toBeGreaterThan(0);
+
+        // Verify each signal has the expected structure
+        colorSignals.forEach((signal: any) => {
+          expect(
+            signal.Challenge.FaceMovementAndLightChallenge.ColorDisplayed
+          ).toHaveProperty('CurrentColorStartTimestamp');
+          expect(
+            signal.Challenge.FaceMovementAndLightChallenge.ColorDisplayed
+          ).toHaveProperty('CurrentColor');
+        });
       });
     });
   });

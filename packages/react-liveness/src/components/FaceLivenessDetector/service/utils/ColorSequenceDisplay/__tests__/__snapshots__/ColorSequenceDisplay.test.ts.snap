@@ -14,7 +14,7 @@ exports[`ColorSequenceDisplay progresses through expected sequences as expected 
               0,
             ],
           },
-          "CurrentColorStartTimestamp": 3000,
+          "CurrentColorStartTimestamp": 2000,
           "PreviousColor": {
             "RGB": [
               0,
@@ -45,7 +45,7 @@ exports[`ColorSequenceDisplay progresses through expected sequences as expected 
               0,
             ],
           },
-          "CurrentColorStartTimestamp": 5000,
+          "CurrentColorStartTimestamp": 4000,
           "PreviousColor": {
             "RGB": [
               0,
@@ -76,7 +76,7 @@ exports[`ColorSequenceDisplay progresses through expected sequences as expected 
               255,
             ],
           },
-          "CurrentColorStartTimestamp": 8000,
+          "CurrentColorStartTimestamp": 6000,
           "PreviousColor": {
             "RGB": [
               0,
@@ -107,7 +107,7 @@ exports[`ColorSequenceDisplay progresses through expected sequences as expected 
               0,
             ],
           },
-          "CurrentColorStartTimestamp": 11000,
+          "CurrentColorStartTimestamp": 8000,
           "PreviousColor": {
             "RGB": [
               255,
@@ -138,7 +138,7 @@ exports[`ColorSequenceDisplay progresses through expected sequences as expected 
               255,
             ],
           },
-          "CurrentColorStartTimestamp": 14000,
+          "CurrentColorStartTimestamp": 10000,
           "PreviousColor": {
             "RGB": [
               255,
@@ -169,7 +169,7 @@ exports[`ColorSequenceDisplay progresses through expected sequences as expected 
               0,
             ],
           },
-          "CurrentColorStartTimestamp": 17000,
+          "CurrentColorStartTimestamp": 12000,
           "PreviousColor": {
             "RGB": [
               0,
@@ -200,7 +200,7 @@ exports[`ColorSequenceDisplay progresses through expected sequences as expected 
               0,
             ],
           },
-          "CurrentColorStartTimestamp": 20000,
+          "CurrentColorStartTimestamp": 14000,
           "PreviousColor": {
             "RGB": [
               255,
@@ -209,37 +209,6 @@ exports[`ColorSequenceDisplay progresses through expected sequences as expected 
             ],
           },
           "SequenceNumber": 6,
-        },
-      },
-    },
-  },
-  "type": "sessionInfo",
-}
-`;
-
-exports[`ColorSequenceDisplay progresses through expected sequences as expected 8`] = `
-{
-  "data": {
-    "Challenge": {
-      "FaceMovementAndLightChallenge": {
-        "ChallengeId": "challengeId",
-        "ColorDisplayed": {
-          "CurrentColor": {
-            "RGB": [
-              255,
-              0,
-              0,
-            ],
-          },
-          "CurrentColorStartTimestamp": 23000,
-          "PreviousColor": {
-            "RGB": [
-              0,
-              255,
-              0,
-            ],
-          },
-          "SequenceNumber": 7,
         },
       },
     },
