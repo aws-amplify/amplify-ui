@@ -1,5 +1,11 @@
 # @aws-amplify/ui-react-native
 
+## 2.6.3
+
+### Patch Changes
+
+- [#6716](https://github.com/aws-amplify/amplify-ui/pull/6716) [`d71feae486cf038d088680c7d0f1a93f552d050f`](https://github.com/aws-amplify/amplify-ui/commit/d71feae486cf038d088680c7d0f1a93f552d050f) Thanks [@osama-rizk](https://github.com/osama-rizk)! - fix(authenticator-react-native): password manager autofill validation
+
 ## 2.6.2
 
 ### Patch Changes
