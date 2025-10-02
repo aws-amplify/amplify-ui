@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { Amplify } from 'aws-amplify';
 import { I18n } from 'aws-amplify/utils';
-import { translations } from '@aws-amplify/ui-angular';
+import { translations } from '@aws-amplify/ui';
 import awsExports from './aws-exports';
 
 @Component({

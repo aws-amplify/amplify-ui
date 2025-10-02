@@ -4,11 +4,11 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite --port 3000",
-    "build": "vue-tsc --noEmit && vite build",
+    "dev": "yarn g:vite --port 3000",
+    "build": "yarn g:vue-tsc --noEmit && yarn g:vite build",
     "clean": "rimraf dist node_modules",
-    "serve": "vite preview",
-    "start": "vite preview --port 3000"
+    "serve": "yarn g:vite preview",
+    "start": "yarn g:vite preview --port 3000"
   },
   "dependencies": {
     "@aws-amplify/ui-vue": "^4.3.5",
