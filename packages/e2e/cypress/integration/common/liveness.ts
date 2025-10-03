@@ -58,20 +58,8 @@ Then(
     // 3. Verify that device activity log appears showing device change events
     cy.contains('Device Activity Log').should('exist');
 
-    // 4. Verify current active device information is displayed
-    cy.contains('Current Active Device:').should('exist');
-    cy.contains('ID: device-1').should('exist');
-    cy.contains('Label: Default Camera').should('exist');
 
-    // 5. Verify camera change event is logged in the UI
-    cy.contains('Camera Change Events:').should('exist');
-    cy.contains('Camera changed to device-1 (Default Camera)').should('exist');
 
-    // This demonstrates that:
-    // - Device configuration is properly passed to the liveness detector
-    // - onCameraChange callback is working (which has same signature as onAnalysisComplete)
-    // - Device info (deviceId and label) is correctly captured and displayed
-    // - The infrastructure for onAnalysisComplete is properly set up
   }
 );
 

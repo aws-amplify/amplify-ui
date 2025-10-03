@@ -68,34 +68,7 @@ export default function PassInDefaultDeviceExample() {
     stopLiveness();
   }
 
-  // Device callback handlers
-  const onCameraChange = (deviceInfo) => {
-    console.log('Camera changed:', deviceInfo);
-    setCurrentDevice(deviceInfo);
-    setDeviceChangeLog((prev) => [
-      ...prev,
-      `${new Date().toLocaleTimeString()}: Camera changed to ${
-        deviceInfo.deviceId
-      } (${deviceInfo.label})`,
-    ]);
-  };
-
-  const onCameraNotFound = (requestedCamera, fallbackDevice) => {
-    console.log(
-      'Camera not found:',
-      requestedCamera,
-      'fallback:',
-      fallbackDevice
-    );
-    setCameraNotFoundLog((prev) => [
-      ...prev,
-      `${new Date().toLocaleTimeString()}: Requested camera "${
-        requestedCamera?.deviceId || requestedCamera?.deviceLabel
-      }" not found. Using fallback: ${fallbackDevice.deviceId} (${
-        fallbackDevice.label
-      })`,
-    ]);
-  };
+  
 
   const clearLogs = () => {
     setDeviceChangeLog([]);
@@ -151,12 +124,7 @@ export default function PassInDefaultDeviceExample() {
                         const device = AVAILABLE_DEVICES.find(
                           (d) => d.deviceId === deviceId
                         );
-                        if (device) {
-                          onCameraChange({
-                            deviceId: device.deviceId,
-                            label: device.label,
-                          });
-                        }
+                        
                       }
                     }}
                   >
@@ -179,12 +147,7 @@ export default function PassInDefaultDeviceExample() {
                         const device = AVAILABLE_DEVICES.find(
                           (d) => d.label === deviceLabel
                         );
-                        if (device) {
-                          onCameraChange({
-                            deviceId: device.deviceId,
-                            label: device.label,
-                          });
-                        }
+                        
                       }
                     }}
                   >
@@ -351,8 +314,6 @@ export default function PassInDefaultDeviceExample() {
                 deviceId={deviceId || undefined}
                 deviceLabel={deviceLabel || undefined}
                 onUserCancel={onUserCancel}
-                onCameraChange={onCameraChange}
-                onCameraNotFound={onCameraNotFound}
                 onAnalysisComplete={async (deviceInfo) => {
                   console.log('Analysis complete with device:', deviceInfo);
                   await handleGetLivenessDetection(
