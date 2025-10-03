@@ -263,7 +263,27 @@ export const LivenessCameraModule = (
     });
   }, [send]);
 
-  
+  const onCameraChange = React.useCallback(
+    (e: React.ChangeEvent<HTMLSelectElement>) => {
+      const newDeviceId = e.target.value;
+      const changeCamera = async () => {
+        setIsMetadataLoaded(false);
+        const newStream = await navigator.mediaDevices.getUserMedia({
+          video: {
+            ...videoConstraints,
+            deviceId: { exact: newDeviceId },
+          },
+          audio: false,
+        });
+        send({
+          type: 'UPDATE_DEVICE_AND_STREAM',
+          data: { newDeviceId, newStream },
+        });
+      };
+      changeCamera();
+    },
+    [videoConstraints, send]
+  );
 
   if (isCheckingCamera) {
     return (
@@ -421,7 +441,7 @@ export const LivenessCameraModule = (
 
           {allowDeviceSelection ? (
             <CameraSelector
-              
+              onSelect={onCameraChange}
               devices={selectableDevices}
               deviceId={selectedDeviceId}
             />
