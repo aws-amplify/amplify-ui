@@ -112,6 +112,8 @@ export const mockStreamRecorder = {
   getRecordingStartTimestamp: () => Date.now(),
   startRecording: jest.fn(),
   stopRecording: jest.fn().mockResolvedValue(undefined),
+  getClientSessionInfoEvents: jest.fn(() => []),
+  getChunks: jest.fn(() => []),
 } as unknown as StreamRecorder;
 
 export const mockOvalDetails: LivenessOvalDetails = {
