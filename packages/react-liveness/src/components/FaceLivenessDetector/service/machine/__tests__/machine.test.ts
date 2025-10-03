@@ -1,5 +1,6 @@
 import { interpret } from 'xstate';
 import { setImmediate } from 'timers';
+import { when, resetAllWhenMocks } from 'jest-when';
 
 import {
   FaceLivenessDetectorProps,
@@ -233,7 +234,19 @@ describe('Liveness Machine', () => {
   afterEach(() => {
     jest.clearAllMocks();
     jest.clearAllTimers();
+    resetAllWhenMocks();
     service.stop();
+
+    // Clear localStorage to prevent state leakage between tests
+    localStorage.clear();
+
+    // Reset navigator mocks to default state
+    mockNavigatorMediaDevices.getUserMedia.mockResolvedValue(
+      mockVideoMediaStream
+    );
+    mockNavigatorMediaDevices.enumerateDevices.mockResolvedValue([
+      mockCameraDevice,
+    ]);
   });
 
   it('should be in the cameraCheck state', () => {
@@ -265,6 +278,10 @@ describe('Liveness Machine', () => {
       ).toEqual(mockVideoMediaStream);
       expect(mockNavigatorMediaDevices.getUserMedia).toHaveBeenCalledWith({
         video: mockVideoConstraints,
+        // video: {
+        //   ...mockVideoConstraints,
+        //   deviceId: { exact: 'some-device-id' },
+        // },
         audio: false,
       });
       expect(mockNavigatorMediaDevices.enumerateDevices).toHaveBeenCalledTimes(
@@ -273,7 +290,29 @@ describe('Liveness Machine', () => {
       expect(mockedHelpers.isCameraDeviceVirtual).toHaveBeenCalled();
     });
 
+    
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+    
+
     it('should reach waitForDOMAndCameraDetails state on checkVirtualCameraAndGetStream success when initialStream is not from real device', async () => {
+      // Reset mocks to ensure test isolation
+      jest.clearAllMocks();
+
       const mockVirtualMediaStream = {
         getTracks: () => [
           {
@@ -286,9 +325,13 @@ describe('Liveness Machine', () => {
           },
         ],
       } as MediaStream;
+
       mockNavigatorMediaDevices.getUserMedia
         .mockResolvedValueOnce(mockVirtualMediaStream)
         .mockResolvedValueOnce(mockVideoMediaStream);
+      mockNavigatorMediaDevices.enumerateDevices.mockResolvedValue([
+        mockCameraDevice,
+      ]);
 
       transitionToCameraCheck(service);
 
@@ -303,6 +346,10 @@ describe('Liveness Machine', () => {
         1,
         {
           video: mockVideoConstraints,
+          // video: {
+          //   ...mockVideoConstraints,
+          //   deviceId: { exact: 'some-device-id' },
+          // },
           audio: false,
         }
       );
@@ -1157,4 +1204,5 @@ describe('Liveness Machine', () => {
       });
     });
   });
+  
 });
