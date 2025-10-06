@@ -76,11 +76,17 @@ let responseStream: Promise<AsyncIterable<LivenessResponseStream>>;
 // Helper function to get selected device info
 export const getSelectedDeviceInfo = (
   context: LivenessContext
-): MediaDeviceInfo | undefined => {
-  return context.videoAssociatedParams?.selectableDevices?.find(
-    (device) =>
-      device.deviceId === context.videoAssociatedParams?.selectedDeviceId
+): DeviceInfo | undefined => {
+  const selected = context.videoAssociatedParams?.selectableDevices?.find(
+    (d) => d.deviceId === context.videoAssociatedParams?.selectedDeviceId
   );
+  return selected
+    ? {
+        deviceId: selected.deviceId,
+        groupId: selected.groupId,
+        label: selected.label ?? '',
+      }
+    : undefined;
 };
 
 const responseStreamActor = async (callback: StreamActorCallback) => {
@@ -146,8 +152,6 @@ function setLastSelectedCameraId(deviceId: string) {
   localStorage.setItem(CAMERA_ID_KEY, deviceId);
 }
 
- 
-
 export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
   {
     id: 'livenessMachine',
@@ -204,10 +208,8 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       DISCONNECT_EVENT: { internal: true, actions: 'updateShouldDisconnect' },
       SET_DOM_AND_CAMERA_DETAILS: { actions: 'setDOMAndCameraDetails' },
       UPDATE_DEVICE_AND_STREAM: {
-        actions: ['updateDeviceAndStream', 'callCameraChangeCallback'],
-      },
-      CAMERA_NOT_FOUND: {
-        actions: 'callCameraNotFoundCallback',
+        actions: 'updateDeviceAndStream',
+        target: 'start',
       },
       SERVER_ERROR: { target: 'error', actions: 'updateErrorStateForServer' },
       CONNECTION_TIMEOUT: {
@@ -558,8 +560,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           };
         },
       }),
-      
-      
 
       updateRecordingStartTimestamp: assign({
         videoAssociatedParams: (context) => {
@@ -752,6 +752,12 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
 
           if ((event.data!.message as string).includes('15 fps')) {
             errorState = LivenessErrorState.CAMERA_FRAMERATE_ERROR;
+          } else if (
+            (event.data!.message as string).includes(
+              LivenessErrorState.DEFAULT_CAMERA_NOT_FOUND_ERROR
+            )
+          ) {
+            errorState = LivenessErrorState.DEFAULT_CAMERA_NOT_FOUND_ERROR;
           } else {
             errorState = LivenessErrorState.CAMERA_ACCESS_ERROR;
           }
@@ -929,13 +935,9 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         const { componentProps } = context;
 
         let targetDeviceId: string | undefined;
-        let requestedCamera:
-          | { deviceId?: string }
-          | undefined;
-        let cameraNotFound = false;
 
+        let cameraNotFound = false;
         if (componentProps?.deviceId) {
-          requestedCamera = { deviceId: componentProps.deviceId };
           targetDeviceId = componentProps.deviceId;
         } else {
           targetDeviceId = getLastSelectedCameraId() ?? undefined;
@@ -957,7 +959,9 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
               (error.name === 'NotFoundError' ||
                 error.name === 'OverconstrainedError')
             ) {
-              if (componentProps?.deviceId && !cameraNotFound) {
+              // Mark camera as not found when a specific target device (either provided via props
+              // or previously selected/saved as default) cannot be accessed.
+              if (targetDeviceId && !cameraNotFound) {
                 cameraNotFound = true;
               }
               return navigator.mediaDevices.getUserMedia({
@@ -1016,8 +1020,10 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           selectableDevices: realVideoDevices,
         };
 
-        // If a camera was not found, we need to trigger the callback
-        
+        // If a specific camera was requested but not found, trigger a specific error
+        if (cameraNotFound) {
+          throw new Error(LivenessErrorState.DEFAULT_CAMERA_NOT_FOUND_ERROR);
+        }
 
         return result;
       },
