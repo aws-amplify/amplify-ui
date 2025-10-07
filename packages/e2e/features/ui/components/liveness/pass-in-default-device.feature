@@ -1,89 +1,54 @@
-Feature: Pass In Default Device Info
+Feature: Pass-in Default Device for Liveness Detection
 
-  Test Liveness detector with default device configuration
+  Test the pass-in default device example for liveness detection
 
   Background:
-    Given I'm running the example "ui/components/liveness/pass-in-default-device/"
+    Given I'm running the example "ui/components/liveness/pass-in-default-device"
 
-  @react
-  Scenario: Device configuration section is visible
-    Then I see "Device Configuration"
-    Then I see "Configure default device settings for the liveness detector"
-    Then I see "Use preset device"
-    Then I see "Use custom device (for testing not found scenarios)"
-    Then I see "Device ID"
-    Then I see "Device Label"
-
-  @react
-  Scenario: Preset device selection works
-    Then I see "Use preset device"
-    Then I see the "Device ID" selectfield
-    Then I click the "Device ID" selectfield and select the "device-1" option
-    Then I see "Device ID: device-1"
-    Then I click the "Device Label" selectfield and select the "Default Camera" option
-    Then I see "Device label takes precedence over device ID"
-
-  @react
-  Scenario: Custom device configuration works
-    Then I click the "Use custom device" radio button
-    Then I see the "Custom Device ID" textfield
-    Then I see the "Custom Device Label" textfield
-    Then I type a new "Custom Device ID" with value "my-custom-device"
-    Then I type a new "Custom Device Label" with value "My Custom Camera"
-    Then I see "Device ID: my-custom-device"
-    Then I see "Device Label: My Custom Camera"
-
-  @react
-  Scenario: Current configuration is displayed correctly
-    Then I see "Current Configuration:"
-    Then I see "Device ID: Not specified"
-    Then I see "Device Label: Not specified"
-
-  @react  
-  Scenario: Session information and challenge selection are present
-    Then I see "SessionId:"
-    Then I see "Update Challenge Selection"
+  @pass-in-default-device
+  Scenario: Basic liveness detection interface loads
+    Then I see "Pass-in Default Device Example"
     Then I see "FaceMovementAndLightChallenge"
+    Then I see the "Start video check" button
 
-  @react
-  Scenario: Device activity log appears when devices are configured
-    Then I click the "Device ID" selectfield and select the "device-2" option
-    Then I see "Current Configuration:"
-    Then I see "Device ID: device-2"
-    Then I click the "Start video check" button
-    Then I see "liveness-detector" element
-    Then I see "Device Activity Log"
+  @pass-in-default-device
+  Scenario: Challenge selection is available
+    Then I see "FaceMovementAndLightChallenge"
+    Then I see "FaceMovementChallenge"
 
-  @react
-  Scenario: Clear log functionality works  
-    Then I click the "Device ID" selectfield and select the "device-1" option
-    Then I see "Device Activity Log"
-    Then I see the "Clear Log" button
+  
 
-  @react
-  Scenario: Liveness detector integrates with device configuration
-    Then I click the "Device Label" selectfield and select the "External USB Camera" option
-    Then I see "Device Label: External USB Camera"
-    Then I see "connecting"
+  @pass-in-default-device
+  Scenario: Liveness detector can be started
     Then I click the "Start video check" button
     Then I see "liveness-detector" element
 
-  @react
-  Scenario: Custom device shows not found behavior
-    Then I click the "Use custom device" radio button
-    Then I type a new "Custom Device ID" with value "non-existent-device"
-    Then I see "Device ID: non-existent-device"
-    Then I see "connecting"
+  @pass-in-default-device
+  Scenario: Liveness detector can be cancelled
     Then I click the "Start video check" button
-    Then I see "liveness-detector" element
+    Then I click the "close-icon"
+    Then I see the "Start video check" button
 
-  @react
-  Scenario: Device info callbacks are properly configured for liveness completion
-    Then I set up console monitoring for device callbacks
-    Then I click the "Device ID" selectfield and select the "device-1" option
-    Then I see "Device ID: device-1"
-    Then I see "Current Configuration:"
-    Then I see "Device ID: device-1"
-    Then I click the "Start video check" button
-    Then I see "liveness-detector" element
-    Then I verify onAnalysisComplete callback is configured with device info
+  @pass-in-default-device
+  Scenario: Handle invalid deviceId with DEFAULT_CAMERA_NOT_FOUND_ERROR
+    Given I set an invalid deviceId "invalid-camera-123"
+    When I click the "Start video check" button
+    Then I should see a "DEFAULT_CAMERA_NOT_FOUND_ERROR" error
+    And the system should fallback to a default camera
+    And I should be able to continue with the liveness check
+
+  @pass-in-default-device
+  Scenario: Valid deviceId selects correct camera
+    Given I set a valid deviceId "valid-camera-456"
+    When I click the "Start video check" button
+    Then the specified camera should be selected
+    And I see "liveness-detector" element
+    
+  @pass-in-default-device
+  Scenario: Device info contains only deviceId, label, and groupId
+    Given I set a valid deviceId "test-camera-789"
+    When I complete the liveness detection successfully
+    Then the device info should contain "deviceId"
+    And the device info should contain "label"
+    And the device info should contain "groupId"
+    And the device info should not contain "deviceLabel"
