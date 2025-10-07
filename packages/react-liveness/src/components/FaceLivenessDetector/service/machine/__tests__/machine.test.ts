@@ -311,24 +311,112 @@ describe('Liveness Machine', () => {
       expect(mockedHelpers.isCameraDeviceVirtual).toHaveBeenCalled();
     });
 
-    
+    it('should select provided default deviceId when available', async () => {
+      const defaultDeviceId = 'my-device-id';
+      const mockStreamFromDefault = {
+        getTracks: () => [
+          {
+            getSettings: () => ({
+              width: 640,
+              height: 480,
+              deviceId: defaultDeviceId,
+              frameRate: 30,
+            }),
+          },
+        ],
+      } as unknown as MediaStream;
 
+      // Override machine context to pass deviceId via component props
+      const machineWithDefault = livenessMachine.withContext({
+        ...livenessMachine.context,
+        componentProps: { ...mockComponentProps, deviceId: defaultDeviceId },
+      });
+      const localService = interpret(machineWithDefault);
 
+      // getUserMedia should be called once with exact deviceId and succeed
+      mockNavigatorMediaDevices.getUserMedia.mockResolvedValueOnce(
+        mockStreamFromDefault
+      );
+      mockNavigatorMediaDevices.enumerateDevices.mockResolvedValueOnce([
+        { ...mockCameraDevice, deviceId: defaultDeviceId },
+      ]);
 
+      // Begin
+      localService.start();
+      localService.send({ type: 'BEGIN' });
 
+      await flushPromises();
 
+      expect(localService.state.value).toStrictEqual({
+        initCamera: 'waitForDOMAndCameraDetails',
+      });
+      // Verify constraints include exact deviceId
+      expect(mockNavigatorMediaDevices.getUserMedia).toHaveBeenCalledWith({
+        video: {
+          ...mockVideoConstraints,
+          deviceId: { exact: defaultDeviceId },
+        },
+        audio: false,
+      });
+      // Selected device in context should be the default deviceId
+      expect(
+        localService.state.context.videoAssociatedParams?.selectedDeviceId
+      ).toBe(defaultDeviceId);
 
+      localService.stop();
+    });
 
+    it('should set DEFAULT_CAMERA_NOT_FOUND_ERROR when provided deviceId is not found', async () => {
+      const missingDeviceId = 'missing-device-id';
 
+      const machineWithMissing = livenessMachine.withContext({
+        ...livenessMachine.context,
+        componentProps: { ...mockComponentProps, deviceId: missingDeviceId },
+      });
+      const localService = interpret(machineWithMissing);
 
+      // First call rejects due to OverconstrainedError for the specified device
+      const overconstrainedErr = new DOMException(
+        'Constraints unsatisfied',
+        'OverconstrainedError'
+      );
+      mockNavigatorMediaDevices.getUserMedia
+        .mockRejectedValueOnce(overconstrainedErr)
+        // Fallback succeeds without deviceId constraint
+        .mockResolvedValueOnce({
+          getTracks: () => [
+            {
+              getSettings: () => ({
+                deviceId: 'fallback-device',
+                frameRate: 30,
+              }),
+            },
+          ],
+        } as unknown as MediaStream);
 
+      mockNavigatorMediaDevices.enumerateDevices.mockResolvedValueOnce([
+        { ...mockCameraDevice, deviceId: 'fallback-device' },
+      ]);
 
+      localService.start();
+      localService.send({ type: 'BEGIN' });
 
-    
+      await flushPromises();
 
+      // Should transition to permissionDenied and call error callback with DEFAULT_CAMERA_NOT_FOUND_ERROR
+      expect(localService.state.value).toBe('permissionDenied');
+      expect(localService.state.context.errorState).toBe(
+        LivenessErrorState.DEFAULT_CAMERA_NOT_FOUND_ERROR
+      );
+      expect(mockComponentProps.onError).toHaveBeenCalledTimes(1);
+      const reportedError = (mockComponentProps.onError as jest.Mock).mock
+        .calls[0][0];
+      expect(reportedError.state).toBe(
+        LivenessErrorState.DEFAULT_CAMERA_NOT_FOUND_ERROR
+      );
 
-
-    
+      localService.stop();
+    });
 
     it('should reach waitForDOMAndCameraDetails state on checkVirtualCameraAndGetStream success when initialStream is not from real device', async () => {
       // Reset mocks to ensure test isolation
@@ -1316,5 +1404,4 @@ describe('Liveness Machine', () => {
       });
     });
   });
-  
 });
