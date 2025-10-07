@@ -116,7 +116,8 @@
     "cacache": "^18.0.0",
     "@npmcli/git": "^6.0.3",
     "js-beautify": "^1.15.3",
-    "@next/eslint-plugin-next": "^14.2.32"
+    "@next/eslint-plugin-next": "^14.2.32",
+    "rimraf": "^5.0.10"
   },
   "devDependencies": {
     "@aws-amplify/backend": "^1.7.0",
