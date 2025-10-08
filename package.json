@@ -109,7 +109,7 @@
     "webpack-dev-server": "^5.2.1",
     "yaml": "2.2.2",
     "ws": "^8.17.1",
-    "stylus": "github:stylus/stylus#0.59.0",
+    "stylus": "^0.64.0",
     "on-headers": "^1.1.0",
     "tmp": "^0.2.4",
     "@tensorflow-models/face-detection/rimraf": "5.0.0",
@@ -117,7 +117,8 @@
     "@npmcli/git": "^6.0.3",
     "js-beautify": "^1.15.3",
     "@next/eslint-plugin-next": "^14.2.32",
-    "rimraf": "^5.0.10"
+    "rimraf": "^5.0.10",
+    "babel-plugin-module-resolver": "^5.0.2"
   },
   "devDependencies": {
     "@aws-amplify/backend": "^1.7.0",
@@ -159,7 +160,7 @@
     "vue-tsc": "^2.0.7"
   },
   "overrides": {
-    "stylus": "github:stylus/stylus#0.59.0",
+    "stylus": "^0.64.0",
     "tmp": "^0.2.4",
     "@tensorflow-models/face-detection": {
       "rimraf": "5.0.0"
