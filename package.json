@@ -72,7 +72,6 @@
   "resolutions": {
     "**/@react-native-community/**/fast-xml-parser": "^4.4.1",
     "**/@aws-*/**/fast-xml-parser": "^4.4.1",
-    "**/@aws-amplify/ui-angular-example/**/codelyzer/**/@angular/core": "10.2.5",
     "**/@angular-devkit/build-angular/minimatch": "3.0.5",
     "**/@angular-devkit/build-angular/webpack": "^5.76.0",
     "**/@size-limit/webpack/webpack": "^5.76.0",
