@@ -299,10 +299,6 @@ describe('Liveness Machine', () => {
       ).toEqual(mockVideoMediaStream);
       expect(mockNavigatorMediaDevices.getUserMedia).toHaveBeenCalledWith({
         video: mockVideoConstraints,
-        // video: {
-        //   ...mockVideoConstraints,
-        //   deviceId: { exact: 'some-device-id' },
-        // },
         audio: false,
       });
       expect(mockNavigatorMediaDevices.enumerateDevices).toHaveBeenCalledTimes(

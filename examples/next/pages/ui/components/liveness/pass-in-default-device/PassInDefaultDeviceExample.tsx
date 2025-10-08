@@ -181,7 +181,6 @@ export default function PassInDefaultDeviceExample() {
                 }}
                 onError={(livenessError) => {
                   console.error('Liveness error:', livenessError);
-                  // TODO: Handle DEFAULT_CAMERA_NOT_FOUND_ERROR when it becomes available
                 }}
               />
             ) : null}

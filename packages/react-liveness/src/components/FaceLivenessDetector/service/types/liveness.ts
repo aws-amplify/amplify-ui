@@ -11,12 +11,6 @@ export interface FaceLivenessDetectorCoreProps {
   sessionId: string;
 
   /**
-   * Optional device ID to pre-select a camera
-   */
-  deviceId?: string;
-
-
-  /**
    * Callback that signals when the liveness session has completed analysis.
    * At this point a request can be made to GetFaceLivenessSessionResults.
    */
@@ -26,18 +20,7 @@ export interface FaceLivenessDetectorCoreProps {
    * Callback called when the user changes the camera device
    * @param deviceInfo Information about the newly selected device
    */
-  onCameraChange?: (deviceInfo: DeviceInfo) => void;
-
-  /**
-   * Callback called when the specified camera (deviceId or deviceLabel) is not found
-   * and the system falls back to the default camera
-   * @param requestedCamera The camera that was requested but not found
-   * @param fallbackDevice Information about the camera that was used instead
-   */
-  onCameraNotFound?: (
-    requestedCamera: { deviceId?: string; deviceLabel?: string },
-    fallbackDevice: DeviceInfo
-  ) => void;
+  onAnalysisComplete: (deviceInfo?: DeviceInfo) => Promise<void>;
 
   /**
    * The AWS region to stream the video to, for current regional support see the documentation here: FIXME LINK
@@ -80,6 +63,10 @@ export type FaceLivenessDetectorProps = Omit<
 };
 
 export interface FaceLivenessDetectorCoreConfig {
+  /**
+   * Optional device ID to pre-select a camera
+   */
+  deviceId?: string;
   /**
    * overrides the Wasm backend binary CDN path
    * default is https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-wasm@3.11.0/dist/.
