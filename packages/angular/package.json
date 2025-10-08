@@ -29,7 +29,7 @@
     "@angular/platform-browser": "^18.2.0",
     "@angular/platform-browser-dynamic": "^18.2.0",
     "@angular/router": "^18.2.0",
-    "@testing-library/angular": "^18.1.0",
+    "@testing-library/angular": "^17.4.0",
     "@types/node": "^20.2.5",
     "canvas": "^2.11.2",
     "eslint": "^8.44.0",
