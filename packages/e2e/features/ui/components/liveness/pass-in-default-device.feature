@@ -16,8 +16,6 @@ Feature: Pass-in Default Device for Liveness Detection
     Then I see "FaceMovementAndLightChallenge"
     Then I see "FaceMovementChallenge"
 
-  
-
   @pass-in-default-device
   Scenario: Liveness detector can be started
     Then I click the "Start video check" button
