@@ -37,7 +37,7 @@
   "peerDependencies": {
     "aws-amplify": "^6.14.3",
     "react": "*",
-    "react-native": ">=0.70",
+    "react-native": ">=0.74",
     "react-native-safe-area-context": "*"
   },
   "files": [
