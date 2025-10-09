@@ -33,7 +33,9 @@ export interface FaceLivenessDetectorCoreProps {
   onUserCancel?: () => void;
 
   /**
-   * Callback called when there is error occured on any step
+   * Callback called when there is an error on any step
+   * @param livenessError The error that occurred
+   * @param deviceInfo Information about the selected device, if available
    */
   onError?: (livenessError: LivenessError) => void;
 
