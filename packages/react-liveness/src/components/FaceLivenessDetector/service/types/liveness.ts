@@ -34,12 +34,6 @@ export interface FaceLivenessDetectorCoreProps {
   onUserCancel?: () => void;
 
   /**
-   * Callback called when the liveness check times out
-   * @param deviceInfo Information about the selected device, if available
-   */
-  onUserTimeout?: (deviceInfo?: DeviceInfo) => void;
-
-  /**
    * Callback called when there is an error on any step
    * @param livenessError The error that occurred
    * @param deviceInfo Information about the selected device, if available
