@@ -304,7 +304,10 @@ describe('Liveness Machine', () => {
       // Override machine context to pass deviceId via component props
       const machineWithDefault = livenessMachine.withContext({
         ...livenessMachine.context,
-        componentProps: { ...mockComponentProps, deviceId: defaultDeviceId },
+        componentProps: {
+          ...mockComponentProps,
+          config: { deviceId: defaultDeviceId },
+        },
       });
       const localService = interpret(machineWithDefault);
 
@@ -346,7 +349,10 @@ describe('Liveness Machine', () => {
 
       const machineWithMissing = livenessMachine.withContext({
         ...livenessMachine.context,
-        componentProps: { ...mockComponentProps, deviceId: missingDeviceId },
+        componentProps: {
+          ...mockComponentProps,
+          config: { deviceId: missingDeviceId },
+        },
       });
       const localService = interpret(machineWithMissing);
 

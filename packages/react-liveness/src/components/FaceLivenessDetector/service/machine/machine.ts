@@ -937,8 +937,8 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         let targetDeviceId: string | undefined;
 
         let cameraNotFound = false;
-        if (componentProps?.deviceId) {
-          targetDeviceId = componentProps.deviceId;
+        if (componentProps?.config?.deviceId) {
+          targetDeviceId = componentProps.config.deviceId;
         } else {
           targetDeviceId = getLastSelectedCameraId() ?? undefined;
         }
