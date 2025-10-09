@@ -14,8 +14,8 @@
     "directory": "packages/angular/projects/ui-angular"
   },
   "peerDependencies": {
-    "@angular/core": ">= 14.0.0",
-    "@angular/common": ">= 14.0.0",
+    "@angular/core": ">= 18.0.0",
+    "@angular/common": ">= 18.0.0",
     "aws-amplify": "^6.14.3",
     "rxjs": "^6.5.3 || ^7.4.0"
   },
