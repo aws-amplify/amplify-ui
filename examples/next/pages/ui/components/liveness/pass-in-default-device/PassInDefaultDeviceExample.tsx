@@ -26,6 +26,33 @@ export default function PassInDefaultDeviceExample() {
   const [challengeType, setChallengeType] = React.useState(
     FACE_MOVEMENT_AND_LIGHT_CHALLENGE
   );
+  React.useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const getDevices = async () => {
+      try {
+        // Request camera permissions first
+        await navigator.mediaDevices.getUserMedia({ video: true });
+
+        // Get all media devices
+        const devices = await navigator.mediaDevices.enumerateDevices();
+
+        // Filter and log video input devices
+        devices
+          .filter((device) => device.kind === 'videoinput')
+          .forEach((camera) => {
+            console.log('Camera Device:', {
+              deviceId: camera.deviceId,
+              label: camera.label,
+            });
+          });
+      } catch (error) {
+        console.error('Error accessing media devices:', error);
+      }
+    };
+
+    getDevices();
+  }, []);
 
   // Test hooks for e2e testing
   const [testDeviceId, setTestDeviceId] = React.useState<string | null>(null);
@@ -98,28 +125,30 @@ export default function PassInDefaultDeviceExample() {
   }, [currentDeviceInfo]);
 
   // Mock device configuration for testing
-  React.useEffect(() => {
-    if (testDeviceId && typeof window !== 'undefined') {
-      const isValid = (window as any).testDeviceIdIsValid;
+  // console.log('testDeviceId', testDeviceId);
+  // React.useEffect(() => {
+  //   console.log('testDeviceId', testDeviceId);
+  //   if (testDeviceId && typeof window !== 'undefined') {
+  //     const isValid = (window as any).testDeviceIdIsValid;
+  //     console.log('isValid', isValid);
+  //     if (!isValid) {
+  //       // Simulate DEFAULT_CAMERA_NOT_FOUND_ERROR for invalid deviceId
+  //       console.error({
+  //         state: 'DEFAULT_CAMERA_NOT_FOUND_ERROR',
+  //         message: `Camera with deviceId "${testDeviceId}" not found`,
+  //         error: new Error(`DEFAULT_CAMERA_NOT_FOUND_ERROR: Camera not found`),
+  //       });
 
-      if (!isValid) {
-        // Simulate DEFAULT_CAMERA_NOT_FOUND_ERROR for invalid deviceId
-        console.error({
-          state: 'DEFAULT_CAMERA_NOT_FOUND_ERROR',
-          message: `Camera with deviceId "${testDeviceId}" not found`,
-          error: new Error(`DEFAULT_CAMERA_NOT_FOUND_ERROR: Camera not found`),
-        });
-
-        // Set fallback camera flag
-        (window as any).fallbackCameraUsed = true;
-        (window as any).selectedCameraId = 'fallback-camera';
-      } else {
-        // Set the selected camera for valid deviceId
-        (window as any).selectedCameraId = testDeviceId;
-        (window as any).fallbackCameraUsed = false;
-      }
-    }
-  }, [testDeviceId]);
+  //       // Set fallback camera flag
+  //       (window as any).fallbackCameraUsed = true;
+  //       (window as any).selectedCameraId = 'fallback-camera';
+  //     } else {
+  //       // Set the selected camera for valid deviceId
+  //       (window as any).selectedCameraId = testDeviceId;
+  //       (window as any).fallbackCameraUsed = false;
+  //     }
+  //   }
+  // }, [testDeviceId]);
 
   const {
     getLivenessResponse,
@@ -205,7 +234,10 @@ export default function PassInDefaultDeviceExample() {
                 region={'us-east-1'}
                 onUserCancel={onUserCancel}
                 // Pass through the config so this example mirrors how the API is intended to be used
-                // @ts-expect-error config may not be in the published types yet while feature rolls out
+                // config={{
+                //   deviceId:
+                //     'e5bf4bd1bc37cd718c46e1f0f9ee1adc1916b8b4c6b3ef80b586d0c6b16ab75a',
+                // }}
                 config={livenessConfig}
                 onAnalysisComplete={async () => {
                   console.log('Analysis complete');
