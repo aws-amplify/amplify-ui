@@ -26,42 +26,14 @@ export default function PassInDefaultDeviceExample() {
   const [challengeType, setChallengeType] = React.useState(
     FACE_MOVEMENT_AND_LIGHT_CHALLENGE
   );
-  React.useEffect(() => {
-    if (typeof window === 'undefined') return;
-
-    const getDevices = async () => {
-      try {
-        // Request camera permissions first
-        await navigator.mediaDevices.getUserMedia({ video: true });
-
-        // Get all media devices
-        const devices = await navigator.mediaDevices.enumerateDevices();
-
-        // Filter and log video input devices
-        devices
-          .filter((device) => device.kind === 'videoinput')
-          .forEach((camera) => {
-            console.log('Camera Device:', {
-              deviceId: camera.deviceId,
-              label: camera.label,
-            });
-          });
-      } catch (error) {
-        console.error('Error accessing media devices:', error);
-      }
-    };
-
-    getDevices();
-  }, []);
 
   // Test hooks for e2e testing
   const [testDeviceId, setTestDeviceId] = React.useState<string | null>(null);
   const [currentDeviceInfo, setCurrentDeviceInfo] = React.useState<any>(null);
 
-  // Config props for the example. Set deviceId to auto-select a camera.
-  // Replace the hardcoded value or thread this config from a parent as needed.
+  // Config to optionally preselect a camera by deviceId (e.g., via URL query).
   const livenessConfig = React.useMemo(() => {
-    // Example: read from query string ?deviceId=... if present
+    // Read from query string ?deviceId=... if present
     if (typeof window !== 'undefined') {
       const params = new URLSearchParams(window.location.search);
       const qDeviceId = params.get('deviceId');
@@ -69,12 +41,11 @@ export default function PassInDefaultDeviceExample() {
         return { deviceId: qDeviceId } as { deviceId?: string };
       }
     }
-    // Fallback: you can put a default here for local testing
+    // No default; let SDK choose if not provided
     return { deviceId: undefined } as { deviceId?: string };
   }, []);
 
-  // If a deviceId is provided via config, validate it against available cameras
-  // and wire it into existing test hooks so the SDK can pick it up.
+  // Validate provided deviceId and expose to existing e2e hooks
   React.useEffect(() => {
     const configuredId = livenessConfig?.deviceId;
     if (!configuredId || typeof window === 'undefined') return;
@@ -82,7 +53,7 @@ export default function PassInDefaultDeviceExample() {
     let cancelled = false;
     (async () => {
       try {
-        // Ensure permissions or at least enumerate devices
+        // Enumerate devices to verify presence
         if (navigator?.mediaDevices?.enumerateDevices) {
           const devices = await navigator.mediaDevices.enumerateDevices();
           const found = devices.some(
@@ -93,62 +64,32 @@ export default function PassInDefaultDeviceExample() {
             setTestDeviceId(configuredId);
           }
         } else {
-          // If enumerateDevices isn't available, assume not valid
+          // Assume not valid if enumeration is unavailable
           (window as any).testDeviceIdIsValid = false;
           setTestDeviceId(configuredId);
         }
       } catch (e) {
-        // On error, fallback to not valid
+        // Fallback to not valid on error
         (window as any).testDeviceIdIsValid = false;
         setTestDeviceId(configuredId);
       }
     })();
-
-    return () => {
-      cancelled = true;
-    };
   }, [livenessConfig?.deviceId]);
 
-  // Setup test hooks for e2e testing
+  // Setup e2e hooks
   React.useEffect(() => {
     if (typeof window !== 'undefined') {
-      // Expose test functions to window for e2e testing
+      // Expose setters and current device info
       (window as any).setTestDeviceId = setTestDeviceId;
       (window as any).currentDeviceInfo = currentDeviceInfo;
 
-      // Check for test deviceId from e2e tests
+      // Check for a deviceId seeded by tests
       const testId = (window as any).testDeviceId;
       if (testId) {
         setTestDeviceId(testId);
       }
     }
   }, [currentDeviceInfo]);
-
-  // Mock device configuration for testing
-  // console.log('testDeviceId', testDeviceId);
-  // React.useEffect(() => {
-  //   console.log('testDeviceId', testDeviceId);
-  //   if (testDeviceId && typeof window !== 'undefined') {
-  //     const isValid = (window as any).testDeviceIdIsValid;
-  //     console.log('isValid', isValid);
-  //     if (!isValid) {
-  //       // Simulate DEFAULT_CAMERA_NOT_FOUND_ERROR for invalid deviceId
-  //       console.error({
-  //         state: 'DEFAULT_CAMERA_NOT_FOUND_ERROR',
-  //         message: `Camera with deviceId "${testDeviceId}" not found`,
-  //         error: new Error(`DEFAULT_CAMERA_NOT_FOUND_ERROR: Camera not found`),
-  //       });
-
-  //       // Set fallback camera flag
-  //       (window as any).fallbackCameraUsed = true;
-  //       (window as any).selectedCameraId = 'fallback-camera';
-  //     } else {
-  //       // Set the selected camera for valid deviceId
-  //       (window as any).selectedCameraId = testDeviceId;
-  //       (window as any).fallbackCameraUsed = false;
-  //     }
-  //   }
-  // }, [testDeviceId]);
 
   const {
     getLivenessResponse,
@@ -181,8 +122,8 @@ export default function PassInDefaultDeviceExample() {
             </Heading>
             <Text marginBottom="large" color="gray">
               This example demonstrates passing a default camera via a config
-              prop (e.g. using the URL query "?deviceId=..."). If the provided
-              deviceId matches an available camera, that device will be
+              prop (for example, using the URL query "?deviceId=..."). If the
+              provided deviceId matches an available camera, that device will be
               auto-selected for liveness. If not found, the example will fall
               back to another available camera.
             </Text>
@@ -233,15 +174,8 @@ export default function PassInDefaultDeviceExample() {
                 sessionId={createLivenessSessionApiData['sessionId']}
                 region={'us-east-1'}
                 onUserCancel={onUserCancel}
-                // Pass through the config so this example mirrors how the API is intended to be used
-                // config={{
-                //   deviceId:
-                //     'e5bf4bd1bc37cd718c46e1f0f9ee1adc1916b8b4c6b3ef80b586d0c6b16ab75a',
-                // }}
                 config={livenessConfig}
                 onAnalysisComplete={async () => {
-                  console.log('Analysis complete');
-
                   // Mock device info for testing
                   const mockDeviceInfo = {
                     deviceId: testDeviceId || 'default-camera',
