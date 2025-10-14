@@ -770,7 +770,10 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             state: errorState,
             error: error,
           };
-          context.componentProps!.onError?.(livenessError);
+          context.componentProps!.onError?.(
+            livenessError,
+            getSelectedDeviceInfo(context)
+          );
 
           return errorState;
         },
@@ -799,14 +802,20 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           state: context.errorState!,
           error: error,
         };
-        context.componentProps!.onError?.(livenessError);
+        context.componentProps!.onError?.(
+          livenessError,
+          getSelectedDeviceInfo(context)
+        );
       },
       callErrorCallback: (context, event) => {
         const livenessError: LivenessError = {
           state: context.errorState!,
           error: (event.data?.error as Error) || event.data,
         };
-        context.componentProps!.onError?.(livenessError);
+        context.componentProps!.onError?.(
+          livenessError,
+          getSelectedDeviceInfo(context)
+        );
       },
       cleanUpResources: (context) => {
         const { freshnessColorEl } = context.freshnessColorAssociatedParams!;

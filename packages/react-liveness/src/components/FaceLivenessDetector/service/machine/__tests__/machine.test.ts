@@ -1400,10 +1400,17 @@ describe('Liveness Machine', () => {
         LivenessErrorState.RUNTIME_ERROR
       );
       expect(mockComponentProps.onError).toHaveBeenCalledTimes(1);
-      expect(mockComponentProps.onError).toHaveBeenCalledWith({
-        state: LivenessErrorState.RUNTIME_ERROR,
-        error,
-      });
+      expect(mockComponentProps.onError).toHaveBeenCalledWith(
+        {
+          state: LivenessErrorState.RUNTIME_ERROR,
+          error,
+        },
+        {
+          deviceId: mockCameraDevice.deviceId,
+          groupId: mockCameraDevice.groupId,
+          label: mockCameraDevice.label,
+        }
+      );
     });
   });
 });
