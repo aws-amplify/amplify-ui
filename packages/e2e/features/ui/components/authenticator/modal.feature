@@ -5,11 +5,11 @@ Feature: Modal
   Background:
     Given I'm running the example "/ui/components/authenticator/modal"
 
-  @angular @react @vue
+  @angular @react @vue @svelte
   Scenario: Application is wrapped with Authenticator
     Then I see "Sign in"
 
-  @angular @react @vue
+  @angular @react @vue @svelte
   Scenario: Application renders when signed in
     When I type my "username" with status "CONFIRMED"
     Then I type my password

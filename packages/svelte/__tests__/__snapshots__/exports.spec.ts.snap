@@ -1,0 +1,29 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`@aws-amplify/ui-svelte > exports > should match snapshot 1`] = `
+[
+  "AliasField",
+  "Authenticator",
+  "Button",
+  "Checkbox",
+  "ConfirmResetPassword",
+  "ConfirmSignIn",
+  "ConfirmSignUp",
+  "ConfirmVerifyUser",
+  "FederatedSignIn",
+  "ForceNewPassword",
+  "ForceNewPasswordFormFields",
+  "ForgotPassword",
+  "PasswordField",
+  "SelectMfaType",
+  "SetupEmail",
+  "SetupTotp",
+  "SignIn",
+  "SignUp",
+  "SignUpFormFields",
+  "TextField",
+  "VerifyUser",
+  "translations",
+  "useAuthenticator",
+]
+`;

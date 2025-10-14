@@ -1,0 +1,8 @@
+{
+	"extends": "@aws-amplify/typescript-config/tsconfig.svelte.json",
+	"compilerOptions": {
+		"types": ["svelte", "node"]
+	},
+	"include": ["__mocks__", "__tests__", "src/lib/**/*.ts", "src/lib/**/*.svelte"],
+	"exclude": ["node_modules", ".svelte-kit"]
+}

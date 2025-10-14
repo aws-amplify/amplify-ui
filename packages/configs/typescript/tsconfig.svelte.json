@@ -1,0 +1,8 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    // see: https://github.com/vuejs/test-utils/issues/1538
+    "skipLibCheck": true,
+    "types": ["vite/client"]
+  }
+}

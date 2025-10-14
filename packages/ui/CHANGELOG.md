@@ -2450,7 +2450,7 @@
     components={{
       SignUp: {
         FormFields() {
-          const { validationErrors } = useAuthenticator();
+          const { validationErrors } = authenticator();
           return (
             <>
               <TextField
