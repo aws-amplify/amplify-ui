@@ -25,7 +25,7 @@ Feature: Sign In with Email
     Then I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ConfirmForgotPassword" } }' with error fixture "AWSCognitoIdentityProviderService.ConfirmSignUp-invalid-code.json"
     Then I click the "Submit" button
 
-  @angular @react @vue @svelte @react-native @svelte
+  @angular @react @vue @svelte @react-native
   Scenario: Sign in with unknown credentials
     When I type my "email" with status "UNKNOWN"
     Then I type my password
@@ -48,7 +48,7 @@ Feature: Sign In with Email
     Then I click the "Confirm" button
     Then I confirm request '{"headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ConfirmSignUp" } }'
 
-  @angular @react @vue @svelte @react-native @svelte
+  @angular @react @vue @svelte @react-native
   Scenario: Sign in with confirmed credentials
     When I type my "email" with status "CONFIRMED"
     Then I type my password
@@ -57,7 +57,7 @@ Feature: Sign In with Email
     Then I click the "Sign out" button
     Then I see "Sign in"
 
-  @angular @react @vue @svelte @react-native @svelte
+  @angular @react @vue @svelte @react-native
   Scenario: Sign in with confirmed credentials then sign out
     When I type my "email" with status "CONFIRMED"
     Then I type my password
@@ -83,7 +83,7 @@ Feature: Sign In with Email
   Scenario: Password fields autocomplete "current-password"
     Then "Password" field autocompletes "current-password"
 
-  @angular @react @vue @svelte @react-native @svelte
+  @angular @react @vue @svelte @react-native
   Scenario: Sign in with confirmed credentials, reload, sign out, then see custom form fields
     When I type my "email" with status "CONFIRMED"
     Then I type my password
