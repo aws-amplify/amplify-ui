@@ -639,9 +639,15 @@ describe('Liveness Machine', () => {
           LivenessErrorState.RUNTIME_ERROR
         );
         expect(mockComponentProps.onError).toHaveBeenCalledTimes(1);
-        const livenessError = (mockComponentProps.onError as jest.Mock).mock
-          .calls[0][0];
+        const [livenessError, deviceInfo] = (
+          mockComponentProps.onError as jest.Mock
+        ).mock.calls[0];
         expect(livenessError.state).toBe(LivenessErrorState.RUNTIME_ERROR);
+        expect(deviceInfo).toEqual({
+          deviceId: mockCameraDevice.deviceId,
+          groupId: mockCameraDevice.groupId,
+          label: mockCameraDevice.label,
+        });
       });
 
       it('should reach error state after receiving a server error from the websocket stream', async () => {
@@ -659,9 +665,15 @@ describe('Liveness Machine', () => {
           LivenessErrorState.SERVER_ERROR
         );
         expect(mockComponentProps.onError).toHaveBeenCalledTimes(1);
-        const livenessError = (mockComponentProps.onError as jest.Mock).mock
-          .calls[0][0];
+        const [livenessError, deviceInfo] = (
+          mockComponentProps.onError as jest.Mock
+        ).mock.calls[0];
         expect(livenessError.state).toBe(LivenessErrorState.SERVER_ERROR);
+        expect(deviceInfo).toEqual({
+          deviceId: mockCameraDevice.deviceId,
+          groupId: mockCameraDevice.groupId,
+          label: mockCameraDevice.label,
+        });
       });
 
       it('should reach connection timeout state after receiving a connection timeout error from the websocket stream', async () => {
@@ -679,10 +691,16 @@ describe('Liveness Machine', () => {
           LivenessErrorState.CONNECTION_TIMEOUT
         );
         expect(mockComponentProps.onError).toHaveBeenCalledTimes(1);
-        const livenessError = (mockComponentProps.onError as jest.Mock).mock
-          .calls[0][0];
+        const [livenessError, deviceInfo] = (
+          mockComponentProps.onError as jest.Mock
+        ).mock.calls[0];
         expect(livenessError.error.message).toContain(errorMessage);
         expect(livenessError.state).toBe(LivenessErrorState.CONNECTION_TIMEOUT);
+        expect(deviceInfo).toEqual({
+          deviceId: mockCameraDevice.deviceId,
+          groupId: mockCameraDevice.groupId,
+          label: mockCameraDevice.label,
+        });
       });
 
       it('should reach ovalMatching state and send client sessionInformation', async () => {
@@ -976,9 +994,15 @@ describe('Liveness Machine', () => {
           LivenessErrorState.RUNTIME_ERROR
         );
         expect(mockComponentProps.onError).toHaveBeenCalledTimes(1);
-        const livenessError = (mockComponentProps.onError as jest.Mock).mock
-          .calls[0][0];
+        const [livenessError, deviceInfo] = (
+          mockComponentProps.onError as jest.Mock
+        ).mock.calls[0];
         expect(livenessError.state).toBe(LivenessErrorState.RUNTIME_ERROR);
+        expect(deviceInfo).toEqual({
+          deviceId: mockCameraDevice.deviceId,
+          groupId: mockCameraDevice.groupId,
+          label: mockCameraDevice.label,
+        });
       });
 
       it('should reach error state after receiving a server error from the websocket stream', async () => {
@@ -996,9 +1020,17 @@ describe('Liveness Machine', () => {
           LivenessErrorState.SERVER_ERROR
         );
         expect(mockComponentProps.onError).toHaveBeenCalledTimes(1);
-        const livenessError = (mockComponentProps.onError as jest.Mock).mock
-          .calls[0][0];
-        expect(livenessError.state).toBe(LivenessErrorState.SERVER_ERROR);
+        expect(mockComponentProps.onError).toHaveBeenCalledWith(
+          {
+            state: LivenessErrorState.SERVER_ERROR,
+            error,
+          },
+          {
+            deviceId: mockCameraDevice.deviceId,
+            groupId: mockCameraDevice.groupId,
+            label: mockCameraDevice.label,
+          }
+        );
       });
 
       it('should reach connection timeout state after receiving a connection timeout error from the websocket stream', async () => {
