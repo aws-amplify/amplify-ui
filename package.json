@@ -24,6 +24,7 @@
     "test-utils": "yarn workspace @aws-amplify/ui-test-utils",
     "ui": "yarn workspace @aws-amplify/ui",
     "vue": "yarn workspace @aws-amplify/ui-vue",
+    "svelte": "yarn workspace @aws-amplify/ui-svelte",
     "angular-example": "yarn workspace @aws-amplify/ui-angular-example",
     "docs": "yarn workspace @aws-amplify/ui-docs",
     "next-example": "yarn workspace @aws-amplify/ui-next-pages-router-example",
