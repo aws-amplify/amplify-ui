@@ -33,6 +33,7 @@
     "react-example": "yarn workspace @aws-amplify/ui-next-pages-router-example",
     "react-native-example": "yarn workspace @aws-amplify/ui-react-native-example",
     "vue-example": "yarn workspace @aws-amplify/ui-vue-example",
+    "svelte-example": "yarn workspace @aws-amplify/ui-svelte-example",
     "e2e": "yarn workspace @aws-amplify/ui-e2e",
     "environments": "yarn workspace @aws-amplify/ui-environments",
     "prepare": "husky",
