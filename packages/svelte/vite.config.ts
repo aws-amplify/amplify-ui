@@ -9,7 +9,7 @@ const resolvePath = (str: string) => path.resolve(__dirname, str);
 export default defineConfig({
 	plugins: [sveltekit(), svelteTesting()],
 	test: {
-		environment: 'jsdom'
+		environment: 'happy-dom'
 	},
 	resolve: {
 		alias: [

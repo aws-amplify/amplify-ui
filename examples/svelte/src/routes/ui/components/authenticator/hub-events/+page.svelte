@@ -1,11 +1,11 @@
-<script setup lang="ts">
-  import { Amplify } from 'aws-amplify';
-  import { Authenticator } from '@aws-amplify/ui-svelte';
+<script lang="ts">
+	import { Amplify } from 'aws-amplify';
+	import { Authenticator } from '@aws-amplify/ui-svelte';
 
-  import '@aws-amplify/ui-svelte/styles.css';
-  import aws_exports from './aws-exports';
+	import '@aws-amplify/ui-svelte/styles.css';
+	import aws_exports from './aws-exports';
 
-  Amplify.configure(aws_exports);
+	Amplify.configure(aws_exports);
 </script>
 
 <Authenticator>
