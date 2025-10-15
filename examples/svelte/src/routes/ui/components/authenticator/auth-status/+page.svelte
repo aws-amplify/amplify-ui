@@ -12,7 +12,6 @@
 	const { authStatus, state:_state, service, send } = $derived(useAuthenticator());
 	let isAuthenticated = $derived(authStatus === 'authenticated');
 
-	console.log('::: state', _state);
 	const handleSignOut = () => signOut();
 
 	const onSubmit = (event: Event) => {
