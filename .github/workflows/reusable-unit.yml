@@ -33,6 +33,7 @@ jobs:
           - react-storage
           - ui
           - vue
+          - svelte
 
     steps:
       - name: Checkout Amplify UI
