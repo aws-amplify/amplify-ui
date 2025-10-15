@@ -737,65 +737,75 @@ describe('Liveness Machine', () => {
 
         await transitionToRecording(service);
 
-      await flushPromises();
-      expect(service.state.value).toEqual('error');
-      expect(service.state.context.errorState).toBe(
-        LivenessErrorState.RUNTIME_ERROR
-      );
-      expect(mockcomponentProps.onError).toHaveBeenCalledTimes(1);
-      const livenessError = (mockcomponentProps.onError as jest.Mock).mock
-        .calls[0][0];
-      expect(livenessError.message).toContain(
-        'Unknown error occurred during liveness check'
-      );
-    });
+        await flushPromises();
+        expect(service.state.value).toEqual('error');
+        expect(service.state.context.errorState).toBe(
+          LivenessErrorState.RUNTIME_ERROR
+        );
+        expect(mockComponentProps.onError).toHaveBeenCalledTimes(1);
+        const [livenessError, deviceInfo] = (
+          mockComponentProps.onError as jest.Mock
+        ).mock.calls[0];
+        expect(livenessError.state).toBe(LivenessErrorState.RUNTIME_ERROR);
+        expect(deviceInfo).toEqual({
+          deviceId: mockCameraDevice.deviceId,
+          groupId: mockCameraDevice.groupId,
+          label: mockCameraDevice.label,
+        });
+      });
 
       it('should reach error state after receiving a server error from the websocket stream', async () => {
         await transitionToRecording(service);
 
-      const livenessError = {
-        state: LivenessErrorState.SERVER_ERROR,
-        error: new Error('test'),
-      };
-      service.send({
-        type: 'SERVER_ERROR',
-        data: { error: livenessError },
+        const error = new Error('test');
+        service.send({
+          type: 'SERVER_ERROR',
+          data: { error },
+        });
+        await flushPromises();
+        jest.advanceTimersToNextTimer();
+        expect(service.state.value).toEqual('error');
+        expect(service.state.context.errorState).toBe(
+          LivenessErrorState.SERVER_ERROR
+        );
+        expect(mockComponentProps.onError).toHaveBeenCalledTimes(1);
+        const [livenessError, deviceInfo] = (
+          mockComponentProps.onError as jest.Mock
+        ).mock.calls[0];
+        expect(livenessError.state).toBe(LivenessErrorState.SERVER_ERROR);
+        expect(deviceInfo).toEqual({
+          deviceId: mockCameraDevice.deviceId,
+          groupId: mockCameraDevice.groupId,
+          label: mockCameraDevice.label,
+        });
       });
-      await flushPromises();
-      jest.advanceTimersToNextTimer();
-      expect(service.state.value).toEqual('error');
-      expect(service.state.context.errorState).toBe(
-        LivenessErrorState.SERVER_ERROR
-      );
-      expect(mockcomponentProps.onError).toHaveBeenCalledTimes(1);
-      const receivedError = (mockcomponentProps.onError as jest.Mock).mock
-        .calls[0][0];
-      expect(receivedError.state).toBe(LivenessErrorState.SERVER_ERROR);
-    });
 
-    it('should reach connection timeout state after receiving a connection timeout error from the websocket stream', async () => {
-      await transitionToRecording(service);
-      const errorMessage = 'Websocket connection timeout';
-      const livenessError = {
-        state: LivenessErrorState.CONNECTION_TIMEOUT,
-        error: new Error(errorMessage),
-      };
-      service.send({
-        type: 'CONNECTION_TIMEOUT',
-        data: { error: livenessError },
+      it('should reach connection timeout state after receiving a connection timeout error from the websocket stream', async () => {
+        await transitionToRecording(service);
+        const errorMessage = 'Websocket connection timeout';
+        const error = new Error(errorMessage);
+        service.send({
+          type: 'CONNECTION_TIMEOUT',
+          data: { error },
+        });
+        await flushPromises();
+        jest.advanceTimersToNextTimer();
+        expect(service.state.value).toEqual('error');
+        expect(service.state.context.errorState).toBe(
+          LivenessErrorState.CONNECTION_TIMEOUT
+        );
+        expect(mockComponentProps.onError).toHaveBeenCalledTimes(1);
+        const [livenessError, deviceInfo] = (
+          mockComponentProps.onError as jest.Mock
+        ).mock.calls[0];
+        expect(livenessError.error.message).toContain(errorMessage);
+        expect(livenessError.state).toBe(LivenessErrorState.CONNECTION_TIMEOUT);
+        expect(deviceInfo).toEqual({
+          deviceId: mockCameraDevice.deviceId,
+          groupId: mockCameraDevice.groupId,
+          label: mockCameraDevice.label,
+        });
       });
-      await flushPromises();
-      jest.advanceTimersToNextTimer();
-      expect(service.state.value).toEqual('error');
-      expect(service.state.context.errorState).toBe(
-        LivenessErrorState.CONNECTION_TIMEOUT
-      );
-      expect(mockcomponentProps.onError).toHaveBeenCalledTimes(1);
-      const receivedError = (mockcomponentProps.onError as jest.Mock).mock
-        .calls[0][0];
-      expect(receivedError.error.message).toContain(errorMessage);
-      expect(receivedError.state).toBe(LivenessErrorState.CONNECTION_TIMEOUT);
-    });
 
       it('should reach ovalMatching state and send client sessionInformation', async () => {
         await transitionToRecording(service);
@@ -1088,9 +1098,15 @@ describe('Liveness Machine', () => {
           LivenessErrorState.RUNTIME_ERROR
         );
         expect(mockComponentProps.onError).toHaveBeenCalledTimes(1);
-        const livenessError = (mockComponentProps.onError as jest.Mock).mock
-          .calls[0][0];
+        const [livenessError, deviceInfo] = (
+          mockComponentProps.onError as jest.Mock
+        ).mock.calls[0];
         expect(livenessError.state).toBe(LivenessErrorState.RUNTIME_ERROR);
+        expect(deviceInfo).toEqual({
+          deviceId: mockCameraDevice.deviceId,
+          groupId: mockCameraDevice.groupId,
+          label: mockCameraDevice.label,
+        });
       });
 
       it('should reach error state after receiving a server error from the websocket stream', async () => {
@@ -1108,9 +1124,17 @@ describe('Liveness Machine', () => {
           LivenessErrorState.SERVER_ERROR
         );
         expect(mockComponentProps.onError).toHaveBeenCalledTimes(1);
-        const livenessError = (mockComponentProps.onError as jest.Mock).mock
-          .calls[0][0];
-        expect(livenessError.state).toBe(LivenessErrorState.SERVER_ERROR);
+        expect(mockComponentProps.onError).toHaveBeenCalledWith(
+          {
+            state: LivenessErrorState.SERVER_ERROR,
+            error,
+          },
+          {
+            deviceId: mockCameraDevice.deviceId,
+            groupId: mockCameraDevice.groupId,
+            label: mockCameraDevice.label,
+          }
+        );
       });
 
       it('should reach connection timeout state after receiving a connection timeout error from the websocket stream', async () => {
