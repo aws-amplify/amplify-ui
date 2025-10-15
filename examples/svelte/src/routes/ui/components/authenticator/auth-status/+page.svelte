@@ -1,25 +1,25 @@
 <script lang="ts">
-	import { Amplify } from 'aws-amplify';
-	import { signIn, signOut } from 'aws-amplify/auth';
+  import { Amplify } from 'aws-amplify';
+  import { signIn, signOut } from 'aws-amplify/auth';
 
-	import { useAuthenticator } from '@aws-amplify/ui-svelte';
-	import '@aws-amplify/ui-svelte/styles.css';
-	import aws_exports from './aws-exports';
+  import { useAuthenticator } from '@aws-amplify/ui-svelte';
+  import '@aws-amplify/ui-svelte/styles.css';
+  import aws_exports from './aws-exports';
 
-	Amplify.configure(aws_exports);
+  Amplify.configure(aws_exports);
 
-	let hasInitialized = $state(false)
-	const { authStatus, state:_state, service, send } = $derived(useAuthenticator());
-	let isAuthenticated = $derived(authStatus === 'authenticated');
+  let hasInitialized = $state(false);
+  const { authStatus, state: _state, service, send } = $derived(useAuthenticator());
+  let isAuthenticated = $derived(authStatus === 'authenticated');
 
-	const handleSignOut = () => signOut();
+  const handleSignOut = () => signOut();
 
-	const onSubmit = (event: Event) => {
-		event.preventDefault();
-		signIn(
-			Object.fromEntries(new FormData(event.target as HTMLFormElement)) as any
-		);
-	};
+  const onSubmit = (event: Event) => {
+    event.preventDefault();
+    signIn(
+      Object.fromEntries(new FormData(event.target as HTMLFormElement)) as any
+    );
+  };
 </script>
 
 <form onsubmit={onSubmit}>

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { FormFields } from '../primitives';
+  import { FormFields } from '../primitives';
 </script>
 
 <FormFields route="signUp" />

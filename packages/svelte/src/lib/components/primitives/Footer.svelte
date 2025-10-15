@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { type HTMLAttributes } from 'svelte/elements';
+  import { type HTMLAttributes } from 'svelte/elements';
 
-	const { children, ...rest }: HTMLAttributes<HTMLElement> = $props();
+  const { children, ...rest }: HTMLAttributes<HTMLElement> = $props();
 </script>
 
 <footer {...rest}>
-	{@render children?.()}
+  {@render children?.()}
 </footer>

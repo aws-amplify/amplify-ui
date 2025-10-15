@@ -7,7 +7,7 @@
   Amplify.configure(aws_exports);
 </script>
 
-{#snippet forceNewPasswordFormFields()}
+{#snippet forceNewPasswordFormFields ()}
   <ForceNewPasswordFormFields />
   <TextField
     label="Zone Info"
@@ -23,7 +23,7 @@
     FormFields: forceNewPasswordFormFields
   }
 }}>
-  {#snippet children({user, signOut})}
+  {#snippet children ({ user, signOut })}
     <h1>Hello { user.username }!</h1>
     <button onclick={signOut}>Sign Out</button>
   {/snippet}

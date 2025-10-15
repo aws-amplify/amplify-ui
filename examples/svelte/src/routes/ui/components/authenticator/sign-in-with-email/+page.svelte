@@ -9,22 +9,22 @@
   const formFields = {
     signIn: {
       username: {
-        placeholder: 'Enter your cool email',
-      },
+        placeholder: 'Enter your cool email'
+      }
     },
     confirmVerifyUser: {
       confirmation_code: {
         label: 'New Label',
         placeholder: 'Enter your Confirmation Code:',
-        isRequired: false,
-      },
-    },
+        isRequired: false
+      }
+    }
   };
 
 </script>
 
 <Authenticator formFields={formFields}>
-  {#snippet children({user, signOut})}
+  {#snippet children ({ user, signOut })}
     <h1>Hello { user.username }!</h1>
     <button onclick={signOut}>Sign Out</button>
   {/snippet}

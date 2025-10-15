@@ -8,7 +8,7 @@
 </script>
 
 <Authenticator initialState="signUp">
-  {#snippet children({user, signOut})}
+  {#snippet children ({ user, signOut })}
     <h1>Hello { user.username }!</h1>
     <button onclick={signOut}>Sign Out</button>
   {/snippet}

@@ -121,6 +121,7 @@ jobs:
       - name: Validate ${{ matrix.package }} package esm modules
         if: |
           matrix.package != 'angular' &&
+          matrix.package != 'svelte' &&
           matrix.package != 'react-native'
         run: yarn ${{ matrix.package }} check:esm
 

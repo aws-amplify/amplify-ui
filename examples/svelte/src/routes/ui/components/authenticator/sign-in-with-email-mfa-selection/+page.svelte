@@ -8,51 +8,51 @@
   Amplify.configure(awsExports);
 
   const customServices = {
-      handleSignIn: async () => {
-          return {
-              isSignedIn: false,
-              nextStep: {
-                  signInStep: 'CONTINUE_SIGN_IN_WITH_MFA_SELECTION',
-                  allowedMFATypes: ['EMAIL', 'TOTP'],
-              },
-          };
-      },
-      handleConfirmSignIn: async ({ challengeResponse }) => {
-          if (challengeResponse === 'EMAIL') {
-              return {
-                  isSignedIn: false,
-                  nextStep: {
-                      signInStep: 'CONFIRM_SIGN_IN_WITH_EMAIL_CODE',
-                      codeDeliveryDetails: {
-                          destination: 'a***@e***.com',
-                          deliveryMedium: 'EMAIL',
-                          attributeName: 'email',
-                      },
-                  },
-              };
+    handleSignIn: async () => {
+      return {
+        isSignedIn: false,
+        nextStep: {
+          signInStep: 'CONTINUE_SIGN_IN_WITH_MFA_SELECTION',
+          allowedMFATypes: ['EMAIL', 'TOTP']
+        }
+      };
+    },
+    handleConfirmSignIn: async ({ challengeResponse }) => {
+      if (challengeResponse === 'EMAIL') {
+        return {
+          isSignedIn: false,
+          nextStep: {
+            signInStep: 'CONFIRM_SIGN_IN_WITH_EMAIL_CODE',
+            codeDeliveryDetails: {
+              destination: 'a***@e***.com',
+              deliveryMedium: 'EMAIL',
+              attributeName: 'email'
+            }
           }
+        };
+      }
 
-          if (challengeResponse === '123456') {
-              return {
-                  isSignedIn: true,
-                  nextStep: {
-                      signInStep: 'DONE',
-                  },
-              };
+      if (challengeResponse === '123456') {
+        return {
+          isSignedIn: true,
+          nextStep: {
+            signInStep: 'DONE'
           }
-          throw new Error('Invalid code or auth state for the user.');
-      },
-      getCurrentUser: async () => {
-          return {
-              userId: '******************',
-              username: 'james',
-          };
-      },
+        };
+      }
+      throw new Error('Invalid code or auth state for the user.');
+    },
+    getCurrentUser: async () => {
+      return {
+        userId: '******************',
+        username: 'james'
+      };
+    }
   };
 </script>
 
 <Authenticator services={customServices}>
-  {#snippet children({user, signOut})}
+  {#snippet children ({ user, signOut })}
     <h1>Hello { user.username }!</h1>
     <button onclick={signOut}>Sign Out</button>
   {/snippet}

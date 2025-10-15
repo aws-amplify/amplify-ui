@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { type HTMLAttributes } from 'svelte/elements';
+  import { type HTMLAttributes } from 'svelte/elements';
 
-	const { children }: HTMLAttributes<HTMLDivElement> = $props();
+  const { children }: HTMLAttributes<HTMLDivElement> = $props();
 </script>
 
 <div data-amplify-box="">
-	{@render children?.()}
+  {@render children?.()}
 </div>

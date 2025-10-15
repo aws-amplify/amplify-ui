@@ -1,5 +1,5 @@
 <script lang="ts">
-  const {children} = $props();
+  const { children } = $props();
 </script>
 
 {@render children()}

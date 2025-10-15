@@ -1,7 +1,7 @@
 <script lang="ts">
-	const { children } = $props();
+  const { children } = $props();
 </script>
 
 <span data-amplify-spacer="">
-	{@render children?.()}
+  {@render children?.()}
 </span>

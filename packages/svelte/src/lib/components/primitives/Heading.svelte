@@ -1,13 +1,13 @@
 <script lang="ts">
-	import { type HTMLAttributes } from 'svelte/elements';
+  import { type HTMLAttributes } from 'svelte/elements';
 
-	interface Props extends HTMLAttributes<HTMLHeadingElement> {
-		level?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
-	}
+  interface Props extends HTMLAttributes<HTMLHeadingElement> {
+    level?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+  }
 
-	const { level = 'h1', children, ...rest }: Props = $props();
+  const { level = 'h1', children, ...rest }: Props = $props();
 </script>
 
 <svelte:element this={level} {...rest}>
-	{@render children?.()}
+  {@render children?.()}
 </svelte:element>

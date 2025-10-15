@@ -9,14 +9,14 @@
     signUp: {
       phone_number: {
         dialCode: '+227',
-        dialCodeList: ['+1', '+82', '+227', '+100'],
-      },
-    },
+        dialCodeList: ['+1', '+82', '+227', '+100']
+      }
+    }
   };
 </script>
 
-<Authenticator formFields={formFields} signUpAttributes={['phone_number']} >
-  {#snippet children({user, signOut})}
+<Authenticator formFields={formFields} signUpAttributes={['phone_number']}>
+  {#snippet children ({ user, signOut })}
     <h1>Hello { user.username }!</h1>
     <button onclick={signOut}>Sign Out</button>
   {/snippet}

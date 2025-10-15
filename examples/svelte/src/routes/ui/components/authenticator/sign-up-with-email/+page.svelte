@@ -14,9 +14,9 @@
     confirmSignUp: {
       confirmation_code: {
         placeholder: 'Enter the code given',
-        isRequired: true,
-      },
-    },
+        isRequired: true
+      }
+    }
   };
 
   I18n.putVocabularies(translations);
@@ -24,7 +24,7 @@
   I18n.putVocabulariesForLanguage('en', {
     'Your code is on the way. To log in, enter the code we emailed to':
       'Enter this code:',
-    'It may take a minute to arrive': 'It will take several minutes to arrive',
+    'It may take a minute to arrive': 'It will take several minutes to arrive'
   });
 
   const services = {
@@ -39,11 +39,11 @@
           ...input.options,
           userAttributes: {
             ...input.options.userAttributes,
-            email: customEmail,
-          },
-        },
+            email: customEmail
+          }
+        }
       });
-    },
+    }
   };
 </script>
 
@@ -54,7 +54,7 @@
     formFields={formFields}
     initialState="signUp"
   >
-    {#snippet children({user, signOut})}
+    {#snippet children ({ user, signOut })}
       <h1>Hello { user.username }!</h1>
       <button onclick={signOut}>Sign Out</button>
     {/snippet}

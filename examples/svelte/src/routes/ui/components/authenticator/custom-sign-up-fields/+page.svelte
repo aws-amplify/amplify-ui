@@ -7,19 +7,19 @@
 
   Amplify.configure(awsExports);
 
-const { validationErrors } = $derived(useAuthenticator());
+  const { validationErrors } = $derived(useAuthenticator());
 
-const services = {
-  async validateCustomSignUp(formData) {
-    if (!formData.acknowledgement) {
-      return {
-        acknowledgement: 'You must agree to the Terms and Conditions',
-      };
+  const services = {
+    async validateCustomSignUp(formData) {
+      if (!formData.acknowledgement) {
+        return {
+          acknowledgement: 'You must agree to the Terms and Conditions'
+        };
+      }
     }
-  },
-};
+  };
 </script>
-{#snippet signUpFields()}
+{#snippet signUpFields ()}
   <SignUpFormFields />
   <Checkbox errorMessage={validationErrors.acknowledgement} />
 {/snippet}
@@ -28,7 +28,7 @@ const services = {
     FormFields: signUpFields,
   }
 }}>
-  {#snippet children({user, signOut})}
+  {#snippet children ({ user, signOut })}
     <h1>Hello { user.username }!</h1>
     <button onclick={signOut}>Sign Out</button>
   {/snippet}

@@ -6,74 +6,74 @@
 
   Amplify.configure(awsExports);
 
-const { toForgotPassword, toSignIn } = $derived(useAuthenticator());
+  const { toForgotPassword, toSignIn } = $derived(useAuthenticator());
 
-const formFields = {
-  signIn: {
-    username: {
-      placeholder: 'Enter your email',
+  const formFields = {
+    signIn: {
+      username: {
+        placeholder: 'Enter your email'
+      }
     },
-  },
-  signUp: {
-    confirm_password: {
-      label: 'Confirm Password:',
-      order: 1,
+    signUp: {
+      confirm_password: {
+        label: 'Confirm Password:',
+        order: 1
+      },
+      password: {
+        label: 'Password:',
+        placeholder: 'Enter your Password:',
+        isRequired: false,
+        order: 2
+      }
     },
-    password: {
-      label: 'Password:',
-      placeholder: 'Enter your Password:',
-      isRequired: false,
-      order: 2,
+    forceNewPassword: {
+      password: {
+        placeholder: 'Enter your Password:'
+      }
     },
-  },
-  forceNewPassword: {
-    password: {
-      placeholder: 'Enter your Password:',
+    forgotPassword: {
+      username: {
+        placeholder: 'Enter your email:'
+      }
     },
-  },
-  forgotPassword: {
-    username: {
-      placeholder: 'Enter your email:',
+    confirmResetPassword: {
+      confirmation_code: {
+        placeholder: 'Enter your Confirmation Code:',
+        label: 'New Label',
+        isRequired: false
+      },
+      confirm_password: {
+        placeholder: 'Enter your Password Please:'
+      }
     },
-  },
-  confirmResetPassword: {
-    confirmation_code: {
-      placeholder: 'Enter your Confirmation Code:',
-      label: 'New Label',
-      isRequired: false,
+    setupTotp: {
+      QR: {
+        totpIssuer: 'test issuer',
+        totpUsername: 'amplify_qr_test_user'
+      },
+      confirmation_code: {
+        label: 'New Label',
+        placeholder: 'Enter your Confirmation Code:',
+        isRequired: false
+      }
     },
-    confirm_password: {
-      placeholder: 'Enter your Password Please:',
+    confirmSignIn: {
+      confirmation_code: {
+        label: 'New Label',
+        placeholder: 'Enter your Confirmation Code:',
+        isRequired: false
+      }
     },
-  },
-  setupTotp: {
-    QR: {
-      totpIssuer: 'test issuer',
-      totpUsername: 'amplify_qr_test_user',
-    },
-    confirmation_code: {
-      label: 'New Label',
-      placeholder: 'Enter your Confirmation Code:',
-      isRequired: false,
-    },
-  },
-  confirmSignIn: {
-    confirmation_code: {
-      label: 'New Label',
-      placeholder: 'Enter your Confirmation Code:',
-      isRequired: false,
-    },
-  },
-  setupEmail: {
-    email: {
-      label: 'New Label',
-      placeholder: 'Enter your Email Address:',
+    setupEmail: {
+      email: {
+        label: 'New Label',
+        placeholder: 'Enter your Email Address:'
+      }
     }
-  }
-};
+  };
 </script>
 
-{#snippet header()}
+{#snippet header ()}
   <div style="padding: var(--amplify-space-large); text-align: center">
     <img
       class="amplify-image"
@@ -82,7 +82,7 @@ const formFields = {
     />
   </div>
 {/snippet}
-{#snippet signInHeader()}
+{#snippet signInHeader ()}
   <h3
     class="amplify-heading"
     style="padding: var(--amplify-space-xl) 0 0 var(--amplify-space-xl)"
@@ -90,7 +90,7 @@ const formFields = {
     Sign in to your account
   </h3>
 {/snippet}
-{#snippet signInFooter()}
+{#snippet signInFooter ()}
   <div style="text-align: center">
     <button
       onclick={toForgotPassword}
@@ -105,7 +105,7 @@ const formFields = {
     </button>
   </div>
 {/snippet}
-{#snippet signUpHeader()}
+{#snippet signUpHeader ()}
   <h3
     class="amplify-heading"
     style="padding: var(--amplify-space-xl) 0 0 var(--amplify-space-xl)"
@@ -113,7 +113,7 @@ const formFields = {
     Create a new account
   </h3>
 {/snippet}
-{#snippet signUpFooter()}
+{#snippet signUpFooter ()}
   <div style="text-align: center">
     <button
       onclick={toSignIn}
@@ -128,7 +128,7 @@ const formFields = {
     </button>
   </div>
 {/snippet}
-{#snippet footer()}
+{#snippet footer ()}
   <div style="padding: var(--amplify-space-large); text-align: center">
     <p
       class="amplify-text"
@@ -138,7 +138,7 @@ const formFields = {
     </p>
   </div>
 {/snippet}
-{#snippet confirmSignUpHeader()}
+{#snippet confirmSignUpHeader ()}
   <h3
     class="amplify-heading"
     style="padding: var(--amplify-space-xl) 0 0 var(--amplify-space-xl)"
@@ -146,10 +146,10 @@ const formFields = {
     Enter Information:
   </h3>
 {/snippet}
-{#snippet confirmSignUpFooter()}
+{#snippet confirmSignUpFooter ()}
   <div>Footer Information</div>
 {/snippet}
-{#snippet setupTotpHeader()}
+{#snippet setupTotpHeader ()}
   <h3
     class="amplify-heading"
     style="padding: var(--amplify-space-xl) 0 0 var(--amplify-space-xl)"
@@ -157,10 +157,10 @@ const formFields = {
     Enter Information:
   </h3>
 {/snippet}
-{#snippet setupTotpFooter()}
+{#snippet setupTotpFooter ()}
   <div>Footer Information</div>
 {/snippet}
-{#snippet confirmSignInHeader()}
+{#snippet confirmSignInHeader ()}
   <h3
     class="amplify-heading"
     style="padding: var(--amplify-space-xl) 0 0 var(--amplify-space-xl)"
@@ -168,10 +168,10 @@ const formFields = {
     Enter Information:
   </h3>
 {/snippet}
-{#snippet confirmSignInFooter()}
+{#snippet confirmSignInFooter ()}
   <div>Footer Information</div>
 {/snippet}
-{#snippet forgotPasswordHeader()}
+{#snippet forgotPasswordHeader ()}
   <h3
     class="amplify-heading"
     style="padding: var(--amplify-space-xl) 0 0 var(--amplify-space-xl)"
@@ -179,10 +179,10 @@ const formFields = {
     Enter Information:
   </h3>
 {/snippet}
-{#snippet forgotPasswordFooter()}
+{#snippet forgotPasswordFooter ()}
   <div>Footer Information</div>
 {/snippet}
-{#snippet confirmResetPasswordHeader()}
+{#snippet confirmResetPasswordHeader ()}
   <h3
     class="amplify-heading"
     style="padding: var(--amplify-space-xl) 0 0 var(--amplify-space-xl)"
@@ -190,23 +190,23 @@ const formFields = {
     Enter Information:
   </h3>
 {/snippet}
-{#snippet confirmResetPasswordFooter()}
+{#snippet confirmResetPasswordFooter ()}
   <div>Footer Information</div>
 {/snippet}
-{#snippet selectMfaTypeHeader()}
+{#snippet selectMfaTypeHeader ()}
   <h3 class="amplify-heading">
     Select Desired MFA Type
   </h3>
 {/snippet}
-{#snippet selectMfaTypeFooter()}
+{#snippet selectMfaTypeFooter ()}
   <div>Footer Information</div>
 {/snippet}
-{#snippet setupEmailHeader()}
+{#snippet setupEmailHeader ()}
   <h3 class="amplify-heading">
     Email MFA Setup
   </h3>
 {/snippet}
-{#snippet setupEmailFooter()}
+{#snippet setupEmailFooter ()}
   <div>Footer Information</div>
 {/snippet}
 
@@ -250,7 +250,7 @@ const formFields = {
     Footer: setupEmailFooter,
   }
 }}>
-  {#snippet children({user, signOut})}
+  {#snippet children ({ user, signOut })}
     <h1>Hello { user.username }!</h1>
     <button onclick={signOut}>Sign Out</button>
   {/snippet}

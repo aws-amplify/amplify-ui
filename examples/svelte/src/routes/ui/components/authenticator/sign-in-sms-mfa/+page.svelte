@@ -13,12 +13,12 @@
 
   I18n.putVocabulariesForLanguage('en', {
     'CodeMismatchException: Invalid code or auth state for the user.':
-      'invalid code',
+      'invalid code'
   });
 </script>
 
 <Authenticator>
-  {#snippet children({user, signOut})}
+  {#snippet children ({ user, signOut })}
     <h1>Hello { user.username }!</h1>
     <button onclick={signOut}>Sign Out</button>
   {/snippet}
