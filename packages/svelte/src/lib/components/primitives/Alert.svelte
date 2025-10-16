@@ -11,7 +11,7 @@
     show = false;
   }
   const {
-    children
+    children,
   }: {
     children?: Snippet;
   } = $props();

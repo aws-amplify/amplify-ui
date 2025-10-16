@@ -2,7 +2,11 @@
   import { Amplify } from 'aws-amplify';
   import { signUp } from 'aws-amplify/auth';
   import { I18n } from 'aws-amplify/utils';
-  import { Authenticator, translations, useAuthenticator } from '@aws-amplify/ui-svelte';
+  import {
+    Authenticator,
+    translations,
+    useAuthenticator,
+  } from '@aws-amplify/ui-svelte';
   import '@aws-amplify/ui-svelte/styles.css';
   import aws_exports from './aws-exports';
 
@@ -14,9 +18,9 @@
     confirmSignUp: {
       confirmation_code: {
         placeholder: 'Enter the code given',
-        isRequired: true
-      }
-    }
+        isRequired: true,
+      },
+    },
   };
 
   I18n.putVocabularies(translations);
@@ -24,7 +28,7 @@
   I18n.putVocabulariesForLanguage('en', {
     'Your code is on the way. To log in, enter the code we emailed to':
       'Enter this code:',
-    'It may take a minute to arrive': 'It will take several minutes to arrive'
+    'It may take a minute to arrive': 'It will take several minutes to arrive',
   });
 
   const services = {
@@ -39,23 +43,19 @@
           ...input.options,
           userAttributes: {
             ...input.options.userAttributes,
-            email: customEmail
-          }
-        }
+            email: customEmail,
+          },
+        },
       });
-    }
+    },
   };
 </script>
 
 <p>
-  { authenticator.authStatus }
-  <Authenticator
-    services={services}
-    formFields={formFields}
-    initialState="signUp"
-  >
-    {#snippet children ({ user, signOut })}
-      <h1>Hello { user.username }!</h1>
+  {authenticator.authStatus}
+  <Authenticator {services} {formFields} initialState="signUp">
+    {#snippet children({ user, signOut })}
+      <h1>Hello {user.username}!</h1>
       <button onclick={signOut}>Sign Out</button>
     {/snippet}
   </Authenticator>

@@ -6,7 +6,8 @@
   import aws_exports from './aws-exports';
 
   Amplify.configure(aws_exports);
-  const handleClick = () => goto('useAuthenticator/home')
+  // eslint-disable-next-line svelte/no-navigation-without-resolve
+  const handleClick = () => goto('useAuthenticator/home');
 </script>
 
 <Authenticator>

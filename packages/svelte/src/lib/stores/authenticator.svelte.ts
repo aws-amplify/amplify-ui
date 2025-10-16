@@ -5,7 +5,7 @@ import {
   defaultAuthHubHandler,
   getActorContext,
   getServiceFacade,
-  listenToAuthHub
+  listenToAuthHub,
 } from '@aws-amplify/ui';
 import { onDestroy } from 'svelte';
 import { get, writable, type Writable } from 'svelte/store';
@@ -15,15 +15,6 @@ import { type AnyFn, type UseAuthenticator } from '../types';
 
 type SharedReturn<T extends AnyFn = AnyFn> = T;
 type StateMachine = ReturnType<typeof createAuthenticatorMachine>;
-
-// const getQRFields = (
-// 	state: AuthMachineState
-// ): { totpIssuer?: string; totpUsername?: string } | null =>
-// 	facade.route === 'setupTotp'
-// 		? {
-// 				...getActorContext(state)?.formFields?.setupTotp?.QR
-// 			}
-// 		: null;
 
 const shared = <Fn extends AnyFn>(fn: Fn): SharedReturn<Fn> => {
   let result: ReturnType<Fn>;
@@ -39,7 +30,6 @@ const shared = <Fn extends AnyFn>(fn: Fn): SharedReturn<Fn> => {
 
 const useServiceRef = (logic: StateMachine) => {
   const service = interpret(logic).start();
-  // onDestroy(() => service.stop());
   return service;
 };
 
@@ -55,7 +45,7 @@ const useService = (logic: StateMachine) => {
   return {
     state: serviceState,
     send: serviceRef.send,
-    service: serviceRef
+    service: serviceRef,
   };
 };
 
@@ -79,7 +69,7 @@ export const useAuth = shared(() => {
         },
         onSignOut: () => {
           authStatus.set('unauthenticated');
-        }
+        },
       })
     )
   );
@@ -88,40 +78,42 @@ export const useAuth = shared(() => {
     state,
     send,
     service,
-    authStatus
+    authStatus,
   };
 });
 
-export const useAuthenticator = shared((): { authenticator: UseAuthenticator } => {
-  const { state, authStatus, send } = useAuth();
+export const useAuthenticator = shared(
+  (): { authenticator: UseAuthenticator } => {
+    const { state, authStatus, send } = useAuth();
 
-  const getResult = () => {
-    const stateValue = get(state);
-    const authStatusValue = get(authStatus);
-    const facade = getServiceFacade({ send, state: stateValue });
+    const getResult = () => {
+      const stateValue = get(state);
+      const authStatusValue = get(authStatus);
+      const facade = getServiceFacade({ send, state: stateValue });
+
+      return {
+        ...facade,
+        authStatus: authStatusValue,
+        QRFields:
+          facade.route === 'setupTotp'
+            ? {
+                ...getActorContext(stateValue)?.formFields?.setupTotp?.QR,
+              }
+            : null,
+      };
+    };
+    let result = $state(getResult());
+    state.subscribe(() => {
+      result = getResult();
+    });
+    authStatus.subscribe(() => {
+      result = getResult();
+    });
 
     return {
-      ...facade,
-      authStatus: authStatusValue,
-      QRFields:
-        facade.route === 'setupTotp'
-          ? {
-              ...getActorContext(stateValue)?.formFields?.setupTotp?.QR
-            }
-          : null
+      get authenticator() {
+        return result;
+      },
     };
-  };
-  let result = $state(getResult());
-  state.subscribe(() => {
-    result = getResult();
-  });
-  authStatus.subscribe(() => {
-    result = getResult();
-  });
-
-  return {
-    get authenticator() {
-      return result;
-    }
-  };
-});
+  }
+);

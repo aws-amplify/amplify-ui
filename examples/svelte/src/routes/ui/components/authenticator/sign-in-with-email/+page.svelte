@@ -9,16 +9,16 @@
   const formFields = {
     signIn: {
       username: {
-        placeholder: 'Enter your cool email'
-      }
+        placeholder: 'Enter your cool email',
+      },
     },
     confirmVerifyUser: {
       confirmation_code: {
         label: 'New Label',
         placeholder: 'Enter your Confirmation Code:',
-        isRequired: false
-      }
-    }
+        isRequired: false,
+      },
+    },
   };
 
   const components = {
@@ -31,28 +31,24 @@
       Footer: confirmVerifyUserFooter,
     },
   };
-
 </script>
+
 {#snippet verifyUserHeader()}
-  <Heading level='h3'>
-    Enter Information:
-  </Heading>
+  <Heading level="h3">Enter Information:</Heading>
 {/snippet}
 {#snippet verifyUserFooter()}
   <Text>Footer Information</Text>
 {/snippet}
 {#snippet confirmVerifyUserHeader()}
-  <Heading level='h3'>
-    Enter Information:
-  </Heading>
+  <Heading level="h3">Enter Information:</Heading>
 {/snippet}
 {#snippet confirmVerifyUserFooter()}
   <Text>Footer Information</Text>
 {/snippet}
 
-<Authenticator formFields={formFields} components={components} hideSignUp>
-  {#snippet children ({ user, signOut })}
-    <h1>Hello { user.username }!</h1>
+<Authenticator {formFields} {components} hideSignUp>
+  {#snippet children({ user, signOut })}
+    <h1>Hello {user.username}!</h1>
     <button onclick={signOut}>Sign Out</button>
   {/snippet}
 </Authenticator>

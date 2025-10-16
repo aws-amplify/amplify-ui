@@ -1,5 +1,9 @@
 <script lang="ts">
-  import { authenticatorTextUtil, getFormDataFromEvent, translate } from '@aws-amplify/ui';
+  import {
+    authenticatorTextUtil,
+    getFormDataFromEvent,
+    translate,
+  } from '@aws-amplify/ui';
   import { useAuthenticator } from '../../stores/authenticator.svelte';
   import { type Components } from '../../types';
 
@@ -19,7 +23,8 @@
   const { components }: Props = $props();
 
   const { authenticator } = $derived(useAuthenticator());
-  const { getBackToSignInText, getConfirmText, getSetupEmailText } = authenticatorTextUtil;
+  const { getBackToSignInText, getConfirmText, getSetupEmailText } =
+    authenticatorTextUtil;
   const setupEmailHeading = $derived.by(() => getSetupEmailText());
   const backSignInText = $derived.by(() => getBackToSignInText());
   const confirmText = $derived.by(() => getConfirmText());
@@ -41,8 +46,15 @@
 </script>
 
 <Wrapper>
-  <Form data-amplify-authenticator-setupemail oninput={onInput} onsubmit={onSetupEmailSubmit}>
-    <FieldSet class="amplify-flex amplify-authenticator__column" disabled={authenticator.isPending}>
+  <Form
+    data-amplify-authenticator-setupemail
+    oninput={onInput}
+    onsubmit={onSetupEmailSubmit}
+  >
+    <FieldSet
+      class="amplify-flex amplify-authenticator__column"
+      disabled={authenticator.isPending}
+    >
       {#if components?.Header}
         {@render components?.Header()}
       {:else}

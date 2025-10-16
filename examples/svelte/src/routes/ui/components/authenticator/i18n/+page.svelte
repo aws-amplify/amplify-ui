@@ -9,16 +9,19 @@
   I18n.setLanguage('ja');
   I18n.putVocabulariesForLanguage('ja', {
     'Sign In': 'Sign In Custom',
-    'User does not exist.': 'Error with your user'
+    'User does not exist.': 'Error with your user',
   });
 
   Amplify.configure(aws_exports);
 </script>
 
 <Authenticator initialState="signUp">
-  {#snippet children ({ user, send })}
-    <h1 class="mb-10 text-6xl">Hello { user.username }!</h1>
-    <button class="px-2 bg-white rounded shadow" onclick={() => send('SIGN_OUT')}>
+  {#snippet children({ user, send })}
+    <h1 class="mb-10 text-6xl">Hello {user.username}!</h1>
+    <button
+      class="px-2 bg-white rounded shadow"
+      onclick={() => send('SIGN_OUT')}
+    >
       Sign Out
     </button>
   {/snippet}

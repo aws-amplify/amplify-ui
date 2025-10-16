@@ -9,12 +9,13 @@
 
   const { authenticator } = $derived(useAuthenticator());
   $effect(() => {
-    if(authenticator.route === 'signIn') goto('.')
-  })
+    // eslint-disable-next-line svelte/no-navigation-without-resolve
+    if (authenticator.route === 'signIn') goto('.');
+  });
   const handleClick = () => {
-    authenticator.signOut()
-  }
+    authenticator.signOut();
+  };
 </script>
 
-<div>Hello, { authenticator.user?.username }!</div>
+<div>Hello, {authenticator.user?.username}!</div>
 <button onclick={handleClick}>Sign Out</button>

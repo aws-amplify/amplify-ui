@@ -1,5 +1,9 @@
 <script lang="ts">
-  import { authenticatorTextUtil, getFormDataFromEvent, translate } from '@aws-amplify/ui';
+  import {
+    authenticatorTextUtil,
+    getFormDataFromEvent,
+    translate,
+  } from '@aws-amplify/ui';
 
   import { useAuthenticator } from '../../stores/authenticator.svelte';
   import { type Components } from '../../types';
@@ -22,7 +26,8 @@
   const { authenticator } = $derived(useAuthenticator());
 
   // Text Util
-  const { getAccountRecoveryInfoText, getSkipText, getSubmitText } = authenticatorTextUtil;
+  const { getAccountRecoveryInfoText, getSkipText, getSubmitText } =
+    authenticatorTextUtil;
 
   // Computed Properties
   const verifyHeading = $derived.by(() => getAccountRecoveryInfoText());
@@ -52,7 +57,10 @@
 
 <Wrapper>
   <Form oninput={onInput} onsubmit={onConfirmVerifyUserSubmit}>
-    <FieldSet class="amplify-flex amplify-authenticator__column" disabled={authenticator.isPending}>
+    <FieldSet
+      class="amplify-flex amplify-authenticator__column"
+      disabled={authenticator.isPending}
+    >
       {#if components?.Header}
         {@render components?.Header()}
       {:else}

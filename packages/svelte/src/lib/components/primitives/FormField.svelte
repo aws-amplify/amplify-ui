@@ -25,7 +25,9 @@
   const errors = $derived(getErrors(authenticator.validationErrors[name]));
   const hasError = $derived(errors?.length > 0);
   const ariaDescribedBy = $derived(hasError ? errorId : undefined);
-  const autocomplete = $derived(formField.autocomplete ?? '') as unknown as FullAutoFill;
+  const autocomplete = $derived(
+    formField.autocomplete ?? ''
+  ) as unknown as FullAutoFill;
 </script>
 
 {#if isPasswordField}
@@ -58,7 +60,11 @@
 {#if hasError}
   <div id={ariaDescribedBy}>
     {#each errors as error, idx (idx)}
-      <p role="alert" data-variation="error" class="amplify-text amplify-text--error">
+      <p
+        role="alert"
+        data-variation="error"
+        class="amplify-text amplify-text--error"
+      >
         {translate(error)}
       </p>
     {/each}

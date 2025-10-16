@@ -1,5 +1,9 @@
 <script lang="ts">
-  import { authenticatorTextUtil, getFormDataFromEvent, translate } from '@aws-amplify/ui';
+  import {
+    authenticatorTextUtil,
+    getFormDataFromEvent,
+    translate,
+  } from '@aws-amplify/ui';
 
   import { useAuthenticator } from '../../stores/authenticator.svelte';
   import { type Components } from '../../types';
@@ -23,7 +27,8 @@
   const { authenticator } = $derived(useAuthenticator());
 
   // Text Util
-  const { getForgotPasswordText, getSignInText, getSigningInText } = authenticatorTextUtil;
+  const { getForgotPasswordText, getSignInText, getSigningInText } =
+    authenticatorTextUtil;
 
   // Computed Properties
   const forgotYourPasswordLink = $derived.by(() => getForgotPasswordText());

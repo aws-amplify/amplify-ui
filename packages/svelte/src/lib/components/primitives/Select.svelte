@@ -17,7 +17,10 @@
 {#if options}
   <select {...rest} onchange={(e) => handleChange(e)}>
     {#each options as option, idx (idx)}
-      <option value={option} selected={option === selectValue ? true : undefined}>
+      <option
+        value={option}
+        selected={option === selectValue ? true : undefined}
+      >
         {option}
       </option>
     {/each}

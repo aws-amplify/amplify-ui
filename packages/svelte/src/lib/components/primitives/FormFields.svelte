@@ -2,7 +2,7 @@
   import {
     type FormFieldComponents,
     type FormFieldsArray,
-    getSortedFormFields
+    getSortedFormFields,
   } from '@aws-amplify/ui';
   import FormField from './FormField.svelte';
 

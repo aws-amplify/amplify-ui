@@ -1,12 +1,25 @@
 .DS_Store
+Thumbs.db
 .env
 .env.local
+!.env.example
+!.env.test
+
 *.log
 node_modules
 aws-exports.js
 aws-exports.ts
 amplifyconfiguration.json
 docs/public/previews
+
+.output
+.vercel
+.netlify
+.wrangler
+.svelte-kit/
+build/
+dist/
+coverage/
 
 # We have mock exports in the following locations
 !examples/angular/src/pages/ui/components/*/*/aws-exports.js
@@ -15,6 +28,7 @@ docs/public/previews
 !examples/next/pages/ui/components/*/*/aws-exports.js
 !examples/next/pages/ui/hooks/*/*/aws-exports.js
 !examples/vue/src/pages/ui/components/*/*/aws-exports.js
+!examples/svelte/src/routes/ui/components/*/*/aws-exports.js
 !examples/react-native/src/features/*/*/aws-exports.js
 !examples/react-native/src/ui/*/*/*/aws-exports.js
 
@@ -25,3 +39,7 @@ docs/public/previews
 
 # flutter assets are built with `yarn flutter:build` and should not be checked in to source control
 **/public/flutter/**/
+
+# Vite
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*

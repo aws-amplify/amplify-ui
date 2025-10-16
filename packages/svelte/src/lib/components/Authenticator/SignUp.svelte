@@ -1,5 +1,9 @@
 <script lang="ts">
-  import { authenticatorTextUtil, getFormDataFromEvent, translate } from '@aws-amplify/ui';
+  import {
+    authenticatorTextUtil,
+    getFormDataFromEvent,
+    translate,
+  } from '@aws-amplify/ui';
 
   import { useAuthenticator } from '../../stores/authenticator.svelte';
   import { type Components } from '../../types';
@@ -35,7 +39,7 @@
     const isUncheckedCheckbox = type === 'checkbox' && !checked;
     authenticator.updateForm({
       name,
-      value: isUncheckedCheckbox ? undefined : (value as string)
+      value: isUncheckedCheckbox ? undefined : (value as string),
     });
   };
 
@@ -79,7 +83,8 @@
           loading={false}
           variation="primary"
           style="border-radius: 0px; font-weight: normal"
-          disabled={authenticator.isPending || authenticator.hasValidationErrors}
+          disabled={authenticator.isPending ||
+            authenticator.hasValidationErrors}
         >
           {createAccountLabel}
         </Button>

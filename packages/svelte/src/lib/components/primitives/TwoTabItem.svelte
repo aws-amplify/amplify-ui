@@ -16,7 +16,7 @@
   aria-selected={active ? 'true' : 'false'}
   class={{
     'amplify-tabs__item': true,
-    'amplify-tabs__item--active': active
+    'amplify-tabs__item--active': active,
   }}
   id={`${id}-tab`}
   aria-controls={`${id}-panel`}

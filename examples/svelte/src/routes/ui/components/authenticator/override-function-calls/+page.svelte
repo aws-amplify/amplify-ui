@@ -20,16 +20,17 @@
           ...options,
           userAttributes: {
             ...options?.userAttributes,
-            email: customEmail
-          }
-        }
+            email: customEmail,
+          },
+        },
       });
-    }
+    },
   };
 </script>
-<Authenticator services={services} initialState="signUp">
-  {#snippet children ({ user, signOut })}
-    <h1>Hello { user.username }!</h1>
+
+<Authenticator {services} initialState="signUp">
+  {#snippet children({ user, signOut })}
+    <h1>Hello {user.username}!</h1>
     <button onclick={signOut}>Sign Out</button>
   {/snippet}
 </Authenticator>

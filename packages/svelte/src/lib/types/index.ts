@@ -3,7 +3,7 @@ import {
   AuthInterpreter,
   AuthMachineSend,
   AuthMachineState,
-  AuthStatus
+  AuthStatus,
 } from '@aws-amplify/ui';
 import type { Snippet } from 'svelte';
 import type { Writable } from 'svelte/store';

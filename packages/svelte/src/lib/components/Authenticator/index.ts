@@ -25,5 +25,5 @@ export {
   SetupTotp,
   SignIn,
   SignUp,
-  VerifyUser
+  VerifyUser,
 };

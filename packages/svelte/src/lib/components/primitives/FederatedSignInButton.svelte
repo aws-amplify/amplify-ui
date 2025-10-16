@@ -18,6 +18,10 @@
   };
 </script>
 
-<Button class="amplify-authenticator__federated-button" type="button" onclick={() => onClick()}>
+<Button
+  class="amplify-authenticator__federated-button"
+  type="button"
+  onclick={() => onClick()}
+>
   {@render children?.()}
 </Button>

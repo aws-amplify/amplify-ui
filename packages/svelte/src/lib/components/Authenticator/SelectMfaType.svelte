@@ -1,5 +1,9 @@
 <script lang="ts">
-  import { authenticatorTextUtil, getFormDataFromEvent, translate } from '@aws-amplify/ui';
+  import {
+    authenticatorTextUtil,
+    getFormDataFromEvent,
+    translate,
+  } from '@aws-amplify/ui';
 
   import { useAuthenticator } from '../../stores/authenticator.svelte';
   import { type Components } from '../../types';
@@ -28,7 +32,7 @@
     getConfirmText,
     getSelectMfaTypeByChallengeName,
     getMfaTypeLabelByValue,
-    getSelectMfaTypeText
+    getSelectMfaTypeText,
   } = authenticatorTextUtil;
 
   const selectMfaTypeHeading = $derived.by(() =>
@@ -55,8 +59,15 @@
 </script>
 
 <Wrapper>
-  <Form data-amplify-authenticator-selectmfatype oninput={onInput} onsubmit={onSelectMfaTypeSubmit}>
-    <FieldSet class="amplify-flex amplify-authenticator__column" disabled={authenticator.isPending}>
+  <Form
+    data-amplify-authenticator-selectmfatype
+    oninput={onInput}
+    onsubmit={onSelectMfaTypeSubmit}
+  >
+    <FieldSet
+      class="amplify-flex amplify-authenticator__column"
+      disabled={authenticator.isPending}
+    >
       {#if components?.Header}
         {@render components?.Header()}
       {:else}
@@ -65,7 +76,10 @@
         </Heading>
       {/if}
       <Wrapper class="amplify-flex amplify-authenticator__column">
-        <Label class="amplify-visually-hidden amplify-label" id={`amplify-field-${random}`}>
+        <Label
+          class="amplify-visually-hidden amplify-label"
+          id={`amplify-field-${random}`}
+        >
           {selectMfaTypeText}
         </Label>
         <Wrapper
@@ -74,7 +88,10 @@
         >
           {#if authenticator.allowedMfaTypes}
             {#each authenticator.allowedMfaTypes as mfaType, index (mfaType)}
-              <Label class="amplify-flex amplify-radio" data-amplify-selectmfatype-label>
+              <Label
+                class="amplify-flex amplify-radio"
+                data-amplify-selectmfatype-label
+              >
                 <Text class="amplify-text amplify-radio__label">
                   {getMfaTypeLabelByValue(mfaType)}
                 </Text>
@@ -87,7 +104,10 @@
                   value={mfaType}
                   checked={index === 0}
                 ></Input>
-                <Text class="amplify-flex amplify-radio__button" aria-hidden="true" />
+                <Text
+                  class="amplify-flex amplify-radio__button"
+                  aria-hidden="true"
+                />
               </Label>
             {/each}
           {/if}

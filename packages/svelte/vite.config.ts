@@ -9,22 +9,38 @@ const resolvePath = (str: string) => path.resolve(__dirname, str);
 export default defineConfig({
   plugins: [sveltekit(), svelteTesting()],
   test: {
-    environment: 'jsdom'
+    environment: 'jsdom',
+    coverage: {
+      provider: 'v8',
+      include: ['src/**/*.svelte', 'src/lib/stores/*.svelte.ts'],
+      exclude: ['dist/**', '.svelte-kit/**'],
+      thresholds: {
+        // we only have very basic snapshot testing.
+        // this results in very low numbers for functions and branches
+        // as no logic is executed.
+        // this will be enhanced in future.
+        branches: 66,
+        functions: 50,
+        lines: 95,
+        statements: 95,
+      },
+    },
   },
   resolve: {
     alias: [
       {
         find: './runtimeConfig',
-        replacement: './runtimeConfig.browser'
-      }
-    ]
+        replacement: './runtimeConfig.browser',
+      },
+    ],
   },
   build: {
     lib: {
       entry: resolvePath('./src/lib/index.ts'),
       formats: ['es', 'cjs'],
       name: 'ui-svelte',
-      fileName: (format: string) => (format === 'es' ? 'index.js' : `index.${format}`)
+      fileName: (format: string) =>
+        format === 'es' ? 'index.js' : `index.${format}`,
     },
     rollupOptions: {
       plugins: [dynamicImportVars],
@@ -35,8 +51,8 @@ export default defineConfig({
         'aws-amplify',
         'aws-amplify/auth',
         'aws-amplify/core',
-        'aws-amplify/utils'
-      ]
-    }
-  }
+        'aws-amplify/utils',
+      ],
+    },
+  },
 });

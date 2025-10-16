@@ -16,9 +16,9 @@
           codeDeliveryDetails: {
             destination: 'a***@e***.com',
             deliveryMedium: 'EMAIL',
-            attributeName: 'email'
-          }
-        }
+            attributeName: 'email',
+          },
+        },
       };
     },
     handleConfirmSignIn: async ({ challengeResponse }) => {
@@ -26,8 +26,8 @@
         return {
           isSignedIn: true,
           nextStep: {
-            signInStep: 'DONE'
-          }
+            signInStep: 'DONE',
+          },
         };
       }
       throw new Error('Invalid code or auth state for the user.');
@@ -35,17 +35,15 @@
     getCurrentUser: async () => {
       return {
         userId: '******************',
-        username: 'james'
+        username: 'james',
       };
-    }
+    },
   };
 </script>
 
-
 <Authenticator services={customServices}>
-  {#snippet children ({ user, signOut })}
-    <h1>Hello { user.username }!</h1>
+  {#snippet children({ user, signOut })}
+    <h1>Hello {user.username}!</h1>
     <button onclick={signOut}>Sign Out</button>
   {/snippet}
 </Authenticator>
-

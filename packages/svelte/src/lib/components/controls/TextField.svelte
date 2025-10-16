@@ -23,11 +23,14 @@
     disabled = false,
     name = '',
     type = 'text',
-    hideLabel = true
+    hideLabel = true,
   }: TextFields = $props();
 </script>
 
-<Label class={['amplify-label', hideLabel && 'amplify-visually-hidden']} for={id}>{label}</Label>
+<Label
+  class={['amplify-label', hideLabel && 'amplify-visually-hidden']}
+  for={id}>{label}</Label
+>
 <Wrapper class="amplify-field-group__field-wrapper">
   <Input
     class="amplify-input amplify-field-group__control"

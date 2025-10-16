@@ -25,7 +25,7 @@
     <span
       class={[
         'amplify-flex amplify-checkbox__button',
-        !checked && 'amplify-checkbox__button--error'
+        !checked && 'amplify-checkbox__button--error',
       ]}
       aria-hidden="true"
       data-focus="false"
@@ -36,7 +36,7 @@
         xmlns="http://www.w3.org/2000/svg"
         class={{
           'amplify-icon amplify-checkbox__icon': true,
-          'amplify-checkbox__icon--checked': checked
+          'amplify-checkbox__icon--checked': checked,
         }}
         viewBox="0 0 24 24"
         fill="currentColor"

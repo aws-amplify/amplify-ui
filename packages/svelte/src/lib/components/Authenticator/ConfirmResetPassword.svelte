@@ -1,5 +1,9 @@
 <script lang="ts">
-  import { authenticatorTextUtil, getFormDataFromEvent, translate } from '@aws-amplify/ui';
+  import {
+    authenticatorTextUtil,
+    getFormDataFromEvent,
+    translate,
+  } from '@aws-amplify/ui';
 
   import { useAuthenticator } from '../../stores/authenticator.svelte';
   import { type Components } from '../../types';
@@ -22,11 +26,14 @@
   const { authenticator } = $derived(useAuthenticator());
 
   // Text Util
-  const { getResendCodeText, getResetYourPasswordText, getSubmitText } = authenticatorTextUtil;
+  const { getResendCodeText, getResetYourPasswordText, getSubmitText } =
+    authenticatorTextUtil;
 
   // Computed Properties
   const resendCodeText = $derived.by(() => getResendCodeText());
-  const confirmResetPasswordHeading = $derived.by(() => getResetYourPasswordText());
+  const confirmResetPasswordHeading = $derived.by(() =>
+    getResetYourPasswordText()
+  );
   const confirmResetPasswordText = $derived.by(() => getSubmitText());
 
   // Methods
@@ -62,7 +69,10 @@
     onblurcapture={onBlur}
     onsubmit={onConfirmResetPasswordSubmit}
   >
-    <FieldSet class="amplify-flex amplify-authenticator__column" disabled={authenticator.isPending}>
+    <FieldSet
+      class="amplify-flex amplify-authenticator__column"
+      disabled={authenticator.isPending}
+    >
       {#if components?.Header}
         {@render components?.Header()}
       {:else}

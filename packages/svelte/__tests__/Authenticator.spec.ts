@@ -3,9 +3,9 @@ import Authenticator from '../src/lib/components/Authenticator/Authenticator.sve
 import { render } from '@testing-library/svelte';
 
 describe('Authenticator', () => {
-	it('Authenticator Exists', () => {
-		const wrapper = render(Authenticator);
+  it('Authenticator Exists', () => {
+    const wrapper = render(Authenticator);
 
-		expect(wrapper).toBeTruthy();
-	});
+    expect(wrapper).toBeTruthy();
+  });
 });

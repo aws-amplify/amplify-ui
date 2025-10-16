@@ -8,7 +8,7 @@
     type AuthFormFields,
     type AuthMachineState,
     setUserAgent,
-    type SocialProvider
+    type SocialProvider,
   } from '@aws-amplify/ui';
   import { type AuthUser } from '@aws-amplify/auth';
 
@@ -29,7 +29,7 @@
     SetupTotp,
     SignIn,
     SignUp,
-    VerifyUser
+    VerifyUser,
   } from '.';
 
   interface ComponentsProvider extends Components {
@@ -64,7 +64,7 @@
           state: AuthMachineState;
           signOut: () => void;
           send: ReturnType<typeof useAuth>['send'];
-        }
+        },
       ]
     >;
   }
@@ -79,7 +79,7 @@
     socialProviders,
     hideSignUp,
     formFields,
-    children
+    children,
   }: AuthenticatorProps = $props();
 
   let clearUserAgent: () => void;
@@ -98,8 +98,8 @@
           socialProviders,
           signUpAttributes,
           services,
-          formFields
-        }
+          formFields,
+        },
       });
     }
   });
@@ -108,7 +108,7 @@
     clearUserAgent = setUserAgent({
       componentName: 'Authenticator',
       packageName: 'svelte',
-      version: VERSION
+      version: VERSION,
     });
   });
 
@@ -124,7 +124,9 @@
   const createAccountLabel = $derived(getSignUpTabText());
 
   // methods
-  const hasTabs = $derived(authenticator.route === 'signIn' || authenticator.route === 'signUp');
+  const hasTabs = $derived(
+    authenticator.route === 'signIn' || authenticator.route === 'signUp'
+  );
 
   const hasRouteComponent = $derived(
     (
@@ -140,7 +142,7 @@
         'setupTotp',
         'signIn',
         'signUp',
-        'verifyUser'
+        'verifyUser',
       ] as AuthenticatorRoute[]
     ).includes(authenticator.route)
   );
@@ -150,7 +152,10 @@
   <div data-amplify-authenticator data-variation={variation}>
     <div data-amplify-container>
       {@render components?.Header?.()}
-      <div data-amplify-router data-amplify-router-content={hasTabs ? undefined : ''}>
+      <div
+        data-amplify-router
+        data-amplify-router-content={hasTabs ? undefined : ''}
+      >
         {#if hasTabs && !hideSignUp}
           <TwoTabs>
             <TwoTabItem
@@ -220,6 +225,6 @@
     user: authenticator.user,
     state: get(auth.state),
     signOut: authenticator.signOut,
-    send: auth.send
+    send: auth.send,
   })}
 {/if}

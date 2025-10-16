@@ -6,7 +6,7 @@
     authenticatorTextUtil,
     getFormDataFromEvent,
     getTotpCodeURL,
-    translate
+    translate,
   } from '@aws-amplify/ui';
 
   import { useAuthenticator } from '../../stores/authenticator.svelte';
@@ -30,7 +30,9 @@
   const logger = new Logger('SetupTotp-logger');
 
   const { authenticator } = $derived(useAuthenticator());
-  const { totpIssuer = 'AWSCognito', totpUsername } = $derived(authenticator.QRFields ?? {});
+  const { totpIssuer = 'AWSCognito', totpUsername } = $derived(
+    authenticator.QRFields ?? {}
+  );
   const totpCodeURL = $derived.by(() =>
     getTotpCodeURL(
       totpIssuer,
@@ -41,11 +43,12 @@
 
   const qrCode = $state({
     qrCodeImageSource: '',
-    isLoading: true
+    isLoading: true,
   });
 
   // Text Util
-  const { getCopyText, getCopiedText, getBackToSignInText, getConfirmText } = authenticatorTextUtil;
+  const { getCopyText, getCopiedText, getBackToSignInText, getConfirmText } =
+    authenticatorTextUtil;
 
   let copyTextLabel = $state(getCopyText());
 
@@ -89,8 +92,15 @@
 </script>
 
 <Wrapper>
-  <Form data-amplify-authenticator-setup-totp oninput={onInput} onsubmit={onSetupTotpSubmit}>
-    <FieldSet class="amplify-flex amplify-authenticator__column" disabled={authenticator.isPending}>
+  <Form
+    data-amplify-authenticator-setup-totp
+    oninput={onInput}
+    onsubmit={onSetupTotpSubmit}
+  >
+    <FieldSet
+      class="amplify-flex amplify-authenticator__column"
+      disabled={authenticator.isPending}
+    >
       <Wrapper class="amplify-flex amplify-authenticator__column">
         {#if components?.Header}
           {@render components?.Header()}
@@ -115,7 +125,12 @@
             <div>{authenticator.totpSecretCode}</div>
             <Wrapper data-amplify-copy-svg onclick={copyText}>
               <div data-amplify-copy-tooltip>{copyTextLabel}</div>
-              <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
                 <path
                   d="M16 1H4C2.9 1 2 1.9 2 3V17H4V3H16V1ZM15 5H8C6.9 5 6.01 5.9 6.01 7L6 21C6 22.1 6.89 23 7.99 23H19C20.1 23 21 22.1 21 21V11L15 5ZM8 21V7H14V12H19V21H8Z"
                 />

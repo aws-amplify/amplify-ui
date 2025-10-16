@@ -20,17 +20,17 @@ yarn add @aws-amplify/ui-svelte aws-amplify
 
 ```svelte
 <script>
-	import { Amplify } from 'aws-amplify';
-	import { Authenticator } from '@aws-amplify/ui-svelte';
-	import '@aws-amplify/ui/styles.css';
-	import awsExports from './aws-exports';
+  import { Amplify } from 'aws-amplify';
+  import { Authenticator } from '@aws-amplify/ui-svelte';
+  import '@aws-amplify/ui/styles.css';
+  import awsExports from './aws-exports';
 
-	Amplify.configure(awsExports);
+  Amplify.configure(awsExports);
 </script>
 
 <Authenticator let:user let:signOut>
-	<h1>Hello {user.username}</h1>
-	<button on:click={signOut}>Sign out</button>
+  <h1>Hello {user.username}</h1>
+  <button on:click={signOut}>Sign out</button>
 </Authenticator>
 ```
 
@@ -38,21 +38,21 @@ yarn add @aws-amplify/ui-svelte aws-amplify
 
 ```svelte
 <script lang="ts">
-	import { Amplify } from 'aws-amplify';
-	import { Authenticator } from '@aws-amplify/ui-svelte';
-	import type { AuthUser } from '@aws-amplify/ui-svelte';
-	import '@aws-amplify/ui/styles.css';
-	import awsExports from './aws-exports';
+  import { Amplify } from 'aws-amplify';
+  import { Authenticator } from '@aws-amplify/ui-svelte';
+  import type { AuthUser } from '@aws-amplify/ui-svelte';
+  import '@aws-amplify/ui/styles.css';
+  import awsExports from './aws-exports';
 
-	Amplify.configure(awsExports);
+  Amplify.configure(awsExports);
 
-	let user: AuthUser;
-	let signOut: () => void;
+  let user: AuthUser;
+  let signOut: () => void;
 </script>
 
 <Authenticator let:user let:signOut>
-	<h1>Hello {user.username}</h1>
-	<button on:click={signOut}>Sign out</button>
+  <h1>Hello {user.username}</h1>
+  <button on:click={signOut}>Sign out</button>
 </Authenticator>
 ```
 
@@ -62,11 +62,11 @@ The Authenticator component provides several props for customization:
 
 ```svelte
 <Authenticator
-	initialRoute="signIn"
-	socialProviders={['google', 'facebook', 'amazon']}
-	hideSignUp={false}
+  initialRoute="signIn"
+  socialProviders={['google', 'facebook', 'amazon']}
+  hideSignUp={false}
 >
-	<!-- Your app content -->
+  <!-- Your app content -->
 </Authenticator>
 ```
 
@@ -76,18 +76,18 @@ You can also access the authenticator state directly using the store:
 
 ```svelte
 <script>
-	import { useAuthenticatorStore } from '@aws-amplify/ui-svelte';
+  import { useAuthenticatorStore } from '@aws-amplify/ui-svelte';
 
-	const authenticator = useAuthenticatorStore();
+  const authenticator = useAuthenticatorStore();
 
-	$: ({ user, authStatus, signOut } = $authenticator);
+  $: ({ user, authStatus, signOut } = $authenticator);
 </script>
 
 {#if authStatus === 'authenticated'}
-	<h1>Welcome {user.username}</h1>
-	<button on:click={signOut}>Sign out</button>
+  <h1>Welcome {user.username}</h1>
+  <button on:click={signOut}>Sign out</button>
 {:else}
-	<p>Please sign in</p>
+  <p>Please sign in</p>
 {/if}
 ```
 
@@ -123,8 +123,8 @@ Amplify UI uses CSS variables for theming. You can customize the appearance by o
 
 ```css
 :root {
-	--amplify-colors-brand-primary: #ff6347;
-	--amplify-colors-brand-secondary: #ff7f50;
+  --amplify-colors-brand-primary: #ff6347;
+  --amplify-colors-brand-secondary: #ff7f50;
 }
 ```
 

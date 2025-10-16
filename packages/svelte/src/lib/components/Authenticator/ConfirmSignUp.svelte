@@ -1,5 +1,9 @@
 <script lang="ts">
-  import { authenticatorTextUtil, getFormDataFromEvent, translate } from '@aws-amplify/ui';
+  import {
+    authenticatorTextUtil,
+    getFormDataFromEvent,
+    translate,
+  } from '@aws-amplify/ui';
 
   import { useAuthenticator } from '../../stores/authenticator.svelte';
   import { type Components } from '../../types';
@@ -23,8 +27,12 @@
   const { authenticator } = $derived(useAuthenticator());
 
   // Text Util
-  const { getDeliveryMethodText, getDeliveryMessageText, getResendCodeText, getConfirmText } =
-    authenticatorTextUtil;
+  const {
+    getDeliveryMethodText,
+    getDeliveryMessageText,
+    getResendCodeText,
+    getConfirmText,
+  } = authenticatorTextUtil;
 
   // Only two types of delivery methods is EMAIL or SMS
   const confirmSignUpHeading = $derived.by(() =>
@@ -34,7 +42,9 @@
   // Computed Properties
   const resendCodeText = $derived.by(() => getResendCodeText());
   const confirmText = $derived.by(() => getConfirmText());
-  const subtitleText = $derived.by(() => getDeliveryMessageText(authenticator.codeDeliveryDetails));
+  const subtitleText = $derived.by(() =>
+    getDeliveryMessageText(authenticator.codeDeliveryDetails)
+  );
 
   // Methods
   const onInput = (e: Event): void => {
@@ -63,7 +73,10 @@
       {#if components?.Header}
         {@render components?.Header()}
       {:else}
-        <Heading class="amplify-heading amplify-authenticator__heading" level="h3">
+        <Heading
+          class="amplify-heading amplify-authenticator__heading"
+          level="h3"
+        >
           {confirmSignUpHeading}
         </Heading>
       {/if}

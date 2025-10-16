@@ -5,7 +5,7 @@
     type ContactMethod,
     defaultFormFieldOptions,
     getFormDataFromEvent,
-    translate
+    translate,
   } from '@aws-amplify/ui';
 
   import { useAuthenticator } from '../../stores/authenticator.svelte';
@@ -31,8 +31,12 @@
   const { authenticator } = $derived(useAuthenticator());
 
   // Text Util
-  const { getAccountRecoveryInfoText, getSkipText, getVerifyText, getVerifyContactText } =
-    authenticatorTextUtil;
+  const {
+    getAccountRecoveryInfoText,
+    getSkipText,
+    getVerifyText,
+    getVerifyContactText,
+  } = authenticatorTextUtil;
 
   // Computed Properties
   const verifyHeading = $derived.by(() => getAccountRecoveryInfoText());
@@ -68,7 +72,10 @@
 
 <Wrapper>
   <Form oninput={onInput} onsubmit={onVerifyUserSubmit}>
-    <FieldSet disabled={authenticator.isPending} class="amplify-flex amplify-authenticator__column">
+    <FieldSet
+      disabled={authenticator.isPending}
+      class="amplify-flex amplify-authenticator__column"
+    >
       {#if components?.Header}
         {@render components?.Header()}
       {:else}
@@ -80,7 +87,10 @@
         class="amplify-flex amplify-field amplify-radiogroupfield amplify-authenticator__column"
       >
         <!-- TODO(BREAKING): remove hard coded string 493c -->
-        <Label class="amplify-visually-hidden amplify-label" id="amplify-field-493c">
+        <Label
+          class="amplify-visually-hidden amplify-label"
+          id="amplify-field-493c"
+        >
           {verifyContactText}
         </Label>
         <Wrapper
@@ -90,9 +100,15 @@
           {#each Object.entries(authenticator.unverifiedUserAttributes) as [key, value], index (value)}
             {#if value}
               {@const verificationType = getDefaultFormFieldOption(key).label}
-              <Label class="amplify-flex amplify-radio" data-amplify-verify-label>
+              <Label
+                class="amplify-flex amplify-radio"
+                data-amplify-verify-label
+              >
                 <Text class="amplify-text amplify-radio__label">
-                  {translate(verificationType)}: {censorContactMethod(verificationType, value)}
+                  {translate(verificationType)}: {censorContactMethod(
+                    verificationType,
+                    value
+                  )}
                 </Text>
                 <Input
                   class="amplify-input amplify-field-group__control amplify-visually-hidden amplify-radio__input"
@@ -103,7 +119,10 @@
                   checked={index === 0}
                   value={key}
                 ></Input>
-                <Text class="amplify-flex amplify-radio__button" aria-hidden="true" />
+                <Text
+                  class="amplify-flex amplify-radio__button"
+                  aria-hidden="true"
+                />
               </Label>
             {/if}
           {/each}

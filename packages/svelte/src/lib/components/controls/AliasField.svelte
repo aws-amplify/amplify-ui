@@ -27,14 +27,16 @@
     dialCodeList,
     type = 'text',
     hasError,
-    describedBy
+    describedBy,
   }: PropsInterface = $props();
 
   const random = Math.floor(Math.random() * 999999);
   const randomPhone = Math.floor(Math.random() * 999999);
 </script>
 
-<Wrapper class="amplify-flex amplify-field amplify-textfield amplify-phonenumberfield">
+<Wrapper
+  class="amplify-flex amplify-field amplify-textfield amplify-phonenumberfield"
+>
   <Label
     for={`amplify-field-${random}`}
     class={['amplify-label', labelHidden && 'amplify-visually-hidden']}
@@ -47,7 +49,10 @@
         <Wrapper
           class="amplify-flex amplify-field amplify-selectfield amplify-countrycodeselect amplify-dialcodeselect amplify-authenticator__column"
         >
-          <Label for={`amplify-field-${randomPhone}`} class="amplify-label amplify-visually-hidden">
+          <Label
+            for={`amplify-field-${randomPhone}`}
+            class="amplify-label amplify-visually-hidden"
+          >
             Country Code
           </Label>
           <Wrapper class="amplify-select__wrapper">

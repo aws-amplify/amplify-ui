@@ -8,9 +8,8 @@
 </script>
 
 <Authenticator variation="modal">
-  {#snippet children ({ user, signOut })}
-    <h1>Hello { user.username }!</h1>
+  {#snippet children({ user, signOut })}
+    <h1>Hello {user.username}!</h1>
     <button onclick={signOut}>Sign Out</button>
   {/snippet}
 </Authenticator>
-

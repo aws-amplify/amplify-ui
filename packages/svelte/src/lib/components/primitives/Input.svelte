@@ -12,4 +12,9 @@
   };
 </script>
 
-<input {...rest} bind:value onchange={(event) => handleInput(event)} data-amplify-input />
+<input
+  {...rest}
+  bind:value
+  onchange={(event) => handleInput(event)}
+  data-amplify-input
+/>

@@ -1,5 +1,9 @@
 <script lang="ts">
-  import { authenticatorTextUtil, getFormDataFromEvent, translate } from '@aws-amplify/ui';
+  import {
+    authenticatorTextUtil,
+    getFormDataFromEvent,
+    translate,
+  } from '@aws-amplify/ui';
 
   import { useAuthenticator } from '../../stores/authenticator.svelte';
   import { type Components } from '../../types';
@@ -22,7 +26,8 @@
   const { authenticator } = $derived(useAuthenticator());
 
   // Text Util
-  const { getBackToSignInText, getResetYourPasswordText, getSendCodeText } = authenticatorTextUtil;
+  const { getBackToSignInText, getResetYourPasswordText, getSendCodeText } =
+    authenticatorTextUtil;
 
   // Computed Properties
   const backSignInText = $derived.by(() => getBackToSignInText());
@@ -46,7 +51,11 @@
   };
 </script>
 
-<Form data-amplify-authenticator-forgotpassword oninput={onInput} onsubmit={onResetPasswordSubmit}>
+<Form
+  data-amplify-authenticator-forgotpassword
+  oninput={onInput}
+  onsubmit={onResetPasswordSubmit}
+>
   <Wrapper class="amplify-flex amplify-authenticator__column">
     {#if components?.Header}
       {@render components?.Header()}
@@ -55,7 +64,10 @@
         {resetPasswordHeading}
       </Heading>
     {/if}
-    <FieldSet class="amplify-flex amplify-authenticator__column" disabled={authenticator.isPending}>
+    <FieldSet
+      class="amplify-flex amplify-authenticator__column"
+      disabled={authenticator.isPending}
+    >
       {#if components?.FormFields}
         {@render components?.FormFields()}
       {:else}

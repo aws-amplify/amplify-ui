@@ -1,5 +1,9 @@
 <script lang="ts">
-  import { authenticatorTextUtil, getFormDataFromEvent, translate } from '@aws-amplify/ui';
+  import {
+    authenticatorTextUtil,
+    getFormDataFromEvent,
+    translate,
+  } from '@aws-amplify/ui';
 
   import { useAuthenticator } from '../../stores/authenticator.svelte';
   import { type Components } from '../../types';
@@ -22,7 +26,8 @@
   const { authenticator } = $derived(useAuthenticator());
 
   // Text Util
-  const { getChangePasswordText, getChangingText, getBackToSignInText } = authenticatorTextUtil;
+  const { getChangePasswordText, getChangingText, getBackToSignInText } =
+    authenticatorTextUtil;
 
   // Computed Properties
   const changePasswordLabel = $derived.by(() => getChangePasswordText());
@@ -62,7 +67,10 @@
     onblurcapture={onBlur}
     onsubmit={onForceNewPasswordSubmit}
   >
-    <FieldSet class="amplify-flex amplify-authenticator__column" disabled={authenticator.isPending}>
+    <FieldSet
+      class="amplify-flex amplify-authenticator__column"
+      disabled={authenticator.isPending}
+    >
       {#if components?.Header}
         {@render components?.Header()}
       {:else}
@@ -91,7 +99,9 @@
           variation="primary"
           disabled={authenticator.isPending}
         >
-          {authenticator.isPending ? `${changingPasswordLabel}…` : changePasswordLabel}
+          {authenticator.isPending
+            ? `${changingPasswordLabel}…`
+            : changePasswordLabel}
         </Button>
         <Button
           class="amplify-field-group__control amplify-authenticator__font"

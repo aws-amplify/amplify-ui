@@ -34,7 +34,7 @@
     [`amplify-button--${size}`]: size,
     'amplify-button--fullwidth': fullWidth,
     'amplify-button--loading': loading,
-    'amplify-button--disabled': disabled
+    'amplify-button--disabled': disabled,
   }}
   {type}
   style={`fontWeight: ${fontWeight || 'normal'} ${style}`}
