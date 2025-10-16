@@ -600,9 +600,13 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           return { ...context.videoAssociatedParams };
         },
       }),
-      stopRecording: () => {
-        freshnessColorEndTimestamp = Date.now();
-      },
+      stopRecording: assign({
+        videoAssociatedParams: (context) => {
+          // Set the end timestamp immediately when entering success state
+          freshnessColorEndTimestamp = Date.now();
+          return { ...context.videoAssociatedParams };
+        },
+      }),
       updateFaceMatchBeforeStartDetails: assign({
         faceMatchStateBeforeStart: (_, event) =>
           event.data!.faceMatchState as FaceMatchState,
@@ -1231,9 +1235,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         if (freshnessColorsComplete) {
           return;
         }
-        if (!freshnessColorStartTimestamp) {
-          freshnessColorStartTimestamp = Date.now();
-        }
 
         const { ovalDetails, scaleFactor } = ovalAssociatedParams!;
         const { videoEl } = videoAssociatedParams!;
@@ -1261,6 +1262,11 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             freshnessColorEl!.style.display = 'none';
           },
           onSequenceChange: (params) => {
+            // Capture the timestamp of the first color sequence (black frame)
+            // The timestamp should be captured at the start of the first color's flat display
+            if (!freshnessColorStartTimestamp && params.sequenceIndex === 0) {
+              freshnessColorStartTimestamp = params.sequenceStartTime;
+            }
             livenessStreamProvider!.dispatchStreamEvent({
               type: 'sessionInfo',
               data: createColorDisplayEvent({
@@ -1288,6 +1294,9 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           .getTracks()[0]
           .getSettings();
 
+        // Capture the timestamp BEFORE stopping to get accurate recording end time
+        recordingEndTimestamp = Date.now();
+
         // if not awaited, `getRecordingEndTimestamp` will throw
         await livenessStreamProvider!.stopRecording();
 
@@ -1307,8 +1316,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
               livenessStreamProvider!.getRecordingEndedTimestamp(),
           }),
         });
-
-        recordingEndTimestamp = Date.now();
 
         livenessStreamProvider!.dispatchStreamEvent({ type: 'streamStop' });
       },

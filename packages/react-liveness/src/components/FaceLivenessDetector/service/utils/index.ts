@@ -23,3 +23,4 @@ export {
   createSessionInfoFromServerSessionInformation,
 } from './sessionInformation';
 export { StreamRecorder } from './StreamRecorder';
+export { getVideoDuration, validateVideoDuration } from './videoValidation';
