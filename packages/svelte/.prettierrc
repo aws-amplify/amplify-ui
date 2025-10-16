@@ -1,5 +1,4 @@
 {
-	"useTabs": true,
 	"singleQuote": true,
 	"trailingComma": "none",
 	"printWidth": 100,
@@ -8,8 +7,6 @@
 		{
 			"files": "*.svelte",
 			"options": {
-        "tabWidth": 2,
-        "useTabs": false,
         "parser": "svelte"
 			}
 		}

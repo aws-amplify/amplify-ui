@@ -19,8 +19,7 @@
 
   const { components }: Props = $props();
 
-  const { error, isPending, submitForm, skipVerification, updateForm } =
-    $derived(useAuthenticator());
+  const { authenticator } = $derived(useAuthenticator());
 
   // Text Util
   const { getAccountRecoveryInfoText, getSkipText, getSubmitText } = authenticatorTextUtil;
@@ -33,7 +32,7 @@
   // Methods
   const onInput = (e: Event): void => {
     const { name, value } = e.target as HTMLInputElement;
-    updateForm({ name, value });
+    authenticator.updateForm({ name, value });
   };
 
   const onConfirmVerifyUserSubmit = (e: Event): void => {
@@ -42,18 +41,18 @@
   };
 
   const submit = (e: Event): void => {
-    submitForm(getFormDataFromEvent(e));
+    authenticator.submitForm(getFormDataFromEvent(e));
   };
 
   const onSkipClicked = (e: Event): void => {
     e.preventDefault();
-    skipVerification();
+    authenticator.skipVerification();
   };
 </script>
 
 <Wrapper>
   <Form oninput={onInput} onsubmit={onConfirmVerifyUserSubmit}>
-    <FieldSet class="amplify-flex amplify-authenticator__column" disabled={isPending}>
+    <FieldSet class="amplify-flex amplify-authenticator__column" disabled={authenticator.isPending}>
       {#if components?.Header}
         {@render components?.Header()}
       {:else}
@@ -70,9 +69,9 @@
       </Wrapper>
 
       <Footer class="amplify-flex amplify-authenticator__column">
-        {#if error}
+        {#if authenticator.error}
           <Alert>
-            {translate(error)}
+            {translate(authenticator.error)}
           </Alert>
         {/if}
         <Button
@@ -80,7 +79,7 @@
           fullWidth={false}
           variation="primary"
           type="submit"
-          disabled={isPending}>{submitText}</Button
+          disabled={authenticator.isPending}>{submitText}</Button
         >
         <Button
           class="amplify-field-group__control amplify-authenticator__font"

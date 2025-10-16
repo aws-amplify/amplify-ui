@@ -19,8 +19,7 @@
 
   const { components }: Props = $props();
 
-  const { error, isPending, submitForm, toSignIn, updateBlur, updateForm } =
-    $derived(useAuthenticator());
+  const { authenticator } = $derived(useAuthenticator());
 
   // Text Util
   const { getChangePasswordText, getChangingText, getBackToSignInText } = authenticatorTextUtil;
@@ -33,7 +32,7 @@
   // Methods
   const onHaveAccountClicked = (e: Event): void => {
     e.preventDefault();
-    toSignIn();
+    authenticator.toSignIn();
   };
 
   const onForceNewPasswordSubmit = (e: Event): void => {
@@ -42,17 +41,17 @@
   };
 
   const submit = (e: Event): void => {
-    submitForm(getFormDataFromEvent(e));
+    authenticator.submitForm(getFormDataFromEvent(e));
   };
 
   const onInput = (e: Event): void => {
     const { name, value } = e.target as HTMLInputElement;
-    updateForm({ name, value });
+    authenticator.updateForm({ name, value });
   };
 
   function onBlur(e: Event) {
     const { name } = e.target as HTMLInputElement;
-    updateBlur({ name });
+    authenticator.updateBlur({ name });
   }
 </script>
 
@@ -63,7 +62,7 @@
     onblurcapture={onBlur}
     onsubmit={onForceNewPasswordSubmit}
   >
-    <FieldSet class="amplify-flex amplify-authenticator__column" disabled={isPending}>
+    <FieldSet class="amplify-flex amplify-authenticator__column" disabled={authenticator.isPending}>
       {#if components?.Header}
         {@render components?.Header()}
       {:else}
@@ -80,9 +79,9 @@
       </Wrapper>
 
       <Footer class="amplify-flex amplify-authenticator__column">
-        {#if error}
+        {#if authenticator.error}
           <Alert>
-            {translate(error)}
+            {translate(authenticator.error)}
           </Alert>
         {/if}
         <Button
@@ -90,9 +89,9 @@
           fullWidth={false}
           loading={false}
           variation="primary"
-          disabled={isPending}
+          disabled={authenticator.isPending}
         >
-          {isPending ? `${changingPasswordLabel}…` : changePasswordLabel}
+          {authenticator.isPending ? `${changingPasswordLabel}…` : changePasswordLabel}
         </Button>
         <Button
           class="amplify-field-group__control amplify-authenticator__font"

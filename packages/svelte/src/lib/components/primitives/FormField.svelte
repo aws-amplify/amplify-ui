@@ -14,7 +14,7 @@
 
   const { name = '', formField = {} }: BaseFormField = $props();
 
-  const { validationErrors } = $derived(useAuthenticator());
+  const { authenticator } = $derived(useAuthenticator());
 
   const { type } = formField;
 
@@ -22,7 +22,7 @@
 
   const errorId = nanoid(12);
 
-  const errors = $derived(getErrors(validationErrors[name]));
+  const errors = $derived(getErrors(authenticator.validationErrors[name]));
   const hasError = $derived(errors?.length > 0);
   const ariaDescribedBy = $derived(hasError ? errorId : undefined);
   const autocomplete = $derived(formField.autocomplete ?? '') as unknown as FullAutoFill;

@@ -8,7 +8,7 @@
 
   Amplify.configure(aws_exports);
 
-  const { authStatus } = $derived(useAuthenticator());
+  const { authenticator } = $derived(useAuthenticator());
 
   const formFields = {
     confirmSignUp: {
@@ -48,7 +48,7 @@
 </script>
 
 <p>
-  { authStatus }
+  { authenticator.authStatus }
   <Authenticator
     services={services}
     formFields={formFields}

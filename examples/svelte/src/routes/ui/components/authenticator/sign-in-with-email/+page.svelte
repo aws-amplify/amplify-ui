@@ -1,7 +1,7 @@
 <script lang="ts">
   import '@aws-amplify/ui-svelte/styles.css';
   import { Amplify } from 'aws-amplify';
-  import { Authenticator } from '@aws-amplify/ui-svelte';
+  import { Authenticator, Heading, Text } from '@aws-amplify/ui-svelte';
   import aws_exports from './aws-exports';
 
   Amplify.configure(aws_exports);
@@ -21,9 +21,36 @@
     }
   };
 
-</script>
+  const components = {
+    VerifyUser: {
+      Header: verifyUserHeader,
+      Footer: verifyUserFooter,
+    },
+    ConfirmVerifyUser: {
+      Header: confirmVerifyUserHeader,
+      Footer: confirmVerifyUserFooter,
+    },
+  };
 
-<Authenticator formFields={formFields}>
+</script>
+{#snippet verifyUserHeader()}
+  <Heading level='h3'>
+    Enter Information:
+  </Heading>
+{/snippet}
+{#snippet verifyUserFooter()}
+  <Text>Footer Information</Text>
+{/snippet}
+{#snippet confirmVerifyUserHeader()}
+  <Heading level='h3'>
+    Enter Information:
+  </Heading>
+{/snippet}
+{#snippet confirmVerifyUserFooter()}
+  <Text>Footer Information</Text>
+{/snippet}
+
+<Authenticator formFields={formFields} components={components} hideSignUp>
   {#snippet children ({ user, signOut })}
     <h1>Hello { user.username }!</h1>
     <button onclick={signOut}>Sign Out</button>

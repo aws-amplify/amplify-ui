@@ -20,26 +20,26 @@
 
   const { components }: Props = $props();
 
-  // `facade` is manually typed to `UseAuthenticator` for temporary type safety.
-  const { resendCode, submitForm, updateForm, codeDeliveryDetails, error, isPending } =
-    $derived(useAuthenticator());
+  const { authenticator } = $derived(useAuthenticator());
 
   // Text Util
   const { getDeliveryMethodText, getDeliveryMessageText, getResendCodeText, getConfirmText } =
     authenticatorTextUtil;
 
   // Only two types of delivery methods is EMAIL or SMS
-  const confirmSignUpHeading = $derived.by(() => getDeliveryMethodText(codeDeliveryDetails));
+  const confirmSignUpHeading = $derived.by(() =>
+    getDeliveryMethodText(authenticator.codeDeliveryDetails)
+  );
 
   // Computed Properties
   const resendCodeText = $derived.by(() => getResendCodeText());
   const confirmText = $derived.by(() => getConfirmText());
-  const subtitleText = $derived.by(() => getDeliveryMessageText(codeDeliveryDetails));
+  const subtitleText = $derived.by(() => getDeliveryMessageText(authenticator.codeDeliveryDetails));
 
   // Methods
   const onInput = (e: Event): void => {
     const { name, value } = e.target as HTMLInputElement;
-    updateForm({ name, value });
+    authenticator.updateForm({ name, value });
   };
 
   const onConfirmSignUpSubmit = (e: Event): void => {
@@ -48,12 +48,12 @@
   };
 
   const submit = (e: Event): void => {
-    submitForm(getFormDataFromEvent(e));
+    authenticator.submitForm(getFormDataFromEvent(e));
   };
 
   const onLostCodeClicked = (e: Event): void => {
     e.preventDefault();
-    resendCode();
+    authenticator.resendCode();
   };
 </script>
 
@@ -70,7 +70,10 @@
       <Text class="amplify-authenticator__subtitle">
         {subtitleText}
       </Text>
-      <FieldSet class="amplify-flex amplify-authenticator__column" disabled={isPending}>
+      <FieldSet
+        class="amplify-flex amplify-authenticator__column"
+        disabled={authenticator.isPending}
+      >
         {#if components?.FormFields}
           {@render components?.FormFields()}
         {:else}
@@ -79,9 +82,9 @@
       </FieldSet>
 
       <Footer class="amplify-flex amplify-authenticator__column">
-        {#if error}
+        {#if authenticator.error}
           <Alert>
-            {translate(error)}
+            {translate(authenticator.error)}
           </Alert>
         {/if}
         <Button
@@ -90,7 +93,7 @@
           loading={false}
           variation="primary"
           type="submit"
-          disabled={isPending}
+          disabled={authenticator.isPending}
         >
           {confirmText}
         </Button>

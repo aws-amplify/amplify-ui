@@ -6,7 +6,7 @@
 
   Amplify.configure(awsExports);
 
-  const { toForgotPassword, toSignIn } = $derived(useAuthenticator());
+  const { authenticator } = $derived(useAuthenticator());
 
   const formFields = {
     signIn: {
@@ -93,7 +93,7 @@
 {#snippet signInFooter ()}
   <div style="text-align: center">
     <button
-      onclick={toForgotPassword}
+      onclick={authenticator.toForgotPassword}
       class="amplify-button amplify-field-group__control"
       data-fullwidth="false"
       data-size="small"
@@ -116,7 +116,7 @@
 {#snippet signUpFooter ()}
   <div style="text-align: center">
     <button
-      onclick={toSignIn}
+      onclick={authenticator.toSignIn}
       class="amplify-button amplify-field-group__control"
       data-fullwidth="false"
       data-size="small"

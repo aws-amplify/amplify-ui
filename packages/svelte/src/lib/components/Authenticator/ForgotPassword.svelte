@@ -19,7 +19,7 @@
 
   const { components }: Props = $props();
 
-  const { submitForm, toSignIn, updateForm, error, isPending } = $derived(useAuthenticator());
+  const { authenticator } = $derived(useAuthenticator());
 
   // Text Util
   const { getBackToSignInText, getResetYourPasswordText, getSendCodeText } = authenticatorTextUtil;
@@ -32,17 +32,17 @@
   // Methods
   const onResetPasswordSubmit = (e: Event): void => {
     e.preventDefault();
-    submitForm(getFormDataFromEvent(e));
+    authenticator.submitForm(getFormDataFromEvent(e));
   };
 
   const onInput = (e: Event): void => {
     const { name, value } = e.target as HTMLInputElement;
-    updateForm({ name, value });
+    authenticator.updateForm({ name, value });
   };
 
   const onBackToSignInClicked = (e: Event): void => {
     e.preventDefault();
-    toSignIn();
+    authenticator.toSignIn();
   };
 </script>
 
@@ -55,7 +55,7 @@
         {resetPasswordHeading}
       </Heading>
     {/if}
-    <FieldSet class="amplify-flex amplify-authenticator__column" disabled={isPending}>
+    <FieldSet class="amplify-flex amplify-authenticator__column" disabled={authenticator.isPending}>
       {#if components?.FormFields}
         {@render components?.FormFields()}
       {:else}
@@ -64,9 +64,9 @@
     </FieldSet>
 
     <Footer class="amplify-flex amplify-authenticator__column">
-      {#if error}
+      {#if authenticator.error}
         <Alert>
-          {translate(error)}
+          {translate(authenticator.error)}
         </Alert>
       {/if}
       <Button
@@ -74,7 +74,7 @@
         fullWidth={false}
         variation="primary"
         type="submit"
-        disabled={isPending}
+        disabled={authenticator.isPending}
       >
         {sendCodeText}
       </Button>

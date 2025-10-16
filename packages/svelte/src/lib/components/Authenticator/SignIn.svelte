@@ -20,8 +20,7 @@
 
   const { components, ...rest }: Props = $props();
 
-  const { error, isPending, submitForm, updateForm, toForgotPassword } =
-    $derived(useAuthenticator());
+  const { authenticator } = $derived(useAuthenticator());
 
   // Text Util
   const { getForgotPasswordText, getSignInText, getSigningInText } = authenticatorTextUtil;
@@ -34,16 +33,16 @@
   // Methods
   const onInput = (e: Event): void => {
     const { name, value } = e.target as HTMLInputElement;
-    updateForm({ name, value });
+    authenticator.updateForm({ name, value });
   };
 
   const onSignInSubmit = (e: Event): void => {
     e.preventDefault();
-    submitForm(getFormDataFromEvent(e));
+    authenticator.submitForm(getFormDataFromEvent(e));
   };
 
   const onForgotPasswordClicked = (): void => {
-    toForgotPassword();
+    authenticator.toForgotPassword();
   };
 </script>
 
@@ -58,7 +57,10 @@
     >
       <FederatedSignIn />
       <Wrapper class="amplify-flex amplify-authenticator__column">
-        <FieldSet disabled={isPending} class="amplify-flex amplify-authenticator__column">
+        <FieldSet
+          disabled={authenticator.isPending}
+          class="amplify-flex amplify-authenticator__column"
+        >
           <legend class="amplify-visually-hidden">Sign in</legend>
           {#if components?.FormFields}
             {@render components?.FormFields()}
@@ -66,18 +68,18 @@
             <FormFields route="signIn" />
           {/if}
         </FieldSet>
-        {#if error}
-          <Alert>{translate(error)}</Alert>
+        {#if authenticator.error}
+          <Alert>{translate(authenticator.error)}</Alert>
         {/if}
 
         <Button
-          disabled={isPending}
+          disabled={authenticator.isPending}
           class="amplify-field-group__control amplify-authenticator__font"
           fullWidth={true}
           loading={false}
           variation="primary"
         >
-          {isPending ? signingInButtonText : signInButtonText}
+          {authenticator.isPending ? signingInButtonText : signInButtonText}
         </Button>
       </Wrapper>
     </Form>

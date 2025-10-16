@@ -29,12 +29,14 @@
 
   const logger = new Logger('SetupTotp-logger');
 
-  // `facade` is manually typed to `UseAuthenticator` for temporary type safety.
-  const { updateForm, submitForm, toSignIn, totpSecretCode, username, QRFields, error, isPending } =
-    $derived(useAuthenticator());
-  const { totpIssuer = 'AWSCognito', totpUsername } = $derived(QRFields ?? {});
+  const { authenticator } = $derived(useAuthenticator());
+  const { totpIssuer = 'AWSCognito', totpUsername } = $derived(authenticator.QRFields ?? {});
   const totpCodeURL = $derived.by(() =>
-    getTotpCodeURL(totpIssuer, totpUsername || username, totpSecretCode!)
+    getTotpCodeURL(
+      totpIssuer,
+      totpUsername || authenticator.username,
+      authenticator.totpSecretCode!
+    )
   );
 
   const qrCode = $state({
@@ -48,8 +50,8 @@
   let copyTextLabel = $state(getCopyText());
 
   function copyText() {
-    if (totpSecretCode) {
-      navigator.clipboard.writeText(totpSecretCode);
+    if (authenticator.totpSecretCode) {
+      navigator.clipboard.writeText(authenticator.totpSecretCode);
     }
     copyTextLabel = getCopiedText();
   }
@@ -72,23 +74,23 @@
   // Methods
   const onInput = (e: Event): void => {
     const { name, value } = e.target as HTMLInputElement;
-    updateForm({ name, value });
+    authenticator.updateForm({ name, value });
   };
 
   const onSetupTotpSubmit = (e: Event): void => {
     e.preventDefault();
-    submitForm(getFormDataFromEvent(e));
+    authenticator.submitForm(getFormDataFromEvent(e));
   };
 
   const onBackToSignInClicked = (e: Event): void => {
     e.preventDefault();
-    toSignIn();
+    authenticator.toSignIn();
   };
 </script>
 
 <Wrapper>
   <Form data-amplify-authenticator-setup-totp oninput={onInput} onsubmit={onSetupTotpSubmit}>
-    <FieldSet class="amplify-flex amplify-authenticator__column" disabled={isPending}>
+    <FieldSet class="amplify-flex amplify-authenticator__column" disabled={authenticator.isPending}>
       <Wrapper class="amplify-flex amplify-authenticator__column">
         {#if components?.Header}
           {@render components?.Header()}
@@ -110,7 +112,7 @@
             />
           {/if}
           <Wrapper class="amplify-flex" data-amplify-copy>
-            <div>{totpSecretCode}</div>
+            <div>{authenticator.totpSecretCode}</div>
             <Wrapper data-amplify-copy-svg onclick={copyText}>
               <div data-amplify-copy-tooltip>{copyTextLabel}</div>
               <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -128,9 +130,9 @@
           {/if}
         </Wrapper>
         <Footer class="amplify-flex amplify-authenticator__column">
-          {#if error}
+          {#if authenticator.error}
             <Alert>
-              {translate(error)}
+              {translate(authenticator.error)}
             </Alert>
           {/if}
           <Button
@@ -139,7 +141,7 @@
             loading={false}
             variation="primary"
             type="submit"
-            disabled={isPending}
+            disabled={authenticator.isPending}
           >
             {confirmText}
           </Button>

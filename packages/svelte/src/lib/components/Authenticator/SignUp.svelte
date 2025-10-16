@@ -20,8 +20,7 @@
 
   const { components, ...rest }: Props = $props();
 
-  const { submitForm, updateBlur, updateForm, error, hasValidationErrors, isPending } =
-    $derived(useAuthenticator());
+  const { authenticator } = $derived(useAuthenticator());
 
   // Text Util
   const { getCreateAccountText } = authenticatorTextUtil;
@@ -34,7 +33,7 @@
     const { checked, name, type, value } = e.target as HTMLInputElement;
 
     const isUncheckedCheckbox = type === 'checkbox' && !checked;
-    updateForm({
+    authenticator.updateForm({
       name,
       value: isUncheckedCheckbox ? undefined : (value as string)
     });
@@ -42,12 +41,12 @@
 
   function onBlur(e: Event) {
     const { name } = e.target as HTMLInputElement;
-    updateBlur({ name });
+    authenticator.updateBlur({ name });
   }
 
   const onSignUpSubmit = (e: Event): void => {
     e.preventDefault();
-    submitForm(getFormDataFromEvent(e));
+    authenticator.submitForm(getFormDataFromEvent(e));
   };
 </script>
 
@@ -59,16 +58,19 @@
       <FederatedSignIn />
 
       <Wrapper class="amplify-flex amplify-authenticator__column">
-        <FieldSet class="amplify-flex amplify-authenticator__column" disabled={isPending}>
+        <FieldSet
+          class="amplify-flex amplify-authenticator__column"
+          disabled={authenticator.isPending}
+        >
           {#if components?.FormFields}
             {@render components?.FormFields()}
           {:else}
             <FormFields route="signUp" />
           {/if}
         </FieldSet>
-        {#if error}
+        {#if authenticator.error}
           <Alert>
-            {translate(error)}
+            {translate(authenticator.error)}
           </Alert>
         {/if}
         <Button
@@ -77,7 +79,7 @@
           loading={false}
           variation="primary"
           style="border-radius: 0px; font-weight: normal"
-          disabled={isPending || hasValidationErrors}
+          disabled={authenticator.isPending || authenticator.hasValidationErrors}
         >
           {createAccountLabel}
         </Button>

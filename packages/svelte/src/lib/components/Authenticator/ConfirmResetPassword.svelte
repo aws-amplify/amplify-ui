@@ -19,8 +19,7 @@
 
   const { components }: Props = $props();
 
-  const { resendCode, submitForm, updateBlur, updateForm, error, isPending } =
-    $derived(useAuthenticator());
+  const { authenticator } = $derived(useAuthenticator());
 
   // Text Util
   const { getResendCodeText, getResetYourPasswordText, getSubmitText } = authenticatorTextUtil;
@@ -37,22 +36,22 @@
   };
 
   const submit = (e: Event): void => {
-    submitForm(getFormDataFromEvent(e));
+    authenticator.submitForm(getFormDataFromEvent(e));
   };
 
   const onLostYourCodeClicked = (e: Event): void => {
     e.preventDefault();
-    resendCode();
+    authenticator.resendCode();
   };
 
   const onInput = (e: Event) => {
     const { name, value } = e.target as HTMLInputElement;
-    updateForm({ name, value });
+    authenticator.updateForm({ name, value });
   };
 
   function onBlur(e: Event) {
     const { name } = e.target as HTMLInputElement;
-    updateBlur({ name });
+    authenticator.updateBlur({ name });
   }
 </script>
 
@@ -63,7 +62,7 @@
     onblurcapture={onBlur}
     onsubmit={onConfirmResetPasswordSubmit}
   >
-    <FieldSet class="amplify-flex amplify-authenticator__column" disabled={isPending}>
+    <FieldSet class="amplify-flex amplify-authenticator__column" disabled={authenticator.isPending}>
       {#if components?.Header}
         {@render components?.Header()}
       {:else}
@@ -79,9 +78,9 @@
         {/if}
       </Wrapper>
       <Footer class="amplify-flex amplify-authenticator__column">
-        {#if error}
+        {#if authenticator.error}
           <Alert>
-            {translate(error)}
+            {translate(authenticator.error)}
           </Alert>
         {/if}
         <Button
@@ -89,7 +88,7 @@
           variation="primary"
           fullWidth={false}
           type="submit"
-          disabled={isPending}
+          disabled={authenticator.isPending}
         >
           {confirmResetPasswordText}
         </Button>

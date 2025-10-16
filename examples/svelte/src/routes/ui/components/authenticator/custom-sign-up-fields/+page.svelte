@@ -7,7 +7,7 @@
 
   Amplify.configure(awsExports);
 
-  const { validationErrors } = $derived(useAuthenticator());
+  const { authenticator } = $derived(useAuthenticator());
 
   const services = {
     async validateCustomSignUp(formData) {
@@ -21,11 +21,12 @@
 </script>
 {#snippet signUpFields ()}
   <SignUpFormFields />
-  <Checkbox errorMessage={validationErrors.acknowledgement} />
+  <Checkbox errorMessage={authenticator.validationErrors.acknowledgement} />
 {/snippet}
+
 <Authenticator initialState="signUp" services={services} components={{
   SignUp: {
-    FormFields: signUpFields,
+    FormFields: signUpFields
   }
 }}>
   {#snippet children ({ user, signOut })}

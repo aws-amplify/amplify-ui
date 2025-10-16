@@ -1,18 +1,16 @@
 <script lang="ts">
   import { Amplify } from 'aws-amplify';
-  import { signIn, signOut } from 'aws-amplify/auth';
-
+  import { signIn } from 'aws-amplify/auth';
   import { useAuthenticator } from '@aws-amplify/ui-svelte';
   import '@aws-amplify/ui-svelte/styles.css';
   import aws_exports from './aws-exports';
 
   Amplify.configure(aws_exports);
 
-  let hasInitialized = $state(false);
-  const { authStatus, state: _state, service, send } = $derived(useAuthenticator());
-  let isAuthenticated = $derived(authStatus === 'authenticated');
+  const { authenticator } = $derived(useAuthenticator());
+  const isAuthenticated = $derived(authenticator.authStatus === 'authenticated');
 
-  const handleSignOut = () => signOut();
+  const handleSignOut = () => authenticator.signOut();
 
   const onSubmit = (event: Event) => {
     event.preventDefault();
@@ -23,7 +21,7 @@
 </script>
 
 <form onsubmit={onSubmit}>
-  <div>{ authStatus }</div>
+  <div>{ authenticator.authStatus }</div>
   {#if !isAuthenticated}
     <div style="display:flex;flex-direction:column;gap:1rem">
       <label for="username">Username</label>

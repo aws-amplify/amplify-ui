@@ -13,17 +13,17 @@ import SignUp from './SignUp.svelte';
 import VerifyUser from './VerifyUser.svelte';
 
 export {
-	Authenticator,
-	ConfirmResetPassword,
-	ConfirmSignIn,
-	ConfirmSignUp,
-	ConfirmVerifyUser,
-	ForceNewPassword,
-	ForgotPassword,
-	SelectMfaType,
-	SetupEmail,
-	SetupTotp,
-	SignIn,
-	SignUp,
-	VerifyUser
+  Authenticator,
+  ConfirmResetPassword,
+  ConfirmSignIn,
+  ConfirmSignUp,
+  ConfirmVerifyUser,
+  ForceNewPassword,
+  ForgotPassword,
+  SelectMfaType,
+  SetupEmail,
+  SetupTotp,
+  SignIn,
+  SignUp,
+  VerifyUser
 };

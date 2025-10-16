@@ -28,8 +28,7 @@
 
   const { components }: Props = $props();
 
-  const { error, isPending, unverifiedUserAttributes, submitForm, skipVerification, updateForm } =
-    $derived(useAuthenticator());
+  const { authenticator } = $derived(useAuthenticator());
 
   // Text Util
   const { getAccountRecoveryInfoText, getSkipText, getVerifyText, getVerifyContactText } =
@@ -44,7 +43,7 @@
   // Methods
   const onInput = (e: Event): void => {
     const { name, value } = e.target as HTMLInputElement;
-    updateForm({ name, value });
+    authenticator.updateForm({ name, value });
   };
 
   const onVerifyUserSubmit = (e: Event): void => {
@@ -53,12 +52,12 @@
   };
 
   const submit = (e: Event): void => {
-    submitForm(getFormDataFromEvent(e));
+    authenticator.submitForm(getFormDataFromEvent(e));
   };
 
   const onSkipClicked = (e: Event): void => {
     e.preventDefault();
-    skipVerification();
+    authenticator.skipVerification();
   };
 
   const getDefaultFormFieldOption = (key: string) => {
@@ -69,7 +68,7 @@
 
 <Wrapper>
   <Form oninput={onInput} onsubmit={onVerifyUserSubmit}>
-    <FieldSet disabled={isPending} class="amplify-flex amplify-authenticator__column">
+    <FieldSet disabled={authenticator.isPending} class="amplify-flex amplify-authenticator__column">
       {#if components?.Header}
         {@render components?.Header()}
       {:else}
@@ -88,7 +87,7 @@
           class="amplify-flex amplify-field amplify-radiogroupfield amplify-authenticator__column"
           aria-labelledby="amplify-field-493c"
         >
-          {#each Object.entries(unverifiedUserAttributes) as [key, value], index (value)}
+          {#each Object.entries(authenticator.unverifiedUserAttributes) as [key, value], index (value)}
             {#if value}
               {@const verificationType = getDefaultFormFieldOption(key).label}
               <Label class="amplify-flex amplify-radio" data-amplify-verify-label>
@@ -111,9 +110,9 @@
         </Wrapper>
       </Wrapper>
       <Footer class="amplify-flex amplify-authenticator__column">
-        {#if error}
+        {#if authenticator.error}
           <Alert>
-            {translate(error)}
+            {translate(authenticator.error)}
           </Alert>
         {/if}
         <Button
@@ -121,7 +120,7 @@
           fullWidth={false}
           variation="primary"
           type="submit"
-          disabled={isPending}
+          disabled={authenticator.isPending}
         >
           {verifyText}
         </Button>

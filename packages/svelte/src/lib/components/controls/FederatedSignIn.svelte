@@ -4,12 +4,12 @@
   import { authenticatorTextUtil, FederatedIdentityProviders } from '@aws-amplify/ui';
   import { useAuthenticator } from '../../stores/authenticator.svelte.js';
 
-  const { route, socialProviders } = $derived(useAuthenticator());
+  const { authenticator } = $derived(useAuthenticator());
 
-  const includeAmazon = $derived(socialProviders?.includes('amazon'));
-  const includeApple = $derived(socialProviders?.includes('apple'));
-  const includeFacebook = $derived(socialProviders?.includes('facebook'));
-  const includeGoogle = $derived(socialProviders?.includes('google'));
+  const includeAmazon = $derived(authenticator.socialProviders?.includes('amazon'));
+  const includeApple = $derived(authenticator.socialProviders?.includes('apple'));
+  const includeFacebook = $derived(authenticator.socialProviders?.includes('facebook'));
+  const includeGoogle = $derived(authenticator.socialProviders?.includes('google'));
 
   const shouldShowFederatedSignIn = $derived(
     includeFacebook || includeGoogle || includeAmazon || includeApple
@@ -20,10 +20,18 @@
 
   // Computed Properties
   const fp = $derived.by(() => FederatedIdentityProviders);
-  const signInWithAmazon = $derived.by(() => getSignInWithFederationText(route, 'amazon'));
-  const signInWithApple = $derived.by(() => getSignInWithFederationText(route, 'apple'));
-  const signInWithFacebook = $derived.by(() => getSignInWithFederationText(route, 'facebook'));
-  const signInWithGoogle = $derived.by(() => getSignInWithFederationText(route, 'google'));
+  const signInWithAmazon = $derived.by(() =>
+    getSignInWithFederationText(authenticator.route, 'amazon')
+  );
+  const signInWithApple = $derived.by(() =>
+    getSignInWithFederationText(authenticator.route, 'apple')
+  );
+  const signInWithFacebook = $derived.by(() =>
+    getSignInWithFederationText(authenticator.route, 'facebook')
+  );
+  const signInWithGoogle = $derived.by(() =>
+    getSignInWithFederationText(authenticator.route, 'google')
+  );
   const orText = $derived.by(() => getOrText());
 </script>
 

@@ -19,37 +19,36 @@
 
   const { components }: Props = $props();
 
-  const { error, isPending, submitForm, toSignIn, updateForm, challengeName } =
-    $derived(useAuthenticator());
+  const { authenticator } = $derived(useAuthenticator());
 
   // Text Util
   const { getBackToSignInText, getConfirmText, getChallengeText } = authenticatorTextUtil;
 
   // Computed Properties
-  const confirmSignInHeading = $derived.by(() => getChallengeText(challengeName));
+  const confirmSignInHeading = $derived.by(() => getChallengeText(authenticator.challengeName));
   const backSignInText = $derived.by(() => getBackToSignInText());
   const confirmText = $derived.by(() => getConfirmText());
 
   // Methods
   const onInput = (e: Event): void => {
     const { name, value } = e.target as HTMLInputElement;
-    updateForm({ name, value });
+    authenticator.updateForm({ name, value });
   };
 
   const onConfirmSignInSubmit = (e: Event): void => {
     e.preventDefault();
-    submitForm(getFormDataFromEvent(e));
+    authenticator.submitForm(getFormDataFromEvent(e));
   };
 
   const onBackToSignInClicked = (e: Event): void => {
     e.preventDefault();
-    toSignIn();
+    authenticator.toSignIn();
   };
 </script>
 
 <Wrapper>
   <Form data-amplify-authenticator-confirmsignin oninput={onInput} onsubmit={onConfirmSignInSubmit}>
-    <FieldSet class="amplify-flex amplify-authenticator__column" disabled={isPending}>
+    <FieldSet class="amplify-flex amplify-authenticator__column" disabled={authenticator.isPending}>
       {#if components?.Header}
         {@render components?.Header()}
       {:else}
@@ -66,9 +65,9 @@
         {/if}
       </Wrapper>
       <Footer class="amplify-flex amplify-authenticator__column">
-        {#if error}
+        {#if authenticator.error}
           <Alert>
-            {translate(error)}
+            {translate(authenticator.error)}
           </Alert>
         {/if}
         <Button
@@ -76,7 +75,7 @@
           fullWidth={false}
           loading={false}
           variation="primary"
-          disabled={isPending}
+          disabled={authenticator.isPending}
         >
           {confirmText}
         </Button>

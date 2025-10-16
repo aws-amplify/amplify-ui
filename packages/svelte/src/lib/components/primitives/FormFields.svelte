@@ -8,6 +8,7 @@
 
   import { useAuth } from '../../stores/authenticator.svelte';
   import { onMount } from 'svelte';
+  import { get } from 'svelte/store';
 
   let formFields: FormFieldsArray = $state([]);
 
@@ -19,7 +20,7 @@
   const { state: authState } = useAuth();
 
   onMount(() => {
-    formFields = getSortedFormFields(route, authState);
+    formFields = getSortedFormFields(route, get(authState));
   });
 </script>
 

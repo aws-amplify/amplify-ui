@@ -20,8 +20,7 @@
 
   const { components }: Props = $props();
 
-  const { error, isPending, submitForm, toSignIn, updateForm, challengeName, allowedMfaTypes } =
-    $derived(useAuthenticator());
+  const { authenticator } = $derived(useAuthenticator());
 
   const random = Math.floor(Math.random() * 999999);
   const {
@@ -32,30 +31,32 @@
     getSelectMfaTypeText
   } = authenticatorTextUtil;
 
-  const selectMfaTypeHeading = $derived.by(() => getSelectMfaTypeByChallengeName(challengeName));
+  const selectMfaTypeHeading = $derived.by(() =>
+    getSelectMfaTypeByChallengeName(authenticator.challengeName)
+  );
   const backSignInText = $derived.by(() => getBackToSignInText());
   const confirmText = $derived.by(() => getConfirmText());
   const selectMfaTypeText = $derived.by(() => getSelectMfaTypeText());
 
   const onInput = (e: Event) => {
     const { name, value } = e.target as HTMLInputElement;
-    updateForm({ name, value });
+    authenticator.updateForm({ name, value });
   };
 
   const onSelectMfaTypeSubmit = (e: Event) => {
     e.preventDefault();
-    submitForm(getFormDataFromEvent(e));
+    authenticator.submitForm(getFormDataFromEvent(e));
   };
 
   const onBackToSignInClicked = (e: Event) => {
     e.preventDefault();
-    toSignIn();
+    authenticator.toSignIn();
   };
 </script>
 
 <Wrapper>
   <Form data-amplify-authenticator-selectmfatype oninput={onInput} onsubmit={onSelectMfaTypeSubmit}>
-    <FieldSet class="amplify-flex amplify-authenticator__column" disabled={isPending}>
+    <FieldSet class="amplify-flex amplify-authenticator__column" disabled={authenticator.isPending}>
       {#if components?.Header}
         {@render components?.Header()}
       {:else}
@@ -71,8 +72,8 @@
           class="amplify-flex amplify-field amplify-radiogroupfield amplify-authenticator__column"
           aria-labelledby={`amplify-field-${random}`}
         >
-          {#if allowedMfaTypes}
-            {#each allowedMfaTypes as mfaType, index (mfaType)}
+          {#if authenticator.allowedMfaTypes}
+            {#each authenticator.allowedMfaTypes as mfaType, index (mfaType)}
               <Label class="amplify-flex amplify-radio" data-amplify-selectmfatype-label>
                 <Text class="amplify-text amplify-radio__label">
                   {getMfaTypeLabelByValue(mfaType)}
@@ -93,9 +94,9 @@
         </Wrapper>
       </Wrapper>
       <Footer class="amplify-flex amplify-authenticator__column">
-        {#if error}
+        {#if authenticator.error}
           <Alert>
-            {translate(error)}
+            {translate(authenticator.error)}
           </Alert>
         {/if}
         <Button
@@ -103,7 +104,7 @@
           fullWidth={false}
           loading={false}
           variation="primary"
-          disabled={isPending}
+          disabled={authenticator.isPending}
         >
           {confirmText}
         </Button>

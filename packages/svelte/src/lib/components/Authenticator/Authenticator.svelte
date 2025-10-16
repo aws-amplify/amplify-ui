@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onDestroy, onMount, type Snippet } from 'svelte';
+  import { get } from 'svelte/store';
   import {
     type AuthenticatorMachineOptions,
     type AuthenticatorRoute,
@@ -14,20 +15,22 @@
   import { useAuth, useAuthenticator } from '../../stores/authenticator.svelte';
   import { VERSION } from '../../version';
   import { type Components } from '../../types';
-  import TwoTabs from '../primitives/TwoTabs.svelte';
-  import TwoTabItem from '../primitives/TwoTabItem.svelte';
-  import SignIn from './SignIn.svelte';
-  import SignUp from './SignUp.svelte';
-  import ConfirmSignUp from './ConfirmSignUp.svelte';
-  import ForgotPassword from './ForgotPassword.svelte';
-  import ConfirmResetPassword from './ConfirmResetPassword.svelte';
-  import ConfirmSignIn from './ConfirmSignIn.svelte';
-  import SetupTotp from './SetupTotp.svelte';
-  import ForceNewPassword from './ForceNewPassword.svelte';
-  import VerifyUser from './VerifyUser.svelte';
-  import ConfirmVerifyUser from './ConfirmVerifyUser.svelte';
-  import SelectMfaType from './SelectMfaType.svelte';
-  import SetupEmail from './SetupEmail.svelte';
+
+  import { TwoTabItem, TwoTabs } from '../primitives';
+  import {
+    ConfirmResetPassword,
+    ConfirmSignIn,
+    ConfirmSignUp,
+    ConfirmVerifyUser,
+    ForceNewPassword,
+    ForgotPassword,
+    SelectMfaType,
+    SetupEmail,
+    SetupTotp,
+    SignIn,
+    SignUp,
+    VerifyUser
+  } from '.';
 
   interface ComponentsProvider extends Components {
     ConfirmSignIn?: Components;
@@ -81,25 +84,13 @@
 
   let clearUserAgent: () => void;
 
-  let hasInitialized = $state(false);
+  const auth = useAuth();
+  const { authenticator } = $derived(useAuthenticator());
+  const isSetup = $derived(authenticator.route === 'setup');
 
-  const {
-    send,
-    service,
-    state: _state,
-    route,
-    signOut,
-    toSignIn,
-    toSignUp,
-    user
-  } = $derived(useAuthenticator());
-  /**
-   * Subscribes to state machine changes and sends INIT event
-   * once machine reaches 'setup' state.
-   */
-  const unsubscribeMachine = service.subscribe((newState) => {
-    if (newState.matches('setup') && !hasInitialized) {
-      send({
+  $effect(() => {
+    if (isSetup) {
+      auth.send({
         type: 'INIT',
         data: {
           initialState,
@@ -110,9 +101,8 @@
           formFields
         }
       });
-      hasInitialized = true;
     }
-  }).unsubscribe;
+  });
 
   onMount(() => {
     clearUserAgent = setUserAgent({
@@ -124,7 +114,6 @@
 
   onDestroy(() => {
     clearUserAgent?.();
-    unsubscribeMachine();
   });
 
   // text util
@@ -135,7 +124,7 @@
   const createAccountLabel = $derived(getSignUpTabText());
 
   // methods
-  const hasTabs = $derived(route === 'signIn' || route === 'signUp');
+  const hasTabs = $derived(authenticator.route === 'signIn' || authenticator.route === 'signUp');
 
   const hasRouteComponent = $derived(
     (
@@ -153,7 +142,7 @@
         'signUp',
         'verifyUser'
       ] as AuthenticatorRoute[]
-    ).includes(route)
+    ).includes(authenticator.route)
   );
 </script>
 
@@ -165,22 +154,22 @@
         {#if hasTabs && !hideSignUp}
           <TwoTabs>
             <TwoTabItem
-              active={route === 'signIn'}
+              active={authenticator.route === 'signIn'}
               id="signIn"
               label={signInLabel}
-              onclick={toSignIn}
+              onclick={authenticator.toSignIn}
             />
             <TwoTabItem
-              active={route === 'signUp'}
+              active={authenticator.route === 'signUp'}
               id="signUp"
               label={createAccountLabel}
-              onclick={toSignUp}
+              onclick={authenticator.toSignUp}
             />
           </TwoTabs>
         {/if}
         {#if hasTabs}
           <div data-amplify-router-content>
-            {#if route === 'signIn'}
+            {#if authenticator.route === 'signIn'}
               <SignIn
                 id="signIn-panel"
                 role="tabpanel"
@@ -189,7 +178,7 @@
                 components={components?.SignIn}
               />
             {/if}
-            {#if route === 'signUp' && !hideSignUp}
+            {#if authenticator.route === 'signUp' && !hideSignUp}
               <SignUp
                 id="signUp-panel"
                 class="amplify-tabs__panel amplify-tabs__panel--active"
@@ -200,25 +189,25 @@
             {/if}
           </div>
         {/if}
-        {#if route === 'confirmSignUp'}
+        {#if authenticator.route === 'confirmSignUp'}
           <ConfirmSignUp components={components?.ConfirmSignUp} />
-        {:else if route === 'forgotPassword'}
+        {:else if authenticator.route === 'forgotPassword'}
           <ForgotPassword components={components?.ForgotPassword} />
-        {:else if route === 'confirmResetPassword'}
+        {:else if authenticator.route === 'confirmResetPassword'}
           <ConfirmResetPassword components={components?.ConfirmResetPassword} />
-        {:else if route === 'confirmSignIn'}
+        {:else if authenticator.route === 'confirmSignIn'}
           <ConfirmSignIn components={components?.ConfirmSignIn} />
-        {:else if route === 'setupTotp'}
+        {:else if authenticator.route === 'setupTotp'}
           <SetupTotp components={components?.SetupTotp} />
-        {:else if route === 'forceNewPassword'}
+        {:else if authenticator.route === 'forceNewPassword'}
           <ForceNewPassword components={components?.ForceNewPassword} />
-        {:else if route === 'verifyUser'}
+        {:else if authenticator.route === 'verifyUser'}
           <VerifyUser components={components?.VerifyUser} />
-        {:else if route === 'confirmVerifyUser'}
+        {:else if authenticator.route === 'confirmVerifyUser'}
           <ConfirmVerifyUser components={components?.ConfirmVerifyUser} />
-        {:else if route === 'selectMfaType'}
+        {:else if authenticator.route === 'selectMfaType'}
           <SelectMfaType components={components?.SelectMfaType} />
-        {:else if route === 'setupEmail'}
+        {:else if authenticator.route === 'setupEmail'}
           <SetupEmail components={components?.SetupEmail} />
         {/if}
       </div>
@@ -226,6 +215,11 @@
     </div>
   </div>
 {/if}
-{#if route === 'authenticated'}
-  {@render children?.({ user, state: _state, signOut, send })}
+{#if authenticator.route === 'authenticated'}
+  {@render children?.({
+    user: authenticator.user,
+    state: get(auth.state),
+    signOut: authenticator.signOut,
+    send: auth.send
+  })}
 {/if}

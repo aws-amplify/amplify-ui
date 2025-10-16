@@ -1,27 +1,28 @@
 import {
-	AuthenticatorServiceFacade,
-	AuthInterpreter,
-	AuthMachineSend,
-	AuthMachineState,
-	AuthStatus
+  AuthenticatorServiceFacade,
+  AuthInterpreter,
+  AuthMachineSend,
+  AuthMachineState,
+  AuthStatus
 } from '@aws-amplify/ui';
 import type { Snippet } from 'svelte';
+import type { Writable } from 'svelte/store';
 
-export interface UseAuthenticator extends UseAuth, AuthenticatorServiceFacade {
-	QRFields: { totpIssuer?: string; totpUsername?: string } | null;
+export interface UseAuthenticator extends AuthenticatorServiceFacade {
+  QRFields: { totpIssuer?: string; totpUsername?: string } | null;
 }
 
 export interface UseAuth {
-	state: AuthMachineState;
-	send: AuthMachineSend;
-	service: AuthInterpreter;
-	authStatus: AuthStatus;
+  state: Writable<AuthMachineState>;
+  send: AuthMachineSend;
+  service: AuthInterpreter;
+  authStatus: AuthStatus;
 }
 
 export interface Components {
-	Footer?: Snippet;
-	FormFields?: Snippet;
-	Header?: Snippet;
+  Footer?: Snippet;
+  FormFields?: Snippet;
+  Header?: Snippet;
 }
 
 //eslint-disable-next-line @typescript-eslint/no-explicit-any

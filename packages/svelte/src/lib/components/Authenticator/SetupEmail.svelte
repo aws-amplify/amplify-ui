@@ -18,7 +18,7 @@
 
   const { components }: Props = $props();
 
-  const { error, isPending, submitForm, toSignIn, updateForm } = $derived(useAuthenticator());
+  const { authenticator } = $derived(useAuthenticator());
   const { getBackToSignInText, getConfirmText, getSetupEmailText } = authenticatorTextUtil;
   const setupEmailHeading = $derived.by(() => getSetupEmailText());
   const backSignInText = $derived.by(() => getBackToSignInText());
@@ -26,23 +26,23 @@
 
   const onInput = (e: Event) => {
     const { name, value } = e.target as HTMLInputElement;
-    updateForm({ name, value });
+    authenticator.updateForm({ name, value });
   };
 
   const onSetupEmailSubmit = (e: Event) => {
     e.preventDefault();
-    submitForm(getFormDataFromEvent(e));
+    authenticator.submitForm(getFormDataFromEvent(e));
   };
 
   const onBackToSignInClicked = (e: Event) => {
     e.preventDefault();
-    toSignIn();
+    authenticator.toSignIn();
   };
 </script>
 
 <Wrapper>
   <Form data-amplify-authenticator-setupemail oninput={onInput} onsubmit={onSetupEmailSubmit}>
-    <FieldSet class="amplify-flex amplify-authenticator__column" disabled={isPending}>
+    <FieldSet class="amplify-flex amplify-authenticator__column" disabled={authenticator.isPending}>
       {#if components?.Header}
         {@render components?.Header()}
       {:else}
@@ -58,9 +58,9 @@
         {/if}
       </Wrapper>
       <Footer class="amplify-flex amplify-authenticator__column">
-        {#if error}
+        {#if authenticator.error}
           <Alert>
-            {translate(error)}
+            {translate(authenticator.error)}
           </Alert>
         {/if}
         <Button
@@ -69,7 +69,7 @@
           loading={false}
           variation="primary"
           fontWeight="normal"
-          disabled={isPending}
+          disabled={authenticator.isPending}
         >
           {confirmText}
         </Button>

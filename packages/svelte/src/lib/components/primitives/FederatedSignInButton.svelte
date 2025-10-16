@@ -10,11 +10,11 @@
 
   const { provider, children }: Props = $props();
 
-  const { toFederatedSignIn } = useAuthenticator();
+  const { authenticator } = useAuthenticator();
 
   // Methods
   const onClick = (): void => {
-    toFederatedSignIn({ provider });
+    authenticator.toFederatedSignIn({ provider });
   };
 </script>
 
