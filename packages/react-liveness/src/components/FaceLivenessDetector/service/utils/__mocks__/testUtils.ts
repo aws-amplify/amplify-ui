@@ -85,8 +85,29 @@ export const mockCameraDevice: MediaDeviceInfo = {
   groupId: 'some-group-id',
   kind: 'videoinput',
   label: 'some-label',
-  toJSON: () => ({}),
+  toJSON: () => ({
+    deviceId: 'some-device-id',
+    groupId: 'some-group-id',
+    kind: 'videoinput',
+    label: 'some-label',
+  }),
 };
+
+export const mockSelectableDevices: MediaDeviceInfo[] = [
+  mockCameraDevice,
+  {
+    deviceId: 'another-device-id',
+    groupId: 'another-group-id',
+    kind: 'videoinput',
+    label: 'another-label',
+    toJSON: () => ({
+      deviceId: 'another-device-id',
+      groupId: 'another-group-id',
+      kind: 'videoinput',
+      label: 'another-label',
+    }),
+  } as MediaDeviceInfo,
+];
 
 const mockVideoTrack = {
   getSettings: () => ({
@@ -259,6 +280,15 @@ export const getMockContext = (): LivenessContext => ({
   },
   videoAssociatedParams: {
     videoConstraints: mockVideoConstraints,
+    selectedDeviceId: 'some-device-id',
+    selectableDevices: [
+      mockCameraDevice,
+      {
+        ...mockCameraDevice,
+        deviceId: 'another-device-id',
+        label: 'Another Camera',
+      } as MediaDeviceInfo,
+    ],
     videoEl: document.createElement('video'),
     canvasEl: document.createElement('canvas'),
     videoMediaStream: mockVideoMediaStream,

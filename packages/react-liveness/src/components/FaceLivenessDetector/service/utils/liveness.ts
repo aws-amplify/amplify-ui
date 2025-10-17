@@ -438,6 +438,8 @@ export const LivenessErrorStateStringMap = {
   [LivenessErrorState.CAMERA_ACCESS_ERROR]: 'CAMERA_ACCESS_ERROR',
   [LivenessErrorState.MOBILE_LANDSCAPE_ERROR]: 'MOBILE_LANDSCAPE_ERROR',
   [LivenessErrorState.FRESHNESS_TIMEOUT]: 'FRESHNESS_TIMEOUT',
+  [LivenessErrorState.DEFAULT_CAMERA_NOT_FOUND_ERROR]:
+    'DEFAULT_CAMERA_NOT_FOUND_ERROR',
 };
 
 const INITIAL_ALPHA = 0.9;
