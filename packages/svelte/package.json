@@ -13,7 +13,7 @@
     "fix:lint": "eslint --fix src/lib",
     "fix:format": "prettier --write .",
     "test:unit": "vitest",
-    "test": "npm run test:unit -- --run --coverage"
+    "test": "yarn test:unit --run --coverage"
   },
   "files": [
     "dist",
