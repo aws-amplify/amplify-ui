@@ -3,7 +3,7 @@ Feature: Sign In with Email MFA Selection
     Background:
         Given I'm running the example "ui/components/authenticator/sign-in-with-email-mfa-selection"
 
-    @react @vue @angular @react-native
+    @react @vue @svelte @angular @react-native
     Scenario: Sign In With Email MFA Selection
         When I type my "username" with status "CONFIRMED"
         Then I type my password
@@ -16,7 +16,7 @@ Feature: Sign In with Email MFA Selection
         Then I click the "Sign out" button
         Then I see "Sign In"
 
-    @react @vue @angular @react-native
+    @react @vue @svelte @angular @react-native
     Scenario: Sign In, Observe MFA Selection Screen, and Navigate Back to Sign In Page
         When I type my "username" with status "CONFIRMED"
         Then I type my password
@@ -25,7 +25,7 @@ Feature: Sign In with Email MFA Selection
         Then I click the "Back to Sign In" button
         Then I see "Sign In"
 
-    @react @vue @angular @react-native
+    @react @vue @svelte @angular @react-native
     Scenario: Sign In, Select Email MFA Type, Observe Confirmation Code Screen, and Navigate Back to Sign In Page
         When I type my "username" with status "CONFIRMED"
         Then I type my password
@@ -36,7 +36,7 @@ Feature: Sign In with Email MFA Selection
         Then I click the "Back to Sign In" button
         Then I see "Sign In"
 
-    @react @vue @angular @react-native
+    @react @vue @svelte @angular @react-native
     Scenario: Sign In, Select Email MFA Type, Enter Invalid Confirmation Code, Observe Error, Enter Valid Confirmation Code
         When I type my "username" with status "CONFIRMED"
         Then I type my password
@@ -52,7 +52,7 @@ Feature: Sign In with Email MFA Selection
         Then I click the "Sign out" button
         Then I see "Sign In"
 
-    @react @vue @angular @react-native
+    @react @vue @svelte @angular @react-native
     Scenario: Sign In, Use Default Mfa Selection, Enter Valid Confirmation Code
         When I type my "username" with status "CONFIRMED"
         Then I type my password

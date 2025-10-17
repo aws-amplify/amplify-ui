@@ -1,14 +1,14 @@
 Feature: Sign up with SMS MFA
 
-  If your backend has SMS MFA required, Authenticator will redirect end users to 
+  If your backend has SMS MFA required, Authenticator will redirect end users to
   SMS confirmation screen when they successfully sign up.
 
   Background:
     Given I'm running the example "ui/components/authenticator/sign-in-sms-mfa"
     Then I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }' with fixture "sign-up-with-phone"
-    When I click the "Create Account" tab 
+    When I click the "Create Account" tab
 
-  @angular @react @vue
+  @angular @react @vue @svelte
   Scenario: Successful sign up redirects user to sms mfa route
     Then I type my "phone number" with status "UNCONFIRMED"
     Then I type my password
@@ -22,4 +22,3 @@ Feature: Sign up with SMS MFA
     Then I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.InitiateAuth" } }' with error fixture "limit-exceeded-exception"
     Then I click the "Confirm" button
     Then I see "Sign In"
-    

@@ -1,5 +1,5 @@
 import { createSharedComposable } from '@vueuse/core';
-import { ref, reactive, Ref, watchEffect, onScopeDispose } from 'vue';
+import { onScopeDispose, reactive, Ref, ref, watchEffect } from 'vue';
 import { useActor } from '@xstate/vue';
 import { interpret } from 'xstate';
 

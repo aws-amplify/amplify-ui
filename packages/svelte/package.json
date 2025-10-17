@@ -1,0 +1,72 @@
+{
+  "name": "@aws-amplify/ui-svelte",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "svelte-package --watch",
+    "build": "svelte-kit sync && svelte-package",
+    "lint:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+    "sveltecheck": "svelte-check --tsconfig ./tsconfig.json",
+    "eslint": "eslint .",
+    "format": "prettier --check .",
+    "lint": "yarn sveltecheck && yarn format && yarn eslint",
+    "fix": "yarn fix:lint && yarn fix:format",
+    "fix:lint": "eslint --fix src/lib",
+    "fix:format": "prettier --write .",
+    "test:unit": "vitest",
+    "test": "yarn test:unit --run --coverage"
+  },
+  "files": [
+    "dist",
+    "!dist/**/*.test.*",
+    "!dist/**/*.spec.*"
+  ],
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "svelte": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "svelte": "./dist/index.js"
+    },
+    "./styles.css": "./dist/styles.css"
+  },
+  "peerDependencies": {
+    "svelte": "^5.0.0"
+  },
+  "dependencies": {
+    "@aws-amplify/ui": "6.12.0",
+    "nanoid": "3.3.8",
+    "qrcode": "1.5.0",
+    "xstate": "^4.33.6"
+  },
+  "devDependencies": {
+    "@eslint/compat": "^1.2.5",
+    "@eslint/js": "^9.22.0",
+    "@sveltejs/adapter-auto": "^6.0.0",
+    "@sveltejs/kit": "^2.22.0",
+    "@sveltejs/package": "^2.0.0",
+    "@sveltejs/vite-plugin-svelte": "^6.0.0",
+    "@testing-library/svelte": "^5.2.8",
+    "@types/node": "^20",
+    "@vitest/coverage-v8": "^3.2.4",
+    "eslint": "^9.22.0",
+    "eslint-config-prettier": "^10.0.1",
+    "eslint-plugin-svelte": "^3.0.0",
+    "globals": "^16.0.0",
+    "prettier": "^3.4.2",
+    "prettier-plugin-svelte": "^3.3.3",
+    "publint": "^0.3.2",
+    "svelte": "^5.0.0",
+    "svelte-check": "^4.0.0",
+    "typescript": "^5.0.0",
+    "typescript-eslint": "^8.20.0",
+    "vite": "^7.0.4",
+    "vitest": "^3.2.3"
+  },
+  "keywords": [
+    "svelte"
+  ]
+}

@@ -2,9 +2,9 @@ import * as React from 'react';
 import { useStyles } from '../shared/styleUtils';
 import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 import type {
+  BaseViewProps,
   ForwardRefPrimitive,
   Primitive,
-  BaseViewProps,
   ViewProps,
 } from '../types';
 
