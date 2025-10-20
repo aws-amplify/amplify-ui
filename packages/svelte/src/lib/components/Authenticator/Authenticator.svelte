@@ -8,12 +8,12 @@
     type AuthFormFields,
     type AuthMachineState,
     setUserAgent,
-    type SocialProvider,
+    type SocialProvider
   } from '@aws-amplify/ui';
   import { type AuthUser } from '@aws-amplify/auth';
 
   import { useAuth, useAuthenticator } from '../../stores/authenticator.svelte';
-  import { VERSION } from '../../version';
+  import { VERSION } from '../../../version';
   import { type Components } from '../../types';
 
   import { TwoTabItem, TwoTabs } from '../primitives';
@@ -29,7 +29,7 @@
     SetupTotp,
     SignIn,
     SignUp,
-    VerifyUser,
+    VerifyUser
   } from '.';
 
   interface ComponentsProvider extends Components {
