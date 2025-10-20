@@ -14,6 +14,7 @@ const packages = [
   'packages/react-notifications',
   'packages/react-liveness',
   'packages/react-storage',
+  'packages/svelte',
   'packages/vue',
 ];
 
