@@ -8,7 +8,7 @@
     type AuthFormFields,
     type AuthMachineState,
     setUserAgent,
-    type SocialProvider
+    type SocialProvider,
   } from '@aws-amplify/ui';
   import { type AuthUser } from '@aws-amplify/auth';
 
@@ -29,7 +29,7 @@
     SetupTotp,
     SignIn,
     SignUp,
-    VerifyUser
+    VerifyUser,
   } from '.';
 
   interface ComponentsProvider extends Components {
