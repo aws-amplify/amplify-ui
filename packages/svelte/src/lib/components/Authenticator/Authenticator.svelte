@@ -13,7 +13,7 @@
   import { type AuthUser } from '@aws-amplify/auth';
 
   import { useAuth, useAuthenticator } from '../../stores/authenticator.svelte';
-  import { VERSION } from '../../../version';
+  import { VERSION } from '../../version';
   import { type Components } from '../../types';
 
   import { TwoTabItem, TwoTabs } from '../primitives';

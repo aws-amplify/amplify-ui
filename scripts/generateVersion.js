@@ -2,7 +2,7 @@
  * This is a script that generates a constant, `VERSION` with the version
  * of the package. The version of a package will be used in logging and error messages.
  */
-const path = require('path');
+const { resolve, join } = require('path');
 const fs = require('fs-extra');
 
 const packages = [
@@ -20,9 +20,7 @@ const packages = [
 
 packages.forEach((package) => {
   const { version } = require(`../${package}/package.json`);
-
-  fs.writeFileSync(
-    path.resolve(`${package}/src/version.ts`),
-    `export const VERSION = '${version}';\n`
-  );
+  const srcDir = package.includes('svelte') ? join('src', 'lib') : 'src';
+  const targetFile = resolve(join(package, srcDir, 'version.ts'));
+  fs.writeFileSync(targetFile, `export const VERSION = '${version}';\n`);
 });
