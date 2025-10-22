@@ -13,7 +13,7 @@ on:
         type: string
     secrets:
       LIVENESS_E2E_CODE_ARTIFACT_ARN:
-        required: true
+        required: false
 
 jobs:
   setup:
@@ -29,19 +29,11 @@ jobs:
           ref: ${{ inputs.commit }}
           repository: ${{ inputs.repository }}
           persist-credentials: false
-      - name: Configure CodeArtifact
-        id: configure-codeartifact
-        uses: ./.github/actions/codeartifact
-        with:
-          role-to-assume: ${{ secrets.LIVENESS_E2E_CODE_ARTIFACT_ARN }}
-          domain: amplify-ui-liveness
-          repository: amplify-ui  
       - name: Setup Node.js 20
         uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2 https://github.com/actions/setup-node/commit/60edb5dd545a775178f52524783378180af0d1f8
         with:
           node-version: 20
-          cache: 'yarn'
-          registry-url: ${{ steps.configure-codeartifact.outputs.repository-endpoint }}
+          cache: "yarn"
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
       - name: Restore cypress runner from Cache
@@ -62,8 +54,6 @@ jobs:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
       - name: Install packages
         run: yarn --frozen-lockfile --network-timeout 60000
-        env:
-          NODE_AUTH_TOKEN: ${{ steps.configure-codeartifact.outputs.repository-token }}
       - name: Build ui package
         run: yarn ui build
       - name: Cache cypress runner

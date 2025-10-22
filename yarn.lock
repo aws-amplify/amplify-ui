@@ -875,7 +875,7 @@
 
 "@aws-sdk/client-rekognitionstreaming@3.562.0":
   version "3.562.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@aws-sdk/client-rekognitionstreaming/-/client-rekognitionstreaming-3.562.0.tgz#4d7c72e35161922323b0b403f55adfefb7d7c138"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/client-rekognitionstreaming/-/client-rekognitionstreaming-3.562.0.tgz#4d7c72e35161922323b0b403f55adfefb7d7c138"
   integrity sha512-HkOLBpwmn/2fVVb7SjiHXqJUn4cqeEnccAyPZtS0rah40rvoc8rJZuP1Mj0Xp3dZRT2f0UdfKE5Q1OZAsDONlg==
   dependencies:
     "@aws-crypto/sha256-browser" "3.0.0"
@@ -966,7 +966,7 @@
 
 "@aws-sdk/client-sso-oidc@3.587.0":
   version "3.587.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@aws-sdk/client-sso-oidc/-/client-sso-oidc-3.587.0.tgz#e1727e6117003ed39da47fe0644ec7e268e34264"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/client-sso-oidc/-/client-sso-oidc-3.587.0.tgz#e1727e6117003ed39da47fe0644ec7e268e34264"
   integrity sha512-ISDgHcGmXLdSJjVk8X6dPHRdlaURDbSyZ7b8sQyXCrBt8EQ/d/sEQLEaJJJrdB6Z2fYRDupWQq7+s42bH2FLjA==
   dependencies:
     "@aws-crypto/sha256-browser" "3.0.0"
@@ -1090,7 +1090,7 @@
 
 "@aws-sdk/client-sso@3.587.0":
   version "3.587.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@aws-sdk/client-sso/-/client-sso-3.587.0.tgz#b4de7772496add0c4196de8b15b3ee622ce0adb5"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/client-sso/-/client-sso-3.587.0.tgz#b4de7772496add0c4196de8b15b3ee622ce0adb5"
   integrity sha512-J62SsEaJ5DbsLOl9ICvyNYcDH5je557v2YECt6wxvMLCCVOKmT8WPrPcGFKti8N4BotRLWyifC74sXh7oek8CQ==
   dependencies:
     "@aws-crypto/sha256-browser" "3.0.0"
@@ -1134,7 +1134,7 @@
 
 "@aws-sdk/client-sts@*", "@aws-sdk/client-sts@3.587.0":
   version "3.587.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@aws-sdk/client-sts/-/client-sts-3.587.0.tgz#4b5908647c9d919185f181d631864262666c6501"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/client-sts/-/client-sts-3.587.0.tgz#4b5908647c9d919185f181d631864262666c6501"
   integrity sha512-fnOa7bHuvoOHULZlVE4LgSAiKmXWZFkI42m1XV2XjeW9jtEQDTyTD678My6tGQi2T3Jwrgk6c7h2rOO3wLl9tg==
   dependencies:
     "@aws-crypto/sha256-browser" "3.0.0"
@@ -1266,7 +1266,7 @@
 
 "@aws-sdk/core@*", "@aws-sdk/core@3.587.0":
   version "3.587.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@aws-sdk/core/-/core-3.587.0.tgz#5e854b4330f92102120d1400ed19769ae8cee8c6"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/core/-/core-3.587.0.tgz#5e854b4330f92102120d1400ed19769ae8cee8c6"
   integrity sha512-Yoa7ZyjFgcLIoXuug+bIKxpjEG54/Z+u5FfbSq1dGiRv2rFmOeD0C6sBnSRd7N8yG2886DnvOkdYFd1vvwkHAg==
   dependencies:
     "@smithy/core" "^2.1.1"
@@ -1310,7 +1310,7 @@
 
 "@aws-sdk/credential-provider-env@3.587.0":
   version "3.587.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@aws-sdk/credential-provider-env/-/credential-provider-env-3.587.0.tgz#40435be331773e4b1b665a1f4963518d4647505c"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/credential-provider-env/-/credential-provider-env-3.587.0.tgz#40435be331773e4b1b665a1f4963518d4647505c"
   integrity sha512-Hyg/5KFECIk2k5o8wnVEiniV86yVkhn5kzITUydmNGCkXdBFHMHRx6hleQ1bqwJHbBskyu8nbYamzcwymmGwmw==
   dependencies:
     "@aws-sdk/types" "3.577.0"
@@ -1320,7 +1320,7 @@
 
 "@aws-sdk/credential-provider-http@3.587.0":
   version "3.587.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@aws-sdk/credential-provider-http/-/credential-provider-http-3.587.0.tgz#dc23c6d6708bc67baea54bfab0f256c5fe4df023"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/credential-provider-http/-/credential-provider-http-3.587.0.tgz#dc23c6d6708bc67baea54bfab0f256c5fe4df023"
   integrity sha512-Su1SRWVRCuR1e32oxX3C1V4c5hpPN20WYcRfdcr2wXwHqSvys5DrnmuCC+JoEnS/zt3adUJhPliTqpfKgSdMrA==
   dependencies:
     "@aws-sdk/types" "3.577.0"
@@ -1367,7 +1367,7 @@
 
 "@aws-sdk/credential-provider-ini@3.587.0":
   version "3.587.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@aws-sdk/credential-provider-ini/-/credential-provider-ini-3.587.0.tgz#2c4d2deb7a2085217149ddb61bdebbe7b7b3c952"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/credential-provider-ini/-/credential-provider-ini-3.587.0.tgz#2c4d2deb7a2085217149ddb61bdebbe7b7b3c952"
   integrity sha512-rjRPF1mmMGiPdQsIba/PRknGPWpQZJ06EpEn91wftW5szfJkStadRTIfYYwSfuSO/xIwT11/KQiDVP9hclnSFg==
   dependencies:
     "@aws-sdk/credential-provider-env" "3.587.0"
@@ -1384,7 +1384,7 @@
 
 "@aws-sdk/credential-provider-node@*", "@aws-sdk/credential-provider-node@3.587.0":
   version "3.587.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@aws-sdk/credential-provider-node/-/credential-provider-node-3.587.0.tgz#f76685685dae4f6e3a4e0764ac05edd5e3406b1e"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/credential-provider-node/-/credential-provider-node-3.587.0.tgz#f76685685dae4f6e3a4e0764ac05edd5e3406b1e"
   integrity sha512-ZMbRCHdSsTzDV1+wPdF0A+umWji9BFPFeICG0gkisZR9Tj9rkb20jIYqD280BpCsKd8Ep7rpFZepyoeNZqI6Nw==
   dependencies:
     "@aws-sdk/credential-provider-env" "3.587.0"
@@ -1458,7 +1458,7 @@
 
 "@aws-sdk/credential-provider-process@3.587.0":
   version "3.587.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@aws-sdk/credential-provider-process/-/credential-provider-process-3.587.0.tgz#1e5cc562a68438a77f464adc0493b02e04dd3ea1"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/credential-provider-process/-/credential-provider-process-3.587.0.tgz#1e5cc562a68438a77f464adc0493b02e04dd3ea1"
   integrity sha512-V4xT3iCqkF8uL6QC4gqBJg/2asd/damswP1h9HCfqTllmPWzImS+8WD3VjgTLw5b0KbTy+ZdUhKc0wDnyzkzxg==
   dependencies:
     "@aws-sdk/types" "3.577.0"
@@ -1495,7 +1495,7 @@
 
 "@aws-sdk/credential-provider-sso@3.587.0":
   version "3.587.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@aws-sdk/credential-provider-sso/-/credential-provider-sso-3.587.0.tgz#9d113caba7fe69e566313ef2a511946a6b170d6f"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/credential-provider-sso/-/credential-provider-sso-3.587.0.tgz#9d113caba7fe69e566313ef2a511946a6b170d6f"
   integrity sha512-7ADd1HV3fmdMB2+DdFMtZGep5qubhtTenfo2BpDdADUkZ0HCpXx7mPLJ2mAww9sQpJsX8dDbc38+pi+bcsPWeA==
   dependencies:
     "@aws-sdk/client-sso" "3.587.0"
@@ -1528,7 +1528,7 @@
 
 "@aws-sdk/credential-provider-web-identity@3.587.0":
   version "3.587.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@aws-sdk/credential-provider-web-identity/-/credential-provider-web-identity-3.587.0.tgz#daa41e3cc9309594327056e431b8065145c5297a"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/credential-provider-web-identity/-/credential-provider-web-identity-3.587.0.tgz#daa41e3cc9309594327056e431b8065145c5297a"
   integrity sha512-XqIx/I2PG7kyuw3WjAP9wKlxy8IvFJwB8asOFT1xPFoVfZYKIogjG9oLP5YiRtfvDkWIztHmg5MlVv3HdJDGRw==
   dependencies:
     "@aws-sdk/types" "3.577.0"
@@ -1559,7 +1559,7 @@
 
 "@aws-sdk/eventstream-handler-node@*":
   version "3.577.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@aws-sdk/eventstream-handler-node/-/eventstream-handler-node-3.577.0.tgz#05ff89606754434332883e1865377fd25d5f0dce"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/eventstream-handler-node/-/eventstream-handler-node-3.577.0.tgz#05ff89606754434332883e1865377fd25d5f0dce"
   integrity sha512-IL32kFCJ01ssVL5lWancxe9ELEbHg6X177y26Mz4rcXpLwVvpIJ6LW599kGzeSVzL9Q/cIfndyRCRXhOQChtug==
   dependencies:
     "@aws-sdk/types" "3.577.0"
@@ -1569,7 +1569,7 @@
 
 "@aws-sdk/middleware-eventstream@*":
   version "3.587.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@aws-sdk/middleware-eventstream/-/middleware-eventstream-3.587.0.tgz#8cf110a670006e8a339a0c0fa83a73f5f7a90540"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/middleware-eventstream/-/middleware-eventstream-3.587.0.tgz#8cf110a670006e8a339a0c0fa83a73f5f7a90540"
   integrity sha512-+Woyzaa3TEYF+Bfvjz280jKC5xOlWDxSsrb58Ft8Cntqha/y2QXFm+wW6v1yAIfonoxMcb5OjSLCOgG+4EXQGA==
   dependencies:
     "@aws-sdk/types" "3.577.0"
@@ -1579,7 +1579,7 @@
 
 "@aws-sdk/middleware-host-header@*", "@aws-sdk/middleware-host-header@3.577.0":
   version "3.577.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@aws-sdk/middleware-host-header/-/middleware-host-header-3.577.0.tgz#a3fc626d409ec850296740478c64ef5806d8b878"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/middleware-host-header/-/middleware-host-header-3.577.0.tgz#a3fc626d409ec850296740478c64ef5806d8b878"
   integrity sha512-9ca5MJz455CODIVXs0/sWmJm7t3QO4EUa1zf8pE8grLpzf0J94bz/skDWm37Pli13T3WaAQBHCTiH2gUVfCsWg==
   dependencies:
     "@aws-sdk/types" "3.577.0"
@@ -1609,7 +1609,7 @@
 
 "@aws-sdk/middleware-logger@*", "@aws-sdk/middleware-logger@3.577.0":
   version "3.577.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@aws-sdk/middleware-logger/-/middleware-logger-3.577.0.tgz#6da3b13ae284fb3930961f0fc8e20b1f6cf8be30"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/middleware-logger/-/middleware-logger-3.577.0.tgz#6da3b13ae284fb3930961f0fc8e20b1f6cf8be30"
   integrity sha512-aPFGpGjTZcJYk+24bg7jT4XdIp42mFXSuPt49lw5KygefLyJM/sB0bKKqPYYivW0rcuZ9brQ58eZUNthrzYAvg==
   dependencies:
     "@aws-sdk/types" "3.577.0"
@@ -1636,7 +1636,7 @@
 
 "@aws-sdk/middleware-recursion-detection@*", "@aws-sdk/middleware-recursion-detection@3.577.0":
   version "3.577.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@aws-sdk/middleware-recursion-detection/-/middleware-recursion-detection-3.577.0.tgz#fff76abc6d4521636f9e654ce5bf2c4c79249417"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/middleware-recursion-detection/-/middleware-recursion-detection-3.577.0.tgz#fff76abc6d4521636f9e654ce5bf2c4c79249417"
   integrity sha512-pn3ZVEd2iobKJlR3H+bDilHjgRnNrQ6HMmK9ZzZw89Ckn3Dcbv48xOv4RJvu0aU8SDLl/SNCxppKjeLDTPGBNA==
   dependencies:
     "@aws-sdk/types" "3.577.0"
@@ -1686,7 +1686,7 @@
 
 "@aws-sdk/middleware-signing@*", "@aws-sdk/middleware-signing@3.587.0":
   version "3.587.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@aws-sdk/middleware-signing/-/middleware-signing-3.587.0.tgz#593c418c09c51c0bc55f23a7a6b0fda8502a8103"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/middleware-signing/-/middleware-signing-3.587.0.tgz#593c418c09c51c0bc55f23a7a6b0fda8502a8103"
   integrity sha512-tiZaTDj4RvhXGRAlncFn7CSEfL3iNPO67WSaxAq+Ls5j1VgczPhu5262cWONNoMgth3nXR1hhLC4ITSl/a6AzA==
   dependencies:
     "@aws-sdk/types" "3.577.0"
@@ -1725,7 +1725,7 @@
 
 "@aws-sdk/middleware-user-agent@*", "@aws-sdk/middleware-user-agent@3.587.0":
   version "3.587.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@aws-sdk/middleware-user-agent/-/middleware-user-agent-3.587.0.tgz#2a68900cfb29afbae2952d901de4fcb91850bd3d"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/middleware-user-agent/-/middleware-user-agent-3.587.0.tgz#2a68900cfb29afbae2952d901de4fcb91850bd3d"
   integrity sha512-SyDomN+IOrygLucziG7/nOHkjUXES5oH5T7p8AboO8oakMQJdnudNXiYWTicQWO52R51U6CR27rcMPTGeMedYA==
   dependencies:
     "@aws-sdk/types" "3.577.0"
@@ -1758,7 +1758,7 @@
 
 "@aws-sdk/middleware-websocket@*":
   version "3.587.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@aws-sdk/middleware-websocket/-/middleware-websocket-3.587.0.tgz#d00028fa35c09fb945978ed878823b6978d060f3"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/middleware-websocket/-/middleware-websocket-3.587.0.tgz#d00028fa35c09fb945978ed878823b6978d060f3"
   integrity sha512-zCaFjpN+OkIifGMTv7Xw3PuxhAUizHKQG30JhTVnbqDA3NR+SfQq30oRBeORe9AxYAS06yIKXLMfxOIJCj75rQ==
   dependencies:
     "@aws-sdk/middleware-signing" "3.587.0"
@@ -1775,7 +1775,7 @@
 
 "@aws-sdk/region-config-resolver@*", "@aws-sdk/region-config-resolver@3.587.0":
   version "3.587.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@aws-sdk/region-config-resolver/-/region-config-resolver-3.587.0.tgz#ad1c15494f44dfc4c7a7bce389f8b128dace923f"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/region-config-resolver/-/region-config-resolver-3.587.0.tgz#ad1c15494f44dfc4c7a7bce389f8b128dace923f"
   integrity sha512-93I7IPZtulZQoRK+O20IJ4a1syWwYPzoO2gc3v+/GNZflZPV3QJXuVbIm0pxBsu0n/mzKGUKqSOLPIaN098HcQ==
   dependencies:
     "@aws-sdk/types" "3.577.0"
@@ -1840,7 +1840,7 @@
 
 "@aws-sdk/token-providers@3.587.0":
   version "3.587.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@aws-sdk/token-providers/-/token-providers-3.587.0.tgz#f9fd2ddfc554c1370f8d0f467c76a4c8cb904ae6"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/token-providers/-/token-providers-3.587.0.tgz#f9fd2ddfc554c1370f8d0f467c76a4c8cb904ae6"
   integrity sha512-ULqhbnLy1hmJNRcukANBWJmum3BbjXnurLPSFXoGdV0llXYlG55SzIla2VYqdveQEEjmsBuTZdFvXAtNpmS5Zg==
   dependencies:
     "@aws-sdk/types" "3.577.0"
@@ -1851,7 +1851,7 @@
 
 "@aws-sdk/types@*", "@aws-sdk/types@3.577.0":
   version "3.577.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@aws-sdk/types/-/types-3.577.0.tgz#7700784d368ce386745f8c340d9d68cea4716f90"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/types/-/types-3.577.0.tgz#7700784d368ce386745f8c340d9d68cea4716f90"
   integrity sha512-FT2JZES3wBKN/alfmhlo+3ZOq/XJ0C7QOZcDNrpKjB0kqYoKjhVKZ/Hx6ArR0czkKfHzBBEs6y40ebIHx2nSmA==
   dependencies:
     "@smithy/types" "^3.0.0"
@@ -1898,7 +1898,7 @@
 
 "@aws-sdk/util-endpoints@*", "@aws-sdk/util-endpoints@3.587.0":
   version "3.587.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@aws-sdk/util-endpoints/-/util-endpoints-3.587.0.tgz#781e0822a95dba15f7ac8f22a6f6d7f0c8819818"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/util-endpoints/-/util-endpoints-3.587.0.tgz#781e0822a95dba15f7ac8f22a6f6d7f0c8819818"
   integrity sha512-8I1HG6Em8wQWqKcRW6m358mqebRVNpL8XrrEoT4In7xqkKkmYtHRNVYP6lcmiQh5pZ/c/FXu8dSchuFIWyEtqQ==
   dependencies:
     "@aws-sdk/types" "3.577.0"
@@ -1924,7 +1924,7 @@
 
 "@aws-sdk/util-format-url@3.577.0":
   version "3.577.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@aws-sdk/util-format-url/-/util-format-url-3.577.0.tgz#e6686c767e9809416179dbafbc2a39cbbb548259"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/util-format-url/-/util-format-url-3.577.0.tgz#e6686c767e9809416179dbafbc2a39cbbb548259"
   integrity sha512-SyEGC2J+y/krFRuPgiF02FmMYhqbiIkOjDE6k4nYLJQRyS6XEAGxZoG+OHeOVEM+bsDgbxokXZiM3XKGu6qFIg==
   dependencies:
     "@aws-sdk/types" "3.577.0"
@@ -1951,7 +1951,7 @@
 
 "@aws-sdk/util-user-agent-browser@*", "@aws-sdk/util-user-agent-browser@3.577.0":
   version "3.577.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@aws-sdk/util-user-agent-browser/-/util-user-agent-browser-3.577.0.tgz#d4d2cdb3a2b3d1c8b35f239ee9f7b2c87bee66ea"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/util-user-agent-browser/-/util-user-agent-browser-3.577.0.tgz#d4d2cdb3a2b3d1c8b35f239ee9f7b2c87bee66ea"
   integrity sha512-zEAzHgR6HWpZOH7xFgeJLc6/CzMcx4nxeQolZxVZoB5pPaJd3CjyRhZN0xXeZB0XIRCWmb4yJBgyiugXLNMkLA==
   dependencies:
     "@aws-sdk/types" "3.577.0"
@@ -1981,7 +1981,7 @@
 
 "@aws-sdk/util-user-agent-node@*", "@aws-sdk/util-user-agent-node@3.587.0":
   version "3.587.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@aws-sdk/util-user-agent-node/-/util-user-agent-node-3.587.0.tgz#a6bf422f307a68e16a6c19ee5d731fcc32696fb9"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/util-user-agent-node/-/util-user-agent-node-3.587.0.tgz#a6bf422f307a68e16a6c19ee5d731fcc32696fb9"
   integrity sha512-Pnl+DUe/bvnbEEDHP3iVJrOtE3HbFJBPgsD6vJ+ml/+IYk1Eq49jEG+EHZdNTPz3SDG0kbp2+7u41MKYJHR/iQ==
   dependencies:
     "@aws-sdk/types" "3.577.0"
@@ -7027,7 +7027,7 @@
 
 "@smithy/abort-controller@^2.2.0":
   version "2.2.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/abort-controller/-/abort-controller-2.2.0.tgz#18983401a5e2154b5c94057730024a7d14cbcd35"
+  resolved "https://registry.yarnpkg.com/@smithy/abort-controller/-/abort-controller-2.2.0.tgz#18983401a5e2154b5c94057730024a7d14cbcd35"
   integrity sha512-wRlta7GuLWpTqtFfGo+nZyOO1vEvewdNR1R4rTxpC8XU6vG/NDyrFBhwLZsqg1NUoR1noVaXJPC/7ZK47QCySw==
   dependencies:
     "@smithy/types" "^2.12.0"
@@ -7035,7 +7035,7 @@
 
 "@smithy/abort-controller@^3.0.0":
   version "3.0.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/abort-controller/-/abort-controller-3.0.0.tgz#5815f5d4618e14bf8d031bb98a99adabbb831168"
+  resolved "https://registry.yarnpkg.com/@smithy/abort-controller/-/abort-controller-3.0.0.tgz#5815f5d4618e14bf8d031bb98a99adabbb831168"
   integrity sha512-p6GlFGBt9K4MYLu72YuJ523NVR4A8oHlC5M2JO6OmQqN8kAc/uh1JqLE+FizTokrSJGg0CSvC+BrsmGzKtsZKA==
   dependencies:
     "@smithy/types" "^3.0.0"
@@ -7063,7 +7063,7 @@
 
 "@smithy/config-resolver@^2.2.0":
   version "2.2.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/config-resolver/-/config-resolver-2.2.0.tgz#54f40478bb61709b396960a3535866dba5422757"
+  resolved "https://registry.yarnpkg.com/@smithy/config-resolver/-/config-resolver-2.2.0.tgz#54f40478bb61709b396960a3535866dba5422757"
   integrity sha512-fsiMgd8toyUba6n1WRmr+qACzXltpdDkPTAaDqc8QqPBUzO+/JKwL6bUBseHVi8tu9l+3JOK+tSf7cay+4B3LA==
   dependencies:
     "@smithy/node-config-provider" "^2.3.0"
@@ -7074,7 +7074,7 @@
 
 "@smithy/config-resolver@^3.0.1":
   version "3.0.1"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/config-resolver/-/config-resolver-3.0.1.tgz#4e0917e5a02139ef978a1ed470543ab41dd3626b"
+  resolved "https://registry.yarnpkg.com/@smithy/config-resolver/-/config-resolver-3.0.1.tgz#4e0917e5a02139ef978a1ed470543ab41dd3626b"
   integrity sha512-hbkYJc20SBDz2qqLzttjI/EqXemtmWk0ooRznLsiXp3066KQRTvuKHa7U4jCZCJq6Dozqvy0R1/vNESC9inPJg==
   dependencies:
     "@smithy/node-config-provider" "^3.1.0"
@@ -7085,7 +7085,7 @@
 
 "@smithy/core@^1.4.2":
   version "1.4.2"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/core/-/core-1.4.2.tgz#1c3ed886d403041ce5bd2d816448420c57baa19c"
+  resolved "https://registry.yarnpkg.com/@smithy/core/-/core-1.4.2.tgz#1c3ed886d403041ce5bd2d816448420c57baa19c"
   integrity sha512-2fek3I0KZHWJlRLvRTqxTEri+qV0GRHrJIoLFuBMZB4EMg4WgeBGfF0X6abnrNYpq55KJ6R4D6x4f0vLnhzinA==
   dependencies:
     "@smithy/middleware-endpoint" "^2.5.1"
@@ -7099,7 +7099,7 @@
 
 "@smithy/core@^2.1.1":
   version "2.1.1"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/core/-/core-2.1.1.tgz#c5e50785f9f61cad85fbefafa402b1a87eff095a"
+  resolved "https://registry.yarnpkg.com/@smithy/core/-/core-2.1.1.tgz#c5e50785f9f61cad85fbefafa402b1a87eff095a"
   integrity sha512-0vbIwwUcg0FMhTVJgMhbsRSAFL0rwduy/OQz7Xq1pJXJOyaGv+PGjj1iGawRlzBUPA5BkJv7S6q+YU2U8gk/WA==
   dependencies:
     "@smithy/middleware-endpoint" "^3.0.1"
@@ -7135,7 +7135,7 @@
 
 "@smithy/credential-provider-imds@^2.3.0":
   version "2.3.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/credential-provider-imds/-/credential-provider-imds-2.3.0.tgz#326ce401b82e53f3c7ee4862a066136959a06166"
+  resolved "https://registry.yarnpkg.com/@smithy/credential-provider-imds/-/credential-provider-imds-2.3.0.tgz#326ce401b82e53f3c7ee4862a066136959a06166"
   integrity sha512-BWB9mIukO1wjEOo1Ojgl6LrG4avcaC7T/ZP6ptmAaW4xluhSIPZhY+/PI5YKzlk+jsm+4sQZB45Bt1OfMeQa3w==
   dependencies:
     "@smithy/node-config-provider" "^2.3.0"
@@ -7146,7 +7146,7 @@
 
 "@smithy/credential-provider-imds@^3.1.0":
   version "3.1.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/credential-provider-imds/-/credential-provider-imds-3.1.0.tgz#7e58b78aa8de13dd04e94829241cd1cbde59b6d3"
+  resolved "https://registry.yarnpkg.com/@smithy/credential-provider-imds/-/credential-provider-imds-3.1.0.tgz#7e58b78aa8de13dd04e94829241cd1cbde59b6d3"
   integrity sha512-q4A4d38v8pYYmseu/jTS3Z5I3zXlEOe5Obi+EJreVKgSVyWUHOd7/yaVCinC60QG4MRyCs98tcxBH1IMC0bu7Q==
   dependencies:
     "@smithy/node-config-provider" "^3.1.0"
@@ -7187,7 +7187,7 @@
 
 "@smithy/eventstream-codec@^2.2.0":
   version "2.2.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/eventstream-codec/-/eventstream-codec-2.2.0.tgz#63d74fa817188995eb55e792a38060b0ede98dc4"
+  resolved "https://registry.yarnpkg.com/@smithy/eventstream-codec/-/eventstream-codec-2.2.0.tgz#63d74fa817188995eb55e792a38060b0ede98dc4"
   integrity sha512-8janZoJw85nJmQZc4L8TuePp2pk1nxLgkxIR0TUjKJ5Dkj5oelB9WtiSSGXCQvNsJl0VSTvK/2ueMXxvpa9GVw==
   dependencies:
     "@aws-crypto/crc32" "3.0.0"
@@ -7197,7 +7197,7 @@
 
 "@smithy/eventstream-codec@^3.0.0":
   version "3.0.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/eventstream-codec/-/eventstream-codec-3.0.0.tgz#81d30391220f73d41f432f65384b606d67673e46"
+  resolved "https://registry.yarnpkg.com/@smithy/eventstream-codec/-/eventstream-codec-3.0.0.tgz#81d30391220f73d41f432f65384b606d67673e46"
   integrity sha512-PUtyEA0Oik50SaEFCZ0WPVtF9tz/teze2fDptW6WRXl+RrEenH8UbEjudOz8iakiMl3lE3lCVqYf2Y+znL8QFQ==
   dependencies:
     "@aws-crypto/crc32" "3.0.0"
@@ -7216,7 +7216,7 @@
 
 "@smithy/eventstream-serde-browser@^2.2.0":
   version "2.2.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/eventstream-serde-browser/-/eventstream-serde-browser-2.2.0.tgz#69c93cc0210f04caeb0770856ef88c9a82564e11"
+  resolved "https://registry.yarnpkg.com/@smithy/eventstream-serde-browser/-/eventstream-serde-browser-2.2.0.tgz#69c93cc0210f04caeb0770856ef88c9a82564e11"
   integrity sha512-UaPf8jKbcP71BGiO0CdeLmlg+RhWnlN8ipsMSdwvqBFigl5nil3rHOI/5GE3tfiuX8LvY5Z9N0meuU7Rab7jWw==
   dependencies:
     "@smithy/eventstream-serde-universal" "^2.2.0"
@@ -7225,7 +7225,7 @@
 
 "@smithy/eventstream-serde-browser@^3.0.0":
   version "3.0.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/eventstream-serde-browser/-/eventstream-serde-browser-3.0.0.tgz#94721b01f01d8b7eb1db5814275a774ed4d38190"
+  resolved "https://registry.yarnpkg.com/@smithy/eventstream-serde-browser/-/eventstream-serde-browser-3.0.0.tgz#94721b01f01d8b7eb1db5814275a774ed4d38190"
   integrity sha512-NB7AFiPN4NxP/YCAnrvYR18z2/ZsiHiF7VtG30gshO9GbFrIb1rC8ep4NGpJSWrz6P64uhPXeo4M0UsCLnZKqw==
   dependencies:
     "@smithy/eventstream-serde-universal" "^3.0.0"
@@ -7242,7 +7242,7 @@
 
 "@smithy/eventstream-serde-config-resolver@^2.2.0":
   version "2.2.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/eventstream-serde-config-resolver/-/eventstream-serde-config-resolver-2.2.0.tgz#23c8698ce594a128bcc556153efb7fecf6d04f87"
+  resolved "https://registry.yarnpkg.com/@smithy/eventstream-serde-config-resolver/-/eventstream-serde-config-resolver-2.2.0.tgz#23c8698ce594a128bcc556153efb7fecf6d04f87"
   integrity sha512-RHhbTw/JW3+r8QQH7PrganjNCiuiEZmpi6fYUAetFfPLfZ6EkiA08uN3EFfcyKubXQxOwTeJRZSQmDDCdUshaA==
   dependencies:
     "@smithy/types" "^2.12.0"
@@ -7259,7 +7259,7 @@
 
 "@smithy/eventstream-serde-node@^2.2.0":
   version "2.2.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/eventstream-serde-node/-/eventstream-serde-node-2.2.0.tgz#b82870a838b1bd32ad6e0cf33a520191a325508e"
+  resolved "https://registry.yarnpkg.com/@smithy/eventstream-serde-node/-/eventstream-serde-node-2.2.0.tgz#b82870a838b1bd32ad6e0cf33a520191a325508e"
   integrity sha512-zpQMtJVqCUMn+pCSFcl9K/RPNtQE0NuMh8sKpCdEHafhwRsjP50Oq/4kMmvxSRy6d8Jslqd8BLvDngrUtmN9iA==
   dependencies:
     "@smithy/eventstream-serde-universal" "^2.2.0"
@@ -7277,7 +7277,7 @@
 
 "@smithy/eventstream-serde-universal@^2.2.0":
   version "2.2.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/eventstream-serde-universal/-/eventstream-serde-universal-2.2.0.tgz#a75e330040d5e2ca2ac0d8bccde3e390ac5afd38"
+  resolved "https://registry.yarnpkg.com/@smithy/eventstream-serde-universal/-/eventstream-serde-universal-2.2.0.tgz#a75e330040d5e2ca2ac0d8bccde3e390ac5afd38"
   integrity sha512-pvoe/vvJY0mOpuF84BEtyZoYfbehiFj8KKWk1ds2AT0mTLYFVs+7sBJZmioOFdBXKd48lfrx1vumdPdmGlCLxA==
   dependencies:
     "@smithy/eventstream-codec" "^2.2.0"
@@ -7286,7 +7286,7 @@
 
 "@smithy/eventstream-serde-universal@^3.0.0":
   version "3.0.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/eventstream-serde-universal/-/eventstream-serde-universal-3.0.0.tgz#cb8441a73fbde4cbaa68e4a21236f658d914a073"
+  resolved "https://registry.yarnpkg.com/@smithy/eventstream-serde-universal/-/eventstream-serde-universal-3.0.0.tgz#cb8441a73fbde4cbaa68e4a21236f658d914a073"
   integrity sha512-HNFfShmotWGeAoW4ujP8meV9BZavcpmerDbPIjkJbxKbN8RsUcpRQ/2OyIxWNxXNH2GWCAxuSB7ynmIGJlQ3Dw==
   dependencies:
     "@smithy/eventstream-codec" "^3.0.0"
@@ -7328,7 +7328,7 @@
 
 "@smithy/fetch-http-handler@^2.5.0":
   version "2.5.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/fetch-http-handler/-/fetch-http-handler-2.5.0.tgz#0b8e1562807fdf91fe7dd5cde620d7a03ddc10ac"
+  resolved "https://registry.yarnpkg.com/@smithy/fetch-http-handler/-/fetch-http-handler-2.5.0.tgz#0b8e1562807fdf91fe7dd5cde620d7a03ddc10ac"
   integrity sha512-BOWEBeppWhLn/no/JxUL/ghTfANTjT7kg3Ww2rPqTUY9R4yHPXxJ9JhMe3Z03LN3aPwiwlpDIUcVw1xDyHqEhw==
   dependencies:
     "@smithy/protocol-http" "^3.3.0"
@@ -7339,7 +7339,7 @@
 
 "@smithy/fetch-http-handler@^3.0.1":
   version "3.0.1"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/fetch-http-handler/-/fetch-http-handler-3.0.1.tgz#dacfdf6e70d639fac4a0f57c42ce13f0ed14ff22"
+  resolved "https://registry.yarnpkg.com/@smithy/fetch-http-handler/-/fetch-http-handler-3.0.1.tgz#dacfdf6e70d639fac4a0f57c42ce13f0ed14ff22"
   integrity sha512-uaH74i5BDj+rBwoQaXioKpI0SHBJFtOVwzrCpxZxphOW0ki5jhj7dXvDMYM2IJem8TpdFvS2iC08sjOblfFGFg==
   dependencies:
     "@smithy/protocol-http" "^4.0.0"
@@ -7370,7 +7370,7 @@
 
 "@smithy/hash-node@^2.2.0":
   version "2.2.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/hash-node/-/hash-node-2.2.0.tgz#df29e1e64811be905cb3577703b0e2d0b07fc5cc"
+  resolved "https://registry.yarnpkg.com/@smithy/hash-node/-/hash-node-2.2.0.tgz#df29e1e64811be905cb3577703b0e2d0b07fc5cc"
   integrity sha512-zLWaC/5aWpMrHKpoDF6nqpNtBhlAYKF/7+9yMN7GpdR8CzohnWfGtMznPybnwSS8saaXBMxIGwJqR4HmRp6b3g==
   dependencies:
     "@smithy/types" "^2.12.0"
@@ -7380,7 +7380,7 @@
 
 "@smithy/hash-node@^3.0.0":
   version "3.0.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/hash-node/-/hash-node-3.0.0.tgz#f44b5fff193e241c1cdcc957b296b60f186f0e59"
+  resolved "https://registry.yarnpkg.com/@smithy/hash-node/-/hash-node-3.0.0.tgz#f44b5fff193e241c1cdcc957b296b60f186f0e59"
   integrity sha512-84qXstNemP3XS5jcof0el6+bDfjzuvhJPQTEfro3lgtbCtKgzPm3MgiS6ehXVPjeQ5+JS0HqmTz8f/RYfzHVxw==
   dependencies:
     "@smithy/types" "^3.0.0"
@@ -7406,7 +7406,7 @@
 
 "@smithy/invalid-dependency@^2.2.0":
   version "2.2.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/invalid-dependency/-/invalid-dependency-2.2.0.tgz#ee3d8980022cb5edb514ac187d159b3e773640f0"
+  resolved "https://registry.yarnpkg.com/@smithy/invalid-dependency/-/invalid-dependency-2.2.0.tgz#ee3d8980022cb5edb514ac187d159b3e773640f0"
   integrity sha512-nEDASdbKFKPXN2O6lOlTgrEEOO9NHIeO+HVvZnkqc8h5U9g3BIhWsvzFo+UcUbliMHvKNPD/zVxDrkP1Sbgp8Q==
   dependencies:
     "@smithy/types" "^2.12.0"
@@ -7414,7 +7414,7 @@
 
 "@smithy/invalid-dependency@^3.0.0":
   version "3.0.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/invalid-dependency/-/invalid-dependency-3.0.0.tgz#21cb6b5203ee15321bfcc751f21f7a19536d4ae8"
+  resolved "https://registry.yarnpkg.com/@smithy/invalid-dependency/-/invalid-dependency-3.0.0.tgz#21cb6b5203ee15321bfcc751f21f7a19536d4ae8"
   integrity sha512-F6wBBaEFgJzj0s4KUlliIGPmqXemwP6EavgvDqYwCH40O5Xr2iMHvS8todmGVZtuJCorBkXsYLyTu4PuizVq5g==
   dependencies:
     "@smithy/types" "^3.0.0"
@@ -7443,14 +7443,14 @@
 
 "@smithy/is-array-buffer@^2.2.0":
   version "2.2.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/is-array-buffer/-/is-array-buffer-2.2.0.tgz#f84f0d9f9a36601a9ca9381688bd1b726fd39111"
+  resolved "https://registry.yarnpkg.com/@smithy/is-array-buffer/-/is-array-buffer-2.2.0.tgz#f84f0d9f9a36601a9ca9381688bd1b726fd39111"
   integrity sha512-GGP3O9QFD24uGeAXYUjwSTXARoqpZykHadOmA8G5vfJPK0/DC67qa//0qvqrJzL1xc8WQWX7/yc7fwudjPHPhA==
   dependencies:
     tslib "^2.6.2"
 
 "@smithy/is-array-buffer@^3.0.0":
   version "3.0.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/is-array-buffer/-/is-array-buffer-3.0.0.tgz#9a95c2d46b8768946a9eec7f935feaddcffa5e7a"
+  resolved "https://registry.yarnpkg.com/@smithy/is-array-buffer/-/is-array-buffer-3.0.0.tgz#9a95c2d46b8768946a9eec7f935feaddcffa5e7a"
   integrity sha512-+Fsu6Q6C4RSJiy81Y8eApjEB5gVtM+oFKTffg+jSuwtvomJJrhUJBu2zS8wjXSgH/g1MKEWrzyChTBe6clb5FQ==
   dependencies:
     tslib "^2.6.2"
@@ -7484,7 +7484,7 @@
 
 "@smithy/middleware-content-length@^2.2.0":
   version "2.2.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/middleware-content-length/-/middleware-content-length-2.2.0.tgz#a82e97bd83d8deab69e07fea4512563bedb9461a"
+  resolved "https://registry.yarnpkg.com/@smithy/middleware-content-length/-/middleware-content-length-2.2.0.tgz#a82e97bd83d8deab69e07fea4512563bedb9461a"
   integrity sha512-5bl2LG1Ah/7E5cMSC+q+h3IpVHMeOkG0yLRyQT1p2aMJkSrZG7RlXHPuAgb7EyaFeidKEnnd/fNaLLaKlHGzDQ==
   dependencies:
     "@smithy/protocol-http" "^3.3.0"
@@ -7493,7 +7493,7 @@
 
 "@smithy/middleware-content-length@^3.0.0":
   version "3.0.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/middleware-content-length/-/middleware-content-length-3.0.0.tgz#084b3d22248967885d496eb0b105d9090e8ababd"
+  resolved "https://registry.yarnpkg.com/@smithy/middleware-content-length/-/middleware-content-length-3.0.0.tgz#084b3d22248967885d496eb0b105d9090e8ababd"
   integrity sha512-3C4s4d/iGobgCtk2tnWW6+zSTOBg1PRAm2vtWZLdriwTroFbbWNSr3lcyzHdrQHnEXYCC5K52EbpfodaIUY8sg==
   dependencies:
     "@smithy/protocol-http" "^4.0.0"
@@ -7524,7 +7524,7 @@
 
 "@smithy/middleware-endpoint@^2.5.1":
   version "2.5.1"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/middleware-endpoint/-/middleware-endpoint-2.5.1.tgz#1333c58304aff4d843e8ef4b85c8cb88975dd5ad"
+  resolved "https://registry.yarnpkg.com/@smithy/middleware-endpoint/-/middleware-endpoint-2.5.1.tgz#1333c58304aff4d843e8ef4b85c8cb88975dd5ad"
   integrity sha512-1/8kFp6Fl4OsSIVTWHnNjLnTL8IqpIb/D3sTSczrKFnrE9VMNWxnrRKNvpUHOJ6zpGD5f62TPm7+17ilTJpiCQ==
   dependencies:
     "@smithy/middleware-serde" "^2.3.0"
@@ -7537,7 +7537,7 @@
 
 "@smithy/middleware-endpoint@^3.0.1":
   version "3.0.1"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/middleware-endpoint/-/middleware-endpoint-3.0.1.tgz#49e8defb8e892e70417bd05f1faaf207070f32c7"
+  resolved "https://registry.yarnpkg.com/@smithy/middleware-endpoint/-/middleware-endpoint-3.0.1.tgz#49e8defb8e892e70417bd05f1faaf207070f32c7"
   integrity sha512-lQ/UOdGD4KM5kLZiAl0q8Qy3dPbynvAXKAdXnYlrA1OpaUwr+neSsVokDZpY6ZVb5Yx8jnus29uv6XWpM9P4SQ==
   dependencies:
     "@smithy/middleware-serde" "^3.0.0"
@@ -7576,7 +7576,7 @@
 
 "@smithy/middleware-retry@^2.3.1":
   version "2.3.1"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/middleware-retry/-/middleware-retry-2.3.1.tgz#d6fdce94f2f826642c01b4448e97a509c4556ede"
+  resolved "https://registry.yarnpkg.com/@smithy/middleware-retry/-/middleware-retry-2.3.1.tgz#d6fdce94f2f826642c01b4448e97a509c4556ede"
   integrity sha512-P2bGufFpFdYcWvqpyqqmalRtwFUNUA8vHjJR5iGqbfR6mp65qKOLcUd6lTr4S9Gn/enynSrSf3p3FVgVAf6bXA==
   dependencies:
     "@smithy/node-config-provider" "^2.3.0"
@@ -7591,7 +7591,7 @@
 
 "@smithy/middleware-retry@^3.0.3":
   version "3.0.3"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/middleware-retry/-/middleware-retry-3.0.3.tgz#8e9af1c9db4bc8904d73126225211b42b562f961"
+  resolved "https://registry.yarnpkg.com/@smithy/middleware-retry/-/middleware-retry-3.0.3.tgz#8e9af1c9db4bc8904d73126225211b42b562f961"
   integrity sha512-Wve1qzJb83VEU/6q+/I0cQdAkDnuzELC6IvIBwDzUEiGpKqXgX1v10FUuZGbRS6Ov/P+HHthcAoHOJZQvZNAkA==
   dependencies:
     "@smithy/node-config-provider" "^3.1.0"
@@ -7622,7 +7622,7 @@
 
 "@smithy/middleware-serde@^2.3.0":
   version "2.3.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/middleware-serde/-/middleware-serde-2.3.0.tgz#a7615ba646a88b6f695f2d55de13d8158181dd13"
+  resolved "https://registry.yarnpkg.com/@smithy/middleware-serde/-/middleware-serde-2.3.0.tgz#a7615ba646a88b6f695f2d55de13d8158181dd13"
   integrity sha512-sIADe7ojwqTyvEQBe1nc/GXB9wdHhi9UwyX0lTyttmUWDJLP655ZYE1WngnNyXREme8I27KCaUhyhZWRXL0q7Q==
   dependencies:
     "@smithy/types" "^2.12.0"
@@ -7630,7 +7630,7 @@
 
 "@smithy/middleware-serde@^3.0.0":
   version "3.0.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/middleware-serde/-/middleware-serde-3.0.0.tgz#786da6a6bc0e5e51d669dac834c19965245dd302"
+  resolved "https://registry.yarnpkg.com/@smithy/middleware-serde/-/middleware-serde-3.0.0.tgz#786da6a6bc0e5e51d669dac834c19965245dd302"
   integrity sha512-I1vKG1foI+oPgG9r7IMY1S+xBnmAn1ISqployvqkwHoSb8VPsngHDTOgYGYBonuOKndaWRUGJZrKYYLB+Ane6w==
   dependencies:
     "@smithy/types" "^3.0.0"
@@ -7652,7 +7652,7 @@
 
 "@smithy/middleware-stack@^2.2.0":
   version "2.2.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/middleware-stack/-/middleware-stack-2.2.0.tgz#3fb49eae6313f16f6f30fdaf28e11a7321f34d9f"
+  resolved "https://registry.yarnpkg.com/@smithy/middleware-stack/-/middleware-stack-2.2.0.tgz#3fb49eae6313f16f6f30fdaf28e11a7321f34d9f"
   integrity sha512-Qntc3jrtwwrsAC+X8wms8zhrTr0sFXnyEGhZd9sLtsJ/6gGQKFzNB+wWbOcpJd7BR8ThNCoKt76BuQahfMvpeA==
   dependencies:
     "@smithy/types" "^2.12.0"
@@ -7660,7 +7660,7 @@
 
 "@smithy/middleware-stack@^3.0.0":
   version "3.0.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/middleware-stack/-/middleware-stack-3.0.0.tgz#00f112bae7af5fc3bd37d4fab95ebce0f17a7774"
+  resolved "https://registry.yarnpkg.com/@smithy/middleware-stack/-/middleware-stack-3.0.0.tgz#00f112bae7af5fc3bd37d4fab95ebce0f17a7774"
   integrity sha512-+H0jmyfAyHRFXm6wunskuNAqtj7yfmwFB6Fp37enytp2q047/Od9xetEaUbluyImOlGnGpaVGaVfjwawSr+i6Q==
   dependencies:
     "@smithy/types" "^3.0.0"
@@ -7688,7 +7688,7 @@
 
 "@smithy/node-config-provider@^2.3.0":
   version "2.3.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/node-config-provider/-/node-config-provider-2.3.0.tgz#9fac0c94a14c5b5b8b8fa37f20c310a844ab9922"
+  resolved "https://registry.yarnpkg.com/@smithy/node-config-provider/-/node-config-provider-2.3.0.tgz#9fac0c94a14c5b5b8b8fa37f20c310a844ab9922"
   integrity sha512-0elK5/03a1JPWMDPaS726Iw6LpQg80gFut1tNpPfxFuChEEklo2yL823V94SpTZTxmKlXFtFgsP55uh3dErnIg==
   dependencies:
     "@smithy/property-provider" "^2.2.0"
@@ -7698,7 +7698,7 @@
 
 "@smithy/node-config-provider@^3.1.0":
   version "3.1.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/node-config-provider/-/node-config-provider-3.1.0.tgz#e962987c4e2e2b8b50397de5f4745eb21ee7bdbb"
+  resolved "https://registry.yarnpkg.com/@smithy/node-config-provider/-/node-config-provider-3.1.0.tgz#e962987c4e2e2b8b50397de5f4745eb21ee7bdbb"
   integrity sha512-ngfB8QItUfTFTfHMvKuc2g1W60V1urIgZHqD1JNFZC2tTWXahqf2XvKXqcBS7yZqR7GqkQQZy11y/lNOUWzq7Q==
   dependencies:
     "@smithy/property-provider" "^3.1.0"
@@ -7730,7 +7730,7 @@
 
 "@smithy/node-http-handler@^2.5.0":
   version "2.5.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/node-http-handler/-/node-http-handler-2.5.0.tgz#7b5e0565dd23d340380489bd5fe4316d2bed32de"
+  resolved "https://registry.yarnpkg.com/@smithy/node-http-handler/-/node-http-handler-2.5.0.tgz#7b5e0565dd23d340380489bd5fe4316d2bed32de"
   integrity sha512-mVGyPBzkkGQsPoxQUbxlEfRjrj6FPyA3u3u2VXGr9hT8wilsoQdZdvKpMBFMB8Crfhv5dNkKHIW0Yyuc7eABqA==
   dependencies:
     "@smithy/abort-controller" "^2.2.0"
@@ -7741,7 +7741,7 @@
 
 "@smithy/node-http-handler@^3.0.0":
   version "3.0.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/node-http-handler/-/node-http-handler-3.0.0.tgz#e771ea95d03e259f04b7b37e8aece8a4fffc8cdc"
+  resolved "https://registry.yarnpkg.com/@smithy/node-http-handler/-/node-http-handler-3.0.0.tgz#e771ea95d03e259f04b7b37e8aece8a4fffc8cdc"
   integrity sha512-3trD4r7NOMygwLbUJo4eodyQuypAWr7uvPnebNJ9a70dQhVn+US8j/lCnvoJS6BXfZeF7PkkkI0DemVJw+n+eQ==
   dependencies:
     "@smithy/abort-controller" "^3.0.0"
@@ -7768,7 +7768,7 @@
 
 "@smithy/property-provider@^2.2.0":
   version "2.2.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/property-provider/-/property-provider-2.2.0.tgz#37e3525a3fa3e11749f86a4f89f0fd7765a6edb0"
+  resolved "https://registry.yarnpkg.com/@smithy/property-provider/-/property-provider-2.2.0.tgz#37e3525a3fa3e11749f86a4f89f0fd7765a6edb0"
   integrity sha512-+xiil2lFhtTRzXkx8F053AV46QnIw6e7MV8od5Mi68E1ICOjCeCHw2XfLnDEUHnT9WGUIkwcqavXjfwuJbGlpg==
   dependencies:
     "@smithy/types" "^2.12.0"
@@ -7776,7 +7776,7 @@
 
 "@smithy/property-provider@^3.1.0":
   version "3.1.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/property-provider/-/property-provider-3.1.0.tgz#b78d4964a1016b90331cc0c770b472160361fde7"
+  resolved "https://registry.yarnpkg.com/@smithy/property-provider/-/property-provider-3.1.0.tgz#b78d4964a1016b90331cc0c770b472160361fde7"
   integrity sha512-Tj3+oVhqdZgemjCiWjFlADfhvLF4C/uKDuKo7/tlEsRQ9+3emCreR2xndj970QSRSsiCEU8hZW3/8JQu+n5w4Q==
   dependencies:
     "@smithy/types" "^3.0.0"
@@ -7808,7 +7808,7 @@
 
 "@smithy/protocol-http@^3.3.0":
   version "3.3.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/protocol-http/-/protocol-http-3.3.0.tgz#a37df7b4bb4960cdda560ce49acfd64c455e4090"
+  resolved "https://registry.yarnpkg.com/@smithy/protocol-http/-/protocol-http-3.3.0.tgz#a37df7b4bb4960cdda560ce49acfd64c455e4090"
   integrity sha512-Xy5XK1AFWW2nlY/biWZXu6/krgbaf2dg0q492D8M5qthsnU2H+UgFeZLbM76FnH7s6RO/xhQRkj+T6KBO3JzgQ==
   dependencies:
     "@smithy/types" "^2.12.0"
@@ -7816,7 +7816,7 @@
 
 "@smithy/protocol-http@^4.0.0":
   version "4.0.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/protocol-http/-/protocol-http-4.0.0.tgz#04df3b5674b540323f678e7c4113e8abd8b26432"
+  resolved "https://registry.yarnpkg.com/@smithy/protocol-http/-/protocol-http-4.0.0.tgz#04df3b5674b540323f678e7c4113e8abd8b26432"
   integrity sha512-qOQZOEI2XLWRWBO9AgIYuHuqjZ2csyr8/IlgFDHDNuIgLAMRx2Bl8ck5U5D6Vh9DPdoaVpuzwWMa0xcdL4O/AQ==
   dependencies:
     "@smithy/types" "^3.0.0"
@@ -7851,7 +7851,7 @@
 
 "@smithy/querystring-builder@^2.2.0":
   version "2.2.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/querystring-builder/-/querystring-builder-2.2.0.tgz#22937e19fcd0aaa1a3e614ef8cb6f8e86756a4ef"
+  resolved "https://registry.yarnpkg.com/@smithy/querystring-builder/-/querystring-builder-2.2.0.tgz#22937e19fcd0aaa1a3e614ef8cb6f8e86756a4ef"
   integrity sha512-L1kSeviUWL+emq3CUVSgdogoM/D9QMFaqxL/dd0X7PCNWmPXqt+ExtrBjqT0V7HLN03Vs9SuiLrG3zy3JGnE5A==
   dependencies:
     "@smithy/types" "^2.12.0"
@@ -7860,7 +7860,7 @@
 
 "@smithy/querystring-builder@^3.0.0":
   version "3.0.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/querystring-builder/-/querystring-builder-3.0.0.tgz#48a9aa7b700e8409368c21bc0adf7564e001daea"
+  resolved "https://registry.yarnpkg.com/@smithy/querystring-builder/-/querystring-builder-3.0.0.tgz#48a9aa7b700e8409368c21bc0adf7564e001daea"
   integrity sha512-bW8Fi0NzyfkE0TmQphDXr1AmBDbK01cA4C1Z7ggwMAU5RDz5AAv/KmoRwzQAS0kxXNf/D2ALTEgwK0U2c4LtRg==
   dependencies:
     "@smithy/types" "^3.0.0"
@@ -7885,7 +7885,7 @@
 
 "@smithy/querystring-parser@^2.2.0":
   version "2.2.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/querystring-parser/-/querystring-parser-2.2.0.tgz#24a5633f4b3806ff2888d4c2f4169e105fdffd79"
+  resolved "https://registry.yarnpkg.com/@smithy/querystring-parser/-/querystring-parser-2.2.0.tgz#24a5633f4b3806ff2888d4c2f4169e105fdffd79"
   integrity sha512-BvHCDrKfbG5Yhbpj4vsbuPV2GgcpHiAkLeIlcA1LtfpMz3jrqizP1+OguSNSj1MwBHEiN+jwNisXLGdajGDQJA==
   dependencies:
     "@smithy/types" "^2.12.0"
@@ -7893,7 +7893,7 @@
 
 "@smithy/querystring-parser@^3.0.0":
   version "3.0.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/querystring-parser/-/querystring-parser-3.0.0.tgz#fa1ed0cee408cd4d622070fa874bc50ac1a379b7"
+  resolved "https://registry.yarnpkg.com/@smithy/querystring-parser/-/querystring-parser-3.0.0.tgz#fa1ed0cee408cd4d622070fa874bc50ac1a379b7"
   integrity sha512-UzHwthk0UEccV4dHzPySnBy34AWw3V9lIqUTxmozQ+wPDAO9csCWMfOLe7V9A2agNYy7xE+Pb0S6K/J23JSzfQ==
   dependencies:
     "@smithy/types" "^3.0.0"
@@ -7911,14 +7911,14 @@
 
 "@smithy/service-error-classification@^2.1.5":
   version "2.1.5"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/service-error-classification/-/service-error-classification-2.1.5.tgz#0568a977cc0db36299d8703a5d8609c1f600c005"
+  resolved "https://registry.yarnpkg.com/@smithy/service-error-classification/-/service-error-classification-2.1.5.tgz#0568a977cc0db36299d8703a5d8609c1f600c005"
   integrity sha512-uBDTIBBEdAQryvHdc5W8sS5YX7RQzF683XrHePVdFmAgKiMofU15FLSM0/HU03hKTnazdNRFa0YHS7+ArwoUSQ==
   dependencies:
     "@smithy/types" "^2.12.0"
 
 "@smithy/service-error-classification@^3.0.0":
   version "3.0.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/service-error-classification/-/service-error-classification-3.0.0.tgz#06a45cb91b15b8b0d5f3b1df2b3743d2ca42f5c4"
+  resolved "https://registry.yarnpkg.com/@smithy/service-error-classification/-/service-error-classification-3.0.0.tgz#06a45cb91b15b8b0d5f3b1df2b3743d2ca42f5c4"
   integrity sha512-3BsBtOUt2Gsnc3X23ew+r2M71WwtpHfEDGhHYHSDg6q1t8FrWh15jT25DLajFV1H+PpxAJ6gqe9yYeRUsmSdFA==
   dependencies:
     "@smithy/types" "^3.0.0"
@@ -7941,7 +7941,7 @@
 
 "@smithy/shared-ini-file-loader@^2.4.0":
   version "2.4.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/shared-ini-file-loader/-/shared-ini-file-loader-2.4.0.tgz#1636d6eb9bff41e36ac9c60364a37fd2ffcb9947"
+  resolved "https://registry.yarnpkg.com/@smithy/shared-ini-file-loader/-/shared-ini-file-loader-2.4.0.tgz#1636d6eb9bff41e36ac9c60364a37fd2ffcb9947"
   integrity sha512-WyujUJL8e1B6Z4PBfAqC/aGY1+C7T0w20Gih3yrvJSk97gpiVfB+y7c46T4Nunk+ZngLq0rOIdeVeIklk0R3OA==
   dependencies:
     "@smithy/types" "^2.12.0"
@@ -7949,7 +7949,7 @@
 
 "@smithy/shared-ini-file-loader@^3.1.0":
   version "3.1.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/shared-ini-file-loader/-/shared-ini-file-loader-3.1.0.tgz#a4cb9304c3be1c232ec661132ca88d177ac7a5b1"
+  resolved "https://registry.yarnpkg.com/@smithy/shared-ini-file-loader/-/shared-ini-file-loader-3.1.0.tgz#a4cb9304c3be1c232ec661132ca88d177ac7a5b1"
   integrity sha512-dAM7wSX0NR3qTNyGVN/nwwpEDzfV9T/3AN2eABExWmda5VqZKSsjlINqomO5hjQWGv+IIkoXfs3u2vGSNz8+Rg==
   dependencies:
     "@smithy/types" "^3.0.0"
@@ -7999,7 +7999,7 @@
 
 "@smithy/signature-v4@^3.0.0":
   version "3.0.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/signature-v4/-/signature-v4-3.0.0.tgz#f536d0abebfeeca8e9aab846a4042658ca07d3b7"
+  resolved "https://registry.yarnpkg.com/@smithy/signature-v4/-/signature-v4-3.0.0.tgz#f536d0abebfeeca8e9aab846a4042658ca07d3b7"
   integrity sha512-kXFOkNX+BQHe2qnLxpMEaCRGap9J6tUGLzc3A9jdn+nD4JdMwCKTJ+zFwQ20GkY+mAXGatyTw3HcoUlR39HwmA==
   dependencies:
     "@smithy/is-array-buffer" "^3.0.0"
@@ -8032,7 +8032,7 @@
 
 "@smithy/smithy-client@^2.5.1":
   version "2.5.1"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/smithy-client/-/smithy-client-2.5.1.tgz#0fd2efff09dc65500d260e590f7541f8a387eae3"
+  resolved "https://registry.yarnpkg.com/@smithy/smithy-client/-/smithy-client-2.5.1.tgz#0fd2efff09dc65500d260e590f7541f8a387eae3"
   integrity sha512-jrbSQrYCho0yDaaf92qWgd+7nAeap5LtHTI51KXqmpIFCceKU3K9+vIVTUH72bOJngBMqa4kyu1VJhRcSrk/CQ==
   dependencies:
     "@smithy/middleware-endpoint" "^2.5.1"
@@ -8044,7 +8044,7 @@
 
 "@smithy/smithy-client@^3.1.1":
   version "3.1.1"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/smithy-client/-/smithy-client-3.1.1.tgz#9aa770edd9b6277dc4124c924c617a436cdb670e"
+  resolved "https://registry.yarnpkg.com/@smithy/smithy-client/-/smithy-client-3.1.1.tgz#9aa770edd9b6277dc4124c924c617a436cdb670e"
   integrity sha512-tj4Ku7MpzZR8cmVuPcSbrLFVxmptWktmJMwST/uIEq4sarabEdF8CbmQdYB7uJ/X51Qq2EYwnRsoS7hdR4B7rA==
   dependencies:
     "@smithy/middleware-endpoint" "^3.0.1"
@@ -8077,7 +8077,7 @@
 
 "@smithy/types@^2.12.0":
   version "2.12.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/types/-/types-2.12.0.tgz#c44845f8ba07e5e8c88eda5aed7e6a0c462da041"
+  resolved "https://registry.yarnpkg.com/@smithy/types/-/types-2.12.0.tgz#c44845f8ba07e5e8c88eda5aed7e6a0c462da041"
   integrity sha512-QwYgloJ0sVNBeBuBs65cIkTbfzV/Q6ZNPCJ99EICFEdJYG50nGIY/uYXp+TbsdJReIuPr0a0kXmCvren3MbRRw==
   dependencies:
     tslib "^2.6.2"
@@ -8112,7 +8112,7 @@
 
 "@smithy/types@^3.0.0":
   version "3.0.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/types/-/types-3.0.0.tgz#00231052945159c64ffd8b91e8909d8d3006cb7e"
+  resolved "https://registry.yarnpkg.com/@smithy/types/-/types-3.0.0.tgz#00231052945159c64ffd8b91e8909d8d3006cb7e"
   integrity sha512-VvWuQk2RKFuOr98gFhjca7fkBS+xLLURT8bUjk5XQoV0ZLm7WPwWPPY3/AwzTLuUBDeoKDCthfe1AsTUWaSEhw==
   dependencies:
     tslib "^2.6.2"
@@ -8137,7 +8137,7 @@
 
 "@smithy/url-parser@^2.2.0":
   version "2.2.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/url-parser/-/url-parser-2.2.0.tgz#6fcda6116391a4f61fef5580eb540e128359b3c0"
+  resolved "https://registry.yarnpkg.com/@smithy/url-parser/-/url-parser-2.2.0.tgz#6fcda6116391a4f61fef5580eb540e128359b3c0"
   integrity sha512-hoA4zm61q1mNTpksiSWp2nEl1dt3j726HdRhiNgVJQMj7mLp7dprtF57mOB6JvEk/x9d2bsuL5hlqZbBuHQylQ==
   dependencies:
     "@smithy/querystring-parser" "^2.2.0"
@@ -8146,7 +8146,7 @@
 
 "@smithy/url-parser@^3.0.0":
   version "3.0.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/url-parser/-/url-parser-3.0.0.tgz#5fdc77cd22051c1aac6531be0315bfcba0fa705d"
+  resolved "https://registry.yarnpkg.com/@smithy/url-parser/-/url-parser-3.0.0.tgz#5fdc77cd22051c1aac6531be0315bfcba0fa705d"
   integrity sha512-2XLazFgUu+YOGHtWihB3FSLAfCUajVfNBXGGYjOaVKjLAuAxx3pSBY3hBgLzIgB17haf59gOG3imKqTy8mcrjw==
   dependencies:
     "@smithy/querystring-parser" "^3.0.0"
@@ -8171,7 +8171,7 @@
 
 "@smithy/util-base64@^2.3.0":
   version "2.3.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/util-base64/-/util-base64-2.3.0.tgz#312dbb4d73fb94249c7261aee52de4195c2dd8e2"
+  resolved "https://registry.yarnpkg.com/@smithy/util-base64/-/util-base64-2.3.0.tgz#312dbb4d73fb94249c7261aee52de4195c2dd8e2"
   integrity sha512-s3+eVwNeJuXUwuMbusncZNViuhv2LjVJ1nMwTqSA0XAC7gjKhqqxRdJPhR8+YrkoZ9IiIbFk/yK6ACe/xlF+hw==
   dependencies:
     "@smithy/util-buffer-from" "^2.2.0"
@@ -8180,7 +8180,7 @@
 
 "@smithy/util-base64@^3.0.0":
   version "3.0.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/util-base64/-/util-base64-3.0.0.tgz#f7a9a82adf34e27a72d0719395713edf0e493017"
+  resolved "https://registry.yarnpkg.com/@smithy/util-base64/-/util-base64-3.0.0.tgz#f7a9a82adf34e27a72d0719395713edf0e493017"
   integrity sha512-Kxvoh5Qtt0CDsfajiZOCpJxgtPHXOKwmM+Zy4waD43UoEMA+qPxxa98aE/7ZhdnBFZFXMOiBR5xbcaMhLtznQQ==
   dependencies:
     "@smithy/util-buffer-from" "^3.0.0"
@@ -8203,14 +8203,14 @@
 
 "@smithy/util-body-length-browser@^2.2.0":
   version "2.2.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/util-body-length-browser/-/util-body-length-browser-2.2.0.tgz#25620645c6b62b42594ef4a93b66e6ab70e27d2c"
+  resolved "https://registry.yarnpkg.com/@smithy/util-body-length-browser/-/util-body-length-browser-2.2.0.tgz#25620645c6b62b42594ef4a93b66e6ab70e27d2c"
   integrity sha512-dtpw9uQP7W+n3vOtx0CfBD5EWd7EPdIdsQnWTDoFf77e3VUf05uA7R7TGipIo8e4WL2kuPdnsr3hMQn9ziYj5w==
   dependencies:
     tslib "^2.6.2"
 
 "@smithy/util-body-length-browser@^3.0.0":
   version "3.0.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/util-body-length-browser/-/util-body-length-browser-3.0.0.tgz#86ec2f6256310b4845a2f064e2f571c1ca164ded"
+  resolved "https://registry.yarnpkg.com/@smithy/util-body-length-browser/-/util-body-length-browser-3.0.0.tgz#86ec2f6256310b4845a2f064e2f571c1ca164ded"
   integrity sha512-cbjJs2A1mLYmqmyVl80uoLTJhAcfzMOyPgjwAYusWKMdLeNtzmMz9YxNl3/jRLoxSS3wkqkf0jwNdtXWtyEBaQ==
   dependencies:
     tslib "^2.6.2"
@@ -8231,14 +8231,14 @@
 
 "@smithy/util-body-length-node@^2.3.0":
   version "2.3.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/util-body-length-node/-/util-body-length-node-2.3.0.tgz#d065a9b5e305ff899536777bbfe075cdc980136f"
+  resolved "https://registry.yarnpkg.com/@smithy/util-body-length-node/-/util-body-length-node-2.3.0.tgz#d065a9b5e305ff899536777bbfe075cdc980136f"
   integrity sha512-ITWT1Wqjubf2CJthb0BuT9+bpzBfXeMokH/AAa5EJQgbv9aPMVfnM76iFIZVFf50hYXGbtiV71BHAthNWd6+dw==
   dependencies:
     tslib "^2.6.2"
 
 "@smithy/util-body-length-node@^3.0.0":
   version "3.0.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/util-body-length-node/-/util-body-length-node-3.0.0.tgz#99a291bae40d8932166907fe981d6a1f54298a6d"
+  resolved "https://registry.yarnpkg.com/@smithy/util-body-length-node/-/util-body-length-node-3.0.0.tgz#99a291bae40d8932166907fe981d6a1f54298a6d"
   integrity sha512-Tj7pZ4bUloNUP6PzwhN7K386tmSmEET9QtQg0TgdNOnxhZvCssHji+oZTUIuzxECRfG8rdm2PMw2WCFs6eIYkA==
   dependencies:
     tslib "^2.6.2"
@@ -8269,7 +8269,7 @@
 
 "@smithy/util-buffer-from@^2.2.0":
   version "2.2.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/util-buffer-from/-/util-buffer-from-2.2.0.tgz#6fc88585165ec73f8681d426d96de5d402021e4b"
+  resolved "https://registry.yarnpkg.com/@smithy/util-buffer-from/-/util-buffer-from-2.2.0.tgz#6fc88585165ec73f8681d426d96de5d402021e4b"
   integrity sha512-IJdWBbTcMQ6DA0gdNhh/BwrLkDR+ADW5Kr1aZmd4k3DIF6ezMV4R2NIAmT08wQJ3yUK82thHWmC/TnK/wpMMIA==
   dependencies:
     "@smithy/is-array-buffer" "^2.2.0"
@@ -8277,7 +8277,7 @@
 
 "@smithy/util-buffer-from@^3.0.0":
   version "3.0.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/util-buffer-from/-/util-buffer-from-3.0.0.tgz#559fc1c86138a89b2edaefc1e6677780c24594e3"
+  resolved "https://registry.yarnpkg.com/@smithy/util-buffer-from/-/util-buffer-from-3.0.0.tgz#559fc1c86138a89b2edaefc1e6677780c24594e3"
   integrity sha512-aEOHCgq5RWFbP+UDPvPot26EJHjOC+bRgse5A8V3FSShqd5E5UN4qc7zkwsvJPPAVsf73QwYcHN1/gt/rtLwQA==
   dependencies:
     "@smithy/is-array-buffer" "^3.0.0"
@@ -8299,14 +8299,14 @@
 
 "@smithy/util-config-provider@^2.3.0":
   version "2.3.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/util-config-provider/-/util-config-provider-2.3.0.tgz#bc79f99562d12a1f8423100ca662a6fb07cde943"
+  resolved "https://registry.yarnpkg.com/@smithy/util-config-provider/-/util-config-provider-2.3.0.tgz#bc79f99562d12a1f8423100ca662a6fb07cde943"
   integrity sha512-HZkzrRcuFN1k70RLqlNK4FnPXKOpkik1+4JaBoHNJn+RnJGYqaa3c5/+XtLOXhlKzlRgNvyaLieHTW2VwGN0VQ==
   dependencies:
     tslib "^2.6.2"
 
 "@smithy/util-config-provider@^3.0.0":
   version "3.0.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/util-config-provider/-/util-config-provider-3.0.0.tgz#62c6b73b22a430e84888a8f8da4b6029dd5b8efe"
+  resolved "https://registry.yarnpkg.com/@smithy/util-config-provider/-/util-config-provider-3.0.0.tgz#62c6b73b22a430e84888a8f8da4b6029dd5b8efe"
   integrity sha512-pbjk4s0fwq3Di/ANL+rCvJMKM5bzAQdE5S/6RL5NXgMExFAi6UgQMPOm5yPaIWPpr+EOXKXRonJ3FoxKf4mCJQ==
   dependencies:
     tslib "^2.6.2"
@@ -8333,7 +8333,7 @@
 
 "@smithy/util-defaults-mode-browser@^2.2.1":
   version "2.2.1"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/util-defaults-mode-browser/-/util-defaults-mode-browser-2.2.1.tgz#9db31416daf575d2963c502e0528cfe8055f0c4e"
+  resolved "https://registry.yarnpkg.com/@smithy/util-defaults-mode-browser/-/util-defaults-mode-browser-2.2.1.tgz#9db31416daf575d2963c502e0528cfe8055f0c4e"
   integrity sha512-RtKW+8j8skk17SYowucwRUjeh4mCtnm5odCL0Lm2NtHQBsYKrNW0od9Rhopu9wF1gHMfHeWF7i90NwBz/U22Kw==
   dependencies:
     "@smithy/property-provider" "^2.2.0"
@@ -8344,7 +8344,7 @@
 
 "@smithy/util-defaults-mode-browser@^3.0.3":
   version "3.0.3"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/util-defaults-mode-browser/-/util-defaults-mode-browser-3.0.3.tgz#6fff11a6c407ca1d5a1dc009768bd09271b199c2"
+  resolved "https://registry.yarnpkg.com/@smithy/util-defaults-mode-browser/-/util-defaults-mode-browser-3.0.3.tgz#6fff11a6c407ca1d5a1dc009768bd09271b199c2"
   integrity sha512-3DFON2bvXJAukJe+qFgPV/rorG7ZD3m4gjCXHD1V5z/tgKQp5MCTCLntrd686tX6tj8Uli3lefWXJudNg5WmCA==
   dependencies:
     "@smithy/property-provider" "^3.1.0"
@@ -8379,7 +8379,7 @@
 
 "@smithy/util-defaults-mode-node@^2.3.1":
   version "2.3.1"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/util-defaults-mode-node/-/util-defaults-mode-node-2.3.1.tgz#4613210a3d107aadb3f85bd80cb71c796dd8bf0a"
+  resolved "https://registry.yarnpkg.com/@smithy/util-defaults-mode-node/-/util-defaults-mode-node-2.3.1.tgz#4613210a3d107aadb3f85bd80cb71c796dd8bf0a"
   integrity sha512-vkMXHQ0BcLFysBMWgSBLSk3+leMpFSyyFj8zQtv5ZyUBx8/owVh1/pPEkzmW/DR/Gy/5c8vjLDD9gZjXNKbrpA==
   dependencies:
     "@smithy/config-resolver" "^2.2.0"
@@ -8392,7 +8392,7 @@
 
 "@smithy/util-defaults-mode-node@^3.0.3":
   version "3.0.3"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/util-defaults-mode-node/-/util-defaults-mode-node-3.0.3.tgz#0b52ba9cb1138ee9076feba9a733462b2e2e6093"
+  resolved "https://registry.yarnpkg.com/@smithy/util-defaults-mode-node/-/util-defaults-mode-node-3.0.3.tgz#0b52ba9cb1138ee9076feba9a733462b2e2e6093"
   integrity sha512-D0b8GJXecT00baoSQ3Iieu3k3mZ7GY8w1zmg8pdogYrGvWJeLcIclqk2gbkG4K0DaBGWrO6v6r20iwIFfDYrmA==
   dependencies:
     "@smithy/config-resolver" "^3.0.1"
@@ -8405,7 +8405,7 @@
 
 "@smithy/util-endpoints@^1.2.0":
   version "1.2.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/util-endpoints/-/util-endpoints-1.2.0.tgz#b8b805f47e8044c158372f69b88337703117665d"
+  resolved "https://registry.yarnpkg.com/@smithy/util-endpoints/-/util-endpoints-1.2.0.tgz#b8b805f47e8044c158372f69b88337703117665d"
   integrity sha512-BuDHv8zRjsE5zXd3PxFXFknzBG3owCpjq8G3FcsXW3CykYXuEqM3nTSsmLzw5q+T12ZYuDlVUZKBdpNbhVtlrQ==
   dependencies:
     "@smithy/node-config-provider" "^2.3.0"
@@ -8414,7 +8414,7 @@
 
 "@smithy/util-endpoints@^2.0.1":
   version "2.0.1"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/util-endpoints/-/util-endpoints-2.0.1.tgz#4ea8069bfbf3ebbcbe106b5156ff59a7a627b7dd"
+  resolved "https://registry.yarnpkg.com/@smithy/util-endpoints/-/util-endpoints-2.0.1.tgz#4ea8069bfbf3ebbcbe106b5156ff59a7a627b7dd"
   integrity sha512-ZRT0VCOnKlVohfoABMc8lWeQo/JEFuPWctfNRXgTHbyOVssMOLYFUNWukxxiHRGVAhV+n3c0kPW+zUqckjVPEA==
   dependencies:
     "@smithy/node-config-provider" "^3.1.0"
@@ -8444,14 +8444,14 @@
 
 "@smithy/util-hex-encoding@^2.2.0":
   version "2.2.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/util-hex-encoding/-/util-hex-encoding-2.2.0.tgz#87edb7c88c2f422cfca4bb21f1394ae9602c5085"
+  resolved "https://registry.yarnpkg.com/@smithy/util-hex-encoding/-/util-hex-encoding-2.2.0.tgz#87edb7c88c2f422cfca4bb21f1394ae9602c5085"
   integrity sha512-7iKXR+/4TpLK194pVjKiasIyqMtTYJsgKgM242Y9uzt5dhHnUDvMNb+3xIhRJ9QhvqGii/5cRUt4fJn3dtXNHQ==
   dependencies:
     tslib "^2.6.2"
 
 "@smithy/util-hex-encoding@^3.0.0":
   version "3.0.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/util-hex-encoding/-/util-hex-encoding-3.0.0.tgz#32938b33d5bf2a15796cd3f178a55b4155c535e6"
+  resolved "https://registry.yarnpkg.com/@smithy/util-hex-encoding/-/util-hex-encoding-3.0.0.tgz#32938b33d5bf2a15796cd3f178a55b4155c535e6"
   integrity sha512-eFndh1WEK5YMUYvy3lPlVmYY/fZcQE1D8oSf41Id2vCeIkKJXPcYDCZD+4+xViI6b1XSd7tE+s5AmXzz5ilabQ==
   dependencies:
     tslib "^2.6.2"
@@ -8480,7 +8480,7 @@
 
 "@smithy/util-middleware@^2.2.0":
   version "2.2.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/util-middleware/-/util-middleware-2.2.0.tgz#80cfad40f6cca9ffe42a5899b5cb6abd53a50006"
+  resolved "https://registry.yarnpkg.com/@smithy/util-middleware/-/util-middleware-2.2.0.tgz#80cfad40f6cca9ffe42a5899b5cb6abd53a50006"
   integrity sha512-L1qpleXf9QD6LwLCJ5jddGkgWyuSvWBkJwWAZ6kFkdifdso+sk3L3O1HdmPvCdnCK3IS4qWyPxev01QMnfHSBw==
   dependencies:
     "@smithy/types" "^2.12.0"
@@ -8488,7 +8488,7 @@
 
 "@smithy/util-middleware@^3.0.0":
   version "3.0.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/util-middleware/-/util-middleware-3.0.0.tgz#64d775628b99a495ca83ce982f5c83aa45f1e894"
+  resolved "https://registry.yarnpkg.com/@smithy/util-middleware/-/util-middleware-3.0.0.tgz#64d775628b99a495ca83ce982f5c83aa45f1e894"
   integrity sha512-q5ITdOnV2pXHSVDnKWrwgSNTDBAMHLptFE07ua/5Ty5WJ11bvr0vk2a7agu7qRhrCFRQlno5u3CneU5EELK+DQ==
   dependencies:
     "@smithy/types" "^3.0.0"
@@ -8512,7 +8512,7 @@
 
 "@smithy/util-retry@^2.2.0":
   version "2.2.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/util-retry/-/util-retry-2.2.0.tgz#e8e019537ab47ba6b2e87e723ec51ee223422d85"
+  resolved "https://registry.yarnpkg.com/@smithy/util-retry/-/util-retry-2.2.0.tgz#e8e019537ab47ba6b2e87e723ec51ee223422d85"
   integrity sha512-q9+pAFPTfftHXRytmZ7GzLFFrEGavqapFc06XxzZFcSIGERXMerXxCitjOG1prVDR9QdjqotF40SWvbqcCpf8g==
   dependencies:
     "@smithy/service-error-classification" "^2.1.5"
@@ -8521,7 +8521,7 @@
 
 "@smithy/util-retry@^3.0.0":
   version "3.0.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/util-retry/-/util-retry-3.0.0.tgz#8a0c47496aab74e1dfde4905d462ad636a8824bb"
+  resolved "https://registry.yarnpkg.com/@smithy/util-retry/-/util-retry-3.0.0.tgz#8a0c47496aab74e1dfde4905d462ad636a8824bb"
   integrity sha512-nK99bvJiziGv/UOKJlDvFF45F00WgPLKVIGUfAK+mDhzVN2hb/S33uW2Tlhg5PVBoqY7tDVqL0zmu4OxAHgo9g==
   dependencies:
     "@smithy/service-error-classification" "^3.0.0"
@@ -8558,7 +8558,7 @@
 
 "@smithy/util-stream@^2.2.0":
   version "2.2.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/util-stream/-/util-stream-2.2.0.tgz#b1279e417992a0f74afa78d7501658f174ed7370"
+  resolved "https://registry.yarnpkg.com/@smithy/util-stream/-/util-stream-2.2.0.tgz#b1279e417992a0f74afa78d7501658f174ed7370"
   integrity sha512-17faEXbYWIRst1aU9SvPZyMdWmqIrduZjVOqCPMIsWFNxs5yQQgFrJL6b2SdiCzyW9mJoDjFtgi53xx7EH+BXA==
   dependencies:
     "@smithy/fetch-http-handler" "^2.5.0"
@@ -8572,7 +8572,7 @@
 
 "@smithy/util-stream@^3.0.1":
   version "3.0.1"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/util-stream/-/util-stream-3.0.1.tgz#3cf527bcd3fec82c231c38d47dd75f3364747edb"
+  resolved "https://registry.yarnpkg.com/@smithy/util-stream/-/util-stream-3.0.1.tgz#3cf527bcd3fec82c231c38d47dd75f3364747edb"
   integrity sha512-7F7VNNhAsfMRA8I986YdOY5fE0/T1/ZjFF6OLsqkvQVNP3vZ/szYDfGCyphb7ioA09r32K/0qbSFfNFU68aSzA==
   dependencies:
     "@smithy/fetch-http-handler" "^3.0.1"
@@ -8607,14 +8607,14 @@
 
 "@smithy/util-uri-escape@^2.2.0":
   version "2.2.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/util-uri-escape/-/util-uri-escape-2.2.0.tgz#56f5764051a33b67bc93fdd2a869f971b0635406"
+  resolved "https://registry.yarnpkg.com/@smithy/util-uri-escape/-/util-uri-escape-2.2.0.tgz#56f5764051a33b67bc93fdd2a869f971b0635406"
   integrity sha512-jtmJMyt1xMD/d8OtbVJ2gFZOSKc+ueYJZPW20ULW1GOp/q/YIM0wNh+u8ZFao9UaIGz4WoPW8hC64qlWLIfoDA==
   dependencies:
     tslib "^2.6.2"
 
 "@smithy/util-uri-escape@^3.0.0":
   version "3.0.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/util-uri-escape/-/util-uri-escape-3.0.0.tgz#e43358a78bf45d50bb736770077f0f09195b6f54"
+  resolved "https://registry.yarnpkg.com/@smithy/util-uri-escape/-/util-uri-escape-3.0.0.tgz#e43358a78bf45d50bb736770077f0f09195b6f54"
   integrity sha512-LqR7qYLgZTD7nWLBecUi4aqolw8Mhza9ArpNEQ881MJJIU2sE5iHCK6TdyqqzcDLy0OPe10IY4T8ctVdtynubg==
   dependencies:
     tslib "^2.6.2"
@@ -8645,7 +8645,7 @@
 
 "@smithy/util-utf8@^2.3.0":
   version "2.3.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/util-utf8/-/util-utf8-2.3.0.tgz#dd96d7640363259924a214313c3cf16e7dd329c5"
+  resolved "https://registry.yarnpkg.com/@smithy/util-utf8/-/util-utf8-2.3.0.tgz#dd96d7640363259924a214313c3cf16e7dd329c5"
   integrity sha512-R8Rdn8Hy72KKcebgLiv8jQcQkXoLMOGGv5uI1/k0l+snqkOzQ1R0ChUBCxWMlBsFMekWjq0wRudIweFs7sKT5A==
   dependencies:
     "@smithy/util-buffer-from" "^2.2.0"
@@ -8653,7 +8653,7 @@
 
 "@smithy/util-utf8@^3.0.0":
   version "3.0.0"
-  resolved "https://amplify-ui-liveness-845721723350.d.codeartifact.us-east-2.amazonaws.com/npm/amplify-ui/@smithy/util-utf8/-/util-utf8-3.0.0.tgz#1a6a823d47cbec1fd6933e5fc87df975286d9d6a"
+  resolved "https://registry.yarnpkg.com/@smithy/util-utf8/-/util-utf8-3.0.0.tgz#1a6a823d47cbec1fd6933e5fc87df975286d9d6a"
   integrity sha512-rUeT12bxFnplYDe815GXbq/oixEGHfRFFtcTF3YdDi/JaENIM6aSYYLJydG83UNzLXeRI5K8abYd/8Sp/QM0kA==
   dependencies:
     "@smithy/util-buffer-from" "^3.0.0"
