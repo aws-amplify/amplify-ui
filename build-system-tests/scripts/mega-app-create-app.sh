@@ -70,8 +70,8 @@ echo "echo "{}" >package.json"
 echo "{}" >package.json
 
 if [ "$BUILD_TOOL" == 'next' ]; then
-    echo "npx create-next-app ${MEGA_APP_NAME} --ts --no-src-dir --no-experimental-app --no-eslint --no-app --no-tailwind --no-turbopack"
-    npx create-next-app ${MEGA_APP_NAME} --ts --no-src-dir --no-experimental-app --no-eslint --no-app --no-tailwind --no-turbopack
+    echo "npx create-next-app@${BUILD_TOOL_VERSION} ${MEGA_APP_NAME} --yes --ts --no-src-dir --no-experimental-app --no-eslint --no-app --no-tailwind --no-turbopack --webpack"
+    npx create-next-app@${BUILD_TOOL_VERSION} ${MEGA_APP_NAME} --yes --ts --no-src-dir --no-experimental-app --no-eslint --no-app --no-tailwind --no-turbopack --webpack
 fi
 
 if [ "$BUILD_TOOL" == 'vite' ]; then
