@@ -25911,10 +25911,10 @@ react-dom@^18, react-dom@^18.3.0, react-dom@^18.3.1:
     loose-envify "^1.1.0"
     scheduler "^0.23.2"
 
-react-hook-form@^7.53.2:
-  version "7.53.2"
-  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.53.2.tgz#6fa37ae27330af81089baadd7f322cc987b8e2ac"
-  integrity sha512-YVel6fW5sOeedd1524pltpHX+jgU2u3DSDtXEaBORNdqiNrsX/nUI/iGXONegttg0mJVnfrIkiV0cmTU6Oo2xw==
+react-hook-form@7.64.0:
+  version "7.64.0"
+  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.64.0.tgz#7820961b773d0b4706baa506e8aa53a0e904b6f7"
+  integrity sha512-fnN+vvTiMLnRqKNTVhDysdrUay0kUUAymQnFIznmgDvapjveUWOOPqMNzPg+A+0yf9DuE2h6xzBjN1s+Qx8wcg==
 
 react-icons@^4.3.1:
   version "4.8.0"
@@ -28279,7 +28279,6 @@ stylus-lookup@^6.1.0:
 
 stylus@0.59.0, stylus@^0.59.0, "stylus@github:stylus/stylus#0.59.0":
   version "0.59.0"
-  uid "8e29ff39fb563f91ef4eaff9b2c9f29e2a1910ec"
   resolved "https://codeload.github.com/stylus/stylus/tar.gz/8e29ff39fb563f91ef4eaff9b2c9f29e2a1910ec"
   dependencies:
     "@adobe/css-tools" "^4.0.1"
