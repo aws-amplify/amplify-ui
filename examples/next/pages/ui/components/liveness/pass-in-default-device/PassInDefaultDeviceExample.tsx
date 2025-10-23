@@ -122,10 +122,10 @@ export default function PassInDefaultDeviceExample() {
             </Heading>
             <Text marginBottom="large" color="gray">
               This example demonstrates passing a default camera via a config
-              prop (for example, using the URL query "?deviceId=..."). If the
-              provided deviceId matches an available camera, that device will be
-              auto-selected for liveness. If not found, the example will fall
-              back to another available camera.
+              prop (for example, using the URL query &quot;?deviceId=...&quot;).
+              If the provided deviceId matches an available camera, that device
+              will be auto-selected for liveness. If not found, the example will
+              fall back to another available camera.
             </Text>
           </Card>
 
