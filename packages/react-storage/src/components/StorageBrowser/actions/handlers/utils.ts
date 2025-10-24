@@ -13,13 +13,41 @@ import type {
   LocationType,
 } from './types';
 
+import { Amplify } from 'aws-amplify';
+
+export const getBucketRegion = (
+  bucketName: string,
+  fallbackRegion: string
+): string => {
+  try {
+    const config = Amplify.getConfig()?.Storage?.S3;
+
+    if (!config?.buckets || typeof config.buckets !== 'object') {
+      return fallbackRegion;
+    }
+
+    for (const bucketConfig of Object.values(config.buckets)) {
+      if (bucketConfig.bucketName === bucketName && bucketConfig.region) {
+        return bucketConfig.region;
+      }
+    }
+
+    return fallbackRegion;
+  } catch (error) {
+    return fallbackRegion;
+  }
+};
+
 export const constructBucket = ({
   bucket: bucketName,
-  region,
+  region: globalRegion,
 }: Pick<ActionInputConfig, 'bucket' | 'region'>): {
   bucketName: string;
   region: string;
-} => ({ bucketName, region });
+} => {
+  const bucketRegion = getBucketRegion(bucketName, globalRegion);
+  return { bucketName, region: bucketRegion };
+};
 
 export const parseAccessGrantLocation = (
   location: AccessGrantLocation

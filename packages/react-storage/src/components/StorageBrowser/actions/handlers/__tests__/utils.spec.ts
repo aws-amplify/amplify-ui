@@ -2,8 +2,17 @@ import { LocationAccess as AccessGrantLocation } from '../../../storage-internal
 
 import { MULTIPART_UPLOAD_THRESHOLD_BYTES } from '../constants';
 import { LocationData } from '../types';
+
+const mockGetConfig = jest.fn();
+jest.mock('aws-amplify', () => ({
+  Amplify: {
+    getConfig: mockGetConfig,
+  },
+}));
+
 import {
   createFileDataItem,
+  getBucketRegion,
   getFileKey,
   getFilteredLocations,
   isFileDataItem,
@@ -234,6 +243,68 @@ describe('utils', () => {
         size: MULTIPART_UPLOAD_THRESHOLD_BYTES / 2,
       } as File);
       expect(output).toBe(false);
+    });
+  });
+
+  describe('getBucketRegion', () => {
+    beforeEach(() => {
+      jest.clearAllMocks();
+    });
+
+    it('returns bucket-specific region when found', () => {
+      mockGetConfig.mockReturnValue({
+        Storage: {
+          S3: {
+            buckets: {
+              TestBucket: {
+                bucketName: 'test-bucket',
+                region: 'us-west-2',
+              },
+            },
+          },
+        },
+      });
+
+      const result = getBucketRegion('test-bucket', 'us-east-1');
+      expect(result).toBe('us-west-2');
+    });
+
+    it('returns fallback region when bucket not found', () => {
+      mockGetConfig.mockReturnValue({
+        Storage: {
+          S3: {
+            buckets: {
+              OtherBucket: {
+                bucketName: 'other-bucket',
+                region: 'us-west-2',
+              },
+            },
+          },
+        },
+      });
+
+      const result = getBucketRegion('test-bucket', 'us-east-1');
+      expect(result).toBe('us-east-1');
+    });
+
+    it('returns fallback region when no buckets config', () => {
+      mockGetConfig.mockReturnValue({
+        Storage: {
+          S3: {},
+        },
+      });
+
+      const result = getBucketRegion('test-bucket', 'us-east-1');
+      expect(result).toBe('us-east-1');
+    });
+
+    it('returns fallback region when getConfig throws error', () => {
+      mockGetConfig.mockImplementation(() => {
+        throw new Error('Config error');
+      });
+
+      const result = getBucketRegion('test-bucket', 'us-east-1');
+      expect(result).toBe('us-east-1');
     });
   });
 });
