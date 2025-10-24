@@ -112,17 +112,18 @@ export default function useFieldValues<FieldType extends TypedField>({
     const { name, label, labelHidden, ...rest } = field;
 
     const onBlur: TextFieldOnBlur = (event) => {
+      const textValue = values[name] || event?.nativeEvent?.text;
       setTouched({ ...touched, [name]: true });
 
       // call `onBlur` passed as text `field` option
       field.onBlur?.(event);
 
       // call machine blur handler
-      handleBlur({ name, value: values[name] });
+      handleBlur({ name, value: textValue });
 
       setFieldValidationErrors({
         ...fieldValidationErrors,
-        [name]: runFieldValidation(field, values[name], validationErrors),
+        [name]: runFieldValidation(field, textValue, validationErrors),
       });
     };
 

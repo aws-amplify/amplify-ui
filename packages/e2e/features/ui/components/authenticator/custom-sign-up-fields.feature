@@ -7,12 +7,12 @@ Feature: Custom Sign Up Fields
     Then I see "Preferred Username" as an input field
     Then I see "I agree with the Terms and Conditions"
 
-  @angular @react @vue
+  @angular @react @vue @svelte
   Scenario: Form is invalid by default
     When I see "You must agree to the Terms and Conditions"
     Then the "Create Account" button is disabled
 
-  @angular @react @vue
+  @angular @react @vue @svelte
   Scenario: Form performs default validation like Confirm Password
     When I type a new "email"
     Then I type an invalid password
@@ -22,7 +22,7 @@ Feature: Custom Sign Up Fields
     Then I don't see "You must agree to the Terms and Conditions"
     Then the "Create Account" button is disabled
 
-  @angular @react @vue
+  @angular @react @vue @svelte
   Scenario: Form is valid when I check the Terms and Conditions checkbox, but missing `preferred_username` for Cognito
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }' with error fixture "custom-sign-up-fields-missing-preferred_username"
     When I type a new "email"
@@ -32,7 +32,7 @@ Feature: Custom Sign Up Fields
     Then I click the "Create Account" button
     Then the "Preferred Username" field is invalid
 
-  @angular @react @vue
+  @angular @react @vue @svelte
   Scenario: Form successfully submits with `preferred_username` and Terms and Conditions checked
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }' with fixture "custom-sign-up-fields"
     When I type a new "preferred username"

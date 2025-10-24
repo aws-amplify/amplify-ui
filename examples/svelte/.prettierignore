@@ -1,0 +1,5 @@
+.husky
+.changeset
+dist
+*.d.ts
+.svelte-kit

@@ -90,9 +90,14 @@ jobs:
             resource-path: ui/components/authenticator/sign-in-with-username
             tags: '@vue and not @todo-vue'
 
+          - example: svelte
+            package: svelte
+            resource-path: ui/components/authenticator/sign-in-with-username
+            tags: '@svelte and not @todo-svelte'
+
     steps:
       - name: Checkout Amplify UI
-        uses: actions/checkout@b80ff79f1755d06ba70441c368a6fe801f5f3a62 # v4.1.3 https://github.com/actions/checkout/commit/cd7d8d697e10461458bc61a30d094dc601a8b017
+        uses: actions/checkout@ff7abcd0c3c05ccf6adc123a8cd1fd4fb30fb493 # v4.1.3 https://github.com/actions/checkout/commit/cd7d8d697e10461458bc61a30d094dc601a8b017
         with:
           # For `pull_request_target`, we want ref to point to `pull_request.head.ref` because `github.ref`
           # always points to the target branch.
@@ -360,7 +365,7 @@ jobs:
       has-changed-packages: ${{ steps.has-rn-changed-packages.outputs.has-changed-packages }}
     steps:
       - name: Checkout Amplify UI
-        uses: actions/checkout@b80ff79f1755d06ba70441c368a6fe801f5f3a62 # v4.1.3 https://github.com/actions/checkout/commit/cd7d8d697e10461458bc61a30d094dc601a8b017
+        uses: actions/checkout@ff7abcd0c3c05ccf6adc123a8cd1fd4fb30fb493 # v4.1.3 https://github.com/actions/checkout/commit/cd7d8d697e10461458bc61a30d094dc601a8b017
         with:
           ref: ${{ inputs.commit }}
           repository: ${{ inputs.repository }}
@@ -390,7 +395,7 @@ jobs:
       NODE_ENV: test
     steps:
       - name: Checkout Amplify UI
-        uses: actions/checkout@b80ff79f1755d06ba70441c368a6fe801f5f3a62 # v4.1.3 https://github.com/actions/checkout/commit/cd7d8d697e10461458bc61a30d094dc601a8b017
+        uses: actions/checkout@ff7abcd0c3c05ccf6adc123a8cd1fd4fb30fb493 # v4.1.3 https://github.com/actions/checkout/commit/cd7d8d697e10461458bc61a30d094dc601a8b017
         with:
           ref: ${{ inputs.commit }}
           repository: ${{ inputs.repository }}
@@ -513,7 +518,7 @@ jobs:
       EMULATOR2_PORT: 5556
     steps:
       - name: Checkout Amplify UI
-        uses: actions/checkout@b80ff79f1755d06ba70441c368a6fe801f5f3a62 # v4.1.3 https://github.com/actions/checkout/commit/cd7d8d697e10461458bc61a30d094dc601a8b017
+        uses: actions/checkout@ff7abcd0c3c05ccf6adc123a8cd1fd4fb30fb493 # v4.1.3 https://github.com/actions/checkout/commit/cd7d8d697e10461458bc61a30d094dc601a8b017
         with:
           # For `pull_request_target`, we want ref to point to `pull_request.head.ref` because `github.ref`
           # always points to the target branch.
@@ -649,7 +654,7 @@ jobs:
       NODE_ENV: test
     steps:
       - name: Checkout Amplify UI
-        uses: actions/checkout@b80ff79f1755d06ba70441c368a6fe801f5f3a62 # v4.1.3 https://github.com/actions/checkout/commit/cd7d8d697e10461458bc61a30d094dc601a8b017
+        uses: actions/checkout@ff7abcd0c3c05ccf6adc123a8cd1fd4fb30fb493 # v4.1.3 https://github.com/actions/checkout/commit/cd7d8d697e10461458bc61a30d094dc601a8b017
         with:
           ref: ${{ inputs.commit }}
           repository: ${{ inputs.repository }}

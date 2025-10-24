@@ -88,6 +88,13 @@ Amplify UI is an open-source UI library with cloud-connected components that are
 | View             |    ✅     |
 | VisuallyHidden   |    ✅     |
 
+## Version Support
+AWS Amplify UI library (React, React Native, Angular, and Vue) that depends on AWS Amplify JavaScript library v4 and below will end support on **April 13, 2026**, as documented in our [AWS Amplify UI libraries version support calendar](https://github.com/aws-amplify/amplify-ui/issues/6712).
+
+Effective immediately, the AWS Amplify UI library that depends on AWS Amplify JavaScript library v4 and below will enter **Maintenance Mode** until April 13, 2026 after which it will receive no more updates. While in Maintenance Mode, the libraries will only receive updates for **critical bug fixes and security vulnerabilities**. Refer to [Amplify Documentation](https://docs.amplify.aws/reference/maintenance-policy) for more information on the maintenance policy.
+
+If you are using AWS Amplify UI library that depends on AWS Amplify JavaScript library v4 and below, we strongly recommend upgrading to the latest AWS Amplify UI library before April 13, 2026.
+
 ## Frequently asked questions
 
 **What are the major benefits of Amplify UI?**

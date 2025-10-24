@@ -1,5 +1,11 @@
 # @aws-amplify/ui
 
+## 6.12.1
+
+### Patch Changes
+
+- [#6723](https://github.com/aws-amplify/amplify-ui/pull/6723) [`23d2233315d7eaf1e6cd814ce3585942a51f8834`](https://github.com/aws-amplify/amplify-ui/commit/23d2233315d7eaf1e6cd814ce3585942a51f8834) Thanks [@bobbor](https://github.com/bobbor)! - Add svelte support for Authenticator
+
 ## 6.12.0
 
 ### Minor Changes

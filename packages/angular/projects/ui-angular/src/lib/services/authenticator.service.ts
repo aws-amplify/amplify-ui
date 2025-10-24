@@ -15,8 +15,8 @@ import {
   defaultAuthHubHandler,
   getServiceFacade,
   listenToAuthHub,
+  translate,
 } from '@aws-amplify/ui';
-import { translate } from '@aws-amplify/ui';
 
 import { AuthSubscriptionCallback } from '../common/types';
 
