@@ -6,13 +6,13 @@ Feature: Sign Up with Email with Pre Sign Up Lambda Trigger for Auto Confirmatio
   Background:
     Given I'm running the example "ui/components/authenticator/sign-up-with-email-lambda"
 
-  @angular @react @vue
+  @angular @react @vue @svelte
   Scenario: Login mechanism set to "email"
     Then I see "Email" as an input field
     Then I don't see "Username" as an input field
     Then I don't see "Phone Number" as an input field
 
-  @angular @react @vue  
+  @angular @react @vue @svelte
   Scenario: Sign up with a new email & password with confirmed info
     When I type a new "email"
     Then I type my password
@@ -27,7 +27,7 @@ Feature: Sign Up with Email with Pre Sign Up Lambda Trigger for Auto Confirmatio
     Then I do not see the "Create Account" button
 
 
-  @angular @react @vue  
+  @angular @react @vue @svelte
   Scenario: Sign up with an email & password and verify it was called correctly
     When I type a new "email" with value 'TEST@example.com'
     Then I type my password

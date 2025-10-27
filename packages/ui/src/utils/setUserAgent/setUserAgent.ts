@@ -23,6 +23,7 @@ export type PackageName =
   | 'react-native'
   | 'react-notifications'
   | 'react-storage'
+  | 'svelte'
   | 'vue';
 
 export type ComponentName =

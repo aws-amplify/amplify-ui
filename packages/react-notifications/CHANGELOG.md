@@ -1,5 +1,15 @@
 # @aws-amplify/ui-react-notifications
 
+## 2.2.13
+
+### Patch Changes
+
+- Updated dependencies [[`23d2233315d7eaf1e6cd814ce3585942a51f8834`](https://github.com/aws-amplify/amplify-ui/commit/23d2233315d7eaf1e6cd814ce3585942a51f8834)]:
+  - @aws-amplify/ui@6.12.1
+  - @aws-amplify/ui-react@6.13.1
+  - @aws-amplify/ui-react-core@3.4.6
+  - @aws-amplify/ui-react-core-notifications@2.2.12
+
 ## 2.2.12
 
 ### Patch Changes
