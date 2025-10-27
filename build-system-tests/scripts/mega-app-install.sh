@@ -86,7 +86,7 @@ if [ "$FRAMEWORK" == 'react' ]; then
 
     if [ "$BUILD_TOOL" == 'vite' ]; then
         # https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility
-        # Fixes `EventEmitter is not a constructor`` error with geocoder package 
+        # Fixes `EventEmitter is not a constructor`` error with geocoder package
         DEPENDENCIES="$DEPENDENCIES events"
         echo "DEPENDENCIES=$DEPENDENCIES"
     fi
@@ -110,7 +110,7 @@ if [ "$PKG_MANAGER" == 'yarn' ]; then
 else
     if [[ "$FRAMEWORK" == "react-native" ]]; then
         # react-native-safe-area-context v5.0.0+ does not support RN 0.74 and lower
-        DEPENDENCIES="$TAGGED_UI_FRAMEWORK @aws-amplify/react-native aws-amplify @react-native-community/netinfo @react-native-async-storage/async-storage react-native-get-random-values react-native-url-polyfill"
+        DEPENDENCIES="$TAGGED_UI_FRAMEWORK @aws-amplify/react-native aws-amplify @react-native-community/netinfo @react-native-async-storage/async-storage react-native-get-random-values@1.11.0 react-native-url-polyfill"
 
         # react-native-safe-area-context v5 is required for >= 0.74
         if [[ "$FRAMEWORK_VERSION" == "latest" || $FRAMEWORK_VERSION > "0.74" ]]; then
@@ -131,7 +131,7 @@ else
                 # Expo SDK version 52.0.27 supports RN 0.76 and 0.77 but installs 0.76 by default https://expo.dev/changelog/2025-01-21-react-native-0.77#2-install-updated-packages
                 echo "npx expo install react-native@~0.77.1"
                 npx expo install react-native@~0.77.1
-            elif [[ "$FRAMEWORK_VERSION" == "0.75" ]]; then 
+            elif [[ "$FRAMEWORK_VERSION" == "0.75" ]]; then
                 # Expo SDK version 51.0.0 supports RN 0.74 and 0.75 but installs 0.74 by default https://expo.dev/changelog/2024/08-14-react-native-0.75#2-install-updated-packages
                 echo "npx expo install react-native@~0.75.0"
                 npx expo install react-native@~0.75.0
