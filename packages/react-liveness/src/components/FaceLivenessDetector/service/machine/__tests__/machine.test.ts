@@ -1,6 +1,6 @@
 import { interpret } from 'xstate';
 import { setImmediate } from 'timers';
-import { when, resetAllWhenMocks } from 'jest-when';
+import { resetAllWhenMocks } from 'jest-when';
 
 import {
   FaceLivenessDetectorProps,

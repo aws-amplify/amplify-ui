@@ -1,14 +1,7 @@
 import * as React from 'react';
-import {
-  screen,
-  waitFor,
-  fireEvent,
-  act,
-  render,
-} from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import { when, resetAllWhenMocks } from 'jest-when';
 import { LivenessClassNames } from '../../types/classNames';
-import { mockVideoMediaStream } from '../../service/utils/__mocks__/testUtils';
 import {
   renderWithLivenessProvider,
   getMockedFunction,
@@ -34,7 +27,6 @@ import { FaceMatchState } from '../../service';
 import * as Device from '../../utils/device';
 import { getDisplayText } from '../../utils/getDisplayText';
 import { selectIsRecordingStopped } from '../LivenessCheck';
-import { selectErrorState } from '../../shared';
 
 jest.mock('../../hooks');
 jest.mock('../../hooks/useLivenessSelector');
@@ -79,18 +71,6 @@ describe('LivenessCameraModule', () => {
     instructionDisplayText,
   } = getDisplayText(undefined);
   const { cancelLivenessCheckText, recordingIndicatorText } = streamDisplayText;
-
-  const mockVideoConstraints = {
-    width: { ideal: 1280 },
-    height: { ideal: 720 },
-    facingMode: 'user',
-  };
-
-  const mockSelectableDevices = [
-    { deviceId: 'device-1', label: 'Camera 1' },
-    { deviceId: 'device-2', label: 'Camera 2' },
-    { deviceId: 'device-3', label: 'Camera 3' },
-  ];
 
   const mockMediaStream = {
     getTracks: jest.fn(() => []),
