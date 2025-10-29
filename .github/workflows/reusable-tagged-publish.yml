@@ -30,17 +30,19 @@ jobs:
           cache: 'yarn'
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
-      - name: Configure CodeArtifact
-        id: configure-codeartifact
-        uses: ./.github/actions/codeartifact
+      - name: Restore node_modules from Cache
+        uses: actions/cache@v4
+        id: restore-nodemodules-cache
         with:
-          role-to-assume: ${{ secrets.LIVENESS_E2E_CODE_ARTIFACT_ARN }}
-          domain: amplify-ui-liveness
-          repository: amplify-ui
+          path: |
+            ./node_modules
+            **/node_modules
+          key: ${{ runner.os }}-nodemodules-${{ github.sha }}
       - name: Install packages
-        run: yarn --frozen-lockfile --network-timeout 60000
-        env:
-          NODE_AUTH_TOKEN: ${{ steps.configure-codeartifact.outputs.repository-token }}
+        if: steps.restore-nodemodules-cache.outputs.cache-hit != 'true'
+        uses: ./.github/actions/install-with-retries
+        with:
+          skip-cypress-binary: true # publishing doesn't need cypress
       - name: Build packages
         run: yarn build
       - name: Add changeset that bumps all public packages
