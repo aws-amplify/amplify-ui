@@ -30,10 +30,17 @@ jobs:
           cache: 'yarn'
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
-      - name: Install packages
-        uses: ./.github/actions/install-with-retries
+      - name: Configure CodeArtifact
+        id: configure-codeartifact
+        uses: ./.github/actions/codeartifact
         with:
-          skip-cypress-binary: true # publishing doesn't need cypress
+          role-to-assume: ${{ secrets.LIVENESS_E2E_CODE_ARTIFACT_ARN }}
+          domain: amplify-ui-liveness
+          repository: amplify-ui
+      - name: Install packages
+        run: yarn --frozen-lockfile --network-timeout 60000
+        env:
+          NODE_AUTH_TOKEN: ${{ steps.configure-codeartifact.outputs.repository-token }}
       - name: Build packages
         run: yarn build
       - name: Add changeset that bumps all public packages
