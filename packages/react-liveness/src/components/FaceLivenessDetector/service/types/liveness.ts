@@ -1,6 +1,12 @@
 import type { AwsCredentialProvider } from './credentials';
 import type { ErrorState } from './error';
 
+export interface DeviceInfo {
+  deviceId: string;
+  groupId: string;
+  label: string;
+}
+
 /**
  * The props for the FaceLivenessDetectorCore which allows for full configuration of auth
  */
@@ -13,12 +19,7 @@ export interface FaceLivenessDetectorCoreProps {
   /**
    * Callback that signals when the liveness session has completed analysis.
    * At this point a request can be made to GetFaceLivenessSessionResults.
-   */
-  onAnalysisComplete: () => Promise<void>;
-
-  /**
-   * Callback called when the user changes the camera device
-   * @param deviceInfo Information about the newly selected device
+   * @param deviceInfo Information about the selected device
    */
   onAnalysisComplete: (deviceInfo?: DeviceInfo) => Promise<void>;
 
@@ -37,7 +38,7 @@ export interface FaceLivenessDetectorCoreProps {
    * @param livenessError The error that occurred
    * @param deviceInfo Information about the selected device, if available
    */
-  onError?: (livenessError: LivenessError) => void;
+  onError?: (livenessError: LivenessError, deviceInfo?: DeviceInfo) => void;
 
   /**
    * Optional parameter for the disabling the Start/Get Ready Screen, default: false
