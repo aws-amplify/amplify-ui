@@ -1,5 +1,6 @@
 import { interpret } from 'xstate';
 import { setImmediate } from 'timers';
+import { resetAllWhenMocks } from 'jest-when';
 
 import {
   FaceLivenessDetectorProps,
@@ -233,7 +234,19 @@ describe('Liveness Machine', () => {
   afterEach(() => {
     jest.clearAllMocks();
     jest.clearAllTimers();
+    resetAllWhenMocks();
     service.stop();
+
+    // Clear localStorage to prevent state leakage between tests
+    localStorage.clear();
+
+    // Reset navigator mocks to default state
+    mockNavigatorMediaDevices.getUserMedia.mockResolvedValue(
+      mockVideoMediaStream
+    );
+    mockNavigatorMediaDevices.enumerateDevices.mockResolvedValue([
+      mockCameraDevice,
+    ]);
   });
 
   it('should be in the cameraCheck state', () => {
@@ -273,7 +286,123 @@ describe('Liveness Machine', () => {
       expect(mockedHelpers.isCameraDeviceVirtual).toHaveBeenCalled();
     });
 
+    it('should select provided default deviceId when available', async () => {
+      const defaultDeviceId = 'my-device-id';
+      const mockStreamFromDefault = {
+        getTracks: () => [
+          {
+            getSettings: () => ({
+              width: 640,
+              height: 480,
+              deviceId: defaultDeviceId,
+              frameRate: 30,
+            }),
+          },
+        ],
+      } as unknown as MediaStream;
+
+      // Override machine context to pass deviceId via component props
+      const machineWithDefault = livenessMachine.withContext({
+        ...livenessMachine.context,
+        componentProps: {
+          ...mockComponentProps,
+          config: { deviceId: defaultDeviceId },
+        },
+      });
+      const localService = interpret(machineWithDefault);
+
+      // getUserMedia should be called once with exact deviceId and succeed
+      mockNavigatorMediaDevices.getUserMedia.mockResolvedValueOnce(
+        mockStreamFromDefault
+      );
+      mockNavigatorMediaDevices.enumerateDevices.mockResolvedValueOnce([
+        { ...mockCameraDevice, deviceId: defaultDeviceId },
+      ]);
+
+      // Begin
+      localService.start();
+      localService.send({ type: 'BEGIN' });
+
+      await flushPromises();
+
+      expect(localService.state.value).toStrictEqual({
+        initCamera: 'waitForDOMAndCameraDetails',
+      });
+      // Verify constraints include exact deviceId
+      expect(mockNavigatorMediaDevices.getUserMedia).toHaveBeenCalledWith({
+        video: {
+          ...mockVideoConstraints,
+          deviceId: { exact: defaultDeviceId },
+        },
+        audio: false,
+      });
+      // Selected device in context should be the default deviceId
+      expect(
+        localService.state.context.videoAssociatedParams?.selectedDeviceId
+      ).toBe(defaultDeviceId);
+
+      localService.stop();
+    });
+
+    it('should set DEFAULT_CAMERA_NOT_FOUND_ERROR when provided deviceId is not found', async () => {
+      const missingDeviceId = 'missing-device-id';
+
+      const machineWithMissing = livenessMachine.withContext({
+        ...livenessMachine.context,
+        componentProps: {
+          ...mockComponentProps,
+          config: { deviceId: missingDeviceId },
+        },
+      });
+      const localService = interpret(machineWithMissing);
+
+      // First call rejects due to OverconstrainedError for the specified device
+      const overconstrainedErr = new DOMException(
+        'Constraints unsatisfied',
+        'OverconstrainedError'
+      );
+      mockNavigatorMediaDevices.getUserMedia
+        .mockRejectedValueOnce(overconstrainedErr)
+        // Fallback succeeds without deviceId constraint
+        .mockResolvedValueOnce({
+          getTracks: () => [
+            {
+              getSettings: () => ({
+                deviceId: 'fallback-device',
+                frameRate: 30,
+              }),
+            },
+          ],
+        } as unknown as MediaStream);
+
+      mockNavigatorMediaDevices.enumerateDevices.mockResolvedValueOnce([
+        { ...mockCameraDevice, deviceId: 'fallback-device' },
+      ]);
+
+      localService.start();
+      localService.send({ type: 'BEGIN' });
+
+      await flushPromises();
+
+      // Should transition to permissionDenied and call error callback with DEFAULT_CAMERA_NOT_FOUND_ERROR
+      expect(localService.state.value).toBe('permissionDenied');
+      expect(localService.state.context.errorState).toBe(
+        LivenessErrorState.DEFAULT_CAMERA_NOT_FOUND_ERROR
+      );
+      expect(mockComponentProps.onError).toHaveBeenCalledTimes(1);
+      const reportedError = (mockComponentProps.onError as jest.Mock).mock
+        .calls[0][0];
+      expect(reportedError.state).toBe(
+        LivenessErrorState.DEFAULT_CAMERA_NOT_FOUND_ERROR
+      );
+
+      localService.stop();
+    });
+
     it('should reach waitForDOMAndCameraDetails state on checkVirtualCameraAndGetStream success when initialStream is not from real device', async () => {
+      // Reset mocks to ensure test isolation
+      jest.clearAllMocks();
+
       const mockVirtualMediaStream = {
         getTracks: () => [
           {
@@ -286,9 +415,13 @@ describe('Liveness Machine', () => {
           },
         ],
       } as MediaStream;
+
       mockNavigatorMediaDevices.getUserMedia
         .mockResolvedValueOnce(mockVirtualMediaStream)
         .mockResolvedValueOnce(mockVideoMediaStream);
+      mockNavigatorMediaDevices.enumerateDevices.mockResolvedValue([
+        mockCameraDevice,
+      ]);
 
       transitionToCameraCheck(service);
 
@@ -303,6 +436,10 @@ describe('Liveness Machine', () => {
         1,
         {
           video: mockVideoConstraints,
+          // video: {
+          //   ...mockVideoConstraints,
+          //   deviceId: { exact: 'some-device-id' },
+          // },
           audio: false,
         }
       );
@@ -502,9 +639,15 @@ describe('Liveness Machine', () => {
           LivenessErrorState.RUNTIME_ERROR
         );
         expect(mockComponentProps.onError).toHaveBeenCalledTimes(1);
-        const livenessError = (mockComponentProps.onError as jest.Mock).mock
-          .calls[0][0];
+        const [livenessError, deviceInfo] = (
+          mockComponentProps.onError as jest.Mock
+        ).mock.calls[0];
         expect(livenessError.state).toBe(LivenessErrorState.RUNTIME_ERROR);
+        expect(deviceInfo).toEqual({
+          deviceId: mockCameraDevice.deviceId,
+          groupId: mockCameraDevice.groupId,
+          label: mockCameraDevice.label,
+        });
       });
 
       it('should reach error state after receiving a server error from the websocket stream', async () => {
@@ -522,9 +665,15 @@ describe('Liveness Machine', () => {
           LivenessErrorState.SERVER_ERROR
         );
         expect(mockComponentProps.onError).toHaveBeenCalledTimes(1);
-        const livenessError = (mockComponentProps.onError as jest.Mock).mock
-          .calls[0][0];
+        const [livenessError, deviceInfo] = (
+          mockComponentProps.onError as jest.Mock
+        ).mock.calls[0];
         expect(livenessError.state).toBe(LivenessErrorState.SERVER_ERROR);
+        expect(deviceInfo).toEqual({
+          deviceId: mockCameraDevice.deviceId,
+          groupId: mockCameraDevice.groupId,
+          label: mockCameraDevice.label,
+        });
       });
 
       it('should reach connection timeout state after receiving a connection timeout error from the websocket stream', async () => {
@@ -542,10 +691,16 @@ describe('Liveness Machine', () => {
           LivenessErrorState.CONNECTION_TIMEOUT
         );
         expect(mockComponentProps.onError).toHaveBeenCalledTimes(1);
-        const livenessError = (mockComponentProps.onError as jest.Mock).mock
-          .calls[0][0];
+        const [livenessError, deviceInfo] = (
+          mockComponentProps.onError as jest.Mock
+        ).mock.calls[0];
         expect(livenessError.error.message).toContain(errorMessage);
         expect(livenessError.state).toBe(LivenessErrorState.CONNECTION_TIMEOUT);
+        expect(deviceInfo).toEqual({
+          deviceId: mockCameraDevice.deviceId,
+          groupId: mockCameraDevice.groupId,
+          label: mockCameraDevice.label,
+        });
       });
 
       it('should reach ovalMatching state and send client sessionInformation', async () => {
@@ -839,9 +994,15 @@ describe('Liveness Machine', () => {
           LivenessErrorState.RUNTIME_ERROR
         );
         expect(mockComponentProps.onError).toHaveBeenCalledTimes(1);
-        const livenessError = (mockComponentProps.onError as jest.Mock).mock
-          .calls[0][0];
+        const [livenessError, deviceInfo] = (
+          mockComponentProps.onError as jest.Mock
+        ).mock.calls[0];
         expect(livenessError.state).toBe(LivenessErrorState.RUNTIME_ERROR);
+        expect(deviceInfo).toEqual({
+          deviceId: mockCameraDevice.deviceId,
+          groupId: mockCameraDevice.groupId,
+          label: mockCameraDevice.label,
+        });
       });
 
       it('should reach error state after receiving a server error from the websocket stream', async () => {
@@ -859,9 +1020,17 @@ describe('Liveness Machine', () => {
           LivenessErrorState.SERVER_ERROR
         );
         expect(mockComponentProps.onError).toHaveBeenCalledTimes(1);
-        const livenessError = (mockComponentProps.onError as jest.Mock).mock
-          .calls[0][0];
-        expect(livenessError.state).toBe(LivenessErrorState.SERVER_ERROR);
+        expect(mockComponentProps.onError).toHaveBeenCalledWith(
+          {
+            state: LivenessErrorState.SERVER_ERROR,
+            error,
+          },
+          {
+            deviceId: mockCameraDevice.deviceId,
+            groupId: mockCameraDevice.groupId,
+            label: mockCameraDevice.label,
+          }
+        );
       });
 
       it('should reach connection timeout state after receiving a connection timeout error from the websocket stream', async () => {
@@ -1151,10 +1320,17 @@ describe('Liveness Machine', () => {
         LivenessErrorState.RUNTIME_ERROR
       );
       expect(mockComponentProps.onError).toHaveBeenCalledTimes(1);
-      expect(mockComponentProps.onError).toHaveBeenCalledWith({
-        state: LivenessErrorState.RUNTIME_ERROR,
-        error,
-      });
+      expect(mockComponentProps.onError).toHaveBeenCalledWith(
+        {
+          state: LivenessErrorState.RUNTIME_ERROR,
+          error,
+        },
+        {
+          deviceId: mockCameraDevice.deviceId,
+          groupId: mockCameraDevice.groupId,
+          label: mockCameraDevice.label,
+        }
+      );
     });
   });
 });

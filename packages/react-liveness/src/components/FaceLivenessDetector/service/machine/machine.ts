@@ -28,6 +28,7 @@ import type {
   OvalAssociatedParams,
   StreamActorCallback,
   VideoAssociatedParams,
+  DeviceInfo,
 } from '../types';
 import { FaceMatchState, LivenessErrorState } from '../types';
 import {
@@ -71,6 +72,23 @@ const CAMERA_ID_KEY = 'AmplifyLivenessCameraId';
 const DEFAULT_FACE_FIT_TIMEOUT = 7000;
 
 let responseStream: Promise<AsyncIterable<LivenessResponseStream>>;
+
+// Helper function to get selected device info
+export const getSelectedDeviceInfo = (
+  context: LivenessContext
+): DeviceInfo | undefined => {
+  const selected = context.videoAssociatedParams?.selectableDevices?.find(
+    (d) => d.deviceId === context.videoAssociatedParams?.selectedDeviceId
+  );
+  return selected
+    ? {
+        deviceId: selected.deviceId,
+        groupId: selected.groupId,
+        label: selected.label ?? '',
+      }
+    : undefined;
+};
+
 const responseStreamActor = async (callback: StreamActorCallback) => {
   try {
     const stream = await responseStream;
@@ -127,7 +145,9 @@ const responseStreamActor = async (callback: StreamActorCallback) => {
     }
   }
 };
-
+function getLastSelectedCameraId(): string | null {
+  return localStorage.getItem(CAMERA_ID_KEY);
+}
 function setLastSelectedCameraId(deviceId: string) {
   localStorage.setItem(CAMERA_ID_KEY, deviceId);
 }
@@ -540,6 +560,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           };
         },
       }),
+
       updateRecordingStartTimestamp: assign({
         videoAssociatedParams: (context) => {
           const {
@@ -731,6 +752,12 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
 
           if ((event.data!.message as string).includes('15 fps')) {
             errorState = LivenessErrorState.CAMERA_FRAMERATE_ERROR;
+          } else if (
+            (event.data!.message as string).includes(
+              LivenessErrorState.DEFAULT_CAMERA_NOT_FOUND_ERROR
+            )
+          ) {
+            errorState = LivenessErrorState.DEFAULT_CAMERA_NOT_FOUND_ERROR;
           } else {
             errorState = LivenessErrorState.CAMERA_ACCESS_ERROR;
           }
@@ -743,7 +770,10 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             state: errorState,
             error: error,
           };
-          context.componentProps!.onError?.(livenessError);
+          context.componentProps!.onError?.(
+            livenessError,
+            getSelectedDeviceInfo(context)
+          );
 
           return errorState;
         },
@@ -751,8 +781,19 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       callMobileLandscapeWarningCallback: assign({
         errorState: () => LivenessErrorState.MOBILE_LANDSCAPE_ERROR,
       }),
+      getSelectedDeviceInfo: (context) => getSelectedDeviceInfo(context),
       callUserCancelCallback: (context) => {
-        context.componentProps!.onUserCancel?.();
+        const { onUserCancel } = context.componentProps ?? {};
+        if (!onUserCancel) {
+          return;
+        }
+
+        try {
+          onUserCancel();
+        } catch (callbackError) {
+          // eslint-disable-next-line no-console
+          console.error('Error in onUserCancel callback:', callbackError);
+        }
       },
       callUserTimeoutCallback: (context) => {
         const error = new Error(context.errorMessage ?? 'Client Timeout');
@@ -761,14 +802,20 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           state: context.errorState!,
           error: error,
         };
-        context.componentProps!.onError?.(livenessError);
+        context.componentProps!.onError?.(
+          livenessError,
+          getSelectedDeviceInfo(context)
+        );
       },
       callErrorCallback: (context, event) => {
         const livenessError: LivenessError = {
           state: context.errorState!,
           error: (event.data?.error as Error) || event.data,
         };
-        context.componentProps!.onError?.(livenessError);
+        context.componentProps!.onError?.(
+          livenessError,
+          getSelectedDeviceInfo(context)
+        );
       },
       cleanUpResources: (context) => {
         const { freshnessColorEl } = context.freshnessColorAssociatedParams!;
@@ -894,11 +941,47 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       async checkVirtualCameraAndGetStream(context) {
         const { videoConstraints } = context.videoAssociatedParams!;
 
-        // Get initial stream to enumerate devices with non-empty labels
-        const initialStream = await navigator.mediaDevices.getUserMedia({
-          video: { ...videoConstraints },
-          audio: false,
-        });
+        const { componentProps } = context;
+
+        let targetDeviceId: string | undefined;
+
+        let cameraNotFound = false;
+        if (componentProps?.config?.deviceId) {
+          targetDeviceId = componentProps.config.deviceId;
+        } else {
+          targetDeviceId = getLastSelectedCameraId() ?? undefined;
+        }
+
+        const initialStream = await navigator.mediaDevices
+          .getUserMedia({
+            video: {
+              ...videoConstraints,
+              ...(targetDeviceId
+                ? { deviceId: { exact: targetDeviceId } }
+                : {}),
+            },
+            audio: false,
+          })
+          .catch((error: unknown) => {
+            if (
+              error instanceof DOMException &&
+              (error.name === 'NotFoundError' ||
+                error.name === 'OverconstrainedError')
+            ) {
+              // Mark camera as not found when a specific target device (either provided via props
+              // or previously selected/saved as default) cannot be accessed.
+              if (targetDeviceId && !cameraNotFound) {
+                cameraNotFound = true;
+              }
+              return navigator.mediaDevices.getUserMedia({
+                video: {
+                  ...videoConstraints,
+                },
+                audio: false,
+              });
+            }
+            throw error;
+          });
         const devices = await navigator.mediaDevices.enumerateDevices();
         const realVideoDevices = devices
           .filter((device) => device.kind === 'videoinput')
@@ -913,7 +996,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           .getTracks()
           .filter((track) => {
             const settings = track.getSettings();
-            return settings.frameRate! >= 15;
+            return (settings.frameRate ?? 0) >= 15;
           });
 
         if (tracksWithMoreThan15Fps.length < 1) {
@@ -940,11 +1023,18 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         }
         setLastSelectedCameraId(deviceId!);
 
-        return {
+        const result = {
           stream: realVideoDeviceStream,
           selectedDeviceId: initialStreamDeviceId,
           selectableDevices: realVideoDevices,
         };
+
+        // If a specific camera was requested but not found, trigger a specific error
+        if (cameraNotFound) {
+          throw new Error(LivenessErrorState.DEFAULT_CAMERA_NOT_FOUND_ERROR);
+        }
+
+        return result;
       },
       // eslint-disable-next-line @typescript-eslint/require-await
       async openLivenessStreamConnection(context) {
@@ -1045,7 +1135,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
 
         // detect face
         const detectedFaces = await faceDetector!.detectFaces(videoEl!);
-        let initialFace: Face;
+        let initialFace: Face | undefined;
         let faceMatchState: FaceMatchState;
         let illuminationState: IlluminationState | undefined;
 
@@ -1070,7 +1160,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           }
         }
 
-        if (!initialFace!) {
+        if (!initialFace) {
           return { faceMatchState, illuminationState };
         }
 
@@ -1277,10 +1367,20 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         livenessStreamProvider!.dispatchStreamEvent({ type: 'streamStop' });
       },
       async getLiveness(context) {
-        const { onAnalysisComplete } = context.componentProps!;
+        const { onAnalysisComplete } = context.componentProps ?? {};
+        if (!onAnalysisComplete) {
+          return;
+        }
 
-        // Get liveness result
-        await onAnalysisComplete();
+        try {
+          const deviceInfo = getSelectedDeviceInfo(context);
+          await onAnalysisComplete(deviceInfo);
+        } catch (callbackError) {
+          // eslint-disable-next-line no-console
+          console.error('Error in onAnalysisComplete callback:', callbackError);
+          // Rethrow to allow the state machine to handle the error
+          throw callbackError;
+        }
       },
     },
   }

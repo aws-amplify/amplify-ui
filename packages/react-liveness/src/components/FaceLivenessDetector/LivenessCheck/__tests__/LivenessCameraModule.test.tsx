@@ -41,6 +41,15 @@ const mockUseLivenessActor = getMockedFunction(useLivenessActor);
 const mockUseLivenessSelector = getMockedFunction(useLivenessSelector);
 const mockUseMediaStreamInVideo = getMockedFunction(useMediaStreamInVideo);
 
+// Mock navigator.mediaDevices.getUserMedia
+const mockGetUserMedia = jest.fn();
+Object.defineProperty(global.navigator, 'mediaDevices', {
+  value: {
+    getUserMedia: mockGetUserMedia,
+  },
+  writable: true,
+});
+
 const mockDevices = [
   {
     deviceId: '123',
@@ -80,6 +89,11 @@ describe('LivenessCameraModule', () => {
   } = getDisplayText(undefined);
   const { cancelLivenessCheckText, recordingIndicatorText } = streamDisplayText;
 
+  const mockMediaStream = {
+    getTracks: jest.fn(() => []),
+    getVideoTracks: jest.fn(() => []),
+  };
+
   function mockStateMatchesAndSelectors() {
     when(mockActorState.matches)
       .calledWith('initCamera')
@@ -96,8 +110,18 @@ describe('LivenessCameraModule', () => {
       .mockReturnValue(isNotRecording)
       .calledWith('start')
       .mockReturnValue(isStart)
+      .calledWith('userCancel')
+      .mockReturnValue(false)
+      .calledWith('waitForDOMAndCameraDetails')
+      .mockReturnValue(false)
+      .calledWith('detectFaceBeforeStart')
+      .mockReturnValue(false)
       .calledWith('recording')
-      .mockReturnValue(isRecording);
+      .mockReturnValue(isRecording)
+      .calledWith('checkSucceeded')
+      .mockReturnValue(false)
+      .calledWith({ recording: 'flashFreshnessColors' })
+      .mockReturnValue(false);
   }
 
   beforeEach(() => {
@@ -109,6 +133,7 @@ describe('LivenessCameraModule', () => {
       videoHeight: 100,
       videoWidth: 100,
     });
+    mockGetUserMedia.mockResolvedValue(mockMediaStream);
     drawStaticOvalSpy.mockClear();
     (global.navigator.mediaDevices as any) = {
       getUserMedia: jest.fn(),
