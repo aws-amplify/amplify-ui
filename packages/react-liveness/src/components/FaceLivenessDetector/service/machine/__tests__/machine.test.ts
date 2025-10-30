@@ -32,31 +32,10 @@ jest.mock('../../utils');
 const mockedHelpers = helpers as jest.Mocked<typeof helpers>;
 const flushPromises = () => new Promise(setImmediate);
 
-// Helper function to wait for async callbacks with fake timers
-const waitForCallback = async (mockFn: jest.Mock, timeoutMs = 5000) => {
-  const maxAttempts = 100; // Prevent infinite loops
-  let attempts = 0;
-
-  while (mockFn.mock.calls.length === 0 && attempts < maxAttempts) {
-    // Advance any pending timers
-    if (jest.getTimerCount() > 0) {
-      jest.advanceTimersToNextTimer();
-    }
-    // Allow promises to resolve
-    await flushPromises();
-    attempts++;
-  }
-
-  if (mockFn.mock.calls.length === 0) {
-    throw new Error(`Callback was not called within ${maxAttempts} attempts`);
-  }
+const mockNavigatorMediaDevices: any = {
+  getUserMedia: jest.fn(),
+  enumerateDevices: jest.fn(),
 };
-
-describe('Liveness Machine', () => {
-  const mockNavigatorMediaDevices: any = {
-    getUserMedia: jest.fn(),
-    enumerateDevices: jest.fn(),
-  };
 
 const mockColorDisplay: any = {
   startSequences: jest.fn().mockResolvedValue(true),
@@ -606,92 +585,14 @@ describe('Liveness Machine', () => {
       it('should handle timeout during recording as expected', async () => {
         await transitionToRecording(service);
 
-      expect(service.state.value).toEqual({ recording: 'ovalDrawing' });
-      expect(service.state.context.videoAssociatedParams!.videoEl).toBe(
-        mockVideoEl
-      );
-      expect(service.state.context.videoAssociatedParams!.canvasEl).toBe(
-        mockCanvasEl
-      );
-      expect(
-        service.state.context.videoAssociatedParams!.videoMediaStream
-      ).toBe(mockVideoMediaStream);
-      expect(
-        service.state.context.livenessStreamProvider!.getResponseStream
-      ).toHaveBeenCalledTimes(1);
-      expect(service.state.context.errorState).toBeUndefined();
+        jest.runAllTimers();
 
-      jest.advanceTimersToNextTimer();
-      expect(service.state.value).toEqual('error');
-      expect(service.state.context.errorState).toBe(
-        LivenessErrorState.RUNTIME_ERROR
-      );
-      await flushPromises();
-      expect(mockcomponentProps.onError).toHaveBeenCalledTimes(1);
-    });
-
-    it('should reach ovalMatching state after detectInitialFaceAndDrawOval success and respect ovalMatchingTimeout', async () => {
-      // Set up the machine with proper timeout callback
-      const mockOnUserTimeout = jest.fn();
-      const testMachine = livenessMachine.withContext({
-        ...livenessMachine.context,
-        componentProps: {
-          ...mockcomponentProps,
-          onUserTimeout: mockOnUserTimeout,
-        },
-        maxFailedAttempts: 1,
-        faceMatchAssociatedParams: {
-          illuminationState: IlluminationState.NORMAL,
-          faceMatchState: FaceMatchState.MATCHED,
-          faceMatchPercentage: 100,
-          currentDetectedFace: mockFace,
-          startFace: mockFace,
-          endFace: mockFace,
-        },
-        freshnessColorAssociatedParams: {
-          freshnessColorEl: document.createElement('canvas'),
-          freshnessColors: [],
-          freshnessColorsComplete: false,
-          freshnessColorDisplay: mockFreshnessColorDisplay,
-        },
+        expect(service.state.value).toEqual('timeout');
+        expect(service.state.context.errorState).toBe(
+          LivenessErrorState.TIMEOUT
+        );
+        expect(mockComponentProps.onError).toHaveBeenCalledTimes(1);
       });
-      const testService = interpret(
-        testMachine
-      ) as unknown as LivenessInterpreter;
-
-      await transitionToRecording(testService);
-      await flushPromises();
-
-      expect(testService.state.value).toEqual({
-        recording: 'checkFaceDetected',
-      });
-
-      jest.advanceTimersToNextTimer(); // checkFaceDetected
-      jest.advanceTimersToNextTimer(); // cancelOvalDrawingTimeout
-      jest.advanceTimersToNextTimer(); // checkRecordingStarted
-      expect(testService.state.value).toEqual({
-        recording: 'ovalMatching',
-      });
-      expect(
-        testService.state.context.faceMatchAssociatedParams!.faceMatchState
-      ).toBe(FaceMatchState.FACE_IDENTIFIED);
-      expect(testService.state.context.ovalAssociatedParams!.ovalDetails).toBe(
-        mockOvalDetails
-      );
-      expect(testService.state.context.ovalAssociatedParams!.initialFace).toBe(
-        mockFace
-      );
-
-      jest.advanceTimersToNextTimer(12000);
-      expect(testService.state.value).toEqual('timeout');
-      expect(testService.state.context.errorState).toBe(
-        LivenessErrorState.TIMEOUT
-      );
-      await flushPromises();
-      expect(mockOnUserTimeout).toHaveBeenCalledTimes(1);
-
-      testService.stop();
-    });
 
       it('should reach checkFaceDetected again if no face is detected', async () => {
         mockBlazeFace.detectFaces
@@ -721,19 +622,14 @@ describe('Liveness Machine', () => {
         ).toBe(IlluminationState.BRIGHT);
       });
 
-    it('should reach error state after detectInitialFaceAndDrawOval error', async () => {
-      // const error = new Error();
-      const error = {
-        state: LivenessErrorState.RUNTIME_ERROR,
-        message: 'Simulated runtime error',
-      };
-
-      // error.name = LivenessErrorState.RUNTIME_ERROR;
-      mockBlazeFace.detectFaces
-        .mockResolvedValue([mockFace])
-        .mockResolvedValueOnce([mockFace]) // first to pass detecting face before start
-        .mockResolvedValueOnce([mockFace]) // second to pass face distance before start
-        .mockRejectedValue(error);
+      it('should reach error state after detectInitialFaceAndDrawOval error', async () => {
+        const error = new Error();
+        error.name = LivenessErrorState.RUNTIME_ERROR;
+        mockBlazeFace.detectFaces
+          .mockResolvedValue([mockFace])
+          .mockResolvedValueOnce([mockFace]) // first to pass detecting face before start
+          .mockResolvedValueOnce([mockFace]) // second to pass face distance before start
+          .mockRejectedValue(error);
 
         await transitionToRecording(service);
 

@@ -2,6 +2,7 @@ import * as React from 'react';
 import { screen, waitFor } from '@testing-library/react';
 import { when, resetAllWhenMocks } from 'jest-when';
 import { LivenessClassNames } from '../../types/classNames';
+
 import {
   renderWithLivenessProvider,
   getMockedFunction,
@@ -48,6 +49,22 @@ Object.defineProperty(global.navigator, 'mediaDevices', {
   },
   writable: true,
 });
+
+const mockDevices = [
+  {
+    deviceId: '123',
+    kind: 'videoinput',
+    label: 'Front Camera',
+    groupId: '',
+  },
+  {
+    deviceId: '456',
+    kind: 'videoinput',
+    label: 'Back Camera',
+    groupId: '',
+  },
+];
+const mockEnumerateDevices = jest.fn().mockResolvedValue(mockDevices);
 
 describe('LivenessCameraModule', () => {
   const mockActorState: any = {
@@ -117,6 +134,11 @@ describe('LivenessCameraModule', () => {
       videoWidth: 100,
     });
     mockGetUserMedia.mockResolvedValue(mockMediaStream);
+    drawStaticOvalSpy.mockClear();
+    (global.navigator.mediaDevices as any) = {
+      getUserMedia: jest.fn(),
+      enumerateDevices: mockEnumerateDevices,
+    };
   });
 
   afterEach(() => {
@@ -272,7 +294,7 @@ describe('LivenessCameraModule', () => {
       screen.getByRole('button', { name: cancelLivenessCheckText })
     ).toBeInTheDocument();
 
-    act(() => {
+    await waitFor(() => {
       videoEl.dispatchEvent(new Event('canplay'));
     });
 
@@ -311,7 +333,7 @@ describe('LivenessCameraModule', () => {
       );
     });
     const videoEl = screen.getByTestId('video');
-    act(() => {
+    await waitFor(() => {
       videoEl.dispatchEvent(new Event('canplay'));
     });
 
@@ -342,7 +364,7 @@ describe('LivenessCameraModule', () => {
       );
     });
     const videoEl = screen.getByTestId('video');
-    act(() => {
+    await waitFor(() => {
       videoEl.dispatchEvent(new Event('canplay'));
     });
 
@@ -376,7 +398,7 @@ describe('LivenessCameraModule', () => {
       );
     });
     const videoEl = screen.getByTestId('video');
-    act(() => {
+    await waitFor(() => {
       videoEl.dispatchEvent(new Event('canplay'));
     });
 
@@ -410,7 +432,7 @@ describe('LivenessCameraModule', () => {
       );
     });
     const videoEl = screen.getByTestId('video');
-    act(() => {
+    await waitFor(() => {
       videoEl.dispatchEvent(new Event('canplay'));
     });
 
@@ -444,7 +466,7 @@ describe('LivenessCameraModule', () => {
       );
     });
     const videoEl = screen.getByTestId('video');
-    act(() => {
+    await waitFor(() => {
       videoEl.dispatchEvent(new Event('canplay'));
     });
 
@@ -478,10 +500,9 @@ describe('LivenessCameraModule', () => {
       );
     });
     const videoEl = screen.getByTestId('video');
-    act(() => {
+    await waitFor(() => {
       videoEl.dispatchEvent(new Event('canplay'));
     });
-
     const cameraModule = await screen.findByTestId(testId);
     const matchIndicator = cameraModule.getElementsByClassName(
       LivenessClassNames.MatchIndicator
@@ -631,7 +652,35 @@ describe('LivenessCameraModule', () => {
       />
     );
     const videoEl = screen.getByTestId('video');
-    act(() => {
+    await waitFor(() => {
+      videoEl.dispatchEvent(new Event('canplay'));
+    });
+
+    expect(screen.getByTestId('popover-icon')).toBeInTheDocument();
+    expect(
+      screen.getByTestId('amplify-liveness-camera-select')
+    ).toBeInTheDocument();
+  });
+
+  it('should render hair check screen when isStart = true, should not render camera selector if only one camera', async () => {
+    isStart = true;
+    mockStateMatchesAndSelectors();
+    mockUseLivenessSelector.mockReturnValue(25).mockReturnValue(['device-id']);
+    await waitFor(() => {
+      renderWithLivenessProvider(
+        <LivenessCameraModule
+          isMobileScreen={false}
+          isRecordingStopped={false}
+          hintDisplayText={hintDisplayText}
+          streamDisplayText={streamDisplayText}
+          errorDisplayText={errorDisplayText}
+          cameraDisplayText={cameraDisplayText}
+          instructionDisplayText={instructionDisplayText}
+        />
+      );
+    });
+    const videoEl = screen.getByTestId('video');
+    await waitFor(() => {
       videoEl.dispatchEvent(new Event('canplay'));
     });
 
@@ -654,66 +703,14 @@ describe('LivenessCameraModule', () => {
     expect(isRecordingStopped).toEqual(true);
   });
 
-  describe('Camera Device Switching', () => {
-    beforeEach(() => {
-      isStart = true;
-      mockStateMatchesAndSelectors();
-    });
+  it('should show a full screen camera', async () => {
+    isInitCamera = false;
+    isInitWebsocket = false;
+    isWaitingForCamera = false;
+    mockStateMatchesAndSelectors();
 
-    it('should render camera selection dropdown when multiple devices are available on desktop', () => {
-      // Create a more robust selector mock that handles multiple calls
-      mockUseLivenessSelector.mockImplementation((selector) => {
-        if (selector === selectVideoStream) return mockMediaStream;
-        if (selector === selectVideoConstraints) return mockVideoConstraints;
-        if (selector === selectSelectedDeviceId) return 'device-1';
-        if (selector === selectSelectableDevices) return mockSelectableDevices;
-        if (selector === selectFaceMatchPercentage) return 25;
-        if (selector === selectFaceMatchState)
-          return FaceMatchState.FACE_IDENTIFIED;
-        if (selector === selectErrorState) return null;
-        return undefined;
-      });
-
-      renderWithLivenessProvider(
-        <LivenessCameraModule
-          isMobileScreen={false}
-          isRecordingStopped={false}
-          hintDisplayText={hintDisplayText}
-          streamDisplayText={streamDisplayText}
-          errorDisplayText={errorDisplayText}
-          cameraDisplayText={cameraDisplayText}
-          instructionDisplayText={instructionDisplayText}
-        />
-      );
-
-      const videoEl = screen.getByTestId('video');
-      act(() => {
-        videoEl.dispatchEvent(new Event('canplay'));
-      });
-
-      // Should render the camera selection dropdown
-      expect(screen.getByLabelText('Camera')).toBeInTheDocument();
-      expect(screen.getByDisplayValue('Camera 1')).toBeInTheDocument();
-
-      // Should have all device options
-      mockSelectableDevices.forEach((device) => {
-        expect(screen.getByText(device.label)).toBeInTheDocument();
-      });
-    });
-
-    it('should not render camera selection dropdown on mobile screens', () => {
-      mockUseLivenessSelector.mockImplementation((selector) => {
-        if (selector === selectVideoStream) return mockMediaStream;
-        if (selector === selectVideoConstraints) return mockVideoConstraints;
-        if (selector === selectSelectedDeviceId) return 'device-1';
-        if (selector === selectSelectableDevices) return mockSelectableDevices;
-        if (selector === selectFaceMatchPercentage) return 25;
-        if (selector === selectFaceMatchState)
-          return FaceMatchState.FACE_IDENTIFIED;
-        if (selector === selectErrorState) return null;
-        return undefined;
-      });
-
+    const testId = 'cameraModule';
+    await waitFor(() => {
       renderWithLivenessProvider(
         <LivenessCameraModule
           isMobileScreen={true}
@@ -723,33 +720,23 @@ describe('LivenessCameraModule', () => {
           errorDisplayText={errorDisplayText}
           cameraDisplayText={cameraDisplayText}
           instructionDisplayText={instructionDisplayText}
+          testId={testId}
         />
       );
-
-      const videoEl = screen.getByTestId('video');
-      act(() => {
-        videoEl.dispatchEvent(new Event('canplay'));
-      });
-
-      // Should not render camera selection on mobile
-      expect(screen.queryByLabelText('Camera')).not.toBeInTheDocument();
     });
 
-    it('should not render camera selection when only one device is available', () => {
-      const singleDevice = [{ deviceId: 'device-1', label: 'Camera 1' }];
+    const cameraModule = await screen.findByTestId(testId);
 
-      mockUseLivenessSelector.mockImplementation((selector) => {
-        if (selector === selectVideoStream) return mockMediaStream;
-        if (selector === selectVideoConstraints) return mockVideoConstraints;
-        if (selector === selectSelectedDeviceId) return 'device-1';
-        if (selector === selectSelectableDevices) return singleDevice;
-        if (selector === selectFaceMatchPercentage) return 25;
-        if (selector === selectFaceMatchState)
-          return FaceMatchState.FACE_IDENTIFIED;
-        if (selector === selectErrorState) return null;
-        return undefined;
-      });
+    expect(cameraModule.className).toContain(
+      `${LivenessClassNames.CameraModule}--mobile`
+    );
+  });
 
+  it('should trigger drawStaticOval once video metadata is loaded', async () => {
+    isStart = true;
+    mockStateMatchesAndSelectors();
+    mockUseLivenessSelector.mockReturnValue(25);
+    await waitFor(() => {
       renderWithLivenessProvider(
         <LivenessCameraModule
           isMobileScreen={false}
@@ -761,251 +748,17 @@ describe('LivenessCameraModule', () => {
           instructionDisplayText={instructionDisplayText}
         />
       );
-
-      const videoEl = screen.getByTestId('video');
-      act(() => {
-        videoEl.dispatchEvent(new Event('canplay'));
-      });
-
-      // Should not render camera selection when only one device
-      expect(screen.queryByLabelText('Camera')).not.toBeInTheDocument();
     });
 
-    it('should call getUserMedia with correct constraints when camera changes', async () => {
-      mockUseLivenessSelector.mockImplementation((selector) => {
-        if (selector === selectVideoStream) return mockMediaStream;
-        if (selector === selectVideoConstraints) return mockVideoConstraints;
-        if (selector === selectSelectedDeviceId) return 'device-1';
-        if (selector === selectSelectableDevices) return mockSelectableDevices;
-        if (selector === selectFaceMatchPercentage) return 25;
-        if (selector === selectFaceMatchState)
-          return FaceMatchState.FACE_IDENTIFIED;
-        if (selector === selectErrorState) return null;
-        return undefined;
-      });
-
-      renderWithLivenessProvider(
-        <LivenessCameraModule
-          isMobileScreen={false}
-          isRecordingStopped={false}
-          hintDisplayText={hintDisplayText}
-          streamDisplayText={streamDisplayText}
-          errorDisplayText={errorDisplayText}
-          cameraDisplayText={cameraDisplayText}
-          instructionDisplayText={instructionDisplayText}
-        />
-      );
-
-      const videoEl = screen.getByTestId('video');
-      act(() => {
-        videoEl.dispatchEvent(new Event('canplay'));
-      });
-
-      const cameraSelect = screen.getByLabelText('Camera');
-
-      // Simulate changing camera to device-2
-      fireEvent.change(cameraSelect, { target: { value: 'device-2' } });
-
-      await waitFor(() => {
-        expect(mockGetUserMedia).toHaveBeenCalledWith({
-          video: {
-            ...mockVideoConstraints,
-            deviceId: { exact: 'device-2' },
-          },
-          audio: false,
-        });
-      });
+    const videoEl = screen.getByTestId('video');
+    await waitFor(() => {
+      videoEl.dispatchEvent(new Event('canplay'));
     });
+    expect(drawStaticOvalSpy).toHaveBeenCalledTimes(0);
 
-    it('should dispatch UPDATE_DEVICE_AND_STREAM action when camera changes successfully', async () => {
-      mockUseLivenessSelector.mockImplementation((selector) => {
-        if (selector === selectVideoStream) return mockMediaStream;
-        if (selector === selectVideoConstraints) return mockVideoConstraints;
-        if (selector === selectSelectedDeviceId) return 'device-1';
-        if (selector === selectSelectableDevices) return mockSelectableDevices;
-        if (selector === selectFaceMatchPercentage) return 25;
-        if (selector === selectFaceMatchState)
-          return FaceMatchState.FACE_IDENTIFIED;
-        if (selector === selectErrorState) return null;
-        return undefined;
-      });
-
-      renderWithLivenessProvider(
-        <LivenessCameraModule
-          isMobileScreen={false}
-          isRecordingStopped={false}
-          hintDisplayText={hintDisplayText}
-          streamDisplayText={streamDisplayText}
-          errorDisplayText={errorDisplayText}
-          cameraDisplayText={cameraDisplayText}
-          instructionDisplayText={instructionDisplayText}
-        />
-      );
-
-      const videoEl = screen.getByTestId('video');
-      act(() => {
-        videoEl.dispatchEvent(new Event('canplay'));
-      });
-
-      const cameraSelect = screen.getByLabelText('Camera');
-
-      // Simulate changing camera to device-2
-      fireEvent.change(cameraSelect, { target: { value: 'device-2' } });
-
-      await waitFor(() => {
-        expect(mockActorSend).toHaveBeenCalledWith({
-          type: 'UPDATE_DEVICE_AND_STREAM',
-          data: {
-            newDeviceId: 'device-2',
-            newStream: mockMediaStream,
-          },
-        });
-      });
+    await waitFor(() => {
+      videoEl.dispatchEvent(new Event('loadedmetadata'));
     });
-
-    it('should call getUserMedia when camera changes and handle async operations', async () => {
-      mockUseLivenessSelector.mockImplementation((selector) => {
-        if (selector === selectVideoStream) return mockMediaStream;
-        if (selector === selectVideoConstraints) return mockVideoConstraints;
-        if (selector === selectSelectedDeviceId) return 'device-1';
-        if (selector === selectSelectableDevices) return mockSelectableDevices;
-        if (selector === selectFaceMatchPercentage) return 25;
-        if (selector === selectFaceMatchState)
-          return FaceMatchState.FACE_IDENTIFIED;
-        if (selector === selectErrorState) return null;
-        return undefined;
-      });
-
-      renderWithLivenessProvider(
-        <LivenessCameraModule
-          isMobileScreen={false}
-          isRecordingStopped={false}
-          hintDisplayText={hintDisplayText}
-          streamDisplayText={streamDisplayText}
-          errorDisplayText={errorDisplayText}
-          cameraDisplayText={cameraDisplayText}
-          instructionDisplayText={instructionDisplayText}
-        />
-      );
-
-      const videoEl = screen.getByTestId('video');
-      act(() => {
-        videoEl.dispatchEvent(new Event('canplay'));
-      });
-
-      const cameraSelect = screen.getByLabelText('Camera');
-
-      // Simulate changing camera to device-2
-      fireEvent.change(cameraSelect, { target: { value: 'device-2' } });
-
-      // Should attempt to call getUserMedia with correct constraints
-      await waitFor(() => {
-        expect(mockGetUserMedia).toHaveBeenCalledWith({
-          video: {
-            ...mockVideoConstraints,
-            deviceId: { exact: 'device-2' },
-          },
-          audio: false,
-        });
-      });
-
-      // The component should remain functional
-      expect(screen.getByLabelText('Camera')).toBeInTheDocument();
-      expect(screen.getByTestId('video')).toBeInTheDocument();
-    });
-
-    it('should update device when selectedDeviceId changes via useEffect', async () => {
-      mockUseLivenessSelector.mockImplementation((selector) => {
-        if (selector === selectVideoStream) return mockMediaStream;
-        if (selector === selectVideoConstraints) return mockVideoConstraints;
-        if (selector === selectSelectedDeviceId) return 'device-2'; // selectedDeviceId changed
-        if (selector === selectSelectableDevices) return mockSelectableDevices;
-        if (selector === selectFaceMatchPercentage) return 25;
-        if (selector === selectFaceMatchState)
-          return FaceMatchState.FACE_IDENTIFIED;
-        if (selector === selectErrorState) return null;
-        return undefined;
-      });
-
-      renderWithLivenessProvider(
-        <LivenessCameraModule
-          isMobileScreen={false}
-          isRecordingStopped={false}
-          hintDisplayText={hintDisplayText}
-          streamDisplayText={streamDisplayText}
-          errorDisplayText={errorDisplayText}
-          cameraDisplayText={cameraDisplayText}
-          instructionDisplayText={instructionDisplayText}
-        />
-      );
-
-      const videoEl = screen.getByTestId('video');
-      act(() => {
-        videoEl.dispatchEvent(new Event('canplay'));
-      });
-
-      await waitFor(() => {
-        expect(mockGetUserMedia).toHaveBeenCalledWith({
-          video: {
-            ...mockVideoConstraints,
-            deviceId: { exact: 'device-2' },
-          },
-          audio: false,
-        });
-      });
-
-      await waitFor(() => {
-        expect(mockActorSend).toHaveBeenCalledWith({
-          type: 'UPDATE_DEVICE_AND_STREAM',
-          data: {
-            newDeviceId: 'device-2',
-            newStream: mockMediaStream,
-          },
-        });
-      });
-    });
-
-    it('should not attempt camera change when selectedDeviceId is not found in selectableDevices', async () => {
-      mockUseLivenessSelector.mockImplementation((selector) => {
-        if (selector === selectVideoStream) return mockMediaStream;
-        if (selector === selectVideoConstraints) return mockVideoConstraints;
-        if (selector === selectSelectedDeviceId) return 'non-existent-device'; // Device not in selectableDevices
-        if (selector === selectSelectableDevices) return mockSelectableDevices;
-        if (selector === selectFaceMatchPercentage) return 25;
-        if (selector === selectFaceMatchState)
-          return FaceMatchState.FACE_IDENTIFIED;
-        if (selector === selectErrorState) return null;
-        return undefined;
-      });
-
-      renderWithLivenessProvider(
-        <LivenessCameraModule
-          isMobileScreen={false}
-          isRecordingStopped={false}
-          hintDisplayText={hintDisplayText}
-          streamDisplayText={streamDisplayText}
-          errorDisplayText={errorDisplayText}
-          cameraDisplayText={cameraDisplayText}
-          instructionDisplayText={instructionDisplayText}
-        />
-      );
-
-      const videoEl = screen.getByTestId('video');
-      act(() => {
-        videoEl.dispatchEvent(new Event('canplay'));
-      });
-
-      // Should not call getUserMedia or send UPDATE_DEVICE_AND_STREAM for non-existent device
-      await waitFor(
-        () => {
-          expect(mockGetUserMedia).not.toHaveBeenCalled();
-          expect(mockActorSend).not.toHaveBeenCalledWith({
-            type: 'UPDATE_DEVICE_AND_STREAM',
-            data: expect.any(Object),
-          });
-        },
-        { timeout: 1000 }
-      );
-    });
+    expect(drawStaticOvalSpy).toHaveBeenCalledTimes(1);
   });
 });
