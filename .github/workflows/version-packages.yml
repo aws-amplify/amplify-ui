@@ -39,7 +39,7 @@ jobs:
         run: yarn --frozen-lockfile
       - name: Create or update Version Packages PR
         if: ${{ steps.has-changesets.outputs.has-changesets == 'true' }}
-        uses: changesets/action@b98cec97583b917ff1dc6179dd4d230d3e439894
+        uses: changesets/action@04d574e831923498156e0b2b93152878063203a3
         with:
           version: yarn bumpVersions
           # Use the current branch as the base for the PR
