@@ -34,9 +34,7 @@ Then('I see the {string} textfield', (textFieldName: string) => {
 Then(
   'I click the {string} selectfield and select the {string} option',
   (selectFieldName: string, optionValue: string) => {
-    cy.findByLabelText(
-      new RegExp(`^${escapeRegExp(selectFieldName)}`, 'i')
-    ).select(optionValue);
+    cy.findByDisplayValue(selectFieldName).select(optionValue);
   }
 );
 
