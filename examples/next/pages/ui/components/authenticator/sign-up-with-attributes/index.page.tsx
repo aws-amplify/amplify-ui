@@ -1,8 +1,6 @@
 import { Amplify } from 'aws-amplify';
 
-import { Authenticator } from '@aws-amplify/ui-react';
-import { TextField } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
+import { Authenticator, TextField } from '@aws-amplify/ui-react';
 
 import awsExports from './aws-exports';
 

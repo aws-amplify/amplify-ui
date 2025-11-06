@@ -1,5 +1,4 @@
 import { AIConversation } from '@aws-amplify/ui-react-ai';
-import '@aws-amplify/ui-react/styles.css';
 
 import { Card, Text } from '@aws-amplify/ui-react';
 import Image from 'next/image';

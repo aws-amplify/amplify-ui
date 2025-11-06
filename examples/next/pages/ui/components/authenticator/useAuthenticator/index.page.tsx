@@ -1,7 +1,6 @@
 import router from 'next/router';
 
 import { Amplify } from 'aws-amplify';
-import '@aws-amplify/ui-react/styles.css';
 
 import awsExports from './aws-exports';
 import { Authenticator } from '@aws-amplify/ui-react';
