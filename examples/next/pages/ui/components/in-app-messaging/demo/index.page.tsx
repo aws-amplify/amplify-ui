@@ -3,23 +3,21 @@ import { Amplify } from 'aws-amplify';
 import { initializeInAppMessaging } from 'aws-amplify/in-app-messaging';
 import {
   Button,
-  defaultDarkModeOverride,
+  CheckboxField,
   ColorMode,
+  defaultDarkModeOverride,
   Divider,
   Heading,
-  CheckboxField,
-  View,
   Radio,
   RadioGroupField,
   ThemeProvider,
   useTheme,
+  View,
 } from '@aws-amplify/ui-react';
 import {
-  InAppMessagingProvider,
   InAppMessageDisplay,
+  InAppMessagingProvider,
 } from '@aws-amplify/ui-react-notifications';
-
-import '@aws-amplify/ui-react/styles.css';
 
 import config from './aws-exports';
 import { ACTIONS, LAYOUTS, ORIENTATIONS, useInAppDemo } from './utils';

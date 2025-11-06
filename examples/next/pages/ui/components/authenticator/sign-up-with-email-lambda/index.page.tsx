@@ -1,9 +1,9 @@
 import { Amplify } from 'aws-amplify';
 
-import { withAuthenticator, Text } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
+import { Text, withAuthenticator } from '@aws-amplify/ui-react';
 
 import awsExports from './aws-exports';
+
 Amplify.configure(awsExports);
 
 function App({ signOut, user }) {

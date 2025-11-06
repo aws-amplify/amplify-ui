@@ -1,14 +1,13 @@
 import React from 'react';
+import type { ColorMode, Theme } from '@aws-amplify/ui-react';
 import {
-  ThemeProvider,
-  Grid,
   Card,
   defaultDarkModeOverride,
+  Grid,
+  ThemeProvider,
 } from '@aws-amplify/ui-react';
-import type { Theme, ColorMode } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react-liveness/styles.css';
 
-import '../style.css';
+import '../style.module.css';
 import NavBar from './NavBar';
 
 export default function Layout({ children }) {

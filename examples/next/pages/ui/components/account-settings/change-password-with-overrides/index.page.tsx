@@ -3,16 +3,16 @@ import React from 'react';
 import { Amplify } from 'aws-amplify';
 
 import {
+  AccountSettings,
   Button,
   Card,
   Flex,
   Heading,
-  AccountSettings,
   withAuthenticator,
 } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
 
 import awsExports from './aws-exports';
+
 Amplify.configure(awsExports);
 
 const components = {

@@ -1,7 +1,6 @@
 import { Amplify } from 'aws-amplify'; // IGNORE
 import { Authenticator } from '@aws-amplify/ui-react';
 import { signUp, SignUpInput } from 'aws-amplify/auth';
-import '@aws-amplify/ui-react/styles.css'; // IGNORE
 import awsExports from './aws-exports'; // IGNORE
 Amplify.configure(awsExports); // IGNORE
 
