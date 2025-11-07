@@ -92,6 +92,7 @@ export const defaultServices = {
   handleForgotPasswordSubmit: confirmResetPassword,
   handleForgotPassword: resetPassword,
   handleResendSignUpCode: resendSignUpCode,
+  handleForceChangePassword: confirmSignIn,
 
   // Validation hooks for overriding
   async validateCustomSignUp(
