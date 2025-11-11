@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import type {
   FileData,
   FileDataItem,
@@ -45,7 +46,7 @@ export const getLocationDetailViewTableData = ({
   getDateDisplayValue: (date: Date) => string;
   onDownload: (fileItem: FileDataItem) => void;
   onNavigate: (location: LocationData, path?: string) => void;
-  onSelect: (isSelected: boolean, fileItem: FileData) => void;
+  onSelect: (isSelected: boolean, fileItem: LocationItemData) => void;
   onSelectAll: () => void;
 }): DataTableProps => {
   const {
@@ -115,6 +116,12 @@ export const getLocationDetailViewTableData = ({
           }
           onNavigate({ ...current, id }, itemLocationPath);
         };
+        const isSelected =
+          fileDataItems?.some((item) => item.id === id) ?? false;
+        const onFolderSelect = () => {
+          onSelect(isSelected, locationItem);
+        };
+
         return {
           key: id,
           active: false,
@@ -122,11 +129,9 @@ export const getLocationDetailViewTableData = ({
             itemSubPath,
             rowId: id,
             onNavigate: onFolderNavigate,
-            selectFolderLabel: 'lable',
-            isSelected: false,
-            onSelect: () => {
-              //
-            },
+            selectFolderLabel: selectFileLabel,
+            isSelected,
+            onSelect: onFolderSelect,
           }),
         };
       }

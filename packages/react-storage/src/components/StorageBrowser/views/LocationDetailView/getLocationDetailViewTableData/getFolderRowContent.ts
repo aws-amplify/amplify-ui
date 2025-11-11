@@ -22,15 +22,6 @@ export const getFolderRowContent = ({
     const key = `${columnKey}-${rowId}`;
     switch (columnKey) {
       case 'checkbox': {
-        console.log(
-          '[folder-action] UI_RENDER_PHASE-2: getFolderRowContent.checkbox - Creating folder checkbox',
-          {
-            key,
-            isSelected,
-            itemSubPath,
-          }
-        );
-
         return {
           key,
           type: 'checkbox',
@@ -38,17 +29,7 @@ export const getFolderRowContent = ({
             checked: isSelected,
             id: key,
             label: `${selectFolderLabel} ${itemSubPath}`,
-            onSelect: () => {
-              console.log(
-                '[folder-action] SELECTION_PHASE-1: getFolderRowContent.onSelect - Folder checkbox clicked',
-                {
-                  itemSubPath,
-                  rowId,
-                  currentlySelected: isSelected,
-                }
-              );
-              onSelect?.();
-            },
+            onSelect,
           },
         };
       }

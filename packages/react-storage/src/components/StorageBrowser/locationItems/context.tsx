@@ -3,15 +3,28 @@ import React from 'react';
 import { createContextUtilities } from '@aws-amplify/ui-react-core';
 import { noop } from '@aws-amplify/ui';
 
-import type { FileData, FileDataItem } from '../actions';
-import { createFileDataItem } from '../actions';
+import type { FileDataItem, LocationItemData } from '../actions';
+
+const createLocationDataItem = (data: LocationItemData): FileDataItem =>
+  ({
+    ...data,
+    fileKey: data.key.slice(data.key.lastIndexOf('/') + 1),
+    ...(data.type === 'FOLDER' && {
+      lastModified: new Date(),
+      size: 0,
+      eTag: undefined,
+      contentType: undefined,
+      fileType: null,
+      versionId: undefined,
+    }),
+  }) as FileDataItem;
 
 export const DEFAULT_STATE: LocationItemsState = {
   fileDataItems: undefined,
 };
 
 export type LocationItemsAction =
-  | { type: 'SET_LOCATION_ITEMS'; items?: FileData[] }
+  | { type: 'SET_LOCATION_ITEMS'; items?: LocationItemData[] }
   | { type: 'REMOVE_LOCATION_ITEM'; id: string }
   | { type: 'RESET_LOCATION_ITEMS' };
 
@@ -40,14 +53,14 @@ const locationItemsReducer = (
       if (!items?.length) return prevState;
 
       if (!prevState.fileDataItems?.length) {
-        return { fileDataItems: items.map(createFileDataItem) };
+        return { fileDataItems: items.map(createLocationDataItem) };
       }
 
       const nextFileDataItems: FileDataItem[] = items?.reduce(
         (fileDataItems: FileDataItem[], data) =>
           prevState.fileDataItems?.some(({ id }) => id === data.id)
             ? fileDataItems
-            : fileDataItems.concat(createFileDataItem(data)),
+            : fileDataItems.concat(createLocationDataItem(data)),
         []
       );
 

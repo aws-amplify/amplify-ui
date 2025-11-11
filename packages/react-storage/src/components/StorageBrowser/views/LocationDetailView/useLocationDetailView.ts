@@ -10,6 +10,7 @@ import type {
   FileDataItem,
   FolderData,
   LocationData,
+  LocationItemData,
 } from '../../actions';
 import { useActionConfigs } from '../../actions';
 import { useFileItems } from '../../fileItems';
@@ -302,21 +303,19 @@ export const useLocationDetailView = (
       storeDispatch({ type: 'RESET_ACTION_TYPE' });
       locationItemsDispatch({ type: 'RESET_LOCATION_ITEMS' });
     },
-    onSelect: (isSelected: boolean, fileItem: FileData) => {
+    onSelect: (isSelected: boolean, item: LocationItemData) => {
       locationItemsDispatch(
         isSelected
-          ? { type: 'REMOVE_LOCATION_ITEM', id: fileItem.id }
-          : { type: 'SET_LOCATION_ITEMS', items: [fileItem] }
+          ? { type: 'REMOVE_LOCATION_ITEM', id: item.id }
+          : { type: 'SET_LOCATION_ITEMS', items: [item] }
       );
     },
     onToggleSelectAll: () => {
-      const fileItems = pageItems.filter(
-        (item): item is FileData => item.type === 'FILE'
-      );
+      const selectableItems = pageItems; // Include both files and folders
       locationItemsDispatch(
-        fileItems.length === fileDataItems?.length
+        selectableItems.length === fileDataItems?.length
           ? { type: 'RESET_LOCATION_ITEMS' }
-          : { type: 'SET_LOCATION_ITEMS', items: fileItems }
+          : { type: 'SET_LOCATION_ITEMS', items: selectableItems }
       );
     },
     onSearch: () => {

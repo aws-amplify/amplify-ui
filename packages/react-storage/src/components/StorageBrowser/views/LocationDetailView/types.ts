@@ -41,7 +41,7 @@ export interface LocationDetailViewState {
   onSearchClear: () => void;
   onSearchQueryChange: (value: string) => void;
   onRetryFilePreview: () => void;
-  onSelect: (isSelected: boolean, fileItem: FileData) => void;
+  onSelect: (isSelected: boolean, item: LocationItemData) => void;
   onSelectActiveFile: (file?: FileData | 'prev' | 'next') => void;
   onToggleSearchSubfolders: () => void;
   onToggleSelectAll: () => void;
