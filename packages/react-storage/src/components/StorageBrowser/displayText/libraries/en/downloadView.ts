@@ -23,4 +23,5 @@ export const DEFAULT_DOWNLOAD_VIEW_DISPLAY_TEXT: DefaultDownloadViewDisplayText 
         type: 'error',
       };
     },
+    tableColumnProgressHeader: 'Progress',
   };

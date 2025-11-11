@@ -7,11 +7,12 @@ import type {
 } from '../../../components';
 
 import type {
-  FileDataTask,
+  ActionTableKey,
   CopyActionTask,
+  DownloadActionTask,
+  FileDataTask,
   GetFileDataCell,
   UploadActionTask,
-  ActionTableKey,
 } from './types';
 import { STATUS_ICONS } from './constants';
 
@@ -52,6 +53,16 @@ export const getUploadCellProgress = ({
   progress,
   status,
 }: UploadActionTask): DataTableNumberDataCell['content'] => {
+  // prefer `progress` if available, 1 if status is complete, default 0
+  const value = progress ?? (status === 'COMPLETE' ? 1 : 0);
+  const displayValue = `${Math.round(value * 100)}%`;
+  return { displayValue, value };
+};
+
+export const getDownloadCellProgress = ({
+  progress,
+  status,
+}: DownloadActionTask): DataTableNumberDataCell['content'] => {
   // prefer `progress` if available, 1 if status is complete, default 0
   const value = progress ?? (status === 'COMPLETE' ? 1 : 0);
   const displayValue = `${Math.round(value * 100)}%`;

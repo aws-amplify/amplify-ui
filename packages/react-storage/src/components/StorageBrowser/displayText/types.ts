@@ -3,13 +3,13 @@ import type {
   CopyHandlerData,
   CreateFolderHandlerData,
   DeleteHandlerData,
+  DownloadHandlerData,
   FolderData,
   LocationData,
   LocationItemData,
+  LocationPermissions,
   TaskData,
   UploadHandlerData,
-  LocationPermissions,
-  DownloadHandlerData,
 } from '../actions';
 import type { MessageType } from '../components';
 import type { FileItems } from '../fileItems';
@@ -172,7 +172,9 @@ export interface DefaultDeleteViewDisplayText
 }
 
 export interface DefaultDownloadViewDisplayText
-  extends DefaultActionViewDisplayText<DownloadHandlerData> {}
+  extends DefaultActionViewDisplayText<DownloadHandlerData> {
+  tableColumnProgressHeader: string;
+}
 
 export interface DefaultUploadViewDisplayText
   extends DefaultActionViewDisplayText<UploadHandlerData> {
