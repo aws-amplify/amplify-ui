@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import type { DataTableProps } from '../../../components';
 
 import { LOCATION_DETAIL_VIEW_HEADERS } from './constants';
@@ -5,17 +6,51 @@ import { LOCATION_DETAIL_VIEW_HEADERS } from './constants';
 export const getFolderRowContent = ({
   itemSubPath,
   rowId,
+  isSelected,
+  selectFolderLabel,
   onNavigate,
+  onSelect,
 }: {
   itemSubPath: string;
   rowId: string;
+  isSelected: boolean;
+  selectFolderLabel: string;
   onNavigate: () => void;
-}): DataTableProps['rows'][number]['content'] =>
-  LOCATION_DETAIL_VIEW_HEADERS.map((columnKey) => {
+  onSelect: () => void;
+}): DataTableProps['rows'][number]['content'] => {
+  return LOCATION_DETAIL_VIEW_HEADERS.map((columnKey) => {
     const key = `${columnKey}-${rowId}`;
     switch (columnKey) {
       case 'checkbox': {
-        return { key, type: 'text', content: { text: '' } };
+        console.log(
+          '[folder-action] UI_RENDER_PHASE-2: getFolderRowContent.checkbox - Creating folder checkbox',
+          {
+            key,
+            isSelected,
+            itemSubPath,
+          }
+        );
+
+        return {
+          key,
+          type: 'checkbox',
+          content: {
+            checked: isSelected,
+            id: key,
+            label: `${selectFolderLabel} ${itemSubPath}`,
+            onSelect: () => {
+              console.log(
+                '[folder-action] SELECTION_PHASE-1: getFolderRowContent.onSelect - Folder checkbox clicked',
+                {
+                  itemSubPath,
+                  rowId,
+                  currentlySelected: isSelected,
+                }
+              );
+              onSelect?.();
+            },
+          },
+        };
       }
       case 'name': {
         return {
@@ -39,3 +74,4 @@ export const getFolderRowContent = ({
       }
     }
   });
+};

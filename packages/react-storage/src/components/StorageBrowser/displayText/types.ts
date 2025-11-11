@@ -91,6 +91,7 @@ export interface DefaultLocationDetailViewDisplayText
   ) => { content?: string; type?: MessageType } | undefined;
   searchSubfoldersToggleLabel: string;
   selectFileLabel: string;
+  selectFolderLabel: string;
   selectAllFilesLabel: string;
   tableColumnLastModifiedHeader: string;
   tableColumnNameHeader: string;

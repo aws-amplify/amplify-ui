@@ -122,6 +122,11 @@ export const getLocationDetailViewTableData = ({
             itemSubPath,
             rowId: id,
             onNavigate: onFolderNavigate,
+            selectFolderLabel: 'lable',
+            isSelected: false,
+            onSelect: () => {
+              //
+            },
           }),
         };
       }

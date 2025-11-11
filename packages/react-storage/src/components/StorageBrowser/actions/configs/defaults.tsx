@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { defaultHandlers } from '../handlers';
 
 import type {
@@ -22,8 +23,42 @@ export const copyActionConfig: CopyActionConfig = {
 export const deleteActionConfig: DeleteActionConfig = {
   viewName: 'DeleteView',
   actionListItem: {
-    disable: (selected) => !selected || selected.length === 0,
-    hide: (permissions) => !permissions.includes('delete'),
+    disable: (selected) => {
+      const hasNoSelection = !selected || selected.length === 0;
+
+      console.log(
+        '[folder-action] DELETE_CONFIG_PHASE-1: deleteActionConfig.disable - Evaluating delete availability',
+        {
+          selectedCount: selected?.length ?? 0,
+          hasNoSelection,
+          selectedItems:
+            selected?.map((item) => ({
+              id: item.id,
+              type: item.type,
+              key:
+                item.key?.substring(0, 50) +
+                (item.key?.length > 50 ? '...' : ''),
+            })) ?? [],
+          finalDisabled: hasNoSelection,
+        }
+      );
+
+      return hasNoSelection;
+    },
+    hide: (permissions) => {
+      const shouldHide = !permissions.includes('delete');
+
+      console.log(
+        '[folder-action] DELETE_CONFIG_PHASE-2: deleteActionConfig.hide - Evaluating delete visibility',
+        {
+          permissions,
+          hasDeletePermission: permissions.includes('delete'),
+          shouldHide,
+        }
+      );
+
+      return shouldHide;
+    },
     icon: 'delete-file',
     label: 'Delete',
   },
@@ -53,8 +88,36 @@ export const uploadActionConfig: UploadActionConfig = {
 export const downloadActionConfig: DownloadActionConfig = {
   viewName: 'DownloadView',
   actionListItem: {
-    disable: (selected) => !selected || selected.length === 0,
-    hide: (permissions) => !permissions.includes('get'),
+    disable: (selected) => {
+      const hasNoSelection = !selected || selected.length === 0;
+      const hasFolders =
+        selected?.some((item) => item.type === 'FOLDER') ?? false;
+
+      console.log(
+        '[folder-action] ACTION_CONFIG_PHASE-1: downloadActionConfig.disable - Evaluating download availability',
+        {
+          selectedCount: selected?.length ?? 0,
+          hasNoSelection,
+          hasFolders,
+          selectedTypes: selected?.map((item) => item.type) ?? [],
+          finalDisabled: hasNoSelection || hasFolders,
+        }
+      );
+
+      return hasNoSelection || hasFolders;
+    },
+    hide: (permissions) => {
+      const shouldHide = !permissions.includes('get');
+      console.log(
+        '[folder-action] ACTION_CONFIG_PHASE-2: downloadActionConfig.hide - Evaluating download visibility',
+        {
+          permissions,
+          hasGetPermission: permissions.includes('get'),
+          shouldHide,
+        }
+      );
+      return shouldHide;
+    },
     icon: 'download',
     label: 'Download',
   },
