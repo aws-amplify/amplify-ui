@@ -6,7 +6,6 @@ import { Button, Flex, withAuthenticator } from '@aws-amplify/ui-react';
 import { StorageBrowser } from '@aws-amplify/ui-react-storage';
 import config from './aws-exports';
 
-import '@aws-amplify/ui-react-storage/styles.css';
 import { parseAmplifyConfig } from 'aws-amplify/utils';
 
 const amplifyConfig = parseAmplifyConfig(config);
