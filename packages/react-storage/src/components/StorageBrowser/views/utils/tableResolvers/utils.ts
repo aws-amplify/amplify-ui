@@ -122,8 +122,14 @@ export const name: GetFileDataCell = (data) => {
   const key = getFileDataCellKey(data);
 
   const { item } = data;
-  const text = item.data.fileKey;
+  const { fileKey, type: itemType } = item.data;
   const icon = STATUS_ICONS[item.status];
+
+  // For folders, show the folder name without trailing slash
+  const text =
+    itemType === 'FOLDER' && fileKey === ''
+      ? item.data.key.split('/').filter(Boolean).pop() || 'Root'
+      : fileKey;
 
   return { key, type: 'text', content: { icon, text } };
 };
@@ -137,18 +143,28 @@ export const folder: GetFileDataCell = (data) => {
 
 export const type: GetFileDataCell = (data) => {
   const key = getFileDataCellKey(data);
-  const { fileKey } = data.item.data;
+  const { fileKey, type: itemType } = data.item.data as any;
 
+  // Handle folders
+  if (itemType === 'FOLDER') {
+    return { key, type: 'text', content: { text: 'Folder' } };
+  }
+
+  // Handle files
   const text = getFileType(fileKey);
-
   return { key, type: 'text', content: { text } };
 };
 
 export const size: GetFileDataCell = (data) => {
   const key = getFileDataCellKey(data);
-  const { size: value } = data.item.data;
-  const displayValue = getFileSize(value);
+  const { size: value, type: itemType } = data.item.data as any;
 
+  // Folders don't have size
+  if (itemType === 'FOLDER') {
+    return { key, type: 'text', content: { text: '-' } };
+  }
+
+  const displayValue = getFileSize(value);
   return { key, type: 'number', content: { value, displayValue } };
 };
 

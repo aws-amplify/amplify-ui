@@ -1360,10 +1360,8 @@
   resolved "https://registry.yarnpkg.com/@aws-amplify/rtn-web-browser/-/rtn-web-browser-1.0.30.tgz#664053391226c956dce25402b77263059b914e1c"
   integrity sha512-1n3za9kmCOMjOXh3qMGZboQm6PlefiDZED1b78cOpeyha7AzynOfJm8y8jGd71gZPODSP94FD+6aa7VNq/S/4w==
 
-"@aws-amplify/storage@6.8.2":
-  version "6.8.2"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/storage/-/storage-6.8.2.tgz#f3e0f5429b9b239ec0f7c807da0893687eb4ed1d"
-  integrity sha512-Oh4c70zBtCez1kzSBzjabAWB1bszjktFBqKA5gS92JKmXbggsz9/pgxtxH8PzGZ66EE9c9UkH2qV6L5F3XkQSA==
+"@aws-amplify/storage@6.8.2", "@aws-amplify/storage@file:../amplify-js/packages/storage":
+  version "6.10.1"
   dependencies:
     "@aws-sdk/types" "3.398.0"
     "@smithy/md5-js" "2.0.7"

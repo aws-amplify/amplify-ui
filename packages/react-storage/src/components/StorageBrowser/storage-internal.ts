@@ -35,3 +35,6 @@ export {
   uploadData,
   validationErrorMap,
 } from '@aws-amplify/storage/internals';
+
+// Export the new removeObjects function from our local storage package
+export { removeObjects } from '@aws-amplify/storage';

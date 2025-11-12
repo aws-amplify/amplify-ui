@@ -22,6 +22,9 @@ export interface UploadActionTask extends Task<UploadHandlerData> {}
 export interface FileDataTask
   extends Task<TaskData & OptionalFileData & { fileKey: string }> {}
 
+export interface LocationDataTask
+  extends Task<TaskData & { fileKey: string; type?: 'FILE' | 'FOLDER' }> {}
+
 interface ActionTableResolverProps<TDisplayText, TTask> {
   displayText: TDisplayText;
   isProcessing: boolean;

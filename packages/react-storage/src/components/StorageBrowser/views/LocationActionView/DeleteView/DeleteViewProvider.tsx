@@ -44,7 +44,7 @@ export function DeleteViewProvider({
     FILE_DATA_ITEM_TABLE_KEYS,
     DELETE_TABLE_RESOLVERS,
     {
-      items,
+      items: items as any,
       props: { displayText, isProcessing, onTaskRemove },
     }
   );
