@@ -33,3 +33,5 @@ allow-licenses:
   - 'X11'
   - 'zlib-acknowledgement'
   - 'Zlib'
+allow-dependencies-licenses:
+  - pkg:npm/sharp
