@@ -53,11 +53,13 @@
   },
   "peerDependencies": {
     "aws-amplify": "^6.14.3",
+    "@aws-amplify/storage": "file:../../../amplify-js/packages/storage",
     "react": "^16.14 || ^17 || ^18 || ^19",
     "react-dom": "^16.14 || ^17 || ^18 || ^19"
   },
   "devDependencies": {
-    "@types/node": "^18.19.50"
+    "@types/node": "^18.19.50",
+    "@aws-amplify/storage": "file:../../../amplify-js/packages/storage"
   },
   "sideEffects": [
     "dist/**/*.css"

@@ -16,6 +16,8 @@ export type {
   LocationCredentialsProvider,
   Permission,
   RemoveInput,
+  RemoveObjectsInput,
+  RemoveObjectsOutput,
   StorageAccess,
   StorageSubpathStrategy,
   UploadDataInput,
@@ -34,7 +36,5 @@ export {
   remove,
   uploadData,
   validationErrorMap,
+  removeObjects,
 } from '@aws-amplify/storage/internals';
-
-// Export the new removeObjects function from our local storage package
-export { removeObjects } from '@aws-amplify/storage';
