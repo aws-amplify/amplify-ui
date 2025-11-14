@@ -1,11 +1,16 @@
-import type { DeleteHandlerData, LocationData } from '../../../actions';
+import type { DeleteHandlerData, LocationData, LocationItemData } from '../../../actions';
 import type {
   ActionViewType,
   ActionViewProps,
   ActionViewState,
 } from '../types';
 
-export interface DeleteViewState extends ActionViewState<DeleteHandlerData> {}
+export interface DeleteViewState extends ActionViewState<DeleteHandlerData> {
+  showConfirmation: boolean;
+  items: LocationItemData[];
+  onConfirmDelete: () => void;
+  onCancelConfirmation: () => void;
+}
 
 export interface DeleteViewProps extends ActionViewProps {}
 

@@ -60,6 +60,7 @@ const deleteObjectsBatch = async (
     });
 
     try {
+      //@ts-expect-error RemoveObjectsInput is not fully typed yet
       const removeObjectsInput: RemoveObjectsInput = {
         paths: batch,
         options: {

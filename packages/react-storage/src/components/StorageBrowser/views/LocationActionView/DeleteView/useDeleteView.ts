@@ -1,7 +1,7 @@
 import React from 'react';
 import { isFunction } from '@aws-amplify/ui';
 
-import type { FileDataItem } from '../../../actions';
+import type { FileDataItem, LocationItemData } from '../../../actions';
 import { useLocationItems } from '../../../locationItems';
 import { useStore } from '../../../store';
 import type { Task } from '../../../tasks';
@@ -20,16 +20,34 @@ export const useDeleteView = (
   const [{ location }, storeDispatch] = useStore();
   const [locationItems, locationItemsDispatch] = useLocationItems();
   const { current } = location;
-  const { fileDataItems: items = EMPTY_ITEMS } = locationItems;
+  const { fileDataItems = EMPTY_ITEMS } = locationItems;
 
-  const [processState, handleProcess] = useAction('delete', { items });
+  const [processState, handleProcess] = useAction('delete', { items: fileDataItems });
+  const [showConfirmation, setShowConfirmation] = React.useState(false);
 
   const { isProcessing, isProcessingComplete, statusCounts, tasks } =
     processState;
 
+  // Cast to LocationItemData to access type property properly
+  const items = fileDataItems as unknown as LocationItemData[];
+  const hasFolders = items.some(item => item.type === 'FOLDER');
+
   const onActionStart = () => {
     if (!current) return;
+    if (hasFolders) {
+      setShowConfirmation(true);
+    } else {
+      handleProcess();
+    }
+  };
+
+  const onConfirmDelete = () => {
+    setShowConfirmation(false);
     handleProcess();
+  };
+
+  const onCancelConfirmation = () => {
+    setShowConfirmation(false);
   };
 
   const onActionCancel = () => {
@@ -60,9 +78,13 @@ export const useDeleteView = (
     location,
     statusCounts,
     tasks,
+    showConfirmation,
+    items,
     onActionCancel,
     onActionExit,
     onActionStart,
     onTaskRemove,
+    onConfirmDelete,
+    onCancelConfirmation,
   };
 };
