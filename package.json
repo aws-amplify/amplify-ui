@@ -91,6 +91,7 @@
     "cookie": "^0.7.0",
     "cross-spawn": "7.0.5",
     "docs/next-plugin-preval/webpack": "^5.76.0",
+    "docs/next-plugin-preval/js-yaml": "^3.14.1",
     "esbuild": "^0.25.0",
     "follow-redirects": "^1.15.6",
     "json5": "^2.2.1",
@@ -116,6 +117,8 @@
     "stylus": "github:stylus/stylus#0.59.0",
     "on-headers": "^1.1.0",
     "tmp": "^0.2.4",
+    "**/jest/**/js-yaml": "^4.1.1",
+    "**/@changesets/cli/**/js-yaml": "^4.1.1",
     "@tensorflow-models/face-detection/rimraf": "5.0.0"
   },
   "devDependencies": {
