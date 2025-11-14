@@ -10,12 +10,10 @@ import {
   withAuthenticator,
 } from '@aws-amplify/ui-react';
 import {
-  ThemeStyle,
   createTheme,
   defineComponentTheme,
+  ThemeStyle,
 } from '@aws-amplify/ui-react/server';
-
-import '@aws-amplify/ui-react-storage/styles.css';
 
 import config from '../default-auth/aws-exports';
 import {
