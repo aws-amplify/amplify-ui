@@ -55,12 +55,12 @@ export const DEFAULT_DELETE_VIEW_DISPLAY_TEXT: DefaultDeleteViewDisplayText = {
       if (FAILED === TOTAL) {
         if (folderTasks.length > 0 && fileTasks.length > 0) {
           return {
-            content: `Failed to delete ${failedFolders} folders and ${failedFiles} files.`,
+            content: `Failed to delete ${failedFolders} folders and ${failedFiles} files. Some contents may have been deleted.`,
             type: 'error',
           };
         } else if (folderTasks.length > 0) {
           return {
-            content: `Failed to delete ${failedFolders} folders.`,
+            content: `Failed to completely delete ${failedFolders} items. Some contents may have been deleted.`,
             type: 'error',
           };
         } else {
@@ -83,7 +83,9 @@ export const DEFAULT_DELETE_VIEW_DISPLAY_TEXT: DefaultDeleteViewDisplayText = {
         );
       if (failedFolders > 0)
         messages.push(
-          `${failedFolders} folder${failedFolders !== 1 ? 's' : ''} failed`
+          `${failedFolders} item${
+            failedFolders !== 1 ? 's' : ''
+          } failed to delete completely (some contents may have been deleted)`
         );
       if (failedFiles > 0)
         messages.push(
