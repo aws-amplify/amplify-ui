@@ -9,9 +9,10 @@ Then('I do not see the banner', () => {
 });
 
 Then('the banner has {int} buttons', (buttonCount: number) => {
+  const context = cy.findAllByRole('dialog');
   if (buttonCount > 0) {
-    cy.findByRole('group').children().should('have.length', buttonCount);
+    context.findByRole('group').children().should('have.length', buttonCount);
   } else {
-    cy.findByRole('group').should('not.exist');
+    context.findByRole('group').should('not.exist');
   }
 });

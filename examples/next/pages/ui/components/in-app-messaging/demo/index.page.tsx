@@ -2,14 +2,10 @@ import React, { useState } from 'react';
 import { Amplify } from 'aws-amplify';
 import { initializeInAppMessaging } from 'aws-amplify/in-app-messaging';
 import {
-  Button,
-  CheckboxField,
   ColorMode,
   defaultDarkModeOverride,
   Divider,
   Heading,
-  Radio,
-  RadioGroupField,
   ThemeProvider,
   useTheme,
   View,
@@ -27,15 +23,18 @@ initializeInAppMessaging();
 
 function DemoCheckbox({ label, onChange, ...rest }) {
   return (
-    <CheckboxField
-      {...rest}
-      label={label}
-      name={label}
-      onChange={() => {
-        onChange((prev) => !prev);
-      }}
-      value=""
-    />
+    <label>
+      <input
+        disabled={rest.isDisabled}
+        name={label}
+        type="checkbox"
+        checked={rest.checked}
+        onChange={() => {
+          onChange((prev) => !prev);
+        }}
+      />
+      {label}
+    </label>
   );
 }
 
@@ -47,20 +46,24 @@ function DemoDivider() {
 
 function DemoRadioGroup({ data, legend, onChange, ...rest }) {
   return (
-    <RadioGroupField
-      {...rest}
-      legend={legend}
-      name={legend}
-      onChange={(e) => {
-        onChange(e.target.value);
-      }}
-    >
+    <fieldset>
+      <legend>{legend}</legend>
       {data.map((item) => (
-        <Radio key={`${legend}:${item}`} value={item}>
+        <label key={`${legend}:${item}`} style={{ display: 'block' }}>
+          <input
+            onChange={(e) => {
+              onChange(e.target.value);
+            }}
+            disabled={rest.isDisabled}
+            checked={rest.value === item}
+            type="radio"
+            name={legend}
+            value={item}
+          />{' '}
           {item}
-        </Radio>
+        </label>
       ))}
-    </RadioGroupField>
+    </fieldset>
   );
 }
 
@@ -186,16 +189,14 @@ function Content({ colorMode, setColorMode }) {
             <DemoDivider />
           </View>
         </div>
-        <Button margin="medium" onClick={displayDemoMessage}>
-          Display Demo Message
-        </Button>
+        <button onClick={displayDemoMessage}>Display Demo Message</button>
       </div>
     </View>
   );
 }
 
 export default function App() {
-  const [colorMode, setColorMode] = useState<ColorMode>('dark');
+  const [colorMode, setColorMode] = useState<ColorMode>('light');
   return (
     <ThemeProvider
       colorMode={colorMode}

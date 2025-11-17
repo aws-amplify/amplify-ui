@@ -1,26 +1,30 @@
 import { Given, Then, When } from '@badeball/cypress-cucumber-preprocessor';
 
 Given('{string} checkbox is checked', (checkboxName: string) => {
-  cy.findByText(checkboxName)
-    .next()
-    .should('have.attr', 'data-checked', 'true');
+  cy.findByRole('checkbox', { name: checkboxName }).should(
+    'have.prop',
+    'checked',
+    true
+  );
 });
 Given('{string} checkbox is unchecked', (checkboxName: string) => {
-  cy.findByText(checkboxName)
-    .next()
-    .should('have.attr', 'data-checked', 'false');
+  cy.findByRole('checkbox', { name: checkboxName }).should(
+    'have.prop',
+    'checked',
+    false
+  );
 });
 
 Given('{string} layout radio option is selected', (radioOption: string) => {
-  cy.findByText(radioOption).next().should('have.attr', 'checked');
+  cy.findByRole('radio', { name: radioOption }).should('have.attr', 'checked');
 });
 
 When('I click the {string} layout radio option', (radioOption: string) => {
-  cy.findByText(radioOption, { timeout: 5000 }).click();
+  cy.findByRole('radio', { name: radioOption, timeout: 5000 }).click();
 });
 
 When('I toggle {string} checkbox', (checkboxName: string) => {
-  cy.findByText(checkboxName, { timeout: 5000 }).click();
+  cy.findByRole('checkbox', { name: checkboxName, timeout: 5000 }).click();
 });
 
 When('I wait for pinpoint messages to sync', () => {
