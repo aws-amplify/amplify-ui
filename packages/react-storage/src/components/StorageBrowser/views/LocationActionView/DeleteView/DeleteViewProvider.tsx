@@ -37,7 +37,7 @@ export function DeleteViewProvider({
   } = props;
 
   const message = isProcessingComplete
-    ? getActionCompleteMessage({ counts: statusCounts })
+    ? getActionCompleteMessage({ counts: statusCounts, tasks: items })
     : undefined;
 
   const tableData = useResolveTableData(
