@@ -35,6 +35,11 @@ allow-licenses:
   - 'zlib-acknowledgement'
   - 'Zlib'
 allow-dependencies-licenses:
+  # These packages are needed for nextjs (more detailed sharp)
+  # they are dynamic libraries and thus do not ship the underlying library
+  # which means they are not under LGPL strictly speaking.
+  # so an exception is valid here
+  # ALSO: none of these are shipped to the customer. they're only used for examples.
   - 'pkg:npm/%2540img/sharp-libvips-darwin-arm64@1.2.4'
   - 'pkg:npm/%2540img/sharp-libvips-darwin-x64@1.2.4'
   - 'pkg:npm/%2540img/sharp-libvips-linux-arm@1.2.4'
