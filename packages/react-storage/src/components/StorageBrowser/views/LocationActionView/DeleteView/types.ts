@@ -22,6 +22,7 @@ export interface DeleteViewType
   extends ActionViewType<DeleteHandlerData, DeleteViewProps> {
   Provider: (props: DeleteViewProviderProps) => React.JSX.Element;
   Cancel: () => React.JSX.Element | null;
+  ConfirmationModal: (props: any) => React.JSX.Element;
   Exit: () => React.JSX.Element | null;
   Message: () => React.JSX.Element | null;
   Start: () => React.JSX.Element | null;
