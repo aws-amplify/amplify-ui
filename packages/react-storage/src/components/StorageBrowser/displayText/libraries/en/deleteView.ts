@@ -60,7 +60,7 @@ export const DEFAULT_DELETE_VIEW_DISPLAY_TEXT: DefaultDeleteViewDisplayText = {
           };
         } else if (folderTasks.length > 0) {
           return {
-            content: `Failed to completely delete ${failedFolders} items. Some contents may have been deleted.`,
+            content: `Failed to delete ${failedFolders} folders. Some items may have been deleted.`,
             type: 'error',
           };
         } else {
@@ -72,27 +72,31 @@ export const DEFAULT_DELETE_VIEW_DISPLAY_TEXT: DefaultDeleteViewDisplayText = {
       }
 
       // Partial success/failure
-      const messages = [];
-      if (completeFolders > 0)
-        messages.push(
-          `${completeFolders} folder${completeFolders !== 1 ? 's' : ''} deleted`
-        );
-      if (completeFiles > 0)
-        messages.push(
-          `${completeFiles} file${completeFiles !== 1 ? 's' : ''} deleted`
-        );
-      if (failedFolders > 0)
-        messages.push(
-          `${failedFolders} item${
-            failedFolders !== 1 ? 's' : ''
-          } failed to delete completely (some contents may have been deleted)`
-        );
-      if (failedFiles > 0)
-        messages.push(
-          `${failedFiles} file${failedFiles !== 1 ? 's' : ''} failed`
-        );
-
-      return { content: messages.join(', ') + '.', type: 'error' };
+      if (folderTasks.length > 0 && fileTasks.length > 0) {
+        // Mixed items
+        const messages = [];
+        if (completeFiles > 0)
+          messages.push(`${completeFiles} file${completeFiles !== 1 ? 's' : ''} deleted`);
+        if (failedFolders > 0)
+          messages.push(`${failedFolders} folder${failedFolders !== 1 ? 's' : ''} failed`);
+        
+        return { 
+          content: messages.join(', ') + '. Some items may have been deleted.', 
+          type: 'error' 
+        };
+      } else if (folderTasks.length > 0) {
+        // Folders only
+        return {
+          content: `Failed to delete ${failedFolders} folders. Some items may have been deleted.`,
+          type: 'error',
+        };
+      } else {
+        // Files only
+        return {
+          content: `Failed to delete ${failedFiles} files.`,
+          type: 'error',
+        };
+      }
     }
 
     // Fallback to generic messaging if tasks not available
