@@ -131,6 +131,7 @@ export interface DefaultActionViewDisplayText<T extends TaskData = TaskData> {
   tableColumnNameHeader: string;
   tableColumnTypeHeader: string;
   tableColumnSizeHeader: string;
+  tableColumnProgressHeader?: string;
 }
 
 export interface DefaultCreateFolderViewDisplayText

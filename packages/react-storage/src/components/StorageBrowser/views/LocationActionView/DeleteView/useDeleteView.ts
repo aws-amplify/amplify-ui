@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React from 'react';
 import { isFunction } from '@aws-amplify/ui';
 
@@ -6,6 +7,8 @@ import { useLocationItems } from '../../../locationItems';
 import { useStore } from '../../../store';
 import type { Task } from '../../../tasks';
 import { useAction } from '../../../useAction';
+import { useGetActionInput } from '../../../configuration/context';
+import { countFilesInFolder } from '../../utils/tableResolvers/countFilesInFolder';
 
 import type { DeleteViewState, UseDeleteViewOptions } from './types';
 
@@ -21,8 +24,13 @@ export const useDeleteView = (
   const [locationItems, locationItemsDispatch] = useLocationItems();
   const { current } = location;
   const { fileDataItems = EMPTY_ITEMS } = locationItems;
+  const getConfig = useGetActionInput();
 
-  const [processState, handleProcess] = useAction('delete', { items: fileDataItems });
+  const [itemsWithCount, setItemsWithCount] = React.useState(fileDataItems);
+
+  const [processState, handleProcess] = useAction('delete', {
+    items: itemsWithCount,
+  });
   const [showConfirmation, setShowConfirmation] = React.useState(false);
 
   const { isProcessing, isProcessingComplete, statusCounts, tasks } =
@@ -30,7 +38,62 @@ export const useDeleteView = (
 
   // Cast to LocationItemData to access type property properly
   const items = fileDataItems as unknown as LocationItemData[];
-  const hasFolders = items.some(item => item.type === 'FOLDER');
+  const hasFolders = items.some((item) => item.type === 'FOLDER');
+  console.log('[counter] items', items);
+  console.log('[counter] itemsWithCount', itemsWithCount);
+  console.log('[counter] tasks', tasks);
+
+  // Initialize totalCount for folder items
+  React.useEffect(() => {
+    const initializeFolderCounts = async () => {
+      console.log('[counter] Initializing folder counts calling it');
+
+      if (!hasFolders || !current) {
+        setItemsWithCount(fileDataItems);
+        return;
+      }
+
+      console.log('[counter] Initializing folder counts executing it it');
+
+      const enhancedItems = await Promise.all(
+        fileDataItems.map(async (item) => {
+          const locationItem = item as unknown as LocationItemData;
+          if (locationItem.type === 'FOLDER') {
+            try {
+              const config = getConfig(current);
+              const totalCount = await countFilesInFolder(
+                locationItem.key,
+                config
+              );
+
+              console.log(
+                '[counter] Initializing folder counts totalCount',
+                totalCount
+              );
+              return { ...item, totalCount };
+            } catch (error) {
+              console.log(
+                '[counter] Initializing folder counts  Error counting files in folder for item',
+                item,
+                error
+              );
+              return { ...item, totalCount: 0 };
+            }
+          }
+          return item;
+        })
+      );
+
+      console.log(
+        '[counter] Initializing folder counts... enhancedItems',
+        enhancedItems
+      );
+
+      setItemsWithCount(enhancedItems);
+    };
+
+    initializeFolderCounts();
+  }, [fileDataItems, hasFolders, current, getConfig]);
 
   const onActionStart = () => {
     if (!current) return;

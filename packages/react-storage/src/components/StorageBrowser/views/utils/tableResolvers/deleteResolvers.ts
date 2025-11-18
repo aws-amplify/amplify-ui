@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
@@ -30,21 +31,37 @@ const status = (data: any) => {
 
 const progress = (data: any) => {
   const key = getFileDataCellKey(data);
-  const { item, props } = data;
-  const { folderFileCounts = {}, isCalculatingTotal = false } = props;
+  const { item } = data;
 
-  // For folders, show folder-specific file count
   if (item.data.type === 'FOLDER') {
-    if (isCalculatingTotal) {
-      return { key, type: 'text', content: { text: 'Calculating...' } };
-    }
+    console.log(
+      'totalCount deletedCount item',
+      item.data.totalCount,
+      item.data.deletedCount,
+      item.data
+    );
 
-    const fileCount = folderFileCounts[item.data.key] || 0;
-    const text = `${fileCount} files`;
-    return { key, type: 'text', content: { text } };
+    if (item.status === 'PENDING' && item.data.totalCount > 0) {
+      const text = `${item.data.deletedCount}/${item.data.totalCount} files`;
+      return { key, type: 'text', content: { text } };
+    } else if (item.status === 'COMPLETE') {
+      const text = `${item.data.totalCount} files deleted`;
+      return { key, type: 'text', content: { text } };
+    } else if (item.status === 'FAILED') {
+      const text =
+        item.data.totalCount > 0
+          ? `${item.data.deletedCount}/${item.data.totalCount} files (failed)`
+          : 'Failed';
+      return { key, type: 'text', content: { text } };
+    } else {
+      const text =
+        item.data.totalCount > 0
+          ? `${item.data.totalCount} files`
+          : 'Calculating...';
+      return { key, type: 'text', content: { text } };
+    }
   }
 
-  // For files, show simple status
   const text = item.status === 'COMPLETE' ? 'Deleted' : '-';
   return { key, type: 'text', content: { text } };
 };

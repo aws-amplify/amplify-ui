@@ -47,6 +47,16 @@ export interface Task<TData = unknown, TValue = any>
    * cancel handler
    */
   cancel?: () => void;
+
+  /**
+   * total file count for folders (undefined for files)
+   */
+  totalCount?: number;
+
+  /**
+   * deleted file count for folders (undefined for files)
+   */
+  deletedCount?: number;
 }
 
 export type HandleProcessTasks<TInput> = (input: TInput) => void;
