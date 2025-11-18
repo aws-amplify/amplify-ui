@@ -44,6 +44,7 @@ export function DeleteViewProvider({
 
   const tableData = useResolveTableData(
     DELETE_TABLE_KEYS,
+    //@ts-expect-error ddd
     DELETE_TABLE_RESOLVERS,
     {
       items: items as any,

@@ -33,12 +33,15 @@ const BATCH_SIZE = 1000; // AWS DeleteObjects limit
 
 const deleteObjectsBatch = async (
   objectKeys: string[],
-  config: DeleteHandlerInput['config']
-): Promise<void> => {
+  config: DeleteHandlerInput['config'],
+  onProgress?: (deletedCount: number) => void
+): Promise<number> => {
   const batches = [];
   for (let i = 0; i < objectKeys.length; i += BATCH_SIZE) {
     batches.push(objectKeys.slice(i, i + BATCH_SIZE));
   }
+
+  let totalDeleted = 0;
 
   for (const batch of batches) {
     //@ts-expect-error RemoveObjectsInput is not fully typed yet
@@ -54,6 +57,9 @@ const deleteObjectsBatch = async (
 
     const result = await removeObjects(removeObjectsInput);
 
+    totalDeleted += result.deleted.length;
+    onProgress?.(totalDeleted);
+
     if (result.errors.length > 0) {
       const errorMessages = result.errors
         .map((e) => `${e.path}: ${e.message}`)
@@ -61,12 +67,15 @@ const deleteObjectsBatch = async (
       throw new Error(`Failed to delete some objects: ${errorMessages}`);
     }
   }
+
+  return totalDeleted;
 };
 
 const deleteFolder = async (
   folderKey: string,
-  config: DeleteHandlerInput['config']
-): Promise<void> => {
+  config: DeleteHandlerInput['config'],
+  onProgress?: (deletedCount: number) => void
+): Promise<number> => {
   const { accountId, credentials, customEndpoint } = config;
   const bucket = constructBucket(config);
 
@@ -81,53 +90,52 @@ const deleteFolder = async (
     },
   });
 
-  // Collect all object keys including folder marker
   const objectKeys = listResult.items.map((item) => item.path);
-  objectKeys.push(folderKey); // Add folder marker
+  objectKeys.push(folderKey);
 
-  // Delete all objects in batches
-  await deleteObjectsBatch(objectKeys, config);
+  return await deleteObjectsBatch(objectKeys, config, onProgress);
 };
 
 export const deleteHandler: DeleteHandler = ({
   config,
   data,
+  options,
 }): DeleteHandlerOutput => {
   const { key, type } = data;
+  const { onProgress } = options ?? {};
   const isFolder = type === 'FOLDER' || key.endsWith('/');
 
-  const result = (
-    isFolder
-      ? (() => {
-          return deleteFolder(key, config);
-        })()
-      : (() => {
-          const removeInput = {
-            path: key,
-            options: {
-              bucket: constructBucket(config),
-              locationCredentialsProvider: config.credentials,
-              expectedBucketOwner: config.accountId,
-              customEndpoint: config.customEndpoint,
-            },
-          };
+  const result = Promise.resolve()
+    .then(async () => {
+      if (isFolder) {
+        const progressCallback = () => {
+          onProgress?.(data, undefined);
+        };
 
-          return remove(removeInput);
-        })()
-  )
-    .then(() => {
-      return {
-        status: 'COMPLETE' as const,
-        value: { key },
-      };
+        const deletedCount = await deleteFolder(key, config, progressCallback);
+        return {
+          status: 'COMPLETE' as const,
+          value: { key },
+          deletedCount,
+        };
+      } else {
+        await remove({
+          path: key,
+          options: {
+            bucket: constructBucket(config),
+            locationCredentialsProvider: config.credentials,
+            expectedBucketOwner: config.accountId,
+            customEndpoint: config.customEndpoint,
+          },
+        });
+
+        return {
+          status: 'COMPLETE' as const,
+          value: { key },
+        };
+      }
     })
     .catch((error: Error) => {
-      console.error(
-        '[amplify-ui][delete-folders] Delete operation failed for key:',
-        key,
-        'Error:',
-        error
-      );
       const { message } = error;
       return { error, message, status: 'FAILED' as const };
     });
