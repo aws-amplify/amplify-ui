@@ -52,8 +52,6 @@ export function DeleteViewProvider({
     }
   );
 
-  console.log('tableData', tableData);
-
   return (
     <ControlsContextProvider
       data={{

@@ -32,10 +32,6 @@ export const countFilesInFolder = async (
     ).length;
     return fileCount;
   } catch (error) {
-    console.log(
-      '[counter] Initializing folder counts error in countFilesInFolder',
-      error
-    );
     return 0;
   }
 };

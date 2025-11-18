@@ -39,21 +39,14 @@ export const useDeleteView = (
   // Cast to LocationItemData to access type property properly
   const items = fileDataItems as unknown as LocationItemData[];
   const hasFolders = items.some((item) => item.type === 'FOLDER');
-  console.log('[counter] items', items);
-  console.log('[counter] itemsWithCount', itemsWithCount);
-  console.log('[counter] tasks', tasks);
 
   // Initialize totalCount for folder items
   React.useEffect(() => {
     const initializeFolderCounts = async () => {
-      console.log('[counter] Initializing folder counts calling it');
-
       if (!hasFolders || !current) {
         setItemsWithCount(fileDataItems);
         return;
       }
-
-      console.log('[counter] Initializing folder counts executing it it');
 
       const enhancedItems = await Promise.all(
         fileDataItems.map(async (item) => {
@@ -66,27 +59,13 @@ export const useDeleteView = (
                 config
               );
 
-              console.log(
-                '[counter] Initializing folder counts totalCount',
-                totalCount
-              );
-              return { ...item, totalCount };
+              return { ...item, totalCount, deletedCount: 0 };
             } catch (error) {
-              console.log(
-                '[counter] Initializing folder counts  Error counting files in folder for item',
-                item,
-                error
-              );
-              return { ...item, totalCount: 0 };
+              return { ...item, totalCount: 0, deletedCount: 0 };
             }
           }
           return item;
         })
-      );
-
-      console.log(
-        '[counter] Initializing folder counts... enhancedItems',
-        enhancedItems
       );
 
       setItemsWithCount(enhancedItems);

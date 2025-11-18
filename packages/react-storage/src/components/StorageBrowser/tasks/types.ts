@@ -22,7 +22,13 @@ export interface ProcessTasksOptions<TTask extends Task, TItems = []> {
   onTaskCancel?: (task: TTask) => void;
   onTaskComplete?: (task: TTask) => void;
   onTaskError?: (task: TTask, error: unknown) => void;
-  onTaskProgress?: (task: TTask, progress: number | undefined) => void;
+  onTaskProgress?: (
+    task: TTask,
+    progressDetails: {
+      progress: number | undefined;
+      deletedCount: number | undefined;
+    }
+  ) => void;
   onTaskSuccess?: (task: TTask, value: TTask['value'] | undefined) => void;
   onTaskRemove?: (task: TTask) => void;
 }

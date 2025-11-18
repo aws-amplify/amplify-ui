@@ -94,7 +94,7 @@ export interface TaskData {
 export interface TaskHandlerOptions {
   onProgress?: (
     data: { key: string; id: string },
-    progress: number | undefined
+    progressDetails: { progress?: number; deletedCount?: number }
   ) => void;
 }
 
@@ -133,6 +133,11 @@ export interface TaskResult<TStatus, TValue> {
    * task result value (if any)
    */
   value?: TValue;
+
+  /**
+   * deleted count for folders (if any)
+   */
+  deletedCount?: number;
 }
 
 export interface TaskHandlerOutput<K = any> {

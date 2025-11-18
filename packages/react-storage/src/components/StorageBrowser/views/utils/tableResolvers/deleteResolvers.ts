@@ -34,13 +34,6 @@ const progress = (data: any) => {
   const { item } = data;
 
   if (item.data.type === 'FOLDER') {
-    console.log(
-      'totalCount deletedCount item',
-      item.data.totalCount,
-      item.data.deletedCount,
-      item.data
-    );
-
     if (item.status === 'PENDING' && item.data.totalCount > 0) {
       const text = `${item.data.deletedCount}/${item.data.totalCount} files`;
       return { key, type: 'text', content: { text } };

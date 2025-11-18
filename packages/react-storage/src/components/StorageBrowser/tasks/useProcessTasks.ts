@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React from 'react';
 import { isFunction } from '@aws-amplify/ui';
 
@@ -69,12 +70,19 @@ export function useProcessTasks<
       const { onTaskRemove } = callbacksRef.current;
       const task = tasksRef.current.get(id);
 
+      console.log('[useProcessTasks] calling updateTask:', task);
+
       if (!task) return;
 
       if (!next) {
         onTaskRemove?.(task);
         tasksRef.current.delete(id);
       } else {
+        console.log('[useProcessTasks] calling updateTask else:', id, {
+          ...task,
+          ...next,
+        });
+
         tasksRef.current.set(id, { ...task, ...next });
       }
 
@@ -165,15 +173,21 @@ export function useProcessTasks<
 
     const { onProgress: _onProgress } = options ?? {};
 
-    const onProgress = ({ id }: TTask['data'], progress?: number) => {
-      const task = updateTask(id, { progress });
+    const onProgress = (
+      { id }: TTask['data'],
+      { progress, deletedCount }: { progress?: number; deletedCount?: number }
+    ) => {
+      const task = updateTask(id, {
+        progress,
+        data: { ...data, deletedCount },
+      });
 
       if (task && isFunction(onTaskProgress)) {
-        onTaskProgress(task, progress);
+        onTaskProgress(task, { progress, deletedCount });
       }
 
       if (task && isFunction(_onProgress)) {
-        _onProgress(data, progress);
+        _onProgress(data, { progress, deletedCount });
       }
     };
 

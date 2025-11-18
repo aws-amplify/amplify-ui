@@ -74,7 +74,7 @@ const deleteObjectsBatch = async (
 const deleteFolder = async (
   folderKey: string,
   config: DeleteHandlerInput['config'],
-  onProgress?: (deletedCount: number) => void
+  onProgress?: (deletedCount: number | undefined) => void
 ): Promise<number> => {
   const { accountId, credentials, customEndpoint } = config;
   const bucket = constructBucket(config);
@@ -103,13 +103,14 @@ export const deleteHandler: DeleteHandler = ({
 }): DeleteHandlerOutput => {
   const { key, type } = data;
   const { onProgress } = options ?? {};
+
   const isFolder = type === 'FOLDER' || key.endsWith('/');
 
   const result = Promise.resolve()
     .then(async () => {
       if (isFolder) {
-        const progressCallback = () => {
-          onProgress?.(data, undefined);
+        const progressCallback = (deletedCount: number | undefined) => {
+          onProgress?.(data, { deletedCount });
         };
 
         const deletedCount = await deleteFolder(key, config, progressCallback);
