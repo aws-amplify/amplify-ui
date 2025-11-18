@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 import { Amplify } from 'aws-amplify';
 import { initializeInAppMessaging } from 'aws-amplify/in-app-messaging';

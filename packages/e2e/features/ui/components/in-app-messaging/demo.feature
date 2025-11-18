@@ -9,7 +9,8 @@ Feature: In-App Messaging demo page to show banners with various configurations
   Scenario: Verify that the default banner is top banner with primary and secondary buttons
     Given "Has Primary Button" checkbox is checked
     Then "Has Secondary Button" checkbox is checked
-    Then "TOP_BANNER" layout radio option is selected
+    Then the "TOP_BANNER" layout radio option is selected
+    Then I see the "Display Demo Message" button
     When I click the "Display Demo Message" button
     Then I see a "top" banner dialog
     Then the banner has 2 buttons
@@ -18,13 +19,19 @@ Feature: In-App Messaging demo page to show banners with various configurations
 
   @react @react-native
   Scenario: Verify that the banner has expected number of buttons
+    Given "Has Primary Button" checkbox is checked
+    Then "Has Secondary Button" checkbox is checked
     When I toggle "Has Secondary Button" checkbox
+    Then "Has Secondary Button" checkbox is unchecked
+    Then I see the "Display Demo Message" button
     Then I click the "Display Demo Message" button
     Then I see a "top" banner dialog
     Then the banner has 1 buttons
     When I dismiss the banner
     Then I do not see the banner
     When I toggle "Has Primary Button" checkbox
+    Then "Has Primary Button" checkbox is unchecked
+    Then I see the "Display Demo Message" button
     Then I click the "Display Demo Message" button
     Then I see a "top" banner dialog
     Then the banner has 0 buttons
@@ -34,31 +41,40 @@ Feature: In-App Messaging demo page to show banners with various configurations
   @react @react-native
   Scenario: Verify that the banner is shown as a bottom banner
     When I click the "BOTTOM_BANNER" layout radio option
+    Then the "BOTTOM_BANNER" layout radio option is selected
+    Then I see the "Display Demo Message" button
     Then I click the "Display Demo Message" button
     Then I see a "bottom" banner dialog
 
   @react @react-native
   Scenario: Verify that the banner is shown as a middle banner
     When I click the "MIDDLE_BANNER" layout radio option
+    Then the "MIDDLE_BANNER" layout radio option is selected
+    Then I see the "Display Demo Message" button
     Then I click the "Display Demo Message" button
     Then I see a "middle" banner dialog
 
   @react @react-native
   Scenario: Verify that the banner is shown as a modal
     When I click the "MODAL" layout radio option
+    Then the "MODAL" layout radio option is selected
+    Then I see the "Display Demo Message" button
     Then I click the "Display Demo Message" button
     Then I see a "modal" dialog
 
   @react @react-native
   Scenario: Verify that the banner is shown as fullscreen
     When I click the "FULL_SCREEN" layout radio option
+    Then the "FULL_SCREEN" layout radio option is selected
+    Then I see the "Display Demo Message" button
     Then I click the "Display Demo Message" button
     Then I see a "fullscreen" dialog
 
   @react @react-native
   Scenario: Verify that top banner is shown with an image
     Given "Has Image" checkbox is checked
-    Then "TOP_BANNER" layout radio option is selected
+    Then the "TOP_BANNER" layout radio option is selected
+    Then I see the "Display Demo Message" button
     When I click the "Display Demo Message" button
     Then I see a "top" banner dialog
     Then the banner has an image
@@ -68,6 +84,8 @@ Feature: In-App Messaging demo page to show banners with various configurations
     When I toggle "Use Analytic events" checkbox
     Then I wait for pinpoint messages to sync
     Then I click the "TOP_BANNER" layout radio option
+    Then the "TOP_BANNER" layout radio option is selected
+    Then I see the "Display Demo Message" button
     Then I click the "Display Demo Message" button
     Then I see a "top" banner dialog
 
@@ -76,6 +94,8 @@ Feature: In-App Messaging demo page to show banners with various configurations
     When I toggle "Use Analytic events" checkbox
     Then I wait for pinpoint messages to sync
     Then I click the "BOTTOM_BANNER" layout radio option
+    Then the "BOTTOM_BANNER" layout radio option is selected
+    Then I see the "Display Demo Message" button
     Then I click the "Display Demo Message" button
     Then I see a "bottom" banner dialog
 
@@ -84,6 +104,8 @@ Feature: In-App Messaging demo page to show banners with various configurations
     When I toggle "Use Analytic events" checkbox
     Then I wait for pinpoint messages to sync
     Then I click the "MIDDLE_BANNER" layout radio option
+    Then the "MIDDLE_BANNER" layout radio option is selected
+    Then I see the "Display Demo Message" button
     Then I click the "Display Demo Message" button
     Then I see a "middle" banner dialog
 
@@ -92,6 +114,8 @@ Feature: In-App Messaging demo page to show banners with various configurations
     When I toggle "Use Analytic events" checkbox
     Then I wait for pinpoint messages to sync
     Then I click the "MODAL" layout radio option
+    Then the "MODAL" layout radio option is selected
+    Then I see the "Display Demo Message" button
     Then I click the "Display Demo Message" button
     Then I see a "modal" dialog
 
@@ -100,5 +124,7 @@ Feature: In-App Messaging demo page to show banners with various configurations
     When I toggle "Use Analytic events" checkbox
     Then I wait for pinpoint messages to sync
     Then I click the "FULL_SCREEN" layout radio option
+    Then the "FULL_SCREEN" layout radio option is selected
+    Then I see the "Display Demo Message" button
     Then I click the "Display Demo Message" button
     Then I see a "fullscreen" dialog
