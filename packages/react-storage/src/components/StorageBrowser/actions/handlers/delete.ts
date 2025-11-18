@@ -35,61 +35,30 @@ const deleteObjectsBatch = async (
   objectKeys: string[],
   config: DeleteHandlerInput['config']
 ): Promise<void> => {
-  // Split into batches of 1000 (AWS limit)
   const batches = [];
   for (let i = 0; i < objectKeys.length; i += BATCH_SIZE) {
     batches.push(objectKeys.slice(i, i + BATCH_SIZE));
   }
 
-  // Process each batch using the new removeObjects API for better performance
   for (const batch of batches) {
-    try {
-      //@ts-expect-error RemoveObjectsInput is not fully typed yet
-      const removeObjectsInput: RemoveObjectsInput = {
-        paths: batch,
-        options: {
-          bucket: constructBucket(config),
-          locationCredentialsProvider: config.credentials,
-          expectedBucketOwner: config.accountId,
-          customEndpoint: config.customEndpoint,
-        },
-      };
+    //@ts-expect-error RemoveObjectsInput is not fully typed yet
+    const removeObjectsInput: RemoveObjectsInput = {
+      paths: batch,
+      options: {
+        bucket: constructBucket(config),
+        locationCredentialsProvider: config.credentials,
+        expectedBucketOwner: config.accountId,
+        customEndpoint: config.customEndpoint,
+      },
+    };
 
-      const result = await removeObjects(removeObjectsInput);
+    const result = await removeObjects(removeObjectsInput);
 
-      // Check for any errors in the batch
-      if (result.errors.length > 0) {
-        const errorMessages = result.errors
-          .map((e) => `${e.path}: ${e.message}`)
-          .join(', ');
-        console.error(
-          '[amplify-ui][delete-folders] Throwing error for batch failures:',
-          errorMessages
-        );
-        throw new Error(`Failed to delete some objects: ${errorMessages}`);
-      }
-    } catch (error) {
-      console.error(
-        '[amplify-ui][delete-folders] Batch deletion failed, falling back to individual deletions:',
-        error
-      );
-
-      const { accountId, credentials, customEndpoint } = config;
-      const bucket = constructBucket(config);
-
-      const deletePromises = batch.map((key) => {
-        return remove({
-          path: key,
-          options: {
-            bucket,
-            locationCredentialsProvider: credentials,
-            expectedBucketOwner: accountId,
-            customEndpoint,
-          },
-        });
-      });
-
-      await Promise.all(deletePromises);
+    if (result.errors.length > 0) {
+      const errorMessages = result.errors
+        .map((e) => `${e.path}: ${e.message}`)
+        .join(', ');
+      throw new Error(`Failed to delete some objects: ${errorMessages}`);
     }
   }
 };

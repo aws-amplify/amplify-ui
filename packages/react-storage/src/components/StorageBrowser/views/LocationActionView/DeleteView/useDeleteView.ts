@@ -93,7 +93,8 @@ export const useDeleteView = (
     };
 
     initializeFolderCounts();
-  }, [fileDataItems, hasFolders, current, getConfig]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [fileDataItems, hasFolders]);
 
   const onActionStart = () => {
     if (!current) return;
