@@ -70,19 +70,12 @@ export function useProcessTasks<
       const { onTaskRemove } = callbacksRef.current;
       const task = tasksRef.current.get(id);
 
-      console.log('[useProcessTasks] calling updateTask:', task);
-
       if (!task) return;
 
       if (!next) {
         onTaskRemove?.(task);
         tasksRef.current.delete(id);
       } else {
-        console.log('[useProcessTasks] calling updateTask else:', id, {
-          ...task,
-          ...next,
-        });
-
         tasksRef.current.set(id, { ...task, ...next });
       }
 

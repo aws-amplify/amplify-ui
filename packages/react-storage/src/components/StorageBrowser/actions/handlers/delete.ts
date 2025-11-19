@@ -1,3 +1,4 @@
+/* eslint-disable max-params */
 /* eslint-disable no-console */
 import { remove, list } from '../../storage-internal';
 import { removeObjects } from '@aws-amplify/storage/internals';
@@ -29,12 +30,13 @@ export interface DeleteHandlerOutput
 export interface DeleteHandler
   extends TaskHandler<DeleteHandlerInput, DeleteHandlerOutput> {}
 
-const BATCH_SIZE = 1000; // AWS DeleteObjects limit
+const BATCH_SIZE = 100; // AWS DeleteObjects limit
 
 const deleteObjectsBatch = async (
   objectKeys: string[],
   config: DeleteHandlerInput['config'],
-  onProgress?: (deletedCount: number) => void
+  onProgress?: (deletedCount: number) => void,
+  abortSignal?: AbortSignal
 ): Promise<number> => {
   const batches = [];
   for (let i = 0; i < objectKeys.length; i += BATCH_SIZE) {
@@ -44,6 +46,10 @@ const deleteObjectsBatch = async (
   let totalDeleted = 0;
 
   for (const batch of batches) {
+    if (abortSignal?.aborted) {
+      throw new Error('Operation canceled');
+    }
+
     //@ts-expect-error RemoveObjectsInput is not fully typed yet
     const removeObjectsInput: RemoveObjectsInput = {
       paths: batch,
@@ -74,7 +80,8 @@ const deleteObjectsBatch = async (
 const deleteFolder = async (
   folderKey: string,
   config: DeleteHandlerInput['config'],
-  onProgress?: (deletedCount: number | undefined) => void
+  onProgress?: (deletedCount: number | undefined) => void,
+  abortSignal?: AbortSignal
 ): Promise<number> => {
   const { accountId, credentials, customEndpoint } = config;
   const bucket = constructBucket(config);
@@ -93,7 +100,7 @@ const deleteFolder = async (
   const objectKeys = listResult.items.map((item) => item.path);
   objectKeys.push(folderKey);
 
-  return await deleteObjectsBatch(objectKeys, config, onProgress);
+  return await deleteObjectsBatch(objectKeys, config, onProgress, abortSignal);
 };
 
 export const deleteHandler: DeleteHandler = ({
@@ -106,14 +113,29 @@ export const deleteHandler: DeleteHandler = ({
 
   const isFolder = type === 'FOLDER' || key.endsWith('/');
 
+  // Create AbortController for cancellation
+  const abortController = new AbortController();
+  let isCanceled = false;
+
+  const cancel = () => {
+    isCanceled = true;
+    abortController.abort();
+  };
+
   const result = Promise.resolve()
     .then(async () => {
       if (isFolder) {
         const progressCallback = (deletedCount: number | undefined) => {
+          if (isCanceled) throw new Error('Operation canceled');
           onProgress?.(data, { deletedCount });
         };
 
-        const deletedCount = await deleteFolder(key, config, progressCallback);
+        const deletedCount = await deleteFolder(
+          key,
+          config,
+          progressCallback,
+          abortController.signal
+        );
         return {
           status: 'COMPLETE' as const,
           value: { key },
@@ -137,9 +159,12 @@ export const deleteHandler: DeleteHandler = ({
       }
     })
     .catch((error: Error) => {
+      if (error.message === 'Operation canceled') {
+        return { status: 'CANCELED' as const, message: 'Deletion canceled' };
+      }
       const { message } = error;
       return { error, message, status: 'FAILED' as const };
     });
 
-  return { result };
+  return { result, cancel };
 };
