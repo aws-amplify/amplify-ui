@@ -119,6 +119,7 @@
     "on-headers": "^1.1.0",
     "tmp": "^0.2.4",
     "**/jest/**/js-yaml": "~3.14.2",
+    "**/@badeball/cypress-cucumber-preprocessor/**/glob": "~10.5.0",
     "**/@changesets/cli/**/js-yaml": "~3.14.2",
     "@tensorflow-models/face-detection/rimraf": "5.0.0"
   },
