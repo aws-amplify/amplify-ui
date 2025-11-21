@@ -82,6 +82,13 @@ echo "##################"
 echo "# Setup Mega App #"
 echo "##################"
 
+# Override Angular latest to v20 until v21 compatibility is resolved
+if [ "$FRAMEWORK" == "angular" ] && [ "$BUILD_TOOL" == "angular-cli" ] && [ "$FRAMEWORK_VERSION" == "latest" ] && [ "$BUILD_TOOL_VERSION" == "latest" ]; then
+    FRAMEWORK_VERSION="20"
+    BUILD_TOOL_VERSION="20"
+    echo "Overriding Angular latest to v20 to bypass compatibility issues with v21+"
+fi
+
 BASE_OPTIONS="--build-tool $BUILD_TOOL --name $MEGA_APP_NAME --framework $FRAMEWORK --framework-version $FRAMEWORK_VERSION"
 
 # Create mega app
