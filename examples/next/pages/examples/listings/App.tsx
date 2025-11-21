@@ -1,16 +1,15 @@
 import * as React from 'react';
 import {
+  ColorMode,
+  ThemeProvider,
   ToggleButton,
   ToggleButtonGroup,
-  ThemeProvider,
-  ColorMode,
 } from '@aws-amplify/ui-react';
-import { MdWbSunny, MdBedtime, MdTonality } from 'react-icons/md';
+import { MdBedtime, MdTonality, MdWbSunny } from 'react-icons/md';
 
 import { theme } from '../../../theme';
 import { Logo } from './Logo';
-import '@aws-amplify/ui-react/styles.css';
-import './styles.scss';
+import './styles.module.scss';
 
 export const App = ({ children }) => {
   const [colorMode, setColorMode] = React.useState<ColorMode>('system');
@@ -18,7 +17,7 @@ export const App = ({ children }) => {
     <ThemeProvider theme={theme} colorMode={colorMode}>
       <header className="listing-app-header">
         <Logo />
-        <input type="search" placeholder="search" />
+        <input type="search" placeholder="search" className="search-input" />
         <ToggleButtonGroup
           value={colorMode}
           isExclusive

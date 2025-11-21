@@ -3,8 +3,6 @@ import { useRouter } from 'next/router';
 
 import { SignIn } from '../components';
 
-import '@aws-amplify/ui-react-storage/styles.css';
-
 function Example() {
   const router = useRouter();
 

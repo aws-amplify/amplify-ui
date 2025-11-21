@@ -11,8 +11,6 @@ import {
 } from '@aws-amplify/ui-react';
 import { StorageBrowser } from '@aws-amplify/ui-react-storage';
 
-import '@aws-amplify/ui-react-storage/styles.css';
-
 import config from './aws-exports';
 
 Amplify.configure(config);

@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Button, Tabs, TextField } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
 
 export default function TabsPage() {
   const [tab, setTab] = React.useState('signIn');
