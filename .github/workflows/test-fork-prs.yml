@@ -189,7 +189,7 @@ jobs:
           ref: ${{ needs.setup.outputs.commit_id }}
           repository: ${{ github.repository }}
       - name: 'Dependency Review'
-        uses: actions/dependency-review-action@595b5aeba73380359d98a5e087f648dbb0edce1b # v4.7.3 https://github.com/actions/dependency-review-action/commit/[HASH]
+        uses: actions/dependency-review-action@40c09b7dc99638e5ddb0bfd91c1673effc064d8a # v4.7.3 https://github.com/actions/dependency-review-action/commit/[HASH]
         with:
           base-ref: ${{ needs.setup.outputs.base_sha }}
           head-ref: ${{ needs.setup.outputs.commit_id }}
