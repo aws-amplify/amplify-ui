@@ -117,7 +117,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Setup Node.js ${{ matrix.node-version }} with ${{ matrix.pkg-manager }}
-        uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2 https://github.com/actions/setup-node/commit/60edb5dd545a775178f52524783378180af0d1f8
+        uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v4.0.2 https://github.com/actions/setup-node/commit/60edb5dd545a775178f52524783378180af0d1f8
         with:
           node-version: ${{ matrix.node-version }}
           cache: ${{ matrix.pkg-manager }}
