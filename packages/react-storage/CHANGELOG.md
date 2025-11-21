@@ -1,5 +1,11 @@
 # @aws-amplify/ui-react-storage
 
+## 3.14.0
+
+### Minor Changes
+
+- [#6734](https://github.com/aws-amplify/amplify-ui/pull/6734) [`77765a8527fc0ab0a7a54772d112cf2358fe6f17`](https://github.com/aws-amplify/amplify-ui/commit/77765a8527fc0ab0a7a54772d112cf2358fe6f17) Thanks [@osama-rizk](https://github.com/osama-rizk)! - fix(storage-browser): multi-region S3 buckets
+
 ## 3.13.1
 
 ### Patch Changes
