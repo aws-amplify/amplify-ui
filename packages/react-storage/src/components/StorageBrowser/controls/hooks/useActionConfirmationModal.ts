@@ -1,27 +1,30 @@
+/* eslint-disable no-console */
+
 import type { ActionConfirmationModalProps } from '../../components/composables/ActionConfirmationModal';
+import { useControlsContext } from '../context';
 
-export interface UseActionConfirmationModalInput {
-  isOpen?: boolean;
-  title?: string;
-  message?: string;
-  content?: React.ReactNode;
-  onConfirm?: () => void;
-  onCancel?: () => void;
-  confirmLabel?: string;
-  cancelLabel?: string;
-}
+export const useActionConfirmationModal = (): ActionConfirmationModalProps => {
+  const {
+    data: { confirmationModal = {} },
+    onConfirmationModalConfirm,
+    onConfirmationModalCancel,
+  } = useControlsContext();
 
-export const useActionConfirmationModal = (
-  input: UseActionConfirmationModalInput = {}
-): ActionConfirmationModalProps => {
+  console.log(
+    'useActionConfirmationModal confirmationModal',
+    confirmationModal,
+    onConfirmationModalConfirm,
+    onConfirmationModalCancel
+  );
+
   return {
-    isOpen: input.isOpen ?? false,
-    title: input.title ?? 'Confirm Action',
-    message: input.message ?? '',
-    content: input.content,
-    onConfirm: input.onConfirm,
-    onCancel: input.onCancel,
-    confirmLabel: input.confirmLabel ?? 'Confirm',
-    cancelLabel: input.cancelLabel ?? 'Cancel',
+    isOpen: false,
+    title: 'Confirm Action',
+    message: '',
+    confirmLabel: 'Confirm',
+    cancelLabel: 'Cancel',
+    ...confirmationModal,
+    onConfirm: onConfirmationModalConfirm,
+    onCancel: onConfirmationModalCancel,
   };
 };

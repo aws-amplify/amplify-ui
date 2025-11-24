@@ -31,15 +31,19 @@ export function DeleteViewProvider({
     isProcessing,
     isProcessingComplete,
     statusCounts,
-    tasks: items,
+    tasks,
+
+    confirmationModal,
     onActionCancel,
     onActionStart,
     onActionExit,
     onTaskRemove,
+    onConfirmDelete,
+    onCancelConfirmation,
   } = props;
 
   const message = isProcessingComplete
-    ? getActionCompleteMessage({ counts: statusCounts, tasks: items })
+    ? getActionCompleteMessage({ counts: statusCounts, tasks })
     : undefined;
 
   const tableData = useResolveTableData(
@@ -47,10 +51,12 @@ export function DeleteViewProvider({
     //@ts-expect-error ddd
     DELETE_TABLE_RESOLVERS,
     {
-      items: items as any,
+      items: tasks as any,
       props: { displayText, isProcessing, onTaskRemove },
     }
   );
+
+  console.log('confirmationModal in the provider ', confirmationModal);
 
   return (
     <ControlsContextProvider
@@ -69,10 +75,13 @@ export function DeleteViewProvider({
         tableData,
         title,
         message,
+        confirmationModal,
       }}
       onActionStart={onActionStart}
       onActionExit={onActionExit}
       onActionCancel={onActionCancel}
+      onConfirmationModalConfirm={onConfirmDelete}
+      onConfirmationModalCancel={onCancelConfirmation}
     >
       {children}
     </ControlsContextProvider>

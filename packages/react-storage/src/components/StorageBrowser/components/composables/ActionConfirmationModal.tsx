@@ -50,14 +50,8 @@ export const ActionConfirmationModal = ({
         <Heading level={4} marginBottom="medium">
           {title}
         </Heading>
-        {message && (
-          <Text marginBottom="medium">{message}</Text>
-        )}
-        {content && (
-          <View marginBottom="medium">
-            {content}
-          </View>
-        )}
+        {message && <Text marginBottom="medium">{message}</Text>}
+        {content && <View marginBottom="medium">{content}</View>}
         <View
           style={{
             display: 'flex',
@@ -68,11 +62,7 @@ export const ActionConfirmationModal = ({
           <Button onClick={onCancel} variation="link">
             {cancelLabel}
           </Button>
-          <Button
-            onClick={onConfirm}
-            variation="primary"
-            colorTheme="error"
-          >
+          <Button onClick={onConfirm} variation="primary" colorTheme="error">
             {confirmLabel}
           </Button>
         </View>

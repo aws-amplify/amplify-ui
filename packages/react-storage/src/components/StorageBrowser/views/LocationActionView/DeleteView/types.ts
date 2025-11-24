@@ -1,4 +1,9 @@
-import type { DeleteHandlerData, LocationData, LocationItemData } from '../../../actions';
+import type {
+  DeleteHandlerData,
+  LocationData,
+  LocationItemData,
+} from '../../../actions';
+import type { ActionConfirmationModalProps } from '../../../components/composables/ActionConfirmationModal';
 import type {
   ActionViewType,
   ActionViewProps,
@@ -10,6 +15,10 @@ export interface DeleteViewState extends ActionViewState<DeleteHandlerData> {
   items: LocationItemData[];
   onConfirmDelete: () => void;
   onCancelConfirmation: () => void;
+  confirmationModal: Omit<
+    ActionConfirmationModalProps,
+    'onConfirm' | 'onCancel'
+  >;
 }
 
 export interface DeleteViewProps extends ActionViewProps {}

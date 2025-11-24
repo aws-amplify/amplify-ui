@@ -115,6 +115,18 @@ export const useDeleteView = (
     [locationItemsDispatch]
   );
 
+  // Create confirmation modal props
+  const folders = items.filter((item) => item.type === 'FOLDER');
+  const confirmationModal = {
+    isOpen: showConfirmation,
+    title: 'Confirm Deletion',
+    message: `The items that will be deleted contain ${folders.length} folder${
+      folders.length !== 1 ? 's' : ''
+    }`,
+    confirmLabel: 'Delete',
+    cancelLabel: 'Cancel',
+  };
+
   return {
     isProcessing,
     isProcessingComplete,
@@ -129,5 +141,6 @@ export const useDeleteView = (
     onTaskRemove,
     onConfirmDelete,
     onCancelConfirmation,
+    confirmationModal,
   };
 };
