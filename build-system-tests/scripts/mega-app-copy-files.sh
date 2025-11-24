@@ -85,12 +85,27 @@ if [[ "$FRAMEWORK" == 'angular' ]]; then
         USE_STANDALONE="false"
     fi
 
+    # Check if Angular 21+ for zone.js and app.config support
+    if [[ "$FRAMEWORK_VERSION" == "latest" || "$FRAMEWORK_VERSION" -ge 21 ]]; then
+        USE_V21_CONFIG="true"
+    else
+        USE_V21_CONFIG="false"
+    fi
+
     if [[ "$USE_STANDALONE" == "true" ]]; then
         echo "cp templates/components/angular/app-standalone.component.ts mega-apps/${MEGA_APP_NAME}/src/app/app.component.ts"
         cp templates/components/angular/app-standalone.component.ts mega-apps/${MEGA_APP_NAME}/src/app/app.component.ts
 
-        echo "cp templates/components/angular/main-standalone.ts mega-apps/${MEGA_APP_NAME}/src/main.ts"
-        cp templates/components/angular/main-standalone.ts mega-apps/${MEGA_APP_NAME}/src/main.ts
+        if [[ "$USE_V21_CONFIG" == "true" ]]; then
+            echo "cp templates/components/angular/main-standalone-v21.ts mega-apps/${MEGA_APP_NAME}/src/main.ts"
+            cp templates/components/angular/main-standalone-v21.ts mega-apps/${MEGA_APP_NAME}/src/main.ts
+
+            echo "cp templates/components/angular/app.config.ts mega-apps/${MEGA_APP_NAME}/src/app/app.config.ts"
+            cp templates/components/angular/app.config.ts mega-apps/${MEGA_APP_NAME}/src/app/app.config.ts
+        else
+            echo "cp templates/components/angular/main-standalone.ts mega-apps/${MEGA_APP_NAME}/src/main.ts"
+            cp templates/components/angular/main-standalone.ts mega-apps/${MEGA_APP_NAME}/src/main.ts
+        fi
 
         if [ -f "mega-apps/${MEGA_APP_NAME}/src/app/app.module.ts" ]; then
             echo "rm mega-apps/${MEGA_APP_NAME}/src/app/app.module.ts"
