@@ -1,8 +1,7 @@
 import { Amplify } from 'aws-amplify';
 import { I18n } from 'aws-amplify/utils';
 
-import { withAuthenticator, translations } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
+import { translations, withAuthenticator } from '@aws-amplify/ui-react';
 
 import awsExports from './aws-exports';
 

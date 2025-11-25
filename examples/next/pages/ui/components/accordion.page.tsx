@@ -1,14 +1,13 @@
 import * as React from 'react';
 import {
-  Button,
   Accordion,
+  Button,
+  Divider,
   Flex,
   Heading,
-  Divider,
   Text,
+  TextField,
 } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-import { TextField } from '@aws-amplify/ui-react';
 
 const accordions = [
   {
