@@ -1,20 +1,19 @@
 import { Amplify } from 'aws-amplify';
 
-import { Authenticator } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-
 // Amplify UI Primitives to style the custom components
 import {
+  Authenticator,
   Button,
   Heading,
   Image,
   Text,
-  View,
   useAuthenticator,
   useTheme,
+  View,
 } from '@aws-amplify/ui-react';
 
 import awsExports from './aws-exports';
+
 Amplify.configure(awsExports);
 
 const components = {

@@ -2,16 +2,15 @@ import * as React from 'react';
 
 import { FileUploader } from '@aws-amplify/ui-react-storage';
 import {
-  Card,
   Button,
-  Flex,
-  Text,
+  Card,
   Divider,
+  Flex,
+  Icon,
   Image,
   Loader,
-  Icon,
+  Text,
 } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
 import { Amplify } from 'aws-amplify'; // IGNORE
 import amplifyOutputs from './amplify_outputs'; // IGNORE
 Amplify.configure(amplifyOutputs); // IGNORE
