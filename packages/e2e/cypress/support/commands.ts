@@ -95,21 +95,26 @@ Cypress.Commands.add('typeInInputHandler', (field: string, value: string) => {
 Cypress.Commands.add(
   'fileInputUpload',
   (
-    fileName: string,
+    fileName: string | string[],
     fileCount: number = 1,
     fileSize?: number,
     fileType?: string
   ) => {
+    let isArray = Array.isArray(fileName);
+    if (isArray) {
+      fileCount = fileName.length;
+    }
     const folderFiles = [];
     for (let i = 1; i <= fileCount; i++) {
       folderFiles.push({
         contents: fileSize
           ? Cypress.Buffer.alloc(fileSize)
           : Cypress.Buffer.from(`File ${i} content`),
-        fileName: `${fileName}-${i}`,
+        fileName: isArray ? fileName[i] : `${fileName}-${i}`,
         mimeType: fileType ?? 'text/plain',
       });
     }
-    cy.get('input[type="file"]').selectFile(folderFiles, { force: true });
+    const input = cy.get('input[type="file"]').wait(5000);
+    input.selectFile(folderFiles, { force: true });
   }
 );
