@@ -121,6 +121,7 @@ export const connectedComponents: ComponentNavItem[] = [
       'flutter',
       'react-native',
       'swift',
+      'svelte',
     ],
   },
   {
@@ -134,6 +135,7 @@ export const connectedComponents: ComponentNavItem[] = [
       'flutter',
       'react-native',
       'swift',
+      'svelte',
     ],
     tertiary: true,
   },
@@ -148,13 +150,14 @@ export const connectedComponents: ComponentNavItem[] = [
       'flutter',
       'react-native',
       'swift',
+      'svelte',
     ],
     tertiary: true,
   },
   {
     href: '/connected-components/authenticator/advanced',
     label: 'Advanced Usage',
-    platforms: ['react', 'vue', 'angular', 'react-native'],
+    platforms: ['react', 'vue', 'angular', 'react-native', 'svelte'],
     tertiary: true,
   },
   {
@@ -585,6 +588,7 @@ export const gettingStarted: ComponentNavItem[] = [
       'react-native',
       'android',
       'swift',
+      'svelte',
     ],
   },
   {
@@ -597,12 +601,13 @@ export const gettingStarted: ComponentNavItem[] = [
       'flutter',
       'react-native',
       'android',
+      'svelte',
     ],
   },
   {
     href: '/getting-started/usage',
     label: 'Usage',
-    platforms: ['react', 'vue', 'angular', 'react-native'],
+    platforms: ['react', 'vue', 'angular', 'react-native', 'svelte'],
   },
   {
     href: '/getting-started/usage/nextjs',
@@ -624,7 +629,7 @@ export const gettingStarted: ComponentNavItem[] = [
   {
     href: '/getting-started/accessibility',
     label: 'Accessibility',
-    platforms: ['react', 'vue', 'angular'],
+    platforms: ['react', 'vue', 'angular', 'svelte'],
   },
   {
     href: '/getting-started/internationalization',

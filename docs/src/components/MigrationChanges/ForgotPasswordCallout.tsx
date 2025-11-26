@@ -12,7 +12,12 @@ export const ForgotPasswordCallout = ({ framework }) => {
   }
 
   const isReactNative = framework === 'react-native';
-  const amplify5FrameworkVersion = AMPLIFY_5_UI_VERSIONS[framework];
+  let amplify5FrameworkVersion = null;
+  if (framework in AMPLIFY_5_UI_VERSIONS) {
+    amplify5FrameworkVersion = AMPLIFY_5_UI_VERSIONS[framework];
+  }
+
+  if (!amplify5FrameworkVersion) return null;
 
   return (
     <Alert

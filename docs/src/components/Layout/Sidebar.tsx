@@ -142,11 +142,18 @@ const SecondaryNav = (props) => {
   const isAndroid = platform === 'android';
   const isSwift = platform === 'swift';
   const isAngular = platform === 'angular';
+  const isSvelte = platform === 'svelte';
   const isVue = platform === 'vue';
 
-  const hideTheming = isAndroid || isSwift;
+  const hideTheming = isAndroid || isSwift || isSvelte;
   const hideGuidesExpander =
-    isFlutter || isReactNative || isAndroid || isSwift || isAngular || isVue;
+    isFlutter ||
+    isReactNative ||
+    isAndroid ||
+    isSwift ||
+    isAngular ||
+    isVue ||
+    isSvelte;
 
   return (
     <Accordion.Container value={value} onValueChange={setValue}>
@@ -253,7 +260,7 @@ export const Sidebar = ({ expanded, setExpanded, platform }) => {
             justifyContent="space-between"
           >
             <LogoLink platform={platform} onClick={onClick} />
-            <MenuButton expanded={expanded} setExpanded={setExpanded} />
+            {/*<MenuButton expanded={expanded} setExpanded={setExpanded} />*/}
           </Flex>
           <FrameworkChooser onClick={onClick} />
           <SecondaryNav onClick={onClick} platform={platform} />

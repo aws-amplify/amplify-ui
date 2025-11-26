@@ -1,7 +1,7 @@
 ---
 title: Installation
 metaDescription: Installation Guide - How to install Amplify UI Packages, Styles, and Fonts.
-supportedFrameworks: android|angular|flutter|react|react-native|vue
+supportedFrameworks: android|angular|flutter|react|react-native|vue|svelte
 ---
 
 import { FRAMEWORKS } from '@/data/frameworks';
@@ -28,7 +28,7 @@ export async function getStaticProps() {
 
 <Dependencies />
 
-<InlineFilter filters={['angular', 'react', 'vue']}>
+<InlineFilter filters={['angular', 'react', 'vue', 'svelte']}>
   <InlineFilter filters={['angular']}>
     <AngularShims />
   </InlineFilter>
