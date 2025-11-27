@@ -177,6 +177,18 @@ export function useProcessTasks<
           ? progressDetails
           : progressDetails.progress;
 
+      console.log('Task progress callback: calling updateTask ', {
+        progress: progressValue,
+        failCount:
+          typeof progressDetails === 'number'
+            ? undefined
+            : progressDetails.failCount,
+        successCount:
+          typeof progressDetails === 'number'
+            ? undefined
+            : progressDetails.successCount,
+      }); // Debug log
+
       const task = updateTask(id, {
         progress: progressValue,
         failCount:
@@ -190,10 +202,12 @@ export function useProcessTasks<
       });
 
       if (task && isFunction(onTaskProgress)) {
+        console.log('Task progress callback:', progressDetails); // Debug log
         onTaskProgress(task, progressDetails);
       }
 
       if (task && isFunction(_onProgress)) {
+        console.log('Task progress callback: _', progressDetails); // Debug log
         _onProgress(data, progressDetails);
       }
     };

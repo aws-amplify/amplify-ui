@@ -1,8 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable max-params */
 /* eslint-disable no-console */
 import { remove, list } from '../../storage-internal';
-import { removeObjects } from '@aws-amplify/storage/internals';
-import type { RemoveObjectsInput } from '@aws-amplify/storage/internals';
+import { removeMultiple } from '@aws-amplify/storage/s3';
 
 import type {
   TaskHandler,
@@ -30,66 +32,20 @@ export interface DeleteHandlerOutput
 export interface DeleteHandler
   extends TaskHandler<DeleteHandlerInput, DeleteHandlerOutput> {}
 
-const BATCH_SIZE = 100; // AWS DeleteObjects limit
-
-const deleteObjectsBatch = async (
-  objectKeys: string[],
-  config: DeleteHandlerInput['config'],
-  onProgress?: (deletedCount: number) => void,
-  abortSignal?: AbortSignal
-): Promise<{ deletedCount: number; failedCount: number; failures: Error[] }> => {
-  const batches = [];
-  for (let i = 0; i < objectKeys.length; i += BATCH_SIZE) {
-    batches.push(objectKeys.slice(i, i + BATCH_SIZE));
-  }
-
-  let totalDeleted = 0;
-  let totalFailed = 0;
-  const allFailures: Error[] = [];
-
-  for (const batch of batches) {
-    if (abortSignal?.aborted) {
-      throw new Error('Operation canceled');
-    }
-
-    //@ts-expect-error RemoveObjectsInput is not fully typed yet
-    const removeObjectsInput: RemoveObjectsInput = {
-      paths: batch,
-      options: {
-        bucket: constructBucket(config),
-        locationCredentialsProvider: config.credentials,
-        expectedBucketOwner: config.accountId,
-        customEndpoint: config.customEndpoint,
-      },
-    };
-
-    const result = await removeObjects(removeObjectsInput);
-
-    totalDeleted += result.deleted.length;
-    totalFailed += result.errors.length;
-    onProgress?.(totalDeleted);
-
-    // Collect individual failures instead of throwing
-    if (result.errors.length > 0) {
-      const batchFailures = result.errors.map(
-        (e) => new Error(`${e.path}: ${e.message}`)
-      );
-      allFailures.push(...batchFailures);
-    }
-  }
-
-  return { deletedCount: totalDeleted, failedCount: totalFailed, failures: allFailures };
-};
-
 const deleteFolder = async (
   folderKey: string,
   config: DeleteHandlerInput['config'],
-  onProgress?: (deletedCount: number | undefined) => void,
-  abortSignal?: AbortSignal
-): Promise<{ deletedCount: number; failedCount: number; failures: Error[] }> => {
+  onProgress?: (successCount: number | undefined) => void,
+  setCancelFn?: (cancelFn: () => void) => void
+): Promise<{
+  successCount: number;
+  failedCount: number;
+  failures: Error[];
+}> => {
   const { accountId, credentials, customEndpoint } = config;
   const bucket = constructBucket(config);
 
+  // List all objects in the folder
   const listResult = await list({
     path: folderKey,
     options: {
@@ -102,9 +58,39 @@ const deleteFolder = async (
   });
 
   const objectKeys = listResult.items.map((item) => item.path);
-  objectKeys.push(folderKey);
+  objectKeys.push(folderKey); // Include the folder marker itself
 
-  return await deleteObjectsBatch(objectKeys, config, onProgress, abortSignal);
+  // Use new removeMultiple API
+  const operation = removeMultiple({
+    keys: objectKeys.map((key) => ({ key })),
+    options: {
+      bucket,
+      locationCredentialsProvider: config.credentials,
+      expectedBucketOwner: config.accountId,
+      customEndpoint: config.customEndpoint,
+      errorHandling: 'continue', // Continue on individual failures
+      batchSize: 10, // Adjust batch size as needed
+      onProgress: (progress) => {
+        onProgress?.(progress.successCount);
+      },
+    },
+  });
+
+  // Provide cancel function to parent
+  setCancelFn?.(operation.cancel);
+
+  const result = await operation.result;
+
+  // Convert failed items to Error objects
+  const failures = result.failed.map(
+    (item) => new Error(`${item.key}: ${item.error.message}`)
+  );
+
+  return {
+    successCount: result.summary.successCount,
+    failedCount: result.summary.failureCount,
+    failures,
+  };
 };
 
 export const deleteHandler: DeleteHandler = ({
@@ -116,34 +102,31 @@ export const deleteHandler: DeleteHandler = ({
   const { onProgress } = options ?? {};
 
   const isFolder = type === 'FOLDER' || key.endsWith('/');
-
-  // Create AbortController for cancellation
-  const abortController = new AbortController();
-  let isCanceled = false;
+  let operationCancel: (() => void) | undefined;
 
   const cancel = () => {
-    isCanceled = true;
-    abortController.abort();
+    operationCancel?.();
   };
 
   const result = Promise.resolve()
     .then(async () => {
       if (isFolder) {
-        const progressCallback = (deletedCount: number | undefined) => {
-          if (isCanceled) throw new Error('Operation canceled');
-          onProgress?.(data, { successCount: deletedCount });
+        const progressCallback = (successCount: number | undefined) => {
+          onProgress?.(data, { successCount: successCount });
         };
 
         const result = await deleteFolder(
           key,
           config,
           progressCallback,
-          abortController.signal
+          (cancelFn) => {
+            operationCancel = cancelFn;
+          }
         );
         return {
           status: 'COMPLETE' as const,
           value: { key },
-          successCount: result.deletedCount,
+          successCount: result.successCount,
           failCount: result.failedCount,
           failures: result.failures,
         };

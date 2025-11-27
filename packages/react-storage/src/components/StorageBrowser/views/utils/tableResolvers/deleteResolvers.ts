@@ -33,9 +33,14 @@ const progress = (data: any) => {
   const key = getFileDataCellKey(data);
   const { item } = data;
 
+  console.log('Progress item data: ', item); // Debug log
+
+  const textaa = `${item.data.successCount}/${item.data.totalCount} files`;
+  return { key, type: 'text', content: { text: textaa } };
+
   if (item.data.type === 'FOLDER') {
     if (item.status === 'PENDING' && item.data.totalCount > 0) {
-      const text = `${item.data.deletedCount}/${item.data.totalCount} files`;
+      const text = `${item.data.successCount}/${item.data.totalCount} files`;
       return { key, type: 'text', content: { text } };
     } else if (item.status === 'COMPLETE') {
       const text = `${item.data.totalCount} files deleted`;
@@ -43,7 +48,7 @@ const progress = (data: any) => {
     } else if (item.status === 'FAILED') {
       const text =
         item.data.totalCount > 0
-          ? `${item.data.deletedCount}/${item.data.totalCount} files (failed)`
+          ? `${item.data.successCount}/${item.data.totalCount} files (failed)`
           : 'Failed';
       return { key, type: 'text', content: { text } };
     } else {

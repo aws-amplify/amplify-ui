@@ -60,9 +60,9 @@ export const useDeleteView = (
                 config
               );
 
-              return { ...item, totalCount, deletedCount: 0 };
+              return { ...item, totalCount, successCount: 0 };
             } catch (error) {
-              return { ...item, totalCount: 0, deletedCount: 0 };
+              return { ...item, totalCount: 0, successCount: 0 };
             }
           }
           return item;
@@ -74,7 +74,7 @@ export const useDeleteView = (
 
     initializeFolderCounts();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [fileDataItems, hasFolders]);
+  }, []);
 
   const onActionStart = () => {
     if (!current) return;
