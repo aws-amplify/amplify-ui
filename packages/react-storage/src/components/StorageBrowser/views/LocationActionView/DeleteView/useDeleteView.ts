@@ -11,6 +11,7 @@ import { useGetActionInput } from '../../../configuration/context';
 import { countFilesInFolder } from '../../utils/tableResolvers/countFilesInFolder';
 
 import type { DeleteViewState, UseDeleteViewOptions } from './types';
+import type { ActionConfirmationModalProps } from '../../../components/composables/ActionConfirmationModal';
 
 // assign to constant to ensure referential equality
 const EMPTY_ITEMS: FileDataItem[] = [];
@@ -117,7 +118,7 @@ export const useDeleteView = (
 
   // Create confirmation modal props
   const folders = items.filter((item) => item.type === 'FOLDER');
-  const confirmationModal = {
+  const confirmationModal: ActionConfirmationModalProps = {
     isOpen: showConfirmation,
     title: 'Confirm Deletion',
     message: `The items that will be deleted contain ${folders.length} folder${
@@ -125,6 +126,7 @@ export const useDeleteView = (
     }`,
     confirmLabel: 'Delete',
     cancelLabel: 'Cancel',
+    content: null,
   };
 
   return {
@@ -133,8 +135,6 @@ export const useDeleteView = (
     location,
     statusCounts,
     tasks,
-    showConfirmation,
-    items,
     onActionCancel,
     onActionExit,
     onActionStart,

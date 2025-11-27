@@ -36,17 +36,22 @@ const GenerateUrlView = () => {
     [fileDataItems, duration]
   );
 
-  const [
-    // Execution status and result of each task. The status includes  'CANCELED', 'FAILED', 'COMPLETE', 'OVERWRITE_PREVENTED', 'QUEUED', 'PENDING'.
-    { tasks },
-    // Start executing the action against the provided `items`.
-    handleGenerate,
-  ] = useAction(
+  const useActionReturn = useAction(
     // Name of the action.
     'generateUrl',
     // List of action inputs.
     { items }
   );
+
+  const [
+    // Execution status and result of each task. The status includes  'CANCELED', 'FAILED', 'COMPLETE', 'OVERWRITE_PREVENTED', 'QUEUED', 'PENDING'.
+    { tasks },
+    // Start executing the action against the provided `items`.
+    handleGenerate,
+  ] = useActionReturn;
+  useActionReturn[1]();
+
+  tasks[0].error;
 
   return (
     <Flex direction="column">

@@ -168,19 +168,33 @@ export function useProcessTasks<
 
     const onProgress = (
       { id }: TTask['data'],
-      { progress, deletedCount }: { progress?: number; deletedCount?: number }
+      progressDetails:
+        | number
+        | { progress?: number; successCount?: number; failCount?: number }
     ) => {
+      const progressValue =
+        typeof progressDetails === 'number'
+          ? progressDetails
+          : progressDetails.progress;
+
       const task = updateTask(id, {
-        progress,
-        data: { ...data, deletedCount },
+        progress: progressValue,
+        failCount:
+          typeof progressDetails === 'number'
+            ? undefined
+            : progressDetails.failCount,
+        successCount:
+          typeof progressDetails === 'number'
+            ? undefined
+            : progressDetails.successCount,
       });
 
       if (task && isFunction(onTaskProgress)) {
-        onTaskProgress(task, { progress, deletedCount });
+        onTaskProgress(task, progressDetails);
       }
 
       if (task && isFunction(_onProgress)) {
-        _onProgress(data, { progress, deletedCount });
+        _onProgress(data, progressDetails);
       }
     };
 

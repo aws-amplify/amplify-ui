@@ -37,13 +37,15 @@ const deleteObjectsBatch = async (
   config: DeleteHandlerInput['config'],
   onProgress?: (deletedCount: number) => void,
   abortSignal?: AbortSignal
-): Promise<number> => {
+): Promise<{ deletedCount: number; failedCount: number; failures: Error[] }> => {
   const batches = [];
   for (let i = 0; i < objectKeys.length; i += BATCH_SIZE) {
     batches.push(objectKeys.slice(i, i + BATCH_SIZE));
   }
 
   let totalDeleted = 0;
+  let totalFailed = 0;
+  const allFailures: Error[] = [];
 
   for (const batch of batches) {
     if (abortSignal?.aborted) {
@@ -64,17 +66,19 @@ const deleteObjectsBatch = async (
     const result = await removeObjects(removeObjectsInput);
 
     totalDeleted += result.deleted.length;
+    totalFailed += result.errors.length;
     onProgress?.(totalDeleted);
 
+    // Collect individual failures instead of throwing
     if (result.errors.length > 0) {
-      const errorMessages = result.errors
-        .map((e) => `${e.path}: ${e.message}`)
-        .join(', ');
-      throw new Error(`Failed to delete some objects: ${errorMessages}`);
+      const batchFailures = result.errors.map(
+        (e) => new Error(`${e.path}: ${e.message}`)
+      );
+      allFailures.push(...batchFailures);
     }
   }
 
-  return totalDeleted;
+  return { deletedCount: totalDeleted, failedCount: totalFailed, failures: allFailures };
 };
 
 const deleteFolder = async (
@@ -82,7 +86,7 @@ const deleteFolder = async (
   config: DeleteHandlerInput['config'],
   onProgress?: (deletedCount: number | undefined) => void,
   abortSignal?: AbortSignal
-): Promise<number> => {
+): Promise<{ deletedCount: number; failedCount: number; failures: Error[] }> => {
   const { accountId, credentials, customEndpoint } = config;
   const bucket = constructBucket(config);
 
@@ -127,10 +131,10 @@ export const deleteHandler: DeleteHandler = ({
       if (isFolder) {
         const progressCallback = (deletedCount: number | undefined) => {
           if (isCanceled) throw new Error('Operation canceled');
-          onProgress?.(data, { deletedCount });
+          onProgress?.(data, { successCount: deletedCount });
         };
 
-        const deletedCount = await deleteFolder(
+        const result = await deleteFolder(
           key,
           config,
           progressCallback,
@@ -139,7 +143,9 @@ export const deleteHandler: DeleteHandler = ({
         return {
           status: 'COMPLETE' as const,
           value: { key },
-          deletedCount,
+          successCount: result.deletedCount,
+          failCount: result.failedCount,
+          failures: result.failures,
         };
       } else {
         await remove({
@@ -155,15 +161,28 @@ export const deleteHandler: DeleteHandler = ({
         return {
           status: 'COMPLETE' as const,
           value: { key },
+          successCount: 1,
+          failCount: 0,
         };
       }
     })
     .catch((error: Error) => {
       if (error.message === 'Operation canceled') {
-        return { status: 'CANCELED' as const, message: 'Deletion canceled' };
+        return {
+          status: 'CANCELED' as const,
+          message: 'Deletion canceled',
+          successCount: 0,
+          failCount: 0,
+        };
       }
       const { message } = error;
-      return { error, message, status: 'FAILED' as const };
+      return {
+        error,
+        message,
+        status: 'FAILED' as const,
+        successCount: 0,
+        failCount: 1,
+      };
     });
 
   return { result, cancel };

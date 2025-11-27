@@ -24,10 +24,13 @@ export interface ProcessTasksOptions<TTask extends Task, TItems = []> {
   onTaskError?: (task: TTask, error: unknown) => void;
   onTaskProgress?: (
     task: TTask,
-    progressDetails: {
-      progress: number | undefined;
-      deletedCount: number | undefined;
-    }
+    progressDetails:
+      | number
+      | {
+          progress?: number;
+          successCount?: number;
+          failCount?: number;
+        }
   ) => void;
   onTaskSuccess?: (task: TTask, value: TTask['value'] | undefined) => void;
   onTaskRemove?: (task: TTask) => void;
@@ -58,11 +61,6 @@ export interface Task<TData = unknown, TValue = any>
    * total file count for folders (undefined for files)
    */
   totalCount?: number;
-
-  /**
-   * deleted file count for folders (undefined for files)
-   */
-  deletedCount?: number;
 }
 
 export type HandleProcessTasks<TInput> = (input: TInput) => void;
