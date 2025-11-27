@@ -10,13 +10,6 @@ export const useActionConfirmationModal = (): ActionConfirmationModalProps => {
     onConfirmationModalCancel,
   } = useControlsContext();
 
-  console.log(
-    'useActionConfirmationModal confirmationModal',
-    confirmationModal,
-    onConfirmationModalConfirm,
-    onConfirmationModalCancel
-  );
-
   return {
     isOpen: false,
     title: 'Confirm Action',

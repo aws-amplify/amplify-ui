@@ -56,8 +56,6 @@ export function DeleteViewProvider({
     }
   );
 
-  console.log('confirmationModal in the provider ', confirmationModal);
-
   return (
     <ControlsContextProvider
       data={{
