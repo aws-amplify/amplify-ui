@@ -6,7 +6,7 @@ You can use `useAuthenticator` composable to access `route` string that represen
 
 ```html
 <script lang="ts">
-  import { Authenticator, useAuthenticator } from '@aws-amplify/ui-vue';
+  import { Authenticator, useAuthenticator } from '@aws-amplify/ui-svelte';
   const { authenticator } = $derived(useAuthenticator());
 </script>
 
@@ -28,8 +28,8 @@ If you just need to check if you're authenticated or not, you can use the more s
 
 ```html
 <script lang="ts">
-  import { Authenticator, useAuthenticator } from '@aws-amplify/ui-vue';
-  const {authenticator} = useAuthenticator();
+  import { Authenticator, useAuthenticator } from '@aws-amplify/ui-svelte';
+  const { authenticator } = $derived(useAuthenticator());
 </script>
 
 <Authenticator />

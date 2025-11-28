@@ -31,7 +31,7 @@ In order to extract properties from the authenticator while keeping its reactivi
 
 ```html
 <script setup>
-  import { useAuthenticator } from '@aws-amplify/ui-vue';
+  import { useAuthenticator } from '@aws-amplify/ui-svelte';
   // `route` `user` and `signOut` all are reactive.
   const { authenticator } = $derived(useAuthenticator());
   const { route, user, signOut } = $derived(authenticator);

@@ -1,27 +1,26 @@
 import * as React from 'react';
 import { useRouter } from 'next/router';
 import {
-  MdOutlineChecklist,
-  MdOutlineWidgets,
-  MdOutlineAutoAwesome,
-  MdWebAssetOff,
   MdOutlineArticle,
+  MdOutlineAutoAwesome,
+  MdOutlineChecklist,
   MdOutlinePower,
+  MdOutlineWidgets,
 } from 'react-icons/md';
 import {
-  Text,
-  Flex,
-  Collection,
   Accordion,
+  Collection,
+  Flex,
+  Text,
   useTheme,
 } from '@aws-amplify/ui-react';
 import {
   ComponentNavItem,
   connectedComponents,
-  guides,
-  theming,
   gettingStarted,
+  guides,
   primitiveComponents,
+  theming,
 } from '../../data/links';
 
 import NextLink from 'next/link';
@@ -260,7 +259,7 @@ export const Sidebar = ({ expanded, setExpanded, platform }) => {
             justifyContent="space-between"
           >
             <LogoLink platform={platform} onClick={onClick} />
-            {/*<MenuButton expanded={expanded} setExpanded={setExpanded} />*/}
+            <MenuButton expanded={expanded} setExpanded={setExpanded} />
           </Flex>
           <FrameworkChooser onClick={onClick} />
           <SecondaryNav onClick={onClick} platform={platform} />
