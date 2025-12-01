@@ -165,4 +165,119 @@ describe('createAmplifyListLocationsHandler', () => {
       nextToken: input.options.nextToken,
     });
   });
+
+  it('should deduplicate locations with same bucket and prefix', async () => {
+    const handler = createAmplifyListLocationsHandler();
+    const fetchedLocations: ListPathsOutput['locations'] = [
+      {
+        bucket: 'idfc-sboms',
+        permission: ['read'],
+        prefix: '*',
+        type: 'BUCKET',
+      },
+      {
+        bucket: 'idfc-sboms',
+        permission: ['read', 'write'],
+        prefix: '*',
+        type: 'BUCKET',
+      },
+    ];
+
+    const deduplicatedLocation: LocationData = {
+      prefix: '',
+      bucket: 'idfc-sboms',
+      id: mockId,
+      permissions: ['get', 'list', 'write'],
+      type: 'BUCKET',
+    };
+
+    const input = { options: { pageSize: 10, nextToken: undefined } };
+    const paginatedResult = {
+      items: [deduplicatedLocation],
+      nextToken: undefined,
+    };
+
+    mockListPaths.mockResolvedValueOnce({ locations: fetchedLocations });
+    mockGetPaginatedItems.mockReturnValueOnce(paginatedResult);
+
+    const result = await handler(input);
+
+    expect(result.items).toHaveLength(1);
+    expect(mockGetPaginatedItems).toHaveBeenCalledWith({
+      items: [deduplicatedLocation],
+      pageSize: input.options.pageSize,
+      nextToken: input.options.nextToken,
+    });
+  });
+
+  it('should keep broader permissions when deduplicating', async () => {
+    const handler = createAmplifyListLocationsHandler();
+    const fetchedLocations: ListPathsOutput['locations'] = [
+      {
+        bucket: 'test-bucket',
+        permission: ['read'],
+        prefix: 'path/*',
+        type: 'PREFIX',
+      },
+      {
+        bucket: 'test-bucket',
+        permission: ['write'],
+        prefix: 'path/*',
+        type: 'PREFIX',
+      },
+      {
+        bucket: 'test-bucket',
+        permission: ['read', 'write'],
+        prefix: 'path/*',
+        type: 'PREFIX',
+      },
+    ];
+
+    const input = { options: { pageSize: 10, nextToken: undefined } };
+
+    mockListPaths.mockResolvedValueOnce({ locations: fetchedLocations });
+    mockGetPaginatedItems.mockImplementation((args) => ({
+      items: args.items,
+      nextToken: undefined,
+    }));
+
+    const result = await handler(input);
+
+    expect(result.items).toHaveLength(1);
+    expect(result.items[0].bucket).toBe('test-bucket');
+    expect(result.items[0].prefix).toBe('path/');
+    expect(result.items[0].permissions).toEqual(['get', 'list', 'write']);
+  });
+
+  it('should not deduplicate locations with different prefixes', async () => {
+    const handler = createAmplifyListLocationsHandler();
+    const fetchedLocations: ListPathsOutput['locations'] = [
+      {
+        bucket: 'test-bucket',
+        permission: ['read'],
+        prefix: 'path1/*',
+        type: 'PREFIX',
+      },
+      {
+        bucket: 'test-bucket',
+        permission: ['read', 'write'],
+        prefix: 'path2/*',
+        type: 'PREFIX',
+      },
+    ];
+
+    const input = { options: { pageSize: 10, nextToken: undefined } };
+
+    mockListPaths.mockResolvedValueOnce({ locations: fetchedLocations });
+    mockGetPaginatedItems.mockImplementation((args) => ({
+      items: args.items,
+      nextToken: undefined,
+    }));
+
+    const result = await handler(input);
+
+    expect(result.items).toHaveLength(2);
+    expect(result.items[0].prefix).toBe('path1/');
+    expect(result.items[1].prefix).toBe('path2/');
+  });
 });
