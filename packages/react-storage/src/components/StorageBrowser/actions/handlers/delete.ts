@@ -1,10 +1,13 @@
+/* eslint-disable prefer-const */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-constant-condition */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable max-params */
 /* eslint-disable no-console */
-import { remove, list } from '../../storage-internal';
-import { removeMultiple } from '@aws-amplify/storage/s3';
+import { remove, removeMultiple } from '@aws-amplify/storage/s3';
 
 import type {
   TaskHandler,
@@ -15,6 +18,7 @@ import type {
 } from './types';
 
 import { constructBucket } from './utils';
+import { list } from '../../storage-internal';
 
 export interface DeleteHandlerOptions extends TaskHandlerOptions {}
 
@@ -50,9 +54,9 @@ const deleteFolder = async (
     path: folderKey,
     options: {
       bucket,
-      locationCredentialsProvider: credentials,
+      // locationCredentialsProvider: credentials,
       expectedBucketOwner: accountId,
-      customEndpoint,
+      // customEndpoint,
       listAll: true,
     },
   });
@@ -64,12 +68,15 @@ const deleteFolder = async (
   const operation = removeMultiple({
     keys: objectKeys.map((key) => ({ key })),
     options: {
+      // @ts-expect-error removeMultiple
       bucket,
       locationCredentialsProvider: config.credentials,
       expectedBucketOwner: config.accountId,
       customEndpoint: config.customEndpoint,
+      batchStrategy: 'parallel',
       errorHandling: 'continue', // Continue on individual failures
       batchSize: 10, // Adjust batch size as needed
+      maxConcurrency: 3,
       onProgress: (progress) => {
         onProgress?.(progress.successCount);
       },
@@ -101,72 +108,61 @@ export const deleteHandler: DeleteHandler = ({
   const { key, type } = data;
   const { onProgress } = options ?? {};
 
-  const isFolder = type === 'FOLDER' || key.endsWith('/');
   let operationCancel: (() => void) | undefined;
 
   const cancel = () => {
     operationCancel?.();
   };
 
-  const result = Promise.resolve()
-    .then(async () => {
-      if (isFolder) {
-        const progressCallback = (successCount: number | undefined) => {
-          onProgress?.(data, { successCount: successCount });
-        };
+  const operation = remove({
+    path: key,
+    options: {
+      bucket: constructBucket(config),
+      // locationCredentialsProvider: config.credentials,
+      expectedBucketOwner: config.accountId,
+      // customEndpoint: config.customEndpoint,
+      onProgress: (progress) => {
+        onProgress?.(data, { successCount: progress.deletedCount });
+      },
+      batchSize: 1,
+    },
+  });
 
-        const result = await deleteFolder(
-          key,
-          config,
-          progressCallback,
-          (cancelFn) => {
-            operationCancel = cancelFn;
-          }
-        );
-        return {
-          status: 'COMPLETE' as const,
-          value: { key },
-          successCount: result.successCount,
-          failCount: result.failedCount,
-          failures: result.failures,
-        };
-      } else {
-        await remove({
-          path: key,
-          options: {
-            bucket: constructBucket(config),
-            locationCredentialsProvider: config.credentials,
-            expectedBucketOwner: config.accountId,
-            customEndpoint: config.customEndpoint,
-          },
-        });
+  operationCancel = operation.cancel;
 
-        return {
-          status: 'COMPLETE' as const,
-          value: { key },
-          successCount: 1,
-          failCount: 0,
-        };
-      }
+  const newResult = operation.result
+    .then(({ path }) => {
+      return {
+        status: 'COMPLETE' as const,
+        value: { key: path },
+        failCount: 0,
+      };
     })
     .catch((error: Error) => {
-      if (error.message === 'Operation canceled') {
-        return {
-          status: 'CANCELED' as const,
-          message: 'Deletion canceled',
-          successCount: 0,
-          failCount: 0,
-        };
-      }
       const { message } = error;
-      return {
-        error,
-        message,
-        status: 'FAILED' as const,
-        successCount: 0,
-        failCount: 1,
-      };
+      return { error, message, status: 'FAILED' as const };
     });
 
-  return { result, cancel };
+  // const oldResult = remove({
+  //   path: key,
+  //   options: {
+  //     bucket: constructBucket(config),
+  //     // locationCredentialsProvider: config.credentials,
+  //     expectedBucketOwner: config.accountId,
+  //     // customEndpoint: config.customEndpoint,
+  //   },
+  // })
+  //   .then(({ path }) => {
+  //     return {
+  //       status: 'COMPLETE' as const,
+  //       value: { key: path },
+  //       failCount: 0,
+  //     };
+  //   })
+  //   .catch((error: Error) => {
+  //     const { message } = error;
+  //     return { error, message, status: 'FAILED' as const };
+  //   });
+
+  return { result: newResult, cancel };
 };

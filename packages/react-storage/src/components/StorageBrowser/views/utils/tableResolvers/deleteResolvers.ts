@@ -33,11 +33,6 @@ const progress = (data: any) => {
   const key = getFileDataCellKey(data);
   const { item } = data;
 
-  console.log('Progress item data: ', item); // Debug log
-
-  const textaa = `${item.data.successCount}/${item.data.totalCount} files`;
-  return { key, type: 'text', content: { text: textaa } };
-
   if (item.data.type === 'FOLDER') {
     if (item.status === 'PENDING' && item.data.totalCount > 0) {
       const text = `${item.data.successCount}/${item.data.totalCount} files`;
