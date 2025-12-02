@@ -1,8 +1,6 @@
 {
   "extends": "tslint:recommended",
-  "rulesDirectory": [
-    "codelyzer"
-  ],
+  "rulesDirectory": [],
   "rules": {
     "align": {
       "options": [
