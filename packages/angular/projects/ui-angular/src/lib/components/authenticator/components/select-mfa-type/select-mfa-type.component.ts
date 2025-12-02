@@ -19,6 +19,7 @@ const {
 
 @Component({
   selector: 'amplify-select-mfa-type',
+  standalone: false,
   templateUrl: './select-mfa-type.component.html',
 })
 export class SelectMfaTypeComponent implements OnInit {

@@ -10,6 +10,7 @@ Amplify.configure(awsExports);
 
 @Component({
   selector: 'sign-up-with-email',
+  standalone: false,
   templateUrl: 'sign-up-with-email.component.html',
 })
 export class SignUpWithEmailComponent implements OnInit {

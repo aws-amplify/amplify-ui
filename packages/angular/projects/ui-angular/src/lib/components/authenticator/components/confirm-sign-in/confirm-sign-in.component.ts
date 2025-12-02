@@ -13,6 +13,7 @@ const { getConfirmText, getBackToSignInText, getChallengeText } =
 
 @Component({
   selector: 'amplify-confirm-sign-in',
+  standalone: false,
   templateUrl: './confirm-sign-in.component.html',
 })
 export class ConfirmSignInComponent implements OnInit {
