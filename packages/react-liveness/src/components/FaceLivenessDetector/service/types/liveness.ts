@@ -1,6 +1,12 @@
 import type { AwsCredentialProvider } from './credentials';
 import type { ErrorState } from './error';
 
+export interface DeviceInfo {
+  deviceId: string;
+  groupId: string;
+  label: string;
+}
+
 /**
  * The props for the FaceLivenessDetectorCore which allows for full configuration of auth
  */
@@ -13,8 +19,9 @@ export interface FaceLivenessDetectorCoreProps {
   /**
    * Callback that signals when the liveness session has completed analysis.
    * At this point a request can be made to GetFaceLivenessSessionResults.
+   * @param deviceInfo Information about the selected device
    */
-  onAnalysisComplete: () => Promise<void>;
+  onAnalysisComplete: (deviceInfo?: DeviceInfo) => Promise<void>;
 
   /**
    * The AWS region to stream the video to, for current regional support see the documentation here: FIXME LINK
@@ -27,9 +34,11 @@ export interface FaceLivenessDetectorCoreProps {
   onUserCancel?: () => void;
 
   /**
-   * Callback called when there is error occured on any step
+   * Callback called when there is an error on any step
+   * @param livenessError The error that occurred
+   * @param deviceInfo Information about the selected device, if available
    */
-  onError?: (livenessError: LivenessError) => void;
+  onError?: (livenessError: LivenessError, deviceInfo?: DeviceInfo) => void;
 
   /**
    * Optional parameter for the disabling the Start/Get Ready Screen, default: false
@@ -57,6 +66,10 @@ export type FaceLivenessDetectorProps = Omit<
 };
 
 export interface FaceLivenessDetectorCoreConfig {
+  /**
+   * Optional device ID to pre-select a camera
+   */
+  deviceId?: string;
   /**
    * overrides the Wasm backend binary CDN path
    * default is https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-wasm@3.11.0/dist/.

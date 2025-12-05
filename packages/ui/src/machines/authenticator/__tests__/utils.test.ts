@@ -83,4 +83,43 @@ describe('getUsernameSignUp', () => {
     const expected = '+268002428976';
     expect(output).toEqual(expected);
   });
+
+  it('returns sanitized phone when only phone_number is a login mechanism (phone as username mode)', () => {
+    const formValues = {
+      phone_number: '8002428976',
+      country_code: '+1',
+      password: 'P@ssw0rd',
+      confirm_password: 'P@ssw0rd',
+    };
+
+    const output = getUsernameSignUp({
+      formValues,
+      loginMechanisms: ['phone_number'] as LoginMechanism[],
+    } as unknown as AuthActorContext);
+
+    // When phone_number is the only mechanism (not alias mode), use it as username
+    expect(output).toEqual('+18002428976');
+  });
+
+  it('returns username when username, email, and phone_number are all login mechanisms regardless order', () => {
+    const formValues = {
+      username: 'testuser',
+      email: 'test@example.com',
+      phone_number: '8002428976',
+      country_code: '+1',
+      password: 'P@ssw0rd',
+      confirm_password: 'P@ssw0rd',
+    };
+
+    const output = getUsernameSignUp({
+      formValues,
+      loginMechanisms: [
+        'email',
+        'username',
+        'phone_number',
+      ] as LoginMechanism[],
+    } as unknown as AuthActorContext);
+
+    expect(output).toEqual('testuser');
+  });
 });
