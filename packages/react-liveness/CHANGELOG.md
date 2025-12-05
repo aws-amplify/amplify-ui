@@ -1,5 +1,17 @@
 # @aws-amplify/ui-react-liveness
 
+## 3.5.0
+
+### Minor Changes
+
+- [#6633](https://github.com/aws-amplify/amplify-ui/pull/6633) [`23d141737e6c4997e748dd02874ca9448238abfc`](https://github.com/aws-amplify/amplify-ui/commit/23d141737e6c4997e748dd02874ca9448238abfc) Thanks [@riasatali42](https://github.com/riasatali42)! - Pass default device info using ID. Emit detailed device info on liveness complete. DEFAULT_CAMERA_NOT_FOUND_ERROR added in onError callback if device not found with deviceId.
+
+### Patch Changes
+
+- Updated dependencies [[`7a8566e4e38ac52353cace115e79786083429aa1`](https://github.com/aws-amplify/amplify-ui/commit/7a8566e4e38ac52353cace115e79786083429aa1)]:
+  - @aws-amplify/ui@6.13.0
+  - @aws-amplify/ui-react@6.13.2
+
 ## 3.4.7
 
 ### Patch Changes
