@@ -10,8 +10,8 @@
     "start": "vite preview --port 3000"
   },
   "dependencies": {
-    "@aws-amplify/ui-react": "6.13.1",
-    "@aws-amplify/ui-react-storage": "3.13.1",
+    "@aws-amplify/ui-react": "6.13.2",
+    "@aws-amplify/ui-react-storage": "3.14.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^7.5.2"
