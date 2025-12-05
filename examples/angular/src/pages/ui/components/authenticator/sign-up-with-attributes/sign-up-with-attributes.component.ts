@@ -4,6 +4,7 @@ import awsExports from './aws-exports';
 
 @Component({
   selector: 'sign-up-with-attributes',
+  standalone: false,
   templateUrl: 'sign-up-with-attributes.component.html',
 })
 export class SignUpWithAttributesComponent {

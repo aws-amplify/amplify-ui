@@ -1,9 +1,7 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`amplify-checkbox renders as expected 1`] = `
-<div
-  id="root0"
->
+<div>
   <div
     class="amplify-flex amplify-field amplify-checkboxfield"
   >

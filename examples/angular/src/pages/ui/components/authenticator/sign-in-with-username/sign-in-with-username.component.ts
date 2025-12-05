@@ -5,6 +5,7 @@ import awsExports from './aws-exports';
 
 @Component({
   selector: 'sign-in-with-username',
+  standalone: false,
   templateUrl: 'sign-in-with-username.component.html',
 })
 export class SignInWithUsernameComponent {

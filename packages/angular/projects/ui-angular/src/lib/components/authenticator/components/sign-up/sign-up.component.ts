@@ -6,6 +6,7 @@ const { getCreateAccountText } = authenticatorTextUtil;
 
 @Component({
   selector: 'amplify-sign-up',
+  standalone: false,
   templateUrl: './sign-up.component.html',
 })
 export class SignUpComponent {

@@ -10,6 +10,7 @@ import { CustomComponentsService } from '../../services/custom-components.servic
 @Component({
   selector: 'amplify-slot',
   templateUrl: './amplify-slot.component.html',
+  standalone: false,
 })
 export class AmplifySlotComponent implements AfterContentInit {
   @Input() name: string;

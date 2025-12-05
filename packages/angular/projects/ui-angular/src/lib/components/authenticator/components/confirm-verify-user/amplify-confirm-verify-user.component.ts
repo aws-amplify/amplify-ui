@@ -10,6 +10,7 @@ const { getAccountRecoveryInfoText, getSkipText, getSubmitText } =
   authenticatorTextUtil;
 @Component({
   selector: 'amplify-confirm-verify-user',
+  standalone: false,
   templateUrl: './amplify-confirm-verify-user.component.html',
 })
 export class ConfirmVerifyUserComponent {

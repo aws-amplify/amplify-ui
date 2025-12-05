@@ -4,6 +4,7 @@ import awsExports from './aws-exports';
 
 @Component({
   selector: 'sign-up-with-email-lambda',
+  standalone: false,
   templateUrl: 'sign-up-with-email-lambda.component.html',
 })
 export class SignUpWithEmailLambdaComponent {

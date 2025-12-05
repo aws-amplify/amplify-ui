@@ -4,6 +4,7 @@ import awsExports from './aws-exports';
 
 @Component({
   selector: 'sign-in-with-email',
+  standalone: false,
   templateUrl: 'sign-in-with-email.component.html',
 })
 export class SignInWithEmailComponent {

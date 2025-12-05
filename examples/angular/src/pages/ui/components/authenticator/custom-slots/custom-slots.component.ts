@@ -6,6 +6,7 @@ import awsExports from './aws-exports';
 
 @Component({
   selector: 'custom-slots',
+  standalone: false,
   templateUrl: 'custom-slots.component.html',
 })
 export class CustomSlotsComponent {

@@ -11,6 +11,7 @@ const { getResetYourPasswordText, getSendCodeText, getBackToSignInText } =
 
 @Component({
   selector: 'amplify-forgot-password',
+  standalone: false,
   templateUrl: './forgot-password.component.html',
 })
 export class ForgotPasswordComponent {
