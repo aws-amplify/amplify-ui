@@ -38,11 +38,9 @@ function downloadFromUrl(fileName: string, url: string) {
   document.body.removeChild(a);
 }
 
-export const downloadHandler: DownloadHandler = ({
-  config,
-  data: { key },
-}): DownloadHandlerOutput => {
+export const downloadHandler: DownloadHandler = ({ config, data }) => {
   const { accountId, credentials, customEndpoint } = config;
+  const { key } = data;
 
   const result = getUrl({
     path: key,

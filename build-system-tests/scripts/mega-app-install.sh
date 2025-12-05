@@ -95,6 +95,12 @@ elif [ "$FRAMEWORK" == 'angular' ]; then
     # remove angular since it's deprecated https://www.npmjs.com/package/angular
     # We've install @amplify/cli when creating the app
     DEPENDENCIES="$TAGGED_UI_FRAMEWORK aws-amplify"
+    
+    # Angular 21+ requires zone.js to be explicitly installed
+    if [[ "$FRAMEWORK_VERSION" == "latest" || "$FRAMEWORK_VERSION" -ge 21 ]]; then
+        DEPENDENCIES="$DEPENDENCIES zone.js"
+    fi
+    
     echo "DEPENDENCIES=$DEPENDENCIES"
 fi
 
