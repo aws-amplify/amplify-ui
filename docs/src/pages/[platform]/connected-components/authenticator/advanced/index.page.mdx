@@ -2,7 +2,7 @@
 title: Advanced Usage
 metaTitle: Advanced Usage
 description: Access Authenticator UI component state outside of the UI component
-supportedFrameworks: react|angular|vue|react-native
+supportedFrameworks: react|angular|vue|react-native|svelte
 ---
 
 import { useRouter } from 'next/router';
@@ -15,22 +15,27 @@ import UseAuthenticatorAngular from './useAuthenticator.angular.mdx';
 import UseAuthenticatorReactNative from './useAuthenticator.react-native.mdx';
 import UseAuthenticatorReact from './useAuthenticator.react.mdx';
 import UseAuthenticatorVue from './useAuthenticator.vue.mdx';
+import UseAuthenticatorSvelte from './useAuthenticator.svelte.mdx';
 import CurrentRouteAngular from './current-route.angular.mdx';
 import CurrentRouteReactNative from './current-route.react-native.mdx';
 import CurrentRouteReact from './current-route.react.mdx';
 import CurrentRouteVue from './current-route.vue.mdx';
+import CurrentRouteSvelte from './current-route.svelte.mdx';
 import CurrentUserAngular from './current-user.angular.mdx';
 import CurrentUserReactNative from './current-user.react-native.mdx';
 import CurrentUserReact from './current-user.react.mdx';
 import CurrentUserVue from './current-user.vue.mdx';
+import CurrentUserSvelte from './current-user.svelte.mdx';
 import TriggerAngular from './trigger-transitions.angular.mdx';
 import TriggerReactNative from './trigger-transitions.react-native.mdx';
 import TriggerReact from './trigger-transitions.react.mdx';
 import TriggerVue from './trigger-transitions.vue.mdx';
+import TriggerSvelte from './trigger-transitions.svelte.mdx';
 import ExampleAngular from './example.angular.mdx';
 import ExampleReactNative from './example.react-native.mdx';
 import ExampleReact from './example.react.mdx';
 import ExampleVue from './example.vue.mdx';
+import ExampleSvelte from './example.svelte.mdx';
 import ApiAngular from './full-api.angular.mdx';
 import ApiReactNative from './full-api.react-native.mdx';
 import ApiReact from './full-api.react.mdx';
@@ -58,6 +63,9 @@ export async function getStaticProps() {
 <InlineFilter filters={['vue']}>
   <UseAuthenticatorVue />
 </InlineFilter>
+<InlineFilter filters={['svelte']}>
+  <UseAuthenticatorSvelte />
+</InlineFilter>
 
 ## Access Auth State
 
@@ -72,6 +80,9 @@ export async function getStaticProps() {
 </InlineFilter>
 <InlineFilter filters={['vue']}>
   <CurrentRouteVue />
+</InlineFilter>
+<InlineFilter filters={['svelte']}>
+  <CurrentRouteSvelte />
 </InlineFilter>
 
 ## Access Authenticated User
@@ -88,6 +99,9 @@ export async function getStaticProps() {
 <InlineFilter filters={['vue']}>
   <CurrentUserVue />
 </InlineFilter>
+<InlineFilter filters={['svelte']}>
+  <CurrentUserSvelte />
+</InlineFilter>
 
 ## Trigger Transitions
 
@@ -102,6 +116,9 @@ export async function getStaticProps() {
 </InlineFilter>
 <InlineFilter filters={['vue']}>
   <TriggerVue />
+</InlineFilter>
+<InlineFilter filters={['svelte']}>
+  <TriggerSvelte />
 </InlineFilter>
 
 ### Example
@@ -119,6 +136,9 @@ Here's an example that uses the `toForgotPassword` trigger transition, to create
 </InlineFilter>
 <InlineFilter filters={['vue']}>
   <ExampleVue />
+</InlineFilter>
+<InlineFilter filters={['svelte']}>
+  <ExampleSvelte />
 </InlineFilter>
 
 ## Full API

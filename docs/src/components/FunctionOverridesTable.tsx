@@ -26,16 +26,21 @@ export const FunctionOverridesTable = ({ framework }) => {
   }
 
   const latestVersion = CURRENT_MAJOR_VERSIONS[framework].toString();
-  const amplify5FrameworkVersion = AMPLIFY_5_UI_VERSIONS[framework].toString();
+  const amplify5FrameworkVersion =
+    framework in AMPLIFY_5_UI_VERSIONS
+      ? AMPLIFY_5_UI_VERSIONS[framework].toString()
+      : null;
   return (
     <Tabs.Container defaultValue={latestVersion}>
       <Tabs.List>
         <Tabs.Item value={latestVersion}>
           <code>@aws-amplify/ui-{framework}</code> v{latestVersion} (latest)
         </Tabs.Item>
-        <Tabs.Item value={amplify5FrameworkVersion}>
-          <code>@aws-amplify/ui-{framework}</code> v{amplify5FrameworkVersion}
-        </Tabs.Item>
+        {amplify5FrameworkVersion && (
+          <Tabs.Item value={amplify5FrameworkVersion}>
+            <code>@aws-amplify/ui-{framework}</code> v{amplify5FrameworkVersion}
+          </Tabs.Item>
+        )}
       </Tabs.List>
       <Tabs.Panel value={latestVersion}>
         <ResponsiveTable labelWidth="10rem">
@@ -127,96 +132,98 @@ export const FunctionOverridesTable = ({ framework }) => {
           </TableBody>
         </ResponsiveTable>
       </Tabs.Panel>
-      <Tabs.Panel value={amplify5FrameworkVersion}>
-        <ResponsiveTable labelWidth="10rem">
-          <TableHead>
-            <TableRow>
-              <TableCell as="th">Function Call</TableCell>
-              <TableCell as="th">Override Name</TableCell>
-              <TableCell as="th">formData Properties</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            <TableRow>
-              <ResponsiveTableCell label="Function Call">
-                <code>Auth.signUp</code>
-              </ResponsiveTableCell>
-              <ResponsiveTableCell label="Override Name">
-                <code>handleSignUp</code>
-              </ResponsiveTableCell>
-              <ResponsiveTableCell label="formData Properties">
-                <code>{'{username, password, attributes}'}</code>
-              </ResponsiveTableCell>
-            </TableRow>
-            <TableRow>
-              <ResponsiveTableCell label="Function Call">
-                <code>Auth.signIn</code>
-              </ResponsiveTableCell>
-              <ResponsiveTableCell label="Override Name">
-                <code>handleSignIn</code>
-              </ResponsiveTableCell>
-              <ResponsiveTableCell label="formData Properties">
-                <code>{'{username, password}'}</code>
-              </ResponsiveTableCell>
-            </TableRow>
-            <TableRow>
-              <ResponsiveTableCell label="Function Call">
-                <code>Auth.confirmSignIn</code>
-              </ResponsiveTableCell>
-              <ResponsiveTableCell label="Override Name">
-                <code>handleConfirmSignIn</code>
-              </ResponsiveTableCell>
-              <ResponsiveTableCell label="formData Properties">
-                <code>{'{user, code, mfaType}'}</code>
-              </ResponsiveTableCell>
-            </TableRow>
-            <TableRow>
-              <ResponsiveTableCell label="Function Call">
-                <code>Auth.confirmSignUp</code>
-              </ResponsiveTableCell>
-              <ResponsiveTableCell label="Override Name">
-                <code>handleConfirmSignUp</code>
-              </ResponsiveTableCell>
-              <ResponsiveTableCell label="formData Properties">
-                <code>{'{username, code}'}</code>
-              </ResponsiveTableCell>
-            </TableRow>
-            <TableRow>
-              <ResponsiveTableCell label="Function Call">
-                <code>Auth.resendSignUpCode</code>
-              </ResponsiveTableCell>
-              <ResponsiveTableCell label="Override Name">
-                <code>handleResendSignUpCode</code>
-              </ResponsiveTableCell>
-              <ResponsiveTableCell label="formData Properties">
-                <code>{'{username}'}</code>
-              </ResponsiveTableCell>
-            </TableRow>
-            <TableRow>
-              <ResponsiveTableCell label="Function Call">
-                <code>Auth.forgotPassword</code>
-              </ResponsiveTableCell>
-              <ResponsiveTableCell label="Override Name">
-                <code>handleForgotPassword</code>
-              </ResponsiveTableCell>
-              <ResponsiveTableCell label="formData Properties">
-                <code>{`{username}`}</code>
-              </ResponsiveTableCell>
-            </TableRow>
-            <TableRow>
-              <ResponsiveTableCell label="Function Call">
-                <code>Auth.forgotPasswordSubmit</code>
-              </ResponsiveTableCell>
-              <ResponsiveTableCell label="Override Name">
-                <code>handleForgotPasswordSubmit</code>
-              </ResponsiveTableCell>
-              <ResponsiveTableCell label="formData Properties">
-                <code>{'{username, code, password}'}</code>
-              </ResponsiveTableCell>
-            </TableRow>
-          </TableBody>
-        </ResponsiveTable>
-      </Tabs.Panel>
+      {amplify5FrameworkVersion && (
+        <Tabs.Panel value={amplify5FrameworkVersion}>
+          <ResponsiveTable labelWidth="10rem">
+            <TableHead>
+              <TableRow>
+                <TableCell as="th">Function Call</TableCell>
+                <TableCell as="th">Override Name</TableCell>
+                <TableCell as="th">formData Properties</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              <TableRow>
+                <ResponsiveTableCell label="Function Call">
+                  <code>Auth.signUp</code>
+                </ResponsiveTableCell>
+                <ResponsiveTableCell label="Override Name">
+                  <code>handleSignUp</code>
+                </ResponsiveTableCell>
+                <ResponsiveTableCell label="formData Properties">
+                  <code>{'{username, password, attributes}'}</code>
+                </ResponsiveTableCell>
+              </TableRow>
+              <TableRow>
+                <ResponsiveTableCell label="Function Call">
+                  <code>Auth.signIn</code>
+                </ResponsiveTableCell>
+                <ResponsiveTableCell label="Override Name">
+                  <code>handleSignIn</code>
+                </ResponsiveTableCell>
+                <ResponsiveTableCell label="formData Properties">
+                  <code>{'{username, password}'}</code>
+                </ResponsiveTableCell>
+              </TableRow>
+              <TableRow>
+                <ResponsiveTableCell label="Function Call">
+                  <code>Auth.confirmSignIn</code>
+                </ResponsiveTableCell>
+                <ResponsiveTableCell label="Override Name">
+                  <code>handleConfirmSignIn</code>
+                </ResponsiveTableCell>
+                <ResponsiveTableCell label="formData Properties">
+                  <code>{'{user, code, mfaType}'}</code>
+                </ResponsiveTableCell>
+              </TableRow>
+              <TableRow>
+                <ResponsiveTableCell label="Function Call">
+                  <code>Auth.confirmSignUp</code>
+                </ResponsiveTableCell>
+                <ResponsiveTableCell label="Override Name">
+                  <code>handleConfirmSignUp</code>
+                </ResponsiveTableCell>
+                <ResponsiveTableCell label="formData Properties">
+                  <code>{'{username, code}'}</code>
+                </ResponsiveTableCell>
+              </TableRow>
+              <TableRow>
+                <ResponsiveTableCell label="Function Call">
+                  <code>Auth.resendSignUpCode</code>
+                </ResponsiveTableCell>
+                <ResponsiveTableCell label="Override Name">
+                  <code>handleResendSignUpCode</code>
+                </ResponsiveTableCell>
+                <ResponsiveTableCell label="formData Properties">
+                  <code>{'{username}'}</code>
+                </ResponsiveTableCell>
+              </TableRow>
+              <TableRow>
+                <ResponsiveTableCell label="Function Call">
+                  <code>Auth.forgotPassword</code>
+                </ResponsiveTableCell>
+                <ResponsiveTableCell label="Override Name">
+                  <code>handleForgotPassword</code>
+                </ResponsiveTableCell>
+                <ResponsiveTableCell label="formData Properties">
+                  <code>{`{username}`}</code>
+                </ResponsiveTableCell>
+              </TableRow>
+              <TableRow>
+                <ResponsiveTableCell label="Function Call">
+                  <code>Auth.forgotPasswordSubmit</code>
+                </ResponsiveTableCell>
+                <ResponsiveTableCell label="Override Name">
+                  <code>handleForgotPasswordSubmit</code>
+                </ResponsiveTableCell>
+                <ResponsiveTableCell label="formData Properties">
+                  <code>{'{username, code, password}'}</code>
+                </ResponsiveTableCell>
+              </TableRow>
+            </TableBody>
+          </ResponsiveTable>
+        </Tabs.Panel>
+      )}
     </Tabs.Container>
   );
 };

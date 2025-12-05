@@ -1,0 +1,39 @@
+import { Alert } from '@aws-amplify/ui-react';
+
+## useAuthenticator
+
+`@aws-amplify/ui-svelte` ships with `useAuthenticator` Svelte composable that can be used to access, modify, and update Authenticator's auth state.
+
+```html
+<script lang="ts">
+  import { Amplify } from 'aws-amplify';
+  import { useAuthenticator } from '@aws-amplify/ui-svelte'
+  import "@aws-amplify/ui-svelte/styles.css";
+  import awsconfig from './aws-exports';
+  import awsconfig from './amplify-output.json';
+
+  const { authenticator } = $derived(useAuthenticator());
+</script>
+
+```
+
+Note that the `authenticator` is an object wrapped with `$state`, meaning _we cannot destructure it:_
+
+```html
+<script>
+  import { useAuthenticator } from '@aws-amplify/ui-svelte';
+  const { authenticator: { signOut } } = $derived(useAuthenticator());
+  // ❌ This won't work because it breaks reactivity
+</script>
+```
+
+In order to extract properties from the authenticator while keeping its reactivity, you need to use `$derived`.
+
+```html
+<script setup>
+  import { useAuthenticator } from '@aws-amplify/ui-svelte';
+  // `route` `user` and `signOut` all are reactive.
+  const { authenticator } = $derived(useAuthenticator());
+  const { route, user, signOut } = $derived(authenticator);
+</script>
+```

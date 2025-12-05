@@ -2,7 +2,7 @@
 title: Configuration
 metaTitle: Configuration
 description: How to setup and configure your Authenticator component.
-supportedFrameworks: android|angular|flutter|react|react-native|swift|vue
+supportedFrameworks: android|angular|flutter|react|react-native|swift|vue|svelte
 ---
 
 import { InlineFilter } from '@/components/InlineFilter';
@@ -22,6 +22,7 @@ import SignupReactNative from './signUpAttributes.default.react-native.mdx';
 import SignupReact from './signUpAttributes.default.react.mdx';
 import SignupSwift from './signUpAttributes.default.swift.mdx';
 import SignupVue from './signUpAttributes.default.vue.mdx';
+import SignupSvelte from './signUpAttributes.default.svelte.mdx';
 import SignupExampleFlutter from './signUpAttributes.default.example.flutter.mdx';
 import SignupExampleWeb from './signUpAttributes.default.example.web.mdx';
 import SignupAllAndroid from './signUpAttributes.all.android.mdx';
@@ -31,6 +32,7 @@ import SignupAllReactNative from './signUpAttributes.all.react-native.mdx';
 import SignupAllReact from './signUpAttributes.all.react.mdx';
 import SignupAllSwift from './signUpAttributes.all.swift.mdx';
 import SignupAllVue from './signUpAttributes.all.vue.mdx';
+import SignupAllSvelte from './signUpAttributes.all.svelte.mdx';
 import SignupAllExampleFlutter from './signUpAttributes.all.example.flutter.mdx';
 import SignupAllExampleWeb from './signUpAttributes.all.example.web.mdx';
 import SocialProviderFlutter from './socialProviders.flutter.mdx';
@@ -65,7 +67,7 @@ By default, unauthenticated users are redirected to the Sign In flow. You can ex
 
 ## Login Mechanisms
 
-<InlineFilter filters={['angular', 'react', 'vue']}>
+<InlineFilter filters={['angular', 'react', 'vue', 'svelte']}>
   <LoginWeb />
 </InlineFilter>
 <InlineFilter filters={['android']}>
@@ -126,6 +128,10 @@ with the exception of `address`, `gender`, `locale`, `picture`, `updated_at`, an
       <SignupVue />
       <SignupExampleWeb />
     </InlineFilter>
+    <InlineFilter filters={['svelte']}>
+      <SignupSvelte />
+      <SignupExampleWeb />
+    </InlineFilter>
   </Tabs.Panel>
   <Tabs.Panel value="all-attributes">
     <InlineFilter filters={['android']}>
@@ -153,13 +159,17 @@ with the exception of `address`, `gender`, `locale`, `picture`, `updated_at`, an
       <SignupAllVue />
       <SignupAllExampleWeb />
     </InlineFilter>
+    <InlineFilter filters={['svelte']}>
+      <SignupAllSvelte />
+      <SignupAllExampleWeb />
+    </InlineFilter>
   </Tabs.Panel>
 </Tabs.Container>
 
 <InlineFilter filters={['android']}>
   <TotpAndroid />
 </InlineFilter>
-<InlineFilter filters={['angular']}>
+<InlineFilter filters={['angular', 'react', 'vue', 'svelte']}>
   <SocialProviderWeb />
 
   <VariationWeb />
@@ -174,22 +184,8 @@ with the exception of `address`, `gender`, `locale`, `picture`, `updated_at`, an
 
   <HideSignupReactNative />
 </InlineFilter>
-<InlineFilter filters={['react']}>
-  <SocialProviderWeb />
-
-  <VariationWeb />
-
-  <HideSignupWeb />
-</InlineFilter>
 <InlineFilter filters={['swift']}>
   <HideSignupSwift />
 
   <TotpSwift />
-</InlineFilter>
-<InlineFilter filters={['vue']}>
-  <SocialProviderWeb />
-
-  <VariationWeb />
-
-  <HideSignupWeb />
 </InlineFilter>

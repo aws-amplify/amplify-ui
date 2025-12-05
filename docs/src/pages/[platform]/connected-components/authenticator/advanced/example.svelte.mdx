@@ -1,0 +1,34 @@
+```html{5}
+<script lang="ts">
+  import { Authenticator, useAuthenticator } from '@aws-amplify/ui-svelte';
+  import '@aws-amplify/ui-svelte/styles.css';
+
+  const { authenticator: a } = $derived(useAuthenticator());
+</script>
+
+{#snippet signInFooter()}
+  <div style="text-align: center">
+    <button
+      onclick={a.toForgotPassword}
+      class="amplify-button amplify-field-group__control"
+      data-fullwidth="false"
+      data-size="small"
+      type="button"
+      style=" font-weight: normal"
+    >
+      Oh, no! Forgot Password?
+    </button>
+  </div>
+{/snippet}
+
+<Authenticator components={{
+  SignIn: {
+    Footer: signInFooter,
+  },
+}}>
+  {#snippet children({ user, signOut })}
+    <h1>Hello {user.username}!</h1>
+    <button onclick={signOut}>Sign Out</button>
+  {/snippet}
+</Authenticator>
+```

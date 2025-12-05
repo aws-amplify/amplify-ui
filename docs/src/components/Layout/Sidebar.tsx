@@ -1,27 +1,26 @@
 import * as React from 'react';
 import { useRouter } from 'next/router';
 import {
-  MdOutlineChecklist,
-  MdOutlineWidgets,
-  MdOutlineAutoAwesome,
-  MdWebAssetOff,
   MdOutlineArticle,
+  MdOutlineAutoAwesome,
+  MdOutlineChecklist,
   MdOutlinePower,
+  MdOutlineWidgets,
 } from 'react-icons/md';
 import {
-  Text,
-  Flex,
-  Collection,
   Accordion,
+  Collection,
+  Flex,
+  Text,
   useTheme,
 } from '@aws-amplify/ui-react';
 import {
   ComponentNavItem,
   connectedComponents,
-  guides,
-  theming,
   gettingStarted,
+  guides,
   primitiveComponents,
+  theming,
 } from '../../data/links';
 
 import NextLink from 'next/link';
@@ -142,11 +141,18 @@ const SecondaryNav = (props) => {
   const isAndroid = platform === 'android';
   const isSwift = platform === 'swift';
   const isAngular = platform === 'angular';
+  const isSvelte = platform === 'svelte';
   const isVue = platform === 'vue';
 
-  const hideTheming = isAndroid || isSwift;
+  const hideTheming = isAndroid || isSwift || isSvelte;
   const hideGuidesExpander =
-    isFlutter || isReactNative || isAndroid || isSwift || isAngular || isVue;
+    isFlutter ||
+    isReactNative ||
+    isAndroid ||
+    isSwift ||
+    isAngular ||
+    isVue ||
+    isSvelte;
 
   return (
     <Accordion.Container value={value} onValueChange={setValue}>

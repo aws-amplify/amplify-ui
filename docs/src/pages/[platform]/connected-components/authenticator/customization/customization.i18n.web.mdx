@@ -88,6 +88,26 @@ I18n.putVocabularies({
 ```
 </InlineFilter>
 
+<InlineFilter filters={['svelte']}>
+```js
+import { I18n } from 'aws-amplify/utils';
+import { translations } from '@aws-amplify/ui-svelte';
+I18n.putVocabularies(translations);
+I18n.setLanguage('fr');
+
+I18n.putVocabularies({
+  fr: {
+    'Sign In': 'Se connecter',
+    'Sign Up': "S'inscrire",
+  },
+  es: {
+    'Sign In': 'Registrarse',
+    'Sign Up': 'Regístrate',
+  },
+});
+```
+</InlineFilter>
+
 The list of available keys are available [here](https://github.com/aws-amplify/amplify-ui/blob/main/packages/ui/src/i18n/dictionaries/authenticator/en.ts).
 
 ### Confirm Sign Up Page Translations
