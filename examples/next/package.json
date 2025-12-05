@@ -17,7 +17,7 @@
     "@aws-amplify/ui-react-notifications": "^2.2.13",
     "@aws-amplify/ui-react-storage": "^3.13.1",
     "@aws-sdk/credential-providers": "^3.370.0",
-    "next": "^14.2.31",
+    "next": "^15.0.7",
     "next-global-css": "^1.1.1",
     "react": "^18.3.0",
     "react-copy-to-clipboard": "^5.1.0",
@@ -29,7 +29,7 @@
   "devDependencies": {
     "@types/node": "^15.12.4",
     "eslint": "^8.44.0",
-    "eslint-config-next": "^13.5.5",
+    "eslint-config-next": "^15.0.7",
     "rimraf": "^5.0.0"
   }
 }
