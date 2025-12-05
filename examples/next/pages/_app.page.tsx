@@ -8,6 +8,10 @@ import { Hub } from 'aws-amplify/utils';
 import { ThemeProvider } from '@aws-amplify/ui-react';
 import { useEffect } from 'react';
 import { MapProvider, useMap } from 'react-map-gl';
+import '@aws-amplify/ui-react/styles.css';
+import '@aws-amplify/ui-react-storage/styles.css';
+import '@aws-amplify/ui-react-geo/styles.css';
+import '@aws-amplify/ui-react-liveness/styles.css';
 
 if (typeof window !== 'undefined') {
   window['Amplify'] = Amplify;

@@ -7,13 +7,13 @@ When('I select a file with file name {string}', (fileName: string) => {
 When(
   'I select a file with file name {string} and another file with file name {string}',
   (fileName: string, fileName2: string) => {
-    cy.fileInputUpload(fileName);
-    cy.fileInputUpload(fileName2);
+    cy.fileInputUpload([fileName, fileName2]);
   }
 );
 
 When('I drag and drop a file with file name {string}', (fileName: string) => {
-  cy.get('input[type=file]').trigger('drop', {
+  const input = cy.get('input[type=file]', { timeout: 5000 }).wait(5000);
+  input.trigger('drop', {
     dataTransfer: {
       files: [
         new File(['file contents'], fileName, { lastModified: Date.now() }),

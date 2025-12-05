@@ -1,7 +1,7 @@
 html,
 body,
 #__next,
-[data-amplify-theme] {
+:global([data-amplify-theme]) {
   height: 100%;
 }
 
@@ -9,7 +9,7 @@ body {
   margin: 0;
 }
 
-[data-amplify-theme] {
+:global([data-amplify-theme]) {
   background-color: var(--amplify-colors-background-primary);
 }
 

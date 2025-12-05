@@ -3,16 +3,15 @@ import * as React from 'react';
 import { Amplify } from 'aws-amplify';
 import { generateClient } from 'aws-amplify/api';
 import {
-  View,
+  Button,
+  ColorMode,
   createTheme,
   defaultDarkModeOverride,
+  View,
   withAuthenticator,
-  ColorMode,
-  Button,
 } from '@aws-amplify/ui-react';
-import { createAIHooks, AIConversation } from '@aws-amplify/ui-react-ai';
-import { ThemeStyle, defineComponentTheme } from '@aws-amplify/ui-react/server';
-import '@aws-amplify/ui-react/styles.css';
+import { AIConversation, createAIHooks } from '@aws-amplify/ui-react-ai';
+import { defineComponentTheme, ThemeStyle } from '@aws-amplify/ui-react/server';
 
 import outputs from './amplify_outputs';
 import type { Schema } from '@environments/ai/gen2/amplify/data/resource';

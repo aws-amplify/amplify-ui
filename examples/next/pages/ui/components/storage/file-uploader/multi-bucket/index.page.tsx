@@ -1,9 +1,9 @@
 import React from 'react';
 import { Amplify } from 'aws-amplify';
 import { FileUploader } from '@aws-amplify/ui-react-storage';
-import '@aws-amplify/ui-react/styles.css';
 import amplifyOutputs from './amplify_outputs';
 import { Radio, RadioGroupField } from '@aws-amplify/ui-react';
+
 Amplify.configure(amplifyOutputs);
 
 export function FileUploaderExample() {
