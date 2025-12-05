@@ -91,8 +91,8 @@ if [[ "$FRAMEWORK" == 'vue' ]]; then
         echo "vue create --preset ../templates/components/vue/preset-${FRAMEWORK_VERSION}.json $MEGA_APP_NAME"
         echo 'Y' | vue create --preset ../templates/components/vue/preset-${FRAMEWORK_VERSION}.json $MEGA_APP_NAME
     elif [ "$BUILD_TOOL" == 'nuxt' ]; then
-        echo "npx nuxi@latest init $MEGA_APP_NAME -t v4-compat --packageManager npm"
-        npx nuxi@latest init $MEGA_APP_NAME -t v4-compat --packageManager npm
+        echo "npx nuxi@latest init $MEGA_APP_NAME -t v4-compat"
+        npx nuxi@latest init $MEGA_APP_NAME -t v4-compat
     fi
 fi
 
