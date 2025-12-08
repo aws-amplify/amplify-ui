@@ -37,6 +37,17 @@ The Authenticator has multiple variations to meet the needs of your application.
       ```
     </InlineFilter>
 
+    <InlineFilter filters={['svelte']}>
+    ```html
+    <Authenticator>
+      {#snippet children({ user, signOut })}
+        <h1>Hello {user.username}!</h1>
+        <button onclick={signOut}>Sign Out</button>
+      {/snippet}
+    </Authenticator>
+    ```
+    </InlineFilter>
+
     <Example>
       <Authenticator />
     </Example>
@@ -60,6 +71,12 @@ The Authenticator has multiple variations to meet the needs of your application.
       ```html{2} file=../../../../../../../examples/vue/src/pages/ui/components/authenticator/modal/index.vue#L10-
 
       ```
+    </InlineFilter>
+
+    <InlineFilter filters={['svelte']}>
+    ```html{3} file=../../../../../../../examples/svelte/src/routes/ui/components/authenticator/modal/+page.svelte
+
+    ```
     </InlineFilter>
 
     <Example>
