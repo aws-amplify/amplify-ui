@@ -97,5 +97,5 @@ Authenticator(
 ```
 
 <Alert role="none" variation="warning" heading="Important">
-  When using `.password` authentication flow, password fields are **always required** regardless of the `isRequired` parameter.
+  When using `.password` authentication flow, password fields are **always required** regardless of the `isRequired` parameter. This means the `.password` flow will override any `.signUpFields(.password())` configuration, even if `isRequired` is set to `false`.
 </Alert>
