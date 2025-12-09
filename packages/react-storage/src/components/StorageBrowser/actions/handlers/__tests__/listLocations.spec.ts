@@ -16,9 +16,6 @@ jest.mock('../../../storage-internal');
 
 const mockListCallerAccessGrants = jest.mocked(listCallerAccessGrants);
 
-const generateMockLocations = (size: number, mockLocations: LocationAccess) =>
-  Array<LocationAccess>(size).fill(mockLocations);
-
 const accountId = 'account-id';
 const credentials: LocationCredentialsProvider = jest.fn();
 const region = 'region';
@@ -75,23 +72,33 @@ describe('listLocationsHandler', () => {
   });
 
   it('should fetch multiple pages of results successfully', async () => {
-    const mockLocation: LocationAccess = {
+    const mockLocation1: LocationAccess = {
       scope: 's3://bucket/prefix1/*',
       permission: 'READWRITE',
       type: 'PREFIX',
     };
+    const mockLocation2: LocationAccess = {
+      scope: 's3://bucket/prefix2/*',
+      permission: 'READWRITE',
+      type: 'PREFIX',
+    };
+    const mockLocation3: LocationAccess = {
+      scope: 's3://bucket/prefix3/*',
+      permission: 'WRITE',
+      type: 'PREFIX',
+    };
     const mockOutputPage1: ListLocationsOutput = {
-      locations: [mockLocation],
+      locations: [mockLocation1],
       nextToken: 'token1',
     };
 
     const mockOutputPage2: ListLocationsOutput = {
-      locations: [...generateMockLocations(2, mockLocation)],
+      locations: [mockLocation2, mockLocation1],
       nextToken: 'token2',
     };
 
     const mockOutputPage3: ListLocationsOutput = {
-      locations: [...generateMockLocations(2, mockLocation)],
+      locations: [mockLocation3, mockLocation1],
       nextToken: undefined,
     };
 
@@ -103,22 +110,13 @@ describe('listLocationsHandler', () => {
     const result = await listLocationsHandler(input);
 
     expect(result.items).toEqual([
-      ...getFilteredLocations(
-        mockOutputPage1.locations,
-        input.options?.exclude
-      ),
-      ...getFilteredLocations(
-        mockOutputPage2.locations,
-        input.options?.exclude
-      ),
-      ...getFilteredLocations(
-        mockOutputPage3.locations,
-        input.options?.exclude
-      ),
+      ...getFilteredLocations([mockLocation1], input.options?.exclude),
+      ...getFilteredLocations([mockLocation2], input.options?.exclude),
+      ...getFilteredLocations([mockLocation3], input.options?.exclude),
     ]);
     expect(result.nextToken).toBeUndefined();
     expect(mockListCallerAccessGrants).toHaveBeenCalledTimes(3);
-    expect(result.items.length).toEqual(DEFAULT_PAGE_SIZE);
+    expect(result.items.length).toEqual(3);
   });
 
   it('should throw when accountId is not present to fetch Locations', async () => {
