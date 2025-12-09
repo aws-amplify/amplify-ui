@@ -115,7 +115,7 @@ jobs:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
 
       - name: Setup Node.js 20
-        uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2 https://github.com/actions/setup-node/commit/60edb5dd545a775178f52524783378180af0d1f8
+        uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v4.0.2 https://github.com/actions/setup-node/commit/60edb5dd545a775178f52524783378180af0d1f8
         with:
           node-version: 20
           cache: 'yarn'
@@ -350,7 +350,7 @@ jobs:
           VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
 
       - name: Upload failure screenshots and errors
-        uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4.5.0 https://github.com/actions/upload-artifact/commit/65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08
+        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v4.5.0 https://github.com/actions/upload-artifact/commit/65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08
         if: ${{ failure() && steps.e2e.outcome != 'success' }}
         with:
           name: e2e-cypress-error-${{ matrix.package }}
@@ -402,7 +402,7 @@ jobs:
           persist-credentials: false
 
       - name: Setup Node.js 20
-        uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2 https://github.com/actions/setup-node/commit/60edb5dd545a775178f52524783378180af0d1f8
+        uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v4.0.2 https://github.com/actions/setup-node/commit/60edb5dd545a775178f52524783378180af0d1f8
         with:
           node-version: 20
           cache: 'yarn'
@@ -498,7 +498,7 @@ jobs:
           VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
 
       - name: Upload failure screenshots and errors
-        uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4.5.0 https://github.com/actions/upload-artifact/commit/65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08
+        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v4.5.0 https://github.com/actions/upload-artifact/commit/65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08
         if: ${{ failure() && steps.e2e-ios.outcome != 'success' }}
         with:
           name: e2e-detox-error-react-native-ios
@@ -534,7 +534,7 @@ jobs:
           java-version: '11'
 
       - name: Setup Node.js 20
-        uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2 https://github.com/actions/setup-node/commit/60edb5dd545a775178f52524783378180af0d1f8
+        uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v4.0.2 https://github.com/actions/setup-node/commit/60edb5dd545a775178f52524783378180af0d1f8
         with:
           node-version: 20
           cache: 'yarn'
@@ -639,7 +639,7 @@ jobs:
           adb -s emulator-$EMULATOR2_PORT emu kill
 
       - name: Upload failure screenshots and errors
-        uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4.5.0 https://github.com/actions/upload-artifact/commit/65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08
+        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v4.5.0 https://github.com/actions/upload-artifact/commit/65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08
         if: ${{ failure() && steps.e2e-android.outcome != 'success' }}
         with:
           name: e2e-detox-error-react-native-android
@@ -661,7 +661,7 @@ jobs:
           persist-credentials: false
 
       - name: Setup Node.js 20
-        uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2 https://github.com/actions/setup-node/commit/60edb5dd545a775178f52524783378180af0d1f8
+        uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v4.0.2 https://github.com/actions/setup-node/commit/60edb5dd545a775178f52524783378180af0d1f8
         with:
           node-version: 20
           cache: 'yarn'
@@ -753,7 +753,7 @@ jobs:
         run: yarn docs test:links
 
       - name: Upload failure screenshots and errors
-        uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4.5.0 https://github.com/actions/upload-artifact/commit/65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08
+        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v4.5.0 https://github.com/actions/upload-artifact/commit/65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08
         if: ${{ failure() && steps.e2e.outcome != 'success' }}
         with:
           name: docs-e2e-cypress-error
