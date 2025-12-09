@@ -39,11 +39,11 @@ jobs:
         run: yarn --frozen-lockfile
       - name: Create or update Version Packages PR
         if: ${{ steps.has-changesets.outputs.has-changesets == 'true' }}
-        uses: changesets/action@f2660aa7e78365f53dbeb4cfa774c1499ec6483a
+        uses: changesets/action@04d574e831923498156e0b2b93152878063203a3 # v1.5.3
         with:
           version: yarn bumpVersions
           # Use the current branch as the base for the PR
-          base: ${{ github.ref_name }}
+          branch: ${{ github.ref_name }}
           # Custom title based on branch
           title: 'Version Packages (${{ github.ref_name }})'
         env:
