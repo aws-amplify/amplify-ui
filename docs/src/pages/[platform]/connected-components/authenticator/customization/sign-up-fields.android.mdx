@@ -134,5 +134,5 @@ Authenticator(
 ```
 
 <Alert role="none" variation="warning" heading="Important">
-  When using `AuthenticationFlow.Password`, password fields are **always required** regardless of the `required` parameter.
+  When using `AuthenticationFlow.Password`, password fields are **always required** regardless of the `required` parameter. This means the `Password` flow will override any `password()` configuration in `signUpForm`, even if `required` is set to `false`.
 </Alert>
