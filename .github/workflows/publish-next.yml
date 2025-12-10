@@ -11,7 +11,7 @@ concurrency:
 
 on:
   push:
-    branches: [fix/macos]
+    branches: [main]
 
 permissions:
   id-token: write # This is required for requesting the JWT
@@ -59,7 +59,7 @@ jobs:
   publish:
     uses: aws-amplify/amplify-ui/.github/workflows/reusable-tagged-publish.yml@main
     with:
-      dist-tag: macos15
+      dist-tag: next
     secrets:
       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
@@ -77,7 +77,7 @@ jobs:
     uses: ./.github/workflows/reusable-build-system-test.yml
     needs: publish
     with:
-      dist-tag: macos15
+      dist-tag: next
     secrets:
       AUTH_E2E_ROLE_ARN: ${{ secrets.AUTH_E2E_ROLE_ARN }}
       DOMAIN: ${{ secrets.DOMAIN }}
@@ -90,7 +90,7 @@ jobs:
     uses: ./.github/workflows/reusable-build-system-test-react-native.yml
     needs: publish
     with:
-      dist-tag: macos15
+      dist-tag: next
 
   log-failure-metric:
     # Send a failure data point to metric PublishNextFailure in github-workflows@ us-east-2, if it's a failure
