@@ -59,7 +59,7 @@ jobs:
   publish:
     uses: aws-amplify/amplify-ui/.github/workflows/reusable-tagged-publish.yml@main
     with:
-      dist-tag: macos-test
+      dist-tag: macos15
     secrets:
       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
@@ -77,7 +77,7 @@ jobs:
     uses: ./.github/workflows/reusable-build-system-test.yml
     needs: publish
     with:
-      dist-tag: macos-test
+      dist-tag: macos15
     secrets:
       AUTH_E2E_ROLE_ARN: ${{ secrets.AUTH_E2E_ROLE_ARN }}
       DOMAIN: ${{ secrets.DOMAIN }}
@@ -90,7 +90,7 @@ jobs:
     uses: ./.github/workflows/reusable-build-system-test-react-native.yml
     needs: publish
     with:
-      dist-tag: macos-test
+      dist-tag: macos15
 
   log-failure-metric:
     # Send a failure data point to metric PublishNextFailure in github-workflows@ us-east-2, if it's a failure
