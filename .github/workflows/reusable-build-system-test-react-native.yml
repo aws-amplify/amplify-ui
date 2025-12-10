@@ -176,8 +176,8 @@ jobs:
         run: |
           echo -e "echo \$ANDROID_HOME"
           echo $ANDROID_HOME
-          $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install "build-tools;33.0.2" "platform-tools" "system-images;android-30;google_apis;arm64-v8a"
-          $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager create avd --name Pixel_5_API_30 --force --device "pixel_5" --abi arm64-v8a --package "system-images;android-30;google_apis;arm64-v8a"
+          $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install "build-tools;33.0.2" "platform-tools" "system-images;android-30;default;arm64-v8a"
+          $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager create avd --name Pixel_5_API_30 --force --device "pixel_5" --abi arm64-v8a --package "system-images;android-30;default;arm64-v8a"
           
       - name: Start Android emulator
         if: ${{ matrix.platform == 'android' }}
