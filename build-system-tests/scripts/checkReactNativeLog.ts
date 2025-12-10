@@ -133,17 +133,77 @@ const checkErrorMessage = async (logLines: string[]): Promise<boolean> => {
   return results.some((result) => result === true);
 };
 
+/**
+ * waitForLogs polls the log file until meaningful content appears or timeout is reached
+ * @returns {string} the log file content
+ */
+const waitForLogs = async (): Promise<string> => {
+  const pollInterval = 10; // seconds between checks
+  const maxWaitTime = 180; // max 3 minutes total wait
+  const minLogLines = 5; // minimum lines to consider logs "ready"
+
+  const startMessages = [
+    'info Starting logkitty',
+    'React Native iOS Logger started for XCode project',
+  ];
+
+  let elapsed = 0;
+  log(
+    'info',
+    `Waiting for logs (polling every ${pollInterval}s, max ${maxWaitTime}s)...`
+  );
+
+  while (elapsed < maxWaitTime) {
+    await sleep(pollInterval);
+    elapsed += pollInterval;
+
+    if (!fs.existsSync(logFileName)) {
+      log('info', `[${elapsed}s] Log file not found yet...`);
+      continue;
+    }
+
+    const logFile = fs.readFileSync(logFileName, 'utf-8');
+    const logLines = logFile.split('\n').filter((line) => line !== '');
+
+    // Check if we only have the start message (logs not ready yet)
+    if (logLines.length === 1) {
+      const isOnlyStartMessage = startMessages.some((msg) =>
+        logLines[0].includes(msg)
+      );
+      if (isOnlyStartMessage) {
+        log('info', `[${elapsed}s] Only start message found, waiting...`);
+        continue;
+      }
+    }
+
+    // Check if we have enough log lines
+    if (logLines.length >= minLogLines) {
+      log(
+        'success',
+        `[${elapsed}s] Found ${logLines.length} log lines, proceeding with check`
+      );
+      return logFile;
+    }
+
+    log(
+      'info',
+      `[${elapsed}s] Found ${logLines.length} lines, waiting for more...`
+    );
+  }
+
+  // Timeout reached, return whatever we have
+  log('warning', `Timeout reached after ${maxWaitTime}s`);
+  if (fs.existsSync(logFileName)) {
+    return fs.readFileSync(logFileName, 'utf-8');
+  }
+  return '';
+};
+
 const checkReactNativeLog = async (): Promise<void> => {
   log('command', `cd mega-apps/${megaAppName}`);
   process.chdir(`mega-apps/${megaAppName}`);
 
-  // Wait for the logging messages to be ready. The number is based on real experiments in Github Actions.
-  const timeToWait = 500;
-
-  log('info', `Sleep for '${timeToWait}' seconds...`);
-  await sleep(timeToWait);
-
-  const logFile = fs.readFileSync(logFileName, 'utf-8');
+  const logFile = await waitForLogs();
   const logLines = logFile.split('\n').filter((line) => line !== '');
 
   await checkStartMessage(logLines, logFile);
