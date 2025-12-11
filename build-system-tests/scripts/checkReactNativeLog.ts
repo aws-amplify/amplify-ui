@@ -134,13 +134,24 @@ const checkErrorMessage = async (logLines: string[]): Promise<boolean> => {
 };
 
 /**
- * waitForLogs polls the log file until meaningful content appears or timeout is reached
+ * Patterns that indicate the app has successfully loaded and is running
+ */
+const APP_READY_PATTERNS = [
+  'Running "', // React Native CLI: Running "AppName"
+  'BUNDLE', // Metro bundler loaded bundle
+  'LOG', // App is logging (runtime)
+  'Welcome to React', // Default RN app screen
+  'Open up App', // Expo default screen text
+];
+
+/**
+ * waitForAppToRun polls the log file until the app appears to be running
  * @returns {string} the log file content
  */
-const waitForLogs = async (): Promise<string> => {
-  const pollInterval = 10; // seconds between checks
-  const maxWaitTime = 180; // max 3 minutes total wait
-  const minLogLines = 5; // minimum lines to consider logs "ready"
+const waitForAppToRun = async (): Promise<string> => {
+  const pollInterval = 15; // seconds between checks
+  const maxWaitTime = 300; // max 5 minutes total wait (app needs time to build, install, and run)
+  const minWaitTime = 60; // minimum wait time to let app fully initialize
 
   const startMessages = [
     'info Starting logkitty',
@@ -148,9 +159,11 @@ const waitForLogs = async (): Promise<string> => {
   ];
 
   let elapsed = 0;
+  let appReadyDetected = false;
+
   log(
     'info',
-    `Waiting for logs (polling every ${pollInterval}s, max ${maxWaitTime}s)...`
+    `Waiting for app to run (polling every ${pollInterval}s, max ${maxWaitTime}s, min ${minWaitTime}s)...`
   );
 
   while (elapsed < maxWaitTime) {
@@ -176,18 +189,31 @@ const waitForLogs = async (): Promise<string> => {
       }
     }
 
-    // Check if we have enough log lines
-    if (logLines.length >= minLogLines) {
+    // Check if app appears to be running
+    const hasAppReadyPattern = APP_READY_PATTERNS.some((pattern) =>
+      logFile.includes(pattern)
+    );
+
+    if (hasAppReadyPattern && !appReadyDetected) {
+      appReadyDetected = true;
+      log(
+        'info',
+        `[${elapsed}s] App appears to be running, waiting for it to stabilize...`
+      );
+    }
+
+    // Only proceed if we've waited minimum time AND app is ready (or we've timed out)
+    if (elapsed >= minWaitTime && (appReadyDetected || logLines.length > 10)) {
       log(
         'success',
-        `[${elapsed}s] Found ${logLines.length} log lines, proceeding with check`
+        `[${elapsed}s] Found ${logLines.length} log lines, app ready: ${appReadyDetected}, proceeding with check`
       );
       return logFile;
     }
 
     log(
       'info',
-      `[${elapsed}s] Found ${logLines.length} lines, waiting for more...`
+      `[${elapsed}s] Found ${logLines.length} lines, app ready: ${appReadyDetected}, waiting...`
     );
   }
 
@@ -203,7 +229,7 @@ const checkReactNativeLog = async (): Promise<void> => {
   log('command', `cd mega-apps/${megaAppName}`);
   process.chdir(`mega-apps/${megaAppName}`);
 
-  const logFile = await waitForLogs();
+  const logFile = await waitForAppToRun();
   const logLines = logFile.split('\n').filter((line) => line !== '');
 
   await checkStartMessage(logLines, logFile);
