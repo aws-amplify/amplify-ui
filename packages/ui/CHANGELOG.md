@@ -1,5 +1,11 @@
 # @aws-amplify/ui
 
+## 6.13.0
+
+### Minor Changes
+
+- [#6766](https://github.com/aws-amplify/amplify-ui/pull/6766) [`7a8566e4e38ac52353cace115e79786083429aa1`](https://github.com/aws-amplify/amplify-ui/commit/7a8566e4e38ac52353cace115e79786083429aa1) Thanks [@Simone319](https://github.com/Simone319)! - fix: use username if present as Username parameter for signup
+
 ## 6.12.1
 
 ### Patch Changes
