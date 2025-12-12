@@ -103,7 +103,7 @@ export const esDict: AuthenticatorDictionary = {
   'Sign Up with Google': 'Crear cuenta con Google',
   'Sign Up': 'Crear cuenta',
   'User already exists': 'El usuario ya existe',
-  'User does not exist': 'El usuario no existe',
+  'User does not exist.': 'El usuario no existe',
   'Username/client id combination not found.': 'El usuario no existe',
   'Username cannot be empty': 'El nombre de usuario no puede estar vacío',
   'Your passwords must match': 'Las contraseñas deben coincidir',
