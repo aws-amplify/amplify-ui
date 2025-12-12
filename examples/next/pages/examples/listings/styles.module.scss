@@ -70,14 +70,14 @@ h6.amplify-heading {
 .experience-card {
   position: relative;
   transition: all var(--amplify-time-medium);
-  
+
   & img {
     display: block;
   }
-  
+
   &:hover {
     transform: scale(1.05);
-    
+
     & > .experience-card-text {
       transform: scale(1.1);
     }
@@ -108,7 +108,7 @@ h6.amplify-heading {
   padding-right: var(--amplify-space-xxs);
 }
 
-input[type='search'] {
+.search-input {
   border-radius: 5rem;
   border-color: var(--amplify-colors-border-tertiary);
   border-width: 1px;
@@ -116,7 +116,7 @@ input[type='search'] {
   padding: var(--amplify-space-small) var(--amplify-space-large);
   width: 30rem;
   background-color: var(--amplify-colors-background-primary);
-  
+
   &:focus {
     outline: none;
     border-color: var(--amplify-colors-primary-60);

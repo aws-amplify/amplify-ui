@@ -1,7 +1,5 @@
 import { Amplify } from 'aws-amplify';
-import { MapView, LocationSearch } from '@aws-amplify/ui-react-geo';
-
-import '@aws-amplify/ui-react-geo/styles.css';
+import { LocationSearch, MapView } from '@aws-amplify/ui-react-geo';
 
 import awsExports from './aws-exports';
 

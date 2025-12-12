@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import * as Analytics from '@aws-amplify/analytics';
 import { syncMessages } from 'aws-amplify/in-app-messaging';
 import {
