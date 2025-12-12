@@ -32,12 +32,6 @@ if [ $BUILD_TOOL == 'expo' ]; then
   npm run android -- -p 19000 2>&1 | tee -a $LOG_FILE &
   npx wait-on -t 20000 tcp:19000
 else
-  log "command" "cd android"
-  cd android
-  log "command" "./gradlew clean --console=plain -q" # To prevent "installDebug FAILED" https://stackoverflow.com/a/54955869/12610324
-  ./gradlew clean --console=plain -q 2>&1 | tee -a $LOG_FILE
-  log "command" "cd .."
-  cd ..
   log "command" "npm run start &"
   npm run start &
   npx wait-on -t 5000 tcp:8081
