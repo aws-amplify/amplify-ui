@@ -17,7 +17,7 @@
     "@aws-amplify/ui-react-notifications": "^2.2.14",
     "@aws-amplify/ui-react-storage": "^3.14.0",
     "@aws-sdk/credential-providers": "^3.370.0",
-    "next": "^14.2.31",
+    "next": "^14.2.35",
     "next-global-css": "^1.1.1",
     "react": "^18.3.0",
     "react-copy-to-clipboard": "^5.1.0",
