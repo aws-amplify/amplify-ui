@@ -12,6 +12,7 @@ jest.mock('aws-amplify', () => ({
 
 import {
   createFileDataItem,
+  deduplicateLocations,
   getBucketRegion,
   getFileKey,
   getFilteredLocations,
@@ -243,6 +244,207 @@ describe('utils', () => {
         size: MULTIPART_UPLOAD_THRESHOLD_BYTES / 2,
       } as File);
       expect(output).toBe(false);
+    });
+  });
+
+  describe('deduplicateLocations', () => {
+    it('returns all locations when there are no duplicates', () => {
+      const locations: LocationData[] = [
+        {
+          bucket: 'bucket1',
+          id: 'id1',
+          permissions: ['get', 'list'],
+          prefix: 'prefix1/',
+          type: 'PREFIX',
+        },
+        {
+          bucket: 'bucket2',
+          id: 'id2',
+          permissions: ['get', 'list'],
+          prefix: 'prefix2/',
+          type: 'PREFIX',
+        },
+      ];
+
+      const result = deduplicateLocations(locations);
+      expect(result).toHaveLength(2);
+      expect(result).toEqual(locations);
+    });
+
+    it('deduplicates READ + READWRITE, keeping READWRITE (superset)', () => {
+      const locations: LocationData[] = [
+        {
+          bucket: 'idfc-sboms',
+          id: 'id1',
+          permissions: ['get', 'list'],
+          prefix: '',
+          type: 'BUCKET',
+        },
+        {
+          bucket: 'idfc-sboms',
+          id: 'id2',
+          permissions: ['delete', 'get', 'list', 'write'],
+          prefix: '',
+          type: 'BUCKET',
+        },
+      ];
+
+      const result = deduplicateLocations(locations);
+      expect(result).toHaveLength(1);
+      expect(result[0].permissions).toEqual(['delete', 'get', 'list', 'write']);
+      expect(result[0].id).toBe('id2');
+    });
+
+    it('does NOT deduplicate READ + WRITE (not superset, keeps both)', () => {
+      const locations: LocationData[] = [
+        {
+          bucket: 'bucket1',
+          id: 'id1',
+          permissions: ['get', 'list'],
+          prefix: 'prefix/',
+          type: 'PREFIX',
+        },
+        {
+          bucket: 'bucket1',
+          id: 'id2',
+          permissions: ['delete', 'write'],
+          prefix: 'prefix/',
+          type: 'PREFIX',
+        },
+      ];
+
+      const result = deduplicateLocations(locations);
+      expect(result).toHaveLength(2);
+      expect(result.find((l) => l.id === 'id1')).toBeDefined();
+      expect(result.find((l) => l.id === 'id2')).toBeDefined();
+    });
+
+    it('keeps first location when permissions are identical', () => {
+      const locations: LocationData[] = [
+        {
+          bucket: 'bucket1',
+          id: 'id1',
+          permissions: ['get', 'list'],
+          prefix: 'prefix/',
+          type: 'PREFIX',
+        },
+        {
+          bucket: 'bucket1',
+          id: 'id2',
+          permissions: ['get', 'list'],
+          prefix: 'prefix/',
+          type: 'PREFIX',
+        },
+      ];
+
+      const result = deduplicateLocations(locations);
+      expect(result).toHaveLength(1);
+      expect(result[0].id).toBe('id1');
+    });
+
+    it('deduplicates when READWRITE is superset of READ and WRITE', () => {
+      const locations: LocationData[] = [
+        {
+          bucket: 'bucket1',
+          id: 'id1',
+          permissions: ['get', 'list'],
+          prefix: 'prefix/',
+          type: 'PREFIX',
+        },
+        {
+          bucket: 'bucket1',
+          id: 'id2',
+          permissions: ['delete', 'write'],
+          prefix: 'prefix/',
+          type: 'PREFIX',
+        },
+        {
+          bucket: 'bucket1',
+          id: 'id3',
+          permissions: ['delete', 'get', 'list', 'write'],
+          prefix: 'prefix/',
+          type: 'PREFIX',
+        },
+      ];
+
+      const result = deduplicateLocations(locations);
+      // READWRITE is superset of both READ and WRITE, so only READWRITE should remain
+      expect(result).toHaveLength(1);
+      expect(result[0].permissions).toEqual(['delete', 'get', 'list', 'write']);
+      expect(result[0].id).toBe('id3');
+    });
+
+    it('treats different prefixes as separate locations', () => {
+      const locations: LocationData[] = [
+        {
+          bucket: 'bucket1',
+          id: 'id1',
+          permissions: ['get', 'list'],
+          prefix: 'prefix1/',
+          type: 'PREFIX',
+        },
+        {
+          bucket: 'bucket1',
+          id: 'id2',
+          permissions: ['delete', 'get', 'list', 'write'],
+          prefix: 'prefix2/',
+          type: 'PREFIX',
+        },
+      ];
+
+      const result = deduplicateLocations(locations);
+      expect(result).toHaveLength(2);
+    });
+
+    it('treats different buckets as separate locations', () => {
+      const locations: LocationData[] = [
+        {
+          bucket: 'bucket1',
+          id: 'id1',
+          permissions: ['get', 'list'],
+          prefix: 'prefix/',
+          type: 'PREFIX',
+        },
+        {
+          bucket: 'bucket2',
+          id: 'id2',
+          permissions: ['get', 'list'],
+          prefix: 'prefix/',
+          type: 'PREFIX',
+        },
+      ];
+
+      const result = deduplicateLocations(locations);
+      expect(result).toHaveLength(2);
+    });
+
+    it('handles empty location array', () => {
+      const result = deduplicateLocations([]);
+      expect(result).toEqual([]);
+    });
+
+    it('deduplicates WRITE + READWRITE, keeping READWRITE (superset)', () => {
+      const locations: LocationData[] = [
+        {
+          bucket: 'bucket1',
+          id: 'id1',
+          permissions: ['delete', 'write'],
+          prefix: 'prefix/',
+          type: 'PREFIX',
+        },
+        {
+          bucket: 'bucket1',
+          id: 'id2',
+          permissions: ['delete', 'get', 'list', 'write'],
+          prefix: 'prefix/',
+          type: 'PREFIX',
+        },
+      ];
+
+      const result = deduplicateLocations(locations);
+      expect(result).toHaveLength(1);
+      expect(result[0].permissions).toEqual(['delete', 'get', 'list', 'write']);
+      expect(result[0].id).toBe('id2');
     });
   });
 

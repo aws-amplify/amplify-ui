@@ -142,6 +142,86 @@ export const shouldExcludeLocation = (
   return excludedByPermssions || excludedByType;
 };
 
+/**
+ * Determines if permissions1 is a strict superset (broader) of permissions2.
+ * Returns true only if permissions1 contains all permissions from permissions2
+ * AND has more permissions.
+ */
+const hasBroaderPermissions = (
+  permissions1: LocationPermissions,
+  permissions2: LocationPermissions
+): boolean => {
+  // permissions1 must have more permissions (strict superset, not equal)
+  if (permissions1.length <= permissions2.length) {
+    return false;
+  }
+
+  // permissions1 must contain all permissions from permissions2
+  return permissions2.every((perm) => permissions1.includes(perm));
+};
+
+/**
+ * Deduplicates locations with the same bucket and prefix.
+ * Only deduplicates when one location's permissions are a superset of another's.
+ * This prevents deduplication of incompatible grants like READ + WRITE.
+ *
+ * Examples:
+ * - READ + READWRITE → Keep READWRITE (superset)
+ * - READ + READ → Keep first (identical)
+ * - READ + WRITE → Keep both (not superset, need separate locations)
+ */
+export const deduplicateLocations = (
+  locations: LocationData[]
+): LocationData[] => {
+  // Group locations by bucket:prefix
+  const locationGroups = new Map<string, LocationData[]>();
+
+  for (const location of locations) {
+    const key = `${location.bucket}:${location.prefix}`;
+    const group = locationGroups.get(key) ?? [];
+    group.push(location);
+    locationGroups.set(key, group);
+  }
+
+  // For each group, keep only non-redundant locations
+  const result: LocationData[] = [];
+
+  for (const group of locationGroups.values()) {
+    if (group.length === 1) {
+      result.push(group[0]);
+      continue;
+    }
+
+    // Find locations that are not subsets of any other location in the group
+    const nonRedundant: LocationData[] = [];
+
+    for (const location of group) {
+      // Check if this location is a subset of any other location
+      const isSubsetOfAnother = group.some((other) => {
+        if (other === location) return false;
+        return hasBroaderPermissions(other.permissions, location.permissions);
+      });
+
+      if (!isSubsetOfAnother) {
+        // Check if we already have an identical permission set
+        const isDuplicate = nonRedundant.some((existing) => {
+          const sortedNew = [...location.permissions].sort().join(',');
+          const sortedExisting = [...existing.permissions].sort().join(',');
+          return sortedNew === sortedExisting;
+        });
+
+        if (!isDuplicate) {
+          nonRedundant.push(location);
+        }
+      }
+    }
+
+    result.push(...nonRedundant);
+  }
+
+  return result;
+};
+
 export const getFilteredLocations = (
   locations: AccessGrantLocation[],
   exclude?: ListLocationsExcludeOptions
