@@ -5,6 +5,7 @@ import { TableCell, TableBody, TableHead, TableRow, Alert } from '@aws-amplify/u
 import AngularOverrideExample from './override-function-calls/example.angular.mdx';
 import ReactOverrideExample from './override-function-calls/example.react.mdx';
 import VueOverrideExample from './override-function-calls/example.vue.mdx';
+import SvelteOverrideExample from './override-function-calls/example.svelte.mdx';
 import { FunctionOverridesTable } from '@/components/FunctionOverridesTable';
 
 ## Override Function Calls
@@ -25,6 +26,9 @@ This would be overriden like so:
 
 <InlineFilter filters={['vue']}>
   <VueOverrideExample />
+</InlineFilter>
+<InlineFilter filters={['svelte']}>
+  <SvelteOverrideExample />
 </InlineFilter>
 
 Each `handle*` function accepts as input the expected input of its corresponding `Auth` function, allowing you to override the `Auth` function call from within the `handle*` function. Here is a table of each override function name, and the values passed as `input`.

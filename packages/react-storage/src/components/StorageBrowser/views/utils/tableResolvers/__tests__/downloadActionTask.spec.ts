@@ -9,6 +9,7 @@ import {
 } from '../constants';
 import { DownloadActionTask, DownloadTableResolverProps } from '../types';
 import { DOWNLOAD_TABLE_RESOLVERS } from '../downloadResolvers';
+import { DataTableButtonDataCell } from '../../../../components';
 
 const mockDisplayText: DownloadViewDisplayText = {
   tableColumnNameHeader: 'Name',
@@ -187,6 +188,11 @@ describe('DOWNLOAD_TABLE_RESOLVERS', () => {
               icon: 'cancel',
             },
           });
+
+          (output as DataTableButtonDataCell).content.onClick?.();
+
+          expect(item.cancel).toHaveBeenCalledTimes(1);
+          expect(mockProps.onTaskRemove).not.toHaveBeenCalled();
         });
 
         it('returns the expected cell values for an `item` with "QUEUED" status when `isProcessing` is "false"', () => {

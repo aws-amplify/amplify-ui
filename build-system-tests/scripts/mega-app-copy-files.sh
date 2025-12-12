@@ -85,12 +85,27 @@ if [[ "$FRAMEWORK" == 'angular' ]]; then
         USE_STANDALONE="false"
     fi
 
+    # Check if Angular 21+ for zone.js and app.config support
+    if [[ "$FRAMEWORK_VERSION" == "latest" || "$FRAMEWORK_VERSION" -ge 21 ]]; then
+        USE_V21_CONFIG="true"
+    else
+        USE_V21_CONFIG="false"
+    fi
+
     if [[ "$USE_STANDALONE" == "true" ]]; then
         echo "cp templates/components/angular/app-standalone.component.ts mega-apps/${MEGA_APP_NAME}/src/app/app.component.ts"
         cp templates/components/angular/app-standalone.component.ts mega-apps/${MEGA_APP_NAME}/src/app/app.component.ts
 
-        echo "cp templates/components/angular/main-standalone.ts mega-apps/${MEGA_APP_NAME}/src/main.ts"
-        cp templates/components/angular/main-standalone.ts mega-apps/${MEGA_APP_NAME}/src/main.ts
+        if [[ "$USE_V21_CONFIG" == "true" ]]; then
+            echo "cp templates/components/angular/main-standalone-v21.ts mega-apps/${MEGA_APP_NAME}/src/main.ts"
+            cp templates/components/angular/main-standalone-v21.ts mega-apps/${MEGA_APP_NAME}/src/main.ts
+
+            echo "cp templates/components/angular/app.config.ts mega-apps/${MEGA_APP_NAME}/src/app/app.config.ts"
+            cp templates/components/angular/app.config.ts mega-apps/${MEGA_APP_NAME}/src/app/app.config.ts
+        else
+            echo "cp templates/components/angular/main-standalone.ts mega-apps/${MEGA_APP_NAME}/src/main.ts"
+            cp templates/components/angular/main-standalone.ts mega-apps/${MEGA_APP_NAME}/src/main.ts
+        fi
 
         if [ -f "mega-apps/${MEGA_APP_NAME}/src/app/app.module.ts" ]; then
             echo "rm mega-apps/${MEGA_APP_NAME}/src/app/app.module.ts"
@@ -120,8 +135,8 @@ if [[ "$FRAMEWORK" == 'angular' ]]; then
     cat ./templates/components/angular/polifills-appendix.ts >>mega-apps/${MEGA_APP_NAME}/src/polyfills.ts
     if [[ "$FRAMEWORK_VERSION" -gt 15 || "$FRAMEWORK_VERSION" == "latest" ]]; then
         echo "add polyfills to angular.json"
-        echo "npx json -I -f mega-apps/${MEGA_APP_NAME}/angular.json -e \"this.projects[\\\"$MEGA_APP_NAME\\\"].architect.build.options.polyfills.push(\\\"src/polyfills.ts\\\")\""
-        npx json -I -f mega-apps/${MEGA_APP_NAME}/angular.json -e "this.projects[\"$MEGA_APP_NAME\"].architect.build.options.polyfills.push(\"src/polyfills.ts\")"
+        echo "npx json -I -f mega-apps/${MEGA_APP_NAME}/angular.json -e \"this.projects[\\\"$MEGA_APP_NAME\\\"].architect.build.options.polyfills = this.projects[\\\"$MEGA_APP_NAME\\\"].architect.build.options.polyfills || []; this.projects[\\\"$MEGA_APP_NAME\\\"].architect.build.options.polyfills.push(\\\"src/polyfills.ts\\\")\""
+        npx json -I -f mega-apps/${MEGA_APP_NAME}/angular.json -e "this.projects[\"$MEGA_APP_NAME\"].architect.build.options.polyfills = this.projects[\"$MEGA_APP_NAME\"].architect.build.options.polyfills || []; this.projects[\"$MEGA_APP_NAME\"].architect.build.options.polyfills.push(\"src/polyfills.ts\")"
         echo "strip comments from tsconfig.app.json and add polyfills.ts"
         echo "npx strip-json-comments mega-apps/${MEGA_APP_NAME}/tsconfig.app.json | npx json -a -e 'this.files.push(\"src/polyfills.ts\")' >tsconfig.app.json.tmp && mv tsconfig.app.json.tmp ./mega-apps/$MEGA_APP_NAME/tsconfig.app.json && rm -f tsconfig.app.json.tmp"
         npx strip-json-comments mega-apps/${MEGA_APP_NAME}/tsconfig.app.json | npx json -a -e 'this.files = this.files || []; this.files.push("src/polyfills.ts")' >tsconfig.app.json.tmp && mv tsconfig.app.json.tmp ./mega-apps/$MEGA_APP_NAME/tsconfig.app.json && rm -f tsconfig.app.json.tmp

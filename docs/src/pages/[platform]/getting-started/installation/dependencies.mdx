@@ -181,3 +181,13 @@ import { ReactNativeSafeAreaContextInstallation } from '@/components/ReactNative
 
   Otherwise, you can import individual components from the `@aws-amplify/ui-vue` package in each one of your components.
 </InlineFilter>
+
+<InlineFilter filters={['svelte']}>
+  For Svelte 5 install `@aws-amplify/ui-svelte` with [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/):
+
+  <InstallScripts framework="svelte" />
+
+  <Alert role="none" variation="info" heading="Svelte 4 and earlier">
+    Svelte versions prior to 5 are not supported by Amplify UI as the components rely on runes, which are available since Svelte v5 only
+  </Alert>
+</InlineFilter>

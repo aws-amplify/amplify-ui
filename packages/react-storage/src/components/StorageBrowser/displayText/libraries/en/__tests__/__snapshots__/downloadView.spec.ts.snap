@@ -65,6 +65,7 @@ exports[`DownloadView display text values should match snapshot values 1`] = `
   "tableColumnCancelHeader": "",
   "tableColumnFolderHeader": "Folder",
   "tableColumnNameHeader": "Name",
+  "tableColumnProgressHeader": "Progress",
   "tableColumnSizeHeader": "Size",
   "tableColumnStatusHeader": "Status",
   "tableColumnTypeHeader": "Type",

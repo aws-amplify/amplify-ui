@@ -8,6 +8,7 @@ import { HeroSection } from '@/components/home/sections';
 import ReactHomePage from './index.react';
 import ReactNativeHomePage from './index.react-native';
 import VueHomePage from './index.vue';
+import SvelteHomePage from './index.svelte';
 import AngularHomePage from './index.angular';
 import FlutterHomePage from './index.flutter';
 import { FRAMEWORKS } from '@/data/frameworks';
@@ -56,6 +57,9 @@ const HomePage = ({ colorMode }) => {
       break;
     case 'vue':
       pageContent = <VueHomePage colorMode={colorMode} />;
+      break;
+    case 'svelte':
+      pageContent = <SvelteHomePage colorMode={colorMode} />;
       break;
     case 'angular':
       pageContent = <AngularHomePage colorMode={colorMode} />;
