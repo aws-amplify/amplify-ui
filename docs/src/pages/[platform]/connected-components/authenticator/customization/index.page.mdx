@@ -41,6 +41,8 @@ import StylingWeb from './customization.styling.web.mdx';
 import FullAndroid from './customization.full-ui-customization.android.mdx';
 import FullFlutter from './customization.full-ui-customization.flutter.mdx';
 import FullSwift from './customization.full-ui-customization.swift.mdx';
+import PasswordlessViewsAndroid from './customization.passwordless-views.android.mdx';
+import PasswordlessViewsSwift from './customization.passwordless-views.swift.mdx';
 
 export async function getStaticPaths() {
   return getCustomStaticPath(frontmatter.supportedFrameworks);
@@ -100,6 +102,8 @@ export async function getStaticProps() {
   <StylingAndroid />
 
   <FullAndroid />
+
+  <PasswordlessViewsAndroid />
 </InlineFilter>
 <InlineFilter filters={['flutter']}>
   <LabelsFlutter />
@@ -127,6 +131,8 @@ export async function getStaticProps() {
   <StylingSwift />
 
   <FullSwift />
+
+  <PasswordlessViewsSwift />
 </InlineFilter>
 <InlineFilter filters={['angular', 'react', 'vue', 'svelte']}>
   <LabelsWeb />

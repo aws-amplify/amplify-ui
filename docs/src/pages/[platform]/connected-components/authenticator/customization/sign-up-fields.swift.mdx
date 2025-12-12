@@ -1,3 +1,5 @@
+import { Alert } from '@aws-amplify/ui-react';
+
 ## Sign Up Field Order
 
 The Authenticator respects the order of the Sign Up fields that are provided in the `signUpFields(_:)` call.
@@ -56,3 +58,44 @@ extension Binding where Value == String {
     }
 }
 ```
+
+
+## Password Fields in Passwordless Flow
+
+When using `.userChoice` authentication flow, password fields are **not visible by default** on the sign-up form. This allows users to sign up using passwordless methods like Email OTP, SMS OTP, or Passkeys.
+
+To explicitly show password fields, add them to your `signUpFields` configuration. You can then set `isRequired: true` or `isRequired: false` based on your requirements:
+
+```swift
+Authenticator(
+    authenticationFlow: .userChoice()
+) { signedInState in
+    Text("Welcome!")
+}
+.signUpFields([
+    .username(),
+    .email(),
+    .password(isRequired: true),        // Show password field, make it required
+    .confirmPassword(isRequired: true)
+])
+```
+
+Or make password optional while still showing the fields:
+
+```swift
+Authenticator(
+    authenticationFlow: .userChoice()
+) { signedInState in
+    Text("Welcome!")
+}
+.signUpFields([
+    .username(),
+    .email(),
+    .password(isRequired: false),        // Show password field, make it optional
+    .confirmPassword(isRequired: false)
+])
+```
+
+<Alert role="none" variation="warning" heading="Important">
+  When using `.password` authentication flow, password fields are **always required** regardless of the `isRequired` parameter. This means the `.password` flow will override any `.signUpFields(.password())` configuration, even if `isRequired` is set to `false`.
+</Alert>
