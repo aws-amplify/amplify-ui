@@ -11,6 +11,7 @@ import { AuthenticatorService } from '../../../../services/authenticator.service
  */
 @Component({
   selector: 'amplify-base-form-fields',
+  standalone: false,
   templateUrl: './base-form-fields.component.html',
 })
 export class BaseFormFieldsComponent implements OnInit {

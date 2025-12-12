@@ -5,6 +5,7 @@ import awsExports from './aws-exports';
 
 @Component({
   selector: 'hub-events',
+  standalone: false,
   templateUrl: 'hub-events.component.html',
 })
 export class HubEventsComponent {

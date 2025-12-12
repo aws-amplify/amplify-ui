@@ -6,6 +6,7 @@ const { getChangePasswordText, getBackToSignInText } = authenticatorTextUtil;
 
 @Component({
   selector: 'amplify-force-new-password',
+  standalone: false,
   templateUrl: './force-new-password.component.html',
 })
 export class ForceNewPasswordComponent {

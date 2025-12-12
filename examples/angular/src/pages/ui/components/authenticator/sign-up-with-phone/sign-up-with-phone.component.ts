@@ -5,6 +5,7 @@ import awsExports from './aws-exports';
 
 @Component({
   selector: 'sign-up-with-phone',
+  standalone: false,
   templateUrl: 'sign-up-with-phone.component.html',
 })
 export class SignUpWithPhoneComponent {

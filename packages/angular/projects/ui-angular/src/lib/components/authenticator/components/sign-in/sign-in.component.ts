@@ -10,6 +10,7 @@ const { getForgotPasswordText, getSignInText } = authenticatorTextUtil;
 
 @Component({
   selector: 'amplify-sign-in',
+  standalone: false,
   templateUrl: './sign-in.component.html',
   encapsulation: ViewEncapsulation.None,
 })

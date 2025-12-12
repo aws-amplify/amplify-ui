@@ -34,3 +34,4 @@ allow-licenses:
   - 'X11'
   - 'zlib-acknowledgement'
   - 'Zlib'
+  - 'LicenseRef-scancode-unicode'

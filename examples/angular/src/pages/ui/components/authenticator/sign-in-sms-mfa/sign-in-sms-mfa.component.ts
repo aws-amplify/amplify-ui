@@ -9,6 +9,7 @@ import awsExports from './aws-exports';
 
 @Component({
   selector: 'sign-in-sms-mfa',
+  standalone: false,
   templateUrl: 'sign-in-sms-mfa.component.html',
 })
 export class SignInSMSMFAComponent implements OnInit {

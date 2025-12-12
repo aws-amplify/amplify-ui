@@ -55,9 +55,9 @@ jobs:
             pkg-manager: npm
             node-version: 20
           - framework: angular
-            framework-version: 14
+            framework-version: 19
             build-tool: angular-cli
-            build-tool-version: 14
+            build-tool-version: 19
             pkg-manager: npm
             node-version: 20
 

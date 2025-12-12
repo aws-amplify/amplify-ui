@@ -5,6 +5,7 @@ import { Amplify } from 'aws-amplify';
 import { I18n } from 'aws-amplify/utils';
 @Component({
   selector: 'i18n',
+  standalone: false,
   templateUrl: 'i18n.component.html',
 })
 export class I18nComponent implements OnInit {

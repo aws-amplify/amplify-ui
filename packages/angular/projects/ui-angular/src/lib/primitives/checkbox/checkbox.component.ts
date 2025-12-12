@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'amplify-checkbox',
+  standalone: false,
   templateUrl: './checkbox.component.html',
 })
 export class CheckboxComponent implements OnInit {

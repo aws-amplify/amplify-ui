@@ -25,6 +25,7 @@ const { getSignInTabText, getSignUpTabText } = authenticatorTextUtil;
 
 @Component({
   selector: 'amplify-authenticator',
+  standalone: false,
   templateUrl: './authenticator.component.html',
   providers: [CustomComponentsService], // make sure custom components are scoped to this authenticator only
   encapsulation: ViewEncapsulation.None,

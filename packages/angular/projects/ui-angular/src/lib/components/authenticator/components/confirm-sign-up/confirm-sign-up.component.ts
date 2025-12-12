@@ -14,6 +14,7 @@ const {
 } = authenticatorTextUtil;
 @Component({
   selector: 'amplify-confirm-sign-up',
+  standalone: false,
   templateUrl: './confirm-sign-up.component.html',
 })
 export class ConfirmSignUpComponent {

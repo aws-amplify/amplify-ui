@@ -4,6 +4,7 @@ import awsExports from './aws-exports';
 
 @Component({
   selector: 'custom-sign-up-fields',
+  standalone: false,
   templateUrl: 'custom-sign-up-fields.component.html',
 })
 export class CustomSignUpFieldsComponent {

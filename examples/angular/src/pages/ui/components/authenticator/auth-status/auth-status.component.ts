@@ -8,6 +8,7 @@ import awsExports from './aws-exports';
 
 @Component({
   selector: 'auth-status',
+  standalone: false,
   templateUrl: 'auth-status.component.html',
 })
 export class AuthStatusComponent {

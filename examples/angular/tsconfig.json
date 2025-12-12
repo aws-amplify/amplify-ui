@@ -10,16 +10,17 @@
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,
-    "target": "es2020",
-    "module": "es2020",
-    "lib": ["es2020", "dom", "dom.iterable"],
+    "target": "es2022",
+    "module": "es2022",
+    "lib": ["es2022", "dom", "dom.iterable"],
     "esModuleInterop": true,
     "strict": true,
     "paths": {
       "@aws-amplify/ui-angular": ["../../packages/angular/dist/ui-angular"],
       "@aws-amplify/ui-angular/*": ["../../packages/angular/dist/ui-angular/*"],
       "@environments/*": ["../../environments/*"]
-    }
+    },
+    "skipLibCheck": true
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false

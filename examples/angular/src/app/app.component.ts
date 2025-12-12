@@ -4,6 +4,7 @@ import { Hub } from 'aws-amplify/utils';
 
 @Component({
   selector: 'app-root',
+  standalone: false,
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
