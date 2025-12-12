@@ -1,0 +1,83 @@
+# Description: This workflow runs unit + e2e tests, then publishes UI packages
+#              to `@next` NPM tag.
+#
+# Triggered by: merge to `main`
+
+name: Test and Publish / ci-fixes
+
+concurrency:
+  group: e2e-${{ github.sha }}
+  cancel-in-progress: true
+
+on:
+  push:
+    branches: [ci/fix-build-system-timeouts]
+
+permissions:
+  id-token: write # This is required for requesting the JWT
+  contents: read # This is required for actions/checkout
+
+jobs:
+  setup-cache:
+    uses: aws-amplify/amplify-ui/.github/workflows/reusable-setup-cache.yml@main
+    with:
+      commit: ${{ github.sha }}
+      repository: ${{ github.repository }}
+
+  unit:
+    uses: aws-amplify/amplify-ui/.github/workflows/reusable-unit.yml@main
+    needs: setup-cache
+    with:
+      commit: ${{ github.sha }}
+      repository: ${{ github.repository }}
+
+  e2e:
+    uses: aws-amplify/amplify-ui/.github/workflows/reusable-e2e.yml@main
+    needs: unit
+    with:
+      commit: ${{ github.sha }}
+      repository: ${{ github.repository }}
+      skip-changed-packages-check: 'true' # always run e2e tests for native platform on main
+    secrets:
+      AUTH_E2E_ROLE_ARN: ${{ secrets.AUTH_E2E_ROLE_ARN }}
+      DATASTORE_E2E_ROLE_ARN: ${{ secrets.DATASTORE_E2E_ROLE_ARN }}
+      GEO_E2E_ROLE_ARN: ${{ secrets.GEO_E2E_ROLE_ARN }}
+      STORAGE_E2E_ROLE_ARN: ${{ secrets.STORAGE_E2E_ROLE_ARN }}
+      LIVENESS_E2E_ROLE_ARN: ${{ secrets.LIVENESS_E2E_ROLE_ARN }}
+      IN_APP_MESSAGING_E2E_ROLE_ARN: ${{ secrets.IN_APP_MESSAGING_E2E_ROLE_ARN }}
+      AI_E2E_ROLE_ARN: ${{ secrets.AI_E2E_ROLE_ARN }}
+      DOMAIN: ${{ secrets.DOMAIN }}
+      PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
+      USERNAME: ${{ secrets.USERNAME }}
+      NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
+      VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
+      SITE_URL: ${{ secrets.SITE_URL }}
+      DOCSEARCH_DOCS_APP_ID: ${{ secrets.DOCSEARCH_DOCS_APP_ID }}
+      DOCSEARCH_DOCS_API_KEY: ${{ secrets.DOCSEARCH_DOCS_API_KEY }}
+      DOCSEARCH_DOCS_INDEX_NAME: ${{ secrets.DOCSEARCH_DOCS_INDEX_NAME }}
+
+  publish:
+    uses: aws-amplify/amplify-ui/.github/workflows/reusable-tagged-publish.yml@main
+    with:
+      dist-tag: cifix
+    secrets:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  build-test:
+    uses: ./.github/workflows/reusable-build-system-test.yml
+    needs: publish
+    with:
+      dist-tag: cifix
+    secrets:
+      AUTH_E2E_ROLE_ARN: ${{ secrets.AUTH_E2E_ROLE_ARN }}
+      DOMAIN: ${{ secrets.DOMAIN }}
+      PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
+      USERNAME: ${{ secrets.USERNAME }}
+      NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
+      VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
+
+  build-test-react-native:
+    uses: ./.github/workflows/reusable-build-system-test-react-native.yml
+    needs: publish
+    with:
+      dist-tag: cifix
