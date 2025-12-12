@@ -110,6 +110,7 @@ jobs:
     env:
       MEGA_APP_NAME: rn${{ matrix.framework-version.formatted }}${{ matrix.build-tool }}${{ matrix.build-tool-version }}${{ matrix.platform }}ui${{ inputs.dist-tag }}
       EMULATOR_PORT: 5554
+      # Fallback timeout for Expo builds where gradle-wrapper.properties is created dynamically
       GRADLE_OPTS: '-Dorg.gradle.internal.http.socketTimeout=60000 -Dorg.gradle.internal.http.connectionTimeout=60000'
     steps:
       - name: Checkout Amplify UI
@@ -163,8 +164,9 @@ jobs:
             ~/Library/Android/sdk/system-images
             ~/Library/Android/sdk/build-tools
             ~/Library/Android/sdk/platform-tools
+            ~/Library/Android/sdk/ndk
             ~/.android/avd
-          key: ${{ runner.os }}-android-sdk-27-x86_64-snapshot-v1
+          key: ${{ runner.os }}-android-sdk-27-x86_64-snapshot-v2
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 5
 
