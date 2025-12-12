@@ -28,20 +28,19 @@ fi
 
 # Run npm run android in the background
 if [ $BUILD_TOOL == 'expo' ]; then
-  log "command" "npm run android -- -p 19000 >$LOG_FILE &"
-  # Run npm run android in the background
-  npm run android -- -p 19000 >$LOG_FILE &
+  log "command" "npm run android -- -p 19000"
+  npm run android -- -p 19000 2>&1 | tee -a $LOG_FILE &
   npx wait-on -t 20000 tcp:19000
 else
-  log "command" "cd android >$LOG_FILE "
-  cd android >$LOG_FILE
-  log "command" "./gradlew clean >$LOG_FILE" # To prevent "installDebug FAILED" https://stackoverflow.com/a/54955869/12610324
-  ./gradlew clean >$LOG_FILE
-  log "command" "cd .. >$LOG_FILE"
-  cd .. >$LOG_FILE
+  log "command" "cd android"
+  cd android
+  log "command" "./gradlew clean --console=plain -q" # To prevent "installDebug FAILED" https://stackoverflow.com/a/54955869/12610324
+  ./gradlew clean --console=plain -q 2>&1 | tee -a $LOG_FILE
+  log "command" "cd .."
+  cd ..
   log "command" "npm run start &"
   npm run start &
   npx wait-on -t 5000 tcp:8081
-  log "command" "npm run android >$LOG_FILE"
-  npm run android >$LOG_FILE
+  log "command" "npm run android"
+  npm run android 2>&1 | tee -a $LOG_FILE
 fi
