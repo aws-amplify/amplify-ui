@@ -7,6 +7,7 @@ import awsExports from './aws-exports';
 
 @Component({
   selector: 'sign-in-with-phone',
+  standalone: false,
   templateUrl: 'sign-in-with-phone.component.html',
 })
 export class SignInWithPhoneComponent implements OnInit {

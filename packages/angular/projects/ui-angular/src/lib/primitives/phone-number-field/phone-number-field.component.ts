@@ -4,6 +4,7 @@ import { countryDialCodes } from '@aws-amplify/ui';
 
 @Component({
   selector: 'amplify-phone-number-field',
+  standalone: false,
   templateUrl: './phone-number-field.component.html',
 })
 export class PhoneNumberFieldComponent implements OnInit {

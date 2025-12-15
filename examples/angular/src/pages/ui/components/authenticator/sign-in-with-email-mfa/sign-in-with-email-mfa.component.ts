@@ -6,6 +6,7 @@ import awsExports from './aws-exports';
 
 @Component({
   selector: 'app-sign-in-with-email-mfa',
+  standalone: false,
   templateUrl: './sign-in-with-email-mfa.component.html',
 })
 export class SignInWithEmailMfaComponent {

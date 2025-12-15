@@ -5,6 +5,7 @@ import awsExports from './aws-exports';
 
 @Component({
   selector: 'modal',
+  standalone: false,
   templateUrl: 'modal.component.html',
 })
 export class ModalComponent {

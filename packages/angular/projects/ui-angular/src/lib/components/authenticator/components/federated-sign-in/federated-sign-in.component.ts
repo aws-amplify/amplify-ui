@@ -7,6 +7,7 @@ const { getSignInWithFederationText, getOrText } = authenticatorTextUtil;
 
 @Component({
   selector: 'amplify-federated-sign-in',
+  standalone: false,
   templateUrl: './federated-sign-in.component.html',
 })
 export class FederatedSignInComponent implements OnInit {

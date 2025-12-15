@@ -10,6 +10,7 @@ import { AuthenticatorService } from '../../../../services/authenticator.service
 
 @Component({
   selector: 'amplify-form-field',
+  standalone: false,
   templateUrl: './form-field.component.html',
 })
 export class FormFieldComponent {

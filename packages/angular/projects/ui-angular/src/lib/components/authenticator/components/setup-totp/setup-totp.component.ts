@@ -23,6 +23,7 @@ const {
 
 @Component({
   selector: 'amplify-setup-totp',
+  standalone: false,
   templateUrl: './setup-totp.component.html',
 })
 export class SetupTotpComponent implements OnInit {
