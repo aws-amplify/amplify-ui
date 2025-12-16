@@ -4,6 +4,7 @@ import { zipDownloadHandler } from '../zipdownload';
 import type { DownloadHandlerInput } from '../download';
 
 jest.mock('../../../storage-internal');
+jest.mock('jszip', () => {});
 
 const baseInput: DownloadHandlerInput = {
   config: {
@@ -18,6 +19,13 @@ const baseInput: DownloadHandlerInput = {
     key: 'prefix/file-name',
     fileKey: 'file-name',
   },
+  all: [
+    {
+      id: 'id',
+      key: 'prefix/file-name',
+      fileKey: 'file-name',
+    },
+  ],
 };
 
 describe('zipDownloadHandler', () => {
@@ -36,14 +44,26 @@ describe('zipDownloadHandler', () => {
             },
           },
           body: {
-            getReader: jest.fn(() => {
-              return {
-                read: () => ({
-                  value: 100,
-                  done: true,
-                }),
-              };
-            }),
+            getReader: jest
+              .fn()
+              .mockImplementationOnce(() => {
+                return {
+                  read: async () =>
+                    Promise.resolve({
+                      value: 50,
+                      done: false,
+                    }),
+                };
+              })
+              .mockImplementation(() => {
+                return {
+                  read: () =>
+                    Promise.resolve({
+                      value: 100,
+                      done: true,
+                    }),
+                };
+              }),
           },
         }) as unknown as Promise<Response>;
       });
@@ -61,7 +81,6 @@ describe('zipDownloadHandler', () => {
 
   it('calls `getUrl` with the expected values', () => {
     zipDownloadHandler(baseInput);
-
     const expected: GetUrlInput = {
       path: baseInput.data.key,
       options: {
@@ -76,21 +95,30 @@ describe('zipDownloadHandler', () => {
         expectedBucketOwner: baseInput.config.accountId,
       },
     };
-
     expect(mockGetUrl).toHaveBeenCalledWith(expected);
   });
 
   it('returns a complete status', async () => {
     const { result } = zipDownloadHandler(baseInput);
+    expect(await result).toEqual({ status: 'LOADED' });
+  });
 
-    expect(await result).toEqual({ status: 'COMPLETE' });
+  it('calls the progress with statuses', async () => {
+    const onProgress = jest.fn();
+    const { result } = zipDownloadHandler({
+      ...baseInput,
+      options: {
+        onProgress,
+      },
+    });
+    await result;
+    expect(onProgress).toHaveBeenCalledWith(baseInput.data, 100, 'PENDING');
   });
 
   it('returns failed status', async () => {
     const error = new Error('No download!');
     mockGetUrl.mockRejectedValue(error);
     const { result } = zipDownloadHandler(baseInput);
-
     expect(await result).toEqual({
       error,
       message: error.message,

@@ -6,6 +6,8 @@ export const DEFAULT_DOWNLOAD_VIEW_DISPLAY_TEXT: DefaultDownloadViewDisplayText 
     ...DEFAULT_ACTION_VIEW_DISPLAY_TEXT,
     title: 'Download',
     actionStartLabel: 'Download',
+    statusDisplayFinishingLabel: 'Zipping',
+    statusDisplayLoadedLabel: 'Loaded',
     getActionCompleteMessage: (data) => {
       const { counts } = data ?? {};
       const { COMPLETE, FAILED, TOTAL } = counts ?? {};
