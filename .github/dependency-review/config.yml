@@ -12,6 +12,7 @@ allow-licenses:
   - 'bzip2-1.0.6'
   - 'CC-BY-3.0'
   - 'CC-BY-4.0'
+  - 'CC-BY-SA-4.0'
   - 'CC0-1.0'
   - 'curl'
   - 'ISC'
@@ -33,3 +34,4 @@ allow-licenses:
   - 'X11'
   - 'zlib-acknowledgement'
   - 'Zlib'
+  - 'LicenseRef-scancode-unicode'

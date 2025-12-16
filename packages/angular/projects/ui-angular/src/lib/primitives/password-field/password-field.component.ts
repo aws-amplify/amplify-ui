@@ -5,6 +5,7 @@ import { classNames } from '@aws-amplify/ui';
 
 @Component({
   selector: 'amplify-password-field',
+  standalone: false,
   templateUrl: './password-field.component.html',
 })
 export class PasswordFieldComponent {

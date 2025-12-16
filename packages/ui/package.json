@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui",
-  "version": "6.12.1",
+  "version": "6.13.0",
   "main": "dist/index.js",
   "module": "dist/esm/index.mjs",
   "exports": {
@@ -62,10 +62,11 @@
     "@types/lodash": "^4.14.170",
     "@types/webpack-env": "^1.16.2",
     "autoprefixer": "^10.3.1",
-    "glob": "^10.3.10",
+    "glob": "^10.5.0",
     "postcss": "^8.4.31",
     "sass": "^1.35.2",
-    "style-dictionary": "3.9.1"
+    "style-dictionary": "3.9.1",
+    "ts-node": "^10.9.1"
   },
   "sideEffects": [
     "dist/**/*.css"

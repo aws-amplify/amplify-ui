@@ -24,8 +24,8 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@aws-amplify/ui-react": "6.13.1",
-    "@aws-amplify/ui-react-storage": "3.13.1",
+    "@aws-amplify/ui-react": "6.13.2",
+    "@aws-amplify/ui-react-storage": "3.14.0",
     "@docsearch/react": "3",
     "@mdx-js/loader": "^2.1.0",
     "@mdx-js/mdx": "^2.1.0",
@@ -35,7 +35,7 @@
     "gray-matter": "^4.0.3",
     "lodash": "^4.17.21",
     "mdx-prism": "^0.3.3",
-    "next": "^14.2.31",
+    "next": "^14.2.35",
     "next-plugin-preval": "^1.2.1",
     "prism-react-renderer": "1.2.1",
     "raw-loader": "^4.0.2",
@@ -67,7 +67,7 @@
     "canvas": "^2.11.2",
     "dotenv-safe": "^8.2.0",
     "eslint-config-next": "^14.2.32",
-    "glob": "^10.3.10",
+    "glob": "^10.5.0",
     "globby": "^13.1.1",
     "postcss": "^8.4.31",
     "puppeteer": "^24.4.0",

@@ -61,6 +61,7 @@ export type ActionTableKey =
   | 'cancel';
 
 export type UploadTableKey = ActionTableKey | 'progress';
+export type DownloadTableKey = ActionTableKey | 'progress';
 
 export interface FileDataTaskTableResolvers
   extends DataTableResolvers<
@@ -76,6 +77,15 @@ export interface UploadTableResolvers
     UploadActionTask
   > {}
 
+export interface DownloadTableResolvers
+  extends DataTableResolvers<
+    DownloadTableKey,
+    DownloadTableResolverProps,
+    DownloadActionTask
+  > {}
+
 export type GetFileDataCell = FileDataTaskTableResolvers['getCell'];
+
+export type GetDownloadCell = DownloadTableResolvers['getCell'];
 
 export type GetUploadCell = UploadTableResolvers['getCell'];
