@@ -121,7 +121,8 @@
     "**/jest/**/js-yaml": "~3.14.2",
     "**/@badeball/cypress-cucumber-preprocessor/**/glob": "~10.5.0",
     "**/@changesets/cli/**/js-yaml": "~3.14.2",
-    "@tensorflow-models/face-detection/rimraf": "5.0.0"
+    "@tensorflow-models/face-detection/rimraf": "5.0.0",
+    "aws-amplify/storage": "file:../amplify-js/packages/storage"
   },
   "devDependencies": {
     "@aws-amplify/backend": "^1.7.0",
