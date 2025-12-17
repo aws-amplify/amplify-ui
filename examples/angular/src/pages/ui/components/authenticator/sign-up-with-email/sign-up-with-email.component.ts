@@ -6,7 +6,7 @@ import { I18n } from 'aws-amplify/utils';
 import { AuthenticatorService, translations } from '@aws-amplify/ui-angular';
 
 import awsExports from './aws-exports';
-import { AuthStatus } from '@aws-amplify/ui/src';
+import type { AuthStatus } from '@aws-amplify/ui';
 
 Amplify.configure(awsExports);
 
