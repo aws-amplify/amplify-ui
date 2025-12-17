@@ -8,10 +8,6 @@ import awsExports from './aws-exports';
   templateUrl: 'sign-in-with-email.component.html',
 })
 export class SignInWithEmailComponent {
-  constructor() {
-    Amplify.configure(awsExports);
-  }
-
   public formFields = {
     signIn: {
       username: {
@@ -26,4 +22,8 @@ export class SignInWithEmailComponent {
       },
     },
   };
+
+  constructor() {
+    Amplify.configure(awsExports);
+  }
 }
