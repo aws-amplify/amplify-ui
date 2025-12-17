@@ -1,3 +1,5 @@
+import { Alert } from '@aws-amplify/ui-react';
+
 ## Sign Up Field Order
 
 The Authenticator allows a custom order of sign up fields on the Sign Up page.
@@ -94,3 +96,49 @@ val state = rememberAuthenticatorState(
     }
 )
 ```
+
+## Password Fields in Passwordless Flow
+
+When using `AuthenticationFlow.UserChoice`, password fields are **not visible by default** on the sign-up form. This allows users to sign up using passwordless methods like Email OTP, SMS OTP, or Passkeys.
+
+To explicitly show password fields, add them to your `signUpForm` configuration. You can then set `required = true` or `required = false` based on your requirements:
+
+```kotlin
+val authenticatorState = rememberAuthenticatorState(
+    authenticationFlow = AuthenticationFlow.UserChoice(),
+    signUpForm = {
+        username()
+        email()
+        password(required = true)       // Show password field, make it required
+        confirmPassword(required = false)
+    }
+)
+Authenticator(
+    state = authenticatorState
+) { state ->
+    Text("Welcome!")
+}
+```
+
+Or make password optional while still showing the fields:
+
+```kotlin
+val authenticatorState = rememberAuthenticatorState(
+    authenticationFlow = AuthenticationFlow.UserChoice(),
+    signUpForm = {
+        username()
+        email()
+        password(required = false)       // Show password field, make it optional
+        confirmPassword(required = false)
+    }
+)
+Authenticator(
+    state = authenticatorState
+) { state ->
+    Text("Welcome!")
+}
+```
+
+<Alert role="none" variation="warning" heading="Important">
+  When using `AuthenticationFlow.Password`, password fields are **always required** regardless of the `required` parameter. This means the `Password` flow will override any `password()` configuration in `signUpForm`, even if `required` is set to `false`.
+</Alert>
