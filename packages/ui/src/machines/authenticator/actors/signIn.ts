@@ -311,8 +311,18 @@ export function signInActor({ services }: SignInMachineOptions) {
           return services.handleResendSignUpCode({ username });
         },
         handleSignIn({ formValues, username }) {
-          const { password } = formValues;
-          return services.handleSignIn({ username, password });
+          // Pass all form values, including custom fields, to the service handler
+          const customFields = Object.keys(formValues).reduce((acc, key) => {
+            if (key !== 'username' && key !== 'password') {
+              acc[key] = formValues[key];
+            }
+            return acc;
+          }, {});
+          return services.handleSignIn({
+            username,
+            password: formValues.password,
+            customFields,
+          });
         },
         confirmSignIn({ formValues, step }) {
           const formValuesKey = getConfirmSignInFormValuesKey(step);
