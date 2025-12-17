@@ -12,7 +12,7 @@ import awsExports from './aws-exports';
 export class SignInWithEmailMfaComponent {
   public services: AuthenticatorComponent['services'] = {
     handleSignIn: async () => {
-      return {
+      return Promise.resolve({
         isSignedIn: false,
         nextStep: {
           signInStep: 'CONFIRM_SIGN_IN_WITH_EMAIL_CODE',
@@ -22,24 +22,24 @@ export class SignInWithEmailMfaComponent {
             attributeName: 'email',
           },
         },
-      };
+      });
     },
     handleConfirmSignIn: async ({ challengeResponse }) => {
       if (challengeResponse === '123456') {
-        return {
+        return Promise.resolve({
           isSignedIn: true,
           nextStep: {
             signInStep: 'DONE',
           },
-        };
+        });
       }
       throw new Error('Invalid code or auth state for the user.');
     },
     getCurrentUser: async () => {
-      return {
+      return Promise.resolve({
         userId: '******************',
         username: 'james',
-      };
+      });
     },
   };
 

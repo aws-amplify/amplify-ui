@@ -10,9 +10,6 @@ import awsExports from './aws-exports';
   templateUrl: 'custom-slots.component.html',
 })
 export class CustomSlotsComponent {
-  constructor(public authenticator: AuthenticatorService) {
-    Amplify.configure(awsExports);
-  }
   public formFields = {
     signIn: {
       username: {
@@ -76,4 +73,7 @@ export class CustomSlotsComponent {
       },
     },
   };
+  constructor(public authenticator: AuthenticatorService) {
+    Amplify.configure(awsExports);
+  }
 }
