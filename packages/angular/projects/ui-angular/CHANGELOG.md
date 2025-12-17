@@ -1,5 +1,11 @@
 # @aws-amplify/ui-angular
 
+## 5.2.0
+
+### Minor Changes
+
+- [#6767](https://github.com/aws-amplify/amplify-ui/pull/6767) [`713a147df9a9760defb71744497ce13d4529c423`](https://github.com/aws-amplify/amplify-ui/commit/713a147df9a9760defb71744497ce13d4529c423) Thanks [@osama-rizk](https://github.com/osama-rizk)! - feat(angular): update minimal Angular version to v19
+
 ## 5.1.7
 
 ### Patch Changes
