@@ -179,9 +179,9 @@
     "@angular-devkit/core" "19.2.19"
     rxjs "7.8.1"
 
-"@angular-devkit/build-angular@^19.0.0":
+"@angular-devkit/build-angular@^19.2.18":
   version "19.2.19"
-  resolved "https://registry.npmjs.org/@angular-devkit/build-angular/-/build-angular-19.2.19.tgz"
+  resolved "https://registry.yarnpkg.com/@angular-devkit/build-angular/-/build-angular-19.2.19.tgz#2e785c0a1cdf06b74ea2ff2b46149d3868e4d9f9"
   integrity sha512-uIxi6Vzss6+ycljVhkyPUPWa20w8qxJL9lEn0h6+sX/fhM8Djt0FHIuTQjoX58EoMaQ/1jrXaRaGimkbaFcG9A==
   dependencies:
     "@ampproject/remapping" "2.3.0"
@@ -273,7 +273,7 @@
     ora "5.4.1"
     rxjs "7.8.1"
 
-"@angular-eslint/builder@^19.0.0":
+"@angular-eslint/builder@^19.8.1":
   version "19.8.1"
   resolved "https://registry.yarnpkg.com/@angular-eslint/builder/-/builder-19.8.1.tgz#95b9cda1badf5d8ea968f5477f65303baf23f101"
   integrity sha512-NOMkw0xgDoDVCLkL5nkkvdd3ouDYkOGqtEmabTR7N4/kQnk1R4coOTWGCqAgMXCFdxlyjuxquDwuJ+yni81pRg==
@@ -281,35 +281,12 @@
     "@angular-devkit/architect" ">= 0.1900.0 < 0.2000.0"
     "@angular-devkit/core" ">= 19.0.0 < 20.0.0"
 
-"@angular-eslint/builder@~19.0.0":
-  version "19.0.2"
-  resolved "https://registry.yarnpkg.com/@angular-eslint/builder/-/builder-19.0.2.tgz#62b8908187db6292732b265c07402a9bfde8c662"
-  integrity sha512-BdmMSndQt2fSBiTVniskUcUpQaeweUapbsL0IDfQ7a13vL0NVXpc3K89YXuVE/xsb08uHtqphuwxPAAj6kX3OA==
-  dependencies:
-    "@angular-devkit/architect" ">= 0.1900.0 < 0.2000.0"
-    "@angular-devkit/core" ">= 19.0.0 < 20.0.0"
-
-"@angular-eslint/bundled-angular-compiler@19.0.2":
-  version "19.0.2"
-  resolved "https://registry.npmjs.org/@angular-eslint/bundled-angular-compiler/-/bundled-angular-compiler-19.0.2.tgz"
-  integrity sha512-HPmp92r70SNO/0NdIaIhxrgVSpomqryuUk7jszvNRtu+OzYCJGcbLhQD38T3dbBWT/AV0QXzyzExn6/2ai9fEw==
-
 "@angular-eslint/bundled-angular-compiler@19.8.1":
   version "19.8.1"
   resolved "https://registry.yarnpkg.com/@angular-eslint/bundled-angular-compiler/-/bundled-angular-compiler-19.8.1.tgz#c167f0b326c6bc9940822fb3b0dfb61b27e42b4a"
   integrity sha512-WXi1YbSs7SIQo48u+fCcc5Nt14/T4QzYQPLZUnjtsUXPgQG7ZoahhcGf7PPQ+n0V3pSopHOlSHwqK+tSsYK87A==
 
-"@angular-eslint/eslint-plugin-template@19.0.2", "@angular-eslint/eslint-plugin-template@~19.0.0":
-  version "19.0.2"
-  resolved "https://registry.yarnpkg.com/@angular-eslint/eslint-plugin-template/-/eslint-plugin-template-19.0.2.tgz#3ef9bccadf4021b231471e701dfb1cdaac5a53c7"
-  integrity sha512-f/OCF9ThnxQ8m0eNYPwnCrySQPhYfCOF6STL7F9LnS8Bs3ZeW3/oT1yLaMIZ1Eg0ogIkgxksMAJZjrJPUPBD1Q==
-  dependencies:
-    "@angular-eslint/bundled-angular-compiler" "19.0.2"
-    "@angular-eslint/utils" "19.0.2"
-    aria-query "5.3.2"
-    axobject-query "4.1.0"
-
-"@angular-eslint/eslint-plugin-template@19.8.1", "@angular-eslint/eslint-plugin-template@^19.0.0":
+"@angular-eslint/eslint-plugin-template@19.8.1", "@angular-eslint/eslint-plugin-template@^19.8.1":
   version "19.8.1"
   resolved "https://registry.yarnpkg.com/@angular-eslint/eslint-plugin-template/-/eslint-plugin-template-19.8.1.tgz#a096e94af40298c3ea5ecc76af1688e0051e1ebf"
   integrity sha512-0ZVQldndLrDfB0tzFe/uIwvkUcakw8qGxvkEU0l7kSbv/ngNQ/qrkRi7P64otB15inIDUNZI2jtmVat52dqSfQ==
@@ -319,15 +296,7 @@
     aria-query "5.3.2"
     axobject-query "4.1.0"
 
-"@angular-eslint/eslint-plugin@19.0.2", "@angular-eslint/eslint-plugin@~19.0.0":
-  version "19.0.2"
-  resolved "https://registry.yarnpkg.com/@angular-eslint/eslint-plugin/-/eslint-plugin-19.0.2.tgz#3a9d6351996ebff98af6755cdbac9e7e307cc71d"
-  integrity sha512-DLuNVVGGFicSThOcMSJyNje+FZSPdG0B3lCBRiqcgKH/16kfM4pV8MobPM7RGK2NhaOmmZ4zzJNwpwWPSgi+Lw==
-  dependencies:
-    "@angular-eslint/bundled-angular-compiler" "19.0.2"
-    "@angular-eslint/utils" "19.0.2"
-
-"@angular-eslint/eslint-plugin@19.8.1", "@angular-eslint/eslint-plugin@^19.0.0":
+"@angular-eslint/eslint-plugin@19.8.1", "@angular-eslint/eslint-plugin@^19.8.1":
   version "19.8.1"
   resolved "https://registry.yarnpkg.com/@angular-eslint/eslint-plugin/-/eslint-plugin-19.8.1.tgz#664107cd6dbd5011d0cb9dada948685a9749f4e4"
   integrity sha512-wZEBMPwD2TRhifG751hcj137EMIEaFmsxRB2EI+vfINCgPnFGSGGOHXqi8aInn9fXqHs7VbXkAzXYdBsvy1m4Q==
@@ -335,7 +304,7 @@
     "@angular-eslint/bundled-angular-compiler" "19.8.1"
     "@angular-eslint/utils" "19.8.1"
 
-"@angular-eslint/schematics@^19.0.0":
+"@angular-eslint/schematics@^19.8.1":
   version "19.8.1"
   resolved "https://registry.yarnpkg.com/@angular-eslint/schematics/-/schematics-19.8.1.tgz#1699f2c1f6e210966453ac12231992affe0d4e0f"
   integrity sha512-MKzfO3puOCuQFgP8XDUkEr5eaqcCQLAdYLLMcywEO/iRs1eRHL46+rkW+SjDp1cUqlxKtu+rLiTYr0T/O4fi9Q==
@@ -348,41 +317,13 @@
     semver "7.7.2"
     strip-json-comments "3.1.1"
 
-"@angular-eslint/schematics@~19.0.0":
-  version "19.0.2"
-  resolved "https://registry.yarnpkg.com/@angular-eslint/schematics/-/schematics-19.0.2.tgz#44142f0bb292c262f229240f56debb5678c6aee7"
-  integrity sha512-wI4SyiAnUCrpigtK6PHRlVWMC9vWljqmlLhbsJV5O5yDajlmRdvgXvSHDefhJm0hSfvZYRXuiAARYv2+QVfnGA==
-  dependencies:
-    "@angular-devkit/core" ">= 19.0.0 < 20.0.0"
-    "@angular-devkit/schematics" ">= 19.0.0 < 20.0.0"
-    "@angular-eslint/eslint-plugin" "19.0.2"
-    "@angular-eslint/eslint-plugin-template" "19.0.2"
-    ignore "6.0.2"
-    semver "7.6.3"
-    strip-json-comments "3.1.1"
-
-"@angular-eslint/template-parser@^19.0.0":
+"@angular-eslint/template-parser@^19.8.1":
   version "19.8.1"
   resolved "https://registry.yarnpkg.com/@angular-eslint/template-parser/-/template-parser-19.8.1.tgz#c8db827245ce810e1a2caa3daa9e7fc3b27935b8"
   integrity sha512-pQiOg+se1AU/ncMlnJ9V6xYnMQ84qI1BGWuJpbU6A99VTXJg90scg0+T7DWmKssR1YjP5qmmBtrZfKsHEcLW/A==
   dependencies:
     "@angular-eslint/bundled-angular-compiler" "19.8.1"
     eslint-scope "^8.0.2"
-
-"@angular-eslint/template-parser@~19.0.0":
-  version "19.0.2"
-  resolved "https://registry.yarnpkg.com/@angular-eslint/template-parser/-/template-parser-19.0.2.tgz#c03a45c2bef06adb2fb518db68b0d91074ab885c"
-  integrity sha512-z3rZd2sBfuYcFf9rGDsB2zz2fbGX8kkF+0ftg9eocyQmzWrlZHFmuw9ha7oP/Mz8gpblyCS/aa1U/Srs6gz0UQ==
-  dependencies:
-    "@angular-eslint/bundled-angular-compiler" "19.0.2"
-    eslint-scope "^8.0.2"
-
-"@angular-eslint/utils@19.0.2":
-  version "19.0.2"
-  resolved "https://registry.npmjs.org/@angular-eslint/utils/-/utils-19.0.2.tgz"
-  integrity sha512-HotBT8OKr7zCaX1S9k27JuhRiTVIbbYVl6whlb3uwdMIPIWY8iOcEh1tjI4qDPUafpLfR72Dhwi5bO1E17F3/Q==
-  dependencies:
-    "@angular-eslint/bundled-angular-compiler" "19.0.2"
 
 "@angular-eslint/utils@19.8.1":
   version "19.8.1"
@@ -432,9 +373,9 @@
   optionalDependencies:
     lmdb "3.2.6"
 
-"@angular/cli@^19.0.0":
+"@angular/cli@^19.2.18":
   version "19.2.19"
-  resolved "https://registry.npmjs.org/@angular/cli/-/cli-19.2.19.tgz"
+  resolved "https://registry.yarnpkg.com/@angular/cli/-/cli-19.2.19.tgz#a76786f91ae7a8823f6e2db12c6d1108ec16ff54"
   integrity sha512-e9tAzFNOL4mMWfMnpC9Up83OCTOp2siIj8W41FCp8jfoEnw79AXDDLh3d70kOayiObchksTJVShslTogLUyhMw==
   dependencies:
     "@angular-devkit/architect" "0.1902.19"
@@ -583,17 +524,6 @@
     "@smithy/util-utf8" "2.0.0"
     tslib "^2.5.0"
 
-"@aws-amplify/analytics@7.0.90":
-  version "7.0.90"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/analytics/-/analytics-7.0.90.tgz#18b9e250ac2d074b855e08f794caedd21548a31d"
-  integrity sha512-Z/YA2dtYNu2ybs+MFc+ceQexCIYJmK9yUm5E6mLYPR2H4fCvINaUE9V0my6A4+1zwlmvRMWbnZO6Z1XKx02m4A==
-  dependencies:
-    "@aws-sdk/client-firehose" "3.621.0"
-    "@aws-sdk/client-kinesis" "3.621.0"
-    "@aws-sdk/client-personalize-events" "3.621.0"
-    "@smithy/util-utf8" "2.0.0"
-    tslib "^2.5.0"
-
 "@aws-amplify/api-graphql@4.7.13":
   version "4.7.13"
   resolved "https://registry.npmjs.org/@aws-amplify/api-graphql/-/api-graphql-4.7.13.tgz"
@@ -608,43 +538,11 @@
     tslib "^2.5.0"
     uuid "^9.0.0"
 
-"@aws-amplify/api-graphql@4.8.2":
-  version "4.8.2"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/api-graphql/-/api-graphql-4.8.2.tgz#41d2e6cde5ee140ada12ba7b3e58ba8dacf6a506"
-  integrity sha512-Gpem7cf0+YAhla7s/Qmc0eApIAc9Ufo5LHTqm8Hdlr6G0T1H5fUrCk1PzDroIfbDjSw8gqdeCTTGPZPpFezGyw==
-  dependencies:
-    "@aws-amplify/api-rest" "4.6.0"
-    "@aws-amplify/core" "6.15.0"
-    "@aws-amplify/data-schema" "^1.7.0"
-    "@aws-sdk/types" "3.387.0"
-    graphql "15.8.0"
-    rxjs "^7.8.1"
-    tslib "^2.5.0"
-    uuid "^11.0.0"
-
 "@aws-amplify/api-rest@4.1.2":
   version "4.1.2"
   resolved "https://registry.npmjs.org/@aws-amplify/api-rest/-/api-rest-4.1.2.tgz"
   integrity sha512-R4WBFrsF874vvKuBsk+f7jyvOI2+x3sbA1lHHhFGUhBrtESZ0G0jz4UuMvp52h4KumDfB9Sxt976QUyYDPA07A==
   dependencies:
-    tslib "^2.5.0"
-
-"@aws-amplify/api-rest@4.6.0":
-  version "4.6.0"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/api-rest/-/api-rest-4.6.0.tgz#c72a1e33db36a331931c681f6977ed87aefc23e2"
-  integrity sha512-BUOgnw6cZ9ufCaG72QDt9KAtGLhJOj2DAFl2WBm7jPu45RnyUVFBEiCNcluVKkaoAJjXAA+ee9DZ5Y/ITZyQlg==
-  dependencies:
-    tslib "^2.5.0"
-
-"@aws-amplify/api@6.3.21":
-  version "6.3.21"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/api/-/api-6.3.21.tgz#5311875afff0fbcc0564bc524a99dbf900f8a741"
-  integrity sha512-oo3y1gCYlVBEco0d8INtBugPP4p3RRKE3XAAXazC26Xp2Reb0QWpwRjWPWn8qNH1a9LgnpMktwWXWx+fN99KJQ==
-  dependencies:
-    "@aws-amplify/api-graphql" "4.8.2"
-    "@aws-amplify/api-rest" "4.6.0"
-    "@aws-amplify/data-schema" "^1.7.0"
-    rxjs "^7.8.1"
     tslib "^2.5.0"
 
 "@aws-amplify/api@6.3.9":
@@ -688,15 +586,6 @@
   version "6.12.2"
   resolved "https://registry.npmjs.org/@aws-amplify/auth/-/auth-6.12.2.tgz"
   integrity sha512-bVuPcM/mnn8437KdkRmWys2fZ3s1YogQOmJU20HVpO0UEre5GPQnSd6SRAVGX3ZQCTjYcOvlbLGewypvVi9eYQ==
-  dependencies:
-    "@aws-crypto/sha256-js" "5.2.0"
-    "@smithy/types" "^3.3.0"
-    tslib "^2.5.0"
-
-"@aws-amplify/auth@6.17.1":
-  version "6.17.1"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/auth/-/auth-6.17.1.tgz#630394d2fbc04c47dd5bb389f68750aa268e7c89"
-  integrity sha512-1zDSmX8fzhDFEUroPMyxuqkUFN2lEKPqSFcstl50/stvxVPiymTEpH6FWVTga9mTjK/Hifd7ye4m5gM6gF/Y4A==
   dependencies:
     "@aws-crypto/sha256-js" "5.2.0"
     "@smithy/types" "^3.3.0"
@@ -823,20 +712,6 @@
     rxjs "^7.8.1"
     tslib "^2.5.0"
     uuid "^9.0.0"
-
-"@aws-amplify/core@6.15.0":
-  version "6.15.0"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/core/-/core-6.15.0.tgz#274b3684c4ea77fe31aa75b751c60f2c4d5988d6"
-  integrity sha512-D08O7GaF6bDcwhKBkSURus5vJGdaNrTeIEZk9OQiDe3jiR1HOiNq7djIZXUWLc3FuiJ1Yhf2aHTD9/Gj6fqQxw==
-  dependencies:
-    "@aws-crypto/sha256-js" "5.2.0"
-    "@aws-sdk/types" "3.398.0"
-    "@smithy/util-hex-encoding" "2.0.0"
-    "@types/uuid" "^9.0.0"
-    js-cookie "^3.0.5"
-    rxjs "^7.8.1"
-    tslib "^2.5.0"
-    uuid "^11.0.0"
 
 "@aws-amplify/data-construct@^1.10.1":
   version "1.14.2"
@@ -993,19 +868,6 @@
   dependencies:
     "@aws-amplify/api" "6.3.9"
     "@aws-amplify/api-graphql" "4.7.13"
-    buffer "4.9.2"
-    idb "5.0.6"
-    immer "9.0.6"
-    rxjs "^7.8.1"
-    ulid "^2.3.0"
-
-"@aws-amplify/datastore@5.1.2":
-  version "5.1.2"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/datastore/-/datastore-5.1.2.tgz#956af4c848af1aa48e985a9f0e01c846a85912c1"
-  integrity sha512-ELIjTLzvw6EP8SCqsaDs0hKtAkiBkN7Z4jHqBiK08z5XY9LhWGL6/s5yZ95TKbwZbXC2t9gdef2uF8jnjHpvFQ==
-  dependencies:
-    "@aws-amplify/api" "6.3.21"
-    "@aws-amplify/api-graphql" "4.8.2"
     buffer "4.9.2"
     idb "5.0.6"
     immer "9.0.6"
@@ -1463,15 +1325,6 @@
     lodash "^4.17.21"
     tslib "^2.5.0"
 
-"@aws-amplify/notifications@2.0.90":
-  version "2.0.90"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/notifications/-/notifications-2.0.90.tgz#5fbc67dbc9d68f6cc11ee8f7d69fd04584d4bfa2"
-  integrity sha512-mJGVpR9JbCO+WELIE98QIglndSc5vbMumCDEj/gbNCfXAhqplOu4KQp6lgwnj9XY18nnrQYrSUTfWAdkZUUigg==
-  dependencies:
-    "@aws-sdk/types" "3.398.0"
-    lodash "^4.17.21"
-    tslib "^2.5.0"
-
 "@aws-amplify/platform-core@^1.0.0", "@aws-amplify/platform-core@^1.10.1":
   version "1.10.2"
   resolved "https://registry.yarnpkg.com/@aws-amplify/platform-core/-/platform-core-1.10.2.tgz#1e615efa03dc7365d5a11af723daba7464c0ab70"
@@ -1536,18 +1389,6 @@
   version "1.0.30"
   resolved "https://registry.npmjs.org/@aws-amplify/rtn-web-browser/-/rtn-web-browser-1.0.30.tgz"
   integrity sha512-1n3za9kmCOMjOXh3qMGZboQm6PlefiDZED1b78cOpeyha7AzynOfJm8y8jGd71gZPODSP94FD+6aa7VNq/S/4w==
-
-"@aws-amplify/storage@6.11.0":
-  version "6.11.0"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/storage/-/storage-6.11.0.tgz#63d948ef056f23be6c752791da7b6c7342ca0d9f"
-  integrity sha512-VRc2N+xLrdrajyqxmazRlICBZvly8XElpHfl96CtKKqCnAd3fTlsH0fsUwXCkZcVestn0POGQ1t4ShvRUaDYvQ==
-  dependencies:
-    "@aws-sdk/types" "3.398.0"
-    "@smithy/md5-js" "2.0.7"
-    buffer "4.9.2"
-    crc-32 "1.2.2"
-    fast-xml-parser "^4.4.1"
-    tslib "^2.5.0"
 
 "@aws-amplify/storage@6.8.2":
   version "6.8.2"
@@ -16088,20 +15929,6 @@ aws-amplify@6.14.2:
     "@aws-amplify/storage" "6.8.2"
     tslib "^2.5.0"
 
-aws-amplify@^6.15.9:
-  version "6.15.9"
-  resolved "https://registry.yarnpkg.com/aws-amplify/-/aws-amplify-6.15.9.tgz#3be77dc8e3495d5c9892ffa5e214bf4c39bc2e95"
-  integrity sha512-KnRxqIwy1Qgwkv6vMWmji/KXhY1T1ii0Cpy7F9bYZ7IkacywcC1LwsXuq5ySz1HtbCcSG1zZ3DJs3wJpSzNcEA==
-  dependencies:
-    "@aws-amplify/analytics" "7.0.90"
-    "@aws-amplify/api" "6.3.21"
-    "@aws-amplify/auth" "6.17.1"
-    "@aws-amplify/core" "6.15.0"
-    "@aws-amplify/datastore" "5.1.2"
-    "@aws-amplify/notifications" "2.0.90"
-    "@aws-amplify/storage" "6.11.0"
-    tslib "^2.5.0"
-
 aws-sign2@~0.7.0:
   version "0.7.0"
   resolved "https://registry.npmjs.org/aws-sign2/-/aws-sign2-0.7.0.tgz"
@@ -22190,11 +22017,6 @@ ignore-walk@^7.0.0:
   integrity sha512-T4gbf83A4NH95zvhVYZc+qWocBBGlpzUXLPGurJggw/WIOwicfXJChLDP/iBZnN5WqROSu5Bm3hhle4z8a8YGQ==
   dependencies:
     minimatch "^9.0.0"
-
-ignore@6.0.2:
-  version "6.0.2"
-  resolved "https://registry.npmjs.org/ignore/-/ignore-6.0.2.tgz"
-  integrity sha512-InwqeHHN2XpumIkMvpl/DCJVrAHgCsG5+cn1XlnLWGwtZBm8QJfSusItfrwx81CTp5agNZqpKU2J/ccC5nGT4A==
 
 ignore@7.0.5, ignore@^7.0.0, ignore@^7.0.3, ignore@^7.0.5:
   version "7.0.5"
@@ -29655,11 +29477,6 @@ semver@7.6.0:
   dependencies:
     lru-cache "^6.0.0"
 
-semver@7.6.3, semver@^7.6.3:
-  version "7.6.3"
-  resolved "https://registry.npmjs.org/semver/-/semver-7.6.3.tgz#980f7b5550bc175fb4dc09403085627f9eb33143"
-  integrity sha512-oVekP1cKtI+CTDvHWYFUcMtsK/00wmAEfyqKfNdARm8u1wNVhSgaX7A8d4UuIlUI5e84iEwOhs7ZPYRmzU9U6A==
-
 semver@7.7.1, semver@^7.6.0, semver@^7.7.1:
   version "7.7.1"
   resolved "https://registry.npmjs.org/semver/-/semver-7.7.1.tgz"
@@ -29691,6 +29508,11 @@ semver@^7.5.2, semver@^7.7.2, semver@^7.7.3:
   version "7.7.3"
   resolved "https://registry.npmjs.org/semver/-/semver-7.7.3.tgz"
   integrity sha512-SdsKMrI9TdgjdweUSR9MweHA4EJ8YxHn8DFaDisvhVlUOe4BF1tLD7GAj0lIqWVl+dPb/rExr0Btby5loQm20Q==
+
+semver@^7.6.3:
+  version "7.6.3"
+  resolved "https://registry.npmjs.org/semver/-/semver-7.6.3.tgz#980f7b5550bc175fb4dc09403085627f9eb33143"
+  integrity sha512-oVekP1cKtI+CTDvHWYFUcMtsK/00wmAEfyqKfNdARm8u1wNVhSgaX7A8d4UuIlUI5e84iEwOhs7ZPYRmzU9U6A==
 
 send@0.18.0, send@0.19.0, send@^0.19.0, send@~0.19.0:
   version "0.19.1"
@@ -32518,7 +32340,7 @@ uuid@9.0.1, uuid@^9.0.0, uuid@^9.0.1:
   resolved "https://registry.npmjs.org/uuid/-/uuid-9.0.1.tgz"
   integrity sha512-b+1eJOlsR9K8HJpow9Ok3fiWOWSIcIzXodvv0rQjVoOVNpWMpxf1wZNpt4y9h10odCNrqnYp1OBzRktckBe3sA==
 
-uuid@^11.0.0, uuid@^11.1.0:
+uuid@^11.1.0:
   version "11.1.0"
   resolved "https://registry.npmjs.org/uuid/-/uuid-11.1.0.tgz"
   integrity sha512-0/A9rDy9P7cJ+8w1c9WD9V//9Wj15Ce2MPz8Ri6032usz+NfePxx5AcN3bN+r6ZL6jEo066/yNYB3tn4pQEx+A==
