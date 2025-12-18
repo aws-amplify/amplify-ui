@@ -50,5 +50,16 @@ module.exports = {
         './projects/ui-angular/src/lib/components/authenticator/components/setup-totp/setup-totp.component.spec.ts',
       ],
     },
+    {
+      rules: {
+        'import/no-extraneous-dependencies': [
+          'off',
+          {
+            packageDir: ['.', '../..'],
+          },
+        ],
+      },
+      files: ['**/*.ts'],
+    },
   ],
 };
