@@ -8,7 +8,7 @@ import type {
   LocationData,
   ActionInputConfig,
 } from './types';
-import { getFilteredLocations } from './utils';
+import { deduplicateLocations, getFilteredLocations } from './utils';
 
 const DEFAULT_PAGE_SIZE = 1000;
 
@@ -76,5 +76,11 @@ export const listLocationsHandler: ListLocationsHandler = async (input) => {
     return { items, nextToken: output.nextToken };
   };
 
-  return fetchLocations([], nextToken);
+  const result = await fetchLocations([], nextToken);
+
+  // Deduplicate locations with the same bucket and prefix, keeping broader permissions
+  return {
+    items: deduplicateLocations(result.items),
+    nextToken: result.nextToken,
+  };
 };
