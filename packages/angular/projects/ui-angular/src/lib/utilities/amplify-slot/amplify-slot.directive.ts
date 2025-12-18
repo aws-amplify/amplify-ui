@@ -2,6 +2,7 @@ import { Directive, Input, TemplateRef } from '@angular/core';
 
 @Directive({
   selector: '[amplifySlot]',
+  standalone: false,
 })
 export class AmplifySlotDirective {
   public name: string;

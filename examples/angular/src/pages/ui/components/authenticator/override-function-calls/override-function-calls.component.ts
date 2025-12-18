@@ -5,6 +5,7 @@ import awsExports from './aws-exports';
 
 @Component({
   selector: 'override-function-calls',
+  standalone: false,
   templateUrl: 'override-function-calls.component.html',
 })
 export class OverrideFunctionCallsComponent {

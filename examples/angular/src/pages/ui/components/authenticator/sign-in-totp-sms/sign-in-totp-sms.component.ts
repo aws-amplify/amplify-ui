@@ -5,6 +5,7 @@ import awsExports from './aws-exports';
 
 @Component({
   selector: 'sign-in-totp-sms',
+  standalone: false,
   templateUrl: 'sign-in-totp-sms.component.html',
 })
 export class SignInTOTPSMSComponent {

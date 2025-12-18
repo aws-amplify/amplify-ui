@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'use-authenticator',
+  standalone: false,
   templateUrl: 'useAuthenticator.component.html',
 })
 export class UseAuthenticatorComponent {
