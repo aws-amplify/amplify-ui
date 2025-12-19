@@ -19,7 +19,7 @@ export class UseAuthenticatorComponent {
     Amplify.configure(awsExports);
   }
 
-  public navigateHome(event: Event) {
+  public navigateHome(event: Event): void {
     event.preventDefault();
     this.router.navigate(['home'], { relativeTo: this.route });
   }

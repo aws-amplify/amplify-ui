@@ -9,12 +9,10 @@ import awsExports from './aws-exports';
   templateUrl: 'override-function-calls.component.html',
 })
 export class OverrideFunctionCallsComponent {
-  constructor() {
-    Amplify.configure(awsExports);
-  }
   services = {
-    async handleSignUp(input: SignUpInput) {
-      let { username, password, options } = input;
+    async handleSignUp(input: SignUpInput): ReturnType<typeof signUp> {
+      let { username } = input;
+      const { password, options } = input;
       // custom username and email
       username = username.toLowerCase();
       const customEmail = options?.userAttributes?.email?.toLowerCase();
@@ -31,4 +29,7 @@ export class OverrideFunctionCallsComponent {
       });
     },
   };
+  constructor() {
+    Amplify.configure(awsExports);
+  }
 }

@@ -12,25 +12,25 @@ import awsExports from './aws-exports';
 export class SignInWithEmailMfaSetupSelectionComponent implements OnInit {
   public services: AuthenticatorComponent['services'] = {
     handleSignIn: async () => {
-      return {
+      return Promise.resolve({
         isSignedIn: false,
         nextStep: {
           signInStep: 'CONTINUE_SIGN_IN_WITH_MFA_SETUP_SELECTION',
           allowedMFATypes: ['EMAIL', 'TOTP'],
         },
-      };
+      });
     },
     handleConfirmSignIn: async ({ challengeResponse }) => {
       if (challengeResponse === 'EMAIL') {
-        return {
+        return Promise.resolve({
           isSignedIn: false,
           nextStep: {
             signInStep: 'CONTINUE_SIGN_IN_WITH_EMAIL_SETUP',
           },
-        };
+        });
       }
       if (challengeResponse.includes('@example.com')) {
-        return {
+        return Promise.resolve({
           isSignedIn: false,
           nextStep: {
             signInStep: 'CONFIRM_SIGN_IN_WITH_EMAIL_CODE',
@@ -40,23 +40,23 @@ export class SignInWithEmailMfaSetupSelectionComponent implements OnInit {
               attributeName: 'email',
             },
           },
-        };
+        });
       }
       if (challengeResponse === '123456') {
-        return {
+        return Promise.resolve({
           isSignedIn: true,
           nextStep: {
             signInStep: 'DONE',
           },
-        };
+        });
       }
       throw new Error('Invalid code or auth state for the user.');
     },
     getCurrentUser: async () => {
-      return {
+      return Promise.resolve({
         userId: '******************',
         username: 'james',
-      };
+      });
     },
   };
 
@@ -64,5 +64,8 @@ export class SignInWithEmailMfaSetupSelectionComponent implements OnInit {
     Amplify.configure(awsExports);
   }
 
-  ngOnInit(): void {}
+  // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
+  ngOnInit(): void {
+    /* noop */
+  }
 }

@@ -17,7 +17,7 @@ export class SignInSMSMFAComponent implements OnInit {
     Amplify.configure(awsExports);
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     I18n.putVocabularies(translations);
     I18n.setLanguage('en');
     I18n.putVocabulariesForLanguage('en', {

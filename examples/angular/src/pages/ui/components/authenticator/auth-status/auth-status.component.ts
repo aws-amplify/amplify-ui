@@ -20,14 +20,15 @@ export class AuthStatusComponent {
     return this.authenticator.authStatus === 'authenticated';
   }
 
-  signOut() {
+  signOut(): void {
     signOut();
   }
 
-  handleSubmit(event: Event) {
+  handleSubmit(event: Event): void {
     event.preventDefault();
 
     const formData = new FormData(event.target as HTMLFormElement);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     signIn(Object.fromEntries(formData) as any);
   }
 }

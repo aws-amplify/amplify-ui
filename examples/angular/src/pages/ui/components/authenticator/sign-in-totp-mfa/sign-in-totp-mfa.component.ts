@@ -9,10 +9,10 @@ import awsExports from './aws-exports';
   templateUrl: 'sign-in-totp-mfa.component.html',
 })
 export class SignInTOTPMFAComponent {
-  constructor() {
-    Amplify.configure(awsExports);
-  }
   public formFields = {
     setupTotp: { QR: { totpIssuer: 'My Web App' } },
   };
+  constructor() {
+    Amplify.configure(awsExports);
+  }
 }
