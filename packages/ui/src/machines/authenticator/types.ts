@@ -122,6 +122,68 @@ export interface ActorDoneData {
 }
 
 /**
+ * Passwordless authentication configuration for the Authenticator component.
+ *
+ * Enables modern authentication methods including Email OTP, SMS OTP, and WebAuthn (passkeys)
+ * while maintaining compatibility with traditional password authentication.
+ */
+export interface PasswordlessAuthOptions {
+  /**
+   * Array of enabled authentication methods.
+   *
+   * @default ['PASSWORD', 'EMAIL_OTP', 'SMS_OTP', 'WEB_AUTHN']
+   *
+   * @example
+   * // Email OTP only
+   * enabledAuthMethods: ['EMAIL_OTP']
+   *
+   * @example
+   * // Multi-method passwordless
+   * enabledAuthMethods: ['EMAIL_OTP', 'SMS_OTP', 'WEB_AUTHN']
+   *
+   * @example
+   * // Hybrid with passwords
+   * enabledAuthMethods: ['PASSWORD', 'EMAIL_OTP', 'WEB_AUTHN']
+   */
+  enabledAuthMethods: Array<'PASSWORD' | 'EMAIL_OTP' | 'SMS_OTP' | 'WEB_AUTHN'>;
+  /**
+   * Default authentication method to present to users.
+   * Must be included in the methods array.
+   *
+   * @default First method in the methods array
+   */
+  preferredAuthMethod?: 'PASSWORD' | 'EMAIL_OTP' | 'SMS_OTP' | 'WEB_AUTHN';
+  /**
+   * Configure when passkey registration prompts appear.
+   *
+   * @example
+   * // Simple boolean - enables default prompts
+   * passkeyRegistrationPrompts: true
+   *
+   * @example
+   * // Granular control
+   * passkeyRegistrationPrompts: {
+   *   afterSignup: 'ALWAYS',
+   *   afterSignin: 'NEVER'
+   * }
+   */
+  passkeyRegistrationPrompts?:
+    | {
+        /**
+         * Show passkey registration prompt after successful sign-in.
+         * @default 'ALWAYS'
+         */
+        afterSignin?: 'ALWAYS' | 'NEVER';
+        /**
+         * Show passkey registration prompt after successful sign-up.
+         * @default 'ALWAYS'
+         */
+        afterSignup?: 'ALWAYS' | 'NEVER';
+      }
+    | boolean;
+}
+
+/**
  * Context interface for the top-level machine
  */
 export interface AuthContext {
@@ -134,6 +196,25 @@ export interface AuthContext {
     formFields?: AuthFormFields;
     initialState?: 'signIn' | 'signUp' | 'forgotPassword';
     passwordSettings?: PasswordSettings;
+    /**
+     * Enable passwordless authentication methods.
+     *
+     * When provided, configures the Authenticator to support modern
+     * authentication flows including Email OTP, SMS OTP, and WebAuthn passkeys.
+     *
+     * @example
+     * // Simple passwordless
+     * <Authenticator passwordlessAuthOptions={{ enabledAuthMethods: ['EMAIL_OTP'] }} />
+     *
+     * @example
+     * // Multi-method with passkeys
+     * <Authenticator passwordlessAuthOptions={{
+     *   enabledAuthMethods: ['EMAIL_OTP', 'WEB_AUTHN'],
+     *   preferredAuthMethod: 'EMAIL_OTP',
+     *   passkeyRegistrationPrompts: { afterSignup: 'ALWAYS' }
+     * }} />
+     */
+    passwordlessAuthOptions?: PasswordlessAuthOptions;
   };
   services?: Partial<typeof defaultServices>;
   user?: AuthUser;
