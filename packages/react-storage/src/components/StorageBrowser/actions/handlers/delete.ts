@@ -131,7 +131,7 @@ export const deleteHandler: DeleteHandler = ({
   operationCancel = operation.cancel;
 
   const newResult = operation.result
-    .then(({ path }) => {
+    .then(({ path, summary, isFolder, failed }) => {
       return {
         status: 'COMPLETE' as const,
         value: { key: path },

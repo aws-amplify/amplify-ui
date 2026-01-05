@@ -13,11 +13,18 @@ import {
 import '@aws-amplify/ui-react/styles.css';
 
 import awsExports from './aws-exports';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { CookieStorage } from 'aws-amplify/utils';
 Amplify.configure(awsExports);
 
 function App() {
   const { authStatus } = useAuthenticator();
+  useEffect(() => {
+    async function my() {
+      let storage = new CookieStorage();
+      let item = await storage.getItem('');
+    }
+  }, []);
 
   const isAuthenticated = authStatus === 'authenticated';
 
