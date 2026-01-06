@@ -105,6 +105,12 @@ export function signUpActor({ services }: SignUpMachineOptions) {
           tags: 'pending',
           invoke: { src: 'autoSignIn', ...handleAutoSignInResponse },
         },
+        manualSignIn: {
+          always: {
+            actions: 'setSignInStep',
+            target: '#signUpActor.resolved',
+          },
+        },
         fetchUserAttributes: {
           invoke: {
             src: 'fetchUserAttributes',
@@ -241,6 +247,11 @@ export function signUpActor({ services }: SignUpMachineOptions) {
                     cond: 'shouldAutoSignIn',
                     actions: ['setNextSignUpStep', 'clearFormValues'],
                     target: '#signUpActor.autoSignIn',
+                  },
+                  {
+                    cond: 'shouldManualSignIn',
+                    actions: ['clearFormValues'],
+                    target: '#signUpActor.manualSignIn',
                   },
                   {
                     actions: 'setNextSignUpStep',
