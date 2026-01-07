@@ -5,6 +5,7 @@ import * as AuthModule from 'aws-amplify/auth';
 
 import { SignUpMachineOptions, signUpActor } from '../signUp';
 import { SignUpContext } from '../../types';
+import guards from '../../guards';
 
 jest.mock('aws-amplify');
 
@@ -32,10 +33,173 @@ describe('signUpActor', () => {
   afterEach(() => {
     jest.clearAllMocks();
     jest.clearAllTimers();
-    service.stop();
+    service?.stop();
+  });
+
+  // New tests for shouldManualSignIn guard
+  describe('shouldManualSignIn guard', () => {
+    const createMockContext = (step: string) =>
+      ({
+        step,
+        loginMechanisms: ['username'],
+        socialProviders: [],
+        formValues: {},
+        touched: {},
+        validationError: {},
+      }) as any;
+
+    const createMockEvent = (signUpStep: string) => ({
+      type: 'done.invoke.confirmSignUp' as any,
+      data: {
+        nextStep: { signUpStep },
+      },
+    });
+
+    it('should return true when nextStep is DONE and contextStep is CONFIRM_SIGN_UP', () => {
+      const context = createMockContext('CONFIRM_SIGN_UP');
+      const event = createMockEvent('DONE');
+      const meta = {} as any;
+
+      const result = guards.shouldManualSignIn(context, event, meta);
+      expect(result).toBe(true);
+    });
+
+    it('should return false when nextStep is COMPLETE_AUTO_SIGN_IN', () => {
+      const context = createMockContext('CONFIRM_SIGN_UP');
+      const event = createMockEvent('COMPLETE_AUTO_SIGN_IN');
+      const meta = {} as any;
+
+      const result = guards.shouldManualSignIn(context, event, meta);
+      expect(result).toBe(false);
+    });
+
+    it('should return false when contextStep is not CONFIRM_SIGN_UP', () => {
+      const context = createMockContext('SIGN_UP');
+      const event = createMockEvent('DONE');
+      const meta = {} as any;
+
+      const result = guards.shouldManualSignIn(context, event, meta);
+      expect(result).toBe(false);
+    });
+
+    it('should return false when nextStep is not DONE', () => {
+      const context = createMockContext('CONFIRM_SIGN_UP');
+      const event = createMockEvent('CONFIRM_SIGN_UP');
+      const meta = {} as any;
+
+      const result = guards.shouldManualSignIn(context, event, meta);
+      expect(result).toBe(false);
+    });
+  });
+
+  // New test for manualSignIn state behavior
+  describe('manualSignIn state', () => {
+    it('should transition to resolved with SIGN_IN step when shouldManualSignIn is true', async () => {
+      const mockConfirmSignUp = jest.fn().mockResolvedValue({
+        nextStep: { signUpStep: 'DONE' },
+      });
+
+      service = interpret(
+        signUpActor(signUpMachineProps)
+          .withContext({
+            step: 'CONFIRM_SIGN_UP',
+            username: mockUsername,
+            formValues: {
+              confirmation_code: mockConfirmationCode,
+            },
+            loginMechanisms: ['username'],
+          } as unknown as SignUpContext)
+          .withConfig({
+            actions: {
+              clearFormValues: jest.fn(),
+              clearError: jest.fn(),
+              clearTouched: jest.fn(),
+              sendUpdate: jest.fn(),
+              setNextSignUpStep: jest.fn(),
+              setSignInStep: jest.fn(),
+            },
+            services: {
+              confirmSignUp: mockConfirmSignUp,
+              validateSignUp: jest.fn().mockResolvedValue(null),
+            },
+            guards: {
+              shouldAutoSignIn: jest.fn(() => false),
+              shouldManualSignIn: jest.fn(() => true),
+            },
+          })
+      );
+
+      service.start();
+
+      // Start in confirmSignUp state
+      expect(service.getSnapshot().value).toEqual({
+        confirmSignUp: 'edit',
+      });
+
+      // Submit confirmation code
+      service.send({ type: 'SUBMIT' });
+      await flushPromises();
+
+      // Should reach resolved state
+      expect(service.getSnapshot().value).toBe('resolved');
+
+      // Should have called setSignInStep action
+      expect(service.getSnapshot().context.step).toBeDefined();
+    });
+  });
+
+  // Integration test for the complete flow
+  describe('confirmSignUp flow with refresh scenario', () => {
+    it('should route to manualSignIn when coming from sign-in flow', async () => {
+      const mockConfirmSignUp = jest.fn().mockResolvedValue({
+        nextStep: { signUpStep: 'DONE' },
+      });
+
+      service = interpret(
+        signUpActor(signUpMachineProps)
+          .withContext({
+            step: 'CONFIRM_SIGN_UP', // This indicates refresh scenario
+            username: mockUsername,
+            formValues: {
+              confirmation_code: mockConfirmationCode,
+            },
+            loginMechanisms: ['username'],
+          } as unknown as SignUpContext)
+          .withConfig({
+            actions: {
+              clearFormValues: jest.fn(),
+              clearError: jest.fn(),
+              sendUpdate: jest.fn(),
+              setNextSignUpStep: jest.fn(),
+              setSignInStep: jest.fn(),
+            },
+            services: {
+              confirmSignUp: mockConfirmSignUp,
+            },
+          })
+      );
+
+      service.start();
+
+      // Submit confirmation
+      service.send({ type: 'SUBMIT' });
+      await flushPromises();
+
+      // Verify confirmSignUp was called (with full context as first parameter)
+      expect(mockConfirmSignUp).toHaveBeenCalled();
+
+      // Verify the service was called with context containing the right data
+      const callArgs = mockConfirmSignUp.mock.calls[0][0];
+      expect(callArgs.username).toBe(mockUsername);
+      expect(callArgs.formValues.confirmation_code).toBe(mockConfirmationCode);
+
+      // Should reach resolved state (after going through manualSignIn)
+      expect(service.getSnapshot().value).toBe('resolved');
+    });
   });
 
   // @todo-migration
+  //   TypeError: Cannot destructure property 'codeDeliveryDetails' of '((cov_orv9ttv7g(...).s[75]++) , data.nextStep)' as it is undefined.
   //   TypeError: Cannot destructure property 'codeDeliveryDetails' of '((cov_orv9ttv7g(...).s[75]++) , data.nextStep)' as it is undefined.
   it.skip('should transition from initial state to resolved', async () => {
     service = interpret(
