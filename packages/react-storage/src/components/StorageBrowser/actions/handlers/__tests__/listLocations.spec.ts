@@ -17,7 +17,10 @@ jest.mock('../../../storage-internal');
 const mockListCallerAccessGrants = jest.mocked(listCallerAccessGrants);
 
 const generateMockLocations = (size: number, mockLocations: LocationAccess) =>
-  Array<LocationAccess>(size).fill(mockLocations);
+  Array.from({ length: size }, (_, i) => ({
+    ...mockLocations,
+    scope: `s3://bucket/prefix${i + 1}/*`,
+  }));
 
 const accountId = 'account-id';
 const credentials: LocationCredentialsProvider = jest.fn();
@@ -80,18 +83,20 @@ describe('listLocationsHandler', () => {
       permission: 'READWRITE',
       type: 'PREFIX',
     };
+    const allLocations = generateMockLocations(5, mockLocation);
+
     const mockOutputPage1: ListLocationsOutput = {
-      locations: [mockLocation],
+      locations: [allLocations[0]],
       nextToken: 'token1',
     };
 
     const mockOutputPage2: ListLocationsOutput = {
-      locations: [...generateMockLocations(2, mockLocation)],
+      locations: [allLocations[1], allLocations[2]],
       nextToken: 'token2',
     };
 
     const mockOutputPage3: ListLocationsOutput = {
-      locations: [...generateMockLocations(2, mockLocation)],
+      locations: [allLocations[3], allLocations[4]],
       nextToken: undefined,
     };
 
