@@ -1,10 +1,11 @@
-import {
-  list,
+import { getBucketRegion } from './utils';
+import type {
   StorageSubpathStrategy,
   ListPaginateInput,
   ListOutput,
 } from '../../storage-internal';
-import {
+import { list } from '../../storage-internal';
+import type {
   ListHandler,
   ListHandlerInput,
   ListHandlerOptions,
@@ -98,7 +99,7 @@ export const listLocationItemsHandler: ListLocationItemsHandler = async (
     bucket: _bucket,
     credentials,
     customEndpoint,
-    region,
+    region: globalRegion,
     accountId,
   } = config;
 
@@ -110,7 +111,8 @@ export const listLocationItemsHandler: ListLocationItemsHandler = async (
     ..._options
   } = options ?? {};
 
-  const bucket = { bucketName: _bucket, region };
+  const bucketRegion = getBucketRegion(_bucket, globalRegion);
+  const bucket = { bucketName: _bucket, region: bucketRegion };
   const subpathStrategy: StorageSubpathStrategy = {
     delimiter,
     strategy: delimiter ? 'exclude' : 'include',
@@ -150,7 +152,7 @@ export const listLocationItemsHandler: ListLocationItemsHandler = async (
     result.push(
       ...(exclude ? items.filter((item) => item.type !== exclude) : items)
     );
-  } while (nextNextToken && result.length < pageSize);
+  } while (nextNextToken && result.length < _pageSize);
 
   return { items: result, nextToken: nextNextToken };
 };

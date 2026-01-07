@@ -1,5 +1,5 @@
 import React from 'react';
-import { SuggestedPrompt } from '../types';
+import type { SuggestedPrompt } from '../types';
 
 type SuggestedPromptsContextProps = SuggestedPrompt[] | undefined;
 
@@ -12,7 +12,7 @@ export const SuggestedPromptProvider = ({
 }: {
   children?: React.ReactNode;
   suggestedPrompts?: SuggestedPrompt[];
-}): JSX.Element => {
+}): React.JSX.Element => {
   return (
     <SuggestedPromptsContext.Provider value={suggestedPrompts}>
       {children}

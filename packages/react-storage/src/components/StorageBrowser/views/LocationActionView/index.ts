@@ -1,34 +1,31 @@
-export {
-  CopyView,
-  CopyViewProps,
-  CopyViewType,
-  CopyViewState,
-  useCopyView,
-} from './CopyView';
-export {
-  CreateFolderView,
+export type { CopyViewProps, CopyViewType, CopyViewState } from './CopyView';
+export { CopyView, useCopyView } from './CopyView';
+export type {
   CreateFolderViewProps,
   CreateFolderViewType,
   CreateFolderViewState,
-  useCreateFolderView,
 } from './CreateFolderView';
-export {
-  DeleteView,
+export { CreateFolderView, useCreateFolderView } from './CreateFolderView';
+export type {
   DeleteViewProps,
   DeleteViewType,
   DeleteViewState,
-  useDeleteView,
 } from './DeleteView';
+export { DeleteView, useDeleteView } from './DeleteView';
+export type {
+  DownloadViewProps,
+  DownloadViewType,
+  DownloadViewState,
+} from './DownloadView';
+export { DownloadView, useDownloadView } from './DownloadView';
 export { LocationActionView } from './LocationActionView';
-export {
-  UploadView,
+export type {
   UploadViewProps,
   UploadViewType,
   UploadViewState,
-  useUploadView,
 } from './UploadView';
-export { useActionView } from './useActionView';
-export {
+export { UploadView, useUploadView } from './UploadView';
+export type {
   ActionViewState,
   LocationActionViewType,
   LocationActionViewProps,

@@ -1,6 +1,8 @@
-import { Modifiers } from '../types';
+import type { Modifiers } from '../types';
 
 /**
+ * @deprecated - will be removed in a future major version
+ *
  * Some libraries may not follow Node ES module spec and could be loaded as CommonJS modules,
  * To ensure the interoperability between ESM and CJS, modules from those libraries have to be loaded via namespace import
  * And sanitized by the function below because unlike ESM namespace, CJS namespace set `module.exports` object on the `default` key
@@ -217,10 +219,11 @@ export const classNameModifierByFlag = (
  */
 export function templateJoin(
   values: string[],
-  template: (value: string) => string
+  template: (value: string, index: number, values: string[]) => string
 ): string {
   return values.reduce(
-    (acc, curr) => `${acc}${isString(curr) ? template(curr) : ''}`,
+    (acc, curr, index) =>
+      `${acc}${isString(curr) ? template(curr, index, values) : ''}`,
     ''
   );
 }

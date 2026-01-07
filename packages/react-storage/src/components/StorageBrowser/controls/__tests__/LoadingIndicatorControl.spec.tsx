@@ -6,7 +6,7 @@ import { useResolvedComposable } from '../hooks/useResolvedComposable';
 
 jest.mock('../hooks/useLoadingIndicator');
 jest.mock('../hooks/useResolvedComposable');
-jest.mock('../../composables/LoadingIndicator', () => ({
+jest.mock('../../components/composables/LoadingIndicator', () => ({
   LoadingIndicator: () => <div data-testid="loading-indicator" />,
 }));
 

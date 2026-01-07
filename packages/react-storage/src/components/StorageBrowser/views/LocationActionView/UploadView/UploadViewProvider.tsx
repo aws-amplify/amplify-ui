@@ -1,11 +1,13 @@
 import React from 'react';
 
+import { isMultipartUpload } from '../../../actions';
 import { ControlsContextProvider } from '../../../controls/context';
 import { useDisplayText } from '../../../displayText';
 
-import { getActionViewTableData } from '../getActionViewTableData';
+import { useResolveTableData } from '../../hooks/useResolveTableData';
+import { UPLOAD_TABLE_KEYS, UPLOAD_TABLE_RESOLVERS } from '../../utils';
 
-import { UploadViewProviderProps } from './types';
+import type { UploadViewProviderProps } from './types';
 
 export function UploadViewProvider({
   children,
@@ -30,16 +32,20 @@ export function UploadViewProvider({
   } = displayText;
 
   const {
+    hasNextPage,
+    highestPageVisited,
+    page,
     isOverwritingEnabled,
     isProcessing,
     isProcessingComplete,
     location,
-    tasks,
+    tasks: items,
     statusCounts,
     invalidFiles,
     onActionStart,
     onActionCancel,
     onDropFiles,
+    onPaginate,
     onActionExit,
     onTaskRemove,
     onSelectFiles,
@@ -63,6 +69,15 @@ export function UploadViewProvider({
       ? getFilesValidationMessage({ invalidFiles })
       : undefined;
 
+  const tableData = useResolveTableData(
+    UPLOAD_TABLE_KEYS,
+    UPLOAD_TABLE_RESOLVERS,
+    {
+      items,
+      props: { displayText, isProcessing, isMultipartUpload, onTaskRemove },
+    }
+  );
+
   return (
     <ControlsContextProvider
       data={{
@@ -81,6 +96,11 @@ export function UploadViewProvider({
         isOverwriteToggleDisabled: isProcessing || isProcessingComplete,
         isOverwritingEnabled,
         overwriteToggleLabel,
+        paginationData: {
+          page,
+          hasNextPage,
+          highestPageVisited,
+        },
         destination: location,
         message: actionCompleteMessage ?? filesValidationMessage,
         statusCounts,
@@ -88,18 +108,13 @@ export function UploadViewProvider({
         statusDisplayCompletedLabel,
         statusDisplayFailedLabel,
         statusDisplayQueuedLabel,
-        tableData: getActionViewTableData({
-          tasks,
-          shouldDisplayProgress: true,
-          displayText,
-          isProcessing,
-          onTaskRemove,
-        }),
+        tableData,
         title,
       }}
       onActionCancel={onActionCancel}
       onActionExit={onActionExit}
       onActionStart={onActionStart}
+      onPaginate={onPaginate}
       onAddFiles={() => {
         onSelectFiles('FILE');
       }}

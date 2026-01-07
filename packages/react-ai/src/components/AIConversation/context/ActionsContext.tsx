@@ -1,5 +1,5 @@
 import React from 'react';
-import { CustomAction } from '../types';
+import type { CustomAction } from '../types';
 
 export const ActionsContext = React.createContext<CustomAction[] | undefined>(
   undefined
@@ -11,7 +11,7 @@ export const ActionsProvider = ({
 }: {
   children?: React.ReactNode;
   actions?: CustomAction[];
-}): JSX.Element => {
+}): React.JSX.Element => {
   return (
     <ActionsContext.Provider value={actions}>
       {children}

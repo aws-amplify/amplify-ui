@@ -1,4 +1,5 @@
-import { DataTableProps } from '../../../composables/DataTable';
+import type { DataTableProps } from '../../../components';
+
 import { LOCATION_DETAIL_VIEW_HEADERS } from './constants';
 
 export const getFolderRowContent = ({
@@ -10,7 +11,7 @@ export const getFolderRowContent = ({
   rowId: string;
   onNavigate: () => void;
 }): DataTableProps['rows'][number]['content'] =>
-  LOCATION_DETAIL_VIEW_HEADERS.map(({ key: columnKey }) => {
+  LOCATION_DETAIL_VIEW_HEADERS.map((columnKey) => {
     const key = `${columnKey}-${rowId}`;
     switch (columnKey) {
       case 'checkbox': {

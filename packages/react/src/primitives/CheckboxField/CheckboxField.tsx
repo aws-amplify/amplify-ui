@@ -3,7 +3,7 @@ import { classNames } from '@aws-amplify/ui';
 
 import { classNameModifier } from '../shared/utils';
 import { Checkbox } from '../Checkbox';
-import {
+import type {
   BaseCheckboxFieldProps,
   CheckboxFieldProps,
   ForwardRefPrimitive,

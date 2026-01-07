@@ -1,14 +1,25 @@
 import { LocationAccess as AccessGrantLocation } from '../../../storage-internal';
+
+import { MULTIPART_UPLOAD_THRESHOLD_BYTES } from '../constants';
 import { LocationData } from '../types';
 
+const mockGetConfig = jest.fn();
+jest.mock('aws-amplify', () => ({
+  Amplify: {
+    getConfig: mockGetConfig,
+  },
+}));
+
 import {
-  shouldExcludeLocation,
-  getFileKey,
-  parseAccessGrantLocation,
-  getFilteredLocations,
-  isFileItem,
-  isFileDataItem,
   createFileDataItem,
+  getBucketRegion,
+  getFileKey,
+  getFilteredLocations,
+  isFileDataItem,
+  isFileItem,
+  isMultipartUpload,
+  parseAccessGrantLocation,
+  shouldExcludeLocation,
 } from '../utils';
 
 describe('utils', () => {
@@ -209,6 +220,91 @@ describe('utils', () => {
     it('should return true if object is FileDataItem', () => {
       expect(isFileDataItem({ fileKey: 'file-key' })).toBe(true);
       expect(isFileDataItem({})).toBe(false);
+    });
+  });
+
+  describe('isMultipartUpload', () => {
+    it('returns "true" for a `file.size` greater than the value of MULTIPART_UPLOAD_THRESHOLD_BYTES', () => {
+      const output = isMultipartUpload({
+        size: 1.1 * MULTIPART_UPLOAD_THRESHOLD_BYTES,
+      } as File);
+      expect(output).toBe(true);
+    });
+
+    it('returns "false" for a `file.size` equal to the value of MULTIPART_UPLOAD_THRESHOLD_BYTES', () => {
+      const output = isMultipartUpload({
+        size: MULTIPART_UPLOAD_THRESHOLD_BYTES,
+      } as File);
+      expect(output).toBe(false);
+    });
+
+    it('returns "false" for a `file.size` less than the value of MULTIPART_UPLOAD_THRESHOLD_BYTES', () => {
+      const output = isMultipartUpload({
+        size: MULTIPART_UPLOAD_THRESHOLD_BYTES / 2,
+      } as File);
+      expect(output).toBe(false);
+    });
+  });
+
+  describe('getBucketRegion', () => {
+    beforeEach(() => {
+      jest.clearAllMocks();
+    });
+
+    it('returns bucket-specific region when found', () => {
+      mockGetConfig.mockReturnValue({
+        Storage: {
+          S3: {
+            buckets: {
+              TestBucket: {
+                bucketName: 'test-bucket',
+                region: 'us-west-2',
+              },
+            },
+          },
+        },
+      });
+
+      const result = getBucketRegion('test-bucket', 'us-east-1');
+      expect(result).toBe('us-west-2');
+    });
+
+    it('returns fallback region when bucket not found', () => {
+      mockGetConfig.mockReturnValue({
+        Storage: {
+          S3: {
+            buckets: {
+              OtherBucket: {
+                bucketName: 'other-bucket',
+                region: 'us-west-2',
+              },
+            },
+          },
+        },
+      });
+
+      const result = getBucketRegion('test-bucket', 'us-east-1');
+      expect(result).toBe('us-east-1');
+    });
+
+    it('returns fallback region when no buckets config', () => {
+      mockGetConfig.mockReturnValue({
+        Storage: {
+          S3: {},
+        },
+      });
+
+      const result = getBucketRegion('test-bucket', 'us-east-1');
+      expect(result).toBe('us-east-1');
+    });
+
+    it('returns fallback region when getConfig throws error', () => {
+      mockGetConfig.mockImplementation(() => {
+        throw new Error('Config error');
+      });
+
+      const result = getBucketRegion('test-bucket', 'us-east-1');
+      expect(result).toBe('us-east-1');
     });
   });
 });

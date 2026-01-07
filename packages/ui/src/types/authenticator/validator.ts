@@ -1,5 +1,5 @@
-import { PasswordSettings } from '.';
-import { AuthFormData, AuthTouchData } from './form';
+import type { PasswordSettings } from '.';
+import type { AuthFormData, AuthTouchData } from './form';
 
 /**
  * Maps each input to its validation error, if any

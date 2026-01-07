@@ -1,7 +1,7 @@
-import {
+import type {
   DataTableNumberDataCell,
   SortDirection,
-} from '../../../composables/DataTable';
+} from '../../../components';
 
 export const compareContent = (
   { value: a }: DataTableNumberDataCell['content'],

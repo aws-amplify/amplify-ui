@@ -9,14 +9,15 @@ import { useFormHandlers } from '../hooks/useFormHandlers';
 import { FormFields } from '../shared/FormFields';
 import { ConfirmSignInFooter } from '../shared/ConfirmSignInFooter';
 import { RemoteErrorMessage } from '../shared/RemoteErrorMessage';
-import { RouteContainer, RouteProps } from '../RouteContainer';
+import type { RouteProps } from '../RouteContainer';
+import { RouteContainer } from '../RouteContainer';
 
 const { getChallengeText } = authenticatorTextUtil;
 
 export const ConfirmSignIn = ({
   className,
   variation,
-}: RouteProps): JSX.Element => {
+}: RouteProps): React.JSX.Element => {
   const { isPending } = useAuthenticator((context) => [context.isPending]);
   const { handleChange, handleSubmit } = useFormHandlers();
 
@@ -64,7 +65,7 @@ function Header() {
 }
 
 ConfirmSignIn.Header = Header;
-ConfirmSignIn.Footer = function Footer(): JSX.Element {
+ConfirmSignIn.Footer = function Footer(): React.JSX.Element {
   // @ts-ignore
   return null;
 };

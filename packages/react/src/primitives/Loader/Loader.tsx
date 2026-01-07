@@ -3,8 +3,8 @@ import { classNames } from '@aws-amplify/ui';
 
 import { classNameModifier } from '../shared/utils';
 import { ComponentClassName, classNameModifierByFlag } from '@aws-amplify/ui';
-import { BaseLoaderProps, LoaderProps } from '../types/loader';
-import { ForwardRefPrimitive, Primitive } from '../types/view';
+import type { BaseLoaderProps, LoaderProps } from '../types/loader';
+import type { ForwardRefPrimitive, Primitive } from '../types/view';
 import { View } from '../View';
 import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
@@ -136,7 +136,14 @@ const LoaderPrimitive: Primitive<LoaderProps, 'svg'> = (
   );
 
   return (
-    <View as="svg" className={componentClasses} ref={ref} role="img" {...rest}>
+    <View
+      as="svg"
+      aria-valuenow={isDeterminate ? percentage : undefined}
+      className={componentClasses}
+      ref={ref}
+      role="progressbar"
+      {...rest}
+    >
       {variation === 'linear' ? linearLoader : circularLoader}
     </View>
   );

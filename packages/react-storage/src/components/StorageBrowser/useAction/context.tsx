@@ -1,6 +1,6 @@
 import { createContextUtilities } from '@aws-amplify/ui-react-core';
 
-import { ActionHandlersContext } from './types';
+import type { ActionHandlersContext } from './types';
 
 export const { ActionHandlersProvider, useActionHandlers } =
   createContextUtilities<ActionHandlersContext, 'ActionHandlers'>({

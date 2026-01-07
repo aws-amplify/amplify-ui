@@ -23,6 +23,7 @@ const { getSkipText, getVerifyText, getAccountRecoveryInfoText } =
   authenticatorTextUtil;
 @Component({
   selector: 'amplify-verify-user',
+  standalone: false,
   templateUrl: './verify-user.component.html',
   encapsulation: ViewEncapsulation.None,
 })

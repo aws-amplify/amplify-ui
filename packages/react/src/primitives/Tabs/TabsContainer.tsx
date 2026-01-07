@@ -2,9 +2,9 @@ import * as React from 'react';
 import { classNames } from '@aws-amplify/ui';
 
 import { ComponentClassName, isFunction } from '@aws-amplify/ui';
-import { ForwardRefPrimitive, Primitive } from '../types';
+import type { ForwardRefPrimitive, Primitive } from '../types';
 import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
-import { BaseTabsProps, TabsProps } from './types';
+import type { BaseTabsProps, TabsProps } from './types';
 import { View } from '../View';
 import { TabsContext } from './TabsContext';
 import { useStableId } from '../utils/useStableId';

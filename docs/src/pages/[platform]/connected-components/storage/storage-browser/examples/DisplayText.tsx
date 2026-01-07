@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StorageBrowser } from './MockStorageBrowser';
+import { StorageBrowser } from './StorageBrowser';
 
 export default function Example() {
   return (
@@ -10,6 +10,13 @@ export default function Example() {
           title: 'Select a location',
           // Some are a function that return a string
           getPermissionName: (permissions) => permissions.join('/'),
+        },
+        LocationDetailView: {
+          searchSubfoldersToggleLabel: 'Search subfolders',
+          filePreview: {
+            filePreviewTitle: 'File Preview Title',
+            closeButtonLabel: 'Close Preview',
+          },
         },
       }}
     />

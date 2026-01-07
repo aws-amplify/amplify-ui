@@ -1,5 +1,156 @@
 # @aws-amplify/ui
 
+## 6.13.0
+
+### Minor Changes
+
+- [#6766](https://github.com/aws-amplify/amplify-ui/pull/6766) [`7a8566e4e38ac52353cace115e79786083429aa1`](https://github.com/aws-amplify/amplify-ui/commit/7a8566e4e38ac52353cace115e79786083429aa1) Thanks [@Simone319](https://github.com/Simone319)! - fix: use username if present as Username parameter for signup
+
+## 6.12.1
+
+### Patch Changes
+
+- [#6723](https://github.com/aws-amplify/amplify-ui/pull/6723) [`23d2233315d7eaf1e6cd814ce3585942a51f8834`](https://github.com/aws-amplify/amplify-ui/commit/23d2233315d7eaf1e6cd814ce3585942a51f8834) Thanks [@bobbor](https://github.com/bobbor)! - Add svelte support for Authenticator
+
+## 6.12.0
+
+### Minor Changes
+
+- [#6669](https://github.com/aws-amplify/amplify-ui/pull/6669) [`dc63ac61ce5768fdbc353800f4477f3fc71c1970`](https://github.com/aws-amplify/amplify-ui/commit/dc63ac61ce5768fdbc353800f4477f3fc71c1970) Thanks [@osama-rizk](https://github.com/osama-rizk)! - feat(storage-browser): File preview and file thumbnail.
+
+## 6.11.0
+
+### Minor Changes
+
+- [#6646](https://github.com/aws-amplify/amplify-ui/pull/6646) [`40d6a0ef10157988b044339d8ac837fb757223a3`](https://github.com/aws-amplify/amplify-ui/commit/40d6a0ef10157988b044339d8ac837fb757223a3) Thanks [@szilvia-csernus](https://github.com/szilvia-csernus)! - Added Hungarian translations for the Authenticator component.
+
+- [#6690](https://github.com/aws-amplify/amplify-ui/pull/6690) [`8fae3332b6c9297efcd2d536a55cbcf4ecd46168`](https://github.com/aws-amplify/amplify-ui/commit/8fae3332b6c9297efcd2d536a55cbcf4ecd46168) Thanks [@Simone319](https://github.com/Simone319)! - fix: update password error translation text
+
+### Patch Changes
+
+- [#6216](https://github.com/aws-amplify/amplify-ui/pull/6216) [`4663860c126440e2213e58b58540756f70328338`](https://github.com/aws-amplify/amplify-ui/commit/4663860c126440e2213e58b58540756f70328338) Thanks [@PaulVPrivateaser](https://github.com/PaulVPrivateaser)! - fix: missing fr and es translations
+
+- [#6482](https://github.com/aws-amplify/amplify-ui/pull/6482) [`414b67a7a7c5a747a36970e0db961934b71e6265`](https://github.com/aws-amplify/amplify-ui/commit/414b67a7a7c5a747a36970e0db961934b71e6265) Thanks [@wapa5pow](https://github.com/wapa5pow)! - fix: translation key mismatch
+
+## 6.10.3
+
+### Patch Changes
+
+- [#6521](https://github.com/aws-amplify/amplify-ui/pull/6521) [`1002c52796c78243f836c3c0edc95edfe244f112`](https://github.com/aws-amplify/amplify-ui/commit/1002c52796c78243f836c3c0edc95edfe244f112) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(lint): add consistent import/export type eslint rules
+
+## 6.10.2
+
+### Patch Changes
+
+- [#6520](https://github.com/aws-amplify/amplify-ui/pull/6520) [`14a6df50e04b251aaf7a215ea2a84628303002ab`](https://github.com/aws-amplify/amplify-ui/commit/14a6df50e04b251aaf7a215ea2a84628303002ab) Thanks [@ashwinkumar6](https://github.com/ashwinkumar6)! - chore: update aws-amplify version
+
+## 6.10.1
+
+### Patch Changes
+
+- [#6489](https://github.com/aws-amplify/amplify-ui/pull/6489) [`e4d8cc8c04dd428d38289085a9bf797b87c058a2`](https://github.com/aws-amplify/amplify-ui/commit/e4d8cc8c04dd428d38289085a9bf797b87c058a2) Thanks [@jjarvisp](https://github.com/jjarvisp)! - fix(authenticator): skip verify attribute screen when no attributes to verify
+
+- [#6504](https://github.com/aws-amplify/amplify-ui/pull/6504) [`e533dbbdade9d5ffdbd5aa7c446d958dd1980d43`](https://github.com/aws-amplify/amplify-ui/commit/e533dbbdade9d5ffdbd5aa7c446d958dd1980d43) Thanks [@calebpollman](https://github.com/calebpollman)! - feat(storage-browser): add defaultValue, value, and onValueChange props
+
+  **Controlled `StorageBrowser`**
+
+  ```tsx
+  'use client';
+
+  import React from 'react';
+  import { useRouter, usePathname, useSearchParams } from 'next/navigation';
+
+  import { StorageBrowser } from '@aws-amplify/ui-react-storage';
+  import { StorageBrowserEventValue } from '@aws-amplify/ui-react-storage/browser';
+
+  export default function Page() {
+    const router = useRouter();
+    const pathname = usePathname();
+    const params = useSearchParams();
+
+    const value = params.get('value');
+
+    const handleValueChange = React.useCallback(
+      (nextValue: StorageBrowserEventValue) => {
+        const nextParams = new URLSearchParams();
+        nextParams.set('value', JSON.stringify(nextValue));
+
+        router.push(`${pathname}?${nextParams.toString()}`);
+      },
+      [pathname, router]
+    );
+
+    return (
+      <StorageBrowser
+        onValueChange={handleValueChange}
+        value={value ? JSON.parse(value) : null}
+      />
+    );
+  }
+  ```
+
+  **Initialize with `defaultValue`**
+
+  ```tsx
+  'use client';
+
+  import { StorageBrowser } from '@aws-amplify/ui-react-storage';
+  import { useSearchParams } from 'next/navigation';
+
+  export default function Page() {
+    const params = useSearchParams();
+
+    const value = params.get('value');
+
+    return <StorageBrowser defaultValue={value ? JSON.parse(value) : null} />;
+  }
+  ```
+
+## 6.10.0
+
+### Minor Changes
+
+- [#6469](https://github.com/aws-amplify/amplify-ui/pull/6469) [`36c631a076b7d3d1aafc18a5854575e20e0592c2`](https://github.com/aws-amplify/amplify-ui/commit/36c631a076b7d3d1aafc18a5854575e20e0592c2) Thanks [@jjarvisp](https://github.com/jjarvisp)! - feat(authenticator): add support for email otp and select mfa type challenges
+
+## 6.9.1
+
+### Patch Changes
+
+- [#6431](https://github.com/aws-amplify/amplify-ui/pull/6431) [`e0fcb4322ab8af7e0699da577dc5fbcf9f7e56cc`](https://github.com/aws-amplify/amplify-ui/commit/e0fcb4322ab8af7e0699da577dc5fbcf9f7e56cc) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - fix(ai): textarea overflow bug
+
+  This fixes an issue where pasting a large amount of text in the text box for the AIConversation component will break the UI so the user can't see the conversation and the full text in the textarea.
+
+## 6.9.0
+
+### Minor Changes
+
+- [#6312](https://github.com/aws-amplify/amplify-ui/pull/6312) [`81543cb38604a80ca2d8b93cfb7d1884d43e0a4f`](https://github.com/aws-amplify/amplify-ui/commit/81543cb38604a80ca2d8b93cfb7d1884d43e0a4f) Thanks [@kevin860](https://github.com/kevin860)! - feat(ui): allow override of resendSignUpCode function call
+
+  This feature lets you override the `resendSignUpCode` function call the same way as the `signUp`, `signIn`,
+  `confirmSignIn`, `confirmSignUp`, `forgotPassword` and `forgotPasswordSubmit` functions.
+
+## 6.8.2
+
+### Patch Changes
+
+- [#6375](https://github.com/aws-amplify/amplify-ui/pull/6375) [`fa6984721124029cf2e7d5b4ac5a3cc6c34097a6`](https://github.com/aws-amplify/amplify-ui/commit/fa6984721124029cf2e7d5b4ac5a3cc6c34097a6) Thanks [@calebpollman](https://github.com/calebpollman)! - fix: prevent signout on token refresh failure when offline
+
+## 6.8.1
+
+### Patch Changes
+
+- [#6288](https://github.com/aws-amplify/amplify-ui/pull/6288) [`272ec8e575718ea990dcb9f51d1baaf522f45fb6`](https://github.com/aws-amplify/amplify-ui/commit/272ec8e575718ea990dcb9f51d1baaf522f45fb6) Thanks [@berg-dee](https://github.com/berg-dee)! - fix(ui): fix and add missing sv translations
+
+## 6.8.0
+
+### Minor Changes
+
+- [#6296](https://github.com/aws-amplify/amplify-ui/pull/6296) [`8d2aa79b174d4e48aaca913bd568898b8c8975a2`](https://github.com/aws-amplify/amplify-ui/commit/8d2aa79b174d4e48aaca913bd568898b8c8975a2) Thanks [@calebpollman](https://github.com/calebpollman)! - feat(react): reenable react 19 support
+
+### Patch Changes
+
+- [#6125](https://github.com/aws-amplify/amplify-ui/pull/6125) [`8757f03b7b1d761d9a13cfe29382a2208d4f3999`](https://github.com/aws-amplify/amplify-ui/commit/8757f03b7b1d761d9a13cfe29382a2208d4f3999) Thanks [@BeforeSunset16](https://github.com/BeforeSunset16)! - feat(i18n): add Chinese translations for password fields in zh.ts
+
 ## 6.7.2
 
 ### Patch Changes

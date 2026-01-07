@@ -9,6 +9,7 @@ The `Authenticator` ships with [translations](https://github.com/aws-amplify/amp
 - `fr` – French
 - `de` – German
 - `he` – Hebrew
+- `hu` – Hungarian
 - `id` – Indonesian
 - `it` – Italian
 - `ja` – Japanese
@@ -71,6 +72,26 @@ I18n.putVocabularies({
 ```js
 import { I18n } from 'aws-amplify/utils';
 import { translations } from '@aws-amplify/ui-vue';
+I18n.putVocabularies(translations);
+I18n.setLanguage('fr');
+
+I18n.putVocabularies({
+  fr: {
+    'Sign In': 'Se connecter',
+    'Sign Up': "S'inscrire",
+  },
+  es: {
+    'Sign In': 'Registrarse',
+    'Sign Up': 'Regístrate',
+  },
+});
+```
+</InlineFilter>
+
+<InlineFilter filters={['svelte']}>
+```js
+import { I18n } from 'aws-amplify/utils';
+import { translations } from '@aws-amplify/ui-svelte';
 I18n.putVocabularies(translations);
 I18n.setLanguage('fr');
 

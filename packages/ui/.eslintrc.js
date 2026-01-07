@@ -17,10 +17,17 @@ module.exports = {
     tsconfigRootDir: __dirname,
   },
   rules: {
+    'import/no-extraneous-dependencies': [
+      'error',
+      { packageDir: ['.', '../..'] },
+    ],
     'no-console': 'error',
     'no-debugger': 'error',
+    'no-undef': 'off',
     // prefer `typescript-eslint` rule
     'no-unused-vars': 'off',
+    '@typescript-eslint/consistent-type-exports': 'error',
+    '@typescript-eslint/consistent-type-imports': 'error',
     '@typescript-eslint/no-unused-vars': [
       'error',
       {
@@ -28,10 +35,6 @@ module.exports = {
         varsIgnorePattern: '_',
         ignoreRestSiblings: true,
       },
-    ],
-    'import/no-extraneous-dependencies': [
-      'error',
-      { packageDir: ['.', '../..'] },
     ],
   },
 };

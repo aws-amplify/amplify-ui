@@ -3,11 +3,19 @@ import { SetupTotpComponent } from './setup-totp.component';
 import { AmplifySlotComponent } from '../../../../utilities/amplify-slot/amplify-slot.component';
 import { ErrorComponent } from '../../../../primitives/error/error.component';
 import { BaseFormFieldsComponent } from '../base-form-fields/base-form-fields.component';
-import { FormFieldComponent } from '../form-field/form-field.component';
 import { ButtonComponent } from '../../../../primitives/button/button.component';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
+import { Component, Input } from '@angular/core';
 
-import { MockComponent } from 'ng-mocks';
+@Component({
+  selector: 'amplify-form-field',
+  template: '<div></div>',
+  standalone: false,
+})
+class MockFormFieldComponent {
+  @Input() name: string;
+  @Input() formField: any;
+}
 
 const mockUser = { username: 'username' };
 const mockContext = {
@@ -44,7 +52,7 @@ describe('SetupTotpComponent', () => {
         AmplifySlotComponent,
         BaseFormFieldsComponent,
         ButtonComponent,
-        MockComponent(FormFieldComponent),
+        MockFormFieldComponent,
       ],
       providers: [
         { provide: AuthenticatorService, useValue: mockAuthenticatorService },

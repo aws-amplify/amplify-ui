@@ -1,8 +1,8 @@
 import pickBy from 'lodash/pickBy.js';
 
-import { AuthActorContext } from './types';
-import { SignUpInput, UserAttributeKey } from 'aws-amplify/auth';
-import { LoginMechanism, UserAttributes } from '../../types';
+import type { AuthActorContext } from './types';
+import type { SignUpInput, UserAttributeKey } from 'aws-amplify/auth';
+import type { LoginMechanism, UserAttributes } from '../../types';
 import { isString } from '../../utils';
 
 // default `autoSignIn` flag is `true`
@@ -86,6 +86,13 @@ export const getUsernameSignUp = ({
   formValues,
   loginMechanisms,
 }: AuthActorContext) => {
+  // When 'username' is in loginMechanisms, always use the username field for the Username parameter.
+  // This handles both username-only mode and alias mode (username + email/phone as sign-in options).
+  // See: https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-attributes.html#user-pool-settings-aliases
+  if (loginMechanisms.includes('username')) {
+    return formValues.username;
+  }
+
   const loginMechanism = loginMechanisms[0];
 
   if (loginMechanism === 'phone_number') {
@@ -93,5 +100,6 @@ export const getUsernameSignUp = ({
     return sanitizePhoneNumber(country_code, phone_number);
   }
 
+  // Otherwise, use the primary login mechanism (email as username)
   return formValues[loginMechanism];
 };

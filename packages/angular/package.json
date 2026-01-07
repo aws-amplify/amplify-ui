@@ -14,37 +14,43 @@
   },
   "license": "Apache-2.0",
   "devDependencies": {
-    "@angular-devkit/build-angular": "^14.2.13",
-    "@angular-eslint/builder": "~14.4.0",
-    "@angular-eslint/eslint-plugin": "~14.4.0",
-    "@angular-eslint/eslint-plugin-template": "~14.4.0",
-    "@angular-eslint/schematics": "~14.4.0",
-    "@angular-eslint/template-parser": "~14.4.0",
-    "@angular/animations": "^14.3.0",
-    "@angular/cli": "^14.2.13",
-    "@angular/compiler": "^14.3.0",
-    "@angular/compiler-cli": "^14.3.0",
-    "@angular/core": "^14.3.0",
-    "@angular/forms": "^14.3.0",
-    "@angular/platform-browser": "^14.3.0",
-    "@angular/platform-browser-dynamic": "^14.3.0",
-    "@angular/router": "^14.3.0",
-    "@testing-library/angular": "^12.0.0",
-    "@types/node": "^20.2.5",
+    "@angular-devkit/build-angular": "^19.0.0",
+    "@angular-eslint/builder": "~19.0.0",
+    "@angular-eslint/eslint-plugin": "~19.0.0",
+    "@angular-eslint/eslint-plugin-template": "~19.0.0",
+    "@angular-eslint/schematics": "~19.0.0",
+    "@angular-eslint/template-parser": "~19.0.0",
+    "@angular/animations": "^19.0.0",
+    "@angular/cli": "^19.0.0",
+    "@angular/compiler": "^19.0.0",
+    "@angular/compiler-cli": "^19.0.0",
+    "@angular/core": "^19.0.0",
+    "@angular/forms": "^19.0.0",
+    "@angular/platform-browser": "^19.0.0",
+    "@angular/platform-browser-dynamic": "^19.0.0",
+    "@angular/router": "^19.0.0",
+    "@testing-library/angular": "^17.0.0",
+    "@types/node": "^20",
     "canvas": "^2.11.2",
     "eslint": "^8.44.0",
-    "jest-preset-angular": "^13.1.1",
-    "ng-mocks": "^14.10.1",
-    "ng-packagr": "^14.2.2",
+    "jest-preset-angular": "^15.0.0",
+    "ng-mocks": "^14.14.0",
+    "ng-packagr": "^19.0.0",
     "ts-node": "^10.9.1",
     "tslib": "^2.5.2",
-    "typescript": "~4.6.4",
-    "zone.js": "^0.13.0"
+    "typescript": "~5.6.0",
+    "zone.js": "^0.15.0"
   },
   "workspaces": {
     "nohoist": [
       "@angular-devkit/build-angular"
     ]
   },
-  "typings": "./dist/ui-angular/index.d.ts"
+  "typings": "./dist/ui-angular/index.d.ts",
+  "overrides": {
+    "stylus": "github:stylus/stylus#0.59.0"
+  },
+  "resolutions": {
+    "stylus": "github:stylus/stylus#0.59.0"
+  }
 }

@@ -1,16 +1,17 @@
 import React from 'react';
 
+import type { FileData } from '../../actions';
 import { ControlsContextProvider } from '../../controls/context';
 import { useDisplayText } from '../../displayText';
 
-import { LocationDetailViewProviderProps } from './types';
+import type { LocationDetailViewProviderProps } from './types';
 import { getLocationDetailViewTableData } from './getLocationDetailViewTableData';
-import { FileData } from '../../actions';
 
 export function LocationDetailViewProvider({
   children,
   ...props
 }: LocationDetailViewProviderProps): React.JSX.Element {
+  const { LocationDetailView: displayText } = useDisplayText();
   const {
     LocationDetailView: {
       loadingIndicatorLabel,
@@ -29,6 +30,9 @@ export function LocationDetailViewProvider({
 
   const {
     actionItems,
+    activeFile,
+    activeFileHasNext,
+    activeFileHasPrev,
     page,
     pageItems,
     hasNextPage,
@@ -51,11 +55,15 @@ export function LocationDetailViewProvider({
     onNavigate,
     onNavigateHome,
     onSelect,
+    onSelectActiveFile,
     onToggleSelectAll,
     onSearch,
     onSearchQueryChange,
     onSearchClear,
     onToggleSearchSubfolders,
+    filePreviewState,
+    filePreviewEnabled,
+    onRetryFilePreview,
   } = props;
 
   const actionsWithDisplayText = actionItems.map((item) => ({
@@ -88,6 +96,9 @@ export function LocationDetailViewProvider({
     <ControlsContextProvider
       data={{
         actions: actionsWithDisplayText,
+        activeFile,
+        activeFileHasNext,
+        activeFileHasPrev,
         isActionsListDisabled,
         isDataRefreshDisabled: isLoading,
         isLoading,
@@ -104,8 +115,13 @@ export function LocationDetailViewProvider({
         searchSubmitLabel,
         searchClearLabel,
         searchQuery,
+        filePreviewState,
         tableData: getLocationDetailViewTableData({
+          filePreviewEnabled,
+          activeFile,
+          onSelectActiveFile,
           areAllFilesSelected,
+          displayText,
           location,
           fileDataItems,
           getDateDisplayValue,
@@ -128,9 +144,11 @@ export function LocationDetailViewProvider({
       onPaginate={onPaginate}
       onRefresh={onRefresh}
       onSearch={onSearch}
+      onSelectActiveFile={onSelectActiveFile}
       onSearchQueryChange={onSearchQueryChange}
       onSearchClear={onSearchClear}
       onToggleSearchSubfolders={onToggleSearchSubfolders}
+      onRetryFilePreview={onRetryFilePreview}
     >
       {children}
     </ControlsContextProvider>

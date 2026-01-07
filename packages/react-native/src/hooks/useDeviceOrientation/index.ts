@@ -1,4 +1,2 @@
-export {
-  default as useDeviceOrientation,
-  DeviceOrientation,
-} from './useDeviceOrientation';
+export type { DeviceOrientation } from './useDeviceOrientation';
+export { default as useDeviceOrientation } from './useDeviceOrientation';

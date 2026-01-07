@@ -1,5 +1,5 @@
 import React from 'react';
-import { Avatars } from '../types';
+import type { Avatars } from '../types';
 
 export const AvatarsContext = React.createContext<Avatars | undefined>(
   undefined
@@ -11,7 +11,7 @@ export const AvatarsProvider = ({
 }: {
   children?: React.ReactNode;
   avatars?: Avatars;
-}): JSX.Element => {
+}): React.JSX.Element => {
   return (
     <AvatarsContext.Provider value={avatars}>
       {children}

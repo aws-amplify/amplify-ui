@@ -11,7 +11,7 @@ import { useDropZone } from '@aws-amplify/ui-react-core';
 import { useFileUploader, useUploadFiles } from '../FileUploader/hooks';
 import { FileStatus } from '../FileUploader/types';
 
-import {
+import type {
   StorageManagerProps,
   StorageManagerPathProps,
   StorageManagerHandle,
@@ -24,11 +24,11 @@ import {
   FileListFooter,
   FilePicker,
 } from './ui';
+import type { TaskHandler } from '../FileUploader/utils';
 import {
   checkMaxFileSize,
   defaultFileUploaderDisplayText,
   filterAllowedFiles,
-  TaskHandler,
 } from '../FileUploader/utils';
 import { VERSION } from '../../version';
 
@@ -46,6 +46,7 @@ const StorageManagerBase = React.forwardRef(function StorageManager(
     acceptedFileTypes = [],
     accessLevel,
     autoUpload = true,
+    bucket,
     components,
     defaultFiles,
     displayText: overrideDisplayText,
@@ -62,7 +63,7 @@ const StorageManagerBase = React.forwardRef(function StorageManager(
     useAccelerateEndpoint,
   }: StorageManagerPathProps | StorageManagerProps,
   ref: React.ForwardedRef<StorageManagerHandle>
-): JSX.Element {
+): React.JSX.Element {
   useDeprecationWarning({
     message:
       'The `StorageManager` component has been renamed as the `FileUploader` component.',
@@ -149,6 +150,7 @@ const StorageManagerBase = React.forwardRef(function StorageManager(
 
   useUploadFiles({
     accessLevel,
+    bucket,
     files,
     isResumable,
     maxFileCount,

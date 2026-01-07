@@ -9,7 +9,7 @@ import {
 } from '../../common';
 import { useFieldValues } from '../../hooks';
 
-import { DefaultForceNewPasswordProps } from '../types';
+import type { DefaultForceNewPasswordProps } from '../types';
 
 const COMPONENT_NAME = 'ForceNewPassword';
 
@@ -26,7 +26,7 @@ const ForceNewPassword = ({
   toSignIn,
   validationErrors,
   ...rest
-}: DefaultForceNewPasswordProps): JSX.Element => {
+}: DefaultForceNewPasswordProps): React.JSX.Element => {
   const {
     disableFormSubmit,
     fields: fieldsWithHandlers,

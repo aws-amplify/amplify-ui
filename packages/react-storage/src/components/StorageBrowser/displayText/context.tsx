@@ -2,7 +2,7 @@ import React from 'react';
 import { createContextUtilities } from '@aws-amplify/ui-react-core';
 
 import { DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT } from './libraries';
-import {
+import type {
   DefaultStorageBrowserDisplayText,
   StorageBrowserDisplayText,
 } from './types';
@@ -24,6 +24,7 @@ export function resolveDisplayText(
     CopyView,
     CreateFolderView,
     DeleteView,
+    DownloadView,
     LocationDetailView,
     LocationsView,
     UploadView,
@@ -38,9 +39,17 @@ export function resolveDisplayText(
       ...DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT.DeleteView,
       ...DeleteView,
     },
+    DownloadView: {
+      ...DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT.DownloadView,
+      ...DownloadView,
+    },
     LocationDetailView: {
       ...DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT.LocationDetailView,
       ...LocationDetailView,
+      filePreview: {
+        ...DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT.LocationDetailView.filePreview,
+        ...(LocationDetailView?.filePreview ?? {}),
+      },
     },
     LocationsView: {
       ...DEFAULT_STORAGE_BROWSER_DISPLAY_TEXT.LocationsView,

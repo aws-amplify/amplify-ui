@@ -5,7 +5,7 @@ import { useTheme } from '../../theme';
 import { IconButton } from '../IconButton';
 import { TextField } from '../TextField';
 
-import { PasswordFieldProps } from './types';
+import type { PasswordFieldProps } from './types';
 import { getThemedStyles } from './styles';
 import { authenticatorTextUtil } from '@aws-amplify/ui';
 
@@ -19,7 +19,7 @@ export default function PasswordField({
   showPasswordButton = true,
   style,
   ...rest
-}: PasswordFieldProps): JSX.Element {
+}: PasswordFieldProps): React.JSX.Element {
   const theme = useTheme();
   const themedStyle = getThemedStyles(theme);
 

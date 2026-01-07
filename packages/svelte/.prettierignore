@@ -1,0 +1,6 @@
+.husky
+.changeset
+dist
+coverage
+*.d.ts
+.svelte-kit

@@ -1,14 +1,16 @@
-import { AuthenticatorDictionary } from './types';
+import type { AuthenticatorDictionary } from './types';
 
 export const trDict: AuthenticatorDictionary = {
   'Account recovery requires verified contact information':
-      'Hesap kurtarma, doğrulanmış iletişim bilgilerini gerektirir',
+    'Hesap kurtarma, doğrulanmış iletişim bilgilerini gerektirir',
+  'Authenticator App (TOTP)': 'Kimlik Doğrulayıcı Uygulaması (TOTP)',
   'Add your Profile': 'Profilinizi ekleyin',
   'Add your Website': 'Web sitenizi ekleyin',
   'Back to Sign In': 'Oturum Açmaya Geri Dön',
   'Change Password': 'Şifreyi Değiştir',
   Changing: 'Değiştiriliyor',
   Code: 'Kod',
+  'Confirm Email Code': 'E-posta Kodunu Onayla',
   'Confirm Password': 'Şifreyi Doğrula',
   'Confirm Sign Up': 'Kayıt İşlemini Doğrula',
   'Confirm SMS Code': 'SMS Kodunu Doğrula',
@@ -22,6 +24,7 @@ export const trDict: AuthenticatorDictionary = {
   'Creating Account': 'Hesap Oluşturuluyor',
   'Dismiss alert': 'Uyarıyı reddet',
   Email: 'E-posta',
+  'Email Message': 'E-posta Mesajı',
   'Enter your Birthdate': 'Doğum gününüzü girin',
   'Enter your code': 'Kodu girin',
   'Enter your Confirmation Code': 'Doğrulama Kodunuzu Girin',
@@ -42,6 +45,8 @@ export const trDict: AuthenticatorDictionary = {
   'Hide password': 'Şifreyi gizle',
   'It may take a minute to arrive': 'Kodun gelmesi bir dakika sürebilir',
   Loading: 'Yükleniyor',
+  'Multi-Factor Authentication': 'Çok Faktörlü Kimlik Doğrulama',
+  'Multi-Factor Authentication Setup': 'Çok Faktörlü Kimlik Doğrulama Kurulumu',
   'New password': 'Yeni şifre',
   or: 'veya',
   Password: 'Şifre',
@@ -51,9 +56,11 @@ export const trDict: AuthenticatorDictionary = {
   'Reset your password': 'Şifrenizi sıfırlayın',
   'Reset your Password': 'Şifrenizi Sıfırlayın',
   'Reset Password': 'Şifreyi Sıfırla',
+  'Select MFA Type': 'MFA türünü seçin',
   'Send code': 'Kod gönder',
   'Send Code': 'Kod Gönder',
   Sending: 'Gönderiliyor',
+  'Setup Email': 'E-postayı ayarla',
   'Setup TOTP': 'Tek kullanımlık şifre kurulumu yap',
   'Show password': 'Şifreyi göster',
   'Sign in to your account': 'Hesabınızda oturum açın',
@@ -69,6 +76,7 @@ export const trDict: AuthenticatorDictionary = {
   Skip: 'Atla',
   Submit: 'Gönder',
   Submitting: 'Gönderiliyor',
+  'Text Message (SMS)': 'Kısa Mesaj (SMS)',
   Username: 'Kullanıcı adı',
   'Verify Contact': 'Kişiyi Doğrula',
   Verify: 'Doğrula',
@@ -76,18 +84,19 @@ export const trDict: AuthenticatorDictionary = {
   'We Sent A Code': 'Bir Kod Gönderdik',
   'We Texted You': 'Size Mesaj Gönderdik',
   'Your code is on the way. To log in, enter the code we emailed to':
-      'Kodunuz yolda. Oturum açmak için, gönderdiğimiz e-postadaki kodu girin',
+    'Kodunuz yolda. Oturum açmak için, gönderdiğimiz e-postadaki kodu girin',
   'Your code is on the way. To log in, enter the code we sent you':
-      'Kodunuz yolda. Oturum açmak için, size gönderdiğimiz kodu girin',
+    'Kodunuz yolda. Oturum açmak için, size gönderdiğimiz kodu girin',
   'Your code is on the way. To log in, enter the code we texted to':
-      'Kodunuz yolda. Oturum açmak için, gönderdiğimiz mesajdaki kodu girin',
-  
+    'Kodunuz yolda. Oturum açmak için, gönderdiğimiz mesajdaki kodu girin',
+
   // Additional translations provided by customers
   'An account with the given email already exists.':
-      'Bu e-postaya ait zaten bir hesap var.',
+    'Bu e-postaya ait zaten bir hesap var.',
   'Confirm Sign In': 'Oturum Açmayı Doğrula',
   'Have an account? ': 'Hesabınız var mı? ',
   'Incorrect username or password': 'Yanlış kullanıcı adı ya da şifre',
+  'Incorrect username or password.': 'Yanlış kullanıcı adı ya da şifre',
   'Invalid password format': 'Geçersiz parola formatı',
   'Invalid phone number format': 'Geçersiz telefon numarası formatı',
   'Lost your code? ': 'Kodu mu kaybettiniz? ',
@@ -97,5 +106,5 @@ export const trDict: AuthenticatorDictionary = {
   'Sign Up': 'Kayıt Ol',
   'User already exists': 'Bu kullanıcı zaten var',
   'User does not exist': 'Böyle bir kullanıcı mevcut değil',
-  'Username cannot be empty': 'Kullanıcı adı boş olamaz'
+  'Username cannot be empty': 'Kullanıcı adı boş olamaz',
 };

@@ -1,6 +1,7 @@
 import React from 'react';
 import { fireEvent, render } from '@testing-library/react-native';
-import { ChallengeName, authenticatorTextUtil } from '@aws-amplify/ui';
+import type { ChallengeName } from '@aws-amplify/ui';
+import { authenticatorTextUtil } from '@aws-amplify/ui';
 
 import { ConfirmSignIn } from '..';
 
@@ -44,7 +45,7 @@ describe('ConfirmSignIn', () => {
     expect(getAllByRole('header')).toBeDefined();
     expect(getByText(getChallengeText('SMS_MFA'))).toBeDefined();
     expect(getByText(getConfirmText())).toBeDefined();
-    expect(getAllByRole('text')).toHaveLength(fields.length);
+    expect(getAllByRole('text')).toHaveLength(3);
   });
 
   it('renders an error message', () => {

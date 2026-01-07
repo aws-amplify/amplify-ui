@@ -1,6 +1,6 @@
 import React from 'react';
-import { NavigationProps } from '../../composables/Navigation';
-import { useControlsContext } from '../../controls/context';
+import type { NavigationProps } from '../../components/composables/Navigation';
+import { useControlsContext } from '../context';
 import { getNavigationItems } from './getNavigationItems';
 import { getNavigationParts } from './getNavigationParts';
 

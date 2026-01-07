@@ -8,19 +8,16 @@ export { useDropZone } from '@aws-amplify/ui-react-core';
 export * from './components/FilterChildren';
 export { AlertIcon } from './primitives/Alert/AlertIcon';
 export * from './primitives/Icon/internal';
-export {
-  STORAGE_BROWSER_ICON_PATHS,
-  StorageBrowserIconType,
-} from './primitives/Icon/context/StorageBrowserIcons';
+export type { StorageBrowserIconType } from './primitives/Icon/context/StorageBrowserIcons';
+export { STORAGE_BROWSER_ICON_PATHS } from './primitives/Icon/context/StorageBrowserIcons';
 
-export {
-  FileSelect,
+export type {
   FileSelectOptions,
   FileSelectProps,
   HandleFileSelect,
-  useFileSelect,
   UseFileSelect,
 } from './components/FileSelect';
+export { FileSelect, useFileSelect } from './components/FileSelect';
 
 export { Field } from './primitives/Field';
 

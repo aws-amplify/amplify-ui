@@ -4,7 +4,7 @@ import { ComponentClassName } from '@aws-amplify/ui';
 import { ComponentText } from '../shared/constants';
 import { FieldGroupIconButton } from '../FieldGroupIcon';
 import { IconSearch, useIcons } from '../Icon';
-import {
+import type {
   ForwardRefPrimitive,
   Primitive,
   BaseSearchFieldButtonProps,

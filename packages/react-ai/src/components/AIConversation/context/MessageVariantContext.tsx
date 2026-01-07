@@ -1,5 +1,5 @@
 import React from 'react';
-import { MessageVariant } from '../types';
+import type { MessageVariant } from '../types';
 
 export const MessageVariantContext = React.createContext<
   MessageVariant | undefined
@@ -11,7 +11,7 @@ export const MessageVariantProvider = ({
 }: {
   children?: React.ReactNode;
   variant?: MessageVariant;
-}): JSX.Element => {
+}): React.JSX.Element => {
   return (
     <MessageVariantContext.Provider value={variant}>
       {children}

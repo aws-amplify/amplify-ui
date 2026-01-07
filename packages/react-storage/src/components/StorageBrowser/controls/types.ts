@@ -1,10 +1,14 @@
-import { LocationData } from '../actions';
-import { ActionListItem } from '../composables/ActionsList';
-import { DataTableSortHeader, DataTableProps } from '../composables/DataTable';
-import { MessageProps } from '../composables/Message';
-import { Composables } from '../composables/types';
-import { LocationState } from '../providers/store/location';
-import { StatusCounts } from '../tasks';
+import type { FileData, LocationData } from '../actions';
+import type {
+  ActionListItem,
+  Composables,
+  DataTableProps,
+  DataTableSortHeader,
+  MessageProps,
+} from '../components';
+import type { LocationState } from '../store';
+import type { StatusCounts } from '../tasks';
+import type { FilePreviewState } from '../views/hooks/useFilePreview';
 
 export interface Controls {
   props: React.ComponentProps<Composables[keyof Composables]>;
@@ -37,6 +41,9 @@ interface PaginationData {
 export interface ControlsContext {
   data: {
     actions?: ActionListItem[];
+    activeFile?: FileData;
+    activeFileHasNext?: boolean;
+    activeFileHasPrev?: boolean;
     actionCancelLabel?: string;
     actionDestinationLabel?: string;
     actionExitLabel?: string;
@@ -68,6 +75,7 @@ export interface ControlsContext {
     paginationData?: PaginationData;
     searchPlaceholder?: string;
     searchQuery?: string;
+    filePreviewState?: FilePreviewState;
     searchSubfoldersToggleLabel?: string;
     searchSubmitLabel?: string;
     searchClearLabel?: string;
@@ -92,8 +100,12 @@ export interface ControlsContext {
   onPaginate?: (page: number) => void;
   onRefresh?: () => void;
   onSearch?: () => void;
+  onSelectActiveFile?: (file?: FileData | 'prev' | 'next') => void;
   onSearchClear?: () => void;
   onSearchQueryChange?: (value: string) => void;
+  onOpenFilePreview?: (f: FileData) => void;
+  onCloseFilePreview?: () => void;
+  onRetryFilePreview?: () => void;
   onSelectDestination?: (location: LocationData, path?: string) => void;
   onToggleOverwrite?: () => void;
   onToggleSearchSubfolders?: () => void;

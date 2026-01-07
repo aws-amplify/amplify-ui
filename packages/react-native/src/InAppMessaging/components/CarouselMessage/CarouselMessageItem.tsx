@@ -6,11 +6,11 @@ import { useMessageProps } from '../../hooks';
 import { MessageLayout } from '../MessageLayout';
 
 import { getLandscapeStyles, getPortraitStyles } from './styles';
-import { CarouselMessageItemProps } from './types';
+import type { CarouselMessageItemProps } from './types';
 
 export default function CarouselMessageItem(
   props: CarouselMessageItemProps
-): JSX.Element | null {
+): React.JSX.Element | null {
   const { deviceOrientation, isPortraitMode } = useDeviceOrientation();
   const messageProps = useMessageProps(
     props,

@@ -7,8 +7,11 @@ import {
   FcPrevious,
   FcRefresh,
   FcSearch,
+  FcDocument,
+  FcImageFile,
+  FcFile,
 } from 'react-icons/fc';
-import { StorageBrowser } from './MockStorageBrowser'; // IGNORE
+import { StorageBrowser } from './StorageBrowser'; // IGNORE
 import { IconsProvider } from '@aws-amplify/ui-react';
 
 export default function Example() {
@@ -20,6 +23,9 @@ export default function Example() {
           'sort-indeterminate': <FcMinus />,
           'sort-ascending': <FcAlphabeticalSortingAz />,
           'sort-descending': <FcAlphabeticalSortingZa />,
+          'file-pdf': <FcDocument />,
+          'file-text': <FcFile />,
+          'file-image': <FcImageFile />,
         },
         searchField: {
           search: <FcSearch />,

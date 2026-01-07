@@ -2,12 +2,13 @@ import { useEffect, useRef, useState } from 'react';
 import { Image } from 'react-native';
 import { ConsoleLogger as Logger } from 'aws-amplify/utils';
 
-import {
+import type {
   InAppMessageImage,
   InAppMessageLayout,
 } from '@aws-amplify/ui-react-core-notifications';
 
-import { ImageDimensions, ImagePrefetchStatus, UseMessageImage } from './types';
+import type { ImageDimensions, UseMessageImage } from './types';
+import { ImagePrefetchStatus } from './types';
 import { getLayoutImageDimensions, prefetchNetworkImage } from './utils';
 
 const logger = new Logger('InAppMessaging');

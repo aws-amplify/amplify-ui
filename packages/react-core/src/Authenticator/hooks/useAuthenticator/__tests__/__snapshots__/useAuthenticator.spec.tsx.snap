@@ -3,7 +3,11 @@
 exports[`useAuthenticator returns the expected values 1`] = `
 {
   "QRFields": null,
-  "authStatus": "authenticated",
+  "allowedMfaTypes": [
+    "EMAIL",
+    "TOTP",
+  ],
+  "authStatus": "configuring",
   "challengeName": "SELECT_MFA_TYPE",
   "codeDeliveryDetails": {},
   "error": undefined,

@@ -1,16 +1,16 @@
 import * as React from 'react';
-import {
+import type {
   AuthenticatorMachineOptions,
-  isFunction,
   FormFieldComponents,
   FormFieldOptions,
 } from '@aws-amplify/ui';
-import { AuthUser } from 'aws-amplify/auth';
+import { isFunction } from '@aws-amplify/ui';
+import type { AuthUser } from 'aws-amplify/auth';
 
+import type { UseAuthenticator } from '@aws-amplify/ui-react-core';
 import {
   AuthenticatorProvider as Provider,
   useAuthenticator,
-  UseAuthenticator,
   useAuthenticatorInitMachine,
   useSetUserAgent,
 } from '@aws-amplify/ui-react-core';
@@ -18,17 +18,18 @@ import {
 import { VERSION } from '../../version';
 import { useDeprecationWarning } from '../../hooks/useDeprecationWarning';
 
-import {
-  CustomComponentsContext,
-  ComponentsProviderProps,
-} from './hooks/useCustomComponents';
-import { Router, RouterProps } from './Router';
+import type { ComponentsProviderProps } from './hooks/useCustomComponents';
+import { CustomComponentsContext } from './hooks/useCustomComponents';
+import type { RouterProps } from './Router';
+import { Router } from './Router';
 import { SetupTotp } from './SetupTotp';
 import { SignIn } from './SignIn';
 import { SignUp } from './SignUp';
 import { ForceNewPassword } from './ForceNewPassword';
 import { ForgotPassword } from './ForgotPassword';
 import { defaultComponents } from './hooks/useCustomComponents/defaultComponents';
+import { SelectMfaType } from './SelectMfaType';
+import { SetupEmail } from './SetupEmail';
 
 export type SignOut = UseAuthenticator['signOut'];
 export type AuthenticatorProps = Partial<
@@ -37,7 +38,10 @@ export type AuthenticatorProps = Partial<
     RouterProps & {
       children:
         | React.ReactNode
-        | ((props: { signOut?: SignOut; user?: AuthUser }) => JSX.Element);
+        | ((props: {
+            signOut?: SignOut;
+            user?: AuthUser;
+          }) => React.JSX.Element);
       formFields: {
         [key in FormFieldComponents]?: {
           [field_name: string]: ReactFormFieldOptions;
@@ -76,7 +80,7 @@ export function AuthenticatorInternal({
   services,
   socialProviders,
   variation,
-}: AuthenticatorProps): JSX.Element {
+}: AuthenticatorProps): React.JSX.Element {
   useDeprecationWarning({
     message:
       'The `passwordSettings` prop has been deprecated and will be removed in a future major version of Amplify UI.',
@@ -137,7 +141,7 @@ export function AuthenticatorInternal({
 /**
  * [📖 Docs](https://ui.docs.amplify.aws/react/connected-components/authenticator)
  */
-export function Authenticator(props: AuthenticatorProps): JSX.Element {
+export function Authenticator(props: AuthenticatorProps): React.JSX.Element {
   useSetUserAgent({
     componentName: 'Authenticator',
     packageName: 'react',
@@ -157,3 +161,5 @@ Authenticator.SetupTotp = SetupTotp;
 Authenticator.SignIn = SignIn;
 Authenticator.SignUp = SignUp;
 Authenticator.ForceNewPassword = ForceNewPassword;
+Authenticator.SelectMfaType = SelectMfaType;
+Authenticator.SetupEmail = SetupEmail;

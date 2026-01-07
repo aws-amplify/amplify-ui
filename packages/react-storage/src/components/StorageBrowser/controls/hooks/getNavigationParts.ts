@@ -1,4 +1,4 @@
-import { LocationData } from '../../actions';
+import type { LocationData } from '../../actions';
 
 interface GetNavigationPartsInput {
   location: LocationData;

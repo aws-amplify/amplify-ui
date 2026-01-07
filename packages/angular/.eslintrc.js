@@ -21,6 +21,11 @@ module.exports = {
          * Turn this off until we turn `strict` on in the `tsconfig.json`.
          */
         '@typescript-eslint/prefer-nullish-coalescing': 'off',
+        // making the changes for these rules leads to material changes in the package code
+        '@typescript-eslint/consistent-type-exports': 'off',
+        '@typescript-eslint/consistent-type-imports': 'off',
+        // Disable standalone preference for existing NgModule-based components
+        '@angular-eslint/prefer-standalone': 'off',
 
         // we use `amplify-` prefix for directives.
         '@angular-eslint/directive-selector': [

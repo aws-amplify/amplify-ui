@@ -15,6 +15,7 @@ const {
 
 @Component({
   selector: 'amplify-confirm-reset-password',
+  standalone: false,
   templateUrl: './amplify-confirm-reset-password.component.html',
 })
 export class ConfirmResetPasswordComponent {

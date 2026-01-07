@@ -1,11 +1,14 @@
 import * as React from 'react';
+
 import { Flex, ScrollView } from '@aws-amplify/ui-react';
 import {
   IconAssistant,
   IconUser,
   useIcons,
 } from '@aws-amplify/ui-react/internal';
-import {
+
+import useConversationScrollProps from './useConversationScrollProps';
+import type {
   AIConversation as AIConversationType,
   AIConversationInput,
   AIConversationProps,
@@ -29,8 +32,9 @@ interface AIConversationBaseProps
 function AIConversationBase({
   avatars,
   controls,
+  messages,
   ...rest
-}: AIConversationBaseProps): JSX.Element {
+}: AIConversationBaseProps): React.JSX.Element {
   useSetUserAgent({
     componentName: 'AIConversation',
     packageName: 'react-ai',
@@ -51,17 +55,12 @@ function AIConversationBase({
 
   const providerProps = {
     ...rest,
-    avatars: {
-      ...defaultAvatars,
-      ...avatars,
-    },
-    controls: {
-      MessageList,
-      PromptList,
-      Form,
-      ...controls,
-    },
+    avatars: { ...defaultAvatars, ...avatars },
+    controls: { MessageList, PromptList, Form, ...controls },
+    messages,
   };
+
+  const scrollProps = useConversationScrollProps(messages);
 
   return (
     <AIConversationProvider {...providerProps}>
@@ -69,7 +68,7 @@ function AIConversationBase({
         className={ComponentClassName.AIConversation}
         testId="ai-conversation"
       >
-        <ScrollView autoScroll="smooth" flex="1">
+        <ScrollView {...scrollProps} flex="1">
           <DefaultMessageControl />
           <MessagesControl />
         </ScrollView>

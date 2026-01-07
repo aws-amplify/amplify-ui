@@ -1,7 +1,14 @@
-import { LocationCredentialsProvider } from '../../storage-internal';
+import type { AllFileTypes } from '../../createStorageBrowser/types';
+import type { LocationCredentialsProvider } from '../../storage-internal';
 
+/**
+ * `location` grant scope
+ */
 export type LocationType = 'OBJECT' | 'PREFIX' | 'BUCKET';
 
+/**
+ * `location` grant permissions
+ */
 export type LocationPermissions = ('delete' | 'get' | 'list' | 'write')[];
 
 /**
@@ -19,7 +26,7 @@ export interface LocationData {
   id: string;
 
   /**
-   * `location` permission granted to user
+   * @see {@link LocationPermissions}
    */
   permissions: LocationPermissions;
 
@@ -29,9 +36,7 @@ export interface LocationData {
   prefix: string;
 
   /**
-   * `location` grant scope
-   *
-   * @type "OBJECT" | "PREFIX" | "BUCKET"
+   * @see {@link LocationType}
    */
   type: LocationType;
 }
@@ -49,6 +54,9 @@ export interface FileData {
   id: string;
   size: number;
   type: 'FILE';
+  contentType?: string;
+  fileType?: AllFileTypes | null;
+  versionId?: string;
 }
 
 export type LocationItemData = FileData | FolderData;
@@ -60,6 +68,9 @@ export interface FileDataItem extends FileData, TaskData {
 export interface FileItem extends TaskData {
   file: File;
 }
+
+export interface OptionalFileData
+  extends Partial<Omit<FileData, 'id' | 'key'>> {}
 
 export interface ActionInputConfig {
   accountId?: string;
@@ -80,34 +91,53 @@ export interface TaskData {
   id: string;
 }
 
-export interface TaskHandlerOptions<V = any> {
+export interface TaskHandlerOptions {
   onProgress?: (
     data: { key: string; id: string },
     progress: number | undefined
   ) => void;
-  onSuccess?: (data: { key: string; id: string }, value: V) => void;
-  onError?: (
-    data: { key: string; id: string },
-    message: string | undefined
-  ) => void;
 }
 
 export interface TaskHandlerInput<
-  T extends TaskData = TaskData,
-  K extends TaskHandlerOptions = TaskHandlerOptions,
+  TData extends TaskData = TaskData,
+  TOptions extends TaskHandlerOptions = TaskHandlerOptions,
 > {
   config: ActionInputConfig;
-  data: T;
-  options?: K;
+  data: TData;
+  options?: TOptions;
+}
+
+export type TaskResultStatus =
+  | 'CANCELED'
+  | 'COMPLETE'
+  | 'FAILED'
+  | 'OVERWRITE_PREVENTED';
+
+export interface TaskResult<TStatus, TValue> {
+  /**
+   * result error (if any)
+   */
+  error?: Error;
+
+  /**
+   * result message (if any)
+   */
+  message?: string;
+
+  /**
+   * task result status
+   */
+  status: TStatus;
+
+  /**
+   * task result value (if any)
+   */
+  value?: TValue;
 }
 
 export interface TaskHandlerOutput<K = any> {
   cancel?: () => void;
-  result: Promise<{
-    message?: string;
-    status: 'CANCELED' | 'COMPLETE' | 'FAILED' | 'OVERWRITE_PREVENTED';
-    value?: K;
-  }>;
+  result: Promise<TaskResult<TaskResultStatus, K>>;
 }
 
 export type TaskHandler<T = any, K = any> = (input: T) => K;

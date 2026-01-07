@@ -1,7 +1,8 @@
-import { StyleSheet, ViewStyle } from 'react-native';
+import type { ViewStyle } from 'react-native';
+import { StyleSheet } from 'react-native';
 
-import { StrictTheme } from '../../theme';
-import { TabsProps, TabsStyles } from './types';
+import type { StrictTheme } from '../../theme';
+import type { TabsProps, TabsStyles } from './types';
 
 export const getThemedStyles = (
   theme: StrictTheme,

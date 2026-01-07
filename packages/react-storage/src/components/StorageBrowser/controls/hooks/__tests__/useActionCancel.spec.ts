@@ -1,6 +1,7 @@
 import { renderHook } from '@testing-library/react';
-import { ActionCancelProps } from '../../../composables/ActionCancel';
-import { useControlsContext } from '../../../controls/context';
+
+import { ActionCancelProps } from '../../../components/composables/ActionCancel';
+import { useControlsContext } from '../../context';
 import { useActionCancel } from '../useActionCancel';
 
 jest.mock('../../../controls/context');

@@ -133,17 +133,103 @@ const checkErrorMessage = async (logLines: string[]): Promise<boolean> => {
   return results.some((result) => result === true);
 };
 
+/**
+ * Patterns that indicate the app has successfully loaded and is running
+ */
+const APP_READY_PATTERNS = [
+  'Running "', // React Native CLI: Running "AppName"
+  'BUNDLE', // Metro bundler loaded bundle
+  'LOG', // App is logging (runtime)
+  'Welcome to React', // Default RN app screen
+  'Open up App', // Expo default screen text
+];
+
+/**
+ * waitForAppToRun polls the log file until the app appears to be running
+ * @returns {string} the log file content
+ */
+const waitForAppToRun = async (): Promise<string> => {
+  const pollInterval = 15; // seconds between checks
+  const maxWaitTime = 300; // max 5 minutes total wait (app needs time to build, install, and run)
+  const minWaitTime = 60; // minimum wait time to let app fully initialize
+
+  const startMessages = [
+    'info Starting logkitty',
+    'React Native iOS Logger started for XCode project',
+  ];
+
+  let elapsed = 0;
+  let appReadyDetected = false;
+
+  log(
+    'info',
+    `Waiting for app to run (polling every ${pollInterval}s, max ${maxWaitTime}s, min ${minWaitTime}s)...`
+  );
+
+  while (elapsed < maxWaitTime) {
+    await sleep(pollInterval);
+    elapsed += pollInterval;
+
+    if (!fs.existsSync(logFileName)) {
+      log('info', `[${elapsed}s] Log file not found yet...`);
+      continue;
+    }
+
+    const logFile = fs.readFileSync(logFileName, 'utf-8');
+    const logLines = logFile.split('\n').filter((line) => line !== '');
+
+    // Check if we only have the start message (logs not ready yet)
+    if (logLines.length === 1) {
+      const isOnlyStartMessage = startMessages.some((msg) =>
+        logLines[0].includes(msg)
+      );
+      if (isOnlyStartMessage) {
+        log('info', `[${elapsed}s] Only start message found, waiting...`);
+        continue;
+      }
+    }
+
+    // Check if app appears to be running
+    const hasAppReadyPattern = APP_READY_PATTERNS.some((pattern) =>
+      logFile.includes(pattern)
+    );
+
+    if (hasAppReadyPattern && !appReadyDetected) {
+      appReadyDetected = true;
+      log(
+        'info',
+        `[${elapsed}s] App appears to be running, waiting for it to stabilize...`
+      );
+    }
+
+    // Only proceed if we've waited minimum time AND app is ready (or we've timed out)
+    if (elapsed >= minWaitTime && (appReadyDetected || logLines.length > 10)) {
+      log(
+        'success',
+        `[${elapsed}s] Found ${logLines.length} log lines, app ready: ${appReadyDetected}, proceeding with check`
+      );
+      return logFile;
+    }
+
+    log(
+      'info',
+      `[${elapsed}s] Found ${logLines.length} lines, app ready: ${appReadyDetected}, waiting...`
+    );
+  }
+
+  // Timeout reached, return whatever we have
+  log('warning', `Timeout reached after ${maxWaitTime}s`);
+  if (fs.existsSync(logFileName)) {
+    return fs.readFileSync(logFileName, 'utf-8');
+  }
+  return '';
+};
+
 const checkReactNativeLog = async (): Promise<void> => {
   log('command', `cd mega-apps/${megaAppName}`);
   process.chdir(`mega-apps/${megaAppName}`);
 
-  // Wait for the logging messages to be ready. The number is based on real experiments in Github Actions.
-  const timeToWait = 500;
-
-  log('info', `Sleep for '${timeToWait}' seconds...`);
-  await sleep(timeToWait);
-
-  const logFile = fs.readFileSync(logFileName, 'utf-8');
+  const logFile = await waitForAppToRun();
   const logLines = logFile.split('\n').filter((line) => line !== '');
 
   await checkStartMessage(logLines, logFile);

@@ -6,7 +6,7 @@ import { useResolvedComposable } from '../hooks/useResolvedComposable';
 
 jest.mock('../hooks/useDataRefresh');
 jest.mock('../hooks/useResolvedComposable');
-jest.mock('../../composables/DataRefresh', () => ({
+jest.mock('../../components/composables/DataRefresh', () => ({
   DataRefresh: () => <div data-testid="data-refresh" />,
 }));
 

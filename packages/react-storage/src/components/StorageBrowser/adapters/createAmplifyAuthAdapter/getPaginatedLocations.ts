@@ -1,4 +1,4 @@
-import { ListLocationsHandlerOutput, LocationData } from '../../actions';
+import type { ListLocationsHandlerOutput, LocationData } from '../../actions';
 
 export const getPaginatedLocations = ({
   items,

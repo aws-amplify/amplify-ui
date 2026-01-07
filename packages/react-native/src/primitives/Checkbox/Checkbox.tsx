@@ -1,7 +1,8 @@
 import React, { useCallback, useMemo, useState } from 'react';
-import { Pressable, ViewStyle } from 'react-native';
+import type { ViewStyle } from 'react-native';
+import { Pressable } from 'react-native';
 
-import { CheckboxProps } from './types';
+import type { CheckboxProps } from './types';
 import { Icon } from '../Icon';
 import { Label } from '../Label';
 import { getThemedStyles } from './styles';
@@ -21,7 +22,7 @@ export default function Checkbox<T>({
   style,
   value,
   ...rest
-}: CheckboxProps<T>): JSX.Element {
+}: CheckboxProps<T>): React.JSX.Element {
   const [checked, setChecked] = useState(selected ?? false);
   const theme = useTheme();
   const themedStyle = getThemedStyles(theme, labelPosition);

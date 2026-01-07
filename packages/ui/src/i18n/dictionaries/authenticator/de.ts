@@ -1,14 +1,16 @@
-import { AuthenticatorDictionary } from './types';
+import type { AuthenticatorDictionary } from './types';
 
 export const deDict: AuthenticatorDictionary = {
   'Account recovery requires verified contact information':
     'Zurücksetzen des Accounts benötigt einen verifizierten Account',
   'Add your Profile': 'Ihr Profil hinzufügen',
   'Add your Website': 'Ihre Website hinzufügen',
+  'Authenticator App (TOTP)': 'Authentifikator-App (TOTP)',
   'Back to Sign In': 'Zurück zur Anmeldung',
   'Change Password': 'Passwort ändern',
   Changing: 'Ändern von',
   Code: 'Code',
+  'Confirm Email Code': 'E-Mail-Code bestätigen',
   'Confirm Password': 'Passwort bestätigen',
   'Please confirm your Password': 'Bitte bestätigen Sie Ihr Passwort',
   'Confirm Sign Up': 'Registrierung bestätigen',
@@ -22,6 +24,7 @@ export const deDict: AuthenticatorDictionary = {
   'Creating Account': 'Account wird erstellt',
   'Dismiss alert': 'Warnung verwerfen',
   Email: 'E-Mail',
+  'Email Message': 'E-Mail-Nachricht',
   'Enter your Birthdate': 'Geben Sie Ihr Geburtsdatum ein',
   'Enter your code': 'Geben Sie Ihren Code ein',
   'Enter your Confirmation Code': 'Geben Sie Ihren Bestätigungs-Code ein',
@@ -44,6 +47,9 @@ export const deDict: AuthenticatorDictionary = {
   'It may take a minute to arrive':
     'Es kann eine Minute dauern, bis er ankommt',
   Loading: 'Wird geladen',
+  'Multi-Factor Authentication': 'Multifaktor-Authentifizierung',
+  'Multi-Factor Authentication Setup':
+    'Einrichtung der Multifaktor-Authentifizierung',
   'New password': 'Neues Passwort',
   or: 'oder',
   Password: 'Passwort',
@@ -51,9 +57,11 @@ export const deDict: AuthenticatorDictionary = {
   'Resend Code': 'Code erneut senden',
   'Reset your Password': 'Zurücksetzen des Passworts',
   'Reset your password': 'Zurücksetzen des passworts',
+  'Select MFA Type': 'MFA-Typ auswählen',
   'Send code': 'Code senden',
   'Send Code': 'Code senden',
   Sending: 'Wird gesendet',
+  'Setup Email': 'E-Mail einrichten',
   'Setup TOTP': 'TOTP einrichten',
   'Show password': 'Passwort anzeigen',
   'Sign in to your account': 'Melden Sie sich mit Ihrem Account an',
@@ -67,6 +75,7 @@ export const deDict: AuthenticatorDictionary = {
   Skip: 'Überspringen',
   Submit: 'Abschicken',
   Submitting: 'Wird gesendet',
+  'Text Message (SMS)': 'Textnachricht (SMS)',
   Username: 'Benutzername',
   'Verify Contact': 'Kontakt verifizieren',
   Verify: 'Verifizieren',
@@ -91,6 +100,8 @@ export const deDict: AuthenticatorDictionary = {
   'Forgot Password': 'Passwort vergessen',
   'Have an account? ': 'Schon registriert? ',
   'Incorrect username or password':
+    'Falscher Benutzername oder falsches Passwort',
+  'Incorrect username or password.':
     'Falscher Benutzername oder falsches Passwort',
   'Invalid password format': 'Ungültiges Passwort-Format',
   'Invalid phone number format': `Ungültiges Telefonummern-Format. Benutze eine Nummer im Format: +12345678900`,

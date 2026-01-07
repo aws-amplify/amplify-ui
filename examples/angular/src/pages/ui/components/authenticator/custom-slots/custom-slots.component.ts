@@ -6,6 +6,7 @@ import awsExports from './aws-exports';
 
 @Component({
   selector: 'custom-slots',
+  standalone: false,
   templateUrl: 'custom-slots.component.html',
 })
 export class CustomSlotsComponent {
@@ -66,6 +67,12 @@ export class CustomSlotsComponent {
         label: 'New Label',
         placeholder: 'Enter your Confirmation Code:',
         isRequired: false,
+      },
+    },
+    setupEmail: {
+      email: {
+        label: 'New Label',
+        placeholder: 'Please enter your Email:',
       },
     },
   };

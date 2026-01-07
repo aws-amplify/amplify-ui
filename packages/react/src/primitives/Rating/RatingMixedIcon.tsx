@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { classNames } from '@aws-amplify/ui';
-import { Property } from 'csstype';
+import type { Property } from 'csstype';
 
 import { View } from '../View';
-import { StyleToken } from '../types/style';
+import type { StyleToken } from '../types/style';
 import { ComponentClassName, classNameModifier } from '@aws-amplify/ui';
 
 interface RatingMixedIconProps {

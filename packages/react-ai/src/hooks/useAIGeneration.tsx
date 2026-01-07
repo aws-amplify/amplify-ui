@@ -1,13 +1,8 @@
 import * as React from 'react';
-import { V6Client } from '@aws-amplify/api-graphql';
-import { getSchema } from '../types';
-import {
-  DataClientResponse,
-  DataClientState,
-  ERROR_STATE,
-  INITIAL_STATE,
-  LOADING_STATE,
-} from './shared';
+import type { ClientExtensions } from '@aws-amplify/data-schema/runtime';
+import type { getSchema } from '../types';
+import type { AiClientResponse, AiClientState } from './shared';
+import { ERROR_STATE, INITIAL_STATE, LOADING_STATE } from './shared';
 
 export interface UseAIGenerationHookWrapper<
   Key extends keyof AIGenerationClient<Schema>['generations'],
@@ -16,7 +11,7 @@ export interface UseAIGenerationHookWrapper<
   useAIGeneration: <U extends Key>(
     routeName: U
   ) => [
-    Awaited<DataClientState<Schema[U]['returnType']>>,
+    Awaited<AiClientState<Schema[U]['returnType']>>,
     (input: Schema[U]['args']) => void,
   ];
 }
@@ -27,12 +22,12 @@ export type UseAIGenerationHook<
 > = (
   routeName: Key
 ) => [
-  Awaited<DataClientState<Schema[Key]['returnType']>>,
+  Awaited<AiClientState<Schema[Key]['returnType']>>,
   (input: Schema[Key]['args']) => void,
 ];
 
 type AIGenerationClient<T extends Record<any, any>> = Pick<
-  V6Client<T>,
+  ClientExtensions<T>,
   'generations'
 >;
 
@@ -45,42 +40,35 @@ export function createUseAIGeneration<
   >(
     routeName: Key
   ): [
-    state: DataClientState<Schema[Key]['returnType']>,
+    state: AiClientState<Schema[Key]['returnType']>,
     handleAction: (input: Schema[Key]['args']) => Promise<void>,
   ] => {
-    const [dataState, setDataState] = React.useState<
-      DataClientState<Schema[Key]['returnType']>
-    >(() => ({
-      ...INITIAL_STATE,
-      data: undefined,
-    }));
+    const [clientState, setClientState] = React.useState<
+      AiClientState<Schema[Key]['returnType']>
+    >(() => ({ ...INITIAL_STATE, data: undefined }));
 
     const handleGeneration = React.useCallback(
       async (input: Schema[Key]['args']) => {
-        setDataState(({ data }) => ({ ...LOADING_STATE, data }));
+        setClientState(({ data }) => ({ ...LOADING_STATE, data }));
 
         const result = await (
           client.generations as AIGenerationClient<Schema>['generations']
         )[routeName](input);
 
-        const { data, errors } = result as DataClientResponse<
+        const { data, errors } = result as AiClientResponse<
           Schema[Key]['returnType']
         >;
 
         if (errors) {
-          setDataState({
-            ...ERROR_STATE,
-            data,
-            messages: errors,
-          });
+          setClientState({ ...ERROR_STATE, data, messages: errors });
         } else {
-          setDataState({ ...INITIAL_STATE, data });
+          setClientState({ ...INITIAL_STATE, data });
         }
       },
       [routeName]
     );
 
-    return [dataState, handleGeneration];
+    return [clientState, handleGeneration];
   };
 
   return useAIGeneration;

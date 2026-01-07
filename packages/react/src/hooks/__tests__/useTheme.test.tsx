@@ -1,5 +1,5 @@
 import { createTheme, WebTheme } from '@aws-amplify/ui';
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook } from '@testing-library/react';
 import { ThemeProvider } from '../../components/ThemeProvider';
 import { useTheme } from '../useTheme';
 import * as React from 'react';

@@ -9,7 +9,7 @@ import {
 } from '../../common';
 import { useFieldValues } from '../../hooks';
 
-import { DefaultConfirmVerifyUserProps } from '../types';
+import type { DefaultConfirmVerifyUserProps } from '../types';
 
 const COMPONENT_NAME = 'ConfirmVerifyUser';
 
@@ -29,7 +29,7 @@ const ConfirmVerifyUser = ({
   skipVerification,
   validationErrors,
   ...rest
-}: DefaultConfirmVerifyUserProps): JSX.Element => {
+}: DefaultConfirmVerifyUserProps): React.JSX.Element => {
   const {
     disableFormSubmit: disabled,
     fields: fieldsWithHandlers,

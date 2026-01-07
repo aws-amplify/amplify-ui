@@ -1,18 +1,19 @@
-import { StatusCounts, Tasks } from '../tasks';
-import {
+import type { StatusCounts, Task } from '../tasks';
+import type {
   CopyHandlerData,
   CreateFolderHandlerData,
   DeleteHandlerData,
+  DownloadHandlerData,
   FolderData,
   LocationData,
   LocationItemData,
+  LocationPermissions,
   TaskData,
   UploadHandlerData,
-  LocationPermissions,
 } from '../actions';
-import { LocationState } from '../providers/store/location';
-import { MessageType } from '../composables/Message';
-import { FileItems } from '../providers';
+import type { MessageType } from '../components';
+import type { FileItems } from '../fileItems';
+import type { LocationState } from '../store';
 
 /**
  * Common list view display text values
@@ -55,6 +56,34 @@ interface ListItemsMessageData extends ListMessageData {
   items: LocationItemData[] | undefined;
 }
 
+export interface DefaultFilePreviewDisplayText {
+  closeButtonLabel: string;
+  filePreviewTitle: string;
+  fileInformationTitle: string;
+  errorMessage: string;
+  sizeLimitMessage: string;
+  unsupportedFileMessage: string;
+  keyLabel: string;
+  sizeLabel: string;
+  versionIdLabel: string;
+  lastModifiedLabel: string;
+  entityTagLabel: string;
+  typeLabel: string;
+  unknownValue: string;
+  errorDescription: string;
+  unsupportedFileDescription: string;
+  imageLoadErrorDescription: string;
+  videoLoadErrorDescription: string;
+  textLoadErrorDescription: string;
+  generalPreviewErrorDescription: string;
+  fileSizeLimitDescription: string;
+  filePrefix: string;
+  retryButtonLabel: string;
+  downloadButtonLabel: string;
+  getTextErrorMessage: (error: string) => string;
+  emptyFileMessage: string;
+}
+
 export interface DefaultLocationDetailViewDisplayText
   extends DefaultListViewDisplayText {
   getListItemsResultMessage: (
@@ -69,6 +98,7 @@ export interface DefaultLocationDetailViewDisplayText
   tableColumnTypeHeader: string;
   getActionListItemLabel: (key: string | undefined) => string;
   getTitle: (location: LocationState) => string;
+  filePreview: DefaultFilePreviewDisplayText;
 }
 
 /**
@@ -85,7 +115,7 @@ export interface DefaultActionViewDisplayText<T extends TaskData = TaskData> {
   actionStartLabel: string;
   getActionCompleteMessage: (data?: {
     counts?: StatusCounts;
-    tasks?: Tasks<T>;
+    tasks?: Task<T>[];
   }) => { content?: string; type?: MessageType } | undefined;
   statusDisplayCanceledLabel: string;
   statusDisplayCompletedLabel: string;
@@ -100,7 +130,6 @@ export interface DefaultActionViewDisplayText<T extends TaskData = TaskData> {
   tableColumnNameHeader: string;
   tableColumnTypeHeader: string;
   tableColumnSizeHeader: string;
-  tableColumnProgressHeader: string;
 }
 
 export interface DefaultCreateFolderViewDisplayText
@@ -128,26 +157,42 @@ export interface DefaultCopyViewDisplayText
   searchPlaceholder: string;
   searchSubmitLabel: string;
   searchClearLabel: string;
+  /**
+   * @deprecated `CopyView` does not render a "progress" header
+   */
+  tableColumnProgressHeader?: string;
 }
 
 export interface DefaultDeleteViewDisplayText
-  extends DefaultActionViewDisplayText<DeleteHandlerData> {}
+  extends DefaultActionViewDisplayText<DeleteHandlerData> {
+  /**
+   * @deprecated `DeleteView` does not render a "progress" header
+   */
+  tableColumnProgressHeader?: string;
+}
+
+export interface DefaultDownloadViewDisplayText
+  extends DefaultActionViewDisplayText<DownloadHandlerData> {
+  tableColumnProgressHeader: string;
+}
 
 export interface DefaultUploadViewDisplayText
   extends DefaultActionViewDisplayText<UploadHandlerData> {
   addFilesLabel: string;
   addFolderLabel: string;
-  statusDisplayOverwritePreventedLabel: string;
-  overwriteToggleLabel: string;
   getFilesValidationMessage: (data?: {
     invalidFiles?: FileItems;
   }) => { content?: string; type?: MessageType } | undefined;
+  overwriteToggleLabel: string;
+  statusDisplayOverwritePreventedLabel: string;
+  tableColumnProgressHeader: string;
 }
 
 export interface DefaultStorageBrowserDisplayText {
   CopyView: DefaultCopyViewDisplayText;
   CreateFolderView: DefaultCreateFolderViewDisplayText;
   DeleteView: DefaultDeleteViewDisplayText;
+  DownloadView: DefaultDownloadViewDisplayText;
   LocationsView: DefaultLocationsViewDisplayText;
   LocationDetailView: DefaultLocationDetailViewDisplayText;
   UploadView: DefaultUploadViewDisplayText;
@@ -162,20 +207,29 @@ export interface CopyViewDisplayText
 export interface DeleteViewDisplayText
   extends Partial<DefaultDeleteViewDisplayText> {}
 
+export interface DownloadViewDisplayText
+  extends Partial<DefaultDownloadViewDisplayText> {}
+
 export interface LocationsViewDisplayText
   extends Partial<DefaultLocationsViewDisplayText> {}
 
 export interface LocationDetailViewDisplayText
-  extends Partial<DefaultLocationDetailViewDisplayText> {}
+  extends Partial<Omit<DefaultLocationDetailViewDisplayText, 'filePreview'>> {
+  filePreview?: Partial<DefaultFilePreviewDisplayText>;
+}
 
 export interface UploadViewDisplayText
   extends Partial<DefaultUploadViewDisplayText> {}
 
+/**
+ * `StorageBrowser` display text strings/resolver functions
+ */
 export interface StorageBrowserDisplayText {
   LocationsView?: LocationsViewDisplayText;
   LocationDetailView?: LocationDetailViewDisplayText;
   UploadView?: UploadViewDisplayText;
   DeleteView?: DeleteViewDisplayText;
+  DownloadView?: DownloadViewDisplayText;
   CopyView?: CopyViewDisplayText;
   CreateFolderView?: CreateFolderViewDisplayText;
 }

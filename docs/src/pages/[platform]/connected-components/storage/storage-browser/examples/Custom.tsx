@@ -1,28 +1,28 @@
 import * as React from 'react';
-import { StorageBrowser, useView } from './MockStorageBrowser';
-import { CustomDeleteView } from './CustomDeleteView';
+import { StorageBrowser, useView } from './StorageBrowser';
 import { CustomCopyView } from './CustomCopyView';
 import { CustomCreateFolderView } from './CustomCreateFolderView';
-import { CustomUploadView } from './CustomUploadView';
+import { CustomDeleteView } from './CustomDeleteView';
+import { CustomDownloadView } from './CustomDownloadView';
 import { CustomLocationsView } from './CustomLocationsView';
+import { CustomUploadView } from './CustomUploadView';
+import CustomLocationDetailView from './CustomLocationDetailView';
 
-function MyLocationActionView({
-  type,
-  onExit,
-}: {
-  type?: string;
-  onExit: () => void;
-}) {
-  let DialogContent = null;
-  if (!type) return DialogContent;
+function MyLocationActionView() {
+  const state = useView('LocationDetail');
+  const onExit = () => {
+    state.onActionSelect('');
+  };
 
-  switch (type) {
+  switch (state.actionType) {
     case 'copy':
       return <CustomCopyView onExit={onExit} />;
     case 'createFolder':
       return <CustomCreateFolderView onExit={onExit} />;
     case 'delete':
       return <CustomDeleteView onExit={onExit} />;
+    case 'download':
+      return <CustomDownloadView onExit={onExit} />;
     case 'upload':
       return <CustomUploadView onExit={onExit} />;
     default:
@@ -32,31 +32,16 @@ function MyLocationActionView({
 
 function MyStorageBrowser() {
   const state = useView('LocationDetail');
-  const [currentAction, setCurrentAction] = React.useState<string>();
 
   if (!state.location.current) {
     return <CustomLocationsView />;
   }
 
-  if (currentAction) {
-    return (
-      <MyLocationActionView
-        type={currentAction}
-        onExit={() => {
-          setCurrentAction(undefined);
-        }}
-      />
-    );
+  if (state.actionType) {
+    return <MyLocationActionView />;
   }
 
-  return (
-    <StorageBrowser.LocationDetailView
-      key={currentAction}
-      onActionSelect={(action) => {
-        setCurrentAction(action);
-      }}
-    />
-  );
+  return <CustomLocationDetailView />;
 }
 
 export default function Example() {

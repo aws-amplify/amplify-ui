@@ -1,15 +1,15 @@
 import { renderHook, act } from '@testing-library/react';
-import { DataState } from '@aws-amplify/ui-react-core';
+import { AsyncReducerState } from '@aws-amplify/ui-react-core';
 
 import { ListLocationsOutput, LocationData } from '../../../actions';
 import { getFileKey } from '../../../actions/handlers';
-import { UseStoreState, useStore } from '../../../providers/store';
+import { StoreState, useStore } from '../../../store';
 import { useAction, useList } from '../../../useAction';
 
 import { useLocationsView, DEFAULT_LIST_OPTIONS } from '../useLocationsView';
 
 jest.mock('../../../actions/handlers');
-jest.mock('../../../providers/store');
+jest.mock('../../../store');
 jest.mock('../../../useAction');
 jest.useFakeTimers();
 jest.setSystemTime(1);
@@ -64,7 +64,9 @@ describe('useLocationsView', () => {
   const mockDispatchStoreAction = jest.fn();
   const mockHandleDownload = jest.fn();
 
-  function mockUseLocationsData(returnValue: DataState<ListLocationsOutput>) {
+  function mockUseLocationsData(
+    returnValue: AsyncReducerState<ListLocationsOutput>
+  ) {
     const handleList = jest.fn();
     mockUseList.mockReturnValue([returnValue, handleList]);
     return handleList;
@@ -74,11 +76,11 @@ describe('useLocationsView', () => {
     Object.defineProperty(globalThis, 'crypto', {
       value: { randomUUID: () => mockId },
     });
-    mockUseStore.mockReturnValue([
-      {} as UseStoreState,
-      mockDispatchStoreAction,
+    mockUseStore.mockReturnValue([{} as StoreState, mockDispatchStoreAction]);
+    mockUseAction.mockReturnValue([
+      { isProcessing: false, task: undefined },
+      mockHandleDownload,
     ]);
-    mockUseAction.mockReturnValue([{}, mockHandleDownload]);
     mockGetFileKey.mockReturnValue(fileKey);
   });
 
@@ -88,7 +90,7 @@ describe('useLocationsView', () => {
 
   it('should fetch and set location data on mount', () => {
     const mockDataState = {
-      data: { items: mockData, nextToken: undefined },
+      value: { items: mockData, nextToken: undefined },
       message: '',
       hasError: false,
       isLoading: false,
@@ -114,7 +116,7 @@ describe('useLocationsView', () => {
   it('should handle pagination actions', () => {
     // empty state
     mockUseLocationsData({
-      data: {
+      value: {
         items: [],
         nextToken: undefined,
       },
@@ -132,7 +134,7 @@ describe('useLocationsView', () => {
 
     // mock first page data
     const mockDataState = {
-      data: {
+      value: {
         items: mockData.slice(0, EXPECTED_PAGE_SIZE),
         nextToken: 'token123',
       },
@@ -151,7 +153,7 @@ describe('useLocationsView', () => {
 
     // mock next page
     mockUseLocationsData({
-      data: { items: mockData, nextToken: undefined },
+      value: { items: mockData, nextToken: undefined },
       message: '',
       hasError: false,
       isLoading: false,
@@ -182,7 +184,7 @@ describe('useLocationsView', () => {
 
   it('should handle refreshing location data', () => {
     const mockDataState = {
-      data: { items: [], nextToken: 'token123' },
+      value: { items: [], nextToken: 'token123' },
       message: '',
       hasError: false,
       isLoading: false,
@@ -219,7 +221,7 @@ describe('useLocationsView', () => {
     });
 
     expect(mockDispatchStoreAction).toHaveBeenCalledWith({
-      type: 'NAVIGATE',
+      type: 'CHANGE_LOCATION',
       location: expectedLocation,
     });
   });
@@ -248,7 +250,7 @@ describe('useLocationsView', () => {
 
   it('should handle search', () => {
     const mockDataState = {
-      data: { items: mockData, nextToken: undefined },
+      value: { items: mockData, nextToken: undefined },
       message: '',
       hasError: false,
       isLoading: false,

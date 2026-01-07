@@ -7,6 +7,7 @@ import awsExports from '../aws-exports';
 
 @Component({
   selector: 'use-authenticator',
+  standalone: false,
   templateUrl: 'useAuthenticatorHome.component.html',
 })
 export class UseAuthenticatorHomeComponent {

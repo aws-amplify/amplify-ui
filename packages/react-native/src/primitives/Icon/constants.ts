@@ -1,4 +1,4 @@
-import { IconSizes } from './types';
+import type { IconSizes } from './types';
 
 export const iconSizes: IconSizes = {
   xs: 16,

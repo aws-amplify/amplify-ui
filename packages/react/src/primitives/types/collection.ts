@@ -1,8 +1,8 @@
-import * as React from 'react';
-import { BaseFlexProps } from './flex';
-import { BaseGridProps } from './grid';
-import { BaseStyleProps } from './style';
-import { ElementType, PrimitiveProps, PrimitivePropsWithAs } from './view';
+import type * as React from 'react';
+import type { BaseFlexProps } from './flex';
+import type { BaseGridProps } from './grid';
+import type { BaseStyleProps } from './style';
+import type { ElementType, PrimitiveProps, PrimitivePropsWithAs } from './view';
 
 export type CollectionType = 'list' | 'grid' | 'table';
 
@@ -66,7 +66,7 @@ interface CollectionChildren<Item> {
    * The component to be repeated
    * Same interface as Array.prototype.map
    */
-  children: (item: Item, index: number) => JSX.Element;
+  children: (item: Item, index: number) => React.JSX.Element;
 }
 
 export interface CollectionBaseProps<Item> extends CollectionChildren<Item> {
@@ -81,10 +81,18 @@ export type ListCollectionProps<Item> = Omit<BaseFlexProps, 'children'> &
   CollectionBaseProps<Item>;
 export type GridCollectionProps<Item> = Omit<BaseGridProps, 'children'> &
   CollectionBaseProps<Item>;
+export type TableCollectionProps<Item> = Omit<BaseGridProps, 'children'> &
+  CollectionBaseProps<Item> & {
+    /**
+     * @description
+     * Custom table header component to be rendered at the top of the table
+     */
+    tableHeader: () => React.ReactNode;
+  };
 
 /**
  * Omits `React.ReactNode` as children to prevent intersection type for `children` of
- * `React.ReactNode & (item: Item, index: number) => JSX.Element`
+ * `React.ReactNode & (item: Item, index: number) => React.JSX.Element`
  * and replaces with `CollectionChildren`
  */
 type ReplaceChildren<T, Item> = Omit<T, 'children'> & CollectionChildren<Item>;
@@ -98,6 +106,7 @@ export type BaseCollectionProps<
   (
     | ReplaceChildren<{ type: 'list' } & ListCollectionProps<Item>, Item>
     | ReplaceChildren<{ type: 'grid' } & GridCollectionProps<Item>, Item>
+    | ReplaceChildren<{ type: 'table' } & TableCollectionProps<Item>, Item>
   );
 
 export type CollectionProps<

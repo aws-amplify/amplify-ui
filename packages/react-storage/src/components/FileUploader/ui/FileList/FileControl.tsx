@@ -8,7 +8,7 @@ import { FileStatusMessage } from './FileStatusMessage';
 import { FileRemoveButton } from './FileRemoveButton';
 import { UploadDetails } from './FileDetails';
 import { FileThumbnail } from './FileThumbnail';
-import { FileControlProps } from './types';
+import type { FileControlProps } from './types';
 
 export function FileControl({
   onPause,
@@ -25,7 +25,7 @@ export function FileControl({
   status,
   displayText,
   thumbnailUrl,
-}: FileControlProps): JSX.Element {
+}: FileControlProps): React.JSX.Element {
   const {
     getPausedText,
     getUploadingText,

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { WebTheme } from '@aws-amplify/ui';
+import type { WebTheme } from '@aws-amplify/ui';
 import { Style } from './Style';
 
 interface ThemeStyleProps extends React.ComponentProps<'style'> {
@@ -15,7 +15,7 @@ interface ThemeStyleProps extends React.ComponentProps<'style'> {
 export const ThemeStyle = ({
   theme,
   ...rest
-}: ThemeStyleProps): JSX.Element | null => {
+}: ThemeStyleProps): React.JSX.Element | null => {
   if (!theme) return null;
 
   const { name, cssText } = theme;

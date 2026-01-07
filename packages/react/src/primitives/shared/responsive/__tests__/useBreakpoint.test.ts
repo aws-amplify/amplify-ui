@@ -1,6 +1,6 @@
 import * as React from 'react';
 import MatchMediaMock from 'jest-matchmedia-mock';
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook } from '@testing-library/react';
 
 import { Breakpoints } from '../../../types/responsive';
 import { getMediaQueries } from '../getMediaQueries';

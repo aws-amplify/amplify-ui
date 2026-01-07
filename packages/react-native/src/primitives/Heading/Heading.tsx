@@ -3,7 +3,7 @@ import { Text } from 'react-native';
 
 import { useTheme } from '../../theme';
 import { getThemedStyles } from './styles';
-import { HeadingProps } from './types';
+import type { HeadingProps } from './types';
 
 export default function Heading({
   accessibilityRole = 'header',
@@ -11,7 +11,7 @@ export default function Heading({
   level = 6,
   style,
   ...rest
-}: HeadingProps): JSX.Element {
+}: HeadingProps): React.JSX.Element {
   const theme = useTheme();
   const themedStyle = getThemedStyles(theme);
 

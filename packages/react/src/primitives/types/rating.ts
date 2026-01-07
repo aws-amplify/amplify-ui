@@ -1,9 +1,9 @@
-import { Property } from 'csstype';
+import type { Property } from 'csstype';
 
-import { BaseFlexProps } from './flex';
-import { Sizes } from './base';
-import { StyleToken } from './style';
-import { ElementType, PrimitiveProps } from './view';
+import type { BaseFlexProps } from './flex';
+import type { Sizes } from './base';
+import type { StyleToken } from './style';
+import type { ElementType, PrimitiveProps } from './view';
 
 export type RatingSizes = Sizes;
 
@@ -21,7 +21,7 @@ export interface RatingOptions {
    * override the empty icon an will create a rating component that uses
    * different icons for filled and empty icons.
    */
-  emptyIcon?: JSX.Element;
+  emptyIcon?: React.JSX.Element;
 
   /**
    * @description
@@ -37,7 +37,7 @@ export interface RatingOptions {
    * with the emptyIcon prop
    * Default is <IconStar />
    */
-  icon?: JSX.Element;
+  icon?: React.JSX.Element;
 
   /**
    * @description

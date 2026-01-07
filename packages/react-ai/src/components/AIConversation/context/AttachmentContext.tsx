@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { AIConversationInput } from '../types';
+import type { AIConversationInput } from '../types';
 
 export interface AttachmentContextProps
   extends Pick<
@@ -24,7 +24,7 @@ export const AttachmentProvider = ({
   allowAttachments = false,
   maxAttachmentSize = 400_000,
   maxAttachments = 20,
-}: React.PropsWithChildren<AttachmentContextProps>): JSX.Element => {
+}: React.PropsWithChildren<AttachmentContextProps>): React.JSX.Element => {
   const providerValue = React.useMemo(
     () => ({ maxAttachmentSize, maxAttachments, allowAttachments }),
     [maxAttachmentSize, maxAttachments, allowAttachments]

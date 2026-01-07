@@ -66,6 +66,14 @@ Given("I'm running the docs page", () => {
   cy.visit('/');
 });
 
+Given('I intercept requests to host including {string}', (host: string) => {
+  cy.intercept({ url: '**' }, (req) => {
+    if (req.headers.host?.includes(host)) {
+      req.alias = host;
+    }
+  });
+});
+
 Given(
   'I intercept {string} with fixture {string}',
   (json: string, fixture: string) => {
@@ -112,6 +120,15 @@ Then(
     cy.wait(`@${method}_REQUEST`)
       .its('response.statusCode')
       .should('eq', +statusCode);
+  }
+);
+
+Then(
+  'I confirm the {string} request was made to host containing {string}',
+  (request: string, hostValue: string) => {
+    cy.wait(`@${request}`).then((interception) => {
+      expect(interception.request.headers.host).to.include(hostValue);
+    });
   }
 );
 
@@ -214,6 +231,12 @@ Given(
   }
 );
 
+Given('I expect an exception', () => {
+  Cypress.on('uncaught:exception', () => {
+    return false;
+  });
+});
+
 When('Sign in was called with {string}', (username: string) => {
   let tempStub = stub.calledWith(username, Cypress.env('VALID_PASSWORD'));
   stub = null;
@@ -275,6 +298,10 @@ Then('I press the {string} key', (key: string) => {
 });
 
 When('I click the button containing {string}', cy.clickButtonWithText);
+
+When('I click the button with label {string}', (ariaLabel: string) => {
+  cy.findByLabelText(ariaLabel).click();
+});
 
 When('I click the button containing random name', () => {
   cy.clickButtonWithText(randomFileName);
@@ -345,7 +372,11 @@ When('I click the {string} checkbox', (label: string) => {
 });
 
 When('I click the {string} radio button', (label: string) => {
-  cy.findByLabelText(new RegExp(`^${escapeRegExp(label)}`, 'i')).click();
+  cy.findByLabelText(new RegExp(`^${escapeRegExp(label)}`, 'i')).click({
+    // We have to force this click because the radio button isn't visible by default
+    // and instead has ::before decoration.
+    force: true,
+  });
 });
 
 When('I reload the page', () => {
@@ -380,6 +411,10 @@ Then('I see placeholder {string}', (message: string) => {
 
 Then('I see the {string} image', (alt: string) => {
   cy.findByAltText(alt).should('exist');
+});
+
+Then('I see video with label {string}', (label: string) => {
+  cy.get(`video[aria-label="${label}"]`).should('exist');
 });
 
 Then('I see {string} as a {string} field', (label: string, type: string) => {
@@ -433,6 +468,16 @@ Then('the {string} button is disabled', (name: string) => {
   }).should('be.disabled');
 });
 
+Then('the {string} button is enabled', (name: string) => {
+  cy.findByRole('button', {
+    name: new RegExp(`^${escapeRegExp(name)}$`, 'i'),
+  }).should('not.be.disabled');
+});
+
+Then('the table should have {string} rows', (value: string) => {
+  cy.get('table').find('tbody tr').should('have.length', value);
+});
+
 Then('the {string} field is invalid', (name: string) => {
   cy.findInputField(name)
     .then(($el) => $el.get(0).checkValidity())
@@ -459,16 +504,19 @@ Then(
 
 When('I type a valid confirmation code', () => {
   // This should be intercepted & mocked
-  cy.findInputField('Confirmation Code').type('123456');
+  cy.findInputField('Confirmation Code').clear().type('123456');
 });
 
-When('I type a custom password from label {string}', (custom) => {
+When('I type a custom password from label {string}', (custom: string) => {
   cy.findByLabelText(custom).type(Cypress.env('VALID_PASSWORD'));
 });
 
-When('I type a custom confirm password from label {string}', (custom) => {
-  cy.findByLabelText(custom).type(Cypress.env('VALID_PASSWORD'));
-});
+When(
+  'I type a custom confirm password from label {string}',
+  (custom: string) => {
+    cy.findByLabelText(custom).type(Cypress.env('VALID_PASSWORD'));
+  }
+);
 
 When('I type a valid SMS confirmation code', () => {
   // This should be intercepted & mocked
@@ -476,16 +524,19 @@ When('I type a valid SMS confirmation code', () => {
 });
 
 When('I type an invalid confirmation code', () => {
-  cy.findInputField('Confirmation Code').type('0000');
+  cy.findInputField('Confirmation Code').clear().type('0000');
 });
 
 When('I see one code input', () => {
   cy.get('input').should('have.length', 1);
 });
 
-When('I see {string} as the {string} input', (custom, order) => {
-  cy.get('input').eq(order).should('have.attr', 'placeholder', custom);
-});
+When(
+  'I see {string} as the {string} input',
+  (custom: string, order: number) => {
+    cy.get('input').eq(order).should('have.attr', 'placeholder', custom);
+  }
+);
 
 When('I dispatch {string} event', (eventName: string) => {
   if (!window) {
@@ -655,3 +706,38 @@ When(
   (folderName: string, count: string) =>
     cy.fileInputUpload(`${folderName}/${randomFileName}`, parseInt(count))
 );
+
+When('A network failure occurs', () => {
+  cy.intercept('', (req) => {
+    req.destroy();
+  });
+});
+
+Then('I see an error message for network failure', () => {
+  cy.get('body', { timeout: 10000 }).should(($body) => {
+    const text = $body.text();
+    expect(text).to.match(
+      /Something went wrong|Failed to fetch|Error|Network error|Unable to load/i
+    );
+  });
+});
+
+Then('I see the {string} link', (name: string) => {
+  cy.findByText(name).should('exist');
+});
+
+When('I click the {string} link', (name: string) => {
+  cy.findByText(name).click();
+});
+
+Then('I see the {string} message', (name: string) => {
+  cy.findByText(name).should('exist');
+});
+
+When('I go back to the previous page', () => {
+  cy.go('back');
+});
+
+When('I go forward to the next page', () => {
+  cy.go('forward');
+});

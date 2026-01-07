@@ -1,9 +1,9 @@
-import { CreateStorageBrowserInput } from '@aws-amplify/ui-react-storage/dist/types/components/StorageBrowser';
 import {
-  DeleteHandler,
+  CreateStorageBrowserInput,
   DeleteHandlerOutput,
+  DownloadHandlerOutput,
   UploadHandlerOutput,
-} from '@aws-amplify/ui-react-storage/dist/types/components/StorageBrowser/actions';
+} from '@aws-amplify/ui-react-storage/browser';
 import uniqueId from 'lodash/uniqueId';
 
 export const defaultActions: CreateStorageBrowserInput['actions']['default'] = {
@@ -60,13 +60,27 @@ export const defaultActions: CreateStorageBrowserInput['actions']['default'] = {
     },
     viewName: 'DeleteView',
   },
-  download: () => {
-    return {
-      result: Promise.resolve({
-        status: 'COMPLETE' as const,
-        value: { url: new URL('') },
-      }),
-    };
+  download: {
+    actionListItem: {
+      icon: 'download',
+      label: 'Download',
+    },
+    handler: () => {
+      const result: DownloadHandlerOutput['result'] = new Promise((resolve) => {
+        setTimeout(() => {
+          resolve({
+            status: 'COMPLETE' as const,
+            // creating URL with empty string will throw TypeError,
+            // preventing promise from resolving
+            value: { url: null },
+          });
+        }, 500);
+      });
+      return {
+        result,
+      };
+    },
+    viewName: 'DownloadView',
   },
   upload: {
     actionListItem: {
@@ -121,21 +135,21 @@ export const defaultActions: CreateStorageBrowserInput['actions']['default'] = {
           items: [
             {
               id: uniqueId(),
-              key: `${props.prefix}test-file.txt`,
+              key: `${props.prefix}image-1.jpg`,
               lastModified: new Date(),
               size: 1008,
               type: 'FILE' as const,
             },
             {
               id: uniqueId(),
-              key: `${props.prefix}test-file2.txt`,
+              key: `${props.prefix}image-2.jpg`,
               lastModified: new Date(),
               size: 23456,
               type: 'FILE' as const,
             },
             {
               id: uniqueId(),
-              key: `${props.prefix}test-file3.txt`,
+              key: `${props.prefix}image-3.jpg`,
               lastModified: new Date(),
               size: 43456,
               type: 'FILE' as const,

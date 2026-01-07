@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/no-extraneous-dependencies -- types can't be added as a dependency
-export {
+export type {
   HttpRequest,
   Provider,
   RequestHandler,

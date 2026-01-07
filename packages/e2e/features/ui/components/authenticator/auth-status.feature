@@ -9,9 +9,9 @@ UI is not rendered in the DOM tree.
   Background:
     Given I'm running the example "/ui/components/authenticator/auth-status"
 
-  @angular @react @vue
+  @angular @react @vue @svelte
   Scenario: Sign in with confirmed credentials, reload, sign out, and reload
-    Then I see "unauthenticated" 
+    Then I see "unauthenticated"
     When I type my "username" with status "CONFIRMED"
     Then I type my password
     Then I click the "Sign In" button
@@ -25,4 +25,3 @@ UI is not rendered in the DOM tree.
     When I reload the page
     Then I see "unauthenticated"
 
-  

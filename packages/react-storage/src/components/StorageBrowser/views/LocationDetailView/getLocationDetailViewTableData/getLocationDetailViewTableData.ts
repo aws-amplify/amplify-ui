@@ -1,20 +1,24 @@
-import {
+import type {
   FileData,
-  createFileDataItem,
   FileDataItem,
-  LocationItemData,
   LocationData,
+  LocationItemData,
 } from '../../../actions';
-import { DataTableProps } from '../../../composables/DataTable';
-import { LocationState } from '../../../providers/store/location';
+import { createFileDataItem } from '../../../actions';
+import type { DataTableProps } from '../../../components';
+import type { DefaultLocationDetailViewDisplayText } from '../../../displayText/types';
+import type { LocationState } from '../../../store';
 
 import { getFileRowContent } from './getFileRowContent';
 import { getFolderRowContent } from './getFolderRowContent';
-
-import { LOCATION_DETAIL_VIEW_HEADERS } from './constants';
+import { getHeaders } from './getHeaders';
 
 export const getLocationDetailViewTableData = ({
+  filePreviewEnabled,
+  activeFile,
+  onSelectActiveFile,
   areAllFilesSelected,
+  displayText,
   location,
   fileDataItems,
   hasFiles,
@@ -27,7 +31,11 @@ export const getLocationDetailViewTableData = ({
   onSelect,
   onSelectAll,
 }: {
+  filePreviewEnabled: boolean;
+  activeFile: FileData | undefined;
+  onSelectActiveFile: (arg: FileData) => void;
   areAllFilesSelected: boolean;
+  displayText: DefaultLocationDetailViewDisplayText;
   location: LocationState;
   fileDataItems?: FileData[];
   hasFiles: boolean;
@@ -40,20 +48,22 @@ export const getLocationDetailViewTableData = ({
   onSelect: (isSelected: boolean, fileItem: FileData) => void;
   onSelectAll: () => void;
 }): DataTableProps => {
-  const headerCheckbox: DataTableProps['headers'][number] = {
-    key: 'checkbox',
-    type: 'checkbox',
-    content: {
-      checked: areAllFilesSelected,
-      label: selectAllFilesLabel,
-      onSelect: onSelectAll,
-      id: 'header-checkbox',
-    },
-  };
-
-  const headers = hasFiles
-    ? [headerCheckbox, ...LOCATION_DETAIL_VIEW_HEADERS.slice(1)]
-    : LOCATION_DETAIL_VIEW_HEADERS;
+  const {
+    tableColumnLastModifiedHeader,
+    tableColumnNameHeader,
+    tableColumnSizeHeader,
+    tableColumnTypeHeader,
+  } = displayText;
+  const headers = getHeaders({
+    areAllFilesSelected,
+    selectAllFilesLabel,
+    hasFiles,
+    onSelectAll,
+    tableColumnLastModifiedHeader,
+    tableColumnNameHeader,
+    tableColumnSizeHeader,
+    tableColumnTypeHeader,
+  });
 
   const rows: DataTableProps['rows'] = pageItems.map((locationItem) => {
     const { id, key, type } = locationItem;
@@ -66,12 +76,20 @@ export const getLocationDetailViewTableData = ({
         const onFileDownload = () => {
           onDownload(createFileDataItem(locationItem));
         };
+
         const onFileSelect = () => {
           onSelect(isSelected, locationItem);
         };
+
+        const onClick = () => {
+          onSelectActiveFile(locationItem);
+        };
+
         return {
           key: id,
+          active: activeFile?.id === id,
           content: getFileRowContent({
+            filePreviewEnabled,
             permissions: current?.permissions ?? [],
             isSelected,
             itemLocationKey: `${current?.prefix ?? ''}${path}`,
@@ -83,6 +101,7 @@ export const getLocationDetailViewTableData = ({
             size,
             onDownload: onFileDownload,
             onSelect: onFileSelect,
+            onClick,
           }),
         };
       }
@@ -98,6 +117,7 @@ export const getLocationDetailViewTableData = ({
         };
         return {
           key: id,
+          active: false,
           content: getFolderRowContent({
             itemSubPath,
             rowId: id,

@@ -8,7 +8,7 @@ import {
 } from '@aws-amplify/ui-react-storage/browser';
 
 import { managedAuthAdapter } from '../managedAuthAdapter';
-import { SignIn, SignOutButton } from './routed/components';
+import { SignIn, SignOutButton } from './components';
 import {
   Button,
   Flex,
@@ -20,7 +20,10 @@ import {
 
 import '@aws-amplify/ui-react-storage/styles.css';
 
-type GetLink = ActionHandler<{ duration: number; fileKey: string }, string>;
+type GetLink = ActionHandler<
+  { duration: number; fileKey: string },
+  { link: string }
+>;
 
 const getLink: GetLink = ({ data, config }) => {
   const result = getUrl({
@@ -33,7 +36,7 @@ const getLink: GetLink = ({ data, config }) => {
     },
   }).then((res) => ({
     status: 'COMPLETE' as const,
-    value: res.url.toString(),
+    value: { link: res.url.toString() },
   }));
 
   return { result };
@@ -57,8 +60,7 @@ const { StorageBrowser, useAction, useView } = createStorageBrowser({
 const LinkActionView = () => {
   const [duration, setDuration] = React.useState(60);
 
-  const locationDetailState = useView('LocationDetail');
-  const { onActionExit, fileDataItems } = locationDetailState;
+  const { onActionExit, fileDataItems } = useView('LocationDetail');
 
   const items = React.useMemo(
     () =>
@@ -79,9 +81,7 @@ const LinkActionView = () => {
         value={duration}
         min={15}
         max={300}
-        onStepChange={(value) => {
-          setDuration(value);
-        }}
+        onStepChange={setDuration}
       />
       <Button onClick={() => handleCreate()}>Start</Button>
       {!tasks
@@ -90,7 +90,7 @@ const LinkActionView = () => {
             return (
               <Flex direction="row" key={data.fileKey}>
                 <Text>{data.fileKey}</Text>
-                {value ? <Link href={value}>link</Link> : null}
+                {value?.link ? <Link href={value.link}>link</Link> : null}
                 <Text>{status}</Text>
               </Flex>
             );

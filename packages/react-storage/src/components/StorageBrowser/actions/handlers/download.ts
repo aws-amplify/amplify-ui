@@ -1,5 +1,6 @@
 import { getUrl } from '../../storage-internal';
-import {
+import type {
+  OptionalFileData,
   TaskData,
   TaskHandler,
   TaskHandlerInput,
@@ -9,7 +10,7 @@ import {
 
 import { constructBucket } from './utils';
 
-export interface DownloadHandlerData extends TaskData {
+export interface DownloadHandlerData extends OptionalFileData, TaskData {
   fileKey: string;
 }
 
@@ -37,11 +38,9 @@ function downloadFromUrl(fileName: string, url: string) {
   document.body.removeChild(a);
 }
 
-export const downloadHandler: DownloadHandler = ({
-  config,
-  data: { key },
-}): DownloadHandlerOutput => {
+export const downloadHandler: DownloadHandler = ({ config, data }) => {
   const { accountId, credentials, customEndpoint } = config;
+  const { key } = data;
 
   const result = getUrl({
     path: key,
@@ -58,7 +57,10 @@ export const downloadHandler: DownloadHandler = ({
       downloadFromUrl(key, url.toString());
       return { status: 'COMPLETE' as const, value: { url } };
     })
-    .catch(({ message }: Error) => ({ message, status: 'FAILED' as const }));
+    .catch((error: Error) => {
+      const { message } = error;
+      return { error, message, status: 'FAILED' as const };
+    });
 
   return { result };
 };

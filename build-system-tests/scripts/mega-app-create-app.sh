@@ -70,8 +70,8 @@ echo "echo "{}" >package.json"
 echo "{}" >package.json
 
 if [ "$BUILD_TOOL" == 'next' ]; then
-    echo "npx create-next-app ${MEGA_APP_NAME} --ts --no-src-dir --no-experimental-app --no-eslint --no-app --no-tailwind"
-    npx create-next-app ${MEGA_APP_NAME} --ts --no-src-dir --no-experimental-app --no-eslint --no-app --no-tailwind
+    echo "npx create-next-app@${BUILD_TOOL_VERSION} ${MEGA_APP_NAME} --yes --ts --no-src-dir --no-experimental-app --no-eslint --no-app --no-tailwind --no-turbopack --webpack"
+    npx create-next-app@${BUILD_TOOL_VERSION} ${MEGA_APP_NAME} --yes --ts --no-src-dir --no-experimental-app --no-eslint --no-app --no-tailwind --no-turbopack --webpack
 fi
 
 if [ "$BUILD_TOOL" == 'vite' ]; then
@@ -91,8 +91,8 @@ if [[ "$FRAMEWORK" == 'vue' ]]; then
         echo "vue create --preset ../templates/components/vue/preset-${FRAMEWORK_VERSION}.json $MEGA_APP_NAME"
         echo 'Y' | vue create --preset ../templates/components/vue/preset-${FRAMEWORK_VERSION}.json $MEGA_APP_NAME
     elif [ "$BUILD_TOOL" == 'nuxt' ]; then
-        echo "npx nuxt init $MEGA_APP_NAME"
-        npx nuxt init $MEGA_APP_NAME
+        echo "npx nuxi@latest init $MEGA_APP_NAME -t v4"
+        npx nuxi@latest init $MEGA_APP_NAME -t v4
     fi
 fi
 

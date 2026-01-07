@@ -79,10 +79,30 @@ if [[ "$FRAMEWORK" == 'react' && "$BUILD_TOOL" == 'vite' ]]; then
 fi
 
 if [[ "$FRAMEWORK" == 'angular' ]]; then
-    echo "cp templates/components/angular/app-angular-${FRAMEWORK_VERSION}.component.ts mega-apps/${MEGA_APP_NAME}/src/app/app.component.ts"
-    cp templates/components/angular/app-angular-${FRAMEWORK_VERSION}.component.ts mega-apps/${MEGA_APP_NAME}/src/app/app.component.ts
-    echo "cp templates/components/angular/app.module.ts mega-apps/${MEGA_APP_NAME}/src/app/app.module.ts"
-    cp templates/components/angular/app.module.ts mega-apps/${MEGA_APP_NAME}/src/app/app.module.ts
+    if [[ "$FRAMEWORK_VERSION" == "latest" || "$FRAMEWORK_VERSION" -ge 21 ]]; then
+        USE_V21_CONFIG="true"
+    else
+        USE_V21_CONFIG="false"
+    fi
+
+    echo "cp templates/components/angular/app-standalone.component.ts mega-apps/${MEGA_APP_NAME}/src/app/app.component.ts"
+    cp templates/components/angular/app-standalone.component.ts mega-apps/${MEGA_APP_NAME}/src/app/app.component.ts
+
+    if [[ "$USE_V21_CONFIG" == "true" ]]; then
+        echo "cp templates/components/angular/main-standalone-v21.ts mega-apps/${MEGA_APP_NAME}/src/main.ts"
+        cp templates/components/angular/main-standalone-v21.ts mega-apps/${MEGA_APP_NAME}/src/main.ts
+
+        echo "cp templates/components/angular/app.config.ts mega-apps/${MEGA_APP_NAME}/src/app/app.config.ts"
+        cp templates/components/angular/app.config.ts mega-apps/${MEGA_APP_NAME}/src/app/app.config.ts
+    else
+        echo "cp templates/components/angular/main-standalone.ts mega-apps/${MEGA_APP_NAME}/src/main.ts"
+        cp templates/components/angular/main-standalone.ts mega-apps/${MEGA_APP_NAME}/src/main.ts
+    fi
+
+    if [ -f "mega-apps/${MEGA_APP_NAME}/src/app/app.module.ts" ]; then
+        echo "rm mega-apps/${MEGA_APP_NAME}/src/app/app.module.ts"
+        rm mega-apps/${MEGA_APP_NAME}/src/app/app.module.ts
+    fi
     echo "npx json -I -f mega-apps/${MEGA_APP_NAME}/angular.json -e \"this.projects[\\\"$MEGA_APP_NAME\\\"].architect.build.options.styles.push(\\\"node_modules/@aws-amplify/ui-angular/theme.css\\\")\""
     npx json -I -f mega-apps/${MEGA_APP_NAME}/angular.json -e "this.projects[\"$MEGA_APP_NAME\"].architect.build.options.styles.push(\"node_modules/@aws-amplify/ui-angular/theme.css\")"
     npx json -I -f mega-apps/${MEGA_APP_NAME}/angular.json -e "this.projects[\"$MEGA_APP_NAME\"].architect.build.configurations.production.budgets = [{\"type\":\"initial\",\"maximumWarning\":\"600kb\",\"maximumError\":\"1.5mb\"},{\"type\":\"anyComponentStyle\",\"maximumWarning\":\"2kb\",\"maximumError\":\"4kb\"}]"
@@ -94,19 +114,12 @@ if [[ "$FRAMEWORK" == 'angular' ]]; then
     cat ./templates/components/angular/polifills-appendix.ts >>mega-apps/${MEGA_APP_NAME}/src/polyfills.ts
     if [[ "$FRAMEWORK_VERSION" -gt 15 || "$FRAMEWORK_VERSION" == "latest" ]]; then
         echo "add polyfills to angular.json"
-        echo "npx json -I -f mega-apps/${MEGA_APP_NAME}/angular.json -e \"this.projects[\\\"$MEGA_APP_NAME\\\"].architect.build.options.polyfills.push(\\\"src/polyfills.ts\\\")\""
-        npx json -I -f mega-apps/${MEGA_APP_NAME}/angular.json -e "this.projects[\"$MEGA_APP_NAME\"].architect.build.options.polyfills.push(\"src/polyfills.ts\")"
+        echo "npx json -I -f mega-apps/${MEGA_APP_NAME}/angular.json -e \"this.projects[\\\"$MEGA_APP_NAME\\\"].architect.build.options.polyfills = this.projects[\\\"$MEGA_APP_NAME\\\"].architect.build.options.polyfills || []; this.projects[\\\"$MEGA_APP_NAME\\\"].architect.build.options.polyfills.push(\\\"src/polyfills.ts\\\")\""
+        npx json -I -f mega-apps/${MEGA_APP_NAME}/angular.json -e "this.projects[\"$MEGA_APP_NAME\"].architect.build.options.polyfills = this.projects[\"$MEGA_APP_NAME\"].architect.build.options.polyfills || []; this.projects[\"$MEGA_APP_NAME\"].architect.build.options.polyfills.push(\"src/polyfills.ts\")"
         echo "strip comments from tsconfig.app.json and add polyfills.ts"
         echo "npx strip-json-comments mega-apps/${MEGA_APP_NAME}/tsconfig.app.json | npx json -a -e 'this.files.push(\"src/polyfills.ts\")' >tsconfig.app.json.tmp && mv tsconfig.app.json.tmp ./mega-apps/$MEGA_APP_NAME/tsconfig.app.json && rm -f tsconfig.app.json.tmp"
-        npx strip-json-comments mega-apps/${MEGA_APP_NAME}/tsconfig.app.json | npx json -a -e 'this.files.push("src/polyfills.ts")' >tsconfig.app.json.tmp && mv tsconfig.app.json.tmp ./mega-apps/$MEGA_APP_NAME/tsconfig.app.json && rm -f tsconfig.app.json.tmp
+        npx strip-json-comments mega-apps/${MEGA_APP_NAME}/tsconfig.app.json | npx json -a -e 'this.files = this.files || []; this.files.push("src/polyfills.ts")' >tsconfig.app.json.tmp && mv tsconfig.app.json.tmp ./mega-apps/$MEGA_APP_NAME/tsconfig.app.json && rm -f tsconfig.app.json.tmp
     fi
-    # Angular 14 is incompatible with @types/node > 20.11.7, so pin at this version
-    if [[ "$FRAMEWORK_VERSION" == 14 ]]; then
-        echo "pin @types/node version in mega-apps/${MEGA_APP_NAME}/package.json"
-        echo "npx json -I -f mega-apps/${MEGA_APP_NAME}/package.json -e 'this.dependencies["@types/node"] = "20.11.7"'"
-        npx json -I -f mega-apps/${MEGA_APP_NAME}/package.json -e 'this.dependencies["@types/node"] = "20.11.7"'
-    fi
-
 fi
 
 if [[ "$FRAMEWORK" == 'vue' ]]; then
@@ -117,9 +130,11 @@ if [[ "$FRAMEWORK" == 'vue' ]]; then
     fi
 
     if [[ "$BUILD_TOOL" == 'nuxt' ]]; then
-        # nuxt doesn't use the src/ directory
-        echo "cp templates/components/vue/nuxt/* mega-apps/${MEGA_APP_NAME}/"
-        cp templates/components/vue/nuxt/* mega-apps/${MEGA_APP_NAME}/
+        echo "cp templates/components/vue/nuxt/app.vue mega-apps/${MEGA_APP_NAME}/app/app.vue"
+        cp templates/components/vue/nuxt/app.vue mega-apps/${MEGA_APP_NAME}/app/app.vue
+
+        echo "cp templates/components/vue/nuxt/nuxt.config.ts mega-apps/${MEGA_APP_NAME}/nuxt.config.ts"
+        cp templates/components/vue/nuxt/nuxt.config.ts mega-apps/${MEGA_APP_NAME}/nuxt.config.ts
     else
         echo "cp templates/components/vue/App.vue mega-apps/${MEGA_APP_NAME}/src/App.vue"
         cp templates/components/vue/App.vue mega-apps/${MEGA_APP_NAME}/src/App.vue

@@ -1,5 +1,5 @@
 import React from 'react';
-import {
+import type {
   Conversation,
   ConversationMessage,
   ConversationRoute,
@@ -7,12 +7,8 @@ import {
   SendMesageParameters,
   SendMessage,
 } from '../types';
-import {
-  ERROR_STATE,
-  INITIAL_STATE,
-  LOADING_STATE,
-  DataClientState,
-} from './shared';
+import type { AiClientState } from './shared';
+import { ERROR_STATE, INITIAL_STATE, LOADING_STATE } from './shared';
 import { isFunction } from '@aws-amplify/ui';
 import { contentFromEvents } from './contentFromEvents';
 import { exhaustivelyListMessages } from './exhaustivelyListMessages';
@@ -46,7 +42,7 @@ function hasStarted(state: (typeof INITIALIZE_REF)[number]) {
 export type UseAIConversationHook<T extends string> = (
   routeName: T,
   input?: UseAIConversationInput
-) => [DataClientState<AIConversationState>, SendMessage];
+) => [AiClientState<AIConversationState>, SendMessage];
 
 export function createUseAIConversation<
   T extends Record<'conversations', Record<string, ConversationRoute>>,
@@ -69,20 +65,22 @@ export function createUseAIConversation<
 
     // We need to keep track of the stream events as the come in
     // for an assistant message, but don't need to keep them in state
-    const contentBlocksRef = React.useRef<ConversationStreamEvent[][]>();
+    const contentBlocksRef = React.useRef<
+      ConversationStreamEvent[][] | undefined
+    >(undefined);
     // Using this hook without an existing conversation id means
     // it will create a new conversation when it is executed
     // we don't want to create 2 conversations
     const initRef = React.useRef<(typeof INITIALIZE_REF)[number]>('initial');
 
-    const [dataState, setDataState] = React.useState<
-      DataClientState<AIConversationState>
+    const [clientState, setClientState] = React.useState<
+      AiClientState<AIConversationState>
     >(() => ({
       ...INITIAL_STATE,
       data: { messages: [], conversation: undefined },
     }));
 
-    const { conversation } = dataState.data;
+    const { conversation } = clientState.data;
     const { id, onInitialize, onMessage } = input;
 
     React.useEffect(() => {
@@ -95,7 +93,7 @@ export function createUseAIConversation<
         // Only show component loading state if we are
         // actually loading messages
         if (id) {
-          setDataState({
+          setClientState({
             ...LOADING_STATE,
             data: { messages: [], conversation: undefined },
           });
@@ -106,7 +104,7 @@ export function createUseAIConversation<
           : await clientRoute.create();
 
         if (errors ?? !conversation) {
-          setDataState({
+          setClientState({
             ...ERROR_STATE,
             data: { messages: [] },
             messages: errors,
@@ -116,12 +114,12 @@ export function createUseAIConversation<
             const { data: messages } = await exhaustivelyListMessages({
               conversation,
             });
-            setDataState({
+            setClientState({
               ...INITIAL_STATE,
               data: { messages, conversation },
             });
           } else {
-            setDataState({
+            setClientState({
               ...INITIAL_STATE,
               data: { conversation, messages: [] },
             });
@@ -135,16 +133,18 @@ export function createUseAIConversation<
       // between the gen2 schema definition and
       // whats in amplify_outputs
       if (!clientRoute) {
-        setDataState({
+        const error = {
+          message: 'Conversation route does not exist',
+          errorInfo: null,
+          errorType: '',
+        };
+
+        setClientState({
           ...ERROR_STATE,
           data: { messages: [] },
-          messages: [
-            {
-              message: 'Conversation route does not exist',
-              errorInfo: null,
-              errorType: '',
-            },
-          ],
+          // TODO in MV bump: remove `messages`
+          messages: [error],
+          errors: [error],
         });
         return;
       }
@@ -153,12 +153,12 @@ export function createUseAIConversation<
       return () => {
         contentBlocksRef.current = undefined;
         if (hasStarted(initRef.current)) return;
-        setDataState({
+        setClientState({
           ...INITIAL_STATE,
           data: { messages: [], conversation: undefined },
         });
       };
-    }, [clientRoute, id, setDataState]);
+    }, [clientRoute, id, setClientState]);
 
     // Run a separate effect that is triggered by the conversation state
     // so that we know we have a conversation object to set up the subscription
@@ -192,7 +192,7 @@ export function createUseAIConversation<
           // stop reason will signify end of conversation turn
           if (stopReason) {
             // remove loading state from streamed message
-            setDataState((prev) => {
+            setClientState((prev) => {
               return {
                 ...prev,
                 data: {
@@ -239,7 +239,7 @@ export function createUseAIConversation<
             }
           }
 
-          setDataState((prev) => {
+          setClientState((prev) => {
             const message: ConversationMessage = {
               id,
               conversationId,
@@ -260,11 +260,13 @@ export function createUseAIConversation<
           });
         },
         error: (error) => {
-          setDataState((prev) => {
+          setClientState((prev) => {
             return {
               ...prev,
               ...ERROR_STATE,
+              // TODO in MV bump: remove `messages`
               messages: error.errors,
+              errors: error.errors,
             };
           });
         },
@@ -278,13 +280,13 @@ export function createUseAIConversation<
         contentBlocksRef.current = undefined;
         subscription.unsubscribe();
       };
-    }, [conversation, onInitialize, onMessage, setDataState]);
+    }, [conversation, onInitialize, onMessage, setClientState]);
 
     const handleSendMessage = React.useCallback(
       (input: SendMesageParameters) => {
         const { content } = input;
         if (conversation) {
-          setDataState((prevState) => ({
+          setClientState((prevState) => ({
             ...prevState,
             data: {
               ...prevState.data,
@@ -311,23 +313,24 @@ export function createUseAIConversation<
           }));
           conversation.sendMessage(input);
         } else {
-          setDataState((prev) => ({
+          const error = {
+            message: 'No conversation found',
+            errorInfo: null,
+            errorType: '',
+          };
+          setClientState((prev) => ({
             ...prev,
             ...ERROR_STATE,
-            messages: [
-              {
-                message: 'No conversation found',
-                errorInfo: null,
-                errorType: '',
-              },
-            ],
+            // TODO in MV bump: remove `messages`
+            messages: [error],
+            errors: [error],
           }));
         }
       },
       [conversation]
     );
 
-    return [dataState, handleSendMessage];
+    return [clientState, handleSendMessage];
   };
 
   return useAIConversation;
