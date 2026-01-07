@@ -49,6 +49,24 @@ Feature: Sign In with Email
     Then I confirm request '{"headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ConfirmSignUp" } }'
 
   @angular @react @vue @svelte @react-native
+  Scenario: Sign in with unconfirmed credentials redirects to sign-in after confirmation
+
+  Tests that after confirming an unconfirmed account, user is redirected to sign-in screen (not sign-up screen).
+
+    When I type my "email" with status "UNCONFIRMED"
+    Then I type my password
+    Then I click the "Sign in" button
+    Then I spy request '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.InitiateAuth" } }'
+    Then I confirm request '{"headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.InitiateAuth" } }'
+    Then I see "Confirmation Code"
+    Then I type a valid confirmation code
+    Then I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ConfirmSignUp" } }' with fixture "confirm-sign-up-with-email"
+    Then I click the "Confirm" button
+    Then I don't see "Confirmation Code"
+    Then I see "Sign in"
+    Then I don't see "Create Account"
+
+  @angular @react @vue @svelte @react-native
   Scenario: Sign in with confirmed credentials
     When I type my "email" with status "CONFIRMED"
     Then I type my password
