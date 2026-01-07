@@ -2,6 +2,7 @@ import type { LocationData } from '../../actions';
 import type { ListPathsOutput } from '../../storage-internal';
 import { listPaths } from '../../storage-internal';
 import type { ListLocations, ListLocationsInput } from '../../actions';
+import { deduplicateLocations } from '../../actions/handlers/utils';
 
 import { parseAmplifyAuthPermission } from '../permissionParsers';
 import { getPaginatedLocations } from './getPaginatedLocations';
@@ -36,7 +37,8 @@ export const createAmplifyListLocationsHandler = (): ListLocations => {
       }
     );
 
-    cachedItems = sanitizedItems;
+    // Deduplicate locations with the same bucket and prefix, keeping broader permissions
+    cachedItems = deduplicateLocations(sanitizedItems);
 
     return getPaginatedLocations({
       items: cachedItems,
