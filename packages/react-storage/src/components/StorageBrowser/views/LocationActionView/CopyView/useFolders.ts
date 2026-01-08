@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { usePaginationConfig } from '../../../configuration';
 import type { LocationState } from '../../../store';
 import { useList } from '../../../useAction';
 
@@ -8,14 +9,12 @@ import { useSearch } from '../../hooks/useSearch';
 
 import type { FoldersState } from './types';
 
-const DEFAULT_PAGE_SIZE = 100;
+// Default options for tests
 export const DEFAULT_LIST_OPTIONS = {
-  pageSize: DEFAULT_PAGE_SIZE,
+  pageSize: 100, // fallback for tests
   delimiter: '/',
   exclude: 'FILE' as const,
 };
-
-const DEFAULT_REFRESH_OPTIONS = { ...DEFAULT_LIST_OPTIONS, refresh: true };
 
 interface UseFoldersInput {
   destination: LocationState;
@@ -26,7 +25,24 @@ export const useFolders = ({
   destination,
   setDestination,
 }: UseFoldersInput): FoldersState => {
+  const { pageSize } = usePaginationConfig();
   const { current, key } = destination;
+
+  const listOptions = {
+    pageSize,
+    delimiter: '/',
+    exclude: 'FILE' as const,
+  };
+
+  const DEFAULT_REFRESH_OPTIONS = React.useMemo(
+    () => ({
+      pageSize,
+      delimiter: '/',
+      exclude: 'FILE' as const,
+      refresh: true,
+    }),
+    [pageSize]
+  );
 
   const [{ value, hasError, isLoading, message }, handleList] =
     useList('folderItems');
@@ -38,7 +54,7 @@ export const useFolders = ({
       prefix: key,
       options: { ...DEFAULT_REFRESH_OPTIONS },
     });
-  }, [handleList, key]);
+  }, [handleList, key, DEFAULT_REFRESH_OPTIONS]);
 
   const hasNextPage = !!nextToken;
 
@@ -47,7 +63,7 @@ export const useFolders = ({
 
     handleList({
       prefix: key,
-      options: { ...DEFAULT_LIST_OPTIONS, nextToken },
+      options: { ...listOptions, nextToken },
     });
   };
 
@@ -60,14 +76,14 @@ export const useFolders = ({
   } = usePaginate({
     items,
     onPaginate,
-    pageSize: DEFAULT_PAGE_SIZE,
+    pageSize,
   });
 
   const onSearch = (query: string) => {
     handleReset();
     handleList({
       prefix: key,
-      options: { ...DEFAULT_LIST_OPTIONS, search: { query, filterBy: 'key' } },
+      options: { ...listOptions, search: { query, filterBy: 'key' } },
     });
   };
 

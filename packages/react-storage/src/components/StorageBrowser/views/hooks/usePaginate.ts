@@ -2,8 +2,6 @@ import React from 'react';
 
 import { isFunction } from '@aws-amplify/ui';
 
-const DEFAULT_PAGE_SIZE = 100;
-
 interface UsePaginateState<T> {
   currentPage: number;
   highestPageVisited: number;
@@ -16,14 +14,14 @@ interface UsePaginateInput<T> {
   items?: T[];
   onPaginate?: (page?: number) => void;
   page?: number;
-  pageSize?: number;
+  pageSize: number;
 }
 
 export const usePaginate = <T>({
   items,
   onPaginate,
   page = 1,
-  pageSize = DEFAULT_PAGE_SIZE,
+  pageSize,
 }: UsePaginateInput<T>): UsePaginateState<T> => {
   const [currentPage, setCurrentPage] = React.useState(page);
   const visitedRef = React.useRef(page);
