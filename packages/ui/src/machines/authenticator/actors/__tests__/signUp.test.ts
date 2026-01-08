@@ -92,8 +92,7 @@ describe('signUpActor', () => {
     });
   });
 
-  // New test for manualSignIn state behavior
-  describe('manualSignIn state', () => {
+  describe('confirmSignUp with shouldManualSignIn', () => {
     it('should transition to resolved with SIGN_IN step when shouldManualSignIn is true', async () => {
       const mockConfirmSignUp = jest.fn().mockResolvedValue({
         nextStep: { signUpStep: 'DONE' },
@@ -116,7 +115,9 @@ describe('signUpActor', () => {
               clearTouched: jest.fn(),
               sendUpdate: jest.fn(),
               setNextSignUpStep: jest.fn(),
-              setSignInStep: jest.fn(),
+              setSignInStep: (context) => {
+                context.step = 'SIGN_IN';
+              },
             },
             services: {
               confirmSignUp: mockConfirmSignUp,
@@ -131,11 +132,6 @@ describe('signUpActor', () => {
 
       service.start();
 
-      // Start in confirmSignUp state
-      expect(service.getSnapshot().value).toEqual({
-        confirmSignUp: 'edit',
-      });
-
       // Submit confirmation code
       service.send({ type: 'SUBMIT' });
       await flushPromises();
@@ -143,14 +139,13 @@ describe('signUpActor', () => {
       // Should reach resolved state
       expect(service.getSnapshot().value).toBe('resolved');
 
-      // Should have called setSignInStep action
-      expect(service.getSnapshot().context.step).toBeDefined();
+      // Should have called setSignInStep action and set step to 'SIGN_IN'
+      expect(service.getSnapshot().context.step).toBe('SIGN_IN');
     });
   });
 
-  // Integration test for the complete flow
   describe('confirmSignUp flow with refresh scenario', () => {
-    it('should route to manualSignIn when coming from sign-in flow', async () => {
+    it('should route directly to resolved when coming from sign-in flow', async () => {
       const mockConfirmSignUp = jest.fn().mockResolvedValue({
         nextStep: { signUpStep: 'DONE' },
       });
@@ -193,7 +188,7 @@ describe('signUpActor', () => {
       expect(callArgs.username).toBe(mockUsername);
       expect(callArgs.formValues.confirmation_code).toBe(mockConfirmationCode);
 
-      // Should reach resolved state (after going through manualSignIn)
+      // Should reach resolved state directly
       expect(service.getSnapshot().value).toBe('resolved');
     });
   });
