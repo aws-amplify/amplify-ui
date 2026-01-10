@@ -35,7 +35,7 @@ export const deleteHandler: DeleteHandler = ({
   const { key } = data;
   const { onProgress } = options ?? {};
 
-  const operationCancel: (() => void) | undefined = () => {
+  let operationCancel: (() => void) | undefined = () => {
     // noop
   };
 
