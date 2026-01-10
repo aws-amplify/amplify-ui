@@ -16,8 +16,6 @@ export type {
   LocationCredentialsProvider,
   Permission,
   RemoveInput,
-  RemoveObjectsInput,
-  RemoveObjectsOutput,
   StorageAccess,
   StorageSubpathStrategy,
   UploadDataInput,
@@ -36,5 +34,4 @@ export {
   remove,
   uploadData,
   validationErrorMap,
-  removeObjects,
 } from '@aws-amplify/storage/internals';

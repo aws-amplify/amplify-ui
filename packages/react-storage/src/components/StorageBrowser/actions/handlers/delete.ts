@@ -1,13 +1,5 @@
-/* eslint-disable prefer-const */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable no-constant-condition */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable max-params */
 /* eslint-disable no-console */
-import { remove } from '@aws-amplify/storage/s3';
+import { remove } from '../../storage-internal';
 
 import type {
   TaskHandler,
@@ -40,10 +32,12 @@ export const deleteHandler: DeleteHandler = ({
   data,
   options,
 }): DeleteHandlerOutput => {
-  const { key, type } = data;
+  const { key } = data;
   const { onProgress } = options ?? {};
 
-  let operationCancel: (() => void) | undefined;
+  const operationCancel: (() => void) | undefined = () => {
+    // noop
+  };
 
   const cancel = () => {
     operationCancel?.();
