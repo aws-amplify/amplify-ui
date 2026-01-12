@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { remove } from '../../storage-internal';
+// import { remove } from '../../storage-internal';
 
 import type {
   TaskHandler,
@@ -10,6 +10,7 @@ import type {
 } from './types';
 
 import { constructBucket } from './utils';
+import { remove } from '../../storage-internal';
 
 export interface DeleteHandlerOptions extends TaskHandlerOptions {}
 
@@ -22,7 +23,7 @@ export interface DeleteHandlerInput
   extends TaskHandlerInput<DeleteHandlerData, DeleteHandlerOptions> {}
 
 export interface DeleteHandlerOutput
-  extends TaskHandlerOutput<{ key: string }> {}
+  extends TaskHandlerOutput<{ key?: string }> {}
 
 export interface DeleteHandler
   extends TaskHandler<DeleteHandlerInput, DeleteHandlerOutput> {}
@@ -47,10 +48,9 @@ export const deleteHandler: DeleteHandler = ({
     path: key,
     options: {
       bucket: constructBucket(config),
-      // locationCredentialsProvider: config.credentials,
       expectedBucketOwner: config.accountId,
-      // customEndpoint: config.customEndpoint,
       onProgress: (progress) => {
+        console.log('Delete Progress:', progress);
         onProgress?.(data, { successCount: progress.deleted?.length });
       },
     },
@@ -60,6 +60,7 @@ export const deleteHandler: DeleteHandler = ({
 
   const newResult = operation.result
     .then(({ path }) => {
+      console.log('type of ', typeof path);
       return {
         status: 'COMPLETE' as const,
         value: { key: path },
@@ -75,9 +76,11 @@ export const deleteHandler: DeleteHandler = ({
   //   path: key,
   //   options: {
   //     bucket: constructBucket(config),
-  //     // locationCredentialsProvider: config.credentials,
   //     expectedBucketOwner: config.accountId,
-  //     // customEndpoint: config.customEndpoint,
+  //     onProgress: (progress) => {
+  //       console.log('Delete Progress:', progress);
+  //       onProgress?.(data, { successCount: progress.deleted?.length });
+  //     },
   //   },
   // })
   //   .then(({ path }) => {
