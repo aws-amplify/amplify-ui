@@ -1,5 +1,6 @@
+'use client';
 import React from 'react';
-import { View, Flex, Loader, Text } from '@aws-amplify/ui-react';
+import { Flex, Loader, Text, View } from '@aws-amplify/ui-react';
 import { FaceLivenessDetectorCore } from '@aws-amplify/ui-react-liveness';
 import { useLiveness } from './useLiveness';
 import { ChallengeSelection } from './ChallengeSelection';

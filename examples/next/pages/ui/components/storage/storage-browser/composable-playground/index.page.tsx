@@ -7,7 +7,6 @@ import {
 } from '@aws-amplify/ui-react-storage/browser';
 import { Breadcrumbs, Button, Flex } from '@aws-amplify/ui-react';
 import { Auth } from '../managedAuthAdapter';
-import '@aws-amplify/ui-react-storage/styles.css';
 
 export const auth = new Auth({ persistCredentials: true });
 
