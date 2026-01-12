@@ -89,6 +89,7 @@ Amplify UI is an open-source UI library with cloud-connected components that are
 | VisuallyHidden   |    ✅     |
 
 ## Version Support
+
 AWS Amplify UI library (React, React Native, Angular, and Vue) that depends on AWS Amplify JavaScript library v4 and below will end support on **April 13, 2026**, as documented in our [AWS Amplify UI libraries version support calendar](https://github.com/aws-amplify/amplify-ui/issues/6712).
 
 Effective immediately, the AWS Amplify UI library that depends on AWS Amplify JavaScript library v4 and below will enter **Maintenance Mode** until April 13, 2026 after which it will receive no more updates. While in Maintenance Mode, the libraries will only receive updates for **critical bug fixes and security vulnerabilities**. Refer to [Amplify Documentation](https://docs.amplify.aws/reference/maintenance-policy) for more information on the maintenance policy.
@@ -119,3 +120,11 @@ As we continue to work on the new Amplify UI we will move UI-related issues in t
 ## We love contributors!!
 
 See our contributing guide [CONTRIBUTING.md](/CONTRIBUTING.md) to help us scale Amplify UI!
+
+---
+
+## License Note
+
+Although this repository is released and licensed under the Apache License (see [LICENSE](./LICENSE)), devDependencies of some packages (namely: [docs](./docs), the [next-example](./examples/next) as well as the [next-app-router example](./examples/next-app-router)) transitively use the third party [sharp](https://sharp.pixelplumbing.com/) project through NEXT.js
+
+The sharp projects prebuilt binaries' licensing includes [LGPL-2.1](https://opensource.org/license/LGPL-2.1) and [LGPL-3.0-or-later](https://opensource.org/license/LGPL-3.0) licenses
