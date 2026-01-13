@@ -417,12 +417,7 @@
     tslib "^2.3.0"
     yargs "^17.2.1"
 
-"@angular/compiler@9.0.0":
-  version "9.0.0"
-  resolved "https://registry.npmjs.org/@angular/compiler/-/compiler-9.0.0.tgz"
-  integrity sha512-ctjwuntPfZZT2mNj2NDIVu51t9cvbhl/16epc5xEwyzyDt76pX9UgwvY+MbXrf/C/FWwdtmNtfP698BKI+9leQ==
-
-"@angular/compiler@^19.2.18":
+"@angular/compiler@19.2.18", "@angular/compiler@9.0.0", "@angular/compiler@^19.2.18":
   version "19.2.18"
   resolved "https://registry.npmjs.org/@angular/compiler/-/compiler-19.2.18.tgz#c86f7126c9bd757bca180b2f98d0be57462bd162"
   integrity sha512-3MscvODxRVxc3Cs0ZlHI5Pk5rEvE80otfvxZTMksOZuPlv1B+S8MjWfc3X3jk9SbyUEzODBEH55iCaBHD48V3g==
