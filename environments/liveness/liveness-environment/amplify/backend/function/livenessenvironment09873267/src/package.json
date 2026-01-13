@@ -6,7 +6,7 @@
   "type": "module",
   "license": "Apache-2.0",
   "dependencies": {
-    "@aws-sdk/client-rekognition": "^3.370.0"
+    "@aws-sdk/client-rekognition": "latest"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.92"
