@@ -26,7 +26,7 @@
   },
   "files": [
     "dist",
-    "packed",
+    "packed/tensorflow-models-face-detection-v1.0.3.tgz",
     "LICENSE"
   ],
   "scripts": {
@@ -48,6 +48,9 @@
     "react": "^16.14 || ^17 || ^18 || ^19",
     "react-dom": "^16.14 || ^17 || ^18 || ^19"
   },
+  "bundledDependencies": [
+    "@tensorflow-models/face-detection"
+  ],
   "dependencies": {
     "@aws-amplify/ui": "6.13.0",
     "@aws-amplify/ui-react": "6.13.2",
