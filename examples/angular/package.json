@@ -8,9 +8,7 @@
     "start": "serve dist/angular -s -p 3000",
     "build": "ng build --configuration production",
     "clean": "rimraf dist node_modules",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
+    "test": "ng test"
   },
   "dependencies": {
     "@angular/animations": "^19.2.18",
@@ -31,7 +29,6 @@
     "@angular/compiler-cli": "^19.2.18",
     "@types/jasmine": "~3.6.0",
     "@types/node": "^20",
-    "codelyzer": "^6.0.0",
     "jasmine-core": "~3.6.0",
     "jasmine-spec-reporter": "~5.0.0",
     "karma": "~6.3.16",
@@ -42,7 +39,6 @@
     "rimraf": "^5.0.0",
     "serve": "^12.0.0",
     "ts-node": "^10.9.1",
-    "tslint": "~6.1.0",
     "typescript": "~5.6.0"
   },
   "workspaces": {
