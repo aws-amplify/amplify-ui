@@ -92,7 +92,6 @@ export default function createProvider<
     displayText,
     views,
     pageSize,
-    showPagination = false,
     ...props
   }: StorageBrowserProviderProps) {
     const validatedPageSize = validatePageSize(pageSize);
@@ -100,10 +99,7 @@ export default function createProvider<
     return (
       <StoreProvider {...props}>
         <ConfigurationProvider>
-          <PaginationConfigProvider
-            pageSize={validatedPageSize}
-            showPagination={showPagination}
-          >
+          <PaginationConfigProvider pageSize={validatedPageSize}>
             <ActionConfigsProvider actionConfigs={actionConfigs}>
               <ActionHandlersProvider handlers={handlers}>
                 <DisplayTextProvider displayText={displayText}>

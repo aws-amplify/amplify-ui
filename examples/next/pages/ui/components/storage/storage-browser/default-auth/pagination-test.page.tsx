@@ -11,7 +11,6 @@ Amplify.configure(config);
 
 function PaginationTest() {
   const [pageSize, setPageSize] = useState<number>(10);
-  const [showPagination, setShowPagination] = useState<boolean>(false);
   const [showAlert, setShowAlert] = useState(true);
 
   const pageSizeOptions = [
@@ -20,6 +19,8 @@ function PaginationTest() {
     { value: 25, label: '25 items per page' },
     { value: 50, label: '50 items per page' },
     { value: 100, label: '100 items per page' },
+    { value: 500, label: '500 items per page' },
+    { value: 1000, label: '1000 items per page' },
   ];
 
   return (
@@ -40,9 +41,10 @@ function PaginationTest() {
           <Text>
             <strong>🧪 StorageBrowser Pagination Test</strong>
             <br />
-            Testing the new pageSize prop. Change the page size below and
-            observe the pagination behavior. Check browser console for
-            validation warnings when invalid values are used.
+            Testing the new pageSize prop with per-view configuration support.
+            Change the page size below and observe the pagination behavior.
+            Check browser console for validation warnings when invalid values
+            are used. No upper limit on pageSize - test with large values!
           </Text>
         </Alert>
       )}
@@ -68,7 +70,7 @@ function PaginationTest() {
               setPageSize(newPageSize);
               console.log(`📄 Page size changed to: ${newPageSize}`);
             }}
-            width="180px"
+            width="200px"
           >
             {pageSizeOptions.map(({ value, label }) => (
               <option key={value} value={value}>
@@ -77,30 +79,18 @@ function PaginationTest() {
             ))}
             {/* Test invalid values */}
             <option value="0">0 (invalid - will use default)</option>
-            <option value="1001">1001 (invalid - will use default)</option>
+            <option value="-5">-5 (invalid - will use default)</option>
           </SelectField>
-
-          <label>
-            <input
-              type="checkbox"
-              checked={showPagination}
-              onChange={(e) => setShowPagination(e.target.checked)}
-            />
-            <Text marginLeft="small">Show Pagination</Text>
-          </label>
         </Flex>
       </Flex>
 
       <View flex="1" overflow="hidden">
         <StorageBrowser
-          key={`${pageSize}-${showPagination}`}
+          key={pageSize}
           pageSize={pageSize}
-          showPagination={showPagination}
           displayText={{
             LocationsView: {
-              title: `Pagination Test - ${pageSize} items per page${
-                showPagination ? ' (with pagination)' : ''
-              }`,
+              title: `Pagination Test - ${pageSize} items per page`,
             },
           }}
         />

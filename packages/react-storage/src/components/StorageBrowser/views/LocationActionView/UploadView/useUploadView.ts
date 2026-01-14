@@ -14,8 +14,10 @@ import { usePaginate } from '../../hooks/usePaginate';
 export const useUploadView = (
   options?: UseUploadViewOptions
 ): UploadViewState => {
-  const { pageSize } = usePaginationConfig();
-  const { onExit: _onExit } = options ?? {};
+  const { pageSize: configPageSize } = usePaginationConfig();
+  const { onExit: _onExit, pageSize: propPageSize } = options ?? {};
+
+  const pageSize = propPageSize ?? configPageSize;
 
   const [{ location }, storeDispatch] = useStore();
   const [{ validItems, invalidItems: invalidFiles }, fileItemsDispatch] =

@@ -19,14 +19,18 @@ export const DEFAULT_LIST_OPTIONS = {
 interface UseFoldersInput {
   destination: LocationState;
   setDestination: (destination: LocationState) => void;
+  pageSize?: number;
 }
 
 export const useFolders = ({
   destination,
   setDestination,
+  pageSize: propPageSize,
 }: UseFoldersInput): FoldersState => {
-  const { pageSize } = usePaginationConfig();
+  const { pageSize: configPageSize } = usePaginationConfig();
   const { current, key } = destination;
+
+  const pageSize = propPageSize ?? configPageSize;
 
   const listOptions = {
     pageSize,

@@ -10,6 +10,11 @@ import { useUploadView } from '../useUploadView';
 jest.mock('../../../../fileItems');
 jest.mock('../../../../store');
 jest.mock('../../../../useAction');
+jest.mock('../../../../configuration', () => ({
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+  ...(jest.requireActual('../../../../configuration') as object),
+  usePaginationConfig: () => ({ pageSize: 10 }),
+}));
 
 const rootLocation: LocationData = {
   id: 'an-id-👍🏼',

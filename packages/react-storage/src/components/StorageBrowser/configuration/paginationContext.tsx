@@ -3,7 +3,6 @@ import { createContextUtilities } from '@aws-amplify/ui-react-core';
 
 export interface PaginationConfig {
   pageSize: number;
-  showPagination: boolean;
 }
 
 const ERROR_MESSAGE =
@@ -18,18 +17,13 @@ export const { usePaginationConfig, PaginationConfigContext } =
 export interface PaginationConfigProviderProps {
   children?: React.ReactNode;
   pageSize: number;
-  showPagination: boolean;
 }
 
 export function PaginationConfigProvider({
   children,
   pageSize,
-  showPagination,
 }: PaginationConfigProviderProps): React.JSX.Element {
-  const value = React.useMemo(
-    () => ({ pageSize, showPagination }),
-    [pageSize, showPagination]
-  );
+  const value = React.useMemo(() => ({ pageSize }), [pageSize]);
 
   return (
     <PaginationConfigContext.Provider value={value}>

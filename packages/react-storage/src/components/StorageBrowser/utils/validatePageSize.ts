@@ -5,7 +5,7 @@ export const validatePageSize = (pageSize: number | undefined): number => {
     return DEFAULT_PAGE_SIZE;
   }
 
-  if (!Number.isInteger(pageSize) || pageSize < 1 || pageSize > 1000) {
+  if (!Number.isInteger(pageSize) || pageSize < 1) {
     return DEFAULT_PAGE_SIZE;
   }
 

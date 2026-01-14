@@ -21,7 +21,14 @@ export interface UploadViewState extends ActionViewState<UploadHandlerData> {
 
 export interface UploadViewProps
   extends ActionViewProps,
-    Partial<UploadViewState> {}
+    Partial<UploadViewState> {
+  /**
+   * @description Number of items to display per page in task listings
+   * @default 100
+   * @minimum 1
+   */
+  pageSize?: number;
+}
 
 export interface UploadViewProviderProps extends UploadViewState {
   children?: React.ReactNode;
@@ -47,4 +54,5 @@ export interface UploadViewType
 
 export interface UseUploadViewOptions {
   onExit?: (location?: LocationData) => void;
+  pageSize?: number;
 }

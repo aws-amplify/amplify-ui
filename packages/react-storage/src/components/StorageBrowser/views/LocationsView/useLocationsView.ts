@@ -23,7 +23,7 @@ export const DEFAULT_LIST_OPTIONS = {
 export const useLocationsView = (
   options?: UseLocationsViewOptions
 ): LocationsViewState => {
-  const { pageSize } = usePaginationConfig();
+  const { pageSize: configPageSize } = usePaginationConfig();
   const handleDownload = useAction('download')[1];
   const [state, handleList] = useList('locations');
   const dispatchStoreAction = useStore()[1];
@@ -33,6 +33,7 @@ export const useLocationsView = (
   const hasNextToken = !!nextToken;
 
   const onNavigate = options?.onNavigate;
+  const pageSize = options?.pageSize ?? configPageSize;
   const initialValues = options?.initialValues ?? {};
 
   const listOptionsRef = React.useRef({

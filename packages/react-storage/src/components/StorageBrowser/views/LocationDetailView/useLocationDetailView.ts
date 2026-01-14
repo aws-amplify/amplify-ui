@@ -47,8 +47,15 @@ const getDownloadErrorMessageFromFailedDownloadTask = (
 export const useLocationDetailView = (
   options?: UseLocationDetailViewOptions
 ): LocationDetailViewState => {
-  const { pageSize } = usePaginationConfig();
-  const { initialValues, onExit, onNavigate } = options ?? {};
+  const { pageSize: configPageSize } = usePaginationConfig();
+  const {
+    initialValues,
+    onExit,
+    onNavigate,
+    pageSize: propPageSize,
+  } = options ?? {};
+
+  const pageSize = propPageSize ?? configPageSize;
 
   const DEFAULT_LIST_OPTIONS = {
     delimiter: '/',
