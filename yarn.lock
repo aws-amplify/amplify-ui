@@ -12500,10 +12500,10 @@
   dependencies:
     tslib "^2.8.0"
 
-"@tensorflow-models/face-detection@./packed/tensorflow-models-face-detection-v1.0.3.tgz":
+"@tensorflow-models/face-detection@./packed/tensorflow-models-face-detection-1.0.3.tgz":
   version "1.0.3"
-  resolved "./packed/tensorflow-models-face-detection-v1.0.3.tgz#57cc1283320d9ac72a983e49013630496300a0e4"
-  integrity sha512-4Fi0xh0JBe/FBhsgrt9Bzwe+bzjRGq1Hg+jayBfdH/c4Ud4ohT8hr9EUvgaRw/9yrExpnroIgrLGnHqUFeNMog== sha1-7yMRn4dWbEHTYPe+j8WU7F1m8R0=
+  resolved "./packed/tensorflow-models-face-detection-1.0.3.tgz#ef23119f87566c41d360f7be8fc594ec5d66f11d"
+  integrity sha512-4Fi0xh0JBe/FBhsgrt9Bzwe+bzjRGq1Hg+jayBfdH/c4Ud4ohT8hr9EUvgaRw/9yrExpnroIgrLGnHqUFeNMog==
   dependencies:
     rimraf "^3.0.2"
     tslib "2.4.0"

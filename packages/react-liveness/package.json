@@ -26,7 +26,7 @@
   },
   "files": [
     "dist",
-    "packed/tensorflow-models-face-detection-v1.0.3.tgz",
+    "packed/tensorflow-models-face-detection-1.0.3.tgz",
     "LICENSE"
   ],
   "scripts": {
@@ -62,7 +62,7 @@
     "@smithy/signature-v4": "5.1.2",
     "@smithy/types": "^4.3.1",
     "@mediapipe/face_detection": "^0.4.1646425229",
-    "@tensorflow-models/face-detection": "./packed/tensorflow-models-face-detection-v1.0.3.tgz",
+    "@tensorflow-models/face-detection": "./packed/tensorflow-models-face-detection-1.0.3.tgz",
     "@tensorflow/tfjs-backend-cpu": "4.11.0",
     "@tensorflow/tfjs-backend-wasm": "4.11.0",
     "@tensorflow/tfjs-converter": "4.11.0",
