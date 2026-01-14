@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Amplify } from 'aws-amplify';
 import { AuthenticatorService } from '@aws-amplify/ui-angular';
 
@@ -19,7 +19,7 @@ export class UseAuthenticatorHomeComponent {
     Amplify.configure(awsExports);
   }
 
-  public handleClick(event: Event) {
+  public handleClick(event: Event): void {
     event.preventDefault();
     this.authenticator.signOut();
     this.router.navigate(['../'], { relativeTo: this.route });
