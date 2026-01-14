@@ -13,7 +13,7 @@
     "e2e": "ng e2e"
   },
   "dependencies": {
-    "@aws-amplify/ui-angular": "^5.1.7",
+    "@aws-amplify/ui-angular": "^5.2.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.15.0"

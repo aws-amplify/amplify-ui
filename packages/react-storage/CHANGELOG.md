@@ -1,5 +1,18 @@
 # @aws-amplify/ui-react-storage
 
+## 3.15.0
+
+### Minor Changes
+
+- [#6775](https://github.com/aws-amplify/amplify-ui/pull/6775) [`b55d7114c4361bcbf9698308e68854c6cfae1f1f`](https://github.com/aws-amplify/amplify-ui/commit/b55d7114c4361bcbf9698308e68854c6cfae1f1f) Thanks [@Simone319](https://github.com/Simone319)! - deduplicate storage browser locations which have broader permissions
+
+### Patch Changes
+
+- Updated dependencies [[`25cf1983b7ecf91f7ab7bb1c2cb76a4df252fdf7`](https://github.com/aws-amplify/amplify-ui/commit/25cf1983b7ecf91f7ab7bb1c2cb76a4df252fdf7)]:
+  - @aws-amplify/ui@6.13.1
+  - @aws-amplify/ui-react@6.13.3
+  - @aws-amplify/ui-react-core@3.4.8
+
 ## 3.14.0
 
 ### Minor Changes
