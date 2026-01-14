@@ -6,6 +6,7 @@ import { ActionExitControl } from '../../../controls/ActionExitControl';
 import { ActionStartControl } from '../../../controls/ActionStartControl';
 import { DataTableControl } from '../../../controls/DataTableControl';
 import { MessageControl } from '../../../controls/MessageControl';
+import { PaginationControl } from '../../../controls/PaginationControl';
 import { StatusDisplayControl } from '../../../controls/StatusDisplayControl';
 import { TitleControl } from '../../../controls/TitleControl';
 
@@ -27,6 +28,7 @@ export const DownloadView: DownloadViewType = ({ className, ...props }) => {
         <ViewElement className={`${STORAGE_BROWSER_BLOCK}__data-table`}>
           <DataTableControl />
         </ViewElement>
+        <PaginationControl />
         <ViewElement className={`${STORAGE_BROWSER_BLOCK}__summary`}>
           <StatusDisplayControl />
         </ViewElement>
@@ -51,6 +53,7 @@ DownloadView.Provider = DownloadViewProvider;
 DownloadView.Cancel = ActionCancelControl;
 DownloadView.Exit = ActionExitControl;
 DownloadView.Message = MessageControl;
+DownloadView.Pagination = PaginationControl;
 DownloadView.Start = ActionStartControl;
 DownloadView.Statuses = StatusDisplayControl;
 DownloadView.TasksTable = DataTableControl;
