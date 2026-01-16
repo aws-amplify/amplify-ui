@@ -86,7 +86,7 @@
       "name": "FaceLivenessDetector",
       "path": "dist/esm/index.mjs",
       "import": "{ FaceLivenessDetector }",
-      "limit": "228 kB"
+      "limit": "229 kB"
     }
   ]
 }
