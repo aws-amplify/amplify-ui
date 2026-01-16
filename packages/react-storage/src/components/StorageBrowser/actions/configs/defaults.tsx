@@ -1,3 +1,4 @@
+import { hasSelectedFolders } from '../../locationItems';
 import { defaultHandlers } from '../handlers';
 
 import type {
@@ -22,7 +23,10 @@ export const copyActionConfig: CopyActionConfig = {
 export const deleteActionConfig: DeleteActionConfig = {
   viewName: 'DeleteView',
   actionListItem: {
-    disable: (selected) => !selected || selected.length === 0,
+    disable: (selected) => {
+      const hasNoSelection = !selected || selected.length === 0;
+      return hasNoSelection;
+    },
     hide: (permissions) => !permissions.includes('delete'),
     icon: 'delete-file',
     label: 'Delete',
@@ -53,7 +57,10 @@ export const uploadActionConfig: UploadActionConfig = {
 export const downloadActionConfig: DownloadActionConfig = {
   viewName: 'DownloadView',
   actionListItem: {
-    disable: (selected) => !selected || selected.length === 0,
+    disable: (selected) => {
+      const hasNoSelection = !selected || selected.length === 0;
+      return hasNoSelection || hasSelectedFolders(selected);
+    },
     hide: (permissions) => !permissions.includes('get'),
     icon: 'download',
     label: 'Download',

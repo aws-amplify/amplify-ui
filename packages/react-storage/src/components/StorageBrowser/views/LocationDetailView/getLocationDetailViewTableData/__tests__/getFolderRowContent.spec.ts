@@ -13,6 +13,9 @@ describe('getFolderRowContent', () => {
         itemSubPath: folderItem.key,
         rowId: 'row-id',
         onNavigate: jest.fn(),
+        onSelect: jest.fn(),
+        isSelected: false,
+        selectFolderLabel: 'Select folder',
       })
     ).toStrictEqual(
       expect.arrayContaining([
