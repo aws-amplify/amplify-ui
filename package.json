@@ -115,6 +115,7 @@
     "serialize-javascript": "^6.0.2",
     "socks": "^2.7.3",
     "tar-fs": "^3.1.1",
+    "undici": "^6.23.0",
     "webpack-dev-middleware": "^5.3.4",
     "webpack-dev-server": "^5.2.1",
     "yaml": "2.2.2",
