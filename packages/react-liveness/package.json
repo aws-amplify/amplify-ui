@@ -48,9 +48,6 @@
     "react": "^16.14 || ^17 || ^18 || ^19",
     "react-dom": "^16.14 || ^17 || ^18 || ^19"
   },
-  "bundledDependencies": [
-    "@tensorflow-models/face-detection"
-  ],
   "dependencies": {
     "@aws-amplify/ui": "6.13.0",
     "@aws-amplify/ui-react": "6.13.2",
@@ -62,11 +59,11 @@
     "@smithy/signature-v4": "5.1.2",
     "@smithy/types": "^4.3.1",
     "@mediapipe/face_detection": "^0.4.1646425229",
-    "@tensorflow-models/face-detection": "./packed/tensorflow-models-face-detection-1.0.3.tgz",
-    "@tensorflow/tfjs-backend-cpu": "4.11.0",
-    "@tensorflow/tfjs-backend-wasm": "4.11.0",
-    "@tensorflow/tfjs-converter": "4.11.0",
-    "@tensorflow/tfjs-core": "4.11.0",
+    "@tensorflow-models/face-detection": "git+https://github.com/bobbor/tfjs-models.git#face-detection",
+    "@tensorflow/tfjs-backend-cpu": "4.22.0",
+    "@tensorflow/tfjs-backend-wasm": "4.22.0",
+    "@tensorflow/tfjs-converter": "4.22.0",
+    "@tensorflow/tfjs-core": "4.22.0",
     "@xstate/react": "^3.2.2",
     "tslib": "^2.5.2",
     "uuid": "^11.1.0",
@@ -86,7 +83,7 @@
       "name": "FaceLivenessDetector",
       "path": "dist/esm/index.mjs",
       "import": "{ FaceLivenessDetector }",
-      "limit": "228 kB"
+      "limit": "229 kB"
     }
   ]
 }
