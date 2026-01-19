@@ -77,11 +77,22 @@ export const defaultServices = {
         ) as SocialProvider[])
       : undefined;
 
+    // Detect passwordless capabilities from amplify_outputs.json
+    // Structure based on https://github.com/aws-amplify/amplify-backend/pull/3065
+    const passwordlessConfig = (result.Auth?.Cognito as any)?.passwordless;
+    const passwordlessCapabilities = {
+      emailOtpEnabled: passwordlessConfig?.email_otp_enabled === true,
+      smsOtpEnabled: passwordlessConfig?.sms_otp_enabled === true,
+      webAuthnEnabled: !!passwordlessConfig?.web_authn,
+      preferredChallenge: passwordlessConfig?.preferred_challenge,
+    };
+
     return {
       ...cliConfig,
       loginMechanisms: parsedLoginMechanisms,
       signUpAttributes: parsedSignupAttributes,
       socialProviders: parsedSocialProviders,
+      passwordlessCapabilities,
     };
   },
   getCurrentUser,

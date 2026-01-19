@@ -67,6 +67,10 @@ const handleSignInResponse = {
 const handleFetchUserAttributesResponse = {
   onDone: [
     {
+      cond: 'shouldPromptPasskeyRegistration',
+      target: '#signInActor.passkeyPrompt',
+    },
+    {
       cond: 'shouldVerifyAttribute',
       actions: [
         'setShouldVerifyUserAttributeStep',
@@ -180,7 +184,33 @@ export function signInActor({ services }: SignInMachineOptions) {
               on: {
                 CHANGE: { actions: 'handleInput' },
                 FEDERATED_SIGN_IN: { target: '#signInActor.federatedSignIn' },
-                SUBMIT: { actions: 'handleSubmit', target: 'submit' },
+                SUBMIT: [
+                  {
+                    cond: 'shouldSelectAuthMethod',
+                    actions: 'handleSubmit',
+                    target: 'selectMethod',
+                  },
+                  {
+                    actions: 'handleSubmit',
+                    target: 'submit',
+                  },
+                ],
+              },
+            },
+            selectMethod: {
+              entry: [
+                'sendUpdate',
+                'setSelectAuthMethodStep',
+                'setUsernameSignIn',
+              ],
+              on: {
+                SELECT_METHOD: {
+                  actions: 'setSelectedAuthMethod',
+                  target: 'submit',
+                },
+                SIGN_IN: {
+                  target: 'edit',
+                },
               },
             },
             submit: {
@@ -284,6 +314,19 @@ export function signInActor({ services }: SignInMachineOptions) {
           'clearError',
           'clearTouched',
         ]),
+        passkeyPrompt: {
+          entry: 'sendUpdate',
+          on: {
+            SUBMIT: {
+              actions: 'setConfirmAttributeCompleteStep',
+              target: 'resolved',
+            },
+            SKIP: {
+              actions: 'setConfirmAttributeCompleteStep',
+              target: 'resolved',
+            },
+          },
+        },
         resolved: {
           type: 'final',
           data: (context): ActorDoneData => ({
@@ -310,9 +353,30 @@ export function signInActor({ services }: SignInMachineOptions) {
         handleResendSignUpCode({ username }) {
           return services.handleResendSignUpCode({ username });
         },
-        handleSignIn({ formValues, username }) {
-          const { password } = formValues;
-          return services.handleSignIn({ username, password });
+        handleSignIn({
+          formValues,
+          username,
+          selectedAuthMethod,
+          availableAuthMethods,
+        }) {
+          // Determine which method to use
+          const method =
+            selectedAuthMethod ?? availableAuthMethods?.[0] ?? 'PASSWORD';
+
+          if (method === 'PASSWORD') {
+            // Traditional password flow
+            const { password } = formValues;
+            return services.handleSignIn({ username, password });
+          } else {
+            // Passwordless flow using USER_AUTH
+            return services.handleSignIn({
+              username,
+              options: {
+                authFlowType: 'USER_AUTH',
+                preferredChallenge: method,
+              },
+            });
+          }
         },
         confirmSignIn({ formValues, step }) {
           const formValuesKey = getConfirmSignInFormValuesKey(step);

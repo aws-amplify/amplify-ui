@@ -127,6 +127,43 @@ const shouldVerifyAttribute = (
 const isUserAlreadyConfirmed = (_: AuthActorContext, { data }: AuthEvent) =>
   data.message === 'User is already confirmed.';
 
+// passwordless guards
+const shouldSelectAuthMethod = ({ availableAuthMethods }: AuthActorContext) => {
+  return availableAuthMethods && availableAuthMethods.length > 1;
+};
+
+const shouldPromptPasskeyRegistration = ({
+  passwordlessAuthOptions,
+}: AuthActorContext) => {
+  const { passkeyRegistrationPrompts } = passwordlessAuthOptions || {};
+
+  if (!passkeyRegistrationPrompts) {
+    return false;
+  }
+
+  if (typeof passkeyRegistrationPrompts === 'boolean') {
+    return passkeyRegistrationPrompts;
+  }
+
+  return passkeyRegistrationPrompts.afterSignin === 'ALWAYS';
+};
+
+const shouldPromptPasskeyRegistrationAfterSignup = ({
+  passwordlessAuthOptions,
+}: AuthActorContext) => {
+  const { passkeyRegistrationPrompts } = passwordlessAuthOptions || {};
+
+  if (!passkeyRegistrationPrompts) {
+    return false;
+  }
+
+  if (typeof passkeyRegistrationPrompts === 'boolean') {
+    return passkeyRegistrationPrompts;
+  }
+
+  return passkeyRegistrationPrompts.afterSignup === 'ALWAYS';
+};
+
 const GUARDS: MachineOptions<AuthActorContext, AuthEvent>['guards'] = {
   hasCompletedAttributeConfirmation,
   hasCompletedResetPassword,
@@ -145,10 +182,13 @@ const GUARDS: MachineOptions<AuthActorContext, AuthEvent>['guards'] = {
   shouldConfirmSignUpFromSignIn,
   shouldResetPassword,
   shouldResetPasswordFromSignIn,
+  shouldSelectAuthMethod,
   shouldSetupTotp,
   shouldSetupEmail,
   shouldSelectMfaType,
   shouldVerifyAttribute,
+  shouldPromptPasskeyRegistration,
+  shouldPromptPasskeyRegistrationAfterSignup,
 };
 
 export default GUARDS;

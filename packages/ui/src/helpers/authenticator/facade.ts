@@ -40,7 +40,9 @@ export type AuthenticatorRoute =
   | 'forceNewPassword'
   | 'idle'
   | 'forgotPassword'
+  | 'passkeyPrompt'
   | 'setup'
+  | 'signInSelectAuthFactor'
   | 'signOut'
   | 'selectMfaType'
   | 'setupEmail'
@@ -56,6 +58,7 @@ export type AuthStatus = 'configuring' | 'authenticated' | 'unauthenticated';
 interface AuthenticatorServiceContextFacade {
   allowedMfaTypes: AuthMFAType[] | undefined;
   authStatus: AuthStatus;
+  availableAuthMethods: string[] | undefined;
   challengeName: ChallengeName | undefined;
   codeDeliveryDetails: V5CodeDeliveryDetails;
   error: string;
@@ -73,6 +76,7 @@ interface AuthenticatorServiceContextFacade {
 type SendEventAlias =
   | 'initializeMachine'
   | 'resendCode'
+  | 'selectAuthMethod'
   | 'signOut'
   | 'submitForm'
   | 'updateForm'
@@ -141,6 +145,7 @@ export const getSendEventAliases = (
   return {
     initializeMachine: sendToMachine('INIT'),
     resendCode: sendToMachine('RESEND'),
+    selectAuthMethod: sendToMachine('SELECT_METHOD'),
     signOut: sendToMachine('SIGN_OUT'),
     submitForm: sendToMachine('SUBMIT'),
     updateForm: sendToMachine('CHANGE'),
@@ -178,6 +183,7 @@ export const getServiceContextFacade = (
   const actorContext = (getActorContext(state) ?? {}) as AuthActorContext;
   const {
     allowedMfaTypes,
+    availableAuthMethods,
     challengeName,
     codeDeliveryDetails,
     remoteError: error,
@@ -219,6 +225,7 @@ export const getServiceContextFacade = (
   const facade = {
     allowedMfaTypes,
     authStatus,
+    availableAuthMethods,
     challengeName,
     codeDeliveryDetails,
     error,

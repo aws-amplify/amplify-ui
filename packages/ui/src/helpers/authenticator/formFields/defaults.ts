@@ -53,13 +53,25 @@ const getConfirmationCodeFormFields = (_: AuthMachineState): FormFields => ({
   },
 });
 
-const getSignInFormFields = (state: AuthMachineState): FormFields => ({
-  username: { ...getAliasDefaultFormField(state) },
-  password: {
-    ...getDefaultFormField('password'),
-    autocomplete: 'current-password',
-  },
-});
+const getSignInFormFields = (state: AuthMachineState): FormFields => {
+  const { availableAuthMethods } = state.context;
+  const shouldShowPassword =
+    availableAuthMethods?.length === 1 &&
+    availableAuthMethods[0] === 'PASSWORD';
+
+  const fields: FormFields = {
+    username: { ...getAliasDefaultFormField(state) },
+  };
+
+  if (shouldShowPassword) {
+    fields.password = {
+      ...getDefaultFormField('password'),
+      autocomplete: 'current-password',
+    };
+  }
+
+  return fields;
+};
 
 const getSignUpFormFields = (state: AuthMachineState): FormFields => {
   const { loginMechanisms, signUpAttributes } = state.context.config as {

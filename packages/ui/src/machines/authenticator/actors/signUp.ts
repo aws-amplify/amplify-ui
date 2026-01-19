@@ -70,6 +70,10 @@ const handleAutoSignInResponse = {
 const handleFetchUserAttributesResponse = {
   onDone: [
     {
+      cond: 'shouldPromptPasskeyRegistrationAfterSignup',
+      target: '#signUpActor.passkeyPrompt',
+    },
+    {
       cond: 'shouldVerifyAttribute',
       actions: [
         'setShouldVerifyUserAttributeStep',
@@ -253,6 +257,13 @@ export function signUpActor({ services }: SignUpMachineOptions) {
                 },
               },
             },
+          },
+        },
+        passkeyPrompt: {
+          entry: 'sendUpdate',
+          on: {
+            SKIP: { target: 'resolved' },
+            SUBMIT: { target: 'resolved' },
           },
         },
         resolved: {

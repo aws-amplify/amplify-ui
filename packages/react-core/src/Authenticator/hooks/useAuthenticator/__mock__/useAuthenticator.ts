@@ -20,6 +20,7 @@ const isPending = false;
 const QRFields = null;
 const resendCode = jest.fn();
 const route = 'idle';
+const selectAuthMethod = jest.fn();
 const skipVerification = jest.fn();
 const signOut = jest.fn();
 const socialProviders = [] as AuthenticatorMachineContext['socialProviders'];
@@ -38,6 +39,7 @@ const validationErrors = {};
 export const mockMachineContext: AuthenticatorMachineContext = {
   allowedMfaTypes,
   authStatus,
+  availableAuthMethods: undefined,
   challengeName,
   codeDeliveryDetails,
   error,
@@ -46,6 +48,7 @@ export const mockMachineContext: AuthenticatorMachineContext = {
   isPending,
   resendCode,
   route,
+  selectAuthMethod,
   signOut,
   submitForm,
   updateForm,
