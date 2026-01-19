@@ -26,7 +26,7 @@
   },
   "files": [
     "dist",
-    "packed",
+    "packed/tensorflow-models-face-detection-1.0.3.tgz",
     "LICENSE"
   ],
   "scripts": {
@@ -44,22 +44,25 @@
   },
   "peerDependencies": {
     "@aws-amplify/core": "*",
-    "aws-amplify": "^6.14.3",
+    "aws-amplify": "^6.15.9",
     "react": "^16.14 || ^17 || ^18 || ^19",
     "react-dom": "^16.14 || ^17 || ^18 || ^19"
   },
+  "bundledDependencies": [
+    "@tensorflow-models/face-detection"
+  ],
   "dependencies": {
     "@aws-amplify/ui": "6.13.0",
     "@aws-amplify/ui-react": "6.13.2",
-    "@aws-sdk/client-rekognitionstreaming": "3.828.0",
-    "@aws-sdk/util-format-url": "3.609.0",
+    "@aws-sdk/client-rekognitionstreaming": "3.967.0",
+    "@aws-sdk/util-format-url": "3.965.0",
     "@smithy/eventstream-serde-browser": "^4.0.4",
     "@smithy/fetch-http-handler": "^5.0.4",
     "@smithy/protocol-http": "^3.0.3",
     "@smithy/signature-v4": "5.1.2",
     "@smithy/types": "^4.3.1",
     "@mediapipe/face_detection": "^0.4.1646425229",
-    "@tensorflow-models/face-detection": "./packed/tensorflow-models-face-detection-v1.0.3.tgz",
+    "@tensorflow-models/face-detection": "./packed/tensorflow-models-face-detection-1.0.3.tgz",
     "@tensorflow/tfjs-backend-cpu": "4.11.0",
     "@tensorflow/tfjs-backend-wasm": "4.11.0",
     "@tensorflow/tfjs-converter": "4.11.0",
@@ -83,7 +86,7 @@
       "name": "FaceLivenessDetector",
       "path": "dist/esm/index.mjs",
       "import": "{ FaceLivenessDetector }",
-      "limit": "225 kB"
+      "limit": "228 kB"
     }
   ]
 }
