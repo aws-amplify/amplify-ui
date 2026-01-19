@@ -72,10 +72,11 @@
     ]
   },
   "resolutions": {
+    "@smithy/config-resolver": "^4.4.5",
     "@react-native-community/cli": "^17.0.1",
     "**/@react-native-community/**/fast-xml-parser": "^4.4.1",
     "**/@aws-*/**/fast-xml-parser": "^4.4.1",
-    "**/@aws-amplify/ui-angular-example/**/codelyzer/**/@angular/core": "10.2.5",
+    "**/@aws-amplify/ui-angular-example/**/codelyzer/**/@angular/core": "19.2.18",
     "**/@angular-devkit/build-angular/minimatch": "3.0.5",
     "**/@angular-devkit/build-angular/webpack": "^5.76.0",
     "**/@angular-devkit/build-angular/webpack-dev-server/express/path-to-regexp": "0.1.12",
@@ -146,7 +147,7 @@
     "@types/react-dom": "^18.3.0",
     "@types/react-test-renderer": "^18.3.0",
     "@vitejs/plugin-vue": "^2.3.4",
-    "aws-amplify": "6.14.2",
+    "aws-amplify": "6.15.9",
     "esbuild-register": "^3.5.0",
     "eslint": "^8.44.0",
     "fs-extra": "^11.1.1",
