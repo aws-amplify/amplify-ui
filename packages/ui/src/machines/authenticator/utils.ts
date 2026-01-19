@@ -103,3 +103,75 @@ export const getUsernameSignUp = ({
   // Otherwise, use the primary login mechanism (email as username)
   return formValues[loginMechanism];
 };
+
+/**
+ * Get available authentication methods based on backend capabilities and hidden methods
+ */
+export const getAvailableAuthMethods = (
+  passwordlessCapabilities?: {
+    emailOtpEnabled: boolean;
+    smsOtpEnabled: boolean;
+    webAuthnEnabled: boolean;
+  },
+  hiddenAuthMethods?: Array<'PASSWORD' | 'EMAIL_OTP' | 'SMS_OTP' | 'WEB_AUTHN'>
+): Array<'PASSWORD' | 'EMAIL_OTP' | 'SMS_OTP' | 'WEB_AUTHN'> => {
+  const allMethods: Array<'PASSWORD' | 'EMAIL_OTP' | 'SMS_OTP' | 'WEB_AUTHN'> =
+    [];
+
+  // PASSWORD is always available by default
+  allMethods.push('PASSWORD');
+
+  // Add passwordless methods if backend supports them
+  if (passwordlessCapabilities?.emailOtpEnabled) {
+    allMethods.push('EMAIL_OTP');
+  }
+  if (passwordlessCapabilities?.smsOtpEnabled) {
+    allMethods.push('SMS_OTP');
+  }
+  if (passwordlessCapabilities?.webAuthnEnabled) {
+    allMethods.push('WEB_AUTHN');
+  }
+
+  // Filter out hidden methods
+  const hidden = hiddenAuthMethods ?? [];
+  const availableMethods = allMethods.filter(
+    (method) => !hidden.includes(method)
+  );
+
+  // Validate that at least one method remains
+  if (availableMethods.length === 0) {
+    throw new Error(
+      'InvalidPasswordlessAuthOptions: All authentication methods are hidden'
+    );
+  }
+
+  return availableMethods;
+};
+
+/**
+ * Get preferred authentication method or first available
+ */
+export const getPreferredAuthMethod = (
+  availableMethods?: Array<'PASSWORD' | 'EMAIL_OTP' | 'SMS_OTP' | 'WEB_AUTHN'>,
+  preferredAuthMethod?: 'PASSWORD' | 'EMAIL_OTP' | 'SMS_OTP' | 'WEB_AUTHN'
+): 'PASSWORD' | 'EMAIL_OTP' | 'SMS_OTP' | 'WEB_AUTHN' | undefined => {
+  if (!availableMethods || availableMethods.length === 0) {
+    return undefined;
+  }
+
+  // If preferred method specified and available, use it
+  if (preferredAuthMethod && availableMethods.includes(preferredAuthMethod)) {
+    return preferredAuthMethod;
+  }
+
+  // Warn if preferred method is not available
+  if (preferredAuthMethod && !availableMethods.includes(preferredAuthMethod)) {
+    // eslint-disable-next-line no-console
+    console.warn(
+      `Preferred auth method "${preferredAuthMethod}" is not available. Using first available method.`
+    );
+  }
+
+  // Return first available method
+  return availableMethods[0];
+};

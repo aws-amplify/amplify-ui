@@ -26,27 +26,37 @@ import {
 } from './actors';
 
 import { defaultServices } from './defaultServices';
+import { getAvailableAuthMethods } from './utils';
 
 export type AuthenticatorMachineOptions = AuthContext['config'] & {
   services?: AuthContext['services'];
 };
 
-const getActorContext = (context: AuthContext, defaultStep?: InitialStep) => ({
-  ...context.actorDoneData,
-  step: context?.actorDoneData?.step ?? defaultStep,
+const getActorContext = (context: AuthContext, defaultStep?: InitialStep) => {
+  const availableAuthMethods = getAvailableAuthMethods(
+    context.passwordlessCapabilities,
+    context.config?.passwordlessAuthOptions?.hiddenAuthMethods
+  );
 
-  // initialize empty objects on actor start
-  formValues: {},
-  touched: {},
-  validationError: {},
+  return {
+    ...context.actorDoneData,
+    step: context?.actorDoneData?.step ?? defaultStep,
 
-  // values included on `context.config` that should be available in actors
-  formFields: context.config?.formFields,
-  loginMechanisms: context.config?.loginMechanisms,
-  passwordSettings: context.config?.passwordSettings,
-  signUpAttributes: context.config?.signUpAttributes,
-  socialProviders: context.config?.socialProviders,
-});
+    // initialize empty objects on actor start
+    formValues: {},
+    touched: {},
+    validationError: {},
+
+    // values included on `context.config` that should be available in actors
+    formFields: context.config?.formFields,
+    loginMechanisms: context.config?.loginMechanisms,
+    passwordSettings: context.config?.passwordSettings,
+    signUpAttributes: context.config?.signUpAttributes,
+    socialProviders: context.config?.socialProviders,
+    availableAuthMethods,
+    passwordlessAuthOptions: context.config?.passwordlessAuthOptions,
+  };
+};
 
 const { choose, stop } = xStateActions;
 
@@ -154,6 +164,7 @@ export function createAuthenticatorMachine(
           },
           on: {
             FORGOT_PASSWORD: 'forgotPasswordActor',
+            SELECT_METHOD: { actions: 'forwardToActor' },
             SIGN_IN: 'signInActor',
             SIGN_UP: 'signUpActor',
             'done.invoke.signInActor': [
@@ -321,6 +332,8 @@ export function createAuthenticatorMachine(
           }),
         }),
         applyAmplifyConfig: assign({
+          passwordlessCapabilities: (_, { data: cliConfig }) =>
+            cliConfig.passwordlessCapabilities,
           config(context, { data: cliConfig }) {
             // Prefer explicitly configured settings over default CLI values\
             const {
@@ -331,6 +344,7 @@ export function createAuthenticatorMachine(
               formFields: _formFields,
               passwordSettings = cliConfig.passwordFormat ??
                 ({} as PasswordSettings),
+              passwordlessAuthOptions,
             } = context.config;
 
             // By default, Cognito assumes `username`, so there isn't a different username attribute like `email`.
@@ -346,6 +360,7 @@ export function createAuthenticatorMachine(
               initialState,
               loginMechanisms,
               passwordSettings,
+              passwordlessAuthOptions,
               signUpAttributes,
               socialProviders,
             };
