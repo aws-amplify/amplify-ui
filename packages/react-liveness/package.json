@@ -26,7 +26,6 @@
   },
   "files": [
     "dist",
-    "packed/tensorflow-models-face-detection-1.0.3.tgz",
     "LICENSE"
   ],
   "scripts": {
@@ -60,10 +59,10 @@
     "@smithy/types": "^4.3.1",
     "@mediapipe/face_detection": "^0.4.1646425229",
     "@tensorflow-models/face-detection": "git+https://github.com/bobbor/tfjs-models.git#face-detection",
-    "@tensorflow/tfjs-backend-cpu": "4.22.0",
-    "@tensorflow/tfjs-backend-wasm": "4.22.0",
-    "@tensorflow/tfjs-converter": "4.22.0",
-    "@tensorflow/tfjs-core": "4.22.0",
+    "@tensorflow/tfjs-backend-cpu": "4.11.0",
+    "@tensorflow/tfjs-backend-wasm": "4.11.0",
+    "@tensorflow/tfjs-converter": "4.11.0",
+    "@tensorflow/tfjs-core": "4.11.0",
     "@xstate/react": "^3.2.2",
     "tslib": "^2.5.2",
     "uuid": "^11.1.0",
