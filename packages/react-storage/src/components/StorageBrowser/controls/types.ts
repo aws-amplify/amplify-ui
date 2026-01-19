@@ -6,6 +6,7 @@ import type {
   DataTableSortHeader,
   MessageProps,
 } from '../components';
+import type { ActionConfirmationModalProps } from '../components/composables/ActionConfirmationModal';
 import type { LocationState } from '../store';
 import type { StatusCounts } from '../tasks';
 import type { FilePreviewState } from '../views/hooks/useFilePreview';
@@ -72,6 +73,7 @@ export interface ControlsContext {
     location?: LocationState;
     overwriteToggleLabel?: string;
     message?: MessageProps;
+    confirmationModal?: ActionConfirmationModalProps;
     paginationData?: PaginationData;
     searchPlaceholder?: string;
     searchQuery?: string;
@@ -110,4 +112,6 @@ export interface ControlsContext {
   onToggleOverwrite?: () => void;
   onToggleSearchSubfolders?: () => void;
   onValidateFolderName?: (value: string) => void;
+  onConfirmationModalConfirm?: () => void;
+  onConfirmationModalCancel?: () => void;
 }

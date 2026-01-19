@@ -94,7 +94,14 @@ export interface TaskData {
 export interface TaskHandlerOptions {
   onProgress?: (
     data: { key: string; id: string },
-    progress: number | undefined
+    progressDetails:
+      | number
+      | undefined
+      | {
+          progress?: number;
+          successCount?: number;
+          failureCount?: number;
+        }
   ) => void;
 }
 
@@ -133,6 +140,25 @@ export interface TaskResult<TStatus, TValue> {
    * task result value (if any)
    */
   value?: TValue;
+
+  /**
+   * Number of items successfully processed during the operation
+   * @example 150 // out of 200 total items
+   */
+  successCount?: number;
+
+  /**
+   * Number of items that failed during the operation
+   * @example 5 // out of 200 total items
+   */
+  failureCount?: number;
+
+  /**
+   * Array of individual operation failures with detailed error information
+   * Useful for debugging and providing specific error feedback to users
+   * @example [new Error('Access denied for file1.txt'), new Error('Network timeout for file2.txt')]
+   */
+  failures?: Error[];
 }
 
 export interface TaskHandlerOutput<K = any> {

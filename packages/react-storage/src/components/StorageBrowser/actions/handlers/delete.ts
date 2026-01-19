@@ -1,20 +1,24 @@
 import { remove } from '../../storage-internal';
 
 import type {
-  OptionalFileData,
   TaskHandler,
   TaskHandlerOptions,
   TaskHandlerInput,
   TaskHandlerOutput,
   TaskData,
+  OptionalFileData,
 } from './types';
 
 import { constructBucket } from './utils';
 
 export interface DeleteHandlerOptions extends TaskHandlerOptions {}
 
-export interface DeleteHandlerData extends OptionalFileData, TaskData {
-  fileKey: string;
+export interface DeleteHandlerData
+  extends Omit<OptionalFileData, 'type'>,
+    TaskData {
+  fileKey?: string;
+  type?: 'FILE' | 'FOLDER';
+  totalCount?: number;
 }
 
 export interface DeleteHandlerInput
@@ -29,27 +33,62 @@ export interface DeleteHandler
 export const deleteHandler: DeleteHandler = ({
   config,
   data,
+  options,
 }): DeleteHandlerOutput => {
   const { key } = data;
   const { accountId, credentials, customEndpoint } = config;
+  const { onProgress } = options ?? {};
 
-  const result = remove({
+  let cumulativeSuccessCount = 0;
+  let cumulativeFailureCount = 0;
+
+  let operationCancel: (() => void) | undefined = () => {
+    // noop
+  };
+
+  const cancel = () => {
+    operationCancel?.();
+  };
+
+  const operation = remove({
     path: key,
     options: {
       bucket: constructBucket(config),
       locationCredentialsProvider: credentials,
       expectedBucketOwner: accountId,
       customEndpoint,
+      onProgress: (progress) => {
+        const batchSuccessCount = progress.deleted?.length ?? 0;
+        const batchFailureCount = progress.failed?.length ?? 0;
+
+        cumulativeSuccessCount += batchSuccessCount;
+        cumulativeFailureCount += batchFailureCount;
+
+        onProgress?.(data, {
+          successCount: cumulativeSuccessCount,
+          failureCount: cumulativeFailureCount,
+        });
+      },
     },
-  })
-    .then(({ path }) => ({
-      status: 'COMPLETE' as const,
-      value: { key: path },
-    }))
+  });
+
+  operationCancel = operation.cancel;
+
+  const result = operation.result
+    .then(({ path }) => {
+      return {
+        status: 'COMPLETE' as const,
+        value: {
+          key: path,
+          successCount: cumulativeSuccessCount,
+          failureCount: cumulativeFailureCount,
+        },
+      };
+    })
     .catch((error: Error) => {
       const { message } = error;
       return { error, message, status: 'FAILED' as const };
     });
 
-  return { result };
+  return { result, cancel };
 };
