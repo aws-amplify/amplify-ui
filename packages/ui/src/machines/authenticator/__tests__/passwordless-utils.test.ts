@@ -69,7 +69,7 @@ describe('getAvailableAuthMethods', () => {
           smsOtpEnabled: false,
           webAuthnEnabled: false,
         },
-        ['PASSWORD', 'EMAIL_OTP']
+        ['PASSWORD', 'EMAIL_OTP', 'SMS_OTP', 'WEB_AUTHN']
       )
     ).toThrow(
       'InvalidPasswordlessAuthOptions: All authentication methods are hidden'

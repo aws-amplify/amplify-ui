@@ -40,6 +40,10 @@ const mockServiceFacade: AuthenticatorServiceFacade = {
   allowedMfaTypes: ['EMAIL', 'TOTP'],
   selectAuthMethod: jest.fn(),
   availableAuthMethods: undefined,
+  toShowAuthMethods: jest.fn(),
+  loginMechanism: undefined,
+  preferredChallenge: undefined,
+  selectedAuthMethod: undefined,
 };
 
 const getServiceFacadeSpy = jest

@@ -123,3 +123,52 @@ describe('getUsernameSignUp', () => {
     expect(output).toEqual('testuser');
   });
 });
+
+describe('passwordless utils', () => {
+  const { getAvailableAuthMethods } = require('../utils');
+
+  it('should return PASSWORD by default', () => {
+    const result = getAvailableAuthMethods();
+    expect(result).toEqual(['PASSWORD']);
+  });
+
+  it('should include EMAIL_OTP when enabled', () => {
+    const result = getAvailableAuthMethods({
+      emailOtpEnabled: true,
+      smsOtpEnabled: false,
+      webAuthnEnabled: false,
+    });
+    expect(result).toContain('EMAIL_OTP');
+  });
+
+  it('should include SMS_OTP when enabled', () => {
+    const result = getAvailableAuthMethods({
+      emailOtpEnabled: false,
+      smsOtpEnabled: true,
+      webAuthnEnabled: false,
+    });
+    expect(result).toContain('SMS_OTP');
+  });
+
+  it('should include WEB_AUTHN when enabled', () => {
+    const result = getAvailableAuthMethods({
+      emailOtpEnabled: false,
+      smsOtpEnabled: false,
+      webAuthnEnabled: true,
+    });
+    expect(result).toContain('WEB_AUTHN');
+  });
+
+  it('should filter hidden methods', () => {
+    const result = getAvailableAuthMethods(
+      {
+        emailOtpEnabled: true,
+        smsOtpEnabled: true,
+        webAuthnEnabled: true,
+      },
+      ['EMAIL_OTP']
+    );
+    expect(result).not.toContain('EMAIL_OTP');
+    expect(result).toContain('PASSWORD');
+  });
+});

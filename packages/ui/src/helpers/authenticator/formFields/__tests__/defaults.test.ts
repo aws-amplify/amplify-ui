@@ -31,6 +31,7 @@ const state = {
       loginMechanisms: ['email', 'phone_number'],
       signUpAttributes: ['email'],
     },
+    availableAuthMethods: ['PASSWORD'],
   },
 } as unknown as AuthMachineState;
 

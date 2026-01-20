@@ -31,4 +31,8 @@ export const baseMockServiceFacade: UseAuthenticator = {
   allowedMfaTypes: undefined,
   selectAuthMethod: jest.fn(),
   availableAuthMethods: undefined,
+  toShowAuthMethods: jest.fn(),
+  loginMechanism: undefined,
+  preferredChallenge: undefined,
+  selectedAuthMethod: undefined,
 };
