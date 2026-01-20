@@ -158,6 +158,32 @@ describe('validateStoreProps', () => {
     );
   });
 
+  it('does not log missing parameters error when prefix is empty string', () => {
+    const locationWithEmptyPrefix = {
+      ...location,
+      prefix: '', // Empty string should be valid for bucket root access
+    };
+
+    validateStoreProps({
+      value: { location: locationWithEmptyPrefix },
+      onValueChange: jest.fn(),
+    });
+
+    expect(consoleErrorSpy).toHaveBeenCalledTimes(0);
+  });
+
+  it('logs missing parameters error when prefix is undefined', () => {
+    validateStoreProps({
+      // @ts-expect-error force invalid location
+      value: { location: { ...location, prefix: undefined } },
+      onValueChange: jest.fn(),
+    });
+
+    const expected = [MISSING_REQUIRED, '`prefix`'];
+    expect(consoleErrorSpy).toHaveBeenCalledTimes(1);
+    expect(consoleErrorSpy).toHaveBeenCalledWith(...expected);
+  });
+
   it('logs the expected message on change between controlled and uncontrolled mode once', () => {
     validateStoreProps({ value: null });
     validateStoreProps({});
