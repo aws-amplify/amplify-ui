@@ -38,6 +38,8 @@ const mockServiceFacade: AuthenticatorServiceFacade = {
   toSignUp: jest.fn(),
   skipVerification: jest.fn(),
   allowedMfaTypes: ['EMAIL', 'TOTP'],
+  selectAuthMethod: jest.fn(),
+  availableAuthMethods: undefined,
 };
 
 const getServiceFacadeSpy = jest

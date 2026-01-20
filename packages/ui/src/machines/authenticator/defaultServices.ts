@@ -77,11 +77,30 @@ export const defaultServices = {
         ) as SocialProvider[])
       : undefined;
 
+    // Detect passwordless capabilities from amplify_outputs.json
+    // Support both snake_case (legacy) and camelCase (current) formats
+    const passwordlessConfig = (result.Auth?.Cognito as any)?.passwordless;
+    const passwordlessCapabilities = {
+      emailOtpEnabled:
+        passwordlessConfig?.emailOtpEnabled ??
+        passwordlessConfig?.email_otp_enabled === true,
+      smsOtpEnabled:
+        passwordlessConfig?.smsOtpEnabled ??
+        passwordlessConfig?.sms_otp_enabled === true,
+      webAuthnEnabled: !!(
+        passwordlessConfig?.webAuthn ?? passwordlessConfig?.web_authn
+      ),
+      preferredChallenge:
+        passwordlessConfig?.preferredChallenge ??
+        passwordlessConfig?.preferred_challenge,
+    };
+
     return {
       ...cliConfig,
       loginMechanisms: parsedLoginMechanisms,
       signUpAttributes: parsedSignupAttributes,
       socialProviders: parsedSocialProviders,
+      passwordlessCapabilities,
     };
   },
   getCurrentUser,

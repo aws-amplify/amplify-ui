@@ -230,6 +230,15 @@ const setSelectedUserAttribute = assign({
 // Maps to unexposed `ConfirmSignUpSignUpStep`
 const setConfirmSignUpSignUpStep = assign({ step: 'CONFIRM_SIGN_UP' });
 
+// Passwordless actions
+const setSelectedAuthMethod = assign({
+  selectedAuthMethod: (_, { data }: AuthEvent) => data.method,
+});
+
+const setSelectAuthMethodStep = assign({
+  step: 'SELECT_AUTH_METHOD',
+});
+
 const ACTIONS: MachineOptions<AuthActorContext, AuthEvent>['actions'] = {
   clearActorDoneData,
   clearChallengeName,
@@ -254,6 +263,8 @@ const ACTIONS: MachineOptions<AuthActorContext, AuthEvent>['actions'] = {
   setRemoteError,
   setConfirmAttributeCompleteStep,
   setConfirmSignUpSignUpStep,
+  setSelectAuthMethodStep,
+  setSelectedAuthMethod,
   setShouldVerifyUserAttributeStep,
   setSelectedUserAttribute,
   setSignInStep,

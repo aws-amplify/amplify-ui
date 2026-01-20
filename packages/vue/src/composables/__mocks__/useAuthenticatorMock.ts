@@ -29,4 +29,6 @@ export const baseMockServiceFacade: UseAuthenticator = {
   validationErrors:
     {} as unknown as AuthenticatorServiceFacade['validationErrors'],
   allowedMfaTypes: undefined,
+  selectAuthMethod: jest.fn(),
+  availableAuthMethods: undefined,
 };

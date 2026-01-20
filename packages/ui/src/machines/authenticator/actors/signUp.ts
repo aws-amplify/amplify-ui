@@ -1,4 +1,4 @@
-import { createMachine, sendUpdate } from 'xstate';
+import { createMachine, sendUpdate, assign } from 'xstate';
 
 import type { ConfirmSignUpInput } from 'aws-amplify/auth';
 import {
@@ -67,27 +67,6 @@ const handleAutoSignInResponse = {
   },
 };
 
-const handleFetchUserAttributesResponse = {
-  onDone: [
-    {
-      cond: 'shouldVerifyAttribute',
-      actions: [
-        'setShouldVerifyUserAttributeStep',
-        'setUnverifiedUserAttributes',
-      ],
-      target: '#signUpActor.resolved',
-    },
-    {
-      actions: 'setConfirmAttributeCompleteStep',
-      target: '#signUpActor.resolved',
-    },
-  ],
-  onError: {
-    actions: 'setConfirmAttributeCompleteStep',
-    target: '#signUpActor.resolved',
-  },
-};
-
 export function signUpActor({ services }: SignUpMachineOptions) {
   return createMachine<SignUpContext, AuthEvent>(
     {
@@ -108,8 +87,62 @@ export function signUpActor({ services }: SignUpMachineOptions) {
         fetchUserAttributes: {
           invoke: {
             src: 'fetchUserAttributes',
-            ...handleFetchUserAttributesResponse,
+            onDone: {
+              actions: assign({
+                fetchedUserAttributes: (_, event) => event.data,
+              }),
+              target: 'checkPasskeys',
+            },
+            onError: {
+              actions: 'setConfirmAttributeCompleteStep',
+              target: '#signUpActor.resolved',
+            },
           },
+        },
+        checkPasskeys: {
+          invoke: {
+            src: async () => {
+              try {
+                const { listWebAuthnCredentials } = await import(
+                  'aws-amplify/auth'
+                );
+                const result = await listWebAuthnCredentials();
+                return result.credentials && result.credentials.length > 0;
+              } catch {
+                return false;
+              }
+            },
+            onDone: {
+              actions: assign({
+                hasExistingPasskeys: (_, event) => event.data,
+              }),
+              target: 'evaluatePasskeyPrompt',
+            },
+            onError: {
+              actions: assign({ hasExistingPasskeys: false }),
+              target: 'evaluatePasskeyPrompt',
+            },
+          },
+        },
+        evaluatePasskeyPrompt: {
+          always: [
+            {
+              cond: 'shouldPromptPasskeyRegistrationAfterSignup',
+              target: '#signUpActor.passkeyPrompt',
+            },
+            {
+              cond: 'shouldVerifyAttribute',
+              actions: [
+                'setShouldVerifyUserAttributeStep',
+                'setUnverifiedUserAttributes',
+              ],
+              target: '#signUpActor.resolved',
+            },
+            {
+              actions: 'setConfirmAttributeCompleteStep',
+              target: '#signUpActor.resolved',
+            },
+          ],
         },
         federatedSignIn: getFederatedSignInState('signUp'),
         resetPassword: {
@@ -255,6 +288,13 @@ export function signUpActor({ services }: SignUpMachineOptions) {
             },
           },
         },
+        passkeyPrompt: {
+          entry: 'sendUpdate',
+          on: {
+            SKIP: { target: 'resolved' },
+            SUBMIT: { target: 'resolved' },
+          },
+        },
         resolved: {
           type: 'final',
           data: (context) => ({
@@ -293,9 +333,21 @@ export function signUpActor({ services }: SignUpMachineOptions) {
           return signInWithRedirect(data);
         },
         handleSignUp(context) {
-          const { formValues, loginMechanisms, username } = context;
+          const {
+            formValues,
+            loginMechanisms,
+            username,
+            selectedAuthMethod,
+            preferredChallenge,
+          } = context;
           const loginMechanism = loginMechanisms[0];
-          const input = getSignUpInput(username, formValues, loginMechanism);
+          const authMethod = selectedAuthMethod ?? preferredChallenge;
+          const input = getSignUpInput(
+            username,
+            formValues,
+            loginMechanism,
+            authMethod
+          );
 
           return services.handleSignUp(input);
         },

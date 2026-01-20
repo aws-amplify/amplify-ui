@@ -1,6 +1,6 @@
 import pickBy from 'lodash/pickBy.js';
 
-import type { AuthActorContext } from './types';
+import type { AuthActorContext, AuthMethod } from './types';
 import type { SignUpInput, UserAttributeKey } from 'aws-amplify/auth';
 import type { LoginMechanism, UserAttributes } from '../../types';
 import { isString } from '../../utils';
@@ -64,13 +64,22 @@ export const getUserAttributes = (
 export const getSignUpInput = (
   username: string,
   formValues: AuthActorContext['formValues'],
-  loginMechanism: LoginMechanism
+  loginMechanism: LoginMechanism,
+  authMethod?: AuthMethod
 ): SignUpInput => {
   const { password, ...values } = formValues;
   const attributes = getUserAttributes(values);
 
+  const isPasswordless = authMethod && authMethod !== 'PASSWORD';
+
   const options: SignUpInput['options'] = {
-    autoSignIn: DEFAULT_AUTO_SIGN_IN,
+    autoSignIn: isPasswordless
+      ? {
+          enabled: true,
+          authFlowType: 'USER_AUTH',
+          preferredChallenge: authMethod,
+        }
+      : DEFAULT_AUTO_SIGN_IN,
     userAttributes: {
       // use `username` value for `phone_number`
       ...(loginMechanism === 'phone_number'
@@ -79,7 +88,7 @@ export const getSignUpInput = (
     },
   };
 
-  return { username, password, options };
+  return { username, password: isPasswordless ? undefined : password, options };
 };
 
 export const getUsernameSignUp = ({
@@ -102,4 +111,80 @@ export const getUsernameSignUp = ({
 
   // Otherwise, use the primary login mechanism (email as username)
   return formValues[loginMechanism];
+};
+
+/**
+ * Get available authentication methods based on backend capabilities and hidden methods
+ */
+export const getAvailableAuthMethods = (
+  passwordlessCapabilities?: {
+    emailOtpEnabled: boolean;
+    smsOtpEnabled: boolean;
+    webAuthnEnabled: boolean;
+  },
+  hiddenAuthMethods?: Array<'PASSWORD' | 'EMAIL_OTP' | 'SMS_OTP' | 'WEB_AUTHN'>
+): Array<'PASSWORD' | 'EMAIL_OTP' | 'SMS_OTP' | 'WEB_AUTHN'> => {
+  const allMethods: Array<'PASSWORD' | 'EMAIL_OTP' | 'SMS_OTP' | 'WEB_AUTHN'> =
+    [];
+
+  // If hiddenAuthMethods is explicitly provided (even as empty array),
+  // assume all methods are available and let hiddenAuthMethods filter them
+  const assumeAllAvailable = hiddenAuthMethods !== undefined;
+
+  // PASSWORD is always available by default
+  allMethods.push('PASSWORD');
+
+  // Add passwordless methods if backend supports them OR if hiddenAuthMethods is explicitly set
+  if (assumeAllAvailable || passwordlessCapabilities?.emailOtpEnabled) {
+    allMethods.push('EMAIL_OTP');
+  }
+  if (assumeAllAvailable || passwordlessCapabilities?.smsOtpEnabled) {
+    allMethods.push('SMS_OTP');
+  }
+  if (assumeAllAvailable || passwordlessCapabilities?.webAuthnEnabled) {
+    allMethods.push('WEB_AUTHN');
+  }
+
+  // Filter out hidden methods
+  const hidden = hiddenAuthMethods ?? [];
+  const availableMethods = allMethods.filter(
+    (method) => !hidden.includes(method)
+  );
+
+  // Validate that at least one method remains
+  if (availableMethods.length === 0) {
+    throw new Error(
+      'InvalidPasswordlessAuthOptions: All authentication methods are hidden'
+    );
+  }
+
+  return availableMethods;
+};
+
+/**
+ * Get preferred authentication method or first available
+ */
+export const getPreferredAuthMethod = (
+  availableMethods?: Array<'PASSWORD' | 'EMAIL_OTP' | 'SMS_OTP' | 'WEB_AUTHN'>,
+  preferredAuthMethod?: 'PASSWORD' | 'EMAIL_OTP' | 'SMS_OTP' | 'WEB_AUTHN'
+): 'PASSWORD' | 'EMAIL_OTP' | 'SMS_OTP' | 'WEB_AUTHN' | undefined => {
+  if (!availableMethods || availableMethods.length === 0) {
+    return undefined;
+  }
+
+  // If preferred method specified and available, use it
+  if (preferredAuthMethod && availableMethods.includes(preferredAuthMethod)) {
+    return preferredAuthMethod;
+  }
+
+  // Warn if preferred method is not available
+  if (preferredAuthMethod && !availableMethods.includes(preferredAuthMethod)) {
+    // eslint-disable-next-line no-console
+    console.warn(
+      `Preferred auth method "${preferredAuthMethod}" is not available. Using first available method.`
+    );
+  }
+
+  // Return first available method
+  return availableMethods[0];
 };

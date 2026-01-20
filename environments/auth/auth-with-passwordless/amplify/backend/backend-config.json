@@ -1,0 +1,101 @@
+{
+  "auth": {
+    "authwithpasswordless40d6d3c6": {
+      "customAuth": false,
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "Cognito",
+      "serviceType": "imported"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_auth_authwithpasswordless40d6d3c6_allowUnauthenticatedIdentities": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "authwithpasswordless40d6d3c6"
+        }
+      ]
+    },
+    "AMPLIFY_auth_authwithpasswordless40d6d3c6_authRoleArn": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "authwithpasswordless40d6d3c6"
+        }
+      ]
+    },
+    "AMPLIFY_auth_authwithpasswordless40d6d3c6_authRoleName": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "authwithpasswordless40d6d3c6"
+        }
+      ]
+    },
+    "AMPLIFY_auth_authwithpasswordless40d6d3c6_identityPoolId": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "authwithpasswordless40d6d3c6"
+        }
+      ]
+    },
+    "AMPLIFY_auth_authwithpasswordless40d6d3c6_identityPoolName": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "authwithpasswordless40d6d3c6"
+        }
+      ]
+    },
+    "AMPLIFY_auth_authwithpasswordless40d6d3c6_nativeClientId": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "authwithpasswordless40d6d3c6"
+        }
+      ]
+    },
+    "AMPLIFY_auth_authwithpasswordless40d6d3c6_unauthRoleArn": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "authwithpasswordless40d6d3c6"
+        }
+      ]
+    },
+    "AMPLIFY_auth_authwithpasswordless40d6d3c6_unauthRoleName": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "authwithpasswordless40d6d3c6"
+        }
+      ]
+    },
+    "AMPLIFY_auth_authwithpasswordless40d6d3c6_userPoolId": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "authwithpasswordless40d6d3c6"
+        }
+      ]
+    },
+    "AMPLIFY_auth_authwithpasswordless40d6d3c6_userPoolName": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "authwithpasswordless40d6d3c6"
+        }
+      ]
+    },
+    "AMPLIFY_auth_authwithpasswordless40d6d3c6_webClientId": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "authwithpasswordless40d6d3c6"
+        }
+      ]
+    }
+  }
+}
