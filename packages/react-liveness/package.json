@@ -26,6 +26,7 @@
   },
   "files": [
     "dist",
+    "patches",
     "LICENSE"
   ],
   "scripts": {
@@ -35,7 +36,7 @@
     "clean": "rimraf dist node_modules",
     "dev": "yarn build:rollup --watch",
     "lint": "yarn typecheck && eslint .",
-    "prebuild": "rimraf dist",
+    "prebuild": "rimraf dist && patch-package",
     "size": "yarn size-limit",
     "test": "jest",
     "test:watch": "yarn test --watch",
@@ -58,7 +59,6 @@
     "@smithy/signature-v4": "5.1.2",
     "@smithy/types": "^4.3.1",
     "@mediapipe/face_detection": "^0.4.1646425229",
-    "@tensorflow-models/face-detection": "git+https://github.com/bobbor/tfjs-models.git#face-detection",
     "@tensorflow/tfjs-backend-cpu": "4.11.0",
     "@tensorflow/tfjs-backend-wasm": "4.11.0",
     "@tensorflow/tfjs-converter": "4.11.0",
@@ -69,12 +69,14 @@
     "xstate": "^4.33.6"
   },
   "devDependencies": {
+    "@tensorflow-models/face-detection": "~1.0.3",
     "@types/jest-when": "^3.5.0",
     "blob-polyfill": "^7.0.20220408",
     "jest-canvas-mock": "^2.5.2",
     "jest-websocket-mock": "^2.4.1",
     "jest-when": "^3.5.1",
     "mock-socket": "^9.2.1",
+    "patch-package": "~8.0.1",
     "web-streams-polyfill": "^3.2.1"
   },
   "size-limit": [
