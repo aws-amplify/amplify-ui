@@ -35,6 +35,7 @@ allow-licenses:
   - 'zlib-acknowledgement'
   - 'Zlib'
   - 'LicenseRef-scancode-unicode'
+  - 'LicenseRef-scancode-public-domain'
 allow-dependencies-licenses:
   # These packages are needed for nextjs (more detailed sharp)
   # they are dynamic libraries and thus do not ship the underlying library
