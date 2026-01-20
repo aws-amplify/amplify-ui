@@ -2,6 +2,7 @@ import { defineConfig } from 'rollup';
 import typescript from '@rollup/plugin-typescript';
 import commonjs from '@rollup/plugin-commonjs';
 import styles from 'rollup-plugin-styles';
+import resolve from '@rollup/plugin-node-resolve';
 
 import externals from 'rollup-plugin-node-externals';
 
@@ -28,7 +29,11 @@ const config = defineConfig([
     output: cjsOutput,
     plugins: [
       commonjs(),
-      externals({ include: /^@aws-amplify/ }),
+      externals({
+        include: /^@aws-amplify/,
+        exclude: '@tensorflow-models/face-detection',
+      }),
+      resolve(),
       typescript({ declarationDir: 'dist/types', sourceMap, tsconfig }),
     ],
   },
@@ -44,7 +49,11 @@ const config = defineConfig([
     },
     plugins: [
       commonjs(),
-      externals({ include: /^@aws-amplify/ }),
+      externals({
+        include: /^@aws-amplify/,
+        exclude: '@tensorflow-models/face-detection',
+      }),
+      resolve(),
       typescript({
         outDir: 'dist/esm',
         declaration: false,
