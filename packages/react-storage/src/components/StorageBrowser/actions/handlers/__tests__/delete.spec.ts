@@ -1,4 +1,4 @@
-import { remove, RemoveInput } from '../../../storage-internal';
+import { remove } from '../../../storage-internal';
 
 import { deleteHandler, DeleteHandlerInput } from '../delete';
 
@@ -6,7 +6,7 @@ jest.mock('../../../storage-internal');
 
 const baseInput: DeleteHandlerInput = {
   config: {
-    accountId: '012345678901',
+    accountId: 'accountId',
     bucket: 'bucket',
     credentials: jest.fn(),
     customEndpoint: 'mock-endpoint',
@@ -14,55 +14,73 @@ const baseInput: DeleteHandlerInput = {
   },
   data: {
     id: 'id',
-    key: 'prefix/key.png',
-    fileKey: 'key.png',
-    lastModified: new Date(),
-    size: 100,
-    type: 'FILE',
+    key: 'prefix/file-name',
+    fileKey: 'file-name',
   },
 };
 
 describe('deleteHandler', () => {
-  const path = 'path';
-
   const mockRemove = jest.mocked(remove);
+  const mockCancel = jest.fn();
 
   beforeEach(() => {
-    mockRemove.mockResolvedValue({ path });
+    mockRemove.mockReturnValue({
+      result: Promise.resolve({ path: 'prefix/file-name' }),
+      cancel: mockCancel,
+      then: jest.fn(),
+      catch: jest.fn(),
+      finally: jest.fn(),
+      state: 'PENDING',
+    });
   });
 
   afterEach(() => {
     mockRemove.mockReset();
+    mockCancel.mockReset();
   });
 
-  it('calls `remove` and returns the expected `key`', () => {
+  it('calls `remove` with the expected values', () => {
     deleteHandler(baseInput);
 
-    const expected: RemoveInput = {
+    expect(mockRemove).toHaveBeenCalledWith({
       path: baseInput.data.key,
       options: {
-        expectedBucketOwner: baseInput.config.accountId,
         bucket: {
           bucketName: baseInput.config.bucket,
           region: baseInput.config.region,
         },
         customEndpoint: baseInput.config.customEndpoint,
         locationCredentialsProvider: baseInput.config.credentials,
+        expectedBucketOwner: baseInput.config.accountId,
+        onProgress: expect.any(Function),
       },
-    };
-
-    expect(mockRemove).toHaveBeenCalledWith(expected);
+    });
   });
 
   it('returns a complete status', async () => {
     const { result } = deleteHandler(baseInput);
 
-    expect(await result).toEqual({ status: 'COMPLETE', value: { key: path } });
+    expect(await result).toEqual({
+      status: 'COMPLETE',
+      value: {
+        key: 'prefix/file-name',
+        successCount: 0,
+        failureCount: 0,
+      },
+    });
   });
 
   it('returns failed status', async () => {
-    const error = new Error('No delete!');
-    mockRemove.mockRejectedValue(error);
+    const error = new Error('Delete failed!');
+    mockRemove.mockReturnValue({
+      result: Promise.reject(error),
+      cancel: mockCancel,
+      then: jest.fn(),
+      catch: jest.fn(),
+      finally: jest.fn(),
+      state: 'PENDING',
+    });
+
     const { result } = deleteHandler(baseInput);
 
     expect(await result).toEqual({
@@ -70,5 +88,13 @@ describe('deleteHandler', () => {
       message: error.message,
       status: 'FAILED',
     });
+  });
+
+  it('returns cancel function', () => {
+    const { cancel } = deleteHandler(baseInput);
+
+    expect(cancel).toBeDefined();
+    cancel?.();
+    expect(mockCancel).toHaveBeenCalledTimes(1);
   });
 });

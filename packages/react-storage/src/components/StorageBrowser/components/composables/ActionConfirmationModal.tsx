@@ -29,6 +29,14 @@ export const ActionConfirmationModal = ({
   confirmLabel = 'Confirm',
   cancelLabel = 'Cancel',
 }: ActionConfirmationModalProps): React.JSX.Element | null => {
+  const modalRef = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    if (isOpen && modalRef.current) {
+      modalRef.current.focus();
+    }
+  }, [isOpen]);
+
   const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
     if (event.key === 'Escape') {
       onCancel?.();
@@ -39,9 +47,11 @@ export const ActionConfirmationModal = ({
 
   return (
     <div
+      ref={modalRef}
       className={`${STORAGE_BROWSER_BLOCK}__modal-overlay`}
       role="dialog"
       aria-modal="true"
+      tabIndex={-1}
       onKeyDown={handleKeyDown}
       onClick={(e: React.MouseEvent<HTMLDivElement>) => {
         if (e.target === e.currentTarget) {
