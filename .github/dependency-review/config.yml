@@ -57,3 +57,4 @@ allow-dependencies-licenses:
   - 'pkg:npm/%2540img/sharp-win32-ia32'
   - 'pkg:npm/%2540img/sharp-win32-x64'
   - 'pkg:npm/unicode-match-property-value-ecmascript@2.2.1'
+  - 'pkg:npm/tsyringe@4.10.0'
