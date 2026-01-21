@@ -11,16 +11,14 @@ const config: Config = {
   ],
   coverageThreshold: {
     global: {
-      // @todo-passwordless: Restore to 80 after increasing coverage for passwordless flows
-      branches: 77,
+      branches: 80,
       // @todo-migration: put back after fixing tests
       // functions: 85,
       functions: 70,
       // @todo-migration: put back after fixing tests
       // lines: 90,
       lines: 87,
-      // @todo-passwordless: Restore to 90 after increasing coverage for passwordless flows
-      statements: 87,
+      statements: 90,
     },
   },
   preset: 'ts-jest',
