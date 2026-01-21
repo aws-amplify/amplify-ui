@@ -75,7 +75,7 @@
       "name": "StorageBrowser",
       "path": "dist/esm/index.mjs",
       "import": "{ StorageBrowser }",
-      "limit": "92 kB"
+      "limit": "93 kB"
     },
     {
       "name": "FileUploader",

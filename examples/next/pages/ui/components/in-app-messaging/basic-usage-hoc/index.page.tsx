@@ -6,7 +6,6 @@ import {
 } from 'aws-amplify/in-app-messaging';
 import { Text } from '@aws-amplify/ui-react';
 import { withInAppMessaging } from '@aws-amplify/ui-react-notifications';
-import '@aws-amplify/ui-react/styles.css';
 
 import config from './aws-exports';
 

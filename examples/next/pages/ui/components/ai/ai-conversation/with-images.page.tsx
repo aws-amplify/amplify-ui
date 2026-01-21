@@ -1,5 +1,4 @@
 import { AIConversation, ConversationMessage } from '@aws-amplify/ui-react-ai';
-import '@aws-amplify/ui-react/styles.css';
 
 const messages: ConversationMessage[] = [
   {

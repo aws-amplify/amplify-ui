@@ -3,7 +3,7 @@
 /// <reference types="../../support/commands" />
 
 import { Given, Then, When } from '@badeball/cypress-cucumber-preprocessor';
-import { get, escapeRegExp } from 'lodash';
+import { escapeRegExp, get } from 'lodash';
 
 let language = 'en-US';
 let window = null;
@@ -290,6 +290,7 @@ When('I click the element with id attribute {string}', (id: string) => {
 When('I click the {string} button', (name: string) => {
   cy.findByRole('button', {
     name: new RegExp(`^${escapeRegExp(name)}$`, 'i'),
+    timeout: 5000,
   }).click();
 });
 

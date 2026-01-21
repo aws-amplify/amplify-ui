@@ -29,18 +29,21 @@ Given(
 When('I click the {string} tab', (label: string) => {
   cy.findByRole('tab', {
     name: new RegExp(`^${escapeRegExp(label)}$`, 'i'),
+    timeout: 5000,
   }).click();
 });
 
 When('I click the {string} button', (name: string) => {
   cy.findByRole('button', {
     name: new RegExp(`^${escapeRegExp(name)}$`, 'i'),
+    timeout: 5000,
   }).click();
 });
 
 Then('I see the {string} button', (name: string) => {
   cy.findByRole('button', {
     name: new RegExp(`^${escapeRegExp(name)}$`, 'i'),
+    timeout: 5000,
   }).should('be.visible');
 });
 

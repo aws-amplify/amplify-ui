@@ -2,12 +2,24 @@
   "compilerOptions": {
     "baseUrl": ".",
     "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "paths": {
-      "@/components/*": ["src/components/*"],
-      "@/data/*": ["src/data/*"],
-      "@/utils/*": ["src/utils/*"],
-      "aws-amplify/storage": ["storageMock.ts"]
+      "@/components/*": [
+        "src/components/*"
+      ],
+      "@/data/*": [
+        "src/data/*"
+      ],
+      "@/utils/*": [
+        "src/utils/*"
+      ],
+      "aws-amplify/storage": [
+        "storageMock.ts"
+      ]
     },
     "allowJs": true,
     "skipLibCheck": true,
@@ -20,11 +32,17 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "downlevelIteration": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules"
+  ],
   "ts-node": {
     "compilerOptions": {
       "module": "CommonJS"
