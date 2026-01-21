@@ -54,10 +54,14 @@ const getConfirmationCodeFormFields = (_: AuthMachineState): FormFields => ({
 });
 
 const getSignInFormFields = (state: AuthMachineState): FormFields => {
-  const { availableAuthMethods } = state.context;
+  const actorContext = state.context.actorRef?.getSnapshot()?.context;
+  const availableAuthMethods = actorContext?.availableAuthMethods;
+
   const shouldShowPassword =
-    availableAuthMethods?.length === 1 &&
-    availableAuthMethods[0] === 'PASSWORD';
+    !availableAuthMethods ||
+    availableAuthMethods.length === 0 ||
+    (availableAuthMethods.length === 1 &&
+      availableAuthMethods[0] === 'PASSWORD');
 
   const fields: FormFields = {
     username: { ...getAliasDefaultFormField(state) },

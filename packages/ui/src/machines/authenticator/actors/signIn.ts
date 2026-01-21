@@ -121,12 +121,22 @@ export function signInActor({ services }: SignInMachineOptions) {
         fetchUserAttributes: {
           invoke: {
             src: 'fetchUserAttributes',
-            onDone: {
-              actions: assign({
-                fetchedUserAttributes: (_, event) => event.data,
-              }),
-              target: 'checkPasskeys',
-            },
+            onDone: [
+              {
+                cond: ({ passwordlessAuthOptions }) =>
+                  passwordlessAuthOptions?.passkeyRegistrationPrompts != null,
+                actions: assign({
+                  fetchedUserAttributes: (_, event) => event.data,
+                }),
+                target: 'checkPasskeys',
+              },
+              {
+                actions: assign({
+                  fetchedUserAttributes: (_, event) => event.data,
+                }),
+                target: 'evaluatePasskeyPrompt',
+              },
+            ],
             onError: {
               actions: 'setConfirmAttributeCompleteStep',
               target: '#signInActor.resolved',
