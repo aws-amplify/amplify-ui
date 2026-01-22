@@ -209,6 +209,8 @@ const handleBlur = assign({
 
 const setUnverifiedUserAttributes = assign({
   unverifiedUserAttributes: (_, { data }: AuthEvent) => {
+    if (!data) return {};
+
     const { email, phone_number } = data as FetchUserAttributesOutput;
 
     const unverifiedUserAttributes = {
