@@ -33,7 +33,7 @@
     "countries-list": "^2.6.1",
     "dotenv": "^16.0.0",
     "gray-matter": "^4.0.3",
-    "lodash": "^4.17.21",
+    "lodash": "^4.17.23",
     "mdx-prism": "^0.3.3",
     "next": "^16.0.0",
     "next-plugin-preval": "^1.2.8",
