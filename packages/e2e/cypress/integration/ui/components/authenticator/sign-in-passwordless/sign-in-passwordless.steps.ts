@@ -17,6 +17,10 @@ When('I type a valid email confirmation code', () => {
   cy.findInputField('Code *').type('123456');
 });
 
+When('I type an invalid confirmation code', () => {
+  cy.findInputField('Code *').type('000000');
+});
+
 Then('I will be redirected to the select auth method page', () => {
   cy.get('[data-amplify-authenticator-selectauthmethod]').should('be.visible');
 });
