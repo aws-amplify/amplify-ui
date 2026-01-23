@@ -28,6 +28,12 @@ export const FACE_LIVENESS_DETECTOR_PARAMETERS = [
     type: `ChallengeOptions`,
   },
   {
+    name: 'videoOptions',
+    description:
+      'Optional parameter that allows you to configure options for the video stream in the liveness session.',
+    type: 'VideoOptions',
+  },
+  {
     name: `onComplete`,
     description:
       'Callback that signals when the liveness session has completed.',
