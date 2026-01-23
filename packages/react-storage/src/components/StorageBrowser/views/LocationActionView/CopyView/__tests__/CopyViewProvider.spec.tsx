@@ -90,6 +90,11 @@ const actionCallbacks = {
 const defaultViewState: CopyViewState = {
   ...actionCallbacks,
   destination: { current: undefined, path: '', key: '' },
+  hasNextPage: false,
+  highestPageVisited: 1,
+  onPaginate: jest.fn(),
+  page: 1,
+  pageTasks: [],
   folders: {
     hasError: false,
     hasNextPage: false,

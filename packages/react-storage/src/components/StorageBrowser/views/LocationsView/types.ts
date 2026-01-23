@@ -46,4 +46,5 @@ interface InitialValues {
 export interface UseLocationsViewOptions {
   initialValues?: InitialValues;
   onNavigate?: (location: LocationData) => void;
+  pageSize?: number;
 }

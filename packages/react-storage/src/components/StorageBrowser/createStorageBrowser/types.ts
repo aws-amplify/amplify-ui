@@ -320,6 +320,13 @@ export interface StorageBrowserProps<TActionType = string, TViews = {}> {
    * @description accepts default top level `views` overrides and custom `views` defined by the `actions` parameter of `createStorageBrowser`
    */
   views?: StorageBrowserViews<TActionType, TViews>;
+
+  /**
+   * @description Number of items to display per page in listings
+   * @default 100
+   * @minimum 1
+   */
+  pageSize?: number;
 }
 
 /**
@@ -330,7 +337,7 @@ export interface StorageBrowserProviderProps<TViews = {}>
   extends StoreProviderProps,
     Pick<
       StorageBrowserProps,
-      'defaultValue' | 'displayText' | 'onValueChange' | 'value'
+      'defaultValue' | 'displayText' | 'onValueChange' | 'value' | 'pageSize'
     > {
   // note: `views` intentionally scoped to custom slots to prevent conflicts with composability
   /**

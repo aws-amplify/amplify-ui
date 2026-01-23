@@ -2,6 +2,7 @@ import React from 'react';
 
 import type { ListLocationsExcludeOptions, LocationData } from '../../actions';
 import { getFileKey } from '../../actions';
+import { usePaginationConfig } from '../../configuration';
 import { useStore } from '../../store';
 import { useAction, useList } from '../../useAction';
 
@@ -12,15 +13,17 @@ import type { LocationsViewState, UseLocationsViewOptions } from './types';
 const DEFAULT_EXCLUDE: ListLocationsExcludeOptions = {
   exactPermissions: ['delete', 'write'],
 };
-const DEFAULT_PAGE_SIZE = 100;
+
+// Default options for tests - will be overridden with actual pageSize in hook
 export const DEFAULT_LIST_OPTIONS = {
   exclude: DEFAULT_EXCLUDE,
-  pageSize: DEFAULT_PAGE_SIZE,
+  pageSize: 100, // fallback for tests
 };
 
 export const useLocationsView = (
   options?: UseLocationsViewOptions
 ): LocationsViewState => {
+  const { pageSize: configPageSize } = usePaginationConfig();
   const handleDownload = useAction('download')[1];
   const [state, handleList] = useList('locations');
   const dispatchStoreAction = useStore()[1];
@@ -30,10 +33,12 @@ export const useLocationsView = (
   const hasNextToken = !!nextToken;
 
   const onNavigate = options?.onNavigate;
+  const pageSize = options?.pageSize ?? configPageSize;
   const initialValues = options?.initialValues ?? {};
 
   const listOptionsRef = React.useRef({
-    ...DEFAULT_LIST_OPTIONS,
+    exclude: DEFAULT_EXCLUDE,
+    pageSize,
     ...initialValues,
   });
   const listOptions = listOptionsRef.current;

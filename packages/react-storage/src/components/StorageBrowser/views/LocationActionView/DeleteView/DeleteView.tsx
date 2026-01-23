@@ -6,6 +6,7 @@ import { ActionExitControl } from '../../../controls/ActionExitControl';
 import { ActionStartControl } from '../../../controls/ActionStartControl';
 import { DataTableControl } from '../../../controls/DataTableControl';
 import { MessageControl } from '../../../controls/MessageControl';
+import { PaginationControl } from '../../../controls/PaginationControl';
 import { StatusDisplayControl } from '../../../controls/StatusDisplayControl';
 import { TitleControl } from '../../../controls/TitleControl';
 
@@ -27,6 +28,7 @@ export const DeleteView: DeleteViewType = ({ className, ...props }) => {
         <ViewElement className={`${STORAGE_BROWSER_BLOCK}__data-table`}>
           <DataTableControl />
         </ViewElement>
+        <PaginationControl />
         <ViewElement className={`${STORAGE_BROWSER_BLOCK}__summary`}>
           <StatusDisplayControl />
         </ViewElement>
@@ -51,6 +53,7 @@ DeleteView.Provider = DeleteViewProvider;
 DeleteView.Cancel = ActionCancelControl;
 DeleteView.Exit = ActionExitControl;
 DeleteView.Message = MessageControl;
+DeleteView.Pagination = PaginationControl;
 DeleteView.Start = ActionStartControl;
 DeleteView.Statuses = StatusDisplayControl;
 DeleteView.TasksTable = DataTableControl;

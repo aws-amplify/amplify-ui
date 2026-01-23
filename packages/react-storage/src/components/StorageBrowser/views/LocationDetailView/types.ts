@@ -95,4 +95,5 @@ export interface UseLocationDetailViewOptions {
   onActionSelect?: (actionType: string) => void;
   onExit?: () => void;
   onNavigate?: (location: LocationData, path?: string) => void;
+  pageSize?: number;
 }
