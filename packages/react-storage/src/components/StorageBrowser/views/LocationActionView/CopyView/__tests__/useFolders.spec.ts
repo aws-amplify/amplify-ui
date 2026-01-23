@@ -7,6 +7,11 @@ import { DEFAULT_LIST_OPTIONS, useFolders } from '../useFolders';
 
 jest.mock('../../../../useAction');
 jest.mock('../../../../store');
+jest.mock('../../../../configuration', () => ({
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+  ...(jest.requireActual('../../../../configuration') as object),
+  usePaginationConfig: jest.fn(() => ({ pageSize: 100 })),
+}));
 jest.useFakeTimers();
 jest.setSystemTime(1731366223230);
 

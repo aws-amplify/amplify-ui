@@ -78,4 +78,42 @@ describe('usePaginate', () => {
     expect(data.onPaginate).toHaveBeenCalledTimes(1);
     expect(data.onPaginate).toHaveBeenCalledWith(page);
   });
+
+  it('auto-adjusts current page when items are removed and current page exceeds available pages', () => {
+    const items = ['item1', 'item2', 'item3', 'item4', 'item5'];
+    const { result, rerender } = renderHook(
+      ({ items }) => usePaginate({ items, pageSize: 2 }),
+      { initialProps: { items } }
+    );
+
+    // Navigate to page 3 (items 5)
+    act(() => {
+      result.current.handlePaginate(3);
+    });
+
+    expect(result.current.currentPage).toBe(3);
+    expect(result.current.pageItems).toEqual(['item5']);
+
+    // Remove items so only 2 items remain (1 page total)
+    const reducedItems = ['item1', 'item2'];
+    rerender({ items: reducedItems });
+
+    // Should auto-adjust to page 1
+    expect(result.current.currentPage).toBe(1);
+    expect(result.current.pageItems).toEqual(['item1', 'item2']);
+  });
+
+  it('prevents navigation to pages beyond available pages', () => {
+    const items = ['item1', 'item2', 'item3'];
+    const { result } = renderHook(() => usePaginate({ items, pageSize: 2 }));
+
+    // Try to navigate to page 5 (beyond available pages)
+    act(() => {
+      result.current.handlePaginate(5);
+    });
+
+    // Should remain on page 1
+    expect(result.current.currentPage).toBe(1);
+    expect(result.current.pageItems).toEqual(['item1', 'item2']);
+  });
 });

@@ -23,9 +23,14 @@ export interface ListViewState<T = any> {
   pageItems: T[];
 }
 
-export interface ListViewProps
-  extends ActionViewProps,
-    Partial<ListViewState> {}
+export interface ListViewProps extends ActionViewProps, Partial<ListViewState> {
+  /**
+   * @description Number of items to display per page in listings
+   * @default 100
+   * @minimum 1
+   */
+  pageSize?: number;
+}
 
 export type StorageBrowserViews<T = string, K = {}> = Partial<
   PrimaryViews<T> & DefaultActionViews & K
