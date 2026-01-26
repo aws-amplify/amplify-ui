@@ -56,6 +56,7 @@ const handleSignInResponse = {
         'setNextSignInStep',
         'setTotpSecretCode',
         'setAllowedMfaTypes',
+        'setCodeDeliveryDetails',
       ],
       target: '#signInActor.init',
     },
@@ -73,12 +74,28 @@ const getDefaultConfirmSignInState = (exit: string[]) => ({
         SUBMIT: { actions: 'handleSubmit', target: 'submit' },
         SIGN_IN: '#signInActor.signIn',
         CHANGE: { actions: 'handleInput' },
+        RESEND: { target: 'resend' },
       },
     },
     submit: {
       tags: 'pending',
       entry: ['sendUpdate', 'clearError'],
       invoke: { src: 'confirmSignIn', ...handleSignInResponse },
+    },
+    resend: {
+      tags: 'pending',
+      entry: ['sendUpdate', 'clearError'],
+      invoke: {
+        src: 'resendSignInCode',
+        onDone: {
+          actions: ['setCodeDeliveryDetails', 'sendUpdate'],
+          target: 'edit',
+        },
+        onError: {
+          actions: 'setRemoteError',
+          target: 'edit',
+        },
+      },
     },
   },
 });
@@ -409,6 +426,27 @@ export function signInActor({ services }: SignInMachineOptions) {
         },
         handleResendSignUpCode({ username }) {
           return services.handleResendSignUpCode({ username });
+        },
+        resendSignInCode({
+          username,
+          selectedAuthMethod,
+          availableAuthMethods,
+          preferredChallenge,
+        }) {
+          // Resend code by calling signIn again with the same parameters
+          const method =
+            selectedAuthMethod ??
+            preferredChallenge ??
+            availableAuthMethods?.[0] ??
+            'PASSWORD';
+
+          return services.handleSignIn({
+            username,
+            options: {
+              authFlowType: 'USER_AUTH',
+              preferredChallenge: method,
+            },
+          });
         },
         handleSignIn({
           formValues,

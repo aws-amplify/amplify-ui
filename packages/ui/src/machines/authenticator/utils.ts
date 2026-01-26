@@ -95,6 +95,20 @@ export const getUsernameSignUp = ({
   formValues,
   loginMechanisms,
 }: AuthActorContext) => {
+  // Check if a specific auth method was selected via form data
+  const authMethod = formValues.__authMethod;
+
+  // For SMS_OTP, always use phone_number as username
+  if (authMethod === 'SMS_OTP') {
+    const { country_code, phone_number } = formValues;
+    return sanitizePhoneNumber(country_code, phone_number);
+  }
+
+  // For EMAIL_OTP, always use email as username
+  if (authMethod === 'EMAIL_OTP') {
+    return formValues.email;
+  }
+
   // When 'username' is in loginMechanisms, always use the username field for the Username parameter.
   // This handles both username-only mode and alias mode (username + email/phone as sign-in options).
   // See: https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-attributes.html#user-pool-settings-aliases

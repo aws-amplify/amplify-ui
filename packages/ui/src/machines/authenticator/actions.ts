@@ -171,7 +171,8 @@ type OutputWithDetails =
   | ResetPasswordOutput
   | ResendSignUpCodeOutput
   | SendUserAttributeVerificationCodeOutput
-  | SignUpOutput;
+  | SignUpOutput
+  | SignInOutput;
 const setCodeDeliveryDetails = assign({
   codeDeliveryDetails: (_, { data }: { data: OutputWithDetails }) => {
     if (
@@ -242,6 +243,13 @@ const setSelectedAuthMethod = assign({
   selectedAuthMethod: (_, { data }: AuthEvent) => data.method,
 });
 
+const setSelectedAuthMethodFromForm = assign({
+  selectedAuthMethod: (_, { data }: AuthEvent) => {
+    // Extract method from form data if present
+    return data?.__authMethod || undefined;
+  },
+});
+
 const setSelectAuthMethodStep = assign({
   step: 'SELECT_AUTH_METHOD',
 });
@@ -272,6 +280,7 @@ const ACTIONS: MachineOptions<AuthActorContext, AuthEvent>['actions'] = {
   setConfirmSignUpSignUpStep,
   setSelectAuthMethodStep,
   setSelectedAuthMethod,
+  setSelectedAuthMethodFromForm,
   setShouldVerifyUserAttributeStep,
   setSelectedUserAttribute,
   setSignInStep,

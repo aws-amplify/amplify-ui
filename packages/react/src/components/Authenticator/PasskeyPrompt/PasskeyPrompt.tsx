@@ -4,6 +4,7 @@ import {
   listWebAuthnCredentials,
 } from 'aws-amplify/auth';
 import type { AuthWebAuthnCredential } from 'aws-amplify/auth';
+import { authenticatorTextUtil } from '@aws-amplify/ui';
 
 import { Button } from '../../../primitives/Button';
 import { Flex } from '../../../primitives/Flex';
@@ -15,6 +16,19 @@ import { IconCheckCircleFill, IconPasskey } from '../../../primitives/Icon';
 import { RemoteErrorMessage } from '../shared/RemoteErrorMessage';
 import type { RouteProps } from '../RouteContainer';
 import { RouteContainer } from '../RouteContainer';
+
+const {
+  getPasskeyPromptHeadingText,
+  getPasskeyPromptDescriptionText,
+  getCreatePasskeyText,
+  getRegisteringText,
+  getContinueWithoutPasskeyText,
+  getPasskeyCreatedSuccessText,
+  getPasskeyRegisteredText,
+  getExistingPasskeysText,
+  getSetupAnotherPasskeyText,
+  getContinueText,
+} = authenticatorTextUtil;
 
 export function PasskeyPrompt({
   className,
@@ -90,12 +104,12 @@ export function PasskeyPrompt({
         <Flex direction="column" padding="1.5rem">
           <Flex direction="column" gap="0.5rem">
             <IconCheckCircleFill fontSize="3em" color="#34A853" />
-            <Heading level={4}>Passkey created successfully!</Heading>
-            <Text>Your passkey has been successfully registered.</Text>
+            <Heading level={4}>{getPasskeyCreatedSuccessText()}</Heading>
+            <Text>{getPasskeyRegisteredText()}</Text>
           </Flex>
           {credentials.length > 0 && (
             <View marginTop="1.5rem">
-              <Heading level={5}>Existing Passkeys</Heading>
+              <Heading level={5}>{getExistingPasskeysText()}</Heading>
               <Flex direction="column" gap="0.5rem" marginTop="0.5rem">
                 {credentials.map((cred, index) => (
                   <View
@@ -120,10 +134,10 @@ export function PasskeyPrompt({
               }}
               variation="link"
             >
-              Setup another Passkey
+              {getSetupAnotherPasskeyText()}
             </Button>
             <Button onClick={handleContinue} variation="primary" isFullWidth>
-              Continue
+              {getContinueText()}
             </Button>
           </Flex>
         </Flex>
@@ -135,13 +149,8 @@ export function PasskeyPrompt({
     <RouteContainer className={className} variation={variation}>
       <form data-amplify-form="" data-amplify-authenticator-passkeyprompt="">
         <Flex direction="column" gap="1rem">
-          <Heading level={4}>Sign in faster with Passkey</Heading>
-          <Text>
-            Passkeys are WebAuthn credentials that validate your identity using
-            biometric data like touch or facial recognition or device
-            authentication like passwords or PINs, serving as a secure password
-            replacement.
-          </Text>
+          <Heading level={4}>{getPasskeyPromptHeadingText()}</Heading>
+          <Text>{getPasskeyPromptDescriptionText()}</Text>
           <Flex justifyContent="center">
             <IconPasskey fontSize="18rem" />
           </Flex>
@@ -152,16 +161,16 @@ export function PasskeyPrompt({
               variation="primary"
               isDisabled={isPending || isRegistering}
               isLoading={isRegistering}
-              loadingText="Registering..."
+              loadingText={getRegisteringText()}
             >
-              Create a Passkey
+              {getCreatePasskeyText()}
             </Button>
             <Button
               onClick={handleSkip}
               variation="link"
               isDisabled={isPending || isRegistering}
             >
-              Continue without a Passkey
+              {getContinueWithoutPasskeyText()}
             </Button>
 
             {error && (

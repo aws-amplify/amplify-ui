@@ -211,7 +211,13 @@ export function signUpActor({ services }: SignUpMachineOptions) {
                 idle: {
                   entry: ['sendUpdate'],
                   on: {
-                    SUBMIT: { actions: 'handleSubmit', target: 'validate' },
+                    SUBMIT: {
+                      actions: [
+                        'setSelectedAuthMethodFromForm',
+                        'handleSubmit',
+                      ],
+                      target: 'validate',
+                    },
                   },
                 },
                 validate: {
@@ -374,6 +380,8 @@ export function signUpActor({ services }: SignUpMachineOptions) {
               // Validation for default form fields
               services.validateConfirmPassword,
               services.validatePreferredUsername,
+              // Validation for required fields based on auth method
+              services.validateRequiredFieldsForAuthMethod,
               // Validation for any custom Sign Up fields
               services.validateCustomSignUp,
             ]

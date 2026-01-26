@@ -194,4 +194,23 @@ export const defaultServices = {
     _: AuthFormData,
     __: AuthTouchData
   ): Promise<ValidatorResult> {},
+  async validateRequiredFieldsForAuthMethod(
+    formData: AuthFormData
+  ): Promise<ValidatorResult> {
+    const authMethod = formData.__authMethod;
+
+    // If no auth method specified, skip validation (will use default required fields)
+    if (!authMethod) return null;
+
+    // Check required fields based on auth method
+    if (authMethod === 'EMAIL_OTP' && !formData.email) {
+      return { email: 'Email is required for Email OTP sign up' };
+    }
+
+    if (authMethod === 'SMS_OTP' && !formData.phone_number) {
+      return { phone_number: 'Phone number is required for SMS OTP sign up' };
+    }
+
+    return null;
+  },
 };

@@ -1,5 +1,6 @@
 import React from 'react';
 import { useAuthenticator } from '@aws-amplify/ui-react-core';
+import { authenticatorTextUtil } from '@aws-amplify/ui';
 
 import {
   Button,
@@ -13,20 +14,30 @@ import { useFormHandlers } from '../hooks/useFormHandlers';
 import type { RouteProps } from '../RouteContainer';
 import { RouteContainer } from '../RouteContainer';
 
+const {
+  getSignInWithPasswordText,
+  getSignInWithEmailText,
+  getSignInWithSmsText,
+  getSignInWithPasskeyText,
+  getSigningInText,
+  getBackToSignInText,
+  getOrText,
+} = authenticatorTextUtil;
+
 type AuthMethod = 'PASSWORD' | 'EMAIL_OTP' | 'SMS_OTP' | 'WEB_AUTHN';
 
 const getMethodButtonLabel = (method: AuthMethod): string => {
   switch (method) {
     case 'EMAIL_OTP':
-      return 'Email';
+      return getSignInWithEmailText();
     case 'SMS_OTP':
-      return 'SMS';
+      return getSignInWithSmsText();
     case 'WEB_AUTHN':
-      return 'Passkey';
+      return getSignInWithPasskeyText();
     case 'PASSWORD':
-      return 'Password';
+      return getSignInWithPasswordText();
     default:
-      return 'Sign In';
+      return getSignInWithPasswordText();
   }
 };
 
@@ -98,15 +109,15 @@ export const SignInSelectAuthFactor = ({
                 variation="primary"
                 isFullWidth
                 isLoading={isPending}
-                loadingText="Signing in..."
+                loadingText={getSigningInText()}
               >
-                Sign In with Password
+                {getSignInWithPasswordText()}
               </Button>
             </>
           )}
 
           {hasPassword && passwordlessMethods.length > 0 && (
-            <Divider label="or" />
+            <Divider label={getOrText()} />
           )}
 
           {passwordlessMethods.length > 0 && (
@@ -119,7 +130,7 @@ export const SignInSelectAuthFactor = ({
                   isDisabled={isPending}
                   onClick={() => handleMethodSelect(method)}
                 >
-                  Sign In with {getMethodButtonLabel(method)}
+                  {getMethodButtonLabel(method)}
                 </Button>
               ))}
             </Flex>
@@ -133,7 +144,7 @@ export const SignInSelectAuthFactor = ({
             variation="link"
             isDisabled={isPending}
           >
-            Back to Sign In
+            {getBackToSignInText()}
           </Button>
         </Flex>
       </form>

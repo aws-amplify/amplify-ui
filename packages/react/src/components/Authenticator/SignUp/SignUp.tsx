@@ -20,14 +20,12 @@ export function SignUp(): React.JSX.Element {
     availableAuthMethods,
     preferredChallenge,
     selectedAuthMethod,
-    selectAuthMethod,
   } = useAuthenticator((context) => [
     context.hasValidationErrors,
     context.isPending,
     context.availableAuthMethods,
     context.preferredChallenge,
     context.selectedAuthMethod,
-    context.selectAuthMethod,
   ]);
   const { handleChange, handleBlur, handleSubmit } = useFormHandlers();
 
@@ -76,9 +74,22 @@ export function SignUp(): React.JSX.Element {
 
   const handleMethodClick = (method: string) => (e: React.MouseEvent) => {
     e.preventDefault();
-    selectAuthMethod({ method: method });
+
+    // Add method to form data via hidden input
     const form = (e.target as HTMLElement).closest('form');
     if (form) {
+      // Remove any existing method input
+      const existingInput = form.querySelector('input[name="__authMethod"]');
+      if (existingInput) {
+        existingInput.remove();
+      }
+      // Add new hidden input with method
+      const input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = '__authMethod';
+      input.value = method;
+      form.appendChild(input);
+
       form.requestSubmit();
     }
   };
@@ -105,7 +116,11 @@ export function SignUp(): React.JSX.Element {
 
           {/* Primary button */}
           <Button
-            isDisabled={hasValidationErrors || isPending}
+            isDisabled={
+              ((!hasMultipleMethods || otherMethods.length == 0) &&
+                hasValidationErrors) ||
+              isPending
+            }
             isFullWidth
             type="submit"
             variation="primary"
