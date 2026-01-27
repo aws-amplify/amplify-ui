@@ -16,7 +16,17 @@ const { getSignInText, getSigningInText, getForgotPasswordText } =
   authenticatorTextUtil;
 
 export function SignIn(): React.JSX.Element {
-  const { isPending } = useAuthenticator((context) => [context.isPending]);
+  const {
+    isPending,
+    availableAuthMethods,
+    preferredChallenge,
+    toShowAuthMethods,
+  } = useAuthenticator((context) => [
+    context.isPending,
+    context.availableAuthMethods,
+    context.preferredChallenge,
+    context.toShowAuthMethods,
+  ]);
   const { handleChange, handleSubmit } = useFormHandlers();
 
   const {
@@ -26,6 +36,36 @@ export function SignIn(): React.JSX.Element {
     },
   } = useCustomComponents();
 
+  const hasMultipleMethods =
+    availableAuthMethods && availableAuthMethods.length > 1;
+  const showPreferredButton = hasMultipleMethods && preferredChallenge;
+
+  const getPreferredButtonText = () => {
+    if (!preferredChallenge) return getSignInText();
+    switch (preferredChallenge) {
+      case 'EMAIL_OTP':
+        return 'Sign in with Email';
+      case 'SMS_OTP':
+        return 'Sign in with SMS';
+      case 'WEB_AUTHN':
+        return 'Sign in with Passkey';
+      case 'PASSWORD':
+      default:
+        return getSignInText();
+    }
+  };
+
+  const handlePreferredMethodClick = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    // For passwordless methods, just submit - the actor already knows the preferredChallenge
+    handleSubmit(e);
+  };
+
+  const handleOtherOptionsClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    toShowAuthMethods();
+  };
+
   return (
     <View>
       <Header />
@@ -34,7 +74,9 @@ export function SignIn(): React.JSX.Element {
         data-amplify-form=""
         data-amplify-authenticator-signin=""
         method="post"
-        onSubmit={handleSubmit}
+        onSubmit={
+          showPreferredButton ? handlePreferredMethodClick : handleSubmit
+        }
         onChange={handleChange}
       >
         <FederatedSignIn />
@@ -55,8 +97,20 @@ export function SignIn(): React.JSX.Element {
             isLoading={isPending}
             loadingText={getSigningInText()}
           >
-            {getSignInText()}
+            {showPreferredButton ? getPreferredButtonText() : getSignInText()}
           </Button>
+
+          {showPreferredButton && (
+            <Button
+              onClick={handleOtherOptionsClick}
+              size="small"
+              variation="link"
+              isDisabled={isPending}
+            >
+              Other sign-in options
+            </Button>
+          )}
+
           <Footer />
         </Flex>
       </form>

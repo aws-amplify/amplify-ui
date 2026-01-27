@@ -92,11 +92,17 @@ const shouldConfirmSignUp = ({ step }: AuthActorContext) =>
 
 // miscellaneous guards
 const shouldVerifyAttribute = (
-  _: AuthActorContext,
-  { data }: AuthEvent
+  context: AuthActorContext,
+  event: AuthEvent
 ): boolean => {
-  const { email, phone_number, phone_number_verified, email_verified } =
-    data as FetchUserAttributesOutput;
+  // Try to get data from event first (for backward compatibility), then from context
+  const data = (event.data || context.fetchedUserAttributes) as
+    | FetchUserAttributesOutput
+    | undefined;
+
+  if (!data) return false;
+
+  const { email, phone_number, phone_number_verified, email_verified } = data;
 
   // if neither email nor phone_number exist
   // there is nothing to verify
@@ -127,6 +133,67 @@ const shouldVerifyAttribute = (
 const isUserAlreadyConfirmed = (_: AuthActorContext, { data }: AuthEvent) =>
   data.message === 'User is already confirmed.';
 
+// passwordless guards
+const shouldSelectAuthMethod = ({
+  availableAuthMethods,
+  preferredChallenge,
+  selectedAuthMethod,
+}: AuthActorContext) => {
+  // Show selection if:
+  // 1. Multiple methods available
+  // 2. AND either no preferredChallenge OR selectedAuthMethod is explicitly cleared (null)
+  const hasMultipleMethods =
+    availableAuthMethods && availableAuthMethods.length > 1;
+  const shouldShowSelection =
+    !preferredChallenge || selectedAuthMethod === null;
+
+  return hasMultipleMethods && shouldShowSelection;
+};
+
+const shouldPromptPasskeyRegistration = ({
+  passwordlessAuthOptions,
+  hasExistingPasskeys,
+}: AuthActorContext) => {
+  const { passkeyRegistrationPrompts } = passwordlessAuthOptions || {};
+
+  if (!passkeyRegistrationPrompts) {
+    return false;
+  }
+
+  // Don't prompt if user already has passkeys
+  if (hasExistingPasskeys) {
+    return false;
+  }
+
+  if (typeof passkeyRegistrationPrompts === 'boolean') {
+    return passkeyRegistrationPrompts;
+  }
+
+  return passkeyRegistrationPrompts.afterSignin === 'ALWAYS';
+};
+
+const shouldPromptPasskeyRegistrationAfterSignup = ({
+  passwordlessAuthOptions,
+  hasExistingPasskeys,
+}: AuthActorContext) => {
+  const { passkeyRegistrationPrompts } = passwordlessAuthOptions || {};
+
+  if (!passkeyRegistrationPrompts) {
+    return false;
+  }
+
+  // Don't prompt if user already has passkeys
+  if (hasExistingPasskeys) {
+    return false;
+  }
+
+  if (typeof passkeyRegistrationPrompts === 'boolean') {
+    return passkeyRegistrationPrompts;
+  }
+
+  return passkeyRegistrationPrompts.afterSignup === 'ALWAYS';
+};
+
 const GUARDS: MachineOptions<AuthActorContext, AuthEvent>['guards'] = {
   hasCompletedAttributeConfirmation,
   hasCompletedResetPassword,
@@ -145,10 +212,13 @@ const GUARDS: MachineOptions<AuthActorContext, AuthEvent>['guards'] = {
   shouldConfirmSignUpFromSignIn,
   shouldResetPassword,
   shouldResetPasswordFromSignIn,
+  shouldSelectAuthMethod,
   shouldSetupTotp,
   shouldSetupEmail,
   shouldSelectMfaType,
   shouldVerifyAttribute,
+  shouldPromptPasskeyRegistration,
+  shouldPromptPasskeyRegistrationAfterSignup,
 };
 
 export default GUARDS;

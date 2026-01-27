@@ -42,6 +42,14 @@ export const getRoute = (
     case actorState?.matches('setupTotp.edit'):
     case actorState?.matches('setupTotp.submit'):
       return 'setupTotp';
+    case actorState?.matches('signIn.submit'):
+      return actorState?.context.selectedAuthMethod != null
+        ? 'signInSelectAuthFactor'
+        : 'signIn';
+    case actorState?.matches('signIn.selectMethod'):
+      return 'signInSelectAuthFactor';
+    case actorState?.matches('passkeyPrompt'):
+      return 'passkeyPrompt';
     case actorState?.matches('signIn'):
       return 'signIn';
     case actorState?.matches('signUp'):

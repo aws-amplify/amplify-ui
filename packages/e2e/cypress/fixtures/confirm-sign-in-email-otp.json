@@ -1,0 +1,10 @@
+{
+  "AuthenticationResult": {
+    "AccessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwiaWF0IjoxNzY5MTU5NjY2LCJleHAiOjE3NjkxNjMyNjZ9.bW9jay1zaWduYXR1cmU",
+    "ExpiresIn": 3600,
+    "IdToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwiZW1haWwiOiJ0ZXN0QGV4YW1wbGUuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImlhdCI6MTc2OTE1OTY2NiwiZXhwIjoxNzY5MTYzMjY2fQ.bW9jay1zaWduYXR1cmU",
+    "RefreshToken": "mock-refresh-token-1234567890",
+    "TokenType": "Bearer"
+  },
+  "ChallengeParameters": {}
+}
