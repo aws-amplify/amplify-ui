@@ -11,6 +11,9 @@ import { useLocationsView, DEFAULT_LIST_OPTIONS } from '../useLocationsView';
 jest.mock('../../../actions/handlers');
 jest.mock('../../../store');
 jest.mock('../../../useAction');
+jest.mock('../../../configuration', () => ({
+  usePaginationConfig: jest.fn(() => ({ pageSize: 100 })),
+}));
 jest.useFakeTimers();
 jest.setSystemTime(1);
 

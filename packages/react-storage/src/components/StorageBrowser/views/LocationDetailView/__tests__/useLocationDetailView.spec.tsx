@@ -25,6 +25,11 @@ jest.mock('../../../locationItems');
 jest.mock('../../../store');
 jest.mock('../../../useAction');
 jest.mock('../../hooks/useFilePreview');
+jest.mock('../../../configuration', () => ({
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+  ...(jest.requireActual('../../../configuration') as object),
+  usePaginationConfig: jest.fn(() => ({ pageSize: 100 })),
+}));
 
 const folderDataOne: FolderData = {
   id: '1',

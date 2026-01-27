@@ -10,6 +10,7 @@ import { ActionStartControl } from '../../../controls/ActionStartControl';
 import { DataTableControl } from '../../../controls/DataTableControl';
 import { LoadingIndicatorControl } from '../../../controls/LoadingIndicatorControl';
 import { MessageControl } from '../../../controls/MessageControl';
+import { PaginationControl } from '../../../controls/PaginationControl';
 import { SearchFieldControl } from '../../../controls/SearchFieldControl';
 import { StatusDisplayControl } from '../../../controls/StatusDisplayControl';
 import { TitleControl } from '../../../controls/TitleControl';
@@ -32,7 +33,17 @@ export const CopyView: CopyViewType = ({ className, ...props }) => {
     <ViewElement className={classNames(STORAGE_BROWSER_BLOCK, className)}>
       <CopyViewProvider {...state}>
         <ActionExitControl />
-        <TitleControl />
+        <ViewElement
+          className={`${STORAGE_BROWSER_BLOCK}__header`}
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}
+        >
+          <TitleControl />
+          <PaginationControl />
+        </ViewElement>
         <ViewElement className={`${STORAGE_BROWSER_BLOCK}__data-table`}>
           <DataTableControl />
         </ViewElement>
