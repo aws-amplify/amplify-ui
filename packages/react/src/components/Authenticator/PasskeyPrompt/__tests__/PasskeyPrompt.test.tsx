@@ -105,9 +105,7 @@ describe('PasskeyPrompt', () => {
     fireEvent.click(registerButton);
 
     // Should show loading state
-    await waitFor(() => {
-      expect(screen.getByText('Registering...')).toBeInTheDocument();
-    });
+    expect(await screen.findByText('Registering')).toBeInTheDocument();
 
     // Resolve the promise
     resolveRegistration();

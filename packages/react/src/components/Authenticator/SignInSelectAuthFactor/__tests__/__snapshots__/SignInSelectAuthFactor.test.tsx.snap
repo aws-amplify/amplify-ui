@@ -131,22 +131,19 @@ exports[`SignInSelectAuthFactor renders with all auth methods 1`] = `
                 class="amplify-button amplify-field-group__control amplify-button--primary amplify-button--fullwidth"
                 type="button"
               >
-                Sign In with 
-                Email
+                Sign In with Email
               </button>
               <button
                 class="amplify-button amplify-field-group__control amplify-button--primary amplify-button--fullwidth"
                 type="button"
               >
-                Sign In with 
-                SMS
+                Sign In with SMS
               </button>
               <button
                 class="amplify-button amplify-field-group__control amplify-button--primary amplify-button--fullwidth"
                 type="button"
               >
-                Sign In with 
-                Passkey
+                Sign In with Passkey
               </button>
             </div>
             <button
@@ -221,15 +218,13 @@ exports[`SignInSelectAuthFactor renders with only passwordless methods 1`] = `
                 class="amplify-button amplify-field-group__control amplify-button--primary amplify-button--fullwidth"
                 type="button"
               >
-                Sign In with 
-                Email
+                Sign In with Email
               </button>
               <button
                 class="amplify-button amplify-field-group__control amplify-button--primary amplify-button--fullwidth"
                 type="button"
               >
-                Sign In with 
-                SMS
+                Sign In with SMS
               </button>
             </div>
             <button
@@ -377,8 +372,7 @@ exports[`SignInSelectAuthFactor renders with password and email OTP options 1`] 
                 class="amplify-button amplify-field-group__control amplify-button--primary amplify-button--fullwidth"
                 type="button"
               >
-                Sign In with 
-                Email
+                Sign In with Email
               </button>
             </div>
             <button

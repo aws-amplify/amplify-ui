@@ -3,6 +3,7 @@ import type { ConfirmSignInInput } from 'aws-amplify/auth';
 import {
   confirmSignIn,
   fetchUserAttributes,
+  listWebAuthnCredentials,
   resetPassword,
   signInWithRedirect,
 } from 'aws-amplify/auth';
@@ -134,7 +135,7 @@ export function signInActor({ services }: SignInMachineOptions) {
             { target: 'signIn' },
           ],
         },
-        federatedSignIn: getFederatedSignInState('signIn'),
+        federatedSignIn: { ...getFederatedSignInState('signIn') },
         fetchUserAttributes: {
           invoke: {
             src: 'fetchUserAttributes',
@@ -164,9 +165,6 @@ export function signInActor({ services }: SignInMachineOptions) {
           invoke: {
             src: async () => {
               try {
-                const { listWebAuthnCredentials } = await import(
-                  'aws-amplify/auth'
-                );
                 const result = await listWebAuthnCredentials();
                 return result.credentials && result.credentials.length > 0;
               } catch {
@@ -295,12 +293,14 @@ export function signInActor({ services }: SignInMachineOptions) {
             },
           },
         },
-        confirmSignIn: getDefaultConfirmSignInState([
-          'clearChallengeName',
-          'clearFormValues',
-          'clearError',
-          'clearTouched',
-        ]),
+        confirmSignIn: {
+          ...getDefaultConfirmSignInState([
+            'clearChallengeName',
+            'clearFormValues',
+            'clearError',
+            'clearTouched',
+          ]),
+        },
         forceChangePassword: {
           entry: 'sendUpdate',
           type: 'parallel',
@@ -373,21 +373,27 @@ export function signInActor({ services }: SignInMachineOptions) {
             },
           },
         },
-        setupTotp: getDefaultConfirmSignInState([
-          'clearFormValues',
-          'clearError',
-          'clearTouched',
-        ]),
-        setupEmail: getDefaultConfirmSignInState([
-          'clearFormValues',
-          'clearError',
-          'clearTouched',
-        ]),
-        selectMfaType: getDefaultConfirmSignInState([
-          'clearFormValues',
-          'clearError',
-          'clearTouched',
-        ]),
+        setupTotp: {
+          ...getDefaultConfirmSignInState([
+            'clearFormValues',
+            'clearError',
+            'clearTouched',
+          ]),
+        },
+        setupEmail: {
+          ...getDefaultConfirmSignInState([
+            'clearFormValues',
+            'clearError',
+            'clearTouched',
+          ]),
+        },
+        selectMfaType: {
+          ...getDefaultConfirmSignInState([
+            'clearFormValues',
+            'clearError',
+            'clearTouched',
+          ]),
+        },
         passkeyPrompt: {
           entry: 'sendUpdate',
           on: {

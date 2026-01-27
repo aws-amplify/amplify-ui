@@ -251,4 +251,47 @@ describe('Guards', () => {
       ).toBe(false);
     });
   });
+
+  describe('shouldVerifyAttribute', () => {
+    it('returns false when no data', () => {
+      expect(
+        guards.shouldVerifyAttribute({} as any, {} as any, {} as any)
+      ).toBe(false);
+    });
+
+    it('returns false when no email or phone_number', () => {
+      const context = { fetchedUserAttributes: {} } as any;
+      expect(guards.shouldVerifyAttribute(context, {} as any, {} as any)).toBe(
+        false
+      );
+    });
+
+    it('returns true when both email and phone not verified', () => {
+      const context = {
+        fetchedUserAttributes: {
+          email: 'test@example.com',
+          email_verified: 'false',
+          phone_number: '+1234567890',
+          phone_number_verified: 'false',
+        },
+      } as any;
+      expect(guards.shouldVerifyAttribute(context, {} as any, {} as any)).toBe(
+        true
+      );
+    });
+
+    it('returns false when email is verified', () => {
+      const context = {
+        fetchedUserAttributes: {
+          email: 'test@example.com',
+          email_verified: 'true',
+          phone_number: '+1234567890',
+          phone_number_verified: 'false',
+        },
+      } as any;
+      expect(guards.shouldVerifyAttribute(context, {} as any, {} as any)).toBe(
+        false
+      );
+    });
+  });
 });
