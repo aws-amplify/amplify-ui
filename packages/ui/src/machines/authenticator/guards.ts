@@ -36,6 +36,16 @@ const shouldConfirmSignUpFromSignIn = (
 const shouldAutoSignIn = (_: AuthActorContext, { data }: AuthEvent) =>
   (data as SignUpOutput)?.nextStep.signUpStep === 'COMPLETE_AUTO_SIGN_IN';
 
+const shouldManualSignIn = (context: AuthActorContext, { data }: AuthEvent) => {
+  const signUpOutput = data as SignUpOutput;
+  const nextStep = signUpOutput?.nextStep.signUpStep;
+  const contextStep = context.step;
+
+  const result = nextStep === 'DONE' && contextStep === 'CONFIRM_SIGN_UP';
+
+  return result;
+};
+
 const hasCompletedSignIn = (_: AuthActorContext, { data }: AuthEvent) =>
   (data as SignInOutput)?.nextStep.signInStep === 'DONE';
 
@@ -138,6 +148,7 @@ const GUARDS: MachineOptions<AuthActorContext, AuthEvent>['guards'] = {
   isShouldConfirmUserAttributeStep,
   isUserAlreadyConfirmed,
   shouldAutoSignIn,
+  shouldManualSignIn,
   shouldConfirmResetPassword,
   shouldConfirmSignIn,
   shouldConfirmSignInWithNewPassword,
