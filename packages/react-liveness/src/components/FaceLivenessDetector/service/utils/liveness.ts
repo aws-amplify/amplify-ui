@@ -207,12 +207,12 @@ export function drawLivenessOvalInCanvas({
     ctx.restore();
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
-    // fill the canvas with a transparent rectangle
+    // fill the canvas with a transparent rectangle if no color is defined
     ctx.fillStyle = isStartScreen
       ? getComputedStyle(canvas).getPropertyValue(
           '--amplify-colors-background-primary'
         )
-      : '#fff';
+      || '#fff';
     ctx.fillRect(0, 0, canvasWidth, canvasHeight);
 
     // On mobile our canvas is the width/height of the full screen.
