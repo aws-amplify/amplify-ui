@@ -12,6 +12,7 @@ import { ConfirmSignInFooter } from '../shared/ConfirmSignInFooter';
 import { RemoteErrorMessage } from '../shared/RemoteErrorMessage';
 import type { RouteProps } from '../RouteContainer';
 import { RouteContainer } from '../RouteContainer';
+import { isOtpChallenge } from '../utils';
 
 const { getChallengeText, getDeliveryMessageText, getDeliveryMethodText } =
   authenticatorTextUtil;
@@ -40,8 +41,7 @@ export const ConfirmSignIn = ({
   } = useCustomComponents();
 
   const showDeliveryMessage =
-    (challengeName === 'EMAIL_OTP' || challengeName === 'SMS_MFA') &&
-    codeDeliveryDetails;
+    isOtpChallenge(challengeName) && codeDeliveryDetails;
 
   return (
     <RouteContainer className={className} variation={variation}>
@@ -83,8 +83,7 @@ function Header() {
   );
 
   const showDeliveryMethod =
-    (challengeName === 'EMAIL_OTP' || challengeName === 'SMS_MFA') &&
-    codeDeliveryDetails;
+    isOtpChallenge(challengeName) && codeDeliveryDetails;
 
   return (
     <>

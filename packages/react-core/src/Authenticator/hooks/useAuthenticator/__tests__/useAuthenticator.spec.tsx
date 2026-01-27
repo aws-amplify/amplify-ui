@@ -150,4 +150,17 @@ describe('useAuthenticator', () => {
       expect(getQRFieldsSpy).toHaveBeenCalledTimes(1);
     });
   });
+
+  it('initializes passwordless authentication fields correctly', async () => {
+    const { result } = renderHook(() => useAuthenticator(), {
+      wrapper: Wrapper,
+    });
+
+    await waitFor(() => {
+      expect(result.current.selectAuthMethod).toBeDefined();
+      expect(result.current.toShowAuthMethods).toBeDefined();
+      expect(typeof result.current.selectAuthMethod).toBe('function');
+      expect(typeof result.current.toShowAuthMethods).toBe('function');
+    });
+  });
 });

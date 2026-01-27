@@ -195,8 +195,8 @@ exports[`PasskeyPrompt renders success screen snapshot 1`] = `
             style="flex-direction: column; gap: 0.5rem;"
           >
             <span
-              class="amplify-icon"
-              style="width: 1em; height: 1em; font-size: 3em; color: rgb(52, 168, 83);"
+              class="amplify-icon amplify-authenticator__passkey-success-icon"
+              style="width: 1em; height: 1em;"
             >
               <svg
                 fill="none"

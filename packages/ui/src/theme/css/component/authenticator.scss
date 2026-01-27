@@ -86,3 +86,22 @@
   font-weight: normal;
   gap: var(--amplify-space-medium);
 }
+
+// PasskeyPrompt component styles
+[data-amplify-authenticator-passkeyprompt] {
+  .amplify-authenticator__passkey-success-icon {
+    font-size: 3em;
+    color: var(--amplify-colors-green-60, #34A853);
+  }
+
+  .amplify-authenticator__passkey-credential-item {
+    padding: var(--amplify-space-medium);
+    background-color: var(--amplify-colors-background-secondary);
+    border-radius: var(--amplify-radii-small);
+  }
+
+  .amplify-authenticator__passkey-error {
+    color: var(--amplify-colors-font-error);
+    margin-top: var(--amplify-space-small);
+  }
+}

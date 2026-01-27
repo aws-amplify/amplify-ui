@@ -103,7 +103,7 @@ export function PasskeyPrompt({
       <RouteContainer className={className} variation={variation}>
         <Flex direction="column" padding="1.5rem">
           <Flex direction="column" gap="0.5rem">
-            <IconCheckCircleFill fontSize="3em" color="#34A853" />
+            <IconCheckCircleFill className="amplify-authenticator__passkey-success-icon" />
             <Heading level={4}>{getPasskeyCreatedSuccessText()}</Heading>
             <Text>{getPasskeyRegisteredText()}</Text>
           </Flex>
@@ -114,9 +114,7 @@ export function PasskeyPrompt({
                 {credentials.map((cred, index) => (
                   <View
                     key={cred.credentialId}
-                    padding="0.75rem"
-                    backgroundColor="var(--amplify-colors-background-secondary)"
-                    borderRadius="0.25rem"
+                    className="amplify-authenticator__passkey-credential-item"
                   >
                     <Text fontSize="0.875rem">
                       {cred.friendlyCredentialName ?? `Passkey ${index + 1}`}
@@ -145,6 +143,8 @@ export function PasskeyPrompt({
     );
   }
 
+  const isButtonDisabled = isPending || isRegistering;
+
   return (
     <RouteContainer className={className} variation={variation}>
       <form data-amplify-form="" data-amplify-authenticator-passkeyprompt="">
@@ -159,7 +159,7 @@ export function PasskeyPrompt({
             <Button
               onClick={() => void handleRegister()}
               variation="primary"
-              isDisabled={isPending || isRegistering}
+              isDisabled={isButtonDisabled}
               isLoading={isRegistering}
               loadingText={getRegisteringText()}
             >
@@ -168,13 +168,13 @@ export function PasskeyPrompt({
             <Button
               onClick={handleSkip}
               variation="link"
-              isDisabled={isPending || isRegistering}
+              isDisabled={isButtonDisabled}
             >
               {getContinueWithoutPasskeyText()}
             </Button>
 
             {error && (
-              <Text color="red" fontSize="0.875rem">
+              <Text className="amplify-authenticator__passkey-error">
                 {error}
               </Text>
             )}

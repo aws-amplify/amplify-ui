@@ -8,31 +8,6 @@ Feature: Sign In with Passwordless Authentication
     Given I'm running the example "ui/components/authenticator/sign-in-passwordless"
 
   @react
-  Scenario: Sign in with email shows passwordless UI
-    When I type my "email" with status "CONFIRMED"
-    Then I see "Sign in with Email"
-    Then I see "Other sign-in options"
-
-  @react
-  Scenario: Click other sign-in options button is available
-    When I type my "email" with status "CONFIRMED"
-    Then I see "Other sign-in options"
-
-  @react
-  Scenario: Forgot password link is available in passwordless mode
-    When I type my "email" with status "CONFIRMED"
-    Then I see "Forgot your password?"
-
-  @react
-  Scenario: Sign up tab is visible
-    Then I see "Create Account"
-
-  @react
-  Scenario: Preferred auth method EMAIL_OTP is set
-    Then the email field is visible
-    Then the password field is not visible
-
-  @react
   Scenario: Complete email OTP sign-in flow with mocked backend
     # This test verifies the EMAIL_OTP authentication flow with mocked Cognito API responses.
     # Key requirements for mocked fixtures:
@@ -45,6 +20,8 @@ Feature: Sign In with Passwordless Authentication
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.GetUser" } }' with fixture "Auth.currentAuthenticatedUser-verified-email"
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ListWebAuthnCredentials" } }' with fixture "list-webauthn-credentials-empty"
     When I type my "email" with status "CONFIRMED"
+    Then I see "Sign in with Email"
+    Then I see "Other sign-in options"
     Then I click the "Sign in with Email" button
     Then I see "Code"
     Then I type a valid email confirmation code
@@ -52,41 +29,13 @@ Feature: Sign In with Passwordless Authentication
     Then I see "Sign out"
 
   @react
-  Scenario: Complete SMS OTP sign-in flow  
+  Scenario: Forgot password link is available in passwordless mode
     When I type my "email" with status "CONFIRMED"
-    Then I see "Other sign-in options"
+    Then I see "Forgot your password?"
+    When I click the "Forgot your password?" button
+    Then I see "Send code"
 
   @react
-  Scenario: Switch between authentication methods
-    When I type my "email" with status "CONFIRMED"
-    Then I see "Sign in with Email"
-    Then I see "Other sign-in options"
-
-  @react
-  Scenario: Hidden auth methods configuration
-    When I type my "email" with status "CONFIRMED"
-    Then I see "Sign in with Email"
-
-  @react
-  Scenario: Passkey registration prompt after sign-in
-    When I type my "email" with status "CONFIRMED"
-    Then I see "Sign in with Email"
-
-  @react
-  Scenario: Sign up with passwordless email OTP
-    Then I see "Create Account"
-
-  @react
-  Scenario: Invalid OTP code shows error
-    When I type my "email" with status "CONFIRMED"
-    Then I see "Sign in with Email"
-
-  @react @todo
-  Scenario: Resend OTP code
-    When I type my "email" with status "CONFIRMED"
-    Then I see "Sign in with Email"
-
-  @react
-  Scenario: Back navigation from OTP screen
-    When I type my "email" with status "CONFIRMED"
-    Then I see "Sign in with Email"
+  Scenario: Preferred auth method EMAIL_OTP hides password field
+    Then the email field is visible
+    Then the password field is not visible

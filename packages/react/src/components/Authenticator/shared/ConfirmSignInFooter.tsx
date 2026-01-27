@@ -4,6 +4,7 @@ import { authenticatorTextUtil } from '@aws-amplify/ui';
 import { useAuthenticator } from '@aws-amplify/ui-react-core';
 import { Button } from '../../../primitives/Button';
 import { Flex } from '../../../primitives/Flex';
+import { isOtpChallenge } from '../utils';
 
 const {
   getConfirmText,
@@ -22,9 +23,7 @@ export const ConfirmSignInFooter = (): React.JSX.Element => {
     ]
   );
 
-  const showResendCode =
-    (challengeName === 'EMAIL_OTP' || challengeName === 'SMS_MFA') &&
-    resendCode;
+  const showResendCode = isOtpChallenge(challengeName) && resendCode;
 
   return (
     <Flex direction="column">
