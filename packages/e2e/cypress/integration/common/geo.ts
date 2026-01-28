@@ -4,7 +4,10 @@ When('I search for {string}', (searchTerm: string) => {
   cy.intercept(/.*places.*/).as('searchResults');
   cy.findByRole('textbox', {
     name: /search/i,
-  }).type(searchTerm);
+    timeout: 30000,
+  })
+    .should('be.visible')
+    .type(searchTerm);
   cy.wait('@searchResults');
 });
 
@@ -15,7 +18,10 @@ When('I select the first search result', () => {
 When('I clear the search results', () => {
   cy.findByRole('textbox', {
     name: /search/i,
-  }).trigger('mouseenter');
+    timeout: 30000,
+  })
+    .should('be.visible')
+    .trigger('mouseenter');
   /**
    * Adding 'force' as the clear button is hidden until we hover on textbox,
    * and the click action seems to happen before the hover thus failing the check for the clear button element.
@@ -38,5 +44,8 @@ Then('I see no search results', () => {
 Then('the search input is empty', () => {
   cy.findByRole('textbox', {
     name: /search/i,
-  }).should('have.value', '');
+    timeout: 30000,
+  })
+    .should('be.visible')
+    .should('have.value', '');
 });

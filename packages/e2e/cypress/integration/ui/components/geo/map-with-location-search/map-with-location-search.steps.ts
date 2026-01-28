@@ -9,7 +9,10 @@ Given('my default search results is {int}', (searchResults: number) => {
 When('I press the enter key', () => {
   cy.findByRole('textbox', {
     name: /search/i,
-  }).type('{enter}');
+    timeout: 30000,
+  })
+    .should('be.visible')
+    .type('{enter}');
 });
 
 Then('I see markers equal to my default search results', () => {
