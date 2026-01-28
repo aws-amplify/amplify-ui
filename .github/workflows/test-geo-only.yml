@@ -1,0 +1,45 @@
+name: Test Geo Only
+
+on:
+  pull_request:
+    branches:
+      - fix/flaky-geo-location-search-test
+
+jobs:
+  test-geo:
+    runs-on: ubuntu-latest
+    environment: ci
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'yarn'
+      
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+      
+      - name: Build packages
+        run: yarn build
+      
+      - name: Start Next.js example
+        run: |
+          yarn react-example dev &
+          npx wait-on http://localhost:3000 -t 60000
+      
+      - name: Run Geo E2E tests
+        working-directory: packages/e2e
+        run: yarn cypress run --spec 'features/ui/components/geo/*.feature' --browser chrome
+        env:
+          TAGS: '@react and not @todo-react'
+      
+      - name: Upload screenshots
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-screenshots
+          path: packages/e2e/cypress/screenshots
