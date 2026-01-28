@@ -1,6 +1,17 @@
 import { Then, When } from '@badeball/cypress-cucumber-preprocessor';
 
 Then('I see the map', () => {
+  // Debug: Log the current URL
+  cy.url().then((url) => {
+    console.log('Current URL:', url);
+  });
+
+  // Debug: Check if page has any content
+  cy.get('body').then(($body) => {
+    console.log('Body HTML length:', $body.html().length);
+    console.log('Body text content:', $body.text().substring(0, 200));
+  });
+
   // Debug: Take a screenshot before checking for map
   cy.screenshot('before-map-check');
 
