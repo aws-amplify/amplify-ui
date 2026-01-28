@@ -1,23 +1,29 @@
 import { Then, When } from '@badeball/cypress-cucumber-preprocessor';
 
 Then('I see the map', () => {
-  // Debug: Log the current URL
-  cy.url().then((url) => {
-    console.log('Current URL:', url);
+  // Take screenshot and log page state
+  cy.screenshot('before-map-check', { capture: 'fullPage' });
+
+  cy.document().then((doc) => {
+    console.log('=== MAP CHECK DEBUG ===');
+    console.log('Looking for .maplibregl-canvas');
+    console.log('Body classes:', doc.body.className);
+    console.log('Body children count:', doc.body.children.length);
+    const mapCanvas = doc.querySelector('.maplibregl-canvas');
+    const mapContainer = doc.querySelector('.maplibregl-map');
+    const nextDiv = doc.querySelector('#__next');
+    console.log('Found .maplibregl-canvas:', !!mapCanvas);
+    console.log('Found .maplibregl-map:', !!mapContainer);
+    console.log('Found #__next:', !!nextDiv);
+    if (nextDiv) {
+      console.log('#__next innerHTML length:', nextDiv.innerHTML.length);
+      console.log('#__next text:', nextDiv.innerText.substring(0, 300));
+    }
+    console.log('======================');
   });
 
-  // Debug: Check if page has any content
-  cy.get('body').then(($body) => {
-    console.log('Body HTML length:', $body.html().length);
-    console.log('Body text content:', $body.text().substring(0, 200));
-  });
-
-  // Debug: Take a screenshot before checking for map
-  cy.screenshot('before-map-check');
-
-  // Wait for the map canvas to be rendered, indicating the map component has loaded
+  // Wait for the map canvas to be rendered
   cy.get('.maplibregl-canvas', { timeout: 30000 }).should('exist');
-  // Also wait for the search input to be available
   cy.findByRole('textbox', {
     name: /search/i,
     timeout: 30000,

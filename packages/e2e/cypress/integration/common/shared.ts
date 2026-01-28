@@ -49,8 +49,19 @@ Given("I'm running the example {string}", (example: string) => {
     },
   });
 
-  // Wait for page to be ready
+  // Wait for page to be ready and log what we got
   cy.get('body').should('exist');
+  cy.document().then((doc) => {
+    console.log('=== PAGE DEBUG ===');
+    console.log('URL:', doc.location.href);
+    console.log('Title:', doc.title);
+    console.log('Body innerHTML length:', doc.body.innerHTML.length);
+    console.log(
+      'Body text (first 500 chars):',
+      doc.body.innerText.substring(0, 500)
+    );
+    console.log('==================');
+  });
 });
 
 Given("I'm running the docs page {string}", (page: string) => {
