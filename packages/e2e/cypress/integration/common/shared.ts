@@ -43,11 +43,19 @@ Given("I'm running the example {string}", (example: string) => {
     // See: https://glebbahmutov.com/blog/cypress-tips-and-tricks/#control-navigatorlanguage
     onBeforeLoad(win) {
       Object.defineProperty(win.navigator, 'language', { value: language });
+
+      // Capture console errors for debugging
+      win.console.error = (...args) => {
+        cy.log('Console Error:', ...args);
+      };
     },
     onLoad(contentWindow) {
       window = contentWindow;
     },
   });
+
+  // Wait for page to be ready
+  cy.get('body').should('exist');
 });
 
 Given("I'm running the docs page {string}", (page: string) => {

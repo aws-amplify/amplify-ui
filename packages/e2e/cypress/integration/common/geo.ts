@@ -1,6 +1,25 @@
 import { Then, When } from '@badeball/cypress-cucumber-preprocessor';
 
 Then('I see the map', () => {
+  // Debug: Log the current URL
+  cy.url().then((url) => {
+    cy.log('Current URL:', url);
+  });
+
+  // Debug: Check if page has any content
+  cy.get('body').then(($body) => {
+    cy.log('Body HTML length:', $body.html().length);
+    cy.log('Body text content:', $body.text().substring(0, 200));
+  });
+
+  // Debug: Check for any console errors
+  cy.window().then((win) => {
+    cy.log('Window object exists:', !!win);
+  });
+
+  // Debug: Take a screenshot before checking for map
+  cy.screenshot('before-map-check');
+
   // Wait for the map canvas to be rendered, indicating the map component has loaded
   cy.get('.maplibregl-canvas', { timeout: 30000 }).should('exist');
   // Also wait for the search input to be available
