@@ -1,6 +1,10 @@
 import { Then, When } from '@badeball/cypress-cucumber-preprocessor';
 
 When('I search for {string}', (searchTerm: string) => {
+  // Wait for map components to initialize
+  cy.get('body').should('be.visible');
+  cy.wait(5000);
+
   cy.intercept(/.*places.*/).as('searchResults');
   cy.findByRole('textbox', {
     name: /search/i,
@@ -28,6 +32,8 @@ When('I clear the search results', () => {
 });
 
 When('I click on a map marker', () => {
+  // Wait for map to load before looking for markers
+  cy.wait(10000);
   cy.get('.maplibregl-marker', { timeout: 30000 })
     .first()
     .click({ force: true });
