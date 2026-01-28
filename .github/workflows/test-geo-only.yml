@@ -1,9 +1,12 @@
 name: Test Geo Only
 
 on:
-  pull_request:
+  push:
     branches:
       - fix/flaky-geo-location-search-test
+  pull_request:
+    branches:
+      - main
 
 jobs:
   test-geo:
