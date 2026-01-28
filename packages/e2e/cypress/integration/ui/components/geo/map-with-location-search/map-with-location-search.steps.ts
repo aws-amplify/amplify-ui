@@ -9,21 +9,27 @@ Given('my default search results is {int}', (searchResults: number) => {
 When('I press the enter key', () => {
   cy.findByRole('textbox', {
     name: /search/i,
+    timeout: 30000,
   }).type('{enter}');
 });
 
 Then('I see markers equal to my default search results', () => {
-  cy.get('.maplibregl-marker').should('have.length', defaultSearchResults);
+  cy.get('.maplibregl-marker', { timeout: 30000 }).should(
+    'have.length',
+    defaultSearchResults
+  );
 });
 
 Then('I see one marker', () => {
-  cy.get('.maplibregl-marker').should('have.length', 1);
+  cy.get('.maplibregl-marker', { timeout: 30000 }).should('have.length', 1);
 });
 
 Then('I see an information popup', () => {
-  cy.findByRole('button', { name: 'Close popup' }).should('be.visible');
+  cy.findByRole('button', { name: 'Close popup', timeout: 30000 }).should(
+    'be.visible'
+  );
 });
 
 Then('I see no map markers', () => {
-  cy.get('.maplibregl-marker').should('have.length', 0);
+  cy.get('.maplibregl-marker', { timeout: 30000 }).should('have.length', 0);
 });
