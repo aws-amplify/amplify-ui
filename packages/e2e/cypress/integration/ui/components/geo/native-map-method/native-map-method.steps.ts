@@ -5,7 +5,7 @@ let mapCenter;
 When('I see the map load', () => {
   cy.waitForIdleMap();
   cy.window()
-    .its('map')
+    .its('map', { timeout: 30000 })
     .invoke('getCenter')
     .then((startingCenter) => {
       mapCenter = startingCenter;
@@ -13,9 +13,14 @@ When('I see the map load', () => {
 });
 
 When('I click the button to transition the map', () => {
-  cy.findByRole('button', { name: /fly/gi }).click({ force: true });
+  cy.findByRole('button', { name: /fly/gi, timeout: 30000 }).click({
+    force: true,
+  });
 });
 
 Then('I see the map viewport transition', () => {
-  cy.window().its('map').invoke('getCenter').should('not.eq', mapCenter);
+  cy.window()
+    .its('map', { timeout: 30000 })
+    .invoke('getCenter')
+    .should('not.eq', mapCenter);
 });

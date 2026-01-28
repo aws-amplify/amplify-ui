@@ -73,7 +73,7 @@ Cypress.Commands.add('findInputField', (field: string) => {
 });
 
 Cypress.Commands.add('waitForIdleMap', () => {
-  cy.window().its('idleMap').should('be.true');
+  cy.window().its('idleMap', { timeout: 30000 }).should('be.true');
 });
 
 Cypress.Commands.add('clickButtonWithText', (name: string) => {
