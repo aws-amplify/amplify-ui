@@ -1,5 +1,15 @@
 import { Then, When } from '@badeball/cypress-cucumber-preprocessor';
 
+Then('I see the map', () => {
+  // Wait for the map canvas to be rendered, indicating the map component has loaded
+  cy.get('.maplibregl-canvas', { timeout: 30000 }).should('exist');
+  // Also wait for the search input to be available
+  cy.findByRole('textbox', {
+    name: /search/i,
+    timeout: 30000,
+  }).should('exist');
+});
+
 When('I search for {string}', (searchTerm: string) => {
   cy.intercept(/.*places.*/).as('searchResults');
   cy.findByRole('textbox', {
