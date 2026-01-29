@@ -24,7 +24,11 @@ export default defineConfig({
       // This is a chrome launch option which enables fake videos
       on('before:browser:launch', (_browser, launchOptions) => {
         launchOptions.args.push(
-          '--use-file-for-fake-video-capture=cypress/fixtures/faceRecording.y4m'
+          '--use-file-for-fake-video-capture=cypress/fixtures/faceRecording.y4m',
+          '--disable-gpu',
+          '--disable-dev-shm-usage',
+          '--disable-software-rasterizer',
+          '--ignore-gpu-blocklist'
         );
 
         return launchOptions;

@@ -7,11 +7,12 @@ const nextConfig = {
    */
   trailingSlash: true,
   transpilePackages: [
-    '@mediapipe/face_detection',
-    '@tensorflow-models/face-detection',
-    '@aws-amplify/ui-react-liveness',
+    "@mediapipe/face_detection",
+    "@tensorflow-models/face-detection",
+    "@aws-amplify/ui-react-liveness",
+    "maplibre-gl"
   ],
-  pageExtensions: ['page.tsx'],
+  pageExtensions: ["page.tsx"]
 };
 
 module.exports = nextConfig;
