@@ -90,8 +90,8 @@
 // PasskeyPrompt component styles
 [data-amplify-authenticator-passkeyprompt] {
   .amplify-authenticator__passkey-success-icon {
-    font-size: 3em;
-    color: var(--amplify-colors-green-60, #34A853);
+    font-size: var(--amplify-font-sizes-xxxl);
+    color: var(--amplify-colors-green-60, #34a853);
   }
 
   .amplify-authenticator__passkey-credential-item {
@@ -103,5 +103,9 @@
   .amplify-authenticator__passkey-error {
     color: var(--amplify-colors-font-error);
     margin-top: var(--amplify-space-small);
+  }
+
+  .amplify-authenticator__passkey-icon {
+    font-size: var(--amplify-components-authenticator-passkey-icon-size, 12rem);
   }
 }

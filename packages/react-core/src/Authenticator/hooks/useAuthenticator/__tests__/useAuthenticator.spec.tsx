@@ -163,4 +163,33 @@ describe('useAuthenticator', () => {
       expect(typeof result.current.toShowAuthMethods).toBe('function');
     });
   });
+
+  it('calls selectAuthMethod when invoked', async () => {
+    const { result } = renderHook(() => useAuthenticator(), {
+      wrapper: Wrapper,
+    });
+
+    await waitFor(() => {
+      expect(result.current.selectAuthMethod).toBeDefined();
+    });
+
+    const mockMethod = { method: 'EMAIL_OTP' };
+    result.current.selectAuthMethod(mockMethod);
+
+    expect(mockServiceFacade.selectAuthMethod).toHaveBeenCalledWith(mockMethod);
+  });
+
+  it('calls toShowAuthMethods when invoked', async () => {
+    const { result } = renderHook(() => useAuthenticator(), {
+      wrapper: Wrapper,
+    });
+
+    await waitFor(() => {
+      expect(result.current.toShowAuthMethods).toBeDefined();
+    });
+
+    result.current.toShowAuthMethods();
+
+    expect(mockServiceFacade.toShowAuthMethods).toHaveBeenCalled();
+  });
 });

@@ -179,7 +179,7 @@ describe('PasskeyPrompt', () => {
     fireEvent.click(registerButton);
 
     await waitFor(() => {
-      expect(screen.getByText('Registration failed')).toBeInTheDocument();
+      expect(screen.getByText(/Failed to create passkey/i)).toBeInTheDocument();
     });
   });
 

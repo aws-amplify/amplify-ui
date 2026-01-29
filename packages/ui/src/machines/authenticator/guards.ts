@@ -194,11 +194,17 @@ const shouldPromptPasskeyRegistrationAfterSignup = ({
   return passkeyRegistrationPrompts.afterSignup === 'ALWAYS';
 };
 
+const hasPasskeyRegistrationPrompts = ({
+  passwordlessAuthOptions,
+}: AuthActorContext) =>
+  passwordlessAuthOptions?.passkeyRegistrationPrompts != null;
+
 const GUARDS: MachineOptions<AuthActorContext, AuthEvent>['guards'] = {
   hasCompletedAttributeConfirmation,
   hasCompletedResetPassword,
   hasCompletedSignIn,
   hasCompletedSignUp,
+  hasPasskeyRegistrationPrompts,
   isConfirmSignUpStep,
   isConfirmUserAttributeStep,
   isResetPasswordStep,

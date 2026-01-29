@@ -1,10 +1,11 @@
-import { createMachine, sendUpdate, assign } from 'xstate';
+import { createMachine, sendUpdate } from 'xstate';
 
 import type { ConfirmSignUpInput } from 'aws-amplify/auth';
 import {
   autoSignIn,
   signInWithRedirect,
   fetchUserAttributes,
+  listWebAuthnCredentials,
 } from 'aws-amplify/auth';
 
 import type { AuthContext, AuthEvent, SignUpContext } from '../types';
@@ -89,17 +90,12 @@ export function signUpActor({ services }: SignUpMachineOptions) {
             src: 'fetchUserAttributes',
             onDone: [
               {
-                cond: ({ passwordlessAuthOptions }) =>
-                  passwordlessAuthOptions?.passkeyRegistrationPrompts != null,
-                actions: assign({
-                  fetchedUserAttributes: (_, event) => event.data,
-                }),
+                cond: 'hasPasskeyRegistrationPrompts',
+                actions: 'setFetchedUserAttributes',
                 target: 'checkPasskeys',
               },
               {
-                actions: assign({
-                  fetchedUserAttributes: (_, event) => event.data,
-                }),
+                actions: 'setFetchedUserAttributes',
                 target: 'evaluatePasskeyPrompt',
               },
             ],
@@ -113,9 +109,6 @@ export function signUpActor({ services }: SignUpMachineOptions) {
           invoke: {
             src: async () => {
               try {
-                const { listWebAuthnCredentials } = await import(
-                  'aws-amplify/auth'
-                );
                 const result = await listWebAuthnCredentials();
                 return result.credentials && result.credentials.length > 0;
               } catch {
@@ -123,13 +116,11 @@ export function signUpActor({ services }: SignUpMachineOptions) {
               }
             },
             onDone: {
-              actions: assign({
-                hasExistingPasskeys: (_, event) => event.data,
-              }),
+              actions: 'setHasExistingPasskeys',
               target: 'evaluatePasskeyPrompt',
             },
             onError: {
-              actions: assign({ hasExistingPasskeys: false }),
+              actions: 'clearHasExistingPasskeys',
               target: 'evaluatePasskeyPrompt',
             },
           },
@@ -154,7 +145,7 @@ export function signUpActor({ services }: SignUpMachineOptions) {
             },
           ],
         },
-        federatedSignIn: getFederatedSignInState('signUp'),
+        federatedSignIn: { ...getFederatedSignInState('signUp') },
         resetPassword: {
           invoke: { src: 'resetPassword', ...handleResetPasswordResponse },
         },

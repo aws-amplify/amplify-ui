@@ -80,8 +80,8 @@ export const SignInSelectAuthFactor = ({
   return (
     <RouteContainer className={className} variation={variation}>
       <form
-        data-amplify-form=""
-        data-amplify-authenticator-signinselect=""
+        data-amplify-form
+        data-amplify-authenticator-signinselect
         method="post"
         onSubmit={handleSubmit}
         onChange={handleChange}

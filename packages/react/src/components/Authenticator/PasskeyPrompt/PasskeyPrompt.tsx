@@ -25,6 +25,8 @@ const {
   getContinueWithoutPasskeyText,
   getPasskeyCreatedSuccessText,
   getPasskeyRegisteredText,
+  getPasskeyRegistrationFailedText,
+  getPasskeyLabelText,
   getExistingPasskeysText,
   getSetupAnotherPasskeyText,
   getContinueText,
@@ -77,7 +79,7 @@ export function PasskeyPrompt({
     } catch (err) {
       const error = err as Error & { name?: string };
       const errorName = error.name ?? '';
-      const errorMessage = error.message ?? 'Failed to register passkey';
+      const errorMessage = error.message ?? '';
 
       // If user canceled, skip silently without showing error
       if (
@@ -92,7 +94,8 @@ export function PasskeyPrompt({
         return;
       }
 
-      setError(errorMessage);
+      // Show user-friendly error message
+      setError(getPasskeyRegistrationFailedText());
     } finally {
       setIsRegistering(false);
     }
@@ -101,30 +104,35 @@ export function PasskeyPrompt({
   if (success) {
     return (
       <RouteContainer className={className} variation={variation}>
-        <Flex direction="column" padding="1.5rem">
-          <Flex direction="column" gap="0.5rem">
+        <Flex
+          direction="column"
+          padding="large"
+          data-amplify-authenticator-passkeyprompt=""
+        >
+          <Flex direction="column" gap="xs">
             <IconCheckCircleFill className="amplify-authenticator__passkey-success-icon" />
             <Heading level={4}>{getPasskeyCreatedSuccessText()}</Heading>
             <Text>{getPasskeyRegisteredText()}</Text>
           </Flex>
           {credentials.length > 0 && (
-            <View marginTop="1.5rem">
+            <View marginTop="large">
               <Heading level={5}>{getExistingPasskeysText()}</Heading>
-              <Flex direction="column" gap="0.5rem" marginTop="0.5rem">
+              <Flex direction="column" gap="xs" marginTop="xs">
                 {credentials.map((cred, index) => (
                   <View
                     key={cred.credentialId}
                     className="amplify-authenticator__passkey-credential-item"
                   >
-                    <Text fontSize="0.875rem">
-                      {cred.friendlyCredentialName ?? `Passkey ${index + 1}`}
+                    <Text fontSize="small">
+                      {cred.friendlyCredentialName ??
+                        `${getPasskeyLabelText()} ${index + 1}`}
                     </Text>
                   </View>
                 ))}
               </Flex>
             </View>
           )}
-          <Flex direction="column" gap="1rem" marginTop="1.5rem">
+          <Flex direction="column" gap="medium" marginTop="large">
             <Button
               onClick={() => {
                 setSuccess(false);
@@ -134,7 +142,11 @@ export function PasskeyPrompt({
             >
               {getSetupAnotherPasskeyText()}
             </Button>
-            <Button onClick={handleContinue} variation="primary" isFullWidth>
+            <Button
+              onClick={() => handleContinue()}
+              variation="primary"
+              isFullWidth
+            >
               {getContinueText()}
             </Button>
           </Flex>
@@ -148,14 +160,14 @@ export function PasskeyPrompt({
   return (
     <RouteContainer className={className} variation={variation}>
       <form data-amplify-form="" data-amplify-authenticator-passkeyprompt="">
-        <Flex direction="column" gap="1rem">
+        <Flex direction="column" gap="medium">
           <Heading level={4}>{getPasskeyPromptHeadingText()}</Heading>
           <Text>{getPasskeyPromptDescriptionText()}</Text>
           <Flex justifyContent="center">
-            <IconPasskey fontSize="18rem" />
+            <IconPasskey className="amplify-authenticator__passkey-icon" />
           </Flex>
 
-          <Flex direction="column" gap="1rem">
+          <Flex direction="column" gap="medium">
             <Button
               onClick={() => void handleRegister()}
               variation="primary"

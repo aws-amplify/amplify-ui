@@ -145,6 +145,12 @@ export const authenticatorTextUtil = {
   /** SignUp */
   getCreatingAccountText: () => translate(DefaultTexts.CREATING_ACCOUNT),
   getCreateAccountText: () => translate(DefaultTexts.CREATE_ACCOUNT),
+  getCreateAccountWithEmailText: () =>
+    translate(DefaultTexts.CREATE_ACCOUNT_WITH_EMAIL_OTP),
+  getCreateAccountWithPasswordText: () =>
+    translate(DefaultTexts.CREATE_ACCOUNT_WITH_PASSWORD),
+  getCreateAccountWithSmsText: () =>
+    translate(DefaultTexts.CREATE_ACCOUNT_WITH_SMS_OTP),
 
   /** ConfirmSignUp */
   getDeliveryMessageText,
@@ -195,6 +201,9 @@ export const authenticatorTextUtil = {
   getPasskeyCreatedSuccessText: () =>
     translate(DefaultTexts.PASSKEY_CREATED_SUCCESS),
   getPasskeyRegisteredText: () => translate(DefaultTexts.PASSKEY_REGISTERED),
+  getPasskeyRegistrationFailedText: () =>
+    translate(DefaultTexts.PASSKEY_REGISTRATION_FAILED),
+  getPasskeyLabelText: () => translate(DefaultTexts.PASSKEY_LABEL),
   getExistingPasskeysText: () => translate(DefaultTexts.EXISTING_PASSKEYS),
   getSetupAnotherPasskeyText: () =>
     translate(DefaultTexts.SETUP_ANOTHER_PASSKEY),
@@ -205,6 +214,7 @@ export const authenticatorTextUtil = {
   getSignInWithPasskeyText: () => translate(DefaultTexts.SIGN_IN_WITH_PASSKEY),
   getOtherSignInOptionsText: () =>
     translate(DefaultTexts.OTHER_SIGN_IN_OPTIONS),
+  getEnterUsernameFirstText: () => translate(DefaultTexts.ENTER_USERNAME_FIRST),
 
   /** Validations */
   // TODO: add defaultText

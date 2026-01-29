@@ -11,7 +11,14 @@ import { useFormHandlers } from '../hooks/useFormHandlers';
 import { RemoteErrorMessage } from '../shared/RemoteErrorMessage';
 import { FormFields as DefaultFormFields } from '../shared/FormFields';
 
-const { getCreateAccountText, getCreatingAccountText } = authenticatorTextUtil;
+const {
+  getCreateAccountText,
+  getCreatingAccountText,
+  getCreateAccountWithEmailText,
+  getCreateAccountWithPasswordText,
+  getCreateAccountWithSmsText,
+  getOrText,
+} = authenticatorTextUtil;
 
 export function SignUp(): React.JSX.Element {
   const {
@@ -60,12 +67,12 @@ export function SignUp(): React.JSX.Element {
   const getButtonText = (method: string) => {
     switch (method) {
       case 'EMAIL_OTP':
-        return 'Create account with Email OTP';
+        return getCreateAccountWithEmailText();
       case 'SMS_OTP':
-        return 'Create account with SMS OTP';
+        return getCreateAccountWithSmsText();
       case 'PASSWORD':
         return hasMultipleMethods
-          ? 'Create account with Password'
+          ? getCreateAccountWithPasswordText()
           : getCreateAccountText();
       default:
         return getCreateAccountText();
@@ -75,20 +82,19 @@ export function SignUp(): React.JSX.Element {
   const handleMethodClick = (method: string) => (e: React.MouseEvent) => {
     e.preventDefault();
 
-    // Add method to form data via hidden input
     const form = (e.target as HTMLElement).closest('form');
     if (form) {
-      // Remove any existing method input
-      const existingInput = form.querySelector('input[name="__authMethod"]');
-      if (existingInput) {
-        existingInput.remove();
+      // Get or create the hidden input
+      if (!form.__authMethod) {
+        const input = document.createElement('input');
+        input.name = '__authMethod';
+        form.appendChild(input);
       }
-      // Add new hidden input with method
-      const input = document.createElement('input');
-      input.type = 'hidden';
-      input.name = '__authMethod';
-      input.value = method;
-      form.appendChild(input);
+
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      form.__authMethod.type = 'hidden';
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      form.__authMethod.value = method;
 
       form.requestSubmit();
     }
@@ -134,7 +140,7 @@ export function SignUp(): React.JSX.Element {
           {hasMultipleMethods && otherMethods.length > 0 && (
             <>
               <Flex justifyContent="center" padding="medium 0">
-                or
+                {getOrText()}
               </Flex>
               {otherMethods.map((method) => (
                 <Button

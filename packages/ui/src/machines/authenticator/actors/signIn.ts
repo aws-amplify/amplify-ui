@@ -1,4 +1,4 @@
-import { createMachine, sendUpdate, assign } from 'xstate';
+import { createMachine, sendUpdate } from 'xstate';
 import type { ConfirmSignInInput } from 'aws-amplify/auth';
 import {
   confirmSignIn,
@@ -33,6 +33,7 @@ const handleSignInResponse = {
   onDone: [
     {
       cond: 'hasCompletedSignIn',
+      actions: 'setNextSignInStep',
       target: '#signInActor.fetchUserAttributes',
     },
     {
@@ -141,17 +142,12 @@ export function signInActor({ services }: SignInMachineOptions) {
             src: 'fetchUserAttributes',
             onDone: [
               {
-                cond: ({ passwordlessAuthOptions }) =>
-                  passwordlessAuthOptions?.passkeyRegistrationPrompts != null,
-                actions: assign({
-                  fetchedUserAttributes: (_, event) => event.data,
-                }),
+                cond: 'hasPasskeyRegistrationPrompts',
+                actions: 'setFetchedUserAttributes',
                 target: 'checkPasskeys',
               },
               {
-                actions: assign({
-                  fetchedUserAttributes: (_, event) => event.data,
-                }),
+                actions: 'setFetchedUserAttributes',
                 target: 'evaluatePasskeyPrompt',
               },
             ],
@@ -172,13 +168,11 @@ export function signInActor({ services }: SignInMachineOptions) {
               }
             },
             onDone: {
-              actions: assign({
-                hasExistingPasskeys: (_, event) => event.data,
-              }),
+              actions: 'setHasExistingPasskeys',
               target: 'evaluatePasskeyPrompt',
             },
             onError: {
-              actions: assign({ hasExistingPasskeys: false }),
+              actions: 'clearHasExistingPasskeys',
               target: 'evaluatePasskeyPrompt',
             },
           },
@@ -265,6 +259,10 @@ export function signInActor({ services }: SignInMachineOptions) {
                   actions: 'setSelectedAuthMethod',
                   target: 'submit',
                 },
+                SUBMIT: {
+                  actions: ['handleSubmit', 'setSelectedAuthMethodFromForm'],
+                  target: 'submit',
+                },
                 SIGN_IN: {
                   target: 'edit',
                 },
@@ -284,10 +282,7 @@ export function signInActor({ services }: SignInMachineOptions) {
                     actions: 'setRemoteError',
                     target: 'selectMethod',
                   },
-                  {
-                    actions: 'setRemoteError',
-                    target: 'edit',
-                  },
+                  handleSignInResponse.onError,
                 ],
               },
             },

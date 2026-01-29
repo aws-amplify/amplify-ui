@@ -39,3 +39,13 @@ Feature: Sign In with Passwordless Authentication
   Scenario: Preferred auth method EMAIL_OTP hides password field
     Then the email field is visible
     Then the password field is not visible
+
+  @react
+  Scenario: Passwordless enabled in UI but not in backend shows user-friendly error
+    # This test verifies graceful error handling when passwordless is configured in UI
+    # but the backend Cognito User Pool doesn't support USER_AUTH flow
+    Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.InitiateAuth" } }' with error fixture "user-auth-not-enabled"
+    When I type my "email" with status "CONFIRMED"
+    Then I see "Sign in with Email"
+    Then I click the "Sign in with Email" button
+    Then I see "Passwordless authentication is not enabled for this account"

@@ -14,7 +14,7 @@ export function FormFields({
 
   // Determine if password should be shown
   const effectiveMethod = selectedAuthMethod ?? preferredChallenge;
-  const shouldShowPassword =
+  const shouldRequirePassword =
     includePassword ?? (!effectiveMethod || effectiveMethod === 'PASSWORD');
 
   const formFields = React.useRef(
@@ -23,7 +23,7 @@ export function FormFields({
         // Make password and confirm_password optional for passwordless methods
         if (
           (field.name === 'password' || field.name === 'confirm_password') &&
-          !shouldShowPassword
+          !shouldRequirePassword
         ) {
           return (
             <FormField

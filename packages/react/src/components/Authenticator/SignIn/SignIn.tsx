@@ -12,8 +12,16 @@ import { useFormHandlers } from '../hooks/useFormHandlers';
 import { RemoteErrorMessage } from '../shared/RemoteErrorMessage';
 import { FormFields } from '../shared/FormFields';
 
-const { getSignInText, getSigningInText, getForgotPasswordText } =
-  authenticatorTextUtil;
+const {
+  getSignInText,
+  getSigningInText,
+  getForgotPasswordText,
+  getSignInWithEmailText,
+  getSignInWithSmsText,
+  getSignInWithPasskeyText,
+  getOtherSignInOptionsText,
+  getEnterUsernameFirstText,
+} = authenticatorTextUtil;
 
 export function SignIn(): React.JSX.Element {
   const {
@@ -28,6 +36,7 @@ export function SignIn(): React.JSX.Element {
     context.toShowAuthMethods,
   ]);
   const { handleChange, handleSubmit } = useFormHandlers();
+  const [usernameValue, setUsernameValue] = React.useState('');
 
   const {
     components: {
@@ -39,16 +48,29 @@ export function SignIn(): React.JSX.Element {
   const hasMultipleMethods =
     availableAuthMethods && availableAuthMethods.length > 1;
   const showPreferredButton = hasMultipleMethods && preferredChallenge;
+  const hasUsername = usernameValue.trim().length > 0;
+
+  const handleFormChange = React.useCallback(
+    (e: React.ChangeEvent<HTMLFormElement>) => {
+      const { name, value } = e.target;
+      // Track username for "Other sign-in options" button validation
+      if (name === 'username' && typeof value === 'string') {
+        setUsernameValue(value);
+      }
+      handleChange(e);
+    },
+    [handleChange]
+  );
 
   const getPreferredButtonText = () => {
     if (!preferredChallenge) return getSignInText();
     switch (preferredChallenge) {
       case 'EMAIL_OTP':
-        return 'Sign in with Email';
+        return getSignInWithEmailText();
       case 'SMS_OTP':
-        return 'Sign in with SMS';
+        return getSignInWithSmsText();
       case 'WEB_AUTHN':
-        return 'Sign in with Passkey';
+        return getSignInWithPasskeyText();
       case 'PASSWORD':
       default:
         return getSignInText();
@@ -77,7 +99,7 @@ export function SignIn(): React.JSX.Element {
         onSubmit={
           showPreferredButton ? handlePreferredMethodClick : handleSubmit
         }
-        onChange={handleChange}
+        onChange={handleFormChange}
       >
         <FederatedSignIn />
         <Flex direction="column">
@@ -105,9 +127,10 @@ export function SignIn(): React.JSX.Element {
               onClick={handleOtherOptionsClick}
               size="small"
               variation="link"
-              isDisabled={isPending}
+              isDisabled={isPending || !hasUsername}
+              title={!hasUsername ? getEnterUsernameFirstText() : undefined}
             >
-              Other sign-in options
+              {getOtherSignInOptionsText()}
             </Button>
           )}
 

@@ -10,6 +10,7 @@ import type {
 import type { MachineOptions } from 'xstate';
 import { actions as xStateActions } from 'xstate';
 import { trimValues } from '../../helpers';
+import { DefaultTexts, translate } from '../../i18n/translations';
 
 import type {
   AuthEvent,
@@ -30,7 +31,12 @@ const clearActorDoneData = assign({ actorDoneData: undefined });
 const clearChallengeName = assign({ challengeName: undefined });
 const clearMissingAttributes = assign({ missingAttributes: undefined });
 const clearError = assign({ remoteError: undefined });
-const clearFormValues = assign({ formValues: {} });
+const clearFormValues = assign({
+  formValues: (context: AuthActorContext) => ({
+    // Preserve username for passwordless flows to avoid "username is required" errors
+    username: context.formValues?.username,
+  }),
+});
 const clearTouched = assign({ touched: {} });
 const clearUser = assign({ user: undefined });
 const clearValidationError = assign({ validationError: {} });
@@ -153,7 +159,30 @@ const setRemoteError = assign({
     if (data.name === 'NoUserPoolError') {
       return `Configuration error (see console) – please contact the administrator`;
     }
-    return data?.message || data;
+
+    const message = data?.message || '';
+
+    // Handle USER_AUTH flow not enabled error
+    if (message.includes('USER_AUTH flow not enabled')) {
+      return translate(DefaultTexts.PASSWORDLESS_NOT_ENABLED);
+    }
+
+    // Handle invalid/wrong verification code
+    if (message.includes('Invalid code or auth state')) {
+      return translate(DefaultTexts.VERIFICATION_CODE_INVALID);
+    }
+
+    // Handle expired verification code
+    if (message.includes('session is expired')) {
+      return translate(DefaultTexts.VERIFICATION_CODE_EXPIRED);
+    }
+
+    // Handle passkey authentication canceled
+    if (message.includes('ceremony has been canceled')) {
+      return translate(DefaultTexts.PASSKEY_AUTHENTICATION_CANCELED);
+    }
+
+    return message || data;
   },
 });
 
@@ -245,8 +274,8 @@ const setSelectedAuthMethod = assign({
 
 const setSelectedAuthMethodFromForm = assign({
   selectedAuthMethod: (_, { data }: AuthEvent) => {
-    // Extract method from form data if present
-    return data?.__authMethod || undefined;
+    // Extract method from form data if present, default to PASSWORD for form submissions
+    return data?.__authMethod || 'PASSWORD';
   },
 });
 
@@ -254,11 +283,24 @@ const setSelectAuthMethodStep = assign({
   step: 'SELECT_AUTH_METHOD',
 });
 
+const setFetchedUserAttributes = assign({
+  fetchedUserAttributes: (_, event: any) => event.data,
+});
+
+const setHasExistingPasskeys = assign({
+  hasExistingPasskeys: (_, event: any) => event.data,
+});
+
+const clearHasExistingPasskeys = assign({
+  hasExistingPasskeys: false,
+});
+
 const ACTIONS: MachineOptions<AuthActorContext, AuthEvent>['actions'] = {
   clearActorDoneData,
   clearChallengeName,
   clearError,
   clearFormValues,
+  clearHasExistingPasskeys,
   clearMissingAttributes,
   clearSelectedUserAttribute,
   clearTouched,
@@ -270,7 +312,9 @@ const ACTIONS: MachineOptions<AuthActorContext, AuthEvent>['actions'] = {
   setAllowedMfaTypes,
   setChallengeName,
   setCodeDeliveryDetails,
+  setFetchedUserAttributes,
   setFieldErrors,
+  setHasExistingPasskeys,
   setMissingAttributes,
   setNextResetPasswordStep,
   setNextSignInStep,

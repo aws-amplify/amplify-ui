@@ -19,7 +19,7 @@ exports[`PasskeyPrompt renders initial prompt 1`] = `
         >
           <div
             class="amplify-flex"
-            style="flex-direction: column; gap: 1rem;"
+            style="flex-direction: column; gap: var(--amplify-space-medium);"
           >
             <h4
               class="amplify-heading amplify-heading--4"
@@ -36,8 +36,8 @@ exports[`PasskeyPrompt renders initial prompt 1`] = `
               style="justify-content: center;"
             >
               <span
-                class="amplify-icon"
-                style="width: 1em; height: 1em; font-size: 18rem;"
+                class="amplify-icon amplify-authenticator__passkey-icon"
+                style="width: 1em; height: 1em;"
               >
                 <svg
                   fill="none"
@@ -150,7 +150,7 @@ exports[`PasskeyPrompt renders initial prompt 1`] = `
             </div>
             <div
               class="amplify-flex"
-              style="flex-direction: column; gap: 1rem;"
+              style="flex-direction: column; gap: var(--amplify-space-medium);"
             >
               <button
                 class="amplify-button amplify-field-group__control amplify-button--primary"
@@ -188,11 +188,12 @@ exports[`PasskeyPrompt renders success screen snapshot 1`] = `
       >
         <div
           class="amplify-flex"
-          style="flex-direction: column; padding: 1.5rem;"
+          data-amplify-authenticator-passkeyprompt=""
+          style="flex-direction: column;"
         >
           <div
             class="amplify-flex"
-            style="flex-direction: column; gap: 0.5rem;"
+            style="flex-direction: column; gap: var(--amplify-space-xs);"
           >
             <span
               class="amplify-icon amplify-authenticator__passkey-success-icon"
@@ -224,7 +225,7 @@ exports[`PasskeyPrompt renders success screen snapshot 1`] = `
           </div>
           <div
             class="amplify-flex"
-            style="flex-direction: column; gap: 1rem; margin-block-start: 1.5rem;"
+            style="flex-direction: column; gap: var(--amplify-space-medium); margin-block-start: var(--amplify-space-large);"
           >
             <button
               class="amplify-button amplify-field-group__control amplify-button--link"

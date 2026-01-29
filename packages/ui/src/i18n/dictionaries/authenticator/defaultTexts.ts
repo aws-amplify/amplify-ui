@@ -27,6 +27,9 @@ export const defaultTexts = {
   CONTINUE: 'Continue',
   CONTINUE_WITHOUT_PASSKEY: 'Continue without a Passkey',
   CREATE_ACCOUNT: 'Create Account',
+  CREATE_ACCOUNT_WITH_EMAIL_OTP: 'Create account with Email OTP',
+  CREATE_ACCOUNT_WITH_PASSWORD: 'Create account with Password',
+  CREATE_ACCOUNT_WITH_SMS_OTP: 'Create account with SMS OTP',
   CREATE_PASSKEY: 'Create a Passkey',
   CREATING_ACCOUNT: 'Creating Account',
   EMAIL_ADDRESS: 'Email',
@@ -44,6 +47,7 @@ export const defaultTexts = {
   ENTER_PHONE_NUMBER: 'Enter your Phone Number',
   ENTER_PREFERRED_USERNAME: 'Enter your Preferred Username',
   ENTER_USERNAME: 'Enter your username',
+  ENTER_USERNAME_FIRST: 'Please enter your username first',
   EXISTING_PASSKEYS: 'Existing Passkeys',
   FAMILY_NAME: 'Family Name',
   GIVEN_NAME: 'Given Name',
@@ -60,12 +64,18 @@ export const defaultTexts = {
   NEW_PASSWORD: 'New password',
   OR: 'or',
   OTHER_SIGN_IN_OPTIONS: 'Other sign-in options',
+  PASSKEY_AUTHENTICATION_CANCELED:
+    'Passkey authentication was canceled. Please try again or use a different sign-in method.',
   PASSKEY_CREATED_SUCCESS: 'Passkey created successfully!',
+  PASSKEY_LABEL: 'Passkey',
   PASSKEY_PROMPT_DESCRIPTION:
     'Passkeys are WebAuthn credentials that validate your identity using biometric data like touch or facial recognition or device authentication like passwords or PINs, serving as a secure password replacement.',
   PASSKEY_PROMPT_HEADING: 'Sign in faster with Passkey',
   PASSKEY_REGISTERED: 'Your passkey has been successfully registered.',
+  PASSKEY_REGISTRATION_FAILED: 'Failed to create passkey. Please try again.',
   PASSWORD: 'Password',
+  PASSWORDLESS_NOT_ENABLED:
+    'Passwordless authentication is not enabled for this account. Please contact your administrator or use password sign-in.',
   PHONE_NUMBER: 'Phone Number',
   PREFERRED_USERNAME: 'Preferred Username',
   PROFILE: 'Profile',
@@ -74,6 +84,10 @@ export const defaultTexts = {
   RESET_PASSWORD_HEADING: 'Reset your password',
   RESET_PASSWORD: 'Reset Password',
   SEND_CODE: 'Send code',
+  VERIFICATION_CODE_EXPIRED:
+    'Your verification code has expired. Please request a new code.',
+  VERIFICATION_CODE_INVALID:
+    'The verification code you entered is incorrect. Please try again.',
   SENDING: 'Sending',
   SELECT_MFA_TYPE: 'Select MFA Type',
   SETUP_ANOTHER_PASSKEY: 'Setup another Passkey',
