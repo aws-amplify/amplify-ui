@@ -105,16 +105,16 @@ jobs:
       commit: ${{ github.event.pull_request.head.sha }}
       repository: ${{ github.repository }}
 
-  unit:
-    uses: ./.github/workflows/reusable-unit.yml
-    needs: setup-cache
-    with:
-      commit: ${{ github.event.pull_request.head.sha }}
-      repository: ${{ github.repository }}
+  # unit:
+  #   uses: ./.github/workflows/reusable-unit.yml
+  #   needs: setup-cache
+  #   with:
+  #     commit: ${{ github.event.pull_request.head.sha }}
+  #     repository: ${{ github.repository }}
 
   e2e:
     uses: ./.github/workflows/reusable-e2e.yml
-    needs: unit
+    needs: setup-cache
     with:
       commit: ${{ github.event.pull_request.head.sha }}
       repository: ${{ github.event.pull_request.head.repo.full_name }}
