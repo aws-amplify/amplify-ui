@@ -7,8 +7,11 @@ Amplify.configure(awsExports);
 
 export default function MapWithLocationSearch() {
   return (
-    <MapView>
-      <LocationSearch />
-    </MapView>
+    <>
+      <div>{JSON.stringify(awsExports.geo)}</div>
+      <MapView>
+        <LocationSearch />
+      </MapView>
+    </>
   );
 }
