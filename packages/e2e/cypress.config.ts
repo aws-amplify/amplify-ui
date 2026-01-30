@@ -28,10 +28,12 @@ export default defineConfig({
         );
 
         // Enable software WebGL rendering for maplibre-gl in headless CI environments
-        if (browser.name === 'chrome' && browser.isHeadless) {
-          launchOptions.args.push('--disable-gpu');
-          launchOptions.args.push('--use-gl=swiftshader');
+        if (browser.name === 'chrome') {
+          // Use SwiftShader for software WebGL rendering (works in headless)
+          launchOptions.args.push('--use-gl=angle');
+          launchOptions.args.push('--use-angle=swiftshader');
           launchOptions.args.push('--enable-webgl');
+          launchOptions.args.push('--ignore-gpu-blocklist');
         }
 
         return launchOptions;
