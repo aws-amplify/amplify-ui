@@ -6,6 +6,21 @@ import { Given, Then, When } from '@badeball/cypress-cucumber-preprocessor';
  * which can take longer in CI environments.
  */
 Given('the map is loaded', () => {
+  // Log page content for debugging
+  cy.document().then((doc) => {
+    cy.log('Page HTML:', doc.body.innerHTML.substring(0, 500));
+  });
+
+  // Check for any console errors
+  cy.window().then((win) => {
+    cy.log(
+      'Window keys:',
+      Object.keys(win)
+        .filter((k) => k.includes('map') || k.includes('idle'))
+        .join(', ')
+    );
+  });
+
   // Wait for the map container to have content (not just an empty div)
   cy.get('.maplibregl-map', { timeout: 30000 }).should('exist');
   // Wait for the map to be idle (set by _app.page.tsx)

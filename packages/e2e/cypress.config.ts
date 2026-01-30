@@ -40,5 +40,5 @@ export default defineConfig({
       return config;
     },
   },
-  video: false,
+  video: true,
 });
