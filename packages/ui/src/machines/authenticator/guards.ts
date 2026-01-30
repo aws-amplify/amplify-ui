@@ -199,6 +199,12 @@ const hasPasskeyRegistrationPrompts = ({
 }: AuthActorContext) =>
   passwordlessAuthOptions?.passkeyRegistrationPrompts != null;
 
+const shouldReturnToSelectMethod = ({
+  selectedAuthMethod,
+  step,
+}: AuthActorContext) =>
+  selectedAuthMethod != null && step === 'SELECT_AUTH_METHOD';
+
 const GUARDS: MachineOptions<AuthActorContext, AuthEvent>['guards'] = {
   hasCompletedAttributeConfirmation,
   hasCompletedResetPassword,
@@ -218,6 +224,7 @@ const GUARDS: MachineOptions<AuthActorContext, AuthEvent>['guards'] = {
   shouldConfirmSignUpFromSignIn,
   shouldResetPassword,
   shouldResetPasswordFromSignIn,
+  shouldReturnToSelectMethod,
   shouldSelectAuthMethod,
   shouldSetupTotp,
   shouldSetupEmail,

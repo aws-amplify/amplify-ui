@@ -277,8 +277,7 @@ export function signInActor({ services }: SignInMachineOptions) {
                 onDone: handleSignInResponse.onDone,
                 onError: [
                   {
-                    cond: ({ selectedAuthMethod }) =>
-                      selectedAuthMethod != null,
+                    cond: 'shouldReturnToSelectMethod',
                     actions: 'setRemoteError',
                     target: 'selectMethod',
                   },

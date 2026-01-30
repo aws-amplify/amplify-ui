@@ -341,6 +341,48 @@ describe('Guards', () => {
     });
   });
 
+  describe('shouldReturnToSelectMethod', () => {
+    it('returns true when selectedAuthMethod is set and step is SELECT_AUTH_METHOD', () => {
+      const context = {
+        selectedAuthMethod: 'EMAIL_OTP',
+        step: 'SELECT_AUTH_METHOD',
+      } as any;
+      expect(
+        guards.shouldReturnToSelectMethod(context, {} as any, {} as any)
+      ).toBe(true);
+    });
+
+    it('returns false when selectedAuthMethod is null', () => {
+      const context = {
+        selectedAuthMethod: null,
+        step: 'SELECT_AUTH_METHOD',
+      } as any;
+      expect(
+        guards.shouldReturnToSelectMethod(context, {} as any, {} as any)
+      ).toBe(false);
+    });
+
+    it('returns false when step is SIGN_IN', () => {
+      const context = {
+        selectedAuthMethod: 'EMAIL_OTP',
+        step: 'SIGN_IN',
+      } as any;
+      expect(
+        guards.shouldReturnToSelectMethod(context, {} as any, {} as any)
+      ).toBe(false);
+    });
+
+    it('returns false when step is CONFIRM_SIGN_IN_WITH_SMS_CODE', () => {
+      const context = {
+        selectedAuthMethod: 'SMS_OTP',
+        step: 'CONFIRM_SIGN_IN_WITH_SMS_CODE',
+      } as any;
+      expect(
+        guards.shouldReturnToSelectMethod(context, {} as any, {} as any)
+      ).toBe(false);
+    });
+  });
+
   describe('hasPasskeyRegistrationPrompts', () => {
     it('returns true when passkeyRegistrationPrompts is configured', () => {
       const context = {
