@@ -67,33 +67,40 @@ jobs:
       # See: https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#using-environment-variables-in-a-matrix
       matrix:
         include:
-          - example: angular
-            package: angular
-            resource-path: ui/components/authenticator/sign-in-with-username
-            tags: '@angular and not @todo-angular'
-
+          # TEMPORARY: Only running geo tests for debugging
           - example: next
             package: react
-            resource-path: ui/components/authenticator/sign-in-with-username
+            resource-path: ui/components/geo/map-with-location-search
             tags: '@react and not @todo-react'
+            spec: 'features/ui/components/geo/*.feature'
 
-          - example: react-router
-            package: react
-            tags: '@react-router and not @todo-react-router'
+          # - example: angular
+          #   package: angular
+          #   resource-path: ui/components/authenticator/sign-in-with-username
+          #   tags: '@angular and not @todo-angular'
 
-          - example: next-app-router
-            package: react
-            tags: '@next-app-router and not @todo-next-app-router'
+          # - example: next
+          #   package: react
+          #   resource-path: ui/components/authenticator/sign-in-with-username
+          #   tags: '@react and not @todo-react'
 
-          - example: vue
-            package: vue
-            resource-path: ui/components/authenticator/sign-in-with-username
-            tags: '@vue and not @todo-vue'
+          # - example: react-router
+          #   package: react
+          #   tags: '@react-router and not @todo-react-router'
 
-          - example: svelte
-            package: svelte
-            resource-path: ui/components/authenticator/sign-in-with-username
-            tags: '@svelte and not @todo-svelte'
+          # - example: next-app-router
+          #   package: react
+          #   tags: '@next-app-router and not @todo-next-app-router'
+
+          # - example: vue
+          #   package: vue
+          #   resource-path: ui/components/authenticator/sign-in-with-username
+          #   tags: '@vue and not @todo-vue'
+
+          # - example: svelte
+          #   package: svelte
+          #   resource-path: ui/components/authenticator/sign-in-with-username
+          #   tags: '@svelte and not @todo-svelte'
 
     steps:
       - name: Checkout Amplify UI
@@ -138,7 +145,7 @@ jobs:
           path: |
             ./node_modules
             **/node_modules
-          key: ${{ runner.os }}-nodemodules-${{ inputs.commit }}
+          key: ${{ runner.os }}-nodemodules-${{ hashFiles('yarn.lock') }}
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 3
 
@@ -206,24 +213,25 @@ jobs:
       - name: Add Amplify CLI
         run: yarn global add @aws-amplify/cli
 
-      - name: Configure auth credentials
-        uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502 # v4.0.2 https://github.com/aws-actions/configure-aws-credentials/commit/e3dd6a429d7300a6a4c196c26e071d42e0343502
-        with:
-          aws-region: us-east-2
-          role-to-assume: ${{ secrets.AUTH_E2E_ROLE_ARN }}
+      # TEMPORARY: Skipping auth environment pull for geo-only testing
+      # - name: Configure auth credentials
+      #   uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502 # v4.0.2 https://github.com/aws-actions/configure-aws-credentials/commit/e3dd6a429d7300a6a4c196c26e071d42e0343502
+      #   with:
+      #     aws-region: us-east-2
+      #     role-to-assume: ${{ secrets.AUTH_E2E_ROLE_ARN }}
 
-      # Amplify CLI does not support headless pull with temporary credentials
-      # when useProfile is false.
-      # See: https://github.com/aws-amplify/amplify-cli/issues/11009.
-      - name: Create temp AWS Profile
-        run: |
-          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID && \
-          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY && \
-          aws configure set aws_session_token $AWS_SESSION_TOKEN && \
-          aws configure set default.region $AWS_REGION
+      # # Amplify CLI does not support headless pull with temporary credentials
+      # # when useProfile is false.
+      # # See: https://github.com/aws-amplify/amplify-cli/issues/11009.
+      # - name: Create temp AWS Profile
+      #   run: |
+      #     aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID && \
+      #     aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY && \
+      #     aws configure set aws_session_token $AWS_SESSION_TOKEN && \
+      #     aws configure set default.region $AWS_REGION
 
-      - name: Pull down Auth AWS environments
-        run: yarn environments auth pull
+      # - name: Pull down Auth AWS environments
+      #   run: yarn environments auth pull
 
       - name: Configure geo credentials
         uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502 # v4.0.2 https://github.com/aws-actions/configure-aws-credentials/commit/e3dd6a429d7300a6a4c196c26e071d42e0343502
@@ -241,87 +249,88 @@ jobs:
       - name: Pull down Geo AWS environments
         run: yarn environments geo pull
 
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502 # v4.0.2 https://github.com/aws-actions/configure-aws-credentials/commit/e3dd6a429d7300a6a4c196c26e071d42e0343502
-        with:
-          aws-region: us-east-2
-          role-to-assume: ${{ secrets.STORAGE_E2E_ROLE_ARN }}
+      # TEMPORARY: Skipping other AWS environment pulls for geo-only testing
+      # - name: Configure AWS Credentials
+      #   uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502 # v4.0.2 https://github.com/aws-actions/configure-aws-credentials/commit/e3dd6a429d7300a6a4c196c26e071d42e0343502
+      #   with:
+      #     aws-region: us-east-2
+      #     role-to-assume: ${{ secrets.STORAGE_E2E_ROLE_ARN }}
 
-      - name: Create temp AWS profile
-        run: |
-          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID && \
-          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY && \
-          aws configure set aws_session_token $AWS_SESSION_TOKEN && \
-          aws configure set default.region $AWS_REGION
+      # - name: Create temp AWS profile
+      #   run: |
+      #     aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID && \
+      #     aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY && \
+      #     aws configure set aws_session_token $AWS_SESSION_TOKEN && \
+      #     aws configure set default.region $AWS_REGION
 
-      - name: Pull down Storage AWS environments
-        run: yarn environments storage pull
+      # - name: Pull down Storage AWS environments
+      #   run: yarn environments storage pull
 
-      - name: Configure datastore credentials
-        uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502 # v4.0.2 https://github.com/aws-actions/configure-aws-credentials/commit/e3dd6a429d7300a6a4c196c26e071d42e0343502
-        with:
-          aws-region: us-east-2
-          role-to-assume: ${{ secrets.DATASTORE_E2E_ROLE_ARN }}
+      # - name: Configure datastore credentials
+      #   uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502 # v4.0.2 https://github.com/aws-actions/configure-aws-credentials/commit/e3dd6a429d7300a6a4c196c26e071d42e0343502
+      #   with:
+      #     aws-region: us-east-2
+      #     role-to-assume: ${{ secrets.DATASTORE_E2E_ROLE_ARN }}
 
-      - name: Create temp AWS profile
-        run: |
-          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID && \
-          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY && \
-          aws configure set aws_session_token $AWS_SESSION_TOKEN && \
-          aws configure set default.region $AWS_REGION
+      # - name: Create temp AWS profile
+      #   run: |
+      #     aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID && \
+      #     aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY && \
+      #     aws configure set aws_session_token $AWS_SESSION_TOKEN && \
+      #     aws configure set default.region $AWS_REGION
 
-      - name: Pull down Datastore AWS environments
-        run: yarn environments datastore pull
+      # - name: Pull down Datastore AWS environments
+      #   run: yarn environments datastore pull
 
-      - name: Configure liveness credentials
-        uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502 # v4.0.2 https://github.com/aws-actions/configure-aws-credentials/commit/e3dd6a429d7300a6a4c196c26e071d42e0343502
-        with:
-          aws-region: us-east-2
-          role-to-assume: ${{ secrets.LIVENESS_E2E_ROLE_ARN }}
+      # - name: Configure liveness credentials
+      #   uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502 # v4.0.2 https://github.com/aws-actions/configure-aws-credentials/commit/e3dd6a429d7300a6a4c196c26e071d42e0343502
+      #   with:
+      #     aws-region: us-east-2
+      #     role-to-assume: ${{ secrets.LIVENESS_E2E_ROLE_ARN }}
 
-      - name: Create temp AWS profile
-        run: |
-          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID && \
-          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY && \
-          aws configure set aws_session_token $AWS_SESSION_TOKEN && \
-          aws configure set default.region $AWS_REGION
+      # - name: Create temp AWS profile
+      #   run: |
+      #     aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID && \
+      #     aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY && \
+      #     aws configure set aws_session_token $AWS_SESSION_TOKEN && \
+      #     aws configure set default.region $AWS_REGION
 
-      - name: Pull down Liveness AWS environments
-        run: yarn environments liveness pull
+      # - name: Pull down Liveness AWS environments
+      #   run: yarn environments liveness pull
 
-      - name: Configure in-app-messaging credentials
-        uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502 # v4.0.2 https://github.com/aws-actions/configure-aws-credentials/commit/e3dd6a429d7300a6a4c196c26e071d42e0343502
-        with:
-          aws-region: us-east-2
-          role-to-assume: ${{ secrets.IN_APP_MESSAGING_E2E_ROLE_ARN }}
+      # - name: Configure in-app-messaging credentials
+      #   uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502 # v4.0.2 https://github.com/aws-actions/configure-aws-credentials/commit/e3dd6a429d7300a6a4c196c26e071d42e0343502
+      #   with:
+      #     aws-region: us-east-2
+      #     role-to-assume: ${{ secrets.IN_APP_MESSAGING_E2E_ROLE_ARN }}
 
-      # Amplify CLI does not support headless pull with temporary credentials
-      # when useProfile is false.
-      # See: https://github.com/aws-amplify/amplify-cli/issues/11009.
-      - name: Create temp AWS Profile
-        run: |
-          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID && \
-          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY && \
-          aws configure set aws_session_token $AWS_SESSION_TOKEN && \
-          aws configure set default.region $AWS_REGION
+      # # Amplify CLI does not support headless pull with temporary credentials
+      # # when useProfile is false.
+      # # See: https://github.com/aws-amplify/amplify-cli/issues/11009.
+      # - name: Create temp AWS Profile
+      #   run: |
+      #     aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID && \
+      #     aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY && \
+      #     aws configure set aws_session_token $AWS_SESSION_TOKEN && \
+      #     aws configure set default.region $AWS_REGION
 
-      - name: Pull down In-app-messaging AWS environments
-        run: yarn environments in-app-messaging pull
+      # - name: Pull down In-app-messaging AWS environments
+      #   run: yarn environments in-app-messaging pull
 
-      - name: Configure ai credentials
-        uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502 # v4.0.2 https://github.com/aws-actions/configure-aws-credentials/commit/e3dd6a429d7300a6a4c196c26e071d42e0343502
-        with:
-          aws-region: us-west-2
-          role-to-assume: ${{ secrets.AI_E2E_ROLE_ARN }}
+      # - name: Configure ai credentials
+      #   uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502 # v4.0.2 https://github.com/aws-actions/configure-aws-credentials/commit/e3dd6a429d7300a6a4c196c26e071d42e0343502
+      #   with:
+      #     aws-region: us-west-2
+      #     role-to-assume: ${{ secrets.AI_E2E_ROLE_ARN }}
 
-      - name: Create temp AWS profile
-        run: |
-          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID && \
-          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY && \
-          aws configure set aws_session_token $AWS_SESSION_TOKEN && \
-          aws configure set default.region $AWS_REGION
-      - name: Pull down AI AWS environments
-        run: yarn environments ai pull
+      # - name: Create temp AWS profile
+      #   run: |
+      #     aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID && \
+      #     aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY && \
+      #     aws configure set aws_session_token $AWS_SESSION_TOKEN && \
+      #     aws configure set default.region $AWS_REGION
+      # - name: Pull down AI AWS environments
+      #   run: yarn environments ai pull
 
       - name: Delete AWS profile
         run: rm -rf ~/.aws
@@ -337,7 +346,7 @@ jobs:
 
       - name: Run E2E tests against ${{ matrix.example }} example
         id: e2e
-        run: yarn e2e test:examples
+        run: yarn e2e test:geo
         env:
           # Override on the default value in `cypress.json` with framework-specific tag
           TAGS: '${{ matrix.tags }}'
@@ -359,34 +368,35 @@ jobs:
             packages/e2e/cypress/screenshots/**
           retention-days: 5
 
-  check-changed-packages:
-    runs-on: ubuntu-latest
-    outputs:
-      has-changed-packages: ${{ steps.has-rn-changed-packages.outputs.has-changed-packages }}
-    steps:
-      - name: Checkout Amplify UI
-        uses: actions/checkout@ff7abcd0c3c05ccf6adc123a8cd1fd4fb30fb493 # v4.1.3 https://github.com/actions/checkout/commit/cd7d8d697e10461458bc61a30d094dc601a8b017
-        with:
-          ref: ${{ inputs.commit }}
-          repository: ${{ inputs.repository }}
-          fetch-depth: 2
-          persist-credentials: false
+  # TEMPORARY: Disabled for geo-only testing
+  # check-changed-packages:
+  #   runs-on: ubuntu-latest
+  #   outputs:
+  #     has-changed-packages: ${{ steps.has-rn-changed-packages.outputs.has-changed-packages }}
+  #   steps:
+  #     - name: Checkout Amplify UI
+  #       uses: actions/checkout@ff7abcd0c3c05ccf6adc123a8cd1fd4fb30fb493 # v4.1.3 https://github.com/actions/checkout/commit/cd7d8d697e10461458bc61a30d094dc601a8b017
+  #       with:
+  #         ref: ${{ inputs.commit }}
+  #         repository: ${{ inputs.repository }}
+  #         fetch-depth: 2
+  #         persist-credentials: false
 
-      - name: Determine if there were changes to react-native dependency packages
-        if: ${{ inputs.skip-changed-packages-check == 'false' }}
-        id: has-rn-changed-packages
-        uses: ./.github/actions/changed-packages
-        with:
-          commit: ${{ inputs.commit }}
-          packages: |
-            packages/react-native
-            packages/react-core
-            packages/react-core-notifications
-            packages/ui
-            packages/e2e
+  #     - name: Determine if there were changes to react-native dependency packages
+  #       if: ${{ inputs.skip-changed-packages-check == 'false' }}
+  #       id: has-rn-changed-packages
+  #       uses: ./.github/actions/changed-packages
+  #       with:
+  #         commit: ${{ inputs.commit }}
+  #         packages: |
+  #           packages/react-native
+  #           packages/react-core
+  #           packages/react-core-notifications
+  #           packages/ui
+  #           packages/e2e
 
   e2e-ios:
-    needs: check-changed-packages
+    # needs: check-changed-packages
     if: false # Temporarily disable RN iOS tests
     # if: ${{ inputs.skip-changed-packages-check == 'true' || needs.check-changed-packages.outputs.has-changed-packages == 'true' }}
     runs-on: macos-13
@@ -507,7 +517,7 @@ jobs:
           retention-days: 5
 
   e2e-android:
-    needs: check-changed-packages
+    # needs: check-changed-packages
     if: false # Temporarily disable RN Android tests
     # if: ${{ inputs.skip-changed-packages-check == 'true' || needs.check-changed-packages.outputs.has-changed-packages == 'true' }}
     runs-on: macos-13
@@ -648,6 +658,7 @@ jobs:
           retention-days: 5
 
   docs:
+    if: false # TEMPORARY: Disabled for geo-only testing
     runs-on: ubuntu-latest
     environment: ci
     env:
@@ -693,7 +704,7 @@ jobs:
           path: |
             ./node_modules
             **/node_modules
-          key: ${{ runner.os }}-nodemodules-${{ inputs.commit }}
+          key: ${{ runner.os }}-nodemodules-${{ hashFiles('yarn.lock') }}
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 3
 
