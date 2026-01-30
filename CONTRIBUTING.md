@@ -14,6 +14,7 @@ Please read through these guidelines carefully before submitting a PR and let us
 
 ## Bug Reports
 
+/
 Bug reports and feature requests are always welcome. Good bug reports are extremely helpful, so thanks in advance!
 
 When filing a bug, please try to be as detailed as possible. In addition to the bug report form information, details like these are incredibly useful:
