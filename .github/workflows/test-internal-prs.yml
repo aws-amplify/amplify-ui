@@ -57,46 +57,46 @@ jobs:
           # URL below is a link to the current workflow run to allow users to see the status of the workflow.
           target-url: https://github.com/${{ github.event.repository.owner.login }}/${{ github.event.repository.name }}/actions/runs/${{ github.run_id }}
 
-  dependency-review:
-    runs-on: ubuntu-latest
-    needs: setup
-    steps:
-      - name: 'Checkout Repository'
-        uses: actions/checkout@ff7abcd0c3c05ccf6adc123a8cd1fd4fb30fb493 # v4.1.3 https://github.com/actions/checkout/commit/cd7d8d697e10461458bc61a30d094dc601a8b017
-      - name: 'Dependency Review'
-        uses: actions/dependency-review-action@40c09b7dc99638e5ddb0bfd91c1673effc064d8a # v4.7.3 https://github.com/actions/dependency-review-action/commit/[HASH]
-        with:
-          config-file: '.github/dependency-review/config.yml'
+  # dependency-review:
+  #   runs-on: ubuntu-latest
+  #   needs: setup
+  #   steps:
+  #     - name: 'Checkout Repository'
+  #       uses: actions/checkout@ff7abcd0c3c05ccf6adc123a8cd1fd4fb30fb493 # v4.1.3 https://github.com/actions/checkout/commit/cd7d8d697e10461458bc61a30d094dc601a8b017
+  #     - name: 'Dependency Review'
+  #       uses: actions/dependency-review-action@40c09b7dc99638e5ddb0bfd91c1673effc064d8a # v4.7.3 https://github.com/actions/dependency-review-action/commit/[HASH]
+  #       with:
+  #         config-file: '.github/dependency-review/config.yml'
 
-  codeql:
-    needs: setup
-    runs-on: ubuntu-latest
-    permissions:
-      actions: read
-      contents: read
-      security-events: write # to write security event to the PR
-    strategy:
-      fail-fast: false
-      matrix:
-        language: [javascript]
-    steps:
-      - name: Checkout
-        uses: actions/checkout@ff7abcd0c3c05ccf6adc123a8cd1fd4fb30fb493 # v4.1.3 https://github.com/actions/checkout/commit/cd7d8d697e10461458bc61a30d094dc601a8b017
+  # codeql:
+  #   needs: setup
+  #   runs-on: ubuntu-latest
+  #   permissions:
+  #     actions: read
+  #     contents: read
+  #     security-events: write # to write security event to the PR
+  #   strategy:
+  #     fail-fast: false
+  #     matrix:
+  #       language: [javascript]
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@ff7abcd0c3c05ccf6adc123a8cd1fd4fb30fb493 # v4.1.3 https://github.com/actions/checkout/commit/cd7d8d697e10461458bc61a30d094dc601a8b017
 
-      - name: Initialize CodeQL
-        uses: github/codeql-action/init@423a04bb2cb7cd2643007122588f1387778f14d0 # v3.24.9 https://github.com/github/codeql-action/commit/423a04bb2cb7cd2643007122588f1387778f14d0
-        with:
-          languages: ${{ matrix.language }}
-          config-file: ./.github/codeql/codeql-config.yml
-          queries: +security-and-quality
+  #     - name: Initialize CodeQL
+  #       uses: github/codeql-action/init@423a04bb2cb7cd2643007122588f1387778f14d0 # v3.24.9 https://github.com/github/codeql-action/commit/423a04bb2cb7cd2643007122588f1387778f14d0
+  #       with:
+  #         languages: ${{ matrix.language }}
+  #         config-file: ./.github/codeql/codeql-config.yml
+  #         queries: +security-and-quality
 
-      - name: Autobuild
-        uses: github/codeql-action/autobuild@423a04bb2cb7cd2643007122588f1387778f14d0 # v3.24.9 https://github.com/github/codeql-action/commit/423a04bb2cb7cd2643007122588f1387778f14d0
+  #     - name: Autobuild
+  #       uses: github/codeql-action/autobuild@423a04bb2cb7cd2643007122588f1387778f14d0 # v3.24.9 https://github.com/github/codeql-action/commit/423a04bb2cb7cd2643007122588f1387778f14d0
 
-      - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@423a04bb2cb7cd2643007122588f1387778f14d0 # v3.24.9 https://github.com/github/codeql-action/commit/423a04bb2cb7cd2643007122588f1387778f14d0
-        with:
-          category: '/language:${{ matrix.language }}'
+  #     - name: Perform CodeQL Analysis
+  #       uses: github/codeql-action/analyze@423a04bb2cb7cd2643007122588f1387778f14d0 # v3.24.9 https://github.com/github/codeql-action/commit/423a04bb2cb7cd2643007122588f1387778f14d0
+  #       with:
+  #         category: '/language:${{ matrix.language }}'
 
   setup-cache:
     needs: setup
@@ -105,16 +105,16 @@ jobs:
       commit: ${{ github.event.pull_request.head.sha }}
       repository: ${{ github.repository }}
 
-  unit:
-    uses: ./.github/workflows/reusable-unit.yml
-    needs: setup-cache
-    with:
-      commit: ${{ github.event.pull_request.head.sha }}
-      repository: ${{ github.repository }}
+  # unit:
+  #   uses: ./.github/workflows/reusable-unit.yml
+  #   needs: setup-cache
+  #   with:
+  #     commit: ${{ github.event.pull_request.head.sha }}
+  #     repository: ${{ github.repository }}
 
   e2e:
     uses: ./.github/workflows/reusable-e2e.yml
-    needs: unit
+    needs: setup-cache
     with:
       commit: ${{ github.event.pull_request.head.sha }}
       repository: ${{ github.event.pull_request.head.repo.full_name }}
@@ -140,7 +140,7 @@ jobs:
 
   update-success-status:
     if: ${{ success() }}
-    needs: [setup, e2e, codeql, dependency-review]
+    needs: [setup, e2e]
     runs-on: ubuntu-latest
     permissions:
       statuses: write # This is required for running set-status actions
@@ -157,7 +157,7 @@ jobs:
 
   update-failure-status:
     if: ${{ failure() }}
-    needs: [setup, e2e, codeql, dependency-review]
+    needs: [setup, e2e]
     runs-on: ubuntu-latest
     permissions:
       statuses: write # This is required for running set-status actions

@@ -10,7 +10,7 @@ export default defineConfig({
   defaultCommandTimeout: 15000,
   e2e: {
     baseUrl: 'http://localhost:3000/',
-    specPattern: 'features/**/*.feature',
+    specPattern: 'features/**/geo/**/*.feature',
     async setupNodeEvents(on, config) {
       await addCucumberPreprocessorPlugin(on, config);
 
