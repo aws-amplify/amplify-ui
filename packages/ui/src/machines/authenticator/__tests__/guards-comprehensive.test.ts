@@ -294,4 +294,79 @@ describe('Guards', () => {
       );
     });
   });
+
+  describe('shouldSelectAuthMethod', () => {
+    it('returns true when multiple methods and no preferred challenge', () => {
+      const context = {
+        availableAuthMethods: ['PASSWORD', 'EMAIL_OTP'],
+        preferredChallenge: undefined,
+        selectedAuthMethod: null,
+      } as any;
+      expect(guards.shouldSelectAuthMethod(context, {} as any, {} as any)).toBe(
+        true
+      );
+    });
+
+    it('returns true when multiple methods and selectedAuthMethod is null', () => {
+      const context = {
+        availableAuthMethods: ['PASSWORD', 'EMAIL_OTP'],
+        preferredChallenge: 'PASSWORD',
+        selectedAuthMethod: null,
+      } as any;
+      expect(guards.shouldSelectAuthMethod(context, {} as any, {} as any)).toBe(
+        true
+      );
+    });
+
+    it('returns false when only one method', () => {
+      const context = {
+        availableAuthMethods: ['PASSWORD'],
+        preferredChallenge: undefined,
+        selectedAuthMethod: null,
+      } as any;
+      expect(guards.shouldSelectAuthMethod(context, {} as any, {} as any)).toBe(
+        false
+      );
+    });
+
+    it('returns false when preferred challenge set and method selected', () => {
+      const context = {
+        availableAuthMethods: ['PASSWORD', 'EMAIL_OTP'],
+        preferredChallenge: 'PASSWORD',
+        selectedAuthMethod: 'PASSWORD',
+      } as any;
+      expect(guards.shouldSelectAuthMethod(context, {} as any, {} as any)).toBe(
+        false
+      );
+    });
+  });
+
+  describe('hasPasskeyRegistrationPrompts', () => {
+    it('returns true when passkeyRegistrationPrompts is configured', () => {
+      const context = {
+        passwordlessAuthOptions: {
+          passkeyRegistrationPrompts: { afterSignup: 'ALWAYS' },
+        },
+      } as any;
+      expect(
+        guards.hasPasskeyRegistrationPrompts(context, {} as any, {} as any)
+      ).toBe(true);
+    });
+
+    it('returns false when passkeyRegistrationPrompts is null', () => {
+      const context = {
+        passwordlessAuthOptions: { passkeyRegistrationPrompts: null },
+      } as any;
+      expect(
+        guards.hasPasskeyRegistrationPrompts(context, {} as any, {} as any)
+      ).toBe(false);
+    });
+
+    it('returns false when passwordlessAuthOptions is undefined', () => {
+      const context = {} as any;
+      expect(
+        guards.hasPasskeyRegistrationPrompts(context, {} as any, {} as any)
+      ).toBe(false);
+    });
+  });
 });
