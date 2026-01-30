@@ -123,7 +123,7 @@ jobs:
       - name: Delete AWS Profile
         run: rm -rf ~/.aws
       - name: Restore cypress runner from Cache
-        uses: actions/cache@1bd1e32a3bdc45362d1e726936510720a7c30a57 # v4.2.0 https://github.com/actions/cache/commit/1bd1e32a3bdc45362d1e726936510720a7c30a57
+        uses: actions/cache@cdf6c1fa76f9f475f3d7449005a359c84ca0f306 # v5.0.3
         id: restore-cypress-cache
         with:
           path: ~/.cache/Cypress
@@ -138,20 +138,7 @@ jobs:
         uses: ./.github/actions/install-with-retries
         with:
           working-directory: build-system-tests/e2e
-          # If we got a cache hit on cypress runner, then we will skip cypress binary
-          # installation. Otherwise, it will install cypress binary.
           skip-cypress-binary: ${{ steps.restore-cypress-cache.outputs.cache-hit }}
-        # If cypress cache was missed, then we need to create new cache entry and upload it.
-        # At this point, cypress runner should've been installed from the previous installation
-        # step, so we go ahead and update the cache entry.
-      - name: Cache cypress runner
-        if: steps.restore-cypress-cache.outputs.cache-hit != 'true'
-        uses: actions/cache@1bd1e32a3bdc45362d1e726936510720a7c30a57 # v4.2.0 https://github.com/actions/cache/commit/1bd1e32a3bdc45362d1e726936510720a7c30a57
-        with:
-          path: ~/.cache/Cypress
-          key: ${{ runner.os }}-canary-cypress-${{ hashFiles('build-system-tests/e2e/yarn.lock') }}
-        env:
-          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
       - name: Run E2E tests against ${{ env.MEGA_APP_NAME }} example
         run: npm run test:web
         id: e2e

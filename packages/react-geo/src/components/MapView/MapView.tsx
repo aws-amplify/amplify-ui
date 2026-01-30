@@ -88,7 +88,9 @@ const MapView = forwardRef<MapRef, MapViewProps>(
         fog={props.fog}
         terrain={props.terrain}
       />
-    ) : null;
+    ) : (
+      <b>No transformRequest found</b>
+    );
   }
 );
 
