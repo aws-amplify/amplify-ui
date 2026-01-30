@@ -10,6 +10,10 @@ const nextConfig = {
     '@mediapipe/face_detection',
     '@tensorflow-models/face-detection',
     '@aws-amplify/ui-react-liveness',
+    '@aws-amplify/ui-react-geo',
+    'react-map-gl',
+    'maplibre-gl',
+    'maplibre-gl-js-amplify',
   ],
   pageExtensions: ['page.tsx'],
 };
