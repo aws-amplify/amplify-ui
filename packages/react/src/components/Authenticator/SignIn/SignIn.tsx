@@ -12,12 +12,31 @@ import { useFormHandlers } from '../hooks/useFormHandlers';
 import { RemoteErrorMessage } from '../shared/RemoteErrorMessage';
 import { FormFields } from '../shared/FormFields';
 
-const { getSignInText, getSigningInText, getForgotPasswordText } =
-  authenticatorTextUtil;
+const {
+  getSignInText,
+  getSigningInText,
+  getForgotPasswordText,
+  getSignInWithEmailText,
+  getSignInWithSmsText,
+  getSignInWithPasskeyText,
+  getOtherSignInOptionsText,
+  getEnterUsernameFirstText,
+} = authenticatorTextUtil;
 
 export function SignIn(): React.JSX.Element {
-  const { isPending } = useAuthenticator((context) => [context.isPending]);
+  const {
+    isPending,
+    availableAuthMethods,
+    preferredChallenge,
+    toShowAuthMethods,
+  } = useAuthenticator((context) => [
+    context.isPending,
+    context.availableAuthMethods,
+    context.preferredChallenge,
+    context.toShowAuthMethods,
+  ]);
   const { handleChange, handleSubmit } = useFormHandlers();
+  const [usernameValue, setUsernameValue] = React.useState('');
 
   const {
     components: {
@@ -25,6 +44,49 @@ export function SignIn(): React.JSX.Element {
       SignIn: { Header = SignIn.Header, Footer = SignIn.Footer },
     },
   } = useCustomComponents();
+
+  const hasMultipleMethods =
+    availableAuthMethods && availableAuthMethods.length > 1;
+  const showPreferredButton = hasMultipleMethods && preferredChallenge;
+  const hasUsername = usernameValue.trim().length > 0;
+
+  const handleFormChange = React.useCallback(
+    (e: React.ChangeEvent<HTMLFormElement>) => {
+      const { name, value } = e.target;
+      // Track username for "Other sign-in options" button validation
+      if (name === 'username' && typeof value === 'string') {
+        setUsernameValue(value);
+      }
+      handleChange(e);
+    },
+    [handleChange]
+  );
+
+  const getPreferredButtonText = () => {
+    if (!preferredChallenge) return getSignInText();
+    switch (preferredChallenge) {
+      case 'EMAIL_OTP':
+        return getSignInWithEmailText();
+      case 'SMS_OTP':
+        return getSignInWithSmsText();
+      case 'WEB_AUTHN':
+        return getSignInWithPasskeyText();
+      case 'PASSWORD':
+      default:
+        return getSignInText();
+    }
+  };
+
+  const handlePreferredMethodClick = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    // For passwordless methods, just submit - the actor already knows the preferredChallenge
+    handleSubmit(e);
+  };
+
+  const handleOtherOptionsClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    toShowAuthMethods();
+  };
 
   return (
     <View>
@@ -34,8 +96,10 @@ export function SignIn(): React.JSX.Element {
         data-amplify-form=""
         data-amplify-authenticator-signin=""
         method="post"
-        onSubmit={handleSubmit}
-        onChange={handleChange}
+        onSubmit={
+          showPreferredButton ? handlePreferredMethodClick : handleSubmit
+        }
+        onChange={handleFormChange}
       >
         <FederatedSignIn />
         <Flex direction="column">
@@ -55,8 +119,21 @@ export function SignIn(): React.JSX.Element {
             isLoading={isPending}
             loadingText={getSigningInText()}
           >
-            {getSignInText()}
+            {showPreferredButton ? getPreferredButtonText() : getSignInText()}
           </Button>
+
+          {showPreferredButton && (
+            <Button
+              onClick={handleOtherOptionsClick}
+              size="small"
+              variation="link"
+              isDisabled={isPending || !hasUsername}
+              title={!hasUsername ? getEnterUsernameFirstText() : undefined}
+            >
+              {getOtherSignInOptionsText()}
+            </Button>
+          )}
+
           <Footer />
         </Flex>
       </form>

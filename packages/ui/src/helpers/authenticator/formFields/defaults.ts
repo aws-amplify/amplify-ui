@@ -53,13 +53,29 @@ const getConfirmationCodeFormFields = (_: AuthMachineState): FormFields => ({
   },
 });
 
-const getSignInFormFields = (state: AuthMachineState): FormFields => ({
-  username: { ...getAliasDefaultFormField(state) },
-  password: {
-    ...getDefaultFormField('password'),
-    autocomplete: 'current-password',
-  },
-});
+const getSignInFormFields = (state: AuthMachineState): FormFields => {
+  const actorContext = state.context.actorRef?.getSnapshot()?.context;
+  const availableAuthMethods = actorContext?.availableAuthMethods;
+
+  const shouldShowPassword =
+    !availableAuthMethods ||
+    availableAuthMethods.length === 0 ||
+    (availableAuthMethods.length === 1 &&
+      availableAuthMethods[0] === 'PASSWORD');
+
+  const fields: FormFields = {
+    username: { ...getAliasDefaultFormField(state) },
+  };
+
+  if (shouldShowPassword) {
+    fields.password = {
+      ...getDefaultFormField('password'),
+      autocomplete: 'current-password',
+    };
+  }
+
+  return fields;
+};
 
 const getSignUpFormFields = (state: AuthMachineState): FormFields => {
   const { loginMechanisms, signUpAttributes } = state.context.config as {
@@ -67,6 +83,10 @@ const getSignUpFormFields = (state: AuthMachineState): FormFields => {
     signUpAttributes: SignUpAttribute[];
   };
   const primaryAlias = getPrimaryAlias(state);
+  const actorContext = state.context.actorRef?.getSnapshot()?.context;
+  const availableAuthMethods = actorContext?.availableAuthMethods;
+  const hasMultipleMethods =
+    availableAuthMethods && availableAuthMethods.length > 1;
 
   /**
    * @migration signUp Fields created here
@@ -89,7 +109,16 @@ const getSignUpFormFields = (state: AuthMachineState): FormFields => {
           ? getAliasDefaultFormField(state)
           : getDefaultFormField(fieldName);
 
-      formField[fieldName] = { ...fieldAttrs };
+      // Make email and phone_number optional when multiple auth methods available
+      // Validation will check based on selected method
+      const isOptional =
+        hasMultipleMethods &&
+        (fieldName === 'email' || fieldName === 'phone_number');
+
+      formField[fieldName] = {
+        ...fieldAttrs,
+        ...(isOptional && { isRequired: false }),
+      };
     } else {
       // There's a `custom:*` attribute or one we don't already have an implementation for
       // eslint-disable-next-line no-console

@@ -152,4 +152,28 @@ describe('setUserAgent', () => {
       additionalDetails: [['StorageBrowser'], ['ui-react-storage', '1.0.0']],
     });
   });
+
+  it('passes the expected input for FileUploader', () => {
+    const details: SetUserAgentOptions = {
+      componentName: 'FileUploader',
+      packageName: 'react-storage',
+      version: '1.0.0',
+    };
+
+    setUserAgent(details);
+
+    expect(setCustomUserAgentSpy).toHaveBeenCalledTimes(1);
+  });
+
+  it('passes the expected input for AIConversation', () => {
+    const details: SetUserAgentOptions = {
+      componentName: 'AIConversation',
+      packageName: 'react-ai',
+      version: '1.0.0',
+    };
+
+    setUserAgent(details);
+
+    expect(setCustomUserAgentSpy).toHaveBeenCalledTimes(1);
+  });
 });

@@ -12,6 +12,8 @@ import { isSignInOrSignUpRoute } from '../utils';
 import type { RouterProps } from './types';
 import { SelectMfaType } from '../SelectMfaType';
 import { SetupEmail } from '../SetupEmail';
+import { SignInSelectAuthFactor } from '../SignInSelectAuthFactor';
+import { PasskeyPrompt } from '../PasskeyPrompt';
 
 type RouteComponent = (
   props: Omit<RouterProps, 'children'>
@@ -42,6 +44,10 @@ const getRouteComponent = (route: string): RouteComponent => {
     case 'signIn':
     case 'signUp':
       return SignInSignUpTabs;
+    case 'signInSelectAuthFactor':
+      return SignInSelectAuthFactor;
+    case 'passkeyPrompt':
+      return PasskeyPrompt;
     case 'forceNewPassword':
       return ForceNewPassword;
     case 'forgotPassword':
