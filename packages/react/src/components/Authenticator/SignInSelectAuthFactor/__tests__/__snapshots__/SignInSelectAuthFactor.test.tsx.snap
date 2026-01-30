@@ -14,8 +14,8 @@ exports[`SignInSelectAuthFactor renders with all auth methods 1`] = `
         data-amplify-router=""
       >
         <form
-          data-amplify-authenticator-signinselect=""
-          data-amplify-form=""
+          data-amplify-authenticator-signinselect="true"
+          data-amplify-form="true"
           method="post"
         >
           <div
@@ -174,8 +174,8 @@ exports[`SignInSelectAuthFactor renders with only passwordless methods 1`] = `
         data-amplify-router=""
       >
         <form
-          data-amplify-authenticator-signinselect=""
-          data-amplify-form=""
+          data-amplify-authenticator-signinselect="true"
+          data-amplify-form="true"
           method="post"
         >
           <div
@@ -255,8 +255,8 @@ exports[`SignInSelectAuthFactor renders with password and email OTP options 1`] 
         data-amplify-router=""
       >
         <form
-          data-amplify-authenticator-signinselect=""
-          data-amplify-form=""
+          data-amplify-authenticator-signinselect="true"
+          data-amplify-form="true"
           method="post"
         >
           <div
