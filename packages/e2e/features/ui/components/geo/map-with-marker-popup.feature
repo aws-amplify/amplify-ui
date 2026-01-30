@@ -4,6 +4,7 @@ Feature: Map with Marker Popup
 
   Background:
     Given I'm running the example "ui/components/geo/map-with-marker-popup"
+    And the map is loaded
 
   @react
   Scenario: Popup Appears when Marker Is Clicked

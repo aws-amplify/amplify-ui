@@ -1,4 +1,16 @@
-import { Then, When } from '@badeball/cypress-cucumber-preprocessor';
+import { Given, Then, When } from '@badeball/cypress-cucumber-preprocessor';
+
+/**
+ * Wait for the map to be fully loaded and idle.
+ * This is necessary because MapView renders null until fetchAuthSession() completes,
+ * which can take longer in CI environments.
+ */
+Given('the map is loaded', () => {
+  // Wait for the map container to have content (not just an empty div)
+  cy.get('.maplibregl-map', { timeout: 30000 }).should('exist');
+  // Wait for the map to be idle (set by _app.page.tsx)
+  cy.window().its('idleMap', { timeout: 30000 }).should('eq', true);
+});
 
 When('I search for {string}', (searchTerm: string) => {
   cy.intercept(/.*places.*/).as('searchResults');

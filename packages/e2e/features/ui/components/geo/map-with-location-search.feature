@@ -4,6 +4,7 @@ Feature: Map with LocationSearch
 
   Background:
     Given I'm running the example "ui/components/geo/map-with-location-search"
+    And the map is loaded
     Then my default search results is 5
 
   @react

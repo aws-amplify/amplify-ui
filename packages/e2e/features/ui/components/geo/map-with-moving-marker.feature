@@ -4,6 +4,7 @@ Feature: Map with Moving Marker
 
   Background:
     Given I'm running the example "ui/components/geo/map-with-moving-marker"
+    And the map is loaded
 
   @react
   Scenario: Marker position updates
