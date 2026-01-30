@@ -21,11 +21,20 @@ export default defineConfig({
 
       Object.assign(config.env, process.env);
 
-      // This is a chrome launch option which enables fake videos
-      on('before:browser:launch', (_browser, launchOptions) => {
+      // This is a chrome launch option which enables fake videos and WebGL for CI
+      on('before:browser:launch', (browser, launchOptions) => {
         launchOptions.args.push(
           '--use-file-for-fake-video-capture=cypress/fixtures/faceRecording.y4m'
         );
+
+        // Enable software WebGL rendering for maplibre-gl in headless CI environments
+        if (browser.name === 'chrome') {
+          // Use SwiftShader for software WebGL rendering (works in headless)
+          launchOptions.args.push('--use-gl=angle');
+          launchOptions.args.push('--use-angle=swiftshader');
+          launchOptions.args.push('--enable-webgl');
+          launchOptions.args.push('--ignore-gpu-blocklist');
+        }
 
         return launchOptions;
       });
