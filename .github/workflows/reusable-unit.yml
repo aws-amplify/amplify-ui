@@ -77,8 +77,8 @@ jobs:
         with:
           skip-cypress-binary: true # unit test doesn't need cypress
 
-      - name: Build ui package
-        if: ${{ steps.restore-ui-cache.outputs.cache-hit != 'true' && matrix.package == 'ui' }}
+      - name: Build ui package for downstream dependencies
+        if: ${{ steps.restore-ui-cache.outputs.cache-hit != 'true' && matrix.package != 'ui' }}
         run: yarn ui build
 
       - name: Build react-core package
