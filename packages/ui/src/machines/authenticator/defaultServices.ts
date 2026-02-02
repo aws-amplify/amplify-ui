@@ -211,6 +211,20 @@ export const defaultServices = {
       return { phone_number: 'Phone number is required for SMS OTP sign up' };
     }
 
+    if (authMethod === 'PASSWORD') {
+      const errors: Record<string, string> = {};
+
+      if (!formData.password) {
+        errors.password = 'Password is required';
+      }
+
+      if (!formData.confirm_password) {
+        errors.confirm_password = 'Confirm Password is required';
+      }
+
+      return Object.keys(errors).length > 0 ? errors : null;
+    }
+
     return null;
   },
 };

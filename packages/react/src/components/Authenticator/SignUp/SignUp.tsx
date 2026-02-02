@@ -132,6 +132,7 @@ export function SignUp(): React.JSX.Element {
             variation="primary"
             isLoading={isPending}
             loadingText={getCreatingAccountText()}
+            onClick={handleMethodClick(primaryMethod)}
           >
             {getButtonText(primaryMethod)}
           </Button>
