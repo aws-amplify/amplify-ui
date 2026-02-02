@@ -151,7 +151,7 @@ describe('Guards', () => {
   describe('Passkey registration guards', () => {
     it('shouldPromptPasskeyRegistration returns false when no prompts configured', () => {
       const context = {
-        passwordlessAuthOptions: {},
+        passwordless: {},
         hasExistingPasskeys: false,
       } as any;
       expect(
@@ -161,7 +161,7 @@ describe('Guards', () => {
 
     it('shouldPromptPasskeyRegistration returns false when user has passkeys', () => {
       const context = {
-        passwordlessAuthOptions: {
+        passwordless: {
           passkeyRegistrationPrompts: { afterSignin: 'ALWAYS' },
         },
         hasExistingPasskeys: true,
@@ -173,7 +173,7 @@ describe('Guards', () => {
 
     it('shouldPromptPasskeyRegistration returns true when boolean true', () => {
       const context = {
-        passwordlessAuthOptions: {
+        passwordless: {
           passkeyRegistrationPrompts: true,
         },
         hasExistingPasskeys: false,
@@ -185,7 +185,7 @@ describe('Guards', () => {
 
     it('shouldPromptPasskeyRegistration returns false when boolean false', () => {
       const context = {
-        passwordlessAuthOptions: {
+        passwordless: {
           passkeyRegistrationPrompts: false,
         },
         hasExistingPasskeys: false,
@@ -197,7 +197,7 @@ describe('Guards', () => {
 
     it('shouldPromptPasskeyRegistration returns true when afterSignin is ALWAYS', () => {
       const context = {
-        passwordlessAuthOptions: {
+        passwordless: {
           passkeyRegistrationPrompts: { afterSignin: 'ALWAYS' },
         },
         hasExistingPasskeys: false,
@@ -209,7 +209,7 @@ describe('Guards', () => {
 
     it('shouldPromptPasskeyRegistration returns false when afterSignin is not ALWAYS', () => {
       const context = {
-        passwordlessAuthOptions: {
+        passwordless: {
           passkeyRegistrationPrompts: { afterSignin: 'NEVER' },
         },
         hasExistingPasskeys: false,
@@ -221,7 +221,7 @@ describe('Guards', () => {
 
     it('shouldPromptPasskeyRegistrationAfterSignup returns true when afterSignup is ALWAYS', () => {
       const context = {
-        passwordlessAuthOptions: {
+        passwordless: {
           passkeyRegistrationPrompts: { afterSignup: 'ALWAYS' },
         },
         hasExistingPasskeys: false,
@@ -237,7 +237,7 @@ describe('Guards', () => {
 
     it('shouldPromptPasskeyRegistrationAfterSignup returns false when user has passkeys', () => {
       const context = {
-        passwordlessAuthOptions: {
+        passwordless: {
           passkeyRegistrationPrompts: { afterSignup: 'ALWAYS' },
         },
         hasExistingPasskeys: true,
@@ -386,7 +386,7 @@ describe('Guards', () => {
   describe('hasPasskeyRegistrationPrompts', () => {
     it('returns true when passkeyRegistrationPrompts is configured', () => {
       const context = {
-        passwordlessAuthOptions: {
+        passwordless: {
           passkeyRegistrationPrompts: { afterSignup: 'ALWAYS' },
         },
       } as any;
@@ -397,14 +397,14 @@ describe('Guards', () => {
 
     it('returns false when passkeyRegistrationPrompts is null', () => {
       const context = {
-        passwordlessAuthOptions: { passkeyRegistrationPrompts: null },
+        passwordless: { passkeyRegistrationPrompts: null },
       } as any;
       expect(
         guards.hasPasskeyRegistrationPrompts(context, {} as any, {} as any)
       ).toBe(false);
     });
 
-    it('returns false when passwordlessAuthOptions is undefined', () => {
+    it('returns false when passwordless is undefined', () => {
       const context = {} as any;
       expect(
         guards.hasPasskeyRegistrationPrompts(context, {} as any, {} as any)

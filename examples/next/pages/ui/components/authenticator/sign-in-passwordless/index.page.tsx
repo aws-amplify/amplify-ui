@@ -24,7 +24,7 @@ Amplify.configure(awsExports);
 export default function PasswordlessExample() {
   return (
     <Authenticator
-      passwordlessAuthOptions={{
+      passwordless={{
         hiddenAuthMethods: [],
         preferredAuthMethod: 'EMAIL_OTP',
         passkeyRegistrationPrompts: true,

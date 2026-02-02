@@ -151,10 +151,10 @@ const shouldSelectAuthMethod = ({
 };
 
 const shouldPromptPasskeyRegistration = ({
-  passwordlessAuthOptions,
+  passwordless,
   hasExistingPasskeys,
 }: AuthActorContext) => {
-  const { passkeyRegistrationPrompts } = passwordlessAuthOptions || {};
+  const { passkeyRegistrationPrompts } = passwordless || {};
 
   if (!passkeyRegistrationPrompts) {
     return false;
@@ -173,10 +173,10 @@ const shouldPromptPasskeyRegistration = ({
 };
 
 const shouldPromptPasskeyRegistrationAfterSignup = ({
-  passwordlessAuthOptions,
+  passwordless,
   hasExistingPasskeys,
 }: AuthActorContext) => {
-  const { passkeyRegistrationPrompts } = passwordlessAuthOptions || {};
+  const { passkeyRegistrationPrompts } = passwordless || {};
 
   if (!passkeyRegistrationPrompts) {
     return false;
@@ -194,10 +194,8 @@ const shouldPromptPasskeyRegistrationAfterSignup = ({
   return passkeyRegistrationPrompts.afterSignup === 'ALWAYS';
 };
 
-const hasPasskeyRegistrationPrompts = ({
-  passwordlessAuthOptions,
-}: AuthActorContext) =>
-  passwordlessAuthOptions?.passkeyRegistrationPrompts != null;
+const hasPasskeyRegistrationPrompts = ({ passwordless }: AuthActorContext) =>
+  passwordless?.passkeyRegistrationPrompts != null;
 
 const shouldReturnToSelectMethod = ({
   selectedAuthMethod,

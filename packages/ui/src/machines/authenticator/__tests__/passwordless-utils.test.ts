@@ -1,8 +1,5 @@
 import { getAvailableAuthMethods, getPreferredAuthMethod } from '../utils';
-import type {
-  PasswordlessCapabilities,
-  PasswordlessAuthOptions,
-} from '../types';
+import type { PasswordlessCapabilities, PasswordlessSettings } from '../types';
 
 describe('getAvailableAuthMethods', () => {
   const mockCapabilities: PasswordlessCapabilities = {
@@ -69,7 +66,7 @@ describe('getAvailableAuthMethods', () => {
         'SMS_OTP',
         'WEB_AUTHN',
       ])
-    ).toThrow('InvalidPasswordlessAuthOptions');
+    ).toThrow('InvalidPasswordlessSettings');
   });
 
   it('should return PASSWORD when undefined capabilities', () => {
@@ -100,7 +97,7 @@ describe('getAvailableAuthMethods', () => {
         ['PASSWORD', 'EMAIL_OTP', 'SMS_OTP', 'WEB_AUTHN']
       )
     ).toThrow(
-      'InvalidPasswordlessAuthOptions: All authentication methods are hidden'
+      'InvalidPasswordlessSettings: All authentication methods are hidden'
     );
   });
 

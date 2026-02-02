@@ -35,12 +35,12 @@ export type AuthenticatorMachineOptions = AuthContext['config'] & {
 const getActorContext = (context: AuthContext, defaultStep?: InitialStep) => {
   const availableAuthMethods = getAvailableAuthMethods(
     context.passwordlessCapabilities,
-    context.config?.passwordlessAuthOptions?.hiddenAuthMethods
+    context.config?.passwordless?.hiddenAuthMethods
   );
 
   // Determine effective preferred challenge: component prop takes precedence over backend config
   const preferredChallenge =
-    context.config?.passwordlessAuthOptions?.preferredAuthMethod ??
+    context.config?.passwordless?.preferredAuthMethod ??
     context.passwordlessCapabilities?.preferredChallenge;
 
   return {
@@ -60,7 +60,7 @@ const getActorContext = (context: AuthContext, defaultStep?: InitialStep) => {
     socialProviders: context.config?.socialProviders,
     availableAuthMethods,
     preferredChallenge,
-    passwordlessAuthOptions: context.config?.passwordlessAuthOptions,
+    passwordless: context.config?.passwordless,
   };
 };
 
@@ -351,7 +351,7 @@ export function createAuthenticatorMachine(
               formFields: _formFields,
               passwordSettings = cliConfig.passwordFormat ??
                 ({} as PasswordSettings),
-              passwordlessAuthOptions,
+              passwordless,
             } = context.config;
 
             // By default, Cognito assumes `username`, so there isn't a different username attribute like `email`.
@@ -367,7 +367,7 @@ export function createAuthenticatorMachine(
               initialState,
               loginMechanisms,
               passwordSettings,
-              passwordlessAuthOptions,
+              passwordless,
               signUpAttributes,
               socialProviders,
             };

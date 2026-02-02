@@ -168,7 +168,7 @@ export const getAvailableAuthMethods = (
   // Validate that at least one method remains
   if (availableMethods.length === 0) {
     throw new Error(
-      'InvalidPasswordlessAuthOptions: All authentication methods are hidden'
+      'InvalidPasswordlessSettings: All authentication methods are hidden'
     );
   }
 

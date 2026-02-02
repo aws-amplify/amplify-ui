@@ -25,7 +25,7 @@ export interface PasswordlessCapabilities {
   preferredChallenge?: AuthMethod;
 }
 
-export interface PasswordlessAuthOptions {
+export interface PasswordlessSettings {
   hiddenAuthMethods?: AuthMethod[];
   preferredAuthMethod?: AuthMethod;
   passkeyRegistrationPrompts?:
@@ -158,7 +158,7 @@ export interface AuthContext {
     formFields?: AuthFormFields;
     initialState?: 'signIn' | 'signUp' | 'forgotPassword';
     passwordSettings?: PasswordSettings;
-    passwordlessAuthOptions?: PasswordlessAuthOptions;
+    passwordless?: PasswordlessSettings;
   };
   services?: Partial<typeof defaultServices>;
   user?: AuthUser;
@@ -237,7 +237,7 @@ interface BaseFormContext {
   selectedAuthMethod?: AuthMethod;
   availableAuthMethods?: AuthMethod[];
   preferredChallenge?: AuthMethod;
-  passwordlessAuthOptions?: PasswordlessAuthOptions;
+  passwordless?: PasswordlessSettings;
   hasExistingPasskeys?: boolean;
   fetchedUserAttributes?: Record<string, unknown>;
 
