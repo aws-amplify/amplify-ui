@@ -56,12 +56,14 @@ const getConfirmationCodeFormFields = (_: AuthMachineState): FormFields => ({
 const getSignInFormFields = (state: AuthMachineState): FormFields => {
   const actorContext = state.context.actorRef?.getSnapshot()?.context;
   const availableAuthMethods = actorContext?.availableAuthMethods;
+  const preferredChallenge = actorContext?.preferredChallenge;
 
   const shouldShowPassword =
     !availableAuthMethods ||
     availableAuthMethods.length === 0 ||
-    (availableAuthMethods.length === 1 &&
-      availableAuthMethods[0] === 'PASSWORD');
+    (availableAuthMethods.length >= 1 &&
+      (availableAuthMethods[0] === 'PASSWORD' ||
+        preferredChallenge === 'PASSWORD'));
 
   const fields: FormFields = {
     username: { ...getAliasDefaultFormField(state) },
@@ -109,11 +111,14 @@ const getSignUpFormFields = (state: AuthMachineState): FormFields => {
           ? getAliasDefaultFormField(state)
           : getDefaultFormField(fieldName);
 
-      // Make email and phone_number optional when multiple auth methods available
+      // Make email, phone_number, password, and confirm_password optional when multiple auth methods available
       // Validation will check based on selected method
       const isOptional =
         hasMultipleMethods &&
-        (fieldName === 'email' || fieldName === 'phone_number');
+        (fieldName === 'email' ||
+          fieldName === 'phone_number' ||
+          fieldName === 'password' ||
+          fieldName === 'confirm_password');
 
       formField[fieldName] = {
         ...fieldAttrs,
