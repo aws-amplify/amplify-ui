@@ -1,4 +1,5 @@
-# Description: this is a reusable workflow that sets up cache for unit and e2e testss.
+# Description: this is a reusable workflow that sets up cache for unit and e2e tests.
+# It checks if caches exist and populates them if missing, so downstream jobs can restore them.
 
 on:
   workflow_call:
@@ -29,44 +30,51 @@ jobs:
           cache: 'yarn'
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
-      - name: Restore cypress runner from Cache
-        uses: actions/cache@1bd1e32a3bdc45362d1e726936510720a7c30a57 # v4.2.0 https://github.com/actions/cache/commit/1bd1e32a3bdc45362d1e726936510720a7c30a57
-        id: restore-cypress-cache
+      - name: Check if Cypress cache exists
+        uses: actions/cache/restore@1bd1e32a3bdc45362d1e726936510720a7c30a57 # v4.2.0
+        id: check-cypress-cache
         with:
           path: ~/.cache/Cypress
           key: ${{ runner.os }}-cypress-${{ hashFiles('yarn.lock') }}
-        env:
-          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
-      - name: Restore Puppeteer runner from Cache
-        uses: actions/cache@1bd1e32a3bdc45362d1e726936510720a7c30a57 # v4.2.0 https://github.com/actions/cache/commit/1bd1e32a3bdc45362d1e726936510720a7c30a57
-        id: restore-puppeteer-cache
+          lookup-only: true
+      - name: Check if Puppeteer cache exists
+        uses: actions/cache/restore@1bd1e32a3bdc45362d1e726936510720a7c30a57 # v4.2.0
+        id: check-puppeteer-cache
         with:
           path: ~/.cache/puppeteer
           key: ${{ runner.os }}-puppeteer-${{ hashFiles('yarn.lock') }}
-        env:
-          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
-      - name: Restore node_modules from Cache
-        uses: actions/cache@1bd1e32a3bdc45362d1e726936510720a7c30a57 # v4.2.0 https://github.com/actions/cache/commit/1bd1e32a3bdc45362d1e726936510720a7c30a57
-        id: restore-node-modules-cache
+          lookup-only: true
+      - name: Check if node_modules cache exists
+        uses: actions/cache/restore@1bd1e32a3bdc45362d1e726936510720a7c30a57 # v4.2.0
+        id: check-node-modules-cache
         with:
           path: |
             ./node_modules
             **/node_modules
           key: ${{ runner.os }}-nodemodules-${{ hashFiles('yarn.lock') }}
-        env:
-          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 3
+          lookup-only: true
       - name: Install packages
-        if: steps.restore-node-modules-cache.outputs.cache-hit != 'true'
+        if: steps.check-node-modules-cache.outputs.cache-hit != 'true'
         uses: ./.github/actions/install-with-retries
         with:
-          # only install binary if cypress cache missed
-          skip-cypress-binary: ${{ steps.restore-cypress-cache.outputs.cache-hit }}
-      - name: Restore packages/ui/dist from Cache
-        uses: actions/cache@1bd1e32a3bdc45362d1e726936510720a7c30a57 # v4.2.0 https://github.com/actions/cache/commit/1bd1e32a3bdc45362d1e726936510720a7c30a57
-        id: restore-ui-cache
+          skip-cypress-binary: ${{ steps.check-cypress-cache.outputs.cache-hit }}
+      - name: Cache node_modules
+        if: steps.check-node-modules-cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@1bd1e32a3bdc45362d1e726936510720a7c30a57 # v4.2.0
         with:
-          path: ./packages/ui/dist
-          key: ${{ runner.os }}-ui-${{ inputs.commit }}
-      - name: Build ui package
-        if: steps.restore-ui-cache.outputs.cache-hit != 'true'
-        run: yarn ui build
+          path: |
+            ./node_modules
+            **/node_modules
+          key: ${{ runner.os }}-nodemodules-${{ hashFiles('yarn.lock') }}
+      - name: Cache Cypress
+        if: steps.check-cypress-cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@1bd1e32a3bdc45362d1e726936510720a7c30a57 # v4.2.0
+        with:
+          path: ~/.cache/Cypress
+          key: ${{ runner.os }}-cypress-${{ hashFiles('yarn.lock') }}
+      - name: Cache Puppeteer
+        if: steps.check-puppeteer-cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@1bd1e32a3bdc45362d1e726936510720a7c30a57 # v4.2.0
+        with:
+          path: ~/.cache/puppeteer
+          key: ${{ runner.os }}-puppeteer-${{ hashFiles('yarn.lock') }}
