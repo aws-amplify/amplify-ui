@@ -167,6 +167,11 @@ const setRemoteError = assign({
       return translate(DefaultTexts.PASSWORDLESS_NOT_ENABLED);
     }
 
+    // Handle cannot send code error
+    if (message.includes('Cannot send code to either')) {
+      return translate(DefaultTexts.CODE_DELIVERY_FAILED);
+    }
+
     // Handle invalid/wrong verification code
     if (message.includes('Invalid code or auth state')) {
       return translate(DefaultTexts.VERIFICATION_CODE_INVALID);

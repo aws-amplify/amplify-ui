@@ -84,6 +84,7 @@ export const defaultTexts = {
   RESET_PASSWORD_HEADING: 'Reset your password',
   RESET_PASSWORD: 'Reset Password',
   SEND_CODE: 'Send code',
+  CODE_DELIVERY_FAILED: 'Unable to send verification code. Please try again.',
   VERIFICATION_CODE_EXPIRED:
     'Your verification code has expired. Please request a new code.',
   VERIFICATION_CODE_INVALID:

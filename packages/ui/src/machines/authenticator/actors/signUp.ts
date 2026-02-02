@@ -164,7 +164,10 @@ export function signUpActor({ services }: SignUpMachineOptions) {
                 cond: 'isUserAlreadyConfirmed',
                 target: '#signUpActor.resolved',
               },
-              { actions: ['setRemoteError', 'sendUpdate'] },
+              {
+                actions: ['setRemoteError', 'sendUpdate'],
+                target: '#signUpActor.confirmSignUp',
+              },
             ],
           },
         },
