@@ -1,7 +1,7 @@
 import { act, renderHook } from '@testing-library/react';
 
 import type { FileDataItem } from '../../../../actions';
-import { useLocationItems } from '../../../../locationItems';
+import { useLocationItems } from '../../../../locationItems/context';
 import { useStore } from '../../../../store';
 import { INITIAL_STATUS_COUNTS } from '../../../../tasks';
 import { useAction } from '../../../../useAction';
@@ -9,7 +9,7 @@ import { useAction } from '../../../../useAction';
 import { useDownloadView } from '../useDownloadView';
 
 jest.mock('../../../../fileItems');
-jest.mock('../../../../locationItems');
+jest.mock('../../../../locationItems/context');
 jest.mock('../../../../store');
 jest.mock('../../../../useAction');
 

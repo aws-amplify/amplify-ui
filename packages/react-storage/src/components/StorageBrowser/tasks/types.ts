@@ -22,7 +22,16 @@ export interface ProcessTasksOptions<TTask extends Task, TItems = []> {
   onTaskCancel?: (task: TTask) => void;
   onTaskComplete?: (task: TTask) => void;
   onTaskError?: (task: TTask, error: unknown) => void;
-  onTaskProgress?: (task: TTask, progress: number | undefined) => void;
+  onTaskProgress?: (
+    task: TTask,
+    progressDetails:
+      | number
+      | {
+          progress?: number;
+          successCount?: number;
+          failureCount?: number;
+        }
+  ) => void;
   onTaskSuccess?: (task: TTask, value: TTask['value'] | undefined) => void;
   onTaskRemove?: (task: TTask) => void;
 }
@@ -39,7 +48,8 @@ export interface Task<TData = unknown, TValue = any>
   data: TData & TaskData;
 
   /**
-   * task progress
+   * task progress (0-1 representing completion percentage)
+   * @example 0.75 // 75% complete
    */
   progress?: number;
 

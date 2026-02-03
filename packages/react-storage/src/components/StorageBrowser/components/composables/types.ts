@@ -1,4 +1,5 @@
 import type { ActionCancelProps } from './ActionCancel';
+import type { ActionConfirmationModalProps } from './ActionConfirmationModal';
 import type { ActionDestinationProps } from './ActionDestination';
 import type { ActionExitProps } from './ActionExit';
 import type { ActionStartProps } from './ActionStart';
@@ -22,6 +23,7 @@ import type { FilePreviewProps } from './FilePreview';
 
 export interface Composables {
   ActionCancel: React.ComponentType<ActionCancelProps>;
+  ActionConfirmationModal: React.ComponentType<ActionConfirmationModalProps>;
   ActionDestination: React.ComponentType<ActionDestinationProps>;
   ActionExit: React.ComponentType<ActionExitProps>;
   ActionStart: React.ComponentType<ActionStartProps>;

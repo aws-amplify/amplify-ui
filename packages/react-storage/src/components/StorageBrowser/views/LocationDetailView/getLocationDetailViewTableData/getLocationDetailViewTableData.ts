@@ -21,6 +21,7 @@ export const getLocationDetailViewTableData = ({
   displayText,
   location,
   fileDataItems,
+  dataItems,
   hasFiles,
   pageItems,
   selectFileLabel,
@@ -38,6 +39,7 @@ export const getLocationDetailViewTableData = ({
   displayText: DefaultLocationDetailViewDisplayText;
   location: LocationState;
   fileDataItems?: FileData[];
+  dataItems?: LocationItemData[];
   hasFiles: boolean;
   pageItems: LocationItemData[];
   selectFileLabel: string;
@@ -45,7 +47,7 @@ export const getLocationDetailViewTableData = ({
   getDateDisplayValue: (date: Date) => string;
   onDownload: (fileItem: FileDataItem) => void;
   onNavigate: (location: LocationData, path?: string) => void;
-  onSelect: (isSelected: boolean, fileItem: FileData) => void;
+  onSelect: (isSelected: boolean, item: LocationItemData) => void;
   onSelectAll: () => void;
 }): DataTableProps => {
   const {
@@ -115,6 +117,10 @@ export const getLocationDetailViewTableData = ({
           }
           onNavigate({ ...current, id }, itemLocationPath);
         };
+        const isSelected = dataItems?.some((item) => item.id === id) ?? false;
+        const onFolderSelect = () => {
+          onSelect(isSelected, locationItem);
+        };
         return {
           key: id,
           active: false,
@@ -122,6 +128,9 @@ export const getLocationDetailViewTableData = ({
             itemSubPath,
             rowId: id,
             onNavigate: onFolderNavigate,
+            selectFolderLabel: selectFileLabel,
+            isSelected,
+            onSelect: onFolderSelect,
           }),
         };
       }
