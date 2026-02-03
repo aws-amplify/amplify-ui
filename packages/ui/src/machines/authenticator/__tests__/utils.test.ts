@@ -122,4 +122,198 @@ describe('getUsernameSignUp', () => {
 
     expect(output).toEqual('testuser');
   });
+
+  it('returns email when email is the primary login mechanism', () => {
+    const formValues = {
+      email: 'test@example.com',
+      password: 'P@ssw0rd',
+      confirm_password: 'P@ssw0rd',
+    };
+
+    const output = getUsernameSignUp({
+      formValues,
+      loginMechanisms: ['email'] as LoginMechanism[],
+    } as unknown as AuthActorContext);
+
+    expect(output).toEqual('test@example.com');
+  });
+});
+
+describe('passwordless utils', () => {
+  const { getAvailableAuthMethods } = require('../utils');
+
+  it('should return PASSWORD by default', () => {
+    const result = getAvailableAuthMethods();
+    expect(result).toEqual(['PASSWORD']);
+  });
+
+  it('should include EMAIL_OTP when enabled', () => {
+    const result = getAvailableAuthMethods({
+      emailOtpEnabled: true,
+      smsOtpEnabled: false,
+      webAuthnEnabled: false,
+    });
+    expect(result).toContain('EMAIL_OTP');
+  });
+
+  it('should include SMS_OTP when enabled', () => {
+    const result = getAvailableAuthMethods({
+      emailOtpEnabled: false,
+      smsOtpEnabled: true,
+      webAuthnEnabled: false,
+    });
+    expect(result).toContain('SMS_OTP');
+  });
+
+  it('should include WEB_AUTHN when enabled', () => {
+    const result = getAvailableAuthMethods({
+      emailOtpEnabled: false,
+      smsOtpEnabled: false,
+      webAuthnEnabled: true,
+    });
+    expect(result).toContain('WEB_AUTHN');
+  });
+
+  it('should filter hidden methods', () => {
+    const result = getAvailableAuthMethods(
+      {
+        emailOtpEnabled: true,
+        smsOtpEnabled: true,
+        webAuthnEnabled: true,
+      },
+      ['EMAIL_OTP']
+    );
+    expect(result).not.toContain('EMAIL_OTP');
+    expect(result).toContain('PASSWORD');
+  });
+});
+
+describe('getSignUpInput', () => {
+  const { getSignUpInput } = require('../utils');
+
+  it('should return sign up input with password for PASSWORD auth', () => {
+    const result = getSignUpInput(
+      'testuser',
+      {
+        username: 'testuser',
+        password: 'Test123!',
+        email: 'test@example.com',
+      },
+      'username'
+    );
+
+    expect(result.username).toBe('testuser');
+    expect(result.password).toBe('Test123!');
+    expect(result.options?.autoSignIn).toBe(true);
+  });
+
+  it('should return sign up input without password for passwordless auth', () => {
+    const result = getSignUpInput(
+      'test@example.com',
+      {
+        email: 'test@example.com',
+        password: 'Test123!',
+      },
+      'email',
+      'EMAIL_OTP'
+    );
+
+    expect(result.username).toBe('test@example.com');
+    expect(result.password).toBeUndefined();
+    expect(result.options?.autoSignIn).toEqual({
+      enabled: true,
+      authFlowType: 'USER_AUTH',
+      preferredChallenge: 'EMAIL_OTP',
+    });
+  });
+
+  it('should handle phone number as username', () => {
+    const result = getSignUpInput(
+      '+11234567890',
+      {
+        username: '1234567890',
+        country_code: '+1',
+        password: 'Test123!',
+      },
+      'phone_number'
+    );
+
+    expect(result.username).toBe('+11234567890');
+    expect(result.options?.userAttributes?.phone_number).toBe('+11234567890');
+  });
+
+  it('should not include phone_number in attributes for non-phone login', () => {
+    const result = getSignUpInput(
+      'test@example.com',
+      {
+        email: 'test@example.com',
+        password: 'Test123!',
+        name: 'Test User',
+      },
+      'email'
+    );
+
+    expect(result.options?.userAttributes?.phone_number).toBeUndefined();
+    expect(result.options?.userAttributes?.name).toBe('Test User');
+  });
+
+  it('should set email to empty string for SMS_OTP auth method', () => {
+    const result = getSignUpInput(
+      '+11234567890',
+      {
+        email: 'test@example.com',
+        phone_number: '+11234567890',
+        password: 'Test123!',
+      },
+      'phone_number',
+      'SMS_OTP'
+    );
+
+    expect(result.username).toBe('+11234567890');
+    expect(result.password).toBeUndefined();
+    expect(result.options?.userAttributes?.email).toBe('');
+    expect(result.options?.userAttributes?.phone_number).toBe('+11234567890');
+  });
+});
+
+describe('getUserAttributes', () => {
+  const { getUserAttributes } = require('../utils');
+
+  it('should handle standard attributes', () => {
+    const result = getUserAttributes({
+      email: 'test@example.com',
+      name: 'Test User',
+      family_name: 'User',
+      given_name: 'Test',
+    });
+
+    expect(result.email).toBe('test@example.com');
+    expect(result.name).toBe('Test User');
+    expect(result.family_name).toBe('User');
+    expect(result.given_name).toBe('Test');
+  });
+
+  it('should handle custom attributes with custom: prefix', () => {
+    const result = getUserAttributes({
+      'custom:department': 'Engineering',
+      'custom:employee_id': '12345',
+    });
+
+    expect(result['custom:department']).toBe('Engineering');
+    expect(result['custom:employee_id']).toBe('12345');
+  });
+
+  it('should filter out non-attribute fields', () => {
+    const result = getUserAttributes({
+      email: 'test@example.com',
+      password: 'secret',
+      confirm_password: 'secret',
+      username: 'testuser',
+    });
+
+    expect(result.email).toBe('test@example.com');
+    expect(result.password).toBeUndefined();
+    expect(result.confirm_password).toBeUndefined();
+    expect(result.username).toBeUndefined();
+  });
 });

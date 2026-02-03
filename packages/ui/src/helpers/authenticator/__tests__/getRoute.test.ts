@@ -157,4 +157,46 @@ describe('getRoute', () => {
 
     expect(getRoute(state, actorState)).toBe('transition');
   });
+
+  it("should return 'passkeyPrompt' when actorState matches 'passkeyPrompt'", () => {
+    const state = getState('signInActor.runActor');
+    const actorState = {
+      value: 'passkeyPrompt',
+      matches: (targetState: string) => targetState === 'passkeyPrompt',
+    } as unknown as AuthActorState;
+
+    expect(getRoute(state, actorState)).toBe('passkeyPrompt');
+  });
+
+  it("should return 'signInSelectAuthFactor' when actorState matches 'signIn.selectMethod'", () => {
+    const state = getState('signInActor.runActor');
+    const actorState = {
+      value: { signIn: 'selectMethod' },
+      matches: (targetState: string) => targetState === 'signIn.selectMethod',
+    } as unknown as AuthActorState;
+
+    expect(getRoute(state, actorState)).toBe('signInSelectAuthFactor');
+  });
+
+  it("should return 'signInSelectAuthFactor' when actorState matches 'signIn.submit' with selectedAuthMethod", () => {
+    const state = getState('signInActor.runActor');
+    const actorState = {
+      value: { signIn: 'submit' },
+      context: { selectedAuthMethod: 'EMAIL_OTP' },
+      matches: (targetState: string) => targetState === 'signIn.submit',
+    } as unknown as AuthActorState;
+
+    expect(getRoute(state, actorState)).toBe('signInSelectAuthFactor');
+  });
+
+  it("should return 'signIn' when actorState matches 'signIn.submit' without selectedAuthMethod", () => {
+    const state = getState('signInActor.runActor');
+    const actorState = {
+      value: { signIn: 'submit' },
+      context: { selectedAuthMethod: null },
+      matches: (targetState: string) => targetState === 'signIn.submit',
+    } as unknown as AuthActorState;
+
+    expect(getRoute(state, actorState)).toBe('signIn');
+  });
 });
