@@ -72,6 +72,12 @@ export const getSignUpInput = (
 
   const isPasswordless = authMethod && authMethod !== 'PASSWORD';
 
+  // For SMS OTP, set the email channel to empty string if present to force account creation with phone number
+  let userAttributes = attributes;
+  if (authMethod === 'SMS_OTP' && attributes.email) {
+    userAttributes = { ...attributes, email: '' };
+  }
+
   const options: SignUpInput['options'] = {
     autoSignIn: isPasswordless
       ? {
@@ -83,8 +89,8 @@ export const getSignUpInput = (
     userAttributes: {
       // use `username` value for `phone_number`
       ...(loginMechanism === 'phone_number'
-        ? { ...attributes, phone_number: username }
-        : attributes),
+        ? { ...userAttributes, phone_number: username }
+        : userAttributes),
     },
   };
 
