@@ -254,6 +254,10 @@ const downloadHandler = (() => {
                   anchor.download = `${folder || 'archive'}.zip`;
                   anchor.dispatchEvent(clickEvent);
                 }
+              })
+              .catch(() => {
+                // this catch happens, when no zip was created.
+                // it is handled by the UI showing "FAILED" for all files
               });
           }
         }),

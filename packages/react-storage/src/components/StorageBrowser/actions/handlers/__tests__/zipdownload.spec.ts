@@ -4,7 +4,26 @@ import { zipDownloadHandler } from '../zipdownload';
 import type { DownloadHandlerInput } from '../download';
 
 jest.mock('../../../storage-internal');
-jest.mock('jszip', () => {});
+jest.mock(
+  'jszip',
+  () =>
+    class JSZipMock {
+      #file: string | null = null;
+      file(name: string, _file: Blob) {
+        this.#file = name;
+      }
+      async generateAsync(
+        opts: any,
+        onProgress: (o: { percent: number; currentFile: string | null }) => void
+      ) {
+        onProgress?.({ percent: 0, currentFile: this.#file });
+        onProgress?.({ percent: 50, currentFile: this.#file });
+        onProgress?.({ percent: 100, currentFile: this.#file });
+        onProgress?.({ percent: 100, currentFile: null });
+        return Promise.resolve(new Blob());
+      }
+    }
+);
 
 const baseInput: DownloadHandlerInput = {
   config: {
@@ -31,44 +50,32 @@ const baseInput: DownloadHandlerInput = {
 describe('zipDownloadHandler', () => {
   const url = new URL('mock://fake.url');
   const mockGetUrl = jest.mocked(getUrl);
-
-  beforeAll(() => {
-    if (!globalThis.fetch) {
-      globalThis.fetch = jest.fn(() => {
-        return Promise.resolve({
-          headers: {
-            get: (header: string) => {
-              if (header === 'content-length') {
-                return 100;
-              }
-            },
-          },
-          body: {
-            getReader: jest
-              .fn()
-              .mockImplementationOnce(() => {
-                return {
-                  read: async () =>
-                    Promise.resolve({
-                      value: 50,
-                      done: false,
-                    }),
-                };
-              })
-              .mockImplementation(() => {
-                return {
-                  read: () =>
-                    Promise.resolve({
-                      value: 100,
-                      done: true,
-                    }),
-                };
-              }),
-          },
-        }) as unknown as Promise<Response>;
-      });
-    }
+  globalThis.fetch = jest.fn(() => {
+    return Promise.resolve({
+      headers: {
+        get: (header: string) => {
+          if (header === 'content-length') {
+            return 100;
+          }
+        },
+      },
+      body: {
+        getReader: () => ({
+          read: jest
+            .fn()
+            .mockResolvedValueOnce({
+              value: { length: 50 },
+              done: false,
+            })
+            .mockResolvedValue({
+              value: { length: 50 },
+              done: true,
+            }),
+        }),
+      },
+    }) as unknown as Promise<Response>;
   });
+
   beforeEach(() => {
     const expiresAt = new Date();
     expiresAt.setDate(expiresAt.getDate() + 1);
@@ -112,11 +119,13 @@ describe('zipDownloadHandler', () => {
       },
     });
     await result;
-    expect(onProgress).toHaveBeenCalledWith(baseInput.data, 100, 'PENDING');
+    expect(onProgress).toHaveBeenCalledWith(baseInput.data, 0.5, 'PENDING');
+    expect(onProgress).toHaveBeenCalledWith(baseInput.data, 0.5, 'FINISHING');
+    expect(onProgress).toHaveBeenCalledWith(baseInput.data, 1, 'COMPLETE');
   });
 
   it('returns failed status', async () => {
-    const error = new Error('No download!');
+    const error = new Error('No download');
     mockGetUrl.mockRejectedValue(error);
     const { result } = zipDownloadHandler(baseInput);
     expect(await result).toEqual({
