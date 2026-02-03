@@ -68,8 +68,7 @@ jobs:
         with:
           skip-cypress-binary: true # unit test doesn't need cypress
 
-      - name: Build ui package for downstream dependencies
-        if: ${{ matrix.package != 'ui' }}
+      - name: Build ui package
         run: yarn ui build
 
       - name: Build react-core package
