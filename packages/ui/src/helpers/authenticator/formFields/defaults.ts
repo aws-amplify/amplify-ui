@@ -59,11 +59,11 @@ const getSignInFormFields = (state: AuthMachineState): FormFields => {
   const preferredChallenge = actorContext?.preferredChallenge;
 
   const shouldShowPassword =
-    !availableAuthMethods ||
-    availableAuthMethods.length === 0 ||
-    (availableAuthMethods.length >= 1 &&
-      (availableAuthMethods[0] === 'PASSWORD' ||
-        preferredChallenge === 'PASSWORD'));
+    !availableAuthMethods?.length ||
+    (availableAuthMethods.length === 1 &&
+      availableAuthMethods[0] === 'PASSWORD') ||
+    (availableAuthMethods.length > 1 &&
+      (!preferredChallenge || preferredChallenge === 'PASSWORD'));
 
   const fields: FormFields = {
     username: { ...getAliasDefaultFormField(state) },
