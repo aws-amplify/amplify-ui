@@ -94,7 +94,10 @@ describe('defaultFormFieldsGetters', () => {
         ...state.context,
         actorRef: {
           getSnapshot: () => ({
-            context: { availableAuthMethods: ['PASSWORD', 'EMAIL_OTP'] },
+            context: {
+              availableAuthMethods: ['PASSWORD', 'EMAIL_OTP'],
+              preferredChallenge: 'EMAIL_OTP',
+            },
           }),
         },
       },

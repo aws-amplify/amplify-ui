@@ -256,6 +256,24 @@ describe('getSignUpInput', () => {
     expect(result.options?.userAttributes?.phone_number).toBeUndefined();
     expect(result.options?.userAttributes?.name).toBe('Test User');
   });
+
+  it('should set email to empty string for SMS_OTP auth method', () => {
+    const result = getSignUpInput(
+      '+11234567890',
+      {
+        email: 'test@example.com',
+        phone_number: '+11234567890',
+        password: 'Test123!',
+      },
+      'phone_number',
+      'SMS_OTP'
+    );
+
+    expect(result.username).toBe('+11234567890');
+    expect(result.password).toBeUndefined();
+    expect(result.options?.userAttributes?.email).toBe('');
+    expect(result.options?.userAttributes?.phone_number).toBe('+11234567890');
+  });
 });
 
 describe('getUserAttributes', () => {
