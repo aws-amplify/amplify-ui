@@ -114,6 +114,7 @@ export const defaultTexts = {
   SUBMITTING: 'Submitting',
   SOFTWARE_TOKEN_MFA: 'Authenticator App (TOTP)',
   UPPERCASE_COPY: 'COPY',
+  USERNAME: 'Username',
   VERIFY_CONTACT: 'Verify Contact',
   VERIFY_HEADING: 'Account recovery requires verified contact information',
   VERIFY: 'Verify',

@@ -1,4 +1,4 @@
-import type { SocialProvider } from '../../types';
+import type { LoginMechanism, SocialProvider } from '../../types';
 import type {
   AuthMFAType,
   ChallengeName,
@@ -94,6 +94,20 @@ const getSelectMfaTypeByChallengeName = (
   }
 
   return translate(DefaultTexts.MFA_SELECTION);
+};
+
+const getUsernameLabelByLoginMechanism = (
+  loginMechanism?: LoginMechanism
+): string => {
+  switch (loginMechanism) {
+    case 'email':
+      return translate(DefaultTexts.EMAIL_ADDRESS);
+    case 'phone_number':
+      return translate(DefaultTexts.PHONE_NUMBER);
+    case 'username':
+    default:
+      return translate(DefaultTexts.USERNAME);
+  }
 };
 
 const getMfaTypeLabelByValue = (mfaType: AuthMFAType): string => {
@@ -215,6 +229,7 @@ export const authenticatorTextUtil = {
   getOtherSignInOptionsText: () =>
     translate(DefaultTexts.OTHER_SIGN_IN_OPTIONS),
   getEnterUsernameFirstText: () => translate(DefaultTexts.ENTER_USERNAME_FIRST),
+  getUsernameLabelByLoginMechanism,
 
   /** Validations */
   // TODO: add defaultText

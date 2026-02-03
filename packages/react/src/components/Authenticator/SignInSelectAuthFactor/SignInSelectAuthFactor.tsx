@@ -22,6 +22,7 @@ const {
   getSigningInText,
   getBackToSignInText,
   getOrText,
+  getUsernameLabelByLoginMechanism,
 } = authenticatorTextUtil;
 
 type AuthMethod = 'PASSWORD' | 'EMAIL_OTP' | 'SMS_OTP' | 'WEB_AUTHN';
@@ -70,12 +71,7 @@ export const SignInSelectAuthFactor = ({
     selectAuthMethod({ method });
   };
 
-  const usernameLabel =
-    loginMechanism === 'email'
-      ? 'Email'
-      : loginMechanism === 'phone_number'
-      ? 'Phone Number'
-      : 'Username';
+  const usernameLabel = getUsernameLabelByLoginMechanism(loginMechanism);
 
   return (
     <RouteContainer className={className} variation={variation}>
