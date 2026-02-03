@@ -27,9 +27,8 @@ jobs:
         uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v4.0.2 https://github.com/actions/setup-node/commit/60edb5dd545a775178f52524783378180af0d1f8
         with:
           node-version: 20
-          cache: 'yarn'
-        env:
-          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
+          # Skip yarn cache here - we manage node_modules cache explicitly below
+          # Downstream jobs will still use setup-node's yarn cache
       - name: Check if Cypress cache exists
         uses: actions/cache/restore@1bd1e32a3bdc45362d1e726936510720a7c30a57 # v4.2.0
         id: check-cypress-cache
@@ -54,7 +53,7 @@ jobs:
           key: ${{ runner.os }}-nodemodules-${{ hashFiles('yarn.lock') }}
           lookup-only: true
       - name: Install packages
-        if: steps.check-node-modules-cache.outputs.cache-hit != 'true'
+        if: steps.check-node-modules-cache.outputs.cache-hit != 'true' || steps.check-cypress-cache.outputs.cache-hit != 'true' || steps.check-puppeteer-cache.outputs.cache-hit != 'true'
         uses: ./.github/actions/install-with-retries
         with:
           skip-cypress-binary: ${{ steps.check-cypress-cache.outputs.cache-hit }}
