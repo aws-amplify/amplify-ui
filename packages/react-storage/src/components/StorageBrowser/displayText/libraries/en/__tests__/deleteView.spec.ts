@@ -28,6 +28,8 @@ describe('DeleteView display text values', () => {
           OVERWRITE_PREVENTED: 0,
           QUEUED: 0,
           PENDING: 0,
+          FINISHING: 0,
+          LOADED: 0,
         },
       });
       expect(result).toEqual({ content: 'No items to delete.', type: 'info' });
@@ -50,6 +52,8 @@ describe('DeleteView display text values', () => {
           OVERWRITE_PREVENTED: 0,
           QUEUED: 0,
           PENDING: 0,
+          FINISHING: 0,
+          LOADED: 0,
         },
         tasks,
       });
@@ -76,6 +80,8 @@ describe('DeleteView display text values', () => {
           OVERWRITE_PREVENTED: 0,
           QUEUED: 0,
           PENDING: 0,
+          FINISHING: 0,
+          LOADED: 0,
         },
         tasks,
       });
@@ -97,6 +103,8 @@ describe('DeleteView display text values', () => {
           OVERWRITE_PREVENTED: 0,
           QUEUED: 0,
           PENDING: 0,
+          FINISHING: 0,
+          LOADED: 0,
         },
         tasks,
       });
@@ -118,6 +126,8 @@ describe('DeleteView display text values', () => {
           OVERWRITE_PREVENTED: 0,
           QUEUED: 0,
           PENDING: 0,
+          FINISHING: 0,
+          LOADED: 0,
         },
         tasks,
       });
@@ -139,6 +149,8 @@ describe('DeleteView display text values', () => {
           OVERWRITE_PREVENTED: 0,
           QUEUED: 0,
           PENDING: 0,
+          FINISHING: 0,
+          LOADED: 0,
         },
         tasks,
       });
@@ -160,6 +172,8 @@ describe('DeleteView display text values', () => {
           OVERWRITE_PREVENTED: 0,
           QUEUED: 0,
           PENDING: 0,
+          FINISHING: 0,
+          LOADED: 0,
         },
         tasks,
       });
@@ -181,6 +195,8 @@ describe('DeleteView display text values', () => {
           OVERWRITE_PREVENTED: 0,
           QUEUED: 0,
           PENDING: 0,
+          FINISHING: 0,
+          LOADED: 0,
         },
         tasks,
       });
@@ -207,6 +223,8 @@ describe('DeleteView display text values', () => {
           OVERWRITE_PREVENTED: 0,
           QUEUED: 0,
           PENDING: 0,
+          FINISHING: 0,
+          LOADED: 0,
         },
         tasks,
       });
@@ -230,6 +248,8 @@ describe('DeleteView display text values', () => {
           OVERWRITE_PREVENTED: 0,
           QUEUED: 0,
           PENDING: 0,
+          FINISHING: 0,
+          LOADED: 0,
         },
         tasks,
       });

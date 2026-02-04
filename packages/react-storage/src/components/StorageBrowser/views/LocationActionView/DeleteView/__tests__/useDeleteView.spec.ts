@@ -115,8 +115,8 @@ describe('useDeleteView', () => {
       FINISHING: 0,
       OVERWRITE_PREVENTED: 0,
       PENDING: 0,
-      QUEUED: 3,
-      TOTAL: 3,
+      QUEUED: 1,
+      TOTAL: 1,
     });
   });
 
