@@ -110,11 +110,13 @@ describe('useProcessTasks', () => {
     expect(action).toHaveBeenCalledWith({
       config,
       data: { key: items[0].key, id: items[0].id, file: items[0].file },
+      all: items,
       options: { onProgress: expect.any(Function) },
     });
     expect(action).toHaveBeenCalledWith({
       config,
       data: { key: items[1].key, id: items[1].id, file: items[1].file },
+      all: items,
       options: { onProgress: expect.any(Function) },
     });
 
@@ -262,6 +264,7 @@ describe('useProcessTasks', () => {
     expect(action).toHaveBeenCalledWith({
       config,
       data: { key: items[0].key, id: items[0].id, file: items[0].file },
+      all: items,
       options: { extraOption: true, onProgress: expect.any(Function) },
     });
 
@@ -436,7 +439,7 @@ describe('useProcessTasks', () => {
     const processTasks = result.current[1];
 
     act(() => {
-      processTasks({ config, data: item });
+      processTasks({ config, data: item, all: [item] });
     });
 
     await waitFor(() => {
