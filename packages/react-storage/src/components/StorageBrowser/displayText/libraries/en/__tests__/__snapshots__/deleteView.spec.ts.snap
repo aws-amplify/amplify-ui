@@ -2,7 +2,7 @@
 
 exports[`DeleteView display text values \`getActionCompleteMessage\` returns the expected values in the all failed scenario 1`] = `
 {
-  "content": "Failed to delete all 11 items.",
+  "content": "Failed to delete All 11 items.",
   "type": "error",
 }
 `;

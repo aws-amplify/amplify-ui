@@ -54,7 +54,7 @@ describe('DeleteView display text values', () => {
         tasks,
       });
       expect(result?.content).toContain(
-        'All 1 folders and 1 files deleted successfully'
+        '1 folder and 1 file deleted successfully'
       );
       expect(result?.type).toBe('success');
     });
@@ -184,9 +184,7 @@ describe('DeleteView display text values', () => {
         },
         tasks,
       });
-      expect(result?.content).toContain(
-        'Failed to delete 1 folders and 1 files'
-      );
+      expect(result?.content).toContain('Failed to delete 1 folder and 1 file');
       expect(result?.type).toBe('error');
     });
 

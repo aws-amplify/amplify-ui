@@ -1,13 +1,19 @@
 import { DEFAULT_ACTION_VIEW_DISPLAY_TEXT } from './shared';
 import type { DefaultDeleteViewDisplayText } from '../../types';
 
+const pluralize = (count: number, word: string) =>
+  count === 1 ? word : `${word}s`;
+
+const formatCount = (count: number, word: string) =>
+  `${count === 1 ? '' : 'All '}${count} ${pluralize(count, word)}`;
+
 export const DEFAULT_DELETE_VIEW_DISPLAY_TEXT: DefaultDeleteViewDisplayText = {
   ...DEFAULT_ACTION_VIEW_DISPLAY_TEXT,
   title: 'Delete',
   actionStartLabel: 'Delete',
   getActionCompleteMessage: (data) => {
     const { counts, tasks } = data ?? {};
-    const { COMPLETE, FAILED, TOTAL } = counts ?? {};
+    const { COMPLETE = 0, FAILED = 0, TOTAL = 0 } = counts ?? {};
 
     if (!TOTAL || TOTAL === 0) {
       return { content: 'No items to delete.', type: 'info' };
@@ -38,17 +44,29 @@ export const DEFAULT_DELETE_VIEW_DISPLAY_TEXT: DefaultDeleteViewDisplayText = {
       if (COMPLETE === TOTAL) {
         if (isMixed) {
           return {
-            content: `All ${completeFolders} folders and ${completeFiles} files deleted successfully.`,
+            content: `${formatCount(
+              completeFolders,
+              'folder'
+            )} and ${completeFiles} ${pluralize(
+              completeFiles,
+              'file'
+            )} deleted successfully.`,
             type: 'success',
           };
         } else if (hasFolders) {
           return {
-            content: `All ${completeFolders} folders deleted successfully.`,
+            content: `${formatCount(
+              completeFolders,
+              'folder'
+            )} deleted successfully.`,
             type: 'success',
           };
         } else {
           return {
-            content: `All ${completeFiles} files deleted successfully.`,
+            content: `${formatCount(
+              completeFiles,
+              'file'
+            )} deleted successfully.`,
             type: 'success',
           };
         }
@@ -58,17 +76,29 @@ export const DEFAULT_DELETE_VIEW_DISPLAY_TEXT: DefaultDeleteViewDisplayText = {
       if (FAILED === TOTAL) {
         if (isMixed) {
           return {
-            content: `Failed to delete ${failedFolders} folders and ${failedFiles} files. Some contents may have been deleted.`,
+            content: `Failed to delete ${failedFolders} ${pluralize(
+              failedFolders,
+              'folder'
+            )} and ${failedFiles} ${pluralize(
+              failedFiles,
+              'file'
+            )}. Some contents may have been deleted.`,
             type: 'error',
           };
         } else if (hasFolders) {
           return {
-            content: `Failed to delete ${failedFolders} folders. Some items may have been deleted.`,
+            content: `Failed to delete ${failedFolders} ${pluralize(
+              failedFolders,
+              'folder'
+            )}. Some items may have been deleted.`,
             type: 'error',
           };
         } else {
           return {
-            content: `Failed to delete ${failedFiles} files.`,
+            content: `Failed to delete ${failedFiles} ${pluralize(
+              failedFiles,
+              'file'
+            )}.`,
             type: 'error',
           };
         }
@@ -79,24 +109,22 @@ export const DEFAULT_DELETE_VIEW_DISPLAY_TEXT: DefaultDeleteViewDisplayText = {
         const messages = [];
         if (completeFiles > 0) {
           messages.push(
-            `${completeFiles} file${completeFiles !== 1 ? 's' : ''} deleted`
+            `${completeFiles} ${pluralize(completeFiles, 'file')} deleted`
           );
         }
         if (completeFolders > 0) {
           messages.push(
-            `${completeFolders} folder${
-              completeFolders !== 1 ? 's' : ''
-            } deleted`
+            `${completeFolders} ${pluralize(completeFolders, 'folder')} deleted`
           );
         }
         if (failedFiles > 0) {
           messages.push(
-            `${failedFiles} file${failedFiles !== 1 ? 's' : ''} failed`
+            `${failedFiles} ${pluralize(failedFiles, 'file')} failed`
           );
         }
         if (failedFolders > 0) {
           messages.push(
-            `${failedFolders} folder${failedFolders !== 1 ? 's' : ''} failed`
+            `${failedFolders} ${pluralize(failedFolders, 'folder')} failed`
           );
         }
 
@@ -108,27 +136,31 @@ export const DEFAULT_DELETE_VIEW_DISPLAY_TEXT: DefaultDeleteViewDisplayText = {
         // Folders only partial failure
         if (completeFolders > 0) {
           return {
-            content: `${completeFolders} folder${
-              completeFolders !== 1 ? 's' : ''
-            } deleted, ${failedFolders} folder${
-              failedFolders !== 1 ? 's' : ''
-            } failed. Some items may have been deleted.`,
+            content: `${completeFolders} ${pluralize(
+              completeFolders,
+              'folder'
+            )} deleted, ${failedFolders} ${pluralize(
+              failedFolders,
+              'folder'
+            )} failed. Some items may have been deleted.`,
             type: 'error',
           };
         } else {
           return {
-            content: `Failed to delete ${failedFolders} folders. Some items may have been deleted.`,
+            content: `Failed to delete ${failedFolders} ${pluralize(
+              failedFolders,
+              'folder'
+            )}. Some items may have been deleted.`,
             type: 'error',
           };
         }
       } else {
         // Files only partial failure
         return {
-          content: `${completeFiles} file${
-            completeFiles !== 1 ? 's' : ''
-          } deleted, ${failedFiles} file${
-            failedFiles !== 1 ? 's' : ''
-          } failed.`,
+          content: `${completeFiles} ${pluralize(
+            completeFiles,
+            'file'
+          )} deleted, ${failedFiles} ${pluralize(failedFiles, 'file')} failed.`,
           type: 'error',
         };
       }
@@ -137,22 +169,21 @@ export const DEFAULT_DELETE_VIEW_DISPLAY_TEXT: DefaultDeleteViewDisplayText = {
     // Fallback to generic messaging if tasks not available
     if (COMPLETE === TOTAL) {
       return {
-        content: `All ${TOTAL} item${
-          TOTAL !== 1 ? 's' : ''
-        } deleted successfully.`,
+        content: `${formatCount(TOTAL, 'item')} deleted successfully.`,
         type: 'success',
       };
     }
     if (FAILED === TOTAL) {
       return {
-        content: `Failed to delete all ${TOTAL} item${TOTAL !== 1 ? 's' : ''}.`,
+        content: `Failed to delete ${formatCount(TOTAL, 'item')}.`,
         type: 'error',
       };
     }
     return {
-      content: `${COMPLETE} item${
-        COMPLETE !== 1 ? 's' : ''
-      } deleted, ${FAILED} item${FAILED !== 1 ? 's' : ''} failed to delete.`,
+      content: `${COMPLETE} ${pluralize(
+        COMPLETE,
+        'item'
+      )} deleted, ${FAILED} ${pluralize(FAILED, 'item')} failed to delete.`,
       type: 'error',
     };
   },
