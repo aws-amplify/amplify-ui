@@ -106,6 +106,18 @@ describe('useDeleteView', () => {
         tasks: expect.any(Array),
       })
     );
+
+    expect(result.current.statusCounts).toEqual({
+      CANCELED: 0,
+      COMPLETE: 0,
+      FAILED: 0,
+      LOADED: 0,
+      FINISHING: 0,
+      OVERWRITE_PREVENTED: 0,
+      PENDING: 0,
+      QUEUED: 3,
+      TOTAL: 3,
+    });
   });
 
   it('should show confirmation modal when onActionStart is called with folders', () => {

@@ -1,16 +1,16 @@
 import type {
-  TaskHandlerInput,
   TaskData,
+  TaskHandlerInput,
+  TaskHandlerOptions,
   TaskResult,
   TaskResultStatus,
-  TaskHandlerOptions,
 } from '../actions';
 
 /**
  * extends {@link TaskResultStatus} to include `QUEUED` and `PENDING` statuses
  * used in task processing
  */
-export type TaskStatus = TaskResultStatus | 'QUEUED' | 'PENDING';
+export type TaskStatus = TaskResultStatus | 'QUEUED' | 'PENDING' | 'FINISHING';
 
 /**
  * aggregate task status counts
@@ -79,7 +79,7 @@ interface HandleTasksOptions extends TaskHandlerOptions {
 }
 
 export interface HandleBatchTasksInput<TData extends TaskData>
-  extends Omit<TaskHandlerInput<TData, HandleTasksOptions>, 'data'> {}
+  extends Omit<TaskHandlerInput<TData, HandleTasksOptions>, 'data' | 'all'> {}
 
 export interface HandleSingleTaskInput<TData extends TaskData>
   extends TaskHandlerInput<TData> {}

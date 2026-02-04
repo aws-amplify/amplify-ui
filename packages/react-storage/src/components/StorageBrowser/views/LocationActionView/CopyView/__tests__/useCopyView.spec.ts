@@ -1,4 +1,4 @@
-import { renderHook, act } from '@testing-library/react';
+import { act, renderHook } from '@testing-library/react';
 
 import { LocationData } from '../../../../actions';
 import { useStore } from '../../../../store';
@@ -142,6 +142,8 @@ describe('useCopyView', () => {
       CANCELED: 0,
       COMPLETE: 0,
       FAILED: 0,
+      FINISHING: 0,
+      LOADED: 0,
       OVERWRITE_PREVENTED: 0,
       PENDING: 0,
       QUEUED: 3,

@@ -120,8 +120,10 @@ export interface DefaultActionViewDisplayText<T extends TaskData = TaskData> {
   }) => { content?: string; type?: MessageType } | undefined;
   statusDisplayCanceledLabel: string;
   statusDisplayCompletedLabel: string;
+  statusDisplayLoadedLabel: string;
   statusDisplayFailedLabel: string;
   statusDisplayInProgressLabel: string;
+  statusDisplayFinishingLabel: string;
   statusDisplayQueuedLabel: string;
   statusDisplayTotalLabel: string;
   title: string;

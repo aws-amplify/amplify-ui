@@ -8,14 +8,15 @@ import type {
   HandleProcessTasks,
   HandleSingleTaskInput,
   InferHandleTasksInput,
-  Task,
   ProcessTasksOptions,
+  Task,
+  TaskStatus,
   UseProcessTasksState,
 } from './types';
 import {
   getStatusCounts,
-  isProcessingTasks,
   hasCompletedProcessingTasks,
+  isProcessingTasks,
 } from './utils';
 
 const QUEUED_TASK_BASE = {
@@ -150,6 +151,9 @@ export function useProcessTasks<
         ) ?? {};
 
     if (!data) return;
+    const all = isSingleTask
+      ? [_input.data]
+      : [...tasksRef.current.values()].map(({ data }) => data);
 
     const {
       onTaskCancel,
@@ -169,7 +173,8 @@ export function useProcessTasks<
       { id }: TTask['data'],
       progressDetails:
         | number
-        | { progress?: number; successCount?: number; failureCount?: number }
+        | { progress?: number; successCount?: number; failureCount?: number },
+      status: TaskStatus = 'PENDING'
     ) => {
       const isNumber = typeof progressDetails === 'number';
 
@@ -177,6 +182,7 @@ export function useProcessTasks<
         progress: isNumber ? progressDetails : progressDetails.progress,
         failureCount: isNumber ? undefined : progressDetails.failureCount,
         successCount: isNumber ? undefined : progressDetails.successCount,
+        status,
       });
 
       if (task && isFunction(onTaskProgress)) {
@@ -184,11 +190,11 @@ export function useProcessTasks<
       }
 
       if (task && isFunction(_onProgress)) {
-        _onProgress(data, progressDetails);
+        _onProgress(data, progressDetails, status);
       }
     };
 
-    const input = { ..._input, data, options: { ...options, onProgress } };
+    const input = { ..._input, data, all, options: { ...options, onProgress } };
 
     const { cancel: _cancel, result } = handler(input);
 

@@ -12,8 +12,10 @@ export const DEFAULT_ACTION_VIEW_DISPLAY_TEXT: Omit<
   actionDestinationLabel: 'Destination',
   statusDisplayCanceledLabel: 'Canceled',
   statusDisplayCompletedLabel: 'Completed',
+  statusDisplayLoadedLabel: 'Completed',
   statusDisplayFailedLabel: 'Failed',
   statusDisplayInProgressLabel: 'In progress',
+  statusDisplayFinishingLabel: 'In progress',
   statusDisplayTotalLabel: 'Total',
   statusDisplayQueuedLabel: 'Not started',
   // empty by default

@@ -17,6 +17,16 @@ const baseInput: DeleteHandlerInput = {
     key: 'prefix/file-name',
     fileKey: 'file-name',
   },
+  all: [
+    {
+      id: 'id',
+      key: 'prefix/key.png',
+      fileKey: 'key.png',
+      lastModified: new Date(),
+      size: 100,
+      type: 'FILE',
+    },
+  ],
 };
 
 describe('deleteHandler', () => {
