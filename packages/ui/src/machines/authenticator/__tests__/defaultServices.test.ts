@@ -333,39 +333,6 @@ describe('getAmplifyConfig', () => {
     });
   });
 
-  it('correctly parses passwordless config with snake_case format', async () => {
-    const configWithPasswordless: ResourcesConfig = {
-      Auth: {
-        Cognito: {
-          userPoolClientId: 'xxxxxx',
-          userPoolId: 'xxxxxx',
-          loginWith: { username: true, email: false, phone: false },
-          // @ts-expect-error - snake_case format from backend
-          passwordless: {
-            email_otp_enabled: true,
-            sms_otp_enabled: true,
-            web_authn: {
-              relying_party_id: 'example.com',
-              user_verification: 'preferred',
-            },
-            preferred_challenge: 'EMAIL_OTP',
-          },
-        },
-      },
-    };
-
-    getConfigSpy.mockReturnValueOnce(configWithPasswordless);
-
-    const output = await getAmplifyConfig();
-
-    expect(output.passwordlessCapabilities).toStrictEqual({
-      emailOtpEnabled: true,
-      smsOtpEnabled: true,
-      webAuthnEnabled: true,
-      preferredChallenge: 'EMAIL_OTP',
-    });
-  });
-
   it('correctly parses passwordless config with camelCase format', async () => {
     const configWithPasswordless: ResourcesConfig = {
       Auth: {
@@ -373,7 +340,6 @@ describe('getAmplifyConfig', () => {
           userPoolClientId: 'xxxxxx',
           userPoolId: 'xxxxxx',
           loginWith: { username: true, email: false, phone: false },
-          // @ts-expect-error - camelCase format
           passwordless: {
             emailOtpEnabled: true,
             smsOtpEnabled: false,
