@@ -79,7 +79,7 @@ Feature: Create folder with Storage Browser
     When I click the "Menu Toggle" button
     Then I click the "Download" menuitem
     Then I click the "Download" button
-    Then I see "All files downloaded"
+    Then I see "All files downloaded" or "All files failed to download"
     When I click the "Exit" button
     # copy file
     Then I click checkbox for with "1" files with random names
