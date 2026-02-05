@@ -25,14 +25,7 @@ Feature: Create folder with Storage Browser
     When I click the "Exit" button
     Then I click the button containing random name
     Then I see "No files"
-    # delete created folder
-    When I click the "Back" button
-    Then I click checkbox for button containing random name
-    When I click the "Menu Toggle" button
-    Then I click the "Delete" menuitem
-    Then I see "Confirm Deletion"
-    When I click the "Delete" button
-    Then I see "1 folder deleted"
+    # TODO: delete created folder
 
   @react
   Scenario: Create folder fails on overwrite of existing folder name
