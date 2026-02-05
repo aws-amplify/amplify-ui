@@ -5,6 +5,7 @@ import {
   autoSignIn,
   signInWithRedirect,
   fetchUserAttributes,
+  listWebAuthnCredentials,
 } from 'aws-amplify/auth';
 
 import type { AuthContext, AuthEvent, SignUpContext } from '../types';
@@ -67,27 +68,6 @@ const handleAutoSignInResponse = {
   },
 };
 
-const handleFetchUserAttributesResponse = {
-  onDone: [
-    {
-      cond: 'shouldVerifyAttribute',
-      actions: [
-        'setShouldVerifyUserAttributeStep',
-        'setUnverifiedUserAttributes',
-      ],
-      target: '#signUpActor.resolved',
-    },
-    {
-      actions: 'setConfirmAttributeCompleteStep',
-      target: '#signUpActor.resolved',
-    },
-  ],
-  onError: {
-    actions: 'setConfirmAttributeCompleteStep',
-    target: '#signUpActor.resolved',
-  },
-};
-
 export function signUpActor({ services }: SignUpMachineOptions) {
   return createMachine<SignUpContext, AuthEvent>(
     {
@@ -108,10 +88,64 @@ export function signUpActor({ services }: SignUpMachineOptions) {
         fetchUserAttributes: {
           invoke: {
             src: 'fetchUserAttributes',
-            ...handleFetchUserAttributesResponse,
+            onDone: [
+              {
+                cond: 'hasPasskeyRegistrationPrompts',
+                actions: 'setFetchedUserAttributes',
+                target: 'checkPasskeys',
+              },
+              {
+                actions: 'setFetchedUserAttributes',
+                target: 'evaluatePasskeyPrompt',
+              },
+            ],
+            onError: {
+              actions: 'setConfirmAttributeCompleteStep',
+              target: '#signUpActor.resolved',
+            },
           },
         },
-        federatedSignIn: getFederatedSignInState('signUp'),
+        checkPasskeys: {
+          invoke: {
+            src: async () => {
+              try {
+                const result = await listWebAuthnCredentials();
+                return result.credentials && result.credentials.length > 0;
+              } catch {
+                return false;
+              }
+            },
+            onDone: {
+              actions: 'setHasExistingPasskeys',
+              target: 'evaluatePasskeyPrompt',
+            },
+            onError: {
+              actions: 'clearHasExistingPasskeys',
+              target: 'evaluatePasskeyPrompt',
+            },
+          },
+        },
+        evaluatePasskeyPrompt: {
+          always: [
+            {
+              cond: 'shouldPromptPasskeyRegistrationAfterSignup',
+              target: '#signUpActor.passkeyPrompt',
+            },
+            {
+              cond: 'shouldVerifyAttribute',
+              actions: [
+                'setShouldVerifyUserAttributeStep',
+                'setUnverifiedUserAttributes',
+              ],
+              target: '#signUpActor.resolved',
+            },
+            {
+              actions: 'setConfirmAttributeCompleteStep',
+              target: '#signUpActor.resolved',
+            },
+          ],
+        },
+        federatedSignIn: { ...getFederatedSignInState('signUp') },
         resetPassword: {
           invoke: { src: 'resetPassword', ...handleResetPasswordResponse },
         },
@@ -130,7 +164,10 @@ export function signUpActor({ services }: SignUpMachineOptions) {
                 cond: 'isUserAlreadyConfirmed',
                 target: '#signUpActor.resolved',
               },
-              { actions: ['setRemoteError', 'sendUpdate'] },
+              {
+                actions: ['setRemoteError', 'sendUpdate'],
+                target: '#signUpActor.confirmSignUp',
+              },
             ],
           },
         },
@@ -168,7 +205,13 @@ export function signUpActor({ services }: SignUpMachineOptions) {
                 idle: {
                   entry: ['sendUpdate'],
                   on: {
-                    SUBMIT: { actions: 'handleSubmit', target: 'validate' },
+                    SUBMIT: {
+                      actions: [
+                        'setSelectedAuthMethodFromForm',
+                        'handleSubmit',
+                      ],
+                      target: 'validate',
+                    },
                   },
                 },
                 validate: {
@@ -260,6 +303,13 @@ export function signUpActor({ services }: SignUpMachineOptions) {
             },
           },
         },
+        passkeyPrompt: {
+          entry: 'sendUpdate',
+          on: {
+            SKIP: { target: 'resolved' },
+            SUBMIT: { target: 'resolved' },
+          },
+        },
         resolved: {
           type: 'final',
           data: (context) => ({
@@ -298,9 +348,21 @@ export function signUpActor({ services }: SignUpMachineOptions) {
           return signInWithRedirect(data);
         },
         handleSignUp(context) {
-          const { formValues, loginMechanisms, username } = context;
+          const {
+            formValues,
+            loginMechanisms,
+            username,
+            selectedAuthMethod,
+            preferredChallenge,
+          } = context;
           const loginMechanism = loginMechanisms[0];
-          const input = getSignUpInput(username, formValues, loginMechanism);
+          const authMethod = selectedAuthMethod ?? preferredChallenge;
+          const input = getSignUpInput(
+            username,
+            formValues,
+            loginMechanism,
+            authMethod
+          );
 
           return services.handleSignUp(input);
         },
@@ -317,6 +379,8 @@ export function signUpActor({ services }: SignUpMachineOptions) {
               // Validation for default form fields
               services.validateConfirmPassword,
               services.validatePreferredUsername,
+              // Validation for required fields based on auth method
+              services.validateRequiredFieldsForAuthMethod,
               // Validation for any custom Sign Up fields
               services.validateCustomSignUp,
             ]

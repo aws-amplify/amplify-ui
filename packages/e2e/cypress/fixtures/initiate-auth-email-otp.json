@@ -1,0 +1,8 @@
+{
+  "ChallengeName": "EMAIL_OTP",
+  "ChallengeParameters": {
+    "CODE_DELIVERY_DELIVERY_MEDIUM": "EMAIL",
+    "CODE_DELIVERY_DESTINATION": "t***@e***.com"
+  },
+  "Session": "AYABeD-mock-session-token-1234567890abcdefghijklmnopqrstuvwxyz"
+}

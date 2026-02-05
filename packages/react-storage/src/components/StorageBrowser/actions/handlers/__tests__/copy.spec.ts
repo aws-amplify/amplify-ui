@@ -20,6 +20,17 @@ const baseInput: CopyHandlerInput = {
     size: 100,
     type: 'FILE',
   },
+  all: [
+    {
+      id: 'identity',
+      key: 'destination/some-prefixfix/some-key.hehe',
+      sourceKey: 'some-prefixfix/some-key.hehe',
+      fileKey: 'some-key.hehe',
+      lastModified: new Date(),
+      size: 100,
+      type: 'FILE',
+    },
+  ],
 };
 
 describe('copyHandler', () => {

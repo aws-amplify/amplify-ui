@@ -42,7 +42,7 @@
   "dependencies": {
     "@aws-amplify/ui": "6.13.0",
     "@xstate/react": "^3.2.2",
-    "lodash": "4.17.21",
+    "lodash": "4.17.23",
     "react-hook-form": "7.53.2",
     "xstate": "^4.33.6"
   },
