@@ -44,21 +44,31 @@ export const createFolderListContent = (
   );
 };
 
-export const createDeleteConfirmationModalProps = (
-  items: LocationItemData[],
-  showConfirmation: boolean
-): Omit<ActionConfirmationModalProps, 'onConfirm' | 'onCancel'> => {
+export const createDeleteConfirmationModalProps = ({
+  items,
+  showConfirmation,
+  displayText,
+}: {
+  items: LocationItemData[];
+  showConfirmation: boolean;
+  displayText: {
+    confirmationModalTitle: string;
+    confirmationModalConfirmLabel: string;
+    confirmationModalCancelLabel: string;
+    confirmationModalMessage: string;
+  };
+}): Omit<ActionConfirmationModalProps, 'onConfirm' | 'onCancel'> => {
   const folders = getSelectedFolders(items);
   const folderCount = folders.length;
 
   return {
     isOpen: showConfirmation,
-    title: 'Confirm Deletion',
-    message: `The items that will be deleted contain ${folderCount} folder${
-      folderCount !== 1 ? 's' : ''
-    }`,
-    confirmLabel: 'Delete',
-    cancelLabel: 'Cancel',
+    title: displayText.confirmationModalTitle,
+    message: displayText.confirmationModalMessage
+      .replace('{count}', folderCount.toString())
+      .replace('{plural}', folderCount !== 1 ? 's' : ''),
+    confirmLabel: displayText.confirmationModalConfirmLabel,
+    cancelLabel: displayText.confirmationModalCancelLabel,
     content: createFolderListContent(folders),
   };
 };

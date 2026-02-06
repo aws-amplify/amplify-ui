@@ -69,6 +69,14 @@ describe('createFolderListContent', () => {
 });
 
 describe('createDeleteConfirmationModalProps', () => {
+  const mockDisplayText = {
+    confirmationModalTitle: 'Confirm Deletion',
+    confirmationModalConfirmLabel: 'Delete',
+    confirmationModalCancelLabel: 'Cancel',
+    confirmationModalMessage:
+      'The items that will be deleted contain {count} folder{plural}',
+  };
+
   it('should create modal props with single folder', () => {
     const items = [
       {
@@ -80,7 +88,11 @@ describe('createDeleteConfirmationModalProps', () => {
       },
     ];
 
-    const result = createDeleteConfirmationModalProps(items, true);
+    const result = createDeleteConfirmationModalProps({
+      items,
+      showConfirmation: true,
+      displayText: mockDisplayText,
+    });
 
     expect(result).toEqual({
       isOpen: true,
@@ -110,7 +122,11 @@ describe('createDeleteConfirmationModalProps', () => {
       },
     ];
 
-    const result = createDeleteConfirmationModalProps(items, true);
+    const result = createDeleteConfirmationModalProps({
+      items,
+      showConfirmation: true,
+      displayText: mockDisplayText,
+    });
 
     expect(result.message).toBe(
       'The items that will be deleted contain 2 folders'
@@ -128,7 +144,11 @@ describe('createDeleteConfirmationModalProps', () => {
       },
     ];
 
-    const result = createDeleteConfirmationModalProps(items, false);
+    const result = createDeleteConfirmationModalProps({
+      items,
+      showConfirmation: false,
+      displayText: mockDisplayText,
+    });
 
     expect(result).toEqual({
       isOpen: false,
@@ -158,7 +178,11 @@ describe('createDeleteConfirmationModalProps', () => {
       },
     ];
 
-    const result = createDeleteConfirmationModalProps(items, true);
+    const result = createDeleteConfirmationModalProps({
+      items,
+      showConfirmation: true,
+      displayText: mockDisplayText,
+    });
 
     expect(result.message).toBe(
       'The items that will be deleted contain 1 folder'

@@ -173,6 +173,10 @@ export interface DefaultDeleteViewDisplayText
    * @deprecated `DeleteView` does not render a "progress" header
    */
   tableColumnProgressHeader?: string;
+  confirmationModalTitle: string;
+  confirmationModalConfirmLabel: string;
+  confirmationModalCancelLabel: string;
+  confirmationModalMessage: string;
 }
 
 export interface DefaultDownloadViewDisplayText

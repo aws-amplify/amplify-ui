@@ -8,6 +8,7 @@ import { useStore } from '../../../store';
 import type { Task } from '../../../tasks';
 import { useAction } from '../../../useAction';
 import { useGetActionInput } from '../../../configuration/context';
+import { useDisplayText } from '../../../displayText';
 
 import type { DeleteViewState, UseDeleteViewOptions } from './types';
 import {
@@ -22,6 +23,7 @@ export const useDeleteView = (
   options?: UseDeleteViewOptions
 ): DeleteViewState => {
   const { onExit: _onExit } = options ?? {};
+  const { DeleteView: displayText } = useDisplayText();
 
   const [{ location }, storeDispatch] = useStore();
   const [locationItems, locationItemsDispatch] = useLocationItems();
@@ -133,8 +135,13 @@ export const useDeleteView = (
   );
 
   const confirmationModal = React.useMemo(
-    () => createDeleteConfirmationModalProps(dataItems, showConfirmation),
-    [dataItems, showConfirmation]
+    () =>
+      createDeleteConfirmationModalProps({
+        items: dataItems,
+        showConfirmation,
+        displayText,
+      }),
+    [dataItems, showConfirmation, displayText]
   );
 
   return {

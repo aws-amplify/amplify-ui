@@ -11,6 +11,11 @@ export const DEFAULT_DELETE_VIEW_DISPLAY_TEXT: DefaultDeleteViewDisplayText = {
   ...DEFAULT_ACTION_VIEW_DISPLAY_TEXT,
   title: 'Delete',
   actionStartLabel: 'Delete',
+  confirmationModalTitle: 'Confirm Deletion',
+  confirmationModalConfirmLabel: 'Delete',
+  confirmationModalCancelLabel: 'Cancel',
+  confirmationModalMessage:
+    'The items that will be deleted contain {count} folder{plural}',
   getActionCompleteMessage: (data) => {
     const { counts, tasks } = data ?? {};
     const { COMPLETE = 0, FAILED = 0, TOTAL = 0 } = counts ?? {};

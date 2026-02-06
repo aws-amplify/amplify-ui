@@ -15,6 +15,21 @@ jest.mock('../../../../useAction');
 jest.mock('../../../../configuration/context');
 jest.mock('../utils');
 
+jest.mock('../../../../displayText', () => ({
+  ...jest.requireActual<typeof import('../../../../displayText')>(
+    '../../../../displayText'
+  ),
+  useDisplayText: () => ({
+    DeleteView: {
+      confirmationModalTitle: 'Confirm Deletion',
+      confirmationModalConfirmLabel: 'Delete',
+      confirmationModalCancelLabel: 'Cancel',
+      confirmationModalMessage:
+        'The items that will be deleted contain {count} folder{plural}',
+    },
+  }),
+}));
+
 const mockLocationItemsState = {
   dataItems: [
     {
