@@ -8,14 +8,15 @@ import type {
   HandleProcessTasks,
   HandleSingleTaskInput,
   InferHandleTasksInput,
-  Task,
   ProcessTasksOptions,
+  Task,
+  TaskStatus,
   UseProcessTasksState,
 } from './types';
 import {
   getStatusCounts,
-  isProcessingTasks,
   hasCompletedProcessingTasks,
+  isProcessingTasks,
 } from './utils';
 
 const QUEUED_TASK_BASE = {
@@ -150,6 +151,9 @@ export function useProcessTasks<
         ) ?? {};
 
     if (!data) return;
+    const all = isSingleTask
+      ? [_input.data]
+      : [...tasksRef.current.values()].map(({ data }) => data);
 
     const {
       onTaskCancel,
@@ -165,19 +169,26 @@ export function useProcessTasks<
 
     const { onProgress: _onProgress } = options ?? {};
 
-    const onProgress = ({ id }: TTask['data'], progress?: number) => {
-      const task = updateTask(id, { progress });
+    const onProgress = (
+      { id }: TTask['data'],
+      progress?: number,
+      status: TaskStatus = 'PENDING'
+    ) => {
+      const task = updateTask(id, {
+        progress,
+        status,
+      });
 
       if (task && isFunction(onTaskProgress)) {
         onTaskProgress(task, progress);
       }
 
       if (task && isFunction(_onProgress)) {
-        _onProgress(data, progress);
+        _onProgress(data, progress, status);
       }
     };
 
-    const input = { ..._input, data, options: { ...options, onProgress } };
+    const input = { ..._input, data, all, options: { ...options, onProgress } };
 
     const { cancel: _cancel, result } = handler(input);
 

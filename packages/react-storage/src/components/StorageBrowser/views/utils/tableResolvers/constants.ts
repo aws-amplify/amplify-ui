@@ -1,7 +1,9 @@
 export const STATUS_LABELS = {
   PENDING: 'statusDisplayInProgressLabel',
+  FINISHING: 'statusDisplayFinishingLabel',
   CANCELED: 'statusDisplayCanceledLabel',
   COMPLETE: 'statusDisplayCompletedLabel',
+  LOADED: 'statusDisplayLoadedLabel',
   FAILED: 'statusDisplayFailedLabel',
   QUEUED: 'statusDisplayQueuedLabel',
   OVERWRITE_PREVENTED: 'statusDisplayOverwritePreventedLabel',
@@ -9,7 +11,9 @@ export const STATUS_LABELS = {
 
 export const STATUS_ICONS = {
   PENDING: 'action-progress',
+  FINISHING: 'action-progress',
   COMPLETE: 'action-success',
+  LOADED: 'action-success',
   FAILED: 'action-error',
   OVERWRITE_PREVENTED: 'action-info',
   CANCELED: 'action-canceled',

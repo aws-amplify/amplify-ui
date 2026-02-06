@@ -24,3 +24,8 @@
 **/amplify-gradle-config.json
 **/amplifytools.xcconfig
 **/.secret-*
+
+# Lambda function lock files - not needed, Amplify installs fresh on deploy
+**/function/*/src/package-lock.json
+**/function/*/src/yarn.lock
+**/amplify/backend/yarn.lock

@@ -1,5 +1,15 @@
 # @aws-amplify/ui-react-liveness
 
+## 3.5.1
+
+### Patch Changes
+
+- [#6744](https://github.com/aws-amplify/amplify-ui/pull/6744) [`d4160ac8c74a02f4c2ab026cb563ff226dd7dd20`](https://github.com/aws-amplify/amplify-ui/commit/d4160ac8c74a02f4c2ab026cb563ff226dd7dd20) Thanks [@bobbor](https://github.com/bobbor)! - feat: Add nextjs 16 compatibility.
+
+- Updated dependencies [[`25cf1983b7ecf91f7ab7bb1c2cb76a4df252fdf7`](https://github.com/aws-amplify/amplify-ui/commit/25cf1983b7ecf91f7ab7bb1c2cb76a4df252fdf7), [`167714536a6dbe43f918b5c8f3a46afb6f9c66fb`](https://github.com/aws-amplify/amplify-ui/commit/167714536a6dbe43f918b5c8f3a46afb6f9c66fb)]:
+  - @aws-amplify/ui@6.14.0
+  - @aws-amplify/ui-react@6.14.0
+
 ## 3.5.0
 
 ### Minor Changes

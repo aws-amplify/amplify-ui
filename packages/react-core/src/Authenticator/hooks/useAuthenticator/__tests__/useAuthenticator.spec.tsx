@@ -38,6 +38,12 @@ const mockServiceFacade: AuthenticatorServiceFacade = {
   toSignUp: jest.fn(),
   skipVerification: jest.fn(),
   allowedMfaTypes: ['EMAIL', 'TOTP'],
+  selectAuthMethod: jest.fn(),
+  availableAuthMethods: undefined,
+  toShowAuthMethods: jest.fn(),
+  loginMechanism: undefined,
+  preferredChallenge: undefined,
+  selectedAuthMethod: undefined,
 };
 
 const getServiceFacadeSpy = jest
@@ -143,5 +149,47 @@ describe('useAuthenticator', () => {
     await waitFor(() => {
       expect(getQRFieldsSpy).toHaveBeenCalledTimes(1);
     });
+  });
+
+  it('initializes passwordless authentication fields correctly', async () => {
+    const { result } = renderHook(() => useAuthenticator(), {
+      wrapper: Wrapper,
+    });
+
+    await waitFor(() => {
+      expect(result.current.selectAuthMethod).toBeDefined();
+      expect(result.current.toShowAuthMethods).toBeDefined();
+      expect(typeof result.current.selectAuthMethod).toBe('function');
+      expect(typeof result.current.toShowAuthMethods).toBe('function');
+    });
+  });
+
+  it('calls selectAuthMethod when invoked', async () => {
+    const { result } = renderHook(() => useAuthenticator(), {
+      wrapper: Wrapper,
+    });
+
+    await waitFor(() => {
+      expect(result.current.selectAuthMethod).toBeDefined();
+    });
+
+    const mockMethod = { method: 'EMAIL_OTP' };
+    result.current.selectAuthMethod(mockMethod);
+
+    expect(mockServiceFacade.selectAuthMethod).toHaveBeenCalledWith(mockMethod);
+  });
+
+  it('calls toShowAuthMethods when invoked', async () => {
+    const { result } = renderHook(() => useAuthenticator(), {
+      wrapper: Wrapper,
+    });
+
+    await waitFor(() => {
+      expect(result.current.toShowAuthMethods).toBeDefined();
+    });
+
+    result.current.toShowAuthMethods();
+
+    expect(mockServiceFacade.toShowAuthMethods).toHaveBeenCalled();
   });
 });

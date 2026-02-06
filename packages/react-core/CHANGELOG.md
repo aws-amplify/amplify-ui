@@ -1,5 +1,16 @@
 # @aws-amplify/ui-react-core
 
+## 3.5.0
+
+### Minor Changes
+
+- [#6783](https://github.com/aws-amplify/amplify-ui/pull/6783) [`167714536a6dbe43f918b5c8f3a46afb6f9c66fb`](https://github.com/aws-amplify/amplify-ui/commit/167714536a6dbe43f918b5c8f3a46afb6f9c66fb) Thanks [@ahmedhamouda78](https://github.com/ahmedhamouda78)! - Add passwordless authentication support
+
+### Patch Changes
+
+- Updated dependencies [[`25cf1983b7ecf91f7ab7bb1c2cb76a4df252fdf7`](https://github.com/aws-amplify/amplify-ui/commit/25cf1983b7ecf91f7ab7bb1c2cb76a4df252fdf7), [`167714536a6dbe43f918b5c8f3a46afb6f9c66fb`](https://github.com/aws-amplify/amplify-ui/commit/167714536a6dbe43f918b5c8f3a46afb6f9c66fb)]:
+  - @aws-amplify/ui@6.14.0
+
 ## 3.4.7
 
 ### Patch Changes

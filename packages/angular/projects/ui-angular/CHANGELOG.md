@@ -1,5 +1,18 @@
 # @aws-amplify/ui-angular
 
+## 5.2.0
+
+### Minor Changes
+
+- [#6767](https://github.com/aws-amplify/amplify-ui/pull/6767) [`713a147df9a9760defb71744497ce13d4529c423`](https://github.com/aws-amplify/amplify-ui/commit/713a147df9a9760defb71744497ce13d4529c423) Thanks [@osama-rizk](https://github.com/osama-rizk)! - feat(angular): update minimal Angular version to v19
+
+### Patch Changes
+
+- [#6796](https://github.com/aws-amplify/amplify-ui/pull/6796) [`dd45774ba91487d6daf41524589d66badff9ca9d`](https://github.com/aws-amplify/amplify-ui/commit/dd45774ba91487d6daf41524589d66badff9ca9d) Thanks [@adrianjoshua-strutt](https://github.com/adrianjoshua-strutt)! - fix: update Angular dependencies to 19.2.18 to fix XSS vulnerability
+
+- Updated dependencies [[`25cf1983b7ecf91f7ab7bb1c2cb76a4df252fdf7`](https://github.com/aws-amplify/amplify-ui/commit/25cf1983b7ecf91f7ab7bb1c2cb76a4df252fdf7), [`167714536a6dbe43f918b5c8f3a46afb6f9c66fb`](https://github.com/aws-amplify/amplify-ui/commit/167714536a6dbe43f918b5c8f3a46afb6f9c66fb)]:
+  - @aws-amplify/ui@6.14.0
+
 ## 5.1.7
 
 ### Patch Changes

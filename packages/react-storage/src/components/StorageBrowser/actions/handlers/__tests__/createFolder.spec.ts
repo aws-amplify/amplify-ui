@@ -20,6 +20,7 @@ const onProgress = jest.fn();
 const baseInput: CreateFolderHandlerInput = {
   config,
   data: { key: 'prefix/', id: 'an-id' },
+  all: [{ key: 'prefix/', id: 'an-id' }],
 };
 
 describe('createFolderHandler', () => {

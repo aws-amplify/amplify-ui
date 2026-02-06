@@ -1,4 +1,4 @@
-import type { SocialProvider } from '../../types';
+import type { LoginMechanism, SocialProvider } from '../../types';
 import type {
   AuthMFAType,
   ChallengeName,
@@ -96,6 +96,20 @@ const getSelectMfaTypeByChallengeName = (
   return translate(DefaultTexts.MFA_SELECTION);
 };
 
+const getUsernameLabelByLoginMechanism = (
+  loginMechanism?: LoginMechanism
+): string => {
+  switch (loginMechanism) {
+    case 'email':
+      return translate(DefaultTexts.EMAIL_ADDRESS);
+    case 'phone_number':
+      return translate(DefaultTexts.PHONE_NUMBER);
+    case 'username':
+    default:
+      return translate(DefaultTexts.USERNAME);
+  }
+};
+
 const getMfaTypeLabelByValue = (mfaType: AuthMFAType): string => {
   switch (mfaType) {
     case 'EMAIL':
@@ -116,6 +130,7 @@ export const authenticatorTextUtil = {
   getChangingText: () => translate(DefaultTexts.CHANGING_PASSWORD),
   getConfirmText: () => translate(DefaultTexts.CONFIRM),
   getConfirmingText: () => translate(DefaultTexts.CONFIRMING),
+  getContinueText: () => translate(DefaultTexts.CONTINUE),
   getCopyText: () => translate(DefaultTexts.UPPERCASE_COPY),
   getHidePasswordText: () => translate(DefaultTexts.HIDE_PASSWORD),
   getLoadingText: () => translate(DefaultTexts.LOADING),
@@ -144,6 +159,12 @@ export const authenticatorTextUtil = {
   /** SignUp */
   getCreatingAccountText: () => translate(DefaultTexts.CREATING_ACCOUNT),
   getCreateAccountText: () => translate(DefaultTexts.CREATE_ACCOUNT),
+  getCreateAccountWithEmailText: () =>
+    translate(DefaultTexts.CREATE_ACCOUNT_WITH_EMAIL_OTP),
+  getCreateAccountWithPasswordText: () =>
+    translate(DefaultTexts.CREATE_ACCOUNT_WITH_PASSWORD),
+  getCreateAccountWithSmsText: () =>
+    translate(DefaultTexts.CREATE_ACCOUNT_WITH_SMS_OTP),
 
   /** ConfirmSignUp */
   getDeliveryMessageText,
@@ -181,6 +202,34 @@ export const authenticatorTextUtil = {
   getVerifyText: () => translate(DefaultTexts.VERIFY),
   getVerifyContactText: () => translate(DefaultTexts.VERIFY_CONTACT),
   getAccountRecoveryInfoText: () => translate(DefaultTexts.VERIFY_HEADING),
+
+  /** Passwordless */
+  getPasskeyPromptHeadingText: () =>
+    translate(DefaultTexts.PASSKEY_PROMPT_HEADING),
+  getPasskeyPromptDescriptionText: () =>
+    translate(DefaultTexts.PASSKEY_PROMPT_DESCRIPTION),
+  getCreatePasskeyText: () => translate(DefaultTexts.CREATE_PASSKEY),
+  getRegisteringText: () => translate(DefaultTexts.REGISTERING),
+  getContinueWithoutPasskeyText: () =>
+    translate(DefaultTexts.CONTINUE_WITHOUT_PASSKEY),
+  getPasskeyCreatedSuccessText: () =>
+    translate(DefaultTexts.PASSKEY_CREATED_SUCCESS),
+  getPasskeyRegisteredText: () => translate(DefaultTexts.PASSKEY_REGISTERED),
+  getPasskeyRegistrationFailedText: () =>
+    translate(DefaultTexts.PASSKEY_REGISTRATION_FAILED),
+  getPasskeyLabelText: () => translate(DefaultTexts.PASSKEY_LABEL),
+  getExistingPasskeysText: () => translate(DefaultTexts.EXISTING_PASSKEYS),
+  getSetupAnotherPasskeyText: () =>
+    translate(DefaultTexts.SETUP_ANOTHER_PASSKEY),
+  getSignInWithPasswordText: () =>
+    translate(DefaultTexts.SIGN_IN_WITH_PASSWORD),
+  getSignInWithEmailText: () => translate(DefaultTexts.SIGN_IN_WITH_EMAIL),
+  getSignInWithSmsText: () => translate(DefaultTexts.SIGN_IN_WITH_SMS),
+  getSignInWithPasskeyText: () => translate(DefaultTexts.SIGN_IN_WITH_PASSKEY),
+  getOtherSignInOptionsText: () =>
+    translate(DefaultTexts.OTHER_SIGN_IN_OPTIONS),
+  getEnterUsernameFirstText: () => translate(DefaultTexts.ENTER_USERNAME_FIRST),
+  getUsernameLabelByLoginMechanism,
 
   /** Validations */
   // TODO: add defaultText

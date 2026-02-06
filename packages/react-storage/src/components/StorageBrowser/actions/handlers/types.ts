@@ -1,5 +1,6 @@
 import type { AllFileTypes } from '../../createStorageBrowser/types';
 import type { LocationCredentialsProvider } from '../../storage-internal';
+import type { TaskStatus } from '../../tasks';
 
 /**
  * `location` grant scope
@@ -94,7 +95,8 @@ export interface TaskData {
 export interface TaskHandlerOptions {
   onProgress?: (
     data: { key: string; id: string },
-    progress: number | undefined
+    progress: number | undefined,
+    state?: TaskStatus
   ) => void;
 }
 
@@ -104,6 +106,7 @@ export interface TaskHandlerInput<
 > {
   config: ActionInputConfig;
   data: TData;
+  all: TData[];
   options?: TOptions;
 }
 
@@ -111,6 +114,7 @@ export type TaskResultStatus =
   | 'CANCELED'
   | 'COMPLETE'
   | 'FAILED'
+  | 'LOADED'
   | 'OVERWRITE_PREVENTED';
 
 export interface TaskResult<TStatus, TValue> {
