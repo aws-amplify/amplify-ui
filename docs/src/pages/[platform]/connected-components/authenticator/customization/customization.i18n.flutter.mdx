@@ -1,4 +1,5 @@
-To use localization, start by following the steps in the [Flutter Localization guide](https://docs.flutter.dev/ui/accessibility-and-localization/internationalization). When the guide says to create an .arb file, enter the following into `lib/l10n/amplify_en.arb`:
+To use localization, start by following the steps in the 
+[Flutter Localization guide](https://docs.flutter.dev/ui/internationalization). When the guide says to create an .arb file, enter the following into `lib/l10n/amplify_en.arb`:
 
 ```json
 {
@@ -73,3 +74,63 @@ return MaterialApp(
 ```
 
 There may be some analysis exceptions in your IDE because, as the Flutter instructions note, Flutter will automatically generate the files at build time. You may need to enable automatic code generation by setting `generate: true` in your app's `pubspec.yaml` file.
+
+### Translate Cognito Error Messages
+
+To translate cognito error messages, you also need to create an ARB file and
+a resolver. 
+
+First, add an entry for each error message that you want to translate to your template ARB file, e.g.: 
+
+```json
+  "authenticatorCognitoErrorUserNotFound": "Account not found. Please check your username or sign up for a new account.",
+  "@errorUserNotFound": {
+    "description": "Error message when user account is not found"
+  },
+```
+
+Note, that a full list of error types that can be translated can be found [here](). 
+
+Then, add a custom `MessageResolver`: 
+
+```dart
+class LocalizedMessageResolver extends MessageResolver {
+  const LocalizedMessageResolver();
+
+  @override
+  String error(BuildContext context, AuthenticatorException exception) {
+    final localizations = AppLocalizations.of(context);
+    
+    if (exception is CognitoAuthenticatorException) {
+      final arbKey = exception.getArbKey();
+      
+      // Handle known error keys with our ARB translations
+      switch (arbKey) {
+        case 'errorUserNotFound':
+          return localizations.authenticatorCognitoErrorUserNotFound;
+        // ... other cases you might want to consider 
+        default:
+          // For unknown keys, fall back to the original Cognito message
+          return exception.cognitoException.message;
+      }
+    }
+    
+    return exception.message.isNotEmpty 
+        ? exception.message 
+        : (localizations?.errorUnknown ?? 'Sorry, something went wrong');
+  }
+}
+```
+
+Include the respective message resolver when creating the authenticator:
+
+```dart
+const stringResolver = AuthStringResolver(
+  messages: LocalizedMessageResolver(),
+);
+
+return Authenticator(
+  stringResolver: stringResolver,
+  child: // ...
+);
+```
