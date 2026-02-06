@@ -4,8 +4,8 @@ import { useControlsContext } from '../context';
 export const useActionConfirmationModal = (): ActionConfirmationModalProps => {
   const {
     data: { confirmationModal = {} },
-    onConfirmationModalConfirm,
-    onConfirmationModalCancel,
+    onConfirmationModalConfirm = () => {},
+    onConfirmationModalCancel = () => {},
   } = useControlsContext();
 
   return {

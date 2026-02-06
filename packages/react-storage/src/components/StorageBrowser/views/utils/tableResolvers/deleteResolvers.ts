@@ -156,16 +156,22 @@ const progress: GetDeleteCell = (data) => {
       item.status === 'CANCELED') &&
     item.data.totalCount !== undefined
   ) {
-    const text = `${item.successCount ?? 0}/${item.data.totalCount} files`;
+    const countDisplay = item.data.totalCount ?? '?';
+    const text = `${item.successCount ?? 0}/${countDisplay} files`;
 
     return { key, type: 'text', content: { text } };
   } else if (item.status === 'COMPLETE') {
+    if (item.data.totalCount === null) {
+      const text = `${item.successCount ?? 0} files deleted`;
+      return { key, type: 'text', content: { text } };
+    }
     const text = `${item.data.totalCount} files deleted`;
-
     return { key, type: 'text', content: { text } };
   } else {
     const text =
-      item.data.totalCount !== undefined
+      item.data.totalCount === null
+        ? 'Count failed'
+        : item.data.totalCount !== undefined
         ? `${item.data.totalCount} files`
         : 'Calculating...';
 

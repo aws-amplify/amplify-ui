@@ -1,6 +1,5 @@
 import { useActionConfirmationModal } from '../useActionConfirmationModal';
 import { useControlsContext } from '../../context';
-import type { ControlsContext } from '../../types';
 
 jest.mock('../../context');
 
@@ -9,10 +8,15 @@ describe('useActionConfirmationModal', () => {
 
   beforeEach(() => {
     mockUseControlsContext.mockReturnValue({
-      data: { confirmationModal: {} },
+      data: {
+        //@ts-expect-error - partial context for testing
+        confirmationModal: {
+          isOpen: false,
+        },
+      },
       onConfirmationModalConfirm: jest.fn(),
       onConfirmationModalCancel: jest.fn(),
-    } satisfies Partial<ControlsContext>);
+    });
   });
 
   it('returns default props', () => {
@@ -34,7 +38,7 @@ describe('useActionConfirmationModal', () => {
       data: {},
       onConfirmationModalConfirm: jest.fn(),
       onConfirmationModalCancel: jest.fn(),
-    } satisfies Partial<ControlsContext>);
+    });
 
     const result = useActionConfirmationModal();
 
@@ -56,11 +60,13 @@ describe('useActionConfirmationModal', () => {
           isOpen: true,
           title: 'Custom Title',
           message: 'Custom message',
+          confirmLabel: 'Confirm',
+          cancelLabel: 'Cancel',
         },
       },
       onConfirmationModalConfirm: jest.fn(),
       onConfirmationModalCancel: jest.fn(),
-    } satisfies Partial<ControlsContext>);
+    });
 
     const result = useActionConfirmationModal();
 

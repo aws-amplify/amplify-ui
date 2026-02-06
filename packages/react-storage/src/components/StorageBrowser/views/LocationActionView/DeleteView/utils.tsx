@@ -47,7 +47,7 @@ export const createFolderListContent = (
 export const createDeleteConfirmationModalProps = (
   items: LocationItemData[],
   showConfirmation: boolean
-): ActionConfirmationModalProps => {
+): Omit<ActionConfirmationModalProps, 'onConfirm' | 'onCancel'> => {
   const folders = getSelectedFolders(items);
   const folderCount = folders.length;
 

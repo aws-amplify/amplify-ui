@@ -25,6 +25,17 @@ describe('DELETE_TABLE_RESOLVERS', () => {
     progress: undefined,
   };
 
+  const mockFolderItem = {
+    data: {
+      id: 'FOLDER_ID',
+      key: 'documents/',
+      type: 'FOLDER' as const,
+      totalCount: 5,
+    },
+    status: 'QUEUED' as const,
+    successCount: 0,
+  };
+
   describe('getCell', () => {
     it('returns the expected cell key for a "name" table key', () => {
       const output = DELETE_TABLE_RESOLVERS.getCell({
@@ -102,6 +113,161 @@ describe('DELETE_TABLE_RESOLVERS', () => {
       });
 
       expect(output.key).toBe('cancel-ID');
+    });
+
+    describe('progress cell resolver', () => {
+      it('shows "Deleted" for completed files', () => {
+        const completedFile = {
+          ...mockItem,
+          status: 'COMPLETE' as const,
+        };
+
+        const output = DELETE_TABLE_RESOLVERS.getCell({
+          key: 'progress',
+          item: completedFile,
+          props: mockProps,
+        });
+
+        expect(output).toEqual({
+          key: 'progress-ID',
+          type: 'text',
+          content: { text: 'Deleted' },
+        });
+      });
+
+      it('shows "-" for non-completed files', () => {
+        const output = DELETE_TABLE_RESOLVERS.getCell({
+          key: 'progress',
+          item: mockItem,
+          props: mockProps,
+        });
+
+        expect(output).toEqual({
+          key: 'progress-ID',
+          type: 'text',
+          content: { text: '-' },
+        });
+      });
+
+      it('shows progress for pending folders with valid count', () => {
+        const pendingFolder = {
+          ...mockFolderItem,
+          status: 'PENDING' as const,
+          successCount: 2,
+        };
+
+        const output = DELETE_TABLE_RESOLVERS.getCell({
+          key: 'progress',
+          item: pendingFolder,
+          props: mockProps,
+        });
+
+        expect(output).toEqual({
+          key: 'progress-FOLDER_ID',
+          type: 'text',
+          content: { text: '2/5 files' },
+        });
+      });
+
+      it('shows progress with "?" for pending folders with null count', () => {
+        const pendingFolderWithNullCount = {
+          ...mockFolderItem,
+          data: { ...mockFolderItem.data, totalCount: null },
+          status: 'PENDING' as const,
+          successCount: 3,
+        };
+
+        const output = DELETE_TABLE_RESOLVERS.getCell({
+          key: 'progress',
+          item: pendingFolderWithNullCount,
+          props: mockProps,
+        });
+
+        expect(output).toEqual({
+          key: 'progress-FOLDER_ID',
+          type: 'text',
+          content: { text: '3/? files' },
+        });
+      });
+
+      it('shows completed count for folders with valid total', () => {
+        const completedFolder = {
+          ...mockFolderItem,
+          status: 'COMPLETE' as const,
+        };
+
+        const output = DELETE_TABLE_RESOLVERS.getCell({
+          key: 'progress',
+          item: completedFolder,
+          props: mockProps,
+        });
+
+        expect(output).toEqual({
+          key: 'progress-FOLDER_ID',
+          type: 'text',
+          content: { text: '5 files deleted' },
+        });
+      });
+
+      it('shows actual deleted count for completed folders with null total', () => {
+        const completedFolderWithNullCount = {
+          ...mockFolderItem,
+          data: { ...mockFolderItem.data, totalCount: null },
+          status: 'COMPLETE' as const,
+          successCount: 4,
+        };
+
+        const output = DELETE_TABLE_RESOLVERS.getCell({
+          key: 'progress',
+          item: completedFolderWithNullCount,
+          props: mockProps,
+        });
+
+        expect(output).toEqual({
+          key: 'progress-FOLDER_ID',
+          type: 'text',
+          content: { text: '4 files deleted' },
+        });
+      });
+
+      it('shows "Count failed" for queued folders with null count', () => {
+        const queuedFolderWithNullCount = {
+          ...mockFolderItem,
+          data: { ...mockFolderItem.data, totalCount: null },
+          status: 'QUEUED' as const,
+        };
+
+        const output = DELETE_TABLE_RESOLVERS.getCell({
+          key: 'progress',
+          item: queuedFolderWithNullCount,
+          props: mockProps,
+        });
+
+        expect(output).toEqual({
+          key: 'progress-FOLDER_ID',
+          type: 'text',
+          content: { text: 'Count failed' },
+        });
+      });
+
+      it('shows "Calculating..." for folders with undefined count', () => {
+        const folderWithUndefinedCount = {
+          ...mockFolderItem,
+          data: { ...mockFolderItem.data, totalCount: undefined },
+        };
+
+        const output = DELETE_TABLE_RESOLVERS.getCell({
+          key: 'progress',
+          item: folderWithUndefinedCount,
+          props: mockProps,
+        });
+
+        expect(output).toEqual({
+          key: 'progress-FOLDER_ID',
+          type: 'text',
+          content: { text: 'Calculating...' },
+        });
+      });
     });
 
     describe('text cell resolvers', () => {

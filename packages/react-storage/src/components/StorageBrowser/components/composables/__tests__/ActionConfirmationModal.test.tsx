@@ -1,14 +1,19 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import { ActionConfirmationModal } from '../ActionConfirmationModal';
+import {
+  ActionConfirmationModal,
+  ActionConfirmationModalProps,
+} from '../ActionConfirmationModal';
 
 describe('ActionConfirmationModal', () => {
-  const defaultProps = {
+  const defaultProps: ActionConfirmationModalProps = {
     isOpen: true,
     title: 'Test Modal',
     message: 'Test message',
     onConfirm: jest.fn(),
     onCancel: jest.fn(),
+    confirmLabel: 'Confirm',
+    cancelLabel: 'Cancel',
   };
 
   beforeEach(() => {

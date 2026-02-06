@@ -9,14 +9,14 @@ import {
 } from '../elements';
 
 export interface ActionConfirmationModalProps {
-  isOpen?: boolean;
-  title?: string;
-  message?: string;
+  isOpen: boolean;
+  title: string;
+  message: string;
   content?: React.ReactNode;
-  onConfirm?: () => void;
-  onCancel?: () => void;
-  confirmLabel?: string;
-  cancelLabel?: string;
+  onConfirm: () => void;
+  onCancel: () => void;
+  confirmLabel: string;
+  cancelLabel: string;
 }
 
 export const ActionConfirmationModal = ({

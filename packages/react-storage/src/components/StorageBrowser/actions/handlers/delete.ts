@@ -18,7 +18,7 @@ export interface DeleteHandlerData
     TaskData {
   fileKey?: string;
   type?: 'FILE' | 'FOLDER';
-  totalCount?: number;
+  totalCount?: number | null;
 }
 
 export interface DeleteHandlerInput

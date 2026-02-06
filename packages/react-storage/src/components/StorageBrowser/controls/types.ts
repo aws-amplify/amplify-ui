@@ -73,7 +73,10 @@ export interface ControlsContext {
     location?: LocationState;
     overwriteToggleLabel?: string;
     message?: MessageProps;
-    confirmationModal?: ActionConfirmationModalProps;
+    confirmationModal?: Omit<
+      ActionConfirmationModalProps,
+      'onConfirm' | 'onCancel'
+    >;
     paginationData?: PaginationData;
     searchPlaceholder?: string;
     searchQuery?: string;

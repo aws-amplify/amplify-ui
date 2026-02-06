@@ -30,7 +30,9 @@ export const useDeleteView = (
   const getConfig = useGetActionInput();
 
   const [itemsWithCount, setItemsWithCount] = React.useState(dataItems);
-  const folderCountsRef = React.useRef<Map<string, number | string>>(new Map());
+  const folderCountsRef = React.useRef<Map<string, number | string | null>>(
+    new Map()
+  );
 
   // Sync itemsWithCount with dataItems when dataItems changes (e.g., item removal)
   React.useEffect(() => {
@@ -74,7 +76,7 @@ export const useDeleteView = (
             const totalCount = await countFilesInFolder(folder.key, config);
             folderCountsRef.current.set(folder.id, totalCount);
           } catch (error) {
-            folderCountsRef.current.set(folder.id, 0);
+            folderCountsRef.current.set(folder.id, null);
           }
         })
       );
