@@ -95,7 +95,14 @@ export interface TaskData {
 export interface TaskHandlerOptions {
   onProgress?: (
     data: { key: string; id: string },
-    progress: number | undefined,
+    progressDetails:
+      | number
+      | undefined
+      | {
+          progress?: number;
+          successCount?: number;
+          failureCount?: number;
+        },
     state?: TaskStatus
   ) => void;
 }
@@ -137,6 +144,18 @@ export interface TaskResult<TStatus, TValue> {
    * task result value (if any)
    */
   value?: TValue;
+
+  /**
+   * Number of items successfully processed during the operation
+   * @example 150 // out of 200 total items
+   */
+  successCount?: number;
+
+  /**
+   * Number of items that failed during the operation
+   * @example 5 // out of 200 total items
+   */
+  failureCount?: number;
 }
 
 export interface TaskHandlerOutput<K = any> {

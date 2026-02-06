@@ -19,6 +19,13 @@ export interface LocationDetailViewState {
   activeFileHasPrev: boolean;
   actionType: string | undefined;
   downloadErrorMessage: string | undefined;
+  /**
+   * Selected items (files and folders)
+   */
+  dataItems: LocationItemData[] | undefined;
+  /**
+   * @deprecated Use dataItems instead. Will be removed in v4.0.0
+   */
   fileDataItems: FileDataItem[] | undefined;
   hasDownloadError: boolean;
   hasError: boolean;
@@ -41,7 +48,7 @@ export interface LocationDetailViewState {
   onSearchClear: () => void;
   onSearchQueryChange: (value: string) => void;
   onRetryFilePreview: () => void;
-  onSelect: (isSelected: boolean, fileItem: FileData) => void;
+  onSelect: (isSelected: boolean, item: LocationItemData) => void;
   onSelectActiveFile: (file?: FileData | 'prev' | 'next') => void;
   onToggleSearchSubfolders: () => void;
   onToggleSelectAll: () => void;

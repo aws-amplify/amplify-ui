@@ -5,17 +5,32 @@ import { LOCATION_DETAIL_VIEW_HEADERS } from './constants';
 export const getFolderRowContent = ({
   itemSubPath,
   rowId,
+  isSelected,
+  selectFolderLabel,
   onNavigate,
+  onSelect,
 }: {
   itemSubPath: string;
   rowId: string;
+  isSelected: boolean;
+  selectFolderLabel: string;
   onNavigate: () => void;
-}): DataTableProps['rows'][number]['content'] =>
-  LOCATION_DETAIL_VIEW_HEADERS.map((columnKey) => {
+  onSelect: () => void;
+}): DataTableProps['rows'][number]['content'] => {
+  return LOCATION_DETAIL_VIEW_HEADERS.map((columnKey) => {
     const key = `${columnKey}-${rowId}`;
     switch (columnKey) {
       case 'checkbox': {
-        return { key, type: 'text', content: { text: '' } };
+        return {
+          key,
+          type: 'checkbox',
+          content: {
+            checked: isSelected,
+            id: key,
+            label: `${selectFolderLabel} ${itemSubPath}`,
+            onSelect,
+          },
+        };
       }
       case 'name': {
         return {
@@ -39,3 +54,4 @@ export const getFolderRowContent = ({
       }
     }
   });
+};

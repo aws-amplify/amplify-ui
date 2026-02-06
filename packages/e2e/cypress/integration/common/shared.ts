@@ -390,6 +390,13 @@ Then('I see tab {string}', (search: string) => {
 
 Then('I see {string}', cy.doesDocumentContainText);
 
+Then('I see {string} or {string}', (text1: string, text2: string) => {
+  cy.get('body').should('satisfy', ($body) => {
+    const bodyText = $body.text();
+    return bodyText.includes(text1) || bodyText.includes(text2);
+  });
+});
+
 Then('I see {string} files with random names', (count: string) => {
   for (let i = 1; i <= parseInt(count); i++) {
     cy.doesDocumentContainText(`${randomFileName}-${i}`);
