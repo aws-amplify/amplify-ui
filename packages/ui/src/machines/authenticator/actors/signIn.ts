@@ -1,7 +1,6 @@
 import { createMachine, sendUpdate } from 'xstate';
 import type { ConfirmSignInInput } from 'aws-amplify/auth';
 import {
-  confirmSignIn,
   fetchUserAttributes,
   listWebAuthnCredentials,
   resetPassword,
@@ -508,7 +507,7 @@ export function signInActor({ services }: SignInMachineOptions) {
             options: { userAttributes },
           };
 
-          return confirmSignIn(input);
+          return services.handleForceChangePassword(input);
         },
         signInWithRedirect(_, { data }) {
           return signInWithRedirect(data);
