@@ -34,7 +34,9 @@ const getMissingLocationKeys = (
 ) =>
   location === null
     ? []
-    : REQUIRED_LOCATION_KEYS.filter((key) => !location[key]);
+    : REQUIRED_LOCATION_KEYS.filter(
+        (key) => location[key] === undefined || location[key] === null
+      );
 
 let didWarnConflictingBehavior = false;
 let didWarnDeprecatedAndConflictingProps = false;
