@@ -27,7 +27,7 @@ import {
 
 ## Overview
 
-Storage Browser for Amazon S3 is an open source component that you can add to your web applications to provide your end users with a simple, graphical interface to work with data stored in Amazon S3. With Storage Browser for S3, you can provide authorized end users access to easily browse, download, upload, copy, and delete data in S3 directly from your own applications. It also supports file preview for images, videos, and text files.
+Storage Browser for Amazon S3 is an open source component that you can add to your web applications to provide your end users with a simple, graphical interface to work with data stored in Amazon S3. With Storage Browser for S3, you can provide authorized end users access to easily browse, download, upload, copy, and delete data in S3 directly from your own applications. This includes deleting both individual files and entire folders with their contents. It also supports file preview for images, videos, and text files.
 
 End users work with S3 _locations_ within the Storage Browser interface. _Locations_ are S3 buckets or prefixes that you authorize end users to access using Amazon S3 Access Grants or Identity and Access Management (IAM) policies, depending on your use case. When the Storage Browser component is first rendered, it will show the LocationsView which displays only the locations you have granted them access to. Once an end user has selected a location, they can browse the S3 bucket or prefix, and all the data contained further down the S3 resource path, but they cannot browse buckets or prefixes higher up the S3 resource path.
 
@@ -331,6 +331,7 @@ You can override any of the default components used in Storage Browser by passin
 
 **Available Components to Override:**
 - `ActionCancel`
+- `ActionConfirmationModal`
 - `ActionDestination`
 - `ActionExit`
 - `ActionStart`
@@ -916,6 +917,7 @@ interface LocationDetailViewState {
   isSearchingSubfolders: boolean;
   location: LocationState;
   areAllFilesSelected: boolean;
+  dataItems: LocationItemData[] | undefined;
   fileDataItems: FileDataItem[] | undefined;
   hasFiles: boolean;
   message: string | undefined;
@@ -933,7 +935,7 @@ interface LocationDetailViewState {
   onNavigateHome: () => void;
   onPaginate: (page: number) => void;
   onDownload: (fileItem: FileDataItem) => void;
-  onSelect: (isSelected: boolean, fileItem: FileData) => void;
+  onSelect: (isSelected: boolean, item: LocationItemData) => void;
   onSelectAll: () => void;
   onSearch: () => void;
   onSearchClear: () => void;
@@ -1089,6 +1091,9 @@ interface DeleteViewState {
   onTaskRemove?: (task: Task<DeleteHandlerData>) => void;
   statusCounts: StatusCounts;
   tasks: Task<DeleteHandlerData>[];
+  onConfirmDelete: () => void;
+  onCancelConfirmation: () => void;
+  confirmationModal: ActionConfirmationModalProps;
 }
 ```
 
@@ -1096,6 +1101,7 @@ interface DeleteViewState {
 
 * `<StorageBrowser.DeleteView.Provider />`
 * `<StorageBrowser.DeleteView.Cancel />`
+* `<StorageBrowser.DeleteView.ConfirmationModal />`
 * `<StorageBrowser.DeleteView.Exit />`
 * `<StorageBrowser.DeleteView.Message />`
 * `<StorageBrowser.DeleteView.Start />`
