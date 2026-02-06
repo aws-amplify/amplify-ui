@@ -13,6 +13,11 @@ jest.mock('../../../../locationItems');
 jest.mock('../../../../store');
 jest.mock('../../../../useAction');
 jest.mock('../useFolders');
+jest.mock('../../../../configuration', () => ({
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+  ...(jest.requireActual('../../../../configuration') as object),
+  usePaginationConfig: () => ({ pageSize: 10 }),
+}));
 
 const location = {
   current: {

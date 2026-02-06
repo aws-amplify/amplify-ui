@@ -71,6 +71,14 @@ export interface StoreProviderProps {
    * @deprecated
    */
   path?: string;
+
+  /**
+   * @description Number of items to display per page in listings
+   * @default 100
+   * @minimum 1
+   * @maximum 1000
+   */
+  pageSize?: number;
 }
 
 export type StoreActionType =

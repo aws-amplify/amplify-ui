@@ -12,6 +12,7 @@ import type {
   LocationData,
 } from '../../actions';
 import { useActionConfigs } from '../../actions';
+import { usePaginationConfig } from '../../configuration';
 import { useFileItems } from '../../fileItems';
 import { useLocationItems } from '../../locationItems';
 import { useStore } from '../../store';
@@ -27,11 +28,10 @@ import type {
 } from './types';
 import { useFilePreview } from '../hooks/useFilePreview';
 
-const DEFAULT_PAGE_SIZE = 100;
-
+// Default options for tests
 export const DEFAULT_LIST_OPTIONS = {
   delimiter: '/',
-  pageSize: DEFAULT_PAGE_SIZE,
+  pageSize: 100, // fallback for tests
 };
 
 const getDownloadErrorMessageFromFailedDownloadTask = (
@@ -47,7 +47,20 @@ const getDownloadErrorMessageFromFailedDownloadTask = (
 export const useLocationDetailView = (
   options?: UseLocationDetailViewOptions
 ): LocationDetailViewState => {
-  const { initialValues, onExit, onNavigate } = options ?? {};
+  const { pageSize: configPageSize } = usePaginationConfig();
+  const {
+    initialValues,
+    onExit,
+    onNavigate,
+    pageSize: propPageSize,
+  } = options ?? {};
+
+  const pageSize = propPageSize ?? configPageSize;
+
+  const DEFAULT_LIST_OPTIONS = {
+    delimiter: '/',
+    pageSize,
+  };
 
   const listOptionsRef = React.useRef({
     ...DEFAULT_LIST_OPTIONS,
