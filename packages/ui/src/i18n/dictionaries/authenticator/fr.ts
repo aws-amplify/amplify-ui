@@ -118,7 +118,7 @@ export const frDict: AuthenticatorDictionary = {
   'Sign Up': "S'inscrire",
   SMS: 'SMS',
   'User already exists': "L'utilisateur existe déjà",
-  'User does not exist': "L'utilisateur n'existe pas",
+  'User does not exist.': "L'utilisateur n'existe pas",
   'Username cannot be empty': "Le nom d'utilisateur doit être renseigné",
   'Username/client id combination not found.': "L'utilisateur n'existe pas",
   'We Emailed You': 'Nous vous avons envoyé un code',

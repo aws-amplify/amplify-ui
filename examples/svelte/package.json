@@ -14,11 +14,11 @@
     "lint": "prettier --check . && eslint ."
   },
   "devDependencies": {
-    "@aws-amplify/ui-svelte": "1.0.1",
+    "@aws-amplify/ui-svelte": "1.0.2",
     "@eslint/compat": "^1.2.5",
     "@eslint/js": "^9.22.0",
     "@sveltejs/adapter-auto": "^6.0.0",
-    "@sveltejs/kit": "^2.22.0",
+    "@sveltejs/kit": "^2.49.5",
     "@sveltejs/vite-plugin-svelte": "^6.0.0",
     "@types/node": "^20",
     "eslint": "^9.22.0",

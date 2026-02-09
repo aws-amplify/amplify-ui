@@ -1,18 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { translations } from '@aws-amplify/ui-angular';
 import awsExports from './aws-exports';
 import { Amplify } from 'aws-amplify';
 import { I18n } from 'aws-amplify/utils';
+
 @Component({
   selector: 'i18n',
+  standalone: false,
   templateUrl: 'i18n.component.html',
 })
-export class I18nComponent implements OnInit {
+export class I18nComponent implements OnInit, OnDestroy {
   constructor() {
     Amplify.configure(awsExports);
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     I18n.putVocabularies(translations);
     I18n.setLanguage('ja');
     I18n.putVocabulariesForLanguage('ja', {
@@ -21,7 +23,7 @@ export class I18nComponent implements OnInit {
     });
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     I18n.setLanguage('en'); // reset the languages back
   }
 }

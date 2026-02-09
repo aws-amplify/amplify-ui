@@ -6,8 +6,6 @@ import { Button, Flex } from '@aws-amplify/ui-react';
 
 import { StorageBrowser } from '../StorageBrowser';
 
-import '@aws-amplify/ui-react-storage/styles.css';
-
 function Locations() {
   const router = useRouter();
 

@@ -20,7 +20,7 @@ We currently test for the following versions:
 | React (Next.js) | 18      | Next CLI    | 13      |
 | React           | 18      | Vite        | 3       |
 | Angular         | Latest  | Angular CLI | Latest  |
-| Angular         | 14      | Angular CLI | 14      |
+| Angular         | 19      | Angular CLI | 19      |
 | Vue (Nuxt)      | Latest  | Nuxt CLI    | Latest  |
 | Vue             | Latest  | Vite        | Latest  |
 | Vue             | Latest  | Vue CLI     | Latest  |
@@ -99,11 +99,3 @@ $ ./mega-app-build.sh --build-tool next --build-tool-version latest --name react
 $ ./mega-app-build.sh -B next -b latest -l typescript -n react-latest-next-latest-node-18-ts -F react -f latest -P npm
 $ ./mega-app-build.sh -n react-latest-next-latest-node-18-ts
 ```
-
-### Troubleshooting
-
-- If see the following error message:
-
-> “Your global Angular CLI version (14.2.11) is greater than your local version (12.2.18). The local Angular CLI version is used.”
-
-It might be a @angular/cli@12.2.18 installed in root-folder _node_modules_. Deleting it would resolve the error.

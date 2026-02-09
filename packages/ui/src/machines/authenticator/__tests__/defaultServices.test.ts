@@ -284,6 +284,12 @@ describe('getAmplifyConfig', () => {
       loginMechanisms: ['username'],
       socialProviders: undefined,
       signUpAttributes: ['email'],
+      passwordlessCapabilities: {
+        emailOtpEnabled: false,
+        smsOtpEnabled: false,
+        webAuthnEnabled: false,
+        preferredChallenge: undefined,
+      },
     });
   });
 
@@ -318,6 +324,67 @@ describe('getAmplifyConfig', () => {
       loginMechanisms: ['username'],
       socialProviders: undefined,
       signUpAttributes: ['email'],
+      passwordlessCapabilities: {
+        emailOtpEnabled: false,
+        smsOtpEnabled: false,
+        webAuthnEnabled: false,
+        preferredChallenge: undefined,
+      },
+    });
+  });
+
+  it('correctly parses passwordless config with camelCase format', async () => {
+    const configWithPasswordless: ResourcesConfig = {
+      Auth: {
+        Cognito: {
+          userPoolClientId: 'xxxxxx',
+          userPoolId: 'xxxxxx',
+          loginWith: { username: true, email: false, phone: false },
+          passwordless: {
+            emailOtpEnabled: true,
+            smsOtpEnabled: false,
+            webAuthn: {
+              relyingPartyId: 'example.com',
+              userVerification: 'preferred',
+            },
+            preferredChallenge: 'WEB_AUTHN',
+          },
+        },
+      },
+    };
+
+    getConfigSpy.mockReturnValueOnce(configWithPasswordless);
+
+    const output = await getAmplifyConfig();
+
+    expect(output.passwordlessCapabilities).toStrictEqual({
+      emailOtpEnabled: true,
+      smsOtpEnabled: false,
+      webAuthnEnabled: true,
+      preferredChallenge: 'WEB_AUTHN',
+    });
+  });
+
+  it('correctly handles missing passwordless config', async () => {
+    const configWithoutPasswordless: ResourcesConfig = {
+      Auth: {
+        Cognito: {
+          userPoolClientId: 'xxxxxx',
+          userPoolId: 'xxxxxx',
+          loginWith: { username: true, email: false, phone: false },
+        },
+      },
+    };
+
+    getConfigSpy.mockReturnValueOnce(configWithoutPasswordless);
+
+    const output = await getAmplifyConfig();
+
+    expect(output.passwordlessCapabilities).toStrictEqual({
+      emailOtpEnabled: false,
+      smsOtpEnabled: false,
+      webAuthnEnabled: false,
+      preferredChallenge: undefined,
     });
   });
 });

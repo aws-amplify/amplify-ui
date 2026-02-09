@@ -68,6 +68,7 @@ const generateMockState = (
     context: {
       actorRef: { getSnapshot: () => ({ context: { formFields } }) },
       config: { loginMechanisms: [usernameAlias] },
+      availableAuthMethods: ['PASSWORD'],
     },
   } as AuthMachineState;
 };

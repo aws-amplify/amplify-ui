@@ -150,6 +150,32 @@ describe('authenticatorTextUtil', () => {
     );
   });
 
+  describe('getUsernameLabelByLoginMechanism', () => {
+    it('returns "Email" for email login mechanism', () => {
+      expect(
+        authenticatorTextUtil.getUsernameLabelByLoginMechanism('email')
+      ).toEqual('Email');
+    });
+
+    it('returns "Phone Number" for phone_number login mechanism', () => {
+      expect(
+        authenticatorTextUtil.getUsernameLabelByLoginMechanism('phone_number')
+      ).toEqual('Phone Number');
+    });
+
+    it('returns "Username" for username login mechanism', () => {
+      expect(
+        authenticatorTextUtil.getUsernameLabelByLoginMechanism('username')
+      ).toEqual('Username');
+    });
+
+    it('returns "Username" for undefined login mechanism', () => {
+      expect(
+        authenticatorTextUtil.getUsernameLabelByLoginMechanism(undefined)
+      ).toEqual('Username');
+    });
+  });
+
   describe('authenticator shared text', () => {
     it('return a text for all the utils', () => {
       Object.entries(authenticatorTextUtil).map(([name, fn]) => {

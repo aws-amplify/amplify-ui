@@ -3,12 +3,12 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "outDir": "../../out-tsc/lib",
-    "target": "es2020",
+    "target": "ES2022",
     "declaration": true,
     "declarationMap": true,
     "inlineSources": true,
     "types": ["@types/long"],
-    "lib": ["dom", "es2019", "dom.iterable"]
+    "lib": ["dom", "ES2022", "dom.iterable"]
   },
   "angularCompilerOptions": {
     "skipTemplateCodegen": true,

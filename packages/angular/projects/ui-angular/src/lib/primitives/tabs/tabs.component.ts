@@ -11,6 +11,7 @@ import { TabItemComponent } from '../tab-item/tab-item.component';
 
 @Component({
   selector: 'amplify-tabs',
+  standalone: false,
   templateUrl: './tabs.component.html',
 })
 export class TabsComponent implements AfterContentInit {

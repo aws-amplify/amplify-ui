@@ -5,6 +5,7 @@ import awsExports from './aws-exports';
 
 @Component({
   selector: 'forgot-password',
+  standalone: false,
   templateUrl: 'forgot-password.component.html',
 })
 export class ForgotPasswordComponent {

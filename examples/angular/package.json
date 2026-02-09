@@ -13,25 +13,31 @@
     "e2e": "ng e2e"
   },
   "dependencies": {
-    "@angular/animations": "^14.3.0",
-    "@angular/common": "^14.3.0",
-    "@angular/compiler": "^14.3.0",
-    "@angular/core": "^14.3.0",
-    "@angular/platform-browser": "^14.3.0",
-    "@angular/platform-browser-dynamic": "^14.3.0",
-    "@angular/router": "^14.3.0",
-    "@aws-amplify/ui-angular": "^5.1.7",
-    "rxjs": "~6.6.0",
+    "@aws-amplify/ui-angular": "^5.2.0",
+    "rxjs": "~7.8.0",
     "tslib": "^2.0.0",
-    "zone.js": "~0.11.4"
+    "zone.js": "~0.15.0"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^14.2.13",
-    "@angular/cli": "^14.2.13",
-    "@angular/compiler-cli": "^14.3.0",
+    "@angular-devkit/build-angular": "^19.2.18",
+    "@angular-eslint/builder": "^19.8.1",
+    "@angular-eslint/eslint-plugin": "^19.8.1",
+    "@angular-eslint/eslint-plugin-template": "^19.8.1",
+    "@angular-eslint/schematics": "^19.8.1",
+    "@angular-eslint/template-parser": "^19.8.1",
+    "@angular/cli": "^19.2.18",
+    "@angular/compiler-cli": "^19.2.18",
+    "@angular/animations": "^19.2.18",
+    "@angular/common": "^19.2.18",
+    "@angular/compiler": "^19.2.18",
+    "@angular/platform-browser": "^19.2.18",
+    "@angular/platform-browser-dynamic": "^19.2.18",
+    "@angular/router": "^19.2.18",
     "@types/jasmine": "~3.6.0",
-    "@types/node": "^12.11.1",
-    "codelyzer": "^6.0.0",
+    "@types/node": "^20",
+    "@typescript-eslint/eslint-plugin": "7.11.0",
+    "@typescript-eslint/parser": "7.11.0",
+    "eslint": "8.57.0",
     "jasmine-core": "~3.6.0",
     "jasmine-spec-reporter": "~5.0.0",
     "karma": "~6.3.16",
@@ -41,9 +47,8 @@
     "karma-jasmine-html-reporter": "~1.5.0",
     "rimraf": "^5.0.0",
     "serve": "^12.0.0",
-    "ts-node": "~8.3.0",
-    "tslint": "~6.1.0",
-    "typescript": "~4.6.4"
+    "ts-node": "^10.9.1",
+    "typescript": "~5.6.0"
   },
   "workspaces": {
     "nohoist": [

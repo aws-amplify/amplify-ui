@@ -4,6 +4,7 @@ import { AuthenticatorService } from '../../../../services/authenticator.service
 
 @Component({
   selector: 'amplify-federated-sign-in-button',
+  standalone: false,
   templateUrl: './federated-sign-in-button.component.html',
 })
 export class FederatedSignInButtonComponent {

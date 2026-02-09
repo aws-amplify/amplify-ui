@@ -13,6 +13,7 @@ const { getConfirmText, getBackToSignInText, getSetupEmailText } =
 
 @Component({
   selector: 'amplify-setup-email',
+  standalone: false,
   templateUrl: './setup-email.component.html',
 })
 export class SetupEmailComponent {

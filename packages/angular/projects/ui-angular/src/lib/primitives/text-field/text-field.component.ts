@@ -3,6 +3,7 @@ import { nanoid } from 'nanoid';
 
 @Component({
   selector: 'amplify-text-field',
+  standalone: false,
   templateUrl: './text-field.component.html',
 })
 export class TextFieldComponent {

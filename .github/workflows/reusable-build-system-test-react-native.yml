@@ -110,6 +110,7 @@ jobs:
     env:
       MEGA_APP_NAME: rn${{ matrix.framework-version.formatted }}${{ matrix.build-tool }}${{ matrix.build-tool-version }}${{ matrix.platform }}ui${{ inputs.dist-tag }}
       EMULATOR_PORT: 5554
+      GRADLE_OPTS: '-Dorg.gradle.internal.http.socketTimeout=60000 -Dorg.gradle.internal.http.connectionTimeout=60000'
     steps:
       - name: Checkout Amplify UI
         uses: actions/checkout@ff7abcd0c3c05ccf6adc123a8cd1fd4fb30fb493 # v4.1.3 https://github.com/actions/checkout/commit/cd7d8d697e10461458bc61a30d094dc601a8b017

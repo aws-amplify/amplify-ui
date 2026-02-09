@@ -44,6 +44,9 @@ import HideSignupSwift from './hidesignup.swift.mdx';
 import HideSignupWeb from './hidesignup.web.mdx';
 import TotpSwift from './totpIssuer.swift.mdx';
 import TotpAndroid from './totpIssuer.android.mdx';
+import PasswordlessSwift from './passwordless.swift.mdx';
+import PasswordlessAndroid from './passwordless.android.mdx';
+import PasswordlessReact from './passwordless.react.mdx';
 
 export async function getStaticPaths() {
   return getCustomStaticPath(frontmatter.supportedFrameworks);
@@ -67,11 +70,18 @@ By default, unauthenticated users are redirected to the Sign In flow. You can ex
 
 ## Login Mechanisms
 
-<InlineFilter filters={['angular', 'react', 'vue', 'svelte']}>
+<InlineFilter filters={['angular', 'vue', 'svelte']}>
   <LoginWeb />
+</InlineFilter>
+<InlineFilter filters={['react']}>
+  <LoginWeb />
+
+  <PasswordlessReact />
 </InlineFilter>
 <InlineFilter filters={['android']}>
   <LoginAndroid />
+
+  <PasswordlessAndroid />
 </InlineFilter>
 <InlineFilter filters={['flutter']}>
   <LoginFlutter />
@@ -81,6 +91,8 @@ By default, unauthenticated users are redirected to the Sign In flow. You can ex
 </InlineFilter>
 <InlineFilter filters={['swift']}>
   <LoginSwift />
+
+  <PasswordlessSwift />
 </InlineFilter>
 
 ## Sign Up Attributes

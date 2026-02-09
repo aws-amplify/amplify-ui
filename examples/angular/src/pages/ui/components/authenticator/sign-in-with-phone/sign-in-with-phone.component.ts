@@ -7,22 +7,10 @@ import awsExports from './aws-exports';
 
 @Component({
   selector: 'sign-in-with-phone',
+  standalone: false,
   templateUrl: 'sign-in-with-phone.component.html',
 })
 export class SignInWithPhoneComponent implements OnInit {
-  constructor() {
-    Amplify.configure(awsExports);
-  }
-
-  ngOnInit(): void {
-    I18n.putVocabularies(translations);
-    I18n.setLanguage('en');
-    I18n.putVocabulariesForLanguage('en', {
-      'Password does not conform to policy: Password not long enough':
-        'Your password is too short! Try a longer password!',
-    });
-  }
-
   public formFields = {
     signIn: {
       username: {
@@ -36,4 +24,17 @@ export class SignInWithPhoneComponent implements OnInit {
       },
     },
   };
+
+  constructor() {
+    Amplify.configure(awsExports);
+  }
+
+  ngOnInit(): void {
+    I18n.putVocabularies(translations);
+    I18n.setLanguage('en');
+    I18n.putVocabulariesForLanguage('en', {
+      'Password does not conform to policy: Password not long enough':
+        'Your password is too short! Try a longer password!',
+    });
+  }
 }

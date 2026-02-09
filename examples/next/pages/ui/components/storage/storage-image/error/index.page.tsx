@@ -1,10 +1,9 @@
 import * as React from 'react';
 
 import { Amplify } from 'aws-amplify';
-import { Text, Loader } from '@aws-amplify/ui-react';
+import { Loader, Text } from '@aws-amplify/ui-react';
 import { StorageImage } from '@aws-amplify/ui-react-storage';
 
-import '@aws-amplify/ui-react/styles.css';
 import amplifyOutputs from './amplify_outputs';
 
 Amplify.configure(amplifyOutputs);

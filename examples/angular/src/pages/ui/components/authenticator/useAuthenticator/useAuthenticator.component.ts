@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'use-authenticator',
+  standalone: false,
   templateUrl: 'useAuthenticator.component.html',
 })
 export class UseAuthenticatorComponent {
@@ -18,7 +19,7 @@ export class UseAuthenticatorComponent {
     Amplify.configure(awsExports);
   }
 
-  public navigateHome(event: Event) {
+  public navigateHome(event: Event): void {
     event.preventDefault();
     this.router.navigate(['home'], { relativeTo: this.route });
   }
