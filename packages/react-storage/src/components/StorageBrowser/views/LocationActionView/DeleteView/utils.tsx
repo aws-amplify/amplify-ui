@@ -24,19 +24,12 @@ export const createFolderListContent = (
 ): React.JSX.Element => {
   return (
     <>
-      <TextElement
-        className={`${STORAGE_BROWSER_BLOCK}__modal-folder-list-title`}
-      >
+      <TextElement className="amplify-modal__list-title">
         <strong>{folderListTitle}</strong>
       </TextElement>
-      <UnorderedListElement
-        className={`${STORAGE_BROWSER_BLOCK}__modal-folder-list`}
-      >
+      <UnorderedListElement className="amplify-modal__list">
         {folders.map((folder) => (
-          <ListItemElement
-            key={folder.id}
-            className={`${STORAGE_BROWSER_BLOCK}__modal-folder-list-item`}
-          >
+          <ListItemElement key={folder.id} className="amplify-modal__list-item">
             {getFolderName(folder.key)}
           </ListItemElement>
         ))}

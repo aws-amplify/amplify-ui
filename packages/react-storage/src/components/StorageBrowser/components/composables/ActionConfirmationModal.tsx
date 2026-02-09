@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { STORAGE_BROWSER_BLOCK } from '../base';
 import {
   ButtonElement,
   ViewElement,
@@ -48,7 +47,7 @@ export const ActionConfirmationModal = ({
   return (
     <div
       ref={modalRef}
-      className={`${STORAGE_BROWSER_BLOCK}__modal-overlay`}
+      className="amplify-modal__overlay"
       role="dialog"
       aria-modal="true"
       tabIndex={-1}
@@ -59,33 +58,26 @@ export const ActionConfirmationModal = ({
         }
       }}
     >
-      <ViewElement
-        className={`${STORAGE_BROWSER_BLOCK}__modal`}
-        role="document"
-      >
-        <HeadingElement className={`${STORAGE_BROWSER_BLOCK}__modal-title`}>
+      <ViewElement className="amplify-modal__content" role="document">
+        <HeadingElement className="amplify-modal__title">
           {title}
         </HeadingElement>
         {message && (
-          <TextElement className={`${STORAGE_BROWSER_BLOCK}__modal-message`}>
-            {message}
-          </TextElement>
+          <TextElement className="amplify-modal__body">{message}</TextElement>
         )}
         {content && (
-          <ViewElement className={`${STORAGE_BROWSER_BLOCK}__modal-content`}>
-            {content}
-          </ViewElement>
+          <ViewElement className="amplify-modal__body">{content}</ViewElement>
         )}
-        <ViewElement className={`${STORAGE_BROWSER_BLOCK}__modal-actions`}>
+        <ViewElement className="amplify-modal__footer">
           <ButtonElement
-            className={`${STORAGE_BROWSER_BLOCK}__modal-cancel`}
+            className="amplify-modal__cancel"
             onClick={onCancel}
             variant="cancel"
           >
             {cancelLabel}
           </ButtonElement>
           <ButtonElement
-            className={`${STORAGE_BROWSER_BLOCK}__modal-confirm`}
+            className="amplify-modal__confirm"
             onClick={onConfirm}
             variant="primary"
           >
