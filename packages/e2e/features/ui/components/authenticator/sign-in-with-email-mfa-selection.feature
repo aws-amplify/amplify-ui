@@ -46,7 +46,7 @@ Feature: Sign In with Email MFA Selection
         Then I see "Confirm Email Code"
         Then I type an invalid confirmation code
         Then I click the "Confirm" button
-        Then I see "Invalid code or auth state for the user."
+        Then I see "The verification code you entered is incorrect"
         Then I type a valid confirmation code
         Then I click the "Confirm" button
         Then I click the "Sign out" button

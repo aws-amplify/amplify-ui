@@ -38,7 +38,7 @@ function downloadFromUrl(fileName: string, url: string) {
   document.body.removeChild(a);
 }
 
-export const downloadHandler: DownloadHandler = ({ config, data }) => {
+export const downloadHandler: DownloadHandler = ({ config, data }): DownloadHandlerOutput => {
   const { accountId, credentials, customEndpoint } = config;
   const { key } = data;
 
@@ -53,14 +53,14 @@ export const downloadHandler: DownloadHandler = ({ config, data }) => {
       expectedBucketOwner: accountId,
     },
   })
-    .then(({ url }) => {
-      downloadFromUrl(key, url.toString());
-      return { status: 'COMPLETE' as const, value: { url } };
-    })
-    .catch((error: Error) => {
-      const { message } = error;
-      return { error, message, status: 'FAILED' as const };
-    });
+  .then(({ url }) => {
+    downloadFromUrl(key, url.toString());
+    return { status: 'COMPLETE' as const, value: { url } };
+  })
+  .catch((error: Error) => {
+    const { message } = error;
+    return { error, message, status: 'FAILED' as const };
+  });
 
   return { result };
 };

@@ -40,7 +40,9 @@ export type AuthenticatorRoute =
   | 'forceNewPassword'
   | 'idle'
   | 'forgotPassword'
+  | 'passkeyPrompt'
   | 'setup'
+  | 'signInSelectAuthFactor'
   | 'signOut'
   | 'selectMfaType'
   | 'setupEmail'
@@ -56,12 +58,16 @@ export type AuthStatus = 'configuring' | 'authenticated' | 'unauthenticated';
 interface AuthenticatorServiceContextFacade {
   allowedMfaTypes: AuthMFAType[] | undefined;
   authStatus: AuthStatus;
+  availableAuthMethods: string[] | undefined;
   challengeName: ChallengeName | undefined;
   codeDeliveryDetails: V5CodeDeliveryDetails;
   error: string;
   hasValidationErrors: boolean;
   isPending: boolean;
+  loginMechanism: LoginMechanism | undefined;
+  preferredChallenge: string | undefined;
   route: AuthenticatorRoute;
+  selectedAuthMethod: string | undefined;
   socialProviders: SocialProvider[];
   totpSecretCode: string | null;
   unverifiedUserAttributes: UnverifiedUserAttributes;
@@ -73,8 +79,10 @@ interface AuthenticatorServiceContextFacade {
 type SendEventAlias =
   | 'initializeMachine'
   | 'resendCode'
+  | 'selectAuthMethod'
   | 'signOut'
   | 'submitForm'
+  | 'toShowAuthMethods'
   | 'updateForm'
   | 'updateBlur'
   | 'toFederatedSignIn'
@@ -141,8 +149,10 @@ export const getSendEventAliases = (
   return {
     initializeMachine: sendToMachine('INIT'),
     resendCode: sendToMachine('RESEND'),
+    selectAuthMethod: sendToMachine('SELECT_METHOD'),
     signOut: sendToMachine('SIGN_OUT'),
     submitForm: sendToMachine('SUBMIT'),
+    toShowAuthMethods: sendToMachine('SHOW_AUTH_METHODS'),
     updateForm: sendToMachine('CHANGE'),
     updateBlur: sendToMachine('BLUR'),
 
@@ -178,16 +188,21 @@ export const getServiceContextFacade = (
   const actorContext = (getActorContext(state) ?? {}) as AuthActorContext;
   const {
     allowedMfaTypes,
+    availableAuthMethods,
     challengeName,
     codeDeliveryDetails,
+    preferredChallenge,
     remoteError: error,
+    selectedAuthMethod,
     validationError: validationErrors,
     totpSecretCode = null,
     unverifiedUserAttributes,
     username,
   } = actorContext;
 
-  const { socialProviders = [] } = state.context?.config ?? {};
+  const { socialProviders = [], loginMechanisms } = state.context?.config ?? {};
+
+  const loginMechanism = loginMechanisms?.[0];
 
   // check for user in actorContext prior to state context. actorContext is more "up to date",
   // but is not available on all states
@@ -219,12 +234,16 @@ export const getServiceContextFacade = (
   const facade = {
     allowedMfaTypes,
     authStatus,
+    availableAuthMethods,
     challengeName,
     codeDeliveryDetails,
     error,
     hasValidationErrors,
     isPending,
+    loginMechanism,
+    preferredChallenge,
     route,
+    selectedAuthMethod,
     socialProviders,
     totpSecretCode,
     unverifiedUserAttributes,
