@@ -1,5 +1,20 @@
 # @aws-amplify/ui-react-storage
 
+## 3.15.0
+
+### Minor Changes
+
+- [#6746](https://github.com/aws-amplify/amplify-ui/pull/6746) [`e45b1fe43edf3e61606ce2e4c8abf2c37973268a`](https://github.com/aws-amplify/amplify-ui/commit/e45b1fe43edf3e61606ce2e4c8abf2c37973268a) Thanks [@bobbor](https://github.com/bobbor)! - feat(storage-manager): add multi-file zipdownload
+
+- [#6775](https://github.com/aws-amplify/amplify-ui/pull/6775) [`b55d7114c4361bcbf9698308e68854c6cfae1f1f`](https://github.com/aws-amplify/amplify-ui/commit/b55d7114c4361bcbf9698308e68854c6cfae1f1f) Thanks [@Simone319](https://github.com/Simone319)! - deduplicate storage browser locations which have broader permissions
+
+### Patch Changes
+
+- Updated dependencies [[`25cf1983b7ecf91f7ab7bb1c2cb76a4df252fdf7`](https://github.com/aws-amplify/amplify-ui/commit/25cf1983b7ecf91f7ab7bb1c2cb76a4df252fdf7), [`167714536a6dbe43f918b5c8f3a46afb6f9c66fb`](https://github.com/aws-amplify/amplify-ui/commit/167714536a6dbe43f918b5c8f3a46afb6f9c66fb)]:
+  - @aws-amplify/ui@6.14.0
+  - @aws-amplify/ui-react-core@3.5.0
+  - @aws-amplify/ui-react@6.14.0
+
 ## 3.14.0
 
 ### Minor Changes
