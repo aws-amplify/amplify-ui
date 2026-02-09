@@ -86,3 +86,25 @@ Feature: Folder deletion with Storage Browser
     When I click the modal "Delete" button
     Then I see "1 folder deleted"
 
+  @react
+  Scenario: Delete folder shows error when network failure occurs
+    When I click the first button containing "public"
+    When I click the first button containing "DoNotDeleteThisFolder_CanDeleteAllChildren"
+    # Create a test folder first
+    When I click the "Menu Toggle" button
+    When I click the "Create Folder" menuitem
+    When I type a new "Folder name" with random value
+    When I click the "Create Folder" button
+    Then I see "Folder created"
+    When I click the "Exit" button
+    # Select folder for deletion
+    Then I click checkbox for button containing random name
+    When I click the "Menu Toggle" button
+    Then I click the "Delete" menuitem
+    Then I click the "Delete" button
+    Then I see modal with title "Confirm Deletion"
+    # Simulate network failure during deletion
+    When A network failure occurs
+    When I click the modal "Delete" button
+    Then I see "Failed to delete 1 folder. Some items may have been deleted."
+
