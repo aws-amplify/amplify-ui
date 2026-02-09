@@ -160,27 +160,19 @@ Then('I see {string} folders deleted', (count: string) => {
 });
 
 Then('I see modal with title {string}', (title: string) => {
-  cy.get('.amplify-storage-browser__modal-title').should('contain.text', title);
+  cy.get('.amplify-modal__title').should('contain.text', title);
 });
 
 When('I click the modal {string} button', (buttonText: string) => {
-  cy.get('.amplify-storage-browser__modal-actions')
-    .contains('button', buttonText)
-    .click();
+  cy.get('.amplify-modal__footer').contains('button', buttonText).click();
 });
 
 Then('I see modal message {string}', (message: string) => {
-  cy.get('.amplify-storage-browser__modal-message').should(
-    'contain.text',
-    message
-  );
+  cy.get('.amplify-modal__body').should('contain.text', message);
 });
 
 Then('I see modal content {string}', (content: string) => {
-  cy.get('.amplify-storage-browser__modal-content').should(
-    'contain.text',
-    content
-  );
+  cy.get('.amplify-modal__body').should('contain.text', content);
 });
 
 Then('I see folder button containing random name', () => {
