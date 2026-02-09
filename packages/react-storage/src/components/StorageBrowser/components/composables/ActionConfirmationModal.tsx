@@ -21,13 +21,13 @@ export interface ActionConfirmationModalProps {
 
 export const ActionConfirmationModal = ({
   isOpen = false,
-  title = 'Confirm Action',
-  message = '',
+  title,
+  message,
   content,
   onConfirm,
   onCancel,
-  confirmLabel = 'Confirm',
-  cancelLabel = 'Cancel',
+  confirmLabel,
+  cancelLabel,
 }: ActionConfirmationModalProps): React.JSX.Element | null => {
   const modalRef = React.useRef<HTMLDivElement>(null);
 

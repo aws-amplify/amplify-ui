@@ -177,6 +177,7 @@ export interface DefaultDeleteViewDisplayText
   confirmationModalConfirmLabel: string;
   confirmationModalCancelLabel: string;
   confirmationModalMessage: string;
+  confirmationModalFolderListTitle: string;
 }
 
 export interface DefaultDownloadViewDisplayText

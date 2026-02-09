@@ -19,14 +19,15 @@ export const getFolderName = (folderKey: string): string => {
  * Creates JSX content showing a list of folders to be deleted
  */
 export const createFolderListContent = (
-  folders: LocationItemData[]
+  folders: LocationItemData[],
+  folderListTitle: string
 ): React.JSX.Element => {
   return (
     <>
       <TextElement
         className={`${STORAGE_BROWSER_BLOCK}__modal-folder-list-title`}
       >
-        <strong>Folder list:</strong>
+        <strong>{folderListTitle}</strong>
       </TextElement>
       <UnorderedListElement
         className={`${STORAGE_BROWSER_BLOCK}__modal-folder-list`}
@@ -56,6 +57,7 @@ export const createDeleteConfirmationModalProps = ({
     confirmationModalConfirmLabel: string;
     confirmationModalCancelLabel: string;
     confirmationModalMessage: string;
+    confirmationModalFolderListTitle: string;
   };
 }): Omit<ActionConfirmationModalProps, 'onConfirm' | 'onCancel'> => {
   const folders = getSelectedFolders(items);
@@ -69,7 +71,10 @@ export const createDeleteConfirmationModalProps = ({
       .replace('{plural}', folderCount !== 1 ? 's' : ''),
     confirmLabel: displayText.confirmationModalConfirmLabel,
     cancelLabel: displayText.confirmationModalCancelLabel,
-    content: createFolderListContent(folders),
+    content: createFolderListContent(
+      folders,
+      displayText.confirmationModalFolderListTitle
+    ),
   };
 };
 

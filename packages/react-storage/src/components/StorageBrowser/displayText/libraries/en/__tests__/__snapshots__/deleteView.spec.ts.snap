@@ -57,6 +57,7 @@ exports[`DeleteView display text values should match snapshot values 1`] = `
   "actionStartLabel": "Delete",
   "confirmationModalCancelLabel": "Cancel",
   "confirmationModalConfirmLabel": "Delete",
+  "confirmationModalFolderListTitle": "Folder list:",
   "confirmationModalMessage": "The items that will be deleted contain {count} folder{plural}",
   "confirmationModalTitle": "Confirm Deletion",
   "getActionCompleteMessage": [Function],

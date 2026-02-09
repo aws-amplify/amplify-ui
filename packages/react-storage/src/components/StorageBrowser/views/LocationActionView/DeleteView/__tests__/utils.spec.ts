@@ -56,14 +56,14 @@ describe('createFolderListContent', () => {
       },
     ];
 
-    const result = createFolderListContent(folders);
+    const result = createFolderListContent(folders, 'Folder list:');
 
     expect(result).toBeDefined();
     expect(React.isValidElement(result)).toBe(true);
   });
 
   it('should handle empty folder list', () => {
-    const result = createFolderListContent([]);
+    const result = createFolderListContent([], 'Folder list:');
     expect(result).toBeDefined();
   });
 });
@@ -75,6 +75,7 @@ describe('createDeleteConfirmationModalProps', () => {
     confirmationModalCancelLabel: 'Cancel',
     confirmationModalMessage:
       'The items that will be deleted contain {count} folder{plural}',
+    confirmationModalFolderListTitle: 'Folder list:',
   };
 
   it('should create modal props with single folder', () => {

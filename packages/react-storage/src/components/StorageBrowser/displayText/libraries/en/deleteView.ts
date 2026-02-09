@@ -16,6 +16,7 @@ export const DEFAULT_DELETE_VIEW_DISPLAY_TEXT: DefaultDeleteViewDisplayText = {
   confirmationModalCancelLabel: 'Cancel',
   confirmationModalMessage:
     'The items that will be deleted contain {count} folder{plural}',
+  confirmationModalFolderListTitle: 'Folder list:',
   getActionCompleteMessage: (data) => {
     const { counts, tasks } = data ?? {};
     const { COMPLETE = 0, FAILED = 0, TOTAL = 0 } = counts ?? {};
