@@ -2,7 +2,7 @@ import React from 'react';
 import type { ActionInputConfig, LocationItemData } from '../../../actions';
 import type { ActionConfirmationModalProps } from '../../../components/composables/ActionConfirmationModal';
 import { getSelectedFolders } from '../../../locationItems/utils';
-import { STORAGE_BROWSER_BLOCK } from '../../../components/base';
+
 import {
   TextElement,
   UnorderedListElement,
