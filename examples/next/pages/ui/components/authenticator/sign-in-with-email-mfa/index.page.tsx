@@ -1,6 +1,5 @@
 import { Amplify } from 'aws-amplify';
 import { Authenticator, AuthenticatorProps } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
 
 import awsExports from './aws-exports';
 

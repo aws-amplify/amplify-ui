@@ -6,6 +6,8 @@ import { I18n } from 'aws-amplify/utils';
 import { AuthenticatorService, translations } from '@aws-amplify/ui-angular';
 
 import awsExports from './aws-exports';
+import type { AuthStatus } from '@aws-amplify/ui';
+
 Amplify.configure(awsExports);
 
 @Component({
@@ -14,19 +16,6 @@ Amplify.configure(awsExports);
   templateUrl: 'sign-up-with-email.component.html',
 })
 export class SignUpWithEmailComponent implements OnInit {
-  constructor(public authenticator: AuthenticatorService) {}
-
-  ngOnInit() {
-    I18n.putVocabularies(translations);
-    I18n.setLanguage('en');
-    I18n.putVocabulariesForLanguage('en', {
-      'Your code is on the way. To log in, enter the code we emailed to':
-        'Enter this code:',
-      'It may take a minute to arrive':
-        'It will take several minutes to arrive',
-    });
-  }
-
   public formFields = {
     confirmSignUp: {
       confirmation_code: {
@@ -35,13 +24,8 @@ export class SignUpWithEmailComponent implements OnInit {
       },
     },
   };
-
-  get authStatus() {
-    return this.authenticator.authStatus;
-  }
-
   services = {
-    async handleSignUp(input: SignUpInput) {
+    async handleSignUp(input: SignUpInput): ReturnType<typeof signUp> {
       // custom username and email
       const customUsername = input.username.toLowerCase();
       const customEmail = input.options?.userAttributes?.email?.toLowerCase();
@@ -58,4 +42,21 @@ export class SignUpWithEmailComponent implements OnInit {
       });
     },
   };
+
+  constructor(public authenticator: AuthenticatorService) {}
+
+  get authStatus(): AuthStatus {
+    return this.authenticator.authStatus;
+  }
+
+  ngOnInit(): void {
+    I18n.putVocabularies(translations);
+    I18n.setLanguage('en');
+    I18n.putVocabulariesForLanguage('en', {
+      'Your code is on the way. To log in, enter the code we emailed to':
+        'Enter this code:',
+      'It may take a minute to arrive':
+        'It will take several minutes to arrive',
+    });
+  }
 }

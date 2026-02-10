@@ -6,8 +6,8 @@ import {
 } from '@aws-amplify/ui-react';
 import { FileUploader } from '@aws-amplify/ui-react-storage';
 
-import '@aws-amplify/ui-react/styles.css';
 import amplifyOutputs from './amplify_outputs';
+
 Amplify.configure(amplifyOutputs);
 
 export function FileUploaderExample() {

@@ -6,8 +6,12 @@ import { Header } from '@/components/Header';
 import ThemeToggle from '@/components/ThemeToggle';
 import { cookies } from 'next/headers';
 
-export default function Layout({ children }: { children: React.ReactNode }) {
-  const cookieStore = cookies();
+export default async function Layout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const cookieStore = await cookies();
   const colorMode = (cookieStore.get('colorMode')?.value ??
     'dark') as ColorMode;
 

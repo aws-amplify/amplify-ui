@@ -4,8 +4,8 @@ import { withAuthenticator } from '@aws-amplify/ui-react';
 
 import { Field } from '@aws-amplify/ui-react/internal';
 import { StorageManager } from '@aws-amplify/ui-react-storage';
-import '@aws-amplify/ui-react/styles.css';
 import awsExports from './aws-exports';
+
 Amplify.configure(awsExports);
 
 export function StorageManagerExample() {

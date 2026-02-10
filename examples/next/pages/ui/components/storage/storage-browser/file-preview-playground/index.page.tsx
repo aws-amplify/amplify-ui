@@ -11,8 +11,6 @@ import {
   withAuthenticator,
 } from '@aws-amplify/ui-react';
 
-import '@aws-amplify/ui-react-storage/styles.css';
-
 import config from '../default-auth/aws-exports';
 import {
   createAmplifyAuthAdapter,

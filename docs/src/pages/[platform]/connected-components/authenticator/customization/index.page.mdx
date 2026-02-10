@@ -43,6 +43,7 @@ import FullFlutter from './customization.full-ui-customization.flutter.mdx';
 import FullSwift from './customization.full-ui-customization.swift.mdx';
 import PasswordlessViewsAndroid from './customization.passwordless-views.android.mdx';
 import PasswordlessViewsSwift from './customization.passwordless-views.swift.mdx';
+import PasswordlessViewsReact from './customization.passwordless-views.react.mdx';
 
 export async function getStaticPaths() {
   return getCustomStaticPath(frontmatter.supportedFrameworks);
@@ -134,7 +135,7 @@ export async function getStaticProps() {
 
   <PasswordlessViewsSwift />
 </InlineFilter>
-<InlineFilter filters={['angular', 'react', 'vue', 'svelte']}>
+<InlineFilter filters={['angular', 'vue', 'svelte']}>
   <LabelsWeb />
 
   <FieldsWeb />
@@ -144,4 +145,17 @@ export async function getStaticProps() {
   <FormWeb />
 
   <StylingWeb />
+</InlineFilter>
+<InlineFilter filters={['react']}>
+  <LabelsWeb />
+
+  <FieldsWeb />
+
+  <ForceWeb />
+
+  <FormWeb />
+
+  <StylingWeb />
+
+  <PasswordlessViewsReact />
 </InlineFilter>

@@ -1,0 +1,8 @@
+{
+  "private": true,
+  "name": "@aws-amplify/ui-auth-with-passwordless-environment",
+  "version": "0.0.1",
+  "scripts": {
+    "pull": "amplify pull --appId d2twbz1jchtrny --envName staging"
+  }
+}
