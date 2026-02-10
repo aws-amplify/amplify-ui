@@ -25,7 +25,9 @@ export interface DeleteHandlerInput
   extends TaskHandlerInput<DeleteHandlerData, DeleteHandlerOptions> {}
 
 export interface DeleteHandlerOutput
-  extends TaskHandlerOutput<{ key: string }> {}
+  extends TaskHandlerOutput<{
+    key: string;
+  }> {}
 
 export interface DeleteHandler
   extends TaskHandler<DeleteHandlerInput, DeleteHandlerOutput> {}
@@ -58,8 +60,11 @@ export const deleteHandler: DeleteHandler = ({
       expectedBucketOwner: accountId,
       customEndpoint,
       onProgress: (progress) => {
-        const batchSuccessCount = progress.deleted?.length ?? 0;
-        const batchFailureCount = progress.failed?.length ?? 0;
+        if (!progress) {
+          return;
+        }
+        const batchSuccessCount = progress?.deleted?.length ?? 0;
+        const batchFailureCount = progress?.failed?.length ?? 0;
 
         cumulativeSuccessCount += batchSuccessCount;
         cumulativeFailureCount += batchFailureCount;
@@ -72,10 +77,12 @@ export const deleteHandler: DeleteHandler = ({
     },
   });
 
-  operationCancel = operation.cancel;
+  operationCancel = operation?.cancel ? operation?.cancel : () => {};
 
-  const result = operation.result
-    .then(({ path }) => {
+  const operationPromise = operation?.result ?? operation;
+
+  const result = operationPromise
+    ?.then?.(({ path }) => {
       return {
         status: 'COMPLETE' as const,
         value: {
@@ -85,7 +92,7 @@ export const deleteHandler: DeleteHandler = ({
         },
       };
     })
-    .catch((error: Error) => {
+    ?.catch?.((error: Error) => {
       const { message } = error;
       return { error, message, status: 'FAILED' as const };
     });
