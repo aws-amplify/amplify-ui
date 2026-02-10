@@ -24,10 +24,15 @@ import { ActionDestinationControl } from '../../../controls/ActionDestinationCon
 import type { CopyViewType } from './types';
 import { useCopyView } from './useCopyView';
 import { classNames } from '@aws-amplify/ui';
+import { usePaginationConfig } from '../../../configuration';
 
 export const CopyView: CopyViewType = ({ className, ...props }) => {
   const state = useCopyView(props);
   const { isProcessing, isProcessingComplete } = state;
+  const { isExplicitPageSize } = usePaginationConfig();
+
+  // Only show task pagination if pageSize was explicitly provided
+  const showTaskPagination = isExplicitPageSize || props.pageSize !== undefined;
 
   return (
     <ViewElement className={classNames(STORAGE_BROWSER_BLOCK, className)}>
@@ -42,7 +47,7 @@ export const CopyView: CopyViewType = ({ className, ...props }) => {
           }}
         >
           <TitleControl />
-          <PaginationControl />
+          {showTaskPagination && <PaginationControl />}
         </ViewElement>
         <ViewElement className={`${STORAGE_BROWSER_BLOCK}__data-table`}>
           <DataTableControl />

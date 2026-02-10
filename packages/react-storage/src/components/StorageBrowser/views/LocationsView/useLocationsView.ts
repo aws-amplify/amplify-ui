@@ -36,12 +36,15 @@ export const useLocationsView = (
   const pageSize = options?.pageSize ?? configPageSize;
   const initialValues = options?.initialValues ?? {};
 
-  const listOptionsRef = React.useRef({
-    exclude: DEFAULT_EXCLUDE,
-    pageSize,
-    ...initialValues,
-  });
-  const listOptions = listOptionsRef.current;
+  const listOptions = React.useMemo(
+    () => ({
+      ...initialValues,
+      exclude: DEFAULT_EXCLUDE,
+      pageSize,
+    }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [pageSize, initialValues.pageSize]
+  );
 
   // initial load
   React.useEffect(() => {

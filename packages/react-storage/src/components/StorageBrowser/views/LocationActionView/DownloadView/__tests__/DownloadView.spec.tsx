@@ -16,9 +16,10 @@ jest.spyOn(Config, 'useGetActionInput').mockReturnValue(() => ({
   region: 'us-west-2',
 }));
 
-jest.spyOn(Config, 'usePaginationConfig').mockReturnValue({ pageSize: 10 });
-
-jest.spyOn(Config, 'usePaginationConfig').mockReturnValue({ pageSize: 10 });
+jest.spyOn(Config, 'usePaginationConfig').mockReturnValue({
+  pageSize: 10,
+  isExplicitPageSize: true,
+});
 
 jest.mock('../../../../displayText', () => ({
   ...jest.requireActual<typeof import('../../../../displayText')>(

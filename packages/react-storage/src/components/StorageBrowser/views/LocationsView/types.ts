@@ -39,7 +39,7 @@ export interface LocationsViewType {
   Title: () => React.JSX.Element | null;
 }
 
-interface InitialValues {
+export interface InitialValues {
   pageSize?: number;
 }
 

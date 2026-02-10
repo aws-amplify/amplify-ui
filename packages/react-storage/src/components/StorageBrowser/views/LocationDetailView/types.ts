@@ -85,7 +85,7 @@ export interface LocationDetailViewType {
   FilePreview: (props: FilePreviewProps) => React.JSX.Element | null;
 }
 
-interface InitialValues {
+export interface InitialValues {
   pageSize?: number;
   delimiter?: string;
 }

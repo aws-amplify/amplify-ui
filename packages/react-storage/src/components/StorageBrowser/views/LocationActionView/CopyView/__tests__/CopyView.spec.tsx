@@ -2,9 +2,15 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 
 import * as UseCopyViewModule from '../useCopyView';
+import * as Config from '../../../../configuration';
 
 import { CopyViewState } from '../types';
 import { CopyView } from '../CopyView';
+
+jest.spyOn(Config, 'usePaginationConfig').mockReturnValue({
+  pageSize: 10,
+  isExplicitPageSize: true,
+});
 
 jest.mock('../CopyViewProvider', () => ({
   CopyViewProvider: ({ children }: { children?: React.ReactNode }) => (

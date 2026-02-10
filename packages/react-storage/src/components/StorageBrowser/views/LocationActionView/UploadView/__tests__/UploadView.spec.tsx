@@ -9,7 +9,10 @@ import * as UseUploadViewModule from '../useUploadView';
 import { UploadViewState } from '../types';
 import { UploadView } from '../UploadView';
 
-jest.spyOn(Config, 'usePaginationConfig').mockReturnValue({ pageSize: 10 });
+jest.spyOn(Config, 'usePaginationConfig').mockReturnValue({
+  pageSize: 10,
+  isExplicitPageSize: true,
+});
 
 jest.mock('../../../../displayText', () => ({
   useDisplayText: () => ({

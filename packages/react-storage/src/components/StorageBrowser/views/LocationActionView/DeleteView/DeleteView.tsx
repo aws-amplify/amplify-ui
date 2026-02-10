@@ -16,9 +16,14 @@ import { DeleteViewProvider } from './DeleteViewProvider';
 import { useDeleteView } from './useDeleteView';
 import type { DeleteViewType } from './types';
 import { classNames } from '@aws-amplify/ui';
+import { usePaginationConfig } from '../../../configuration';
 
 export const DeleteView: DeleteViewType = ({ className, ...props }) => {
   const state = useDeleteView(props);
+  const { isExplicitPageSize } = usePaginationConfig();
+
+  // Only show pagination if pageSize was explicitly provided
+  const showPagination = isExplicitPageSize || props.pageSize !== undefined;
 
   return (
     <ViewElement className={classNames(STORAGE_BROWSER_BLOCK, className)}>
@@ -28,7 +33,7 @@ export const DeleteView: DeleteViewType = ({ className, ...props }) => {
         <ViewElement className={`${STORAGE_BROWSER_BLOCK}__data-table`}>
           <DataTableControl />
         </ViewElement>
-        <PaginationControl />
+        {showPagination && <PaginationControl />}
         <ViewElement className={`${STORAGE_BROWSER_BLOCK}__summary`}>
           <StatusDisplayControl />
         </ViewElement>

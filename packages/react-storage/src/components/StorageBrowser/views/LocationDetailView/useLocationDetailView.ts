@@ -49,7 +49,7 @@ export const useLocationDetailView = (
 ): LocationDetailViewState => {
   const { pageSize: configPageSize } = usePaginationConfig();
   const {
-    initialValues,
+    initialValues = {},
     onExit,
     onNavigate,
     pageSize: propPageSize,
@@ -57,17 +57,15 @@ export const useLocationDetailView = (
 
   const pageSize = propPageSize ?? configPageSize;
 
-  const DEFAULT_LIST_OPTIONS = {
-    delimiter: '/',
-    pageSize,
-  };
-
-  const listOptionsRef = React.useRef({
-    ...DEFAULT_LIST_OPTIONS,
-    ...initialValues,
-  });
-
-  const listOptions = listOptionsRef.current;
+  const listOptions = React.useMemo(
+    () => ({
+      ...initialValues,
+      delimiter: '/',
+      pageSize,
+    }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [pageSize, initialValues.delimiter, initialValues.pageSize]
+  );
 
   const [{ location, actionType }, storeDispatch] = useStore();
   const [locationItems, locationItemsDispatch] = useLocationItems();

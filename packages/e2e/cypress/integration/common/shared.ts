@@ -475,8 +475,36 @@ Then('the {string} button is enabled', (name: string) => {
   }).should('not.be.disabled');
 });
 
+When('I wait {int} seconds', (seconds: number) => {
+  cy.wait(seconds * 1000);
+});
+
 Then('the table should have {string} rows', (value: string) => {
-  cy.get('table').find('tbody tr').should('have.length', value);
+  cy.get('table')
+    .find('tbody tr')
+    .filter(':visible')
+    .should('have.length', parseInt(value));
+});
+
+Then(
+  'the {string} table should have {string} rows',
+  (tableSelector: string, value: string) => {
+    cy.get(tableSelector)
+      .find('tbody tr')
+      .filter(':visible')
+      .should('have.length', parseInt(value));
+  }
+);
+
+Then(
+  'I do not see the {string} button in the {string} view',
+  (buttonText: string, viewName: string) => {
+    cy.contains('button', buttonText).should('not.exist');
+  }
+);
+
+When('I click the first checkbox in the table', () => {
+  cy.get('table tbody input[type="checkbox"]').first().click({ force: true });
 });
 
 Then('the {string} field is invalid', (name: string) => {

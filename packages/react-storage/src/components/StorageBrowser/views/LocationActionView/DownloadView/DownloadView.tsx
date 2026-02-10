@@ -16,9 +16,14 @@ import { DownloadViewProvider } from './DownloadViewProvider';
 import { useDownloadView } from './useDownloadView';
 import type { DownloadViewType } from './types';
 import { classNames } from '@aws-amplify/ui';
+import { usePaginationConfig } from '../../../configuration';
 
 export const DownloadView: DownloadViewType = ({ className, ...props }) => {
   const state = useDownloadView(props);
+  const { isExplicitPageSize } = usePaginationConfig();
+
+  // Only show pagination if pageSize was explicitly provided
+  const showPagination = isExplicitPageSize || props.pageSize !== undefined;
 
   return (
     <ViewElement className={classNames(STORAGE_BROWSER_BLOCK, className)}>
@@ -28,7 +33,7 @@ export const DownloadView: DownloadViewType = ({ className, ...props }) => {
         <ViewElement className={`${STORAGE_BROWSER_BLOCK}__data-table`}>
           <DataTableControl />
         </ViewElement>
-        <PaginationControl />
+        {showPagination && <PaginationControl />}
         <ViewElement className={`${STORAGE_BROWSER_BLOCK}__summary`}>
           <StatusDisplayControl />
         </ViewElement>
