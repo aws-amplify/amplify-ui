@@ -2,10 +2,10 @@ import { Amplify } from 'aws-amplify';
 import { I18n } from 'aws-amplify/utils';
 
 import { Authenticator } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
 
 import { translations } from '@aws-amplify/ui';
 import awsExports from './aws-exports';
+
 Amplify.configure(awsExports);
 
 I18n.putVocabularies(translations);

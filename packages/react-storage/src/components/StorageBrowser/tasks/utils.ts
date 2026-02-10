@@ -12,7 +12,12 @@ export const isProcessingTasks = (statusCounts: StatusCounts): boolean => {
     return false;
   }
 
-  return !(statusCounts.QUEUED === 0 && statusCounts.PENDING === 0);
+  return !(
+    statusCounts.QUEUED === 0 &&
+    statusCounts.PENDING === 0 &&
+    statusCounts.LOADED === 0 &&
+    statusCounts.FINISHING === 0
+  );
 };
 
 export const hasCompletedProcessingTasks = (

@@ -3,6 +3,7 @@ export * from './createFolder';
 export * from './defaults';
 export * from './delete';
 export * from './download';
+export * from './zipdownload';
 export * from './listLocationItems';
 export * from './listLocations';
 export * from './upload';

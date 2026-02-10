@@ -5,15 +5,15 @@ import {
   Authenticator,
   Button,
   Flex,
+  PasswordField,
   Text,
   TextField,
-  PasswordField,
   useAuthenticator,
 } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
 
 import awsExports from './aws-exports';
 import React from 'react';
+
 Amplify.configure(awsExports);
 
 function App() {

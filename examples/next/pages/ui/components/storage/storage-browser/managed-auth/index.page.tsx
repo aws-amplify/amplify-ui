@@ -2,8 +2,8 @@ import React from 'react';
 import { getUrl } from '@aws-amplify/storage/internals';
 
 import {
-  ActionViewConfig,
   ActionHandler,
+  ActionViewConfig,
   createStorageBrowser,
 } from '@aws-amplify/ui-react-storage/browser';
 
@@ -17,8 +17,6 @@ import {
   Text,
   View,
 } from '@aws-amplify/ui-react';
-
-import '@aws-amplify/ui-react-storage/styles.css';
 
 type GetLink = ActionHandler<
   { duration: number; fileKey: string },

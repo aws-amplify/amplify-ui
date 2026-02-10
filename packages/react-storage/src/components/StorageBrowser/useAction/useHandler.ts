@@ -9,9 +9,9 @@ import { useProcessTasks } from '../tasks';
 import type {
   HandleTaskInput,
   HandleTasksInput,
-  InferTask,
-  HandleTaskState,
   HandleTasksState,
+  HandleTaskState,
+  InferTask,
   UseHandlerOptions,
   UseHandlerOptionsWithItems,
 } from './types';
@@ -62,7 +62,7 @@ export function useHandler<
       handleProcessing({
         config,
         ...(hasData
-          ? { data: input.data }
+          ? { data: input.data, all: [input.data] }
           : // if no `data` provided, provide `concurrency` to `options`
             { options: { concurrency: DEFAULT_ACTION_CONCURRENCY } }),
       });

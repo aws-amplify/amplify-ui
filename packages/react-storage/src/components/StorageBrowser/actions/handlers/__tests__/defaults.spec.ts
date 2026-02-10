@@ -1,7 +1,7 @@
 import { copyHandler } from '../copy';
 import { createFolderHandler } from '../createFolder';
 import { deleteHandler } from '../delete';
-import { downloadHandler } from '../download';
+import { zipDownloadHandler } from '../zipdownload';
 import { listLocationItemsHandler } from '../listLocationItems';
 import { uploadHandler } from '../upload';
 import { defaultHandlers } from '../defaults';
@@ -12,7 +12,7 @@ describe('defaultHandlers', () => {
       copy: copyHandler,
       createFolder: createFolderHandler,
       delete: deleteHandler,
-      download: downloadHandler,
+      download: zipDownloadHandler,
       listLocationItems: listLocationItemsHandler,
       upload: uploadHandler,
     });
