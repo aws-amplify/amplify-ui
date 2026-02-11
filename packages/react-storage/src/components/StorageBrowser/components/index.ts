@@ -18,5 +18,3 @@ export { componentsDefault } from './defaults';
 export type { StorageBrowserIconType } from './elements';
 export { ViewElement } from './elements';
 export type { WithKey } from './types';
-export type { PaginationProps } from './Pagination';
-export { Pagination } from './Pagination';
