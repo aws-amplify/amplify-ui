@@ -57,6 +57,8 @@ export type ActionTableKey =
   | 'status'
   | 'cancel';
 
+export type DeleteTableKey = ActionTableKey | 'progress';
+
 export type UploadTableKey = ActionTableKey | 'progress';
 export type DownloadTableKey = ActionTableKey | 'progress';
 
@@ -65,6 +67,13 @@ export interface FileDataTaskTableResolvers
     ActionTableKey,
     FileDataTaskTableResolverProps,
     FileDataTask
+  > {}
+
+export interface DeleteTableResolvers
+  extends DataTableResolvers<
+    DeleteTableKey,
+    DeleteTableResolverProps,
+    DeleteActionTask
   > {}
 
 export interface UploadTableResolvers
@@ -82,6 +91,8 @@ export interface DownloadTableResolvers
   > {}
 
 export type GetFileDataCell = FileDataTaskTableResolvers['getCell'];
+
+export type GetDeleteCell = DeleteTableResolvers['getCell'];
 
 export type GetDownloadCell = DownloadTableResolvers['getCell'];
 

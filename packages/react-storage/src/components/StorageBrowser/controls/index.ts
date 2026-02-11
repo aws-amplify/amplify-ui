@@ -1,4 +1,5 @@
 export { ActionCancelControl } from './ActionCancelControl';
+export { ActionConfirmationModalControl } from './ActionConfirmationModalControl';
 export { ActionDestinationControl } from './ActionDestinationControl';
 export { ActionExitControl } from './ActionExitControl';
 export { ActionsListControl } from './ActionsListControl';

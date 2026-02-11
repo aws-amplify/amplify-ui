@@ -196,4 +196,34 @@ describe('useUploadFiles', () => {
       );
     });
   });
+
+  it('should handle progress with zero totalBytes', async () => {
+    uploadDataSpy.mockImplementationOnce((input) => {
+      const mockTask = {
+        cancel: jest.fn(),
+        pause: jest.fn(),
+        resume: jest.fn(),
+        state: 'SUCCESS' as const,
+        result: Promise.resolve({ key: input.key, data: input.data }),
+      };
+
+      // Simulate progress event with zero totalBytes
+      setTimeout(() => {
+        if (input.options?.onProgress) {
+          input.options.onProgress({ transferredBytes: 50, totalBytes: 0 });
+        }
+      }, 0);
+
+      return mockTask;
+    });
+
+    renderHook(() => useUploadFiles({ ...props, files: [mockQueuedFile] }));
+
+    await waitFor(() => {
+      expect(mockSetUploadProgress).toHaveBeenCalledWith({
+        id: mockQueuedFile.id,
+        progress: 100,
+      });
+    });
+  });
 });

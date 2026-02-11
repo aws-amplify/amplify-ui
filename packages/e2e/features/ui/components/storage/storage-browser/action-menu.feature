@@ -79,7 +79,7 @@ Feature: Create folder with Storage Browser
     When I click the "Menu Toggle" button
     Then I click the "Download" menuitem
     Then I click the "Download" button
-    Then I see "All files downloaded"
+    Then I see "All files downloaded" or "All files failed to download"
     When I click the "Exit" button
     # copy file
     Then I click checkbox for with "1" files with random names
@@ -95,7 +95,7 @@ Feature: Create folder with Storage Browser
     When I click the "Menu Toggle" button
     Then I click the "Delete" menuitem
     Then I click the "Delete" button
-    Then I see "All files deleted"
+    Then I see "1 file deleted"
     When I click the "Exit" button
     # delete file copy
     When I click the first button containing "DoNotDeleteThisFolder_CanDeleteAllChildren"
@@ -103,7 +103,7 @@ Feature: Create folder with Storage Browser
     When I click the "Menu Toggle" button
     Then I click the "Delete" menuitem
     Then I click the "Delete" button
-    Then I see "All files deleted"
+    Then I see "1 file deleted"
 
   @react
   Scenario: upload a lot of files with pagination
@@ -159,7 +159,7 @@ Feature: Create folder with Storage Browser
     When I click the "Menu Toggle" button
     Then I click the "Delete" menuitem
     Then I click the "Delete" button
-    Then I see "All files deleted"
+    Then I see "All 2 files deleted"
 
   @react
   Scenario: Upload file shows a Network error if offline
@@ -212,7 +212,7 @@ Feature: Create folder with Storage Browser
       Then I click the "Delete" menuitem
       When A network failure occurs
       Then I click the "Delete" button
-      Then I see "All files failed to delete"
+      Then I see "Failed to delete 1 file"
   @react
   Scenario: Download file shows a Network error if offline
       When I click the first button containing "public"

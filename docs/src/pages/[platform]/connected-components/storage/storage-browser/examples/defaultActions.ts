@@ -101,7 +101,7 @@ export const defaultActions: CreateStorageBrowserInput['actions']['default'] = {
         if (progress < 0.9) {
           progress += increment || 0.1;
           if (typeof options.onProgress === 'function') {
-            options.onProgress({ key, id }, progress);
+            options.onProgress({ key, id }, { progress });
           }
         } else {
           clearInterval(interval);
