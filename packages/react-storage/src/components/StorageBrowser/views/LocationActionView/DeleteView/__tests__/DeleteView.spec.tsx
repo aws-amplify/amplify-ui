@@ -16,11 +16,6 @@ jest.spyOn(Config, 'useGetActionInput').mockReturnValue(() => ({
   region: 'us-west-2',
 }));
 
-jest.spyOn(Config, 'usePaginationConfig').mockReturnValue({
-  pageSize: 10,
-  isExplicitPageSize: true,
-});
-
 jest.mock('../../../../displayText', () => ({
   ...jest.requireActual<typeof import('../../../../displayText')>(
     '../../../../displayText'
@@ -100,11 +95,6 @@ const taskThree = {
 
 const defaultViewState: DeleteViewState = {
   ...actionCallbacks,
-  hasNextPage: false,
-  highestPageVisited: 1,
-  onPaginate: jest.fn(),
-  page: 1,
-  pageTasks: [],
   location: {
     current: location,
     path: 'some-prefix/',

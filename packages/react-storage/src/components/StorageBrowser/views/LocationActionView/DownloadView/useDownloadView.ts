@@ -2,12 +2,10 @@ import React from 'react';
 import { isFunction } from '@aws-amplify/ui';
 
 import type { FileDataItem } from '../../../actions';
-import { usePaginationConfig } from '../../../configuration';
 import type { Task } from '../../../tasks';
 import { useLocationItems } from '../../../locationItems/context';
 import { useStore } from '../../../store';
 import { useAction } from '../../../useAction';
-import { usePaginate } from '../../hooks/usePaginate';
 
 import type { DownloadViewState, UseDownloadViewOptions } from './types';
 
@@ -17,10 +15,7 @@ const EMPTY_ITEMS: FileDataItem[] = [];
 export const useDownloadView = (
   options?: UseDownloadViewOptions
 ): DownloadViewState => {
-  const { pageSize: configPageSize } = usePaginationConfig();
-  const { onExit: _onExit, pageSize: propPageSize } = options ?? {};
-
-  const pageSize = propPageSize ?? configPageSize;
+  const { onExit: _onExit } = options ?? {};
 
   const [{ location }, storeDispatch] = useStore();
   const [locationItems, locationItemsDispatch] = useLocationItems();
@@ -33,18 +28,6 @@ export const useDownloadView = (
 
   const { isProcessing, isProcessingComplete, statusCounts, tasks } =
     processState;
-
-  const {
-    currentPage: page,
-    handlePaginate,
-    highestPageVisited,
-    pageItems: pageTasks,
-  } = usePaginate({
-    items: tasks,
-    pageSize,
-  });
-
-  const hasNextPage = page * pageSize < tasks.length;
 
   const onActionStart = () => {
     if (!current) return;
@@ -76,14 +59,9 @@ export const useDownloadView = (
   );
 
   return {
-    hasNextPage,
-    highestPageVisited,
     isProcessing,
     isProcessingComplete,
     location,
-    onPaginate: handlePaginate,
-    page,
-    pageTasks,
     statusCounts,
     tasks,
     onActionCancel,

@@ -4,7 +4,6 @@ import type {
   LocationData,
 } from '../../../actions';
 import type { LocationState } from '../../../store';
-import type { Task } from '../../../tasks';
 import type {
   ActionViewType,
   ActionViewProps,
@@ -14,11 +13,6 @@ import type {
 export interface CopyViewState extends ActionViewState<CopyHandlerData> {
   folders: FoldersState;
   destination: LocationState;
-  hasNextPage: boolean;
-  highestPageVisited: number;
-  onPaginate: (page: number) => void;
-  page: number;
-  pageTasks: Task<CopyHandlerData>[];
   onSelectDestination: (location: LocationData, path?: string) => void;
 }
 
@@ -26,14 +20,7 @@ export interface CopyViewProviderProps extends CopyViewState {
   children?: React.ReactNode;
 }
 
-export interface CopyViewProps extends ActionViewProps {
-  /**
-   * @description Number of items to display per page in folder listings
-   * @default 100
-   * @minimum 1
-   */
-  pageSize?: number;
-}
+export interface CopyViewProps extends ActionViewProps {}
 
 export interface CopyViewType
   extends ActionViewType<CopyHandlerData, CopyViewProps> {
@@ -55,7 +42,6 @@ export interface CopyViewType
 
 export interface UseCopyViewOptions {
   onExit?: (location?: LocationData) => void;
-  pageSize?: number;
 }
 
 export interface FoldersState {

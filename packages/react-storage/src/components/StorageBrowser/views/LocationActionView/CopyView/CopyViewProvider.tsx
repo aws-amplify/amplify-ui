@@ -37,14 +37,10 @@ export function CopyViewProvider({
   const {
     destination,
     folders,
-    hasNextPage,
-    highestPageVisited,
     isProcessing,
     isProcessingComplete,
-    onPaginate,
-    page,
-    pageTasks,
     statusCounts,
+    tasks: items,
     onActionCancel,
     onActionExit,
     onActionStart,
@@ -53,16 +49,16 @@ export function CopyViewProvider({
   } = props;
 
   const {
-    hasNextPage: foldersHasNextPage,
-    highestPageVisited: foldersHighestPageVisited,
+    hasNextPage,
+    highestPageVisited,
     hasError: hasFoldersError,
     message: foldersErrorMessage,
     query,
     hasExhaustedSearch,
     isLoading,
-    page: foldersPage,
+    page,
     pageItems,
-    onPaginate: foldersOnPaginate,
+    onPaginate,
     onQuery,
     onSearchClear,
     onSearch,
@@ -73,7 +69,7 @@ export function CopyViewProvider({
     FILE_DATA_ITEM_TABLE_KEYS,
     COPY_TABLE_RESOLVERS,
     {
-      items: pageTasks,
+      items,
       props: { displayText, isProcessing, onTaskRemove },
     }
   );
@@ -104,11 +100,6 @@ export function CopyViewProvider({
         isActionStartDisabled,
         isLoading,
         message,
-        paginationData: {
-          hasNextPage,
-          highestPageVisited,
-          page,
-        },
         searchQuery: query,
         searchPlaceholder,
         searchSubmitLabel,
@@ -124,17 +115,16 @@ export function CopyViewProvider({
       onActionCancel={onActionCancel}
       onActionExit={onActionExit}
       onActionStart={onActionStart}
-      onPaginate={onPaginate}
       onSearch={onSearch}
       onSearchClear={onSearchClear}
       onSearchQueryChange={onQuery}
       onSelectDestination={onSelectDestination}
     >
       <FoldersPaginationProvider
-        hasNextPage={foldersHasNextPage}
-        highestPageVisited={foldersHighestPageVisited}
-        page={foldersPage}
-        onPaginate={foldersOnPaginate}
+        hasNextPage={hasNextPage}
+        highestPageVisited={highestPageVisited}
+        page={page}
+        onPaginate={onPaginate}
       >
         <FoldersTableProvider
           destination={destination}

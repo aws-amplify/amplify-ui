@@ -2,7 +2,6 @@ import React from 'react';
 import { isFunction } from '@aws-amplify/ui';
 
 import type { LocationItemData } from '../../../actions';
-import { usePaginationConfig } from '../../../configuration';
 import { useLocationItems } from '../../../locationItems/context';
 import { getSelectionSummary } from '../../../locationItems/utils';
 import { useStore } from '../../../store';
@@ -10,7 +9,6 @@ import type { Task } from '../../../tasks';
 import { useAction } from '../../../useAction';
 import { useGetActionInput } from '../../../configuration/context';
 import { useDisplayText } from '../../../displayText';
-import { usePaginate } from '../../hooks/usePaginate';
 
 import type { DeleteViewState, UseDeleteViewOptions } from './types';
 import {
@@ -24,12 +22,8 @@ const EMPTY_ITEMS: LocationItemData[] = [];
 export const useDeleteView = (
   options?: UseDeleteViewOptions
 ): DeleteViewState => {
-  const { pageSize: configPageSize } = usePaginationConfig();
+  const { onExit: _onExit } = options ?? {};
   const { DeleteView: displayText } = useDisplayText();
-
-  const { onExit: _onExit, pageSize: propPageSize } = options ?? {};
-
-  const pageSize = propPageSize ?? configPageSize;
 
   const [{ location }, storeDispatch] = useStore();
   const [locationItems, locationItemsDispatch] = useLocationItems();
@@ -58,18 +52,6 @@ export const useDeleteView = (
 
   const { isProcessing, isProcessingComplete, statusCounts, tasks } =
     processState;
-
-  const {
-    currentPage: page,
-    handlePaginate,
-    highestPageVisited,
-    pageItems: pageTasks,
-  } = usePaginate({
-    items: tasks,
-    pageSize,
-  });
-
-  const hasNextPage = page * pageSize < tasks.length;
 
   const selectionSummary = getSelectionSummary(dataItems);
   const { hasFolders } = selectionSummary;
@@ -163,14 +145,9 @@ export const useDeleteView = (
   );
 
   return {
-    hasNextPage,
-    highestPageVisited,
     isProcessing,
     isProcessingComplete,
     location,
-    onPaginate: handlePaginate,
-    page,
-    pageTasks,
     statusCounts,
     tasks,
     onActionCancel,

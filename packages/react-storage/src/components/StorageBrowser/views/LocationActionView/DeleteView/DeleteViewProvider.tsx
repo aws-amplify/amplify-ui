@@ -26,13 +26,8 @@ export function DeleteViewProvider({
   } = displayText;
 
   const {
-    hasNextPage,
-    highestPageVisited,
     isProcessing,
     isProcessingComplete,
-    onPaginate,
-    page,
-    pageTasks,
     statusCounts,
     tasks,
     confirmationModal,
@@ -52,7 +47,7 @@ export function DeleteViewProvider({
     DELETE_TABLE_KEYS,
     DELETE_TABLE_RESOLVERS,
     {
-      items: pageTasks,
+      items: tasks,
       props: { displayText, isProcessing, onTaskRemove },
     }
   );
@@ -66,11 +61,6 @@ export function DeleteViewProvider({
         isActionCancelDisabled: !isProcessing || isProcessingComplete,
         isActionExitDisabled: isProcessing,
         isActionStartDisabled: isProcessing || isProcessingComplete,
-        paginationData: {
-          hasNextPage,
-          highestPageVisited,
-          page,
-        },
         statusDisplayCanceledLabel,
         statusDisplayCompletedLabel,
         statusDisplayFailedLabel,
@@ -84,7 +74,6 @@ export function DeleteViewProvider({
       onActionStart={onActionStart}
       onActionExit={onActionExit}
       onActionCancel={onActionCancel}
-      onPaginate={onPaginate}
       onConfirmationModalConfirm={onConfirmDelete}
       onConfirmationModalCancel={onCancelConfirmation}
     >

@@ -35,12 +35,9 @@ const PAGE_SIZE_OPTIONS = [
 
 function PaginationTest() {
   const [globalPageSize, setGlobalPageSize] = useState<number>(100);
-  const [locationsPageSize, setLocationsPageSize] = useState<number>(25);
+  const [locationsPageSize, setLocationsPageSize] = useState<number>(5);
   const [detailPageSize, setDetailPageSize] = useState<number>(10);
   const [uploadPageSize, setUploadPageSize] = useState<number>(10);
-  const [copyPageSize, setCopyPageSize] = useState<number>(10);
-  const [deletePageSize, setDeletePageSize] = useState<number>(10);
-  const [downloadPageSize, setDownloadPageSize] = useState<number>(10);
 
   const PageSizeControl = ({
     label,
@@ -132,21 +129,6 @@ function PaginationTest() {
                 value={uploadPageSize}
                 onChange={setUploadPageSize}
               />
-              <PageSizeControl
-                label="Copy"
-                value={copyPageSize}
-                onChange={setCopyPageSize}
-              />
-              <PageSizeControl
-                label="Delete"
-                value={deletePageSize}
-                onChange={setDeletePageSize}
-              />
-              <PageSizeControl
-                label="Download"
-                value={downloadPageSize}
-                onChange={setDownloadPageSize}
-              />
             </Flex>
 
             <Divider />
@@ -162,13 +144,9 @@ function PaginationTest() {
                 <ComposableStorageBrowser.UploadView
                   pageSize={uploadPageSize}
                 />
-                <ComposableStorageBrowser.CopyView pageSize={copyPageSize} />
-                <ComposableStorageBrowser.DeleteView
-                  pageSize={deletePageSize}
-                />
-                <ComposableStorageBrowser.DownloadView
-                  pageSize={downloadPageSize}
-                />
+                <ComposableStorageBrowser.CopyView />
+                <ComposableStorageBrowser.DeleteView />
+                <ComposableStorageBrowser.DownloadView />
               </ComposableStorageBrowser.Provider>
             </View>
           </Flex>

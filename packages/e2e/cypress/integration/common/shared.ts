@@ -507,19 +507,6 @@ Then(
   }
 );
 
-Then(
-  'I do not see the {string} button in the {string} view',
-  (buttonText: string, viewName: string) => {
-    const viewTitle =
-      viewName.charAt(0).toUpperCase() + viewName.slice(1).toLowerCase();
-    cy.findByRole('heading', { name: viewTitle })
-      .parent()
-      .within(() => {
-        cy.contains('button', buttonText).should('not.exist');
-      });
-  }
-);
-
 When('I click the first checkbox in the table', () => {
   cy.get('table tbody input[type="checkbox"]').first().click({ force: true });
 });

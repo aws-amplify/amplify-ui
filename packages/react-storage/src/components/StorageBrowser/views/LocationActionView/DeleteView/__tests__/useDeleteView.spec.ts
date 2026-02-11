@@ -12,11 +12,6 @@ import { useDeleteView } from '../useDeleteView';
 jest.mock('../../../../locationItems/context');
 jest.mock('../../../../store');
 jest.mock('../../../../useAction');
-jest.mock('../../../../configuration', () => ({
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-  ...(jest.requireActual('../../../../configuration') as object),
-  usePaginationConfig: () => ({ pageSize: 10 }),
-}));
 jest.mock('../../../../configuration/context');
 jest.mock('../utils');
 

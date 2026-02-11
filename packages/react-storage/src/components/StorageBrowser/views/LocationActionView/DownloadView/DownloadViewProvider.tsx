@@ -27,14 +27,10 @@ export function DownloadViewProvider({
   } = displayText;
 
   const {
-    hasNextPage,
-    highestPageVisited,
     isProcessing,
     isProcessingComplete,
-    onPaginate,
-    page,
-    pageTasks,
     statusCounts,
+    tasks: items,
     onActionCancel,
     onActionStart,
     onActionExit,
@@ -49,7 +45,7 @@ export function DownloadViewProvider({
     DOWNLOAD_TABLE_KEYS,
     DOWNLOAD_TABLE_RESOLVERS,
     {
-      items: pageTasks,
+      items,
       props: { displayText, isProcessing, onTaskRemove },
     }
   );
@@ -63,11 +59,6 @@ export function DownloadViewProvider({
         isActionCancelDisabled: !isProcessing || isProcessingComplete,
         isActionExitDisabled: isProcessing,
         isActionStartDisabled: isProcessing || isProcessingComplete,
-        paginationData: {
-          hasNextPage,
-          highestPageVisited,
-          page,
-        },
         statusDisplayCanceledLabel,
         statusDisplayCompletedLabel,
         statusDisplayFailedLabel,
@@ -80,7 +71,6 @@ export function DownloadViewProvider({
       onActionStart={onActionStart}
       onActionExit={onActionExit}
       onActionCancel={onActionCancel}
-      onPaginate={onPaginate}
     >
       {children}
     </ControlsContextProvider>

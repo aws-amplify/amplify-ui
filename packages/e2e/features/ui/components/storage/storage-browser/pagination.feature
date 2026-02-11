@@ -27,31 +27,19 @@ Feature: Storage Browser pagination
     Then the "[data-testid='LOCATION_DETAIL_VIEW'] table" table should have "10" rows
 
   @react
-  Scenario: Backward compatibility - Copy view without pageSize shows all items
+  Scenario: Composition mode locations view with pageSize 5 shows 5 items per page
     When I click the "Composition Mode" tab
-    And I click the first button containing "public"
-    And I click the first checkbox in the table
-    And I click the "Menu Toggle" button
-    And I click the "Copy" menuitem
-    Then I do not see the "Previous" button in the "copy" view
+    Then the "[data-testid='LOCATIONS_VIEW'] table" table should have "5" rows
 
   @react
-  Scenario: Backward compatibility - Delete view without pageSize shows all items
+  Scenario: Composition mode upload view with pageSize 10 shows 10 items per page
     When I click the "Composition Mode" tab
     And I click the first button containing "public"
-    And I click the first checkbox in the table
     And I click the "Menu Toggle" button
-    And I click the "Delete" menuitem
-    Then I do not see the "Previous" button in the "delete" view
+    And I click the "Upload" menuitem
+    And I upload "15" files with random names
+    Then the "[data-testid='UPLOAD_VIEW'] table" table should have "10" rows
 
-  @react
-  Scenario: Backward compatibility - Download view without pageSize shows all items
-    When I click the "Composition Mode" tab
-    And I click the first button containing "public"
-    And I click the first checkbox in the table
-    And I click the "Menu Toggle" button
-    And I click the "Download" menuitem
-    Then I do not see the "Previous" button in the "download" view
 
 
 
