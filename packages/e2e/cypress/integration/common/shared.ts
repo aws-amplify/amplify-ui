@@ -510,7 +510,13 @@ Then(
 Then(
   'I do not see the {string} button in the {string} view',
   (buttonText: string, viewName: string) => {
-    cy.contains('button', buttonText).should('not.exist');
+    const viewTitle =
+      viewName.charAt(0).toUpperCase() + viewName.slice(1).toLowerCase();
+    cy.findByRole('heading', { name: viewTitle })
+      .parent()
+      .within(() => {
+        cy.contains('button', buttonText).should('not.exist');
+      });
   }
 );
 
