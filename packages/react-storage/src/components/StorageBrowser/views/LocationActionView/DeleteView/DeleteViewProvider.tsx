@@ -4,7 +4,7 @@ import { ControlsContextProvider } from '../../../controls/context';
 import { useDisplayText } from '../../../displayText';
 
 import { useResolveTableData } from '../../hooks/useResolveTableData';
-import { FILE_DATA_ITEM_TABLE_KEYS, DELETE_TABLE_RESOLVERS } from '../../utils';
+import { DELETE_TABLE_KEYS, DELETE_TABLE_RESOLVERS } from '../../utils';
 
 import type { DeleteViewProviderProps } from './types';
 
@@ -29,22 +29,25 @@ export function DeleteViewProvider({
     isProcessing,
     isProcessingComplete,
     statusCounts,
-    tasks: items,
+    tasks,
+    confirmationModal,
     onActionCancel,
     onActionStart,
     onActionExit,
     onTaskRemove,
+    onConfirmDelete,
+    onCancelConfirmation,
   } = props;
 
   const message = isProcessingComplete
-    ? getActionCompleteMessage({ counts: statusCounts })
+    ? getActionCompleteMessage({ counts: statusCounts, tasks })
     : undefined;
 
   const tableData = useResolveTableData(
-    FILE_DATA_ITEM_TABLE_KEYS,
+    DELETE_TABLE_KEYS,
     DELETE_TABLE_RESOLVERS,
     {
-      items,
+      items: tasks,
       props: { displayText, isProcessing, onTaskRemove },
     }
   );
@@ -66,10 +69,13 @@ export function DeleteViewProvider({
         tableData,
         title,
         message,
+        confirmationModal,
       }}
       onActionStart={onActionStart}
       onActionExit={onActionExit}
       onActionCancel={onActionCancel}
+      onConfirmationModalConfirm={onConfirmDelete}
+      onConfirmationModalCancel={onCancelConfirmation}
     >
       {children}
     </ControlsContextProvider>

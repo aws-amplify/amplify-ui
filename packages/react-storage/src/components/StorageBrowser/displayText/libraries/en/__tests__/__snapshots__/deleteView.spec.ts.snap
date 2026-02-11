@@ -2,49 +2,49 @@
 
 exports[`DeleteView display text values \`getActionCompleteMessage\` returns the expected values in the all failed scenario 1`] = `
 {
-  "content": "All files failed to delete.",
+  "content": "Failed to delete All 11 items.",
   "type": "error",
 }
 `;
 
 exports[`DeleteView display text values \`getActionCompleteMessage\` returns the expected values in the all prevented overwrites scenario 1`] = `
 {
-  "content": "0 files deleted, 0 files failed to delete.",
+  "content": "0 items deleted, 0 items failed to delete.",
   "type": "error",
 }
 `;
 
 exports[`DeleteView display text values \`getActionCompleteMessage\` returns the expected values in the all success scenario 1`] = `
 {
-  "content": "All files deleted.",
+  "content": "All 11 items deleted successfully.",
   "type": "success",
 }
 `;
 
 exports[`DeleteView display text values \`getActionCompleteMessage\` returns the expected values in the no failures, some prevented overwrites, some success scenario 1`] = `
 {
-  "content": "2 files deleted, 0 files failed to delete.",
+  "content": "2 items deleted, 0 items failed to delete.",
   "type": "error",
 }
 `;
 
 exports[`DeleteView display text values \`getActionCompleteMessage\` returns the expected values in the some failed scenario 1`] = `
 {
-  "content": "8 files deleted, 3 files failed to delete.",
+  "content": "8 items deleted, 3 items failed to delete.",
   "type": "error",
 }
 `;
 
 exports[`DeleteView display text values \`getActionCompleteMessage\` returns the expected values in the some failures, some prevented overwrites, no success scenario 1`] = `
 {
-  "content": "0 files deleted, 2 files failed to delete.",
+  "content": "0 items deleted, 2 items failed to delete.",
   "type": "error",
 }
 `;
 
 exports[`DeleteView display text values \`getActionCompleteMessage\` returns the expected values in the some failures, some prevented overwrites, some success scenario 1`] = `
 {
-  "content": "8 files deleted, 2 files failed to delete.",
+  "content": "8 items deleted, 2 items failed to delete.",
   "type": "error",
 }
 `;
@@ -55,6 +55,11 @@ exports[`DeleteView display text values should match snapshot values 1`] = `
   "actionDestinationLabel": "Destination",
   "actionExitLabel": "Exit",
   "actionStartLabel": "Delete",
+  "confirmationModalCancelLabel": "Cancel",
+  "confirmationModalConfirmLabel": "Delete",
+  "confirmationModalFolderListTitle": "Folder list:",
+  "confirmationModalMessage": "The items that will be deleted contain {count} folder{plural}",
+  "confirmationModalTitle": "Confirm Deletion",
   "getActionCompleteMessage": [Function],
   "statusDisplayCanceledLabel": "Canceled",
   "statusDisplayCompletedLabel": "Completed",
@@ -67,6 +72,7 @@ exports[`DeleteView display text values should match snapshot values 1`] = `
   "tableColumnCancelHeader": "",
   "tableColumnFolderHeader": "Folder",
   "tableColumnNameHeader": "Name",
+  "tableColumnProgressHeader": "Progress",
   "tableColumnSizeHeader": "Size",
   "tableColumnStatusHeader": "Status",
   "tableColumnTypeHeader": "Type",

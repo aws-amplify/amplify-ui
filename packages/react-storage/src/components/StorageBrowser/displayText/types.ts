@@ -91,6 +91,7 @@ export interface DefaultLocationDetailViewDisplayText
   ) => { content?: string; type?: MessageType } | undefined;
   searchSubfoldersToggleLabel: string;
   selectFileLabel: string;
+  selectFolderLabel: string;
   selectAllFilesLabel: string;
   tableColumnLastModifiedHeader: string;
   tableColumnNameHeader: string;
@@ -132,6 +133,7 @@ export interface DefaultActionViewDisplayText<T extends TaskData = TaskData> {
   tableColumnNameHeader: string;
   tableColumnTypeHeader: string;
   tableColumnSizeHeader: string;
+  tableColumnProgressHeader?: string;
 }
 
 export interface DefaultCreateFolderViewDisplayText
@@ -171,6 +173,11 @@ export interface DefaultDeleteViewDisplayText
    * @deprecated `DeleteView` does not render a "progress" header
    */
   tableColumnProgressHeader?: string;
+  confirmationModalTitle: string;
+  confirmationModalConfirmLabel: string;
+  confirmationModalCancelLabel: string;
+  confirmationModalMessage: string;
+  confirmationModalFolderListTitle: string;
 }
 
 export interface DefaultDownloadViewDisplayText
