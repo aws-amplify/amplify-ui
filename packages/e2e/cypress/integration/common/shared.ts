@@ -479,11 +479,15 @@ When('I wait {int} seconds', (seconds: number) => {
   cy.wait(seconds * 1000);
 });
 
-Then('the table should have {string} rows', (value: string) => {
+Then('the table should have {string} visible rows', (value: string) => {
   cy.get('table')
     .find('tbody tr')
     .filter(':visible')
     .should('have.length', parseInt(value));
+});
+
+Then('the table should have {string} rows', (value: string) => {
+  cy.get('table').find('tbody tr').should('have.length', value);
 });
 
 Then(
