@@ -10,7 +10,7 @@ import {
 import { DisplayTextProvider } from '../../displayText';
 import { FileItemsProvider } from '../../fileItems';
 import { FilePreviewProvider } from '../../filePreview';
-import { LocationItemsProvider } from '../../locationItems';
+import { LocationItemsProvider } from '../../locationItems/context';
 import { StoreProvider } from '../../store';
 import { ActionHandlersProvider, getActionHandlers } from '../../useAction';
 import { ViewsProvider } from '../../views';
@@ -23,7 +23,7 @@ jest.mock('../../components');
 jest.mock('../../displayText');
 jest.mock('../../fileItems');
 jest.mock('../../filePreview');
-jest.mock('../../locationItems');
+jest.mock('../../locationItems/context');
 jest.mock('../../configuration');
 jest.mock('../../store');
 jest.mock('../../useAction');

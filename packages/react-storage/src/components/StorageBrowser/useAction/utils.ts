@@ -5,7 +5,7 @@ import type {
   ActionViewConfig,
   ExtendedActionConfigs,
 } from '../actions';
-import { isDefaultActionViewType } from '../actions';
+import { isDefaultActionViewType } from '../actions/configs/defaults';
 import type { ActionHandlers } from './types';
 
 const resolveHandler = <V extends ActionHandler | ActionViewConfig>(

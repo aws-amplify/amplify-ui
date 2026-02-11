@@ -3,7 +3,7 @@ import { isFunction } from '@aws-amplify/ui';
 
 import type { LocationData } from '../../../actions';
 import { usePaginationConfig } from '../../../configuration';
-import { useLocationItems } from '../../../locationItems';
+import { useLocationItems } from '../../../locationItems/context';
 import { useStore } from '../../../store';
 import type { Task } from '../../../tasks';
 import { useAction } from '../../../useAction';

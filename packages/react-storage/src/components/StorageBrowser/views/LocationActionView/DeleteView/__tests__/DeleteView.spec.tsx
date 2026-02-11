@@ -114,6 +114,15 @@ const defaultViewState: DeleteViewState = {
   isProcessing: false,
   statusCounts: { ...INITIAL_STATUS_COUNTS, QUEUED: 3, TOTAL: 3 },
   tasks: [taskOne, taskTwo, taskThree],
+  onConfirmDelete: jest.fn(),
+  onCancelConfirmation: jest.fn(),
+  confirmationModal: {
+    isOpen: false,
+    title: '',
+    message: '',
+    confirmLabel: '',
+    cancelLabel: '',
+  },
 };
 
 const useDeleteViewSpy = jest
@@ -125,6 +134,7 @@ describe('DeleteView', () => {
 
   it('has the expected composable components', () => {
     expect(DeleteView.Cancel).toBeDefined();
+    expect(DeleteView.ConfirmationModal).toBeDefined();
     expect(DeleteView.Exit).toBeDefined();
     expect(DeleteView.Message).toBeDefined();
     expect(DeleteView.Start).toBeDefined();

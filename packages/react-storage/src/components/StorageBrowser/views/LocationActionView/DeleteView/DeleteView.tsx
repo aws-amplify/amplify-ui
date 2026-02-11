@@ -1,7 +1,9 @@
 import React from 'react';
+import { classNames } from '@aws-amplify/ui';
 
 import { ViewElement } from '../../../components/elements';
 import { ActionCancelControl } from '../../../controls/ActionCancelControl';
+import { ActionConfirmationModalControl } from '../../../controls/ActionConfirmationModalControl';
 import { ActionExitControl } from '../../../controls/ActionExitControl';
 import { ActionStartControl } from '../../../controls/ActionStartControl';
 import { DataTableControl } from '../../../controls/DataTableControl';
@@ -46,6 +48,7 @@ export const DeleteView: DeleteViewType = ({ className, ...props }) => {
             <ActionStartControl />
           </ViewElement>
         </ViewElement>
+        <ActionConfirmationModalControl />
       </DeleteViewProvider>
     </ViewElement>
   );
@@ -56,6 +59,7 @@ DeleteView.displayName = 'DeleteView';
 DeleteView.Provider = DeleteViewProvider;
 
 DeleteView.Cancel = ActionCancelControl;
+DeleteView.ConfirmationModal = ActionConfirmationModalControl;
 DeleteView.Exit = ActionExitControl;
 DeleteView.Message = MessageControl;
 DeleteView.Pagination = PaginationControl;

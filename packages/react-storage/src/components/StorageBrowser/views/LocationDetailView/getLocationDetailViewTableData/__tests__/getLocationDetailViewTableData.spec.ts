@@ -1,4 +1,4 @@
-import { LocationData } from '../../../../actions';
+import { LocationData, LocationItemData } from '../../../../actions';
 import { DEFAULT_LOCATION_DETAIL_VIEW_DISPLAY_TEXT } from '../../../../displayText/libraries/en/locationDetailView';
 
 import { getFileRowContent } from '../getFileRowContent';
@@ -235,6 +235,66 @@ describe('getLocationDetailViewTableData', () => {
     expect(mockOnNavigate).toHaveBeenCalledWith(
       { ...location.current, id: folderItem.id },
       `${location.path}folder/`
+    );
+  });
+
+  it('should handle folder selection with dataItems', () => {
+    const dataItems = [folderItem];
+    getLocationDetailViewTableData({
+      areAllFilesSelected: false,
+      activeFile: undefined,
+      displayText,
+      location,
+      dataItems,
+      hasFiles: true,
+      pageItems: [folderItem],
+      selectAllFilesLabel: 'Select all files',
+      selectFileLabel: 'Select file',
+      getDateDisplayValue: (date: Date) => date.toLocaleString(),
+      onDownload: mockOnDownload,
+      onNavigate: mockOnNavigate,
+      onSelect: mockOnSelect,
+      onSelectAll: mockOnSelectAll,
+      filePreviewEnabled: false,
+      onSelectActiveFile: mockOnSelectActiveFile,
+    });
+
+    expect(mockGetFolderRowContent).toHaveBeenCalledWith(
+      expect.objectContaining({
+        isSelected: true,
+        selectFolderLabel: 'Select file',
+        onSelect: expect.any(Function),
+      })
+    );
+  });
+
+  it('should handle folder selection when not in dataItems', () => {
+    const dataItems: LocationItemData[] = [];
+    getLocationDetailViewTableData({
+      areAllFilesSelected: false,
+      activeFile: undefined,
+      displayText,
+      location,
+      dataItems,
+      hasFiles: true,
+      pageItems: [folderItem],
+      selectAllFilesLabel: 'Select all files',
+      selectFileLabel: 'Select file',
+      getDateDisplayValue: (date: Date) => date.toLocaleString(),
+      onDownload: mockOnDownload,
+      onNavigate: mockOnNavigate,
+      onSelect: mockOnSelect,
+      onSelectAll: mockOnSelectAll,
+      filePreviewEnabled: false,
+      onSelectActiveFile: mockOnSelectActiveFile,
+    });
+
+    expect(mockGetFolderRowContent).toHaveBeenCalledWith(
+      expect.objectContaining({
+        isSelected: false,
+        selectFolderLabel: 'Select file',
+        onSelect: expect.any(Function),
+      })
     );
   });
 });

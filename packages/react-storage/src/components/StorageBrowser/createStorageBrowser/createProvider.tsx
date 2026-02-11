@@ -1,11 +1,8 @@
 import React from 'react';
 import type { FileData } from '../actions';
 
-import {
-  ActionConfigsProvider,
-  defaultActionConfigs,
-  getActionConfigs,
-} from '../actions';
+import { ActionConfigsProvider, getActionConfigs } from '../actions';
+import { defaultActionConfigs } from '../actions/configs/defaults';
 import {
   componentsDefault,
   ComponentsProvider,
@@ -18,7 +15,7 @@ import {
 import { DisplayTextProvider } from '../displayText';
 import { defaultValidateFile, FileItemsProvider } from '../fileItems';
 import { FilePreviewProvider } from '../filePreview';
-import { LocationItemsProvider } from '../locationItems';
+import { LocationItemsProvider } from '../locationItems/context';
 import { StoreProvider } from '../store';
 import { ActionHandlersProvider, getActionHandlers } from '../useAction';
 import { validatePageSize } from '../utils';

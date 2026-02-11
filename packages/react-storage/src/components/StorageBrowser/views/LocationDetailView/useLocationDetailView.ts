@@ -10,11 +10,12 @@ import type {
   FileDataItem,
   FolderData,
   LocationData,
+  LocationItemData,
 } from '../../actions';
 import { useActionConfigs } from '../../actions';
 import { usePaginationConfig } from '../../configuration';
 import { useFileItems } from '../../fileItems';
-import { useLocationItems } from '../../locationItems';
+import { useLocationItems } from '../../locationItems/context';
 import { useStore } from '../../store';
 import { useAction, useList } from '../../useAction';
 
@@ -74,7 +75,7 @@ export const useLocationDetailView = (
 
   const { current, key } = location;
   const { permissions, prefix } = current ?? {};
-  const { fileDataItems } = locationItems;
+  const { dataItems, fileDataItems } = locationItems;
   const hasInvalidPrefix = isUndefined(prefix);
 
   const [{ task }, handleDownload] = useAction('download');
@@ -238,13 +239,13 @@ export const useLocationDetailView = (
             actionType: type,
             icon,
             isDisabled: isFunction(disable)
-              ? disable(fileDataItems)
+              ? disable(dataItems)
               : disable ?? false,
             isHidden: isFunction(hide) ? hide(permissions) : hide,
             label,
           };
         });
-  }, [actionConfigs, fileDataItems, permissions]);
+  }, [actionConfigs, dataItems, permissions]);
 
   return {
     actionItems,
@@ -256,6 +257,7 @@ export const useLocationDetailView = (
     page: currentPage,
     pageItems,
     location,
+    dataItems,
     fileDataItems,
     hasError,
     hasDownloadError: task?.status === 'FAILED',
@@ -313,21 +315,19 @@ export const useLocationDetailView = (
       storeDispatch({ type: 'RESET_ACTION_TYPE' });
       locationItemsDispatch({ type: 'RESET_LOCATION_ITEMS' });
     },
-    onSelect: (isSelected: boolean, fileItem: FileData) => {
+    onSelect: (isSelected: boolean, item: LocationItemData) => {
       locationItemsDispatch(
         isSelected
-          ? { type: 'REMOVE_LOCATION_ITEM', id: fileItem.id }
-          : { type: 'SET_LOCATION_ITEMS', items: [fileItem] }
+          ? { type: 'REMOVE_LOCATION_ITEM', id: item.id }
+          : { type: 'SET_LOCATION_ITEMS', items: [item] }
       );
     },
     onToggleSelectAll: () => {
-      const fileItems = pageItems.filter(
-        (item): item is FileData => item.type === 'FILE'
-      );
+      const selectableItems = pageItems;
       locationItemsDispatch(
-        fileItems.length === fileDataItems?.length
+        selectableItems.length === dataItems?.length
           ? { type: 'RESET_LOCATION_ITEMS' }
-          : { type: 'SET_LOCATION_ITEMS', items: fileItems }
+          : { type: 'SET_LOCATION_ITEMS', items: selectableItems }
       );
     },
     onSearch: () => {
