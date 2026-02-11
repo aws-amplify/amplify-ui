@@ -95,6 +95,7 @@ export const DEFAULT_LOCATION_DETAIL_VIEW_DISPLAY_TEXT: DefaultLocationDetailVie
     tableColumnSizeHeader: 'Size',
     tableColumnTypeHeader: 'Type',
     selectFileLabel: 'Select file',
+    selectFolderLabel: 'Select folder',
     selectAllFilesLabel: 'Select all files',
     getActionListItemLabel: (key: string = '') => {
       switch (key) {

@@ -9,7 +9,7 @@ import {
 } from '../../../actions';
 
 import { useFileItems } from '../../../fileItems';
-import { useLocationItems } from '../../../locationItems';
+import { useLocationItems } from '../../../locationItems/context';
 import { LocationState, useStore } from '../../../store';
 import { useAction, useList } from '../../../useAction';
 import { useFilePreview } from '../../hooks/useFilePreview';
@@ -21,7 +21,7 @@ import {
 
 jest.mock('../../../actions/handlers');
 jest.mock('../../../fileItems');
-jest.mock('../../../locationItems');
+jest.mock('../../../locationItems/context');
 jest.mock('../../../store');
 jest.mock('../../../useAction');
 jest.mock('../../hooks/useFilePreview');
@@ -394,7 +394,7 @@ describe('useLocationDetailView', () => {
     });
   });
 
-  it('should set all file items as selected', () => {
+  it('should set all items as selected', () => {
     mockUseStore.mockReturnValue([mockStoreState, mockStoreDispatch]);
 
     mockUseLocationItems.mockReturnValue([
@@ -421,11 +421,11 @@ describe('useLocationDetailView', () => {
 
     expect(mockLocationItemsDispatch).toHaveBeenCalledWith({
       type: 'SET_LOCATION_ITEMS',
-      items: [fileDataOne, fileDataTwo],
+      items: [folderDataOne, fileDataOne, fileDataTwo],
     });
   });
 
-  it('should set all file items as unselected', () => {
+  it('should set all items as unselected', () => {
     const mockDataState = {
       value: {
         items: [folderDataOne, fileDataOne, fileDataTwo],
@@ -448,7 +448,7 @@ describe('useLocationDetailView', () => {
 
     mockUseStore.mockReturnValue([mockStoreState, mockStoreDispatch]);
     mockUseLocationItems.mockReturnValue([
-      { fileDataItems: [fileDataItemOne, fileDataItemTwo] },
+      { dataItems: [folderDataOne, fileDataItemOne, fileDataItemTwo] },
       mockLocationItemsDispatch,
     ]);
     mockUseList.mockReturnValue([mockDataState, jest.fn()]);
