@@ -17,7 +17,6 @@ import { STORAGE_BROWSER_BLOCK } from '../../../components';
 import { DeleteViewProvider } from './DeleteViewProvider';
 import { useDeleteView } from './useDeleteView';
 import type { DeleteViewType } from './types';
-import { classNames } from '@aws-amplify/ui';
 import { usePaginationConfig } from '../../../configuration';
 
 export const DeleteView: DeleteViewType = ({ className, ...props }) => {
