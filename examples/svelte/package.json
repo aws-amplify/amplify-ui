@@ -14,7 +14,7 @@
     "lint": "prettier --check . && eslint ."
   },
   "devDependencies": {
-    "@aws-amplify/ui-svelte": "1.0.2",
+    "@aws-amplify/ui-svelte": "1.1.0",
     "@eslint/compat": "^1.2.5",
     "@eslint/js": "^9.22.0",
     "@sveltejs/adapter-auto": "^6.0.0",

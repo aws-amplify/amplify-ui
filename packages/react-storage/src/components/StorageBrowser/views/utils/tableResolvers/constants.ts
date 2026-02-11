@@ -28,3 +28,13 @@ export const FILE_DATA_ITEM_TABLE_KEYS = [
   'status',
   'cancel',
 ] as const;
+
+export const DELETE_TABLE_KEYS = [
+  'name',
+  'folder',
+  'type',
+  'size',
+  'status',
+  'progress',
+  'cancel',
+] as const;

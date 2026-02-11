@@ -12,6 +12,12 @@ const file = {
   type: 'FILE' as const,
 };
 
+const folder = {
+  key: 'folder/',
+  id: 'folder-id',
+  type: 'FOLDER' as const,
+};
+
 const permissionValuesWithoutWrite = LOCATION_PERMISSION_VALUES.filter(
   (value) => value !== 'write'
 );
@@ -72,10 +78,15 @@ describe('defaultActionConfigs', () => {
       }
     });
 
-    it('is disabled when no files are selected', () => {
+    it('is disabled when no items are selected', () => {
       expect(disable?.(undefined)).toBe(true);
       expect(disable?.([])).toBe(true);
       expect(disable?.([file])).toBe(false);
+    });
+
+    it('allows folder deletion', () => {
+      expect(disable?.([folder])).toBe(false);
+      expect(disable?.([file, folder])).toBe(false);
     });
   });
 
@@ -99,6 +110,11 @@ describe('defaultActionConfigs', () => {
       expect(disable?.([])).toBe(true);
       expect(disable?.([file])).toBe(false);
     });
+
+    it('is disabled when folders are selected', () => {
+      expect(disable?.([folder])).toBe(true);
+      expect(disable?.([file, folder])).toBe(true);
+    });
   });
 
   describe('copy', () => {
@@ -120,6 +136,11 @@ describe('defaultActionConfigs', () => {
       expect(disable?.(undefined)).toBe(true);
       expect(disable?.([])).toBe(true);
       expect(disable?.([file])).toBe(false);
+    });
+
+    it('is disabled when folders are selected', () => {
+      expect(disable?.([folder])).toBe(true);
+      expect(disable?.([file, folder])).toBe(true);
     });
   });
 });
