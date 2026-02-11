@@ -479,7 +479,7 @@ When('I wait {int} seconds', (seconds: number) => {
   cy.wait(seconds * 1000);
 });
 
-Then('the table should have {string} visible rows', (value: string) => {
+Then('the table should have {string} rows only', (value: string) => {
   cy.get('table')
     .find('tbody tr')
     .filter(':visible')
