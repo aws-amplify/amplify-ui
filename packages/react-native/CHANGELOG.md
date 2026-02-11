@@ -1,5 +1,18 @@
 # @aws-amplify/ui-react-native
 
+## 2.7.0
+
+### Minor Changes
+
+- [#6834](https://github.com/aws-amplify/amplify-ui/pull/6834) [`0401829108ffae82db4fa776c96e8d0075a591b9`](https://github.com/aws-amplify/amplify-ui/commit/0401829108ffae82db4fa776c96e8d0075a591b9) Thanks [@osama-rizk](https://github.com/osama-rizk)! - feat(storage-browser): Folder deletion.
+
+### Patch Changes
+
+- Updated dependencies [[`0401829108ffae82db4fa776c96e8d0075a591b9`](https://github.com/aws-amplify/amplify-ui/commit/0401829108ffae82db4fa776c96e8d0075a591b9)]:
+  - @aws-amplify/ui-react-core-notifications@2.3.0
+  - @aws-amplify/ui-react-core@3.6.0
+  - @aws-amplify/ui@6.15.0
+
 ## 2.6.5
 
 ### Patch Changes
