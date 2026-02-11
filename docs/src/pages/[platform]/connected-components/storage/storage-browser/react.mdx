@@ -1085,6 +1085,17 @@ Folder deletion functionality requires aws-amplify package version 6.16.0 or lat
 #### Delete view state
 
 ```ts
+interface ActionConfirmationModalProps {
+  isOpen: boolean;
+  title: string;
+  message: string;
+  content?: React.ReactNode;
+  onConfirm: () => void;
+  onCancel: () => void;
+  confirmLabel: string;
+  cancelLabel: string;
+}
+
 interface DeleteViewState {
   isProcessing: boolean;
   isProcessingComplete: boolean;
