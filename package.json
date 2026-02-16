@@ -131,7 +131,7 @@
     "**/@badeball/cacache/**/glob": "~10.5.0",
     "**/@changesets/cli/**/js-yaml": "~3.14.2",
     "@tensorflow-models/face-detection/rimraf": "5.0.0",
-    "qs": "^6.14.1"
+    "qs": "^6.15.0"
   },
   "devDependencies": {
     "@aws-amplify/backend": "^1.7.0",
