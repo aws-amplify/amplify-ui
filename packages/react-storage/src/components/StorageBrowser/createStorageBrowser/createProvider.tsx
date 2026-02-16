@@ -18,7 +18,6 @@ import { FilePreviewProvider } from '../filePreview';
 import { LocationItemsProvider } from '../locationItems/context';
 import { StoreProvider } from '../store';
 import { ActionHandlersProvider, getActionHandlers } from '../useAction';
-import { validatePageSize } from '../utils';
 import { ViewsProvider } from '../views';
 
 import type {
@@ -91,12 +90,10 @@ export default function createProvider<
     pageSize,
     ...props
   }: StorageBrowserProviderProps) {
-    const validatedPageSize = validatePageSize(pageSize);
-
     return (
       <StoreProvider {...props}>
         <ConfigurationProvider>
-          <PaginationConfigProvider pageSize={validatedPageSize}>
+          <PaginationConfigProvider pageSize={pageSize}>
             <ActionConfigsProvider actionConfigs={actionConfigs}>
               <ActionHandlersProvider handlers={handlers}>
                 <DisplayTextProvider displayText={displayText}>

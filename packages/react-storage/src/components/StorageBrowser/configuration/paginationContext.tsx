@@ -1,5 +1,6 @@
 import React from 'react';
 import { createContextUtilities } from '@aws-amplify/ui-react-core';
+import { validatePageSize } from '../utils';
 
 export interface PaginationConfig {
   pageSize: number;
@@ -16,14 +17,17 @@ export const { usePaginationConfig, PaginationConfigContext } =
 
 export interface PaginationConfigProviderProps {
   children?: React.ReactNode;
-  pageSize: number;
+  pageSize?: number;
 }
 
 export function PaginationConfigProvider({
   children,
   pageSize,
 }: PaginationConfigProviderProps): React.JSX.Element {
-  const value = React.useMemo(() => ({ pageSize }), [pageSize]);
+  const value = React.useMemo(
+    () => ({ pageSize: validatePageSize(pageSize) }),
+    [pageSize]
+  );
 
   return (
     <PaginationConfigContext.Provider value={value}>
