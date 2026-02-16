@@ -490,6 +490,7 @@ export function signInActor({ services }: SignInMachineOptions) {
             // destructure and toss UI confirm_password field
             // to prevent error from sending to confirmSignIn
             confirm_password,
+            username,
             ...userAttributes
           } = formValues;
 
