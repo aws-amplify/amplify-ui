@@ -29,10 +29,12 @@ import type {
 } from './types';
 import { useFilePreview } from '../hooks/useFilePreview';
 
+const DEFAULT_PAGE_SIZE = 100;
+
 // Default options for tests
 export const DEFAULT_LIST_OPTIONS = {
   delimiter: '/',
-  pageSize: 100, // fallback for tests
+  pageSize: DEFAULT_PAGE_SIZE, // fallback for tests
 };
 
 const getDownloadErrorMessageFromFailedDownloadTask = (

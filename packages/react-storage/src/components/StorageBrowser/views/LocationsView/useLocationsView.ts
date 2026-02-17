@@ -13,11 +13,12 @@ import type { LocationsViewState, UseLocationsViewOptions } from './types';
 const DEFAULT_EXCLUDE: ListLocationsExcludeOptions = {
   exactPermissions: ['delete', 'write'],
 };
+const DEFAULT_PAGE_SIZE = 100;
 
 // Default options for tests - will be overridden with actual pageSize in hook
 export const DEFAULT_LIST_OPTIONS = {
   exclude: DEFAULT_EXCLUDE,
-  pageSize: 100, // fallback for tests
+  pageSize: DEFAULT_PAGE_SIZE, // fallback for tests
 };
 
 export const useLocationsView = (
