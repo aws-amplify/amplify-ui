@@ -18,6 +18,7 @@ import {
   DEFAULT_LIST_OPTIONS,
   useLocationDetailView,
 } from '../useLocationDetailView';
+import { InitialValues } from '../types';
 
 jest.mock('../../../actions/handlers');
 jest.mock('../../../fileItems');
@@ -25,6 +26,13 @@ jest.mock('../../../locationItems/context');
 jest.mock('../../../store');
 jest.mock('../../../useAction');
 jest.mock('../../hooks/useFilePreview');
+jest.mock('../../../configuration', () => ({
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+  ...(jest.requireActual('../../../configuration') as object),
+  usePaginationConfig: jest.fn((initialValues: InitialValues) => ({
+    pageSize: initialValues?.pageSize ?? 100,
+  })),
+}));
 
 const folderDataOne: FolderData = {
   id: '1',
@@ -153,7 +161,7 @@ describe('useLocationDetailView', () => {
   afterEach(jest.clearAllMocks);
 
   it('should fetch and set location data on mount', () => {
-    const initialState = { initialValues: { pageSize: EXPECTED_PAGE_SIZE } };
+    const initialState = { pageSize: EXPECTED_PAGE_SIZE };
     const { result } = renderHook(() => useLocationDetailView(initialState));
 
     // fetches data
@@ -180,7 +188,7 @@ describe('useLocationDetailView', () => {
 
     renderHook(() =>
       useLocationDetailView({
-        initialValues: { pageSize: EXPECTED_PAGE_SIZE },
+        pageSize: EXPECTED_PAGE_SIZE,
       })
     );
 
@@ -201,7 +209,7 @@ describe('useLocationDetailView', () => {
       mockHandleList,
     ]);
 
-    const initialValues = { initialValues: { pageSize: EXPECTED_PAGE_SIZE } };
+    const initialValues = { pageSize: EXPECTED_PAGE_SIZE };
     const { result, rerender } = renderHook(() =>
       useLocationDetailView(initialValues)
     );

@@ -3,6 +3,16 @@ import { randomFileName } from './shared';
 
 const FILE_VALIDATION_SIZE_LIMIT = 1000 * 1000; // 1MB
 
+When(
+  'I select {string} from the {string} dropdown',
+  (value: string, label: string) => {
+    cy.findByText(label).parent().find('select').select(value);
+
+    // Wait for component remount and state updates to complete
+    cy.wait(2000);
+  }
+);
+
 const selectTableRowCheckBox = (name: string) => {
   cy.contains('table tbody td:nth-child(2)', new RegExp('^' + name + '$'))
     .siblings()

@@ -13,6 +13,7 @@ import type {
   LocationItemData,
 } from '../../actions';
 import { useActionConfigs } from '../../actions';
+import { usePaginationConfig } from '../../configuration';
 import { useFileItems } from '../../fileItems';
 import { useLocationItems } from '../../locationItems/context';
 import { useStore } from '../../store';
@@ -30,9 +31,10 @@ import { useFilePreview } from '../hooks/useFilePreview';
 
 const DEFAULT_PAGE_SIZE = 100;
 
+// Default options for tests
 export const DEFAULT_LIST_OPTIONS = {
   delimiter: '/',
-  pageSize: DEFAULT_PAGE_SIZE,
+  pageSize: DEFAULT_PAGE_SIZE, // fallback for tests
 };
 
 const getDownloadErrorMessageFromFailedDownloadTask = (
@@ -48,14 +50,25 @@ const getDownloadErrorMessageFromFailedDownloadTask = (
 export const useLocationDetailView = (
   options?: UseLocationDetailViewOptions
 ): LocationDetailViewState => {
-  const { initialValues, onExit, onNavigate } = options ?? {};
+  const { pageSize: configPageSize } = usePaginationConfig();
+  const {
+    initialValues = {},
+    onExit,
+    onNavigate,
+    pageSize: propPageSize,
+  } = options ?? {};
 
-  const listOptionsRef = React.useRef({
-    ...DEFAULT_LIST_OPTIONS,
-    ...initialValues,
-  });
+  const pageSize = propPageSize ?? configPageSize;
 
-  const listOptions = listOptionsRef.current;
+  const listOptions = React.useMemo(
+    () => ({
+      ...initialValues,
+      delimiter: '/',
+      pageSize,
+    }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [pageSize, initialValues.delimiter, initialValues.pageSize]
+  );
 
   const [{ location, actionType }, storeDispatch] = useStore();
   const [locationItems, locationItemsDispatch] = useLocationItems();
