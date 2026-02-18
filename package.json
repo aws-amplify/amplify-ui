@@ -75,8 +75,8 @@
   "resolutions": {
     "@smithy/config-resolver": "^4.4.5",
     "@react-native-community/cli": "^17.0.1",
-    "**/@react-native-community/**/fast-xml-parser": "^4.4.1",
-    "**/@aws-*/**/fast-xml-parser": "^4.4.1",
+    "**/@react-native-community/**/fast-xml-parser": "^5.3.6",
+    "**/@aws-*/**/fast-xml-parser": "^5.3.6",
     "**/@aws-amplify/ui-angular-example/**/codelyzer/**/@angular/core": "19.2.18",
     "**/@angular-devkit/build-angular/minimatch": "3.0.5",
     "**/@angular-devkit/build-angular/webpack": "^5.76.0",
