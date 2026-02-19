@@ -34,7 +34,7 @@
     "./styles.css": "./dist/styles.css"
   },
   "peerDependencies": {
-    "svelte": "^5.0.0"
+    "svelte": "^5.51.5"
   },
   "dependencies": {
     "@aws-amplify/ui": "6.15.0",
@@ -59,7 +59,7 @@
     "prettier": "^3.4.2",
     "prettier-plugin-svelte": "^3.3.3",
     "publint": "^0.3.2",
-    "svelte": "^5.0.0",
+    "svelte": "^5.51.5",
     "svelte-check": "^4.0.0",
     "typescript": "^5.0.0",
     "typescript-eslint": "^8.20.0",
