@@ -286,6 +286,11 @@ export function signUpActor({ services }: SignUpMachineOptions) {
                     target: '#signUpActor.autoSignIn',
                   },
                   {
+                    cond: 'shouldManualSignIn',
+                    actions: ['clearFormValues', 'setSignInStep'],
+                    target: '#signUpActor.resolved',
+                  },
+                  {
                     actions: 'setNextSignUpStep',
                     target: '#signUpActor.init',
                   },
