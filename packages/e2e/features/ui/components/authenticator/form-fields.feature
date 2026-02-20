@@ -78,6 +78,7 @@ Feature: Form Fields
     When I type my "email" with status "CONFIRMED"
     Then I type my password
     Then I click the "Sign in" button
+    Then I will be redirected to the setup totp page
     Then 'New Label' field does not have "required"
     Then I see "New Label"
     Then "New Label" field does not have class "amplify-visually-hidden"
@@ -88,6 +89,7 @@ Feature: Form Fields
     When I type my "email" with status "UNVERIFIED"
     Then I type my password
     Then I click the "Sign in" button
+    Then I will be redirected to the confirm sign in page
     Then 'New Label' field does not have "required"
     Then I see "New Label"
     Then "New Label" field does not have class "amplify-visually-hidden"

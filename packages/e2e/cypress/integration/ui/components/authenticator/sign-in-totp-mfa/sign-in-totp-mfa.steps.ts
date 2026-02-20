@@ -10,10 +10,6 @@ When('I enter an invalid confirmation code', () => {
   });
 });
 
-Then('I will be redirected to the setup totp page', () => {
-  cy.get('[data-amplify-qrcode]').should('be.visible');
-});
-
 Then('I check to see if QR code is correct', () => {
   cy.get('img').then(($el) => {
     const imagePath = $el[0]?.currentSrc;
