@@ -1,5 +1,15 @@
 # @aws-amplify/ui-react
 
+## 6.15.1
+
+### Patch Changes
+
+- [#6853](https://github.com/aws-amplify/amplify-ui/pull/6853) [`8b2d38cd9da29d159c26070299b4ac4b97419b82`](https://github.com/aws-amplify/amplify-ui/commit/8b2d38cd9da29d159c26070299b4ac4b97419b82) Thanks [@sarayev](https://github.com/sarayev)! - fix(authenticator): exclude username from user attributes in force change password flow
+
+- Updated dependencies [[`8b2d38cd9da29d159c26070299b4ac4b97419b82`](https://github.com/aws-amplify/amplify-ui/commit/8b2d38cd9da29d159c26070299b4ac4b97419b82)]:
+  - @aws-amplify/ui@6.15.1
+  - @aws-amplify/ui-react-core@3.6.1
+
 ## 6.15.0
 
 ### Minor Changes
