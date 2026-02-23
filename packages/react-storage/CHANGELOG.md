@@ -1,5 +1,18 @@
 # @aws-amplify/ui-react-storage
 
+## 3.17.0
+
+### Minor Changes
+
+- [#6790](https://github.com/aws-amplify/amplify-ui/pull/6790) [`4c3f8259533c1d448a3ee090960c9f6d972a4b10`](https://github.com/aws-amplify/amplify-ui/commit/4c3f8259533c1d448a3ee090960c9f6d972a4b10) Thanks [@ahmedhamouda78](https://github.com/ahmedhamouda78)! - added support for custom page size via a new pageSize prop
+
+### Patch Changes
+
+- Updated dependencies [[`8b2d38cd9da29d159c26070299b4ac4b97419b82`](https://github.com/aws-amplify/amplify-ui/commit/8b2d38cd9da29d159c26070299b4ac4b97419b82)]:
+  - @aws-amplify/ui@6.15.1
+  - @aws-amplify/ui-react@6.15.1
+  - @aws-amplify/ui-react-core@3.6.1
+
 ## 3.16.0
 
 ### Minor Changes
