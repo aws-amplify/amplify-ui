@@ -213,6 +213,7 @@ jobs:
       commit: ${{ needs.setup.outputs.commit_id }}
       repository: ${{ github.repository }}
     secrets:
+      POC_TEST_SECRET: ${{ secrets.POC_TEST_SECRET }}
       AUTH_E2E_ROLE_ARN: ${{ secrets.AUTH_E2E_ROLE_ARN }}
       DATASTORE_E2E_ROLE_ARN: ${{ secrets.DATASTORE_E2E_ROLE_ARN }}
       GEO_E2E_ROLE_ARN: ${{ secrets.GEO_E2E_ROLE_ARN }}
