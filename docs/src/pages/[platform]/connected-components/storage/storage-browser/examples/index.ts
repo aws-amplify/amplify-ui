@@ -11,3 +11,4 @@ export { default as GenerateUrlViewComposed } from './GenerateUrlViewComposed';
 export { default as CustomFilePreview } from './CustomFilePreview';
 export { default as CustomUIFilePreview } from './CustomUIFilePreview';
 export { default as ComponentOverride } from './ComponentOverride';
+export { default as Pagination } from './Pagination';
