@@ -5,19 +5,19 @@ export const contentFromEvents = (
 ): ConversationMessage['content'] => {
   if (!contentBlocks) return [];
   return contentBlocks.map((contentBlock) => {
-    const isTextBlock = contentBlock.some((event) => event.text);
+    // Filter out sparse array holes from out-of-order direct index assignment
+    const events = contentBlock.filter(Boolean);
+    const isTextBlock = events.some((event) => event.text);
     if (isTextBlock) {
       return {
-        text: contentBlock
-          .map((event) => {
-            return event.text;
-          })
+        text: events
+          .map((event) => event.text ?? '')
           .join(''),
       };
     }
     // tool use is never chunked
-    if (contentBlock[0].toolUse) {
-      return { toolUse: contentBlock[0].toolUse };
+    if (events[0]?.toolUse) {
+      return { toolUse: events[0].toolUse };
     }
   }) as ConversationMessage['content'];
 };
