@@ -851,9 +851,9 @@
     rxjs "^7.8.1"
 
 "@aws-amplify/data-schema@^1.0.0", "@aws-amplify/data-schema@^1.19.0", "@aws-amplify/data-schema@^1.7.0":
-  version "1.25.0"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/data-schema/-/data-schema-1.25.0.tgz#ad617a55e83252bae4ebf96fa5ad81ca09c3ed08"
-  integrity sha512-/e1LDrGXOOUXhVHsvxgF0/+R5ZNxfwJvZ21ihXHBWtRtkTTnlYJIsG0+SJ17L7NAfwxY1mHNnoomsvsmP8w/ow==
+  version "1.25.1"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/data-schema/-/data-schema-1.25.1.tgz#34d0aa1dd14613182679857fe8a4c98cea77a3b6"
+  integrity sha512-e9IXpJMlrk5lyySWmA7TTC0/rdD88S0HhUj8wgPEGqkCOOTWs6JY6zubmHHosyuOVxwuQJ1NZ2wplEEXdPuDuw==
   dependencies:
     "@aws-amplify/data-schema-types" "*"
     "@smithy/util-base64" "^3.0.0"
@@ -16012,6 +16012,11 @@ acorn@^8.0.0, acorn@^8.1.0, acorn@^8.11.0, acorn@^8.12.1, acorn@^8.14.0, acorn@^
   resolved "https://registry.npmjs.org/acorn/-/acorn-8.15.0.tgz"
   integrity sha512-NZyJarBfL7nWwIq+FDL6Zp/yHEhePMNnnJ0y3qfieCrmNvYct8uvtiV41UvlSe6apAfk0fY1FbWx+NwfmpvtTg==
 
+acorn@^8.16.0:
+  version "8.16.0"
+  resolved "https://registry.yarnpkg.com/acorn/-/acorn-8.16.0.tgz#4ce79c89be40afe7afe8f3adb902a1f1ce9ac08a"
+  integrity sha512-UVJyE9MttOsBQIDKw1skb9nAwQuR5wuGD3+82K6JgJlm/Y+KI92oNsMNGZCYdDsVtRHSak0pcV5Dno5+4jh9sw==
+
 adjust-sourcemap-loader@^4.0.0:
   version "4.0.0"
   resolved "https://registry.npmjs.org/adjust-sourcemap-loader/-/adjust-sourcemap-loader-4.0.0.tgz"
@@ -16332,7 +16337,12 @@ aria-query@5.3.0:
   dependencies:
     dequal "^2.0.3"
 
-aria-query@5.3.2, aria-query@^5.0.0, aria-query@^5.1.3, aria-query@^5.3.1, aria-query@^5.3.2:
+aria-query@5.3.1:
+  version "5.3.1"
+  resolved "https://registry.yarnpkg.com/aria-query/-/aria-query-5.3.1.tgz#ebcb2c0d7fc43e68e4cb22f774d1209cb627ab42"
+  integrity sha512-Z/ZeOgVl7bcSYZ/u/rh0fOpvEpq//LZmdbkXyc7syVzjPAhfOa9ebsdTSjEBDU4vs5nC98Kfduj1uFo0qyET3g==
+
+aria-query@5.3.2, aria-query@^5.0.0, aria-query@^5.1.3, aria-query@^5.3.2:
   version "5.3.2"
   resolved "https://registry.npmjs.org/aria-query/-/aria-query-5.3.2.tgz"
   integrity sha512-COROpnaoap1E2F000S62r6A60uHZnmlvomhfyT2DlTcrY1OrBKn2UhH7qn5wTC9zMvD0AY7csdPSNwKP+7WiQw==
@@ -21295,11 +21305,17 @@ fast-url-parser@1.1.3:
   dependencies:
     punycode "^1.3.2"
 
+fast-xml-builder@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/fast-xml-builder/-/fast-xml-builder-1.0.0.tgz#a485d7e8381f1db983cf006f849d1066e2935241"
+  integrity sha512-fpZuDogrAgnyt9oDDz+5DBz0zgPdPZz6D4IR7iESxRXElrlGTRkHJ9eEt+SACRJwT0FNFrt71DFQIUFBJfX/uQ==
+
 fast-xml-parser@4.4.1, fast-xml-parser@5.2.5, fast-xml-parser@5.3.4, fast-xml-parser@^4.0.12, fast-xml-parser@^4.4.1, fast-xml-parser@^5.3.4, fast-xml-parser@^5.3.6:
-  version "5.3.7"
-  resolved "https://registry.yarnpkg.com/fast-xml-parser/-/fast-xml-parser-5.3.7.tgz#81694e71ff0e568cbb6befade342f2a7e58aa1d9"
-  integrity sha512-JzVLro9NQv92pOM/jTCR6mHlJh2FGwtomH8ZQjhFj/R29P2Fnj38OgPJVtcvYw6SuKClhgYuwUZf5b3rd8u2mA==
+  version "5.4.1"
+  resolved "https://registry.yarnpkg.com/fast-xml-parser/-/fast-xml-parser-5.4.1.tgz#0c81b8ecfb3021e5ad83aa3df904af19a05bc601"
+  integrity sha512-BQ30U1mKkvXQXXkAGcuyUA/GA26oEB7NzOtsxCDtyu62sjGw5QraKFhx2Em3WQNjPw9PG6MQ9yuIIgkSDfGu5A==
   dependencies:
+    fast-xml-builder "^1.0.0"
     strnum "^2.1.2"
 
 fastq@^1.6.0:
@@ -24866,9 +24882,9 @@ launch-editor@^2.6.1:
     shell-quote "^1.8.3"
 
 launch-editor@^2.9.1:
-  version "2.13.0"
-  resolved "https://registry.yarnpkg.com/launch-editor/-/launch-editor-2.13.0.tgz#6ff3d88d53ef3148d2145350b54854f9f2551ce1"
-  integrity sha512-u+9asUHMJ99lA15VRMXw5XKfySFR9dGXwgsgS14YTbUq3GITP58mIM32At90P5fZ+MUId5Yw+IwI/yKub7jnCQ==
+  version "2.13.1"
+  resolved "https://registry.yarnpkg.com/launch-editor/-/launch-editor-2.13.1.tgz#d96ae376a282011661a112479a4bc2b8c1d914be"
+  integrity sha512-lPSddlAAluRKJ7/cjRFoXUFzaX7q/YKI7yPHuEvSJVqoXvFnJov1/Ud87Aa4zULIbA9Nja4mSPK8l0z/7eV2wA==
   dependencies:
     picocolors "^1.1.1"
     shell-quote "^1.8.3"
@@ -31641,6 +31657,7 @@ stylus-lookup@^6.1.0:
 
 "stylus@github:stylus/stylus#0.59.0":
   version "0.59.0"
+  uid "8e29ff39fb563f91ef4eaff9b2c9f29e2a1910ec"
   resolved "https://codeload.github.com/stylus/stylus/tar.gz/8e29ff39fb563f91ef4eaff9b2c9f29e2a1910ec"
   dependencies:
     "@adobe/css-tools" "^4.0.1"
@@ -31739,10 +31756,10 @@ svelte2tsx@~0.7.33:
     dedent-js "^1.0.1"
     scule "^1.3.0"
 
-svelte@^5.51.5:
-  version "5.51.5"
-  resolved "https://registry.yarnpkg.com/svelte/-/svelte-5.51.5.tgz#42d03a54d848783df769a88752ae6cd7e1b7d037"
-  integrity sha512-/4tR5cLsWOgH3wnNRXnFoWaJlwPGbJanZPSKSD6nHM2y01dvXeEF4Nx7jevoZ+UpJpkIHh6mY2tqDncuI4GHng==
+svelte@^5.53.5:
+  version "5.53.5"
+  resolved "https://registry.yarnpkg.com/svelte/-/svelte-5.53.5.tgz#9472539a0152d5e02e2c933cb8eb9918d71b21de"
+  integrity sha512-YkqERnF05g8KLdDZwZrF8/i1eSbj6Eoat8Jjr2IfruZz9StLuBqo8sfCSzjosNKd+ZrQ8DkKZDjpO5y3ht1Pow==
   dependencies:
     "@jridgewell/remapping" "^2.3.4"
     "@jridgewell/sourcemap-codec" "^1.5.0"
@@ -31750,7 +31767,7 @@ svelte@^5.51.5:
     "@types/estree" "^1.0.5"
     "@types/trusted-types" "^2.0.7"
     acorn "^8.12.1"
-    aria-query "^5.3.1"
+    aria-query "5.3.1"
     axobject-query "^4.1.0"
     clsx "^2.1.1"
     devalue "^5.6.3"
@@ -33672,6 +33689,11 @@ webpack-sources@^3.3.3:
   resolved "https://registry.npmjs.org/webpack-sources/-/webpack-sources-3.3.3.tgz"
   integrity sha512-yd1RBzSGanHkitROoPFd6qsrxt+oFhg/129YzheDGqeustzX0vTZJZsSsQjVQC4yzBQ56K55XU8gaNCtIzOnTg==
 
+webpack-sources@^3.3.4:
+  version "3.3.4"
+  resolved "https://registry.yarnpkg.com/webpack-sources/-/webpack-sources-3.3.4.tgz#a338b95eb484ecc75fbb196cbe8a2890618b4891"
+  integrity sha512-7tP1PdV4vF+lYPnkMR0jMY5/la2ub5Fc/8VQrrU+lXkiM6C4TjVfGw7iKfyhnTQOsD+6Q/iKw0eFciziRgD58Q==
+
 webpack-subresource-integrity@5.1.0:
   version "5.1.0"
   resolved "https://registry.npmjs.org/webpack-subresource-integrity/-/webpack-subresource-integrity-5.1.0.tgz"
@@ -33690,9 +33712,9 @@ webpack-virtual-modules@^0.6.2:
   integrity sha512-66/V2i5hQanC51vBQKPH4aI8NMAcBW59FVBs+rC7eGHupMyfn34q7rZIE+ETlJ+XTevqfUhVVBgSUNSW2flEUQ==
 
 webpack@5.98.0, webpack@^5.76.0, webpack@^5.98.0:
-  version "5.105.2"
-  resolved "https://registry.yarnpkg.com/webpack/-/webpack-5.105.2.tgz#f3b76f9fc36f1152e156e63ffda3bbb82e6739ea"
-  integrity sha512-dRXm0a2qcHPUBEzVk8uph0xWSjV/xZxenQQbLwnwP7caQCYpqG1qddwlyEkIDkYn0K8tvmcrZ+bOrzoQ3HxCDw==
+  version "5.105.3"
+  resolved "https://registry.yarnpkg.com/webpack/-/webpack-5.105.3.tgz#307ad95bafffd08bc81049d6519477b16e42e7ba"
+  integrity sha512-LLBBA4oLmT7sZdHiYE/PeVuifOxYyE2uL/V+9VQP7YSYdJU7bSf7H8bZRRxW8kEPMkmVjnrXmoR3oejIdX0xbg==
   dependencies:
     "@types/eslint-scope" "^3.7.7"
     "@types/estree" "^1.0.8"
@@ -33700,7 +33722,7 @@ webpack@5.98.0, webpack@^5.76.0, webpack@^5.98.0:
     "@webassemblyjs/ast" "^1.14.1"
     "@webassemblyjs/wasm-edit" "^1.14.1"
     "@webassemblyjs/wasm-parser" "^1.14.1"
-    acorn "^8.15.0"
+    acorn "^8.16.0"
     acorn-import-phases "^1.0.3"
     browserslist "^4.28.1"
     chrome-trace-event "^1.0.2"
@@ -33718,7 +33740,7 @@ webpack@5.98.0, webpack@^5.76.0, webpack@^5.98.0:
     tapable "^2.3.0"
     terser-webpack-plugin "^5.3.16"
     watchpack "^2.5.1"
-    webpack-sources "^3.3.3"
+    webpack-sources "^3.3.4"
 
 webpack@^5.56.0:
   version "5.105.0"
