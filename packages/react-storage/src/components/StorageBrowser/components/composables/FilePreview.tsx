@@ -1,4 +1,6 @@
+/* eslint-disable no-console */
 import React from 'react';
+import { getUrl } from 'aws-amplify/storage';
 import type {
   EnabledFilePreviewState,
   FilePreviewState,
@@ -129,6 +131,30 @@ const FilePreviewContent: React.FC<{
       </FilePreviewLayout>
     );
   }
+
+  async function uploadTestFile() {
+    try {
+      console.log(`public/test-upload-${Date.now()}.txt`);
+      // Generate PUT URL
+      const { url } = await getUrl({
+        path: `public/test-upload-${Date.now()}.txt`,
+        options: { method: 'PUT', contentType: 'text/plain' },
+      });
+
+      console.log(`Here is the generated PUT URL: ${url}`);
+
+      // Upload dummy file
+      const response = await fetch(url, {
+        method: 'PUT',
+        body: 'Hello from PUT URL test!',
+        headers: { 'Content-Type': 'text/plain' },
+      });
+
+      console.log(response.ok ? 'Upload successful!' : 'Upload failed!');
+    } catch (error) {
+      console.log(`Error: ${error}`);
+    }
+  }
   return (
     <FilePreviewLayout fileData={filePreview.fileData}>
       <ResolvedRenderer
@@ -145,6 +171,9 @@ const FilePreviewContent: React.FC<{
           <IconElement variant={'paginate-previous'} />
         </ButtonElement>
         <DownloadButton fileKey={key} />
+
+        <ButtonElement onClick={uploadTestFile}>Test PUT Upload</ButtonElement>
+
         <ButtonElement
           disabled={!activeFileHasNext}
           onClick={() => onSelectActiveFile('next')}
