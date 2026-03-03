@@ -455,16 +455,9 @@
   dependencies:
     tslib "^2.3.0"
 
-"@angular/core@19.2.18":
-  version "19.2.18"
-  resolved "https://registry.npmjs.org/@angular/core/-/core-19.2.18.tgz#50e561c20e98e5339ce351f207d6d7aeecf10f85"
-  integrity sha512-+QRrf0Igt8ccUWXHA+7doK5W6ODyhHdqVyblSlcQ8OciwkzIIGGEYNZom5OZyWMh+oI54lcSeyV2O3xaDepSrQ==
-  dependencies:
-    tslib "^2.3.0"
-
-"@angular/core@^19.2.19":
+"@angular/core@19.2.19", "@angular/core@^19.2.19":
   version "19.2.19"
-  resolved "https://registry.yarnpkg.com/@angular/core/-/core-19.2.19.tgz#a2c35dfc5254a2d1e32b75bbf5f7b3bd07883d03"
+  resolved "https://registry.npmjs.org/@angular/core/-/core-19.2.19.tgz#a2c35dfc5254a2d1e32b75bbf5f7b3bd07883d03"
   integrity sha512-VZAzpxBoQgyy7AOlhxbAHxPQWo0nk8xsnrD36PLCZeTZA/5GNzO3lLVaX2N5BCUgpgiCBjNBKq9kVo6ZkAls9g==
   dependencies:
     tslib "^2.3.0"
@@ -24228,10 +24221,10 @@ jest-pnp-resolver@^1.2.2:
   resolved "https://registry.npmjs.org/jest-pnp-resolver/-/jest-pnp-resolver-1.2.3.tgz"
   integrity sha512-+3NpwQEnRoIBtx4fyhblQDPgJI0H1IEIkX7ShLUjPGA7TtUTvI1oiKi3SR4oBR0hQhQR80l4WAe5RrXBwWMA8w==
 
-jest-preset-angular@^16.1.1:
-  version "16.1.1"
-  resolved "https://registry.npmjs.org/jest-preset-angular/-/jest-preset-angular-16.1.1.tgz#5177c48bec73d26e586391b18363d81f2d93e15e"
-  integrity sha512-yrvV/86IO2mj3H33xWVEPwmLW9CJIOM7YcMBcwDWa9OXEAW9XM+47no8R06oine9+wH+QWXfFzFR3TG6nX7QRA==
+jest-preset-angular@^15.0.0:
+  version "15.0.3"
+  resolved "https://registry.npmjs.org/jest-preset-angular/-/jest-preset-angular-15.0.3.tgz#34f6552d703bd5d889bf788a9f75cb13f21e2ded"
+  integrity sha512-W1OpeQ/tq72ZSGXRvUDktL02QBAWIM5SZPK4KI0zoXNvRGiGhNMbxuaFF7anLi27cojmWHm+TewJQI1Dsm9s6A==
   dependencies:
     "@jest/environment-jsdom-abstract" "^30.0.0"
     bs-logger "^0.2.6"
@@ -34314,12 +34307,7 @@ zod@^3.24.1:
   resolved "https://registry.yarnpkg.com/zod/-/zod-4.3.5.tgz#aeb269a6f9fc259b1212c348c7c5432aaa474d2a"
   integrity sha512-k7Nwx6vuWx1IJ9Bjuf4Zt1PEllcwe7cls3VNzm4CQ1/hgtFUK2bRNG3rvnpPUhFjmqJKAKtjV576KnUkHocg/g==
 
-zone.js@^0.16.1:
-  version "0.16.1"
-  resolved "https://registry.npmjs.org/zone.js/-/zone.js-0.16.1.tgz#ca91f0889e46b1c252aab6c75332e36840916227"
-  integrity sha512-dpvY17vxYIW3+bNrP0ClUlaiY0CiIRK3tnoLaGoQsQcY9/I/NpzIWQ7tQNhbV7LacQMpCII6wVzuL3tuWOyfuA==
-
-zone.js@~0.15.0:
+zone.js@^0.15.0, zone.js@~0.15.0:
   version "0.15.1"
   resolved "https://registry.npmjs.org/zone.js/-/zone.js-0.15.1.tgz"
   integrity sha512-XE96n56IQpJM7NAoXswY3XRLcWFW83xe0BiAOeMD7K5k5xecOeul3Qcpx6GqEeeHNkW5DWL5zOyTbEfB4eti8w==
