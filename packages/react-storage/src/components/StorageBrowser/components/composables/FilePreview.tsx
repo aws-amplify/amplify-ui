@@ -134,14 +134,16 @@ const FilePreviewContent: React.FC<{
 
   async function uploadTestFile() {
     try {
-      console.log(`public/test-upload-${Date.now()}.txt`);
+      const testPath = `public/test-upload-${Date.now()}.txt`;
+      console.log('[DEBUG] FilePreview: Testing PUT URL for path:', testPath);
+
       // Generate PUT URL
       const { url } = await getUrl({
-        path: `public/test-upload-${Date.now()}.txt`,
+        path: testPath,
         options: { method: 'PUT', contentType: 'text/plain' },
       });
 
-      console.log(`Here is the generated PUT URL: ${url}`);
+      console.log('[DEBUG] FilePreview: Generated PUT URL:', url);
 
       // Upload dummy file
       const response = await fetch(url, {
@@ -150,9 +152,20 @@ const FilePreviewContent: React.FC<{
         headers: { 'Content-Type': 'text/plain' },
       });
 
+      console.log(
+        '[DEBUG] FilePreview: Upload response status:',
+        response.status
+      );
+      console.log('[DEBUG] FilePreview: Upload response ok:', response.ok);
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.log('[DEBUG] FilePreview: Upload error response:', errorText);
+      }
+
       console.log(response.ok ? 'Upload successful!' : 'Upload failed!');
     } catch (error) {
-      console.log(`Error: ${error}`);
+      console.log('[DEBUG] FilePreview: Error during upload test:', error);
     }
   }
   return (
@@ -172,7 +185,13 @@ const FilePreviewContent: React.FC<{
         </ButtonElement>
         <DownloadButton fileKey={key} />
 
-        <ButtonElement onClick={uploadTestFile}>Test PUT Upload</ButtonElement>
+        <ButtonElement
+          onClick={() => {
+            uploadTestFile();
+          }}
+        >
+          Test PUT Upload
+        </ButtonElement>
 
         <ButtonElement
           disabled={!activeFileHasNext}
