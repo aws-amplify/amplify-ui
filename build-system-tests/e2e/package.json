@@ -29,6 +29,7 @@
     "esbuild": "^0.25.0",
     "qs": "^6.15.0",
     "undici": "^6.23.0",
+    "serialize-javascript": "^7.0.3",
     "**/find-cypress-specs/minimatch": "3.1.4",
     "**/mocha/minimatch": "5.1.8",
     "**/@typescript-eslint/typescript-estree/minimatch": "9.0.7",
