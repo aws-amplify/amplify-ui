@@ -91,6 +91,7 @@
     "**/editorconfig/minimatch": "9.0.7",
     "**/@typescript-eslint/*/minimatch": "9.0.7",
     "**/glob/minimatch": "9.0.7",
+    "**@aws-amplify/backend/**/immutable": "^4.0.0",
     "**/@aws-cdk/*/minimatch": "10.2.3",
     "@aws-amplify/data-schema": "^1.19.0",
     "@adobe/css-tools": "^4.3.2",
