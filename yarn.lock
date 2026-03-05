@@ -13647,10 +13647,10 @@
     "@testing-library/dom" "^8.5.0"
     "@vue/test-utils" "^2.0.0"
 
-"@tootallnate/once@2":
-  version "2.0.0"
-  resolved "https://registry.npmjs.org/@tootallnate/once/-/once-2.0.0.tgz"
-  integrity sha512-XCuKFP5PS55gnMVu3dty8KPatLqUoy/ZYzDzAGCQ8JNFCkLXzmI7vNHCR+XpbZaMWQK/vQubr7PkYq8g470J/A==
+"@tootallnate/once@2", "@tootallnate/once@3.0.1":
+  version "3.0.1"
+  resolved "https://registry.npmjs.org/@tootallnate/once/-/once-3.0.1.tgz#d580decb59cb41a15856387a86800838102daf44"
+  integrity sha512-VyMVKRrpHTT8PnotUeV8L/mDaMwD5DaAKCFLP73zAqAtvF0FCqky+Ki7BYbFCYQmqFyTe9316Ed5zS70QUR9eg==
 
 "@tootallnate/quickjs-emscripten@^0.23.0":
   version "0.23.0"
