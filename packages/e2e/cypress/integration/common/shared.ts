@@ -628,6 +628,14 @@ Then('I will be redirected to the confirm forgot password page', () => {
   cy.findInputField('New Password').should('exist');
 });
 
+Then('I will be redirected to the confirm sign in page', () => {
+  cy.get('[data-amplify-authenticator-confirmsignin]').should('be.visible');
+});
+
+Then('I will be redirected to the setup totp page', () => {
+  cy.get('[data-amplify-qrcode]').should('be.visible');
+});
+
 When('I type my username with untrimmed spaces', () => {
   cy.findInputField('Username').type(` ${Cypress.env('USERNAME')}+CONFIRMED `);
 });
