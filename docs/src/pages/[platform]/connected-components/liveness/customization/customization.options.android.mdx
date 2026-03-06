@@ -1,4 +1,13 @@
 import { Alert } from '@aws-amplify/ui-react';
+import ReactPropsTable from '@/components/propsTable/ReactPropsTable';
+
+export const VIDEO_OPTIONS = [
+  {
+    name: `videoCodec`,
+    description: 'The codec to use for encoding the video stream. Options are VP8, VP9, and H264. The default is VP8.',
+    type: `VideoCodec`,
+  },
+];
 
 ## Challenge Options
 
@@ -23,3 +32,23 @@ FaceLivenessDetector(
 <Alert variation="info" role="none">
     When the FaceLivenessDetector is rendered, Rekognition will mark the session ID as used and any future usages of the FaceLivenessDector will require a new session ID. So if you want to change which camera is used for the FaceMovement challenge at runtime, you will need to create a new liveness session and pass the new session ID into the FaceLivenessDetector with the new Camera option.
 </Alert>
+
+## Video Options
+
+Video options allow you to configure the video stream used during a liveness session. The following options are available:
+
+<ReactPropsTable props={VIDEO_OPTIONS} />
+
+```kotlin
+FaceLivenessDetector(
+    sessionId = <session ID>,
+    region = <region>,
+    videoOptions = VideoOptions(videoCodec = VideoCodec.H264),
+    onComplete = {
+        Log.i("MyApp", "Face Liveness flow is complete")
+    },
+    onError = { error ->
+        Log.e("MyApp", "Error during Face Liveness flow", error)
+    }
+)
+```
