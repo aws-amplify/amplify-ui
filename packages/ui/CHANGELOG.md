@@ -1,5 +1,17 @@
 # @aws-amplify/ui
 
+## 6.15.1
+
+### Patch Changes
+
+- [#6853](https://github.com/aws-amplify/amplify-ui/pull/6853) [`8b2d38cd9da29d159c26070299b4ac4b97419b82`](https://github.com/aws-amplify/amplify-ui/commit/8b2d38cd9da29d159c26070299b4ac4b97419b82) Thanks [@sarayev](https://github.com/sarayev)! - fix(authenticator): exclude username from user attributes in force change password flow
+
+## 6.15.0
+
+### Minor Changes
+
+- [#6834](https://github.com/aws-amplify/amplify-ui/pull/6834) [`0401829108ffae82db4fa776c96e8d0075a591b9`](https://github.com/aws-amplify/amplify-ui/commit/0401829108ffae82db4fa776c96e8d0075a591b9) Thanks [@osama-rizk](https://github.com/osama-rizk)! - feat(storage-browser): Folder deletion.
+
 ## 6.14.0
 
 ### Minor Changes

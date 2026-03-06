@@ -1,5 +1,23 @@
 # @aws-amplify/ui-test-utils
 
+## 0.1.1
+
+### Patch Changes
+
+- Updated dependencies [[`4c3f8259533c1d448a3ee090960c9f6d972a4b10`](https://github.com/aws-amplify/amplify-ui/commit/4c3f8259533c1d448a3ee090960c9f6d972a4b10)]:
+  - @aws-amplify/ui-react-storage@3.17.0
+
+## 0.1.0
+
+### Minor Changes
+
+- [#6834](https://github.com/aws-amplify/amplify-ui/pull/6834) [`0401829108ffae82db4fa776c96e8d0075a591b9`](https://github.com/aws-amplify/amplify-ui/commit/0401829108ffae82db4fa776c96e8d0075a591b9) Thanks [@osama-rizk](https://github.com/osama-rizk)! - feat(storage-browser): Folder deletion.
+
+### Patch Changes
+
+- Updated dependencies [[`a003cb5507d973834e83f5bd908ebcfb78eff1b8`](https://github.com/aws-amplify/amplify-ui/commit/a003cb5507d973834e83f5bd908ebcfb78eff1b8), [`0401829108ffae82db4fa776c96e8d0075a591b9`](https://github.com/aws-amplify/amplify-ui/commit/0401829108ffae82db4fa776c96e8d0075a591b9)]:
+  - @aws-amplify/ui-react-storage@3.16.0
+
 ## 0.0.13
 
 ### Patch Changes

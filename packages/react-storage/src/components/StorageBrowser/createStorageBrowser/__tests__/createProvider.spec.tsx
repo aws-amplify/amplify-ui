@@ -3,7 +3,10 @@ import { render } from '@testing-library/react';
 
 import { ActionConfigsProvider, getActionConfigs } from '../../actions';
 import { ComponentsProvider } from '../../components';
-import { createConfigurationProvider } from '../../configuration';
+import {
+  createConfigurationProvider,
+  PaginationConfigProvider,
+} from '../../configuration';
 import { DisplayTextProvider } from '../../displayText';
 import { FileItemsProvider } from '../../fileItems';
 import { FilePreviewProvider } from '../../filePreview';
@@ -25,6 +28,9 @@ jest.mock('../../configuration');
 jest.mock('../../store');
 jest.mock('../../useAction');
 jest.mock('../../views');
+jest
+  .mocked(PaginationConfigProvider)
+  .mockImplementation(({ children }) => <>{children}</>);
 
 const mockActionConfigsProvider = jest
   .mocked(ActionConfigsProvider)

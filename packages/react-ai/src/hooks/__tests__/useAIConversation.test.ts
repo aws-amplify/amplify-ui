@@ -144,4 +144,132 @@ describe('useAIConverstion', () => {
       expect(onMessage).toHaveBeenCalled();
     });
   });
+
+  it('handles duplicate stream events without content corruption', async () => {
+    const client = new mockClient();
+    const { useAIConversation } = createAIHooks(client);
+    const { result } = renderHook(() => useAIConversation('pirateChat'));
+
+    await waitFor(() => {
+      expect(result.current[0].data.conversation).toBeDefined();
+    });
+
+    act(() => {
+      result.current[1]({ content: [{ text: 'hello' }] });
+    });
+
+    await waitFor(() => {
+      expect(result.current[0].data.messages).toHaveLength(2);
+    });
+
+    // Simulate streaming with a duplicate event (subscription replay)
+    act(() => {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+      _next({
+        id: '123',
+        conversationId: id,
+        contentBlockIndex: 0,
+        contentBlockDeltaIndex: 0,
+        text: 'Hello ',
+      });
+    });
+
+    act(() => {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+      _next({
+        id: '123',
+        conversationId: id,
+        contentBlockIndex: 0,
+        contentBlockDeltaIndex: 1,
+        text: 'world',
+      });
+    });
+
+    // Duplicate of delta 0 (subscription replay)
+    act(() => {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+      _next({
+        id: '123',
+        conversationId: id,
+        contentBlockIndex: 0,
+        contentBlockDeltaIndex: 0,
+        text: 'Hello ',
+      });
+    });
+
+    await waitFor(() => {
+      const [
+        {
+          data: { messages },
+        },
+      ] = result.current;
+      const assistantMsg = messages.find((m) => m.id === '123');
+      // Should be "Hello world", NOT "Hello Hello world"
+      const { text } = assistantMsg?.content[0] ?? {};
+      expect(text).toBe('Hello world');
+    });
+  });
+
+  it('handles out-of-order stream events correctly', async () => {
+    const client = new mockClient();
+    const { useAIConversation } = createAIHooks(client);
+    const { result } = renderHook(() => useAIConversation('pirateChat'));
+
+    await waitFor(() => {
+      expect(result.current[0].data.conversation).toBeDefined();
+    });
+
+    act(() => {
+      result.current[1]({ content: [{ text: 'hello' }] });
+    });
+
+    await waitFor(() => {
+      expect(result.current[0].data.messages).toHaveLength(2);
+    });
+
+    // Events arrive out of order: 0, 2, 1
+    act(() => {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+      _next({
+        id: '123',
+        conversationId: id,
+        contentBlockIndex: 0,
+        contentBlockDeltaIndex: 0,
+        text: 'A',
+      });
+    });
+
+    act(() => {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+      _next({
+        id: '123',
+        conversationId: id,
+        contentBlockIndex: 0,
+        contentBlockDeltaIndex: 2,
+        text: 'C',
+      });
+    });
+
+    act(() => {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+      _next({
+        id: '123',
+        conversationId: id,
+        contentBlockIndex: 0,
+        contentBlockDeltaIndex: 1,
+        text: 'B',
+      });
+    });
+
+    await waitFor(() => {
+      const [
+        {
+          data: { messages },
+        },
+      ] = result.current;
+      const assistantMsg = messages.find((m) => m.id === '123');
+      const { text } = assistantMsg?.content[0] ?? {};
+      expect(text).toBe('ABC');
+    });
+  });
 });

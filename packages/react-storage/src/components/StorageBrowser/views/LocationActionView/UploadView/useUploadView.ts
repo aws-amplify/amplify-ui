@@ -1,6 +1,7 @@
 import React from 'react';
 
 import type { UploadHandlerData } from '../../../actions';
+import { usePaginationConfig } from '../../../configuration';
 import { useFileItems } from '../../../fileItems';
 import { useStore } from '../../../store';
 import type { Task } from '../../../tasks';
@@ -10,11 +11,13 @@ import { DEFAULT_OVERWRITE_ENABLED } from './constants';
 import type { UploadViewState, UseUploadViewOptions } from './types';
 import { usePaginate } from '../../hooks/usePaginate';
 
-const DEFAULT_PAGE_SIZE = 100;
 export const useUploadView = (
   options?: UseUploadViewOptions
 ): UploadViewState => {
-  const { onExit: _onExit } = options ?? {};
+  const { pageSize: configPageSize } = usePaginationConfig();
+  const { onExit: _onExit, pageSize: propPageSize } = options ?? {};
+
+  const pageSize = propPageSize ?? configPageSize;
 
   const [{ location }, storeDispatch] = useStore();
   const [{ validItems, invalidItems: invalidFiles }, fileItemsDispatch] =
@@ -46,6 +49,7 @@ export const useUploadView = (
     pageItems: pageTasks,
   } = usePaginate({
     items: tasks,
+    pageSize,
   });
 
   const onDropFiles = (files: File[]) => {
@@ -91,8 +95,8 @@ export const useUploadView = (
     statusCounts,
     tasks: pageTasks,
     page: currentPage,
-    hasNextPage: currentPage * DEFAULT_PAGE_SIZE < items.length,
-    highestPageVisited: Math.ceil(items.length / DEFAULT_PAGE_SIZE),
+    hasNextPage: currentPage * pageSize < items.length,
+    highestPageVisited: Math.ceil(items.length / pageSize),
     onActionCancel,
     onActionExit,
     onActionStart,

