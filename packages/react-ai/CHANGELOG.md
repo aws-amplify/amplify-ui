@@ -1,5 +1,16 @@
 # @aws-amplify/ui-react-ai
 
+## 1.5.1
+
+### Patch Changes
+
+- [#6876](https://github.com/aws-amplify/amplify-ui/pull/6876) [`3d0e45e0efa80f13a37d3d864badaee46b2b7676`](https://github.com/aws-amplify/amplify-ui/commit/3d0e45e0efa80f13a37d3d864badaee46b2b7676) Thanks [@soberm](https://github.com/soberm)! - fix(react-ai): resolve streaming content corruption
+
+- Updated dependencies [[`d7c34c609830395d09f078902de1c17aa5674d5f`](https://github.com/aws-amplify/amplify-ui/commit/d7c34c609830395d09f078902de1c17aa5674d5f)]:
+  - @aws-amplify/ui@6.15.2
+  - @aws-amplify/ui-react@6.15.2
+  - @aws-amplify/ui-react-core@3.6.2
+
 ## 1.5.0
 
 ### Minor Changes
