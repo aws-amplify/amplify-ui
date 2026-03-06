@@ -39,7 +39,7 @@ jobs:
           REPO_OWNER: ${{ github.repository_owner }}
           REPO_NAME: ${{ github.event.repository.name }}
           LABEL_NAME: 'run-tests'
-        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1 https://github.com/actions/github-script/commit/60a0d83039c74a4aee543508d2ffcb1c3799cdea
+        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v7.0.1 https://github.com/actions/github-script/commit/60a0d83039c74a4aee543508d2ffcb1c3799cdea
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
