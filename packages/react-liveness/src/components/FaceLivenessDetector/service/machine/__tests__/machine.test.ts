@@ -263,6 +263,10 @@ describe('Liveness Machine', () => {
       initCamera: 'waitForDOMAndCameraDetails',
     });
     expect(mockComponentProps.onUserCancel).toHaveBeenCalledTimes(1);
+
+    // freezeStream should stop the camera tracks on cancel
+    const tracks = mockVideoMediaStream.getTracks();
+    expect(tracks[0].stop).toHaveBeenCalled();
   });
 
   describe('cameraCheck', () => {
