@@ -231,11 +231,12 @@ export function createUseAIConversation<
             if (!currentBlock) {
               contentBlocksRef.current[contentBlockIndex] = [event];
             } else {
-              contentBlocksRef.current[contentBlockIndex] = [
-                ...currentBlock.slice(0, contentBlockDeltaIndex),
-                event,
-                ...currentBlock.slice(contentBlockDeltaIndex),
-              ];
+              // Direct index assignment: idempotent, handles out-of-order and duplicates
+              if (contentBlockDeltaIndex !== undefined) {
+                currentBlock[contentBlockDeltaIndex] = event;
+              } else {
+                currentBlock.push(event);
+              }
             }
           }
 
@@ -248,13 +249,26 @@ export function createUseAIConversation<
               role: 'assistant',
               isLoading: true,
             };
+
+            // Match by message ID instead of assuming last message
+            const existingIndex = prev.data.messages.findIndex(
+              (m) => m.id === id
+            );
+
+            const updatedMessages =
+              existingIndex >= 0
+                ? [
+                    ...prev.data.messages.slice(0, existingIndex),
+                    message,
+                    ...prev.data.messages.slice(existingIndex + 1),
+                  ]
+                : [...prev.data.messages, message];
+
             return {
               ...prev,
               data: {
                 ...prev.data,
-                // TODO: we are assuming we only update the last
-                // message, but maybe we should match it by message ID?
-                messages: [...prev.data.messages.slice(0, -1), message],
+                messages: updatedMessages,
               },
             };
           });

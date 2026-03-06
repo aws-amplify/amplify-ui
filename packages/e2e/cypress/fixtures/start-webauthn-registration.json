@@ -1,0 +1,22 @@
+{
+  "CredentialCreationOptions": {
+    "challenge": "bW9jay1jaGFsbGVuZ2UtZGF0YQ",
+    "rp": {
+      "name": "Mock RP",
+      "id": "localhost"
+    },
+    "user": {
+      "id": "bW9jay11c2VyLWlk",
+      "name": "test@example.com",
+      "displayName": "Test User"
+    },
+    "pubKeyCredParams": [
+      {
+        "type": "public-key",
+        "alg": -7
+      }
+    ],
+    "timeout": 60000,
+    "attestation": "none"
+  }
+}

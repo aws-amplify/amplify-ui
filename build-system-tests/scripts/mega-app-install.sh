@@ -115,8 +115,8 @@ if [ "$PKG_MANAGER" == 'yarn' ]; then
     yarn add $DEPENDENCIES
 else
     if [[ "$FRAMEWORK" == "react-native" ]]; then
-        # react-native-safe-area-context v5.0.0+ does not support RN 0.74 and lower
-        DEPENDENCIES="$TAGGED_UI_FRAMEWORK @aws-amplify/react-native aws-amplify @react-native-community/netinfo @react-native-async-storage/async-storage react-native-get-random-values@1.11.0 react-native-url-polyfill"
+        # async-storage v3.0.0+ requires Gradle 7.6.3+, pin to 2.x for compatibility
+        DEPENDENCIES="$TAGGED_UI_FRAMEWORK @aws-amplify/react-native aws-amplify @react-native-community/netinfo @react-native-async-storage/async-storage@^2.2.0 react-native-get-random-values@1.11.0 react-native-url-polyfill @react-native-community/cli@20.1.1"
 
         # react-native-safe-area-context v5 is required for >= 0.74
         if [[ "$FRAMEWORK_VERSION" == "latest" || $FRAMEWORK_VERSION > "0.74" ]]; then

@@ -571,4 +571,127 @@ describe('signInActor', () => {
     await flushPromises();
     expect(service.getSnapshot().value).toStrictEqual('rejected');
   });
+
+  describe('handleForceChangePassword service', () => {
+    let confirmSignInSpy: jest.SpyInstance;
+    let testService: any;
+
+    beforeEach(() => {
+      confirmSignInSpy = jest
+        .spyOn(AuthModule, 'confirmSignIn')
+        .mockResolvedValue({
+          isSignedIn: true,
+          nextStep: { signInStep: 'DONE' },
+        } as any);
+
+      // Initialize a dummy service to prevent afterEach errors
+      testService = { stop: jest.fn() };
+      service = testService;
+    });
+
+    afterEach(() => {
+      confirmSignInSpy.mockRestore();
+    });
+
+    it('should exclude username from userAttributes when calling confirmSignIn', async () => {
+      const machine = signInActor(signInMachineProps);
+
+      // Get the service function from the machine's options
+      const services = (machine as any).options.services;
+      const handleForceChangePassword = services.handleForceChangePassword;
+
+      const context = {
+        formValues: {
+          password: 'newPassword123!',
+          confirm_password: 'newPassword123!',
+          username: 'testuser@example.com',
+          email: 'testuser@example.com',
+          name: 'Test User',
+        },
+      };
+
+      await handleForceChangePassword(context, {} as any);
+
+      expect(confirmSignInSpy).toHaveBeenCalledWith({
+        challengeResponse: 'newPassword123!',
+        options: {
+          userAttributes: {
+            email: 'testuser@example.com',
+            name: 'Test User',
+          },
+        },
+      });
+
+      // Verify username and confirm_password are NOT in userAttributes
+      const callArgs = confirmSignInSpy.mock.calls[0][0];
+      expect(callArgs.options.userAttributes).not.toHaveProperty('username');
+      expect(callArgs.options.userAttributes).not.toHaveProperty(
+        'confirm_password'
+      );
+    });
+
+    it('should format phone number with country code and exclude from userAttributes', async () => {
+      const machine = signInActor(signInMachineProps);
+
+      const services = (machine as any).options.services;
+      const handleForceChangePassword = services.handleForceChangePassword;
+
+      const context = {
+        formValues: {
+          password: 'newPassword123!',
+          confirm_password: 'newPassword123!',
+          username: 'testuser',
+          phone_number: '555-1234',
+          country_code: '+1',
+          email: 'test@example.com',
+        },
+      };
+
+      await handleForceChangePassword(context, {} as any);
+
+      expect(confirmSignInSpy).toHaveBeenCalledWith({
+        challengeResponse: 'newPassword123!',
+        options: {
+          userAttributes: {
+            phone_number: '+15551234',
+            email: 'test@example.com',
+          },
+        },
+      });
+
+      // Verify username, confirm_password, and country_code are NOT in userAttributes
+      const callArgs = confirmSignInSpy.mock.calls[0][0];
+      expect(callArgs.options.userAttributes).not.toHaveProperty('username');
+      expect(callArgs.options.userAttributes).not.toHaveProperty(
+        'confirm_password'
+      );
+      expect(callArgs.options.userAttributes).not.toHaveProperty(
+        'country_code'
+      );
+    });
+
+    it('should handle empty userAttributes when only password fields are provided', async () => {
+      const machine = signInActor(signInMachineProps);
+
+      const services = (machine as any).options.services;
+      const handleForceChangePassword = services.handleForceChangePassword;
+
+      const context = {
+        formValues: {
+          password: 'newPassword123!',
+          confirm_password: 'newPassword123!',
+          username: 'testuser',
+        },
+      };
+
+      await handleForceChangePassword(context, {} as any);
+
+      expect(confirmSignInSpy).toHaveBeenCalledWith({
+        challengeResponse: 'newPassword123!',
+        options: {
+          userAttributes: {},
+        },
+      });
+    });
+  });
 });

@@ -114,7 +114,7 @@ Cypress.Commands.add(
         mimeType: fileType ?? 'text/plain',
       });
     }
-    const input = cy.get('input[type="file"]').wait(5000);
+    const input = cy.get('input[type="file"]').last().wait(5000);
     input.selectFile(folderFiles, { force: true });
   }
 );
