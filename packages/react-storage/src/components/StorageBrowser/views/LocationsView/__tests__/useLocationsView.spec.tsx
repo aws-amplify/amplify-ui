@@ -7,10 +7,16 @@ import { StoreState, useStore } from '../../../store';
 import { useAction, useList } from '../../../useAction';
 
 import { useLocationsView, DEFAULT_LIST_OPTIONS } from '../useLocationsView';
+import { InitialValues } from '../types';
 
 jest.mock('../../../actions/handlers');
 jest.mock('../../../store');
 jest.mock('../../../useAction');
+jest.mock('../../../configuration', () => ({
+  usePaginationConfig: jest.fn((initialValues: InitialValues) => ({
+    pageSize: initialValues?.pageSize ?? 100,
+  })),
+}));
 jest.useFakeTimers();
 jest.setSystemTime(1);
 
@@ -96,7 +102,7 @@ describe('useLocationsView', () => {
       isLoading: false,
     };
     const handleList = mockUseLocationsData(mockDataState);
-    const initialState = { initialValues: { pageSize: EXPECTED_PAGE_SIZE } };
+    const initialState = { pageSize: EXPECTED_PAGE_SIZE };
     const { result } = renderHook(() => useLocationsView(initialState));
 
     expect(handleList).toHaveBeenCalledWith({
@@ -125,7 +131,7 @@ describe('useLocationsView', () => {
       isLoading: false,
     });
 
-    const initialState = { initialValues: { pageSize: EXPECTED_PAGE_SIZE } };
+    const initialState = { pageSize: EXPECTED_PAGE_SIZE };
     const { result, rerender } = renderHook(() =>
       useLocationsView(initialState)
     );

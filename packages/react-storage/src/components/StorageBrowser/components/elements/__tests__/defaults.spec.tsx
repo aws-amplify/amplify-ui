@@ -21,6 +21,9 @@ const BUTTON_VARIANTS: [ButtonElementVariant, string[]][] = [
   ['search-submit', []],
   ['sort', ['amplify-button--link']],
   ['table-data', ['amplify-button--link']],
+  ['paginate-current', ['amplify-button--link']],
+  ['paginate-next', ['amplify-button--link']],
+  ['paginate-previous', ['amplify-button--link']],
 ];
 
 const VIEW_VARIANTS: [string, string[]][] = [
@@ -29,6 +32,8 @@ const VIEW_VARIANTS: [string, string[]][] = [
   ['warning', ['amplify-message--warning']],
   ['success', ['amplify-message--success']],
   ['error', ['amplify-message--error']],
+  ['menu-list', []],
+  ['empty-message', ['amplify-message--neutral']],
 ];
 
 describe('elementsDefault', () => {
@@ -119,5 +124,86 @@ describe('elementsDefault', () => {
     }
     const table = screen.getByRole('table');
     expect(table.classList).toContain('amplify-table');
+  });
+
+  it('should render checkbox input', () => {
+    const { Input } = elementsDefault;
+    render(<Input type="checkbox" />);
+    const input = screen.getByRole('checkbox');
+    expect(input).toBeInTheDocument();
+  });
+
+  it('should render DescriptionTerm', () => {
+    const { DescriptionTerm } = elementsDefault;
+    render(<DescriptionTerm testId="dt">Term</DescriptionTerm>);
+    const dt = screen.getByTestId('dt');
+    expect(dt).toBeInTheDocument();
+  });
+
+  it('should render Nav', () => {
+    const { Nav } = elementsDefault;
+    render(<Nav testId="nav">Navigation</Nav>);
+    const nav = screen.getByTestId('nav');
+    expect(nav).toBeInTheDocument();
+  });
+
+  it('should render Span variants', () => {
+    const { Span } = elementsDefault;
+    render(
+      <Span variant="navigation-text" testId="nav-text">
+        Nav
+      </Span>
+    );
+    render(
+      <Span variant="destination-text" testId="dest-text">
+        Dest
+      </Span>
+    );
+    render(<Span testId="default-span">Default</Span>);
+    expect(screen.getByTestId('nav-text')).toBeInTheDocument();
+    expect(screen.getByTestId('dest-text')).toBeInTheDocument();
+    expect(screen.getByTestId('default-span')).toBeInTheDocument();
+  });
+
+  it('should render Text variants', () => {
+    const { Text } = elementsDefault;
+    render(
+      <Text variant="field-error" testId="error-text">
+        Error
+      </Text>
+    );
+    render(<Text testId="default-text">Default</Text>);
+    expect(screen.getByTestId('error-text')).toBeInTheDocument();
+    expect(screen.getByTestId('default-text')).toBeInTheDocument();
+  });
+
+  it('should render View menu-list variant', () => {
+    const { View } = elementsDefault;
+    render(
+      <View variant="menu-list" testId="menu-list">
+        Menu
+      </View>
+    );
+    expect(screen.getByTestId('menu-list')).toBeInTheDocument();
+  });
+
+  it('should render View empty-message variant', () => {
+    const { View } = elementsDefault;
+    render(
+      <View variant="empty-message" testId="empty">
+        Empty
+      </View>
+    );
+    expect(screen.getByTestId('empty')).toBeInTheDocument();
+  });
+
+  it('should render Button paginate variants', () => {
+    const { Button } = elementsDefault;
+    render(<Button variant="paginate-current">Current</Button>);
+    render(<Button variant="paginate-next">Next</Button>);
+    render(<Button variant="paginate-previous">Previous</Button>);
+    expect(screen.getByText('Current')).toBeInTheDocument();
+    expect(screen.getByText('Next')).toBeInTheDocument();
+    expect(screen.getByText('Previous')).toBeInTheDocument();
   });
 });

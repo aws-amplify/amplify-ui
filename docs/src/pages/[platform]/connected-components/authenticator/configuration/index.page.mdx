@@ -46,6 +46,7 @@ import TotpSwift from './totpIssuer.swift.mdx';
 import TotpAndroid from './totpIssuer.android.mdx';
 import PasswordlessSwift from './passwordless.swift.mdx';
 import PasswordlessAndroid from './passwordless.android.mdx';
+import PasswordlessReact from './passwordless.react.mdx';
 
 export async function getStaticPaths() {
   return getCustomStaticPath(frontmatter.supportedFrameworks);
@@ -69,8 +70,13 @@ By default, unauthenticated users are redirected to the Sign In flow. You can ex
 
 ## Login Mechanisms
 
-<InlineFilter filters={['angular', 'react', 'vue', 'svelte']}>
+<InlineFilter filters={['angular', 'vue', 'svelte']}>
   <LoginWeb />
+</InlineFilter>
+<InlineFilter filters={['react']}>
+  <LoginWeb />
+
+  <PasswordlessReact />
 </InlineFilter>
 <InlineFilter filters={['android']}>
   <LoginAndroid />

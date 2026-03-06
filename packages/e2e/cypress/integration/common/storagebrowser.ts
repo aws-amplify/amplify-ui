@@ -3,6 +3,16 @@ import { randomFileName } from './shared';
 
 const FILE_VALIDATION_SIZE_LIMIT = 1000 * 1000; // 1MB
 
+When(
+  'I select {string} from the {string} dropdown',
+  (value: string, label: string) => {
+    cy.findByText(label).parent().find('select').select(value);
+
+    // Wait for component remount and state updates to complete
+    cy.wait(2000);
+  }
+);
+
 const selectTableRowCheckBox = (name: string) => {
   cy.contains('table tbody td:nth-child(2)', new RegExp('^' + name + '$'))
     .siblings()
@@ -95,6 +105,19 @@ Then(
 
 Then('I click checkbox for file {string}', selectTableRowCheckBox);
 
+Then('I click checkbox for file with random name', () => {
+  selectTableRowCheckBox(randomFileName);
+});
+
+Then('I click checkbox for button containing random name', () => {
+  cy.get('table tbody tr')
+    .contains('button', new RegExp(randomFileName, 'i'))
+    .closest('tr')
+    .within(() => {
+      cy.get('label').click({ force: true });
+    });
+});
+
 Then('I see the File preview Loader', () => {
   cy.get('.amplify-storage-browser__preview-placeholder').should('exist');
 });
@@ -129,5 +152,77 @@ When(
       parseInt(count),
       FILE_VALIDATION_SIZE_LIMIT + 1
     );
+  }
+);
+
+Then('I see button containing random name', () => {
+  cy.findByRole('button', {
+    name: new RegExp(randomFileName, 'i'),
+  }).should('exist');
+});
+
+Then('I see {string} folder deleted', (count: string) => {
+  cy.contains(`${count} folder deleted`).should('exist');
+});
+
+Then('I see {string} folders deleted', (count: string) => {
+  cy.contains(`${count} folders deleted`).should('exist');
+});
+
+Then('I see modal with title {string}', (title: string) => {
+  cy.get('.amplify-modal__title').should('contain.text', title);
+});
+
+When('I click the modal {string} button', (buttonText: string) => {
+  cy.get('.amplify-modal__footer').contains('button', buttonText).click();
+});
+
+Then('I see modal message {string}', (message: string) => {
+  cy.get('.amplify-modal__body').should('contain.text', message);
+});
+
+Then('I see modal content {string}', (content: string) => {
+  cy.get('.amplify-modal__body').should('contain.text', content);
+});
+
+Then('I see folder button containing random name', () => {
+  cy.findByRole('button', {
+    name: new RegExp(`${randomFileName}/`, 'i'),
+  }).should('exist');
+});
+
+Then('I see file button containing random name', () => {
+  cy.findByRole('button', {
+    name: new RegExp(`${randomFileName}-1`, 'i'),
+  }).should('exist');
+});
+
+Then('I click checkbox for folder containing random name', () => {
+  cy.get('table tbody tr')
+    .contains('button', new RegExp(`${randomFileName}/$`, 'i'))
+    .closest('tr')
+    .within(() => {
+      cy.get('label').click({ force: true });
+    });
+});
+
+Then('I click checkbox for file containing random name', () => {
+  cy.get('table tbody tr')
+    .contains('button', new RegExp(`${randomFileName}-1$`, 'i'))
+    .closest('tr')
+    .within(() => {
+      cy.get('label').click({ force: true });
+    });
+});
+
+Then(
+  'I click checkbox for button containing {string}',
+  (buttonText: string) => {
+    cy.get('table tbody tr')
+      .contains('button', new RegExp(buttonText, 'i'))
+      .closest('tr')
+      .within(() => {
+        cy.get('label').click({ force: true });
+      });
   }
 );

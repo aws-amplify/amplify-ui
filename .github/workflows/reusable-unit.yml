@@ -58,7 +58,7 @@ jobs:
           path: |
             ./node_modules
             **/node_modules
-          key: ${{ runner.os }}-nodemodules-${{ inputs.commit }}
+          key: ${{ runner.os }}-nodemodules-${{ hashFiles('yarn.lock') }}
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 3
 
@@ -78,7 +78,7 @@ jobs:
           skip-cypress-binary: true # unit test doesn't need cypress
 
       - name: Build ui package
-        if: ${{ steps.restore-ui-cache.outputs.cache-hit != 'true' && matrix.package != 'ui' }}
+        if: ${{ steps.restore-ui-cache.outputs.cache-hit != 'true' && matrix.package == 'ui' }}
         run: yarn ui build
 
       - name: Build react-core package

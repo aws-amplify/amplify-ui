@@ -1,7 +1,7 @@
 import { MULTIPART_UPLOAD_THRESHOLD_BYTES } from '../../../../actions/handlers/constants';
 import type { TaskStatus } from '../../../../tasks';
 
-import type { FileDataTask, CopyActionTask, UploadActionTask } from '../types';
+import type { CopyActionTask, FileDataTask, UploadActionTask } from '../types';
 
 type MockFileDataTaskStatus = Exclude<TaskStatus, 'OVERWRITE_PREVENTED'>;
 
@@ -61,6 +61,16 @@ export const MOCK_COPY_TASKS: MockFileDataTasks = {
     message: undefined,
     progress: undefined,
   },
+  LOADED: {
+    data: {
+      ...MOCK_COPY_DATA,
+      id: 'COMPLETE-ID',
+    },
+    cancel: undefined,
+    status: 'LOADED',
+    message: undefined,
+    progress: undefined,
+  },
   QUEUED: {
     data: {
       ...MOCK_COPY_DATA,
@@ -78,6 +88,16 @@ export const MOCK_COPY_TASKS: MockFileDataTasks = {
     },
     cancel: undefined,
     status: 'PENDING',
+    message: undefined,
+    progress: undefined,
+  },
+  FINISHING: {
+    data: {
+      ...MOCK_COPY_DATA,
+      id: 'PENDING-ID',
+    },
+    cancel: undefined,
+    status: 'FINISHING',
     message: undefined,
     progress: undefined,
   },
@@ -117,6 +137,15 @@ export const MOCK_FILE_DATA_TASKS: MockFileDataTasks = {
     message: undefined,
     progress: undefined,
   },
+  LOADED: {
+    data: {
+      ...MOCK_FILE_DATA,
+      id: 'COMPLETE-ID',
+    },
+    status: 'LOADED',
+    message: undefined,
+    progress: undefined,
+  },
   QUEUED: {
     data: {
       ...MOCK_FILE_DATA,
@@ -133,6 +162,15 @@ export const MOCK_FILE_DATA_TASKS: MockFileDataTasks = {
       id: 'PENDING-ID',
     },
     status: 'PENDING',
+    message: undefined,
+    progress: undefined,
+  },
+  FINISHING: {
+    data: {
+      ...MOCK_FILE_DATA,
+      id: 'PENDING-ID',
+    },
+    status: 'FINISHING',
     message: undefined,
     progress: undefined,
   },
@@ -161,6 +199,13 @@ export const MOCK_UPLOAD_TASKS_SINGLE_PART: MockUploadTasks = {
     progress: 1,
     status: 'COMPLETE',
   },
+  LOADED: {
+    data: { id: 'COMPLETE-ID', key: SMALL_FILE_KEY, file: SMALL_FILE },
+    cancel: undefined,
+    message: undefined,
+    progress: 1,
+    status: 'LOADED',
+  },
   FAILED: {
     data: { id: 'FAILED-ID', key: SMALL_FILE_KEY, file: SMALL_FILE },
     cancel: undefined,
@@ -185,6 +230,13 @@ export const MOCK_UPLOAD_TASKS_SINGLE_PART: MockUploadTasks = {
     message: undefined,
     progress: 0.8,
     status: 'PENDING',
+  },
+  FINISHING: {
+    data: { id: 'PENDING-ID', key: SMALL_FILE_KEY, file: SMALL_FILE },
+    cancel: jest.fn(),
+    message: undefined,
+    progress: 0.8,
+    status: 'FINISHING',
   },
   QUEUED: {
     data: { id: 'QUEUED-ID', key: SMALL_FILE_KEY, file: SMALL_FILE },

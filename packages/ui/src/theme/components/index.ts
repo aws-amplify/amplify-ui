@@ -24,6 +24,7 @@ import type { InputTheme } from './input';
 import type { LoaderTheme } from './loader';
 import type { MenuTheme } from './menu';
 import type { MessageTheme } from './message';
+import type { ModalTheme } from './modal';
 import type { PaginationTheme } from './pagination';
 import type { PlaceholderTheme } from './placeholder';
 import type { RadioTheme } from './radio';
@@ -77,6 +78,7 @@ export type ComponentsTheme<TokensType extends WebTokens = WebTokens> =
   | BaseComponentTheme<LoaderTheme, 'loader', TokensType>
   | BaseComponentTheme<MenuTheme, 'menu', TokensType>
   | BaseComponentTheme<MessageTheme, 'message', TokensType>
+  | BaseComponentTheme<ModalTheme, 'modal', TokensType>
   | BaseComponentTheme<PaginationTheme, 'pagination', TokensType>
   | BaseComponentTheme<PlaceholderTheme, 'placeholder', TokensType>
   | BaseComponentTheme<RatingTheme, 'rating', TokensType>
@@ -128,6 +130,7 @@ export type AllComponentThemes = {
   loader: LoaderTheme;
   menu: MenuTheme;
   message: MessageTheme;
+  modal: ModalTheme;
   pagination: PaginationTheme;
   placeholder: PlaceholderTheme;
   radio: RadioTheme;

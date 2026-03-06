@@ -34,7 +34,7 @@ Feature: Sign In with SMS MFA
     Then I type an invalid SMS code
     Then I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.RespondToAuthChallenge" } }' with error fixture "code-mismatch-exception"
     Then I click the "Confirm" button
-    Then I see "invalid code"
+    Then I see "The verification code you entered is incorrect"
 
   @angular @react @vue @svelte
   Scenario: Sign in with unknown credentials

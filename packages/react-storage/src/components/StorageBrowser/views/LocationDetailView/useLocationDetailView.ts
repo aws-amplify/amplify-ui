@@ -10,10 +10,12 @@ import type {
   FileDataItem,
   FolderData,
   LocationData,
+  LocationItemData,
 } from '../../actions';
 import { useActionConfigs } from '../../actions';
+import { usePaginationConfig } from '../../configuration';
 import { useFileItems } from '../../fileItems';
-import { useLocationItems } from '../../locationItems';
+import { useLocationItems } from '../../locationItems/context';
 import { useStore } from '../../store';
 import { useAction, useList } from '../../useAction';
 
@@ -29,9 +31,10 @@ import { useFilePreview } from '../hooks/useFilePreview';
 
 const DEFAULT_PAGE_SIZE = 100;
 
+// Default options for tests
 export const DEFAULT_LIST_OPTIONS = {
   delimiter: '/',
-  pageSize: DEFAULT_PAGE_SIZE,
+  pageSize: DEFAULT_PAGE_SIZE, // fallback for tests
 };
 
 const getDownloadErrorMessageFromFailedDownloadTask = (
@@ -47,14 +50,25 @@ const getDownloadErrorMessageFromFailedDownloadTask = (
 export const useLocationDetailView = (
   options?: UseLocationDetailViewOptions
 ): LocationDetailViewState => {
-  const { initialValues, onExit, onNavigate } = options ?? {};
+  const { pageSize: configPageSize } = usePaginationConfig();
+  const {
+    initialValues = {},
+    onExit,
+    onNavigate,
+    pageSize: propPageSize,
+  } = options ?? {};
 
-  const listOptionsRef = React.useRef({
-    ...DEFAULT_LIST_OPTIONS,
-    ...initialValues,
-  });
+  const pageSize = propPageSize ?? configPageSize;
 
-  const listOptions = listOptionsRef.current;
+  const listOptions = React.useMemo(
+    () => ({
+      ...initialValues,
+      delimiter: '/',
+      pageSize,
+    }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [pageSize, initialValues.delimiter, initialValues.pageSize]
+  );
 
   const [{ location, actionType }, storeDispatch] = useStore();
   const [locationItems, locationItemsDispatch] = useLocationItems();
@@ -63,7 +77,7 @@ export const useLocationDetailView = (
 
   const { current, key } = location;
   const { permissions, prefix } = current ?? {};
-  const { fileDataItems } = locationItems;
+  const { dataItems, fileDataItems } = locationItems;
   const hasInvalidPrefix = isUndefined(prefix);
 
   const [{ task }, handleDownload] = useAction('download');
@@ -227,13 +241,13 @@ export const useLocationDetailView = (
             actionType: type,
             icon,
             isDisabled: isFunction(disable)
-              ? disable(fileDataItems)
+              ? disable(dataItems)
               : disable ?? false,
             isHidden: isFunction(hide) ? hide(permissions) : hide,
             label,
           };
         });
-  }, [actionConfigs, fileDataItems, permissions]);
+  }, [actionConfigs, dataItems, permissions]);
 
   return {
     actionItems,
@@ -245,6 +259,7 @@ export const useLocationDetailView = (
     page: currentPage,
     pageItems,
     location,
+    dataItems,
     fileDataItems,
     hasError,
     hasDownloadError: task?.status === 'FAILED',
@@ -302,21 +317,19 @@ export const useLocationDetailView = (
       storeDispatch({ type: 'RESET_ACTION_TYPE' });
       locationItemsDispatch({ type: 'RESET_LOCATION_ITEMS' });
     },
-    onSelect: (isSelected: boolean, fileItem: FileData) => {
+    onSelect: (isSelected: boolean, item: LocationItemData) => {
       locationItemsDispatch(
         isSelected
-          ? { type: 'REMOVE_LOCATION_ITEM', id: fileItem.id }
-          : { type: 'SET_LOCATION_ITEMS', items: [fileItem] }
+          ? { type: 'REMOVE_LOCATION_ITEM', id: item.id }
+          : { type: 'SET_LOCATION_ITEMS', items: [item] }
       );
     },
     onToggleSelectAll: () => {
-      const fileItems = pageItems.filter(
-        (item): item is FileData => item.type === 'FILE'
-      );
+      const selectableItems = pageItems;
       locationItemsDispatch(
-        fileItems.length === fileDataItems?.length
+        selectableItems.length === dataItems?.length
           ? { type: 'RESET_LOCATION_ITEMS' }
-          : { type: 'SET_LOCATION_ITEMS', items: fileItems }
+          : { type: 'SET_LOCATION_ITEMS', items: selectableItems }
       );
     },
     onSearch: () => {

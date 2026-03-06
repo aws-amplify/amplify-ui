@@ -17,8 +17,8 @@ import type {
 import { STATUS_ICONS } from './constants';
 
 export const getFileType = (value: string, fallback = ''): string =>
-  value.lastIndexOf('.') !== -1
-    ? value.slice(value.lastIndexOf('.') + 1)
+  value?.lastIndexOf?.('.') !== -1
+    ? value?.slice(value?.lastIndexOf?.('.') + 1)
     : fallback;
 
 export const getCellName = (value: string): string =>
@@ -46,7 +46,7 @@ export const getFileDataCellFolder = (task: FileDataTask): string => {
     ? task.data.sourceKey
     : task.data.key;
   const { fileKey } = task.data;
-  return targetKey.slice(0, -fileKey.length);
+  return targetKey.slice(0, -fileKey?.length);
 };
 
 export const getUploadCellProgress = ({
@@ -64,7 +64,8 @@ export const getDownloadCellProgress = ({
   status,
 }: DownloadActionTask): DataTableNumberDataCell['content'] => {
   // prefer `progress` if available, 1 if status is complete, default 0
-  const value = progress ?? (status === 'COMPLETE' ? 1 : 0);
+  const value =
+    progress ?? (status === 'LOADED' || status === 'COMPLETE' ? 1 : 0);
   const displayValue = `${Math.round(value * 100)}%`;
   return { displayValue, value };
 };

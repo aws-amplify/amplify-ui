@@ -31,6 +31,7 @@ const state = {
       loginMechanisms: ['email', 'phone_number'],
       signUpAttributes: ['email'],
     },
+    availableAuthMethods: ['PASSWORD'],
   },
 } as unknown as AuthMachineState;
 
@@ -67,6 +68,43 @@ describe('defaultFormFieldsGetters', () => {
         autocomplete: 'current-password',
       },
     });
+  });
+
+  it('should return password field when availableAuthMethods is empty', () => {
+    const emptyState = {
+      ...state,
+      context: {
+        ...state.context,
+        actorRef: {
+          getSnapshot: () => ({
+            context: { availableAuthMethods: [] },
+          }),
+        },
+      },
+    } as unknown as AuthMachineState;
+
+    const formFields = defaultFormFieldsGetters.signIn(emptyState);
+    expect(formFields.password).toBeDefined();
+  });
+
+  it('should not return password field when multiple auth methods available', () => {
+    const multiMethodState = {
+      ...state,
+      context: {
+        ...state.context,
+        actorRef: {
+          getSnapshot: () => ({
+            context: {
+              availableAuthMethods: ['PASSWORD', 'EMAIL_OTP'],
+              preferredChallenge: 'EMAIL_OTP',
+            },
+          }),
+        },
+      },
+    } as unknown as AuthMachineState;
+
+    const formFields = defaultFormFieldsGetters.signIn(multiMethodState);
+    expect(formFields.password).toBeUndefined();
   });
 
   it('should return the correct form fields for the "signUp" component', () => {

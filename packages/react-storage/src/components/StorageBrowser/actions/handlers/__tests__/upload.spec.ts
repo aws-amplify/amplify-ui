@@ -3,9 +3,9 @@ import { isCancelError } from 'aws-amplify/storage';
 
 import { MULTIPART_UPLOAD_THRESHOLD_BYTES } from '../constants';
 import {
+  UNDEFINED_CALLBACKS,
   uploadHandler,
   UploadHandlerInput,
-  UNDEFINED_CALLBACKS,
 } from '../upload';
 
 jest.mock('aws-amplify/storage');
@@ -26,6 +26,7 @@ const file = new File([], 'test-o');
 const baseInput: UploadHandlerInput = {
   config,
   data: { key: `'prefix/'${file.name}`, id: 'an-id', file },
+  all: [{ key: `'prefix/'${file.name}`, id: 'an-id', file }],
 };
 
 const error = new Error('Failed!');

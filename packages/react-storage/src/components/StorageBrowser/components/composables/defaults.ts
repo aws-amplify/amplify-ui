@@ -1,4 +1,5 @@
 import { ActionCancel } from './ActionCancel';
+import { ActionConfirmationModal } from './ActionConfirmationModal';
 import { ActionDestination } from './ActionDestination';
 import { ActionExit } from './ActionExit';
 import { ActionStart } from './ActionStart';
@@ -24,6 +25,7 @@ import type { Composables } from './types';
 
 export const DEFAULT_COMPOSABLES: Composables = {
   ActionCancel,
+  ActionConfirmationModal,
   ActionDestination,
   ActionExit,
   ActionStart,

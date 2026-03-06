@@ -1,5 +1,30 @@
 # @aws-amplify/ui-react-geo
 
+## 2.3.1
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @aws-amplify/ui-react-core@3.6.1
+
+## 2.3.0
+
+### Minor Changes
+
+- [#6834](https://github.com/aws-amplify/amplify-ui/pull/6834) [`0401829108ffae82db4fa776c96e8d0075a591b9`](https://github.com/aws-amplify/amplify-ui/commit/0401829108ffae82db4fa776c96e8d0075a591b9) Thanks [@osama-rizk](https://github.com/osama-rizk)! - feat(storage-browser): Folder deletion.
+
+### Patch Changes
+
+- Updated dependencies [[`0401829108ffae82db4fa776c96e8d0075a591b9`](https://github.com/aws-amplify/amplify-ui/commit/0401829108ffae82db4fa776c96e8d0075a591b9)]:
+  - @aws-amplify/ui-react-core@3.6.0
+
+## 2.2.14
+
+### Patch Changes
+
+- Updated dependencies [[`167714536a6dbe43f918b5c8f3a46afb6f9c66fb`](https://github.com/aws-amplify/amplify-ui/commit/167714536a6dbe43f918b5c8f3a46afb6f9c66fb)]:
+  - @aws-amplify/ui-react-core@3.5.0
+
 ## 2.2.13
 
 ### Patch Changes

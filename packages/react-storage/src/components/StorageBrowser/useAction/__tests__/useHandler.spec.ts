@@ -85,7 +85,11 @@ describe('useHandler', () => {
     dispatch({ data });
 
     expect(mockUseProcessDispatch).toHaveBeenCalledTimes(1);
-    expect(mockUseProcessDispatch).toHaveBeenCalledWith({ config, data });
+    expect(mockUseProcessDispatch).toHaveBeenCalledWith({
+      config,
+      data,
+      all: [data],
+    });
   });
 
   it('returns the expected values when called with `options` that include `items`', () => {

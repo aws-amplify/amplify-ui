@@ -1,21 +1,21 @@
 import React from 'react';
 import type { FileData } from '../actions';
 
-import {
-  ActionConfigsProvider,
-  defaultActionConfigs,
-  getActionConfigs,
-} from '../actions';
+import { ActionConfigsProvider, getActionConfigs } from '../actions';
+import { defaultActionConfigs } from '../actions/configs/defaults';
 import {
   componentsDefault,
   ComponentsProvider,
   DEFAULT_COMPOSABLES,
 } from '../components';
-import { createConfigurationProvider } from '../configuration';
+import {
+  createConfigurationProvider,
+  PaginationConfigProvider,
+} from '../configuration';
 import { DisplayTextProvider } from '../displayText';
 import { defaultValidateFile, FileItemsProvider } from '../fileItems';
 import { FilePreviewProvider } from '../filePreview';
-import { LocationItemsProvider } from '../locationItems';
+import { LocationItemsProvider } from '../locationItems/context';
 import { StoreProvider } from '../store';
 import { ActionHandlersProvider, getActionHandlers } from '../useAction';
 import { ViewsProvider } from '../views';
@@ -87,30 +87,33 @@ export default function createProvider<
     children,
     displayText,
     views,
+    pageSize,
     ...props
   }: StorageBrowserProviderProps) {
     return (
       <StoreProvider {...props}>
         <ConfigurationProvider>
-          <ActionConfigsProvider actionConfigs={actionConfigs}>
-            <ActionHandlersProvider handlers={handlers}>
-              <DisplayTextProvider displayText={displayText}>
-                <ViewsProvider actions={resolvedActions} views={views}>
-                  <ComponentsProvider composables={composables}>
-                    <LocationItemsProvider>
-                      <FileItemsProvider validateFile={validateFile}>
-                        <FilePreviewProvider<TResolver>
-                          filePreview={filePreview}
-                        >
-                          {children}
-                        </FilePreviewProvider>
-                      </FileItemsProvider>
-                    </LocationItemsProvider>
-                  </ComponentsProvider>
-                </ViewsProvider>
-              </DisplayTextProvider>
-            </ActionHandlersProvider>
-          </ActionConfigsProvider>
+          <PaginationConfigProvider pageSize={pageSize}>
+            <ActionConfigsProvider actionConfigs={actionConfigs}>
+              <ActionHandlersProvider handlers={handlers}>
+                <DisplayTextProvider displayText={displayText}>
+                  <ViewsProvider actions={resolvedActions} views={views}>
+                    <ComponentsProvider composables={composables}>
+                      <LocationItemsProvider>
+                        <FileItemsProvider validateFile={validateFile}>
+                          <FilePreviewProvider<TResolver>
+                            filePreview={filePreview}
+                          >
+                            {children}
+                          </FilePreviewProvider>
+                        </FileItemsProvider>
+                      </LocationItemsProvider>
+                    </ComponentsProvider>
+                  </ViewsProvider>
+                </DisplayTextProvider>
+              </ActionHandlersProvider>
+            </ActionConfigsProvider>
+          </PaginationConfigProvider>
         </ConfigurationProvider>
       </StoreProvider>
     );

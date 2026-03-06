@@ -17,6 +17,13 @@ const baseInput: DownloadHandlerInput = {
     key: 'prefix/file-name',
     fileKey: 'file-name',
   },
+  all: [
+    {
+      id: 'id',
+      key: 'prefix/file-name',
+      fileKey: 'file-name',
+    },
+  ],
 };
 
 describe('downloadHandler', () => {
